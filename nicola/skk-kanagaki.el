@@ -292,7 +292,8 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-rule-list nil "\
+(defcustom skk-kanagaki-rule-list
+  '((skk-kakutei-key nil skk-kakutei)) "\
 *$Bキー入力に対する変換文字の規則で、使用者の追加の設定を行なうもの。
 例えば、 キー配列を独自に設定している場合などは、この変数を用いてそれに対応し
 た設定をすることができる。"
