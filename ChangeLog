@@ -1,3 +1,9 @@
+2001-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	(skk-get-jisyo-buffer): Bind `enable-character-translation'
+	non-nil if main Japanese characters do not belong to JIS X 0208.
+
 2001-11-19  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* skk-tut.el (skktut-end-tutorial) : Update for ml program change
@@ -2807,8 +2813,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.538 2001/11/18 16:12:59 akiho Exp $
-Last Modified: $Date: 2001/11/18 16:12:59 $
+Version: $Id: ChangeLog,v 1.539 2001/11/19 14:07:55 czkmt Exp $
+Last Modified: $Date: 2001/11/19 14:07:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
