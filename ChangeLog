@@ -1,3 +1,10 @@
+2002-07-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi:
+
+	No longer refer to `skk-dabbrev-like-completion'. Describe how to
+	use `C-u TAB' instead of `.' in completion.
+
 2002-07-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el:
@@ -3983,8 +3990,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.702 2002/07/27 06:28:01 czkmt Exp $
-Last Modified: $Date: 2002/07/27 06:28:01 $
+Version: $Id: ChangeLog,v 1.703 2002/07/31 08:50:03 czkmt Exp $
+Last Modified: $Date: 2002/07/31 08:50:03 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
