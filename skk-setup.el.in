@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.2 2000/10/30 22:10:19 minakaji Exp $
+;; Version: $Id: skk-setup.el.in,v 1.3 2000/11/14 12:49:58 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:19 $
+;; Last Modified: $Date: 2000/11/14 12:49:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,7 +33,7 @@
        (file-exists-p
 	(expand-file-name "auto-autoloads.el"
 			  (file-name-directory (locate-library "skk")))))
-  ;; SKK is installed as a package.
+  ;; SKK is installed as a XEmacs package.
   (let ((file
 	 (expand-file-name "auto-autoloads.el"
 			   (file-name-directory (locate-library "dired")))))
@@ -42,12 +42,14 @@
       (require 'advice)
       (eval
        (`
-	(defadvice load (after skk-setup-ad-for-load activate)
+	(defadvice load (after skk-setup-ad-to-load activate)
 	  (when (equal (ad-get-arg 0)
 		       (file-name-sans-extension (, file)))
 	    (global-set-key "\C-x\C-j" 'skk-mode)
-	    (ad-deactivate-regexp "^skk-setup-ad-for-load$"))))))))
+	    (ad-deactivate-regexp "^skk-setup-ad-to-load$")
+	    (ad-remove-advice 'load 'after 'skk-setup-ad-to-load))))))))
  (t
+  ;; SKK is installed for GNU Emacs or XEmacs, not as a package.
   (require 'skk-autoloads)))
 
 (global-set-key "\C-x\C-j" 'skk-mode)
