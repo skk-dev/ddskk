@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.176 2001/11/11 14:50:52 czkmt Exp $
+;; Version: $Id: skk.el,v 1.177 2001/11/13 10:59:38 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/11 14:50:52 $
+;; Last Modified: $Date: 2001/11/13 10:59:38 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -149,53 +149,6 @@
 		    "Menu used in SKK mode."
 		    skk-menu-items))
 
-(unless skk-latin-mode-map
-  (let ((map (make-sparse-keymap)))
-    ;; .skk で skk-kakutei-key の変更が可能になるように。
-    ;;(define-key map skk-kakutei-key 'skk-kakutei)
-    (skk-define-menu map)
-    (setq skk-latin-mode-map map)))
-
-(unless skk-j-mode-map
-  (let ((map (make-sparse-keymap))
-	(c 32))
-    (while (< c 127)
-      (define-key map (char-to-string c) 'skk-insert)
-      (setq c (1+ c)))
-    ;; .skk で skk-kakutei-key の変更が可能になるように。
-    ;;(define-key map skk-kakutei-key 'skk-kakutei)
-    (skk-define-menu map)
-    (setq skk-j-mode-map map)))
-
-(unless skk-jisx0208-latin-mode-map
-  (let ((map (make-sparse-keymap))
-	(i 0))
-    (while (< i 128)
-      (if (aref skk-jisx0208-latin-vector i)
-	  (define-key map (char-to-string i)
-	    'skk-jisx0208-latin-insert))
-      (setq i (1+ i)))
-    (define-key map "\C-q" 'skk-latin-henkan)
-    (skk-define-menu map)
-    (setq skk-jisx0208-latin-mode-map map)))
-
-(unless skk-abbrev-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map "," 'skk-abbrev-comma)
-    (define-key map "." 'skk-abbrev-period)
-    (define-key map "\C-q" 'skk-jisx0208-latin-henkan)
-    ;; .skk で skk-kakutei-key の変更が可能になるように。
-    ;;(define-key map skk-kakutei-key 'skk-kakutei)
-    (skk-define-menu map)
-    (setq skk-abbrev-mode-map map)))
-
-(set-modified-alist
- 'minor-mode-map-alist
- (list (cons 'skk-latin-mode skk-latin-mode-map)
-       (cons 'skk-abbrev-mode skk-abbrev-mode-map)
-       (cons 'skk-j-mode skk-j-mode-map)
-       (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map)))
-
 ;; VERSION SPECIFIC MATTERS.
 (defun skk-jisx0208-to-ascii (string)
   (let ((char
@@ -298,14 +251,12 @@ dependent."
 		     "SKK の空辞書を作りました"
 		     "I have created an empty SKK Jisyo file for you")
     (skk-require-module)
-    (skk-setup-keymap)
     ;; To terminate kana input.
     (make-local-hook 'pre-command-hook)
     (add-hook 'pre-command-hook 'skk-pre-command nil 'local)
     (make-local-hook 'post-command-hook)
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
     (skk-j-mode-on)
-    (skk-update-modeline 'hiragana)
     (run-hooks 'skk-mode-hook)))
 
 ;;;###autoload
@@ -369,11 +320,7 @@ dependent."
   (when skk-use-look
     (require 'skk-look))
   (when (featurep 'skk-jisx0201)
-    (setq skk-use-jisx0201-input-method t))
-  (when skk-use-jisx0201-input-method
-    ;; These commands are autoloaded.
-    (define-key skk-j-mode-map "\C-c\C-q" 'skk-toggle-jisx0201)
-    (define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana)))
+    (setq skk-use-jisx0201-input-method t)))
 
 (defun skk-mode-exit ()
   (let ((skk-mode t))
@@ -401,14 +348,13 @@ dependent."
 		     "SKK の記録用ファイルを作りました"
 		     "I have created an SKK record file for you"))
   (skk-setup-auto-paren) ; necessary to call before compiling skk-rule-tree.
-  (setq skk-rule-tree (skk-compile-rule-list
-		       skk-rom-kana-base-rule-list
-		       skk-rom-kana-rule-list))
   (when skk-use-kana-keyboard
     ;; 仮名入力を行う場合の初期設定。
     (skk-kanagaki-initialize))
   (skk-setup-delete-selection-mode)
   (skk-adjust-user-option)
+  (static-when (eq skk-emacs-type 'xemacs)
+    (easy-menu-add skk-menu))
   (setq skk-mode-invoked t))
 
 ;;; setup
@@ -426,6 +372,11 @@ dependent."
     (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)))
 
 (defun skk-setup-keymap ()
+  (skk-define-j-mode-map)
+  (skk-define-latin-mode-map)
+  (skk-define-jisx0208-latin-mode-map)
+  (skk-define-abbrev-mode-map)
+
   ;; .skk で skk-kakutei-key の変更が可能になるように。
   (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
   (define-key skk-abbrev-mode-map (char-to-string skk-start-henkan-char)
@@ -447,8 +398,6 @@ dependent."
   (when (and (boundp 'minibuffer-local-ns-map)
 	     (keymapp (symbol-value 'minibuffer-local-ns-map)))
     (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
-  (static-when (eq skk-emacs-type 'xemacs)
-    (easy-menu-add skk-menu))
   (unless skk-use-viper
     (define-key skk-j-mode-map
       (char-to-string skk-start-henkan-with-completion-char)
@@ -463,7 +412,70 @@ dependent."
       (char-to-string skk-backward-and-set-henkan-point-char)
       'skk-backward-and-set-henkan-point))
   (skk-setup-delete-backward-char)
-  (skk-setup-undo))
+  (skk-setup-undo)
+  (unless skk-rule-tree
+    (setq skk-rule-tree (skk-compile-rule-list
+			 skk-rom-kana-base-rule-list
+			 skk-rom-kana-rule-list))))
+
+(defun skk-define-j-mode-map ()
+  (unless (keymapp skk-j-mode-map)
+    (setq skk-j-mode-map (make-sparse-keymap))
+    (set-modified-alist
+     'minor-mode-map-alist
+     (list (cons 'skk-j-mode skk-j-mode-map)
+	   (cons 'skk-jisx0201-mode skk-j-mode-map))))
+  (unless (skk-key-binding-member "a" '(skk-insert) skk-j-mode-map)
+    (let ((i 32))
+      (while (< i 127)
+	(define-key skk-j-mode-map (char-to-string i) 'skk-insert)
+	(setq i (1+ i))))
+    (skk-define-menu skk-j-mode-map)
+    (when skk-use-jisx0201-input-method
+      ;; These commands are autoloaded.
+      (define-key skk-j-mode-map "\C-c\C-q" 'skk-toggle-jisx0201)
+      (define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana))))
+
+(defun skk-define-latin-mode-map ()
+  (unless (keymapp skk-latin-mode-map)
+    (setq skk-latin-mode-map (make-sparse-keymap))
+    (set-modified-alist
+     'minor-mode-map-alist
+     (list (cons 'skk-latin-mode skk-latin-mode-map)))
+    (skk-define-menu skk-latin-mode-map)))
+
+(defun skk-define-jisx0208-latin-mode-map ()
+  (unless (keymapp skk-jisx0208-latin-mode-map)
+    (setq skk-jisx0208-latin-mode-map (make-sparse-keymap))
+    (set-modified-alist
+     'minor-mode-map-alist
+     (list (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map))))
+  (unless (skk-key-binding-member "a" '(skk-jisx0208-latin-insert)
+				  skk-jisx0208-latin-mode-map)
+    (let ((i 0))
+      (while (< i 128)
+	(when (aref skk-jisx0208-latin-vector i)
+	  (define-key skk-jisx0208-latin-mode-map (char-to-string i)
+	    'skk-jisx0208-latin-insert))
+	(setq i (1+ i))))
+    (define-key skk-jisx0208-latin-mode-map "\C-q" 'skk-latin-henkan)
+    (skk-define-menu skk-jisx0208-latin-mode-map)))
+
+(defun skk-define-abbrev-mode-map ()
+  (unless (keymapp skk-abbrev-mode-map)
+    (setq skk-abbrev-mode-map (make-sparse-keymap))
+    (set-modified-alist
+     'minor-mode-map-alist
+     (list (cons 'skk-abbrev-mode skk-abbrev-mode-map)))
+    (define-key skk-abbrev-mode-map "," 'skk-abbrev-comma)
+    (define-key skk-abbrev-mode-map "." 'skk-abbrev-period)
+    (define-key skk-abbrev-mode-map "\C-q" 'skk-jisx0208-latin-henkan)
+    (skk-define-menu skk-abbrev-mode-map)))
+
+(skk-define-j-mode-map)
+(skk-define-latin-mode-map)
+(skk-define-jisx0208-latin-mode-map)
+(skk-define-abbrev-mode-map)
 
 (defun skk-make-indicator-alist ()
   (static-cond
