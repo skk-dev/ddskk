@@ -108,8 +108,7 @@ LISPDIR=%s\n" PREFIX LISPDIR))))
 	(insert "
 (provide 'nicola-ddskk-autoloads)
 ")
-	(write-region-as-coding-system
-	 (if (boundp 'MULE) *junet*unix 'iso-2022-7bit)
+	(write-region-as-coding-system 'iso-2022-7bit
 	 (point-min) (point-max) "nicola-ddskk-autoloads.el" nil nil)
 	(kill-buffer buf))))
 
