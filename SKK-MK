@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.90 2001/09/23 00:44:37 czkmt Exp $
-;; Last Modified: $Date: 2001/09/23 00:44:37 $
+;; Version: $Id: SKK-MK,v 1.91 2001/09/30 03:55:56 czkmt Exp $
+;; Last Modified: $Date: 2001/09/30 03:55:56 $
 
 ;; Commentary
 ;;
@@ -277,9 +277,7 @@ Try ddskk-e18 branch."))
 	(cond
 	 ((featurep 'xemacs)
 	  ;; XEmacs
-	  (cond ((member "skk-leim" preloaded-file-list)
-		 (setq list (nconc list (list 'skk-xm20_4))))
-		((or (featurep 'gdbm) (featurep 'dbm) (featurep 'berkdb)
+	  (cond	((or (featurep 'gdbm) (featurep 'dbm) (featurep 'berkdb)
 		     (featurep 'berkeley-db))
 		 (setq list (nconc list (list 'skk-dbm)))))
 	  (setq list (nconc list (list 'skk-xemacs))))
@@ -1085,7 +1083,6 @@ SKK tutorials:
 	 (point-max)
 	 (expand-file-name "skk-dic.el"))))
      (t
-      (copy-file "skk-dic.el.in" "skk-dic.el" t t)))
-    (push 'skk-dic SKK_MODULES)))
+      (copy-file "skk-dic.el.in" "skk-dic.el" t t)))))
 
 ;;; SKK-MK ends here
