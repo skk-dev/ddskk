@@ -1,3 +1,15 @@
+2000-10-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/FAQ.txt (Emacs 20 に SKK 9.6 がインストールできません。,
+	全く漢字が出てきません。, チュートリアルが起動できません。, スペー
+	スを押しても変換できません。): New questions.
+
+	* READMEs/NEWS: Add description.
+
+	* doc/skk-faq.texi (Emacs 20 に SKK 9.6 がインストールできません。,
+	全く漢字が出てきません。, チュートリアルが起動できません。, スペー
+	スを押しても変換できません。): New subsections.
+
 2000-10-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* doc/skk-faq.texi (Q.1-4 SKK はどんなオペレーティングシステムで使
