@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.11 1999/10/03 07:56:32 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.12 1999/10/03 11:30:05 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/03 07:56:32 $
+;; Last Modified: $Date: 1999/10/03 11:30:05 $
 
 ;; This file is not part of SKK yet.
 
@@ -86,7 +86,6 @@
   :group 'skk )
 
 ;;;; user variables.
-;;;###autoload
 (defcustom skk-lookup-search-agents
   (let ((agents (copy-list lookup-search-agents))
 	e )
@@ -113,7 +112,6 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   :group 'skk-lookup
   :require 'lookup-vars )
 
-;;;###autoload
 (defcustom skk-lookup-option-alist
   '(
     ;; "[spla -> splat]"
@@ -158,7 +156,6 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 		       regexp (const nil) )))
   :group 'skk-lookup )
     
-;;;###autoload
 (defcustom skk-lookup-default-option-list
   '(exact "$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" "$B!&(B")
   "*$B<-=q$N8!:w!"J8;z@Z$j=P$7%*%W%7%g%s$N%G%#%U%)%k%H!#(B
@@ -192,7 +189,6 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 		       regexp (const nil) ))
   :group 'skk-lookup )
 
-;;;###autoload
 (defcustom skk-lookup-search-modules nil
   "*$B8!:w%b%8%e!<%k$N@_Dj$N%j%9%H!#(B"
   :type '(repeat (cons :tag "Module" (string :tag "name")
