@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.115 2002/01/17 15:48:17 akiho Exp $
-;; Last Modified: $Date: 2002/01/17 15:48:17 $
+;; Version: $Id: SKK-MK,v 1.116 2002/01/18 14:02:37 czkmt Exp $
+;; Last Modified: $Date: 2002/01/18 14:02:37 $
 
 ;;; Commentary:
 
@@ -203,7 +203,6 @@ This version of SKK requires MULE features"))
 
 ;; After seaching APEL installed dirctory, require full set install.el.
 (require 'poe)
-(require 'pcustom)
 (require 'install)
 
 (condition-case nil
@@ -220,12 +219,8 @@ This version of SKK requires MULE features"))
 ;; constants.
 (defconst SKK-MK-texinfo-coding-system
   (cond ((or (featurep 'xemacs)
-	     (and (boundp 'mule-version)
-		  (or (string< "4.0" mule-version)
-		      (string< "3.0" mule-version))))
+	     (string< "4.0" mule-version))
 	 'junet)
-	((boundp 'MULE)
-	 *junet*)
 	(t
 	 nil)))
 
@@ -268,6 +263,7 @@ This version of SKK requires MULE features"))
 		    skk-autoloads
 		    skk-comp
 ;		    skk-cursor
+		    skk-cus
 		    skk-dcomp
 		    skk-develop
 		    skk-dic
@@ -300,7 +296,7 @@ This version of SKK requires MULE features"))
 		    skk-tutcdef
 		    skk-tutcode
 		    skk-w3m
-            skk-azik
+		    skk-azik
 		    ;; VIP 3.7
 		    ;; vip
 		    )))
@@ -359,9 +355,6 @@ This version of SKK requires MULE features"))
 	(when (or (featurep 'xemacs)
 		  (featurep 'faces))
 	  (add-to-list 'list 'skk-cursor))
-	;; skk-cus.el
-	(unless (featurep 'tinycustom)
-	  (add-to-list 'list 'skk-cus))
 	;;
 	list)))
 
@@ -461,12 +454,9 @@ This version of SKK requires MULE features"))
   (set-language-environment "Japanese"))
 
 ;; This code is for skk-jisx0201.el.
-(cond ((fboundp 'make-translation-table) ;; Emacs 20.3 or later
-       (setq standard-translation-table-for-decode
-	     (make-translation-table nil)))
-      ((fboundp 'make-unification-table) ;; Emacs 20.2
-       (setq standard-character-unification-table-for-decode
-	     (make-unification-table nil))))
+(when (fboundp 'make-translation-table) ;; FSF Emacs 20.3 or later
+  (setq standard-translation-table-for-decode
+	(make-translation-table nil)))
 
 ;;; [FUNCTIONS]
 (defun SKK-MK-make-setup-file (spec)
@@ -676,19 +666,7 @@ This version of SKK requires MULE features"))
 			     SKK_LISPDIR)
       (delete-file "./leim-list.el"))
     ;; install skk-setup.el
-    (let ((dir
-	   (cond ((or (boundp 'MULE)
-		      (not (or (featurep 'xemacs)
-			       (fboundp
-				'normal-top-level-add-subdirs-to-load-path))))
-		  ;; Old Emacsen.
-		  (if (member (expand-file-name ".." SKK_LISPDIR)
-			      default-load-path)
-		      (expand-file-name ".." SKK_LISPDIR)
-		    SKK_LISPDIR))
-		 (t
-		  SKK_LISPDIR))))
-      (install-elisp-modules (list 'skk-setup) "." dir))
+    (install-elisp-modules (list 'skk-setup) "." SKK_LISPDIR)
     ;; install tutorials.
     (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil)
     (SKK-MK-detect-shadow-directory)))
@@ -1017,8 +995,7 @@ SKK tutorials:
 ;;; skk-autoloads.el ends here
 ")
 	(write-region-as-coding-system
-	 (cond ((boundp 'MULE) *junet*unix)
-	       (t 'iso-2022-jp))
+	 'iso-2022-jp
 	 (point-min) (point-max)
 	 "skk-autoloads.el" nil 'quiet)
 	(kill-buffer buf))
@@ -1082,13 +1059,9 @@ SKK tutorials:
 		     jisyo))
       (with-current-buffer buf
 	(erase-buffer)
-	(insert-file-contents-as-coding-system
-	 (cond ((boundp 'MULE) *euc-japan*)
-	       (t 'euc-jp))
-	 jisyo)
+	(insert-file-contents-as-coding-system 'euc-jp jisyo)
 	(goto-char (point-min))
-	(while (not (looking-at
-		     "^;; okuri-ari entries\\.$"))
+	(while (not (looking-at "^;; okuri-ari entries\\.$"))
 	  (next-line 1))
 	(delete-region (point-min) (point))
 	(goto-char (point-min))
@@ -1100,22 +1073,15 @@ SKK tutorials:
       (with-temp-buffer
 	(erase-buffer)
 	(insert-file-contents-as-coding-system
-	 (cond ((boundp 'MULE)
-		*junet*)
-	       (t
-		'iso-2022-jp))
+	 'iso-2022-jp
 	 (expand-file-name "skk-dic.el.in"))
 	(goto-char (point-min))
 	(while (not (looking-at "^\" \"\\\\$"))
 	  (next-line 1))
 	(insert-buffer buf)
 	(write-region-as-coding-system
-	 (cond ((boundp 'MULE)
-		*junet*unix)
-	       (t
-		'iso-2022-jp))
-	 (point-min)
-	 (point-max)
+	 'iso-2022-jp
+	 (point-min) (point-max)
 	 (expand-file-name "skk-dic.el"))))
      (t
       (copy-file "skk-dic.el.in" "skk-dic.el" t t)))))
