@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.77 2002/01/18 14:10:46 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.78 2002/01/19 01:04:25 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/18 14:10:46 $
+;; Last Modified: $Date: 2002/01/19 01:04:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -40,13 +40,14 @@
 
 ;;;; macros
 
-(put 'ignore-errors 'defmacro-maybe t)
+(put 'ignore-errors 'defmacro-maybe (not (eq skk-emacs-type 'xemacs)))
 (defmacro-maybe ignore-errors (&rest body)
   "Execute FORMS; if an error occurs, return nil.
 Otherwise, return result of last FORM."
-  (` (condition-case nil
-	 (progn (,@ body))
-       (error nil))))
+  `(condition-case nil
+       (progn
+	 ,@body)
+     (error nil)))
 
 (eval-and-compile
   (when (and (fboundp 'dolist)
@@ -56,7 +57,7 @@ Otherwise, return result of last FORM."
 
 ;;;###autoload
 (put 'dolist 'lisp-indent-function 1)
-(put 'dolist 'defmacro-maybe t)
+(put 'dolist 'defmacro-maybe (eq skk-emacs-type 'mule4))
 (defmacro-maybe dolist (spec &rest body)
   "(dolist (VAR LIST [RESULT]) BODY...): loop over a list.
 Evaluate BODY with VAR bound to each car from LIST, in turn.
@@ -74,7 +75,7 @@ Then evaluate RESULT to get return value, default nil."
 
 ;;;###autoload
 (put 'dotimes 'lisp-indent-function 1)
-(put 'dotimes 'defmacro-maybe t)
+(put 'dotimes 'defmacro-maybe (eq skk-emacs-type 'mule4))
 (defmacro-maybe dotimes (spec &rest body)
   "(dotimes (VAR COUNT [RESULT]) BODY...): loop a certain number of times.
 Evaluate BODY with VAR bound to successive integers running from 0,
@@ -130,18 +131,19 @@ the return value (nil if RESULT is omitted)."
 *** WARNING: Deleted interactive call from %s advice\
  as %s is not a subr command ***"
 	 function function))))
-    (` (defadvice (, function) (,@ everything-else)))))
+    `(defadvice ,function ,@everything-else)))
 
 ;;;###autoload
 (put 'skk-defadvice 'lisp-indent-function 'defun)
 (def-edebug-spec skk-defadvice defadvice)
 
 (defmacro skk-save-point (&rest body)
-  (` (let ((skk-save-point (point-marker)))
-       (unwind-protect
-	   (progn (,@ body))
-	 (goto-char skk-save-point)
-	 (skk-set-marker skk-save-point nil)))))
+  `(let ((skk-save-point (point-marker)))
+     (unwind-protect
+	 (progn
+	   ,@body)
+       (goto-char skk-save-point)
+       (skk-set-marker skk-save-point nil))))
 
 (def-edebug-spec skk-save-point t)
 
@@ -205,60 +207,61 @@ the return value (nil if RESULT is omitted)."
 ;;;###autoload
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
 (defmacro skk-deflocalvar (var default-value &optional documentation)
-  (` (progn
-       (defvar (, var) (, default-value)
-	       (, (format "%s\n\(buffer local\)" documentation)))
-       (make-variable-buffer-local '(, var)))))
+  `(progn
+     (defvar ,var ,default-value
+       ,(format "%s\n\(buffer local\)" documentation))
+     (make-variable-buffer-local ',var)))
 
 (defmacro skk-with-point-move (&rest form)
   ;; ポイントを移動するがフックを実行してほしくない場合に使う。
-  (` (unwind-protect
-	 (progn
-	   (,@ form))
-       (setq skk-previous-point (point)))))
+  `(unwind-protect
+       (progn
+	 ,@form)
+     (setq skk-previous-point (point))))
 
 (def-edebug-spec skk-with-point-move t)
 
 (defmacro skk-face-on (object start end face &optional priority)
   (static-cond
    ((eq skk-emacs-type 'xemacs)
-    (` (let ((inhibit-quit t))
-	 (if (not (extentp (, object)))
-	     (progn
-	       (setq (, object) (make-extent (, start) (, end)))
-	       (if (not (, priority))
-		   (set-extent-face (, object) (, face))
-		 (set-extent-properties
-		  (, object) (list 'face (, face) 'priority (, priority)))))
-	   (set-extent-endpoints (, object) (, start) (, end))))))
+    `(let ((inhibit-quit t))
+       (if (not (extentp ,object))
+	   (progn
+	     (setq ,object (make-extent ,start ,end))
+	     (if (not ,priority)
+		 (set-extent-face ,object ,face)
+	       (set-extent-properties
+		,object (list 'face ,face 'priority ,priority))))
+	 (set-extent-endpoints ,object ,start ,end))))
    (t
-    (` (let ((inhibit-quit t))
-	 (if (not (overlayp (, object)))
-	     (progn
-	       (setq (, object) (make-overlay (, start) (, end)))
-	       (when (, priority)
-		 (overlay-put (, object) 'priority (, priority)))
-	       (overlay-put (, object) 'face (, face))
+    `(let ((inhibit-quit t))
+       (if (not (overlayp ,object))
+	   (progn
+	     (setq ,object (make-overlay ,start ,end))
+	     (when ,priority
+	       (overlay-put ,object 'priority ,priority))
+	       (overlay-put ,object 'face ,face)
 	       ;;(overlay-put (, object) 'evaporate t)
 	       )
-	   (move-overlay (, object) (, start) (, end))))))))
+	 (move-overlay ,object ,start ,end))))))
 
 (defmacro skk-cannot-be-undone (&rest body)
-  (` (let ((buffer-undo-list t)
-	   ;;buffer-read-only
-	   (modified (buffer-modified-p)))
-       (unwind-protect
-	   (progn (,@ body))
-	 (set-buffer-modified-p modified)))))
+  `(let ((buffer-undo-list t)
+	 ;;buffer-read-only
+	 (modified (buffer-modified-p)))
+     (unwind-protect
+	 (progn
+	   ,@body)
+       (set-buffer-modified-p modified))))
 
 ;;;###autoload
 (put 'skk-loop-for-buffers 'lisp-indent-function 1)
 (defmacro skk-loop-for-buffers (buffers &rest forms)
-  (` (save-current-buffer
-       (dolist (buf (, buffers))
-	 (when (buffer-live-p buf)
-	   (set-buffer buf)
-	   (,@ forms))))))
+  `(save-current-buffer
+     (dolist (buf ,buffers)
+       (when (buffer-live-p buf)
+	 (set-buffer buf)
+	 ,@forms))))
 
 ;;(defun-maybe mapvector (function sequence)
 ;; "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
@@ -733,10 +736,9 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-quote-char-1 (word alist)
   (mapconcat
-   (function
-    (lambda (char)
-      (or (cdr (assq char alist))
-	  (char-to-string char))))
+   #'(lambda (char)
+       (or (cdr (assq char alist))
+	   (char-to-string char)))
    ;; 文字列を対応する char のリストに分解する。
    (append word nil) ""))
 
@@ -748,9 +750,8 @@ BUFFER defaults to the current buffer."
       (setq keys (nconc keys
 			(where-is-internal command map))))
     (member (key-description key)
-	    (mapcar (function
-		     (lambda (k)
-		       (key-description k)))
+	    (mapcar #'(lambda (k)
+			(key-description k))
 		    keys))))
 
 (require 'product)
