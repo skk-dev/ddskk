@@ -1,3 +1,10 @@
+2000-09-15  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/skk-faq.txt: New file.
+
+	* READMEs/Contributors (Contributors): Change Akiho san's e-mail
+	address.
+
 2000-09-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-develop.el (skk-ml-address): Change address to
