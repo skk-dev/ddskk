@@ -1,4 +1,4 @@
-2001-09-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2001-09-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-num.el (skk-num-type3-kanji-1, skk-num-type5-kanji-1):
 	Return "" for "0".
@@ -1716,8 +1716,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.345 2001/09/04 14:08:35 czkmt Exp $
-Last Modified: $Date: 2001/09/04 14:08:35 $
+Version: $Id: ChangeLog,v 1.346 2001/09/04 14:09:31 czkmt Exp $
+Last Modified: $Date: 2001/09/04 14:09:31 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
