@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.51 2000/10/22 09:11:53 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.52 2000/10/22 15:29:35 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/22 09:11:53 $
+@c  Last Modified: $Date: 2000/10/22 15:29:35 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.62
-@set UPDATED $Date: 2000/10/22 09:11:53 $
+@set UPDATED $Date: 2000/10/22 15:29:35 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -190,7 +190,8 @@ APEL $B$O(B Emacs/XEmacs $B$N%P!<%8%g%s%"%C%W$K9g$o$;$FF|?J7nJb$J$N$G!"$G$-$k
 $B$h$jF~<j$G$-$^$9!#(B
 
 SKK $B$N%$%s%9%H!<%k$r$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
-@xref{Q.2-4 APEL $B$C$F2?$G$9$+!)(B,APEL}.
+
+@xref{Q.2-4 APEL $B$C$F2?$G$9$+!)(B, APEL}.
 
 @node SKK $B$N%$%s%9%H!<%k(B,  , APEL $B$N%$%s%9%H!<%k(B, $B%$%s%9%H!<%k(B
 @comment  node-name,  next,  previous,  up
@@ -327,7 +328,9 @@ XEmacs $B$G%Q%C%1!<%8%$%s%9%H!<%k$r$7$?>l9g$O!"(B
 
 $BF~NO%b!<%I$K1~$8%+!<%=%k?'$rJQ2=$5$;$k5!G=$r;H$o$J$$$N$G$"$l$P(B
 @code{isearch-mode-end-hook} $B$NCM$O$=$l$>$l2<5-$N$h$&$K$J$j$^$9!#(B
+
 @w{@xref{$BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B}}.
+
 @lisp
 @group
 (add-hook 'isearch-mode-end-hook
@@ -474,7 +477,8 @@ MULE/7bit----- Buffer-name (Major-mode $B$+$J(B)---
 
 $B$^$?!"%+!<%=%k$N?'$,JQ2=$7$^$9(B
 @footnote{$B%+%i!<%G%#%9%W%l%$$r;HMQ$7!"%+%i!<I=<($r%5%]!<%H$7$F$$$k(B
-Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B@*
+Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
+
 @w{@xref{$BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B}}.}$B!#(B
 
 @kbd{C-x C-j}$B!"$b$7$/$O(B @kbd{C-x j} $B$r:FEY%?%$%W$9$k$3$H$G!"(BSKK $B%b!<%I$K(B
@@ -482,7 +486,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B@*
 @footnote{$BC"$7!"(B@b{$B!V%"%9%-!<%b!<%I!W(B}$B$rMxMQ$9$l$P(B SKK $B%b!<%I$+$iH4$1$k(B
 $BI,MW$O$[$H$s$I$"$j$^$;$s!#(B
 
-@xref{$BF~NO%b!<%I(B, ,$B%"%9%-!<%b!<%I(B}.}
+@xref{$BF~NO%b!<%I(B, , $B%"%9%-!<%b!<%I(B}.}
 
 @menu
 * SKK$B%*!<%H%U%#%k%b!<%I(B::       
@@ -526,7 +530,10 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B@*
 @vindex skk-jisyo
 
 @kbd{C-x C-c} $B$G(B Emacs $B$r=*N;$7$h$&$H$9$k$H(B @file{~/.skk-jisyo} $B$K8D?M<-(B
-$B=q$NFbMF$r<+F0E*$KJ]B8$7$^$9!#(B@xref{$B<-=q$N<oJL(B, , $B8D?M<-=q(B}.
+$B=q$NFbMF$r<+F0E*$KJ]B8$7$^$9!#(B
+
+@xref{$B<-=q$N<oJL(B, , $B8D?M<-=q(B}.
+
 @file{~/.skk-jisyo.BAK} $B$KJ]B8$r9T$J$&A0$N<-=q$,B`Hr$5$l$^$9!#(B
 
 @file{~/.skk-jisyo} $B$d(B @file{~/.skk-jisyo.BAK} $B$N%U%!%$%kL>$rJQ99$7$?$1(B
@@ -562,6 +569,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B@*
 SKK $B%b!<%I$O!"J8;z<oN`$K$h$k(B 4 $B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=q$rMQ$$$?(B
 $BJQ49$N>uBV$K$h$j(B 3 $B$D$N(B@b{$B!VJQ49%b!<%I!W(B}$B$r;}$A$^$9!#K\>O$G$O!"F~NO%b!<(B
 $B%I$HJQ49%b!<%I$K$D$$$F@bL@$7$^$9!#(B
+
 @xref{Minor Modes, , $B%^%$%J!<%b!<%I(B, emacs, GNU Emacs Manual}.
 
 
@@ -669,6 +677,7 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k(B 4 $B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"
 
 $B<B:]$K$O%+%J%b!<%I$dA41Q%b!<%I$GD9;~4VF~NO$rB3$1$k$3$H$O$[$H$s$I$J$$$N(B
 $B$G!"$+$J%b!<%I$N$^$^$G%+%JJ8;z$dA41QJ8;z$rF~NO$9$kJXK!$,MQ0U$5$l$F$$$^$9!#(B
+
 @xref{$BF~NO%b!<%I$N0l;~JQ99(B}.
 
 @node $BJQ49%b!<%I(B, $B8e$+$i"&%b!<%I$KF~$kJ}K!(B, $BF~NO%b!<%I(B, $B%b!<%I(B
@@ -1055,12 +1064,15 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 SKK $B$G$O$3$N$h$&$K!"Aw$j2>L>$N3+;OCOE@$r%f!<%6!<$,L@<(E*$KF~NO$9$k$N$G!"(B
 $B%7%9%F%`B&$GAw$j2>L>$rJ,2r$9$kI,MW$,$"$j$^$;$s!#$3$l$K$h$j!"9bB.$G%R%C%H(B
 $B8zN($,9b$$JQ49$,2DG=$K$J$j$^$9!#(B
+
 @xref{$BAw$j2>L>$N<+F0=hM}(B}.
 
 $BC"$7%5JQF0;l$NJQ49$G$O!"%5JQF0;l$N8l44$H$J$kL>;l$r(B @b{$B!VAw$j$J$7JQ49!W(B}
 @footnote{$B>\:Y$O!"(B@ref{$BAw$j2>L>$,L5$$>l9g(B}$B$r;2>H$7$F$/$@$5$$!#(B}
 $B$H$7$FJQ49$7!"$=$N8e(B @samp{$B$9$k(B} $B$r"#%b!<%I$GF~NO$7$?J}$,8zN($,NI$/$J$j(B
-$B$^$9!#(B @xref{$B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B, , $B%5JQF0;l$NF~NO(B}.
+$B$^$9!#(B 
+
+@xref{$B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B, , $B%5JQF0;l$NF~NO(B}.
 
 @menu
 * $B<-=qEPO?%b!<%I(B::              
@@ -1141,7 +1153,9 @@ k a n ty u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 @footnote{$B$3$3$G$b0EL[$N3NDj$,9T$J$o$l$k$N$G(B @kbd{C-j} $B$r%?%$%W$9$kI,MW(B
 $B$O$"$j$^$;$s!#$?$@$7!"(B@ref{$B"'%b!<%I$G$N(BRET } $B$r;2>H$7$F$/$@$5$$!#(B}$B!#F1;~(B
 $B$K!"JQ49$r9T$J$C$F$$$k%+%l%s%H%P%C%U%!$K$O!"(B@samp{$BJQ49Cf(B} $B$,A^F~$5$l3NDj$5(B
-$B$l$^$9!#(B @xref{$B<-=q$N<oJL(B, , $B8D?M<-=q(B}.
+$B$l$^$9!#(B 
+
+@xref{$B<-=q$N<oJL(B, , $B8D?M<-=q(B}.
 
 $B<-=qEPO?%b!<%I$rH4$1$?$$$H$-$O(B @kbd{C-g} $B$r%?%$%W$9$k$+!"$^$?$O2?$bEPO?(B
 $B$;$:(B @key{RET} $B$r%?%$%W$9$k$H"&%b!<%I$KLa$j$^$9!#(B
@@ -5862,7 +5876,9 @@ CVS (@ref{CVS$B$K$h$kF~<jJ}K!(B}) $B$+$i$G$-$^$9!#(B
 @file{skkdic-expr} $B$O<-=q$r@5$7$$=g$K%=!<%H$;$:!"$^$?!"(B
 @w{@samp{;; okuri-ari entries.}} $B$H(B @w{@samp{;; okuri-nasi entries.}} $B$N(B
 $B%?%0$bIU$1$F$/$l$^$;$s!#(B@file{skkdic-expr} $B$K$h$C$F@8@.$7$?<-=q$OI,$:(B
-@file{skkdic-sort} $B$K$h$k;v8e=hM}$,I,MW$G$9!#(B@xref{skkdic-sort}.}
+@file{skkdic-sort} $B$K$h$k;v8e=hM}$,I,MW$G$9!#(B
+
+@xref{skkdic-sort}.}
 
 $BNc$($P!"<!$N$h$&$K$7$^$9!#(B
 
@@ -5956,6 +5972,7 @@ CVS (@ref{CVS$B$K$h$kF~<jJ}K!(B}) $B$+$i$G$-$^$9!#(B
 @file{skkdic-expr} $B$K$h$C$F@8@.$7$?<-=q$OI,$:;v8e$K(B @file{skkdic-sort}
 $B$r$+$1$kI,MW$,$"$j$^$9(B @footnote{$B0l;~E*$K;HMQ$9$k(B swap $B$r>.$5$/$9$k$?$a(B
 $B$K$"$($F(B @file{skkdic-expr} $B$H$OJL$N%W%m%0%i%`$H$7$F$"$j$^$9!#(B
+
 @xref{skkdic-expr}.}
 
 @example
@@ -6174,7 +6191,6 @@ SKK 10 $B$G$O!"$3$NJQ?t$OGQ;_$5$l$^$7$?$,!"Be$o$j$K(B
 $B$9$k$J$I$NJ}K!$G!"3+H/%A!<%`$KO"Mm$$$?$@$1$k$3$H$r4|BT$7$^$9!#(B
 
 @xref{SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B}.
-
 
 @itemize @bullet
 @item
@@ -6907,7 +6923,9 @@ SKK 10 $B$K$D$$$F$N:G?7>pJs$O!"(B
 $B$+$iF@$k$3$H$,$G$-$^$9!#(B
 
 SKK Openlab $B$G$O!"3+H/<T!"J8>O$N@0Hw$K$46(NO$$$?$@$1$kJ}!"%F%9%?!<!"$h$m$:(B
-$B$b$N$r8@$&?M$J$I$J$I!">o$KJg=8$7$F$$$^$9(B(@xref{SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B})$B!#(B
+$B$b$N$r8@$&?M$J$I$J$I!">o$KJg=8$7$F$$$^$9!#(B
+
+@xref{SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B}.
 
 $B$^$?!"(BSKK $B$N3+H/$O!"(B CVS $B$K$h$C$F$J$5$l$F$$$^$9!#(BCVS $B$r;H$C$F:G?7$N(B SKK $B$r(B
 $B<hF@$9$k>l9g!"(BCVS account $B$r<hF@$7$F3+H/$K;22C$5$l$k>l9g$O!"IUB0$N(B
