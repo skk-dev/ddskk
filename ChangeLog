@@ -1,3 +1,8 @@
+2001-04-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-kana-input): Call `skk-emulate-original-map' when
+	`this-command' is `skk-insert'.
+
 2001-04-17  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el: Require w3m.
@@ -3270,8 +3275,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.278 2001/04/17 13:30:36 minakaji Exp $
-Last Modified: $Date: 2001/04/17 13:30:36 $
+Version: $Id: ChangeLog,v 1.279 2001/04/21 10:06:08 czkmt Exp $
+Last Modified: $Date: 2001/04/21 10:06:08 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
