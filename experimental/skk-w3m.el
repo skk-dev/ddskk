@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.18 2001/06/02 19:49:47 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.19 2001/06/04 21:00:56 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/06/02 19:49:47 $
+;; Last Modified: $Date: 2001/06/04 21:00:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -112,7 +112,7 @@
     ("quote-yahoo"
      "http://quote.yahoo.com/m5?a=%s&s=%s&t=%s&c=0" nil
      skk-w3m-get-candidates-from-quote-yahoo ; not yet finished.
-     (not skk-abbrev-mode)
+     nil ;(not skk-abbrev-mode)
      nil
      skk-w3m-make-query-quote-yahoo))
   "*検索エンジン毎の検索オプションを指定するエーリスト。
@@ -172,7 +172,6 @@ w3m を backend で動かしていない)。")
 
 ;;; global variables
 (defvar skk-w3m-process nil)
-(defvar skk-w3m-last-process-point (make-marker))
 (defvar skk-w3m-cache nil)
 (defvar skk-w3m-currency-from nil)
 (defvar skk-w3m-currency-to nil)
@@ -201,7 +200,8 @@ w3m を backend で動かしていない)。")
 		  (setq v (if skk-w3m-use-w3m-backend
 			      (skk-w3m-search-by-backend dbase skk-henkan-key)
 			    (skk-w3m-search-by-emcas-w3m dbase skk-henkan-key)))
-		(skk-w3m-cache search-engine skk-henkan-key v))
+		(or no-cache
+		    (skk-w3m-cache search-engine skk-henkan-key v)))
 	    (error)))))) ; catch network unreachable error or something like that.
 
 (defun skk-w3m-cache (search-engine key list)
@@ -270,7 +270,7 @@ w3m を backend で動かしていない)。")
 				       (skk-w3m-search-escape-query-string
 					key (nth 2 dbase)))))))
 	  (message "Reading...done")
-	  (if (and pos (markerp pos))
+	  (if pos
 	      (progn
 		(goto-char pos)
 		;; not to enlarge working buffer
@@ -317,7 +317,6 @@ w3m を backend で動かしていない)。")
     ;;    (skk-error "w3m backend プロセスをスタートすることができません"
     ;;               "Unable to start w3m backend process"))
     (goto-char (process-mark skk-w3m-process))
-    (set-marker skk-w3m-last-process-point (point))
     (skk-message "skk のために w3m backend を起動しています...完了!"
 		 "Starting w3m backend for skk...done")))
 
@@ -346,23 +345,24 @@ w3m を backend で動かしていない)。")
   ;; return last point where last command issued.
   (save-match-data
     (setq command (concat command " \n"))
-    (let ((pmark (process-mark skk-w3m-process)))
+    (let ((pmark (process-mark skk-w3m-process))
+	  origpoint)
       (accept-process-output)
       ;; 動いたポイントを保存するため save-excursion は使わない。
       (goto-char pmark)
-      (set-marker skk-w3m-last-process-point (point))
+      (setq origpoint (point))
       (insert command)
       (set-marker pmark (point))
       (process-send-string skk-w3m-process command)
       (accept-process-output (and (not skk-w3m-no-wait) skk-w3m-process))
-      (goto-char skk-w3m-last-process-point)
+      (goto-char origpoint)
       (while (and (not (re-search-forward
 			skk-w3m-backend-command-prompt pmark t))
 		  ;; quit コマンドを送ったらプロンプトは帰ってこない。
 		  (not (eq (process-status skk-w3m-process) 'exit)))
 	(accept-process-output))
       ;;(skk-w3m-check-errors)
-      skk-w3m-last-process-point)))
+      origpoint)))
 
 ;; just a copy of w3m-url-encode-string of w3m.el
 (defun skk-w3m-url-encode-string (str &optional coding)
@@ -459,7 +459,7 @@ w3m を backend で動かしていない)。")
 	       ;;(format
 		;;"■［%s］の大辞林第二版からの検索結果　 <b>[0-9]+件</b>" key)
 	     "<!-- RESULT_BLOCK -->"))
-	  (start (if skk-w3m-use-w3m-backend skk-w3m-last-process-point))
+	  (start (if skk-w3m-use-w3m-backend (point-min)))
 	  (end (if skk-w3m-use-w3m-backend (process-mark skk-w3m-process)))
 	  temp v)
       (if startregexp 

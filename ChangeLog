@@ -1,3 +1,17 @@
+2001-06-05  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-w3m.el (skk-w3m-last-process-point): Removed.
+	(skk-w3m-get-candidates-from-goo-daijirin): Not to refer to
+	`skk-w3m-last-process-point'.
+	(skk-w3m-init-w3m-backend): Ditto.
+	(skk-w3m-run-command): Ditto.
+	(skk-w3m-search-by-backend): Not to check whether POS is markerp
+	or not.
+	(skk-w3m-search): Do not call `skk-w3m-cache' when NO-CACHE is
+	non-nil.
+	(skk-w3m-search-engine-alist): Set nil to 3th of "quote-yahoo"
+	header list.
+
 2001-06-04  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* tut-code/skk-tutcode.el: Remove unnecessary spaces between
@@ -3460,8 +3474,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.302 2001/06/03 20:49:33 minakaji Exp $
-Last Modified: $Date: 2001/06/03 20:49:33 $
+Version: $Id: ChangeLog,v 1.303 2001/06/04 21:00:56 minakaji Exp $
+Last Modified: $Date: 2001/06/04 21:00:56 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
