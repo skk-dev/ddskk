@@ -29,15 +29,3 @@ o OASYS のホームページ
 
 http://www.ykanda.jp/
 
-
-# Local Variables:
-# eval: (local-set-key (if (featurep 'xemacs)
-			   [button3]
-			 [mouse-3]) 'browse-url-at-mouse)
-# eval: (save-excursion
-	  (goto-char (point-min))
-	  (while (re-search-forward "\\(ht\\|f\\)tp://.+$" nil t)
-	    (let ((overlay (make-overlay (match-beginning 0) (match-end 0))))
-	      (overlay-put overlay 'mouse-face 'highlight)
-	      (overlay-put overlay 'face 'bold))))
-# End:

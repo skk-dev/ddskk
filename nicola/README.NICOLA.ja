@@ -19,12 +19,10 @@ NICOLA-DDSKK $B$H$O!"(BDaredevil SKK $B$G(B NICOLA $B$+$JF~NO!J?F;X%7%U%HF~
 $B$K$h$C$FF|K\8lF~NO$r2DG=$K$9$k$b$N$G$9!#0J2<$N(B Emacsen $B$r%5%]!<%H$7$^(B
 $B$9!#(B
 
-o Emacs 19.28 $B0J9_$r%Y!<%9$H$7$?(B Mule 2.3
-  (Mule for Windows 1.21,1.22 $B$r4^$`(B)
-o Emacs 20.2 $B0J9_(B (Meadow 1.00 $B0J9_(B $B$r4^$`(B)
-o Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 20.4 $B0J9_(B
+o Emacs 20.7 $B0J9_(B (Meadow 1.10 $B0J9_(B $B$r4^$`(B)
+o Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21 $B0J9_(B
 
-$B$?$@$7(B GNU Emacs 20.7 $B0J9_$^$?$O(B XEmacs 21.1.14 $B0J9_$r?d>)$7$^$9!#(B
+$B$?$@$7(B GNU Emacs 21.3 $B0J9_$^$?$O(B XEmacs 21.4.15 $B0J9_$r?d>)$7$^$9!#(B
 
 
 $B!Z$O$8$a$K![(B
@@ -315,3 +313,4 @@ NICOLA $BF~NO$N>l9g$O!"L5M}$K%*%j%8%J%k$K9g$o$;$k$H!">/$7$*$+$7$J%?%$%_(B
 skk-henkan-okuri-strictly $B$rHs(B nil $B$K$7$F$$$k>l9g$OLdBj$K$J$jF@$^$9$,!"(B
 $B$3$l$K$D$$$F$O(B SKK $BK\BN$K<j$rF~$l!"(BNICOLA-DDSKK $B;HMQ;~$K$OA0<T$r6/@)E*(B
 $B$K8e<T$KCV$-49$($k$3$H$GBP=h$7$F$$$^$9!#(B
+
