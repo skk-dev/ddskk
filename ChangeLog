@@ -4,6 +4,8 @@
 	(skk-get-jisyo-buffer): Bind `enable-character-translation'
 	non-nil if main Japanese characters do not belong to JIS X 0208.
 
+	(skk-define-j-mode-map): Always define keys for `skk-jisx0201'.
+
 2001-11-19  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* skk-tut.el (skktut-end-tutorial) : Update for ml program change
@@ -2813,8 +2815,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.539 2001/11/19 14:07:55 czkmt Exp $
-Last Modified: $Date: 2001/11/19 14:07:55 $
+Version: $Id: ChangeLog,v 1.540 2001/11/19 15:03:54 czkmt Exp $
+Last Modified: $Date: 2001/11/19 15:03:54 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
