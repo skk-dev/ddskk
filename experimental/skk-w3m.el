@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.7 2001/04/14 09:47:27 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.8 2001/04/17 13:30:36 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/04/14 09:47:27 $
+;; Last Modified: $Date: 2001/04/17 13:30:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,8 +33,10 @@
 ;;
 ;; <HOW TO INSTALL>
 ;; .emacs を読み込まずに emacs-w3m が load できる環境が必須です。そ
-;; の上でこのファイルを SKK-MK があるディレクトリにコピーし、後は普
-;; 通に make install するだけです。
+;; の上でこのファイルを SKK-MK があるディレクトリにコピーし (リンク
+;; が使えるファイルシステムでは SKK-MK のあるディレクトリで
+;;   ln -s ./experimental/skk-w3m.el .
+;; した方が良いかもしれません)、後は普通に make install するだけです。
 ;;
 ;; <HOW TO WORK>
 ;; skk-search-prog-list に (skk-w3m-search "goo-daijirin") のような
@@ -42,11 +44,10 @@
 ;; ので、最も最後が良いでしょう。こんな感じになります。
 ;;
 ;; (setq skk-search-prog-list
-;;       '((skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
-;;         (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
-;;         (skk-search-jisyo-file skk-jisyo 0 t)
+;;       '((skk-search-jisyo-file skk-jisyo 0 t)
 ;;         (skk-search-server skk-aux-large-jisyo 10000)
-;;         (skk-w3m-search "goo-daijirin")))
+;;         (skk-w3m-search "goo-daijirin")
+;;         (skk-w3m-search "goo-exceed-eiwa")))
 ;;
 ;; skk-w3m-search の引数は検索エンジンの種類を文字列で指定します。
 ;; 但し、skk-w3m-search-engine-alist に対応するエントリが必要です。
@@ -56,18 +57,18 @@
 ;; <TODO>
 ;; o とりあえず skk-w3m-get-candidates-from-goo-exceed-waei,
 ;;   skk-w3m-get-candidates-from-goo-daily-shingo を完成させる。
-;; o skk-w3m-get-candidates-from-goo-exceed-eiwa において、派生語を選別
-;;   する。
 ;; o 検索エンジンの増加。
 ;; o lookup は w3m-search.el を使った Web search を統合しないのだろう
 ;;   か...。統合すれば skk-lookup.el で一元管理できる？
 ;; o w3m の代わりに wget が使えないか (その方が速いのでは？) と試した
 ;;   が、検索開始からファイルの書き込みまでの速度があまり速くない割には
 ;;   書き込まれたファイルには HTML タグという邪魔者が付いているという状
-;;   態なのでとりあえず見送り...。
+;;   態なのでとりあえず見送り...(HTML タグの除去には 
+;;   w3m/shimbun/shimbun.el の `shimbun-remove-markup' が使えそう)。
 ;;
 ;;; Code
 (eval-when-compile (require 'skk-macs) (require 'skk-vars))
+(require 'w3m)
 (require 'w3m-search)
 
 (defgroup skk-w3m nil "SKK w3m related customization."
@@ -234,7 +235,6 @@ cdr は URL (検索文字列を %s で表わす),
   ;; 30:*
   ;; 31:■［collaborate］のEXCEED英和辞典からの検索結果　
   ;;
-  ;; こんなのもあるよ...↓ (;_;) (未対応)
   ;; ■［very］のEXCEED英和辞典からの検索結果　 2件
   ;; *
   ;;
@@ -247,63 +247,82 @@ cdr は URL (検索文字列を %s で表わす),
   ;;
   ;; ■［contemporary］のEXCEED英和辞典からの検索結果
   ;; *
-  (let (temp temp1 temp2 temp3 tail v)
-    (save-match-data
-      (if (not (re-search-forward
-		(concat "■\\［" (regexp-quote key) "\\］のEXCEED英和辞典からの検索結果")
-		nil t nil))
-	  nil
-	(while (re-search-forward
-		"\\[clear\\] [a-z]+\\.\\(, [a-z]+\\.\\)*　\\([^ a-zA-Z][^．]+\\)．"
-		nil t nil)
-	  (setq temp (match-string-no-properties 2))
-	  (setq temp (skk-w3m-filter-string
-		      ;; `捺染（なつせん）工', `(on, in)', `【経営】'
-		      temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)"
-			     "…の" "【[^【】]+】")))
-	  (while (string-match
-		  ;; ((...)) は意味を表わすようだ。
-		  ;; e.x. インジケータ　((機器の作動状態を表示する機能))
-		  ;; 括弧内をあえてフィルタリングしないで出力する。
-		  "\\([^，；]+\\)\\(［\\|((\\)\\([^，；]+\\)\\(］\\|))\\)\\([^，；]+\\)*"
-		  temp)
-	    (setq temp (concat (substring temp 0 (match-beginning 0))
-			       (match-string-no-properties 1 temp)
-			       (match-string-no-properties 5 temp)
-			       "，"
-			       (match-string-no-properties 3 temp)
-			       (match-string-no-properties 5 temp)
-			       (substring temp (match-end 0)))))
-	  ;; 当惑（の原因） → 当惑，当惑の原因
-	  ;; 同時代の（人，雑誌）→  同時代の，同時代の人，同時代の雑誌
-	  (while (string-match "\\([^，；]+\\)（\\([^；]+\\)）\\([^，；]+\\)*" temp)
-	    (setq temp1 (match-string-no-properties 1 temp)
-		  temp2 (match-string-no-properties 2 temp)
-		  temp3 (match-string-no-properties 3 temp)
-		  tail (substring temp (match-end 0)))
-	    (setq temp (concat (substring temp 0 (match-beginning 0))
-			       temp1 "，"
-			       (mapconcat 'identity
-					  (mapcar
-					   (function (lambda (e) (concat temp1 e temp3)))
-					   (split-string temp2 "，"))
-					  "，")
-			       tail)))
-	  ;; （問題を）紛糾させる → 紛糾させる，問題を紛糾させる
-	  (while (string-match "（\\([^；]+\\)）\\([^，；]+\\)" temp)
-	    (setq temp1 (match-string-no-properties 1 temp)
-		  temp2 (match-string-no-properties 2 temp)
-		  tail (substring temp (match-end 0)))
-	    (setq temp (concat (substring temp 0 (match-beginning 0))
-			       temp2 "，"
-			       (mapconcat 'identity
-					  (mapcar
-					   (function (lambda (e) (concat e temp2)))
-					   (split-string temp1 "，"))
-					  "，")
-			       tail)))
-	  (setq v (nconc v (split-string temp "[，；]"))))
-	v))))
+  (save-match-data
+    (let (v)
+      (if (not (re-search-forward "[0-9]+  新規で開く" nil t nil))
+	  (if (re-search-forward
+	       (concat "■\\［" (regexp-quote key) "\\］のEXCEED英和辞典からの検索結果")
+	       nil t nil)
+	      (setq v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1)))
+	(beginning-of-line)
+	(while (re-search-forward "[0-9]+  新規で開く" nil t nil)
+	  (backward-char)
+	  (w3m-view-this-url)
+	  (goto-char (point-min))
+	  (if (re-search-forward
+	       (concat "■\\［" (regexp-quote key) "\\］のEXCEED英和辞典からの検索結果")
+	       nil t nil)
+	      (setq v (nconc v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1))))
+	  (w3m-view-previous-page)))
+      v)))
+
+(defun skk-w3m-get-candidates-from-goo-exceed-eiwa-1 ()
+  (save-match-data
+    (let (temp temp1 temp2 temp3 tail v)
+      (while (re-search-forward
+	      "\\[clear\\] [a-z]+\\.\\(, [a-z]+\\.\\)*　\\([^ a-zA-Z][^．]+\\)．"
+	      nil t nil)
+	(setq temp (match-string-no-properties 2))
+	(setq temp (skk-w3m-filter-string
+		  ;; e.x. `捺染（なつせん）工', `(on, in)', `【経営】'
+		    temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)"
+			   "…の" "【[^【】]+】" "(強意)")))
+	(while (string-match
+		;; ((...)) は意味を表わすようだ。
+		;; e.x. インジケータ　((機器の作動状態を表示する機能))
+		;; 括弧内をあえてフィルタリングしないで出力する。
+		"\\([^，；]+\\)\\(［\\|((\\)\\([^，；]+\\)\\(］\\|))\\)\\([^，；]+\\)*"
+		temp)
+	  (setq temp (concat (substring temp 0 (match-beginning 0))
+			     (match-string-no-properties 1 temp)
+			     (match-string-no-properties 5 temp)
+			     "，"
+			     (match-string-no-properties 3 temp)
+			     (match-string-no-properties 5 temp)
+			     (substring temp (match-end 0)))))
+	;; 当惑（の原因） → 当惑，当惑の原因
+	;; 同時代の（人，雑誌）→  同時代の，同時代の人，同時代の雑誌
+	(while (string-match "\\([^，；]+\\)（\\([^；]+\\)）\\([^，；]+\\)*" temp)
+	  (setq temp1 (match-string-no-properties 1 temp)
+		temp2 (match-string-no-properties 2 temp)
+		temp3 (match-string-no-properties 3 temp)
+		tail (substring temp (match-end 0)))
+	  (setq temp (concat (substring temp 0 (match-beginning 0))
+			     temp1 "，"
+			     (mapconcat 'identity
+					(mapcar
+					 (function (lambda (e) (concat temp1 e temp3)))
+					 (split-string temp2 "，"))
+					"，")
+			     tail)))
+	;; （問題を）紛糾させる → 紛糾させる，問題を紛糾させる
+	(while (string-match "（\\([^；]+\\)）\\([^，；]+\\)" temp)
+	  (setq temp1 (match-string-no-properties 1 temp)
+		temp2 (match-string-no-properties 2 temp)
+		tail (substring temp (match-end 0)))
+	  (setq temp (concat (substring temp 0 (match-beginning 0))
+			     temp2 "，"
+			     (mapconcat 'identity
+					(mapcar
+					 (function (lambda (e) (concat e temp2)))
+					 (split-string temp1 "，"))
+					"，")
+			     tail)))
+	(setq v (nconc v (split-string temp "[，；]")))
+	;; skip to next candidate.
+	(or (re-search-forward "\\[clear\\] ●+" nil t nil)
+	    (goto-char (point-max))))
+      v)))
 
 (defun skk-w3m-get-candidates-from-goo-daily-shingo (key)
   ;; not yet.

@@ -1,3 +1,12 @@
+2001-04-17  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-w3m.el: Require w3m.
+	(skk-w3m-get-candidates-from-goo-exceed-eiwa-1): New function.
+	(skk-w3m-get-candidates-from-goo-exceed-eiwa): Use
+	`skk-w3m-get-candidates-from-goo-exceed-eiwa-1'.
+	Call `w3m-view-this-url' when regexp "[0-9]+  新規で開く" is found
+	in a *w3m* buffer.
+
 2001-04-14  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el (skk-w3m-search-engine-alist): Fix 4th
@@ -3261,8 +3270,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.277 2001/04/14 09:47:26 minakaji Exp $
-Last Modified: $Date: 2001/04/14 09:47:26 $
+Version: $Id: ChangeLog,v 1.278 2001/04/17 13:30:36 minakaji Exp $
+Last Modified: $Date: 2001/04/17 13:30:36 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
