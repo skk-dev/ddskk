@@ -6,9 +6,9 @@
 ;;         Murata Shuuichirou <mrt@astec.co.jp>
 ;; Maintainer: Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-viper.el,v 1.5 1999/10/03 05:47:17 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.6 1999/11/10 12:09:03 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:47:17 $
+;; Last Modified: $Date: 1999/11/10 12:09:03 $
 
 ;; This file is not part of SKK yet.
 
@@ -89,13 +89,13 @@
     ;; vip-hide-replace-overlay はインライン関数
     (defadvice viper-hide-replace-overlay (after skk-ad activate)
       "SKK のモードに従いカーソルの色を変える。"
-      (and skk-mode (skk-set-cursor-properly)) ))
+      (and skk-mode (skk-cursor-set-properly)) ))
 
 (skk-viper-advice-select
  viper-insert vip-insert
  (after skk-ad activate)
  ("SKK のモードに従いカーソルの色を変える。"
-  (and skk-mode (skk-set-cursor-properly)) ))
+  (and skk-mode (skk-cursor-set-properly)) ))
 
 (skk-viper-advice-select
  viper-forward-word-kernel vip-forward-word-kernel
@@ -157,14 +157,6 @@
 	     (skk-erase-prefix 'clean) ))))))
 
 (skk-viper-advice-select
- viper-intercept-ESC-key vip-intercept-ESC-key
- (around skk-add activate)
- ("▽モード、▼モードだったら確定する。確定後、SKK のモードに従いカーソルの色を変える。"
-  (and skk-mode skk-henkan-on (skk-kakutei))
-  ad-do-it
-  (and skk-mode (skk-set-cursor-properly)) ))
-
-(skk-viper-advice-select
  viper-join-lines vip-join-lines
  (after skk-ad activate)
  ("スペースの両側の文字セットが JISX0208 だったらスペースを取り除く。" ;
@@ -205,7 +197,7 @@
 		  (funcall skk-viper-normalize-map-function) ))
 	    (setq buf (cdr buf)) ))))))
 
-(defun skk-set-cursor-properly ()
+(defun skk-cursor-set-properly ()
   ;; カレントバッファの SKK のモードに従い、カーソルの色を変更する。
   (if (and skk-use-color-cursor
 	   ;;(x-color-defined-p viper-insert-state-cursor-color)
@@ -218,9 +210,9 @@
 		     (eq viper-current-state 'vi-state) )
 		(and (boundp 'vip-current-state)
 		     (eq vip-current-state 'vi-state) )))
-	(skk-set-cursor-color skk-default-cursor-color) )
+	(skk-cursor-set-color skk-default-cursor-color) )
        (t
-	(skk-set-cursor-color (cond (skk-jisx0208-latin-mode
+	(skk-cursor-set-color (cond (skk-jisx0208-latin-mode
 				     skk-jisx0208-latin-cursor-color )
 				    (skk-katakana skk-katakana-cursor-color)
 				    (skk-j-mode skk-hiragana-cursor-color)

@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-obsolete.el,v 1.1 1999/08/29 06:35:28 minakaji Exp $
+;; Version: $Id: skk-obsolete.el,v 1.2 1999/11/10 12:09:03 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 06:35:28 $
+;; Last Modified: $Date: 1999/11/10 12:09:03 $
 
 ;; This file is not part of SKK yet.
 
@@ -80,6 +80,7 @@
     (skk-raw-number-to-skk-rep-1 . skk-num-rawnum-exp-1)
     (skk-recompute-numerals . skk-num-recompute)
     (skk-set-cursor-color-properly . skk-set-cursor-properly)
+    (skk-set-cursor-properly . skk-cursor-set-properly)
     (skk-shogi-num-str . skk-num-shogi)
     (skk-update-jisyo-for-numerals . skk-num-update-jisyo)
     (skk-uniq-numerals . skk-num-uniq)

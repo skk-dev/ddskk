@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.31 1999/10/31 11:19:57 minakaji Exp $
-;; Last Modified: $Date: 1999/10/31 11:19:57 $
+;; Version: $Id: SKK-MK,v 1.32 1999/11/10 12:09:03 minakaji Exp $
+;; Last Modified: $Date: 1999/11/10 12:09:03 $
 
 ;; Commentary
 ;;
@@ -173,7 +173,7 @@ end with `skk'." )
 			    skk-gadget skk-isearch skk-auto skk-comp
 			    skk-kakasi skk-kcode skk-leim skk-look
 			    skk-num skk-obsolete skk-server skk-tut
-			    skk skk-develop skk-autoloads
+			    skk skk-develop skk-cursor skk-autoloads
 			    ;; EXPERIMENTAL
 			    skk-rdbms skk-study skk-tutcode skk-tutcdef skk-dcomp
 			    skk-abbrev skk-jisx0201 skk-hankaku-mode

@@ -1,3 +1,82 @@
+1999-11-10  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-foreword.el (skk-mode-off): Remove cursor change support.
+	(skk-j-mode-on): Remove cursor change support.
+	(skk-latin-mode-on): Remove cursor change support.
+	(skk-jisx0208-latin-mode-on): Remove cursor change support.
+	(skk-abbrev-mode-on): Remove cursor change support.
+
+	* skk-cursor.el (skk-change-cursor-when-ovwrt): Rename to
+	`skk-cursor-change-when-ovwrt'.
+
+	* skk.el (skk-mode): Require skk-cursor.el if
+	`skk-use-color-cursor' or `skk-use-cursor-change' is non-nil.
+	(abort-recursive-edit): Remove cursor change support.
+	(exit-minibuffer): Ditto.
+	(minibuffer-keyboard-quit):Ditto.
+	(skk-save-jisyo-original): Ditto.
+	(skk-katakana-region): Ditto.
+	(skk-hiragana-region): Ditto.
+	(skk-jisx0208-latin-region): Ditto.
+	(skk-latin-region): Ditto.
+	(skk-auto-fill-mode): Ditto. 
+	(skk-toggle-kana): Ditto. 
+	(skk-kakutei): Ditto. 
+	(kill-buffer): Ditto (and change class).
+	(goto-line): Moved to skk-cursor.el.
+	(yank): Ditto.
+	(yank-pop): Ditto.
+	(recenter): Ditto.
+	(insert-file): Ditto.
+	(bury-buffer): Ditto.
+	(switch-to-buffer): Ditto.
+	(hilit-yank): Ditto.
+	(hilit-yank-pop): Ditto.
+	(hilit-recenter): Ditto.
+	(execute-extended-command): Ditto.
+	(pop-to-buffer): Ditto.
+	(other-window): Ditto.
+	(overwrite-mode):Ditto. 
+	(skk-set-cursor-color): Ditto.
+	(skk-set-cursor-properly): Ditto.
+	(skk-change-cursor-when-ovwrt): 
+	(after-make-frame-hook): Stop set hook `skk-set-cursor-properly'.
+	(minibuffer-setup-hook): Ditto.
+	(minibuffer-exit-hook): Ditto.
+
+1999-11-09  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-detach-extent): Use `defun' and `static-cond'
+	instead of `skk-defun-cond' and `cond'.
+	(skk-change-cursor-when-ovwrt): Ditto.
+
+	* skk-develop.el (skk-submit-bug-report): Remove code for a
+	certain specific version of Mew and Wanderlust.
+	Remove def-edebug-spec for `skk-defsubst-cond',
+	`skk-defun-cond', `skk-defmacro-cond'.
+
+	* skk-kcode.el (skk-display-code): Use `defun' and `static-cond'
+	instead of `skk-defun-cond' and `cond'.
+
+	* skk-foreword.el (skk-defun-cond): Removed.
+	(skk-defsubst-cond): Ditto.
+	(skk-defmacro-cond): Ditto.
+	(skk-str-length): Use `defsubst' and `static-cond' instead of
+	`skk-defsubst-cond' and `cond'.
+	(skk-substring): Ditto.
+	(skk-read-event): Ditto.
+	(skk-char-to-string): Ditto.
+	(skk-ascii-char-p): Ditto.
+	(skk-str-ref): Ditto.
+	(skk-jisx0208-p): Ditto.
+	(skk-char-octet): Ditto.
+	(skk-charsetp): Use `defun' and `static-cond' instead of
+	`skk-defun-cond' and `cond'.
+	(skk-make-char): Ditto.
+	(skk-jisx0208-to-ascii): Ditto.
+	(skk-face-on): Use `defmacro' and `static-cond' instead of
+	`skk-defmacro-cond' and `cond'.
+
 1999-11-07  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-jisx0201.el (skk-jisx0201-mode-string): Change

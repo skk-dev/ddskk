@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kcode.el,v 1.7 1999/10/03 11:39:09 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.8 1999/11/10 12:09:03 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 11:39:09 $
+;; Last Modified: $Date: 1999/11/10 12:09:03 $
 
 ;; This file is part of SKK.
 
@@ -319,53 +319,54 @@
     ;; エコーした文字列をカレントバッファに挿入しないように。
     t ))
 
-(skk-defun-cond skk-display-code (str)
-  ((memq skk-emacs-type '(xemacs mule4 mule3))
-   (let* ((char (string-to-char str))
-	  (charset (char-charset char)))
-     (cond
-      ((memq charset '(japanese-jisx0208 japanese-jisx0208-1978))
-       (let* ((char1-j (skk-char-octet char 0))
-	      (char1-k (- char1-j 32))
-	      (char1-e (+ char1-j 128))
-	      (char2-j (skk-char-octet char 1))
-	      (char2-k (- char2-j 32))
-	      (char2-e (+ char2-j 128)))
-	 (message
-	  "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d)"
-	  str char1-e char2-e char1-e char2-e
-	  char1-j char2-j char1-j char2-j char1-k char2-k)))
-      ((memq charset '(ascii latin-jisx0201))
-       (message "\"%s\"  %2x (%3d)"
-		str (skk-char-octet char 0)  (skk-char-octet char 0)))
-      (t
-       (skk-error "判別できない文字です"
-		  "Cannot understand this character" )))))
-  ;; 'mule2
-  (t
-   (let (;; 文字列を char に分解。
-	 ;; (mapcar '+ str) == (append str nil)
-	 (char-list (mapcar (function +) str)))
-     (cond
-      ((and (= (length char-list) 3)
-	    (memq (car char-list) (list lc-jp lc-jpold)))
-       (let* ((char1-e (car (cdr char-list)))
-	      (char1-j (- char1-e 128))
-	      (char1-k (- char1-j 32))
-	      (char2-e (car (cdr (cdr char-list))))
-	      (char2-j (- char2-e 128))
-	      (char2-k (- char2-j 32)))
-	 (message
-	  "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d)"
-	  str char1-e char2-e char1-e char2-e
-	  char1-j char2-j char1-j char2-j char1-k char2-k)))
-      ((or (= (length char-list) 1)	; ascii character
-	   (memq (car char-list) (list lc-ascii lc-roman)))
-       (let ((char (car char-list)))
-	 (message "\"%c\"  %2x (%3d)" char char char) ))
-      (t
-       (skk-error "判別できない文字です"
-		  "Cannot understand this character" ))))))
+(defun skk-display-code (str)
+  (static-cond
+   ((memq skk-emacs-type '(xemacs mule4 mule3))
+    (let* ((char (string-to-char str))
+	   (charset (char-charset char)))
+      (cond
+       ((memq charset '(japanese-jisx0208 japanese-jisx0208-1978))
+	(let* ((char1-j (skk-char-octet char 0))
+	       (char1-k (- char1-j 32))
+	       (char1-e (+ char1-j 128))
+	       (char2-j (skk-char-octet char 1))
+	       (char2-k (- char2-j 32))
+	       (char2-e (+ char2-j 128)))
+	  (message
+	   "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d)"
+	   str char1-e char2-e char1-e char2-e
+	   char1-j char2-j char1-j char2-j char1-k char2-k)))
+       ((memq charset '(ascii latin-jisx0201))
+	(message "\"%s\"  %2x (%3d)"
+		 str (skk-char-octet char 0)  (skk-char-octet char 0)))
+       (t
+	(skk-error "判別できない文字です"
+		   "Cannot understand this character" )))))
+   ;; 'mule2
+   (t
+    (let (;; 文字列を char に分解。
+	  ;; (mapcar '+ str) == (append str nil)
+	  (char-list (mapcar (function +) str)))
+      (cond
+       ((and (= (length char-list) 3)
+	     (memq (car char-list) (list lc-jp lc-jpold)))
+	(let* ((char1-e (car (cdr char-list)))
+	       (char1-j (- char1-e 128))
+	       (char1-k (- char1-j 32))
+	       (char2-e (car (cdr (cdr char-list))))
+	       (char2-j (- char2-e 128))
+	       (char2-k (- char2-j 32)))
+	  (message
+	   "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d)"
+	   str char1-e char2-e char1-e char2-e
+	   char1-j char2-j char1-j char2-j char1-k char2-k)))
+       ((or (= (length char-list) 1)	; ascii character
+	    (memq (car char-list) (list lc-ascii lc-roman)))
+	(let ((char (car char-list)))
+	  (message "\"%c\"  %2x (%3d)" char char char) ))
+       (t
+	(skk-error "判別できない文字です"
+		   "Cannot understand this character" )))))))
 
 (run-hooks 'skk-kcode-load-hook)
 

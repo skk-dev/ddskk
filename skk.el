@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.19 1999/11/07 02:54:26 minakaji Exp $
+;; Version: $Id: skk.el,v 1.20 1999/11/10 12:09:03 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/11/07 02:54:26 $
+;; Last Modified: $Date: 1999/11/10 12:09:03 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/11/07 02:54:26 $")
+      (let* ((raw-date "$Date: 1999/11/10 12:09:03 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -1650,7 +1650,6 @@ skk-remove-common $B$G;2>H$5$l$k!#(B" )
   "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
 $B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
 $B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B abort-recursive-edit $B$HF1$8F0:n$r$9$k!#(B"
-  (with-current-buffer (skk-minibuffer-origin) (skk-set-cursor-properly))
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer
    (function (lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local))) )
@@ -1710,7 +1709,6 @@ skk-remove-common $B$G;2>H$5$l$k!#(B" )
    'skk-j-mode-on 'skk-setup-minibuffer
    (function (lambda ()
 	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local) )))
-  (with-current-buffer (skk-minibuffer-origin) (skk-set-cursor-properly))
   (if (not (or skk-j-mode skk-abbrev-mode))
       ad-do-it
     (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
@@ -1726,22 +1724,10 @@ picture-mode $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!
   "SKK $B%b!<%I$,(B on $B$J$i(B skk-self-insert-non-undo-count $B$r=i4|2=$9$k!#(B"
   (and skk-mode (setq skk-self-insert-non-undo-count 0)) )
 
-(defadvice kill-buffer (around skk-ad activate)
+(defadvice kill-buffer (before skk-ad activate)
   "SKK $B$N"'%b!<%I$@$C$?$i!"3NDj$7$F$+$i%P%C%U%!$r%-%k$9$k!#(B
   $B%P%C%U%!$N%-%k8e!"(BSKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode skk-henkan-on (interactive-p) (skk-kakutei))
-  ad-do-it
-  ;; $BJL$N%P%C%U%!$XHt$V%3%^%s%I$O(B skk-mode $B$,(B nil $B$G$b%+!<%=%k?'$rD4@0$9$kI,MW(B
-  ;; $B$,$"$k!#(B
-  (skk-set-cursor-properly) )
-
-(defadvice overwrite-mode (after skk-ad activate)
-  "skk-use-cursor-change $B$,(B non-nil $B$@$C$?$i!"%+!<%=%k$NI}$r=L$a$k!#(B"
-  (and skk-use-cursor-change (skk-change-cursor-when-ovwrt)) )
-
-;; $B$3$l$C$F$I$s$J$H$-$KMW$k$N!)(B
-;;(defadvice eval-expression (before skk-ad activate)
-;;  (if skk-mode (skk-mode-off)) )
+  (and skk-mode skk-henkan-on (interactive-p) (skk-kakutei)) )
 
 (defadvice query-replace-regexp  (before skk-ad activate)
   "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
@@ -1759,68 +1745,12 @@ picture-mode $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!
    (function (lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local))) )
   (add-hook 'minibuffer-setup-hook 'skk-setup-minibuffer) )
 
-(defadvice goto-line (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode (skk-set-cursor-properly)) )
-
-(defadvice yank (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode (skk-set-cursor-properly)) )
-
-(defadvice yank-pop (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode (skk-set-cursor-properly)) )
-
-(defadvice recenter (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode (skk-set-cursor-properly)) )
-
-(defadvice insert-file (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode (skk-set-cursor-properly)) )
-
-;; $BJL$N%P%C%U%!$XHt$V%3%^%s%I$O(B skk-mode $B$,(B nil $B$G$b%+!<%=%k?'$rD4@0$9$kI,MW$,(B
-;; $B$"$k!#(B
-(defadvice bury-buffer (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (skk-set-cursor-properly) )
-
-(defadvice switch-to-buffer (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (skk-set-cursor-properly) ) 
-
-;; cover to hilit19 functions.
-(defadvice hilit-yank (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode (skk-set-cursor-properly)) )
-
-(defadvice hilit-yank-pop (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode (skk-set-cursor-properly)) )
-
-(defadvice hilit-recenter (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode (skk-set-cursor-properly)) )
-
-(defadvice execute-extended-command (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (skk-set-cursor-properly) )
-
-(defadvice pop-to-buffer (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (skk-set-cursor-properly) )
-
-(defadvice other-window (after skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (skk-set-cursor-properly) )
-
 (defadvice save-buffers-kill-emacs (before skk-ad activate)
   (run-hooks 'skk-before-kill-emacs-hook) )
 
 (if (eq skk-emacs-type 'xemacs)
     ;; XEmacs has minibuffer-keyboard-quit that has nothing to do with delsel.
     (defadvice minibuffer-keyboard-quit (around skk-ad activate)
-      (with-current-buffer (skk-minibuffer-origin) (skk-set-cursor-properly))
       (skk-remove-minibuffer-setup-hook
        'skk-j-mode-on 'skk-setup-minibuffer
        (function (lambda ()
@@ -1949,6 +1879,8 @@ dependent."
 	  (skk-regularize) ))
     ;; $B0J2<$O(B skk-mode $B$KF~$k$?$S$KKhEY%3!<%k$5$l$k%3!<%I!#(B
     (and skk-use-viper (require 'skk-viper))
+    (and (or skk-use-color-cursor skk-use-cursor-change)
+	 (require 'skk-cursor) )
     ;; .skk $B$G(B skk-kakutei-key $B$NJQ99$,2DG=$K$J$k$h$&$K!#(B
     (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
     (define-key skk-abbrev-mode-map (char-to-string skk-start-henkan-char)
@@ -1991,9 +1923,6 @@ dependent."
                ((> (prefix-numeric-value arg) 0) t) )))
     (auto-fill-mode (if auto-fill 1 -1))
     (skk-mode arg)
-    (skk-set-cursor-color (if skk-mode
-                              skk-hiragana-cursor-color
-                            skk-default-cursor-color ))
     (run-hooks 'skk-auto-fill-mode-hook) ))
 
 (defun skk-kill-emacs-without-saving-jisyo (&optional query)
@@ -2244,12 +2173,8 @@ skk-convert-okurigana-into-katakana $B$NCM$r(B non-nil $B$K$9$k!#(B
          (skk-j-mode-on) )
         (t (setq skk-katakana (not skk-katakana))) )
   (skk-kakutei)
-  (if skk-katakana
-      (progn
-        (setq skk-input-mode-string skk-katakana-mode-string)
-        (skk-set-cursor-color skk-katakana-cursor-color) )
-    (setq skk-input-mode-string skk-hiragana-mode-string)
-    (skk-set-cursor-color skk-hiragana-cursor-color) )
+  (setq skk-input-mode-string (if skk-katakana skk-katakana-mode-string
+				skk-hiragana-mode-string ))
   (force-mode-line-update) )
 
 (defun skk-misc-for-picture ()
@@ -3283,9 +3208,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
     (and skk-kakutei-end-function (funcall skk-kakutei-end-function))
     (skk-kakutei-initialize (if (skk-numeric-p) (cons kakutei-word converted)
 			      kakutei-word ))
-    (skk-do-auto-fill)
-    (skk-set-cursor-color (if skk-katakana skk-katakana-cursor-color
-			    skk-hiragana-cursor-color ))))
+    (skk-do-auto-fill) ))
 
 (defun skk-kakutei-cleanup-buffer ()
   ;; $B3NDjD>8e$N%P%C%U%!$N@07A$r9T$J$&!#(B
@@ -3822,8 +3745,7 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
                              "Saving SKK jisyo...done" )
                 (sit-for 1) ))
           (and (eq this-command 'save-buffers-kill-emacs)
-	       (skk-record-jisyo-data) )))
-      (skk-set-cursor-properly) )))
+	       (skk-record-jisyo-data) ))))))
 
 (defun skk-save-jisyo-1 (file)
   (save-match-data
@@ -4653,6 +4575,7 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
         (setq arg (substring arg 0 -2)) )
       (cons (concat "(skk-ignore-dic-word \"" arg "\")") entry) )))
 
+
 (defun skk-katakana-region (start end &optional vcontract)
   "$B%j!<%8%g%s$N$R$i$,$J$r%+%?%+%J$KJQ49$9$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B VCONTRACT $B$,(B non-nil $B$G$"$l$P!"(B\"$B$&!+(B\" $B$r(B \"$B%t(B\" $B$KJQ49$9(B
@@ -4682,9 +4605,7 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 	       (let ((vu-len (length "$B%t(B")))
 		 (insert-and-inherit "$B%t(B")
 		 (delete-region (+ (match-beginning 0) vu-len)
-				(+ (match-end 0) vu-len) )))))
-       (skk-set-cursor-properly) ))))
-
+				(+ (match-end 0) vu-len) )))))))))
 
 (defun skk-hiragana-region (start end &optional vexpand)
   "$B%j!<%8%g%s$N%+%?%+%J$r$R$i$,$J$KJQ49$9$k!#(B
@@ -4716,8 +4637,7 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 	       (insert-and-inherit "$B$&!+(B")
 	       (let ((vu-len (length "$B$&!+(B")))
 		 (delete-region (+ (match-beginning 0) vu-len)
-				(+ (match-end 0) vu-len) )))))
-       (skk-set-cursor-properly) ))))
+				(+ (match-end 0) vu-len) )))))))))
 
 (defun skk-jisx0208-latin-region (start end)
   "$B%j!<%8%g%s$N(B ascii $BJ8;z$rBP1~$9$kA43Q1QJ8;z$KJQ49$9$k!#(B"
@@ -4732,8 +4652,7 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 	      (c-len (length c)) )
 	 (insert-and-inherit c)
 	 (delete-region (+ (match-beginning 0) c-len)
-			(+ (match-end 0) c-len) )))
-     (skk-set-cursor-properly) )))
+			(+ (match-end 0) c-len) ))))))
 
 (defun skk-latin-region (start end)
   ;; $B%j!<%8%g%s$NA43Q1Q?t;z$rBP1~$9$k(B ascii $BJ8;z$KJQ49$9$k!#(B
@@ -4749,8 +4668,7 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 	     (progn
 	       (insert-and-inherit val)
 	       (delete-region (+ (match-beginning 0) 1)
-			      (+ (match-end 0) 1) ))))
-       (skk-set-cursor-properly) ))))
+			      (+ (match-end 0) 1) ))))))))
 
 (defun skk-katakana-henkan (arg)
   "$B"&%b!<%I$G$"$l$P!"%j!<%8%g%s$N$R$i$,$J$r%+%?%+%J$KJQ49$9$k!#(B
@@ -4877,42 +4795,12 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
   ;; skk-henkan-overlay $B$r>C$9!#(B
   (and skk-henkan-face (skk-detach-extent skk-henkan-overlay)) )
 
-(skk-defun-cond skk-detach-extent (object)
-  ((eq skk-emacs-type 'xemacs)
-   (and (extentp object) (detach-extent object)) )
-  (t
-   (and (overlayp object) (delete-overlay object)) ))
-
-(defun skk-set-cursor-color (color)
-  ;; $B%+!<%=%k$N?'$r(B COLOR $B$KJQ99$9$k!#(B
-  (and skk-use-color-cursor
-       (condition-case nil
-	   (set-cursor-color color)
-	 (error
-	  (set-cursor-color skk-default-cursor-color)
-	  (and skk-report-set-cursor-error
-	       (skk-message
-		"$B%+%i!<%^%C%W@Z$l$G$9!#%G%#%U%)%k%H$N%+%i!<$r;H$$$^$9!#(B"
-		"Color map is exhausting, use default cursor color" ))))))
-
-;; Overwite by skk-viper.el
-(defun skk-set-cursor-properly ()
-  ;; $B%+%l%s%H%P%C%U%!$N(B SKK $B$N%b!<%I$K=>$$!"%+!<%=%k$N?'$rJQ99$9$k!#(B
-  (if (and skk-use-color-cursor (get-buffer-window (current-buffer)))
-      (if (not skk-mode)
-	  (skk-set-cursor-color skk-default-cursor-color)
-	(skk-set-cursor-color (cond (skk-jisx0208-latin-mode
-				     skk-jisx0208-latin-cursor-color )
-				    (skk-katakana skk-katakana-cursor-color)
-				    (skk-j-mode skk-hiragana-cursor-color)
-				    (t skk-latin-cursor-color) ))))
-  (and skk-use-cursor-change (skk-change-cursor-when-ovwrt)) )
-
-(skk-defun-cond skk-change-cursor-when-ovwrt ()
-  ((eq skk-emacs-type 'xemacs) (setq bar-cursor overwrite-mode))
-  (t (if overwrite-mode
-	 (modify-frame-parameters (selected-frame) '((cursor-type bar . 3)))
-       (modify-frame-parameters (selected-frame) '((cursor-type . box))) )))
+(defun skk-detach-extent (object)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (and (extentp object) (detach-extent object)) )
+   (t
+    (and (overlayp object) (delete-overlay object)) )))
 
 (defun skk-make-face (face)
   ;; hilit-lookup-face-create $B$N%5%V%;%C%H!#(Btutorial $B$G?'IU$1$r9T$J$&>l9g$G$b(B
@@ -5054,8 +4942,6 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 (add-hook 'edit-picture-hook 'skk-misc-for-picture 'append)
 ;; add 'skk-save-jisyo only to remove easily.
 (add-hook 'skk-before-kill-emacs-hook 'skk-save-jisyo)
-(add-hook 'after-make-frame-hook 'skk-set-cursor-properly)
-(add-hook 'minibuffer-setup-hook 'skk-set-cursor-properly)
 (add-hook 'minibuffer-exit-hook
           (function
            (lambda ()
@@ -5063,8 +4949,7 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 	     (skk-remove-minibuffer-setup-hook
 	      'skk-j-mode-on 'skk-setup-minibuffer
 	      (function (lambda ()
-			  (add-hook 'pre-command-hook 'skk-pre-command nil 'local) )))
-             (skk-set-cursor-properly) )))
+			  (add-hook 'pre-command-hook 'skk-pre-command nil 'local) ))))))
 
 (defun skk-setup-modeline ()
   "$B%b!<%I9T$X$N%9%F!<%?%9I=<($r=`Hw$9$k!#(B"
