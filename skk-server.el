@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-server.el,v 1.3 1999/10/03 11:50:10 minakaji Exp $
+;; Version: $Id: skk-server.el,v 1.4 2000/03/21 21:55:28 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 11:50:10 $
+;; Last Modified: $Date: 2000/03/21 21:55:28 $
 
 ;; This file is part of SKK.
 
@@ -362,8 +362,6 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
                        (list
                         '(skk-search-server skk-aux-large-jisyo 10000) ))))
     (if (not non-del)
-        ;; skk-search-prog-list の先頭が skk-search-server から始まるリストだ
-        ;; ということはまずないだろうが、念のため、setq しておく。
 	(remove-alist 'skk-search-prog-list 'skk-search-server) )))
 
 (defun skk-disconnect-server ()
