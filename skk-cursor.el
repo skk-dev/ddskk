@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-cursor.el,v 1.5 2000/07/07 22:25:14 minakaji Exp $
+;; Version: $Id: skk-cursor.el,v 1.6 2000/10/18 16:21:26 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/07/07 22:25:14 $
+;; Last Modified: $Date: 2000/10/18 16:21:26 $
 
 ;; This file is part of SKK.
 
@@ -132,19 +132,45 @@ nil であれば、表示しない。"
     (and skk-use-cursor-change (skk-cursor-change-when-ovwrt))))
 
 ;;; advices.
+(defadvice kill-buffer (after skk-cursor-ad activate)
+  "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
+  (interactive "bKill buffer: ")
+  (skk-cursor-set-properly))
+
+(defadvice other-window (after skk-cursor-ad activate)
+  "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
+  (interactive "p")
+  (skk-cursor-set-properly))
+
+(static-cond
+ ((featurep 'xemacs)
+  (defadvice select-frame (after skk-cursor-ad activate)
+    "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
+    (skk-cursor-set-properly)))
+ (t
+  (defadvice select-frame (after skk-cursor-ad activate)
+    "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
+    (interactive "p")
+    (skk-cursor-set-properly))))
+
+(defadvice switch-to-buffer (after skk-cursor-ad activate)
+  "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
+  (interactive "BSwitch to buffer: ")
+  (skk-cursor-set-properly))
+
 (let ((funcs '(
 	       ;; cover to original Emacs functions.
 	       bury-buffer
 	       delete-frame
 	       delete-window
 	       ;; execute-extended-command 
-	       kill-buffer
-	       other-window
+;	       kill-buffer
+;	       other-window
 	       overwrite-mode
 	       pop-to-buffer
-	       select-frame
+;	       select-frame
 	       select-window
-	       switch-to-buffer
+;	       switch-to-buffer
 	       ;; cover to SKK functions.
 	       skk-auto-fill-mode 
 	       skk-gyakubiki-katakana-message 
@@ -175,11 +201,22 @@ nil であれば、表示しない。"
 	(skk-cursor-set-properly))))
     (setq funcs (cdr funcs))))
 
+(static-cond
+ ((featurep 'xemacs)
+  (defadvice recenter (after skk-cursor-ad activate)
+    "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
+    (and skk-mode (skk-cursor-set-properly))))
+ (t
+  (defadvice recenter (after skk-cursor-ad activate)
+    "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
+    (interactive "P")
+    (and skk-mode (skk-cursor-set-properly)))))
+
 (let ((funcs '(
 	       goto-line 
 	       insert-file 
 	       keyboard-quit
-	       recenter 
+;	       recenter 
 	       yank
 	       yank-pop 
 	       ;; cover to hilit functions.
