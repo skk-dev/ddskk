@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.47 2001/09/15 20:54:00 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.48 2001/09/17 14:21:54 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 20:54:00 $
+;; Last Modified: $Date: 2001/09/17 14:21:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -84,7 +84,7 @@ Then evaluate RESULT to get return value, default nil."
 		    (cons (list 'setq (car spec) nil) (cdr (cdr spec))))))))
 
 ;;;###autoload
-(put 'dolist 'lisp-indent-function 1)
+(put 'dotimes 'lisp-indent-function 1)
 (defmacro-maybe dotimes (spec &rest body)
   "(dotimes (VAR COUNT [RESULT]) BODY...): loop a certain number of times.
 Evaluate BODY with VAR bound to successive integers running from 0,
