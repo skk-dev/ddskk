@@ -1,3 +1,12 @@
+2004-02-21  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-bayesian.el (skk-bayesian-restart-process):
+	Bug fixed.
+
+2004-02-21  Kenichi Kurihara <kenichi_kurihara@nifty.com>
+
+	* experimental/skk-bayesian.el: New file.
+
 2004-01-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el (skk-get-current-candidate-1): Call
@@ -4408,8 +4417,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.778 2004/01/26 17:44:37 czkmt Exp $
-Last Modified: $Date: 2004/01/26 17:44:37 $
+Version: $Id: ChangeLog,v 1.779 2004/02/21 12:22:55 minakaji Exp $
+Last Modified: $Date: 2004/02/21 12:22:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
