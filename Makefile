@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.26 2000/09/11 20:09:26 minakaji Exp $
-# Last Modified: $Date: 2000/09/11 20:09:26 $
+# Version: $Id: Makefile,v 1.27 2000/09/13 18:03:29 czkmt Exp $
+# Last Modified: $Date: 2000/09/13 18:03:29 $
 
 VERSION = 10.61
 
@@ -35,7 +35,7 @@ what-where:
 	$(EMACS) $(FLAGS) -f SKK-MK-what-where
 
 what-where-package:
-	$(EMACS) $(FLAGS) -f SKK-MK-what-where-package
+	$(XEMACS) $(FLAGS) -f SKK-MK-what-where-package
 
 clean:
 	-$(RM) skk-autoloads.el *.elc ./doc/skk.info* experimental/*.elc \
