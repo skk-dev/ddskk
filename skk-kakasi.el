@@ -1,13 +1,13 @@
 ;;; skk-kakasi.el --- KAKASI 関連プログラム
 
-;; Copyright (C) 1996, 1998, 1999, 2000
+;; Copyright (C) 1996, 1998, 1999, 2000, 2001
 ;;   NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.19 2001/11/25 12:40:54 minakaji Exp $
+;; Version: $Id: skk-kakasi.el,v 1.20 2001/11/25 12:43:25 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/25 12:40:54 $
+;; Last Modified: $Date: 2001/11/25 12:43:25 $
 
 ;; This file is part of Daredevil SKK.
 
