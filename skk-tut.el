@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.31 2001/07/05 21:33:46 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.32 2001/08/30 02:34:46 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/05 21:33:46 $
+;; Last Modified: $Date: 2001/08/30 02:34:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -707,6 +707,9 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 		    "$B&Q(B/$B&R(B/$B&S(B/$B&T(B/$B&U(B/$B&V(B/$B&W(B/$B&X(B/\n"
 		    "russia /$B'Q(B/$B'R(B/$B'S(B/$B'T(B/$B'U(B/$B'V(B/$B'W(B/$B'X(B/$B'Y(B/$B'Z(B/$B'[(B/$B'\(B/$B'](B/$B'^(B/$B'_(B/$B'`(B/"
 		    "$B'a(B/$B'b(B/$B'c(B/$B'd(B/$B'e(B/$B'f(B/$B'g(B/$B'h(B/$B'i(B/$B'j(B/$B'k(B/$B'l(B/$B'm(B/$B'n(B/$B'o(B/$B'p(B/$B'q(B/\n"
+		    "today /(skk-current-date (lambda (date-information format"
+		    " gengo and-time) (skk-default-current-date"
+		    " date-information nil 0 'gengo 0 0 0)))/\n"
 		    "$B$$$A$*$/(B /$B0l2/(B/\n"
 		    "$B$*$*$5$+(B /$BBg:e(B/\n"
 		    "$B$+$J(B /$B2>L>(B/\n"
