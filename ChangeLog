@@ -1,3 +1,18 @@
+2001-06-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-w3m.el (skk-w3m-search-engine-alist): Add new
+	entry "quote-yahoo".
+	Optional new element 6th.
+	Update doc.
+	(skk-w3m-quote-yahoo-currency-symbol-alist): New user variable.
+	(skk-w3m-currency-from, skk-w3m-currency-to): New internal
+	variables.
+	(skk-w3m-search-by-emcas-w3m, skk-w3m-search-by-backend): Funcall
+	QUERY-STRING-FUNCTION when it is non-nil.
+	(skk-w3m-get-candidates-from-quote-yahoo): New function.
+	(skk-w3m-make-query-quote-yahoo, skk-w3m-query-quote-yahoo):
+	Ditto.
+
 2001-06-01  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-gadget.el (skk-gadget-units-conversion): New function.
@@ -3438,8 +3453,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.300 2001/06/01 08:47:54 minakaji Exp $
-Last Modified: $Date: 2001/06/01 08:47:54 $
+Version: $Id: ChangeLog,v 1.301 2001/06/02 19:32:46 minakaji Exp $
+Last Modified: $Date: 2001/06/02 19:32:46 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.14 2001/05/31 02:55:32 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.15 2001/06/02 19:32:46 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/05/31 02:55:32 $
+;; Last Modified: $Date: 2001/06/02 19:32:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -106,17 +106,26 @@
      (not skk-abbrev-mode))
     ("goo-daily-shingo"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=3" euc-japan
-     ;;skk-w3m-get-candidates-from-goo-daily-shingo ; not yet finished.
+    ;;skk-w3m-get-candidates-from-goo-daily-shingo ; not yet finished.
      nil
-     (or skk-okuri-char skk-num-list skk-num-recompute-key)))
+     (or skk-okuri-char skk-num-list skk-num-recompute-key))
+    ("quote-yahoo"
+     "http://quote.yahoo.com/m5?a=%s&s=%s&t=%s&c=0" nil
+     skk-w3m-get-candidates-from-quote-yahoo ; not yet finished.
+     (not skk-abbrev-mode)
+     nil
+     skk-w3m-make-query-quote-yahoo))
   "*検索エンジン毎の検索オプションを指定するエーリスト。
 car は検索エンジンを表わす文字列、
-cdr は URL (検索文字列を %s で表わす),
+1th は URL \(検索文字列を %s で表わす\),
 2th は Web page の coding-system,
 3th は候補切り出しに使用する関数を表わすシンボル。
-4th (optional) は S 式を指定し、評価して non-nil になる状態のときは w3m
+4th \(optional\) は S 式を指定し、評価して non-nil になる状態のときは w3m
     に検索処理をさせない。
-5th は `skk-henkan-key' を加工する関数。")
+5th \(optional\) は `skk-henkan-key' を加工する関数。
+6th \(optional\) は 1th のテンプレートに合わせた文字列を出力する関数名。
+    指定された関数は、見出し語\(string\) を引数として `funcall' される。
+    指定がない場合は、`w3m-search-escape-query-string' が `funcall' される。")
 
 (defvar skk-w3m-use-w3m-backend t
   "*Non-nil であれば、w3m を backend オプション付きで起動して検索を行なう。
@@ -142,6 +151,21 @@ w3m を backend で動かしていない)。")
 (defvar skk-w3m-no-wait nil
   "*Non-nil であれば、w3m backend プロセスが何か出力するまで待たない。")
 
+(defvar skk-w3m-quote-yahoo-currency-symbol-alist
+  ;;http://quote.yahoo.com/m5?a=1&s=USD&t=JPY&c=0 ; U.S. Dollar, Japanese Yen
+  ;;http://quote.yahoo.com/m5?a=1&s=DEM&t=JPY&c=0 ; German Mark           
+  ;;http://quote.yahoo.com/m5?a=1&s=FRF&t=JPY&c=0 ; French Franc          
+  ;;http://quote.yahoo.com/m5?a=1&s=EUR&t=JPY&c=0 ; Euro
+  ;;http://quote.yahoo.com/m5?a=1&s=ITL&t=JPY&c=0 ; Italian Lira .L
+  ;;http://quote.yahoo.com/m5?a=100&s=KRW&t=JPY&c=0 ; Korean Won
+  ;;http://quote.yahoo.com/m5?a=100&s=MYR&t=JPY&c=0 ; Malaysian Ringgit
+  ;;http://quote.yahoo.com/m5?a=100&s=THB&t=JPY&c=0 ; Thai Baht             
+  ;;http://quote.yahoo.com/m5?a=100&s=CHF&t=JPY&c=0 ; Swiss Franc
+  '((CHF . "Swiss Franc") (DEM . "German Mark") (EUR . "Euro") (FRF . "French Franc")
+    (ITL . "Italian Lira .L") (JP . "Japanese Yen") (KRW . "Korean Won") 
+    (MYR . "Malaysian Ringgit") (THB . "Thai Baht") (USD . "U.S. Dollar"))
+  "*")
+
 ;;;; system internal variables and constants.
 ;;; constants.
 (defconst skk-w3m-working-buffer " *skk-w3m-work*")
@@ -150,6 +174,8 @@ w3m を backend で動かしていない)。")
 (defvar skk-w3m-process nil)
 (defvar skk-w3m-last-process-point (make-marker))
 (defvar skk-w3m-cache nil)
+(defvar skk-w3m-currency-from nil)
+(defvar skk-w3m-currency-to nil)
 
 ;;;; inline functions
 (defsubst skk-w3m-process-alive ()
@@ -205,14 +231,18 @@ w3m を backend で動かしていない)。")
   (save-excursion
     (let ((post-process (nth 3 dbase))
 	  (process-key (nth 5 dbase))
+	  (query-string-function (nth 6 dbase))
 	  (w3m-async-exec nil)
 	  (w3m-work-buffer-name " *skk-w3m-work*"))
       (if process-key (setq key (funcall process-key key)))
       (if post-process 
 	  (w3m-with-work-buffer
 	    (or (w3m-w3m-retrieve
-		 (format (nth 1 dbase)
-			 (w3m-search-escape-query-string key (nth 2 dbase))))
+		 (if query-string-function
+		     (apply 'format (nth 1 dbase)
+			    (funcall query-string-function key))
+		   (format (nth 1 dbase)
+			   (w3m-search-escape-query-string key (nth 2 dbase)))))
 		(error "")
 		(funcall post-process key)))))))
 
@@ -222,7 +252,8 @@ w3m を backend で動かしていない)。")
     (with-current-buffer (get-buffer-create skk-w3m-working-buffer)
       (or (skk-w3m-process-alive) (skk-w3m-init-w3m-backend))
       (let ((process-key (nth 5 dbase))
-	    (post-process (nth 3 dbase)))
+	    (post-process (nth 3 dbase))
+	    (query-string-function (nth 6 dbase)))
 	(if (not post-process)
 	    nil
 	  (if process-key
@@ -231,10 +262,13 @@ w3m を backend で動かしていない)。")
 	      (skk-w3m-set-process-coding-system (nth 2 dbase)))
 	  (message "Reading...")
 	  (setq pos (skk-w3m-run-command
-		     (concat "get " (format
-				     (nth 1 dbase)
-				     (skk-w3m-search-escape-query-string
-				      key (nth 2 dbase))))))
+		     (concat "get "
+			     (if query-string-function
+				 (apply 'format (nth 1 dbase)
+					(funcall query-string-function key))
+			       (format (nth 1 dbase)
+				       (skk-w3m-search-escape-query-string
+					key (nth 2 dbase)))))))
 	  (message "Reading...done")
 	  (if (and pos (markerp pos))
 	      (progn
@@ -769,6 +803,44 @@ w3m を backend で動かしていない)。")
   ;; 29:*
   ;; 30:■［SPA］のデイリー新語辞典からの検索結果　
   )
+
+(defun skk-w3m-get-candidates-from-quote-yahoo (key)
+  (if (search-forward "U.S. Markets Closed." nil t nil)
+      'closed
+    (re-search-forward
+     ;; <a href="/q?s=USDJPY=X&amp;d=t" hseq="7">USDJPY</a>
+     (format "<a href=\"[^>]+%s=X[^>]+\">%s</a>"
+	     (concat skk-w3m-currency-from skk-w3m-currency-to)
+	     (concat skk-w3m-currency-from skk-w3m-currency-to)))
+    (re-search-forward "<b>\\([,.0-9]+\\)</b>")
+    (match-string-no-properties 1)))
+
+(defun skk-w3m-make-query-quote-yahoo (key)
+  ;; http://quote.yahoo.com/m5?a=%s&s=%s&t=%s&c=0"
+  ;; http://quote.yahoo.com/m5?a=1&s=USD&t=JPY&c=0 ; U.S. Dollar, Japanese Yen
+  (while (string-match "," key)
+    (setq key (concat (substring key 0 (match-beginning 0))
+		      (substring key (match-end 0)))))
+  (if (string-match "[.0-9]+" key)
+      (list (match-string-no-properties 0 key)
+	    skk-w3m-currency-from skk-w3m-currency-to)))
+
+;;;###autoload
+(defun skk-w3m-query-quote-yahoo
+  ;; $# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/(skk-w3m-query-quote-yahoo "USD" "DM" 'prefix "DM")/
+  ;; sfr# /(skk-w3m-query-quote-yahoo "SFR" "JPY" 'postfix "円")/
+  ;; dm# /(skk-w3m-query-quote-yahoo "DM" "JPY" 'postfix "円")/
+  (currency-from currency-to &optional position convert-currency-to)
+  (let (v)
+    (setq skk-w3m-currency-from currency-from
+	  skk-w3m-currency-to currency-to)
+    (setq v (skk-w3m-search "quote-yahoo" 'no-cache))
+    (if (eq v 'closed)
+	(message "U.S. markets closed, cannot get currency information!")
+      (concat (if (not convert-currency-to) currency-to)
+	      (eval (if (eq 'prefix position) convert-currency-to))
+	      v
+	      (eval (if (eq 'postfix position) convert-currency-to))))))
 
 (require 'product)
 (product-provide (provide 'skk-w3m) (require 'skk-version))
