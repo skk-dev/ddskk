@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2002/02/09 16:41:07 $
-	     $Id: PROPOSAL.ja,v 1.2 2002/02/09 16:41:07 czkmt Exp $
+             $Date: 2002/02/09 16:51:49 $
+	     $Id: PROPOSAL.ja,v 1.3 2002/02/09 16:51:49 czkmt Exp $
 
 
 $B$3$N%U%!%$%k$K$O!"(BSKK $B%3!<%G%#%s%0$K4X$7!"Cm0U$9$Y$-E@!"E}0l$7$?J}$,NI$$(B
@@ -48,7 +48,8 @@ Daredevil SKK $B3+H/?X$,%5%]!<%H2DG=$J(B Emacs $B$N$_$,BP>]$G$9!#(B
 
 $B$?$@$7!"8=<B$K$O%5%]!<%H$N$?$a$NO+NO$H!"%5%]!<%H$9$k%a%j%C%H$H$r$O$+$j(B
 $B$K$+$1$F7h$a$k$3$H$K$J$j$^$9!#(BDaredevil SKK 12 $B$O(B Emacs 20.4 $B0J9_$H(B
-XEmacs 21.1 $B0J9_$r@5<0$K%5%]!<%H$7$^$9!#(B
+XEmacs 21.1 $B0J9_$r%5%]!<%H$7$^$9$,!"3F(B Emacsen $B$N%P%0=$@5$N>u67$r9M$((B
+$B$k$H(B Emacs 20.7 $B0J9_!"$"$k$$$O(B XEmacs 21.4 $B0J9_$,?d>)$5$l$^$9!#(B
 
 ** Emacs $B$N%P!<%8%g%s4V:90[$N5[<}$O(B?
 
@@ -107,7 +108,7 @@ variables/constants $B$,(B skk-macs.el $B$K!"A4$F$NJQ?t$,(B skk-vars.el $B$
 
       ;;;###autoload
       (defun skk-completion (first)
-         ... )
+         ...)
 
 $B$3$l$G(B autoload $B$N@_Dj$b<+F0E*$K9T$J$o$l$^$9!#(B
 
@@ -116,7 +117,8 @@ variables/constants $B$,(B skk-macs.el $B$K!"A4$F$NJQ?t$,(B skk-vars.el $B$
 
      (require 'product)
      (product-provide (provide 'skk-abbrev) (require 'skk-version))
-     ;; end of skk-abbrev.el
+
+     ;;; skk-abbrev.el ends here
 
 
 * $B4X?tL>!&JQ?tL>$K$D$$$F(B
@@ -182,9 +184,9 @@ SKK $B$O(B SKK $B%b!<%I$r5/$7$?%P%C%U%!$N$_$G:nF0$9$k$h$&$K$J$C$F$$$k$?$a!"(
 $B$3$l$G!"(Bhode-mode $B$K$*$1$k3g8L$N%Z%"A^F~J8;zNs$rJQ99$9$k$3$H$,$G$-$^$9!#(B
 
      (add-hook 'hoge-mode-hook
-	       (function (lambda()
-			   (make-local-variable 'skk-auto-paren-string-alist)
-			   (setq skk-auto-paren-string-alist ...))))
+	       #'(lambda ()
+		   (make-local-variable 'skk-auto-paren-string-alist)
+		   (setq skk-auto-paren-string-alist ...)))
 
 ** $B%P%C%U%!%m!<%+%kJQ?t$N@k8@(B
 
@@ -334,7 +336,7 @@ SKK $B$O(B `skk-japanese-message-and-error' $BJQ?t$,(B nil $B$N>l9g$O%(%i!<
          (error "\"%s\" $B$GJd40$9$Y$-8+=P$78l$O(B%s$B$"$j$^$;$s(B"
                 skk-completion-word (if first "" "$BB>$K(B"))
        (error "No %scompletions for \"%s\""
-              (if first "" "more ") skk-completion-word ))
+              (if first "" "more ") skk-completion-word))
 
 $B$^$?!"(B`skk-y-or-n-p' $B$d(B `skk-yes-or-no-p' $B$N0z?t$K$O(B `%c', `%s' $B$J$I$r(B
 $BD>@\=q$/$3$H$,$G$-$:!"(B`format' $B4X?t$r;H$o$J$1$l$P$J$j$^$;$s!#$3$N$h$&(B
@@ -343,12 +345,14 @@ SKK $B$O(B `skk-japanese-message-and-error' $BJQ?t$,(B nil $B$N>l9g$O%(%i!<
 $B$j$^$;$s!#$3$s$J46$8$G$9!#(B
 
      (if (yes-or-no-p
-          (format (if skk-japanese-message-and-error
-                      "$B<-=q$NJ]B8$r$;$:$K(B %s $B$r=*N;$7$^$9!#NI$$$G$9$+(B? "
-                    "Do you really wish to kill %s without saving Jisyo? ")
-                  (cond (skk-mule "Mule")
-                        (skk-xemacs "XEmacs")
-                        (t "Emacs"))))
+         (format (if skk-japanese-message-and-error
+                     "$B<-=q$NJ]B8$r$;$:$K(B %s $B$r=*N;$7$^$9!#NI$$$G$9$+(B? "
+                   "Do you really wish to kill %s without saving Jisyo? ")
+                  (cond
+		   ((eq skk-emacs-type 'xemacs)
+		    "XEmacs")
+		   (t
+		    "Emacs")))))
 
 
 * $B?75,$N%f!<%6!<JQ?t(B ($B%*%W%7%g%s(B) $B$rDI2C$7$?$H$-$O(B
