@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.2 1999/08/18 23:20:16 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.3 1999/08/29 21:25:41 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/18 23:20:16 $
+;; Last Modified: $Date: 1999/08/29 21:25:41 $
 
 ;; This file is not part of SKK yet.
 
@@ -34,9 +34,10 @@
 ;; ちゃごちゃとユーザーに興味がないものが並んでいたのでは、ユーザーフ
 ;; レンドリーではないと考えるからです。
 ;;
-;; Following people contributed modifications to skk-foreword.el (Alphabetical order):
+;; Following people contributed to skk-foreword.el (Alphabetical order):
 ;;       小野 孝男 <takao@hirata.nuee.nagoya-u.ac.jp>
 ;;       Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
+;;       Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;;       Shuhei KOBAYASHI <shuhei-k@jaist.ac.jp>
 ;;       TSUMURA Tomoaki <tsumura@kuis.kyoto-u.ac.jp>
 
@@ -67,6 +68,7 @@
   (defvar skk-jisx0208-latin-cursor-color)
   (defvar skk-jisx0208-latin-mode)
   (defvar skk-jisx0208-latin-mode-string)
+  (defvar skk-kana-cleanup-command-list)
   (defvar skk-kana-input-search-function)
   (defvar skk-kana-start-point)
   (defvar skk-katakana)
@@ -76,6 +78,7 @@
   (defvar skk-latin-cursor-color)
   (defvar skk-latin-mode)
   (defvar skk-latin-mode-string)
+  (defvar skk-look-completion-words)
   (defvar skk-mode)
   (defvar skk-prefix)
   (defvar skk-previous-point)
@@ -83,7 +86,7 @@
 
 (require 'advice)
 (require 'easymenu)
-;; APEL 9.20 or later required.
+;; APEL 9.21 or later required.
 (require 'poe)
 (require 'poem)
 (require 'pcustom)
@@ -154,79 +157,6 @@
   ;; バッファローカル値である skk-henkan-start-point, skk-henkan-end-point,
   ;; skk-kana-start-point, あるいは skk-okurigana-start-point が nil だったら、
   ;; 新規マーカーを作って代入する。
-  ;;
-  ;; skk.el のバッファローカル値の扱いには注意すべき点がある。
-  ;; 例えば、あるバッファ Buffer A で下記のようなフォームを評価したとする。
-  ;; ---------- Buffer A ---------------+--------------- Buffer B ----------
-  ;; (setq test (make-marker))          |
-  ;;  -> #<marker in no buffer>         |
-  ;;                                    |
-  ;; (make-variable-buffer-local 'test) |
-  ;;                                    |
-  ;; test                               | test
-  ;;  -> #<marker in no buffer>         |  -> #<marker in no buffer>
-  ;;                                    |
-  ;; (set-marker test (point))          |
-  ;;                                    |
-  ;; test                               | test
-  ;;  -> #<marker at 122 in A>          |  -> #<marker at 122 in A>
-  ;;
-  ;; バッファローカル値としての宣言をする前に non-nil 値を代入し、その non-nil
-  ;; 値を直接書き変えるようなフォームを評価すると Buffer B から見えるディフォル
-  ;; ト値まで書き変ってしまう。上記の例はマーカーだが、下記のようにリストに対し
-  ;; て破壊的関数で操作したときも同様の結果となる。
-  ;; ---------- Buffer A ---------------+--------------- Buffer B ----------
-  ;; (setq test '(A B C))               |
-  ;;  -> (A B C)                        |
-  ;;                                    |
-  ;; (make-variable-buffer-local 'test) |
-  ;;                                    |
-  ;; test                               | test
-  ;;  -> (A B C)                        |  -> (A B C)
-  ;;                                    |
-  ;; (setcar test 'X)                   |
-  ;;                                    |
-  ;; test                               | test
-  ;;  -> (X B C)                        |  -> (X B C)
-  ;;
-  ;; この現象で一番困るのは、漢字登録などでミニバッファに入ったとき
-  ;; (skk-henkan-show-candidate のように単に「エコーエリア」を使用する関数では
-  ;; 関係ない) に、もとのバッファとミニバッファとではそれぞれ別の変換を行なう
-  ;; のが普通であるので、上記のように他のバッファのバッファローカル値まで書き
-  ;; 変えてしまうと、変換を休止している他のバッファで正常な変換ができなくなる
-  ;; 場合があることである。
-  ;;
-  ;; しかも SKK ではリカーシブミニバッファが使用できるので、 *Minibuf-0* と
-  ;;  *Minibuf-1 の間 (あるいはもっと深いリカーシブミニバッファ同士の間) でバッ
-  ;; ファローカル値の破壊的書き変えが行なわれてしまい、上位のミニバッファに戻っ
-  ;; たときに正常な変換ができなくなる場合がある。
-  ;;
-  ;; ところが下記のように初期値を nil にして、バッファローカル値としての宣言後、
-  ;; non-nil 値を代入すれば、以後そのバッファローカル値に破壊的操作をしてもその
-  ;; バッファに固有の値しか変化しない。
-  ;; ---------- Buffer A ---------------+--------------- Buffer B ----------
-  ;; (setq test nil)                    |
-  ;;                                    |
-  ;; (make-variable-buffer-local 'test) |
-  ;;                                    |
-  ;; test                               | test
-  ;;  -> nil                            |  -> nil
-  ;;                                    |
-  ;; (setq test (make-marker))          |
-  ;;  -> #<marker in no buffer>         |
-  ;;                                    |
-  ;; (set-marker test (point))          |
-  ;;                                    |
-  ;; test                               | test
-  ;;  -> #<marker at 122 in A>          |  -> nil
-  ;;
-  ;; skk.el 9.3 の時点では、skk-henkan-start-point, skk-henkan-end-point,
-  ;; skk-kana-start-point 及び skk-okurigana-start-point の初期値
-  ;; (make-variable-buffer-local がコールされる前の値) が make-marker の返り値
-  ;; である #<marker in no buffer> であったので、リカーシブミニバッファに入っ
-  ;; て変換したときに "▼" が消えない、などのトラブルがあったが、これらの初期
-  ;; 値を nil にして使用時に make-marker の返り値を代入するようにし、この問題を
-  ;; 解決した。
   (list 'progn
         (list 'if (list 'not marker)
               (list 'setq marker (list 'make-marker)) )
@@ -312,9 +242,74 @@
 	 (progn (,@ form))
        (setq skk-previous-point (point)) )))
 
-;;) ;eval-when-compile
+(defmacro skk-defun-cond (name args &optional doc &rest everything-else)
+  (or (stringp doc)
+      (setq everything-else (cons doc everything-else)
+	    doc nil))
+  (` (prog1
+	 (cond
+	  (,@ (mapcar
+	       (function
+		(lambda (case)
+		  (list (car case)
+			(if doc
+			    (` (defun (, name) (, args)
+				 (, doc)
+				 (,@ (cdr case))))
+			  (` (defun (, name) (, args)
+			       (,@ (cdr case))))))))
+	       everything-else)))
+       (setq current-load-list
+	     (cons (quote (, name)) current-load-list))
+       )))
 
+(defmacro skk-defsubst-cond (name args &optional doc &rest everything-else)
+  (or (stringp doc)
+      (setq everything-else (cons doc everything-else)
+	    doc nil))
+  (` (prog1
+	 (cond
+	  (,@ (mapcar
+	       (function
+		(lambda (case)
+		  (list (car case)
+			(if doc
+			    (` (defsubst (, name) (, args)
+				 (, doc)
+				 (,@ (cdr case))))
+			  (` (defsubst (, name) (, args)
+			       (,@ (cdr case))))))))
+	       everything-else)))
+       (setq current-load-list
+	     (cons (quote (, name)) current-load-list))
+       )))
+
+;;(defmacro skk-defmacro-cond (name args &optional doc &rest everything-else)
+;;  (or (stringp doc)
+;;      (setq everything-else (cons doc everything-else)
+;;	    doc nil))
+;;  (` (prog1
+;;	 (cond
+;;	  (,@ (mapcar
+;;	       (function
+;;		(lambda (case)
+;;		  (list (car case)
+;;			(if doc
+;;			    (` (defmacro (, name) (, args)
+;;				 (, doc)
+;;				 (,@ (cdr case))))
+;;			  (` (defmacro (, name) (, args)
+;;			       (,@ (cdr case))))))))
+;;	       everything-else)))
+;;       (setq current-load-list
+;;	     (cons (quote (, name)) current-load-list)))))
+;;
+;;;;) ;eval-when-compile
+;;
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
+;;(put 'skk-defmacro-cond 'lisp-indent-function 'defun)
+(put 'skk-defsubst-cond 'lisp-indent-function 'defun)
+(put 'skk-defun-cond  'lisp-indent-function 'defun)
 
 ;;(defun-maybe mapvector (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
@@ -331,16 +326,31 @@
 ;;  (mapcar function sequence)
 ;;  sequence )
 
-(defun skk-terminal-face-p ()
-  (and (not window-system)
-       (fboundp 'frame-face-alist) ;; 変数名みたいな関数だな...。
-       (fboundp 'selected-frame) ))
+;;;; inline functions
+(skk-defsubst-cond skk-uninsertable-p (p)
+  ((eq skk-emacs-type 'xemacs)
+   (if (= (point-min) p)
+       (and 
+	;; get all extents not just text-property extents.
+	(get-char-property p 'read-only)
+	(get-char-property p 'start-closed) )
+     (or (and (get-char-property p 'read-only)
+	      (get-char-property (1- p) 'end-closed) )
+	 (and (get-char-property p 'read-only)
+	      (get-char-property (1+ p) 'start-closed) ))))
+  ;; GNU Emacs
+  (t (if (or (= (point-min) p)
+	     (eq (get-text-property (1- p) 'rear-nonsticky) t)
+	     (memq 'read-only (get-text-property (1- p) 'rear-nonsticky)) )
+	 (and (get-text-property p 'read-only)
+	      (or (eq (get-text-property p 'front-sticky) t)
+		  (memq 'read-only (get-text-property p 'front-sticky)) ))
+       (get-text-property (1- p) 'read-only) )))
 
 (defsubst skk-lower-case-p (char)
   ;; CHAR が小文字のアルファベットであれば、t を返す。
   (and (<= ?a char) (>= ?z char) ))
 
-;;;; inline functions
 (defsubst skk-downcase (char)
   (or (cdr (assq char skk-downcase-alist)) (downcase char)) )
 
@@ -433,11 +443,15 @@
   ;; ファに挿入されている skk-prefix は削除したいが、変数としての skk-prefix は
   ;; null 文字にしたくない。
   (and skk-echo skk-kana-start-point
-       (not (string= skk-prefix "")) ; fail safe.
+       (not (string= skk-prefix ""))	; fail safe.
        ;; skk-prefix の消去をアンドゥの対象としない。
        (let ((buffer-undo-list t)
 	     (start (marker-position skk-kana-start-point)) )
-	 (and start (delete-region start (+ start (length skk-prefix)))) ))
+	 (and start
+	      ;; このチェックがないとエラーになることがあった。 
+	      ;;   マーカーなのに何故かな？
+	      (< start (point-max))
+	      (delete-region start (+ start (length skk-prefix))) )))
   (and clean (setq skk-prefix ""
 		   skk-current-rule-tree nil ))) ; fail safe
 
@@ -551,12 +565,7 @@
 
 (defsubst skk-pre-command ()
   (and (memq last-command '(skk-insert skk-previous-candidate))
-       (null (memq this-command
-		   '(skk-delete-backward-char
-		     skk-insert
-		     skk-previous-candidate
-		     vip-del-backward-char-in-insert
-		     viper-del-backward-char-in-insert )))
+       (null (memq this-command skk-kana-cleanup-command-list))
        (skk-kana-cleanup t) ))
 
 (defsubst skk-make-raw-arg (arg)
@@ -584,6 +593,11 @@
 
 (defsubst skk-put-last-henkan-data (key val)
   (setq skk-last-henkan-data (put-alist key val skk-last-henkan-data)) )
+
+(defun skk-terminal-face-p ()
+  (and (not window-system)
+       (fboundp 'frame-face-alist) ;; 変数名みたいな関数だな...。
+       (fboundp 'selected-frame) ))
 
 ;;;; aliases
 ;; for backward compatibility.
@@ -621,8 +635,6 @@
           (intern (downcase bg-resource))
         (setq params (frame-parameters))
         (cond ((cdr (assq 'background-mode params)));; Emacs20.x (Meadow)
-	      ;; Mule for Win32 を Windows 95 で動かしているときは、
-	      ;; system-type は？  -> windows-nt でした。
 	      ((and (eq system-type 'windows-nt);; Mule for Win32
                     (fboundp 'win32-color-values) )
                (< (apply '+ (win32-color-values
@@ -766,25 +778,6 @@
 	       (mapconcat 'char-to-string sl "") )))
 	 )))
 
-(eval-after-load "hilit19"
-  '(mapcar (function
-            (lambda (pattern)
-              (hilit-add-pattern
-               (car pattern) (cdr pattern)
-               (cond ((eq skk-background-mode 'mono)
-                      'bold )
-                     ((eq skk-background-mode 'light)
-                      'RoyalBlue )
-                     (t 'cyan) )
-               'emacs-lisp-mode )))
-           '(("^\\s *(skk-deflocalvar\\s +\\S +" . "")) ))
-
-(eval-after-load "font-lock"
-  '(cons '("^(\\(skk-deflocalvar\\)[ \t'\(]*\\(\\sw+\\)?"
-	   (1 font-lock-keyword-face)
-	   (2 font-lock-variable-name-face) )
-	 lisp-font-lock-keywords-2 ))
-
 (defun skk-define-menu-bar-map (map)
   ;; SKK メニューのトップに出現するコマンドのメニューへの定義を行なう。
   (easy-menu-define
@@ -879,6 +872,5 @@
 
 (provide 'skk-foreword)
 ;;; Local Variables:
-;;; eval: (put 'skk-deflocalvar 'lisp-indent-hook 'defun)
 ;;; End:
 ;;; skk-forwords.el ends here

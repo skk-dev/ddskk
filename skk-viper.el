@@ -6,9 +6,9 @@
 ;;         Murata Shuuichirou <mrt@astec.co.jp>
 ;; Maintainer: Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-viper.el,v 1.2 1999/08/16 00:22:01 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.3 1999/08/29 21:25:58 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/16 00:22:01 $
+;; Last Modified: $Date: 1999/08/29 21:25:58 $
 
 ;; This file is not part of SKK yet.
 
@@ -46,61 +46,39 @@
 
 ;; internal constant.
 ;;;###autoload
-(defconst skk-viper-or-vip
-  (if (fboundp 'viper-normalize-minor-mode-map-alist)
-      'viper
-    'vip ))
+(defconst skk-viper-use-vip-prefix
+  (not (fboundp 'viper-normalize-minor-mode-map-alist)) )
 
 ;;;###autoload
 (defconst skk-viper-normalize-map-function
-  (if (eq skk-viper-or-vip 'viper)
-      'viper-normalize-minor-mode-map-alist
-    'vip-normalize-minor-mode-map-alist )
+  (if skk-viper-use-vip-prefix 
+      'vip-normalize-minor-mode-map-alist 
+    'viper-normalize-minor-mode-map-alist )
   "Viper が minor-mode-map-alist を調整するための関数。" )
-
-;;;###autoload
-(defun skk-viper-normalize-map ()
-  (let ((other-buffer
-	 (if (eq skk-emacs-type 'xemacs)
-	     (local-variable-p 'minor-mode-map-alist nil t)
-	   (local-variable-p 'minor-mode-map-alist) )))
-    ;; for current buffer and buffers to be created in the future.
-    ;; substantially the same job as viper-harness-minor-mode does.
-    (funcall skk-viper-normalize-map-function)
-    (setq-default minor-mode-map-alist minor-mode-map-alist)
-    (if (not other-buffer)
-	nil
-      ;; for buffers which are already created and have the minor-mode-map-alist
-      ;; localized by Viper.
-      (save-current-buffer
-	(let ((buf (buffer-list)))
-	  (while buf
-	    (set-buffer (car buf))
-	    (if (null (assq 'skk-j-mode minor-mode-map-alist))
-		(progn
-		  (set-modified-alist
-		   'minor-mode-map-alist
-		   (list (cons 'skk-latin-mode skk-latin-mode-map)
-			 (cons 'skk-abbrev-mode skk-abbrev-mode-map)
-			 (cons 'skk-j-mode skk-j-mode-map)
-			 (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map) ))
-		  (funcall skk-viper-normalize-map-function) ))
-	    (setq buf (cdr buf)) ))))))
-
-(skk-viper-normalize-map)
 
 ;; macros and inline functions.
 (defmacro skk-viper-advice-select (viper vip arg body)
-  (` (if (eq skk-viper-or-vip 'viper)
-	 (defadvice (, viper) (, arg) (,@ body))
-       (defadvice (, vip) (, arg) (,@ body)) )))
+  (` (if skk-viper-use-vip-prefix
+	 (defadvice (, vip) (, arg) (,@ body))
+       (defadvice (, viper) (, arg) (,@ body)) )))
 
-(cond ((boundp 'lc-jp)
-       (defsubst skk-jisx0208-p (char)
-	 (eq lc-jp (car (find-charset-string (char-to-string char)))) ))
-      (t
-       (defsubst skk-jisx0208-p (char)
-	 (eq 'japanese-jisx0208 (car (find-charset-string (char-to-string char)))) )))
+(skk-defsubst-cond skk-jisx0208-p (char)
+  ((boundp 'lc-jp)
+   (eq lc-jp (car (find-charset-string (char-to-string char)))) )
+  (t
+   (eq 'japanese-jisx0208 (car (find-charset-string (char-to-string char)))) ))
+
+(setq skk-kana-cleanup-command-list
+      (cons 
+       (if skk-viper-use-vip-prefix
+	   'vip-del-backward-char-in-insert
+	 'viper-del-backward-char-in-insert )
+       skk-kana-cleanup-command-list ))
+
+(setq skk-use-viper t)
+(save-match-data
+  (or (string-match sentence-end "。？！")
+      (setq sentence-end (concat "[。？！]\\|" sentence-end)) ))
 
 ;; cursor color support.
 (if (and (boundp 'viper-insert-state-cursor-color)
@@ -118,13 +96,8 @@
 ;;(add-hook 'viper-post-command-hooks
 ;; 	    (function (lambda () (and skk-mode (skk-set-cursor-properly)))) ))
 
-(setq skk-use-viper t)
-(save-match-data
-  (or (string-match sentence-end "。？！")
-      (setq sentence-end (concat "[。？！]\\|" sentence-end)) ))
-
 ;; advices.
-(if (eq skk-viper-or-vip 'viper)
+(or skk-viper-use-vip-prefix
     ;; vip-hide-replace-overlay はインライン関数
     (defadvice viper-hide-replace-overlay (after skk-ad activate)
       "SKK のモードに従いカーソルの色を変える。"
@@ -213,7 +186,36 @@
 	 (skk-jisx0208-p
 	  (char-before (progn (skip-chars-backward " ") (point))) )
 	 (while (looking-at " ")
-	   (delete-char 1) ))))
+	   (delete-char 1) )))))
+
+;;;###autoload
+(defun skk-viper-normalize-map ()
+  (let ((other-buffer
+	 (if (eq skk-emacs-type 'xemacs)
+	     (local-variable-p 'minor-mode-map-alist nil t)
+	   (local-variable-p 'minor-mode-map-alist) )))
+    ;; for current buffer and buffers to be created in the future.
+    ;; substantially the same job as viper-harness-minor-mode does.
+    (funcall skk-viper-normalize-map-function)
+    (setq-default minor-mode-map-alist minor-mode-map-alist)
+    (if (not other-buffer)
+	nil
+      ;; for buffers which are already created and have the minor-mode-map-alist
+      ;; localized by Viper.
+      (save-current-buffer
+	(let ((buf (buffer-list)))
+	  (while buf
+	    (set-buffer (car buf))
+	    (if (null (assq 'skk-j-mode minor-mode-map-alist))
+		(progn
+		  (set-modified-alist
+		   'minor-mode-map-alist
+		   (list (cons 'skk-latin-mode skk-latin-mode-map)
+			 (cons 'skk-abbrev-mode skk-abbrev-mode-map)
+			 (cons 'skk-j-mode skk-j-mode-map)
+			 (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map) ))
+		  (funcall skk-viper-normalize-map-function) ))
+	    (setq buf (cdr buf)) ))))))
 
 (defun skk-set-cursor-properly ()
   ;; カレントバッファの SKK のモードに従い、カーソルの色を変更する。
@@ -237,6 +239,8 @@
 				    (t skk-latin-cursor-color) )))))
   (if skk-use-cursor-change
       (skk-change-cursor-when-ovwrt) ))
+
+(skk-viper-normalize-map)
 
 (provide 'skk-viper)
 ;;; skk-viper.el ends here

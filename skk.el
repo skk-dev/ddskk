@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.3 1999/08/29 07:28:39 minakaji Exp $
+;; Version: $Id: skk.el,v 1.4 1999/08/29 21:25:53 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 07:28:39 $
+;; Last Modified: $Date: 1999/08/29 21:25:53 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -47,7 +47,7 @@
 ;;   KATAKANA
 
 
-;; Following people contributed modifications to skk.el (Alphabetical order):
+;; Following people contributed to skk.el (Alphabetical order):
 ;;      Chikanobu Toyofuku <unbound@papaya.juice.or.jp>
 ;;      FURUE Hideyuki <furue@kke.co.jp>
 ;;      Fukaya Shigeru <SFUKAYA@oracle.co.jp>
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/08/29 07:28:39 $")
+      (let* ((raw-date "$Date: 1999/08/29 21:25:53 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -2377,15 +2377,6 @@ skk-convert-okurigana-into-katakana の値を non-nil にする。
 	   (kill-local-variable v) ))))
 
 ;;;; kana inputting functions
-
-(defun skk-uninsertable-p (p)
-  (if (or (= (point-min) p)
-	  (eq (get-text-property (1- p) 'rear-nonsticky) t)
-	  (memq 'read-only (get-text-property (1- p) 'rear-nonsticky)))
-      (and (get-text-property p 'read-only)
-	   (or (eq (get-text-property p 'front-sticky) t)
-	       (memq 'read-only (get-text-property p 'front-sticky))))
-    (get-text-property (1- p) 'read-only)))
 
 (defun skk-insert (&optional arg)
   "SKK の文字入力を行なう。"
@@ -5279,6 +5270,5 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 
 (provide 'skk)
 ;;; Local Variables:
-;;; eval: (put 'skk-deflocalvar 'lisp-indent-hook 'defun)
 ;;; End:
 ;;; skk.el ends here
