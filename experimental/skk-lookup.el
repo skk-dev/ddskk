@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.10 1999/10/03 07:56:01 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.11 1999/10/03 07:56:32 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/03 07:56:01 $
+;; Last Modified: $Date: 1999/10/03 07:56:32 $
 
 ;; This file is not part of SKK yet.
 
@@ -262,7 +262,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     (do ((pickup-pattern (skk-lookup-get-pickup-regexp name))
 	 (split-pattern (skk-lookup-get-split-regexp name))
 	 candidates-string candidates-list )
-	((or (and (not pickup-pattern) (setq candidate-list (list heading)))
+	((or (and (not pickup-pattern) (setq candidates-list (list heading)))
 	     (string= heading "")
 	     (not (string-match pickup-pattern heading)) )
 	 candidates-list )
