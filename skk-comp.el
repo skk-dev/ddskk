@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-comp.el,v 1.1 1999/08/29 06:32:31 minakaji Exp $
+;; Version: $Id: skk-comp.el,v 1.2 1999/09/02 21:34:44 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 06:32:31 $
+;; Last Modified: $Date: 1999/09/02 21:34:44 $
 
 ;; This file is part of SKK.
 
@@ -182,6 +182,5 @@ skk-previous-completion $B$G$O!"%9%?%C%/$+$i%]%C%W$7$F0JA0$KJd40$7$?8l$KLa$k!#
 
 (provide 'skk-comp)
 ;;; Local Variables:
-;;; eval: (put 'skk-deflocalvar 'lisp-indent-hook 'defun)
 ;;; End:
 ;;; skk-comp.el ends here

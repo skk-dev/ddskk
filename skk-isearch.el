@@ -1,13 +1,13 @@
 ;; -*- byte-compile-dynamic-docstring: t;-*-
 ;;; skk-isearch.el --- isearch mode for skk with Emacs 19 and 20.
-;; Copyright (C) 1994, 1995, 1996, 1997, 1998
+;; Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999
 ;; Enami Tsugutomo <enami@ba2.so-net.or.jp>
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-isearch.el,v 1.1 1999/08/29 06:32:42 minakaji Exp $
+;; Version: $Id: skk-isearch.el,v 1.2 1999/09/02 21:32:18 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 06:32:42 $
+;; Last Modified: $Date: 1999/09/02 21:32:18 $
 
 ;; This file is part of SKK.
 
@@ -37,10 +37,15 @@
 ;;           (function (lambda ()
 ;;			 (and (boundp 'skk-mode) skk-mode
 ;;			      (skk-isearch-mode-setup)))))
+;;
 ;; (add-hook 'isearch-mode-end-hook
-;;	     (function (lambda ()
-;;			 (and (boundp 'skk-mode) skk-mode
-;;			      (skk-isearch-mode-cleanup)))))
+;;           (function
+;;            (lambda ()
+;;              (and (boundp 'skk-mode) skk-mode (skk-isearch-mode-cleanup))
+;;              (and (boundp 'skk-mode-invoked) skk-mode-invoked
+;;                   (skk-set-cursor-properly) ))))
+;; 
+;; 
 ;; 3. invoke if current buffer has japanese characters.
 ;; ...
 ;;
@@ -50,7 +55,7 @@
 ;;; Change log:
 
 ;;; Code:
-(eval-when-compile (require 'skk))
+(require 'skk)
 (require 'skk-foreword)
 
 ;; user variables
