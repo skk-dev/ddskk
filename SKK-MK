@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.71 2001/08/18 21:40:01 czkmt Exp $
-;; Last Modified: $Date: 2001/08/18 21:40:01 $
+;; Version: $Id: SKK-MK,v 1.72 2001/08/18 22:44:44 czkmt Exp $
+;; Last Modified: $Date: 2001/08/18 22:44:44 $
 
 ;; Commentary
 ;;
@@ -383,7 +383,6 @@
       (re-search-forward "^skkserv" nil t)))
    ;; xinetd
    (or
-    (and conf (file-exists-p conf))
     (file-exists-p "/etc/xinetd.d/dbskkd")
     (file-exists-p "/etc/xinetd.d/dbskkd-cdb")
     (file-exists-p "/etc/xinetd.d/skkserv")
