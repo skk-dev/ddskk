@@ -1125,9 +1125,7 @@ keycode 131 = underscore\n"))
    (t
     ad-do-it)))
 
-(defadvice skk-isearch-setup-keymap (before skk-nicola-ad
-					    activate
-					    compile)
+(defadvice skk-isearch-setup-keymap (before skk-nicola-ad activate compile)
   ;; 親指キーでサーチが終了してしまわないように。
   (let ((keys (append skk-nicola-lshift-keys
 		      skk-nicola-rshift-keys)))
@@ -1137,9 +1135,7 @@ keycode 131 = underscore\n"))
 	'skk-isearch-wrapper)
       (setq keys (cdr keys)))))
 
-(defadvice isearch-char-to-string (around skk-nicola-ad
-					  activate
-					  compile)
+(defadvice isearch-char-to-string (around skk-nicola-ad activate compile)
   ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
   (cond ((and skk-use-kana-keyboard
 	      (featurep 'skk-isearch)
@@ -1153,8 +1149,7 @@ keycode 131 = underscore\n"))
 	(t
 	 ad-do-it)))
 
-(defadvice isearch-text-char-description (around skk-nicola-ad
-						 activate
+(defadvice isearch-text-char-description (around skk-nicola-ad activate
 						 compile)
   ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
   (cond ((and skk-use-kana-keyboard
@@ -1171,9 +1166,7 @@ keycode 131 = underscore\n"))
 
 (static-when (eq skk-emacs-type 'mule2)
   ;;
-  (defadvice isearch-char-to-string (after skk-nicola-ad
-					   activate
-					   compile)
+  (defadvice isearch-char-to-string (after skk-nicola-ad activate compile)
     ;; この関数が日本語をちゃんと扱えないことに対策。
     (when (integerp (ad-get-arg 0))
       (setq ad-return-value (skk-char-to-string
