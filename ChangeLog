@@ -1,5 +1,7 @@
 2003-07-12  NAKAJIMA Mikio  <minakaji@namazu.org>
 
+	* Makefile (VERSION): Change 12.2.0rc1 to 12.2.0.
+
 	* skk-study.el: Move from experimental directory.
 	(skk-kakutei-initialize): Simplified it by using `ring-elements'.
 	(skk-study-search-times): Change its default value to 5.
@@ -4294,8 +4296,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.754 2003/07/12 10:52:55 minakaji Exp $
-Last Modified: $Date: 2003/07/12 10:52:55 $
+Version: $Id: ChangeLog,v 1.755 2003/07/12 10:54:07 minakaji Exp $
+Last Modified: $Date: 2003/07/12 10:54:07 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
