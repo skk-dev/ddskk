@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.2 2001/06/03 20:49:34 minakaji Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.3 2001/07/19 16:50:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/06/03 20:49:34 $
+;; Last Modified: $Date: 2001/07/19 16:50:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -47,13 +47,14 @@
    ("X" nil skk-purge-from-jisyo)
    ("\\" nil skk-tutcode-mode-off)
    ("\t" nil skk-toggle-kana)
-   ("^" nil skk-input-by-code-or-menu)))
+   ("^" nil skk-input-by-code-or-menu)
+   ("\C-@" nil skk-start-henkan)))
 
-(if (and (eq skk-emacs-type 'xemacs) (= emacs-major-version 20))
-    (progn
-      (setq skk-rom-kana-base-rule-list
-	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list))
-      (define-key skk-j-mode-map "\t" 'skk-toggle-kana)))
+;; (if (and (eq skk-emacs-type 'xemacs) (= emacs-major-version 20))
+;;     (progn
+;;       (setq skk-rom-kana-base-rule-list
+;; 	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list))
+;;       (define-key skk-j-mode-map "\t" 'skk-toggle-kana)))
 
 ;; The first few entries are necessary to disable special treatments of
 (setq skk-rom-kana-rule-list

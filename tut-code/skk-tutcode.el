@@ -1,11 +1,11 @@
 ;;; skk-tutcode.el --- assist TUT-code inputting in SKK environment.
-;; Copyright (C) 1999, 2000 GUNJI Takao <gunji@sils.shoin.ac.jp>
+;; Copyright (C) 1999, 2000, 2001 GUNJI Takao <gunji@sils.shoin.ac.jp>
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcode.el,v 1.4 2001/06/03 20:49:34 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.5 2001/07/19 16:50:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/06/03 20:49:34 $
+;; Last Modified: $Date: 2001/07/19 16:50:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -87,6 +87,7 @@
 
 ;; all prefix of functions, variables and constants are
 ;; `skk-tutcode-'.
+;;;###autoload
 (defcustom skk-tutcode-use-touch16+ nil
  "*Non-nil であれば、Touch16+ 拡張コードを利用する。"
  :type 'boolean

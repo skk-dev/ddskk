@@ -1,5 +1,35 @@
 2001-07-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* skk-vars.el (skk-rom-kana-base-rule-list): Add an element whose
+	car is skk-kakutei-key. 
+
+	* tut-code/skk-tutcdef.el: Not to define key even if running Emacs
+	is XEmacs.
+	(skk-rom-kana-base-rule-list): Add an element whose car is "\C-@".
+
+	* tut-code/skk-tutcode.el (skk-tutcode-use-touch16+): Add
+	`;;;###autoload' cookie.
+
+	* skk.el (skk-setup-keymap): Not to bind `skk-kakutei-key' for
+	`skk-j-mode-map'.
+	(skk-compile-rule-list): Bind key to `skk-insert' for
+	`skk-j-mode-map' when the rule list key is not bound to the
+	function.
+	(skk-create-file): Set file modes by `set-file-modes'
+	when new optional argument MODES is specified.
+	(skk-save-jisyo-1): Renamed to `skk-do-save-jisyo-as'.
+	(skk-init-shared-jisyo): New function.
+	(skk-jisyo-is-shared-p, skk-update-shared-jisyo): Ditto.
+	(skk-save-jisyo-original): Use `skk-init-shared-jisyo',
+	`skk-jisyo-is-shared-p' and `skk-update-shared-jisyo'.
+	(skk-compute-henkan-lists): Remove skk-kanagaki specific
+	transactions.
+	(skk-make-temp-jisyo): Use `static-if' instead of `if'.
+	Use `user-login-name' for defining prefix
+	(skk-make-temp-file): Merged it into `skk-make-temp-jisyo'.
+	
+	* tut-code/README.tut: New file.
+
 	* READMEs/README.Mac: New file (its original file is written by
 	Yuh Ohmura <yutopia@t3.rim.or.jp>).
 
@@ -3568,8 +3598,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.311 2001/07/19 15:23:43 minakaji Exp $
-Last Modified: $Date: 2001/07/19 15:23:43 $
+Version: $Id: ChangeLog,v 1.312 2001/07/19 16:50:49 minakaji Exp $
+Last Modified: $Date: 2001/07/19 16:50:49 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

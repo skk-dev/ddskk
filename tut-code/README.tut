@@ -1,0 +1,32 @@
+-*- text -*-
+             $Date: 2001/07/19 16:50:48 $
+	     $Id: README.tut,v 1.1 2001/07/19 16:50:48 minakaji Exp $
+
+SKK-MK のあるディレクトリで、
+
+  % ln -s tut-code/* .
+
+してから make して下さい。symbolic link のない OS の場合は、このフォル
+ダにあるファイルを一つ上の階層にコピーしてから make して下さい。
+
+.emacs に次のように記載します。
+
+(defadvice skk-mode (before my-ad activate)
+  (require 'skk-tutcdef)
+  (require 'skk-tutcode))
+ 
+(defadvice skk-auto-fill-mode (before my-ad activate)
+  (require 'skk-tutcdef)
+  (require 'skk-tutcode))
+ 
+skk-tutcdef.el の内容をカスタマイズしたいときは、例えば、下記のように
+します。
+
+ (defadvice skk-mode (before my-ad activate)
+   (require 'skk-tutcdef)
+   ;; your customizations...
+   (setq skk-rom-kana-rule-list
+         '(...)))
+   (require 'skk-tutcode))
+
+[end of README]

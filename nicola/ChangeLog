@@ -1,3 +1,8 @@
+2001-07-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-kanagaki.el (skk-compute-henkan-lists): The function that
+	has skk-kanagaki specific transaction was moved from skk.el.
+
 2001-03-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-nicola-treat-triple): New function.

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.101 2001/07/10 00:01:29 minakaji Exp $
+;; Version: $Id: skk.el,v 1.102 2001/07/19 16:50:49 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/10 00:01:29 $
+;; Last Modified: $Date: 2001/07/19 16:50:49 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -486,13 +486,13 @@ dependent."
  
 ;;; setup 
 (defun skk-setup-shared-private-jisyo ()
-  (skk-create-file skk-emacs-id-file)
+  (setq skk-jisyo-update-vector (make-vector skk-jisyo-save-count nil))
   (setq skk-emacs-id
 	(make-temp-name
 	 (concat (system-name) ":"
 		 (mapconcat 'int-to-string (current-time) "")
 		 ":")))
-  (setq skk-jisyo-update-vector (make-vector skk-jisyo-save-count nil))
+  (skk-create-file skk-emacs-id-file nil nil 384) ; 0600
   (with-temp-buffer
     (insert-file-contents skk-emacs-id-file)
     (insert skk-emacs-id "\n")
@@ -506,7 +506,7 @@ dependent."
   (define-key skk-abbrev-mode-map (char-to-string skk-try-completion-char)
     'skk-try-completion)
   (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei)
-  (define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei)
+  ;;(define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei)
   (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
     'skk-insert)
   (unless (featurep 'skk-kanagaki)
@@ -896,7 +896,6 @@ dependent."
                   (eq command (key-binding key))))
     (setq key (vconcat (cdr (append key nil)))))
   (and (not (zerop (length key))) key))
-
 
 (defun skk-adjust-user-option ()
   ;; 両立できないオプションの調整を行なう。
@@ -1326,13 +1325,24 @@ dependent."
 (defun skk-compile-rule-list (&rest l)
   ;; rule-list を木の形にコンパイルする。
   (let ((tree (skk-make-rule-tree nil "" nil nil nil))
-	rule ll)
+	rule key ll)
     (while l
       (setq ll (car l)
 	    l (cdr l))
       (while ll
 	(setq rule (car ll)
+	      key (car rule)
 	      ll (cdr ll))
+	(condition-case nil
+	    (progn
+	      (if (symbolp key)
+		  (progn
+		    (setq key (eval key))
+		    (setcar rule key)))
+	      (if (and (not (string-match "\\w" key))
+		       (not (eq (key-binding key) 'self-insert-command)))
+		  (define-key skk-j-mode-map key 'skk-insert)))
+	  (error))
 	(skk-add-rule tree rule)))
     tree))
 
@@ -1973,8 +1983,6 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				      (- len 2)
 				    (1- len)))))))
   word)
-
-
 
 (defun skk-previous-candidate (&optional arg)
   "▼モードであれば、一つ前の候補を表示する。
@@ -2666,40 +2674,16 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			   "No need to save SKK jisyo")
 	      (sit-for 1)))
       (with-current-buffer jisyo-buffer
-	(if (and skk-share-private-jisyo
-		 (file-exists-p skk-emacs-id-file)
-		 ;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
-		 (with-temp-buffer
-		   (insert-file-contents skk-emacs-id-file)
-		   (goto-char (point-min))
-		   (not (search-forward skk-emacs-id nil t))))
+	(if (and skk-share-private-jisyo (skk-jisyo-is-shared-p))
 	    (progn
 	      (lock-buffer skk-jisyo)
-	      ;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
-	      ;; 更新した skk-jisyo を読み込む。
-	      (erase-buffer)
-	      (insert-file-contents skk-jisyo)
-	      (skk-setup-jisyo-buffer)
-	      ;; skk-jisyo-update-vector にしたがってバッファを更新する。
-	      (let ((index 0) list skk-henkan-key)
-		(while (and (< index skk-jisyo-save-count)
-			    (setq list (aref skk-jisyo-update-vector index)))
-		  ;; skk-update-jisyo-1, skk-search-jisyo-file-1
-		  ;; で参照される skk-henkan-key をセットする
-		  (setq skk-henkan-key (car list))
-		  (skk-update-jisyo-1
-		   ;; okurigana    word
-		   (nth 1 list) (nth 2 list)
-		   (skk-search-jisyo-file-1 (nth 1 list) 0 'delete)
-		   ;; purge
-		   (nth 3 list))
-		  (setq index (1+ index))))))
+	      (skk-update-shared-jisyo)))
 	(let ((inhibit-quit t)
 	      (tempo-file (skk-make-temp-jisyo)))
 	  (if (not quiet)
 	      (skk-message "SKK 辞書を保存しています..."
 			   "Saving SKK jisyo..."))
-	  (skk-save-jisyo-1 tempo-file)
+	  (skk-save-jisyo-as tempo-file)
 	  (skk-check-size-and-do-save-jisyo tempo-file)
 	  ;; 辞書のセーブに成功して初めて modified フラッグを nil にする。
 	  (set-buffer-modified-p nil)
@@ -2711,13 +2695,45 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 		(sit-for 1))))
 	(if skk-share-private-jisyo
 	    (progn
-	      (with-temp-buffer
-		(fillarray skk-jisyo-update-vector nil)
-		(insert skk-emacs-id "\n")
-		(write-region 1 (point-max) skk-emacs-id-file nil 'nomsg))
+	      (skk-init-shared-jisyo)
 	      (unlock-buffer)))))))
 
-(defun skk-save-jisyo-1 (file)
+(defun skk-init-shared-jisyo ()
+  (fillarray skk-jisyo-update-vector nil)
+  (with-temp-buffer
+    (insert skk-emacs-id "\n")
+    (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)))
+
+(defun skk-jisyo-is-shared-p ()
+  (if (file-exists-p skk-emacs-id-file)
+      (with-temp-buffer
+	(insert-file-contents skk-emacs-id-file)
+	(goto-char (point-min))
+	;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
+	(not (search-forward skk-emacs-id nil t)))))
+
+(defun skk-update-shared-jisyo ()
+  ;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
+  ;; 更新した skk-jisyo を読み込む。
+  (erase-buffer)
+  (insert-file-contents skk-jisyo)
+  (skk-setup-jisyo-buffer)
+  ;; skk-jisyo-update-vector にしたがってバッファを更新する。
+  (let ((index 0) list skk-henkan-key)
+    (while (and (< index skk-jisyo-save-count)
+		(setq list (aref skk-jisyo-update-vector index)))
+      ;; skk-update-jisyo-1, skk-search-jisyo-file-1
+      ;; で参照される skk-henkan-key をセットする
+      (setq skk-henkan-key (car list))
+      (skk-update-jisyo-1
+       ;; okurigana    word
+       (nth 1 list) (nth 2 list)
+       (skk-search-jisyo-file-1 (nth 1 list) 0 'delete)
+       ;; purge
+       (nth 3 list))
+      (setq index (1+ index)))))
+
+(defun skk-save-jisyo-as (file)
   (save-match-data
     (let (buffer-read-only)
       (goto-char (point-min))
@@ -2840,30 +2856,21 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 (defun skk-make-temp-jisyo ()
   ;; SKK 個人辞書保存のための作業用のファイルを作り、ファイルのモードを
   ;; skk-jisyo のものと同じに設定する。作った作業用ファイルの名前を返す。
-  (let ((tempo-name
-	 (skk-make-temp-file (if (featurep 'skk-dos)
-				 "sk"
-			       "skkdic"))))
-    (skk-create-file tempo-name)
-    ;; temporary file に remote file を指定することなど有り得ない？
-    ;;(if (or
-    ;;     ;; XEmacs has efs.el
-    ;;     (eq skk-emacs-type 'xemacs)
-    ;;     ;; ange-ftp.el does not have a wrapper to set-file-modes.
-    ;;     (not (and (featurep 'ange-ftp) (boundp 'ange-ftp-name-format)
-    ;;               (string-match (car ange-ftp-name-format) tempo-name))))
-    (set-file-modes tempo-name (file-modes skk-jisyo))
-    ;;)
-    tempo-name))
-
-(defun skk-make-temp-file (prefix)
-  (let ((dir
-	 (cond ((skk-file-exists-and-writable-p temporary-file-directory)
-		temporary-file-directory)
-	       (t (or (file-exists-p "~/tmp") (make-directory "~/tmp"))
-		  (or (file-writable-p "~/tmp") (set-file-modes "~/tmp" 1023))
-		  "~/tmp/"))))
-    (make-temp-name (expand-file-name prefix (expand-file-name dir)))))
+  (let* ((dir
+	  (cond ((skk-file-exists-and-writable-p temporary-file-directory)
+		 temporary-file-directory)
+		(t (or (file-exists-p "~/tmp") (make-directory "~/tmp"))
+		   (or (file-writable-p "~/tmp") (set-file-modes "~/tmp" 1023))
+		   "~/tmp/")))
+	 (temp-name
+	  (make-temp-name (expand-file-name
+			   (static-if (featurep 'skk-dos)
+			       "sk"
+			     (concat (user-login-name)
+				     "-skk"))
+			  (expand-file-name dir)))))
+    (skk-create-file temp-name nil nil 384) ; 0600
+    temp-name))
 
 (defun skk-make-new-jisyo (tempo-file)
   ;; TEMPO-FILE を新規の skk-jisyo にする。skk-backup-jisyo が non-nil だった
@@ -2990,19 +2997,21 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
                        (/ (* 100 (- (point) min)) max))))
 	count))))
 
-(defun skk-create-file (file &optional japanese english)
+(defun skk-create-file (file &optional japanese english modes)
   ;; FILE がなければ、FILE という名前の空ファイルを作る。
   ;; オプショナル引数の JAPANESE/ENGLISH を指定すると、ファイル作成後そのメッセ
   ;; ージをミニバッファに表示する。
   (let ((file (expand-file-name file)))
-    (or (file-exists-p file)
-	(progn
-	  (write-region 1 1 file nil 0)
-	  (if (or japanese english)
-	      (progn
-		(message (if skk-japanese-message-and-error
-			     japanese english))
-		(sit-for 3)))))))
+    (if (file-exists-p file)
+	(if modes (set-file-modes file modes))
+      (write-region 1 1 file nil 0)
+      (if modes
+	  (set-file-modes file modes))
+      (if (or japanese english)
+	  (progn
+	    (message (if skk-japanese-message-and-error
+			 japanese english))
+	    (sit-for 3))))))
 
 (defun skk-get-jisyo-buffer (file &optional nomsg)
   ;; FILE を開いて SKK 辞書バッファを作り、バッファを返す。
@@ -3189,28 +3198,6 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			(1- (search-forward "/")))
                   headchar (if (string= item "") (int-char 0) (skk-str-ref item 0)))
             (cond ((and (eq headchar ?\[) (<= stage 2))
-		   ;;
-		   (when (and skk-use-kana-keyboard
-			      skk-henkan-okuri-strictly)
-		     ;; 仮名入力用の特殊処理
-		     (cond
-		      ((eq skk-kanagaki-state 'kana)
-		       ;; okuri-key が "っ" で item が "って" などだった場合、
-		       ;; item を okuri-key に置き換える。
-		       (when (and
-			      (not (string= okuri-key item))
-			      (string-match
-			       (concat "^" (regexp-quote okuri-key)) item))
-			 (setq item okuri-key)))
-		      ((eq skk-kanagaki-state 'rom)
-		       ;; okuri-key が "って" で item が "っ" などだった場合、
-		       ;; item を okuri-key に置き換える。
-		       (when (and
-			      (not (string= okuri-key item))
-			      (string-match
-			       (concat "^" (regexp-quote item)) okuri-key))
-			 (setq item okuri-key)))))
-		   ;;
                    (if (string= item okuri-key)
                        (progn (queue-enqueue q2 item)
                               (setq stage 3))
@@ -3333,12 +3320,11 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     ;; 送りあり入力は省略し、送りなし入力のみ履歴をとる。
     (unless skk-henkan-okurigana
       (skk-update-kakutei-history midasi word))
-    ;;
     (if jisyo-buffer
 	(let ((inhibit-quit t) buffer-read-only old-entry okurigana)
 	  (if (> skk-okuri-index-min -1)
 	      (setq word (skk-remove-common word)
-	   ;; skk-henkan-key は skk-remove-common によって変更されてい
+		    ;; skk-henkan-key は skk-remove-common によって変更されてい
 		    ;; る可能性がある。
 		    midasi skk-henkan-key))
 	  (setq okurigana (or skk-henkan-okurigana skk-okuri-char))

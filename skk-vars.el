@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.44 2001/07/10 00:01:29 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.45 2001/07/19 16:50:49 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/10 00:01:29 $
+;; Last Modified: $Date: 2001/07/19 16:50:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -942,7 +942,14 @@ left であれば左端に表示する。
     ("/" nil skk-abbrev-mode)
     ("$" nil skk-display-code-for-char-at-point)
     ("@" nil skk-today)
-    ("\\" nil skk-input-by-code-or-menu))
+    ("\\" nil skk-input-by-code-or-menu)
+    (skk-kakutei-key nil skk-kakutei)
+    ;; XXX
+    ;;("\t" nil skk-insert)
+    ;;("," nil skk-previous-candidate)
+    ;;("\M-\040" nil skk-start-henkan-with-completion); M-SPC
+    ;;("\M-\121" nil skk-backward-and-set-henkan-point); M-Q
+    )
   ;; コンスタントにしてしまわないのは、ローマ字入力とは全く別の設定を
   ;; する人もいるからです。
   "*キー入力に対する変換文字を現わすオートマトン状態遷移規則。
