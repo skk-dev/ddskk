@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.93 2004/03/31 23:43:32 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.94 2004/11/28 09:06:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/03/31 23:43:32 $
+;; Last Modified: $Date: 2004/11/28 09:06:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -406,6 +406,17 @@ BUFFER defaults to the current buffer."
 	  (vector char)
 	(setq keys (recent-keys))
 	(vector (aref keys (1- (length keys)))))))))
+
+(defun skk-replace-regexp-in-string (regexp rep string
+					    &optional
+					    fixedcase literal subexp start)
+  (static-cond
+   ((and (eq skk-emacs-type 'xemacs)
+	 (not (fboundp 'replace-regexp-in-string)))
+    (replace-in-string string regexp rep literal))
+   (t
+    (replace-regexp-in-string regexp rep string
+			      fixedcase literal subexp start))))
 
 ;;; version independent
 (defsubst skk-cursor-set (&optional color force)
