@@ -2,6 +2,8 @@
 
 	* skk-omelet-us.el (skk-insert): Workaround.
 
+	Enable Koyubi fnctions.
+
 2001-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Re-indent.

@@ -237,6 +237,10 @@ US 101 キーボードで omelet 入力するための基本ルール。")
      (t
       ad-do-it))))
 
+(when skk-nicola-use-koyubi-functions
+  (define-key skk-j-mode-map "'" 'skk-kanagaki-bs))
+;  (define-key skk-j-mode-map "]" 'skk-kanagaki-esc))
+
 (require 'product)
 (product-provide
     (provide 'skk-omelet-us)
