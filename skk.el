@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.191 2001/11/18 16:41:13 czkmt Exp $
+;; Version: $Id: skk.el,v 1.192 2001/11/19 14:07:39 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/18 16:41:13 $
+;; Last Modified: $Date: 2001/11/19 14:07:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3056,6 +3056,9 @@ If you want to restore the dictionary from the disc, try
 	   (file (if (consp file)
 		     (car file)
 		   file))
+	   (enable-character-translation
+	    (not (memq code '(euc-japan shift_jis junet))))
+	   (enable-character-unification enable-character-translation)
 	   (buf-name (concat " *"
 			     (file-name-nondirectory file)
 			     "*"))
@@ -3087,16 +3090,14 @@ If you want to restore the dictionary from the disc, try
 	    (skk-message "SKK 辞書 %s をバッファに読み込んでいます..."
 			 "Inserting contents of %s ..."
 			 (file-name-nondirectory file)))
-	  (let (enable-character-translation
-		enable-character-unification)
-	    (insert-file-contents-as-coding-system code file))
-	    (unless nomsg
-	      (skk-message
-	       "SKK 辞書 %s をバッファに読み込んでいます...完了！"
-	       "Inserting contents of %s ...done"
-	       (file-name-nondirectory file)))
-	    (skk-setup-jisyo-buffer)
-	    (set-buffer-modified-p nil)))
+	  (insert-file-contents-as-coding-system code file)
+	  (unless nomsg
+	    (skk-message
+	     "SKK 辞書 %s をバッファに読み込んでいます...完了！"
+	     "Inserting contents of %s ...done"
+	     (file-name-nondirectory file)))
+	  (skk-setup-jisyo-buffer)
+	  (set-buffer-modified-p nil)))
       buf)))
 
 (defun skk-search ()
