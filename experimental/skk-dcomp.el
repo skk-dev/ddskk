@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.8 2000/11/27 23:00:10 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.9 2000/11/28 13:06:34 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/27 23:00:10 $
+;; Last Modified: $Date: 2000/11/28 13:06:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -49,9 +49,16 @@
   :group 'skk-dcomp)
 
 (skk-deflocalvar skk-dcomp-start-point nil)
+(skk-deflocalvar skk-dcomp-end-point nil)
 (skk-deflocalvar skk-dcomp-extent nil)
 ;; why is it necessary?
 (defvar skk-dcomp-face 'skk-dcomp-face)
+(defvar skk-dcomp-toggle-key
+  (car-safe
+   (or (rassoc (list nil 'skk-toggle-kana) skk-rom-kana-rule-list)
+       (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-rule-list)
+       (rassoc (list nil 'skk-toggle-kana) skk-rom-kana-base-rule-list)
+       (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-base-rule-list))))
 
 (defun skk-dcomp-face-on (start end)
   (skk-face-on skk-dcomp-extent start end skk-dcomp-face
@@ -64,29 +71,46 @@
 (defadvice skk-kana-input (around skk-dcomp-ad activate)
   (if (not skk-henkan-on)
       ad-do-it
-    (if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
-	    (not skk-completion-stack))
-	(setq skk-dcomp-start-point nil)
-      (when skk-dcomp-start-point
-	(skk-dcomp-face-off)
-	(condition-case nil
-	    (delete-region skk-dcomp-start-point (point))
-	  (error))))
-    ad-do-it
-    (if (and (not (skk-get-prefix skk-current-rule-tree)) (not skk-okurigana))
-	(progn
-	  (setq skk-dcomp-start-point (point))
-	  (condition-case nil
-	      (skk-completion 'first 'silent)
-	    (error
-	     (setq skk-completion-stack nil)
-	     (message nil)))
-	  (skk-dcomp-face-on skk-dcomp-start-point (point))))))
+    (let (pos)
+      (if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
+	      (not skk-completion-stack))
+	  (skk-set-marker skk-dcomp-start-point nil)
+	(when (marker-position skk-dcomp-start-point)
+	  (skk-dcomp-face-off)
+	  (or (equal skk-dcomp-toggle-key (this-command-keys))
+	      (condition-case nil
+		  (delete-region skk-dcomp-start-point (point))
+		(error)))))
+      ad-do-it
+      (if (and (not (skk-get-prefix skk-current-rule-tree)) (not skk-okurigana))
+	  (progn
+	    (setq pos (point))
+	    (condition-case nil
+		(skk-completion 'first 'silent)
+	      (error
+	       (setq skk-completion-stack nil)
+	       (message nil)))
+	    (skk-set-marker skk-dcomp-start-point pos)
+	    (skk-set-marker skk-dcomp-end-point (point))
+	    (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point))))))
 
 (defadvice skk-kakutei (after skk-dcomp-ad activate)
   (skk-dcomp-face-off)
-  (setq skk-dcomp-start-point nil
-	skk-completion-stack nil))
+  (skk-set-marker skk-dcomp-start-point nil)
+  (skk-set-marker skk-dcomp-end-point nil)
+  (setq skk-completion-stack nil))
+
+(defadvice skk-start-henkan (before skk-dcomp-ad activate)
+  (skk-dcomp-face-off)
+  (delete-region skk-dcomp-end-point (point))
+  (skk-set-marker skk-dcomp-end-point (point)))
+  
+(defadvice keyboard-quit (after skk-dcomp-ad activate)
+  (if skk-henkan-on
+      (progn
+	(skk-set-marker skk-dcomp-start-point nil)
+	(skk-set-marker skk-dcomp-end-point nil)
+	(setq skk-completion-stack nil))))
 
 (require 'product)
 (product-provide (provide 'skk-dcomp) (require 'skk-version))
