@@ -3,9 +3,9 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-e18.el,v 1.5 2000/11/25 17:42:58 czkmt Exp $
+;; Version: $Id: skk-e18.el,v 1.6 2000/11/25 19:56:39 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 17:42:58 $
+;; Last Modified: $Date: 2000/11/25 19:56:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -50,6 +50,7 @@ Install patch/e18/advice.el in load-path and try again.")))
 ;; め、defconst しておきましょう。
 (defconst skk-use-color-cursor nil)
 (defconst skk-cursor-change-width nil)
+(defconst skk-use-face nil)
 
 (require 'skk-macs)
 (require 'skk-vars)
@@ -96,19 +97,23 @@ Install patch/e18/advice.el in load-path and try again.")))
 	       (null ad-return-value))
       (setq ad-return-value 0))))
 
-(defadvice read-from-minibuffer (before skk-e18-ad activate)
-  ;;
-  (when (and minibuffer-exit-hook
-	     (skk-in-minibuffer-p))
-    (condition-case nil
-	(run-hooks 'minibuffer-exit-hook)
-      (error)))
+(defadvice read-from-minibuffer (around skk-e18-ad activate)
   ;;
   (when minibuffer-setup-hook
     (with-current-buffer
 	(get-buffer-create
 	 (format " *Minibuf-%d*" (minibuffer-depth)))
-      (run-hooks 'minibuffer-setup-hook))))
+      (run-hooks 'minibuffer-setup-hook)))
+  ;;
+  ad-do-it
+  ;;
+  (when minibuffer-exit-hook
+    (with-current-buffer
+	(get-buffer-create
+	 (format " *Minibuf-%d*" (minibuffer-depth)))
+      (condition-case nil
+	  (run-hooks 'minibuffer-exit-hook)
+	(error)))))
 
 (defadvice exit-minibuffer (around skk-e18-ad activate)
   (let ((no-nl (and skk-egg-like-newline skk-henkan-on)))
@@ -120,6 +125,13 @@ Install patch/e18/advice.el in load-path and try again.")))
 	nil
       (setq skk-mode nil)
       ad-do-it)))
+
+(defadvice skk-kakutei (around skk-e18-ad activate)
+  (let ((skk-jisyo skk-jisyo))
+    (when skk-henkan-on
+      (unless skk-mode
+	(skk-mode 1)))
+    ad-do-it))
 
 ;; Other functions.
 (defun-maybe window-minibuffer-p (&optional window)

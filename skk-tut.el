@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.22 2000/11/24 16:46:19 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.23 2000/11/25 19:56:38 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/24 16:46:19 $
+;; Last Modified: $Date: 2000/11/25 19:56:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -491,6 +491,11 @@ C-u M-x skk-tutorial すると、チュートリアルファイルの選択が可能。"
       (skktut-enable-tutmap)
       (add-hook 'before-make-frame-hook 'skktut-before-move-to-other-frame)
       (add-hook 'minibuffer-setup-hook 'skktut-localize-and-init-variables)
+      ;; Nemacs でうまく buffer local になってくれない。
+      ;; 原因が分かるまでの work around です。
+      (static-when (memq skk-emacs-type '(nemacs mule1))
+	(make-variable-buffer-local 'skk-jisyo))
+      ;;
       (skktut-make-windows)))
   (skktut-setup-delete-backward-char))
 
