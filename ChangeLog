@@ -8,6 +8,8 @@
 
 	* skk-dic.el (skk-small-dic): Typo.
 
+	(skk-search-small-dic): Call `buffer-size' with no argument.
+
 	* skk-e21.el (skk-e21-modeline-property): Use `static-if'.
 
 	* skk-macs.el (skk-loop-for-buffers): New macro.
@@ -1913,8 +1915,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.388 2001/09/14 14:23:32 czkmt Exp $
-Last Modified: $Date: 2001/09/14 14:23:32 $
+Version: $Id: ChangeLog,v 1.389 2001/09/14 15:40:34 czkmt Exp $
+Last Modified: $Date: 2001/09/14 15:40:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
