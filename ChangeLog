@@ -5,7 +5,6 @@
 	No longer check if `register-input-method' is bound.
 	Use `unless' for autoloaded expressions.
 
-
 2002-08-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version.el:
@@ -4003,8 +4002,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.705 2002/08/02 08:50:53 czkmt Exp $
-Last Modified: $Date: 2002/08/02 08:50:53 $
+Version: $Id: ChangeLog,v 1.706 2002/08/02 08:53:22 czkmt Exp $
+Last Modified: $Date: 2002/08/02 08:53:22 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
