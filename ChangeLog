@@ -1,3 +1,10 @@
+2002-03-29  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* skk-vars.el (skk-buffer-undo-list): New variable.
+
+	* skk.el (skk-multiple-line-message): Restore minibuffer at exit
+	if `skk-emacs-type' is `mule4'.
+
 2002-03-29  FURUE Hideyuki  <furue@myrealbox.com>
 
 	* skk.el:
@@ -11,7 +18,7 @@
 
 	(skk-undo-kakutei):
 	Do nothing when `skk-henkan-end-point' is nil.
-	
+
 2002-03-22  FURUE Hideyuki  <furue@myrealbox.com>
 
 	* skk.el:
@@ -3804,8 +3811,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.678 2002/03/29 07:22:47 furue Exp $
-Last Modified: $Date: 2002/03/29 07:22:47 $
+Version: $Id: ChangeLog,v 1.679 2002/03/29 23:16:11 obata Exp $
+Last Modified: $Date: 2002/03/29 23:16:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
