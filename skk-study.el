@@ -5,9 +5,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.5 1999/10/05 11:02:04 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.6 1999/10/06 13:21:59 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/05 11:02:04 $
+;; Last Modified: $Date: 1999/10/06 13:21:59 $
 
 ;; This file is not part of SKK yet.
 
@@ -131,9 +131,15 @@
 		 (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
 		 ;; grandpa ::= (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
 		 ;;              ("なk" . ((("こども" . "子供") . ("泣")))) )
-		 (setq grandpa (cdr (assq (cond (skk-okuri-char 'okuri-ari)
-						(t 'okuri-nasi) )
-					  skk-study-alist )))
+		 (setq grandpa (cdr (assq
+				     (cond ((or skk-okuri-char
+						;; skk-okuri-char is nil, but 
+						;; skk-henkan-okurigana is non-nil when
+						;; skk-auto.el has processed.
+						skk-henkan-okurigana )
+					    'okuri-ari )
+					   (t 'okuri-nasi) )
+				     skk-study-alist )))
 		 ;; papa ::= ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
 		 (setq papa (cdr (assoc midasi grandpa)))
 		 ;; associates ::= ("着")
@@ -154,7 +160,12 @@
       (if (and (setq last-key (skk-get-last-henkan-data 'henkan-key))
 	       (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
 	       ;; grandpa ::= (okuri-ari . (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))))
-	       (setq grandpa (assq (cond (skk-okuri-char 'okuri-ari )
+	       (setq grandpa (assq (cond ((or skk-okuri-char
+					      ;; skk-okuri-char is nil, but 
+					      ;; skk-henkan-okurigana is non-nil when
+					      ;; skk-auto.el has processed.
+					      skk-henkan-okurigana )
+					  'okuri-ari )
 					 (t 'okuri-nasi) )
 				   skk-study-alist )))
 	  ;; papa ::= ("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
