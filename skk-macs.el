@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.62 2001/11/03 23:02:44 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.63 2001/11/11 07:50:03 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/03 23:02:44 $
+;; Last Modified: $Date: 2001/11/11 07:50:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -50,7 +50,7 @@ Otherwise, return result of last FORM."
 (eval-and-compile
   (when (and (fboundp 'dolist)
 	     (not (eval (macroexpand '(dolist (var nil t))))))
-    ;; egg.el has invalid `dolist'.
+    ;; Old egg.el has invalid `dolist'.
     (fmakunbound 'dolist)))
 
 ;;;###autoload
