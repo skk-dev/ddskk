@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.71 2001/03/21 03:48:23 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.72 2001/03/28 04:23:42 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/03/21 03:48:23 $
+@c  Last Modified: $Date: 2001/03/28 04:23:42 $
 @c
 @set EDITION 1.6
 @set SKK-VERSION 11.4
-@set UPDATED $Date: 2001/03/21 03:48:23 $
+@set UPDATED $Date: 2001/03/28 04:23:42 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7351,7 +7351,7 @@ SKK の原作者は、現京都大学の佐藤雅彦教授 @w{<masahiko@@kuis.kyoto-u.ac.jp>
 @item NISHIDA Keisuke @w{<knishida@@nn.iij4u.or.jp>}
 @item Rei FURUKAWA @w{<furukawa@@tcp-ip.or.jp>}
 @item Ryoichi Hashimoto @w{<gnu@@ipri.go.jp>}
-@item Satoshi Harauchi
+@item Satoshi Harauchi @w{<satoshi@@sys.sdl.melco.co.jp>}
 @item Sekita Daigo @w{<sekita@@mri.co.jp>}
 @item Shuhei KOBAYASHI @w{<shuhei@@aqua.ocn.ne.jp>}
 @item Shuji Ashizawa @w{<ashizawa@@zuken.co.jp>}
