@@ -1,3 +1,14 @@
+2002-02-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el
+	(skk-annotation-show-buffer):
+	Alas, local variable WINDOW is needed.
+
+	* skk-jisx0201.el:
+	* skk-jisyo-edit-mode.el:
+	* skk-server.el:
+	Add or update doc strings.
+
 2002-02-09  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-study.el (skk-study-check-alist-format-1): Use
@@ -3635,8 +3646,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.656 2002/02/09 06:36:24 minakaji Exp $
-Last Modified: $Date: 2002/02/09 06:36:24 $
+Version: $Id: ChangeLog,v 1.657 2002/02/11 08:05:00 czkmt Exp $
+Last Modified: $Date: 2002/02/11 08:05:00 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
