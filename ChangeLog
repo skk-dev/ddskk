@@ -1,3 +1,105 @@
+2002-01-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	No longer support Emacs 20.2 or earlier.
+
+	* SKK-CFG:
+	Remove examples for Old Emacsen.
+
+	* SKK-MK
+	(SKK-MK-texinfo-Coding-system):
+	(SKK-MODULES):
+	(SKK-MK-install-elc):
+	(SKK-MK-generate-autoloads-el):
+	(SKK-MK-skk-dic):
+	No longer support Mule 2.
+
+	* skk-auto.el
+	(skk-okuri-search-1):
+	(skk-okuri-search-subr-original):
+	Use 1 instead of `skk-kanji-len'.
+
+	* skk-develop.el:
+	No longer support hilit19.
+
+	* skk-isearch.el
+	(skk-isearch-conversion-start):
+	(skk-isearch-wrapper):
+	No longer refer to `skk-kanji-len'.
+
+	* skk-jisx0201.el
+	(skk-jisx0201-hankaku):
+	(skk-jisx0201-zenkaku-region):
+	No longer support Mule 2.
+
+	* skk-kcode.el
+	(skk-make-char):
+	(skk-display-code):
+	No longer support Mule 2.
+
+	* skk-look.el
+	(skk-look): Use `sref' instead of `skk-str-ref'.
+
+	* skk-lookup.el
+	(skk-lookup-process-okurigana):
+	Use 1 instead of `skk-kanji-len'.
+
+	* skk-macs.el
+	(skk-str-length):
+	(skk-substring):
+	(skk-str-ref):
+	Abolish functions.
+
+	(skk-ascii-char-p):
+	(skk-jisx0208-p):
+	(skk-charsetp):
+	(skk-local-variable-p):
+	No longer support Mule 2.
+
+	(skk-lisp-prog-p):
+	Use `length' and `sref' instead of `skk-str-length' and
+	`skk-str-ref'.
+
+	* skk-setup.el.in:
+	No longer support Mule 2, Emacs 20.2 and XEmacs 20.4.
+
+	* skk-vars.el:
+	(skk-emacs-type):
+	(skk-kcode-charset):
+	(skk-coding-system-alist):
+	(skk-kcode-charset-list):
+	Do not consider Mule 2 and MULE 3.
+
+	(skk-kanji-len):
+	(skk-hankaku-alist):
+	Abolish variables.
+
+	* skk-xemacs.el:
+	No longer support XEmacs 20.4.
+
+	* skk.el
+	(skk-kill-emacs-without-saving-jisyo):
+	(skk-jisx0208-to-ascii):
+	Do not consider Mule 2.
+
+	(skk-change-marker):
+	(skk-change-marker-to-white):
+	(skk-delete-henkan-markers):
+	(keyboard-quit):
+	(abort-recursive-edit):
+	Don not refer to `skk-kanji-len'.
+
+	(skk-compute-henkan-lists):
+	(skk-remove-common):
+	Use `sref' instead of `skk-str-ref'.
+
+	(skk-remove-redundant-okurgana):
+	(skk-search-sagyo-henkaku):
+	(skk-remove-common):
+	Use `length' instead of `skk-str-length'.
+
+	* tinyinstall.el:
+	No longer consider Mule 2.
+
 2002-01-18  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* SKK-MK (SKK_MODULES): Add `skk-azik'.
@@ -3378,8 +3480,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.635 2002/01/17 15:48:49 akiho Exp $
-Last Modified: $Date: 2002/01/17 15:48:49 $
+Version: $Id: ChangeLog,v 1.636 2002/01/18 14:05:20 czkmt Exp $
+Last Modified: $Date: 2002/01/18 14:05:20 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
