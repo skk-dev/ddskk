@@ -1,3 +1,9 @@
+2002-07-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-dcomp.el:
+	(skk-kana-input@around@skk-dcomp-ad):
+	Do not call `skk-dcomp-do-completion' in skk-abbrev-mode.
+
 2002-06-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el:
@@ -3899,8 +3905,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.692 2002/06/22 01:11:39 czkmt Exp $
-Last Modified: $Date: 2002/06/22 01:11:39 $
+Version: $Id: ChangeLog,v 1.693 2002/07/06 11:59:09 czkmt Exp $
+Last Modified: $Date: 2002/07/06 11:59:09 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
