@@ -220,20 +220,22 @@ from DIR-FILE; don't insert any new entries."
       (unless groups
 	;; No section is specified on the info file. Use "Miscellaneous"
 	;; as the section name.
-	(goto-char (point-min))
-	(while (re-search-forward "^START-INFO-DIR-ENTRY" nil t)
-	  (install-info-forward-line 1)
-	  (while (not (looking-at "^END-INFO-DIR-ENTRY"))
-	    (let ((start (point))
-		  str)
-	      (unless (eolp)
-		(setq str (buffer-substring start
-					    (install-info-point-at-eol)))
-		(if (string-match "^\\* " str)
-		    (push str entry)
-		  (when entry
-		    (setcar entry (format "%s\n%s" (car entry) str)))))
-	      (install-info-forward-line 1))))
+	(save-excursion
+	  (set-buffer buf)
+	  (goto-char (point-min))
+	  (while (re-search-forward "^START-INFO-DIR-ENTRY" nil t)
+	    (install-info-forward-line 1)
+	    (while (not (looking-at "^END-INFO-DIR-ENTRY"))
+	      (let ((start (point))
+		    str)
+		(unless (eolp)
+		  (setq str (buffer-substring start
+					      (install-info-point-at-eol)))
+		  (if (string-match "^\\* " str)
+		      (push str entry)
+		    (when entry
+		      (setcar entry (format "%s\n%s" (car entry) str)))))
+		(install-info-forward-line 1)))))
 	(unless (setq entry (nreverse entry))
 	  (error "warning; no info dir entry in %s" info-file))
 	(unless section
