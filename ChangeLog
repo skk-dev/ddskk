@@ -1,3 +1,15 @@
+2002-07-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el:
+	(skk-purge-from-jisyo): When `skk-henkan-mode' is active, call
+	`skk-emulate-original-map'.
+
+	(next-line@before@skk-ad):
+	(previous-line@before@skk-ad):
+
+	When `skk-henkan-mode' is active, perform kakutei before these
+	commands.
+
 2002-07-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el:
@@ -3934,8 +3946,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.697 2002/07/14 00:39:47 czkmt Exp $
-Last Modified: $Date: 2002/07/14 00:39:47 $
+Version: $Id: ChangeLog,v 1.698 2002/07/16 14:27:59 czkmt Exp $
+Last Modified: $Date: 2002/07/16 14:27:59 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
