@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.137 2001/10/08 08:38:11 czkmt Exp $
+;; Version: $Id: skk.el,v 1.138 2001/10/08 12:18:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/08 08:38:11 $
+;; Last Modified: $Date: 2001/10/08 12:18:15 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -313,8 +313,8 @@
 	   (get-char-code-property (string-to-char string)
 				   'ascii)))))
     ;;
-    (if char
-	(char-to-string char))))
+    (when char
+      (char-to-string char))))
 
 ;;;###autoload
 (defun skk-mode (&optional arg)
@@ -445,7 +445,8 @@ dependent."
 (defun skk-restart ()
   "skk-init-file の再ロード及び各種再セットアップの後、SKK モードを起動する。"
   (interactive)
-  (let (skk-mode-invoked) (skk-mode 1)))
+  (let (skk-mode-invoked)
+    (skk-mode 1)))
 
 (defun skk-require-module ()
   (when skk-use-color-cursor
@@ -488,14 +489,12 @@ dependent."
   (load skk-init-file t)
   (skk-setup-modeline)
   (require 'skk-autoloads)
-  (static-if
-      (memq skk-emacs-type '(mule3 mule4 mule5 xemacs))
-      (require 'skk-leim))
-  (if skk-share-private-jisyo (skk-setup-shared-private-jisyo))
-  (if skk-keep-record
-      (skk-create-file skk-record-file
-		       "SKK の記録用ファイルを作りました"
-		       "I have created an SKK record file for you"))
+  (when skk-share-private-jisyo
+    (skk-setup-shared-private-jisyo))
+  (when skk-keep-record
+    (skk-create-file skk-record-file
+		     "SKK の記録用ファイルを作りました"
+		     "I have created an SKK record file for you"))
   (skk-setup-auto-paren) ; necessary to call before compiling skk-rule-tree.
   (setq skk-rule-tree (skk-compile-rule-list
 		       skk-rom-kana-base-rule-list

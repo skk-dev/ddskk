@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.52 2001/10/08 09:20:19 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.53 2001/10/08 12:18:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/08 09:20:19 $
+;; Last Modified: $Date: 2001/10/08 12:18:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -337,7 +337,8 @@ the return value (nil if RESULT is omitted)."
     (substring str pos1 pos2))))
 
 (defsubst skk-char-to-string (char)
-  (condition-case nil (char-to-string char) (error)))
+  (ignore-errors
+    (char-to-string char)))
 
 (defsubst skk-ascii-char-p (char)
   ;; CHAR が ascii 文字だったら t を返す。

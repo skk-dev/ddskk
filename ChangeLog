@@ -1,5 +1,12 @@
 2001-10-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-gadget.el
+	(skk-clock): More specific.
+
+	* skk-isearch.el
+	(isearch-message-prefix): Fix for hiding
+	`current-input-method-title'.
+
 	* skk-macs.el
 	(ignore-errors): New macro.
 
@@ -2266,8 +2273,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.455 2001/10/08 08:38:46 czkmt Exp $
-Last Modified: $Date: 2001/10/08 08:38:46 $
+Version: $Id: ChangeLog,v 1.456 2001/10/08 12:18:14 czkmt Exp $
+Last Modified: $Date: 2001/10/08 12:18:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.18 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.19 2001/10/08 12:18:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/10/08 12:18:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -211,7 +211,8 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
       (condition-case nil
 	  (let (case-fold-search
 		inhibit-quit visible-bell
-		skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
+		skk-mode skk-latin-mode
+		skk-j-mode skk-abbrev-mode
 		skk-jisx0208-latin-mode)
 	    (while (not quit-flag)
 	      (setq mes (skk-current-date nil nil t)
@@ -241,7 +242,8 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 			    (ding)
 			    (unless (skk-sit-for
 				     (setq sec
-					   (+ sec (/ (float 1) (float 6))))
+					   (+ sec (/ (float 1)
+						     (float 6))))
 				     'nodisplay)
 			      (next-command-event)
 			      (signal 'quit nil))
@@ -257,9 +259,10 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 	 (prog2
 	     (setq end (current-time))
 	     (skk-current-date nil nil t)
-	   (if kakutei-when-quit
-	       (setq skk-kakutei-flag t))
-	   (message "$B7P2a;~4V(B: %s $BIC(B" (skk-time-difference start end))))))))
+	   (when kakutei-when-quit
+	     (setq skk-kakutei-flag t))
+	   (message "$B7P2a;~4V(B: %s $BIC(B"
+		    (skk-time-difference start end))))))))
 
 ;;;###autoload
 (defun skk-ad-to-gengo (gengo-index &optional divider tail not-gannen)
