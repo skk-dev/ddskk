@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 1999/10/23 15:01:26 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
-	     $Id: PROPOSAL,v 1.3 1999/10/23 15:01:26 minakaji Exp $
+             $Date: 2000/08/18 12:54:15 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
+	     $Id: PROPOSAL,v 1.4 2000/08/18 12:54:15 czkmt Exp $
 
 
 $B$3$N%U%!%$%k$K$O!"(BSKK $B%3!<%G%#%s%0$K4X$7!"Cm0U$9$Y$-E@!"E}0l$7$?J}$,NI$$(B
@@ -69,11 +69,11 @@ APEL (A Portable Emacs Library$B!#0JA0$O(B emu $B$H$7$FCN$i$l$F$$$?(B) $B$K
 $B$3$N(B Emacs $B$N4X?t$O!":G?7$N(B Emacs $B$K$7$+AuHw$5$l$F$*$i$:(B ($B$"$k$$$O;EMM(B
 $B$,0[$J$j(B)$B!";d$N(B Emacs $B$G$OF0$+$J$$!"$H$$$&$b$N$rH/8+$5$l$?>l9g$O!"(BAPEL
 $B$K<h$j9~$s$G$$$?$@$-$^$9$N$G!"!V(BAPEL $B$KDI2C$7$F!W$H$$$&$h$&$JJ,$j$d$9(B
-$B$$(B Subject $B$rIU$1$F(B skk-develop ML $B$+(B tm ML $B$^$G$*CN$;2<$5$$!#(B
-tm ML $B$K$O;22C$7$F$$$J$/$H$b(B
+$B$$(B Subject $B$rIU$1$F(B skk-develop ML $B$+(B APEL ML $B$^$G$*CN$;2<$5$$!#(B
+APEL ML $B$K$O;22C$7$F$$$J$/$H$b(B
 
-	bug-tm-en@chamonix.jaist.ac.jp	($B1Q8l(B)
-	bug-tm-ja@chamonix.jaist.ac.jp	($BF|K\8l(B)
+	apel-en@m17n.org	($B1Q8l(B)
+	apel-ja@m17n.org	($BF|K\8l(B)
 
 $B$K%a!<%k$rAw$k$3$H$,$G$-$^$9!#(B
 
