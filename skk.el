@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.205 2001/12/04 13:05:27 czkmt Exp $
+;; Version: $Id: skk.el,v 1.206 2001/12/06 06:56:34 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/04 13:05:27 $
+;; Last Modified: $Date: 2001/12/06 06:56:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -93,50 +93,6 @@
 
 ;; aliases.
 (defalias 'skk-toggle-kana 'skk-toggle-characters)
-
-;; inline functions to hook.
-(defsubst skk-after-point-move ()
-  (when (and (not (and skk-previous-point
-		       (= skk-previous-point (point))))
-	     (skk-get-prefix skk-current-rule-tree))
-    (skk-with-point-move
-     (skk-erase-prefix 'clean))))
-
-;; inline functions to hook.
-(defsubst skk-pre-command ()
-  (when (and (memq last-command
-		   '(skk-insert skk-previous-candidate))
-	     (null (memq this-command
-			 skk-kana-cleanup-command-list)))
-    (skk-kana-cleanup t)))
-
-;;; normal functions.
-(defun skk-define-menu (map)
-  (easy-menu-define skk-menu
-		    map
-		    "Menu used in SKK mode."
-		    skk-menu-items))
-
-;; VERSION SPECIFIC MATTERS.
-(defun skk-jisx0208-to-ascii (string)
-  (let ((char
-	 (static-cond
-	  ((eq skk-emacs-type 'mule2)
-	   (let* ((ch (string-to-char string))
-		  (ch1 (char-component ch 1)))
-	     (cond ((eq ch1 ?\241)
-		    (cdr (assq (char-component ch 2)
-			       skk-hankaku-alist)))
-		   ((eq ch1 ?\243)
-		    (- (char-component ch 2) ?\200)))))
-	  (t
-	   (require 'japan-util)
-	   (get-char-code-property (string-to-char string)
-				   'ascii)))))
-    ;;
-    (if char
-	(char-to-string char)
-      nil)))
 
 ;;;###autoload
 (defun skk-mode (&optional arg)
@@ -402,6 +358,12 @@ dependent."
     (setq skk-rule-tree (skk-compile-rule-list
 			 skk-rom-kana-base-rule-list
 			 skk-rom-kana-rule-list))))
+
+(defun skk-define-menu (map)
+  (easy-menu-define skk-menu
+		    map
+		    "Menu used in SKK mode."
+		    skk-menu-items))
 
 (defun skk-define-j-mode-map ()
   (unless (keymapp skk-j-mode-map)
@@ -911,7 +873,6 @@ dependent."
 	(kill-local-variable v)))))
 
 ;;;; kana inputting functions
-
 (defun skk-insert (&optional arg)
   "SKK の文字入力を行なう。"
   (interactive "*p")
@@ -1184,7 +1145,7 @@ dependent."
       (when skk-isearch-message
 	(skk-isearch-message)))))
 
-;; tree procedure (ツリーにアクセスするためのインターフェース)
+;;; tree procedure (ツリーにアクセスするためのインターフェース)
 (defun skk-search-tree (tree char-list)
   ;; TREE の根から先端へ CHAR-LIST に従ってたどる。
   ;; 成功した場合は nil と 結果の木の組を返し,
@@ -1376,8 +1337,7 @@ dependent."
   (skk-henkan)
   (setq skk-okurigana nil))
 
-;;;; other inputting functions
-
+;;; other inputting functions
 (defun skk-toggle-kutouten ()
   "句読点の種類をトグルで変更する。"
   (interactive)
@@ -1499,7 +1459,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	 (skk-set-marker skk-kana-start-point nil)
 	 (skk-emulate-original-map arg)))))))
 
-;;;; henkan routines
+;;; henkan routines
 (defun skk-henkan ()
   ;; カナを漢字変換するメインルーチン。
   (let (mark
@@ -2659,7 +2619,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	  skk-okuri-char nil
 	  skk-henkan-okurigana nil)))
 
-;;;; jisyo related functions
+;;; jisyo related functions
 (defun skk-purge-from-jisyo (&optional arg)
   "▼モードで現在の候補を辞書バッファから消去する。"
   (interactive "*P")
@@ -4098,8 +4058,8 @@ If you want to restore the dictionary from the disc, try
 				    1)
 		    33))))))
 
-;; from type-break.el.  Welcome!
 (defun skk-time-difference (a b)
+  ;; from type-break.el.  Welcome!
   ;; Compute the difference, in seconds, between a and b, two structures
   ;; similar to those returned by `current-time'.
   ;; Use addition rather than logand since that is more robust; the low 16
@@ -4123,6 +4083,21 @@ If you want to restore the dictionary from the disc, try
 		      skk-kakutei-history)
 	      nil)))))
 
+;;; functions for hooks.
+(defun skk-after-point-move ()
+  (when (and (not (and skk-previous-point
+		       (= skk-previous-point (point))))
+	     (skk-get-prefix skk-current-rule-tree))
+    (skk-with-point-move
+     (skk-erase-prefix 'clean))))
+
+(defun skk-pre-command ()
+  (when (and (memq last-command
+		   '(skk-insert skk-previous-candidate))
+	     (null (memq this-command
+			 skk-kana-cleanup-command-list)))
+    (skk-kana-cleanup t)))
+
 (defun skk-remove-minibuffer-setup-hook (&rest args)
   ;; Remove all args from minibuffer-setup-hook.
   (while args
@@ -4141,7 +4116,7 @@ If you want to restore the dictionary from the disc, try
 	     '(lambda ()
 		(add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
 
-;; cover to original functions.
+;;; cover to original functions.
 (skk-defadvice keyboard-quit (around skk-ad activate)
   "▼モードであれば、候補の表示をやめて▽モードに戻す (見出し語は残す)。
 ▽モードであれば、見出し語を削除する。

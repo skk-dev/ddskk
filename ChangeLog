@@ -1,3 +1,9 @@
+2001-12-06  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-after-point-move): Declare with `defun' instead of
+	`defsubst'.
+	(skk-pre-command): Ditto.
+
 2001-12-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cursor.el
@@ -3098,8 +3104,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.587 2001/12/05 13:45:22 czkmt Exp $
-Last Modified: $Date: 2001/12/05 13:45:22 $
+Version: $Id: ChangeLog,v 1.588 2001/12/06 06:56:34 minakaji Exp $
+Last Modified: $Date: 2001/12/06 06:56:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
