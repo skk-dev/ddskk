@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.164 2001/10/20 04:16:32 czkmt Exp $
+;; Version: $Id: skk.el,v 1.165 2001/10/20 07:06:28 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/20 04:16:32 $
+;; Last Modified: $Date: 2001/10/20 07:06:28 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -2512,23 +2512,23 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			  (looking-at unknown-chars-regexp))
 		(backward-char 1))
 	      (setq type (skk-what-char-type))
-	      (if (eq type 'unknown)
-		  (throw 'exit1 nil)
-		(skk-backward-and-set-henkan-point-1 type)
-		(setq p (point))
-		(when skk-allow-spaces-newlines-and-tabs
-		  (while (and (> (point) limit) (bolp))
-		    ;; 1 行上の行末へ。
-		    (backward-char 1)
-		    ;; ポイントが判別できない文字種別の上にある間は
-		    ;; backward 方向へポイントを戻す。
-		    ;;(while (and (> (point) limit)
-		    ;;            (looking-at unknown-chars-regexp))
-		    ;;  (backward-char 1))
-		    (when ;;(or
-			(> 0 (skk-backward-and-set-henkan-point-1 type))
-		      ;;(eq (skk-what-char-type) type))
-		      (setq p (point))))))))
+	      (when (eq type 'unknown)
+		(throw 'exit1 nil))
+	      (skk-backward-and-set-henkan-point-1 type)
+	      (setq p (point))
+	      (when skk-allow-spaces-newlines-and-tabs
+		(while (and (> (point) limit) (bolp))
+		  ;; 1 行上の行末へ。
+		  (backward-char 1)
+		  ;; ポイントが判別できない文字種別の上にある間は
+		  ;; backward 方向へポイントを戻す。
+		  ;;(while (and (> (point) limit)
+		  ;;            (looking-at unknown-chars-regexp))
+		  ;;  (backward-char 1))
+		  (when ;;(or
+		      (> 0 (skk-backward-and-set-henkan-point-1 type))
+		    ;;(eq (skk-what-char-type) type))
+		    (setq p (point)))))))
 	   (goto-char p)
 	   (skip-chars-forward unknown-chars-regexp))))
        (skk-set-henkan-point-subr)))))
