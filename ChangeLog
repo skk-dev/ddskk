@@ -1,5 +1,7 @@
 2001-09-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* READMEs/NEWS: Update.
+
 	* skk-dcomp.el (skk-dcomp-cleanup-buffer): Check if any completion
 	should exist.
 
@@ -1776,8 +1778,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.366 2001/09/08 01:33:30 czkmt Exp $
-Last Modified: $Date: 2001/09/08 01:33:30 $
+Version: $Id: ChangeLog,v 1.367 2001/09/08 03:20:00 czkmt Exp $
+Last Modified: $Date: 2001/09/08 03:20:00 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -22,6 +22,10 @@ $#.# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/
 
 というエントリを個人辞書に追加します。
 
+skk-w3m.el を使うには w3m をインストールする必要があります。
+
+http://ei5nazha.yz.yamagata-u.ac.jp/%7Eaito/w3m/
+
 ** SKK にヒントを与えて変換
 
 experimental/skk-hint.el という新たなプログラムが追加されました。
