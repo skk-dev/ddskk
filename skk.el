@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.157 2001/10/14 02:03:13 czkmt Exp $
+;; Version: $Id: skk.el,v 1.158 2001/10/15 10:01:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/14 02:03:13 $
+;; Last Modified: $Date: 2001/10/15 10:01:20 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -380,6 +380,8 @@ dependent."
     (skk-adjust-search-prog-list-for-auto-okuri))
   (when skk-use-look
     (require 'skk-look))
+  (when (featurep 'skk-jisx0201)
+    (setq skk-use-jisx0201-input-method t))
   (when skk-use-jisx0201-input-method
     ;; These commands are autoloaded.
     (define-key skk-j-mode-map "\C-c\C-q" 'skk-toggle-jisx0201)
