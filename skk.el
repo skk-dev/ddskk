@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.225 2002/01/27 02:13:16 czkmt Exp $
+;; Version: $Id: skk.el,v 1.226 2002/02/09 03:55:54 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/27 02:13:16 $
+;; Last Modified: $Date: 2002/02/09 03:55:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -227,7 +227,7 @@ dependent."
       (save-buffers-kill-emacs query))))
 
 (defun skk-restart ()
-  "skk-init-file の再ロード及び各種再セットアップの後、SKK モードを起動する。"
+  "`skk-init-file' の再ロード及び各種再設定の後 SKK モードを起動する。"
   (interactive)
   (kill-local-variable 'skk-rule-tree)
   (setq skk-rule-tree nil)
@@ -270,7 +270,7 @@ dependent."
     (easy-menu-remove skk-menu)))
 
 (defun skk-mode-invoke ()
-  (skk-setup-init-file)
+  (skk-compile-init-file-maybe)
   (load skk-init-file t)
   (skk-cus-setup)
   (skk-adjust-user-option)
@@ -303,6 +303,7 @@ dependent."
     (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)))
 
 (defun skk-setup-keymap ()
+  "SKK のキー設定を行う。"
   (cond
    (skk-j-mode
     (skk-define-j-mode-map)
@@ -373,12 +374,14 @@ dependent."
 			 skk-rom-kana-rule-list))))
 
 (defun skk-define-menu (map)
+  "SKK のプルダウンメニューを定義する。"
   (easy-menu-define skk-menu
 		    map
 		    "Menu used in SKK mode."
 		    skk-menu-items))
 
 (defun skk-define-j-mode-map ()
+  "キーマップ `skk-j-mode-map' を定義する。"
   (unless (keymapp skk-j-mode-map)
     (setq skk-j-mode-map (make-sparse-keymap))
     (set-modified-alist
@@ -394,6 +397,7 @@ dependent."
     (skk-define-menu skk-j-mode-map)))
 
 (defun skk-define-latin-mode-map ()
+  "キーマップ `skk-latin-mode-map' を定義する。"
   (unless (keymapp skk-latin-mode-map)
     (setq skk-latin-mode-map (make-sparse-keymap))
     (set-modified-alist
@@ -402,6 +406,7 @@ dependent."
     (skk-define-menu skk-latin-mode-map)))
 
 (defun skk-define-jisx0208-latin-mode-map ()
+  "キーマップ `skk-jisx0208-latin-mode-map' を定義する。"
   (unless (keymapp skk-jisx0208-latin-mode-map)
     (setq skk-jisx0208-latin-mode-map (make-sparse-keymap))
     (set-modified-alist
@@ -419,6 +424,7 @@ dependent."
     (skk-define-menu skk-jisx0208-latin-mode-map)))
 
 (defun skk-define-abbrev-mode-map ()
+  "キーマップ `skk-abbrev-mode-map' を定義する。"
   (unless (keymapp skk-abbrev-mode-map)
     (setq skk-abbrev-mode-map (make-sparse-keymap))
     (set-modified-alist
@@ -435,6 +441,7 @@ dependent."
 (skk-define-j-mode-map)
 
 (defun skk-make-indicator-alist ()
+  "SKK インジケータ型オブジェクトを用意し、連想リストにまとめる。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (skk-xemacs-prepare-modeline-properties))
@@ -562,6 +569,7 @@ dependent."
 	(define-key skk-j-mode-map key emulation)))))
 
 (defun skk-setup-delete-backward-char ()
+  "「後退」系のキーにコマンド `skk-delete-backward-char' を割当てる。"
   (skk-setup-emulation-commands
    '(backward-delete-char-untabify
      backward-delete-char
@@ -575,19 +583,21 @@ dependent."
    'skk-delete-backward-char))
 
 (defun skk-setup-undo ()
+  "「やりなおし」系のキーにコマンド `skk-undo' を割当てる。"
   (skk-setup-emulation-commands
   '(undo
     advertised-undo)
   'skk-undo))
 
-(defun skk-setup-init-file ()
-  ;; skk-byte-compile-init-file が non-nil の場合で、skk-init-file をバイトコ
-  ;; ンパイルしたファイルが存在しないか、そのバイトコンパイル済ファイルより
-  ;; skk-init-file の方が新しいときは、skk-init-file をバイトコンパイルする。
-  ;;
-  ;; skk-byte-compile-init-file が nil の場合で、skk-init-file をバイトコンパ
-  ;; イルしたファイルより skk-init-file の方が新しいときは、そのバイトコンパイ
-  ;; ル済ファイルを消す。
+(defun skk-compile-init-file-maybe ()
+  "必要なら `skk-init-file' をバイトコンパイルする。
+`skk-byte-compile-init-file' が non-nil の場合で、`skk-init-file' をバイトコ
+ンパイルしたファイルが存在しないか、そのバイトコンパイル済ファイルより
+`skk-init-file' の方が新しいときは、`skk-init-file' をバイトコンパイルする。
+
+`skk-byte-compile-init-file' が nil の場合で、`skk-init-file' をバイトコンパ
+イルしたファイルより `skk-init-file' の方が新しいときは、そのバイトコンパイ
+ル済ファイルを消す。"
   (save-match-data
     (let* ((init-file (expand-file-name skk-init-file))
 	   (elc (concat init-file
@@ -610,8 +620,9 @@ dependent."
 	  (delete-file elc))))))
 
 (defun skk-setup-delete-selection-mode ()
-  ;; Delete Selection モードが SKK を使った日本語入力に対しても機能するように
-  ;; セットアップする。
+  "Delete Selection モードのための設定をする。
+Delete Selection モードが SKK を使った日本語入力に対しても機能するように
+セットアップする。"
   (let ((feature (static-cond
 		  ((eq skk-emacs-type 'xemacs)
 		   'pending-del)
@@ -682,7 +693,7 @@ dependent."
 			skk-rom-kana-rule-list))))))))
 
 (defun skk-setup-minibuffer ()
-  ;; カレントバッファの入力モードに従いミニバッファの入力モードを設定する。
+  "カレントバッファの入力モードに従いミニバッファの入力モードを設定する。"
   (cond ((eq skk-minibuffer-origin-mode 'hiragana)
 	 (skk-j-mode-on))
 	((eq skk-minibuffer-origin-mode 'katakana)
@@ -695,11 +706,12 @@ dependent."
 	 (skk-jisx0208-latin-mode-on))))
 
 (defun skk-setup-jisyo-buffer ()
-  ;; skk-jisyo の辞書バッファで、
-  ;; (1)空バッファであれば、新しくヘッダーを作り、
-  ;; (2)辞書エントリがある既存の辞書バッファならば、ヘッダーが正しいかどうかを
-  ;;    チェックする。
-  ;;
+  "SKK の辞書バッファを用意する。
+`skk-jisyo' の辞書バッファで、
+ (1)空バッファであれば、新しくヘッダーを作り、
+ (2)辞書エントリがある既存の辞書バッファならば、ヘッダーが正しいかどうかを
+    チェックする。"
+
   ;; skk-okuri-ari-min と skk-okuri-nasi-min の位置を変更した。
   ;;                       ↓ 新しい skk-okuri-ari-min
   ;;   ;; okuri-ari entries.
@@ -719,8 +731,6 @@ dependent."
   ;; skk-okuri-ari-min の位置に挿入した候補が skk-okuri-ari-max のマーカー
   ;; を後方に押しやらない。
   ;;
-  ;; この関数のオリジナルの名称は、j-check-jisyo だったが、skk-check-jisyo と
-  ;; いう名前にすると skk-tools.el 内の関数名と重複する。
   ;; case-fold-search は、辞書バッファでは常に nil。
   (save-match-data
     (when (= (buffer-size) 0)
@@ -744,8 +754,7 @@ dependent."
     (setq skk-okuri-nasi-min (point-marker))))
 
 (defun skk-emulate-original-map (arg)
-  ;; キー入力に対して、SKK のモードではなく、Emacs のオリジナルのキー割り付けで
-  ;; コマンドを実行する。
+  "キー入力に対して Emacs のオリジナルのキー割り付けでコマンドを実行する。"
   (let ((prefix-arg arg)
 	(keys (skk-command-key-sequence (this-command-keys) this-command)))
     (when keys ; If key is nil, the command may have been invoked by M-x.
@@ -768,9 +777,8 @@ dependent."
 			       #'undefined)))))))
 
 (defun skk-command-key-sequence (key command)
-  ;; KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。
-  ;; `execute-extended-command' によってコマンドが実行された場合は、nil を
-  ;; 返す。
+  "KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。
+`execute-extended-command' によってコマンドが実行された場合は、nil を返す。"
   (while (not (or (zerop (length key))
 		  (eq command (key-binding key))))
     (setq key (vconcat (cdr (append key nil)))))
@@ -778,6 +786,7 @@ dependent."
     key))
 
 (defun skk-adjust-user-option ()
+  "ユーザオプションの不整合を調整する。"
   (unless (skk-color-display-p)
     (setq skk-use-color-cursor nil))
   ;; 両立できないオプションの調整を行なう。
@@ -873,9 +882,8 @@ dependent."
   nil)
 
 (defun skk-misc-for-picture ()
-  ;; picture-mode へ入ったときに SKK 起動前の状態に戻す。
-  ;; edit-picture-hook に add-hook して使用する。
-  ;;
+  "`picture-mode' へ入ったときに SKK 起動前の状態に戻す。
+`edit-picture-hook' に `add-hook' して使用する。"
   ;; 既存のバッファを picture mode にしたとき、picture-mode 関数は
   ;; kill-all-local-variables 関数を呼ばないので、SKK 関連のバッファローカル
   ;; 変数が元のバッファの値のままになってしまう。そこで、picture mode に入った
@@ -892,7 +900,7 @@ dependent."
     (skk-kill-local-variables)))
 
 (defun skk-kill-local-variables ()
-  ;; SKK 関連のバッファローカル変数を無効にする。
+  "SKK 関連のバッファローカル変数を無効にする。"
   (skk-mode -1)
   (let ((lv (buffer-local-variables))
 	v vstr)
@@ -992,7 +1000,7 @@ dependent."
 	 )))
 
 (defun skk-kana-input (&optional arg)
-  ;;"かな文字の入力を行うルーチン。"
+  "かな文字の入力を行うルーチン。"
   ;; Message-Id: <19980610190611B.sakurada@kuis.kyoto-u.ac.jp>
   ;; From: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
   ;; Date: Wed, 10 Jun 1998 19:06:11 +0900 (JST)
@@ -1179,10 +1187,9 @@ dependent."
 
 ;;; tree procedure (ツリーにアクセスするためのインターフェース)
 (defun skk-search-tree (tree char-list)
-  ;; TREE の根から先端へ CHAR-LIST に従ってたどる。
-  ;; 成功した場合は nil と 結果の木の組を返し,
-  ;; 失敗した場合はたどれなかった CHAR-LIST の残りとたどれなくなった
-  ;; 節点の木の組を返す。
+  "TREE の根から先端へ CHAR-LIST に従ってたどる。
+成功した場合は nil と 結果の木の組を返し, 失敗した場合はたどれなかった
+CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
   (catch 'return
     (let (next char rest)
       (while char-list
@@ -1215,13 +1222,13 @@ dependent."
     (skk-set-kana addpoint (nth 2 rule))))
 
 (defun skk-delete-rule (tree string)
-  ;; 入力 STRING に対するルールをルール木 TREE から削除
+  "入力 STRING に対するルールをルール木 TREE から削除する。"
   (catch 'return
     (let ((char-list (string-to-char-list string))
 	  (cutpoint tree)
+	  ;; TREE の根から出る枝が1本しかない場合
+	  ;; のために一応初期化しておく
 	  (cuttree (car (skk-get-branch-list tree)))
-					; TREE の根から出る枝が1本しかない場合
-					; のために一応初期化しておく
 	  next)
       (while char-list
 	(setq next (skk-select-branch tree (car char-list))
@@ -1245,7 +1252,7 @@ dependent."
 ;; <nextstate>    := <英小文字文字列> | nil
 ;;;###autoload
 (defun skk-compile-rule-list (&rest l)
-  ;; rule-list を木の形にコンパイルする。
+  "rule list を木の形にコンパイルする。"
   (let ((tree (skk-make-rule-tree nil "" nil nil nil))
 	rule key ll)
     (while l
@@ -1270,8 +1277,8 @@ dependent."
     tree))
 
 (defun skk-insert-str (str)
-  ;; STR を挿入する。必要であれば self-insert-after-hook をコ
-  ;; ールする。overwrite-mode であれば、適切に上書きを行う。
+  "STR を挿入する。必要であれば `self-insert-after-hook' をコールする。
+`overwrite-mode' であれば、適切に上書きを行う。"
   (insert-and-inherit str)
   (if (eq skk-henkan-mode 'on)
       ;;
@@ -1293,7 +1300,7 @@ dependent."
     (skk-do-auto-fill)))
 
 (defun skk-ovwrt-len (len)
-  ;; 上書きして良い長さを返す。
+  "上書きして良い長さを返す。"
   (min (string-width
 	(buffer-substring-no-properties
 	 (point) (skk-save-point
@@ -1302,8 +1309,8 @@ dependent."
        len))
 
 (defun skk-del-char-with-pad (length)
-  ;; 長さ LENGTH の文字を消去する。調整のため、必要であれば、末尾にスペースを
-  ;; 挿入する。
+  "長さ LENGTH の文字を消去する。
+調整のため、必要であれば、末尾にスペースを挿入する。"
   (let ((p (point)) (len 0))
     (while (< len length)
       (forward-char 1)
@@ -1347,7 +1354,7 @@ dependent."
     (setq skk-self-insert-non-undo-count 1))))
 
 (defun skk-set-okurigana ()
-  ;; 見出し語から skk-henkan-okurigana, skk-henkan-key の各値をセットする。
+  "見出し語から `skk-henkan-okurigana', `skk-henkan-key' の各値をセットする。"
   (cancel-undo-boundary)
   ;;(and skk-katakana (skk-hiragana-region skk-henkan-start-point (point)))
   (skk-set-marker skk-henkan-end-point skk-okurigana-start-point)
@@ -1498,7 +1505,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 
 ;;; henkan routines
 (defun skk-henkan ()
-  ;; カナを漢字変換するメインルーチン。
+  "カナを漢字変換するメインルーチン。"
   (let (mark
 	prototype
 	new-word
@@ -1546,7 +1553,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	(skk-kakutei new-word)))))
 
 (defun skk-henkan-1 ()
-  ;; skk-henkan のサブルーチン。
+  "`skk-henkan' のサブルーチン。"
   (let (new-word)
     (cond
      ((= skk-henkan-count 0)
@@ -1599,7 +1606,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
     (skk-jisx0213-henkan-list-filter)))
 
 (defun skk-henkan-show-candidates ()
-  ;; ミニバッファで変換した候補群を表示する。
+  "ミニバッファで変換した候補群を表示する。"
   (skk-save-point
    (let* ((candidate-keys ; 表示用のキーリスト
 	   (mapcar
@@ -1766,8 +1773,9 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	 new-one))))
 
 (defun skk-henkan-show-candidate-subr (keys candidates)
-  ;; key と candidates を組み合わせて 7 つの候補群 (候補数が 7 に満たなかっ
-  ;; たらそこで打ち切る) の文字列を作り、ミニバッファに表示する。
+  "候補群を表示する関数。
+KEYS と CANDIDATES を組み合わせて 7 つの候補群 (候補数が 7 に満たなかったらそ
+こで打ち切る) の文字列を作り、ミニバッファに表示する。"
   (let ((workinglst
 	 ;; CANDIDATES の先頭の 7 つのみのリスト。
 	 (let ((count 0) e v)
@@ -1849,7 +1857,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
     n))
 
 (defun skk-henkan-in-minibuff ()
-  ;; 辞書登録モードに入り、登録した単語の文字列を返す。
+  "辞書登録モードに入り、登録した単語の文字列を返す。"
   (save-match-data
     (let ((enable-recursive-minibuffers t)
 	  ;; XEmacs では次の変数が再帰的ミニバッファの可否に影響する。
@@ -1940,7 +1948,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   "辞書に登録される候補の持つ余計な送り仮名を取り除く。
 
 送りありの登録をするとき、送り仮名を消してから [RET] を押さなければ正しく登録
-できない。 そこで、ユーザが間違えて送り仮名を消し忘れていないかどうか、 SKK 
+できない。 そこで、ユーザが間違えて送り仮名を消し忘れていないかどうか、 SKK
 の側でチェックできる範囲についてはユーザの確認を取る。
 
 `skk-check-okurigana-on-touroku' を non-nil に設定している場合のみ有効。
@@ -2047,6 +2055,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	 (skk-abbrev-mode-on)))))))
 
 (defun skk-undo (&optional arg)
+  "`undo' の機能を、SKK との整合性を考えて調節する。"
   (interactive "*P")
   (cond ((skk-get-prefix skk-current-rule-tree)
 	 (skk-kana-cleanup 'force))
@@ -2062,7 +2071,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	 (skk-emulate-original-map arg))))
 
 (defun skk-insert-new-word (word)
-  ;; 見出し語を消し、その場所へ変換結果の文字列を挿入する。
+  "見出し語を消し、その場所へ変換結果の文字列を挿入する。"
   ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert される
   ;; skk-henkan-key に何故か Overlay がかかってしまう。
   (save-match-data
@@ -2151,7 +2160,7 @@ WORD で確定する。"
   nil)
 
 (defun skk-kakutei-cleanup-buffer ()
-  ;; 確定直後のバッファの整形を行なう。
+  "確定直後のバッファの整形を行う。"
   (when skk-okurigana
     (skk-delete-okuri-mark))
   (skk-delete-henkan-markers)
@@ -2182,7 +2191,7 @@ WORD で確定する。"
 	skk-henkan-start-point (point)))))))
 
 (defun skk-kakutei-initialize (&optional kakutei-word)
-  ;; 確定時に変数の初期化とアンドゥのための変数の保存を行なう。
+  "確定時に変数の初期化とアンドゥのための変数の保存を行う。"
   (when (and kakutei-word
 	     (or (consp kakutei-word)
 		 (not (string= kakutei-word ""))))
@@ -2289,7 +2298,7 @@ WORD で確定する。"
       (skk-kakutei)))))
 
 (defun skk-set-henkan-point (&optional arg)
-  ;;"変換を開始するポイントをマークし、対応する skk-prefix か母音を入力する。"
+  "変換を開始するポイントをマークし、対応する `skk-prefix' か母音を入力する。"
   (let* ((last-char (skk-downcase last-command-char))
 	 (normal (not (eq last-char last-command-char)))
 	 (sokuon (if (string= skk-prefix (char-to-string last-char))
@@ -2457,9 +2466,10 @@ WORD で確定する。"
 	   (setq skk-abbrev-mode t)))))))
 
 (defun skk-auto-start-henkan (str)
-  ;; skk-auto-start-henkan-keyword-list の要素の文字列を挿入したときに自動的に
-  ;; (スペースを打鍵しなくとも) 変換を開始する。エー×イソフト社の MSDOS 用 の
-  ;; FEP、WX2+ 風。
+  "ある条件下において、自動的に変換を開始する。
+`skk-auto-start-henkan-keyword-list' の要素の文字列を挿入したときに自動的に
+(スペースを打鍵しなくとも) 変換を開始する。エー×イソフト社の MSDOS 用 の
+ FEP、WX2+ 風。"
   (when (member str skk-auto-start-henkan-keyword-list)
     (skk-save-point
      (backward-char 1)
@@ -2469,8 +2479,8 @@ WORD で確定する。"
 
 (defun skk-backward-and-set-henkan-point (arg)
   "ポイントの直前にある文字列の先頭に変換開始ポイントを示す \"▽\" を付ける。
-カーソルの直前にある文字 \(スペース文字、タブ文字、長音を表わす「ー」 は無条件
-にスキップされる\) を skk-what-char-type にて判別し、同種の文字列をひとかたま
+カーソルの直前にある文字 (スペース文字、タブ文字、長音を表わす「ー」 は無条件
+にスキップされる) を skk-what-char-type にて判別し、同種の文字列をひとかたま
 りとして後方へスキップする。
 但し、ひらかなの場合は「を」の直前で、カタカナの場合は「ヲ」の直前で止まる。
 C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
@@ -2538,8 +2548,8 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
        (skk-set-henkan-point-subr)))))
 
 (defun skk-backward-and-set-henkan-point-1 (type)
-  ;; skk-backward-and-set-henkan-point のサブルーチン。CHAR の種類に応じた文字
-  ;; をスキップしてバッファの先頭方向へ戻る。
+  "`skk-backward-and-set-henkan-point' のサブルーチン。
+TYPE (文字の種類) に応じた文字をスキップしてバッファの先頭方向へ戻る。"
   (cond ((eq type 'hiragana)
 	 ;; "を" の前で止まった方が便利？
 	 (skip-chars-backward "ヽヾゝゞ〃ーんぁ-ゑ"))
@@ -2552,7 +2562,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	 (skip-chars-backward " -~"))))
 
 (defun skk-what-char-type ()
-  ;; 現在のポイントにある文字がどんな種類かを判別する。
+  "現在のポイントにある文字がどんな種類かを判別する。"
   (save-match-data
     (cond ((looking-at "[ぁ-ん]")
 	   'hiragana)
@@ -2567,7 +2577,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	   'unknown))))
 
 (defun skk-set-henkan-point-subr (&optional arg)
-  "かなを入力した後で、ポイントに変換開始のマーク \(▽\) を付ける。
+  "かなを入力した後で、ポイントに変換開始のマーク (▽) を付ける。
 この関数は skk-set-henkan-point の内部関数としても使用されている。"
   (interactive "*P")
   (skk-with-point-move
@@ -2591,7 +2601,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
    nil)
 
 (defun skk-change-marker ()
-  ;; "▽"を"▼"に変える。`skk-henkan-mode' を active にする。
+  "\"▽\"を\"▼\"に変える。`skk-henkan-mode' を active にする。"
   (skk-save-point
    (goto-char (1- skk-henkan-start-point))
    (unless (looking-at "▽")
@@ -2605,7 +2615,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
    (setq skk-henkan-mode 'active)))
 
 (defun skk-change-marker-to-white ()
-  ;; "▼"を"▽"に変える。`skk-henkan-mode' を on にする。
+  "\"▼\"を\"▽\"に変える。`skk-henkan-mode' を on にする。"
   (skk-save-point
    (goto-char (1- skk-henkan-start-point))
    (cancel-undo-boundary)
@@ -2621,7 +2631,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
    (setq skk-henkan-mode 'on)))
 
 (defun skk-delete-henkan-markers (&optional nomesg)
-  ;; 変換時にカレントバッファに表われる `▽', `▼' マークを消す。
+  "変換時にカレントバッファに表われる \"▽\", \"▼\" マークを消す。"
   (when (marker-position skk-henkan-start-point)
     (save-match-data
       (skk-save-point
@@ -2642,8 +2652,9 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 		      "It seems that you have deleted ▽")))))))
 
 (defun skk-delete-okuri-mark ()
-  ;; 送り仮名入力中にカレントバッファに表われる `*' マークを消し、
-  ;; 送り仮名関連フラグを nil にセットする。
+  "送り仮名関連フラグをを消す。
+送り仮名入力中にカレントバッファに表われる `*' マークを消し、
+送り仮名関連フラグを nil にセットする。"
   (when (and skk-okurigana
 	     skk-okurigana-start-point
 	     (markerp skk-okurigana-start-point)
@@ -2759,8 +2770,9 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	 (not (search-forward skk-emacs-id nil t)))))
 
 (defun skk-update-shared-jisyo ()
-  ;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
-  ;; 更新した skk-jisyo を読み込む。
+  "個人辞書が共有されている場合に、新しい情報に更新する。
+現在の辞書バッファの内容を消去して、他の Emacs 上の SKK が更新した
+`skk-jisyo' を読み込む。"
   (erase-buffer)
   (insert-file-contents skk-jisyo)
   (skk-setup-jisyo-buffer)
@@ -2878,8 +2890,9 @@ If you want to restore the dictionary from the disc, try
 		 "Stop saving SKK jisyo!")))))
 
 (defun skk-make-temp-jisyo ()
-  ;; SKK 個人辞書保存のための作業用のファイルを作り、ファイルのモードを
-  ;; skk-jisyo のものと同じに設定する。作った作業用ファイルの名前を返す。
+  "SKK 個人辞書保存のための作業用のファイルを作る。
+ファイルのモードは `skk-jisyo' のものと同じに設定する。作った作業用ファイルの
+名前を返す。"
   (let* ((dir (static-cond
 	       ((fboundp 'temp-directory)
 		(temp-directory))
@@ -2901,8 +2914,8 @@ If you want to restore the dictionary from the disc, try
     temp-name))
 
 (defun skk-make-new-jisyo (tempo-file)
-  ;; TEMPO-FILE を新規の skk-jisyo にする。skk-backup-jisyo が non-nil だった
-  ;; らバックアップ辞書を作る。
+  "TEMPO-FILE を新規の `skk-jisyo' にする。
+`skk-backup-jisyo' が non-nil だったらバックアップ辞書を作る。"
   (if skk-backup-jisyo
       (progn
 	(when (file-exists-p skk-backup-jisyo)
@@ -3000,8 +3013,8 @@ If you want to restore the dictionary from the disc, try
       count)))
 
 (defun skk-count-jisyo-candidates-original (file)
-  ;;"SKK 辞書の候補数を数える。
-  ;;`[' と `]' に囲まれた送り仮名毎のブロック内は数えない。"
+  "SKK 辞書の候補数を数える。
+`[' と `]' に囲まれた送り仮名毎のブロック内は数えない。"
   (with-current-buffer (find-file-noselect file)
     (save-match-data
       (let ((count 0)
@@ -3038,9 +3051,9 @@ If you want to restore the dictionary from the disc, try
 	count))))
 
 (defun skk-create-file (file &optional japanese english modes)
-  ;; FILE がなければ、FILE という名前の空ファイルを作る。
-  ;; オプショナル引数の JAPANESE/ENGLISH を指定すると、ファイル作成後そのメッセ
-  ;; ージをミニバッファに表示する。
+  "FILE がなければ、FILE という名前の空ファイルを作る。
+オプション引数の JAPANESE/ENGLISH を指定すると、ファイル作成後そのメッセージ
+をミニバッファに表示する。"
   (let ((file (expand-file-name file)))
     (if (file-exists-p file)
 	(when modes
@@ -3056,9 +3069,9 @@ If you want to restore the dictionary from the disc, try
 	(sit-for 3)))))
 
 (defun skk-get-jisyo-buffer (file &optional nomsg)
-  ;; FILE を開いて SKK 辞書バッファを作り、バッファを返す。
-  ;; オプショナル引数の NOMSG を指定するとファイル読み込みの
-  ;; 際のメッセージを表示しない。
+  "FILE を開いて SKK 辞書バッファを作り、バッファを返す。
+オプション引数の NOMSG を指定するとファイル読み込みの際のメッセージを表示しな
+い。"
   (when file
     (let* ((inhibit-quit t)
 	   (code (skk-find-coding-system (if (consp file)
@@ -3110,8 +3123,9 @@ If you want to restore the dictionary from the disc, try
       buf)))
 
 (defun skk-search ()
-  ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
-  ;; skk-henkan-keyをキーにして検索を行う。
+  "検索を行う。
+`skk-current-search-prog-list' の要素になっているプログラムを評価して、
+`skk-henkan-key' をキーにして検索を行う。"
   (let (l)
     (while (and (null l) skk-current-search-prog-list)
       (setq l (eval (car skk-current-search-prog-list))
@@ -3119,37 +3133,34 @@ If you want to restore the dictionary from the disc, try
     l))
 
 (defun skk-search-jisyo-file (file limit &optional nomsg)
-  ;; SKK 辞書フォーマットの FILE で skk-henkan-key をキーにして検索を行う。
-  ;; 検索領域が LIMIT 以下になるまでバイナリサーチを行い、その後リニ
-  ;; アサーチを行う。
-  ;; LIMIT が 0 であれば、リニアサーチのみを行う。
-  ;; 辞書がソートされていないのであれば、LIMIT を 0 する必要がある。
-  ;; オプショナル引数の NOMSG が non-nil であれば skk-get-jisyo-buffer の
-  ;; メッセージを出力しないようにする。
+  "SKK 辞書フォーマットの FILE で `skk-henkan-key' をキーにして検索を行う。
+検索領域が LIMIT 以下になるまでバイナリサーチを行い、その後リニアサーチを行う。
+LIMIT が 0 であれば、リニアサーチのみを行う。
+辞書がソートされていないのであれば、LIMIT を 0 する必要がある。
+オプション引数の NOMSG が non-nil であれば `skk-get-jisyo-buffer' の
+メッセージを出力しないようにする。"
   (skk-search-jisyo-buf (skk-get-jisyo-buffer file nomsg)
 			limit))
 
 (defun skk-search-server (file limit &optional nomsg)
-  ;; SKK 辞書フォーマットの FILE で SKK サーバーを使用して
-  ;; `skk-henkan-key' をキーにして検索を行う。
-  ;; SKK サーバーが使用できないときは、FILE をバッファに
-  ;; 読み込んでサーチを行う。
-  ;; LIMIT と NOMSG は SKK サーバーを使用しないときのみ使う。
-  ;; これらの引数については `skk-search-jisyo-file' の
-  ;; コメントを参照。
+  "SKK サーバーを使用して `skk-henkan-key' をキーにして検索を行う。
+SKK サーバーが使用できないときは、FILE をバッファに読み込んで検索を行う。
+LIMIT と NOMSG は SKK サーバーを使用しないときのみ使う。
+これらの引数については `skk-search-jisyo-file' を参照。"
   (if (or skk-server-host
 	  skk-servers-list)
       (skk-search-server-1 file limit)
     (skk-search-jisyo-file file limit nomsg)))
 
 (defun skk-okuri-search ()
-  ;; skk-auto-okuri-process が non-nil ならば "Uresii" のように
-  ;; 送り仮名も含めてタイプしても送りありの "嬉しい" を探し出す。
+  "見出し語を送り仮名を含むものとして検索する。
+例えば、`skk-auto-okuri-process' が non-nil ならば \"Uresii\" のように送り仮
+名も含めてタイプしても送りありの \"嬉しい\" を探し出す。"
   (when skk-auto-okuri-process
     (skk-okuri-search-1)))
 
 (defun skk-search-jisyo-buf (buf limit)
-  ;; バッファを BUF に移動して、そこを辞書として検索する。
+  "バッファを BUF に移動して、そこを辞書として検索する。"
   (when (buffer-live-p buf)
     ;; skk-henkan-key と skk-henkan-okurigana はカレントバッファの
     ;; ローカル値なので、あらかじめ取得。
@@ -3169,10 +3180,9 @@ If you want to restore the dictionary from the disc, try
 				    okurigana)))))
 
 (defun skk-search-jisyo (okurigana limit &optional delete)
-  ;; カレントバッファを辞書として検索する。
-  ;; `skk-compute-henkan-lists' を使用し、見出し語についての候補の情報を
-  ;; 返す。DELETE が non-nil であれば、MIDASI にマッチするエントリを削除
-  ;; する。
+  "カレントバッファを辞書として検索する。
+`skk-compute-henkan-lists' を使用し、見出し語についての候補の情報を返す。
+DELETE が non-nil であれば、MIDASI にマッチするエントリを削除する。"
   (let ((key (concat "\n" skk-henkan-key " /"))
 	min max size p)
     (save-match-data
@@ -3218,8 +3228,7 @@ If you want to restore the dictionary from the disc, try
 			     (point)))))))))
 
 (defun skk-select-words-from-list (list buffer midasi okurigana)
-  ;; `skk-search-jisyo' が返した候補リストから、現在要求されている
-  ;; 候補を選びだす。
+  "`skk-search-jisyo' が返した候補リストから現在要求されている候補を選びだす。"
   (when list
     (let ((words
 	   (cond
@@ -3244,8 +3253,8 @@ If you want to restore the dictionary from the disc, try
       words)))
 
 (defun skk-compute-henkan-lists (okurigana)
-  ;; 辞書候補群を 4 つのリストに分解する。
-  ;;
+  "辞書候補群を 4 つのリストに分解する。
+詳しくは、この関数のコメントを参照。"
   ;; 送りなし (例えば、辞書エントリ "てんさい /転載/天災/天才/" の処理)
   ;; words1 := ("転載" "天災" "天才") == 全候補群
   ;; words2 := nil
@@ -3334,8 +3343,8 @@ If you want to restore the dictionary from the disc, try
   item)
 
 (defun skk-nunion (x y)
-  ;; X と Y の和集合を作る。等しいかどうかの比較は、`equal' で行われる。
-  ;; X に Y を破壊的に連接する。
+  "X と Y の和集合を作る。
+等しいかどうかの比較は、`equal' で行われる。X に Y を破壊的に連接する。"
   (cond
    ((null x)
     y)
@@ -3370,20 +3379,20 @@ If you want to restore the dictionary from the disc, try
 	x)))))
 
 (defun skk-search-kakutei-jisyo-file (file limit &optional nomsg)
-  ;; 辞書ファイルを探し、候補をリストで返す。
-  ;; 候補を見つけた場合は、大域変数 skk-kakutei-flag に non-nil を代入する。
-  ;; 候補が見つからなかった場合は、nil を返す。
+  "辞書ファイルを探し、候補をリストで返す。
+候補を見つけた場合は、大域変数 `skk-kakutei-flag' に non-nil を代入する。
+候補が見つからなかった場合は、nil を返す。"
   (setq skk-kakutei-flag (skk-search-jisyo-file file limit nomsg)))
 
 (defun skk-update-jisyo (word &optional purge)
   (funcall skk-update-jisyo-function word purge))
 
 (defun skk-update-jisyo-original (word &optional purge)
-  ;; WORD が次の変換時に最初の候補になるように、プライベート辞書を更新する。
-  ;; PURGE が non-nil で WORD が共有辞書にある候補なら skk-ignore-dic-word
-  ;; 関数でクォートした候補をプライベート辞書に作り、次の変換から出力しな
-  ;; いようにする。
-  ;; WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。
+  "WORD が次の変換時に最初の候補になるように、プライベート辞書を更新する。
+PURGE が non-nil で WORD が共有辞書にある候補なら `skk-ignore-dic-word'
+関数でクォートした候補をプライベート辞書に作り、次の変換から出力しな
+いようにする。
+WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
   ;;
   ;; SKK 9.x より、プライベート辞書のエントリの挿入の方法を変更した (9.3 のみ
   ;; は例外)。
@@ -3480,8 +3489,9 @@ If you want to restore the dictionary from the disc, try
 	    (skk-save-jisyo 'quiet)))))))
 
 (defun skk-update-jisyo-1 (okurigana word old-words-list purge)
-  ;; 既存エントリから計算した words[1-4] の値と、今回の変換の結果 word とを
-  ;; 結合して、新たなエントリを計算し、挿入する。
+  "個人辞書に新しいエントリを挿入する。
+既存エントリから計算した words[1-4] の値と、今回の変換の結果 word とを
+結合して、新たなエントリを計算し、挿入する。"
   (let ((words1 (car old-words-list))
 	(words2 (nth 1 old-words-list))
 	(words3 (nth 2 old-words-list))
@@ -3592,8 +3602,9 @@ If you want to restore the dictionary from the disc, try
 		  "/"))))))
 
 (defun skk-quote-char (word)
-  ;; 辞書の制限から辞書エントリ内に含めてはならない文字が WORD の中にあれば、
-  ;; 評価したときにその文字となるような Lisp コードを返す。
+  "WORD を辞書エントリとして正しい形に整形する。
+辞書の制限から辞書エントリ内に含めてはならない文字が WORD の中にあれば、
+評価したときにその文字となるような Lisp コードを返す。"
   (save-match-data
     (cond
      ((and word
@@ -3608,6 +3619,9 @@ If you want to restore the dictionary from the disc, try
        word))))
 
 (defun skk-quote-semicolon (word)
+  "WORD を辞書エントリとして正しい形に整形する。
+`skk-quote^char' と似ているが、註釈と関係ないセミコロン (;) を処理する点が
+異なる。"
   ;; `save-match-data' は要らない。
   (cond
    ((string-match ";" word)
@@ -3617,8 +3631,9 @@ If you want to restore the dictionary from the disc, try
     word)))
 
 (defun skk-public-jisyo-has-word-p (okurigana word)
-  ;; 共有辞書が MIDASHI 及びそれに対応する 候補 WORD を持っていれば、
-  ;; non-nil を返す。個人辞書のバッファで実行される。
+  "共有辞書が  WORD を持っているかどうか調べる。
+共有辞書が MIDASHI 及びそれに対応する 候補 WORD を持っていれば、 non-nil を返
+す。個人辞書のバッファで実行される。"
   (let (fn
 	skk-henkan-okuri-strictly
 	skk-henkan-strict-okuri-precedence)
@@ -3635,8 +3650,7 @@ If you want to restore the dictionary from the disc, try
 	 (member word (eval fn)))))
 
 (defun skk-public-jisyo-to-be-searched-original ()
-  ;; skk-search-prog-list の中から、一番大きな共有辞書でサーチするプロ
-  ;; グラムを返す。
+  "`skk-search-prog-list' の中から、一番大きな共有辞書を使うプログラムを返す。"
   (let (fn)
     (when (and (featurep 'skk-server)
 	       (or skk-servers-list
@@ -3658,12 +3672,13 @@ If you want to restore the dictionary from the disc, try
     fn))
 
 (defun skk-compose-ignore-word (words &optional add)
-  ;; WORDS の中に skk-ignore-dic-word 関数でクォートした候補が
-  ;; あれば、一つの候補にまとめる。
-  ;; オプショナル引数の ADD が指定されていたら、ADD を含めた
-  ;; skk-ignore-dic-word 候補群を作る。
-  ;; 新しい skk-ignore-dic-word 候補を car に、それ以外の候補を
-  ;; cdr にしたリストを返す。
+  "無視すべき候補をまとめる。
+WORDS の中に `skk-ignore-dic-word' 関数でクォートした候補があれば、一つの候補
+にまとめる。
+オプション引数の ADD が指定されていたら、ADD を含めた `skk-ignore-dic-word'
+候補群を作る。
+新しい `skk-ignore-dic-word' 候補を car に、それ以外の候補を cdr にしたセル
+\(リスト)を返す。"
   (let (l arg e)
     (when add
       (setq words (delete add words)))
@@ -3697,6 +3712,8 @@ If you want to restore the dictionary from the disc, try
 	    words))))
 
 (defun skk-compose-ignore-word-sub-quote-char (str)
+  "`skk-compose-ignore-word' の下位ルーチン。
+SKK 辞書の候補として正しい形に整形する。"
   (cond
    ((string-match "[/\n\r\";]" str)
     (let ((alist (if (string-match ";" str)
@@ -3707,10 +3724,11 @@ If you want to restore the dictionary from the disc, try
     str)))
 
 (defun skk-search-katakana (&optional jisx0201-kana)
-  ;; これは `skk-search-prog-list' に追加されるべき機能で、変換キーを単純にカ
-  ;; タカナに変換したものを候補として返す。
-  ;; 一般的な FEP は単純にカタカナに変換したものが候補に現れるものが多いが、
-  ;; そのような挙動が好みの場合にはこの関数を用いるとよい。
+  "見出し語をカタカナにして、リストにして返す。
+これは `skk-search-prog-list' に追加されるべき機能で、変換キーを単純にカ
+タカナに変換したものを候補として返す。
+一般的な FEP は単純にカタカナに変換したものが候補に現れるものが多いが、
+そのような挙動が好みの場合にはこの関数を用いるとよい。"
   (unless skk-henkan-okurigana
     (let ((key skk-henkan-key)
 	  char
@@ -3736,6 +3754,7 @@ If you want to restore the dictionary from the disc, try
       words)))
 
 (defun skk-search-sagyo-henkaku (&optional okuri-list anything)
+  "見出し語をサ行変格活用の動詞とみなして、送りあり候補を検索する。"
   (unless okuri-list
     (setq okuri-list '("さ" "し" "す" "せ")))
   (when (and skk-henkan-okurigana
@@ -3795,7 +3814,7 @@ If you want to restore the dictionary from the disc, try
        (aref skk-default-jisx0208-latin-vector (string-to-char matched)))))
 
 (defun skk-latin-region (start end)
-  ;; 領域の全角英数字を対応する ascii 文字に変換する。
+  "領域の全角英数字を対応する ascii 文字に変換する。"
   (interactive "*r")
   (skk-search-and-replace
    start end "\\cj"
@@ -3865,8 +3884,9 @@ If you want to restore the dictionary from the disc, try
   (skk-*-henkan-2 #'skk-latin-region))
 
 (defun skk-*-henkan-1 (func &rest args)
-  ;; 変換可能かどうかのチェックをした後に ARGS を引数として FUNC を適用し、
-  ;; skk-henkan-start-point と skk-henkan-end-point の間の文字列を変換する。
+  "`skk-henkan-start-point' と `skk-henkan-end-point' の間の文字列を変換する。
+変換可能かどうかのチェックをした後に ARGS を引数として FUNC を適用し、
+`skk-henkan-start-point' と `skk-henkan-end-point' の間の文字列を変換する。"
 
   (when (skk-get-prefix skk-current-rule-tree)
     (skk-error "入力途中の仮名ブレフィックスがあります"
@@ -3941,9 +3961,9 @@ If you want to restore the dictionary from the disc, try
 ;;   list)
 
 (defun skk-henkan-face-on ()
-  ;; skk-use-face が non-nil の場合、skk-henkan-start-point と
-  ;; skk-henkan-end-point の間の face 属性を skk-henkan-face の値に変更する。
-  ;;
+  "SKK の face 属性を ON にする。
+`skk-use-face' が non-nil の場合、`skk-henkan-start-point' と
+`skk-henkan-end-point' の間の face 属性を `skk-henkan-face' の値に変更する。"
   ;; SKK 9.4 より Text Properties を使用するのを止めて、Overlays を使用するよ
   ;; うにした (egg.el, canna.el, wnn-egg.el を参考にした)。
   ;; Overlays は、テキストの一部ではないので、バッファから文字を切り出してもコ
@@ -3957,8 +3977,9 @@ If you want to restore the dictionary from the disc, try
 		 skk-henkan-face skk-henkan-overlay-priority)))
 
 (defun skk-henkan-face-off ()
-  ;; skk-henkan-start-point と skk-henkan-end-point の間の表示を変更している
-  ;; skk-henkan-overlay を消す。
+  "SKK の face 属性を OFF にする。
+`skk-henkan-start-point' と `skk-henkan-end-point' の間の表示を変更している
+`skk-henkan-overlay' を消す。"
   (when skk-henkan-face
     (skk-detach-extent skk-henkan-overlay)))
 
@@ -3972,6 +3993,7 @@ If you want to restore the dictionary from the disc, try
       (delete-overlay object)))))
 
 (defun skk-make-face (face)
+  "新しい FACE を作成する。"
   ;; hilit-lookup-face-create のサブセット。tutorial で色付けを行なう場合でも
   ;; hilit19 に依存せずとりあえず face を自前で作ることができるように、という
   ;; 目的で作ったもので、簡単な色付けしかできない。あまり賢くはない。複雑な
@@ -3992,12 +4014,13 @@ If you want to restore the dictionary from the disc, try
 
 ;; skk-auto.el, skk-rdbms.el の両方で使うので、skk-auto.el より移動した。
 (defun skk-remove-common (word)
-  ;; skk-henkan-key と word の間に共通の送り仮名を取り除き、送り仮名以外の部分
-  ;; の文字列を返す。skk-henkan-key と skk-henkan-okurigana の値をセットする。
-  ;; 例えば、word == 持ってきた であれば、skk-henkan-key := "もt",
-  ;; skk-henkan-okurigana := "って", word := "持" のように分解し、word を返す。
-  ;; skk-auto-okuri-process の値が non-nil であるときにこの関数を使用する。
-  ;; 変換が行なわれたバッファでコールされる (辞書バッファではない)。
+  "WORD の送り仮名以外の部分を返す。
+`skk-henkan-key' と WORD の間に共通の送り仮名を取り除き、送り仮名以外の部分
+の文字列を返す。`skk-henkan-key' と `skk-henkan-okurigana' の値をセットする。
+例えば、WORD == 持ってきた であれば、`skk-henkan-key' := もt ,
+`skk-henkan-okurigana' := って , WORD := 持 のように分解し、WORD を返す。
+`skk-auto-okuri-process' の値が non-nil であるときにこの関数を使用する。
+変換が行なわれたバッファでコールされる (辞書バッファではない)。"
   (when (and (not (skk-numeric-p))
 	     (not skk-abbrev-mode)
 	     (or skk-henkan-in-minibuff-flag
@@ -4115,8 +4138,8 @@ If you want to restore the dictionary from the disc, try
      (- (nth 1 b) (nth 1 a))))
 
 (defun skk-update-kakutei-history (midasi &optional word)
-  ;; 変数 `skk-kakutei-history' を更新する。
-  ;; この履歴はskk-comp.el において利用される。
+  "変数 `skk-kakutei-history' を更新する。
+この履歴はskk-comp.el において利用される。"
   (cond
    ((<= skk-kakutei-history-limit 0)
     (setq skk-kakutei-history nil))
@@ -4164,8 +4187,13 @@ If you want to restore the dictionary from the disc, try
 
 ;;;###autoload
 (defun skk-preload ()
+  "変数 `skk-preload' が非 nil のとき、`after-init-hook' から呼ばれる。
+あらかじめ SKK を呼んでおくことで、 SKK の初回起動を速くする。"
   (with-temp-buffer
-    (skk-mode 1)))
+    (skk-mode 1))
+  (when (and (stringp skk-large-jisyo)
+	     (file-readable-p skk-large-jisyo))
+    (skk-get-jisyo-buffer skk-large-jisyo 'nomsg)))
 
 ;;;###autoload
 (add-hook 'after-init-hook
