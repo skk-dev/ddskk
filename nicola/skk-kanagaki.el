@@ -28,7 +28,7 @@
 ;;
 ;; ~/.skk に
 ;;
-;; (setq skk-use-kana-keyboard)
+;; (setq skk-use-kana-keyboard t)
 ;; (setq skk-kanagaki-keyboard-type '106-jis)
 ;;
 ;; と書く。

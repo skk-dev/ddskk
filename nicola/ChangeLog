@@ -1,3 +1,7 @@
+2004-08-29  Yoichi NAKAYAMA  <yoichi@geiin.org>
+
+	* skk-kanagaki.el: Fixed typo.
+
 2004-04-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-menu.el: Add Japanese menu support for Emacs 21.
