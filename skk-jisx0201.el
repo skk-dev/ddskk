@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.23 2001/09/07 21:45:25 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.24 2001/09/23 02:50:49 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/07 21:45:25 $
+;; Last Modified: $Date: 2001/09/23 02:50:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -72,9 +72,7 @@
 	      (require 'japan-util)))
 
 (eval-and-compile
-  (unless (eq skk-emacs-type 'xemacs)
-    (autoload 'set-buffer-local-cursor-color "ccc"))
-  (autoload 'skk-cursor-current-color "skk-cursor")
+  (autoload 'skk-cursor-set "skk-cursor")
   (autoload 'skk-isearch-message "skk-isearch"))
 
 ;; 諸般の事情により skk-vars.el に入れるべきでない変数
@@ -218,13 +216,7 @@
 	skk-katakana nil)
   (skk-update-modeline 'jisx0201)
   (when skk-use-color-cursor
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      (set-face-property
-       'text-cursor 'background (skk-cursor-current-color)
-       (current-buffer)))
-     (t
-      (set-buffer-local-cursor-color (skk-cursor-current-color))))))
+    (skk-cursor-set)))
 
 ;; Pieces of advice.
 (defadvice skk-mode (before skk-jisx0201-ad activate)
@@ -320,14 +312,7 @@
 	       (skk-start-henkan arg))
 	     ;;
 	     (when skk-use-color-cursor
-	       (static-cond
-		((eq skk-emacs-type 'xemacs)
-		 (set-face-property
-		  'text-cursor 'background (skk-cursor-current-color)
-		  (current-buffer)))
-		(t
-		 (set-buffer-local-cursor-color
-		  (skk-cursor-current-color))))))
+	       (skk-cursor-set)))
 	    ;;
 	    (skk-jisx0201-roman
 	     (let (skk-set-henkan-point-key)
