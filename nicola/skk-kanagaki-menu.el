@@ -74,7 +74,7 @@ Convert to Hankaku Katakana or Toggle Katakana <=> Hankaku Katakana Mode"
  ((not (fboundp 'easy-menu-add-item))
   (require 'skk-kanagaki-menu-oe))
  (t
-  (dolist (map (append
+  (dolist (map (nconc
 		(list skk-j-mode-map
 		      skk-latin-mode-map
 		      skk-abbrev-mode-map

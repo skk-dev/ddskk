@@ -311,7 +311,7 @@ keycode 131 = underscore\n"))
   (skk-kanagaki-help-1
    "* SKK 親指シフト入力 ヘルプ*"
    "親指シフト入力モードの独自キー定義:"
-   (append
+   (nconc
     ;;
     (mapcar (function
 	     (lambda (key)
@@ -607,7 +607,7 @@ keycode 131 = underscore\n"))
 			     (not (or skk-henkan-on skk-henkan-active)))
 		    (setq isearch-cmds
 			  (cons
-			   (append
+			   (nconc
 			    (list (concat (caar isearch-cmds) str)
 				  (concat (cadar isearch-cmds) str))
 			    (cddar isearch-cmds))
@@ -698,7 +698,7 @@ keycode 131 = underscore\n"))
 	(t
 	 ;; 改行に使う。
 	 (if (skk-in-minibuffer-p)
-	     (call-interactively 'exit-minibuffer)
+	     (exit-minibuffer)
 	   (newline arg)))))
 
 (static-unless (memq skk-emacs-type '(nemacs mule1))
@@ -740,40 +740,6 @@ keycode 131 = underscore\n"))
       (when (eq (following-char) ?*)
 	(delete-char 1))))
   ;;
-  (setq skk-nicola-okuri-flag nil))
-
-(defadvice skk-kanagaki-toggle-rom-kana (around skk-nicola-ad activate
-						preactivate)
-  (setq skk-nicola-okuri-flag nil)
-  ad-do-it
-  ;; モード行の表示の調節。
-  (case skk-kanagaki-state
-    (kana
-     (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
-	   skk-katakana-mode-string skk-nicola-katakana-mode-string))
-    (rom
-     (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
-	   skk-katakana-mode-string skk-nicola-katakana-rom-string)))
-  (setq skk-hiragana-mode-indicator
-	(skk-mode-string-to-indicator 'hiragana
-				      skk-hiragana-mode-string))
-  (setq skk-katakana-mode-indicator
-	(skk-mode-string-to-indicator 'katakana
-				      skk-katakana-mode-string))
-  (let ((list (buffer-list))
-	buf)
-    (while list
-      (when (buffer-live-p (setq buf (car list)))
-	(with-current-buffer buf
-	  (when skk-j-mode
-	    (skk-update-modeline (if skk-katakana
-				     skk-katakana-mode-indicator
-				   skk-hiragana-mode-indicator)))))
-      (setq list (cdr list))))
-  (force-mode-line-update t))
-
-(defadvice skk-kanagaki-start-henkn-okuriari (before skk-nicola-ad activate
-						     compile)
   (setq skk-nicola-okuri-flag nil))
 
 (defadvice skk-previous-candidate (before skk-nicola-ad activate compile)
@@ -824,9 +790,16 @@ keycode 131 = underscore\n"))
       (setq ad-return-value (skk-char-to-string (ad-get-arg 0))))))
 
 (static-when (memq skk-emacs-type '(nemacs mule1))
-  ;;
+  ;; バグの原因が明らかになるまでの work around。
   (defadvice skk-insert (around skk-nicola-ad-e18 activate)
-    ;; バグの原因が明らかになるまでの work around。
+    (cond (skk-nicola-okuri-flag
+	   (let ((tag (catch 'okuri (skk-nicola-insert (ad-get-arg 0)))))
+	     (when (memq tag '(ari no-sokuon))
+	       (skk-kanagaki-set-okurigana (eq tag 'no-sokuon)))))
+	  (t
+	   ad-do-it)))
+  ;;
+  (defadvice skk-previous-candidate (around skk-nicola-ad-e18 activate)
     (cond (skk-nicola-okuri-flag
 	   (let ((tag (catch 'okuri (skk-nicola-insert (ad-get-arg 0)))))
 	     (when (memq tag '(ari no-sokuon))
@@ -835,7 +808,6 @@ keycode 131 = underscore\n"))
 	   ad-do-it)))
   ;;
   (defadvice skk-nicola-self-insert-lshift (around skk-nicola-ad-e18 activate)
-    ;; バグの原因が明らかになるまでの work around。
     (cond (skk-nicola-okuri-flag
 	   (let ((tag (catch 'okuri (skk-nicola-insert (ad-get-arg 0)))))
 	     (when (memq tag '(ari no-sokuon))
@@ -849,7 +821,7 @@ keycode 131 = underscore\n"))
     ;;
     (defadvice skk-tutorial (after skk-nicola-advice-to-skk-tutorial activate)
       (skk-nicola-setup-tutorial)
-      (ad-deactivate-regexp "^skk-nicola-advice-for skk-tutorial$"))))
+      (ad-deactivate-regexp "^skk-nicola-advice-to-skk-tutorial$"))))
 
 ;;
 

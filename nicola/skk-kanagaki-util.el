@@ -23,9 +23,8 @@
 
 ;;; Commentary:
 
-;; NICOLA-DDSKK にとって必ずしも重要度の高くないもの、macro、inline function は
-;; ここに置きます。  必要な場合は各モジュールの中からこのプログラムをロードしま
-;; す。
+;; macro、inline function はここに置きます。  必要な場合は各モジュールの中から
+;; このプログラムをロードします。
 
 ;;; Code:
 
@@ -34,7 +33,12 @@
   (require 'static))
 
 (eval-when-compile
-  (defvar skk-isearch-current-buffer))
+  (defvar skk-isearch-current-buffer)
+  (defvar skk-nicola-okuri-flag)
+  (defvar skk-nicola-hiragana-mode-string)
+  (defvar skk-nicola-katakana-mode-string)
+  (defvar skk-nicola-hiragana-rom-string)
+  (defvar skk-nicola-katakana-rom-string))
 
 ;; Variables.
 
@@ -135,7 +139,64 @@
    (t
     (` (mapconcat 'identity (make-vector (, n) (, str)) "")))))
 
-;; Functions.
+;;;###autoload
+(defun skk-nicola-visit-nicola-website ()
+  (interactive)
+  (let ((func (cond ((fboundp 'browse-url)
+		     'browse-url)
+		    (t
+		     'browse-url-netscape))))
+    (funcall func "http://nicola.sunicom.co.jp/")))
+
+(defsubst skk-kanagaki-adjust-rule-tree ()
+  (cond ((eq  skk-kanagaki-state 'kana)
+	 (unless (equal skk-rule-tree skk-kanagaki-rule-tree)
+	   (setq skk-rule-tree skk-kanagaki-rule-tree)))
+	((eq skk-kanagaki-state 'rom)
+	 (unless (equal skk-rule-tree skk-kanagaki-rom-kana-rule-tree)
+	   (setq skk-rule-tree skk-kanagaki-rom-kana-rule-tree)))))
+
+;;;###autoload
+(defun skk-kanagaki-toggle-rom-kana (&optional arg)
+  "ローマ字入力 ⇔ 仮名入力 を切り替える。"
+  (interactive)
+  ;;
+  (when (featurep 'skk-nicola)
+      (setq skk-nicola-okuri-flag nil))
+  ;;
+  (setq skk-kanagaki-state
+	(if (memq arg '(kana rom))
+	    arg
+	  (case skk-kanagaki-state
+	    (kana 'rom)
+	    (rom 'kana)
+	    ;; とりあえず。
+	    (t 'kana))))
+  (skk-kanagaki-adjust-rule-tree)
+  ;;
+  (when (featurep 'skk-nicola)
+    ;; モード行の表示の調節。
+    (case skk-kanagaki-state
+      (kana
+       (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
+	     skk-katakana-mode-string skk-nicola-katakana-mode-string))
+      (rom
+       (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
+	     skk-katakana-mode-string skk-nicola-katakana-rom-string)))
+    (setq skk-hiragana-mode-indicator
+	  (skk-mode-string-to-indicator 'hiragana
+					skk-hiragana-mode-string))
+    (setq skk-katakana-mode-indicator
+	  (skk-mode-string-to-indicator 'katakana
+					skk-katakana-mode-string))
+    (dolist (buf (buffer-list))
+      (when (buffer-live-p buf)
+	(with-current-buffer buf
+	  (when skk-j-mode
+	    (skk-update-modeline (if skk-katakana
+				     skk-katakana-mode-indicator
+				   skk-hiragana-mode-indicator))))))
+    (force-mode-line-update t)))
 
 ;;;###autoload
 (defun skk-kanagaki-dakuten (&optional arg)
@@ -219,16 +280,6 @@
 	  (call-interactively 'keyboard-quit))
 	 (t
 	  nil)))
-
-;;;###autoload
-(defun skk-nicola-visit-nicola-website ()
-  (interactive)
-  (let ((func (cond ((fboundp 'browse-url)
-		     'browse-url)
-		    (t
-		     'browse-url-netscape))))
-    (funcall func "http://nicola.sunicom.co.jp/")))
-
 
 ;;
 

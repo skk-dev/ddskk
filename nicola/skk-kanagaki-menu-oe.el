@@ -118,7 +118,7 @@
 
 (easy-menu-define
  skk-kanagaki-menu
- (append
+ (nconc
   (list skk-j-mode-map skk-latin-mode-map skk-abbrev-mode-map
 	skk-jisx0208-latin-mode-map)
   (and (featurep 'skk-jisx0201)

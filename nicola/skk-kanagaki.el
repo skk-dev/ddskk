@@ -352,28 +352,6 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
 
 (defalias-maybe 'help-mode 'fundamental-mode)
 
-(defun skk-kanagaki-adjust-rule-tree ()
-  (cond ((eq  skk-kanagaki-state 'kana)
-	 (unless (equal skk-rule-tree skk-kanagaki-rule-tree)
-	   (setq skk-rule-tree skk-kanagaki-rule-tree)))
-	((eq skk-kanagaki-state 'rom)
-	 (unless (equal skk-rule-tree skk-kanagaki-rom-kana-rule-tree)
-	   (setq skk-rule-tree skk-kanagaki-rom-kana-rule-tree)))))
-
-;;;###autoload
-(defun skk-kanagaki-toggle-rom-kana (&optional arg)
-  "$B%m!<%^;zF~NO(B $B"N(B $B2>L>F~NO(B $B$r@Z$jBX$($k!#(B"
-  (interactive)
-  (setq skk-kanagaki-state
-	(if (memq arg '(kana rom))
-	    arg
-	  (case skk-kanagaki-state
-	    (kana 'rom)
-	    (rom 'kana)
-	    ;; $B$H$j$"$($:!#(B
-	    (t 'kana))))
-  (skk-kanagaki-adjust-rule-tree))
-
 ;;;###autoload
 (defun skk-kanagaki-midashi-henkan (&optional arg)
   "$B@\F,<-$^$?$O@\Hx<-JQ49$r$9$k!#(B"
@@ -396,7 +374,7 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
   (skk-kanagaki-help-1
    "* SKK $B2>L>F~NO(B $B%X%k%W(B*"
    "$B8=:_$N2>L>F~NO%b!<%I$N<g$J%-!<Dj5A(B:"
-   (append
+   (nconc
     '((skk-kanagaki-set-henkan-point-key . "$BJQ493+;OE@$r%;%C%H(B")
       (skk-kanagaki-midashi-henkan-key . "$B@\F,<-(B or $B@\Hx<-JQ49(B")
       (skk-kanagaki-code-input-key . "$B%3!<%IF~NO(B")
@@ -521,7 +499,10 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
 	 skk-kanagaki-base-rule-list skk-kanagaki-rule-list))
   (setq skk-kanagaki-rom-kana-rule-tree skk-rule-tree)
   ;;
-  (add-hook 'skk-mode-hook 'skk-kanagaki-adjust-rule-tree)
+  (add-hook 'skk-mode-hook
+	    (function
+	     (lambda ()
+	       (skk-kanagaki-adjust-rule-tree))))
   ;; $B6gFIE@F~NO;~$NLdBj$r2sHr!#(B $BF|K\8l(B 106 $B%-!<%\!<%I$G$O(B "<" $B$H(B ">" $B$K$h$k@\Hx(B
   ;; $B<-$NF~NO$O$G$-$J$/$J$k!#(B "?" $B$K$h$k@\Hx<-$NF~NO$O$G$-$k!#(B
   (dolist (char skk-special-midashi-char-list)
