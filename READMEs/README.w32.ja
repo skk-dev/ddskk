@@ -2,8 +2,8 @@
 
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2002/02/09 16:41:07 $
-$Id: README.w32.ja,v 1.2 2002/02/09 16:41:07 czkmt Exp $
+$Date: 2003/06/20 12:11:20 $
+$Id: README.w32.ja,v 1.3 2003/06/20 12:11:20 minakaji Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
@@ -13,7 +13,7 @@ NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 ** APEL のインストール
 
-まず APELをインストールする。Daredevil SKK では、APEL 10.2以降での動作
+まず APELをインストールする。Daredevil SKK では、APEL 10.5 以降での動作
 が確認されているが、APEL は Emacs/XEmacs のバージョンアップに合わせて
 日進月歩なので、できるだけ新しいバージョンをインストールすることをお勧
 めする。
@@ -79,13 +79,13 @@ LISPDIR=c:\usr\meadow\site-lisp とすれば、c:\usr\meadow\site-lisp\skk
 にインストールされる。
 
 なお、デフォルトでは、SKK-JISYO, skk-tut 等は %PREFIX%\share 以下にイ
-ンストールされる。 
+ンストールされる。
 
 *** MAKEIT.BAT の実行
 
 MAKEIT.BAT を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
 リ割り当てが自動になると、環境変数が設定できないので、適当な値(2048と
-か)を入れておく必要がある。 
+か)を入れておく必要がある。
 
 DOSPROMPT で MAKEIT.BAT のあるディレクトリに移動し、
 C:\temp\skk\main> makeit install

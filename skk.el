@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.266 2003/04/05 08:26:16 czkmt Exp $
+;; Version: $Id: skk.el,v 1.267 2003/06/20 12:11:20 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/04/05 08:26:16 $
+;; Last Modified: $Date: 2003/06/20 12:11:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -58,7 +58,7 @@
   (defvar skk-rdbms-private-jisyo-table)
   (defvar this-command-char))
 
-;; APEL 10.2 or higher is required.
+;; APEL 10.5 or higher is required.
 (eval-when-compile
   (require 'static))
 (require 'poe)
@@ -291,10 +291,8 @@ dependent."
 (defun skk-setup-shared-private-jisyo ()
   (setq skk-jisyo-update-vector (make-vector skk-jisyo-save-count nil))
   (setq skk-emacs-id
-	(make-temp-name
-	 (concat (system-name) ":"
-		 (mapconcat 'int-to-string (current-time) "")
-		 ":")))
+        (concat (system-name) ":" (number-to-string (emacs-pid))
+		":" (mapconcat 'int-to-string (current-time) "") ":"))
   (skk-create-file skk-emacs-id-file nil nil 384) ; 0600
   (with-temp-buffer
     (insert-file-contents skk-emacs-id-file)
@@ -2885,7 +2883,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	  (when (skk-jisyo-is-shared-p)
 	    (skk-update-shared-jisyo)))
 	(let ((inhibit-quit t)
-	      (tempo-file (skk-make-temp-jisyo)))
+	      (tempo-file (make-temp-file "skk")))
 	  (unless quiet
 	    (skk-message "SKK $B<-=q$rJ]B8$7$F$$$^$9(B..."
 			 "Saving SKK jisyo..."))
@@ -3041,30 +3039,6 @@ If you want to restore the dictionary from the disc, try
 ")))
       (skk-error "SKK $B<-=q$N%;!<%V$rCf;_$7$^$7$?!*(B"
 		 "Stop saving SKK jisyo!")))))
-
-(defun skk-make-temp-jisyo ()
-  "SKK $B8D?M<-=qJ]B8$N$?$a$N:n6HMQ$N%U%!%$%k$r:n$k!#(B
-$B%U%!%$%k$N%b!<%I$O(B `skk-jisyo' $B$N$b$N$HF1$8$K@_Dj$9$k!#:n$C$?:n6HMQ%U%!%$%k$N(B
-$BL>A0$rJV$9!#(B"
-  (let* ((dir (static-cond
-	       ((fboundp 'temp-directory)
-		(temp-directory))
-	       (t
-		(cond
-		 ((skk-file-exists-and-writable-p temporary-file-directory)
-		  temporary-file-directory)
-		 (t
-		  (unless (file-exists-p "~/tmp")
-		    (make-directory "~/tmp"))
-		  (unless (file-writable-p "~/tmp")
-		    (set-file-modes "~/tmp" 1023))
-		  "~/tmp/")))))
-	 (temp-name (make-temp-name
-		     (expand-file-name
-		      (concat (user-login-name) "-skk")
-		      (expand-file-name dir)))))
-    (skk-create-file temp-name nil nil 384) ; 0600
-    temp-name))
 
 (defun skk-make-new-jisyo (tempo-file)
   "TEMPO-FILE $B$r?75,$N(B `skk-jisyo' $B$K$9$k!#(B

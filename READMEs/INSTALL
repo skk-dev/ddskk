@@ -1,26 +1,26 @@
 -*- outline -*-
 
-             $Date: 2002/02/09 16:41:07 $
-	     $Id: INSTALL,v 1.25 2002/02/09 16:41:07 czkmt Exp $ 
+             $Date: 2003/06/20 12:11:20 $
+	     $Id: INSTALL,v 1.26 2003/06/20 12:11:20 minakaji Exp $
 
-* APEL 
+* APEL
 
 APEL (A Portable Emacs Library) is required to install SKK.  Make sure
-you have APEL 10.2 or later (It is highly recommened that you install
+you have APEL 10.5 or later (It is highly recommened that you install
 the latest release).  APEL is available at:
 
     http://cvs.m17n.org/elisp/APEL
 
     ftp://ftp.m17n.org/pub/mule/apel/
 
-    ftp://ftp.jpl.org/pub/elisp/apel/ 
+    ftp://ftp.jpl.org/pub/elisp/apel/
 
 or
     http://openlab.ring.gr.jp/skk/apel/
 
 * Get dictionaries and copy them to ./dic subdirectory.
 
-If you do not have SKK dictionaries, get them from 
+If you do not have SKK dictionaries, get them from
 
   http://openlab.ring.gr.jp/skk/dic-ja.html
 
@@ -56,7 +56,7 @@ locally,
 then all Emacs lisp programs will be installed into
 `~/share/emacs/site-lisp/skk'.  You can examine SKK-CFG to know what
 variables will effect install configuration.  All of those values
-described in SKK-CFG (but commented out) are default. 
+described in SKK-CFG (but commented out) are default.
 
 * Detect directories to be install
 
@@ -82,7 +82,7 @@ Emacs command name in the command line, like
 
 * package install
 
-If you want install SKK as a XEmacs package, run 
+If you want install SKK as a XEmacs package, run
 
     % make install-package
 
