@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.36 2003/07/10 21:36:06 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.37 2003/07/10 21:54:00 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/10 21:36:06 $
+;; Last Modified: $Date: 2003/07/10 21:54:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -284,7 +284,7 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
       (setq skk-study-last-save (current-time))
       (if (not nomsg)
 	  (progn
-	    (skk-message "%s に SKK 学習結果をセーブしています...完了！"
+	    (skk-message "%s に SKK の学習結果をセーブしています...完了！"
 			 "Saving SKK study to %s...done" skk-study-file)
 	    (sit-for 1)
 	    (message ""))))))
