@@ -24,7 +24,7 @@
 	(SKK-MK-compile-package): Load auto-autoloads.el.
 
 	* skk-dcomp.el
-	(skk-dcopm-after-delete-backward-char): Don't complete in
+	(skk-dcomp-after-delete-backward-char): Don't complete in
 	`skk-abbrev-mode'.
 
 	* skk-server.el
@@ -3169,8 +3169,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.601 2001/12/16 12:35:50 czkmt Exp $
-Last Modified: $Date: 2001/12/16 12:35:50 $
+Version: $Id: ChangeLog,v 1.602 2001/12/19 22:53:33 czkmt Exp $
+Last Modified: $Date: 2001/12/19 22:53:33 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
