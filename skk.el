@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.45 2000/11/06 11:45:25 minakaji Exp $
+;; Version: $Id: skk.el,v 1.46 2000/11/08 09:36:12 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/06 11:45:25 $
+;; Last Modified: $Date: 2000/11/08 09:36:12 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -64,7 +64,7 @@
 (require 'alist)
 (condition-case nil
     (require 'product)
-  ((error) (error "This version of Daredevil SKK requires APEL/10.2 or later")))
+  (error (error "This version of Daredevil SKK requires APEL/10.2 or later")))
 (or (product-version>= 'apel-ver '(10 2))
     (error "This version of Daredevil SKK requires APEL/10.2 or later"))
 ;; Elib 1.0 is required.
