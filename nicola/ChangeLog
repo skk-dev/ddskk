@@ -1,3 +1,7 @@
+2000-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el: Remove defvars for skk-dcomp.
+
 2000-12-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-util.el (skk-kanagaki-toggle-rom-kana): Call

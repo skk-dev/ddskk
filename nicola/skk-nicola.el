@@ -52,10 +52,7 @@
   (eval-and-compile
     (require 'skk-e21)))
 
-(eval-when-compile
-  (defvar skk-dcomp-start-point)
-  (defvar skk-dcomp-end-point)
-  (defvar skk-dcomp-keep-completion-keys)
+(eval-and-compile
   (autoload 'skk-dcomp-face-off "skk-dcomp")
   (autoload 'skk-dcomp-face-on "skk-dcomp"))
 
