@@ -5,9 +5,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.30 2001/12/02 03:15:26 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.31 2001/12/05 13:44:59 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/02 03:15:26 $
+;; Last Modified: $Date: 2001/12/05 13:44:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -94,6 +94,14 @@
     (set-buffer-local-cursor-color
      (or color
 	 (skk-cursor-current-color))))))
+
+;;;###autoload
+(defun skk-cursor-off-1 ()
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (skk-cursor-set))
+   (t
+    (set-cursor-color-buffer-local nil))))
 
 ;; advices.
 (static-when (eq skk-emacs-type 'xemacs)
