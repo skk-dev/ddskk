@@ -38,40 +38,40 @@
 
 ;; Variables.
 
-(defconst skk-small-dic
-  "\
-" "\
-Small dictionary for SKK.")
-
-(defconst skk-dic-buffer-name " *skk-small-dic*")
+(defvar skk-dic-buffer nil)
 
 ;; Functions.
 
 ;;;###autoload
 (defun skk-search-small-dic ()
-  (unless (string= "" skk-small-dic)
-    (skk-search-jisyo-buf (skk-dic-setup-buffer)
-			  10000)))
+  (when (buffer-live-p skk-dic-buffer)
+    (skk-search-jisyo-buf skk-dic-buffer 10000)))
 
 ;;;###autoload
-(defun skk-dic-setup-buffer ()
-  (unless (string= "" skk-small-dic)
-    (let ((buf (get-buffer-create skk-dic-buffer-name)))
-      (with-current-buffer buf
+(defun skk-dic-setup-buffer (&optional arg)
+  (cond
+   ((null arg)
+    skk-dic-buffer)
+   ((string= "" arg)
+    nil)
+   (t
+    (let ((buffer (get-buffer-create " *skk-small-dic*")))
+      (with-current-buffer buffer
 	(when (zerop (buffer-size))
-	  (unless (boundp 'skk-small-dic)
-	    (load "skk-dic" t t))
 	  (setq buffer-read-only nil)
 	  (buffer-disable-undo)
 	  (setq case-fold-search nil
 		major-mode 'skk-jisyo-mode
 		mode-name "SKK dic")
-	  (insert skk-small-dic)
+	  (insert arg)
 	  (skk-setup-jisyo-buffer)
 	  (setq buffer-read-only t)
 	  (set-buffer-modified-p nil)))
-      ;;
-      buf)))
+      (setq skk-dic-buffer buffer)))))
+
+(skk-dic-setup-buffer
+  "\
+")
 
 (require 'product)
 (product-provide
