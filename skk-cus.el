@@ -34,8 +34,10 @@
 (require 'skk-vars)
 (require 'wid-edit)
 
+;;;###autoload
 (defvar skk-custom-file "~/.skk-cus")
 (defvar skk-custom-params nil)
+;;;###autoload
 (defvar skk-custom-alist nil)
 (defvar skk-custom-buffer-original nil)
 
@@ -87,7 +89,9 @@
 
 (defconst skk-cus-params-misc
   '((skk-share-private-jisyo
-     (const :tag "複数の SKK が個人辞書を共有する" t) "")))
+     (const :tag "複数の SKK が個人辞書を共有する" t) "")
+    (skk-preload
+     (const :tag "SKK の初回起動を高速にする" t) "")))
 
 (defun skk-cus-set ()
   (dolist (param skk-custom-alist)
