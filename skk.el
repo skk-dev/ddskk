@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.177 2001/11/13 10:59:38 czkmt Exp $
+;; Version: $Id: skk.el,v 1.178 2001/11/13 11:41:29 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 10:59:38 $
+;; Last Modified: $Date: 2001/11/13 11:41:29 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -1519,7 +1519,10 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 ;;;; henkan routines
 (defun skk-henkan ()
   ;; カナを漢字変換するメインルーチン。
-  (let (mark new-word kakutei-henkan)
+  (let (mark
+	prototype
+	new-word
+	kakutei-henkan)
     (if (string= skk-henkan-key "")
 	(skk-kakutei)
       ;; we use mark to go back to the correct position after henkan
@@ -1534,11 +1537,20 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       ;; される。ここでキャッチした場合は、?x がストリームに戻されているので、
       ;; この関数を出て、skk-previous-candidates へゆく。
       (catch 'unread
-	(setq new-word (or (skk-henkan-1)
-			   (skk-henkan-in-minibuff))
-	      kakutei-henkan skk-kakutei-flag)
+	(cond
+	 ((setq prototype (skk-henkan-1))
+	  (setq new-word prototype))
+	 ((setq prototype (skk-henkan-in-minibuff))
+	  (setq new-word (skk-quote-semicolon prototype))))
+	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
 	  (skk-insert-new-word new-word)))
+      ;;
+      (when (and new-word
+		 (string= new-word prototype)
+		 (skk-numeric-p))
+	(setq new-word (skk-get-current-candidate 'noconv)))
+      ;;
       (if mark
 	  (progn
 	    (goto-char mark)
@@ -1549,6 +1561,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	    (skk-set-marker mark nil)
 	    (backward-char 1))
 	(goto-char (point-max)))
+      ;;
       (when kakutei-henkan
 	(skk-kakutei new-word)))))
 
@@ -1931,7 +1944,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       ;; 入っている。skk-henkan-count をインクリメントする必要はない。
       ;; new-one が空文字列だったら nil を返す。
       (unless (string= new-one "")
-	(skk-quote-semicolon new-one)))))
+	new-one))))
 
 (defun skk-compute-henkan-key2 ()
   ;; skk-henkan-okurigana が non-nil なら skk-henkan-key から、かつて
