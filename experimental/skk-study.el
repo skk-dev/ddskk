@@ -5,9 +5,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.2 1999/10/05 02:14:00 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.3 1999/10/05 10:48:19 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/05 02:14:00 $
+;; Last Modified: $Date: 1999/10/05 10:48:19 $
 
 ;; This file is not part of SKK yet.
 
@@ -83,13 +83,12 @@
   :group 'skk )
 
 ;;; user variables.
-(defcustom skk-study-file (if (eq system-type 'ms-dos) "~/_skk-study" "~/.skk-study")
+(defcustom skk-study-file (convert-standard-filename "~/.skk-study")
   "*学習結果を保存するファイル。"
   :type 'file
   :group 'skk-study )
 
-(defcustom skk-study-backup-file
-  (if (eq system-type 'ms-dos) "~/_skk-study.BAK" "~/.skk-study.BAK" )
+(defcustom skk-study-backup-file (convert-standard-filename "~/.skk-study.BAK" )
   "*学習結果を保存するバックアップファイル。"
   :type 'file
   :group 'skk-study )
@@ -115,7 +114,6 @@
 (defvar skk-search-end-function 'skk-study-search)
 (defvar skk-update-end-function 'skk-study-update)
 (defvar skk-kakutei-end-function nil)
-(defconst skk-study-working-buffer " *SKK study*")
 (defconst skk-study-file-format-version 0.2)
 
 ;;;###autoload
@@ -123,66 +121,65 @@
   (if (null entry)
       nil
     (with-current-buffer henkan-buffer
-      (let (grandpa papa associates r
-		    ;; buffer local variables.
-		    index last-key last-word )
-	(or skk-study-alist (skk-study-read))
-	(if (and skk-study-alist
-		 (setq last-key (skk-get-last-henkan-data 'henkan-key))
-		 (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
-		 (setq index (cond (skk-okuri-char 'okuri-ari)
-				   (t 'okuri-nasi) ))
-		 ;; grandpa ::= (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
-		 ;;              ("なk" . ((("こども" . "子供") . ("泣")))) )
-		 (setq grandpa (cdr (assq index skk-study-alist)))
-		 ;; papa ::= ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
-		 (setq papa (cdr (assoc midasi grandpa)))
-		 ;; associates ::= ("着")
-		 (setq associates (cdr (assoc (cons last-key last-word) papa)))
-		 (setq associates (reverse associates)) )
-	    (while (setq r (car associates))
-	      (setq entry (cons r (delete r entry))
-		    associates (cdr associates) )))
-	entry ))))
+      (let ((index skk-study-associates-number))
+	grandpa papa associates r
+	;; buffer local variables.
+	last-key last-word )
+      (or skk-study-alist (skk-study-read))
+      (if (and skk-study-alist
+	       (setq last-key (skk-get-last-henkan-data 'henkan-key))
+	       (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
+	       ;; grandpa ::= (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
+	       ;;              ("なk" . ((("こども" . "子供") . ("泣")))) )
+	       (setq grandpa (cdr (assq (cond (skk-okuri-char 'okuri-ari)
+					      (t 'okuri-nasi) )
+					index skk-study-alist )))
+	       ;; papa ::= ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
+	       (setq papa (cdr (assoc midasi grandpa)))
+	       ;; associates ::= ("着")
+	       (setq associates (cdr (assoc (cons last-key last-word) papa))) )
+	  (while (and (> index 0) (setq r (nth (1- index) associates)))
+	    (setq entry (cons r (delete r entry))
+		  index (1- index) )))
+      entry )))
 
 ;;;###autoload
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
   (with-current-buffer henkan-buffer
-    (let (
-	  (inhibit-quit t)
+    (let ((inhibit-quit t)
 	  grandpa papa baby
 	  ;; to get buffer local variables in henkan-buffer.
 	  last-key last-word index )
       (or skk-study-alist (skk-study-read))
-      (if (not (and (setq last-key (skk-get-last-henkan-data 'henkan-key))
-		    (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
-		    (setq index (cond (skk-okuri-char 'okuri-ari )
-				      (t 'okuri-nasi) ))
-		    ;; grandpa ::= (okuri-ari . (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))))
-		    (setq grandpa (assq index skk-study-alist)) ))
-	  nil
-	;; papa ::= ("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
-	(setq papa (assoc midasi (cdr grandpa)))
-	(cond (
-	       ;; car に見出し語を持つ cell がない
-	       (not (or papa purge))
-	       (setcdr grandpa
-		       (nconc
-			(list (cons midasi (list (cons (cons last-key last-word) (list word)))))
-			(cdr grandpa) )))
-	      ;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) をキーにした
-	      ;; cell がない。
-	      ((not (or
-		     ;; baby ::= (("ふく" . "服") . ("着"))
-		     (setq baby (assoc (cons last-key last-word) (cdr papa)))
-		     purge ))
-	       (setcdr papa (cons (cons (cons last-key last-word) (list word)) (cdr papa))) )
-	      ;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけアップデートする。
-	      ((not purge)
-	       (setcdr baby (cons word (delete word (cdr baby))))
-	       (if (> (1- (length (cdr baby))) skk-study-associates-number)
-		   (skk-study-chomp (cdr baby) (1- skk-study-associates-number)) ))
-	      (t (setcdr papa (delq baby (cdr papa)))) )))))
+      (if (and (setq last-key (skk-get-last-henkan-data 'henkan-key))
+	       (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
+	       ;; grandpa ::= (okuri-ari . (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))))
+	       (setq grandpa (assq (cond (skk-okuri-char 'okuri-ari )
+					 (t 'okuri-nasi) )
+				   skk-study-alist ))
+	       ;; papa ::= ("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
+	       (setq papa (assoc midasi (cdr grandpa))) )
+	  (cond (
+		 ;; car に見出し語を持つ cell がない
+		 (not (or papa purge))
+		 (setcdr grandpa
+			 (nconc
+			  (list (cons midasi (list (cons (cons last-key last-word)
+							 (list word) ))))
+			  (cdr grandpa) )))
+		;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) をキーにした
+		;; cell がない。
+		((not (or
+		       ;; baby ::= (("ふく" . "服") . ("着"))
+		       (setq baby (assoc (cons last-key last-word) (cdr papa)))
+		       purge ))
+		 (setcdr papa (cons (cons (cons last-key last-word) (list word)) (cdr papa))) )
+		;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけアップデートする。
+		((not purge)
+		 (setcdr baby (cons word (delete word (cdr baby))))
+		 (if (> (1- (length (cdr baby))) skk-study-associates-number)
+		     (skk-study-chomp (cdr baby) (1- skk-study-associates-number)) ))
+		(t (setcdr papa (delq baby (cdr papa)))) )))))
 
 ;;;###autoload
 (defun skk-study-save (&optional nomsg)
@@ -264,15 +261,15 @@
 
 (defun skk-study-read-1 (file)
   ;; read FILE and return alist.
-  (save-excursion
+  (with-temp-buffer
     (let ((version-string
 	   (format ";;; -*- emacs-lisp -*-\n;;; skk-study-file format version %s\n"
 		   skk-study-file-format-version )))
-      ;; with-temp-buffer を使うと何故か確定されてしまう。
-      (set-buffer (get-buffer-create skk-study-working-buffer))
-      (erase-buffer)
       (insert-file-contents-as-coding-system
-       (cond ((and skk-jisyo-code (coding-system-p skk-jisyo-code))
+       (cond ((and skk-jisyo-code
+		   (or (coding-system-p skk-jisyo-code)
+		       (and (fboundp 'find-coding-system)
+			    (find-coding-system skk-jisyo-code) )))
 	      skk-jisyo-code )
 	     ((and skk-jisyo-code (stringp skk-jisyo-code))
 	      (cdr (assoc skk-jisyo-code skk-coding-system-alist)) )
