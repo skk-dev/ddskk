@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.1 1999/09/28 12:30:51 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.2 1999/09/28 14:48:17 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/28 12:30:51 $
+;; Last Modified: $Date: 1999/09/28 14:48:17 $
 
 ;; This file is not part of SKK yet.
 
@@ -52,39 +52,64 @@
 (defcustom skk-lookup-pickup-pattern "【\\(.+\\)】$"
   "*候補抽出のための regexp。"
   :type 'regexp
-  :group skk-lookup )
+  :group 'skk-lookup )
 
 (defcustom skk-lookup-split-pattern "・"
   "*複数の候補がある場合の候補の区切りの regexp。"
   :type 'regexp
-  :group skk-lookup  )
+  :group 'skk-lookup )
 
-(defcustom skk-lookup-query [:query exact pattern]
-  "*Lookup に対し発行する query の形式。
-pattern 部分に見出し語が挿入される。"
-  :type 'vector
-  :group skk-lookup  )
+(put 'skk-lookup-start-session 'lisp-indent-function 2)
+(eval-after-load "edebug" '(def-edebug-spec skk-lookup-start-session t))
+
+(defmacro skk-lookup-start-session (module type &rest body)
+  ;; like skk-lookup-start-session but returns of body's value.
+  (` (unwind-protect
+	 (let ((lookup-current-session (lookup-make-session (, module) (, type))))
+	   (prog2
+	       (lookup-module-setup (, module))
+	       (,@ body)
+	     (unless (eq lookup-last-session lookup-current-session)
+	       (lookup-open-session) )))
+       ;; セッションの途中でエラーが発生したときは最後のセッションに戻す。
+       (setq lookup-current-session lookup-last-session))))
 
 ;;;###autoload
 (defun skk-lookup-search ()
-  (let* ((d (lookup-module-dictionaries lookup-default-module))
-	 (query-base (copy-sequence skk-lookup-query))
-	 (query (progn (aset query-base 2 skk-henkan-key) query-base))
-	v r s )
-    (while d
-      (setq v (lookup-vse-search-query (car d) query))
-      (while v
-	(setq r (lookup-entry-heading (car v))
-	      v (cdr v) )
-	(when (string-match skk-lookup-pickup-pattern r)
-	  (if (not skk-lookup-split-pattern)
-	      (setq s (cons (match-string 1 r) s))
-	    (setq s (nconc
-		     (split-string (match-string 1 r) skk-lookup-split-pattern)
-		     s )))))
-      (setq d (cdr d)) )
-    s ))
-
+  (save-excursion
+    (save-window-excursion
+      (let ((module (lookup-default-module))
+	    v )	
+	;; Is it really necessary only to get headings?
+	(setq lookup-search-pattern skk-henkan-key)
+	(skk-lookup-start-session module 'lookup-search-session
+	  (let ((query (lookup-make-query 'exact skk-henkan-key))
+		(lookup-search-found)
+		entry heading kouho )
+	    (lookup-foreach
+	     (lambda (dictionary)
+	       (when (and (lookup-dictionary-selected-p dictionary)
+			  (setq entries (lookup-vse-search-query dictionary query)) )
+		 ;; Is it really necessary only to get headings?
+		 (if lookup-search-found
+		     (lookup-entry-append lookup-current-session entries)
+		   (setq lookup-search-found t)
+		   (lookup-session-set-query lookup-current-session query)
+		   (lookup-session-set-entries lookup-current-session entries)
+		   (lookup-open-session) )
+		 (lookup-foreach
+		  (lambda (entry)
+		    (setq heading (lookup-entry-heading entry))
+		    (when (string-match skk-lookup-pickup-pattern heading)
+		      (setq kouho (match-string 1 heading))
+		      (if (not skk-lookup-split-pattern)
+			  (setq v (cons kouho (delete kouho v)))
+			(lookup-foreach
+			 (lambda (k) (setq v (cons k (delete k v))))
+			 (split-string kouho skk-lookup-split-pattern) ))))
+		  entries )))
+	     (lookup-module-dictionaries module) )
+	    v ))))))
 
 (provide 'skk-lookup)
 ;;; Local Variables:
