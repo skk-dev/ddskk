@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.3 2000/10/30 22:10:18 minakaji Exp $
+;; Version: $Id: skk-obsolete.el,v 1.4 2000/12/01 09:15:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:18 $
+;; Last Modified: $Date: 2000/12/01 09:15:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -62,6 +62,7 @@
     (skk-ascii-mode . skk-latin-mode)
     (skk-ascii-mode-on . skk-latin-mode-on)
     (skk-attr-time-difference . skk-time-difference)
+    (skk-completion . skk-comp-do)
     (skk-compute-numeric-henkan-key . skk-num-compute-henkan-key)
     (skk-current-insert-mode . skk-current-input-mode)
     (skk-date . skk-current-date)

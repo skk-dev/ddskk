@@ -1,13 +1,13 @@
 ;;; skk-comp.el --- 補完のためのプログラム
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997
-;;               1999
+;;               1999, 2000
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.9 2000/11/27 22:59:42 minakaji Exp $
+;; Version: $Id: skk-comp.el,v 1.10 2000/12/01 09:15:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/27 22:59:42 $
+;; Last Modified: $Date: 2000/12/01 09:15:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,59 +33,65 @@
 (eval-when-compile (require 'skk-macs) (require 'skk-vars))
 
 ;;;###autoload
-(defun skk-start-henkan-with-completion (arg)
+(defun skk-comp-start-henkan (arg)
   "▽モードで読みの補完を行なった後、変換する。
 それ以外のモードではオリジナルのキーマップに割り付けられたコマンドをエミュレー
 トする。"
   (interactive "*P")
   (if (and skk-henkan-on (not skk-henkan-active))
       (progn
-        (skk-completion (not (eq last-command 'skk-completion)))
+        (skk-comp-do (not (eq last-command 'skk-comp-do)))
         (skk-start-henkan arg))
     (skk-emulate-original-map arg)))
 
 ;;;###autoload
-(defun skk-completion (first &optional silent)
-  ;; skk-try-completion のサブルーチン。
+(defun skk-comp (first &optional silent)
+  (setq this-command 'skk-comp-do)
+  (skk-comp-do first silent))
+  
+;;;###autoload
+(defun skk-comp-do (first &optional silent)
+  ;; main completion engine.
   (let ((inhibit-quit t)
 	;; skk-num が require されてないと buffer-local 値を壊す恐れあり。
         skk-num-list c-word)
     (skk-kana-cleanup 'force)
-    (and first (setq skk-completion-stack nil skk-completion-depth 0))
+    (and first (setq skk-comp-stack nil skk-comp-depth 0))
     (and (or first skk-dabbrev-like-completion)
-	 (setq skk-completion-word
+	 (setq skk-comp-key
 	       (buffer-substring-no-properties skk-henkan-start-point (point))))
-    (and (string= skk-completion-word "")
+    (and (string= skk-comp-key "")
 	 (skk-error "空文字から補完することはできません！"
 		    "Cannot complete an empty string!"))
-    (if (> skk-completion-depth 0)
+    (if (> skk-comp-depth 0)
 	;; (過去に探索済みの読みをアクセス中)
-	(setq skk-completion-depth (1- skk-completion-depth)
-	      c-word (nth skk-completion-depth skk-completion-stack))
+	(setq skk-comp-depth (1- skk-comp-depth)
+	      c-word (nth skk-comp-depth skk-comp-stack))
       ;; (新規の読みを辞書バッファから探索)
-      ;; skk-completion-word はバッファローカル値なので、辞書バッファに移る前に
+      ;; skk-comp-key はバッファローカル値なので、辞書バッファに移る前に
       ;; 一時変数に移し変えておく。
       (and (setq c-word
-		 (or (skk-completion-1 skk-completion-word first)
+		 (or (skk-comp-do-1 skk-comp-key first)
 		     (and skk-abbrev-mode skk-use-look (skk-look-completion))))
 	   ;; 新規に見つけたときだけ cons する。
-	   (setq skk-completion-stack (cons c-word skk-completion-stack))))
+	   (setq skk-comp-stack (cons c-word skk-comp-stack))))
     ;; 辞書バッファの外。
     (if (not c-word)
 	(progn
-	  (setq skk-completion-depth (1+ skk-completion-depth))
+	  (setq skk-comp-depth (1+ skk-comp-depth))
 	  (if silent
 	      nil
 	  (ding)
 	  (if skk-japanese-message-and-error
 	      (message "\"%s\" で補完すべき見出し語は%sありません"
-		     skk-completion-word (if first "" "他に"))
+		     skk-comp-key (if first "" "他に"))
 	    (message "No %scompletions for \"%s\""
-		   (if first "" "more ") skk-completion-word))))
+		   (if first "" "more ") skk-comp-key))))
       (delete-region skk-henkan-start-point (point))
       (insert c-word))))
 
-(defun skk-completion-1 (key first)
+(defun skk-comp-do-1 (key first)
+  ;; skk-comp-1 のサブルーチン。
   (let (c-word)
     (with-current-buffer (skk-get-jisyo-buffer skk-jisyo)
       (if first (goto-char skk-okuri-nasi-min))
@@ -106,26 +112,36 @@
 	c-word))))
 
 ;;;###autoload
-(defun skk-previous-completion ()
+(defun skk-comp-previous ()
   ;; skk-abbrev-comma, skk-insert-comma のサブルーチン。直前に補完を行った見
   ;; 出しを挿入する。
   (let ((inhibit-quit t)
         (c-word 
 	 (progn
-	   (setq skk-completion-depth (1+ skk-completion-depth))
-	   (nth skk-completion-depth skk-completion-stack))))
+	   (setq skk-comp-depth (1+ skk-comp-depth))
+	   (nth skk-comp-depth skk-comp-stack))))
     (if c-word
 	(progn
 	  (delete-region skk-henkan-start-point (point))
 	  (insert c-word))
-      (setq skk-completion-depth (1- skk-completion-depth))
+      (setq skk-comp-depth (1- skk-comp-depth))
       (ding)
       (skk-message "\"%s\"で補完すべき見出し語は他にありません"
                  "No more previous completions for \"%s\""
-                 skk-completion-word))))
+                 skk-comp-key))))
+
+;;;###autoload
+(defun skk-comp-previous/next (ch)
+  (setq this-command 'skk-comp-do)
+  (cond ((eq ch skk-next-completion-char)
+	 (skk-comp-do nil))
+	((eq ch skk-previous-completion-char)
+	 (skk-previous-completion))))
+
+(defalias 'skk-previous-completion 'skk-comp-previous)
+(defalias 'skk-start-henkan-with-completion 'skk-comp-start-henkan)
 
 (run-hooks 'skk-comp-load-hook)
-
 (require 'product)
 (product-provide (provide 'skk-comp) (require 'skk-version))
 ;;; Local Variables:

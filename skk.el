@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.73 2000/11/30 07:58:26 czkmt Exp $
+;; Version: $Id: skk.el,v 1.74 2000/12/01 09:15:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/30 07:58:26 $
+;; Last Modified: $Date: 2000/12/01 09:15:48 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -787,8 +787,8 @@ dependent."
   (skk-with-point-move
    (if (and skk-henkan-on (not skk-henkan-active))
        (progn
-	 (setq this-command 'skk-completion)
-	 (skk-completion (not (eq last-command 'skk-completion))))
+	 (setq this-command 'skk-comp-do)
+	 (skk-comp-do (not (eq last-command 'skk-comp-do))))
      (skk-emulate-original-map arg))))
 
 (defun skk-latin-mode (arg)
@@ -849,9 +849,7 @@ dependent."
 		   skk-henkan-start-point skk-henkan-end-point)))))
         ((and (skk-in-minibuffer-p) (not skk-j-mode))
          ;; ミニバッファへの初突入時。
-         (skk-j-mode-on)
-	 ;; ここで skk-katakana フラグを立てておかなくて良いのか？
-	 )
+         (skk-j-mode-on))
         (t (setq skk-katakana (not skk-katakana))))
   (skk-kakutei))
 
@@ -889,32 +887,6 @@ dependent."
 
 (defun skk-insert (&optional arg)
   "SKK の文字入力を行なう。"
-  ;; skk-rom-kana-\\(base-\\)*rule-list の caddr に関数を書き、その関数内で、一
-  ;; 定条件を満した場合に (文字挿入以外の) ある特定の動作をさせ、そうでない場合はある特
-  ;; 定文字の挿入を行なうことのメリット、デメリットについて。
-  ;;
-  ;; メリット; 必ず skk-kana-input を通るので、unfixed prefix + トリガーキーの
-  ;; 文字処理を行なってから指定の関数呼び出しに入ることができる。
-  ;;
-  ;; デメリット; コールされた関数内で、独自に挿入文字を決定することはできるが、
-  ;; skk-rom-kana-\\(base-\\)*rule-list 内で定義が行なえない (既に文字の代わり
-  ;; に関数名が指定されているから。該当関数内で、skk-kana-input をコールすると、
-  ;; 無限ループに陥いってしまう)。関数内でオリジナルのカレントマップの動作をエ
-  ;; ミュレートすると、ユーザーが挿入文字の定義を変更できない。
-  ;;
-  ;; また、skk-input-vector を廃し、skk-rom-kana-\\(base-\\)*rule-list に挿入
-  ;; すべき文字定義を集中させたことから、可能な限りこれを崩したくない。
-  ;;
-  ;; 上記の考察から、下記のように方針を決めた。
-  ;;
-  ;; (1)挿入文字の定義は、skk-rom-kana-\\(base-\\)*rule-list 以外では行なわな
-  ;;    い。
-  ;; (2)トリガーキーをユーザー変数とし、このキーが押された場合かどうかの判定は、
-  ;;    skk-insert 内で行ない、適当な関数をコールする。
-  ;; (3)(2)のユーザー変数は、skk-abbrev-mode-map のキー定義などでも参照するこ
-  ;;    ととし、可能な限り動作の統一を図る。
-  ;; (4)unfixed prefix + トリガーキーの処理は必要に応じて該当関数の中に埋め込
-  ;;    む。
   (interactive "*p")
   (skk-with-point-move
    (let ((ch last-command-char))
@@ -931,20 +903,30 @@ dependent."
 	   ;; start conversion.
 	   ((and skk-henkan-on (eq ch skk-start-henkan-char))
 	    (skk-start-henkan arg))
+	   ;; just imput Kana.
+	   ((or skk-henkan-active (not skk-henkan-on))
+	    (skk-kana-input arg))
 	   ;; for completion.
-	   ((and skk-henkan-on (not skk-henkan-active))
-	    (cond ((eq ch skk-try-completion-char)
-		   (setq this-command 'skk-completion)
-		   (skk-completion (not (eq last-command 'skk-completion))))
-		  ((eq last-command 'skk-completion)
-		   (cond ((eq ch skk-next-completion-char)
-			  (setq this-command 'skk-completion)
-			  (skk-completion nil))
-			 ((eq ch skk-previous-completion-char)
-			  (setq this-command 'skk-completion)
-			  (skk-previous-completion))
-			 (t (skk-kana-input arg))))
-		  (t (skk-kana-input arg))))
+	   ;; コンプリーション関連の関数は skk-rom-kana-base-rule-list の中に押
+	   ;; し込め、skk-kana-input の中から制御すべき。
+	   ;; 但し、TAB は self-insert-command ではないので、skk-j-mode-map の
+	   ;; キーマップで substitute-key-definition しても skk-insert にバイン
+	   ;; ドできない。skk-j-mode-map で 直接 "\t" を skk-insert にバインド
+	   ;; して、completion と skk-current-kuten/skk-current-touten をコント
+	   ;; ロールするコマンド名を skk-rom-kana-base-rule-list に書けば良いか
+	   ;; も。
+	   ;; でも、skk-comp と skk-current-kuten/skk-current-touten のコントロ
+	   ;; ールがハードコーディングされるのはまずいかも (skk-comp は使っても
+	   ;; skk-current-kuten/skk-current-touten は使わない、という人がいるか
+	   ;; も)。
+	   ((and skk-henkan-on (not skk-henkan-active)
+		 (eq ch skk-try-completion-char))
+	    (skk-comp (not (eq last-command 'skk-comp-do))))
+	   ((and skk-henkan-on (not skk-henkan-active)
+		 (memq ch (list skk-next-completion-char
+				skk-previous-completion-char))
+		 (eq last-command 'skk-comp-do))
+	    (skk-comp-previous/next ch))
 	   ;; just imput Kana.
 	   (t (skk-kana-input arg))))))
 
@@ -1309,10 +1291,10 @@ dependent."
 SKK abbrev モード以外では、skk-insert-period 関数を使用すること。"
   (interactive "*P")
   (skk-with-point-move
-   (if (eq last-command 'skk-completion)
+   (if (eq last-command 'skk-comp-do)
        (progn
-	 (setq this-command 'skk-completion)
-	 (skk-completion nil))
+	 (setq this-command 'skk-comp-do)
+	 (skk-comp-do nil))
      (skk-emulate-original-map arg))))
 
 (defun skk-abbrev-comma (arg)
@@ -1321,10 +1303,10 @@ SKK abbrev モード以外では、skk-insert-period 関数を使用すること。"
 SKK abbrev モード以外では、skk-insert-comma 関数を使用すること。"
   (interactive "*P")
   (skk-with-point-move
-   (if (eq last-command 'skk-completion)
+   (if (eq last-command 'skk-comp-do)
        (progn
-	 (setq this-command 'skk-completion)
-	 (skk-previous-completion))
+	 (setq this-command 'skk-comp-do)
+	 (skk-comp-previous))
      (skk-emulate-original-map arg))))
 
 (defun skk-jisx0208-latin-insert (arg)

@@ -1,3 +1,29 @@
+2000-12-01  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-insert): Arrange order of conditions.
+
+	* skk-xm20_4.el: Load "skk-autoloads.el" instead of specifying all
+	autoloads definitions of functions.
+
+	* skk-vars.el (skk-completion-word): Renamed to `skk-comp-key'.
+	(skk-completion-depth): Renamed to `skk-comp-depth'.
+	(skk-completion-function): Abolish.
+	(skk-previous-completion-function): Ditto.
+
+	* skk-comp.el (skk-completion-1): Renamed to `skk-comp-do-1'.
+	(skk-completion): Renamed to `skk-comp-do'.
+	(skk-previous-completion): Renamed to `skk-comp-previous'.
+	(skk-start-henkan-with-completion): Renamed to
+	`skk-comp-start-henkan'.
+	
+	* experimental/skk-dcomp.el (skk-dcomp-toggle-key): Abolish. 
+	(skk-dcomp-keep-completion-keys): New user variable.
+	(skk-dcomp-face): Add group skk-dcomp.
+	(skk-kana-input): When error occurred in the completion stage,
+	just initialize `skk-completion-stack' and echo area (not to put on
+	markers and face and move to `skk-dcomp-start-point').
+        Initialize `skk-dcomp-end-point', too.
+	
 2000-11-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* install-info.el (install-info-point-at-eol): Use `prog1'.
@@ -2609,8 +2635,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.192 2000/11/30 10:43:32 czkmt Exp $
-Last Modified: $Date: 2000/11/30 10:43:32 $
+Version: $Id: ChangeLog,v 1.193 2000/12/01 09:15:48 minakaji Exp $
+Last Modified: $Date: 2000/12/01 09:15:48 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

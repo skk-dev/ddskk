@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.17 2000/11/27 17:23:26 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.18 2000/12/01 09:15:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/27 17:23:26 $
+;; Last Modified: $Date: 2000/12/01 09:15:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1154,20 +1154,6 @@ nil であれば、先頭の文字を共通にする文字列について補完が行なわれる。
 
   \"さ\" (,) -> \"さとう\" (,) -> \"さいとう\" (,) -> \"さくら\""
   :type 'boolean
-  :group 'skk-comp)
-
-(defcustom skk-completion-function 'skk-completion-original
-  "*skk-completion で使用する関数。
-skk-comp.el 以外の補完機能を利用できるように関数を funcall する形にしておく。"
-  :type 'function
-  :group 'skk-hooks-and-functions
-  :group 'skk-comp)
-
-(defcustom skk-previous-completion-function 'skk-previous-completion-original
-  "*skk-previous-completion で使用する関数。
-skk-comp.el 以外の補完機能を利用できるように関数を funcall する形にしておく。"
-  :type 'function
-  :group 'skk-hooks-and-functions
   :group 'skk-comp)
 
 (defcustom skk-comp-load-hook nil
@@ -2338,20 +2324,20 @@ skk-remove-common で参照される。")
 
 ;;; -- SKK-COMP.EL related internal variables
 ;; ---- buffer local variables
-;; 空文字列に対して skk-completion を呼ぶこともありうるので、"" を nil では代
+;; 空文字列に対して skk-comp-do を呼ぶこともありうるので、"" を nil では代
 ;; 用できない。
-(skk-deflocalvar skk-completion-word ""
+(skk-deflocalvar skk-comp-key ""
   "補完すべき見出し語。
 skk-dabbrev-like-completion が non-nil の場合は、常に最後に補完した見出し語が
 代入される。")
 ;; 辞書登録時ミニバッファで補完した場合、元のバッファに戻ったときに
-;; skk-completion-word の値が破壊されていない方がベター。
+;; skk-comp-key の値が破壊されていない方がベター。
 
-(skk-deflocalvar skk-completion-stack nil
+(skk-deflocalvar skk-comp-stack nil
   "補完した語を保存しておくスタック。")
 
-(skk-deflocalvar skk-completion-depth 0
-  "補完した語を skk-completion-stack から取り出す位置。")
+(skk-deflocalvar skk-comp-depth 0
+  "補完した語を skk-comp-stack から取り出す位置。")
 
 ;;; -- SKK-CURSOR.EL related internal variables
 (skk-deflocalvar skk-cursor-color-before-entering-minibuffer nil

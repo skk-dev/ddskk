@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.10 2000/11/20 08:55:40 czkmt Exp $
+;; Version: $Id: skk-look.el,v 1.11 2000/12/01 09:15:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:40 $
+;; Last Modified: $Date: 2000/12/01 09:15:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -190,18 +190,18 @@
 ;;;###autoload
 (defun skk-look-completion ()
   (or skk-look-completion-words
-      (let ((stacked skk-completion-stack)) ; 他の機能による補完候補。
+      (let ((stacked skk-comp-stack)) ; 他の機能による補完候補。
 	;; look は複数の候補を吐くので、一旦貯めておいて、一つづつ complete する。
 	(setq skk-look-completion-words
 	      (if (not skk-look-use-ispell)
-		  (skk-look-1 skk-completion-word)
-		(skk-look-ispell skk-completion-word)))
+		  (skk-look-1 skk-comp-key)
+		(skk-look-ispell skk-comp-key)))
 	(while stacked
 	  (setq skk-look-completion-words
 		(delete (car stacked) skk-look-completion-words)
 		stacked (cdr stacked)))
 	;;skk-look-completion-words の各要素は、実際に補完を行なった段階で
-	;; `skk-completion' により skk-completion-stack に入れられる。
+	;; `skk-completion' により skk-comp-stack に入れられる。
 	))
   (prog1
       (car skk-look-completion-words)
