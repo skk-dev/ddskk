@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.21 2002/02/05 15:57:06 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.22 2002/02/05 16:02:36 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2002/02/05 15:57:06 $
+;; Last Modified: $Date: 2002/02/05 16:02:36 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -57,7 +57,7 @@
 
 (defsubst set-frame-background-color (frame color)
   (modify-frame-parameters frame (list (cons 'frame-background-color color))))
-				       
+
 ;; Internal variables.
 (defvar frame-cursor-color (get-apparent-cursor-color))
 (make-variable-frame-local 'frame-cursor-color)
