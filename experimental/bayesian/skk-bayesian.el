@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.15 2004/12/31 09:37:32 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.16 2005/01/31 05:50:19 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/12/31 09:37:32 $
+;; Last Modified: $Date: 2005/01/31 05:50:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -167,19 +167,20 @@
                nil)))))
 
 (defun skk-bayesian-make-context (henkan-buffer)
-  ;; "▼" があれば、`skk-bayesian-context-len'の長さの文字列を返す。
+  ;; もし"▼"があれば、`skk-bayesian-context-len'の長さの文字列を返す。
   ;; なければ、nil。
   (let ((raw-text
          (with-current-buffer henkan-buffer
-           (let ((kakutei-mark-point
+           (let ((kakutei-symbol-point
                   (save-excursion
+                    ;; 100 文字前までしか▼を検索しない
                     (search-backward "▼" (max (point-min) (- (point) 100)) t))))
-             (if kakutei-mark-point
+             (if kakutei-symbol-point
                  (buffer-substring-no-properties
-                  (max (- kakutei-mark-point skk-bayesian-context-len)
+                  (max (- kakutei-symbol-point skk-bayesian-context-len)
                        (point-min))
-                  kakutei-mark-point))))))
-    (when raw-text
+                  kakutei-symbol-point))))))
+    (if raw-text
       (with-temp-buffer
         (let ((min (point-min)))
           (insert raw-text)
@@ -200,9 +201,11 @@
                              (skk-jisx0213-p char-before)))
                 (while (looking-at " ")
                   (delete-char 1))))))
-        (buffer-string)))))
+        (buffer-string))
+      nil)))
 
 (defun skk-bayesian-search (henkan-buffer midasi okurigana entry)
+  ;; ソートした、entry を返す
   ;; 引数の例
   ;; entry : ("斬" "切" "着")
   ;; midasi: きr
@@ -212,28 +215,27 @@
       entry
     (let ((context (skk-bayesian-make-context henkan-buffer))
           entry-str
-          new-entry)
+          sorted-entry)
       ;; make entry-str
       (let ((e entry))
         (while e
           (setq entry-str (concat entry-str (car e) "/"))
           (setq e (cdr e))))
       ;; send context to skk-bayesian-process
-      (setq new-entry
+      (setq sorted-entry
             (skk-bayesian-read-process-output
              (concat skk-bayesian-command-sort entry-str
                      "\n" context "\n")))
       ;; send debugging messages
-      (skk-bayesian-debug-message (concat "search: entry-str=" entry-str))
-      (skk-bayesian-debug-message (concat "search: context=" context))
-      (skk-bayesian-debug-message (concat "search: new-entry="
-                                          (prin1-to-string new-entry)))
-      ;; return new-entry or entry
-      (if (and new-entry
-               (listp new-entry))
+      (skk-bayesian-debug-message "search: entry-str=%s" entry-str)
+      (skk-bayesian-debug-message "search: context=%s" context)
+      (skk-bayesian-debug-message "search: sorted-entry=%s" sorted-entry)
+      ;; return sorted-entry or entry
+      (if (and sorted-entry
+               (listp sorted-entry))
           (progn
             (setq skk-bayesian-last-context context)
-            new-entry)
+            sorted-entry)
         entry))))
 
 (defun skk-bayesian-update (henkan-buffer midasi okurigana word purge)
@@ -243,7 +245,7 @@
         ;; pending していたのを保存
         (skk-bayesian-add-to-history))
     ;; pending 開始
-    (skk-bayesian-debug-message (concat "update: pending..." word))
+    (skk-bayesian-debug-message "update: pending... word=%s" word)
     (setq skk-bayesian-number-of-command-after-kakutei -1);; 確定に1回かかるので-1
     (skk-bayesian-make-pending-data-alist
      word 
@@ -282,10 +284,10 @@
              (buffer-live-p (skk-bayesian-get-pending-data-alist 'buffer)))
     (with-current-buffer (skk-bayesian-get-pending-data-alist 'buffer)
       (let* ((kakutei-word (skk-bayesian-get-pending-data-alist 'word))
-             (kakutei-with-okuri (concat kakutei-word
-                                         (skk-bayesian-get-pending-data-alist
-                                          'okurigana)))
+             (okurigana (skk-bayesian-get-pending-data-alist 'okurigana))
+             (kakutei-with-okuri (concat kakutei-word okurigana))
              (word-len (length kakutei-with-okuri))
+             (midasi (skk-bayesian-get-pending-data-alist 'midasi))
              ;; henkan-point は、送り仮名がある場合は、送り仮名の point
              (end (marker-position (skk-bayesian-get-pending-data-alist
                                     'henkan-point)))
@@ -296,8 +298,8 @@
         ;; kakutei-word が変更されているか
         (if (not (string= current-word kakutei-with-okuri))
             (skk-bayesian-debug-message "add: kakutei-word has been modified")
-          (skk-bayesian-debug-message (concat "add: context=" context))
-          (skk-bayesian-debug-message (concat "add: kakutei-word=" kakutei-word))
+          (skk-bayesian-debug-message "add: context=%s" context)
+          (skk-bayesian-debug-message "add: kakutei-word=%s" kakutei-word)
           (if (skk-bayesian-read-process-output
                (concat skk-bayesian-command-add
                        kakutei-word "\n"
@@ -326,6 +328,8 @@
                                           "*skk-bayesian*"
                                         " *skk-bayesian*")))
          (proc-name "skk-bayesian"))
+    (skk-message "プロセス bskk を起動しています..."
+                 "Launching a process, bskk...")
     (setq skk-bayesian-process
           (or (and skk-bayesian-prefer-server
                    (condition-case err
@@ -336,11 +340,18 @@
                                                         (error-message-string err)
                                                         "run bskk as a sub process")
                             nil)))
-              (start-process proc-name
-                             proc-buf
-                             "ruby" "-S" "bskk" "-f" skk-bayesian-history-file
-                             (if skk-bayesian-debug "-v" "")
-                             (if skk-bayesian-debug "-d" "")))))
+              (if skk-bayesian-debug
+                  (start-process proc-name
+                                 proc-buf
+                                 "ruby" "-S" "bskk" "-f" 
+                                 skk-bayesian-history-file
+                                 "-v" "-d")
+                (start-process proc-name
+                               proc-buf
+                               "ruby" "-S" "bskk" "-f"
+                               skk-bayesian-history-file))))
+    (skk-message "プロセス bskk を起動しています...完了"
+                 "Launching a process, bskk...done"))
   (set-process-coding-system skk-bayesian-process
                              skk-bayesian-coding-system
                              skk-bayesian-coding-system)
