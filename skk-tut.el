@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.55 2002/05/27 14:10:54 obata Exp $
+;; Version: $Id: skk-tut.el,v 1.56 2002/07/27 06:24:37 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/05/27 14:10:54 $
+;; Last Modified: $Date: 2002/07/27 06:24:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -86,7 +86,6 @@
     (skk-count-jisyo-candidates-function
      . 'skk-count-jisyo-candidates-original)
     (skk-count-private-jisyo-candidates-exactly . nil)
-    (skk-dabbrev-like-completion . nil)
     (skk-date-ad . 1)
     (skk-cursor-default-color
      . (cond
