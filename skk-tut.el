@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.20 2000/11/20 08:55:41 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.21 2000/11/24 15:39:47 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:41 $
+;; Last Modified: $Date: 2000/11/24 15:39:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -58,7 +58,7 @@
    )
   "SKK $B%A%e!<%H%j%"%k$G(B advice $B$,IU$1$i$l$k4X?t$H(B advice class $B$N%(!<%j%9%H!#(B")
 
-(defconst skktut-question-numbers 37 "SKK $B%A%e!<%H%j%"%k$NLdBj?t!#(B")
+(defvar skktut-question-numbers nil "SKK $B%A%e!<%H%j%"%k$NLdBj?t!#(B")
 
 (defconst skktut-tut-jisyo "~/skk-tut-jisyo"
   "SKK $B%A%e!<%H%j%"%kMQ$N%@%_!<<-=q!#(B")
@@ -286,6 +286,13 @@
      (skk-compile-rule-list skk-rom-kana-base-rule-list skk-rom-kana-rule-list)))
   "skk.el $B$N%f!<%6!<JQ?t$N%j%9%H!#(B")
 
+(defvar skktut-nicola-tut-file
+  (when skk-tut-file
+    (expand-file-name "NICOLA-SKK.tut"
+		      (expand-file-name
+		       (file-name-directory skk-tut-file))))
+  "NICOLA-DDSKK $B$N$?$a$N%A%e!<%H%j%"%k%U%!%$%k!#(B")
+
 (defvar skktut-japanese-tut nil
   "Non-nil $B$G$"$l$P!"%A%e!<%H%j%"%k$,F|K\8l$G$"$k$3$H$r<($9!#(B")
 (defvar skktut-right-answer nil "$B@52r$NJ8;zNs!#(B")
@@ -450,6 +457,15 @@ C-u M-x skk-tutorial $B$9$k$H!"%A%e!<%H%j%"%k%U%!%$%k$NA*Br$,2DG=!#(B"
     ;; $B$H$j$"$($:!"$J$k$Y$/Aa$$%?%$%_%s%0$KJQ99$7$^$9!#(B)
     (skk-mode 1)
     (skk-mode -1))
+  ;;
+  (when (and skk-use-kana-keyboard
+	     (memq skk-kanagaki-keyboard-type
+		   '(oasys
+		     nicola-jis nicola-us nicola-dvorak
+		     omelet-jis omelet-us omelet-dvorak))
+	     (eq skk-kanagaki-state 'kana)
+	     skktut-nicola-tut-file)
+    (setq skk-tut-file skktut-nicola-tut-file))
   ;;
   (if query-language
       (let* ((lang (completing-read "Language: " skk-tut-file-alist))
@@ -724,6 +740,12 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
       (skktut-localize-and-init-variables)
       (skktut-erase-buffer) ; fail safe.
       (insert-file-contents skk-tut-file)
+      ;; Count how many questions there are.
+      (setq skktut-question-numbers -1)
+      (goto-char (point-min))
+      (while (re-search-forward "^----$" nil t)
+	(setq skktut-question-numbers (1+ skktut-question-numbers)))
+      ;;
       (goto-char (point-min))
       (setq skktut-japanese-tut (looking-at ";; SKK Japanese"))
       (while (re-search-forward "^>> \\((.+)\\)$" nil t nil)
