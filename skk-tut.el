@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.21 2000/11/24 15:39:47 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.22 2000/11/24 16:46:19 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/24 15:39:47 $
+;; Last Modified: $Date: 2000/11/24 16:46:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -35,6 +35,10 @@
 (eval-and-compile
   (require 'skk-vars)
   (autoload 'skk-viper-normalize-map "skk-viper"))
+
+(eval-when-compile
+  (defvar skk-kanagaki-keyboard-type)
+  (defvar skk-kanagaki-state))
 
 ;; skk-tut.el 関連だけは日常使わないことの方が多いので、グループ、変数をあえて、
 ;; skk-vars.el に入れない。
