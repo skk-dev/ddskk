@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.9 2004/12/08 01:24:41 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.10 2004/12/20 09:33:56 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/12/08 01:24:41 $
+;; Last Modified: $Date: 2004/12/20 09:33:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -31,7 +31,7 @@
 ;;
 ;;
 ;; <動作>
-;; 例: (skk-bayesian-prefix-len = 5 の時)
+;; 例: (skk-bayesian-context-len = 5 の時)
 ;; 「その服を、」の後に、きr を変換する状況において、
 ;; entry が、("切" "着" "斬") である状況を考える。
 ;; この enrty を以下の確率を計算することで、ソートする。
@@ -56,12 +56,12 @@
 ;;    w_i : w_j = (n-i) : (n-j)
 ;;    となるように値を決めている。本来、いずれも隠れ変数として、EMアル
 ;;    ゴリズム, VBA 等により学習すべきかもしれない。
-;; 3. skk-bayesian-prefix-len は変数にしているので、ユーザが決定できる
+;; 3. skk-bayesian-context-len は変数にしているので、ユーザが決定できる
 ;;    が、理想的にはモデルの推定問題ととらえて、学習データから決定すべ
-;;    きだろう。また、ある程度、学習した後に skk-bayesian-prefix-lenを
+;;    きだろう。また、ある程度、学習した後に skk-bayesian-context-lenを
 ;;    大きい値に変更するのは、推定に悪影響を与えそう。
 ;; 4. 2と3に重なるが、著作権の心配をしなくてもよいコーパスから、学習を行い
-;;    skk-bayesian-prefix-len と 混合分布の重みを決定したい。
+;;    skk-bayesian-context-len と 混合分布の重みを決定したい。
 ;; 5. bskk とのプロトコルが素人臭い。
 ;;
 ;;
@@ -98,19 +98,23 @@
 (defvar skk-bayesian-host "localhost"
   "*`skk-bayesian-prefer-server'が non-nil の時に接続するホスト")
 (defvar skk-bayesian-coding-system 'euc-jp)
-(defvar skk-bayesian-prefix-len 20 "*学習や予測に使用する、変換語の直前の文字数")
-(defvar skk-bayesian-last-prefix-str nil "*確定語の直前の文字列")
+(defvar skk-bayesian-context-len 20 "*学習や予測に使用する、変換語の直前の文字数")
+(defvar skk-bayesian-last-context nil "*確定語の直前の文字列")
+(defvar skk-bayesian-last-context-pending nil 
+  "*pendingされた確定語の直前の文字列")
 (defvar skk-bayesian-history-file "~/.skk-bayesian" "*history file")
 (defvar skk-bayesian-debug nil "*デバッグ用のメッセージを表示")
 (defvar skk-bayesian-number-of-command-after-kakutei 0 "*確定後のコマンドの回数")
 (defvar skk-bayesian-last-kakutei-word nil "直前の確定語")
 (defvar skk-bayesian-last-buffer nil "直前の確定が行われた buffer")
+(defvar skk-bayesian-last-henkan-point nil "直前の確定が行われた marker")
+(defvar skk-bayesian-last-okurigana nil "直前の確定の送り仮名")
 (defvar skk-bayesian-add-to-history-pending nil "確定語の履歴登録待ちかどうか")
 (defvar skk-bayesian-max-commands-to-wait-for 5
-  "*確定の後に`skk-bayesian-max-commands-to-wait-for'回のコマンドの
-  うちに確定語(送り仮名を含む)が変更されなければ、その確定語を保存
-  する。`skk-bayesian-max-commands-to-wait-for'が0以下ならば、確定
-  後、直ちに履歴に保存する。")
+  "*確定の後に`skk-bayesian-max-commands-to-wait-for'回のコマンド
+のうちに確定語(送り仮名を含む)が変更されなければ、その確定語を保存
+する。`skk-bayesian-max-commands-to-wait-for'が0以下ならば、確定後、
+直ちに履歴に保存する。")
 
 (defconst skk-bayesian-command-sort "#sort\n")
 (defconst skk-bayesian-command-add "#add\n")
@@ -149,119 +153,147 @@
                           (error-message-string err))
              nil))))
 
+(defun skk-bayesian-make-context (henkan-buffer)
+  ;; "▼" があれば、`skk-bayesian-context-len'の長さの文字列を返す。
+  ;; なければ、nil。
+  (interactive)
+  (let ((raw-text
+         (with-current-buffer henkan-buffer
+           (let ((kakutei-mark-point
+                  (save-excursion
+                    (search-backward "▼" (max (point-min) (- (point) 100)) t))))
+             (if kakutei-mark-point
+                 (buffer-substring-no-properties
+                  (max (- kakutei-mark-point skk-bayesian-context-len)
+                       (point-min))
+                  kakutei-mark-point))))))
+    (when raw-text
+      (with-temp-buffer
+        (let ((min (point-min)))
+          (insert raw-text)
+          ;; 文字列から改行を join-line で除く。
+          ;; 但し、日本語の中の改行は空白が入るので、それを除く。
+          (while (not (eq min (point)))
+            (goto-char (point-max))
+            (join-line)
+            ;; from skk-viper.el
+            (let ((char-after (char-after (progn (skip-chars-forward " ")
+                                                 (point))))
+                  (char-before (char-before (progn (skip-chars-backward " ")
+                                                   (point)))))
+              (when (and char-after char-before
+                         (or (skk-jisx0208-p char-after)
+                             (skk-jisx0213-p char-after))
+                         (or (skk-jisx0208-p char-before)
+                             (skk-jisx0213-p char-before)))
+                (while (looking-at " ")
+                  (delete-char 1))))))
+        (buffer-string)))))
+
 (defun skk-bayesian-search (henkan-buffer midasi okurigana entry)
   ;; 引数の例
   ;; entry : ("斬" "切" "着")
   ;; midasi: きr
   ;; okurigana: る
-  (setq skk-bayesian-last-prefix-str nil)
+  (setq skk-bayesian-last-context nil)
   (if (= 1 (length entry))
       entry
     (skk-bayesian-init)
-    (let ((prefix-str "")
-          (entry-str "")
+    (let ((context (skk-bayesian-make-context henkan-buffer))
+          entry-str
           new-entry)
       ;; make entry-str
       (let ((e entry))
         (while e
           (setq entry-str (concat entry-str (car e) "/"))
-          (setq e (cdr e)))
-        (skk-bayesian-debug-message (concat "entry-str=" entry-str)))
-      ;; make prefix-str
-      (with-current-buffer henkan-buffer
-	(let (just-before-point ;; "▼" の直前
-              (prefix-str-len 0)
-              char)
-          ;; set just-before-point
-          (save-excursion
-            (let ((kakutei-mark-point
-                   (search-backward "▼" 
-                                    (max (point-min) (- (point) 100))
-                                    t)))
-              (if kakutei-mark-point
-                  (setq just-before-point (1- kakutei-mark-point))
-                (setq just-before-point nil))))
-	  (while (and just-before-point
-                      (<= (point-min) just-before-point)
-		      (<= prefix-str-len skk-bayesian-prefix-len))
-	    (setq char (buffer-substring-no-properties
-			just-before-point (1+ just-before-point)))
-	    (when (not (string-match "[[:cntrl:][:blank:]]" char))
-	      (setq prefix-str (concat char " " prefix-str))
-	      (setq prefix-str-len (1+ prefix-str-len)))
-	    (setq just-before-point (1- just-before-point))))
-        (skk-bayesian-debug-message (concat "prefix-str=" prefix-str)))
-      ;; send prefix-str to skk-bayesian-process
+          (setq e (cdr e))))
+      ;; send context to skk-bayesian-process
       (setq new-entry
             (skk-bayesian-read-process-output
              (concat skk-bayesian-command-sort entry-str
-                     "\n" prefix-str "\n")))
-      (skk-bayesian-debug-message (concat "new-entry="
+                     "\n" context "\n")))
+      ;; send debugging messages
+      (skk-bayesian-debug-message (concat "search: entry-str=" entry-str))
+      (skk-bayesian-debug-message (concat "search: context=" context))
+      (skk-bayesian-debug-message (concat "search: new-entry="
                                           (prin1-to-string new-entry)))
       ;; return new-entry or entry
       (if (and new-entry
                (listp new-entry))
           (progn
-            (setq skk-bayesian-last-prefix-str prefix-str)
+            (setq skk-bayesian-last-context context)
             new-entry)
         entry))))
 
 (defun skk-bayesian-update (henkan-buffer midasi okurigana word purge)
-  (when skk-bayesian-last-prefix-str
+  (when skk-bayesian-last-context ;; entry の要素が 1 の時は、nil
     (add-hook 'post-command-hook 'skk-bayesian-check-modification-after-kakutei)
     (if skk-bayesian-add-to-history-pending
         ;; pending していたのを保存
         (skk-bayesian-add-to-history))
     ;; pending 開始
-    (skk-bayesian-debug-message (concat "pending..." word))
+    (skk-bayesian-debug-message (concat "update: pending..." word))
     (setq skk-bayesian-number-of-command-after-kakutei -1;; 確定に1回かかるので-1
           skk-bayesian-add-to-history-pending t
           skk-bayesian-last-buffer henkan-buffer
-          skk-bayesian-last-kakutei-word word)))
+          skk-bayesian-last-kakutei-word word
+          skk-bayesian-last-okurigana okurigana
+          skk-bayesian-last-context-pending skk-bayesian-last-context)
+    (with-current-buffer henkan-buffer
+      ;; skk-get-last-henkan-datum は、buffer-local な変数を用いている。
+      (setq skk-bayesian-last-henkan-point
+            (skk-get-last-henkan-datum 'henkan-point)))))
 
 (defun skk-bayesian-check-modification-after-kakutei ()
+  ;; skk-bayesian-max-commands-to-wait-for 回数コマンドが実行されれば、
+  ;; skk-bayesian-add-to-history を実行する。
   (when skk-bayesian-add-to-history-pending
     (setq skk-bayesian-number-of-command-after-kakutei
           (1+ skk-bayesian-number-of-command-after-kakutei))
-;;     ;; debug 用だとしても五月蝿い
-;;     (skk-bayesian-debug-message "num of command after kakutei=%d"
-;;                                 skk-bayesian-number-of-command-after-kakutei)
     (when (<= skk-bayesian-max-commands-to-wait-for
               skk-bayesian-number-of-command-after-kakutei)
       (skk-bayesian-add-to-history))))
 
 (defun skk-bayesian-add-to-history ()
   "`skk-bayesian-last-kakutei-word' を、bskk の履歴に追加する。も
-  し、`skk-bayesian-last-kakutei-word' が変換後に修正されていた場
-  合は追加しない。参考:`skk-bayesian-max-commands-to-wait-for'"
+し、`skk-bayesian-last-kakutei-word' が変換後に修正されていた場合
+は追加しない。参考:`skk-bayesian-max-commands-to-wait-for'。"
+  ;; 依存している変数
+  ;; skk-bayesian-add-to-history-pending
+  ;; skk-bayesian-last-kakutei-word
+  ;; skk-bayesian-last-buffer
+  ;; skk-bayesian-last-okurigana
+  ;; skk-bayesian-last-henkan-point
+  ;; skk-bayesian-last-context-pending
+  ;; 注意
+  ;; skk-get-last-henkan-datum は、新しい確定が pending 中に起こるので、使えない。
   (setq skk-bayesian-add-to-history-pending nil)
   (when (and skk-bayesian-last-kakutei-word
-             (skk-get-last-henkan-datum 'henkan-point)
+             skk-bayesian-last-henkan-point
              skk-bayesian-last-buffer)
-    (skk-bayesian-debug-message "adding history...")
     (with-current-buffer skk-bayesian-last-buffer
-      (let* ((okuri (skk-get-last-henkan-datum 'henkan-okurigana))
-             (kakutei-with-okuri (concat skk-bayesian-last-kakutei-word okuri))
+      (let* ((kakutei-with-okuri (concat skk-bayesian-last-kakutei-word
+                                         skk-bayesian-last-okurigana))
              (word-len (length kakutei-with-okuri))
-             ;; 'henkan-point は、送り仮名がある場合は、送り仮名の point
-             (end (marker-position (skk-get-last-henkan-datum 'henkan-point)))
+             ;; henkan-point は、送り仮名がある場合は、送り仮名の point
+             (end (marker-position skk-bayesian-last-henkan-point))
              (start (- end word-len))
              (current-word (if (and (<= (point-min) start) (<= end (point-max)))
                                (buffer-substring-no-properties start end))))
         ;; kakutei-word が変更されているか
         (if (not (string= current-word kakutei-with-okuri))
-            (skk-bayesian-debug-message "kakutei-word has been modified")
-          (skk-bayesian-debug-message (concat "kakutei-word="
+            (skk-bayesian-debug-message "add: kakutei-word has been modified")
+          (skk-bayesian-debug-message (concat "add: context="
+                                              skk-bayesian-last-context-pending))
+          (skk-bayesian-debug-message (concat "add: kakutei-word="
                                               skk-bayesian-last-kakutei-word))
-          (skk-bayesian-debug-message (concat "prefix="
-                                              skk-bayesian-last-prefix-str))
           (skk-bayesian-init)
           (if (skk-bayesian-read-process-output
                (concat skk-bayesian-command-add
                        skk-bayesian-last-kakutei-word "\n"
-                       skk-bayesian-last-prefix-str "\n"))
-              (skk-bayesian-debug-message "adding history...done")
-            (skk-bayesian-debug-message "adding history...failed")))))))
+                       skk-bayesian-last-context-pending "\n"))
+              (skk-bayesian-debug-message "add: done")
+            (skk-bayesian-debug-message "add: failed")))))))
 
 (defun skk-bayesian-save-history ()
   "Save skk-bayesian history to `skk-bayesian-history-file'."
@@ -298,7 +330,9 @@
   (set-process-coding-system skk-bayesian-process
                              skk-bayesian-coding-system
                              skk-bayesian-coding-system)
-  (process-kill-without-query skk-bayesian-process))
+  (static-if (fboundp 'set-process-query-on-exit-flag)
+      (set-process-query-on-exit-flag skk-bayesian-process nil)
+    (process-kill-without-query skk-bayesian-process)))
 
 (defun skk-bayesian-kill-process ()
   "Kill skk-bayesian process."
