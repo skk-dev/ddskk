@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.15 2001/09/23 10:28:20 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.16 2001/09/23 10:41:41 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 10:28:20 $
+;; Last Modified: $Date: 2001/09/23 10:41:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -58,16 +58,16 @@
 
 ;;; cursor color support.
 ;; what should we do if older Viper that doesn't have `viper-insert-state-cursor-color'?
-(static-if (not (boundp 'viper-insert-state-cursor-color))
+(if (not (boundp 'viper-insert-state-cursor-color))
     nil
   (defadvice skk-cursor-current-color (around skk-viper-cursor-ad activate)
     "vi-state のときは、SKK モードになっていてもディフォルトカーソルを返す。"
     (if (not skk-use-color-cursor)
 	ad-do-it
-      (if (static-cond ((boundp 'viper-current-state)
-			(eq viper-current-state 'vi-state))
-		       ((boundp 'vip-current-state)
-			(eq vip-current-state 'vi-state)))
+      (if (cond ((boundp 'viper-current-state)
+		 (eq viper-current-state 'vi-state))
+		((boundp 'vip-current-state)
+		 (eq vip-current-state 'vi-state)))
 	  skk-cursor-default-color
 	(cond ((not skk-mode)
 	       (setq viper-insert-state-cursor-color
@@ -116,17 +116,17 @@
   (defadvice skk-kakutei (after skk-viper-cursor-ad activate)
     (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))
 
-(static-if (and (boundp 'viper-insert-state-cursor-color)
-		(not (eq skk-emacs-type 'xemacs)))
-    (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
-      "minibuffer-setup-hook に update-buffer-local-frame-params をフックする。
+(static-if (not (eq skk-emacs-type 'xemacs))
+    (if (boundp 'viper-insert-state-cursor-color)
+	(skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
+	  "minibuffer-setup-hook に update-buffer-local-frame-params をフックする。
 viper-read-string-with-history は minibuffer-setup-hook を関数ローカル
 にしてしまうので、予め minibuffer-setup-hook にかけておいたフックが無効
 となる。"
-      (if skk-use-color-cursor
-	  ;; non-command subr.
-	  (add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params
-		    'append))))
+	  (if skk-use-color-cursor
+	      ;; non-command subr.
+	      (add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params
+			'append)))))
 
 ;;; advices.
 ;; vip-4 の同種の関数名は vip-read-string-with-history？
@@ -274,9 +274,8 @@ Convert hirakana to katakana and vice versa."
 	 (setq val (1- val))))))
 
 (defun skk-viper-init-function ()
-  (static-if (boundp 'viper-insert-state-cursor-color)
-      (if (featurep 'skk-cursor)
-	  (setq viper-insert-state-cursor-color (skk-cursor-current-color))))
+  (if (and (boundp 'viper-insert-state-cursor-color) (featurep 'skk-cursor))
+	  (setq viper-insert-state-cursor-color (skk-cursor-current-color)))
   ;; viper-toggle-key-action と連動させる？
   (skk-viper-normalize-map)
   (remove-hook 'skk-mode-hook 'skk-viper-init-function))

@@ -1,8 +1,14 @@
 2001-09-23  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-viper.el: Check if `viper-insert-state-cursor-color' is
+	bound using `if' instead of `static-if' (A user may replace Viper
+	with its newer version after installing SKK).
+	Check if `viper-insert-state-cursor-color' is
 	bound instead of checking by `skk-color-display-p' for cursor
 	support.
+	(skk-cursor-current-color@around@skk-viper-cursor-ad): Check if 
+	`viper-current-state' and `vip-current-state' and are bound using
+	`cond' instead of `static-cond'.
 	(read-from-minibuffer@before@skk-viper-ad): Not advise if
 	`skk-emacs-type' is `xemacs'.
 	Change Murata-san's email address to `mrt@notwork.org'.
@@ -2095,8 +2101,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.431 2001/09/23 10:28:21 minakaji Exp $
-Last Modified: $Date: 2001/09/23 10:28:21 $
+Version: $Id: ChangeLog,v 1.432 2001/09/23 10:41:41 minakaji Exp $
+Last Modified: $Date: 2001/09/23 10:41:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
