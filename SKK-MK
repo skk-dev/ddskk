@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.83 2001/09/16 08:44:49 czkmt Exp $
-;; Last Modified: $Date: 2001/09/16 08:44:49 $
+;; Version: $Id: SKK-MK,v 1.84 2001/09/16 09:16:06 czkmt Exp $
+;; Last Modified: $Date: 2001/09/16 09:16:06 $
 
 ;; Commentary
 ;;
@@ -1038,6 +1038,8 @@ SKK tutorials:
 		 ((file-readable-p jisyo3)
 		  jisyo3))))
     (cond
+     ((file-exists-p (expand-file-name "skk-dic.el"))
+      nil)
      (jisyo
       (princ (format "Processing %s...
 "
@@ -1057,7 +1059,7 @@ SKK tutorials:
 	(erase-buffer)
 	(insert-file-contents-as-coding-system
 	 (cond ((boundp 'MULE) *junet*)
-	       (t 'iso-2022-jp))
+		 (t 'iso-2022-jp))
 	 (expand-file-name "skk-dic.el.in"))
 	(goto-char (point-min))
 	(while (not (looking-at "^\" \"\\\\$"))

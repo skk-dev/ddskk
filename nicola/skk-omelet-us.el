@@ -204,6 +204,20 @@ US 101 キーボードで omelet 入力するための基本ルール。")
 
 ;;
 
+(defadvice skk-insert (before skk-omelet-us activate)
+  (when (and (eq skk-kanagaki-state 'kana)
+	     skk-j-mode
+	     (or (eq last-command-char
+		     (car
+		      (rassoc '("、") skk-omelet-us-plain-rule-list)))
+		 (eq last-command-char
+		     (car
+		      (rassoc '("。") skk-omelet-us-plain-rule-list))))
+	     (or skk-henkan-on
+		 skk-henkan-active))
+    ;; なぜかこける。原因解明中。
+    (skk-kakutei)))
+
 (require 'product)
 (product-provide
     (provide 'skk-omelet-us)
