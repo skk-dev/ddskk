@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.24 2001/09/23 02:50:49 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.25 2001/10/02 22:31:16 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/23 02:50:49 $
+;; Last Modified: $Date: 2001/10/02 22:31:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -467,11 +467,6 @@
       nil
       ;; not yet
       ))
-
-;;
-
-(define-key skk-j-mode-map "\C-c\C-q" 'skk-toggle-jisx0201)
-(define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana)
 
 
 (require 'product)
