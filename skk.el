@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.222 2002/01/19 01:00:33 czkmt Exp $
+;; Version: $Id: skk.el,v 1.223 2002/01/22 15:26:01 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/19 01:00:33 $
+;; Last Modified: $Date: 2002/01/22 15:26:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -273,6 +273,7 @@ dependent."
   (skk-setup-init-file)
   (load skk-init-file t)
   (skk-cus-setup)
+  (skk-adjust-user-option)
   (skk-setup-modeline)
   (when skk-share-private-jisyo
     (skk-setup-shared-private-jisyo))
@@ -285,7 +286,6 @@ dependent."
     ;; 仮名入力を行う場合の初期設定。
     (skk-kanagaki-initialize))
   (skk-setup-delete-selection-mode)
-  (skk-adjust-user-option)
   (setq skk-mode-invoked t))
 
 ;;; setup
@@ -787,7 +787,11 @@ dependent."
     (setq skk-kakutei-early nil
 	  skk-auto-okuri-process nil
 	  skk-henkan-okuri-strictly nil
-	  skk-henkan-strict-okuri-precedence nil)))
+	  skk-henkan-strict-okuri-precedence nil))
+  (unless skk-jisyo-save-count
+    ;; 現在の実装では、個人辞書のオートセープ無しでは個人辞書の共有はできない
+    ;; ことになっている。
+    (setq skk-share-private-jisyo nil)))
 
 (defun skk-try-completion (arg)
   "▽モードで見出し語の補完を行う。
