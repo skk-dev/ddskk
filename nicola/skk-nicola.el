@@ -125,7 +125,6 @@
   :type 'function
   :group 'skk-nicola)
 
-
 (defcustom skk-nicola-set-henkan-point-chars
   (cond ((memq skk-kanagaki-keyboard-type
 	       '(nicola-dvorak
