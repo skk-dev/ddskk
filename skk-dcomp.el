@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.22 2001/11/24 22:59:11 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.23 2001/12/01 03:29:38 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/24 22:59:11 $
+;; Last Modified: $Date: 2001/12/01 03:29:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -204,7 +204,7 @@
     (let ((henkan-mode skk-henkan-mode))
       ad-do-it
       (unless (or henkan-mode
-		  (char-after))
+		  (char-after (point)))
 	(skk-dcomp-do-completion (point)))))
    (t
     ad-do-it)))
