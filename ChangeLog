@@ -1,3 +1,7 @@
+2003-07-07  NAKAJIMA Mikio  <minakaji@namazu.org>
+
+	* experimental/skk-study.el (skk-kakutei-initialize): Bug fixed.
+
 2003-07-06  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* experimental/skk-hint.el (skk-hint-limit): Use `aref' instead of
@@ -4263,8 +4267,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.749 2003/07/06 11:10:23 minakaji Exp $
-Last Modified: $Date: 2003/07/06 11:10:23 $
+Version: $Id: ChangeLog,v 1.750 2003/07/07 13:35:58 minakaji Exp $
+Last Modified: $Date: 2003/07/07 13:35:58 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

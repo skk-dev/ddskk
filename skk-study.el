@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.32 2003/07/06 11:19:28 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.33 2003/07/07 13:35:58 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/06 11:19:28 $
+;; Last Modified: $Date: 2003/07/07 13:35:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -415,7 +415,7 @@
   (let ((kakutei-word (ad-get-arg 0))
 	(count 0) data max vector)
     (when (and kakutei-word
-	       (string= kakutei-word (car skk-henkan-list)))
+	       (not (string= kakutei-word (car skk-henkan-list))))
       (setq data (cons skk-henkan-key kakutei-word))
       (setq vector (nthcdr 2 skk-study-data-ring))
       (setq max (length vector))
