@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.6 2001/09/21 23:14:54 czkmt Exp $
+;; Version: $Id: skk-obsolete.el,v 1.7 2001/10/21 04:17:18 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/21 23:14:54 $
+;; Last Modified: $Date: 2001/10/21 04:17:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -69,9 +69,11 @@
     ;; hirakana -> hiragana
     (skk-isearch-skk-hirakana-mode-p . skk-isearch-skk-hiragana-mode-p)
     ;; typo
-    (skk-isearch-skk-jix0208-latin-mode-p . skk-isearch-skk-jisx0208-latin-mode-p)
+    (skk-isearch-skk-jix0208-latin-mode-p
+     . skk-isearch-skk-jisx0208-latin-mode-p)
     ;; hirakana -> hiragana
-    (skk-isearch-skk-turn-on-hirakana-mode . skk-isearch-skk-turn-on-hiragana-mode)
+    (skk-isearch-skk-turn-on-hirakana-mode
+     . skk-isearch-skk-turn-on-hiragana-mode)
     (skk-jisx0208-latin-num-str . skk-num-jisx0208-latin)
     (skk-kakutei-cleanup-henkan-buffer . skk-kakutei-cleanup-buffer)
     (skk-kakutei-save-and-init-variables . skk-kakutei-initialize)
@@ -101,10 +103,13 @@
 ;;;###autoload
 (defun skk-obsolete-check (file)
   "FILE $BFb$N(B obsolete $BJQ?tL>$H(B obsolete $B4X?tL>$r%A%'%C%/$7!"=q49$($k!#(B"
-  (interactive (list (read-file-name
-		      (format "File to check: (default: %s) " skk-init-file)
-		      default-directory skk-init-file)))
-  (save-window-excursion (skk-obsolete-check-1 file)))
+  (interactive
+   (list (read-file-name
+	  (format "File to check: (default: %s) "
+		  skk-init-file)
+	  default-directory skk-init-file)))
+  (save-window-excursion
+    (skk-obsolete-check-1 file)))
 
 ;;;###autoload
 (defun skk-obsolete-check-all-files (&optional program-files-too)
@@ -114,35 +119,44 @@ C-u M-x skk-obsolete-check-all-files $B$N$h$&$K5/F0$7$?$H$-$O!"%G%#%U%)%k%H%G%#
   (interactive "p")
   (save-window-excursion
     (let ((lp load-path)
-	  (user-files (list skk-init-file user-init-file))
-	  (system-files '("default.el" "site-start.el"))
+	  (user-files (list skk-init-file
+			    user-init-file))
+	  (system-files '("default.el"
+			  "site-start.el"))
 	  (program-files
-	   (if program-files-too
-	       '("skk-dcomp.el" "skk-attr.el" "skk-auto.el"
-		 "skk-autoloads.el" "skk-comp.el" "skk-cursor.el"
-		 "skk-def.el" "skk-develop.el" "skk-dbm.el"
-		 "skk-gadget.el" "skk-hankaku-mode.el" "skk-isearch.el"
-		 "skk-jisx0201.el" "skk-kakasi.el" "skk-kcode.el" "skk-leim.el"
-		 "skk-look.el" "skk-lookup.el" "skk-macs.el"
-		 "skk-num.el" "skk-rdbms.el" "skk-server.el"
-		 "skk-study.el" "skk-tut.el" "skk-tutcdef.el" "skk-tutcode.el"
-		 "skk-viper.el" "skk-xm20_4.el" "skk.el")))
+	   (when program-files-too
+	     '("skk-dcomp.el" "skk-attr.el" "skk-auto.el"
+	       "skk-autoloads.el" "skk-comp.el" "skk-cursor.el"
+	       "skk-def.el" "skk-develop.el" "skk-dbm.el"
+	       "skk-gadget.el" "skk-hankaku-mode.el" "skk-isearch.el"
+	       "skk-jisx0201.el" "skk-kakasi.el" "skk-kcode.el" "skk-leim.el"
+	       "skk-look.el" "skk-lookup.el" "skk-macs.el"
+	       "skk-num.el" "skk-rdbms.el" "skk-server.el"
+	       "skk-study.el" "skk-tut.el" "skk-tutcdef.el" "skk-tutcode.el"
+	       "skk-viper.el" "skk-xm20_4.el" "skk.el")))
 	  files modified)
       (while lp
-	(setq files (nconc (skk-obsolete-check-all-files-1 system-files (car lp))
+	(setq files (nconc (skk-obsolete-check-all-files-1
+			    system-files
+			    (car lp))
 			   files)
 	      lp (cdr lp)))
-      (setq files (nconc (skk-obsolete-check-all-files-1 user-files) files)
-	    files (nconc (skk-obsolete-check-all-files-1 program-files) files))
-      (while files
-	(setq modified (cons (skk-obsolete-check-1 (car files) 'no-restart-question)
-			     modified)
-	      files (cdr files)))
-      (message "Obsolete check is completely done")
+      (setq files (nconc (skk-obsolete-check-all-files-1 user-files)
+			 files)
+	    files (nconc (skk-obsolete-check-all-files-1 program-files)
+			 files))
+      (dolist (file files)
+	(setq modified (cons (skk-obsolete-check-1
+			      file
+			      'no-restart-question)
+			     modified)))
+      (message "%s" "Obsolete check is completely done")
       (sit-for 1)
-      (and (memq t modified)
-	   (y-or-n-p "You are strongly recommended to kill this session and restart Emacs.  Kill Emacs?")
-	   (save-buffers-kill-emacs)))))
+      (when (and (memq t modified)
+		 (y-or-n-p
+		  "\
+It is strongly recommended to kill and restart Emacs.  Kill Emacs?"))
+	(save-buffers-kill-emacs)))))
 
 (defun skk-obsolete-check-1 (file &optional no-restart-question)
   (let ((alist (sort
@@ -153,44 +167,45 @@ C-u M-x skk-obsolete-check-all-files $B$N$h$&$K5/F0$7$?$H$-$O!"%G%#%U%)%k%H%G%#
 			(append skk-obsolete-function-alist
 				skk-obsolete-variable-alist))
 		;; sort by length.
-		(function (lambda (x y) (string< (car y) (car x))))))
+		(function
+		 (lambda (x y)
+		   (string< (car y) (car x))))))
 	modified)
     (find-file (expand-file-name file))
     (delete-other-windows)
     (message "Obsolete check for %s..." file)
-    (while alist
+    (dolist (cell alist)
       (goto-char (point-min))
       (query-replace-regexp
        ;; not to match a name which contains pattern.
-       (concat (car (car alist)) "\\([^-]\\)")
-       (concat (cdr (car alist)) "\\1"))
-      (setq alist (cdr alist)))
-    (and (buffer-modified-p)
-	 (y-or-n-p "Obsolete check for this buffer done.  Save this buffer? ")
-	 (setq modified t)
-	 (save-buffer))
+       (concat (car cell) "\\([^-]\\)")
+       (concat (cdr cell) "\\1")))
+    (when (and (buffer-modified-p)
+	       (y-or-n-p "\
+Obsolete check for this buffer done.  Save this buffer? "))
+      (setq modified t)
+      (save-buffer))
     (kill-buffer (current-buffer))
     (message "Obsolete check for %s...done" file)
     (sit-for 1)
-    (and (not no-restart-question)
-	 modified
-	 (y-or-n-p "You are strongly recommended to kill and restart Emacs.  Kill Emacs?")
-	 (save-buffers-kill-emacs))
+    (when (and (not no-restart-question)
+	       modified
+	       (y-or-n-p "\
+It is strongly recommended to kill and restart Emacs.  Kill Emacs?"))
+      (save-buffers-kill-emacs))
     modified))
 
 (defun skk-obsolete-check-all-files-1 (files &optional directory)
   (let ((tmpfiles files)
 	objfile objfile-list)
-    (while tmpfiles
-      (setq objfile (expand-file-name (car tmpfiles) directory))
-      (if (file-exists-p objfile)
-	  (progn
-	    (if (file-readable-p objfile)
-		;; OBJFILE may not be writable, but check anyway.
-		(setq objfile-list (cons objfile (delete objfile objfile-list)))
-	      (message "%s is not readable.  Pass checking" objfile)
-	      (sit-for 1))))
-      (setq tmpfiles (cdr tmpfiles)))
+    (dolist (file tmpfiles)
+      (setq objfile (expand-file-name file directory))
+      (when (file-exists-p objfile)
+	(if (file-readable-p objfile)
+	    ;; OBJFILE may not be writable, but check anyway.
+	    (setq objfile-list (cons objfile (delete objfile objfile-list)))
+	  (message "%s is not readable.  Pass checking" objfile)
+	  (sit-for 1))))
     objfile-list))
 
 ;;;###autoload

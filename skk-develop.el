@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.13 2001/09/11 13:51:21 czkmt Exp $
+;; Version: $Id: skk-develop.el,v 1.14 2001/10/21 04:17:18 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/11 13:51:21 $
+;; Last Modified: $Date: 2001/10/21 04:17:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -43,32 +43,36 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
     \(setq mail-user-agent 'wl-user-agent\) "
   (interactive)
   (require 'reporter)
-  (if (not (skk-y-or-n-p
-	    "SKK $B$K$D$$$F$N%P%0%l%]!<%H$r=q$-$^$9$+!)(B "
-	    "Do you really want to write a bug report on SKK? "))
-      nil
+  (when (skk-y-or-n-p
+	 "SKK $B$K$D$$$F$N%P%0%l%]!<%H$r=q$-$^$9$+!)(B "
+	 "Do you really want to write a bug report on SKK? ")
     (reporter-submit-bug-report
      skk-ml-address
      (concat (skk-version 'with-codename)
 	     ", "
-	     (cond ((or (and (boundp 'skk-servers-list) skk-servers-list)
-			(or (and (boundp 'skk-server-host) skk-server-host)
-			    (getenv "SKKSERVER"))
-			;; refer to DEFAULT_JISYO when skk-server-jisyo is nil.
-			;;(or (and (boundp 'skk-server-jisyo) skk-server-jisyo)
-			;;    (getenv "SKK_JISYO"))))
-			)
-		    (require 'skk-server)
-		    (concat "skkserv; " (skk-server-version)
-			    (if (getenv "SKKSERVER")
-				(concat ",\nSKKSERVER; "
-					(getenv "SKKSERVER")))
-			    (if (getenv "SKKSERV")
-				(concat ", SKKSERV; "
-					(getenv "SKKSERV")))))
-		   ((and (boundp 'skk-exserv-list) skk-exserv-list)
-		    (require 'skk-exserv)
-		    (skk-server-version))))
+	     (cond
+	      ((or (and (boundp 'skk-servers-list)
+			skk-servers-list)
+		   (or (and (boundp 'skk-server-host)
+			    skk-server-host)
+		       (getenv "SKKSERVER"))
+		   ;; refer to DEFAULT_JISYO when skk-server-jisyo is nil.
+		   ;;(or (and (boundp 'skk-server-jisyo) skk-server-jisyo)
+		   ;;    (getenv "SKK_JISYO"))))
+		   )
+	       (require 'skk-server)
+	       (concat "skkserv; "
+		       (skk-server-version)
+		       (when (getenv "SKKSERVER")
+			 (concat ",\nSKKSERVER; "
+				 (getenv "SKKSERVER")))
+		       (when (getenv "SKKSERV")
+			 (concat ", SKKSERV; "
+				 (getenv "SKKSERV")))))
+	      ((and (boundp 'skk-exserv-list)
+		    skk-exserv-list)
+	       (require 'skk-exserv)
+	       (skk-server-version))))
      (let ((base (list 'window-system
 		       'isearch-mode-hook
 		       'isearch-mode-end-hook
@@ -82,14 +86,14 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 		       'skk-search-prog-list
 		       'skk-share-private-jisyo
 		       'skk-use-viper)))
-       (and (boundp 'skk-server-host)
-	    (setq base (append base '(skk-server-host))))
-       (and (boundp 'skk-server-prog)
-	    (setq base (append base '(skk-server-prog))))
-       (and (boundp 'skk-servers-list)
-	    (setq base (append base '(skk-servers-list))))
-       (and (boundp 'skk-exserv-list)
-	    (setq base (append base '(skk-exserv-list))))
+       (when (boundp 'skk-server-host)
+	 (setq base (append base '(skk-server-host))))
+       (when (boundp 'skk-server-prog)
+	 (setq base (append base '(skk-server-prog))))
+       (when (boundp 'skk-servers-list)
+	 (setq base (append base '(skk-servers-list))))
+       (when (boundp 'skk-exserv-list)
+	 (setq base (append base '(skk-exserv-list))))
        base))))
 
 (eval-after-load "hilit19"
