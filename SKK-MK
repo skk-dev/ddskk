@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.118 2002/01/22 15:25:44 czkmt Exp $
-;; Last Modified: $Date: 2002/01/22 15:25:44 $
+;; Version: $Id: SKK-MK,v 1.119 2002/07/20 18:29:02 czkmt Exp $
+;; Last Modified: $Date: 2002/07/20 18:29:02 $
 
 ;;; Commentary:
 
@@ -1063,7 +1063,7 @@ SKK tutorials:
 	 'iso-2022-jp
 	 (expand-file-name "skk-dic.el.in"))
 	(goto-char (point-min))
-	(while (not (looking-at "^\" \"\\\\$"))
+	(while (not (looking-at "^\")$"))
 	  (next-line 1))
 	(insert-buffer buf)
 	(write-region-as-coding-system
