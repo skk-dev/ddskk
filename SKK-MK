@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.93 2001/10/10 10:25:32 czkmt Exp $
-;; Last Modified: $Date: 2001/10/10 10:25:32 $
+;; Version: $Id: SKK-MK,v 1.94 2001/10/13 14:03:09 czkmt Exp $
+;; Last Modified: $Date: 2001/10/13 14:03:09 $
 
 ;; Commentary
 ;;
@@ -485,8 +485,7 @@ Try ddskk-e18 branch."))
   (let (enable-local-eval)
     (SKK-MK-skk-dic)
     (SKK-MK-generate-autoloads-el)
-    (require 'skk-autoloads
-	     (expand-file-name "skk-autoloads.el"))
+    (load (expand-file-name "skk-autoloads.el"))
     (require 'skk
 	     (expand-file-name "skk.el"))
     (compile-elisp-modules SKK_MODULES

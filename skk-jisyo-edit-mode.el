@@ -28,7 +28,8 @@
 
 (eval-when-compile
   (require 'poe)
-  (require 'static))
+  (require 'static)
+  (defvar font-lock-defaults))
 
 (defvar skk-jisyo-edit-map nil
   "Keymap for SKK JISYO Edit mode.")

@@ -21,6 +21,9 @@
 	(skk-search-server)
 	(skk-okuri-search): New functions.
 
+	* SKK-MK
+	(SKK-MK-compile): Load skk-autoloads.el, not require.
+
 2001-10-13  SIMOYAMA Takasi  <simo@festa.or.jp>
 
 	* skk-vars.el
@@ -2422,8 +2425,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.478 2001/10/13 13:59:41 czkmt Exp $
-Last Modified: $Date: 2001/10/13 13:59:41 $
+Version: $Id: ChangeLog,v 1.479 2001/10/13 14:03:09 czkmt Exp $
+Last Modified: $Date: 2001/10/13 14:03:09 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
