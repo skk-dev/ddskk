@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-develop.el,v 1.2 1999/09/23 13:55:06 minakaji Exp $
+;; Version: $Id: skk-develop.el,v 1.3 1999/09/25 05:26:58 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/23 13:55:06 $
+;; Last Modified: $Date: 1999/09/25 05:26:58 $
 
 ;; This file is not part of SKK yet.
 
@@ -28,6 +28,71 @@
 ;; Following people contributed to skk-develop.el (Alphabetical order):
 ;;; Code:
 (require 'skk)
+
+;;;###autoload
+(defun skk-submit-bug-report ()
+  "SKK のバグレポートを書くメールバッファを用意する。
+mail-user-agent を設定することにより好みのメールインターフェイスを使用すること
+ができる。例えば、Wanderlust を使用したい場合は下記のように設定する。
+
+    \(setq mail-user-agent 'wl-user-agent\) "
+  (interactive)
+  (require 'reporter)
+  (if (not (skk-y-or-n-p
+	    "SKK についてのバグレポートを書きますか？ "
+	    "Do you really want to write a bug report on SKK? " ))
+      nil
+    (if (boundp 'mail-user-agent)
+	(cond ((eq mail-user-agent 'wl-user-agent)
+	       (require 'wl-user-agent)
+	       (define-mail-user-agent
+		 'wl-user-agent 'wl-user-agent-compose
+		 'wl-draft-send 'wl-draft-kill
+		 'mail-send-hook ))
+	      ((eq mail-user-agent 'mew-user-agent)
+	       ;; Mew 1.93 works well.
+	       (require 'mew)
+	       (define-mail-user-agent 'mew-user-agent
+		 'mew-send 'mew-draft-send-letter 'mew-draft-kill ))))
+    (reporter-submit-bug-report
+     skk-ml-address
+     (concat "skk.el " (skk-version)
+	     (if (or (and (boundp 'skk-servers-list) skk-servers-list)
+		     (or (and (boundp 'skk-server-host) skk-server-host)
+			 (getenv "SKKSERVER") )
+		     ;; refer to DEFAULT_JISYO when skk-server-jisyo is nil.
+		     ;;(or (and (boundp 'skk-server-jisyo) skk-server-jisyo)
+		     ;;    (getenv "SKK_JISYO") )))
+		     )
+		 (progn
+		   (require 'skk-server)
+		   (concat ", skkserv; " (skk-server-version)
+			   (if (getenv "SKKSERVER")
+			       (concat ",\nSKKSERVER; "
+				       (getenv "SKKSERVER") ))
+			   (if (getenv "SKKSERV")
+			       (concat ", SKKSERV; "
+				       (getenv "SKKSERV") ))))))
+     (let ((base (list 'window-system
+		       'skk-auto-okuri-process
+		       'skk-auto-start-henkan
+		       'skk-egg-like-newline
+		       'skk-henkan-okuri-strictly
+		       'skk-henkan-strict-okuri-precedence
+		       'skk-kakutei-early
+		       'skk-process-okuri-early
+		       'skk-search-prog-list
+		       'skk-use-face
+		       'skk-use-viper )))
+       (and (boundp 'skk-henkan-face)
+	    (setq base (append base '(skk-henkan-face))) )
+       (and (boundp 'skk-server-host)
+	    (setq base (append base '(skk-server-host))) )
+       (and (boundp 'skk-server-prog)
+	    (setq base (append base '(skk-server-prog))) )
+       (and (boundp 'skk-servers-list)
+	    (setq base (append base '(skk-servers-list))) )
+       base ))))
 
 (eval-after-load "edebug"
   '(progn
