@@ -1,0 +1,79 @@
+-*- text -*-
+                    skk-dbm.el について
+
+             $Date: 1999/11/07 03:08:21 $ 中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: README.dbm,v 1.1 1999/11/07 03:08:21 minakaji Exp $
+
+o skk-dbm.el とは、skkserv を介するサーチの代替の辞書アクセス方法を提供
+  します。サーバーを介さずに XEmacs の機能を使用し、直接 dbm
+  (berkeley-db, gdbm or ndbm) データベースファイルをオープンして検索しま
+  す。
+
+o XEmacs-21.2-b8 で動作確認しています。version の詳細は知らないのですが、
+  database 機能を持っている XEmacs でないと動きません。Other Emacsen を
+  ご使用の方はあきらめて下さい。
+
+o --with-database オプションを付けて configure を実行して XEmacs を作っ
+  て下さい。現在の XEmacs では、gnudbm と dbm は排他的にサポートされてい
+  ます。berkeley-db と gnudbm (もしくは dbm) は同時指定ができます。
+
+  私は、後述の gdbm 対応パッチを当てた後、
+
+    ./configure --with-database=gnudbm,berkdb
+ 
+  のようにして指定して configure を走らせています。
+
+o データベースライブラリとして gdbm を使う場合で、データベースを gdbm 形
+  式としたいときは、XEmacs 21.2b8 が gdbm ファイルに直接アクセスできない
+  (libgdbm をリンクしていながら libndbm 互換関数しか使用しないので
+  .dir, .pag を拡張子とするファイルしか開けない) ことから、添付の
+  diff-to-xemacs-21.2.8 を当てて再コンパイルする必要があります (まぁ、何
+  と面倒な...きっと誰も使わない...)。
+
+  ** berkeley-db ファイルだけであればパッチを当てる必要はありません。**
+
+o ndbm で使えるかどうかは未確認です。
+
+o 何故か、makedbmdic (pskkserv 添付の辞書 make tool) で作った gdbm/db
+  辞書は読めません (恐らく coding-system 系の問題でしょう)。skk-dbm.el
+  内にある skk-dbm-make-jisyo 関数を使って辞書を作ると一応正常に検索はで
+  きているようです。
+
+  上記の要領で作った XEmacs で
+
+   (skk-dbm-make-jisyo "/usr/local/share/skk/SKK-JISYO.L"
+                       "SKK-JISYO.L.db" 'berkeley-db 'hash )
+
+  のようにして、SKK-JISYO.L.db (あるいは skk-dbm-make-jisyo のオプション
+  を変更して SKK-JISYO.gdbm or SKK-JISYO.L.dir (& SKK-JISYO.L.pag) を作っ
+  て下さい。マシンの速さと辞書の大きさにもよりますが、MMX Pentium
+  166MHz のマシンで 3,200KB ほどの辞書を gdbm 加工するのに約 1 時間
+  (!) かかりました。berkeley-db だと正確に計っていませんが、何故か 20 数
+  分で作成できたように思います。
+
+  ちなみに skk-dbm.el はバイトコンパイルしたものをロードして
+  skk-dbm-make-jisyo を実行した方が少しでも余計な時間を食わずに済みます。
+
+o 実際に利用するには、
+
+   (setq skk-dbm-large-jisyo "/your/path/to/SKK-JISYO.L.db")
+   (setq skk-search-prog-list
+	 '((skk-search-jisyo-file skk-jisyo 0 t)
+	   (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg) ))
+
+  などと、.emacs か .skk に書いて SKK を起動すると良いでしょう (ndbm ファ
+  イルの場合は、dir や pag といった拡張子は省いて指定すれば良いはずです)。
+
+  また、下記のように設定すると、個人辞書もデータベース化して (個人辞書の
+  データベース化は自動化されています) 検索を行なうことができます。
+
+    (setq skk-search-prog-list
+         '((skk-dbm-search-jisyo-database skk-dbm-jisyo)
+           (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg) ))
+  
+o diff-to-xemacs-21.2.8	については、xemacs-beta@xemacs.org で議論され、
+  また、一応吟味された上で xemacs-patches@xemacs.org に投稿してあります
+  が、XEmacs に取り込まれるかどうかは不明です。
+
+中島幹夫 <minakaji@osaka.email.ne.jp>
+http://www.asahi-net.or.jp/~gy2m-nkjm/

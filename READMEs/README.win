@@ -1,0 +1,156 @@
+-*- text -*-
+From: Yuh Ohmura <yutopia@t3.rim.or.jp>
+Date: Tue, 19 Oct 1999 09:51:36 +0900 (JST)
+Message-ID: <380bc098380b2426@tkcs11.tkccc.nasda.go.jp>
+
+`MAKE.BAT'の編集とインストール(Windows 95,98/NT)
+
+* Meadow/NTEmacs
+
+  1. まず APELをインストールする。SKK 10では、APEL 9.22以降が必須である。
+       1. APEL は、`ftp://ftp.jpl.org/pub/elisp/apel/' もしくは 
+          `ftp://ftp.m17n.org/pub/mule/apel/' から入手できる。
+
+       2. APELをフリーのtar.exeなどを使って展開する。
+          以下のコマンドを実行。
+
+          C:\temp> tar xzvf apel-9_22.tar.gz
+
+          tar.exeは `ftp://ftp.etl.go.jp/pub/mule/Windows/tools/' など
+          から入手できる。
+
+       3. Emacs が `c:\usr\Meadow\1.10\bin\meadow95.exe' のとき、APEL
+          を展開したディレクトリに CD によって移動し、以下のコマンド
+          を実行する。
+
+          C:\temp\skk-10> c:\usr\meadow\1.10\bin\meadow -q -batch
+          -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) 
+          (EMUDIR)
+          (改行はいれない)
+
+          ただし、上の (LISPDIR) には apel のインストール先(例えば 
+          \usr\meadow\site-lisp とすれば、 \usr\meadow\site-lisp\apel
+          にインストールされる)で、(EMUDIR) は同様に emu のインストール
+          先 \usr\meadow\1.10\site-lisp\emu 等を指定する。
+
+       4. \usr\meadow\site-lisp\subdir.el を編集し、emu, apel を
+          load-path に追加する。
+
+  2. SKKのインストール
+       1. SKK ディストリビューションを上記の tar.exe を用いて展開する。
+
+       2. MAKE.BAT を自分の環境に合わせて編集する。
+          EMACSは御自分のEmacsのフルパスを指定する。
+          上の例では、EMACS=c:\usr\meadow\1.10\bin\meadow95.exe
+          PREFIXには info マニュアルのあるディレクトリのすぐ上のディレ
+          クトリ c:\usr\meadow\1.10 などを指定する。
+          またLISPDIRはインストール先のディレクトリを指定する。
+          例えば LISPDIR=c:\usr\meadow\site-lisp とすれば、
+          c:\usr\meadow\site-lisp\skk にインストールされる。
+
+
+       3. MAKE.BAT を実行する。
+          MAKE.BAT を使う時の注意点は、DOSPROMPT のプロパティで、環境
+          変数のメモリ割り当てが自動になると、環境変数が設定できないの
+          で、適当な値(2048とか)を入れておく必要があることでしょう。
+
+       4. \usr\meadow\site-lisp\subdir.el を編集し、skk を load-path 
+          に追加する。
+
+       5. .emacs に以下の内容を追加する。
+
+         (autoload 'skk-mode "skk" nil t)
+         (global-set-key "\C-x\C-j" 'skk-mode)
+         (global-set-key "\C-xj" 'skk-auto-fill-mode)
+         (global-set-key "\C-xt" 'skk-tutorial)
+         (add-hook 'isearch-mode-hook
+                   (function (lambda ()
+                             (and (boundp 'skk-mode) skk-mode
+                                  (skk-isearch-mode-setup) ))))
+         (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
+         (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
+         (setq skk-large-jisyo "(SKK-JISYOのパス)")
+       
+
+  cygwin32などがインストールされていて、Makefile でインストールする
+場合は SKK-CFG にインストール先のディレクトリを指定する必要がある。
+
+
+* Mule for Windows
+
+  Mule for Windows はすでに開発が終了しているため、特別な理由が無い限り
+は Meadow の使用を推奨する。
+  しかし、マシンスペックなどの理由により Mule for Windows を使用する
+場合は以下の手順に従う。
+
+  1. まず APELをインストールする。SKK 10では、APEL 9.22以降が必須である。
+       1. APEL が含まれないバージョンの TM がインストールされている
+          場合、TM がインストールされているディレクトリと同じ階層にある
+          emu というディレクトリを削除する。
+
+       2. APEL は、`ftp://ftp.jpl.org/pub/elisp/apel/' もしくは 
+          `ftp://ftp.m17n.org/pub/mule/apel/' から入手できる。
+
+       3. APELをフリーのtar.exeなどを使って展開する。
+          以下のコマンドを実行。
+
+          C:\temp> tar xzvf apel-9_22.tar.gz
+
+          tar.exeは `ftp://ftp.etl.go.jp/pub/mule/Windows/tools/' など
+          から入手できる。
+
+       4. Emacs が `c:\usr\mule\bin\mule.exe' のとき、APEL を展開した
+          ディレクトリに CD によって移動し、以下のコマンドを実行する。
+
+          C:\temp\skk-10> c:\usr\mule\bin\mule -q -batch 
+          -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) 
+          (EMUDIR)
+          (改行はいれない)
+
+          ただし、上の LISPDIR には apel のインストール先(例えば 
+          \usr\mule\site-lisp とすれば、 \usr\mule\site-lisp\apel
+          にインストールされる)で、EMUDIRは同様に emu のインストール
+          先である。
+
+       4. .emacs に以下の行を追加する。
+          (setq load-path
+                (cons "/usr/mule/site-lisp/apel" load-path))
+          TM がインストールされていない場合は同様に emu のディレクトリ
+          も .emacs に指定する。
+
+       5. TM がインストールされている場合は、tl\filename.el および
+          tl\filename.elc を削除する。
+
+  2. SKKのインストール
+       1. SKK ディストリビューションを上記の tar.exe を用いて展開する。
+
+       2. MAKE.BAT を自分の環境に合わせて編集する。
+          EMACSは御自分のEmacsのフルパスを指定する。
+          上の例では、EMACS=c:\usr\mule\bin\mule.exe
+          PREFIXには info マニュアルのあるディレクトリのすぐ上のディレ
+          クトリ c:\usr\mule などを指定する。
+          またLISPDIRはインストール先のディレクトリを指定する。
+          例えば LISPDIR=c:\usr\mule\site-lisp とすれば、
+          c:\usr\mule\site-lisp\skk にインストールされる。
+
+       3. MAKE.BAT を実行する。
+
+       4. .emacs に以下の内容を追加する。
+
+         (autoload 'skk-mode "skk" nil t)
+         (global-set-key "\C-x\C-j" 'skk-mode)
+         (global-set-key "\C-xj" 'skk-auto-fill-mode)
+         (global-set-key "\C-xt" 'skk-tutorial)
+         (add-hook 'isearch-mode-hook
+                   (function (lambda ()
+                             (and (boundp 'skk-mode) skk-mode
+                                  (skk-isearch-mode-setup) ))))
+         (add-hook 'isearch-mode-hook
+                   (function (lambda ()
+                             (and (boundp 'skk-mode) skk-mode
+                                  (skk-isearch-mode-setup) ))))
+         (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
+         (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
+         (setq skk-large-jisyo "(SKK-JISYOのパス)")
+
+[End of README.win]

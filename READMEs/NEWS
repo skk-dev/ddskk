@@ -1,0 +1,49 @@
+-*- text -*-
+
+10.56 ---
+o Minor bug fixed.
+
+o Experimental program skk-lookup.el supports okuri-ari henkan.
+
+o Experimental program skk-abbrev.el is provided.
+
+10.55 ---
+o Minor bug fixed.
+
+o Types of customization are more specific.
+
+o Experimental program skk-lookup.el (Lookup gateway) is provided.
+  You can use many dictionaries by Lookup to get candidates.
+
+10.54 ---
+o Now SKK-MK will diligently search APEL installed directory
+  automatically (not only apel modules directory but also emu modules
+  directory).
+
+o Now you can any variables in SKK-CFG in the command line.
+
+o All version specific functions and macros are defined with
+  `skk-defmacro-cond', `skk-defsubst-cond' and `skk-defun-cond' to
+  maintain easily.
+
+o Experimentally, all conditions of `skk-defmacro-cond',
+  `skk-defsubst-cond' and `skk-defun-cond' are evaluated statically
+  (when compiling).  All elc files will be incompatible between Mule2,
+  Mule3, Mule4 and XEmacs.
+
+o All faces are defined with `defface'.
+
+o Emacs Lisp programs are moved to top directory.
+
+o Now you can install tutorial and info files.
+
+o Now you don't have to copy skk-autoloads.el manually.
+
+o Now use extents (not overlay emulation) for XEmacs.
+
+o vip.el 3.7 is provided by Satou Sen-sei.  Now it works well with SKK
+  by itself.  skk-vip.el is discarded.
+
+o Experimental package skk-tutcode.el is provided by GUNJI Takao
+  <gunji@sils.shoin.ac.jp>.  Now you can imput Japanese by TUT-code
+   with SKK.

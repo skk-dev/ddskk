@@ -1,0 +1,193 @@
+-*- text -*-
+                    skk-rdbms.el について
+
+             $Date: 1999/11/07 03:09:16 $ 中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: README.rdbms,v 1.1 1999/11/07 03:09:16 minakaji Exp $
+
+1. What's this?
+
+Emacs のバッファの中で PostgreSQL のシェルである psql を走らせることに
+より、PostgreSQL のデータベース機能を利用した変換を実現したものです。
+
+  （注) ORDER BY で指定した列を SELECT でも指定しなければならない、と
+        いう制限があるため、PostgreSQL 6.3.2 では使えません。6.4 をお
+        使い下さい。
+
+このトライの目的は、各単語に属性を持たせ、その属性を利用した変換効率の
+アップや、辞書メンテナンスの向上、拡張変換 (意味を出力したり) を行なう
+ことです。
+
+現在のところ、部首変換、画数変換、サ変補助変換 (下記 2. Install &
+notice の (8), (9) 参照。) などがサポートされています。手前味噌ですが、
+必要なテーブルを作り、対応する SQL コマンドを書けば、行ないたい変換が
+(以前と比較して) 手軽に実現できますので、非常に手軽 && 柔軟な拡張が可
+能です。
+
+私は、Pentium 90 MHz + 32M Memory という少々古いマシンで開発、実験して
+おりますが、このレベルのマシンでは、決して実用性を損なってはいないもの
+の、残念ながら SKK の軽快なレスポンスを「若干」損なっている、と言わざ
+るを得ない状況です。
+
+個人的には、
+
+(1)psql とのプロセス通信のために、accept-process-output を何度も使用す
+   るなど結構もたもたしているのを整理したい (現状ではそうしないとうま
+   く動かないので、しょうがないけれど)。
+
+(2)スタンドアロンのマシーンで、ローカルホストで postmaster を動かして
+   いる、という比較的恵まれた環境での変換速度は決っして悪くはないもの
+   の、別ホストで postmaster が動いているのであれば、(ネットワークの混
+   み具合にもよるのであろうが) 速度的には不利になるであろうこと (体感
+   したことがないので、分り難いが)。
+
+(3)SKK + PostgreSQL による個人辞書テーブルの変換について、どうしても速
+    度的にユーザーがデメリットを感じるのであれば、~/.skk-jisyo との併
+    用ができるようにするか。
+
+(4)更なる変換効率のアップを図ってゆくためにはどうしたら良いか。
+
+などが当面の問題であると考えています。Emacs Lisp はともかく、SQL はか
+なりの初心者なので、アドバイスをどしどしお寄せ下さい。
+
+2. Install & notice
+
+(1)PostgreSQL は 6.4 でテストしています。Makefile の先頭部分と
+   createtbl.sql ファイルをファイル中のコメントを参考に編集します。
+
+   下記 (8) の部首変換、画数変換を利用するために、skk10.x.tar.gz を
+   get したページから kanjidic.tar.gz を get して $SKK/kanjidic 以下に
+   展開しておく必要があります。
+
+   また、下記 (9) のサ変補助変換を利用するために、同ページから
+   pubdic+.tar.gz を get して、$SKK/pubdic+ 以下に展開しておく必要があ
+   ります。
+
+   その後、
+
+     % make -k
+
+   でユーザーの skk データベースに
+   YOUR-USER-LOGIN-NAME_private_jisyo, large_jisyo, jis2_jisyo,
+   busyu_base, busyu_data, kcode, stroke, hinsi_base, hinsi_data テー
+   ブルを作ります。
+
+   なお、psql が返す値がまちまちなのか (存在しないテーブルに対し、念の
+   ため DROP コマンドを使っているからか？)、処理が正常に済んでいても、
+   ときどき make がエラーだと勘違いして全てのテーブルを作らずにストッ
+   プする場合がありますので、-k オプションを指定しています。
+
+(2)make を実行するユーザーが createdb コマンドでデータベースを作れる権
+   限がなければなりません。
+
+(3)実際に使用するには、~/.emacs に
+
+      (setq skk-use-rdbms t)
+
+   と書けば良いでしょう。
+
+(4)UPDATE や DELETE コマンドで更新するテーブルは、
+   YOUR-USRE-LOGIN-NAME_private_jisyo だけです。レコード数が巨大になる
+   と、VACUUM する時間が馬鹿にならないので、C-x C-c などで Emacs を終
+   了するときには、このテーブルのみ VACUUM します。他のテーブルは必要
+   に応じ、cron などで VACUUM をかけて下さい (個人辞書テーブル以外は更
+   新しないんだけど、その必要があるのかしらん？)。
+
+(5)skk-auto.el でサポートされる自動送り処理機能もデータベース検索に置
+   き換えてサポートされていますが、オーバーヘッドが結構大きいので、
+   skk-search-prog-list 中、(skk-okuri-search) を置く位置は、
+
+     (setq skk-search-prog-list
+           '((skk-rdbms-search-jisyo-table skk-rdbms-private-jisyo-table)
+	     (skk-rdbms-sahen-search)
+     	     (skk-rdbms-search-jisyo-table skk-rdbms-public-jisyo-table)
+	     (skk-okuri-search)
+	     (skk-rdbms-search-jisyo-table skk-rdbms-jis2-jisyo-table) ))
+
+   のようにするのが良いかもしれません。
+
+(6)skk-kakutei-jisyo, skk-initial-search-jisyo の機能をサポートしてい
+   ますが、これらの 2 つの辞書ファイルをテーブルに変換する際、
+   dicconv.awk が余計な日時データを入れ込まないように 2 つの辞書ファイ
+   ルの先頭に、それぞれ
+
+   ;; Kakutei dictionary for SKK system
+
+   ;; Initial search dictionary for SKK system
+
+   というコメント行を追加して、テーブルを make して下さい。なお、ディ
+   フォルトではこの 2 つのテーブルは作らないようになっているので、
+   Makefile と createtbl.sql の編集が必要です。
+
+(7)James William Breen による KANJIDIC を利用して、とりあえず部首変換
+   と原始的な画数変換をサポートしました。
+
+   部首変換は、
+
+      ▽のぎへん
+
+   のように通常の変換と同じようにして部首名を書き、そこで、
+
+      M-x skk-rdbms-busyu-henkan
+
+   として下さい。
+
+   画数変換は、
+
+       ▽15
+
+    (この状態を作るには、`/ 1 5' とタイプする) のように画数を指定し、
+
+      M-x skk-rdbms-stroke-henkan
+
+   として下さい (変換途中に M-x でコマンドを入力するのが面倒ならば、何
+   か適当なキーにこれらのコマンドをバインドすれば良いでしょう)。
+
+   また、漢字の画数を知りたい場合は、
+
+      M-x skk-rdbms-stroke
+
+   としてミニバッファに該当の漢字を入力すれば、画数がエコーエリアに表
+   示されます。
+
+   いずれの変換結果も個人辞書テーブルには取り込まれません。 
+
+   busyu_base テーブルでは、「しんにょう」など、部首単体としては、コン
+   ピューター上、標記不可能な部首は含まれていないのが気になっています。
+   そういう部首は、kanji カラムは null 文字にして、busyuID と読みを書
+   いておけば良さそうなものですが、kanjidic に含まれない busyuID につ
+   いては、何番を付ければ良いか分からないし、下記の問題で少々悩んでい
+   ます。
+
+   また、kanjidic 中に出てくる B[0-9]+ の番号は、kanjidic.doc によれば、
+   the Nelson New Japanese-English Character Dictionary に出てくる the
+   radical (Bushu) number だそうですが、ときどき重複しているのが気になっ
+   ています (13, 34, 47, 66 と 71。本来 unique な番号のはず)。この数字
+   を busyuID として busyu_base テーブルに取り込んでいますが、ちょっと
+   不安...。
+
+(8)the Pubdic+ Project による pubdic.p から Wnn で使われる品詞データを
+   利用したサ変補助変換をサポートしました。例えば「▽こうこうする」や
+   「▽こうこう*す」で変換した場合で、「こうこうs」の見出し語が見つか
+   らなかったときでも、hinsi_data テーブルから「後攻」「孝行」「航行」
+   など、サ変動詞になり得るものだけを変換結果として出力し (「口腔」、
+   「高校」などの無駄な漢字を出力しません。もちろん
+   skk-search-prog-list で先順位にある変換で出力された変換結果は優先さ
+   れますが)。 
+
+
+   実際に利用するには、1.(6) に記載のように、skk-search-prog-list に
+
+      (skk-rdbms-sahen-search)
+
+   を入れます。
+
+   今のところちょっと遅いのが難点です...(インデックスが使えない OR 演
+   算子を連発しているからでしょうか)。
+
+
+(9)skk-rdbms.el を使用すると、~/.skk-jisyo は使われなくなるので、当然
+   ですが、~/.skk-jisyo ファイルはアップデートされなくなります。ご注意
+   下さい。
+
+中島幹夫 <minakaji@osaka.email.ne.jp>
+http://www.asahi-net.or.jp/~gy2m-nkjm/
