@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.184 2001/11/14 13:54:42 czkmt Exp $
+;; Version: $Id: skk.el,v 1.185 2001/11/14 15:12:25 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/14 13:54:42 $
+;; Last Modified: $Date: 2001/11/14 15:12:25 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3721,10 +3721,12 @@ If you want to restore the dictionary from the disc, try
 	  (setq words (nconc words (list (buffer-string))))))
       words)))
 
-(defun skk-search-sagyo-henkaku (&optional okuri-list)
+(defun skk-search-sagyo-henkaku (&optional okuri-list anything)
   (unless okuri-list
     (setq okuri-list '("さ" "し" "す" "せ")))
-  (when (member skk-henkan-okurigana okuri-list)
+  (when (and skk-henkan-okurigana
+	     (or (member skk-henkan-okurigana okuri-list)
+		 anything))
     (let ((skk-henkan-key (skk-substring
 			   skk-henkan-key
 			   0 (1- (skk-str-length skk-henkan-key))))
