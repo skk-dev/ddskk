@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.34 2001/12/16 05:03:09 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.35 2002/01/23 14:04:32 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:09 $
+;; Last Modified: $Date: 2002/01/23 14:04:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -65,12 +65,12 @@
 	c-word)
     (skk-kana-cleanup 'force)
     (when first
-      (setq skk-comp-stack nil skk-comp-depth 0))
+      (setq skk-comp-stack nil
+	    skk-comp-depth 0))
     (when (or first
 	      skk-dabbrev-like-completion)
       (setq skk-comp-key (buffer-substring-no-properties
-			  skk-henkan-start-point
-			  (point))))
+			  skk-henkan-start-point (point))))
     (cond
      ((> skk-comp-depth 0)
       ;; (過去に探索済みの読みをアクセス中)
@@ -96,13 +96,12 @@
       (delete-region skk-henkan-start-point (point))
       (insert c-word))
      (t
-      (setq skk-comp-depth (1+ skk-comp-depth))
       (unless silent
 	(ding)
 	(cond
 	 ((string= skk-comp-key "")
 	  (skk-message "これ以上の履歴はありません"
-		       "No more words on history"))
+		       "No more words in history"))
 	 (t
 	  (if skk-japanese-message-and-error
 	      (message "\"%s\" で補完すべき見出し語は%sありません"
@@ -114,25 +113,27 @@
 
 (defun skk-comp-do-1 (key first)
   ;; skk-comp-1 のサブルーチン。
-  (when first
-    (setq skk-dic-comp-first t))
   (cond
    ((string= key "")
     (skk-comp-by-history))
    (t
-    (or (skk-comp-do-1-in-buf (skk-get-jisyo-buffer skk-jisyo)
-			      key first)
-	(prog1
-	    (skk-comp-do-1-in-buf (skk-dic-setup-buffer)
-				  key skk-dic-comp-first)
-	  (setq skk-dic-comp-first nil))))))
+    (let ((buffers (list (skk-get-jisyo-buffer skk-jisyo 'nomsg)
+			 (skk-dic-setup-buffer)))
+	  word)
+      (when first
+	(skk-loop-for-buffers buffers
+	  (goto-char skk-okuri-nasi-min)))
+      (catch 'word
+	(skk-loop-for-buffers buffers
+	  (setq word (skk-comp-do-1-in-buf (car buffers) key))
+	  (if word
+	      (throw 'word word)
+	    nil)))))))
 
-(defun skk-comp-do-1-in-buf (buffer key first)
+(defun skk-comp-do-1-in-buf (buffer key)
   (when (buffer-live-p buffer)
     (let (c-word)
       (with-current-buffer buffer
-	(when first
-	  (goto-char skk-okuri-nasi-min))
 	(save-match-data
 	  ;; case-fold-search は、辞書バッファでは常に nil。
 	  (while (and (not c-word)
