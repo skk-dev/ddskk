@@ -2,9 +2,9 @@
 ;; Copyright (C) 1996, 1998, 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kakasi.el,v 1.4 1999/10/03 11:38:47 minakaji Exp $
+;; Version: $Id: skk-kakasi.el,v 1.5 1999/12/12 00:24:18 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 11:38:47 $
+;; Last Modified: $Date: 1999/12/12 00:24:18 $
 
 ;; This file is not part of SKK yet.
 
@@ -116,7 +116,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
       (if (string-match "^[ $B!!(B\t]+" str)
           ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
           (setq str (substring str (match-end 0))) ))
-    (message str)
+    (message "%s" str)
     (skk-set-cursor-properly) ))
 
 
@@ -147,7 +147,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
       (if (string-match "^[ $B!!(B\t]+" str)
           ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
           (setq str (substring str (match-end 0))) ))
-    (message str)
+    (message "%s" str)
     (skk-set-cursor-properly) ))
 
 (defun skk-gyakubiki-1 (start end all &optional katakana)
@@ -188,7 +188,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
 $BNc$($P!"(B
     $BCfEg(B -> {$B$J$+$7$^(B|$B$J$+$8$^(B}"
   (interactive "r\nP")
-  (message (skk-hurigana-1 start end all))
+  (message "%s" (skk-hurigana-1 start end all))
   (skk-set-cursor-properly) )
 
 ;;;###autoload
@@ -219,7 +219,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
 $BNc$($P!"(B
     $BCfEg(B -> {$B%J%+%7%^(B|$B%J%+%8%^(B}"
   (interactive "r\nP")
-  (message (skk-hurigana-1 start end all 'katakana))
+  (message "%s" (skk-hurigana-1 start end all 'katakana))
   (skk-set-cursor-properly) )
 
 (defun skk-hurigana-1 (start end all &optional katakana)
@@ -271,7 +271,7 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
         (setq arg (cons "-c" arg)) )
     (if (not skk-romaji-*-by-hepburn)
         (setq arg (cons "-rk" arg)) )
-    (message (skk-kakasi-region start end arg))
+    (message "%s" (skk-kakasi-region start end arg))
     (skk-set-cursor-properly) ))
 
 (defun skk-kakasi-region (start end arglist)

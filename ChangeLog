@@ -1,9 +1,59 @@
+1999-12-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-mode): Set `skk-mode-invoked' to t after all setting
+	are done properly.
+
+	* stack-m.el: Removed.
+
+	* skk-look.el: Not required stack-m.el.
+	(skk-look-completion): Not use stack features.
+
+	* skk-comp.el: Not required stack-m.el.
+	(skk-completion-function): Add descriptions to doc string.
+	(skk-previous-completion-function): Ditto.
+	(skk-completion-depth): Change doc string slightly.
+	(skk-completion-original): Not use stack features.
+	(skk-previous-completion-original): Ditto.
+
 1999-12-02  Yuh Ohmura (yutopia@t3.rim.or.jp>
 
 	* READMEs/CVS_on_Windows: update
 
 	* make.bat: add what-where and clean option
 	
+1999-11-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-start-henkan-with-completion-char): Use `?\240'
+	instead of 160 to represent character.
+	(skk-backward-and-set-henkan-point-char): Use `?\321'
+	instead of 209 to represent character.
+
+1999-11-28  FURUE Hideyuki  <furue@kke.co.jp>
+	
+	* skk-comp.el (skk-completion-original): Use
+	`skk-completion-depth' to search completed word.
+	(skk-previous-completion-original): Ditto.
+
+	* skk-kakasi.el (skk-gyakubiki-message): Use "%s" as the first
+	message argument to display properly string containing `%'.
+	(skk-gyakubiki-katakana-message): Ditto.
+	(skk-hurigana-message): Ditto.
+	(skk-hurigana-katakana-message): Ditto.
+	(skk-romaji-message): Ditto.
+
+	* skk.el (skk-mode): Bind `skk-start-henkan-with-completion-char'
+	and `skk-backward-and-set-henkan-point-char' for each skk related
+	maps.
+	(skk-insert): Set this-command to `skk-completion' when
+	last-command-char is equal to `skk-previous-completion-char', and
+	call `skk-kana-input' when last-command-is neither
+	`skk-previous-completion-char' nor `skk-next-completion-char'.
+
+	* skk-vars.el (skk-start-henkan-with-completion-char): New user
+	variable.
+	(skk-backward-and-set-henkan-point-char): Ditto.
+	(skk-completion-depth): New internal variable.
+
 1999-11-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/CVS_on_Windows: New file.

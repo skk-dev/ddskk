@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-look.el,v 1.6 1999/11/28 04:46:02 minakaji Exp $
+;; Version: $Id: skk-look.el,v 1.7 1999/12/12 00:24:19 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/11/28 04:46:02 $
+;; Last Modified: $Date: 1999/12/12 00:24:19 $
 
 ;; This file is not part of SKK yet.
 
@@ -98,8 +98,6 @@
 ;;; Code:
 (eval-when-compile (require 'skk) (require 'skk-comp))
 (require 'skk-foreword)
-;; Elib
-(require 'stack-m)
 ;; APEL
 (require 'path-util)
 
@@ -234,7 +232,8 @@ skk-look-recursive-search が non-nil であるときのみ有効。"
 ;;;###autoload
 (defun skk-look-completion ()
   (or skk-look-completion-words
-      (let ((stacked (stack-all skk-completion-stack)))
+      (let ((stacked skk-completion-stack))
+	;; look は複数の候補を吐くので、一旦貯めておいて、一つづつ complete する。
 	(setq skk-look-completion-words
 	      (delete skk-completion-word (skk-look-1 skk-completion-word)) )
 	(while stacked

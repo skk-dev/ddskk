@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.22 1999/11/28 14:15:10 minakaji Exp $
+;; Version: $Id: skk.el,v 1.23 1999/12/12 00:24:19 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/11/28 14:15:10 $
+;; Last Modified: $Date: 1999/12/12 00:24:19 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -50,7 +50,7 @@
 ;;; Code:
 (require 'skk-foreword)
 
-(defconst skk-version "10.57")
+(defconst skk-version "10.58")
 (defconst skk-major-version (string-to-int (substring skk-version 0 2)))
 (defconst skk-minor-version (string-to-int (substring skk-version 3)))
 
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/11/28 14:15:10 $")
+      (let* ((raw-date "$Date: 1999/12/12 00:24:19 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -302,7 +302,17 @@ Mule では、*euc-japan*, *sjis*, *junet*。
   "*漢字変換を開始するキーキャラクタ。" 
   :type 'character
   :group 'skk )
- 
+
+(defcustom skk-start-henkan-with-completion-char ?\240 ; M-SPC
+  "*見出し語を補完しながら▼モードに入るキーキャラクタ。" 
+  :type 'character
+  :group 'skk )
+
+(defcustom skk-backward-and-set-henkan-point-char ?\321 ; M-Q
+  "*ポイントを戻して▽モードに入るキーキャラクタ。" 
+  :type 'character
+  :group 'skk )
+
 (defcustom skk-use-viper nil
   "*Non-nil であれば、VIPER に対応する。" 
   :type 'boolean
@@ -1858,7 +1868,11 @@ dependent."
     (if (not skk-mode-invoked)
         ;; enter skk-mode for the first time in this session
         (progn
-          (setq skk-mode-invoked t)
+	  (and (eq skk-emacs-type 'xemacs)
+	       (boundp 'preloaded-file-list)
+	       (member "skk-leim" preloaded-file-list)
+	       ;; require dummy file.
+	       (require 'skk-vars) )
           (skk-setup-init-file)
           (load skk-init-file t)
 	  (skk-setup-modeline)
@@ -1879,7 +1893,8 @@ dependent."
 	  (skk-create-file skk-jisyo
 			   "SKK の空辞書を作りました"
 			   "I have created an empty SKK Jisyo file for you" )
-	  (skk-regularize) ))
+	  (skk-regularize)
+          (setq skk-mode-invoked t) ))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
     (and skk-use-viper (require 'skk-viper))
     (and (or skk-use-color-cursor skk-use-cursor-change)
@@ -1899,6 +1914,21 @@ dependent."
     (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
     (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
     (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
+    (if skk-use-viper
+	()
+      (define-key skk-j-mode-map
+	(char-to-string skk-start-henkan-with-completion-char)
+	'skk-start-henkan-with-completion)
+      (define-key skk-abbrev-mode-map
+	(char-to-string skk-start-henkan-with-completion-char)
+ 	'skk-start-henkan-with-completion)
+      (define-key skk-j-mode-map
+ 	(char-to-string skk-backward-and-set-henkan-point-char)
+ 	'skk-backward-and-set-henkan-point) 
+      (define-key skk-jisx0208-latin-mode-map
+ 	(char-to-string skk-backward-and-set-henkan-point-char)
+ 	'skk-backward-and-set-henkan-point) 
+      )
     (skk-setup-delete-backward-char)
     ;; XEmacs doesn't have minibuffer-local-ns-map
     (and (boundp 'minibuffer-local-ns-map)
@@ -2266,7 +2296,9 @@ skk-convert-okurigana-into-katakana の値を non-nil にする。
 			  (setq this-command 'skk-completion)
 			  (skk-completion nil) )
 			 ((eq ch skk-previous-completion-char)
-			  (skk-previous-completion) )))
+			  (setq this-command 'skk-completion)
+			  (skk-previous-completion) )
+			 (t (skk-kana-input arg)) ))
 		  (t (skk-kana-input arg)) ))
 	   ;; just imput Kana.
 	   (t (skk-kana-input arg)) ))))
