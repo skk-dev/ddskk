@@ -24,6 +24,10 @@
 	* vip.el:
 	Refer to `skk-henkan-mode'.
 
+	* skk.el
+	(skk-create-file): The first arg for `message' here should be
+	"%s".
+
 2001-10-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK
@@ -2603,8 +2607,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.506 2001/10/31 14:21:09 czkmt Exp $
-Last Modified: $Date: 2001/10/31 14:21:09 $
+Version: $Id: ChangeLog,v 1.507 2001/10/31 15:39:07 czkmt Exp $
+Last Modified: $Date: 2001/10/31 15:39:07 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
