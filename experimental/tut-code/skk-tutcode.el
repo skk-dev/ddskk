@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.6 1999/09/16 13:52:02 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.7 1999/09/27 07:08:49 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/16 13:52:02 $
+;; Last Modified: $Date: 1999/09/27 07:08:49 $
 
 ;; This file is not part of SKK yet.
 
@@ -61,56 +61,26 @@
 ;;
 ;;(setq skk-use-tutcode t)
 ;;
-;;(defadvice skk-mode (around my-ad activate)
-;;  (cond (skk-use-tutcode
-;;	 (load-library "skk-tutcdef")
-;;	 (require 'skk-tutcode)
-;;	 (if skk-mode-invoked
-;;	      (let (skk-mode-invoked) ad-do-it)
-;;	   ad-do-it ))
-;;	(t
-;;	 (if skk-mode-invoked
-;;	     (progn
-;;	       (load-library "skk-def")
-;;	       (let (skk-mode-invoked) ad-do-it) )
-;;	   ad-do-it ))))
-;;
-;;(defadvice skk-auto-fill-mode (around my-ad activate)
-;;  (cond (skk-use-tutcode
-;;	 (load-library "skk-tutcdef")
-;;	 (require 'skk-tutcode)
-;;	 (if skk-mode-invoked
-;;	      (let (skk-mode-invoked) ad-do-it)
-;;	   ad-do-it ))
-;;	(t
-;;	 (if skk-mode-invoked
-;;	     (progn
-;;	       (load-library "skk-def")
-;;	       (let (skk-mode-invoked) ad-do-it) )
-;;	   ad-do-it ))))
-;;
+;; (defadvice skk-mode (around my-ad activate)
+;;   (require 'skk-tutcdef)
+;;   (require 'skk-tutcode) )
+;; 
+;; (defadvice skk-auto-fill-mode (around my-ad activate)
+;;   (require 'skk-tutcdef)
+;;   (require 'skk-tutcode) )
+;; 
 ;; If you would like to customize some definitions in skk-tutcdef.el,
 ;; you could do, for example;
 ;;
-;;(defadvice skk-mode (around my-ad activate)
-;;  (cond (skk-use-tutcode
-;;	 (load-library "skk-tutcdef")
-;;       ;; your customizations...
-;;       (setq skk-rom-kana-rule-list
-;;	     '(...) ))
-;;	 (require 'skk-tutcode)
-;;	 (if skk-mode-invoked
-;;	      (let (skk-mode-invoked) ad-do-it)
-;;	   ad-do-it ))
-;;	(t
-;;	 (if skk-mode-invoked
-;;	     (progn
-;;	       (load-library "skk-def")
-;;	       (let (skk-mode-invoked) ad-do-it) )
-;;	   ad-do-it ))))
+;; (defadvice skk-mode (around my-ad activate)
+;;   (require 'skk-tutcdef)
+;;   ;; your customizations...
+;;   (setq skk-rom-kana-rule-list
+;;         '(...) ))
+;;   (require 'skk-tutcode) )
 ;;
 ;; <TODO>
-;; - Mazegaki (e.x. provided by T-code driver) support.
+;; - Efficient mazegaki (e.x. provided by T-code driver) support.
 ;; - To switch easyly okurigana prefix in jisyo buffer.
 
 ;;; Code:
@@ -149,10 +119,10 @@
 	  (charset (char-charset char)))
      (cond
       ((memq charset '(japanese-jisx0208 japanese-jisx0208-1978))
-       (let* ((char1-j (char-octet char 0))
+       (let* ((char1-j (skk-char-octet char 0))
 	      (char1-k (- char1-j 32))
 	      (char1-e (+ char1-j 128))
-	      (char2-j (char-octet char 1))
+	      (char2-j (skk-char-octet char 1))
 	      (char2-k (- char2-j 32))
 	      (char2-e (+ char2-j 128))
 	      (char3 (skk-tutcode-get-code str)))
@@ -162,7 +132,7 @@
 	  char1-j char2-j char1-j char2-j char1-k char2-k char3)))
       ((memq charset '(ascii latin-jisx0201))
        (message "\"%s\"  %2x (%3d)"
-		str (char-octet char 0)  (char-octet char 0)))
+		str (skk-char-octet char 0)  (skk-char-octet char 0)))
       (t
        (skk-error "判別できない文字です"
 		  "Cannot understand this character")))
