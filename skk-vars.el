@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.62 2001/09/23 14:31:27 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.63 2001/10/13 04:51:04 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 14:31:27 $
+;; Last Modified: $Date: 2001/10/13 04:51:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1483,6 +1483,93 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 (defvar skk-j-mode-map nil "*かなモードのキーマップ。")
 (defvar skk-jisx0208-latin-mode-map nil "*全角モードのキーマップ。")
 (defvar skk-abbrev-mode-map nil "*SKK abbrev モードのキーマップ。")
+
+(defvar skk-menu-items
+  ;; SKK メニューの定義。
+  '("SKK"
+    ("Convert Region and Echo"
+     ("Gyakubiki"
+      ["to Hiragana" skk-gyakubiki-message skk-use-kakasi]
+      ["to Hiragana, All Candidates"
+       (call-interactively
+	(function
+	 (lambda (start end)
+	   (interactive "r")
+	   (skk-gyakubiki-message start end 'all-candidates))))
+       skk-use-kakasi]
+      ["to Katakana" skk-gyakubiki-katakana-message skk-use-kakasi]
+      ["to Katakana, All Candidates"
+       (call-interactively
+	(function
+	 (lambda (start end)
+	   (interactive "r")
+	   (skk-gyakubiki-katakana-message
+	    start end 'all-candidates))))
+       skk-use-kakasi])
+     ("Hurigana"
+      ["to Hiragana" skk-hurigana-message skk-use-kakasi]
+      ["to Hiragana, All Candidates"
+       (call-interactively
+	(function
+	 (lambda (start end)
+	   (interactive "r")
+	   (skk-hurigana-message start end 'all-candidates))))
+       skk-use-kakasi]
+      ["to Katakana" skk-hurigana-katakana-message skk-use-kakasi]
+      ["to Katakana, All Candidates"
+       (call-interactively
+	(function
+	 (lambda (start end)
+	   (interactive "r")
+	   (skk-hurigana-katakana-message
+	    start end 'all-candidates))))
+       skk-use-kakasi]))
+    ("Convert Region and Replace"
+     ["Ascii" skk-ascii-region skk-use-kakasi]
+     ("Gyakubiki"
+      ["to Hiragana" skk-gyakubiki-region skk-use-kakasi]
+      ["to Hiragana, All Candidates"
+       (call-interactively
+	(function
+	 (lambda (start end)
+	   (interactive "r")
+	   (skk-gyakubiki-region start end 'all-candidates))))
+       skk-use-kakasi]
+      ["to Katakana" skk-gyakubiki-katakana-region skk-use-kakasi]
+      ["to Katakana, All Candidates"
+       (call-interactively
+	(function
+	 (lambda (start end)
+	   (interactive "r")
+	   (skk-gyakubiki-katakana-region
+	    start end 'all-candidates))))
+       skk-use-kakasi])
+     ["Hiragana" skk-hiragana-region skk-use-kakasi]
+     ("Hurigana"
+      ["to Hiragana" skk-hurigana-region skk-use-kakasi]
+      ["to Hiragana, All Candidates"
+       (call-interactively
+	(function
+	 (lambda (start end)
+	   (interactive "r")
+	   (skk-hurigana-region start end 'all-candidates))))
+       skk-use-kakasi]
+      ["to Katakana" skk-hurigana-katakana-region skk-use-kakasi]
+      ["to Katakana, All Candidates"
+       (call-interactively
+	(function
+	 (lambda (start end) (interactive "r")
+	   (skk-hurigana-katakana-region
+	    start end 'all-candidates))))
+       skk-use-kakasi])
+     ["Katakana" skk-katakana-region skk-use-kakasi]
+     ["Romaji" skk-romaji-region skk-use-kakasi]
+     ["Zenkaku" skk-jisx0208-latin-region skk-use-kakasi])
+    ["Count Jisyo Candidates" skk-count-jisyo-candidates t]
+    ["Save Jisyo" skk-save-jisyo t]
+    ["Undo Kakutei" skk-undo-kakutei t]
+    ["Version" skk-version t])
+  "Menu used in SKK mode.")
 
 ;;; SKK-CURSOR.EL related.
 (defcustom skk-cursor-default-color
