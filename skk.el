@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.156 2001/10/14 01:38:13 czkmt Exp $
+;; Version: $Id: skk.el,v 1.157 2001/10/14 02:03:13 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/14 01:38:13 $
+;; Last Modified: $Date: 2001/10/14 02:03:13 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -491,12 +491,7 @@ dependent."
     (save-match-data
       (cons
        (cons 'default
-	     (cons ""
-		   (static-if
-		       (eq skk-emacs-type 'xemacs)
-		       (cons (cdr (assq 'default skk-xemacs-extent-alist))
-			     "")
-		     "")))
+	     (cons "" (skk-mode-string-to-indicator 'default "")))
        (mapcar (lambda (symbol)
 		 (setq mode (prin1-to-string symbol))
 		 (string-match "skk-\\([-a-z0-9]+\\)-mode-string" mode)
@@ -530,17 +525,7 @@ dependent."
 		   "::")
 		  (t
 		   ":")))))
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      (cons (cdr (assq mode skk-xemacs-extent-alist))
-	    string))
-     ((eq skk-emacs-type 'mule5)
-      (if window-system
-	  (apply 'propertize string
-		 (cdr (assq mode skk-e21-property-alist)))
-	string))
-     (t
-      string))))
+    (skk-mode-string-to-indicator mode string)))
 
 (defun skk-setup-modeline ()
   "モード行へのステータス表示を準備する。"
