@@ -81,9 +81,9 @@
 ;;;###autoload (setq auto-mode-alist
 ;;;###autoload       (append
 ;;;###autoload        '(("SKK-JISYO" . skk-jisyo-edit-mode)
-;;;###autoload	 ("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)$"
+;;;###autoload	 ("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
 ;;;###autoload	  . skk-jisyo-edit-mode)
-;;;###autoload	 ("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)$"
+;;;###autoload	 ("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
 ;;;###autoload	  . skk-jisyo-edit-mode))
 ;;;###autoload        auto-mode-alist))
 
