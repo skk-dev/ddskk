@@ -69,13 +69,6 @@ Install patch/e18/advice.el in load-path and try again.")))
 (defvar skk-current-local-map nil)
 (make-variable-buffer-local 'skk-current-local-map)
 
-;; never used (Emacs 18 does not have minor mode map.   It only can use
-;; `use-local-map'.)
-(defconst skk-latin-mode-map t)
-(defconst skk-j-mode-map t)
-(defconst skk-jisx0208-latin-mode-map t)
-(defconst skk-abbrev-mode-map t)
-
 (defvar-maybe minibuffer-setup-hook nil)
 (defvar-maybe minibuffer-exit-hook nil)
 (defvar-maybe minor-mode-map-alist nil)

@@ -1,3 +1,15 @@
+2000-12-15  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-e18.el (skk-latin-mode-map): Do not declare with defconst.
+	(skk-j-mode-map): Ditto.
+	(skk-jisx0208-latin-mode-map): Ditto.
+	(skk-abbrev-mode-map): Ditto.
+	
+2000-12-15  Hiroya Murata <lapis-lazuli@pop06.odn.ne.jp>
+
+	* skk.el (skk-mode-invoke): Call `skk-setup-auto-paren' before
+	compiling skk-rule-tree.
+
 2000-12-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* install-info.el (install-info-1): New function.
@@ -2912,8 +2924,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.219 2000/12/14 11:06:03 czkmt Exp $
-Last Modified: $Date: 2000/12/14 11:06:03 $
+Version: $Id: ChangeLog,v 1.220 2000/12/15 03:37:43 minakaji Exp $
+Last Modified: $Date: 2000/12/15 03:37:43 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.86 2000/12/14 03:53:35 minakaji Exp $
+;; Version: $Id: skk.el,v 1.87 2000/12/15 03:37:44 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/14 03:53:35 $
+;; Last Modified: $Date: 2000/12/15 03:37:44 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -489,13 +489,13 @@ dependent."
       (skk-create-file skk-record-file
 		       "SKK の記録用ファイルを作りました"
 		       "I have created an SKK record file for you"))
+  (skk-setup-auto-paren) ; necessary to call before compiling skk-rule-tree.
   (setq skk-rule-tree (skk-compile-rule-list
 		       skk-rom-kana-base-rule-list skk-rom-kana-rule-list))
   (when skk-use-kana-keyboard
     (require 'skk-kanagaki)
     ;; 仮名入力を行う場合の初期設定。
     (skk-kanagaki-initialize))
-  (skk-setup-auto-paren)
   (skk-setup-delete-selection-mode)
   (skk-adjust-user-option)
   (setq skk-mode-invoked t))
