@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.66 2000/11/19 01:26:37 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.67 2000/11/25 13:23:34 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/11/19 01:26:37 $
+@c  Last Modified: $Date: 2000/11/25 13:23:34 $
 @c
 @set EDITION 1.6
 @set SKK-VERSION 11.4
-@set UPDATED $Date: 2000/11/19 01:26:37 $
+@set UPDATED $Date: 2000/11/25 13:23:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -183,7 +183,7 @@ SKK $B$O!"(BSimple Kana to Kanji conversion program $B$K$A$J$s$GL>IU$1$i$l$^$
 @section APEL $B$N%$%s%9%H!<%k(B
 
 SKK 11 $B$O<o!9$N(B Emacsen $B$G$NF0:n$r2DG=$H$9$k$?$a(B APEL (A Portable Emacs
-Library) $B$r;HMQ$7$^$9!#(BSKK 11 $B$O(B APEL 10.2 $B$G$NF0:n$r3NG'$7$F$$$^$9$,!"(B
+Library) $B$r;HMQ$7$^$9!#(BSKK 11 $B$O(B APEL 10.3 $B$G$NF0:n$r3NG'$7$F$$$^$9$,!"(B
 APEL $B$O(B Emacs/XEmacs $B$N%P!<%8%g%s%"%C%W$K9g$o$;$FF|?J7nJb$J$N$G!"$G$-$k(B
 $B$@$1?7$7$$%P!<%8%g%s$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
 
