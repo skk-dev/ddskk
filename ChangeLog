@@ -1,5 +1,22 @@
 2002-03-02   Daiki Ueno  <ueno@unixuser.org>
 
+	* skk.el (skk-setup-modeline): Don't prepend `skk-icon' to each
+	buffer's mode-line-format.
+
+	* skk-e21.el: Don't set skk-icon.
+	(skk-e21-prepare-modeline-properties): Add 'display property of
+	icon image to each element of `skk-e21-property-alist'.
+
+	* skk-macs.el (skk-mode-string-to-indicator) [XEmacs]: Insert
+	`skk-xemacs-icon-glyph' before mode string.
+
+	* skk-xemacs.el: Don't set skk-icon.
+	(skk-xemacs-icon-glyph): New variable.
+
+	* skk-vars.el (skk-icon): Abolished.
+
+2002-03-02   Daiki Ueno  <ueno@unixuser.org>
+
 	* skk.el (skk-henkan-show-candidate-subr): Select candidates
 	buffer before centering point in window.
 	[cf. <skk:2939>]
@@ -3687,8 +3704,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.662 2002/03/02 07:44:36 ueno Exp $
-Last Modified: $Date: 2002/03/02 07:44:36 $
+Version: $Id: ChangeLog,v 1.663 2002/03/02 12:12:32 ueno Exp $
+Last Modified: $Date: 2002/03/02 12:12:32 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
