@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.15 2001/03/30 12:05:39 nmaeda Exp $
+;; Version: $Id: skk-kcode.el,v 1.16 2001/04/22 02:16:33 nmaeda Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/03/30 12:05:39 $
+;; Last Modified: $Date: 2001/04/22 02:16:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -358,9 +358,9 @@
 (defun skk-sjis2jis (char1 char2)
   (let* ((ch1 (if (<= char1 159) (+ (* (- char1 113) 2) 1)
 		(+ (* (- char1 177) 2) 1)))
-	 (ch2 (if (> char2 127) (- char2 1) (char2)))
+	 (ch2 (if (> char2 127) (- char2 1) char2))
 	 (c2 (if (>= ch2 158) (- ch2 125) (- ch2 31)))
-	 (c1 (if (> ch2 127) (+ ch1 1) (ch1))))
+	 (c1 (if (> ch2 127) (+ ch1 1) ch1)))
     (list c1 c2)))
 
 (run-hooks 'skk-kcode-load-hook)
