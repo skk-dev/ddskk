@@ -18,3 +18,8 @@
 
 	* COPYING:
 	Update. This may be the latest revision.
+
+	* INSTALL:
+	* PROPOSAL.ja:
+	* README.w32.ja:
+	Delete description for old Emacsen.
