@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.8 1999/09/16 21:38:51 minakaji Exp $
-;; Last Modified: $Date: 1999/09/16 21:38:51 $
+;; Version: $Id: SKK-MK,v 1.9 1999/09/16 23:50:02 minakaji Exp $
+;; Last Modified: $Date: 1999/09/16 23:50:02 $
 
 ;; Commentary
 ;;
@@ -111,8 +111,10 @@ Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
 			     SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR) ))
 
 ;; constants.
+(defconst SKK-MK-running-xemacs (string-match "XEmacs" emacs-version))
+
 (defconst SKK-MK-texinfo-coding-system
-  (if (or (string-match "XEmacs" emacs-version)
+  (if (or SKK-MK-running-xemacs 
 	  (and (boundp 'mule-version)
 	       (or (string< "4.0" mule-version) (string< "3.0" mule-version)) ))
       'junet
@@ -163,6 +165,9 @@ Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
 
 (defun SKK-MK-install ()
   (SKK-MK-compile)
+  (if (and SKK-MK-running-xemacs SKK-MK-cleanup-trouble-makers)
+      (SKK-MK-cleanup-trouble-makers
+       (eq SKK-MK-cleanup-trouble-makers 'backup) ))
   (setq DOCDIR (expand-file-name DOCDIR)
 	ETCDIR (expand-file-name ETCDIR) )
   ;; install Emacs Lisp programs.
