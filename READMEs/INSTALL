@@ -1,0 +1,63 @@
+-*- text -*-
+             $Date: 1999/08/29 06:41:42 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+                                                         　　　　 <minakaji@pdx.ne.jp> 
+	     $Id: INSTALL,v 1.1 1999/08/29 06:41:42 minakaji Exp $ 
+
+(1)Get APEL 9.21 or later and install it.
+   You can get latest APEL at
+
+    ftp://ftp.m17n.org/pub/mule/apel/
+or
+    ftp://ftp.etl.go.jp/pub/mule/apel/
+
+(2)If you use Emacs 19 with mule feature (such as the official release 
+   of Mule 2.3 (based on Emacs 19.28) or Emacs 19.34+Mule 2.3), you
+   may want custom package.  When you don't have custom package, APEL
+   provides emulation feature.
+
+   (a)It seems difficult that the official release of Mule 2.3 (based
+      on Emacs 19.28) works well with custom package.  You should use
+      pcustom.el/tinycustom.el of APEL for emulation purpose.
+
+      (i)If you don't have any custom.el in a directory of load-path,
+         you have to do nothing.
+
+      (ii)If you have a custom.el which does not work correctly but
+          you can't delete it, you have to change 
+
+          (require 'pcustom)
+
+         line of skk-foreword.el to
+
+          (require 'tinycustom)
+
+         So all defcustoms in SKK package are equal to defvars.
+
+   (b)Emacs 19.30 or later has it by default, but you can get
+      better version (custom-1.9962.tar.gz) at
+
+        ftp://ftp.dina.kvl.dk/pub/Staff/Per.Abrahamsen/custom/
+
+      Apply patch skk-10/lisp/patch/custom-1.9962.patch to
+      cus-face.el.
+
+   (c)GNU Emacs 20 or XEmacs should work correctly without any
+      additional package.
+
+(3)Edit lisp/Makefile as you like.
+
+(4)Run `make' and `make install' (You may have to be superuser).  You
+   may want to run `make install-package' if you use XEmacs (package
+   install).
+
+(5)If you DO NOT install as a package of XEmacs, you have to set
+   autoloads.  Copy skk-10/lisp/skk-autoloads.el to your suitable
+   default.el such as site-lisp/default.el.
+
+(6)Many name of variables and functions are changed.  You are strongly
+   recommended to load skk-obsolete.el and
+     M-x skk-obsolete-check-all-files.
+
+Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+               　　　　 <minakaji@pdx.ne.jp>
+http://www.asahi-net.or.jp/~gy2m-nkjm/
