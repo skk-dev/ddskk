@@ -1,3 +1,10 @@
+2004-03-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-util.el (skk-kanagaki-dakuten): Now works in
+	isearch mode. This is Kanzen-like behavior.
+
+	(isearch-repeat): Advise to go to isearch-barrier before search.
+
 2004-03-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* NICOLA-DDSKK-MK (nicola-ddskk-generate-autoloads): No longer
