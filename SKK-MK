@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.110 2001/12/15 17:35:20 czkmt Exp $
-;; Last Modified: $Date: 2001/12/15 17:35:20 $
+;; Version: $Id: SKK-MK,v 1.111 2001/12/16 03:56:34 czkmt Exp $
+;; Last Modified: $Date: 2001/12/16 03:56:34 $
 
 ;;; Commentary:
 
@@ -574,6 +574,8 @@ This version of SKK requires MULE features"))
 (defun SKK-MK-compile-package ()
   (SKK-MK-skk-dic)
   (SKK-MK-generate-autoloads-el-package)
+  (setq features (delq 'skk-autoloads features))
+  (require 'skk-autoloads (expand-file-name "auto-autoloads.el"))
   (require 'skk (expand-file-name "skk.el"))
   (autoload 'custom-add-loads "cus-load")
   (compile-elisp-modules
