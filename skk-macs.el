@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.92 2004/03/04 11:20:56 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.93 2004/03/31 23:43:32 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/03/04 11:20:56 $
+;; Last Modified: $Date: 2004/03/31 23:43:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -342,7 +342,7 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
     ;; FSF Emacs 20 or later.
     (charsetp object))))
 
-(defsubst skk-indicator-to-string (indicator &optional no-properties)
+(defun skk-indicator-to-string (indicator &optional no-properties)
   "SKK インジケータ型オブジェクト INDICATOR を文字列に変換する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
@@ -358,7 +358,7 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
    (t
     indicator)))
 
-(defsubst skk-mode-string-to-indicator (mode string)
+(defun skk-mode-string-to-indicator (mode string)
   "文字列 STRING を SKK インジケータ型オブジェクトに変換する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
@@ -391,7 +391,7 @@ BUFFER defaults to the current buffer."
     (or (face-equal face 'variable-pitch)
 	(eq (face-attribute face :inherit) 'variable-pitch)))))
 
-(defsubst skk-event-key (event)
+(defun skk-event-key (event)
   "イベント EVENT を発生した入力の情報を取得する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
@@ -421,7 +421,7 @@ BUFFER defaults to the current buffer."
   (setcdr (assq mode skk-indicator-alist)
 	  (cons string (skk-mode-string-to-indicator mode string))))
 
-(defsubst skk-update-modeline (&optional mode string)
+(defun skk-update-modeline (&optional mode string)
   (unless mode
     (setq mode 'default))
   ;;
@@ -487,7 +487,7 @@ BUFFER defaults to the current buffer."
 (defsubst skk-select-branch (tree char)
   (assq char (skk-get-branch-list tree)))
 
-(defsubst skk-erase-prefix (&optional clean)
+(defun skk-erase-prefix (&optional clean)
   "`skk-echo' が非 nil であれば現在のバッファに挿入された `skk-prefix' を消す。
 オプション引数の CLEAN が指定されると、変数としての `skk-prefix' を空文字に、
 `skk-current-rule-tree' を nil に初期化する。"
@@ -512,7 +512,7 @@ BUFFER defaults to the current buffer."
     (setq skk-prefix ""
 	  skk-current-rule-tree nil))) ; fail safe
 
-(defsubst skk-kana-cleanup (&optional force)
+(defun skk-kana-cleanup (&optional force)
   (let ((data (cond
 	       ((and skk-current-rule-tree
 		     (null (skk-get-nextstate skk-current-rule-tree)))
@@ -553,7 +553,7 @@ BUFFER defaults to the current buffer."
   (or (cdr (assq char skk-downcase-alist))
       (downcase char)))
 
-(defsubst skk-mode-off ()
+(defun skk-mode-off ()
   (setq skk-mode nil
 	skk-abbrev-mode nil
 	skk-latin-mode nil
@@ -567,7 +567,7 @@ BUFFER defaults to the current buffer."
   (skk-cursor-off)
   (remove-hook 'pre-command-hook 'skk-pre-command 'local))
 
-(defsubst skk-j-mode-on (&optional katakana)
+(defun skk-j-mode-on (&optional katakana)
   (setq skk-mode t
 	skk-abbrev-mode nil
 	skk-latin-mode nil
@@ -582,7 +582,7 @@ BUFFER defaults to the current buffer."
 			 'hiragana))
   (skk-cursor-set))
 
-(defsubst skk-latin-mode-on ()
+(defun skk-latin-mode-on ()
   (setq skk-mode t
 	skk-abbrev-mode nil
 	skk-latin-mode t
@@ -595,7 +595,7 @@ BUFFER defaults to the current buffer."
   (skk-update-modeline 'latin)
   (skk-cursor-set))
 
-(defsubst skk-jisx0208-latin-mode-on ()
+(defun skk-jisx0208-latin-mode-on ()
   (setq skk-mode t
 	skk-abbrev-mode nil
 	skk-latin-mode nil
@@ -608,7 +608,7 @@ BUFFER defaults to the current buffer."
   (skk-update-modeline 'jisx0208-latin)
   (skk-cursor-set))
 
-(defsubst skk-abbrev-mode-on ()
+(defun skk-abbrev-mode-on ()
   (setq skk-mode t
 	skk-abbrev-mode t
 	skk-latin-mode nil
@@ -696,7 +696,7 @@ BUFFER defaults to the current buffer."
 	(setcdr e val)
       (push (cons key val) skk-last-henkan-data))))
 
-(defsubst skk-put-last-henkan-data (alist)
+(defun skk-put-last-henkan-data (alist)
   (let (e)
     (dolist (kv alist)
       (if (setq e (assq (car kv) skk-last-henkan-data))
@@ -704,7 +704,7 @@ BUFFER defaults to the current buffer."
 	(push (cons (car kv) (cdr kv))
 	      skk-last-henkan-data)))))
 
-(defsubst skk-find-coding-system (code)
+(defun skk-find-coding-system (code)
   (cond ((and code
 	      (or (and (fboundp 'coding-system-p)
 		       (coding-system-p code))
@@ -743,7 +743,7 @@ BUFFER defaults to the current buffer."
 (defsubst skk-minibuffer-origin ()
   (nth 1 (buffer-list)))
 
-(defsubst skk-quote-char-1 (word alist)
+(defun skk-quote-char-1 (word alist)
   (mapconcat
    #'(lambda (char)
        (or (cdr (assq char alist))
@@ -751,7 +751,7 @@ BUFFER defaults to the current buffer."
    ;; 文字列を対応する char のリストに分解する。
    (append word nil) ""))
 
-(defsubst skk-key-binding-member (key commands &optional map)
+(defun skk-key-binding-member (key commands &optional map)
   "入力 KEY が発動するコマンドが、COMMANDS に含まれれば 非 nil を返す。
 MAP は入力が書かれているキーマップを指定するが、指定されなければ
 `skk-j-mode-map' を参照する。
