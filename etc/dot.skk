@@ -87,7 +87,7 @@
 ;; look コマンドを使った検索をする
 ;; (setq skk-use-look t)
 
-;;   (when skk-use-look
+;; (when skk-use-look
 ;;   ;; look が見つけた語を見出し語として検索する
 ;;   (setq skk-look-recursive-search t)
 ;;   ;; ispell を look と一緒に使うのはやめる
@@ -101,7 +101,7 @@
 ;;	     (and skk-abbrev-mode
 ;;		  (save-match-data
 ;;		    ;; `skk-henkan-key' が "*" で終わるとき
-;;		    (string-match "\\*$" skk-henkan-key)))))))
+;;		    (string-match "\\*$" skk-henkan-key))))))
 
 ;; lookup を利用した変換を行う
 ;; (setq skk-search-prog-list
