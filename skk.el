@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.106 2001/08/31 19:30:15 czkmt Exp $
+;; Version: $Id: skk.el,v 1.107 2001/09/01 17:10:53 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:15 $
+;; Last Modified: $Date: 2001/09/01 17:10:53 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -592,9 +592,11 @@ dependent."
       (cons (cdr (assq mode skk-xemacs-extent-alist))
 	    string))
      ((eq skk-emacs-type 'mule5)
-      (apply 'propertize
-	     string
-	     (cdr (assq mode skk-e21-property-alist))))
+      (if window-system
+	  (apply 'propertize
+		 string
+		 (cdr (assq mode skk-e21-property-alist)))
+	string))
      (t
       string))))
 

@@ -1,3 +1,12 @@
+2001-09-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-prepare-modeline-properties): Do nothing on
+	tty.
+
+	* skk-macs.el (skk-mode-string-to-indicator): Ditto.
+
+	* skk.el (skk-make-indicator-alist-1): Ditto.
+
 2001-09-01  YOSHIZAWA Masahiro <manbou@ceres.dti.ne.jp>
 
 	* skk-e21.el (skk-e21-modeline-property): Fix for Emacs-21.0.105.
@@ -1693,8 +1702,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.341 2001/09/01 10:02:24 manbou Exp $
-Last Modified: $Date: 2001/09/01 10:02:24 $
+Version: $Id: ChangeLog,v 1.342 2001/09/01 17:10:53 czkmt Exp $
+Last Modified: $Date: 2001/09/01 17:10:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
