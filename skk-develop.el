@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-develop.el,v 1.4 1999/09/25 05:31:34 minakaji Exp $
+;; Version: $Id: skk-develop.el,v 1.5 1999/09/25 05:32:24 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/25 05:31:34 $
+;; Last Modified: $Date: 1999/09/25 05:32:24 $
 
 ;; This file is not part of SKK yet.
 
@@ -28,6 +28,8 @@
 ;; Following people contributed to skk-develop.el (Alphabetical order):
 ;;; Code:
 (require 'skk)
+
+(defconst skk-ml-address "skk-develop@kuis.kyoto-u.ac.jp")
 
 ;;;###autoload
 (defun skk-submit-bug-report ()
