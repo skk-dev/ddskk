@@ -9,6 +9,7 @@
 	* experimental/skk-e18.el (skk-e18-make-local-map): New function.
 	* skk-macs.el (skk-j-mode-on, skk-latin-mode-on,
 	skk-jisx0208-latin-mode-on, skk-abbrev-mode-on): Call it.
+	(skk-local-variable-p): New function.
 
 	* skk-setup.el.in: Call `ad-remove-advice' under XEmacs.
 
@@ -2289,8 +2290,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.138 2000/11/14 12:52:43 czkmt Exp $
-Last Modified: $Date: 2000/11/14 12:52:43 $
+Version: $Id: ChangeLog,v 1.139 2000/11/14 13:10:46 czkmt Exp $
+Last Modified: $Date: 2000/11/14 13:10:46 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

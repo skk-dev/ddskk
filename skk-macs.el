@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.6 2000/11/14 12:49:35 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.7 2000/11/14 13:10:47 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 12:49:35 $
+;; Last Modified: $Date: 2000/11/14 13:10:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -676,6 +676,21 @@
 	     (setq string (eval func)))
       (error))
     string))
+
+;;; This function is not complete, but enough for our purpose.
+
+(defsubst skk-local-variable-p (variable &optional buffer)
+  "Non-nil if VARIABLE has a local binding in buffer BUFFER.
+BUFFER defaults to the current buffer."
+  (static-cond
+   ((fboundp 'local-variable-p)
+    (local-variable-p variable (or buffer (current-buffer))))
+   (t
+    (and
+     (or (assq variable (buffer-local-variables buffer)) ; local and bound.
+	 (memq variable (buffer-local-variables buffer))); local but void.
+     ;; docstring is ambiguous; 20.3 returns bool value.
+     t))))
 
 ;;;; from dabbrev.el.  Welcome!
 ;; 判定間違いを犯す場合あり。要改良。

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.54 2000/11/14 12:51:14 czkmt Exp $
+;; Version: $Id: skk.el,v 1.55 2000/11/14 13:10:47 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 12:51:14 $
+;; Last Modified: $Date: 2000/11/14 13:10:47 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -435,7 +435,7 @@ dependent."
 	      (set-face-font 'skk-xmas-katakana-face [bold] nil
 			     '(default mono win))
 	      (set-face-font 'skk-xmas-katakana-face [bold] nil
-			     '(default grayspcale win)))
+			     '(default grayscale win)))
 	    (set-extent-face skk-xmas-katakana-extent 'skk-xmas-katakana-face)
 	    ;;
 	    (defconst skk-xmas-jisx0208-latin-extent (make-extent nil nil))
@@ -523,7 +523,7 @@ dependent."
 	  (skk-regularize)
           (setq skk-mode-invoked t)))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
-    (unless (and (local-variable-p 'skk-jisyo (current-buffer))
+    (unless (and (skk-local-variable-p 'skk-jisyo (current-buffer))
 		 (equal skk-jisyo "~/skk-tut-jisyo"))
       (skk-create-file skk-jisyo
 		       "SKK の空辞書を作りました"
@@ -2531,7 +2531,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;;オプショナル引数の QUIET が non-nil であれば、辞書セーブ時のメッセージを出さな
   ;;い。"
   (let ((skk-jisyo
-	 (if (and (local-variable-p 'skk-jisyo (current-buffer))
+	 (if (and (skk-local-variable-p 'skk-jisyo (current-buffer))
 		  (equal skk-jisyo "~/skk-tut-jisyo"))
 	     (default-value 'skk-jisyo)
 	   skk-jisyo)))
@@ -2745,7 +2745,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; TEMPO-FILE を新規の skk-jisyo にする。skk-backup-jisyo が non-nil だった
   ;; らバックアップ辞書を作る。
   (let ((skk-jisyo
-	 (if (and (local-variable-p 'skk-jisyo (current-buffer))
+	 (if (and (skk-local-variable-p 'skk-jisyo (current-buffer))
 		  (equal skk-jisyo "~/skk-tut-jisyo"))
 	     (default-value 'skk-jisyo)
 	   skk-jisyo)))
