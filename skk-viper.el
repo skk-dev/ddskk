@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.16 2001/09/23 10:41:41 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.17 2001/09/23 14:23:04 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 10:41:41 $
+;; Last Modified: $Date: 2001/09/23 14:23:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -68,7 +68,7 @@
 		 (eq viper-current-state 'vi-state))
 		((boundp 'vip-current-state)
 		 (eq vip-current-state 'vi-state)))
-	  skk-cursor-default-color
+	  (setq ad-return-value skk-cursor-default-color)
 	(cond ((not skk-mode)
 	       (setq viper-insert-state-cursor-color
 		     skk-viper-saved-cursor-color)
