@@ -2,9 +2,9 @@
 ;; Copyright (C) 1999 Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
-;; Version: $Id: skk-hankaku-mode.el,v 1.1 1999/10/31 08:33:09 minakaji Exp $
+;; Version: $Id: skk-hankaku-mode.el,v 1.2 1999/10/31 08:33:50 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/31 08:33:09 $
+;; Last Modified: $Date: 1999/10/31 08:33:50 $
 
 ;; This file is not part of SKK yet.
 
@@ -39,6 +39,7 @@
 ;;   ・"qs" で全角カナモードと半角カナモードを切りかえます。
 ;; ◎ひらがな/カタカナ両モード内での▽モードにおいて、
 ;;   ・ひらがな/カタカナのトグル変換は "q" ではなく "qq" で行われます。
+;;   ・"qs" を押すと､見出し語として入力されたひらがな/カタカナをﾊﾝｶｸｶﾀｶﾅに変換します｡
 ;;
 ;; その他は従来通り使えます。
 
@@ -362,6 +363,8 @@
 	       skk-hankaku-added-base-rule-list))
 	(setq skk-katakana-mode-string skk-original-katakana-mode-string)
 	(setq skk-hankaku-stat nil))
+    (if (and skk-henkan-on (not skk-henkan-active))
+	(skk-hankaku-henkan arg) )
     (setq skk-rule-tree
 	  (skk-compile-rule-list
 	   skk-hankaku-rule-list skk-rom-kana-rule-list
@@ -372,6 +375,83 @@
   (force-mode-line-update)
   nil)
 
+(defun skk-hankaku-henkan (arg)
+  "▽モードであれば、リージョンのひらがな/カタカナをﾊﾝｶｸｶﾀｶﾅに変換する。
+▼モードでは何もしない。
+その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
+する。"
+  (interactive "*P")
+  (skk-with-point-move
+   (if skk-henkan-on
+       (if skk-henkan-active
+	   nil
+	 (skk-set-marker skk-henkan-end-point (point))
+	 (skk-*-henkan-1 'skk-hankaku-region skk-henkan-start-point
+			 skk-henkan-end-point 'vcontract ))
+     (skk-emulate-original-map arg) )))
+
+(defun skk-hankaku-region (start end &optional vcontract)
+  "リージョンのひらがな/カタカナをﾊﾝｶｸｶﾀｶﾅに変換する。
+オプショナル引数の VCONTRACT が non-nil であれば、\"う゛\" を \"ｳﾞ\" に変換す
+る。
+引数の START と END は数字でもマーカーでも良い。"
+  (interactive "*r\nP")
+  (setq end (set-marker (make-marker) end))
+  (skk-hiragana-to-hankaku-region start end vcontract)
+  (skk-katakana-to-hankaku-region start end vcontract)
+  (set-marker end nil)
+  (skk-set-cursor-properly) )
+
+(defun skk-hiragana-to-hankaku-region (start end &optional vcontract)
+  (save-match-data
+    (let (object hankaku)
+      (skk-save-point
+       (goto-char start)
+       (while (re-search-forward  "[ぁ-ん]+" end 'noerror)
+	 (setq object (buffer-substring-no-properties
+		       (match-beginning 0) (match-end 0) )
+	       hankaku (save-match-data (japanese-hankaku object)) )
+	 (backward-char (skk-str-length object))
+	 ;; firstly insert a new string, secondly delete an old string to save
+	 ;; the cursor position.
+	 (insert-and-inherit hankaku)
+	 (delete-region (+ (match-beginning 0) (length hankaku))
+			(+ (match-end 0) (length hankaku)) ))
+       (if vcontract
+	   (progn
+	     (goto-char start)
+	     (while (re-search-forward  "ウ゛" end 'noerror)
+	       (backward-char (skk-str-length "ウ゛"))
+	       (let ((vu-len (length "ｳﾞ")))
+		 (insert-and-inherit "ｳﾞ")
+		 (delete-region (+ (match-beginning 0) vu-len)
+				(+ (match-end 0) vu-len) )))))))))
+       
+(defun skk-katakana-to-hankaku-region (start end &optional vcontract)
+  (save-match-data
+    (let (object hankaku)
+      (skk-save-point
+       (goto-char start)
+       (while (re-search-forward  "[ァ-ン]+" end 'noerror)
+	 (setq object (buffer-substring-no-properties
+		       (match-beginning 0) (match-end 0) )
+	       hankaku (save-match-data (japanese-hankaku object)) )
+	 (backward-char (skk-str-length object))
+	 ;; firstly insert a new string, secondly delete an old string to save
+	 ;; the cursor position.
+	 (insert-and-inherit hankaku)
+	 (delete-region (+ (match-beginning 0) (length hankaku))
+			(+ (match-end 0) (length hankaku)) ))
+       (if vcontract
+	   (progn
+	     (goto-char start)
+	     (while (re-search-forward  "う゛" end 'noerror)
+	       (backward-char (skk-str-length "う゛"))
+	       (let ((vu-len (length "ｳﾞ")))
+		 (insert-and-inherit "ｳﾞ")
+		 (delete-region (+ (match-beginning 0) vu-len)
+				(+ (match-end 0) vu-len) )))))))))
+       
 (provide 'skk-hankaku-mode)
 ;;; Local Variables:
 ;;; End:
