@@ -1,3 +1,26 @@
+2001-10-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-auto.el
+	(skk-okuri-search)
+	(skk-okuri-search-1): Rename the former to the latter.
+
+	(skk-adjust-search-prog-list-for-auto-okuri): Never delete
+	`skk-okuri-search' from `skk-search-prog-list'.
+
+	* skk-server.el
+	(skk-search-server): Move to skk.el
+
+	(skk-adjust-search-prog-list-for-server-search): Never delete
+	`skk-search-server' from `skk-search-prog-list'.
+
+	* skk-vars.el
+	(skk-search-prog-list): Add `skk-okuri-search' and
+	`skk-search-server'.
+
+	* skk.el
+	(skk-search-server)
+	(skk-okuri-search): New functions.
+
 2001-10-13  SIMOYAMA Takasi  <simo@festa.or.jp>
 
 	* skk-vars.el
@@ -2399,8 +2422,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.477 2001/10/13 11:59:15 czkmt Exp $
-Last Modified: $Date: 2001/10/13 11:59:15 $
+Version: $Id: ChangeLog,v 1.478 2001/10/13 13:59:41 czkmt Exp $
+Last Modified: $Date: 2001/10/13 13:59:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
