@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.83 2002/03/02 12:12:14 ueno Exp $
+;; Version: $Id: skk-macs.el,v 1.84 2002/03/02 12:32:05 ueno Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/02 12:12:14 $
+;; Last Modified: $Date: 2002/03/02 12:32:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -372,8 +372,11 @@ ENGLISH をエコーエリアに表示し、エラーを発生させる。 ARG は `error' 
    ((memq skk-emacs-type '(mule5))
     (if (and window-system
 	     (not (eq mode 'default)))
-	(apply 'propertize string
-	       (cdr (assq mode skk-e21-property-alist)))
+	(progn
+	  (setq string (concat "x" string))
+	  (put-text-property 0 1 'display skk-e21-icon-image string)
+	  (apply 'propertize string
+		 (cdr (assq mode skk-e21-property-alist))))
       string))
    (t
     string)))
