@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.14 2001/12/16 05:03:09 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.15 2001/12/23 00:58:43 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/12/16 05:03:09 $
+;; Last Modified: $Date: 2001/12/23 00:58:43 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -152,14 +152,11 @@
        (setq buffer-local-cursor-color local)))))
 
 (defun update-buffer-local-cursor-color ()
-  (cond ((stringp buffer-local-cursor-color)
-	 (unless (ccc-color-equal (get-apparent-cursor-color)
-				  buffer-local-cursor-color)
-	   (set-cursor-color buffer-local-cursor-color)))
-	(t
-	 (unless (ccc-color-equal (get-apparent-cursor-color)
-				  frame-cursor-color)
-	   (set-cursor-color frame-cursor-color)))))
+  (let ((color (if (stringp buffer-local-cursor-color)
+		   buffer-local-cursor-color
+		 frame-cursor-color)))
+    (unless (ccc-color-equal color (get-apparent-cursor-color))
+      (set-cursor-color color))))
 
 (defun set-cursor-color-buffer-local (arg)
   (if arg
@@ -184,14 +181,11 @@
        (setq buffer-local-foreground-color local)))))
 
 (defun update-buffer-local-foreground-color ()
-  (cond ((stringp buffer-local-foreground-color)
-	 (unless (ccc-color-equal (get-apparent-foreground-color)
-				  buffer-local-foreground-color)
-	   (set-foreground-color buffer-local-foreground-color)))
-	(t
-	 (unless (ccc-color-equal (get-apparent-foreground-color)
-				  frame-foreground-color)
-	   (set-foreground-color frame-foreground-color)))))
+  (let ((color (if (stringp buffer-local-foreground-color)
+		   buffer-local-foreground-color
+		 frame-foreground-color)))
+    (unless (ccc-color-equal color (get-apparent-foreground-color))
+      (set-foreground-color color))))
 
 (defun set-foreground-color-buffer-local (arg)
   (if arg
@@ -216,14 +210,11 @@
        (setq buffer-local-background-color local)))))
 
 (defun update-buffer-local-background-color ()
-  (cond ((stringp buffer-local-background-color)
-	 (unless (ccc-color-equal (get-apparent-background-color)
-				  buffer-local-background-color)
-	   (set-background-color buffer-local-background-color)))
-	(t
-	 (unless (ccc-color-equal (get-apparent-background-color)
-				  frame-background-color)
-	   (set-background-color frame-background-color)))))
+  (let ((color (if (stringp buffer-local-background-color)
+		   buffer-local-background-color
+		 frame-background-color)))
+    (unless (ccc-color-equal color (get-apparent-background-color))
+      (set-background-color color))))
 
 (defun set-background-color-buffer-local (arg)
   (if arg
