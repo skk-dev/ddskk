@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.45 2000/11/06 10:38:54 minakaji Exp $
-;; Last Modified: $Date: 2000/11/06 10:38:54 $
+;; Version: $Id: SKK-MK,v 1.46 2000/11/08 09:36:43 czkmt Exp $
+;; Last Modified: $Date: 2000/11/08 09:36:43 $
 
 ;; Commentary
 ;;
@@ -236,9 +236,10 @@
   (or (getenv "SKK_DATADIR")
       (expand-file-name SKK_PREFIX (expand-file-name "share" PREFIX))))
 (defvar SKK_INFODIR
-  (or (getenv "SKK_INFODIR") 
-      ;;(expand-file-name "info" PREFIX)
-      (progn (require 'info) (car Info-directory-list))))
+  (or (getenv "SKK_INFODIR")
+      (and (getenv "INFOPATH")
+	   (progn (require 'info) (car Info-directory-list)))
+      (expand-file-name "info" PREFIX)))
 (defvar SKK_LISPDIR
   (or (getenv "SKK_LISPDIR")
       (and LISPDIR (expand-file-name SKK_PREFIX LISPDIR))
