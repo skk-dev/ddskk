@@ -4,7 +4,7 @@
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 1999/09/15 10:42:12 $
+;; Last Modified: $Date: 1999/09/23 13:27:50 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -424,10 +424,14 @@ EVENTS is a list of events, which become the beginning of the command."
 		 )
 		(change-mode-to-emacs (vip-change-mode-to-emacs))
 		(t (vip-change-mode vip-current-mode))))
-      (save-excursion
-	(set-buffer old-buff)
-	(setq vip-vi-mode save-vi-mode
-	      vip-insert-mode save-insert-mode))
+      ;; since OLD-BUFF may not exist anymore, we have to first
+      ;; check if it still exists.  we can check this by the function
+      ;; BUFFER-NAME which return nil for a killed buffer.
+      (if (buffer-name old-buff)
+	  (save-excursion
+	    (set-buffer old-buff)
+	    (setq vip-vi-mode save-vi-mode
+		  vip-insert-mode save-insert-mode)))
       ;; in the new buffer we enter the mode spcified by
       ;; the local value of VIP-CURRNT-MODE, unless CHANGE-MODE-TO-*
       ;; is set
