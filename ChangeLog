@@ -7,6 +7,7 @@
 	Ditto.
 	(skk-kakutei-initialize): Do not add DATA to `skk-study-data-ring'
 	when KAKUTEI-WORD is equal to car of `skk-henkan-list'.
+	(skk-study-save): Bug fixed.
 
 	* experimental/rdbms/skk-rdbms.el (skk-rdbms-sahen-search-1):
 	Ditto.
@@ -4260,8 +4261,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.747 2003/07/06 10:20:38 minakaji Exp $
-Last Modified: $Date: 2003/07/06 10:20:38 $
+Version: $Id: ChangeLog,v 1.748 2003/07/06 11:04:27 minakaji Exp $
+Last Modified: $Date: 2003/07/06 11:04:27 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
