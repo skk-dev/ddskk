@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.16 2000/11/27 01:33:05 furue Exp $
+;; Version: $Id: skk-vars.el,v 1.17 2000/11/27 17:23:26 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/27 01:33:05 $
+;; Last Modified: $Date: 2000/11/27 17:23:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -204,7 +204,7 @@
 
 (defgroup skk-tut nil "SKK tutorial conversion related customization."
   :prefix "skk-tut-"
-  :group 'skk)
+  :group 'skk-custom-by-filename)
 
 (defgroup skk-annotation nil "SKK annotation related customization." 
   :prefix "skk-annotation-" 
@@ -1912,6 +1912,7 @@ Mule-UCS がインストールされていないときはこの値は動作に影響しない。"
   "*SKK チュートリアルのファイル名。
 The English version is SKK.tut.E."
   :type 'file
+  :group 'skk-filenames
   :group 'skk-tut)
 
 (defvar skk-tut-file-alist
@@ -1922,6 +1923,7 @@ The English version is SKK.tut.E."
 (defcustom skk-tut-use-face t
   "*Non-nil であれば、チュートリアルで face を利用した表示を行なう。"
   :type 'boolean
+  :group 'skk-decoration
   :group 'skk-tut)
 
 (defface skk-tut-section-face
@@ -1931,28 +1933,32 @@ The English version is SKK.tut.E."
      (:foreground "yellow" :background "slateblue"))
     (((class grayscale)) (:bold t) (:italic t)))
   "*チュートリアル中のセクションの表示部分の face。"
-  :group 'skk-faces)
+  :group 'skk-decoration
+  :group 'skk-tut)
 
 (defface skk-tut-do-it-face
   '((((class color) (background light)) (:foreground "DarkGoldenrod"))
     (((class color) (background dark)) (:foreground "LightGoldenrod"))
     (((class grayscale)) (:bold t)))
   "*チュートリアル中の指示項目の表示部分の face。"
-  :group 'skk-faces)
+  :group 'skk-decoration
+  :group 'skk-tut)
 
 (defface skk-tut-question-face
   '((((class color) (background light)) (:foreground "Blue"))
     (((class color) (background dark)) (:foreground "LightSkyBlue"))
     (((class grayscale)) (:underline t)))
   "*チュートリアル中の問題の表示部分の face。"
-  :group 'skk-faces)
+  :group 'skk-decoration
+  :group 'skk-tut)
 
 (defface skk-tut-key-bind-face
   '((((class color) (background light)) (:foreground "Firebrick"))
     (((class color) (background dark)) (:foreground "OrangeRed"))
     (((class grayscale)) (:bold t)))
   "*チュートリアル中のキーバインドの表示部分の face。"
-  :group 'skk-faces)
+  :group 'skk-decoration
+  :group 'skk-tut)
 
 (defface skk-tut-hint-face
   '((((class color) (background light)) (:foreground "CadetBlue"))
@@ -1960,7 +1966,8 @@ The English version is SKK.tut.E."
     (((class grayscale)) (:italic t)))
   "*チュートリアル中のヒントの表示部分の face。
 現在のところ、SKK.tut.E でしか使用されていない。"
-  :group 'skk-faces)
+  :group 'skk-decoration
+  :group 'skk-tut)
 
 ;;; -- INTERNAL CONSTANTS AND VARIABLES of SKK.EL
 ;; (ones of other separate programs should be in the relative files.)
@@ -2432,6 +2439,7 @@ This map should be derived from isearch-mode-map.")
 (defvar skk-isearch-switch nil)
 (defvar skk-isearch-state nil)
 (defvar skk-isearch-in-editing nil)
+(defvar skk-isearch-current-buffer nil)
 
 ;;; -- SKK-JISX0201.EL related internal constants and variables.
 (defvar skk-jisx0201-mode-map nil "*SKK JISX0201 モードのキーマップ。")

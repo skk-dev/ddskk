@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.12 2000/11/25 04:43:36 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.13 2000/11/27 17:23:26 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 04:43:36 $
+;; Last Modified: $Date: 2000/11/27 17:23:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -231,6 +231,7 @@ kakutei'ed and erase the buffer contents."
   ;; skk-isearch の状態を表す内部変数の設定
   (setq skk-isearch-switch t)
   (setq skk-isearch-in-editing nil)
+  (setq skk-isearch-current-buffer (current-buffer))
   ;;
   (setq skk-isearch-incomplete-message ""
 	;; set skk-isearch-message non-nil to call skk-isearch-message.
@@ -270,6 +271,7 @@ kakutei'ed and erase the buffer contents."
   (setq skk-isearch-switch nil)
   (unless skk-isearch-in-editing
     (setq skk-isearch-state nil))
+  (setq skk-isearch-current-buffer nil)
   ;;
   (remove-hook 'pre-command-hook 'skk-pre-command 'local)
   (skk-remove-minibuffer-setup-hook

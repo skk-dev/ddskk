@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.71 2000/11/27 01:33:06 furue Exp $
+;; Version: $Id: skk.el,v 1.72 2000/11/27 17:23:27 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/27 01:33:06 $
+;; Last Modified: $Date: 2000/11/27 17:23:27 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -104,6 +104,7 @@
   ;; Shut up, compiler.
   (autoload 'skk-isearch-message "skk-isearch")
   (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
+  (autoload 'skk-kanagaki-initialize "skk-kanagaki")
   (autoload 'skk-num-convert "skk-num")
   (autoload 'skk-num-multiple-convert "skk-num")
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
@@ -468,6 +469,11 @@ dependent."
 			       "SKK の記録用ファイルを作りました"
 			       "I have created an SKK record file for you"))
 	  (skk-regularize)
+	  ;; 仮名入力を行う場合の初期設定。
+	  (when skk-use-kana-keyboard
+	    (require 'skk-kanagaki)
+	    (skk-kanagaki-initialize))
+	  ;;
           (setq skk-mode-invoked t)))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
     (unless (and (skk-local-variable-p 'skk-jisyo (current-buffer))
@@ -582,7 +588,6 @@ dependent."
   (and skk-auto-okuri-process (skk-adjust-search-prog-list-for-auto-okuri))
   (and skk-use-look (require 'skk-look))
   (and skk-use-jisx0201-input-method (require 'skk-jisx0201))
-  (and skk-use-kana-keyboard (require 'skk-kanagaki))
   (skk-setup-delete-selection-mode)
   (skk-adjust-user-option))
 
