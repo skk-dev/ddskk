@@ -2,6 +2,10 @@
 
 	* etc/Emacs.ad: Add items for popup menu.
 
+	* skk-e21.el: Popup menu improvements.
+	(skk-e21-modeline-menu): Always use a new hash table so that key
+	comparison should always fail.
+
 	* skk-xemacs.el (skk-xemacs-find-func-keys): Show "C-j" if the
 	key description is "LFD".
 
@@ -1685,8 +1689,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.339 2001/09/01 02:52:29 czkmt Exp $
-Last Modified: $Date: 2001/09/01 02:52:29 $
+Version: $Id: ChangeLog,v 1.340 2001/09/01 04:33:47 czkmt Exp $
+Last Modified: $Date: 2001/09/01 04:33:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
