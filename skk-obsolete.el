@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.7 2001/10/21 04:17:18 czkmt Exp $
+;; Version: $Id: skk-obsolete.el,v 1.8 2001/11/13 12:27:44 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/21 04:17:18 $
+;; Last Modified: $Date: 2001/11/13 12:27:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,7 +27,42 @@
 ;;; Commentary:
 ;;
 ;;; Code:
-(eval-when-compile (require 'skk-macs) (require 'skk-vars))
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars))
+
+;;;; aliases
+;; for backward compatibility.
+(define-obsolete-function-alias 'skk-zenkaku-mode
+  'skk-jisx0208-latin-mode)
+(define-obsolete-function-alias 'skk-zenkaku-mode-on
+  'skk-jisx0208-latin-mode-on)
+(define-obsolete-function-alias 'skk-zenkaku-insert
+  'skk-jisx0208-latin-insert)
+(define-obsolete-function-alias 'skk-zenkaku-region
+  'skk-jisx0208-latin-region)
+(define-obsolete-function-alias 'skk-zenkaku-henkan
+  'skk-jisx0208-latin-henkan)
+(define-obsolete-function-alias 'skk-ascii-mode-on
+  'skk-latin-mode-on)
+(define-obsolete-function-alias 'skk-ascii-mode
+  'skk-latin-mode)
+(define-obsolete-function-alias 'skk-ascii-region
+  'skk-latin-region)
+(define-obsolete-function-alias 'skk-ascii-henkan
+  'skk-latin-henkan)
+(define-obsolete-function-alias 'skk-convert-ad-to-gengo
+  'skk-ad-to-gengo)
+(define-obsolete-function-alias 'skk-convert-gengo-to-ad
+  'skk-gengo-to-ad)
+(define-obsolete-function-alias 'skk-isearch-forward
+  'isearch-forward)
+(define-obsolete-function-alias 'skk-isearch-forward-regexp
+  'isearch-forward-regexp)
+(define-obsolete-function-alias 'skk-isearch-backward
+  'isearch-backward)
+(define-obsolete-function-alias 'skk-isearch-backward-regexp
+  'isearch-backward-regexp)
 
 (defvar skk-obsolete-variable-alist
   '((skk-abbrev-cursor-color . skk-cursor-abbrev-color)
