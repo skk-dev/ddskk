@@ -21,6 +21,9 @@
 	(skk-henkan-show-candidates): Show previous candidates if the read
 	event is for `skk-delete-backward-char'.
 
+	* tinyinstall.el: Under Emacs 18, override `member' defined in
+	cl.el with a valid one.
+
 2000-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk-faq.texi: No longer in the repository.
@@ -2316,8 +2319,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.143 2000/11/15 14:58:33 czkmt Exp $
-Last Modified: $Date: 2000/11/15 14:58:33 $
+Version: $Id: ChangeLog,v 1.144 2000/11/15 15:59:47 czkmt Exp $
+Last Modified: $Date: 2000/11/15 15:59:47 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.50 2000/11/15 14:58:34 czkmt Exp $
-;; Last Modified: $Date: 2000/11/15 14:58:34 $
+;; Version: $Id: SKK-MK,v 1.51 2000/11/15 15:59:47 czkmt Exp $
+;; Last Modified: $Date: 2000/11/15 15:59:47 $
 
 ;; Commentary
 ;;
@@ -283,10 +283,11 @@
 ;; Work around for Emacs 18.
 (if (= 18 emacs-major-version)
     (progn
-      (require 'cl)
       (setq SKK_INFO nil)
-      (dolist (elt '(ccc skk-cursor skk-isearch skk-jisx0201 skk-study))
-	(setq SKK_MODULES (delq elt SKK_MODULES)))
+      (let ((list '(ccc skk-cursor skk-isearch skk-jisx0201 skk-study)))
+	(while list
+	  (setq SKK_MODULES (delq (car list) SKK_MODULES))
+	  (setq list (cdr list))))
       (condition-case nil
 	  (load "bytecomp-runtime")
 	(error))
