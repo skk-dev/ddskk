@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.11 2005/02/17 08:07:10 skk-cvs Exp $
+## Version: $Id: bskk,v 1.12 2005/02/18 09:32:33 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2005/02/17 08:07:10 $
+## Last Modified: $Date: 2005/02/18 09:32:33 $
 
 ## This file is part of Daredevil SKK.
 
@@ -310,8 +310,10 @@ end
 ## 詳しくは追っていない。
 class EBTCPServer
   require "socket"
+  include Socket::Constants
   def initialize( port, backlog=5 )
     @soc_waiting = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
+    @soc_waiting.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     @soc_waiting.bind( [Socket::AF_INET,port,127,0,0,1].pack("s n C4 x8") )
     @soc_waiting.listen( backlog )
   end
