@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.82 2001/11/24 01:55:25 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.83 2001/11/24 07:03:57 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/24 01:55:25 $
+;; Last Modified: $Date: 2001/11/24 07:03:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1541,7 +1541,7 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 	    start end 'all-candidates))))
        skk-use-kakasi]))
     ("Convert Region and Replace"
-     ["Ascii" skk-latin-region skk-use-kakasi]
+     ["Ascii" skk-latin-region t]
      ("Gyakubiki"
       ["to Hiragana" skk-gyakubiki-region skk-use-kakasi]
       ["to Hiragana, All Candidates"
@@ -1560,7 +1560,7 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 	   (skk-gyakubiki-katakana-region
 	    start end 'all-candidates))))
        skk-use-kakasi])
-     ["Hiragana" skk-hiragana-region skk-use-kakasi]
+     ["Hiragana" skk-hiragana-region t]
      ("Hurigana"
       ["to Hiragana" skk-hurigana-region skk-use-kakasi]
       ["to Hiragana, All Candidates"
@@ -1578,9 +1578,9 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 	   (skk-hurigana-katakana-region
 	    start end 'all-candidates))))
        skk-use-kakasi])
-     ["Katakana" skk-katakana-region skk-use-kakasi]
+     ["Katakana" skk-katakana-region t]
      ["Romaji" skk-romaji-region skk-use-kakasi]
-     ["Zenkaku" skk-jisx0208-latin-region skk-use-kakasi])
+     ["Zenkaku" skk-jisx0208-latin-region t])
     ["Count Jisyo Candidates" skk-count-jisyo-candidates t]
     ["Save Jisyo" skk-save-jisyo t]
     ["Undo Kakutei" skk-undo-kakutei t]
@@ -1660,7 +1660,7 @@ cdr は元号表記の string からなるリスト。"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Adrz")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "März")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")

@@ -1,5 +1,9 @@
 2001-11-24  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* skk-vars.el (skk-menu-items): Replace skk-use-kakasi with t 
+	in "Ascii", "Hiragana", "Katakana", "Zenkaku" menu (submenu of
+	"Convert Region and Replace").
+
 	* experimental/skk-w3m.el
 	(skk-w3m-w3m-w3m-retrieve-has-new-argument-spec): New constant.
 	(skk-w3m-w3m-retrieve): New function.
@@ -2878,8 +2882,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.553 2001/11/24 03:31:36 minakaji Exp $
-Last Modified: $Date: 2001/11/24 03:31:36 $
+Version: $Id: ChangeLog,v 1.554 2001/11/24 07:03:57 minakaji Exp $
+Last Modified: $Date: 2001/11/24 07:03:57 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

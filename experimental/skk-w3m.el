@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.26 2001/11/24 03:31:36 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.27 2001/11/24 07:03:57 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/11/24 03:31:36 $
+;; Last Modified: $Date: 2001/11/24 07:03:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -511,7 +511,7 @@ w3m を backend で動かしていない)。")
 			  ;; <B>がいはんぼしぐわいはん―【外反拇趾】</B>
 			  ;; <B>なかみ  【中身・中味】  </B>
 			  ;; <B><FONT COLOR="0000FF">しこう-さくご</FONT>  <FONT><SMALL> ―かう―</SMALL></FONT>  【試行錯誤】  </B>
-			  (format "<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*%s[^<【]*【\\([^<>【】]+\\)】 *</B>" key)))
+			  (format "<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*%s[^【]*【\\([^<>【】]+\\)】 *</B>" key)))
 	(while (re-search-forward key end t nil)
 	  ;; KEY = "\\(<a href=\".+\">し-*こ-*う-*さ-*く-*ご *【\\([^<>【】]+\\)】</a>\\|<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*し-*こ-*う-*さ-*く-*ご[^<【]*【\\([^<>【】]+\\)】 *</B>\\)"
 	  (setq temp (skk-w3m-filter-string
