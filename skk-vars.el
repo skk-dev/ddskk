@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.56 2001/09/14 12:04:25 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.57 2001/09/15 01:06:36 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/14 12:04:25 $
+;; Last Modified: $Date: 2001/09/15 01:06:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3057,6 +3057,11 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 (skk-deflocalvar skk-dcomp-end-point nil)
 (skk-deflocalvar skk-dcomp-extent nil)
 (defvar skk-dcomp-face 'skk-dcomp-face)
+
+;; SKK-DIC related internal constants and variables.
+
+(defvar skk-dic-comp-first nil)
+
 
 (require 'product)
 (product-provide (provide 'skk-vars) (require 'skk-version))
