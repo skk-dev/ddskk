@@ -38,14 +38,14 @@
     ["Start Tutorial" skk-tutorial t]
     ["Customize Daredevil SKK" skk-e21-customize t]
     "--"
-    ["About Daredevil SKK..," skk-e21-skk-version t]
-    ["Visit Daredevil SKK Home..," skk-e21-visit-openlab t]))
+    ["About Daredevil SKK..." skk-version t]
+    ["Visit Daredevil SKK Home..." skk-e21-visit-openlab t]))
 
 (defvar skk-e21-modeline-property
   (list 'local-map (purecopy
 		    (make-mode-line-mouse2-map
 		     #'skk-e21-modeline-menu))
-	'help-echo "mouse-2 displays Daredevil SKK Menu")
+	'help-echo "マウスの button 2 -> Daredevil SKK のメニュ−")
   (let ((map (make-sparse-keymap)))
     (define-key
       map
@@ -66,10 +66,6 @@
 (defun skk-e21-customize ()
   (interactive)
   (customize-group "skk"))
-
-(defun skk-e21-skk-version ()
-  (interactive)
-  (message "%s" (skk-version 'verbose)))
 
 (defun skk-e21-visit-openlab ()
   (interactive)

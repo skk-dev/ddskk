@@ -44,8 +44,8 @@
     ["Start Tutorial" skk-tutorial t]
     ["Customize Daredevil SKK" skk-xemacs-customize t]
     "--"
-    ["About Daredevil SKK..," skk-xemacs-skk-version t]
-    ["Visit Daredevil SKK Home..," skk-xemacs-visit-openlab t]))
+    ["About Daredevil SKK..." skk-version t]
+    ["Visit Daredevil SKK Home..." skk-xemacs-visit-openlab t]))
 
 (when (featurep 'window-system)
   ;;
@@ -80,10 +80,6 @@
 (defun skk-xemacs-customize ()
   (interactive)
   (customize-group "skk"))
-
-(defun skk-xemacs-skk-version ()
-  (interactive)
-  (message "%s" (skk-version 'verbose)))
 
 (defun skk-xemacs-visit-openlab ()
   (interactive)
