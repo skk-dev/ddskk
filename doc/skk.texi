@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.88 2001/12/01 09:13:57 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.89 2001/12/01 15:50:32 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/12/01 09:13:57 $
+@c  Last Modified: $Date: 2001/12/01 15:50:32 $
 @c
 @set EDITION 1.7
 @set SKK-VERSION 11.5.2
-@set UPDATED $Date: 2001/12/01 09:13:57 $
+@set UPDATED $Date: 2001/12/01 15:50:32 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -339,7 +339,7 @@ SKK 11 $B$h$j!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#$"$J$?$N(B @file{.emacs} $B%U%!%
 
 $B<+F0@_Dj$K$h$i$:!"<jF0$G@_Dj$9$k>l9g$O!"0J2<$N$h$&$K(B @file{.emacs} $B$K=q(B
 $B$-$^$9(B@footnote{$B%5%s%W%k$H$7$F!"G[I[J*$K(B @file{etc/dot.emacs}$B!"(B
-@file{etc/dot.skk} $B%U%!%$%k$,$"$j$^$9!#;2>H$7$F2<$5$$!#(B}$B!#(B
+@file{etc/dot.skk} $B%U%!%$%k$,$"$j$^$9!#;29M$K$7$F2<$5$$!#(B}$B!#(B
 
 @lisp
 @group
@@ -5342,6 +5342,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 * $B<-=q%P%C%U%!$NJ8;z%3!<%I$N@_Dj(B::
 * $B<-=q%P%C%U%!$N%a%8%c!<%b!<%I(B::
 * $B<-=q%P%C%U%!$N(Bbuffer-file-name::
+* $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B)::
 @end menu
 
 @node $B8D?M<-=qCf$NC18l$N:o=|(B, $B8D?M<-=q$NJ]B8F0:n(B, $B<-=q4XO"(B, $B<-=q4XO"(B
@@ -5631,7 +5632,7 @@ abbreviation $B$NE83+$r9T$J$&$h$&$K@_Dj$9$k$3$H$,$G$-$k$N$G$9$,!"2>$K<-=q(B
 $B$^$@$H$9$k$H!"(B Dabbrev $B$,<-=q%P%C%U%!$r8!:w$7$F$7$^$&2DG=@-$,$"$j$^$9!#(B
 $B$3$NA<CV$K$h$C$F!"$=$N$h$&$J;vBV$r2sHr$7$F$$$^$9!#(B}$B!#(B
 
-@node $B<-=q%P%C%U%!$N(Bbuffer-file-name,  , $B<-=q%P%C%U%!$N%a%8%c!<%b!<%I(B, $B<-=q4XO"(B
+@node $B<-=q%P%C%U%!$N(Bbuffer-file-name, $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B), $B<-=q%P%C%U%!$N%a%8%c!<%b!<%I(B, $B<-=q4XO"(B
 @comment  node-name,  next,  previous,  up
 @subsection $B<-=q%P%C%U%!$N(B@code{buffer-file-name}
 @vindex buffer-file-name
@@ -5648,6 +5649,109 @@ Emacs $B$N%3%^%s%I$K$O(B @kbd{M-x compile} $B$N$h$&$K!"(B
 
 SKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @code{buffer-file-name} $B$NCM$r(B nil $B$K@_Dj$7$F$$$^$9!#(B
+
+@node $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B),  , $B<-=q%P%C%U%!$N(Bbuffer-file-name, $B<-=q4XO"(B
+@comment  node-name,  next,  previous,  up
+@subsection $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B)
+@vindex skk-show-annotation
+@vindex skk-annotation-show-as-message
+
+$B<-=q$K%"%N%F!<%7%g%s(B ($BCp<a(B)$B$rIU$1$k$3$H$,$G$-$^$9(B@footnote{
+Viper $BBP:v$O$^$@9T$J$o$l$F$$$^$;$s!#(B@file{~/.viper}$B$K<!$N$h$&$K=q$$$F2<(B
+$B$5$$!#(B
+
+@display
+(viper-harness-minor-mode "skk-annotation")
+@end display
+}$B!#(B
+
+$B$^$@!"%"%N%F!<%7%g%s5!G=$r0lEY$b;HMQ$7$F$$$J$$>l9g$O<!$NA`:n$r9T$C$F2<$5(B
+$B$$!#8D?M<-=q$rFI$_$3$_!"<-=q$rFI$_9~$s$@%P%C%U%!$G(B
+
+@display
+M-x skk-annotation-update-jisyo-format
+@end display
+
+$B$r<B9T$7$F2<$5$$(B@footnote{
+@code{;} $B$NJ8;z$r4^$s$@8uJd$O!"(Beval $B$9$k$H(B@code{;}$B$K$J$k(B Lisp $B<0$H$7$F(B
+quote $B$5$l$F<-=q8uJd$H$7$F<}$a$i$l$J$1$l$P$J$j$^$;$s!#(B
+@code{skk-annotation-update-jisyo-format}$B$r<B9T$9$k$3$H$K$h$j!"$3$N:n6H(B
+$B$r9T$J$&$3$H$,$G$-$^$9!#%"%N%F!<%7%g%s5!G=$,;H$o$l$kA0$N4{B8$N<-=q(B($B8D?M(B
+$B<-=q!"(BSKK-JISYO.L)$B$K$D$$$F$O@'Hs9T$J$C$F$*$$$F2<$5$$(B}$B!#(B
+
+$B%"%N%F!<%7%g%s$rIU$1$k$K$O<!$NA`:n$r9T$$$^$9!#(B
+
+$B%"%N%F!<%7%g%s$rIU$1$?$$C18l$r3NDj$7$?D>8e$KF1$8%P%C%U%!$G(B
+
+@display
+M-x skk-annotation-add
+@end display
+
+$B$H$7$^$9!#%"%N%F!<%7%g%s$rJT=8$9$k%P%C%U%!$,3+$$$F!"%+%l%s%H%P%C%U%!$K$J(B
+$B$j$^$9!#$=$3$X%"%N%F!<%7%g%s$rIU$1$^$9!#JT=8$,=*$o$C$?$i(B C-c C-c $B$7$^$9!#(B
+
+@code{M-x skk-annotation-add}$B$7$?$b$N$N!"%"%N%F!<%7%g%s$rIU$1$:$KCV$-$?(B
+$B$$$H$-$O!"(B
+
+@display
+M-x skk-annotation-kill
+@end display
+
+$B$H$7$^$9!#(B
+
+$B$^$?!":G8e$K3NDj$7$?8uJd$K$D$$$F$N%"%N%F!<%7%g%s$r<h$j5n$j$?$$$H$-$O!"(B
+
+@display
+M-x skk-annotation-remove
+@end display
+
+$B$H$7$^$9!#(B
+
+$B%"%N%F!<%7%g%s$rI=<($5$;$k$K$O!"JQ?t(B@code{skk-show-annotation} $B$r(B
+non-nil $B$K$7$^$9!#<-=q$N8uJd$K%"%N%F!<%7%g%s$,$"$l$P%(%3!<%(%j%"(B
+@footnote{
+$BJQ?t(B@code{skk-annotation-show-as-message}$B$r(B nil $B$K$7$?>l9g$O!"(B
+other-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g%s$rI=<($7$^$9!#(Bother-window $B$O(B
+$B$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!$N8uJd$rA*Br$7$?$j!"(B
+quit $B$7$?$j(B) $B$9$k$H<+F0E*$KJD$8$i$l$^$9!#(B}$B$KI=<($7$^$9!#(B
+
+$B>e5-$NF0:n$G%f!<%6$,IU$1$?%"%N%F!<%7%g%s$r!V%f!<%6%"%N%F!<%7%g%s!W(B
+$B$H8F$S$^$9!#%f!<%6%"%N%F!<%7%g%s$O!"<!$N7A<0$G8D?M<-=q$KJ]B8$5$l$^$9!#(B
+
+@display
+$B!V$-$+$s(B /$B4|4V(B/$B5!4X(B;*$B5!4XEj;q2H(B/$B4p44(B;*$B4p446HL3(B/$B!W(B
+@end display
+
+$B$3$N$h$&$K(B @code{;} $B$ND>8e$K(B @code{*} $B$NJ8;z$,<+F0E*$K?6$i$l$^$9!#$3$l$O(B
+$B%f!<%6$,FH<+$KIU$1$?%"%N%F!<%7%g%s$G$"$k$3$H$r<($7$^$9(B @footnote{
+@code{*} $B$NJ8;z$OJQ49;~$K$OI=<($5$l$^$;$s(B}$B!#(B
+
+$B0lJ}!"6&M-<-=q$K85!9IU$1$i$l$F$$$k%"%N%F!<%7%g%s$r!V%7%9%F%`%"%N%F!<(B
+$B%7%g%s!W$H8F$S!"$3$l$O(B @code{;} $B$ND>8e$K(B @code{*} $B$NJ8;z$rH<$J$$$^$;$s!#(B
+$BNc$($P!"<-=q$N7A<0$O<!$N$h$&$K$J$j$^$9!#(B
+
+@display
+$B!V$$$<$s(B /$B0JA0(B;previous/$B0MA3(B;still/$B!W(B
+@end display
+
+$B%7%9%F%`%"%N%F!<%7%g%s$O!"(BSKK Openlab $B$+$iG[I[$7$F$$$k<-=q$K:NMQ$5$l$F$$(B
+$B$^$9!#(B
+
+$B%f!<%6%"%N%F!<%7%g%s$H%7%9%F%`%"%N%F!<%7%g%s$r6hJL$9$k$3$H$G!"%f!<%6%"%N(B
+$B%F!<%7%g%s$@$1$rI=<($7$?$j!"$"$k$$$O$=$N5U$r9T$J$&$3$H$,2DG=$G$9!#(B
+@code{skk-annotation-function}$B$KI=<($7$?$$%"%N%F!<%7%g%s$r(B
+ non-nil $B$HH=Dj$9$k4X?t$r=q$-$^$9!#(B
+
+@group
+@lisp
+(setq skk-annotation-function
+        (lambda (annotation) (eq (aref annotation 0) ?*)))
+@end lisp
+@end group
+
+$B>e5-$NNc$G$O!"%"%N%F!<%7%g%s$N@hF,$,(B @code{*} $B$G;O$^$k!V%f!<%6%"%N%F!<%7%g(B
+$B%s!W$N>l9g$K(B t $B$rJV$9$N$G!"%f!<%6%"%N%F!<%7%g%s$@$1$rI=<($7$^$9!#(B
+
 
 @node SKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B, $B>~$j$D$1(B, $B<-=q4XO"(B, $BJXMx$J1~MQ5!G=(B
 @comment  node-name,  next,  previous,  up
@@ -5676,10 +5780,10 @@ SKK $B$r%$%s%9%H!<%k$9$k;~$K(B @file{SKK-CFG} $B$rJT=8$7$F!"(B @file{lookup.
 
 @lisp
 @group
-(setq skk-search-prog-list
-      '((skk-search-jisyo-file skk-jisyo 0 t)
-        (skk-search-server skk-aux-large-jisyo 10000)
-        (skk-lookup-search)))
+(setq skk-search-prog-list 
+   (append skk-search-prog-list 
+      (list 
+         '(skk-lookup-search))))
 @end group
 @end lisp
 
@@ -5816,10 +5920,10 @@ SKK $B<-=q$K(B
 
 @lisp
 @group
-(setq skk-search-prog-list
-      '((skk-search-jisyo-file skk-jisyo 0 t)
-        (skk-search-jisyo-file "/your-path/SKK-JISYO.edict" 0 t)
-        (skk-search-server skk-aux-large-jisyo 10000)))
+(setq skk-search-prog-list 
+   (append skk-search-prog-list 
+      (list 
+         '(skk-search-jisyo-file "/your-path/SKK-JISYO.edict" 0 t))))
 @end group
 @end lisp
 
@@ -5837,6 +5941,7 @@ SKK $B<-=q$K(B
 * $BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B::
 * $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B::
 * $B%(%i!<$J$I$NF|K\8lI=<((B::
+* XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B::
 @end menu
 
 @node $B2>L>J8;z$N%m!<%^;z%W%l%U%#%C%/%9$N%(%3!<(B, $BF~NO%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs$NJQ99(B, $B>~$j$D$1(B, $B>~$j$D$1(B
@@ -6028,7 +6133,7 @@ SKK $B%b!<%I$,%*%U$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"%+!<%=%k$N$"$k3:Ev(B
 $B%U%!$NGX7J?'$,$=$N$^$^8+$($^$9!#(B
 @end table
 
-@node $B%(%i!<$J$I$NF|K\8lI=<((B,  , $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B, $B>~$j$D$1(B
+@node $B%(%i!<$J$I$NF|K\8lI=<((B, XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B, $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B, $B>~$j$D$1(B
 @comment  node-name,  next,  previous,  up
 @subsection $B%(%i!<$J$I$NF|K\8lI=<((B
 
@@ -6042,6 +6147,37 @@ SKK $B%b!<%I$,%*%U$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"%+!<%=%k$N$"$k3:Ev(B
 $B$3$NJQ?t$NCM$rHs(B nil $B$K@_Dj$9$k$H!"%(%i!<!"%a%C%;!<%8$*$h$S%_%K%P%C%U%!(B
 $B$G$N%W%m%s%W%H$rF|K\8l$GI=<($7$^$9!#(B
 @end table
+
+@node XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B,  , $B%(%i!<$J$I$NF|K\8lI=<((B, $B>~$j$D$1(B
+@comment  node-name,  next,  previous,  up
+@subsection XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B
+@vindex skk-indicator-use-cursor-color
+
+XEmacs $B$*$h$S(B Emacs 21 $B$G$O0J2<$N5!G=$,;HMQ$G$-$^$9!#(B
+
+SKK $B$N%$%s%8%1!<%?$r%b!<%I9T$N:8$KI=<($7$F$$$k>l9g(B
+@footnote{$B%G%U%)%k%H$G$O!":8$G$9!#(B
+@xref{$B5/F0$H=*N;(B}.
+@xref{Q.3-1 $B%$%s%8%1!<%?$r%b!<%I9T$N:8C<$KCV$-$?$$$N$G$9$,!#(B}.
+}$B!"(B
+$B%+!<%=%k$N?'$HF1$8?'$,IU$/$h$&$K$J$j$^$7$?!#$^$?!"%b!<%I9T$N(B SKK $B$N%$%s(B
+$B%8%2!<%?$r%^%&%9$J$I$N%]%$%s%F%#%s%0%G%P%$%9$NBh(B 2$B%\%?%s$r%/%j%C%/$9$k$H(B
+$B%a%K%e!<$,I=<($5$l$^$9!#(B
+
+SKK $B$N%$%s%8%1!<%?$N?'$rIU$1$J$$>l9g$O!"JQ?t(B
+@code{skk-indicator-use-cursor-color}$B$r(B nil $B$K$7$^$9!#(B
+
+$B%$%s%8%1!<%?$KFH<+?'$r;H$$$?$$>l9g$O!"0J2<$NJQ?t$r@_Dj$7$^$9!#(B
+$B$3$N>l9g%+!<%=%k$N?'$O;2>H$7$^$;$s!#(B
+
+@display
+@code{skk-e21-hiragana-face} 
+@code{skk-e21-katakana-face} 
+@code{skk-e21-jisx0208-latin-face} 
+@code{skk-e21-jisx0201-face} 
+@code{skk-e21-abbrev-face} 
+@end display
+
 
 @node VIP/VIPER$B$H$NJ;MQ(B, I-search$B4XO"(B, $B>~$j$D$1(B, $BJXMx$J1~MQ5!G=(B
 @comment  node-name,  next,  previous,  up
@@ -6279,8 +6415,8 @@ nil $B$H$7$F9=$$$^$;$s!#(B
 $B>e5-$N@_Dj$N>l9g!"$^$:(B host1 $B>e$N%5!<%P$H@\B3$7$^$9!#@\B3$G$-$J$/$J$k$H!"(B
 $B<!$K(B host2 $B>e$N%5!<%P$H@\B3$7$^$9!#(B
 
-@item skk-report-server-response
-@vindex skk-report-server-response
+@item skk-server-report-response
+@vindex skk-server-report-response
 
 $B$3$NJQ?t$NCM$,Hs(B nil $B$G$"$l$P!"JQ49;~$K!"%5!<%P$NAw=P$9$kJ8;z$r<u$1<h$k(B
 $B$^$G$K4X?t(B @code{accept-process-output} $B$,<B9T$5$l$?2s?t$rJs9p$7$^$9!#(B

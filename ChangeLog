@@ -1,3 +1,13 @@
+2001-12-02  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
+
+	* skk-annotation.el(skk-annotation-show): Fixed.
+
+	* doc/skk.texi: Add 辞書のアノテーション(註釈).
+	Add XEmacs & Emacs 21 のモードライン.
+	(skk-lookup): Update.
+	(英単語をあいまいに変換して取り出した後、更に再帰的な英和変換を行う): Update.
+	(サーバ関連): Update.
+
 2001-12-01  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* doc/skk.texi (▽モードにおける自動ダイナミックコンプリーション):
@@ -3005,8 +3015,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.574 2001/12/01 09:13:58 minakaji Exp $
-Last Modified: $Date: 2001/12/01 09:13:58 $
+Version: $Id: ChangeLog,v 1.575 2001/12/01 15:51:01 akiho Exp $
+Last Modified: $Date: 2001/12/01 15:51:01 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
