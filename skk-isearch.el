@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.17 2001/09/05 21:33:19 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.18 2001/09/12 11:15:35 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/05 21:33:19 $
+;; Last Modified: $Date: 2001/09/12 11:15:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -447,24 +447,24 @@ If the current mode is different from previous, remove it first."
   (interactive "P")
   (unless (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	    ;; following code is highly depends on internal of skk.
-	    (if (skk-isearch-conversion-active-p)
-		(prog1
-		    t
-		  (cond
-		   ((save-excursion
-		      (condition-case nil (goto-char (point-max)) (error))
-		      (>= skk-henkan-start-point (point)))
-		    (setq skk-henkan-count 0)
-		    (skk-kakutei)
-		    (isearch-message))
-		   (t
-		    (if (string= skk-prefix "")
-			;; now, we can't pass the universal argument within the
-			;; isearch-mode.  so hard code the value `1'.
-			(delete-backward-char 1)
-		      (skk-erase-prefix 'clean))
-		    (setq skk-isearch-incomplete-message (buffer-string))
-		    (skk-isearch-incomplete-message))))))
+	    (when (skk-isearch-conversion-active-p)
+	      (prog1
+		  t
+		(cond
+		 ((save-excursion
+		    (condition-case nil (goto-char (point-max)) (error))
+		    (>= skk-henkan-start-point (point)))
+		  (setq skk-henkan-count 0)
+		  (skk-kakutei)
+		  (isearch-message))
+		 (t
+		  (if (string= skk-prefix "")
+		      ;; now, we can't pass the universal argument within the
+		      ;; isearch-mode.  so hard code the value `1'.
+		      (delete-backward-char 1)
+		    (skk-erase-prefix 'clean))
+		  (setq skk-isearch-incomplete-message (buffer-string))
+		  (skk-isearch-incomplete-message))))))
     ;;
     (let ((cmd (nth 1 isearch-cmds))
 	  (prompt (skk-isearch-mode-string)))
@@ -649,9 +649,11 @@ If the current mode is different from previous, remove it first."
 	      ad-do-it)))))
 
 ;;;###autoload
-(if (or (featurep 'xemacs)
-	(not (fboundp 'register-input-method)))
-    nil
+(cond
+ ((or (featurep 'xemacs)
+      (not (fboundp 'register-input-method)))
+  nil)
+ (t
   (define-key isearch-mode-map [(control \\)] 'isearch-toggle-input-method)
   (cond
    ((and (featurep 'advice)
@@ -665,7 +667,7 @@ If the current mode is different from previous, remove it first."
     (funcall skk-isearch-really-early-advice))
    (t
     ;; Emacs 21 loads "leim-list" files before `load-path' is prepared.
-    (add-hook 'before-init-hook skk-isearch-really-early-advice))))
+    (add-hook 'before-init-hook skk-isearch-really-early-advice)))))
 
 
 ;;

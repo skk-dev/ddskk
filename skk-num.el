@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.20 2001/09/11 16:00:46 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.21 2001/09/12 11:15:35 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/11 16:00:46 $
+;; Last Modified: $Date: 2001/09/12 11:15:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -198,11 +198,15 @@
     (let ((fun (cdr (assq type skk-num-type-alist))))
       (if fun (funcall fun num)))))
 
+(defsubst skk-num-get-suuji (expression alist)
+  (cdr (assq expression alist)))
+
 (defun skk-num-jisx0208-latin (num)
   ;; ascii 数字の NUM を全角数字の文字列に変換し、変換後の文字列を返す。
   ;; 例えば "45" を "４５" に変換する。
   (let ((candidate
-	 (mapconcat (function (lambda (c) (cdr (assq c skk-num-alist-type1))))
+	 (mapconcat (function (lambda (c)
+				(skk-num-get-suuji c skk-num-alist-type1)))
 		    num "")))
     (if (not (string= candidate ""))
 	candidate)))
@@ -214,7 +218,9 @@
     (if (not (string-match "\\.[0-9]" num))
 	(let ((candidate
 	       (mapconcat (function (lambda (c)
-				      (cdr (assq c skk-num-alist-type2))))
+				      (skk-num-get-suuji
+				       c
+				       skk-num-alist-type2)))
 			  num "")))
 	  (if (not (string= candidate ""))
 	      candidate)))))
@@ -235,9 +241,6 @@
       ;; 小数点を含まない数
       (skk-num-to-kanji num 'type5))))
 
-(defun skk-num-get-kanji (expression alist)
-  (cdr (assq expression alist)))
-
 (defun skk-num-to-kanji (num type &optional alist)
   ;; NUM を TYPE の形式の漢数字にする。位などを表す漢字は ALIST から取得する。
   (let ((len (length num))
@@ -245,9 +248,11 @@
 	char v num1 v1)
     (unless alist
       (setq alist
-	    (symbol-value (intern (format "skk-num-alist-%s" type)))))
+	    (symbol-value
+	     (intern (format "skk-num-alist-%s" type)))))
     ;; 「千京」までは出力する。
-    (when (> len 20) (skk-error "位が大きすぎます！" "Too big number!"))
+    (when (> len 20)
+      (skk-error "位が大きすぎます！" "Too big number!"))
     (setq num (append num nil))
     (cond
      ((<= len 4)
@@ -258,7 +263,7 @@
 	    ;; 位を表わす漢数字以外の漢数字。
 	    (unless (eq char ?0)
 	    ;; 一の位で 0 でない数。
-	      (setq v (concat v (skk-num-get-kanji char alist))))
+	      (setq v (concat v (skk-num-get-suuji char alist))))
 	  ;; 位を表わす漢数字以外の漢数字。
 	  (unless (or (and (eq type 'type3)
 			   (memq char '(?0 ?1)))
@@ -266,16 +271,17 @@
 			   (eq char ?0)))
 	    ;; type3 のときは、十の位以上で、かつ 0, 1 以外の数字。
 	    ;; type5 のときは、十の位以上で、かつ 0 以外の数字。
-	    (setq v (concat v (skk-num-get-kanji char alist))))
+	    (setq v (concat v (skk-num-get-suuji char alist))))
 	  ;; 位を表わす漢数字。
 	  (when (and (not (eq char ?0)) (< 1 len))
 	    (setq v
 		  (concat
 		   v
-		   (skk-num-get-kanji (cond ((eq len 2) 'ju) ; 十
-					    ((eq len 3) 'hyaku) ; 百
-					    (t 'sen)) ; 千
-				      alist)))))
+		   (skk-num-get-suuji
+		    (cond ((eq len 2) 'ju) ; 十
+			  ((eq len 3) 'hyaku) ; 百
+			  (t 'sen)) ; 千
+		    alist)))))
 	(setq len (1- len) num (cdr num))))
      (t
       (setq num (nreverse num))
@@ -286,7 +292,7 @@
 		num (cdr num)))
 	(when num1
 	  (setq v1 (skk-num-to-kanji num1 type alist))
-	  (when (string= v1 (skk-num-get-kanji ?0 alist))
+	  (when (string= v1 (skk-num-get-suuji ?0 alist))
 	    (setq v1 ""))
 	  (when (and (eq type 'type3) (eq i 1) (equal v1 "千"))
 	    ;; 日本語では「千億」という表現はときに使われるが、「千万」という表
@@ -297,17 +303,18 @@
 	   (concat
 	    v1
 	    (when v1
-	      (skk-num-get-kanji (cond ((eq i 0) ?\ )
-				       ((eq i 1) 'man) ; 万
-				       ((eq i 2) 'oku) ; 億
-				       ((eq i 3) 'cho) ; 兆
-				       ((eq i 4) 'kei)) ; 京
-				 alist))
+	      (skk-num-get-suuji
+	       (cond ((eq i 0) ?\ )
+		     ((eq i 1) 'man) ; 万
+		     ((eq i 2) 'oku) ; 億
+		     ((eq i 3) 'cho) ; 兆
+		     ((eq i 4) 'kei)) ; 京
+	       alist))
 	    v)))
 	(setq i (1+ i)))))
     ;;
     (or v
-	(skk-num-get-kanji ?0 alist))))
+	(skk-num-get-suuji ?0 alist))))
 
 (defun skk-num-shogi (num)
   ;; ascii 数字の NUM を将棋で使用される数字表記に変換する。
@@ -316,8 +323,8 @@
     (if (and (= (length num) 2)
 	     (not (string-match "\\.[0-9]" num)))
 	(let ((candidate
-	       (concat (cdr (assq (aref num 0) skk-num-alist-type1))
-		       (cdr (assq (aref num 1) skk-num-alist-type2)))))
+	       (concat (skk-num-get-suuji (aref num 0) skk-num-alist-type1)
+		       (skk-num-get-suuji (aref num 1) skk-num-alist-type2))))
 	  (if (not (string= candidate ""))
 	      candidate)))))
 

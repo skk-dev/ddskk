@@ -229,7 +229,7 @@
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-help-key "1" "\
-*`help' においてヘルプを表示するキー。"
+*\\[help] においてヘルプを表示するキー。"
   :type 'sexp
   :group 'skk-kanagaki)
 
