@@ -120,7 +120,7 @@
     (list
      (cons 'latin skk-e21-modeline-property))))
 
-(defvar skk-e21-coding-system (if (eq window-system 'w32)
+(defvar skk-e21-coding-system (if (memq window-system '(w32 nil))
 				  nil
 				locale-coding-system))
 
