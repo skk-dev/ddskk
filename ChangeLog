@@ -1,3 +1,7 @@
+2004-12-08  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/bskk (DB::save): Use File.copy instead of system("cp ...").
+
 2004-12-07  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/skk-bayesian.el
@@ -4724,8 +4728,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.823 2004/12/08 01:25:47 skk-cvs Exp $
-Last Modified: $Date: 2004/12/08 01:25:47 $
+Version: $Id: ChangeLog,v 1.824 2004/12/08 10:04:34 skk-cvs Exp $
+Last Modified: $Date: 2004/12/08 10:04:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
