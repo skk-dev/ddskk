@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.279 2004/03/31 23:44:04 czkmt Exp $
+;; Version: $Id: skk.el,v 1.280 2004/04/01 03:51:02 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/03/31 23:44:04 $
+;; Last Modified: $Date: 2004/04/01 03:51:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -289,7 +289,8 @@ dependent."
       (skk-e21-menu-replace skk-e21-modeline-menu-items)
       (dolist (map (list skk-j-mode-map skk-latin-mode-map
 			 skk-jisx0208-latin-mode-map skk-abbrev-mode-map))
-	(skk-e21-menu-replace (assq 'skk (assq 'menu-bar map))))))
+	(skk-e21-menu-replace (or (assq 'skk (assq 'menu-bar map))
+				  (assq 'SKK (assq 'menu-bar map)))))))
   (skk-setup-delete-selection-mode)
   (setq skk-mode-invoked t))
 
