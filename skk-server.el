@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.27 2001/11/27 14:29:18 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.28 2001/11/27 14:53:07 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/27 14:29:18 $
+;; Last Modified: $Date: 2001/11/27 14:53:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -132,16 +132,13 @@
 
 (defun skk-open-server ()
   ;; SKK サーバーと接続する。サーバープロセスを返す。
-  (let (code)
-    (cond
-     ((skk-server-live-p)
-      nil)
-     ((setq skkserv-process
-	    (or (skk-open-network-stream) (skk-open-server-1)))
-      (when (skk-server-live-p)
-	(setq code (cdr (assoc "euc" skk-coding-system-alist)))
+  (unless (skk-server-live-p)
+    (setq skkserv-process (or (skk-open-network-stream)
+			      (skk-open-server-1)))
+    (when (skk-server-live-p)
+      (let ((code (cdr (assoc "euc" skk-coding-system-alist))))
 	(set-process-coding-system skkserv-process code code))))
-    skkserv-process))
+  skkserv-process)
 
 (defun skk-open-server-1 ()
   ;; skk-open-server のサブルーチン。
