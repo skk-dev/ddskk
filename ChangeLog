@@ -9,7 +9,6 @@
 
 	* skk-comp.el (skk-comp-do-1):
 	(skk-comp-search-current-buffer):
-	(skk-comp-search-current-buffer):
 	(skk-comp-by-history):
 
 	Add autoload cookie.
@@ -4486,8 +4485,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.786 2004/03/04 11:24:44 czkmt Exp $
-Last Modified: $Date: 2004/03/04 11:24:44 $
+Version: $Id: ChangeLog,v 1.787 2004/03/04 15:49:34 czkmt Exp $
+Last Modified: $Date: 2004/03/04 15:49:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
