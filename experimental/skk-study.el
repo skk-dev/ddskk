@@ -5,9 +5,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.6 1999/10/06 13:21:59 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.7 1999/10/07 09:08:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/06 13:21:59 $
+;; Last Modified: $Date: 1999/10/07 09:08:48 $
 
 ;; This file is not part of SKK yet.
 
@@ -129,7 +129,7 @@
 	(if (and skk-study-alist
 		 (setq last-key (skk-get-last-henkan-data 'henkan-key))
 		 (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
-		 ;; grandpa ::= (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
+		 ;; grandpa := (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
 		 ;;              ("なk" . ((("こども" . "子供") . ("泣")))) )
 		 (setq grandpa (cdr (assq
 				     (cond ((or skk-okuri-char
@@ -140,9 +140,9 @@
 					    'okuri-ari )
 					   (t 'okuri-nasi) )
 				     skk-study-alist )))
-		 ;; papa ::= ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
+		 ;; papa := ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
 		 (setq papa (cdr (assoc midasi grandpa)))
-		 ;; associates ::= ("着")
+		 ;; associates := ("着")
 		 (setq associates (cdr (assoc (cons last-key last-word) papa))) )
 	    (while (and (> index 0) (setq r (nth (1- index) associates)))
 	      (setq entry (cons r (delete r entry))
@@ -159,7 +159,7 @@
       (or skk-study-alist (skk-study-read))
       (if (and (setq last-key (skk-get-last-henkan-data 'henkan-key))
 	       (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
-	       ;; grandpa ::= (okuri-ari . (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))))
+	       ;; grandpa := (okuri-ari . (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))))
 	       (setq grandpa (assq (cond ((or skk-okuri-char
 					      ;; skk-okuri-char is nil, but 
 					      ;; skk-henkan-okurigana is non-nil when
@@ -168,9 +168,9 @@
 					  'okuri-ari )
 					 (t 'okuri-nasi) )
 				   skk-study-alist )))
-	  ;; papa ::= ("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
-	  ;; skk-study-alist に該当の cell がないと nil を返すので、and 条件に入れない。
 	  (progn
+	    ;; papa := ("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
+	    ;; skk-study-alist に該当の cell がないと nil を返すので、and 条件に入れない。
 	    (setq papa (assoc midasi (cdr grandpa)))
 	    (cond (
 		   ;; car に見出し語を持つ cell がない
@@ -183,7 +183,7 @@
 		  ;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) をキーにした
 		  ;; cell がない。
 		  ((not (or
-			 ;; baby ::= (("ふく" . "服") . ("着"))
+			 ;; baby := (("ふく" . "服") . ("着"))
 			 (setq baby (assoc (cons last-key last-word) (cdr papa)))
 			 purge ))
 		   (setcdr papa (cons (cons (cons last-key last-word) (list word)) (cdr papa))) )
@@ -394,7 +394,7 @@
     (prin1 form stream) ))
 
 (defun skk-study-chomp (nth list)
-  ;; LIST ::= '(A B C D), NTH ::= 1
+  ;; LIST := '(A B C D), NTH := 1
   ;; -> '(A B)
   (and (> nth -1) (setcdr (nthcdr nth list) nil))
   list )
