@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.143 2001/10/10 11:49:08 czkmt Exp $
+;; Version: $Id: skk.el,v 1.144 2001/10/10 12:46:19 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/10 11:49:08 $
+;; Last Modified: $Date: 2001/10/10 12:46:19 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -1677,17 +1677,20 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
     new-word))
 
 (defun skk-get-current-candidate (&optional noconv)
-  (if (skk-numeric-p)
-      (if noconv
-	  (car (skk-get-current-candidate-1))
-	(cdr (skk-get-current-candidate-1)))
-    (skk-get-current-candidate-1)))
+  (cond ((not (skk-numeric-p))
+	 (skk-get-current-candidate-1))
+	(noconv
+	 (car (skk-get-current-candidate-1)))
+	(t
+	 (cdr (skk-get-current-candidate-1)))))
 
 (defun skk-henkan-list-filter ()
-  (if (skk-numeric-p)
-      (progn (skk-num-uniq) (skk-num-multiple-convert)))
-  (if (and (featurep 'jisx0213) skk-jisx0213-prohibit)
-      (skk-jisx0213-henkan-list-filter)))
+  (when (skk-numeric-p)
+    (skk-num-uniq)
+    (skk-num-multiple-convert))
+  (when (and (featurep 'jisx0213)
+	     skk-jisx0213-prohibit)
+    (skk-jisx0213-henkan-list-filter)))
 
 (defun skk-henkan-show-candidates ()
   ;; ミニバッファで変換した候補群を表示する。
