@@ -137,18 +137,22 @@
 ;;;###autoload
 (defun skk-e21-prepare-modeline-properties ()
   (when window-system
-    (let (face-sym)
-      (dolist (mode '(hiragana katakana jisx0208-latin jisx0201 abbrev))
-	(setq face-sym (intern (format "skk-e21-%s-face" mode)))
-	(make-face face-sym)
-	(set-face-foreground
-	 face-sym
-	 (symbol-value (intern (format "skk-cursor-%s-color" mode))))
-	(setq skk-e21-property-alist
-	      (cons
-	       (cons mode (append skk-e21-modeline-property
-				  (list 'face face-sym)))
-	       skk-e21-property-alist))))))
+    (let (face)
+      (dolist (mode '(hiragana
+		      katakana
+		      jisx0208-latin
+		      jisx0201
+		      abbrev))
+	(setq face (intern (format "skk-e21-%s-face" mode)))
+	(make-face face)
+	(set-face-foreground face
+			     (symbol-value
+			      (intern
+			       (format "skk-cursor-%s-color"
+				       mode))))
+	(push (cons mode (append skk-e21-modeline-property
+				 (list 'face face)))
+	       skk-e21-property-alist)))))
 
 (defun skk-e21-find-func-keys (func)
   (let ((keys
