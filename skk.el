@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.118 2001/09/13 13:51:00 czkmt Exp $
+;; Version: $Id: skk.el,v 1.119 2001/09/13 14:00:53 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/13 13:51:00 $
+;; Last Modified: $Date: 2001/09/13 14:00:53 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -3030,9 +3030,9 @@ If you want to restore the dictionary from the disc, try
 
 (defun skk-search-jisyo-buf (buf limit)
   ;; バッファを BUF に移動して、そこを辞書として検索する。
-  (when buf
-  ;; skk-henkan-key と skk-henkan-okurigana はカレントバッファの
-  ;; ローカル値なので、あらかじめ取得。
+  (when (buffer-live-p buf)
+    ;; skk-henkan-key と skk-henkan-okurigana はカレントバッファの
+    ;; ローカル値なので、あらかじめ取得。
     (let ((okurigana (or skk-henkan-okurigana
 			 skk-okuri-char))
 	  (midasi (if skk-use-numeric-conversion
