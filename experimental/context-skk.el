@@ -3,7 +3,7 @@
 ;; Copyright (C) 2003 Masatake YAMATO
 ;;
 ;; Author: Masatake YAMATO <jet@gyve.org>
-;; Created: Tue May 1 19:12:23 2003
+;; Created: Tue May 13 19:12:23 2003
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 ;; たとえば 「え ^H l」 emacs lispでは、
 ;; "〜" や ;; 〜
 ;; といった個所でだけ日本語入力が必要となります。
-;;
+;; 
 ;; このプログラムでは、現在の文字列とコメントの「外」を編集開始と同時に
 ;; (skkがオンであれば)skkの入力モードをlatinに切り替えます。「外」の編集
 ;; を開始するにあたって、日本語入力が 「お ^H l」 onになっていたために発生
@@ -47,10 +47,11 @@
 ;; (add-hook 'skk-load-hook
 ;;           '(require 'context-skk))
 ;;
-;; - todo
+;; - todo 
+;; prefix arg
 ;; context-context-skk.el
-;;
-;;; Code:
+
+;;; Code: 
 ;;(require 'skk)
 
 ;;
@@ -60,8 +61,10 @@
   "*日本語入力を自動的にoffにしたい「コンテキスト」にいればtを返す関数を登録する。")
 (add-hook ' context-skk-context-check-hook
 	    'context-skk-out-of-string-or-comment-in-programming-mode-p)
+(add-hook ' context-skk-context-check-hook
+	    'context-skk-in-mew-draft-attachments-region-p)
 
-(defvar context-skk-prgramming-mode
+(defvar context-skk-programming-mode
   '(ada-mode antlr-mode asm-mode autoconf-mode awk-mode
     c-mode objc-mode java-mode idl-mode pike-mode cperl-mode
     ;;?? dcl-mode
@@ -74,19 +77,23 @@
   "*context-skkにて「プログラミングモード」とみなすモードのリスト")
 
 
+(define-minor-mode context-skk
+  "文脈に応じて自動的にskkの入力モードをlatinに切り換えるマイナーモード。"
+  t " \";\"")
+
 ;;
 ;; Advices
 ;;
 (defadvice skk-insert (around skk-insert-ctx-switch activate)
   "文脈に応じて自動的にskkの入力モードをlatinにする。"
   (if (and context-skk (context-skk-context-check))
-      (context-skk-insert)
+      (context-skk-insert) 
     ad-do-it))
 
 (defadvice skk-jisx0208-latin-insert (around skk-jisx0208-latin-insert-ctx-switch activate)
   "文脈に応じて自動的にskkの入力モードをlatinにする。"
   (if (and context-skk (context-skk-context-check))
-      (context-skk-insert)
+      (context-skk-insert) 
     ad-do-it))
 
 ;;
@@ -97,22 +104,22 @@
   (run-hook-with-args-until-success 'context-skk-context-check-hook))
 
 (defun context-skk-insert ()
-  "skk-latin-modeをonにしてself-insert-commandを呼び出す。"
+  "skk-latin-modeをonにした上`this-command-keys'に対する関数を呼び出し直す。"
   (skk-latin-mode t)
-  (self-insert-command 1))
+  (call-interactively (key-binding (this-command-keys))))
 
 (defun context-skk-out-of-string-or-comment-in-programming-mode-p ()
   "プログラミングモードにあって文字列あるいはコメントの外にいればnon-nilを返す。
 プログラミングモードにいない場合はnilを返す。
 プログラミングモードにあって文字列あるいはコメントの中にいる場合nilを返す。"
-  (and (context-skk-in-programming-mode-p)
+  (and (context-skk-in-programming-mode-p) 
        (not (or (context-skk-in-string-p)
 		(context-skk-in-comment-p)))))
 
-(define-minor-mode context-skk
-  "文脈に応じて自動的にskkの入力モードをlatinに切り換えるマイナーモード。"
-  t " \";\"")
-
+(defun context-skk-in-mew-draft-attachments-region-p ()
+  (and (eq major-mode 'mew-draft-mode)
+       (fboundp 'mew-attach-begin)
+       (<= (or (mew-attach-begin) (1+ (point-max))) (1- (point)))))
 ;;
 ;; Sub predicators
 ;;
@@ -123,7 +130,7 @@
 
 (defun context-skk-in-programming-mode-p ()
   (memq major-mode
-	context-skk-prgramming-mode))
+	context-skk-programming-mode))
 
 (provide 'context-skk)
 ;; context-skk.el ends here

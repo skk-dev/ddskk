@@ -1,6 +1,18 @@
+2003-06-25  Masatake YAMATO  <jet@gyve.org>
+
+	* experimental/context-skk.el (context-skk-in-programming-mode-p):
+	(context-skk-out-of-string-or-comment-in-programming-mode-p): Fix a typo.
+	(context-skk-in-mew-draft-attachments-region-p): New function.
+	(context-skk-insert): Invoke (key-binding (this-command-keys)) instead
+	of self-insert-command.
+	(context-skk-context-check-hook): context-skk-in-mew-draft-attachments-region-p
+	is added.
+
 2003-06-21  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* experimental/context-skk.el: New file (see [skk 4558]).
+	(context-skk-in-programming-mode-p): Use `memq' instead of
+	`member'.
 
 2003-06-20  NAKAJIMA Mikio  <minakaji@namazu.org>
 
@@ -4225,8 +4237,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.740 2003/06/20 23:29:56 minakaji Exp $
-Last Modified: $Date: 2003/06/20 23:29:56 $
+Version: $Id: ChangeLog,v 1.741 2003/06/25 10:37:13 minakaji Exp $
+Last Modified: $Date: 2003/06/25 10:37:13 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
