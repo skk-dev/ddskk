@@ -1,3 +1,10 @@
+2001-10-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el
+	* skk-develop.el
+	* skk-obsolete.el:
+	Modification concerning specificity.
+
 2001-10-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* install-info.el
@@ -2521,8 +2528,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.497 2001/10/21 02:41:23 czkmt Exp $
-Last Modified: $Date: 2001/10/21 02:41:23 $
+Version: $Id: ChangeLog,v 1.498 2001/10/21 04:17:27 czkmt Exp $
+Last Modified: $Date: 2001/10/21 04:17:27 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
