@@ -1,3 +1,8 @@
+2000-10-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi (辞書ツール, 拡張アイディア, SKKメーリングリスト,
+	SKK関連ソフトウェア): 「ですます」調に変更。
+
 2000-10-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi (飾りつけ, VIP/VIPERとの併用, I-search関連,
