@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.217 2002/01/11 14:44:11 obata Exp $
+;; Version: $Id: skk.el,v 1.218 2002/01/11 16:28:57 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/11 14:44:11 $
+;; Last Modified: $Date: 2002/01/11 16:28:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -536,6 +536,21 @@ dependent."
 	(setq mode-line-format
 	      (append '("" skk-modeline-input-mode)
 		      mode-line-format))))
+
+    (when skk-icon
+      (unless (memq 'skk-icon (default-value 'mode-line-format))
+	(setq-default mode-line-format
+		      (append '("" skk-icon)
+			      (default-value 'mode-line-format))))
+      (skk-loop-for-buffers (buffer-list)
+	(when (and (listp mode-line-format)
+		   (skk-local-variable-p 'mode-line-format)
+		   (null (memq 'skk-icon
+			       mode-line-format)))
+	  (setq mode-line-format
+		(append '("" skk-icon)
+			mode-line-format)))))
+
     (force-mode-line-update t))))
 
 (defun skk-setup-emulation-commands (commands emulation)
