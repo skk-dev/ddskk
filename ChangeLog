@@ -1,3 +1,8 @@
+2003-02-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisyo-edit-mode.el: Use `add-to-list' for updating
+	`auto-mode-alist'.
+
 2003-02-08  YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 
 	* experimental/skk-tankan.el: New file.
@@ -4099,8 +4104,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.722 2003/02/08 03:14:11 minakaji Exp $
-Last Modified: $Date: 2003/02/08 03:14:11 $
+Version: $Id: ChangeLog,v 1.723 2003/02/25 15:57:27 czkmt Exp $
+Last Modified: $Date: 2003/02/25 15:57:27 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
