@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.10 2001/10/08 08:37:46 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.11 2001/10/13 13:58:47 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/08 08:37:46 $
+;; Last Modified: $Date: 2001/10/13 13:58:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -72,24 +72,7 @@
 			(erase-buffer)))))))))))
 
 ;;;###autoload
-(defun skk-search-server (file limit &optional nomsg)
-  ;; SKK 辞書フォーマットの FILE で SKK サーバーを使用して skk-henkan-key をキー
-  ;; にして検索を行う。
-  ;; SKK サーバーが使用できないときは、FILE をバッファに読み込んでサーチを行
-  ;; う。
-  ;; LIMIT と NOMSG は SKK サーバーを使用しないときのみ使う。
-  ;; 検索リージョンが LIMIT 以下になるまでバイナリサーチを行い、その後リニア
-  ;; サーチを行う。
-  ;; LIMIT が 0 であれば、リニアサーチのみを行う。
-  ;; 辞書がソートされていないのであれば、LIMIT を 0 する必要がある。
-  ;; オプショナル引数の NOMSG が non-nil であれば skk-get-jisyo-buffer のメッ
-  ;; セージを出力しないようにする。
-  (if (or skk-server-host
-	  skk-servers-list)
-      (skk-search-server-subr file limit)
-    (skk-search-jisyo-file file limit nomsg)))
-
-(defun skk-search-server-subr (file limit)
+(defun skk-search-server-1 (file limit)
   ;; skk-search-server のサブルーチン。
   (let ((key
 	 (if skk-use-numeric-conversion
@@ -289,11 +272,7 @@
 	 ;; 良い？
 	 (nconc (default-value 'skk-search-prog-list)
 		(list
-		 '(skk-search-server skk-aux-large-jisyo 10000))))))
-   (non-del
-    nil)
-   (t
-    (remove-alist 'skk-search-prog-list 'skk-search-server))))
+		 '(skk-search-server skk-aux-large-jisyo 10000))))))))
 
 (defun skk-disconnect-server ()
   ;; サーバーを切り離す。
