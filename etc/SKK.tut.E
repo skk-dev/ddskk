@@ -4,9 +4,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut.E,v 1.3 2000/11/01 11:18:22 czkmt Exp $
+;; Version: $Id: SKK.tut.E,v 1.4 2001/09/12 11:16:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/01 11:18:22 $
+;; Last Modified: $Date: 2001/09/12 11:16:22 $
 ;;
 ;; This is the tutorial text for Daredevil SKK version 11.1 and and later versions.
 ;;
@@ -155,13 +155,11 @@ You can change modes as follows:
 
 >> ＳＫＫには ASCIIモード と かなモード と カナモード と ぜんえいモード がある
 ----
-;; (skktut-today)
 == かな mode ==
 
 In かな mode, the following keys have special meanings.  Other keys such
 as 『C-a』, 『%』 are interpreted as ordinary Emacs keys.  This is also
-the case for カナ mode.  The problem here is a bit tricky, but you should
-be able to solve it by reading the following carefully.
+the case for カナ mode.
 
 	l、q、x、L		Already explained.
 	Other small alphabets.	Interpreted as romaji, and entered as かな.
@@ -169,10 +167,11 @@ be able to solve it by reading the following carefully.
 	/			Enter ASCII conversion mode. (To be explained.)
 	,			Input as 【、】.
 	.			Input as 【。】.
-	@			Input today's date.
 	[ and ]			Input as【「】 and 【」】.
 
->> 
+!! Try typing 『,』『.』『[』 and 『]』.
+
+>> 「あ、そうだったのか。」
 ----
 == Kana-to-kanji conversion ==
 
