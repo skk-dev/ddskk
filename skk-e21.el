@@ -39,9 +39,7 @@
      (call-interactively
       (lambda ()
 	(interactive)
-	(skk-j-mode-on)
-	(when skk-use-color-cursor
-	  (set-buffer-local-cursor-color (skk-cursor-current-color)))))
+	(skk-j-mode-on)))
      :selected (and skk-j-mode (not skk-katakana))
      :style radio
      :keys nil
@@ -50,9 +48,7 @@
      (call-interactively
       (lambda ()
 	(interactive)
-	(skk-j-mode-on t)
-	(when skk-use-color-cursor
-	  (set-buffer-local-cursor-color (skk-cursor-current-color)))))
+	(skk-j-mode-on t)))
      :selected (and skk-j-mode skk-katakana)
      :style radio
      :keys nil
