@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.26 2001/05/18 22:05:18 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.27 2001/08/09 11:24:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/18 22:05:18 $
+;; Last Modified: $Date: 2001/08/09 11:24:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -735,9 +735,17 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-quote-semicolon (word)
   (format "(concat \"%s\")"
- 	  (mapconcat
- 	   (function (lambda (c) (if (eq c ?\;) "\\073" (char-to-string c))))
- 	   (append word nil) "")))
+	  (mapconcat
+	   (function
+	    (lambda (c)
+	      (cond ((eq c ?\;) "\\073")
+		    ((eq c ?/) "\\057")
+		    ((eq c ?\n) "\\n")
+		    ((eq c ?\r) "\\r")
+		    ((eq c ?\") "\\\"")
+		    ((eq c ?\\) "\\\\")
+		    (t (char-to-string c)))))
+	   (append word nil) "")))
 
 (require 'product)
 (product-provide (provide 'skk-macs) (require 'skk-version))
