@@ -122,8 +122,8 @@
   (nth 4 (parse-partial-sexp (point) (point-min))))
 
 (defun context-skk-in-programming-mode-p ()
-  (member major-mode
-	  context-skk-prgramming-mode))
+  (memq major-mode
+	context-skk-prgramming-mode))
 
 (provide 'context-skk)
 ;; context-skk.el ends here
