@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.18 2001/08/31 19:30:15 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.19 2001/09/04 14:08:23 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:15 $
+;; Last Modified: $Date: 2001/09/04 14:08:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -256,7 +256,9 @@
 		  (concat
 		   v
 		   (cdr (assq len '((2 . "十") (3 . "百") (4 . "千"))))))))
-	(setq len (1- len) num (cdr num))))
+	(setq len (1- len) num (cdr num)))
+      (unless v
+	(setq v "")))
      (t
       (setq num (nreverse num))
       (while num
@@ -313,7 +315,9 @@
 		  (concat
 		   v
 		   (cdr (assq len '((2 . "拾") (3 . "百") (4 . "阡"))))))))
-	(setq len (1- len) num (cdr num))))
+	(setq len (1- len) num (cdr num)))
+      (unless v
+	(setq v "")))
      (t
       (setq num (nreverse num))
       (while num
