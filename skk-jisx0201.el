@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.30 2001/10/07 08:36:30 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.31 2001/10/11 13:42:10 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/07 08:36:30 $
+;; Last Modified: $Date: 2001/10/11 13:42:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -73,7 +73,6 @@
   (require 'japan-util)))
 
 (eval-and-compile
-  (autoload 'skk-cursor-set "skk-cursor")
   (autoload 'skk-isearch-message "skk-isearch"))
 
 ;; 諸般の事情により skk-vars.el に入れるべきでない変数
@@ -216,8 +215,7 @@
 	skk-jisx0208-latin-mode nil
 	skk-katakana nil)
   (skk-update-modeline 'jisx0201)
-  (when skk-use-color-cursor
-    (skk-cursor-set)))
+  (skk-cursor-set))
 
 ;; Pieces of advice.
 (defadvice skk-mode (before skk-jisx0201-ad activate)
@@ -322,8 +320,7 @@
 	(let ((skk-katakana t))
 	  (skk-start-henkan arg))
 	;;
-	(when skk-use-color-cursor
-	  (skk-cursor-set)))
+	(skk-cursor-set))
        ;;
        (skk-jisx0201-roman
 	(let (skk-set-henkan-point-key)
