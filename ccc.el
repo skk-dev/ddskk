@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.8 2001/11/20 14:36:30 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.9 2001/12/02 03:15:15 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/11/20 14:36:30 $
+;; Last Modified: $Date: 2001/12/02 03:15:15 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -37,14 +37,33 @@
 (eval-when-compile
   (require 'advice)
   (require 'poe)
-  (require 'static)
-  ;; shut up compiler warnings.
-  (defvar buffer-local-cursor-color)
-  (defvar buffer-local-background-color)
-  (defvar buffer-local-background-color-default)
-  (defvar buffer-local-cursor-color-default)
-  (defvar buffer-local-foreground-color)
-  (defvar buffer-local-foreground-color-default))
+  (require 'static))
+
+;; Frame parameters.
+(defsubst get-apparent-cursor-color ()
+  (cdr (assq 'cursor-color (frame-parameters (selected-frame)))))
+
+(defsubst get-apparent-foreground-color ()
+  (cdr (assq 'foreground-color (frame-parameters (selected-frame)))))
+
+(defsubst get-apparent-background-color ()
+  (cdr (assq 'background-color (frame-parameters (selected-frame)))))
+
+;; Internal variables.
+(defvar frame-cursor-color (get-apparent-cursor-color))
+
+(defvar buffer-local-cursor-color nil)
+(make-variable-buffer-local 'buffer-local-cursor-color)
+
+(defvar frame-foreground-color (get-apparent-foreground-color))
+
+(defvar buffer-local-foreground-color nil)
+(make-variable-buffer-local 'buffer-local-foreground-color)
+
+(defvar frame-background-color (get-apparent-background-color))
+
+(defvar buffer-local-background-color nil)
+(make-variable-buffer-local 'buffer-local-background-color)
 
 ;; Macros.
 (defmacro ccc-defadvice (function &rest everything-else)
@@ -89,10 +108,18 @@
 	 function function))))
     (` (defadvice (, function) (,@ everything-else)))))
 
+;;;###autoload
 (put 'ccc-defadvice 'lisp-indent-function 'defun)
 (def-edebug-spec ccc-defadvice defadvice)
 
-;; functions.
+;; Functions.
+(defsubst ccc-read-color (prompt)
+  (static-cond
+   ((string-lessp "20.5" emacs-version)
+    (list (facemenu-read-color prompt)))
+   (t
+    (format "s%s" prompt))))
+
 ;;;###autoload
 (defun update-buffer-local-frame-params ()
   (update-buffer-local-cursor-color)
@@ -102,109 +129,92 @@
 ;;
 ;; buffer-local-cursor
 ;;
-(defun buffer-local-cursor-color-default ()
-  (static-if (featurep 'xemacs)
-      (frame-property (selected-frame) 'cursor-color)
-    (cdr (assq 'cursor-color
-	       (frame-parameters (selected-frame))))))
-
 (defun set-buffer-local-cursor-color (color-name)
-  (interactive "sColor: ")
-  (setq buffer-local-cursor-color
-	(if (and (stringp color-name)
-		 (> (length color-name) 0))
-	    color-name
-	  buffer-local-cursor-color-default))
-  (update-buffer-local-cursor-color))
+  (interactive (ccc-read-color "Cursor color: "))
+  (let ((local buffer-local-cursor-color))
+    (setq buffer-local-cursor-color
+	  (if (and (stringp color-name)
+		   (> (length color-name) 0))
+	      color-name
+	    frame-cursor-color))
+    (condition-case nil
+	(update-buffer-local-cursor-color)
+      (error
+       (setq buffer-local-cursor-color local)))))
 
 (defun update-buffer-local-cursor-color ()
-  (when (and buffer-local-cursor-color
-	     (stringp buffer-local-cursor-color)
-	     (not (string= (buffer-local-cursor-color-default)
-			   buffer-local-cursor-color)))
-    (condition-case error
-	(set-cursor-color buffer-local-cursor-color)
-      (error
-       (setq buffer-local-cursor-color nil)))))
+  (set-cursor-color
+   (cond ((stringp buffer-local-cursor-color)
+	  buffer-local-cursor-color)
+	 (t
+	  frame-cursor-color))))
+
+(defun set-cursor-color-buffer-local (arg)
+  (if arg
+      (setq buffer-local-cursor-color (get-apparent-cursor-color))
+    (set-cursor-color frame-cursor-color)
+    (setq buffer-local-cursor-color nil)))
 
 ;;
 ;; buffer-local-foreground-color
 ;;
-(defun buffer-local-foreground-color-default ()
-  (static-if (featurep 'xemacs)
-      (frame-property (selected-frame) 'foreground-color)
-    (cdr (assq 'foreground-color
-	       (frame-parameters (selected-frame))))))
-
 (defun set-buffer-local-foreground-color (color-name)
-  (interactive "sColor: ")
-  (setq buffer-local-foreground-color
-	(if (and (stringp color-name)
-		 (> (length color-name) 0))
-	    color-name
-	  buffer-local-foreground-color-default))
-  (update-buffer-local-foreground-color))
+  (interactive (ccc-read-color "Foreground color: "))
+  (let ((local buffer-local-foreground-color))
+    (setq buffer-local-foreground-color
+	  (if (and (stringp color-name)
+		   (> (length color-name) 0))
+	      color-name
+	    frame-foreground-color))
+    (condition-case nil
+	(update-buffer-local-foreground-color)
+      (error
+       (setq buffer-local-foreground-color local)))))
 
 (defun update-buffer-local-foreground-color ()
-  (when (and buffer-local-foreground-color
-	     (stringp buffer-local-foreground-color)
-	     (not (string= (buffer-local-foreground-color-default)
-			   buffer-local-foreground-color)))
-    (condition-case error
-	(set-foreground-color buffer-local-foreground-color)
-      (error
-       (setq buffer-local-foreground-color nil)))))
+  (set-foreground-color
+   (cond ((stringp buffer-local-foreground-color)
+	  buffer-local-foreground-color)
+	 (t
+	  frame-foreground-color))))
+
+(defun set-foreground-color-buffer-local (arg)
+  (if arg
+      (setq buffer-local-foreground-color (get-apparent-foreground-color))
+    (set-foreground-color frame-foreground-color)
+    (setq buffer-local-foreground-color nil)))
 
 ;;
 ;; buffer-local-background-color
 ;;
-(defun buffer-local-background-color-default ()
-  (static-if (featurep 'xemacs)
-      (frame-property (selected-frame) 'background-color)
-    (cdr (assq 'background-color
-	       (frame-parameters (selected-frame))))))
-
 (defun set-buffer-local-background-color (color-name)
-  (interactive "sColor: ")
-  (setq buffer-local-background-color
-      (if (and (stringp color-name)
-	       (> (length color-name) 0))
-	  color-name
-	buffer-local-background-color-default))
-  (update-buffer-local-background-color))
+  (interactive (ccc-read-color "Background color: "))
+  (let ((local buffer-local-background-color))
+    (setq buffer-local-background-color
+	  (if (and (stringp color-name)
+		   (> (length color-name) 0))
+	      color-name
+	    frame-background-color))
+    (condition-case nil
+	(update-buffer-local-background-color)
+      (error
+       (setq buffer-local-background-color local)))))
 
 (defun update-buffer-local-background-color ()
-  (when (and buffer-local-background-color
-	     (stringp buffer-local-background-color)
-	     (not (string= (buffer-local-background-color-default)
-			   buffer-local-background-color)))
-    (condition-case error
-	(set-background-color buffer-local-background-color)
-      (error
-       (setq buffer-local-background-color nil)))))
+  (set-background-color
+   (cond ((stringp buffer-local-background-color)
+	  buffer-local-background-color)
+	 (t
+	  frame-background-color))))
 
-;; internal variables.
-(defvar buffer-local-cursor-color-default
-  (buffer-local-cursor-color-default))
-(defvar buffer-local-cursor-color
-  (buffer-local-cursor-color-default))
-(make-variable-buffer-local 'buffer-local-cursor-color)
+(defun set-background-color-buffer-local (arg)
+  (if arg
+      (setq buffer-local-background-color (get-apparent-background-color))
+    (set-background-color frame-background-color)
+    (setq buffer-local-background-color nil)))
 
-(defvar buffer-local-foreground-color-default
-  (buffer-local-foreground-color-default))
-(defvar buffer-local-foreground-color
-  (buffer-local-foreground-color-default))
-(make-variable-buffer-local 'buffer-local-foreground-color)
-
-(defvar buffer-local-background-color-default
-  (buffer-local-background-color-default))
-(defvar buffer-local-background-color
-  (buffer-local-background-color-default))
-(make-variable-buffer-local 'buffer-local-background-color)
-
-;; advices.
-(let ((funcs '(
-	       ;; cover to original Emacs functions.
+;; Advices.
+(let ((funcs '(;; cover to original Emacs functions.
 	       ;; subr, but no argument.
 	       bury-buffer
 	       delete-frame
@@ -220,33 +230,36 @@
 	       (kill-buffer . "bKill buffer: ")
 	       (other-window . "p")
 	       (select-frame . "e")
-	       (switch-to-buffer . "BSwitch to buffer: ")
-
-	       ;;goto-line
-	       ;;insert-file
-	       ;;recenter
-	       ;;yank
-	       ;;yank-pop
-	       ))
+	       (switch-to-buffer . "BSwitch to buffer: ")))
       func)
   (while (setq func (car funcs))
     (if (consp func)
 	;; command that has an interactive spec.
 	(eval
 	 (`
-	  (ccc-defadvice (, (intern (symbol-name (car func))))
-	    (after buffer-local-frame-params-ad activate)
+	  (ccc-defadvice (, (intern (symbol-name (car func)))) (after ccc-ad
+								      activate)
 	    "Update frame parameters if `buffer-local-*-color's are given."
 	    (interactive (, (cdr func)))
 	    (update-buffer-local-frame-params))))
       ;; non-command or command that has not an interactive spec.
       (eval
        (`
-	(ccc-defadvice (, (intern (symbol-name func)))
-	  (after buffer-local-frame-params-ad activate)
+	(ccc-defadvice (, (intern (symbol-name func))) (after ccc-ad activate)
 	  "Update frame parameters if `buffer-local-*-color's are given."
 	  (update-buffer-local-frame-params)))))
     (setq funcs (cdr funcs))))
+
+(defadvice modify-frame-parameters (after ccc-ad activate)
+  (when (and (assq 'cursor-color (ad-get-arg 1))
+	     (null buffer-local-cursor-color))
+    (setq frame-cursor-color (get-apparent-cursor-color)))
+  (when (and (assq 'foreground-color (ad-get-arg 1))
+	     (null buffer-local-foreground-color))
+    (setq frame-foreground-color (get-apparent-foreground-color)))
+  (when (and (assq 'background-color (ad-get-arg 1))
+	     (null buffer-local-background-color))
+    (setq frame-background-color (get-apparent-background-color))))
 
 ;; Hooks
 (add-hook 'isearch-mode-end-hook 'update-buffer-local-frame-params 'append)
@@ -254,7 +267,8 @@
 (add-hook 'minibuffer-exit-hook
 	  (lambda ()
 	    (with-current-buffer (nth 1 (buffer-list))
-	      (update-buffer-local-frame-params))) 'append)
+	      (update-buffer-local-frame-params)))
+	  'append)
 
 (provide 'ccc)
 
