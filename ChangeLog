@@ -1,5 +1,7 @@
 2000-12-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* isntall-info.el (install-info-1): New function.
+
 	* skk-server.el (skk-adjust-search-prog-list-for-server-search):
 	Use `setq-default' instead of `setq'.
 
@@ -2910,8 +2912,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.217 2000/12/14 10:25:51 czkmt Exp $
-Last Modified: $Date: 2000/12/14 10:25:51 $
+Version: $Id: ChangeLog,v 1.218 2000/12/14 11:05:16 czkmt Exp $
+Last Modified: $Date: 2000/12/14 11:05:16 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

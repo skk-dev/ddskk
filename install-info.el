@@ -106,6 +106,10 @@ itself.
 If optional fifth arg DELETE is non-nil, delete existing entries for INFO-FILE
 from DIR-FILE; don't insert any new entries."
   (interactive "fInfo File: \nFDir File: ")
+  (save-match-data
+    (install-info-1 info-file dir-file entry section delete)))
+
+(defun install-info-1 (info-file dir-file entry section delete)
   (let ((buf (get-buffer-create " *install-info-tmp*"))
 	groups)
     ;;

@@ -24,7 +24,7 @@
 
 ;;; Commentary:
 
-;; Loading this file registers SKK as input methods for Emacs.
+;; This file registers SKK as input methods for Emacs.
 ;; Currently this file is for FSF Emacs only (not for XEmacs).
 
 ;;; Code:
