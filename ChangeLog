@@ -1,3 +1,20 @@
+2000-09-21  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* skk-tut.el (skktut-end-tutorial): Change address to
+	skk@ring.gr.jp.
+
+	* doc/skk.texi (最も基本的な設定): typo fix.
+
+	* SKK-MK: Mule for Windows対策として,
+	SKK-MK-compile-info-for-mule4win32 を追加.
+
+	* make.bat: info-mule-for-win エントリを追加. del でのファイル削除
+	を分ける.
+
+	* Makefile (info-mule-for-win): New target.
+	
+	* READMEs/README.win: MAKE.BAT info-mule-for-win の記述追加.
+
 2000-09-18  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* doc/skk.texi (はじめに): New chapter.
