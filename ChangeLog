@@ -10,6 +10,8 @@
 	(skk-bayesian-update): Don't record new kakutei-word if the kakutei-word was deleted soon.
 	(skk-bayesian-check-modification-after-kakutei): New function.
 	(skk-bayesian-add-to-history): New function.
+	(skk-bayesian-add-to-history): Bug fixed.
+	(skk-bayesian-restart-process): Bug fixed.
 
 2004-12-01  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
@@ -4722,8 +4724,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.822 2004/12/07 08:24:42 skk-cvs Exp $
-Last Modified: $Date: 2004/12/07 08:24:42 $
+Version: $Id: ChangeLog,v 1.823 2004/12/08 01:25:47 skk-cvs Exp $
+Last Modified: $Date: 2004/12/08 01:25:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
