@@ -1,3 +1,7 @@
+2004-03-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.xpm: Make the background transparent.
+
 2002-08-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.emacs:
@@ -8,7 +12,7 @@
 
 	Show how to avoid "C-j" overriden by skk-latin-mode in
 	lisp-interaction-mode.
-	
+
 2002-05-27  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* SKK.tut, SKK.tut.E: Don't call `delete-region' many times.
