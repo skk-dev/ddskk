@@ -1,3 +1,8 @@
+2001-07-02  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-save-jisyo-original): Call `unlock-buffer' in
+	JISYO-BUFFER.
+
 2001-06-17  Takao KAWAMURA  <kawamura@debian.org>
 
 	* experimental/skk-w3m.el
@@ -3513,8 +3518,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.307 2001/06/17 07:14:40 kawamura Exp $
-Last Modified: $Date: 2001/06/17 07:14:40 $
+Version: $Id: ChangeLog,v 1.308 2001/07/02 11:04:37 minakaji Exp $
+Last Modified: $Date: 2001/07/02 11:04:37 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

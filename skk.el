@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.98 2001/06/14 21:43:58 minakaji Exp $
+;; Version: $Id: skk.el,v 1.99 2001/07/02 11:04:37 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/06/14 21:43:58 $
+;; Last Modified: $Date: 2001/07/02 11:04:37 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -2672,19 +2672,19 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (with-current-buffer jisyo-buffer
 	(if (and skk-share-private-jisyo
 		 (file-exists-p skk-emacs-id-file)
-	 ;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
+		 ;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
 		 (with-temp-buffer
 		   (insert-file-contents skk-emacs-id-file)
 		   (goto-char (point-min))
 		   (not (search-forward skk-emacs-id nil t))))
 	    (progn
 	      (lock-buffer skk-jisyo)
-       ;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
+	      ;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
 	      ;; 更新した skk-jisyo を読み込む。
 	      (erase-buffer)
 	      (insert-file-contents skk-jisyo)
 	      (skk-setup-jisyo-buffer)
-	   ;; skk-jisyo-update-vector にしたがってバッファを更新する。
+	      ;; skk-jisyo-update-vector にしたがってバッファを更新する。
 	      (let ((index 0) list skk-henkan-key)
 		(while (and (< index skk-jisyo-save-count)
 			    (setq list (aref skk-jisyo-update-vector index)))
@@ -2705,7 +2705,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			   "Saving SKK jisyo..."))
 	  (skk-save-jisyo-1 tempo-file)
 	  (skk-check-size-and-do-save-jisyo tempo-file)
-      ;; 辞書のセーブに成功して初めて modified フラッグを nil にする。
+	  ;; 辞書のセーブに成功して初めて modified フラッグを nil にする。
 	  (set-buffer-modified-p nil)
 	  (setq skk-update-jisyo-count 0)
 	  (if (not quiet)
@@ -2714,10 +2714,11 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			     "Saving SKK jisyo...done")
 		(sit-for 1))))
 	(if skk-share-private-jisyo
-	    (with-temp-buffer
-	      (fillarray skk-jisyo-update-vector nil)
-	      (insert skk-emacs-id "\n")
-	      (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)
+	    (progn
+	      (with-temp-buffer
+		(fillarray skk-jisyo-update-vector nil)
+		(insert skk-emacs-id "\n")
+		(write-region 1 (point-max) skk-emacs-id-file nil 'nomsg))
 	      (unlock-buffer)))))))
 
 (defun skk-save-jisyo-1 (file)

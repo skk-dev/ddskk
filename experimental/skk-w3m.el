@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.22 2001/06/17 07:15:05 kawamura Exp $
+;; Version: $Id: skk-w3m.el,v 1.23 2001/07/02 11:04:37 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/06/17 07:15:05 $
+;; Last Modified: $Date: 2001/07/02 11:04:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -161,9 +161,10 @@ w3m を backend で動かしていない)。")
   ;;http://quote.yahoo.com/m5?a=100&s=MYR&t=JPY&c=0 ; Malaysian Ringgit
   ;;http://quote.yahoo.com/m5?a=100&s=THB&t=JPY&c=0 ; Thai Baht             
   ;;http://quote.yahoo.com/m5?a=100&s=CHF&t=JPY&c=0 ; Swiss Franc
-  '((CHF . "Swiss Franc") (DEM . "German Mark") (EUR . "Euro") (FRF . "French Franc")
-    (ITL . "Italian Lira .L") (JP . "Japanese Yen") (KRW . "Korean Won") 
-    (MYR . "Malaysian Ringgit") (THB . "Thai Baht") (USD . "U.S. Dollar"))
+  '((ARS . "Argentine Peso") (CHF . "Swiss Franc") (DEM . "German Mark")
+    (EUR . "Euro") (FRF . "French Franc") (ITL . "Italian Lira .L")
+    (JP . "Japanese Yen") (KRW . "Korean Won") (MYR . "Malaysian Ringgit")
+    (THB . "Thai Baht") (USD . "U.S. Dollar"))
   "*")
 
 ;;;; system internal variables and constants.
