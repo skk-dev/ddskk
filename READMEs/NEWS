@@ -1,5 +1,30 @@
 -*- text -*-
 
+10.62 ---
+o skk.texi has been thorougly reviewed and updated.
+
+o New file FAQ.txt is in this directory.
+
+o New file ptexinfmt.el is for compiling skk.texi into Info.
+
+o skk-lookup.el is no longer experimental. It is provided as one of
+  main programs.
+
+o skk-study.el has been moved to `experimental' directory.
+
+o Pieces of advice to interactive built-in functions now call
+  `interactive' with proper arguments. This avoids errors in kbd
+  macros.
+
+o Under Emacs 20, `read-from-minibuffer' now works with optional 7th
+  arg INHERIT-INPUT-METHOD, when SKK is used as an `input method'.
+
+o The following functions have been fixed.
+
+  * skk-clock
+  * skk-count-jisyo-candidates-original
+  * skk-num-type3-kanji-1
+
 10.56 ---
 o Minor bug fixed.
 
