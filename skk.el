@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.248 2002/06/22 00:05:26 czkmt Exp $
+;; Version: $Id: skk.el,v 1.249 2002/06/22 01:11:29 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/06/22 00:05:26 $
+;; Last Modified: $Date: 2002/06/22 01:11:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2198,15 +2198,21 @@ WORD で確定する。"
 	  (skk-update-jisyo kakutei-word)
 	  ;; 今回の確定が接尾辞だった場合、前回の確定と今回の接尾辞を
 	  ;; 合わせた語を辞書登録する。
-	  (let ((cell1 (car skk-kakutei-history)) ; (>てき . 的)
-		(cell2 (cadr skk-kakutei-history)) ; (かんどう . 感動)
-		skk-henkan-key comb-word)
-	    (when (and (stringp (cdr cell2))
-		       (string-match "^>[^\000-\177]" (car cell1)))
+	  (let* ((history (cdr skk-kakutei-history))
+		 (list1 (car skk-kakutei-history)) ; (>てき 的)
+		 (list2 (catch 'list ; (かんどう 感動)
+			  (while history
+			    (if (eq (nth 2 list1) (nth 2 (car history)))
+				;; 同じバッファだったら
+				(throw 'list (car history))
+			      (setq history (cdr history))))))
+		 skk-henkan-key comb-word)
+	    (when (and (stringp (nth 1 list2))
+		       (string-match "^>[^\000-\177]+$" (car list1)))
 	      (setq skk-henkan-key
-		    (concat (car cell2)
-			    (substring (car cell1) 1)) ; かんどうてき
-		    comb-word (concat (cdr cell2) (cdr cell1))) ; 感動的
+		    (concat (car list2)
+			    (substring (car list1) 1)) ; かんどうてき
+		    comb-word (concat (nth 1 list2) (nth 1 list1))) ; 感動的
 	      (skk-update-jisyo comb-word)))
 	  ;;
 	  (when (skk-numeric-p)
@@ -4274,7 +4280,7 @@ SKK 辞書の候補として正しい形に整形する。"
    ((<= skk-kakutei-history-limit 0)
     (setq skk-kakutei-history nil))
    (t
-    (setq skk-kakutei-history (cons (cons midasi word)
+    (setq skk-kakutei-history (cons (list midasi word (current-buffer))
 				    skk-kakutei-history))
     (when (> (length skk-kakutei-history)
 	     skk-kakutei-history-limit)
