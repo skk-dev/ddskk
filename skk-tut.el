@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.24 2000/11/27 17:46:24 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.25 2000/11/28 13:04:31 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/27 17:46:24 $
+;; Last Modified: $Date: 2000/11/28 13:04:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -34,16 +34,12 @@
 
 (eval-and-compile
   (require 'skk-vars)
+  (autoload 'skk-nicola-setup-tutorial "skk-nicola")
   (autoload 'skk-viper-normalize-map "skk-viper"))
 
 (eval-when-compile
   (defvar skk-kanagaki-keyboard-type)
   (defvar skk-kanagaki-state))
-
-;; skk-tut.el 関連だけは日常使わないことの方が多いので、グループ、変数をあえて、
-;; skk-vars.el に入れない。
-;;;###autoload
-;; User variables.  prefix should be `skk-tut-'.
 
 ;; internal variables and constants.
 ;; prefix should be `skktut-'.
@@ -477,6 +473,7 @@ C-u M-x skk-tutorial すると、チュートリアルファイルの選択が可能。"
 		     omelet-jis omelet-us omelet-dvorak))
 	     (eq skk-kanagaki-state 'kana)
 	     skktut-nicola-tut-file)
+    (skk-nicola-setup-tutorial)
     (setq skk-tut-file skktut-nicola-tut-file))
   ;;
   (if query-language

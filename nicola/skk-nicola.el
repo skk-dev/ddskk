@@ -297,6 +297,15 @@ keycode 131 = underscore\n"))
   ;;
   (remove-hook 'skk-mode-hook 'skk-niola-setup))
 
+(defun skk-nicola-setup-tutorial ()
+  (static-unless (memq skk-emacs-type '(nemacs mule1))
+    (dolist (key skk-nicola-lshift-keys)
+      (define-key skktut-j-mode-map key 'skk-nicola-self-insert-lshift)
+      (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))
+    (dolist (key skk-nicola-rshift-keys)
+      (define-key skktut-j-mode-map key 'skk-nicola-self-insert-rshift)
+      (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))))
+
 ;;;###autoload
 (defun skk-nicola-help (&optional arg)
   ;; キー配列を表示する。
@@ -701,15 +710,6 @@ keycode 131 = underscore\n"))
 	     (exit-minibuffer)
 	   (newline arg)))))
 
-(static-unless (memq skk-emacs-type '(nemacs mule1))
-  (defun skk-nicola-setup-tutorial ()
-    (dolist (key skk-nicola-lshift-keys)
-      (define-key skktut-j-mode-map key 'skk-nicola-self-insert-lshift)
-      (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))
-    (dolist (key skk-nicola-rshift-keys)
-      (define-key skktut-j-mode-map key 'skk-nicola-self-insert-rshift)
-      (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))))
-
 ;; Pieces of Advice.
 
 (defadvice skk-insert (before skk-nicola-ad activate compile)
@@ -717,18 +717,6 @@ keycode 131 = underscore\n"))
 		 (<= (point) (marker-position skk-nicola-okuri-flag)))
 	    (or (not skk-henkan-on) skk-henkan-active))
     (setq skk-nicola-okuri-flag nil)))
-
-(defadvice skk-latin-mode (before skk-nicola-ad activate compile)
-  (setq skk-nicola-okuri-flag nil))
-
-(defadvice skk-toggle-kana (before skk-nicola-ad activate compile)
-  (setq skk-nicola-okuri-flag nil))
-
-(defadvice skk-abbrev-mode (before skk-nicola-ad activate compile)
-  (setq skk-nicola-okuri-flag nil))
-
-(defadvice skk-jisx0208-latin-mode (before skk-nicola-ad activate compile)
-  (setq skk-nicola-okuri-flag nil))
 
 (defadvice skk-kakutei (before skk-nicola-ad activate compile)
   ;;
@@ -814,14 +802,6 @@ keycode 131 = underscore\n"))
 	       (skk-kanagaki-set-okurigana (eq tag 'no-sokuon)))))
 	  (t
 	   ad-do-it))))
-
-(static-unless (memq skk-emacs-type '(nemacs mule1))
-  (if (featurep 'skk-tut)
-      (skk-nicola-setup-tutorial)
-    ;;
-    (defadvice skk-tutorial (after skk-nicola-advice-to-skk-tutorial activate)
-      (skk-nicola-setup-tutorial)
-      (ad-deactivate-regexp "^skk-nicola-advice-to-skk-tutorial$"))))
 
 ;;
 
