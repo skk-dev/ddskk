@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.8 1999/09/02 21:50:44 minakaji Exp $
+;; Version: $Id: skk.el,v 1.9 1999/09/02 22:57:25 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/02 21:50:44 $
+;; Last Modified: $Date: 1999/09/02 22:57:25 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/09/02 21:50:44 $")
+      (let* ((raw-date "$Date: 1999/09/02 22:57:25 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -2409,9 +2409,6 @@ skk-convert-okurigana-into-katakana の値を non-nil にする。
   (interactive "p*")
   (skk-with-point-move
    (let ((ch last-command-char))
-     ;; interactive の引数の "p" に "*" を付けるだけで対処できたら良いのにね。
-     (and (skk-uninsertable-p (point))
-	  (error "Attempt to insert within read-only text") )
      (cond (
 	    ;; start writing a midasi key.
 	    (or (and (memq ch skk-set-henkan-point-key)

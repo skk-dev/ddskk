@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.6 1999/09/02 21:48:47 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.7 1999/09/02 22:56:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/02 21:48:47 $
+;; Last Modified: $Date: 1999/09/02 22:56:14 $
 
 ;; This file is not part of SKK yet.
 
@@ -261,26 +261,6 @@
 ;;  sequence )
 
 ;;;; inline functions
-(skk-defsubst-cond skk-uninsertable-p (p)
-  ((eq skk-emacs-type 'xemacs)
-   (if (= (point-min) p)
-       (and 
-	;; get all extents not just text-property extents.
-	(get-char-property p 'read-only)
-	(get-char-property p 'start-closed) )
-     (or (and (get-char-property p 'read-only)
-	      (get-char-property (1- p) 'end-closed) )
-	 (and (get-char-property p 'read-only)
-	      (get-char-property (1+ p) 'start-closed) ))))
-  ;; GNU Emacs
-  (t (if (or (= (point-min) p)
-	     (eq (get-text-property (1- p) 'rear-nonsticky) t)
-	     (memq 'read-only (get-text-property (1- p) 'rear-nonsticky)) )
-	 (and (get-text-property p 'read-only)
-	      (or (eq (get-text-property p 'front-sticky) t)
-		  (memq 'read-only (get-text-property p 'front-sticky)) ))
-       (get-text-property (1- p) 'read-only) )))
-
 (defsubst skk-lower-case-p (char)
   ;; CHAR が小文字のアルファベットであれば、t を返す。
   (and (<= ?a char) (>= ?z char) ))
