@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.101 2002/11/09 04:59:35 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.102 2002/11/09 05:58:03 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2002/11/09 04:59:35 $
+@c  Last Modified: $Date: 2002/11/09 05:58:03 $
 @c
 @set EDITION 1.9
 @set SKK-VERSION 12.1.0
-@set UPDATED $Date: 2002/11/09 04:59:35 $
+@set UPDATED $Date: 2002/11/09 05:58:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -207,6 +207,7 @@ SKK $B$N%$%s%9%H!<%k$r$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
 @node SKK $B$N%$%s%9%H!<%k(B, $B<-=q$NF~<j(B, APEL $B$N%$%s%9%H!<%k(B, $B%$%s%9%H!<%k(B
 @comment  node-name,  next,  previous,  up
 @section SKK $B$N%$%s%9%H!<%k(B
+@findex skk-search-small-dic
 
 APEL $B$r%$%s%9%H!<%k$7$?$i!"(B SKK $B$r%$%s%9%H!<%k$7$^$7$g$&!#$3$3$G$O!"(B
 UNIX $B>e$G(B make $B%3%^%s%I$,MQ0U$5$l$F$$$k>l9g$rA[Dj$7$F$$$^$9(B
@@ -245,7 +246,19 @@ PATH $B$r(B @file{SKK-CFG} $B$K5-F~$7$^$9!#(B@file{SKK-CFG} $B$K@_DjJ}K!$,=
 @end example
 
 @noindent
-$B$H$9$k$H!"<B:]$K%$%s%9%H!<%k$5$l$^$9!#FCDj$N(B Emacs $B$r;XDj$9$k>l9g$O!"(B
+$B$H$9$k$H!"<B:]$K%$%s%9%H!<%k$5$l$^$9!#(B
+
+$B$"$k$$$O!"0lHL%f!<%6$,<+J,$N(B home directory $B$r(B root directory $B$H$7$F%$(B
+$B%s%9%H!<%k$9$k$K$O!"(B
+
+@example
+% make install PREFIX=~/
+@end example
+
+@noindent
+$B$H$7$^$9!#(B
+
+$BFCDj$N(B Emacs $B$r;XDj$9$k>l9g$O!"(B
 
 @example
 % make install EMACS=mule
@@ -269,6 +282,13 @@ XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$9$k>l9g$O!"(B
 
 @noindent
 $B$r<B9T$9$k$H<B:]$K%$%s%9%H!<%k$7$^$9!#(B
+
+@code{make} $B$9$k:]!"(BSHELL $B$N4D6-JQ?t(B @var{SKK_DEFAULT_JISYO} $B$K(B SKK $B<-(B
+$B=q$N%U%!%$%kL>(B($B%U%k%Q%9(B)$B$,%;%C%H$5$l$F$$$k$H!"$=$N<-=q$NFbMF$r(B
+@file{skk-dic.el} $B$NCf$K<h$j9~$_!"<-=q8!:w4X?t$H$7$F(B
+@code{skk-search-small-dic} $B$,;H$($k$h$&$K$J$j$^$9!#(B
+@var{SKK_DEFAULT_JISYO} $B$K$ODL>o!"(B@file{SKK-JISYO.S} $B$r;XDj$9$k$HNI$$(B
+$B$G$7$g$&!#(B@w{@xref{$BJ#?t<-=q$N8!:wJ}K!(B}}
 
 @node $B<-=q$NF~<j(B,  , SKK $B$N%$%s%9%H!<%k(B, $B%$%s%9%H!<%k(B
 @comment  node-name,  next,  previous,  up
@@ -335,7 +355,6 @@ SKK 11 $B0J9_!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#$"$J$?$N(B @file{.emacs} $B%U%!%
 @comment  node-name,  next,  previous,  up
 @section $B:G$b4pK\E*$J@_Dj(B
 @cindex @file{skk-obsolete.el}
-
 
 $B<+F0@_Dj$K$h$i$:!"<jF0$G@_Dj$9$k>l9g$O!"0J2<$N$h$&$K(B @file{.emacs} $B$K=q(B
 $B$-$^$9(B@footnote{$B%5%s%W%k$H$7$F!"G[I[J*$K(B @file{etc/dot.emacs}$B!"(B
@@ -502,7 +521,7 @@ setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 $BK\>O$G$O!"(BSKK$B$N4pK\E*$J;HMQJ}K!$r@bL@$7$^$9!#$3$l$rFI$a$P!"$H$j$"$($:(B
 SKK $B$r;H$C$F$_$k$K$O=<J,$G$9!#(B
 
-SKK $B$r;H$C$?F~NOJ}K!$K47$l$k$K$O!"IUB0$N(B@xref{$B%A%e!<%H%j%"%k(B}$B%W%m%0%i%`$,:G(B
+SKK $B$r;H$C$?F~NOJ}K!$K47$l$k$K$O!"IUB0$N(B@ref{$B%A%e!<%H%j%"%k(B}$B%W%m%0%i%`$,:G(B
 $BE,$J$N$G!"$*;n$7$/$@$5$$!#(B
 
 $B$J$*!"<!>O$N!VJXMx$J1~MQ5!G=!W$O!"6=L#$N$"$k8D=j$N$_$r%T%C%/%"%C%W$7$F(B
@@ -5118,6 +5137,8 @@ SKK $B$G$O!"8D?M<-=q$H6&M-<-=q$H$$$&$h$&$KJ#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#(B
 @node $BJ#?t<-=q$N8!:wJ}K!(B, $B<-=q8!:w$N$?$a$N4X?t(B, $B<-=q$K4X$9$k@_Dj(B, $B<-=q$K4X$9$k@_Dj(B
 @comment  node-name,  next,  previous,  up
 @subsubsection $BJ#?t<-=q$N8!:wJ}K!(B
+@findex skk-search-small-dic
+@vindex skk-search-prog-list
 
 $BJ#?t<-=q$N8!:wJ}K!$O!"(B@code{skk-search-prog-list} $B$G;XDj$5$l$?<-=q$r=gHV(B
 $B$K8!:w$7$^$9!#(B@code{skk-search-prog-list} $B$N:G=i$+$i8!:w$7!"8uJd$,8+$D$+(B
@@ -5216,9 +5237,6 @@ SKK $B$G$O!"8D?M<-=q$H6&M-<-=q$H$$$&$h$&$KJ#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#(B
 
 "$B2>L>4A;z(B"$B$O!"8D?M<-=q!"6&M-<-=q$K8+$D$+$i$J$$$N$G!"<-=qEPO?%b!<%I$KF~$j(B
 $B$^$9!#(B
-
-
-
 
 @node $B<-=q8!:w$N$?$a$N4X?t(B, $B<-=q%U%!%$%k$r;XDj$9$kJQ?t(B, $BJ#?t<-=q$N8!:wJ}K!(B, $B<-=q$K4X$9$k@_Dj(B
 @comment  node-name,  next,  previous,  up
