@@ -44,6 +44,40 @@
 
 (defvar skk-xemacs-modeline-menu-items
   '("Daredevil SKK Menu"
+    ["Hiragana"
+     (lambda ()
+       (interactive)
+       (skk-j-mode-on)
+       (when skk-use-color-cursor
+	 (set-face-property 'text-cursor 'background
+			    (skk-cursor-current-color)
+			    (current-buffer))))
+     :active (not (and skk-j-mode (not skk-katakana)))
+     :selected (and skk-j-mode (not skk-katakana))
+     :style radio]
+    ["Katakana"
+     (lambda ()
+       (interactive)
+       (skk-j-mode-on t)
+       (when skk-use-color-cursor
+	 (set-face-property 'text-cursor 'background
+			    (skk-cursor-current-color)
+			    (current-buffer))))
+     :active (not (and skk-j-mode skk-katakana))
+     :selected (and skk-j-mode skk-katakana)
+     :style radio
+     :keys "q"]
+    ["Hankaku alphabet"
+     skk-latin-mode
+     :active (not skk-latin-mode)
+     :selected skk-latin-mode
+     :style radio]
+    ["Zenkaku alphabet"
+     skk-jisx0208-latin-mode
+     :active (not skk-jisx0208-latin-mode)
+     :selected skk-jisx0208-latin-mode
+     :style radio]
+    "--"
     ["Read Manual" skk-xemacs-info t]
     ["Start Tutorial" skk-tutorial t]
     ["Customize Daredevil SKK" skk-xemacs-customize t]
@@ -55,6 +89,17 @@
 
 (defun skk-xemacs-modeline-menu ()
   (interactive)
+  (aset (nth 2 skk-xemacs-modeline-menu-items)
+	9
+	(or (do ((spec (nth 4 skk-rule-tree) (cdr spec))
+		 (list nil (car spec))
+		 (str nil (when (eq (nth 3 list)
+				    'skk-toggle-kana)
+			    (nth 1 list))))
+		((or str (null spec))
+		 (when (stringp str)
+		   str)))
+		""))
   (popup-menu skk-xemacs-modeline-menu-items))
 
 (defun skk-xemacs-info ()

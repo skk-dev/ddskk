@@ -1,3 +1,12 @@
+2001-03-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-xemacs.el (skk-xemacs-modeline-menu-items): Add new menu
+	items - "Hiragana", "Katakana""Hankaku alphabet" and
+	"Zenkaku alphabet".
+	(skk-xemacs-modeline-menu): Find keys for "Katakana".
+
+	From Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
+
 2001-03-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Typo.
@@ -3162,8 +3171,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.260 2001/03/12 15:57:13 czkmt Exp $
-Last Modified: $Date: 2001/03/12 15:57:13 $
+Version: $Id: ChangeLog,v 1.261 2001/03/20 15:16:31 czkmt Exp $
+Last Modified: $Date: 2001/03/20 15:16:31 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
