@@ -1,5 +1,22 @@
 -*- outline -*-
 
+* 11.7
+
+** 動的入力対応
+
+キー入力時に、挿入する文字を動的に決定する機能。これは
+experimental/skk-dinsert.el として開発されています。
+
+** AZIK (拡張ローマ字入力法)
+
+SKK で 拡張ローマ字入力法 AZIK を利用する機能。これは
+experimental/skk-azik.el として開発されています。
+
+** アイコン
+
+Emacs 21 と XEmacs において、モード行にアイコンを設置しました。
+
+
 * 11.6
 
 ** Minor bug fixed.
