@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-autoloads.el,v 1.1 1999/08/31 23:28:10 minakaji Exp $
+;; Version: $Id: skk-autoloads.el,v 1.2 1999/09/25 05:43:37 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/31 23:28:10 $
+;; Last Modified: $Date: 1999/09/25 05:43:37 $
 
 ;; This file is not part of SKK yet.
 
@@ -81,6 +81,7 @@
 (autoload 'skk-study-save "skk-study" nil t nil)
 (autoload 'skk-study-search "skk-study" nil nil nil)
 (autoload 'skk-study-update "skk-study" nil nil nil)
+(autoload 'skk-submit-bug-report "skk-develop" nil t nil)
 (autoload 'skk-times "skk-gadget" nil nil nil)
 (autoload 'skk-today "skk-gadget" nil t nil)
 (autoload 'skk-tutorial "skk-tut" nil t nil)
