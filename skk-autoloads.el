@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-autoloads.el,v 1.3 1999/10/04 08:46:11 minakaji Exp $
+;; Version: $Id: skk-autoloads.el,v 1.4 1999/10/23 13:59:01 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/04 08:46:11 $
+;; Last Modified: $Date: 1999/10/23 13:59:01 $
 
 ;; This file is not part of SKK yet.
 
@@ -26,6 +26,7 @@
 
 ;;; Code:
 
+(autoload 'skk-abbrev-search "skk-abbrev" nil nil nil)
 (autoload 'skk-activate "skk-leim" nil nil nil)
 (autoload 'skk-ad-to-gengo "skk-gadget" nil nil nil)
 (autoload 'skk-adjust-search-prog-list-for-auto-okuri "skk-auto" nil nil nil)

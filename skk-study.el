@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.20 1999/10/20 14:50:10 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.21 1999/10/23 13:54:43 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/20 14:50:10 $
+;; Last Modified: $Date: 1999/10/23 13:54:43 $
 
 ;; This file is not part of SKK yet.
 
@@ -128,6 +128,9 @@
 
 \(2 3 . [\(\"こうぞう\" . \"構造\"\) \(\"ぐたいてき\" . \"具体的\"\) \(\"かき\" . \"下記\"\)]\)" )
 
+(defvar skk-study-last-save nil)
+(defvar skk-study-last-read nil)
+
 ;;;; inline functions.
 (defsubst skk-study-get-last-henkan-data (index)
   (and (> (ring-length skk-study-data-ring) index)
@@ -222,8 +225,14 @@
   "skk-study-file に学習結果を保存する."
   (interactive "P")
   (let ((inhibit-quit t)
+	(last-time
+	 (nth 5 (file-attributes (expand-file-name skk-study-file))) )
 	e )
-    (if (and (null skk-study-alist) (not nomsg))
+    (if (or (and (null skk-study-alist) (not nomsg))
+	    (not skk-study-last-read)
+	    (and skk-study-last-save 
+		 (skk-study-time-lessp
+		  skk-study-last-read skk-study-last-save )))
 	(progn
 	  (skk-message "SKK の学習結果をセーブする必要はありません"
 		       "No SKK study need saving" )
@@ -258,6 +267,7 @@
 		(cdr (assoc skk-jisyo-code skk-coding-system-alist)) )
 	       (t (cdr (assoc "euc" skk-coding-system-alist))) )
 	 (point-min) (point-max) skk-study-file ))
+      (setq skk-study-last-save (current-time))
       (if (not nomsg)
 	  (progn
 	    (skk-message "%s に SKK 学習結果をセーブしています...完了！"
@@ -289,6 +299,7 @@
 	(if skk-study-check-alist-format
 	    (skk-study-check-alist-format skk-study-file) )
 	(setq skk-study-alist (skk-study-read-1 skk-study-file))
+	(setq skk-study-last-read (current-time))
 	(if (null skk-study-alist)
 	    nil
 	  (or nomsg
@@ -363,8 +374,9 @@
 		     (function
 		      (lambda (str)
 			(let ((len (length str)))
-			  (or (= len 1)
-			      (not (skk-ascii-char-p (skk-str-ref str (1- len)))) ))))))
+			  (cond ((= len 1))
+				((not (skk-ascii-char-p (skk-str-ref str (1- len)))))
+				((skk-ascii-char-p (skk-str-ref str (- len 2)))) ))))))
 	  (setq alist2 (cdr (assq (car index) alist)))
 	  (while alist2
 	    (setq e (car alist2))
@@ -421,6 +433,15 @@
 					  (t 'okuri-nasi) )
 				    skk-study-alist )))
 	  (setq target (delq (assoc last2 (cdr target)) target)) ))))
+
+;; time utilities...
+;;  from ls-lisp.el.  Welcome!
+(defun skk-study-time-lessp (time0 time1)
+  (let ((hi0 (car time0))
+	(hi1 (car time1))
+	(lo0 (nth 1 time0))
+	(lo1 (nth 1 time1)) )
+    (or (< hi0 hi1) (and (= hi0 hi1) (< lo0 lo1))) ))
 
 (add-hook 'skk-before-kill-emacs-hook 'skk-study-save)
 (provide 'skk-study)

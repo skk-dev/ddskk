@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-vars.el,v 1.5 1999/10/03 12:31:07 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.6 1999/10/23 14:00:05 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 12:31:07 $
+;; Last Modified: $Date: 1999/10/23 14:00:05 $
 
 ;; This file is not part of SKK yet.
 
@@ -41,6 +41,7 @@
     (error "You don't have to load skk-vars.el") )
 
 ;; reset autoloads.
+(autoload 'skk-abbrev-search "skk-abbrev" nil nil nil)
 (autoload 'skk-activate "skk-leim" nil nil nil)
 (autoload 'skk-ad-to-gengo "skk-gadget" nil nil nil)
 (autoload 'skk-adjust-search-prog-list-for-auto-okuri "skk-auto" nil nil nil)
