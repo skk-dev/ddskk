@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.273 2004/01/26 16:26:48 czkmt Exp $
+;; Version: $Id: skk.el,v 1.274 2004/01/26 17:21:49 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/01/26 16:26:48 $
+;; Last Modified: $Date: 2004/01/26 17:21:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -973,8 +973,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	 (skk-kana-cleanup 'force)
 	 (insert-and-inherit ?>)
 	 (skk-set-marker skk-henkan-end-point (point))
-	 (setq skk-henkan-count 0
-	       skk-henkan-key (buffer-substring-no-properties
+	 (skk-set-henkan-count 0)
+	 (setq skk-henkan-key (buffer-substring-no-properties
 			       skk-henkan-start-point (point))
 	       skk-prefix "")
 	 (setq skk-after-prefix t)
@@ -1369,7 +1369,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	  skk-henkan-okurigana
 	  (skk-katakana-to-hiragana skk-henkan-okurigana)))
   (delete-region skk-okurigana-start-point (1+ skk-okurigana-start-point))
-  (setq skk-henkan-count 0)
+  (skk-set-henkan-count 0)
   (skk-henkan)
   (setq skk-okurigana nil))
 
@@ -1480,7 +1480,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	   (skk-kakutei))))
       ((and skk-henkan-mode
 	    (>= skk-henkan-start-point (point)))
-       (setq skk-henkan-count 0)
+       (skk--set-henkan-count 0)
        (skk-kakutei))
       ;; $BF~NOCf$N8+=P$78l$KBP$7$F$O(B delete-backward-char $B$G(B
       ;; $BI,$:A43QJ8;z(B 1$BJ8;zJ,(B backward $BJ}8~$KLa$C$?J}$,NI$$!#(B
@@ -1548,7 +1548,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
   "`skk-henkan' $B$N%5%V%k!<%A%s!#(B"
   (let (new-word)
     (cond
-     ((= skk-henkan-count 0)
+     ((= (skk-henkan-count) 0)
       (when (and (eq last-command 'skk-undo-kakutei-henkan)
 		 (eq (car (car skk-current-search-prog-list))
 		     'skk-search-kakutei-jisyo-file))
@@ -1576,7 +1576,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	  (skk-henkan-list-filter)
 	  (setq new-word (skk-get-current-candidate))))
       (when (and new-word
-		 (> skk-henkan-count 3))
+		 (> (skk-henkan-count) 3))
 	;; show candidates in minibuffer
 	(setq new-word (skk-henkan-show-candidates)))))
     new-word))
@@ -1700,7 +1700,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	 ;; skk-henkan-in-minibuff -> skk-henkan
 	 ;; -> skk-henkan-show-candidates $B$N=g$G!":F$S$3$N4X?t$,8F$P$l(B
 	 ;; $B$?$H$-$O!"$3$3$G(B henkan-list $B$H(B loop $B$r7W;;$9$k!#(B
-	 (setq henkan-list (nthcdr skk-henkan-count skk-henkan-list)
+	 (setq henkan-list (nthcdr (skk-henkan-count) skk-henkan-list)
 	       loop (car skk-exit-show-candidates)
 	       skk-exit-show-candidates nil))
 	(t
@@ -1744,9 +1744,9 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 		   (cond
 		    (num
 		     (setq new-one (nth num henkan-list)
-			   skk-henkan-count (+ 4 (* loop max-candidates) num)
 			   skk-kakutei-flag t
-			   loop nil))
+			   loop nil)
+		     (skk-set-henkan-count (+ 4 (* loop max-candidates) num)))
 		    ((or (eq char ?\040) ; SPC
 			 (skk-key-binding-member
 			  key
@@ -1765,16 +1765,16 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 			 ;; $B<-=qEPO?$KF~$k!#(Bskk-henkan-count $B$O(B
 			 ;; skk-henkan-list $B$N:G8e$N8uJd$N<!(B ($BB8:_$7$J$$(B
 			 ;; --- nil)$B$r;X$9!#(B
-			 (setq skk-henkan-count (+ last-showed-index n)
-			       loop nil))))
+			 (skk-set-henkan-count (+ last-showed-index n))
+			 (setq loop nil))))
 		    ((eq char skk-force-registration-mode-char)
 		     (let ((last-showed-index (+ 4 (* loop max-candidates))))
 		       (setq skk-exit-show-candidates
 			     ;; cdr $BIt$O!"<-=qEPO?$KF~$kA0$K:G8e$KI=<($7(B
 			     ;; $B$?8uJd72$NCf$G:G=i$N8uJd$r;X$9%$%s%G%/%9(B
 			     (cons loop last-showed-index))
-		       (setq skk-henkan-count last-showed-index
-			     loop nil)))
+		       (skk-set-henkan-count last-showed-index)
+		       (setq loop nil)))
 		    ((or (eq char skk-previous-candidate-char) ; ?x
 			 (skk-key-binding-member
 			  key
@@ -1786,12 +1786,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 		      ((= loop 0)
 		       ;; skk-henkan-show-candidates $B$r8F$VA0$N(B
 		       ;; $B>uBV$KLa$9!#(B
-		       (setq skk-henkan-count
-			     (static-cond
-			      ((featurep 'xemacs)
-			       ;;; ??? Workaround for XEmacs.
-			       (if skk-isearch-switch 0 4))
-			      (t 4)))
+		       (skk-set-henkan-count 4)
 		       (skk-unread-event
 			(character-to-event
 			 (aref (car (where-is-internal
@@ -1819,7 +1814,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 		     (sit-for 1)))))
 	     (quit
 	      ;; skk-previous-candidate $B$X(B
-	      (setq skk-henkan-count 0)
+	      (skk-set-henkan-count 0)
 	      (skk-unread-event
 	       (character-to-event
 		(aref (car (where-is-internal
@@ -1968,11 +1963,11 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	    ;; $BNs$,EPO?$5$l$?>l9g!#:G8e$K%(%3!<%(%j%"$KI=<($7$?8uJd72$r:FI=(B
 	    ;; $B<($9$k!#(B
 	    (progn
-	      (setq skk-henkan-count (cdr skk-exit-show-candidates))
+	      (skk-set-henkan-count (cdr skk-exit-show-candidates))
 	      (skk-henkan))
 	  ;; skk-henkan-show-candidates $B$KF~$kA0$K8uJd$,?T$-$?>l9g(B
-	  (setq skk-henkan-count (1- skk-henkan-count))
-	  (when (= skk-henkan-count -1)
+	  (skk-set-henkan-count (1- skk-henkan-count))
+	  (when (= (skk-henkan-count) -1)
 	    ;; $BAw$j$"$j$NJQ49$G<-=qEPO?$KF~$j!"6uJ8;z$rEPO?$7$?8e!"$=$N(B
 	    ;; $B$^$^:FEYAw$j$J$7$H$7$FJQ49$7$?>l9g$O(B
 	    ;; skk-henkan-okurigana, skk-okuri-char $B$NCM$r(B nil $B$K$7$J$1(B
@@ -1993,7 +1988,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 				     (list new-one)))
 	(when (skk-numeric-p)
 	  (setq orglen (length skk-henkan-list))
-	  (skk-num-convert skk-henkan-count)
+	  (skk-num-convert (skk-henkan-count))
 	  (setq new-one (cdr (skk-get-current-candidate-1))))
 	(when (or (not orglen)
 		  (= orglen (length skk-henkan-list)))
@@ -2090,15 +2085,15 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 		    (point-marker)))))
        (skk-save-point
 	(cond
-	 ((= skk-henkan-count 0)
+	 ((= (skk-henkan-count) 0)
 	  (when skk-okuri-char
 	    ;; roman prefix for okurigana should be removed.
 	    (setq skk-henkan-key (substring skk-henkan-key 0 -1)))
 	  (when skk-katakana
 	    (setq skk-henkan-key
 		  (skk-hiragana-to-katakana skk-henkan-key)))
-	  (setq skk-henkan-count -1
-		skk-henkan-in-minibuff-flag nil
+	  (skk-set-henkan-count -1)
+	  (setq skk-henkan-in-minibuff-flag nil
 		skk-henkan-list nil
 		skk-henkan-okurigana nil
 		skk-okuri-char nil
@@ -2117,7 +2112,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	  (insert-and-inherit skk-henkan-key)
 	  (skk-change-marker-to-white))
 	 (t
-	  (setq skk-henkan-count (1- skk-henkan-count))
+	  (skk-set-henkan-count (1- (skk-henkan-count)))
 	  (skk-insert-new-word (skk-get-current-candidate)))))
        (if mark
 	   (progn
@@ -2126,7 +2121,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	     (backward-char 1))
 	 (goto-char (point-max)))
        (when (and skk-abbrev-mode
-		  (= skk-henkan-count -1))
+		  (= (skk-henkan-count) -1))
 	 (skk-abbrev-mode-on)))))))
 
 (defun skk-undo (&optional arg)
@@ -2284,11 +2279,6 @@ WORD $B$G3NDj$9$k!#(B"
       ;; $B%+%l%s%H%P%C%U%!$G$^$@(B skk-mode $B$,(B
       ;; $B%3!<%k$5$l$F$$$J$+$C$?$i!"%3!<%k$9$k!#(B
       (skk-mode 1)))
-  (static-when (featurep 'xemacs)
-    ;; ??? Workaround for XEmacs.
-    (when (buffer-live-p skk-isearch-current-buffer)
-      (with-current-buffer skk-isearch-current-buffer
-	(setq skk-henkan-count -1))))
   nil)
 
 (defun skk-kakutei-cleanup-buffer ()
@@ -2367,9 +2357,9 @@ WORD $B$G3NDj$9$k!#(B"
 	   ;; $B>e5-0J30$N(B henkan data $B$r(B skk-last-henkan-data $B$K;D$7$?$+$C$?$i!"(B
 	   ;; skk-kakutei-end-function $B$rMxMQ$9$k!#(B
 	   )))
+  (skk-set-henkan-count -1)
   (setq skk-abbrev-mode nil
 	skk-exit-show-candidates nil
-	skk-henkan-count -1
 	skk-henkan-in-minibuff-flag nil
 	skk-henkan-key nil
 	skk-henkan-list nil
@@ -2447,7 +2437,7 @@ WORD $B$G3NDj$9$k!#(B"
 	   (skk-set-marker skk-henkan-end-point (point))))
 	 (skk-message "$B3NDj%"%s%I%%!*(B"
 		      "Undo kakutei!")
-	 (setq skk-henkan-count 1)
+	 (skk-set-henkan-count 1)
 	 (skk-henkan))
      ;; skk-kakutei-undo $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F$*$+$J$$(B
      ;; $B$H<!$NF0:n$r$7$h$&$H$7$?$H$-$K%(%i!<$K$J$k!#(B
@@ -2477,8 +2467,8 @@ WORD $B$G3NDj$9$k!#(B"
        ;; special char
        (insert-and-inherit last-char)
        (skk-set-marker skk-henkan-end-point (point))
-       (setq skk-henkan-count 0
-	     skk-henkan-key (buffer-substring-no-properties
+       (skk-set-henkan-count 0)
+       (setq skk-henkan-key (buffer-substring-no-properties
 			     skk-henkan-start-point (point))
 	     skk-prefix "")
        (skk-henkan))
@@ -2528,8 +2518,8 @@ WORD $B$G3NDj$9$k!#(B"
 			 skk-henkan-okurigana))
 	   (skk-erase-prefix)
 	   (insert-and-inherit (if skk-katakana "$B%C(B " "$B$C(B "))
-	   (setq skk-prefix ""
-		 skk-henkan-count 0)
+	   (setq skk-prefix "")
+	   (skk-set-henkan-count 0)
 	   (skk-henkan)
 	   (delete-backward-char 2))
 	  (t
@@ -2539,8 +2529,8 @@ WORD $B$G3NDj$9$k!#(B"
 				  (point))
 				 skk-okuri-char))
 	   (insert-and-inherit " ")
-	   (setq skk-prefix ""
-		 skk-henkan-count 0)
+	   (setq skk-prefix "")
+	   (skk-set-henkan-count 0)
 	   (skk-henkan)
 	   (delete-backward-char 1)))
 	 ;; we set skk-kana-start-point here, since the marker may no
@@ -2570,7 +2560,7 @@ WORD $B$G3NDj$9$k!#(B"
    (cancel-undo-boundary)
    (if (eq skk-henkan-mode 'active)
        (progn
-	 (setq skk-henkan-count (1+ skk-henkan-count))
+	 (skk-set-henkan-count (1+ (skk-henkan-count)))
 	 (skk-henkan))
      (save-match-data
        (let (pos)
@@ -2613,7 +2603,7 @@ WORD $B$G3NDj$9$k!#(B"
 					   (string-match " "
 							 skk-henkan-key))))
 	 (skk-set-marker skk-henkan-end-point pos)
-	 (setq skk-henkan-count 0)
+	 (skk-set-henkan-count 0)
 	 (skk-henkan)
 	 (when (and skk-abbrev-mode
 		    (eq skk-henkan-mode 'active))
@@ -4172,8 +4162,8 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	     (not skk-abbrev-mode)
 	     (or skk-henkan-in-minibuff-flag
 		 (and (<= skk-okuri-index-min
-			  skk-henkan-count)
-		      (<= skk-henkan-count
+			  (skk-henkan-count))
+		      (<= (skk-henkan-count)
 			  skk-okuri-index-max))))
     (let ((midasi skk-henkan-key)
 	  (midasi-len (length skk-henkan-key))
@@ -4299,6 +4289,28 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 		      skk-kakutei-history)
 	      nil)))))
 
+;; ??? Workaround for XEmacs isearch.
+(defun skk-henkan-count ()
+  (static-cond
+   ((featurep 'xemacs)
+    (if skk-isearch-switch
+	(with-current-buffer skk-isearch-working-buffer
+	  skk-henkan-count)
+      skk-henkan-count))
+   (t
+    skk-henkan-count)))
+
+;; ??? Workaround for XEmacs isearch.
+(defun skk-set-henkan-count (i)
+  (static-cond
+   ((featurep 'xemacs)
+    (if skk-isearch-switch
+	(with-current-buffer skk-isearch-working-buffer
+	  (setq skk-henkan-count i))
+      (setq skk-henkan-count i)))
+   (t
+    (setq skk-henkan-count i))))
+
 ;;; functions for hooks.
 (defun skk-after-point-move ()
   (when (and (not (and skk-previous-point
@@ -4389,7 +4401,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	   ad-do-it)))
    ;; $B"'(B mode (Conversion mode).
    ((eq skk-henkan-mode 'active)
-    (setq skk-henkan-count 0)
+    (skk-set-henkan-count 0)
     (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
 	(let ((count (length skk-henkan-okurigana)))
 	  (skk-previous-candidate)
@@ -4423,7 +4435,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	       (t
 		ad-do-it)))
 	((eq skk-henkan-mode 'active)
-	 (setq skk-henkan-count 0)
+	 (skk-set-henkan-count 0)
 	 (if (and skk-delete-okuri-when-quit
 		  skk-henkan-okurigana)
 	     (let ((count (length skk-henkan-okurigana)))
