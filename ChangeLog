@@ -1,3 +1,16 @@
+2001-10-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK
+	* skk.el:
+	More readable.
+
+	* skk-dcomp.el
+	(skk-dcomp-after-delete-backward-char): Call
+	`skk-dcomp-do-comletion' even when `skk-marked-p' returns nil.
+
+	(skk-set-henkan-point-subr): Advise to call
+	`skk-dcomp-do-completion'.
+
 2001-10-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
@@ -2564,8 +2577,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.503 2001/10/24 23:23:34 czkmt Exp $
-Last Modified: $Date: 2001/10/24 23:23:34 $
+Version: $Id: ChangeLog,v 1.504 2001/10/29 11:42:28 czkmt Exp $
+Last Modified: $Date: 2001/10/29 11:42:28 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
