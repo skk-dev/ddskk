@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.42 2000/09/28 10:31:55 akiho Exp $
-;; Last Modified: $Date: 2000/09/28 10:31:55 $
+;; Version: $Id: SKK-MK,v 1.43 2000/10/13 11:29:24 akiho Exp $
+;; Last Modified: $Date: 2000/10/13 11:29:24 $
 
 ;; Commentary
 ;;
@@ -194,7 +194,11 @@
 (defvar SKK_INFODIR
   (or (getenv "SKK_INFODIR")(expand-file-name "info" PREFIX)))
 (defvar SKK_LISPDIR
-  (or (getenv "SKK_LISPDIR") (expand-file-name SKK_PREFIX LISPDIR)))
+  (or (getenv "SKK_LISPDIR")
+      (and LISPDIR (expand-file-name SKK_PREFIX LISPDIR))
+      (and PREFIX 
+           (expand-file-name SKK_PREFIX 
+                             (install-detect-elisp-directory PREFIX)))))
 
 ;; PACKAGE INSTALL RELATED VARIABLE.
 (defvar PACKAGEDIR
