@@ -1,5 +1,10 @@
 2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* experimental/skk-w3m.el
+	(skk-w3m-get-candidates-from-goo-daijirin): Filter out "《" and
+	"》 " from a candidate.  Check if a candidate is redundant or not.
+	Update comments.
+
 	* skk-dcomp.el: Update comments.
 
 	* skk.el (skk-require-module): Require skk-dcomp when
@@ -20,7 +25,7 @@
 	(skk-w3m-search-by-emcas-w3m): Call `erase-buffer' after cutting
 	off a candidate.
 
-	* skk-vars.el (skk-menu-items): Replace skk-use-kakasi with t 
+	* skk-vars.el (skk-menu-items): Replace skk-use-kakasi with t
 	in "Ascii", "Hiragana", "Katakana", "Zenkaku" menu (submenu of
 	"Convert Region and Replace").
 
@@ -98,9 +103,9 @@
 	* skk-tut.el (skktut-end-tutorial) : Update for ml program change
 	to ezmlm.
 
-	* skk-vars.el (skk-ml-command-address) : Update for ml program 
+	* skk-vars.el (skk-ml-command-address) : Update for ml program
 	change to ezmlm.
-	
+
 	* READMEs/NEWS : Add support for GNU Emacs 21.
 	Add that archive include S dictoionary.
 
@@ -111,9 +116,9 @@
 	(はじめに) : Add support for GNU Emacs 21.
 	(辞書の入手): Update doc.
 	(SKK のインストール) : Change make.bat to makeit.bat.
-	(SKK Ring Server Openlab メーリングリスト) : Change ring.etl.go.jp 
+	(SKK Ring Server Openlab メーリングリスト) : Change ring.etl.go.jp
 	to news.ring.gr.jp.
-	
+
 2001-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK:
@@ -806,7 +811,7 @@
 	Check if `viper-insert-state-cursor-color' is
 	bound instead of checking by `skk-color-display-p' for cursor
 	support.
-	(skk-cursor-current-color@around@skk-viper-cursor-ad): Check if 
+	(skk-cursor-current-color@around@skk-viper-cursor-ad): Check if
 	`viper-current-state' and `vip-current-state' and are bound using
 	`cond' instead of `static-cond'.
 	(read-from-minibuffer@before@skk-viper-ad): Not advise if
@@ -2902,8 +2907,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.558 2001/11/24 22:59:11 minakaji Exp $
-Last Modified: $Date: 2001/11/24 22:59:11 $
+Version: $Id: ChangeLog,v 1.559 2001/11/24 23:38:58 minakaji Exp $
+Last Modified: $Date: 2001/11/24 23:38:58 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

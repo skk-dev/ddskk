@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.28 2001/11/24 07:19:33 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.29 2001/11/24 23:38:58 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/11/24 07:19:33 $
+;; Last Modified: $Date: 2001/11/24 23:38:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,30 +27,33 @@
 
 ;;; Commentary:
 
-;; w3m (http://ei5nazha.yz.yamagata-u.ac.jp/~aito/w3m/) $B$rMxMQ$7!"(B
-;; Emacs $B$NCf$+$i(B Web $B8!:w%(%s%8%s$K$h$k8!:w$r$7!"8!:w7k2L$NCf$+$i(B
-;; SKK $B$N8uJd$H$7$F<h$j=P$7$?$$$b$N$r@Z$j=P$7$FMxMQ$9$k%W%m%0%i%`$G(B
-;; $B$9!#(B
+;; w3m (http://w3m.sourceforge.net/) ¤òÍøÍÑ¤·¡¢Emacs ¤ÎÃæ¤«¤é Web ¸¡
+;; º÷¥¨¥ó¥¸¥ó¤Ë¤è¤ë¸¡º÷¤ò¤·¡¢¸¡º÷·ë²Ì¤ÎÃæ¤«¤é SKK ¤Î¸õÊä¤È¤·¤Æ¼è¤ê½Ð
+;; ¤·¤¿¤¤¤â¤Î¤òÀÚ¤ê½Ð¤·¤ÆÍøÍÑ¤¹¤ë¥×¥í¥°¥é¥à¤Ç¤¹¡£
 ;;
-;; skk-w3m-use-w3m-backend $B$,(B non-nil $B$G$"$l$P!"(Bw3m $B$r(B backend $B%*%W(B
-;; $B%7%g%sIU$-$G5/F0$7$F(B w3m $B$HD>@\8r?.$7$^$9!#(Bnil $B$G$"$l$P(B emacs-w3m
-;; (http://www-nagao.kuee.kyoto-u.ac.jp/member/tsuchiya/w3m/) $B$r7PM3(B
-;; $B$7$F(B w3m $B$rMxMQ$7$^$9(B (emacs-w3m $B$G$O(B w3m $B$r(B backend $B$GF0$+$7$F$$(B
-;; $B$^$;$s(B)$B!#(Bw3m backend $B$rMxMQ$9$k$3$H$G!"8!:w$NEYKh$K(B w3m $B$r5/F0$9$k(B
-;; $BI,MW$,$J$/$J$j!"%W%m%;%9$N5/F0!"=*N;$KH<$J$&%*!<%P!<%X%C%I$r8:$i$9(B
-;; $B$3$H$,$G$-$^$9$,!"(Bw3m backend $B$O3+H/Cf$G$"$j!":#8eBgI}$J;EMMJQ99$,(B
-;; $B9T$J$o$l$k2DG=@-$b$"$j!"M=CG$r5v$7$^$;$s!#(B
+;; skk-w3m-use-w3m-backend ¤¬ non-nil ¤Ç¤¢¤ì¤Ð¡¢w3m ¤ò backend ¥ª¥×
+;; ¥·¥ç¥óÉÕ¤­¤Çµ¯Æ°¤·¤Æ w3m ¤ÈÄ¾ÀÜ¸ò¿®¤·¤Þ¤¹¡£
+;; nil ¤Ç¤¢¤ì¤Ð emacs-w3m (http://emacs-w3m.namazu.org/) ¤ò·ÐÍ³¤·¤Æ
+;; w3m ¤òÍøÍÑ¤·¤Þ¤¹ (emacs-w3m ¤Ç¤Ï w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Þ¤»¤ó)¡£
+;; w3m backend ¤òÍøÍÑ¤¹¤ë¤³¤È¤Ç¡¢¸¡º÷¤ÎÅÙËè¤Ë w3m ¤òµ¯Æ°¤¹¤ëÉ¬Í×¤¬¤Ê¤¯
+;; ¤Ê¤ê¡¢¥×¥í¥»¥¹¤Îµ¯Æ°¡¢½ªÎ»¤ËÈ¼¤Ê¤¦¥ª¡¼¥Ð¡¼¥Ø¥Ã¥É¤ò¸º¤é¤¹¤³¤È¤¬¤Ç¤­¤Þ
+;; ¤¹¡£
+;; w3m backend ¤Ï³«È¯Ãæ¤Ç¡¢º£¸åÂçÉý¤Ê»ÅÍÍÊÑ¹¹¤¬¹Ô¤Ê¤ï¤ì¤ë²ÄÇ½À­¤â¤¢¤ê
+;; Í½ÃÇ¤òµö¤·¤Þ¤»¤ó¤¬¡¢°ìÊý¤Ç emacs-w3m ¤â³«È¯¤Î¥¹¥Ô¡¼¥É¤¬Áá¤¤¥×¥í¥°¥é
+;; ¥à¤Ç¤¹¡£ÊÑÆ°¤¹¤ëÍ×ÁÇ¤Ï¾¯¤Ê¤¤Êý¤¬¡¢ÍÍ¡¹¤Ê´Ä¶­¤Ë¹ç¤¦²ÄÇ½À­¤¬¾¯¤·¤Ç¤â¾å
+;; ¤¬¤ë¤Î¤Ç¡¢²ÄÇ½¤Ê¸Â¤ê skk-w3m-use-w3m-backend ¤ò non-nil ¤Ç»ÈÍÑ¤¹¤ë¤³
+;; ¤È¤ò¤ª´«¤á¤·¤Þ¤¹¡£
 ;;
 ;; <HOW TO INSTALL>
-;; $B$3$N%U%!%$%k$r(B SKK-MK $B$,$"$k%G%#%l%/%H%j$K%3%T!<$7(B ($B%j%s%/(B
-;; $B$,;H$($k%U%!%$%k%7%9%F%`$G$O(B SKK-MK $B$N$"$k%G%#%l%/%H%j$G(B
+;; ¤³¤Î¥Õ¥¡¥¤¥ë¤ò SKK-MK ¤¬¤¢¤ë¥Ç¥£¥ì¥¯¥È¥ê¤Ë¥³¥Ô¡¼¤· (¥ê¥ó¥¯
+;; ¤¬»È¤¨¤ë¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Ç¤Ï SKK-MK ¤Î¤¢¤ë¥Ç¥£¥ì¥¯¥È¥ê¤Ç
 ;;   ln -s ./experimental/skk-w3m.el .
-;; $B$7$?J}$,NI$$$+$b$7$l$^$;$s(B)$B!"8e$OIaDL$K(B make install $B$9$k$@$1$G$9!#(B
+;; ¤·¤¿Êý¤¬ÎÉ¤¤¤«¤â¤·¤ì¤Þ¤»¤ó)¡¢¸å¤ÏÉáÄÌ¤Ë make install ¤¹¤ë¤À¤±¤Ç¤¹¡£
 ;;
 ;; <HOW TO WORK>
-;; skk-search-prog-list $B$K(B (skk-w3m-search "goo-daijirin") $B$N$h$&$J(B
-;; $BMWAG$rDI2C$7$^$9!#DL>o!"B>$N$I$N(B skk search engine $B$h$j$b:G$bCY$$(B
-;; $B$N$G!":G$b:G8e$,NI$$$G$7$g$&!#$3$s$J46$8$K$J$j$^$9!#(B
+;; skk-search-prog-list ¤Ë (skk-w3m-search "goo-daijirin") ¤Î¤è¤¦¤Ê
+;; Í×ÁÇ¤òÄÉ²Ã¤·¤Þ¤¹¡£ÄÌ¾ï¡¢Â¾¤Î¤É¤Î skk search engine ¤è¤ê¤âºÇ¤âÃÙ¤¤
+;; ¤Î¤Ç¡¢ºÇ¤âºÇ¸å¤¬ÎÉ¤¤¤Ç¤·¤ç¤¦¡£¤³¤ó¤Ê´¶¤¸¤Ë¤Ê¤ê¤Þ¤¹¡£
 ;;
 ;; (setq skk-search-prog-list
 ;;       '((skk-search-jisyo-file skk-jisyo 0 t)
@@ -58,22 +61,22 @@
 ;;         (skk-w3m-search "goo-daijirin")
 ;;         (skk-w3m-search "goo-exceed-eiwa")))
 ;;
-;; skk-w3m-search $B$N0z?t$O8!:w%(%s%8%s$N<oN`$rJ8;zNs$G;XDj$7$^$9!#(B
-;; $BC"$7!"(Bskk-w3m-search-engine-alist $B$KBP1~$9$k%(%s%H%j$,I,MW$G$9!#(B
+;; skk-w3m-search ¤Î°ú¿ô¤Ï¸¡º÷¥¨¥ó¥¸¥ó¤Î¼ïÎà¤òÊ¸»úÎó¤Ç»ØÄê¤·¤Þ¤¹¡£
+;; Ã¢¤·¡¢skk-w3m-search-engine-alist ¤ËÂÐ±þ¤¹¤ë¥¨¥ó¥È¥ê¤¬É¬Í×¤Ç¤¹¡£
 ;;
-;; skk-w3m.el $B$G$O(B search-engine $BKh$K8!:w7k2L$r(B cache $B$7$^$9!#(B
-;; (skk-w3m-search "goo-daijirin" t) $B$N$h$&$K(B `skk-w3m-search' $B$NBh(B
-;; $BFs0z?t$K(B non-nil argument $B$r;XDj$9$k$H(B cache $B$r9T$J$o$:!"Kh2s(B w3m
-;; $B$K8!:w$r$5$;$^$9!#(B
+;; skk-w3m.el ¤Ç¤Ï search-engine Ëè¤Ë¸¡º÷·ë²Ì¤ò cache ¤·¤Þ¤¹¡£
+;; (skk-w3m-search "goo-daijirin" t) ¤Î¤è¤¦¤Ë `skk-w3m-search' ¤ÎÂè
+;; Æó°ú¿ô¤Ë non-nil argument ¤ò»ØÄê¤¹¤ë¤È cache ¤ò¹Ô¤Ê¤ï¤º¡¢Ëè²ó w3m
+;; ¤Ë¸¡º÷¤ò¤µ¤»¤Þ¤¹¡£
 ;;
 ;; <TODO>
-;; o $B$H$j$"$($:(B skk-w3m-get-candidates-from-goo-exceed-waei,
+;; o ¤È¤ê¤¢¤¨¤º skk-w3m-get-candidates-from-goo-exceed-waei,
 ;;   skk-w3m-get-candidates-from-goo-exceed-eiwa,
-;;   skk-w3m-get-candidates-from-goo-daily-shingo $B$r40@.$5$;$k!#(B
-;; o $B8!:w%(%s%8%s$NA}2C!#(B
-;; o lookup $B$O(B w3m-search.el $B$r;H$C$?(B Web search $B$rE}9g$7$J$$$N$@$m$&(B
-;;   $B$+(B...$B!#E}9g$9$l$P(B skk-lookup.el $B$G0l854IM}$G$-$k!)(B
-;; o w3m backend $B$N2~NI$KDI=>!#(B
+;;   skk-w3m-get-candidates-from-goo-daily-shingo ¤ò´°À®¤µ¤»¤ë¡£
+;; o ¸¡º÷¥¨¥ó¥¸¥ó¤ÎÁý²Ã¡£
+;; o lookup ¤Ï w3m-search.el ¤ò»È¤Ã¤¿ Web search ¤òÅý¹ç¤·¤Ê¤¤¤Î¤À¤í¤¦
+;;   ¤«...¡£Åý¹ç¤¹¤ì¤Ð skk-lookup.el ¤Ç°ì¸µ´ÉÍý¤Ç¤­¤ë¡©
+;; o w3m backend ¤Î²þÎÉ¤ËÄÉ½¾¡£
 
 ;;; Code
 
@@ -121,41 +124,41 @@
      nil ;(not skk-abbrev-mode)
      nil
      skk-w3m-make-query-quote-yahoo))
-  "*$B8!:w%(%s%8%sKh$N8!:w%*%W%7%g%s$r;XDj$9$k%(!<%j%9%H!#(B
-car $B$O8!:w%(%s%8%s$rI=$o$9J8;zNs!"(B
-1th $B$O(B URL \($B8!:wJ8;zNs$r(B %s $B$GI=$o$9(B\),
-2th $B$O(B Web page $B$N(B coding-system,
-3th $B$O8uJd@Z$j=P$7$K;HMQ$9$k4X?t$rI=$o$9%7%s%\%k!#(B
-4th \(optional\) $B$O(B S $B<0$r;XDj$7!"I>2A$7$F(B non-nil $B$K$J$k>uBV$N$H$-$O(B w3m
-    $B$K8!:w=hM}$r$5$;$J$$!#(B
-5th \(optional\) $B$O(B `skk-henkan-key' $B$r2C9)$9$k4X?t!#(B
-6th \(optional\) $B$O(B 1th $B$N%F%s%W%l!<%H$K9g$o$;$?J8;zNs$r=PNO$9$k4X?tL>!#(B
-    $B;XDj$5$l$?4X?t$O!"8+=P$78l(B\(string\) $B$r0z?t$H$7$F(B `funcall' $B$5$l$k!#(B
-    $B;XDj$,$J$$>l9g$O!"(B`w3m-search-escape-query-string' $B$,(B `funcall' $B$5$l$k!#(B")
+  "*¸¡º÷¥¨¥ó¥¸¥óËè¤Î¸¡º÷¥ª¥×¥·¥ç¥ó¤ò»ØÄê¤¹¤ë¥¨¡¼¥ê¥¹¥È¡£
+car ¤Ï¸¡º÷¥¨¥ó¥¸¥ó¤òÉ½¤ï¤¹Ê¸»úÎó¡¢
+1th ¤Ï URL \(¸¡º÷Ê¸»úÎó¤ò %s ¤ÇÉ½¤ï¤¹\),
+2th ¤Ï Web page ¤Î coding-system,
+3th ¤Ï¸õÊäÀÚ¤ê½Ð¤·¤Ë»ÈÍÑ¤¹¤ë´Ø¿ô¤òÉ½¤ï¤¹¥·¥ó¥Ü¥ë¡£
+4th \(optional\) ¤Ï S ¼°¤ò»ØÄê¤·¡¢É¾²Á¤·¤Æ non-nil ¤Ë¤Ê¤ë¾õÂÖ¤Î¤È¤­¤Ï w3m
+    ¤Ë¸¡º÷½èÍý¤ò¤µ¤»¤Ê¤¤¡£
+5th \(optional\) ¤Ï `skk-henkan-key' ¤ò²Ã¹©¤¹¤ë´Ø¿ô¡£
+6th \(optional\) ¤Ï 1th ¤Î¥Æ¥ó¥×¥ì¡¼¥È¤Ë¹ç¤ï¤»¤¿Ê¸»úÎó¤ò½ÐÎÏ¤¹¤ë´Ø¿ôÌ¾¡£
+    »ØÄê¤µ¤ì¤¿´Ø¿ô¤Ï¡¢¸«½Ð¤·¸ì\(string\) ¤ò°ú¿ô¤È¤·¤Æ `funcall' ¤µ¤ì¤ë¡£
+    »ØÄê¤¬¤Ê¤¤¾ì¹ç¤Ï¡¢`w3m-search-escape-query-string' ¤¬ `funcall' ¤µ¤ì¤ë¡£")
 
 (defvar skk-w3m-use-w3m-backend t
-  "*Non-nil $B$G$"$l$P!"(Bw3m $B$r(B backend $B%*%W%7%g%sIU$-$G5/F0$7$F8!:w$r9T$J$&!#(B
-`start-process' $B$,;H$($J$$(B Emacs $B$G$OMxMQIT2D!#(B
-nil $B$G$"$l$P!"(Bemacs-w3m $B$r7PM3$7$F(B w3m $B$rMxMQ$9$k(B ($B8=:_$N(B emacs-w3m $B$G$O(B
-w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
+  "*Non-nil ¤Ç¤¢¤ì¤Ð¡¢w3m ¤ò backend ¥ª¥×¥·¥ç¥óÉÕ¤­¤Çµ¯Æ°¤·¤Æ¸¡º÷¤ò¹Ô¤Ê¤¦¡£
+`start-process' ¤¬»È¤¨¤Ê¤¤ Emacs ¤Ç¤ÏÍøÍÑÉÔ²Ä¡£
+nil ¤Ç¤¢¤ì¤Ð¡¢emacs-w3m ¤ò·ÐÍ³¤·¤Æ w3m ¤òÍøÍÑ¤¹¤ë (¸½ºß¤Î emacs-w3m ¤Ç¤Ï
+w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
 
 (defvar skk-w3m-command (or (and (boundp 'w3m-command) w3m-command) "w3m")
-  "*w3m $B%3%^%s%IL>!#(B")
+  "*w3m ¥³¥Þ¥ó¥ÉÌ¾¡£")
 
 (defvar skk-w3m-command-args "-backend"
-  "*w3m $B$N(B backend $B%*%W%7%g%s!#(B")
+  "*w3m ¤Î backend ¥ª¥×¥·¥ç¥ó¡£")
 
 (defvar skk-w3m-backend-command-prompt "w3m>"
-  "*w3m backend $B$N%3%^%s%I%W%m%s%W%H!#(B")
+  "*w3m backend ¤Î¥³¥Þ¥ó¥É¥×¥í¥ó¥×¥È¡£")
 
 (defvar skk-w3m-default-process-coding-system 'euc-japan
-  "*w3m backend $B%W%m%;%9$N%G%#%U%)%k%H$N(B coding-system$B!#(B")
+  "*w3m backend ¥×¥í¥»¥¹¤Î¥Ç¥£¥Õ¥©¥ë¥È¤Î coding-system¡£")
 
 (defvar skk-w3m-kill-command "quit"
-  "*w3m backend $B$N=*N;%3%^%s%I!#(B")
+  "*w3m backend ¤Î½ªÎ»¥³¥Þ¥ó¥É¡£")
 
 (defvar skk-w3m-no-wait nil
-  "*Non-nil $B$G$"$l$P!"(Bw3m backend $B%W%m%;%9$,2?$+=PNO$9$k$^$GBT$?$J$$!#(B")
+  "*Non-nil ¤Ç¤¢¤ì¤Ð¡¢w3m backend ¥×¥í¥»¥¹¤¬²¿¤«½ÐÎÏ¤¹¤ë¤Þ¤ÇÂÔ¤¿¤Ê¤¤¡£")
 
 (defvar skk-w3m-quote-yahoo-currency-symbol-alist
   ;;http://quote.yahoo.com/m5?a=1&s=USD&t=JPY&c=0 ; U.S. Dollar, Japanese Yen
@@ -239,7 +242,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
      (t
       (setq skk-w3m-cache (cons (cons search-engine (list (cons key list)))
 				skk-w3m-cache))))))
-	
+
 (defun skk-w3m-filter-string (string filters)
   (while filters
     (while (string-match (car filters) string)
@@ -259,7 +262,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
     (if process-key (setq key (funcall process-key key)))
     (if post-process
 	(skk-w3m-with-work-buffer
-	  (or (skk-w3m-w3m-retrieve 
+	  (or (skk-w3m-w3m-retrieve
 	       (if query-string-function
 		   (apply 'format (nth 1 dbase)
 			  (funcall query-string-function key))
@@ -321,7 +324,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   (let ((process-connection-type t))
     (buffer-disable-undo)
     ;;(insert "\nStarting w3m backend...\n\n")
-    (skk-message "skk $B$N$?$a$K(B w3m backend $B$r5/F0$7$F$$$^$9(B..."
+    (skk-message "skk ¤Î¤¿¤á¤Ë w3m backend ¤òµ¯Æ°¤·¤Æ¤¤¤Þ¤¹..."
 		 "Starting w3m backend for skk...")
     (condition-case nil
 	(progn
@@ -331,14 +334,14 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
 	  (process-kill-without-query skk-w3m-process)
 	  (skk-w3m-set-process-coding-system
 	   skk-w3m-default-process-coding-system))
-      (file-error (skk-error "$B%7%9%F%`>e$K(B \"%s\" $B$,8+$D$+$j$^$;$s(B"
+      (file-error (skk-error "¥·¥¹¥Æ¥à¾å¤Ë \"%s\" ¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó"
 			     "Sorry, can't find \"%s\" on your system"
 			     skk-w3m-command))
       (error (skk-w3m-kill 'nomsg)))
     (if (eq (process-status skk-w3m-process) 'exit)
 	(progn
 	  (skk-w3m-kill 'nomsg)
-	  (skk-error "%s $B%W%m%;%9$,0[>o=*N;$7$^$7$?!#(B"
+	  (skk-error "%s ¥×¥í¥»¥¹¤¬°Û¾ï½ªÎ»¤·¤Þ¤·¤¿¡£"
 		     "Process %s exited abnormally with code 1"
 		     skk-w3m-process)))
     (while (and (memq (process-status skk-w3m-process) '(run stop))
@@ -346,19 +349,19 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
 		(not (re-search-forward skk-w3m-backend-command-prompt nil t)))
       (accept-process-output skk-w3m-process))
     ;;(or (memq (process-status skk-w3m-process) '(run stop))
-    ;;    (skk-error "w3m backend $B%W%m%;%9$r%9%?!<%H$9$k$3$H$,$G$-$^$;$s(B"
+    ;;    (skk-error "w3m backend ¥×¥í¥»¥¹¤ò¥¹¥¿¡¼¥È¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó"
     ;;               "Unable to start w3m backend process"))
     (goto-char (process-mark skk-w3m-process))
-    (skk-message "skk $B$N$?$a$K(B w3m backend $B$r5/F0$7$F$$$^$9(B...$B40N;(B!"
+    (skk-message "skk ¤Î¤¿¤á¤Ë w3m backend ¤òµ¯Æ°¤·¤Æ¤¤¤Þ¤¹...´°Î»!"
 		 "Starting w3m backend for skk...done")))
 
 (defun skk-w3m-kill (&optional nomsg)
-  "w3m backend $B%W%m%;%9$r;&$9!#(B"
+  "w3m backend ¥×¥í¥»¥¹¤ò»¦¤¹¡£"
   (interactive "P")
   (if (not (skk-w3m-process-alive))
-      ;; $BKLEM?@7}$N@$3&$G$9$J(B...$B!#(B
+      ;; ËÌÅÍ¿À·ý¤ÎÀ¤³¦¤Ç¤¹¤Ê...¡£
       (or nomsg
-	  (skk-message "w3m backend $B%W%m%;%9$O4{$K;`$s$G$^$9(B"
+	  (skk-message "w3m backend ¥×¥í¥»¥¹¤Ï´û¤Ë»à¤ó¤Ç¤Þ¤¹"
 		       "w3m backend process has already died"))
     (with-current-buffer (get-buffer skk-w3m-working-buffer)
       (unwind-protect
@@ -369,7 +372,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
 		 (delete-process skk-w3m-process))
 	    ;;(setq skk-w3m-process nil)
 	    (or nomsg
-		(skk-message "w3m backend $B%W%m%;%9$,;`$K$^$7$?(B"
+		(skk-message "w3m backend ¥×¥í¥»¥¹¤¬»à¤Ë¤Þ¤·¤¿"
 			     "w3m backend process died")))
 	(kill-buffer (current-buffer))))))
 
@@ -380,7 +383,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
     (let ((pmark (process-mark skk-w3m-process))
 	  origpoint)
       (accept-process-output)
-      ;; $BF0$$$?%]%$%s%H$rJ]B8$9$k$?$a(B save-excursion $B$O;H$o$J$$!#(B
+      ;; Æ°¤¤¤¿¥Ý¥¤¥ó¥È¤òÊÝÂ¸¤¹¤ë¤¿¤á save-excursion ¤Ï»È¤ï¤Ê¤¤¡£
       (goto-char pmark)
       (setq origpoint (point))
       (insert command)
@@ -390,7 +393,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
       (goto-char origpoint)
       (while (and (not (re-search-forward
 			skk-w3m-backend-command-prompt pmark t))
-		  ;; quit $B%3%^%s%I$rAw$C$?$i%W%m%s%W%H$O5"$C$F$3$J$$!#(B
+		  ;; quit ¥³¥Þ¥ó¥É¤òÁ÷¤Ã¤¿¤é¥×¥í¥ó¥×¥È¤Ïµ¢¤Ã¤Æ¤³¤Ê¤¤¡£
 		  (not (eq (process-status skk-w3m-process) 'exit)))
 	(accept-process-output))
       ;;(skk-w3m-check-errors)
@@ -420,76 +423,18 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
 
 ;;; process functions for each databases.
 (defun skk-w3m-get-candidates-from-goo-daijirin (key)
-  ;; <!-- RESULT_BLOCK -->
-  ;; <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>
-  ;; <!-- ej_res1 -->
-  ;; <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  ;;   <tr>
-  ;;     <td>
-  ;;       $B"#!N(B<font color="#993333">$B$3$&$3$&(B</font>$B!O$NBg<-NSBhFsHG$+$i$N8!:w7k2L!!(B
-  ;;      <font size="+1" color="#993333"><b>39$B7o(B</b></font>
-  ;;     </td>
-  ;;   </tr>
-  ;;   <tr>
-  ;;     <td bgcolor="#993333"><img src="/Common/clear.gif" width="1" height="1" alt=""></td>
-  ;;   </tr>
-  ;;   <tr>
-  ;;     <td>
-  ;;       <br>
-  ;;       <table border="0" cellspacing="4" cellpadding="4">
-  ;;         <tr>
-  ;;           <td><br></td>
-  ;;           <td><b>1</b></td>
-  ;;           <td>
-  ;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06660300.txt&sw=2" target="_blank">
-  ;;             <img src="/Common/icon01.gif" width="12" height="12" border="0" alt="$B?75,$G3+$/(B"></a>
-  ;;             </td>
-  ;;           <td nowrap>
-;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06660300.txt&sw=2">$B$3$&$3$&(B $B!Z8}9P![(B</a>
-  ;;           </td>
-  ;;         </tr>
-  ;;         ...
-  ;;         <tr>
-  ;;           <td><br></td>
-  ;;           <td><b>25</b></td>
-  ;;           <td>
-  ;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06663300.txt&sw=2" target="_blank">
-  ;;             <img src="/Common/icon01.gif" width="12" height="12" border="0" alt="$B?75,$G3+$/(B"></a>
-  ;;             </td>
-  ;;           <td nowrap>
-  ;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06663300.txt&sw=2">$B$3$&$3$&(B $B!Z(B<img src="/jp/image/G149A.gif" width="14" HEIGHT="19" align="absmiddle" hspace="2"><img src="/jp/image/G149A.gif" width="14" HEIGHT="19" align="absmiddle" hspace="2">$B![(B</a>
-  ;;           </td>
-  ;;         </tr>
-  ;;         ...
-  ;;       </table>
-  ;;       <br>
-  ;;     </td>
-  ;;   </tr>
-  ;;   <tr>
-  ;;     <td bgcolor="#993333"><img src="/Common/clear.gif" width="1" height="1" alt=""></td>
-  ;;   </tr>
-  ;;   <tr>
-  ;;     <td>
-  ;;       $B"#!N(B<font color="#993333">$B$3$&$3$&(B</font>$B!O$NBg<-NSBhFsHG$+$i$N8!:w7k2L!!(B
-  ;;      <font size="+1" color="#993333"><b>39$B7o(B</b></font>
-  ;;     </td>
-  ;;   </tr>
-  ;; </table>
-  ;; <!-- ej_res1 -->
-  ;; </td></tr></table>
-  ;; <!-- RESULT_BLOCK -->
   (save-match-data
     (let ((startregexp
 	   (if skk-w3m-use-w3m-backend
 	       nil
 	       ;;(format
-		;;"$B"#!N(B%s$B!O$NBg<-NSBhFsHG$+$i$N8!:w7k2L!!(B <b>[0-9]+$B7o(B</b>" key)
+		;;"¢£¡Î%s¡Ï¤ÎÂç¼­ÎÓÂèÆóÈÇ¤«¤é¤Î¸¡º÷·ë²Ì¡¡ <b>[0-9]+·ï</b>" key)
 	     "<!-- RESULT_BLOCK -->"))
 	  (endregexp
 	   (if skk-w3m-use-w3m-backend
 	       nil
 	       ;;(format
-		;;"$B"#!N(B%s$B!O$NBg<-NSBhFsHG$+$i$N8!:w7k2L!!(B <b>[0-9]+$B7o(B</b>" key)
+		;;"¢£¡Î%s¡Ï¤ÎÂç¼­ÎÓÂèÆóÈÇ¤«¤é¤Î¸¡º÷·ë²Ì¡¡ <b>[0-9]+·ï</b>" key)
 	     "<!-- RESULT_BLOCK -->"))
 	  (start (if skk-w3m-use-w3m-backend (point-min)))
 	  (end (if skk-w3m-use-w3m-backend (process-mark skk-w3m-process)))
@@ -507,58 +452,63 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
 	(goto-char start)
 	(setq key (mapconcat 'char-to-string key "-*"))
 	(setq key (format "\\(%s\\|%s\\)"
-			  ;; <b>8</b>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" target="_blank" hseq="35"><img_alt src="/Common/icon01.gif">$B?75,$G3+$/(B</img_alt></a>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" hseq="36">$B$+$s$-$g$&!Z4O66![(B</a>
-			  (format "<a href=\".+\">%s *$B!Z(B\\([^<>$B!Z![(B]+\\)$B![(B</a>" key)
-			  ;; <B>$B$7$3$&(B-$B$5$/$4!=$+$&!=!Z;n9T:x8m![(B</B>
-			  ;; <B>$B$,$$$O$s$\$7$0$o$$$O$s!=!Z30H?YElf![(B</B>
-			  ;; <B>$B$J$+$_(B  $B!ZCf?H!&CfL#![(B  </B>
-			  ;; <B><FONT COLOR="0000FF">$B$7$3$&(B-$B$5$/$4(B</FONT>  <FONT><SMALL> $B!=$+$&!=(B</SMALL></FONT>  $B!Z;n9T:x8m![(B  </B>
-			  (format "<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*%s[^$B!Z(B]*$B!Z(B\\([^<>$B!Z![(B]+\\)$B![(B *</B>" key)))
+			  ;; <b>8</b>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" target="_blank" hseq="35"><img_alt src="/Common/icon01.gif">¿·µ¬¤Ç³«¤¯</img_alt></a>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" hseq="36">¤«¤ó¤­¤ç¤¦¡Ú´Ï¶¶¡Û</a>
+			  (format "<a href=\".+\">%s *¡Ú\\([^<>¡Ú¡Û]+\\)¡Û</a>" key)
+			  ;; <B>¤·¤³¤¦-¤µ¤¯¤´¡½¤«¤¦¡½¡Ú»î¹Ôºø¸í¡Û</B>
+			  ;; <B>¤¬¤¤¤Ï¤ó¤Ü¤·¤°¤ï¤¤¤Ï¤ó¡½¡Ú³°È¿ÙÅìæ¡Û</B>
+			  ;; <B>¤Ê¤«¤ß  ¡ÚÃæ¿È¡¦ÃæÌ£¡Û  </B>
+			  ;; <B><FONT COLOR="0000FF">¤·¤³¤¦-¤µ¤¯¤´</FONT>  <FONT><SMALL> ¡½¤«¤¦¡½</SMALL></FONT>  ¡Ú»î¹Ôºø¸í¡Û  </B>
+			  ;; <B>¤¨¤¬¤ª¤ñ¤¬¤Û¡Ú¡Ô¾Ð´é¡Õ¡Û</B>
+			  (format "<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*%s[^¡Ú]*¡Ú\\([^<>¡Ú¡Û]+\\)¡Û *</B>" key)))
 	(while (re-search-forward key end t nil)
-	  ;; KEY = "\\(<a href=\".+\">$B$7(B-*$B$3(B-*$B$&(B-*$B$5(B-*$B$/(B-*$B$4(B *$B!Z(B\\([^<>$B!Z![(B]+\\)$B![(B</a>\\|<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*$B$7(B-*$B$3(B-*$B$&(B-*$B$5(B-*$B$/(B-*$B$4(B[^<$B!Z(B]*$B!Z(B\\([^<>$B!Z![(B]+\\)$B![(B *</B>\\)"
+	  ;; KEY = "\\(<a href=\".+\">¤·-*¤³-*¤¦-*¤µ-*¤¯-*¤´ *¡Ú\\([^<>¡Ú¡Û]+\\)¡Û</a>\\|<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*¤·-*¤³-*¤¦-*¤µ-*¤¯-*¤´[^<¡Ú]*¡Ú\\([^<>¡Ú¡Û]+\\)¡Û *</B>\\)"
 	  (setq temp (skk-w3m-filter-string
-		      ;; $B!R2?;~!S(B
+		      ;; ¡Ò²¿»þ¡Ó
+		      ;; ¡Ô¾Ð´é¡Õ
 		      (or (match-string-no-properties 2)
 			  (match-string-no-properties 4))
-		      '("$B!R(B" "$B!S(B")))
-	  (setq v (nconc (split-string temp "$B!&(B") v)))
+		      '("¡Ò" "¡Ó" "¡Ô" "¡Õ")))
+	  (dolist (elm (split-string temp "¡¦"))
+	    ;; do not add a redundant candidate.
+	    (unless (member elm v)
+	      (setq v (cons elm v)))))
 	(nreverse v)))))
 
 (defun skk-w3m-get-candidates-from-goo-exceed-waei (key)
   ;; SORRY, NOT YET.
-  ;;   ;; 15:$B"#!N$M$C$7$s!O$N(BEXCEED$BOB1Q<-E5$+$i$N8!:w7k2L!!(B
+  ;;   ;; 15:¢£¡Î¤Í¤Ã¤·¤ó¡Ï¤ÎEXCEEDÏÂ±Ñ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   ;;   ;; 16:*
   ;;   ;; 17:
-  ;;   ;; 18:$B$M$C$7$s(B
-  ;;   ;; 19:[clear] $BG.?4(B
-  ;;   ;; 20:[clear] zeal$B!(!!(Bardor$B!(!!(Beagerness$B!(!!(Benthusiasm$B!%!!!A$J!!(B
-  ;;   ;; 21:        eager$B!(!!(Bardent$B!(!!(Bkeen$B!%!!!A$K!!(Beagerly$B!(!!(B
-  ;;   ;; 22:        earnestly$B!(!!(Bintently$B!%!!(B
+  ;;   ;; 18:¤Í¤Ã¤·¤ó
+  ;;   ;; 19:[clear] Ç®¿´
+  ;;   ;; 20:[clear] zeal¡¨¡¡ardor¡¨¡¡eagerness¡¨¡¡enthusiasm¡¥¡¡¡Á¤Ê
+  ;;   ;; 21:        eager¡¨¡¡ardent¡¨¡¡keen¡¥¡¡¡Á¤Ë¡¡eagerly¡¨
+  ;;   ;; 22:        earnestly¡¨¡¡intently¡¥
   ;;   ;; 23:
   ;;   ;; 24:*
-  ;;   ;; 25:$B"#!N$M$C$7$s!O$N(BEXCEED$BOB1Q<-E5$+$i$N8!:w7k2L!!(B
+  ;;   ;; 25:¢£¡Î¤Í¤Ã¤·¤ó¡Ï¤ÎEXCEEDÏÂ±Ñ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   ;;   (let (temp v)
   ;;     (save-match-data
   ;;       (if (not (re-search-forward
-  ;; 		(concat "$B"#(B\\$B!N(B" (regexp-quote key) "\\$B!O$N(BEXCEED$BOB1Q<-E5$+$i$N8!:w7k2L(B")
+  ;; 		(concat "¢£\\¡Î" (regexp-quote key) "\\¡Ï¤ÎEXCEEDÏÂ±Ñ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì")
   ;; 		nil t nil))
   ;; 	  nil
-  ;; 	(while (re-search-forward "\\[clear\\] [a-z]+\\.$B!!(B\\([^ a-zA-Z][^$B!%(B]+\\)$B!%(B" nil t nil)
+  ;; 	(while (re-search-forward "\\[clear\\] [a-z]+\\.¡¡\\([^ a-zA-Z][^¡¥]+\\)¡¥" nil t nil)
   ;; 	  (setq temp (match-string-no-properties 1))
   ;; 	  (setq temp (skk-w3m-filter-string
-  ;; 		      ;; [[$BJFOC(B]]
-  ;; 		      temp '("\n" "[0-9]+: +" "[$B!!(B ]+" "$B!J(B[$B$!(B-$B$s(B]+$B!K(B" "([, a-z]+)"
+  ;; 		      ;; [[ÊÆÏÃ]]
+  ;; 		      temp '("\n" "[0-9]+: +" "[¡¡ ]+" "¡Ê[¤¡-¤ó]+¡Ë" "([, a-z]+)"
   ;; 			     "\\[\\[[^a-zA-Z]+\\]\\]")))
-  ;; 	  (while (string-match "\\([^$B!$!((B]+\\)$B!N(B\\([^$B!$!((B]+\\)$B!O(B\\([^$B!$!((B]+\\)*" temp)
+  ;; 	  (while (string-match "\\([^¡¤¡¨]+\\)¡Î\\([^¡¤¡¨]+\\)¡Ï\\([^¡¤¡¨]+\\)*" temp)
   ;; 	    (setq temp (concat (substring temp 0 (match-beginning 0))
   ;; 			       (match-string-no-properties 1 temp)
   ;; 			       (match-string-no-properties 3 temp)
-  ;; 			       "$B!$(B"
+  ;; 			       "¡¤"
   ;; 			       (match-string-no-properties 2 temp)
   ;; 			       (match-string-no-properties 3 temp)
   ;; 			       (substring temp (match-end 0)))))
   ;;
-  ;; 	  (setq v (nconc v (split-string temp "[$B!$!((B]"))))
+  ;; 	  (setq v (nconc v (split-string temp "[¡¤¡¨]"))))
   ;; 	v))))
   )
 
@@ -571,7 +521,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;; <table width="100%" border="0" cellspacing="0" cellpadding="0">
   ;;   <tr>
   ;;     <td>
-  ;;       $B"#!N(B<font color="#993333">collaborate</font>$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L!!(B
+  ;;       ¢£¡Î<font color="#993333">collaborate</font>¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   ;;     </td>
   ;;   </tr>
   ;;   <tr>
@@ -584,7 +534,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;   <TR ALIGN="LEFT" VALIGN="MIDDLE">
   ;;     <TD>
   ;;       <SPAN CLASS="css4g">
-  ;;         <B>col$B!&(Blab$B!&(Bo$B!&(Brate</B>$B!!(B<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/01010419.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>$B!!(B
+  ;;         <B>col¡¦lab¡¦o¡¦rate</B>¡¡<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/01010419.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -594,7 +544,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
   ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <IMG SRC="/ej/image/e1073.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1015.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1016.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1022.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1001.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e101b.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1054.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1013.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1003.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1074.gif" WIDTH="8" HEIGHT="16" ALT="">$B!!(B
+  ;;         <IMG SRC="/ej/image/e1073.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1015.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1016.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1022.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1001.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e101b.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1054.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1013.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1003.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1074.gif" WIDTH="8" HEIGHT="16" ALT="">
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -604,7 +554,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
   ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <i>vi.</i>$B!!6&$KF/$/!(!!6&F18&5f$9$k!!(B<i>(with, on, in)$B!((B</i>$B!!E(B&!N@jNN73!O$K6(NO$9$k!%!!(B
+  ;;         <i>vi.</i>¡¡¶¦¤ËÆ¯¤¯¡¨¡¡¶¦Æ±¸¦µæ¤¹¤ë¡¡<i>(with, on, in)¡¨</i>¡¡Å¨Â¦¡ÎÀêÎÎ·³¡Ï¤Ë¶¨ÎÏ¤¹¤ë¡¥
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -614,7 +564,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="48" HEIGHT="2"></TD>
   ;;     <TD WIDTH="420" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <FONT COLOR="FF0000">collaboration</FONT>$B!!(B<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020773.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>$B!!(B
+  ;;         <FONT COLOR="FF0000">collaboration</FONT>¡¡<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020773.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -624,7 +574,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
   ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <i>n.</i>$B!!(B<FONT COLOR="FF0000">collaborationism</FONT>$B!!(B<i>n.</i>$B!!(B<FONT COLOR="FF0000">collaborationist</FONT>$B!!(B<i>n.</i>$B!!!JE(B&$X$N!K6(NO<T!%!!(B
+  ;;         <i>n.</i>¡¡<FONT COLOR="FF0000">collaborationism</FONT>¡¡<i>n.</i>¡¡<FONT COLOR="FF0000">collaborationist</FONT>¡¡<i>n.</i>¡¡¡ÊÅ¨Â¦¤Ø¤Î¡Ë¶¨ÎÏ¼Ô¡¥
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -634,7 +584,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="48" HEIGHT="2"></TD>
   ;;     <TD WIDTH="420" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <FONT COLOR="FF0000">collaborative</FONT>$B!!(B
+  ;;         <FONT COLOR="FF0000">collaborative</FONT>
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -644,7 +594,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
   ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <IMG SRC="/ej/image/e1073.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1015.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1016.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1022.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1001.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e101b.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1054.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1013.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1003.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1013.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e101d.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1074.gif" WIDTH="8" HEIGHT="16" ALT="">$B!!(B
+  ;;         <IMG SRC="/ej/image/e1073.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1015.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1016.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1022.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1001.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e101b.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1054.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1013.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1003.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1013.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e101d.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1074.gif" WIDTH="8" HEIGHT="16" ALT="">
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -654,7 +604,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
   ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <i>a.</i>$B!!6&F1@):n$N!%!!(B
+  ;;         <i>a.</i>¡¡¶¦Æ±À©ºî¤Î¡¥
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -664,7 +614,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="48" HEIGHT="2"></TD>
   ;;     <TD WIDTH="420" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <FONT COLOR="FF0000">collaborator</FONT>$B!!(B<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020774.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>$B!!(B
+  ;;         <FONT COLOR="FF0000">collaborator</FONT>¡¡<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020774.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -674,7 +624,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
   ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <i>n.</i>$B!!(B
+  ;;         <i>n.</i>
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -687,7 +637,7 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;;   </tr>
   ;;   <tr>
   ;;     <td>
-  ;;       $B"#!N(B<font color="#993333">collaborate</font>$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L!!(B
+  ;;       ¢£¡Î<font color="#993333">collaborate</font>¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   ;;     </td>
   ;;   </tr>
   ;; </table>
@@ -695,44 +645,44 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;; </td></tr></table>
   ;; <!-- RESULT_BLOCK -->
   ;;
-  ;; con$B!&(Btem$B!&(Bpo$B!&(Bra$B!&(Bry
-  ;; [clear] $B!|!|!|!|!|!|!|!|!|!|!|!|!|!|(B
-  ;; [clear] a., n.$B!!F1;~Be$N!J?M!$;(;o!K!!(B(with)$B!(!!F1G/Np$N!J(B
-  ;; $B?M!K!(!!8=Be$N!J?M!K!%!!(B
+  ;; con¡¦tem¡¦po¡¦ra¡¦ry
+  ;; [clear] ¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü
+  ;; [clear] a., n.¡¡Æ±»þÂå¤Î¡Ê¿Í¡¤»¨»ï¡Ë¡¡(with)¡¨¡¡Æ±Ç¯Îð¤Î¡Ê
+  ;; ¿Í¡Ë¡¨¡¡¸½Âå¤Î¡Ê¿Í¡Ë¡¥
   ;;
   ;; *
-  ;; $B"#!N(Bcontemporary$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L(B
+  ;; ¢£¡Îcontemporary¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   ;;
-  ;; 14:$B"#!N(Bcollaborate$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L!!(B
+  ;; 14:¢£¡Îcollaborate¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   ;; 15:*
   ;; 16:
-  ;; 17:col$B!&(Blab$B!&(Bo$B!&(Brate$B!!(B $B!!(B
-  ;; 18:[clear] $B!|!|!|!|!|!|!|!|!|!|!|!|!!(B
-  ;; 19:[clear] vi.$B!!6&$KF/$/!(!!6&F18&5f$9$k!!(B(with, on, in)$B!(!!(B
-  ;; 20:        $BE(B&!N@jNN73!O$K6(NO$9$k!%!!(B
-  ;; 21:[clear] collaboration$B!!(B $B!!(B
-  ;; 22:[clear] n.$B!!(Bcollaborationism$B!!(Bn.$B!!(Bcollaborationist$B!!(Bn.$B!!!J(B
-  ;; 23:        $BE(B&$X$N!K6(NO<T!%!!(B
-  ;; 24:[clear] collaborative$B!!(B
-  ;; 25:[clear] $B!|!|!|!|!|!|!|!|!|!|!|!|!|!|!!(B
-  ;; 26:[clear] a.$B!!6&F1@):n$N!%!!(B
-  ;; 27:[clear] collaborator$B!!(B $B!!(B
-  ;; 28:[clear] n.$B!!(B
+  ;; 17:col¡¦lab¡¦o¡¦rate
+  ;; 18:[clear] ¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü
+  ;; 19:[clear] vi.¡¡¶¦¤ËÆ¯¤¯¡¨¡¡¶¦Æ±¸¦µæ¤¹¤ë¡¡(with, on, in)¡¨
+  ;; 20:        Å¨Â¦¡ÎÀêÎÎ·³¡Ï¤Ë¶¨ÎÏ¤¹¤ë¡¥
+  ;; 21:[clear] collaboration
+  ;; 22:[clear] n.¡¡collaborationism¡¡n.¡¡collaborationist¡¡n.¡¡¡Ê
+  ;; 23:        Å¨Â¦¤Ø¤Î¡Ë¶¨ÎÏ¼Ô¡¥
+  ;; 24:[clear] collaborative
+  ;; 25:[clear] ¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü
+  ;; 26:[clear] a.¡¡¶¦Æ±À©ºî¤Î¡¥
+  ;; 27:[clear] collaborator
+  ;; 28:[clear] n.
   ;; 29:
   ;; 30:*
-  ;; 31:$B"#!N(Bcollaborate$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L!!(B
+  ;; 31:¢£¡Îcollaborate¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   ;;
-  ;; $B"#!N(Bvery$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L!!(B 2$B7o(B
+  ;; ¢£¡Îvery¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì¡¡ 2·ï
   ;; *
   ;;
-  ;; 1  $B?75,$G3+$/(B  very
+  ;; 1  ¿·µ¬¤Ç³«¤¯  very
   ;;
-  ;; 2  $B?75,$G3+$/(B  Very light
+  ;; 2  ¿·µ¬¤Ç³«¤¯  Very light
   ;;
   ;; *
-  ;; $B"#!N(Bvery$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L!!(B 2$B7o(B
+  ;; ¢£¡Îvery¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì¡¡ 2·ï
   ;;
-  ;; $B"#!N(Bcontemporary$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L(B
+  ;; ¢£¡Îcontemporary¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   ;; *
   ;;   (save-match-data
   ;;     (let (temp v start end)
@@ -742,27 +692,27 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
   ;; 	(if (search-forward "<!-- RESULT_BLOCK -->" nil t nil)
   ;; 	    (setq end (point)))
   ;; 	(goto-char start)
-  ;; 	(setq key (concat "<a href=\".+\">" (regexp-quote key) " +$B!Z(B\\([^$B!Z![(B]+\\)$B![(B</a>"))
+  ;; 	(setq key (concat "<a href=\".+\">" (regexp-quote key) " +¡Ú\\([^¡Ú¡Û]+\\)¡Û</a>"))
   ;; 	(while (re-search-forward key end t nil)
   ;; 	  (setq temp (skk-w3m-filter-string
-  ;; 		      ;; $B!R2?;~!S(B
-  ;; 		      (match-string-no-properties 1) '("$B!R(B" "$B!S(B")))
-  ;; 	  (setq v (nconc (split-string temp "$B!&(B") v)))
+  ;; 		      ;; ¡Ò²¿»þ¡Ó
+  ;; 		      (match-string-no-properties 1) '("¡Ò" "¡Ó")))
+  ;; 	  (setq v (nconc (split-string temp "¡¦") v)))
   ;; 	(nreverse v)))))
   ;;   (save-match-data
   ;;     (let (v)
-  ;;       (if (not (re-search-forward "[0-9]+  $B?75,$G3+$/(B" nil t nil))
+  ;;       (if (not (re-search-forward "[0-9]+  ¿·µ¬¤Ç³«¤¯" nil t nil))
   ;; 	  (if (re-search-forward
-  ;; 	       (concat "$B"#(B\\$B!N(B" (regexp-quote key) "\\$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L(B")
+  ;; 	       (concat "¢£\\¡Î" (regexp-quote key) "\\¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì")
   ;; 	       nil t nil)
   ;; 	      (setq v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1)))
   ;; 	(beginning-of-line)
-  ;; 	(while (re-search-forward "[0-9]+  $B?75,$G3+$/(B" nil t nil)
+  ;; 	(while (re-search-forward "[0-9]+  ¿·µ¬¤Ç³«¤¯" nil t nil)
   ;; 	  (backward-char)
   ;; 	  (w3m-view-this-url)
   ;; 	  (goto-char (point-min))
   ;; 	  (if (re-search-forward
-  ;; 	       (concat "$B"#(B\\$B!N(B" (regexp-quote key) "\\$B!O$N(BEXCEED$B1QOB<-E5$+$i$N8!:w7k2L(B")
+  ;; 	       (concat "¢£\\¡Î" (regexp-quote key) "\\¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì")
   ;; 	       nil t nil)
   ;; 	      (setq v (nconc v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1))))
   ;; 	  (w3m-view-previous-page)))
@@ -773,78 +723,78 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
 ;;   (save-match-data
 ;;     (let (temp temp1 temp2 temp3 tail v)
 ;;       (while (re-search-forward
-;; 	      "\\[clear\\] [a-z]+\\.\\(, [a-z]+\\.\\)*$B!!(B\\([^ a-zA-Z][^$B!%(B]+\\)$B!%(B"
+;; 	      "\\[clear\\] [a-z]+\\.\\(, [a-z]+\\.\\)*¡¡\\([^ a-zA-Z][^¡¥]+\\)¡¥"
 ;; 	      nil t nil)
 ;; 	(setq temp (match-string-no-properties 2))
 ;; 	(setq temp (skk-w3m-filter-string
-;; 		  ;; e.x. `$BFh@w!J$J$D$;$s!K9)(B', `(on, in)', `$B!Z7P1D![(B'
-;; 		    temp '("\n" "[0-9]+: +" "[$B!!(B ]+" "$B!J(B[$B$!(B-$B$s(B]+$B!K(B" "([, a-z]+)"
-;; 			   "$B!D$N(B" "$B!Z(B[^$B!Z![(B]+$B![(B" "($B6/0U(B)")))
+;; 		  ;; e.x. `ÆèÀ÷¡Ê¤Ê¤Ä¤»¤ó¡Ë¹©', `(on, in)', `¡Ú·Ð±Ä¡Û'
+;; 		    temp '("\n" "[0-9]+: +" "[¡¡ ]+" "¡Ê[¤¡-¤ó]+¡Ë" "([, a-z]+)"
+;; 			   "¡Ä¤Î" "¡Ú[^¡Ú¡Û]+¡Û" "(¶¯°Õ)")))
 ;; 	(while (string-match
-;; 		;; ((...)) $B$O0UL#$rI=$o$9$h$&$@!#(B
-;; 		;; e.x. $B%$%s%8%1!<%?!!(B(($B5!4o$N:nF0>uBV$rI=<($9$k5!G=(B))
-;; 		;; $B3g8LFb$r$"$($F%U%#%k%?%j%s%0$7$J$$$G=PNO$9$k!#(B
-;; 		"\\([^$B!$!((B]+\\)\\($B!N(B\\|((\\)\\([^$B!$!((B]+\\)\\($B!O(B\\|))\\)\\([^$B!$!((B]+\\)*"
+;; 		;; ((...)) ¤Ï°ÕÌ£¤òÉ½¤ï¤¹¤è¤¦¤À¡£
+;; 		;; e.x. ¥¤¥ó¥¸¥±¡¼¥¿¡¡((µ¡´ï¤ÎºîÆ°¾õÂÖ¤òÉ½¼¨¤¹¤ëµ¡Ç½))
+;; 		;; ³ç¸ÌÆâ¤ò¤¢¤¨¤Æ¥Õ¥£¥ë¥¿¥ê¥ó¥°¤·¤Ê¤¤¤Ç½ÐÎÏ¤¹¤ë¡£
+;; 		"\\([^¡¤¡¨]+\\)\\(¡Î\\|((\\)\\([^¡¤¡¨]+\\)\\(¡Ï\\|))\\)\\([^¡¤¡¨]+\\)*"
 ;; 		temp)
 ;; 	  (setq temp (concat (substring temp 0 (match-beginning 0))
 ;; 			     (match-string-no-properties 1 temp)
 ;; 			     (match-string-no-properties 5 temp)
-;; 			     "$B!$(B"
+;; 			     "¡¤"
 ;; 			     (match-string-no-properties 3 temp)
 ;; 			     (match-string-no-properties 5 temp)
 ;; 			     (substring temp (match-end 0)))))
-;; 	;; $BEvOG!J$N860x!K(B $B"*(B $BEvOG!$EvOG$N860x(B
-;; 	;; $BF1;~Be$N!J?M!$;(;o!K"*(B  $BF1;~Be$N!$F1;~Be$N?M!$F1;~Be$N;(;o(B
-;; 	(while (string-match "\\([^$B!$!((B]+\\)$B!J(B\\([^$B!((B]+\\)$B!K(B\\([^$B!$!((B]+\\)*" temp)
+;; 	;; ÅöÏÇ¡Ê¤Î¸¶°ø¡Ë ¢ª ÅöÏÇ¡¤ÅöÏÇ¤Î¸¶°ø
+;; 	;; Æ±»þÂå¤Î¡Ê¿Í¡¤»¨»ï¡Ë¢ª  Æ±»þÂå¤Î¡¤Æ±»þÂå¤Î¿Í¡¤Æ±»þÂå¤Î»¨»ï
+;; 	(while (string-match "\\([^¡¤¡¨]+\\)¡Ê\\([^¡¨]+\\)¡Ë\\([^¡¤¡¨]+\\)*" temp)
 ;; 	  (setq temp1 (match-string-no-properties 1 temp)
 ;; 		temp2 (match-string-no-properties 2 temp)
 ;; 		temp3 (match-string-no-properties 3 temp)
 ;; 		tail (substring temp (match-end 0)))
 ;; 	  (setq temp (concat (substring temp 0 (match-beginning 0))
-;; 			     temp1 "$B!$(B"
+;; 			     temp1 "¡¤"
 ;; 			     (mapconcat 'identity
 ;; 					(mapcar
 ;; 					 (function (lambda (e) (concat temp1 e temp3)))
-;; 					 (split-string temp2 "$B!$(B"))
-;; 					"$B!$(B")
+;; 					 (split-string temp2 "¡¤"))
+;; 					"¡¤")
 ;; 			     tail)))
-;; 	;; $B!JLdBj$r!KJ65j$5$;$k(B $B"*(B $BJ65j$5$;$k!$LdBj$rJ65j$5$;$k(B
-;; 	(while (string-match "$B!J(B\\([^$B!((B]+\\)$B!K(B\\([^$B!$!((B]+\\)" temp)
+;; 	;; ¡ÊÌäÂê¤ò¡ËÊ¶µê¤µ¤»¤ë ¢ª Ê¶µê¤µ¤»¤ë¡¤ÌäÂê¤òÊ¶µê¤µ¤»¤ë
+;; 	(while (string-match "¡Ê\\([^¡¨]+\\)¡Ë\\([^¡¤¡¨]+\\)" temp)
 ;; 	  (setq temp1 (match-string-no-properties 1 temp)
 ;; 		temp2 (match-string-no-properties 2 temp)
 ;; 		tail (substring temp (match-end 0)))
 ;; 	  (setq temp (concat (substring temp 0 (match-beginning 0))
-;; 			     temp2 "$B!$(B"
+;; 			     temp2 "¡¤"
 ;; 			     (mapconcat 'identity
 ;; 					(mapcar
 ;; 					 (function (lambda (e) (concat e temp2)))
-;; 					 (split-string temp1 "$B!$(B"))
-;; 					"$B!$(B")
+;; 					 (split-string temp1 "¡¤"))
+;; 					"¡¤")
 ;; 			     tail)))
-;; 	(setq v (nconc v (split-string temp "[$B!$!((B]")))
+;; 	(setq v (nconc v (split-string temp "[¡¤¡¨]")))
 ;; 	;; skip to next candidate.
-;; 	(or (re-search-forward "\\[clear\\] $B!|(B+" nil t nil)
+;; 	(or (re-search-forward "\\[clear\\] ¡ü+" nil t nil)
 ;; 	    (goto-char (point-max))))
 ;;       v)))
 
 (defun skk-w3m-get-candidates-from-goo-daily-shingo (key)
   ;; not yet.
-  ;; 15:$B"#!N(BSPA$B!O$N%G%$%j!<?78l<-E5$+$i$N8!:w7k2L!!(B
+  ;; 15:¢£¡ÎSPA¡Ï¤Î¥Ç¥¤¥ê¡¼¿·¸ì¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   ;; 16:*
   ;; 17:
   ;; 18:SPA
   ;; 19:
-  ;; 20:  $B!N(Bspeciality store retailer of private label apparel$B!O(B
-  ;; 21:  $B<+<R%V%i%s%I$N0aNAIJ$rGd$kD>1DE9$N$3$H!#$^$?!$$=$N$h$&$J;v6H7ABV!#0aNAIJ$N4k(B
-  ;; 22:  $B2h!&3+H/$+$i@=B$!&N.DL!&HNGd$K;j$k$^$G$r0l3g$7$F<h$j07$$!$8\5R$N%K!<%:$K8zN((B
-  ;; 23:  $BE*$KBP1~$9$k!#(B
-  ;; 24:  $B"*%W%i%$%Y!<%H(B-$B%V%i%s%I(B
-  ;; 25:  $B!LFH<+%V%i%s%I0aNA$N@lLgE9HNGd6H<T$NN,!#%"%a%j%+$N0aNA>.GdE9$K$h$kB$8l$,5/8;(B
-  ;; 26:  $B!M(B
+  ;; 20:  ¡Îspeciality store retailer of private label apparel¡Ï
+  ;; 21:  ¼«¼Ò¥Ö¥é¥ó¥É¤Î°áÎÁÉÊ¤òÇä¤ëÄ¾±ÄÅ¹¤Î¤³¤È¡£¤Þ¤¿¡¤¤½¤Î¤è¤¦¤Ê»ö¶È·ÁÂÖ¡£°áÎÁÉÊ¤Î´ë
+  ;; 22:  ²è¡¦³«È¯¤«¤éÀ½Â¤¡¦Î®ÄÌ¡¦ÈÎÇä¤Ë»ê¤ë¤Þ¤Ç¤ò°ì³ç¤·¤Æ¼è¤ê°·¤¤¡¤¸ÜµÒ¤Î¥Ë¡¼¥º¤Ë¸úÎ¨
+  ;; 23:  Åª¤ËÂÐ±þ¤¹¤ë¡£
+  ;; 24:  ¢ª¥×¥é¥¤¥Ù¡¼¥È-¥Ö¥é¥ó¥É
+  ;; 25:  ¡ÌÆÈ¼«¥Ö¥é¥ó¥É°áÎÁ¤ÎÀìÌçÅ¹ÈÎÇä¶È¼Ô¤ÎÎ¬¡£¥¢¥á¥ê¥«¤Î°áÎÁ¾®ÇäÅ¹¤Ë¤è¤ëÂ¤¸ì¤¬µ¯¸»
+  ;; 26:  ¡Í
   ;; 27:
   ;; 28:
   ;; 29:*
-  ;; 30:$B"#!N(BSPA$B!O$N%G%$%j!<?78l<-E5$+$i$N8!:w7k2L!!(B
+  ;; 30:¢£¡ÎSPA¡Ï¤Î¥Ç¥¤¥ê¡¼¿·¸ì¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
   )
 
 (defun skk-w3m-get-candidates-from-quote-yahoo (key)
@@ -871,9 +821,9 @@ w3m $B$r(B backend $B$GF0$+$7$F$$$J$$(B)$B!#(B")
 
 ;;;###autoload
 (defun skk-w3m-query-quote-yahoo
-  ;; $# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "$B1_(B")/(skk-w3m-query-quote-yahoo "USD" "DEM" 'prefix "DM")/
-  ;; sfr# /(skk-w3m-query-quote-yahoo "CHF" "JPY" 'postfix "$B1_(B")/
-  ;; dm# /(skk-w3m-query-quote-yahoo "DEM" "JPY" 'postfix "$B1_(B")/
+  ;; $# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "±ß")/(skk-w3m-query-quote-yahoo "USD" "DEM" 'prefix "DM")/
+  ;; sfr# /(skk-w3m-query-quote-yahoo "CHF" "JPY" 'postfix "±ß")/
+  ;; dm# /(skk-w3m-query-quote-yahoo "DEM" "JPY" 'postfix "±ß")/
   (currency-from currency-to &optional position convert-currency-to)
   (let (v)
     (setq skk-w3m-currency-from currency-from
