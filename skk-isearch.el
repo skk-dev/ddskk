@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.21 2001/10/03 22:14:57 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.22 2001/10/06 06:46:24 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/03 22:14:57 $
+;; Last Modified: $Date: 2001/10/06 06:46:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -117,7 +117,9 @@
 (defun skk-isearch-message ()
   "Show isearch message."
   (skk-isearch-incomplete-message
-   (if (string= skk-prefix "") (char-to-string last-command-char) skk-prefix)))
+   (if (string= skk-prefix "")
+       (char-to-string last-command-char)
+     skk-prefix)))
 
 (defun skk-isearch-current-mode ()
   "Return the symbolic current mode of skk for skk-isearch."
@@ -134,14 +136,18 @@ The MODE should be canonical."
   ;; following code is highly depends on internal of skk.
   ;; (skk-isearch-turn-on-skk-mode)
   ;; (skk-isearch-skk-kakutei)
-  (cond ((eq mode 'hiragana) (skk-isearch-skk-turn-on-hiragana-mode))
-	((eq mode 'katakana) (skk-isearch-skk-turn-on-katakana-mode))
-	((eq mode 'jisx0208-latin)
-	 (skk-isearch-skk-turn-on-jix0208-latin-mode))
-	((eq mode 'latin) (skk-isearch-skk-turn-on-latin-mode))
-	((not mode) (skk-isearch-turn-off-skk-mode))
-	;; shouldn't happen.
-	(t (error "unknown skk-isearch-mode %s" mode))))
+  (case mode
+    (hiragana
+     (skk-isearch-skk-turn-on-hiragana-mode))
+    (katakana
+     (skk-isearch-skk-turn-on-katakana-mode))
+    (jisx0208-latin
+     (skk-isearch-skk-turn-on-jix0208-latin-mode))
+    (latin
+     (skk-isearch-skk-turn-on-latin-mode))
+    (t
+     (skk-isearch-turn-off-skk-mode))))
+
 
 (defun skk-isearch-symbolic-mode (mode)
   "Return symbolic skk isearch mode for given numerical MODE."
@@ -213,11 +219,14 @@ kakutei'ed and erase the buffer contents."
   (or (keymapp skk-isearch-mode-map)
       (static-cond
        ((eq skk-emacs-type 'xemacs)
-	(setq skk-isearch-mode-map (skk-isearch-setup-keymap (make-keymap)))
-	(set-keymap-parents skk-isearch-mode-map isearch-mode-map))
+	(setq skk-isearch-mode-map (skk-isearch-setup-keymap
+				    (make-keymap)))
+	(set-keymap-parents skk-isearch-mode-map
+			    isearch-mode-map))
        (t
 	(setq skk-isearch-mode-map
-	      (skk-isearch-setup-keymap (cons 'keymap isearch-mode-map))))))
+	      (skk-isearch-setup-keymap (cons 'keymap
+					      isearch-mode-map))))))
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
   (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
@@ -268,7 +277,8 @@ kakutei'ed and erase the buffer contents."
 	  ((eq mode 'jisx0208-latin) (skk-jisx0208-latin-mode-on))))
   ;; Input Method として SKK を使っている場合の対策
   (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
-    (when (string-match "^japanese-skk" (format "%s" default-input-method))
+    (when (string-match "^japanese-skk" (format "%s"
+						default-input-method))
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	(inactivate-input-method))))
   ;; skk-isearch の状態を表す内部変数の設定
@@ -281,13 +291,15 @@ kakutei'ed and erase the buffer contents."
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer
    (function (lambda ()
-	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
+	       (add-hook 'pre-command-hook 'skk-pre-command nil
+			 'local)))))
 
 (defun skk-isearch-incomplete-message (&optional prefix)
   "Show message when kana kanji conversion is in progress.
 Optional argument PREFIX is appended if given."
   (let ((isearch-message (concat isearch-message
-				 skk-isearch-incomplete-message prefix)))
+				 skk-isearch-incomplete-message
+				 prefix)))
     (isearch-message)))
 
 ;;
@@ -326,7 +338,8 @@ Optional argument PREFIX is appended if given."
   ;; Keys for `skk-isearch-skk-mode'.
   (let ((commands '(skk-mode skk-auto-fill-mode)))
     (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
-      (if (string-match "^japanese-skk" (format "%s" default-input-method))
+      (if (string-match "^japanese-skk"
+			(format "%s" default-input-method))
 	  (push 'toggle-input-method commands)))
     (skk-isearch-find-keys-define map commands 'skk-isearch-skk-mode))
 
@@ -632,20 +645,24 @@ If the current mode is different from previous, remove it first."
 (defconst skk-isearch-really-early-advice
   '(lambda ()
      (defadvice isearch-message-prefix (around skk-isearch-ad activate)
-       (if (string-match "^japanese-skk" (format "%s" default-input-method))
-	   (let (current-input-method) ad-do-it)
+       (let ((current-input-method
+	      (string-match "^japanese-skk"
+			    (format "%s" default-input-method))))
 	 ad-do-it))
      (defadvice isearch-toggle-input-method (around skk-isearch-ad activate)
        ;; Needed for calling skk-isearch via isearch-x.
-       (cond ((string-match "^japanese-skk" (format "%s" default-input-method))
-	      (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
+       (cond ((string-match "^japanese-skk"
+			    (format "%s" default-input-method))
+	      (let ((skk-isearch-initial-mode-when-skk-mode-disabled
+		     'latin))
 		(skk-isearch-mode-setup)
 		(skk-isearch-skk-mode)))
 	     ((null default-input-method)
 	      ad-do-it
 	      (when (string-match "^japanese-skk"
 				  (format "%s" default-input-method))
-		(let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
+		(let ((skk-isearch-initial-mode-when-skk-mode-disabled
+		       'latin))
 		  (skk-isearch-mode-setup))
 		(inactivate-input-method)))
 	     (t
