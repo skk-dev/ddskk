@@ -86,6 +86,17 @@
     (list
      (cons 'latin skk-e21-modeline-property))))
 
+(setq skk-icon
+      (let* ((load-path (cons (directory-file-name
+			       (file-name-directory skk-tut-file))
+			      load-path))
+	     (image (find-image '((:type xpm :file "skk.xpm" :ascent center))))
+	     (string "dummy"))
+	(if (and window-system image)
+	    (apply 'propertize string
+		   (cons 'display (cons image skk-e21-modeline-property)))
+	  nil)))
+
 ;; Functions.
 
 (defun skk-e21-modeline-menu ()
