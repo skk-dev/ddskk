@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.17 2002/01/02 08:09:06 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.18 2002/01/09 14:07:20 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2002/01/02 08:09:06 $
+;; Last Modified: $Date: 2002/01/09 14:07:20 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -134,9 +134,10 @@
 
 ;;;###autoload
 (defun update-buffer-local-frame-params ()
-  (update-buffer-local-cursor-color)
-  (update-buffer-local-foreground-color)
-  (update-buffer-local-background-color))
+  (with-current-buffer (window-buffer (selected-window))
+    (update-buffer-local-cursor-color)
+    (update-buffer-local-foreground-color)
+    (update-buffer-local-background-color)))
 
 ;;
 ;; buffer-local-cursor
