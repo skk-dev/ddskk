@@ -1,5 +1,7 @@
 2004-04-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-kanagaki-menu.el: Add Japanese menu support for Emacs 21.
+
 	* skk-nicola-dcomp.el (skk-nicola-self-insert-lshift): Do not try
 	to delete region when local variable pos is not set.
 
