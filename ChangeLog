@@ -1,5 +1,11 @@
 2001-07-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* READMEs/PROPOSAL (分割したファイルに必須の記述): Updated.
+	Change section name to `skk.el 以外のファイルに必須の記述'.  
+	(SKK 10 が動作する Emacs のバージョンは?): Change section name to
+	`Daredevil skk 11 が動作する Emacs のバージョンは?'.
+	(Emacs のバージョン間差異の吸収は?): Updated.
+	
 	* READMEs/README: Updated.
 
 	* skk-vars.el (skk-rom-kana-base-rule-list): Add an element whose
@@ -37,6 +43,10 @@
 
 	* READMEs/FAQ.txt ([Q.] SKK はどんなオペレーティングシステムで使え
 	ますか?): Updated.
+	([Q.] 開発版の SKK は何故、`Daredevil' などと言う branch 名がついているのですか？):
+	Change section name to `[Q.] 開発版の SKK は何故、`Daredevil SKK' などと言う名がついているのですか?'
+	([Q.] APEL に依存せずに SKK だけで済むように開発してもらえませんか?):
+	Updated.
 
 2001-07-10  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -3600,8 +3610,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.313 2001/07/19 17:05:07 minakaji Exp $
-Last Modified: $Date: 2001/07/19 17:05:07 $
+Version: $Id: ChangeLog,v 1.314 2001/07/20 05:49:59 minakaji Exp $
+Last Modified: $Date: 2001/07/20 05:49:59 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
