@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.10 2001/02/04 03:55:31 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.11 2001/02/04 05:33:11 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/02/04 03:55:31 $
+;; Last Modified: $Date: 2001/02/04 05:33:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -53,20 +53,38 @@
 ;;
 ;; ディフォルトの設定では、lookup の変数である `lookup-search-agents'
 ;; をコピーして ndkks, ndcookie, ndnmz を取り去り、
-;; `skk-lookup-search-agents' にセットしてこれを検索するようにしています。
-;; もちろん lookup の検索とは異なる設定を `skk-lookup-search-agents' に明
-;; 示することも可能です。
+;; `skk-lookup-search-agents' にセットしてこれを検索するようにしてい
+;; ます。もちろん lookup の検索とは異なる設定を
+;; `skk-lookup-search-agents' に明示することも可能です。
 ;;
-;; 現在対応している辞書は
+;; `lookup-entry-heading' が返す heading (辞書見出し。辞書毎にフォーマ
+;; ットが異なる) から正規表現を使い、候補として出力する文字列を切り出し
+;; ています。現在対応している辞書は下記の通り (`lookup-dictionary-name'
+;; が返す値で標記しています) ですが、下記に記載のない辞書でも正規表現を
+;; 指定することで使用可能です。
 ;;
-;;   ispell, jedict, CHIEZO, CHUJITEN, COLLOC, CRCEN, GENIUS, GN99EP01,
-;;   GN99EP02, IWAKOKU, KANJIGEN, KANWA, KOJIEN, KOKUGO, KOUJIEN,
-;;   MYPAEDIA, NEWANC, PLUS, RIKAGAKU, WAEI
-;;
-;; です (lookup-dictionary-name が返す値で標記しています)。
-;; kakasi (KAKASI を利用するなら skk-kakasi.el を使いましょう),
-;; ndcookie, ndnmz には対応していませんし、対応の必要はないと考えてい
-;; ます (メリットがあれば教えて下さい)。
+;;    "CHIEZO" ;知恵蔵
+;;    "CHUJITEN" ;辞・典・盤
+;;    "COLLOC" ;
+;;    "CRCEN" ;三省堂 ニューセンチュリー英和・新クラウン和英辞典
+;;    "GENIUS" ; ジーニアス英和, ジーニアス英和・和英辞典 
+;;    "GN99EP01" ;Super統合辞書99 Disk1/現代用語の基礎知識
+;;    "GN99EP02" ;Super統合辞書99 Disk2/現代用語の基礎知識
+;;    "IWAKOKU" ;岩波国語辞典
+;;    "KANJIGEN"; Super統合辞書99 Disk2/漢字源 : EPWING
+;;    "KANWA";
+;;    "KOJIEN" ; 広辞苑第5版(岩波,EPWING)
+;;    "KOKUGO" ;三省堂 日本語辞典（現代国語、外来語）
+;;    "KOUJIEN"; 広辞苑第4版(岩波,EPWING) マルチメディア版
+;;    "MYPAEDIA" ;「辞・典・盤」附属のマイペディア
+;;               ; mypaedia-fpw から生成した PC Success 版マイペディア
+;;                 (FreePWING 辞書)
+;;    "NEWANC" ; ニューアンカー英和
+;;    "PLUS";
+;;    "RIKAGAKU" ;理化学辞典
+;;    "WAEI";
+;;    "ispell";
+;;    "jedict";
 ;;
 ;; ご自分で使用している辞書の出力が上手く取り込めないときは、
 ;; `skk-lookup-pickup-headings' を使用して例えば、
@@ -75,16 +93,21 @@
 ;;
 ;; などと評価して ("こしょう" の文字列部分は問題となっている検索対象と
 ;; 入れ替えましょう) `lookup-dictionary-name' と
-;; `lookup-entry-heading' が返す値を参考に、`'skk-lookup-option-alist'
-;; に必要なリストを加えましょう。新たなリストを加えられたら是非作者に
-;; も知せて下さい。default value に取り込みたいと思います。よろしくお
-;; 願いいたします。
+;; `lookup-entry-heading' が返す値を参考に、`skk-lookup-option-alist'
+;; に必要なリストを加えましょう。新たなリストを加えられたら是非
+;; skk@ring.gr.jp 宛てに知せて下さい。default value に取り込みたいと思
+;; います。よろしくお願いいたします。
+;;
+;; kakasi ("KAKASI" を利用する代りに skk-kakasi.el を使いましょう),
+;; "ndcookie", "ndnmz" には対応していませんし、対応の必要はないと考え
+;; ています (メリットがあれば教えて下さい)。
 ;;
 ;; 末尾ながら、Lookup を作られた Lookup Development Team の皆様、
-;; Lookup の 原作者であり、本プログラムの開発にもいくつか貴重なご意見をいただ
-;; きました Keisuke Nishida <kxn30@po.cwru.edu> さん、開発の初期からデ
-;; バッグを手伝っていただいた、NEMOTO Takashi <tnemoto@mvi.biglobe.ne.jp>
-;; さん、sphere <sphere@pop12.odn.ne.jp> さんに深く感謝いたします。
+;; Lookup の 原作者であり、本プログラムの開発にもいくつか貴重なご意見を
+;; いただきました Keisuke Nishida <kxn30@po.cwru.edu> さん、開発の初期
+;; からデバッグを手伝っていただいた、NEMOTO Takashi
+;; <tnemoto@mvi.biglobe.ne.jp> さん、sphere <sphere@pop12.odn.ne.jp> さ
+;; んに深く感謝いたします。
 
 ;;; Code:
 (eval-when-compile

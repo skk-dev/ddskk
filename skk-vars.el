@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.29 2001/02/04 05:09:43 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.30 2001/02/04 05:33:11 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/04 05:09:43 $
+;; Last Modified: $Date: 2001/02/04 05:33:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2762,7 +2762,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   6th: $B@Z$j=P$5$l$?J8;zNs$+$iFCDj$NJ8;zNs$r<h$j=|$/>l9g$K;XDj$9$k(B regexp$B!#(B
        $B<-=q$N=PNO$,<-=qFCM-$N5-9fJ8;z$r4^$`>l9g$K;XDj$9$k!#(B
 
-$B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"KANJIGEN\", \"KOKUGO\", \"RIKAGAKU\" $B5Z$S(B
+$B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"CRCEN\", \"KANJIGEN\", \"RIKAGAKU\" $B5Z$S(B
 \"WAEI\".
 `lookup-entry-heading' $B$G<h$j=P$7$?J8;zNs$,2<5-$N$h$&$K$J$k$3$H$rA0Ds$K$7$F$$$k!#(B
 
