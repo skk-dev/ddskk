@@ -2,9 +2,9 @@
 ;; Copyright (C) 1996, 1998, 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kakasi.el,v 1.5 1999/12/12 00:24:18 minakaji Exp $
+;; Version: $Id: skk-kakasi.el,v 1.6 2000/09/08 09:18:36 akiho Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/12/12 00:24:18 $
+;; Last Modified: $Date: 2000/09/08 09:18:36 $
 
 ;; This file is not part of SKK yet.
 
@@ -40,7 +40,8 @@
 ;; ftp で入手可能としている sunsite.sut.ac.jp に感謝いたします。
 
 ;;; Code:
-(eval-when-compile (require 'skk))
+(require 'skk)
+(require 'skk-cursor)
 (require 'skk-foreword)
 ;; APEL
 (require 'path-util)
