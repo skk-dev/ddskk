@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-autoloads.el,v 1.2 1999/09/25 05:43:37 minakaji Exp $
+;; Version: $Id: skk-autoloads.el,v 1.3 1999/10/04 08:46:11 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/25 05:43:37 $
+;; Last Modified: $Date: 1999/10/04 08:46:11 $
 
 ;; This file is not part of SKK yet.
 
@@ -25,6 +25,7 @@
 ;; MA 02111-1307, USA.
 
 ;;; Code:
+
 (autoload 'skk-activate "skk-leim" nil nil nil)
 (autoload 'skk-ad-to-gengo "skk-gadget" nil nil nil)
 (autoload 'skk-adjust-search-prog-list-for-auto-okuri "skk-auto" nil nil nil)
@@ -56,6 +57,7 @@
 (autoload 'skk-isearch-mode-setup "skk-isearch" nil t nil)
 (autoload 'skk-look "skk-look" nil nil nil)
 (autoload 'skk-look-completion "skk-look" nil nil nil)
+(autoload 'skk-lookup-search "skk-lookup" nil nil nil)
 (autoload 'skk-minus "skk-gadget" nil nil nil)
 (autoload 'skk-mode "skk" nil t nil)
 (autoload 'skk-num "skk-num" nil nil nil)
@@ -84,8 +86,10 @@
 (autoload 'skk-submit-bug-report "skk-develop" nil t nil)
 (autoload 'skk-times "skk-gadget" nil nil nil)
 (autoload 'skk-today "skk-gadget" nil t nil)
+(autoload 'skk-tutcode-display-code "skk-tutcode" nil t nil)
+(autoload 'skk-tutcode-mode-off "skk-tutcode" nil nil nil)
 (autoload 'skk-tutorial "skk-tut" nil t nil)
-;;(autoload 'skk-version "skk" nil t nil)
+(autoload 'skk-version "skk" nil t nil)
 (autoload 'skk-viper-normalize-map "skk-viper" nil nil nil)
 
 (provide 'skk-autoloads)
