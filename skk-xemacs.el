@@ -186,9 +186,10 @@
   (let ((keys
 	 (or (do ((spec (nth 4 skk-rule-tree) (cdr spec))
 		  (list nil (car spec))
-		  (str nil (when (eq (nth 3 list)
-				     func)
-			     (nth 1 list))))
+		  (str nil (if (eq (nth 3 list)
+				   func)
+			       (nth 1 list)
+			     nil)))
 		 ((or str (null spec))
 		  (cond
 		   ((not (stringp str))
