@@ -1,3 +1,12 @@
+1999-12-30  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-jisx0201.el (skk-setup-modeline): If
+	`skk-status-indicator' is left and the face `modeline' is not
+	proportional, use the same number of columns to display each SKK
+	status, except for `skk-jisx0201-mode'.
+
+	* skk.el (skk-setup-modeline): Ditto.
+
 1999-12-16  Yuh Ohura <yutopia@t3.rim.or.jp>
 
 	* make.bat : correct bug.

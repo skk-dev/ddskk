@@ -1,6 +1,6 @@
 ;;; skk-autoloads.el --- autoload settings for SKK.
 
-;; This file was generated automatically by SKK-MK at Sun Dec 12 21:37:47 1999.
+;; This file was generated automatically by SKK-MK at Fri Dec 31 03:21:18 1999.
 
 ;; This file is part of Daredevil SKK.
 
@@ -48,10 +48,8 @@
 (autoload 'skk-input-by-code-or-menu "skk-kcode" nil t nil)
 (autoload 'skk-isearch-mode-cleanup "skk-isearch" nil nil nil)
 (autoload 'skk-isearch-mode-setup "skk-isearch" nil nil nil)
-(autoload 'skk-jisx0201-mode "skk-jisx0201" nil t nil)
 (autoload 'skk-look "skk-look" nil nil nil)
 (autoload 'skk-look-completion "skk-look" nil nil nil)
-(autoload 'skk-lookup-search "skk-lookup" nil nil nil)
 (autoload 'skk-minus "skk-gadget" nil nil nil)
 (autoload 'skk-mode "skk" nil t nil)
 (autoload 'skk-num-henkan-key "skk-num" nil nil nil)
@@ -68,11 +66,6 @@
 (autoload 'skk-romaji-message "skk-kakasi" nil t nil)
 (autoload 'skk-romaji-region "skk-kakasi" nil t nil)
 (autoload 'skk-start-henkan-with-completion "skk-comp" nil t nil)
-(autoload 'skk-study-check-alist-format "skk-study" nil t nil)
-(autoload 'skk-study-read "skk-study" nil t nil)
-(autoload 'skk-study-save "skk-study" nil t nil)
-(autoload 'skk-study-search "skk-study" nil nil nil)
-(autoload 'skk-study-update "skk-study" nil nil nil)
 (autoload 'skk-submit-bug-report "skk-develop" nil t nil)
 (autoload 'skk-times "skk-gadget" nil nil nil)
 (autoload 'skk-today "skk-gadget" nil t nil)
