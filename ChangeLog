@@ -1,3 +1,35 @@
+2000-03-16  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el: Version 10.60 released.
+
+	* SKK-MK (SKK-MK-what-where-package): Remove all spaces between
+	parens.
+	(SKK-MK-what-where): Ditto.
+	(SKK-MK-texinfo-format): Ditto.
+	(SKK-MK-cleanup-trouble-makers): Ditto.
+	(SKK-MK-install-package): Ditto.
+	(SKK-MK-install): Ditto.
+	(SKK-MK-compile-info): Ditto.
+	(SKK-MK-compile): Ditto.
+	(SKK_PACKAGE_LISPDIR): Ditto.
+	(SKK_PACKAGE_DATADIR): Ditto.
+	(PACKAGE_INFODIR): Ditto.
+	(PACKAGEDIR): Ditto.
+	(SKK_LISPDIR): Ditto.
+	(SKK_INFODIR): Ditto.
+	(SKK_DATADIR): Ditto.
+	(SKK_MODULES): Ditto.
+	(SKK_INFOS): Ditto.
+	(SKK-MK-texinfo-coding-system): Ditto.
+	(APEL_SPECIFIC_LISPDIR): Ditto.
+	(VERSION_SPECIFIC_LISPDIR): Ditto.
+	(LISPDIR): Ditto.
+	(SKK-MK-cleanup-trouble-makers): Removed.
+	(SKK-MK-install): Do not use `SKK-MK-cleanup-trouble-makers'.
+	(SKK-MK-install-package): Ditto. 
+	(SKK-MK-generate-autoloads-el): Go to a max point before inserting
+	ending tag.
+
 2000-03-16  FURUE Hideyuki  <furue@kke.co.jp>
 
 	* missing: Remove from the repository.
