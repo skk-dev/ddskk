@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.9 2000/12/12 09:00:57 minakaji Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.10 2001/06/16 07:24:31 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2000/12/12 09:00:57 $
+;; Last Modified: $Date: 2001/06/16 07:24:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -672,6 +672,7 @@
       (skk-search-and-replace
        start end "う゛" (lambda (matched) "ｳﾞ")))
   (if latin-jisx0201
+      nil
       ;; not yet
       ))
 
@@ -684,6 +685,7 @@
       (skk-search-and-replace
        start end "ヴ" (lambda (matched) "ｳﾞ")))
   (if latin-jisx0201
+      nil
       ;; not yet
       ))
 

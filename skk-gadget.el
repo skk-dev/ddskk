@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.16 2001/06/01 08:47:54 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.17 2001/06/16 07:24:31 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/06/01 08:47:54 $
+;; Last Modified: $Date: 2001/06/16 07:24:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -68,13 +68,16 @@ AND-TIME \(boolean\) を指定すると時刻も返す。
   (or pp-function (setq pp-function skk-default-current-date-function))
   (funcall pp-function (skk-current-date-1) format skk-date-ad and-time))
 
-(defun skk-current-date-1 ()
+(defun skk-current-date-1 (&optional specified-time)
   "`current-time-string' の出力を加工し、日付・時刻情報をリストにして返す。
 \(year month day day-of-week hour minute second\)"
-  (let ((str (current-time-string)))
+  (let* ((str (current-time-string specified-time))
+	 (date (substring str 8 10)))
+    (if (eq (aref date 0) ?\040)
+	(setq date (substring date 1))) 
     (list
      (substring str 20 24) (substring str 4 7)
-     (substring str 8 10) (substring str 0 3)
+      date (substring str 0 3)
      (substring str 11 13) (substring str 14 16)
      (substring str 17 19))))
 
@@ -87,7 +90,7 @@ AND-TIME \(boolean\) を指定すると時刻も返す。
 この関数の引数でカスタマイズできない出力を希望する場合は、
 `skk-default-current-date-function' に自前の関数を指定する。
 
-DATE-INFORMATION は `current-time-string' が返した文字列を 
+DATE-INFORMATION は `current-time-string' が返した文字列を
 
   \(year month day day-of-week hour minute second\)
 
@@ -120,10 +123,10 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 	(minute (nth 5 date-information))
 	(second (nth 6 date-information))
 	v)
-    (if gengo 
+    (if gengo
 	(setq v (skk-ad-to-gengo-1 (string-to-number year))))
     (setq year (if gengo (concat
-			  (if gengo-index 
+			  (if gengo-index
 			      (nth gengo-index (car v))
 			    (car (car v)))
 			  (skk-num-exp (number-to-string (cdr v)) num-type))
@@ -152,6 +155,7 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 実質的に today エントリの呼出しなので、個人辞書の today エントリによりカスタマ
 イズすることができる。"
   (interactive "p")
+  (or skk-mode (skk-mode 1))
   (skk-set-henkan-point-subr)
   (insert "today")
   (skk-start-henkan arg))
@@ -283,7 +287,7 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
   (if (>= 1866 ad)
       (skk-error "$B分りません" "Unkown year")
     (cons (cond ((>= 1911 ad)
-		 (setq ad (- ad 1867)) 
+		 (setq ad (- ad 1867))
 		 (cdr (assq 'meiji skk-gengo-alist)))
 		((>= 1925 ad)
 		 (setq ad (- ad 1911))
@@ -306,7 +310,7 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
   ;; $Bしょうわ#ねん /(skk-gengo-to-ad "" "年")/(skk-gengo-to-ad "" " 年")/(skk-gengo-to-ad "西暦" "年")/(skk-gengo-to-ad "西暦" " 年")/
   (save-match-data
     (if (string-match (car skk-num-list) skk-henkan-key)
-	(let ((v (skk-gengo-to-ad-1 
+	(let ((v (skk-gengo-to-ad-1
 		  (substring skk-henkan-key 0 (match-beginning 0))
 		  (string-to-number (car skk-num-list)))))
 	  (if v (concat head (number-to-string v) tail))))))

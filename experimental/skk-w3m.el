@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.20 2001/06/14 21:43:58 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.21 2001/06/16 07:24:31 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/06/14 21:43:58 $
+;; Last Modified: $Date: 2001/06/16 07:24:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -474,7 +474,7 @@ w3m を backend で動かしていない)。")
 	  nil
 	(goto-char start)
 	(setq key (format "\\(%s\\|%s\\)"
-			  ;;  <b>8</b>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" target="_blank" hseq="35"><img_alt src="/Common/icon01.gif">新規で開く</img_alt></a>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" hseq="36">かんきょう【艦橋】</a>
+			  ;; <b>8</b>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" target="_blank" hseq="35"><img_alt src="/Common/icon01.gif">新規で開く</img_alt></a>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" hseq="36">かんきょう【艦橋】</a>
 			  (format "<a href=\".+\">%s *【\\([^<>【】]+\\)】</a>" key)
 			  ;; <B>がいはんぼしぐわいはん―【外反拇趾】</B>
 			  (format "<B>%s[^<【]*【\\([^<>【】]+\\)】</B>" key)))
