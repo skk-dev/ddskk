@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.13 2004/12/26 21:34:12 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.14 2004/12/28 05:46:34 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/12/26 21:34:12 $
+;; Last Modified: $Date: 2004/12/28 05:46:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -280,7 +280,8 @@
   ;; skk-bayesian-pending-data-alist
   ;; 注意
   ;; skk-get-last-henkan-datum は、新しい確定が pending 中に起こるので、使えない。
-  (when skk-bayesian-pending-data-alist
+  (when (and skk-bayesian-pending-data-alist
+             (buffer-live-p (skk-bayesian-get-pending-data-alist 'buffer)))
     (with-current-buffer (skk-bayesian-get-pending-data-alist 'buffer)
       (let* ((kakutei-word (skk-bayesian-get-pending-data-alist 'word))
              (kakutei-with-okuri (concat kakutei-word
