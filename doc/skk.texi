@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.134 2003/08/03 08:32:03 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.135 2004/03/04 09:48:33 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/08/03 08:32:03 $
+@c  Last Modified: $Date: 2004/03/04 09:48:33 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/08/03 08:32:03 $
+@set UPDATED $Date: 2004/03/04 09:48:33 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -376,7 +376,7 @@ Ruby で動きます。複数辞書検索や EPWING 辞書検索に対応しています。
 
 @item wceSKKSERV
 Windows (CE|9x|NT|2K|XP) 用。複数辞書検索が可能です。
-@url{http://megadriver.ns.tc/~fumi/wceskkserv/} をご参照下さい。
+@url{http://megadriver.yi.org/~fumi/wceskkserv/} をご参照下さい。
 
 @item wskkserv
 Windows 用 SKK サーバの草分け。
@@ -7482,10 +7482,6 @@ subscribe して下さい。
 ニュースサーバに接続してメーリングリストの記事を読むことができます。NNTP
 クライアントで @samp{news.ring.gr.jp} に接続します。ニュースグループ名は、
 @samp{ring.openlab.skk} です。
-
-@url{http://news.ring.gr.jp/news/openlab.skk/} から HTTP 経由でニュース
-を見ることもできます。データベースエンジンが装備されていますので、ニュー
-ス記事のキーワード検索を行うこともできます。
 
 @node DDSKKの入手方法, SKK関連ソフトウェア, SKKメーリングリスト, Top
 @comment  node-name,  next,  previous,  up
