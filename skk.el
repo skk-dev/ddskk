@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.258 2003/02/26 08:50:11 czkmt Exp $
+;; Version: $Id: skk.el,v 1.259 2003/03/23 03:03:59 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/02/26 08:50:11 $
+;; Last Modified: $Date: 2003/03/23 03:03:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -797,7 +797,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	  skk-henkan-okuri-strictly nil
 	  skk-henkan-strict-okuri-precedence nil))
   (unless skk-jisyo-save-count
-    ;; $B8=:_$N<BAu$G$O!"8D?M<-=q$N%*!<%H%;!<%WL5$7$G$O8D?M<-=q$N6&M-$O$G$-$J$$(B
+    ;; $B8=:_$N<BAu$G$O!"8D?M<-=q$N%*!<%H%;!<%VL5$7$G$O8D?M<-=q$N6&M-$O$G$-$J$$(B
     ;; $B$3$H$K$J$C$F$$$k!#(B
     (setq skk-share-private-jisyo nil)))
 
