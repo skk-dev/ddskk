@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.88 2001/12/09 12:53:44 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.89 2001/12/09 15:06:38 akiho Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/09 12:53:44 $
+;; Last Modified: $Date: 2001/12/09 15:06:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1206,6 +1206,7 @@ highlight, underline, bold, italic, bold-italic $B$NB>!"?7$?$K(B face $B$r:n
 (when (and skk-use-face
 	   (boundp 'frame-background-mode)
 	   (not frame-background-mode)
+       (fboundp 'face-background)
 	   (not (face-background 'skk-henkan-face-default)))
   (set-face-foreground 'skk-henkan-face-default "black")
   (set-face-background 'skk-henkan-face-default "darkseagreen2"))
@@ -1661,7 +1662,7 @@ cdr $B$O859fI=5-$N(B string $B$+$i$J$k%j%9%H!#(B"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Ad(Brz")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M.ANdrz")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
