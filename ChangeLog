@@ -17,6 +17,10 @@
 
 	(skk-henkan): Use the candidate unmodified when `skk-numeric-p'.
 
+	* skk-isearch.el
+	(skk-isearch-initialize-working-buffer): Set `skk-dcomp-activate'
+	nil.
+
 2001-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
@@ -2721,8 +2725,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.524 2001/11/13 11:41:42 czkmt Exp $
-Last Modified: $Date: 2001/11/13 11:41:42 $
+Version: $Id: ChangeLog,v 1.525 2001/11/13 12:24:12 czkmt Exp $
+Last Modified: $Date: 2001/11/13 12:24:12 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
