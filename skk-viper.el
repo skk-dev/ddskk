@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.18 2001/09/23 14:56:08 czkmt Exp $
+;; Version: $Id: skk-viper.el,v 1.19 2001/09/23 22:00:30 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 14:56:08 $
+;; Last Modified: $Date: 2001/09/23 22:00:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -120,10 +120,10 @@
     (static-cond
      ((eq skk-emacs-type 'xemacs)
       (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
-	  (if skk-use-color-cursor
-	      (add-hook 'minibuffer-setup-hook
-			'skk-cursor-set
-			'append))))
+	(if skk-use-color-cursor
+	    (add-hook 'minibuffer-setup-hook
+		      'skk-cursor-set
+		      'append))))
      (t
       (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
 	"minibuffer-setup-hook に update-buffer-local-frame-params をフックする。
