@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.175 2001/11/10 00:51:41 czkmt Exp $
+;; Version: $Id: skk.el,v 1.176 2001/11/11 14:50:52 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/10 00:51:41 $
+;; Last Modified: $Date: 2001/11/11 14:50:52 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -1826,13 +1826,22 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		(backward-char 1)
 		(insert "\n  "))
 	      (forward-line 1)))
-	  (unless (eq (next-window) (selected-window))
-	    ;; *候補* バッファを見易くする。
-	    ;; (save-window-excursion の中なので大丈夫なはず)
-	    (delete-other-windows))
-	  (display-buffer buff)
-	  (unless (pos-visible-in-window-p)
-	    (recenter '(1))))))
+	  (let ((minibuf-p (skk-in-minibuffer-p))
+		(window (get-buffer-window
+			 (skk-minibuffer-origin))))
+	    (when minibuf-p
+	      (if window
+		  (select-window window)
+		(other-window 1)))
+	    (unless (eq (next-window) (selected-window))
+	      ;; *候補* バッファを見易くする。
+	      ;; (save-window-excursion の中なので大丈夫なはず)
+	      (delete-other-windows))
+	    (display-buffer buff)
+	    (unless (pos-visible-in-window-p)
+	      (recenter '(1)))
+	    (when minibuf-p
+	      (select-window (minibuffer-window)))))))
     ;; 表示する候補数を返す。
     n))
 
