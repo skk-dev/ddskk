@@ -2,9 +2,9 @@
 @c
 @c  Author: Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk-faq.texi,v 1.11 2000/10/23 18:59:03 czkmt Exp $
+@c  Version: $Id: skk-faq.texi,v 1.12 2000/10/24 20:56:00 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/23 18:59:03 $
+@c  Last Modified: $Date: 2000/10/24 20:56:00 $
 @c
 @setfilename skk-faq.info
 
@@ -288,6 +288,7 @@ Emacs のそれぞれのバージョン間の差異を吸収するパッケージです。
 * Q.3-3 「ゐ」や「ヰ」 が入力できるようにカスタマイズしたいのですが。::  
 * Q.3-4 skk-input-vector と skk-roma-kana-a が見当たりませんが。::  
 * Q.3-5 検索する辞書を増やしたいのですが。::  
+* Q.3-6 左手の小指を SHIFT で酷使したくありません。::  
 @end menu
 
 @node Q.3-1 インジケータをモード行の左端に置きたいのですが。, Q.3-2 「．」、「，」 が入力できるようにカスタマイズしたいのですが。, Customization, Customization
@@ -363,7 +364,7 @@ Emacs のそれぞれのバージョン間の差異を吸収するパッケージです。
 ためにディフォルトの要素数を少なくしています。後者の設定は前者のものを
 上書きします。
 
-@node Q.3-5 検索する辞書を増やしたいのですが。,  , Q.3-4 skk-input-vector と skk-roma-kana-a が見当たりませんが。, Customization
+@node Q.3-5 検索する辞書を増やしたいのですが。, Q.3-6 左手の小指を SHIFT で酷使したくありません。, Q.3-4 skk-input-vector と skk-roma-kana-a が見当たりませんが。, Customization
 @comment  node-name,  next,  previous,  up
 @unnumberedsubsec Q.3-5 検索する辞書を増やしたいのですが。
 @vindex skk-search-prog-list
@@ -432,6 +433,125 @@ Emacs のそれぞれのバージョン間の差異を吸収するパッケージです。
 
 ちなみに、@file{SKK-JISYO.JIS2} は、最大でもリージョン間のポイント差が
 8,500 程度です。
+@node Q.3-6 左手の小指を SHIFT で酷使したくありません。, , Q.3-5 検索する辞書を増やしたいのですが。, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-6 左手の小指を SHIFT で酷使したくありません。
+
+SKK を標準の状態で使っている場合、変換のためにシフトキーを多用しますの
+で小指への負担が大きくなります。
+@footnote{このため、ある人々は SKK を小指キラーと呼びます。}
+
+この苦しみを回避するためにここでは 2 つの方法を紹介します。
+
+@enumerate
+@item
+親指の近くにあるキーを利用してシフトキーの代用とする。
+
+日本語 106 キーボードのように無変換、変換などのキーがある場合は、これ
+らをシフトキーの代用とすることが可能です。こうすると、例えば
+
+@display
+@key{SHIFT} を押しながら @kbd{a} を押す
+@end display
+
+@noindent
+というキー操作は
+
+@display
+@key{無変換} を押して、その後で @kbd{a} を押す
+@end display
+
+@noindent
+という操作で置き換えることができるようになります。
+
+それでは具体的なやり方を説明しましょう。まず、使用中の Emacs が無変換
+キーを何という名前で認識しているか調べます。それには
+
+@example
+@kbd{M-x describe-key}
+@end example
+
+@noindent
+というコマンドを実行し、続いて 無変換キーを押してみます。XFree86 上で
+なら、おそらく
+
+@example
+muhenkan is undefined
+@end example
+
+という答えが返ってくるでしょう。次に、この名前を使って @file{~/.emacs}
+に設定を書きこみます。以下は @key{無変換} = @key{muhenkan} の場合の例で
+す。
+
+@lisp
+@group
+(if (keymapp key-translation-map)
+    nil
+  (setq key-translation-map (make-sparse-keymap)))
+
+(let ((i ?a))
+  (while (<= i ?z)
+    (define-key key-translation-map
+                (vector 'muhenkan i) (vector (- i 32)))
+    (setq i (1+ i))))
+@end group
+@end lisp
+@vindex key-translation-map
+
+この設定を終えると、@kbd{@key{muhenkan}-a} で @kbd{A} が入力できるように
+なります。つづいて、SKK を起動してみましょう。@kbd{@key{muhenkan}-a} で
+@samp{▽あ} となります。送りの開始点も、もちろん同様の操作で指定できます。
+@footnote{変数 @code{key-translation-map} の意味を調べてみてください。
+
+@kbd{M-x describe-variable} @key{RET} key-translation-map}
+
+@item
+親指シフト入力のエミュレーション機能を利用する。
+@cindex 親指シフト入力
+
+これは 1 とはかなり違ったアプローチです。SKK 本来のローマ字的入力を捨
+てて、富士通のワープロ OASYS のような親指シフト入力を修得します。
+@footnote{親指シフト入力の詳細については、ここでは述べません。興味がある
+場合は、日本語入力コンソーシアムの Web サイト
+
+@display
+@samp{http://nicola.sunicom.co.jp/}
+@end display
+
+@noindent
+を訪れてください。}
+@cindex OASYS
+@cindex NICOLA
+@cindex 日本語入力コンソーシアム
+
+この機能は、SKK 10 では利用できません。Daredevil SKK 11.3 以降には、
+NICOLA-DDSKK というプログラムが付属しており、これをインストールすると
+親指シフト入力が可能になります。インストール自体は簡単で、
+
+@example
+% cd experimental/nicola
+% make install
+@end example
+
+@noindent
+とした後に、@file{~/.skk} に
+
+@lisp
+@group
+(setq skk-use-kana-keyboard t)
+(setq skk-kanagaki-keyboard-type 'omelet-jis)
+@end group
+@end lisp
+
+@noindent
+と書くだけです。詳しいことは、NICOLA-DDSKK 付属のドキュメントを参照し
+てください。
+
+NICOLA 配列は、特別に日本語入力のために考えられた配列なので、慣れれば
+非常に効率的な日本語入力ができるようになると期待されます。一方で、ロー
+マ字的入力方式に慣れてしまっている人にとっては、NICOLA 配列に慣れるま
+でかなり練習を要することは確かです。
+@end enumerate
 
 @node Dictionaries, Miscellaneous, Customization, よくある質問とその回答(FAQ)
 @comment  node-name,  next,  previous,  up
