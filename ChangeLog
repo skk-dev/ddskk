@@ -2,6 +2,9 @@
 
 	* etc/Emacs.ad: Add items for popup menu.
 
+	* skk-xemacs.el (skk-xemacs-find-func-keys): Show "C-j" if the
+	key description is "LFD".
+
 2001-08-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Re-indent.
@@ -1682,8 +1685,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.338 2001/09/01 01:31:51 czkmt Exp $
-Last Modified: $Date: 2001/09/01 01:31:51 $
+Version: $Id: ChangeLog,v 1.339 2001/09/01 02:52:29 czkmt Exp $
+Last Modified: $Date: 2001/09/01 02:52:29 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
