@@ -1,3 +1,69 @@
+2000-06-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-cursor.el: Change YAMATO san's email address.
+	* READMEs/Contributors (Contributors): Ditto.
+
+2000-06-24  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-cursor.el (skk-cursor-set-properly): Move `skk-abbrev-mode'
+	condition to second place.
+
+	* Makefile (DATE): New variable.
+	(snapshot): Use DATE to make archive.
+
+2000-06-23  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el: Remove unnecessary spaces between parens.
+	(skk-toggle-kana): Do not setup `skk-input-mode-string'.
+	Do not call `force-mode-line-update'.
+	(skk-kakutei): Check if `skk-mode' is nil or non-nil in a lower
+	region of the function in order not to initialize internal
+	variables before calling
+	`skk-search-excluding-word-pattern-function').
+	Do not call `force-mode-line-update'.	
+
+2000-06-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-toggle-kana): Doc fixed.
+	(skk-kakutei): Ditto.
+
+2000-06-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-toggle-kana): Bug fixed.
+
+	* skk-cursor.el (skk-cursor-set-color): Bug fixed.
+
+	* doc/skk.texi: Change SKK-VERSION 10.51 to 10.61.
+
+2000-06-20  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK_MAINTRUNK_NOT_USE): Add `leim-list' and `skk-setup'.
+
+	* skk-num.el (skk-num-recompute): Setup `skk-num-recompute-key' in
+	a upper region of the function code.
+	(skk-num-update-jisyo): Not to show debug message.
+	Bind `skk-use-numeric-conversion' to nil temporarily.
+	Set buffer to ` *.skk-jisyo*'.
+	(skk-num-recompute-key): Change to global internal variable.
+
+	* skk-lookup.el (skk-lookup-search): Not to search if
+	`skk-num-list' or `skk-num-recompute-key is non-nil.
+	Do not convert `skk-henkan-key' by `skk-num-compute-henkan-key'.
+	(skk-lookup-process-okurigana): Return nil if STRING is a null
+	string.
+	
+2000-05-31  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-cursor.el: Add `keyboard-quit' to FUNCS list.
+	Exclude `execute-extended-command' from FUNCS list.
+	Use `static-if' for decide whether to add
+	`minibuffer-keyboard-quit' to FUNCS list or not.
+	Add advices to `newline', `skk-delete-backward-char', `skk-insert'
+	and `skk-start-henkan'
+	(skk-cursor-set-properly): Add condition of `skk-abbrev-mode' is
+	non-nil.
+	(abort-recursive-edit): Add advice for XEmacs.
+
 2000-04-26  Yuh Ohmura  <yutopia@t3.rim.or.jp>
 
 	* make.bat : change maintenner.

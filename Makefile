@@ -1,10 +1,10 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.20 2000/03/16 13:21:16 minakaji Exp $
-# Last Modified: $Date: 2000/03/16 13:21:16 $
+# Version: $Id: Makefile,v 1.21 2000/07/07 22:25:14 minakaji Exp $
+# Last Modified: $Date: 2000/07/07 22:25:14 $
 
-VERSION = 10.60
+VERSION = 10.61
 
 TAR	= tar
 RM	= /bin/rm -f
@@ -12,6 +12,7 @@ CP	= /bin/cp -p
 EMACS	= emacs
 XEMACS	= xemacs
 FLAGS   = -batch -q -no-site-file -l SKK-MK
+DATE	= date
 
 elc:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile
@@ -42,6 +43,6 @@ tar: clean
 snapshot: clean
 	-$(RM) ../skk*
 	cd .. ; ln -sf main skk-snapshot
-	$(TAR) cvzpf ../skk-snapshot.tar.gz --exclude-from=skk.ex --dereference ../skk-snapshot
+	$(TAR) cvzpf ../skk-`$(DATE) '+%Y%m%d'`.tar.gz --exclude-from=skk.ex --dereference ../skk-snapshot
 
 # end of Makefile.

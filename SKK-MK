@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.37 2000/03/16 13:03:38 minakaji Exp $
-;; Last Modified: $Date: 2000/03/16 13:03:38 $
+;; Version: $Id: SKK-MK,v 1.38 2000/07/07 22:25:14 minakaji Exp $
+;; Last Modified: $Date: 2000/07/07 22:25:14 $
 
 ;; Commentary
 ;;
@@ -227,7 +227,7 @@
 (if SKK-MK-debugging (princ (format "SKK_MODULES=%s\n" SKK_MODULES)))
 
 (defconst SKK_PACKAGE_NOT_USE '(skk-autoloads))
-(defconst SKK_MAINTRUNK_NOT_USE '(skk-vip skk-macs skk-xm20_4 stack-m))
+(defconst SKK_MAINTRUNK_NOT_USE '(skk-vip skk-macs skk-xm20_4 stack-m leim-list skk-setup))
 
 ;;; [FUNCTIONS]
 (defun SKK-MK-compile ()

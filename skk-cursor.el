@@ -1,12 +1,12 @@
 ;;; skk-cursor.el --- SKK cursor control.
-;; Copyright (C) 1996, 1997, 1998, 1999
-;; Masatake YAMATO <jet@airlab.cs.ritsumei.ac.jp>
+;; Copyright (C) 1996, 1997, 1998, 1999, 2000
+;; Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 
-;; Author: Masatake YAMATO <jet@airlab.cs.ritsumei.ac.jp>
+;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-cursor.el,v 1.4 2000/03/11 02:14:53 minakaji Exp $
+;; Version: $Id: skk-cursor.el,v 1.5 2000/07/07 22:25:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/03/11 02:14:53 $
+;; Last Modified: $Date: 2000/07/07 22:25:14 $
 
 ;; This file is part of SKK.
 
@@ -101,7 +101,7 @@ nil であれば、表示しない。"
       (set-cursor-color color)
     (error
      (set-cursor-color skk-default-cursor-color)
-     (and skk-cursor-report-set-error
+     (and skk-report-set-cursor-error
 	  (skk-message
 	   "カラーマップ切れです。ディフォルトのカラーを使います。"
 	   "Color map is exhausting, use default cursor color" )))))
@@ -123,6 +123,7 @@ nil であれば、表示しない。"
 	(skk-cursor-set-color 
 	 (cond (color)
 	       ((not skk-mode) skk-default-cursor-color)
+	       (skk-abbrev-mode skk-abbrev-cursor-color)
 	       (skk-jisx0208-latin-mode
 		skk-jisx0208-latin-cursor-color)
 	       (skk-katakana skk-katakana-cursor-color)
@@ -136,7 +137,7 @@ nil であれば、表示しない。"
 	       bury-buffer
 	       delete-frame
 	       delete-window
-	       execute-extended-command 
+	       ;; execute-extended-command 
 	       kill-buffer
 	       other-window
 	       overwrite-mode
@@ -177,6 +178,7 @@ nil であれば、表示しない。"
 (let ((funcs '(
 	       goto-line 
 	       insert-file 
+	       keyboard-quit
 	       recenter 
 	       yank
 	       yank-pop 
@@ -208,8 +210,11 @@ nil であれば、表示しない。"
 	(and skk-mode (skk-cursor-set-properly)))))
     (setq funcs (cdr funcs))))
 
-(let ((funcs '(abort-recursive-edit exit-minibuffer)))
-  (if (eq skk-emacs-type 'xemacs)
+;;入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。
+;; CLASS は before.
+;; ミニバッファから元のカレントバッファを探し出し、カーソルをセット。
+(let ((funcs '(exit-minibuffer)))
+  (static-if (eq skk-emacs-type 'xemacs)
       (setq funcs (cons 'minibuffer-keyboard-quit funcs)))
   (while funcs
     (eval
@@ -221,6 +226,35 @@ nil であれば、表示しない。"
 	;; CLASS は before.
 	(with-current-buffer (skk-minibuffer-origin) (skk-cursor-set-properly)))))
     (setq funcs (cdr funcs))))
+
+;; 入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。
+;; CLASS は around.
+;; skk-abbrev-mode のときだけカーソルをセット。
+(let ((funcs '(
+	       ;; cover to original Emacs functions.
+	       newline 
+	       ;; cover to SKK functions.
+	       skk-delete-backward-char 
+	       skk-insert 
+	       skk-start-henkan 
+	       )))
+  (while funcs
+    (eval
+     (`
+      (defadvice (, (intern (symbol-name (car funcs))))
+	(around skk-cursor-ad activate preactivate)
+	"入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
+	;; CLASS は around.
+	;; skk-abbrev-mode のときだけカーソルをセット。
+	(if skk-abbrev-mode
+	    (progn ad-do-it (skk-cursor-set-properly))
+	  ad-do-it))))
+    (setq funcs (cdr funcs))))
+
+(static-when (featurep 'xemacs)
+  (defadvice abort-recursive-edit (before skk-cursor-ad activate preactivate)
+    "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
+    (with-current-buffer (skk-minibuffer-origin) (skk-cursor-set-properly))))
 
 (defadvice skk-latin-mode (after skk-cursor-ad activate)
   "カーソル色を skk-latin-cursor-color に変化させる。Ovwrt モードのときにカーソル幅を小さくする。"

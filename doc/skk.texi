@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.10 1999/11/14 15:27:06 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.11 2000/07/07 22:25:17 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 1999/11/14 15:27:06 $
+@c  Last Modified: $Date: 2000/07/07 22:25:17 $
 @c
 @set EDITION 1.4
-@set SKK-VERSION 10.51
-@set UPDATED $Date: 1999/11/14 15:27:06 $
+@set SKK-VERSION 10.61
+@set UPDATED $Date: 2000/07/07 22:25:17 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
