@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.120 2002/07/27 05:54:46 czkmt Exp $
-;; Last Modified: $Date: 2002/07/27 05:54:46 $
+;; Version: $Id: SKK-MK,v 1.121 2002/08/02 08:56:04 czkmt Exp $
+;; Last Modified: $Date: 2002/08/02 08:56:04 $
 
 ;;; Commentary:
 
@@ -271,7 +271,7 @@ This version of SKK requires MULE features"))
 		    skk-jisyo-edit-mode
 		    skk-kakasi
 		    skk-kcode
-;		    skk-leim
+		    skk-leim
 		    skk-look
 ;                   skk-lookup
 		    skk-macs
@@ -321,9 +321,6 @@ This version of SKK requires MULE features"))
 	    (add-to-list 'list 'ccc))
 	  (when (= emacs-major-version 21)
 	    (add-to-list 'list 'skk-e21))))
-	;; skk-leim.el
-	(when (fboundp 'register-input-method)
-	  (add-to-list 'list 'skk-leim))
 	;; skk-jisx0213.el
 	(when (condition-case nil
 		  (and (require 'jisx0213)
