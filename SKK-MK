@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.40 2000/09/13 18:03:12 czkmt Exp $
-;; Last Modified: $Date: 2000/09/13 18:03:12 $
+;; Version: $Id: SKK-MK,v 1.41 2000/09/21 10:45:54 akiho Exp $
+;; Last Modified: $Date: 2000/09/21 10:45:54 $
 
 ;; Commentary
 ;;
@@ -233,6 +233,25 @@
 	       (file-newer-than-file-p (expand-file-name (car SKK_TEXIS) DOCDIR)
 				       (expand-file-name SKK_INFO DOCDIR)))
 	   (SKK-MK-texinfo-format SKK_TEXIS))))
+
+;; Mule for Windows.
+(defun SKK-MK-compile-info-for-mule4win32 ()
+  (and (fboundp 'mule-for-win32-version)
+       (eval-after-load
+        "texinfmt"
+        '(defun texinfo-format-printindex ()
+           (let ((indexelts (symbol-value
+                             (cdr (assoc (texinfo-parse-arg-discard)
+                                         texinfo-indexvar-alist))))
+                 opoint)
+             (insert "\n* Menu:\n\n")
+             (setq opoint (point))
+             (texinfo-print-index nil indexelts)
+             (if (or (eq system-type 'vax-vms) (eq system-type 'windows-nt))
+                 (texinfo-sort-region opoint (point))
+               (shell-command-on-region opoint (point) "sort -fd" 1))))))
+  (SKK-MK-compile-info)
+  (kill-emacs))
 
 (defun SKK-MK-install ()
   (SKK-MK-compile)
