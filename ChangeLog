@@ -18,6 +18,11 @@
 	skk-rom-kana-base-rule-list, skk-rom-kana-rule-list,
 	skk-rule-tree, skk-num-alist-type3, skk-num-alist-type5): Doc
 	string update.
+	(skk-quote-char-alist): New variable.
+
+	* skk-macs.el (skk-quote-char-1): New function.
+
+	* skk.el (skk-quote-char, skk-quote-semicolon): Call it.
 
 	* skk-xemacs.el: Use #' for `function'.
 
@@ -1851,8 +1856,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.379 2001/09/12 11:17:28 czkmt Exp $
-Last Modified: $Date: 2001/09/12 11:17:28 $
+Version: $Id: ChangeLog,v 1.380 2001/09/12 13:32:39 czkmt Exp $
+Last Modified: $Date: 2001/09/12 13:32:39 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
