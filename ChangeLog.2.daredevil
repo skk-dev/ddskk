@@ -1,0 +1,2960 @@
+2000-10-31  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* doc/skk-faq.texi: Sync up with maintrunk.
+	* doc/skk.texi: Ditto.
+
+2000-10-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-lookup-option-alist): Use "MYPAEDIA" spec of
+	「辞・典・盤」 version MYPAEDIA.
+
+	* skk-annotation.el (skk-nunion): New advice.
+
+2000-10-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-lookup-option-alist): Doc updated.
+	Created new element "CHIEZO".
+	Specified 7th element of "IWAKOKU" in order to remove "〈", "〉",
+	"｛", "｝", "( and ")".
+	Specified 5th element of "MYPAEDIA" in order to pick up necessary
+	strings between parens and/or blackets.
+	(skk-lookup-default-option-list): Doc updated.
+
+	* experimental/skk-annotation.el (skk-annotation-add): Bug fixed.
+
+	* experimental/skk-annotation.el (skk-annotation-mode-map): Change
+	key bind skk-annotation-quit to "\C-c\C-k".
+	(skk-annotation-add): Document updated.  Use `skk-annotation-setup'.
+	(skk-annotation-quit): Call `kill-buffer'.
+	Rename to `skk-annotation-kill'.
+	(skk-annotation-quote): Use `skk-annotation-setup'.
+	(skk-annotation-remove): Use `skk-annotation-setup'.
+	Abolish optional argument NO-PREVIOUS-ANNOTATION.
+	(skk-annotation-setup): New function.
+
+	* skk-vars.el (skk-annotation-annotated-word): New internal
+	variable.
+2000-10-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-annotation.el (skk-annotation-quit): New
+	function.
+	(skk-annotation-add): Bug fixed.
+	Put out skk-annotation-quit key bind, too.
+	(skk-annotation-last-word-1): Bug fixed.
+	(skk-annotation-remove): Do not change END to marker.
+	(skk-annotation-save-and-quit): Ditto.
+	(skk-annotation-show-message): Do not insert ANNOTATION.  Do not
+	sit for a second.
+	(skk-annotation-last-word-1): Call FUNCTION all okuri ari
+	candidates that are the same word and has different okurigana.
+	Set BEG and END markers respectively and set such markers to nil
+	after FUNCTION is called.
+
+	* skk-vars.el (skk-annotation): New group.
+	(skk-annotation-buffer): New internal constants.
+	(skk-annotation-function): New user variable.
+	(skk-annotation-mode-hook): Ditto.
+	(skk-annotation-show-message): New user option.
+	(skk-annotation-mode-map): New keymap.
+	(skk-annotation-original-window-configuration): New internal
+	variable.
+	(skk-annotation-mode): Ditto.
+
+	* experimental/skk-annotation.el: Require `skk-macs' and
+	`skk-vars'.
+	(skk-annotation-insert): New inline function.
+	(skk-annotation-quote-1): Ditto.
+	(skk-annotation-show): Rename to `skk-annotation-show-buffer'.
+	(skk-annotation-show): New function.
+	(skk-annotation-show-1): Ditto.
+	(skk-annotation-show-message): Ditto.
+	(skk-annotation-last-word-1): Ditto.
+	(skk-annotation-add): New command.
+	(skk-annotation-save-and-quit): Ditto.
+	(skk-annotation-remove): Ditto.
+	(skk-annotation-quote): Ditto.
+
+2000-10-27  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Add skk-annotation.
+
+	* skk-vars.el (skk-show-annotation): New user option.
+
+	* skk-jisx0213.el: Require `skk-macs' and `skk-vars'.
+
+	* skk.el (skk-quote-char): Quote ";".
+	(skk-insert-new-word): Divide WORD into two pieace, real WORD and
+	ANNOTATION and call `skk-annotation-show' if `skk-show-annotation'
+	is non-nil.
+
+	* experimental/skk-annotation.el: New experimental program.
+
+2000-10-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/FAQ.txt (Emacs 20 に SKK 9.6 がインストールできません。,
+	全く漢字が出てきません。, チュートリアルが起動できません。, スペー
+	スを押しても変換できません。): New questions.
+
+	* READMEs/NEWS: Add description.
+
+	* missing, mkinstalldirs: No longer in the repository.
+
+2000-10-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-coding-system-alist): Define "euc" and "ujis"
+	for euc-jisx0213, "sjis" for shift_jisx0213 and "jis" for
+	iso-2022-jp-3-compatible if emacs has a feature 'jisx0213.
+	(skk-code-n1-max): Set 254 if emacs has a feature 'jisx0213.
+	(skk-kcode-charset): Set 'japanese-jisx0213-1 if emacs has a
+	feature 'jisx0213.
+
+	* skk-kakasi.el: Update Takahashi-san's email address and
+	description about a ftp site to get kakasi.
+
+	* skk-lookup.el (skk-lookup-get-method): Use `skk-lookup-get-1'.
+	(skk-lookup-get-1): Simplified slightly.
+
+2000-10-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMES/FAQ.txt (左手の小指を SHIFT で酷使したくありません。):
+	New question.
+
+2000-10-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-lookup-option-alist): Bug fixed.
+
+2000-10-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-lookup-option-alist): Bug fixed.
+
+2000-10-24  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-lookup-option-alist): Change 6th element regexp
+	to cons cell and defcustom type accordingly.
+	Add new element 7th and defcustom type accordingly.
+	Add new lists of which headers are "KOUJIEN", "KOJIEN" and "KOKUGO"
+	(skk-lookup-default-option-list): Change 5th element regexp to
+	cons cell and defcustom type accordingly.
+	Add new element 6th and defcustom type accordingly.
+
+	* skk-lookup.el (skk-lookup-get-1): New inline function.
+	(skk-lookup-get-cleanup-regexp): Ditto.
+	(skk-lookup-get-nonsearch-sex): Use `skk-lookup-get-1'.
+	(skk-lookup-get-pickup-regexp): Ditto.
+	(skk-lookup-get-split-regexp): Ditto.
+	(skk-lookup-process-heading): Use cdr part of 6th element of
+	`skk-lookup-option-alist' or 5th element of
+	`skk-lookup-default-option-alist' in order to get a matched
+	string.
+	Remove unnecessary strings from CANDIDATES-STRING by using 7th
+	element of `skk-lookup-option-alist' or 6th element of
+	`skk-lookup-default-option-alist'.
+	* skk-kcode.el (skk-input-by-code-or-menu): Use
+	`match-string-no-properties' instead of `match-string'.
+
+2000-10-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* doc/skk-faq.texi ([Q.1-4] SKK はどんなオペレーティングシステムで使えますか？):
+
+	* skk.el (skk-abbrev-comma): Bug fixed.
+
+	* ccc.el (ccc-defadvice): Check if FUNCTION is fboundp or not.
+	Fixed warning message.
+	* skk-macs.el (skk-defadvice): Ditto.
+
+2000-10-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* ccc.el (ccc-defadvice): Delete interactive call from advice
+	definition if trying to add an advice to subr/non-command.
+	* skk-macs.el (skk-defadvice): Ditto.
+
+	* skk.el (keyboard-quit): Use `skk-defadvice' instead of
+	`defadvice'.
+	(abort-recursive-edit): Ditto.
+	(newline): Ditto.
+	(newline-and-indent): Ditto.
+	(exit-minibuffer): Ditto.
+	(undo): Ditto.
+	(kill-buffer): Ditto.
+	(save-buffers-kill-emacs): Ditto.
+	(minibuffer-keyboard-quit): Ditto.
+
+	* skk-cursor.el (minibuffer-keyboard-quit): Use `skk-defadvice'
+	instead of `defadvice'.
+	* skk-jisx0201.el (newline): Ditto.
+	(newline-and-indent): Ditto.
+	(exit-minibuffer): Ditto.
+	* skk-tut.el (kill-buffer): Ditto.
+	(other-frame): Ditto.
+	(save-buffers-kill-emacs): Ditto.
+	* skk-viper.el (read-from-minibuffer): Ditto.
+
+	* skk-develop.el: Add `skk-defadvice' regexp for hilit19 and
+	font-lock.
+
+2000-10-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/NEWS: Add description about leim-list.el, etc.
+
+	* skk-setup.el.in (isearch-message-prefix): Move the advice
+	* skk-isearch.el: to here.
+	(skk-isearch-delete-char): Update only the 2nd element of
+	`isearch-cmds'.
+
+2000-10-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* ccc.el (ccc-defadvice): New macro.
+
+	* skk-macs.el (skk-defadvice): Ditto.
+
+2000-10-19  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* READMEs/NEWS: 新機能や廃止された関数について加筆。
+
+2000-10-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-leim.el: In "auto-autoloads.el", require "skk-setup".
+
+	* skk-setup.el.in: Override "C-x C-j" under XEmacs.
+
+	* skk.el (skk-save-jisyo-original): Check if `skk-emacs-id-file'
+	exists.
+
+2000-10-19  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* SKK-MK (SKK_LISPDIR): "make PREFIX=dir install" で PREFIX のと
+	おりに elisp がインストールされるように修正.
+
+2000-10-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el (ccc-apply): New macro.
+	(ccc-ads): New variable.
+
+2000-10-18  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/README.win: Move 「`MAKE.BAT'の編集とインストール
+	(Windows 95,98/NT)」 to header (change to non-section).
+	Section structer rearranged (change `****' section to `***', `***'
+	to `**' and `**' section to `*').
+	New sections 「* Windows 上で動くサーバについて」,「wskkserve」,
+	「 cygwin を利用してソースからコンパイルして利用する」,「script 言
+	語で実装されたサーバ」created.
+
+2000-10-17  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* ccc.el: Apply Tsukamoto-san's patch Message-ID:
+	<sa6hf6cikv6.fsf@remus.dti.ne.jp>.
+
+	* READMEs/CVS_on_Windows: Typo fixed.
+
+2000-10-16  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/README.win (SKK95 (Windows 95/98/NT)): Remove the
+	sentence 「Windows 95 では上記の SKKIME が動作しないためこちらを使
+	用します。」.  SKKIME98 now works on Windows 95 (using Winsock
+	version 1).
+	Updated the link to kmc.
+	(wskkserve): Merged into "skkserve on Windows".
+	(skkserve on Windows): Moved before the section "SKK on Windows".
+
+	* skk-develop.el (skk-submit-bug-report): Do not put out
+	skk-henkan-face information.
+	Dump variables `isearch-mode-hook' and `isearch-mode-end-hook'.
+	Use skk-exserv.el when `skk-exserv-list' is non-nil.
+	Use new `skk-version'.
+
+	* skk-abbrev.el: Require product and call product-provide for its
+	feature.
+	* skk-auto.el: Ditto.
+	* skk-comp.el: Ditto.
+	* skk-cursor.el: Ditto.
+	* skk-develop.el: Ditto.
+	* skk-gadget.el: Ditto.
+	* skk-isearch.el: Ditto.
+	* skk-jisx0201.el: Ditto.
+	* skk-jisx0213.el: Ditto.
+	* skk-kakasi.el: Ditto.
+	* skk-kcode.el: Ditto.
+	* skk-leim.el: Ditto.
+	* skk-look.el: Ditto.
+	* skk-lookup.el: Ditto.
+	* skk-macs.el: Ditto.
+	* skk-num.el: Ditto.
+	* skk-obsolete.el: Ditto.
+	* skk-server.el: Ditto.
+	* skk-tut.el: Ditto.
+	* skk-vars.el: Ditto.
+	* skk-viper.el: Ditto.
+	* skk-xm20_4.el: Ditto.
+	* skk.el: Ditto.
+	* experimental/skk-correct.el: Ditto.
+	* experimental/skk-dos.el: Ditto.
+	* experimental/skk-dcomp.el: Ditto.
+	* experimental/skk-study.el: Ditto.
+	* experimental/tut-code/skk-tutcode.el: Ditto.
+	* experimental/tut-code/skk-tutcdef.el: Ditto.
+	* experimental/skk-is-n.el: Ditto.
+	* experimental/skk-exserv.el: Ditto.
+	* experimental/skk-exsearch.el: Ditto.
+	* experimental/skk-e18.el: Ditto.
+	* experimental/dbm/skk-dbm.el: Ditto.
+	* experimental/rdbms/skk-rdbms.el: Ditto.
+
+	* SKK-MK (SKK_MODULES): Add `skk-version'.
+
+	* skk-tut.el (skktut-end-tutorial): Use
+	`(product-string-1 'skk-version t)' instead of `skk-branch-name'.
+	(kill-buffer): Specify original interactive spec.
+	(skk-tutorial): Check skk version using `product-version>='.
+
+	* skk-vars.el (skk-version): Removed.
+	(skk-major-version): Ditto.
+	(skk-minor-version): Ditto.
+	(skk-branch-name): Ditto.
+	(skk-codename): Ditto.
+
+	* skk.el (skk-version): Removed.
+	Check APEL version using `product-version>='.
+	(kill-buffer): Specify original interactive spec.
+
+	* ccc.el (buffer-local-frame-params-ad-targets): Removed.
+	Check a function if a subr that has an interactive spec when
+	adding advices, and put on a mirroring original interactive spec
+	to advice.
+
+	* skk-version.el: New file.
+
+	* skk-study.el: Move it back to experimental directory.
+
+2000-10-15  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-toggle-characters): Hand 'vcontract to
+	`skk-katakana-region' as VCONTRACT argument .
+
+2000-10-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (skk-cursor-buffer-local-frame-params-ad-targets):
+	Add `skk-j-mode-on'.
+	(minibuffer-setup-hook): No longer call
+	`set-buffer-local-cursor-color' under FSF Emacs.
+	(skk-cursor-current-color): No longer check if `skk-jisx0201-mode'
+	is bound.
+
+2000-10-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el: Changes for XEmacs.
+	(minibuffer-keyboard-quit): New advice.
+	(minibuffer-exit-hook): Call `set-face-property' in the
+	minibuffer.
+
+	* skk-macs.el (skk-emacs-type, skk-detect-emacs): Check the
+	feature `xemacs'.
+
+2000-10-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el (buffer-local-cursor-color-default,
+	buffer-local-foreground-color-default,
+	buffer-local-background-color-default): Check the feature
+	`xemacs'.
+
+	* skk-cursor.el: Ditto.
+	(minibuffer-setup-hook): Call `set-buffer-local-cursor-color'
+	under FSF Emacs.
+
+	* skk-gadget.el (skk-clock): Don't perform redisplay in `sit-for'.
+
+	* skk-isearch.el (skk-isearch-delete-char): Use `when'.
+
+	* skk-jisx0201.el (skk-jisx0201-insert, skk-toggle-katakana):
+	Don't call `skk-cursor-set-properly'. Call `set-face-property' or
+	`set-buffer-local-cursor-color' instead.
+
+	* skk-obsolete.el (skk-obsolete-function-alist): Don't check
+	`skk-set-cursor-color' and `skk-set-cursor-properly'.
+
+	* skk-vars.el (skk-emacs-type): Check the feature `xemacs'.
+
+	* skk.el (skk-setup-modeline): Don't use `mapcar'.
+
+2000-10-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-count-jisyo-candidates): Use `default-directory'
+	instead of "~/".
+	Show "candidate" instead of "candidates" if `count' is 1.
+
+2000-10-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-count-jisyo-candidates): Show "candidates", not
+	"entries".
+	(skk-count-jisyo-candidates-original): Don't search slashes in
+	midashi words.
+
+2000-10-03  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/FAQ.txt: Change filename description in end of filename
+	tag.
+
+2000-10-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-leim.el (locate-libraries, load-libraries): New functinos
+	from egg-util.el in Tamago 4.
+
+	* skk-setup.el.in: Load all `leim-list.el' files.
+
+2000-10-02  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-num-uniq): Check if `skk-num-type-alist' has
+	indexes 2 and 3 or 5.
+
+	* skk.el (skk-henkan-show-candidates): Use
+	`skk-henkan-list-filter' instead of `skk-num-uniq'.
+	Do not use `(skk-num-multiple-convert 7)'.
+
+2000-10-01  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-lookup.el: Require bitmap when running on MULE.
+
+	* SKK-MK (SKK_MODULES): Add skk-jisx0213 if available.
+	(SKK_DICTIONARIES): Add "SKK-JISYO.JIS2", "SKK-JISYO.JIS3_4",
+	"SKK-JISYO.pubdic+", "SKK-JISYO.edict", "SKK-JISYO.office.zipcode"
+	and "SKK-JISYO.zipcode".
+
+	* skk-jisx0213.el: New file.
+
+	* skk-vars.el (skk-jisx0213-prohibit): New user option.
+
+	* skk.el (skk-henkan): Use `skk-get-current-candidate-1'.
+	(skk-previous-candidate): Use new `skk-get-current-candidate'.
+	(skk-kakutei): Ditto.
+	(skk-purge-from-jisyo): Ditto.
+	(skk-henkan-show-candidates): Use `skk-num-multiple-convert'
+	instead of `skk-num-convert*7'.
+	(skk-get-current-candidate): New funcition.
+	(skk-henkan-1): Call `skk-search' until getting NEW-WORD even if skk-henkan-count is 0.
+	* skk-num.el (skk-num-convert-1): New subroutine.
+	(skk-num-process-user-minibuf-input): Removed.
+	(skk-num-convert): Call `skk-num-uniq' if type 4 numeric
+	conversion is done.
+	Abolish argument KEY.
+	Do not return CURRENT.
+	(skk-num-exp): Use `save-match-data'.
+	(skk-num-process-user-minibuf-input): Ditto.
+	(skk-num-convert*7): Removed.
+	(skk-num-multiple-convert): New function.
+	(skk-henkan-list-filter): New funcition.
+
+	* skk-macs.el (skk-get-current-candidate-simply): Abolish optional
+	argument NOCONV and renamed it to `skk-get-current-candidate-1'.
+
+2000-09-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/FAQ.txt: Fixed a description about 「検索する辞書を増や
+	したいのですが」.
+	Sync up with a description about 「Wnn でも Canna でも郵便番号辞書
+	が使えるけれど、SKK では使えないの ?」
+
+	* READMEs/FAQ.txt: Add a description about 「検索する辞書を増やし
+	たいのですが」.
+
+	* READMEs/skk-faq.txt: Rename to FAQ.txt.
+
+2000-09-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ptexinfmt.el: Sync with Wanderlust.
+
+2000-09-27  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* Makefile: Change Maintainer to SKK Development Team.
+	* SKK-CFG: Ditto.
+	* SKK-MK: Ditto.
+	* ccc.el: Ditto.
+	* doc/skk.texi: Ditto.
+	* etc/SKK.tut.E: Ditto.
+	* etc/SKK.tut: Ditto.
+	* experimental/skk-correct.el: Ditto.
+	* experimental/skk-dcomp.el: Ditto.
+	* experimental/skk-dos.el: Ditto.
+	* experimental/skk-e18.el: Ditto.
+	* experimental/skk-exsearch.el: Ditto.
+	* experimental/skk-exserv.el: Ditto.
+	* experimental/skk-is-n.el: Ditto.
+	* experimental/tut-code/skk-def.el: Ditto.
+	* experimental/tut-code/skk-tutcode.el: Ditto.
+	* make.bat: Ditto.
+	* skk-abbrev.el: Ditto.
+	* skk-auto.el: Ditto.
+	* skk-comp.el: Ditto.
+	* skk-cursor.el: Ditto.
+	* skk-develop.el: Ditto.
+	* skk-gadget.el: Ditto.
+	* skk-isearch.el: Ditto.
+	* skk-jisx0201.el: Ditto.
+	* skk-kakasi.el: Ditto.
+	* skk-kcode.el: Ditto.
+	* skk-leim.el: Ditto.
+	* skk-look.el: Ditto.
+	* skk-lookup.el: Ditto.
+	* skk-num.el: Ditto.
+	* skk-obsolete.el: Ditto.
+	* skk-server.el: Ditto.
+	* skk-setup.el.in: Ditto.
+	* skk-study.el: Ditto.
+	* skk-tut.el: Ditto.
+	* skk-vars.el: Ditto.
+	* skk-viper.el: Ditto.
+	* skk-xm20_4.el: Ditto.
+	* skk.el: Ditto.
+	* tinyinstall.el: Ditto.
+	* vip.el: Ditto.
+
+2000-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-num.el (skk-num-type3-kanji-1, skk-num-type5-kanji-1): Don't
+	miss "万" {"萬"}, "億", "兆", "京".
+
+2000-09-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/skk-faq.txt: Update a description about how to get
+	skk-tools.
+
+2000-09-25  Shuhei KOBAYASHI  <shuhei@aqua.ocn.ne.jp>
+
+	* skk-num.el: Eliminate CL dependency.
+	(skk-num-compute-henkan-key, skk-num-convert): Expand `setf'
+	to `setcar'/`nthcdr' pair.
+
+	* skk.el: (skk-insert, skk-previous-candidate):
+	Fix interactive spec.
+
+2000-09-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ptexinfmt.el: Sync with Wanderlust.
+
+2000-09-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/CVS_00readme: Update for CVS 1.11.
+
+2000-09-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (package): Call `SKK-MK-compile-package'.
+
+	* SKK-MK (SKK-MK-compile-package,
+	SKK-MK-generate-autoloads-el-package): New functions.
+	(SKK-MK-install-package): Call `SKK-MK-compile-package'.
+
+2000-09-17  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el: Grouping by function and filename.
+	(skk-custom-by-function): New group.
+	(skk-custom-by-filename): Ditto.
+	(skk-use-look): Doc sync up with READMEs/skk-faq.txt.
+	(skk-kutouten-type): Use `defcustom' instead of `skk-deflocalvar'.
+	(skk-faces): Removed.
+	(skk-decoration): Ditto.
+	(skk-dictionary): Ditto.
+	(skk-filenames): Ditto.
+	(skk-hooks-and-functions): Ditto.
+	(skk-keybinds): Ditto.
+	(skk-okurigana): Ditto.
+	(skk-misc): Ditto.
+	(skk-abbrev): Ditto.
+	(skk-auto): Change its group to skk-custom-by-filename.
+	(skk-comp): Ditto.
+	(skk-cursor): Ditto.
+	(skk-gadget): Ditto.
+	(skk-isearch): Ditto.
+	(skk-jisx0201): Ditto.
+	(skk-kakasi): Ditto.
+	(skk-kcode): Ditto.
+	(skk-look): Ditto.
+	(skk-lookup): Ditto.
+	(skk-num): Ditto.
+	(skk-server): Ditto.
+	(skk-init-file): Use `defcustom' instead of `defvar'.
+
+2000-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el: Add comments.
+
+	* skk-jisx0201.el: No real changes. Just a matter of appearance.
+
+	* skk-leim.el: Don't check for `register-input-method'.
+
+2000-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-CFG: Rewrite.
+
+2000-09-16  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/README: Updated.
+
+2000-09-15  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/Contributors (Contributors): Change Akiho san's e-mail
+	address.
+
+	* doc/skk.texi (お願い): Change `skk-jisyo@kuis.kyoto-u.ac.jp' to
+	`skk@ring.gr.jp'.
+
+2000-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-delete-char): Rewrite the last change.
+
+2000-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* patch/e18/README.ja: Update.
+
+	* patch/e18/bytecomp-2.07/eval.c-e19.patch: <= eval.c.patch.
+
+	* patch/e18/bytecomp-2.07/eval_c-e18.patch: New file.
+
+2000-09-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* patch/custom-1.9962.patch: Moved to e19 subdirectory.
+
+2000-09-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK: Emacs 18 only. Work around for a bug in cl.el.
+
+	* experimental/skk-e18.el: Modify the error message.
+
+	* patch/e18: New repository.
+
+	* patch/e18/{README.ja, advice.el, cl.elc, cl_el-defsetf.patch}:
+	New files.
+
+	* patch/e18/bytecomp-2.07: New repository.
+
+	* patch/e18/bytecomp-2.07/{README.en, README.ja, byte-optimize.el,
+	bytecomp-runtime.el, bytecomp.el, bytecomp_el-mule-1_1_pl04.patch,
+	disass.el, eval.c.patch, make-docfile.c}: New files.
+
+	* skk-isearch.el (skk-isearch-find-keys-define): Simplify.
+	(skk-isearch-delete-char): Do not show white-space regular
+	expressions.
+
+2000-09-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/skk-faq.txt (http): Update.
+
+	* experimental/GUIDELINE: Update.
+
+	* experimental/tut-code/skk-def.el: Update comments for daredevil.
+	* experimental/tut-code/skk-tutcdef.el: Ditto.
+	* experimental/tut-code/skk-tutcode.el: Ditto.
+
+2000-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-find-keys-define): Use `dolist'.
+	(skk-isearch-delete-char): Ditto.
+	(skk-isearch-setup-keymap): Use `do'.
+	(skk-isearch-search-string-regexp): Ditto.
+
+	* skk-vars.el (skk-num-list): Remove autoload cookie.
+
+2000-09-11  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* Makefile (DATE): Do not use universal time.
+	(MD5): New variable.
+	(SNAPBASE): Ditto.
+	(TAR): Do not specify absolute path.
+	(tar): Rearrange for making archive in openlab.ring.gr.jp.
+	(snapshot): Ditto.
+	(clean): Remove files that match `.#*' (files which make by CVS
+	when it finds there are conflicts).
+
+2000-09-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/CVS_00readme: Use overlays instead of text properties.
+
+	* READMEs/CVS_on_Windows: Update.
+
+	* SKK-MK: Tiny bug fix for Emacs 18.
+
+	* skk-look.el (skk-look-ispell): Set VAR.
+
+2000-09-10  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* Makefile (snapshot): Bug fixed.
+
+	* Makefile (tar): Modify to make archive in openlab.ring.gr.jp.
+	(snapshot): Ditto.
+
+	* READMEs/skk-faq.txt: Updated.
+
+	* skk-setup.el.in (isearch-mode-end-hook): Remove
+	skk-set-cursor-properly from the hook.
+
+	* doc/skk.texi (入力モードの一時変更): Typo fixed.
+
+	* skk-look.el (skk-look-ispell): Call `skk-look-1' for a word
+	originally handed to when ispell puts miss and guess out.
+	Slightly simplify condition.
+	Comment modified.
+
+2000-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (package): New target.
+
+	* SKK-MK (SKK-MK-running-xemacs): Abolish. Check the feature
+	xemacs instead.
+	(SKK_INFOS): Abolish. Stop guessing how many files resulting
+	info will be split into.
+	(SKK_INFO): New variable.
+	(PACKAGE_DATADIR): <= `SKK_PACKAGE_DATADIR'.
+	(PACKAGE_LISPDIR): <= `SKK_PACKAGE_LISPDIR'
+	(SKK_PACKAGE_NOT_USE): Abolish.
+	(SKK-MK-install-package): Use `SKK-MK-compile'.
+	(SKK-MK-generate-autoloads-el): Modify for XEmacs.
+
+	* skk-look.el (skk-look-ispell): Use the original word as well as
+	misses and guesses.
+
+2000-09-09  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-look.el (skk-look-ispell): Call `skk-look-1' for a word
+	originally handed to when ispell recognize spelling of WORD is
+	right.
+
+	* experimental/skk-exsearch.el (search-engine): Do not put out
+	originally handed word.
+
+2000-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/CVS_00readme: Update.
+
+	* skk-cursor.el (skk-mode-hook): Call `skk-mode-once-again'.
+
+	* skk-vars.el (skk-coding-system-alist): sjis => shift_jis.
+
+	* skk.el (skk-henkan-show-candidate-subr): If the selected frame
+	has 2 or more windows, delete other windows.
+	If point is not visible in the selected window, put point in the
+	center of the window.
+
+2000-09-09  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-cursor2.el: Merged skk-cursor2 and skk-cursor3
+	into skk-cursor.el.
+	* experimental/skk-cursor3.el: Ditto.
+	* skk-cursor.el: Ditto.
+
+	* SKK-MK (SKK_MODULES): Remove skk-cursor2 and skk-cursor3.
+	Add ccc if FSF Emacs is running.
+	(SKK_DAREDEVIL_NOT_USE): Add `skk-cursor2' and `skk-cursor3'.
+
+	* experimental/ccc.el (ccc-before-update-function): Removed.
+	(update-buffer-local-frame-params): Do not call
+	`ccc-before-update-function'.
+	(buffer-local-cursor-color-default): Bug fixed.
+	(buffer-local-foreground-color-default): Ditto.
+	(buffer-local-background-color-default): Ditto.
+
+	* experimental/skk-cursor2.el: Use `set-buffer-local-cursor-color'
+	for advice of each element of
+	`skk-cursor2-buffer-local-frame-params-ad-targets'.
+	Do not set `ccc-before-update-function'.
+
+	* skk-look.el (skk-look): Typo fixed.
+
+	* skk-viper.el (skk-cursor-set-properly): Removed advice.
+	(skk-cursor-current-color):
+	(read-from-minibuffer): Add `update-buffer-local-frame-params' to
+	`minibuffer-setup-hook' instead of `skk-cursor-setup-minibuffer'.
+
+2000-09-08  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-look.el (skk-look-1): Do not put out originally handed word.
+	(skk-look-ispell): Call look command by each candidate put out by
+	ispell.
+	Set symbol `error' to POSS if ispell-parse-output returns nil (and
+	make a error message if POSS is equal to symbol `error'.
+	(skk-look): Do not union lists made by `skk-look-1' and
+	`skk-look-ispell'.
+	(skk-look-completion): Ditto.
+	Do not remove `skk-look-completion-words'
+	from a list made by `skk-look-1' or `skk-look-ipell' (as it is
+	removed already).
+
+2000-09-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (set_jisyo): New variable.
+
+	* SKK-MK (SKK_SET_JISYO): New variable.
+	(SKK-MK-install): Set `skk-large-jisyo' if `SKK_SET_JISYO' is
+	non-nil.
+	(SKk-MK-install-package): Ditto.
+
+	* skk-vars.el (skk): Place this group under "Mule" and "Leim".
+
+2000-09-07  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-look.el (skk-look-ispell): Return not only miss but also
+	guess.
+
+2000-09-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-look.el (skk-look): Bug fixed.
+	(skk-look-ispell): Ditto.
+
+2000-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-server-installed-p): New function.
+	(SKK-MK-install): Don't set `skk-large-jisyo' if a local server is
+	found.
+	(SKk-MK-install-package): Ditto.
+
+	* skk-isearch.el (skk-isearch-mode-setup): Don't call
+	`toggle-input-method' so that the SKK status is preserverd.
+
+	* skk-setup.el.in (skk-aux-large-jisyo): Use @AUXDIC@ instead of
+	@DIC@.
+
+	* skk-vars.el (skk-look-use-ispell): Check if ispell.el is installed.
+
+2000-09-06  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/MEMO.txt: Add some idea.
+
+	* READMEs/CVS_digest: Typo fixed.
+	Add description about pySKK.
+
+2000-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-leim.el (skk-leim-exit-from-minibuffer): New function.
+	(skk-activate, skk-auto-fill-activate): In minibuffer, add
+	`skk-leim-exit-from-minibuffer' to `minibuffer-exit-hook'.
+
+2000-09-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK: Under Emacs 18, load bytecomp-runtime.el if possible.
+
+	* experimental/nicola: New repository. Import
+	NICOLA-DDSKK. ChangeLog files in this repository will show
+	details.
+
+	* skk-cursor.el (execute-extended-command): Advise this function
+	under XEmacs only.
+
+	* skk-isearch.el (skk-isearch-mode-setup): Activate input method
+	in the working buffer, if `current-input-method' is
+	japanese-skk{-auto-fill}.
+	(skk-isearch-mode-cleanup): Inactivate input method in the working
+	buffer, if `default-input-method' is japanese-skk{-auto-fill}.
+	(skk-isearch-find-keys-define): Don't overwrite the keymaps for
+	prefix keys.
+	(skk-isearch-setup-keymap): Keys for `toggle-input-method' call
+	`skk-isearch-skk-mode', if `default-input-method' is
+	japanese-skk{-auto-fill}.
+	(skk-isearch-skk-mode): Add an autoload cookie.
+
+	* skk-leim.el: Now don't set `current-input-method-title'. Always
+	show `skk-input-mode-string'.
+
+	* skk-setup.el.in (isearch-mode-end-hook): Call
+	`skk-isearch-mode-cleanup' if the feature skk-isearch is provided.
+	(isearch-mode-map): Make sure C-\ is bound to
+	`isearch-toggle-input-method'.
+	(isearch-toggle-input-method): New advice. Invoke skk-isearch if
+	`default-input-method' is japanese-skk{-auto-fill}.
+	(isearch-message-prefix): Don't show `current-input-method-title'
+	if `default-input-method' is japanese-skk{-auto-fill}.
+
+2000-09-04  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-look.el (skk-look-ispell): New function.
+	(skk-look-completion): Use `skk-look-ispell' if
+	`skk-look-use-ispell' is non-nil.
+	(skk-look): Ditto.
+
+	* skk-vars.el (skk-look-use-ispell): New user option.
+
+2000-08-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK: Under Emacs 18, Use `if' instead of `when' where it is
+	not yet defined.
+
+	* ptexinfmt.el: Sync with Wanderlust.
+
+	* skk-jisx0201.el (skk-toggle-katakana): Set the extent for
+	`skk-input-mode-string' under XEmacs.
+
+	* skk-macs.el (skk-mode-off, skk-j-mode-on, skk-latin-mode-on,
+	skk-jisx0208-latin-mode-on, skk-abbrev-mode-on): Ditto.
+
+	* skk.el: Changes for XEmacs --
+	(skk-mode): Create extents for `skk-input-mode-string'.
+	(skk-setup-modeline): If `skk-status-indicator' is left, Add an
+	extent to the modeline format, as well as `skk-input-mode-string'.
+
+2000-08-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-compile): Require cl for Emacs 18.
+
+	* experimental/skk-e18.el: Don't require cl here.
+
+	* skk-kcode.el (skk-make-char): Typo.
+
+2000-08-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-e18.el (call-process): Work around for Emacs
+	18.55.
+
+	* ptexinfmt.el: New file imported from Wanderlust.
+
+	* SKK-MK (SKK-MK-texinfo-format): Require ptexinfmt.
+	(SKK-MK-compile): Work around for Emacs 18.55.
+
+	* skk-num.el (skk-num-convert): Work around for Emacs 18.55.
+
+2000-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi (■モードにおける文字変換, 数字や記号文字の入力,
+	etc):Update for SKK 10 and lator.
+	(SKKIME): New section.
+
+2000-08-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-dos.el (skk-save-jisyo): Advise to preserve
+	file modes.
+
+2000-08-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-dos.el: Work around for Demacs 1.2.0.
+
+	* skk-vars.el (skk-isearch-switch): Default to nil.
+
+	* skk.el (comint-send-input): New advice.
+	(skk-make-temp-jisyo): Use short file name under MS-DOS.
+	(skk-make-temp-file): Expand DIR before passing it to
+	`expand-file-name'.
+
+2000-08-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-delete-char): Call `skk-kakutei' if
+	point in the working buffer is the same as {or less than}
+	`skk-henkan-start-point'.
+
+2000-08-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/CVS_00readme: Update.
+
+2000-08-19  YOSHIZAWA Masahiro <manbou@ceres.dti.ne.jp>
+
+	* skk.el (skk-okurigana-prefix): Fix the condition description.
+
+2000-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/PROPOSAL: tm ML => APEL ML.
+
+	* skk.el (skk-okurigana-prefix): Don't use `skk-char-octet' under
+	Nemacs.
+
+2000-08-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-generate-autoloads-el): Provide skk-autoloads.
+
+	* skk-cursor.el (skk-cursor-current-color): No longer check if
+	`skk-jisx0201-mode' is bound.
+
+	* skk-jisx0201.el: Move variables to skk-vars.el.
+	(skk-setup-modeline): No longer redefine this function.
+
+	* skk-vars.el (skk-use-jisx0201-input-method): New user option.
+	(skk-cursor-jisx0201-color, skk-jisx0201-mode-string,
+	skk-jisx0201-mode-map, skk-jisx0201-base-rule-tree,
+	skk-jisx0201-roman-rule-tree, skk-jisx0201-roman,
+	skk-jisx0201-current-rule-tree, skk-jisx0201-mode): From
+	skk-jisx0201.el.
+
+	* skk.el (skk-regularize): Require skk-jisx0201 if
+	`skk-use-jisx0201-input-method' is non-nil.
+	Require skk-kanagaki if `skk-use-kana-keyboard' is non-nil. --
+	in this function instead of `skk-mode'.
+
+2000-08-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-generate-autoloads-el): Always generate autoloads
+	here.
+
+2000-08-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-install,SKK-MK-generate-autoloads-el): if
+	$(EMACS) is Emacs 20 or lator, generate autoloads by
+	`update-autoloads-from-directories'.
+	Don't install leim-list.el for Emacs 19 or earlier.
+	(SKK_MODULES): Don't install skk-leim.el for Emacs 19 or earlier.
+
+	* skk-leim.el: Register input methods here.
+	(skk-activate, skk-auto-fill-activate): Advise
+	`skk-setup-modeline' to do nothing.
+
+	* skk-setup.el.in: Don't register input methods here.
+
+2000-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el: Modify doc string.
+
+2000-08-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-gadget.el (skk-clock): Quit by any event.
+	Play sounds, if available, under XEmacs.
+
+	* skk-vars.el (skk-use-kana-keyboard): Default to nil.
+
+2000-08-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (tar, snapshot): Fix the problem that the resulting tar
+	ball contains "..".
+
+	* SKK-MK (SKK-MK-compile): Expand "." before passing it to
+	`compile-elisp-modules'.
+
+	* skk-tut.el (skktut-setup-question-buffer,
+	skktut-setup-answer-buffer): Don't bind a key for a non-existent
+	command `skktut-error-command'.
+
+	* skk-vars.el (skk-use-kana-keyboard): New user option.
+
+	* skk.el (skk-mode): Require `skk-kanagaki' if
+	`skk-use-kana-keyboard' is non-nil.
+
+2000-08-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-kanagaki.el: Add comments.
+	(skk-kanagaki-set-henkan-point-key, skk-kanagaki-abbrev-mode-key,
+	skk-kanagaki-katakana-mode-key,
+	skk-kanagaki-latin-jisx0208-mode-key,
+	skk-kanagaki-hankaku-mode-key, skk-kanagaki-latin-mode-key,
+	skk-kanagaki-code-input-key): New default value for Emacs 18.
+
+2000-08-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-kanagaki.el: New file.
+
+	* skk-vars.el (skk-rom-kana-base-rule-list,
+	skk-rom-kana-rule-list, skk-jisx0208-latin-vector,
+	skk-kana-rom-vector, skk-isearch-mode-string-alist,
+	skk-server-host, skk-server-prog, skk-server-jisyo,
+	skk-lookup-kana-vector): Fix the custom type descriptions.
+
+	* skk.el (skk-mode): Don't use `skk-previous-candidate-char' under
+	skk-kanagaki.
+	(skk-henkan-show-candidates): Work even if the last event
+	is not invoked by a character key.
+	(skk-previous-candidate): Ditto.
+
+2000-08-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el, skk-tut.el, skk.el: Replace
+	`canna-henkan-region-or-self-insert' with `skk-insert'.
+
+2000-08-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-search): Undo the previous change.
+
+2000-08-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-e18.el (frame-width): Call `screen-width'.
+
+	* skk-look.el (skk-look): Bind `skk-use-numeric-conversion' to
+	nil.
+
+	* skk.el (skk-search): When `skk-use-numeric-conversion' is
+	non-nil, also do non-numeric conversion after numeric conversion.
+	(skk-henkan-show-candidate-subr): If Emacs has MULE 4.0 or
+	greater, call `string-bytes' instead of `string-width'.
+	When candidates are displayed using a normal window, assign one
+	line to each candidate.
+
+2000-07-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-tut.el (skktut-init-variables-alist): Set
+	`skk-cursor-change-width' nil instead of t.
+
+2000-07-18  Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-isearch-switch, skk-isearch-state,
+	skk-isearch-in-editing): New internal variables.
+
+	* skk-isearch.el (skk-isearch-initial-mode): Restore the previous
+	SKK status for the isearch after `isearch-edit-string'.
+	(skk-isearch-setup): Set `skk-isearch-switch' to t. Set
+	`skk-isearch-in-editing' to nil.
+	(skk-isearch-cleanup): Set `skk-isearch-switch' to nil. If
+	`skk-isearch-in-editing' is nil, set `skk-isearch-state' to nil.
+	(skk-isearch-newline): Turn on SKK mode when
+	`skk-isearch-current-mode' reurns nil.
+	(isearch-repeat): Advise this function only when
+	`skk-isearch-switch' is t.
+	(isearch-search): Ditto.
+	(isearch-edit-string): Ditto. Save the value
+	`skk-isearch-current-mode' returns. Set `skk-isearch-in-editing'
+	to t.
+
+2000-07-18  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-tut.el (skktut-init-variables-alist): Removed
+	`(skk-previous-completion-function . 'skk-previous-completion-original)'
+	and
+	`(skk-completion-function . 'skk-completion-original)' pairs.
+
+	* skk-comp.el (skk-completion-original): Merged into
+	`skk-completion'.
+	(skk-completion-1): New subroutine.
+	(skk-completion): Do not use temporary variable `COMPLETION-WORD'.
+	(skk-previous-completion-original): Merged into
+	`skk-previous-completion'.
+
+	* skk-vars.el (skk-package-data-directory): Removed.
+
+	* experimental/skk-exsearch.el: Require path-util.
+	Remove all unnecessary spaces between paren.
+	(skk-look-search): Remove `(skk-look-search)' from
+	`skk-current-search-prog-list'.
+	(look): Use `exec-installed-p'.
+	(cdbget): Ditto.
+
+2000-07-11  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-cursor3.el: Change all the second argument of
+	set-face-property to `background'.
+	(skk-mode): Remove t condition (set cursor to
+	`skk-cursor-latin-color').
+	(skk-auto-fill-mode): Ditto.
+
+	* skk-leim.el Do not register input-method.
+	(skk-leim-change-input-method-title): New function.
+	(skk-abbrev-mode): New advice.
+	(skk-auto-fill-mode): Ditto.
+	(skk-jisx0201-mode): Ditto.
+	(skk-jisx0208-latin-mode): Ditto.
+	(skk-kakutei): Ditto.
+	(skk-latin-mode): Ditto.
+	(skk-mode): Ditto.
+	(skk-toggle-kana): Ditto.
+
+	* skk-setup.el.in (isearch-mode-end-hook): Separate into two
+	parts, isearch cleanup parts and cursor parts.
+	Add advice to `toggle-input-method'.
+	Add title of japanese-skk.
+	Add hook `isearch-mode-hook' only when
+
+	* skk.el (skk-setup-modeline): Change condition t to
+	`(eq skk-status-indicator 'minor-mode)'.
+	(skk-mode): When exit, set `skk-input-mode-string' null string
+	unless `skk-status-indicator' is `minor-mode'.
+	When entering into skk-mode, set `skk-input-mode-string'
+	`skk-hiragana-mode-string' if `skk-status-indicator' is `left'.
+
+	* skk-jisx0201.el: Change condition t to
+	`(eq skk-status-indicator 'minor-mode)'.
+
+2000-07-09  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-setup.el.in (isearch-mode-end-hook): Check if skk-cursor
+	feature is provided or not.
+
+	* SKK-MK (SKK_MODULES): Add skk-cursor3.
+
+2000-07-09  YOSHIZAWA Masahiro <manbou@ceres.dti.ne.jp>
+
+	* skk-setup.el.in (isearch-mode-end-hook): Bug fixed.
+
+2000-07-08  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-cursor3.el: New experimental program.
+
+	* SKK-MK (SKK_MODULES): Add `skk-cursor2' and `ccc'.
+
+	* skk-setup.el.in: Add check if skk-cursor2 feature is exists or
+	not.
+
+	* experimental/ccc.el: New experimental program.
+	* experimental/skk-cursor2.el: Ditto (modified version of
+	skk-cursor.el which uses `ccc.el'.
+
+2000-06-24  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-viper.el (viper-forward-word-kernel): Add check whether
+	following character is Japanese JISX0213 or not.
+	(viper-backward-word-kernel): Ditto.
+	(viper-join-lines): Ditto.
+
+	* skk-macs.el (skk-jisx0213-p): New inline function.
+
+	* doc/skk.texi (Makefileの編集とインストール): Change required
+	APEL version 9.22 to 10.2.
+
+	* skk.el (skk-version): Use `apel-version'.
+
+2000-06-23  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-last-input-mode): Removed.
+
+	* skk-cursor.el (skk-cursor-current-color): Add comment.
+
+	* skk-macs.el (skk-abbrev-mode-on): Do not initialize
+	`skk-katakana'.
+
+	* skk.el (skk-abbrev-mode): Do not set `skk-last-input-mode'.
+	(skk-kakutei): Do not refer to `skk-last-input-mode'.
+	(skk-start-henkan): Keep `skk-katakana'.
+
+2000-06-23  Takao KAWAMURA  <kawamura@debian.org>
+
+	* skk-lookup.el (skk-lookup-agent-list): Set
+	`skk-lookup-search-agents' correctly.
+
+2000-06-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-obsolete.el (skk-obsolete-function-alist): Add
+	`(skk-toggle-kana . skk-toggle-characters)' and
+	`(skk-current-insert-mode . skk-current-input-mode)' pairs.
+
+	* skk-abbrev.el: Remove unnecessary spaces between parens.
+	* skk-auto.el: Ditto.
+	* skk-comp.el: Ditto.
+	* skk-develop.el: Ditto.
+	* skk-gadget.el: Ditto.
+	* skk-isearch.el: Ditto.
+	* skk-kakasi.el: Ditto.
+	* skk-kcode.el: Ditto.
+	* skk-look.el: Ditto.
+	* skk-lookup.el: Ditto.
+	* skk-obsolete.el: Ditto.
+	* skk-server.el: Ditto.
+	* skk-study.el: Ditto.
+	* skk-tut.el: Ditto.
+	* skk-vars.el: Ditto.
+	* skk-viper.el: Ditto.
+	* skk-xm20_4.el: Ditto.
+	* skk.el: Ditto.
+	* vip.el: Ditto.
+	* experimental/skk-dcomp.el: Ditto.
+	* experimental/tut-code/skk-def.el: Ditto.
+	* experimental/tut-code/skk-tutcdef.el: Ditto.
+	* experimental/tut-code/skk-tutcode.el: Ditto.
+
+	* skk-cursor.el (skk-cursor-current-color): Check if
+	`skk-abbrev-mode' is nil or not in a upper region of the function.
+
+	* skk-isearch.el (skk-isearch-mode-cleanup): Use
+	`skk-current-input-mode'.
+
+	* skk-vars.el (skk-last-input-mode): New internal variable.
+
+	* skk.el (skk-toggle-kana): Renamed to `skk-toggle-characters'.
+	Bug and doc fixed.
+	Call *-region function intead of *-henkan not to call
+	`skk-kakutei'.
+	Do not setup `skk-input-mode-string'.
+	Do not call `force-mode-line-update'.
+	(skk-kakutei): Check if `skk-mode' is nil or non-nil in a lower
+	region of the function in order not to initialize internal
+	variables before calling
+	`skk-search-excluding-word-pattern-function'.
+	Do not call `force-mode-line-update'.
+	(skk-mode): Do not setup `skk-input-mode-string'.
+	(skk-abbrev-mode): Set current input mode to
+	`skk-last-input-mode'.
+	Call `skk-kakutei' only when `skk-henkan-active' is non-nil.
+
+	* skk-lookup.el (skk-lookup-search): Add temporary variable V.
+
+	* skk-macs.el (skk-j-mode-on): Setup `skk-input-mode-string'.
+	(skk-current-insert-mode): Renamed to `skk-current-input-mode'.
+
+	* READMEs/MEMO.txt: New file.
+
+2000-06-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-lookup.el (skk-lookup-process-okurigana): When
+	`skk-henkan-okuri-strictly' is nil check prefix of OKURIGANA is
+	equal to `skk-okuri-char' or not.
+	(skk-lookup-search): Call `skk-lookup-process-henkan-key-function'
+	to process HENKAN-KEY when
+	`skk-lookup-process-henkan-key-function' is non-nil.
+
+	* skk-vars.el (skk-lookup-kana-vector): New user variable.
+	(skk-lookup-process-henkan-key-function): Ditto.
+	(skk-lookup-prefix-and-kana-map): New internal variable.
+
+	* skk-tut.el (skktut-init-variables-alist): Bug fixed.
+
+	* skk.el (skk-okurigana-prefix): Return nil when OKURIGANA is not
+	hirakana string.
+
+2000-06-20  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-CFG: Remove unnecessary comments.
+
+	* skk-num.el: Remove unnecessary spaces between parens.
+
+2000-06-19  YOSHIZAWA Masahiro <manbou@ceres.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-install-package): Missing quote.
+
+2000-06-19  TSUKAMOTO Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Do not install skk-study.el under Emacs
+	18.
+
+	* tinyinstall.el (data-directory): Give it the same value as
+	`exec-directory', under Emacs 18.
+
+2000-06-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-num.el (skk-num-update-jisyo): Not to show debug message.
+	Bind `skk-use-numeric-conversion' to nil temporarily.
+	Set buffer to ` *.skk-jisyo*'.
+
+	* Makefile (clean): Add leim-list.el as a target.
+
+	* skk.el (skk-henkan-show-candidate-subr): Bug fixed.
+
+	* skk-num.el (skk-num-recompute): Setup `skk-num-recompute-key' in
+	a upper region of the function code.
+
+	* skk-vars.el (skk-lookup-search-agents): Change its default value
+	to nil and remove require tag.
+	(skk-num-recompute-key): Change to global internal variable.
+
+	* skk-lookup.el: All variables and constants are moved to
+	skk-vars.el.
+	(skk-lookup-search): Not to search if `skk-num-list' or
+	`skk-num-recompute-key is non-nil.
+	Do not convert `skk-henkan-key' by `skk-num-compute-henkan-key'.
+	(skk-lookup-agent-list): Initialize `skk-lookup-search-agents'
+	when it has a null value.
+
+2000-06-18  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-lookup.el (skk-lookup-process-okurigana): Bug fixed.
+
+2000-06-17  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK-MK-install): Bug fixed.
+	(SKK-MK-install-package): Ditto.
+	(SKK-MK-install): Copy skk-setup.el to leim-list.el and install
+	both of them.
+	(SKK-MK-install-package): Ditto.
+
+	* skk-lookup.el (skk-lookup-process-okurigana): Return nil if
+	STRING is a null string.
+
+	* skk-leim.el: Remove unnecessary spaces between parens.
+
+	* skk-setup.el.in: Register SKK as an input method if Emacs has
+	`register-input-method'.
+	Add `skk-tut-file' setup strings.
+
+	* SKK-MK (SKK-MK-make-setup-file): Change its argument
+	`DICTIONARY' to `SPEC'.
+	(SKK-MK-install-package): Do not use multiple let scopes.
+	Use `SKK-MK-compile-info'.
+	Use new `SKK-MK-make-setup-file'.
+	(SKK-MK-install): Ditto.
+	Make `SKK-MK-make-setup-file' to setup as to tutorial file.
+
+2000-06-03  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK-MK-install): Bug fixed.
+	(SKK-MK-install-package): Ditto.
+
+2000-05-31  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-cursor.el: Add `keyboard-quit' to FUNCS list.
+	Remove duplicate `kill-buffer' from FUNCS list.
+
+	* experimental/GUIDELINE: Renewed.
+
+2000-05-15  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-lookup.el (skk-lookup-option-alist): Typo fixed.
+	(skk-lookup-default-option-list): Ditto.
+
+2000-05-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-lookup.el: Add install notes to Commentary.
+	Remove unnecessary blanks between parens.
+	(skk-lookup-option-alist): As to the list whose car is "GENIUS",
+	change 6th element nil to ",".
+	Change all S expressions in nested lists which represent regexp to
+	search to symbol `prefix'.
+	Doc fixed.
+	Change sexp choice in option to `(const nil)'.
+	(skk-lookup-default-option-list): Ditto.
+
+2000-04-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-truncate-message): Removed.
+	(skk-henkan-show-candidate-subr): Pop up another buffer to display
+	long string that cannot displayed wholly in the echo area.
+	(skk-henkan-show-candidates): Use `save-window-excursion' for the
+	purpose above.
+
+2000-04-27  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/README.win: Change file name descriptions `Readme' to
+	`README' and `Install' to `INSTALL'.
+
+2000-4-27  Yuh Ohmura  <yutopia@t3.rim.or.jp>
+
+	* READMEs/README.win: add SKK on Windows and skkserve on
+	windows.
+
+2000-04-27  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/README.win: Reorganize it as outline mode.
+
+	* READMEs/INSTALL: Typo fixed.
+
+2000-04-26  Yuh Ohmura <yutopia@t3.rim.or.jp>
+
+	* make.bat: Change maintenner.
+
+	* READMEs/README.win: add about dictionary
+
+2000-04-26  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/INSTALL: Add description about dictionaries.
+
+	* doc/skk.texi (Makefileの編集とインストール): Ditto.
+	(.emacsの設定): Add description about `skk-setup.el', and change
+	description about isearch-mode-end-hook.
+	Change open parens to closed ones.
+	Change `SKK 10' to `Daredevil SKK'.
+
+	* SKK-MK (SKK-MK-make-setup-file): New function.
+	(DICDIR): New variable.
+	(SKK_DICTIONARIES): Ditto.
+	(SKK-MK-install): Install dictionaries if they exist in ./dic
+	subdirectory.
+	(SKK-MK-install-package): Ditto.
+
+	* Makefile (clean): Add `skk-setup.el'.
+
+	* dic/README: New file.
+
+	* skk-setup.el.in: New file.
+
+2000-04-09  Takao KAWAMURA  <kawamura@debian.org>
+
+	* skk-vars.el (skk-keep-record): change type from 'boolean to
+	'(choice integer (const t) (const nil))
+
+	* skk.el (skk-save-jisyo-original): Move calling
+	`skk-record-jisyo-data' into `skk-before-kill-emacs-hook'.
+	(skk-record-jisyo-data): if `skk-keep-record' is a integer,
+	skk-record-file does not grow over it.
+
+2000-04-06  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-exsearch.el (core-engine): Bug fixed.
+	(search-engine): New argument ARGUMENT.
+	(skk-cdbget-search): Take SKK-HENKAN-KEY as its second argument.
+
+2000-04-03  Murata Shuuichirou  <mrt@notwork.org>
+
+	* skk-viper.el (skk-viper-normalize-map): Use
+	local-variable-if-set-p instead of local-variable-p, when running
+	on FSF emacs.  Sync with XEmacs case.
+
+2000-03-29  Yuh Ohmura  <yutopia@t3.rim.or.jp>
+
+	* READMEs/CVS_on_Windows: cancel below change
+
+2000-03-29  Yuh Ohmura <yutopia@t3.rim.or.jp>
+
+	* READMEs/CVS_on_Windows: add about timezone.
+
+2000-03-24  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-exserv.el (server-version): Bug fixed.
+
+	* SKK-MK (SKK_MODULES): Add `skk-exserv'.
+
+	* experimental/skk-exserv.el: New experimental program.
+
+	* experimental/skk-exsearch.el (search-engine): Convert
+	`skk-henkan-key' by `skk-num-compute-henkan-key' if
+	`skk-use-numeric-conversion' is non-nil.
+	Remove arg ARGUMENT.
+	(skk-cdbget-search): Remove second argument `skk-henkan-key'.
+
+2000-03-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-server.el (skk-adjust-search-prog-list-for-server-search):
+	Remove unproper comments.
+
+2000-03-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-exsearch.el (search-engine): Get forward
+	one character if there is a candidates string in the working
+	buffer.
+	(synchronous-search-engine): Removed (server is connecting with
+	TCP network stream, not started by `start-process'...)
+	(server-search-engine): Removed.
+	(synchronous-search-engine): New slot `success-exit-code' and
+	`error-exit-code' are provided.
+	(core-engine): Refer to slot of eigine `success-exit-code' and
+	`error-exit-code'.
+	If error occured, show stderr as error message.
+	Bug fixed as to BUFFER argument of `call-process'.
+
+2000-03-20  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-server.el (skk-open-server): Use temporary variable PROC for
+	NEmacs.
+
+	* experimental/skk-exsearch.el (search-engine): New superclass.
+	(synchronous-search-engine): Change it to class (not superclass).
+	(asynchronous-search-engine): Specify `search-engine' as its
+	superclass.
+	Doc fixed.
+	(setup-synchronous-engine): New function.
+
+2000-03-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Add skk-exsearch.
+
+	* experimental/skk-exsearch.el: New experimental program.
+
+	* skk-develop.el: Move edebug specs of `skk-save-point' and
+	`skk-with-point-move' to skk-macs.el.
+
+2000-03-16  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK-MK-cleanup-trouble-makers): Removed.
+	(SKK-MK-install): Do not use `SKK-MK-cleanup-trouble-makers'.
+	(SKK-MK-install-package): Ditto.
+	(LISPDIR): Remove space between a S expression and paren.
+	(SKK-MK-install): Ditto.
+	(SKK-MK-install-package): Ditto.
+	(SKK-MK-texinfo-format): Ditto.
+	(SKK-MK-what-where): Ditto.
+	(SKK-MK-texinfo-format): Bind `standard-output' to nil.
+	(SKK-MK-generate-autoloads-el): Ditto.
+	(SKK-MK-compile): Remove local `standard-output'.
+	(write-region): Removed.
+
+2000-03-13  Takao KAWAMURA  <kawamura@debian.org>
+
+	* Makefile (clean): Doesn't remove ../ddskk*.
+	(tar): Remove ../ddskk*.
+	(snapshot): Ditto.
+
+2000-03-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-codename): Specify station name only.
+
+	* Makefile (snapshot): New entry.
+
+2000-03-11  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* Makefile (tar): Modify for tar 1.12.
+	(clean): Remove old archive, links and backup file initiated with
+	dot.
+
+	* ChangeLog: Move issues before 1999 to ChangeLog.0.
+
+2000-02-25  Daiki Ueno  <ueno@ueda.info.waseda.ac.jp>
+
+	* skk.el (skk-setup-modeline): Use `add-minor-mode' under XEmacs.
+
+	* skk-kcode.el (skk-input-by-code-or-menu-jump): Use "%s" for the
+	1st argument of `message'.
+
+2000-02-06  Kenichi OKADA <okada@opaopa.org>
+
+	* skk-vars.el (skk-emacs-type): Add `mule5'.
+	(skk-kcode-charset): Ditto.
+	(skk-coding-system-alist): Ditto.
+	(skk-kcode-charset-list): Ditot.
+	* skk.el (skk-jisx0208-to-ascii): Ditto.
+	(skk-mode): Ditto.
+	* skk-macs.el (skk-emacs-type): Ditto.
+	(skk-detect-emacs): Ditto.
+	(skk-str-length): Ditto.
+	(skk-substring): Ditto.
+	(skk-ascii-char-p): Ditto.
+	(skk-str-ref): Ditto.
+	(skk-jisx0208-p): Ditto.
+	* skk-kcode.el (skk-make-char): Ditto.
+	(skk-display-code): Ditto.
+
+2000-02-05  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-e18.el (insert-and-inherit): Sync with APEL.
+	(number-to-string): Ditto.
+
+2000-01-31  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-auto-fill-mode): Add defition for Emacs 18.
+
+	* skk-macs.el (skk-do-auto-fill): Add defition for Emacs 18.
+
+2000-01-30  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-dos.el (require): Fix.
+
+	* experimental/skk-e18.el (insert-file-contents-as-coding-system):
+	Sync with APEL.
+
+	* skk-macs.el (skk-j-mode-on): Create a local keymap here.
+	(skk-latin-mode-on): Ditto.
+	(skk-jisx0208-latin-mode-on): Ditto.
+	(skk-abbrev-mode-on): Ditto.
+
+	* skk-vars.el (skk-kakutei-key): The value is not necessarily a
+	string.
+
+	* skk.el (skk-e18-setup): Do not let local key bindings in
+	`skk-j-mode-map', `skk-latin-mode-map',
+	`skk-jisx0208-latin-mode-map', `skk-abbrev-mode-map'. These are
+	not local variables.
+
+2000-01-30  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-isearch-forward, skk-isearch-forward-regexp,
+	skk-isearch-backward, skk-isearch-backward-regexp): Enclose with
+	`static-unless' instead of `unless'.
+
+2000-01-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-e18.el (skk-hiragana-to-katakana): Moved to
+	skk.el.
+	(skk-katakana-to-hiragana): Ditto.
+	(unread-command-events): Removed.
+
+	* skk-macs.el (skk-lisp-prog-p): Use `skk-ascii-char-p'.
+	(skk-unread-event): Add definition for Emacs 18.
+
+2000-01-29  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk.el: Check `emacs-major-version' instead of `emacs-version'
+	under Emacs 18.
+
+2000-01-29  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0208.el (skk-setup-modeline): Set the value of
+	`mode-line-format' in each buffer.
+
+	* skk.el (skk-setup-modeline): Ditto.
+
+2000-01-29  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-e18.el (skk-hiragana-to-katakana): New function
+	for Nemacs.
+	(skk-katakana-to-hiragana): Ditto.
+	(window-minibuffer-p): Refer to WINDOW when it is given.
+
+	* skk.el (skk-search-and-replace): Use `goto-char' to go back to
+	the beginning of the match, instead of `backward-char'.
+
+2000-01-29  Daiki Ueno  <ueno@ueda.info.waseda.ac.jp>
+
+	* skk-macs.el (skk-charsetp): Rearrange conditionals.
+
+2000-01-28  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-e18-setup): Add `skk-abbrev-mode-map'.
+
+2000-01-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-make-char): Moved to skk-kcode.el.
+
+	* skk-vars.el (skk-cursor-change-width): Bind default variable to
+	nil for nemacs.
+	(skk-use-color-cursor): Ditto.
+	(skk-hankaku-alist): Define for mule1 and nemacs, too.
+	(skk-coding-system-alist): Define string and number data for
+	nemacs.
+
+	* experimental/skk-e18.el (skk-j-mode-on): Removed
+	(skk-j-mode-on): Ditto.
+	(skk-latin-mode-on): Ditto.
+	(skk-jisx0208-latin-mode-on): Ditto.
+	(skk-abbrev-mode-on): Ditto.
+	(skk-hankaku-alist): Ditto.
+	(skk-emulate-original-map): Ditto.
+	(skk-mode): Remove advice.
+	(skk-e18-setup): Moved to skk.el.
+	(skk-current-local-map): Ditto.
+	(skk-e18-self-insert-keys): Ditto.
+
+2000-01-27  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-e18.el (overlayp): New emulation.
+
+2000-01-27  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-correct.el: New experimental program.
+
+	* SKK-MK (SKK_MODULES): Add skk-correct.
+
+	* skk.el: Do not occur error even on Emacs 18 (just warning...).
+	(skk-jisx0208-to-ascii): Add defition taken from skk-e18.el for
+	nemacs and mule1.
+
+	* experimental/skk-e18.el (skk-jisx0208-to-ascii): Removed.
+
+2000-01-26  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-e18.el (save-match-data): `defmacro-maybe'
+	instead of `defmacro'.
+
+2000-01-26  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-macs.el (skk-ascii-char-p): typo fixed.
+
+2000-01-26  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-e18.el (skk-hankaku-alist): New variable.
+	(skk-jisx0208-to-ascii): New function.
+
+2000-01-26  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-henkan-show-candidate-subr): Revive.
+
+2000-01-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-macs.el (skk-str-length): Use `string-to-char-list' for
+	Emacsen other than XEmacs, Mule4 and Mule3 (hereinafter referred
+	to as `old Emacs'.
+	(skk-str-ref): Ditto.
+	(skk-read-event): Use `read-char' for old Emacs.
+	(skk-substring): Use last definition for old Emacs.
+	(skk-ascii-char-p): Compare character using `<' for Mule1 and
+	NEmacs.
+	(skk-jisx0208-p): Ditto.
+
+	* skk-kcode.el (skk-make-string): Do not use `skk-make-char' for
+	NEmacs.
+
+	* skk.el (skk-make-temp-file): Use `expand-file-name'.  Set end
+	slashed directory to temporary variable DIR.  Do not access A
+	drive even if system-type is MS-DOS oriented one.
+	(skk-make-char): Use last definition for mule1.
+	(skk-mode): Use static-if for for the place using
+	`skk-emacs-type'.
+	(skk-kill-emacs-without-saving-jisyo): Ditto.
+	(skk-henkan-show-candidates): Ditto.
+
+	* experimental/skk-e18.el (read-event): Removed.
+	(skk-in-minibuffer-p): Ditto.
+	(skk-lisp-prog-p): Ditto.
+	(skk-make-string): Ditto.
+	(skk-make-temp-file): Ditto.
+	(skk-str-length): Ditto.
+	(skk-str-ref): Ditto.
+	(skk-make-char): Ditto.
+	(window-minibuffer-p): Temporarily defined until poe-18.el defines
+	it.
+
+2000-01-25  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Do not install skk-cursor.el for Emacs 18.
+
+	* experimental/skk-e18.el (skk-use-color-cursor): Default to nil
+	under Emacs 18.
+	(skk-cursor-change-width): Ditto.
+	(skk-e18-self-insert-keys): New variable.
+	(skk-lisp-prog-p): Don't redefine here -- use the original.
+	(skk-in-minibuffer-p): Ditto.
+	(skk-str-length): New inline function.
+	(skk-str-ref): Ditto.
+	(search-backward): New advice -- by 中島さん.
+	(re-search-backward): Ditto.
+	(window-minibuffer-p): New function -- by 中島さん.
+	(skk-e18-define-j-mode-map): Abolish.
+	(insert-file-contents-as-coding-system): Work arond for Mule 1.
+	(skk-make-string): This is only for Nemacs.
+	(skk-make-char): This is for Mule 1.
+
+	* skk-macs.el (skk-emacs-type): Add `mule1'.
+	(skk-detect-emacs): Ditto.
+
+	* skk-vars.el (skk-emacs-type): Ditto.
+	(skk-background-mode): Avoid an error under Emacs 18.
+	(skk-cursor-default-color): Ditto.
+	(skk-isearch-overriding-local-map): Ditto.
+
+	* skk.el (skk-isearch-forward): This function is not obsolete for
+	Emacs 18 -- though Emacs 18 seems obsolete ;^)
+	(skk-isearch-forward-regexp): Ditto.
+	(skk-isearch-backward): Ditto.
+	(skk-isearch-backward-regexp): Ditto.
+
+2000-01-24  Takao KAWAMURA  <kawamura@debian.org>
+
+	* SKK-MK (SKK-MK-generate-autoloads-el): corrected the
+	indentation.
+
+2000-01-23  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (clean): Delete experimental/skk-isearch.el.
+
+	* SKK-MK: Copy "experimental/skk-is-n.el" to
+	"experimental/skk-isearch.el" under Emacs 18.
+	(SKK-MK-compile): Also gather autoloads from
+	"experimental/skk-isearch.el".
+	(SKK-MK-generate-autoloads-el): Use a file name without its
+	directory name.
+
+	* experimental/skk-is-n.el: New file.
+
+2000-01-23  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (clean): Delete experimental/*.elc.
+
+	* SKK-MK: Require "skk-e18" if `emacs-major-version' is 18.
+	(SKK-MK-texinfo-coding-system): Modify for Emacs 18.
+	(SKK_MODULES): Ditto.
+	(SKK-MK-compile): Ditto.
+	(SKK-MK-install): Ditto.
+	(SKK_INFOS): Creating info files is not yet supported under Emacs
+	18.
+	(SKK-MK-compile-info): Do nothing if `SKK_INFOS' is nil.
+	(SKK-MK-generate-autoloads-el): Make sure the point is eobp before
+	the last comment is inserted.
+
+	* experimental/skk-e18.el: New file.
+
+	* skk-macs.el (skk-emacs-type): Modify for Nemacs.
+	(skk-detect-emacs): Ditto.
+	* skk-server.el: Require "static" at the compile time.
+	(skk-open-server): Use `static-cond'.
+	Call `process-kanji-code' under Nemacs.
+
+	* skk-vars.el (skk-emacs-type): Modify for Nemacs.
+	(skk-cursor-default-color): Default to nil under Nemacs.
+	(skk-background-mode): Ditto.
+	(skk-kcode-charset): Ditto -- It's OK. Don't use this variable.
+	(skk-isearch-breakable-character-p-function): Ditto.
+	(skk-check-okurigana-on-touroku): Rename from
+	`skk-check-okurigana-on-toroku'.
+
+	* skk.el: Don't refer to `skk-branch-name' before "skk-vars" is
+	loaded.
+	Require "skk-e18" under Emacs 18.
+	If loading "easymenu" fails, ignore `easy-menu-define'.
+	(skk-setup-delete-backward-char): If `overriding-local-map' is not
+	used, use the return value of `current-global-map' instead.
+
+	* tinyinstall.el: (emacs-major-version): New variable for Emacs
+	18.
+	(member): New function for Emacs 18.
+
+2000-01-23  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-henkan-show-candidates): Remove unnecessary
+	temporary variable STR.
+
+2000-01-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-insert-new-word): Change for new `skk-eval-string'.
+	(skk-henkan-show-candidate-subr): Ditto.
+	(skk-nunion): Change open parens to closed ones.
+
+	* skk-macs.el (skk-eval-string): Return STRING.
+
+2000-01-19  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK: Typo.
+
+	* skk-isearch.el (skk-isearch-find-keys-define): New function.
+	(skk-isearch-setup-keymap): Call it.
+
+	* skk.el (skk-truncate-message): Use `truncate-string' instead of
+	`truncate-string-to-width'.
+
+2000-01-19  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-setup-keymap): Find keys that invoke
+	SKK in `current-global-map', and let them execute
+	`skk-isearch-skk-mode' in isearch-mode.
+
+	* skk-jisx0201.el: Modify comments.
+
+2000-01-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-insert-new-word): Use `skk-eval-string'.
+	(skk-insert-new-word): Remove unnecessary temporary variable FUNC.
+
+	* skk-macs.el (skk-lisp-prog-p): Move from skk.el and make it
+	inline.
+	(skk-eval-string): New inline function.
+
+2000-01-18  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (standard-character-unification-table-for-decode): Under
+	Emacs 20.2, set this variable and compile skk-jisx0201.el
+	properly.
+
+2000-01-17  Murata Shuuichirou  <mrt@notwork.org>
+
+	* skk.el (skk-kakutei-cleanup-buffer): Convert hiragana as
+	okurigana into katakana even if skk-okurigana is nil.
+
+2000-01-17  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk-cursor.el (skk-cursor-current-color): Evaluate the clauses in
+	original order. (^_^;
+	(keyboard-quit): Remove advice.
+
+2000-01-17  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* SKK-MK (SKK-MK-compile): Keep ``standard-output'' t.
+
+	* make.bat (target to clean): Typo fixed.
+
+	* READMEs/README.win: Correct sample ``.emacs'' files.
+
+2000-01-17  SAKAI Kiyotaka  <ksakai@kso.netwk.ntt-at.co.jp>
+
+	* skk-leim.el: Not to overwrite user's input method setting.
+
+2000-01-15  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el: Require "static" at the compile time.
+	(skk-jisx0201-zenkaku): Use `static-cond'.
+	(skk-jisx0201-hankaku): Ditto.
+	(skk-setup-modeline): Ditto.
+
+2000-01-08  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-setup-delete-selection-mode): Setup for pending-del
+	on XEmacs.
+	(skk-lisp-prog-p): Check first character by aref instead of
+	skk-str-ref.  Check second character is more than ?\37, too.
+
+2000-01-02  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-dos.el: Fix comments.
+	(require): Fix the advice.
+
+1999-12-31  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-lookup.el (skk-lookup-get-method): Omit check by
+	`skk-lisp-prog-p'.
+	(skk-lookup-search-1): New subroutine.
+	(skk-lookup-search): Use `skk-lookup-search-1'.
+
+1999-12-30  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el: Add Comments.
+	(skk-jisx0201-roman-rule-list, skk-jisx0201-base-rule-tree,
+	skk-jisx0201-roman-rule-tree. skk-jisx0201-roman): New variables.
+	(skk-toggle-jisx0201): New function.
+	(skk-jisx0201-mode-on): Accept an optional argument.
+	(skk-kakutei): Refer to `skk-jisx0201-roman'.
+
+1999-12-30  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (LISPDIR): Select a good place for MS-DOS and Windows.
+	(VERSION_SPECIFIC_LISPDIR): Ditto.
+	(standard-translation-table-for-decode): Under Emacs 20.3 or
+	later, set this variable and compile skk-jisx0201.el properly.
+
+	* etc/Emacs.ad: Typo.
+
+	* experimental/skk-dos.el: New file.
+
+	* skk-isearch.el: Always require "skk".
+	* skk-jisx0201.el (skk-setup-modeline): Don't check the feature
+	"xemacs". Refer to `skk-emacs-type' instead.
+
+	* skk-study.el (skk-study-file): Let the default value appropriate
+	for MS-DOS.
+	(skk-study-backup-file): Ditto.
+	(skk-study-save): Don't use `copy-file' under MS-DOS.
+
+	* skk-vars.el (skk-cursor-change-width): Ugh, fix the default
+	value.
+
+	* tinyinstall.el (install-prefix): Select a good place for MS-DOS
+	and Windows.
+
+1999-12-27  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-background-mode): Don't call `x-color-values'
+	if it is not defined.
+	(skk-init-file, skk-jisyo, skk-backup-jisyo, skk-record-file):
+	Let the default values appropriate for MS-DOS.
+	(skk-use-color-cursor, skk-cursor-change-width): nil by default
+	under MS-DOS.
+
+1999-12-26  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-rule-tree): Doc fixed.
+	(skk-cursor-change-width): Change default value to value of
+	variable `window-system'.
+
+	* skk.el (skk-mode): Remove locally skk-pre-command from
+	pre-command-hook and skk-after-point-move from post-command-hook
+	when exit skk-mode.
+
+	* skk-macs.el (skk-get-char): Comment (it is not used).
+	(skk-set-char): Ditto.
+	(skk-set-prefix): Ditto.  Use `cdr' instead of `nthcdr'.
+	(skk-charsetp): Simplify.
+	(skk-color-display-p): Add fboundp check of `x-display-color-p'.
+	Omit `window-system' is eq `x' or not.
+
+1999-12-23  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-macs.el: Eliminate all spaces which existed between
+	parens.
+	(skk-get-last-henkan-data): Renamed to
+	`skk-get-last-henkan-data'.
+	(skk-put-last-henkan-data): Renamed to
+	`skk-put-last-henkan-datum'.
+	(skk-put-last-henkan-data): New inline function.
+
+	* skk.el (skk-update-jisyo-original): Get HENKAN-BUFFER temporary
+	variable only when `skk-update-end-function' is non-nil.
+	(skk-remove-redundant-okurgana): New function.
+	(skk-henkan-in-minibuff): Use `skk-remove-redundant-okurgana'.
+	Doc fixed.  Remove OKURIGANA temporary variable.
+	(skk-version): Remove a `,' between version number and code name.
+	(skk-remove-redundant-okurgana): Bug fixed.
+
+	* skk-vars.el: Remove unnecessary blanks between parens.
+
+	* skk-viper.el (skk-viper-normalize-map): Use `static-if' instead
+	of `if'.  Call `skk-viper-normalize-map-function' even if
+	SKK related minor mode map is in minor-mode-map-alist.
+
+1999-12-21  Murata Shuuichirou  <mrt@notwork.org>
+
+	* skk-macs.el (skk-color-display-p): Check whether X or not,
+	before use `x-display-color-p'.
+
+	* skk-viper.el (read-from-minibuffer): Advice only when
+	skk-use-color-cursor is no-nil.
+
+1999-12-20  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (kill-buffer): Doc fixed.
+	(minibuffer-keyboard-quit): Add advice only for XEmacs.
+
+	* READMEs/PROPOSAL (分割したファイルに必須の記述): Modify for
+	Daredevil.
+
+	* READMEs/README.win (Message-ID): Ditto.
+
+1999-12-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el: Eliminate all spaces which existed between
+	parens.
+	(skk-mode): Require `skk-cursor.el' everytime skk-mode is called.
+	(skk-mode-once-again): New function.
+	(minibuffer-keyboard-quit): Apply Tsukamoto san's Message-Id:
+	<199912181531.AAA24324@ring.etl.go.jp> patch.
+
+	* skk-vars.el: Eliminate all spaces which existed between
+	parens.
+	(skk-cursor): New group.
+	(skk-cursor-default-color): Change its group to skk-cursor.
+	(skk-cursor-hiragana-color): Ditto.
+	(skk-cursor-katakana-color): Ditto.
+	(skk-cursor-jisx0208-latin-color): Ditto.
+	(skk-cursor-latin-color): Ditto.
+	(skk-cursor-abbrev-color): Ditto.
+	(skk-cursor-report-set-error): Ditto.
+	(skk-cursor-change-width): Ditto.
+
+	* skk-cursor.el: Eliminate all spaces which existed between
+	parens.
+	Check if display supports color.
+	(isearch-mode-end-hook): Add
+	`skk-cursor-set-properly' to the hook.
+	(skk-cursor-current-color): Slightly simplified.
+	(skk-cursor-set-color): Omit check of `skk-use-color-cursor' is
+	nil or non-nil.
+	Check if COLOR is non-nil.
+	(skk-cursor-set-properly): New optional arg COLOR.
+	(skk-cursor-setup-minibuffer): New function.
+	(minibuffer-setup-hook): Hook `skk-cursor-setup-minibuffer'.
+	(skk-mode-hook): Hook `skk-mode-once-again'.
+	(minibuffer-exit-hook): Set cursor in the latest current buffer
+	(not minibuffer).
+
+	* skk-viper.el: Eliminate all spaces which existed between
+	parens.
+	(skk-cursor-set-properly): Change function to advice.
+	(skk-mode-hook): Hook `skk-mode-once-again'.
+	(viper-toggle-case): Japanized version.  Hirakana to Katakana and
+	vice versa.
+	(viper-intercept-ESC-key): Doc fixed.
+	(vip-intercept-ESC-key): Ditto.
+	(vip-Append): New advice of skk-viper-cursor-ad.
+	(vip-Insert): Ditto.
+	(vip-insert): Ditto.
+	(vip-intercept-ESC-key): Ditto.
+	(vip-open-line): Ditto.
+	(viper-Append): Ditto.
+	(viper-Insert): Ditto.
+	(viper-hide-replace-overlay): Ditto.
+	(viper-insert): Ditto.
+	(viper-intercept-ESC-key): Ditto.
+	(viper-open-line): Ditto.
+	(skk-abbrev-mode): Ditto.
+	(skk-jisx0208-latin-mode): Ditto.
+	(skk-kakutei): Ditto.
+	(skk-latin-mode): Ditto.
+	(skk-mode): Ditto.
+	(skk-toggle-kana): Ditto.
+	(skk-viper-saved-cursor-color): New internal variable.
+	(viper-read-string-with-history): New advice of skk-viper-ad.
+	(read-from-minibuffer): Ditto.
+	(skk-mode): Change class of skk-viper-cusror-ad to after.
+	(skk-cursor-set-properly): Change its class to around.
+	Set `viper-insert-state-cursor-color' to the value of
+	`skk-viper-saved-cursor-color' if insert-state.
+	(viper-insert-state-cursor-color): Make it buffer-local variable.
+	;;
+	* skk-isearch.el: Eliminate all spaces which existed between
+	parens.
+	Modify doc string about hooks.
+
+1999-12-18  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-hankaku-mode.el: Hey, is she still there? She's
+	coming home. :-)
+	No longer in the repository.
+
+	* skk-cursor.el (minibuffer-setup-hook): Fix the behaviour under
+	XEmacs.
+
+1999-12-18  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el (skk-setup-modeline): If `skk-status-indicator'
+	is left and the face `modeline' is not proportional, use the same
+	number of columns to display each SKK status, except for
+	`skk-jisx0201-mode'.
+
+	* skk.el (skk-setup-modeline): Ditto.
+
+1999-12-18  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el: (abort-recursive-edit): Advise under XEmacs.
+	(skk-mode): Call `skk-cursor-set-properly'.
+	(skk-auto-fill-mode): Seems this advice is not needed -- though
+	I'm not sure.
+	(skk-insert): New advice. Call `skk-cursor-set-properly' when
+	`skk-abbrev-mode' is non-nil.
+	(minibuffer-setup-hook): Adjust cusor color under XEmacs.
+
+1999-12-17  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (isearch-search): New advice.
+
+1999-12-16  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-abbrev-mode-p): New function.
+	(skk-isearch-current-mode): Enable to recognize abbrev mode.
+	(isearch-repeat): This should be `after' advice.
+	(isearch-edit-string): New advice.
+
+	* skk-vars.el (skk-isearch-mode-string-alist): Add a string for
+	abbrev mode.
+
+1999-12-16  Yuh Ohmura <yutopia@t3.rim.or.jp>
+
+	* make.bat: correct bug.
+
+1999-12-15  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-setup-keymap): No longer check if
+	`skk-kakutei-key' is defined.
+
+1999-12-15  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-delete-char): Fix regexp by
+	`regexp-quote'.
+
+1999-12-15  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (isearch-repeat): Delete unnecessary or
+	unreasonable elements from `isearch-cmds'.
+
+1999-12-15  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-mode): Move skk-cursor.el related codes to
+	skk-cursor.el.
+
+	* skk-cursor.el (skk-mode): Remove duplicated advice.
+	Do not use skk-cursor-set-properly.
+	Add codes in the top level in order to set cursor properly when
+	first time skk-cursor.el is loaded.
+
+1999-12-14  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el: Require `skk-vars' also at the load time.
+	(skk-isearch-mode-setup): Make sure `skk-isearch-mode-map' is a
+	keymap.
+	(isearch-repeat): Rewrite the advice so that it look like
+	advice. :-)
+	There should be no changes in its behaviour.
+
+1999-12-14  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk-cursor.el (set-buffer, erase-buffer): Remove advices.
+
+1999-12-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK_DAREDEVIL_NOT_USE): Add skk-vip.
+
+1999-12-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-viper.el (skk-cursor-set-properly): Sync up with
+	skk-cursor-set-properly in skk-cursor.el.
+
+	* skk-cursor.el (skk-save-jisyo-original): Change defadvice for
+	`skk-save-jisyo'.
+	(skk-cursor-set-properly): Check current buffer has a window or
+	not first.
+
+1999-12-13  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk-cursor.el (skk-cursor-current-color): Change order again.
+	(keyboard-quit): New advice.
+	(newline): Revive advice.
+	(skk-latin-mode): Ditto.
+	(skk-jisx0208-latin-mode): Ditto.
+	(skk-abbrev-mode): Ditto.
+	(skk-auto-fill-mode): Ditto.
+	(skk-toggle-kana): Ditto.
+	(skk-kakutei): Ditto.
+	(skk-save-jisyo-original): Ditto.
+	(skk-katakana-region): Ditto.
+	(skk-hiragana-region): Ditto.
+	(skk-jisx0208-latin-region): Ditto.
+	(skk-latin-region): Ditto.
+	(skk-jisx0201-region): Ditto.
+	(skk-gyakubiki-message): Ditto.
+	(skk-gyakubiki-katakana-region): Ditto.
+	(skk-gyakubiki-katakana-message): Ditto.
+	(skk-hurigana-region): Ditto.
+	(skk-hurigana-message): Ditto.
+	(skk-hurigana-katakana-region): Ditto.
+	(skk-romaji-region): Ditto.
+	(skk-romaji-message): Ditto.
+	(skk-delete-backward-char): Ditto.
+	(skk-start-henkan): Ditto.
+	(force-mode-line-update): Remove advice.
+
+1999-12-13  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk-comp.el (skk-completion-original): Bug fixed.
+	(skk-previous-completion-original): Ditto.
+
+	* skk-cursor.el (skk-cursor-current-color): Change order to evaluate
+	`skk-abbrev-mode' first.
+	(newline): Remove advice.
+	(skk-latin-mode): Ditto.
+	(skk-jisx0208-latin-mode): Ditto.
+	(skk-abbrev-mode): Ditto.
+	(skk-auto-fill-mode): Ditto.
+	(skk-toggle-kana): Ditto.
+	(skk-kakutei): Ditto.
+	(skk-save-jisyo-original): Ditto.
+	(skk-katakana-region): Ditto.
+	(skk-hiragana-region): Ditto.
+	(skk-jisx0208-latin-region): Ditto.
+	(skk-latin-region): Ditto.
+	(skk-jisx0201-region): Ditto.
+	(skk-gyakubiki-message): Ditto.
+	(skk-gyakubiki-katakana-region): Ditto.
+	(skk-gyakubiki-katakana-message): Ditto.
+	(skk-hurigana-region): Ditto.
+	(skk-hurigana-message): Ditto.
+	(skk-hurigana-katakana-region): Ditto.
+	(skk-romaji-region): Ditto.
+	(skk-romaji-message): Ditto.
+	(skk-delete-backward-char): Ditto.
+	(skk-start-henkan): Ditto.
+	(force-mode-line-update): New advice.
+	(after-make-frame-hook): Remove hook.
+	(minibuffer-setup-hook): Simplify hook.
+
+1999-12-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-cursor.el (skk-cursor-set-properly): Bug fixed.
+
+	* skk.el (skk-mode): Call `skk-cursor-set-properly` if
+	`skk-use-color-cursor' or `skk-cursor-change-width' is non-nil.
+
+	Not required skk-num.el expressly. (skk-num-list という buffer
+	local 変数に関するエラーを回避するために
+	skk-use-numeric-conversion が non-nil であれば skk-mode 内で先に
+	skk-num.el を require していたのだが、上記の問題は daredevil に限っ
+	ては起こる可能性がないので、明示的な require を止めた (必要となっ
+	たときに autoload される)。
+	skk-use-numeric-conversion が non-nil で、skk-num.el の load 前に
+	let で temporary 変数として bind し、その let 内で skk-num.el を
+	require したとき、let を出た後に skk-num-list が void になるという
+	エラーがあった。Daredevil では変数は全て skk-vars.el に入っており、
+	これを skk.el が require しているので、skk-num-list 変数は skk.el
+	の load 直後から存在しているので、この問題は発生しない。
+
+	* skk-vars.el (skk-completion-function): Add descriptions to doc
+	string.
+	(skk-previous-completion-function): Ditto.
+
+1999-12-10  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk.el (skk-delete-okuri-mark): Bug fixed.
+
+1999-12-09  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk.el (keyboard-quit): Typo fixed.
+	(query-replace-regexp): Disable advice because don't work correctly.
+	(query-replace): Ditto.
+
+	* skk-cursor.el (goto-line): Removed.
+	(insert-file): Ditto.
+	(execute-extended-command): Ditto.
+	(read-from-minibuffer): Ditto.
+	(completing-read): Ditto.
+	(minibuffer-keyboard-quit): Ditto.
+	(exit-minibuffer): Ditto.
+	(abort-recursive-edit): Ditto.
+	(delete-window, select-window, select-frame, delete-frame,
+	set-buffer, erase-buffer): New advices.
+	(kill-buffer, bury-buffer, switch-to-buffer, pop-to-buffer,
+	other-window): Included among the above advices.
+	(skk-cursor-current-color): New function. Extracted from
+	``skk-cursor-set-properly''.
+	(skk-cursor-set-properly): Call ``skk-cursor-current-color''.
+	(minibuffer-setup-hook): Preserve cursor color in
+	``skk-cursor-color-before-entering-minibuffer''.
+	(minibuffer-exit-hook): Retrieve cursor color from
+	``skk-cursor-color-before-entering-minibuffer''.
+
+	* skk-vars.el (skk-cursor-color-before-entering-minibuffer): New
+	internal buffer local variable.
+
+	* doc/skk.texi (見出し語の補完): Moved @footnote outside @group block.
+
+1999-12-08  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (exit-minibuffer): Set cursor color even if the
+	point still exists in the minibuffer.
+	(minibuffer-keyboard-quit): Ditto.
+
+	* skk-vars.el (skk-check-okurigana-on-toroku): Fix doc string.
+
+1999-12-07  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-check-okurigana-on-toroku): New variable.
+	* skk.el (skk-henkan-in-minibuff): If
+	`skk-check-okurigana-on-toroku' is non-nil, prompt user to check
+	okurigana.
+
+1999-12-07  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (completing-read): Fix the advice.
+	(read-from-minibuffer): Ditto.
+
+1999-12-07  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (completing-read): Don't use `unwind-protect'. Use
+	`condition-case'. Don't advise to XEmacs' `completing-read'.
+	(read-from-minibuffer): New advice. Call
+	`skk-cursor-set-properly'.
+
+	* skk-jisx0201.el (fence-mode-map): defvar under Mule 2.
+
+1999-12-07  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-macs.el (skk-detect-emacs): New macro.
+
+	* skk-cursor.el (completing-read): Disabled.
+
+	* SKK-MK (write-region): New advice, but does not work (;_;)...
+
+1999-12-06  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (isearch-repeat): Compile the advice at the
+	compile time.
+
+1999-12-06  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/CVS_00readme: New file, whose contents written by
+	酒井 清隆 <ksakai@kso.netwk.ntt-at.co.jp>
+
+1999-12-05  Takao KAWAMURA  <kawamura@debian.org>
+
+	* SKK-MK (SKK-MK-compile-info): New function.
+
+	* Makefile (info): New entry.
+
+1999-12-05  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (completing-read): New advice. Call
+	`skk-cursor-set-properly'.
+
+1999-12-04  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-isearch.el (skk-isearch-redo-function): Use list for handler
+	of condition-case.
+
+	* skk.el (skk-kakutei-initialize): Remove skk-num and skk-look
+	related code.
+	(skk-undo-kakutei): Use list for handler of condition-case.
+
+	* skk-look.el (skk-kakutei-initialize): New advice for initialize
+	skk-look related variables.
+
+	* skk-num.el (skk-kakutei-initialize): New advice for initialize
+	skk-num related variables.
+
+1999-12-04  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* etc/Emacs.ad: New file. This is for displaying menu items in
+	Japanese under XEmacs.
+
+1999-12-04  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el (skk-jisx0201-insert): When starting conversion,
+	call `skk-cursor-set-properly'.
+
+1999-12-04  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (isearch-repeat): New advice.
+
+1999-12-04  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el (skk-toggle-katakana): Set
+	`skk-input-mode-string'.
+
+1999-12-04  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (skk-cursor-set-properly): Change cursor color to
+	`skk-cursor-jisx0201-color' when needed.
+
+	* skk-jisx0201.el (skk-toggle-katakana): Call
+	`skk-cursor-set-properly'.
+
+1999-12-04  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-define-menu-bar-map): Call lambda expressions by
+	`call-interactively'.
+
+1999-12-04  Murata Shuuichirou  <mrt@notwork.org>
+
+	* skk-macs.el (skk-find-coding-system): Check symbolicity of arg,
+	before pass it to `find-coding-system'.  xemacs's
+	`find-coding-system' doesn't like string argument.
+
+1999-12-03  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-study.el: Remove
+	``;; -*- mode: emacs-lisp; byte-compile-dynamic: t;-*-'' and
+	``;; -*- byte-compile-dynamic-docstring: t;-*-'' cooklies.
+
+	* skk-isearch.el: Remove
+	``;; -*- byte-compile-dynamic-docstring: t;-*-'' cookie.
+
+	* skk-look.el: Remove ``;; -*-byte-compile-dynamic: t;-*-''
+	cookie.
+
+1999-12-03  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK_INFOS): Add skk.info-5 and skk.info-6.
+
+	* doc/.cvsignore: Ditto.
+
+	* experimental/dbm/skk-dbm.el: Don't require `skk-foreword'.
+
+	* experimental/skk-dcomp.el: Ditto.
+	(skk-dcomp-extent): Now this is a local variable.
+
+	* skk-jisx0201.el: Load "jisx0201" under Mule 2.
+	(newline, newline-and-indent, exit-minibuffer): New advices. Check
+	if `skk-egg-like-newline' is non-nil.
+	(skk-jisx0201-string-conversion): New function.
+	(skk-jisx0201-zenkaku, skk-jisx0201-hankaku): New functions that
+	call it.
+	(skk-jisx0201-insert): Call `skk-jisx0201-zenkaku' instead of
+	`japanese-zenkaku'.
+	(skk-hiragana-to-jisx0201-region): Call `skk-jisx0201-hankaku'
+	instead of `japanese-hankaku'.
+	(skk-katakana-to-jisx0201-region): Ditto.
+
+1999-12-02  Yuh Ohmura (yutopia@t3.rim.or.jp>
+
+	* READMEs/CVS_on_Windows: update
+
+	* make.bat: add what-where and clean option
+
+1999-12-01  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-abbrev.el: Do not require stack-m.
+	(skk-completion-original): Do not use stack-all.
+
+	* skk-look.el: Do not require stack-m and path-util.
+	(skk-look-completion): Do not use stack-all.
+	(skk-look-1): Use `with-temp-buffer'.  Do not use
+	`condition-case'.
+
+	* skk-comp.el: Do not require stack-m.
+	(skk-completion-original): Do not use stack-nth, stack-push,
+	stack-pop.
+	(skk-previous-completion-original): Ditto.
+
+	* skk-vars.el (skk-completion-depth): Doc modified slightly.
+	(skk-look-working-buffer): Ditto.
+
+	* SKK-MK (SKK_MODULES): Remove stack-m.
+	(SKK_DAREDEVIL_NOT_USE): Add stack-m.
+
+	* stack-m: Removed.
+
+1999-11-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-start-henkan-with-completion-char): Use `?\240'
+	instead of 160 to represent character.
+	(skk-backward-and-set-henkan-point-char): Use `?\321'
+	instead of 209 to represent character.
+
+1999-11-29  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK: Require `poe'.
+
+1999-11-29  Murata Shuuichirou  <mrt@notwork.org>
+
+	* skk-macs.el (skk-find-coding-system): New macro.
+
+	* skk-study.el (skk-study-save,skk-study-read-1): Use
+	`skk-find-coding-system'.
+
+	* skk.el (skk-save-jisyo-1): Ditto.
+
+	* skk.el (skk-get-jisyo-buffer): Use `skk-find-coding-system'.
+	Accept pair of filename and coding-system as an argument.
+
+	* skk-obsolete.el (skk-obsolete-function-alist): Replace
+	`skk-set-cursor-color-properly' with `skk-set-cursor-properly'.
+
+1999-11-29  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (skk-cursor-set-properly): Set color properly on
+	`skk-abbrev-mode'.
+
+1999-11-29  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (newline, execute-extended-command,
+	skk-delete-backward-char, skk-start-henkan): Advise, maybe, more
+	effectively.
+
+1999-11-29  Takao KAWAMURA  <kawamura@debian.org>
+
+	* Makefile (clean): Remove skk-autoloads.el.
+	(tar): Depend on clean.
+
+1999-11-28  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk-comp.el (skk-completion-original): Use
+	`skk-completion-depth' to search completed word.
+	(skk-previous-completion-original): Ditto.
+
+	* skk-kakasi.el (skk-gyakubiki-message): Use "%s" as the first
+	message argument to display properly string containing `%'.
+	(skk-gyakubiki-katakana-message): Ditto.
+	(skk-hurigana-message): Ditto.
+	(skk-hurigana-katakana-message): Ditto.
+	(skk-romaji-message): Ditto.
+
+	* skk.el (skk-mode): Bind `skk-start-henkan-with-completion-char'
+	and `skk-backward-and-set-henkan-point-char' for each skk related
+	maps.
+	(skk-insert): Set this-command to `skk-completion' when
+	last-command-char is equal to `skk-previous-completion-char', and
+	call `skk-kana-input' when last-command-is neither
+	`skk-previous-completion-char' nor `skk-next-completion-char'.
+
+	* skk-vars.el (skk-start-henkan-with-completion-char): New user
+	variable.
+	(skk-backward-and-set-henkan-point-char): Ditto.
+	(skk-completion-depth): New internal variable.
+
+1999-11-28  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-delete-char): Check the car of the
+	cdr of each element of `isearch-cmds', and update it, if
+	necessary, according to the return value of
+	`skk-isearch-mode-string'.
+
+1999-11-28  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (newline): New advice. Call
+	`skk-cursor-set-properly'.
+	(skk-delete-backward-char): Ditto.
+	(skk-start-henkan): Ditto.
+	(minibuffer-setup-hook): If `skk-insert' or `skk-start-henkan' has
+	just been executed, call `skk-cursor-set-properly', else set
+	cursor color to `skk-cursor-default-color'.
+
+1999-11-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (minibuffer-keyboard-quit): Use `static-cond'.
+
+	* READMEs/CVS_on_Windows: New file.
+
+1999-11-28  Takao KAWAMURA  <kawamura@debian.org>
+
+	* SKK-MK (SKK-MK-generate-autoloads-el): Generate
+	skk-autoloads.el.
+
+	* skk.el (skk-version): Add `;;;###autoload' cookie.
+
+	* skk-server.el (skk-server-version): Ditto.
+
+	* skk-num.el (skk-num-compute-henkan-key): Ditto.
+	(skk-num): Ditto.
+
+	* skk-jisx0201.el (skk-toggle-katakana): Ditto.
+
+	* skk-study.el (skk-study-check-alist-format): Remove
+	`;;;###autoload' cookie.
+
+1999-11-28  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-study.el: Force emacs-lisp-mode.
+	(skk-study-check-alist-format-1): Use `skk-str-length' instead of
+	`length' for okuri-ari and okuri-nasi entries.
+
+1999-11-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/INSTALL: Change outline mode and add descriptions about
+	custom package.
+
+	* skk-study.el (skk-study-file-format-version): Change version
+	number to string.
+
+	* SKK-MK (SKK_PACKAGE_NOT_USE): New constant.
+	(SKK_DAREDEVIL_NOT_USE): Ditto.
+	(SKK-MK-install): Make directories, SKK_LISPDIR, SKK_DATADIR and
+	SKK_INFODIR if they do not exist.
+	Remove SKK_DAREDEVIL_NOT_USE from SKK_MODULES and delete related
+	files.
+	(SKK-MK-install-package): Remove SKK_PACKAGE_NOT_USE and
+	SKK_DAREDEVIL_NOT_USE from SKK_MODULES and delete related files.
+
+	* doc/skk.texi (Makefileの編集とインストール): Doc fixed.
+
+	* skk-tut.el (skktut-end-tutorial): Refer to `skk-branch-name',
+	`skk-ml-command-address' and `skk-ml-address'. Doc fixed.
+
+	* skk.el (skk-version): Refer to `skk-branch-name'.
+	(skk-%-to-%%): Removed.
+
+	* skk-vars.el (skk-branch-name): New constant.
+	(skk-ml-command-address): New constant.
+	(skk-codename): Contain rail company name.
+
+1999-11-28  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk-num.el (skk-num-convert): Bug fixed.
+	* skk.el (skk-henkan-show-candidates): Ditto.
+	(skk-henkan-show-candidate-subr): Do not use `skk-%-to-%%'.
+	* skk-kcode.el (skk-char-to-hex): Bug fixed.
+
+1999-11-25  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el (skk-setup-modeline): Make sure, under XEmacs,
+	`modeline-format' in each buffer is a list.
+	* skk.el (skk-setup-modeline): Ditto.
+
+1999-11-25  TSUMURA Tomoaki  <tsumura@kuis.kyoto-u.ac.jp>
+
+	* skk.el (skk-katakana-region): Fix the problem that
+	lambda function returns `nil' on byte-compiled code.
+	(skk-hiragana-region): Ditto.
+
+1999-11-25  Takao KAWAMURA  <kawamura@debian.org>
+
+	* skk-autoloads.el: Added an entry for `skk-compile-rule-list'.
+
+	* skk.el (skk-compile-rule-list): ;;;###autoload
+
+	* skk-tut.el (skk-tutorial): Fixed to be used with the version 11
+	or later.
+	(skktut-end-tutorial): Modified for Daredevil SKK.
+	Activated (require 'skk-vars) while being loaded.
+
+1999-11-24  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-mode-setup): Call
+	`skk-isearch-setup-keymap' in this function, not at top level, so
+	that `skk-kakutei-key' can be set in `skk-init-file'.
+
+1999-11-24  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk-isearch.el (skk-isearch-mode-setup): Call `skk-erase-prefix'
+	with its argument non-nil in `skk-isearch-working-buffer'.
+
+1999-11-24  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK-MK-install-package): delete 'skk-autoloads from
+	SKK_MODULES.
+
+	* skk-isearch.el (skk-isearch-mode-message): Adjust doc string.
+
+1999-11-24  FURUE Hideyuki <furue@kke.co.jp>
+
+	* skk.el (skk-mode): Call `skk-create-file' for `skk-jisyo'.
+
+1999-11-23  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el (skk-setup-modeline): Fix typo -- use
+	`default-modeline-format', not `default-mode-line-format' under
+	XEmacs.
+	* skk.el (skk-setup-modeline): Ditto.
+
+1999-11-22  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* doc/.cvsignore: Add skk.info-4.
+
+1999-11-22  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-search-string): Use `>' instead of
+	`/='.
+
+1999-11-22  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el: Use `static-if', requiring "static" at the
+	compile time.
+
+1999-11-22  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-setup-keymap): Define
+	`skk-kakutei-key' instead of "\C-j" if the symbol value is already
+	set. Define backward-deleting keys to run
+	`skk-isearch-delete-char', not merely writing "\177".
+	(skk-isearch-newline): Do not call `isearch-printing-char' if no
+	ASCII approximation to `last-command-char' is returned.
+
+	* skk.el (skk-setup-modeline): Use `static-cond'.
+
+1999-11-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-katakana-region): Use `skk-search-and-replace'.
+	(skk-hiragana-region): Ditto.
+	(skk-jisx0208-latin-region): Ditto.
+	(skk-latin-region): Ditto.
+
+	* skk-jisx0201.el (skk-jisx0201-search-and-replace): Moved to
+	skk.el and renamed to `skk-search-and-replace'.
+	(skk-hiragana-to-jisx0201-region): Use `skk-search-and-replace'.
+	Do not use `identity' to return just a string.
+	(skk-katakana-to-jisx0201-region): Ditto.
+
+1999-11-22  Takao KAWAMURA  <kawamura@debian.org>
+
+	* SKK-MK (SKK_MODULES): Bound `lookup-byte-compile' to t when
+	(require 'lookup) is executed.
+
+	* skk-vars.el: Added (require 'path-util).
+
+1999-11-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/CVS_digest: Add descriptions abount only DES based crypt
+	is available for a passwd of the cvs account.
+	Change slighly descriptions about making encrypted passwd.
+	Debian Linux -> Debian GNU/Linux.
+	Reorganize structure of sections.
+
+1999-11-21  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-mode): Set cursor color if `skk-mode-invoked'
+	is nil and the function is called interactively.
+
+1999-11-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/CVS_digest: Add descriptions about creating encrypted
+	passwd.
+
+1999-11-18  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/AUTHORS: Add descriptions for Daredeveil branch.
+	* READMEs/CVS_digest: New file.
+	* READMEs/Codename: New file.
+	* READMEs/Contributors: Filename typo fixed.
+
+1999-11-18  TSUMURA Tomoaki  <tsumura@kuis.kyoto-u.ac.jp>
+
+	* skk-cursor.el (skk-change-cursor-when-ovwrt): Renamed to
+	`skk-cursor-change-when-ovwrt'.
+
+	* skk-viper.el (skk-cursor-set-properly): Use
+	`skk-cursor-change-when-ovwrt'.
+
+	* skk.el (skk-mode): Put off setting `skk-mode-invoked'.
+
+1999-11-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-abbrev.el (skk-completion-original): Bug fixed.
+
+1999-11-09  Shuhei KOBAYASHI <shuhei@aqua.ocn.ne.jp>
+
+	* skk-look.el (skk-look): Use copy-sequence instead of `copy-list'
+	not to depend on CL package on FSF Emacs.
+	* skk-num.el (skk-num-flatten-list): Do not use `mapcan' not to
+	depend on CL package on FSF Emacs.
+
+1999-11-09  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-develop.el: Remove def-edebug-spec for `skk-defun-cond',
+	`skk-defsubst-cond', `skk-defmacro-cond'.
+	(skk-submit-bug-report): Remove code for a certain specific
+	version of Mew and Wanderlust.
+
+	* skk-macs.el (skk-face-on): Use `defmacro' and `static-cond'
+	instead of `skk-defmacro-cond' and `cond'.
+	(skk-defun-cond): Removed.
+	(skk-defsubst-cond): Removed.
+	(skk-defmacro-cond): Removed.
+
+	* skk-kcode.el (skk-display-code): Use `defun' and
+	`static-cond' instead of `skk-defun-cond' and `cond'.
+	Require static.el.
+
+	* skk-cursor.el (skk-change-cursor-when-ovwrt): Use `defun' and
+	`static-cond' instead of `skk-defun-cond' and `cond'.
+	Require static.el.
+
+	* skk.el (skk-detach-extent): Use `defun' and `static-cond'
+	instead of `skk-defun-cond' and `cond'.
+	(skk-jisx0208-to-ascii): Ditto.
+	(skk-make-char): Ditto.
+
+	* skk-macs.el (skk-str-length): Use `defsubst' and `static-cond'
+	instead of `skk-defsubst-cond' and `cond'.
+	(skk-substring): Ditto.
+	(skk-read-event): Ditto.
+	(skk-char-to-string): Ditto.
+	(skk-ascii-char-p): Ditto.
+	(skk-str-ref): Ditto.
+	(skk-jisx0208-p): Ditto.
+	(skk-char-octet): Ditto.
+	(skk-charsetp): Ditto.
+
+1999-11-07  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-jisx0201.el (skk-jisx0201-cursor-color): Renamed to
+	`skk-cursor-jisx0201-color'.
+
+	* SKK-MK (SKK_MODULES): Arrange for new files.
+
+	* skk.el (skk-terminal-face-p): Removed.
+	(skk-mode): Require skk-xm20_4.el.
+
+	* skk-viper.el: (viper-intercept-ESC-key): Remove cursor control
+	and change class to before.
+	(vip-intercept-ESC-key): Ditto.
+	(skk-set-cursor-properly): Renamed to `skk-cursor-set-properly'.
+
+	* skk-cursor.el: Revive to simplify skk.el.
+	(skk-default-cursor-color): Renamed to `skk-cursor-default-color'
+	(for grouping of customize).
+	(skk-hiragana-cursor-color): Renamed to
+	`skk-cursor-hiragana-color'.
+	(skk-katakana-cursor-color): Renamed to
+	`skk-cursor-katakana-color'.
+	(skk-jisx0208-latin-cursor-color): Renamed to
+	`skk-cursor-jisx0208-latin-color'.
+	(skk-latin-cursor-color): Renamed to `skk-cursor-latin-color'.
+	(skk-abbrev-cursor-color): Renamed to `skk-cursor-abbrev-color'.
+	(skk-report-set-cursor-error): Renamed to
+	`skk-cursor-report-set-error'.
+	(skk-use-cursor-change): Renamed to `skk-cursor-change-width'.
+
+	* skk.el (abort-recursive-edit): Remove cursor control.
+	(exit-minibuffer): Ditto.
+	(kill-buffer): Ditto.  And change class to before.
+	(skk-kakutei): Ditto.
+	(skk-save-jisyo-original): Ditto.
+	(minibuffer-keyboard-quit): Ditto (as to XEmacs advice only).
+	(skk-auto-fill-mode): Ditto.
+	(skk-toggle-kana): Ditto.
+	(skk-katakana-region): Ditto.
+	(skk-hiragana-region): Ditto.
+	(skk-jisx0208-latin-region): Ditto.
+	(skk-latin-region): Ditto.
+	(skk-mode-off): Ditto.
+	(skk-j-mode-on): Ditto.
+	(skk-latin-mode-on): Ditto.
+	(skk-jisx0208-latin-mode-on): Ditto.
+	(skk-abbrev-mode-on): Ditto.
+
+	(overwrite-mode): Moved to skk-cursor.el.
+	(goto-line): Ditto.
+	(yank): Ditto.
+	(yank-pop): Ditto.
+	(recenter): Ditto.
+	(insert-file): Ditto.
+	(bury-buffer): Ditto.
+	(switch-to-buffer): Ditto.
+	(hilit-yank): Ditto.
+	(hilit-yank-pop): Ditto.
+	(hilit-recenter): Ditto.
+	(execute-extended-command): Ditto.
+	(pop-to-buffer): Ditto.
+	(other-window): Ditto.
+	(skk-set-cursor-color): Ditto.
+	(skk-set-cursor-properly): Ditto.
+	(skk-change-cursor-when-ovwrt): Ditto.
+	(kill-buffer): Ditto.
+	(skk-default-cursor-color): Ditto.
+	(skk-hiragana-cursor-color): Ditto.
+	(skk-katakana-cursor-color): Ditto.
+	(skk-jisx0208-latin-cursor-color): Ditto.
+	(skk-latin-cursor-color): Ditto.
+	(skk-abbrev-cursor-color): Ditto.
+	(skk-report-set-cursor-error): Ditto.
+	(skk-use-cursor-change): Ditto.
+	(skk-mode): Require skk-cursor.el when `skk-use-color-cursor' or
+	`skk-use-cursor-change' is non-nil.
+
+	* skk-kakasi.el (skk-gyakubiki-region): Remove cursor control.
+	(skk-gyakubiki-message): Ditto.
+	(skk-gyakubiki-katakana-region): Ditto.
+	(skk-gyakubiki-katakana-message): Ditto.
+	(skk-hurigana-region): Ditto.
+	(skk-hurigana-message): Ditto.
+	(skk-hurigana-katakana-region): Ditto.
+	(skk-hurigana-katakana-message): Ditto.
+	(skk-romaji-region): Ditto.
+	(skk-romaji-message): Ditto.
+
+	* skk-develop.el (skk-submit-bug-report): Add
+	`skk-share-private-jisyo' to BASE list.
+
+	* skk.el (skk-emacs-id-file): New user option.
+	(skk-share-private-jisyo): Ditto.
+
+	(skk-mode): Add code for `skk-share-private-jisyo'.
+	(skk-save-jisyo-original): Ditto.
+	(skk-update-jisyo-original): Ditto.
+
+	* experimental/skk-jisx0201.el (skk-jisx0201-mode-string): Change
+	mode indicator to `jisx0201' and doc fixed.
+	(skk-jisx0201-rule-list): Define latin-jisx0201 characters.
+	(skk-setup-modeline): Change mode indicator to `jisx0201'.
+
+	* skk-vars.el: Renamed to skk-xm20_4.el.
+
+	* skk-vars.el: New file for definitions of user variables.
+	(skk-emacs-id): New internal variable.
+	(skk-jisyo-update-vector): Ditto.
+
+Local Variables:
+mode: change-log
+buffer-file-coding-system: iso-2022-jp
+End:
