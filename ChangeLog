@@ -1,3 +1,8 @@
+2004-08-19  Masatake YAMATO  <jet@gyve.org>
+
+	* skk-e21.el (skk-tooltip-show-at-point): Don't use ox and oy if
+	they are nil.
+
 2004-07-30  Kitamoto Tsuyoshi <fmv5200na8x@yahoo.co.jp>
 
 	* doc/skk.texi: Typo fixed.
@@ -4643,8 +4648,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.813 2004/07/30 21:59:25 skk-cvs Exp $
-Last Modified: $Date: 2004/07/30 21:59:25 $
+Version: $Id: ChangeLog,v 1.814 2004/08/20 16:48:11 skk-cvs Exp $
+Last Modified: $Date: 2004/08/20 16:48:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
