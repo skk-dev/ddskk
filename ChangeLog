@@ -1,3 +1,18 @@
+2001-10-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* install-info.el
+	* skk-dic.el.in
+	* skk-gadget.el
+	* skk-isearch.el
+	* skk-num.el
+	* skk.el:
+	Modification concerning specificity.
+
+	* skk-gadget.el
+	(skk-plus)
+	(skk-minus)
+	(skk-times): Use `skk-calc'.
+
 2001-10-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-gadget.el
@@ -2275,8 +2290,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.457 2001/10/08 12:19:29 czkmt Exp $
-Last Modified: $Date: 2001/10/08 12:19:29 $
+Version: $Id: ChangeLog,v 1.458 2001/10/09 10:34:10 czkmt Exp $
+Last Modified: $Date: 2001/10/09 10:34:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
