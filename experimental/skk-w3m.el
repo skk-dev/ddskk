@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.15 2001/06/02 19:32:46 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.16 2001/06/02 19:35:13 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/06/02 19:32:46 $
+;; Last Modified: $Date: 2001/06/02 19:35:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -805,15 +805,15 @@ w3m を backend で動かしていない)。")
   )
 
 (defun skk-w3m-get-candidates-from-quote-yahoo (key)
-  (if (search-forward "U.S. Markets Closed." nil t nil)
-      'closed
-    (re-search-forward
-     ;; <a href="/q?s=USDJPY=X&amp;d=t" hseq="7">USDJPY</a>
-     (format "<a href=\"[^>]+%s=X[^>]+\">%s</a>"
-	     (concat skk-w3m-currency-from skk-w3m-currency-to)
-	     (concat skk-w3m-currency-from skk-w3m-currency-to)))
-    (re-search-forward "<b>\\([,.0-9]+\\)</b>")
-    (match-string-no-properties 1)))
+  ;;(if (search-forward "U.S. Markets Closed." nil t nil)
+  ;;    'closed
+  (re-search-forward
+   ;; <a href="/q?s=USDJPY=X&amp;d=t" hseq="7">USDJPY</a>
+   (format "<a href=\"[^>]+%s=X[^>]+\">%s</a>"
+	   (concat skk-w3m-currency-from skk-w3m-currency-to)
+	   (concat skk-w3m-currency-from skk-w3m-currency-to)))
+  (re-search-forward "<b>\\([,.0-9]+\\)</b>")
+  (match-string-no-properties 1))
 
 (defun skk-w3m-make-query-quote-yahoo (key)
   ;; http://quote.yahoo.com/m5?a=%s&s=%s&t=%s&c=0"
@@ -835,12 +835,12 @@ w3m を backend で動かしていない)。")
     (setq skk-w3m-currency-from currency-from
 	  skk-w3m-currency-to currency-to)
     (setq v (skk-w3m-search "quote-yahoo" 'no-cache))
-    (if (eq v 'closed)
-	(message "U.S. markets closed, cannot get currency information!")
-      (concat (if (not convert-currency-to) currency-to)
-	      (eval (if (eq 'prefix position) convert-currency-to))
-	      v
-	      (eval (if (eq 'postfix position) convert-currency-to))))))
+    ;;(if (eq v 'closed)
+    ;;    (message "U.S. markets closed, cannot get currency information!")
+    (concat (if (not convert-currency-to) currency-to)
+	    (eval (if (eq 'prefix position) convert-currency-to))
+	    v
+	    (eval (if (eq 'postfix position) convert-currency-to)))))
 
 (require 'product)
 (product-provide (provide 'skk-w3m) (require 'skk-version))
