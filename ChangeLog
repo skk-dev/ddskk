@@ -1,3 +1,8 @@
+2000-10-09  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* doc/skk.texi : "サーバー" を "サーバ" に統一。
+	"インストール" の章を追加。
+
 2000-10-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-count-jisyo-candidates): Use `default-directory'
