@@ -1,3 +1,9 @@
+2000-08-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ptexinfmt.el: New file imported from Wanderlust.
+
+	* SKK-MK (SKK-MK-texinfo-format): Require ptexinfmt.
+
 2000-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi (■モードにおける文字変換, 数字や記号文字の入力,
