@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.136 2001/10/08 03:53:42 czkmt Exp $
+;; Version: $Id: skk.el,v 1.137 2001/10/08 08:38:11 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/08 03:53:42 $
+;; Last Modified: $Date: 2001/10/08 08:38:11 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -501,7 +501,6 @@ dependent."
 		       skk-rom-kana-base-rule-list
 		       skk-rom-kana-rule-list))
   (when skk-use-kana-keyboard
-    (require 'skk-kanagaki)
     ;; 仮名入力を行う場合の初期設定。
     (skk-kanagaki-initialize))
   (skk-setup-delete-selection-mode)
@@ -632,27 +631,28 @@ dependent."
   (setq skk-indicator-alist (skk-make-indicator-alist))
   (cond
    ((not (eq skk-status-indicator 'left))
-    (if (and (listp mode-line-format)
-	     (equal (car mode-line-format)
-		    "")
-	     (eq 'skk-modeline-input-mode
-		 (nth 1 mode-line-format)))
-	;; for skk-restart.
-	(setq-default mode-line-format
-		      (nthcdr 2 mode-line-format)))
-
-    (skk-loop-for-buffers (buffer-list)
-      (if (and (listp mode-line-format)
+    (when (and (listp mode-line-format)
 	       (equal (car mode-line-format)
 		      "")
 	       (eq 'skk-modeline-input-mode
 		   (nth 1 mode-line-format)))
-	  ;; for skk-restart.
-	  (setq mode-line-format (nthcdr 2 mode-line-format))))
+      ;; for skk-restart.
+      (setq-default mode-line-format
+		    (nthcdr 2 mode-line-format)))
+
+    (skk-loop-for-buffers (buffer-list)
+      (when (and (listp mode-line-format)
+		 (equal (car mode-line-format)
+			"")
+		 (eq 'skk-modeline-input-mode
+		     (nth 1 mode-line-format)))
+	;; for skk-restart.
+	(setq mode-line-format (nthcdr 2 mode-line-format))))
 
     (setq-default skk-modeline-input-mode "")
 
-    (static-if (memq skk-emacs-type '(xemacs mule5))
+    (static-if
+	(memq skk-emacs-type '(xemacs mule5))
 	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
       (setq minor-mode-alist
 	    ;; each element of minor-mode-alist is not cons cell.
@@ -719,18 +719,19 @@ dependent."
 			    "c"
 			  ".elc"))))
       (if skk-byte-compile-init-file
-	  (and (file-exists-p init-file)
-	       (or (not (file-exists-p elc))
+	  (when (and (file-exists-p init-file)
+		     (or (not (file-exists-p elc))
+			 (file-newer-than-file-p init-file elc)))
+	    (save-window-excursion ; for keep window configuration.
+	      (skk-message "%s をバイトコンパイルします。"
+			   "Byte-compile %s"
+			   skk-init-file)
+	      (sit-for 2)
+	      (byte-compile-file init-file)))
+	(when (and (file-exists-p init-file)
+		   (file-exists-p elc)
 		   (file-newer-than-file-p init-file elc))
-	       (save-window-excursion ; for keep window configuration.
-		 (skk-message "%s をバイトコンパイルします。" "Byte-compile %s"
-			      skk-init-file)
-		 (sit-for 2)
-		 (byte-compile-file init-file)))
-	(and (file-exists-p init-file)
-	     (file-exists-p elc)
-	     (file-newer-than-file-p init-file elc)
-	     (delete-file elc))))))
+	  (delete-file elc))))))
 
 (defun skk-setup-delete-selection-mode ()
   ;; Delete Selection モードが SKK を使った日本語入力に対しても機能するように
@@ -891,17 +892,18 @@ dependent."
   (while (not (or (zerop (length key))
 		  (eq command (key-binding key))))
     (setq key (vconcat (cdr (append key nil)))))
-  (and (not (zerop (length key))) key))
+  (when (not (zerop (length key)))
+    key))
 
 (defun skk-adjust-user-option ()
   ;; 両立できないオプションの調整を行なう。
-  (and skk-process-okuri-early
-       ;; skk-process-okuri-early の値が non-nil であるときに下記の値が non-nil
-       ;; であれば正常に動かないのでこの変数の優先順位を高くした。
-       (setq skk-kakutei-early nil
-	     skk-auto-okuri-process nil
-	     skk-henkan-okuri-strictly nil
-	     skk-henkan-strict-okuri-precedence nil)))
+  (when skk-process-okuri-early
+    ;; skk-process-okuri-early の値が non-nil であるときに下記の値が non-nil
+    ;; であれば正常に動かないのでこの変数の優先順位を高くした。
+    (setq skk-kakutei-early nil
+	  skk-auto-okuri-process nil
+	  skk-henkan-okuri-strictly nil
+	  skk-henkan-strict-okuri-precedence nil)))
 
 (defun skk-try-completion (arg)
   "▽モードで見出し語の補完を行う。
@@ -1081,17 +1083,17 @@ dependent."
 			       skk-henkan-start-point (point))
 	       skk-prefix "")
 	 (skk-henkan))
-	(t
+	(last-command-char
 	 ;; `skk-insert' から呼ばれる場合には、このケースはない。
-	 (if last-command-char
-	     (let ((i (prefix-numeric-value arg))
-		   (str (skk-char-to-string last-command-char)))
-	       (while (> i 0)
-		 (skk-insert-str str)
-		 (setq i (1- i))))
-	   ;; どうするべきかまだ決まっていない。
-	   ;; (skk-emulate-original-map arg)
-	   ))))
+	 (let ((i (prefix-numeric-value arg))
+	       (str (skk-char-to-string last-command-char)))
+	   (while (> i 0)
+	     (skk-insert-str str)
+	     (setq i (1- i)))))
+	(t
+	 ;; どうするべきかまだ決まっていない。
+	 ;; (skk-emulate-original-map arg)
+	 )))
 
 (defun skk-kana-input (&optional arg)
   ;;"かな文字の入力を行うルーチン。"
@@ -1355,16 +1357,14 @@ dependent."
 	(setq rule (car ll)
 	      key (car rule)
 	      ll (cdr ll))
-	(condition-case nil
-	    (progn
-	      (if (symbolp key)
-		  (progn
-		    (setq key (eval key))
-		    (setcar rule key)))
-	      (if (and (not (string-match "\\w" key))
-		       (not (eq (key-binding key) 'self-insert-command)))
-		  (define-key skk-j-mode-map key 'skk-insert)))
-	  (error))
+	(ignore-errors
+	  (when (symbolp key)
+	    (setq key (eval key))
+	    (setcar rule key))
+	  (when (not (or (string-match "\\w" key)
+			 (eq (key-binding key)
+			     'self-insert-command)))
+	    (define-key skk-j-mode-map key 'skk-insert)))
 	(skk-add-rule tree rule)))
     tree))
 
@@ -1372,22 +1372,34 @@ dependent."
   ;; STR を挿入する。必要であれば self-insert-after-hook をコ
   ;; ールする。overwrite-mode であれば、適切に上書きを行う。
   (insert-and-inherit str)
-  (if (and skk-henkan-on (not skk-henkan-active))
-      (and skk-auto-start-henkan (not skk-okurigana) (skk-auto-start-henkan str))
-    (and (boundp 'self-insert-after-hook) self-insert-after-hook
-	 (funcall self-insert-after-hook (- (point) (length str)) (point)))
-    (and overwrite-mode
-	 (skk-del-char-with-pad (skk-ovwrt-len (string-width str)))))
+  (if (and skk-henkan-on
+	   (not skk-henkan-active))
+      ;;
+      (when (and skk-auto-start-henkan
+		 (not skk-okurigana))
+	(skk-auto-start-henkan str))
+    ;;
+    (when (and (boundp 'self-insert-after-hook)
+	       self-insert-after-hook)
+      (funcall self-insert-after-hook
+	       (- (point) (length str))
+	       (point)))
+    (when overwrite-mode
+      (skk-del-char-with-pad (skk-ovwrt-len (string-width str)))))
   ;; SKK 9.6 ではこのタイミングで fill が行われていたが、SKK 10 では行われてい
   ;; なかった。
-  (when (and skk-j-mode (not skk-henkan-on))
+  (when (and skk-j-mode
+	     (not skk-henkan-on))
     (skk-do-auto-fill)))
 
 (defun skk-ovwrt-len (len)
   ;; 上書きして良い長さを返す。
   (min (string-width
 	(buffer-substring-no-properties
-	 (point) (skk-save-point (end-of-line) (point))))
+	 (point)
+	 (skk-save-point
+	  (end-of-line)
+	  (point))))
        len))
 
 (defun skk-del-char-with-pad (length)
@@ -1398,42 +1410,42 @@ dependent."
       (forward-char 1)
       (setq len (string-width (buffer-substring-no-properties (point) p))))
     (delete-region p (point))
-    (or (= length len)
-	(progn
-	  (insert-and-inherit " ")
-	  (backward-char 1)))))
+    (unless (= length len)
+      (insert-and-inherit " ")
+      (backward-char 1))))
 
 (defun skk-cancel-undo-boundary ()
   ;; skk-insert, skk-jisx0208-latin-insert で連続して入力さ
   ;; れた 20 文字を 1 回のアンドゥの対象とする。`20' は
   ;; keyboard.c に定められたマジックナンバー。Mule-2.3 添付
   ;; の egg.el を参考にした。
-  (if (and (< skk-self-insert-non-undo-count 20)
-	   (memq last-command
-		 '(skk-insert
-		   skk-jisx0208-latin-insert
-		   ;; SKK abbrev モードでは、アスキー文字入力が Emacs オリジナ
-		   ;; ルの self-insert-command により行なわれているので、
-		   ;; skk-self-insert-non-undo-count をインクリメントすること
-		   ;; ができないので、アンドゥをエミュレートできない。
-		   ;; しかも、カンマやピリオドを挿入した時点で、
-		   ;; skk-abbrev-comma や skk-abbrev-period を使うことになるの
-		   ;; で (self-insert-command 以外のコマンドを使ってしまうので)、
-		   ;; オリジナルのアンドゥの機能も損なってしまう。
-		   ;; しかし現実問題としては、SKK abbrev モードは省略形としての
-		   ;; 見出し語を挿入するためのモードであるので、長い見出し語を
-		   ;; 挿入することはあまりなく、問題も小さいと考えられる。
-		   ;;skk-abbrev-comma
-		   ;;skk-abbrev-period
-		   )))
-      (progn
-	(cancel-undo-boundary)
-	(if (null skk-current-rule-tree)
-	    ;; まだかな文字が完成していないときは、undo count をインクリメント
-	    ;; しない。
-	    (setq skk-self-insert-non-undo-count
-		  (1+ skk-self-insert-non-undo-count))))
-    (setq skk-self-insert-non-undo-count 1)))
+  (cond
+   ((and (< skk-self-insert-non-undo-count 20)
+	 (memq last-command
+	       '(skk-insert
+		 skk-jisx0208-latin-insert
+		 ;; SKK abbrev モードでは、アスキー文字入力が Emacs オリジナ
+		 ;; ルの self-insert-command により行なわれているので、
+		 ;; skk-self-insert-non-undo-count をインクリメントすること
+		 ;; ができないので、アンドゥをエミュレートできない。
+		 ;; しかも、カンマやピリオドを挿入した時点で、
+		 ;; skk-abbrev-comma や skk-abbrev-period を使うことになるの
+		 ;; で (self-insert-command 以外のコマンドを使ってしまうので)、
+		 ;; オリジナルのアンドゥの機能も損なってしまう。
+		 ;; しかし現実問題としては、SKK abbrev モードは省略形としての
+		 ;; 見出し語を挿入するためのモードであるので、長い見出し語を
+		 ;; 挿入することはあまりなく、問題も小さいと考えられる。
+		 ;;skk-abbrev-comma
+		 ;;skk-abbrev-period
+		 )))
+    (cancel-undo-boundary)
+    (when (null skk-current-rule-tree)
+      ;; まだかな文字が完成していないときは、undo count をインクリメント
+      ;; しない。
+      (setq skk-self-insert-non-undo-count
+	    (1+ skk-self-insert-non-undo-count))))
+   (t
+    (setq skk-self-insert-non-undo-count 1))))
 
 (defun skk-set-okurigana ()
   ;; 見出し語から skk-henkan-okurigana, skk-henkan-key の各値をセットする。
@@ -1443,7 +1455,8 @@ dependent."
   ;; just in case
   (skk-save-point
     (goto-char skk-okurigana-start-point)
-    (or (eq (following-char) ?*) (insert-and-inherit "*")))
+    (unless (eq (following-char) ?*)
+      (insert-and-inherit "*")))
   (setq skk-henkan-okurigana (buffer-substring-no-properties
 			      (1+ skk-okurigana-start-point)
 			      (point)))
@@ -1453,10 +1466,10 @@ dependent."
 			       (or (skk-okurigana-prefix skk-henkan-okurigana)
 				   skk-okuri-char))
 	skk-prefix "")
-  (if skk-katakana
-      (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)
-	    skk-henkan-okurigana
-	    (skk-katakana-to-hiragana skk-henkan-okurigana)))
+  (when skk-katakana
+    (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)
+	  skk-henkan-okurigana
+	  (skk-katakana-to-hiragana skk-henkan-okurigana)))
   (delete-region skk-okurigana-start-point (1+ skk-okurigana-start-point))
   (setq skk-henkan-count 0)
   (skk-henkan)
@@ -1467,11 +1480,14 @@ dependent."
 (defun skk-toggle-kutouten ()
   "句読点の種類をトグルで変更する。"
   (interactive)
-  (setq skk-kutouten-type (if (eq skk-kutouten-type 'jp) 'en 'jp))
-  (and (interactive-p)
-       (skk-message "句点: `%s'  読点: `%s'"
-		    "Kuten: `%s'  Touten: `%s'"
-		    (skk-current-kuten nil) (skk-current-touten nil))))
+  (setq skk-kutouten-type (if (eq skk-kutouten-type 'jp)
+			      'en
+			    'jp))
+  (when (interactive-p)
+    (skk-message "句点: `%s'  読点: `%s'"
+		 "Kuten: `%s'  Touten: `%s'"
+		 (skk-current-kuten nil)
+		 (skk-current-touten nil))))
 
 (defun skk-current-kuten (arg)
   ;; just ignore arg.
@@ -3820,11 +3836,14 @@ If you want to restore the dictionary from the disc, try
   ;; ORG := '(A B C), SPLICED := '(X Y), OFFSET := 1
   ;; -> '(A B X Y C)
   (let (tmp tail)
-    (or (> offset 0) (error "Cannot splice in!"))
+    (unless (> offset 0)
+      (error "%s" "Cannot splice in!"))
     (setq tmp (nthcdr (1- offset) org)
 	  tail (cdr tmp))
     (setcdr tmp nil) ;cut off
-    (setcdr tmp (if tail (nconc spliced tail) spliced))
+    (setcdr tmp (if tail
+		    (nconc spliced tail)
+		  spliced))
     org))
 
 ;; (defun skk-chomp (nth list)
@@ -3852,14 +3871,17 @@ If you want to restore the dictionary from the disc, try
 (defun skk-henkan-face-off ()
   ;; skk-henkan-start-point と skk-henkan-end-point の間の表示を変更している
   ;; skk-henkan-overlay を消す。
-  (and skk-henkan-face (skk-detach-extent skk-henkan-overlay)))
+  (when skk-henkan-face
+    (skk-detach-extent skk-henkan-overlay)))
 
 (defun skk-detach-extent (object)
   (static-cond
    ((eq skk-emacs-type 'xemacs)
-    (and (extentp object) (detach-extent object)))
+    (when (extentp object)
+      (detach-extent object)))
    (t
-    (and (overlayp object) (delete-overlay object)))))
+    (when (overlayp object)
+      (delete-overlay object)))))
 
 (defun skk-make-face (face)
   ;; hilit-lookup-face-create のサブセット。tutorial で色付けを行なう場合でも
@@ -4030,7 +4052,8 @@ If you want to restore the dictionary from the disc, try
 上記のどちらのモードでもなければ keyboard-quit と同じ動作をする。"
   (cond
    ;; SKK is not invoked in the current buffer.
-   ((not skk-mode) ad-do-it)
+   ((not skk-mode)
+    ad-do-it)
    ;; ■ mode (Kakutei input mode).
    ((not skk-henkan-on)
     (cond ((skk-get-prefix skk-current-rule-tree)
@@ -4046,10 +4069,11 @@ If you want to restore the dictionary from the disc, try
 	  (delete-backward-char count))
       (skk-previous-candidate)))
    ;; ▽ mode (Midashi input mode).
-   (t (skk-erase-prefix 'clean)
-      (and (> (point) skk-henkan-start-point)
-	   (delete-region (point) skk-henkan-start-point))
-      (skk-kakutei))))
+   (t
+    (skk-erase-prefix 'clean)
+    (when (> (point) skk-henkan-start-point)
+      (delete-region (point) skk-henkan-start-point))
+    (skk-kakutei))))
 
 (skk-defadvice abort-recursive-edit (around skk-ad activate)
   "▼モードであれば、候補の表示をやめて▽モードに戻す (見出し語は残す)。
@@ -4059,23 +4083,26 @@ If you want to restore the dictionary from the disc, try
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer
    '(lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
-  (cond ((not skk-mode) ad-do-it)
+  (cond ((not skk-mode)
+	 ad-do-it)
 	((not skk-henkan-on)
 	 (cond ((skk-get-prefix skk-current-rule-tree)
 		(skk-erase-prefix 'clean))
 	       (t ad-do-it)))
 	(skk-henkan-active
 	 (setq skk-henkan-count 0)
-	 (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
+	 (if (and skk-delete-okuri-when-quit
+		  skk-henkan-okurigana)
 	     (let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
 	       (skk-previous-candidate)
 	       ;; ここでは delete-backward-char に第二引数を渡さない方がベター？
 	       (delete-backward-char count))
 	   (skk-previous-candidate)))
-	(t (skk-erase-prefix 'clean)
-	   (and (> (point) skk-henkan-start-point)
-		(delete-region (point) skk-henkan-start-point))
-	   (skk-kakutei))))
+	(t
+	 (skk-erase-prefix 'clean)
+	 (when (> (point) skk-henkan-start-point)
+	   (delete-region (point) skk-henkan-start-point))
+	 (skk-kakutei))))
 
 (skk-defadvice newline (around skk-ad activate)
   "skk-egg-like-newline が non-nil だったら、変換中の newline で確定のみ行い、改行しない。"
@@ -4099,10 +4126,11 @@ If you want to restore the dictionary from the disc, try
       ;;      (skk-kakutei)
       ;;      (if (and (not (= opos (point))) (integerp arg))
       ;;          (ad-set-arg 0 (1- arg)))))
-      (and skk-mode (skk-kakutei))
+      (when skk-mode
+	(skk-kakutei))
       (undo-boundary)
-      (if (not no-newline)
-	  ad-do-it))))
+      (unless no-newline
+	ad-do-it))))
 
 (skk-defadvice newline-and-indent (around skk-ad activate)
   "skk-egg-like-newline が non-nil だったら、変換中の newline-and-indent で確定のみ行い、改行しない。"
@@ -4114,7 +4142,8 @@ If you want to restore the dictionary from the disc, try
 	  (auto-fill-function (and (interactive-p) auto-fill-function)))
       (and skk-mode (skk-kakutei))
       (undo-boundary)
-      (or no-newline ad-do-it))))
+      (unless no-newline
+	ad-do-it))))
 
 (skk-defadvice exit-minibuffer (around skk-ad activate)
   ;; subr command but no arg.
@@ -4129,30 +4158,39 @@ If you want to restore the dictionary from the disc, try
       ad-do-it
     (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
       (and skk-mode (skk-kakutei))
-      (or no-newline ad-do-it))))
+      (unless no-newline
+	ad-do-it))))
 
 (defadvice picture-mode-exit (before skk-ad activate)
   "SKK のバッファローカル変数を無効にし、picture-mode-exit をコールする。
 picture-mode から出たときにそのバッファで SKK を正常に動かすための処理。"
-  (and skk-mode (skk-kill-local-variables)))
+  (when skk-mode
+    (skk-kill-local-variables)))
 
 (skk-defadvice undo (before skk-ad activate)
   "SKK モードが on なら skk-self-insert-non-undo-count を初期化する。"
-  (and skk-mode (setq skk-self-insert-non-undo-count 0)))
+  (when skk-mode
+    (setq skk-self-insert-non-undo-count 0)))
 
 (skk-defadvice kill-buffer (before skk-ad activate)
   "SKK の▼モードだったら、確定してからバッファをキルする。"
   (interactive "bKill buffer: ") ; subr command with arg.
-  (and skk-mode skk-henkan-on (interactive-p) (skk-kakutei)))
+  (when (and skk-mode
+	     skk-henkan-on
+	     (interactive-p))
+    (skk-kakutei)))
 
 (skk-defadvice save-buffers-kill-emacs (before skk-ad activate)
   (run-hooks 'skk-before-kill-emacs-hook))
 
 (defadvice comint-send-input (around skk-ad activate compile)
-  (cond ((or skk-henkan-on skk-henkan-active)
+  (cond ((or skk-henkan-on
+	     skk-henkan-active)
 	 (skk-kakutei)
-	 (unless skk-egg-like-newline ad-do-it))
-	(t ad-do-it)))
+	 (unless skk-egg-like-newline
+	   ad-do-it))
+	(t
+	 ad-do-it)))
 
 (run-hooks 'skk-load-hook)
 
