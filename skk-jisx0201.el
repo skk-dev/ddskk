@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.27 2001/10/03 22:09:45 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.28 2001/10/03 22:17:56 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/03 22:09:45 $
+;; Last Modified: $Date: 2001/10/03 22:17:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -477,41 +477,37 @@
   (skk-katakana-to-jisx0201-region start end vcontract)
   (set-marker end nil))
 
-(defun skk-hiragana-to-jisx0201-region (start
-					end
-					&optional
-					vcontract
-					latin-jisx0201)
-  (skk-search-and-replace start
-			  end
-			  "[ぁ-ん]+"
-			  (lambda (matched)
-			    (save-match-data
-			      (skk-jisx0201-hankaku matched))))
+(defun skk-hiragana-to-jisx0201-region (start end &optional vcontract)
+  (skk-search-and-replace
+   start
+   end
+   "[ぁ-ん]+"
+   (lambda (matched)
+     (save-match-data
+       (skk-jisx0201-hankaku matched))))
   (if vcontract
-      (skk-search-and-replace start
-			      end
-			      "う゛"
-			      (lambda (matched)
-				"ｳﾞ"))))
+      (skk-search-and-replace
+       start
+       end
+       "う゛"
+       (lambda (matched)
+	 "ｳﾞ"))))
 
-(defun skk-katakana-to-jisx0201-region (start
-					end
-					&optional
-					vcontract
-					latin-jisx0201)
-  (skk-search-and-replace start
-			  end
-			  "[ァ-ン]+"
-			  (lambda (matched)
-			    (save-match-data
-			      (skk-jisx0201-hankaku matched))))
+(defun skk-katakana-to-jisx0201-region (start end &optional vcontract)
+  (skk-search-and-replace
+   start
+   end
+   "[ァ-ン]+"
+   (lambda (matched)
+     (save-match-data
+       (skk-jisx0201-hankaku matched))))
   (if vcontract
-      (skk-search-and-replace start
-			      end
-			      "ヴ"
-			      (lambda (matched)
-				"ｳﾞ"))))
+      (skk-search-and-replace
+       start
+       end
+       "ヴ"
+       (lambda (matched)
+	 "ｳﾞ"))))
 
 
 (require 'product)
