@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.7 1999/09/27 21:35:13 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.8 1999/10/03 15:25:50 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 1999/09/27 21:35:13 $
+@c  Last Modified: $Date: 1999/10/03 15:25:50 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.51
-@set UPDATED $Date: 1999/09/27 21:35:13 $
+@set UPDATED $Date: 1999/10/03 15:25:50 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -6137,33 +6137,37 @@ EUC @expansion{}JIS変換コマンド。
 @comment  node-name,  next,  previous,  up
 @chapter 拡張アイディア
 
-将来のバージョンに託された拡張アイディアを順不同で述べる。これ以外にも要
-望、拡張の具体的アイディアがあれば、開発者にご連絡いただきたい。
+将来のバージョンに託された拡張アイディアを、実現可能かどうかは別にして、
+順不同で述べる。これ以外にも要望、拡張の具体的アイディアがあれば、
+開発者用メーリングリストに投稿するなどの方法で、開発者までご連絡いただき
+たい。@xref{開発者用メーリングリスト}.
 
 @itemize @bullet
 
 @item
-辞書の個々の見出し語、候補に属性を持たせて、
+辞書の個々の見出し語、候補に属性を持たせて、例えば、下記のような機能をイ
+ンプリメントする。
 
 @enumerate
 @item
-例えば、その属性の内容により、変換の際に候補の絞り込み条件を指定できるよ
-うにする。また、絞り込み条件はユーザーの任意に変更できるようにする。一例
-をあげれば、サ変動詞になり得る名詞に適当な属性を持たせ、@samp{〜する}と
-いう送り仮名がタイプされた場合には、そのサ変動詞属性を持った名詞のみを候
-補として出力する、など活用の幅は非常に広い。サ変動詞の問題については、
+その属性の内容により、変換の際に候補の絞り込み条件を指定できるようにする。
+また、絞り込み条件はユーザーの任意に変更できるようにする。一例をあげれば、
+サ変動詞になり得る名詞に適当な属性を持たせ、@samp{〜する}という送り仮名
+がタイプされた場合には、そのサ変動詞属性を持った名詞のみを候補として出力
+する、など活用の幅は非常に広い。サ変動詞の問題については、
 @ref{辞書登録モード}も参照のこと。
 
 @item
-例えば、候補に関する意味を属性として持たせ、意味を調べるような拡張変換を
-行なえるようにする。
+候補に最終の変換時刻などを属性として持たせ、辞書のメンテナンスに利用する
+(一定期間アクセスのない候補を個人辞書から削除するなど)。
 
 @item
-例えば、候補に最終の変換時刻などを属性として持たせ、辞書のメンテナンスに
-利用する(一定期間アクセスのない候補を個人辞書から削除するなど)。
+候補に関する意味を属性として持たせ、意味を調べるような拡張変換を行なえる
+ようにする。
 
 @end enumerate
 
+@c XXX 今まで実験してきたことを記述する。
 @noindent
 言うは易しだが、色々な未解決の問題がある。多数の見出し語や候補に属性を持
 たせて、通常の変換効率をできる限り落さないで、かつ効率良く属性のメンテナ
@@ -6178,6 +6182,10 @@ EUC @expansion{}JIS変換コマンド。
 @c @kbd{C-x C-j}, @kbd{C-x j}など、SKKモードの起動に使用されるキーに元々割
 @c り付けられているEmacsのオリジナルのコマンドの自動退避。意外と難しい？ 
 @c @xref{.emacsの設定}.
+
+@item
+CannaやWnnのサーバーと接続して検索が可能になるようにする@footnote{最新のEggでは、
+Emacs Lispベースでサーバーと接続することが試みられているそうだ。}。
 
 @item
 いかなるユーザーオプション変数をバッファローカル化しても動作するようにす
@@ -6481,11 +6489,11 @@ UNIX, Windows 95/98/NT, DOS
 @item 最新バージョン、release の日付
 jvim, skkfep, ariそれぞれに対するパッチとして提供しています。
 @w{jvim3.0-j1.7-skk1.2.8.patch} 1999/8/30,
-@w{skkfep0.86c-kh1.2.5.patch}, 1999/5/12,
+@w{skkfep0.86c-kh1.2.6.patch}, 1999/9/28,
 @w{ari1.00a-kh1.2.1.patch} 1999/1/29
 
 @item 開発者
-木原英人
+木原 英人
 
 @item 配布条件
 skkfep, jvim, ariそれぞれに対するパッチとして提供しているので、それぞれ
@@ -6495,7 +6503,7 @@ skkfep, jvim, ariそれぞれに対するパッチとして提供しているので、それぞれ
 @w{@samp{http://hiroshima.cool.ne.jp/deton/jvim-skk/}}
 
 @item bug report,質問のためのアドレス
-@w{@samp{deton@m1.interq.or.jp}}
+@w{@samp{deton@@m1.interq.or.jp}}
 
 @end table
 
@@ -6755,6 +6763,7 @@ SKK辞書の充実にご協力いただける方は、随時以下のアドレスまで個人辞書と
 アドレスまでお知らせください。
 
 @example
+@samp{skk-dic@@maid.ne.jp}
 @samp{skk-jisyo@@kuis.kyoto-u.ac.jp}
 @end example
 
