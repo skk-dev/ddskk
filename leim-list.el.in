@@ -1,4 +1,4 @@
-;;; skk/leim-list.el -- list of LEIM (Library of Emacs Input Method) for SKK
+;;; skk/leim-list.el -- list of LEIM for SKK  -*- emacs-lisp -*-
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
@@ -31,13 +31,8 @@
 
 (require 'skk-autoloads)
 
-(if (string-lessp "5.0" mule-version)
-    ;; Emacs 21 or later.
-    (add-hook 'before-init-hook
-	      (function
-	       (lambda ()
-		 (require 'skk-setup))))
-  (require 'skk-setup))
+;; Doubt. This is a matter of preference.
+(require 'skk-setup)
 
 ;; For Emacs 20. Load all "leim-list" files.
 (when (and (not (featurep 'xemacs))
@@ -54,12 +49,38 @@
     (load "egg/leim-list.el" 'noerror 'nomessage 'nosuffix))
    (t
     ;; Shamelessly ripped off from "egg/leim-list.el" in Tamago 4.
+    ;; The following two functions are from egg-util.el.
+    (defun locate-libraries (library &optional nosuffix path interactive-call)
+      (let ((lpath (or path load-path))
+	    (result nil))
+	(while lpath
+	  (let ((path
+		 (locate-library library nosuffix lpath interactive-call)))
+	    (if path
+		(progn
+		  (setq lpath (cdr-safe 
+			       (member (directory-file-name
+					(file-name-directory path))
+				lpath))
+			result (cons path result)))
+	      (progn
+		(setq lpath nil
+		      result (reverse result))))))
+	result))
+
+    (defun load-libraries (library &optional path)
+      (let ((files (locate-libraries library nil (or path load-path) nil)))
+	(while files
+	  (load-file (car files))
+	  (setq files (cdr files)))))
+
     (defun load-leim-list-except-this ()
       (load-libraries
        "leim-list"
        (cdr-safe (member (directory-file-name
 			  (file-name-directory load-file-name))
 			 load-path))))
+
     (message "Finished loading %s \n   and load others..." load-file-name)
     (load-leim-list-except-this))))
 

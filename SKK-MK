@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.57 2000/11/20 20:05:58 czkmt Exp $
-;; Last Modified: $Date: 2000/11/20 20:05:58 $
+;; Version: $Id: SKK-MK,v 1.58 2000/11/21 10:13:51 czkmt Exp $
+;; Last Modified: $Date: 2000/11/21 10:13:51 $
 
 ;; Commentary
 ;;
@@ -507,7 +507,9 @@
 	;; install dictionaries if the files exist in ./dic directory.
 	(install-files SKK_DICTIONARIES DICDIR SKK_DATADIR nil t nil))
     (when (and (fboundp 'register-input-method) (not (featurep 'xemacs)))
-      (install-elisp-modules (list 'leim-list) "." SKK_LISPDIR))
+      (copy-file "./leim-list.el.in" "./leim-list.el" 'overwrite)
+      (install-elisp-modules (list 'leim-list) "." SKK_LISPDIR)
+      (delete-file "./leim-list.el"))
     ;; install skk-setup.el
     (let ((dir
 	   (cond ((or (boundp 'MULE)

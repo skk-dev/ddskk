@@ -1,6 +1,7 @@
 *.BAK
 cvs.hist
 cvs.log
+leim-list.el
 make.log
 not_used
 skk-annotation.el

@@ -4,9 +4,9 @@
 ;;
 ;; Author: Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-leim.el,v 1.8 2000/11/20 20:05:59 czkmt Exp $
+;; Version: $Id: skk-leim.el,v 1.9 2000/11/21 10:13:52 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 20:05:59 $
+;; Last Modified: $Date: 2000/11/21 10:13:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -66,32 +66,6 @@
  "japanese-skk-auto-fill" "Japanese"
  'skk-auto-fill-activate ""
  "Simple Kana to Kanji conversion program with auto-fill")
-
-;; The following two functions are from egg-util.el.
-
-;;;###autoload
-(defun locate-libraries (library &optional nosuffix path interactive-call)
-  (let ((lpath (or path load-path))
-	(result nil))
-    (while lpath
-      (let ((path (locate-library library nosuffix lpath interactive-call)))
-	(if path
-	    (progn
-	      (setq lpath (cdr-safe 
-			   (member (directory-file-name (file-name-directory path))
-				   lpath))
-		    result (cons path result)))
-	  (progn
-	    (setq lpath nil
-		  result (reverse result))))))
-    result))
-
-;;;###autoload
-(defun load-libraries (library &optional path)
-  (let ((files (locate-libraries library nil (or path load-path) nil)))
-    (while files
-      (load-file (car files))
-      (setq files (cdr files)))))
 
 (require 'product)
 (product-provide (provide 'skk-leim) (require 'skk-version))

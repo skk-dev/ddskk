@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.38 2000/11/20 20:05:58 czkmt Exp $
-# Last Modified: $Date: 2000/11/20 20:05:58 $
+# Version: $Id: Makefile,v 1.39 2000/11/21 10:13:51 czkmt Exp $
+# Last Modified: $Date: 2000/11/21 10:13:51 $
 
 
 VERSION = 11.3
@@ -49,7 +49,7 @@ what-where-package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-what-where-package
 
 clean:
-	-$(RM) skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
+	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
 	auto-autoloads.el custom-load.el \
 	experimental/skk-isearch.el ./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
