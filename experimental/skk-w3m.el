@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.16 2001/06/02 19:35:13 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.17 2001/06/02 19:43:52 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/06/02 19:35:13 $
+;; Last Modified: $Date: 2001/06/02 19:43:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -809,7 +809,8 @@ w3m を backend で動かしていない)。")
   ;;    'closed
   (re-search-forward
    ;; <a href="/q?s=USDJPY=X&amp;d=t" hseq="7">USDJPY</a>
-   (format "<a href=\"[^>]+%s=X[^>]+\">%s</a>"
+   ;; <a href="/q?s=SFRJPY=X&amp;d=t" hseq="7">SFRJPY=X</a>
+   (format "<a href=\"[^>]+%s\\(=X\\)*[^>]+\">%s\\(=X\\)*</a>"
 	   (concat skk-w3m-currency-from skk-w3m-currency-to)
 	   (concat skk-w3m-currency-from skk-w3m-currency-to)))
   (re-search-forward "<b>\\([,.0-9]+\\)</b>")
