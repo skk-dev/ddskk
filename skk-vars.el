@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.72 2001/11/03 23:02:55 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.73 2001/11/04 00:55:28 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/03 23:02:55 $
+;; Last Modified: $Date: 2001/11/04 00:55:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2658,6 +2658,7 @@ This map should be derived from isearch-mode-map.")
 (defvar skk-isearch-last-mode-string "")
 (defvar skk-isearch-last-mode-regexp "")
 
+;;;###autoload
 (defvar skk-isearch-switch nil)
 (defvar skk-isearch-state nil)
 (defvar skk-isearch-in-editing nil)
