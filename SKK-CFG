@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.21 2002/01/17 12:59:51 czkmt Exp $
-;; Last Modified: $Date: 2002/01/17 12:59:51 $
+;; Version: $Id: SKK-CFG,v 1.22 2002/01/18 14:02:19 czkmt Exp $
+;; Last Modified: $Date: 2002/01/18 14:02:19 $
 
 ;;; Commentary:
 
@@ -107,36 +107,6 @@
 ;; (setq SKK_DATADIR "c:/Meadow/1.14/etc")
 ;; (setq SKK_INFODIR "c:/Meadow/1.14/info")
 ;; (setq SKK_LISPDIR "c:/Meadow/site-lisp/skk")
-
-
-;;; Mule 2.3 based on Emacs 19.34  用の設定例:
-;; (setq APEL_SPECIFIC_LISPDIR "/usr/local/share/mule/site-lisp/apel")
-;; (setq LISPDIR "/usr/local/share/mule/site-lisp")
-;; (setq VERSION_SPECIFIC_LISPDIR "/usr/local/share/mule/19.34/site-lisp")
-;; (setq EMU_PREFIX "")
-;; (setq SKK_DATADIR "/usr/local/share/skk")
-;; (setq SKK_INFODIR "/usr/local/info")
-;; (setq SKK_LISPDIR "/usr/local/share/mule/site-lisp/skk")
-
-
-;;; Mule 2.3 based on Emacs 19.28 用の設定例:
-;; (setq APEL_SPECIFIC_LISPDIR "/usr/local/lib/mule/site-lisp/apel")
-;; (setq LISPDIR "/usr/local/lib/mule/site-lisp")
-;; (setq VERSION_SPECIFIC_LISPDIR "/usr/local/lib/mule/site-lisp")
-;; (setq EMU_PREFIX "")
-;; (setq SKK_DATADIR "/usr/local/share/skk")
-;; (setq SKK_INFODIR "/usr/local/info")
-;; (setq SKK_LISPDIR "/usr/local/lib/mule/site-lisp/skk")
-
-
-;;; Mule for Windows version 1.22 用の設定例:
-;; (setq APEL_SPECIFIC_LISPDIR "c:/mule2/site-lisp/apel")
-;; (setq LISPDIR "c:/mule2/site-lisp")
-;; (setq VERSION_SPECIFIC_LISPDIR "c:/mule2/site-lisp")
-;; (setq EMU_PREFIX "")
-;; (setq SKK_DATADIR "c:/mule2/etc")
-;; (setq SKK_INFODIR "c:/mule2/info")
-;; (setq SKK_LISPDIR "c:/mule2/site-lisp/skk")
 
 
 ;;; XEmacs 21 用の設定例:
