@@ -40,7 +40,8 @@
   (require 'skk-vars)
   (require 'static))
 
-(require 'skk-kanagaki)
+(eval-and-compile
+  (require 'skk-kanagaki))
 
 (defgroup skk-nicola nil "SKK NICOLA related customization."
   :prefix "skk-nicola-"
@@ -726,7 +727,8 @@ keycode 131 = underscore\n"))
   ;;
   (setq skk-nicola-okuri-flag nil))
 
-(defadvice skk-kanagaki-toggle-rom-kana (around skk-nicola-ad activate compile)
+(defadvice skk-kanagaki-toggle-rom-kana (around skk-nicola-ad activate
+						preactivate)
   (setq skk-nicola-okuri-flag nil)
   ad-do-it
   ;; モード行の表示の調節。
@@ -737,7 +739,7 @@ keycode 131 = underscore\n"))
     (rom
      (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
 	   skk-katakana-mode-string skk-nicola-katakana-rom-string)))
-  (when (eq skk-emacs-type 'mule5)
+  (static-when (eq skk-emacs-type 'mule5)
     (setq skk-hiragana-mode-indicator
 	  (apply 'propertize skk-hiragana-mode-string
 		 skk-e21-modeline-property))
@@ -752,8 +754,8 @@ keycode 131 = underscore\n"))
 	  (when skk-j-mode
 	    (setq skk-input-mode-string
 		  (if skk-katakana
-		      skk-katakana-mode-string)
-		  skk-hiragana-mode-string)
+		      skk-katakana-mode-string
+		    skk-hiragana-mode-string))
 	    (skk-update-modeline (if skk-katakana
 				     skk-katakana-mode-indicator
 				   skk-hiragana-mode-indicator)))))
