@@ -1,3 +1,10 @@
+2002-02-25  IIDA Yosiaki  <iida@ring.gr.jp>
+
+	* SKK.tut.E: Remove a whole sentence which reads
+	that SKK uses two buffers for a JISYO, which is now
+	not correct (but might be so at the time).
+	Fix lots of English typos.
+
 2002-02-04  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* NICOLA-SKK.tut, SKK.tut, SKK.tut.E:
