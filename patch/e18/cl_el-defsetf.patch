@@ -1,14 +1,0 @@
---- cl.el.orig	Thu Jan 10 06:56:55 1991
-+++ cl.el	Wed Sep 13 01:20:13 2000
-@@ -1716,8 +1716,9 @@
-     (error "First argument of `defsetf' must be a symbol, not `%s'"
-            (prin1-to-string accessfn)))
-   ;; update properties
--  (put accessfn :setf-update-fn updatefn)
--  (put accessfn :setf-update-doc docstring))
-+  (list 'progn
-+	(list 'put (list 'function accessfn) :setf-update-fn (list 'function updatefn))
-+	(list 'put (list 'function accessfn) :setf-update-doc docstring)))
- 
- ;;; This section provides the "default" setfs for Common-Emacs-Lisp
- ;;; The user will not normally add anything to this, although
