@@ -1,3 +1,18 @@
+2002-01-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el
+	(update-buffer-local-frame-params): Abolish optional argument
+	FORCE-CURRENT-BUFFER. New optional argument BUFFER.
+
+	(minibuffer-exit-hook): Don't bother setting buffer.
+
+	* skk-tut.el
+	(skktut-init-variables-alist): Set `skk-update-jisyo-function' to
+	be `skktut-update-jisyo'.
+
+	(skktut-update-jisyo): New function. It is intended not to
+	autosave the dictionary for the tutorial.
+
 2002-01-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ccc.el
@@ -3336,8 +3351,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.629 2002/01/14 07:49:42 czkmt Exp $
-Last Modified: $Date: 2002/01/14 07:49:42 $
+Version: $Id: ChangeLog,v 1.630 2002/01/15 11:41:06 czkmt Exp $
+Last Modified: $Date: 2002/01/15 11:41:06 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
