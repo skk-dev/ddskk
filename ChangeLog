@@ -1,3 +1,19 @@
+2001-05-13  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-w3m.el (skk-w3m-working-buffer): Removed.
+	(skk-w3m-search): Use `w3m-w3m-retrieve' and
+	`w3m-search-escape-query-string' instead of `w3m'.
+	Do not use `save-window-excursion'.
+	Set w3m-work-buffer-name to " *skk-w3m-work*" temporarily to work
+	around.
+	Refer to skk-w3m-search-engine-alist directly.
+	Do not bind `w3m-display-inline-image' to nil.
+	(skk-w3m-get-candidates-from-goo-daijirin): Renewed to work in 
+	skk-w3m working buffer.
+	(skk-w3m-get-candidates-from-goo-exceed-eiwa): Change to dummy
+	function temporarily.
+	(skk-w3m-get-candidates-from-goo-exceed-eiwa-1): Removed.
+
 2001-04-29  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el (skk-w3m-get-candidates): Removed.
@@ -3290,8 +3306,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.281 2001/04/29 09:52:33 minakaji Exp $
-Last Modified: $Date: 2001/04/29 09:52:33 $
+Version: $Id: ChangeLog,v 1.282 2001/05/13 12:16:57 minakaji Exp $
+Last Modified: $Date: 2001/05/13 12:16:57 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

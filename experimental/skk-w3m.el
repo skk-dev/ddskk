@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.10 2001/04/29 09:52:34 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.11 2001/05/13 12:16:57 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/04/29 09:52:34 $
+;; Last Modified: $Date: 2001/05/13 12:16:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -51,20 +51,14 @@
 ;;
 ;; skk-w3m-search の引数は検索エンジンの種類を文字列で指定します。
 ;; 但し、skk-w3m-search-engine-alist に対応するエントリが必要です。
-;; w3m-search.el の標準の w3m-search-engine-alist は見ませんので注意
-;; が必要です。
 ;;
 ;; <TODO>
 ;; o とりあえず skk-w3m-get-candidates-from-goo-exceed-waei,
+;;   skk-w3m-get-candidates-from-goo-exceed-eiwa,
 ;;   skk-w3m-get-candidates-from-goo-daily-shingo を完成させる。
 ;; o 検索エンジンの増加。
 ;; o lookup は w3m-search.el を使った Web search を統合しないのだろう
 ;;   か...。統合すれば skk-lookup.el で一元管理できる？
-;; o w3m の代わりに wget が使えないか (その方が速いのでは？) と試した
-;;   が、検索開始からファイルの書き込みまでの速度があまり速くない割には
-;;   書き込まれたファイルには HTML タグという邪魔者が付いているという状
-;;   態なのでとりあえず見送り...(HTML タグの除去には 
-;;   w3m/shimbun/shimbun.el の `shimbun-remove-markup' が使えそう)。
 ;;
 ;;; Code
 (eval-when-compile (require 'skk-macs) (require 'skk-vars))
@@ -110,16 +104,14 @@ cdr は URL (検索文字列を %s で表わす),
 
 ;;; system internal variables and constants.
 ;; constants.
-(defconst skk-w3m-working-buffer " *skk-w3m*")
+
 ;; global variables
 
 ;;;###autoload
 (defun skk-w3m-search (search-engine)
-  nil
-  (let* ((w3m-display-inline-image nil)
-	 (w3m-async-exec nil)
-	 (w3m-search-engine-alist skk-w3m-search-engine-alist)
-	 (info (assoc search-engine w3m-search-engine-alist))
+  (let* ((w3m-async-exec nil)
+	 (w3m-work-buffer-name " *skk-w3m-work*")
+	 (info (assoc search-engine skk-w3m-search-engine-alist))
 	 (post-process (nth 3 info))
 	 (sex (nth 4 info))
 	 (process-key (nth 5 info))
@@ -129,13 +121,16 @@ cdr は URL (検索文字列を %s で表わす),
 	  (if (and info
 		   (or (not sex)       ; always search this engine, or
 		       (not (eval sex)))) ; search this time.
-	      (save-window-excursion
+	      (progn
 		(if process-key
 		    (setq henkan-key (funcall process-key henkan-key)))
-		(set-buffer (get-buffer-create skk-w3m-working-buffer))
-		(or (eq major-mode 'w3m-mode) (w3m-mode))
-		(w3m-search search-engine henkan-key) ; trip to other buffer...
-		(if post-process (funcall post-process henkan-key)))))
+		(or
+		 (w3m-w3m-retrieve
+		  (format (nth 1 info)
+			  (w3m-search-escape-query-string henkan-key (nth 2 info))))
+		 (error ""))
+		(w3m-with-work-buffer
+		  (if post-process (funcall post-process henkan-key))))))
       (error)))) ; catch network unreachable error or something like that.
 
 (defun skk-w3m-filter-string (string filters)
@@ -158,32 +153,79 @@ cdr は URL (検索文字列を %s で表わす),
 ;; 	  (nreverse v)))))
 
 (defun skk-w3m-get-candidates-from-goo-daijirin (key)
-  ;; 15:■［こうこう］の大辞林第二版からの検索結果　 39件
-  ;; 16:*
-  ;; 17:
-  ;; 18:  1   新規で開く  こうこう【口腔】
-  ;; 19:
-  ;; 20:  2   新規で開く  こうこう【工高】
-  ;; ...
-  ;; 78:  31  新規で開く  こうこう【皓皓・皎皎】
-  ;; ...
-  ;; 97:*
-  ;; 98:■［こうこう］の大辞林第二版からの検索結果　 39件
+  ;; <!-- RESULT_BLOCK -->
+  ;; <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>
+  ;; <!-- ej_res1 -->
+  ;; <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  ;;   <tr>
+  ;;     <td>
+  ;;       ■［<font color="#993333">こうこう</font>］の大辞林第二版からの検索結果　
+  ;;      <font size="+1" color="#993333"><b>39件</b></font>
+  ;;     </td>
+  ;;   </tr>
+  ;;   <tr>
+  ;;     <td bgcolor="#993333"><img src="/Common/clear.gif" width="1" height="1" alt=""></td>
+  ;;   </tr>
+  ;;   <tr>
+  ;;     <td>
+  ;;       <br>
+  ;;       <table border="0" cellspacing="4" cellpadding="4">
+  ;;         <tr>
+  ;;           <td><br></td>
+  ;;           <td><b>1</b></td>
+  ;;           <td>
+  ;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06660300.txt&sw=2" target="_blank">
+  ;;             <img src="/Common/icon01.gif" width="12" height="12" border="0" alt="新規で開く"></a>
+  ;;             </td>
+  ;;           <td nowrap>
+  ;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06660300.txt&sw=2">こうこう 【口腔】</a>
+  ;;           </td>
+  ;;         </tr>
+  ;;         ...
+  ;;         <tr>
+  ;;           <td><br></td>
+  ;;           <td><b>25</b></td>
+  ;;           <td>
+  ;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06663300.txt&sw=2" target="_blank">
+  ;;             <img src="/Common/icon01.gif" width="12" height="12" border="0" alt="新規で開く"></a>
+  ;;             </td>
+  ;;           <td nowrap>
+  ;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06663300.txt&sw=2">こうこう 【<img src="/jp/image/G149A.gif" width="14" HEIGHT="19" align="absmiddle" hspace="2"><img src="/jp/image/G149A.gif" width="14" HEIGHT="19" align="absmiddle" hspace="2">】</a>
+  ;;           </td>
+  ;;         </tr>
+  ;;         ...
+  ;;       </table>
+  ;;       <br>
+  ;;     </td>
+  ;;   </tr>
+  ;;   <tr>
+  ;;     <td bgcolor="#993333"><img src="/Common/clear.gif" width="1" height="1" alt=""></td>
+  ;;   </tr>
+  ;;   <tr>
+  ;;     <td>
+  ;;       ■［<font color="#993333">こうこう</font>］の大辞林第二版からの検索結果　
+  ;;      <font size="+1" color="#993333"><b>39件</b></font>
+  ;;     </td>
+  ;;   </tr>
+  ;; </table>
+  ;; <!-- ej_res1 -->
+  ;; </td></tr></table>
+  ;; <!-- RESULT_BLOCK -->
   (save-match-data
-    (if (re-search-forward 
-	 (concat "■\\［" (regexp-quote key) "\\］の大辞林第二版からの検索結果　 [0-9]+件")
-	 nil t nil)
-	(let (temp v)
-	  (while (re-search-forward 
-		  (concat "[0-9]+ +新規で開く +" (regexp-quote key) "【\\([^【】]+\\)】 +$")
-		  nil t nil)
-	    (setq temp (skk-w3m-filter-string
-			 ;; 〈何時〉
-			(match-string-no-properties 1) '("〈" "〉")))
-	    (if split
-		(setq v (nconc (split-string temp "・") v))
-	      (setq v (cons temp v))))
-	  (nreverse v)))))
+    (let (temp v start end)
+      (if (not (search-forward "<!-- RESULT_BLOCK -->" nil t nil))
+	  nil
+	(setq start (point))
+	(if (search-forward "<!-- RESULT_BLOCK -->" nil t nil)
+	    (setq end (point)))
+	(goto-char start)
+	(setq key (concat "<a href=\".+\">" (regexp-quote key) " +【\\([^【】]+\\)】</a>"))
+	(while (re-search-forward key end t nil)
+	  (setq temp (skk-w3m-filter-string
+		      ;; 〈何時〉
+		      (match-string-no-properties 1) '("〈" "〉")))
+	  (setq v (nconc (split-string temp "・") v)))
+	(nreverse v)))))
 
 ;; (defun skk-w3m-get-candidates-from-goo-exceed-waei (key)
 ;;   ;; 15:■［ねっしん］のEXCEED和英辞典からの検索結果　
@@ -222,6 +264,137 @@ cdr は URL (検索文字列を %s で表わす),
 ;; 	v))))
 
 (defun skk-w3m-get-candidates-from-goo-exceed-eiwa (key)
+  ;; SORRY, NOT YET.
+  ;;
+  ;; <!-- RESULT_BLOCK -->
+  ;; <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>
+  ;; <!-- ej_res1 -->
+  ;; <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  ;;   <tr>
+  ;;     <td>
+  ;;       ■［<font color="#993333">collaborate</font>］のEXCEED英和辞典からの検索結果　
+  ;;     </td>
+  ;;   </tr>
+  ;;   <tr>
+  ;;     <td bgcolor="#993333"><img src="/Common/clear.gif" width="1" height="1" alt=""></td>
+  ;;   </tr>
+  ;;   <tr>
+  ;;     <td>
+  ;;       <br>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR ALIGN="LEFT" VALIGN="MIDDLE">
+  ;;     <TD>
+  ;;       <SPAN CLASS="css4g">
+  ;;         <B>col・lab・o・rate</B>　<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/01010419.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR>
+  ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
+  ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
+  ;;       <SPAN CLASS="css3g">
+  ;;         <IMG SRC="/ej/image/e1073.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1015.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1016.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1022.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1001.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e101b.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1054.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1013.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1003.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1074.gif" WIDTH="8" HEIGHT="16" ALT="">　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR>
+  ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
+  ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
+  ;;       <SPAN CLASS="css3g">
+  ;;         <i>vi.</i>　共に働く；　共同研究する　<i>(with, on, in)；</i>　敵側［占領軍］に協力する．　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR>
+  ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="48" HEIGHT="2"></TD>
+  ;;     <TD WIDTH="420" ALIGN="LEFT" VALIGN="TOP">
+  ;;       <SPAN CLASS="css3g">
+  ;;         <FONT COLOR="FF0000">collaboration</FONT>　<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020773.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR>
+  ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
+  ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
+  ;;       <SPAN CLASS="css3g">
+  ;;         <i>n.</i>　<FONT COLOR="FF0000">collaborationism</FONT>　<i>n.</i>　<FONT COLOR="FF0000">collaborationist</FONT>　<i>n.</i>　（敵側への）協力者．　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR>
+  ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="48" HEIGHT="2"></TD>
+  ;;     <TD WIDTH="420" ALIGN="LEFT" VALIGN="TOP">
+  ;;       <SPAN CLASS="css3g">
+  ;;         <FONT COLOR="FF0000">collaborative</FONT>　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR>
+  ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
+  ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
+  ;;       <SPAN CLASS="css3g">
+  ;;         <IMG SRC="/ej/image/e1073.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1015.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1016.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1022.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1001.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1009.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e101b.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1054.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1013.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1003.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1013.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e101d.gif" WIDTH="8" HEIGHT="16" ALT=""><IMG SRC="/ej/image/e1074.gif" WIDTH="8" HEIGHT="16" ALT="">　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR>
+  ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
+  ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
+  ;;       <SPAN CLASS="css3g">
+  ;;         <i>a.</i>　共同制作の．　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR>
+  ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="48" HEIGHT="2"></TD>
+  ;;     <TD WIDTH="420" ALIGN="LEFT" VALIGN="TOP">
+  ;;       <SPAN CLASS="css3g">
+  ;;         <FONT COLOR="FF0000">collaborator</FONT>　<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020774.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;; <TABLE WIDTH="468" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  ;;   <TR>
+  ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
+  ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
+  ;;       <SPAN CLASS="css3g">
+  ;;         <i>n.</i>　
+  ;;       </SPAN>
+  ;;     </TD>
+  ;;   </TR>
+  ;; </TABLE>
+  ;;       <br>
+  ;;     </td>
+  ;;   </tr>
+  ;;   <tr>
+  ;;     <td bgcolor="#993333"><img src="/Common/clear.gif" width="1" height="1" alt=""></td>
+  ;;   </tr>
+  ;;   <tr>
+  ;;     <td>
+  ;;       ■［<font color="#993333">collaborate</font>］のEXCEED英和辞典からの検索結果　
+  ;;     </td>
+  ;;   </tr>
+  ;; </table>
+  ;; <!-- ej_res1 -->
+  ;; </td></tr></table>
+  ;; <!-- RESULT_BLOCK -->
   ;;
   ;; con・tem・po・ra・ry
   ;; [clear] ●●●●●●●●●●●●●●
@@ -262,82 +435,98 @@ cdr は URL (検索文字列を %s で表わす),
   ;;
   ;; ■［contemporary］のEXCEED英和辞典からの検索結果
   ;; *
-  (save-match-data
-    (let (v)
-      (if (not (re-search-forward "[0-9]+  新規で開く" nil t nil))
-	  (if (re-search-forward
-	       (concat "■\\［" (regexp-quote key) "\\］のEXCEED英和辞典からの検索結果")
-	       nil t nil)
-	      (setq v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1)))
-	(beginning-of-line)
-	(while (re-search-forward "[0-9]+  新規で開く" nil t nil)
-	  (backward-char)
-	  (w3m-view-this-url)
-	  (goto-char (point-min))
-	  (if (re-search-forward
-	       (concat "■\\［" (regexp-quote key) "\\］のEXCEED英和辞典からの検索結果")
-	       nil t nil)
-	      (setq v (nconc v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1))))
-	  (w3m-view-previous-page)))
-      v)))
+  ;;   (save-match-data
+  ;;     (let (temp v start end)
+  ;;       (if (not (search-forward "<!-- RESULT_BLOCK -->" nil t nil))
+  ;; 	  nil
+  ;; 	(setq start (point))
+  ;; 	(if (search-forward "<!-- RESULT_BLOCK -->" nil t nil)
+  ;; 	    (setq end (point)))
+  ;; 	(goto-char start)
+  ;; 	(setq key (concat "<a href=\".+\">" (regexp-quote key) " +【\\([^【】]+\\)】</a>"))
+  ;; 	(while (re-search-forward key end t nil)
+  ;; 	  (setq temp (skk-w3m-filter-string
+  ;; 		      ;; 〈何時〉
+  ;; 		      (match-string-no-properties 1) '("〈" "〉")))
+  ;; 	  (setq v (nconc (split-string temp "・") v)))
+  ;; 	(nreverse v)))))
+  ;;   (save-match-data
+  ;;     (let (v)
+  ;;       (if (not (re-search-forward "[0-9]+  新規で開く" nil t nil))
+  ;; 	  (if (re-search-forward
+  ;; 	       (concat "■\\［" (regexp-quote key) "\\］のEXCEED英和辞典からの検索結果")
+  ;; 	       nil t nil)
+  ;; 	      (setq v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1)))
+  ;; 	(beginning-of-line)
+  ;; 	(while (re-search-forward "[0-9]+  新規で開く" nil t nil)
+  ;; 	  (backward-char)
+  ;; 	  (w3m-view-this-url)
+  ;; 	  (goto-char (point-min))
+  ;; 	  (if (re-search-forward
+  ;; 	       (concat "■\\［" (regexp-quote key) "\\］のEXCEED英和辞典からの検索結果")
+  ;; 	       nil t nil)
+  ;; 	      (setq v (nconc v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1))))
+  ;; 	  (w3m-view-previous-page)))
+  ;;       v))
+  )
 
-(defun skk-w3m-get-candidates-from-goo-exceed-eiwa-1 ()
-  (save-match-data
-    (let (temp temp1 temp2 temp3 tail v)
-      (while (re-search-forward
-	      "\\[clear\\] [a-z]+\\.\\(, [a-z]+\\.\\)*　\\([^ a-zA-Z][^．]+\\)．"
-	      nil t nil)
-	(setq temp (match-string-no-properties 2))
-	(setq temp (skk-w3m-filter-string
-		  ;; e.x. `捺染（なつせん）工', `(on, in)', `【経営】'
-		    temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)"
-			   "…の" "【[^【】]+】" "(強意)")))
-	(while (string-match
-		;; ((...)) は意味を表わすようだ。
-		;; e.x. インジケータ　((機器の作動状態を表示する機能))
-		;; 括弧内をあえてフィルタリングしないで出力する。
-		"\\([^，；]+\\)\\(［\\|((\\)\\([^，；]+\\)\\(］\\|))\\)\\([^，；]+\\)*"
-		temp)
-	  (setq temp (concat (substring temp 0 (match-beginning 0))
-			     (match-string-no-properties 1 temp)
-			     (match-string-no-properties 5 temp)
-			     "，"
-			     (match-string-no-properties 3 temp)
-			     (match-string-no-properties 5 temp)
-			     (substring temp (match-end 0)))))
-	;; 当惑（の原因） → 当惑，当惑の原因
-	;; 同時代の（人，雑誌）→  同時代の，同時代の人，同時代の雑誌
-	(while (string-match "\\([^，；]+\\)（\\([^；]+\\)）\\([^，；]+\\)*" temp)
-	  (setq temp1 (match-string-no-properties 1 temp)
-		temp2 (match-string-no-properties 2 temp)
-		temp3 (match-string-no-properties 3 temp)
-		tail (substring temp (match-end 0)))
-	  (setq temp (concat (substring temp 0 (match-beginning 0))
-			     temp1 "，"
-			     (mapconcat 'identity
-					(mapcar
-					 (function (lambda (e) (concat temp1 e temp3)))
-					 (split-string temp2 "，"))
-					"，")
-			     tail)))
-	;; （問題を）紛糾させる → 紛糾させる，問題を紛糾させる
-	(while (string-match "（\\([^；]+\\)）\\([^，；]+\\)" temp)
-	  (setq temp1 (match-string-no-properties 1 temp)
-		temp2 (match-string-no-properties 2 temp)
-		tail (substring temp (match-end 0)))
-	  (setq temp (concat (substring temp 0 (match-beginning 0))
-			     temp2 "，"
-			     (mapconcat 'identity
-					(mapcar
-					 (function (lambda (e) (concat e temp2)))
-					 (split-string temp1 "，"))
-					"，")
-			     tail)))
-	(setq v (nconc v (split-string temp "[，；]")))
-	;; skip to next candidate.
-	(or (re-search-forward "\\[clear\\] ●+" nil t nil)
-	    (goto-char (point-max))))
-      v)))
+;; (defun skk-w3m-get-candidates-from-goo-exceed-eiwa-1 ()
+;;   (save-match-data
+;;     (let (temp temp1 temp2 temp3 tail v)
+;;       (while (re-search-forward
+;; 	      "\\[clear\\] [a-z]+\\.\\(, [a-z]+\\.\\)*　\\([^ a-zA-Z][^．]+\\)．"
+;; 	      nil t nil)
+;; 	(setq temp (match-string-no-properties 2))
+;; 	(setq temp (skk-w3m-filter-string
+;; 		  ;; e.x. `捺染（なつせん）工', `(on, in)', `【経営】'
+;; 		    temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)"
+;; 			   "…の" "【[^【】]+】" "(強意)")))
+;; 	(while (string-match
+;; 		;; ((...)) は意味を表わすようだ。
+;; 		;; e.x. インジケータ　((機器の作動状態を表示する機能))
+;; 		;; 括弧内をあえてフィルタリングしないで出力する。
+;; 		"\\([^，；]+\\)\\(［\\|((\\)\\([^，；]+\\)\\(］\\|))\\)\\([^，；]+\\)*"
+;; 		temp)
+;; 	  (setq temp (concat (substring temp 0 (match-beginning 0))
+;; 			     (match-string-no-properties 1 temp)
+;; 			     (match-string-no-properties 5 temp)
+;; 			     "，"
+;; 			     (match-string-no-properties 3 temp)
+;; 			     (match-string-no-properties 5 temp)
+;; 			     (substring temp (match-end 0)))))
+;; 	;; 当惑（の原因） → 当惑，当惑の原因
+;; 	;; 同時代の（人，雑誌）→  同時代の，同時代の人，同時代の雑誌
+;; 	(while (string-match "\\([^，；]+\\)（\\([^；]+\\)）\\([^，；]+\\)*" temp)
+;; 	  (setq temp1 (match-string-no-properties 1 temp)
+;; 		temp2 (match-string-no-properties 2 temp)
+;; 		temp3 (match-string-no-properties 3 temp)
+;; 		tail (substring temp (match-end 0)))
+;; 	  (setq temp (concat (substring temp 0 (match-beginning 0))
+;; 			     temp1 "，"
+;; 			     (mapconcat 'identity
+;; 					(mapcar
+;; 					 (function (lambda (e) (concat temp1 e temp3)))
+;; 					 (split-string temp2 "，"))
+;; 					"，")
+;; 			     tail)))
+;; 	;; （問題を）紛糾させる → 紛糾させる，問題を紛糾させる
+;; 	(while (string-match "（\\([^；]+\\)）\\([^，；]+\\)" temp)
+;; 	  (setq temp1 (match-string-no-properties 1 temp)
+;; 		temp2 (match-string-no-properties 2 temp)
+;; 		tail (substring temp (match-end 0)))
+;; 	  (setq temp (concat (substring temp 0 (match-beginning 0))
+;; 			     temp2 "，"
+;; 			     (mapconcat 'identity
+;; 					(mapcar
+;; 					 (function (lambda (e) (concat e temp2)))
+;; 					 (split-string temp1 "，"))
+;; 					"，")
+;; 			     tail)))
+;; 	(setq v (nconc v (split-string temp "[，；]")))
+;; 	;; skip to next candidate.
+;; 	(or (re-search-forward "\\[clear\\] ●+" nil t nil)
+;; 	    (goto-char (point-max))))
+;;       v)))
 
 (defun skk-w3m-get-candidates-from-goo-daily-shingo (key)
   ;; not yet.
