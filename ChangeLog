@@ -3,7 +3,7 @@
 	* skk-cursor.el (kill-buffer, select-frame, other-window,
 	switch-to-buffer, recenter): Call `interactive' with args.
 
-	* skk-tut.el (kill-buffer): Call `interactive' with args.
+	* skk-tut.el (kill-buffer): Ditto.
 
 	* skk.el (kill-buffer): Ditto.
 
