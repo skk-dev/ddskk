@@ -6,7 +6,7 @@
 	(skk-jisx0208-latin-mode)
 	(skk-set-henkan-point-subr)
 	(skk-purge-from-jisyo)
-	(skk-abbrev-mode)
+	(skk-abbrev-mode):
 	Return nil.
 
 	* skk-kcode.el:
@@ -2377,8 +2377,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.472 2001/10/13 02:01:03 czkmt Exp $
-Last Modified: $Date: 2001/10/13 02:01:03 $
+Version: $Id: ChangeLog,v 1.473 2001/10/13 04:18:51 czkmt Exp $
+Last Modified: $Date: 2001/10/13 04:18:51 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
