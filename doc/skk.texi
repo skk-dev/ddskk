@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.54 2000/10/23 08:52:48 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.55 2000/10/23 08:56:31 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/23 08:52:48 $
+@c  Last Modified: $Date: 2000/10/23 08:56:31 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.62
-@set UPDATED $Date: 2000/10/23 08:52:48 $
+@set UPDATED $Date: 2000/10/23 08:56:31 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -4805,7 +4805,7 @@ A:　  S:￣  D:〜  F:｝  G:＝  H:¢  Q:◆
 $Bに、メニューのキーは変更することができます。これについては、
 
 @display
-@xref{候補の選択に用いるキー}/
+@xref{候補の選択に用いるキー}.
 @end display
 
 @noindent
