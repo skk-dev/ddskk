@@ -230,11 +230,12 @@
 				  isearch-string "")))
 	  (put 'isearch-barrier 'skk-kanagaki t)
 	  (setq unread-command-events
-		(list (aref (where-is-internal
-			     (if isearch-forward 'isearch-repeat-forward
-			       'isearch-repeat-backward)
-			     isearch-mode-map t)
-			    0)))))
+		(list (character-to-event
+		       (aref (where-is-internal
+			      (if isearch-forward 'isearch-repeat-forward
+				'isearch-repeat-backward)
+			      isearch-mode-map t)
+			     0))))))
        (t
 	(delete-char -1)
 	(skk-insert-str char2))))
