@@ -5,9 +5,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.29 2001/11/20 14:36:30 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.30 2001/12/02 03:15:26 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/20 14:36:30 $
+;; Last Modified: $Date: 2001/12/02 03:15:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -44,13 +44,20 @@
 
 ;; Functions.
 
+(defun skk-cursor-default-color ()
+  (static-cond
+   ((featurep 'xemacs)
+    (frame-property (selected-frame) 'cursor-color))
+   (t
+    frame-cursor-color)))
+
 ;;;###autoload
 (defun skk-cursor-current-color ()
   ;; カレントバッファの SKK のモードから、カーソルの色を取得する。
   (cond
    ((not (and skk-use-color-cursor
 	      skk-mode))
-    skk-cursor-default-color)
+    (skk-cursor-default-color))
    ;; `skk-start-henkan' の中では、skk-j-mode フラグを立てながら、
    ;; skk-abbrev-mode フラグも立てている (変換後、直後に入力する文
    ;; 字が元の入力モードにて行なわれるように)。従い、skk-abbrev-mode
@@ -89,20 +96,21 @@
 	 (skk-cursor-current-color))))))
 
 ;; advices.
-(skk-defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
-  (unless skk-henkan-mode
-    (skk-cursor-set skk-cursor-default-color)))
+(static-when (eq skk-emacs-type 'xemacs)
+  (skk-defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
+    (unless skk-henkan-mode
+      (skk-cursor-set (skk-cursor-default-color)))))
 
 ;; Hooks
-(add-hook 'isearch-mode-end-hook
-	  'skk-cursor-set
-	  'append)
-
-(add-hook 'minibuffer-setup-hook
-	  'skk-cursor-set
-	  'append)
-
 (static-when (eq skk-emacs-type 'xemacs)
+  (add-hook 'isearch-mode-end-hook
+	    'skk-cursor-set
+	    'append)
+
+  (add-hook 'minibuffer-setup-hook
+	    'skk-cursor-set
+	    'append)
+
   (add-hook 'minibuffer-exit-hook
 	    (lambda ()
 	      (with-current-buffer (skk-minibuffer-origin)
