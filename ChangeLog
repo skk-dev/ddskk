@@ -1,3 +1,7 @@
+2002-01-10  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* experimental/skk-dinsert.el : New file.
+
 2002-01-10  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* experimental/skk-azik.el : New file.
@@ -3255,8 +3259,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.617 2002/01/09 16:48:10 akiho Exp $
-Last Modified: $Date: 2002/01/09 16:48:10 $
+Version: $Id: ChangeLog,v 1.618 2002/01/10 10:17:48 obata Exp $
+Last Modified: $Date: 2002/01/10 10:17:48 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
