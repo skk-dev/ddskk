@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.30 2000/09/28 10:35:22 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.31 2000/10/01 06:48:48 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/09/28 10:35:22 $
+@c  Last Modified: $Date: 2000/10/01 06:48:48 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/09/28 10:35:22 $
+@set UPDATED $Date: 2000/10/01 06:48:48 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -275,7 +275,7 @@ SKK $B$r;H$$;O$a$kA0$K!"$"$J$?$N(B @file{~/.emacs} $B$K@_Dj$r=q$+$J$1$l$P$J$j
 
 $B<-=q%5!<%P$r;H$$$?$$$H$-$O!"(B@file{.emacs}$B$d(B@file{.skk} $B$G0J2<$N$h$&$K@_(B
 $BDj$7$^$9!#(B
-@footnote{$B<-=q%5!<%Q$r;H$C$F$_$?$$>l9g$O(B
+@footnote{$B<-=q%5!<%P$r;H$C$F$_$?$$>l9g$O(B
 
 @xref{dbskkd-cdb}.
 
@@ -1296,7 +1296,9 @@ SKK $B$K$O!"%A%e!<%H%j%"%k$,ImB0$7$F$$$^$9!#%A%e!<%H%j%"%k$G$O!"(B SKK $B$N4p
 @end lisp
 
 $B$H=q$/$3$H$K$h$j!";XDj$7$?%A%e!<%H%j%"%k%U%!%$%k$r;HMQ$5$;$k$3$H$,(B
-$B$G$-$^$9!#(B
+$B$G$-$^$9!#1Q8l$N%A%e!<%H%j%"%k%U%!%$%k$O!"(B @samp{skk-tut-file} $B$K(B @file{.E}
+$B$,IU$$$?%U%!%$%kL>$G$9!#$3$N>l9g$G$"$l$P!"(B
+@file{a:/user/local/share/skk/SKK.tut.E} $B$K$J$j$^$9!#(B
 
 
 @node $BJXMx$J1~MQ5!G=$H%f!<%6!<%*%W%7%g%s(B, $B<-=q%f!<%F%#%j%F%#%W%m%0%i%`(B, $B4pK\E*$J;HMQJ}K!(B, Top
@@ -1365,6 +1367,8 @@ SKK$B$N%U%!%$%k9=@.$d%f!<%6!<%*%W%7%g%s$N@_Dj$K$D$$$F$N0lHLE*Cm0U$r=R$Y$k!#(B
 @cindex @file{skk-viper.el}
 @cindex @file{skk-vars.el}
 @cindex @file{skk-lookup.el}
+@cindex @file{skk-cursor.el}
+@cindex @file{skk-develop.el}
 @cindex @file{skk.el}
 
 SKK $B%P!<%8%g%s(B 10 $B$G$O!"1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$r(B 
@@ -1389,6 +1393,14 @@ autoload$B$N@_Dj$r5-=R$7$?%U%!%$%k!#(BXEmacs$B$G(Bpackage install$B$5$l$?>l
 $B8+=P$78l$NJd40$r9T$J$&%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 
 @xref{$B8+=P$78l$NJd40(B}.
+
+@item skk-cursor.el
+
+$B%+!<%=%k$N?'$r%3%s%H%m!<%k$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
+
+@item skk-develop.el
+
+$B%P%/%l%]!<%H$N%a!<%k%P%C%U%!$rMQ0U$9$k%W%m%0%i%`%U%!%$%k!#(B
 
 @item skk-foreword.el
 
@@ -1422,12 +1434,17 @@ KAKASI$B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 @xref{$B4A;z%3!<%I$^$?$O%a%K%e!<$K$h$kJ8;zF~NO(B}.
 
 @item skk-leim.el
+
 LEIM$B4XO"%W%m%0%i%`%U%!%$%k!#(B
 
 @item skk-look.el
 
 look$B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 @c @xref{look$B$r;HMQ$7$?Jd40!&JQ49(B}. XXX
+
+@item skk-lookup.el
+
+Lookup $B$G8!:w$G$-$k<-=q$r;H$C$FC18l$N8uJd$r=PNO$9$k%W%m%0%i%`!#(B
 
 @item skk-num.el
 
@@ -1451,17 +1468,13 @@ SKK$B%5!<%P!<%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 
 SKK$B%A%e!<%H%j%"%k%W%m%0%i%`!#(B
 
-@item skk-viper.el
-
-VIPER$B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
-
 @item skk-vars.el
 
 $B8E$$(B SKK 10 $B$r%@%s%W$7$?(B XEmacs $B$G(B SKK 10 $B$rF0$+$9$?$a$N%@%_!<%U%!%$%k!#(B
 
-@item skk-lookup.el
+@item skk-viper.el
 
-Lookup $B$G8!:w$G$-$k<-=q$r;H$C$FC18l$N8uJd$r=PNO$9$k%W%m%0%i%`!#(B
+VIPER$B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 
 @end table
 
@@ -2848,7 +2861,7 @@ backward$BJ}8~$K%]%$%s%H$rLa$7$F"&%b!<%I$KF~$j!"$^$?%]%$%s%H$r(B@kbd{M-Q}$BF~
 $BJd$KLa$k!#(B
 
 @example
-@kbd{S a t o u @key{SPC}C-j}
+@kbd{S a t o u @key{SPC} C-j}
 
 @group
 ------ Buffer: foo ------
