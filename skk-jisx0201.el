@@ -4,10 +4,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.44 2001/11/21 14:44:50 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.45 2001/11/29 13:47:49 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/11/21 14:44:50 $
+;; Last Modified: $Date: 2001/11/29 13:47:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -46,7 +46,8 @@
 ;; `skk-jisx0201-roman-rule-list' に JISX0201.1976 Japanese Roman
 ;;  (latin-jisx0201) の文字列を定義しています。ただし JISX0201.1976 Japanese
 ;;  Roman 入力は今のところ Emacs 20.3 以降と XEmacs 21 以降でしか出来ていませ
-;; ん。ｶﾅ と roman を切り替える key はとりあえず C-c C-q にしてあります。
+;; ん。ｶﾅ と roman を切り替える機能 `skk-toggle-jisx0201' にはキー定義してい
+;; ません。
 ;;
 ;;
 ;; <業務連絡>
