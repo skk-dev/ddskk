@@ -4,9 +4,9 @@
 ;;
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.2 2000/10/30 22:10:20 minakaji Exp $
+;; Version: $Id: skk-version.el,v 1.3 2000/10/30 23:52:54 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:20 $
+;; Last Modified: $Date: 2000/10/30 23:52:54 $
 ;;
 ;; This file is part of Daredevil SKK.
 ;;
@@ -34,7 +34,7 @@
 (provide 'skk-version) ; have to declare in the top.
 
 (product-provide 'skk-version
-  (product-define "Daredevil SKK" nil '(11 3 0) "Sakurai"))
+  (product-define "Daredevil SKK" nil '(11 4 0) "Ishibashi"))
 
 ;; set version-string
 (if (fboundp 'product-version-as-string)

@@ -1,5 +1,7 @@
 2000-10-31  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* skk-version.el (skk-version): Updated to 11.4 and Ishibashi.
+
 	* Sync up with daredevil.
 	
 2000-10-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
