@@ -1,7 +1,7 @@
 -*- text -*-
-             $Date: 1999/09/22 10:10:11 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 1999/09/22 10:11:33 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.7 1999/09/22 10:10:11 minakaji Exp $ 
+	     $Id: INSTALL,v 1.8 1999/09/22 10:11:33 minakaji Exp $ 
 
 (1)APEL (A Portable Emacs Library) is required to install SKK.  Please
    make sure you have already installed APEL 9.22 or later.  It is
@@ -20,7 +20,7 @@ or
       later.  However, programmer's interfaces of that custom (old
       custom) are totally different from ones of its current versions,
       and the old custom does not work with SKK.  For instance, the
-      old version does not have a `defcustom' or `defface' insterface.
+      old version does not have a `defcustom' or `defface' interface.
       So if you want to use custom features, you should get a current
       version that work well on Emacs 19.30 or later,
       `custom-1.9962.tar.gz'.  It is available at: 
