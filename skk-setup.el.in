@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.3 2000/11/14 12:49:58 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.4 2000/11/15 09:39:44 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 12:49:58 $
+;; Last Modified: $Date: 2000/11/15 09:39:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,6 +28,12 @@
 ;;; Commentary:
 
 ;;; Code:
+
+(if (or (boundp 'MULE) (boundp 'NEMACS))
+    (progn
+      (require 'path-util)
+      (add-latest-path "skk")))
+
 (cond
  ((and (featurep 'xemacs)
        (file-exists-p
