@@ -2,6 +2,8 @@
 
 	* Makefile (skk-dic): New target.
 
+	* SKK-CFG: Modify examples for Windows.
+
 	* SKK-MK (SKK-MK-skk-dic): New function.
 
 	* skk-dic.el (skk-small-dic): Typo.
@@ -1906,8 +1908,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.385 2001/09/14 11:54:10 czkmt Exp $
-Last Modified: $Date: 2001/09/14 11:54:10 $
+Version: $Id: ChangeLog,v 1.386 2001/09/14 11:55:50 czkmt Exp $
+Last Modified: $Date: 2001/09/14 11:55:50 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.16 2001/08/31 14:55:25 czkmt Exp $
-;; Last Modified: $Date: 2001/08/31 14:55:25 $
+;; Version: $Id: SKK-CFG,v 1.17 2001/09/14 11:55:50 czkmt Exp $
+;; Last Modified: $Date: 2001/09/14 11:55:50 $
 
 ;;; Commentary:
 
@@ -100,13 +100,13 @@
 ;; (setq SKK_LISPDIR "/usr/local/share/emacs/site-lisp/skk")
 
 
-;;; Meadow 1.10 用の設定例:
+;;; Meadow 1.14 用の設定例:
 ;; (setq APEL_SPECIFIC_LISPDIR "c:/Meadow/site-lisp/apel")
 ;; (setq LISPDIR "c:/Meadow/site-lisp")
-;; (setq VERSION_SPECIFIC_LISPDIR "c:/Meadow/1.10/site-lisp")
+;; (setq VERSION_SPECIFIC_LISPDIR "c:/Meadow/1.14/site-lisp")
 ;; (setq EMU_PREFIX "emu")
-;; (setq SKK_DATADIR "c:/Meadow/1.10/share/skk")
-;; (setq SKK_INFODIR "c:/Meadow/1.10/info")
+;; (setq SKK_DATADIR "c:/Meadow/1.14/etc")
+;; (setq SKK_INFODIR "c:/Meadow/1.14/info")
 ;; (setq SKK_LISPDIR "c:/Meadow/site-lisp/skk")
 
 
@@ -135,7 +135,7 @@
 ;; (setq LISPDIR "c:/mule2/site-lisp")
 ;; (setq VERSION_SPECIFIC_LISPDIR "c:/mule2/site-lisp")
 ;; (setq EMU_PREFIX "")
-;; (setq SKK_DATADIR "c:/mule2/share/skk")
+;; (setq SKK_DATADIR "c:/mule2/etc")
 ;; (setq SKK_INFODIR "c:/mule2/info")
 ;; (setq SKK_LISPDIR "c:/mule2/site-lisp/skk")
 
