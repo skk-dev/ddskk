@@ -86,6 +86,27 @@ tut-code/skk-mkmgk.el は混ぜ書き SKK 辞書を作成するツールです。
 保持する履歴の数の最大値は `skk-kakutei-history-limit' の値によって決
 まります。標準では、20 となっています。
 
+** カタカナ語を変換によって入力
+
+変換候補にカタカナ語が現れるようにしたい場合は ~/.skk に
+
+ (setq skk-search-prog-list
+       (skk-nunion skk-search-prog-list
+                   '((skk-search-katakana))))
+
+と書きます。この方法では、q でカタカナを入力するのに比べて、辞書登録で
+きるというメリットがあります。
+
+** 擬似サ変入力
+
+サ行変格活用の動詞を送りあり変換できるようにするには ~/.skk に
+
+ (setq skk-search-prog-list
+       (skk-nunion skk-search-prog-list
+                   '((skk-search-sagyo-henkaku))))
+
+と書きます。
+
 
 * 11.4
 
