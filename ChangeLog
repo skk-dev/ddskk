@@ -1,3 +1,17 @@
+2002-04-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-num.el:
+	(skk-num-flatten-list):
+	Local variable `dst' must be a list of strings.
+
+	* skk-server.el:
+	(skk-server-live-p):
+	Do not refer to `skk-network-open-status'.
+
+	* skk-vars.el:
+	(skk-network-open-status):
+	Abolish variable.
+
 2002-04-01  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* skk.el (skk-henkan-show-candidate-subr): Fix bug that when
@@ -3818,8 +3832,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.680 2002/04/01 23:22:21 obata Exp $
-Last Modified: $Date: 2002/04/01 23:22:21 $
+Version: $Id: ChangeLog,v 1.681 2002/04/03 10:18:31 czkmt Exp $
+Last Modified: $Date: 2002/04/03 10:18:31 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
