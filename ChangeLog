@@ -9,6 +9,8 @@
 
 	(skk-henkan-mode): New variable.
 
+	(skk-isearch-overriding-local-map): Simplify.
+
 	* experimental/skk-hint.el
 	* skk-comp.el
 	* skk-cursor.el
@@ -2601,8 +2603,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.505 2001/10/31 13:08:29 czkmt Exp $
-Last Modified: $Date: 2001/10/31 13:08:29 $
+Version: $Id: ChangeLog,v 1.506 2001/10/31 14:21:09 czkmt Exp $
+Last Modified: $Date: 2001/10/31 14:21:09 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

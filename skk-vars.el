@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.70 2001/10/31 13:05:26 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.71 2001/10/31 14:21:09 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 13:05:26 $
+;; Last Modified: $Date: 2001/10/31 14:21:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2643,23 +2643,20 @@ CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
 This map should be derived from isearch-mode-map.")
 
 (defvar skk-isearch-overriding-local-map
-  (cond ((eq skk-emacs-type 'xemacs)
-	 (cond
-	  ((or (> emacs-major-version 21)
-	       (and (= emacs-major-version 21)
-		    (or (> emacs-minor-version 2)
-			(and (= emacs-minor-version 2)
-			     (boundp 'emacs-beta-version) emacs-beta-version
-			     (>= emacs-beta-version 2)))))
-	   'overriding-local-map)
-	  (t 'overriding-terminal-local-map)))
-	;; for Mule/GNU Emacs.
-	((or (> emacs-major-version 19)
-	     (and (= emacs-major-version 19) (> emacs-minor-version 28)))
-	 ;; GNU Emacs version 19.29, 19.30 and 19.31 uses this in isearch.el.
-	 'overriding-terminal-local-map)
-	;; GNU Emacs version 19.22 .. 19.28 uses this in isearch.el.
-	(t 'overriding-local-map))
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (cond
+     ((string-lessp "21.2  (beta2)" emacs-version)
+      'overriding-local-map)
+     (t
+      'overriding-terminal-local-map)))
+   ;; for Mule/GNU Emacs.
+   ((string-lessp "19.29" emacs-version)
+    ;; GNU Emacs version 19.29 or later uses this in isearch.el.
+    'overriding-terminal-local-map)
+   ;; GNU Emacs version 19.28 or earlier uses this in isearch.el.
+   (t
+    'overriding-local-map))
   "Variable holding overrinding local map used in isearch-mode.")
 
 (defvar skk-isearch-last-mode-string "")
