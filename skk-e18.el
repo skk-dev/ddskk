@@ -109,14 +109,6 @@ Install patch/e18/advice.el in load-path and try again."))))
       (setq skk-mode nil)
       ad-do-it)))
 
-(defadvice byte-code-function-p (around skk-e18-ad activate)
-  ;; これは一時の APEL のバグに対して work around したものだから、最新の
-  ;; APEL に対しては不要。
-  (cond ((and (consp (ad-get-arg 0)) (consp (cdr (ad-get-arg 0))))
-	 ad-do-it)
-	(t
-	 nil)))
-
 ;; 時折、検索系の関数が数値を返すことを期待しているコードがあるため、
 ;; それらが動くように以下の 4 関数への advice をする。
 (defadvice search-forward (after skk-e18-ad activate)
