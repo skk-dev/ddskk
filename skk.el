@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.172 2001/11/01 12:00:22 czkmt Exp $
+;; Version: $Id: skk.el,v 1.173 2001/11/02 13:59:38 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/01 12:00:22 $
+;; Last Modified: $Date: 2001/11/02 13:59:38 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -811,9 +811,7 @@ dependent."
   (interactive "P")
   (skk-with-point-move
    (if (eq skk-henkan-mode 'on)
-       (progn
-	 (setq this-command 'skk-comp-do)
-	 (skk-comp-do (not (eq last-command 'skk-comp-do))))
+       (skk-comp (not (eq last-command 'skk-comp-do)))
      (skk-emulate-original-map arg))))
 
 (defun skk-latin-mode (arg)
