@@ -5,6 +5,8 @@
 
 	* skk.el (skk-henkan-count):
 	(skk-set-henkan-count):
+	(skk-exit-show-candidates):
+	(skk-set-exit-show-candidates):
 
 	New functions, workaround for XEmacs isearch.
 
@@ -21,7 +23,7 @@
 	(skk-set-henkan-point):
 	(abort-recursive-edit):
 
-	Call `skk-henkan-count' and/or `skk-set-henkan-count'.
+	Call them.
 
 
 2004-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -4407,8 +4409,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.776 2004/01/26 17:21:54 czkmt Exp $
-Last Modified: $Date: 2004/01/26 17:21:54 $
+Version: $Id: ChangeLog,v 1.777 2004/01/26 17:44:21 czkmt Exp $
+Last Modified: $Date: 2004/01/26 17:44:21 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
