@@ -14,7 +14,9 @@
 	(skk-define-latin-mode-map)
 	(skk-define-jisx0208-latin-mode-map)
 	(skk-define-abbrev-mode-map): New functions.
-	
+
+	(skk-henkan): Use the candidate unmodified when `skk-numeric-p'.
+
 2001-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
@@ -2719,8 +2721,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.523 2001/11/13 11:06:26 czkmt Exp $
-Last Modified: $Date: 2001/11/13 11:06:26 $
+Version: $Id: ChangeLog,v 1.524 2001/11/13 11:41:42 czkmt Exp $
+Last Modified: $Date: 2001/11/13 11:41:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
