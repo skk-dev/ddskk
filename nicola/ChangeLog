@@ -1,4 +1,4 @@
-2003-07-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2003-07-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-util.el:
 	(skk-kanagaki-temp-dir): Abolish variable.
