@@ -1,3 +1,23 @@
+2004-12-01  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/skk-bayesian.el: Add comments more.
+	(skk-bayesian-read-process-output): New.
+	(skk-bayesian-search): Use `skk-bayesian-read-process-output'.
+	(skk-bayesian-save-history): Ditto.
+	(skk-bayesian-kill-process): Ditto.
+	(skk-bayesian-restart-process): Use -d when `skk-bayesian-debug'.
+	Add `skk-bayesian-kill-process' to `skk-before-kill-emacs-hook'
+
+	* experimental/bayesian/bskk (DB): Add a flag `dirty'.
+	(DB::add_history): Ditto.
+	(DB::save): New.
+	(DB::debug_log): New.
+	(save_DB): Remove.
+	(serve): Add an error handling.
+	(mode_serve): Make more stable in hadling exceptions and signals.
+	Add an opetion -d.
+	Bug fixed.
+
 2004-11-30  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
 	* skk-viper.el: check whether function `sentence-end' exists.
@@ -4682,8 +4702,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.819 2004/12/01 03:43:11 skk-cvs Exp $
-Last Modified: $Date: 2004/12/01 03:43:11 $
+Version: $Id: ChangeLog,v 1.820 2004/12/01 10:44:10 skk-cvs Exp $
+Last Modified: $Date: 2004/12/01 10:44:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
