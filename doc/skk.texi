@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.126 2003/07/21 02:42:27 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.127 2003/07/21 02:45:56 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/21 02:42:27 $
+@c  Last Modified: $Date: 2003/07/21 02:45:56 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/21 02:42:27 $
+@set UPDATED $Date: 2003/07/21 02:45:56 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -472,7 +472,7 @@ SKK 9、 SKK 10 と比較して、変数名、関数名が大幅に変更されたので、
 @footnote{辞書サーバを使ってみたい場合は
 
 @display
-@xref{dbskkd-cdb}.
+@xref{辞書サーバ}.
 @end display
 
 @noindent
@@ -7773,7 +7773,7 @@ $ cvs -d :pserver:guest@@openlab.ring.gr.jp:/circus/cvsroot checkout skk/tools
 SKK のクライアント側は特定のサーバの実装に依存していませんので、下記の複
 数のサーバの実装のいずれでも動作可能です。
 
-@table 
+@table @asis
 @item dbskkd-cdb
 次節で詳しく説明します。
 
