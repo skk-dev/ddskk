@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.6 2000/11/05 15:52:21 minakaji Exp $
+;; Version: $Id: skk-server.el,v 1.7 2000/12/14 10:24:12 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/05 15:52:21 $
+;; Last Modified: $Date: 2000/12/14 10:24:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -263,16 +263,18 @@
   ;; skk-search-prog-list から skk-search-server を car に持つリストを消す。
   ;; non-nil であれば、加える。
   (if (or skk-server-host skk-servers-list)
-      (if (null (assq 'skk-search-server skk-search-prog-list))
+      (if (null (assq 'skk-search-server
+		      (default-value 'skk-search-prog-list)))
           ;; skk-search-prog-list が nil ということはまずないだろうが、念のた
           ;; め、setq しておく。
-          (setq skk-search-prog-list
-                ;; 末尾に付ける。末尾には (skk-okuri-search) を持ってきたい人
-                ;; もいるかも。オプションで付ける場所を変更するようにした方が
-                ;; 良い？
-                (nconc skk-search-prog-list
-                       (list
-                        '(skk-search-server skk-aux-large-jisyo 10000)))))
+          (setq-default
+	   skk-search-prog-list
+	   ;; 末尾に付ける。末尾には (skk-okuri-search) を持ってきたい人
+	   ;; もいるかも。オプションで付ける場所を変更するようにした方が
+	   ;; 良い？
+	   (nconc (default-value 'skk-search-prog-list)
+		  (list
+		   '(skk-search-server skk-aux-large-jisyo 10000)))))
     (if (not non-del)
 	(remove-alist 'skk-search-prog-list 'skk-search-server))))
 

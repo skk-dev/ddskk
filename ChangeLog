@@ -1,3 +1,10 @@
+2000-12-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-server.el (skk-adjust-search-prog-list-for-server-search):
+	Use `setq-default' instead of `setq'.
+
+	* skk-tut.el (skk-tutorial): Work for Emacs 18.
+
 2000-12-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-viper.el (skk-viper-init-function): New function.
@@ -2903,8 +2910,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.215 2000/12/14 03:53:34 minakaji Exp $
-Last Modified: $Date: 2000/12/14 03:53:34 $
+Version: $Id: ChangeLog,v 1.216 2000/12/14 10:24:12 czkmt Exp $
+Last Modified: $Date: 2000/12/14 10:24:12 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

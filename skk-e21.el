@@ -63,26 +63,7 @@
   (interactive)
   (browse-url "http://openlab.ring.gr.jp/skk/index-j.html"))
 
-;;;###autoload
-;; (defun skk-e21-prepare-modeline-properties ()
-;;   (setq skk-default-indicator ""
-;; 	skk-latin-mode-indicator
-;; 	(apply 'propertize skk-latin-mode-string skk-e21-modeline-property)
-;; 	skk-hiragana-mode-indicator
-;; 	(apply 'propertize skk-hiragana-mode-string skk-e21-modeline-property)
-;; 	skk-katakana-mode-indicator
-;; 	(apply 'propertize skk-katakana-mode-string skk-e21-modeline-property)
-;; 	skk-jisx0208-latin-mode-indicator
-;; 	(apply 'propertize skk-jisx0208-latin-mode-string
-;; 	       skk-e21-modeline-property)
-;; 	skk-jisx0201-mode-indicator
-;; 	(apply 'propertize skk-jisx0201-mode-string skk-e21-modeline-property)
-;; 	skk-abbrev-mode-indicator
-;; 	(apply 'propertize skk-abbrev-mode-string skk-e21-modeline-property)))
-;;
-;;
-
 (require 'product)
 (product-provide (provide 'skk-e21) (require 'skk-version))
 
-;; skk-e21.el ends here.
+;; skk-e21.el ends here

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.25 2000/11/28 13:04:31 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.26 2000/12/14 10:24:12 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/28 13:04:31 $
+;; Last Modified: $Date: 2000/12/14 10:24:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -499,7 +499,8 @@ C-u M-x skk-tutorial すると、チュートリアルファイルの選択が可能。"
       ;; Nemacs でうまく buffer local になってくれない。
       ;; 原因が分かるまでの work around です。
       (static-when (memq skk-emacs-type '(nemacs mule1))
-	(make-variable-buffer-local 'skk-jisyo))
+	(make-variable-buffer-local 'skk-jisyo)
+	(make-variable-buffer-local 'skk-search-prog-list))
       ;;
       (skktut-make-windows)))
   (skktut-setup-delete-backward-char))
