@@ -64,7 +64,7 @@
       "--"
       ["Read Manual" skk-e21-info t]
       ["Start Tutorial" skk-tutorial t]
-      ["Customize Daredevil SKK" skk-e21-customize t]
+      ["Customize Daredevil SKK" skk-customize t]
       ["Send a Bug Report"
        (let (skk-japanese-message-and-error)
 	 (skk-submit-bug-report)) t]
