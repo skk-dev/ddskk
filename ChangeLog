@@ -21,6 +21,9 @@
 	(skk-isearch-initialize-working-buffer): Set `skk-dcomp-activate'
 	nil.
 
+	* skk-obsolete.el
+	Define aliases to obsolete functions here.
+
 2001-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
@@ -2725,8 +2728,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.525 2001/11/13 12:24:12 czkmt Exp $
-Last Modified: $Date: 2001/11/13 12:24:12 $
+Version: $Id: ChangeLog,v 1.526 2001/11/13 12:28:16 czkmt Exp $
+Last Modified: $Date: 2001/11/13 12:28:16 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
