@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-cursor.el,v 1.6 2000/10/18 16:21:26 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.7 2000/10/18 21:38:38 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/18 16:21:26 $
+;; Last Modified: $Date: 2000/10/18 21:38:38 $
 
 ;; This file is part of SKK.
 
@@ -150,7 +150,7 @@ nil であれば、表示しない。"
  (t
   (defadvice select-frame (after skk-cursor-ad activate)
     "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
-    (interactive "p")
+    (interactive "e")
     (skk-cursor-set-properly))))
 
 (defadvice switch-to-buffer (after skk-cursor-ad activate)
