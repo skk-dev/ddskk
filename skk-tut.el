@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.45 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.46 2001/11/21 14:44:50 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/21 14:44:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -998,7 +998,7 @@ of which mail body or subject is empty.
 			   'face skk-tut-do-it-face)))
     (while (not skktut-tutorial-end)
       (ignore-errors
-        (let* ((event (next-command-event))
+	(let* ((event (next-command-event))
 	       (char (event-to-character event)))
 	  (skktut-message "<return> キーを押してください"
 			  "Hit <return> key")
