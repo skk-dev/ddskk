@@ -30,7 +30,7 @@
   (autoload 'browse-url "browse-url"))
 
 ;; Variables.
-(defvar skk-xemacs-modeline-menu-items
+(defvar skk-e21-modeline-menu-items
   '("Daredevil SKK Menu"
     ["Read Manual" skk-e21-info t]
     ["Start Tutorial" skk-tutorial t]
@@ -49,7 +49,7 @@
 
 (defun skk-e21-modeline-menu ()
   (interactive)
-  (popup-menu skk-xemacs-modeline-menu-items))
+  (popup-menu skk-e21-modeline-menu-items))
 
 (defun skk-e21-info ()
   (interactive)
@@ -85,5 +85,4 @@
 (require 'product)
 (product-provide (provide 'skk-e21) (require 'skk-version))
 
-;; skk-xemacs.el ends here.
-
+;; skk-e21.el ends here.
