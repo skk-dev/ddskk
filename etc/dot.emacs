@@ -57,4 +57,16 @@
 	    (require 'skk)
 	    (setq skk-kutouten-type 'en)))
 
+;; かなモードの入力で (モード変更を行なわずに) 長音(ー)を
+;; ASCII 数字の直後では `-' に、全角数字の直後では `−' にしたい。
+(setq skk-rom-kana-rule-list
+	  (cons '("-" nil skk-hyphen)
+			skk-rom-kana-rule-list))
+(defun skk-hyphen (arg)
+  (interactive "P")
+  (let ((c (char-before (point))))
+    (cond ((and (<= ?0 c) (>= ?9 c)) "-")
+	  ((and (<= ?０ c) (>= ?９ c)) "−")
+	  (t "ー"))))
+
 ;;; dot.emacs ends here
