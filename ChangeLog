@@ -19,7 +19,7 @@
 	conversion.
 
 	* skk-vars.el (skk-jisx0201-rule-tree,
-	skk-jisx0201-current-rule-tree, jsix0201-mode-map): Abolish.
+	skk-jisx0201-current-rule-tree, jisx0201-mode-map): Abolish.
 	(skk-jisx0201-orig-rule-tree): New variable.
 
 	* skk.el (skk-emulate-original-map): Do emulation also in
@@ -1752,8 +1752,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.354 2001/09/06 21:32:10 czkmt Exp $
-Last Modified: $Date: 2001/09/06 21:32:10 $
+Version: $Id: ChangeLog,v 1.355 2001/09/06 21:38:21 czkmt Exp $
+Last Modified: $Date: 2001/09/06 21:38:21 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
