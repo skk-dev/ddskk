@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.178 2001/11/13 11:41:29 czkmt Exp $
+;; Version: $Id: skk.el,v 1.179 2001/11/13 11:42:50 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 11:41:29 $
+;; Last Modified: $Date: 2001/11/13 11:42:50 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -411,8 +411,9 @@ dependent."
     (define-key skk-jisx0208-latin-mode-map
       (char-to-string skk-backward-and-set-henkan-point-char)
       'skk-backward-and-set-henkan-point))
-  (skk-setup-delete-backward-char)
-  (skk-setup-undo)
+  (when skk-j-mode
+    (skk-setup-delete-backward-char)
+    (skk-setup-undo))
   (unless skk-rule-tree
     (setq skk-rule-tree (skk-compile-rule-list
 			 skk-rom-kana-base-rule-list
