@@ -33,7 +33,7 @@ $#.# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/
 
 skk-w3m.el を使うには w3m をインストールする必要があります。
 
-http://emacs-w3m.namazu.org
+http://w3m.sourceforge.net
 
 ** SKK にヒントを与えて変換
 
