@@ -244,10 +244,34 @@
 	(aset (car list) 0 (skk-e21-encode-string (cdr cons)))))
       (setq list (cdr list)))))
 
+(defun skk-e21-mouse-position ()
+  "Return the position of point as (FRAME X . Y).
+Analogous to mouse-position."
+  (let* ((w (selected-window))
+	 (edges (window-edges w))
+	 (list
+	  (compute-motion (max (window-start w) (point-min))   ; start pos
+			  ;; window-start can be < point-min if the
+			  ;; latter has changed since the last redisplay
+			  '(0 . 0)       ; start XY
+			  (or (ignore-errors
+				(marker-position
+				 skk-henkan-start-point))
+			      (point))       ; stop pos
+			  (cons (window-width) (window-height)); stop XY: none
+			  (1- (window-width))       ; width
+			  (cons (window-hscroll w) 0)     ; 0 may not be right?
+			  (selected-window))))
+    ;; compute-motion returns (pos HPOS VPOS prevhpos contin)
+    ;; we want:               (frame hpos . vpos)
+    (cons (selected-frame)
+	  (cons (+ (car edges)       (car (cdr list)))
+		(+ (car (cdr edges)) (car (cdr (cdr list))))))))
+
 (defun tooltip-show-at-point (text)
   (require 'tooltip)
   (require 'avoid)
-  (let* ((P (mouse-avoidance-point-position))
+  (let* ((P (skk-e21-mouse-position))
 	 (frame (car P))
 	 (x (cadr P))
 	 (y (cddr P))
@@ -257,6 +281,11 @@
 	 (oy     (cddr oP)))
     (set-mouse-position frame x y)
     (tooltip-show text)
+    (condition-case nil
+	(sit-for tooltip-hide-delay)
+      (quit
+       (call-interactively #'keyboard-quit)))
+    (tooltip-hide)
     (set-mouse-position oframe ox oy)))
 
 (require 'product)
