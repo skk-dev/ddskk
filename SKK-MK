@@ -1,12 +1,12 @@
 ;;; SKK-MK --- installer for SKK  -*-emacs-lisp-*-
 
-;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@namazu.org>
-;; Copyright (C) 2003 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 2003, 2004 SKK Development Team <skk@ring.gr.jp>
 
-;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.124 2003/07/21 12:29:50 minakaji Exp $
-;; Last Modified: $Date: 2003/07/21 12:29:50 $
+;; Version: $Id: SKK-MK,v 1.125 2004/02/29 01:05:10 minakaji Exp $
+;; Last Modified: $Date: 2004/02/29 01:05:10 $
 
 ;;; Commentary:
 
@@ -290,6 +290,7 @@ This version of SKK requires MULE features"))
 		    skk
 
 		    ;; EXPERIMENTAL
+		    skk-bayesian
 		    skk-correct
 		    skk-exsearch
 		    skk-exserv

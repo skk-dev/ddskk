@@ -1,3 +1,26 @@
+2004-02-29  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/bayesian/skk-bayesian.el
+	(skk-bayesian-save-history): Remove kuten and period from the
+	message strings.
+
+	* SKK-MK (SKK_MODULES): Add skk-bayesian.
+
+	* experimental/bayesian/skk-bayesian.el (skk-bayesian-search):
+	Use `with-current-buffer'.
+	(skk-bayesian-update): Ditto.
+	(skk-bayesian-save-history): Ditto.
+	(skk-bayesian-kill-process): Ditto.
+	(skk-bayesian-prefer-server): Add `*' to the top of doc string.
+	(skk-bayesian-port): Ditto.
+	(skk-bayesian-host): Ditto.
+	(skk-bayesian-prefix-len): Ditto.
+	(skk-bayesian-last-prefix-str): Ditto.
+	(skk-bayesian-history-file): Ditto.
+	(skk-bayesian-debug): Ditto.
+	(skk-bayesian-search): Use `buffer-substring-no-properties'
+	instead of `buffer-substring'.
+
 2004-02-26  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
         * experimental/bayesian/bskk: New file.
@@ -4421,8 +4444,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.781 2004/02/26 02:44:40 kurihara Exp $
-Last Modified: $Date: 2004/02/26 02:44:40 $
+Version: $Id: ChangeLog,v 1.782 2004/02/29 01:05:10 minakaji Exp $
+Last Modified: $Date: 2004/02/29 01:05:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
