@@ -9,10 +9,10 @@
 	(SKK-MK-skk-dic): Do not push skk-dic in SKK_MODULES.
 
 	* skk-setup.el.in:
-	On XEmacs 20.4, load skk-leim.el and skk-autolaods.el.
+	On XEmacs 20.4, load skk-leim.el and skk-autoloads.el.
 
 	* skk-xemacs.el:
-	On XEmacs 20.4, load skk-leim.el and skk-autolaods.el.
+	On XEmacs 20.4, load skk-leim.el and skk-autoloads.el.
 
 	(skk-xemacs-prepare-modeline-properties): Do not set some face
 	properties on XEmacs 20.4.
@@ -21,7 +21,7 @@
 	No longer in the repository.
 
 	* skk.el
-	(skk-mode-invoke): Remode workaround for XEmacs 20.4.
+	(skk-mode-invoke): Remove workaround for XEmacs 20.4.
 
 2001-09-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2139,8 +2139,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.437 2001/09/30 03:58:33 czkmt Exp $
-Last Modified: $Date: 2001/09/30 03:58:33 $
+Version: $Id: ChangeLog,v 1.439 2001/09/30 07:32:33 czkmt Exp $
+Last Modified: $Date: 2001/09/30 07:32:33 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
