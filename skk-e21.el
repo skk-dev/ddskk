@@ -99,6 +99,8 @@
 	7
 	(cond (skk-katakana
 	       (skk-e21-find-func-keys 'skk-toggle-kana))
+	      ((not skk-mode)
+	       (skk-e21-find-func-keys 'skk-mode))
 	      ((not skk-j-mode)
 	       (skk-e21-find-func-keys 'skk-kakutei))
 	      (t
