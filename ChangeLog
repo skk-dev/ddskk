@@ -1,3 +1,8 @@
+2002-01-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* patch/e19/custom-1.9962.patch:
+	No longer in the repository.
+
 2002-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cursor.el:
@@ -3506,8 +3511,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.641 2002/01/19 03:57:58 czkmt Exp $
-Last Modified: $Date: 2002/01/19 03:57:58 $
+Version: $Id: ChangeLog,v 1.642 2002/01/20 09:55:05 czkmt Exp $
+Last Modified: $Date: 2002/01/20 09:55:05 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

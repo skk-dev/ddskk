@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.116 2002/01/18 14:02:37 czkmt Exp $
-;; Last Modified: $Date: 2002/01/18 14:02:37 $
+;; Version: $Id: SKK-MK,v 1.117 2002/01/20 09:56:45 czkmt Exp $
+;; Last Modified: $Date: 2002/01/20 09:56:45 $
 
 ;;; Commentary:
 
@@ -217,12 +217,7 @@ This version of SKK requires MULE features"))
 	"This version of Daredevil SKK requires APEL/10.2 or later"))
 
 ;; constants.
-(defconst SKK-MK-texinfo-coding-system
-  (cond ((or (featurep 'xemacs)
-	     (string< "4.0" mule-version))
-	 'junet)
-	(t
-	 nil)))
+(defconst SKK-MK-texinfo-coding-system 'iso-2022-jp)
 
 ;; GENERIC VARIABLE.
 (defvar DOCDIR (or (getenv "DOCDIR")
