@@ -1,3 +1,8 @@
+2002-02-26  IIDA Yosiaki  <iida@ring.gr.jp>
+
+	* NICOLA-SKK.tut, SKK.tut: Fix lots of Japanese typos.
+	* NICOLA-SKK.tut, SKK.tut, SKK.tut.E: s/Mule/Emacs/g.
+
 2002-02-25  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* SKK.tut.E: Remove a whole sentence which reads
