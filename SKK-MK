@@ -1,0 +1,94 @@
+;;; -*-Emacs-Lisp-*-
+
+;; SKK-MK: installer for SKK.
+;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+
+;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Version: $Id: SKK-MK,v 1.1 1999/08/31 10:58:48 minakaji Exp $
+;; Last Modified: $Date: 1999/08/31 10:58:48 $
+
+;;; Code:
+
+(defun config-skk ()
+  (let (prefix lisp-dir version-specific-lisp-dir)
+    (and (setq prefix (car command-line-args-left))
+	 (or (string-equal "NONE" prefix)
+	     (defvar PREFIX prefix)
+	     ))
+    (setq command-line-args-left (cdr command-line-args-left))
+    (and (setq lisp-dir (car command-line-args-left))
+	 (or (string-equal "NONE" lisp-dir)
+	     (defvar LISPDIR lisp-dir)
+	     ))
+    (setq command-line-args-left (cdr command-line-args-left))
+    (and (setq version-specific-lisp-dir (car command-line-args-left))
+	 (or (string-equal "NONE" version-specific-lisp-dir)
+	     (progn
+	       (defvar VERSION_SPECIFIC_LISPDIR version-specific-lisp-dir)
+	       (princ (format "VERSION_SPECIFIC_LISPDIR=%s\n"
+			      VERSION_SPECIFIC_LISPDIR)))
+	     ))
+    (setq command-line-args-left (cdr command-line-args-left))
+    (load-file "SKK-CFG")
+    (or (boundp 'skk-modules)
+	(load-file "SKK-ELS")
+	)
+    (princ (format "PREFIX=%s\n" PREFIX))
+    ))
+
+(defun compile-skk ()
+  (config-skk)
+  (load-file "SKK-ELS")
+  ;;(load-file "skk-gv")
+  (compile-elisp-modules skk-modules	".")
+  )
+
+(defun install-skk ()
+  (compile-skk)
+  (install-elisp-modules skk-modules	"."	SKK_DIR)
+  )
+
+(defun config-skk-package ()
+  (let (package-dir)
+    (and (setq package-dir (car command-line-args-left))
+	 (or (string= "NONE" package-dir)
+	     (defvar PACKAGEDIR package-dir)
+	     ))
+    (setq command-line-args-left (cdr command-line-args-left))
+    (load-file "SKK-CFG")
+    (load-file "SKK-ELS")
+					  
+    (princ (format "PACKAGEDIR=%s\n" PACKAGEDIR))
+    ))
+
+(defun install-skk-package ()
+  (config-skk-package)
+  
+  (compile-elisp-modules skk-modules	".")
+  
+  (let ((dir (expand-file-name SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR))))
+    (install-elisp-modules skk-modules	"." dir)
+    
+    (setq autoload-package-name "skk")
+    (add-to-list 'command-line-args-left dir)
+    (batch-update-directory)
+
+    (add-to-list 'command-line-args-left dir)
+    (Custom-make-dependencies)
+
+    (byte-compile-file (expand-file-name "auto-autoloads.el" dir))
+    (byte-compile-file (expand-file-name "custom-load.el" dir))
+    ))
+
+(defun what-where-skk ()
+  (config-skk)
+  (princ (format "
+The files that belong to the SKK modules:
+  %s
+  -> %s
+"
+		 (mapconcat 'symbol-name skk-modules ", ")
+		 SKK_DIR )))
+
+;;; SKK-MK ends here
