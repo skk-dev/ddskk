@@ -27,7 +27,8 @@
       skk-custom-file "~/.ddskk/custom.el"
       skk-emacs-id-file "~/.ddskk/emacs-id"
       skk-record-file "~/.ddskk/record"
-      skk-jisyo "~/.ddskk/jisyo")
+      skk-jisyo "~/.ddskk/jisyo"
+      skk-backup-jisyo "~/.ddskk/jisyo.bak")
 
 ;; migemo を使うから skk-isearch にはおとなしくしていて欲しい
 (setq skk-isearch-start-mode 'latin)
