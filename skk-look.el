@@ -1,12 +1,12 @@
 ;;; skk-look.el --- UNIX look command interface for SKK
 
-;; Copyright (C) 1998, 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1998, 1999, 2000 NAKAJIMA Mikio <minakaji@namazu.org>
 
-;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.26 2002/07/06 12:18:40 czkmt Exp $
+;; Version: $Id: skk-look.el,v 1.27 2003/07/19 10:12:37 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/06 12:18:40 $
+;; Last Modified: $Date: 2003/07/19 10:12:37 $
 
 ;; This file is part of Daredevil SKK.
 
