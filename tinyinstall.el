@@ -6,8 +6,8 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.9 2001/11/18 16:28:11 czkmt Exp $
-;; Last Modified: $Date: 2001/11/18 16:28:11 $
+;; Version: $Id: tinyinstall.el,v 1.10 2002/01/18 14:05:03 czkmt Exp $
+;; Last Modified: $Date: 2002/01/18 14:05:03 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -25,16 +25,6 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;;; Code:
-
-(if (not (fboundp 'when))
-    (defmacro when (cond &rest body)
-      "(when COND BODY...): if COND yields non-nil, do BODY, else return nil."
-      (list 'if cond (cons 'progn body))))
-
-(if (not (fboundp 'unless))
-    (defmacro unless (cond &rest body)
-      "(unless COND BODY...): if COND yields nil, do BODY, else return nil."
-      (cons 'if (cons cond (cons nil body)))))
 
 (defvar install-prefix
   (cond ((featurep 'xemacs)		; running-xemacs
@@ -74,16 +64,10 @@ subdirectory under load-path.")
 	   (throw 'tag (car rest)))
 	 (setq rest (cdr rest)))))
    (expand-file-name (concat
-		      (if (and (not (featurep 'xemacs))
-			       ;; running-emacs-19_29-or-later
-			       (or (>= emacs-major-version 20)
-				   (and (= emacs-major-version 19)
-					(>= emacs-minor-version 29))))
+		      (if (not (featurep 'xemacs))
 			  "share/"
 			"lib/")
-		      (cond ((boundp 'MULE)
-			     "mule/")
-			    ((featurep 'xemacs)
+		      (cond ((featurep 'xemacs)
 			     ;; running-xemacs
 			     "xemacs/")
 			    (t
