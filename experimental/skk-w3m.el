@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.27 2001/11/24 07:03:57 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.28 2001/11/24 07:19:33 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/11/24 07:03:57 $
+;; Last Modified: $Date: 2001/11/24 07:19:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -35,15 +35,14 @@
 ;; skk-w3m-use-w3m-backend が non-nil であれば、w3m を backend オプ
 ;; ション付きで起動して w3m と直接交信します。nil であれば emacs-w3m
 ;; (http://www-nagao.kuee.kyoto-u.ac.jp/member/tsuchiya/w3m/) を経由
-;; して w3m を利用します。現在の emacs-w3m では w3m を backend で動か
-;; していません。w3m backend を利用することで、検索の度毎に w3m を起
-;; 動する必要がなくなり、プロセスの起動、終了に伴なうオーバーヘッドを
-;; 減らすことができますが、w3m backend は開発中であり、今後大幅な仕様
-;; 変更が行なわれる可能性もあり、予断を許しません。
+;; して w3m を利用します (emacs-w3m では w3m を backend で動かしてい
+;; ません)。w3m backend を利用することで、検索の度毎に w3m を起動する
+;; 必要がなくなり、プロセスの起動、終了に伴なうオーバーヘッドを減らす
+;; ことができますが、w3m backend は開発中であり、今後大幅な仕様変更が
+;; 行なわれる可能性もあり、予断を許しません。
 ;;
 ;; <HOW TO INSTALL>
-;; .emacs を読み込まずに emacs-w3m が load できる環境が必須です。そ
-;; の上でこのファイルを SKK-MK があるディレクトリにコピーし (リンク
+;; このファイルを SKK-MK があるディレクトリにコピーし (リンク
 ;; が使えるファイルシステムでは SKK-MK のあるディレクトリで
 ;;   ln -s ./experimental/skk-w3m.el .
 ;; した方が良いかもしれません)、後は普通に make install するだけです。
@@ -268,7 +267,10 @@ w3m を backend で動かしていない)。")
 			 (w3m-search-escape-query-string key (nth 2 dbase)))))
 	      (error ""))
 	  (decode-coding-region (point-min) (point-max) (nth 2 dbase))
-	  (funcall post-process key)))))
+	  (prog1
+	      (funcall post-process key)
+	    ;; not to enlarge working buffer
+	    (erase-buffer))))))
 
 (defun skk-w3m-w3m-retrieve (url)
   (if skk-w3m-w3m-w3m-retrieve-has-new-argument-spec
