@@ -167,9 +167,12 @@
 		  (when (stringp str)
 		    str)))
 	     (where-is-internal func skk-j-mode-map))))
-    (if keys
-	(sorted-key-descriptions keys)
-      "")))
+    (cond ((not keys)
+	   "")
+	  ((and (stringp keys) (string= keys "\C-j"))
+	   "C-j")
+	  (t
+	   (sorted-key-descriptions keys)))))
 
 ;; Hooks.
 
