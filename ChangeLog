@@ -1,3 +1,8 @@
+2004-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-mouse-position): When skk-isearch is on,
+	place mouse pointer on the minibuffer window.
+
 2004-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-isearch.el (skk-isearch-delete-char): Workaound for
@@ -4658,8 +4663,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.816 2004/09/14 14:50:53 skk-cvs Exp $
-Last Modified: $Date: 2004/09/14 14:50:53 $
+Version: $Id: ChangeLog,v 1.817 2004/11/13 16:06:08 skk-cvs Exp $
+Last Modified: $Date: 2004/11/13 16:06:08 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
