@@ -528,7 +528,7 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
 (defadvice skk-okurigana-prefix (around skk-knagaki-ad activate compile)
   (if (eq skk-kanagaki-state 'kana)
       (if (member (ad-get-arg 0) '("$B$C(B" "$B%C(B"))
-	  "t"
+	  (setq ad-return-value "t")
 	(let ((skk-henkan-okurigana (ad-get-arg 0)))
 	  ad-do-it))
     ad-do-it))
