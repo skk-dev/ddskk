@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.74 2001/11/05 12:56:37 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.75 2001/11/11 07:42:01 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/05 12:56:37 $
+;; Last Modified: $Date: 2001/11/11 07:42:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -679,6 +679,13 @@ left であれば左端に表示する。
 (defcustom skk-abbrev-mode-string "aあ"
   "*SKK abbrev モードであるときにモードラインに表示される文字列。"
   :type 'string
+  :group 'skk-decoration)
+
+(defcustom skk-indicator-use-cursor-color (and window-system
+					       (fboundp 'x-display-color-p)
+					       (x-display-color-p))
+  "*Non-nil ならばカーソルと同じ色でインジケータを表示する"
+  :type 'boolean
   :group 'skk-decoration)
 
 (defcustom skk-echo t
