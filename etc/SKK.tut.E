@@ -4,9 +4,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut.E,v 1.2 2000/10/30 22:18:13 minakaji Exp $
+;; Version: $Id: SKK.tut.E,v 1.3 2000/11/01 11:18:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:18:13 $
+;; Last Modified: $Date: 2000/11/01 11:18:22 $
 ;;
 ;; This is the tutorial text for Daredevil SKK version 11.1 and and later versions.
 ;;
@@ -70,7 +70,7 @@ You can move from $B$+$J(B mode to ASCII mode by typing $B!X(Bl$B!Y(B(for 
 Note also how the mode line changed.
 
 In ASCII mode, keys will be interpreted as ordinary Emacs commands. It is
-almost identical with the state you were in just befor you invoked SKK,
+almost identical with the state you were in just before you invoked SKK,
 and we will explain the tiny difference soon.  In ASCII mode, you will see
 $B!Z(BSKK$B![(B in the mode line, and this is to indicate that SKK has been
 invoked in this buffer.
@@ -281,7 +281,7 @@ is used to go back to $B"#(B mode when you enter $B"&(B mode by mistake.
 	$B"'(B == <return> and all the pritable keys  ==> $B"#(B
 
 means that these keys automatically select the current candidate as the
-final result of converersion.  This action is called kakutei ($B3NDj(B). Let
+final result of conversion.  This action is called kakutei ($B3NDj(B). Let
 us try this.
 
 !! Type $B!X(BKyouto$B""(B,Oosaka$B""(B,Koube$B""(B.$B!Y(B in $B"#(B mode.  Recall that
@@ -392,7 +392,7 @@ We try $B!Z8a8e![(B this time.
 
 As there is no $B!Z$4$4![(B in the $B<-=q(B buffer, we enter $B<-=qEPO?(B mode.
 
-!! Verify that the minbuffer prompt is $B!Z$4$4![(B, and type $B!X(BGo$B""!Y(B.
+!! Verify that the minibuffer prompt is $B!Z$4$4![(B, and type $B!X(BGo$B""!Y(B.
 
 Minibuffer becomes $B!Z$4$4(B $B"'8a![(B.
 
@@ -481,7 +481,7 @@ Hint: $B?M8}(B($B$8$s$3$&(B), $B0l2/(B($B$$$A$*$/(B), $BC#$7$?(B($B$?
 ----
 == ASCII conversion ==
 
-It is possible to enter $B8+=P$78l(B in ascii charaters, and tranform them.
+It is possible to enter $B8+=P$78l(B in ascii characters, and transform them.
 This is called $B!V1Q;zJQ49!W(B(ASCII conversion).
 
 !! In $B"#(B mode, type $B!X(B/file$B""!Y(B.
@@ -543,7 +543,7 @@ Hint: $BElKL(B($B$H$&$[$/(B), $BBg(B($B$@$$(B)
 == Completion of $B8+=P$78l(B ==
 
 Hitting <tab> key in $B"&(B mode invokes completion of $B8+=P$78l(B.  Let $B&R(B be
-the string you entered in $B"&(B mode just befor you type <tab>.  Then the
+the string you entered in $B"&(B mode just before you type <tab>.  Then the
 first occurrence (if any) of such a $B&S(B in the $B<-=q(B buffer that has $B&R(B as
 its initial segement and distinct from $B&R(B will be displayed.
 
@@ -586,7 +586,7 @@ your personal $B<-=q(B file.  So, normally, you don't have to worry about
 savings of the $B<-=q(B buffers.  When SKK updates your personal $B<-=q(B file
 (.skk-jisyo) it copies the content of the current .skk-jisyo to
 .skk-jisyo.BAK.  This back up file may be useful if your .skk-jisyo is
-damaged accidentaly.
+damaged accidentally.
 
 SKK has a lot more features we couldn't explain in this short tutorial.
 For further information about SKK refer to the SKK manual.
