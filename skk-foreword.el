@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.12 1999/10/03 05:36:48 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.13 1999/10/23 13:29:01 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:36:48 $
+;; Last Modified: $Date: 1999/10/23 13:29:01 $
 
 ;; This file is not part of SKK yet.
 
@@ -287,6 +287,10 @@
 ;;  sequence )
 
 ;;;; inline functions
+(defsubst skk-file-exists-and-writable-p (file)
+  (and (setq file (expand-file-name file))
+       (file-exists-p file) (file-writable-p file) ))
+
 (defsubst skk-lower-case-p (char)
   ;; CHAR が小文字のアルファベットであれば、t を返す。
   (and (<= ?a char) (>= ?z char) ))

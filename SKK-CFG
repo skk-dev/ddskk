@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-CFG,v 1.9 1999/10/03 12:47:07 minakaji Exp $
-;; Last Modified: $Date: 1999/10/03 12:47:07 $
+;; Version: $Id: SKK-CFG,v 1.10 1999/10/23 13:28:18 minakaji Exp $
+;; Last Modified: $Date: 1999/10/23 13:28:18 $
 
 ;; Commentary
 ;;
@@ -28,18 +28,39 @@
 ;;; Code:
 
 ;;;; User variables to control SKK-MK.
+;; この 2 つについては、SKK-MK の中のドキュメントを見てね。
 ;; (setq SKK-MK-cleanup-trouble-makers nil)
 ;; (setq SKK-MK-debugging nil)
+;;
+;; APEL がインストールされているディレクトリ。
+;; APEL が APEL の提供する標準のインストール方法によりインストールされている場合は、指定
+;; の必要がない。
+;; このディレクトリが指定されると SKK_MODULES のコンパイルの際に load-path が通される。
 ;; (setq APEL_SPECIFIC_LISPDIR (getenv "APEL_SPECIFIC_LISPDIR"))
+;;
+;; 全てのファイルがインストールされるディレクトリの root directory。
 ;; ;; `install-prefix' is defined in install.el of APEL.
 ;; ;; Maybe it is `/usr/local'.
 ;; (setq PREFIX (or (getenv "PREFIX") install-prefix))
+;;
+;; SKK_MODULES がインストールされるディレクトリの root directory。
 ;; (setq LISPDIR
 ;;       (or (getenv "LISPDIR") (install-detect-elisp-directory PREFIX)) )
+;;
+;; Emacs の version specific な Lisp program がインストールされているディレクトリ。
+;; このディレクトリが指定されると SKK_MODULES のコンパイルの際に load-path が通される。
+;; APEL が APEL の提供する標準のインストール方法によりインストールされている場合は、指定
+;; の必要がない (skk-lookup.el など外部プログラムを require する必要があるときは、この
+;; 変数を利用して
+;;   (setq VERSION_SPECIFIC_LISPDIR "/usr/local/lib/xemacs/site-lisp/lookup")
+;; などとしても良い。
 ;; (setq VERSION_SPECIFIC_LISPDIR
 ;;       (or (getenv "VERSION_SPECIFIC_LISPDIR")
 ;;           (install-detect-elisp-directory PREFIX nil 'version-specific) ))
 ;;
+;; APEL の emu モジュールがインストールされるディレクトリのプレフィックス
+;; (ポストフィックスというべきか)。APEL をインストールするときに決定される
+;; 値と同じ値を返す必要があるので、不用意にいじらないこと。
 ;; (setq EMU_PREFIX
 ;;       (if (or (featurep 'xemacs)
 ;;               (and (fboundp 'set-buffer-multibyte)
@@ -48,11 +69,18 @@
 ;;         ""))
 ;;
 ;; ;; GENERIC VARIABLE.
+;; skk.texi が置かれているソースディレクトリ。
 ;; (setq DOCDIR (or (getenv "DOCDIR") "./doc"))
+;;
+;; チュートリアルが置かれているソースディレクトリ。
 ;; (setq ETCDIR (or (getenv "ETCDIR") "./etc"))
+;; 
+;; インストールする skk.info* ファイル名。
 ;; (setq SKK_INFOS
 ;;       (or (getenv "SKK_INFOS")
 ;;           '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4") ))
+;;
+;; コンパイル & インストールすべき SKK 関連プログラム達 (.el は除いて指定する)。
 ;; (setq SKK_MODULES
 ;;       (or (getenv "SKK_MODULES")
 ;;           (let ((list '(queue-m stack-m skk-foreword
@@ -79,20 +107,37 @@
 ;;                      (featurep 'berkeley-db) )
 ;;                  (setq list (nconc list (list 'skk-dbm))) )
 ;;             list )))
+;;
+;; SKK がインストールされるディレクトリのプレフィックス (ポストフィックスと言うべきか)。
+;; PREFIX の値が /usr/local, LISPDIR が /usr/local/lib/xemacs/site-lisp (使用す
+;; る Emacsen の種類により異なります) で SKK_PREFIX が "skk" のときは、SKK_DATADIR
+;; が /usr/local/share/skk, SKK_LISPDIR が /usr/local/lib/xemacs/site-lisp/skk
+;; になるが、この末尾の "/skk" が SKK_PREFIX。
 ;; (setq SKK_PREFIX (or (getenv "SKK_PREFIX") "skk"))
+;;
+;; インフォのソースファイル名。
 ;; (setq SKK_TEXIS (or (getenv "SKK_TEXIS") '("skk.texi")))
+;;
+;; チュートリアルファイル名。
 ;; (setq SKK_TUTORIALS (or (getenv "SKK_TUTORIALS") '("SKK.tut" "SKK.tut.E")))
 ;;
-;; ;; NON-PACKAGE INSTALL RELATED VARIABLE.
+;; ;; NON-PACKAGE INSTALL RELATED VARIABLE (パッケージインストールは XEmacs のみ).
+;;
+;; チュートリアルのインストール先。
 ;; (setq SKK_DATADIR
 ;;       (or (getenv "SKK_DATADIR")
 ;;           (expand-file-name SKK_PREFIX (expand-file-name "share" PREFIX)) ))
+;;
+;; インフォのインストール先。
 ;; (setq SKK_INFODIR
 ;;       (or (getenv "SKK_INFODIR")(expand-file-name "info" PREFIX)) )
+;;
+;; SKK_MODULES のインストール先。
 ;; (setq SKK_LISPDIR
 ;;       (or (getenv "SKK_LISPDIR") (expand-file-name SKK_PREFIX LISPDIR)) )
 ;;
-;; ;; PACKAGE INSTALL RELATED VARIABLE.
+;; ;; PACKAGE INSTALL RELATED VARIABLE (XEmacs で make install-package するときだけ関係する).
+;; インストール先を決める root directory。
 ;; (setq PACKAGEDIR
 ;;       (or (getenv "PACKAGEDIR")
 ;;           (if (boundp 'early-packages)
@@ -105,13 +150,16 @@
 ;;                   (setq dirs (cdr dirs)) )
 ;;                 dir ))))
 ;;
+;; インフォのインストール先。
 ;; (setq PACKAGE_INFODIR
 ;;       (or (getenv "PACKAGE_INFODIR") (expand-file-name "info" PACKAGEDIR)) )
 ;;
+;; チュートリアルのインストール先。
 ;; (setq SKK_PACKAGE_DATADIR
 ;;       (or (getenv "SKK_PACKAGE_DATADIR")
 ;;           (expand-file-name SKK_PREFIX (expand-file-name "etc" PACKAGEDIR)) ))
 ;;
+;; SKK_MODULES のインストール先。
 ;; (setq SKK_PACKAGE_LISPDIR
 ;;       (or (getenv "SKK_PACKAGE_LISPDIR")
 ;;           (expand-file-name SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR)) ))

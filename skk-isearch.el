@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-isearch.el,v 1.4 1999/10/03 11:38:07 minakaji Exp $
+;; Version: $Id: skk-isearch.el,v 1.5 1999/10/23 13:29:22 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 11:38:07 $
+;; Last Modified: $Date: 1999/10/23 13:29:22 $
 
 ;; This file is part of SKK.
 
@@ -387,7 +387,12 @@ kakutei'ed and erase the buffer contents."
 	  ((eq mode 'katakana) (skk-j-mode-on t))
 	  ((eq mode 'abbrev) (skk-abbrev-mode-on))
 	  ((eq mode 'latin) (skk-latin-mode-on))
-	  ((eq mode 'jisx0208-latin) (skk-jisx0208-latin-mode-on)) )))
+	  ((eq mode 'jisx0208-latin) (skk-jisx0208-latin-mode-on)) ))
+  (remove-hook 'pre-command-hook 'skk-pre-command 'local)
+  (skk-remove-minibuffer-setup-hook
+   'skk-j-mode-on 'skk-setup-minibuffer
+   (function (lambda ()
+	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local) ))))
 
 (defun skk-isearch-incomplete-message (&optional prefix)
   "Show message when kana kanji convertion is in progress.
