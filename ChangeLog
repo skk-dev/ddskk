@@ -1,5 +1,8 @@
 2000-09-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* READMEs/CVS_digest: Sync up with the files distributed as
+	daredevil.
+
 	* Makefile (DATE): Do not use universal time.
 	(MD5): New variable.
 	(SNAPBASE): Ditto.

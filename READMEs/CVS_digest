@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 1999/11/17 14:04:46 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
-	     $Id: CVS_digest,v 1.2 1999/11/17 14:04:46 minakaji Exp $
+             $Date: 2000/09/12 03:19:55 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
+	     $Id: CVS_digest,v 1.3 2000/09/12 03:19:55 minakaji Exp $
 
 [CVS $B%@%$%8%'%9%H(B]
 
@@ -20,12 +20,15 @@
 	       |
 	       |
 	       +-- tools (Dictionary maintenance tools)
+	       |
+	       |
+	       +-- pySKK (SKK related libraries using python)
 
-* cvs $B%5!<%P$+$i$N%=!<%9$r$b$i$C$F$/$k(B (checkout)$B!#(B
+* cvs $B%5!<%P$+$i$N%=!<%9$NF~<j(B
 
 ** Login
 
-$B$^$:!"(Bguest $B%"%+%&%s%H$G(B openlab.ring.gr.jp $B$N(B cvs server $B$K%m%0%$%s$7(B
+$B$^$:(B guest $B%"%+%&%s%H$G(B openlab.ring.gr.jp $B$N(B cvs server $B$K%m%0%$%s$7(B
 $B$^$9(B (openlab.ring.gr.jp $B$N(B cvs server $BMQ$K8D?M$N%"%+%&%s%H$r;}$C$F$i$C(B
 $B$7$c$kJ}$O!"$=$l$r;H$$$^$7$g$&(B)$B!#(B
 
@@ -55,16 +58,28 @@ Daredevil branch $B$rF~<j$7$?$1$l$P!"2<5-$N$h$&$K$7$^$9!#(B
 
   $ cd skk/main
 
-$B%3%s%Q%$%k$7$F;H$&$J$j!"JT=8$9$k$J$j$4<+M3$K$I$&$>!#(B
+$B%3%s%Q%$%k$7$F;H$&$J$j!"JT=8$9$k$J$j(B ($BC"$7JT=87k2L$r(B server $B$N%=!<%9$K(B
+$BH?1G$9$k$K$O$4<+J,@lMQ$N(B account $B$,I,MW$G$9(B) $B$4<+M3$K$I$&$>!#(B
+
+** Update
+
+$B%o!<%-%s%0%3%T!<$O;D$7$F$*$/$H!"(Bcvs server $B>e$N%=!<%9$KJQ99$,2C$($i$l(B
+$B$?$H$-$K:9J,$@$1<h$j4s$;!"%o!<%-%s%0%3%T!<$r:G?7$N>uBV$K$9$k$3$H$,$G$-(B
+$B$^$9!#(B
+$B%o!<%-%s%0%3%T!<$O!"(Bopenlab.ring.gr.jp:/circus/cvsroot $B$r;X$7$F$$$k$3(B
+$B$H$r5-21$7$F$$$k(B (*$BCm(B3) $B$N$G!"(Bupdate $B$+$i;O$a$k$H!"<+F0E*$K%m%0%$%s$G$-(B
+$B$^$9!#(B
+
+   $ cvs update
 
 
-* $B<j85$N%=!<%9$rJQ99$7$F(B cvs server $B$K$"$k%=!<%9$KJQ99$rH?1G$9$k(B (update, commit, etc)$B!#(B
+* $B<j85$N%=!<%9$rJQ99$7$F(B cvs server $B$K$"$k%=!<%9$KJQ99$rH?1G$9$k(B (commit, tagify)$B!#(B
 
 ** cvs account $B$NH/9T(B
 
 openlab.ring.gr.jp $B$N(B cvs server $B>e$K%"%+%&%s%H$,$J$$$H(B update,
 commit, tag $B$G$-$^$;$s!#(Bminakaji@ring.gr.jp $B08$F$K4uK>$9$k%"%+%&%s%HL>(B
-$B$H!"(Bcrypt $B$5$l$?%Q%9%o!<%IJ8;zNs$rO"Mm$7$F2<$5$$!#(B
+$B$H!"(Bcrypt $B$5$l$?%Q%9%o!<%IJ8;zNs$r!V;d?.$G!WO"Mm$7$F2<$5$$(B(*$BCm(B4)$B!#(B
 
 $BEPO?$,40N;$7$?$i$4O"Mm?=$7>e$2$^$9!#(B
 
@@ -79,58 +94,56 @@ commit, tag $B$G$-$^$;$s!#(Bminakaji@ring.gr.jp $B08$F$K4uK>$9$k%"%+%&%s%HL>
 
   CVS password: ** (CR)
 
-$B<!$+$i$O(B login $B<jB3$-$OMW$j$^$;$s!#(B
+$B<!$+$i$OL@<(E*$J(B login $B<jB3$-$OMW$j$^$;$s!#(B
 
  
-** Checkout 
 
-$B>e5-$N(B guest $B$N(B checkout $B$H<jB3$-E*$K$OF1$8$G$9(B ($B%"%+%&%s%H$r<+J,$N%"(B
-$B%+%&%s%H$K$9$k$@$1(B)$B!#(B
+** Checkout/Update
 
-guest $B$G(B checkout $B$7$?%o!<%-%s%0%3%T!<$O(B guest@openlab.ring.gr.jp $B$G(B
-login $B$9$k$h$&(B CVS/Root $B$K>pJs$,<}G<$5$l$F$$$^$9$N$G!"(Bcommit $B$9$k$J$I!"(B
-cvs server $B>e$N%=!<%9$KJQ99$r2C$($k>l9g$O!"$3$N>pJs$r(B
-
-   `$B<+J,$N%"%+%&%s%HL>(B@ring.gr.jp'
-
-$B$KJQ99$9$k$+!"<+J,$N%"%+%&%s%H$r;H$C$F:FEY(B checkout $B$9$kI,MW$,$"$j$^$9!#(B
-
-
-** Update
-
-$B%o!<%-%s%0%3%T!<$O;D$7$F$*$/$H!"(Bcvs server $B>e$N%=!<%9$KJQ99$,2C$($i$l(B
-$B$?$H$-$K:9J,$@$1<h$j4s$;!"%o!<%-%s%0%3%T!<$r:G?7$N>uBV$K$9$k$3$H$,$G$-(B
-$B$^$9!#(B
-$B%o!<%-%s%0%3%T!<$O!"(Bopenlab.ring.gr.jp:/circus/cvsroot $B$r;X$7$F$$$k$3(B
-$B$H$r5-21$7$F$$$k(B (*$BCm(B3) $B$N$G!"(Bupdate $B$+$i;O$a$k$H!"<+F0E*$K%m%0%$%s$G$-(B
-$B$^$9!#(B
-
-   $ cvs update
+$BA0=R$N(B guest $B%"%+%&%s%H$K$h$k(B checkout/update $B$H<jB3$-E*$K$OF1$8$G$9!#(B
 
 
 ** Commit
 
 $B2<5-$N<j=g$rF'$s$G(B commit $B$7$F2<$5$$$M!#(B
 
-$B$^$:!"%o!<%-%s%0%3%T!<$N%=!<%9$r<+J,$N4D6-$G%3%s%Q%$%k(B & $B%$%s%9%H!<(B
-$B%k$7$^$9!#(B
+(1)$B$^$:!"%o!<%-%s%0%3%T!<$N%=!<%9$r<+J,$N4D6-$G%3%s%Q%$%k(B & $B%$%s%9%H!<(B
+   $B%k$7$^$9!#(B
 
-$B<+J,$,IaCJ;H$C$F$$$k4D6-$GF0:n3NG'$r$7$F2<$5$$!#(B($B>/$J$/$H$b0lEY!"(BSKK
-$B$r5/F0(B & $B=*N;$7$FLdBj$,$J$$$3$H$r3NG'$7$F$M(B)$B!#(B
+(2)$B<+J,$,IaCJ;H$C$F$$$k4D6-$GF0:n3NG'$r$7$F2<$5$$!#(B($B>/$J$/$H$b0lEY!"(B
+   SKK $B$r5/F0(B & $B=*N;$7$FLdBj$,$J$$$3$H$r3NG'$7$F$M(B)$B!#(B
 
-ML $B$KEj9F$9$k$?$a$N%j%j!<%9%N!<%H$r=q$$$F2<$5$$(B ($B<g$JJQ99E@$,J,$kDxEY(B
-$B$N4JC1$J$b$N$G7k9=$G$9(B) $B!#$3$N:]!">e5-$G%$%s%9%H!<%k$7$??7$?$J%o!<%-%s(B
-$B%0%3%T!<$+$i%3%s%Q%$%k$7$?(B SKK $B$rI,$:;HMQ$7$F2<$5$$!#(B
+(3)ML $B$KEj9F$9$k$?$a$N%j%j!<%9%N!<%H$r=q$$$F2<$5$$(B ($B<g$JJQ99E@$,J,$kDx(B
+   $BEY$N4JC1$J$b$N$G7k9=$G$9(B) $B!#$3$N:]!">e5-$G%$%s%9%H!<%k$7$??7$?$J%o!<(B
+   $B%-%s%0%3%T!<$+$i%3%s%Q%$%k$7$?(B SKK $B$rI,$:;HMQ$7$F2<$5$$!#(B
 
-$B%j%j!<%9%N!<%H$N5-;v$r=q$$$F$$$k4VCf$b(B SKK $B$KLdBj$,$J$1$l$P!"%o!<%-%0(B
-$B%3%T!<$r(B commit $B$7$F>e5-%j%j!<%9%N!<%H$r(B ML $B$KEj9F$7$F2<$5$$!#(B
+(4)$B%j%j!<%9%N!<%H$N5-;v$r=q$$$F$$$k4VCf$b(B SKK $B$KLdBj$,$J$1$l$P!"%o!<%-(B
+   $B%0%3%T!<$r(B commit $B$7$F>e5-%j%j!<%9%N!<%H$r(B ML $B$KEj9F$7$F2<$5$$!#(B
 
-ChangeLog $B$N99?7$r$*K:$l$J$/(B ($B1Q8l$G=q$$$F$$$^$9$,!"1Q8l$,6lDK$J$iF|K\(B
-$B8l$G=q$$$F$bA4A3LdBj$"$j$^$;$s(B)(*$BCm(B4)$B!#(B
+(5)ChangeLog $B$N99?7$r$*K:$l$J$/(B ($B1Q8l$G=q$$$F$$$^$9$,!"1Q8l$,6lDK$J$i(B
+   $BF|K\8l$G=q$$$F$bA4A3LdBj$"$j$^$;$s(B)(*$BCm(B5)$B!#(B
 
   $ cd skk/main
-  $ cvs commit -m "" ChangeLog
-  $ cvs commit -m "" skk.el
+  $ cvs commit -m "$B$"$J$?$N%3%a%s%H$r$3$3$K!#(B" ChangeLog
+  $ cvs commit -m "$B$"$J$?$N%3%a%s%H$r$3$3$K!#(B" skk.el
+
+
+** guest $B$GF~<j$7$?%o!<%-%s%0%3%T!<$r<+J,$N(B account $B$r;H$C$F(B commit $B$9$kJ}K!(B
+
+guest $B$G(B checkout $B$7$?%o!<%-%s%0%3%T!<$O(B guest@openlab.ring.gr.jp $B$G(B
+login $B$9$k$h$&(B CVS/Root $B$K>pJs$,<}G<$5$l$F$$$^$9$N$G!"(Bcommit $B$9$k$J$I!"(B
+cvs server $B>e$N%=!<%9$KJQ99$r2C$($k>l9g$O!"$3$N>pJs$r(B
+
+   `$B<+J,$N%"%+%&%s%HL>(B@openlab.ring.gr.jp'
+
+$B$KJQ99$9$k$+!"<+J,$N%"%+%&%s%H$r;H$C$F:FEY(B checkout $B$9$kI,MW$,$"$j$^$9!#(B
+
+$B$=$NB>!"(Bcvs $B$N%*%W%7%g%s$K(B
+
+   `-d :pserver:your_account@openlab.ring.gr.jp:/circus/cvsroot'
+
+$B$r;XDj$7$F(B commit $B$9$k$3$H$G!"6/@)E*$K(B your_account $B$G$N(B commit $B$r9T$J(B
+$B$&$3$H$,$G$-$^$9!#(B
 
 
 ** Tagify
@@ -171,7 +184,36 @@ CVS/Root $B$H$$$&%U%!%$%k$K%5!<%P>pJs$,J]B8$5$l$F$$$^$9!#(B
 
 ** $BCm(B4
 
-ChangeLog $B$r=q$1$P!"(Bcvs $B$N(B -m $B%*%W%7%g%s$GEO$9%3%a%s%H$OFC$KITMW!"$H9M(B
-$B$($F$$$^$9$,!"$3$N%3%a%s%H$NJXMx$J;H$$J}$,$"$k$N$J$i!"$4;XF32<$5$$!#(B 
+crypt $B$5$l$?%Q%9%o!<%IJ8;zNs$r@8@.$9$k$K$O!"$$$/$D$+$NJ}K!$,$"$j$^$9(B
+($BC"$7!"(Bopenlab.ring.gr.jp $B$N(B crypt() $B$,(B DES based $B$J$?$a!"5.EB$N%7%9%F(B
+$B%`%i%$%V%i%j!<$N(B crypt() $B$,(B DES base $B$J>l9g$K8B$jMxMQ$G$-$^$9(B)$B!#(B
+
+1. /etc/passwd $B$+$iD>@\<h$j=P$9!#(B
+
+2. perl, python, ruby $B$J$I$N(B interpreter $B7O$N%3%^%s%I$r;H$&$3$H$K$h$C(B
+   $B$F$b@8@.$G$-$^$9!#(B
+
+     % perl -e 'print crypt("PASSWORD", "SALT"), "\n";'
+
+     % python -c 'import crypt; print crypt.crypt("PASSWORD", "SALT");'
+
+     % ruby -e 'print "PASSWORD".crypt("SALT"), "\n";'
+
+       *$B>e5-$N(B "SALT" $B$NItJ,$O!"=89g(B [a-zA-Z0-9./] $B$+$i(B 2 $BJ8;z$NJ8;zNs$rG$0U$KA*$s$G(B
+        $B;XDj$7$^$9!#$3$NJ8;zNs$O%"%k%4%j%:%`$N=PNO$r(B 4096 $BDL$j$K$+$-Mp$9$N$K!"$^$?(B
+        encrypt $B$7$F=PNO$5$l$kJ8;zNs$N@hF,(B 2 $BJ8;z$H$7$F;H$o$l$^$9!#(B
+
+3. crypt() $B4X?t$r;H$&B>$N%3%^%s%I$rMxMQ$9$k(B (Debian GNU/Linux $B$N(B
+   mkpasswd $B$d(B makepasswd $B$J$I(B)$B!#(B
+
+4. $B>e5-$NJ}K!$N$$$:$l$bMxMQ$G$-$J$$J}$O!"AG$N%Q%9%o!<%I$rAw$C$F2<$5$C(B
+   $B$F$b7k9=$G$9!#(B
+
+
+** $BCm(B5
+
+Emacs $B$N(B cvs front end$B!"(Bpcl-cvs $B$r;H$&$H!"(Bcommit $B$N$?$a$K(B C $B%-!<(B
+(`cvs-mode-changelog-commit') $B$r2!$9$H(B ChangeLog $B$+$i!"EvF|(B commiter
+$B<+?H$,=q$$$?ItJ,$rH4$-=P$7$F!"(Blog $B$r=q$/<j=u$1$r$7$F$/$l$^$9!#(B
 
 [end of CVS_digest]
