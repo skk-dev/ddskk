@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.14 2001/02/03 00:22:58 minakaji Exp $
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Version: $Id: SKK-CFG,v 1.15 2001/08/31 14:52:47 czkmt Exp $
+;; Last Modified: $Date: 2001/08/31 14:52:47 $
 
 ;;; Commentary:
 
@@ -16,7 +16,7 @@
 
 ;; SKK のインストーラは、標準的な環境では make install (XEmacs の場合は make
 ;; install-package) とするだけでインストールできるようにつくられていますが、も
-;; あなたの環境でうまくいかないときは、以下の設定を変更してみて下さい。
+;; しあなたの環境でうまくいかないときは、以下の設定を変更してみて下さい。
 
 ;; なお、これらはコマンドラインから指定することもできます。
 ;;
