@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.16 2001/12/23 04:20:38 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.17 2002/01/02 08:09:06 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/12/23 04:20:38 $
+;; Last Modified: $Date: 2002/01/02 08:09:06 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -119,7 +119,7 @@
     (list (facemenu-read-color prompt)))
    (t
     (list (let ((str (read-string prompt)))
-	    (if (equal "" col)
+	    (if (equal "" str)
 		nil
 	      str))))))
 
