@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.10 1999/09/17 01:24:14 minakaji Exp $
-;; Last Modified: $Date: 1999/09/17 01:24:14 $
+;; Version: $Id: SKK-MK,v 1.11 1999/09/17 01:28:41 minakaji Exp $
+;; Last Modified: $Date: 1999/09/17 01:28:41 $
 
 ;; Commentary
 ;;
@@ -47,7 +47,7 @@
 (require 'install)
 
 ;; GENERIC VARIABLE.
-(defvar SKK-MK-cleanup-trouble-makers 'backup
+(defvar SKK-MK-cleanup-trouble-makers nil
   "*Non-nil means clean up already installed SKK package configration files.
 If symbol `backup' it only move backup file named `xxxx.BAK'.
 It is related only to XEmacs package install.
