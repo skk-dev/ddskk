@@ -3,12 +3,12 @@
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>, Murata Shuuichirou <mrt@astec.co.jp>
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
-;;         Murata Shuuichirou <mrt@astec.co.jp>
-;; Maintainer: Murata Shuuichirou <mrt@astec.co.jp>
+;;         Murata Shuuichirou <mrt@notwork.org>
+;; Maintainer: Murata Shuuichirou <mrt@notwork.org>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-viper.el,v 1.6 1999/11/10 12:09:03 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.7 2000/03/11 02:14:53 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/11/10 12:09:03 $
+;; Last Modified: $Date: 2000/03/11 02:14:53 $
 
 ;; This file is not part of SKK yet.
 
@@ -41,7 +41,7 @@
 ;; internal constant.
 ;;;###autoload
 (defconst skk-viper-use-vip-prefix
-  (not (fboundp 'viper-normalize-minor-mode-map-alist)) )
+  (not (fboundp 'viper-normalize-minor-mode-map-alist)))
 
 ;;;###autoload
 (defconst skk-viper-normalize-map-function
@@ -54,7 +54,7 @@
 (defmacro skk-viper-advice-select (viper vip arg body)
   (` (if skk-viper-use-vip-prefix
 	 (defadvice (, vip) (, arg) (,@ body))
-       (defadvice (, viper) (, arg) (,@ body)) )))
+       (defadvice (, viper) (, arg) (,@ body)))))
 
 (setq skk-kana-cleanup-command-list
       (cons 
@@ -66,36 +66,23 @@
 (setq skk-use-viper t)
 (save-match-data
   (or (string-match sentence-end "。？！")
-      (setq sentence-end (concat "[。？！]\\|" sentence-end)) ))
+      (setq sentence-end (concat "[。？！]\\|" sentence-end))))
 
 ;; cursor color support.
 (if (and (boundp 'viper-insert-state-cursor-color)
 	 viper-insert-state-cursor-color
 	 (fboundp 'viper-color-defined-p)
-	 (viper-color-defined-p viper-insert-state-cursor-color)
-	 ;;(member (x-color-values viper-insert-state-cursor-color)
-         ;;        (list (x-color-values skk-hiragana-cursor-color)
-         ;;              (x-color-values skk-katakana-cursor-color)
-         ;;              (x-color-values skk-jisx0208-latin-cursor-color)
-         ;;              (x-color-values skk-latin-cursor-color) )))
-	 )
-    (setq skk-use-color-cursor nil) )
-;; とりあえず、外そうね、結構重いもんね。
-;;(add-hook 'viper-post-command-hooks
-;; 	    (function (lambda () (and skk-mode (skk-set-cursor-properly)))) ))
+	 (viper-color-defined-p viper-insert-state-cursor-color))
+    (setq skk-use-color-cursor nil))
 
 ;; advices.
-(or skk-viper-use-vip-prefix
-    ;; vip-hide-replace-overlay はインライン関数
-    (defadvice viper-hide-replace-overlay (after skk-ad activate)
-      "SKK のモードに従いカーソルの色を変える。"
-      (and skk-mode (skk-cursor-set-properly)) ))
-
-(skk-viper-advice-select
- viper-insert vip-insert
- (after skk-ad activate)
- ("SKK のモードに従いカーソルの色を変える。"
-  (and skk-mode (skk-cursor-set-properly)) ))
+(defadvice skk-cursor-set-properly (before skk-viper-ad activate)
+  "vi-state のときは、SKK モードになっていてもカーソルをディフォルトにしておく。"
+  (if (or (and (boundp 'viper-current-state)
+	       (eq viper-current-state 'vi-state))
+	  (and (boundp 'vip-current-state)
+	       (eq vip-current-state 'vi-state)))
+      (ad-set-arg 0 skk-default-cursor-color)))
 
 (skk-viper-advice-select
  viper-forward-word-kernel vip-forward-word-kernel
@@ -124,7 +111,7 @@
   (let ((count (or (prefix-numeric-value (ad-get-arg 0)) 1)))
     (cond (skk-henkan-active
 	   (if (and (not skk-delete-implies-kakutei)
-		    (= skk-henkan-end-point (point)) )
+		    (= skk-henkan-end-point (point)))
 	       (skk-previous-candidate)
 	     ;;(if skk-use-face (skk-henkan-face-off))
  	     ;; overwrite-mode で、ポイントが全角文字に囲まれていると
@@ -136,25 +123,31 @@
 	     (if overwrite-mode
 		 (progn
 		   (backward-char count)
-		   (delete-char count) )
+		   (delete-char count))
 	       ad-do-it )
 	     ;; XXX assume skk-prefix has no multibyte chars.
 	     (if (> (length skk-prefix) count)
 		 (setq skk-prefix (substring skk-prefix 0 (- (length skk-prefix) count)))
-	       (setq skk-prefix "") )
-	     (if (>= skk-henkan-end-point (point)) (skk-kakutei)) ))
+	       (setq skk-prefix ""))
+	     (if (>= skk-henkan-end-point (point)) (skk-kakutei))))
 	  ((and skk-henkan-on (>= skk-henkan-start-point (point)))
 	   (setq skk-henkan-count 0)
-	   (skk-kakutei) )
+	   (skk-kakutei))
 	  ;; 入力中の見出し語に対しては delete-backward-char で必ず全角文字 1
 	  ;; 文字分 backward 方向に戻った方が良い。
 	  ((and skk-henkan-on overwrite-mode)
 	   (backward-char count)
-	   (delete-char count) )
+	   (delete-char count))
 	  (t
 	   (if (string= skk-prefix "")
 	       ad-do-it
-	     (skk-erase-prefix 'clean) ))))))
+	     (skk-erase-prefix 'clean)))))))
+
+(skk-viper-advice-select
+ viper-intercept-ESC-key vip-intercept-ESC-key
+ (before skk-add activate)
+ ("▽モード、▼モードだったら確定する。"
+  (and skk-mode skk-henkan-on (skk-kakutei))))
 
 (skk-viper-advice-select
  viper-join-lines vip-join-lines
@@ -162,18 +155,19 @@
  ("スペースの両側の文字セットが JISX0208 だったらスペースを取り除く。" ;
   (save-match-data
     (and (skk-jisx0208-p
-	  (char-after (progn (skip-chars-forward " ") (point))) )
+	  (char-after (progn (skip-chars-forward " ") (point))))
 	 (skk-jisx0208-p
-	  (char-before (progn (skip-chars-backward " ") (point))) )
+	  (char-before (progn (skip-chars-backward " ") (point))))
 	 (while (looking-at " ")
-	   (delete-char 1) )))))
+	   (delete-char 1))))))
 
+;;; Functions.
 ;;;###autoload
 (defun skk-viper-normalize-map ()
   (let ((other-buffer
 	 (if (eq skk-emacs-type 'xemacs)
 	     (local-variable-p 'minor-mode-map-alist nil t)
-	   (local-variable-p 'minor-mode-map-alist) )))
+	   (local-variable-p 'minor-mode-map-alist))))
     ;; for current buffer and buffers to be created in the future.
     ;; substantially the same job as viper-harness-minor-mode does.
     (funcall skk-viper-normalize-map-function)
@@ -193,32 +187,33 @@
 		   (list (cons 'skk-latin-mode skk-latin-mode-map)
 			 (cons 'skk-abbrev-mode skk-abbrev-mode-map)
 			 (cons 'skk-j-mode skk-j-mode-map)
-			 (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map) ))
-		  (funcall skk-viper-normalize-map-function) ))
-	    (setq buf (cdr buf)) ))))))
+			 (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map)))
+		  (funcall skk-viper-normalize-map-function)))
+	    (setq buf (cdr buf))))))))
 
-(defun skk-cursor-set-properly ()
-  ;; カレントバッファの SKK のモードに従い、カーソルの色を変更する。
-  (if (and skk-use-color-cursor
-	   ;;(x-color-defined-p viper-insert-state-cursor-color)
-	   (get-buffer-window (current-buffer)) )
-      (cond
-       ((or (not skk-mode)
-	    ;; vi-state のときは、SKK モードになっていてもカーソルをディ
-	    ;; フォルトにしておく。
-	    (or (and (boundp 'viper-current-state)
-		     (eq viper-current-state 'vi-state) )
-		(and (boundp 'vip-current-state)
-		     (eq vip-current-state 'vi-state) )))
-	(skk-cursor-set-color skk-default-cursor-color) )
-       (t
-	(skk-cursor-set-color (cond (skk-jisx0208-latin-mode
-				     skk-jisx0208-latin-cursor-color )
-				    (skk-katakana skk-katakana-cursor-color)
-				    (skk-j-mode skk-hiragana-cursor-color)
-				    (t skk-latin-cursor-color) )))))
-  (if skk-use-cursor-change
-      (skk-change-cursor-when-ovwrt) ))
+(eval-after-load "viper-cmd"
+  '(defun viper-toggle-case (arg)
+     "Toggle character case."
+     (interactive "P")
+     (let ((val (viper-p-val arg)) (c))
+       (viper-set-destructive-command
+	(list 'viper-toggle-case val nil nil nil nil))
+       (while (> val 0)
+	 (setq c (following-char))
+	 (delete-char 1 nil)
+	 (cond ((skk-ascii-char-p c)
+		(if (eq c (upcase c))
+		    (insert-char (downcase c) 1)
+		  (insert-char (upcase c) 1)))
+	       ((and (<= ?ぁ c) (>= ?ん c))
+		(insert-string
+		 (skk-hiragana-to-katakana (char-to-string c))))
+	       ((and (<= ?ァ c) (>= ?ン c))
+		(insert-string
+		 (skk-katakana-to-hiragana (char-to-string c))))
+	       (t (insert-char c 1)))
+	 (if (eolp) (backward-char 1))
+	 (setq val (1- val))))))
 
 (skk-viper-normalize-map)
 

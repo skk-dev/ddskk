@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-isearch.el,v 1.6 1999/11/28 04:46:02 minakaji Exp $
+;; Version: $Id: skk-isearch.el,v 1.7 2000/03/11 02:14:53 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/11/28 04:46:02 $
+;; Last Modified: $Date: 2000/03/11 02:14:53 $
 
 ;; This file is part of SKK.
 
@@ -30,8 +30,10 @@
 ;; functions for hooks.
 ;;
 ;; 1. always invoke skk isearch.
-;; (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
+;; (add-hook 'isearch-mode-hook 
+;;           (function (lambda () (require 'skk) (skk-isearch-mode-setup))))
 ;; (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
+;;
 ;; 2. invoke only if skk-mode is on.
 ;; (add-hook 'isearch-mode-hook
 ;;           (function (lambda ()
@@ -41,10 +43,7 @@
 ;; (add-hook 'isearch-mode-end-hook
 ;;           (function
 ;;            (lambda ()
-;;              (and (boundp 'skk-mode) skk-mode (skk-isearch-mode-cleanup))
-;;              (and (boundp 'skk-mode-invoked) skk-mode-invoked
-;;                   (skk-set-cursor-properly) ))))
-;; 
+;;              (and (boundp 'skk-mode) skk-mode (skk-isearch-mode-cleanup)))))
 ;; 
 ;; 3. invoke if current buffer has japanese characters.
 ;; ...
@@ -64,7 +63,7 @@
 
 (defcustom skk-isearch-mode-string-alist
   '((hiragana . "[$B$+(B] ") (katakana . "[$B%+(B] ") (jisx0208-latin . "[$B1Q(B] ")
-    (latin . "[aa] ") (nil . "[--] ") )
+    (latin . "[aa] ") (nil . "[--] "))
   ;;  "*Alist of \(MODE-SYMBOL . PROMPT-STRING\).
   ;;MODE-SYMBOL is a symbol indicates canonical mode of skk for skk-isearch.
   ;;Valid MODE-SYMBOL is one of `hiragana', `katakana', `jisx0208-latin',
@@ -92,8 +91,8 @@ PROMPT-STRING $B$O!"3:Ev$N(B SKK $B%b!<%I$KBP$7=P$9%W%m%s%W%H$NJ8;zNs!#(B"
 			       (const katakana)
 			       (const jisx0208-latin)
 			       (const latin)
-			       (const nil) )
-		       (string :tag "Prompt string") ))
+			       (const nil))
+		       (string :tag "Prompt string")))
   :group 'skk-isearch )
 
 (defcustom skk-isearch-start-mode nil
@@ -118,7 +117,7 @@ isearch $B$r9T$J$&>l9g!">o$K$3$NJQ?t$G;XDj$7$?F~NO%b!<%I$,;HMQ$5$l$k(B ($B%f!
   :type '(choice (const :tag "Succeed an input mode of current buffer" nil)
 		 (const :tag "Ascii search" latin)
 		 (const :tag "Hiragana search" hiragana)
-		 (const :tag "JISX0208 alphabet search" jisx0208-latin) )
+		 (const :tag "JISX0208 alphabet search" jisx0208-latin))
   :group 'skk-isearch )
 
 (defcustom skk-isearch-use-previous-mode nil
@@ -133,7 +132,7 @@ isearch $B$r9T$J$&>l9g!">o$K$3$NJQ?t$G;XDj$7$?F~NO%b!<%I$,;HMQ$5$l$k(B ($B%f!
   "*SKK $B%b!<%I$,%*%U$N%+%l%s%H%P%C%U%!$G!":G=i$K(B isearch $B$r9T$J$&:]$NF~NO%b!<%I!#(B"
   :type '(choice (const :tag "Ascii search" latin)
 		 (const :tag "Hiragana search" hiragana)
-		 (const :tag "JISX0208 alphabet search" jisx0208-latin) )
+		 (const :tag "JISX0208 alphabet search" jisx0208-latin))
   :group 'skk-isearch )
 
 (defcustom skk-isearch-whitespace-regexp "\\(\\s \\|[ \t\n\r\f]\\)*"
@@ -153,7 +152,7 @@ The SYMBOL is canonical skk mode, and NUMBER is its numerical representation.")
 
 (defconst skk-isearch-mode-alias-alist
   '((hirakana . hiragana) (kana . hiragana) (eiji . jisx0208-latin)
-    (ascii . latin) )
+    (ascii . latin))
   "Alist of \(ALIAS . CANONICAL\).
 The both ALIAS and CANONICAL should be symbol.
 ALIAS can be used as an alias of CANONICAL.
@@ -200,16 +199,16 @@ This map should be derived from isearch-mode-map." )
 		    (or (> emacs-minor-version 2)
 			(and (= emacs-minor-version 2)
 			     (boundp 'emacs-beta-version) emacs-beta-version
-			     (>= emacs-beta-version 2) ))))
+			     (>= emacs-beta-version 2)))))
 	   'overriding-local-map )
-	  (t 'overriding-terminal-local-map) ))
+	  (t 'overriding-terminal-local-map)))
 	;; for Mule/GNU Emacs.
 	((or (> emacs-major-version 19)
-	     (and (= emacs-major-version 19) (> emacs-minor-version 28)) )
+	     (and (= emacs-major-version 19) (> emacs-minor-version 28)))
 	 ;; GNU Emacs version 19.29, 19.30 and 19.31 uses this in isearch.el.
 	 'overriding-terminal-local-map )
 	;; GNU Emacs version 19.22 .. 19.28 uses this in isearch.el.
-	(t 'overriding-local-map) )
+	(t 'overriding-local-map))
   "Variable holding overrinding local map used in isearch-mode.")
 
 (defvar skk-isearch-last-mode-string "")
@@ -220,11 +219,11 @@ This map should be derived from isearch-mode-map." )
 ;;
 (defsubst skk-isearch-turn-off-skk-mode ()
   "Turn off skk mode."
-  (skk-mode 0) )
+  (skk-mode 0))
 
 (defsubst skk-isearch-turn-on-skk-mode ()
   "Turn on skk mode."
-  (skk-mode 1) )
+  (skk-mode 1))
 
 (defsubst skk-isearch-conversion-active-p ()
   "Non-nil if skk conversion is active."
@@ -236,23 +235,23 @@ This map should be derived from isearch-mode-map." )
 
 (defsubst skk-isearch-skk-kakutei ()
   "Perform kakutei."
-  (skk-kakutei) )
+  (skk-kakutei))
 
 (defsubst skk-isearch-skk-hiragana-mode-p ()
   "Non-nil if skk is hiragana input mode."
-  (and (not skk-katakana) skk-j-mode) )
+  (and (not skk-katakana) skk-j-mode))
 
 (defsubst skk-isearch-skk-turn-on-hiragana-mode ()
   "Set current skk mode to hiragana input mode."
-  (skk-j-mode-on) )
+  (skk-j-mode-on))
 
 (defsubst skk-isearch-skk-katakana-mode-p ()
   "Non-nil if skk is katakana input mode."
-  (and skk-j-mode skk-katakana) )
+  (and skk-j-mode skk-katakana))
 
 (defsubst skk-isearch-skk-turn-on-katakana-mode ()
   "Set current skk mode to katakana input mode."
-  (skk-j-mode-on 'katakana) )
+  (skk-j-mode-on 'katakana))
 
 (defsubst skk-isearch-skk-jisx0208-latin-mode-p ()
   "Non-nil if skk is jisx0208 latin (zenkaku) input mode."
@@ -260,16 +259,16 @@ This map should be derived from isearch-mode-map." )
 
 (defsubst skk-isearch-skk-turn-on-jix0208-latin-mode ()
   "Set current skk mode to jisx0208 latin (zenkaku) input mode."
-  (skk-jisx0208-latin-mode-on) )
+  (skk-jisx0208-latin-mode-on))
 
 (defsubst skk-isearch-skk-turn-on-latin-mode ()
   "Set current skk mode to normal latin input mode."
-  (skk-latin-mode-on) )
+  (skk-latin-mode-on))
 
 (defun skk-isearch-message ()
   "Show isearch message."
   (skk-isearch-incomplete-message
-   (if (string= skk-prefix "") (char-to-string last-command-char) skk-prefix) ))
+   (if (string= skk-prefix "") (char-to-string last-command-char) skk-prefix)))
 
 (defun skk-isearch-current-mode ()
   "Return the symbolic current mode of skk for skk-isearch."
@@ -387,12 +386,12 @@ kakutei'ed and erase the buffer contents."
 	  ((eq mode 'katakana) (skk-j-mode-on t))
 	  ((eq mode 'abbrev) (skk-abbrev-mode-on))
 	  ((eq mode 'latin) (skk-latin-mode-on))
-	  ((eq mode 'jisx0208-latin) (skk-jisx0208-latin-mode-on)) ))
+	  ((eq mode 'jisx0208-latin) (skk-jisx0208-latin-mode-on))))
   (remove-hook 'pre-command-hook 'skk-pre-command 'local)
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer
    (function (lambda ()
-	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local) ))))
+	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
 
 (defun skk-isearch-incomplete-message (&optional prefix)
   "Show message when kana kanji convertion is in progress.
@@ -429,9 +428,9 @@ Optional argument PREFIX is apppended if given."
     (if (eq skk-emacs-type 'xemacs)
         (progn
           (setq skk-isearch-mode-map (skk-isearch-setup-keymap (make-keymap)))
-          (set-keymap-parents skk-isearch-mode-map isearch-mode-map) )
+          (set-keymap-parents skk-isearch-mode-map isearch-mode-map))
       (setq skk-isearch-mode-map
-            (skk-isearch-setup-keymap (cons 'keymap isearch-mode-map)) )))
+            (skk-isearch-setup-keymap (cons 'keymap isearch-mode-map)))))
 
 
 ;;
@@ -457,7 +456,7 @@ Optional argument PREFIX is apppended if given."
 	    (setq unread-command-events
                   (append (if (= (length (this-command-keys)) 0)
                               (list last-command-event)
-                            (this-command-keys) )
+                            (this-command-keys))
                           nil ))
 	    (condition-case error
 		;; setup last-command-event and this-command because
@@ -490,7 +489,7 @@ If the conversion is in progress and no string is fixed, just return nil."
 		((not (zerop (buffer-size)))
 		 (prog1
 		     (buffer-string)
-		   (erase-buffer) )))
+		   (erase-buffer))))
 	;; update incomplete-message with contents of working buffer.
 	(setq skk-isearch-incomplete-message (buffer-string))
 	;; update echo area.
@@ -555,9 +554,9 @@ mode is different from previous, remove it first."
 		  ;; now, we can't pass the universal argument within the
 		  ;; isearch-mode.  so hard code the value `1'.
 		  (delete-backward-char 1)
-		(skk-erase-prefix 'clean) )
+		(skk-erase-prefix 'clean))
 	      (setq skk-isearch-incomplete-message (buffer-string))
-	      (skk-isearch-incomplete-message) )))
+	      (skk-isearch-incomplete-message))))
       (isearch-delete-char)))
 
 (defun skk-isearch-kakutei (isearch-function)
@@ -586,7 +585,7 @@ mode is different from previous, remove it first."
 	      ;; mode, default behaviour of C-j is set current mode
 	      ;; to kana mode.
 	      (skk-isearch-turn-on-skk-mode)
-	      (skk-isearch-mode-message) )))
+	      (skk-isearch-mode-message))))
       (isearch-message)
     (skk-isearch-kakutei (function isearch-printing-char))))
 
@@ -622,7 +621,7 @@ mode is different from previous, remove it first."
 	      (let ((command (key-binding string)))
 		(cond ((not (commandp command))
 		       ;; just search literally.
-		       (skk-isearch-process-search-string string) )
+		       (skk-isearch-process-search-string string))
 		      ;; internationalized isearch.el
 		      ((fboundp 'isearch-process-search-multibyte-characters)
 		       ;; internationalized isearch.el binds all
@@ -631,13 +630,13 @@ mode is different from previous, remove it first."
 			      ;; STRING is not a multibyte character.
 			      (> skk-kanji-len (length string))
 			      ;; process a special character, such as *, |, ...
-			      (command-execute command) )
-			     (t (skk-isearch-process-search-string string)) ))
+			      (command-execute command))
+			     (t (skk-isearch-process-search-string string))))
 		      ;; non internationalized isearch.el
-		      (t (command-execute command)) )))
+		      (t (command-execute command)))))
 	  ;; restore the overriding local map.
 	  (set-buffer current-buffer)
-	  (set skk-isearch-overriding-local-map local-map) )))))
+	  (set skk-isearch-overriding-local-map local-map))))))
 
 (put 'skk-isearch-wrapper 'isearch-command t)
 (put 'skk-isearch-keyboard-quit 'isearch-command t)
