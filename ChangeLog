@@ -14,6 +14,7 @@
 	(buffer-local-foreground-color)
 	(buffer-local-background-color): Default values are nil.
 
+	(ccc-read-color)
 	(get-apparent-cursor-color)
 	(get-apparent-foreground-color)
 	(get-apparent-background-color)
@@ -3062,8 +3063,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.579 2001/12/02 03:20:33 czkmt Exp $
-Last Modified: $Date: 2001/12/02 03:20:33 $
+Version: $Id: ChangeLog,v 1.580 2001/12/02 03:28:24 czkmt Exp $
+Last Modified: $Date: 2001/12/02 03:28:24 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
