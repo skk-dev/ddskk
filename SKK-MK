@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.47 2000/11/11 03:13:09 czkmt Exp $
-;; Last Modified: $Date: 2000/11/11 03:13:09 $
+;; Version: $Id: SKK-MK,v 1.48 2000/11/12 10:46:57 czkmt Exp $
+;; Last Modified: $Date: 2000/11/12 10:46:57 $
 
 ;; Commentary
 ;;
@@ -393,6 +393,10 @@
   (compile-elisp-modules SKK_MODULES (expand-file-name ".")))
 
 (defun SKK-MK-install ()
+  (SKK-MK-install-elc)
+  (SKK-MK-install-info))
+
+(defun SKK-MK-install-elc ()
   (let ((dics SKK_DICTIONARIES)
 	delete-target exists spec)
     ;; make target directories.
@@ -478,8 +482,6 @@
       (install-elisp-modules (list 'leim-list) "." SKK_LISPDIR))
     ;; install skk-setup.el
     (install-elisp-modules (list 'skk-setup) "." SKK_LISPDIR)
-    ;; install infos.
-    (SKK-MK-install-info)
     ;; install tutorials.
     (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil)))
 
