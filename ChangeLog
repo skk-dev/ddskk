@@ -1,3 +1,10 @@
+2000-10-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-foreword.el (skk-emacs-type): Check the feature `xemacs'.
+
+	* skk-gadget.el: Require "static" at compile time.
+	(skk-clock): Sync with daredevil branch.
+
 2000-10-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Fix links.
