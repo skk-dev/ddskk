@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.12 1999/09/17 01:29:09 minakaji Exp $
-;; Last Modified: $Date: 1999/09/17 01:29:09 $
+;; Version: $Id: SKK-MK,v 1.13 1999/09/17 01:34:33 minakaji Exp $
+;; Last Modified: $Date: 1999/09/17 01:34:33 $
 
 ;; Commentary
 ;;
@@ -50,11 +50,11 @@
 (defvar SKK-MK-cleanup-trouble-makers nil
   "*Non-nil means clean up already installed SKK package configration files.
 If symbol `backup' makes backup files named `xxxx.BAK'.
-It is related only to XEmacs package install.
 
 Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
-`skk-vars.el' which exist in `package-locations', or `load-path' if
-`package-locations'does not exist." )
+`skk-vars.el' which exist in `lisp/skk' under `package-locations', or
+if `package-locations' does not exist `load-path' of which directories name
+end with `skk'." )
 (defvar DOCDIR "./doc")
 (defvar ETCDIR "./etc")
 (defvar SKK_INFOS '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4"))
