@@ -1,5 +1,7 @@
 2000-12-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-jisx0201.el (skk-jisx0201-insert): Modify for skk-comp.
+
 	* skk.el (skk-compute-henkan-lists): Modify okuriganas in blocks
 	when `skk-use-kana-keyboard' and `skk-henkan-okuri-strictly' are
 	both non-nil.
@@ -2698,8 +2700,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.200 2000/12/05 11:35:34 czkmt Exp $
-Last Modified: $Date: 2000/12/05 11:35:34 $
+Version: $Id: ChangeLog,v 1.201 2000/12/05 12:04:52 czkmt Exp $
+Last Modified: $Date: 2000/12/05 12:04:52 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

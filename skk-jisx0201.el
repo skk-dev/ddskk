@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.7 2000/11/21 21:42:45 minakaji Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.8 2000/12/05 12:04:52 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2000/11/21 21:42:45 $
+;; Last Modified: $Date: 2000/12/05 12:04:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -401,14 +401,12 @@
 	   ;; for completion.
 	   ((and skk-henkan-on (not skk-henkan-active))
 	    (cond ((eq ch skk-try-completion-char)
-		   (setq this-command 'skk-completion)
-		   (skk-completion (not (eq last-command 'skk-completion))))
-		  ((eq last-command 'skk-completion)
-		   (cond ((eq ch skk-next-completion-char)
-			  (setq this-command 'skk-completion)
-			  (skk-completion nil))
-			 ((eq ch skk-previous-completion-char)
-			  (skk-previous-completion))))
+		   (setq this-command 'skk-comp-do)
+		   (skk-comp (not (eq last-command 'skk-comp-do))))
+		  ((and (eq last-command 'skk-comp-do)
+			(memq ch (list skk-next-completion-char
+				       skk-previous-completion-char)))
+		   (skk-comp-previous/next ch))
 		  (t (skk-jisx0201-kana-input arg))))
 	   ;; just imput JISX0201 Kana.
 	   (t (skk-jisx0201-kana-input arg))))))
