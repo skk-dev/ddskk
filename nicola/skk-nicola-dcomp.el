@@ -102,4 +102,4 @@
     (provide 'skk-nicola-dcomp)
   (require 'skk-version))
 
-;;; skk-kanagaki-util.el ends here
+;;; skk-nicola-dcomp.el ends here
