@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.12 2001/02/03 00:22:58 minakaji Exp $
+;; Version: $Id: skk-look.el,v 1.13 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,7 +33,7 @@
 ;;
 ;; (1)英単語を補完ができます。
 ;;
-;;    ▽abstr(TAB) ---> ▽abstract 
+;;    ▽abstr(TAB) ---> ▽abstract
 ;;
 ;;    通常の補完機能同様、`.' で次の補完候補、`,' でひとつ前の補完候補に
 ;;    移動できます。
@@ -43,7 +43,7 @@
 ;;
 ;; (2)英単語をあいまいに変換して取り出すことができます。
 ;;
-;;    ▽abstr* (SPC) ---> ▼abstract 
+;;    ▽abstr* (SPC) ---> ▼abstract
 ;;
 ;;    見出し語にアスタリスク (`*') を入れるのをお忘れなく。
 ;;
@@ -79,7 +79,7 @@
 ;;
 ;;    というエントリがあることを前提としています。edict を SKK 辞書形式に
 ;;    変換すると良いですね。
-;; 
+;;
 ;; 動作確認を行なった look は、Slackware 3.5 に入っていた、man page に
 ;; `BSD Experimental June 14, 1993' と記載のあるもの (バージョン情報がない) にて
 ;; 行なっています。オプションの指定などが異なる look があれば、ご一報下さい。よろ

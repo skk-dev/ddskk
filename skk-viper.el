@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.11 2001/05/31 01:56:06 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.12 2001/08/31 19:30:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/31 01:56:06 $
+;; Last Modified: $Date: 2001/08/31 19:30:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -173,7 +173,7 @@ viper-read-string-with-history は minibuffer-setup-hook を関数ローカル
 		    (= skk-henkan-end-point (point)))
 	       (skk-previous-candidate)
 	     ;;(if skk-use-face (skk-henkan-face-off))
- 	     ;; overwrite-mode $Bで、ポイントが全角文字に囲まれていると
+	     ;; overwrite-mode で、ポイントが全角文字に囲まれていると
 	     ;; きに delete-backward-char を使うと、全角文字は消すが半
 	     ;; 角文字分しか backward 方向にポイントが戻らない (Emacs
 	     ;; 19.31 にて確認)。変換中の候補に対しては
@@ -282,7 +282,7 @@ Convert hirakana to katakana and vice versa."
   ;; viper-toggle-key-action と連動させる？
   (skk-viper-normalize-map)
   (remove-hook 'skk-mode-hook 'skk-viper-init-function))
-  
+
 (add-hook 'skk-mode-hook 'skk-viper-init-function)
 
 (require 'product)

@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.3 2001/07/19 16:50:48 minakaji Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.4 2001/08/31 19:31:18 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/19 16:50:48 $
+;; Last Modified: $Date: 2001/08/31 19:31:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -53,7 +53,7 @@
 ;; (if (and (eq skk-emacs-type 'xemacs) (= emacs-major-version 20))
 ;;     (progn
 ;;       (setq skk-rom-kana-base-rule-list
-;; 	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list))
+;;	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list))
 ;;       (define-key skk-j-mode-map "\t" 'skk-toggle-kana)))
 
 ;; The first few entries are necessary to disable special treatments of

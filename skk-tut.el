@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.32 2001/08/30 02:34:46 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.33 2001/08/31 19:30:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/30 02:34:46 $
+;; Last Modified: $Date: 2001/08/31 19:30:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -383,14 +383,14 @@
   ;; $B$r%(%3!<%(%j%"$KI=<($9$k!#(B
   ;; ARG $B$O(B message $B4X?t$NBh#20z?t0J9_$N0z?t$H$7$FEO$5$l$k!#(B
   (append (list 'message (list 'if 'skktut-japanese-tut japanese english))
-          arg))
+	  arg))
 
 (defmacro skktut-error (japanese english &rest arg)
   ;; skktut-japanese-tut $B$,(B non-nil $B$@$C$?$i(B JAPANESE $B$r(B nil $B$G$"$l$P(B ENGLISH
   ;; $B$r%(%3!<%(%j%"$KI=<($7!"%(%i!<$rH/@8$5$;$k!#(B
   ;; ARG $B$O(B error $B4X?t$NBh#20z?t0J9_$N0z?t$H$7$FEO$5$l$k!#(B
   (append (list 'error (list 'if 'skktut-japanese-tut japanese english))
-          arg))
+	  arg))
 
 (defmacro skktut-yes-or-no-p (japanese english)
   (list 'yes-or-no-p (list 'if 'skktut-japanese-tut japanese english)))
@@ -495,7 +495,7 @@ C-u M-x skk-tutorial $B$9$k$H!"%A%e!<%H%j%"%k%U%!%$%k$NA*Br$,2DG=!#(B"
 		   lang))))
   (let ((inhibit-quit t))
     (if (not (product-version>= 'skk-version '(10 3)))
-        (error "Daredevil SKK or later is required")
+	(error "Daredevil SKK or later is required")
       (skktut-pre-setup-tutorial)
       (skktut-setup-jisyo-buffer)
       (skktut-setup-working-buffer)
@@ -516,36 +516,36 @@ C-u M-x skk-tutorial-again $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A
 	  (skktut-yes-or-no-p "$B:G=i$+$i(B Tutorial $B$r$d$jD>$7$^$9!#$h$m$7$$$G$9$M!)(B "
 			      "Quit tutorial and start from question 1 again? "))
       (progn (skk-tutorial-quit 'now)
-             (skk-tutorial))))
+	     (skk-tutorial))))
 
 (defun skk-tutorial-quit (&optional now)
   "SKK $B%A%e!<%H%j%"%k$r$d$a$k!#(B
 C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$K$d$a$k!#(B"
   (interactive "P")
   (if (or now (skktut-yes-or-no-p "$BK\Ev$K%A%e!<%H%j%"%k$r$d$a$^$9$+(B? "
-                                  "Really quit tutorial? "))
+				  "Really quit tutorial? "))
       (let ((inhibit-quit t))
-        (delete-other-windows)
-        ;; $B:FEY%A%e!<%H%j%"%k$r;H$($k$h$&$K!"FbItJQ?t$r=i4|2=$7$F$*$/!#(B
-        (setq skktut-japanese-tut nil
-              skktut-question-count 1
-              skktut-right-answer nil
-              skktut-tutorial-end nil)
-        (remove-hook 'minibuffer-setup-hook 'skktut-localize-and-init-variables)
-        (remove-hook 'before-make-frame-hook 'skktut-before-move-to-other-frame)
+	(delete-other-windows)
+	;; $B:FEY%A%e!<%H%j%"%k$r;H$($k$h$&$K!"FbItJQ?t$r=i4|2=$7$F$*$/!#(B
+	(setq skktut-japanese-tut nil
+	      skktut-question-count 1
+	      skktut-right-answer nil
+	      skktut-tutorial-end nil)
+	(remove-hook 'minibuffer-setup-hook 'skktut-localize-and-init-variables)
+	(remove-hook 'before-make-frame-hook 'skktut-before-move-to-other-frame)
 	(skktut-disable-tutmap)
 	(skktut-disable-advice)
 	(with-current-buffer skktut-jisyo-buffer
 	  (set-buffer-modified-p nil)
 	  (kill-buffer skktut-jisyo-buffer))
-        (kill-buffer skktut-working-buffer)
-        (kill-buffer skktut-answer-buffer)
-        (kill-buffer skktut-question-buffer)
+	(kill-buffer skktut-working-buffer)
+	(kill-buffer skktut-answer-buffer)
+	(kill-buffer skktut-question-buffer)
 	(set-window-configuration skktut-original-window-configuration)
-        ;; $B%A%e!<%H%j%"%k5/F0D>A0$K3+$$$F$$$?%P%C%U%!$G!"(Bskk-mode $B$r5/F0$7$F(B
-        ;; $B$$$?$i!"$=$N>uBV$K$7$F!"%A%e!<%H%j%"%k$r=*N;$9$k!#(B
-        (or skktut-skk-mode-on
-            (skk-mode -1))))
+	;; $B%A%e!<%H%j%"%k5/F0D>A0$K3+$$$F$$$?%P%C%U%!$G!"(Bskk-mode $B$r5/F0$7$F(B
+	;; $B$$$?$i!"$=$N>uBV$K$7$F!"%A%e!<%H%j%"%k$r=*N;$9$k!#(B
+	(or skktut-skk-mode-on
+	    (skk-mode -1))))
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (when skktut-original-local-map
       (use-local-map skktut-original-local-map))))
@@ -768,11 +768,11 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
       (goto-char (point-min))
       (setq skktut-japanese-tut (looking-at ";; SKK Japanese"))
       (while (re-search-forward "^>> \\((.+)\\)$" nil t nil)
-        (setq sexp (buffer-substring-no-properties (match-beginning 1)
+	(setq sexp (buffer-substring-no-properties (match-beginning 1)
 						   (match-end 1)))
-        (delete-region (match-beginning 1) (match-end 1))
+	(delete-region (match-beginning 1) (match-end 1))
 	;; insert evaluated string instead of lisp program.
-        (insert (eval (car (read-from-string sexp)))))
+	(insert (eval (car (read-from-string sexp)))))
       (goto-char (point-min))
       (if skk-tut-use-face (skktut-colored)))))
 
@@ -822,32 +822,32 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 			  "Quit tutorial?")
       (skk-tutorial-quit 'now)
     (skktut-error "Tutorial $B$r=*N;$;$:$KB>$N%U%l!<%`$K0\$k$3$H$O$G$-$^$;$s!#(B"
-                  "Quit tutorial or you cannot move to other frame")))
+		  "Quit tutorial or you cannot move to other frame")))
 
 (defun skktut-colored ()
   ;; face $B$r(B Text Property $B$K$7$F$*$/$H%F%-%9%H$r%3%T!<$7$?$H$-$K0l=o$K%3%T!<$G(B
   ;; $B$-$k$N$G9%ET9g!#(B
   (while (re-search-forward "$B"'(B\\([^$B![(B $B$!(B-$B$s%!(B-$B%s(B]+\\)" nil t nil)
     (put-text-property (match-beginning 1) (match-end 1) 'face
-                       'highlight))
+		       'highlight))
   (goto-char (point-min))
   (while (re-search-forward "^==.+==$" nil t nil)
     (put-text-property (match-beginning 0) (match-end 0)
-                       'face skk-tut-section-face))
+		       'face skk-tut-section-face))
   (goto-char (point-min))
   (while (re-search-forward "^!!.+" nil t nil)
     (put-text-property (match-beginning 0) (match-end 0)
-                       'face skk-tut-do-it-face))
+		       'face skk-tut-do-it-face))
   (goto-char (point-min))
   (while (re-search-forward "^>> \\(.+\\)$" nil t nil)
     (put-text-property (match-beginning 1) (match-end 1)
-                       'face skk-tut-question-face))
+		       'face skk-tut-question-face))
   (if skktut-japanese-tut
       nil
     (goto-char (point-min))
     (while (re-search-forward "Hint: .*$" nil t nil)
       (put-text-property (match-beginning 0) (match-end 0)
-                         'face skk-tut-hint-face))))
+			 'face skk-tut-hint-face))))
 
 (defun skktut-next-answer-buffer ()
   (save-match-data
@@ -894,22 +894,22 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
     (save-match-data
       (set-buffer skktut-working-buffer)
       (let (pos str)
-        (goto-char (point-min))
-        (search-forward "--\n" nil t page)
-        (if (looking-at ";") ; lisp program exists.
-            (progn
+	(goto-char (point-min))
+	(search-forward "--\n" nil t page)
+	(if (looking-at ";") ; lisp program exists.
+	    (progn
 	      (forward-char 3)
 	      (setq pos (point))
 	      (end-of-line)
 	      (save-excursion
 		(eval-region pos (point) nil)
 		(forward-char 1))))
-        (if (not skktut-tutorial-end)
-            (progn
-              (setq pos (point))
-              (search-forward "\n>>")
-              (end-of-line)
-              (setq str (buffer-substring pos (point)))
+	(if (not skktut-tutorial-end)
+	    (progn
+	      (setq pos (point))
+	      (search-forward "\n>>")
+	      (end-of-line)
+	      (setq str (buffer-substring pos (point)))
 	      (set-buffer skktut-question-buffer)
 	      (skktut-erase-buffer)
 	      (let (buffer-read-only)
@@ -930,7 +930,7 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
     (save-match-data
       (let (p)
 	(widen)
-        (search-forward "\n>> ")
+	(search-forward "\n>> ")
 	(if (re-search-forward "$B!V(B.*$B!W(B" (skk-save-point (end-of-line) (point)) t)
 	    (delete-region (match-beginning 0) (match-end 0)))
 	(setq p (point))
@@ -953,8 +953,8 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 		 (format "\t%s\n\n" skk-ml-address)
 		 "$BKx$*Aw$j2<$5$$!#$J$*!"$3$N%"%I%l%9$O(B SKK Ring Server Openlab Mailing list\n"
 		 "$B$N%"%I%l%9$G$9!#$I$J$?$G$bEj9F$O$G$-$^$9$,!"%a%s%P!<$K$7$+G[Aw$5$l$J$$$N$G!"(B\n"
-                 "$B%a%s%P!<$G$J$$J}$O$=$N;]$rL@5-$7$F%a!<%k$r$*Aw$j$/$@$5$$!#(B\n"
-                 "SKK Ring Server Openlab ML $B$X;22C4uK>$N>l9g$O(B\n\n"
+		 "$B%a%s%P!<$G$J$$J}$O$=$N;]$rL@5-$7$F%a!<%k$r$*Aw$j$/$@$5$$!#(B\n"
+		 "SKK Ring Server Openlab ML $B$X;22C4uK>$N>l9g$O(B\n\n"
 		 (format "\t%s\n\n" skk-ml-command-address)
 		 "$B$XK\J8$K(B($BI=Bj$K$G$O$"$j$^$;$s(B) subscribe $B$H5-$7$?%a!<%k$r$*Aw$j$/$@$5$$!#(B\n\n"
 		 "!! $B:G8e$K(B <return> $B%-!<$r2!$7$F$/$@$5$$!#(B")
@@ -965,11 +965,11 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 	       (format "\t%s\n\n" skk-ml-address)
 	       "This is the address of the SKK Ring Server Openlab Mailing list.\n"
 	       "Anyone can post, but responces will be sent only to the ML members.\n"
-               "So, if you are not a ML member, please say so in your mail.\n"
-               "If you are interested in joining the SKK Ring Server Openlab ML,\n"
-               (format "send mail to %s with the following command\n"
+	       "So, if you are not a ML member, please say so in your mail.\n"
+	       "If you are interested in joining the SKK Ring Server Openlab ML,\n"
+	       (format "send mail to %s with the following command\n"
 		       skk-ml-command-address)
-               "in the body of your email message (not in subject):\n\n"
+	       "in the body of your email message (not in subject):\n\n"
 	       "\tsubscribe\n\n"
 	       "!! Hit <return> key when you are ready.")))
     (if skk-tut-use-face

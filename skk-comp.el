@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.11 2001/03/10 14:28:14 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.12 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/03/10 14:28:14 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -40,21 +40,21 @@
   (interactive "*P")
   (if (and skk-henkan-on (not skk-henkan-active))
       (progn
-        (skk-comp-do (not (eq last-command 'skk-comp-do)))
-        (skk-start-henkan arg))
+	(skk-comp-do (not (eq last-command 'skk-comp-do)))
+	(skk-start-henkan arg))
     (skk-emulate-original-map arg)))
 
 ;;;###autoload
 (defun skk-comp (first &optional silent)
   (setq this-command 'skk-comp-do)
   (skk-comp-do first silent))
-  
+
 ;;;###autoload
 (defun skk-comp-do (first &optional silent)
   ;; main completion engine.
   (let ((inhibit-quit t)
 	;; skk-num が require されてないと buffer-local 値を壊す恐れあり。
-        skk-num-list c-word)
+	skk-num-list c-word)
     (skk-kana-cleanup 'force)
     (and first (setq skk-comp-stack nil skk-comp-depth 0))
     (and (or first skk-dabbrev-like-completion)
@@ -119,7 +119,7 @@
   ;; skk-abbrev-comma, skk-insert-comma のサブルーチン。直前に補完を行った見
   ;; 出しを挿入する。
   (let ((inhibit-quit t)
-        (c-word 
+	(c-word
 	 (progn
 	   (setq skk-comp-depth (1+ skk-comp-depth))
 	   (nth skk-comp-depth skk-comp-stack))))
@@ -130,8 +130,8 @@
       (setq skk-comp-depth (1- skk-comp-depth))
       (ding)
       (skk-message "\"%s\"で補完すべき見出し語は他にありません"
-                 "No more previous completions for \"%s\""
-                 skk-comp-key))))
+		   "No more previous completions for \"%s\""
+		   skk-comp-key))))
 
 ;;;###autoload
 (defun skk-comp-previous/next (ch)

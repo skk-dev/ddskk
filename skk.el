@@ -1,13 +1,13 @@
-;;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program) 
+;;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program)
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2000, 2001
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.105 2001/08/31 16:45:58 czkmt Exp $
+;; Version: $Id: skk.el,v 1.106 2001/08/31 19:30:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 16:45:58 $
+;; Last Modified: $Date: 2001/08/31 19:30:15 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -57,9 +57,9 @@
 
 (cond ((or (and (boundp 'epoch::version) epoch::version)
 	   (string< (substring emacs-version 0 2) "19"))
-      (message "This version of SKK may not work on Emacs 18..."))
-     ((not (or (featurep 'mule) (boundp 'NEMACS)))
-      (error "This version of SKK requires MULE features")))
+       (message "This version of SKK may not work on Emacs 18..."))
+      ((not (or (featurep 'mule) (boundp 'NEMACS)))
+       (error "This version of SKK requires MULE features")))
 
 ;; APEL 10.2 or higher is required.
 (eval-when-compile
@@ -251,7 +251,7 @@
 	(setq i (1+ i)))
       (define-key map "\C-q" 'skk-latin-henkan)
       (skk-define-menu-bar-map map)
-      (setq skk-jisx0208-latin-mode-map map))) 
+      (setq skk-jisx0208-latin-mode-map map)))
 
 (or skk-abbrev-mode-map
     (let ((map (make-sparse-keymap)))
@@ -355,14 +355,14 @@ Use a prefix argument to choose the language.  The default is system-
 dependent."
   (interactive "P")
   (setq skk-mode (cond ((null arg) (not skk-mode))
-                       ;; - は -1 に変換される。
-                       ((> (prefix-numeric-value arg) 0) t)))
+		       ;; - は -1 に変換される。
+		       ((> (prefix-numeric-value arg) 0) t)))
   (if (not skk-mode)
       ;; exit skk-mode
       (skk-mode-exit)
     ;; enter into skk-mode.
     (if (not skk-mode-invoked)
-        ;; enter into skk-mode for the first time in this session.
+	;; enter into skk-mode for the first time in this session.
 	(skk-mode-invoke))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
     (skk-create-file skk-jisyo
@@ -388,10 +388,10 @@ dependent."
 負の引数を与えると auto-fill-mode 及び SKK モードから抜ける。"
   (interactive "P")
   (let ((auto-fill
-         (cond ((null arg)
+	 (cond ((null arg)
 		(static-if (string< (substring emacs-version 0 2) "19")
 		    (not auto-fill-hook) (not auto-fill-function)))
-               ((> (prefix-numeric-value arg) 0) t))))
+	       ((> (prefix-numeric-value arg) 0) t))))
     (auto-fill-mode (if auto-fill 1 -1))
     (skk-mode arg)
     (run-hooks 'skk-auto-fill-mode-hook)))
@@ -402,9 +402,9 @@ dependent."
   ;; format を引数に持たせた場合は、skk-yes-or-no-p を使うとかえって冗長になる。
   (if (yes-or-no-p
        (format (if skk-japanese-message-and-error
-                   "辞書の保存をせずに %s を終了します。良いですか？"
-                 "Do you really wish to kill %s without saving Jisyo? ")
-               (static-if (eq skk-emacs-type 'xemacs) "XEmacs" "Mule")))
+		   "辞書の保存をせずに %s を終了します。良いですか？"
+		 "Do you really wish to kill %s without saving Jisyo? ")
+	       (static-if (eq skk-emacs-type 'xemacs) "XEmacs" "Mule")))
       (let ((buff (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
 	(ad-disable-advice 'save-buffers-kill-emacs 'before 'skk-ad)
 	(ad-activate 'save-buffers-kill-emacs)
@@ -482,8 +482,8 @@ dependent."
   (skk-setup-delete-selection-mode)
   (skk-adjust-user-option)
   (setq skk-mode-invoked t))
- 
-;;; setup 
+
+;;; setup
 (defun skk-setup-shared-private-jisyo ()
   (setq skk-jisyo-update-vector (make-vector skk-jisyo-save-count nil))
   (setq skk-emacs-id
@@ -673,7 +673,7 @@ dependent."
 		    ;; following two are SKK adviced.
 		    ;;viper-del-backward-char-in-insert
 		    ;;vip-del-backward-char-in-insert
-		  ))
+		    ))
 	(map (if (and (boundp 'overriding-local-map)
 		      (keymapp 'overriding-local-map))
 		 overriding-local-map
@@ -712,12 +712,12 @@ dependent."
   ;; ル済ファイルを消す。
   (save-match-data
     (let* ((init-file (expand-file-name skk-init-file))
-           (elc (concat init-file
-                        (if (string-match "\\.el$" init-file)
-                            "c"
-                          ".elc"))))
+	   (elc (concat init-file
+			(if (string-match "\\.el$" init-file)
+			    "c"
+			  ".elc"))))
       (if skk-byte-compile-init-file
-          (and (file-exists-p init-file)
+	  (and (file-exists-p init-file)
 	       (or (not (file-exists-p elc))
 		   (file-newer-than-file-p init-file elc))
 	       (save-window-excursion ; for keep window configuration.
@@ -725,7 +725,7 @@ dependent."
 			      skk-init-file)
 		 (sit-for 2)
 		 (byte-compile-file init-file)))
-        (and (file-exists-p init-file)
+	(and (file-exists-p init-file)
 	     (file-exists-p elc)
 	     (file-newer-than-file-p init-file elc)
 	     (delete-file elc))))))
@@ -863,17 +863,17 @@ dependent."
   ;; キー入力に対して、SKK のモードではなく、Emacs のオリジナルのキー割り付けで
   ;; コマンドを実行する。
   (let ((prefix-arg arg)
-        (keys (skk-command-key-sequence (this-command-keys) this-command)))
+	(keys (skk-command-key-sequence (this-command-keys) this-command)))
     (if (not keys)
-        ;; no alternative commands.  may be invoked by M-x.
-        nil
+	;; no alternative commands.  may be invoked by M-x.
+	nil
       (static-if (not (memq skk-emacs-type '(nemacs mule1)))
 	  (let (skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
 			 skk-jisx0208-latin-mode command)
 	    ;; have to search key binding after binding 4 minor mode flags to nil.
 	    (setq command (key-binding keys))
 	    (if (eq command this-command)
-	       ;; avoid recursive calling of skk-emulate-original-map.
+		;; avoid recursive calling of skk-emulate-original-map.
 		nil
 	      ;; if no bindings are found, call `undefined'.  it's
 	      ;; original behaviour.
@@ -901,7 +901,7 @@ dependent."
   ;; KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。
   ;; `execute-extended-command' によってコマンドが実行された場合は、nil を返す。
   (while (not (or (zerop (length key))
-                  (eq command (key-binding key))))
+		  (eq command (key-binding key))))
     (setq key (vconcat (cdr (append key nil)))))
   (and (not (zerop (length key))) key))
 
@@ -955,37 +955,37 @@ dependent."
 て、ひらがなとカタカナを入れ替える。"
   (interactive "P")
   (cond ((and skk-henkan-on (not skk-henkan-active))
-         (let (char)
-           (skk-set-marker skk-henkan-end-point (point))
-           (skk-save-point
+	 (let (char)
+	   (skk-set-marker skk-henkan-end-point (point))
+	   (skk-save-point
 	    (goto-char skk-henkan-start-point)
 	    (while (and
 		    ;;(not (eobp))
 		    (>= skk-henkan-end-point (point))
-		    (or 
+		    (or
 		     ;; "ー" では文字種別が判別できないので、ポイントを進める。
 		     (looking-at "ー")
 		     (eq 'unknown (setq char (skk-what-char-type)))))
 	      (forward-char 1)))
-           (cond ((eq char 'hiragana)
-                  (skk-katakana-region
+	   (cond ((eq char 'hiragana)
+		  (skk-katakana-region
 		   skk-henkan-start-point skk-henkan-end-point
 		   'vcontract))
-                 ((eq char 'katakana)
-                  (skk-hiragana-region
+		 ((eq char 'katakana)
+		  (skk-hiragana-region
 		   skk-henkan-start-point skk-henkan-end-point))
 		 ;; currently these two features are not used.
-                 ;;((eq char 'jisx0208-latin)
-                 ;; (skk-latin-region
-                 ;;  skk-henkan-start-point skk-henkan-end-point))
-                 ;;((eq char 'ascii)
-                 ;; (skk-jisx0208-latin-region
-                 ;;  skk-henkan-start-point skk-henkan-end-point))
+		 ;;((eq char 'jisx0208-latin)
+		 ;; (skk-latin-region
+		 ;;  skk-henkan-start-point skk-henkan-end-point))
+		 ;;((eq char 'ascii)
+		 ;; (skk-jisx0208-latin-region
+		 ;;  skk-henkan-start-point skk-henkan-end-point))
 		 )))
-        ((and (skk-in-minibuffer-p) (not skk-j-mode))
-         ;; ミニバッファへの初突入時。
-         (skk-j-mode-on))
-        (t (setq skk-katakana (not skk-katakana))))
+	((and (skk-in-minibuffer-p) (not skk-j-mode))
+	 ;; ミニバッファへの初突入時。
+	 (skk-j-mode-on))
+	(t (setq skk-katakana (not skk-katakana))))
   (skk-kakutei))
 
 (defun skk-misc-for-picture ()
@@ -1010,11 +1010,11 @@ dependent."
   ;; SKK 関連のバッファローカル変数を無効にする。
   (skk-mode -1)
   (let ((lv (buffer-local-variables))
-        v vstr)
+	v vstr)
     (while lv
       (setq v (car (car lv))
-            lv (cdr lv)
-            vstr (prin1-to-string v))
+	    lv (cdr lv)
+	    vstr (prin1-to-string v))
       (and (> (length vstr) 3) (string= "skk-" (substring vstr 0 4))
 	   (kill-local-variable v)))))
 
@@ -1078,7 +1078,7 @@ dependent."
   (cond (skk-henkan-active
 	 ;; 接尾辞のための処理。
 	 (skk-kakutei)
-	 (skk-set-henkan-point-subr)	
+	 (skk-set-henkan-point-subr)
 	 (insert-and-inherit ?>))
 	(skk-henkan-on
 	 ;; 接頭語の処理
@@ -1223,6 +1223,7 @@ dependent."
 		  (setq skk-prefix (skk-get-prefix skk-current-rule-tree))
 		  (skk-insert-prefix skk-prefix))
 	      ;;(skk-kana-cleanup 'force)
+
 	      (and skk-henkan-active (skk-kakutei))
 	      (setq skk-prefix "")
 	      (or queue
@@ -1385,9 +1386,9 @@ dependent."
       (setq len (string-width (buffer-substring-no-properties (point) p))))
     (delete-region p (point))
     (or (= length len)
-        (progn
+	(progn
 	  (insert-and-inherit " ")
-          (backward-char 1)))))
+	  (backward-char 1)))))
 
 (defun skk-cancel-undo-boundary ()
   ;; skk-insert, skk-jisx0208-latin-insert で連続して入力さ
@@ -1395,25 +1396,25 @@ dependent."
   ;; keyboard.c に定められたマジックナンバー。Mule-2.3 添付
   ;; の egg.el を参考にした。
   (if (and (< skk-self-insert-non-undo-count 20)
-           (memq last-command
-                 '(skk-insert
-                   skk-jisx0208-latin-insert
-                   ;; SKK abbrev モードでは、アスキー文字入力が Emacs オリジナ
-                   ;; ルの self-insert-command により行なわれているので、
-                   ;; skk-self-insert-non-undo-count をインクリメントすること
-                   ;; ができないので、アンドゥをエミュレートできない。
-                   ;; しかも、カンマやピリオドを挿入した時点で、
-                   ;; skk-abbrev-comma や skk-abbrev-period を使うことになるの
-                   ;; で (self-insert-command 以外のコマンドを使ってしまうので)、
+	   (memq last-command
+		 '(skk-insert
+		   skk-jisx0208-latin-insert
+		   ;; SKK abbrev モードでは、アスキー文字入力が Emacs オリジナ
+		   ;; ルの self-insert-command により行なわれているので、
+		   ;; skk-self-insert-non-undo-count をインクリメントすること
+		   ;; ができないので、アンドゥをエミュレートできない。
+		   ;; しかも、カンマやピリオドを挿入した時点で、
+		   ;; skk-abbrev-comma や skk-abbrev-period を使うことになるの
+		   ;; で (self-insert-command 以外のコマンドを使ってしまうので)、
 		   ;; オリジナルのアンドゥの機能も損なってしまう。
 		   ;; しかし現実問題としては、SKK abbrev モードは省略形としての
 		   ;; 見出し語を挿入するためのモードであるので、長い見出し語を
 		   ;; 挿入することはあまりなく、問題も小さいと考えられる。
-                   ;;skk-abbrev-comma
-                   ;;skk-abbrev-period
-		 )))
+		   ;;skk-abbrev-comma
+		   ;;skk-abbrev-period
+		   )))
       (progn
-        (cancel-undo-boundary)
+	(cancel-undo-boundary)
 	(if (null skk-current-rule-tree)
 	    ;; まだかな文字が完成していないときは、undo count をインクリメント
 	    ;; しない。
@@ -1431,14 +1432,14 @@ dependent."
     (goto-char skk-okurigana-start-point)
     (or (eq (following-char) ?*) (insert-and-inherit "*")))
   (setq skk-henkan-okurigana (buffer-substring-no-properties
-                              (1+ skk-okurigana-start-point)
-                              (point)))
+			      (1+ skk-okurigana-start-point)
+			      (point)))
   (setq skk-henkan-key (concat (buffer-substring-no-properties
 				skk-henkan-start-point
 				skk-henkan-end-point)
 			       (or (skk-okurigana-prefix skk-henkan-okurigana)
 				   skk-okuri-char))
-        skk-prefix "")
+	skk-prefix "")
   (if skk-katakana
       (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)
 	    skk-henkan-okurigana
@@ -1569,57 +1570,57 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; カナを漢字変換するメインルーチン。
   (let (mark new-word kakutei-henkan)
     (if (string= skk-henkan-key "")
-        (skk-kakutei)
+	(skk-kakutei)
       ;; we use mark to go back to the correct position after henkan
       (or (eobp) (setq mark (skk-save-point (forward-char 1) (point-marker))))
       (if (not skk-henkan-active)
-          (progn
-            (skk-change-marker)
-            (setq skk-current-search-prog-list skk-search-prog-list)))
+	  (progn
+	    (skk-change-marker)
+	    (setq skk-current-search-prog-list skk-search-prog-list)))
       ;; skk-henkan-1 の中からコールされる skk-henkan-show-candidate から throw
       ;; される。ここでキャッチした場合は、?x がストリームに戻されているので、
       ;; この関数を出て、skk-previous-candidates へゆく。
       (catch 'unread
-        (setq new-word (or (skk-henkan-1) (skk-henkan-in-minibuff))
-              kakutei-henkan skk-kakutei-flag)
-        (and new-word (skk-insert-new-word new-word)))
+	(setq new-word (or (skk-henkan-1) (skk-henkan-in-minibuff))
+	      kakutei-henkan skk-kakutei-flag)
+	(and new-word (skk-insert-new-word new-word)))
       (if mark
-          (progn
-            (goto-char mark)
-            ;; 参照されていないマーカーは、Garbage Collection がコールされたと
-            ;; きに回収されるが、それまでの間、テキストのどこかを指していると、
-            ;; テキストのアップデートの際にそのマーカー値を更新する必要がある
-            ;; ので、どこも指さないようにする。
-            (skk-set-marker mark nil)
+	  (progn
+	    (goto-char mark)
+	    ;; 参照されていないマーカーは、Garbage Collection がコールされたと
+	    ;; きに回収されるが、それまでの間、テキストのどこかを指していると、
+	    ;; テキストのアップデートの際にそのマーカー値を更新する必要がある
+	    ;; ので、どこも指さないようにする。
+	    (skk-set-marker mark nil)
 	    (backward-char 1))
-        (goto-char (point-max)))
+	(goto-char (point-max)))
       (and kakutei-henkan (skk-kakutei new-word)))))
 
 (defun skk-henkan-1 ()
   ;; skk-henkan のサブルーチン。
   (let (new-word)
     (if (= skk-henkan-count 0)
-        (progn
-          (and (eq last-command 'skk-undo-kakutei-henkan)
+	(progn
+	  (and (eq last-command 'skk-undo-kakutei-henkan)
 	       (eq (car (car skk-current-search-prog-list))
 		   'skk-search-kakutei-jisyo-file)
 	       ;; in this case, we should not search kakutei jisyo.
 	       (setq skk-current-search-prog-list
 		     (cdr skk-current-search-prog-list)))
-          (while (and skk-current-search-prog-list (not new-word))
-            (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
+	  (while (and skk-current-search-prog-list (not new-word))
+	    (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
 	    (skk-henkan-list-filter)
 	    (setq new-word (skk-get-current-candidate)))
-          (if (and new-word skk-kakutei-flag)
+	  (if (and new-word skk-kakutei-flag)
 	      ;; found the unique candidate in kakutei jisyo
 	      (setq this-command 'skk-kakutei-henkan)))
       ;; 変換回数が 1 以上のとき。
       (setq new-word (skk-get-current-candidate))
       (or new-word
-          ;; 新しい候補を見つけるか、skk-current-search-prog-list が空にな
-          ;; るまで skk-search を連続してコールする。
-          (while (and skk-current-search-prog-list (not new-word))
-            (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
+	  ;; 新しい候補を見つけるか、skk-current-search-prog-list が空にな
+	  ;; るまで skk-search を連続してコールする。
+	  (while (and skk-current-search-prog-list (not new-word))
+	    (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
 	    (skk-henkan-list-filter)
 	    (setq new-word (skk-get-current-candidate))))
       (and new-word (> skk-henkan-count 3)
@@ -1644,7 +1645,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; ミニバッファで変換した候補群を表示する。
   (skk-save-point
    (let* ((candidate-keys		; 表示用のキーリスト
-           (mapcar
+	   (mapcar
 	    (function (lambda (c)
 			(and (memq c '(?\C-g ?\040 ?x)) ; ?\040 is SPC.
 			     (skk-error "`%s' に無効なキーが指定されています。"
@@ -1652,17 +1653,17 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 					"skk-henkan-show-candidates-keys"))
 			(char-to-string (upcase c))))
 	    skk-henkan-show-candidates-keys))
-          key-num-alist			; 候補選択用の連想リスト
-          (key-num-alist1		; key-num-alist を組み立てるための作業用連想リスト。
-           (let ((count 6))
-             (mapcar (function (lambda (key) (prog1 (cons key count)
-                                               (setq count (1- count)))))
-                     ;; 逆さまにしておいて、表示する候補の数が少なかったら先
-                     ;; 頭から幾つか削る。
-                     (reverse skk-henkan-show-candidates-keys))))
-          (loop 0)
-          inhibit-quit
-          henkan-list new-one reverse n)
+	  key-num-alist			; 候補選択用の連想リスト
+	  (key-num-alist1		; key-num-alist を組み立てるための作業用連想リスト。
+	   (let ((count 6))
+	     (mapcar (function (lambda (key) (prog1 (cons key count)
+					       (setq count (1- count)))))
+		     ;; 逆さまにしておいて、表示する候補の数が少なかったら先
+		     ;; 頭から幾つか削る。
+		     (reverse skk-henkan-show-candidates-keys))))
+	  (loop 0)
+	  inhibit-quit
+	  henkan-list new-one reverse n)
      ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert される
      ;; skk-henkan-key に何故か Overlay がかかってしまう。
      (and skk-use-face (skk-henkan-face-off))
@@ -1779,7 +1780,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		;; skk-henkan まで一気に throw する。
 		(throw 'unread nil)))))) ; end of while loop
      (if (consp new-one)
-         (cdr new-one)
+	 (cdr new-one)
        new-one))))
 
 (defun skk-henkan-show-candidate-subr (keys candidates)
@@ -1803,19 +1804,19 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	   (nreverse v)))
 	(n 0) str cand message-log-max)
     (if (not (car workinglst))
-        nil
+	nil
       ;;(setq workinglst (skk-truncate-message workinglst))
       (setq n 1
-            ;; 最初の候補の前に空白をくっつけないように最初の候補だけ先に取り
-            ;; 出す。
-            str (concat (car keys) ":" (if (consp (car workinglst))
+	    ;; 最初の候補の前に空白をくっつけないように最初の候補だけ先に取り
+	    ;; 出す。
+	    str (concat (car keys) ":" (if (consp (car workinglst))
 					   (cdr (car workinglst))
 					 (car workinglst))))
       ;; 残りの 6 つを取り出す。候補と候補の間を空白でつなぐ。
       (while (and (< n 7) (setq cand (nth n workinglst)))
-        (setq cand (if (consp cand) (cdr cand) cand)
-              str (concat str "  " (nth n keys) ":" cand)
-              n (1+ n)))
+	(setq cand (if (consp cand) (cdr cand) cand)
+	      str (concat str "  " (nth n keys) ":" cand)
+	      n (1+ n)))
       (setq str (format
 		 "%s  [残り %d%s]"
 		 str (length (nthcdr n candidates))
@@ -1859,56 +1860,56 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; 辞書登録モードに入り、登録した単語の文字列を返す。
   (save-match-data
     (let ((enable-recursive-minibuffers t)
-          ;; 変換中に isearch message が出ないようにする。
-          skk-isearch-message orglen new-one)
+	  ;; 変換中に isearch message が出ないようにする。
+	  skk-isearch-message orglen new-one)
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
       (add-hook
        'minibuffer-setup-hook
        '(lambda ()
 	  (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
       (condition-case nil
-          (setq new-one
-                (read-from-minibuffer
-                 (concat (or (and (skk-numeric-p) (skk-num-henkan-key))
-                             (if skk-okuri-char
-                                 (skk-compute-henkan-key2)
-                               skk-henkan-key))
-                         " ")
+	  (setq new-one
+		(read-from-minibuffer
+		 (concat (or (and (skk-numeric-p) (skk-num-henkan-key))
+			     (if skk-okuri-char
+				 (skk-compute-henkan-key2)
+			       skk-henkan-key))
+			 " ")
 		 (if (and (not skk-okuri-char)
 			  skk-read-from-minibuffer-function)
 		     (funcall skk-read-from-minibuffer-function))))
-        (quit
-         (setq new-one "")))
+	(quit
+	 (setq new-one "")))
       (if (and skk-check-okurigana-on-touroku
 	       ;; 送りあり変換でも skk-okuri-char だけだと判断できない。
 	       skk-henkan-okurigana new-one)
 	  (setq new-one (skk-remove-redundant-okurgana new-one)))
       (if (string= new-one "")
-          (if skk-exit-show-candidates
-              ;; ミニバッファに表示した候補が尽きて辞書登録に入ったが、空文字
-              ;; 列が登録された場合。最後にミニバッファに表示した候補群を再表
-              ;; 示する。
-              (progn
-                (setq skk-henkan-count (cdr skk-exit-show-candidates))
-                (skk-henkan))
-            ;; skk-henkan-show-candidates に入る前に候補が尽きた場合
-            (setq skk-henkan-count (1- skk-henkan-count))
-            (if (= skk-henkan-count -1)
-                (progn
-                  ;; 送りありの変換で辞書登録に入り、空文字を登録した後、その
-                  ;; まま再度送りなしとして変換した場合は
-                  ;; skk-henkan-okurigana, skk-okuri-char の値を nil にしなけ
-                  ;; れば、それぞれの値に古い送り仮名が入ったままで検索に失敗
-                  ;; する。
-                  (setq skk-henkan-okurigana nil
-                        skk-okurigana nil
-                        skk-okuri-char nil)
-                  (skk-change-marker-to-white))
-              ;; skk-henkan-count が -1 でなければ、カレントバッファでは最後の
-              ;; 候補を表示したままなので (表示関連では何もしなくても、もう既
-              ;; に望みの状態になっている) 何もしない。
+	  (if skk-exit-show-candidates
+	      ;; ミニバッファに表示した候補が尽きて辞書登録に入ったが、空文字
+	      ;; 列が登録された場合。最後にミニバッファに表示した候補群を再表
+	      ;; 示する。
+	      (progn
+		(setq skk-henkan-count (cdr skk-exit-show-candidates))
+		(skk-henkan))
+	    ;; skk-henkan-show-candidates に入る前に候補が尽きた場合
+	    (setq skk-henkan-count (1- skk-henkan-count))
+	    (if (= skk-henkan-count -1)
+		(progn
+		  ;; 送りありの変換で辞書登録に入り、空文字を登録した後、その
+		  ;; まま再度送りなしとして変換した場合は
+		  ;; skk-henkan-okurigana, skk-okuri-char の値を nil にしなけ
+		  ;; れば、それぞれの値に古い送り仮名が入ったままで検索に失敗
+		  ;; する。
+		  (setq skk-henkan-okurigana nil
+			skk-okurigana nil
+			skk-okuri-char nil)
+		  (skk-change-marker-to-white))
+	      ;; skk-henkan-count が -1 でなければ、カレントバッファでは最後の
+	      ;; 候補を表示したままなので (表示関連では何もしなくても、もう既
+	      ;; に望みの状態になっている) 何もしない。
 	      ))
-        (and (string-match "[ 　]+$" new-one)
+	(and (string-match "[ 　]+$" new-one)
 	     (setq new-one (substring new-one 0 (match-beginning 0))))
 	(setq skk-henkan-list (nconc skk-henkan-list (list new-one)))
 	(if (skk-numeric-p)
@@ -1918,8 +1919,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	      (setq new-one (cdr (skk-get-current-candidate-1)))))
 	(if (or (not orglen) (= orglen (length skk-henkan-list)))
 	    (setq skk-kakutei-flag t))
-        (setq skk-henkan-in-minibuff-flag t
-              skk-touroku-count (1+ skk-touroku-count)))
+	(setq skk-henkan-in-minibuff-flag t
+	      skk-touroku-count (1+ skk-touroku-count)))
       ;; (nth skk-henkan-count skk-henkan-list) が nil だから辞書登録に
       ;; 入っている。skk-henkan-count をインクリメントする必要はない。
       ;; new-one が空文字列だったら nil を返す。
@@ -1986,7 +1987,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	 ;; restore the state just before the last kakutei henkan.
 	 (delete-region skk-henkan-start-point (point))
 	 (skk-set-henkan-point-subr)
-	 (insert-and-inherit 
+	 (insert-and-inherit
 	  (if (not skk-katakana)
 	      (skk-get-last-henkan-datum 'henkan-key)
 	    (skk-hiragana-to-katakana (skk-get-last-henkan-datum 'henkan-key))))
@@ -2126,7 +2127,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; 確定直後のバッファの整形を行なう。
   (if skk-okurigana
       (progn
-        (skk-delete-okuri-mark)))
+	(skk-delete-okuri-mark)))
   (skk-delete-henkan-markers)
   (if skk-undo-kakutei-word-only
     (if (> (point) (marker-position skk-henkan-start-point))
@@ -2152,10 +2153,10 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 (defun skk-kakutei-initialize (&optional kakutei-word)
   ;; 確定時に変数の初期化とアンドゥのための変数の保存を行なう。
   (if (and kakutei-word (or (consp kakutei-word)
-                            (not (string= kakutei-word ""))))
+			    (not (string= kakutei-word ""))))
       (progn
 	(setq skk-kakutei-count (1+ skk-kakutei-count))
-        ;; skk-undo-kakutei のために最後の変換のデータを保存する。
+	;; skk-undo-kakutei のために最後の変換のデータを保存する。
 	(skk-put-last-henkan-data
 	 (list (cons 'henkan-key skk-henkan-key)
 	       (cons 'okuri-char skk-okuri-char)
@@ -2171,16 +2172,16 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	       ;; skk-kakutei-end-function を利用する。
 	      ))))
   (setq skk-abbrev-mode nil
-        skk-exit-show-candidates nil
-        skk-henkan-active nil
-        skk-henkan-count -1
+	skk-exit-show-candidates nil
+	skk-henkan-active nil
+	skk-henkan-count -1
 	skk-henkan-in-minibuff-flag nil
-        skk-henkan-key nil
-        skk-henkan-list nil
-        skk-henkan-okurigana nil
-        skk-henkan-on nil
-        skk-kakutei-flag nil
-        skk-okuri-char nil
+	skk-henkan-key nil
+	skk-henkan-list nil
+	skk-henkan-okurigana nil
+	skk-henkan-on nil
+	skk-kakutei-flag nil
+	skk-okuri-char nil
 	skk-okuri-index-min -1
 	skk-okuri-index-max -1
 	;; skk-prefix ""
@@ -2416,8 +2417,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; FEP、WX2+ 風。
   (and (member str skk-auto-start-henkan-keyword-list)
        (skk-save-point
-        (backward-char 1)
-        (and (> (point) skk-henkan-start-point)
+	(backward-char 1)
+	(and (> (point) skk-henkan-start-point)
 	     (let ((skk-prefix ""))
 	       (skk-start-henkan (prefix-numeric-value current-prefix-arg)))))))
 
@@ -2493,25 +2494,25 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; skk-backward-and-set-henkan-point のサブルーチン。CHAR の種類に応じた文字
   ;; をスキップしてバッファの先頭方向へ戻る。
   (cond ((eq type 'hiragana)
-         ;; "を" の前で止まった方が便利？
-         (skip-chars-backward "ヽヾゝゞ〃ーんぁ-ゑ"))
-        ((eq type 'katakana)
-         ;; "ヲ" の前で止まった方が便利？
-         (skip-chars-backward "ヽヾゝゞ〃ーンァ-ヱ"))
-        ((eq type 'jisx0208-latin)
-         (skip-chars-backward "　-ｚ"))
-        ((eq type 'ascii)
-         (skip-chars-backward " -~"))))
+	 ;; "を" の前で止まった方が便利？
+	 (skip-chars-backward "ヽヾゝゞ〃ーんぁ-ゑ"))
+	((eq type 'katakana)
+	 ;; "ヲ" の前で止まった方が便利？
+	 (skip-chars-backward "ヽヾゝゞ〃ーンァ-ヱ"))
+	((eq type 'jisx0208-latin)
+	 (skip-chars-backward "　-ｚ"))
+	((eq type 'ascii)
+	 (skip-chars-backward " -~"))))
 
 (defun skk-what-char-type ()
   ;; 現在のポイントにある文字がどんな種類かを判別する。
   (save-match-data
     (cond ((looking-at "[ぁ-ん]") 'hiragana)
-          ((looking-at "[ァ-ン]") 'katakana)
-          ;; "ー" を除外している ("ー" は "〇" と "―" の間に入っている)。
-          ((looking-at "[　-〇―-ｚ]") 'jisx0208-latin)
-          ((looking-at "[ -~]") 'ascii)
-          (t 'unknown))))
+	  ((looking-at "[ァ-ン]") 'katakana)
+	  ;; "ー" を除外している ("ー" は "〇" と "―" の間に入っている)。
+	  ((looking-at "[　-〇―-ｚ]") 'jisx0208-latin)
+	  ((looking-at "[ -~]") 'ascii)
+	  (t 'unknown))))
 
 (defun skk-set-henkan-point-subr (&optional arg)
   "かなを入力した後で、ポイントに変換開始のマーク \(▽\) を付ける。
@@ -2597,8 +2598,8 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	   (delete-region skk-okurigana-start-point
 			  (1+ skk-okurigana-start-point)))
       (setq skk-okurigana nil
-            skk-okuri-char nil
-            skk-henkan-okurigana nil))))
+	    skk-okuri-char nil
+	    skk-henkan-okurigana nil))))
 
 ;;;; jisyo related functions
 (defun skk-purge-from-jisyo (&optional arg)
@@ -2726,120 +2727,120 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     (let (buffer-read-only)
       (goto-char (point-min))
       (if (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
-          nil
-        (skk-error
-         "送りありエントリのヘッダーがありません！ SKK 辞書のセーブを中止します"
-         "Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
+	  nil
+	(skk-error
+	 "送りありエントリのヘッダーがありません！ SKK 辞書のセーブを中止します"
+	 "Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
       ;; おっ、コメントフェイスが $ で終わらないぞ > hilit19.el
       (if (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
-          nil
-        (skk-error
-         "送りなしエントリのヘッダーがありません ！ SKK 辞書のセーブを中止します"
-         "Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
+	  nil
+	(skk-error
+	 "送りなしエントリのヘッダーがありません ！ SKK 辞書のセーブを中止します"
+	 "Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
     (write-region-as-coding-system
      (skk-find-coding-system skk-jisyo-code)
      1 (point-max) file nil 'nomsg)))
 
 (defun skk-check-size-and-do-save-jisyo (new-file)
   (let ((new-size (nth 7 (file-attributes new-file)))
-        old-size)
+	old-size)
     (if (= new-size 0)
-        (progn
-          (delete-file new-file)
-          (skk-error "SKK 辞書が空になっています！ 辞書のセーブを中止します"
-                     "Null SKK jisyo!  Stop saving jisyo")))
+	(progn
+	  (delete-file new-file)
+	  (skk-error "SKK 辞書が空になっています！ 辞書のセーブを中止します"
+		     "Null SKK jisyo!  Stop saving jisyo")))
     (if (or (not skk-compare-jisyo-size-when-saving)
-            ;; 旧辞書とのサイズ比較を行なわない。
-            (progn
-              ;; (1)skk-jisyo がないか、
-              ;; (2)new-file と skk-jisyo が同一のサイズか
-              ;;    (skk-(aux-)large-jisyo から新規の単語を読み込まなかったり、
-              ;;    新規単語の登録を行なわなかった場合はサイズが同じ)、
-              ;; (3)new-file の方が大きい
-              ;; 場合 (上記の 3 通りであればいずれも正常)。
-              (setq old-size (nth 7 (file-attributes skk-jisyo)))
-              (or (not old-size)
-                  (>= new-size old-size))))
-        (skk-make-new-jisyo new-file)
+	    ;; 旧辞書とのサイズ比較を行なわない。
+	    (progn
+	      ;; (1)skk-jisyo がないか、
+	      ;; (2)new-file と skk-jisyo が同一のサイズか
+	      ;;    (skk-(aux-)large-jisyo から新規の単語を読み込まなかったり、
+	      ;;    新規単語の登録を行なわなかった場合はサイズが同じ)、
+	      ;; (3)new-file の方が大きい
+	      ;; 場合 (上記の 3 通りであればいずれも正常)。
+	      (setq old-size (nth 7 (file-attributes skk-jisyo)))
+	      (or (not old-size)
+		  (>= new-size old-size))))
+	(skk-make-new-jisyo new-file)
       ;; yes-or-no-p に回答し、newline すると、this-command が変ってしまう。
       (let (this-command this-command-char last-command last-command-char)
-        (if (skk-yes-or-no-p
-             (format
-              "skk-jisyo が %dbytes 小さくなりますが、セーブして良いですか？"
-              (- old-size new-size))
-             (format
-              "New %s will be %dbytes smaller.  Save anyway?"
-              skk-jisyo (- old-size new-size)))
-            ;; とにかくセーブ。
-            (skk-make-new-jisyo new-file)
-          ;; セーブとり止め。
-          (delete-file new-file)
-          (with-output-to-temp-buffer "*SKK warning*"
-            (if skk-japanese-message-and-error
-                (progn
-                  (princ "セーブしようとする辞書のサイズが元のものよりも小さなってしまうので、")
-                  (terpri)
-                  (princ "セーブを途中で中止しました。辞書のサイズが小さくなった原因には例え")
-                  (terpri)
-                  (princ "ば、")
-                  (terpri)
-                  (terpri)
-                  (princ "    ・M-x skk-purge-from-jisyo を実行した。")
-                  (terpri)
-                  (terpri)
-                  (princ "    ・.skk-jisyo の漢字コードと、\" *.skk-jisyo*\" バッファの漢字コード")
-                  (terpri)
-                  (princ "      が異なっている。")
-                  (terpri)
-                  (terpri)
-                  (princ "    ・\" *.skk-jisyo*\" バッファを自分で編集した。")
-                  (terpri)
-                  (terpri)
-                  (princ "などが考えられます (最初の 2 つが原因であれば、異常ではありません。")
-                  (terpri)
-                  (princ "最後の場合は、あなたがどのような編集をしたかによります)。原因を確認")
-                  (terpri)
-                  (princ "後、慎重に辞書のセーブを行なうことをお勧めします。")
-                  (terpri)
-                  (terpri)
-                  (princ "元の辞書を再度読み込むには、")
-                  (terpri)
-                  (terpri)
-                  (princ "    M-x skk-reread-private-jisyo")
-                  (terpri)
-                  (terpri)
-                  (princ "を実行して下さい。"))
-              (princ "As size of your private JISYO to be saved is smaller than the")
-              (terpri)
-              (princ "original, we have stopped saving JISYO.  For example, the following")
-              (terpri)
-              (princ "condition makes a smaller private JISYO;")
-              (terpri)
-              (terpri)
-              (princ "    (a)You executed M-x skk-purge-from-jisyo,")
-              (terpri)
-              (terpri)
-              (princ "    (b)Kanji code of .skk-jisyo is different from the one of")
-              (terpri)
-              (princ "       \" *.skk-jisyo*\" buffer, or")
-              (terpri)
-              (terpri)
-              (princ "    (c)You edited \" *.skk-jisyo*\" buffer manually.")
-              (terpri)
-              (terpri)
-              (princ "The first two conditions are not strange, but the last one depends on")
-              (terpri)
-              (princ "how you edited JISYO.  We strongly recommend to save JISYO")
-              (terpri)
-              (princ "carefully after checking what causes this.")
-              (terpri)
-              (princ "If you want to reread your original private JISYO, type")
-              (terpri)
-              (terpri)
-              (princ "    M-x skk-reread-private-jisyo")
-              (terpri)))
-          (skk-error "SKK 辞書のセーブを中止しました！"
-                     "Stop saving SKK jisyo!"))))))
+	(if (skk-yes-or-no-p
+	     (format
+	      "skk-jisyo が %dbytes 小さくなりますが、セーブして良いですか？"
+	      (- old-size new-size))
+	     (format
+	      "New %s will be %dbytes smaller.  Save anyway?"
+	      skk-jisyo (- old-size new-size)))
+	    ;; とにかくセーブ。
+	    (skk-make-new-jisyo new-file)
+	  ;; セーブとり止め。
+	  (delete-file new-file)
+	  (with-output-to-temp-buffer "*SKK warning*"
+	    (if skk-japanese-message-and-error
+		(progn
+		  (princ "セーブしようとする辞書のサイズが元のものよりも小さなってしまうので、")
+		  (terpri)
+		  (princ "セーブを途中で中止しました。辞書のサイズが小さくなった原因には例え")
+		  (terpri)
+		  (princ "ば、")
+		  (terpri)
+		  (terpri)
+		  (princ "    ・M-x skk-purge-from-jisyo を実行した。")
+		  (terpri)
+		  (terpri)
+		  (princ "    ・.skk-jisyo の漢字コードと、\" *.skk-jisyo*\" バッファの漢字コード")
+		  (terpri)
+		  (princ "      が異なっている。")
+		  (terpri)
+		  (terpri)
+		  (princ "    ・\" *.skk-jisyo*\" バッファを自分で編集した。")
+		  (terpri)
+		  (terpri)
+		  (princ "などが考えられます (最初の 2 つが原因であれば、異常ではありません。")
+		  (terpri)
+		  (princ "最後の場合は、あなたがどのような編集をしたかによります)。原因を確認")
+		  (terpri)
+		  (princ "後、慎重に辞書のセーブを行なうことをお勧めします。")
+		  (terpri)
+		  (terpri)
+		  (princ "元の辞書を再度読み込むには、")
+		  (terpri)
+		  (terpri)
+		  (princ "    M-x skk-reread-private-jisyo")
+		  (terpri)
+		  (terpri)
+		  (princ "を実行して下さい。"))
+	      (princ "As size of your private JISYO to be saved is smaller than the")
+	      (terpri)
+	      (princ "original, we have stopped saving JISYO.  For example, the following")
+	      (terpri)
+	      (princ "condition makes a smaller private JISYO;")
+	      (terpri)
+	      (terpri)
+	      (princ "    (a)You executed M-x skk-purge-from-jisyo,")
+	      (terpri)
+	      (terpri)
+	      (princ "    (b)Kanji code of .skk-jisyo is different from the one of")
+	      (terpri)
+	      (princ "       \" *.skk-jisyo*\" buffer, or")
+	      (terpri)
+	      (terpri)
+	      (princ "    (c)You edited \" *.skk-jisyo*\" buffer manually.")
+	      (terpri)
+	      (terpri)
+	      (princ "The first two conditions are not strange, but the last one depends on")
+	      (terpri)
+	      (princ "how you edited JISYO.  We strongly recommend to save JISYO")
+	      (terpri)
+	      (princ "carefully after checking what causes this.")
+	      (terpri)
+	      (princ "If you want to reread your original private JISYO, type")
+	      (terpri)
+	      (terpri)
+	      (princ "    M-x skk-reread-private-jisyo")
+	      (terpri)))
+	  (skk-error "SKK 辞書のセーブを中止しました！"
+		     "Stop saving SKK jisyo!"))))))
 
 (defun skk-make-temp-jisyo ()
   ;; SKK 個人辞書保存のための作業用のファイルを作り、ファイルのモードを
@@ -2877,17 +2878,17 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (interactive "P")
   (let ((buf (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
     (if (and buf
-             (or force
-                 (skk-yes-or-no-p "編集中の個人辞書を破棄しますか？"
-                                  "Discard your editing private JISYO?")))
-        (progn
-          (with-current-buffer buf
-            (set-buffer-modified-p nil)
-            (kill-buffer buf))
-          (or
-           (skk-get-jisyo-buffer skk-jisyo 'nomsg)
-           (skk-error "個人辞書を再読み込みすることができません！"
-                      "Cannot reread private JISYO!"))))))
+	     (or force
+		 (skk-yes-or-no-p "編集中の個人辞書を破棄しますか？"
+				  "Discard your editing private JISYO?")))
+	(progn
+	  (with-current-buffer buf
+	    (set-buffer-modified-p nil)
+	    (kill-buffer buf))
+	  (or
+	   (skk-get-jisyo-buffer skk-jisyo 'nomsg)
+	   (skk-error "個人辞書を再読み込みすることができません！"
+		      "Cannot reread private JISYO!"))))))
 
 (defun skk-record-jisyo-data ()
   "辞書データを skk-record-file にセーブする。"
@@ -2898,12 +2899,12 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (goto-char (point-min))
       (insert
        (format
-        "%s  登録: %3d  確定: %4d  確定率: %3d%%  語数:%6d\n"
-        (current-time-string)
-        skk-touroku-count skk-kakutei-count
-        (/ (* 100 (- skk-kakutei-count skk-touroku-count))
-           skk-kakutei-count)
-        (cond ((featurep 'skk-rdbms)
+	"%s  登録: %3d  確定: %4d  確定率: %3d%%  語数:%6d\n"
+	(current-time-string)
+	skk-touroku-count skk-kakutei-count
+	(/ (* 100 (- skk-kakutei-count skk-touroku-count))
+	   skk-kakutei-count)
+	(cond ((featurep 'skk-rdbms)
 	       ;; RDBMS を使えばもっと興味深い統計が取れるかもしれない
 	       ;; が、とりあえず語数だけ数えて入れておく。
 	       (skk-rdbms-count-jisyo-candidates skk-rdbms-private-jisyo-table))
@@ -2913,12 +2914,12 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	      (t (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
 		   (- (count-lines (point-min) (point-max)) 2))))))
       (if (integerp skk-keep-record)
-          (progn
-            (setq selective-display nil)
-            (widen)
-            (goto-char (point-min))
-            (forward-line skk-keep-record)
-            (delete-region (point) (point-max)))))
+	  (progn
+	    (setq selective-display nil)
+	    (widen)
+	    (goto-char (point-min))
+	    (forward-line skk-keep-record)
+	    (delete-region (point) (point-max)))))
     (setq skk-touroku-count 0 skk-kakutei-count 0)))
 
 (defun skk-count-jisyo-candidates (file-or-table)
@@ -2953,36 +2954,36 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (with-current-buffer (find-file-noselect file)
     (save-match-data
       (let ((count 0)
-            (min (point-min))
-            (max (and (interactive-p) (point-max)))
-            (interactive-p (interactive-p)))
-        (goto-char min)
-        (if (or
-             ;; こちらは skk-save-point を使わず、ポイントを移動させる。
-             (not (re-search-forward "^;; okuri-ari entries.$" nil t nil))
-             (not
-              (skk-save-point
-                (re-search-forward "^;; okuri-nasi entries.$" nil t nil))))
-            (skk-error "このファイルは SKK 辞書ではありません"
-                       "This file is not a SKK dictionary"))
+	    (min (point-min))
+	    (max (and (interactive-p) (point-max)))
+	    (interactive-p (interactive-p)))
+	(goto-char min)
+	(if (or
+	     ;; こちらは skk-save-point を使わず、ポイントを移動させる。
+	     (not (re-search-forward "^;; okuri-ari entries.$" nil t nil))
+	     (not
+	      (skk-save-point
+	       (re-search-forward "^;; okuri-nasi entries.$" nil t nil))))
+	    (skk-error "このファイルは SKK 辞書ではありません"
+		       "This file is not a SKK dictionary"))
 	(beginning-of-line)
 	(while (looking-at ";")
 	  (forward-line 1)
 	  (beginning-of-line))
 	(search-forward " " nil t)
-        (while (search-forward "/" nil t)
-          (cond ((or (eolp) (looking-at "\\["))
-                 (forward-line 1)
-                 (beginning-of-line)
+	(while (search-forward "/" nil t)
+	  (cond ((or (eolp) (looking-at "\\["))
+		 (forward-line 1)
+		 (beginning-of-line)
 		 (while (looking-at ";")
 		   (forward-line 1)
 		   (beginning-of-line))
 		 (search-forward " " nil t))
-                (t
-                 (setq count (1+ count))))
-          (if interactive-p
-              (message "Counting jisyo candidates...%3d%% done"
-                       (/ (* 100 (- (point) min)) max))))
+		(t
+		 (setq count (1+ count))))
+	  (if interactive-p
+	      (message "Counting jisyo candidates...%3d%% done"
+		       (/ (* 100 (- (point) min)) max))))
 	count))))
 
 (defun skk-create-file (file &optional japanese english modes)
@@ -3009,44 +3010,44 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (let* ((inhibit-quit t)
 	     (code (skk-find-coding-system (if (consp file) (cdr file) skk-jisyo-code)))
 	     (file (if (consp file) (car file) file))
-             (jisyo-buf (concat " *" (file-name-nondirectory file)
-                               "*")))
-        ;; 辞書バッファとしてオープンされているなら、何もしない。
-        (or (get-buffer jisyo-buf)
-            (with-current-buffer (setq jisyo-buf (get-buffer-create jisyo-buf))
+	     (jisyo-buf (concat " *" (file-name-nondirectory file)
+				"*")))
+	;; 辞書バッファとしてオープンされているなら、何もしない。
+	(or (get-buffer jisyo-buf)
+	    (with-current-buffer (setq jisyo-buf (get-buffer-create jisyo-buf))
 	      (setq file (expand-file-name file))
-              (buffer-disable-undo jisyo-buf)
-              (auto-save-mode -1)
-              ;; ワーキングバッファのモードラインはアップデートされない？
-              ;;(make-local-variable 'line-number-mode)
-              ;;(make-local-variable 'column-number-mode)
-              ;;(setq column-number-mode nil
-              ;;      line-number-mode nil)
-              (setq buffer-read-only nil
-                    case-fold-search nil
-                    ;; buffer-file-name を nil にしておくと M-x compile など
+	      (buffer-disable-undo jisyo-buf)
+	      (auto-save-mode -1)
+	      ;; ワーキングバッファのモードラインはアップデートされない？
+	      ;;(make-local-variable 'line-number-mode)
+	      ;;(make-local-variable 'column-number-mode)
+	      ;;(setq column-number-mode nil
+	      ;;      line-number-mode nil)
+	      (setq buffer-read-only nil
+		    case-fold-search nil
+		    ;; buffer-file-name を nil にしておくと M-x compile など
 		    ;; 内部で save-some-buffers をコールしているコマンドを
 		    ;; 使ったときでもセーブするかどうかを尋ねてこなくなる。
-                    ;; buffer-file-name file
-                    ;; cache-long-line-scans nil
-                    ;; dabbrev のサーチとなるバッファにならないように存在しな
-                    ;; いモード名にしておく。実害のある副作用はないはず。
-                    major-mode 'skk-jisyo-mode
-                    mode-name "SKK dic")
-              (or nomsg
-                  (skk-message "SKK 辞書 %s をバッファに読み込んでいます..."
-                               "Inserting contents of %s ..."
-                               (file-name-nondirectory file)))
+		    ;; buffer-file-name file
+		    ;; cache-long-line-scans nil
+		    ;; dabbrev のサーチとなるバッファにならないように存在しな
+		    ;; いモード名にしておく。実害のある副作用はないはず。
+		    major-mode 'skk-jisyo-mode
+		    mode-name "SKK dic")
+	      (or nomsg
+		  (skk-message "SKK 辞書 %s をバッファに読み込んでいます..."
+			       "Inserting contents of %s ..."
+			       (file-name-nondirectory file)))
 	      (let (enable-character-translation enable-character-unification)
 		(insert-file-contents-as-coding-system code file))
-              (or nomsg
-                  (skk-message
-                   "SKK 辞書 %s をバッファに読み込んでいます...完了！"
-                   "Inserting contents of %s ...done"
-                   (file-name-nondirectory file)))
-              (skk-setup-jisyo-buffer)
-              (set-buffer-modified-p nil)
-              jisyo-buf)))))
+	      (or nomsg
+		  (skk-message
+		   "SKK 辞書 %s をバッファに読み込んでいます...完了！"
+		   "Inserting contents of %s ...done"
+		   (file-name-nondirectory file)))
+	      (skk-setup-jisyo-buffer)
+	      (set-buffer-modified-p nil)
+	      jisyo-buf)))))
 
 (defun skk-search ()
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
@@ -3067,30 +3068,30 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; セージを出力しないようにする。
   (let ((jisyo-buffer (skk-get-jisyo-buffer file nomsg)))
     (if jisyo-buffer
-        ;; skk-henkan-key と skk-henkan-okurigana はカレントバッファのローカル
-        ;; 値。
-        (let ((okurigana (or skk-henkan-okurigana skk-okuri-char))
-              (midasi
-               (if skk-use-numeric-conversion
+	;; skk-henkan-key と skk-henkan-okurigana はカレントバッファのローカル
+	;; 値。
+	(let ((okurigana (or skk-henkan-okurigana skk-okuri-char))
+	      (midasi
+	       (if skk-use-numeric-conversion
 		   ;; skk-henkan-key が nil のことがある。何故?
-                   (skk-num-compute-henkan-key skk-henkan-key)
-                 skk-henkan-key))
+		   (skk-num-compute-henkan-key skk-henkan-key)
+		 skk-henkan-key))
 	      (henkan-buffer (current-buffer))
-              entry-list entry)
-          (with-current-buffer jisyo-buffer
-            (setq skk-henkan-key midasi
-                  entry-list (skk-search-jisyo-file-1 okurigana limit))
-            (if entry-list
-                (progn
-                  (setq entry
-                        (cond ((and okurigana skk-henkan-okuri-strictly)
-                               ;; 送り仮名が同一のエントリのみを返す。
-                               (nth 2 entry-list))
-                              ((and okurigana skk-henkan-strict-okuri-precedence)
-                               ;; 送り仮名が同一のエントリのうしろに、
-                               ;; その他のエントリをつけてかえす。
-                               (skk-nunion (nth 2 entry-list) (car entry-list)))
-                              (t (car entry-list))))
+	      entry-list entry)
+	  (with-current-buffer jisyo-buffer
+	    (setq skk-henkan-key midasi
+		  entry-list (skk-search-jisyo-file-1 okurigana limit))
+	    (if entry-list
+		(progn
+		  (setq entry
+			(cond ((and okurigana skk-henkan-okuri-strictly)
+			       ;; 送り仮名が同一のエントリのみを返す。
+			       (nth 2 entry-list))
+			      ((and okurigana skk-henkan-strict-okuri-precedence)
+			       ;; 送り仮名が同一のエントリのうしろに、
+			       ;; その他のエントリをつけてかえす。
+			       (skk-nunion (nth 2 entry-list) (car entry-list)))
+			      (t (car entry-list))))
 		  (and skk-search-end-function
 		       (setq entry (funcall skk-search-end-function
 					    henkan-buffer midasi okurigana entry)))
@@ -3101,30 +3102,30 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; 見出し語についてのエントリの情報を返す。
   ;; DELETE が non-nil であれば、MIDASI にマッチするエントリを削除する。
   (let ((key (concat "\n" skk-henkan-key " /"))
-        min max size p)
+	min max size p)
     (save-match-data
       ;; skk-okuri-ari-min と skk-okuri-ari-max は辞書バッファのローカル値。
       (if okurigana
-          (setq min skk-okuri-ari-min
-                max skk-okuri-ari-max)
-        (setq min skk-okuri-nasi-min
-              max (point-max)))
+	  (setq min skk-okuri-ari-min
+		max skk-okuri-ari-max)
+	(setq min skk-okuri-nasi-min
+	      max (point-max)))
       (if (> limit 0)
-          (while (progn (setq size (- max min)) (> size limit))
-            (goto-char (+ min (/ size 2)))
-            (beginning-of-line)
-            (setq p (point))
-            ;; 送りありなら逆順に比較を行なう。
-            (if
-                (if okurigana
-                    (string< (buffer-substring-no-properties
+	  (while (progn (setq size (- max min)) (> size limit))
+	    (goto-char (+ min (/ size 2)))
+	    (beginning-of-line)
+	    (setq p (point))
+	    ;; 送りありなら逆順に比較を行なう。
+	    (if
+		(if okurigana
+		    (string< (buffer-substring-no-properties
 			      p (1- (search-forward  " ")))
-                             skk-henkan-key)
-                  (string< skk-henkan-key
-                           (buffer-substring-no-properties
+			     skk-henkan-key)
+		  (string< skk-henkan-key
+			   (buffer-substring-no-properties
 			    p (1- (search-forward " ")))))
-                (setq max p)
-              (setq min p))))
+		(setq max p)
+	      (setq min p))))
       (goto-char min)
       ;; key が検索開始地点にあった場合でも検索可能なように一文字戻る。key が
       ;; その先頭部分に "\n" を含んでいることに注意。
@@ -3177,33 +3178,33 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			  "/") nil nil nil)
     (save-match-data
       (let ((stage 1) (q1 (queue-create)) (q2 (queue-create))
-            (q3 (queue-create)) (q4 (queue-create))
-            (okuri-key (concat "\[" okurigana)) item headchar)
-        (catch 'exit
-          (while (not (eolp))
-            (setq item (buffer-substring-no-properties
+	    (q3 (queue-create)) (q4 (queue-create))
+	    (okuri-key (concat "\[" okurigana)) item headchar)
+	(catch 'exit
+	  (while (not (eolp))
+	    (setq item (buffer-substring-no-properties
 			(point)
 			(1- (search-forward "/")))
-                  headchar (if (string= item "") (int-char 0) (skk-str-ref item 0)))
-            (cond ((and (eq headchar ?\[) (<= stage 2))
-                   (if (string= item okuri-key)
-                       (progn (queue-enqueue q2 item)
-                              (setq stage 3))
-                     (setq stage 2)
-                     (queue-enqueue q2 item)))
-                  ((= stage 1)
-                   (queue-enqueue q1 item))
-                  ((= stage 2)
-                   (queue-enqueue q2 item))
-                  ((= stage 3)
-                   (if (eq headchar ?\]) ; ?\]
-                       (progn (setq stage 4)
-                              (queue-enqueue q4 item))
-                     (queue-enqueue q3 item)))
-                  ((= stage 4)
-                   (queue-enqueue q4 item)))))
-        ;;        entry1          entry2        entry3          entry4
-        (list (queue-all q1) (queue-all q2) (queue-all q3) (queue-all q4))))))
+		  headchar (if (string= item "") (int-char 0) (skk-str-ref item 0)))
+	    (cond ((and (eq headchar ?\[) (<= stage 2))
+		   (if (string= item okuri-key)
+		       (progn (queue-enqueue q2 item)
+			      (setq stage 3))
+		     (setq stage 2)
+		     (queue-enqueue q2 item)))
+		  ((= stage 1)
+		   (queue-enqueue q1 item))
+		  ((= stage 2)
+		   (queue-enqueue q2 item))
+		  ((= stage 3)
+		   (if (eq headchar ?\]) ; ?\]
+		       (progn (setq stage 4)
+			      (queue-enqueue q4 item))
+		     (queue-enqueue q3 item)))
+		  ((= stage 4)
+		   (queue-enqueue q4 item)))))
+	;;        entry1          entry2        entry3          entry4
+	(list (queue-all q1) (queue-all q2) (queue-all q3) (queue-all q4))))))
 
 (defun skk-nunion (x y)
   ;; X と Y の和集合を作る。等しいかどうかの比較は、equal で行われる。X に Y
@@ -3343,83 +3344,83 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; 既存エントリから計算した entry[1-4] の値と、今回の変換の結果 word とをマー
   ;; ジして、新たなエントリを計算し、挿入する。
   (let ((entry1 (car old-entry-list)) (entry2 (nth 1 old-entry-list))
-        (entry3 (nth 2 old-entry-list)) (entry4 (nth 3 old-entry-list)))
+	(entry3 (nth 2 old-entry-list)) (entry4 (nth 3 old-entry-list)))
     (if (not purge)
-        ;; entry1 の先頭のエントリを word にする。
-        (setq entry1 (cons word (delete word entry1)))
+	;; entry1 の先頭のエントリを word にする。
+	(setq entry1 (cons word (delete word entry1)))
       ;; 送りなし、もしくは skk-henkan-okuri-strictly と
       ;; skk-henkan-strict-okuri-precedence が nil の場合。
       (if (or (not okurigana) (not (or skk-henkan-okuri-strictly
 				       skk-henkan-strict-okuri-precedence)))
-          ;; entry1 を purge。共用辞書にあるエントリだったら、
-          ;; skk-ignore-dic-word でクォートして次の変換から出力しないようにす
-          ;; る。共用辞書にない文字列は word を消す。
-          (if (skk-public-jisyo-has-entry-p okurigana word)
-              (setq entry1 (skk-compose-ignore-entry entry1 word))
-            (setq entry1 (delete word entry1)))
-        ;; 送りありで、かつ skk-henkan-okuri-strictly か
+	  ;; entry1 を purge。共用辞書にあるエントリだったら、
+	  ;; skk-ignore-dic-word でクォートして次の変換から出力しないようにす
+	  ;; る。共用辞書にない文字列は word を消す。
+	  (if (skk-public-jisyo-has-entry-p okurigana word)
+	      (setq entry1 (skk-compose-ignore-entry entry1 word))
+	    (setq entry1 (delete word entry1)))
+	;; 送りありで、かつ skk-henkan-okuri-strictly か
 	;; skk-henkan-strict-okuri-precedence が non-nil の場合で、かつ
-        ;; この word とペアになる送り仮名が okurigana しかないとき。
-        (if (and okurigana (or skk-henkan-okuri-strictly
+	;; この word とペアになる送り仮名が okurigana しかないとき。
+	(if (and okurigana (or skk-henkan-okuri-strictly
 			       skk-henkan-strict-okuri-precedence)
-                 (null (member word entry2)) (null (member word entry4)))
-            (setq entry1 (delete word entry1))
-          ;; その他の場合は何もしない。
-        )))
+		 (null (member word entry2)) (null (member word entry4)))
+	    (setq entry1 (delete word entry1))
+	  ;; その他の場合は何もしない。
+	  )))
     (if (null entry1)
-        ;; entry1 が null であれば、もう何もすることはない。
-        nil
+	;; entry1 が null であれば、もう何もすることはない。
+	nil
       (goto-char (if okurigana skk-okuri-ari-min skk-okuri-nasi-min))
       (insert "\n" skk-henkan-key " /")
       ;; entry1 -- 全エントリ (送りなしの場合) or 漢字部分の全エントリ (送りあ
       ;; りの場合)
       (insert (mapconcat 'skk-quote-char entry1 "/") "/")
       (if (not okurigana)
-          nil
-        ;; entry2 以降のエントリを処理するのは、送りありの場合のみ。
-        ;; 先に挿入すべきエントリを計算、調整する。
-        (if entry3
-            (if (not purge)
-                (setq entry3 (cons word (delete word entry3)))
-              (setq entry3 (delete word entry3))
-              (if (null entry3)
-                  ;; entry3 として挿入するものが全くなければ、"/[く/]/" のよ
-                  ;; うな送り仮名のみのエントリを作らないようにする (必要で
-                  ;; あれば、entry2 の最後方と) entry4 の先頭のエントリ "]"
-                  ;; を削除。
-                  (let ((last2 (nthcdr (- (length entry2) 2) entry2)))
-                    ;; entry2 の最後方は常に "[送り仮名" とは限らない。
-                    (and (string= (nth 1 last2) (concat "[" okurigana))
+	  nil
+	;; entry2 以降のエントリを処理するのは、送りありの場合のみ。
+	;; 先に挿入すべきエントリを計算、調整する。
+	(if entry3
+	    (if (not purge)
+		(setq entry3 (cons word (delete word entry3)))
+	      (setq entry3 (delete word entry3))
+	      (if (null entry3)
+		  ;; entry3 として挿入するものが全くなければ、"/[く/]/" のよ
+		  ;; うな送り仮名のみのエントリを作らないようにする (必要で
+		  ;; あれば、entry2 の最後方と) entry4 の先頭のエントリ "]"
+		  ;; を削除。
+		  (let ((last2 (nthcdr (- (length entry2) 2) entry2)))
+		    ;; entry2 の最後方は常に "[送り仮名" とは限らない。
+		    (and (string= (nth 1 last2) (concat "[" okurigana))
 			 (setcdr last2 nil))
-                    ;; entry4 の先頭は常に "]"。
-                    (setq entry4 (cdr entry4)))))
-          ;; entry3 が null であれば
-          (if (or skk-process-okuri-early purge)
-              ;; skk-process-okuri-early が non-nil なら送り仮名が分らないので
-              ;; 何もしない。-- 今回使用した送り仮名がわからないまま変換してい
-              ;; るので、全てのエントリが entry2 に入っている -- entry3,
-              ;; entry4 は null。
-              ;; entry3 として挿入するものが全くなければ、何もしない -- entry3
-              ;; が purge 前から null なら、entry2 の末尾は "[" でないし、
-              ;; entry4 は null だから entry[234] の操作は不要。
-              nil
-            (setq entry2 (nconc entry2 (list (concat "[" okurigana)))
-                  entry3 (list word)
-                  ;; purge 前から entry3 が null だったのだから entry4 も null。
-                  entry4 (list "]")))))
+		    ;; entry4 の先頭は常に "]"。
+		    (setq entry4 (cdr entry4)))))
+	  ;; entry3 が null であれば
+	  (if (or skk-process-okuri-early purge)
+	      ;; skk-process-okuri-early が non-nil なら送り仮名が分らないので
+	      ;; 何もしない。-- 今回使用した送り仮名がわからないまま変換してい
+	      ;; るので、全てのエントリが entry2 に入っている -- entry3,
+	      ;; entry4 は null。
+	      ;; entry3 として挿入するものが全くなければ、何もしない -- entry3
+	      ;; が purge 前から null なら、entry2 の末尾は "[" でないし、
+	      ;; entry4 は null だから entry[234] の操作は不要。
+	      nil
+	    (setq entry2 (nconc entry2 (list (concat "[" okurigana)))
+		  entry3 (list word)
+		  ;; purge 前から entry3 が null だったのだから entry4 も null。
+		  entry4 (list "]")))))
       (if entry2
-          ;; entry2 -- 今回使用しなかった送り仮名を使う漢字の候補群 + "[" + 今
-          ;; 回使用した送り仮名 (送り仮名のみ。その送り仮名を使用する漢字の候
-          ;; 補群は、entry3 に含まれる)。
-          (progn
-            (insert (mapconcat 'skk-quote-char entry2 "/") "/")
-            ;; entry2 が null なら entry3 も null。
-            (and entry3
+	  ;; entry2 -- 今回使用しなかった送り仮名を使う漢字の候補群 + "[" + 今
+	  ;; 回使用した送り仮名 (送り仮名のみ。その送り仮名を使用する漢字の候
+	  ;; 補群は、entry3 に含まれる)。
+	  (progn
+	    (insert (mapconcat 'skk-quote-char entry2 "/") "/")
+	    ;; entry2 が null なら entry3 も null。
+	    (and entry3
 		 ;; entry3 -- 今回使用した送り仮名を使う全漢字エントリ
 		 (insert (mapconcat 'skk-quote-char entry3 "/") "/"))
-            ;; purge で entry3 が null になった場合は entry4 が残っているとき
-            ;; がある。
-            (and entry4
+	    ;; purge で entry3 が null になった場合は entry4 が残っているとき
+	    ;; がある。
+	    (and entry4
 		 ;; entry4 -- "]" + 他の送り仮名を使う全漢字エントリ (entry2 の
 		 ;; 残り)。
 		 (insert (mapconcat 'skk-quote-char entry4 "/") "/")))))))
@@ -3429,20 +3430,20 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; 評価したときにその文字となるような Lisp コードを返す。
   (save-match-data
     (if (and word
-             (string-match "[/\n\r\"]" word)
-             ;; we should not quote WORD if it is a symbolic expression
-             (not (skk-lisp-prog-p word))
+	     (string-match "[/\n\r\"]" word)
+	     ;; we should not quote WORD if it is a symbolic expression
+	     (not (skk-lisp-prog-p word))
 	     (not (string-match ";" word))) ; has an annotation
 	(format "(concat \"%s\")"
-                (mapconcat (function (lambda (c)
-                                       (cond ((eq c ?/) "\\057")
-                                             ((eq c ?\n) "\\n")
-                                             ((eq c ?\r) "\\r")
-                                             ((eq c ?\") "\\\"")
-                                             ((eq c ?\\) "\\\\")
-                                             (t (char-to-string c)))))
-                           ;; 文字列を対応する char のリストに分解する。
-                           (append word nil) ""))
+		(mapconcat (function (lambda (c)
+				       (cond ((eq c ?/) "\\057")
+					     ((eq c ?\n) "\\n")
+					     ((eq c ?\r) "\\r")
+					     ((eq c ?\") "\\\"")
+					     ((eq c ?\\) "\\\\")
+					     (t (char-to-string c)))))
+			   ;; 文字列を対応する char のリストに分解する。
+			   (append word nil) ""))
       word)))
 
 (defun skk-public-jisyo-has-entry-p (okurigana word)
@@ -3450,7 +3451,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; non-nil を返す。プライベート辞書のバッファでコールされる。
   (let (fn skk-henkan-okuri-strictly skk-henkan-strict-okuri-precedence)
     (if okurigana
-        (setq skk-henkan-okurigana okurigana))
+	(setq skk-henkan-okurigana okurigana))
     ;; skkserv を使う設定になっていたら、skk-server.el をロードする。
     (and (not (featurep 'skk-server))
 	 (or (and (boundp 'skk-servers-list) skk-servers-list)
@@ -3491,18 +3492,18 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     (setq l entry)
     (save-match-data
       (while l
-        (setq e (car l)
-              l (cdr l))
-        (and (string-match "(skk-ignore-dic-word +\\([^\)]+\\))" e)
+	(setq e (car l)
+	      l (cdr l))
+	(and (string-match "(skk-ignore-dic-word +\\([^\)]+\\))" e)
 	     (setq arg (concat arg
 			       (substring e (1+ (match-beginning 1))
 					  (1- (match-end 1)))
 			       "\" \"")
 		   entry (delq e entry))))
       (if add
-          (setq arg (if arg (concat arg add) add))
-        ;; 末尾の " \"" を切り落とす。
-        (setq arg (substring arg 0 -2)))
+	  (setq arg (if arg (concat arg add) add))
+	;; 末尾の " \"" を切り落とす。
+	(setq arg (substring arg 0 -2)))
       (cons (concat "(skk-ignore-dic-word \"" arg "\")") entry))))
 
 (defun skk-katakana-region (start end &optional vcontract)
@@ -3561,7 +3562,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	(goto-char (point-min))
 	(while (and
 		(not (eobp))
-		(or 
+		(or
 		 ;; "ー" では文字種別が判別できないので、ポイントを進める。
 		 (looking-at "ー")
 		 (eq 'unknown (setq char (skk-what-char-type)))))
@@ -3707,7 +3708,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (let (tmp tail)
     (or (> offset 0) (error "Cannot splice in!"))
     (setq tmp (nthcdr (1- offset) org)
-          tail (cdr tmp))
+	  tail (cdr tmp))
     (setcdr tmp nil) ;cut off
     (setcdr tmp (if tail (nconc spliced tail) spliced))
     org))
@@ -3753,17 +3754,17 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; face を作りたい人は hilit-lookup-face-create 等を使って下さい。
   (or (car (memq face (face-list)))
       (let ((face-name (symbol-name face)))
-        (setq face (make-face face))
-        (save-match-data
-          (if (not (string-match "/" face-name))
-              (set-face-foreground face face-name)
-            (set-face-foreground
-             face
-             (substring face-name 0 (match-beginning 0)))
-            (set-face-background
-             face
-             (substring face-name (1+ (match-beginning 0)))))
-          face))))
+	(setq face (make-face face))
+	(save-match-data
+	  (if (not (string-match "/" face-name))
+	      (set-face-foreground face face-name)
+	    (set-face-foreground
+	     face
+	     (substring face-name 0 (match-beginning 0)))
+	    (set-face-background
+	     face
+	     (substring face-name (1+ (match-beginning 0)))))
+	  face))))
 
 ;; skk-auto.el, skk-rdbms.el の両方で使うので、skk-auto.el より移動した。
 (defun skk-remove-common (word)
@@ -3774,32 +3775,32 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; skk-auto-okuri-process の値が non-nil であるときにこの関数を使用する。
   ;; 変換が行なわれたバッファでコールされる (辞書バッファではない)。
   (if (and (not (skk-numeric-p)) (not skk-abbrev-mode)
-           (or skk-henkan-in-minibuff-flag
-               (and (<= skk-okuri-index-min skk-henkan-count)
-                    (<= skk-henkan-count skk-okuri-index-max))))
+	   (or skk-henkan-in-minibuff-flag
+	       (and (<= skk-okuri-index-min skk-henkan-count)
+		    (<= skk-henkan-count skk-okuri-index-max))))
       (let ((midasi skk-henkan-key)
-            (midasi-len (skk-str-length skk-henkan-key))
-            (word-len (skk-str-length word))
-            (cont t)
-            char pos pos2 midasi-tail word-tail new-word okuri-first
-            new-skk-okuri-char new-skk-henkan-key)
-        (if (not (and (>= midasi-len 2) (>= word-len 2)))
-            nil
-          ;; check if both midasi and word end with the same ascii char.
-          (if (and (skk-ascii-char-p (skk-str-ref midasi (1- midasi-len)))
+	    (midasi-len (skk-str-length skk-henkan-key))
+	    (word-len (skk-str-length word))
+	    (cont t)
+	    char pos pos2 midasi-tail word-tail new-word okuri-first
+	    new-skk-okuri-char new-skk-henkan-key)
+	(if (not (and (>= midasi-len 2) (>= word-len 2)))
+	    nil
+	  ;; check if both midasi and word end with the same ascii char.
+	  (if (and (skk-ascii-char-p (skk-str-ref midasi (1- midasi-len)))
 		   (eq (skk-str-ref midasi (1- midasi-len))
 		       (skk-str-ref word (1- word-len))))
-              ;; if so chop off the char from midasi and word.
+	      ;; if so chop off the char from midasi and word.
 	      ;; assume size of an ASCII char is always 1.
-              (setq midasi (substring midasi 0 -1)
-                    midasi-len (1- midasi-len)
-                    word (substring word 0 -1)
-                    word-len (1- word-len)))
-          (setq midasi-tail (skk-substring midasi (1- midasi-len)
+	      (setq midasi (substring midasi 0 -1)
+		    midasi-len (1- midasi-len)
+		    word (substring word 0 -1)
+		    word-len (1- word-len)))
+	  (setq midasi-tail (skk-substring midasi (1- midasi-len)
 					   midasi-len)
 		word-tail (skk-substring word (1- word-len)
 					 word-len))
-          (if (not (and (string= midasi-tail word-tail)
+	  (if (not (and (string= midasi-tail word-tail)
 			(or (and (skk-string<= "ぁ" midasi-tail)
 				 (skk-string<= midasi-tail "ん"))
 			    (member midasi-tail '("、" "。" "，" "．")))))
@@ -3957,19 +3958,19 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	 (cond ((skk-get-prefix skk-current-rule-tree)
 		(skk-erase-prefix 'clean))
 	       (t ad-do-it)))
-        (skk-henkan-active
-         (setq skk-henkan-count 0)
-         (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
-             (let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
-               (skk-previous-candidate)
-               ;; ここでは delete-backward-char に第二引数を渡さない方がベター？
-               (delete-backward-char count))
-           (skk-previous-candidate)))
+	(skk-henkan-active
+	 (setq skk-henkan-count 0)
+	 (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
+	     (let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
+	       (skk-previous-candidate)
+	       ;; ここでは delete-backward-char に第二引数を渡さない方がベター？
+	       (delete-backward-char count))
+	   (skk-previous-candidate)))
 	(t (skk-erase-prefix 'clean)
 	   (and (> (point) skk-henkan-start-point)
 		(delete-region (point) skk-henkan-start-point))
 	   (skk-kakutei))))
-	
+
 (skk-defadvice newline (around skk-ad activate)
   "skk-egg-like-newline が non-nil だったら、変換中の newline で確定のみ行い、改行しない。"
   (interactive "*P")
@@ -3977,9 +3978,9 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       ad-do-it
     (let (
 	  ;;(arg (ad-get-arg 0))
-          ;; skk-kakutei を実行すると skk-henkan-on の値が無条件に nil になる
-          ;; ので、保存しておく必要がある。
-          (no-newline (and skk-egg-like-newline skk-henkan-on))
+	  ;; skk-kakutei を実行すると skk-henkan-on の値が無条件に nil になる
+	  ;; ので、保存しておく必要がある。
+	  (no-newline (and skk-egg-like-newline skk-henkan-on))
 	  (auto-fill-function (and (interactive-p) auto-fill-function)))
       ;; fill されても nil が帰ってくる :-<
       ;;(if (skk-kakutei)

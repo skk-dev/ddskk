@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcode.el,v 1.5 2001/07/19 16:50:48 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.6 2001/08/31 19:31:18 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/19 16:50:48 $
+;; Last Modified: $Date: 2001/08/31 19:31:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -31,18 +31,18 @@
 ;; TUT-code was developed by Hajime Ohiwa <ohiwa@sfc.keio.ac.jp> and
 ;; Takaaki Takashima of Toyohashi University of Technology in 1982.
 ;; TUT-code is a kind of direct input method of Japanese with two
-;; strokes.  You can pronounce it `Tea You Tea' or `TUT' like 
+;; strokes.  You can pronounce it `Tea You Tea' or `TUT' like
 ;; Tutankamen's nickname, king `TUT'.
 ;;
 ;; At Mon, 23 Aug 1999 01:13:34 +0900,
 ;; Hajime Ohiwa <ohiwa@sfc.keio.ac.jp> wrote:
-;;  
+;;
 ;; > 私は「てぃーゆーてぃーこーど」と読んでいますが、もう少し言い易い方が
 ;; > よいと思います。TUTはこれを開発した豊橋技術科学大学の略称です。
 ;; > 米国人に見せたら、「たっと」と読みました。つたんかーめん王のことを英語
 ;; > では king TUT と呼び、発音は「たっと」なのだそうです。「たっとこーど」
 ;; > の方がよいかもしれません。御意見をお聞かせ下さい。
-;; 
+;;
 ;; To get more information, access following URL;
 ;;    http://www.crew.sfc.keio.ac.jp/~chk/
 ;;
@@ -58,11 +58,11 @@
 ;; (defadvice skk-mode (before my-ad activate)
 ;;   (require 'skk-tutcdef)
 ;;   (require 'skk-tutcode))
-;; 
+;;
 ;; (defadvice skk-auto-fill-mode (before my-ad activate)
 ;;   (require 'skk-tutcdef)
 ;;   (require 'skk-tutcode))
-;; 
+;;
 ;; If you would like to customize some definitions in skk-tutcdef.el,
 ;; you could do, for example;
 ;;
@@ -105,7 +105,7 @@
   (interactive "P")
   (if (eobp)
       (skk-error "カーソルがバッファの終端にあります"
-                 "Cursor is at the end of the buffer")
+		 "Cursor is at the end of the buffer")
     (skk-tutcode-display-code-1
      (buffer-substring-no-properties
       (point)

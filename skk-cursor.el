@@ -1,12 +1,12 @@
 ;;; skk-cursor.el --- SKK cursor control.
 ;; Copyright (C) 1996, 1997, 1998, 1999, 2000
-;; Masatake YAMATO <masata-y@is.aist-nara.ac.jp> 
+;; Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.12 2001/08/30 19:15:36 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.13 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/30 19:15:36 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -119,7 +119,7 @@
 				       (current-buffer))))
 		'append)
 
-      (add-hook 'minibuffer-setup-hook 
+      (add-hook 'minibuffer-setup-hook
 		(lambda ()
 		  (when skk-use-color-cursor
 		    (set-face-property 'text-cursor 'background
@@ -141,8 +141,7 @@
   ;; FSF Emacs
   ;; advices.
   (defvar skk-cursor-buffer-local-frame-params-ad-targets
-    '(
-      ;; cover to SKK functions.
+    '(;; cover to SKK functions.
       skk-abbrev-mode
       skk-auto-fill-mode
       skk-jisx0201-mode
@@ -150,8 +149,7 @@
       skk-kakutei
       skk-latin-mode
       skk-mode
-      skk-toggle-kana
-      ))
+      skk-toggle-kana))
 
   (let ((funcs skk-cursor-buffer-local-frame-params-ad-targets))
     (while funcs
@@ -166,8 +164,7 @@
 	  "Set cursor color which represents skk mode."
 	  (when skk-use-color-cursor
 	    (set-buffer-local-cursor-color (skk-cursor-current-color))))))
-      (setq funcs (cdr funcs))))
-  )
+      (setq funcs (cdr funcs)))))
 
 (defun skk-cursor-init-function ()
   (static-if (eq skk-emacs-type 'xemacs)
@@ -176,7 +173,7 @@
 			   (current-buffer)))
     (set-buffer-local-cursor-color (skk-cursor-current-color)))
   (remove-hook 'skk-mode-hook 'skk-cursor-init-function))
- 
+
 ;;; Hooks
 ;;(add-hook 'isearch-mode-end-hook 'update-buffer-local-frame-params 'append)
 (add-hook 'skk-mode-hook 'skk-cursor-init-function)

@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.5 2001/08/27 09:41:37 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.6 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/08/27 09:41:37 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -93,7 +93,7 @@
 ;;
 ;;   (setq skk-annotation-function
 ;;         (lambda (annotation) (eq (aref annotation 0) ?*)))
-;; 
+;;
 ;; $B>e5-$NNc$G$O!"%"%N%F!<%7%g%s$N@hF,$,(B `*' $B$G;O$^$k!V%f!<%6%"%N%F!<%7%g(B
 ;; $B%s!W$N>l9g$K(B t $B$rJV$7$^$9$N$G!"%f!<%6%"%N%F!<%7%g%s$@$1$rI=<($7$^$9!#(B
 ;;
@@ -107,14 +107,14 @@
 ;; $B$^$?!":G8e$K3NDj$7$?8uJd$K$D$$$F$N%"%N%F!<%7%g%s$r<h$j5n$j$?$$$H$-(B
 ;; $B$O!"(B
 ;;
-;;   M-x skk-annotation-remove 
-;; 
+;;   M-x skk-annotation-remove
+;;
 ;; $B$7$F2<$5$$!#(B
 ;; `;' $B$NJ8;z$r4^$s$@8uJd$O!"(Beval $B$9$k$H(B `;' $B$K$J$k(B Lisp $B<0$H$7$F(B
 ;; quote $B$5$l$F<-=q8uJd$H$7$F<}$a$i$l$J$1$l$P$J$j$^$;$s!#4{B8$N<-=q$K(B
 ;; $B$D$$$F$O!"<-=q$rFI$_9~$s$@%P%C%U%!$G(B
 ;;
-;;   M-x skk-annotation-update-jisyo-format 
+;;   M-x skk-annotation-update-jisyo-format
 ;;
 ;; $B$9$k$3$H$G$3$N:n6H$r9T$J$&$3$H$,$G$-$^$9!#8D?M<-=q!"(BSKK-JISYO.L $B$K(B
 ;; $B$D$$$F$O@'Hs9T$J$C$F$*$$$?J}$,NI$$$G$7$g$&!#(B
@@ -227,7 +227,7 @@
 (defun skk-annotation-setup ()
   (if (skk-get-last-henkan-datum 'henkan-list)
       (setq skk-annotation-annotated-word
-	    (list 
+	    (list
 	     (skk-get-last-henkan-datum 'henkan-key)
 	     (skk-get-last-henkan-datum 'okuri-char)
 	     (skk-get-last-henkan-datum 'henkan-list)))
@@ -323,7 +323,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	    (setq annotation nil))
 	(setq annotation (skk-quote-char annotation))))
     (if annotation
-	(skk-annotation-last-word-1 
+	(skk-annotation-last-word-1
 	 (lambda (beg end)
 	   (goto-char beg)
 	   (if (re-search-forward ";[^/]*" end t)
@@ -355,7 +355,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		     "%s $B$K$D$$$F$N%"%N%F!<%7%g%s$r:o=|$7$^$9$+!)(B "
 		   "Really delete annotation for %s? ")
 		 (car (nth 2 skk-annotation-annotated-word))))
-	(skk-annotation-last-word-1 
+	(skk-annotation-last-word-1
 	 (lambda (beg end)
 	   (goto-char beg)
 	   (if (re-search-forward ";[^/]*" end t)
@@ -375,14 +375,14 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(with-current-buffer jisyo-buffer
 	  (goto-char (if (nth 1 skk-annotation-annotated-word)
 			 skk-okuri-ari-min skk-okuri-nasi-min))
-	  (if (not (re-search-forward 
+	  (if (not (re-search-forward
 		    (concat "^\\("
 			    (regexp-quote (car skk-annotation-annotated-word))
 			    "\\) /")
 		    (if (nth 1 skk-annotation-annotated-word)
 			skk-okuri-ari-max nil)
 		    t nil))
-	      nil 
+	      nil
 	    (goto-char (match-beginning 1))
 	    (set-marker eol (skk-save-point (end-of-line) (point)))
 	    (if (string-match ";" word)
@@ -415,7 +415,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (skk-kakutei)
   (skk-annotation-setup)
   (let (candidate)
-    (skk-annotation-last-word-1 
+    (skk-annotation-last-word-1
      (lambda (beg end)
        (goto-char beg)
        (setq candidate (buffer-substring-no-properties beg end))
@@ -444,7 +444,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		       (match-beginning 1) (match-end 1)))
       (delete-region (match-beginning 1) (match-end 1))
       (goto-char (match-beginning 1))
-      (insert 
+      (insert
        (concat "(concat \""
 	       (mapconcat
 		(function

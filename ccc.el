@@ -1,11 +1,11 @@
 ;;; ccc.el --- cursor color control.
-;; Copyright (C) 2000 Masatake YAMATO <masata-y@is.aist-nara.ac.jp> 
+;; Copyright (C) 2000 Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.2 2000/10/30 22:10:13 minakaji Exp $
+;; Version: $Id: ccc.el,v 1.3 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2000/10/30 22:10:13 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This software is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -175,27 +175,27 @@
 (let ((funcs '(
 	       ;; cover to original Emacs functions.
 	       ;; subr, but no argument.
-	       bury-buffer 
+	       bury-buffer
 	       delete-frame
 	       delete-window
-	       
+
 	       overwrite-mode
 	       ;; subr, but non-command.
-	       pop-to-buffer 
-	       select-window 
-	       
+	       pop-to-buffer
+	       select-window
+
 	       ;; subrs possibly with interactive specs.
 	       (execute-extended-command . "P")
 	       (kill-buffer . "bKill buffer: ")
 	       (other-window . "p")
 	       (select-frame . "e")
 	       (switch-to-buffer . "BSwitch to buffer: ")
-	       
-	       ;;goto-line 
-	       ;;insert-file 
-	       ;;recenter 
+
+	       ;;goto-line
+	       ;;insert-file
+	       ;;recenter
 	       ;;yank
-	       ;;yank-pop 
+	       ;;yank-pop
 	       ))
       func)
   (while (setq func (car funcs))

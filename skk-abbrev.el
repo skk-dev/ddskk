@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-abbrev.el,v 1.4 2001/02/03 00:22:58 minakaji Exp $
+;; Version: $Id: skk-abbrev.el,v 1.5 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 23, 1999
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -37,7 +37,7 @@
 ;; (setq skk-search-prog-list
 ;;       '((skk-search-jisyo-file skk-jisyo 0 t)
 ;;         ;; ADD NEXT LINE.
-;;         (skk-abbrev-search)     
+;;         (skk-abbrev-search)
 ;;         (skk-search-server skk-aux-large-jisyo 10000)))
 ;;
 ;;

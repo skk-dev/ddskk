@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.30 2001/08/31 16:45:37 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.31 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 16:45:37 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -138,9 +138,9 @@
   ;; skk-kana-start-point, あるいは skk-okurigana-start-point が nil だったら、
   ;; 新規マーカーを作って代入する。
   (list 'progn
-        (list 'if (list 'not marker)
-              (list 'setq marker (list 'make-marker)))
-        (list 'set-marker marker position buffer)))
+	(list 'if (list 'not marker)
+	      (list 'setq marker (list 'make-marker)))
+	(list 'set-marker marker position buffer)))
 
 ;; From viper-util.el.  Welcome!
 (defmacro skk-deflocalvar (var default-value &optional documentation)
@@ -425,7 +425,7 @@ BUFFER defaults to the current buffer."
     (skk-modify-indicator-alist mode string))
   ;;
   (let ((indicator (cdr (assq mode skk-indicator-alist))))
-    (setq skk-modeline-input-mode 
+    (setq skk-modeline-input-mode
 	  (if (eq skk-status-indicator 'left)
 	      (cdr indicator)
 	    (car indicator)))
@@ -537,12 +537,12 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-mode-off ()
   (setq skk-mode nil
-        skk-abbrev-mode nil
-        skk-latin-mode nil
-        skk-j-mode nil
-        skk-jisx0208-latin-mode nil
-        ;; sub mode of skk-j-mode.
-        skk-katakana nil)
+	skk-abbrev-mode nil
+	skk-latin-mode nil
+	skk-j-mode nil
+	skk-jisx0208-latin-mode nil
+	;; sub mode of skk-j-mode.
+	skk-katakana nil)
   ;; initialize
   (skk-update-modeline)
   (static-when (memq skk-emacs-type '(nemacs mule1))
@@ -552,12 +552,12 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-j-mode-on (&optional katakana)
   (setq skk-mode t
-        skk-abbrev-mode nil
-        skk-latin-mode nil
-        skk-j-mode t
-        skk-jisx0208-latin-mode nil
-        ;; sub mode of skk-j-mode.
-        skk-katakana katakana)
+	skk-abbrev-mode nil
+	skk-latin-mode nil
+	skk-j-mode t
+	skk-jisx0208-latin-mode nil
+	;; sub mode of skk-j-mode.
+	skk-katakana katakana)
   (skk-update-modeline (if skk-katakana 'katakana 'hiragana))
   (static-unless (memq skk-emacs-type '(nemacs mule1 xemacs))
     (when skk-use-color-cursor
@@ -571,12 +571,12 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-latin-mode-on ()
   (setq skk-mode t
-        skk-abbrev-mode nil
-        skk-latin-mode t
-        skk-j-mode nil
-        skk-jisx0208-latin-mode nil
-        ;; sub mode of skk-j-mode.
-        skk-katakana nil)
+	skk-abbrev-mode nil
+	skk-latin-mode t
+	skk-j-mode nil
+	skk-jisx0208-latin-mode nil
+	;; sub mode of skk-j-mode.
+	skk-katakana nil)
   (skk-update-modeline 'latin)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
@@ -587,12 +587,12 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-jisx0208-latin-mode-on ()
   (setq skk-mode t
-        skk-abbrev-mode nil
-        skk-latin-mode nil
-        skk-j-mode nil
-        skk-jisx0208-latin-mode t
-        ;; sub mode of skk-j-mode.
-        skk-katakana nil)
+	skk-abbrev-mode nil
+	skk-latin-mode nil
+	skk-j-mode nil
+	skk-jisx0208-latin-mode t
+	;; sub mode of skk-j-mode.
+	skk-katakana nil)
   (skk-update-modeline 'jisx0208-latin)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
@@ -603,19 +603,19 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-abbrev-mode-on ()
   (setq skk-mode t
-        skk-abbrev-mode t
-        skk-latin-mode nil
-        skk-j-mode nil
-        skk-jisx0208-latin-mode nil
+	skk-abbrev-mode t
+	skk-latin-mode nil
+	skk-j-mode nil
+	skk-jisx0208-latin-mode nil
 	;; skk-abbrev-mode は一時的な ascii 文字による変換なので、変換後は元の
 	;; 入力モード (かなモードかカナモード) に戻ることが期待される。
 	;; skk-katakana は minor-mode フラグではなく、skk-j-mode マイナーモード
 	;; の中でこのフラグにより入力文字を決定するポインタを変更するだけなので
 	;; skk-abbrev-mode マイナーモード化するのに skk-katakana フラグを初期化
 	;; しなければならない必然性はない。
-        ;; sub mode of skk-j-mode.
-        ;;skk-katakana nil
-        )
+	;; sub mode of skk-j-mode.
+	;;skk-katakana nil
+	)
   (skk-update-modeline 'abbrev)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
@@ -705,7 +705,7 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-find-coding-system (code)
   (cond ((and code
-	      (or (and (fboundp 'coding-system-p) 
+	      (or (and (fboundp 'coding-system-p)
 		       (coding-system-p code))
 		  (and (fboundp 'find-coding-system)
 		       (symbolp code)

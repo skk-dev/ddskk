@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.73 2001/08/25 14:35:57 czkmt Exp $
-;; Last Modified: $Date: 2001/08/25 14:35:57 $
+;; Version: $Id: SKK-MK,v 1.74 2001/08/31 19:30:38 czkmt Exp $
+;; Last Modified: $Date: 2001/08/31 19:30:38 $
 
 ;; Commentary
 ;;
@@ -207,10 +207,10 @@
 	;; になる (;_;)。
 	;; yatex みたいに Window を開いてバイトコンパイルするようにもできるけど、
 	;; no-window の make コマンドを別に作らなきゃならないし、面倒だな...。
-        ;;(if (if (featurep 'xemacs)
-        ;;        (eq (device-class (selected-device)) 'color)
-        ;;      (x-display-color-p))
-        ;;    (setq list (nconc list (list 'skk-cursor))))
+	;;(if (if (featurep 'xemacs)
+	;;        (eq (device-class (selected-device)) 'color)
+	;;      (x-display-color-p))
+	;;    (setq list (nconc list (list 'skk-cursor))))
 	(cond ((featurep 'xemacs)
 	       ;; XEmacs
 	       (cond ((member "skk-leim" preloaded-file-list)
@@ -235,7 +235,7 @@
 	(condition-case nil
 	    ;; you might have to add lookup installed directory to `load-path'.
 	    (and (let ((lookup-byte-compile t)) (require 'lookup))
-                 (setq list (nconc list (list 'skk-lookup))))
+		 (setq list (nconc list (list 'skk-lookup))))
 	  (error))
 	;; skk-w3m.el
 	(condition-case nil
@@ -255,7 +255,7 @@
 ;; 消しておく。
 (let ((modules SKK_MODULES))
   (while modules
-    (or 
+    (or
      ;; skk-autoloads.el は自動生成されるのでまだ存在しない。
      (eq (car modules) 'skk-autoloads)
      (file-exists-p (concat (symbol-name (car modules)) ".el"))
@@ -269,15 +269,15 @@
 (defvar SKK_INFODIR
   (or (getenv "SKK_INFODIR")
       (and (getenv "INFOPATH")
- 	   (progn (require 'info) (car Info-directory-list)))
+	   (progn (require 'info) (car Info-directory-list)))
       (expand-file-name "info" PREFIX)))
 (defvar SKK_LISPDIR
   (or (getenv "SKK_LISPDIR")
       (and VERSION_SPECIFIC_LISPDIR
 	   (expand-file-name SKK_PREFIX VERSION_SPECIFIC_LISPDIR))
-      (and PREFIX 
-           (expand-file-name SKK_PREFIX 
-                             (install-detect-elisp-directory PREFIX)))))
+      (and PREFIX
+	   (expand-file-name SKK_PREFIX
+			     (install-detect-elisp-directory PREFIX)))))
 
 ;; PACKAGE INSTALL RELATED VARIABLE.
 (defvar PACKAGEDIR
@@ -869,24 +869,24 @@ SKK tutorials:
 (defun SKK-MK-collect-autoload-functions (module)
   "Return a list of autoload functions defined in MODULE."
   (let ((el-file (concat (symbol-name module) ".el"))
-        (funcs))
+	(funcs))
     (if (file-exists-p el-file)
-        (progn
-          (save-excursion
-            (insert-file-contents el-file)
-            (while (re-search-forward "^;;;###autoload" nil t)
-              (beginning-of-line 2)
-              (if (looking-at "(defun[ \t]+\\([^ \t\n(]+\\)")
-                  (setq funcs
-                        (cons (cons (match-string 1)
-                                    (save-excursion
-                                      (re-search-forward
-                                       "^[ \t]*(interactive"
-                                       (save-excursion
+	(progn
+	  (save-excursion
+	    (insert-file-contents el-file)
+	    (while (re-search-forward "^;;;###autoload" nil t)
+	      (beginning-of-line 2)
+	      (if (looking-at "(defun[ \t]+\\([^ \t\n(]+\\)")
+		  (setq funcs
+			(cons (cons (match-string 1)
+				    (save-excursion
+				      (re-search-forward
+				       "^[ \t]*(interactive"
+				       (save-excursion
 					 (re-search-forward "^(defun" nil t 2))
-                                       t)))
-                              funcs)))))
-          (delete-region (point) (point-max))))
+				       t)))
+			      funcs)))))
+	  (delete-region (point) (point-max))))
     funcs))
 
 ;;; SKK-MK ends here

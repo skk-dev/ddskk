@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.17 2001/06/16 07:24:31 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.18 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/06/16 07:24:31 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -74,7 +74,7 @@ AND-TIME \(boolean\) $B$r;XDj$9$k$H;~9o$bJV$9!#(B
   (let* ((str (current-time-string specified-time))
 	 (date (substring str 8 10)))
     (if (eq (aref date 0) ?\040)
-	(setq date (substring date 1))) 
+	(setq date (substring date 1)))
     (list
      (substring str 20 24) (substring str 4 7)
       date (substring str 0 3)
@@ -175,21 +175,21 @@ interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B S
 skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#(B"
   (interactive "*")
   (let ((start (current-time))
-        end mes expr1 expr2 sec snd)
+	end mes expr1 expr2 sec snd)
     (cond ((or (not skk-number-style)
-               (eq skk-number-style 0))
-           (setq expr1 "[789]$BIC(B"
-                 expr2 "0$BIC(B"))
-          ((or (eq skk-number-style t)
-               ;; skk-number-style $B$K(B $B?t;z$H(B t $B0J30$N(B non-nil $BCM$rF~$l$F$$$k>l(B
-               ;; $B9g!"(B= $B$r;H$&$H(B Wrong type argument: number-or-marker-p, xxxx
-               ;; $B$K$J$C$F$7$^$&!#(B
-               (eq skk-number-style 1))
-           (setq expr1 "[$B#7#8#9(B]$BIC(B"
-                 expr2 "$B#0IC(B"))
-          (t
-           (setq expr1 "[$B<7H,6e(B]$BIC(B"
-                 expr2 "$B!;IC(B")))
+	       (eq skk-number-style 0))
+	   (setq expr1 "[789]$BIC(B"
+		 expr2 "0$BIC(B"))
+	  ((or (eq skk-number-style t)
+	       ;; skk-number-style $B$K(B $B?t;z$H(B t $B0J30$N(B non-nil $BCM$rF~$l$F$$$k>l(B
+	       ;; $B9g!"(B= $B$r;H$&$H(B Wrong type argument: number-or-marker-p, xxxx
+	       ;; $B$K$J$C$F$7$^$&!#(B
+	       (eq skk-number-style 1))
+	   (setq expr1 "[$B#7#8#9(B]$BIC(B"
+		 expr2 "$B#0IC(B"))
+	  (t
+	   (setq expr1 "[$B<7H,6e(B]$BIC(B"
+		 expr2 "$B!;IC(B")))
     ;;
     (static-when (eq skk-emacs-type 'xemacs)
       ;; XEmacs $B$G(B sound $B$,%m!<%I$5$l$F$$$k$+$I$&$+!#(B
@@ -209,31 +209,31 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
     ;;
     (save-match-data
       (condition-case nil
-          (let (case-fold-search
-                inhibit-quit visible-bell
-                skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
+	  (let (case-fold-search
+		inhibit-quit visible-bell
+		skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
 		skk-jisx0208-latin-mode)
-            (while (not quit-flag)
-              (setq mes (skk-current-date nil nil t)
+	    (while (not quit-flag)
+	      (setq mes (skk-current-date nil nil t)
 		    sec 0)
 	      (message "%s    Hit any key to quit" mes)
-              (if time-signal
-                  (if (string-match expr1 mes)
-                      ;; [7890] $B$N$h$&$K@55,I=8=$r;H$o$:!"(B7 $B$@$1$GA4$F$N%^%7%s$,(B
-                      ;; $BCe$$$F$f$1$PNI$$$N$@$,(B...$B!#CzEY$3$N4X?t<B9T;~$K(B Garbage
-                      ;; collection $B$,8F$P$l$F$bI=<($5$l$k?t;z$,Ht$V>l9g$,$"$k!#(B
+	      (if time-signal
+		  (if (string-match expr1 mes)
+		      ;; [7890] $B$N$h$&$K@55,I=8=$r;H$o$:!"(B7 $B$@$1$GA4$F$N%^%7%s$,(B
+		      ;; $BCe$$$F$f$1$PNI$$$N$@$,(B...$B!#CzEY$3$N4X?t<B9T;~$K(B Garbage
+		      ;; collection $B$,8F$P$l$F$bI=<($5$l$k?t;z$,Ht$V>l9g$,$"$k!#(B
 		      (static-if (eq skk-emacs-type 'xemacs)
 			  ;; $B$$$$2;$,$J$$$J$!(B...
 			  (ding nil 'drum)
 			(ding))
-                    (if (string-match expr2 mes)
-                        ;; 0 $B$@$1!V%]!A%s!W$H$$$-$?$$$H$3$m$G$9$,!"%^%7%s$K$h$C(B
-                        ;; $B$F:9$,$"$k!#(B
-                        ;; 386SX 25Mhz + Mule-2.x $B$@$H!V%T%C!"%T%C!W$H$$$&46$8!#(B
-                        ;; $BIU$$$F$f$/$N$,Hs>o$K?I$$!#(B68LC040 33Mhz + NEmacs $B$@$H(B
-                        ;; $B!V%T%T%C!W$H$J$j!"2;$N%?%$%_%s%0$ONI$$$N$@$,!"$H$-(B
-                        ;; $B$I$-(B 1 $BICJ,$D$$$F$$$1$J$/$J$k!#(BPentium 90Mhz +
-                        ;; Mule-2.x$B$@$H!V%T%C!W$H$$$&C12;$K$J$C$F$7$^$&(B... (;_;)$B!#(B
+		    (if (string-match expr2 mes)
+			;; 0 $B$@$1!V%]!A%s!W$H$$$-$?$$$H$3$m$G$9$,!"%^%7%s$K$h$C(B
+			;; $B$F:9$,$"$k!#(B
+			;; 386SX 25Mhz + Mule-2.x $B$@$H!V%T%C!"%T%C!W$H$$$&46$8!#(B
+			;; $BIU$$$F$f$/$N$,Hs>o$K?I$$!#(B68LC040 33Mhz + NEmacs $B$@$H(B
+			;; $B!V%T%T%C!W$H$J$j!"2;$N%?%$%_%s%0$ONI$$$N$@$,!"$H$-(B
+			;; $B$I$-(B 1 $BICJ,$D$$$F$$$1$J$/$J$k!#(BPentium 90Mhz +
+			;; Mule-2.x$B$@$H!V%T%C!W$H$$$&C12;$K$J$C$F$7$^$&(B... (;_;)$B!#(B
 			(static-cond
 			 ((featurep 'lisp-float-type)
 			  (if snd
@@ -253,13 +253,13 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 	      (unless (skk-sit-for (- 1 sec) 'nodisplay)
 		(next-command-event)
 		(signal 'quit nil))))
-        (quit
-         (prog2
-             (setq end (current-time))
-             (skk-current-date nil nil t)
-           (if kakutei-when-quit
-               (setq skk-kakutei-flag t))
-           (message "$B7P2a;~4V(B: %s $BIC(B" (skk-time-difference start end))))))))
+	(quit
+	 (prog2
+	     (setq end (current-time))
+	     (skk-current-date nil nil t)
+	   (if kakutei-when-quit
+	       (setq skk-kakutei-flag t))
+	   (message "$B7P2a;~4V(B: %s $BIC(B" (skk-time-difference start end))))))))
 
 ;;;###autoload
 (defun skk-ad-to-gengo (gengo-index &optional divider tail not-gannen)
@@ -273,7 +273,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
     (concat (nth gengo-index (car v))
 	    divider
 	    (if (not (stringp (cdr v))) (number-to-string (cdr v)) (cdr v))
-            tail)))
+	    tail)))
 
 ;;;###autoload
 (defun skk-ad-to-gengo-1 (ad &optional not-gannen)
@@ -377,41 +377,41 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
     ;; skk-ignore-dic-word $B<+?H$N%(%s%H%j$r>C$9!#>C$9$Y$-8uJd$O(B
     ;; skk-henkan-list $B$+$iD>@\Cj=P$7$F$$$k$N$G(B delete $B$G$O$J$/(B delq $B$G==J,!#(B
     (setq skk-henkan-list (delq (nth skk-henkan-count skk-henkan-list)
-                                skk-henkan-list))
+				skk-henkan-list))
     ;; $BA48uJd$r(B skk-henkan-list $B$KF~$l$k!#(B
     (while skk-current-search-prog-list
       (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search))))
     ;; $BITMW$J8uJd$r<N$F$k!#(B
     (while no-show-list
       (setq skk-henkan-list (delete (car no-show-list) skk-henkan-list)
-            no-show-list (cdr no-show-list)))
+	    no-show-list (cdr no-show-list)))
     ;; $B%+%l%s%H$N8uJd(B (skk-ignore-dic-word $B<+?H$N%(%s%H%j(B) $B$r>C$7$?$N$G!"(B
     ;; skk-henkan-count $B$O<!$N8uJd$r;X$7$F$$$k!#(B
     (setq new-word (or (nth skk-henkan-count skk-henkan-list)
-                       (progn (setq save-okurigana skk-okuri-char)
-                              (skk-henkan-in-minibuff))))
+		       (progn (setq save-okurigana skk-okuri-char)
+			      (skk-henkan-in-minibuff))))
     ;; $B8uJd$,$J$$$H$-!#(B
     (if (not new-word)
-        ;; $B6uJ8;zNs$,EPO?$5$l$?$i<-=qEPO?$NA0$N>uBV$KLa$9!#(B
-        ;; (nth -1 '(A B C)) $B$O!"(BA $B$rJV$9$N$G!"(Bn $B$,Ii$N?t$G$J$$$3$H$r%A%'%C%/(B
-        ;; $B$7$F$*$/I,MW$,$"$k!#(B
-        (if (> skk-henkan-count 0)
-            (setq skk-henkan-count (- skk-henkan-count 1)
-                  new-word (nth skk-henkan-count skk-henkan-list))
-          ;; (1- skk-henkan-count) == -1 $B$K$J$k!#"&%b!<%I$KLa$9!#(B
-          (setq new-word (if save-okurigana
-                             (substring skk-henkan-key 0
-                                        (1- (length skk-henkan-key)))
-                             skk-henkan-key)
-                skk-henkan-count -1
-                ;; $B2<5-$NJQ?t$O!"(Bskk-henkan-in-minibuff $B$NCf$GD4@0$5$l$k!#(B
-                ;; skk-henkan-active nil
-                ;; skk-okuri-char nil
-                ;; skk-henkan-okurigana nil
-                 )
-          (if skk-use-face
-              (setq skk-insert-new-word-function
-                    'skk-henkan-face-off-and-remove-itself))))
+	;; $B6uJ8;zNs$,EPO?$5$l$?$i<-=qEPO?$NA0$N>uBV$KLa$9!#(B
+	;; (nth -1 '(A B C)) $B$O!"(BA $B$rJV$9$N$G!"(Bn $B$,Ii$N?t$G$J$$$3$H$r%A%'%C%/(B
+	;; $B$7$F$*$/I,MW$,$"$k!#(B
+	(if (> skk-henkan-count 0)
+	    (setq skk-henkan-count (- skk-henkan-count 1)
+		  new-word (nth skk-henkan-count skk-henkan-list))
+	  ;; (1- skk-henkan-count) == -1 $B$K$J$k!#"&%b!<%I$KLa$9!#(B
+	  (setq new-word (if save-okurigana
+			     (substring skk-henkan-key 0
+					(1- (length skk-henkan-key)))
+			   skk-henkan-key)
+		skk-henkan-count -1
+		;; $B2<5-$NJQ?t$O!"(Bskk-henkan-in-minibuff $B$NCf$GD4@0$5$l$k!#(B
+		;; skk-henkan-active nil
+		;; skk-okuri-char nil
+		;; skk-henkan-okurigana nil
+		)
+	  (if skk-use-face
+	      (setq skk-insert-new-word-function
+		    'skk-henkan-face-off-and-remove-itself))))
     new-word))
 
 ;;;###autoload

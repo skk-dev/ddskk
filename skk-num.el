@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.17 2001/05/31 01:56:06 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.18 2001/08/31 19:30:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/31 01:56:06 $
+;; Last Modified: $Date: 2001/08/31 19:30:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -51,16 +51,16 @@
 			  (substring key (match-end 0)))))
       ;; 全角数字を ascii 数字に変換する。
       (while (string-match "[０-９]" key)
-        (let ((zen-num (match-string 0 key)))
-          (setq key (concat (substring key 0 (match-beginning 0))
-                            (skk-jisx0208-to-ascii zen-num)
-                            (substring key (match-end 0))))))
+	(let ((zen-num (match-string 0 key)))
+	  (setq key (concat (substring key 0 (match-beginning 0))
+			    (skk-jisx0208-to-ascii zen-num)
+			    (substring key (match-end 0))))))
       ;; ascii 数字を "#" に置き換え、その数字を skk-num-list の中に保存。
       (while (string-match numexp key)
-        (setq skk-num-list (nconc skk-num-list (list (match-string 0 key)))
-              key (concat (substring key 0 (match-beginning 0))
-                          "#"
-                          (substring key (match-end 0)))))))
+	(setq skk-num-list (nconc skk-num-list (list (match-string 0 key)))
+	      key (concat (substring key 0 (match-beginning 0))
+			  "#"
+			  (substring key (match-end 0)))))))
   key)
 
 (defun skk-num-convert ()
@@ -110,38 +110,38 @@
 	  (workkey key)
 	  num convnum string convlist beg)
       (save-match-data
-        (while (and (setq num (nth n skk-num-list)) ; 具体的な数値を保持しているリストを参照する。
-                    (setq beg (string-match numexp workkey)))
+	(while (and (setq num (nth n skk-num-list)) ; 具体的な数値を保持しているリストを参照する。
+		    (setq beg (string-match numexp workkey)))
 	  (setq convnum			; 数値変換された部分の文字列
 		(skk-num-exp		; 具体的な数字を変換タイプに従い変換する。
 		 num
 		 (string-to-number (substring workkey (1+ beg) (match-end 0))))
-                string (substring workkey 0 beg) ; 処理された数値キーまでの prefix 文字列
-                workkey (substring workkey (match-end 0)) ; 未処理の文字列
-                n (1+ n))
+		string (substring workkey 0 beg) ; 処理された数値キーまでの prefix 文字列
+		workkey (substring workkey (match-end 0)) ; 未処理の文字列
+		n (1+ n))
 	  ;; 変換された文字と数値変換に関係のない無変換の文字を並べたリスト
 	  (setq convlist (nconc convlist (list string convnum))))
-        (delete "" (nconc convlist (list workkey)))))))
+	(delete "" (nconc convlist (list workkey)))))))
 
 (defun skk-num-multiple-convert (&optional count)
   (let ((skk-henkan-count skk-henkan-count)
-        (n (or count (length skk-henkan-list))))
+	(n (or count (length skk-henkan-list))))
     (while (and (> n 0) (nth skk-henkan-count skk-henkan-list))
       (skk-num-convert)
       ;; skk-henkan-count を操作しなくとも skk-num-convert が
       ;; 有効になるようにしたい。
       (setq skk-henkan-count (1+ skk-henkan-count)
-            n (1- n)))))
+	    n (1- n)))))
 
 (defun skk-num-rawnum-exp (string)
   (setq string (skk-num-rawnum-exp-1
-                string "[０-９][〇一九五三四七二八六]" "#9" 0))
+		string "[０-９][〇一九五三四七二八六]" "#9" 0))
   (setq string (skk-num-rawnum-exp-1
-                string "\\(^\\|[^#0-9]\\)\\([0-9]+\\)" "#0" 2))
+		string "\\(^\\|[^#0-9]\\)\\([0-9]+\\)" "#0" 2))
   (setq string (skk-num-rawnum-exp-1
-                string "[０-９]+" "#1" 0))
+		string "[０-９]+" "#1" 0))
   (setq string (skk-num-rawnum-exp-1
-                string "\\([〇一九五三四七二八六十][十百千万億兆京]\\)+" "#3" 0))
+		string "\\([〇一九五三四七二八六十][十百千万億兆京]\\)+" "#3" 0))
   ;; (mapcar 'char-to-string
   ;;         (sort
   ;;          '(?一 ?二 ?三 ?四 ?五 ?六 ?七 ?八 ?九 ?〇) '<))
@@ -163,23 +163,23 @@
   ;; す。
   ;; (("A" "B") "1" ("X" "Y")) -> ("A1X" "A1Y" "B1X" "B1Y")
   (let ((dst (car list))
- 	(src (cdr list))
- 	elt)
+	(src (cdr list))
+	elt)
     (while src
       (setq elt (car src))
       (if (consp elt)
- 	  (setq dst (apply (function nconc)
- 			   (mapcar
- 			    (lambda (str0)
- 			      (mapcar
- 			       (lambda (str1)
- 				 (concat str0 str1))
- 			       elt))
- 			    dst)))
- 	(setq dst (mapcar
- 		   (lambda (str0)
- 		     (concat str0 elt))
- 		   dst)))
+	  (setq dst (apply (function nconc)
+			   (mapcar
+			    (lambda (str0)
+			      (mapcar
+			       (lambda (str1)
+				 (concat str0 str1))
+			       elt))
+			    dst)))
+	(setq dst (mapcar
+		   (lambda (str0)
+		     (concat str0 elt))
+		   dst)))
       (setq src (cdr src)))
     dst))
 
@@ -202,22 +202,22 @@
   ;; ascii 数字の NUM を全角数字の文字列に変換し、変換後の文字列を返す。
   ;; 例えば "45" を "４５" に変換する。
   (let ((candidate
-         (mapconcat (function (lambda (c) (cdr (assq c skk-num-alist-type1))))
-                    num "")))
+	 (mapconcat (function (lambda (c) (cdr (assq c skk-num-alist-type1))))
+		    num "")))
     (if (not (string= candidate ""))
-        candidate)))
+	candidate)))
 
 (defun skk-num-type2-kanji (num)
   ;; ascii 数字 NUM を漢数字の文字列に変換し、変換後の文字列を返す。
   ;; 例えば、"45" を "四五" に変換する。
   (save-match-data
     (if (not (string-match "\\.[0-9]" num))
-        (let ((candidate
-               (mapconcat (function (lambda (c)
-                                      (cdr (assq c skk-num-alist-type2))))
-                          num "")))
-          (if (not (string= candidate ""))
-              candidate)))))
+	(let ((candidate
+	       (mapconcat (function (lambda (c)
+				      (cdr (assq c skk-num-alist-type2))))
+			  num "")))
+	  (if (not (string= candidate ""))
+	      candidate)))))
 
 (defun skk-num-type3-kanji (num)
   ;; ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
@@ -225,14 +225,14 @@
   (save-match-data
     (if (not (string-match "\\.[0-9]" num))
 	;; 小数点を含まない数
-        (let ((str (skk-num-type3-kanji-1 num)))
-          (if (string= "" str) "〇" str)))))
+	(let ((str (skk-num-type3-kanji-1 num)))
+	  (if (string= "" str) "〇" str)))))
 
 (defun skk-num-type3-kanji-1 (num)
   ;; skk-num-type3-kanji のサブルーチン。
   (let ((len (length num))
 	(i 0)
-        char v num1 v1)
+	char v num1 v1)
     ;; 「千京」までは出力する。
     (when (> len 20) (skk-error "位が大きすぎます！" "Too big number!"))
     (setq num (append num nil))
@@ -288,14 +288,14 @@
   (save-match-data
     (if (not (string-match "\\.[0-9]" num))
 	;; 小数点を含まない数
-        (let ((str (skk-num-type5-kanji-1 num)))
-          (if (string= "" str) "零" str)))))
+	(let ((str (skk-num-type5-kanji-1 num)))
+	  (if (string= "" str) "零" str)))))
 
 (defun skk-num-type5-kanji-1 (num)
   ;; skk-num-type5-kanji のサブルーチン。
   (let ((len (length num))
 	(i 0)
-         char v num1 v1)
+	char v num1 v1)
     ;; 「千京」までは出力する。
     (when (> len 20) (skk-error "位が大きすぎます！" "Too big number!"))
     (setq num (append num nil))
@@ -340,12 +340,12 @@
   ;; 例えば "34" を "３四" に変換する。
   (save-match-data
     (if (and (= (length num) 2)
-             (not (string-match "\\.[0-9]" num)))
-        (let ((candidate
-               (concat (cdr (assq (aref num 0) skk-num-alist-type1))
-                       (cdr (assq (aref num 1) skk-num-alist-type2)))))
-          (if (not (string= candidate ""))
-              candidate)))))
+	     (not (string-match "\\.[0-9]" num)))
+	(let ((candidate
+	       (concat (cdr (assq (aref num 0) skk-num-alist-type1))
+		       (cdr (assq (aref num 1) skk-num-alist-type2)))))
+	  (if (not (string= candidate ""))
+	      candidate)))))
 
 (defun skk-num-recompute (num)
   ;; #4 の見出しに対し、skk-henkan-key に代入された数字そのものを再度検索する。
@@ -355,19 +355,19 @@
       ;; カレントバッファのバッファローカル変数に影響を及ぼさないよう、ワーキ
       ;; ングバッファへ一旦逃げる
       (let ((skk-current-search-prog-list skk-search-prog-list)
-            (skk-henkan-key num)
+	    (skk-henkan-key num)
 	    ;; カレントの変換は送りなし (skk-henkan-okurigana と skk-okuri-char は
 	    ;; いずれも nil) だが、別バッファ (work バッファ) に入っているので、念
 	    ;; のため、nil を入れておく。
-            skk-henkan-okurigana skk-okuri-char skk-use-numeric-conversion)
-        (while skk-current-search-prog-list
-          (setq result (skk-nunion result (skk-search))))))
+	    skk-henkan-okurigana skk-okuri-char skk-use-numeric-conversion)
+	(while skk-current-search-prog-list
+	  (setq result (skk-nunion result (skk-search))))))
     ;; ここで temp-buffer を出て変換を行なっているカレントバッファに戻る
     ;; (バッファローカル値である skk-henkan-list を操作したいため)。
     (if result
-        (if (null (cdr result));;(= (length result) 1)
-            (car result)
-          result)
+	(if (null (cdr result));;(= (length result) 1)
+	    (car result)
+	  result)
       ;; 変換できなかったら元の数字をそのまま返しておく。
       num)))
 
@@ -377,53 +377,53 @@
       nil
     (save-match-data
       (let ((n1 -1) n2 e1 e2 e3
-            ;; 1 つでも 2 桁以上の数字があれば、#2 と #3 では uniq しない。
-            (type2and3 (> 2 (apply 'max (mapcar 'length skk-num-list))))
-            type2 type3 index2 index3 head2 head3 tail2 tail3
-            case-fold-search)
-        (while (setq n1 (1+ n1) e1 (nth n1 skk-henkan-list))
-          ;; cons cell でなければ skk-nunion で処理済みなので、重複はない。
-          (if (consp e1)
-              (setq skk-henkan-list (delete (car e1) skk-henkan-list)
-                    skk-henkan-list (delete (cdr e1) skk-henkan-list)))
-          (if (not (and skk-num-recompute-key (consp e1)))
-              nil
-            ;; ("#4" . "xxx") を含む候補が skk-henkan-list の中にある。
-            (setq n2 -1)
-            (while (setq n2 (1+ n2) e2 (nth n2 skk-henkan-list))
-              (if (and (not (= n1 n2)) (consp e2)
-                       ;; 例えば ("#4" . "一") と ("#2" . "一") が並存してい
-                       ;; る場合。
-                       (string= (cdr e1) (cdr e2)))
-                  (setq skk-henkan-list (delq e2 skk-henkan-list)))))
-          (if (not type2and3)
-              nil
-            ;; 1 桁の数字を変換する際に、skk-henkan-list に #2 エントリと #3
-            ;; エントリがあれば、#2 もしくは #3 エントリのうち、より後方にある
-            ;; ものを消す。
-            (setq e3 (if (consp e1) (car e1) e1))
-            ;; e3 は "#2" のように数値変換を示す文字列のみとは限らないので、
-            ;; member は使えない。
-            (cond ((string-match "#2" e3)
-                   (setq type2 e1
-                         index2 n1
-                         head2 (substring e3 0 (match-beginning 0))
-                         tail2 (substring e3 (match-end 0))))
-                  ((string-match "#3" e3)
-                   (setq type3 e1
-                         index3 n1
-                         head3 (substring e3 0 (match-beginning 0))
-                         tail3 (substring e3 (match-end 0)))))))
-        (if (and type2and3 type2 type3
-                 ;; 数値変換を示す文字列 "#[23]" の前後の文字列も同一のと
-                 ;; きのみ uniq を行なう。
-                 (string= head2 head3) (string= tail2 tail3))
-            (if (> index2 index3)
-                ;; "#3" の方が前にある。
-                (setq skk-henkan-list (delq type2 skk-henkan-list))
-              ;; 変数 type[23] の値は、skk-henkan-list から直接抽出したも
-              ;; のだから delete でなく、delq で十分。
-              (setq skk-henkan-list (delq type3 skk-henkan-list))))))))
+	    ;; 1 つでも 2 桁以上の数字があれば、#2 と #3 では uniq しない。
+	    (type2and3 (> 2 (apply 'max (mapcar 'length skk-num-list))))
+	    type2 type3 index2 index3 head2 head3 tail2 tail3
+	    case-fold-search)
+	(while (setq n1 (1+ n1) e1 (nth n1 skk-henkan-list))
+	  ;; cons cell でなければ skk-nunion で処理済みなので、重複はない。
+	  (if (consp e1)
+	      (setq skk-henkan-list (delete (car e1) skk-henkan-list)
+		    skk-henkan-list (delete (cdr e1) skk-henkan-list)))
+	  (if (not (and skk-num-recompute-key (consp e1)))
+	      nil
+	    ;; ("#4" . "xxx") を含む候補が skk-henkan-list の中にある。
+	    (setq n2 -1)
+	    (while (setq n2 (1+ n2) e2 (nth n2 skk-henkan-list))
+	      (if (and (not (= n1 n2)) (consp e2)
+		       ;; 例えば ("#4" . "一") と ("#2" . "一") が並存してい
+		       ;; る場合。
+		       (string= (cdr e1) (cdr e2)))
+		  (setq skk-henkan-list (delq e2 skk-henkan-list)))))
+	  (if (not type2and3)
+	      nil
+	    ;; 1 桁の数字を変換する際に、skk-henkan-list に #2 エントリと #3
+	    ;; エントリがあれば、#2 もしくは #3 エントリのうち、より後方にある
+	    ;; ものを消す。
+	    (setq e3 (if (consp e1) (car e1) e1))
+	    ;; e3 は "#2" のように数値変換を示す文字列のみとは限らないので、
+	    ;; member は使えない。
+	    (cond ((string-match "#2" e3)
+		   (setq type2 e1
+			 index2 n1
+			 head2 (substring e3 0 (match-beginning 0))
+			 tail2 (substring e3 (match-end 0))))
+		  ((string-match "#3" e3)
+		   (setq type3 e1
+			 index3 n1
+			 head3 (substring e3 0 (match-beginning 0))
+			 tail3 (substring e3 (match-end 0)))))))
+	(if (and type2and3 type2 type3
+		 ;; 数値変換を示す文字列 "#[23]" の前後の文字列も同一のと
+		 ;; きのみ uniq を行なう。
+		 (string= head2 head3) (string= tail2 tail3))
+	    (if (> index2 index3)
+		;; "#3" の方が前にある。
+		(setq skk-henkan-list (delq type2 skk-henkan-list))
+	      ;; 変数 type[23] の値は、skk-henkan-list から直接抽出したも
+	      ;; のだから delete でなく、delq で十分。
+	      (setq skk-henkan-list (delq type3 skk-henkan-list))))))))
 
 ;;;###autoload
 (defun skk-num-initialize ()
@@ -431,7 +431,7 @@
   (setq skk-last-henkan-data
 	(put-alist 'num-list skk-num-list skk-last-henkan-data)
 	skk-num-list nil
-        skk-num-recompute-key nil))
+	skk-num-recompute-key nil))
 
 ;;;###autoload
 (defun skk-num-henkan-key ()
@@ -443,7 +443,7 @@
 (defun skk-num-update-jisyo (noconvword word &optional purge)
   ;; 数字自身を見出し語として辞書のアップデートを行なう。
   (if (and skk-num-recompute-key
-           (save-match-data (string-match "#4" noconvword)))
+	   (save-match-data (string-match "#4" noconvword)))
       (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
 	(let ((skk-henkan-key skk-num-recompute-key)
 	      skk-use-numeric-conversion)

@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.14 2000/11/28 16:35:57 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.15 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/28 16:35:57 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -357,10 +357,10 @@ Optional argument PREFIX is appended if given."
 	    ;; listify this-command-keys.  this works only if it is
 	    ;; string.
 	    (setq unread-command-events
-                  (append (if (= (length (this-command-keys)) 0)
-                              (list last-command-event)
-                            (this-command-keys))
-                          nil))
+		  (append (if (= (length (this-command-keys)) 0)
+			      (list last-command-event)
+			    (this-command-keys))
+			  nil))
 	    (condition-case error
 		;; setup last-command-event and this-command because
 		;; some command refers them.

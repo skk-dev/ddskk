@@ -4,9 +4,9 @@
 ;;
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.6 2001/02/03 00:22:58 minakaji Exp $
+;; Version: $Id: skk-version.el,v 1.7 2001/08/31 19:30:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Last Modified: $Date: 2001/08/31 19:30:15 $
 ;;
 ;; This file is part of Daredevil SKK.
 ;;
@@ -29,7 +29,7 @@
 ;; This is a copy of elmo-version.el and wl-version.el...
 
 ;;; Code:
-;; 
+;;
 (require 'product)
 (provide 'skk-version) ; have to declare in the top.
 

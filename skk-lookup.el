@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.14 2001/07/05 21:33:46 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.15 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/07/05 21:33:46 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -67,7 +67,7 @@
 ;;    "CHUJITEN" ;辞・典・盤
 ;;    "COLLOC" ;
 ;;    "CRCEN" ;三省堂 ニューセンチュリー英和・新クラウン和英辞典
-;;    "GENIUS" ; ジーニアス英和, ジーニアス英和・和英辞典 
+;;    "GENIUS" ; ジーニアス英和, ジーニアス英和・和英辞典
 ;;    "GN99EP01" ;Super統合辞書99 Disk1/現代用語の基礎知識
 ;;    "GN99EP02" ;Super統合辞書99 Disk2/現代用語の基礎知識
 ;;    "IWAKOKU" ;岩波国語辞典
@@ -119,7 +119,7 @@
 
 (static-when (memq skk-emacs-type '(mule4 mule3 mule2 mule1))
   (condition-case nil (require 'bitmap) (error)))
- 
+
 (require 'poe)
 (require 'lookup)
 
@@ -135,7 +135,7 @@
 	  (or (assoc name skk-lookup-option-alist)
 	      (save-match-data
 		;; If you search via ndtpd, book's name and slash are attached
-		;; to NAME as prefix, like `IWANAMI/KOJIEN'.  The following 
+		;; to NAME as prefix, like `IWANAMI/KOJIEN'.  The following
 		;; forms will truncate it to `KOJIEN'.
 		(if (string-match "/\\(.+\\)$" name)
 		    (assoc (match-string 1 name) skk-lookup-option-alist)))))))

@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.10 2001/02/03 00:22:58 minakaji Exp $
+;; Version: $Id: skk-kakasi.el,v 1.11 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,9 +33,9 @@
 ;; $B;W$$$r$9$k$3$H$,B?$$$N$G!"5U0z$-$r$7$?$/$F:n$j$^$7$?!#(B
 ;;
 ;; KAKASI $B$O!"(B
-;; 
+;;
 ;;  ftp://kakasi.namazu.org/pub/kakasi/
-;; 
+;;
 ;; $B$K$"$j(B anonymous ftp $B$GF~<j$G$-$^$9!#(B
 ;;
 ;; $BAG@2$7$$%W%m%0%i%`(B KAKASI $B$r$*:n$j$K$J$C$?9b66$5$s$K46<U$$$?$7$^$9!#(B
@@ -78,8 +78,8 @@
   (let ((str (skk-gyakubiki-1 start end all)))
     (save-match-data
       (if (string-match "^[ $B!!(B\t]+" str)
-          ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
-          (setq str (substring str (match-end 0)))))
+	  ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
+	  (setq str (substring str (match-end 0)))))
     (message "%s" str)))
 
 ;;;###autoload
@@ -106,8 +106,8 @@
   (let ((str (skk-gyakubiki-1 start end all 'katakana)))
     (save-match-data
       (if (string-match "^[ $B!!(B\t]+" str)
-          ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
-          (setq str (substring str (match-end 0)))))
+	  ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
+	  (setq str (substring str (match-end 0)))))
     (message "%s" str)))
 
 (defun skk-gyakubiki-1 (start end all &optional katakana)
@@ -115,9 +115,9 @@
   ;; $B%*%W%7%g%J%k0z?t$N(B KATAKANA $B$,(B non-nil $B$G$"$l$P!"%+%?%+%J$XJQ49$9$k!#(B
   (let ((arg (if katakana '("-JK") '("-JH"))))
     (if skk-allow-spaces-newlines-and-tabs
-        (setq arg (cons "-c" arg)))
+	(setq arg (cons "-c" arg)))
     (if all
-        (setq arg (cons "-p" arg)))
+	(setq arg (cons "-p" arg)))
     (skk-kakasi-region start end arg)))
 
 ;;;###autoload
@@ -183,9 +183,9 @@
   ;; $B%*%W%7%g%J%k0z?t$N(B KATAKANA $B$,(B non-nil $B$G$"$l$P!"%+%?%+%J$XJQ49$9$k!#(B
   (let ((arg (if katakana '("-JK" "-f") '("-JH" "-f"))))
     (if skk-allow-spaces-newlines-and-tabs
-        (setq arg (cons "-c" arg)))
+	(setq arg (cons "-c" arg)))
     (if all
-        (setq arg (cons "-p" arg)))
+	(setq arg (cons "-p" arg)))
     (skk-kakasi-region start end arg)))
 
 ;;;###autoload
@@ -200,11 +200,11 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
 $B$k!#Nc$($P!"(B\"$B$7(B\" $B$O%X%\%s<0$G$O(B \"shi\" $B$@$,!"71Na<0$G$O(B \"si\" $B$H$J$k!#(B"
   (interactive "*r")
   (let ((arg '("-Ha" "-Ka" "-Ja" "-Ea" "-ka" "-s"))
-        str)
+	str)
     (if skk-allow-spaces-newlines-and-tabs
-        (setq arg (cons "-c" arg)))
+	(setq arg (cons "-c" arg)))
     (if (not skk-romaji-*-by-hepburn)
-        (setq arg (cons "-rk" arg)))
+	(setq arg (cons "-rk" arg)))
     (setq str (skk-kakasi-region start end arg))
     (delete-region start end)
     (goto-char start)
@@ -223,9 +223,9 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
   (interactive "r")
   (let ((arg '("-Ha" "-Ka" "-Ja" "-Ea" "-ka" "-s")))
     (if skk-allow-spaces-newlines-and-tabs
-        (setq arg (cons "-c" arg)))
+	(setq arg (cons "-c" arg)))
     (if (not skk-romaji-*-by-hepburn)
-        (setq arg (cons "-rk" arg)))
+	(setq arg (cons "-rk" arg)))
     (message "%s" (skk-kakasi-region start end arg))))
 
 (defun skk-kakasi-region (start end arglist)
@@ -233,11 +233,11 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
   ;; kakasi $B$N0z?t$H$7$FEO$9!#(Bkakasi $B$N=PNO$rJV$9!#(B
   (or skk-use-kakasi skk-kakasi-command
       (skk-error "KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$$$+!";HMQ$7$J$$@_Dj$K$J$C$F$$$^$9!#(B"
-                 "KAKASI was not installed, or skk-use-kakasi is nil"))
+		 "KAKASI was not installed, or skk-use-kakasi is nil"))
   (let ((str (buffer-substring-no-properties start end)))
-        ;; $BIQEY>pJs$r;H$C$F2?$+$*$b$7$m$$;H$$J}$,$G$-$k$+$J!)(B  $B8=>u$G$O;H$C$F(B
-        ;; $B$$$J$$!#(B
-        ;;(hindo-file (skk-make-temp-file "skkKKS"))
+    ;; $BIQEY>pJs$r;H$C$F2?$+$*$b$7$m$$;H$$J}$,$G$-$k$+$J!)(B  $B8=>u$G$O;H$C$F(B
+    ;; $B$$$J$$!#(B
+    ;;(hindo-file (skk-make-temp-file "skkKKS"))
     (with-temp-buffer
       ;; current buffer $B$,(B read-only $B$N$H$-$K(B current buffer $B$G(B call-process
       ;; $B$r8F$V$H(B destination buffer $B$rJL$K;XDj$7$F$$$F$b%(%i!<$K$J$k$N$G!"%j!<(B
@@ -245,16 +245,16 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
       (insert str)
       (if (and (eq (apply 'call-process-region (point-min) (point)
 			  skk-kakasi-command
-                          ;; kakasi-2.2.5.hindo.diff $B$,Ev$C$F$$$k$HI8=`%(%i!<(B
-                          ;; $B=PNO$KIQEY>pJs$,=PNO$5$l$k!#(B
-                          'delete-original-text
-                          ;;(list t hindo-file)
-                          '(t nil)
-                          nil arglist)
-                   0)
-               (> (buffer-size) 0))
-          (buffer-string)
-        (skk-error "$BJQ49$G$-$^$;$s(B" "Cannot convert!")))))
+			  ;; kakasi-2.2.5.hindo.diff $B$,Ev$C$F$$$k$HI8=`%(%i!<(B
+			  ;; $B=PNO$KIQEY>pJs$,=PNO$5$l$k!#(B
+			  'delete-original-text
+			  ;;(list t hindo-file)
+			  '(t nil)
+			  nil arglist)
+		   0)
+	       (> (buffer-size) 0))
+	  (buffer-string)
+	(skk-error "$BJQ49$G$-$^$;$s(B" "Cannot convert!")))))
 
 (run-hooks 'skk-kakasi-load-hook)
 (require 'product)

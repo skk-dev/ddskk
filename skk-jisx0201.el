@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.11 2001/07/05 21:33:46 minakaji Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.12 2001/08/31 19:30:14 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/07/05 21:33:46 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -236,16 +236,16 @@
 ;; inline functions.
 (defsubst skk-jisx0201-mode-on (&optional arg)
   (setq skk-mode t
-        skk-jisx0201-mode t
+	skk-jisx0201-mode t
 	skk-jisx0201-roman arg
 	skk-jisx0201-rule-tree (if arg
 				   skk-jisx0201-roman-rule-tree
 				 skk-jisx0201-base-rule-tree)
-        skk-abbrev-mode nil
-        skk-latin-mode nil
-        skk-j-mode nil
-        skk-jisx0208-latin-mode nil
-        skk-katakana nil)
+	skk-abbrev-mode nil
+	skk-latin-mode nil
+	skk-j-mode nil
+	skk-jisx0208-latin-mode nil
+	skk-katakana nil)
   (skk-update-modeline 'jisx0201))
 
 ;; Pieces of advice.
@@ -272,9 +272,9 @@
       ad-do-it
     (let (
 	  ;;(arg (ad-get-arg 0))
-          ;; skk-kakutei を実行すると skk-henkan-on の値が無条件に nil になる
-          ;; ので、保存しておく必要がある。
-          (no-newline (and skk-egg-like-newline skk-henkan-on))
+	  ;; skk-kakutei を実行すると skk-henkan-on の値が無条件に nil になる
+	  ;; ので、保存しておく必要がある。
+	  (no-newline (and skk-egg-like-newline skk-henkan-on))
 	  (auto-fill-function (and (interactive-p) auto-fill-function)))
       ;; fill されても nil が帰ってくる :-<
       ;;(if (skk-kakutei)

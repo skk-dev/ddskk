@@ -4,7 +4,7 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 2000/12/12 09:00:58 $
+;; Last Modified: $Date: 2001/08/31 19:30:15 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -157,9 +157,9 @@ If nil then it is bound to `delete-backward-char'.")
 ;; basic set up
 (defmacro vip-move-marker-locally (marker position &optional buffer)
   (list 'progn
-        (list 'if (list 'not marker)
-              (list 'setq marker (list 'make-marker)))
-        (list 'set-marker marker position buffer)))
+	(list 'if (list 'not marker)
+	      (list 'setq marker (list 'make-marker)))
+	(list 'set-marker marker position buffer)))
 
 (global-set-key "\C-z" 'vip-change-mode-to-vi)
 
@@ -296,7 +296,7 @@ SKK-MODE.  Then, change mode to insert mode."
 	  vip-skk-input-mode-string)
     (skk-kakutei)
     (skk-mode-off)
-    (setq skk-modeline-input-mode 
+    (setq skk-modeline-input-mode
 	  ;; There was no MODE argument...?
 	  ;;(skk-mode-string-to-indicator (concat " [" str "]"))
 	  (concat " [" str "]"))))
@@ -406,9 +406,9 @@ EVENTS is a list of events, which become the beginning of the command."
       ;;(use-local-map vip-emacs-local-map)
       (unwind-protect
 	  (setq com (key-binding (setq key
-                                       ;;(if vip-xemacs-p
-                                       ;;    (read-key-sequence nil)
-                                       ;;  (read-key-sequence nil t)))))
+				       ;;(if vip-xemacs-p
+				       ;;    (read-key-sequence nil)
+				       ;;  (read-key-sequence nil t)))))
 				       (read-key-sequence nil t))))
 	nil)
       (command-execute com prefix-arg)
@@ -485,7 +485,7 @@ EVENTS is a list of events, which become the beginning of the command."
   "Compute numeric prefix arg value.  Invoked by CHAR.  VALUE is the value
 obtained so far, and COM is the command part obtained so far."
   (while (and (>= char ?0) (<= char ?9))
-    (setq value (+ (* (if (numberp value) value 0) 10) (- char ?0)))	
+    (setq value (+ (* (if (numberp value) value 0) 10) (- char ?0)))
     (setq char (read-char)))
   (setq prefix-arg value)
   (if com (setq prefix-arg (cons prefix-arg com)))
@@ -1154,7 +1154,7 @@ beginning of buffer, stop and signal error."
 	(progn
 	  (forward-char)
 	  (vip-execute-com 'vip-end-of-word val com)))))
-			
+
 (defun vip-backward-word (arg)
   "Backward word."
   (interactive "P")

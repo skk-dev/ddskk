@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.46 2001/07/21 23:25:28 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.47 2001/08/31 19:30:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/21 23:25:28 $
+;; Last Modified: $Date: 2001/08/31 19:30:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -138,14 +138,14 @@
 (defgroup skk-filenames nil "Filenames"
   :group 'skk-custom-by-function)
 
-(defgroup skk-hooks-and-functions nil "Hooks and Funcalled functions" 
-  :group 'skk-custom-by-function) 
-
-(defgroup skk-keybinds nil "Keybinds" 
+(defgroup skk-hooks-and-functions nil "Hooks and Funcalled functions"
   :group 'skk-custom-by-function)
 
-(defgroup skk-okurigana nil "Okurigana processing" 
-  :group 'skk-custom-by-function) 
+(defgroup skk-keybinds nil "Keybinds"
+  :group 'skk-custom-by-function)
+
+(defgroup skk-okurigana nil "Okurigana processing"
+  :group 'skk-custom-by-function)
 
 (defgroup skk-misc nil "Miscellaneous"
   :group 'skk-custom-by-function)
@@ -154,60 +154,60 @@
 (defgroup skk-abbrev nil "SKK Abbrev mode related customization."
   :group 'skk-custom-by-filename)
 
-(defgroup skk-auto nil "SKK auto okuri process related customization." 
+(defgroup skk-auto nil "SKK auto okuri process related customization."
   :prefix "skk-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-comp nil "SKK completion related customization." 
-  :prefix "skk-" 
+(defgroup skk-comp nil "SKK completion related customization."
+  :prefix "skk-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-cursor nil "SKK cursor related customization." 
-  :prefix "skk-cursor-" 
+(defgroup skk-cursor nil "SKK cursor related customization."
+  :prefix "skk-cursor-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-gadget nil "SKK gadget related customization." 
-  :prefix "skk-" 
+(defgroup skk-gadget nil "SKK gadget related customization."
+  :prefix "skk-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-isearch nil "SKK incremental search related customization." 
-  :prefix "skk-isearch-" 
+(defgroup skk-isearch nil "SKK incremental search related customization."
+  :prefix "skk-isearch-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-jisx0201 nil "SKK jisx0201 (Hankaku Kana) related customization." 
-  :prefix "skk-jisx0201-" 
+(defgroup skk-jisx0201 nil "SKK jisx0201 (Hankaku Kana) related customization."
+  :prefix "skk-jisx0201-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-kakasi nil "SKK kakasi related customization." 
-  :prefix "skk-" 
+(defgroup skk-kakasi nil "SKK kakasi related customization."
+  :prefix "skk-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-kcode nil "SKK Kanji Code related customization." 
-  :prefix "skk-" 
+(defgroup skk-kcode nil "SKK Kanji Code related customization."
+  :prefix "skk-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-look nil "SKK look conversion related customization." 
-  :prefix "skk-look-" 
+(defgroup skk-look nil "SKK look conversion related customization."
+  :prefix "skk-look-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-lookup nil "SKK lookup related customization." 
-  :prefix "skk-lookup-" 
+(defgroup skk-lookup nil "SKK lookup related customization."
+  :prefix "skk-lookup-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-num nil "SKK number conversion related customization." 
-  :prefix "skk-num-" 
+(defgroup skk-num nil "SKK number conversion related customization."
+  :prefix "skk-num-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-server nil "SKK server related customization." 
-  :prefix "skk-server-" 
+(defgroup skk-server nil "SKK server related customization."
+  :prefix "skk-server-"
   :group 'skk-custom-by-filename)
 
 (defgroup skk-tut nil "SKK tutorial conversion related customization."
   :prefix "skk-tut-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-annotation nil "SKK annotation related customization." 
-  :prefix "skk-annotation-" 
+(defgroup skk-annotation nil "SKK annotation related customization."
+  :prefix "skk-annotation-"
   :group 'skk-custom-by-filename)
 
 ;;(defgroup skk-viper nil "SKK/Viper related customization."
@@ -1369,7 +1369,7 @@ SKK abbrev $B%b!<%I$GJd40$r9T$J$&$H!"8D?M<-=q$r8!:w$7?T$7$?8e$G!"(BUNIX look 
 $B%I$K$h$k1QC18lJd40$r9T$J$&!#Nc$($P!"(B
 
   $B"&(Babstr \(TAB\)
-  ---> $B"&(Babstract 
+  ---> $B"&(Babstract
 
 SKK abbrev $B%b!<%I$G!"!V1QJ8;z(B + $B%"%9%?%j%9%/!W$K$FJQ49$r9T$J$&$H!"(Blook $B%3%^%s%I(B
 $B$K$h$k$"$$$^$$8!:w$r9T$J$&$3$H$,$G$-$k!#Nc$($P!"(B
@@ -1531,7 +1531,7 @@ car $B$O859f$r%m!<%^;zI=5-$7$?(B symbol$B!#(B
 cdr $B$O859fI=5-$N(B string $B$+$i$J$k%j%9%H!#(B"
   :type '(repeat (choice symbol string))
   :group 'skk-gadget)
-	
+
 (defcustom skk-month-alist
   '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M.ANdrz")
     ("Apr" "4" "April") ("May" "5" "Mai")
@@ -1561,7 +1561,7 @@ cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
 $B;~4V>pJs$r0z?t$K<h$j2C9)$7$?J8;zNs$r=PNO$9$k!#(B
 
 $B0z?t$O(B DATE-INFORMATION, FORMAT, GENGO, AND-TIME $B$N(B 4 $B$D!#(B
-DATE-INFORMATION $B$O(B `current-time-string' $B$,JV$7$?J8;zNs$r(B 
+DATE-INFORMATION $B$O(B `current-time-string' $B$,JV$7$?J8;zNs$r(B
 
   \(year month day day-of-week hour minute second\)
 
@@ -1817,7 +1817,7 @@ skk-look-recursive-search $B$,(B non-nil $B$G$"$k$H$-$N$_M-8z!#(B"
   "*Non-nil $B$G$"$l$P!"(Blook $B$K$h$k8!:w$N:]!"(Bispell $B$rJ;MQ$9$k!#(B"
   :type 'boolean
   :group 'skk-look)
-  
+
 ;;; SKK-NUM.EL related.
 (defcustom skk-num-type-alist
   '((0 . identity)
@@ -2074,15 +2074,15 @@ The English version is SKK.tut.E."
   ;; (length skk-kana-rom-vector)
   ;; --> 83
   ;; (setq kana '("$B$!(B" "$B$"(B" "$B$#(B" "$B$$(B" "$B$%(B" "$B$&(B" "$B$'(B" "$B$((B" "$B$)(B" "$B$*(B" "$B$+(B" "$B$,(B" "$B$-(B" "$B$.(B" "$B$/(B" "$B$0(B"
-  ;; 	     "$B$1(B" "$B$2(B" "$B$3(B" "$B$4(B" "$B$5(B" "$B$6(B" "$B$7(B" "$B$8(B" "$B$9(B" "$B$:(B" "$B$;(B" "$B$<(B" "$B$=(B" "$B$>(B" "$B$?(B" "$B$@(B"
-  ;; 	     "$B$A(B" "$B$B(B" "$B$C(B" "$B$D(B" "$B$E(B" "$B$F(B" "$B$G(B" "$B$H(B" "$B$I(B" "$B$J(B" "$B$K(B" "$B$L(B" "$B$M(B" "$B$N(B" "$B$O(B" "$B$P(B"
-  ;; 	     "$B$Q(B" "$B$R(B" "$B$S(B" "$B$T(B" "$B$U(B" "$B$V(B" "$B$W(B" "$B$X(B" "$B$Y(B" "$B$Z(B" "$B$[(B" "$B$\(B" "$B$](B" "$B$^(B" "$B$_(B" "$B$`(B"
-  ;; 	     "$B$a(B" "$B$b(B" "$B$c(B" "$B$d(B" "$B$e(B" "$B$f(B" "$B$g(B" "$B$h(B" "$B$i(B" "$B$j(B" "$B$k(B" "$B$l(B" "$B$m(B" "$B$n(B" "$B$o(B" "$B$p(B"
-  ;; 	     "$B$q(B" "$B$r(B" "$B$s(B"))
+  ;;	     "$B$1(B" "$B$2(B" "$B$3(B" "$B$4(B" "$B$5(B" "$B$6(B" "$B$7(B" "$B$8(B" "$B$9(B" "$B$:(B" "$B$;(B" "$B$<(B" "$B$=(B" "$B$>(B" "$B$?(B" "$B$@(B"
+  ;;	     "$B$A(B" "$B$B(B" "$B$C(B" "$B$D(B" "$B$E(B" "$B$F(B" "$B$G(B" "$B$H(B" "$B$I(B" "$B$J(B" "$B$K(B" "$B$L(B" "$B$M(B" "$B$N(B" "$B$O(B" "$B$P(B"
+  ;;	     "$B$Q(B" "$B$R(B" "$B$S(B" "$B$T(B" "$B$U(B" "$B$V(B" "$B$W(B" "$B$X(B" "$B$Y(B" "$B$Z(B" "$B$[(B" "$B$\(B" "$B$](B" "$B$^(B" "$B$_(B" "$B$`(B"
+  ;;	     "$B$a(B" "$B$b(B" "$B$c(B" "$B$d(B" "$B$e(B" "$B$f(B" "$B$g(B" "$B$h(B" "$B$i(B" "$B$j(B" "$B$k(B" "$B$l(B" "$B$m(B" "$B$n(B" "$B$o(B" "$B$p(B"
+  ;;	     "$B$q(B" "$B$r(B" "$B$s(B"))
   ;; (length kana)
   ;; --> 83
   ;; (mapcar (lambda (s) (- (char-octet (string-to-char s) 1) 33))
-  ;; 	kana)
+  ;;	kana)
   ;; --> (0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82)
   )
 
@@ -2624,9 +2624,9 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; $BCN7CB"(B
     ;; `$B"'#I#M#F!N(BInternational Monetary Fund$B!?(BInternational Metalworkers Federation$B!O(B'
     ;; `$B#I#M#F!J9q:]DL2_4p6b!K!Z(BInternational Monetary Fund$B![(B'
-    ("CHIEZO" exact exact prefix t 
+    ("CHIEZO" exact exact prefix t
      ("$B!J(B\\(.+\\)$B!K(B\\|$B!Z(B\\(.+\\)$B![(B$\\|$B!N(B\\(.+\\)$B!O(B$\\|^\\([^$B!J!Z!N!O![!K(B]+\\)$" .
-      (cond ((match-beginning 1) 1) ((match-beginning 2) 2) 
+      (cond ((match-beginning 1) 1) ((match-beginning 2) 2)
 	    ((match-beginning 3) 3) ((match-beginning 4) 4)))
      "$B!?(B\\|$B!"(B\\|, " nil)
     ;; $B!V<-!&E5!&HW!W(B
@@ -2699,7 +2699,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;;`$B9aNI='(B($BD.(B)'
     ;;`$B%+%i%9(B ($B1((B)'
     ;;`$B%+%i%9(B(Maria Callas)'
-    ("MYPAEDIA" exact exact prefix t 
+    ("MYPAEDIA" exact exact prefix t
      ("\\([^ ]+\\)(.+)$\\|.+ (\\([^ ]+\\))$\\|^\\([^ ()]+\\)$" .
       (cond ((match-beginning 1) 1) ((match-beginning 2) 2) ((match-beginning 3) 3)))
      nil nil)
@@ -2712,7 +2712,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; `$B9aNI='(B [$B$+$i$9(B] ($BD.(B)'
     ;; `$B%+%i%9(B ($B1((B) [$B%+%i%9(B]'
     ;; `$B%+%i%9(B (Maria Callas)'
-    ;;("MYPAEDIA" exact exact prefix t 
+    ;;("MYPAEDIA" exact exact prefix t
     ;; ("^\\([^ ]+\\) \\[.+\\] (.+)$\\|^[^ ]+ (\\(.+\\)) \\[.+\\]$\\|^\\([^][() ]+\\)\\( .+\\)?$" .
     ;;  (cond ((match-beginning 1) 1) ((match-beginning 2) 2) ((match-beginning 3) 3)))
     ;; nil nil)
@@ -2747,7 +2747,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
        \(5th $B$KJ8;zNs$@$1$r;XDj$7$?>l9g$O(B `match-string' $B$K$O(B 1 $B$,EO$5$l$k(B\)$B!#(B
        cdr $BIt$K(B S $B<0$r;XDj$9$k$3$H$b2DG=!#2<5-$N$h$&$K(B cond $B<0$G>r7oH=Dj$9$l$P(B
        $BJ#?t$N(B regexp $B$r(B or $B;XDj$9$k$3$H$,2DG=!#(B
-          \(cond \(\(match-beginning 1\) 1\) \(\(match-beginning 2\) 2\) 
+          \(cond \(\(match-beginning 1\) 1\) \(\(match-beginning 2\) 2\)
 	        \(\(match-beginning 3\) 3\) \(\(match-beginning 4\) 4\)\)\)
        cdr $BIt$NI>2A7k2L$,?t;z$N%j%9%H$K$J$k$H$-$O!"$=$N?t;z$r=g$K(B match-string
        $B$KEO$7$FJ8;zNs$r@Z$j=P$7!"$=$l$iO"7k$7$?J8;zNs$r8uJd$H$7$FJV$9!#Nc$($P!"(B
@@ -2827,7 +2827,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
        \(4th $B$KJ8;zNs$@$1$r;XDj$7$?>l9g$O(B match-string $B$K$O(B 1 $B$,EO$5$l$k(B\)$B!#(B
        cdr $BIt$K(B S $B<0$r;XDj$9$k$3$H$b2DG=!#2<5-$N$h$&$K(B cond $B<0$G>r7oH=Dj$9$l$P(B
        $BJ#?t$N(B regexp $B$r(B or $B;XDj$9$k$3$H$,2DG=!#(B
-          \(cond \(\(match-beginning 1\) 1\) \(\(match-beginning 2\) 2\) 
+          \(cond \(\(match-beginning 1\) 1\) \(\(match-beginning 2\) 2\)
 	        \(\(match-beginning 3\) 3\) \(\(match-beginning 4\) 4\)\)\)
        cdr $BIt$NI>2A7k2L$,?t;z$N%j%9%H$K$J$k$H$-$O!"$=$N?t;z$r=g$K(B match-string
        $B$KEO$7$FJ8;zNs$r@Z$j=P$7!"$=$l$iO"7k$7$?J8;zNs$r8uJd$H$7$FJV$9!#Nc$($P!"(B
@@ -2921,7 +2921,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   :group 'skk-annotation
   :group 'skk-misc)
 
-(defcustom skk-annotation-function nil 
+(defcustom skk-annotation-function nil
   "*annotation $B$rI=<($9$k$+$I$&$+$N%A%'%C%/;~$K%3!<%k$5$l$k4X?t!#(B
 non-nil $B$rJV$9$H(B annotation $B$rI=<($9$k!#(Bannotation $B$NBP>]$H$9$kJ8;zNs(B
 $B$r0z?t$K$7$F(B funcall $B$5$l$k!#(B"

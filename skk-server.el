@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.7 2000/12/14 10:24:12 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.8 2001/08/31 19:30:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/14 10:24:12 $
+;; Last Modified: $Date: 2001/08/31 19:30:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -38,32 +38,32 @@
       (message (skk-server-version))
     (let (status)
       (if (not (or skk-server-host skk-servers-list))
-          (skk-error "Lack of host information of SKK server"
-                     "SKK サーバーのホスト情報がありません"))
+	  (skk-error "Lack of host information of SKK server"
+		     "SKK サーバーのホスト情報がありません"))
       (setq status (process-status "skkservd"))
       (or (eq status skk-network-open-status) (setq status (skk-open-server)))
       (if (eq status skk-network-open-status)
-          (let (v)
-            (save-match-data
-              (with-current-buffer skkserv-working-buffer
-                (erase-buffer)
-                ;; サーバーバージョンを得る。
-                (process-send-string "skkservd" "2")
-                (while (eq (buffer-size) 0)
-                  (accept-process-output))
-                (setq v (buffer-string))
-                (erase-buffer)
-                ;; ホスト名を得る。
-                (process-send-string "skkservd" "3")
-                (while (eq (buffer-size) 0)
-                  (accept-process-output))
-                (goto-char (point-min))
-                (format
-                 (concat "SKK SERVER version %s"
-                         (if skk-japanese-message-and-error
-                             "(ホスト名 %s)"
-                           "running on HOST %s"))
-                 v (prog1 (buffer-string) (erase-buffer))))))))))
+	  (let (v)
+	    (save-match-data
+	      (with-current-buffer skkserv-working-buffer
+		(erase-buffer)
+		;; サーバーバージョンを得る。
+		(process-send-string "skkservd" "2")
+		(while (eq (buffer-size) 0)
+		  (accept-process-output))
+		(setq v (buffer-string))
+		(erase-buffer)
+		;; ホスト名を得る。
+		(process-send-string "skkservd" "3")
+		(while (eq (buffer-size) 0)
+		  (accept-process-output))
+		(goto-char (point-min))
+		(format
+		 (concat "SKK SERVER version %s"
+			 (if skk-japanese-message-and-error
+			     "(ホスト名 %s)"
+			   "running on HOST %s"))
+		 v (prog1 (buffer-string) (erase-buffer))))))))))
 
 ;;;###autoload
 (defun skk-search-server (file limit &optional nomsg)
@@ -88,38 +88,38 @@
 	 (if skk-use-numeric-conversion
 	     (skk-num-compute-henkan-key skk-henkan-key)
 	   skk-henkan-key))
-        ;; バッファローカル値の受け渡しのため、別名の一時変数に取る。
-        (okurigana (or skk-henkan-okurigana skk-okuri-char))
-        (status (process-status "skkservd")))
+	;; バッファローカル値の受け渡しのため、別名の一時変数に取る。
+	(okurigana (or skk-henkan-okurigana skk-okuri-char))
+	(status (process-status "skkservd")))
     (or (eq status skk-network-open-status) (setq status (skk-open-server)))
     (if (eq status skk-network-open-status)
-        (with-current-buffer skkserv-working-buffer
-          (let ((cont t) (count 0)
-                l)
-            (erase-buffer)
-            (process-send-string "skkservd" (concat "1" key " "))
-            (while (and cont (eq (process-status "skkservd")
-                                 skk-network-open-status))
-              (accept-process-output)
-              (setq count (1+ count))
-              (if (> (buffer-size) 0)
-                  (if (eq (char-after 1) ?1) ;?1
-                      ;; found key successfully, so check if a whole line
-                      ;; is received.
-                      (if (eq (char-after (1- (point-max))) ?\n) ;?\n
-                          (setq cont nil))
-                    ;; not found or error, so exit
-                    (setq cont nil))))
-            (goto-char (point-min))
-            (if skk-server-report-response
-                (skk-message "%d 回 SKK サーバーの応答待ちをしました"
-                             "Waited for server response %d times" count))
-            (if (eq (following-char) ?1) ;?1
-                (progn
-                  (forward-char 2)
-                  (setq l (skk-compute-henkan-lists okurigana))
-                  (if l
-                      (cond ((and okurigana skk-henkan-okuri-strictly)
+	(with-current-buffer skkserv-working-buffer
+	  (let ((cont t) (count 0)
+		l)
+	    (erase-buffer)
+	    (process-send-string "skkservd" (concat "1" key " "))
+	    (while (and cont (eq (process-status "skkservd")
+				 skk-network-open-status))
+	      (accept-process-output)
+	      (setq count (1+ count))
+	      (if (> (buffer-size) 0)
+		  (if (eq (char-after 1) ?1) ;?1
+		      ;; found key successfully, so check if a whole line
+		      ;; is received.
+		      (if (eq (char-after (1- (point-max))) ?\n) ;?\n
+			  (setq cont nil))
+		    ;; not found or error, so exit
+		    (setq cont nil))))
+	    (goto-char (point-min))
+	    (if skk-server-report-response
+		(skk-message "%d 回 SKK サーバーの応答待ちをしました"
+			     "Waited for server response %d times" count))
+	    (if (eq (following-char) ?1) ;?1
+		(progn
+		  (forward-char 2)
+		  (setq l (skk-compute-henkan-lists okurigana))
+		  (if l
+		      (cond ((and okurigana skk-henkan-okuri-strictly)
 			     ;; 送り仮名が同一のエントリのみを返す。
 			     (nth 2 l))
 			    ((and okurigana skk-henkan-strict-okuri-precedence)
@@ -132,11 +132,11 @@
   ;; SKK サーバーと接続する。サーバープロセスの status を返す。
   (let (status code proc)
     (if (or (skk-open-network-stream) (skk-open-server-1))
-        (progn
-          (setq status (process-status "skkservd"))
-          (if (eq status skk-network-open-status)
-              (progn
-                (setq code (cdr (assoc "euc" skk-coding-system-alist))
+	(progn
+	  (setq status (process-status "skkservd"))
+	  (if (eq status skk-network-open-status)
+	      (progn
+		(setq code (cdr (assoc "euc" skk-coding-system-alist))
 		      proc (get-process "skkservd"))
 		(static-cond
 		 ((eq skk-emacs-type 'xemacs)
@@ -218,41 +218,41 @@
 (defun skk-startup-server (arg)
   ;; skkserv を起動できたら t を返す。
   (let (
-        ;;(msgbuff (get-buffer-create " *skkserv-msg*"))
-        (count 7))
+	;;(msgbuff (get-buffer-create " *skkserv-msg*"))
+	(count 7))
     (while (> count 0)
       (skk-message
        "%s の SKK サーバーが起動していません。起動します%s"
        "SKK SERVER on %s is not active, I will activate it%s"
        skk-server-host (make-string count ?.))
       (if (or (string= skk-server-host (system-name))
-              (string= skk-server-host "localhost"))
-          ;; server host is local machine
-          (apply 'call-process skk-server-prog nil
-                 ;;msgbuff
-                 0 nil arg)
-        (apply 'call-process
-               skk-server-remote-shell-program nil
-               ;; 0 にしてサブプロセスの終了を待ってはいけない理由がある？
-               ;; なければ msgbuf にエラー出力を取った方が建設的では？  またそ
-               ;; の場合はこの while ループ自身がいらない？
-               ;; msgbuff
-               0 nil skk-server-host skk-server-prog arg))
+	      (string= skk-server-host "localhost"))
+	  ;; server host is local machine
+	  (apply 'call-process skk-server-prog nil
+		 ;;msgbuff
+		 0 nil arg)
+	(apply 'call-process
+	       skk-server-remote-shell-program nil
+	       ;; 0 にしてサブプロセスの終了を待ってはいけない理由がある？
+	       ;; なければ msgbuf にエラー出力を取った方が建設的では？  またそ
+	       ;; の場合はこの while ループ自身がいらない？
+	       ;; msgbuff
+	       0 nil skk-server-host skk-server-prog arg))
       (sit-for 3)
       (if (and (skk-open-network-stream)
-               (eq (process-status "skkservd") skk-network-open-status))
-          (setq count 0)
-        (setq count (1- count))))
+	       (eq (process-status "skkservd") skk-network-open-status))
+	  (setq count 0)
+	(setq count (1- count))))
     (if (eq (process-status "skkservd") skk-network-open-status)
-        (progn
-          (skk-message "ホスト %s の SKK サーバーが起動しました"
-                       "SKK SERVER on %s is active now"
-                       skk-server-host)
-          (sit-for 1) ; return t
-          t) ; でも念のため
+	(progn
+	  (skk-message "ホスト %s の SKK サーバーが起動しました"
+		       "SKK SERVER on %s is active now"
+		       skk-server-host)
+	  (sit-for 1) ; return t
+	  t) ; でも念のため
       (skk-message "%s の SKK サーバーを起動することができませんでした"
-                   "Could not activate SKK SERVER on %s"
-                   skk-server-host)
+		   "Could not activate SKK SERVER on %s"
+		   skk-server-host)
       (sit-for 1)
       (ding) ;return nil
       nil))) ; でも念のため
@@ -265,9 +265,9 @@
   (if (or skk-server-host skk-servers-list)
       (if (null (assq 'skk-search-server
 		      (default-value 'skk-search-prog-list)))
-          ;; skk-search-prog-list が nil ということはまずないだろうが、念のた
-          ;; め、setq しておく。
-          (setq-default
+	  ;; skk-search-prog-list が nil ということはまずないだろうが、念のた
+	  ;; め、setq しておく。
+	  (setq-default
 	   skk-search-prog-list
 	   ;; 末尾に付ける。末尾には (skk-okuri-search) を持ってきたい人
 	   ;; もいるかも。オプションで付ける場所を変更するようにした方が
@@ -281,10 +281,10 @@
 (defun skk-disconnect-server ()
   ;; サーバーを切り離す。
   (if (and skk-server-host
-           (eq (process-status "skkservd") skk-network-open-status))
+	   (eq (process-status "skkservd") skk-network-open-status))
       (progn
-        (process-send-string "skkservd" "0") ; disconnect server
-        (accept-process-output (get-process "skkservd")))))
+	(process-send-string "skkservd" "0") ; disconnect server
+	(accept-process-output (get-process "skkservd")))))
 
 ;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-server-search)
 (add-hook 'skk-before-kill-emacs-hook 'skk-disconnect-server)

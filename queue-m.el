@@ -1,4 +1,4 @@
-;;;; $Id: queue-m.el,v 1.1 1999/11/07 03:22:29 minakaji Exp $
+;;;; $Id: queue-m.el,v 1.2 2001/08/31 19:30:14 czkmt Exp $
 ;;;; This file implements a simple FIFO queue using macros.
 
 ;; Copyright (C) 1991-1995 Free Software Foundation
@@ -6,7 +6,7 @@
 ;; Author: Inge Wallin <inge@lysator.liu.se>
 ;; Maintainer: elib-maintainers@lysator.liu.se
 ;; Created: before 12 May 1991
-;; Last Modified: $Date: 1999/11/07 03:22:29 $
+;; Last Modified: $Date: 2001/08/31 19:30:14 $
 ;; Keywords: extensions, lisp
 
 ;;;;
@@ -28,17 +28,17 @@
 ;;;; Boston, MA 02111-1307, USA
 ;;;;
 ;;;; Author: Inge Wallin
-;;;; 
+;;;;
 
 ;;; Commentary:
 
-;;; The queue is implemented as a two cons cell list, the first 
+;;; The queue is implemented as a two cons cell list, the first
 ;;; containing the tag 'QUEUE.  The car of the the second cons
 ;;; cell points at the first element of the queue and the cdr points
 ;;; at the last.  All entries and removals are done using destructive
 ;;; functions.
 ;;;
-;;; This file implements the short functions as macros for speed in 
+;;; This file implements the short functions as macros for speed in
 ;;; compiled code.
 ;;;
 
@@ -70,7 +70,7 @@ Args: QUEUE ELEMENT"
     (if (null (car (cdr queue)))
 	;; QUEUE is empty
 	(setcar (cdr queue)
-		(setcdr (cdr queue) 
+		(setcdr (cdr queue)
 			elementcell))
       (setcdr (cdr (cdr queue))
 	      elementcell)
