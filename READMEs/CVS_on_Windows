@@ -1,7 +1,7 @@
 -*- outline -*- 
 
-$Date: 2000/03/29 03:02:46 $
-$Id: CVS_on_Windows,v 1.4 2000/03/29 03:02:46 yutopia Exp $
+$Date: 2000/09/14 15:49:50 $
+$Id: CVS_on_Windows,v 1.5 2000/09/14 15:49:50 czkmt Exp $
 
 [cvs on Windows 95/NT Windows 95 $B$GF0:n3NG':Q$_(B (NT $B$G$OL$3NG'(B)] 
 
@@ -24,9 +24,10 @@ SKK 10.x (Maintrunk) $B5Z$S(B Daredevil SKK 11.1 $B$O<g$K(B UNIX $B>e$G3+H/
 * cvs $B$N(B version $B$O!)(B  $B$^$?$I$3$+$i(B get $B$G$-$^$9$+!)(B
 
 cvs $B$N%P!<%8%g%s$O!"(B1.10.7 $B0J>e$,NI$$$h$&$G$9(B ($B$=$l0J2<$N%P!<%8%g%s$G(B
-$B$O%3%s%Q%$%k%(%i!<$,=P$k$3$H$,$"$j$^$9(B)$B!#(B1.10.7 $B$ONc$($P!"(B
+$B$O%3%s%Q%$%k%(%i!<$,=P$k$3$H$,$"$j$^$9(B)$B!#(B1.10.8 $B$,:G?7HG$G!"$3$l$ONc$((B
+$B$P!"(B
 
-  http://download.cyclic.com/pub/cvs-1.10.7/cvs-1.10.7.tar.gz
+ftp://ftp.cvshome.org/pub/cvs-1.10.8/cvs-1.10.8.tar.gz
 
 $B$+$i(B get $B$G$-$^$9!#(B
 
