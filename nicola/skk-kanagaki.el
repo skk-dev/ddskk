@@ -286,6 +286,8 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 
 (defvar skk-kanagaki-state 'kana)
 
+;; Hooks.
+
 ;; Functions.
 
 (defalias-maybe 'help-mode 'fundamental-mode)
@@ -342,6 +344,17 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	  (when (stringp str)
 	    (cons str "$BAw$j$"$jJQ493+;O(B"))))))))
 
+(defun skk-kanagaki-adjust-rule-tree ()
+  (let ((rule
+	 (case skk-kanagaki-state
+	   (kana
+	    skk-kanagaki-rule-tree)
+	   (t
+	    skk-kanagaki-rom-kana-rule-tree))))
+    (setq skk-rule-tree rule)
+    (when (skk-local-variable-p 'skk-rule-tree)
+      (setq-default skk-rule-tree rule))))
+
 ;;;###autoload
 (defun skk-kanagaki-insert (&optional arg)
   "SPC $B%-!<$@$1$3$l$r(B `skk-insert' $B$NBe$o$j$K;H$&!#(B"
@@ -361,20 +374,20 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   (let ((pt1 (point))
 	pt2 okuri sokuon)
     (setq okuri
-	  (save-excursion
+	  (skk-save-point
 	    ;; $B$&$&!"$3$s$J$3$H$r$7$J$1$l$P$J$i$J$$$N$+(B...
 	    (backward-char 1)
 	    (buffer-substring-no-properties (setq pt2 (point)) pt1)))
     (when okuri
       (unless no-sokuon
 	(setq sokuon
-	      (save-excursion
+	      (skk-save-point
 		(backward-char 2)
 		(buffer-substring-no-properties (point) pt2)))
 	(unless (member sokuon '("$B$C(B" "$B%C(B"))
 	  (setq sokuon nil)))
       ;;
-      (save-excursion
+      (skk-save-point
 	(backward-char (if sokuon 2 1))
 	(skk-set-marker skk-okurigana-start-point (point)))
       (setq skk-okuri-char (skk-okurigana-prefix okuri))
@@ -406,7 +419,6 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	 (skk-kanagaki-abbrev-mode-key . skk-abbrev-mode)
 	 (skk-kanagaki-katakana-mode-key . skk-toggle-kana)
 	 (skk-kanagaki-latin-jisx0208-mode-key . skk-jisx0208-latin-mode)
-	 (skk-kanagaki-hankaku-mode-key . skk-toggle-katakana)
 	 (skk-kanagaki-latin-mode-key . skk-latin-mode)
 	 (skk-kanagaki-code-input-key . skk-input-by-code-or-menu)
 	 (skk-kanagaki-toggle-rom-kana-key . skk-kanagaki-toggle-rom-kana)
@@ -427,42 +439,10 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   (define-key help-map skk-kanagaki-help-key 'skk-kanagaki-help)
   ;;
   (eval-after-load "skk-jisx0201"
-    '(progn
-       (when skk-kanagaki-hankaku-mode-key
-	 (define-key skk-j-mode-map skk-kanagaki-hankaku-mode-key
-	   'skk-toggle-katakana))
+    '(when skk-kanagaki-hankaku-mode-key
+       (define-key skk-j-mode-map skk-kanagaki-hankaku-mode-key
+	 'skk-toggle-katakana)))
 
-       (defadvice skk-mode (before skk-kanagaki-ad-jisx0201 activate)
-	 (when skk-jisx0201-mode
-	   (kill-local-variable 'skk-kanagaki-state)
-	   (setq skk-jisx0201-mode nil)))
-
-       (defadvice skk-latin-mode (before skk-kanagaki-ad-jisx0201 activate)
-	 (when skk-jisx0201-mode
-	   (kill-local-variable 'skk-kanagaki-state)
-	   (setq skk-jisx0201-mode nil)))
-
-       (defadvice skk-jisx0208-latin-mode (after skk-kanagaki-ad-jisx0201
-						 activate)
-	 (when skk-jisx0201-mode
-	   (kill-local-variable 'skk-kanagaki-state)
-	   (setq skk-jisx0201-mode nil)))
-
-       (defadvice skk-abbrev-mode (after skk-kanagaki-ad-jisx0201 activate)
-	 (when skk-jisx0201-mode
-	   (kill-local-variable 'skk-kanagaki-state)
-	   (setq skk-jisx0201-mode nil)))
-
-       (defadvice skk-toggle-katakana (after skk-kanagaki-ad-jisx0201 activate)
-	 (cond
-	  (skk-jisx0201-mode
-	   (when skk-use-kana-keyboard
-	     (make-local-variable 'skk-kanagaki-state)
-	     (setq skk-kanagaki-state 'rom)))
-	  (t
-	   (when skk-use-kana-keyboard
-	     (skk-kanagaki-toggle-rom-kana 'kana)
-	     (kill-local-variable 'skk-kanagaki-state)))))))
   ;;
   (define-key skk-j-mode-map skk-kanagaki-start-henkan-key
     'skk-kanagaki-insert)
@@ -476,10 +456,7 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	 skk-kanagaki-base-rule-list skk-kanagaki-rule-list))
   (setq skk-kanagaki-rom-kana-rule-tree skk-rule-tree)
   ;;
-  (add-hook 'skk-mode-hook
-	    (function
-	     (lambda ()
-	       (skk-kanagaki-adjust-rule-tree))))
+  (add-hook 'skk-mode-hook (function skk-kanagaki-adjust-rule-tree) t)
   ;; $B6gFIE@F~NO;~$NLdBj$r2sHr!#(B $BF|K\8l(B 106 $B%-!<%\!<%I$G$O(B "<" $B$H(B ">" $B$K$h$k@\(B
   ;; $BHx<-$NF~NO$O$G$-$J$/$J$k!#(B "?" $B$K$h$k@\Hx<-$NF~NO$O$G$-$k!#(B
   (dolist (char skk-special-midashi-char-list)
@@ -504,7 +481,8 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
     ;; $B$=$b0UL#$N$J$$%*%W%7%g%s$J$N$G6/@)E*$K(B off $B$K$9$k!#(B
     (setq skk-process-okuri-early nil))
   ;;
-  (if (eq skk-kanagaki-state 'kana)
+  (if (and (eq skk-kanagaki-state 'kana)
+	   (not skk-jisx0201-mode))
       (let (skk-set-henkan-point-key)
 	ad-do-it)
     ad-do-it))

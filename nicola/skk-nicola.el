@@ -403,7 +403,8 @@ keycode 131 = underscore\n"))
     (setq skk-nicola-okuri-flag nil))
   ;;
   (cond
-   ((eq skk-kanagaki-state 'kana)
+   ((and (eq skk-kanagaki-state 'kana)
+	 (not skk-jisx0201-mode))
     (skk-nicola-insert arg))
    (t
     (unless last-command-char

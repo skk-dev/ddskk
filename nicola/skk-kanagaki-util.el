@@ -30,6 +30,7 @@
 
 (eval-when-compile
   (require 'cl)
+  (require 'skk-macs)
   (require 'static))
 
 (eval-when-compile
@@ -59,13 +60,15 @@
 濁点と半濁点を入力するためのルール。")
 
 (defvar skk-kanagaki-temp-dir
-  (cond
+  (static-cond
    ((fboundp 'temp-directory)
     (temp-directory))
-   ((and (boundp 'temporary-file-directory) temporary-file-directory)
-    temporary-file-directory)
    (t
-    (or (getenv "TMP") "/tmp"))))
+    (cond
+     ((and (boundp 'temporary-file-directory) temporary-file-directory)
+      temporary-file-directory)
+     (t
+      (or (getenv "TMP") "/tmp"))))))
 
 ;;;###autoload
 (defmacro skk-kanagaki-help-1 (bufname title list)
@@ -146,14 +149,6 @@
 		     'browse-url-netscape))))
     (funcall func "http://nicola.sunicom.co.jp/")))
 
-(defsubst skk-kanagaki-adjust-rule-tree ()
-  (cond ((eq  skk-kanagaki-state 'kana)
-	 (unless (equal skk-rule-tree skk-kanagaki-rule-tree)
-	   (setq skk-rule-tree skk-kanagaki-rule-tree)))
-	((eq skk-kanagaki-state 'rom)
-	 (unless (equal skk-rule-tree skk-kanagaki-rom-kana-rule-tree)
-	   (setq skk-rule-tree skk-kanagaki-rom-kana-rule-tree)))))
-
 ;;;###autoload
 (defun skk-kanagaki-toggle-rom-kana (&optional arg)
   "ローマ字入力 ⇔ 仮名入力 を切り替える。"
@@ -203,7 +198,7 @@
 	char1 char2)
     (condition-case nil
 	(setq char1
-	      (save-excursion
+	      (skk-save-point
 		(backward-char 1)
 		(buffer-substring-no-properties (point) pt1)))
       (error))
@@ -222,7 +217,7 @@
 	char1 char2)
     (condition-case nil
 	(setq char1
-	      (save-excursion
+	      (skk-save-point
 		(backward-char 1)
 		(buffer-substring-no-properties (point) pt1)))
       (error))

@@ -1,3 +1,10 @@
+2001-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kangaki.el (skk-kanagaki-adjust-rule-tree): Use `case'.
+	(skk-kanagaki-insert): Use `skk-save-point'.
+	(skk-insert): Don't bind `skk-henkan-point-key' in
+	skk-jisx0201-mode.
+
 2001-09-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-nicola-self-insert-lshift): Do not do dynamic
