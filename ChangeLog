@@ -1,3 +1,11 @@
+2001-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK:
+	Require `pcustom'.
+
+	(SKK_MODULES): Check the feature `tinycustom' by `featurep'
+	instead of `module-installed-p'.
+
 2001-11-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *.el:
@@ -2778,8 +2786,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.536 2001/11/17 05:40:15 czkmt Exp $
-Last Modified: $Date: 2001/11/17 05:40:15 $
+Version: $Id: ChangeLog,v 1.537 2001/11/18 11:31:50 czkmt Exp $
+Last Modified: $Date: 2001/11/18 11:31:50 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
