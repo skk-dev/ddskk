@@ -3,6 +3,7 @@
 	* skk.el (skk-update-jisyo-format): New function.
 	(skk-update-jisyo-format-1): New function.
 	(skk-get-jisyo-buffer): Use `skk-update-jisyo-format'.
+	(skk-quote-char): Bug fixed.
 
 	* experimental/skk-annotation.el (skk-annotation-show-1): Do
 	nothing when ANNOTATION is a null string.
@@ -2124,8 +2125,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.126 2000/11/05 15:52:20 minakaji Exp $
-Last Modified: $Date: 2000/11/05 15:52:20 $
+Version: $Id: ChangeLog,v 1.127 2000/11/05 16:03:40 minakaji Exp $
+Last Modified: $Date: 2000/11/05 16:03:40 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
