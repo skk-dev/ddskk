@@ -1,5 +1,7 @@
 1999-11-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* READMEs/CVS_on_Windows: New file.
+
 	* experimental/skk-study.el (skk-study-file-format-version):
 	Change version number to string.
 
