@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.6 1999/09/26 14:41:27 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.7 1999/09/27 21:35:13 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 1999/09/26 14:41:27 $
+@c  Last Modified: $Date: 1999/09/27 21:35:13 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.51
-@set UPDATED $Date: 1999/09/26 14:41:27 $
+@set UPDATED $Date: 1999/09/27 21:35:13 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -6408,14 +6408,14 @@ SKKは1988年4月に第1版をJUNETに投稿して以来、毎年4
 
 @menu
 * dbskkd-cdb ::                 
-* SKK95::                       
+* skkfep内蔵jvim::              
 * KAKASI::                      逆引プログラム
 * skkfep::                      SKKクローンFEP
 * SKK on Jed::                  Jedで動くSKK
 * skkinput::                    X上のSKK入力プログラム
 @end menu
 
-@node dbskkd-cdb , SKK95, SKK関連ソフトウェア, SKK関連ソフトウェア
+@node dbskkd-cdb , skkfep内蔵jvim, SKK関連ソフトウェア, SKK関連ソフトウェア
 @comment  node-name,  next,  previous,  up
 @section dbskkd-cdb 
 @cindex dbskkd-cdb 
@@ -6459,54 +6459,47 @@ GPLに準拠。
 さまざまなUNIX系OSの上での動作レポートを希望しています。
 @end table
 
-@node SKK95, KAKASI, dbskkd-cdb , SKK関連ソフトウェア
+@node skkfep内蔵jvim, KAKASI, dbskkd-cdb , SKK関連ソフトウェア
 @comment  node-name,  next,  previous,  up
-@section SKK95
-@cindex IME
-@cindex SKK95
-@cindex Windows95
-@cindex Windows98
-@cindex WindowsNT
+@section skkfep内蔵jvim
+@cindex skkfep
+@cindex jvim
 
-このセクションは、SKK 95の開発メンバーである川崎＠京大マイコンクラブ氏に
-より書かれた。
-
+このセクションは、skkfep内蔵jvimの開発者である木原英人氏により書かれた。
 @table @asis
 
 @item 正式名称
-SKK95
+skkfep内蔵jvim
 
 @item どのようなソフトウェアか
-Windows95, WindowsNT, Windows98上でSKKライクなかな漢字入力を実現するIME。
+jvim(viクローンのエディタvimを日本語化したもの)にskkfepを組み込んだもの
+です。vi系のエディタでSKK風の日本語入力ができます。
 
 @item 使用するために要求される環境
-上記のOS(もちろん日本語版)。
+UNIX, Windows 95/98/NT, DOS
 
 @item 最新バージョン、release の日付
-α13。1999年6月9日。
+jvim, skkfep, ariそれぞれに対するパッチとして提供しています。
+@w{jvim3.0-j1.7-skk1.2.8.patch} 1999/8/30,
+@w{skkfep0.86c-kh1.2.5.patch}, 1999/5/12,
+@w{ari1.00a-kh1.2.1.patch} 1999/1/29
 
 @item 開発者
-京大マイコンクラブ
+木原英人
 
 @item 配布条件
-SKK95はフリーウェアです。商業目的以外の目的のためならば自由にコピーして
-いただいて構いません。SKK95を使用したことによるいかなる被害に対しても、
-SKK95の作者は責任を負いません。
+skkfep, jvim, ariそれぞれに対するパッチとして提供しているので、それぞれ
+の配布条件に従います。
 
 @item 入手方法
-下記のウェッブページから入手して下さい。
-@w{@samp{http://www.kuis.kyoto-u.ac.jp/~kmc/proj/skk95/}}
+@w{@samp{http://hiroshima.cool.ne.jp/deton/jvim-skk/}}
 
 @item bug report,質問のためのアドレス
-@w{@samp{skk95-bugs@@kmc.kyoto-u.ac.jp}}
-
-@item その他
-1999年9月現在、SKk95はαバージョンであり、動作が安定していないところもあ
-ります。WindowsNTでは比較的安定して動作するようです。
+@w{@samp{deton@m1.interq.or.jp}}
 
 @end table
 
-@node KAKASI, skkfep, SKK95, SKK関連ソフトウェア
+@node KAKASI, skkfep, skkfep内蔵jvim, SKK関連ソフトウェア
 @comment  node-name,  next,  previous,  up
 @section KAKASI
 @cindex Kanji Kana Simple Inverter
