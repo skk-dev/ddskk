@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.11 2000/09/21 10:49:43 akiho Exp $
+;; Version: $Id: skk-tut.el,v 1.12 2000/10/11 15:24:45 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/21 10:49:43 $
+;; Last Modified: $Date: 2000/10/11 15:24:45 $
 
 ;; This file is part of SKK.
 
@@ -366,28 +366,30 @@ The English version is SKK.tut.E."
 				 global-map)
       (substitute-key-definition 'canna-self-insert-command 'skk-insert map
 				 global-map)
+      (substitute-key-definition 'canna-henkan-region-or-self-insert
+				 'skk-insert map global-map)
       (substitute-key-definition 'can-n-egg-self-insert-command 'skk-insert map
 				 global-map)
       (define-key map "x" 'skk-previous-candidate)
       (define-key map "\C-j" 'skk-kakutei)
       (define-key map "\t" 'skk-insert)
-      (setq skktut-j-mode-map map) ))
+      (setq skktut-j-mode-map map)))
 
 (defvar skktut-jisx0208-latin-mode-map nil
   "SKK チュートリアル全角英数字モードキーマップ。" )
 
 (or skktut-jisx0208-latin-mode-map
     (let ((map (make-sparse-keymap))
-	  (i 0) )
+	  (i 0))
       (while (< i 128)
 	(if (aref skk-jisx0208-latin-vector i)
-	    (define-key map (char-to-string i) 'skk-jisx0208-latin-insert) )
-	(setq i (1+ i)) )
+	    (define-key map (char-to-string i) 'skk-jisx0208-latin-insert))
+	(setq i (1+ i)))
       (define-key map "\C-j" 'skk-kakutei)
-      (setq skktut-jisx0208-latin-mode-map map) ))
+      (setq skktut-jisx0208-latin-mode-map map)))
 
 (defvar skktut-abbrev-mode-map nil
-  "SKK チュートリアル Abbrev モードキーマップ。" )
+  "SKK チュートリアル Abbrev モードキーマップ。")
 
 (or skktut-abbrev-mode-map
     (let ((map (make-sparse-keymap)))
@@ -397,7 +399,7 @@ The English version is SKK.tut.E."
       (define-key map "\C-j" 'skk-kakutei)
       (define-key map " " 'skk-start-henkan)
       (define-key map "\t" 'skk-try-completion)
-      (setq skktut-abbrev-mode-map map) ))
+      (setq skktut-abbrev-mode-map map)))
 
 ;; -- macros
 (defmacro skktut-message (japanese english &rest arg)
