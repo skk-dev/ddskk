@@ -33,6 +33,9 @@
   (require 'cl)
   (require 'static))
 
+(eval-when-compile
+  (defvar skk-isearch-current-buffer))
+
 ;; Variables.
 
 (defconst skk-kanagaki-dakuten-alist
@@ -51,6 +54,14 @@
     ) "\
 濁点と半濁点を入力するためのルール。")
 
+(defvar skk-kanagaki-temp-dir
+  (static-cond
+   ((fboundp 'temp-directory)
+    (temp-directory))
+   ((and (boundp 'temporary-file-directory) temporary-file-directory)
+    temporary-file-directory)
+   (t
+    (or (getenv "TMP") "/tmp"))))
 
 ;; Macros
 
@@ -181,8 +192,8 @@
 	   (forward-char -1)
 	   (delete-char 1)))
 	((and skk-isearch-switch
-	      (buffer-live-p skk-kanagaki-isearch-buffer))
-	 (with-current-buffer skk-kanagaki-isearch-buffer
+	      (buffer-live-p skk-isearch-current-buffer))
+	 (with-current-buffer skk-isearch-current-buffer
 	   (skk-isearch-delete-char arg)))
 	(t
 	 (delete-backward-char arg))))

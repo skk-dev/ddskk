@@ -346,22 +346,19 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
 (defvar skk-kanagaki-rule-tree nil)
 (defvar skk-kanagaki-rom-kana-rule-tree nil)
 
-(defvar skk-kanagaki-temp-dir
-  (static-cond
-   ((fboundp 'temp-directory)
-    (temp-directory))
-   ((and (boundp 'temporary-file-directory) temporary-file-directory)
-    temporary-file-directory)
-   (t
-    (or (getenv "TMP") "/tmp"))))
-
-(defvar skk-kanagaki-isearch-buffer nil)
-
 (defvar skk-kanagaki-state 'kana)
 
 ;; Functions.
 
 (defalias-maybe 'help-mode 'fundamental-mode)
+
+(defun skk-kanagaki-adjust-rule-tree ()
+  (cond ((eq  skk-kanagaki-state 'kana)
+	 (unless (equal skk-rule-tree skk-kanagaki-rule-tree)
+	   (setq skk-rule-tree skk-kanagaki-rule-tree)))
+	((eq skk-kanagaki-state 'rom)
+	 (unless (equal skk-rule-tree skk-kanagaki-rom-kana-rule-tree)
+	   (setq skk-rule-tree skk-kanagaki-rom-kana-rule-tree)))))
 
 ;;;###autoload
 (defun skk-kanagaki-toggle-rom-kana (&optional arg)
@@ -374,7 +371,8 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
 	    (kana 'rom)
 	    (rom 'kana)
 	    ;; $B$H$j$"$($:!#(B
-	    (t 'kana)))))
+	    (t 'kana))))
+  (skk-kanagaki-adjust-rule-tree))
 
 ;;;###autoload
 (defun skk-kanagaki-midashi-henkan (&optional arg)
@@ -472,11 +470,10 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
   (interactive "*p")
   (skk-kanagaki-set-okurigana (if (eq (prefix-numeric-value arg) 4) nil t)))
 
-;; Pieces of advice.
-
-(defadvice skk-adjust-user-option (before skk-kanagaki-ad activate compile)
+(defun skk-kanagaki-initialize ()
   "SKK $B5/F0;~$NE,Ev$J%?%$%_%s%0$G2>L>F~NOMQ$N@_Dj$r9T$&!#(B"
-  ;;
+  ;; $B<B:]$K$O(B `skk-regularize' $B$N<B9T8e!"(BSKK $B$N4pK\%k!<%k$,(B compile $B$5$l$?8e$K(B
+  ;; $B8F$P$l$k!#(B
   (static-when (memq skk-emacs-type '(nemacs mule1))
     ;; Nemacs $B$N(B canna.el $B$h$j0zMQ!#(B
     (if (not (keymapp (global-key-binding "\e[")))
@@ -485,23 +482,24 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
   (when skk-kanagaki-keyboard-type
     (require (intern (format "skk-%s" skk-kanagaki-keyboard-type))))
   ;; $B%-!<%P%$%s%I!#$?$@$7$3$l$O!"$h$jE,@Z$J%-!<Dj5A$r8+$D$1$k$^$G$N;CDjE*=hCV!#(B
-  (let ((list
-	 '((skk-kanagaki-set-henkan-point-key . skk-set-henkan-point-subr)
-	   (skk-kanagaki-abbrev-mode-key . skk-abbrev-mode)
-	   (skk-kanagaki-katakana-mode-key . skk-toggle-kana)
-	   (skk-kanagaki-latin-jisx0208-mode-key . skk-jisx0208-latin-mode)
-	   (skk-kanagaki-hankaku-mode-key . skk-toggle-katakana)
-	   (skk-kanagaki-latin-mode-key . skk-latin-mode)
-	   (skk-kanagaki-code-input-key . skk-input-by-code-or-menu)
-	   (skk-kanagaki-toggle-rom-kana-key . skk-kanagaki-toggle-rom-kana)
-	   (skk-kanagaki-midashi-henkan-key . skk-kanagaki-midashi-henkan)
-	   (skk-kanagaki-previous-candidate-key . skk-previous-candidate))))
-    (while list
-      (let ((cons (car list)))
-	(when (and (symbol-value (car cons)) (commandp (cdr cons)))
-	  (define-key skk-j-mode-map
-	    (symbol-value (car cons)) (cdr cons))))
-      (setq list (cdr list))))
+  ;; $B$3$3$G8@$&!V$h$jE,@Z$J%-!<Dj5A!W$H$O!"F~NOJ}<0$K0MB8$9$k$?$a!"(BSKK $B$N=EMW$J(B
+  ;; $B%-!<Dj5A$r%U%!%s%/%7%g%s%-!<$K;D$7$F$*$/$3$H$O!"<BMQ$N$?$a$h$j$b$`$7$m;29M(B
+  ;; $B$N$?$a!#(B
+  (dolist
+      (cell
+       '((skk-kanagaki-set-henkan-point-key . skk-set-henkan-point-subr)
+	 (skk-kanagaki-abbrev-mode-key . skk-abbrev-mode)
+	 (skk-kanagaki-katakana-mode-key . skk-toggle-kana)
+	 (skk-kanagaki-latin-jisx0208-mode-key . skk-jisx0208-latin-mode)
+	 (skk-kanagaki-hankaku-mode-key . skk-toggle-katakana)
+	 (skk-kanagaki-latin-mode-key . skk-latin-mode)
+	 (skk-kanagaki-code-input-key . skk-input-by-code-or-menu)
+	 (skk-kanagaki-toggle-rom-kana-key . skk-kanagaki-toggle-rom-kana)
+	 (skk-kanagaki-midashi-henkan-key . skk-kanagaki-midashi-henkan)
+	 (skk-kanagaki-previous-candidate-key . skk-previous-candidate)))
+    (when (and (symbol-value (car cell)) (commandp (cdr cell)))
+      (define-key skk-j-mode-map
+	(symbol-value (car cell)) (cdr cell))))
   ;;
   (define-key help-map skk-kanagaki-help-key 'skk-kanagaki-help)
   ;;
@@ -521,40 +519,30 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
   (setq skk-kanagaki-rule-tree
 	(skk-compile-rule-list
 	 skk-kanagaki-base-rule-list skk-kanagaki-rule-list))
-  (setq skk-kanagaki-rom-kana-rule-tree skk-rule-tree))
+  (setq skk-kanagaki-rom-kana-rule-tree skk-rule-tree)
+  ;;
+  (add-hook 'skk-mode-hook 'skk-kanagaki-adjust-rule-tree)
+  ;; $B6gFIE@F~NO;~$NLdBj$r2sHr!#(B $BF|K\8l(B 106 $B%-!<%\!<%I$G$O(B "<" $B$H(B ">" $B$K$h$k@\Hx(B
+  ;; $B<-$NF~NO$O$G$-$J$/$J$k!#(B "?" $B$K$h$k@\Hx<-$NF~NO$O$G$-$k!#(B
+  (dolist (char skk-special-midashi-char-list)
+    (when (and skk-use-kana-keyboard
+	       (memq
+		(nth 2 (assoc (skk-char-to-string char)
+			      (symbol-value
+			       (intern (format "skk-kanagaki-%s-base-rule-list"
+					       skk-kanagaki-keyboard-type)))))
+		'(skk-current-kuten skk-current-touten)))
+      (setq skk-special-midashi-char-list
+	    (delq char skk-special-midashi-char-list)))))
+
+;; Pieces of advice.
 
 (defadvice skk-insert (around skk-kanagaki-ad activate compile)
   "$B2>L>F~NOMQ$N(B work around $B!#(B"
-  (let* ((list (copy-sequence skk-special-midashi-char-list))
-	 (skk-special-midashi-char-list
-	  ;; $B6gFIE@F~NO;~$NLdBj$r2sHr!#(B $BF|K\8l(B 106 $B%-!<%\!<%I$G$O(B "<" $B$H(B ">" $B$K(B
-	  ;; $B$h$k@\Hx<-$NF~NO$O$G$-$J$/$J$k!#(B "?" $B$K$h$k@\Hx<-$NF~NO$O$G$-$k!#(B
-	  (cond
-	   ((and
-	     skk-use-kana-keyboard
-	     (memq last-command-char list)
-	     (memq
-	      (nth 2 (assoc (skk-char-to-string last-command-char)
-			    (symbol-value
-			     (intern (format "skk-kanagaki-%s-base-rule-list"
-					     skk-kanagaki-keyboard-type)))))
-	      '(skk-current-kuten skk-current-touten)))
-	    (delq last-command-char list))
-	   (t
-	    list))))
-    (cond
-      ((eq  skk-kanagaki-state 'kana)
-       (unless (equal skk-rule-tree skk-kanagaki-rule-tree)
-	 (make-local-variable 'skk-rule-tree)
-	 (setq skk-rule-tree skk-kanagaki-rule-tree))
-       (let (skk-set-henkan-point-key)
-	 ad-do-it))
-      ((eq skk-kanagaki-state 'rom)
-       (unless (equal skk-rule-tree skk-kanagaki-rom-kana-rule-tree)
-	 (make-local-variable 'skk-rule-tree)
-	 (setq skk-rule-tree skk-kanagaki-rom-kana-rule-tree))
-       ad-do-it)
-      (t nil))))
+  (if (eq  skk-kanagaki-state 'kana)
+      (let (skk-set-henkan-point-key)
+	ad-do-it)
+    ad-do-it))
 
 (defadvice skk-okurigana-prefix (around skk-knagaki-ad activate compile)
   (if (eq skk-kanagaki-state 'kana)
@@ -563,11 +551,6 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
 	(let ((skk-henkan-okurigana (ad-get-arg 0)))
 	  ad-do-it))
     ad-do-it))
-
-(defadvice skk-isearch-wrapper (around skk-kanagaki-ad activate)
-  (setq skk-kanagaki-isearch-buffer (current-buffer))
-  ad-do-it
-  (setq skk-kanagaki-isearch-buffer nil))
 
 ;;
 

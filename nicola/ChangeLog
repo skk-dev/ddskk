@@ -1,3 +1,11 @@
+2000-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-util.el (skk-kanagaki-bs): Use
+	`skk-isearch-current-buffer'.
+
+	* skk-kanagaki.el (skk-kanagaki-initialize,
+	skk-kanagaki-adjust-rule-tree): New functions.
+
 2000-11-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el: Do nothing for tutorial under Emacs 18.
