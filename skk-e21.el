@@ -80,8 +80,11 @@
 (defvar skk-e21-modeline-property
   (and window-system
        (list 'local-map (purecopy
-			 (make-mode-line-mouse2-map
-			  #'skk-e21-modeline-menu))
+			 (if (fboundp 'make-mode-line-mouse-map)
+			     (make-mode-line-mouse-map 
+			      'mouse2 #'skk-e21-modeline-menu)
+			   (make-mode-line-mouse2-map
+			    #'skk-e21-modeline-menu)))
 	     'help-echo "マウスの button 2 -> Daredevil SKK のメニュ−")))
 
 (defvar skk-e21-property-alist

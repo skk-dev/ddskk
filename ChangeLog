@@ -1,3 +1,7 @@
+2001-09-01  YOSHIZAWA Masahiro <manbou@ceres.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-modeline-property): Fix for Emacs-21.0.105.
+
 2001-09-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* etc/Emacs.ad: Add items for popup menu.
@@ -1689,8 +1693,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.340 2001/09/01 04:33:47 czkmt Exp $
-Last Modified: $Date: 2001/09/01 04:33:47 $
+Version: $Id: ChangeLog,v 1.341 2001/09/01 10:02:24 manbou Exp $
+Last Modified: $Date: 2001/09/01 10:02:24 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
