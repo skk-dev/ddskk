@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.36 2001/05/26 01:13:31 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.37 2001/05/26 01:20:34 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/26 01:13:31 $
+;; Last Modified: $Date: 2001/05/26 01:20:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1524,7 +1524,7 @@ nil であれば、元号表示する。"
   :group 'skk-gadget)
 
 (defcustom skk-GYMDWHMS-list '("平成" "年" "月" "日" t "時" "分" "秒")
-  "skk-today によって表示される日付に用いられる文字列のリスト。
+  "*skk-today によって表示される日付に用いられる文字列のリスト。
 リストの内容は
 
 	'(Gengou year month day week-transp hour minute second) 

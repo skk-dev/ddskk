@@ -1,3 +1,7 @@
+2001-05-26  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-GYMDWHMS-list): Add `*' to top of the document.
+
 2001-05-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el (skk-w3m-search-engine-alist): Set nil
@@ -3364,8 +3368,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.292 2001/05/26 01:13:31 minakaji Exp $
-Last Modified: $Date: 2001/05/26 01:13:31 $
+Version: $Id: ChangeLog,v 1.293 2001/05/26 01:20:34 minakaji Exp $
+Last Modified: $Date: 2001/05/26 01:20:34 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
