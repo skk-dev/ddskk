@@ -1,3 +1,8 @@
+2001-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kangaki.el
+	(skk-setup-keymap): Preactivate.
+
 2001-11-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola-jis.el
