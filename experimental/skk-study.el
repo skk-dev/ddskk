@@ -5,9 +5,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.1 1999/10/05 02:12:51 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.2 1999/10/05 02:14:00 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/05 02:12:51 $
+;; Last Modified: $Date: 1999/10/05 02:14:00 $
 
 ;; This file is not part of SKK yet.
 
@@ -77,25 +77,23 @@
 (eval-when-compile (require 'skk))
 (require 'skk-foreword)
 
+;;;###autoload
 (defgroup skk-study nil "SKK study related customization."
   :prefix "skk-study-"
   :group 'skk )
 
 ;;; user variables.
-;;;###autoload
 (defcustom skk-study-file (if (eq system-type 'ms-dos) "~/_skk-study" "~/.skk-study")
   "*学習結果を保存するファイル。"
   :type 'file
   :group 'skk-study )
 
-;;;###autoload
 (defcustom skk-study-backup-file
   (if (eq system-type 'ms-dos) "~/_skk-study.BAK" "~/.skk-study.BAK" )
   "*学習結果を保存するバックアップファイル。"
   :type 'file
   :group 'skk-study )
 
-;;;###autoload
 (defcustom skk-study-associates-number 3
   "*保存する関連語の数。"
   :type 'integer
