@@ -1,3 +1,12 @@
+2000-09-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi (SKK 9 と SKK 10 の違い): New section.
+	(SKKの入手方法): Modify for SKK OpenLab.
+	(SKKの作者): Ditto.
+
+	* skk-num.el (skk-num-type3-kanji-1, skk-num-type5-kanji-1): Don't
+	miss "万" {"萬"}, "億", "兆", "京".
+
 2000-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi (基本的な使用方法): 「ですます」調を採用。
