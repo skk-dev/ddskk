@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.53 2000/11/13 10:33:08 czkmt Exp $
+;; Version: $Id: skk.el,v 1.54 2000/11/14 12:51:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/13 10:33:08 $
+;; Last Modified: $Date: 2000/11/14 12:51:14 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -148,8 +148,12 @@
     (define-key skk-jisx0208-latin-mode-map "\C-q" 'skk-latin-henkan))
 
   (defun skk-e18-setup ()
-    (setq skk-current-local-map (if (skk-in-minibuffer-p) minibuffer-local-map
-				  (current-local-map)))))
+    (let ((keymap (if (skk-in-minibuffer-p)
+		      minibuffer-local-map
+		    (current-local-map))))
+      (if (eq (lookup-key keymap "a") 'skk-insert)
+	  nil
+	(setq skk-current-local-map keymap)))))
  (t
   (defun skk-define-menu-bar-map (map)
     ;; SKK メニューのトップに出現するコマンドのメニューへの定義を行なう。
@@ -431,7 +435,7 @@ dependent."
 	      (set-face-font 'skk-xmas-katakana-face [bold] nil
 			     '(default mono win))
 	      (set-face-font 'skk-xmas-katakana-face [bold] nil
-			     '(default grayscale win)))
+			     '(default grayspcale win)))
 	    (set-extent-face skk-xmas-katakana-extent 'skk-xmas-katakana-face)
 	    ;;
 	    (defconst skk-xmas-jisx0208-latin-extent (make-extent nil nil))
@@ -516,12 +520,14 @@ dependent."
 	      (skk-create-file skk-record-file
 			       "SKK の記録用ファイルを作りました"
 			       "I have created an SKK record file for you"))
-	  (skk-create-file skk-jisyo
-			   "SKK の空辞書を作りました"
-			   "I have created an empty SKK Jisyo file for you")
 	  (skk-regularize)
           (setq skk-mode-invoked t)))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
+    (unless (and (local-variable-p 'skk-jisyo (current-buffer))
+		 (equal skk-jisyo "~/skk-tut-jisyo"))
+      (skk-create-file skk-jisyo
+		       "SKK の空辞書を作りました"
+		       "I have created an empty SKK Jisyo file for you"))
     (static-if (memq skk-emacs-type '(nemacs mule1)) (skk-e18-setup))
     (and (or skk-use-color-cursor skk-cursor-change-width)
 	 (require 'skk-cursor))
@@ -2524,63 +2530,68 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;;"SKK の辞書バッファをセーブする。
   ;;オプショナル引数の QUIET が non-nil であれば、辞書セーブ時のメッセージを出さな
   ;;い。"
-  (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
-    (if (or (not jisyo-buffer) (not (buffer-modified-p jisyo-buffer)))
-        (if (not quiet)
-            (progn
-	      (skk-message "SKK 辞書を保存する必要はありません"
-                           "No need to save SKK jisyo")
-              (sit-for 1)))
-      (with-current-buffer jisyo-buffer
-	(if (and skk-share-private-jisyo
-		 (file-exists-p skk-emacs-id-file)
-		 ;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
-		 (with-temp-buffer
-		   (insert-file-contents skk-emacs-id-file)
-		   (goto-char (point-min))
-		   (not (search-forward skk-emacs-id nil t))))
-	    (progn
-	      (lock-buffer skk-jisyo)
-	      ;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
-	      ;; 更新した skk-jisyo を読み込む。
-	      (erase-buffer)
-	      (insert-file-contents skk-jisyo)
-	      (skk-setup-jisyo-buffer)
-	      ;; skk-jisyo-update-vector にしたがってバッファを更新する。
-	      (let ((index 0) list skk-henkan-key)
-		(while (and (< index skk-jisyo-save-count)
-			    (setq list (aref skk-jisyo-update-vector index)))
-		  ;; skk-update-jisyo-1, skk-search-jisyo-file-1
-		  ;; で参照される skk-henkan-key をセットする
-		  (setq skk-henkan-key (car list))
-		  (skk-update-jisyo-1
-		   ;; okurigana    word
-		   (nth 1 list) (nth 2 list)
-		   (skk-search-jisyo-file-1 (nth 1 list) 0 'delete)
-		   ;; purge
-		   (nth 3 list))
-		  (setq index (1+ index))))))
-        (let ((inhibit-quit t)
-              (tempo-file (skk-make-temp-jisyo)))
-          (if (not quiet)
-              (skk-message "SKK 辞書を保存しています..."
-                           "Saving SKK jisyo..."))
-          (skk-save-jisyo-1 tempo-file)
-          (skk-check-size-and-do-save-jisyo tempo-file)
-          ;; 辞書のセーブに成功して初めて modified フラッグを nil にする。
-          (set-buffer-modified-p nil)
-	  (setq skk-update-jisyo-count 0)
-          (if (not quiet)
-              (progn
-                (skk-message "SKK 辞書を保存しています...完了！"
-                             "Saving SKK jisyo...done")
-                (sit-for 1))))
-	(if skk-share-private-jisyo
-	    (with-temp-buffer
-	      (fillarray skk-jisyo-update-vector nil)
-	      (insert skk-emacs-id "\n")
-	      (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)
-	      (unlock-buffer)))))))
+  (let ((skk-jisyo
+	 (if (and (local-variable-p 'skk-jisyo (current-buffer))
+		  (equal skk-jisyo "~/skk-tut-jisyo"))
+	     (default-value 'skk-jisyo)
+	   skk-jisyo)))
+    (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
+      (if (or (not jisyo-buffer) (not (buffer-modified-p jisyo-buffer)))
+	  (if (not quiet)
+	      (progn
+		(skk-message "SKK 辞書を保存する必要はありません"
+			     "No need to save SKK jisyo")
+		(sit-for 1)))
+	(with-current-buffer jisyo-buffer
+	  (if (and skk-share-private-jisyo
+		   (file-exists-p skk-emacs-id-file)
+		   ;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
+		   (with-temp-buffer
+		     (insert-file-contents skk-emacs-id-file)
+		     (goto-char (point-min))
+		     (not (search-forward skk-emacs-id nil t))))
+	      (progn
+		(lock-buffer skk-jisyo)
+		;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
+		;; 更新した skk-jisyo を読み込む。
+		(erase-buffer)
+		(insert-file-contents skk-jisyo)
+		(skk-setup-jisyo-buffer)
+		;; skk-jisyo-update-vector にしたがってバッファを更新する。
+		(let ((index 0) list skk-henkan-key)
+		  (while (and (< index skk-jisyo-save-count)
+			      (setq list (aref skk-jisyo-update-vector index)))
+		    ;; skk-update-jisyo-1, skk-search-jisyo-file-1
+		    ;; で参照される skk-henkan-key をセットする
+		    (setq skk-henkan-key (car list))
+		    (skk-update-jisyo-1
+		     ;; okurigana    word
+		     (nth 1 list) (nth 2 list)
+		     (skk-search-jisyo-file-1 (nth 1 list) 0 'delete)
+		     ;; purge
+		     (nth 3 list))
+		    (setq index (1+ index))))))
+	  (let ((inhibit-quit t)
+		(tempo-file (skk-make-temp-jisyo)))
+	    (if (not quiet)
+		(skk-message "SKK 辞書を保存しています..."
+			     "Saving SKK jisyo..."))
+	    (skk-save-jisyo-1 tempo-file)
+	    (skk-check-size-and-do-save-jisyo tempo-file)
+	    ;; 辞書のセーブに成功して初めて modified フラッグを nil にする。
+	    (set-buffer-modified-p nil)
+	    (setq skk-update-jisyo-count 0)
+	    (if (not quiet)
+		(progn
+		  (skk-message "SKK 辞書を保存しています...完了！"
+			       "Saving SKK jisyo...done")
+		  (sit-for 1))))
+	  (if skk-share-private-jisyo
+	      (with-temp-buffer
+		(fillarray skk-jisyo-update-vector nil)
+		(insert skk-emacs-id "\n")
+		(write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)
+		(unlock-buffer))))))))
 
 (defun skk-save-jisyo-1 (file)
   (save-match-data
@@ -2717,7 +2728,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     ;;     ;; ange-ftp.el does not have a wrapper to set-file-modes.
     ;;     (not (and (featurep 'ange-ftp) (boundp 'ange-ftp-name-format)
     ;;               (string-match (car ange-ftp-name-format) tempo-name))))
-    (set-file-modes tempo-name  (file-modes skk-jisyo))
+    (set-file-modes tempo-name (file-modes skk-jisyo))
     ;;)
     tempo-name))
 
@@ -2733,13 +2744,18 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 (defun skk-make-new-jisyo (tempo-file)
   ;; TEMPO-FILE を新規の skk-jisyo にする。skk-backup-jisyo が non-nil だった
   ;; らバックアップ辞書を作る。
-  (if skk-backup-jisyo
-      (progn
-        (if (file-exists-p skk-backup-jisyo)
-            (delete-file skk-backup-jisyo))
-        (rename-file skk-jisyo skk-backup-jisyo))
-    (delete-file skk-jisyo))
-  (rename-file tempo-file skk-jisyo 'ok-if-already-exists))
+  (let ((skk-jisyo
+	 (if (and (local-variable-p 'skk-jisyo (current-buffer))
+		  (equal skk-jisyo "~/skk-tut-jisyo"))
+	     (default-value 'skk-jisyo)
+	   skk-jisyo)))
+    (if skk-backup-jisyo
+	(progn
+	  (if (file-exists-p skk-backup-jisyo)
+	      (delete-file skk-backup-jisyo))
+	  (rename-file skk-jisyo skk-backup-jisyo))
+      (delete-file skk-jisyo))
+    (rename-file tempo-file skk-jisyo 'ok-if-already-exists)))
 
 (defun skk-reread-private-jisyo (&optional force)
   "バッファに読み込んだ個人辞書を破棄し、ファイルからバッファへ再読み込みする。
