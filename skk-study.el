@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.10 1999/10/10 02:24:36 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.11 1999/10/10 09:49:55 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/10 02:24:36 $
+;; Last Modified: $Date: 1999/10/10 09:49:55 $
 
 ;; This file is not part of SKK yet.
 
@@ -132,34 +132,35 @@
 
 ;;;###autoload
 (defun skk-study-search (henkan-buffer midasi okurigana entry)
-  (if entry
-      (with-current-buffer henkan-buffer
-	(if (or skk-study-alist (skk-study-read))
-	    ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
-	    ;;  ("なk" . ((("こども" . "子供") . ("泣")))) )
+  (if (or (null entry)
+	  ;; list of single element.
+	  (null (cdr entry)) )
+      entry
+    (with-current-buffer henkan-buffer
+      (if (or skk-study-alist (skk-study-read))
+	  ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
+	  ;;  ("なk" . ((("こども" . "子供") . ("泣")))) )
 	    
-	    (let ((target-alist
-		   (cdr (assoc
-			 midasi
-			 (cdr (assq
-			       (cond ((or skk-okuri-char
-					  ;; skk-okuri-char is nil, but 
-					  ;; skk-henkan-okurigana is non-nil
-					  ;; when skk-auto.el has processed.
-					  skk-henkan-okurigana )
-				      'okuri-ari )
-				     (t 'okuri-nasi) )
-			       skk-study-alist ))))))
-	      (if target-alist
-		  (skk-study-search-1 target-alist midasi okurigana entry) ))))))
+	  (let ((target-alist
+		 (cdr (assoc
+		       midasi
+		       (cdr (assq
+			     (cond ((or skk-okuri-char
+					;; skk-okuri-char is nil, but 
+					;; skk-henkan-okurigana is non-nil
+					;; when skk-auto.el has processed.
+					skk-henkan-okurigana )
+				    'okuri-ari )
+				   (t 'okuri-nasi) )
+			     skk-study-alist ))))))
+	    (if target-alist
+		(skk-study-search-1 target-alist midasi okurigana entry) ))))))
 
 (defun skk-study-search-1 (target-alist midasi okurigana entry)
   (do* ((orgentry (copy-list entry))
 	(index 0 (1+ index))
 	(last-data (skk-study-get-last-henkan-data index)
 		   (skk-study-get-last-henkan-data index) )
-	(last-key (car last-data))
-	(last-word (cdr last-data))
 	(times skk-study-search-times (1- times))
 	associates e )
       ((or (not last-data) (= times 0) (not (equal orgentry entry)))
@@ -167,7 +168,7 @@
     (and 
      ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
      ;; ("着")
-     (setq associates (assoc (cons last-key last-word) target-alist))
+     (setq associates (assoc last-data target-alist))
      (setq associates (nreverse associates))
      (while (setq e (car associates))
        (setq entry (cons e (delete e entry))
@@ -177,12 +178,12 @@
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
   (with-current-buffer henkan-buffer
     (let ((inhibit-quit t)
-	  (last-key (skk-get-last-henkan-data 'henkan-key))
-	  (last-word (car (skk-get-last-henkan-data 'henkan-list)))
-	  grandpa papa)
+	  (last-data (ring-ref skk-study-data-ring 0))
+	  grandpa papa )
       (if (and (or skk-study-alist (skk-study-read))
-	       last-key last-word 
-	       (not (and (string= midasi last-key) (string= word last-word))) )
+	       last-data
+	       (not (and (string= midasi (car last-data))
+			 (string= word (cdr last-data)) )))
 	  (progn
 	    (setq grandpa (assq (cond ((or skk-okuri-char
 					   ;; skk-okuri-char is nil, but 
@@ -199,17 +200,15 @@
 		   (not (or papa purge))
 		   (setcdr grandpa
 			   (nconc
-			    (list (cons midasi (list (cons (cons last-key last-word)
-							   (list word) ))))
+			    (list (cons midasi (list (cons last-data (list word)))))
 			    (cdr grandpa) )))
 		  ;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) を
 		  ;; キーにした cell がない。
 		  ((not (or
 			 ;; (("ふく" . "服") . ("着"))
-			 (setq baby (assoc (cons last-key last-word) (cdr papa)))
+			 (setq baby (assoc last-data (cdr papa)))
 			 purge ))
-		   (setcdr papa (cons (cons (cons last-key last-word) (list word))
-				      (cdr papa) )))
+		   (setcdr papa (cons (cons last-data (list word)) (cdr papa))) )
 		  ;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけ
 		  ;; アップデートする。
 		  ((not purge)
