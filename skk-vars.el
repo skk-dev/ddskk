@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.22 2000/12/09 15:53:46 kawamura Exp $
+;; Version: $Id: skk-vars.el,v 1.23 2000/12/10 10:47:53 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/09 15:53:46 $
+;; Last Modified: $Date: 2000/12/10 10:47:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2840,6 +2840,51 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 ;; buffer local variables.
 (skk-deflocalvar skk-annotation-mode nil
   "Non-nil であれば、annotation モードであることを示す。")
+
+;;; user variables.
+(defgroup skk-dcomp nil "SKK dynamic completion related customization."
+  :prefix "skk-dcomp-"
+  :group 'skk)
+
+(defface skk-dcomp-face
+  '((((class color)) (:foreground "DarkKhaki"))
+    (((class grayscale) (background light)) (:foreground "DimGray" :italic t))
+    (((class grayscale) (background dark)) (:foreground "LightGray" :italic t)))
+  "*Face used to highlight region dynamically completed."
+  :group 'skk-dcomp
+  :group 'skk-faces)
+
+(defcustom skk-dcomp-activate t
+  "*Non-nil であれば見出し語のダイナミックコンプリーションの機能を有効にする。"
+  :type 'boolean
+  :group 'skk-dcomp)
+
+(defcustom skk-dcomp-face-priority 700
+  "*Overlay/extent priority of `skk-dcomp-face'."
+  :type 'integer
+  :group 'skk-dcomp)
+
+(defcustom skk-dcomp-keep-completion-keys nil
+  ;;   (delq
+  ;;    nil
+  ;;    (list
+  ;;     (car (rassoc (list nil 'skk-toggle-kana) skk-rom-kana-rule-list))
+  ;;     (car (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-rule-list))
+  ;;     (car (rassoc (list nil 'skk-toggle-kana) skk-rom-kana-base-rule-list))
+  ;;     (car (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-base-rule-list))))
+  "*自動コンプリーションされた見出し語を消さないキーのリスト。
+通常は見出し語のコンプリーション後、次のキー入力をすると、自動コンプ
+リーションされたキー入力が消えてしまうが、このリストに指定されたキー
+入力があったときは自動コンプリーションされた見出し語を消さない。"
+  :type '(choice (repeat string) (const nil))
+  :group 'skk-dcomp
+  :group 'skk-filenames)
+
+;;; internal variables and constants.
+(skk-deflocalvar skk-dcomp-start-point nil)
+(skk-deflocalvar skk-dcomp-end-point nil)
+(skk-deflocalvar skk-dcomp-extent nil)
+(defvar skk-dcomp-face 'skk-dcomp-face)
 
 (require 'product)
 (product-provide (provide 'skk-vars) (require 'skk-version))
