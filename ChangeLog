@@ -1,3 +1,7 @@
+2000-10-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi (どのように変換されるか): Use `@samp'.
+
 2000-10-09  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* doc/skk.texi : "サーバー" を "サーバ" に統一。
