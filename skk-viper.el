@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.17 2001/09/23 14:23:04 czkmt Exp $
+;; Version: $Id: skk-viper.el,v 1.18 2001/09/23 14:56:08 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 14:23:04 $
+;; Last Modified: $Date: 2001/09/23 14:56:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -116,17 +116,24 @@
   (defadvice skk-kakutei (after skk-viper-cursor-ad activate)
     (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))
 
-(static-if (not (eq skk-emacs-type 'xemacs))
-    (if (boundp 'viper-insert-state-cursor-color)
-	(skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
-	  "minibuffer-setup-hook に update-buffer-local-frame-params をフックする。
+(if (boundp 'viper-insert-state-cursor-color)
+    (static-cond
+     ((eq skk-emacs-type 'xemacs)
+      (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
+	  (if skk-use-color-cursor
+	      (add-hook 'minibuffer-setup-hook
+			'skk-cursor-set
+			'append))))
+     (t
+      (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
+	"minibuffer-setup-hook に update-buffer-local-frame-params をフックする。
 viper-read-string-with-history は minibuffer-setup-hook を関数ローカル
 にしてしまうので、予め minibuffer-setup-hook にかけておいたフックが無効
 となる。"
-	  (if skk-use-color-cursor
-	      ;; non-command subr.
-	      (add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params
-			'append)))))
+	(if skk-use-color-cursor
+	    ;; non-command subr.
+	    (add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params
+		      'append))))))
 
 ;;; advices.
 ;; vip-4 の同種の関数名は vip-read-string-with-history？
