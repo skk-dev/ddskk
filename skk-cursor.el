@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.15 2001/09/15 22:26:22 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.16 2001/09/23 02:50:36 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 22:26:22 $
+;; Last Modified: $Date: 2001/09/23 02:50:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -40,13 +40,14 @@
     (eq skk-emacs-type 'xemacs)
   (require 'ccc))
 
+
 (defun skk-cursor-current-color ()
   ;; カレントバッファの SKK のモードから、カーソルの色を取得する。
   (cond
    ((not (and skk-use-color-cursor
 	      skk-mode))
     skk-cursor-default-color)
-   ;; skk-start-henkan の中では、skk-j-mode フラグを立てながら、
+   ;; `skk-start-henkan' の中では、skk-j-mode フラグを立てながら、
    ;; skk-abbrev-mode フラグも立てている (変換後、直後に入力する文
    ;; 字が元の入力モードにて行なわれるように)。従い、skk-abbrev-mode
    ;; フラグのチェックの優先度を上げる。
@@ -84,45 +85,17 @@
        (or color
 	   (skk-cursor-current-color)))))))
 
-(static-when (eq skk-emacs-type 'xemacs)
-  ;; XEmacs
 
-  ;; advices.
-  (skk-defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
-    (unless (or skk-henkan-on
-		skk-henkan-active)
-      (skk-cursor-set skk-cursor-default-color)))
-
-  ;; Hooks
-  (add-hook 'isearch-mode-end-hook
-	    (lambda ()
-	      (skk-cursor-set))
-	    'append)
-
-  (add-hook 'minibuffer-setup-hook
-	    (lambda ()
-	      (skk-cursor-set))
-	    'append)
-
-  (add-hook 'minibuffer-exit-hook
-	    (lambda ()
-	      (with-current-buffer (nth 1 (buffer-list))
-		(skk-cursor-set))
-	      (skk-cursor-set skk-cursor-default-color 'force))
-	    'append))
-
-(defvar skk-cursor-buffer-local-frame-params-ad-targets
-  '(;; cover to SKK functions.
-    skk-abbrev-mode
-    skk-auto-fill-mode
-    skk-jisx0201-mode
-    skk-jisx0208-latin-mode
-    skk-kakutei
-    skk-latin-mode
-    skk-mode
-    skk-toggle-kana))
-
-(dolist (func skk-cursor-buffer-local-frame-params-ad-targets)
+;; advices.
+(dolist (func '(;; cover to SKK functions.
+		skk-abbrev-mode
+		skk-auto-fill-mode
+		skk-jisx0201-mode
+		skk-jisx0208-latin-mode
+		skk-kakutei
+		skk-latin-mode
+		skk-mode
+		skk-toggle-kana))
   (eval
    (`
     (defadvice (, (intern (symbol-name func))) (after skk-cursor-ad
@@ -130,15 +103,41 @@
 	"Set cursor color which represents skk mode."
 	(skk-cursor-set)))))
 
+(skk-defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
+  (unless (or skk-henkan-on
+	      skk-henkan-active)
+    (skk-cursor-set skk-cursor-default-color)))
+
+
+;; Hooks
+(add-hook 'isearch-mode-end-hook
+	  (lambda ()
+	    (skk-cursor-set))
+	  'append)
+
+(add-hook 'minibuffer-setup-hook
+	  (lambda ()
+	    (skk-cursor-set))
+	  'append)
+
+(static-when (eq skk-emacs-type 'xemacs)
+  (add-hook 'minibuffer-exit-hook
+	    (lambda ()
+	      (with-current-buffer (nth 1 (buffer-list))
+		(skk-cursor-set))
+	      (skk-cursor-set skk-cursor-default-color 'force))
+	    'append))
+
 (defun skk-cursor-init-function ()
   (skk-cursor-set)
   (remove-hook 'skk-mode-hook
 	       'skk-cursor-init-function))
 
-;;; Hooks
-;;(add-hook 'isearch-mode-end-hook 'update-buffer-local-frame-params 'append)
 (add-hook 'skk-mode-hook 'skk-cursor-init-function)
+(add-hook 'isearch-mode-end-hook 'skk-cursor-set 'append)
 
+
+;;
 (require 'product)
 (product-provide
     (provide 'skk-cursor)
