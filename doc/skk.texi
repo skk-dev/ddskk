@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.45 2000/10/15 12:35:30 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.46 2000/10/19 08:36:24 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/15 12:35:30 $
+@c  Last Modified: $Date: 2000/10/19 08:36:24 $
 @c
 @set EDITION 1.4
-@set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/10/15 12:35:30 $
+@set SKK-VERSION 10.62
+@set UPDATED $Date: 2000/10/19 08:36:24 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -1393,7 +1393,7 @@ SKK $B$K$O!"%A%e!<%H%j%"%k$,ImB0$7$F$$$^$9!#%A%e!<%H%j%"%k$G$O!"(B SKK $B$N4p
 * $B3NDj%"%s%I%%(B::                $B8uJd$NA*Br%_%9$KBP$9$k<h$j>C$7A`:n!#(B
 * $B8+=P$78l4XO"(B::                $BJQ49$N%-!<$H$J$k8l$N=hM}$K$D$$$F!#(B
 * $BAw$j2>L>4XO"(B::                $BAw$j2>L>$N=hM}$K$D$$$F!#(B
-* $B<+F0JQ493+;O(B::                @key{SPC}$B$r2!$5$:$KJQ493+;O!#(B
+* $B<+F0JQ493+;O(B::                @key{SPC} $B$r2!$5$:$KJQ493+;O!#(B
 * $BFC<lJQ49(B::                    $B$A$g$C$HJQ$C$?JXMx$JJQ49J}K!!#(B
 * $B@\F,<-!&@\Hx<-(B::              $B@\F,<-!&@\Hx<-$r;XDj$7$F8uJd$r9J$j9~$`!#(B
 * $B0EL[$N3NDj$N%?%$%_%s%0(B::      $BJQ49$N8e!"$$$D3NDj$9$k$+!#(B
@@ -6963,6 +6963,7 @@ SKK $B$N86:n<T$O!"8=5~ETBg3X$N:4F#2mI'65<x(B @w{<masahiko@@kuis.kyoto-u.ac.jp>
 @item Wataru Matsui @w{<matsui@@atr-rd.atr.co.jp>}
 @item Wataru Matsui @w{<matsui@@gf.hm.rd.sanyo.co.jp>}
 @item Yoshida Toyonobu @w{<toyono-y@@is.aist-nara.ac.jp>}
+@item YOSHIZAWA Masahiro @w{<manbou@@ceres.dti.ne.jp>}
 @item Yukiyoshi Kameyama @w{<kameyama@@kuis.kyoto-u.ac.jp>}  
 @item Yuh Ohmura @w{<yutopia@@t3.rim.or.jp>}
 @end itemize
