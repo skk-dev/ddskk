@@ -1,3 +1,8 @@
+2004-04-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-1): Under Emacs 21, call
+	`tooltip-show-at-point' if skk-show-tooltip is non-nil.
+
 2004-04-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Patch by Masatake YAMATO <jet@gyve.org>.
@@ -6,7 +11,7 @@
 
 	* skk-vars.el (skk-show-tooltip): New user option.
 
-	* skk.el (skk-henkan-show-candidate-subr): Under Emacs 21, Call
+	* skk.el (skk-henkan-show-candidate-subr): Under Emacs 21, call
 	`tooltip-show-at-point' for showing candidates if
 	skk-show-tooltip is non-nil.
 
@@ -4564,8 +4569,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.795 2004/04/04 00:42:28 czkmt Exp $
-Last Modified: $Date: 2004/04/04 00:42:28 $
+Version: $Id: ChangeLog,v 1.796 2004/04/04 01:07:04 czkmt Exp $
+Last Modified: $Date: 2004/04/04 01:07:04 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
