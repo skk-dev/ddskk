@@ -1,6 +1,6 @@
 2001-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* Makefile (clean): No, don't skk-dic.el.
+	* Makefile (clean): No, don't delete skk-dic.el.
 	(skk-dic): First delete skk-dic.el
 
 	* SKK-MK: Keep skk-dic.el.
@@ -1997,8 +1997,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.413 2001/09/16 09:51:46 czkmt Exp $
-Last Modified: $Date: 2001/09/16 09:51:46 $
+Version: $Id: ChangeLog,v 1.414 2001/09/16 11:56:56 czkmt Exp $
+Last Modified: $Date: 2001/09/16 11:56:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
