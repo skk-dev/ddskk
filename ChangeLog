@@ -1,3 +1,9 @@
+2002-04-05  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* skk-num.el (skk-num-henkan-key): Call
+	`skk-num-compute-henkan-key'.
+	Update doc string.
+
 2002-04-05  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-num.el (skk-num-convert): New arg INDEX (does not refer to
@@ -3842,8 +3848,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.682 2002/04/04 22:03:35 minakaji Exp $
-Last Modified: $Date: 2002/04/04 22:03:35 $
+Version: $Id: ChangeLog,v 1.683 2002/04/05 02:54:40 obata Exp $
+Last Modified: $Date: 2002/04/05 02:54:40 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
