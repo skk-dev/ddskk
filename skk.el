@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.202 2001/11/25 13:27:22 czkmt Exp $
+;; Version: $Id: skk.el,v 1.203 2001/11/27 15:04:23 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/25 13:27:22 $
+;; Last Modified: $Date: 2001/11/27 15:04:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -222,9 +222,11 @@ dependent."
       (easy-menu-add skk-menu))
     (skk-require-module)
     ;; To terminate kana input.
-    (make-local-hook 'pre-command-hook)
+    (static-unless (memq skk-emacs-type '(mule5))
+      (make-local-hook 'pre-command-hook))
     (add-hook 'pre-command-hook 'skk-pre-command nil 'local)
-    (make-local-hook 'post-command-hook)
+    (static-unless (memq skk-emacs-type '(mule5))
+      (make-local-hook 'post-command-hook))
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
     (skk-j-mode-on)
     (run-hooks 'skk-mode-hook)))
