@@ -1,5 +1,12 @@
 2004-04-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-e21.el (skk-tooltip-show-at-point): Bind tooltip-hide-delay
+	to skk-tooltip-hide-delay.
+
+	* skk-vars.el (skk-tooltip-hide-delay): New user option.
+
+2004-04-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-annotation.el (skk-annotation-show-1): Under Emacs 21, call
 	`skk-tooltip-show-at-point' if skk-show-tooltip is non-nil.
 
@@ -4581,8 +4588,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.801 2004/04/04 05:49:35 czkmt Exp $
-Last Modified: $Date: 2004/04/04 05:49:35 $
+Version: $Id: ChangeLog,v 1.802 2004/04/04 22:16:36 czkmt Exp $
+Last Modified: $Date: 2004/04/04 22:16:36 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
