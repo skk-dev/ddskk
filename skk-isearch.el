@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.24 2001/10/09 10:33:23 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.25 2001/10/13 11:44:36 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/09 10:33:23 $
+;; Last Modified: $Date: 2001/10/13 11:44:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -664,8 +664,9 @@ If the current mode is different from previous, remove it first."
   '(lambda ()
      (defadvice isearch-message-prefix (around skk-isearch-ad activate)
        (let ((current-input-method
-	      (not (string-match "^japanese-skk"
-				 (format "%s" default-input-method)))))
+	      (unless (and (boundp 'skk-isearch-switch)
+			   skk-isearch-switch)
+		current-input-method)))
 	 ad-do-it))
      (defadvice isearch-toggle-input-method (around skk-isearch-ad activate)
        ;; Needed for calling skk-isearch via isearch-x.
