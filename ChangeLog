@@ -1,3 +1,7 @@
+2000-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-num.el (skk-num): Add autoload cookie.
+
 2000-09-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/CVS_digest: Sync up with the files distributed as
@@ -11,7 +15,7 @@
 	(snapshot): Ditto.
 	(clean): Remove files that match `.#*' (files which make by CVS
 	when it finds there are conflicts).
-	
+
 2000-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-num.el (skk-num-list): Remove autoload cookie.
