@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.92 2001/12/15 14:19:19 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.93 2001/12/16 11:01:55 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/12/15 14:19:19 $
+@c  Last Modified: $Date: 2001/12/16 11:01:55 $
 @c
 @set EDITION 1.7
 @set SKK-VERSION 11.6.0
-@set UPDATED $Date: 2001/12/15 14:19:19 $
+@set UPDATED $Date: 2001/12/16 11:01:55 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7910,6 +7910,10 @@ SKK の原作者は、現京都大学の佐藤雅彦教授 @w{<masahiko@@kuis.kyoto-u.ac.jp>
 2001年12月 2日
                                     Emacs 21.1 (MULE 5.0)
  Daredevil SKK 11.5.2
+
+2001年12月16日
+
+ Daredevil SKK 11.6.0
 
 @end display
 
