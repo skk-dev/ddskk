@@ -1,7 +1,8 @@
 2000-09-10  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* Makefile (snapshot): Bug fixed.
-	
+	(TAR): Bug fixed.
+
 	* Makefile (tar): Modify to make archive in openlab.ring.gr.jp.
 	(snapshot): Ditto.
 
