@@ -6,9 +6,9 @@
 ;;         Murata Shuuichirou <mrt@astec.co.jp>
 ;; Maintainer: Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-viper.el,v 1.4 1999/09/25 05:52:01 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.5 1999/10/03 05:47:17 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/25 05:52:01 $
+;; Last Modified: $Date: 1999/10/03 05:47:17 $
 
 ;; This file is not part of SKK yet.
 
@@ -28,12 +28,6 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-
-;; Following people contributed modifications to skk.el (Alphabetical order):
-;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;;      Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
-
-;;; Change log:
 
 ;;; Code:
 (eval-when-compile (require 'skk))

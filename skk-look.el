@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-look.el,v 1.2 1999/08/19 12:33:48 minakaji Exp $
+;; Version: $Id: skk-look.el,v 1.3 1999/10/03 05:46:02 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/19 12:33:48 $
+;; Last Modified: $Date: 1999/10/03 05:46:02 $
 
 ;; This file is not part of SKK yet.
 
@@ -98,7 +98,10 @@
 ;;; Code:
 (eval-when-compile (require 'skk) (require 'skk-comp))
 (require 'skk-foreword)
+;; Elib
 (require 'stack-m)
+;; APEL
+(require 'path-util)
 
 (defgroup skk-look nil "SKK look conversion related customization."
   :prefix "skk-look-"
@@ -106,7 +109,7 @@
 
 ;; user variable.
 ;;;###autoload
-(defcustom skk-look-command "look"
+(defcustom skk-look-command (exec-installed-p "look")
   "*UNIX look コマンドの名前。"
   :type 'string
   :group 'skk-look )

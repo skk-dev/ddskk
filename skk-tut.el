@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.7 1999/09/23 13:34:15 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.8 1999/10/03 05:46:52 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/23 13:34:15 $
+;; Last Modified: $Date: 1999/10/03 05:46:52 $
 
 ;; This file is part of SKK.
 
@@ -27,22 +27,6 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-
-;; Following people contributed modifications to skk-tut.el (Alphabetical order):
-;;      Haru'yasu Ueda <hal@sics.se>
-;;      Hideki Sakurada <sakurada@kusm.kyoto-u.ac.jp>
-;;      Hitoshi SUZUKI <h-suzuki@ael.fujitsu.co.jp>
-;;      IIDA Yosiaki <iida@secom-sis.co.jp>
-;;      Koji Uchida <uchida@cfd.tytlabs.co.jp>
-;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;;      Shuhei KOBAYASHI <shuhei-k@jaist.ac.jp>
-;;	SL Baur <steve@altair.xemacs.org>
-;;	Stephen Turnbull  <turnbull@sk.tsukuba.ac.jp>
-;;      Thierry Emery <Thierry.Emery@nmu.alcatel.fr>
-;;      Toyonobu Yoshida <toyono-y@is.aist-nara.ac.jp>
-;;      Wataru Matsui <matsui@gf.hm.rd.sanyo.co.jp>
-;;      沈志勇 <jshen@cas.org>
-
 ;;; Code:
 (require 'skk)
 

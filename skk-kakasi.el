@@ -2,9 +2,9 @@
 ;; Copyright (C) 1996, 1998, 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kakasi.el,v 1.2 1999/10/03 05:40:03 minakaji Exp $
+;; Version: $Id: skk-kakasi.el,v 1.3 1999/10/03 05:44:28 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:40:03 $
+;; Last Modified: $Date: 1999/10/03 05:44:28 $
 
 ;; This file is not part of SKK yet.
 
@@ -53,7 +53,7 @@
 
 ;; --- user variable
 
-(defcustom skk-use-kakasi t
+(defcustom skk-use-kakasi (exec-installed-p "kakasi")
   "*Non-nil であれば KAKASI を使った変換を行なう。" 
   :type 'boolean
   :group 'skk-kakasi )

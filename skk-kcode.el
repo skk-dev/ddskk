@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kcode.el,v 1.5 1999/09/25 13:06:52 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.6 1999/10/03 05:40:56 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/25 13:06:52 $
+;; Last Modified: $Date: 1999/10/03 05:40:56 $
 
 ;; This file is part of SKK.
 
@@ -28,13 +28,6 @@
 
 ;;; Commentary:
 
-;; Following people contributed modifications to skk.el (Alphabetical order):
-;;       Kenji Yamashita <kenji@cs.titech.ac.jp>
-;;       Murata Shuuichirou  <mrt@astec.co.jp>
-;;       Shuhei KOBAYASHI <shuhei-k@jaist.ac.jp>
-;;       塚本 徹雄 <czkmt@remus.dti.ne.jp>
-
-
 ;;; Code:
 (eval-when-compile (require 'skk))
 (require 'skk-foreword)
