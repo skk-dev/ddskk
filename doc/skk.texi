@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.127 2003/07/21 02:45:56 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.128 2003/07/21 03:13:47 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/21 02:45:56 $
+@c  Last Modified: $Date: 2003/07/21 03:13:47 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/21 02:45:56 $
+@set UPDATED $Date: 2003/07/21 03:13:47 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -182,6 +182,7 @@ SKK の主な特徴は、次の通りです。
 * APEL のインストール::         
 * SKK のインストール::          
 * 辞書の入手::                  
+* 辞書サーバ::                  
 @end menu
 
 @node APEL のインストール, SKK のインストール, インストール, インストール
@@ -296,7 +297,7 @@ XEmacs でパッケージとしてインストールする場合は、
 @code{SKK_DEFAULT_JISYO} には通常、@file{SKK-JISYO.S} を指定すると良い
 でしょう。@w{@xref{複数辞書の検索方法}}
 
-@node 辞書の入手,  , SKK のインストール, インストール
+@node 辞書の入手, 辞書サーバ, SKK のインストール, インストール
 @comment  node-name,  next,  previous,  up
 @section 辞書の入手
 
@@ -336,6 +337,47 @@ GNU GPL 2 とは異なるものがあります。
 
 その他の辞書、あるいはそれぞれの辞書の詳細については
 @url{http://openlab.ring.gr.jp/skk/dic.html} をご参照下さい。
+
+@node 辞書サーバ,  , 辞書の入手, インストール
+@comment  node-name,  next,  previous,  up
+@section 辞書サーバ
+
+辞書サーバはオプションですので無くても SKK は動作しますが、特に辞書が大
+きな場合に辞書サーバを利用することで省メモリ効果を得られます。また、辞書
+サーバによっては複数辞書の検索、EPWING 辞書の検索ができたりするものもあ
+ります。
+
+SKK のクライアント側は特定の辞書サーバの実装に依存していませんので、下記
+の辞書サーバのいずれでも動作可能です。
+
+@table @asis
+@item dbskkd-cdb
+Daniel J. Bernstein 氏の開発した固定データベース用ライブラリ cdb を使い、
+inetd から tcp_wrapper などを経由し起動させることでセキュリティを向上さ
+せた辞書サーバです。@xref{dbskk-cdb}.
+
+@item rskkserv
+Ruby で動きます。複数辞書検索や EPWING 辞書検索に対応しています。
+@url{http://www.ruby-lang.org/en/raa-list.rhtml?name=rskkserv} をご参照
+下さい。
+
+@item wceSKKSERV
+Windows (CE|9x|NT|2K|XP) 用。複数辞書検索が可能です。
+@url{http://megadriver.ns.tc/~fumi/wceskkserv/} をご参照下さい。
+
+@item wskkserv
+Windows 用 SKK サーバの草分け。
+@url{http://www.tatari-sakamoto.jp/~tatari/wskkserv.jis.html} をご参照下
+さい。
+
+@item fskkserv
+Objective Caml という言語で書かれているそうです。
+@url{http://deisui.org/~ueno/caml/fskkserv/} をご参照下さい。
+
+@end table
+
+SKK サーバについての最新情報については
+@url{http://openlab.ring.gr.jp/skk/skkserv-ja.html} をご覧下さい。
 
 @node はじめの設定, 基本的な使い方, インストール, Top
 @comment  node-name,  next,  previous,  up
@@ -469,7 +511,7 @@ SKK 9、 SKK 10 と比較して、変数名、関数名が大幅に変更されたので、
 
 辞書サーバを使いたいときは、@file{.emacs} や @file{.skk} で以下のように
 設定します。
-@footnote{辞書サーバを使ってみたい場合は
+@footnote{辞書サーバの入手等については
 
 @display
 @xref{辞書サーバ}.
@@ -4727,7 +4769,7 @@ A:＼ S:〜 D:‖ F:｜ G:… H:‥ J:‘ K:
 @section ▼モードの特殊キー
 
 @menu
-* 確定動作を行うキー::        
+* 確定動作を行うキー::          
 * 候補の選択に用いるキー::      
 * ▼モードでのRET::             
 * ▼モードでのBS::              
@@ -5805,7 +5847,7 @@ Sun Jul 28 09:38:59 1996  登録:   4  確定:  285  確定率:  98% 
 に囲まれた送り仮名毎のブロック形式内は数えません。
 @end table
 
-@node 辞書候補数の数えあげ, 辞書バッファの文字コードの設定, 変換及び個人辞書に関する統計, 辞書関連
+@node 辞書候補数の数えあげ,  , 変換及び個人辞書に関する統計, 辞書関連
 @comment  node-name,  next,  previous,  up
 @subsection 辞書候補数の数えあげ
 @cindex Menu Bars
@@ -7757,7 +7799,7 @@ $ cvs -d :pserver:guest@@openlab.ring.gr.jp:/circus/cvsroot checkout skk/tools
 @cindex skkinput
 
 @menu
-* 辞書サーバ::                  
+* dbskkd-cdb::                  
 * skkinput::                    X上のSKK入力プログラム
 * SKKIME::                      skkinput for Microsoft Windows
 * skkfep内蔵jvim::              
@@ -7766,43 +7808,9 @@ $ cvs -d :pserver:guest@@openlab.ring.gr.jp:/circus/cvsroot checkout skk/tools
 * SKK on Jed::                  Jedで動くSKK
 @end menu
 
-@node 辞書サーバ, skkinput, SKK関連ソフトウェア, SKK関連ソフトウェア
+@node dbskkd-cdb, skkinput, SKK関連ソフトウェア, SKK関連ソフトウェア
 @comment  node-name,  next,  previous,  up
-@section 辞書サーバ
-
-SKK のクライアント側は特定のサーバの実装に依存していませんので、下記の複
-数のサーバの実装のいずれでも動作可能です。
-
-@table @asis
-@item dbskkd-cdb
-次節で詳しく説明します。
-
-@item rskkserv
-Ruby で動きます。複数辞書検索や EPWING 辞書検索に対応しています。
-@url{http://www.ruby-lang.org/en/raa-list.rhtml?name=rskkserv} をご参照
-下さい。
-
-@item wceSKKSERV
-Windows (CE|9x|NT|2K|XP) 用。複数辞書検索が可能です。
-@url{http://megadriver.ns.tc/~fumi/wceskkserv/} をご参照下さい。
-
-@item wskkserv
-Windows 用 SKK サーバの草分け。
-@url{http://www.tatari-sakamoto.jp/~tatari/wskkserv.jis.html} をご参照下
-さい。
-
-@item fskkserv
-Objective Caml という言語で書かれているそうです。
-@url{http://deisui.org/~ueno/caml/fskkserv/} をご参照下さい。
-
-@end table
-
-SKK サーバについての最新情報については
-@url{http://openlab.ring.gr.jp/skk/skkserv-ja.html} をご覧下さい。
-
-@node dbskkd-cdb,  , 辞書サーバ, 辞書サーバ
-@comment  node-name,  next,  previous,  up
-@subsection dbskkd-cdb
+@section dbskkd-cdb
 @cindex dbskkd-cdb
 @cindex cdb
 
@@ -7858,7 +7866,7 @@ GNU GPL (General Public License) に準拠。
 さまざまな UNIX 系 OS の上での動作レポートを希望しています。
 @end table
 
-@node skkinput, SKKIME, 辞書サーバ, SKK関連ソフトウェア
+@node skkinput, SKKIME, dbskkd-cdb, SKK関連ソフトウェア
 @comment  node-name,  next,  previous,  up
 @section skkinput
 @cindex @file{skkinput}
