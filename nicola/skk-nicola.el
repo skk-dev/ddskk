@@ -745,11 +745,14 @@ keycode 131 = underscore\n"))
 	ad-do-it
       (let (pos)
 	(if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
-		(not skk-completion-stack))
-	    (skk-set-marker skk-dcomp-start-point nil)
-	  (when (marker-position skk-dcomp-start-point)
+		(not skk-comp-stack))
+	    (progn
+	      (skk-set-marker skk-dcomp-start-point nil)
+	      (skk-set-marker skk-dcomp-end-point nil))
+	  (when (and (marker-position skk-dcomp-start-point)
+		     (marker-position skk-dcomp-end-point))
 	    (skk-dcomp-face-off)
-	    (or (equal skk-dcomp-toggle-key (this-command-keys))
+	    (or (member (this-command-keys) skk-dcomp-keep-completion-keys)
 		;;
 		(if (eq this-command 'skk-nicola-self-insert-rshift)
 		    (setq pos (point))
@@ -773,17 +776,17 @@ keycode 131 = underscore\n"))
 	;;
 	(if (and (not (skk-get-prefix skk-current-rule-tree))
 		 (not skk-okurigana))
-	    (progn
-	      (setq pos (point))
+	    (let ((pos (point)))
 	      (condition-case nil
-		  (skk-completion 'first 'silent)
+		  (progn
+		    (skk-comp-do 'first 'silent)
+		    (skk-set-marker skk-dcomp-start-point pos)
+		    (skk-set-marker skk-dcomp-end-point (point))
+		    (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
+		    (goto-char skk-dcomp-start-point))
 		(error
-		 (setq skk-completion-stack nil)
-		 (message nil)))
-	      (skk-set-marker skk-dcomp-start-point pos)
-	      (skk-set-marker skk-dcomp-end-point (point))
-	      (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
-	      (goto-char skk-dcomp-start-point)))))))
+		 (setq skk-comp-stack nil)
+		 (message nil)))))))))
 
 (static-unless (memq skk-emacs-type '(nemacs mule1))
   ;;
