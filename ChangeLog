@@ -1,3 +1,11 @@
+2000-09-10  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-faq.txt: New file.
+
+	* doc/skk.texi (入力モードの一時変更): Typo fixed.
+
+	* skk-look.el: Modify comment.
+
 2000-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-coding-system-alist): sjis => shift_jis.
