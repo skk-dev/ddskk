@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.14 2000/08/26 05:13:28 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.15 2000/08/26 05:51:13 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/08/26 05:13:28 $
+@c  Last Modified: $Date: 2000/08/26 05:51:13 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/08/26 05:13:28 $
+@set UPDATED $Date: 2000/08/26 05:51:13 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -4023,10 +4023,11 @@ L$B<-=q(B@footnote{@xref{$B<-=q$N7A<0(B, , L$B<-=q(B}.}$B$K$O(B, $B8+=P
 $BIU$,>e$N7A<0$G=g<!8uJd$H$7$FI=<($5$l$k!#(B
 
 @kbd{@@}$B$K$h$kF|IU$1$NJQ49F~NO$r9T$J$$$?$/$J$$>l9g$O!"(B
-@code{skk-mode-hook}$B$J$I$rMxMQ$7$F!"(B
 
 @lisp
-(add-hook 'skk-mode-hook (function (lambda () (local-unset-key "@@"))))
+(setq skk-rom-kana-rule-tree
+      (append skk-rom-kana-rule-tree
+              '(("@@" nil "@@"))))
 @end lisp
 
 @noindent
@@ -4034,16 +4035,13 @@ L$B<-=q(B@footnote{@xref{$B<-=q$N7A<0(B, , L$B<-=q(B}.}$B$K$O(B, $B8+=P
 $B$"$k$$$O!"A43QJ8;z$N(B@samp{$B!w(B}$B$rA^F~$7$?$$>l9g$O!"(B
 
 @lisp
-(aset skk-input-vector 64 "$B!w(B")
-(add-hook 'skk-mode-hook
-          (function (lambda ()
-                      (define-key skk-map "@@" 'skk-self-insert))))
+(setq skk-rom-kana-rule-tree
+      (append skk-rom-kana-rule-tree
+              '(("@@" nil "$B!w(B"))))
 @end lisp
 
 @noindent
-$B$N$h$&$K$9$k(B@footnote{@code{aset}$B$NBh(B2$B0z?t$N(B64$B$O!"(BEmacs$B$N(Bchar type
-@samp{?@@}$B$rI>2A$7$?$H$-$N?tCM$G$"$k!#(B@code{skk-input-vector}$B$NJQ99J}K!(B
-$B$K$D$$$F$N>\:Y$O!"(B@ref{$B?t;z$d5-9fJ8;z$NF~NO(B}$B$r;2>H$N$3$H!#(B}$B!#(B
+$B$N$h$&$K$9$k!#(B
 
 @node $B%W%m%0%i%`<B9TJQ49(B,  , $B:#F|$NF|IU$NF~NO(B, $BFC<lJQ49(B
 @comment  node-name,  next,  previous,  up
@@ -6346,6 +6344,7 @@ SKK$B$O(B1988$BG/(B4$B7n$KBh(B1$BHG$r(BJUNET$B$KEj9F$7$F0JMh!"KhG/(B4
 * skkfep::                      SKK$B%/%m!<%s(BFEP
 * SKK on Jed::                  Jed$B$GF0$/(BSKK
 * skkinput::                    X$B>e$N(BSKK$BF~NO%W%m%0%i%`(B
+* SKKIME::                      skkinput for Microsoft Windows
 * SKK95::                       Windows$B$GF0$/(BSKK like IME
 @end menu
 
@@ -6593,7 +6592,7 @@ WWW$B%/%i%$%"%s%H$rMxMQ$7$F(B
 $B$^$@$$$/$D$+L$<BAu5!G=$,$"$j$^$9$,(BSKK$B$NA45!G=<BAu$rL\;X$7$F$$$^$9!#(B
 @end table
 
-@node skkinput, SKK95, SKK on Jed, SKK$B4XO"%=%U%H%&%'%"(B
+@node skkinput, SKKIME, SKK on Jed, SKK$B4XO"%=%U%H%&%'%"(B
 @comment  node-name,  next,  previous,  up
 @section skkinput
 @cindex @file{skkinput}
@@ -6614,7 +6613,7 @@ Protocol$B$KBP1~$5$;$kM=Dj$G$9!#(B
 UNIX + X11R5$B$^$?$O(BX11R6(R6.1)
 
 @item $B:G?7%P!<%8%g%s(B ,release $B$NF|IU(B
-0.16e, $BJ?@.(B8$BG/(B12$B7n(B23$BF|(B($B7n(B)
+2.03, 
 
 @item $B3+H/<T(B
 $B:eK\(B $B?r(B(@w{@samp{sakamoto@@yajima.kuis.kyoto-u.ac.jp}}, @*
@@ -6625,7 +6624,7 @@ UNIX + X11R5$B$^$?$O(BX11R6(R6.1)
 
 @item $BF~<jJ}K!(B
 @smallexample
-@w{@samp{http://yase.yajima.kuis.kyoto-u.ac.jp/staffs/sakamoto/skkinput/skkinput.html}}
+@w{@samp{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkinput.htm}}
 @end smallexample
 @noindent
 $B$+$iF~<j$G$-$^$9!#(B
@@ -6643,7 +6642,25 @@ SKK 8.6$B$K$O$+$J$j6aIU$1$?$H;W$&$N$G$9$,!"$^$@$^$@0[$J$kItJ,$,;D$C$F$$$^(B
 $B$9!#FC$KA`:nBN7O$G0[$J$k$H46$8$i$l$?J}$O;d$^$G%l%]!<%H$r8f4j$$CW$7$^$9!#(B
 @end table
 
-@node SKK95,  , skkinput, SKK$B4XO"%=%U%H%&%'%"(B
+@node SKKIME, SKK95, skkinput, SKK$B4XO"%=%U%H%&%'%"(B
+@comment  node-name,  next,  previous,  up
+@section SKKIME
+@cindex SKKIME
+
+@table
+
+@item  $B3+H/<T(B
+skkinput $B$HF1$8$/(B $B:eK\?r;a(B
+
+@item $B:G?7%P!<%8%g%s(B
+SKKIME 1.0
+
+@item $BF~<j@h(B
+@w{@samp{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkime.htm}}
+
+@end table
+
+@node SKK95,  , SKKIME, SKK$B4XO"%=%U%H%&%'%"(B
 @comment  node-name,  next,  previous,  up
 @section SKK95
 @cindex SKK95
