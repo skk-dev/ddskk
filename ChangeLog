@@ -1,3 +1,7 @@
+2002-02-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-lookup-option-alist): Add regexp for KOJIEN.
+
 2002-02-02  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-lookup-option-alist): Add regexp for KOUJIEN.
@@ -3588,8 +3592,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.651 2002/02/02 12:51:53 minakaji Exp $
-Last Modified: $Date: 2002/02/02 12:51:53 $
+Version: $Id: ChangeLog,v 1.652 2002/02/03 12:31:14 minakaji Exp $
+Last Modified: $Date: 2002/02/03 12:31:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

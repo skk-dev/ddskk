@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.97 2002/02/02 12:51:53 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.98 2002/02/03 12:31:13 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/02 12:51:53 $
+;; Last Modified: $Date: 2002/02/03 12:31:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2865,12 +2865,15 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; `$B$G$s$7!>%V%C%/!ZEE;R!=![(B'
     ("KOJIEN" exact exact prefix t
      ("^\\([^$B!Z![(B]+\\)$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\([^$B!Z![(B]+\\)$B![(B$\\|\
-$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|\
-^[$B!<$!(B-$B$s(B]+$B!>(B\\([$B!<%!(B-$B%s(B]+\\)$B!Z(B\\([^$B!Z![(B]+\\)$B!=![(B$" .
+$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|\
+$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|\
+^[$B!<$!(B-$B$s(B]+$B!>(B\\([$B!<%!(B-$B%s(B]+\\)$B!Z(B\\([^$B!Z![(B]+\\)$B!=![(B$\\|\
+^$B!{(B\\(.+\\)$" .
       (cond ((match-beginning 2) '(1 2))
 	    ((match-beginning 3) 3)
 	    ((match-beginning 4) 4)
-	    ((match-beginning 5) '(6 5))))
+	    ((match-beginning 5) '(6 5))
+	    ((match-beginning 7) 7)))
      "$B!&(B"
      ;;"$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$"
      nil)
