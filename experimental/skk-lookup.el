@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.2 1999/09/28 14:48:17 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.3 1999/09/28 14:48:46 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/28 14:48:17 $
+;; Last Modified: $Date: 1999/09/28 14:48:46 $
 
 ;; This file is not part of SKK yet.
 
@@ -85,7 +85,7 @@
 	(skk-lookup-start-session module 'lookup-search-session
 	  (let ((query (lookup-make-query 'exact skk-henkan-key))
 		(lookup-search-found)
-		entry heading kouho )
+		heading kouho )
 	    (lookup-foreach
 	     (lambda (dictionary)
 	       (when (and (lookup-dictionary-selected-p dictionary)
