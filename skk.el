@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.228 2002/02/10 10:22:38 czkmt Exp $
+;; Version: $Id: skk.el,v 1.229 2002/02/17 06:15:21 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/10 10:22:38 $
+;; Last Modified: $Date: 2002/02/17 06:15:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2733,10 +2733,10 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	  (sit-for 1))
       ;;
       (with-current-buffer jisyo-buffer
-	(when (and skk-share-private-jisyo
-		 (skk-jisyo-is-shared-p))
+	(when skk-share-private-jisyo
 	  (lock-buffer skk-jisyo)
-	  (skk-update-shared-jisyo))
+	  (when (skk-jisyo-is-shared-p)
+	    (skk-update-shared-jisyo)))
 	(let ((inhibit-quit t)
 	      (tempo-file (skk-make-temp-jisyo)))
 	  (unless quiet
@@ -2745,14 +2745,20 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	  (skk-save-jisyo-as tempo-file)
 	  (skk-check-size-and-do-save-jisyo tempo-file)
 	  ;; $B<-=q$N%;!<%V$K@.8y$7$F=i$a$F(B modified $B%U%i%C%0$r(B nil $B$K$9$k!#(B
-	  (set-buffer-modified-p nil)
+	  (cond
+	   (skk-share-private-jisyo
+	    (skk-init-shared-jisyo)
+	    ;; `set-buffer-modified-p' $B$OITMW$J(B lock $B$r2r=|$9$k!#$?$@$7!"(B
+	    ;; $B%P%C%U%!$H%U%!%$%kL>$,4XO"IU$1$i$l$F$$$kI,MW$,$"$k!#(B
+	    (let ((buffer-file-name (expand-file-name skk-jisyo))
+		  (buffer-file-truename (file-truename skk-jisyo)))
+	      (set-buffer-modified-p nil)))
+	   (t
+	    (set-buffer-modified-p nil)))
 	  (unless quiet
 	    (skk-message "SKK $B<-=q$rJ]B8$7$F$$$^$9(B...$B40N;!*(B"
 			 "Saving SKK jisyo...done")
-	    (sit-for 1)))
-	(when skk-share-private-jisyo
-	  (skk-init-shared-jisyo)
-	  (unlock-buffer)))))
+	    (sit-for 1))))))
   (setq skk-update-jisyo-count 0))
 
 (defun skk-init-shared-jisyo ()
