@@ -5,9 +5,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.7 1999/10/07 09:08:48 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.8 1999/10/07 13:10:15 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/07 09:08:48 $
+;; Last Modified: $Date: 1999/10/07 13:10:15 $
 
 ;; This file is not part of SKK yet.
 
@@ -121,10 +121,9 @@
   (if (null entry)
       nil
     (with-current-buffer henkan-buffer
-      (let ((index skk-study-associates-number)
-	    grandpa papa associates r
-	    ;; buffer local variables.
-	    last-key last-word )
+      (let (grandpa papa associates r
+		    ;; buffer local variables.
+		    last-key last-word )
 	(or skk-study-alist (skk-study-read))
 	(if (and skk-study-alist
 		 (setq last-key (skk-get-last-henkan-data 'henkan-key))
@@ -144,9 +143,11 @@
 		 (setq papa (cdr (assoc midasi grandpa)))
 		 ;; associates := ("着")
 		 (setq associates (cdr (assoc (cons last-key last-word) papa))) )
-	    (while (and (> index 0) (setq r (nth (1- index) associates)))
-	      (setq entry (cons r (delete r entry))
-		    index (1- index) )))
+	    (progn
+	      (setq associates (nreverse associates))
+	      (while (setq r (car associates))
+		(setq entry (cons r (delete r entry))
+		      associates (cdr associates) ))))
 	entry ))))
 
 ;;;###autoload
@@ -215,7 +216,7 @@
 		      'ok-if-already-exists 'keep-date ))
       (with-temp-buffer
 	(insert
-	 (format ";;; -*- emacs-lisp -*-\n;;; skk-study-file format version %s\n"
+	 (format ";;; skk-study-file format version %s\n"
 		 skk-study-file-format-version ))
 	(if (not skk-study-sort-saving)
 	    nil
@@ -276,7 +277,7 @@
   ;; read FILE and return alist.
   (with-temp-buffer
     (let ((version-string
-	   (format ";;; -*- emacs-lisp -*-\n;;; skk-study-file format version %s\n"
+	   (format ";;; skk-study-file format version %s\n"
 		   skk-study-file-format-version )))
       (insert-file-contents-as-coding-system
        (cond ((and skk-jisyo-code
@@ -296,7 +297,7 @@
 	  (read (current-buffer))
 	(let ((old-version-string
 	       (format
-		";;; -*- emacs-lisp -*-\n;;; skk-study-file format version %s\n"
+		";;; skk-study-file format version %s\n"
 		(- skk-study-file-format-version 0.1) ))
 	      (skk-study-sort-saving t) )
 	  (cond ((and (looking-at (regexp-quote old-version-string))
