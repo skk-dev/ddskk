@@ -11,6 +11,15 @@
 	* skk-e21.el, skk-xemacs.el: Add `skk-submit-bug-report' to the
 	popup menu.
 
+	* skk-num.el (skk-num-type3-kanji-1, skk-num-type5-kanji):
+	Abolish.
+	(skk-num-to-kanji): New function.
+	(skk-num-type3-kanji, skk-num-type5-kanji): Call it.
+	(skk-num-get-kanji): New function.
+
+	* skk-vars.el (skk-num-alist-type3): New variable.
+	(skk-num-alist-type5): Add "零",
+
 	* READMEs/NEWS: Update.
 
 	* etc/Emacs.ad: Add `skk-submit-bug-report'.
@@ -1814,8 +1823,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.374 2001/09/11 14:47:16 czkmt Exp $
-Last Modified: $Date: 2001/09/11 14:47:16 $
+Version: $Id: ChangeLog,v 1.375 2001/09/11 16:01:20 czkmt Exp $
+Last Modified: $Date: 2001/09/11 16:01:20 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
