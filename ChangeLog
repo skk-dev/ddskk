@@ -8,6 +8,8 @@
 	(skk-kakutei-initialize): Do not add DATA to `skk-study-data-ring'
 	when KAKUTEI-WORD is equal to car of `skk-henkan-list'.
 	(skk-study-save): Bug fixed.
+	(skk-study-sort-saving): Change its default value to nil.
+	(skk-study-associates-number): Change its default value to 5.
 
 	* experimental/rdbms/skk-rdbms.el (skk-rdbms-sahen-search-1):
 	Ditto.
@@ -4261,8 +4263,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.748 2003/07/06 11:04:27 minakaji Exp $
-Last Modified: $Date: 2003/07/06 11:04:27 $
+Version: $Id: ChangeLog,v 1.749 2003/07/06 11:10:23 minakaji Exp $
+Last Modified: $Date: 2003/07/06 11:10:23 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

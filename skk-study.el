@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.30 2003/07/06 11:04:27 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.31 2003/07/06 11:10:23 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/06 11:04:27 $
+;; Last Modified: $Date: 2003/07/06 11:10:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -104,12 +104,12 @@
   :type 'file
   :group 'skk-study)
 
-(defcustom skk-study-associates-number 3
+(defcustom skk-study-associates-number 5
   "*保存する関連語の数。"
   :type 'integer
   :group 'skk-study)
 
-(defcustom skk-study-sort-saving t
+(defcustom skk-study-sort-saving nil
   "*Non-nil であれば学習結果をソートしてセーブする。"
   :type 'boolean
   :group 'skk-study)
