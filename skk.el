@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.116 2001/09/12 13:32:16 czkmt Exp $
+;; Version: $Id: skk.el,v 1.117 2001/09/13 13:48:32 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/12 13:32:16 $
+;; Last Modified: $Date: 2001/09/13 13:48:32 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1904,9 +1904,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       ;; new-one が空文字列だったら nil を返す。
       (if (string= new-one "")
 	  nil
-	(if (string-match ";" new-one)
-	    (skk-quote-semicolon new-one)
-	  new-one)))))
+	(skk-quote-semicolon new-one)))))
 
 (defun skk-compute-henkan-key2 ()
   ;; skk-henkan-okurigana が non-nil なら skk-henkan-key から、かつて
@@ -2690,13 +2688,13 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (let ((index 0) list skk-henkan-key)
     (while (and (< index skk-jisyo-save-count)
 		(setq list (aref skk-jisyo-update-vector index)))
-      ;; skk-update-jisyo-1, skk-search-jisyo-file-1
+      ;; skk-update-jisyo-1, skk-search-jisyo
       ;; で参照される skk-henkan-key をセットする
       (setq skk-henkan-key (car list))
       (skk-update-jisyo-1
        ;; okurigana    word
        (nth 1 list) (nth 2 list)
-       (skk-search-jisyo-file-1 (nth 1 list) 0 'delete)
+       (skk-search-jisyo (nth 1 list) 0 'delete)
        ;; purge
        (nth 3 list))
       (setq index (1+ index)))))
@@ -3021,47 +3019,42 @@ If you want to restore the dictionary from the disc, try
 
 (defun skk-search-jisyo-file (file limit &optional nomsg)
   ;; SKK 辞書フォーマットの FILE で skk-henkan-key をキーにして検索を行う。
-  ;; 検索リージョンが LIMIT 以下になるまでバイナリサーチを行い、その後リニア
-  ;; サーチを行う。
+  ;; 検索リージョンが LIMIT 以下になるまでバイナリサーチを行い、その後リニ
+  ;; アサーチを行う。
   ;; LIMIT が 0 であれば、リニアサーチのみを行う。
   ;; 辞書がソートされていないのであれば、LIMIT を 0 する必要がある。
-  ;; オプショナル引数の NOMSG が non-nil であれば skk-get-jisyo-buffer のメッ
-  ;; セージを出力しないようにする。
-  (let ((jisyo-buffer (skk-get-jisyo-buffer file nomsg)))
-    (if jisyo-buffer
-	;; skk-henkan-key と skk-henkan-okurigana はカレントバッファのローカル
-	;; 値。
-	(let ((okurigana (or skk-henkan-okurigana skk-okuri-char))
-	      (midasi
-	       (if skk-use-numeric-conversion
-		   ;; skk-henkan-key が nil のことがある。何故?
-		   (skk-num-compute-henkan-key skk-henkan-key)
-		 skk-henkan-key))
-	      (henkan-buffer (current-buffer))
-	      entry-list entry)
-	  (with-current-buffer jisyo-buffer
-	    (setq skk-henkan-key midasi
-		  entry-list (skk-search-jisyo-file-1 okurigana limit))
-	    (if entry-list
-		(progn
-		  (setq entry
-			(cond ((and okurigana skk-henkan-okuri-strictly)
-			       ;; 送り仮名が同一のエントリのみを返す。
-			       (nth 2 entry-list))
-			      ((and okurigana skk-henkan-strict-okuri-precedence)
-			       ;; 送り仮名が同一のエントリのうしろに、
-			       ;; その他のエントリをつけてかえす。
-			       (skk-nunion (nth 2 entry-list) (car entry-list)))
-			      (t (car entry-list))))
-		  (and skk-search-end-function
-		       (setq entry (funcall skk-search-end-function
-					    henkan-buffer midasi okurigana entry)))
-		  entry)))))))
+  ;; オプショナル引数の NOMSG が non-nil であれば skk-get-jisyo-buffer の
+  ;; メッセージを出力しないようにする。
+  (skk-search-jisyo-buf (skk-get-jisyo-buffer file nomsg)
+			limit))
 
-(defun skk-search-jisyo-file-1 (okurigana limit &optional delete)
-  ;; skk-search-jisyo-file のサブルーチン。skk-compute-henkan-lists を使用し、
-  ;; 見出し語についてのエントリの情報を返す。
-  ;; DELETE が non-nil であれば、MIDASI にマッチするエントリを削除する。
+(defun skk-search-jisyo-buf (buf limit)
+  ;; バッファを BUF に移動して、そこを辞書として検索する。
+  (when buf
+  ;; skk-henkan-key と skk-henkan-okurigana はカレントバッファの
+  ;; ローカル値なので、あらかじめ取得。
+    (let ((okurigana (or skk-henkan-okurigana
+			 skk-okuri-char))
+	  (midasi
+	   (if skk-use-numeric-conversion
+	       (skk-num-compute-henkan-key skk-henkan-key)
+	     skk-henkan-key))
+	  (henkan-buffer (current-buffer))
+	  words-list)
+      (with-current-buffer buf
+	(setq skk-henkan-key midasi
+	      words-list (skk-search-jisyo okurigana
+					   limit))
+	(skk-select-words-from-list words-list
+				    henkan-buffer
+				    midasi
+				    okurigana)))))
+
+(defun skk-search-jisyo (okurigana limit &optional delete)
+  ;; カレントバッファを辞書として検索する。
+  ;; `skk-compute-henkan-lists' を使用し、見出し語についての候補の情報を
+  ;; 返す。DELETE が non-nil であれば、MIDASI にマッチするエントリを削除
+  ;; する。
   (let ((key (concat "\n" skk-henkan-key " /"))
 	min max size p)
     (save-match-data
@@ -3071,36 +3064,62 @@ If you want to restore the dictionary from the disc, try
 		max skk-okuri-ari-max)
 	(setq min skk-okuri-nasi-min
 	      max (point-max)))
-      (if (> limit 0)
-	  (while (progn (setq size (- max min)) (> size limit))
-	    (goto-char (+ min (/ size 2)))
-	    (beginning-of-line)
-	    (setq p (point))
-	    ;; 送りありなら逆順に比較を行なう。
-	    (if
-		(if okurigana
-		    (string< (buffer-substring-no-properties
-			      p (1- (search-forward  " ")))
-			     skk-henkan-key)
-		  (string< skk-henkan-key
-			   (buffer-substring-no-properties
-			    p (1- (search-forward " ")))))
-		(setq max p)
-	      (setq min p))))
+      (when (> limit 0)
+	(while (progn (setq size (- max min)) (> size limit))
+	  (goto-char (+ min (/ size 2)))
+	  (beginning-of-line)
+	  (setq p (point))
+	  ;; 送りありなら逆順に比較を行なう。
+	  (if (if okurigana
+		  (string< (buffer-substring-no-properties
+			    p (1- (search-forward  " ")))
+			   skk-henkan-key)
+		(string< skk-henkan-key
+			 (buffer-substring-no-properties
+			  p (1- (search-forward " ")))))
+	      (setq max p)
+	    (setq min p))))
       (goto-char min)
       ;; key が検索開始地点にあった場合でも検索可能なように一文字戻る。key が
       ;; その先頭部分に "\n" を含んでいることに注意。
-      (or (bobp) (backward-char 1))
+      (unless (bobp)
+	(backward-char 1))
       ;; case-fold-search は、辞書バッファでは常に nil。
-      (if (search-forward key max 'noerror)
-	  (prog1
-	      (skk-compute-henkan-lists okurigana)
-	    (if delete
-		(progn
-		  (beginning-of-line)
-		  (delete-region (point)
-				 (progn (forward-line 1) (point))))))))))
+      (when (search-forward key max 'noerror)
+	(prog1
+	    (skk-compute-henkan-lists okurigana)
+	  (when delete
+	    (beginning-of-line)
+	    (delete-region (point)
+			   (progn
+			     (forward-line 1)
+			     (point)))))))))
 
+(defun skk-select-words-from-list (list buffer midasi okurigana)
+  ;; `skk-search-jisyo' が返した候補リストから、現在要求されている
+  ;; 候補を選びだす。
+  (when list
+    (let ((words
+	   (cond
+	    ((and okurigana
+		  skk-henkan-okuri-strictly)
+	     ;; 送り仮名が同一のエントリのみを返す。
+	     (nth 2 list))
+	    ((and okurigana
+		  skk-henkan-strict-okuri-precedence)
+	     ;; 送り仮名が同一のエントリのうしろに、
+	     ;; その他のエントリをつけてかえす。
+	     (skk-nunion (nth 2 list)
+			 (car list)))
+	    (t
+	     (car list)))))
+      (when skk-search-end-function
+	(setq words (funcall skk-search-end-function
+			     buffer
+			     midasi
+			     okurigana
+			     words)))
+      words)))
 
 (defun skk-compute-henkan-lists (okurigana)
   ;; 辞書エントリを 4 つのリストに分解する。
@@ -3285,7 +3304,7 @@ If you want to restore the dictionary from the disc, try
 	    ;; きは、min ポイントから見出しを探すため、新しい見出しほど、min
 	    ;; ポイントに近いところになければならない)。
 	    (setq skk-henkan-key midasi
-		  old-entry (skk-search-jisyo-file-1 okurigana 0 'delete))
+		  old-entry (skk-search-jisyo okurigana 0 'delete))
 	    (skk-update-jisyo-1 okurigana word old-entry purge)
 	    ;; 複数の emacs で SKK が起動されているときに個人辞書を整合的に
 	    ;; 更新するために確定の動作を記録する。
@@ -3400,7 +3419,10 @@ If you want to restore the dictionary from the disc, try
       word)))
 
 (defun skk-quote-semicolon (word)
-  (skk-quote-char-1 word skk-quote-char-alist))
+  ;; `save-match-data' は要らない。
+  (if (string-match ";" word)
+      (skk-quote-char-1 word skk-quote-char-alist)
+    word))
 
 (defun skk-public-jisyo-has-entry-p (okurigana word)
   ;; 共有辞書が MIDASHI 及びそれに対応する WORDS エントリを持っていれば、
