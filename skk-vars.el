@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.103 2002/03/29 23:15:45 obata Exp $
+;; Version: $Id: skk-vars.el,v 1.104 2002/04/03 10:18:16 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/29 23:15:45 $
+;; Last Modified: $Date: 2002/04/03 10:18:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2768,7 +2768,6 @@ This map should be derived from isearch-mode-map.")
   "#4 タイプのキーにより数値の再計算を行ったときの検索キー。")
 
 ;;; SKK-SERVER.EL related internal constants and variables.
-(defconst skk-network-open-status 'open)
 (defconst skkserv-working-buffer " *skkserv*")
 (defvar skkserv-process nil)
 
