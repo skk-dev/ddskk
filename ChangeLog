@@ -4,10 +4,12 @@
 	(skk-annotation-show-as-message): Always use `message'.
 
 	* install-info.el
+	* skk-comp.el
 	* skk-dic.el.in
 	* skk-gadget.el
 	* skk-isearch.el
 	* skk-num.el
+	* skk-xemacs.el
 	* skk.el:
 	Modification concerning specificity.
 
@@ -2293,8 +2295,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.459 2001/10/09 12:31:25 czkmt Exp $
-Last Modified: $Date: 2001/10/09 12:31:25 $
+Version: $Id: ChangeLog,v 1.460 2001/10/09 14:13:40 czkmt Exp $
+Last Modified: $Date: 2001/10/09 14:13:40 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.25 2001/10/06 00:08:54 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.26 2001/10/09 14:13:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/06 00:08:54 $
+;; Last Modified: $Date: 2001/10/09 14:13:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -62,13 +62,13 @@
 	skk-num-list
 	c-word)
     (skk-kana-cleanup 'force)
-    (if first
-	(setq skk-comp-stack nil skk-comp-depth 0))
-    (if (or first
-	    skk-dabbrev-like-completion)
-	(setq skk-comp-key (buffer-substring-no-properties
-			    skk-henkan-start-point
-			    (point))))
+    (when first
+      (setq skk-comp-stack nil skk-comp-depth 0))
+    (when (or first
+	      skk-dabbrev-like-completion)
+      (setq skk-comp-key (buffer-substring-no-properties
+			  skk-henkan-start-point
+			  (point))))
     (cond
      ((> skk-comp-depth 0)
       ;; (過去に探索済みの読みをアクセス中)
@@ -84,9 +84,9 @@
 			  (setq word (skk-comp-do-1 skk-comp-key first)))
 			word)
 		      ;;
-		      (if (and skk-abbrev-mode
+		      (when (and skk-abbrev-mode
 			       skk-use-look)
-			  (skk-look-completion))))
+			(skk-look-completion))))
 	;; 新規に見つけたときだけ push する。
 	(push c-word skk-comp-stack))))
     ;; 辞書バッファの外。
@@ -120,20 +120,18 @@
     (skk-comp-by-history))
    (t
     (or (skk-comp-do-1-in-buf (skk-get-jisyo-buffer skk-jisyo)
-			      key
-			      first)
+			      key first)
 	(prog1
 	    (skk-comp-do-1-in-buf (skk-dic-setup-buffer)
-				  key
-				  skk-dic-comp-first)
+				  key skk-dic-comp-first)
 	  (setq skk-dic-comp-first nil))))))
 
 (defun skk-comp-do-1-in-buf (buffer key first)
   (when (buffer-live-p buffer)
     (let (c-word)
       (with-current-buffer buffer
-	(if first
-	    (goto-char skk-okuri-nasi-min))
+	(when first
+	  (goto-char skk-okuri-nasi-min))
 	(save-match-data
 	  ;; case-fold-search は、辞書バッファでは常に nil。
 	  (while (and (not c-word)

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.140 2001/10/09 12:30:49 czkmt Exp $
+;; Version: $Id: skk.el,v 1.141 2001/10/09 14:13:41 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/09 12:30:49 $
+;; Last Modified: $Date: 2001/10/09 14:13:41 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -874,9 +874,7 @@ dependent."
   ;; コマンドを実行する。
   (let ((prefix-arg arg)
 	(keys (skk-command-key-sequence (this-command-keys) this-command)))
-    (if (not keys)
-	;; no alternative commands.  may be invoked by M-x.
-	nil
+    (when keys ; If key is nil, the command may have been invoked by M-x.
       (let (skk-mode
 	    skk-latin-mode
 	    skk-j-mode
@@ -886,13 +884,14 @@ dependent."
 	    command)
 	;; have to search key binding after binding 4 minor mode flags to nil.
 	(setq command (key-binding keys))
-	(if (eq command this-command)
-	    ;; avoid recursive calling of skk-emulate-original-map.
-	    nil
+	(unless (eq command this-command)
+	  ;; avoid recursive calling of skk-emulate-original-map.
+
 	  ;; if no bindings are found, call `undefined'.  it's
 	  ;; original behaviour.
 	  ;;(skk-cancel-undo-boundary)
-	  (command-execute (or command (function undefined))))))))
+	  (command-execute (or command
+			       (function undefined))))))))
 
 (defun skk-command-key-sequence (key command)
   ;; KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。

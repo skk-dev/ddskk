@@ -235,8 +235,8 @@
 	   (skk-previous-candidate)))
 	(t
 	 (skk-erase-prefix 'clean)
-	 (if (> (point) skk-henkan-start-point)
-	     (delete-region (point) skk-henkan-start-point))
+	 (when (> (point) skk-henkan-start-point)
+	   (delete-region (point) skk-henkan-start-point))
 	 (skk-kakutei))))
 
 ;;
