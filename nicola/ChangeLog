@@ -18,6 +18,8 @@
 	* skk-nicola.el (skk-nicola-insert-double): Do not consider
 	skk-106-jis explicitly.
 
+	(skk-nicola-rshift-keys): Do not consider Emacs 20.2 or earlier.
+
 2004-03-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-util.el (skk-kanagaki-dakuten): Now works in
