@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.39 2000/10/09 13:33:37 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.40 2000/10/09 15:42:20 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/09 13:33:37 $
+@c  Last Modified: $Date: 2000/10/09 15:42:20 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/10/09 13:33:37 $
+@set UPDATED $Date: 2000/10/09 15:42:20 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -1792,8 +1792,8 @@ Emacs のバッファに読み込んで検索を行ないます。共有辞書は設定により Emacs
 @footnote{あるかな文字をローマ字表現したときの 1 文字目を@b{「ローマ字プ
 レフィックス」}と呼びます。}で表現されています。　
 この 1 エントリで @samp{持た}、@samp{持ち}、@samp{持つ}、@samp{持て}、
-@samp{持と} の5つの候補に対応します。その 5 つの候補の送り仮名をローマ字プ
-レフィックスで表現すれば、いずれも @samp{t} になります。
+@samp{持と} の 5 つの候補に対応します。その 5 つの候補の送り仮名をローマ
+字プレフィックスで表現すれば、いずれも @samp{t} になります。
 
 @node 送りありエントリのブロック形式, エントリの配列, 送りありエントリと送りなしエントリ, 辞書の形式
 @comment  node-name,  next,  previous,  up
@@ -3343,8 +3343,8 @@ M-Q} のように引数を渡して実行すると、変換開始位置から現在位置までの文字
 @vindex skk-auto-okuri-process
 
 @menu
-* どのように変換されるか::      
-* 辞書登録の際に注意すべきこと::  
+* どのように変換されるか::
+* 辞書登録の際に注意すべきこと::
 @end menu
 
 @node どのように変換されるか, 辞書登録の際に注意すべきこと, 送り仮名の自動処理, 送り仮名の自動処理
@@ -3420,10 +3420,10 @@ t} の場合の送り仮名チェックの対象は、@samp{ち} です。辞書に
 @footnote{長さ順にソートするのは、変換された部分がより長い候補を先順位
 として出力するためです。}、それぞれの候補と該当の見出し語から切り捨てら
 れた文字列と連結したもの
-@footnote{「該当の見出し語から切り捨てられた文字列」を送り仮名とみなして
-処理しています。}を、送り仮名の自動処理の最終候補として返します。上記の
-例では、@samp{立ち上げる}、@samp{建ちあげる}、@samp{断ちあげる}、@samp{
-経ちあげる}、@samp{立ちあげる} の 5 つが最終候補になります。
+@footnote{@samp{該当の見出し語から切り捨てられた文字列} を送り仮名とみな
+して処理しています。}を、送り仮名の自動処理の最終候補として返します。上
+記の例では、@samp{立ち上げる}、@samp{建ちあげる}、@samp{断ちあげる}、
+@samp{経ちあげる}、@samp{立ちあげる} の 5 つが最終候補になります。
 
 ここで、自動送り機能の長所を考えてみると、
 
