@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.116 2004/03/31 23:43:49 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.117 2004/04/03 17:07:14 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/03/31 23:43:49 $
+;; Last Modified: $Date: 2004/04/03 17:07:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1295,6 +1295,12 @@ nil であれば、最後の見出し語が表示された状態で停止する。"
 (defcustom skk-japanese-message-and-error nil
   "*Non-nil であれば、SKK のメッセージとエラーを日本語で表示する。
 nil であれば、英語で表示する。"
+  :type 'boolean
+  :group 'skk-decoration)
+
+(defcustom skk-use-tooltip nil
+  "*Non-nil であれば、エコーエリアの代わりに tooltip で候補などを表示する。
+この機能は現在のところ Emacs 21 専用。"
   :type 'boolean
   :group 'skk-decoration)
 
