@@ -1,3 +1,13 @@
+2002-01-13  Eiji Obata  <obata@roca.kuee.kyoto-u.ac.jp>
+
+	* experimental/skk-azik.el:
+	Require `skk-macs' and `skk-vars' and `alist'.
+
+	Fix and re-indent.
+
+	* experimental/skk-dinsert.el:
+	Require `skk-macs' and `skk-vars'.
+
 2002-01-13  ONODA Arata  <onoto@ma.nma.ne.jp>
 
 	* experimental/skk-azik.el:
@@ -3317,8 +3327,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.625 2002/01/13 11:42:34 minakaji Exp $
-Last Modified: $Date: 2002/01/13 11:42:34 $
+Version: $Id: ChangeLog,v 1.626 2002/01/13 20:41:35 obata Exp $
+Last Modified: $Date: 2002/01/13 20:41:35 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
