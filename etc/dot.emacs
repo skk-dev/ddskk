@@ -57,4 +57,14 @@
 	    (require 'skk)
 	    (setq skk-kutouten-type 'en)))
 
+;; 文章系のバッファを開いた時には自動的に英数モード(「SKK」モード)に入る
+(let ((function #'(lambda ()
+		    (require 'skk)
+		    (skk-latin-mode-on))))
+  (dolist (hook '(find-file-hooks
+		  ;; ...
+		  mail-setup-hook
+		  message-setup-hook))
+    (add-hook hook function)))
+
 ;;; dot.emacs ends here
