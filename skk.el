@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.210 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk.el,v 1.211 2002/01/06 09:37:47 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/06 09:37:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1182,10 +1182,12 @@ dependent."
 	 (rest (car result))
 	 (addpoint (cdr result)))
     (while rest
-      (let ((addtree
-	     (skk-make-rule-tree (car rest)
-				 (substring prefix 0 (1+ (- l (length rest))))
-				 nil nil nil)))
+      (let ((addtree (skk-make-rule-tree
+		      (car rest)
+		      (if (vectorp prefix)
+			  prefix
+			(substring prefix 0 (1+ (- l (length rest)))))
+		      nil nil nil)))
 	(skk-add-branch addpoint addtree)
 	(setq addpoint addtree
 	      rest (cdr rest))))
@@ -1236,12 +1238,15 @@ dependent."
 	(ignore-errors
 	  (when (symbolp key)
 	    (setq key (eval key))
-	    (setcar rule key))
-	  (unless (or (string-match "\\w" key)
+	    (when (stringp key)
+	      (setcar rule key)))
+	  (unless (or (not (stringp key))
+		      (string-match "\\w" key)
 		      (eq (key-binding key)
 			  'self-insert-command))
 	    (define-key skk-j-mode-map key 'skk-insert)))
-	(skk-add-rule tree rule)))
+	(when (stringp key)
+	  (skk-add-rule tree rule))))
     tree))
 
 (defun skk-insert-str (str)
