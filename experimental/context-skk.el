@@ -1,4 +1,4 @@
-;;; context-skk.el --- turning off skk when the point leaves "string" or ; comments
+;;; context-skk.el --- turning off skk when the point enters where skk is unnecessary
 ;;
 ;; Copyright (C) 2003 Masatake YAMATO
 ;;
@@ -23,25 +23,37 @@
 ;;
 ;;; Commentary:
 ;; このプログラムは編集の文脈に応じて自動的にskkのモードをlatinに切り替え
-;; ます。
+;; ます。明かにskkによる日本語入力が必要ない個所で、skkをオンにしたまま
+;; キー操作を行なったためにemacsからエラーの報告を受けたり、skkをオフにし
+;; てテキストを修正するのは不快です。これを抑制することが、このプログラムの
+;; 目標です。
 ;;
-;; あるプログラミング言語でプログラムを書いているとき、日本語入力の必要が
-;; あるのは一般に、そのプログラミング言語の文字列中かコメント中に限られま
-;; す。文字列、コメントの「外」を編集するときは、多くの場合日本語入力は必
-;; 要ありません。
-;; たとえば 「え ^H l」 emacs lispでは、
-;; "〜" や ;; 〜
-;; といった個所でだけ日本語入力が必要となります。
+;; 文脈の判定はemacs lispによって記述できます。このプログラムには、次の2つ
+;; の文脈に対する判定関数が含まれています。
+;;
+;; 0. read-onlyバッファ: read-onlyバッファでは、日本語入力の必要はないし、
+;;    できないので、日本語入力をオフにします。エラーの報告を受けるかわりに
+;;    skkによってシャドウされた元のキーバインドに割当てられたコマンドを実行で
+;;    きます。
+;;
+;; 1. プログラムコード中でのコメントや文字列の外
+;;    あるプログラミング言語でプログラムを書いているとき、日本語入力の必要が
+;;    あるのは一般に、そのプログラミング言語の文字列中かコメント中に限られま
+;;    す。文字列、コメントの「外」を編集するときは、多くの場合日本語入力は必
+;;    要ありません。
+;;    たとえば 「え ^H l」 emacs lispでは、
+;;    "〜" や ;; 〜
+;;    といった個所でだけ日本語入力が必要となります。
 ;; 
-;; このプログラムでは、現在の文字列とコメントの「外」を編集開始と同時に
-;; (skkがオンであれば)skkの入力モードをlatinに切り替えます。「外」の編集
-;; を開始するにあたって、日本語入力が 「お ^H l」 onになっていたために発生
-;; した入力誤りとその修正操作を回避することができます。
+;;    現在の文字列とコメントの「外」を編集開始と同時に
+;;    (skkがオンであれば)skkの入力モードをlatinに切り替えます。「外」の編集
+;;    を開始するにあたって、日本語入力が 「お ^H l」 onになっていたために発生
+;;    した入力誤りとその修正操作を回避することができます。
 ;;
-;; 自動切り替えはcontext-skkというマイナーモードとして実装してあります。
-;; M-x context-skk
-;; で 自動切り替えのon/offをできます。モードラインに ";" が表示されている場合、
-;; マイナーモードがonになっていることを意味します。
+;; 自動切り替えはcontext-skk-modeというマイナーモードとして実装してあります。
+;; M-x context-skk-mode
+;; で 自動切り替えのオン/オフをできます。モードラインに ";" が表示されている
+;; 場合、このマイナーモードがonになっていることを意味します。
 ;;
 ;; - インストール
 ;; (add-hook 'skk-load-hook
@@ -59,10 +71,12 @@
 ;;
 (defvar context-skk-context-check-hook ()
   "*日本語入力を自動的にoffにしたい「コンテキスト」にいればtを返す関数を登録する。")
-(add-hook ' context-skk-context-check-hook
-	    'context-skk-out-of-string-or-comment-in-programming-mode-p)
-(add-hook ' context-skk-context-check-hook
-	    'context-skk-in-mew-draft-attachments-region-p)
+(add-hook 'context-skk-context-check-hook
+	  'context-skk-out-of-string-or-comment-in-programming-mode-p)
+(add-hook 'context-skk-context-check-hook
+	  'context-skk-in-mew-draft-attachments-region-p)
+(add-hook 'context-skk-context-check-hook
+	  'context-skk-in-read-only-buffer-p)
 
 (defvar context-skk-programming-mode
   '(ada-mode antlr-mode asm-mode autoconf-mode awk-mode
@@ -77,7 +91,7 @@
   "*context-skkにて「プログラミングモード」とみなすモードのリスト")
 
 
-(define-minor-mode context-skk
+(define-minor-mode context-skk-mode
   "文脈に応じて自動的にskkの入力モードをlatinに切り換えるマイナーモード。"
   t " \";\"")
 
@@ -86,13 +100,13 @@
 ;;
 (defadvice skk-insert (around skk-insert-ctx-switch activate)
   "文脈に応じて自動的にskkの入力モードをlatinにする。"
-  (if (and context-skk (context-skk-context-check))
+  (if (and context-skk-mode (context-skk-context-check))
       (context-skk-insert) 
     ad-do-it))
 
 (defadvice skk-jisx0208-latin-insert (around skk-jisx0208-latin-insert-ctx-switch activate)
   "文脈に応じて自動的にskkの入力モードをlatinにする。"
-  (if (and context-skk (context-skk-context-check))
+  (if (and context-skk-mode (context-skk-context-check))
       (context-skk-insert) 
     ad-do-it))
 
@@ -105,6 +119,7 @@
 
 (defun context-skk-insert ()
   "skk-latin-modeをonにした上`this-command-keys'に対する関数を呼び出し直す。"
+  (message "[context-skk] 日本語入力 off")
   (skk-latin-mode t)
   (call-interactively (key-binding (this-command-keys))))
 
@@ -116,10 +131,14 @@
        (not (or (context-skk-in-string-p)
 		(context-skk-in-comment-p)))))
 
+(defun context-skk-in-read-only-buffer-p ()
+  buffer-read-only)
+
 (defun context-skk-in-mew-draft-attachments-region-p ()
   (and (eq major-mode 'mew-draft-mode)
        (fboundp 'mew-attach-begin)
        (<= (or (mew-attach-begin) (1+ (point-max))) (1- (point)))))
+
 ;;
 ;; Sub predicators
 ;;
