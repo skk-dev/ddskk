@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.18 2000/03/13 12:17:09 minakaji Exp $
-# Last Modified: $Date: 2000/03/13 12:17:09 $
+# Version: $Id: Makefile,v 1.19 2000/03/14 03:13:51 minakaji Exp $
+# Last Modified: $Date: 2000/03/14 03:13:51 $
 
 VERSION = 10.59
 
@@ -34,13 +34,13 @@ clean:
          `find . -name '*~'` `find . -name '.*~'`
 
 tar: clean
-        -$(RM) ../skk*
+	-$(RM) ../skk*
 	cd .. ; ln -sf main skk-$(VERSION) ; \
 	$(TAR) cvzpf skk$(VERSION).tar.gz --exclude-from=./skk-$(VERSION)/skk.ex \
                --dereference  skk-$(VERSION)
 
 snapshot: clean
-        -$(RM) ../skk*
+	-$(RM) ../skk*
 	cd .. ; ln -sf main skk-snapshot
 	$(TAR) cvzpf ../skk-snapshot.tar.gz --exclude-from=skk.ex --dereference ../skk-snapshot
 

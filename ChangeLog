@@ -1,3 +1,8 @@
+2000-03-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* Makefile (tar): Replace white spaces with tab.
+	(snapshot): Ditto.
+
 2000-03-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* Makefile (clean): Doesn't remove ../skk*.
