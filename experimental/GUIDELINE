@@ -1,6 +1,6 @@
 -*- text -*-
-             $Date: 1999/08/31 23:29:23 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-	     $Id: GUIDELINE,v 1.1 1999/08/31 23:29:23 minakaji Exp $
+             $Date: 1999/08/31 23:29:49 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: GUIDELINE,v 1.2 1999/08/31 23:29:49 minakaji Exp $
 
 
 o 全く新しい機能を提供するプログラムで、1998/11/13 (佐藤先生が
@@ -22,3 +22,5 @@ o version 10 official release までに十分安定したと考えられる「実験プロ
 
 o 「実験プロジェクトプログラム」の開発は、SKK official version 10 がリ
   リースされた後は、unofficial version 11 として続けられる予定です。
+
+[end of GUIDELINE]
