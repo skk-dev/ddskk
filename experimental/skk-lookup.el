@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.21 1999/10/20 13:13:15 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.22 1999/10/20 13:39:44 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/20 13:13:15 $
+;; Last Modified: $Date: 1999/10/20 13:39:44 $
 
 ;; This file is not part of SKK yet.
 
@@ -84,6 +84,7 @@
 
 ;;; Code:
 (eval-when-compile (require 'skk) (require 'skk-num) (require 'cl))
+(require 'poe)
 (require 'lookup)
 
 ;;;###autoload
@@ -290,6 +291,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 (defvar skk-lookup-default-module nil)
 (defvar skk-lookup-module-list nil)
 
+(defalias-maybe 'skk-okurigana-prefix 'skk-auto-okurigana-prefix)
+
 ;;;; inline functions.
 (defsubst skk-lookup-get-method (name okuri-process)
   (save-match-data
@@ -401,11 +404,14 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 		       ;; don't know exactly how long okurigana is.
 		       ;; truncate length of one character anyway.
 		       skk-kanji-len ))))
-	   (cond ((not skk-henkan-okurigana)
-		  (if (> okuri-length (length string))
-		      string
-		    (substring string 0 (- okuri-length)) ))
-		 ((not (string= skk-henkan-okurigana (substring string (- okuri-length))))
+	   (cond ((= process-type 2)
+		  (cond ((> okuri-length (length string))
+			 string )
+			((string= (skk-okurigana-prefix (substring string -1))
+				  skk-okuri-char )
+			 (substring string 0 (- okuri-length)) )))
+		 ((not (string= skk-henkan-okurigana
+				(substring string (- okuri-length)) ))
 		  nil )
 		 ((> okuri-length (length string)) string)
 		 (t (substring string 0 (- okuri-length))) )))))
