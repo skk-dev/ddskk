@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.13 1999/10/10 12:51:59 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.14 1999/10/10 13:01:38 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/10 12:51:59 $
+;; Last Modified: $Date: 1999/10/10 13:01:38 $
 
 ;; This file is not part of SKK yet.
 
@@ -136,7 +136,7 @@
   (if (or (null entry)
 	  ;; list of single element.
 	  (null (cdr entry)) )
-      entry
+      nil
     (with-current-buffer henkan-buffer
       (if (or skk-study-alist (skk-study-read))
 	  ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
@@ -149,7 +149,8 @@
 					      (t 'okuri-nasi) )
 					skk-study-alist ))))))
 	    (if target-alist
-		(skk-study-search-1 target-alist midasi okurigana entry) ))))))
+		(setq entry (skk-study-search-1 target-alist midasi okurigana entry)) )))))
+  entry )
 
 (defun skk-study-search-1 (target-alist midasi okurigana entry)
   (do ((index 0 (1+ index))
