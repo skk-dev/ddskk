@@ -1,3 +1,9 @@
+2003-07-21 Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
+
+	* doc/skk.texi: Add description(
+	skk-kutouten-type, skk-toggle-kutouten) in
+	"Q.3-2 「．」、「，」 が入力できるようにカスタマイズしたいのですが。"
+
 2003-07-21  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* SKK-MK (SKK_DICTIONARIES): Add `SKK-JISYO.ML'.
@@ -4370,8 +4376,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.770 2003/07/21 12:29:50 minakaji Exp $
-Last Modified: $Date: 2003/07/21 12:29:50 $
+Version: $Id: ChangeLog,v 1.771 2003/07/21 12:43:21 akiho Exp $
+Last Modified: $Date: 2003/07/21 12:43:21 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
