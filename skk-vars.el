@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.10 2000/11/13 05:29:49 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.11 2000/11/15 09:40:16 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/13 05:29:49 $
+;; Last Modified: $Date: 2000/11/15 09:40:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -623,7 +623,9 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
 
 $B$G$&$C$+$j(B [RET] $B$r2!$7$F$7$^$C$?$H$-$K!":G8e$N!V$9!W$,Aw$j2>L>$G$"$k$+$I$&$+(B
 $B%f!<%6$K3NG'$r5a$a!"Aw$j2>L>$J$i$P$3$l$r<h$j=|$$$F$+$iEPO?$9$k!#(B"
-  :type 'boolean
+  :type '(choice (const auto)
+		 (const ask)
+		 (const nil))
   :group 'skk-okurigana)
 
 (defcustom skk-henkan-show-candidates-keys '(?a ?s ?d ?f ?j ?k ?l)
