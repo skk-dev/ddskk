@@ -1,3 +1,26 @@
+2000-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Add `skk-e21'.
+
+	* skk-e21.el: New file.
+
+	* skk-jisx0201.el, skk-macs.el: Modify for skk-e21.el.
+
+	* skk-macs.el (skk-update-modeline): New function.
+	(skk-update-modeline-with-extent): Abolish.
+
+	* skk-vars.el (skk-modeline-input-mode, skk-default-indicator,
+	skk-latin-mode-indicator, skk-hiragana-mode-indicator,
+	skk-katakana-mode-indicator, skk-jisx0208-latin-mode-indicator,
+	skk-jisx0201-mode-indicator, skk-abbrev-mode-indicator): New
+	variables.
+
+	* skk-xemacs.el (skk-xemacs-prepare-modeline-properties): Rename
+	from `skk-xemacs-prepare-extents'.
+
+	* skk.el (skk-setup-modeline): Add `skk-modeline-input-mode'
+	instead of `skk-input-mode-string' to `mode-line-format'.
+
 2000-11-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-version.el (skk-version): Change its argument meaning.  If
@@ -2394,8 +2417,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.155 2000/11/19 08:06:11 minakaji Exp $
-Last Modified: $Date: 2000/11/19 08:06:11 $
+Version: $Id: ChangeLog,v 1.156 2000/11/19 13:49:28 czkmt Exp $
+Last Modified: $Date: 2000/11/19 13:49:28 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -243,7 +243,17 @@ keycode 131 = underscore\n"))
       (rom
        (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
 	     skk-katakana-mode-string skk-nicola-katakana-rom-string)))
-    (setq skk-input-mode-string skk-hiragana-mode-string))))
+    (setq skk-input-mode-string skk-hiragana-mode-string)
+    (static-when (eq skk-emacs-type 'mule5)
+      (setq skk-hiragana-mode-indicator
+	    (apply 'propertize skk-hiragana-mode-string
+		   skk-e21-modeline-property))
+      (setq skk-katakana-mode-indicator
+	    (apply 'propertize skk-katakana-mode-string
+		   skk-e21-modeline-property)))
+    (skk-update-modeline (if skk-katakana
+			     skk-katakana-mode-indicator
+			   skk-hiragana-mode-indicator)))))
 
 ;; Functions.
 
@@ -400,8 +410,11 @@ keycode 131 = underscore\n"))
 	  (setq next (key-description (char-to-string char))))
 	(when (eq next 'space)
 	  (setq next (key-description " ")))
+	(when (symbolp next)
+	  (setq next (key-description (vector next))))
 	;;
-	(setq next (format "%s" next))
+	(unless (stringp next)
+	  (setq next (format "%s" next)))
 	;;
 	(cond ((member next
 		       (mapcar (function
@@ -724,6 +737,13 @@ keycode 131 = underscore\n"))
     (rom
      (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
 	   skk-katakana-mode-string skk-nicola-katakana-rom-string)))
+  (when (eq skk-emacs-type 'mule5)
+    (setq skk-hiragana-mode-indicator
+	  (apply 'propertize skk-hiragana-mode-string
+		 skk-e21-modeline-property))
+    (setq skk-katakana-mode-indicator
+	  (apply 'propertize skk-katakana-mode-string
+		 skk-e21-modeline-property)))
   (let ((list (buffer-list))
 	buf)
     (while list
@@ -731,10 +751,12 @@ keycode 131 = underscore\n"))
 	(with-current-buffer buf
 	  (when skk-j-mode
 	    (setq skk-input-mode-string
-		  (cond (skk-katakana
-			 skk-katakana-mode-string)
-			(t
-			 skk-hiragana-mode-string))))))
+		  (if skk-katakana
+		      skk-katakana-mode-string)
+		  skk-hiragana-mode-string)
+	    (skk-update-modeline (if skk-katakana
+				     skk-katakana-mode-indicator
+				   skk-hiragana-mode-indicator)))))
       (setq list (cdr list))))
   (force-mode-line-update t))
 

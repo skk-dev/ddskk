@@ -1,3 +1,9 @@
+2000-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el (skk-mode-hook): Update modeline indicators under
+	Emacs 21. Call `skk-update-modeline'.
+	(skk-kanagaki-toggle-rom-kana): Ditto.
+
 2000-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki.el (skk-kanagaki-state): This shouldn't be a local
