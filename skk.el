@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.123 2001/09/14 14:23:33 czkmt Exp $
+;; Version: $Id: skk.el,v 1.124 2001/09/14 14:26:05 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/14 14:23:33 $
+;; Last Modified: $Date: 2001/09/14 14:26:05 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -669,22 +669,22 @@ dependent."
       (unless (memq 'skk-modeline-input-mode
 		    default-modeline-format)
 	(setq default-modeline-format
-	      (nconc '("" skk-modeline-input-mode)
-		     default-modeline-format)))
+	      (append '("" skk-modeline-input-mode)
+		      default-modeline-format)))
 
       (skk-loop-for-buffers (buffer-list)
        (when (and (listp modeline-format)
 		  (null (memq 'skk-modeline-input-mode
 			      modeline-format)))
 	 (setq modeline-format
-	       (nconc '("" skk-modeline-input-mode)
+	       (append '("" skk-modeline-input-mode)
 		       modeline-format)))))
      (t
       (unless (memq 'skk-modeline-input-mode
 		    (default-value 'mode-line-format))
 	(setq-default mode-line-format
-		      (nconc '("" skk-modeline-input-mode)
-			     (default-value 'mode-line-format))))
+		      (append '("" skk-modeline-input-mode)
+			      (default-value 'mode-line-format))))
 
       (skk-loop-for-buffers (buffer-list)
        (when (and (listp mode-line-format)
@@ -692,8 +692,8 @@ dependent."
 		  (null (memq 'skk-modeline-input-mode
 			      mode-line-format)))
 	 (setq mode-line-format
-	       (nconc '("" skk-modeline-input-mode)
-		      mode-line-format))))))
+	       (append '("" skk-modeline-input-mode)
+		       mode-line-format))))))
 
     (force-mode-line-update t))))
 
