@@ -1,3 +1,8 @@
+2001-09-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el (skk-nicola-self-insert-lshift): Do not do dynamic
+	completion if `this-command' is `skk-nicola-self-insert-rshift'.
+
 2001-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: No real changes. Looks more esthetic.
