@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.91 2000/12/20 16:14:26 minakaji Exp $
+;; Version: $Id: skk.el,v 1.92 2001/01/10 08:31:03 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/20 16:14:26 $
+;; Last Modified: $Date: 2001/01/10 08:31:03 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -980,10 +980,12 @@ dependent."
            (skk-save-point
 	    (goto-char skk-henkan-start-point)
 	    
-	    (while (or 
-		    ;; "ー" では文字種別が判別できないので、ポイントを進める。
-		    (looking-at "ー")
-		    (eq 'unknown (setq char (skk-what-char-type))))
+	    (while (and
+		    (not (eobp))
+		    (or 
+		     ;; "ー" では文字種別が判別できないので、ポイントを進める。
+		     (looking-at "ー")
+		     (eq 'unknown (setq char (skk-what-char-type)))))
 	      (forward-char 1)))
            (cond ((eq char 'hiragana)
                   (skk-katakana-region
@@ -3596,6 +3598,27 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
    (lambda (matched)
      (let ((ascii (skk-jisx0208-to-ascii matched)))
        (or ascii matched)))))
+
+(defun skk-search-katakana ()
+  ;; これは `skk-search-prog-list' に追加されるべき機能で、変換キーを単純にカ
+  ;; タカナに変換したものを候補として返す。
+  ;; 一般的な FEP は単純にカタカナに変換したものが候補に現れるものが多いが、
+  ;; そのような挙動が好みの場合にはこの関数を用いるとよい。
+  (unless skk-henkan-okurigana
+    (let ((key skk-henkan-key) char)
+      (with-temp-buffer
+	(insert key)
+	(goto-char (point-min))
+	(while (and
+		(not (eobp))
+		(or 
+		 ;; "ー" では文字種別が判別できないので、ポイントを進める。
+		 (looking-at "ー")
+		 (eq 'unknown (setq char (skk-what-char-type)))))
+	  (forward-char 1))
+	(when (eq char 'hiragana)
+	  (skk-katakana-region (point-min) (point-max) 'vcontract)
+	  (list (buffer-substring-no-properties (point-min) (point-max))))))))
 
 (defun skk-search-and-replace (start end regexp func)
   (let (matched replace)
