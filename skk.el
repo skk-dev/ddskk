@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.223 2002/01/22 15:26:01 czkmt Exp $
+;; Version: $Id: skk.el,v 1.224 2002/01/23 14:05:01 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/22 15:26:01 $
+;; Last Modified: $Date: 2002/01/23 14:05:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4170,7 +4170,7 @@ If you want to restore the dictionary from the disc, try
 ;;;###autoload
 (add-hook 'after-init-hook
 	  #'(lambda ()
-	      (when init-file-user
+	      (when (symbol-value 'init-file-user)
 		(when (and (boundp 'skk-custom-file)
 			   (load skk-custom-file t)
 			   (cdr (assq 'skk-preload skk-custom-alist)))
