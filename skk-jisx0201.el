@@ -4,10 +4,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.48 2002/02/11 08:04:37 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.49 2003/03/28 03:19:57 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2002/02/11 08:04:37 $
+;; Last Modified: $Date: 2003/03/28 03:19:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -391,7 +391,7 @@
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-*-henkan-2 #'skk-jisx0201-region))
+  (skk-henkan-skk-region-by-func #'skk-jisx0201-region arg))
 
 (defun skk-jisx0201-region (start end)
   "領域のひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
