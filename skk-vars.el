@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.71 2001/10/31 14:21:09 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.72 2001/11/03 23:02:55 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 14:21:09 $
+;; Last Modified: $Date: 2001/11/03 23:02:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -55,17 +55,13 @@
     (cond
      ((featurep 'xemacs)
       'xemacs)
-     ((and (boundp 'mule-version)
-	   (string< "5.0" mule-version))
+     ((string< "5.0" mule-version)
       'mule5)
-     ((and (boundp 'mule-version)
-	   (string< "4.0" mule-version))
+     ((string< "4.0" mule-version)
       'mule4)
-     ((and (boundp 'mule-version)
-	   (string< "3.0" mule-version))
+     ((string< "3.0" mule-version)
       'mule3)
-     ((and (boundp 'mule-version)
-	   (string< "2.0" mule-version))
+     ((string< "2.0" mule-version)
       'mule2)))
   ;;
   (require 'pcustom))
