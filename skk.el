@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.153 2001/10/13 14:30:56 czkmt Exp $
+;; Version: $Id: skk.el,v 1.154 2001/10/13 14:43:46 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 14:30:56 $
+;; Last Modified: $Date: 2001/10/13 14:43:46 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3779,8 +3779,8 @@ If you want to restore the dictionary from the disc, try
 	  skk-auto-okuri-process
 	  words)
       (ignore-errors
-	(dolist (prog skk-search-prog-list)
-	  (setq words (nconc words (eval prog)))))
+	(dolist (form skk-search-prog-list)
+	  (setq words (nconc words (eval form)))))
       words)))
 
 (defun skk-search-and-replace (start end regexp func)
