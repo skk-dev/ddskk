@@ -1,3 +1,10 @@
+2004-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-1):
+	* skk.el (skk-henkan-show-candidate-subr):
+
+	Do not show tooltip when window-system is nil.
+
 2004-12-20  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/skk-bayesian.el 
@@ -4746,8 +4753,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.826 2004/12/21 07:40:38 skk-cvs Exp $
-Last Modified: $Date: 2004/12/21 07:40:38 $
+Version: $Id: ChangeLog,v 1.827 2004/12/23 03:54:11 skk-cvs Exp $
+Last Modified: $Date: 2004/12/23 03:54:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
