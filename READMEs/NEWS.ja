@@ -13,6 +13,18 @@
 APEL 10.6 については、http://emacs-w3m.namazu.org/ml/msg05365.html を
 ご参照下さい。
 
+なお、Emacs 20 では、この問題に関連し、一時ファイルが安全に生成できな
+い問題があります。この問題を回避するために、環境変数 TMPDIR を各ユーザ
+のみが書き込み可能なディレクトリ (例えば file mode を 0700 に設定した
+~/tmp) に指定することが強く推奨されます。この環境変数を設定することで
+`temp-file-name-pattern' や `temporary-file-directory' などの変数の設
+定が影響を受けます。この問題について詳しくは、
+
+  http://bugs.debian.org/cgi-bin/bugreport.cgi?archive=no&bug=192732
+  http://bugs.debian.org/cgi-bin/bugreport.cgi?archive=no&bug=198567
+
+をご参照下さい。Emacs 21 ではこの脆弱性はフィックスされています。
+
 ** 新しいユーザ変数 skk-force-registration-mode-char
 
 この変数により、エコーエリアで候補表示中に、辞書登録モードに強制的に入

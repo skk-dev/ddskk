@@ -5,6 +5,9 @@
 	(skk-hint-member): Ditto.
 	* experimental/skk-study.el (skk-study-check-alist-format-1):
 	Ditto.
+	(skk-kakutei-initialize): Do not add DATA to `skk-study-data-ring'
+	when KAKUTEI-WORD is equal to car of `skk-henkan-list'.
+
 	* experimental/rdbms/skk-rdbms.el (skk-rdbms-sahen-search-1):
 	Ditto.
 	* ptexinfmt.el: Sync up with the file in emacs-w3m 1.3.
@@ -4257,8 +4260,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.746 2003/07/06 08:49:11 minakaji Exp $
-Last Modified: $Date: 2003/07/06 08:49:11 $
+Version: $Id: ChangeLog,v 1.747 2003/07/06 10:20:38 minakaji Exp $
+Last Modified: $Date: 2003/07/06 10:20:38 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
