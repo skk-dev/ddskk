@@ -1,5 +1,10 @@
 2002-01-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* READMEs/Contributors:
+	Following person is added.
+
+	KIHARA Hideto <deton@m1.interq.or.jp>
+
 	* ccc.el
 	(update-buffer-local-frame-params): Abolish optional argument
 	FORCE-CURRENT-BUFFER. New optional argument BUFFER.
@@ -3351,8 +3356,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.630 2002/01/15 11:41:06 czkmt Exp $
-Last Modified: $Date: 2002/01/15 11:41:06 $
+Version: $Id: ChangeLog,v 1.631 2002/01/16 15:03:22 czkmt Exp $
+Last Modified: $Date: 2002/01/16 15:03:22 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
