@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.32 2000/09/09 04:32:58 czkmt Exp $
+;; Version: $Id: skk.el,v 1.33 2000/09/28 11:44:29 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/09 04:32:58 $
+;; Last Modified: $Date: 2000/09/28 11:44:29 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 2000/09/09 04:32:58 $")
+      (let* ((raw-date "$Date: 2000/09/28 11:44:29 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)))
@@ -2248,7 +2248,7 @@ dependent."
   ;;    ととし、可能な限り動作の統一を図る。
   ;; (4)unfixed prefix + トリガーキーの処理は必要に応じて該当関数の中に埋め込
   ;;    む。
-  (interactive "p*")
+  (interactive "*p")
   (skk-with-point-move
    (let ((ch last-command-char))
      (cond (
@@ -3094,7 +3094,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 ▼モード以外ではカレントバッファに \"x\" を挿入する。
 確定辞書による確定の直後に呼ぶと確定がアンドゥされて、確定前の状態で
 直前の見出し語がカレントバッファに挿入される。"
-  (interactive "p*")
+  (interactive "*p")
   (skk-with-point-move
    (if (not skk-henkan-active)
        (if (not (eq last-command 'skk-kakutei-henkan))
