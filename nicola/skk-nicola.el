@@ -338,12 +338,33 @@ keycode 131 = underscore\n"))
 	  (list nil (car spec))
 	  (str nil (when (memq
 			  (nth 3 list)
-			  '(skk-kanagaki-set-okurigana
-			    skk-kanagaki-set-okurigana-no-sokuon))
+			  '(skk-input-by-code-or-menu))
 		     (nth 1 list))))
 	 ((or str (null spec))
 	  (when (stringp str)
-	    (cons str "送りあり変換開始")))))
+	    (cons str "コードまたはメニューによる入力")))))
+    ;;
+    (list
+     (do ((spec (nth 4 skk-kanagaki-rule-tree) (cdr spec))
+	  (list nil (car spec))
+	  (str nil (when (memq
+			  (nth 3 list)
+			  '(skk-today))
+		     (nth 1 list))))
+	 ((or str (null spec))
+	  (when (stringp str)
+	    (cons str "今日の日付けを挿入")))))
+    ;;
+    (list
+     (do ((spec (nth 4 skk-kanagaki-rule-tree) (cdr spec))
+	  (list nil (car spec))
+	  (str nil (when (memq
+			  (nth 3 list)
+			  '(skk-jisx0208-latin-mode))
+		     (nth 1 list))))
+	 ((or str (null spec))
+	  (when (stringp str)
+	    (cons str "全英モード")))))
     ;;
     (list
      
