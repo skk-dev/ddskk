@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.104 2002/04/03 10:18:16 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.105 2002/07/13 17:18:27 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/04/03 10:18:16 $
+;; Last Modified: $Date: 2002/07/13 17:18:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2587,7 +2587,7 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 
 (skk-deflocalvar skk-henkan-in-minibuff-flag nil
   "$B%_%K%P%C%U%!$G<-=qEPO?$r9T$C$?$H$-$K$3$N%U%i%0$,N)$D!#(B
-skk-remove-common $B$G;2>H$5$l$k!#(B")
+`skk-remove-common' $B$G;2>H$5$l$k!#(B")
 
 (skk-deflocalvar skk-okuri-index-min -1
   "`skk-henkan-list'$B$N%$%s%G%/%9$rA^$9%]%$%s%?$N$R$H$D!#(B
@@ -2602,6 +2602,10 @@ skk-remove-common $B$G;2>H$5$l$k!#(B")
 
 (skk-deflocalvar skk-last-buffer-modified nil
   "$B"&%b!<%I$KF~$kD>A0$N%P%C%U%!JQ99%U%i%0$rB`Hr$7$F$*$/JQ?t!#(B")
+
+(skk-deflocalvar skk-after-prefix nil
+  "t $B$G$"$l$P!"@\F,<-F~NO8e$N>uBV$K$"$k$3$H$rI=$9!#(B
+$B@\F,<-F~NO3+;O;~$K(B t $B$K%;%C%H$5$l!"B3$/8l$N3NDj8e$K(B nil $B$K%;%C%H$5$l$k!#(B")
 
 ;;; -- SKK-COMP.EL related internal variables
 ;; ---- buffer local variables
