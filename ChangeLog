@@ -1,5 +1,7 @@
 2001-08-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* install-info.el (install-info-delete-entry): Regexp fix.
+
 	* skk-tut.el (skktut-setup-jisyo-buffer): Add "today" entry.
 
 	* etc/NICOLA-SKK.tut: Modify for the latest version of
@@ -3739,8 +3741,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.330 2001/08/30 02:36:17 czkmt Exp $
-Last Modified: $Date: 2001/08/30 02:36:17 $
+Version: $Id: ChangeLog,v 1.331 2001/08/30 19:05:56 czkmt Exp $
+Last Modified: $Date: 2001/08/30 19:05:56 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
