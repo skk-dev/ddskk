@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.224 2002/01/23 14:05:01 czkmt Exp $
+;; Version: $Id: skk.el,v 1.225 2002/01/27 02:13:16 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/23 14:05:01 $
+;; Last Modified: $Date: 2002/01/27 02:13:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -618,10 +618,10 @@ dependent."
 		  (t
 		   'delsel)))
 	(property (static-cond
-		  ((eq skk-emacs-type 'xemacs)
-		   'pending-delete)
-		  (t
-		   'delete-selection)))
+		   ((eq skk-emacs-type 'xemacs)
+		    'pending-delete)
+		   (t
+		    'delete-selection)))
 	(funcs '(skk-current-kuten
 		 skk-current-touten
 		 skk-input-by-code-or-menu
