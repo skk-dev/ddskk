@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.20 2001/10/31 13:06:22 czkmt Exp $
+;; Version: $Id: skk-kcode.el,v 1.21 2001/11/13 12:35:38 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 13:06:22 $
+;; Last Modified: $Date: 2001/11/13 12:35:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -32,7 +32,9 @@
 (eval-when-compile
   (require 'static)
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+  (defvar enable-recursive-minibuffers)
+  (defvar message-log-max))
 
 ;;;###autoload
 (defun skk-input-by-code-or-menu (&optional arg)
@@ -58,7 +60,7 @@
 	  (format
 	   "7/8 bits or KUTEN code for %s (00nn or CR for Jump Menu): "
 	   skk-kcode-charset)))
-	(enable-recursive-minibuffer t)
+	(enable-recursive-minibuffers t)
 	n1 n2)
     (if (string-match "\\(.+\\)-\\(.+\\)" str)
 	(setq n1 (+ (string-to-number (match-string-no-properties 1 str))
