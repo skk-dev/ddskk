@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.82 2001/09/16 08:35:16 czkmt Exp $
-;; Last Modified: $Date: 2001/09/16 08:35:16 $
+;; Version: $Id: SKK-MK,v 1.83 2001/09/16 08:44:49 czkmt Exp $
+;; Last Modified: $Date: 2001/09/16 08:44:49 $
 
 ;; Commentary
 ;;
@@ -1024,10 +1024,13 @@ SKK tutorials:
 (defun SKK-MK-skk-dic ()
   (require 'poem)
   (let* ((buf (get-buffer-create " *SKK-JISYO.S*"))
+	 (jisyo0 (expand-file-name SKK_DEFAULT_JISYO))
 	 (jisyo1 (expand-file-name SKK_DEFAULT_JISYO "dic"))
 	 (jisyo2 (expand-file-name "SKK-JISYO.S" "dic"))
 	 (jisyo3 (expand-file-name "SKK-JISYO.S" "../dic"))
 	 (jisyo (cond
+		 ((file-readable-p jisyo0)
+		  jisyo0)
 		 ((file-readable-p jisyo1)
 		  jisyo1)
 		 ((file-readable-p jisyo2)
