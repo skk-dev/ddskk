@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.28 2002/01/18 14:03:24 czkmt Exp $
+;; Version: $Id: skk-kcode.el,v 1.29 2002/10/26 09:37:27 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/18 14:03:24 $
+;; Last Modified: $Date: 2002/10/26 09:37:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -364,24 +364,33 @@
   (let* ((char (string-to-char str))
 	 (charset (char-charset char)))
     (cond
-     ((memq charset '(japanese-jisx0208 japanese-jisx0208-1978))
+     ((memq charset '(japanese-jisx0213-1 japanese-jisx0213-2 japanese-jisx0208 japanese-jisx0208-1978))
       (let* ((char1-j (skk-char-octet char 0))
 	     (char1-k (- char1-j 32))
 	     (char1-e (+ char1-j 128))
 	     (char2-j (skk-char-octet char 1))
 	     (char2-k (- char2-j 32))
 	     (char2-e (+ char2-j 128))
-	     (sjis (skk-jis2sjis char1-j char2-j))
+	     (sjis (if (eq charset 'japanese-jisx0213-2)
+		       (skk-jis2sjis2 char1-j char2-j)
+		     (skk-jis2sjis char1-j char2-j)))
 	     (char1-s (car sjis))
 	     (char2-s (cadr sjis)))
-	(message
-	 "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d),\
- KUTEN: (%2d, %2d), SJIS: %2x%2x"
-	 str
-	 char1-e char2-e char1-e char2-e
-	 char1-j char2-j char1-j char2-j
-	 char1-k char2-k
-	 char1-s char2-s)))
+	(if (eq charset 'japanese-jisx0213-2)
+	    (message
+	     "`%s' (plane 2) KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
+	     str
+	     char1-k char2-k
+	     char1-j char2-j
+	     char1-e char2-e
+	     char1-s char2-s)
+	  (message
+	   "`%s' KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
+	   str
+	   char1-k char2-k
+	   char1-j char2-j 
+	   char1-e char2-e 
+	   char1-s char2-s))))
      ((memq charset '(ascii latin-jisx0201))
       (message "`%s' %2x (%3d)"
 	       str
@@ -407,6 +416,18 @@
 	 (ch2 (if (> char2 127) (- char2 1) char2))
 	 (c2 (if (>= ch2 158) (- ch2 125) (- ch2 31)))
 	 (c1 (if (> ch2 127) (+ ch1 1) ch1)))
+    (list c1 c2)))
+
+;; 2面
+(defun skk-jis2sjis2 (char1 char2)
+  (let* ((ch2 (if (eq (* (/ char1 2) 2) char1)
+		  (+ char2 125) (+ char2 31)))
+	 (c2 (if (>= ch2 127)
+		 (+ ch2 1) ch2))
+         (ku (- char1 32))
+         (c1 (if (<= ku 15)
+		 (- (/ (+ ku ?\x1df) 2) (* (/ ku 8) 3))
+	       (/ (+ ku ?\x19b) 2))))
     (list c1 c2)))
 
 (run-hooks 'skk-kcode-load-hook)

@@ -1,3 +1,8 @@
+2002-10-22  Yano Keisuke <yano@moon.email.ne.jp>
+
+	* skk-kcode.el (skk-display-code): Modified for JISX0213.
+	(skk-jis2sjis2): New function.
+
 2002-09-05  Akihiro MOTOKI  <amotoki@dd.iij4u.or.jp>
 
 	* skk.el (skk-try-completion): Correct argument handling.
@@ -4024,8 +4029,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.710 2002/09/11 11:20:31 czkmt Exp $
-Last Modified: $Date: 2002/09/11 11:20:31 $
+Version: $Id: ChangeLog,v 1.711 2002/10/26 09:37:27 minakaji Exp $
+Last Modified: $Date: 2002/10/26 09:37:27 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
