@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.35 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.36 2002/01/02 08:09:23 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/02 08:09:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -667,31 +667,31 @@ If the current mode is different from previous, remove it first."
 ;;; This advice will be enabled before skk-isearch is loaded.
 ;;;###autoload
 (defconst skk-isearch-really-early-advice
-  '(lambda ()
-     (defadvice isearch-message-prefix (around skk-isearch-ad activate)
-       (let ((current-input-method
-	      (unless (and (boundp 'skk-isearch-switch)
-			   skk-isearch-switch)
-		current-input-method)))
-	 ad-do-it))
-     (defadvice isearch-toggle-input-method (around skk-isearch-ad activate)
-       ;; Needed for calling skk-isearch via isearch-x.
-       (cond ((string-match "^japanese-skk"
-			    (format "%s" default-input-method))
-	      (let ((skk-isearch-initial-mode-when-skk-mode-disabled
-		     'latin))
-		(skk-isearch-mode-setup)
-		(skk-isearch-skk-mode)))
-	     ((null default-input-method)
-	      ad-do-it
-	      (when (string-match "^japanese-skk"
-				  (format "%s" default-input-method))
-		(let ((skk-isearch-initial-mode-when-skk-mode-disabled
-		       'latin))
-		  (skk-isearch-mode-setup))
-		(inactivate-input-method)))
-	     (t
-	      ad-do-it)))))
+  (lambda ()
+    (defadvice isearch-message-prefix (around skk-isearch-ad activate)
+      (let ((current-input-method
+	     (unless (and (boundp 'skk-isearch-switch)
+			  skk-isearch-switch)
+	       current-input-method)))
+	ad-do-it))
+    (defadvice isearch-toggle-input-method (around skk-isearch-ad activate)
+      ;; Needed for calling skk-isearch via isearch-x.
+      (cond ((string-match "^japanese-skk"
+			   (format "%s" default-input-method))
+	     (let ((skk-isearch-initial-mode-when-skk-mode-disabled
+		    'latin))
+	       (skk-isearch-mode-setup)
+	       (skk-isearch-skk-mode)))
+	    ((null default-input-method)
+	     ad-do-it
+	     (when (string-match "^japanese-skk"
+				 (format "%s" default-input-method))
+	       (let ((skk-isearch-initial-mode-when-skk-mode-disabled
+		      'latin))
+		 (skk-isearch-mode-setup))
+	       (inactivate-input-method)))
+	    (t
+	     ad-do-it)))))
 
 ;;;###autoload
 (cond
