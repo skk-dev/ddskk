@@ -22,6 +22,13 @@
 
 	* skk-viper.el: check whether function `sentence-end' exists.
 
+2004-11-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el (skk-replace-regexp-in-string): New function.
+
+	* skk-isearch.el (isearch-repeat): Don't call
+	`replace-regexp'. Call `skk-replace-regexp-in-string' instead.
+
 2004-11-26  Masatake YAMATO  <jet@gyve.org>
 
 	Introduce a context to check whether the current
@@ -4702,8 +4709,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.820 2004/12/01 10:44:10 skk-cvs Exp $
-Last Modified: $Date: 2004/12/01 10:44:10 $
+Version: $Id: ChangeLog,v 1.821 2004/12/04 00:36:29 skk-cvs Exp $
+Last Modified: $Date: 2004/12/04 00:36:29 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
