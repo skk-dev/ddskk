@@ -165,12 +165,12 @@
 			     (nth 1 list))))
 		 ((or str (null spec))
 		  (when (stringp str)
-		    str)))
+		    (if (string= str "\C-j")
+			[(control j)]
+		      str))))
 	     (where-is-internal func skk-j-mode-map))))
     (cond ((not keys)
 	   "")
-	  ((and (stringp keys) (string= keys "\C-j"))
-	   "C-j")
 	  (t
 	   (sorted-key-descriptions keys)))))
 
