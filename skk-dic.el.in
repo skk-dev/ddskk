@@ -44,6 +44,10 @@
 
 ;;;###autoload
 (defun skk-search-small-dic ()
+  "`skk-henkan-key' について `skk-dic-buffer' を検索し、候補のリストを返す。
+`skk-search-prog-list' の要素に `(skk-search-small-dic)' を指定して利用する。
+SKK インストール時にインストーラが SKK-JISYO.S を見つけたら、skk-dic.el
+ロード時に `skk-dic-buffer' は自動的に設定される。"
   (when (buffer-live-p skk-dic-buffer)
     (skk-search-jisyo-buf skk-dic-buffer 10000)))
 

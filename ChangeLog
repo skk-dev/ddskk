@@ -1,3 +1,7 @@
+2002-11-09  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-dic.el.in (skk-search-small-dic): Add doc string.
+
 2002-11-09  Akihiro Motoki  <amotoki@dd.iij4u.or.jp>
 
 	* skk-comp.el (skk-comp-do): Keyword completion shows a candidate
@@ -4068,8 +4072,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.715 2002/11/09 03:19:52 minakaji Exp $
-Last Modified: $Date: 2002/11/09 03:19:52 $
+Version: $Id: ChangeLog,v 1.716 2002/11/09 05:24:17 minakaji Exp $
+Last Modified: $Date: 2002/11/09 05:24:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
