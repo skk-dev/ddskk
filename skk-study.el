@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.11 1999/10/10 09:49:55 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.12 1999/10/10 11:49:03 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/10 09:49:55 $
+;; Last Modified: $Date: 1999/10/10 11:49:03 $
 
 ;; This file is not part of SKK yet.
 
@@ -109,8 +109,8 @@
   :type 'boolean
   :group 'skk-study )
 	 
-(defcustom skk-study-search-times 3
-  "*"
+(defcustom skk-study-search-times 4
+  "*現在の変換キーに対する関連変換キーをいくつまで遡って検索するか。"
   :type 'integer
   :group 'skk-study )
 
@@ -119,10 +119,9 @@
 (defconst skk-study-file-format-version 0.2)
 
 (defvar skk-kakutei-end-function nil)
-(defvar skk-study-data-ring (make-ring skk-study-search-times))
-
-(defvar skk-study-alist nil)
 (defvar skk-search-end-function 'skk-study-search)
+(defvar skk-study-alist nil)
+(defvar skk-study-data-ring nil)
 (defvar skk-update-end-function 'skk-study-update)
 
 ;;;; inline functions.
@@ -132,6 +131,8 @@
 
 ;;;###autoload
 (defun skk-study-search (henkan-buffer midasi okurigana entry)
+  (or skk-study-data-ring 
+      (setq skk-study-data-ring (make-ring skk-study-search-times)) )
   (if (or (null entry)
 	  ;; list of single element.
 	  (null (cdr entry)) )
@@ -142,34 +143,26 @@
 	  ;;  ("なk" . ((("こども" . "子供") . ("泣")))) )
 	    
 	  (let ((target-alist
-		 (cdr (assoc
-		       midasi
-		       (cdr (assq
-			     (cond ((or skk-okuri-char
-					;; skk-okuri-char is nil, but 
-					;; skk-henkan-okurigana is non-nil
-					;; when skk-auto.el has processed.
-					skk-henkan-okurigana )
-				    'okuri-ari )
-				   (t 'okuri-nasi) )
-			     skk-study-alist ))))))
+		 (cdr (assoc midasi
+			     (cdr (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
+					       'okuri-ari )
+					      (t 'okuri-nasi) )
+					skk-study-alist ))))))
 	    (if target-alist
 		(skk-study-search-1 target-alist midasi okurigana entry) ))))))
 
 (defun skk-study-search-1 (target-alist midasi okurigana entry)
-  (do* ((orgentry (copy-list entry))
-	(index 0 (1+ index))
-	(last-data (skk-study-get-last-henkan-data index)
-		   (skk-study-get-last-henkan-data index) )
-	(times skk-study-search-times (1- times))
-	associates e )
-      ((or (not last-data) (= times 0) (not (equal orgentry entry)))
-       entry )
+  (do ((index 0 (1+ index))
+       (times skk-study-search-times (1- times))
+       last-data associates e modified )
+      ((or modified (= times 0)) entry)
     (and 
+     (setq last-data (skk-study-get-last-henkan-data index))
      ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
      ;; ("着")
-     (setq associates (assoc last-data target-alist))
-     (setq associates (nreverse associates))
+     (setq associates (cdr (assoc last-data target-alist)))
+     (setq associates (reverse associates))
+     (setq modified t)
      (while (setq e (car associates))
        (setq entry (cons e (delete e entry))
 	     associates (cdr associates) )))))
@@ -178,18 +171,16 @@
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
   (with-current-buffer henkan-buffer
     (let ((inhibit-quit t)
-	  (last-data (ring-ref skk-study-data-ring 0))
-	  grandpa papa )
+	  (last-data (if (not (ring-empty-p skk-study-data-ring))
+			 (ring-ref skk-study-data-ring 0) ))
+	  grandpa papa baby )
       (if (and (or skk-study-alist (skk-study-read))
-	       last-data
-	       (not (and (string= midasi (car last-data))
-			 (string= word (cdr last-data)) )))
+	       midasi word last-data
+	       (not (or (string= word "") (string= word "")
+			(and (string= midasi (car last-data))
+			     (string= word (cdr last-data)) ))))
 	  (progn
-	    (setq grandpa (assq (cond ((or skk-okuri-char
-					   ;; skk-okuri-char is nil, but 
-					   ;; skk-henkan-okurigana is non-nil when
-					   ;; skk-auto.el has processed.
-					   skk-henkan-okurigana )
+	    (setq grandpa (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
 				       'okuri-ari )
 				      (t 'okuri-nasi) )
 				skk-study-alist )
@@ -212,6 +203,8 @@
 		  ;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけ
 		  ;; アップデートする。
 		  ((not purge)
+		   ;; ring データの方がもっと効率的か？  でもここの部分のデータのアップデート
+		   ;; が効率良くできない。
 		   (setcdr baby (cons word (delete word (cdr baby))))
 		   (if (> (1- (length (cdr baby))) skk-study-associates-number)
 		       (skk-study-chomp (cdr baby) (1- skk-study-associates-number)) ))
@@ -317,22 +310,9 @@
       (goto-char (point-min))
       (if (looking-at (regexp-quote version-string))
 	  (read (current-buffer))
-	(let ((old-version-string
-	       (format
-		";;; skk-study-file format version %s\n"
-		(- skk-study-file-format-version 0.1) ))
-	      (skk-study-sort-saving t) )
-	  (cond ((and (looking-at (regexp-quote old-version-string))
-		      (skk-yes-or-no-p
-		       "skk-study-file フォーマットのバージョンアップを行ないますか？ "
-		       "Do you want to make skk-study-file format version up? " ))
-		 (prog1
-		     (setq skk-study-alist
-			   (skk-study-convert-alist-format (read (current-buffer))) )
-		   (skk-study-save 'nomsg) ))
-		((skk-error
-		  "skk-study-file フォーマットのバージョンが一致しません"
-		  "skk-study-file format version is inconsistent" ))))))))
+	(skk-error
+	 "skk-study-file フォーマットのバージョンが一致しません"
+	 "skk-study-file format version is inconsistent" )))))
 
 ;;;###autoload
 (defun skk-study-check-alist-format (alist-file)
@@ -393,23 +373,6 @@
 	    (setq alist2 (cdr alist2)) )
 	  (setq index (cdr index)) )
 	t ))))
-
-(defun skk-study-convert-alist-format (alist)
-  ;; convert format version 0.1 to 0.2.
-  (let ((inhibit-quit t)
-	(base '((okuri-ari) (okuri-nasi)))
-	e len )
-    (while alist
-      (setq e (car alist)
-	    len (length (car e)) )
-      (if (and (> len 1) (skk-ascii-char-p (skk-str-ref (car e) (1- len))))
-	  ;; okuri-ari
-	  (setcdr (car base) (cons e (cdr (car base))))
-	;; okuri-nasi
-	(setcdr (car (cdr base)) (cons e (cdr (car (cdr base))))) )
-      (setq alist (cdr alist)) )
-    (and (skk-study-check-alist-format-1 base)
-	 base )))
 
 (defun skk-study-prin1 (form &optional stream)
   (let ((print-readably t)
