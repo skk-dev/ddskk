@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.96 2001/11/01 12:00:09 czkmt Exp $
-;; Last Modified: $Date: 2001/11/01 12:00:09 $
+;; Version: $Id: SKK-MK,v 1.97 2001/11/05 12:56:24 czkmt Exp $
+;; Last Modified: $Date: 2001/11/05 12:56:24 $
 
 ;; Commentary
 ;;
@@ -381,12 +381,25 @@ This version of SKK requires MULE features"))
 
 (defvar SKK_INFODIR
   (or (getenv "SKK_INFODIR")
+      ;;
       (cond
-       ((and (getenv "INFOPATH")
-	     (require 'info))
-	(car Info-directory-list))
+       ((file-directory-p
+	 (expand-file-name "info" (expand-file-name "share" PREFIX)))
+	(expand-file-name "info" (expand-file-name "share" PREFIX)))
+       ;;
+       ((file-directory-p (expand-file-name "info" PREFIX))
+	(expand-file-name "info" PREFIX))
        (t
-	(expand-file-name "info" PREFIX)))))
+	(let ((list Info-default-directory-list)
+	      dir)
+	  (while (and (not dir)
+		      list)
+	    (when (file-directory-p (car list))
+	      (setq dir (car list)))
+	    (setq list (cdr list)))
+	  dir)))
+      ;;
+      (expand-file-name "info" PREFIX)))
 
 (defvar SKK_LISPDIR
   (or (getenv "SKK_LISPDIR")
@@ -729,8 +742,8 @@ This version of SKK requires MULE features"))
 
 (defun SKK-MK-install-info ()
   (when SKK_INFO
-    (or (file-exists-p SKK_INFODIR)
-	(make-directory SKK_INFODIR t))
+    (unless (file-exists-p SKK_INFODIR)
+      (make-directory SKK_INFODIR t))
     (SKK-MK-compile-info)
     (let ((files (list SKK_INFO))
 	  (i 1) file)
