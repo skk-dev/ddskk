@@ -50,6 +50,13 @@
   (eval-and-compile
     (require 'skk-e21)))
 
+(eval-when-compile
+  (defvar skk-dcomp-start-point)
+  (defvar skk-dcomp-end-point)
+  (defvar skk-dcomp-keep-completion-keys)
+  (autoload 'skk-dcomp-face-off "skk-dcomp")
+  (autoload 'skk-dcomp-face-on "skk-dcomp"))
+
 (defgroup skk-nicola nil "SKK NICOLA related customization."
   :prefix "skk-nicola-"
   :group 'skk
@@ -694,10 +701,13 @@ keycode 131 = underscore\n"))
 
 (defun skk-nicola-space-function (&optional arg)
   (let ((last-command-char ?\ ))
-    (if (or skk-henkan-on skk-henkan-active)
-	;; 変換する。
-	(skk-kanagaki-insert arg)
-      (self-insert-command arg))))
+    (cond
+     (skk-henkan-active
+      (call-interactively 'skk-insert))
+     (skk-henkan-on
+      (skk-kanagaki-insert arg))
+     (t
+      (self-insert-command arg)))))
 
 (defun skk-nicola-lshift-function (&optional arg)
   (cond ((or skk-henkan-active skk-henkan-on)
@@ -740,8 +750,15 @@ keycode 131 = underscore\n"))
 
 (defadvice skk-nicola-self-insert-lshift (around skk-nicola-ad-for-dcomp
 						 activate compile)
-  (when (featurep 'skk-dcomp)
-    (if (not skk-henkan-on)
+  (eval-when-compile
+    (defvar skk-dcomp-start-point)
+    (defvar skk-dcomp-end-point)
+    (defvar skk-dcomp-keep-completion-keys)
+    (autoload 'skk-dcomp-face-off "skk-dcomp")
+    (autoload 'skk-dcomp-face-on "skk-dcomp"))
+  (cond
+   ((featurep 'skk-dcomp)
+    (if (or skk-henkan-active (not skk-henkan-on))
 	ad-do-it
       (let (pos)
 	(if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
@@ -786,7 +803,9 @@ keycode 131 = underscore\n"))
 		    (goto-char skk-dcomp-start-point))
 		(error
 		 (setq skk-comp-stack nil)
-		 (message nil)))))))))
+		 (message nil))))))))
+   (t
+    ad-do-it)))
 
 (static-unless (memq skk-emacs-type '(nemacs mule1))
   ;;

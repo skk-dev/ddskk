@@ -1,3 +1,8 @@
+2000-12-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el (skk-nicola-self-insert-lshift): Don't advise to
+	do completion when `skk-henkan-active' is t.
+
 2000-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-nicola-self-insert-lshift): Modify for

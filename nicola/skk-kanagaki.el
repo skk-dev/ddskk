@@ -405,9 +405,12 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 (defun skk-kanagaki-insert (&optional arg)
   "SPC $B%-!<$@$1$3$l$r(B `skk-insert' $B$NBe$o$j$K;H$&!#(B"
   (interactive "*p")
-  (cond ((eq arg 1) (skk-insert arg))
-	;; C-u [SPC] $B$GAw$j$"$jJQ49$r$9$k!#(B
-	(t (skk-kanagaki-set-okurigana-no-sokuon t))))
+  (cond ((eq arg 1)
+	 (let ((last-command-char ?\ ))
+	   (skk-insert arg)))
+	(t
+	 ;; C-u [SPC] $B$GAw$j$"$jJQ49$r$9$k!#(B
+	 (skk-kanagaki-set-okurigana-no-sokuon t))))
 
 ;;;###autoload
 (defun skk-kanagaki-set-okurigana (&optional no-sokuon)
