@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-mkmgk.el,v 1.2 2001/07/28 05:12:37 minakaji Exp $
+;; Version: $Id: skk-mkmgk.el,v 1.3 2001/07/28 06:58:40 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/28 05:12:37 $
+;; Last Modified: $Date: 2001/07/28 06:58:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -117,20 +117,9 @@
       (if (= (skk-str-length header0) 1)
 	  nil
 	(search-forward " /")
-      ;; ひらがな見出しをキーにした候補リスト (2 文字以上) e.x. "相川"
-	(setq candidates0 (delq nil
-				(mapcar
-				 (function
-				  (lambda (str) (if (> (skk-str-length str) 1)
-						    str)))
-				 (mapcar
-				  (function
-				   (lambda (word)
-				     (if (string-match ";" word)
-					 (substring word 0
-						    (match-beginning 0))
-				       word)))
-				  (car (skk-compute-henkan-lists nil))))))
+	;; ひらがな見出しをキーにした候補リスト (2 文字以上) e.x. "相川"
+	(setq candidates0 (skk-mkmgk-filter
+			   (car (skk-compute-henkan-lists nil))))
 	(if (null candidates0)
 	    nil
 	  ;; ひらがな見出しを分解
@@ -146,13 +135,7 @@
 		  (if (not (re-search-forward (concat "^" header1 " /") nil t nil))
 		      nil
 		    ;; 分解した見出し語をキーにした候補 e.x. "相"
-		    (setq candidates1 (mapcar
-				       (function
-					(lambda (word)
-					  (if (string-match ";" word)
-					      (substring word 0
-							 (match-beginning 0))
-					    word)))
+		    (setq candidates1 (skk-mkmgk-filter
 				       (car (skk-compute-henkan-lists nil))))
 		    (let ((can0 candidates0))
 		      (while (and candidates1 can0)
@@ -201,6 +184,20 @@
     (or nomsg
 	(message "Making Mazegaki dictionary...100%% done"))))
 
+(defun skk-mkmgk-filter (list)
+  (delq nil (mapcar
+	     (function
+	      (lambda (word)
+		(if (and
+		     ;; カタカナ語を skip
+		     (not (string-match "^[ーァ-ン]+$" word))
+		     ;; 英語を skip
+		     (not (string-match "^[a-zA-Z]+$" word))
+		     (> (skk-str-length word) 1))
+		    (if (string-match ";" word)
+			(substring word 0 (match-beginning 0))
+		      word))))
+	     list)))
 							 
 (require 'product)
 (product-provide (provide 'skk-mkmgk) (require 'skk-version))

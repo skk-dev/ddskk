@@ -1,6 +1,8 @@
 2001-07-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* tut-code/skk-mkmgk.el: New file.
+	(skk-mkmgk-filter): New function.
+	(skk-make-mazegaki-dic-1): Use `skk-mkmgk-filter'.
 
 2001-07-23  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -3660,8 +3662,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.318 2001/07/28 05:03:30 minakaji Exp $
-Last Modified: $Date: 2001/07/28 05:03:30 $
+Version: $Id: ChangeLog,v 1.319 2001/07/28 06:58:40 minakaji Exp $
+Last Modified: $Date: 2001/07/28 06:58:40 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
