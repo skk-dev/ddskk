@@ -1,3 +1,8 @@
+2001-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-version.el
+	(skk-version): Bump to 11.5.2.
+
 2001-11-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK
@@ -2665,8 +2670,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.516 2001/11/05 14:10:44 czkmt Exp $
-Last Modified: $Date: 2001/11/05 14:10:44 $
+Version: $Id: ChangeLog,v 1.517 2001/11/10 00:57:09 czkmt Exp $
+Last Modified: $Date: 2001/11/10 00:57:09 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
