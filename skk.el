@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.283 2004/04/04 05:49:35 czkmt Exp $
+;; Version: $Id: skk.el,v 1.284 2004/04/08 22:43:06 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/04/04 05:49:35 $
+;; Last Modified: $Date: 2004/04/08 22:43:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1961,12 +1961,12 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
       (condition-case nil
 	  (setq new-one
 		(read-from-minibuffer
-		 (concat (or (and (skk-numeric-p)
+		 (format "[$B<-=qEPO?(B] %s "
+			 (or (and (skk-numeric-p)
 				  (skk-num-henkan-key))
 			     (if skk-okuri-char
 				 (skk-compute-henkan-key2)
-			       skk-henkan-key))
-			 " ")
+			       skk-henkan-key)))
 		 (when (and (not skk-okuri-char)
 			    skk-read-from-minibuffer-function)
 		   (funcall skk-read-from-minibuffer-function))))
