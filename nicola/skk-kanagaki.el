@@ -424,58 +424,6 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
     (require (intern
 	      (format "skk-%s"
 		      skk-kanagaki-keyboard-type))))
-  ;; $B%-!<%P%$%s%I!#$?$@$7$3$l$O!"$h$jE,@Z$J%-!<Dj5A$r8+$D$1$k$^$G$N;CDjE*=hCV!#(B
-  ;; $B$3$3$G8@$&!V$h$jE,@Z$J%-!<Dj5A!W$H$O!"F~NOJ}<0$K0MB8$9$k$?$a!"(BSKK $B$N=EMW(B
-  ;; $B$J%-!<Dj5A$r%U%!%s%/%7%g%s%-!<$K;D$7$F$*$/$3$H$O!"<BMQ$N$?$a$h$j$b$`$7$m(B
-  ;; $B;29M$N$?$a!#(B
-  (dolist (cell '((skk-kanagaki-set-henkan-point-key
-		   . skk-set-henkan-point-subr)
-		  (skk-kanagaki-abbrev-mode-key
-		   . skk-abbrev-mode)
-		  (skk-kanagaki-katakana-mode-key
-		   . skk-toggle-kana)
-		  (skk-kanagaki-latin-jisx0208-mode-key
-		   . skk-jisx0208-latin-mode)
-		  (skk-kanagaki-latin-mode-key
-		   . skk-latin-mode)
-		  (skk-kanagaki-code-input-key
-		   . skk-input-by-code-or-menu)
-		  (skk-kanagaki-toggle-rom-kana-key
-		   . skk-kanagaki-toggle-rom-kana)
-		  (skk-kanagaki-midashi-henkan-key
-		   . skk-kanagaki-midashi-henkan)
-		  (skk-kanagaki-previous-candidate-key
-		   . skk-previous-candidate)))
-    (when (and (symbol-value (car cell))
-	       (commandp (cdr cell)))
-      (define-key skk-j-mode-map
-	(symbol-value (car cell)) (cdr cell))))
-  ;;
-  (let ((char
-	 (when (stringp skk-kanagaki-previous-candidate-key)
-	   (string-to-char skk-kanagaki-previous-candidate-key))))
-    (when (eq ?x skk-previous-candidate-char)
-      ;; $B4{DjCM$N$^$^$G$"$k$H$-!"E,@Z$K@_Dj$9$k!#(B
-      (setq skk-previous-candidate-char
-	    (or char
-		;; C-p
-		(int-char 16)))))
-  ;;
-  (define-key help-map
-    skk-kanagaki-help-key
-    'skk-kanagaki-help)
-  ;;
-  (eval-after-load "skk-jisx0201"
-    '(when skk-kanagaki-hankaku-mode-key
-       (define-key skk-j-mode-map
-	 skk-kanagaki-hankaku-mode-key
-	 'skk-toggle-katakana)))
-
-  ;;
-  (define-key skk-j-mode-map
-    skk-kanagaki-start-henkan-key
-    'skk-kanagaki-insert)
-  ;;
   (unless skk-kanagaki-base-rule-list
     (setq skk-kanagaki-base-rule-list
 	  (symbol-value (intern
@@ -487,7 +435,10 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	 skk-kanagaki-base-rule-list
 	 skk-kanagaki-rule-list))
   (setq skk-kanagaki-rom-kana-rule-tree
-	skk-rule-tree)
+	(or skk-rule-tree
+	    (skk-compile-rule-list
+			 skk-rom-kana-base-rule-list
+			 skk-rom-kana-rule-list)))
   ;;
   (add-hook 'skk-mode-hook
 	    (function skk-kanagaki-adjust-rule-tree)
@@ -508,6 +459,50 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	    (delq char skk-special-midashi-char-list)))))
 
 ;; Pieces of advice.
+
+(defadvice skk-setup-keymap (around skk-kanagaki-keys activate compile)
+  (let ((char
+	 (when (stringp skk-kanagaki-previous-candidate-key)
+	   (string-to-char skk-kanagaki-previous-candidate-key))))
+    (when (eq ?x skk-previous-candidate-char)
+      ;; $B4{DjCM$N$^$^$G$"$k$H$-!"E,@Z$K@_Dj$9$k!#(B
+      (setq skk-previous-candidate-char
+	    (or char
+		;; C-p
+		(int-char 16)))))
+  ;;
+  ad-do-it
+  ;; $B%-!<%P%$%s%I!#$?$@$7$3$l$O!"$h$jE,@Z$J%-!<Dj5A$r8+$D$1$k$^$G$N;CDjE*=hCV!#(B
+  ;; $B$3$3$G8@$&!V$h$jE,@Z$J%-!<Dj5A!W$H$O!"F~NOJ}<0$K0MB8$9$k$?$a!"(BSKK $B$N=EMW(B
+  ;; $B$J%-!<Dj5A$r%U%!%s%/%7%g%s%-!<$K;D$7$F$*$/$3$H$O!"<BMQ$N$?$a$h$j$b$`$7$m(B
+  ;; $B;29M$N$?$a!#(B
+  (dolist (cell '((skk-kanagaki-set-henkan-point-key
+		   . skk-set-henkan-point-subr)
+		  (skk-kanagaki-abbrev-mode-key
+		   . skk-abbrev-mode)
+		  (skk-kanagaki-katakana-mode-key
+		   . skk-toggle-kana)
+		  (skk-kanagaki-latin-jisx0208-mode-key
+		   . skk-jisx0208-latin-mode)
+		  (skk-kanagaki-latin-mode-key
+		   . skk-latin-mode)
+		  (skk-kanagaki-code-input-key
+		   . skk-input-by-code-or-menu)
+		  (skk-kanagaki-toggle-rom-kana-key
+		   . skk-kanagaki-toggle-rom-kana)
+		  (skk-kanagaki-hankaku-mode-key
+		   . skk-toggle-katakana)
+		  (skk-kanagaki-midashi-henkan-key
+		   . skk-kanagaki-midashi-henkan)
+		  (skk-kanagaki-previous-candidate-key
+		   . skk-previous-candidate)))
+    (when (and (symbol-value (car cell))
+	       (commandp (cdr cell)))
+      (define-key skk-j-mode-map
+	(symbol-value (car cell)) (cdr cell))))
+  (define-key help-map
+    skk-kanagaki-help-key
+    'skk-kanagaki-help))
 
 (defadvice skk-insert (around skk-kanagaki-workaround
 			      activate

@@ -1,6 +1,11 @@
 2001-11-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki.el
+	(skk-setup-keymap): New advice.
+
+2001-11-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el
 	(skk-kanagaki-midashi-henkan): Bind `skk-kakutei-history' nil.
 
 	* skk-nicola.el
