@@ -1,3 +1,13 @@
+2001-12-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el
+	(skk-cursor-off-1): New function.
+
+	* skk-macs.el
+	(skk-cursor-off): New function.
+
+	(skk-mode-off): Call `skk-cursor-off'.
+
 2001-12-05  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* doc/skk.texi (FTPを利用して入手する方法): Add new section.
@@ -3088,8 +3098,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.586 2001/12/05 11:26:53 minakaji Exp $
-Last Modified: $Date: 2001/12/05 11:26:53 $
+Version: $Id: ChangeLog,v 1.587 2001/12/05 13:45:22 czkmt Exp $
+Last Modified: $Date: 2001/12/05 13:45:22 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
