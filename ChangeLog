@@ -1,3 +1,7 @@
+2004-07-23  Kitamoto Tsuyoshi <fmv5200na8x@yahoo.co.jp>
+
+	* doc/skk.texi: Typo fixed.
+
 2004-07-22  Kitamoto Tsuyoshi <fmv5200na8x@yahoo.co.jp>
 
 	* doc/skk.texi: Typo fixed.
@@ -4631,8 +4635,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.811 2004/07/22 09:35:31 skk-cvs Exp $
-Last Modified: $Date: 2004/07/22 09:35:31 $
+Version: $Id: ChangeLog,v 1.812 2004/07/23 11:19:47 skk-cvs Exp $
+Last Modified: $Date: 2004/07/23 11:19:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

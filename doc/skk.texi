@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.136 2004/07/22 09:35:30 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.137 2004/07/23 11:19:47 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2004/07/22 09:35:30 $
+@c  Last Modified: $Date: 2004/07/23 11:19:47 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2004/07/22 09:35:30 $
+@set UPDATED $Date: 2004/07/23 11:19:47 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1674,7 +1674,7 @@ SKK abbrev mode の機能を提供するプログラムを集めたファイル。
 @item skk-isearch.el
 @cindex @file{skk-isearch.el}
 
-DDSKK を併用したインクリメンタリサーチ機能を提供するファイル。
+DDSKK を併用したインクリメンタルサーチ機能を提供するファイル。
 
 @xref{I-search関連}.
 
@@ -8758,7 +8758,7 @@ texファイルの最後に追加します。
 
 各要素は検索する関数と辞書を指定したリストです。要素の順番に検索がなさ
 れます。上記の例だとまず最初に @code{skk-jisyo} (個人辞書) を
-@code{skk-search-jisyo} という関数を使ってリニアアーチ、次に
+@code{skk-search-jisyo} という関数を使ってリニアサーチ、次に
 @code{skk-search-server} という関数を使って @code{skk-aux-large-jisyo}
 をサーチします。
 
