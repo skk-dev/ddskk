@@ -1,5 +1,7 @@
 2000-09-10  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* skk-lookup.el: Moved from experimental directory.
+
 	* skk-faq.txt: New file.
 
 	* doc/skk.texi (入力モードの一時変更): Typo fixed.

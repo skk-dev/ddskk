@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.23 2000/07/07 22:25:19 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.2 2000/09/10 01:07:41 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2000/07/07 22:25:19 $
+;; Last Modified: $Date: 2000/09/10 01:07:41 $
 ;; This file is part of Daredevil SKK.
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify
