@@ -1,3 +1,7 @@
+2004-12-27  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/skk-bayesian.el (skk-bayesian-add-to-history): Bug fixed.
+
 2004-12-26  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/skk-bayesian.el 
@@ -4765,8 +4769,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.829 2004/12/26 21:34:56 skk-cvs Exp $
-Last Modified: $Date: 2004/12/26 21:34:56 $
+Version: $Id: ChangeLog,v 1.830 2004/12/28 05:47:19 skk-cvs Exp $
+Last Modified: $Date: 2004/12/28 05:47:19 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
