@@ -8,6 +8,10 @@
 	(skk-search-jisyo-file-1): Rename to ...
 	(skk-search-jisyo): it.
 
+	* skk-dic.el: New file.
+
+	* skk-vars.el (skk-search-prog-list): Add `skk-search-small-dic'.
+
 2001-09-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* etc/{NICOLA-SKK.tut, SKK.tut, SKK.tut.E}: Do not show
@@ -1874,8 +1878,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.383 2001/09/13 13:48:52 czkmt Exp $
-Last Modified: $Date: 2001/09/13 13:48:52 $
+Version: $Id: ChangeLog,v 1.384 2001/09/13 13:56:42 czkmt Exp $
+Last Modified: $Date: 2001/09/13 13:56:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
