@@ -1,3 +1,8 @@
+2000-12-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-exsearch.el (setup-synchronous-engine): Check
+	if `synchronous-search-engine' object has a `program' slot value.
+	
 2000-12-27  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* dic/README: New file.
@@ -3042,8 +3047,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.240 2000/12/27 11:16:35 minakaji Exp $
-Last Modified: $Date: 2000/12/27 11:16:35 $
+Version: $Id: ChangeLog,v 1.241 2000/12/28 12:11:12 minakaji Exp $
+Last Modified: $Date: 2000/12/28 12:11:12 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-exsearch.el,v 1.2 2000/10/30 22:18:15 minakaji Exp $
+;; Version: $Id: skk-exsearch.el,v 1.3 2000/12/28 12:11:12 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:18:15 $
+;; Last Modified: $Date: 2000/12/28 12:11:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -82,6 +82,8 @@ This type inserts multiple lines to the buffer.  Each line contains a candidate.
 
 (defmethod setup-synchronous-engine ((engine synchronous-search-engine))
   (and (slot-exists-p engine 'coding-system)
+       ;; return nil if cdbget executable binary does not installed.
+       (slot-value engine 'program)
        (with-slots ((code coding-system)) engine
 	 (if (and code (fboundp 'modify-coding-system-alist))
 	     (modify-coding-system-alist
