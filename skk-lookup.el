@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.8 2001/02/03 00:22:58 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.9 2001/02/04 01:32:38 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Last Modified: $Date: 2001/02/04 01:32:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -257,24 +257,26 @@
 	  (split-regexp (skk-lookup-get-split-regexp name))
 	  (cleanup-regexp (skk-lookup-get-cleanup-regexp name))
 	  candidates-string candidates-list)
+	;; `だし【出し】【出し・〈出汁〉】【｛山車｝】' などのように
+	;; 1 つの heading に対し、複数の切り出し作業が必要になる場合
+	;; があるのでループで作業する。
 	((or (string= heading "")
 	     (and pickup-regexp (not (string-match pickup-regexp heading))))
 	 candidates-list)
       (setq match (eval match))
       (if pickup-regexp
-	  (setq candidates-string
-		;; XXX
-		;;(if (listp match)
-		;;    (mapconcat (function
-		;;		(lambda (num)
-		;;		  (match-string-no-properties num heading)))
-		;;	       match "")
-		(match-string-no-properties match heading)
-		;;)
-		heading
-		;;(substring heading (min (+ (match-end (eval match)) skk-kanji-len)
-		(substring heading (min (+ (match-end match) skk-kanji-len)
-					(length heading))))
+	  (if (listp match)
+	      (setq candidates-string
+		    (mapconcat (function
+				(lambda (num)
+				  (match-string-no-properties num heading)))
+			       match "")
+		    ;; XXX MATCH が複数だったら、heading 切り出しは一度だけしかできない...。
+		    heading "")
+	    (setq candidates-string (match-string-no-properties match heading)
+		  heading (substring heading (min (+ (match-end match) skk-kanji-len)
+						  (length heading)))))
+	;; XXX never be used?
 	(setq candidates-string heading
 	      heading ""))
       (if cleanup-regexp

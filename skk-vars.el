@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.26 2001/02/02 23:46:29 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.27 2001/02/04 01:32:38 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/02 23:46:29 $
+;; Last Modified: $Date: 2001/02/04 01:32:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2543,91 +2543,104 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; what's this?
     ("jedict" exact nil nil (not skk-okuri-char) nil nil nil)
     ;; $BCN7CB"(B
-    ;; "$B"'#I#M#F!N(BInternational Monetary Fund$B!?(BInternational Metalworkers Federation$B!O(B"
-    ;; "$B#I#M#F!J9q:]DL2_4p6b!K!Z(BInternational Monetary Fund$B![(B"
+    ;; `$B"'#I#M#F!N(BInternational Monetary Fund$B!?(BInternational Metalworkers Federation$B!O(B'
+    ;; `$B#I#M#F!J9q:]DL2_4p6b!K!Z(BInternational Monetary Fund$B![(B'
     ("CHIEZO" exact exact prefix t 
-     ("$B!J(B\\(.+\\)$B!K(B\\|$B!Z(B\\(.+\\)$B![(B\\|$B!N(B\\(.+\\)$B!O(B\\|^\\([^$B!J!Z!N!O![!K(B]+\\)$" .
+     ("$B!J(B\\(.+\\)$B!K(B\\|$B!Z(B\\(.+\\)$B![(B$\\|$B!N(B\\(.+\\)$B!O(B$\\|^\\([^$B!J!Z!N!O![!K(B]+\\)$" .
       (cond ((match-beginning 1) 1) ((match-beginning 2) 2) 
 	    ((match-beginning 3) 3) ((match-beginning 4) 4)))
      "$B!?(B\\|$B!"(B\\|, " nil)
-    ;; $B!V<-!&E5!&HW!W(B "$B$"$+#3(B $B^@(B", "ethanol"
+    ;; $B!V<-!&E5!&HW!W(B
+    ;; `$B$"$+#3(B $B^@(B", "ethanol'
     ("CHUJITEN" exact exact prefix t ("[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" . 1) nil nil)
-    ;; "($BHiIf$J$I$N(B)$B$"$+(B <grime>", "$B!T1Q!U(B ($B%Q%$%W$J$I$N(B)$B$"$+(B <fur>"
+    ;; `($BHiIf$J$I$N(B)$B$"$+(B <grime>", "$B!T1Q!U(B ($B%Q%$%W$J$I$N(B)$B$"$+(B <fur>'
     ("COLLOC" exact exact prefix t ("\\([^ $B!T!U(B]+\\) <[a-z]+>$" . 1) nil nil)
-    ;; $B%8!<%K%"%91QOB(B, "$B$"$+(B[$B^@(B]"
-    ;; $B%8!<%K%"%91QOB!&OB1Q<-E5(B $B$$$l$+$((B[$BF~$lBX$((B,$BF~$l49$((B]
-    ("GENIUS" exact exact prefix t ("\\[\\(.+\\)\\]" . 1) "," nil)
+    ;; $B%8!<%K%"%91QOB(B, $B%8!<%K%"%91QOB!&OB1Q<-E5(B
+    ;; `$B$"$+(B[$B^@(B]'
+    ;; `$B$$$l$+$((B[$BF~$lBX$((B,$BF~$l49$((B]'
+    ("GENIUS" exact exact prefix t
+     ;;("\\[\\(.+\\)\\]$" . 1) ;;can I use `$' for GENIUS?
+     ("\\[\\(.+\\)\\]" . 1)
+     "," nil)
     ;; Super$BE}9g<-=q(B99 Disk1, 2/$B8=BeMQ8l$N4pACCN<1(B
-    ;; "$B!&(B" $B$,6h@Z$jJ8;z$G$"$k$H$-$H$=$&$G$J$$$H$-$,$"$k$J$!(B...$B!#(B
-    ;; "$B"!<k!&3t!&<l!&<n!L;w$?$b$N4A;z!M(B" "$B"!@V%o%$%s!&%V!<%`!L7r9/LdBj!M(B"
+    ;; `$B"!<k!&3t!&<l!&<n!L;w$?$b$N4A;z!M(B' ; `$B!&(B' $B$,6h@Z$jJ8;z$G$"$k$H$-$H$=$&$G$J$$$H$-$,$"$k$J$!(B...$B!#(B
+    ;; `$B"!@V%o%$%s!&%V!<%`!L7r9/LdBj!M(B'
     ("GN99EP01" exact exact prefix t ("^$B"!(B\\([^$B!L!M(B]+\\)$B!L(B.+$B!M(B$" . 1) nil nil)
     ("GN99EP02" exact exact prefix t ("^$B"!(B\\([^$B!L!M(B]+\\)$B!L(B.+$B!M(B$" . 1) nil nil)
     ;; $B4dGH9q8l<-E5(B
-    ;; "$B$7$?$$!Z;`BN!&;SBN![(B", "$B$7$?$$!Z;YBb![!Z;^Bb![(B",
-    ;; "$B$"$$!Z0&![(B", "$B$"$$(B($B$"$p(B)$B!ZMu![(B"
-    ;; "$B$"$$(B<gaiji=za52a>$B0%(B<gaiji=za52b>"
-    ;; "$B$@$7!Z=P$7![!Z=P$7!&!R=P=A!S![!Z!P;3<V!Q![(B"
-    ;; "$B$U$&$-$j!ZIu@Z(B($B$j(B)$B![(B"
-    ("IWAKOKU" exact exact prefix t ("$B!Z(B\\(.+\\)$B![(B" . 1) "$B![!Z(B\\|$B!&(B" "[$B!R!S!P!Q(B()]")
+    ;; `$B$7$?$$!Z;`BN!&;SBN![(B'
+    ;; `$B$7$?$$!Z;YBb![!Z;^Bb![(B'
+    ;; `$B$"$$!Z0&![(B'
+    ;; `$B$"$$(B($B$"$p(B)$B!ZMu![(B'
+    ;; `$B$"$$(B<gaiji=za52a>$B0%(B<gaiji=za52b>'
+    ;; `$B$@$7!Z=P$7![!Z=P$7!&!R=P=A!S![!Z!P;3<V!Q![(B'
+    ;; `$B$U$&$-$j!ZIu@Z(B($B$j(B)$B![(B'
+    ("IWAKOKU" exact exact prefix t
+     ;; cannot use `$' for this.
+     ("$B!Z(B\\(.+\\)$B![(B" . 1)
+     "$B![!Z(B\\|$B!&(B" "[$B!R!S!P!Q(B()]")
     ;; "$B9$(B", "$B@V(B"
     ("KANWA" exact exact prefix t nil nil nil)
     ;; KOUJIEN: $B9-<-1q(B $BBh(B4$BHG(B($B4dGH(B,EPWING) $B%^%k%A%a%G%#%"HG(B
-    ;; $B$"$$!Z9g$$!&2q$$![%"%R(B
-    ;; $B$"$$!Z4V![%"%R(B
-    ;; $B%&%#!Z(Boui $B%U%i%s%9![(B
-    ;; $B%=!Z(Bsol $B%$%?%j%"![(B
-    ;; $B%"%j%9%H%F%l%9!>$7$e$.!Z!=<g5A![(B
-    ;; ($BL$BP1~(B) $B%"!<%H%^%s!Z(B_tman $B[p![(B; $B30;z$r4^$`8uJd!#(B_ $B$O30;z(B
+    ;; `$B$"$$!Z9g$$!&2q$$![%"%R(B' ; $B$3$l$K$O(B `$B![(B$' $B$r;H$($J$$!#(B
+    ;; `$B$"$$!Z4V![%"%R(B'
+    ;; `$B%&%#!Z(Boui $B%U%i%s%9![(B'
+    ;; `$B%=!Z(Bsol $B%$%?%j%"![(B'
+    ;; `$B%"%j%9%H%F%l%9!>$7$e$.!Z!=<g5A![(B'
+    ;; `$B%"!<%H%^%s!Z(B_tman $B[p![(B'; $BL$BP1~!#30;z$r4^$`8uJd!#(B_ $B$O30;z(B
     ("KOUJIEN" exact exact prefix t
-     ("\\([^$B!Z![(B]+$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B[^$B!Z![(B]+$B![(B\\)\\|$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" .
-      (cond ((match-beginning 1) 1)
-	    ((match-beginning 2) 2)
+     ("^\\([^$B!Z![(B]+\\)$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\([^$B!Z![(B]+\\)$B![(B$\\|$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" .
+      (cond ((match-beginning 2) '(1 2))
 	    ((match-beginning 3) 3)
-	    ;;((match-beginning 3) '(3 4))
-	    ))
-     "$B!&(B" "$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$")
+	    ((match-beginning 4) 4)))
+     "$B!&(B"
+     ;;"$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$"
+     nil)
     ;; KOJIEN: $B9-<-1qBh(B5$BHG(B($B4dGH(B,EPWING)
+    ;; `$B$G$s$7!>%V%C%/!ZEE;R!=![(B'
     ("KOJIEN" exact exact prefix t
-     ("\\([^$B!Z![(B]+$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B[^$B!Z![(B]+$B![(B\\)\\|$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" .
-      (cond ((match-beginning 1) 1)
-	    ((match-beginning 2) 2)
+     ("^\\([^$B!Z![(B]+\\)$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\([^$B!Z![(B]+\\)$B![(B$\\|$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|^[$B!<$!(B-$B$s(B]+$B!>(B\\([$B!<%!(B-$B%s(B]+\\)$B!Z(B\\([^$B!Z![(B]+\\)$B!=![(B$" .
+      (cond ((match-beginning 2) '(1 2))
 	    ((match-beginning 3) 3)
-	    ;;((match-beginning 3) '(3 4))
-	    ))
-     "$B!&(B" "$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$")
+	    ((match-beginning 4) 4)
+	    ((match-beginning 5) '(6 5))))
+     "$B!&(B"
+     ;;"$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$"
+     nil)
     ;; KOKUGO: $B;0>JF2(B $BF|K\8l<-E5!J8=Be9q8l!"30Mh8l!K(B
     ;; `$B!R(B' $B$O!"EvMQ4A;zI=$K$J$$4A;z$G!"(B`$B!T(B' $B$O!"EvMQ4A;zI=$K$O$"$k$,!"$=$N2;!"(B
     ;; $B71$,EvMQ4A;zI=$N2;71I=$K$J$$4A;z!#(B
     ("KOKUGO" exact exact prefix t ("$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" . 1) "$B!&(B" "[$B!T!R(B]")
     ;; $B!V<-!&E5!&HW!WImB0$N%^%$%Z%G%#%"(B
-    ;;"$BBgOB74;3(B($B;T(B)"
-    ;;"$B%o%7%s%H%s(B(George Washington)"
-    ;;"$B%o%7%s%H%s(B($B=#(B)"
-    ;;"$B%o%7%s%H%s(B Washington"
-    ;;"$B%"%$%s%7%e%?%$%s(B(Albert Einstein)"
-    ;;"$B9aNI='(B($BD.(B)"
-    ;;"$B%+%i%9(B ($B1((B)"
-    ;;"$B%+%i%9(B(Maria Callas)"
+    ;;`$BBgOB74;3(B($B;T(B)'
+    ;;`$B%o%7%s%H%s(B(George Washington)'
+    ;;`$B%o%7%s%H%s(B($B=#(B)'
+    ;;`$B%o%7%s%H%s(B Washington'
+    ;;`$B%"%$%s%7%e%?%$%s(B(Albert Einstein)'
+    ;;`$B9aNI='(B($BD.(B)'
+    ;;`$B%+%i%9(B ($B1((B)'
+    ;;`$B%+%i%9(B(Maria Callas)'
     ("MYPAEDIA" exact exact prefix t 
      ("\\([^ ]+\\)(.+)$\\|.+ (\\([^ ]+\\))$\\|^\\([^ ()]+\\)$" .
       (cond ((match-beginning 1) 1) ((match-beginning 2) 2) ((match-beginning 3) 3)))
      nil nil)
     ;;  mypaedia-fpw $B$+$i@8@.$7$?(B PC Success $BHG%^%$%Z%G%#%"(B (FreePWING $B<-=q(B)
-    ;; "$BBgOB74;3(B [$B$d$^$H$3$*$j$d$^(B] ($B;T(B)"
-    ;; "$B%"%$%s%7%e%?%$%s(B (Albert Einstein)")
-    ;; "$B%o%7%s%H%s(B (Washington) ($B=#(B)"
-    ;; "$B%o%7%s%H%s(B (Washington)"
-    ;; "$B%o%7%s%H%s(B (George Washington)"
-    ;; "$B9aNI='(B [$B$+$i$9(B] ($BD.(B)"
-    ;; "$B%+%i%9(B ($B1((B) [$B%+%i%9(B]"
-    ;; "$B%+%i%9(B (Maria Callas)"
+    ;; `$BBgOB74;3(B [$B$d$^$H$3$*$j$d$^(B] ($B;T(B)'
+    ;; `$B%"%$%s%7%e%?%$%s(B (Albert Einstein)'
+    ;; `$B%o%7%s%H%s(B (Washington) ($B=#(B)'
+    ;; `$B%o%7%s%H%s(B (Washington)'
+    ;; `$B%o%7%s%H%s(B (George Washington)'
+    ;; `$B9aNI='(B [$B$+$i$9(B] ($BD.(B)'
+    ;; `$B%+%i%9(B ($B1((B) [$B%+%i%9(B]'
+    ;; `$B%+%i%9(B (Maria Callas)'
     ;;("MYPAEDIA" exact exact prefix t 
     ;; ("^\\([^ ]+\\) \\[.+\\] (.+)$\\|^[^ ]+ (\\(.+\\)) \\[.+\\]$\\|^\\([^][() ]+\\)\\( .+\\)?$" .
     ;;  (cond ((match-beginning 1) 1) ((match-beginning 2) 2) ((match-beginning 3) 3)))
     ;; nil nil)
     ;; $B%K%e!<%"%s%+!<1QOB(B "$B$"$+#2(B $B9$(B"
     ("NEWANC" exact exact prefix t ("[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" . 1) nil nil)
-    ;; "$B!!$"$+(B <scud$B#2(B>", "$B!!!V$"$+!W(B <rust>"
+    ;; `$B!!$"$+(B <scud$B#2(B>',
+    ;; `$B!!!V$"$+!W(B <rust>'
     ("PLUS" exact exact prefix t ("^$B!!(B\\(.+\\) <[a-z$B#0(B-$B#9(B]+>$" . 1) nil nil)
     )
   "*$B<-=qKh$N8!:w!"J8;z@Z$j=P$7%*%W%7%g%s!#(B

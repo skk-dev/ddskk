@@ -1,3 +1,17 @@
+2001-02-04  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-lookup.el (skk-lookup-process-heading): Handle multipule
+	matched string.
+
+	* skk-vars.el (skk-lookup-option-alist): Add regexp symbol '$' for
+	each regexp of "KOJIEN" and "KOUJIEN".
+	As to "KOUJIEN" and "KOJIEN", use number list for `match-string'
+	argument in order to pick up a pattern like
+	`アリストテレス‐しゅぎ【―主義】'.
+	Set to nil 7th element of "KOUJIEN" and "KOJIEN".
+	Add a regexp to 5th element of "KOJIEN" in order to pick up a
+	pattern like `でんし‐ブック【電子―】'.
+	
 2001-02-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-dcomp.el: Update install notes.
@@ -3095,8 +3109,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.252 2001/02/03 00:19:36 minakaji Exp $
-Last Modified: $Date: 2001/02/03 00:19:36 $
+Version: $Id: ChangeLog,v 1.253 2001/02/04 01:32:37 minakaji Exp $
+Last Modified: $Date: 2001/02/04 01:32:37 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
