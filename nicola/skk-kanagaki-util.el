@@ -60,19 +60,6 @@
     ("ホ" "ボ" "ポ")) "\
 濁点と半濁点を入力するためのルール。")
 
-(defvar skk-kanagaki-temp-dir
-  (static-cond
-   ((fboundp 'temp-directory)
-    (temp-directory))
-   (t
-    (cond
-     ((and (boundp 'temporary-file-directory)
-	   temporary-file-directory)
-      temporary-file-directory)
-     (t
-      (or (getenv "TMP")
-	  "/tmp"))))))
-
 ;;;###autoload
 (defmacro skk-kanagaki-help-1 (bufname title list)
   (`
@@ -114,9 +101,7 @@
   (list
    'let '((x (eq window-system 'x))
 	  (prog (exec-installed-p "xmodmap"))
-	  (tmp (make-temp-name
-		(expand-file-name "kanagaki"
-				  skk-kanagaki-temp-dir))))
+	  (tmp (make-temp-file "kanagaki")))
    (list
     'cond
     (list
