@@ -208,6 +208,8 @@
 (defvar skk-nicola-lshift-rule nil)
 (defvar skk-nicola-rshift-rule nil)
 
+(defvar skk-nicola-temp-data nil)
+
 (skk-deflocalvar skk-nicola-okuri-flag nil)
 
 (skk-deflocalvar skk-current-local-map nil "\
@@ -483,158 +485,282 @@ keycode 131 = underscore\n"))
 (defun skk-nicola-insert (&optional arg)
   ;; 同時打鍵を認識して、NICOLA かな入力をする。
   (interactive "*p")
-  (unless (and skk-henkan-on (not skk-henkan-active))
-    (setq skk-nicola-okuri-flag nil))
-  ;;
-  (cond ((skk-sit-for skk-nicola-interval t)
-	 ;; No input in the interval.
-	 (case this-command
-	   (skk-nicola-self-insert-rshift
-	    ;; (変換・スペース)
-	    (skk-nicola-space-function arg))
-	   (skk-nicola-self-insert-lshift
-	    ;; 左シフト
-	    (skk-nicola-lshift-function arg))
-	   (t
-	    ;; 文字
-	    (skk-nicola-insert-kana last-command-char skk-nicola-plain-rule
-				    arg))))
-	(t
-	 ;; Some key's pressed.
-	 (let ((next (next-command-event))
-	       nextasstr)
+  (let (time1 time2 
+	      next-event next
+	      third-event third
+	      period1 period2)
+    ;;
+    (setq time1 (skk-nicola-format-time (current-time)))
+    ;;
+    (unless (and skk-henkan-on (not skk-henkan-active))
+      (setq skk-nicola-okuri-flag nil))
+    ;;
+    (cond ((skk-sit-for skk-nicola-interval t)
+	   ;; No input in the interval.
+	   (skk-nicola-insert-single this-command arg))
+	  (t
+	   ;; Some key's pressed.
+	   (setq time2 (skk-nicola-format-time (current-time)))
 	   ;;
-	   (static-cond
-	    ((eq skk-emacs-type 'xemacs)
-	     (let ((char (event-to-character next)))
-	       (setq next (cond ((characterp char) char)
-				(t (event-key next))))))
+	   (setq next-event (next-command-event)
+		 next (skk-nicola-eventto-key next-event))
+	   (cond
+	    ((skk-nicola-maybe-double-p this-command next)
+;;; 〜 NICOLA 規格書より 〜
+;;; 7.4.2　打鍵順序だけでは決定できない同時打鍵 
+;;;
+;;;        文字キーa、親指キーs、文字キーbの３つのキーが、判定時間以内の間
+;;;        隔で重複して押された場合は、中央に挟まれた親指キーsが文字キーaを
+;;;        修飾するものか、文字キーbを修飾するものかを決定しなければならな
+;;;        い。（図６） 
+;;;
+;;;        基本的には、押下時刻が、より親指キーに近い文字キーとの間に同時打
+;;;        鍵が成立すると判断する。 
+;;;
+;;;              図6　　　「文字キーON→親指キーON→文字キーON」の例 
+;;;
+;;;              　　文字キーa 　　　　　　　|￣￣￣|
+;;;              　　　　　　　　　　…………　　　　……………………
+;;;
+;;;              　　親指キーs 　　　　　　　　　|￣￣￣|
+;;;              　　　　　　　　　　………………　　　　………………
+;;;
+;;;              　　文字キーb 　　　　　　　　　　　　|￣￣￣|
+;;;              　　　　　　　　　　………………………　　　　………
+;;;
+;;;             　　　　　　　　　　　　　　|-t1-|-t2-|
+;;;                                         (t1、t2は共に判定時間以内)
+;;;
+;;;       t1=t2ならば、文字キーaと親指キーsが同時打鍵、文字キーbは単独打鍵。
+	     (setq period1 (- time2 time1))
+	     (cond
+	      ((skk-sit-for period1 t)
+	       ;; 同時打鍵と確定。(< t1 t2)
+	       (skk-nicola-insert-double this-command next arg))
+	      (t
+	       ;; 更に次の event を調べる。
+	       (setq period2 (- (skk-nicola-format-time (current-time))
+				time2)
+		     third-event (next-command-event)
+		     third (skk-nicola-event-to-key third-event))
+	       (cond
+		((and
+		  (skk-nicola-maybe-double-p next third)
+		  ;; (要らないかも知らないが、多少 `sit-for' の返ってくる時
+		  ;; 間と `current-time' が返す時間との間にズレが生じること
+		  ;; もあるので、一応比較しておく)
+		  (> period1 period2))
+		 ;; 後の2打鍵が同時打鍵と確定。
+		 (skk-nicola-insert-single this-command arg)
+		 (skk-nicola-insert-double next third arg))
+		(t
+		 ;; 前の2打鍵が同時打鍵と確定。
+		 (skk-nicola-insert-double this-command next arg)
+		 (skk-unread-event third-event))))))
 	    (t
-	     (cond ((symbolp next)
-		    (setq next (vector next)))
-		   ((characterp next)
-		    (setq nextasstr (char-to-string next))))))
-	   ;;
-	   (case (lookup-key skk-j-mode-map (or nextasstr next))
-	     (skk-nicola-self-insert-rshift
-	      ;; 右シフト
-	      (case this-command
-		(skk-nicola-self-insert-rshift
-		 ;; [右 右]
-		 (let ((last-command-char ?\ ))
-		   (cond ((or skk-henkan-on skk-henkan-active)
-			  (skk-kanagaki-insert arg)
-			  (unless (>= skk-nicola-interval 1)
-			    ;; Emacs 18  で単独打鍵を同一キー連続打鍵で代用で
-			    ;; きるように。
-			    (skk-kanagaki-insert arg)))
-			 (t
-			  (self-insert-command
-			   (if (>= skk-nicola-interval 1)
-			       ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用
-			       ;; できるように。
-			       arg
-			     (1+ arg)))))))
-		(skk-nicola-self-insert-lshift
-		 ;; [左 右]
-		 (cond ((and skk-j-mode (not skk-katakana))
-			(skk-latin-mode 1))
-		       (t
-			(skk-toggle-kana 1))))
-		(t
-		 ;; [文字 右]
-		 (skk-nicola-insert-kana last-command-char
-					 skk-nicola-rshift-rule arg))))
-	     (skk-nicola-self-insert-lshift
-	      ;; 左シフト
-	      (case this-command
-		(skk-nicola-self-insert-lshift
-		 ;;[左 左]
-		 (cond ((skk-in-minibuffer-p)
-			(exit-minibuffer))
-		       (t
-			(skk-nicola-lshift-function arg)
-			(unless (>= skk-nicola-interval 1)
-			  ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用でき
-			  ;; るように。
-			  (skk-nicola-lshift-function 1)))))
-		(skk-nicola-self-insert-rshift
-		 ;; [右 左]
-		 (if (and skk-j-mode (not skk-katakana))
-		     (skk-latin-mode 1)
-		   (skk-toggle-kana 1)))
-		(t
-		 ;; [文字 左]
-		 (skk-nicola-insert-kana last-command-char
-					 skk-nicola-lshift-rule arg))))
-	     (t
-	      ;; 文字
-	      (cond
-	       ((eq this-command 'skk-nicola-self-insert-rshift)
-		;;  [右 文字]
-		(skk-nicola-insert-kana next skk-nicola-rshift-rule arg))
-	       ((eq this-command 'skk-nicola-self-insert-lshift)
-		;; [左 文字]
-		(skk-nicola-insert-kana next skk-nicola-lshift-rule arg))
-	       ((and
-		 (not (eq last-command-char next))
-		 (memq last-command-char skk-nicola-set-henkan-point-chars)
-		 (memq next skk-nicola-set-henkan-point-chars))
-		;; [fj]
-		(cond ((and skk-henkan-on (not skk-henkan-active))
-		       (if (memq skk-kanagaki-keyboard-type '(106-jis))
-			   (skk-kanagaki-set-okurigana-no-sokuon arg)
-			 (skk-nicola-set-okuri-flag)))
-		      (t
-		       (skk-set-henkan-point-subr 1))))
-	       ((and
-		 (not (eq last-command-char next))
-		 (memq last-command-char skk-nicola-prefix-suffix-abbrev-chars)
-		 (memq next skk-nicola-prefix-suffix-abbrev-chars))
-		;; [gh] suffix の 入力
-		(cond (skk-henkan-active
-		       ;; 接尾語の処理
-		       (skk-kakutei)
-		       (skk-set-henkan-point-subr)	
-		       (insert-and-inherit ?>))
-		      (skk-henkan-on
-		       ;; 接頭語の処理
-		       (skk-kana-cleanup 'force)
-		       (insert-and-inherit ?>)
-		       (skk-set-marker skk-henkan-end-point (point))
-		       (setq skk-henkan-count 0
-			     skk-henkan-key (buffer-substring-no-properties
-					     skk-henkan-start-point (point))
-			     skk-prefix "")
-		       (skk-henkan))
-		      (t
-		       ;;
-		       (skk-abbrev-mode 1))))
-	       ((and
-		 (not (eq last-command-char next))
-		 (memq last-command-char skk-nicola-toggle-kana-chars)
-		 (memq next skk-nicola-toggle-kana-chars))
-		;; [dk]
-		(skk-toggle-kana 1))
-	       (t
-		;; [文字 文字]
-		(let ((str (skk-nicola-insert-kana
-			    last-command-char skk-nicola-plain-rule arg)))
-		  (when (and skk-isearch-switch
-			     (not (or skk-henkan-on skk-henkan-active)))
-		    (setq isearch-cmds
-			  (cons
-			   (nconc
-			    (list (concat (caar isearch-cmds) str)
-				  (concat (cadar isearch-cmds) str))
-			    (cddar isearch-cmds))
-			   isearch-cmds))))
-		(unless (and (>= skk-nicola-interval 1)
-			     (eq next last-command-char))
-		  ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用できるように。
-		  (skk-nicola-insert-kana next skk-nicola-plain-rule)))))))))
+	     ;; 最初の入力は単独打鍵でしかありえないと確定。
+	     (skk-nicola-insert-single this-command arg)
+	     (skk-unread-event next-event)))))
+    ;; 統計的価値があるかな...？
+    (setq skk-nicola-temp-data
+	  (cons
+	   (list (or last-command-char this-command)
+		 period1
+		 next
+		 period2
+		 third)
+	   skk-nicola-temp-data)))
   ;; `skk-kana-input' が何も入力しないように、nil を返しておく。
   nil)
+
+(defun skk-nicola-format-time (time)
+  (let ((time1 (* (float 100000) (car time)))
+	(time2 (cadr time))
+	(time3 (/ (caddr time) (float 1000000))))
+    (+ time1 time2 time3)))
+
+(defun skk-nicola-event-to-key (event)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (let ((char (event-to-character event)))
+      (cond ((characterp char) char)
+	    (t (event-key event)))))
+   (t
+    (if (symbolp event)
+	(vector event)
+      event))))
+
+(defun skk-nicola-insert-single (command arg)
+  (let ((char last-command-char))
+    (case command
+      (skk-nicola-self-insert-rshift
+       ;; (変換・スペース)
+       (skk-nicola-space-function arg))
+      (skk-nicola-self-insert-lshift
+       ;; 左シフト
+       (skk-nicola-lshift-function arg))
+      (t
+       ;; 文字
+       (skk-nicola-insert-kana char skk-nicola-plain-rule arg)))))
+
+(defun skk-nicola-insert-double (first next arg)
+  (let ((command (cond
+		  ((commandp first)
+		   first)
+		  ((characterp first)
+		   (lookup-key skk-j-mode-map (char-to-string first)))
+		  (t
+		   (lookup-key skk-j-mode-map first))))
+	(char (if (characterp first) first last-command-char))
+	(str (if (characterp next) (char-to-string next))))
+    ;;
+    (case (lookup-key skk-j-mode-map (or str next))
+      (skk-nicola-self-insert-rshift
+       ;; 右シフト
+       (case command
+	 (skk-nicola-self-insert-rshift
+	  ;; [右 右]
+	  (let ((last-command-char ?\ ))
+	    (cond ((or skk-henkan-on skk-henkan-active)
+		   (skk-kanagaki-insert arg)
+		   (unless (>= skk-nicola-interval 1)
+		     ;; Emacs 18  で単独打鍵を同一キー連続打鍵で代用で
+		     ;; きるように。
+		     (skk-kanagaki-insert arg)))
+		  (t
+		   (self-insert-command
+		    (if (>= skk-nicola-interval 1)
+			;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用
+			;; できるように。
+			arg
+		      (1+ arg)))))))
+	 (skk-nicola-self-insert-lshift
+	  ;; [左 右]
+	  (cond ((and skk-j-mode (not skk-katakana))
+		 (skk-latin-mode 1))
+		(t
+		 (skk-toggle-kana 1))))
+	 (t
+	  ;; [文字 右]
+	  (skk-nicola-insert-kana char
+				  skk-nicola-rshift-rule arg))))
+      (skk-nicola-self-insert-lshift
+       ;; 左シフト
+       (case command
+	 (skk-nicola-self-insert-lshift
+	  ;;[左 左]
+	  (cond ((skk-in-minibuffer-p)
+		 (exit-minibuffer))
+		(t
+		 (skk-nicola-lshift-function arg)
+		 (unless (>= skk-nicola-interval 1)
+		   ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用でき
+		   ;; るように。
+		   (skk-nicola-lshift-function 1)))))
+	 (skk-nicola-self-insert-rshift
+	  ;; [右 左]
+	  (if (and skk-j-mode (not skk-katakana))
+	      (skk-latin-mode 1)
+	    (skk-toggle-kana 1)))
+	 (t
+	  ;; [文字 左]
+	  (skk-nicola-insert-kana char
+				  skk-nicola-lshift-rule arg))))
+      (t
+       ;; 文字
+       (cond
+	((eq command 'skk-nicola-self-insert-rshift)
+	 ;;  [右 文字]
+	 (skk-nicola-insert-kana next skk-nicola-rshift-rule arg))
+	((eq command 'skk-nicola-self-insert-lshift)
+	 ;; [左 文字]
+	 (skk-nicola-insert-kana next skk-nicola-lshift-rule arg))
+	((and
+	  (not (eq char next))
+	  (memq last-command-char skk-nicola-set-henkan-point-chars)
+	  (memq next skk-nicola-set-henkan-point-chars))
+	 ;; [fj]
+	 (cond ((and skk-henkan-on (not skk-henkan-active))
+		(if (memq skk-kanagaki-keyboard-type '(106-jis))
+		    (skk-kanagaki-set-okurigana-no-sokuon arg)
+		  (skk-nicola-set-okuri-flag)))
+	       (t
+		(skk-set-henkan-point-subr 1))))
+	((and
+	  (not (eq char next))
+	  (memq char skk-nicola-prefix-suffix-abbrev-chars)
+	  (memq next skk-nicola-prefix-suffix-abbrev-chars))
+	 ;; [gh] suffix の 入力
+	 (cond (skk-henkan-active
+		;; 接尾語の処理
+		(skk-kakutei)
+		(skk-set-henkan-point-subr)	
+		(insert-and-inherit ?>))
+	       (skk-henkan-on
+		;; 接頭語の処理
+		(skk-kana-cleanup 'force)
+		(insert-and-inherit ?>)
+		(skk-set-marker skk-henkan-end-point (point))
+		(setq skk-henkan-count 0
+		      skk-henkan-key (buffer-substring-no-properties
+				      skk-henkan-start-point (point))
+		      skk-prefix "")
+		(skk-henkan))
+	       (t
+		;;
+		(skk-abbrev-mode 1))))
+	((and
+	  (not (eq char next))
+	  (memq char skk-nicola-toggle-kana-chars)
+	  (memq next skk-nicola-toggle-kana-chars))
+	 ;; [dk]
+	 (skk-toggle-kana 1))
+	(t
+	 ;; [文字 文字]
+	 (let ((str (skk-nicola-insert-kana
+		     char skk-nicola-plain-rule arg)))
+	   (when (and skk-isearch-switch
+		      (not (or skk-henkan-on skk-henkan-active)))
+	     (setq isearch-cmds
+		   (cons
+		    (nconc
+		     (list (concat (caar isearch-cmds) str)
+			   (concat (cadar isearch-cmds) str))
+		     (cddar isearch-cmds))
+		    isearch-cmds))))
+	 (unless (and (>= skk-nicola-interval 1)
+		      (eq next char))
+	   ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用できるように。
+	   (skk-nicola-insert-kana next skk-nicola-plain-rule))))))))
+
+(defun skk-nicola-maybe-double-p (first next)
+  (let ((command (cond
+		  ((commandp first)
+		   first)
+		  ((characterp first)
+		   (lookup-key skk-j-mode-map (char-to-string first)))
+		  (t
+		   (lookup-key skk-j-mode-map first))))
+	(char (if (characterp first) first last-command-char))
+	(str (if (characterp next) (char-to-string next)))
+	(shifts '(skk-nicola-self-insert-lshift
+		  skk-nicola-self-insert-rshift)))
+  (or
+   ;; * どちらか一方が親指
+   (or (memq command shifts)
+       (memq (lookup-key skk-j-mode-map (or str next)) shifts))
+   ;; * skk-nicola に於ける特殊同時打鍵キー
+   (and (not (eq char next))
+	(or
+	 ;; [fj]
+	 (and (memq last-command-char skk-nicola-set-henkan-point-chars)
+	      (memq next skk-nicola-set-henkan-point-chars))
+	 ;; [gh]
+	 (and (memq char skk-nicola-prefix-suffix-abbrev-chars)
+	      (memq next skk-nicola-prefix-suffix-abbrev-chars))
+	 ;; [dk]
+	 (and  (memq char skk-nicola-toggle-kana-chars)
+	       (memq next skk-nicola-toggle-kana-chars)))))))
 
 (defun skk-nicola-insert-kana (char rule &optional arg)
   ;; CHAR を RULE の中から探して入力すべき文字列を決定する。

@@ -1,3 +1,11 @@
+2001-03-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el (skk-nicola-temp-data): New variable.
+	(skk-nicola-insert): Deal with triple typings.
+	(skk-nicola-format-time, skk-nicola-event-to-key,
+	skk-nicola-insert-single, skk-nicola-insert-double,
+	skk-nicola-maybe-double-p): New functions.
+
 2001-03-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* README.NICOLA.ja: Update.
