@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.108 2001/09/02 06:46:07 czkmt Exp $
+;; Version: $Id: skk.el,v 1.109 2001/09/05 14:39:16 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/02 06:46:07 $
+;; Last Modified: $Date: 2001/09/05 14:39:16 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -241,18 +241,11 @@
       (setq skk-latin-mode-map map)))
 
 (or skk-j-mode-map
-    (let ((map (make-sparse-keymap)))
-      (substitute-key-definition 'self-insert-command 'skk-insert map
-				 global-map)
-      ;; for Mule-2.x
-      (substitute-key-definition 'egg-self-insert-command 'skk-insert map
-				 global-map)
-      (substitute-key-definition 'canna-self-insert-command 'skk-insert map
-				 global-map)
-      (substitute-key-definition 'canna-henkan-region-or-self-insert
-				 'skk-insert map global-map)
-      (substitute-key-definition 'can-n-egg-self-insert-command 'skk-insert map
-				 global-map)
+    (let ((map (make-sparse-keymap))
+	  (c 32))
+      (while (< c 127)
+	(define-key map (char-to-string c) 'skk-insert)
+	(setq c (1+ c)))
       ;; .skk で skk-kakutei-key の変更が可能になるように。
       ;;(define-key map skk-kakutei-key 'skk-kakutei)
       (skk-define-menu-bar-map map)
