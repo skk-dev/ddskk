@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.17 2001/06/02 19:43:52 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.18 2001/06/02 19:49:47 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/06/02 19:43:52 $
+;; Last Modified: $Date: 2001/06/02 19:49:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -828,9 +828,9 @@ w3m を backend で動かしていない)。")
 
 ;;;###autoload
 (defun skk-w3m-query-quote-yahoo
-  ;; $# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/(skk-w3m-query-quote-yahoo "USD" "DM" 'prefix "DM")/
-  ;; sfr# /(skk-w3m-query-quote-yahoo "SFR" "JPY" 'postfix "円")/
-  ;; dm# /(skk-w3m-query-quote-yahoo "DM" "JPY" 'postfix "円")/
+  ;; $# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/(skk-w3m-query-quote-yahoo "USD" "DEM" 'prefix "DM")/
+  ;; sfr# /(skk-w3m-query-quote-yahoo "CHF" "JPY" 'postfix "円")/
+  ;; dm# /(skk-w3m-query-quote-yahoo "DEM" "JPY" 'postfix "円")/
   (currency-from currency-to &optional position convert-currency-to)
   (let (v)
     (setq skk-w3m-currency-from currency-from
