@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.115 2001/09/11 22:47:00 czkmt Exp $
+;; Version: $Id: skk.el,v 1.116 2001/09/12 13:32:16 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/11 22:47:00 $
+;; Last Modified: $Date: 2001/09/12 13:32:16 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -3390,22 +3390,17 @@ If you want to restore the dictionary from the disc, try
   ;; 辞書の制限から辞書エントリ内に含めてはならない文字が WORD の中にあれば、
   ;; 評価したときにその文字となるような Lisp コードを返す。
   (save-match-data
-    (if (and word
-	     (string-match "[/\n\r\"]" word)
-	     ;; we should not quote WORD if it is a symbolic expression
-	     (not (skk-lisp-prog-p word))
-	     (not (string-match ";" word))) ; has an annotation
-	(format "(concat \"%s\")"
-		(mapconcat (function (lambda (c)
-				       (cond ((eq c ?/) "\\057")
-					     ((eq c ?\n) "\\n")
-					     ((eq c ?\r) "\\r")
-					     ((eq c ?\") "\\\"")
-					     ((eq c ?\\) "\\\\")
-					     (t (char-to-string c)))))
-			   ;; 文字列を対応する char のリストに分解する。
-			   (append word nil) ""))
+    (if (and
+	 word
+	 (string-match "[/\n\r\"]" word)
+	 ;; we should not quote WORD if it is a symbolic expression
+	 (not (skk-lisp-prog-p word))
+	 (not (string-match ";" word))) ; has an annotation
+	(skk-quote-char-1 word (cdr skk-quote-char-alist))
       word)))
+
+(defun skk-quote-semicolon (word)
+  (skk-quote-char-1 word skk-quote-char-alist))
 
 (defun skk-public-jisyo-has-entry-p (okurigana word)
   ;; 共有辞書が MIDASHI 及びそれに対応する WORDS エントリを持っていれば、
