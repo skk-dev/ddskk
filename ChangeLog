@@ -1,3 +1,8 @@
+2000-10-13  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* SKK-MK (SKK_LISPDIR) : "make PREFIX=dir install" で PREFIX のと
+	おりに elisp がインストールされるように修正.
+
 2000-10-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-foreword.el (skk-emacs-type): Check the feature `xemacs'.
