@@ -3,7 +3,7 @@
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
-;; Keywords: hardware, japanese
+;; Keywords: hardware, japanese, mule, input method
 
 ;; This file is part of Daredevil SKK.
 

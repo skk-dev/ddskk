@@ -3,7 +3,7 @@
 ;; Copyright (C) 2001 SKK Development Team
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Keywords: japanese
+;; Keywords: japanese, mule, input method
 
 ;; This file is part of Daredevil SKK.
 

@@ -2,13 +2,13 @@
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2001
-;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
+;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.11 2001/11/16 02:22:19 czkmt Exp $
-;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 02:22:19 $
+;; Version: $Id: skk-auto.el,v 1.12 2001/11/17 05:40:16 czkmt Exp $
+;; Keywords: japanese, mule, input method
+;; Last Modified: $Date: 2001/11/17 05:40:16 $
 
 ;; This file is part of Daredevil SKK.
 

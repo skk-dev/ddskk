@@ -1,15 +1,15 @@
 ;; skk-viper.el --- SKK related code for Viper
 
 ;; Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001
-;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Murata Shuuichirou <mrt@notwork.org>
+;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
+;;   Murata Shuuichirou <mrt@notwork.org>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.23 2001/11/16 02:22:20 czkmt Exp $
-;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 02:22:20 $
+;; Version: $Id: skk-viper.el,v 1.24 2001/11/17 05:40:17 czkmt Exp $
+;; Keywords: japanese, mule, input method
+;; Last Modified: $Date: 2001/11/17 05:40:17 $
 
 ;; This file is part of Daredevil SKK.
 

@@ -4,7 +4,7 @@
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Keywords: japanese
+;; Keywords: japanese, mule, input method
 
 ;; This file is part of Daredevil SKK.
 

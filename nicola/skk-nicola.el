@@ -1,10 +1,11 @@
 ;;; skk-nicola.el --- SKK に親指シフト入力インタフェイスを提供
 
-;; Copyright (C) 1996 - 2000 Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
+;; Copyright (C) 1996, 1997, 1998, 1999, 2000
+;;   Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
 
 ;; Author: Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
 ;;      Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
-;; Keywords: hardware, japanese
+;; Keywords: hardware, japanese, mule, input method
 
 ;; This file is part of Daredevil SKK.
 
