@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.3 1999/08/28 23:25:07 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.4 1999/08/28 23:37:13 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/28 23:25:07 $
+;; Last Modified: $Date: 1999/08/28 23:37:13 $
 
 ;; This file is not part of SKK yet.
 
@@ -30,12 +30,22 @@
 ;; (Alphabetical order):
 ;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;;
-;; INSTALL
+;; <INFORMATION>
+;;
+;; Access following URL to know what TUT-code is;
+;;    http://www.crew.sfc.keio.ac.jp/~chk/
 ;; 
+;; Send following mail to join TUT-code mailing list;
+;;    To: tut-code-control@crew.sfc.keio.ac.jp
+;;    Subject: APPEND
+;;    Body: an introduction of yourself (null body is available).
+;;
+;; <INSTALL>
+;;
 ;; Put the following lines in your .emacs.
 ;;
 ;;(setq skk-use-tutcode t)
-;; 
+;;
 ;;(defadvice skk-mode (around my-ad activate)
 ;;  (cond (skk-use-tutcode
 ;;	 (load-library "skk-tutcdef")
@@ -49,7 +59,7 @@
 ;;	       (load-library "skk-def")
 ;;	       (let (skk-mode-invoked) ad-do-it) )
 ;;	   ad-do-it ))))
-;;   
+;;
 ;;(defadvice skk-auto-fill-mode (around my-ad activate)
 ;;  (cond (skk-use-tutcode
 ;;	 (load-library "skk-tutcdef")
@@ -66,7 +76,7 @@
 ;;
 ;; If you would like to customize some definitions in skk-tutcdef.el,
 ;; you could do, for example;
-;; 
+;;
 ;;(defadvice skk-mode (around my-ad activate)
 ;;  (cond (skk-use-tutcode
 ;;	 (load-library "skk-tutcdef")
@@ -95,7 +105,7 @@
 ;;  :group 'skk )
 
 ;;;###autoload
-(defun skk-tutcode-mode-off (foo) 
+(defun skk-tutcode-mode-off (foo)
   (skk-latin-mode t)
   (skk-insert-str "\\") )
 
@@ -107,7 +117,7 @@
   (if (eobp)
       (skk-error "カーソルがバッファの終端にあります"
                  "Cursor is at the end of the buffer" )
-    (skk-tutcode-display-code-1 
+    (skk-tutcode-display-code-1
      (buffer-substring-no-properties
       (point)
       (skk-save-point (forward-char 1) (point)) ))
