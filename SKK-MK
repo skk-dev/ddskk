@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.4 1999/09/15 14:52:12 minakaji Exp $
-;; Last Modified: $Date: 1999/09/15 14:52:12 $
+;; Version: $Id: SKK-MK,v 1.5 1999/09/15 15:05:55 minakaji Exp $
+;; Last Modified: $Date: 1999/09/15 15:05:55 $
 
 ;; Commentary
 ;;
@@ -28,7 +28,27 @@
 ;; load this program.
 
 ;;; Code:
+(defvar default-load-path load-path)
+(and (expand-file-name "../../site-lisp/apel" data-directory)
+     (setq load-path (cons
+		      (expand-file-name "../../site-lisp/apel" data-directory)
+		      load-path )))
+(if (and (boundp 'LISPDIR) LISPDIR)
+    (progn
+      (or (member LISPDIR default-load-path)
+	  (setq default-load-path (cons LISPDIR default-load-path)) )
+      (or (member LISPDIR load-path) (setq load-path (cons LISPDIR load-path)))
+      (or (member (expand-file-name "apel" LISPDIR) load-path)
+	  (setq load-path (cons (expand-file-name "apel" LISPDIR) load-path)) )))
+(setq load-path (cons (expand-file-name ".") load-path))
+(if (and VERSION_SPECIFIC_LISPDIR
+	 (null (member VERSION_SPECIFIC_LISPDIR load-path)) )
+    (setq load-path (cons VERSION_SPECIFIC_LISPDIR load-path)) )
 
+;; APEL required.
+(require 'install)
+
+;; install.el is required before defining default variables.
 ;; GENERIC VARIABLE.
 (defvar DOCDIR "./doc")
 (defvar ETCDIR "./etc")
@@ -98,7 +118,6 @@
 (princ (format "SKK-MODULES=%s\n" SKK-MODULES))
 
 (defun SKK-MK-config ()
-  (SKK-MK-make-load-path)
   (let (prefix lisp-dir version-specific-lisp-dir)
     (and (setq prefix (car command-line-args-left))
 	 ;; overwrite as specified in Makefile.
@@ -139,7 +158,6 @@
 
 (defun SKK-MK-config-package ()
   (or (featurep 'xemacs) (error "This directive is only for XEmacs."))
-  (SKK-MK-make-load-path)
   (let ((package-dir (car command-line-args-left)))
     ;; overwrite as specified in Makefile.
     (or (string= "NONE" package-dir) (setq PACKAGEDIR package-dir))
@@ -199,25 +217,6 @@
   (SKK-MK-config)
   (compile-elisp-modules SKK-MODULES ".") )
 
-(defun SKK-MK-make-load-path ()
-  (defvar default-load-path load-path)
-  (and (expand-file-name "../../site-lisp/apel" data-directory)
-       (setq load-path (cons
-			(expand-file-name "../../site-lisp/apel" data-directory)
-			load-path )))
-  (if LISPDIR
-      (progn
-	(or (member LISPDIR default-load-path)
-	    (setq default-load-path (cons LISPDIR default-load-path)) )
-	(or (member LISPDIR load-path) (setq load-path (cons LISPDIR load-path)))
-	(or (member (expand-file-name "apel" LISPDIR) load-path)
-	    (setq load-path (cons (expand-file-name "apel" LISPDIR) load-path)) )))
-  (setq load-path (cons (expand-file-name ".") load-path))
-  (if (and VERSION_SPECIFIC_LISPDIR
-	   (null (member VERSION_SPECIFIC_LISPDIR load-path)) )
-      (setq load-path (cons VERSION_SPECIFIC_LISPDIR load-path)) )
-  ;; APEL required.
-  (require 'install) )
 
 (defun SKK-MK-texinfo-format (targets)
   (let (x obuf beg)
