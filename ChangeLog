@@ -1,3 +1,20 @@
+2002-07-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK:
+	(SKK-MK-skk-dic): Modify regexp.
+
+	* skk-dic.el.in:
+	(skk-small-dic):
+	(skk-dic-buffer-name):
+
+	Abolish variables.
+
+	(skk-dic-buffer): New variable.
+
+	(skk-search-small-dic): Search in `skk-dic-buffer'.
+
+	(skk-dic-setup-buffer): Set `skk-dic-buffer' or return its value.
+
 2002-07-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el:
@@ -3946,8 +3963,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.698 2002/07/16 14:27:59 czkmt Exp $
-Last Modified: $Date: 2002/07/16 14:27:59 $
+Version: $Id: ChangeLog,v 1.699 2002/07/20 18:29:20 czkmt Exp $
+Last Modified: $Date: 2002/07/20 18:29:20 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

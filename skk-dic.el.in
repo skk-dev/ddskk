@@ -1,6 +1,6 @@
 ;;; skk-dic.el --- Default dictionary for SKK  -*- emacs-lisp -*-
 
-;; Copyright (C) 2001 SKK Development Team
+;; Copyright (C) 2001, 2002 SKK Development Team
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Keywords: japanese, mule, input method
