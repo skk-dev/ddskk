@@ -215,7 +215,9 @@
 		   (aset key 1 '(control j))))
 	       k))))
     (if keys
-	(sorted-key-descriptions (skk-remove-duplicates keys))
+	(sorted-key-descriptions (if (listp keys)
+				     (skk-remove-duplicates keys)
+				   keys))
       nil)))
 
 ;; Hooks.

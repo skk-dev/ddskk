@@ -1,3 +1,8 @@
+2003-03-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-xemacs.el (skk-xemacs-find-func-keys): Call
+	`skk-remove-duplicates' only when KEY is a list.
+
 2003-03-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-e21-modeline-menu): When variable `skk-mode' is
@@ -4139,8 +4144,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.727 2003/03/23 20:26:48 czkmt Exp $
-Last Modified: $Date: 2003/03/23 20:26:48 $
+Version: $Id: ChangeLog,v 1.728 2003/03/26 17:37:39 czkmt Exp $
+Last Modified: $Date: 2003/03/26 17:37:39 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
