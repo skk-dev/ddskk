@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.24 2001/10/09 10:33:23 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.25 2001/10/19 13:34:42 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/09 10:33:23 $
+;; Last Modified: $Date: 2001/10/19 13:34:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -115,8 +115,8 @@
   ;; KEY を skk-num-list に従い変換し、変換後の文字列のパーツを
   ;; 順にならべたリストを返す。
   ;; KEY ::= `平成#0年', return ::= ("平成" "13" "年")
-  (if (or (not key) (consp key))
-      nil
+  (unless (or (not key)
+	      (consp key))
     (let ((numexp (if skk-num-convert-float
 		      "#[.0-9]+" "#[0-9]+"))
 	  (n 0)
@@ -131,7 +131,8 @@
 		;; 具体的な数字を変換タイプに従い変換する。
 		(skk-num-exp
 		 num
-		 (string-to-number (substring workkey (1+ beg) (match-end 0))))
+		 (string-to-number
+		  (substring workkey (1+ beg) (match-end 0))))
 		;; 処理された数値キーまでの prefix 文字列
 		string (substring workkey 0 beg)
 		;; 未処理の文字列
@@ -186,19 +187,21 @@
     (while src
       (setq elt (car src))
       (setq dst
-	    (if (consp elt)
-		(apply (function nconc)
-		       (mapcar
-			(lambda (str0)
-			  (mapcar
-			   (lambda (str1)
-			     (concat str0 str1))
-			   elt))
-			dst))
+	    (cond
+	     ((consp elt)
+	      (apply (function nconc)
+		     (mapcar
+		      (lambda (str0)
+			(mapcar
+			 (lambda (str1)
+			   (concat str0 str1))
+			 elt))
+		      dst)))
+	     (t
 	      (mapcar
 	       (lambda (str0)
 		 (concat str0 elt))
-	       dst)))
+	       dst))))
       (setq src (cdr src)))
     dst))
 
