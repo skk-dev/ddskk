@@ -144,7 +144,6 @@
 	(set-face-foreground
 	 face-sym
 	 (symbol-value (intern (format "skk-cursor-%s-color" mode)))))
-      (set-face-bold-p face-sym t)
       (setq skk-e21-property-alist
 	    (cons
 	     (cons mode (append skk-e21-modeline-property
