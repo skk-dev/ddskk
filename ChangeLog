@@ -1,5 +1,8 @@
 2000-09-10  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* Makefile (tar): Modify to make archive in openlab.ring.gr.jp.
+	(snapshot): Ditto.
+
 	* skk-lookup.el: Moved from experimental directory.
 
 	* skk-faq.txt: New file.

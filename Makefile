@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.22 2000/09/01 14:37:19 czkmt Exp $
-# Last Modified: $Date: 2000/09/01 14:37:19 $
+# Version: $Id: Makefile,v 1.23 2000/09/10 09:46:03 minakaji Exp $
+# Last Modified: $Date: 2000/09/10 09:46:03 $
 
 VERSION = 10.61
 
@@ -38,14 +38,14 @@ clean:
          `find . -name '*~'` `find . -name '.*~'`
 
 tar: clean
-	-$(RM) ../skk*
-	cd .. ; ln -sf main skk-$(VERSION) ; \
-	$(TAR) cvzpf skk$(VERSION).tar.gz --exclude-from=./skk-$(VERSION)/skk.ex \
-               --dereference  skk-$(VERSION)
+	cd .. ; -$(RM) skk-$(VERSION) skk-snapshot ;\
+	ln -sf main skk-$(VERSION) ;\
+	$(TAR) cvzpf skk-$(VERSION).tar.gz --exclude-from=skk-$(VERSION)/skk.ex --dereference skk-$(VERSION) ;\
+	$(RM) skk-$(VERSION)
 
 snapshot: clean
-	-$(RM) ../skk*
-	cd .. ; ln -sf main skk-snapshot
-	$(TAR) cvzpf ../skk-`$(DATE) '+%Y%m%d'`.tar.gz --exclude-from=skk.ex --dereference ../skk-snapshot
-
+	cd .. ; -$(RM) skk-$(VERSION) skk-snapshot skk-`$(DATE) '+%Y%m%d'`.tar.gz ;\
+	ln -sf main skk-`$(DATE) '+%Y%m%d'` ;\
+	$(TAR) cvzpf skk-`$(DATE) '+%Y%m%d'`.tar.gz --exclude-from=skk-`$(DATE) '+%Y%m%d'`/skk.ex --dereference skk-`$(DATE) '+%Y%m%d'` ;\
+	$(RM) skk-`$(DATE) '+%Y%m%d'`
 # end of Makefile.
