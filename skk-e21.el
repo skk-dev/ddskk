@@ -60,7 +60,7 @@
     ["Zenkaku alphabet"
      skk-jisx0208-latin-mode
      :selected skk-jisx0208-latin-mode
-     :style radio 
+     :style radio
      :key-sequence nil]
     "--"
     ["Read Manual" skk-e21-info t]

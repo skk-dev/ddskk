@@ -91,7 +91,7 @@
   ;; Find keys
   (aset (nth 1 skk-xemacs-modeline-menu-items)
 	7
-	(if skk-j-mode 
+	(if skk-j-mode
 	    (if skk-katakana
 		(skk-xemacs-find-func-keys 'skk-toggle-kana)
 	      "")
