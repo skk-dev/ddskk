@@ -1,5 +1,7 @@
 2001-09-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-e18.el: Load skk-vars.el before skk-macs.el.
+
 	* skk-jisx0201.el (skk-jisx0201-rule-list): Remove unnecessary
 	rules.
 	(skk-jisx0201-mode-on): Make local variable `skk-rule-tree'.
@@ -1769,8 +1771,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.364 2001/09/07 21:35:09 czkmt Exp $
-Last Modified: $Date: 2001/09/07 21:35:09 $
+Version: $Id: ChangeLog,v 1.365 2001/09/07 22:35:58 czkmt Exp $
+Last Modified: $Date: 2001/09/07 22:35:58 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
