@@ -158,8 +158,9 @@
 			skk-rom-kana-rule-list))
 (defun skk-hyphen (arg)
   (let ((c (char-before (point))))
-    (cond ((and (<= ?0 c) (>= ?9 c)) "-")
-	  ((and (<= ?０ c) (>= ?９ c)) "−")
-	  (t "ー"))))
+    (cond ((null c) "ー")
+          ((and (<= ?0 c) (>= ?9 c)) "-")
+          ((and (<= ?０ c) (>= ?９ c)) "−")
+          (t "ー"))))
 
 ;;; dot.skk ends here
