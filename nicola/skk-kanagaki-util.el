@@ -183,20 +183,18 @@
       (rom
        (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
 	     skk-katakana-mode-string skk-nicola-katakana-rom-string)))
-    (setq skk-hiragana-mode-indicator
-	  (skk-mode-string-to-indicator 'hiragana
-					skk-hiragana-mode-string))
-    (setq skk-katakana-mode-indicator
-	  (skk-mode-string-to-indicator 'katakana
-					skk-katakana-mode-string))
+    ;;
+    (skk-modify-indicator-alist 'katakana skk-katakana-mode-string)
+    (skk-modify-indicator-alist 'hiragana skk-hiragana-mode-string)
+    ;;
     (dolist (buf (buffer-list))
       (when (buffer-live-p buf)
 	(with-current-buffer buf
-	  (when skk-j-mode
+	  (when (and skk-j-mode (listp mode-line-format))
+	    ;;
 	    (skk-update-modeline (if skk-katakana
-				     skk-katakana-mode-indicator
-				   skk-hiragana-mode-indicator))))))
-    (force-mode-line-update t)))
+				     'katakana
+				   'hiragana))))))))
 
 ;;;###autoload
 (defun skk-kanagaki-dakuten (&optional arg)

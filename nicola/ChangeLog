@@ -1,3 +1,10 @@
+2000-12-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-util.el (skk-kanagaki-toggle-rom-kana): Call
+	`skk-modify-indicator-alist'.
+
+	* skk-nicola.el (skk-mode-hook): Ditto.
+
 2000-12-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* README.NICOLA.ja: New file.

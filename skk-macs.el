@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.19 2000/12/12 09:00:57 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.20 2000/12/13 12:24:24 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/12 09:00:57 $
+;; Last Modified: $Date: 2000/12/13 12:24:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -356,12 +356,71 @@
     ;; MULE 3.0 or later.
     (charsetp object))))
 
+(defsubst skk-indicator-to-string (indicator &optional no-properties)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (if (stringp indicator)
+	indicator
+      (cdr indicator)))
+   ((eq skk-emacs-type 'mule5)
+    (if no-properties
+	(with-temp-buffer
+	  (insert indicator)
+	  (buffer-substring-no-properties (point-min) (point-max)))
+      indicator))
+   (t
+    indicator)))
+
+(defsubst skk-mode-string-to-indicator (mode string)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (cons (cdr (assq mode skk-xemacs-extent-alist))
+	  string))
+   ((memq skk-emacs-type '(mule5))
+    (apply 'propertize string skk-e21-modeline-property))
+   (t
+    string)))
+
+;;; This function is not complete, but enough for our purpose.
+(defsubst skk-local-variable-p (variable &optional buffer afterset)
+  "Non-nil if VARIABLE has a local binding in buffer BUFFER.
+BUFFER defaults to the current buffer."
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (local-variable-p variable (or buffer (current-buffer)) afterset))
+   ((fboundp 'local-variable-p)
+    (local-variable-p variable (or buffer (current-buffer))))
+   (t
+    (and
+     (or (assq variable (buffer-local-variables buffer)) ; local and bound.
+	 (memq variable (buffer-local-variables buffer))); local but void.
+     ;; docstring is ambiguous; 20.3 returns bool value.
+     t))))
+
+(defsubst skk-face-proportional-p (face)
+  (static-cond
+   ((fboundp 'face-proportional-p)
+    (face-proportional-p face))
+   (t
+    nil)))
+
 ;;; version independent
-(defsubst skk-update-modeline (&optional mode)
-  (or mode (setq mode 'default))
+(defsubst skk-modify-indicator-alist (mode string)
+  (setcdr (assq mode skk-indicator-alist)
+	  (cons string (skk-mode-string-to-indicator mode string))))
+
+(defsubst skk-update-modeline (&optional mode string)
+  (unless mode
+    (setq mode 'default))
+  ;;
+  (when string
+    (skk-modify-indicator-alist mode string))
+  ;;
   (let ((indicator (cdr (assq mode skk-indicator-alist))))
     (setq skk-modeline-input-mode 
-	  (if (eq skk-status-indicator 'left) (cdr indicator) (car indicator)))
+	  (if (eq skk-status-indicator 'left)
+	      (cdr indicator)
+	    (car indicator)))
     (force-mode-line-update)))
 
 ;; ツリーにアクセスするためのインターフェース
@@ -666,58 +725,6 @@
 	     (setq string (eval func)))
       (error))
     string))
-
-;;; This function is not complete, but enough for our purpose.
-(defsubst skk-local-variable-p (variable &optional buffer afterset)
-  "Non-nil if VARIABLE has a local binding in buffer BUFFER.
-BUFFER defaults to the current buffer."
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (local-variable-p variable (or buffer (current-buffer)) afterset))
-   ((fboundp 'local-variable-p)
-    (local-variable-p variable (or buffer (current-buffer))))
-   (t
-    (and
-     (or (assq variable (buffer-local-variables buffer)) ; local and bound.
-	 (memq variable (buffer-local-variables buffer))); local but void.
-     ;; docstring is ambiguous; 20.3 returns bool value.
-     t))))
-
-(defsubst skk-face-proportional-p (face)
-  (static-cond
-   ((fboundp 'face-proportional-p)
-    (face-proportional-p face))
-   (t
-    nil)))
-
-;; (defsubst skk-mode-string-to-indicator (mode string)
-;;   (cond
-;;    ((eq skk-status-indicator 'left)
-;;     (static-cond
-;;      ((eq skk-emacs-type 'xemacs)
-;;       (cons (symbol-value (intern (format "skk-xemacs-%s-extent" mode)))
-;; 	    string))
-;;      ((memq skk-emacs-type '(mule5))
-;;       (apply 'propertize string skk-e21-modeline-property))
-;;      (t
-;;       string)))
-;;    (t
-;;     string)))
-
-(defsubst skk-indicator-to-string (indicator &optional no-properties)
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (if (stringp indicator)
-	indicator
-      (cdr indicator)))
-   ((eq skk-emacs-type 'mule5)
-    (if no-properties
-	(with-temp-buffer
-	  (insert indicator)
-	  (buffer-substring-no-properties (point-min) (point-max)))
-      indicator))
-   (t
-    indicator)))
 
 ;;;; from dabbrev.el.  Welcome!
 ;; 判定間違いを犯す場合あり。要改良。

@@ -34,6 +34,7 @@
 ;; Variables.
 (defvar skk-xemacs-extent-alist
   (list
+   (cons 'default (make-extent nil nil))
    (cons 'hiragana (make-extent nil nil))
    (cons 'katakana (make-extent nil nil))
    (cons 'jisx0208-latin (make-extent nil nil))
@@ -90,7 +91,8 @@
 	 extent 'help-echo "マウスの button 2 -> Daredevil SKK のメニュ−")
 	(set-face-foreground
 	 face-sym
-	 (intern (format "skk-cursor-%s-color" mode)) nil '(default color win))
+	 (symbol-value (intern (format "skk-cursor-%s-color" mode)))
+	 nil '(default color win))
 	(set-face-font face-sym [bold] nil '(default mono win))
 	(set-face-font face-sym [bold] nil '(default grayscale win)))
       (set-extent-face extent face-sym))))

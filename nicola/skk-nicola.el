@@ -263,15 +263,12 @@ keycode 131 = underscore\n"))
        (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
 	     skk-katakana-mode-string skk-nicola-katakana-rom-string)))
     ;;
-    (setq skk-hiragana-mode-indicator
-	  (skk-mode-string-to-indicator 'hiragana
-					skk-hiragana-mode-string))
-    (setq skk-katakana-mode-indicator
-	  (skk-mode-string-to-indicator 'katakana
-					skk-katakana-mode-string))
+    (skk-modify-indicator-alist 'katakana skk-katakana-mode-string)
+    (skk-modify-indicator-alist 'hiragana skk-hiragana-mode-string)
+    ;;
     (skk-update-modeline (if skk-katakana
-			     skk-katakana-mode-indicator
-			   skk-hiragana-mode-indicator)))))
+			     'katakana
+			   'hiragana)))))
 
 ;; Functions.
 
