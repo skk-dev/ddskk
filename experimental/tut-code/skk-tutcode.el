@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.2 1999/08/21 13:22:50 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.3 1999/08/28 23:25:07 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/21 13:22:50 $
+;; Last Modified: $Date: 1999/08/28 23:25:07 $
 
 ;; This file is not part of SKK yet.
 
@@ -32,26 +32,58 @@
 ;;
 ;; INSTALL
 ;; 
-;; Put the following two advices in your .emacs.
+;; Put the following lines in your .emacs.
 ;;
-;; (defadvice skk-mode (before my-ad activate)
-;;   (require 'skk-tutcdef)
-;;   (require 'skk-tutcode) )
+;;(setq skk-use-tutcode t)
 ;; 
-;; (defadvice skk-auto-fill-mode (before my-ad activate)
-;;   (require 'skk-tutcdef)
-;;   (require 'skk-tutcode) )
-;; 
+;;(defadvice skk-mode (around my-ad activate)
+;;  (cond (skk-use-tutcode
+;;	 (load-library "skk-tutcdef")
+;;	 (require 'skk-tutcode)
+;;	 (if skk-mode-invoked
+;;	      (let (skk-mode-invoked) ad-do-it)
+;;	   ad-do-it ))
+;;	(t
+;;	 (if skk-mode-invoked
+;;	     (progn
+;;	       (load-library "skk-def")
+;;	       (let (skk-mode-invoked) ad-do-it) )
+;;	   ad-do-it ))))
+;;   
+;;(defadvice skk-auto-fill-mode (around my-ad activate)
+;;  (cond (skk-use-tutcode
+;;	 (load-library "skk-tutcdef")
+;;	 (require 'skk-tutcode)
+;;	 (if skk-mode-invoked
+;;	      (let (skk-mode-invoked) ad-do-it)
+;;	   ad-do-it ))
+;;	(t
+;;	 (if skk-mode-invoked
+;;	     (progn
+;;	       (load-library "skk-def")
+;;	       (let (skk-mode-invoked) ad-do-it) )
+;;	   ad-do-it ))))
+;;
 ;; If you would like to customize some definitions in skk-tutcdef.el,
 ;; you could do, for example;
 ;; 
-;; (defadvice skk-mode (before my-ad activate)
-;;   (require 'skk-tutcdef)
-;;   (require 'skk-tutcode)
-;;   ;; your customizations...
-;;   (setq skk-rom-kana-rule-list
-;;	 '(...) ))
-
+;;(defadvice skk-mode (around my-ad activate)
+;;  (cond (skk-use-tutcode
+;;	 (load-library "skk-tutcdef")
+;;       ;; your customizations...
+;;       (setq skk-rom-kana-rule-list
+;;	     '(...) ))
+;;	 (require 'skk-tutcode)
+;;	 (if skk-mode-invoked
+;;	      (let (skk-mode-invoked) ad-do-it)
+;;	   ad-do-it ))
+;;	(t
+;;	 (if skk-mode-invoked
+;;	     (progn
+;;	       (load-library "skk-def")
+;;	       (let (skk-mode-invoked) ad-do-it) )
+;;	   ad-do-it ))))
+;;
 ;;; Code:
 (eval-when-compile (require 'skk))
 
