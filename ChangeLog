@@ -1,3 +1,15 @@
+2001-07-22  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/FAQ.txt ([Q.] 最新のバージョンは?): Updated.
+	([Q.] SKK はどのバージョンの Emacs で使えますか?): Ditto.
+	([Q.] 最新版の SKK はどこから入手できますか?): Ditto.
+	([Q.] 開発版の SKK は何故、`Daredevil SKK' などと言う名がついてい
+	るのですか?): Ditto.
+	
+	* skk-vars.el (skk-use-face): Set t when emacs-major-version is
+	more than 21.
+	(skk-tut-use-face): Set value of `skk-use-face'.
+
 2001-07-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/PROPOSAL (分割したファイルに必須の記述): Updated.
@@ -43,8 +55,6 @@
 
 	* READMEs/FAQ.txt ([Q.] SKK はどんなオペレーティングシステムで使え
 	ますか?): Updated.
-	([Q.] 開発版の SKK は何故、`Daredevil' などと言う branch 名がついているのですか？):
-	Change section name to `[Q.] 開発版の SKK は何故、`Daredevil SKK' などと言う名がついているのですか?'
 	([Q.] APEL に依存せずに SKK だけで済むように開発してもらえませんか?):
 	Updated.
 
@@ -3610,8 +3620,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.314 2001/07/20 05:49:59 minakaji Exp $
-Last Modified: $Date: 2001/07/20 05:49:59 $
+Version: $Id: ChangeLog,v 1.315 2001/07/21 23:25:28 minakaji Exp $
+Last Modified: $Date: 2001/07/21 23:25:28 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

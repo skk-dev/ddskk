@@ -1,8 +1,8 @@
 
 -*- outline -*-
 
-             $Date: 2001/07/20 05:49:59 $
-	     $Id: FAQ.txt,v 1.13 2001/07/20 05:49:59 minakaji Exp $
+             $Date: 2001/07/21 23:25:28 $
+	     $Id: FAQ.txt,v 1.14 2001/07/21 23:25:28 minakaji Exp $
 
 $B$3$l$O(B SKK $B$KBP$9$k$h$/$"$k<ALd$H!"$=$l$KBP$9$k2sEz=8$G$9!#(B
 
@@ -41,7 +41,28 @@
 
 ** [Q.] $B:G?7$N%P!<%8%g%s$O(B?
 
-$B8=:_!"3+H/HG$N:G?7HG$O(B Daredevil SKK 11.x$B!"0BDjHG$O(B SKK 10.6x $B$G$9!#(B
+$B8=:_!"3+H/HG$N:G?7HG$O(B Daredevil SKK ($B0J2<!V(BDDSKK$B!W$H$$$$$^$9(B) 11.x $B$G(B
+$B$9!#(B
+
+$B0BDjHG$H$7$F3+H/$5$l$F$$$?(B SKK 10.x $B$O!"(B10.62a $B$r:G8e$K3+H/$,Cf;_$5$l(B
+$B$F$$$^$9$N$G!"8=:_$G$OI,$:$7$b(B SKK 10.x $B$NJ}$,0BDj$7$F$$$k$o$1$G$O$"$j(B
+$B$^$;$s(B ($B$=$j$c8O$lEY$O(B DDSKK 11.x $B$h$j$b(B SKK 10.x $B$NJ}$,>e$G$9$,(B...)$B!#(B
+
+DDSKK 11.x $B$N3+H/$O(B cvs $B$G9T$J$o$l!"F|?J7nJb$G?J$s$G$$$^$9!#(Bcvs $B>e$N%=!<(B
+$B%9(B (repositry) $B$,>o$K:G?7$G$9!#(B
+
+$B$^$?!"(Bhttp://openlab.ring.gr.jp/skk/maintrunk/ $B$K$O(B 3 $B<oN`$N%"!<%+%$%V(B
+$B$,$"$j$^$9!#(B
+
+(1)SKK 10.x $B$N:G=*HG$G$"$k(B skk10.62a.tar.*, 
+(2)DDSKK $B$N(B official release $BHG$G$"$k(B ddskk11.x.tar.*,
+(3)cvs $B$N%9%J%C%W%7%g%C%H$r(B 1 $B=54VKh$K8G$a$?(B ddskk[date].tar.* ([date]
+   $B$K$O(B `20010715' $B$N$h$&$JF|IU$,F~$j$^$9(B)
+
+SKK 10.x $B$H(B DDSKK 11.x $B$H$G$O!"$$$/$D$+$NJQ?tL>$,JQ99$K$J$k$J$I!"<e43(B
+$B;EMM$N0[$J$kE@$,$"$j$^$9$,!"(BDDSKK 11.x $B$O>o$KJ]<i$5$l$F$$$^$9!#$"$J$?(B
+$B$,IaDL$N%f!<%6$G$"$l$P!">e5-(B(2)$B$N%"!<%+%$%V$r<hF@$5$l$k$N$,NI$$$G$7$g(B
+$B$&!#(B
 
 ** [Q.] SKK $B$O%7%s%W%k$J$N$,D9=j$@$C$?$N$G$O(B? $B?'!9;H$o$J$$5!G=$,$"$j2a$.$k$h$&$J(B...
 
@@ -57,7 +78,7 @@
 
 ** [Q.] SKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?
 
-SKK 11 $B$K4X$7$F$O(B
+Daredevil SKK 11 $B$K4X$7$F$O(B
 
  Emacs 19.28 $B0J9_(B $B$r4p$H$7$?(B Mule 2.3
  Emacs 20.2 $B0J9_(B
@@ -104,6 +125,9 @@ Emacs 20 $B$K$O(B KKC $B$H$$$&%W%m%0%i%`$,IUB0$7!"(BLeim $B$G$O(B KKC $B$
 $B!V(BDaredevil $B$J$s$H$+!W$G!"$=$NFbMF$O!V$H$K$+$/$d$C$F$_$h$&!#$&(B
 $B$.$c$!$!$!!"$d$i$l$?$!!W$H$$$&$b$N$G$7$?!#$3$l$,$"$^$j$K<+J,$N3+H/%]%j(B
 $B%7!<$K9gCW$9$k$N$G!"$3$3$+$i(B `Daredevil' $B$NL>$r$$$?$@$$$?$N$G$"$j$^$9!#(B
+
+$B$J$*!"(BSKK Openlab $B$G3+H/!"%j%j!<%9$5$l$k(B SKK $B$O!"(B`Daredevil SKK' $B$H8F(B
+$B$P$l!"$=$NN,>N$O(B `DDSKK' $B$G$9!#(B
 
 ** [Q.] APEL $B$K0MB8$;$:$K(B SKK $B$@$1$G:Q$`$h$&$K3+H/$7$F$b$i$($^$;$s$+(B?
 
@@ -164,8 +188,10 @@ SKK abbrev $B%b!<%I$H$$$&$N$O%"%9%-!<J8;z$rMxMQ$7$?JQ49$,$G$-$k%b!<%I$G(B
 http://openlab.ring.gr.jp/skk/cvs-ja.html $B$r$4Mw$N>e!"(BOpenlab $B$N(B CVS
 $B$+$iF~<j$G$-$k$b$N$,:G$b?7$7$$$G$9!#(B
 
-$B:G$b?7$7$/$J$/$FNI$1$l$P!"(Bhttp://openlab.ring.jp/skk/daredevil-ja.html
-$B$b$7$/$O(B http://openlab.ring.jp/skk/maintrunk-ja.html $B$+$i$I$&$>!#(B
+$B:G$b?7$7$/$J$/$FNI$1$l$P!"(Bhttp://openlab.ring.gr.jp/skk/maintrunk $B$+$i(B
+$B$I$&$>!#(B
+
+$B3F%"!<%+%$%V$N<oN`$K$D$$$F$O!"(B`[Q.] $B:G?7$N%P!<%8%g%s$O(B?' $B$r$4Mw2<$5$$!#(B
 
 ** [Q.] SKK $B$rF~<j$7$^$7$?$,!"<-=q$,IU$$$F$$$J$$$N$G$9$,!#(B
 

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.45 2001/07/19 16:50:49 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.46 2001/07/21 23:25:28 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/19 16:50:49 $
+;; Last Modified: $Date: 2001/07/21 23:25:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1119,10 +1119,9 @@ skk.el のロード後 (もしくは skk-load-hook を利用して)、
   :group 'skk-keybinds)
 
 (defcustom skk-use-face (or window-system
-			    ;; 変数名みたいな関数だな...。
-			    ;; XEmacs does not have this funciton...
-			    (fboundp 'frame-face-alist)
-			    (fboundp 'selected-frame))
+			    (fboundp 'selected-frame)
+			    (fboundp 'frame-face-alist) ; XEmacs does not have this.
+			    (> emacs-major-version 20))
   "*Non-nil であれば、Emacs の face の機能を使用して変換表示を行なう。"
   :type 'boolean
   :group 'skk-decoration)
@@ -1982,7 +1981,7 @@ The English version is SKK.tut.E."
       ("English" . (, (concat skk-tut-file ".E")))))
   "*Alist of `(LANGUAGE . TUTORIAL-FILE)' pairs.")
 
-(defcustom skk-tut-use-face t
+(defcustom skk-tut-use-face skk-use-face
   "*Non-nil であれば、チュートリアルで face を利用した表示を行なう。"
   :type 'boolean
   :group 'skk-decoration
