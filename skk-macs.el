@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.63 2001/11/11 07:50:03 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.64 2001/11/13 10:59:26 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/11 07:50:03 $
+;; Last Modified: $Date: 2001/11/13 10:59:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -626,6 +626,7 @@ BUFFER defaults to the current buffer."
 	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana katakana)
+  (skk-setup-keymap)
   (skk-update-modeline (if skk-katakana
 			   'katakana
 			 'hiragana))
@@ -640,6 +641,7 @@ BUFFER defaults to the current buffer."
 	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana nil)
+  (skk-setup-keymap)
   (skk-update-modeline 'latin)
   (skk-cursor-set))
 
@@ -652,6 +654,7 @@ BUFFER defaults to the current buffer."
 	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana nil)
+  (skk-setup-keymap)
   (skk-update-modeline 'jisx0208-latin)
   (skk-cursor-set))
 
@@ -671,6 +674,7 @@ BUFFER defaults to the current buffer."
 	;; sub mode of skk-j-mode.
 	;;skk-katakana nil
 	)
+  (skk-setup-keymap)
   (skk-update-modeline 'abbrev)
   (skk-cursor-set))
 
