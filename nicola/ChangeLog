@@ -1,3 +1,23 @@
+2004-03-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-106-jis.el: Modify keycode 123 -> 211.
+
+	(skk-kanagaki-106-jis-base-rule-list):
+	(skk-106-jis-plain-rule-list):
+
+	Call `skk-nicola-insert' for chars \, |, _, Y, and Z.
+
+	(skk-106-jis-lshift-rule-list):
+	(skk-106-jis-rshift-rule-list):
+
+	Default to the same as skk-106-jis-plain-rule-list.
+
+	* skk-kanagaki-util.el (skk-kanagaki-dakuten): Don't call
+	`caddr'. Call `nth' instead.  Use `skk-unread-event'.
+
+	* skk-nicola.el (skk-nicola-insert-double): Do not consider
+	skk-106-jis explicitly.
+
 2004-03-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-util.el (skk-kanagaki-dakuten): Now works in
