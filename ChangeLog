@@ -3,11 +3,17 @@
 	* skk-macs.el
 	(skk-quote-char-1): Don't use `format'.
 
+	(skk-mode-string-to-indicator): For Emacs 21 -- don't call
+	`propertize' if MODE is `default'.
+
 	* skk.el
 	(skk-quote-char)
 	(skk-quote-semicolon): Use `format'.
 
 	(skk-compose-ignore-word-sub-quote-char): Call `skk-quote-char-1'.
+
+	(skk-make-indicator-alist)
+	(skk-make-indicator-alist-1): Call `skk-mode-string-to-indicator'.
 
 2001-10-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2439,8 +2445,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.482 2001/10/14 01:25:35 czkmt Exp $
-Last Modified: $Date: 2001/10/14 01:25:35 $
+Version: $Id: ChangeLog,v 1.483 2001/10/14 02:03:26 czkmt Exp $
+Last Modified: $Date: 2001/10/14 02:03:26 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
