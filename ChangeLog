@@ -1,3 +1,7 @@
+2000-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	doc/skk.texi (基本的な使用方法): 「ですます」調を採用。
+
 2000-09-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/skk-faq.txt: Update a description about how to get
