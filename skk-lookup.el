@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.11 2001/02/04 05:33:11 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.12 2001/04/10 12:09:43 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/02/04 05:33:11 $
+;; Last Modified: $Date: 2001/04/10 12:09:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -117,7 +117,7 @@
   (require 'skk-num)
   (require 'static))
 
-(static-when (memq skk-emacs-type '(mule5 mule4 mule3 mule2 mule1))
+(static-when (memq skk-emacs-type '(mule4 mule3 mule2 mule1))
   (condition-case nil (require 'bitmap) (error)))
  
 (require 'poe)
