@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.7 2001/09/09 02:34:20 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.8 2001/10/09 12:30:14 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/09/09 02:34:20 $
+;; Last Modified: $Date: 2001/10/09 12:30:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -219,10 +219,7 @@
 	0))))))
 
 (defun skk-annotation-show-as-message (annotation)
-  (if (> skk-henkan-count 3)
-      ;; cannot use echo area, so we should use other window.
-      (skk-annotation-show-buffer annotation)
-    (message (skk-eval-string annotation))))
+  (message "%s" (skk-eval-string annotation)))
 
 (defun skk-annotation-setup ()
   (if (skk-get-last-henkan-datum 'henkan-list)
