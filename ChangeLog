@@ -1,3 +1,9 @@
+2003-07-21  NAKAJIMA Mikio  <minakaji@namazu.org>
+
+	* SKK-MK (SKK_DICTIONARIES): Add `SKK-JISYO.ML'.
+	(SKK-MK-install-elc): Handle `SKK-JISYO.ML'.
+	(SKK-MK-install-package): Ditto.
+
 2003-07-19  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* skk.el (skk-kakutei-initialize): Reuse marker in henkan-point.
@@ -4364,8 +4370,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.769 2003/07/18 21:35:03 minakaji Exp $
-Last Modified: $Date: 2003/07/18 21:35:03 $
+Version: $Id: ChangeLog,v 1.770 2003/07/21 12:29:50 minakaji Exp $
+Last Modified: $Date: 2003/07/21 12:29:50 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

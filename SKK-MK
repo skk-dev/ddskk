@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.123 2003/07/05 08:27:04 minakaji Exp $
-;; Last Modified: $Date: 2003/07/05 08:27:04 $
+;; Version: $Id: SKK-MK,v 1.124 2003/07/21 12:29:50 minakaji Exp $
+;; Last Modified: $Date: 2003/07/21 12:29:50 $
 
 ;;; Commentary:
 
@@ -247,7 +247,7 @@ This version of SKK requires MULE features"))
 			    "skk.xpm")))
 (defvar SKK_DICTIONARIES
   (or (getenv "SKK_DICTIONARIES")
-      '("SKK-JISYO.L" "SKK-JISYO.M" "SKK-JISYO.S"
+      '("SKK-JISYO.L" "SKK-JISYO.ML" "SKK-JISYO.M" "SKK-JISYO.S"
 	"SKK-JISYO.JIS2" "SKK-JISYO.JIS3_4"
 	"SKK-JISYO.pubdic+" "SKK-JISYO.edict"
 	"SKK-JISYO.office.zipcode" "SKK-JISYO.zipcode")))
@@ -590,6 +590,11 @@ This version of SKK requires MULE features"))
 	    (cons "SKK-JISYO.M"
 		  (delete "SKK-JISYO.M"
 			  SKK_DICTIONARIES))))
+    (when (member "SKK-JISYO.ML" SKK_DICTIONARIES)
+      (setq SKK_DICTIONARIES
+	    (cons "SKK-JISYO.ML"
+		  (delete "SKK-JISYO.ML"
+			  SKK_DICTIONARIES))))
     (when (member "SKK-JISYO.L" SKK_DICTIONARIES)
       (setq SKK_DICTIONARIES
 	    (cons "SKK-JISYO.L"
@@ -620,6 +625,7 @@ This version of SKK requires MULE features"))
       ;; already installed dictionary and detect largest one to setup
       ;; skk-setup.el.in.
       (setq dics '("SKK-JISYO.L"
+		   "SKK-JISYO.ML"
 		   "SKK-JISYO.M"
 		   "SKK-JISYO.S"))
       (while (and dics
@@ -790,6 +796,11 @@ This version of SKK requires MULE features"))
       (setq SKK_DICTIONARIES
 	    (cons "SKK-JISYO.M" (delete "SKK-JISYO.M"
 					SKK_DICTIONARIES))))
+    (when (member "SKK-JISYO.ML" SKK_DICTIONARIES)
+      (setq SKK_DICTIONARIES
+	    (cons "SKK-JISYO.ML"
+		  (delete "SKK-JISYO.ML"
+			  SKK_DICTIONARIES))))
     (when (member "SKK-JISYO.L" SKK_DICTIONARIES)
       (setq SKK_DICTIONARIES
 	    (cons "SKK-JISYO.L" (delete "SKK-JISYO.L"
@@ -818,6 +829,7 @@ This version of SKK requires MULE features"))
       ;; already installed dictionary and detect largest one to setup
       ;; skk-setup.el.in.
       (setq dics '("SKK-JISYO.L"
+		   "SKK-JISYO.ML"
 		   "SKK-JISYO.M"
 		   "SKK-JISYO.S"))
       (while (and dics
