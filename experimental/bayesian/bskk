@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.10 2005/02/01 02:31:09 skk-cvs Exp $
+## Version: $Id: bskk,v 1.11 2005/02/17 08:07:10 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2005/02/01 02:31:09 $
+## Last Modified: $Date: 2005/02/17 08:07:10 $
 
 ## This file is part of Daredevil SKK.
 
@@ -59,45 +59,6 @@ def check_type( variable, *types )
   raise TypeError.new("need #{type.to_s} but #{variable.class.to_s}")
 end
 
-## String を share する。
-class IString
-  @@str2instance = Hash.new
-
-  ## インスタンスの作成は、IString.new ではなく、
-  ## IString.get_instance を用いる。
-  def initialize( str )
-    check_type( str, String )
-    @str = str.clone
-    @str.freeze
-    @@str2instance[str] = self
-  end
-
-  public
-  def self.get_instance( str )
-    obj = @@str2instance[str]
-    if obj == nil
-      obj = IString.new( str )
-    end
-    return obj
-  end
-
-  def to_s
-    return @str
-  end
-
-  def hash
-    @str.hash
-  end
-
-  def eql?(other)
-    if other.is_a?( IString )
-      return @str.eql?( other.to_s )
-    else
-      return false
-    end
-  end
-end
-
 class Distribution
   public
   # obj.class == String -> e.g. obj="着#1/着#2/"
@@ -111,7 +72,7 @@ class Distribution
       line = obj
       line.split("/").each{ |word_count|
         if word_count =~ word_count_regexp
-          word = IString.get_instance( $1 )
+          word = $1
           count = $2.to_i
           @word2count[word] = count
           @total_count += count
@@ -133,12 +94,12 @@ class Distribution
   end
   
   def get_prob( word )
-    check_type( word, IString )
+    check_type( word, String )
     return @word2count[word].to_f / @total_count.to_f
   end
   
   def increment( word )
-    check_type( word, IString )
+    check_type( word, String )
     @word2count[word] += 1
     @total_count += 1
   end
@@ -200,7 +161,7 @@ class DB
         elsif line =~ regexp_index
           index = $1.to_i
         elsif line =~ regexp_prefix
-          prefix_char = IString.get_instance( $1 )
+          prefix_char = $1
         else
           STDERR.puts(";; ignore invlid line=#{line}.")
           next
@@ -218,7 +179,7 @@ class DB
     check_type( word_str, String )
     check_type( prefix_list, Array )
     @dirty = true
-    word = IString.get_instance( word_str )
+    word = word_str
     if prefix_list.size > @i2prefix2dst.size
       @i2prefix2dst.fill(nil, @i2prefix2dst.size..prefix_list.size )
     end
@@ -228,7 +189,7 @@ class DB
         prefix2dst = Hash.new
         @i2prefix2dst[i] = prefix2dst
       end
-      prefix_char = IString.get_instance( prefix_str )
+      prefix_char = prefix_str
       dst = prefix2dst[prefix_char]
       if dst == nil
         dst = Distribution.new( nil )
@@ -248,13 +209,13 @@ class DB
     size = entries.size
     sorted_entries = Array.new( size )
     entries.each_with_index{ |entry, i|
-      sorted_entries[i] = [entry, 0.0, IString.get_instance(entry)]
+      sorted_entries[i] = [entry, 0.0, entry]
     }
     weights = weights( prefix_list.size )
     prefix_list.each_with_index{ |prefix, p_i|
       prefix2dst = @i2prefix2dst[p_i]
       if prefix2dst == nil; next; end
-      dst = prefix2dst[IString.get_instance(prefix)]
+      dst = prefix2dst[prefix]
       if dst == nil; next; end
       sorted_entries.each_with_index{ |entry, e_i|
         prob = dst.get_prob( entry[2] )
@@ -293,6 +254,7 @@ class DB
       f.close
       lock.close
       debug_log( "save...done; " + Time.now.to_s )
+      @dirty = false
       return true
     else
       lock.close
@@ -522,7 +484,7 @@ def mode_serve( history_file, server, port )
         socket.close
         exit
       else    ## child
-        v_err_puts( "fork to be a deamon. PID=#{Process.pid}." )
+        STDERR.puts( "fork to be a deamon. PID=#{Process.pid}." )
         while true
           s = socket.accept
           v_err_puts( "accept a new client." )
