@@ -4,11 +4,11 @@
 
 	* skk-e21.el (tooltip-show-at-point): New function.
 
-	* skk-vars.el (skk-show-japanese-menu): New user option.
+	* skk-vars.el (skk-show-tooltip): New user option.
 
 	* skk.el (skk-henkan-show-candidate-subr): Under Emacs 21, Call
 	`tooltip-show-at-point' for showing candidates if
-	skk-show-japanese-menu is non-nil.
+	skk-show-tooltip is non-nil.
 
 2004-04-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -4564,8 +4564,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.794 2004/04/03 17:08:06 czkmt Exp $
-Last Modified: $Date: 2004/04/03 17:08:06 $
+Version: $Id: ChangeLog,v 1.795 2004/04/04 00:42:28 czkmt Exp $
+Last Modified: $Date: 2004/04/04 00:42:28 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
