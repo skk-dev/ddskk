@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.6 2000/11/06 11:43:57 minakaji Exp $
+;; Version: $Id: skk-annotation.el,v 1.7 2000/11/08 14:44:43 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2000/11/06 11:43:57 $
+;; Last Modified: $Date: 2000/11/08 14:44:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -158,7 +158,7 @@
 (defsubst skk-annotation-insert (annotation)
   (with-current-buffer (get-buffer-create skk-annotation-buffer)
     (skk-annotation-erase-buffer)
-    (insert (eval annotation))))
+    (insert (skk-eval-string annotation))))
 
 (defsubst skk-annotation-quote-1 (word)
   (concat "(concat \""
@@ -186,7 +186,7 @@
 (defadvice skk-henkan-in-minibuff (around skk-annotation-ad activate)
   (save-match-data
     (let ((string ad-do-it))
-      (if (string-match ";" string)
+      (if (and string (string-match ";" string))
 	  (skk-annotation-quote-1 string)
 	string))))
 
@@ -215,7 +215,7 @@
   (if (> skk-henkan-count 3)
       ;; cannot use echo area, so we should use other window.
       (skk-annotation-show-buffer annotation)
-    (message annotation)))
+    (message (skk-eval-string annotation))))
 
 (defun skk-annotation-setup ()
   (if (skk-get-last-henkan-datum 'henkan-list)
@@ -255,14 +255,19 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (interactive "P")
   (save-match-data
     (skk-kakutei)
-    (let ((last-henkan-data skk-last-henkan-data)
-	  (plist (append
-		  (static-if (eq skk-emacs-type 'xemacs)
-		      '(;; front-sticky t
-			end-open t)
-		    '(front-sticky t rear-nonsticky t))
-		  '(intangible t read-only t))))
-      (skk-annotation-setup)
+    (skk-annotation-setup)
+    (let* (;;(last-henkan-data skk-last-henkan-data)
+	   (plist (append
+		   '(intangible t read-only t)
+		   (static-if (eq skk-emacs-type 'xemacs)
+		       '(end-open t)
+		     '(front-sticky t rear-nonsticky t))))
+	   (wholestring (car (nth 2 skk-annotation-annotated-word)))
+	   (realword (and wholestring
+			  (string-match ";\\**" wholestring)
+			  (substring wholestring 0 (match-beginning 0))))
+	   (annotation (and realword (string-match ";\\**" wholestring)
+			    (substring wholestring (match-end 0)))))
       (setq skk-annotation-original-window-configuration
 	    (current-window-configuration))
       (delete-other-windows)
@@ -273,16 +278,11 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	    skk-annotation-mode t)
       (skk-annotation-erase-buffer)
       (insert
-       (format ";; Add annotation to word `%s' (this line will not be added as an annotation.)\n"
-	       (car (nth 2 skk-annotation-annotated-word))))
+       (format ";; Add annotation to word `%s' (this line will not be added as a part of annotation.)\n"
+	       realword))
       (static-if (fboundp 'set-text-properties)
 	  (add-text-properties (point-min) (1- (point)) plist))
-      (if (and (not no-previous-annotation)
-	       (string-match
-		";\\**"
-		(car (nth 2 skk-annotation-annotated-word))))
-	  (insert (substring (car (nth 2 skk-annotation-annotated-word))
-			     (match-end 0))))
+      (if (and (not no-previous-annotation) annotation) (insert annotation))
       (run-hooks 'skk-annotation-mode-hook)
       (message "%s to save edits, %s to just kill this buffer"
 	       (mapconcat 'key-description
