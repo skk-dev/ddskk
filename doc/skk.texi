@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.96 2002/02/09 06:16:58 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.97 2002/02/20 08:39:57 obata Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2002/02/09 06:16:58 $
+@c  Last Modified: $Date: 2002/02/20 08:39:57 $
 @c
 @set EDITION 1.9
 @set SKK-VERSION 12.1.0
-@set UPDATED $Date: 2002/02/09 06:16:58 $
+@set UPDATED $Date: 2002/02/20 08:39:57 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5784,12 +5784,12 @@ quit したり) すると自動的に閉じられます。}に表示します。
 @code{skk-annotation-function}に表示したいアノテーションを
  non-nil と判定する関数を書きます。
 
-@group
 @lisp
+@group
 (setq skk-annotation-function
         (lambda (annotation) (eq (aref annotation 0) ?*)))
-@end lisp
 @end group
+@end lisp
 
 上記の例では、アノテーションの先頭が @code{*} で始まる「ユーザアノテーショ
 ン」の場合に t を返すので、ユーザアノテーションだけを表示します。
