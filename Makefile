@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.30 2000/10/29 21:38:03 minakaji Exp $
-# Last Modified: $Date: 2000/10/29 21:38:03 $
+# Version: $Id: Makefile,v 1.31 2000/10/29 21:45:06 minakaji Exp $
+# Last Modified: $Date: 2000/10/29 21:45:06 $
 
 VERSION = 10.62
 
@@ -43,20 +43,20 @@ clean:
 
 tar: clean
 	cd .. ;\
-	$(RM) skk-10.{60,61,62,63} skk-$(VERSION) skk-snapshot skk-$(VERSION).tar.gz skk-$(VERSION).tar.bz2 ;\
-	$(RM) skk-$(VERSION) ;\
-	ln -sf main skk-$(VERSION) ;\
-	$(TAR) cvpf skk-$(VERSION).tar --exclude-from=skk-$(VERSION)/skk.ex --dereference skk-$(VERSION) ;\
-	$(BZIP2) -cf skk-$(VERSION).tar > skk-$(VERSION).tar.bz2 ;\
-	$(GZIP) -cf skk-$(VERSION).tar > skk-$(VERSION).tar.gz ;\
-	$(RM) skk-$(VERSION).tar ;\
-	$(RM) skk-$(VERSION) ;\
-	$(MD5) skk-$(VERSION).tar.bz2 >skk-$(VERSION).tar.bz2.md5 ;\
-	$(MD5) skk-$(VERSION).tar.gz >skk-$(VERSION).tar.gz.md5
+	$(RM) skk-10.{60,61,62,63} skk$(VERSION) skk-snapshot skk$(VERSION).tar.gz skk$(VERSION).tar.bz2 ;\
+	$(RM) skk$(VERSION) ;\
+	ln -sf main skk$(VERSION) ;\
+	$(TAR) cvpf skk$(VERSION).tar --exclude-from=skk$(VERSION)/skk.ex --dereference skk$(VERSION) ;\
+	$(BZIP2) -cf skk$(VERSION).tar > skk$(VERSION).tar.bz2 ;\
+	$(GZIP) -cf skk$(VERSION).tar > skk$(VERSION).tar.gz ;\
+	$(RM) skk$(VERSION).tar ;\
+	$(RM) skk$(VERSION) ;\
+	$(MD5) skk$(VERSION).tar.bz2 >skk$(VERSION).tar.bz2.md5 ;\
+	$(MD5) skk$(VERSION).tar.gz >skk$(VERSION).tar.gz.md5
 
 snapshot: clean
 	cd .. ;\
-	$(RM) skk-11.{60,61,62,63} skk-$(VERSION) skk-snapshot $(SNAPBASE).tar.gz $(SNAPBASE).tar.bz2 ;\
+	$(RM) skk-11.{60,61,62,63} skk$(VERSION) skk-snapshot $(SNAPBASE).tar.gz $(SNAPBASE).tar.bz2 ;\
 	$(RM) $(SNAPBASE) ;\
 	ln -sf main $(SNAPBASE) ;\
 	$(TAR) cvpf $(SNAPBASE).tar --exclude-from=$(SNAPBASE)/skk.ex --dereference $(SNAPBASE);\
