@@ -1,12 +1,12 @@
-;;; skk-vars.el --- variables and constants commonly used in SKK
+;;; skk-vars.el --- variables and constants commonly used in SKK -*- coding: iso-2022-jp-2 -*-
 
-;; Copyright (C) 1999, 2000, 2001 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999, 2000, 2001, 2002 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.96 2002/01/23 14:04:51 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.97 2002/02/02 12:51:53 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/23 14:04:51 $
+;; Last Modified: $Date: 2002/02/02 12:51:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1649,7 +1649,7 @@ cdr $B$O859fI=5-$N(B string $B$+$i$J$k%j%9%H!#(B"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Ad(Brz")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M.ANdrz")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
@@ -2849,12 +2849,15 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; `$B%=!Z(Bsol $B%$%?%j%"![(B'
     ;; `$B%"%j%9%H%F%l%9!>$7$e$.!Z!=<g5A![(B'
     ;; `$B%"!<%H%^%s!Z(B_tman $B[p![(B'; $BL$BP1~!#30;z$r4^$`8uJd!#(B_ $B$O30;z(B
+    ;; "$B!{8W$N0R$r<Z$k8Q(B"
     ("KOUJIEN" exact exact prefix t
      ("^\\([^$B!Z![(B]+\\)$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\([^$B!Z![(B]+\\)$B![(B$\\|\
-$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" .
+$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|\
+^$B!{(B\\(.+\\)$" .
       (cond ((match-beginning 2) '(1 2))
 	    ((match-beginning 3) 3)
-	    ((match-beginning 4) 4)))
+	    ((match-beginning 4) 4)
+	    ((match-beginning 5) 5)))
      "$B!&(B"
      ;;"$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$"
      nil)
