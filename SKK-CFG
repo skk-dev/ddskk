@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.12 2000/10/30 22:10:12 minakaji Exp $
-;; Last Modified: $Date: 2000/10/30 22:10:12 $
+;; Version: $Id: SKK-CFG,v 1.13 2000/11/19 01:20:36 minakaji Exp $
+;; Last Modified: $Date: 2000/11/19 01:20:36 $
 
 ;;; Commentary:
 
@@ -37,131 +37,110 @@
 
 ;;; Explanation:
 
-;; SKK-MK-cleanup-trouble-makers,
 ;; SKK-MK-debugging:
-;;
-;; この 2 つについては、SKK-MK の中のドキュメントを見てね。
+;;  
 
 ;; APEL_SPECIFIC_LISPDIR:
-;;
-;; APEL がインストールされているディレクトリ。
-;; APEL が APEL の提供する標準のインストール方法によりインストールされている場
-;; 合は、指定の必要がない。
-;; このディレクトリが指定されると SKK_MODULES のコンパイルの際に load-path が通
-;; される。
+;;   APEL がインストールされているディレクトリ。
+;;   APEL が APEL の提供する標準のインストール方法によりインストールされている場
+;;   合は、指定の必要がない。
+;;   このディレクトリが指定されると SKK_MODULES のコンパイルの際に load-path が通
+;;   される。
 
 ;; PREFIX:
-;;
-;; 全てのファイルがインストールされるディレクトリの root directory。
+;;   全てのファイルがインストールされるディレクトリの root directory。
 
 ;; LISPDIR:
-;;
-;; SKK_MODULES がインストールされるディレクトリの root directory。
+;;   SKK_MODULES がインストールされるディレクトリの root directory。
 
 ;; VERSION_SPECIFIC_LISPDIR:
+;;   Emacs の version specific な Lisp program がインストールされているディレク
+;;   トリ。このディレクトリが指定されると SKK_MODULES のコンパイルの際に 
+;;   load-path が通される。APEL が APEL の提供する標準のインストール方法によりイ
+;;   ンストールされている場合は、指定の必要がない。
+
+;; ADDITIONAL_LISPDIR:
+;;   例えば skk-lookup.el をインストールする際は、インストール時に lookup.el を
+;;   require するので、lookup がインストールされているディレクトリがディフォルト
+;;   で (emacs が -q オプション付きで起動されたとき) load-path に加えられていない
+;;   場合は、そのディレクトリを明示的に load-path に追加する必要がある。その際、
+;;   この変数を利用して下記のように設定する。
 ;;
-;; Emacs の version specific な Lisp program がインストールされているディレクト
-;; リ。このディレクトリが指定されると SKK_MODULES のコンパイルの際に load-path
-;; が通される。APEL が APEL の提供する標準のインストール方法によりインストール
-;; されている場合は、指定の必要がない (skk-lookup.el など外部プログラムを
-;; require する必要があるときは、この変数を利用して
+;;   (setq ADDITIONAL_LISPDIR "/usr/local/lib/xemacs/site-lisp/lookup")
 ;;
-;;   (setq VERSION_SPECIFIC_LISPDIR "/usr/local/lib/xemacs/site-lisp/lookup")
-;;
-;; などとしても良い。
 
 ;; EMU_PREFIX:
-;;
-;; APEL の emu モジュールがインストールされているサブディレクトリの名前。APEL
-;; をインストールするときに決定される値と同じ値を返す必要があるので、不用意にい
-;; じらないこと。
+;;   APEL の emu モジュールがインストールされているサブディレクトリの名前。APEL
+;;   をインストールするときに決定される値と同じ値を返す必要があるので、不用意に
+;;   いじらないこと。
 
 ;; SKK_DATADIR:
-;;
-;; チュートリアルのインストール先。
+;;   チュートリアルのインストール先。
 
 ;; SKK_INFODIR:
-;;
-;; インフォのインストール先。
+;;   インフォのインストール先。
 
 ;; SKK_LISPDIR:
-;;
-;; SKK の Emacs Lisp のインストール先。
+;;   SKK の Emacs Lisp のインストール先。
 
 ;; PACKAGEDIR:
-;;
-;; XEmacs で make install-package するときだけ関係する。
+;;   XEmacs で make install-package するときだけ関係する。
 
 
 ;;; Example:
-
-;; (setq SKK-MK-cleanup-trouble-makers t)
-;; (setq SKK-MK-debugging t)
-
+;; (setq SKK-MK-debugging nil)
 
 ;;; GNU Emacs 20 用の設定例:
-
 ;; (setq APEL_SPECIFIC_LISPDIR "/usr/local/share/emacs/site-lisp/apel")
 ;; (setq LISPDIR "/usr/local/share/emacs/site-lisp")
 ;; (setq VERSION_SPECIFIC_LISPDIR "/usr/local/share/emacs/20.7/site-lisp")
 ;; (setq EMU_PREFIX "emu")
-;;
 ;; (setq SKK_DATADIR "/usr/local/share/skk")
 ;; (setq SKK_INFODIR "/usr/local/info")
 ;; (setq SKK_LISPDIR "/usr/local/share/emacs/site-lisp/skk")
 
 
 ;;; Meadow 1.10 用の設定例:
-
 ;; (setq APEL_SPECIFIC_LISPDIR "c:/Meadow/site-lisp/apel")
 ;; (setq LISPDIR "c:/Meadow/site-lisp")
 ;; (setq VERSION_SPECIFIC_LISPDIR "c:/Meadow/1.10/site-lisp")
 ;; (setq EMU_PREFIX "emu")
-;;
 ;; (setq SKK_DATADIR "c:/Meadow/1.10/share/skk")
 ;; (setq SKK_INFODIR "c:/Meadow/1.10/info")
 ;; (setq SKK_LISPDIR "c:/Meadow/site-lisp/skk")
 
 
 ;;; Mule 2.3 based on Emacs 19.34  用の設定例:
-
 ;; (setq APEL_SPECIFIC_LISPDIR "/usr/local/share/mule/site-lisp/apel")
 ;; (setq LISPDIR "/usr/local/share/mule/site-lisp")
 ;; (setq VERSION_SPECIFIC_LISPDIR "/usr/local/share/mule/19.34/site-lisp")
 ;; (setq EMU_PREFIX "")
-;;
 ;; (setq SKK_DATADIR "/usr/local/share/skk")
 ;; (setq SKK_INFODIR "/usr/local/info")
 ;; (setq SKK_LISPDIR "/usr/local/share/mule/site-lisp/skk")
 
 
 ;;; Mule 2.3 based on Emacs 19.28 用の設定例:
-
 ;; (setq APEL_SPECIFIC_LISPDIR "/usr/local/lib/mule/site-lisp/apel")
 ;; (setq LISPDIR "/usr/local/lib/mule/site-lisp")
 ;; (setq VERSION_SPECIFIC_LISPDIR "/usr/local/lib/mule/site-lisp")
 ;; (setq EMU_PREFIX "")
-;;
 ;; (setq SKK_DATADIR "/usr/local/share/skk")
 ;; (setq SKK_INFODIR "/usr/local/info")
 ;; (setq SKK_LISPDIR "/usr/local/lib/mule/site-lisp/skk")
 
 
 ;; Mule for Windows version 1.22 用の設定例:
-
 ;; (setq APEL_SPECIFIC_LISPDIR "c:/mule2/site-lisp/apel")
 ;; (setq LISPDIR "c:/mule2/site-lisp")
 ;; (setq VERSION_SPECIFIC_LISPDIR "c:/mule2/site-lisp")
 ;; (setq EMU_PREFIX "")
-;;
 ;; (setq SKK_DATADIR "c:/mule2/share/skk")
 ;; (setq SKK_INFODIR "c:/mule2/info")
 ;; (setq SKK_LISPDIR "c:/mule2/site-lisp/skk")
 
 
 ;;; XEmacs 21 用の設定例
-
 ;; (setq PACKAGEDIR "/usr/local/lib/xemacs/site-packages")
-
 
 ;;; SKK-CFG ends here

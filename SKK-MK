@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.51 2000/11/15 15:59:47 czkmt Exp $
-;; Last Modified: $Date: 2000/11/15 15:59:47 $
+;; Version: $Id: SKK-MK,v 1.52 2000/11/19 01:20:36 minakaji Exp $
+;; Last Modified: $Date: 2000/11/19 01:20:36 $
 
 ;; Commentary
 ;;
@@ -51,8 +51,10 @@
 (defvar LISPDIR
   (let ((dir (expand-file-name
 	      (or (getenv "LISPDIR")
-		  (cond ((memq system-type '(ms-dos windows-nt))
+		  (cond ((eq system-type 'windows-nt)
 			 (expand-file-name "site-lisp" PREFIX))
+			((eq system-type 'ms-dos)
+			 (expand-file-name "site-lis" PREFIX))
 			(t
 			 (install-detect-elisp-directory PREFIX)))))))
     (if (file-exists-p dir)
@@ -72,6 +74,7 @@
     (if (file-exists-p dir) dir)))
 (defvar APEL_SPECIFIC_LISPDIR (let ((dir (getenv "APEL_SPECIFIC_LISPDIR")))
 				(and dir (file-exists-p dir) (expand-file-name dir))))
+(defvar ADDITIONAL_LISPDIR nil)
 
 ;; in case of defining these variables in SKK-CFG.
 (and APEL_SPECIFIC_LISPDIR
@@ -141,6 +144,11 @@
      (file-exists-p VERSION_SPECIFIC_LISPDIR)
      (setq load-path (tinyinstall-add-load-path
 		      (expand-file-name VERSION_SPECIFIC_LISPDIR) load-path)))
+
+(and ADDITIONAL_LISPDIR
+     (file-exists-p ADDITIONAL_LISPDIR)
+     (setq load-path (tinyinstall-add-load-path
+		      (expand-file-name ADDITIONAL_LISPDIR) load-path)))
 
 (if SKK-MK-debugging
     (progn
@@ -231,6 +239,18 @@
 	;;
 	list)))
 
+;; 消さなくともインストール上は問題がないが、what-where インストールされない
+;; プログラムが表示されるのを防ぐため、トップディレクトリにないプログラムは
+;; 消しておく。
+(let ((modules SKK_MODULES))
+  (while modules
+    (or 
+     ;; skk-autoloads.el は自動生成されるのでまだ存在しない。
+     (eq (car modules) 'skk-autoloads)
+     (file-exists-p (concat (symbol-name (car modules)) ".el"))
+     (setq SKK_MODULES (delq (car modules) SKK_MODULES)))
+    (setq modules (cdr modules))))
+
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
 (defvar SKK_DATADIR
   (or (getenv "SKK_DATADIR")
@@ -242,7 +262,8 @@
       (expand-file-name "info" PREFIX)))
 (defvar SKK_LISPDIR
   (or (getenv "SKK_LISPDIR")
-      (and LISPDIR (expand-file-name SKK_PREFIX LISPDIR))
+      (and VERSION_SPECIFIC_LISPDIR
+	   (expand-file-name SKK_PREFIX VERSION_SPECIFIC_LISPDIR))
       (and PREFIX 
            (expand-file-name SKK_PREFIX 
                              (install-detect-elisp-directory PREFIX)))))

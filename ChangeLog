@@ -1,3 +1,24 @@
+2000-11-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/FAQ.txt ([Q.] SKK の検索で、市販の CD-ROM 辞書やネットワー
+	クの辞書サーバが利用できますか？): Replace
+	VERSION_SPECIFIC_LISPDIR with ADDITIONAL_LISPDIR.
+
+	* experimental/skk-annotation.el (skk-annotation-quote): Bug
+	fixed.
+
+	* SKK-CFG: Add documents about ADDITIONAL_LISPDIR.
+
+	* SKK-MK: Removed modules which do not exist in top directory from
+	SKK_MODULES.
+	(ADDITIONAL_LISPDIR): New variable.
+	(LISPDIR): Sync up with VERSION_SPECIFIC_LISPDIR in relation to
+	the part which detects directory on ms-dos system.
+	(SKK_LISPDIR): Refer to VERSION_SPECIFIC_LISPDIR instead of
+	LISPDIR.
+
+	* skk-macs.el (skk-detect-emacs): Removed.
+
 2000-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* install-info.el (install-info-skip-blank-lines): New function.
@@ -2341,8 +2362,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.150 2000/11/18 19:07:22 czkmt Exp $
-Last Modified: $Date: 2000/11/18 19:07:22 $
+Version: $Id: ChangeLog,v 1.151 2000/11/19 01:20:36 minakaji Exp $
+Last Modified: $Date: 2000/11/19 01:20:36 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

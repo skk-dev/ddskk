@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.8 2000/11/15 09:39:16 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.9 2000/11/19 01:20:37 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/15 09:39:16 $
+;; Last Modified: $Date: 2000/11/19 01:20:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -46,24 +46,7 @@
 	  ((and (boundp 'mule-version)
 		(string< "2.0" mule-version) 'mule2))
 	  ((and (boundp 'mule-version)
-		(string< "1.0" mule-version) 'mule1))))
-  (defmacro skk-detect-emacs ()
-    (` (or (eq (cond ((featurep 'xemacs) 'xemacs)
-		     ((and (boundp 'NEMACS)) 'nemacs)
-		     ((and (boundp 'mule-version)
-			   (string< "5.0" mule-version) 'mule5))
-		     ((and (boundp 'mule-version)
-			   (string< "4.0" mule-version) 'mule4))
-		     ((and (boundp 'mule-version)
-			   (string< "3.0" mule-version) 'mule3))
-		     ((and (boundp 'mule-version)
-			   (string< "2.0" mule-version) 'mule2))
-		     ((and (boundp 'mule-version)
-			   (string< "1.0" mule-version) 'mule1)))
-	       (quote (, skk-emacs-type)))
-	   (error "This SKK was byte compiled by different type of Emacs!")))))
-
-(skk-detect-emacs)
+		(string< "1.0" mule-version) 'mule1)))))
 
 (defmacro skk-defadvice (function &rest everything-else)
   (let ((origfunc (and (fboundp function)
