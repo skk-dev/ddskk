@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.4 2001/04/13 22:30:54 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.5 2001/04/13 22:50:43 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/04/13 22:30:54 $
+;; Last Modified: $Date: 2001/04/13 22:50:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -109,8 +109,6 @@ cdr は URL (検索文字列を %s で表わす),
 
 ;;; system internal variables and constants.
 ;; constants.
-(defconst skk-w3m-working-buffer " *skk-w3m*")
-
 ;; global variables
 
 ;;;###autoload
@@ -122,7 +120,7 @@ cdr は URL (検索文字列を %s で表わす),
 	 (post-process (nth 3 info))
 	 (sex (nth 4 info))
 	 (process-key (nth 5 info))
-	 (henkan-key skk-henkan-key))	; buffer local variable...
+	 (henkan-key skk-henkan-key))
     (condition-case nil
 	(save-excursion
 	  (if (and info
@@ -130,10 +128,8 @@ cdr は URL (検索文字列を %s で表わす),
 		       (not (eval sex)))) ; search this time.
 	      (save-window-excursion
 		(if process-key
-		   ; must proceed before entering into another buffer.
 		    (setq henkan-key (funcall process-key henkan-key)))
-		(set-buffer (get-buffer-create skk-w3m-working-buffer))
-		(w3m-search search-engine henkan-key)
+		(w3m-search search-engine henkan-key) ; trip to other buffer...
 		(if post-process (funcall post-process henkan-key)))))
       (error)))) ; catch network unreachable error or something like that.
 

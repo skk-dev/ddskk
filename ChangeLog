@@ -8,6 +8,8 @@
 	(skk-w3m-get-candidates-from-goo-daijirin): Use optional argument
 	split of `skk-w3m-get-candidates'.
 	(skk-w3m-get-candidates-from-goo-exceed-eiwa): New function.
+	(skk-w3m-working-buffer): Removed.
+	(skk-w3m-search): Do not set to `skk-w3m-working-buffer'.
 
 2001-04-13  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -3255,8 +3257,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.274 2001/04/13 22:30:54 minakaji Exp $
-Last Modified: $Date: 2001/04/13 22:30:54 $
+Version: $Id: ChangeLog,v 1.275 2001/04/13 22:50:43 minakaji Exp $
+Last Modified: $Date: 2001/04/13 22:50:43 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
