@@ -118,11 +118,8 @@
 
 (easy-menu-define
  skk-kanagaki-menu
- (nconc
-  (list skk-j-mode-map skk-latin-mode-map skk-abbrev-mode-map
-	skk-jisx0208-latin-mode-map)
-  (and (featurep 'skk-jisx0201)
-       (list skk-jisx0201-mode-map)))
+ (list skk-j-mode-map skk-latin-mode-map skk-abbrev-mode-map
+       skk-jisx0208-latin-mode-map)
  "SKK menu modified by NICOLA-DDSKK"
  (append skk-kanagaki-skk-menu-original (list skk-kanagaki-menu-items)))
 

@@ -2,6 +2,10 @@
 
 	* *: No real changes. Looks more esthetic.
 
+	* skk-kanagaki.el (skk-toggle-katakana): New advice.
+
+	* skk-kanagaki-menu*.el: Don't consider `skk-jisx0201-mode-map'.
+
 2001-08-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Update comments and doc strings.

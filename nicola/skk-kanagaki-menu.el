@@ -76,13 +76,10 @@ Convert to Hankaku Katakana or Toggle Katakana <=> Hankaku Katakana Mode"
  ((not (fboundp 'easy-menu-add-item))
   (require 'skk-kanagaki-menu-oe))
  (t
-  (dolist (map (nconc
-		(list skk-j-mode-map
-		      skk-latin-mode-map
-		      skk-abbrev-mode-map
-		      skk-jisx0208-latin-mode-map)
-		(and (featurep 'skk-jisx0201)
-		     (list skk-jisx0201-mode-map))))
+  (dolist (map (list skk-j-mode-map
+		     skk-latin-mode-map
+		     skk-abbrev-mode-map
+		     skk-jisx0208-latin-mode-map))
     (easy-menu-add-item
      map
      '("menu-bar" "SKK")
