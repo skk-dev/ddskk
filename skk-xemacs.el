@@ -84,7 +84,7 @@
        (skk-submit-bug-report)) t]
     "--"
     ["About Daredevil SKK..." skk-version t]
-    ["Visit Daredevil SKK Home..." skk-xemacs-visit-openlab t]))
+    ["Visit Daredevil SKK Web Site" skk-xemacs-visit-openlab t]))
 
 ;; Functions.
 

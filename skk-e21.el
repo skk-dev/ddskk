@@ -72,7 +72,7 @@
 	 (skk-submit-bug-report)) t]
       "--"
       ["About Daredevil SKK..." skk-version t]
-      ["Visit Daredevil SKK Home..." skk-e21-visit-openlab t])))
+      ["Visit Daredevil Web Site" skk-e21-visit-openlab t])))
 
 (defvar skk-e21-modeline-property
   (when window-system
