@@ -1,14 +1,14 @@
 ;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program)
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-;;               1998, 1999, 2000, 2001
+;;               1998, 1999, 2000, 2001, 2002
 ;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.235 2002/03/02 19:27:21 ueno Exp $
+;; Version: $Id: skk.el,v 1.236 2002/03/07 22:05:14 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/02 19:27:21 $
+;; Last Modified: $Date: 2002/03/07 22:05:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -322,7 +322,7 @@ dependent."
       (unless skk-use-viper
 	(define-key skk-j-mode-map
 	  (char-to-string skk-start-henkan-with-completion-char)
-	  'skk-start-henkan-with-completion)
+	  'skk-comp-start-henkan)
 	(define-key skk-j-mode-map
 	  (char-to-string skk-backward-and-set-henkan-point-char)
 	  'skk-backward-and-set-henkan-point))
