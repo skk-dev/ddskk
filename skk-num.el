@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.26 2001/11/14 14:13:56 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.27 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/14 14:13:56 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -492,7 +492,8 @@
 (run-hooks 'skk-num-load-hook)
 
 (require 'product)
-(product-provide (provide 'skk-num) (require 'skk-version))
-;;; Local Variables:
-;;; End:
+(product-provide
+    (provide 'skk-num)
+  (require 'skk-version))
+
 ;;; skk-num.el ends here

@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.21 2001/10/31 13:06:22 czkmt Exp $
+;; Version: $Id: skk-viper.el,v 1.22 2001/11/16 01:17:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 13:06:22 $
+;; Last Modified: $Date: 2001/11/16 01:17:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -57,7 +57,8 @@
     (setq sentence-end (concat "[。？！．]\\|" sentence-end))))
 
 ;;; cursor color support.
-;; what should we do if older Viper that doesn't have `viper-insert-state-cursor-color'?
+;; what should we do if older Viper that doesn't have
+;; `viper-insert-state-cursor-color'?
 (when (boundp 'viper-insert-state-cursor-color)
   (defadvice skk-cursor-current-color (around skk-viper-cursor-ad activate)
     "vi-state のときは、SKK モードになっていてもディフォルトカーソルを返す。"
@@ -316,5 +317,8 @@ Convert hirakana to katakana and vice versa."
 (add-hook 'skk-mode-hook 'skk-viper-init-function)
 
 (require 'product)
-(product-provide (provide 'skk-viper) (require 'skk-version))
+(product-provide
+    (provide 'skk-viper)
+  (require 'skk-version))
+
 ;;; skk-viper.el ends here

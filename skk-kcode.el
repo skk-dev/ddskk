@@ -1,13 +1,13 @@
 ;;; skk-kcode.el --- 漢字コードを使った変換のためのプログラム
-;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
-;;               1999, 2000
+;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
+;;               1998, 1999, 2000
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.21 2001/11/13 12:35:38 czkmt Exp $
+;; Version: $Id: skk-kcode.el,v 1.22 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 12:35:38 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -446,5 +446,8 @@
 (run-hooks 'skk-kcode-load-hook)
 
 (require 'product)
-(product-provide (provide 'skk-kcode) (require 'skk-version))
+(product-provide
+    (provide 'skk-kcode)
+  (require 'skk-version))
+
 ;;; skk-kcode.el ends here

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.75 2001/11/11 07:42:01 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.76 2001/11/16 01:17:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/11 07:42:01 $
+;; Last Modified: $Date: 2001/11/16 01:17:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2375,46 +2375,116 @@ Non-nil であれば、`skk-isearch-message' 関数をコールする。")
 (defvar skk-indicator-alist nil)
 
 ;; ---- buffer local variables
+
 ;; <フラグ類>
+
 ;;(skk-deflocalvar skk-current-henkan-data
-;;  '(
-;;    ;; global variables
-;;    ;; バッファローカル変数のディフォルト値を設定すると、これを直接書換えしたと
-;;    ;; きに他のバッファから見える値も変わってしまう。global なフラグはこれを利
-;;    ;; 用してディフォルト値与えておく。
-;;    (invoked . nil) ; Emacs を起動後既に skk-mode を起動したことを示す
-;;    (isearch-message . nil) ; skk-isearch 関数をコールするためのフラグ
-;;    (kakutei-count . 0) ; 変換候補を確定したカウントを保持する変数
-;;    (minibuffer-origin-mode . nil) ;入力モードを表わすシンボル
-;;    (touroku-count . 0) ; 辞書登録したカウントを保持する変数
-;;    (update-jisyo-count . 0) ; 辞書を更新した回数
+;;  '(;; global variables
+
+;;    ;; バッファローカル変数のディフォルト値を設定すると、これを直接書換えした
+;;    ;; ときに他のバッファから見える値も変わってしまう。global なフラグはこれ
+;;    ;; を利用してディフォルト値を与えておく。
+
+;;    ;; Emacs を起動後既に skk-mode を起動したことを示す
+;;    (invoked . nil)
+
+;;    ;; skk-isearch 関数をコールするためのフラグ
+;;    (isearch-message . nil)
+
+;;    ;; 変換候補を確定したカウントを保持する変数
+;;    (kakutei-count . 0)
+
+;;    ;;入力モードを表わすシンボル
+;;    (minibuffer-origin-mode . nil)
+
+;;    ;; 辞書登録したカウントを保持する変数
+;;    (touroku-count . 0)
+
+;;    ;; 辞書を更新した回数
+;;    (update-jisyo-count . 0)
+
 ;;    ;; buffer-local variables.
-;;    ;;(current-search-prog-list . nil) ;skk-search-prog-list の現在の値を保存するリスト
-;;    ;;(exit-show-candidates . nil) ;ミニバッファで候補を次々に表示して、候補が尽きたことを示す
-;;    ;;(henkan-active . nil) ; ▼モード (変換中) であることを示す
-;;    ;;(henkan-count . -1) ;skk-henkan-list のリストのインデクスで現在の候補を差すもの
-;;    ;;(henkan-end-point . nil) ; 変換終了ポイントを示すマーカー
-;;    ;;(henkan-in-minibuff-flag . nil) ;ミニバッファで辞書登録を行ったときにこのフラグが立つ
-;;    ;;(henkan-key . nil) ;変換すべき見出し語
-;;    ;;(henkan-list . nil) ; 変換結果の候補のリスト
-;;    ;;(henkan-okurigana . nil) ;現在の変換の送り仮名部分
-;;    ;;(henkan-on . nil) ; ▽モード (変換対象の文字列決定のためのモード) であることを示す
-;;    ;;(henkan-start-point . nil) ; 変換開始ポイントを示すマーカー
-;;    ;;(kakutei-flag . nil) ; 確定して良い候補を見つけた状態であることを指す
-;;    ;;(kana-start-point . nil) ;かな文字の開始ポイントを示すマーカー
-;;    ;;(katakana . nil) ; 入力モードがカナモードであることを示す
-;;    ;;(okuri-ari-max . nil) ; 辞書の送り有りエントリの終了点を示すバッファポイント
-;;    ;;(okuri-ari-min . nil) ; 辞書の送り有りエントリの開始点を示すバッファポイント
-;;    ;;(okuri-char . nil) ;変換すべき語の送り仮名の部分のプレフィックス
-;;    ;;(okuri-index-max . -1) ;skk-henkan-list のインデクスで自動送り処理、もしくはサ変検索で検索した最後の候補を指すもの
-;;    ;;(okuri-index-min . -1) ;skk-henkan-list のインデクスで自動送り処理、もしくはサ変検索で検索した最初の候補を指すもの
-;;    ;;(okuri-nasi-min . nil) ; 辞書の送りなしエントリの開始点を示すバッファポイント
-;;    ;;(okurigana . nil) ; 送り仮名部分が入力中であることを示す
-;;    ;;(okurigana-start-point . nil) ; 送り仮名の開始ポイントを示すマーカー
-;;    ;;(prefix . "") ; 入力するかなを決定するためのプレフィックス
-;;    ;;(previous-point . nil) ;この変数に保持されるポイントが現在のポイントと異なる場合、skk-with-point-move が使われていないコマンドを動作させると、skk-after-point-move が作動する
-;;    ;;(self-insert-non-undo-count . 1) ;skk-insert もしくは skk-jisx0208-latin-insert で連続入力した文字数を表わすカウンター
-;;  ))
+
+;;    ;; `skk-search-prog-list' の現在の値を保存するリスト
+;;    ;; (current-search-prog-list . nil)
+
+;;    ;; ミニバッファで候補を次々に表示して、候補が尽きたことを示す
+;;    ;; (exit-show-candidates . nil)
+
+;;    ;; ▼モード (変換中) であることを示す
+;;    ;; (henkan-active . nil)
+
+;;    ;; `skk-henkan-list' のリストのインデクスで現在の候補を差すもの
+;;    ;; (henkan-count . -1)
+
+;;    ;; 変換終了ポイントを示すマーカー
+;;    ;; (henkan-end-point . nil)
+
+;;    ;; ミニバッファで辞書登録を行ったときにこのフラグが立つ
+;;    ;; (henkan-in-minibuff-flag . nil)
+
+;;    ;; 変換すべき見出し語
+;;    ;; (henkan-key . nil)
+
+;;    ;; 変換結果の候補のリスト
+;;    ;; (henkan-list . nil)
+
+
+;;    ;; 現在の変換の送り仮名部分
+;;    ;; (henkan-okurigana . nil)
+
+;;    ;; ▽モード (変換対象の文字列決定のためのモード) であることを示す
+;;    ;; (henkan-on . nil)
+
+;;    ;; 変換開始ポイントを示すマーカー
+;;    ;; (henkan-start-point . nil)
+
+;;    ;; 確定して良い候補を見つけた状態であることを指す
+;;    ;; (kakutei-flag . nil)
+
+;;    ;; かな文字の開始ポイントを示すマーカー
+;;    ;; (kana-start-point . nil)
+
+;;    ;; 入力モードがカナモードであることを示す
+;;    ;; (katakana . nil)
+
+;;    ;; 辞書の送り有りエントリの終了点を示すバッファポイント
+;;    ;; (okuri-ari-max . nil)
+
+;;    ;; 辞書の送り有りエントリの開始点を示すバッファポイント
+;;    ;; (okuri-ari-min . nil)
+
+;;    ;; 変換すべき語の送り仮名の部分のプレフィックス
+;;    ;; (okuri-char . nil)
+
+;;    ;; `skk-henkan-list' のインデクスで自動送り処理、もしくはサ変検索で
+;;    ;; 検索した最後の候補を指すもの
+;;    ;; (okuri-index-max . -1)
+
+;;    ;; `skk-henkan-list' のインデクスで自動送り処理、もしくはサ変検索で
+;;    ;; 検索した最初の候補を指すもの
+;;    ;; (okuri-index-min . -1)
+
+;;    ;; 辞書の送りなしエントリの開始点を示すバッファポイント
+;;    ;; (okuri-nasi-min . nil)
+
+;;    ;; 送り仮名部分が入力中であることを示す
+;;    ;;(okurigana . nil)
+
+;;    ;; 送り仮名の開始ポイントを示すマーカー
+;;    ;; (okurigana-start-point . nil)
+
+;;    ;; 入力するかなを決定するためのプレフィックス
+;;    ;; (prefix . "")
+
+;;    ;; この変数に保持されるポイントが現在のポイントと異なる場合、
+;;    ;; `skk-with-point-move' が使われていないコマンドを動作させると
+;;    ;; `skk-after-point-move' が作動する
+;;    ;; (previous-point . nil)
+
+;;    ;; `skk-insert' もしくは `skk-jisx0208-latin-insert' で連続入力した
+;;    ;; 文字数を表わすカウンター
+;;    ;; (self-insert-non-undo-count . 1)))
 
 (skk-deflocalvar skk-mode nil "\
 Non-nil であれば、カレントバッファで現在 skk-mode を起動していることを示す。")
@@ -3211,9 +3281,9 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 
 (defvar skk-dic-comp-first nil)
 
-
 (require 'product)
-(product-provide (provide 'skk-vars) (require 'skk-version))
-;;; Local Variables:
-;;; End:
+(product-provide
+    (provide 'skk-vars)
+  (require 'skk-version))
+
 ;;; skk-vars.el ends here

@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.13 2001/10/19 12:45:44 czkmt Exp $
+;; Version: $Id: skk-kakasi.el,v 1.14 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/19 12:45:44 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -56,7 +56,7 @@
 ;;;; FUNCTIONS
 ;;;###autoload
 (defun skk-gyakubiki-region (start end &optional all)
-  "$B%j!<%8%g%s$N4A;z!"Aw$j2>L>$rA4$F$R$i$,$J$KJQ49$9$k!#(B
+  "$BNN0h$N4A;z!"Aw$j2>L>$rA4$F$R$i$,$J$KJQ49$9$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B ALL $B$,(B non-nil $B$J$i$P!"J#?t$N8uJd$,$"$k>l9g$O!"(B\"{}\" $B$G$/(B
 $B$/$C$FI=<($9$k!#(B
 $BNc$($P!"(B
@@ -69,7 +69,7 @@
 
 ;;;###autoload
 (defun skk-gyakubiki-message (start end &optional all)
-  "$B%j!<%8%g%s$N4A;z!"Aw$j2>L>$rA4$F$R$i$,$J$KJQ498e!"%(%3!<$9$k!#(B
+  "$BNN0h$N4A;z!"Aw$j2>L>$rA4$F$R$i$,$J$KJQ498e!"%(%3!<$9$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B ALL $B$,(B non-nil $B$J$i$P!"J#?t$N8uJd$,$"$k>l9g$O!"(B\"{}\" $B$G$/(B
 $B$/$C$FI=<($9$k!#(B
 $BNc$($P!"(B
@@ -84,7 +84,7 @@
 
 ;;;###autoload
 (defun skk-gyakubiki-katakana-region (start end &optional all)
-  "$B%j!<%8%g%s$N4A;z!"Aw$j2>L>$rA4$F%+%?%+%J$KJQ49$9$k!#(B
+  "$BNN0h$N4A;z!"Aw$j2>L>$rA4$F%+%?%+%J$KJQ49$9$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B ALL $B$,(B non-nil $B$J$i$P!"J#?t$N8uJd$,$"$k>l9g$O!"(B\"{}\" $B$G$/(B
 $B$/$C$FI=<($9$k!#(B
 $BNc$($P!"(B
@@ -97,7 +97,7 @@
 
 ;;;###autoload
 (defun skk-gyakubiki-katakana-message (start end &optional all)
-  "$B%j!<%8%g%s$N4A;z!"Aw$j2>L>$rA4$F%+%?%+%J$KJQ498e!"%(%3!<$9$k!#(B
+  "$BNN0h$N4A;z!"Aw$j2>L>$rA4$F%+%?%+%J$KJQ498e!"%(%3!<$9$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B ALL $B$,(B non-nil $B$J$i$P!"J#?t$N8uJd$,$"$k>l9g$O!"(B\"{}\" $B$G$/(B
 $B$/$C$FI=<($9$k!#(B
 $BNc$($P!"(B
@@ -122,7 +122,7 @@
 
 ;;;###autoload
 (defun skk-hurigana-region (start end &optional all)
-  "$B%j!<%8%g%s$N4A;z$KA4$F$U$j$,$J$rIU$1$k!#(B
+  "$BNN0h$N4A;z$KA4$F$U$j$,$J$rIU$1$k!#(B
 $BNc$($P!"(B
    \"$BJQ49A0$N4A;z$NOF$K(B\" -> \"$BJQ49A0(B[$B$X$s$+$s$^$((B]$B$N4A;z(B[$B$+$s$8(B]$B$NOF(B[$B$o$-(B]$B$K(B\"
 
@@ -138,7 +138,7 @@
 
 ;;;###autoload
 (defun skk-hurigana-message (start end &optional all)
-  "$B%j!<%8%g%s$N4A;z$KA4$F$U$j$,$J$rIU$1!"%(%3!<$9$k!#(B
+  "$BNN0h$N4A;z$KA4$F$U$j$,$J$rIU$1!"%(%3!<$9$k!#(B
 $BNc$($P!"(B
    \"$BJQ49A0$N4A;z$NOF$K(B\" -> \"$BJQ49A0(B[$B$X$s$+$s$^$((B]$B$N4A;z(B[$B$+$s$8(B]$B$NOF(B[$B$o$-(B]$B$K(B\"
 
@@ -151,7 +151,7 @@
 
 ;;;###autoload
 (defun skk-hurigana-katakana-region (start end &optional all)
-  "$B%j!<%8%g%s$N4A;z$KA4$F%U%j%,%J$rIU$1$k!#(B
+  "$BNN0h$N4A;z$KA4$F%U%j%,%J$rIU$1$k!#(B
 $BNc$($P!"(B
    \"$BJQ49A0$N4A;z$NOF$K(B\" -> \"$BJQ49A0(B[$B%X%s%+%s%^%((B]$B$N4A;z(B[$B%+%s%8(B]$B$NOF(B[$B%o%-(B]$B$K(B\"
 
@@ -167,7 +167,7 @@
 
 ;;;###autoload
 (defun skk-hurigana-katakana-message (start end &optional all)
-  "$B%j!<%8%g%s$N4A;z$KA4$F%U%j%,%J$rIU$1!"%(%3!<$9$k!#(B
+  "$BNN0h$N4A;z$KA4$F%U%j%,%J$rIU$1!"%(%3!<$9$k!#(B
 $BNc$($P!"(B
    \"$BJQ49A0$N4A;z$NOF$K(B\" -> \"$BJQ49A0(B[$B%X%s%+%s%^%((B]$B$N4A;z(B[$B%+%s%8(B]$B$NOF(B[$B%o%-(B]$B$K(B\"
 
@@ -190,7 +190,7 @@
 
 ;;;###autoload
 (defun skk-romaji-region (start end)
-  "$B%j!<%8%g%s$N4A;z!"$R$i$,$J!"%+%?%+%J!"A41QJ8;z$rA4$F%m!<%^;z$KJQ49$9$k!#(B
+  "$BNN0h$N4A;z!"$R$i$,$J!"%+%?%+%J!"A41QJ8;z$rA4$F%m!<%^;z$KJQ49$9$k!#(B
 $BJQ49$K$O!"%X%\%s<0$rMQ$$$k!#(B
 $BNc$($P!"(B
    \"$B4A;z$+$J:.$8$jJ8$r%m!<%^;z$KJQ49(B\"
@@ -212,7 +212,7 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
 
 ;;;###autoload
 (defun skk-romaji-message (start end)
-  "$B%j!<%8%g%s$N4A;z!"$R$i$,$J!"%+%?%+%J!"A41QJ8;z$rA4$F%m!<%^;z$KJQ49$7!"%(%3!<$9$k!#(B
+  "$BNN0h$N4A;z!"$R$i$,$J!"%+%?%+%J!"A41QJ8;z$rA4$F%m!<%^;z$KJQ49$7!"%(%3!<$9$k!#(B
 $BJQ49$K$O!"%X%\%s<0$rMQ$$$k!#(B
 $BNc$($P!"(B
    \"$B4A;z$+$J:.$8$jJ8$r%m!<%^;z$KJQ49(B\"
@@ -229,7 +229,7 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
     (message "%s" (skk-kakasi-region start end arg))))
 
 (defun skk-kakasi-region (start end arglist)
-  ;; START $B$H(B END $B4V$N%j!<%8%g%s$KBP$7(B kakasi $B%3%^%s%I$rE,MQ$9$k!#(BARGLIST $B$r(B
+  ;; START $B$H(B END $B4V$NNN0h$KBP$7(B kakasi $B%3%^%s%I$rE,MQ$9$k!#(BARGLIST $B$r(B
   ;; kakasi $B$N0z?t$H$7$FEO$9!#(Bkakasi $B$N=PNO$rJV$9!#(B
   (unless (or skk-use-kakasi
 	      skk-kakasi-command)
@@ -267,5 +267,8 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
 (run-hooks 'skk-kakasi-load-hook)
 
 (require 'product)
-(product-provide (provide 'skk-kakasi) (require 'skk-version))
+(product-provide
+    (provide 'skk-kakasi)
+  (require 'skk-version))
+
 ;;; skk-kakasi.el ends here

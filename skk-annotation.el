@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.10 2001/10/21 04:17:18 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.11 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/10/21 04:17:18 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -460,5 +460,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	       "\")")))))
 
 (require 'product)
-(product-provide (provide 'skk-annotation) (require 'skk-version))
-;;; end of skk-annotation.el.
+(product-provide
+    (provide 'skk-annotation)
+  (require 'skk-version))
+
+;;; skk-annotation.el ends here

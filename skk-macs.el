@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.65 2001/11/14 14:13:56 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.66 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/14 14:13:56 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -258,7 +258,7 @@ the return value (nil if RESULT is omitted)."
 	   (,@ forms))))))
 
 ;;(defun-maybe mapvector (function sequence)
-;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
+;; "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
 ;;The result is a vector of the same length as SEQUENCE.
 ;;SEQUENCE may be a list, a vector or a string."
 ;;  (vconcat (mapcar function sequence) nil))
@@ -266,7 +266,7 @@ the return value (nil if RESULT is omitted)."
 ;;(defun-maybe mapc (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE.
 ;;SEQUENCE may be a list, a vector, a bit vector, or a string.
-;;--- NOT emulated enough, just discard newly constructed list made by mapcar ---
+;;-- NOT emulated enough, just discard newly constructed list made by mapcar --
 ;;This function is like `mapcar' but does not accumulate the results,
 ;;which is more efficient if you do not use the results."
 ;;  (mapcar function sequence)
@@ -822,5 +822,8 @@ BUFFER defaults to the current buffer."
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-macs) (require 'skk-version))
-;;; end of skk-macs.el.
+(product-provide
+    (provide 'skk-macs)
+  (require 'skk-version))
+
+;;; skk-macs.el ends here

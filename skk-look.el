@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.16 2001/10/21 05:34:01 czkmt Exp $
+;; Version: $Id: skk-look.el,v 1.17 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/21 05:34:01 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,8 +28,8 @@
 ;;
 ;; <How to work>
 ;; .skk か .emacs で `skk-use-look' を t にセットしてこれを評価して下さい。その
-;; 後 skk-mode を立ち上げるか、M-x skk-restart すると、 下記のような芸当が可能に
-;; なります。
+;; 後 skk-mode を立ち上げるか、M-x skk-restart すると、 下記のような芸当が可能
+;; になります。
 ;;
 ;; (1)英単語を補完ができます。
 ;;
@@ -81,9 +81,9 @@
 ;;    変換すると良いですね。
 ;;
 ;; 動作確認を行なった look は、Slackware 3.5 に入っていた、man page に
-;; `BSD Experimental June 14, 1993' と記載のあるもの (バージョン情報がない) にて
-;; 行なっています。オプションの指定などが異なる look があれば、ご一報下さい。よろ
-;; しくお願いいたします。
+;; `BSD Experimental June 14, 1993' と記載のあるもの (バージョン情報がない)
+;; にて行なっています。オプションの指定などが異なる look があれば、ご一報下さ
+;; い。よろしくお願いいたします。
 
 ;; <Dictionary>
 ;; ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/
@@ -95,18 +95,19 @@
 ;;
 ;; できた SKK-JISYO.E2J の利用方法は色々ありますが、
 ;;
-;;   % skkdic-expr SKK-JISYO.E2J + /usr/local/share/skk/SKK-JISYO.L | skkdic-sort > SKK-JISYO.L
+;;   % skkdic-expr SKK-JISYO.E2J + /usr/local/share/skk/SKK-JISYO.L\
+;;     | skkdic-sort > SKK-JISYO.L
 ;;
 ;; などとして、SKK-JISYO.L とマージして使うのが手軽です。
 
 ;; <Motivation>
-;; このプログラムは、eWnn for Linux/FreeBSD の広告に類似の機能紹介があったのを見
-;; て、「こんな機能なら SKK 上にすぐインプリメントできるさ」と思うとたまらくなっ
-;; て書いてしまいました。eWnn に負けるな、SKK!
+;; このプログラムは、eWnn for Linux/FreeBSD の広告に類似の機能紹介があったのを
+;; 見て、「こんな機能なら SKK 上にすぐインプリメントできるさ」と思うとたまらく
+;; なって書いてしまいました。eWnn に負けるな、SKK!
 ;;
 ;; 昔、Seiichi Namba <sn@asahi-net.email.ne.jp> さんと一緒に Emacs Lisp で
-;; look interface を書いたことがあるのですが、今回はその際の経験を生かすことができ
-;; ました。難波さんに感謝いたします。
+;; look interface を書いたことがあるのですが、今回はその際の経験を生かすことが
+;; できました。難波さんに感謝いたします。
 
 ;;; Code:
 (eval-when-compile
@@ -256,7 +257,7 @@
     (setq ispell-filter nil)
     (cond
      ((eq poss 'error)
-      (skk-message "ispell process でエラーが発生しました。"
+      (skk-message "ispell process でエラーが発生しました"
 		   "error in ispell process")
       (sit-for 1)
       (message "")
@@ -275,5 +276,8 @@
       (delete word (skk-nunion (skk-look-1 word) ret))))))
 
 (require 'product)
-(product-provide (provide 'skk-look) (require 'skk-version))
+(product-provide
+    (provide 'skk-look)
+  (require 'skk-version))
+
 ;;; skk-look.el ends here

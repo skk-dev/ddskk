@@ -1,3 +1,12 @@
+2001-11-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* *.el:
+	Comments and strings update, and conding style fix.
+
+	* skk-cus.el
+	(skk-cus-set): New function.
+	(skk-customize-done): Push all options into `skk-custom-alist'.
+
 2001-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK
@@ -2763,8 +2772,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.532 2001/11/15 03:24:54 czkmt Exp $
-Last Modified: $Date: 2001/11/15 03:24:54 $
+Version: $Id: ChangeLog,v 1.533 2001/11/16 01:17:13 czkmt Exp $
+Last Modified: $Date: 2001/11/16 01:17:13 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

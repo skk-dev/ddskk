@@ -4,9 +4,9 @@
 ;;
 ;; Author: Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-leim.el,v 1.10 2001/10/10 10:25:32 czkmt Exp $
+;; Version: $Id: skk-leim.el,v 1.11 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/10 10:25:32 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -68,6 +68,8 @@
  "Simple Kana to Kanji conversion program with auto-fill")
 
 (require 'product)
-(product-provide (provide 'skk-leim) (require 'skk-version))
+(product-provide
+    (provide 'skk-leim)
+  (require 'skk-version))
 
 ;;; skk-leim.el ends here

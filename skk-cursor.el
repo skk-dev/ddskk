@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.23 2001/10/31 13:06:22 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.24 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 13:06:22 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -41,6 +41,8 @@
   (require 'ccc))
 
 ;; Functions.
+
+;;;###autoload
 (defun skk-cursor-current-color ()
   ;; カレントバッファの SKK のモードから、カーソルの色を取得する。
   (cond
@@ -107,10 +109,10 @@
 	    'append))
 
 ;;
+
 (require 'product)
 (product-provide
     (provide 'skk-cursor)
   (require 'skk-version))
-;;; Local Variables:
-;;; End:
+
 ;;; skk-cursor.el ends here

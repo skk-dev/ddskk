@@ -1,13 +1,13 @@
 ;;; skk-auto.el --- 送り仮名の自動処理のためのプログラム
-;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
-;;               1999, 2001
+;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
+;;               1998, 1999, 2001
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.9 2001/10/13 14:11:54 czkmt Exp $
+;; Version: $Id: skk-auto.el,v 1.10 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 14:11:54 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -142,6 +142,10 @@
 ;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-auto-okuri)
 
 (run-hooks 'skk-auto-load-hook)
+
 (require 'product)
-(product-provide (provide 'skk-auto) (require 'skk-version))
+(product-provide
+    (provide 'skk-auto)
+  (require 'skk-version))
+
 ;;; skk-auto.el ends here

@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0213.el,v 1.3 2001/02/03 00:22:58 minakaji Exp $
+;; Version: $Id: skk-jisx0213.el,v 1.4 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 30, 2000.
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -47,5 +47,8 @@
 	(setq henkan-list (cdr henkan-list))))))
 
 (require 'product)
-(product-provide (provide 'skk-jisx0213) (require 'skk-version))
-;;; end of skk-jisx0213.el.
+(product-provide
+    (provide 'skk-jisx0213)
+  (require 'skk-version))
+
+;;; skk-jisx0213.el ends here

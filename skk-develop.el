@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.14 2001/10/21 04:17:18 czkmt Exp $
+;; Version: $Id: skk-develop.el,v 1.15 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/21 04:17:18 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -134,7 +134,8 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 	  lisp-font-lock-keywords-2)))
 
 (require 'product)
-(product-provide (provide 'skk-develop) (require 'skk-version))
-;;; Local Variables:
-;;; End:
+(product-provide
+    (provide 'skk-develop)
+  (require 'skk-version))
+
 ;;; skk-develop.el ends here

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.39 2001/10/21 05:34:17 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.40 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/21 05:34:17 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1035,5 +1035,8 @@ with the following command in the body of your email message
 	  key 'skk-delete-backward-char)))))
 
 (require 'product)
-(product-provide (provide 'skk-tut) (require 'skk-version))
+(product-provide
+    (provide 'skk-tut)
+  (require 'skk-version))
+
 ;;; skk-tut.el ends here

@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.8 2001/11/13 12:27:44 czkmt Exp $
+;; Version: $Id: skk-obsolete.el,v 1.9 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 12:27:44 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -258,5 +258,8 @@ It is strongly recommended to kill and restart Emacs.  Kill Emacs?"))
    ))
 
 (require 'product)
-(product-provide (provide 'skk-obsolete) (require 'skk-version))
+(product-provide
+    (provide 'skk-obsolete)
+  (require 'skk-version))
+
 ;;; skk-obsolete.el ends here

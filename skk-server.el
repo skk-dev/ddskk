@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.12 2001/10/13 14:13:10 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.13 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 14:13:10 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -287,5 +287,8 @@
 (run-hooks 'skk-server-load-hook)
 
 (require 'product)
-(product-provide (provide 'skk-server) (require 'skk-version))
+(product-provide
+    (provide 'skk-server)
+  (require 'skk-version))
+
 ;;; skk-server.el ends here

@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.15 2001/10/31 15:52:30 czkmt Exp $
+;; Version: $Id: skk-dcomp.el,v 1.16 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 15:52:30 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -89,7 +89,8 @@
 ;; ションされた部分を単に無視するだけで OK です。
 ;;
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう (C-j) -> ほ
-;;   (Ho) ▽ほ -> ▽ほ-!-んとう (SPC) -> ▼保 (「ほ」を見出し語とした変換が行なわれる)
+;;   (Ho) ▽ほ -> ▽ほ-!-んとう (SPC) -> ▼保 (「ほ」を見出し語とした変換が
+;;                                       行なわれる)
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう (q) -> ホ
 ;;
 ;; コンプリーションされた状態から BS を押すと、消されたコンプリーション前の
@@ -245,7 +246,8 @@
   (skk-dcomp-after-delete-backward-char))
 
 (require 'product)
-(product-provide (provide 'skk-dcomp) (require 'skk-version))
-;;; Local Variables:
-;;; End:
+(product-provide
+    (provide 'skk-dcomp)
+  (require 'skk-version))
+
 ;;; skk-dcomp.el ends here

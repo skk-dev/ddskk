@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.100 2001/11/15 03:24:31 czkmt Exp $
-;; Last Modified: $Date: 2001/11/15 03:24:31 $
+;; Version: $Id: SKK-MK,v 1.101 2001/11/16 01:17:14 czkmt Exp $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; Commentary
 ;;
@@ -34,7 +34,7 @@
 (when (string-lessp emacs-version "19")
   (error "%s" "\
 Emacs 18 or older is not supported by this version of SKK.
-Try ddskk-e18 branch."))
+Try ddskk-e18 branch"))
 
 (unless (featurep 'mule)
   (error "%s" "\
@@ -1044,8 +1044,7 @@ SKK tutorials:
 	(kill-buffer buf))
        (t
 	(error "%s"
-	       "APEL is not installed or autoload feature is broken.
-"))))))
+	       "APEL is not installed or autoload feature is broken"))))))
 
 (defun SKK-MK-generate-autoloads-el-package ()
   "Generate auto-autoload.el."

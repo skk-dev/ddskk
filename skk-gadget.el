@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.22 2001/10/10 12:36:00 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.23 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/10 12:36:00 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -91,7 +91,8 @@ AND-TIME \(boolean\) を指定すると時刻も返す。
   (date-information
    format num-type gengo gengo-index month-alist-index dayofweek-alist-index
    &optional and-time)
-  "日付情報の標準的な出力をする他、ユーザにある程度のカスタマイズ機能を提供する。
+  "\
+日付情報の標準的な出力をする他、ユーザにある程度のカスタマイズ機能を提供する。
 この関数の引数でカスタマイズできない出力を希望する場合は、
 `skk-default-current-date-function' に自前の関数を指定する。
 
@@ -156,7 +157,8 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 
 ;;;###autoload
 (defun skk-today (arg)
-  "`current-time-string' の出力を加工し、現在の日時を表す文字列を作り、挿入する。
+  "\
+`current-time-string' の出力を加工し、現在の日時を表す文字列を作り、挿入する。
 実質的に today エントリの呼出しなので、個人辞書の today エントリによりカスタマ
 イズすることができる。"
   (interactive "p")
@@ -177,7 +179,7 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 オプショナル引数の KAKUTEI-WHEN-QUIT が non-nil であれば C-g したときに確
 定する。
 オプショナル引数の TIME-SIGNAL が non-nil であれば、NTT の時報風に ding する。
-それぞれ、\"clock /(skk-clock nil t)/\" のようなエントリを辞書に挿入すれば良い。
+それぞれ \"clock /(skk-clock nil t)/\" のようなエントリを辞書に挿入すれば良い。
 skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。"
   (interactive "*")
   (let ((start (current-time))
@@ -311,7 +313,8 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
   ;; $B元号を西暦に変換する。オプション引数の HEAD, TAIL が指定されてい
   ;; れば、その文字列を先頭、末尾に連結する。
   ;; 辞書見出し例;
-  ;; しょうわ#ねん /(skk-gengo-to-ad "" "年")/(skk-gengo-to-ad "" " 年")/(skk-gengo-to-ad "西暦" "年")/(skk-gengo-to-ad "西暦" " 年")/
+  ;;   しょうわ#ねん /(skk-gengo-to-ad "" "年")/(skk-gengo-to-ad "" " 年")/\
+  ;;   (skk-gengo-to-ad "西暦" "年")/(skk-gengo-to-ad "西暦" " 年")/
   (save-match-data
     (when (string-match (car skk-num-list)
 			skk-henkan-key)
@@ -440,7 +443,8 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
 
 ;;;###autoload
 (defun skk-gadget-units-conversion (unit-from number unit-to)
-  "`skk-units-alist'$Bを参照し、NUMBER について UNIT-FROM から UNIT-TO への換算を行なう。"
+  "`skk-units-alist'を参照し、換算を行なう。
+NUMBER について UNIT-FROM から UNIT-TO への換算を行なう。"
   (let ((v (assoc unit-to
 		  (cdr (assoc unit-from skk-units-alist)))))
     (when v
@@ -450,5 +454,8 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
 (run-hooks 'skk-gadget-load-hook)
 
 (require 'product)
-(product-provide (provide 'skk-gadget) (require 'skk-version))
+(product-provide
+    (provide 'skk-gadget)
+  (require 'skk-version))
+
 ;;; skk-gadget.el ends here

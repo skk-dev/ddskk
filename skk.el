@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.185 2001/11/14 15:12:25 czkmt Exp $
+;; Version: $Id: skk.el,v 1.186 2001/11/16 01:17:15 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/14 15:12:25 $
+;; Last Modified: $Date: 2001/11/16 01:17:15 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -593,7 +593,7 @@ dependent."
 		     (or (not (file-exists-p elc))
 			 (file-newer-than-file-p init-file elc)))
 	    (save-window-excursion ; for keep window configuration.
-	      (skk-message "%s をバイトコンパイルします。"
+	      (skk-message "%s をバイトコンパイルします"
 			   "Byte-compile %s"
 			   skk-init-file)
 	      (sit-for 2)
@@ -1592,7 +1592,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	    (function
 	     (lambda (c)
 	       (when (memq c '(?\C-g ?\040 ?x)) ; ?\040 is SPC.
-		 (skk-error "`%s' に無効なキーが指定されています。"
+		 (skk-error "`%s' に無効なキーが指定されています"
 			    "Illegal key in `%s'"
 			    "skk-henkan-show-candidates-keys"))
 	       (char-to-string (upcase c))))
@@ -4281,7 +4281,8 @@ If you want to restore the dictionary from the disc, try
 (run-hooks 'skk-load-hook)
 
 (require 'product)
-(product-provide (provide 'skk) (require 'skk-version))
-;;; Local Variables:
-;;; End:
+(product-provide
+    (provide 'skk)
+  (require 'skk-version))
+
 ;;; skk.el ends here

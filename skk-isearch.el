@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.28 2001/11/13 12:31:41 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.29 2001/11/16 01:17:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 12:31:41 $
+;; Last Modified: $Date: 2001/11/16 01:17:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -722,7 +722,9 @@ If the current mode is different from previous, remove it first."
 (put 'isearch-other-control-char 'isearch-command t)
 (put 'skk-isearch-skk-mode 'isearch-command t)
 
-;;
 (require 'product)
-(product-provide (provide 'skk-isearch) (require 'skk-version))
+(product-provide
+    (provide 'skk-isearch)
+  (require 'skk-version))
+
 ;;; skk-isearch.el ends here
