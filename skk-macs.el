@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.50 2001/10/07 01:14:52 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.51 2001/10/08 08:37:32 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/07 01:14:52 $
+;; Last Modified: $Date: 2001/10/08 08:37:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -57,6 +57,11 @@
   (autoload 'skk-cursor-set "skk-cursor"))
 
 ;;;; macros
+
+(defmacro ignore-errors (&rest body)
+  "Execute FORMS; if an error occurs, return nil.
+Otherwise, return result of last FORM."
+  (` (condition-case nil (progn (,@ body)) (error nil))))
 
 (eval-and-compile
   (when (and (fboundp 'dolist)
@@ -145,17 +150,33 @@ the return value (nil if RESULT is omitted)."
   ;; skk-japanese-message-and-error が non-nil だったら JAPANESE を nil であれ
   ;; ば ENGLISH をエコーエリアに表示する。
   ;; ARG は message 関数の第２引数以降の引数として渡される。
-  (append (list 'message (list 'if 'skk-japanese-message-and-error
-			       japanese english))
-	  arg))
+  (append
+   (if arg
+       (list 'message (list 'if
+			    'skk-japanese-message-and-error
+			    japanese
+			    english))
+     (list 'message "%s" (list 'if
+			       'skk-japanese-message-and-error
+			       japanese
+			       english)))
+   arg))
 
 (defmacro skk-error (japanese english &rest arg)
   ;; skk-japanese-message-and-error が non-nil だったら JAPANESE を nil であれ
   ;; ば ENGLISH をエコーエリアに表示し、エラーを発生させる。
   ;; ARG は error 関数の第２引数以降の引数として渡される。
-  (append (list 'error (list 'if 'skk-japanese-message-and-error
-			     japanese english))
-	  arg))
+  (append
+   (if arg
+       (list 'error (list 'if
+			  'skk-japanese-message-and-error
+			  japanese
+			  english))
+     (list 'error "%s" (list 'if
+			     'skk-japanese-message-and-error
+			     japanese
+			     english)))
+   arg))
 
 (defmacro skk-yes-or-no-p (japanese english)
   ;; skk-japanese-message-and-error が non-nil であれば、japanese を nil であ
