@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.215 2002/01/11 13:24:09 czkmt Exp $
+;; Version: $Id: skk.el,v 1.216 2002/01/11 13:31:35 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/11 13:24:09 $
+;; Last Modified: $Date: 2002/01/11 13:31:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -768,6 +768,8 @@ dependent."
     key))
 
 (defun skk-adjust-user-option ()
+  (unless (skk-color-display-p)
+    (setq skk-use-color-cursor nil))
   ;; 両立できないオプションの調整を行なう。
   (when skk-process-okuri-early
     ;; skk-process-okuri-early の値が non-nil であるときに下記の値が non-nil
