@@ -34,7 +34,7 @@
   ;; batch processings.
 
   ;; `register-input-method' is called in skk-autoloads.el. `skk-activate' is
-  ;;  also autoloaded there.
+  ;; also autoloaded there.
   (require 'skk-autoloads)
 
   ;; Doubt. This is a matter of preference.
