@@ -1,7 +1,14 @@
 2001-01-02  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+	
+	* skk-version.el (skk-version): Change version to 11.5 and
+	Codename to `Hotarugaike' respectively.
+	* Makefile (VERSION): Change to 11.5.
+	
+2001-01-02  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* Daredevil SKK 11.4 released.
+	
 	* Makefile (VERSION): Change to 11.4.
-
 	* READMEs/Codename (変更個所): Updated.
 
 2000-12-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
@@ -19,28 +26,6 @@
 2000-12-27  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* dic/README: New file.
-
-2000-12-23  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
-
-	* SKK-MK (SKK-MK-install-elc): Use `install-cp' instead of
-	`install-files'.
-	Use `install-elisp' instead of `install-elisp-modules'.
-	Use `file-name-nondirectory' to calculate SPEC.
-	(SKK-MK-install-package): Ditto.
-	(SKK-MK-install-info): Use `install-cp' instead of
-	`install-files'.
-	Use `file-name-nondirectory' to calculate INFO-FILE.
-	(DOCDIR): Removed.
-	(ETCDIR): Ditto.
-	(DICDIR): Ditto.
-	(SKK_MODULES): Delete symbol of which source file does not exist.
-	(SKK_INFO): Add relative path to filename.
-	(SKK_TEXIS): Ditto.
-	(SKK_TUTORIALS): Add relative paths to each filenames.
-	(SKK_DICTIONARIES): Ditto.
-	(install-cp): New function.
-	(install-elisp): Ditto.
-	(install-cp-1): Ditto.
 
 2000-12-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -3060,8 +3045,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.243 2001/01/02 08:08:22 minakaji Exp $
-Last Modified: $Date: 2001/01/02 08:08:22 $
+Version: $Id: ChangeLog,v 1.244 2001/01/02 09:10:14 minakaji Exp $
+Last Modified: $Date: 2001/01/02 09:10:14 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

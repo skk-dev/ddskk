@@ -1,12 +1,12 @@
 ;;; skk-version.el -- Version information for SKK.
 ;;
-;; Copyright (C) 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 2000, 2001 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;;
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.4 2000/11/19 08:06:11 minakaji Exp $
+;; Version: $Id: skk-version.el,v 1.5 2001/01/02 09:10:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/19 08:06:11 $
+;; Last Modified: $Date: 2001/01/02 09:10:14 $
 ;;
 ;; This file is part of Daredevil SKK.
 ;;
@@ -34,7 +34,7 @@
 (provide 'skk-version) ; have to declare in the top.
 
 (product-provide 'skk-version
-  (product-define "Daredevil SKK" nil '(11 4 0) "Ishibashi"))
+  (product-define "Daredevil SKK" nil '(11 5 0) "Hotarugaike"))
 
 ;; set version-string
 (if (fboundp 'product-version-as-string)
