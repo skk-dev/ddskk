@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.43 2003/07/18 16:52:00 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.44 2003/07/18 16:55:09 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/18 16:52:00 $
+;; Last Modified: $Date: 2003/07/18 16:55:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -264,9 +264,6 @@
 			(setq n (1+ n))
 			(cons e n))
 		      (mapcar 'car skk-study-alist)))))))
-  (unless (stringp theme)
-    (skk-error "skk-study の theme が文字列ではありません"
-	       "Only string is allowed as theme of skk-study"))
   (setq skk-study-current-buffer-theme theme)
   (let ((alist (assoc theme skk-study-alist)))
     (unless alist
@@ -288,9 +285,6 @@
 			(cons e n))
 		      (mapcar 'car skk-study-alist))))
 	  nil 'require-match)))
-  (unless (stringp theme)
-    (skk-error "skk-study の theme が文字列ではありません"
-	       "Only string is allowed as theme of skk-study"))
   (when (string= theme "general")
     (skk-error "\"general\" テーマは削除できません"
 	       "Cannot remove theme \"general\""))
@@ -321,9 +315,6 @@ TO の既存データは破壊される。"
 		      (setq n (1+ n))
 		      (cons e n))
 		    (mapcar 'car skk-study-alist))))))
-  (unless (and (stringp from) (stringp to))
-    (skk-error "skk-study の theme が文字列ではありません"
-	       "Only string is allowed as theme of skk-study"))
   (when (string= from to)
     (skk-error "コピー元とコピー先のテーマが同一です"
 	       "FROM and TO is the same theme"))
