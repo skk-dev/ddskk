@@ -209,9 +209,13 @@
 		    [(control j)])
 		   (t
 		    str))))
-	     (where-is-internal func skk-j-mode-map))))
+	     (let ((k (where-is-internal func skk-j-mode-map)))
+	       (dolist (key k)
+		 (when (and (= (length key) 2) (eq (aref key 1) 'linefeed))
+		   (aset key 1 '(control j))))
+	       k))))
     (if keys
-	(sorted-key-descriptions keys)
+	(sorted-key-descriptions (skk-remove-duplicates keys))
       nil)))
 
 ;; Hooks.
