@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.45 2001/09/14 11:53:36 czkmt Exp $
-# Last Modified: $Date: 2001/09/14 11:53:36 $
+# Version: $Id: Makefile,v 1.46 2001/09/16 08:34:57 czkmt Exp $
+# Last Modified: $Date: 2001/09/16 08:34:57 $
 
 
 VERSION = 11.5
@@ -53,8 +53,8 @@ skk-dic:
 
 clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
-	auto-autoloads.el custom-load.el \
-	experimental/skk-isearch.el ./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
+	skk-dic.el auto-autoloads.el custom-load.el \
+	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 tar: clean
 	cd .. ;\
