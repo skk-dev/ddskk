@@ -119,8 +119,8 @@
      (cons 'latin skk-e21-modeline-property))))
 
 (defvar skk-e21-coding-system (if (eq window-system 'w32)
-				  'shift_jis
-				'euc-jp))
+				  nil
+				locale-coding-system))
 
 ;; Functions.
 
@@ -224,7 +224,9 @@
       nil)))
 
 (defun skk-e21-encode-string (str)
-  (encode-coding-string str skk-e21-coding-system))
+  (if (null skk-e21-coding-system)
+      str
+    (encode-coding-string str skk-e21-coding-system)))
 
 (defun skk-e21-menu-replace (list)
   (let (cons)
