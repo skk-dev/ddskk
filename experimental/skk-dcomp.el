@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dcomp.el,v 1.1 1999/09/21 12:09:28 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.2 1999/09/21 12:24:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/21 12:09:28 $
+;; Last Modified: $Date: 1999/09/21 12:24:14 $
 
 ;; This file is not part of SKK yet.
 
@@ -76,7 +76,7 @@
 (defadvice skk-kana-input (around skk-dcomp-ad activate)
   (if (not skk-henkan-on)
       ad-do-it
-    (if (skk-get-prefix skk-current-rule-tree)
+    (if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree))
 	(setq skk-dcomp-start-point nil)
       (when skk-dcomp-start-point
 	(skk-dcomp-face-off)
@@ -100,3 +100,4 @@
 ;;; Local Variables:
 ;;; End:
 ;;; skk-dcomp.el ends here
+
