@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kcode.el,v 1.3 1999/09/24 12:13:34 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.4 1999/09/24 22:43:26 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/24 12:13:34 $
+;; Last Modified: $Date: 1999/09/24 22:43:26 $
 
 ;; This file is part of SKK.
 
@@ -325,15 +325,15 @@
     t ))
 
 (skk-defun-cond skk-display-code (str)
-  ((eq skk-emacs-type 'xemacs)
+  ((memq skk-emacs-type '(xemacs mule4 mule3))
    (let* ((char (string-to-char str))
 	  (charset (char-charset char)))
      (cond
       ((memq charset '(japanese-jisx0208 japanese-jisx0208-1978))
-       (let* ((char1-j (or (nth 1 (split-char char)) 0))
+       (let* ((char1-j (skk-char-octet char 0))
 	      (char1-k (- char1-j 32))
 	      (char1-e (+ char1-j 128))
-	      (char2-j (or (nth 2 (split-char char)) 0))
+	      (char2-j (skk-char-octet char 1))
 	      (char2-k (- char2-j 32))
 	      (char2-e (+ char2-j 128)))
 	 (message
@@ -342,29 +342,7 @@
 	  char1-j char2-j char1-j char2-j char1-k char2-k)))
       ((memq charset '(ascii latin-jisx0201))
        (message "\"%s\"  %2x (%3d)"
-		str (or (nth 1 (split-char char)) 0)
-		(or (nth 1 (split-char char)) 0) ))
-      (t
-       (skk-error "判別できない文字です"
-		  "Cannot understand this character" )))))
-  ((memq skk-emacs-type '(mule4 mule3))
-   (let* ((char (string-to-char str))
-	  (charset (char-charset char)))
-     (cond
-      ((memq charset '(japanese-jisx0208 japanese-jisx0208-1978))
-       (let* ((char1-j (char-octet char 0))
-	      (char1-k (- char1-j 32))
-	      (char1-e (+ char1-j 128))
-	      (char2-j (char-octet char 1))
-	      (char2-k (- char2-j 32))
-	      (char2-e (+ char2-j 128)))
-	 (message
-	  "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d)"
-	  str char1-e char2-e char1-e char2-e
-	  char1-j char2-j char1-j char2-j char1-k char2-k)))
-      ((memq charset '(ascii latin-jisx0201))
-       (message "\"%s\"  %2x (%3d)"
-		str (char-octet char 0)  (char-octet char 0)))
+		str (skk-char-octet char 0)  (skk-char-octet char 0)))
       (t
        (skk-error "判別できない文字です"
 		  "Cannot understand this character" )))))
