@@ -47,11 +47,12 @@
       "--"
       ["Input a Character by Code" skk-input-by-code-or-menu t]
       ["Enter SKK Abbrev Mode" skk-abbrev-mode t]
-      ["Convert to Hiragana <=> Katakana or Toggle Hiragana <=> Katakana Mode"
+      ["\
+Convert  Hiragana <=> Katakana  or  Toggle Hiragana <=> Katakana Mode"
        skk-toggle-kana t]
       ["Enter SKK JIS X 0208 Latin Mode" skk-jisx0208-latin-mode t]
       ["\
-Convert to Hankaku Katakana or Toggle Katakana <=> Hankaku Katakana Mode"
+Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
        skk-toggle-katakana t]
       ["Enter SKK Latin Mode" skk-latin-mode t]
       ["Enter SKK Japanese Mode" skk-kakutei t]
@@ -81,7 +82,34 @@ Convert to Hankaku Katakana or Toggle Katakana <=> Hankaku Katakana Mode"
     (easy-menu-add-item
      map
      '("menu-bar" "SKK")
-     skk-kanagaki-menu-items))))
+     skk-kanagaki-menu-items))
+  (static-when (eq skk-emacs-type 'mule5)
+    (setq skk-e21-menu-resource-ja
+	  (append
+	   skk-e21-menu-resource-ja
+	   '(("Set Henkan point" . "変換開始点をセット")
+	     ("Input Prefix or Suffix" . "接頭辞・接尾辞を入力")
+	     ("Start Conversion with Okuri" . "送りあり変換を開始")
+	     ("Input a Character by Code" . "コード入力")
+	     ("Enter SKK Abbrev Mode" . "Abbrev モードに入る")
+	     ("\
+Convert  Hiragana <=> Katakana  or  Toggle Hiragana <=> Katakana Mode"
+	      . "かな <=> カナ 変換  または  かなモード <=> カナモード 切換え")
+	     ("Enter SKK JIS X 0208 Latin Mode" . "全英モードに入る")
+	     ("\
+Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
+	      . "\
+半角カナに変換  または  全角カナモード <=> 半角カナモード 切換え")
+	     ("Enter SKK Latin Mode" . "アスキーモードに入る")
+	     ("Enter SKK Japanese Mode" . "かなモードに入る")
+	     ("Toggle Roma <=> Kana" . "かな入力方式  ローマ  <=> かな 切換え")
+	     ("Show Key Bindings" . "かな入力独自のキー定義を表示")
+	     ("Show the Current Keymap based on NICOLA"
+	      . "NICOLA キー配列を表示")
+	     ("Show NICOLA-Specific Key Bindings"
+	      . "NICOLA 特有のキー定義を表示")
+	     ("Visit NIHONGO-NYURYOKU CONSORTIUM Web Site"
+	      . "日本語入力コンソーシアムのサイトへ")))))))
 
 (require 'product)
 (product-provide
