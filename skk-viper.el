@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.28 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-viper.el,v 1.29 2003/02/26 08:50:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2003/02/26 08:50:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -298,11 +298,9 @@ Convert hirakana to katakana and vice versa."
 		    (insert-char (downcase c) 1)
 		  (insert-char (upcase c) 1)))
 	       ((and (<= ?ぁ c) (>= ?ん c))
-		(insert-string
-		 (skk-hiragana-to-katakana (char-to-string c))))
+		(insert (skk-hiragana-to-katakana (char-to-string c))))
 	       ((and (<= ?ァ c) (>= ?ン c))
-		(insert-string
-		 (skk-katakana-to-hiragana (char-to-string c))))
+		(insert (skk-katakana-to-hiragana (char-to-string c))))
 	       (t
 		(insert-char c 1)))
 	 (when (eolp)
