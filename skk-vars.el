@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.118 2004/04/04 05:49:35 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.119 2004/04/04 14:54:01 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/04/04 05:49:35 $
+;; Last Modified: $Date: 2004/04/04 14:54:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1302,6 +1302,12 @@ nil であれば、英語で表示する。"
   "*Non-nil であれば、エコーエリアの代わりに tooltip で候補などを表示する。
 この機能は現在のところ Emacs 21 専用。"
   :type 'boolean
+  :group 'skk-decoration)
+
+(defcustom skk-tooltip-hide-delay 1000
+  "*tooltip を使って候補など表示する場合に、表示する時間 (秒)。
+この時間が経過すると自動的に tooltip は消える。"
+  :type 'integer
   :group 'skk-decoration)
 
 (defcustom skk-set-henkan-point-key
