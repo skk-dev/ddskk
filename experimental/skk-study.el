@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.42 2003/07/18 16:13:24 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.43 2003/07/18 16:52:00 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/18 16:13:24 $
+;; Last Modified: $Date: 2003/07/18 16:52:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -299,6 +299,42 @@
   (when (and skk-study-current-buffer-theme
 	     (string= skk-study-current-buffer-theme theme))
     (setq skk-study-current-buffer-theme nil)))
+
+;;;###autoload
+(defun skk-study-copy-theme (from to)
+  "skk-study の学習テーマ FROM を TO にコピーする。
+TO の既存データは破壊される。"
+  (interactive
+   (list (completing-read
+	  "Copy skk-study theme from: "
+	  (when (or skk-study-alist (skk-study-read))
+	    (let ((n 0))
+	      (mapcar (lambda (e)
+			(setq n (1+ n))
+			(cons e n))
+		      (mapcar 'car skk-study-alist))))
+	  nil 'require-match)
+	 (completing-read
+	  "Copy skk-study theme to: "
+	  (let ((n 0))
+	    (mapcar (lambda (e)
+		      (setq n (1+ n))
+		      (cons e n))
+		    (mapcar 'car skk-study-alist))))))
+  (unless (and (stringp from) (stringp to))
+    (skk-error "skk-study の theme が文字列ではありません"
+	       "Only string is allowed as theme of skk-study"))
+  (when (string= from to)
+    (skk-error "コピー元とコピー先のテーマが同一です"
+	       "FROM and TO is the same theme"))
+  (let ((fromalist (copy-tree (cdr (assoc from skk-study-alist))))
+	(toalist (assoc to skk-study-alist)))
+    (unless fromalist
+      (skk-error "コピー元の学習データがありません"
+	       "FROM study data is null"))
+    (if toalist
+	(setcdr toalist fromalist)
+      (setq skk-study-alist (cons (cons to fromalist) skk-study-alist)))))
 
 ;;;###autoload
 (defun skk-study-read (&optional nomsg force)
