@@ -77,7 +77,8 @@
       ["Visit Daredevil Web Site" skk-e21-visit-openlab t])))
 
 (defvar skk-e21-menu-resource-ja
-  '(("Convert Region and Echo" . "領域を変換してミニバッファに表示")
+  '(("Daredevil SKK Menu" . "Daredevil SKK メニュー")
+    ("Convert Region and Echo" . "領域を変換してミニバッファに表示")
     ("Gyakubiki" . "逆引き")
     ("to Hiragana" . "ひらがなに変換")
     ("to Hiragana, All Candidates" . "ひらがなに変換、全ての候補を表示")
@@ -113,7 +114,7 @@
 			 #'skk-e21-modeline-menu)
 		       map)
 	  'help-echo
-	  "mouse-1, mouse-3: SKK Menu")))
+	  "mouse-1, mouse-3: SKK メニュー")))
 
 (defvar skk-e21-property-alist
   (when window-system
@@ -280,9 +281,10 @@ Analogous to mouse-position."
 	 (ox     (cadr oP))
 	 (oy     (cddr oP)))
     (set-mouse-position frame x y)
-    (tooltip-show text)
+    (let ((tooltip-hide-delay skk-tooltip-hide-delay))
+      (tooltip-show text))
     (condition-case nil
-	(sit-for tooltip-hide-delay)
+	(sit-for skk-tooltip-hide-delay)
       (quit
        (tooltip-hide)
        (set-mouse-position oframe ox oy)
