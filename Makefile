@@ -1,16 +1,14 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.13 1999/11/07 04:16:44 minakaji Exp $
-# Last Modified: $Date: 1999/11/07 04:16:44 $
+# Version: $Id: Makefile,v 1.14 1999/11/14 15:25:54 minakaji Exp $
+# Last Modified: $Date: 1999/11/14 15:25:54 $
 
 VERSION = 10.57
 
 TAR	= tar
 RM	= /bin/rm -f
 CP	= /bin/cp -p
-CHMOD   = /bin/chmod
-
 EMACS	= emacs
 XEMACS	= xemacs
 FLAGS   = -batch -q -no-site-file -l SKK-MK
@@ -37,11 +35,7 @@ clean:
 tar:
 	-$(RM) *.elc ./doc/skk.info* ../skk-$(VERSION).tar.gz \
                `find . -name '*~'` `find . -name '*~'`
-	$(CHMOD) a+w Makefile make.bat SKK-CFG doc/skk.texi
 	cd .. ; $(TAR) cvzpf skk$(VERSION).tar.gz --exclude-from=./skk-$(VERSION)/skk.ex \
                              skk-$(VERSION)
-
-checkin:
-	$(CHMOD) a-w Makefile make.bat SKK-CFG doc/skk.texi
 
 # end of Makefile.

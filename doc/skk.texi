@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.9 1999/11/07 03:04:27 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.10 1999/11/14 15:27:06 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 1999/11/07 03:04:27 $
+@c  Last Modified: $Date: 1999/11/14 15:27:06 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.51
-@set UPDATED $Date: 1999/11/07 03:04:27 $
+@set UPDATED $Date: 1999/11/14 15:27:06 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -6422,6 +6422,7 @@ SKKは1988年4月に第1版をJUNETに投稿して以来、毎年4
 * skkfep::                      SKKクローンFEP
 * SKK on Jed::                  Jedで動くSKK
 * skkinput::                    X上のSKK入力プログラム
+* SKK95::                       Windowsで動くSKK like IME
 @end menu
 
 @node dbskkd-cdb , skkfep内蔵jvim, SKK関連ソフトウェア, SKK関連ソフトウェア
@@ -6668,7 +6669,7 @@ WWWクライアントを利用して
 まだいくつか未実装機能がありますがSKKの全機能実装を目指しています。
 @end table
 
-@node skkinput,  , SKK on Jed, SKK関連ソフトウェア
+@node skkinput, SKK95, SKK on Jed, SKK関連ソフトウェア
 @comment  node-name,  next,  previous,  up
 @section skkinput
 @cindex @file{skkinput}
@@ -6716,6 +6717,61 @@ UNIX + X11R5またはX11R6(R6.1)
 @item その他
 SKK 8.6にはかなり近付けたと思うのですが、まだまだ異なる部分が残っていま
 す。特に操作体系で異なると感じられた方は私までレポートを御願い致します。
+@end table
+
+@node SKK95,  , skkinput, SKK関連ソフトウェア
+@comment  node-name,  next,  previous,  up
+@section SKK95
+@cindex SKK95
+
+@c @table @asis
+@c @item 正式名称
+@c @item どのようなソフトウェアか
+@c @item 使用するために要求される環境
+@c @item 最新バージョン、release の日付
+@c @item 開発者
+@c @item 配布条件
+@c @item 入手方法
+@c @item bug report,質問のためのアドレス
+@c @item その他
+@c @end table
+
+このセクションは、京大マイコンクラブ川崎進一郎氏によって書かれた。
+
+@table @asis
+
+@item 正式名称
+SKK95
+
+@item どのようなソフトウェアか
+Windows95, WindowsNT, Windows98 上で SKK ライクなかな漢字入力を実現する
+IME。
+
+@item 使用するために要求される環境
+上記のOS(もちろん日本語版)。
+
+@item 最新バージョン、release の日付
+最新バージョンα13。1999年6月9日。
+
+@item 開発者
+京大マイコンクラブ
+
+@item 配布条件
+SKK95はフリーウェアです。商業目的以外の目的のためならば自由にコピーして
+いただいて構いません。SKK95を使用したことによるいかなる被害に対しても、
+SKK95 の作者は責任を負いません。
+
+@item 入手方法
+下記のウェッブページから入手して下さい。
+@w{@samp{http://www.kuis.kyoto-u.ac.jp/~kmc/proj/skk95/}}
+
+@item bug report,質問のためのアドレス
+@w{@samp{skk95-bugs@@kmc.kyoto-u.ac.jp}}
+
+@item その他
+1999年9月現在、SKK95はαバージョンであり、動作が安定していないところもあ
+ります。WindowsNTでは比較的安定して動作するようです。
+
 @end table
 
 @node 謝辞とお願い, 事項索引, SKK関連ソフトウェア, Top

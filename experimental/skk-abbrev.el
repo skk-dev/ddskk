@@ -3,25 +3,25 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-abbrev.el,v 1.1 1999/10/23 02:53:12 minakaji Exp $
+;; Version: $Id: skk-abbrev.el,v 1.2 1999/11/14 15:27:44 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 23, 1999
-;; Last Modified: $Date: 1999/10/23 02:53:12 $
+;; Last Modified: $Date: 1999/11/14 15:27:44 $
 
-;; This file is not part of SKK yet.
+;; This file is part of Daredevil SKK.
 
-;; SKK is free software; you can redistribute it and/or modify
+;; Daredevil SKK is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either versions 2, or (at your option)
 ;; any later version.
 
-;; SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
 ;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
 
@@ -53,7 +53,8 @@
 ;;    の方が先に検索されます。
 
 ;;; Code:
-(eval-when-compile (require 'skk) (require 'skk-comp))
+(eval-when-compile (require 'skk-foreword) (require 'skk-comp) )
+
 ;; Elib.
 (require 'stack-m)
 
@@ -83,7 +84,8 @@
 		  (or (not c-word)
 		      (member c-word (stack-all skk-completion-stack)) ))
 	     ;; more searching by look when abbreviating is not enough.
-	     (while (member c-word (stack-all skk-completion-stack))
+	     (while (or (not c-word)
+			(member c-word (stack-all skk-completion-stack)) )
 	       (setq c-word (skk-look-completion)) )))
        (if (not c-word)
 	   (if skk-japanese-message-and-error

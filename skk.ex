@@ -1,7 +1,9 @@
 RCS
+CVS
 not_used
 *,v
 *.elc
+*.bak
 make.log
 temp.el
 dic/SKK-JISYO.E2J

@@ -1,3 +1,7 @@
+1999-11-15  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-abbrev.el (skk-completion-original): Bug fixed.
+
 1999-11-10  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-foreword.el (skk-mode-off): Remove cursor change support.
