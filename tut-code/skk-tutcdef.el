@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.1 2000/12/12 08:59:42 minakaji Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.2 2001/06/03 20:49:34 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/12 08:59:42 $
+;; Last Modified: $Date: 2001/06/03 20:49:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -47,13 +47,13 @@
    ("X" nil skk-purge-from-jisyo)
    ("\\" nil skk-tutcode-mode-off)
    ("\t" nil skk-toggle-kana)
-   ("^" nil skk-input-by-code-or-menu) ))
+   ("^" nil skk-input-by-code-or-menu)))
 
 (if (and (eq skk-emacs-type 'xemacs) (= emacs-major-version 20))
     (progn
       (setq skk-rom-kana-base-rule-list
-	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list) )
-      (define-key skk-j-mode-map "\t" 'skk-toggle-kana) ))
+	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list))
+      (define-key skk-j-mode-map "\t" 'skk-toggle-kana)))
 
 ;; The first few entries are necessary to disable special treatments of
 (setq skk-rom-kana-rule-list
@@ -947,8 +947,8 @@
     (setq skk-rom-kana-rule-list
 	  (nconc '(("tld" nil "ぱ") ("tle" nil "ぴ") ("tlr" nil "ぷ")
 		   ("tlg" nil "ぺ") ("tlf" nil "ぽ") ("dlr" nil "づ")
-		   ("alu" nil "ヴ") ("eld" nil "ヵ") ("elg" nil "ヶ") )
-		 skk-rom-kana-rule-list )))
+		   ("alu" nil "ヴ") ("eld" nil "ヵ") ("elg" nil "ヶ"))
+		 skk-rom-kana-rule-list)))
 
 (require 'product)
 (product-provide (provide 'skk-tutcdef) (require 'skk-version))

@@ -1,3 +1,10 @@
+2001-06-04  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* tut-code/skk-tutcode.el: Remove unnecessary spaces between
+	parens.
+
+	* tut-code/skk-tutcdef.el: Ditto.
+
 2001-06-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el (skk-w3m-search-engine-alist): Add new
@@ -3453,8 +3460,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.301 2001/06/02 19:32:46 minakaji Exp $
-Last Modified: $Date: 2001/06/02 19:32:46 $
+Version: $Id: ChangeLog,v 1.302 2001/06/03 20:49:33 minakaji Exp $
+Last Modified: $Date: 2001/06/03 20:49:33 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

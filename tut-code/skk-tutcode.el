@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcode.el,v 1.3 2000/12/13 11:24:18 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.4 2001/06/03 20:49:34 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/13 11:24:18 $
+;; Last Modified: $Date: 2001/06/03 20:49:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -57,11 +57,11 @@
 ;;
 ;; (defadvice skk-mode (before my-ad activate)
 ;;   (require 'skk-tutcdef)
-;;   (require 'skk-tutcode) )
+;;   (require 'skk-tutcode))
 ;; 
 ;; (defadvice skk-auto-fill-mode (before my-ad activate)
 ;;   (require 'skk-tutcdef)
-;;   (require 'skk-tutcode) )
+;;   (require 'skk-tutcode))
 ;; 
 ;; If you would like to customize some definitions in skk-tutcdef.el,
 ;; you could do, for example;
@@ -70,8 +70,8 @@
 ;;   (require 'skk-tutcdef)
 ;;   ;; your customizations...
 ;;   (setq skk-rom-kana-rule-list
-;;         '(...) ))
-;;   (require 'skk-tutcode) )
+;;         '(...)))
+;;   (require 'skk-tutcode))
 ;;
 ;; <TODO>
 ;; - Efficient mazegaki (e.x. provided by T-code driver) support.
@@ -83,19 +83,19 @@
 ;;;###autoload
 (defgroup skk-tutcode nil "SKK/TUT-code related customization."
   :prefix "skk-tutcode-"
-  :group 'skk )
+  :group 'skk)
 
 ;; all prefix of functions, variables and constants are
 ;; `skk-tutcode-'.
 (defcustom skk-tutcode-use-touch16+ nil
  "*Non-nil であれば、Touch16+ 拡張コードを利用する。"
  :type 'boolean
- :group 'skk-tutcode )
+ :group 'skk-tutcode)
 
 ;;;###autoload
 (defun skk-tutcode-mode-off (foo)
   (skk-latin-mode t)
-  (skk-insert-str "\\") )
+  (skk-insert-str "\\"))
 
 ;;;###autoload
 (defun skk-tutcode-display-code (&optional arg)
@@ -104,13 +104,13 @@
   (interactive "P")
   (if (eobp)
       (skk-error "カーソルがバッファの終端にあります"
-                 "Cursor is at the end of the buffer" )
+                 "Cursor is at the end of the buffer")
     (skk-tutcode-display-code-1
      (buffer-substring-no-properties
       (point)
-      (skk-save-point (forward-char 1) (point)) ))
+      (skk-save-point (forward-char 1) (point))))
     ;; エコーした文字列をカレントバッファに挿入しないように。
-    t ))
+    t))
 
 (defun skk-tutcode-display-code-1 (str)
   (static-cond
@@ -143,7 +143,7 @@
        (t
 	(skk-error "判別できない文字です"
 		   "Cannot understand this character")))
-      ))
+     ))
    ;; 'mule2
    (t
     (let (
@@ -170,7 +170,7 @@
 	  (message "\"%c\"  %2x (%3d)" char char char)))
        (t
 	(skk-error "判別できない文字です"
-		   "Cannot understand this character" )))))))
+		   "Cannot understand this character")))))))
 
 ;; some new stuff
 (defun skk-tutcode-get-code (key)
