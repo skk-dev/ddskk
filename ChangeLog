@@ -1,3 +1,16 @@
+2001-10-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el
+	(newline)
+	(newline-and-indent)
+	(exit-minibuffer): Don't advise here.
+
+	* skk.el
+	(newline)
+	(newline-and-indent)
+	(exit-minibuffer): Advise in skk-jisx0201-mode as well as
+	in skk-j-mode.
+
 2001-10-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-jisx0201.el
@@ -2159,8 +2172,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.445 2001/10/03 22:14:57 czkmt Exp $
-Last Modified: $Date: 2001/10/03 22:14:57 $
+Version: $Id: ChangeLog,v 1.446 2001/10/04 20:45:20 czkmt Exp $
+Last Modified: $Date: 2001/10/04 20:45:20 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
