@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.168 2001/10/24 23:23:22 czkmt Exp $
+;; Version: $Id: skk.el,v 1.169 2001/10/29 11:41:37 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/24 23:23:22 $
+;; Last Modified: $Date: 2001/10/29 11:41:37 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -296,16 +296,20 @@ A tutorial is available in Japanese or English via \"M-x skk-tutorial\".
 Use a prefix argument to choose the language.  The default is system-
 dependent."
   (interactive "P")
-  (setq skk-mode (cond ((null arg) (not skk-mode))
+  (setq skk-mode (cond ((null arg)
+			(not skk-mode))
 		       ;; - は -1 に変換される。
-		       ((> (prefix-numeric-value arg) 0) t)))
+		       ((> (prefix-numeric-value arg) 0)
+			t)
+		       (t
+			nil)))
   (if (not skk-mode)
       ;; exit skk-mode
       (skk-mode-exit)
     ;; enter into skk-mode.
-    (if (not skk-mode-invoked)
-	;; enter into skk-mode for the first time in this session.
-	(skk-mode-invoke))
+    (unless skk-mode-invoked
+      ;; enter `skk-mode' for the first time in this session.
+      (skk-mode-invoke))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
     (skk-create-file skk-jisyo
 		     "SKK の空辞書を作りました"
@@ -3115,7 +3119,7 @@ If you want to restore the dictionary from the disc, try
 
 (defun skk-search-jisyo-file (file limit &optional nomsg)
   ;; SKK 辞書フォーマットの FILE で skk-henkan-key をキーにして検索を行う。
-  ;; 検索リージョンが LIMIT 以下になるまでバイナリサーチを行い、その後リニ
+  ;; 検索領域が LIMIT 以下になるまでバイナリサーチを行い、その後リニ
   ;; アサーチを行う。
   ;; LIMIT が 0 であれば、リニアサーチのみを行う。
   ;; 辞書がソートされていないのであれば、LIMIT を 0 する必要がある。
@@ -3739,7 +3743,7 @@ If you want to restore the dictionary from the disc, try
       words)))
 
 (defun skk-katakana-region (start end &optional vcontract)
-  "リージョンのひらがなをカタカナに変換する。
+  "領域のひらがなをカタカナに変換する。
 オプショナル引数の VCONTRACT が non-nil であれば、\"う゛\" を \"ヴ\" に変換す
 る。
 引数の START と END は数字でもマーカーでも良い。"
@@ -3752,7 +3756,7 @@ If you want to restore the dictionary from the disc, try
    (lambda (matched) (skk-hiragana-to-katakana matched))))
 
 (defun skk-hiragana-region (start end &optional vexpand)
-  "リージョンのカタカナをひらがなに変換する。
+  "領域のカタカナをひらがなに変換する。
 オプショナル引数の VEXPAND が non-nil であれば、\"ヴ\" を \"う゛\" に変換する。
 引数の START と END は数字でもマーカーでも良い。
 \"ヵ\" と \"ヶ\" は変更されない。この 2 つの文字は対応するひらがながないので、
@@ -3767,7 +3771,7 @@ If you want to restore the dictionary from the disc, try
      (skk-katakana-to-hiragana matched))))
 
 (defun skk-jisx0208-latin-region (start end)
-  "リージョンの ascii 文字を対応する全角英文字に変換する。"
+  "領域の ascii 文字を対応する全角英文字に変換する。"
   (interactive "*r")
   (skk-search-and-replace
    start end "[ -~]"
@@ -3775,7 +3779,7 @@ If you want to restore the dictionary from the disc, try
      (aref skk-default-jisx0208-latin-vector (string-to-char matched)))))
 
 (defun skk-latin-region (start end)
-  ;; リージョンの全角英数字を対応する ascii 文字に変換する。
+  ;; 領域の全角英数字を対応する ascii 文字に変換する。
   (interactive "*r")
   (skk-search-and-replace
    start end "\\cj"
@@ -3804,7 +3808,7 @@ If you want to restore the dictionary from the disc, try
        (set-marker end nil)))))
 
 (defun skk-katakana-henkan (arg)
-  "▽モードであれば、リージョンのひらがなをカタカナに変換する。
+  "▽モードであれば、領域のひらがなをカタカナに変換する。
 ▼モードでは何もしない。
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
@@ -3812,7 +3816,7 @@ If you want to restore the dictionary from the disc, try
   (skk-*-henkan-2 'skk-katakana-region 'vcontract))
 
 (defun skk-hiragana-henkan (arg)
-  "▽モードであれば、リージョンのカタカナをひらがなに変換する。
+  "▽モードであれば、領域のカタカナをひらがなに変換する。
 ▼モードでは何もしない。
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
@@ -3838,17 +3842,22 @@ If you want to restore the dictionary from the disc, try
 (defun skk-*-henkan-1 (func &rest args)
   ;; 変換可能かどうかのチェックをした後に ARGS を引数として FUNC を適用し、
   ;; skk-henkan-start-point と skk-henkan-end-point の間の文字列を変換する。
-  (cond ((skk-get-prefix skk-current-rule-tree)
-	 (skk-error "フィックスされていない skk-prefix があります"
-		    "Have unfixed skk-prefix"))
-	((< (point) skk-henkan-start-point)
-	 (skk-error "カーソルが変換開始地点より前にあります"
-		    "Henkan end point must be after henkan start point"))
-	((and (not skk-allow-spaces-newlines-and-tabs)
-	      (skk-save-point (beginning-of-line)
-			      (> (point) skk-henkan-start-point)))
-	 (skk-error "変換キーに改行が含まれています"
-		    "Henkan key may not contain a new line character")))
+
+  (when (skk-get-prefix skk-current-rule-tree)
+    (skk-error "入力途中の仮名ブレフィックスがあります"
+	       "There remains a kana prefix"))
+
+  (when (< (point) skk-henkan-start-point)
+    (skk-error "カーソルが変換開始地点より前にあります"
+	       "Henkan end point must be after henkan start point"))
+
+  (when (and (not skk-allow-spaces-newlines-and-tabs)
+	     (skk-save-point
+	      (beginning-of-line)
+	      (> (point) skk-henkan-start-point)))
+    (skk-error "変換キーに改行が含まれています"
+	       "Henkan key may not contain a line feed"))
+
   (apply func args)
   (skk-kakutei))
 
@@ -4234,13 +4243,13 @@ If you want to restore the dictionary from the disc, try
 	ad-do-it))))
 
 (defadvice picture-mode-exit (before skk-ad activate)
-  "SKK のバッファローカル変数を無効にし、picture-mode-exit をコールする。
-picture-mode から出たときにそのバッファで SKK を正常に動かすための処理。"
+  "SKK のバッファローカル変数を無効にし、`picture-mode-exit' をコールする。
+`picture-mode' から出たときにそのバッファで SKK を正常に動かすための処理。"
   (when skk-mode
     (skk-kill-local-variables)))
 
 (skk-defadvice undo (before skk-ad activate)
-  "SKK モードが on なら skk-self-insert-non-undo-count を初期化する。"
+  "SKK モードが on なら `skk-self-insert-non-undo-count' を初期化する。"
   (when skk-mode
     (setq skk-self-insert-non-undo-count 0)))
 
