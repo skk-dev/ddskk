@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.74 2000/12/01 09:15:48 minakaji Exp $
+;; Version: $Id: skk.el,v 1.75 2000/12/04 03:41:17 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/01 09:15:48 $
+;; Last Modified: $Date: 2000/12/04 03:41:17 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1236,7 +1236,7 @@ dependent."
 
 (defun skk-translate-okuri-char (okurigana)
   (and skk-okuri-char-alist
-       (cdr (assoc (skk-substring-head-character okurigana) skk-okuri-char-alist))))
+       (cdr (assoc (skk-okurigana-prefix okurigana) skk-okuri-char-alist))))
 
 (defun skk-set-okurigana ()
   ;; 見出し語から skk-henkan-okurigana, skk-henkan-key の各値をセットする。
@@ -3713,7 +3713,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			(skk-substring word pos (+ pos 2))
 		      okuri-first))
 	      (setq new-word (skk-substring word 0 pos)
-		    new-skk-okuri-char (skk-okurigana-prefix okuri-first)
+		    new-skk-okuri-char (skk-okurigana-prefix skk-henkan-okurigana)
 		    new-skk-henkan-key (concat
 					(skk-substring midasi 0 pos2)
 					new-skk-okuri-char))
@@ -3739,33 +3739,27 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   word)
 
 (defun skk-okurigana-prefix (okurigana)
-  (cond ((not (and (skk-string<= "ぁ" okurigana) (skk-string<= okurigana "ん")))
-	 nil)
-	((string= okurigana "ん")
-	 "n")
-	((and (string= okurigana "っ")
-	      (not (string= skk-henkan-okurigana "っ")))
-	 (aref skk-kana-rom-vector
-	       ;; assume the character is hiragana of JIS X 0208.
-	       (static-cond
-		((eq skk-emacs-type 'nemacs)
-		 (- (string-to-char
-		     (substring skk-henkan-okurigana 3 4)) 161))
-		(t
-		 (- (skk-char-octet
-		     (string-to-char (skk-substring skk-henkan-okurigana 1 2))
-		     1)
-		    33)))))
-	(t (aref skk-kana-rom-vector
+  (let ((headchar (skk-substring okurigana 0 1)))
+    (cond ((string= headchar "ん")
+	   "n")
+	  ((not (and (skk-string<= "ぁ" headchar) (skk-string<= headchar "ん")))
+	   nil)
+	  ((and (string= headchar "っ") (not (string= okurigana "っ")))
+	   (aref skk-kana-rom-vector
+		 ;; assume the character is hiragana of JIS X 0208.
 		 (static-cond
 		  ((eq skk-emacs-type 'nemacs)
-		   (- (string-to-char
-		       (substring skk-henkan-okurigana 1 2)) 161))
-		 (t
-		  (- (skk-char-octet
-		     (string-to-char (skk-substring skk-henkan-okurigana 0 1))
-		     1)
-		    33)))))))
+		   (- (string-to-char (substring okurigana 3 4)) 161))
+		  (t
+		   (- (skk-char-octet
+		       (string-to-char (skk-substring okurigana 1 2)) 1)
+		      33)))))
+	  (t (aref skk-kana-rom-vector
+		   (static-cond
+		    ((eq skk-emacs-type 'nemacs)
+		     (- (string-to-char (substring okurigana 1 2)) 161))
+		    (t
+		     (- (skk-char-octet (string-to-char headchar) 1) 33))))))))
 
 ;; from type-break.el.  Welcome!
 (defun skk-time-difference (a b)

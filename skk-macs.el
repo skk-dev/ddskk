@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.17 2000/11/27 01:33:05 furue Exp $
+;; Version: $Id: skk-macs.el,v 1.18 2000/12/04 03:41:17 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/27 01:33:05 $
+;; Last Modified: $Date: 2000/12/04 03:41:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -227,6 +227,7 @@
     (and window-system (x-display-color-p)))))
 
 (defsubst skk-str-length (str)
+  ;; multibyte 文字を 1 と数えたときの文字列の長さ。
   (static-cond
    ((memq skk-emacs-type '(nemacs mule1 mule2))
     (length (string-to-char-list str)))
@@ -236,7 +237,9 @@
     ;; XEmacs, MULE 4.0 or later.
     (length str))))
 
-(defsubst skk-substring (str pos1 pos2)
+(defsubst skk-substring (str pos1 &optional pos2)
+  ;; multibyte 文字を 1 と数えて substring する。
+  (or pos2 (setq pos2 (skk-str-length str)))
   (static-cond
    ((eq skk-emacs-type 'nemacs)
     ;; XXX not yet tested.
@@ -585,8 +588,8 @@
 	(skk-katakana 'katakana)
 	(skk-j-mode 'hiragana)))
 
-(defsubst skk-substring-head-character (string)
-  (char-to-string (string-to-char string)))
+;;(defsubst skk-substring-head-character (string)
+;;  (char-to-string (string-to-char string)))
 
 (defsubst skk-get-current-candidate-1 ()
   (if (> 0 skk-henkan-count)

@@ -1,5 +1,15 @@
 2000-12-04  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* skk.el (skk-translate-okuri-char): Use `skk-okurigana-prefix'
+	instead of `skk-substring-head-character'.
+	(skk-okurigana-prefix): Do not refer to `skk-henkan-okurigana'.
+	(skk-remove-common): Calculate NEW-SKK-OKURI-CHAR by 
+	`(skk-okurigana-prefix skk-henkan-okurigana)' instead of
+	`(skk-okurigana-prefix okuri-first)'.
+
+	* skk-macs.el (skk-substring): Make second arg POS2 optional.
+	(skk-substring-head-character): Comment out.
+
 	* experimental/skk-dcomp.el (skk-extentp): Comment out.
 	(skk-dcomp-face-on): Make it inline function.
 	(skk-dcomp-face-off): Ditto.
@@ -2670,8 +2680,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.196 2000/12/04 01:53:39 minakaji Exp $
-Last Modified: $Date: 2000/12/04 01:53:39 $
+Version: $Id: ChangeLog,v 1.197 2000/12/04 03:41:17 minakaji Exp $
+Last Modified: $Date: 2000/12/04 03:41:17 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
