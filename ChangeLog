@@ -19,7 +19,7 @@
 	(get-apparent-background-color)
 	(set-cursor-color-buffer-local)
 	(set-foreground-color-buffer-local)
-	(set--background-color-buffer-local): New functions.
+	(set-background-color-buffer-local): New functions.
 
 	(modify-frame-parameters): New advice.
 
@@ -3062,8 +3062,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.577 2001/12/02 03:19:40 czkmt Exp $
-Last Modified: $Date: 2001/12/02 03:19:40 $
+Version: $Id: ChangeLog,v 1.578 2001/12/02 03:20:01 czkmt Exp $
+Last Modified: $Date: 2001/12/02 03:20:01 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
