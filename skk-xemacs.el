@@ -25,10 +25,8 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'info))
-
 (eval-and-compile
+  (autoload 'Info-goto-node "info")
   (autoload 'browse-url "browse-url"))
 
 ;; Variables.

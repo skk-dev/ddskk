@@ -91,7 +91,7 @@
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-xemacs) (require 'skk-version))
+(product-provide (provide 'skk-e21) (require 'skk-version))
 
 ;; skk-xemacs.el ends here.
 
