@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.41 2000/10/10 10:37:48 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.42 2000/10/10 14:06:25 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/10 10:37:48 $
+@c  Last Modified: $Date: 2000/10/10 14:06:25 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/10/10 10:37:48 $
+@set UPDATED $Date: 2000/10/10 14:06:25 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -1501,7 +1501,7 @@ SKK $B$rJ;MQ$7$?%$%s%/%j%a%s%?%j%5!<%A5!G=$rDs6!$9$k%U%!%$%k!#(B
 
 KAKASI $B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 
-@xref{$B%j!<%8%g%s0l3gJQ49(B}.
+@xref{$BNN0h0l3gJQ49(B}.
 @xref{KAKASI}.
 
 @item skk-kcode.el
@@ -1598,7 +1598,7 @@ SKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_$3$^$l$^$9!#%U%!%$%kL>$N4{DjCM$O!"(BOS $B$N
 $B$-$^$9!#$^$?!"(BSKK $B$K$O$3$N%U%!%$%k$r<+F0E*$K%P%$%H%3%s%Q%$%k$9$k5!G=$,$"(B
 $B$j$^$9!#>\:Y$O!"(B
 
-@ref{skk-init-file$B$N%P%$%H%3%s%Q%$%k(B}
+@ref{skk-init-file$B$N%3%s%Q%$%k(B}
 
 $B$r;2>H$7$F$/$@$5$$!#(B
 
@@ -2231,7 +2231,7 @@ SKK $B$K$O!"%+%?%+%J$NF~NO$K$O%+%J%b!<%I$r!"A43Q%"%k%U%!%Y%C%H$NF~NO$K$OA4(B
 
 $B%H%0%kJQ49$O!"NN0h$rBP>]$H$7$?%3%^%s%I$K$h$C$F9T$J$&$3$H$b$G$-$^$9!#(B
 
-@xref{$B%j!<%8%g%s0l3gJQ49(B}.
+@xref{$BNN0h0l3gJQ49(B}.
 
 @node $BA41QJ8;z$N0l;~E*F~NO(B,  , $B$R$i$,$J(B/$B%+%?%+%J$N0l;~E*F~NO(B, $BF~NO%b!<%I$N0l;~JQ99(B
 @comment  node-name,  next,  previous,  up
@@ -2788,8 +2788,11 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 
 @noindent
 $BF1MM$K!"FCDj$N%Z%"$r:o=|$7$?$$>l9g$O!"Nc$($P2<5-$N$h$&$K@_Dj$7$^$9(B
-@footnote{$B2?8N4X?t(B @code{copy-sequence} $B$r;HMQ$9$k$N$+$K$D$$$F$O!"(B@ref{
-$B?t;z$d5-9fJ8;z$NF~NO(B}$B$r;2>H$7$F$/$@$5$$!#(B}$B!#(B
+@footnote{$B2?8N4X?t(B @code{copy-sequence} $B$r;HMQ$9$k$N$+$K$D$$$F$O!"(B
+
+@ref{$B?t;z$d5-9fJ8;z$NF~NO(B}
+
+$B$r;2>H$7$F$/$@$5$$!#(B}$B!#(B
 
 @lisp
 @group
@@ -4489,10 +4492,10 @@ KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$1$l$P;HMQ$9$k$3$H$,$G$-$^$;$s!#(B
 
 $B$N$h$&$K$J$j$^$9!#(B
 
-$BAw$j2>L>$,$"$k8l$O!"Aw$j2>L>$^$G4^$a$F%j!<%8%g%s$K;XDj$7$^$9(B ($B$5$b$J$$$H(B
-$B8mJQ49$N860x$H$J$j$^$9(B)$B!#(B $BNc$($P!"(B@samp{$B8^7nGh$$(B} $B$K$D$$$F!"Aw$j2>L>(B
-@samp{$B$$(B} $B$r4^$a$:$K$3$N%3%^%s%I$r<B9T$9$k$H!"(B@samp{$B$4$,$D$O$((B} $B$KJQ49$5(B
-$B$l$F$7$^$$$^$9!#(B
+$BAw$j2>L>$,$"$k8l$O!"Aw$j2>L>$^$G4^$a$FNN0h$K;XDj$7$^$9(B ($B$5$b$J$$$H8mJQ49(B
+$B$N860x$H$J$j$^$9(B)$B!#(B $BNc$($P!"(B@samp{$B8^7nGh$$(B} $B$K$D$$$F!"Aw$j2>L>(B @samp{$B$$(B}
+$B$r4^$a$:$K$3$N%3%^%s%I$r<B9T$9$k$H!"(B@samp{$B$4$,$D$O$((B} $B$KJQ49$5$l$F$7$^$$(B
+$B$^$9!#(B
 
 @item @kbd{M-x skk-gyakubiki-katakana-region}
 @kindex M-x skk-gyakubiki-katakana-region
