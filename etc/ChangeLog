@@ -1,3 +1,9 @@
+2002-02-27  IIDA Yosiaki  <iida@ring.gr.jp>
+
+	* NICOLA-SKK.tut, SKK.tut: Correct minibuffer to echo area.
+	* SKK.tut.E: Ditto and vice versa.  Correct minibuffer to
+	JISYO buffer.
+
 2002-02-26  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* NICOLA-SKK.tut, SKK.tut: Fix lots of Japanese typos.

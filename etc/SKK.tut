@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut,v 1.7 2002/02/26 02:36:19 iida Exp $
+;; Version: $Id: SKK.tut,v 1.8 2002/02/27 01:43:48 iida Exp $
 ;; Keywords: japanese, help
-;; Last Modified: $Date: 2002/02/26 02:36:19 $
+;; Last Modified: $Date: 2002/02/27 01:43:48 $
 
 ;; This is the tutorial text for Daredevil SKK version 11.1 and later
 ;; versions.
@@ -362,12 +362,12 @@ SKKでの仮名漢字変換は次のようにして行われます。
 
 !! 「■モード」で、『Go□□□□□□』とタイプしてください (<space> は6回です)。
 
-ミニバッファは
+エコー領域は
 
 	A:檎  S:瑚  D:碁  F:語  J:誤  K:護  L:醐  [残り 0]
 
 となっています。このように候補が5つ以上あるときは、最初の4つは画面に1
-つずつ表示されますが、5つ目以降はミニバッファに7つずつまとめて表示され
+つずつ表示されますが、5つ目以降はエコー領域に7つずつまとめて表示され
 ます。【碁】を選択するには、小文字の『d』をタイプします。
 
 >> 碁
@@ -387,7 +387,7 @@ SKKでの仮名漢字変換は次のようにして行われます。
 <return> キーにより空登録がされ、辞書登録の直前の状態に戻ります。【▼モー
 ド】では『x』キーにより前候補 (群) を表示することができます。
 
-!! ミニバッファの候補の中から【午】を選択してください。
+!! エコー領域の候補の中から【午】を選択してください。
 
 >> 午
 ----

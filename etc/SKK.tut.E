@@ -6,9 +6,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut.E,v 1.7 2002/02/26 02:35:04 iida Exp $
+;; Version: $Id: SKK.tut.E,v 1.8 2002/02/27 01:43:48 iida Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2002/02/26 02:35:04 $
+;; Last Modified: $Date: 2002/02/27 01:43:48 $
 ;;
 ;; This is the tutorial text for Daredevil SKK version 11.1 and and later versions.
 ;;
@@ -307,7 +307,7 @@ current candidate becomes the final result and enter ▽ mode.
 
 Your window becomes 【▼かなかんじへんかん】 and you should see the prompt:
 	かなかんじへんかん
-in the echo area.  In ▼ mode, the source string to be converted is
+in the minibuffer.  In ▼ mode, the source string to be converted is
 already fixed.  In our case, SKK tried to convert the string 【かなかんじ
 へんかん】, but could not find it in the Jisho (辞書, dictionary) buffer.
 In such a case, SKK automatically enters register-a-word-to-dictionary
@@ -316,7 +316,7 @@ mode (this mode will be referred to as 辞書登録 mode).
 key word (見出し語, midashigo) for the new entry to be registered to 辞書
 buffer.
 
-!! Verify that the cursor is in the echo area, and type
+!! Verify that the cursor is in the minibuffer, and type
 !! 『Kana□Kanji□Henkan□』 followed by <return> key.
 
 >> 仮名漢字変換
@@ -340,9 +340,9 @@ or by registering an empty string.
 !! Type 『Kanakanjihenken□』 in ■ mode.
 
 辞書 does not contain 【かなかんじへんけん】, so you get 【かなかんじへん
-けん】 in the echo area.
+けん】 in the minibuffer.
 
-!! Verify that the cursor is in the echo area, and hit <return>.
+!! Verify that the cursor is in the minibuffer, and hit <return>.
 
 The 【*答*】 window now becomes 【▽かなかんじへんけん】.
 
@@ -384,7 +384,7 @@ among the candidated but we had overrun.
 <return> key registers an empty string (which actually makes no real
 registration) and we return to the state just before 辞書登録.  In ▼ mode,
 we can return to previous candiate(s) by the 『x』 key.  You should now be
-able to select 【午】 from the candidates in the minibuffer.
+able to select 【午】 from the candidates in the echo area.
 
 >> 午
 ----
@@ -396,7 +396,7 @@ As there is no 【ごご】 in the 辞書 buffer, we enter 辞書登録 
 
 !! Verify that the minibuffer prompt is 【ごご】, and type 『Go□』.
 
-Minibuffer becomes 【ごご ▼午】.
+The minibuffer becomes 【ごご ▼午】.
 
 !! Then, type 『Go□□□□□j』.
 
@@ -406,7 +406,7 @@ We have 【ごご 午後】 in the minibuffer.
 
 >> 午後
 ----
-We now have the entry 【ごご /午後/】 in the  辞書 buffer.  So the
+We now have the entry 【ごご /午後/】 in the 辞書 buffer.  So the
 following problem should be easy.
 
 >> 午後の碁。
@@ -414,9 +414,9 @@ following problem should be easy.
 == Recursive 辞書登録 ==
 
 !! Type 『Saikiteki□』 in ■ mode.
-!! Verify the prompt 【さいきてき】 in the echo area, and type 『Saiki□』.
+!! Verify the prompt 【さいきてき】 in the minibuffer, and type 『Saiki□』.
 
-We don't have 【さいき】 in the minibuffer either, so we recursively
+We don't have 【さいき】 in the 辞書 buffer either, so we recursively
 (i.e., 再帰的に) enter 辞書登録 mode.
 
 !! Construct 【再帰】 in the minibuffer.  (Hint: 再(さい), 帰(き))
