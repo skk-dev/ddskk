@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.25 2001/11/25 11:05:52 minakaji Exp $
+;; Version: $Id: skk-server.el,v 1.26 2001/11/25 11:34:10 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/25 11:05:52 $
+;; Last Modified: $Date: 2001/11/25 11:34:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -48,12 +48,8 @@
 		  skk-servers-list)
 	(skk-error "Lack of host information of SKK server"
 		   "SKK サーバーのホスト情報がありません"))
-      (when skkserv-process
+      (when (skk-open-server)
 	(setq status (process-status skkserv-process)))
-      (unless (eq status skk-network-open-status)
-	(skk-open-server)
-	(when skkserv-process
-	  (setq status (process-status skkserv-process))))
       (when (eq status skk-network-open-status)
 	(let (v)
 	  (save-match-data
@@ -82,19 +78,15 @@
 ;;;###autoload
 (defun skk-search-server-1 (file limit)
   ;; skk-search-server のサブルーチン。
-  (let* ((key
-	  (if skk-use-numeric-conversion
-	      (skk-num-compute-henkan-key skk-henkan-key)
-	    skk-henkan-key))
-	 ;; バッファローカル値の受け渡しのため、別名の一時変数に取る。
-	 (okurigana (or skk-henkan-okurigana
-			skk-okuri-char))
-	 (status (when skkserv-process
-		   (process-status skkserv-process))))
-    (unless (eq status skk-network-open-status)
-      (skk-open-server)
-      (when skkserv-process
-	(setq status (process-status skkserv-process))))
+  (let ((key
+	 (if skk-use-numeric-conversion
+	     (skk-num-compute-henkan-key skk-henkan-key)
+	   skk-henkan-key))
+	;; バッファローカル値の受け渡しのため、別名の一時変数に取る。
+	(okurigana (or skk-henkan-okurigana
+		       skk-okuri-char))
+	(status (when (skk-open-server)
+		  (process-status skkserv-process))))
     (cond
      ((eq status skk-network-open-status)
       (with-current-buffer skkserv-working-buffer
@@ -141,13 +133,17 @@
 
 (defun skk-open-server ()
   ;; SKK サーバーと接続する。サーバープロセスを返す。
-  (let ((process (or (skk-open-network-stream) (skk-open-server-1)))
-	code)
-    (when (and process
-	       (eq (process-status process) skk-network-open-status))
-      (setq code (cdr (assoc "euc" skk-coding-system-alist)))
-      (set-process-coding-system process code code))
-    (setq skkserv-process process)))
+  (let (code)
+    (cond
+     ((and skkserv-process
+	   (eq (process-status skkserv-process) skk-network-open-status))
+      nil)
+     ((setq skkserv-process
+	    (or (skk-open-network-stream) (skk-open-server-1)))
+      (when (eq (process-status skkserv-process) skk-network-open-status)
+	(setq code (cdr (assoc "euc" skk-coding-system-alist)))
+	(set-process-coding-system skkserv-process code code))))
+    skkserv-process))
 
 (defun skk-open-server-1 ()
   ;; skk-open-server のサブルーチン。

@@ -21,6 +21,9 @@
 	(skk-open-network-stream)
 	(skk-startup-server): Return a process object.
 
+	(skk-open-server): Don't open a new process when `skkserv-process'
+	is open.
+
 2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-dcomp-activate): Set default value to nil.
@@ -2938,8 +2941,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.564 2001/11/25 11:18:33 minakaji Exp $
-Last Modified: $Date: 2001/11/25 11:18:33 $
+Version: $Id: ChangeLog,v 1.565 2001/11/25 11:34:10 czkmt Exp $
+Last Modified: $Date: 2001/11/25 11:34:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
