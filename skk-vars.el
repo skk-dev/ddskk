@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.9 2000/11/11 23:39:14 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.10 2000/11/13 05:29:49 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/11 23:39:14 $
+;; Last Modified: $Date: 2000/11/13 05:29:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1904,7 +1904,7 @@ Mule-UCS がインストールされていないときはこの値は動作に影響しない。"
 	 '(("euc" . euc-jisx0213)
 	   ("ujis" . euc-jisx0213)
 	   ("sjis". shift_jisx0213)
-	   ("jis" . iso-2022-jp-3-compatible)))
+	   ("jis" . iso-2022-jp-3-strict)))
 	((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
 	 '(("euc" . euc-japan)
 	   ("ujis" . euc-japan)
