@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.10 1999/09/23 13:36:06 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.11 1999/09/25 11:12:46 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/23 13:36:06 $
+;; Last Modified: $Date: 1999/09/25 11:12:46 $
 
 ;; This file is not part of SKK yet.
 
@@ -38,6 +38,7 @@
 ;;       小野 孝男 <takao@hirata.nuee.nagoya-u.ac.jp>
 ;;       Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;       Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
+;;       Rei FURUKAWA <furukawa@tcp-ip.or.jp>
 ;;       Shuhei KOBAYASHI <shuhei-k@jaist.ac.jp>
 ;;       TSUMURA Tomoaki <tsumura@kuis.kyoto-u.ac.jp>
 
@@ -86,9 +87,10 @@
 
 (require 'advice)
 (require 'easymenu)
-;; APEL 9.21 or later required.
+;; APEL 9.22 or later required.
+(eval-when-compile (require 'static))
 (require 'poe)
-(require 'poem)
+(require 'poem) ; requires pces.
 (require 'pcustom)
 (require 'alist)
 ;; Elib 1.0 is required.
@@ -125,16 +127,12 @@
 ;; Who uses SKK without compilaition?
 ;;(eval-when-compile
 
-;; Why I use non-intern temporary variable in the macro --- see comment in
-;; save-match-data of subr.el of GNU Emacs. And should we use the same manner
-;; in the save-current-buffer, with-temp-buffer and with-temp-file macro
-;; definition?
 (defmacro skk-defun-cond (name args &optional doc &rest everything-else)
   (or (stringp doc)
       (setq everything-else (cons doc everything-else)
 	    doc nil))
   (` (prog1
-	 (cond
+	 (static-cond
 	  (,@ (mapcar
 	       (function
 		(lambda (case)
@@ -155,7 +153,7 @@
       (setq everything-else (cons doc everything-else)
 	    doc nil))
   (` (prog1
-	 (cond
+	 (static-cond
 	  (,@ (mapcar
 	       (function
 		(lambda (case)
@@ -176,7 +174,7 @@
       (setq everything-else (cons doc everything-else)
 	    doc nil))
   (` (prog1
-	 (cond
+	 (static-cond
 	  (,@ (mapcar
 	       (function
 		(lambda (case)
@@ -191,6 +189,10 @@
        (setq current-load-list
 	     (cons (quote (, name)) current-load-list)))))
 
+;; Why I use non-intern temporary variable in the macro --- see comment in
+;; save-match-data of subr.el of GNU Emacs. And should we use the same manner
+;; in the save-current-buffer, with-temp-buffer and with-temp-file macro
+;; definition?
 (defmacro skk-save-point (&rest body)
   (` (let ((skk-save-point (point-marker)))
        (unwind-protect
@@ -604,128 +606,117 @@
    (t 'mono) ))
 
 ;;;; version specific matter.
-(eval-and-compile
-  ;; Emacs ver. による分類
-  (cond ((eq skk-emacs-type 'xemacs)
-	 (defalias 'skk-char-to-string 'char-to-string)
-	 (defalias 'skk-read-event 'next-command-event)
-	 )
-	(t
-	 ;; for Mule/GNU Emacs
-         (defalias 'skk-read-event 'read-event)
+;;; inline functions.
+(skk-defsubst-cond skk-str-length (str)
+  ((memq skk-emacs-type '(xemacs mule4))
+   (length str) )
+  ((eq skk-emacs-type 'mule3)
+   (length (string-to-vector str)) )
+  ((eq skk-emacs-type 'mule2)
+   (length (string-to-char-list str)) ))
 
-	 (if (string< "20" emacs-version)
-	     ;; for Emacs 20.x
-	     (defun skk-char-to-string (char)
-	       (condition-case nil (char-to-string char) (error nil)) )
-	   ;; for Emacs 19.x
-	   (defalias 'skk-char-to-string 'char-to-string) )))
+(skk-defsubst-cond skk-substring (str pos1 pos2)
+  ((memq skk-emacs-type '(xemacs mule4))
+   (substring str pos1 pos2) )
+  ((eq skk-emacs-type 'mule3)
+   (if (< pos1 0)
+       (setq pos1 (+ (skk-str-length str) pos1)) )
+   (if (< pos2 0)
+       (setq pos2 (+ (skk-str-length str) pos2)) )
+   (if (>= pos1 pos2)
+       ""
+     (let ((sl (nthcdr pos1 (string-to-char-list str))))
+       (setcdr (nthcdr (- pos2 pos1 1) sl) nil)
+       (concat sl) )))
+  ((eq skk-emacs-type 'mule2)
+   (if (< pos1 0)
+       (setq pos1 (+ (skk-str-length str) pos1)) )
+   (if (< pos2 0)
+       (setq pos2 (+ (skk-str-length str) pos2)) )
+   (if (>= pos1 pos2)
+       ""
+     (let ((sl (nthcdr pos1 (string-to-char-list str))))
+       (setcdr (nthcdr (- pos2 pos1 1) sl) nil)
+       (mapconcat 'char-to-string sl "") ))))
 
-  ;; Mule ver. による分類
-  (cond ((eq skk-emacs-type 'xemacs)
-	 (defsubst skk-ascii-char-p (char)
-	   ;; CHAR が ascii 文字だったら t を返す。
-	   (eq (char-charset char) 'ascii) )
-	 (defalias 'skk-charsetp (cond ((fboundp 'charsetp) 'charsetp)
-				       ;; Is there XEmacs that doesn't have
-				       ;; `charsetp'?
-				       (t 'find-charset) ))
-	 (defun skk-make-char (charset n1 n2)
-	   (make-char charset
-		      (logand (lognot 128) n1)
-		      (logand (lognot 128) n2) ))
-	 (defsubst skk-jisx0208-p (char)
-	   (eq (char-charset char) 'japanese-jisx0208) )
-	 (defun skk-jisx0208-to-ascii (string)
-	   (require 'japan-util)
-	   (let ((char
-		  (get-char-code-property (string-to-char string) 'ascii) ))
-	     (and char (char-to-string char)) ))
-	 (defalias 'skk-str-length 'length)
-	 (defalias 'skk-str-ref 'aref)
-	 (defalias 'skk-substring 'substring)
-	 )
+;; no argument use only in SKK.
+(skk-defsubst-cond skk-read-event ()
+  ((eq skk-emacs-type 'xemacs)
+   (next-command-event) )
+  (t (read-event)) )
 
-	((eq skk-emacs-type 'mule4)
-	 (defsubst skk-ascii-char-p (char)
-	   ;; CHAR が ascii 文字だったら t を返す。
-	   (eq (char-charset char) 'ascii) )
-	 (defalias 'skk-charsetp 'charsetp)
-	 (defalias 'skk-make-char 'make-char)
-	 (defsubst skk-jisx0208-p (char)
-	   (eq (char-charset char) 'japanese-jisx0208) )
-	 (defun skk-jisx0208-to-ascii (string)
-	   (require 'japan-util)
-	   (let ((char
-		  (get-char-code-property (string-to-char string) 'ascii) ))
-	     (and char (char-to-string char)) ))
-	 (defalias 'skk-str-length 'length)
-	 (defalias 'skk-str-ref 'aref)
-	 (defalias 'skk-substring 'substring)
-	 )
+(skk-defsubst-cond skk-char-to-string (char)
+  ((eq skk-emacs-type 'xemacs)
+   (char-to-string char) )
+  ((string< "20" emacs-version)
+   (condition-case nil (char-to-string char) (error)) )
+  (t (char-to-string char)) )
 
-	((eq skk-emacs-type 'mule3)
- 	 (defsubst skk-ascii-char-p (char)
- 	   ;; CHAR が ascii 文字だったら t を返す。
- 	   (eq (char-charset char) 'ascii) )
-	 (defalias 'skk-charsetp 'charsetp)
-	 (defalias 'skk-make-char 'make-char)
-	 (defsubst skk-jisx0208-p (char)
-	   (eq (char-charset char) 'japanese-jisx0208) )
-	 (defun skk-jisx0208-to-ascii (string)
-	   (require 'japan-util)
-	   (let ((char
-		  (get-char-code-property (string-to-char string) 'ascii) ))
-	     (and char (char-to-string char)) ))
-	 (defun skk-str-length (str)
-	   (length (string-to-vector str)) )
-	 (defun skk-str-ref (str pos)
-	   (aref (string-to-vector str) pos ) )
-	 (defun skk-substring (str pos1 pos2)
-	   (if (< pos1 0)
-	       (setq pos1 (+ (skk-str-length str) pos1)) )
-	   (if (< pos2 0)
-	       (setq pos2 (+ (skk-str-length str) pos2)) )
-	   (if (>= pos1 pos2)
-	       ""
-	     (let ((sl (nthcdr pos1 (string-to-char-list str))))
-	       (setcdr (nthcdr (- pos2 pos1 1) sl) nil)
-	       (concat sl) )))
-	 )
+(skk-defsubst-cond skk-ascii-char-p (char)
+  ;; CHAR が ascii 文字だったら t を返す。
+  ((memq skk-emacs-type '(xemacs mule4 mule3))
+   (eq (char-charset char) 'ascii) )
+  ((eq skk-emacs-type 'mule2)
+   (= (char-leading-char char) 0) ))
+ 
+(skk-defsubst-cond skk-str-ref (str pos)
+  ((memq skk-emacs-type '(xemacs mule4))
+   (aref str pos) )
+  ((eq skk-emacs-type 'mule3)
+   (aref (string-to-vector str) pos ) )
+  ((eq skk-emacs-type 'mule2)
+   (nth pos (string-to-char-list str)) ))
 
-	((eq skk-emacs-type 'mule2)
-	 (defsubst skk-ascii-char-p (char)
-	   ;; CHAR が ascii 文字だったら t を返す。
-	   (= (char-leading-char char) 0) )
-	 (defalias 'skk-charsetp 'character-set)
-	 (defalias 'skk-make-char 'make-character)
-	 (defsubst skk-jisx0208-p (char)
-	   (= (char-leading-char char) lc-jp) )
-	 (defun skk-jisx0208-to-ascii (string)
-	   (let ((char
-		  (let* ((ch (string-to-char string))
-			 (ch1 (char-component ch 1)) )
-		    (cond ((eq 161 ch1)	; ?\241
-			   (cdr (assq (char-component ch 2) skk-hankaku-alist)) )
-			  ((eq 163 ch1)	; ?\243
-			   (- (char-component ch 2) 128) ; ?\200
-			   )))))
-	     (and char (char-to-string char)) ))
-	 (defun skk-str-length (str)
-	   (length (string-to-char-list str)) )
-	 (defun skk-str-ref (str pos)
-	   (nth pos (string-to-char-list str)) )
-	 (defun skk-substring (str pos1 pos2)
-	   (if (< pos1 0)
-	       (setq pos1 (+ (skk-str-length str) pos1)) )
-	   (if (< pos2 0)
-	       (setq pos2 (+ (skk-str-length str) pos2)) )
-	   (if (>= pos1 pos2)
-	       ""
-	     (let ((sl (nthcdr pos1 (string-to-char-list str))))
-	       (setcdr (nthcdr (- pos2 pos1 1) sl) nil)
-	       (mapconcat 'char-to-string sl "") )))
-	 )))
+(skk-defsubst-cond skk-jisx0208-p (char)
+  ((memq skk-emacs-type '(xemacs mule4 mule3))
+   (eq (char-charset char) 'japanese-jisx0208) )
+  ((eq skk-emacs-type 'mule2)
+   (= (char-leading-char char) lc-jp) ))
+
+(skk-defsubst-cond skk-char-octet (ch &optional n)
+  ((eq skk-emacs-type 'xemacs)
+   (or (nth (if n (1+ n) 1) (split-char ch)) 0) )
+  (t (char-octet ch n)) )
+
+;;; normal functions.
+;; tiny function, but called once in skk-kcode.el.  So not make it inline.
+;; or should I think to move to skk-kcode.el?
+(skk-defun-cond skk-make-char (charset n1 n2)
+  ((eq skk-emacs-type 'xemacs)
+   (make-char charset (logand (lognot 128) n1) (logand (lognot 128) n2)) )
+  ((memq skk-emacs-type '(mule4 mule3))
+   (make-char charset n1 n2) )
+  ((eq skk-emacs-type 'mule2)
+   (make-character charset n1 n2) ))
+
+;; this one is called once in skk-kcode.el, too.
+(skk-defsubst-cond skk-charsetp (object)
+  ((and (eq skk-emacs-type 'xemacs) (fboundp 'charsetp))
+   (charsetp object) )
+  ((eq skk-emacs-type 'xemacs)
+   ;; Is there XEmacs that doesn't have `charsetp'?
+   (find-charset object) )
+  ((memq skk-emacs-type '(mule4 mule3))
+   (charsetp object) )
+  ((eq skk-emacs-type 'mule2)
+   (character-set object) ))
+
+(skk-defun-cond skk-jisx0208-to-ascii (string)
+  ((memq skk-emacs-type '(xemacs mule4 mule3))
+   (require 'japan-util)
+   (let ((char
+	  (get-char-code-property (string-to-char string) 'ascii) ))
+     (and char (char-to-string char)) ))
+  ((eq skk-emacs-type 'mule2)
+   (let ((char
+	  (let* ((ch (string-to-char string))
+		 (ch1 (char-component ch 1)) )
+	    (cond ((eq 161 ch1)		; ?\241
+		   (cdr (assq (char-component ch 2) skk-hankaku-alist)) )
+		  ((eq 163 ch1)		; ?\243
+		   (- (char-component ch 2) 128) ; ?\200
+		   )))))
+     (and char (char-to-string char)) )))
 
 (defun skk-define-menu-bar-map (map)
   ;; SKK メニューのトップに出現するコマンドのメニューへの定義を行なう。

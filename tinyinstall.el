@@ -6,8 +6,8 @@
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.2 1999/09/22 04:41:29 minakaji Exp $
-;; Last Modified: $Date: 1999/09/22 04:41:29 $
+;; Version: $Id: tinyinstall.el,v 1.3 1999/09/25 11:11:54 minakaji Exp $
+;; Last Modified: $Date: 1999/09/25 11:11:54 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -83,6 +83,14 @@ subdirectory under load-path.")
 			    (t "emacs/"))
 		      elisp-prefix)
 		     prefix)))
+
+(defun tinyinstall-add-load-path (directory path)
+  (setq directory (expand-file-name directory))
+  (if (and (file-exists-p directory)
+	   (null (member directory path)) )
+      (cons directory path)
+    ;; original path
+    path ))
 
 (provide 'tinyinstall)
 ;; end of tinyinstall.el

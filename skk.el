@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.12 1999/09/23 13:48:36 minakaji Exp $
+;; Version: $Id: skk.el,v 1.13 1999/09/25 11:13:08 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/23 13:48:36 $
+;; Last Modified: $Date: 1999/09/25 11:13:08 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -99,7 +99,7 @@
 ;;; Code:
 (require 'skk-foreword)
 
-(defconst skk-version "10.53")
+(defconst skk-version "10.54")
 (defconst skk-major-version (string-to-int (substring skk-version 0 2)))
 (defconst skk-minor-version (string-to-int (substring skk-version 3)))
 
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/09/23 13:48:36 $")
+      (let* ((raw-date "$Date: 1999/09/25 11:13:08 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -1322,8 +1322,6 @@ skk-toggle-kutouten はこれをトグルで切り換える。
   ;;so for multi-purpose utility we use the alist form."
   )
 
-(defconst skk-ml-address "skk-develop@kuis.kyoto-u.ac.jp")
-
 (defconst skk-coding-system-alist
   (if (memq skk-emacs-type '(xemacs mule4 mule3))
       '(("euc" . euc-japan)
@@ -1646,64 +1644,6 @@ skk-remove-common で参照される。" )
        (cons 'skk-abbrev-mode skk-abbrev-mode-map)
        (cons 'skk-j-mode skk-j-mode-map)
        (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map) ))
-
-(defun skk-submit-bug-report ()
-  "SKK のバグレポートを書くメールバッファを用意する。
-mail-user-agent を設定することにより好みのメールインターフェイスを使用すること
-ができる。例えば、Mew を使用したい場合は下記のように設定する。
-
-    \(setq mail-user-agent 'mew-user-agent\) "
-  (interactive)
-  (require 'reporter)
-  (if (not (skk-y-or-n-p
-	    "SKK についてのバグレポートを書きますか？ "
-	    "Do you really want to write a bug report on SKK? " ))
-      nil
-    (if (and (boundp 'mail-user-agent) (eq mail-user-agent 'mew-user-agent))
-	(progn
-	  ;; Mew 1.93 works well.
-	  (require 'mew)
-	  (define-mail-user-agent 'mew-user-agent
-	    'mew-send 'mew-draft-send-letter 'mew-draft-kill )))
-    (reporter-submit-bug-report
-     skk-ml-address
-     (concat "skk.el " (skk-version)
-	     (if (or (and (boundp 'skk-servers-list) skk-servers-list)
-		     (or (and (boundp 'skk-server-host) skk-server-host)
-			 (getenv "SKKSERVER") )
-		     ;; refer to DEFAULT_JISYO when skk-server-jisyo is nil.
-		     ;;(or (and (boundp 'skk-server-jisyo) skk-server-jisyo)
-		     ;;    (getenv "SKK_JISYO") )))
-		     )
-		 (progn
-		   (require 'skk-server)
-		   (concat ", skkserv; " (skk-server-version)
-			   (if (getenv "SKKSERVER")
-			       (concat ",\nSKKSERVER; "
-				       (getenv "SKKSERVER") ))
-			   (if (getenv "SKKSERV")
-			       (concat ", SKKSERV; "
-				       (getenv "SKKSERV") ))))))
-     (let ((base (list 'window-system
-		       'skk-auto-okuri-process
-		       'skk-auto-start-henkan
-		       'skk-egg-like-newline
-		       'skk-henkan-okuri-strictly
-		       'skk-henkan-strict-okuri-precedence
-		       'skk-kakutei-early
-		       'skk-process-okuri-early
-		       'skk-search-prog-list
-		       'skk-use-face
-		       'skk-use-viper )))
-       (and (boundp 'skk-henkan-face)
-	    (setq base (append base '(skk-henkan-face))) )
-       (and (boundp 'skk-server-host)
-	    (setq base (append base '(skk-server-host))) )
-       (and (boundp 'skk-server-prog)
-	    (setq base (append base '(skk-server-prog))) )
-       (and (boundp 'skk-servers-list)
-	    (setq base (append base '(skk-servers-list))) )
-       base ))))
 
 ;;;; defadvices.
 ;; defadvice で定義すると、後でユーザーが新規の機能を付けて更に defadvice して
@@ -3544,10 +3484,11 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 			 ;; previous char is an ascii numeric char
 			 (and (<= ?0 p) (<= p ?9))
 			 ;; previous char is a JIS X 0208 numeric char
-			 (and (skk-jisx0208-p p)
-			      (= (char-octet p 0) ?#)
-			      (<= ?0 (char-octet p 1))
-			      (<= (char-octet p 1) ?9) ))))))
+			  (and (skk-jisx0208-p char)
+			       (= (skk-char-octet char 0) 35) ;?#
+			       (<= 48 (skk-char-octet char 1)) ; ?0
+			       (<= (skk-char-octet char 1) 57) )  ; ?9
+			  )))))
 	    (if skk-process-okuri-early
 		(progn
 		  (skk-set-marker skk-henkan-end-point (point))
@@ -4063,15 +4004,19 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     tempo-name ))
 
 (defun skk-make-temp-file (prefix)
-  ;; from call-process-region of mule.el.  Welcome!
-  (make-temp-name
-   (if (null (memq system-type '(ms-dos windows-nt)))
-       (concat "/tmp/" prefix)
-     (let ((tem (or (getenv "TMP") (getenv "TEMP") "/")))
-       (concat tem
-               (if (memq (skk-str-ref tem (1- (length tem))) '(?/ ?\\))
-                   "" "/" )
-               prefix )))))
+  (let ((dir
+	 (cond ((file-exists-p (expand-file-name temporary-file-directory))
+		(expand-file-name temporary-file-directory) )
+	       ((and (memq system-type '(ms-dos windows-nt))
+		     (file-exists-p "a:/temp") )
+		;; NEC PC-9800 series.
+		"a:/temp" )
+	       (t "/") )))
+    (make-temp-name
+     (concat 
+      (if (memq (skk-str-ref dir (1- (length dir)) ) '(?/ ?\\))
+	  "" "/" )
+      prefix ) )))
 
 (defun skk-make-new-jisyo (tempo-file)
   ;; TEMPO-FILE を新規の skk-jisyo にする。skk-backup-jisyo が non-nil だった
@@ -5114,12 +5059,12 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	((string= okurigana "っ")
 	 (aref skk-kana-rom-vector
 	       ;; assume the character is hiragana of JIS X 0208.
-	       (- (char-octet
+	       (- (skk-char-octet
 		   (string-to-char (skk-substring skk-henkan-okurigana 1 2))
 		   1 )
 		  33 )))
 	(t (aref skk-kana-rom-vector
-		 (- (char-octet
+		 (- (skk-char-octet
 		     (string-to-char (skk-substring skk-henkan-okurigana 0 1))
 		     1 )
 		    33 )))))
