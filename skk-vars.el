@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.66 2001/10/21 12:08:58 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.67 2001/10/21 15:41:08 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/21 12:08:58 $
+;; Last Modified: $Date: 2001/10/21 15:41:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3046,11 +3046,12 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 		       (const suffix) (const substring)
 		       (const keyword) (const text)
 		       (const nil))
-	       (choice :tag "Search method for okuri ari (not process okuri early)"
-		       (const exact) (const prefix)
-		       (const suffix) (const substring)
-		       (const keyword) (const text)
-		       (const nil))
+	       (choice
+		:tag "Search method for okuri ari (not process okuri early)"
+		(const exact) (const prefix)
+		(const suffix) (const substring)
+		(const keyword) (const text)
+		(const nil))
 	       (choice :tag "Search method for okuri ari (process okuri early)"
 		       (const exact) (const prefix)
 		       (const suffix) (const substring)
