@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.141 2001/10/09 14:13:41 czkmt Exp $
+;; Version: $Id: skk.el,v 1.142 2001/10/10 10:24:45 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/09 14:13:41 $
+;; Last Modified: $Date: 2001/10/10 10:24:45 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -481,8 +481,8 @@ dependent."
 	       'skk-after-point-move
 	       'local)
   (skk-update-modeline)
-  (static-if (eq skk-emacs-type 'xemacs)
-      (easy-menu-remove skk-menu)))
+  (static-when (eq skk-emacs-type 'xemacs)
+    (easy-menu-remove skk-menu)))
 
 (defun skk-mode-invoke ()
   (skk-setup-init-file)
@@ -539,10 +539,10 @@ dependent."
   (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
   (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
   ;; XEmacs doesn't have minibuffer-local-ns-map
-  (if (boundp 'minibuffer-local-ns-map)
-      (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
-  (static-if (eq skk-emacs-type 'xemacs)
-      (easy-menu-add skk-menu))
+  (when (boundp 'minibuffer-local-ns-map)
+    (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
+  (static-when (eq skk-emacs-type 'xemacs)
+    (easy-menu-add skk-menu))
   (unless skk-use-viper
     (define-key skk-j-mode-map
       (char-to-string skk-start-henkan-with-completion-char)
@@ -848,26 +848,25 @@ dependent."
   ;; いう名前にすると skk-tools.el 内の関数名と重複する。
   ;; case-fold-search は、辞書バッファでは常に nil。
   (save-match-data
-    (if (= (buffer-size) 0)
-	;; 空バッファだったら、ヘッダーのみ挿入。
-	(insert ";; okuri-ari entries.\n" ";; okuri-nasi entries.\n"))
+    (when (= (buffer-size) 0)
+      ;; 空バッファだったら、ヘッダーのみ挿入。
+      (insert ";; okuri-ari entries.\n" ";; okuri-nasi entries.\n"))
     (goto-char (point-min))
-    (if (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
-	;; 固定ポイントなので、(point) で十分。
-	(setq skk-okuri-ari-min (point))
+    (unless (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
       (skk-error "送りありエントリのヘッダーがありません！"
 		 "Header line for okuri-ari entries is missing!"))
-    (if (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
-	(progn
-	  (beginning-of-line)
-	  ;; 共有辞書なら固定ポイントでも良いのだが、辞書バッファで編集を行
-	  ;; なったときのことを配慮してマーカーにしておく。
-	  (setq skk-okuri-ari-max (point-marker))
-	  (forward-line 1)
-	  (backward-char 1)
-	  (setq skk-okuri-nasi-min (point-marker)))
+    ;; 固定ポイントなので、(point) で十分。
+    (setq skk-okuri-ari-min (point))
+    (unless (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
       (skk-error "送りなしエントリのヘッダーがありません！"
-		 "Header line for okuri-nasi entries is missing!"))))
+		 "Header line for okuri-nasi entries is missing!"))
+    (beginning-of-line)
+    ;; 共有辞書なら固定ポイントでも良いのだが、辞書バッファで編集を行
+    ;; なったときのことを配慮してマーカーにしておく。
+    (setq skk-okuri-ari-max (point-marker))
+    (forward-line 1)
+    (backward-char 1)
+    (setq skk-okuri-nasi-min (point-marker))))
 
 (defun skk-emulate-original-map (arg)
   ;; キー入力に対して、SKK のモードではなく、Emacs のオリジナルのキー割り付けで
@@ -1403,10 +1402,9 @@ dependent."
   ;; 上書きして良い長さを返す。
   (min (string-width
 	(buffer-substring-no-properties
-	 (point)
-	 (skk-save-point
-	  (end-of-line)
-	  (point))))
+	 (point) (skk-save-point
+		  (end-of-line)
+		  (point))))
        len))
 
 (defun skk-del-char-with-pad (length)
@@ -1505,7 +1503,7 @@ dependent."
   (cdr (cdr (assq skk-kutouten-type skk-kuten-touten-alist))))
 
 (defun skk-abbrev-period (arg)
-  "SKK abbrev モードで見出しの補完を行っている最中であれば、次の候補を表示する。
+  "SKK abbrev モードで見出しの補完中であれば、次の候補を表示する。
 補完の直後でなければ、オリジナルのキー割り付けのコマンドをエミュレートする。
 SKK abbrev モード以外では、skk-insert-period 関数を使用すること。"
   (interactive "*P")
@@ -1517,7 +1515,7 @@ SKK abbrev モード以外では、skk-insert-period 関数を使用すること。"
      (skk-emulate-original-map arg))))
 
 (defun skk-abbrev-comma (arg)
-  "SKK abbrev モードで見出しの補完を行っている最中であれば、直前の候補を表示する。
+  "SKK abbrev モードで見出しの補完中であれば、直前の候補を表示する。
 補完の直後でなければ、オリジナルのキー割り付けのコマンドをエミュレートする。
 SKK abbrev モード以外では、skk-insert-comma 関数を使用すること。"
   (interactive "*P")
@@ -2150,13 +2148,16 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert される
   ;; skk-henkan-key に何故か Overlay がかかってしまう。
   (save-match-data
-    (let (annotation)
+    (let (note)
       (when (string-match ";" word)
-	(setq annotation (substring word (match-end 0))
+	(setq note (substring word (match-end 0))
 	      word (substring word 0 (match-beginning 0))))
-      (setq word (if (skk-lisp-prog-p word)
-		     (skk-eval-string word)
-		   word))
+      (when (skk-lisp-prog-p word)
+	(let ((res (skk-eval-string word)))
+	  (if (consp res)
+	      (setq word (car res)
+		    note (cdr res))
+	    (setq word res))))
       (when skk-use-face
 	(skk-henkan-face-off))
       (delete-region skk-henkan-start-point skk-henkan-end-point)
@@ -2166,16 +2167,16 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       (when skk-use-face
 	(skk-henkan-face-on))
       (when (and skk-show-annotation
-		 annotation)
-	(skk-annotation-show annotation))
+		 note)
+	(skk-annotation-show note))
       (when skk-insert-new-word-function
 	(funcall skk-insert-new-word-function)))))
 
 (defun skk-kakutei (&optional word)
   "現在表示されている語で確定し、辞書の更新を行う。
 カレントバッファで SKK モードになっていなかったら SKK モードに入る。
-オプショナル引数の WORD を渡すと、現在表示されている候補とは無関係に WORD で確
-定する。"
+オプショナル引数の WORD を渡すと、現在表示されている候補とは無関係に
+WORD で確定する。"
   ;; read only でエラーになるようにすると read only バッファで SKK が起動でき
   ;; なくなる。
   (interactive)
@@ -2666,15 +2667,15 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; "▽"を"▼"に変える。skk-henkan-active フラグを t にする。
   (skk-save-point
    (goto-char (- skk-henkan-start-point skk-kanji-len))
-   (if (looking-at "▽")
-       (progn
-	 (cancel-undo-boundary)
-	 (let ((buffer-undo-list t))
-	     (insert-and-inherit "▼")
-	     (delete-char 1))
-	 (setq skk-henkan-active t))
+   (unless (looking-at "▽")
      (skk-kakutei)
-     (skk-error "▽がありません" "It seems that you have deleted ▽"))))
+     (skk-error "▽がありません"
+		"It seems that you have deleted ▽"))
+   (cancel-undo-boundary)
+   (let ((buffer-undo-list t))
+     (insert-and-inherit "▼")
+     (delete-char 1))
+   (setq skk-henkan-active t)))
 
 (defun skk-change-marker-to-white ()
   ;; "▼"を"▽"に変える。skk-henkan-active フラグを nil にする。
@@ -2693,86 +2694,87 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 
 (defun skk-delete-henkan-markers (&optional nomesg)
   ;; 変換時にカレントバッファに表われる `▽', `▼' マークを消す。
-  (if (not (marker-position skk-henkan-start-point))
-      nil
+  (when (marker-position skk-henkan-start-point)
     (save-match-data
       (skk-save-point
        (goto-char (- skk-henkan-start-point skk-kanji-len))
-       (if skk-henkan-active
-	   (progn
-	     (and skk-use-face (skk-henkan-face-off))
-	     (if (looking-at "▼")
-		 (delete-char 1)
-	       (or nomesg
-		   (skk-message "▼がありません"
-				"It seems that you have deleted ▼"))))
-	 (if (looking-at "▽")
+       (cond
+	(skk-henkan-active
+	 (when skk-use-face
+	   (skk-henkan-face-off))
+	 (if (looking-at "▼")
 	     (delete-char 1)
-	   (or nomesg
-	       (skk-message "▽がありません"
-			    "It seems that you have deleted ▽"))))))))
+	   (unless nomesg
+	     (skk-message "▼がありません"
+			  "It seems that you have deleted ▼"))))
+	((looking-at "▽")
+	 (delete-char 1))
+	((not nomesg)
+	 (skk-message "▽がありません"
+		      "It seems that you have deleted ▽")))))))
 
 (defun skk-delete-okuri-mark ()
-  ;; 送り仮名入力中にカレントバッファに表われる `*' マークを消し、送り仮名関連
-  ;; フラグを nil にセットする。
-  (if (or (not skk-okurigana)
-	  (not skk-okurigana-start-point)
-	  (not (markerp skk-okurigana-start-point))
-	  (not (marker-position skk-okurigana-start-point)))
-      nil
+  ;; 送り仮名入力中にカレントバッファに表われる `*' マークを消し、
+  ;; 送り仮名関連フラグを nil にセットする。
+  (when (and skk-okurigana
+	     skk-okurigana-start-point
+	     (markerp skk-okurigana-start-point)
+	     (marker-position skk-okurigana-start-point))
     (skk-save-point
-      (and (eq (char-after skk-okurigana-start-point) ?*) ; ?*
-	   (delete-region skk-okurigana-start-point
-			  (1+ skk-okurigana-start-point)))
-      (setq skk-okurigana nil
-	    skk-okuri-char nil
-	    skk-henkan-okurigana nil))))
+     (when (eq ?* (char-after skk-okurigana-start-point))
+       (delete-region skk-okurigana-start-point
+		      (1+ skk-okurigana-start-point))))
+    (setq skk-okurigana nil
+	  skk-okuri-char nil
+	  skk-henkan-okurigana nil)))
 
 ;;;; jisyo related functions
 (defun skk-purge-from-jisyo (&optional arg)
   "▼モードで現在の候補を辞書バッファから消去する。"
   (interactive "*P")
   (skk-with-point-move
-   (if (and skk-henkan-active (not (string= skk-henkan-key "")))
-       (if (not
-	    (yes-or-no-p (format
-			  (if skk-japanese-message-and-error
-			      "%s /%s/%sを辞書から削除します。良いですか？"
-			    "Really purge \"%s /%s/%s\"?")
-			  skk-henkan-key (skk-get-current-candidate)
-			  (if (and skk-henkan-okurigana
-				   (or skk-henkan-okuri-strictly
-				       skk-henkan-strict-okuri-precedence))
-			      (concat
-			       (if skk-japanese-message-and-error
-				   " (送り仮名: "
-				 "(okurigana: ")
-			       skk-henkan-okurigana
-			       ") ")
-			    " "))))
-	   nil
-	 ;; skk-henkan-start-point から point まで削除してしまっても、変換直後
-	 ;; に (カーソルを動かすことなく) skk-purge-from-jisyo を呼べば問題ない
-	 ;; が、カーソルが違う場所へ移動していた場合は、削除すべきでないものま
-	 ;; で削除してしまう可能性がある。そこで、送り仮名があればその長さを含
-	 ;; めた end を求め、今回の変換に関連した個所だけを正確に切り取るように
-	 ;; する。
-	 (let ((end (if skk-henkan-okurigana (+ (length skk-henkan-okurigana)
-						skk-henkan-end-point)
-		      skk-henkan-end-point))
-	       (word (skk-get-current-candidate)))
-	   (skk-update-jisyo word 'purge)
-	   ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert される
-	   ;; skk-henkan-key に何故か Overlay がかかってしまう。
-	   (and skk-use-face (skk-henkan-face-off))
-	   (delete-region skk-henkan-start-point end)
-	   (skk-change-marker-to-white)
-	   (skk-kakutei))))))
+   (when (and skk-henkan-active
+	      (not (string= skk-henkan-key ""))
+	      (yes-or-no-p
+	       (format
+		(if skk-japanese-message-and-error
+		    "%s /%s/%sを辞書から削除します。良いですか？"
+		  "Really purge \"%s /%s/%s\"?")
+		skk-henkan-key
+		(skk-get-current-candidate)
+		(cond
+		 ((not (and skk-henkan-okurigana
+			    (or skk-henkan-okuri-strictly
+				skk-henkan-strict-okuri-precedence)))
+		  " ")
+		 (skk-japanese-message-and-error
+		  (format " (送り仮名: %s) " skk-henkan-okurigana))
+		 (t
+		  (format " (okurigana: %s) " skk-henkan-okurigana))))))
+     ;; skk-henkan-start-point から point まで削除してしまっても、変換直後
+     ;; に (カーソルを動かすことなく) skk-purge-from-jisyo を呼べば問題ない
+     ;; が、カーソルが違う場所へ移動していた場合は、削除すべきでないものま
+     ;; で削除してしまう可能性がある。そこで、送り仮名があればその長さを含
+     ;; めた end を求め、今回の変換に関連した個所だけを正確に切り取るように
+     ;; する。
+     (let ((end (if skk-henkan-okurigana
+		    (+ (length skk-henkan-okurigana)
+		       skk-henkan-end-point)
+		  skk-henkan-end-point))
+	   (word (skk-get-current-candidate)))
+       (skk-update-jisyo word 'purge)
+       ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert される
+       ;; skk-henkan-key に何故か Overlay がかかってしまう。
+       (when skk-use-face
+	 (skk-henkan-face-off))
+       (delete-region skk-henkan-start-point end)
+       (skk-change-marker-to-white)
+       (skk-kakutei)))))
 
 (defun skk-save-jisyo (&optional quiet)
   "SKK の辞書バッファをセーブする。
-  オプショナル引数の QUIET が non-nil であれば、辞書セーブ時のメッセージを出さな
-  い。"
+オプショナル引数の QUIET が non-nil であれば、辞書セーブ時のメッセージを
+出さない。"
   (interactive "P")
   ;; skk.el 以外で提供される辞書セーブ機能を利用できるように関数を funcall する
   ;; 形にしておく。
@@ -2780,8 +2782,8 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 
 (defun skk-save-jisyo-original (&optional quiet)
   ;;"SKK の辞書バッファをセーブする。
-  ;;オプショナル引数の QUIET が non-nil であれば、辞書セーブ時のメッセージを出さな
-  ;;い。"
+  ;;オプショナル引数の QUIET が non-nil であれば、辞書セーブ時のメッセージを
+  ;;出さない。"
   (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
     (if (not (and jisyo-buffer
 		  (buffer-modified-p jisyo-buffer)))
@@ -2854,13 +2856,17 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (goto-char (point-min))
       (unless (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
 	(skk-error
-	 "送りありエントリのヘッダーがありません！ SKK 辞書のセーブを中止します"
-	 "Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
+	 "\
+送りありエントリのヘッダーがありません！ SKK 辞書のセーブを中止します"
+	 "\
+Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
       ;; おっ、コメントフェイスが $ で終わらないぞ > hilit19.el
       (unless (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
 	(skk-error
-	 "送りなしエントリのヘッダーがありません ！ SKK 辞書のセーブを中止します"
-	 "Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
+	 "\
+送りなしエントリのヘッダーがありません ！ SKK 辞書のセーブを中止します"
+	 "\
+Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
     (write-region-as-coding-system
      (skk-find-coding-system skk-jisyo-code)
      1 (point-max) file nil 'nomsg)))
@@ -2946,25 +2952,23 @@ If you want to restore the dictionary from the disc, try
 (defun skk-make-temp-jisyo ()
   ;; SKK 個人辞書保存のための作業用のファイルを作り、ファイルのモードを
   ;; skk-jisyo のものと同じに設定する。作った作業用ファイルの名前を返す。
-  (let* ((dir
-	  (static-cond
-	   ((fboundp 'temp-directory)
-	    (temp-directory))
-	   (t
-	    (cond
-	     ((skk-file-exists-and-writable-p temporary-file-directory)
-	      temporary-file-directory)
-	     (t
-	      (or (file-exists-p "~/tmp") (make-directory "~/tmp"))
-	      (or (file-writable-p "~/tmp") (set-file-modes "~/tmp" 1023))
-	      "~/tmp/")))))
-	 (temp-name
-	  (make-temp-name (expand-file-name
-			   (static-if (featurep 'skk-dos)
-			       "sk"
-			     (concat (user-login-name)
-				     "-skk"))
-			  (expand-file-name dir)))))
+  (let* ((dir (static-cond
+	       ((fboundp 'temp-directory)
+		(temp-directory))
+	       (t
+		(cond
+		 ((skk-file-exists-and-writable-p temporary-file-directory)
+		  temporary-file-directory)
+		 (t
+		  (unless (file-exists-p "~/tmp")
+		    (make-directory "~/tmp"))
+		  (unless (file-writable-p "~/tmp")
+		    (set-file-modes "~/tmp" 1023))
+		  "~/tmp/")))))
+	 (temp-name (make-temp-name
+		     (expand-file-name
+		      (concat (user-login-name) "-skk")
+		      (expand-file-name dir)))))
     (skk-create-file temp-name nil nil 384) ; 0600
     temp-name))
 
@@ -2973,8 +2977,8 @@ If you want to restore the dictionary from the disc, try
   ;; らバックアップ辞書を作る。
   (if skk-backup-jisyo
       (progn
-	(if (file-exists-p skk-backup-jisyo)
-	    (delete-file skk-backup-jisyo))
+	(when (file-exists-p skk-backup-jisyo)
+	  (delete-file skk-backup-jisyo))
 	(rename-file skk-jisyo skk-backup-jisyo))
     (delete-file skk-jisyo))
   (rename-file tempo-file skk-jisyo 'ok-if-already-exists))
@@ -2984,75 +2988,87 @@ If you want to restore the dictionary from the disc, try
 オプショナル引数の FORCE が non-nil であれば、破棄の確認をしない。"
   (interactive "P")
   (let ((buf (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
-    (if (and buf
-	     (or force
-		 (skk-yes-or-no-p "編集中の個人辞書を破棄しますか？"
-				  "Discard your editing private JISYO?")))
-	(progn
-	  (with-current-buffer buf
-	    (set-buffer-modified-p nil)
-	    (kill-buffer buf))
-	  (or
-	   (skk-get-jisyo-buffer skk-jisyo 'nomsg)
-	   (skk-error "個人辞書を再読み込みすることができません！"
-		      "Cannot reread private JISYO!"))))))
+    (when (and buf
+	       (or force
+		   (skk-yes-or-no-p
+		    "編集中の個人辞書を破棄しますか？"
+		    "Discard your editing private JISYO?")))
+      (with-current-buffer buf
+	(set-buffer-modified-p nil)
+	(kill-buffer buf))
+      (unless (skk-get-jisyo-buffer skk-jisyo 'nomsg)
+	(skk-error "個人辞書を再読み込みすることができません！"
+		   "Cannot reread private JISYO!")))))
 
 (defun skk-record-jisyo-data ()
   "辞書データを skk-record-file にセーブする。"
-  (if (or (not skk-keep-record) (> 1 skk-kakutei-count))
-      nil
+  (unless (or (not skk-keep-record)
+	      (> 1 skk-kakutei-count))
     (with-temp-file skk-record-file
       (insert-file-contents skk-record-file)
       (goto-char (point-min))
-      (insert
-       (format
-	"%s  登録: %3d  確定: %4d  確定率: %3d%%  語数:%6d\n"
-	(current-time-string)
-	skk-touroku-count skk-kakutei-count
-	(/ (* 100 (- skk-kakutei-count skk-touroku-count))
-	   skk-kakutei-count)
-	(cond ((featurep 'skk-rdbms)
-	       ;; RDBMS を使えばもっと興味深い統計が取れるかもしれない
-	       ;; が、とりあえず語数だけ数えて入れておく。
-	       (skk-rdbms-count-jisyo-candidates skk-rdbms-private-jisyo-table))
-	      (skk-count-private-jisyo-candidates-exactly
-	       (skk-count-jisyo-candidates (expand-file-name (if (consp skk-jisyo) (car skk-jisyo) skk-jisyo))))
-	       ;; 1 行 1 候補とみなす。
-	      (t (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
-		   (- (count-lines (point-min) (point-max)) 2))))))
-      (if (integerp skk-keep-record)
-	  (progn
-	    (setq selective-display nil)
-	    (widen)
-	    (goto-char (point-min))
-	    (forward-line skk-keep-record)
-	    (delete-region (point) (point-max)))))
-    (setq skk-touroku-count 0 skk-kakutei-count 0)))
+      (insert (format
+	       "%s  登録: %3d  確定: %4d  確定率: %3d%%  語数:%6d\n"
+	       (current-time-string)
+	       skk-touroku-count
+	       skk-kakutei-count
+	       (/ (* 100 (- skk-kakutei-count skk-touroku-count))
+		  skk-kakutei-count)
+	       (cond
+		((featurep 'skk-rdbms)
+		 ;; RDBMS を使えばもっと興味深い統計が取れるかもしれない
+		 ;; が、とりあえず語数だけ数えて入れておく。
+		 (skk-rdbms-count-jisyo-candidates
+		  skk-rdbms-private-jisyo-table))
+		(skk-count-private-jisyo-candidates-exactly
+		 (skk-count-jisyo-candidates
+		  (expand-file-name (if (consp skk-jisyo)
+					(car skk-jisyo)
+				      skk-jisyo))))
+		;; 1 行 1 候補とみなす。
+	      (t
+	       (with-current-buffer (skk-get-jisyo-buffer
+				     skk-jisyo 'nomsg)
+		 (- (count-lines (point-min) (point-max))
+		    2))))))
+      (when (integerp skk-keep-record)
+	(setq selective-display nil)
+	(widen)
+	(goto-char (point-min))
+	(forward-line skk-keep-record)
+	(delete-region (point) (point-max))))
+    (setq skk-touroku-count 0
+	  skk-kakutei-count 0)))
 
 (defun skk-count-jisyo-candidates (file-or-table)
   "SKK 辞書の候補数を数える。"
   (interactive
-   (list (cond ((eq skk-count-jisyo-candidates-function
-		    'skk-count-jisyo-candidates-original)
-		(read-file-name
-		 (format "Jisyo file: (default: %s) " skk-jisyo)
-		 default-directory skk-jisyo 'confirm))
-	       ((eq skk-count-jisyo-candidates-function
-		    'skk-rdbms-count-jisyo-candidates)
-		;; データベースファイルを直接ファイル名で指定できる
-		;; permission がない場合が多いよね...。
-		;;(read-file-name
-		;; (format "Jisyo table: (default: %s) "
-		;;	 skk-rdbms-private-jisyo-table))
-		skk-rdbms-private-jisyo-table))))
+   (list (cond
+	  ((eq skk-count-jisyo-candidates-function
+	       'skk-count-jisyo-candidates-original)
+	   (read-file-name
+	    (format "Jisyo file: (default: %s) " skk-jisyo)
+	    default-directory skk-jisyo 'confirm))
+	  ((eq skk-count-jisyo-candidates-function
+	       'skk-rdbms-count-jisyo-candidates)
+	   ;; データベースファイルを直接ファイル名で指定できる
+	   ;; permission がない場合が多いよね...。
+	   ;;(read-file-name
+	   ;; (format "Jisyo table: (default: %s) "
+	   ;;	 skk-rdbms-private-jisyo-table))
+	   skk-rdbms-private-jisyo-table))))
   ;; mule@emacs19.31 だと下記のようにすると (`ァ' が原因のよう) 何故か
   ;; default-directory の末尾に改行が付く。
   ;; 通常は気が付かないが、rsz-mini.el を使って resize-minibuffer-mode を
   ;; non-nil にしていると不要な 2 行目が出現する。
   ;; (interactive "f辞書ファイル: ")
-  (let ((count (funcall skk-count-jisyo-candidates-function file-or-table)))
+  (let ((count (funcall skk-count-jisyo-candidates-function
+			file-or-table)))
     (if (interactive-p)
-	(message (if (= count 1) "%d candidate" "%d candidates") count)
+	(message (if (= count 1)
+		     "%d candidate"
+		   "%d candidates")
+		 count)
       count)))
 
 (defun skk-count-jisyo-candidates-original (file)
@@ -3065,21 +3081,21 @@ If you want to restore the dictionary from the disc, try
 	    (max (and (interactive-p) (point-max)))
 	    (interactive-p (interactive-p)))
 	(goto-char min)
-	(if (or
-	     ;; こちらは skk-save-point を使わず、ポイントを移動させる。
-	     (not (re-search-forward "^;; okuri-ari entries.$" nil t nil))
-	     (not
-	      (skk-save-point
-	       (re-search-forward "^;; okuri-nasi entries.$" nil t nil))))
-	    (skk-error "このファイルは SKK 辞書ではありません"
-		       "This file is not a SKK dictionary"))
+	(unless (and
+		 ;; こちらは skk-save-point を使わず、ポイントを移動させる。
+		 (re-search-forward "^;; okuri-ari entries.$" nil t nil)
+		 (skk-save-point
+		  (re-search-forward "^;; okuri-nasi entries.$" nil t nil)))
+	  (skk-error "このファイルは SKK 辞書ではありません"
+		     "This file is not a SKK dictionary"))
 	(beginning-of-line)
 	(while (looking-at ";")
 	  (forward-line 1)
 	  (beginning-of-line))
 	(search-forward " " nil t)
 	(while (search-forward "/" nil t)
-	  (cond ((or (eolp) (looking-at "\\["))
+	  (cond ((or (eolp)
+		     (looking-at "\\["))
 		 (forward-line 1)
 		 (beginning-of-line)
 		 (while (looking-at ";")
@@ -3088,9 +3104,9 @@ If you want to restore the dictionary from the disc, try
 		 (search-forward " " nil t))
 		(t
 		 (setq count (1+ count))))
-	  (if interactive-p
-	      (message "Counting jisyo candidates...%3d%% done"
-		       (/ (* 100 (- (point) min)) max))))
+	  (when interactive-p
+	    (message "Counting jisyo candidates...%3d%% done"
+		     (/ (* 100 (- (point) min)) max))))
 	count))))
 
 (defun skk-create-file (file &optional japanese english modes)
@@ -3099,62 +3115,71 @@ If you want to restore the dictionary from the disc, try
   ;; ージをミニバッファに表示する。
   (let ((file (expand-file-name file)))
     (if (file-exists-p file)
-	(if modes (set-file-modes file modes))
-      (write-region 1 1 file nil 0)
-      (if modes
+	(when modes
 	  (set-file-modes file modes))
-      (if (or japanese english)
-	  (progn
-	    (message (if skk-japanese-message-and-error
-			 japanese english))
-	    (sit-for 3))))))
+      (write-region 1 1 file nil 0)
+      (when modes
+	(set-file-modes file modes))
+      (when (or japanese english)
+	(message (if skk-japanese-message-and-error
+		     japanese
+		   english))
+	(sit-for 3)))))
 
 (defun skk-get-jisyo-buffer (file &optional nomsg)
   ;; FILE を開いて SKK 辞書バッファを作り、バッファを返す。
-  ;; オプショナル引数の NOMSG を指定するとファイル読み込みの際のメッセージを
-  ;; 表示しない。
-  (if file
-      (let* ((inhibit-quit t)
-	     (code (skk-find-coding-system (if (consp file) (cdr file) skk-jisyo-code)))
-	     (file (if (consp file) (car file) file))
-	     (jisyo-buf (concat " *" (file-name-nondirectory file)
-				"*")))
-	;; 辞書バッファとしてオープンされているなら、何もしない。
-	(or (get-buffer jisyo-buf)
-	    (with-current-buffer (setq jisyo-buf (get-buffer-create jisyo-buf))
-	      (setq file (expand-file-name file))
-	      (buffer-disable-undo jisyo-buf)
-	      (auto-save-mode -1)
-	      ;; ワーキングバッファのモードラインはアップデートされない？
-	      ;;(make-local-variable 'line-number-mode)
-	      ;;(make-local-variable 'column-number-mode)
-	      ;;(setq column-number-mode nil
-	      ;;      line-number-mode nil)
-	      (setq buffer-read-only nil
-		    case-fold-search nil
-		    ;; buffer-file-name を nil にしておくと M-x compile など
-		    ;; 内部で save-some-buffers をコールしているコマンドを
-		    ;; 使ったときでもセーブするかどうかを尋ねてこなくなる。
-		    ;; buffer-file-name file
-		    ;; cache-long-line-scans nil
-		    ;; dabbrev のサーチとなるバッファにならないように存在しな
-		    ;; いモード名にしておく。実害のある副作用はないはず。
-		    major-mode 'skk-jisyo-mode
-		    mode-name "SKK dic")
-	      (or nomsg
-		  (skk-message "SKK 辞書 %s をバッファに読み込んでいます..."
-			       "Inserting contents of %s ..."
-			       (file-name-nondirectory file)))
-	      (let (enable-character-translation enable-character-unification)
-		(insert-file-contents-as-coding-system code file))
-	      (or nomsg
-		  (skk-message
-		   "SKK 辞書 %s をバッファに読み込んでいます...完了！"
-		   "Inserting contents of %s ...done"
-		   (file-name-nondirectory file)))
-	      (skk-setup-jisyo-buffer)
-	      (set-buffer-modified-p nil)
-	      jisyo-buf)))))
+  ;; オプショナル引数の NOMSG を指定するとファイル読み込みの
+  ;; 際のメッセージを表示しない。
+  (when file
+    (let* ((inhibit-quit t)
+	   (code (skk-find-coding-system (if (consp file)
+					     (cdr file)
+					   skk-jisyo-code)))
+	   (file (if (consp file)
+		     (car file)
+		   file))
+	   (buf-name (concat " *"
+			     (file-name-nondirectory file)
+			     "*"))
+	   (buf (get-buffer buf-name)))
+      ;; 辞書バッファとしてオープンされているなら、何もしない。
+      (unless (buffer-live-p buf)
+	(setq buf (get-buffer-create buf-name))
+	(setq file (expand-file-name file))
+	(with-current-buffer buf
+	  (buffer-disable-undo)
+	  (auto-save-mode -1)
+	  ;; ワーキングバッファのモードラインはアップデートされない？
+	  ;;(make-local-variable 'line-number-mode)
+	  ;;(make-local-variable 'column-number-mode)
+	  ;;(setq column-number-mode nil
+	  ;;      line-number-mode nil)
+	  (setq buffer-read-only nil
+		case-fold-search nil
+		;; buffer-file-name を nil にしておくと M-x compile など
+		;; 内部で save-some-buffers をコールしているコマンドを
+		;; 使ったときでもセーブするかどうかを尋ねてこなくなる。
+		;; buffer-file-name file
+		;; cache-long-line-scans nil
+		;; dabbrev のサーチとなるバッファにならないように存在し
+		;; ないモード名にしておく。実害のある副作用はないはず。
+		major-mode 'skk-jisyo-mode
+		mode-name "SKK dic")
+	  (unless nomsg
+	    (skk-message "SKK 辞書 %s をバッファに読み込んでいます..."
+			 "Inserting contents of %s ..."
+			 (file-name-nondirectory file)))
+	  (let (enable-character-translation
+		enable-character-unification)
+	    (insert-file-contents-as-coding-system code file))
+	    (unless nomsg
+	      (skk-message
+	       "SKK 辞書 %s をバッファに読み込んでいます...完了！"
+	       "Inserting contents of %s ...done"
+	       (file-name-nondirectory file)))
+	    (skk-setup-jisyo-buffer)
+	    (set-buffer-modified-p nil)))
+      buf)))
 
 (defun skk-search ()
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
@@ -3211,20 +3236,24 @@ If you want to restore the dictionary from the disc, try
 	(setq min skk-okuri-nasi-min
 	      max (point-max)))
       (when (> limit 0)
-	(while (progn (setq size (- max min)) (> size limit))
+	(while (progn
+		 (setq size (- max min))
+		 (> size limit))
 	  (goto-char (+ min (/ size 2)))
 	  (beginning-of-line)
 	  (setq p (point))
 	  ;; 送りありなら逆順に比較を行なう。
-	  (if (if okurigana
-		  (string< (buffer-substring-no-properties
-			    p (1- (search-forward  " ")))
-			   skk-henkan-key)
-		(string< skk-henkan-key
-			 (buffer-substring-no-properties
-			  p (1- (search-forward " ")))))
-	      (setq max p)
-	    (setq min p))))
+	  (let ((p-is-further
+		 (if okurigana
+		     (string< (buffer-substring-no-properties
+			       p (1- (search-forward  " ")))
+			      skk-henkan-key)
+		   (string< skk-henkan-key
+			    (buffer-substring-no-properties
+			     p (1- (search-forward " ")))))))
+	    (if p-is-further
+		(setq max p)
+	      (setq min p)))))
       (goto-char min)
       ;; key が検索開始地点にあった場合でも検索可能なように一文字戻る。key が
       ;; その先頭部分に "\n" を含んでいることに注意。
@@ -3700,13 +3729,27 @@ If you want to restore the dictionary from the disc, try
 		  ;; 末尾の " \"" を切り落とす。
 		  (substring arg 0 -2))
 		 (arg
-		  (concat arg add))
+		  (concat arg
+			  (skk-compose-ignore-word-sub-quote-char
+			   add)))
 		 (t
 		  add)))
-      (cons (concat "(skk-ignore-dic-word \""
-		    arg
-		    "\")")
+      (cons (format "(skk-ignore-dic-word \"%s\")"
+		    (skk-compose-ignore-word-sub-quote-char arg))
 	    words))))
+
+(defun skk-compose-ignore-word-sub-quote-char (str)
+  (if (string-match "[/\n\r\";]" str)
+      (let ((alist (if (string-match ";" str)
+		       skk-quote-char-alist
+		     (cdr skk-quote-char-alist))))
+	(mapconcat
+	 (function
+	  (lambda (char)
+	    (or (cdr (assq char alist))
+	      (char-to-string char))))
+	 (append str nil) ""))
+    str))
 
 (defun skk-katakana-region (start end &optional vcontract)
   "リージョンのひらがなをカタカナに変換する。
@@ -3725,8 +3768,8 @@ If you want to restore the dictionary from the disc, try
   "リージョンのカタカナをひらがなに変換する。
 オプショナル引数の VEXPAND が non-nil であれば、\"ヴ\" を \"う゛\" に変換する。
 引数の START と END は数字でもマーカーでも良い。
-\"ヵ\" と \"ヶ\" は変更されない。この 2 つの文字は対応するひらがながないので、カ
-タカナとしては扱われない。"
+\"ヵ\" と \"ヶ\" は変更されない。この 2 つの文字は対応するひらがながないので、
+カタカナとしては扱われない。"
   (interactive "*r\nP")
   (when vexpand
     (skk-search-and-replace
@@ -4165,7 +4208,8 @@ If you want to restore the dictionary from the disc, try
 		  skk-henkan-okurigana)
 	     (let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
 	       (skk-previous-candidate)
-	       ;; ここでは delete-backward-char に第二引数を渡さない方がベター？
+	       ;; ここでは delete-backward-char に
+	       ;; 第二引数を渡さない方がベター？
 	       (delete-backward-char count))
 	   (skk-previous-candidate)))
 	(t
