@@ -1,5 +1,10 @@
 2000-10-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* doc/skk.texi: Change maintainer's name to SKK Development Team
+	<skk@ring.gr.jp>.
+
+	* doc/skk-faq.texi: Add header.
+
 	* doc/skk.texi: Call `texinfo-every-node-update' and
 	`texinfo-all-menus-update'.
 	(APEL のインストール): Add reference to 「Q.2-4

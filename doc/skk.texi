@@ -5,14 +5,14 @@
 @c  Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.50 2000/10/22 09:05:40 minakaji Exp $
+@c  Maintainer: SKK Development Team <skk@ring.gr.jp>
+@c  Version: $Id: skk.texi,v 1.51 2000/10/22 09:11:53 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/22 09:05:40 $
+@c  Last Modified: $Date: 2000/10/22 09:11:53 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.62
-@set UPDATED $Date: 2000/10/22 09:05:40 $
+@set UPDATED $Date: 2000/10/22 09:11:53 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry

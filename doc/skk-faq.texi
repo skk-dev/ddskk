@@ -1,4 +1,11 @@
 @c Insert  "\input texinfo" at 1st line before texing this file alone.
+@c
+@c  Author: Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+@c  Maintainer: SKK Development Team <skk@ring.gr.jp>
+@c  Version: $Id: skk-faq.texi,v 1.6 2000/10/22 09:11:53 minakaji Exp $
+@c  Keywords: japanese
+@c  Last Modified: $Date: 2000/10/22 09:11:53 $
+@c
 @setfilename skk-faq.info
 
 @c @node Frequently Asked Questions, 事項索引, 謝辞とお願い, Top
