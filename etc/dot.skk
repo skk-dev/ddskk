@@ -1,5 +1,12 @@
 ;;; dot.skk --- init file for SKK  -*- emacs-lisp -*-
 
+;;; Commentary:
+
+;; 以下は ~/.skk の設定例です。このままコピーするのではなく、必要なところだけ
+;; 抜きだして利用されることをお勧めします。
+
+;;; Code:
+
 ;; @@ 基本中の基本の設定
 
 ;; SKK が検索する辞書 (サーバを使わないとき)
@@ -57,10 +64,10 @@
 (require 'skk-dcomp)
 
 ;; viper と組み合わせて使う
-(setq skk-use-viper t)
+;; (setq skk-use-viper t)
 
 ;; 確定には C-j でなくで変換キーを使う
-(setq skk-kakutei-key [henkan])
+;; (setq skk-kakutei-key [henkan])
 ;; 注) 変換キーは、Emacs on XFree86  では [henkan]
 ;;                 XEmacs on XFree86 では [henkan-mode]
 ;;                 Meadow            では [convert]
@@ -106,7 +113,7 @@
 (setq skk-use-jisx0201-input-method t)
 
 ;; かな配列キーボードで入力する
-(setq skk-use-kana-keyboard t)
+;; (setq skk-use-kana-keyboard t)
 
 (when skk-use-kana-keyboard
   ;; 旧 JIS 配列を使う
