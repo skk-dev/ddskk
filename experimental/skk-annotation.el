@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.4 2000/11/06 06:50:04 minakaji Exp $
+;; Version: $Id: skk-annotation.el,v 1.5 2000/11/06 10:44:55 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2000/11/06 06:50:04 $
+;; Last Modified: $Date: 2000/11/06 10:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,19 +27,106 @@
 ;;
 ;;; Commentary:
 ;;
-;; $B!V%f!<%6!<%"%N%F!<%7%g%s!W$H$O(B `;' $B$ND>8e$K(B `*' $B$NJ8;z$rH<$&%"%N%F!<%7%g%s(B
-;; $B$G!"%f!<%6$,FH<+$KIU$1$?$b$N$G$"$k$3$H$r<($7$^$9!#(B
-;; <$BNc(B>
+;; $B$3$l$O!"(BSKK $B8D?M<-=q$KIU$1$?%"%N%F!<%7%g%s(B ($BCp<a(B) $B$r3hMQ$9$k%W%m%0(B
+;; $B%i%`$G$9!#(B
+;;
+;; <INSTALL>
+;; skk-11/experimental/skk-annotation.el $B$r(B skk-11/skk-annotation.el
+;; $B$K%3%T!<$7$F8e$OIaDL$K(B make $B$7$F2<$5$$!#(Bskk-annotation.el $B$,%$%s%9(B
+;; $B%H!<%k$5$l!"(Bautoload $B$N@_Dj$,<+F0E*$K@8@.$5$l$^$9!#(B
+;;
+;; Viper $BBP:v$O$^$@9T$J$C$F$$$^$;$s!#(B~/.viper $B$K<!$N$h$&$K=q$$$F2<$5$$!#(B
+;; (viper-harness-minor-mode "skk-annotation")
+;;
+;; <HOW TO USE>
+;;
+;;   (setq skk-show-annotation t)
+;;
+;; $B$H(B ~/.emacs $B$K=q$-$^$7$g$&!#<-=q$N8uJd$K(B `;' $B$+$i;O$^$kJ8;zNs$,$"$l(B
+;; $B$P!"$=$N3:Ev$N8uJd$,JQ49$5$l$F%P%C%U%!$K=PNO$5$l$?:]!"(B`;' $B0J9_$r$=(B
+;; $B$N8uJd$N%"%N%F!<%7%g%s$H$7$F%(%3!<%(%j%"$KI=<($7$^$9!#(B
+;;
+;;   (setq skk-annotation-show-as-message nil)
+;;
+;; $B$H(B ~/.emacs $B$K=q$$$?>l9g$O!"(Bother-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g(B
+;; $B%s$rI=<($7$^$9!#(Bother-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd(B
+;; $B$NA*Br$r;_$a$k(B ($B<!$N8uJd$rA*Br$7$?$j!"(Bquit $B$7$?$j(B) $B$9$k$H<+F0E*$KJD(B
+;; $B$8$i$l$^$9!#(B
+;;
+;; SKK $B$G$O(B 5 $BHVL\$N8uJd0J9_$r%(%3!<%(%j%"$r;H$C$FI=<($7$^$9!#=>$$!"(B5
+;; $BHVL\0J9_$N8uJd$K$D$$$F$O!"(Bskk-annotation-show-as-message $B$,(B t $B$G$b(B
+;; $B%&%#%s%I%&$r3+$$$F%"%N%F!<%7%g%s$rI=<($7$^$9!#(B
+;;
+;; $B$"$kC18l$K$D$$$F!"%"%N%F!<%7%g%s$rIU$1$?$$$H$-$O!"3NDj$7$?D>8e$KF1(B
+;; $B$8%P%C%U%!$G(B
+;;
+;;   M-x skk-annotation-add
+;;
+;; $B$7$^$7$g$&!#%"%N%F!<%7%g%s$rJT=8$9$k%P%C%U%!$,3+$$$F!"%+%l%s%H%P%C(B
+;; $B%U%!$K$J$j$^$9$N$G!"$=$3$X%"%N%F!<%7%g%s$rIU$1$^$7$g$&!#(B
+;; 1 $B9T$G$"$kI,MW$O$"$j$^$;$s$,!"J#?t9T$N%"%N%F!<%7%g%s$rIU$1$k$H(B echo
+;; area $B$XI=<($5$l$?$H$-$KA4BN$,8+$($J$/$J$j$^$9!#(B
+;; $B$^$?!"(B`;' $B$NJ8;z<+BN$OF~$l$kI,MW$O$"$j$^$;$s!#(B
+;; $B:#$^$G$K4{$KIU$1$F$$$?%"%N%F!<%7%g%s$,$"$l$PJT=8%P%C%U%!$,I=<($5$l(B
+;; $B$?$H$-$K$=$N%"%N%F!<%7%g%s$,(B prefix $BE*$K=PNO$5$l$^$9!#4{B8$N%"%N%F!<(B
+;; $B%7%g%s$b4^$a$FJT=8$7$F2<$5$$!#%P%C%U%!$N@hF,9T$r=|$$$FA4$F$N9T$,?7(B
+;; $B$7$$%"%N%F!<%7%g%s$H$7$F>e=q$-$5$l$^$9!#(B
+;; $BJT=8$,=*$o$C$?$i(B C-c C-c $B$7$^$7$g$&!#(B
+;;
+;; $B>e5-$NF0:n$G%f!<%6$,IU$1$?%"%N%F!<%7%g%s$r!V%f!<%6%"%N%F!<%7%g%s!W(B
+;; $B$H8F$S$^$9!#%f!<%6%"%N%F!<%7%g%s$O!"(B
+;;
 ;;   $B!V$-$+$s(B /$B4|4V(B/$B5!4X(B;*$B5!4XEj;q2H(B/$B4p44(B;*$B4p446HL3(B/$B!W(B
 ;;
+;; $B$N$h$&$K(B `;' $B$ND>8e$K(B `*' $B$NJ8;z$,<+F0E*$K?6$i$l$^$9!#$3$l$O%f!<%6(B
+;; $B$,FH<+$KIU$1$?%"%N%F!<%7%g%s$G$"$k$3$H$r<($7$^$9(B (`*' $B$NJ8;z$OJQ49(B
+;; $B;~$K$OI=<($5$l$^$;$s(B)$B!#(B
 ;;
-;; $B!V%7%9%F%`%"%N%F!<%7%g%s!W$H$O(B `;' $B$ND>8e$K(B `*' $B$NJ8;z$rH<$o$J$$%"%N%F!<%7(B
-;; $B%g%s$G!"%7%9%F%`$,85!9IU$7$F$$$k$b$N$G$"$k$3$H$r<($7$^$9!#(B
+;; $B0lJ}!"6&M-<-=q$K85!9IU$1$i$l$F$$$k%"%N%F!<%7%g%s$r!V%7%9%F%`%"%N%F!<(B
+;; $B%7%g%s!W$H8F$S!"$3$l$O(B `;' $B$ND>8e$K(B `*' $B$NJ8;z$rH<$J$$$^$;$s!#(B
 ;; <$BNc(B>
 ;;    $B!V$$$<$s(B /$B0JA0(B;previous/$B0MA3(B;still/$B!W(B
 ;;
-;; Viper $BBP:v$O$^$@!#(B.viper $B$K<!$N$h$&$K=q$$$F2<$5$$!#(B
-;; (viper-harness-minor-mode "skk-annotation")
+;; $B%7%9%F%`%"%N%F!<%7%g%s$,AuHw$5$l$?<-=q$O:#$N$H$3$m$"$j$^$;$s!#(B
+;;
+;; $B%f!<%6%"%N%F!<%7%g%s$H%7%9%F%`%"%N%F!<%7%g%s$r6hJL$9$k$3$H$G!"%f!<(B
+;; $B%6%"%N%F!<%7%g%s$@$1$rI=<($7$?$j!"$"$k$$$O$=$N5U$r9T$J$&$3$H$,2DG=(B
+;; $B$G$9!#(B`skk-annotation-function' $B$KI=<($7$?$$%"%N%F!<%7%g%s$r(B
+;; non-nil $B$HH=Dj$9$k4X?t$r=q$-$^$7$g$&!#$3$s$J46$8$G$9!#(B
+;;
+;;   (setq skk-annotation-function
+;;         (lambda (annotation) (eq (aref annotation 0) ?*)))
+;; 
+;; $B>e5-$NNc$G$O!"%"%N%F!<%7%g%s$N@hF,$,(B `*' $B$G;O$^$k!V%f!<%6%"%N%F!<%7%g(B
+;; $B%s!W$N>l9g$K(B t $B$rJV$7$^$9$N$G!"%f!<%6%"%N%F!<%7%g%s$@$1$rI=<($7$^$9!#(B
+;;
+;; M-x skk-annotation-add $B$7$?$b$N$N!"7k6I%"%N%F!<%7%g%s$rIU$1$:$KCV$-(B
+;; $B$?$$$H$-$O!"(B
+;;
+;;   M-x skk-annotation-kill
+;;
+;; $B$7$F2<$5$$!#(B
+;;
+;; $B$^$?!":G8e$K3NDj$7$?8uJd$K$D$$$F$N%"%N%F!<%7%g%s$r<h$j5n$j$?$$$H$-(B
+;; $B$O!"(B
+;;
+;;   M-x skk-annotation-remove 
+;; 
+;; $B$7$F2<$5$$!#(B
+;; `;' $B$NJ8;z$r4^$s$@8uJd$O!"(Beval $B$9$k$H(B `;' $B$K$J$k(B Lisp $B<0$H$7$F(B
+;; quote $B$5$l$F<-=q8uJd$H$7$F<}$a$i$l$J$1$l$P$J$j$^$;$s!#4{B8$N<-=q$K(B
+;; $B$D$$$F$O!"<-=q$rFI$_9~$s$@%P%C%U%!$G(B
+;;
+;;   M-x skk-annotation-update-jisyo-format 
+;;
+;; $B$9$k$3$H$G$3$N:n6H$r9T$J$&$3$H$,$G$-$^$9!#8D?M<-=q!"(BSKK-JISYO.L $B$K(B
+;; $B$D$$$F$O@'Hs9T$J$C$F$*$$$?J}$,NI$$$G$7$g$&!#(B
+;; SKK Openlab $B$G:#8eG[I[$9$k<-=q$O(B `;' $B$OM=$a(B quote $B$5$l$F$$$k>uBV$K(B
+;; $B$7$^$9!#(B
+;; $BC"$7!"4{$K%"%N%F!<%7%g%s$,IU$1$i$l$F$$$k>l9g$O!"$3$N%"%N%F!<%7%g%s(B
+;; $B<+BN$b8uJd$H6hJL$G$-$:$K(B quote $B$5$l$F$7$^$$$^$9$N$G!"$4Cm0U2<$5$$(B
+;; ($B:#$N$H$3$m<j:n6H$G(B quote $B$5$l$J$$$h$&$KB`Hr$9$k$J$I$7$+J}K!$O$"$j(B
+;; $B$^$;$s(B)$B!#(B
 ;;
 ;;; Code:
 (eval-when-compile
@@ -80,6 +167,12 @@
 	   (append word nil) "")
 	  "\")"))
 
+(defsubst skk-annotation-get (annotation)
+  (or (string= annotation "")
+      (if (eq (aref annotation 0) ?*)
+	  (substring annotation 1)
+	annotation)))
+
 ;; advices.
 (defadvice skk-nunion (around skk-annotation-ad activate)
   (save-match-data
@@ -90,22 +183,24 @@
 	(setq tmp (cdr tmp)))
       var)))
 
+(defadvice skk-henkan-in-minibuff (around skk-annotation-ad activate)
+  (save-match-data
+    (let ((string ad-do-it))
+      (if (string-match ";" string)
+	  (skk-annotation-quote-1 string)
+	string))))
+
 ;; functions.
 ;;;###autoload
 (defun skk-annotation-show (annotation)
-  (cond ((not skk-annotation-function)
-	 (skk-annotation-show-1 annotation))
-	((funcall skk-annotation-function)
-	 (skk-annotation-show-1 annotation))))
-    
+  (if (or (not skk-annotation-function)
+	  (funcall skk-annotation-function annotation))
+      (skk-annotation-show-1 (skk-annotation-get annotation))))
+
 (defun skk-annotation-show-1 (annotation)
-  (if (string= annotation "")
-      nil
-    (if (eq (aref annotation 0) ?*)
-	(setq annotation (substring annotation 1)))
-    (if skk-annotation-show-message
-	(skk-annotation-show-message annotation)
-      (skk-annotation-show-buffer annotation))))
+  (if skk-annotation-show-as-message
+      (skk-annotation-show-as-message annotation)
+    (skk-annotation-show-buffer annotation)))
 
 (defun skk-annotation-show-buffer (annotation)
   (save-window-excursion
@@ -116,7 +211,7 @@
       (setq event (skk-read-event))
       (skk-unread-event event))))
 
-(defun skk-annotation-show-message (annotation)
+(defun skk-annotation-show-as-message (annotation)
   (if (> skk-henkan-count 3)
       ;; cannot use echo area, so we should use other window.
       (skk-annotation-show-buffer annotation)
@@ -175,11 +270,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
       (other-window 1)
       (switch-to-buffer (get-buffer-create skk-annotation-buffer))
       (setq buffer-read-only nil
-	    skk-annotation-mode t
-	    ;; copy buffer local variable of current buffer to annotation buffer.
-	    ;; annotation buffer $B$GJL$NJQ49!"3NDj$r$9$k$H>e=q$-$5$l$F$7$^$&(B...$B!#(B
-	    ;;skk-last-henkan-data last-henkan-data
-	    )
+	    skk-annotation-mode t)
       (skk-annotation-erase-buffer)
       (insert
        (format ";; Add annotation to word `%s' (this line will not be added as an annotation.)\n"
@@ -218,10 +309,12 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	      (beginning-of-line)))
 	(setq annotation (buffer-substring-no-properties
 			  (point) (point-max)))
-	(if (string-match "^[\t\n ]+" annotation)
+	(if (string-match "^[\t\n $B!!(B]+" annotation)
 	    (setq annotation (substring annotation (match-end 0))))
-	(if (string-match "[\t\n ]+$" annotation)
+	(if (string-match "[\t\n $B!!(B]+$" annotation)
 	    (setq annotation (substring annotation 0 (match-beginning 0))))
+	(if (string= annotation "")
+	    (setq annotation nil))
 	(setq annotation (skk-quote-char annotation))))
     (if annotation
 	(skk-annotation-last-word-1 
@@ -233,12 +326,13 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	   (insert ";*" annotation))))
     (set-window-configuration
      skk-annotation-original-window-configuration)
-    (or quiet (message "Added annotation"))))
+    (if annotation (or quiet (message "Added annotation")))))
 
 (defun skk-annotation-kill ()
   "annotation $B$rIU$1$:$K(B annotation $B%P%C%U%!$r(B kill $B$9$k!#(B"
   ;; called in the annotation buffer.
   (interactive)
+  (skk-annotation-erase-buffer)
   (kill-buffer (current-buffer))
   (set-window-configuration
    skk-annotation-original-window-configuration))
@@ -250,11 +344,16 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (save-match-data
     (skk-kakutei)
     (skk-annotation-setup)
-    (skk-annotation-last-word-1 
-     (lambda (beg end)
-       (goto-char beg)
-       (if (re-search-forward ";[^/]*" end t)
-	   (delete-region (match-beginning 0) (match-end 0)))))))
+    (if (yes-or-no-p
+	 (format (if skk-japanese-message-and-error
+		     "%s $B$K$D$$$F$N%"%N%F!<%7%g%s$r:o=|$7$^$9$+!)(B "
+		   "Really delete annotation for %s? ")
+		 (car (nth 2 skk-annotation-annotated-word))))
+	(skk-annotation-last-word-1 
+	 (lambda (beg end)
+	   (goto-char beg)
+	   (if (re-search-forward ";[^/]*" end t)
+	       (delete-region (match-beginning 0) (match-end 0))))))))
 
 (defun skk-annotation-last-word-1 (function)
   ;; funcall FUNCTION with BEG and END where BEG and END are markers.
@@ -320,6 +419,31 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	     (insert (skk-annotation-quote-1 candidate))
 	     (or quiet
 		 (message "Quoted"))))))))
+
+(defun skk-annotation-update-jisyo-format ()
+  (interactive)
+  (skk-setup-jisyo-buffer)
+  (let ((min skk-okuri-ari-min) (max skk-okuri-ari-max))
+    (skk-update-jisyo-format-1 min max)
+    (setq min skk-okuri-nasi-min
+	  max (point-max))
+    (skk-update-jisyo-format-1 min max)))
+
+(defun skk-annotation-update-jisyo-format-1 (min max)
+  (let (candidate)
+    (goto-char min)
+    (while (re-search-forward "\\/\\([^\n/]*;[^\n/]*\\)\\/" max t nil)
+      (setq candidate (buffer-substring-no-properties
+		       (match-beginning 1) (match-end 1)))
+      (delete-region (match-beginning 1) (match-end 1))
+      (goto-char (match-beginning 1))
+      (insert 
+       (concat "(concat \""
+	       (mapconcat
+		(function
+		 (lambda (c) (if (eq c ?\;) "\\073" (char-to-string c))))
+		(append candidate nil) "")
+	       "\")")))))
 
 (require 'product)
 (product-provide (provide 'skk-annotation) (require 'skk-version))
