@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.133 2001/10/07 08:37:33 czkmt Exp $
+;; Version: $Id: skk.el,v 1.134 2001/10/07 11:24:53 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/07 08:37:33 $
+;; Last Modified: $Date: 2001/10/07 11:24:53 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3232,40 +3232,44 @@ If you want to restore the dictionary from the disc, try
 	    (okuri-key (concat "\[" okurigana))
 	    item
 	    headchar)
-	(catch 'exit
-	  (while (not (eolp))
-	    (setq item     (buffer-substring-no-properties
-			    (point)
-			    (1- (search-forward "/")))
-		  headchar (if (string= item "")
-			       (int-char 0)
-			     (skk-str-ref item 0)))
-	    (cond
-	     ((and (eq headchar ?\[)
-		   (<= stage 2))
-	      (if (string= item okuri-key)
-		  (progn
-		    (queue-enqueue q2 item)
-		    (setq stage 3))
-		(setq stage 2)
-		(queue-enqueue q2 item)))
-	     ((= stage 1)
-	      (queue-enqueue q1 item))
-	     ((= stage 2)
-	      (queue-enqueue q2 item))
-	     ((= stage 3)
-	      (if (eq headchar ?\]) ; ?\]
-		  (progn
-		    (setq stage 4)
-		    (queue-enqueue q4 item))
-		(queue-enqueue q3 item)))
-	     ((= stage 4)
-	      (queue-enqueue q4 item)))))
+	(while (not (eolp))
+	  (setq item (buffer-substring-no-properties (point)
+						     (1- (search-forward "/")))
+		headchar (if (string= item "")
+			     (int-char 0)
+			   (skk-str-ref item 0)))
+	  (cond
+	   ((and (eq headchar ?\[)
+		 (<= stage 2))
+	    (setq item (skk-compute-henkan-lists-sub-adjust-okuri item
+								  okuri-key))
+	    (if (string= item okuri-key)
+		(progn
+		  (queue-enqueue q2 item)
+		  (setq stage 3))
+	      (setq stage 2)
+	      (queue-enqueue q2 item)))
+	   ((= stage 1)
+	    (queue-enqueue q1 item))
+	   ((= stage 2)
+	    (queue-enqueue q2 item))
+	   ((= stage 3)
+	    (if (eq headchar ?\]) ; ?\]
+		(progn
+		  (setq stage 4)
+		  (queue-enqueue q4 item))
+	      (queue-enqueue q3 item)))
+	   ((= stage 4)
+	    (queue-enqueue q4 item))))
 	;;
 	(list (queue-all q1)       ; words1
 	      (queue-all q2)       ; words2
 	      (queue-all q3)       ; words3
 	      (queue-all q4))))))) ; words4
+
+(defun skk-compute-henkan-lists-sub-adjust-okuri (item &optional okuri-key)
+  ;; Yet to be elucidated.
+  item)
 
 (defun skk-nunion (x y)
   ;; X と Y の和集合を作る。等しいかどうかの比較は、`equal' で行われる。
