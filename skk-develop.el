@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-develop.el,v 1.3 1999/09/25 05:26:58 minakaji Exp $
+;; Version: $Id: skk-develop.el,v 1.4 1999/09/25 05:31:34 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/25 05:26:58 $
+;; Last Modified: $Date: 1999/09/25 05:31:34 $
 
 ;; This file is not part of SKK yet.
 
@@ -109,7 +109,7 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 		[&rest ([&not eval] [&rest sexp])]
 		[&optional (eval def-body)]
 		&rest (&rest sexp) ))
-     (def-edebug-spec skk-defmacro-cond skk-defsubst-cond)
+     (def-edebug-spec skk-defsubst-cond skk-defmacro-cond)
      ))
 
 (eval-after-load "hilit19"
