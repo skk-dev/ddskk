@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.11 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-kakasi.el,v 1.12 2001/10/13 11:58:48 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/10/13 11:58:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -234,6 +234,10 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
   (or skk-use-kakasi skk-kakasi-command
       (skk-error "KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$$$+!";HMQ$7$J$$@_Dj$K$J$C$F$$$^$9!#(B"
 		 "KAKASI was not installed, or skk-use-kakasi is nil"))
+  ;; $BJ#?t<-=qBP1~(B
+  (when skk-gyakubiki-jisyo-list
+    (setq arglist (append arglist skk-gyakubiki-jisyo-list)))
+
   (let ((str (buffer-substring-no-properties start end)))
     ;; $BIQEY>pJs$r;H$C$F2?$+$*$b$7$m$$;H$$J}$,$G$-$k$+$J!)(B  $B8=>u$G$O;H$C$F(B
     ;; $B$$$J$$!#(B
