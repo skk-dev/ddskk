@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.69 2000/11/25 20:26:03 czkmt Exp $
+;; Version: $Id: skk.el,v 1.70 2000/11/26 10:32:51 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 20:26:03 $
+;; Last Modified: $Date: 2000/11/26 10:32:51 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -3116,7 +3116,8 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	      (while (setq e1 (car (cdr list1)))
 		(if (equal e1 e2)
 		    (throw 'found nil)
-		  (if (not (string-match ";" e1))
+		  (if (or (not (stringp e1)) (not (stringp e2))
+			  (not (string-match ";" e1)))
 		      nil
 		    (setq e1 (substring e1 0 (match-beginning 0)))
 		    (if (or (equal e1 e2)

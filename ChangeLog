@@ -1,3 +1,10 @@
+2000-11-26  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-dcomp.el: Remove unnecessary spaces between
+	parens.
+	Add year 2000 to the copyright notice.
+	* skk.el (skk-nunion): Bug fixed.
+
 2000-11-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* experimental/skk-e18.el: (exit-minibuffer@around@skk-e18-ad):
@@ -2521,8 +2528,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.180 2000/11/25 21:06:08 czkmt Exp $
-Last Modified: $Date: 2000/11/25 21:06:08 $
+Version: $Id: ChangeLog,v 1.181 2000/11/26 10:32:50 minakaji Exp $
+Last Modified: $Date: 2000/11/26 10:32:50 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
