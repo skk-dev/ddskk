@@ -1,3 +1,11 @@
+2005-02-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-set-henkan-point): In mistypes described on
+	2005-02-24, bind `skk-dcomp-activate' to nil.
+	Call `skk-set-char-before-as-okurigana' even when
+	last-command-char does not belong to [AEIOU] solely for avoiding
+	deletion of following character.  Never use SKK this way.
+
 2005-02-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-isearch.el (skk-isearch-setup-keymap): Define [?\C-x t]
@@ -4845,8 +4853,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.840 2005/02/26 08:37:14 skk-cvs Exp $
-Last Modified: $Date: 2005/02/26 08:37:14 $
+Version: $Id: ChangeLog,v 1.841 2005/02/27 23:43:56 skk-cvs Exp $
+Last Modified: $Date: 2005/02/27 23:43:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
