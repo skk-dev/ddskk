@@ -1,3 +1,21 @@
+2002-02-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el
+	(skk-annotation-show-buffer):
+	Abolish local variable WINDOW.
+
+	* skk-macs.el
+	Add or update doc strings.
+
+	* skk.el
+	Add or update doc strings.
+
+	(skk-compile-init-file-maybe):
+	Rename from `skk-setup-init-file'.
+
+	(skk-preload):
+	Call `skk-get-jisyo-buffer' if `skk-large-jisyo' is readable.
+
 2002-02-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* READMEs/Contributors:
@@ -3610,8 +3628,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.654 2002/02/06 13:38:31 czkmt Exp $
-Last Modified: $Date: 2002/02/06 13:38:31 $
+Version: $Id: ChangeLog,v 1.655 2002/02/09 03:56:21 czkmt Exp $
+Last Modified: $Date: 2002/02/09 03:56:21 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
