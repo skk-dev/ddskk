@@ -1,5 +1,11 @@
 2004-12-20  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
+	* experimental/bayesian/skk-bayesian.el 
+	(skk-bayesian-make-pending-data-alist): New.
+	(skk-bayesian-get-pending-data-alist): Ditto.
+
+2004-12-20  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
+
 	* experimental/bayesian/skk-bayesian.el: Rename some variables to use context instead of prefix.
 	(skk-bayesian-make-context): New.
 	(skk-bayesian-search): Use skk-bayesian-make-context.
@@ -4740,8 +4746,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.825 2004/12/20 09:43:02 skk-cvs Exp $
-Last Modified: $Date: 2004/12/20 09:43:02 $
+Version: $Id: ChangeLog,v 1.826 2004/12/21 07:40:38 skk-cvs Exp $
+Last Modified: $Date: 2004/12/21 07:40:38 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
