@@ -2,6 +2,13 @@
 
 * 11.4
 
+** 「意味」を含む辞書の実現。
+
+experimental/skk-annotation.el という新たな実験プログラムが追加されま
+した。
+これに伴い、SKK 辞書に「意味(註釈)」を書きこむための仕様について議論さ
+れ、Daredevil SKK 本体にはこのための機能が追加されました。
+
 ** Info のエントリの自動追加。
 
 例えば、skk.info を /usr/local/info/ 以下にインストールした場合、
@@ -17,11 +24,6 @@ SKK 9.6 以前のそれに戻しました。
 
 NICOLA-DDSKK はもはや実験版ではありません。experimental/nicola/ から
 nicola/ に移されました。
-
-** 「意味」を含む辞書の実現。
-
-experimental/skk-annotation.el という新たな実験プログラムが追加されま
-した。
 
 
 * 11.3
