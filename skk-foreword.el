@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.8 1999/09/15 15:18:19 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.9 1999/09/20 10:05:37 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/15 15:18:19 $
+;; Last Modified: $Date: 1999/09/20 10:05:37 $
 
 ;; This file is not part of SKK yet.
 
@@ -679,7 +679,7 @@
 	   ;; CHAR が ascii 文字だったら t を返す。
 	   (= (char-leading-char char) 0) )
 	 (defalias 'skk-charsetp 'character-set)
-	 (defalias 'skk-make-char 'make-chararacter)
+	 (defalias 'skk-make-char 'make-character)
 	 (defsubst skk-jisx0208-p (char)
 	   (= (char-leading-char char) lc-jp) )
 	 (defun skk-jisx0208-to-ascii (string)
