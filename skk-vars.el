@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.112 2003/03/28 00:01:23 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.113 2003/07/12 11:22:33 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/03/28 00:01:23 $
+;; Last Modified: $Date: 2003/07/12 11:22:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -202,6 +202,10 @@
 (defgroup skk-annotation nil "SKK annotation related customization."
   :prefix "skk-annotation-"
   :group 'skk-custom-by-filename)
+
+(defgroup skk-study nil "SKK study related customization."
+  :prefix "skk-study-"
+  :group 'skk)
 
 ;;(defgroup skk-viper nil "SKK/Viper related customization."
 ;;  :prefix "skk-viper-"
@@ -3209,6 +3213,7 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 (skk-deflocalvar skk-annotation-mode nil
   "Non-nil であれば、annotation モードであることを示す。")
 
+;; SKK-DCOMP related internal constants and variables.
 ;;; user variables.
 (defface skk-dcomp-face
   '((((class color)) (:foreground "DarkKhaki"))
@@ -3255,6 +3260,74 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 (skk-deflocalvar skk-dcomp-end-point nil)
 (skk-deflocalvar skk-dcomp-extent nil)
 (defvar skk-dcomp-face 'skk-dcomp-face)
+
+;; SKK-STUDY related internal constants and variables.
+;;; user variables.
+(defcustom skk-study-file (convert-standard-filename
+			   (cond ((eq system-type 'ms-dos)
+				  "~/_skkst")
+				 (t
+				  "~/.skk-study")))
+  "*学習結果を保存するファイル。"
+  :type 'file
+  :group 'skk-study)
+
+(defcustom skk-study-backup-file (convert-standard-filename
+				  (cond ((eq system-type 'ms-dos)
+					 "~/_skkstbk")
+					(t
+					 "~/.skk-study.BAK")))
+  "*学習結果を保存するバックアップファイル。"
+  :type 'file
+  :group 'skk-study)
+
+(defcustom skk-study-associates-number 5
+  "*保存する関連語の数。"
+  :type 'integer
+  :group 'skk-study)
+
+(defcustom skk-study-sort-saving nil
+  "*Non-nil であれば学習結果をソートしてセーブする。"
+  :type 'boolean
+  :group 'skk-study)
+
+(defcustom skk-study-check-alist-format t
+  "*Non-nil であれば、学習結果の読み込み時に連想リストのフォーマットをチェックする。"
+  :type 'boolean
+  :group 'skk-study)
+
+(defcustom skk-study-search-times 5
+  "*現在の変換キーに対する関連変換キーをいくつまで遡って検索するか。"
+  :type 'integer
+  :group 'skk-study)
+
+(defcustom skk-study-first-candidate t
+  "*Non-nil であれば、第一候補で確定した際も学習する。"
+  :type 'boolean
+  :group 'skk-study)
+
+(defcustom skk-study-max-distance 30
+  "*直前に確定したポイントと今回の変換ポイントがこの距離以上離れていると学習しない。
+nil の場合は直前に確定したポイントとの距離を考慮せずに学習する。"
+  :type '(choice integer (const nil))
+  :group 'skk-study)
+
+;;; system internal variables and constants.
+;; global variable
+(defvar skk-search-end-function 'skk-study-search)
+(defvar skk-update-end-function 'skk-study-update)
+
+(defconst skk-study-file-format-version "0.2")
+(defvar skk-kakutei-end-function nil)
+(defvar skk-study-alist nil)
+(defvar skk-study-data-ring nil
+  "直前の skk-study-search-times 個分の変換キーと確定語データ。
+ring.el を利用しており、具体的には、下記のような構造になっている。
+
+\(2 3 . [\(\"こうぞう\" . \"構造\"\) \(\"ぐたいてき\" . \"具体的\"\) \(\"かき\" . \"下記\"\)]\)")
+
+(defvar skk-study-last-save nil)
+(defvar skk-study-last-read nil)
 
 (require 'product)
 (product-provide

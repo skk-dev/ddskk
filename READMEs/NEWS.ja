@@ -42,7 +42,14 @@ APEL 10.6 $B$K$D$$$F$O!"(Bhttp://emacs-w3m.namazu.org/ml/msg05365.html $B$r(
 skk-isearch $B$rMxMQ$7$J$$$h$&$K$9$k$3$H$,2DG=$K$J$j$^$7$?!#(Bmigemo $B$rMx(B
 $BMQ$7$?$$>l9g$J$I$K$O(B `nil' $B$K@_Dj$9$k$HNI$$$G$7$g$&!#(B
 
-** $BJT=8$NJ8L.$K1~$8$?<+F0E*$J(Blatin$B%b!<%I$X$N@Z$jBX$(%5%]!<%H(B
+** skk-study.el $B$,@5<0%5%]!<%H$NBP>]$K$J$j$^$7$?!#(B
+$B$3$l$KH<$$!"%W%m%0%i%`$,(B skk/main/experimental/skk-study.el $B$+$i(B
+skk/main/skk-study.el $B$K0\F0$5$l$^$7$?!#(B`skk-study-first-candidate',
+`skk-study-max-distance' $B$N(B 2 $B$D$N?7$7$$%f!<%6JQ?t$,A}$($F$$$^$9(B ($B>\:Y(B
+$B$O(B C-h v skk-study-first-candidate $B$J$I$H$7$FI=<($5$l$k%I%-%e%a%s%H$r(B
+$B$4;2>H2<$5$$(B)$B!#(B
+
+** $BJT=8$NJ8L.$K1~$8$?<+F0E*$J(B latin $B%b!<%I$X$N@Z$jBX$(%5%]!<%H(B
 
 `major-mode' $B$,%W%m%0%i%`8@8l$N%b!<%I$G$"$k>l9g$K!"J8L.$K1~$8$F<+F0E*(B
 $B$K(B latin$B%b!<%I$X@Z$jBX$($r9T$&5!G=$r;n83E*$K%5%]!<%H$7$F$$$^$9!#>\:Y$O!"(B
