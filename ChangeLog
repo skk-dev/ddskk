@@ -1,5 +1,8 @@
 2001-10-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* install-info.el
+	(install-info-add-groups): Use `when' instead of `if'.
+
 	* skk-look.el
 	* skk-macs.el:
 	More specific.
@@ -7,6 +10,8 @@
 	* skk.el
 	(skk-search-sagyo-henkaku): Accept an optional argument. Use
 	`skk-substring', not `substring'.
+
+	(skk-backward-and-set-henkan-point): Use `when' instead of `if'.
 
 	* skk-jisx0201.el
 	(skk-search-sagyo-henkaku): Set the argument.
@@ -2516,8 +2521,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.495 2001/10/20 04:16:48 czkmt Exp $
-Last Modified: $Date: 2001/10/20 04:16:48 $
+Version: $Id: ChangeLog,v 1.496 2001/10/20 07:06:41 czkmt Exp $
+Last Modified: $Date: 2001/10/20 07:06:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
