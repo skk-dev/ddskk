@@ -15,6 +15,9 @@
 	(skk-search-prog-list): Don't call `skk-splice-in' when MARK is
 	nil.
 
+	* skk-vars.el:
+	Doc strings update.
+
 2001-10-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* install-info.el
@@ -2538,8 +2541,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.499 2001/10/21 05:34:16 czkmt Exp $
-Last Modified: $Date: 2001/10/21 05:34:16 $
+Version: $Id: ChangeLog,v 1.500 2001/10/21 12:09:10 czkmt Exp $
+Last Modified: $Date: 2001/10/21 12:09:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
