@@ -2,8 +2,8 @@
 
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2000/10/30 22:14:11 $
-$Id: README.win,v 1.9 2000/10/30 22:14:11 minakaji Exp $
+$Date: 2000/10/31 03:55:16 $
+$Id: README.win,v 1.10 2000/10/31 03:55:16 minakaji Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                　　　　 <minakaji@pdx.ne.jp> 
@@ -37,14 +37,26 @@ tar.exeは `ftp://ftp.etl.go.jp/pub/mule/Windows/tools/' などから入手できる。
 Emacs が `c:\usr\Meadow\1.10\bin\meadow95.exe' のとき、APEL を展開した
 ディレクトリに CD によって移動し、以下のコマンドを実行する。
 
-  C:\temp\skk-11> c:\usr\meadow\1.10\bin\meadow -q -batch
-                 -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) (EMUDIR)
-  (改行はいれない)
+  C:\temp\skk-11> c:\usr\meadow\1.10\bin\meadow95 -q -batch -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) (EMUDIR)
 
-ただし、上の (LISPDIR) には apel のインストール先(例えば
-\usr\meadow\site-lisp とすれば、 \usr\meadow\site-lisp\apel にインストー
-ルされる)で、(EMUDIR) は同様に emu のインストール先
-\usr\meadow\1.10\site-lisp\emu 等を指定する。
+ただし、上の (LISPDIR) には apel モジュール (APEL の内、Emacs のバージョ
+ンに依存しないライブラリ) のインストール先、(EMUDIR) は同様に emu モ
+ジュール (APEL の内、Emacs のバージョンに依存するもの) のインストール
+先を指定する。
+
+例えば (LISPDIR) に \usr\meadow\site-lisp と指定とすれば、apel モジュー
+ルは \usr\meadow\site-lisp\apel にインストールされる。
+
+同様に (EMUDIR) に \usr\meadow\1.10\site-lisp\ と指定すれば emu モジュー
+ルは \usr\meadow\1.10\site-lisp\emu にインストールされる。
+
+コマンドラインにコマンド全てを入力しきらない場合は、上記の内容を書いた
+make.bat を作成し、
+
+  C:temp\apel> make.bat
+
+とする。
+
 
 *** load-path への追加
 
@@ -132,9 +144,11 @@ Emacs が `c:\usr\mule\bin\mule.exe' のとき、APEL を展開したディレクト
 
   C:\temp\skk-11> c:\usr\mule\bin\mule -q -batch -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) (EMUDIR)
 
-ただし、上の LISPDIR には apel のインストール先(例えば
-\usr\mule\site-lisp とすれば、 \usr\mule\site-lisp\apel にインストール
-される)で、EMUDIRは同様に emu のインストール先である。
+ただし、上の (LISPDIR) には apel モジュール (APEL の内、Emacs のバージョ
+ンに依存しないライブラリ) のインストール先を指定する。
+
+(EMUDIR) は同様に emu モジュール (APEL の内、Emacs のバージョンに依存
+するもの) のインストール先を指定する。
 
 *** .emacs への追加
 

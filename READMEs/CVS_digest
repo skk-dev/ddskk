@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2000/10/30 22:14:09 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-	     $Id: CVS_digest,v 1.4 2000/10/30 22:14:09 minakaji Exp $
+             $Date: 2000/10/31 03:55:15 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: CVS_digest,v 1.5 2000/10/31 03:55:15 minakaji Exp $
 
 [CVS ダイジェスト]
 
@@ -45,13 +45,15 @@ login は不要になります (*注1)。
 ** Checkout
 
 Checkout して cvs server からソースをもらってきます (このファイルをワー
-キングコピーといいます) (*注2)。Maintrunk を入手したければ、下記のようにします。
+キングコピーといいます) (*注2)。Maintrunk (Daredevil SKK-11.x) を入手
+したければ、下記のようにします。
 
   $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot checkout skk/main
 
-Daredevil branch を入手したければ、下記のようにします。
+legacy branch (SKK-10.x maintenance version) を入手したければ、下記の
+ようにします。
 
-  $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot checkout -r daredevil skk/main
+  $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot checkout -r legacy skk/main
 
 カレントディレクトリの下にできる skk/main というディレクトリにワーキン
 グコピーがコピーされます。
@@ -146,17 +148,20 @@ cvs server 上のソースに変更を加える場合は、この情報を
 うことができます。
 
 
-** Tagify
+** tag 付け
 
-Daredevil SKK に新たな機能を加えた人は、このファイルと同じディレクトリ
-にある Codename というファイルの中身を参照して tag 付けして下さい (但
-し、tag には空白文字を含めることができないようなので、TAG 付けするのは、
-Codename のうち、駅名の部分だけで結構です)。
+Daredevil SKK, legacy branch ともに Openlab でバージョンが振られたアー
+カイブが公開される度に tag 付けします。
+
+daredevil の tag 付けルールは、このファイルと同じディレクトリにある
+Codename というファイルの中身を参照して下さい (但し、tag には空白文字
+を含めることができないようなので、tag 付けするのは、Codename のうち、
+駅名の部分だけです)。
 
      $ cvs tag (Codename) .
 
-Maintrunk には tag 付けしないで下さい。Maintrunk の tag 付けルールはま
-だ考えていません
+legacy branch はtag は skk10_62, skk10_63, skk10_64... というふう
+に付けます。
 
 * 脚注
 

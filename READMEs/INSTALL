@@ -1,14 +1,14 @@
 -*- outline -*-
 
-             $Date: 2000/10/30 22:14:10 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 2000/10/31 03:55:15 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.19 2000/10/30 22:14:10 minakaji Exp $ 
+	     $Id: INSTALL,v 1.20 2000/10/31 03:55:15 minakaji Exp $ 
 
 * APEL 
 
-APEL (A Portable Emacs Library) is required to install SKK.  Please
-make sure you have already installed APEL 10.2 or later.  It is
-available at:
+APEL (A Portable Emacs Library) is required to install SKK.  Make sure
+you have APEL 10.2 or later (It is highly recommened that you install
+the latest release).  APEL is available at:
 
     ftp://ftp.jpl.org/pub/elisp/apel/ 
 or

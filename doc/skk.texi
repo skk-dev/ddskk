@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.60 2000/10/29 21:38:04 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.61 2000/10/31 03:55:16 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/29 21:38:04 $
+@c  Last Modified: $Date: 2000/10/31 03:55:16 $
 @c
 @set EDITION 1.5
 @set SKK-VERSION 10.62
-@set UPDATED $Date: 2000/10/29 21:38:04 $
+@set UPDATED $Date: 2000/10/31 03:55:16 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -76,8 +76,8 @@ by the author.
 @c The following two commands start the copyright page.
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{}1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999
-@w{Masahiko Sato}($B:4F#2mI'(B), @*
+Copyright @copyright{}1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
+1999, 2000 @w{Masahiko Sato}($B:4F#2mI'(B), @*
 @w{Yukiyoshi Kameyama}($B55;39,5A(B) and @w{Mikio Nakajima}($BCfEg44IW(B).
 Revised by @w{Kiyotaka Sakai}($B<r0f@6N4(B) and @w{Satoshi Harauchi}($B86FbAo(B).
 
@@ -5549,8 +5549,7 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
 $B%f!<%6!<JQ?t!"(B@samp{skk-search-excluding-word-pattern-function} $B$rE,@Z$K(B
 $B@_Dj$7$^$9!#(B
 
-$BNc$($P<!$N$h$&$J@_Dj$G$9!#$A$g$C$HD9$$$G$9$,<B:]$KI,MW$J$N$O!"(B
-skk-abbrev-mode $B$NItJ,$G$9!#(B
+$BNc$($P<!$N$h$&$J@_Dj$G$9!#(B
 
 @lisp 
 @group
