@@ -1,3 +1,7 @@
+2000-10-15  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* doc/skk.texi: Fix links.
+
 2000-10-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/gpl.texi: No longer in the repository.
