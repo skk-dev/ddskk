@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.60 2000/11/22 18:54:30 czkmt Exp $
-;; Last Modified: $Date: 2000/11/22 18:54:30 $
+;; Version: $Id: SKK-MK,v 1.61 2000/11/22 19:02:15 czkmt Exp $
+;; Last Modified: $Date: 2000/11/22 19:02:15 $
 
 ;; Commentary
 ;;
@@ -393,6 +393,7 @@
       flag)))
 
 (defun SKK-MK-compile ()
+  (setq enable-local-eval nil)
   (cond ((= 18 emacs-major-version)
 	 (let ((SKK_MODULES (cons 'experimental/skk-isearch SKK_MODULES)))
 	   (SKK-MK-generate-autoloads-el))
@@ -547,7 +548,8 @@
 		nil
 	      (princ
 	       (format "** WARNING ** %s is shadowed.  You might want to remove it\n"
-		       shadowed))))))))
+		       shadowed))))))
+    (error)))
 
 (defun SKK-MK-install-info ()
   (when SKK_INFO

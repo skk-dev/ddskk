@@ -2,6 +2,8 @@
 
 	* SKK-MK (SKK-MK-generate-autoloads-el-package): Eval the
 	temporary buffer.
+	(SKK-MK-detect-shadow-directory): Do not signal error.
+	(SKK-MK-compile): Disable local eval.
 
 	* install-info.el (install-info-add-groups): Detect the next
 	section more correctly.
@@ -2473,8 +2475,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.164 2000/11/22 18:54:29 czkmt Exp $
-Last Modified: $Date: 2000/11/22 18:54:29 $
+Version: $Id: ChangeLog,v 1.165 2000/11/22 19:02:14 czkmt Exp $
+Last Modified: $Date: 2000/11/22 19:02:14 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
