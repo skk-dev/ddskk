@@ -4,6 +4,7 @@
 	Abolish variable.
 
 	* skk-kanagaki-util.el (skk-kanagaki-call-xmodmap): Abolish macro.
+
 	(skk-kanagaki-help-1): Abolish old style backquote.
 
 	* skk-106-jis.el:
