@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.6 1999/08/30 21:10:58 minakaji Exp $
+;; Version: $Id: skk.el,v 1.7 1999/09/02 03:09:36 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/30 21:10:58 $
+;; Last Modified: $Date: 1999/09/02 03:09:36 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/08/30 21:10:58 $")
+      (let* ((raw-date "$Date: 1999/09/02 03:09:36 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -2022,7 +2022,7 @@ dependent."
           (setq skk-mode-invoked t)
           (skk-setup-init-file)
           (load skk-init-file t)
-	  ;;(require 'skk-autoloads)
+	  (require 'skk-autoloads)
 	  (if skk-use-numeric-conversion (require 'skk-num))
           (if skk-keep-record
 	      (skk-create-file skk-record-file
