@@ -224,7 +224,8 @@
 		ad-do-it)))
 	(skk-henkan-active
 	 (setq skk-henkan-count 0)
-	 (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
+	 (if (and skk-delete-okuri-when-quit
+		  skk-henkan-okurigana)
 	     (let ((count (/ (length skk-henkan-okurigana)
 			     skk-kanji-len)))
 	       (skk-previous-candidate)
