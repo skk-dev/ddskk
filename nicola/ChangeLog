@@ -1,4 +1,4 @@
-2001-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2001-09-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kangaki.el (skk-kanagaki-adjust-rule-tree): Use `case'.
 	(skk-kanagaki-insert): Use `skk-save-point'.
