@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.64 2001/11/13 10:59:26 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.65 2001/11/14 14:13:56 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 10:59:26 $
+;; Last Modified: $Date: 2001/11/14 14:13:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -129,6 +129,7 @@ the return value (nil if RESULT is omitted)."
 	 function function))))
     (` (defadvice (, function) (,@ everything-else)))))
 
+;;;###autoload
 (put 'skk-defadvice 'lisp-indent-function 'defun)
 (def-edebug-spec skk-defadvice defadvice)
 
@@ -198,12 +199,13 @@ the return value (nil if RESULT is omitted)."
 	(list 'set-marker marker position buffer)))
 
 ;; From viper-util.el.  Welcome!
+;;;###autoload
+(put 'skk-deflocalvar 'lisp-indent-function 'defun)
 (defmacro skk-deflocalvar (var default-value &optional documentation)
   (` (progn
        (defvar (, var) (, default-value)
 	       (, (format "%s\n\(buffer local\)" documentation)))
        (make-variable-buffer-local '(, var)))))
-(put 'skk-deflocalvar 'lisp-indent-function 'defun)
 
 (defmacro skk-with-point-move (&rest form)
   ;; ポイントを移動するがフックを実行してほしくない場合に使う。

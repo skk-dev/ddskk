@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.25 2001/10/19 13:34:42 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.26 2001/11/14 14:13:56 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/19 13:34:42 $
+;; Last Modified: $Date: 2001/11/14 14:13:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -73,6 +73,7 @@
 			  (substring key (match-end 0)))))))
   key)
 
+;;;###autoload
 (defun skk-num-convert ()
   ;; skk-henkan-list の skk-henkan-count が指している候補 (数値変換
   ;; キーの) を変換し、skk-henkan-list を
@@ -142,6 +143,7 @@
 	  (setq convlist (nconc convlist (list string convnum))))
 	(delete "" (nconc convlist (list workkey)))))))
 
+;;;###autoload
 (defun skk-num-multiple-convert (&optional count)
   (let ((skk-henkan-count skk-henkan-count)
 	(n (or count (length skk-henkan-list))))
