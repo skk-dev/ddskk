@@ -176,6 +176,7 @@
 		   :help-echo "終わったらボクを押して。"
 		   :action 'skk-customize-done)
     (widget-insert " を押してください。\n\n")
+    (widget-insert "いくつかの設定は再起動が必要です。\n\n")
     (setq skk-custom-params
 	  (list
 	   (widget-create 'group
@@ -233,6 +234,7 @@
 
 (defun skk-customize-done (&rest args)
   (interactive)
+  (setq skk-custom-alist nil)
   (dolist (params skk-custom-params)
     (setq skk-custom-alist (append skk-custom-alist
 				   (widget-value params))))
