@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.31 2001/11/27 15:10:39 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.32 2001/12/16 04:08:05 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/27 15:10:39 $
+;; Last Modified: $Date: 2001/12/16 04:08:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -144,50 +144,50 @@
   ;; skkserv サービスをオープンできたら process を返す。
   ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を参照する。
   (let (process)
-    (unless skk-servers-list
-      ;; Emacs 起動後に環境変数を設定した場合。
-      (unless skk-server-host
-	(setq skk-server-host (getenv "SKKSERVER")))
-      (unless skk-server-prog
-	(setq skk-server-prog (getenv "SKKSERV")))
-      (unless skk-server-jisyo
-	(setq skk-server-jisyo (getenv "SKK_JISYO")))
-      (if skk-server-host
-	  (setq skk-servers-list (list (list skk-server-host
-					     skk-server-prog
-					     skk-server-jisyo
-					     skk-server-portnum)))
-	(setq skk-server-prog nil)))
-    (while (and (not (skk-server-live-p process))
-		skk-servers-list)
-      (let ((elt (car skk-servers-list))
-	    arg)
-	(setq skk-server-host (car elt)
-	      skk-server-prog (nth 1 elt)
-	      skk-server-jisyo (nth 2 elt)
-	      skk-server-portnum (nth 3 elt)
-	      skk-servers-list (cdr skk-servers-list))
-	;; skkserv の起動オプションは下記の通り。
-	;;     skkserv [-d] [-p NNNN] [JISHO]
-	;;     `-d'     ディバッグ・モード
-	;;     `-p NNNN'     通信用のポート番号としてNNNNを使う.
-	;;     `~/JISYO'     ~/JISYOを辞書として利用.
-	(if skk-server-jisyo
-	    (setq arg (list skk-server-jisyo))
-	  ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を
-	  ;; 参照する。
-	  )
-	;;(if skk-server-debug
-	;;    (setq arg (cons "-d" arg)))
-	;;(when (and skk-server-portnum
-	;;           (not (= skk-server-portnum 1178)))
-	(when skk-server-portnum
-	  (setq arg (nconc (list "-p" (number-to-string skk-server-portnum))
-			   arg)))
-	(when (and skk-server-host (not (skk-open-network-stream))
-		   skk-server-prog
-		   (not skk-server-inhibit-startup-server))
-	  (setq process (skk-startup-server arg)))))
+    (unless skk-server-inhibit-startup-server
+      (unless skk-servers-list
+	;; Emacs 起動後に環境変数を設定した場合。
+	(unless skk-server-host
+	  (setq skk-server-host (getenv "SKKSERVER")))
+	(unless skk-server-prog
+	  (setq skk-server-prog (getenv "SKKSERV")))
+	(unless skk-server-jisyo
+	  (setq skk-server-jisyo (getenv "SKK_JISYO")))
+	(if skk-server-host
+	    (setq skk-servers-list (list (list skk-server-host
+					       skk-server-prog
+					       skk-server-jisyo
+					       skk-server-portnum)))
+	  (setq skk-server-prog nil)))
+      (while (and (not (skk-server-live-p process))
+		  skk-servers-list)
+	(let ((elt (car skk-servers-list))
+	      arg)
+	  (setq skk-server-host (car elt)
+		skk-server-prog (nth 1 elt)
+		skk-server-jisyo (nth 2 elt)
+		skk-server-portnum (nth 3 elt)
+		skk-servers-list (cdr skk-servers-list))
+	  ;; skkserv の起動オプションは下記の通り。
+	  ;;     skkserv [-d] [-p NNNN] [JISHO]
+	  ;;     `-d'     ディバッグ・モード
+	  ;;     `-p NNNN'     通信用のポート番号としてNNNNを使う.
+	  ;;     `~/JISYO'     ~/JISYOを辞書として利用.
+	  (if skk-server-jisyo
+	      (setq arg (list skk-server-jisyo))
+	    ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を
+	    ;; 参照する。
+	    )
+	  ;;(if skk-server-debug
+	  ;;    (setq arg (cons "-d" arg)))
+	  ;;(when (and skk-server-portnum
+	  ;;           (not (= skk-server-portnum 1178)))
+	  (when skk-server-portnum
+	    (setq arg (nconc (list "-p" (number-to-string skk-server-portnum))
+			     arg)))
+	  (when (and skk-server-host (not (skk-open-network-stream))
+		     skk-server-prog)
+	    (setq process (skk-startup-server arg))))))
     (prog1
 	process
       (unless (skk-server-live-p process)
