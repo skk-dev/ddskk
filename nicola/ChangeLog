@@ -1,3 +1,7 @@
+2001-08-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el, skk-nicola.el: Typo.
+
 2001-07-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki.el (skk-compute-henkan-lists): I guess that is

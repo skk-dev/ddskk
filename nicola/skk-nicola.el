@@ -113,7 +113,7 @@
 		    ;; Emacs 20.3 or later
 		    [henkan]))))) "\
 *右親指キーとして使うキー。"
-  :type 'sexp
+  :type '(repeat sexp)
   :group 'skk-nicola)
 
 (defcustom skk-nicola-use-lshift-as-space nil "\
@@ -301,7 +301,7 @@ keycode 131 = underscore\n"))
 	   (intern
 	    (format "skk-%s-rshift-rule-list" skk-kanagaki-keyboard-type)))))
   ;;
-  (remove-hook 'skk-mode-hook 'skk-niola-setup))
+  (remove-hook 'skk-mode-hook 'skk-nicola-setup))
 
 (defun skk-nicola-setup-tutorial ()
   (static-unless (memq skk-emacs-type '(nemacs mule1))
