@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.97 2002/02/20 08:39:57 obata Exp $
+@c  Version: $Id: skk.texi,v 1.98 2002/03/07 12:53:03 iida Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2002/02/20 08:39:57 $
+@c  Last Modified: $Date: 2002/03/07 12:53:03 $
 @c
 @set EDITION 1.9
 @set SKK-VERSION 12.1.0
-@set UPDATED $Date: 2002/02/20 08:39:57 $
+@set UPDATED $Date: 2002/03/07 12:53:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -301,7 +301,8 @@ WWW (@url{http://openlab.ring.gr.jp/skk/dic.html}) $B$+$iF~<j$G$-$^$9!#(B
 @end itemize
 
 @noindent
-$B$,MQ0U$5$l$F$$$^$9(B@footnote{$B<-=q$NCx:n8"$K$D$$$F!"(BGPL 2 $B$H$O0[$J$k$b$N$,$"$j$^$9!#(B
+$B$,MQ0U$5$l$F$$$^$9(B@footnote{$B<-=q$NCx:n8"$K$D$$$F!"(B
+GNU GPL 2 $B$H$O0[$J$k$b$N$,$"$j$^$9!#(B
 $B<-=q%G%#%l%/%H%j$N(B @file{READMEs/committers.txt} $B$r;2>H$7$F2<$5$$(B}$B!#(B
 
 @node $B$O$8$a$N@_Dj(B, $B4pK\E*$J;H$$J}(B, $B%$%s%9%H!<%k(B, Top
@@ -7322,7 +7323,7 @@ SKK $B%7%9%F%`<-=q$HHf$Y!"(Bcdb $B7A<0$N<-=q$N%5%$%:$O(B 2 $BG\<e$K$J$k!#%;
 
 @item $BG[I[>r7o(B
 
-GPL $B$K=`5r!#(B
+GNU GPL (General Public License) $B$K=`5r!#(B
 
 @item $BF~<jJ}K!(B
 
@@ -7712,7 +7713,7 @@ SKK $B$N86:n<T$O!"8=5~ETBg3X$N:4F#2mI'65<x(B @w{<masahiko@@kuis.kyoto-u.ac.jp>
 @item Hideki Sakurada @w{<sakurada@@kuis.kyoto-u.ac.jp>}
 @item Hisao Kuroda @w{<kuroda@@msi.co.jp>}
 @item Hitoshi SUZUKI @w{<h-suzuki@@ael.fujitsu.co.jp>}
-@item IIDA Yosiaki @w{<iida@@secom-sis.co.jp>}
+@item IIDA Yosiaki @w{<iida@@ring.gr.jp>}
 @item Jun-ichi Nakamura @w{<nakamura@@pluto.ai.kyutech.ac.jp>}
 @item Katuya Tomioka @w{<tomioka@@culle.l.chiba-u.ac.jp>}
 @item Kazuo Hirokawa @w{<hirokawa@@rics.co.jp>}
@@ -8706,7 +8707,7 @@ skk-tools $B$NCf$N%W%m%0%i%`$r;H$$!"2<5-$N$h$&$K9T$J$$$^$9!#(B
 @noindent
 $B$J$I$H$7$F!"(B@file{SKK-JISYO.L} $B$H%^!<%8$7$F;H$&$N$,<j7Z$G$9!#(B
 
-$B$J$*!"(Bedict $B$NG[I[>r7o$O(B GPL $B$G$O$"$j$^$;$s!#(B
+$B$J$*!"(Bedict $B$NG[I[>r7o$O(B GNU GPL (General Public License) $B$G$O$"$j$^$;$s!#(B
 
 @display
 @url{http://www.csse.monash.edu.au/groups/edrdg/newlic.html}
