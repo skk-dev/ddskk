@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.14 2001/10/31 13:06:22 czkmt Exp $
+;; Version: $Id: skk-dcomp.el,v 1.15 2001/10/31 15:52:30 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 13:06:22 $
+;; Last Modified: $Date: 2001/10/31 15:52:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -198,9 +198,9 @@
 (defadvice skk-set-henkan-point-subr (around skk-dcomp-ad activate)
   (cond
    (skk-dcomp-activate
-    (let ((henkan-on skk-henkan-mode))
+    (let ((henkan-mode skk-henkan-mode))
       ad-do-it
-      (unless henkan-on
+      (unless henkan-mode
 	(skk-dcomp-do-completion (point)))))
    (t
     ad-do-it)))
