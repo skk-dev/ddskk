@@ -1,3 +1,35 @@
+2001-05-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-w3m.el (skk-w3m-search-engine-alist): Set nil
+	to 3th element of "goo-exceed-waei", "goo-exceed-eiwa" and
+	"goo-daily-shingo" since skk-w3m-get-candidates-from-* function
+	has not implemented yet.
+	(skk-w3m-search): Search `skk-w3m-cache' first.
+	Use `skk-w3m-search-by-backend', `skk-w3m-search-by-emcas-w3m' and
+	`skk-w3m-cache'.
+	(skk-w3m-use-w3m-backend): New user variable.
+	(skk-w3m-command): Ditto.
+	(skk-w3m-command-args): Ditto.
+	(skk-w3m-backend-command-prompt): Ditto.
+	(skk-w3m-default-process-coding-system): Ditto.
+	(skk-w3m-kill-command): Ditto.
+	(skk-w3m-no-wait): Ditto.
+	(skk-w3m-process): New internal variable.
+	(skk-w3m-last-process-point): Ditto.
+	(skk-w3m-cache): Ditto.
+	(skk-w3m-process-alive): New inline function.
+	(skk-w3m-cache): New function.
+	(skk-w3m-search-by-emcas-w3m):  Ditto.
+	(skk-w3m-search-by-backend): Ditto.
+	(skk-w3m-set-process-coding-system): Ditto.
+	(skk-w3m-init-w3m-backend): Ditto.
+	(skk-w3m-kill): Ditto.
+	(skk-w3m-run-command): Ditto.
+	(skk-w3m-url-encode-string): Ditto.
+	(skk-w3m-search-escape-query-string): Ditto.
+	(skk-w3m-get-candidates-from-goo-daijirin): Modified in order to
+	search w3m halfdump buffer.
+
 2001-05-20  Tsuyoshi AKIHO  <akiho@sky.email.ne.jp>
 
 	* READMEs/Contributors : Update akiho's mail-address.
@@ -3327,8 +3359,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.290 2001/05/20 11:02:20 akiho Exp $
-Last Modified: $Date: 2001/05/20 11:02:20 $
+Version: $Id: ChangeLog,v 1.291 2001/05/25 12:40:20 minakaji Exp $
+Last Modified: $Date: 2001/05/25 12:40:20 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

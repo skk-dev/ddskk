@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.11 2001/05/13 12:16:57 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.12 2001/05/25 12:40:21 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/05/13 12:16:57 $
+;; Last Modified: $Date: 2001/05/25 12:40:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -26,11 +26,20 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-;; emacs-w3m (http://www.namazu.org/~tsuchiya/emacs-w3m) を利用し、
+;; w3m (http://ei5nazha.yz.yamagata-u.ac.jp/~aito/w3m/) を利用し、
 ;; Emacs の中から Web 検索エンジンによる検索をし、検索結果の中から
 ;; SKK の候補として取り出したいものを切り出して利用するプログラムで
 ;; す。
-;;
+;; 
+;; skk-w3m-use-w3m-backend が non-nil であれば、w3m を backend オプ
+;; ション付きで起動して w3m と直接交信します。nil であれば emacs-w3m
+;; (http://www-nagao.kuee.kyoto-u.ac.jp/member/tsuchiya/w3m/) を経由
+;; して w3m を利用します。現在の emacs-w3m では w3m を backend で動か
+;; していません。w3m backend を利用することで、検索の度毎に w3m を起
+;; 動する必要がなくなり、プロセスの起動、終了に伴なうオーバーヘッドを
+;; 減らすことができますが、w3m backend は開発中であり、今後大幅な仕様
+;; 変更が行なわれる可能性もあり、予断を許しません。
+;; 
 ;; <HOW TO INSTALL>
 ;; .emacs を読み込まずに emacs-w3m が load できる環境が必須です。そ
 ;; の上でこのファイルを SKK-MK があるディレクトリにコピーし (リンク
@@ -52,6 +61,11 @@
 ;; skk-w3m-search の引数は検索エンジンの種類を文字列で指定します。
 ;; 但し、skk-w3m-search-engine-alist に対応するエントリが必要です。
 ;;
+;; skk-w3m.el では search-engine 毎に検索結果を cache します。
+;; (skk-w3m-search "goo-daijirin" t) のように `skk-w3m-search' の第
+;; 二引数に non-nil argument を指定すると cache を行なわず、毎回 w3m
+;; に検索をさせます。
+;;
 ;; <TODO>
 ;; o とりあえず skk-w3m-get-candidates-from-goo-exceed-waei,
 ;;   skk-w3m-get-candidates-from-goo-exceed-eiwa,
@@ -59,17 +73,16 @@
 ;; o 検索エンジンの増加。
 ;; o lookup は w3m-search.el を使った Web search を統合しないのだろう
 ;;   か...。統合すれば skk-lookup.el で一元管理できる？
-;;
+;; o w3m backend の改良に伴なう追従。
+;; 
 ;;; Code
 (eval-when-compile (require 'skk-macs) (require 'skk-vars))
-(require 'w3m)
-(require 'w3m-search)
 
 (defgroup skk-w3m nil "SKK w3m related customization."
   :prefix "skk-w3m-"
   :group 'skk)
 
-;;; user variables.
+;;;; user variables.
 (defvar skk-w3m-search-engine-alist
   '(("goo-daijirin"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=2" euc-japan
@@ -83,15 +96,18 @@
       skk-abbrev-mode))
     ("goo-exceed-waei"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=1" euc-japan
-     skk-w3m-get-candidates-from-goo-exceed-waei
+     ;;skk-w3m-get-candidates-from-goo-exceed-waei ; not yet finished.
+     nil
      (or skk-okuri-char skk-num-list skk-num-recompute-key skk-abbrev-mode))
     ("goo-exceed-eiwa"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=0" euc-japan
-     skk-w3m-get-candidates-from-goo-exceed-eiwa
+     ;;skk-w3m-get-candidates-from-goo-exceed-eiwa ; not yet finished.
+     nil
      (not skk-abbrev-mode))
     ("goo-daily-shingo"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=3" euc-japan
-     skk-w3m-get-candidates-from-goo-daily-shingo
+     ;;skk-w3m-get-candidates-from-goo-daily-shingo ; not yet finished.
+     nil
      (or skk-okuri-char skk-num-list skk-num-recompute-key)))
   "*検索エンジン毎の検索オプションを指定するエーリスト。
 car は検索エンジンを表わす文字列、
@@ -102,37 +118,78 @@ cdr は URL (検索文字列を %s で表わす),
     に検索処理をさせない。
 5th は `skk-henkan-key' を加工する関数。")
 
-;;; system internal variables and constants.
-;; constants.
+(defvar skk-w3m-use-w3m-backend t
+  "*Non-nil であれば、w3m を backend オプション付きで起動して検索を行なう。
+`start-process' が使えない Emacs では利用不可。
+nil であれば、emacs-w3m を経由して w3m を利用する (現在の emacs-w3m では
+w3m を backend で動かしていない)。")
 
-;; global variables
+(defvar skk-w3m-command (or (and (boundp 'w3m-command) w3m-command) "w3m")
+  "*w3m コマンド名。")
+ 
+(defvar skk-w3m-command-args "-backend"
+  "*w3m の backend オプション。")
 
+(defvar skk-w3m-backend-command-prompt "w3m>"
+  "*w3m backend のコマンドプロンプト。")
+
+(defvar skk-w3m-default-process-coding-system 'euc-japan
+  "*w3m backend プロセスのディフォルトの coding-system。")
+
+(defvar skk-w3m-kill-command "quit"
+  "*w3m backend の終了コマンド。")
+
+(defvar skk-w3m-no-wait nil
+  "*Non-nil であれば、w3m backend プロセスが何か出力するまで待たない。")
+
+;;;; system internal variables and constants.
+;;; constants.
+(defconst skk-w3m-working-buffer " *skk-w3m-work*")
+
+;;; global variables
+(defvar skk-w3m-process nil)
+(defvar skk-w3m-last-process-point (make-marker))
+(defvar skk-w3m-cache nil)
+
+;;;; inline functions
+(defsubst skk-w3m-process-alive ()
+  (and skk-w3m-process
+       (memq (process-status skk-w3m-process) '(run stop))))
+
+;;;; functions
+;;; common tools
 ;;;###autoload
-(defun skk-w3m-search (search-engine)
-  (let* ((w3m-async-exec nil)
-	 (w3m-work-buffer-name " *skk-w3m-work*")
-	 (info (assoc search-engine skk-w3m-search-engine-alist))
-	 (post-process (nth 3 info))
-	 (sex (nth 4 info))
-	 (process-key (nth 5 info))
-	 (henkan-key skk-henkan-key))
-    (condition-case nil
-	(save-excursion
-	  (if (and info
-		   (or (not sex)       ; always search this engine, or
-		       (not (eval sex)))) ; search this time.
-	      (progn
-		(if process-key
-		    (setq henkan-key (funcall process-key henkan-key)))
-		(or
-		 (w3m-w3m-retrieve
-		  (format (nth 1 info)
-			  (w3m-search-escape-query-string henkan-key (nth 2 info))))
-		 (error ""))
-		(w3m-with-work-buffer
-		  (if post-process (funcall post-process henkan-key))))))
-      (error)))) ; catch network unreachable error or something like that.
+(defun skk-w3m-search (search-engine &optional no-cache)
+  (let* ((dbase (assoc search-engine skk-w3m-search-engine-alist))
+	 (sex (nth 4 dbase))
+	 cache v)
+    (if (and dbase
+	     (or (not sex)	       ; always search this engine, or
+		 (not (eval sex))))	; search this time.
+	(if (and (not no-cache)
+		 (setq cache (cdr (assoc search-engine skk-w3m-cache))
+		       cache (cdr (assoc skk-henkan-key cache))))
+	    cache
+	  (condition-case nil
+	      (prog1
+		  (setq v (if skk-w3m-use-w3m-backend
+			      (skk-w3m-search-by-backend dbase skk-henkan-key)
+			    (skk-w3m-search-by-emcas-w3m dbase skk-henkan-key)))
+		(skk-w3m-cache search-engine skk-henkan-key v))
+	    (error)))))) ; catch network unreachable error or something like that.
 
+(defun skk-w3m-cache (search-engine key list)
+  (let ((cache (assoc search-engine skk-w3m-cache))
+	l)
+    (cond
+     ((and cache (setq l (assoc key cache)))
+      (setcdr l list))
+     (cache
+      (setcdr cache (cons (cons key list) (cdr cache))))
+     (t
+      (setq skk-w3m-cache (cons (cons search-engine (list (cons key list)))
+				skk-w3m-cache))))))
+	   
 (defun skk-w3m-filter-string (string filters)
   (while filters
     (while (string-match (car filters) string)
@@ -141,17 +198,163 @@ cdr は URL (検索文字列を %s で表わす),
     (setq filters (cdr filters)))
   string)
 
-;; (defun skk-w3m-get-candidates (header0 header1 &optional split)
-;;   (save-match-data
-;;     (if (re-search-forward header0 nil t nil)
-;; 	(let (temp v)
-;; 	  (while (re-search-forward header1 nil t nil)
-;; 	    (setq temp (match-string-no-properties 1))
-;; 	    (if split
-;; 		(setq v (nconc (split-string temp split) v))
-;; 	      (setq v (cons temp v))))
-;; 	  (nreverse v)))))
+;;; emacs-w3m dependent
+(defun skk-w3m-search-by-emcas-w3m (dbase key)
+  (require 'w3m)
+  (require 'w3m-search)
+  (save-excursion
+    (let ((post-process (nth 3 dbase))
+	  (process-key (nth 5 dbase))
+	  (w3m-async-exec nil)
+	  (w3m-work-buffer-name " *skk-w3m-work*"))
+      (if process-key (setq key (funcall process-key key)))
+      (if post-process 
+	  (w3m-with-work-buffer
+	    (or (w3m-w3m-retrieve
+		 (format (nth 1 dbase)
+			 (w3m-search-escape-query-string key (nth 2 dbase))))
+		(error "")
+		(funcall post-process key)))))))
 
+;;; w3m backend dependent
+(defun skk-w3m-search-by-backend (dbase key)
+  (let (pos)
+    (with-current-buffer (get-buffer-create skk-w3m-working-buffer)
+      (or (skk-w3m-process-alive) (skk-w3m-init-w3m-backend))
+      (let ((process-key (nth 5 dbase))
+	    (post-process (nth 3 dbase)))
+	(if (not post-process)
+	    nil
+	  (if process-key
+	      (setq key (funcall process-key key)))
+	  (if (nth 2 dbase)
+	      (skk-w3m-set-process-coding-system (nth 2 dbase)))
+	  (message "Reading...")
+	  (setq pos (skk-w3m-run-command
+		     (concat "get " (format
+				     (nth 1 dbase)
+				     (skk-w3m-search-escape-query-string
+				      key (nth 2 dbase))))))
+	  (message "Reading...done")
+	  (if (and pos (markerp pos))
+	      (progn
+		(goto-char pos)
+		;; not to enlarge working buffer
+		(delete-region (point-min) (progn (beginning-of-line) (point)))
+		(setq key (funcall post-process key)))))))))
+
+(defun skk-w3m-set-process-coding-system (coding-system)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (set-process-input-coding-system skk-w3m-process coding-system)
+    (set-process-output-coding-system skk-w3m-process coding-system))
+   (t
+    (set-process-coding-system skk-w3m-process coding-system coding-system))))
+
+(defun skk-w3m-init-w3m-backend ()
+  (let ((process-connection-type t))
+    (buffer-disable-undo)
+    ;;(insert "\nStarting w3m backend...\n\n")
+    (skk-message "skk のために w3m backend を起動しています..."
+		 "Starting w3m backend for skk...")
+    (condition-case nil
+	(progn
+	  (setq skk-w3m-process
+		(start-process "skk w3m" (current-buffer) skk-w3m-command
+			       skk-w3m-command-args))
+	  (process-kill-without-query skk-w3m-process)
+	  (skk-w3m-set-process-coding-system
+	   skk-w3m-default-process-coding-system))
+      (file-error (skk-error "システム上に \"%s\" が見つかりません"
+			     "Sorry, can't find \"%s\" on your system"
+			     skk-w3m-command))
+      (error (skk-w3m-kill 'nomsg)))
+    (if (eq (process-status skk-w3m-process) 'exit)
+	(progn
+	  (skk-w3m-kill 'nomsg)
+	  (skk-error "%s プロセスが異常終了しました。"
+		     "Process %s exited abnormally with code 1"
+		     skk-w3m-process)))
+    (while (and (memq (process-status skk-w3m-process) '(run stop))
+		(goto-char (point-min))
+		(not (re-search-forward skk-w3m-backend-command-prompt nil t)))
+      (accept-process-output skk-w3m-process))
+    ;;(or (memq (process-status skk-w3m-process) '(run stop))
+    ;;    (skk-error "w3m backend プロセスをスタートすることができません"
+    ;;               "Unable to start w3m backend process"))
+    (goto-char (process-mark skk-w3m-process))
+    (set-marker skk-w3m-last-process-point (point))
+    (skk-message "skk のために w3m backend を起動しています...完了!"
+		 "Starting w3m backend for skk...done")))
+
+(defun skk-w3m-kill (&optional nomsg)
+  "w3m backend プロセスを殺す。"
+  (interactive "P")
+  (if (not (skk-w3m-process-alive))
+      ;; 北斗神拳の世界ですな...。
+      (or nomsg
+	  (skk-message "w3m backend プロセスは既に死んでます"
+		       "w3m backend process has already died"))
+    (with-current-buffer (get-buffer skk-w3m-working-buffer)
+      (unwind-protect
+	  (let ((skk-w3m-no-wait t))
+	    (skk-w3m-run-command skk-w3m-kill-command)
+	    ;;(sit-for 1)
+	    (and (process-status skk-w3m-process)
+		 (delete-process skk-w3m-process))
+	    ;;(setq skk-w3m-process nil)
+	    (or nomsg
+		(skk-message "w3m backend プロセスが死にました"
+			     "w3m backend process died")))
+	(kill-buffer (current-buffer))))))
+
+(defun skk-w3m-run-command (command)
+  ;; return last point where last command issued.
+  (save-match-data
+    (setq command (concat command " \n"))
+    (let ((pmark (process-mark skk-w3m-process)))
+      (accept-process-output)
+      ;; 動いたポイントを保存するため save-excursion は使わない。
+      (catch 'exit
+	(goto-char pmark)
+	(set-marker skk-w3m-last-process-point (point))
+	(insert command)
+	(set-marker pmark (point))
+	(process-send-string skk-w3m-process command)
+	(accept-process-output (and (not skk-w3m-no-wait) skk-w3m-process))
+	(goto-char skk-w3m-last-process-point)
+	(while (not (re-search-forward
+		     skk-w3m-backend-command-prompt pmark t))
+	  ;; quit コマンドを送ったらプロンプトは帰ってこない。
+	  (if (eq (process-status skk-w3m-process) 'exit)
+	      (throw 'exit skk-w3m-last-process-point))
+	  (accept-process-output))
+	;;(skk-w3m-check-errors)
+	skk-w3m-last-process-point))))
+
+;; just a copy of w3m-url-encode-string of w3m.el
+(defun skk-w3m-url-encode-string (str &optional coding)
+  (apply (function concat)
+	 (mapcar
+	  (lambda (ch)
+	    (cond
+	     ((string-match "[-a-zA-Z0-9_:/]" (char-to-string ch)) ; xxx?
+	      (char-to-string ch))	; printable
+	     (t
+	      (format "%%%02X" ch))))	; escape
+	  ;; Coerce a string to a list of chars.
+	  (append (encode-coding-string str (or coding 'iso-2022-jp))
+		  nil))))
+
+;; just a copy of w3m-search-escape-query-string of w3m-search.el
+(defun skk-w3m-search-escape-query-string (str &optional coding)
+  (mapconcat (lambda (s)
+	       (skk-w3m-url-encode-string
+		s (or coding skk-w3m-search-default-coding-system)))
+	     (split-string str)
+	     "+"))
+
+;;; process functions for each databases.
 (defun skk-w3m-get-candidates-from-goo-daijirin (key)
   ;; <!-- RESULT_BLOCK -->
   ;; <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>
@@ -178,7 +381,7 @@ cdr は URL (検索文字列を %s で表わす),
   ;;             <img src="/Common/icon01.gif" width="12" height="12" border="0" alt="新規で開く"></a>
   ;;             </td>
   ;;           <td nowrap>
-  ;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06660300.txt&sw=2">こうこう 【口腔】</a>
+;;             <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%B3%A4%A6%A4%B3%A4%A6&ID=a4b3/06660300.txt&sw=2">こうこう 【口腔】</a>
   ;;           </td>
   ;;         </tr>
   ;;         ...
@@ -212,14 +415,33 @@ cdr は URL (検索文字列を %s で表わす),
   ;; </td></tr></table>
   ;; <!-- RESULT_BLOCK -->
   (save-match-data
-    (let (temp v start end)
-      (if (not (search-forward "<!-- RESULT_BLOCK -->" nil t nil))
+    (let ((startregexp
+	   (if skk-w3m-use-w3m-backend 
+	       nil
+	       ;;(format
+		;;"■［%s］の大辞林第二版からの検索結果　 <b>[0-9]+件</b>" key)
+	     "<!-- RESULT_BLOCK -->"))
+	  (endregexp
+	   (if skk-w3m-use-w3m-backend 
+	       nil
+	       ;;(format
+		;;"■［%s］の大辞林第二版からの検索結果　 <b>[0-9]+件</b>" key)
+	     "<!-- RESULT_BLOCK -->"))
+	  (start (if skk-w3m-use-w3m-backend skk-w3m-last-process-point))
+	  (end (if skk-w3m-use-w3m-backend (process-mark skk-w3m-process)))
+	  temp v)
+      (if startregexp 
+	  (progn
+	    (re-search-forward startregexp nil t nil)
+	    (setq start (point))))
+      (if endregexp
+	  (progn
+	    (re-search-forward endregexp nil t nil)
+	    (setq end (point))))
+      (if (not (and start end))
 	  nil
-	(setq start (point))
-	(if (search-forward "<!-- RESULT_BLOCK -->" nil t nil)
-	    (setq end (point)))
 	(goto-char start)
-	(setq key (concat "<a href=\".+\">" (regexp-quote key) " +【\\([^【】]+\\)】</a>"))
+	(setq key (format "<a href=\".+\">%s *【\\([^<>【】]+\\)】</a>" key))
 	(while (re-search-forward key end t nil)
 	  (setq temp (skk-w3m-filter-string
 		      ;; 〈何時〉
@@ -227,41 +449,43 @@ cdr は URL (検索文字列を %s で表わす),
 	  (setq v (nconc (split-string temp "・") v)))
 	(nreverse v)))))
 
-;; (defun skk-w3m-get-candidates-from-goo-exceed-waei (key)
-;;   ;; 15:■［ねっしん］のEXCEED和英辞典からの検索結果　
-;;   ;; 16:*
-;;   ;; 17:
-;;   ;; 18:ねっしん
-;;   ;; 19:[clear] 熱心
-;;   ;; 20:[clear] zeal；　ardor；　eagerness；　enthusiasm．　〜な　
-;;   ;; 21:        eager；　ardent；　keen．　〜に　eagerly；　
-;;   ;; 22:        earnestly；　intently．　
-;;   ;; 23:
-;;   ;; 24:*
-;;   ;; 25:■［ねっしん］のEXCEED和英辞典からの検索結果　
-;;   (let (temp v)
-;;     (save-match-data
-;;       (if (not (re-search-forward
-;; 		(concat "■\\［" (regexp-quote key) "\\］のEXCEED和英辞典からの検索結果")
-;; 		nil t nil))
-;; 	  nil
-;; 	(while (re-search-forward "\\[clear\\] [a-z]+\\.　\\([^ a-zA-Z][^．]+\\)．" nil t nil)
-;; 	  (setq temp (match-string-no-properties 1))
-;; 	  (setq temp (skk-w3m-filter-string
-;; 		      ;; [[米話]]
-;; 		      temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)"
-;; 			     "\\[\\[[^a-zA-Z]+\\]\\]")))
-;; 	  (while (string-match "\\([^，；]+\\)［\\([^，；]+\\)］\\([^，；]+\\)*" temp)
-;; 	    (setq temp (concat (substring temp 0 (match-beginning 0))
-;; 			       (match-string-no-properties 1 temp)
-;; 			       (match-string-no-properties 3 temp)
-;; 			       "，"
-;; 			       (match-string-no-properties 2 temp)
-;; 			       (match-string-no-properties 3 temp)
-;; 			       (substring temp (match-end 0)))))
-;;
-;; 	  (setq v (nconc v (split-string temp "[，；]"))))
-;; 	v))))
+(defun skk-w3m-get-candidates-from-goo-exceed-waei (key)
+  ;; SORRY, NOT YET.
+  ;;   ;; 15:■［ねっしん］のEXCEED和英辞典からの検索結果　
+  ;;   ;; 16:*
+  ;;   ;; 17:
+  ;;   ;; 18:ねっしん
+  ;;   ;; 19:[clear] 熱心
+  ;;   ;; 20:[clear] zeal；　ardor；　eagerness；　enthusiasm．　〜な　
+  ;;   ;; 21:        eager；　ardent；　keen．　〜に　eagerly；　
+  ;;   ;; 22:        earnestly；　intently．　
+  ;;   ;; 23:
+  ;;   ;; 24:*
+  ;;   ;; 25:■［ねっしん］のEXCEED和英辞典からの検索結果　
+  ;;   (let (temp v)
+  ;;     (save-match-data
+  ;;       (if (not (re-search-forward
+  ;; 		(concat "■\\［" (regexp-quote key) "\\］のEXCEED和英辞典からの検索結果")
+  ;; 		nil t nil))
+  ;; 	  nil
+  ;; 	(while (re-search-forward "\\[clear\\] [a-z]+\\.　\\([^ a-zA-Z][^．]+\\)．" nil t nil)
+  ;; 	  (setq temp (match-string-no-properties 1))
+  ;; 	  (setq temp (skk-w3m-filter-string
+  ;; 		      ;; [[米話]]
+  ;; 		      temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)"
+  ;; 			     "\\[\\[[^a-zA-Z]+\\]\\]")))
+  ;; 	  (while (string-match "\\([^，；]+\\)［\\([^，；]+\\)］\\([^，；]+\\)*" temp)
+  ;; 	    (setq temp (concat (substring temp 0 (match-beginning 0))
+  ;; 			       (match-string-no-properties 1 temp)
+  ;; 			       (match-string-no-properties 3 temp)
+  ;; 			       "，"
+  ;; 			       (match-string-no-properties 2 temp)
+  ;; 			       (match-string-no-properties 3 temp)
+  ;; 			       (substring temp (match-end 0)))))
+  ;;
+  ;; 	  (setq v (nconc v (split-string temp "[，；]"))))
+  ;; 	v))))
+  )
 
 (defun skk-w3m-get-candidates-from-goo-exceed-eiwa (key)
   ;; SORRY, NOT YET.
