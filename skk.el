@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.85 2000/12/13 12:24:24 czkmt Exp $
+;; Version: $Id: skk.el,v 1.86 2000/12/14 03:53:35 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/13 12:24:24 $
+;; Last Modified: $Date: 2000/12/14 03:53:35 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -397,8 +397,8 @@ dependent."
     (add-hook 'pre-command-hook 'skk-pre-command nil 'local)
     (make-local-hook 'post-command-hook)
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
-    (skk-update-modeline 'hiragana)
     (skk-j-mode-on)
+    (skk-update-modeline 'hiragana)
     (run-hooks 'skk-mode-hook)))
 
 ;;;###autoload
@@ -442,6 +442,9 @@ dependent."
   (let (skk-mode-invoked) (skk-mode 1)))
 
 (defun skk-require-module ()
+  (and (or skk-use-color-cursor skk-cursor-change-width)
+       (require 'skk-cursor))
+  (and skk-use-viper (require 'skk-viper))
   (and (not (featurep 'skk-server))
        (or (and (boundp 'skk-servers-list) skk-servers-list)
 	   (or (and (boundp 'skk-server-host) skk-server-host)
@@ -453,9 +456,6 @@ dependent."
   (and skk-auto-okuri-process
        (require 'skk-auto)
        (skk-adjust-search-prog-list-for-auto-okuri))
-  (and (or skk-use-color-cursor skk-cursor-change-width)
-       (require 'skk-cursor))
-  (and skk-use-viper (require 'skk-viper))
   (and skk-use-look (require 'skk-look))
   (and skk-use-jisx0201-input-method (require 'skk-jisx0201)))
 
@@ -609,69 +609,70 @@ dependent."
 (defun skk-setup-modeline ()
   "$B%b!<%I9T$X$N%9%F!<%?%9I=<($r=`Hw$9$k!#(B"
   (setq skk-indicator-alist (skk-make-indicator-alist))
-  (cond
-   ((not (eq skk-status-indicator 'left))
-    (if (and (listp mode-line-format)
-	     (equal (car mode-line-format) "")
-	     (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
-	;; for skk-restart.
-	(setq-default mode-line-format
-		      (nthcdr 2 mode-line-format)))
-    (let ((list (buffer-list))
-	  buf)
-      (while list
-	(when (buffer-live-p (setq buf (car list)))
-	  (set-buffer buf)
-	  (if (and (listp mode-line-format)
-		   (equal (car mode-line-format) "")
-		   (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
-	      ;; for skk-restart.
-	      (setq mode-line-format (nthcdr 2 mode-line-format)))
-	  (setq list (cdr list)))))
-    (setq-default skk-modeline-input-mode "")
-    (static-if (memq skk-emacs-type '(xemacs mule5))
-	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
-      (setq minor-mode-alist
-	    ;; each element of minor-mode-alist is not cons cell.
-	    (put-alist 'skk-mode
-		       '(skk-modeline-input-mode) minor-mode-alist))))
-   (t
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      (unless (memq 'skk-modeline-input-mode default-modeline-format)
-	(setq-default default-modeline-format
-		      (append '("" skk-modeline-input-mode)
-			      default-modeline-format)))
-      (save-excursion
-	(dolist (buf (buffer-list))
-	  (when (buffer-live-p buf)
+  (save-current-buffer
+    (cond
+     ((not (eq skk-status-indicator 'left))
+      (if (and (listp mode-line-format)
+	       (equal (car mode-line-format) "")
+	       (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
+	  ;; for skk-restart.
+	  (setq-default mode-line-format
+			(nthcdr 2 mode-line-format)))
+      (let ((list (buffer-list))
+	    buf)
+	(while list
+	  (when (buffer-live-p (setq buf (car list)))
 	    (set-buffer buf)
-	    (when (and (listp modeline-format)
-		       (not (memq 'skk-modeline-input-mode modeline-format)))
-	      (setq modeline-format
-		    (append '("" skk-modeline-input-mode)
-			    modeline-format)))))))
+	    (if (and (listp mode-line-format)
+		     (equal (car mode-line-format) "")
+		     (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
+		;; for skk-restart.
+		(setq mode-line-format (nthcdr 2 mode-line-format)))
+	    (setq list (cdr list)))))
+      (setq-default skk-modeline-input-mode "")
+      (static-if (memq skk-emacs-type '(xemacs mule5))
+	  (add-minor-mode 'skk-mode 'skk-modeline-input-mode)
+	(setq minor-mode-alist
+	      ;; each element of minor-mode-alist is not cons cell.
+	      (put-alist 'skk-mode
+			 '(skk-modeline-input-mode) minor-mode-alist))))
      (t
-      (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
-	(setq-default mode-line-format
-		      (append '("" skk-modeline-input-mode)
-			      (default-value 'mode-line-format))))
-      (save-excursion
-	(let ((list (buffer-list))
-	      buf)
-	  (while list
-	    (when (buffer-live-p (setq buf (car list)))
+      (static-cond
+       ((eq skk-emacs-type 'xemacs)
+	(unless (memq 'skk-modeline-input-mode default-modeline-format)
+	  (setq-default default-modeline-format
+			(append '("" skk-modeline-input-mode)
+				default-modeline-format)))
+	(save-excursion
+	  (dolist (buf (buffer-list))
+	    (when (buffer-live-p buf)
 	      (set-buffer buf)
-	      (when (and (listp mode-line-format)
-			 (or (assq 'mode-line-format (buffer-local-variables))
-			     (memq 'mode-line-format (buffer-local-variables)))
-			 (not
-			  (memq 'skk-modeline-input-mode mode-line-format)))
-		(setq mode-line-format
+	      (when (and (listp modeline-format)
+			 (not (memq 'skk-modeline-input-mode modeline-format)))
+		(setq modeline-format
 		      (append '("" skk-modeline-input-mode)
-			      mode-line-format))))
-	    (setq list (cdr list)))))))
-    (force-mode-line-update t))))
+			      modeline-format)))))))
+       (t
+	(unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
+	  (setq-default mode-line-format
+			(append '("" skk-modeline-input-mode)
+				(default-value 'mode-line-format))))
+	(save-excursion
+	  (let ((list (buffer-list))
+		buf)
+	    (while list
+	      (when (buffer-live-p (setq buf (car list)))
+		(set-buffer buf)
+		(when (and (listp mode-line-format)
+			   (or (assq 'mode-line-format (buffer-local-variables))
+			       (memq 'mode-line-format (buffer-local-variables)))
+			   (not
+			    (memq 'skk-modeline-input-mode mode-line-format)))
+		  (setq mode-line-format
+			(append '("" skk-modeline-input-mode)
+				mode-line-format))))
+	      (setq list (cdr list)))))))
+      (force-mode-line-update t)))))
 
 (defun skk-setup-delete-backward-char ()
   (let ((commands '(backward-delete-char-untabify
@@ -4059,15 +4060,6 @@ picture-mode $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!
 	 (skk-kakutei)
 	 (unless skk-egg-like-newline ad-do-it))
 	(t ad-do-it)))
-
-(defun skk-mode-once-again ()
-  ;; skk-mode $B$N5/F0Cf$K(B skk-mode $B$K(B advice $B$rD%$C$?>l9g!":G=i$N(B 1 $B2s$@$1$=$N(B
-  ;; $B%"%I%P%$%9$,@8$-$J$$$N$G!"(Bskk-mode-hook $B$r;H$C$F:FEY(B adviced skk-mode $B$r(B
-  ;; $B5/F0$9$k!#%U%C%/<+LG5!G=IU$-!#(B
-  (remove-hook 'skk-mode-hook 'skk-mode-once-again)
-  (let ((off (not skk-mode)))
-    (skk-mode 1)
-    (if off (skk-mode -1))))
 
 (run-hooks 'skk-load-hook)
 

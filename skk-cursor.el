@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.9 2000/11/11 03:11:32 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.10 2000/12/14 03:53:35 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/11 03:11:32 $
+;; Last Modified: $Date: 2000/12/14 03:53:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -144,7 +144,7 @@
       ;; cover to SKK functions.
       skk-abbrev-mode
       skk-auto-fill-mode
-      skk-j-mode-on
+      ;;skk-j-mode-on
       skk-jisx0201-mode
       skk-jisx0208-latin-mode
       skk-kakutei
@@ -168,9 +168,18 @@
 	    (set-buffer-local-cursor-color (skk-cursor-current-color))))))
       (setq funcs (cdr funcs))))
   )
+
+(defun skk-cursor-init-function ()
+  (static-if (eq skk-emacs-type 'xemacs)
+      (when skk-use-color-cursor
+	(set-face-property 'text-cursor 'background (skk-cursor-current-color)
+			   (current-buffer)))
+    (set-buffer-local-cursor-color (skk-cursor-current-color)))
+  (remove-hook 'skk-mode-hook 'skk-cursor-init-function))
+ 
 ;;; Hooks
 ;;(add-hook 'isearch-mode-end-hook 'update-buffer-local-frame-params 'append)
-(add-hook 'skk-mode-hook 'skk-mode-once-again)
+(add-hook 'skk-mode-hook 'skk-cursor-init-function)
 
 (require 'product)
 (product-provide (provide 'skk-cursor) (require 'skk-version))

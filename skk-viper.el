@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.9 2000/11/20 08:55:41 czkmt Exp $
+;; Version: $Id: skk-viper.el,v 1.10 2000/12/14 03:53:35 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:41 $
+;; Last Modified: $Date: 2000/12/14 03:53:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -80,7 +80,8 @@
 			 skk-viper-saved-cursor-color)
 		   ad-do-it)
 		  (t
-		   (setq viper-insert-state-cursor-color ad-do-it)))))
+		   ad-do-it
+		   (setq viper-insert-state-cursor-color ad-return-value)))))
 
 	;; cover to VIP/Viper functions.
 	(let ((funcs
@@ -275,9 +276,14 @@ Convert hirakana to katakana and vice versa."
 	 (if (eolp) (backward-char 1))
 	 (setq val (1- val))))))
 
-;; viper-toggle-key-action と連動させる？
-(skk-viper-normalize-map)
-(add-hook 'skk-mode-hook 'skk-mode-once-again)
+(defun skk-viper-init-function ()
+  (if (featurep 'skk-cursor)
+      (setq viper-insert-state-cursor-color (skk-cursor-current-color)))
+  ;; viper-toggle-key-action と連動させる？
+  (skk-viper-normalize-map)
+  (remove-hook 'skk-mode-hook 'skk-viper-init-function))
+  
+(add-hook 'skk-mode-hook 'skk-viper-init-function)
 
 (require 'product)
 (product-provide (provide 'skk-viper) (require 'skk-version))

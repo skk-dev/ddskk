@@ -1,3 +1,20 @@
+2000-12-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-viper.el (skk-viper-init-function): New function.
+	(skk-mode-hook): Add `skk-viper-init-function' to this hook.
+	(skk-cursor-current-color@around@skk-viper-cursor-ad): Use
+	`ad-return-value' to set `viper-insert-state-cursor-color'.
+	
+	* skk-cursor.el (skk-cursor-init-function): New function.
+	(skk-mode-hook): Add `skk-cursor-init-function' to this hook.
+	(skk-cursor-buffer-local-frame-params-ad-targets): Remove
+	`skk-j-mode' from this variable.
+
+	* skk.el (skk-mode-once-again): Removed.
+	(skk-require-module): Require skk-cursor first and skk-viper
+	second.
+	(skk-setup-modeline): Use `save-current-buffer'.
+
 2000-12-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el (skk-modify-indicator-alist): New function.
@@ -2886,8 +2903,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.214 2000/12/13 12:24:24 czkmt Exp $
-Last Modified: $Date: 2000/12/13 12:24:24 $
+Version: $Id: ChangeLog,v 1.215 2000/12/14 03:53:34 minakaji Exp $
+Last Modified: $Date: 2000/12/14 03:53:34 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
