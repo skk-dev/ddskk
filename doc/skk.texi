@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.52 2000/10/22 15:29:35 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.53 2000/10/22 16:46:44 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/22 15:29:35 $
+@c  Last Modified: $Date: 2000/10/22 16:46:44 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.62
-@set UPDATED $Date: 2000/10/22 15:29:35 $
+@set UPDATED $Date: 2000/10/22 16:46:44 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -365,12 +365,14 @@ XEmacs $B$G%Q%C%1!<%8%$%s%9%H!<%k$r$7$?>l9g$O!"(B
 @file{skk-obsolete.el}
 @end example
 
+@noindent
 $B$r%m!<%I$7!"(B
 
 @example
 @kbd{M-x skk-obsolete-check-all-files} 
 @end example
 
+@noindent
 $B$r<B9T$9$k$3$H$r6/$/$*4+$a$7$^$9!#(B
 
 @end ftable
@@ -388,6 +390,7 @@ XEmacs $B$G%Q%C%1!<%8%$%s%9%H!<%k$r$7$?>l9g$O!"(B
 
 @xref{dbskkd-cdb}.
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B}
 
 @smalllisp
@@ -463,13 +466,12 @@ SKK $B$r;H$C$?F~NOJ}K!$K47$l$k$K$O!"IUB0$N(B@xref{$B%A%e!<%H%j%"%k(B}$B%W%m
 
 SKK $B%b!<%I$KF~$k$K$O(B @kbd{C-x C-j}$B!"$b$7$/$O(B @kbd{C-x j} $B$H%?%$%W$7$^$9!#(B
 $B%^%$%J!<%b!<%I$NI=<($K$O!"2<5-$N$h$&$K(B @w{@samp{$B$+$J(B}} $B$,DI2C$5$l$^$9!#(B
-@footnote{
+@footnote{$B<!$N@_Dj$r$7$F$$$k$H$-$O%b!<%I%i%$%s$N:8C<$KDI2C$5$l$^$9!#(B
+
 @lisp
-@group
 (setq skk-status-indicator 'left) 
-@end group
 @end lisp
-$B$H;XDj$7$F$$$k$H$-$O%b!<%I%i%$%s$N:8C<$KDI2C$5$l$^$9!#(B}$B!#(B
+}$B!#(B
 
 @example
 MULE/7bit----- Buffer-name (Major-mode $B$+$J(B)---
@@ -516,6 +518,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 
 @xref{Arguments, , Arguments, emacs, GNU Emacs Manual}.
 
+@noindent
 $B$r;2>H$N$3$H!#(B}$B!#(B
 
 $B%*!<%H%U%#%k%b!<%I$r%*%U$K$7!"$+$D(B SKK $B%b!<%I$b=*N;$7$?$$>l9g$K$O(B
@@ -557,6 +560,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 
 @ref{$B8D?M<-=q$NJ]B8F0:n(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 
 @node $B%b!<%I(B, $B%$%s%/%j%a%s%?%k!&%5!<%A(B, $B5/F0$H=*N;(B, $B4pK\E*$J;H$$J}(B
@@ -653,7 +657,11 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k(B 4 $B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"
 @end table
 
 $BF~NO%b!<%I$KH<$J$&%+!<%=%k?'$NJQ99J}K!$K$D$$$F$O!"(B
-@w{@ref{$BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B}}$B$r;2>H$7$F$/$@$5$$!#(B
+
+@w{@xref{$BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B}.}
+
+@noindent
+$B$r;2>H$7$F$/$@$5$$!#(B
 
 @node $BF~NO%b!<%I$r@Z$jBX$($k%-!<(B,  , $BF~NO%b!<%I$N@bL@(B, $BF~NO%b!<%I(B
 @comment  node-name,  next,  previous,  up
@@ -946,6 +954,7 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k(B 4 $B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"
 
 @ref{$B0EL[$N3NDj$N%?%$%_%s%0(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 
 @node $B<!8uJd!&A08uJd(B, $BAw$j2>L>$,M-$k>l9g(B, $BAw$j2>L>$,L5$$>l9g(B, $B%b!<%I(B
@@ -1007,6 +1016,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @ref{$B8uJd$NA*Br$KMQ$$$k%-!<(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 
 @key{SPC} $B$rO"BG$7$F$7$^$$!"8m$C$F5a$a$k8uJd$rDL2a$7$F$7$^$C$?$H$-$O(B 
@@ -1151,7 +1161,7 @@ k a n ty u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 $B$3$3$G(B @key{RET} $B$r%?%$%W$9$l$P(B @samp{$BJQ49Cf(B} $B$,8D?M<-=q$KEPO?$5$l!"<-=q(B
 $BEPO?%b!<%I$O=*N;$7$^$9(B
 @footnote{$B$3$3$G$b0EL[$N3NDj$,9T$J$o$l$k$N$G(B @kbd{C-j} $B$r%?%$%W$9$kI,MW(B
-$B$O$"$j$^$;$s!#$?$@$7!"(B@ref{$B"'%b!<%I$G$N(BRET } $B$r;2>H$7$F$/$@$5$$!#(B}$B!#F1;~(B
+$B$O$"$j$^$;$s!#$?$@$7!"(B@ref{$B"'%b!<%I$G$N(BRET} $B$r;2>H$7$F$/$@$5$$!#(B}$B!#F1;~(B
 $B$K!"JQ49$r9T$J$C$F$$$k%+%l%s%H%P%C%U%!$K$O!"(B@samp{$BJQ49Cf(B} $B$,A^F~$5$l3NDj$5(B
 $B$l$^$9!#(B 
 
@@ -1382,8 +1392,9 @@ isearch.el $B$N%i%C%Q!<$H$7$F<BAu$7$F$$$k$?$a!"F|K\8l$NJ8;zNs$K$D$$$F$N%$(B
 
 $B%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$K$D$$$F$O!"(B
 
-@ref{Incremental Search, ,Incremental Search, emacs, GNU Emacs Manual}.
+@xref{Incremental Search, ,Incremental Search, emacs, GNU Emacs Manual}.
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 
 $B%$%s%/%j%a%s%?%k!&%5!<%ACf$NF~NOJ}K!$O!"DL>o$N%P%C%U%!$K$*$1$k3FF~NO%b!<(B
@@ -1667,6 +1678,7 @@ SKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_$3$^$l$^$9!#%U%!%$%kL>$N4{DjCM$O!"(BOS $B$N
 
 @ref{skk-init-file$B$N%3%s%Q%$%k(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 
 @end table
@@ -2048,6 +2060,7 @@ Emacs$B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$9
 
 @xref{$B<-=q$N7A<0(B, , $B6&M-<-=q$NG[CV(B}.
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B}
 
 @item skk-initial-search-jisyo
@@ -2418,6 +2431,7 @@ SKK $B$N"#%b!<%I$K$*$1$kJ8;zJQ49$O!">e5-(B 2 $BJQ?t$rMQ$$$F9T$J$o$l$^$9!#(B
 ("n'" nil ("$B%s(B" . "$B$s(B"))
 @end example
 
+@noindent
 $B$N$h$&$J5,B'$,$"$j$^$9!#$3$l$K$h$k$H(B
 
 @example
@@ -2428,6 +2442,7 @@ nn @expansion{}$B$s(B
 n' @expansion{}$B$s(B
 @end example
 
+@noindent
 $B$N$h$&$K$J$j$^$9!#(B
 
 @node skk-rom-kana-rule-list$B$NMxMQNc(B, $B"#%b!<%I$K4XO"$9$k$=$NB>$NJQ?t(B, skk-rom-kana-base-rule-list$B$N6qBNNc(B, $B"#%b!<%I$K$*$1$kJ8;zF~NO(B
@@ -2442,6 +2457,7 @@ han'ou @expansion{}$B$O$s$*$&(B
 hannnou @expansion{}$B$O$s$N$&(B
 @end example
 
+@noindent
 $B$N$h$&$K$J$j$^$9!#$3$3$G(B
 
 @lisp
@@ -2458,6 +2474,7 @@ hannnou @expansion{}$B$O$s$N$&(B
 hannou @expansion{}$B$O$s$N$&(B
 @end example
 
+@noindent
 $B$N$h$&$K%m!<%^;z$+$JJQ49$,9T$o$l$k$h$&$K$J$j$^$9!#(B
 
 $B$b$&$R$H$DMxMQNc$r5s$2$^$9!#(B
@@ -2503,6 +2520,7 @@ skK @expansion{}SKK
 ohs @expansion{}$B$*$*(Bs
 @end example
 
+@noindent
 $B$N$h$&$JJQ49$r<B8=$9$k$?$a$KMQ0U$5$l$F$$$^$9!#$3$l$K$h$j(B
 
 @example
@@ -2510,6 +2528,7 @@ ohsaka @expansion{}$B$*$*$5$+(B
 ohta @expansion{}$B$*$*$?(B
 @end example
 
+@noindent
 $B$N$h$&$KJQ49$5$l$^$9$,!"0lJ}(B
 
 @example
@@ -2517,12 +2536,14 @@ ohhonn @expansion{}$B$*$C$[$s(B
 ohhira @expansion{}$B$*$C$R$i(B
 @end example
 
+@noindent
 $B$H$J$k>l9g$b$"$j$^$9!#$3$l$O(B @code{skk-rom-kana-rule-list} $B$N4{DjCM$K(B
 
 @example
 ("hh" "h" ("$B%C(B" . "$B$C(B"))
 @end example
 
+@noindent
 $B$,F~$C$F$$$k$?$a$G$9!#$3$l$r:o=|$9$l$P(B
 
 @example
@@ -2530,6 +2551,7 @@ ohhonn @expansion{}$B$*$*$[$s(B
 ohhira @expansion{}$B$*$*$R$i(B
 @end example
 
+@noindent
 $B$H$J$j$^$9!#(B
 @end vtable
 
@@ -2642,6 +2664,7 @@ SKK $B$G$O$3$NJQ?t$OGQ;_$5$l$^$7$?!#%+%9%?%^%$%:$9$k$?$a$K$O!"Be$o$j$KJQ?t(B
 
 @ref{$B?t;z$d5-9fJ8;z$NF~NO(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 
 @code{skk-jisx0208-latin-insert} $B$b(B Emacs $B%*%j%8%J%k$N4X?t(B 
@@ -2651,6 +2674,7 @@ SKK $B$G$O$3$NJQ?t$OGQ;_$5$l$^$7$?!#%+%9%?%^%$%:$9$k$?$a$K$O!"Be$o$j$KJQ?t(B
 
 @xref{$B?t;z$d5-9fJ8;z$NF~NO(B}.
 
+@noindent
 $B$K$*$1$kNc$r;29M$K$7$F$/$@$5$$!#(B
 
 @node 1$B2s$N<h$j>C$7A`:n(B(undo)$B$NBP>](B, $BBP$K$J$kJ8;zNs$N0l3gF~NO(B, $BA41Q%b!<%I$K$*$1$kF~NO(B, $B"#%b!<%I$K$*$1$kJ8;zF~NO(B
@@ -2865,6 +2889,7 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 
 @ref{$B?t;z$d5-9fJ8;z$NF~NO(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B}$B!#(B
 
 @lisp
@@ -4084,6 +4109,7 @@ is /$B%$%s%/%j%a%s%?%k!&%5!<%A(B/
 
 @xref{$BA41QJ8;z$N0l;~E*F~NO(B,, $BA43Q%"%k%U%!%Y%C%H$X$NJQ49(B}.
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 
 $B$J$*!"(BSKK abbrev mode $B$K$*$$$F$b8+=P$78l$NJd40$r9T$J$&$3$H$,$G$-$^$9!#(B
@@ -4552,6 +4578,7 @@ KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$1$l$P;HMQ$9$k$3$H$,$G$-$^$;$s!#(B
 ``$B4A;z$r$R$i$,$J$XJQ49!#(B''@expansion{}``$B$+$s$8$r$R$i$,$J$X$X$s$+$s!#(B''
 @end example
 
+@noindent
 $B$N$h$&$K$J$j$^$9!#0z?t$rEO$7$F!"(B
 
 @kbd{C-u M-x skk-gyakubiki-region}
@@ -4563,6 +4590,7 @@ KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$1$l$P;HMQ$9$k$3$H$,$G$-$^$;$s!#(B
 ``$BCfEg(B''@expansion{}``@{$B$J$+$7$^(B|$B$J$+$8$^(B@}''
 @end example
 
+@noindent
 $B$N$h$&$K$J$j$^$9!#(B
 
 $BAw$j2>L>$,$"$k8l$O!"Aw$j2>L>$^$G4^$a$FNN0h$K;XDj$7$^$9(B ($B$5$b$J$$$H8mJQ49(B
@@ -4589,6 +4617,7 @@ KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$1$l$P;HMQ$9$k$3$H$,$G$-$^$;$s!#(B
 ``$B4A;z$NOF$K(B''@expansion{}``$B4A;z(B[$B$+$s$8(B]$B$NOF(B[$B$o$-(B]$B$K(B''
 @end example
 
+@noindent
 $B$N$h$&$K$J$j$^$9!#0z?t$rEO$7$F(B @kbd{C-u M-x skk-hurigana-region} $B$N$h$&(B
 $B$K$9$k$H!"J#?t$N8uJd$,$"$k>l9g$K!"(B`@{@}' $B$G0O$C$FI=<($7$^$9!#(B
 
@@ -4613,6 +4642,7 @@ KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$1$l$P;HMQ$9$k$3$H$,$G$-$^$;$s!#(B
 ``$B$7(B''@expansion{}``shi''
 @end example
 
+@noindent
 $B$H$J$j$^$9!#JQ?t(B @code{skk-romaji-*-by-hepburn} $B$NCM$r(B nil $B$K@_Dj$9$k$H!"(B
 $B71Na<0$rMQ$$$^$9!#Nc$($P!"(B
 
@@ -4620,6 +4650,7 @@ KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$1$l$P;HMQ$9$k$3$H$,$G$-$^$;$s!#(B
 ``$B$7(B''@expansion{}``si''
 @end example
 
+@noindent
 $B$N$h$&$K$J$j$^$9(B
 @footnote{$B><OB(B 29 $BG/(B 12 $B7n(B 9 $BF|IUFb3U9p<(Bh0l9f$K$h$l$P!"86B'E*$K71Na<0(B
 ($BF|K\<0(B) $B$rMQ$$$k$+$N$h$&$K5-:\$5$l$F$$$^$9$,!":#F|0lHLE*$J5-:\J}K!$O!"(B
@@ -4673,6 +4704,7 @@ JIS or EUC code (00nn or CR for Jump Menu):
 @end group
 @end example
 
+@noindent
 $B$H$$$&%W%m%s%W%H$,I=<($5$l$^$9!#(B
 
 $B$3$3$G!"4A;z%3!<%I$,$"$i$+$8$aJ,$+$C$F$$$k>l9g$K$O!"$=$N4A;z%3!<%I$rF~NO(B
@@ -4706,6 +4738,7 @@ A:$B!!(B  S:$B!1(B  D:$B!A(B  F:$B!Q(B  G:$B!a(B  H:$B!q(B  Q:$B"!
 
 @ref{$B8uJd$NA*Br$KMQ$$$k%-!<(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B}$B!"$=$N%-!<$KBP1~$9$kJ8;z$+$i;O$^$k(B 16 $B8D$NJ8;z$,4A(B
 $B;z%3!<%I=g$KI=<($5$l$^$9!#$3$l$rBh(B 2 $BCJ3,$N%a%K%e!<$H8F$S$^$9!#Nc$($P!"(B
 $BBh(B 1 $BCJ3,$N%a%K%e!<$,>e5-$N>uBV$N$H$-$K(B @samp{d} $B$rF~NO$9$k$H(B $BBh(B 2 $BCJ3,(B
@@ -4884,6 +4917,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @ref{$B<-=qEPO?%b!<%I(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B}$B!#(B
 
 @example
@@ -5564,6 +5598,7 @@ VIPER $B$K$D$$$F$O(B
 
 @xref{Top, , VIPER, viper}. 
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 
 @c XXX VIP 3.7 $B$K$D$$$F8@5Z$9$k!#(B
@@ -5804,8 +5839,17 @@ nil $B$H$7$F9=$$$^$;$s!#(B
 @chapter $B<-=q%D!<%k(B
 
 SKK $B<-=q$K4X$9$k%D!<%k$K$O!"(BPerl, C $B$N3F8@8l$K$h$j=q$+$l$?$b$N$,$"$j$^$9!#(B
-$BF~<j$O!"(BWWW (@file{http://openlab.ring.gr.jp/skk/skk/tools/}) $B$b$7$/$O(B
-CVS (@ref{CVS$B$K$h$kF~<jJ}K!(B}) $B$+$i$G$-$^$9!#(B
+$BF~<j$O!"(BWWW
+
+@file{http://openlab.ring.gr.jp/skk/skk/tools/})
+
+@noindent
+$B$b$7$/$O(B CVS
+
+@ref{CVS$B$K$h$kF~<jJ}K!(B}
+
+@noindent
+$B$+$i$G$-$^$9!#(B
 
 @menu
 * C$B$K$h$k%D!<%k(B::               
@@ -5857,6 +5901,7 @@ CVS (@ref{CVS$B$K$h$kF~<jJ}K!(B}) $B$+$i$G$-$^$9!#(B
 -DTMPDIR=\".\"
 @end example
 
+@noindent
 $B$N$h$&$J5-=R$r(B @var{CFLAGS} $B$KDI2C$7$F:n@.$7$^$9!#<B:]$K$O!"Nc$($P0J2<(B
 $B$N$h$&$K$7$F:n@.$7$^$9!#(B
 
@@ -5945,6 +5990,7 @@ CVS (@ref{CVS$B$K$h$kF~<jJ}K!(B}) $B$+$i$G$-$^$9!#(B
 
 @ref{$B$*4j$$(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 
 @item
@@ -6177,6 +6223,7 @@ SKK 10 $B$G$O!"$3$NJQ?t$OGQ;_$5$l$^$7$?$,!"Be$o$j$K(B
 
 @ref{$B?t;z$d5-9fJ8;z$NF~NO(B}
 
+@noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 @end table
 
@@ -6311,7 +6358,10 @@ Ring Server Openlab $B$G$O!"%K%e!<%9%5!<%P$K@\B3$7$F%a!<%j%s%0%j%9%H$N5-;v$r(B
 $B%K%e!<%9%0%k!<%WL>$O!"(B @samp{ring.openlab.skk} $B$G$9!#(B
 
 HTTP $B7PM3$G%K%e!<%9$r8+$k$3$H$b$G$-$^$9!#(B
+
 @w{@samp{http://ring.etl.go.jp/news/openlab.skk/}}
+
+@noindent
 $B%G!<%?%Y!<%9%(%s%8%s$,AuHw$5$l$F$$$^$9$N$G!"%K%e!<%95-;v$N%-!<%o!<%I8!:w(B
 $B$r9T$J$&$3$H$b$G$-$^$9!#(B
 
@@ -6441,6 +6491,7 @@ CVS $B$O(B $B0J2<$N%5%$%H$GG[I[$5$l$F$$$^$9!#(B
 
 @samp{http://www.cvshome.org/dev/source.html}
 
+@noindent
 $B$r$4Mw$/$@$5$$!#(B
 
 @c  $B$^$?!"(BWindows $B$N(B binary $B$,M_$7$$J}$O!"(B
@@ -6468,6 +6519,7 @@ CVS $B$K4X$9$k>pJs$O(B
 @item http://duff.kuicr.kyoto-u.ac.jp/~okuji/gnujdoc.html
 @end table
 
+@noindent
 $B$J$I$+$iF@$i$l$^$9!#(B
 
 @node CVS$B$K$h$k(BSKK$B$N<hF@(B,  , CVS$B$NF~<j@h(B, CVS$B$K$h$kF~<jJ}K!(B
@@ -6564,7 +6616,10 @@ GPL $B$K=`5r!#(B
 
 @item $BF~<jJ}K!(B
 $B0l<!G[I[@h$O(B
+
 @w{@samp{http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html}}
+
+@noindent
 $B$+$i;2>H$G$-$k!#(B
 
 @item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
@@ -6584,16 +6639,20 @@ GPL $B$K=`5r!#(B
 
 @table @asis
 @item $B@5<0L>>N(B
+
 skkfep $BFbB"(B jvim
 
 @item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
+
 jvim (vi $B%/%m!<%s$N%(%G%#%?(B vim $B$rF|K\8l2=$7$?$b$N(B) $B$K(B skkfep $B$rAH$_9~$s(B
 $B$@$b$N$G$9!#(Bvi $B7O$N%(%G%#%?$G(B SKK $BIw$NF|K\8lF~NO$,$G$-$^$9!#(B
 
 @item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
+
 UNIX, Windows 95/98/NT, DOS
 
 @item $B:G?7%P!<%8%g%s!"(Brelease $B$NF|IU(B
+
 jvim, skkfep, ari $B$=$l$>$l$KBP$9$k%Q%C%A$H$7$FDs6!$7$F$$$^$9!#(B
 @w{jvim3.0-j1.7-skk1.2.8.patch} 1999/8/30,
 @w{skkfep0.86c-kh1.2.6.patch}, 1999/9/28,
@@ -6603,13 +6662,16 @@ jvim, skkfep, ari $B$=$l$>$l$KBP$9$k%Q%C%A$H$7$FDs6!$7$F$$$^$9!#(B
 $BLZ86(B $B1Q?M(B
 
 @item $BG[I[>r7o(B
+
 skkfep, jvim, ari $B$=$l$>$l$KBP$9$k%Q%C%A$H$7$FDs6!$7$F$$$k$N$G!"$=$l$>$l(B
 $B$NG[I[>r7o$K=>$$$^$9!#(B
 
 @item $BF~<jJ}K!(B
+
 @w{@samp{http://hiroshima.cool.ne.jp/deton/jvim-skk/}}
 
 @item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
+
 @w{@samp{deton@@m1.interq.or.jp}}
 @end table
 
@@ -6623,8 +6685,12 @@ KAKASI $B$H$O!"9b66M5?.;a(B @w{<takahasi@@tiny.or.jp>} $B$K$h$k!V4A;z$+$J$^$8
 $B$H<-=q$NAm>N!W$G$9!#(B
 
 KAKASI$B$O!"(BKanji Kana Simple Inverter $B$K$A$J$s$G!"$^$?(BSKK$B$N5U8@MU$H$7$FL>(B
-$BIU$1$i$l$^$7$?!#(BKAKASI $B$O8=:_!"(BNamazu (@samp{http://www.namazu.org/}) $B$N(B
-$B%5%$%H$K$F3+H/$,7QB3$5$l$F$$$^$9!#(B
+$BIU$1$i$l$^$7$?!#(BKAKASI $B$O8=:_!"(BNamazu $B$N%5%$%H(B
+
+@samp{http://www.namazu.org/}
+
+@noindent
+$B$K$F3+H/$,7QB3$5$l$F$$$^$9!#(B
 
 @table @asis
 @item $BF~<jJ}K!(B
@@ -6765,7 +6831,11 @@ SKK $B$HF1$8$G$9!#(B
 
 @item WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B
 WWW $B%/%i%$%"%s%H$rMxMQ$7$F(B
-@w{@samp{http://www.juice.or.jp/~toyofuku/jed.html}} $B$+$iF~<j$G$-$^$9!#(B
+
+@w{@samp{http://www.juice.or.jp/~toyofuku/jed.html}}
+
+$B$+$iF~<j$G$-$^$9!#(B
+
 @c Texinfo 3.9 has a @url command.  For the time being, we shuould use
 @c @samp instead of @url for compatibility purpose.  Moreover, @url
 @c command does not have a special effect other than the one which @samp
@@ -6792,27 +6862,34 @@ WWW $B%/%i%$%"%s%H$rMxMQ$7$F(B
 skkinput
 
 @item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
+
 $BF|K\8l%F%-%9%HF~NO$rMW5a$9$k(B X11 $B$N%"%W%j%1!<%7%g%s$N$?$a$NF~NO%5!<%P!#(B
 $B8=:_$O(B Kinput Protocol $B$K$7$+BP1~$7$F$$$^$;$s$,!">-MhE*$K$O(B XIM $B$d(B
 Kinput2 Protocol $B$KBP1~$5$;$kM=Dj$G$9!#(B
 
 @item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
+
 UNIX + X11R5 $B$^$?$O(B X11R6 (R6.1)
 
 @item $B:G?7%P!<%8%g%s(B ,release $B$NF|IU(B
+
 2.03, 
 
 @item $B3+H/<T(B
+
 $B:eK\(B $B?r(B (@w{@samp{sakamoto@@yajima.kuis.kyoto-u.ac.jp}},
 @*@w{@samp{PXG01715@@niftyserve.or.jp}})
 
 @item $BG[I[>r7o(B
+
 $B$"$j$^$;$s!#(B
 
 @item $BF~<jJ}K!(B
+
 @smallexample
 @w{@samp{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkinput.htm}}
 @end smallexample
+
 @noindent
 $B$+$iF~<j$G$-$^$9!#(B
 @c Texinfo 3.9 has a @url command.  For the time being, we shuould use
@@ -6821,10 +6898,12 @@ UNIX + X11R5 $B$^$?$O(B X11R6 (R6.1)
 @c has until Texinfo supports HTML conversion.
 
 @item bug report$B!"<ALd$N$?$a$N%"%I%l%9(B
+
 @w{sakamoto@@yajima.kuis.kyoto-u.ac.jp} $B$b$7$/$O(B
 @w{PXG01715@@niftyserve.or.jp} $B$^$G8f4j$$CW$7$^$9!#(B
 
 @item $B$=$NB>(B
+
 SKK 8.6 $B$K$O$+$J$j6aIU$1$?$H;W$&$N$G$9$,!"$^$@$^$@0[$J$kItJ,$,;D$C$F$$$^(B
 $B$9!#FC$KA`:nBN7O$G0[$J$k$H46$8$i$l$?J}$O;d$^$G%l%]!<%H$r8f4j$$CW$7$^$9!#(B
 @end table
@@ -6842,6 +6921,7 @@ skkinput $B$HF1$8$/(B $B:eK\?r;a(B
 SKKIME 1.0
 
 @item $BF~<j@h(B
+
 @w{@samp{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkime.htm}}
 @end table
 
@@ -6888,6 +6968,7 @@ SKK95 $B$N:n<T$O@UG$$rIi$$$^$;$s!#(B
 
 @item $BF~<jJ}K!(B
 $B2<5-$N%&%'%C%V%Z!<%8$+$iF~<j$7$F2<$5$$!#(B
+
 @w{@samp{http://www.kuis.kyoto-u.ac.jp/~kmc/proj/skk95/}}
 
 @item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
@@ -6916,10 +6997,9 @@ SKK95 $B$N:n<T$O@UG$$rIi$$$^$;$s!#(B
 
 SKK 10 $B$K$D$$$F$N:G?7>pJs$O!"(B
 
-@ftable @code
 @w{@samp{http://openlab.ring.gr.jp/skk/}}
-@end ftable
 
+@noindent
 $B$+$iF@$k$3$H$,$G$-$^$9!#(B
 
 SKK Openlab $B$G$O!"3+H/<T!"J8>O$N@0Hw$K$46(NO$$$?$@$1$kJ}!"%F%9%?!<!"$h$m$:(B
