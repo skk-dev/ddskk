@@ -1,4 +1,4 @@
-2000-12-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2000-12-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e18.el (read-from-minibuffer): Set the minibuffer window's
 	buffer to the new buffer which is to be a next minibuffer.
@@ -2984,8 +2984,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.232 2000/12/19 10:59:09 czkmt Exp $
-Last Modified: $Date: 2000/12/19 10:59:09 $
+Version: $Id: ChangeLog,v 1.233 2000/12/19 15:48:21 czkmt Exp $
+Last Modified: $Date: 2000/12/19 15:48:21 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
