@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.43 2003/07/13 11:26:06 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.44 2003/07/13 11:57:45 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/13 11:26:06 $
+;; Last Modified: $Date: 2003/07/13 11:57:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -361,12 +361,10 @@
   list)
 
 (defadvice skk-kakutei-initialize (before skk-study-ad activate)
-  (let ((kakutei-word (ad-get-arg 0))
-	data)
+  (let ((kakutei-word (ad-get-arg 0)))
     (when kakutei-word
-      (setq data (cons skk-henkan-key kakutei-word))
-      (unless (member data (ring-elements skk-study-data-ring))
-        (ring-insert skk-study-data-ring data)))))
+      (ring-insert
+       skk-study-data-ring (cons skk-henkan-key kakutei-word)))))
 
 (defadvice skk-undo-kakutei (after skk-study-ad activate)
   (let ((last (ring-ref skk-study-data-ring 0))
@@ -393,6 +391,4 @@
 
 (require 'product)
 (product-provide (provide 'skk-study) (require 'skk-version))
-;;; Local Variables:
-;;; End:
 ;;; skk-study.el ends here

@@ -6,6 +6,8 @@
 	(skk-study-read-1): Ditto.
 	(skk-study-save): Ditto.
 	(skk-study-read): Use `unless' instead of `or'.
+	(skk-kakutei-initialize): Call `ring-insert' anyway without
+	checking ring element duplication.
 
 	* skk-vars.el (skk-study-check-alist-format): Change its default
 	value to nil.
@@ -4324,8 +4326,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.760 2003/07/13 11:26:06 minakaji Exp $
-Last Modified: $Date: 2003/07/13 11:26:06 $
+Version: $Id: ChangeLog,v 1.761 2003/07/13 11:57:45 minakaji Exp $
+Last Modified: $Date: 2003/07/13 11:57:45 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
