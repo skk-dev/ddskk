@@ -1,3 +1,9 @@
+2000-09-22  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* doc/skk.texi: `チュートリアル'を追加. `stack-m.el' の記述削除.
+	`SKK Ring Server Openlab メーリングリスト'を追加. `最新情報'を追加.
+	`その他'を`最新情報など'に変更.
+
 2000-09-21  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* skk-tut.el (skktut-end-tutorial): Change address to
