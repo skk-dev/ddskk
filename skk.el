@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.145 2001/10/11 13:10:39 czkmt Exp $
+;; Version: $Id: skk.el,v 1.146 2001/10/11 13:42:21 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/11 13:10:39 $
+;; Last Modified: $Date: 2001/10/11 13:42:21 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -413,7 +413,8 @@ dependent."
   (let ((auto-fill
 	 (cond ((null arg)
 		(not auto-fill-function))
-	       ((> (prefix-numeric-value arg) 0) t))))
+	       ((> (prefix-numeric-value arg) 0)
+		t))))
     (auto-fill-mode (if auto-fill 1 -1))
     (skk-mode arg)
     (run-hooks 'skk-auto-fill-mode-hook)))
@@ -449,8 +450,6 @@ dependent."
     (skk-mode 1)))
 
 (defun skk-require-module ()
-  (when skk-use-color-cursor
-    (require 'skk-cursor))
   (when skk-use-viper
     (require 'skk-viper))
   (when (or skk-servers-list
@@ -950,38 +949,42 @@ dependent."
 ▽モードでは skk-henkan-start-point (▽の直後) とカーソルの間の文字列につい
 て、ひらがなとカタカナを入れ替える。"
   (interactive "P")
-  (cond ((and skk-henkan-on (not skk-henkan-active))
-	 (let (char)
-	   (skk-set-marker skk-henkan-end-point (point))
-	   (skk-save-point
-	    (goto-char skk-henkan-start-point)
-	    (while (and
-		    ;;(not (eobp))
-		    (>= skk-henkan-end-point (point))
-		    (or
-		     ;; "ー" では文字種別が判別できないので、ポイントを進める。
-		     (looking-at "ー")
-		     (eq 'unknown (setq char (skk-what-char-type)))))
-	      (forward-char 1)))
-	   (cond ((eq char 'hiragana)
-		  (skk-katakana-region
-		   skk-henkan-start-point skk-henkan-end-point
-		   'vcontract))
-		 ((eq char 'katakana)
-		  (skk-hiragana-region
-		   skk-henkan-start-point skk-henkan-end-point))
-		 ;; currently these two features are not used.
-		 ;;((eq char 'jisx0208-latin)
-		 ;; (skk-latin-region
-		 ;;  skk-henkan-start-point skk-henkan-end-point))
-		 ;;((eq char 'ascii)
-		 ;; (skk-jisx0208-latin-region
-		 ;;  skk-henkan-start-point skk-henkan-end-point))
-		 )))
-	((and (skk-in-minibuffer-p) (not skk-j-mode))
-	 ;; ミニバッファへの初突入時。
-	 (skk-j-mode-on))
-	(t (setq skk-katakana (not skk-katakana))))
+  (cond
+   ((and skk-henkan-on
+	 (not skk-henkan-active))
+    (let (char)
+      (skk-set-marker skk-henkan-end-point (point))
+      (skk-save-point
+       (goto-char skk-henkan-start-point)
+       (while (and
+	       ;;(not (eobp))
+	       (>= skk-henkan-end-point (point))
+	       (or
+		;; "ー" では文字種別が判別できないので、ポイントを進める。
+		(looking-at "ー")
+		(eq 'unknown (setq char (skk-what-char-type)))))
+	 (forward-char 1)))
+      (cond ((eq char 'hiragana)
+	     (skk-katakana-region
+	      skk-henkan-start-point skk-henkan-end-point
+	      'vcontract))
+	    ((eq char 'katakana)
+	     (skk-hiragana-region
+	      skk-henkan-start-point skk-henkan-end-point))
+	    ;; currently these two features are not used.
+	    ;;((eq char 'jisx0208-latin)
+	    ;; (skk-latin-region
+	    ;;  skk-henkan-start-point skk-henkan-end-point))
+	    ;;((eq char 'ascii)
+	    ;; (skk-jisx0208-latin-region
+	    ;;  skk-henkan-start-point skk-henkan-end-point))
+	    )))
+   ((and (skk-in-minibuffer-p)
+	 (not skk-j-mode))
+    ;; ミニバッファへの初突入時。
+    (skk-j-mode-on))
+   (t
+    (setq skk-katakana (not skk-katakana))))
   (skk-kakutei))
 
 (defun skk-misc-for-picture ()
