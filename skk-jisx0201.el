@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.33 2001/10/20 02:33:33 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.34 2001/10/21 05:34:16 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/20 02:33:33 $
+;; Last Modified: $Date: 2001/10/21 05:34:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -440,8 +440,11 @@
      (lambda (matched)
        "ｳﾞ"))))
 
-
+;;
+
 (require 'product)
-(product-provide (provide 'skk-jisx0201) (require 'skk-version))
+(product-provide
+    (provide 'skk-jisx0201)
+  (require 'skk-version))
 
 ;;; skk-jisx0201.el ends here

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.38 2001/10/11 13:00:22 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.39 2001/10/21 05:34:17 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/11 13:00:22 $
+;; Last Modified: $Date: 2001/10/21 05:34:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -626,20 +626,16 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 (defun skktut-enable-advice ()
   (let ((alist skktut-adviced-alist)
 	 e)
-    (while alist
-      (setq e (car alist))
+    (dolist (e alist)
       (ad-enable-advice (car e) (cdr e) 'skktut-ad)
-      (ad-activate (car e))
-      (setq alist (cdr alist)))))
+      (ad-activate (car e)))))
 
 (defun skktut-disable-advice ()
   (let ((alist skktut-adviced-alist)
 	 e)
-    (while alist
-      (setq e (car alist))
+    (dolist (e alist)
       (ad-disable-advice (car e) (cdr e) 'skktut-ad)
-      (ad-activate (car e))
-      (setq alist (cdr alist)))))
+      (ad-activate (car e)))))
 
 (defun skktut-enable-tutmap ()
   (let ((inhibit-quit t))
@@ -808,11 +804,10 @@ russia /$B'Q(B/$B'R(B/$B'S(B/$B'T(B/$B'U(B/$B'V(B/$B'W(B/$B'X(B/
   ;; $B%P%C%U%!$N(B skk.el $B$NJQ?t$r%P%C%U%!%m!<%+%k2=$7!"=i4|2=$9$k!#(B
   (let ((alist skktut-init-variables-alist)
 	v)
-    (while alist
-      (setq v (car (car alist)))
+    (dolist (cell alist)
+      (setq v (car cell))
       (make-local-variable v)
-      (set v (eval (cdr (car alist))))
-      (setq alist (cdr alist)))))
+      (set v (eval (cdr cell))))))
 
 (defun skktut-erase-buffer ()
   (let ((inhibit-read-only t)
@@ -1031,15 +1026,13 @@ with the following command in the body of your email message
 		 overriding-local-map
 	       (current-global-map)))
 	keys)
-    (while commands
-      (setq keys (where-is-internal (car commands) map)
-	    commands (cdr commands))
-      (while keys
+    (dolist (command commands)
+      (setq keys (where-is-internal command map))
+      (dolist (key keys)
 	(define-key skktut-abbrev-mode-map
-	  (car keys)
-	  'skk-delete-backward-char)
-	(define-key skktut-j-mode-map (car keys) 'skk-delete-backward-char)
-	(setq keys (cdr keys))))))
+	  key 'skk-delete-backward-char)
+	(define-key skktut-j-mode-map
+	  key 'skk-delete-backward-char)))))
 
 (require 'product)
 (product-provide (provide 'skk-tut) (require 'skk-version))
