@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.78 2001/09/08 22:55:42 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.79 2001/09/09 02:34:20 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/09/08 22:55:42 $
+@c  Last Modified: $Date: 2001/09/09 02:34:20 $
 @c
 @set EDITION 1.6
 @set SKK-VERSION 11.4
-@set UPDATED $Date: 2001/09/08 22:55:42 $
+@set UPDATED $Date: 2001/09/09 02:34:20 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -138,8 +138,6 @@ SKK $B$O9bB.$G8zN(E*$JF|K\8lF~NO4D6-$rDs6!$9$k%7%9%F%`$G$9!#(BGNU General
 Public License $B$K=>$C$?%U%j!<!&%=%U%H%&%'%"$H$7$FG[I[$5$l$^$9!#(B
 
 Daredevil SKK 11 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
-@footnote{$BHs8x<0$G$9$,!"(BNemacs 3.3.2 $B$*$h$S(B Mule 1.1 $B$G$bF0$/$+$bCN$l$^(B
-$B$;$s!#(B}
 
 @itemize @minus
 @item Emacs 19.28 $B0J9_$r%Y!<%9$H$7$?(B Mule 2.3 (Mule for Windows 1.21,
@@ -6635,11 +6633,9 @@ SKK $B$O(B $B$O%P!<%8%g%s$,>e$,$k$?$S$K!"Bg$-$JJQ99$,9T$o$l$F$$$^$9!#K\>O$G$O
 @item $BBP1~$9$k(B Emacs $B$N%P!<%8%g%s(B
 
 Emacs 20 $B$H(B XEmacs 21 $B$r%5%]!<%H$7$?$3$H$,:G$b=EMW$JJQ99E@$G$9!#F1;~$K(B
-Mule 2.3 (Emacs 19.28 $B$^$?$O(B 19.34) $B$b%5%]!<%H$7$^$9!#$?$@$7!"(B
+Mule 2.3 (Emacs 19.28 $B$^$?$O(B 19.34) $B$b%5%]!<%H$7$^$9!#(B
 
-SKK 11 $B$O(B Emacs 21 $B$r%5%]!<%H$9$kM=Dj$G$9!#$^$?!"Hs8x<0BP1~$G$9$,!"(B
-Nemacs 3.3.2 $B$*$h$S(B Mule 1.1 $B$G$b!"4pK\E*$J5!G=$@$1$OF0:n$9$k$3$H$,4|BT(B
-$B$5$l$^$9!#(B
+SKK 11 $B$O(B Emacs 21 $B$r%5%]!<%H$9$kM=Dj$G$9!#(B
 
 @item APEL $B%i%$%V%i%j$N;HMQ(B
 
@@ -7758,8 +7754,7 @@ SKK Openlab $B$G3+H/!"%j%j!<%9$5$l$k(B SKK $B$O!"5~Bg$N:4F#@h@8$,Cf?4$K$J$C(
 @end itemize
 
 @noindent
-$B$,%5%]!<%H$7$h$&$H$9$kBP>]$N(B Emacs $B$G$9!#$^$?Hs8x<0$G$9$,!"(BNemacs $B>e$G$b(B
-$BF0$/$h$&$G$9!#(B
+$B$,%5%]!<%H$7$h$&$H$9$kBP>]$N(B Emacs $B$G$9!#(B
 
 @node Q.1-5 DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?, Q.1-6 Emacs $B$KIUB0$N(B SKK $B$r;H$C$F$$$k$N$G$9$,(B, Q.1-4 DDSKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?, Introduction
 @comment  node-name,  next,  previous,  up
@@ -8625,11 +8620,7 @@ Emacs $B>e0J30$G$b(B SKK $B$_$?$$$JA`:n@-$r<B8=$9$k%=%U%H%&%'%"$,$"$j$^$9!#(
 @cindex Daredevil
 @cindex Nemacs
 
-SKK 10.xx $B$O;H$($^$;$s!#(B
-
-$BL$3NG'>pJs$G$9$,!"(BDaredevil SKK 11.x $B$G$OF0$$$F$$$k$H$$$&1=$,$"$j$^$9!#(B
-$B3+H/<T$NCf$K:G6a(B Back to the Future $B$7$?<T$,$$$k2DG=@-$OH]Dj$G$-$^$;$s$,!"(B
-$B$?$@$N(B Emacs $B%*%?%/$H9M$($?$[$&$,$$$$$G$7$g$&!#(B
+$B;H$($^$;$s!#(B;-)
 
 @node Q.6-2 SKK $B$O(B Demacs $B$G;H$($^$9$+(B?,  , Q.6-1 SKK $B$O(B Nemacs $B$G;H$($^$9$+(B?, Forgotten Antique Questions(FAQ)
 @comment  node-name,  next,  previous,  up
@@ -8637,15 +8628,7 @@ SKK 10.xx $B$O;H$($^$;$s!#(B
 @cindex Daredevil
 @cindex Demacs
 
-SKK 10.xx $B$O;H$($^$;$s!#(B
-
-$B:G6a!"(BMS-DOS 7.1 $B>e$N(B Demacs $B>e$G(B Daredevil SKK 11.x $B$,F0$$$F$$$k$H$3$m(B
-$B$,L\7b$5$l!"%9%/!<%W$5$l$?$=$&$G$9!#(B
-
-$B$H$3$m$,!"(BDEMAgogiC Studio $B$H$+$$$&%"%W%j%1!<%7%g%s$KIUB0$N%(%G%#%?$b(B
-Demacs $B$H8F$P$l$F$$$k$i$7$/!"K\7o$O$+$N0NBg$J(B Demacs $B$H$O4X78L5$$$@$m$&(B
-$B$H$b8@$o$l$F$$$^$9!#(B
-
+$B;H$($^$;$s!"$F$P!#(B;-P
 
 @node $B;v9`:w0z(B, $BJQ?t:w0z(B, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ), Top
 @comment      node-name, next,       previous, up

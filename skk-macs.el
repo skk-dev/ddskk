@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.36 2001/09/07 21:07:59 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.37 2001/09/09 02:34:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/07 21:07:59 $
+;; Last Modified: $Date: 2001/09/09 02:34:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -40,7 +40,6 @@
   (require 'skk-vars)
   (defconst skk-emacs-type
     (cond ((featurep 'xemacs) 'xemacs)
-	  ((and (boundp 'NEMACS)) 'nemacs)
 	  ((and (boundp 'mule-version)
 		(string< "5.0" mule-version) 'mule5))
 	  ((and (boundp 'mule-version)
@@ -48,9 +47,7 @@
 	  ((and (boundp 'mule-version)
 		(string< "3.0" mule-version) 'mule3))
 	  ((and (boundp 'mule-version)
-		(string< "2.0" mule-version) 'mule2))
-	  ((and (boundp 'mule-version)
-		(string< "1.0" mule-version) 'mule1)))))
+		(string< "2.0" mule-version) 'mule2)))))
 
 (eval-and-compile
   (unless (eq skk-emacs-type 'xemacs)
@@ -184,7 +181,7 @@
 
 (defmacro skk-sit-for (seconds &optional nodisplay)
   (case skk-emacs-type
-   ((nemacs mule1 xemacs)
+   (xemacs
     (` (sit-for (, seconds) (, nodisplay))))
    (t
     ;; Emacs 19 or later.
@@ -233,7 +230,7 @@
 (defsubst skk-str-length (str)
   ;; multibyte 文字を 1 と数えたときの文字列の長さ。
   (static-cond
-   ((memq skk-emacs-type '(nemacs mule1 mule2))
+   ((eq skk-emacs-type 'mule2)
     (length (string-to-char-list str)))
    ((eq skk-emacs-type 'mule3)
     (length (string-to-vector str)))
@@ -245,37 +242,7 @@
   ;; multibyte 文字を 1 と数えて substring する。
   (or pos2 (setq pos2 (skk-str-length str)))
   (static-cond
-   ((eq skk-emacs-type 'nemacs)
-    ;; XXX not yet tested.
-    (if (< pos1 0)
-	(setq pos1 (+ (skk-str-length str) pos1)))
-    (if (< pos2 0)
-	(setq pos2 (+ (skk-str-length str) pos2)))
-    (if (>= pos1 pos2)
-	""
-      (let (start end n)
-	(with-temp-buffer
-	  (insert str)
-	  (goto-char (point-min))
-	  (setq n pos1)
-	  (while (and (not (eobp)) (> n 0))
-	    (if (eobp)
-		(signal 'error
-			(cons "Args out of range" (list str pos1 pos2)))
-	      (forward-char 1)
-	      (setq n (1- n))))
-	  (setq start (point))
-	  (setq n (- pos2 pos1))
-	  (while (and (not (eobp)) (> n 0))
-	    (if (eobp)
-		(signal 'error
-			(cons "Args out of range" (list str pos1 pos2)))
-	      (forward-char 1)
-	      (setq n (1- n))))
-	  (setq end (point))
-	  ;;
-	  (buffer-substring start end)))))
-   ((memq skk-emacs-type '(nemacs mule1 mule2))
+   ((eq skk-emacs-type 'mule2)
     (if (< pos1 0)
 	(setq pos1 (+ (skk-str-length str) pos1)))
     (if (< pos2 0)
@@ -305,9 +272,7 @@
 (defsubst skk-ascii-char-p (char)
   ;; CHAR が ascii 文字だったら t を返す。
   (static-cond
-   ((eq skk-emacs-type 'nemacs)
-    (and (< ?\37 char) (< char ?\200)))
-   ((memq skk-emacs-type '(mule1 mule2))
+   ((eq skk-emacs-type 'mule2)
     ;; Can I use this for mule1?
     ;; (maybe < cz)
     (= (char-leading-char char) 0))
@@ -317,7 +282,7 @@
 
 (defsubst skk-str-ref (str pos)
   (static-cond
-   ((memq skk-emacs-type '(nemacs mule1 mule2))
+   ((eq skk-emacs-type 'mule2)
     (nth pos (string-to-char-list str)))
    ((eq skk-emacs-type 'mule3)
     (aref (string-to-vector str) pos))
@@ -327,9 +292,7 @@
 
 (defsubst skk-jisx0208-p (char)
   (static-cond
-   ((eq skk-emacs-type 'nemacs)
-    (and (<= char ?\200) (<= ?\377 char)))
-   ((memq skk-emacs-type '(mule1 mule2))
+   ((eq skk-emacs-type 'mule2)
     ;; Can I use this for mule1?
     ;; (maybe < cz)
     (= (char-leading-char char) lc-jp))
@@ -354,10 +317,7 @@
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (find-charset object))
-   ((eq skk-emacs-type 'nemacs)
-    ;; XXX not yet tested.
-    (charset-description object))
-   ((memq skk-emacs-type '(mule1 mule2))
+   ((eq skk-emacs-type 'mule2)
     (character-set object))
    (t
     ;; MULE 3.0 or later.
@@ -563,9 +523,6 @@ BUFFER defaults to the current buffer."
 	skk-katakana nil)
   ;; initialize
   (skk-update-modeline)
-  (static-when (memq skk-emacs-type '(nemacs mule1))
-    (use-local-map skk-current-local-map)
-    (setq skk-current-local-map nil))
   (remove-hook 'pre-command-hook 'skk-pre-command 'local))
 
 (defsubst skk-j-mode-on (&optional katakana)
@@ -585,13 +542,7 @@ BUFFER defaults to the current buffer."
 			 (skk-cursor-current-color)
 			 (current-buffer)))
      (t
-      (set-buffer-local-cursor-color (skk-cursor-current-color)))))
-  (static-when (memq skk-emacs-type '(nemacs mule1))
-    (use-local-map
-     (skk-e18-make-local-map skk-j-mode-map
-			     (if (skk-in-minibuffer-p)
-				 minibuffer-local-map
-			       skk-current-local-map)))))
+      (set-buffer-local-cursor-color (skk-cursor-current-color))))))
 
 (defsubst skk-latin-mode-on ()
   (setq skk-mode t
@@ -602,13 +553,7 @@ BUFFER defaults to the current buffer."
 	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana nil)
-  (skk-update-modeline 'latin)
-  (static-when (memq skk-emacs-type '(nemacs mule1))
-    (use-local-map
-     (skk-e18-make-local-map skk-latin-mode-map
-			     (if (skk-in-minibuffer-p)
-				 minibuffer-local-map
-			       skk-current-local-map)))))
+  (skk-update-modeline 'latin))
 
 (defsubst skk-jisx0208-latin-mode-on ()
   (setq skk-mode t
@@ -619,13 +564,7 @@ BUFFER defaults to the current buffer."
 	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana nil)
-  (skk-update-modeline 'jisx0208-latin)
-  (static-when (memq skk-emacs-type '(nemacs mule1))
-    (use-local-map
-     (skk-e18-make-local-map skk-jisx0208-latin-mode-map
-			     (if (skk-in-minibuffer-p)
-				 minibuffer-local-map
-			       skk-current-local-map)))))
+  (skk-update-modeline 'jisx0208-latin))
 
 (defsubst skk-abbrev-mode-on ()
   (setq skk-mode t
@@ -643,13 +582,7 @@ BUFFER defaults to the current buffer."
 	;; sub mode of skk-j-mode.
 	;;skk-katakana nil
 	)
-  (skk-update-modeline 'abbrev)
-  (static-when (memq skk-emacs-type '(nemacs mule1))
-    (use-local-map
-     (skk-e18-make-local-map skk-abbrev-mode-map
-			     (if (skk-in-minibuffer-p)
-				 minibuffer-local-map
-			       skk-current-local-map)))))
+  (skk-update-modeline 'abbrev))
 
 (defsubst skk-in-minibuffer-p ()
   ;; カレントバッファがミニバッファかどうかをチェックする。
@@ -670,10 +603,7 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-do-auto-fill ()
   ;; auto-fill-function/auto-fill-hook に値が代入されていれば、それをコールする。
-  (static-cond
-   ((memq skk-emacs-type '(nemacs mule1))
-    (and auto-fill-hook (run-hooks 'auto-fill-hook)))
-   (t (and auto-fill-function (funcall auto-fill-function)))))
+  (and auto-fill-function (funcall auto-fill-function)))
 
 (defsubst skk-current-input-mode ()
   (cond (skk-abbrev-mode 'abbrev)
@@ -707,10 +637,7 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-unread-event (event)
   ;; Unread single EVENT.
-  (static-cond
-   ((memq skk-emacs-type '(nemacs mule1))
-    (setq unread-command-char event))
-   (t (setq unread-command-events (nconc unread-command-events (list event))))))
+  (setq unread-command-events (nconc unread-command-events (list event))))
 
 (defsubst skk-get-last-henkan-datum (key)
   (cdr (assq key skk-last-henkan-data)))

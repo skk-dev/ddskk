@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.50 2001/09/06 21:31:39 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.51 2001/09/09 02:34:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/06 21:31:39 $
+;; Last Modified: $Date: 2001/09/09 02:34:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,7 +52,6 @@
 
 (eval-and-compile
   (defconst skk-emacs-type (cond ((featurep 'xemacs) 'xemacs)
-				 ((and (boundp 'NEMACS)) 'nemacs)
 				 ((and (boundp 'mule-version)
 				       (string< "5.0" mule-version) 'mule5))
 				 ((and (boundp 'mule-version)
@@ -60,9 +59,7 @@
 				 ((and (boundp 'mule-version)
 				       (string< "3.0" mule-version) 'mule3))
 				 ((and (boundp 'mule-version)
-				       (string< "2.0" mule-version) 'mule2))
-				 ((and (boundp 'mule-version)
-				       (string< "1.0" mule-version) 'mule1))))
+				       (string< "2.0" mule-version) 'mule2))))
   ;;
   (require 'pcustom))
 
@@ -78,8 +75,6 @@
                          (make-color-specifier "white"))) 3))
         'dark
       'light))
-   ((memq skk-emacs-type '(nemacs mule1))
-    nil)
    (t
     (cond
      ((and window-system (x-display-color-p))
@@ -1200,8 +1195,7 @@ nil であれば、先頭の文字を共通にする文字列について補完が行なわれる。
   :group 'skk-misc
   :group 'skk-comp)
 
-(defcustom skk-use-color-cursor (and (not (memq skk-emacs-type '(ms-dos nemacs mule1)))
-				     window-system (fboundp 'x-display-color-p)
+(defcustom skk-use-color-cursor (and window-system (fboundp 'x-display-color-p)
 				     (x-display-color-p))
   "*Non-nil であれば、SKK モードの入力モードに応じてカーソルに色を付ける。"
   :type 'boolean
@@ -1450,7 +1444,6 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
   (cond
    ((eq skk-emacs-type 'xemacs)
     (frame-property (selected-frame) 'cursor-color))
-   ((memq skk-emacs-type '(nemacs mule1)) nil)
    (t
     (cdr (assq 'cursor-color (frame-parameters (selected-frame))))))
   "*SKK モードのオフを示すカーソル色。
@@ -1515,8 +1508,7 @@ nil であれば、表示しない。"
   :group 'skk-decoration
   :group 'skk-cursor)
 
-(defcustom skk-cursor-change-width (and (not (memq skk-emacs-type '(ms-dos nemacs mule1)))
-					window-system)
+(defcustom skk-cursor-change-width window-system
   "*Non-nil であれば、Ovwrt マイナーモード時にカーソルの幅を縮める。"
   :type 'boolean
   :group 'skk-decoration
@@ -1533,7 +1525,7 @@ cdr は元号表記の string からなるリスト。"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "März")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Adrz")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
@@ -1748,7 +1740,6 @@ nil であれば、訓令式 \"(「日本式」とも言うようだ)\" を用いる。
   (cond ((featurep 'jisx0213) 'japanese-jisx0213-1)
 	((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
 	 'japanese-jisx0208)
-	((eq skk-emacs-type 'nemacs) nil)
 	(t lc-jp))
   "*skk-input-by-code-or-menu で使われる文字セット。"
   :type 'symbol
@@ -2045,11 +2036,6 @@ The English version is SKK.tut.E."
 	   ("ujis" . euc-japan)
 	   ("sjis". shift_jis)
 	   ("jis" . junet)))
-	((eq skk-emacs-type 'nemacs)
-	 '(("euc" . 3)
-	   ("ujis" . 3)
-	   ("jis" . 2)
-	   ("sjis". 1)))
 	(t '(("euc" . *euc-japan*)
 	     ("ujis" . *euc-japan*)
 	     ("sjis". *sjis*)
@@ -2116,7 +2102,7 @@ The English version is SKK.tut.E."
   "漢字一文字の長さ。Mule[1-3] では 3 になる。Mule4, XEmacs では 1。")
 
 (defconst skk-hankaku-alist
-  (if (memq skk-emacs-type '(mule2 mule1 nemacs))
+  (if (eq skk-emacs-type 'mule2)
       '((161 . 32)	; ?\
 	(170 . 33)	;?\!
 	(201 . 34)	;?\"
@@ -2464,8 +2450,6 @@ CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
 		;;   (or (= lc lc-jp) (= lc lc-cn)))
 		(string-match word-across-newline
 			      (char-to-string char)))))
-   ((memq skk-emacs-type '(nemacs mule1))
-    nil)
    (t (error "No appropriate function as: %s"
 	     'skk-isearch-breakable-character-p-function)))
   "Function to test if we can insert a newline around CHAR when filling.")

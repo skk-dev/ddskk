@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.74 2001/08/31 19:30:38 czkmt Exp $
-;; Last Modified: $Date: 2001/08/31 19:30:38 $
+;; Version: $Id: SKK-MK,v 1.75 2001/09/09 02:34:20 czkmt Exp $
+;; Last Modified: $Date: 2001/09/09 02:34:20 $
 
 ;; Commentary
 ;;
@@ -314,20 +314,9 @@
 
 ;; Work around for Emacs 18.
 (if (= 18 emacs-major-version)
-    (progn
-      (setq SKK_INFO nil)
-      (let ((list '(ccc skk-cursor skk-isearch skk-jisx0201 skk-study)))
-	(while list
-	  (setq SKK_MODULES (delq (car list) SKK_MODULES))
-	  (setq list (cdr list))))
-      (setq SKK_MODULES
-	    (nconc SKK_MODULES
-		   '(skk-e18 skk-is-n)))
-      (condition-case nil
-	  (load "bytecomp-runtime")
-	(error))
-      ;;
-      (require 'skk-e18 (expand-file-name "skk-e18.el" default-directory))))
+    (error "%s"
+	   "Emacs 18 is not supported by this version of SKK.
+Try ddskk-e18 branch."))
 
 ;;; [FUNCTIONS]
 (defun SKK-MK-make-setup-file (spec)
@@ -406,13 +395,6 @@
 (defun SKK-MK-compile ()
   (let (enable-local-eval)
     (SKK-MK-generate-autoloads-el)
-    (when (and (= 18 emacs-major-version)
-	       (< emacs-minor-version 59))
-      ;; Emacs 18.55, etc.
-      (with-temp-buffer
-	(insert-file-contents (expand-file-name "SKK-MK"
-						default-directory))
-	(eval-current-buffer)))
     (require 'skk-autoloads
 	     (expand-file-name "skk-autoloads.el" default-directory))
     (require 'skk (expand-file-name "skk.el" default-directory))
@@ -525,7 +507,6 @@
     ;; install skk-setup.el
     (let ((dir
 	   (cond ((or (boundp 'MULE)
-		      (boundp 'NEMACS)
 		      (not
 		       (or (featurep 'xemacs)
 			   (fboundp 'normal-top-level-add-subdirs-to-load-path))))
@@ -813,22 +794,9 @@ SKK tutorials:
 	 (point-min) (point-max) "skk-autoloads.el" nil 'quiet)
 	(kill-buffer buf))
        (t
-	(setq sort-min (point))
-	(while modules
-	  (setq funcs (SKK-MK-collect-autoload-functions (car modules)))
-	  (while funcs
-	    (insert "(autoload '" (caar funcs)
-		    " \"" (file-name-nondirectory (symbol-name (car modules)))
-		    "\" nil "
-		    (symbol-name (if (cdar funcs) t))
-		    " nil)\n")
-	    (setq funcs (cdr funcs)))
-	  (setq modules (cdr modules)))
-	(sort-lines nil sort-min (point-max))
-	(goto-char (point-max))
-	(insert "\n(provide 'skk-autoloads)\n;;; skk-autoloads.el ends here\n")
-	(write-region (point-min) (point-max) "skk-autoloads.el" nil 'quiet)
-	(kill-buffer buf))))))
+	(error "%s"
+	       "APEL not installed or autoload feature is broken.
+"))))))
 
 (defun SKK-MK-generate-autoloads-el-package ()
   "Generate auto-autoload.el."
@@ -865,28 +833,5 @@ SKK tutorials:
 	(kill-buffer buf)
 	(add-to-list 'command-line-args-left ".")
 	(Custom-make-dependencies)))))
-
-(defun SKK-MK-collect-autoload-functions (module)
-  "Return a list of autoload functions defined in MODULE."
-  (let ((el-file (concat (symbol-name module) ".el"))
-	(funcs))
-    (if (file-exists-p el-file)
-	(progn
-	  (save-excursion
-	    (insert-file-contents el-file)
-	    (while (re-search-forward "^;;;###autoload" nil t)
-	      (beginning-of-line 2)
-	      (if (looking-at "(defun[ \t]+\\([^ \t\n(]+\\)")
-		  (setq funcs
-			(cons (cons (match-string 1)
-				    (save-excursion
-				      (re-search-forward
-				       "^[ \t]*(interactive"
-				       (save-excursion
-					 (re-search-forward "^(defun" nil t 2))
-				       t)))
-			      funcs)))))
-	  (delete-region (point) (point-max))))
-    funcs))
 
 ;;; SKK-MK ends here

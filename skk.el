@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.111 2001/09/06 21:25:52 czkmt Exp $
+;; Version: $Id: skk.el,v 1.112 2001/09/09 02:34:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/06 21:25:52 $
+;; Last Modified: $Date: 2001/09/09 02:34:20 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -57,9 +57,9 @@
 
 (cond ((or (and (boundp 'epoch::version) epoch::version)
 	   (string< (substring emacs-version 0 2) "19"))
-       (message "This version of SKK may not work on Emacs 18..."))
-      ((not (or (featurep 'mule) (boundp 'NEMACS)))
-       (error "This version of SKK requires MULE features")))
+       (error "%s" "This version of SKK does not work on Emacs 18"))
+      ((not (featurep 'mule))
+       (error "%s" "This version of SKK requires MULE features")))
 
 ;; APEL 10.2 or higher is required.
 (eval-when-compile
@@ -79,17 +79,9 @@
 ;; Elib 1.0 is required.
 (require 'queue-m)
 
-;; Emacs 18.
-(static-when (= emacs-major-version 18)
-  ;; Intend to load skk-e18.el before advice.
-  (require 'skk-e18))
-
 ;; Emacs standard library.
 (require 'advice)
-(condition-case nil
-    (require 'easymenu)
-  (error
-   (defalias 'easy-menu-define 'ignore)))
+(require 'easymenu)
 
 (eval-and-compile
   ;; SKK common.
@@ -138,11 +130,10 @@
 (define-obsolete-function-alias 'skk-ascii-henkan 'skk-latin-henkan)
 (define-obsolete-function-alias 'skk-convert-ad-to-gengo 'skk-ad-to-gengo)
 (define-obsolete-function-alias 'skk-convert-gengo-to-ad 'skk-gengo-to-ad)
-(static-unless (memq skk-emacs-type '(nemacs mule1))
-  (define-obsolete-function-alias 'skk-isearch-forward 'isearch-forward)
-  (define-obsolete-function-alias 'skk-isearch-forward-regexp 'isearch-forward-regexp)
-  (define-obsolete-function-alias 'skk-isearch-backward 'isearch-backward)
-  (define-obsolete-function-alias 'skk-isearch-backward-regexp 'isearch-backward-regexp))
+(define-obsolete-function-alias 'skk-isearch-forward 'isearch-forward)
+(define-obsolete-function-alias 'skk-isearch-forward-regexp 'isearch-forward-regexp)
+(define-obsolete-function-alias 'skk-isearch-backward 'isearch-backward)
+(define-obsolete-function-alias 'skk-isearch-backward-regexp 'isearch-backward-regexp)
 
 (defun skk-define-menu-bar-map (map)
   ;; SKK メニューのトップに出現するコマンドのメニューへの定義を行なう。
@@ -283,22 +274,16 @@
 (defun skk-jisx0208-to-ascii (string)
   (let ((char
 	 (static-cond
-	  ((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
-	   (require 'japan-util)
-	   (get-char-code-property (string-to-char string) 'ascii))
-	  ((memq skk-emacs-type '(mule2 mule1))
+	  ((eq skk-emacs-type 'mule2)
 	   (let* ((ch (string-to-char string))
 		  (ch1 (char-component ch 1)))
 	     (cond ((eq ch1 ?\241)
 		    (cdr (assq (char-component ch 2) skk-hankaku-alist)))
 		   ((eq ch1 ?\243)
 		    (- (char-component ch 2) ?\200)))))
-	  ((eq skk-emacs-type 'nemacs)
-	   (let ((ch1 (aref string 0)))
-	     (cond ((eq ch1 ?\241)
-		    (cdr (assq (aref string 1) skk-hankaku-alist)))
-		   ((eq ch1 ?\243)
-		    (- (aref string 1) ?\200))))))))
+	  (t
+	   (require 'japan-util)
+	   (get-char-code-property (string-to-char string) 'ascii)))))
     (and char (char-to-string char))))
 
 ;;;###autoload
@@ -377,7 +362,6 @@ dependent."
     (skk-create-file skk-jisyo
 		     "SKK の空辞書を作りました"
 		     "I have created an empty SKK Jisyo file for you")
-    (static-if (memq skk-emacs-type '(nemacs mule1)) (skk-e18-setup))
     (skk-require-module)
     (skk-setup-keymap)
     ;; To terminate kana input.
@@ -460,9 +444,6 @@ dependent."
 		  (member "skk-leim" preloaded-file-list))
       ;; require dummy file.
       (require 'skk-xm20_4))
-  ;;
-  (static-when (memq skk-emacs-type '(nemacs mule1))
-    (skk-e18-advise-skk-functions))
   ;;
   (skk-setup-init-file)
   (load skk-init-file t)
@@ -878,37 +859,19 @@ dependent."
     (if (not keys)
 	;; no alternative commands.  may be invoked by M-x.
 	nil
-      (static-if (not (memq skk-emacs-type '(nemacs mule1)))
-	  (let (skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
-			 skk-jisx0208-latin-mode
-			 skk-jisx0201-mode
-			 command)
-	    ;; have to search key binding after binding 4 minor mode flags to nil.
-	    (setq command (key-binding keys))
-	    (if (eq command this-command)
-		;; avoid recursive calling of skk-emulate-original-map.
-		nil
-	      ;; if no bindings are found, call `undefined'.  it's
-	      ;; original behaviour.
-	      ;;(skk-cancel-undo-boundary)
-	      (command-execute (or command (function undefined)))))
-	(let ((buf (current-buffer))
-	      (local-map (current-local-map))
-	      command)
-	  (unwind-protect
-	      (progn
-		(use-local-map skk-current-local-map)
-		(setq command (key-binding keys))
-		(if (eq command this-command)
-		    ;; avoid recursive calling of skk-emulate-original-map.
-		    nil
-		  ;; if no bindings are found, call `undefined'.  it's
-		  ;; original behaviour.
-		  ;;(skk-cancel-undo-boundary)
-		  (command-execute (or command (function undefined)))))
-	    ;; restore skk keymap.
-	    (with-current-buffer buf
-	      (use-local-map local-map))))))))
+      (let (skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
+		     skk-jisx0208-latin-mode
+		     skk-jisx0201-mode
+		     command)
+	;; have to search key binding after binding 4 minor mode flags to nil.
+	(setq command (key-binding keys))
+	(if (eq command this-command)
+	    ;; avoid recursive calling of skk-emulate-original-map.
+	    nil
+	  ;; if no bindings are found, call `undefined'.  it's
+	  ;; original behaviour.
+	  ;;(skk-cancel-undo-boundary)
+	  (command-execute (or command (function undefined))))))))
 
 (defun skk-command-key-sequence (key command)
   ;; KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。
@@ -3684,38 +3647,22 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (skk-kakutei))
 
 (defun skk-hiragana-to-katakana (hiragana)
-  (static-cond
-   ((not (eq skk-emacs-type 'nemacs))
-    (let ((diff (- ?ア ?あ)))
-      (mapconcat
-       (function (lambda (e)
-		   (if (and (<= ?ぁ e) (>= ?ん e))
-		       (char-to-string (+ e diff))
-		     (char-to-string e))))
-       (string-to-int-list hiragana) "")))
-   (t (save-match-data
-	(let ((start 0))
-	  (while (string-match "[ぁ-ん]" hiragana start)
-	    (aset hiragana (match-beginning 0) ?\245)
-	    (setq start (match-end 0)))
-	  hiragana)))))
+  (let ((diff (- ?ア ?あ)))
+    (mapconcat
+     (function (lambda (e)
+		 (if (and (<= ?ぁ e) (>= ?ん e))
+		     (char-to-string (+ e diff))
+		   (char-to-string e))))
+     (string-to-int-list hiragana) "")))
 
 (defun skk-katakana-to-hiragana (katakana)
-  (static-cond
-   ((not (eq skk-emacs-type 'nemacs))
-    (let ((diff (- ?ア ?あ)))
-      (mapconcat
-       (function (lambda (e)
-		   (if (and (<= ?ァ e) (>= ?ン e))
-		       (char-to-string (- e diff))
-		     (char-to-string e))))
-       (string-to-int-list katakana) "")))
-   (t (save-match-data
-	(let ((start 0))
-	  (while (string-match "[ァ-ン]" katakana start)
-	    (aset katakana (match-beginning 0) ?\244)
-	    (setq start (match-end 0)))
-	  katakana)))))
+  (let ((diff (- ?ア ?あ)))
+    (mapconcat
+     (function (lambda (e)
+		 (if (and (<= ?ァ e) (>= ?ン e))
+		     (char-to-string (- e diff))
+		   (char-to-string e))))
+     (string-to-int-list katakana) "")))
 
 (defun skk-splice-in (org offset spliced)
   ;; ORG := '(A B C), SPLICED := '(X Y), OFFSET := 1
@@ -3878,19 +3825,11 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	  ((and (string= headchar "っ") (not (string= okurigana "っ")))
 	   (aref skk-kana-rom-vector
 		 ;; assume the character is hiragana of JIS X 0208.
-		 (static-cond
-		  ((eq skk-emacs-type 'nemacs)
-		   (- (string-to-char (substring okurigana 3 4)) 161))
-		  (t
-		   (- (skk-char-octet
-		       (string-to-char (skk-substring okurigana 1 2)) 1)
-		      33)))))
+		 (- (skk-char-octet
+		     (string-to-char (skk-substring okurigana 1 2)) 1)
+		    33)))
 	  (t (aref skk-kana-rom-vector
-		   (static-cond
-		    ((eq skk-emacs-type 'nemacs)
-		     (- (string-to-char (substring okurigana 1 2)) 161))
-		    (t
-		     (- (skk-char-octet (string-to-char headchar) 1) 33))))))))
+		   (- (skk-char-octet (string-to-char headchar) 1) 33))))))
 
 ;; from type-break.el.  Welcome!
 (defun skk-time-difference (a b)
@@ -4021,19 +3960,18 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (undo-boundary)
       (or no-newline ad-do-it))))
 
-(static-unless (memq skk-emacs-type '(nemacs mule1))
-  (skk-defadvice exit-minibuffer (around skk-ad activate)
-    ;; subr command but no arg.
-    "skk-egg-like-newline が non-nil だったら、変換中の exit-minibuffer で確定のみ行う。"
-    (skk-remove-minibuffer-setup-hook
-     'skk-j-mode-on 'skk-setup-minibuffer
-     '(lambda ()
-	(add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
-    (if (not (or skk-j-mode skk-abbrev-mode))
-	ad-do-it
-      (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
-	(and skk-mode (skk-kakutei))
-	(or no-newline ad-do-it)))))
+(skk-defadvice exit-minibuffer (around skk-ad activate)
+  ;; subr command but no arg.
+  "skk-egg-like-newline が non-nil だったら、変換中の exit-minibuffer で確定のみ行う。"
+  (skk-remove-minibuffer-setup-hook
+   'skk-j-mode-on 'skk-setup-minibuffer
+   '(lambda ()
+      (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+  (if (not (or skk-j-mode skk-abbrev-mode))
+      ad-do-it
+    (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
+      (and skk-mode (skk-kakutei))
+      (or no-newline ad-do-it))))
 
 (defadvice picture-mode-exit (before skk-ad activate)
   "SKK のバッファローカル変数を無効にし、picture-mode-exit をコールする。

@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.15 2001/02/03 00:22:58 minakaji Exp $
+;; Version: $Id: skk-setup.el.in,v 1.16 2001/09/09 02:34:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Last Modified: $Date: 2001/09/09 02:34:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -56,18 +56,12 @@
 ;;(defvar skk-tut-file "@TUT@")
 
 ;;; Isearch setting.
-(cond ((eq emacs-major-version 18)
-       (define-key global-map "\C-s" 'skk-isearch-forward)
-       (define-key global-map "\C-r" 'skk-isearch-backward)
-       (define-key esc-map "\C-s" 'skk-isearch-forward-regexp)
-       (define-key esc-map "\C-r" 'skk-isearch-backward-regexp))
-      (t
-       (add-hook 'isearch-mode-hook
-		 (lambda () (and (boundp 'skk-mode) skk-mode
-				 (skk-isearch-mode-setup))))
-       (add-hook 'isearch-mode-end-hook
-		 (lambda ()
-		   (and (featurep 'skk-isearch) (skk-isearch-mode-cleanup))))))
+(add-hook 'isearch-mode-hook
+	  (lambda () (and (boundp 'skk-mode) skk-mode
+			  (skk-isearch-mode-setup))))
+(add-hook 'isearch-mode-end-hook
+	  (lambda ()
+	    (and (featurep 'skk-isearch) (skk-isearch-mode-cleanup))))
 
 (provide 'skk-setup)
 ;;; Local Variables:

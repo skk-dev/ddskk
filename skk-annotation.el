@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.6 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.7 2001/09/09 02:34:20 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/09/09 02:34:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -233,13 +233,7 @@
 	     (skk-get-last-henkan-datum 'henkan-list)))
     (setq skk-henkan-key
 	  (read-from-minibuffer
-	   "Midasi: " nil
-	   (static-when (memq skk-emacs-type '(nemacs mule1))
-	     (with-current-buffer
-		 (get-buffer-create
-		  (format " *Minibuf-%d*" (minibuffer-depth)))
-	       (skk-j-mode-on))
-	     (append skk-j-mode-map (cdr minibuffer-local-map)))))
+	   "Midasi: " nil))
     (if (not skk-henkan-key)
 	(skk-error "アノテーションを付ける単語がありません"
 		   "No annotated word")

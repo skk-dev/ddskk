@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.17 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-kcode.el,v 1.18 2001/09/09 02:34:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/09/09 02:34:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -76,10 +76,7 @@
 		      "Cannot convert %c to hexadecimal number" char))))
 
 (defun skk-make-string (n1 n2)
-  (static-cond
-   ((eq skk-emacs-type 'nemacs)
-    (concat (char-to-string n1) (char-to-string n2)))
-   (t (char-to-string (skk-make-char skk-kcode-charset n1 n2)))))
+  (char-to-string (skk-make-char skk-kcode-charset n1 n2)))
 
 ;; tiny function, but called once in skk-kcode.el.  So not make it inline.
 (defun skk-make-char (charset n1 n2)
