@@ -29,11 +29,16 @@
 
 ;;; Code:
 
+;; `register-input-method' is called in skk-autoloads.el. `skk-activate' is
+;;  also autoloaded there.
 (require 'skk-autoloads)
 
 ;; Doubt. This is a matter of preference.
 (require 'skk-setup)
 
+;;; skk/leim-list.el should end here but some works are needed for Emacs 20.
+
+
 ;; For Emacs 20. Load all "leim-list" files.
 (when (and (not (featurep 'xemacs))
 	   site-run-file)
