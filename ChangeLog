@@ -5,6 +5,7 @@
 
 	* SKK-MK: Keep skk-dic.el.
 	(SKK-MK-skk-dic): Check if JISYO is newer than skk-dic.el.
+	Escape "\"".
 
 2001-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1996,8 +1997,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.412 2001/09/16 09:37:10 czkmt Exp $
-Last Modified: $Date: 2001/09/16 09:37:10 $
+Version: $Id: ChangeLog,v 1.413 2001/09/16 09:51:46 czkmt Exp $
+Last Modified: $Date: 2001/09/16 09:51:46 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.86 2001/09/16 09:28:41 czkmt Exp $
-;; Last Modified: $Date: 2001/09/16 09:28:41 $
+;; Version: $Id: SKK-MK,v 1.87 2001/09/16 09:51:46 czkmt Exp $
+;; Last Modified: $Date: 2001/09/16 09:51:46 $
 
 ;; Commentary
 ;;
@@ -1060,7 +1060,10 @@ SKK tutorials:
 	(while (not (looking-at
 		     "^;; okuri-ari entries\\.$"))
 	  (next-line 1))
-	(delete-region (point-min) (point)))
+	(delete-region (point-min) (point))
+	(goto-char (point-min))
+	(while (search-forward "\"" nil t)
+	  (replace-match "\\\\\"")))
       (with-temp-buffer
 	(erase-buffer)
 	(insert-file-contents-as-coding-system
