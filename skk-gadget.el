@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-gadget.el,v 1.3 1999/10/03 12:11:10 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.4 2000/09/14 08:37:02 akiho Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 12:11:10 $
+;; Last Modified: $Date: 2000/09/14 08:37:02 $
 
 ;; This file is part of SKK.
 
@@ -50,7 +50,7 @@
 ;; から作られた造語らしい。
 
 ;;; Code:
-(eval-when-compile (require 'skk))
+(require 'skk)
 (require 'skk-foreword)
 ;; -- user variables
 
