@@ -1,3 +1,8 @@
+2002-03-07  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* skk.el (skk-setup-keymap): Use `skk-comp-start-henkan' instead
+	of `skk-start-henkan-with-completion'.
+
 2002-03-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-isearch.el:
@@ -3738,8 +3743,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.670 2002/03/07 15:13:49 czkmt Exp $
-Last Modified: $Date: 2002/03/07 15:13:49 $
+Version: $Id: ChangeLog,v 1.671 2002/03/07 22:05:55 obata Exp $
+Last Modified: $Date: 2002/03/07 22:05:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
