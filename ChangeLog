@@ -1,3 +1,8 @@
+2001-08-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-dcomp.el (keyboard-quit@around@skk-dcomp-ad): Make sure
+	`skk-dcomp-start-point' and `skk-dcomp-end-point' are markers.
+
 2001-08-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* install-info.el (install-info-delete-entry): Regexp fix.
@@ -3744,8 +3749,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.332 2001/08/30 19:16:09 czkmt Exp $
-Last Modified: $Date: 2001/08/30 19:16:09 $
+Version: $Id: ChangeLog,v 1.333 2001/08/31 12:55:17 czkmt Exp $
+Last Modified: $Date: 2001/08/31 12:55:17 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
