@@ -1,9 +1,32 @@
 2000-12-04  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* experimental/skk-dcomp.el (skk-extentp): Comment out.
+	(skk-dcomp-face-on): Make it inline function.
+	(skk-dcomp-face-off): Ditto.
+	(skk-dcomp-activate): New user variable.
+	(skk-kana-input@around@skk-dcomp-ad): Refer to
+	`skk-dcomp-activate'.
+	(skk-kakutei@around@skk-dcomp-ad): Ditto.
+	(skk-start-henkan@before@skk-dcomp-ad): Ditto.
+	(keyboard-quit@around@skk-dcomp-ad): Ditto.
+	(skk-comp@around@skk-dcomp-ad): Ditto.
+	(skk-delete-backward-char@after@skk-dcomp-ad): Ditto.
+	(viper-del-backward-char-in-insert@after@skk-dcomp-ad): Ditto.
+	(vip-del-backward-char-in-insert@after@skk-dcomp-ad): Ditto.
+
 	* experimental/skk-dcomp.el (skk-kakutei): Check if
 	skk-dcomp-start-point and skk-dcomp-end-point are markers before
 	entering into an actual work.
 	(skk-start-henkan): Ditto.
+	(skk-dcomp-after-delete-backward-char): New function.
+	(skk-delete-backward-char@after@skk-dcomp-ad): New advice.
+	(viper-del-backward-char-in-insert@after@skk-dcomp-ad): Ditto.
+	(vip-del-backward-char-in-insert@after@skk-dcomp-ad): Ditto.
+	
+2000-12-02  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* Makefile (tar) : Use tar 's --exclude-from option.
+	(snapshot): Ditto.
 
 2000-12-02  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -2647,8 +2670,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.195 2000/12/03 23:35:15 minakaji Exp $
-Last Modified: $Date: 2000/12/03 23:35:15 $
+Version: $Id: ChangeLog,v 1.196 2000/12/04 01:53:39 minakaji Exp $
+Last Modified: $Date: 2000/12/04 01:53:39 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

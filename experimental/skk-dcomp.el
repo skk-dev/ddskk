@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.13 2000/12/03 23:35:15 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.14 2000/12/04 01:53:39 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/03 23:35:15 $
+;; Last Modified: $Date: 2000/12/04 01:53:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -26,28 +26,81 @@
 
 ;;; Commentary
 ;;
-;; これは見出し語の入力を、自動的にダイナミックにコンプリーションする
-;; プログラムです。増井俊之 さんが開発している POBox や MS Excel のセ
-;; ルでの文字入力に影響を受けています (POBox とはインタフェイス自身は
-;; 少し異なりますが、動作はこちらの方がかなり高速なはずです)。
+;; これは▽モードにおける見出し語の入力を、自動的にダイナミックにコンプ
+;; リーションするプログラムです。
+;;
+;; MS Excel のセル入力の自動補完 (同じ列に既に入力している文字列があっ
+;; たときにそれを参照して補完しようとする機能) を見ていて、これ便利だなぁ
+;; と思ったのが、開発のきっかけです。
+;;
+;; その後、増井俊之 さんが開発している POBox を見て、MS Excel を見た際に
+;; 思ったことを思い出し、SKK の skk-comp.el で提供されているコンプリーシ
+;; ョンの機能を自動的に提供する方向で実装してみたのが skk-dcomp.el のコー
+;; ディング始まりです。
+;;
+;; POBox は沢山候補を出しますが、少し動作が遅いのが難点です。skk-dcomp.el
+;; は一つしか候補を出しませんが、ユーザの見出し語の入力に追従しダイナミッ
+;; クにコンプリーションする点は POBox 同様持っていますし、また動作はかなり
+;; 高速で、skk-dcomp.el を使うことによるオーバーヘッドを体感することはない
+;; と思います。
+;;
 ;;
 ;; <INSTALL>
+;;
 ;; skk-11/experimental/skk-dcomp.el を skk-11/skk-dcomp.el にコピーし
 ;; て後は普通に make して下さい。skk-dcomp.el がインストールされ、
-;; autoload の設定が自動的に生成されます。
+;; autoload の設定が自動的に生成されます。後は .emacs もしくは .skk に
+;; (require 'skk-dcomp) と書きましょう。
+;; 一旦 (require 'skk-dcomp) した後に、ダイナミックコンプリーションの
+;; 機能を止めたかったら、(setq skk-dcomp-activate nil) を評価しましょう。
 ;;
-;; <HOW TO USE>
-;; .emacs もしくは .skk に (require 'skk-dcomp) と書きましょう。それだ
-;; けです。
 ;;
 ;; <HOW TO WORK>
-;; SKK を普通に使い始めてみて下さい。きっと最初は驚くはずですが、イン
-;; タフェイスは言葉で説明するよりも、体感した方が早いと思います ;-)。
+;;
+;; ▽モードに入り見出し語を入力すると、個人辞書を自動的に検索し、見出
+;; し語を コンプリーションします。下記のように動作します (カッコ内はキー
+;; 入力を、-!- はポイント位置を表します)。
+;; 
+;;   (Ho) ▽ほ -> ▽ほ-!-んとう
+;;
+;;   * SKK のコンプリーションは、元来個人辞書のみを参照して行なわれる
+;;     仕様になっていますので、個人辞書にない見出し語のコンプリーション
+;;     は行なわれません。
+;;   * コンプリーションは、送りなし変換の場合しか行なわれません。
+;;   * Ho の入力に対し、「ほんとう」がコンプリーションされるかどうかは個
+;;     人辞書のエントリの順番次第 (変換順に降順に並んでいる) ですので、人
+;;     それぞれ違うはずです。
+;; 
+;; 自動的にコンプリーションされた見出し語が、自分の意図したものであれば TAB
+;; を押すことでポイント位置を動かし、コンプリーションされた見出し語を選択す
+;; ることができます。そのまま SPC を押して変換するなり、q を押してカタカナ
+;; にするなり SKK 本来の動作を何でも行なうことができます。
+;;
+;;   (Ho) ▽ほ -> ▽ほ-!-んとう (TAB) -> ▽ほんとう-!- (TAB) 
+;;
+;; コンプリーションされた見出し語が自分の意図したものでない場合は、かま
+;; わず次の入力をして下さい。コンプリーションされた部分を無視したかのように
+;; 動作します。
+;; 
+;;   (Ho) ▽ほ -> ▽ほ-!-んとう (ka) -> ▽ほか-!-ん 
+;; 
+;; コンプリーションされない状態が自分の意図したものである場合も、コンプリー
+;; ションされた部分を単に無視するだけで OK です。
+;; 
+;;   (Ho) ▽ほ -> ▽ほ-!-んとう (C-j) -> ほ
+;;   (Ho) ▽ほ -> ▽ほ-!-んとう (SPC) -> ▼保 (「ほ」を見出し語とした変換が行なわれる)
+;;   (Ho) ▽ほ -> ▽ほ-!-んとう (q) -> ホ
+;; 
+;; コンプリーションされた状態から BS を押すと、消されたコンプリーション前の
+;; 見出し語から再度コンプリーションを行ないます。
+;; 
+;;   (Ho) ▽ほ -> ▽ほ-!-んとう (ka) -> ▽ほか-!-ん (BS) -> ▽ほ-!-んとう 
 ;; 
 ;;; Code:
 (eval-when-compile (require 'skk))
 (require 'skk-comp)
 
+;;; user variables.
 (defgroup skk-dcomp nil "SKK dynamic completion related customization."
   :prefix "skk-dcomp-"
   :group 'skk)
@@ -59,6 +112,11 @@
   "*Face used to highlight region dynamically completed."
   :group 'skk-dcomp
   :group 'skk-faces)
+
+(defcustom skk-dcomp-activate t
+  "*Non-nil であれば見出し語のダイナミックコンプリーションの機能を有効にする。"
+  :type 'boolean
+  :group 'skk-dcomp)
 
 (defcustom skk-dcomp-face-priority 700
   "*Overlay/extent priority of `skk-dcomp-face'."
@@ -73,113 +131,161 @@
   ;;     (car (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-rule-list))
   ;;     (car (rassoc (list nil 'skk-toggle-kana) skk-rom-kana-base-rule-list))
   ;;     (car (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-base-rule-list))))
-  "*自動補完された見出し語を消さないキーのリスト。
-通常は見出し語の補完後、次のキー入力をすると、自動補完されたキー入力が消えて
-しまうが、このリストに指定されたキー入力があったときは自動補完された見出し語
-を消さない。"
+  "*自動コンプリーションされた見出し語を消さないキーのリスト。
+通常は見出し語のコンプリーション後、次のキー入力をすると、自動コンプ
+リーションされたキー入力が消えてしまうが、このリストに指定されたキー
+入力があったときは自動コンプリーションされた見出し語を消さない。"
   :type '(choice (repeat string) (const nil))
   :group 'skk-dcomp
   :group 'skk-filenames)
 
+;;; internal variables and constants.
 (skk-deflocalvar skk-dcomp-start-point nil)
 (skk-deflocalvar skk-dcomp-end-point nil)
 (skk-deflocalvar skk-dcomp-extent nil)
 (defvar skk-dcomp-face 'skk-dcomp-face)
 
-;; functions.
-(defsubst skk-extentp (object)
-  (static-cond
-   ((eq skk-emacs-type 'xemacs) (extentp object))
-   (t (overlayp object))))
+;;; functions.
+;; (defsubst skk-extentp (object)
+;;   (static-cond
+;;    ((eq skk-emacs-type 'xemacs) (extentp object))
+;;    (t (overlayp object))))
 
-(defun skk-dcomp-face-on (start end)
+(defsubst skk-dcomp-face-on (start end)
   (skk-face-on skk-dcomp-extent start end skk-dcomp-face
 	       skk-dcomp-face-priority))
 
-(defun skk-dcomp-face-off ()
+(defsubst skk-dcomp-face-off ()
   (skk-detach-extent skk-dcomp-extent))
 
+(defun skk-dcomp-after-delete-backward-char ()
+  (if (and skk-henkan-on (not skk-henkan-active)
+	   (marker-position skk-dcomp-start-point)
+	   (marker-position skk-dcomp-end-point))
+      (let (pos)
+	(skk-dcomp-face-off)
+	(condition-case nil
+	    (delete-region skk-dcomp-start-point skk-dcomp-end-point)
+	  (error))
+	(setq pos (point))
+	(condition-case nil
+	    (progn
+	      (skk-comp-do 'first 'silent)
+	      (skk-set-marker skk-dcomp-start-point pos)
+	      (skk-set-marker skk-dcomp-end-point (point))
+	      (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
+	      (goto-char skk-dcomp-start-point))
+	  (error
+	   (setq skk-comp-stack nil)
+	   (message nil))))))
+
+;;; advices.
 ;; main dynamic completion engine.
 (defadvice skk-kana-input (around skk-dcomp-ad activate)
-  (if (not skk-henkan-on)
+  (if (not skk-dcomp-activate)
+      nil
+    (if (not skk-henkan-on)
+	ad-do-it
+      (if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
+	      (not skk-comp-stack))
+	  (progn
+	    (skk-set-marker skk-dcomp-start-point nil)
+	    (skk-set-marker skk-dcomp-end-point nil))
+	(when (and (marker-position skk-dcomp-start-point)
+		   (marker-position skk-dcomp-end-point))
+	  (skk-dcomp-face-off)
+	  (or (member (this-command-keys) skk-dcomp-keep-completion-keys)
+	      (condition-case nil
+		  (delete-region skk-dcomp-start-point skk-dcomp-end-point)
+		(error)))))
       ad-do-it
-    (if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
-	    (not skk-comp-stack))
-	(progn
-	  (skk-set-marker skk-dcomp-start-point nil)
-	  (skk-set-marker skk-dcomp-end-point nil))
-      (when (and (marker-position skk-dcomp-start-point)
-		 (marker-position skk-dcomp-end-point))
-	(skk-dcomp-face-off)
-	(or (member (this-command-keys) skk-dcomp-keep-completion-keys)
+      (if (and (not (skk-get-prefix skk-current-rule-tree))
+	       (not skk-okurigana))
+	  (let ((pos (point)))
 	    (condition-case nil
-		(delete-region skk-dcomp-start-point skk-dcomp-end-point)
-	      (error)))))
-    ad-do-it
-    (if (and (not (skk-get-prefix skk-current-rule-tree))
-	     (not skk-okurigana))
-	(let ((pos (point)))
-	  (condition-case nil
-	      (progn
-		(skk-comp-do 'first 'silent)
-		(skk-set-marker skk-dcomp-start-point pos)
-		(skk-set-marker skk-dcomp-end-point (point))
-		(skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
-		(goto-char skk-dcomp-start-point))
-	    (error
-	     (setq skk-comp-stack nil)
-	     (message nil)))))))
+		(progn
+		  (skk-comp-do 'first 'silent)
+		  (skk-set-marker skk-dcomp-start-point pos)
+		  (skk-set-marker skk-dcomp-end-point (point))
+		  (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
+		  (goto-char skk-dcomp-start-point))
+	      (error
+	       (setq skk-comp-stack nil)
+	       (message nil))))))))
 
 (defadvice skk-kakutei (around skk-dcomp-ad activate)
-  (if (and skk-henkan-on (not skk-henkan-active)
-	   (markerp skk-dcomp-start-point)
-	   (markerp skk-dcomp-end-point)
-	   (marker-position skk-dcomp-start-point)
-	   (marker-position skk-dcomp-end-point))
-      (progn
-	(skk-dcomp-face-off)
-	(condition-case nil
-	    (delete-region skk-dcomp-start-point skk-dcomp-end-point)
-	  (error))))
-  ad-do-it
-  (skk-set-marker skk-dcomp-start-point nil)
-  (skk-set-marker skk-dcomp-end-point nil)
-  (setq skk-comp-stack nil))
+  (if (not skk-dcomp-activate)
+      nil
+    (if (and skk-henkan-on (not skk-henkan-active)
+	     (markerp skk-dcomp-start-point)
+	     (markerp skk-dcomp-end-point)
+	     (marker-position skk-dcomp-start-point)
+	     (marker-position skk-dcomp-end-point))
+	(progn
+	  (skk-dcomp-face-off)
+	  (condition-case nil
+	      (delete-region skk-dcomp-start-point skk-dcomp-end-point)
+	    (error))))
+    ad-do-it
+    (skk-set-marker skk-dcomp-start-point nil)
+    (skk-set-marker skk-dcomp-end-point nil)
+    (setq skk-comp-stack nil)))
 
 (defadvice skk-start-henkan (before skk-dcomp-ad activate)
-  (if (and (markerp skk-dcomp-start-point)
-	   (markerp skk-dcomp-end-point)
-	   (marker-position skk-dcomp-start-point)
-	   (marker-position skk-dcomp-end-point))
-      (progn
-	(skk-dcomp-face-off)
-	(delete-region skk-dcomp-end-point (point))
-	(skk-set-marker skk-dcomp-end-point (point)))))
+  (if (not skk-dcomp-activate)
+      nil
+    (if (and (markerp skk-dcomp-start-point)
+	     (markerp skk-dcomp-end-point)
+	     (marker-position skk-dcomp-start-point)
+	     (marker-position skk-dcomp-end-point))
+	(progn
+	  (skk-dcomp-face-off)
+	  (delete-region skk-dcomp-end-point (point))
+	  (skk-set-marker skk-dcomp-end-point (point))))))
 
 (skk-defadvice keyboard-quit (around skk-dcomp-ad activate)
-  (if (and skk-henkan-on (not skk-henkan-active)
-	   (marker-position skk-dcomp-start-point)
-	   (marker-position skk-dcomp-end-point))
-      (progn
-	(skk-dcomp-face-off)
-	(condition-case nil
-	    (delete-region skk-dcomp-start-point skk-dcomp-end-point)
-	  (error))))
-  ad-do-it
-  (skk-set-marker skk-dcomp-start-point nil)
-  (skk-set-marker skk-dcomp-end-point nil)
-  (setq skk-comp-stack nil))
+  (if (not skk-dcomp-activate)
+      nil
+    (if (and skk-henkan-on (not skk-henkan-active)
+	     (marker-position skk-dcomp-start-point)
+	     (marker-position skk-dcomp-end-point))
+	(progn
+	  (skk-dcomp-face-off)
+	  (condition-case nil
+	      (delete-region skk-dcomp-start-point skk-dcomp-end-point)
+	    (error))))
+    ad-do-it
+    (skk-set-marker skk-dcomp-start-point nil)
+    (skk-set-marker skk-dcomp-end-point nil)
+    (setq skk-comp-stack nil)))
 
 (defadvice skk-comp (around skk-dcomp-ad activate)
-  (if (and (marker-position skk-dcomp-start-point)
-	   (marker-position skk-dcomp-end-point))
-      (progn
-	(goto-char skk-dcomp-end-point)
-	(setq this-command 'skk-comp-do)
-	(skk-dcomp-face-off)
-	(skk-set-marker skk-dcomp-start-point nil)
-	(skk-set-marker skk-dcomp-end-point nil))
-    ad-do-it))
+  (if (not skk-dcomp-activate)
+      nil
+    (if (and (marker-position skk-dcomp-start-point)
+	     (marker-position skk-dcomp-end-point))
+	(progn
+	  (goto-char skk-dcomp-end-point)
+	  (setq this-command 'skk-comp-do)
+	  (skk-dcomp-face-off)
+	  (skk-set-marker skk-dcomp-start-point nil)
+	  (skk-set-marker skk-dcomp-end-point nil))
+      ad-do-it)))
+
+(defadvice skk-delete-backward-char (after skk-dcomp-ad activate)
+  (if (not skk-dcomp-activate)
+      nil
+    (skk-dcomp-after-delete-backward-char)))
+
+(defadvice viper-del-backward-char-in-insert (after skk-dcomp-ad activate)
+  (if (not skk-dcomp-activate)
+      nil
+    (skk-dcomp-after-delete-backward-char)))
+
+(defadvice vip-del-backward-char-in-insert (after skk-dcomp-ad activate)
+  (if (not skk-dcomp-activate)
+      nil
+    (skk-dcomp-after-delete-backward-char)))
 
 (require 'product)
 (product-provide (provide 'skk-dcomp) (require 'skk-version))
