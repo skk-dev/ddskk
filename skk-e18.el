@@ -106,14 +106,29 @@ Install patch/e18/advice.el in load-path and try again.")))
                 (cons 'progn body)
                 (list 'store-match-data original)))))
 
+(defmacro skk-e18-safe-run-hooks (hook)
+  ;; If we get an error while running the hook, cause the hook variable
+  ;; to be nil.  Also inhibit quits, so that C-g won't cause the hook
+  ;; to mysteriously evaporate.
+  (` (let ((inhibit-quit (, hook)))
+       (condition-case nil
+	   (run-hooks (, hook))
+	 (error
+	  (when (symbolp (quote (, hook)))
+	    (setq (, hook) nil)))))))
+
 ;; Inline functions.
 ;; Pieces of advice.
 (defadvice byte-code-function-p (around skk-e18-ad activate)
+  ;; これは一時の APEL のバグに対して work around したものだから、最新の
+  ;; APEL に対しては不要。
   (cond ((and (consp (ad-get-arg 0)) (consp (cdr (ad-get-arg 0))))
 	 ad-do-it)
 	(t
 	 nil)))
 
+;; 時折、検索系の関数が数値を返すことを期待しているコードがあるため、
+;; それらが動くように以下の 4 関数への advice をする。
 (defadvice search-forward (after skk-e18-ad activate)
   (when ad-return-value
     (setq ad-return-value (match-end 0))))
@@ -132,20 +147,36 @@ Install patch/e18/advice.el in load-path and try again.")))
 
 (when (< emacs-minor-version 59)
   (defadvice call-process (after skk-e18-ad activate)
+    ;; Emacs 18.55 ではプロセス周りのコードが Emacs 18.59 と違い、
+    ;; `call-process' は常に nil を返すため、数値 (0 または 1) を返すことを期
+    ;; 待しているコードはうまく動作しない。以下の対処は正しくないが、どうしよ
+    ;; うもない。
     (when (and (not (eq 0 (ad-get-arg 2)))
 	       (null ad-return-value))
       (setq ad-return-value 0))))
 
-(defadvice read-from-minibuffer (around skk-e18-ad activate)
-  ;;
+(defadvice read-from-minibuffer (around skk-e18-ad activate compile)
+  ;; `minibuffer-setup-hook' と `minibuffer-exit-hook' を有効にするための実験
+  ;; 的コード。SKK での動作確認は一応行っているが、汎用して問題がないと言える
+  ;; 段階ではない。
   (let (keymap)
     (with-current-buffer
 	(get-buffer-create
 	 (format " *Minibuf-%d*" (minibuffer-depth)))
-      (kill-all-local-variables)
-      (when minibuffer-setup-hook
-	(run-hooks 'minibuffer-setup-hook))
-      (setq keymap (or (current-local-map) minibuffer-local-map)))
+	(kill-all-local-variables)
+	(when minibuffer-setup-hook
+	  (save-window-excursion
+	    ;; 次の一行は
+	    ;;
+	    ;; `(window-buffer (minibuffer-window))'
+	    ;;
+	    ;; の返り値が上位の Emacsen と同等になるために必要。
+	    (set-window-buffer (minibuffer-window) (current-buffer))
+	    (run-hooks 'minibuffer-setup-hook)))
+	;; オリジナルの `read-from-minibuffer' の引数として、この段階における
+	;; local keymap を渡すため、ここで保存しておく。
+	(setq keymap (or (current-local-map)
+			 minibuffer-local-map)))
     ;;
     (setq ad-return-value
 	  (si:read-from-minibuffer
@@ -158,20 +189,25 @@ Install patch/e18/advice.el in load-path and try again.")))
       (with-current-buffer
 	  (get-buffer-create
 	   (format " *Minibuf-%d*" (minibuffer-depth)))
-	(condition-case nil
-	    (run-hooks 'minibuffer-exit-hook)
-	  (error))))))
+	(save-window-excursion
+	  (set-window-buffer (minibuffer-window) (current-buffer))
+	  (skk-e18-safe-run-hooks minibuffer-exit-hook))))))
 
+;; Emacs 18 において、`defadvice' は関数の定義後に呼ばれる必要があるため、以
+;; 下の関数を定義しておいて、これを `skk-mode-invoke' から呼び出す。
 (defun skk-e18-advise-skk-functions ()
   ;; It is impossible to take advantage of `pre-command-hook' and
   ;; `post-command-hook'.
-  (defadvice skk-insert (after skk-e18-ad activate)
+  (defadvice skk-insert (after skk-e18-ad activate compile)
     (skk-e18-pre-command))
 
-  (defadvice skk-previous-candidate (after skk-e18-ad activate)
+  (defadvice skk-previous-candidate (after skk-e18-ad activate compile)
     (skk-e18-pre-command))
 
-  (defadvice skk-kakutei (around skk-e18-ad activate)
+  (defadvice skk-kakutei (around skk-e18-ad activate compile)
+    ;; skk-tut を利用しているときなど、`skk-kakutei' の前後で `skk-jisyo' の
+    ;; 値が変わってしまうことがある。まだデバッグしていないため、work around
+    ;; する。
     (let ((skk-jisyo skk-jisyo))
       (when skk-henkan-on
 	(unless skk-mode
@@ -206,6 +242,9 @@ be applied to `file-coding-system-for-read'."
       (insert-file-contents filename visit))))
 
 (defun skk-e18-make-local-map (map1 map2)
+  ;; MAP1 と MAP2 の両方のキー定義が使えるキーマップを返す。
+  ;; `set-keymap-parent' と同様の手法ではうまくいかないため、このような小細工
+  ;; を弄している。
   (let ((alist1 (cdr (copy-sequence map1)))
 	(alist2 (cdr (copy-sequence map2)))
 	alist cell1 cell2 cell)
@@ -231,9 +270,12 @@ be applied to `file-coding-system-for-read'."
     (cons 'keymap alist)))
 
 (defun skk-e18-pre-command ()
-  (let ((char (if (= (setq char (read-char)) ?\C-g)
-		    (signal 'quit nil)
-		  (if (and skk-henkan-on
+  ;; この関数は SKK 8.6 の `j-kana-input' のコードを流用している。
+  ;;
+  ;; Emacs 18 においては `pre-command-hook' を利用する手立てが無いため、旧来
+  ;; の手法 (`read-char' で次の入力を捕まえる) によらざるを得ない。
+  (condition-case nil
+      (let ((char (if (and skk-henkan-on
 			   (not skk-henkan-active)
 			   ;; we must distinguish the two cases where
 			   ;; SKK-ECHO is on and off
@@ -245,11 +287,15 @@ be applied to `file-coding-system-for-read'."
 		      ;; consequtively.  For example, one sometimes
 		      ;; types "TE" when one should type "Te"
 		      (+ 32 char)
-		    char))))
-    (unless (memq (key-binding (char-to-string char))
-		  skk-kana-cleanup-command-list)
-      (skk-kana-cleanup t))
-    (setq unread-command-char char)))
+		    char)))
+	(unless (memq (key-binding (char-to-string char))
+		      skk-kana-cleanup-command-list)
+	  (skk-kana-cleanup t))
+	(setq unread-command-char char))
+    (quit
+     (if (skk-in-minibuffer-p)
+	 (abort-recursive-edit)
+       (keyboard-quit)))))
 
 (defun skk-e18-setup ()
   (let ((keymap (if (skk-in-minibuffer-p)

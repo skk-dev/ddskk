@@ -506,8 +506,8 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   ;;
   (when (and skk-process-okuri-early
 	     (eq skk-kanagaki-state 'kana))
-    ;; skk-process-okuri-early $B$,I{:nMQ$r;}$D$+$bCN$l$J$$!#2>L>F~NO$G$O$=$b$=(B
-    ;; $B$b0UL#$N$J$$%*%W%7%g%s$J$N$G6/@)E*$K(B off $B$K$9$k!#(B
+    ;; `skk-process-okuri-early' $B$,I{:nMQ$r;}$D$+$bCN$l$J$$!#2>L>F~NO$G$O$=$b(B
+    ;; $B$=$b0UL#$N$J$$%*%W%7%g%s$J$N$G6/@)E*$K(B off $B$K$9$k!#(B
     (setq skk-process-okuri-early nil))
   ;;
   (if (eq  skk-kanagaki-state 'kana)
