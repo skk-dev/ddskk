@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.117 2001/09/13 13:48:32 czkmt Exp $
+;; Version: $Id: skk.el,v 1.118 2001/09/13 13:51:00 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/13 13:48:32 $
+;; Last Modified: $Date: 2001/09/13 13:51:00 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -3035,10 +3035,10 @@ If you want to restore the dictionary from the disc, try
   ;; ローカル値なので、あらかじめ取得。
     (let ((okurigana (or skk-henkan-okurigana
 			 skk-okuri-char))
-	  (midasi
-	   (if skk-use-numeric-conversion
-	       (skk-num-compute-henkan-key skk-henkan-key)
-	     skk-henkan-key))
+	  (midasi (if skk-use-numeric-conversion
+		      (skk-num-compute-henkan-key
+		       skk-henkan-key)
+		    skk-henkan-key))
 	  (henkan-buffer (current-buffer))
 	  words-list)
       (with-current-buffer buf
