@@ -54,8 +54,8 @@ Install patch/e18/advice.el in load-path and try again."))))
 (defconst skk-cursor-change-width nil)
 (defconst skk-use-face nil)
 
-(require 'skk-macs)
 (require 'skk-vars)
+(require 'skk-macs)
 
 ;; Variables.
 (defvar skk-e18-self-insert-keys
