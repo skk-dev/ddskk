@@ -1,3 +1,22 @@
+2005-01-10  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* skk-kakasi.el (skk-kakasi-region): Add options "-ieuc" and "-oeuc".
+
+2004-12-31  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/skk-bayesian.el
+	(skk-bayesian-read-process-output): Change specifications.
+	(skk-bayesian-kill-process): Ditto.
+	(skk-bayesian-add-to-history): Bug fixed.
+	
+	* experimental/bayesian/bskk: Update comments.
+	(Distribution::initialize): Dont either chomp or raise exceptions.
+	(v_puts):Obsolete.
+	(v_err_puts):New.
+	(DB::initialize): Accept prefixes which have [:blank:].
+	(DB::initialize): Dont raise exceptions.
+	(serve): Bug fixed.
+
 2004-12-27  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/skk-bayesian.el (skk-bayesian-add-to-history): Bug fixed.
@@ -4769,8 +4788,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.830 2004/12/28 05:47:19 skk-cvs Exp $
-Last Modified: $Date: 2004/12/28 05:47:19 $
+Version: $Id: ChangeLog,v 1.831 2005/01/10 19:24:58 skk-cvs Exp $
+Last Modified: $Date: 2005/01/10 19:24:58 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
