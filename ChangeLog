@@ -1,3 +1,39 @@
+2004-03-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-menu-resource-ja):
+	(skk-e21-coding-system):
+
+	New variables.
+
+	(skk-e21-encode-string):
+	(skk-e21-menu-replace):
+
+	New functions.
+
+	* skk-macs.el (skk-indicator-to-string):
+	(skk-mode-string-to-indicator):
+	(skk-event-key):
+	(skk-update-modeline):
+	(skk-erase-prefix):
+	(skk-kana-cleanup):
+	(skk-mode-off):
+	(skk-j-mode-on):
+	(skk-latin-mode-on):
+	(skk-jisx0208-latin-mode-on):
+	(skk-abbrev-mode-on):
+	(skk-put-last-henkan-data):
+	(skk-find-coding-system):
+	(skk-quote-char-1):
+	(skk-key-binding-member):
+
+	`defun' instead of `defsubst', since these functions are not very
+	small.
+
+	* skk-vars.el (skk-show-japanese-menu): New user option.
+
+	* skk.el (skk-mode-invoke): Under Emacs 21, setup japanese menu
+	if requested.
+
 2004-03-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-e21-prepare-modeline-properties): Don't copy
@@ -4495,8 +4531,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.789 2004/03/09 17:42:56 czkmt Exp $
-Last Modified: $Date: 2004/03/09 17:42:56 $
+Version: $Id: ChangeLog,v 1.790 2004/03/31 23:44:14 czkmt Exp $
+Last Modified: $Date: 2004/03/31 23:44:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
