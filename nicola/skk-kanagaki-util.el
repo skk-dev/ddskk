@@ -185,22 +185,71 @@
   (interactive "*p")
   (let ((list skk-kanagaki-dakuten-alist)
 	(pt1 (point))
-	char1 char2)
+	(henkan-on (and skk-isearch-switch
+			(with-current-buffer
+			    (get-buffer-create skk-isearch-working-buffer)
+			  (eq skk-henkan-mode 'on))))
+	char1 char2 str)
     (ignore-errors
-      (setq char1 (skk-save-point
-		   (backward-char 1)
-		   (buffer-substring-no-properties
-		    (point)
-		    pt1))))
+      (setq char1 (cond
+		   (skk-isearch-switch
+		    (if henkan-on
+			(with-current-buffer skk-isearch-working-buffer
+			  (skk-save-point
+			   (backward-char 1)
+			   (buffer-substring-no-properties
+			    (point)
+			    pt1)))
+		      (substring isearch-string -1)))
+		   (t
+		    (skk-save-point
+		     (backward-char 1)
+		     (buffer-substring-no-properties
+		      (point)
+		      pt1))))))
     (cond
      ((setq char2 (funcall (if handakuten
-			       'caddr
-			     'cadr)
+			       #'caddr
+			     #'cadr)
 			   (assoc char1 list)))
-      (delete-char -1)
-      (skk-insert-str char2))
+      (cond
+       (skk-isearch-switch
+	(if henkan-on
+	    (with-current-buffer skk-isearch-working-buffer
+	      (delete-char -1)
+	      (skk-insert-str char2))
+	  (setq str isearch-string)
+	  (while (string= str (caar isearch-cmds))
+	    (with-current-buffer skk-isearch-current-buffer
+	      (skk-isearch-delete-char arg)))
+	  (setq isearch-string (concat (caar isearch-cmds) char2)
+		isearch-message (concat
+				 (skk-isearch-mode-string)
+				 (mapconcat
+				  #'isearch-text-char-description
+				  isearch-string "")))
+	  (put 'isearch-barrier 'skk-kanagaki t)
+	  (setq unread-command-events
+		(list (aref (where-is-internal
+			     (if isearch-forward 'isearch-repeat-forward
+			       'isearch-repeat-backward)
+			     isearch-mode-map t)
+			    0)))))
+       (t
+	(delete-char -1)
+	(skk-insert-str char2))))
      (t
-      (skk-insert-str "゛")))))
+      (skk-insert-str (if handakuten
+			  "゜"
+			"゛"))))))
+
+(defadvice isearch-repeat (around skk-kanagaki-workaround activate)
+  (cond ((get 'isearch-barrier 'skk-kanagaki)
+	 (goto-char isearch-barrier)
+	 ad-do-it
+	 (put 'isearch-barrier 'skk-kanagaki nil))
+	(t
+	 ad-do-it)))
 
 ;;;###autoload
 (defun skk-kanagaki-handakuten (&optional arg)
