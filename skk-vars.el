@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.107 2002/07/19 23:06:26 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.108 2002/07/27 06:24:48 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/19 23:06:26 $
+;; Last Modified: $Date: 2002/07/27 06:24:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1231,19 +1231,6 @@ highlight, underline, bold, italic, bold-italic $B$NB>!"?7$?$K(B face $B$r:n
   :group 'skk-auto)
 
 ;;; SKK-COMP.EL related.
-(defcustom skk-dabbrev-like-completion nil
-  "*Non-nil $B$G$"$l$P!":G8e$KJd40$5$l$?8l$K$D$$$F99$KJd40$,9T$o$l$k!#(B
-$BNc$($P!"(B
-
-  \"$B$5(B\" (,) -> \"$B$5$H$&(B\" (,) -> \"$B$5$H$&$;$s$;$$(B\"
-
-nil $B$G$"$l$P!"@hF,$NJ8;z$r6&DL$K$9$kJ8;zNs$K$D$$$FJd40$,9T$o$l$k!#(B
-$BNc$($P!"(B
-
-  \"$B$5(B\" (,) -> \"$B$5$H$&(B\" (,) -> \"$B$5$$$H$&(B\" (,) -> \"$B$5$/$i(B\""
-  :type 'boolean
-  :group 'skk-comp)
-
 (defcustom skk-comp-load-hook nil
   "*skk-comp.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
   :type 'hook
@@ -2615,9 +2602,7 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 ;; $B6uJ8;zNs$KBP$7$F(B skk-comp-do $B$r8F$V$3$H$b$"$j$&$k$N$G!"(B"" $B$r(B nil $B$G$OBe(B
 ;; $BMQ$G$-$J$$!#(B
 (skk-deflocalvar skk-comp-key ""
-  "$BJd40$9$Y$-8+=P$78l!#(B
-`skk-dabbrev-like-completion' $B$,(B non-nil $B$N>l9g$O!">o$K:G8e$KJd40$7$?8+=P$78l$,(B
-$BBeF~$5$l$k!#(B")
+  "$BJd40$9$Y$-8+=P$78l!#(B")
 ;; $B<-=qEPO?;~%_%K%P%C%U%!$GJd40$7$?>l9g!"85$N%P%C%U%!$KLa$C$?$H$-$K(B
 ;; skk-comp-key $B$NCM$,GK2u$5$l$F$$$J$$J}$,%Y%?!<!#(B
 
