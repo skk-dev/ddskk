@@ -38,9 +38,7 @@
 
 ;;;###autoload (require 'skk-setup)
 
-(static-when
-    (and (eq skk-emacs-type 'xemacs)
-	 (< emacs-major-version 21))
+(static-when (< emacs-major-version 21)
   ;; From Naoki Wakamatsu <naoki-w@ht-net21.ne.jp>
   ;;
   ;; XEmacs 20.4 (Mule) includes SKK 10.38 and loads skk-leim.el on dump,
