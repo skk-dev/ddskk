@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.70 2001/03/12 15:57:13 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.71 2001/03/21 03:48:23 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/03/12 15:57:13 $
+@c  Last Modified: $Date: 2001/03/21 03:48:23 $
 @c
 @set EDITION 1.6
 @set SKK-VERSION 11.4
-@set UPDATED $Date: 2001/03/12 15:57:13 $
+@set UPDATED $Date: 2001/03/21 03:48:23 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6678,10 +6678,10 @@ Canna や Wnn のサーバと接続して検索が可能になるようにする
 
 @menu
 * SKK Ring Server Openlab メーリングリスト::  
-* ユーザーメーリングリスト::    
+@c * ユーザーメーリングリスト::    
 @end menu
 
-@node SKK Ring Server Openlab メーリングリスト, ユーザーメーリングリスト, SKKメーリングリスト, SKKメーリングリスト
+@node SKK Ring Server Openlab メーリングリスト, , SKKメーリングリスト, SKKメーリングリスト
 @comment  node-name,  next,  previous,  up
 @section SKK Ring Server Openlab メーリングリスト
 @cindex メーリングリスト
@@ -6727,59 +6727,6 @@ HTTP 経由でニュースを見ることもできます。
 データベースエンジンが装備されていますので、ニュース記事のキーワード検索
 を行なうこともできます。
 
-@node ユーザーメーリングリスト,  , SKK Ring Server Openlab メーリングリスト, SKKメーリングリスト
-@comment  node-name,  next,  previous,  up
-@section ユーザーメーリングリスト
-@cindex メーリングリスト
-
-SKK に関する意見交換の場として SKK メーリングリストが開設されています。
-これは SKK Ring Server Openlab メーリングリストが開設されるよりもずっと
-前から利用されているメーリングリストで、現在でも投稿があります。
-
-
-@table @asis
-@item メーリングリストへ参加したいとき。
-
-@samp{skk-join@@kuis.kyoto-u.ac.jp} へメールを送れば、自動的に発信者のメー
-ルアドレス (@samp{From:}のアドレス) が登録されます。
-
-@item メーリングリストへの記事の投稿を行なうとき。
-
-@samp{skk@@kuis.kyoto-u.ac.jp} へ送れば自動的に全ての登録者に送付されま
-す。
-
-@item メーリングリストに登録したアドレスを変更したいとき。
-
-新しいメールアドレスから @samp{skk-change@@kuis.kyoto-u.ac.jp} 宛に、本
-文の 1 行目に下記の書式で旧アドレスを書いたメールを送付します。
-
-@example
-@samp{Old:@var{your-old-address}}
-@end example
-
-@item メーリングリストから抜けたいとき。
-
-@samp{skk-leave@@kuis.kyoto-u.ac.jp}へメールを送ります。
-@end table
-
-@samp{skk-source@@kuis.kyoto-u.ac.jp} 宛にメールを送付することで、過去の
-SKK メーリングリストへの投稿記事を入手することができます。入手したい記事
-の @samp{Mailinglist-ID:} に従って、以下の要領で @samp{Subject:} を指定
-し、メールを送付することで、指定された内容のメールが返送されます。
-
-@table @asis
-@item @samp{Mailinglist-ID:}が134の記事を入手する場合。
-
-@samp{Subject: 134}
-
-@item @samp{Mailinglist-ID:}が100番から199番の記事を全部入手する場合。
-
-@samp{Subject: ml-contents-01}
-@end table
-
-@noindent
-ただし、0 〜 99 番の場合は @samp{ml-contents-00}と指定します。なお、
-Mailinglist-ID: が欠番の部分もあります。
 
 @node SKKの入手方法, SKK関連ソフトウェア, SKKメーリングリスト, Top
 @comment  node-name,  next,  previous,  up
