@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.14 1999/10/10 13:01:38 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.15 1999/10/10 13:04:17 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/10 13:01:38 $
+;; Last Modified: $Date: 1999/10/10 13:04:17 $
 
 ;; This file is not part of SKK yet.
 
@@ -109,7 +109,7 @@
   :type 'boolean
   :group 'skk-study )
 	 
-(defcustom skk-study-search-times 4
+(defcustom skk-study-search-times 3
   "*現在の変換キーに対する関連変換キーをいくつまで遡って検索するか。"
   :type 'integer
   :group 'skk-study )
