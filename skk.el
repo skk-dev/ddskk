@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.216 2002/01/11 13:31:35 czkmt Exp $
+;; Version: $Id: skk.el,v 1.217 2002/01/11 14:44:11 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/11 13:31:35 $
+;; Last Modified: $Date: 2002/01/11 14:44:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2721,14 +2721,14 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	  (skk-check-size-and-do-save-jisyo tempo-file)
 	  ;; 辞書のセーブに成功して初めて modified フラッグを nil にする。
 	  (set-buffer-modified-p nil)
-	  (setq skk-update-jisyo-count 0)
 	  (unless quiet
 	    (skk-message "SKK 辞書を保存しています...完了！"
 			 "Saving SKK jisyo...done")
 	    (sit-for 1)))
 	(when skk-share-private-jisyo
 	  (skk-init-shared-jisyo)
-	  (unlock-buffer))))))
+	  (unlock-buffer)))))
+  (setq skk-update-jisyo-count 0))
 
 (defun skk-init-shared-jisyo ()
   (fillarray skk-jisyo-update-vector nil)
