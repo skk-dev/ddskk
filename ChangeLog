@@ -1,3 +1,30 @@
+2000-11-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-tut.el (skktut-init-variables-alist): Remove
+	`(skk-convert-okurigana-into-katakana . nil)' element.
+
+	* skk-vars.el (skk-convert-okurigana-into-katakana): Removed.
+
+	* skk.el (skk-start-henkan): When SKK-KATAKANA is non-nil and ARG
+	is equal to 1, not convert a string of a region to hiragana but
+	convert a string in SKK-HENKAN-KEY itself.
+	(skk-set-okurigana): Ditto.  Also convert SKK-HENKAN-OKURIGANA.
+	(skk-hiragana-to-katakana): Bug fixed.
+	(skk-katakana-to-hiragana): Ditto.
+	(skk-toggle-characters): Convert region even if SKK-HENKAN-ACTIVE
+	is non-nil.  Try to recognize characters type by checking second
+	characters and more even if type of first character is `unknown'.
+	Doc updated.
+	(skk-previous-candidate): Put out katakana when SKK-KATAKANA is non-nil.
+	(skk-kakutei-cleanup-buffer): Not to convert okurigana into
+	katakana.
+
+	* doc/skk.texi: Call `texinfo-every-node-update' and
+	`texinfo-all-menus-update'.
+	
+	* doc/skk.texi (送りあり変換中のC-g): Doc fixed.
+	(カナモードでの変換の送り仮名の処理): Removed.
+	
 2000-11-11  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk.el (skk-quote-char): Use `format' instead of `concat'.
@@ -2223,8 +2250,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.133 2000/11/10 21:03:40 minakaji Exp $
-Last Modified: $Date: 2000/11/10 21:03:40 $
+Version: $Id: ChangeLog,v 1.134 2000/11/11 23:39:13 minakaji Exp $
+Last Modified: $Date: 2000/11/11 23:39:13 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.50 2000/11/11 04:26:52 czkmt Exp $
+;; Version: $Id: skk.el,v 1.51 2000/11/11 23:39:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/11 04:26:52 $
+;; Last Modified: $Date: 2000/11/11 23:39:14 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -842,22 +842,24 @@ dependent."
 
 (defun skk-toggle-characters (arg)
   "■モードで、ひらがなモードとカタカナモードをトグルで切り替える。
-▽モードでは、skk-henkan-start-point (▽の直後) とカーソルの間の文字列を
+▼モード、▽モードでは、skk-henkan-start-point (▽の直後) とカーソルの間の文字列を
 
     ひらがな <=> カタカナ
     全角英数字 <=> ascii
 
 のように変換する。"
   (interactive "P")
-  (cond ((and skk-henkan-on (not skk-henkan-active))
+  (cond (skk-henkan-on
          (let (char)
            (skk-set-marker skk-henkan-end-point (point))
            (skk-save-point
-             (goto-char skk-henkan-start-point)
-             ;; "ー" では文字種別が判別できないので、ポイントを進める。
-             (while (looking-at "ー")
-               (forward-char 1))
-             (setq char (skk-what-char-type)))
+	    (goto-char skk-henkan-start-point)
+	    
+	    (while (or 
+		    ;; "ー" では文字種別が判別できないので、ポイントを進める。
+		    (looking-at "ー")
+		    (eq 'unknown (setq char (skk-what-char-type))))
+	      (forward-char 1)))
            (cond ((eq char 'hiragana)
                   (skk-katakana-region
 		   skk-henkan-start-point skk-henkan-end-point
@@ -875,7 +877,7 @@ dependent."
          ;; ミニバッファへの初突入時。
          (skk-j-mode-on)
 	 ;; ここで skk-katakana フラグを立てておかなくて良いのか？
-	)
+	 )
         (t (setq skk-katakana (not skk-katakana))))
   (skk-kakutei))
 
@@ -1280,7 +1282,7 @@ dependent."
 (defun skk-set-okurigana ()
   ;; 見出し語から skk-henkan-okurigana, skk-henkan-key の各値をセットする。
   (cancel-undo-boundary)
-  (and skk-katakana (skk-hiragana-region skk-henkan-start-point (point)))
+  ;;(and skk-katakana (skk-hiragana-region skk-henkan-start-point (point)))
   (skk-set-marker skk-henkan-end-point skk-okurigana-start-point)
   ;; just in case
   (skk-save-point
@@ -1296,6 +1298,10 @@ dependent."
 				    skk-henkan-okurigana)
 				   skk-okuri-char))
         skk-prefix "")
+  (if skk-katakana
+      (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)
+	    skk-henkan-okurigana
+	    (skk-katakana-to-hiragana skk-henkan-okurigana)))
   (delete-region skk-okurigana-start-point (1+ skk-okurigana-start-point))
   (setq skk-henkan-count 0)
   (skk-henkan)
@@ -1853,7 +1859,10 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	 ;; restore the state just before the last kakutei henkan.
 	 (delete-region skk-henkan-start-point (point))
 	 (skk-set-henkan-point-subr)
-	 (insert-and-inherit (skk-get-last-henkan-datum 'henkan-key))
+	 (insert-and-inherit 
+	  (if (not skk-katakana)
+	      (skk-get-last-henkan-datum 'henkan-key)
+	    (skk-hiragana-to-katakana (skk-get-last-henkan-datum 'henkan-key))))
 	 (setq this-command 'skk-undo-kakutei-henkan))
      (if (string= skk-henkan-key "")
 	 nil
@@ -1866,6 +1875,9 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		(and skk-okuri-char
 		     ;; roman prefix for okurigana should be removed.
 		     (setq skk-henkan-key (substring skk-henkan-key 0 -1)))
+		(if skk-katakana
+		    (setq skk-henkan-key
+			  (skk-hiragana-to-katakana skk-henkan-key)))
 		(setq skk-henkan-count -1
 		      skk-henkan-in-minibuff-flag nil
 		      skk-henkan-list nil
@@ -1967,9 +1979,9 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   (if skk-okurigana
       (progn
         (skk-delete-okuri-mark)))
-  (and skk-katakana skk-convert-okurigana-into-katakana
-       (< skk-henkan-end-point (point))
-       (skk-katakana-region skk-henkan-end-point (point)))
+  ;;(and skk-katakana skk-convert-okurigana-into-katakana
+  ;;     (< skk-henkan-end-point (point))
+  ;;     (skk-katakana-region skk-henkan-end-point (point)))
   (skk-delete-henkan-markers)
   (and (boundp 'self-insert-after-hook) self-insert-after-hook
        (funcall self-insert-after-hook skk-henkan-start-point (point)))
@@ -2199,10 +2211,10 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	      (skk-error
 	       "カーソルが変換開始地点より前にあります"
 	       "Henkan end point must be after henkan start point"))
-	 (and skk-katakana (= arg 1)
-	      (skk-hiragana-region skk-henkan-start-point pos))
 	 (setq skk-henkan-key (buffer-substring-no-properties
 			       skk-henkan-start-point pos))
+	 (and skk-katakana (= arg 1)
+	      (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)))
 	 (and skk-okurigana (string-match "\\* *$" skk-henkan-key)
 	      (skk-error
 	       "空の送り仮名で漢字を登録しようとしています"
@@ -3192,7 +3204,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	    (if skk-share-private-jisyo
 		(aset skk-jisyo-update-vector skk-update-jisyo-count
 		      (list midasi okurigana word purge)))
-	    	    (and skk-update-end-function
+	    (and skk-update-end-function
 		 (funcall skk-update-end-function
 			  henkan-buffer midasi okurigana word purge))
 	    (setq skk-update-jisyo-count (1+ skk-update-jisyo-count))
@@ -3512,8 +3524,12 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (static-cond
    ((not (eq skk-emacs-type 'nemacs))
     (let ((diff (- ?ア ?あ)))
-      (mapconcat (function (lambda (e) (char-to-string (+ e diff))))
-		 (string-to-int-list hiragana) "")))
+      (mapconcat
+       (function (lambda (e)
+		   (if (and (<= ?ぁ e) (>= ?ん e))
+		       (char-to-string (+ e diff))
+		     (char-to-string e))))
+       (string-to-int-list hiragana) "")))
    (t (save-match-data
 	(let ((start 0))
 	  (while (string-match "[ぁ-ん]" hiragana start)
@@ -3525,8 +3541,12 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (static-cond
    ((not (eq skk-emacs-type 'nemacs))
     (let ((diff (- ?ア ?あ)))
-      (mapconcat (function (lambda (e) (char-to-string (- e diff))))
-		 (string-to-int-list katakana) "")))
+      (mapconcat
+       (function (lambda (e)
+		   (if (and (<= ?ァ e) (>= ?ン e))
+		       (char-to-string (- e diff))
+		     (char-to-string e))))
+       (string-to-int-list katakana) "")))
    (t (save-match-data
 	(let ((start 0))
 	  (while (string-match "[ァ-ン]" katakana start)

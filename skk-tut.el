@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.15 2000/11/11 03:10:51 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.16 2000/11/11 23:39:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/11 03:10:51 $
+;; Last Modified: $Date: 2000/11/11 23:39:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -128,7 +128,7 @@ The English version is SKK.tut.E."
     (skk-byte-compile-init-file . nil)
     (skk-comp-load-hook . nil)
     (skk-compare-jisyo-size-when-saving . nil)
-    (skk-convert-okurigana-into-katakana . nil)
+    ;;(skk-convert-okurigana-into-katakana . nil)
     (skk-count-jisyo-candidates-function . 'skk-count-jisyo-candidates-original)
     (skk-count-private-jisyo-candidates-exactly . nil)
     (skk-dabbrev-like-completion . nil)

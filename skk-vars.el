@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.8 2000/11/06 10:38:54 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.9 2000/11/11 23:39:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/06 10:38:54 $
+;; Last Modified: $Date: 2000/11/11 23:39:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -598,11 +598,6 @@ skk-hiragana-henkan, skk-jisx0208-latin-henkan 及び
 skk-backward-and-set-henkan-point の動作に影響する。"
   :type 'boolean
   :group 'skk-misc)
-
-(defcustom skk-convert-okurigana-into-katakana nil
-  "*Non-nil であれば、カタカナモードで変換したときに送り仮名もカタカナに変換する。"
-  :type 'boolean
-  :group 'skk-okurigana)
 
 (defcustom skk-delete-okuri-when-quit nil
   "*Non-nil であれば、送りありの変換中に \"C-g\" を押すと送り仮名を消し▽モードに入る。

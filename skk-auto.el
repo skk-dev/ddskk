@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.4 2000/10/30 22:10:14 minakaji Exp $
+;; Version: $Id: skk-auto.el,v 1.5 2000/11/11 23:39:13 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:14 $
+;; Last Modified: $Date: 2000/11/11 23:39:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -45,7 +45,9 @@
         (setq skk-okuri-index-min (length skk-henkan-list)
               l (funcall skk-okuri-search-function)
               skk-okuri-index-max (+ skk-okuri-index-min (length l)) )
-        l )))
+	(if (not skk-katakana)
+	    l
+	  (mapcar (function (lambda (e) (skk-hiragana-to-katakana e))) l)))))
 
 (defun skk-okuri-search-subr-original ()
   ;; skk-okuri-search のサブルーチン。見つけたエントリのリストを返す。
