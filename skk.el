@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.128 2001/10/02 22:31:52 czkmt Exp $
+;; Version: $Id: skk.el,v 1.129 2001/10/03 00:13:12 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/02 22:31:52 $
+;; Last Modified: $Date: 2001/10/03 00:13:12 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -830,7 +830,7 @@ dependent."
   ;;   ;; okuri-nasi entries.
   ;;
   ;; skk-okuri-ari-min と skk-okuri-ari-max のマーカーが重なってしまい、
-  ;; skk-okuri-ari-min の位置に挿入したエントリが skk-okuri-ari-max のマーカー
+  ;; skk-okuri-ari-min の位置に挿入した候補が skk-okuri-ari-max のマーカー
   ;; を後方に押しやらない。
   ;;
   ;; この関数のオリジナルの名称は、j-check-jisyo だったが、skk-check-jisyo と
@@ -3153,12 +3153,12 @@ If you want to restore the dictionary from the disc, try
 	   (cond
 	    ((and okurigana
 		  skk-henkan-okuri-strictly)
-	     ;; 送り仮名が同一のエントリのみを返す。
+	     ;; 送り仮名が同一の候補のみを返す。
 	     (nth 2 list))
 	    ((and okurigana
 		  skk-henkan-strict-okuri-precedence)
-	     ;; 送り仮名が同一のエントリのうしろに、
-	     ;; その他のエントリをつけてかえす。
+	     ;; 送り仮名が同一の候補のうしろに、
+	     ;; その他の候補をつけてかえす。
 	     (skk-nunion (nth 2 list)
 			 (car list)))
 	    (t
@@ -3302,8 +3302,8 @@ If you want to restore the dictionary from the disc, try
 
 (defun skk-update-jisyo-original (word &optional purge)
   ;; WORD が次の変換時に最初の候補になるように、プライベート辞書を更新する。
-  ;; PURGE が non-nil で WORD が共有辞書にあるエントリなら skk-ignore-dic-word
-  ;; 関数でクォートしたエントリをプライベート辞書に作り、次の変換から出力しな
+  ;; PURGE が non-nil で WORD が共有辞書にある候補なら skk-ignore-dic-word
+  ;; 関数でクォートした候補をプライベート辞書に作り、次の変換から出力しな
   ;; いようにする。
   ;; WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。
   ;;
@@ -3463,8 +3463,7 @@ If you want to restore the dictionary from the disc, try
 	    (when (null words3)
 	      ;; words3 として挿入するものが全くなければ、"/[く/]/" のよ
 	      ;; うな送り仮名のみの候補を作らないようにする (必要で
-	      ;; あれば、words2 の最後方と) words4 の先頭のエントリ "]"
-	      ;; を削除。
+	      ;; あれば、words2 の最後方と) words4 の先頭の "]" を削除。
 	      (let ((last2 (nthcdr (- (length words2) 2)
 				   words2)))
 		;; words2 の最後方は常に "[送り仮名" とは限らない。
@@ -3501,7 +3500,7 @@ If you want to restore the dictionary from the disc, try
 		"/")
 	;; words2 が null なら words3 も null。
 	(when words3
-	  ;; words3 -- 今回使用した送り仮名を使う全漢字エントリ
+	  ;; words3 -- 今回使用した送り仮名を使う全漢字候補
 	  (insert (mapconcat 'skk-quote-char
 			     words3
 			     "/")
