@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.23 1999/09/25 10:52:54 minakaji Exp $
-;; Last Modified: $Date: 1999/09/25 10:52:54 $
+;; Version: $Id: SKK-MK,v 1.25 1999/10/03 12:43:40 minakaji Exp $
+;; Last Modified: $Date: 1999/10/03 12:43:40 $
 
 ;; Commentary
 ;;
@@ -145,13 +145,17 @@ end with `skk'." )
 			    skk-num skk-obsolete skk-server skk-tut
 			    skk skk-develop skk-autoloads
 			    ;; EXPERIMENTAL
-			    skk-rdbms skk-study
+			    skk-rdbms skk-study skk-tutcode skk-tutcdef skk-dcomp
 			    ;; VIP 3.7
 			    ;; vip
 			    )))
 	(and SKK-MK-running-xemacs
 	     (member "skk-leim" preloaded-file-list)
 	     (setq list (nconc list (list 'skk-vars))) )
+	(condition-case nil
+	    ;; you might have to add lookup installed directory to `load-path'.
+	    (and (require 'lookup) (setq list (nconc list (list 'skk-lookup))))
+	  (error) )
 	(condition-case nil
 	    (and (require 'viper) (setq list (nconc list (list 'skk-viper))))
 	  (error) )
@@ -423,6 +427,7 @@ SKK tutorials:
 (defun SKK-MK-what-where-package ()
   (interactive)
   ;;(SKK-MK-config-package)
+  (or (featurep 'xemacs) (error "This directive is only for XEmacs."))
   (let ((string
 	 (format "
 SKK modules:

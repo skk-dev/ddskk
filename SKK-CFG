@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-CFG,v 1.8 1999/09/25 11:11:43 minakaji Exp $
-;; Last Modified: $Date: 1999/09/25 11:11:43 $
+;; Version: $Id: SKK-CFG,v 1.9 1999/10/03 12:47:07 minakaji Exp $
+;; Last Modified: $Date: 1999/10/03 12:47:07 $
 
 ;; Commentary
 ;;
@@ -54,7 +54,6 @@
 ;;       (or (getenv "SKK_INFOS")
 ;;           '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4") ))
 ;; (setq SKK_MODULES
-;;       ;; こんなもんコマンドラインで指定する人いないよね？
 ;;       (or (getenv "SKK_MODULES")
 ;;           (let ((list '(queue-m stack-m skk-foreword
 ;;                                 skk-gadget skk-isearch skk-auto skk-comp
@@ -62,13 +61,17 @@
 ;;                                 skk-num skk-obsolete skk-server skk-tut
 ;;                                 skk skk-develop skk-autoloads
 ;;                                 ;; EXPERIMENTAL
-;;                                 skk-rdbms skk-study
+;;                                 skk-rdbms skk-study skk-tutcode skk-tutcdef skk-dcomp
 ;;                                 ;; VIP 3.7
 ;;                                 ;; vip
 ;;                                 )))
 ;;             (and SKK-MK-running-xemacs
 ;;                  (member "skk-leim" preloaded-file-list)
 ;;                  (setq list (nconc list (list 'skk-vars))) )
+;;             (condition-case nil
+;;                 ;; you might have to add lookup installed directory to `load-path'.
+;;                 (and (require 'lookup) (setq list (nconc list (list 'skk-lookup))))
+;;               (error) )
 ;;             (condition-case nil
 ;;                 (and (require 'viper) (setq list (nconc list (list 'skk-viper))))
 ;;               (error) )
