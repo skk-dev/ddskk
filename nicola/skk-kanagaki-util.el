@@ -94,36 +94,6 @@
      (display-buffer buf))))
 
 ;;;###autoload
-(put 'skk-kanagaki-call-xmodmap 'lisp-indent-function 1)
-
-;;;###autoload
-(defmacro skk-kanagaki-call-xmodmap (string &rest form)
-  ;; STRING の内容を xmodmap に渡す。成功したら FORM を実行する。
-  (list
-   'let '((x (eq window-system 'x))
-	  (prog (exec-installed-p "xmodmap"))
-	  (tmp (make-temp-file "kanagaki")))
-   (list
-    'cond
-    (list
-     (list 'and 'x 'prog
-	   '(message "xmodmap を呼んでいます...")
-	   (list
-	    'save-excursion
-	    '(set-buffer (get-buffer-create " *kanagaki*"))
-	    '(erase-buffer)
-	    (list 'insert string)
-	    '(write-region (point-min) (point-max) tmp)
-	    '(eq 0 (call-process prog nil nil nil tmp))))
-     ;;
-     (` (progn
-	  (,@ form)))
-     '(delete-file tmp)
-     '(message "xmodmap を呼んでいます...完了"))
-    '(t
-      (message "xmodmap の呼び出しに失敗しました")))))
-
-;;;###autoload
 (defun skk-nicola-visit-nicola-website ()
   (interactive)
   (let ((func (cond
