@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.4 2004/02/29 01:39:38 minakaji Exp $
+;; Version: $Id: skk-bayesian.el,v 1.5 2004/02/29 07:16:00 kurihara Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/02/29 01:39:38 $
+;; Last Modified: $Date: 2004/02/29 07:16:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -86,7 +86,7 @@
 (require 'skk-macs)
 
 (defvar skk-bayesian-prefer-server nil
-  "*non-nil ならば、`skk-bayesian-server-port'の`skk-bayesian-port'に接続する。
+  "non-nil ならば、`skk-bayesian-host'の`skk-bayesian-port'に接続する。
 そうでなければ、bskk をサブプロセスとして立ち上げる。")
 (defvar skk-bayesian-port 51178
   "*`skk-bayesian-prefer-server'が non-nil の時に`skk-bayesian-host'に接続するポート番号")
@@ -128,14 +128,14 @@
       ;; make entry-str
       (let ((e entry))
         (while e
-          (setq entry-str (concat entry-str " " (car e)))
-          (setq e (cdr e))))
-      (skk-bayesian-debug-message (concat "entry-str=" entry-str))
+          (setq entry-str (concat entry-str (car e) "/"))
+          (setq e (cdr e)))
+        (skk-bayesian-debug-message (concat "entry-str=" entry-str)))
       ;; make prefix-str
       (with-current-buffer henkan-buffer
-	(let* ((just-before-point (- (point) (length midasi) 2))
-	       (prefix-str-len 0)
-	       char)
+	(let ((just-before-point (- (point) (length midasi) 2))
+              (prefix-str-len 0)
+              char)
 	  (while (and (<= (point-min) just-before-point)
 		      (<= prefix-str-len skk-bayesian-prefix-len))
 	    (setq char (buffer-substring-no-properties
@@ -143,9 +143,8 @@
 	    (when (not (string-match "[[:cntrl:][:blank:]]" char))
 	      (setq prefix-str (concat char " " prefix-str))
 	      (setq prefix-str-len (1+ prefix-str-len)))
-	    (setq just-before-point (1- just-before-point)))
-	  ))
-      (skk-bayesian-debug-message (concat "prefix-str=" prefix-str))
+	    (setq just-before-point (1- just-before-point))))
+        (skk-bayesian-debug-message (concat "prefix-str=" prefix-str)))
       ;; send prefix-str to skk-bayesian-process
       (with-current-buffer (process-buffer skk-bayesian-process)
 	(delete-region (point-min) (point-max))
