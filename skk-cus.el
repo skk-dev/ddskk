@@ -22,14 +22,7 @@
 
 ;;; Commentary:
 
-;; ~/.skk に
-
-;; (require 'skk-cus)
-;; (skk-cus-setup)
-
-;; と書く。
-
-;; SKK 起動後は M-x skk-customize で設定する。
+;; SKK 起動後 M-x skk-customize で設定する。
 
 ;;; Code:
 
