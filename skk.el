@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.192 2001/11/19 14:07:39 czkmt Exp $
+;; Version: $Id: skk.el,v 1.193 2001/11/19 15:03:42 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 14:07:39 $
+;; Last Modified: $Date: 2001/11/19 15:03:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -400,11 +400,11 @@ dependent."
       (while (< i 127)
 	(define-key skk-j-mode-map (char-to-string i) 'skk-insert)
 	(setq i (1+ i))))
-    (skk-define-menu skk-j-mode-map)
-    (when skk-use-jisx0201-input-method
-      ;; These commands are autoloaded.
-      (define-key skk-j-mode-map "\C-c\C-q" 'skk-toggle-jisx0201)
-      (define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana))))
+    (skk-define-menu skk-j-mode-map))
+  (when skk-use-jisx0201-input-method
+    ;; These commands are autoloaded.
+    (define-key skk-j-mode-map "\C-c\C-q" 'skk-toggle-jisx0201)
+    (define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana)))
 
 (defun skk-define-latin-mode-map ()
   (unless (keymapp skk-latin-mode-map)
