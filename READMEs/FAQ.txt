@@ -1,8 +1,8 @@
 
 -*- outline -*-
 
-             $Date: 2000/11/16 11:54:34 $
-	     $Id: FAQ.txt,v 1.10 2000/11/16 11:54:34 czkmt Exp $
+             $Date: 2000/11/19 01:21:08 $
+	     $Id: FAQ.txt,v 1.11 2000/11/19 01:21:08 minakaji Exp $
 
 これは SKK に対するよくある質問と、それに対する回答集です。
 
@@ -596,8 +596,7 @@ Lookup が扱える辞書はほとんど使えます。Lookup がインストールされている
 `-q -no-site-file' $Bフラグ付きで呼ばれるので、.emacs や site-start.el
 などは読み込まれないことです。ディフォルトで load-path の通っているディ
 レクトリに lookup をインストールするか、SKK-CFG の中で
-VERSION_SPECIFIC_LISPDIR などにディレクトリを明示することで解決できま
-す。
+ADDITIONAL_LISPDIR などにディレクトリを明示することで解決できます。
 
 さぁ、.emacs か .skk で skk-search-prog-list の要素に
 (skk-lookup-search) を追加しましょう。他の検索エンジンよりも検索は比較
