@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.47 2001/08/31 19:30:15 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.48 2001/09/06 21:26:17 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:15 $
+;; Last Modified: $Date: 2001/09/06 21:26:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1533,7 +1533,7 @@ cdr は元号表記の string からなるリスト。"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "März")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Adrz")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
@@ -2516,21 +2516,9 @@ This map should be derived from isearch-mode-map.")
 (defvar skk-isearch-current-buffer nil)
 
 ;;; -- SKK-JISX0201.EL related internal constants and variables.
-(defvar skk-jisx0201-mode-map nil "*SKK JISX0201 モードのキーマップ。")
-
-(defvar skk-jisx0201-rule-tree nil
-  "ローマ字 -> JISX0201 変換の状態遷移規則を表すツリーの初期状態。
-skk-mode の起動時に毎回 skk-rom-kana-base-rule-list と
-skk-rom-kana-rule-list から木の形にコンパイルされる。")
-
 (defvar skk-jisx0201-base-rule-tree nil)
 (defvar skk-jisx0201-roman-rule-tree nil)
 (skk-deflocalvar skk-jisx0201-roman nil)
-
-(skk-deflocalvar skk-jisx0201-current-rule-tree nil
-  "ローマ字 -> JISX0201 変換の状態遷移規則を表わすツリーの現時点の状態。
-ローマ字入力の初期では skk-jisx0201-rule-tree と同一の状態で、文字入力が進むに
-つれ、木をたどってゆく状態の遷移を表す。")
 
 (skk-deflocalvar skk-jisx0201-mode nil
   "Non-nil であれば、入力モードが JISX0201 モードであることを示す。")

@@ -8,6 +8,19 @@
 
 	* skk-xemacs.el (skk-xemacs-modeline-menu-items): Ditto.
 
+	* skk-jisx0201.el: Don't set the global value of a variable at
+	local eval.
+	(skk-jisx0201-insert, skk-jisx0201-kana-input,
+	skk-jisx0201-set-henkan-point,
+	skk-jisx0201-set-henkan-point-subr): Abolish.
+	(skk-jisx0201-mode-map): Use `skk-j-mode-map' instead.
+	(skk-jisx0201-orig-rule-tree): New variable.
+	(skk-set-okurigana, skk-insert): Advise to do OKURI-ARI
+	conversion.
+
+	* skk.el (skk-emulate-original-map): Do emulation also in
+	skk-jisx0201-mode.
+
 2001-09-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-isearch.el (isearch-repeat): Don't show
@@ -1735,8 +1748,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.351 2001/09/06 09:05:30 czkmt Exp $
-Last Modified: $Date: 2001/09/06 09:05:30 $
+Version: $Id: ChangeLog,v 1.352 2001/09/06 21:26:17 czkmt Exp $
+Last Modified: $Date: 2001/09/06 21:26:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
