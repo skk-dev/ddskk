@@ -3,6 +3,9 @@
 	* skk-comp.el
 	(skk-comp-by-history): Use `pop'.
 
+	* skk-isearch.el
+	(skk-isearch-current-mode): Use `case'.
+
 	* skk.el
 	(skk-after-point-move)
 	(skk-pre-command): More specific.
@@ -2181,8 +2184,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.448 2001/10/06 06:29:08 czkmt Exp $
-Last Modified: $Date: 2001/10/06 06:29:08 $
+Version: $Id: ChangeLog,v 1.449 2001/10/06 06:46:35 czkmt Exp $
+Last Modified: $Date: 2001/10/06 06:46:35 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
