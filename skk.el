@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.41 2000/10/30 22:10:21 minakaji Exp $
+;; Version: $Id: skk.el,v 1.42 2000/11/05 15:52:21 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:21 $
+;; Last Modified: $Date: 2000/11/05 15:52:21 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1882,9 +1882,9 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; skk-henkan-key に何故か Overlay がかかってしまう。
   (save-match-data
     (let (annotation)
-      (if (string-match ";" word)
-	  (setq annotation (substring word (match-end 0))
-		word (substring word 0 (match-beginning 0))))
+      (and (not skk-show-annotation) (string-match ";" word)
+	   (setq annotation (substring word (match-end 0))
+		 word (substring word 0 (match-beginning 0))))
       (setq word (if (skk-lisp-prog-p word) (skk-eval-string word) word))
       (and skk-use-face (skk-henkan-face-off))
       (delete-region skk-henkan-start-point skk-henkan-end-point)
@@ -2845,6 +2845,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
                    "Inserting contents of %s ...done"
                    (file-name-nondirectory file)))
               (skk-setup-jisyo-buffer)
+	      (skk-update-jisyo-format)
               (set-buffer-modified-p nil)
               jisyo-buf)))))
 
@@ -2897,6 +2898,31 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	  (setq skk-okuri-nasi-min (point-marker)))
       (skk-error "送りなしエントリのヘッダーがありません！"
 		 "Header line for okuri-nasi entries is missing!"))))
+
+(defun skk-update-jisyo-format ()
+  ;; skk-annotation
+  (let ((min skk-okuri-ari-min) (max skk-okuri-ari-max))
+    (skk-update-jisyo-format-1 min max)
+    (setq min skk-okuri-nasi-min
+	  max (point-max))
+    (skk-update-jisyo-format-1 min max))
+  ;; anything else?
+  )
+
+(defun skk-update-jisyo-format-1 (min max)
+  (goto-char min)
+  (while (re-search-forward "\\/\\([^\n/]*;[^\n/]*\\)\\/" max t nil)
+    (setq candidate (buffer-substring-no-properties
+		     (match-beginning 1) (match-end 1)))
+    (delete-region (match-beginning 1) (match-end 1))
+    (goto-char (match-beginning 1))
+    (insert 
+     (concat "(concat \""
+	     (mapconcat
+	      (function
+	       (lambda (c) (if (eq c ?\;) "\\073" (char-to-string c))))
+	      (append candidate nil) "")
+	     "\")"))))
 
 (defun skk-search ()
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
@@ -3262,7 +3288,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; 評価したときにその文字となるような Lisp コードを返す。
   (save-match-data
     (if (and word
-             (string-match "[/\n\r\"]" word)
+             (string-match "[;/\n\r\"]" word)
              ;; we should not quote WORD if it is a symbolic expression
              (not (skk-lisp-prog-p word)))
         (concat "(concat \""

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.5 2000/10/30 22:10:18 minakaji Exp $
+;; Version: $Id: skk-server.el,v 1.6 2000/11/05 15:52:21 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:18 $
+;; Last Modified: $Date: 2000/11/05 15:52:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -65,6 +65,7 @@
                            "running on HOST %s"))
                  v (prog1 (buffer-string) (erase-buffer))))))))))
 
+;;;###autoload
 (defun skk-search-server (file limit &optional nomsg)
   ;; SKK 辞書フォーマットの FILE で SKK サーバーを使用して skk-henkan-key をキー
   ;; にして検索を行う。

@@ -1,3 +1,16 @@
+2000-11-06  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-update-jisyo-format): New function.
+	(skk-update-jisyo-format-1): New function.
+	(skk-get-jisyo-buffer): Use `skk-update-jisyo-format'.
+
+	* experimental/skk-annotation.el (skk-annotation-show-1): Do
+	nothing when ANNOTATION is a null string.
+
+2000-11-03  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-server.el (skk-search-server): Add `;;;###autoload' cookie.
+
 2000-11-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-isearch.el, etc/SKK.tut.E: Typos.
@@ -2111,6 +2124,9 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
+Version: $Id: ChangeLog,v 1.126 2000/11/05 15:52:20 minakaji Exp $
+Last Modified: $Date: 2000/11/05 15:52:20 $
+	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
 End:
