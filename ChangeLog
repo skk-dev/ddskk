@@ -2,7 +2,7 @@
 
 	* *: Re-indent.
 
-	* ChangeLog.1, ChangeLog.2, ChangeLog.2.daredevil: New files.
+	* ChangeLog.1, ChangeLog.1.daredevil, ChangeLog.2: New files.
 
 	* ChangeLog.daredevil: No longer here.
 
@@ -1678,8 +1678,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.337 2001/08/31 19:34:29 czkmt Exp $
-Last Modified: $Date: 2001/08/31 19:34:29 $
+Version: $Id: ChangeLog,v 1.336 2001/08/31 19:32:26 czkmt Exp $
+Last Modified: $Date: 2001/08/31 19:32:26 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
