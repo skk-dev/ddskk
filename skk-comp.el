@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.12 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.13 2001/09/15 00:15:19 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/09/15 00:15:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -93,25 +93,41 @@
 
 (defun skk-comp-do-1 (key first)
   ;; skk-comp-1 のサブルーチン。
-  (let (c-word)
-    (if (string= skk-comp-key "")
-	(skk-comp-by-history)
-      (with-current-buffer (skk-get-jisyo-buffer skk-jisyo)
-	(if first (goto-char skk-okuri-nasi-min))
+  (cond
+   ((string= skk-comp-key "")
+    (skk-comp-by-history))
+   (t
+    (or (skk-comp-do-1-in-buf (skk-get-jisyo-buffer skk-jisyo)
+			      key
+			      first)
+	(skk-comp-do-1-in-buf (get-buffer " *skk-small-dic*")
+			      key
+			      first)))))
+
+(defun skk-comp-do-1-in-buf (buffer key first)
+  (when (buffer-live-p buffer)
+    (let (c-word)
+      (with-current-buffer buffer
+	(if first
+	    (goto-char skk-okuri-nasi-min))
 	(save-match-data
 	  ;; case-fold-search は、辞書バッファでは常に nil。
 	  (while (and (not c-word)
-		      (search-forward (concat "\n"
-					      (if skk-use-numeric-conversion
-						  (skk-num-compute-henkan-key key)
-						key))
-				      nil t))
-	    (or (eq (following-char) ?\040) ;SPC
-		(setq c-word (concat key
-				     (buffer-substring-no-properties
-				      ;; 見出し語に空白は含まれない。" /" をサー
-				      ;; チする必要はない。
-				      (point) (1- (search-forward " ")))))))
+		      (search-forward
+		       (concat "\n"
+			       (if skk-use-numeric-conversion
+				   (skk-num-compute-henkan-key key)
+				 key))
+		       nil t))
+	    (unless (eq (following-char)
+			?\040) ;SPC
+	      (setq c-word
+		    (concat key
+			    (buffer-substring-no-properties
+			     ;; 見出し語に空白は含まれない。
+			     ;; " /" をサーチする必要はない。
+			     (point)
+			     (1- (search-forward " ")))))))
 	  c-word)))))
 
 ;;;###autoload
