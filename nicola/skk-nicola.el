@@ -414,14 +414,11 @@
 	   "このヘルプを表示")))))
 
 ;;;###autoload
-(defun skk-nicola-self-insert-rshift (&optional arg)
-  "右シフトに割り付ける関数。"
-  (interactive "p")
-  (skk-nicola-self-insert-lshift arg))
+(defalias 'skk-nicola-self-insert-rshift 'skk-nicola-self-insert-lshift)
 
 ;;;###autoload
 (defun skk-nicola-self-insert-lshift (&optional arg)
-  "左シフトに割り付ける関数。"
+  "右または左シフトに割り付ける関数。"
   (interactive "p")
   ;;
   (when (or (and (markerp skk-nicola-okuri-flag)
@@ -756,9 +753,6 @@
 	 (cond
 	  ((not (eq skk-henkan-mode 'on))
 	   (skk-set-henkan-point-subr 1))
-	  ((memq skk-kanagaki-keyboard-type
-		 '(106-jis))
-	   (skk-kanagaki-set-okurigana-no-sokuon arg))
 	  ((eq (point) (marker-position skk-henkan-start-point))
 	   nil)
 	  (t
@@ -897,7 +891,7 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
 	  (setq fun str
 		str nil)
 	(skk-insert-str
-	 (setq str (skk-kanagaki-make-string arg str)))))
+	 (setq str (make-string arg (string-to-char str))))))
     ;;
     (when fun
       (funcall fun arg))
