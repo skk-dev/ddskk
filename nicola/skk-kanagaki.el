@@ -523,7 +523,7 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
 
 (defadvice skk-insert (around skk-kanagaki-ad activate compile)
   "$B2>L>F~NOMQ$N(B work around $B!#(B"
-  (when (and (local-variable-p 'skk-jisyo)
+  (when (and (skk-local-variable-p 'skk-jisyo (current-buffer))
 	     (equal skk-jisyo "~/skk-tut-jisyo")
 	     (not (eq skk-kanagaki-state 'rom)))
     (skk-kanagaki-toggle-rom-kana 'rom))
