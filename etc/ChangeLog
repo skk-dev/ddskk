@@ -1,0 +1,8 @@
+2002-02-04  IIDA Yosiaki  <iida@ring.gr.jp>
+
+	* NICOLA-SKK.tut, SKK.tut, SKK.tut.E:
+	Append copyright notice of SKK Development Team.
+	Add note for symbols not in S Jisyo.
+	Replace Russia with Cyrillic.  Typo fix for GIRISIA,
+	EUC KO^DO, whose C stands for code.
+
