@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.38 2002/01/19 01:00:33 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.39 2002/03/07 15:13:38 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/19 01:00:33 $
+;; Last Modified: $Date: 2002/03/07 15:13:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -344,6 +344,9 @@ Optional argument PREFIX is appended if given."
   (define-key map "\C-g" 'skk-isearch-keyboard-quit)
   (define-key map skk-kakutei-key 'skk-isearch-newline)
   (define-key map "\C-m" 'skk-isearch-exit)
+  (when (characterp skk-previous-candidate-char)
+    (define-key map (char-to-string skk-previous-candidate-char)
+      'skk-isearch-wrapper))
 
   ;; C-x map for skk.
   (define-key map "\C-x" (make-sparse-keymap))
@@ -491,12 +494,31 @@ If the current mode is different from previous, remove it first."
 		  (setq skk-henkan-count 0)
 		  (skk-kakutei)
 		  (isearch-message))
+		 ((and (eq skk-henkan-mode 'active)
+		       skk-delete-implies-kakutei)
+		  (skk-kakutei)
+		  (delete-backward-char 1)
+		  (setq isearch-string (concat isearch-string
+					       (buffer-string))
+			isearch-message (concat
+					 (skk-isearch-mode-string)
+					 (mapconcat
+					  #'isearch-text-char-description
+					  isearch-string "")))
+		  (isearch-push-state)
+		  (isearch-update)
+		  (erase-buffer))
 		 (t
-		  (if (string= skk-prefix "")
-		      ;; now, we can't pass the universal argument within the
-		      ;; isearch-mode.  so hard code the value `1'.
-		      (delete-backward-char 1)
-		    (skk-erase-prefix 'clean))
+		  (cond
+		   ((eq skk-henkan-mode 'active)
+		    ;; In this case, `skk-delete-implies-kakutei' is nil.
+		    (skk-previous-candidate))
+		   ((string= skk-prefix "")
+		    ;; now, we can't pass the universal argument within
+		    ;; the isearch-mode.  so hard code the value `1'.
+		    (delete-backward-char 1))
+		   (t
+		    (skk-erase-prefix 'clean)))
 		  (setq skk-isearch-incomplete-message (buffer-string))
 		  (skk-isearch-incomplete-message))))))
     ;;
@@ -614,7 +636,7 @@ If the current mode is different from previous, remove it first."
       (setq isearch-message
 	    (concat
 	     (skk-isearch-mode-string)
-	     (mapconcat 'isearch-text-char-description isearch-string "")))
+	     (mapconcat #'isearch-text-char-description isearch-string "")))
       (setq isearch-cmds (cdr isearch-cmds))
       (isearch-push-state)
       (isearch-update))
