@@ -5,8 +5,8 @@ rem ---  1999/07/07, Masaki YATSU mailto:yatsu@aurora.dti.ne.jp
 rem ---              cmail ML member
 rem ---  modified 1999/12/01, Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem ---  modified 2000/12/26, Takeshi Morishima mailto:tm@interaccess.com
-rem ---  date $Date: 2001/01/24 05:39:29 $
-rem ---  version $Id: makeit.bat,v 1.1 2001/01/24 05:39:29 yutopia Exp $
+rem ---  date $Date: 2001/01/24 06:11:37 $
+rem ---  version $Id: makeit.bat,v 1.2 2001/01/24 06:11:37 yutopia Exp $
 
 set ELISPMK_APP=skk
 
@@ -93,7 +93,6 @@ rem ---   set PREFIX=c:\usr\Meadow
 rem ---   set EMACS=%PREFIX%\1.10\bin\meadow95.exe
 rem ---   set EXEC_PREFIX=
 rem ---   set LISPDIR=%PREFIX%\site-lisp
-rem ---   set INFODIR=%PREFIX%\1.10\info
 rem ---   set VERSION_SPECIFIC_LISPDIR=%PREFIX%\1.10\site-lisp
 rem ---   set DEFAULT_MAKE_ARG=elc
 rem --- 安全のためデフォルトの値はすべて空文字列になっています。お使い
@@ -105,10 +104,7 @@ rem --- (Please see make1.bat for possible values of DEFAULT_MAKE_ARG.)
 
 set PREFIX=
 set EMACS=
-set EXEC_PREFIX=
 set LISPDIR=
-set INFODIR=
-set VERSION_SPECIFIC_LISPDIR=
 set DEFAULT_MAKE_ARG=
 
 
