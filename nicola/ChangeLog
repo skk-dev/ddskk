@@ -4,6 +4,9 @@
 
 	* skk-106-jis.el: Require `skk-nicola'.
 
+	* skk-kanagaki.el (skk-insert@around@skk-kanagaki-ad): Set
+	`skk-process-okuri-early' to nil.
+
 2000-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Modify Comments.
