@@ -1,3 +1,10 @@
+2002-02-28  IIDA Yosiaki  <iida@ring.gr.jp>
+
+	* NICOLA-SKK.tut: Add RCS keyword.
+	* NICOLA-SKK.tut, SKK.tut, SKK.tut.E: Remove non-standard characters.
+	Correct window to buffer, JISYO buffer to JISYO and vice versa.
+	* SKK.tut.E: Correct kEkutei to kAkutei.
+
 2002-02-27  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* NICOLA-SKK.tut, SKK.tut: Correct minibuffer to echo area.

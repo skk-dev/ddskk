@@ -6,11 +6,12 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut.E,v 1.8 2002/02/27 01:43:48 iida Exp $
+;; Version: $Id: SKK.tut.E,v 1.9 2002/02/28 01:57:14 iida Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2002/02/27 01:43:48 $
+;; Last Modified: $Date: 2002/02/28 01:57:14 $
 ;;
-;; This is the tutorial text for Daredevil SKK version 11.1 and and later versions.
+;; This is the tutorial text for Daredevil SKK version 11.1 and and later
+;; versions.
 ;;
 ;; Permission is granted to make and distribute verbatim copies of
 ;; this tutorial text provided the copyright notice and this permission notice
@@ -33,12 +34,12 @@ input environment for Emacs.  As it is implemented based on a very simple
 principle, you can master the usage of SKK quickly.  This tutorial explains
 SKK assuming that you know enough about Emacs.
 
-You will learn the usage of SKK by solving problems.  The bottom line of
-each Problem Window will begin with $B!Z(B>>$B![(B.  You have to make a line which
-has the same content as that line in the Solution Window.  When you have
+You will learn the usage of SKK by solving problems.  The last line of each
+Problem buffer will begin with $B!Z(B>>$B![(B.  You have to make line in the Solution
+buffer as same as the last line of each Problem buffer.  When you have
 done, type $B!X(BC-x n$B!Y(B(Next).  ($B!X(BC-x$B!Y(B means <control-x>, that is, typing
 $B!X(Bx$B!Y(B key holding the control key.)  If your solution is correct, the
-window will be updated and you will proceed to the next problem.
+buffers will be updated and you will proceed to the next problem.
 
 Type $B!X(BC-x q$B!Y(B(Quit) if you wish to quit the tutorial.  Type $B!X(BC-x s$B!Y(B
 (Skip) if you wish to skip the problem.
@@ -55,7 +56,7 @@ You can invoke SKK by typing$B!X(BC-x C-j$B!Y(B.  Let's try that.
 !! Type $B!X(BC-x C-j$B!Y(B.
 
 Note that a part of the mode line which shows minor modes of the Solution
-Window is now $B!Z$+$J![(B.  This mode is called $B$+$J(B mode.  In this mode,
+buffer is now $B!Z$+$J![(B.  This mode is called $B$+$J(B mode.  In this mode,
 lowercase Latin letters are interpreted as Romazi ($B%m!<%^;z(B) and will be
 converted to the corresponding hirakanas.  For instance, if you type
 $B!X(Baiueo$B!Y(B, you will get $B!Z$"$$$&$($*![(B.  (In $B$+$J(B mode, don't use
@@ -183,7 +184,7 @@ Kana-to-kanji conversion is done in $B$+$J(B mode.
 !! If you are not in $B$+$J(B mode now, change mode to $B$+$J(B mode, and type
 !! $B!X(BKanji$B!Y(B.  (Note that the first character is an uppercase character.)
 
-The window should become $B!Z"&$+$s$8![(B.  You are in $B"&(B mode now.
+The buffer should become $B!Z"&$+$s$8![(B.  You are in $B"&(B mode now.
 
 !! Now hit <space> key.
 
@@ -200,7 +201,7 @@ Let's try another one.
 !! If you are not in $B$+$J(B mode now, change mode to $B$+$J(B mode, type
 !! $B!X(BKanji$B!Y(B, and then hit <space> key twice.
 
-The window should change as follows:
+The buffer should change as follows:
 
 	$B!Z"&$+$s$8![(B ==> $B!Z"'4A;z![(B ==> $B!Z"'44;v![(B
 
@@ -283,7 +284,7 @@ is used to go back to $B"#(B mode when you enter $B"&(B mode by mistake.
 	$B"'(B == <return> and all the pritable keys  ==> $B"#(B
 
 means that these keys automatically select the current candidate as the
-final result of conversion.  This action is called kakutei ($B3NDj(B).  Let
+final result of conversion.  This action is called $B3NDj(B (Kakutei).  Let
 us try this.
 
 !! Type $B!X(BKyouto$B""(B,Oosaka$B""(B,Koube$B""(B.$B!Y(B in $B"#(B mode.  Recall that
@@ -292,7 +293,7 @@ us try this.
 >> $B5~ET!"Bg:e!"?@8M!#(B
 ----
 We have learned that, in $B"'(B mode, <return> and all the printable keys
-cause kakutei as side effects.
+cause $B3NDj(B as side effects.
 
 Moreover, if you type any uppercase character except $B!X(BL$B!Y(B, the
 current candidate becomes the final result and enter $B"&(B mode.
@@ -305,16 +306,15 @@ current candidate becomes the final result and enter $B"&(B mode.
 ----
 !! Type $B!X(BKanakanjihenkan$B""!Y(B in $B"#(B mode.
 
-Your window becomes $B!Z"'$+$J$+$s$8$X$s$+$s![(B and you should see the prompt:
+Your buffer becomes $B!Z"'$+$J$+$s$8$X$s$+$s![(B and you should see the prompt:
 	$B$+$J$+$s$8$X$s$+$s(B
 in the minibuffer.  In $B"'(B mode, the source string to be converted is
 already fixed.  In our case, SKK tried to convert the string $B!Z$+$J$+$s$8(B
-$B$X$s$+$s![(B, but could not find it in the Jisho ($B<-=q(B, dictionary) buffer.
+$B$X$s$+$s![(B, but could not find it in $B<-=q(B. (i.e., dictionary)
 In such a case, SKK automatically enters register-a-word-to-dictionary
 mode (this mode will be referred to as $B<-=qEPO?(B mode).
   In $B<-=qEPO?(B mode, the string for which the conversion failed becomes the
-key word ($B8+=P$78l(B, midashigo) for the new entry to be registered to $B<-=q(B
-buffer.
+key word ($B8+=P$78l(B, midashigo) for the new entry to be registered to $B<-=q(B.
 
 !! Verify that the cursor is in the minibuffer, and type
 !! $B!X(BKana$B""(BKanji$B""(BHenkan$B""!Y(B followed by <return> key.
@@ -328,7 +328,7 @@ We have just added the line
 to the $B<-=q(B buffer.  We can verify this as follows.
 
 !! Type $B!X(BKanakanjihenkan$B""!Y(B in $B"#(B mode, and
-!! $B3NDj(B (kakutei, finalize) it by $B!X(BC-j$B!Y(B.
+!! $B3NDj(B (Kakutei, finalize) it by $B!X(BC-j$B!Y(B.
 
 >> $B2>L>4A;zJQ49(B
 ----
@@ -344,9 +344,9 @@ or by registering an empty string.
 
 !! Verify that the cursor is in the minibuffer, and hit <return>.
 
-The $B!Z(B*$BEz(B*$B![(B window now becomes $B!Z"&$+$J$+$s$8$X$s$1$s![(B.
+The $B!Z(B*$BEz(B*$B![(B buffer now becomes $B!Z"&$+$J$+$s$8$X$s$1$s![(B.
 
-!! Verify that the cursor is in the $B!Z(B*$BEz(B*$B![(B window.  Hit <delete> key
+!! Verify that $B!Z(B*$BEz(B*$B![(B is the current buffer.  Hit <delete> key
 !! twice, and then type $B!X(Bkan$B""(B.$B!Y(B.
 
 >> $B2>L>4A;zJQ49!#(B
@@ -372,7 +372,7 @@ lowercase $B!X(Bd$B!Y(B.
 !! Type $B!Z(BGo$B""![(B in $B"#(B mode.
 
 This time $B!Z8k![(B is displayed as the first candidate.  This is because we
-have kekutei-ed by that character.  But we want $B!Z8a![(B this time.
+have done $B3NDj(B by that character.  But we want $B!Z8a![(B this time.
 
 !! Type $B!X""""""""""""!Y(B. (six <space>'s.)
 
@@ -392,7 +392,7 @@ We try $B!Z8a8e![(B this time.
 
 !! Type $B!X(BGogo$B""!Y(Bin $B"#(B mode.
 
-As there is no $B!Z$4$4![(B in the $B<-=q(B buffer, we enter $B<-=qEPO?(B mode.
+As there is no $B!Z$4$4![(B in $B<-=q(B, we enter $B<-=qEPO?(B mode.
 
 !! Verify that the minibuffer prompt is $B!Z$4$4![(B, and type $B!X(BGo$B""!Y(B.
 
@@ -416,7 +416,7 @@ following problem should be easy.
 !! Type $B!X(BSaikiteki$B""!Y(B in $B"#(B mode.
 !! Verify the prompt $B!Z$5$$$-$F$-![(B in the minibuffer, and type $B!X(BSaiki$B""!Y(B.
 
-We don't have $B!Z$5$$$-![(B in the $B<-=q(B buffer either, so we recursively
+We don't have $B!Z$5$$$-![(B in $B<-=q(B either, so we recursively
 (i.e., $B:F5"E*$K(B) enter $B<-=qEPO?(B mode.
 
 !! Construct $B!Z:F5"![(B in the minibuffer.  (Hint: $B:F(B($B$5$$(B), $B5"(B($B$-(B))
@@ -450,12 +450,12 @@ separately.
 ;; (save-excursion (save-match-data (set-buffer " *skk-tut-jisyo*") (goto-char skk-okuri-ari-min) (search-forward "\n$B$&$4(Bk /$BF0(B/" skk-okuri-nasi-min) (delete-region (progn (beginning-of-line) (point)) (progn (forward-line 1) (point)))))
 == How to register words with okurigana ==
 
-Let's see what happens if the $B<-=q(B does not have $B!V$&$4(Bk$B!W(B as $B8+=P$78l(B.
+Let's see what happens if $B<-=q(B does not have $B!V$&$4(Bk$B!W(B as $B8+=P$78l(B.
 
 !! In $B"#(B mode, type$B!X(BUgoKu$B!Y(B.
 
 We enter $B<-=qEPO?(B mode in the minibuffer, and we have the prompt $B!Z$&$4(B*$B$/(B
-$B![(B.  As the $B<-=q(B has the entry $B!V$I$&(B /$BF0(B/$B!W(B, we can make $B!ZF0![(B in the
+$B![(B.  As $B<-=q(B has the entry $B!V$I$&(B /$BF0(B/$B!W(B, we can make $B!ZF0![(B in the
 minibuffer.
 
 Remark: You have only to construct the main part without the okurigana,
@@ -500,14 +500,14 @@ transformations.  In this case, our $B<-=q(B does not have the $B8+=P$78l(B
 ----
 == Symbols ==
 
-The following symbols are registered in the $B<-=q(B under the $B8+=P$78l(B
+The following symbols are registered in $B<-=q(B under the $B8+=P$78l(B
 $B!V$-$4$&!W(B.
 
       $B!!(B $B!"(B $B!#(B $B!$(B $B!%(B $B!&(B $B!'(B $B!((B $B!)(B $B!*(B $B!+(B $B!,(B $B!-(B $B!.(B $B!/(B $B!0(B $B!1(B $B!2(B $B!3(B $B!4(B $B!5(B $B!6(B $B!7(B
    $B!8(B $B!9(B $B!:(B $B!;(B $B!<(B $B!=(B $B!>(B $B!?(B $B!@(B $B!A(B $B!B(B $B!C(B $B!D(B $B!E(B $B!F(B $B!G(B $B!H(B $B!I(B $B!J(B $B!K(B $B!L(B $B!M(B $B!N(B $B!O(B
-   $B!P(B $B!Q(B $B!R(B $B!S(B $B!T(B $B!U(B $B!V(B $B![(B $B!X(B $B!Y(B $B!Z(B $B![(B $B!\(B $B!](B $B!^(B $B!_(B $B!`(B $B!a(B $B!b(B $B!c(B $B!d(B $B!e(B $B!f(B $B!g(B
+   $B!P(B $B!Q(B $B!R(B $B!S(B $B!T(B $B!U(B $B!V(B $B!W(B $B!X(B $B!Y(B $B!Z(B $B![(B $B!\(B $B!](B $B!^(B $B!_(B $B!`(B $B!a(B $B!b(B $B!c(B $B!d(B $B!e(B $B!f(B $B!g(B
    $B!h(B $B!i(B $B!j(B $B!k(B $B!l(B $B!m(B $B!n(B $B!o(B $B!p(B $B!q(B $B!r(B $B!s(B $B!t(B $B!u(B $B!v(B $B!w(B $B!x(B $B!y(B $B!z(B $B!{(B $B!|(B $B!}(B $B!~(B
-      $B"!(B $B""(B $B"#(B $B"$(B $B"%(B $B"&(B $B"'(B $B"((B $B")(B $B"*(B $B"+(B $B",(B $B"-(B $B".(B $B"/(B $B"0(B $B"1(B $B"2(B $B"3(B $B"4(B $B"5(B $B"6(B $B"7(B
+      $B"!(B $B""(B $B"#(B $B"$(B $B"%(B $B"&(B $B"'(B $B"((B $B")(B $B"*(B $B"+(B $B",(B $B"-(B $B".(B
 
 >> $B")(B980
 ----
@@ -582,12 +582,12 @@ The display becomes$B!Z:4F#$H:XF#$G$O"&$5$$$H$&![(B.
 >> $B:4F#$H:XF#$G$O:4F#$N$[$&$,$"$j$U$l$?L>;z$@!#(B
 ----
 When SKK is invoked for the first time in the current Emacs session, it
-reads in your personal $B<-=q(B file into the $B<-=q(B buffers.  A $B<-=q(B buffer
-will be updated each time you make a kakutei.
+reads in your personal $B<-=q(B file into the $B<-=q(B buffer.  The $B<-=q(B buffer
+will be updated each time you make a $B3NDj(B.
 When you exit from Emacs, SKK saves the content of the $B<-=q(B buffer into
-your personal $B<-=q(B file.  So, normally, you don't have to worry about
-savings of the $B<-=q(B buffers.  When SKK updates your personal $B<-=q(B file
-(.skk-jisyo) it copies the content of the current .skk-jisyo to
+your personal $B<-=q(B file.  So, normally, you don't have to be aware of
+saving the $B<-=q(B buffer.  When SKK updates your personal $B<-=q(B file
+(.skk-jisyo) it backups the content of the current .skk-jisyo to
 .skk-jisyo.BAK.  This backup file may be useful if your .skk-jisyo is
 damaged accidentally.
 
