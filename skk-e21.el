@@ -74,12 +74,8 @@
 
 (defvar skk-e21-modeline-property
   (when window-system
-    (list 'local-map (static-if
-			 (fboundp 'make-mode-line-mouse-map)
-			 (make-mode-line-mouse-map
-			  'mouse-2 #'skk-e21-modeline-menu)
-		       (make-mode-line-mouse2-map
-			#'skk-e21-modeline-menu))
+    (list 'local-map (make-mode-line-mouse-map
+		      'mouse-2 #'skk-e21-modeline-menu)
 	  'help-echo
 	  "マウスの button 2 -> Daredevil SKK のメニュ−")))
 
@@ -136,6 +132,9 @@
 
 ;;;###autoload
 (defun skk-e21-prepare-modeline-properties ()
+  (unless skk-use-color-cursor
+    (setq skk-indicator-use-cursor-color nil))
+  ;;
   (when window-system
     (let (face)
       (dolist (mode '(hiragana
@@ -144,12 +143,14 @@
 		      jisx0201
 		      abbrev))
 	(setq face (intern (format "skk-e21-%s-face" mode)))
-	(make-face face)
-	(set-face-foreground face
-			     (symbol-value
-			      (intern
-			       (format "skk-cursor-%s-color"
-				       mode))))
+	(unless (facep face)
+	  (copy-face 'modeline face)
+	  (when skk-indicator-use-cursor-color
+	    (set-face-foreground face
+				 (symbol-value
+				  (intern
+				   (format "skk-cursor-%s-color"
+					   mode))))))
 	(push (cons mode (append skk-e21-modeline-property
 				 (list 'face face)))
 	       skk-e21-property-alist)))))
