@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.41 2001/06/01 08:47:54 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.42 2001/06/01 08:58:51 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/06/01 08:47:54 $
+;; Last Modified: $Date: 2001/06/01 08:58:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1588,7 +1588,7 @@ nil であれば、元号表示する。"
   "*単位換算情報のエーリスト。
 各要素は \(基準となる単位 (変換する単位 . 変換時の倍率\)\) の形式による。
 `skk-gadget-units-conversion' で参照する。"
-  :type sexp
+  :type 'sexp
   :group 'skk-gadget)
 
 (defcustom skk-gadget-load-hook nil
