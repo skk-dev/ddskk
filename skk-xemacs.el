@@ -174,14 +174,15 @@
 			     '(default)
 			   nil))
 	(when window-system
-	  (when (> emacs-major-version 20)
-	    (set-face-foreground face
-				 (symbol-value
-				  (intern (format
-					   "skk-cursor-%s-color"
-					   mode)))
-				 nil
-				 '(default color win)))))
+	  (when skk-indicator-use-cursor-color
+	    (when (> emacs-major-version 20)
+	      (set-face-foreground face
+				   (symbol-value
+				    (intern (format
+					     "skk-cursor-%s-color"
+					     mode)))
+				   nil
+				   '(default color win))))))
       (set-extent-face extent face))))
 
 (defun skk-xemacs-find-func-keys (func)
