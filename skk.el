@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.129 2001/10/03 00:13:12 czkmt Exp $
+;; Version: $Id: skk.el,v 1.130 2001/10/04 20:45:10 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/03 00:13:12 $
+;; Last Modified: $Date: 2001/10/04 20:45:10 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -4049,7 +4049,9 @@ If you want to restore the dictionary from the disc, try
 (skk-defadvice newline (around skk-ad activate)
   "skk-egg-like-newline が non-nil だったら、変換中の newline で確定のみ行い、改行しない。"
   (interactive "*P")
-  (if (not (or skk-j-mode skk-abbrev-mode))
+  (if (not (or skk-j-mode
+	       skk-jisx0201-mode
+	       skk-abbrev-mode))
       ad-do-it
     (let (
 	  ;;(arg (ad-get-arg 0))
@@ -4073,7 +4075,9 @@ If you want to restore the dictionary from the disc, try
 
 (skk-defadvice newline-and-indent (around skk-ad activate)
   "skk-egg-like-newline が non-nil だったら、変換中の newline-and-indent で確定のみ行い、改行しない。"
-  (if (not (or skk-j-mode skk-abbrev-mode))
+  (if (not (or skk-j-mode
+	       skk-jisx0201-mode
+	       skk-abbrev-mode))
       ad-do-it
     (let ((no-newline (and skk-egg-like-newline skk-henkan-on))
 	  (auto-fill-function (and (interactive-p) auto-fill-function)))
@@ -4088,7 +4092,9 @@ If you want to restore the dictionary from the disc, try
    'skk-j-mode-on 'skk-setup-minibuffer
    '(lambda ()
       (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
-  (if (not (or skk-j-mode skk-abbrev-mode))
+  (if (not (or skk-j-mode
+	       skk-jisx0201-mode
+	       skk-abbrev-mode))
       ad-do-it
     (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
       (and skk-mode (skk-kakutei))
