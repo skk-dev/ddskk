@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.34 2001/09/09 02:34:20 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.35 2001/09/12 11:16:43 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/09 02:34:20 $
+;; Last Modified: $Date: 2001/09/12 11:16:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -77,17 +77,19 @@
     (skk-comp-load-hook . nil)
     (skk-compare-jisyo-size-when-saving . nil)
     ;;(skk-convert-okurigana-into-katakana . nil)
-    (skk-count-jisyo-candidates-function . 'skk-count-jisyo-candidates-original)
+    (skk-count-jisyo-candidates-function
+     . 'skk-count-jisyo-candidates-original)
     (skk-count-private-jisyo-candidates-exactly . nil)
     (skk-dabbrev-like-completion . nil)
     (skk-date-ad . 1)
-    (skk-cursor-default-color . (cond
-				 ((eq skk-emacs-type 'xemacs)
-				  (frame-property (selected-frame) 'cursor-color))
-				 (t
-				  (cdr
-				   (assq 'cursor-color
-					 (frame-parameters (selected-frame)))))))
+    (skk-cursor-default-color
+     . (cond
+	((eq skk-emacs-type 'xemacs)
+	 (frame-property (selected-frame) 'cursor-color))
+	(t
+	 (cdr
+	  (assq 'cursor-color
+		(frame-parameters (selected-frame)))))))
     (skk-delete-implies-kakutei . t)
     (skk-delete-okuri-when-quit . nil)
     (skk-downcase-alist . nil)
@@ -102,7 +104,8 @@
     (skk-hiragana-mode-string . " $B$+$J(B")
     (skk-init-file . "")
     (skk-input-by-code-menu-keys1 . '(?a ?s ?d ?f ?g ?h ?q ?w ?e ?r ?t ?y))
-    (skk-input-by-code-menu-keys2 . '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?q ?w ?e ?r ?t ?y ?u))
+    (skk-input-by-code-menu-keys2
+     . '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?q ?w ?e ?r ?t ?y ?u))
     (skk-japanese-message-and-error . nil)
     (skk-cursor-jisx0208-latin-color . "gold")
     (skk-jisx0208-latin-mode-string . " $BA41Q(B")
@@ -111,15 +114,16 @@
     (skk-jisyo-save-count . nil)
     (skk-kakutei-early . t)
     (skk-kakutei-key . "\C-j")
-    (skk-kana-input-search-function . (function
-				       (lambda ()
-					 (save-match-data
-					   (and (string-match
-						 "^h\\([bcdfghjklmnpqrstvwxz]\\)$"
-						 skk-prefix)
-						(member (char-to-string (preceding-char))
-							'("$B$*(B" "$B%*(B"))
-						(cons '("$B%*(B" . "$B$*(B") (match-string 1 skk-prefix)))))))
+    (skk-kana-input-search-function
+     . (function
+	(lambda ()
+	  (save-match-data
+	    (and (string-match
+		  "^h\\([bcdfghjklmnpqrstvwxz]\\)$"
+		  skk-prefix)
+		 (member (char-to-string (preceding-char))
+			 '("$B$*(B" "$B%*(B"))
+		 (cons '("$B%*(B" . "$B$*(B") (match-string 1 skk-prefix)))))))
     (skk-katakana-mode-string . " $B%+%J(B")
     (skk-kcode-load-hook . nil)
     (skk-keep-record . nil)
@@ -134,143 +138,150 @@
     (skk-okuri-char-alist . nil)
     (skk-previous-completion-key . ",")
     (skk-process-okuri-early . nil)
-    (skk-public-jisyo-has-entry-p-function . 'skk-public-jisyo-has-entry-p-original)
+    (skk-public-jisyo-has-entry-p-function
+     . 'skk-public-jisyo-has-entry-p-original)
     (skk-cursor-report-set-error . t)
-    (skk-rom-kana-base-rule-list .
-				 '(("a" nil ("$B%"(B" . "$B$"(B")) ("bb" "b" ("$B%C(B" . "$B$C(B"))
-				   ("ba" nil ("$B%P(B" . "$B$P(B")) ("be" nil ("$B%Y(B" . "$B$Y(B"))
-				   ("bi" nil ("$B%S(B" . "$B$S(B")) ("bo" nil ("$B%\(B" . "$B$\(B"))
-				   ("bu" nil ("$B%V(B" . "$B$V(B")) ("bya" nil ("$B%S%c(B" . "$B$S$c(B"))
-				   ("bye" nil ("$B%S%'(B" . "$B$S$'(B")) ("byi" nil ("$B%S%#(B" . "$B$S$#(B"))
-				   ("byo" nil ("$B%S%g(B" . "$B$S$g(B")) ("byu" nil ("$B%S%e(B" . "$B$S$e(B"))
-				   ("cc" "c" ("$B%C(B" . "$B$C(B")) ("cha" nil ("$B%A%c(B" . "$B$A$c(B"))
-				   ("che" nil ("$B%A%'(B" . "$B$A$'(B")) ("chi" nil ("$B%A(B" . "$B$A(B"))
-				   ("cho" nil ("$B%A%g(B" . "$B$A$g(B")) ("chu" nil ("$B%A%e(B" . "$B$A$e(B"))
-				   ("cya" nil ("$B%A%c(B" . "$B$A$c(B")) ("cye" nil ("$B%A%'(B" . "$B$A$'(B"))
-				   ("cyi" nil ("$B%A%#(B" . "$B$A$#(B")) ("cyo" nil ("$B%A%g(B" . "$B$A$g(B"))
-				   ("cyu" nil ("$B%A%e(B" . "$B$A$e(B")) ("dd" "d" ("$B%C(B" . "$B$C(B"))
-				   ("da" nil ("$B%@(B" . "$B$@(B")) ("de" nil ("$B%G(B" . "$B$G(B"))
-				   ("dha" nil ("$B%G%c(B" . "$B$G$c(B")) ("dhe" nil ("$B%G%'(B" . "$B$G$'(B"))
-				   ("dhi" nil ("$B%G%#(B" . "$B$G$#(B")) ("dho" nil ("$B%G%g(B" . "$B$G$g(B"))
-				   ("dhu" nil ("$B%G%e(B" . "$B$G$e(B")) ("di" nil ("$B%B(B" . "$B$B(B"))
-				   ("do" nil ("$B%I(B" . "$B$I(B")) ("du" nil ("$B%E(B" . "$B$E(B"))
-				   ("dya" nil ("$B%B%c(B" . "$B$B$c(B")) ("dye" nil ("$B%B%'(B" . "$B$B$'(B"))
-				   ("dyi" nil ("$B%B%#(B" . "$B$B$#(B")) ("dyo" nil ("$B%B%g(B" . "$B$B$g(B"))
-				   ("dyu" nil ("$B%B%e(B" . "$B$B$e(B")) ("e" nil ("$B%((B" . "$B$((B"))
-				   ("ff" "f" ("$B%C(B" . "$B$C(B")) ("fa" nil ("$B%U%!(B" . "$B$U$!(B"))
-				   ("fe" nil ("$B%U%'(B" . "$B$U$'(B")) ("fi" nil ("$B%U%#(B" . "$B$U$#(B"))
-				   ("fo" nil ("$B%U%)(B" . "$B$U$)(B")) ("fu" nil ("$B%U(B" . "$B$U(B"))
-				   ("fya" nil ("$B%U%c(B" . "$B$U$c(B")) ("fye" nil ("$B%U%'(B" . "$B$U$'(B"))
-				   ("fyi" nil ("$B%U%#(B" . "$B$U$#(B")) ("fyo" nil ("$B%U%g(B" . "$B$U$g(B"))
-				   ("fyu" nil ("$B%U%e(B" . "$B$U$e(B")) ("gg" "g" ("$B%C(B" . "$B$C(B"))
-				   ("ga" nil ("$B%,(B" . "$B$,(B")) ("ge" nil ("$B%2(B" . "$B$2(B"))
-				   ("gi" nil ("$B%.(B" . "$B$.(B")) ("go" nil ("$B%4(B" . "$B$4(B"))
-				   ("gu" nil ("$B%0(B" . "$B$0(B")) ("gya" nil ("$B%.%c(B" . "$B$.$c(B"))
-				   ("gye" nil ("$B%.%'(B" . "$B$.$'(B")) ("gyi" nil ("$B%.%#(B" . "$B$.$#(B"))
-				   ("gyo" nil ("$B%.%g(B" . "$B$.$g(B")) ("gyu" nil ("$B%.%e(B" . "$B$.$e(B"))
-				   ;;("h" "" ("$B%*(B" . "$B$*(B"))
-				   ("ha" nil ("$B%O(B" . "$B$O(B")) ("he" nil ("$B%X(B" . "$B$X(B"))
-				   ("hi" nil ("$B%R(B" . "$B$R(B")) ("ho" nil ("$B%[(B" . "$B$[(B"))
-				   ("hu" nil ("$B%U(B" . "$B$U(B")) ("hya" nil ("$B%R%c(B" . "$B$R$c(B"))
-				   ("hye" nil ("$B%R%'(B" . "$B$R$'(B")) ("hyi" nil ("$B%R%#(B" . "$B$R$#(B"))
-				   ("hyo" nil ("$B%R%g(B" . "$B$R$g(B")) ("hyu" nil ("$B%R%e(B" . "$B$R$e(B"))
-				   ("i" nil ("$B%$(B" . "$B$$(B")) ("jj" "j" ("$B%C(B" . "$B$C(B"))
-				   ("ja" nil ("$B%8%c(B" . "$B$8$c(B")) ("je" nil ("$B%8%'(B" . "$B$8$'(B"))
-				   ("ji" nil ("$B%8(B" . "$B$8(B")) ("jo" nil ("$B%8%g(B" . "$B$8$g(B"))
-				   ("ju" nil ("$B%8%e(B" . "$B$8$e(B")) ("jya" nil ("$B%8%c(B" . "$B$8$c(B"))
-				   ("jye" nil ("$B%8%'(B" . "$B$8$'(B")) ("jyi" nil ("$B%8%#(B" . "$B$8$#(B"))
-				   ("jyo" nil ("$B%8%g(B" . "$B$8$g(B")) ("jyu" nil ("$B%8%e(B" . "$B$8$e(B"))
-				   ("kk" "k" ("$B%C(B" . "$B$C(B")) ("ka" nil ("$B%+(B" . "$B$+(B"))
-				   ("ke" nil ("$B%1(B" . "$B$1(B")) ("ki" nil ("$B%-(B" . "$B$-(B"))
-				   ("ko" nil ("$B%3(B" . "$B$3(B")) ("ku" nil ("$B%/(B" . "$B$/(B"))
-				   ("kya" nil ("$B%-%c(B" . "$B$-$c(B")) ("kye" nil ("$B%-%'(B" . "$B$-$'(B"))
-				   ("kyi" nil ("$B%-%#(B" . "$B$-$#(B")) ("kyo" nil ("$B%-%g(B" . "$B$-$g(B"))
-				   ("kyu" nil ("$B%-%e(B" . "$B$-$e(B")) ("mm" "c" ("$B%C(B" . "$B$C(B"))
-				   ("ma" nil ("$B%^(B" . "$B$^(B")) ("me" nil ("$B%a(B" . "$B$a(B"))
-				   ("mi" nil ("$B%_(B" . "$B$_(B")) ("mo" nil ("$B%b(B" . "$B$b(B"))
-				   ("mu" nil ("$B%`(B" . "$B$`(B")) ("mya" nil ("$B%_%c(B" . "$B$_$c(B"))
-				   ("mye" nil ("$B%_%'(B" . "$B$_$'(B")) ("myi" nil ("$B%_%#(B" . "$B$_$#(B"))
-				   ("myo" nil ("$B%_%g(B" . "$B$_$g(B")) ("myu" nil ("$B%_%e(B" . "$B$_$e(B"))
-				   ("n" nil ("$B%s(B" . "$B$s(B")) ("n'" nil ("$B%s(B" . "$B$s(B"))
-				   ("na" nil ("$B%J(B" . "$B$J(B")) ("ne" nil ("$B%M(B" . "$B$M(B"))
-				   ("ni" nil ("$B%K(B" . "$B$K(B")) ("nn" nil ("$B%s(B" . "$B$s(B"))
-				   ("no" nil ("$B%N(B" . "$B$N(B")) ("nu" nil ("$B%L(B" . "$B$L(B"))
-				   ("nya" nil ("$B%K%c(B" . "$B$K$c(B")) ("nye" nil ("$B%K%'(B" . "$B$K$'(B"))
-				   ("nyi" nil ("$B%K%#(B" . "$B$K$#(B")) ("nyo" nil ("$B%K%g(B" . "$B$K$g(B"))
-				   ("nyu" nil ("$B%K%e(B" . "$B$K$e(B")) ("o" nil ("$B%*(B" . "$B$*(B"))
-				   ("pp" "p" ("$B%C(B" . "$B$C(B")) ("pa" nil ("$B%Q(B" . "$B$Q(B"))
-				   ("pe" nil ("$B%Z(B" . "$B$Z(B")) ("pi" nil ("$B%T(B" . "$B$T(B"))
-				   ("po" nil ("$B%](B" . "$B$](B")) ("pu" nil ("$B%W(B" . "$B$W(B"))
-				   ("pya" nil ("$B%T%c(B" . "$B$T$c(B")) ("pye" nil ("$B%T%'(B" . "$B$T$'(B"))
-				   ("pyi" nil ("$B%T%#(B" . "$B$T$#(B")) ("pyo" nil ("$B%T%g(B" . "$B$T$g(B"))
-				   ("pyu" nil ("$B%T%e(B" . "$B$T$e(B")) ("rr" "r" ("$B%C(B" . "$B$C(B"))
-				   ("ra" nil ("$B%i(B" . "$B$i(B")) ("re" nil ("$B%l(B" . "$B$l(B"))
-				   ("ri" nil ("$B%j(B" . "$B$j(B")) ("ro" nil ("$B%m(B" . "$B$m(B"))
-				   ("ru" nil ("$B%k(B" . "$B$k(B")) ("rya" nil ("$B%j%c(B" . "$B$j$c(B"))
-				   ("rye" nil ("$B%j%'(B" . "$B$j$'(B")) ("ryi" nil ("$B%j%#(B" . "$B$j$#(B"))
-				   ("ryo" nil ("$B%j%g(B" . "$B$j$g(B")) ("ryu" nil ("$B%j%e(B" . "$B$j$e(B"))
-				   ("ss" "s" ("$B%C(B" . "$B$C(B")) ("sa" nil ("$B%5(B" . "$B$5(B"))
-				   ("se" nil ("$B%;(B" . "$B$;(B")) ("sha" nil ("$B%7%c(B" . "$B$7$c(B"))
-				   ("she" nil ("$B%7%'(B" . "$B$7$'(B")) ("shi" nil ("$B%7(B" . "$B$7(B"))
-				   ("sho" nil ("$B%7%g(B" . "$B$7$g(B")) ("shu" nil ("$B%7%e(B" . "$B$7$e(B"))
-				   ("si" nil ("$B%7(B" . "$B$7(B")) ("so" nil ("$B%=(B" . "$B$=(B"))
-				   ("su" nil ("$B%9(B" . "$B$9(B")) ("sya" nil ("$B%7%c(B" . "$B$7$c(B"))
-				   ("sye" nil ("$B%7%'(B" . "$B$7$'(B")) ("syi" nil ("$B%7%#(B" . "$B$7$#(B"))
-				   ("syo" nil ("$B%7%g(B" . "$B$7$g(B")) ("syu" nil ("$B%7%e(B" . "$B$7$e(B"))
-				   ("tt" "t" ("$B%C(B" . "$B$C(B")) ("ta" nil ("$B%?(B" . "$B$?(B"))
-				   ("te" nil ("$B%F(B" . "$B$F(B")) ("tha" nil ("$B%F%!(B" . "$B$F$!(B"))
-				   ("the" nil ("$B%F%'(B" . "$B$F$'(B")) ("thi" nil ("$B%F%#(B" . "$B$F$#(B"))
-				   ("tho" nil ("$B%F%g(B" . "$B$F$g(B")) ("thu" nil ("$B%F%e(B" . "$B$F$e(B"))
-				   ("ti" nil ("$B%A(B" . "$B$A(B")) ("to" nil ("$B%H(B" . "$B$H(B"))
-				   ("tsu" nil ("$B%D(B" . "$B$D(B")) ("tu" nil ("$B%D(B" . "$B$D(B"))
-				   ("tya" nil ("$B%A%c(B" . "$B$A$c(B")) ("tye" nil ("$B%A%'(B" . "$B$A$'(B"))
-				   ("tyi" nil ("$B%A%#(B" . "$B$A$#(B")) ("tyo" nil ("$B%A%g(B" . "$B$A$g(B"))
-				   ("tyu" nil ("$B%A%e(B" . "$B$A$e(B")) ("u" nil ("$B%&(B" . "$B$&(B"))
-				   ("vv" "v" ("$B%C(B" . "$B$C(B")) ("va" nil ("$B%t%!(B" . "$B$&!+$!(B"))
-				   ("ve" nil ("$B%t%'(B" . "$B$&!+$'(B")) ("vi" nil ("$B%t%#(B" . "$B$&!+$#(B"))
-				   ("vo" nil ("$B%t%)(B" . "$B$&!+$)(B")) ("vu" nil ("$B%t(B" . "$B$&!+(B"))
-				   ("ww" "w" ("$B%C(B" . "$B$C(B")) ("wa" nil ("$B%o(B" . "$B$o(B"))
-				   ("we" nil ("$B%&%'(B" . "$B$&$'(B")) ("wi" nil ("$B%&%#(B" . "$B$&$#(B"))
-				   ("wo" nil ("$B%r(B" . "$B$r(B")) ("wu" nil ("$B%&(B" . "$B$&(B"))
-				   ("xx" "x" ("$B%C(B" . "$B$C(B")) ("xa" nil ("$B%!(B" . "$B$!(B"))
-				   ("xe" nil ("$B%'(B" . "$B$'(B")) ("xi" nil ("$B%#(B" . "$B$#(B"))
-				   ("xka" nil ("$B%u(B" . "$B$+(B")) ("xke" nil ("$B%v(B" . "$B$1(B"))
-				   ("xo" nil ("$B%)(B" . "$B$)(B")) ("xtsu" nil ("$B%C(B" . "$B$C(B"))
-				   ("xtu" nil ("$B%C(B" . "$B$C(B")) ("xu" nil ("$B%%(B" . "$B$%(B"))
-				   ("xwa" nil ("$B%n(B" . "$B$n(B")) ("xwe" nil ("$B%q(B" . "$B$q(B"))
-				   ("xwi" nil ("$B%p(B" . "$B$p(B")) ("xya" nil ("$B%c(B" . "$B$c(B"))
-				   ("xyo" nil ("$B%g(B" . "$B$g(B")) ("xyu" nil ("$B%e(B" . "$B$e(B"))
-				   ("yy" "y" ("$B%C(B" . "$B$C(B")) ("ya" nil ("$B%d(B" . "$B$d(B"))
-				   ("ye" nil ("$B%$%'(B" . "$B$$$'(B")) ("yo" nil ("$B%h(B" . "$B$h(B"))
-				   ("yu" nil ("$B%f(B" . "$B$f(B")) ("zz" "z" ("$B%C(B" . "$B$C(B"))
-				   ("z," nil "$B!E(B") ("z-" nil "$B!A(B") ("z." nil "$B!D(B")
-				   ("z/" nil "$B!&(B") ("z[" nil "$B!X(B") ("z]" nil "$B!Y(B")
-				   ("za" nil ("$B%6(B" . "$B$6(B")) ("ze" nil ("$B%<(B" . "$B$<(B"))
-				   ("zh" nil "$B"+(B") ("zi" nil ("$B%8(B" . "$B$8(B"))
-				   ("zj" nil "$B"-(B") ("zk" nil "$B",(B") ("zl" nil "$B"*(B")
-				   ("zo" nil ("$B%>(B" . "$B$>(B")) ("zu" nil ("$B%:(B" . "$B$:(B"))
-				   ("zya" nil ("$B%8%c(B" . "$B$8$c(B")) ("zye" nil ("$B%8%'(B" . "$B$8$'(B"))
-				   ("zyi" nil ("$B%8%#(B" . "$B$8$#(B")) ("zyo" nil ("$B%8%g(B" . "$B$8$g(B"))
-				   ("zyu" nil ("$B%8%e(B" . "$B$8$e(B")) ("." nil skk-current-kuten)
-				   ("," nil skk-current-touten) ("-" nil "$B!<(B")
-				   (":" nil "$B!'(B") (";" nil "$B!((B") ("?" nil "$B!)(B")
-				   ("[" nil "$B!V(B") ("]" nil "$B!W(B") ("l" nil skk-latin-mode)
-				   ("q" nil skk-toggle-kana) ("L" nil skk-jisx0208-latin-mode)
-				   ("Q" nil skk-set-henkan-point-subr)
-				   ("X" nil skk-purge-from-jisyo) ("/" nil skk-abbrev-mode)
-				   ("$" nil skk-display-code-for-char-at-point)
-				   ("@" nil skk-today) ("\\" nil skk-input-by-code-or-menu)))
+    (skk-rom-kana-base-rule-list
+     .
+     '(("a" nil ("$B%"(B" . "$B$"(B")) ("bb" "b" ("$B%C(B" . "$B$C(B"))
+       ("ba" nil ("$B%P(B" . "$B$P(B")) ("be" nil ("$B%Y(B" . "$B$Y(B"))
+       ("bi" nil ("$B%S(B" . "$B$S(B")) ("bo" nil ("$B%\(B" . "$B$\(B"))
+       ("bu" nil ("$B%V(B" . "$B$V(B")) ("bya" nil ("$B%S%c(B" . "$B$S$c(B"))
+       ("bye" nil ("$B%S%'(B" . "$B$S$'(B")) ("byi" nil ("$B%S%#(B" . "$B$S$#(B"))
+       ("byo" nil ("$B%S%g(B" . "$B$S$g(B")) ("byu" nil ("$B%S%e(B" . "$B$S$e(B"))
+       ("cc" "c" ("$B%C(B" . "$B$C(B")) ("cha" nil ("$B%A%c(B" . "$B$A$c(B"))
+       ("che" nil ("$B%A%'(B" . "$B$A$'(B")) ("chi" nil ("$B%A(B" . "$B$A(B"))
+       ("cho" nil ("$B%A%g(B" . "$B$A$g(B")) ("chu" nil ("$B%A%e(B" . "$B$A$e(B"))
+       ("cya" nil ("$B%A%c(B" . "$B$A$c(B")) ("cye" nil ("$B%A%'(B" . "$B$A$'(B"))
+       ("cyi" nil ("$B%A%#(B" . "$B$A$#(B")) ("cyo" nil ("$B%A%g(B" . "$B$A$g(B"))
+       ("cyu" nil ("$B%A%e(B" . "$B$A$e(B")) ("dd" "d" ("$B%C(B" . "$B$C(B"))
+       ("da" nil ("$B%@(B" . "$B$@(B")) ("de" nil ("$B%G(B" . "$B$G(B"))
+       ("dha" nil ("$B%G%c(B" . "$B$G$c(B")) ("dhe" nil ("$B%G%'(B" . "$B$G$'(B"))
+       ("dhi" nil ("$B%G%#(B" . "$B$G$#(B")) ("dho" nil ("$B%G%g(B" . "$B$G$g(B"))
+       ("dhu" nil ("$B%G%e(B" . "$B$G$e(B")) ("di" nil ("$B%B(B" . "$B$B(B"))
+       ("do" nil ("$B%I(B" . "$B$I(B")) ("du" nil ("$B%E(B" . "$B$E(B"))
+       ("dya" nil ("$B%B%c(B" . "$B$B$c(B")) ("dye" nil ("$B%B%'(B" . "$B$B$'(B"))
+       ("dyi" nil ("$B%B%#(B" . "$B$B$#(B")) ("dyo" nil ("$B%B%g(B" . "$B$B$g(B"))
+       ("dyu" nil ("$B%B%e(B" . "$B$B$e(B")) ("e" nil ("$B%((B" . "$B$((B"))
+       ("ff" "f" ("$B%C(B" . "$B$C(B")) ("fa" nil ("$B%U%!(B" . "$B$U$!(B"))
+       ("fe" nil ("$B%U%'(B" . "$B$U$'(B")) ("fi" nil ("$B%U%#(B" . "$B$U$#(B"))
+       ("fo" nil ("$B%U%)(B" . "$B$U$)(B")) ("fu" nil ("$B%U(B" . "$B$U(B"))
+       ("fya" nil ("$B%U%c(B" . "$B$U$c(B")) ("fye" nil ("$B%U%'(B" . "$B$U$'(B"))
+       ("fyi" nil ("$B%U%#(B" . "$B$U$#(B")) ("fyo" nil ("$B%U%g(B" . "$B$U$g(B"))
+       ("fyu" nil ("$B%U%e(B" . "$B$U$e(B")) ("gg" "g" ("$B%C(B" . "$B$C(B"))
+       ("ga" nil ("$B%,(B" . "$B$,(B")) ("ge" nil ("$B%2(B" . "$B$2(B"))
+       ("gi" nil ("$B%.(B" . "$B$.(B")) ("go" nil ("$B%4(B" . "$B$4(B"))
+       ("gu" nil ("$B%0(B" . "$B$0(B")) ("gya" nil ("$B%.%c(B" . "$B$.$c(B"))
+       ("gye" nil ("$B%.%'(B" . "$B$.$'(B")) ("gyi" nil ("$B%.%#(B" . "$B$.$#(B"))
+       ("gyo" nil ("$B%.%g(B" . "$B$.$g(B")) ("gyu" nil ("$B%.%e(B" . "$B$.$e(B"))
+       ;;("h" "" ("$B%*(B" . "$B$*(B"))
+       ("ha" nil ("$B%O(B" . "$B$O(B")) ("he" nil ("$B%X(B" . "$B$X(B"))
+       ("hi" nil ("$B%R(B" . "$B$R(B")) ("ho" nil ("$B%[(B" . "$B$[(B"))
+       ("hu" nil ("$B%U(B" . "$B$U(B")) ("hya" nil ("$B%R%c(B" . "$B$R$c(B"))
+       ("hye" nil ("$B%R%'(B" . "$B$R$'(B")) ("hyi" nil ("$B%R%#(B" . "$B$R$#(B"))
+       ("hyo" nil ("$B%R%g(B" . "$B$R$g(B")) ("hyu" nil ("$B%R%e(B" . "$B$R$e(B"))
+       ("i" nil ("$B%$(B" . "$B$$(B")) ("jj" "j" ("$B%C(B" . "$B$C(B"))
+       ("ja" nil ("$B%8%c(B" . "$B$8$c(B")) ("je" nil ("$B%8%'(B" . "$B$8$'(B"))
+       ("ji" nil ("$B%8(B" . "$B$8(B")) ("jo" nil ("$B%8%g(B" . "$B$8$g(B"))
+       ("ju" nil ("$B%8%e(B" . "$B$8$e(B")) ("jya" nil ("$B%8%c(B" . "$B$8$c(B"))
+       ("jye" nil ("$B%8%'(B" . "$B$8$'(B")) ("jyi" nil ("$B%8%#(B" . "$B$8$#(B"))
+       ("jyo" nil ("$B%8%g(B" . "$B$8$g(B")) ("jyu" nil ("$B%8%e(B" . "$B$8$e(B"))
+       ("kk" "k" ("$B%C(B" . "$B$C(B")) ("ka" nil ("$B%+(B" . "$B$+(B"))
+       ("ke" nil ("$B%1(B" . "$B$1(B")) ("ki" nil ("$B%-(B" . "$B$-(B"))
+       ("ko" nil ("$B%3(B" . "$B$3(B")) ("ku" nil ("$B%/(B" . "$B$/(B"))
+       ("kya" nil ("$B%-%c(B" . "$B$-$c(B")) ("kye" nil ("$B%-%'(B" . "$B$-$'(B"))
+       ("kyi" nil ("$B%-%#(B" . "$B$-$#(B")) ("kyo" nil ("$B%-%g(B" . "$B$-$g(B"))
+       ("kyu" nil ("$B%-%e(B" . "$B$-$e(B")) ("mm" "c" ("$B%C(B" . "$B$C(B"))
+       ("ma" nil ("$B%^(B" . "$B$^(B")) ("me" nil ("$B%a(B" . "$B$a(B"))
+       ("mi" nil ("$B%_(B" . "$B$_(B")) ("mo" nil ("$B%b(B" . "$B$b(B"))
+       ("mu" nil ("$B%`(B" . "$B$`(B")) ("mya" nil ("$B%_%c(B" . "$B$_$c(B"))
+       ("mye" nil ("$B%_%'(B" . "$B$_$'(B")) ("myi" nil ("$B%_%#(B" . "$B$_$#(B"))
+       ("myo" nil ("$B%_%g(B" . "$B$_$g(B")) ("myu" nil ("$B%_%e(B" . "$B$_$e(B"))
+       ("n" nil ("$B%s(B" . "$B$s(B")) ("n'" nil ("$B%s(B" . "$B$s(B"))
+       ("na" nil ("$B%J(B" . "$B$J(B")) ("ne" nil ("$B%M(B" . "$B$M(B"))
+       ("ni" nil ("$B%K(B" . "$B$K(B")) ("nn" nil ("$B%s(B" . "$B$s(B"))
+       ("no" nil ("$B%N(B" . "$B$N(B")) ("nu" nil ("$B%L(B" . "$B$L(B"))
+       ("nya" nil ("$B%K%c(B" . "$B$K$c(B")) ("nye" nil ("$B%K%'(B" . "$B$K$'(B"))
+       ("nyi" nil ("$B%K%#(B" . "$B$K$#(B")) ("nyo" nil ("$B%K%g(B" . "$B$K$g(B"))
+       ("nyu" nil ("$B%K%e(B" . "$B$K$e(B")) ("o" nil ("$B%*(B" . "$B$*(B"))
+       ("pp" "p" ("$B%C(B" . "$B$C(B")) ("pa" nil ("$B%Q(B" . "$B$Q(B"))
+       ("pe" nil ("$B%Z(B" . "$B$Z(B")) ("pi" nil ("$B%T(B" . "$B$T(B"))
+       ("po" nil ("$B%](B" . "$B$](B")) ("pu" nil ("$B%W(B" . "$B$W(B"))
+       ("pya" nil ("$B%T%c(B" . "$B$T$c(B")) ("pye" nil ("$B%T%'(B" . "$B$T$'(B"))
+       ("pyi" nil ("$B%T%#(B" . "$B$T$#(B")) ("pyo" nil ("$B%T%g(B" . "$B$T$g(B"))
+       ("pyu" nil ("$B%T%e(B" . "$B$T$e(B")) ("rr" "r" ("$B%C(B" . "$B$C(B"))
+       ("ra" nil ("$B%i(B" . "$B$i(B")) ("re" nil ("$B%l(B" . "$B$l(B"))
+       ("ri" nil ("$B%j(B" . "$B$j(B")) ("ro" nil ("$B%m(B" . "$B$m(B"))
+       ("ru" nil ("$B%k(B" . "$B$k(B")) ("rya" nil ("$B%j%c(B" . "$B$j$c(B"))
+       ("rye" nil ("$B%j%'(B" . "$B$j$'(B")) ("ryi" nil ("$B%j%#(B" . "$B$j$#(B"))
+       ("ryo" nil ("$B%j%g(B" . "$B$j$g(B")) ("ryu" nil ("$B%j%e(B" . "$B$j$e(B"))
+       ("ss" "s" ("$B%C(B" . "$B$C(B")) ("sa" nil ("$B%5(B" . "$B$5(B"))
+       ("se" nil ("$B%;(B" . "$B$;(B")) ("sha" nil ("$B%7%c(B" . "$B$7$c(B"))
+       ("she" nil ("$B%7%'(B" . "$B$7$'(B")) ("shi" nil ("$B%7(B" . "$B$7(B"))
+       ("sho" nil ("$B%7%g(B" . "$B$7$g(B")) ("shu" nil ("$B%7%e(B" . "$B$7$e(B"))
+       ("si" nil ("$B%7(B" . "$B$7(B")) ("so" nil ("$B%=(B" . "$B$=(B"))
+       ("su" nil ("$B%9(B" . "$B$9(B")) ("sya" nil ("$B%7%c(B" . "$B$7$c(B"))
+       ("sye" nil ("$B%7%'(B" . "$B$7$'(B")) ("syi" nil ("$B%7%#(B" . "$B$7$#(B"))
+       ("syo" nil ("$B%7%g(B" . "$B$7$g(B")) ("syu" nil ("$B%7%e(B" . "$B$7$e(B"))
+       ("tt" "t" ("$B%C(B" . "$B$C(B")) ("ta" nil ("$B%?(B" . "$B$?(B"))
+       ("te" nil ("$B%F(B" . "$B$F(B")) ("tha" nil ("$B%F%!(B" . "$B$F$!(B"))
+       ("the" nil ("$B%F%'(B" . "$B$F$'(B")) ("thi" nil ("$B%F%#(B" . "$B$F$#(B"))
+       ("tho" nil ("$B%F%g(B" . "$B$F$g(B")) ("thu" nil ("$B%F%e(B" . "$B$F$e(B"))
+       ("ti" nil ("$B%A(B" . "$B$A(B")) ("to" nil ("$B%H(B" . "$B$H(B"))
+       ("tsu" nil ("$B%D(B" . "$B$D(B")) ("tu" nil ("$B%D(B" . "$B$D(B"))
+       ("tya" nil ("$B%A%c(B" . "$B$A$c(B")) ("tye" nil ("$B%A%'(B" . "$B$A$'(B"))
+       ("tyi" nil ("$B%A%#(B" . "$B$A$#(B")) ("tyo" nil ("$B%A%g(B" . "$B$A$g(B"))
+       ("tyu" nil ("$B%A%e(B" . "$B$A$e(B")) ("u" nil ("$B%&(B" . "$B$&(B"))
+       ("vv" "v" ("$B%C(B" . "$B$C(B")) ("va" nil ("$B%t%!(B" . "$B$&!+$!(B"))
+       ("ve" nil ("$B%t%'(B" . "$B$&!+$'(B")) ("vi" nil ("$B%t%#(B" . "$B$&!+$#(B"))
+       ("vo" nil ("$B%t%)(B" . "$B$&!+$)(B")) ("vu" nil ("$B%t(B" . "$B$&!+(B"))
+       ("ww" "w" ("$B%C(B" . "$B$C(B")) ("wa" nil ("$B%o(B" . "$B$o(B"))
+       ("we" nil ("$B%&%'(B" . "$B$&$'(B")) ("wi" nil ("$B%&%#(B" . "$B$&$#(B"))
+       ("wo" nil ("$B%r(B" . "$B$r(B")) ("wu" nil ("$B%&(B" . "$B$&(B"))
+       ("xx" "x" ("$B%C(B" . "$B$C(B")) ("xa" nil ("$B%!(B" . "$B$!(B"))
+       ("xe" nil ("$B%'(B" . "$B$'(B")) ("xi" nil ("$B%#(B" . "$B$#(B"))
+       ("xka" nil ("$B%u(B" . "$B$+(B")) ("xke" nil ("$B%v(B" . "$B$1(B"))
+       ("xo" nil ("$B%)(B" . "$B$)(B")) ("xtsu" nil ("$B%C(B" . "$B$C(B"))
+       ("xtu" nil ("$B%C(B" . "$B$C(B")) ("xu" nil ("$B%%(B" . "$B$%(B"))
+       ("xwa" nil ("$B%n(B" . "$B$n(B")) ("xwe" nil ("$B%q(B" . "$B$q(B"))
+       ("xwi" nil ("$B%p(B" . "$B$p(B")) ("xya" nil ("$B%c(B" . "$B$c(B"))
+       ("xyo" nil ("$B%g(B" . "$B$g(B")) ("xyu" nil ("$B%e(B" . "$B$e(B"))
+       ("yy" "y" ("$B%C(B" . "$B$C(B")) ("ya" nil ("$B%d(B" . "$B$d(B"))
+       ("ye" nil ("$B%$%'(B" . "$B$$$'(B")) ("yo" nil ("$B%h(B" . "$B$h(B"))
+       ("yu" nil ("$B%f(B" . "$B$f(B")) ("zz" "z" ("$B%C(B" . "$B$C(B"))
+       ("z," nil "$B!E(B") ("z-" nil "$B!A(B") ("z." nil "$B!D(B")
+       ("z/" nil "$B!&(B") ("z[" nil "$B!X(B") ("z]" nil "$B!Y(B")
+       ("za" nil ("$B%6(B" . "$B$6(B")) ("ze" nil ("$B%<(B" . "$B$<(B"))
+       ("zh" nil "$B"+(B") ("zi" nil ("$B%8(B" . "$B$8(B"))
+       ("zj" nil "$B"-(B") ("zk" nil "$B",(B") ("zl" nil "$B"*(B")
+       ("zo" nil ("$B%>(B" . "$B$>(B")) ("zu" nil ("$B%:(B" . "$B$:(B"))
+       ("zya" nil ("$B%8%c(B" . "$B$8$c(B")) ("zye" nil ("$B%8%'(B" . "$B$8$'(B"))
+       ("zyi" nil ("$B%8%#(B" . "$B$8$#(B")) ("zyo" nil ("$B%8%g(B" . "$B$8$g(B"))
+       ("zyu" nil ("$B%8%e(B" . "$B$8$e(B")) ("." nil skk-current-kuten)
+       ("," nil skk-current-touten) ("-" nil "$B!<(B")
+       (":" nil "$B!'(B") (";" nil "$B!((B") ("?" nil "$B!)(B")
+       ("[" nil "$B!V(B") ("]" nil "$B!W(B") ("l" nil skk-latin-mode)
+       ("q" nil skk-toggle-kana) ("L" nil skk-jisx0208-latin-mode)
+       ("Q" nil skk-set-henkan-point-subr)
+       ("X" nil skk-purge-from-jisyo) ("/" nil skk-abbrev-mode)
+       ("$" nil skk-display-code-for-char-at-point)
+       ("\C-j" nil skk-kakutei)
+       ("@" nil skk-today) ("\\" nil skk-input-by-code-or-menu)))
     (skk-rom-kana-rule-list . '(("hh" "h" ("$B%C(B" . "$B$C(B"))))
     (skk-save-jisyo-function . 'skk-save-jisyo-original)
     (skk-search-excluding-word-pattern-function . nil)
     (skk-search-prog-list . '((skk-search-jisyo-file skktut-tut-jisyo 0 t)))
-    (skk-set-henkan-point-key . '(?A ?B ?C ?D ?E ?F ?G ?H ?I ?J ?K ?M ?N ?O ?P ?R ?S ?T ?U ?V ?W ?Y ?Z))
+    (skk-set-henkan-point-key
+     . '(?A ?B ?C ?D ?E ?F ?G ?H ?I ?J ?K ?M ?N ?O ?P ?R ?S ?T ?U ?V ?W ?Y ?Z))
     (skk-share-private-jisyo . nil)
     (skk-special-midashi-char-list . '(?> ?< ??))
     (skk-start-henkan-key . " ")
     (skk-try-completion-key . "\t")
     (skk-update-jisyo-function . 'skk-update-jisyo-original)
-    (skk-use-color-cursor . (and window-system (fboundp 'x-display-color-p) (x-display-color-p)))
+    (skk-use-color-cursor
+     . (and window-system
+	    (fboundp 'x-display-color-p)
+	    (x-display-color-p)))
     (skk-cursor-change-width . nil)
     (skk-use-face . window-system)
     (skk-use-look . nil)
@@ -292,7 +303,8 @@
 	     (eq skk-kanagaki-state 'kana)
 	     skktut-nicola-tut-file)
 	 skk-kanagaki-rule-tree
-       (skk-compile-rule-list skk-rom-kana-base-rule-list skk-rom-kana-rule-list))))
+       (skk-compile-rule-list skk-rom-kana-base-rule-list
+			      skk-rom-kana-rule-list))))
   "skk.el $B$N%f!<%6!<JQ?t$N%j%9%H!#(B")
 
 (defvar skktut-nicola-tut-file
@@ -315,7 +327,7 @@
 (defvar skktut-working-window-configuration nil)
 (defvar skktut-original-local-map nil)
 (defvar skktut-skk-mode-on nil
-  "Non-nil $B$G$"$l$P!"(Bskk-tutorial $B$r5/F0$7$?$H$-$K(B SKK $B$,4{$K5/F0$5$l$F$$$?$3$H$r<($9!#(B")
+  "Non-nil $B$J$i!"(Btutorial $B$r5/F0;~$K(B SKK $B$,4{$K5/F0$5$l$F$$$?$3$H$r<($9!#(B")
 
 (defvar skktut-latin-mode-map nil
   "SKK $B%A%e!<%H%j%"%k(B ASCII $B%b!<%I%-!<%^%C%W!#(B")
@@ -329,20 +341,11 @@
   "SKK $B%A%e!<%H%j%"%k$+$J(B/$B%+%J%b!<%I%-!<%^%C%W!#(B")
 
 (or skktut-j-mode-map
-    (let ((map (make-sparse-keymap)))
-      (substitute-key-definition 'self-insert-command 'skk-insert map
-				 global-map)
-      (substitute-key-definition 'egg-self-insert-command 'skk-insert map
-				 global-map)
-      (substitute-key-definition 'canna-self-insert-command 'skk-insert map
-				 global-map)
-      (substitute-key-definition 'canna-henkan-region-or-self-insert 'skk-insert
-				 map global-map)
-      (substitute-key-definition 'can-n-egg-self-insert-command 'skk-insert map
-				 global-map)
-      (define-key map "x" 'skk-previous-candidate)
-      (define-key map "\C-j" 'skk-kakutei)
-      (define-key map "\t" 'skk-insert)
+    (let ((map (make-sparse-keymap))
+	  (c 32))
+      (while (< c 127)
+	(define-key map (char-to-string c) 'skk-insert)
+	(setq c (1+ c)))
       (setq skktut-j-mode-map map)))
 
 (defvar skktut-jisx0208-latin-mode-map nil
@@ -390,11 +393,9 @@
   (list 'yes-or-no-p (list 'if 'skktut-japanese-tut japanese english)))
 
 ;; advices.
-(defadvice skk-create-file (around skktut-ad disable)
-  )
+(defadvice skk-create-file (around skktut-ad disable))
 
-(defadvice skk-save-jisyo-original (around skktut-ad disable)
-  )
+(defadvice skk-save-jisyo-original (around skktut-ad disable))
 
 (defadvice skk-abbrev-mode (before skktut-ad disable)
   "SKK $B%A%e!<%H%j%"%kMQ%"%I%P%$%9IU!#(B"
@@ -504,17 +505,20 @@ C-u M-x skk-tutorial $B$9$k$H!"%A%e!<%H%j%"%k%U%!%$%k$NA*Br$,2DG=!#(B"
 
 (defun skk-tutorial-again (&optional now)
   "SKK $B%A%e!<%H%j%"%k$r:G=i$+$i$d$jD>$9!#(B
-C-u M-x skk-tutorial-again $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$K$d$jD>$9!#(B"
+C-u M-x skk-tutorial-again $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$K$d$j(B
+$BD>$9!#(B"
  (interactive "P")
   (if (or now
-	  (skktut-yes-or-no-p "$B:G=i$+$i(B Tutorial $B$r$d$jD>$7$^$9!#$h$m$7$$$G$9$M!)(B "
-			      "Quit tutorial and start from question 1 again? "))
+	  (skktut-yes-or-no-p
+	   "$B:G=i$+$i(B Tutorial $B$r$d$jD>$7$^$9!#$h$m$7$$$G$9$M!)(B "
+	   "Quit tutorial and start from question 1 again? "))
       (progn (skk-tutorial-quit 'now)
 	     (skk-tutorial))))
 
 (defun skk-tutorial-quit (&optional now)
   "SKK $B%A%e!<%H%j%"%k$r$d$a$k!#(B
-C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$K$d$a$k!#(B"
+C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$K$d$a(B
+$B$k!#(B"
   (interactive "P")
   (if (or now (skktut-yes-or-no-p "$BK\Ev$K%A%e!<%H%j%"%k$r$d$a$^$9$+(B? "
 				  "Really quit tutorial? "))
@@ -525,8 +529,10 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 	      skktut-question-count 1
 	      skktut-right-answer nil
 	      skktut-tutorial-end nil)
-	(remove-hook 'minibuffer-setup-hook 'skktut-localize-and-init-variables)
-	(remove-hook 'before-make-frame-hook 'skktut-before-move-to-other-frame)
+	(remove-hook 'minibuffer-setup-hook
+		     'skktut-localize-and-init-variables)
+	(remove-hook 'before-make-frame-hook
+		     'skktut-before-move-to-other-frame)
 	(skktut-disable-tutmap)
 	(skktut-disable-advice)
 	(with-current-buffer skktut-jisyo-buffer
@@ -630,6 +636,15 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 	   (cons 'skk-abbrev-mode skktut-abbrev-mode-map)
 	   (cons 'skk-j-mode skktut-j-mode-map)
 	   (cons 'skk-jisx0208-latin-mode skktut-jisx0208-latin-mode-map)))
+    ;;
+    (define-key skktut-j-mode-map
+      (cond ((equal skk-tut-file skktut-nicola-tut-file)
+	     "\C-p")
+	    (t
+	     "x"))
+      'skk-previous-candidate)
+    (define-key skktut-j-mode-map "\C-j" 'skk-insert)
+    (define-key skktut-j-mode-map "\t" 'skk-insert)
     ;; for minor-mode-map-alist localized by Viper.
     (if (and (featurep 'viper)
 	     (skk-local-variable-p 'minor-mode-map-alist nil t))
@@ -667,63 +682,58 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
     (skktut-localize-and-init-variables)
     (setq case-fold-search nil
 	  buffer-file-name (expand-file-name skktut-tut-jisyo))
-    (insert (concat ";; okuri-ari entries.\n"
-		    "$B$[$C(Bs /$BM_(B/\n"
-		    "$B$D$+(Bt /$B;H(B/\n"
-		    "$B$?$C(Bs /$BC#(B/\n"
-		    "$B$7(Bt /$BCN(B/\n"
-		    "$B$&$4(Bk /$BF0(B/\n"
-		    ";; okuri-nasi entries.\n"
-		    "Greek /$B&!(B/$B&"(B/$B&#(B/$B&$(B/$B&%(B/$B&&(B/$B&'(B/$B&((B/$B&)(B/$B&*(B/$B&+(B/$B&,(B/$B&-(B/$B&.(B/$B&/(B/$B&0(B/"
-		    "$B&1(B/$B&2(B/$B&3(B/$B&4(B/$B&5(B/$B&6(B/$B&7(B/$B&8(B/\n"
-		    "Russia /$B'!(B/$B'"(B/$B'#(B/$B'$(B/$B'%(B/$B'&(B/$B''(B/$B'((B/$B')(B/$B'*(B/$B'+(B/$B',(B/$B'-(B/$B'.(B/$B'/(B/$B'0(B/"
-		    "$B'1(B/$B'2(B/$B'3(B/$B'4(B/$B'5(B/$B'6(B/$B'7(B/$B'8(B/$B'9(B/$B':(B/$B';(B/$B'<(B/$B'=(B/$B'>(B/$B'?(B/$B'@(B/$B'A(B/\n"
-		    "greek /$B&A(B/$B&B(B/$B&C(B/$B&D(B/$B&E(B/$B&F(B/$B&G(B/$B&H(B/$B&I(B/$B&J(B/$B&K(B/$B&L(B/$B&M(B/$B&N(B/$B&O(B/$B&P(B/"
-		    "$B&Q(B/$B&R(B/$B&S(B/$B&T(B/$B&U(B/$B&V(B/$B&W(B/$B&X(B/\n"
-		    "russia /$B'Q(B/$B'R(B/$B'S(B/$B'T(B/$B'U(B/$B'V(B/$B'W(B/$B'X(B/$B'Y(B/$B'Z(B/$B'[(B/$B'\(B/$B'](B/$B'^(B/$B'_(B/$B'`(B/"
-		    "$B'a(B/$B'b(B/$B'c(B/$B'd(B/$B'e(B/$B'f(B/$B'g(B/$B'h(B/$B'i(B/$B'j(B/$B'k(B/$B'l(B/$B'm(B/$B'n(B/$B'o(B/$B'p(B/$B'q(B/\n"
-		    "today /(skk-current-date (lambda (date-information format"
-		    " gengo and-time) (skk-default-current-date"
-		    " date-information nil 0 'gengo 0 0 0)))/\n"
-		    "$B$$$A$*$/(B /$B0l2/(B/\n"
-		    "$B$*$*$5$+(B /$BBg:e(B/\n"
-		    "$B$+$J(B /$B2>L>(B/\n"
-		    "$B$+$s$8(B /$B4A;z(B/$B44;v(B/$B4F;v(B/\n"
-		    "$B$,$/$7$e$&(B /$B3X=,(B/\n"
-		    "$B$-(B /$B4p(B/$B5-(B/$B5$(B/$BLZ(B/$B5"(B/\n"
-		    "$B$-$4$&(B /$B5-9f(B/$B!"(B/$B!#(B/$B!$(B/$B!%(B/$B!&(B/$B!'(B/$B!((B/$B!)(B/$B!*(B/$B!+(B/$B!,(B/$B!-(B/$B!.(B/$B!/(B/"
-		    "$B!0(B/$B!1(B/$B!2(B/$B!3(B/$B!4(B/$B!5(B/$B!6(B/$B!7(B/$B!8(B/$B!9(B/$B!:(B/$B!;(B/$B!<(B/$B!=(B/$B!>(B/$B!?(B/$B!@(B/$B!A(B/"
-		    "$B!B(B/$B!C(B/$B!D(B/$B!E(B/$B!F(B/$B!G(B/$B!H(B/$B!I(B/$B!J(B/$B!K(B/$B!L(B/$B!M(B/$B!N(B/$B!O(B/$B!P(B/$B!Q(B/$B!R(B/$B!S(B/"
-		    "$B!T(B/$B!U(B/$B!V(B/$B![(B/$B!X(B/$B!Y(B/$B!Z(B/$B![(B/$B!\(B/$B!](B/$B!^(B/$B!_(B/$B!`(B/$B!a(B/$B!b(B/$B!c(B/$B!d(B/$B!e(B/$B!f(B/"
-		    "$B!g(B/$B!h(B/$B!i(B/$B!j(B/$B!k(B/$B!l(B/$B!m(B/$B!n(B/$B!o(B/$B!p(B/$B!q(B/$B!r(B/$B!s(B/$B!t(B/$B!u(B/$B!v(B/$B!w(B/$B!x(B/$B!y(B/"
-		    "$B!z(B/$B!{(B/$B!|(B/$B!}(B/$B!~(B/$B"!(B/$B""(B/$B"#(B/$B"$(B/$B"%(B/$B"&(B/$B"'(B/$B"((B/$B")(B/$B"*(B/$B"+(B/$B",(B/$B"-(B/"
-		    "$B".(B/\n"
-		    "$B$-$g$&$H(B /$B5~ET(B/\n"
-		    "$B$3$&$Y(B /$B?@8M(B/\n"
-		    "$B$4(B /$B8^(B/$B8_(B/$B8`(B/$B8a(B/$B8b(B/$B8c(B/$B8d(B/$B8e(B/$B8f(B/$B8g(B/$B8h(B/$B8i(B/$B8j(B/$B8k(B/$B8l(B/$B8m(B/$B8n(B/"
-		    "$B8o(B/\n"
-		    "$B$5$$(B /$B:Y(B/$B:G(B/$B:F(B/\n"
-		    "$B$5$$$7$g(B /$B:G=i(B/\n"
-		    "$B$5$$$H$&(B /$B:XF#(B/\n"
-		    "$B$5$H$&(B /$B:4F#(B/\n"
-		    "$B$7$e$&$j$g$&(B /$B=*N;(B/\n"
-		    "$B$8$7$g(B /$B<-=q(B/$BCO=j(B/\n"
-		    "$B$8$s$3$&(B /$B?M8}(B/\n"
-		    "$B$;$s$?$/(B /$BA*Br(B/$B@vBu(B/\n"
-		    "$B$=$&(B /$BAv(B/\n"
-		    "$B$@$$(B /$BBg(B/$BBh(B/$BBe(B/\n"
-		    "$B$F$-(B /$BE*(B/$BE((B/$BE)(B/$BE,(B/$BE&(B/\n"
-		    "$B$H$&(B /$BEl(B/\n"
-		    "$B$H$&$[$/(B /$BElKL(B/\n"
-		    "$B$H$&$m$/(B /$BEPO?(B/\n"
-		    "$B$H$&$m$/(B /$BEPO?(B/\n"
-		    "$B$I$&(B /$BF0(B/\n"
-		    "$B$K$e$&$j$g$/(B /$BF~NO(B/\n"
-		    "$B$R$3$&$-(B /$BHt9T5!(B/\n"
-		    "$B$X$s$+$s(B /$BJQ49(B/\n"
-		    "$B$[$/(B /$BKL(B/\n"
-		    "$B$_$g$&$8(B /$BL>;z(B/\n"
-		    "$B$h$&$$(B /$BMF0W(B/$BMQ0U(B/\n"))
+    (insert "\
+;; okuri-ari entries.
+$B$[$C(Bs /$BM_(B/
+$B$D$+(Bt /$B;H(B/
+$B$?$C(Bs /$BC#(B/
+$B$7(Bt /$BCN(B/
+$B$&$4(Bk /$BF0(B/
+;; okuri-nasi entries.
+Greek /$B&!(B/$B&"(B/$B&#(B/$B&$(B/$B&%(B/$B&&(B/$B&'(B/$B&((B/$B&)(B/$B&*(B/$B&+(B/$B&,(B/$B&-(B/$B&.(B/$B&/(B/$B&0(B/$B&1(B/$B&2(B/$B&3(B/$B&4(B/$B&5(B/$B&6(B/$B&7(B/$B&8(B/
+Russia /$B'!(B/$B'"(B/$B'#(B/$B'$(B/$B'%(B/$B'&(B/$B''(B/$B'((B/$B')(B/$B'*(B/$B'+(B/$B',(B/$B'-(B/$B'.(B/$B'/(B/$B'0(B/$B'1(B/$B'2(B/$B'3(B/$B'4(B/$B'5(B/$B'6(B/$B'7(B/\
+$B'8(B\/$B'9(B/$B':(B/$B';(B/$B'<(B/$B'=(B/$B'>(B/$B'?(B/$B'@(B/$B'A(B/
+greek /$B&A(B/$B&B(B/$B&C(B/$B&D(B/$B&E(B/$B&F(B/$B&G(B/$B&H(B/$B&I(B/$B&J(B/$B&K(B/$B&L(B/$B&M(B/$B&N(B/$B&O(B/$B&P(B/$B&Q(B/$B&R(B/$B&S(B/$B&T(B/$B&U(B/$B&V(B/$B&W(B/\
+$B&X(B/
+russia /$B'Q(B/$B'R(B/$B'S(B/$B'T(B/$B'U(B/$B'V(B/$B'W(B/$B'X(B/$B'Y(B/$B'Z(B/$B'[(B/$B'\(B/$B'](B/$B'^(B/$B'_(B/$B'`(B/$B'a(B/$B'b(B/$B'c(B/$B'd(B/$B'e(B/$B'f(B/$B'g(B/\
+$B'h(B/$B'i(B/$B'j(B/$B'k(B/$B'l(B/$B'm(B/$B'n(B/$B'o(B/$B'p(B/$B'q(B/
+$B$$$A$*$/(B /$B0l2/(B/
+$B$*$*$5$+(B /$BBg:e(B/
+$B$+$J(B /$B2>L>(B/
+$B$+$s$8(B /$B4A;z(B/$B44;v(B/$B4F;v(B/
+$B$,$/$7$e$&(B /$B3X=,(B/
+$B$-(B /$B4p(B/$B5-(B/$B5$(B/$BLZ(B/$B5"(B/
+$B$-$4$&(B /$B5-9f(B/$B!"(B/$B!#(B/$B!$(B/$B!%(B/$B!&(B/$B!'(B/$B!((B/$B!)(B/$B!*(B/$B!+(B/$B!,(B/$B!-(B/$B!.(B/$B!/(B/$B!0(B/$B!1(B/$B!2(B/$B!3(B/$B!4(B/$B!5(B/$B!6(B/\
+$B!7(B/$B!8(B/$B!9(B/$B!:(B/$B!;(B/$B!<(B/$B!=(B/$B!>(B/$B!?(B/$B!@(B/$B!A(B/$B!B(B/$B!C(B/$B!D(B/$B!E(B/$B!F(B/$B!G(B/$B!H(B/$B!I(B/$B!J(B/$B!K(B/$B!L(B/$B!M(B/$B!N(B/$B!O(B/\
+$B!P(B/$B!Q(B/$B!R(B/$B!S(B/$B!T(B/$B!U(B/$B!V(B/$B![(B/$B!X(B/$B!Y(B/$B!Z(B/$B![(B/$B!\(B/$B!](B/$B!^(B/$B!_(B/$B!`(B/$B!a(B/$B!b(B/$B!c(B/$B!d(B/$B!e(B/$B!f(B/$B!g(B/$B!h(B/$B!i(B/\
+$B!j(B/$B!k(B/$B!l(B/$B!m(B/$B!n(B/$B!o(B/$B!p(B/$B!q(B/$B!r(B/$B!s(B/$B!t(B/$B!u(B/$B!v(B/$B!w(B/$B!x(B/$B!y(B/$B!z(B/$B!{(B/$B!|(B/$B!}(B/$B!~(B/$B"!(B/$B""(B/$B"#(B/$B"$(B/$B"%(B/\
+$B"&(B/$B"'(B/$B"((B/$B")(B/$B"*(B/$B"+(B/$B",(B/$B"-(B/$B".(B/
+$B$-$g$&$H(B /$B5~ET(B/
+$B$3$&$Y(B /$B?@8M(B/
+$B$4(B /$B8^(B/$B8_(B/$B8`(B/$B8a(B/$B8b(B/$B8c(B/$B8d(B/$B8e(B/$B8f(B/$B8g(B/$B8h(B/$B8i(B/$B8j(B/$B8k(B/$B8l(B/$B8m(B/$B8n(B/$B8o(B/
+$B$5$$(B /$B:Y(B/$B:G(B/$B:F(B/
+$B$5$$$7$g(B /$B:G=i(B/
+$B$5$$$H$&(B /$B:XF#(B/
+$B$5$H$&(B /$B:4F#(B/
+$B$7$e$&$j$g$&(B /$B=*N;(B/
+$B$8$7$g(B /$B<-=q(B/$BCO=j(B/
+$B$8$s$3$&(B /$B?M8}(B/
+$B$;$s$?$/(B /$BA*Br(B/$B@vBu(B/
+$B$=$&(B /$BAv(B/
+$B$@$$(B /$BBg(B/$BBh(B/$BBe(B/
+$B$F$-(B /$BE*(B/$BE((B/$BE)(B/$BE,(B/$BE&(B/
+$B$H$&(B /$BEl(B/
+$B$H$&$[$/(B /$BElKL(B/
+$B$H$&$m$/(B /$BEPO?(B/
+$B$H$&$m$/(B /$BEPO?(B/
+$B$I$&(B /$BF0(B/
+$B$K$e$&$j$g$/(B /$BF~NO(B/
+$B$R$3$&$-(B /$BHt9T5!(B/
+$B$X$s$+$s(B /$BJQ49(B/
+$B$[$/(B /$BKL(B/
+$B$_$g$&$8(B /$BL>;z(B/
+$B$h$&$$(B /$BMF0W(B/$BMQ0U(B/
+")
     (skk-setup-jisyo-buffer)))
 
 (defun skktut-setup-working-buffer ()
@@ -766,7 +776,8 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
   (with-current-buffer (get-buffer-create skktut-answer-buffer)
     ;; users may use undo.
     ;; (buffer-disable-undo (current-buffer))
-    ;; skktut-answer-buffer $B$N(B skk.el $B$NJQ?t$r%P%C%U%!%m!<%+%k2=$7!"=i4|2=$9$k!#(B
+    ;; skktut-answer-buffer $B$N(B skk.el $B$NJQ?t$r%P%C%U%!%m!<%+%k2=$7!"=i4|2=$9(B
+    ;; $B$k!#(B
     (skktut-localize-and-init-variables)
     (local-set-key "\C-xq" 'skk-tutorial-quit)
     (local-set-key "\C-xt" 'skk-tutorial-again)
@@ -893,7 +904,8 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 		      (concat "$B#S#K#K%A%e!<%H%j%"%k(B: $B!NLd(B "
 			      (number-to-string page)
 			      "$B!O(B $B!J;D$j(B "
-			      (number-to-string (- skktut-question-numbers page))
+			      (number-to-string
+			       (- skktut-question-numbers page))
 			      "$BLd!K(B"))
 		(set-buffer-modified-p nil)
 		(force-mode-line-update 'all))))))))
@@ -906,7 +918,9 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
       (let (p)
 	(widen)
 	(search-forward "\n>> ")
-	(if (re-search-forward "$B!V(B.*$B!W(B" (skk-save-point (end-of-line) (point)) t)
+	(if (re-search-forward "$B!V(B.*$B!W(B"
+			       (skk-save-point (end-of-line) (point))
+			       t)
 	    (delete-region (match-beginning 0) (match-end 0)))
 	(setq p (point))
 	(insert (concat "$B!V$-$g$&$O!"(B" (skk-current-date) "$B$G$9!#!W(B"))
@@ -921,32 +935,54 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
   (let (buffer-read-only)
     (goto-char (point-min))
     (insert
-     (if skktut-japanese-tut
-	 (concat "SKK $B%A%e!<%H%j%"%k$O$3$l$G=*$j$G$9!#(B\n\n"
-		 (format "%s $B$K4X$9$k<ALd!"%3%a%s%H!"(Bbug report $BEy$O(B\n\n"
-			 (product-string-1 'skk-version t))
-		 (format "\t%s\n\n" skk-ml-address)
-		 "$BKx$*Aw$j2<$5$$!#$J$*!"$3$N%"%I%l%9$O(B SKK Ring Server Openlab Mailing list\n"
-		 "$B$N%"%I%l%9$G$9!#$I$J$?$G$bEj9F$O$G$-$^$9$,!"%a%s%P!<$K$7$+G[Aw$5$l$J$$$N$G!"(B\n"
-		 "$B%a%s%P!<$G$J$$J}$O$=$N;]$rL@5-$7$F%a!<%k$r$*Aw$j$/$@$5$$!#(B\n"
-		 "SKK Ring Server Openlab ML $B$X;22C4uK>$N>l9g$O(B\n\n"
-		 (format "\t%s\n\n" skk-ml-command-address)
-		 "$B$XK\J8$K(B($BI=Bj$K$G$O$"$j$^$;$s(B) subscribe $B$H5-$7$?%a!<%k$r$*Aw$j$/$@$5$$!#(B\n\n"
-		 "!! $B:G8e$K(B <return> $B%-!<$r2!$7$F$/$@$5$$!#(B")
-       (concat "Now we end the SKK tutorial.\n\n"
-	       (format
-		"Please send comments, questions and bug reports on %s to:\n\n"
-		(product-string-1 'skk-version t))
-	       (format "\t%s\n\n" skk-ml-address)
-	       "This is the address of the SKK Ring Server Openlab Mailing list.\n"
-	       "Anyone can post, but responces will be sent only to the ML members.\n"
-	       "So, if you are not a ML member, please say so in your mail.\n"
-	       "If you are interested in joining the SKK Ring Server Openlab ML,\n"
-	       (format "send mail to %s with the following command\n"
-		       skk-ml-command-address)
-	       "in the body of your email message (not in subject):\n\n"
-	       "\tsubscribe\n\n"
-	       "!! Hit <return> key when you are ready.")))
+     (format
+      (if skktut-japanese-tut
+	  "\
+SKK $B%A%e!<%H%j%"%k$O$3$l$G=*$j$G$9!#(B
+
+%s $B$K4X$9$k<ALd!"%3%a%s%H!"(Bbug report $BEy$O(B
+
+\t%s
+
+$BKx$*Aw$j2<$5$$!#$J$*!"$3$N%"%I%l%9$O(B SKK Ring Server Openlab Mailing
+List $B$N%"%I%l%9$G$9!#$I$J$?$G$bEj9F$O$G$-$^$9$,!"%a%s%P!<$K$7$+G[Aw$5$l(B
+$B$J$$$N$G!"%a%s%P!<$G$J$$J}$O$=$N;]$rL@5-$7$F%a!<%k$r$*Aw$j$/$@$5$$!#(B
+SKK Ring Server Openlab ML $B$X;22C4uK>$N>l9g$O(B
+
+\t%s
+
+$B$XK\J8$K(B($BI=Bj$K$G$O$"$j$^$;$s(B)
+
+\tsubscribe
+
+$B$H5-$7$?%a!<%k$r$*Aw$j$/$@$5$$!#(B
+
+!! $B:G8e$K(B <return> $B%-!<$r2!$7$F$/$@$5$$!#(B"
+
+	"\
+Now we end the SKK tutorial.
+
+Please send comments, questions and bug reports on %s to:
+
+\t%s
+
+This is the address of the SKK Ring Server Openlab Mailing list.
+Anyone can post, but responces will be sent only to the ML members.
+So, if you are not a ML member, please say so in your mail.
+If you are interested in joining the SKK Ring Server Openlab ML,
+send mail to:
+
+\t%s
+
+with the following command in the body of your email message
+(not in subject):
+
+\tsubscribe
+
+!! Hit <return> key when you are ready.")
+		 (product-string-1 'skk-version t)
+		 skk-ml-address
+		 skk-ml-command-address))
     (if skk-tut-use-face
 	(save-match-data
 	  (goto-char (point-min))
@@ -983,7 +1019,9 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
       (setq keys (where-is-internal (car commands) map)
 	    commands (cdr commands))
       (while keys
-	(define-key skktut-abbrev-mode-map (car keys) 'skk-delete-backward-char)
+	(define-key skktut-abbrev-mode-map
+	  (car keys)
+	  'skk-delete-backward-char)
 	(define-key skktut-j-mode-map (car keys) 'skk-delete-backward-char)
 	(setq keys (cdr keys))))))
 
