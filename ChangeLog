@@ -1,5 +1,8 @@
 2001-10-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* SKK-MK:
+	Never remove skk-dic from `SKK_MODULES'.
+
 	* skk-comp.el
 	(skk-comp-by-history): Use `pop'.
 
@@ -2184,8 +2187,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.449 2001/10/06 06:46:35 czkmt Exp $
-Last Modified: $Date: 2001/10/06 06:46:35 $
+Version: $Id: ChangeLog,v 1.450 2001/10/06 14:35:03 czkmt Exp $
+Last Modified: $Date: 2001/10/06 14:35:03 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
