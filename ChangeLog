@@ -1,3 +1,8 @@
+2001-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-server-installed-p): Check for config files of
+	xinetd.
+
 2001-08-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el (skk-quote-semicolon): Quote all problematic
@@ -3702,8 +3707,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.324 2001/08/09 11:24:35 czkmt Exp $
-Last Modified: $Date: 2001/08/09 11:24:35 $
+Version: $Id: ChangeLog,v 1.325 2001/08/18 21:40:18 czkmt Exp $
+Last Modified: $Date: 2001/08/18 21:40:18 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
