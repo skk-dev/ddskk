@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kcode.el,v 1.4 1999/09/24 22:43:26 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.5 1999/09/25 13:06:52 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/24 22:43:26 $
+;; Last Modified: $Date: 1999/09/25 13:06:52 $
 
 ;; This file is part of SKK.
 
@@ -250,7 +250,8 @@
               (setq str (concat str (nth i menu-keys2) ":" (nth i chars) " "))
               (setq i (1+ i)) )
             (message str) )
-          (let ((char (event-to-character (skk-read-event))))
+          (let ((char (event-to-character (skk-read-event)))
+		rest ch )
             (if (not (characterp char))
                 (progn
                   (skk-message "\"%s\" は有効なキーではありません！"
