@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.48 2000/10/21 02:31:46 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.49 2000/10/21 06:24:09 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/21 02:31:46 $
+@c  Last Modified: $Date: 2000/10/21 06:24:09 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.62
-@set UPDATED $Date: 2000/10/21 02:31:46 $
+@set UPDATED $Date: 2000/10/21 06:24:09 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -3153,7 +3153,7 @@ M-Q} のように引数を渡して実行すると、変換開始位置から現在位置までの文字
 @vtable @code
 @item skk-dabbrev-like-completion
 
-この変数の値を 非 nil} にすると、見出し語補完の動作が変化します。具体的
+この変数の値を 非 nil にすると、見出し語補完の動作が変化します。具体的
 には、@samp{.} で 2 番目以降の補完を行なったときに、最初に補完された語に
 ついて補完が行われます。つまり上記の例では @samp{さ} に対し、最初に補完
 された語は、@samp{さとう} なので、以後の補完は、@samp{さとう} を含む語 (
@@ -6409,7 +6409,7 @@ CVS は 以下のサイトで配布されています。
 CVS に関する情報は
 
 @table @samp
-@item http://www.loria.fr/~molli/cvs-index.html}
+@item http://www.loria.fr/~molli/cvs-index.html
 @item http://www.cvshome.org/
 @item http://www.race.u-tokyo.ac.jp/~moro/cvs/
 @item http://www.itojun.org/hack/cvs/tut-kernel.html
