@@ -1,10 +1,10 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.12 1999/10/03 15:19:41 minakaji Exp $
-# Last Modified: $Date: 1999/10/03 15:19:41 $
+# Version: $Id: Makefile,v 1.13 1999/11/07 04:16:44 minakaji Exp $
+# Last Modified: $Date: 1999/11/07 04:16:44 $
 
-VERSION = 10.55
+VERSION = 10.57
 
 TAR	= tar
 RM	= /bin/rm -f
