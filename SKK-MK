@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.54 2000/11/19 05:45:05 minakaji Exp $
-;; Last Modified: $Date: 2000/11/19 05:45:05 $
+;; Version: $Id: SKK-MK,v 1.55 2000/11/19 13:46:12 czkmt Exp $
+;; Last Modified: $Date: 2000/11/19 13:46:12 $
 
 ;; Commentary
 ;;
@@ -220,6 +220,8 @@
 	      (t
 	       ;; FSFmacs
 	       (setq list (nconc list (list 'ccc)))
+	       (and (eq emacs-major-version 21)
+		      (setq list (nconc list (list 'skk-e21))))
 	       (or (fboundp 'register-input-method)
 		   (setq list (delq 'skk-leim list)))))
 	;; skk-jisx0213.el
