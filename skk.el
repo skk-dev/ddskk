@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.130 2001/10/04 20:45:10 czkmt Exp $
+;; Version: $Id: skk.el,v 1.131 2001/10/06 06:28:55 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/04 20:45:10 $
+;; Last Modified: $Date: 2001/10/06 06:28:55 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -112,15 +112,19 @@
 
 ;; inline functions to hook.
 (defsubst skk-after-point-move ()
-  (and (or (not skk-previous-point) (not (= skk-previous-point (point))))
-       (skk-get-prefix skk-current-rule-tree)
-       (skk-with-point-move (skk-erase-prefix 'clean))))
+  (when (and (not (and skk-previous-point
+		       (= skk-previous-point (point))))
+	     (skk-get-prefix skk-current-rule-tree))
+    (skk-with-point-move
+     (skk-erase-prefix 'clean))))
 
 ;; inline functions to hook.
 (defsubst skk-pre-command ()
-  (and (memq last-command '(skk-insert skk-previous-candidate))
-       (null (memq this-command skk-kana-cleanup-command-list))
-       (skk-kana-cleanup t)))
+  (when (and (memq last-command
+		   '(skk-insert skk-previous-candidate))
+	     (null (memq this-command
+			 skk-kana-cleanup-command-list)))
+    (skk-kana-cleanup t)))
 
 ;;; normal functions.
 ;;;; aliases
