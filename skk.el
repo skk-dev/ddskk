@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.261 2003/03/27 23:12:42 czkmt Exp $
+;; Version: $Id: skk.el,v 1.262 2003/03/28 00:01:39 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/03/27 23:12:42 $
+;; Last Modified: $Date: 2003/03/28 00:01:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -431,7 +431,7 @@ dependent."
      (list (cons 'skk-abbrev-mode skk-abbrev-mode-map)))
     (define-key skk-abbrev-mode-map "," 'skk-abbrev-comma)
     (define-key skk-abbrev-mode-map "." 'skk-abbrev-period)
-    (define-key skk-abbrev-mode-map "\C-q" 'skk-jisx0208-latin-henkan)
+    (define-key skk-abbrev-mode-map "\C-q" 'skk-toggle-characters)
     (skk-define-menu skk-abbrev-mode-map)))
 
 (skk-define-abbrev-mode-map)
@@ -845,30 +845,23 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (cond
    ((eq skk-henkan-mode 'on)
     (let (char)
-      (skk-set-marker skk-henkan-end-point (point))
       (skk-save-point
        (goto-char skk-henkan-start-point)
-       (while (and
-	       ;;(not (eobp))
-	       (>= skk-henkan-end-point (point))
-	       (or
-		;; "$B!<(B" $B$G$OJ8;z<oJL$,H=JL$G$-$J$$$N$G!"%]%$%s%H$r?J$a$k!#(B
-		(looking-at "$B!<(B")
-		(eq 'unknown (setq char (skk-what-char-type)))))
+       (while (and (>= skk-henkan-end-point (point))
+		   ;; (not (eobp))
+		   (or
+		    ;; "$B!<(B" $B$G$OJ8;z<oJL$,H=JL$G$-$J$$$N$G!"%]%$%s%H$r?J$a$k!#(B
+		    (looking-at "$B!<(B")
+		    (eq 'unknown (setq char (skk-what-char-type)))))
 	 (forward-char 1)))
       (cond ((eq char 'hiragana)
-	     (skk-katakana-region
-	      skk-henkan-start-point skk-henkan-end-point
-	      'vcontract))
+	     (skk-katakana-henkan arg))
 	    ((eq char 'katakana)
-	     (skk-hiragana-region
-	      skk-henkan-start-point skk-henkan-end-point))
+	     (skk-hiragana-henkan arg))
 	    ((eq char 'jisx0208-latin)
-	     (skk-latin-region
-	      skk-henkan-start-point skk-henkan-end-point))
+	     (skk-latin-henkan arg))
 	    ((eq char 'ascii)
-	     (skk-jisx0208-latin-region
-	      skk-henkan-start-point skk-henkan-end-point)))))
+	     (skk-jisx0208-latin-henkan arg)))))
    ((and (skk-in-minibuffer-p)
 	 (not skk-j-mode))
     ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
@@ -4013,7 +4006,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
        (aref skk-default-jisx0208-latin-vector (string-to-char matched)))))
 
 (defun skk-latin-region (start end)
-  "$BNN0h$NA43Q1Q?t;z$rBP1~$9$k(B ascii $BJ8;z$KJQ49$9$k!#(B"
+  "$BNN0h$NA43Q1QJ8;z$rBP1~$9$k(B ascii $BJ8;z$KJQ49$9$k!#(B"
   (interactive "*r")
   (skk-search-and-replace
    start end "\\cj"
@@ -4075,7 +4068,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
   (skk-*-henkan-2 #'skk-jisx0208-latin-region))
 
 (defun skk-latin-henkan (arg)
-  "$B"&%b!<%I$G$"$l$P!"(Bascii $BJ8;z$rBP1~$9$kA43QJ8;z$KJQ49$9$k!#(B
+  "$B"&%b!<%I$G$"$l$P!"A43Q1QJ8;z$rBP1~$9$k(B ascii $BJ8;z$KJQ49$9$k!#(B
 $B"'%b!<%I$G$O2?$b$7$J$$!#(B
 $B$=$NB>$N%b!<%I$G$O!"%*%j%8%J%k$N%-!<3d$jIU$1$G%P%$%s%I$5$l$F$$$k%3%^%s%I$r<B9T(B
 $B$9$k!#(B"
@@ -4112,6 +4105,14 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
      nil)
     ((eq skk-henkan-mode 'on)
      (skk-set-marker skk-henkan-end-point (point))
+     (when (and (> skk-kakutei-history-limit 0)
+		(< skk-henkan-start-point (point))
+		(skk-save-point
+		 (goto-char skk-henkan-start-point)
+		 (eq (skk-what-char-type) 'hiragana)))
+       (skk-update-kakutei-history
+	(buffer-substring-no-properties
+	 skk-henkan-start-point (point))))
      (apply #'skk-*-henkan-1
 	    func
 	    skk-henkan-start-point
