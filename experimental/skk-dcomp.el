@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.10 2000/11/28 13:56:00 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.11 2000/11/28 22:32:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/28 13:56:00 $
+;; Last Modified: $Date: 2000/11/28 22:32:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -95,10 +95,11 @@
 	  (skk-dcomp-face-off)
 	  (or (equal skk-dcomp-toggle-key (this-command-keys))
 	      (condition-case nil
-		  (delete-region skk-dcomp-start-point (point))
+		  (delete-region skk-dcomp-start-point skk-dcomp-end-point)
 		(error)))))
       ad-do-it
-      (if (and (not (skk-get-prefix skk-current-rule-tree)) (not skk-okurigana))
+      (if (and (not (skk-get-prefix skk-current-rule-tree))
+	       (not skk-okurigana))
 	  (progn
 	    (setq pos (point))
 	    (condition-case nil
@@ -108,7 +109,8 @@
 	       (message nil)))
 	    (skk-set-marker skk-dcomp-start-point pos)
 	    (skk-set-marker skk-dcomp-end-point (point))
-	    (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point))))))
+	    (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
+	    (goto-char skk-dcomp-start-point))))))
 
 (defadvice skk-kakutei (after skk-dcomp-ad activate)
   (skk-dcomp-face-off)

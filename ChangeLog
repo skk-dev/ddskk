@@ -1,3 +1,8 @@
+2000-11-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-dcomp.el (skk-kana-input): Go to
+	`skk-dcomp-start-point' after the hairy work finishes.
+
 2000-11-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e18.el, skk-is-n.el: From "experimental".
@@ -2598,8 +2603,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.189 2000/11/28 16:32:45 czkmt Exp $
-Last Modified: $Date: 2000/11/28 16:32:45 $
+Version: $Id: ChangeLog,v 1.190 2000/11/28 22:32:48 minakaji Exp $
+Last Modified: $Date: 2000/11/28 22:32:48 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
