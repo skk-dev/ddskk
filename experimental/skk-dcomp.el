@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dcomp.el,v 1.3 1999/09/21 21:48:21 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.4 1999/09/21 21:52:00 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/21 21:48:21 $
+;; Last Modified: $Date: 1999/09/21 21:52:00 $
 
 ;; This file is not part of SKK yet.
 
@@ -33,16 +33,7 @@
 (require 'skk-foreword)
 (require 'skk-comp)
 
-(defface skk-dcomp-face
-  '(
-    ;;(((class color) (background light)) (:foreground ""))
-    ;; Is there something good?
-    ;;(((class color) (background dark)) (:foreground ""))
-    (((class grayscale) (background light))
-     (:foreground "LightGray" :bold t :underline t) )
-    (((class grayscale) (background dark))
-     (:foreground "Gray50" :bold t :underline t) )
-    (t (:foreground "DarkKhaki")) )
+(defvar skk-dcomp-face (skk-make-face 'DarkKhaki)
   "*Face used to highlight region dynamically completed." )
 
 (defvar skk-dcomp-face-priority 700
