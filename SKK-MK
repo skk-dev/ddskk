@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.111 2001/12/16 03:56:34 czkmt Exp $
-;; Last Modified: $Date: 2001/12/16 03:56:34 $
+;; Version: $Id: SKK-MK,v 1.112 2001/12/16 12:35:40 czkmt Exp $
+;; Last Modified: $Date: 2001/12/16 12:35:40 $
 
 ;;; Commentary:
 
@@ -499,40 +499,12 @@ This version of SKK requires MULE features"))
 	(setq spec (nthcdr 2 spec)))
       (write-region (point-min) (point-max) "skk-setup.el"))))
 
-(defun SKK-MK-server-installed-p (&optional server ps conf)
-  (or
-   ;; process
-   (and
-    (or ps (setq ps (exec-installed-p "ps")))
-    (with-temp-buffer
-      (and (eq 0 (call-process
-		  ps nil
-		  (current-buffer) nil
-		  (if (eq 0 (call-process ps nil nil nil "-dfj"))
-		      ;; System V
-		      "-e"
-		    ;; BSD
-		    "-ax")))
-	   (progn
-	     (goto-char (point-min))
-	     (re-search-forward
-	      (or (and server
-		       (file-name-nondirectory server))
-		  "skkserv")
-	      nil t)))))
-   ;; inetd
-   (and
-    (file-readable-p (or conf (setq conf "/etc/inetd.conf")))
-    (with-temp-buffer
-      (insert-file-contents conf)
-      (goto-char (point-min))
-      (re-search-forward "^skkserv" nil t)))
-   ;; xinetd
-   (or
-    (file-exists-p "/etc/xinetd.d/dbskkd")
-    (file-exists-p "/etc/xinetd.d/dbskkd-cdb")
-    (file-exists-p "/etc/xinetd.d/skkserv")
-    (file-exists-p "/etc/xinetd.d/skksearch"))))
+(defun SKK-MK-server-installed-p ()
+  (require 'skk-server (expand-file-name "skk-server.el"))
+  (let ((skk-server-inhibit-startup-server t))
+    (prog1
+	(skk-server-live-p (skk-open-server))
+      (skk-disconnect-server))))
 
 (defvar SKK_SET_JISYO
   (let* ((set_jisyo (or (getenv "set_jisyo")
