@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.226 2002/02/09 03:55:54 czkmt Exp $
+;; Version: $Id: skk.el,v 1.227 2002/02/10 03:05:17 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/09 03:55:54 $
+;; Last Modified: $Date: 2002/02/10 03:05:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2652,7 +2652,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 		      "It seems that you have deleted $B"&(B")))))))
 
 (defun skk-delete-okuri-mark ()
-  "$BAw$j2>L>4XO"%U%i%0$r$r>C$9!#(B
+  "$BAw$j2>L>4XO"%U%i%0$r>C$9!#(B
 $BAw$j2>L>F~NOCf$K%+%l%s%H%P%C%U%!$KI=$o$l$k(B `*' $B%^!<%/$r>C$7!"(B
 $BAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B"
   (when (and skk-okurigana
