@@ -1,3 +1,26 @@
+2001-09-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* etc/{NICOLA-SKK.tut, SKK.tut, SKK.tut.E}: Do not show
+	`skk-today'.
+
+	* skk-num.el (skk-num-get-kanji): Rename to ...
+	(skk-num-get-suuji): it.
+	(skk-num-jisx0208-latin, skk-num-type2-kanji, skk-num-shogi): Use
+	it.
+
+	* skk-tut.el (skktut-init-variables-alist): Add `skk-kakutei-key'
+	to `skk-rom-kana-base-rule-list'.
+	(skktut-j-mode-map): Do not use `substitute-key-definition'.
+	(skktut-setup-jisyo-buffer, skktut-end-tutorial): Do not use
+	`concat'.
+
+	* skk-vars.el (skk-check-okurigana-on-touroku,
+	skk-rom-kana-base-rule-list, skk-rom-kana-rule-list,
+	skk-rule-tree, skk-num-alist-type3, skk-num-alist-type5): Doc
+	string update.
+
+	* skk-xemacs.el: Use #' for `function'.
+
 2001-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-dcomp.el (skk-dcomp-marked-p): New function. Each function
@@ -1828,8 +1851,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.378 2001/09/11 22:47:10 czkmt Exp $
-Last Modified: $Date: 2001/09/11 22:47:10 $
+Version: $Id: ChangeLog,v 1.379 2001/09/12 11:17:28 czkmt Exp $
+Last Modified: $Date: 2001/09/12 11:17:28 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
