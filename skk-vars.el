@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.21 2000/12/07 21:43:56 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.22 2000/12/09 15:53:46 kawamura Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/07 21:43:56 $
+;; Last Modified: $Date: 2000/12/09 15:53:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1063,7 +1063,7 @@ car に「実際のキー入力によるかな prefix 文字列」、cdr に「SKK 
 
 例えば、か行の送り仮名入力に \"c\" の prefix を使うのであれば、
 
-  \(setq skk-okuri-char-alist '\(\(\"c\" . \"k\"\)\)
+  \(setq skk-okuri-char-alist '\(\(\"c\" . \"k\"\)\)\)
 
 のように書く。"
   :type '(repeat (cons string string))
