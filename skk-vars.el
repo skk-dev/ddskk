@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.32 2001/03/10 14:28:14 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.33 2001/05/19 06:17:17 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/03/10 14:28:14 $
+;; Last Modified: $Date: 2001/05/19 06:17:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1121,7 +1121,7 @@ skk.el のロード後 (もしくは skk-load-hook を利用して)、
   :group 'skk-decoration)
 
 ;; should use defface?  however, can I use defface for highlight?
-(defcustom skk-henkan-face 'highlight
+(defcustom skk-henkan-face 'skk-henkan-face-default
   "*変換候補の face 属性。skk-use-face が non-nil のときのみ有効。
 Emacs 標準フェイスの default, modeline, region, secondary-selection,
 highlight, underline, bold, italic, bold-italic の他、新たに face を作
@@ -1137,6 +1137,31 @@ hilit-lookup-face-create などを利用する。色を付ける場合の配色は、canna.el 
 canna:attribute-alist が良い例かもしれない。"
   :type 'face
   :group 'skk-decoration)
+
+(defface skk-henkan-face-default
+  (` ((((class color) (background light))
+       (:foreground
+	"black"
+	:background
+	(, (static-if (featurep 'xemacs)
+	       (face-background-name 'highlight)
+	     (face-background 'highlight)))))
+      (((class color) (background dark))
+       (:foreground
+	"white"
+	:background
+	(, (static-if (featurep 'xemacs)
+	       (face-background-name 'highlight)
+	     (face-background 'highlight)))))
+      (((class grayscale)) (:underline t))))
+  "*変換候補の face 属性の、標準。"
+  :group 'skk-decoration)
+
+(when (and skk-use-face
+	   (not frame-background-mode)
+	   (not (face-background 'skk-henkan-face-default)))
+  (set-face-foreground 'skk-henkan-face-default "black")
+  (set-face-background 'skk-henkan-face-default "darkseagreen2"))
 
 ;;; SKK-AUTO.EL related.
 (defcustom skk-okuri-search-function 'skk-okuri-search-subr-original
