@@ -35,17 +35,6 @@
 
 ;;;###autoload (unless (noninteractive) (require 'skk-setup))
 
-(static-when (< emacs-major-version 21)
-  ;; From Naoki Wakamatsu <naoki-w@ht-net21.ne.jp>
-  ;;
-  ;; XEmacs 20.4 (Mule) includes SKK 10.38 and loads skk-leim.el on dump,
-  ;; and skk/auto-autoloads.el on initialization.
-  ;;
-  ;; For overriding those, the following files needs to be loaded.
-  (unless (featurep 'skk-setup)
-    (load "skk-autoloads")
-    (load "skk-leim")))
-
 ;; Variables.
 (defvar skk-xemacs-extent-alist
   (list
@@ -188,20 +177,16 @@
 				 mode)))
       (unless (find-face face)
 	(make-face face)
-	(set-face-parent face 'modeline nil
-			 (if (> emacs-major-version 20)
-			     '(default)
-			   nil))
-	(when window-system
-	  (when skk-indicator-use-cursor-color
-	    (when (> emacs-major-version 20)
-	      (set-face-foreground face
-				   (symbol-value
-				    (intern (format
-					     "skk-cursor-%s-color"
-					     mode)))
-				   nil
-				   '(default color win))))))
+	(set-face-parent face 'modeline nil '(default))
+	(when (and window-system
+		   skk-indicator-use-cursor-color)
+	  (set-face-foreground face
+			       (symbol-value
+				(intern (format
+					 "skk-cursor-%s-color"
+					 mode)))
+			       nil
+			       '(default color win))))
       (set-extent-face extent face))))
 
 (defun skk-xemacs-find-func-keys (func)
@@ -253,8 +238,7 @@
 	 (setq skk-henkan-count 0)
 	 (if (and skk-delete-okuri-when-quit
 		  skk-henkan-okurigana)
-	     (let ((count (/ (length skk-henkan-okurigana)
-			     skk-kanji-len)))
+	     (let ((count (length skk-henkan-okurigana)))
 	       (skk-previous-candidate)
 	       ;; ここでは `delete-backward-char' に
 	       ;; 第二引数を渡さない方がベター？
