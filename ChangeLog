@@ -1,7 +1,7 @@
 2001-09-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el: Re-indent and re-order cases.
-	(skk-comp-do-in-buf): New function
+	(skk-comp-do-1-in-buf): New function.
 	(skk-comp-do-1): Call it. Refer to `skk-dic-comp-first'.
 	(skk-comp-do): Add only new words.
 
@@ -1947,8 +1947,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.402 2001/09/15 03:35:15 czkmt Exp $
-Last Modified: $Date: 2001/09/15 03:35:15 $
+Version: $Id: ChangeLog,v 1.403 2001/09/15 05:06:55 czkmt Exp $
+Last Modified: $Date: 2001/09/15 05:06:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
