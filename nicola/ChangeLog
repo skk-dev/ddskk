@@ -1,3 +1,8 @@
+2001-10-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el
+	(skk-compute-henkan-lists-sub-adjust-okuri): New advice.
+
 2001-10-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola-dcomp.el:
