@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.151 2001/10/13 13:59:30 czkmt Exp $
+;; Version: $Id: skk.el,v 1.152 2001/10/13 14:28:43 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 13:59:30 $
+;; Last Modified: $Date: 2001/10/13 14:28:43 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3776,8 +3776,11 @@ If you want to restore the dictionary from the disc, try
 			   skk-henkan-key
 			   0 (1- (skk-str-length skk-henkan-key))))
 	  skk-henkan-okurigana
-	  (skk-current-search-prog-list skk-search-prog-list))
-      (skk-search))))
+	  words)
+      (ignore-errors
+	(dolist (prog skk-search-prog-list)
+	  (setq words (nconc words (eval prog)))))
+      words)))
 
 (defun skk-search-and-replace (start end regexp func)
   (let (matched replace)
