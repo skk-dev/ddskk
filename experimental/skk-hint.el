@@ -22,7 +22,7 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary
-;;
+
 ;; これは▽モードと▼モードで読みの積集合 (みたいなもの) を取ることに
 ;; よって候補の絞り込みを行うプログラムです。
 ;;
@@ -36,7 +36,11 @@
 ;; 漢字を持つものに候補を絞ります。
 
 ;;;Code
-(eval-when-compile (require 'skk-macs)(require 'skk-vars))
+
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars))
+
 ;; is this necessary?
 (require 'skk-comp)
 

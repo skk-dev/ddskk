@@ -3,37 +3,37 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.24 2001/02/03 00:22:59 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.25 2001/11/19 16:15:45 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2001/02/03 00:22:59 $
+;; Last Modified: $Date: 2001/11/19 16:15:45 $
 
 ;; This file is part of Daredevil SKK.
 
-;; Daredevil SKK is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either versions 2, or (at your option)
-;; any later version.
+;; Daredevil SKK is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either versions 2, or
+;; (at your option) any later version.
 
-;; Daredevil SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
-;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
-;; MA 02111-1307, USA.
+;; along with Daredevil SKK, see the file COPYING.  If not, write to
+;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
 
 ;;; Commentary:
-;;
+
 ;; ある単語を変換した場合に、直前に変換した語を関連語として登録しておき、再度そ
 ;; の単語の変換を行なったときに登録した関連語が辞書にあればそれを優先して出力す
 ;; る単純な学習効果を提供するプログラムです。
 ;;
 ;; 昔 SKK ML で話題になった単語の属性の保存のために、skk-attr.el を作りました
-;; が、機能を欲張りすぎてものになりませんでした。直前の変換との関連性を保存するた
-;; めだけに機能を絞って再構成したのがこのプログラムです。
+;; が、機能を欲張りすぎてものになりませんでした。直前の変換との関連性を保存する
+;; ためだけに機能を絞って再構成したのがこのプログラムです。
 
 ;; <How to work>
 ;;
@@ -73,8 +73,12 @@
 ;;
 
 ;;; Code:
-(eval-when-compile (require 'cl) (require 'ring) (require 'skk-macs)
-		   (require 'skk-vars))
+
+(eval-when-compile
+  (require 'cl)
+  (require 'ring)
+  (require 'skk-macs)
+  (require 'skk-vars))
 
 ;;;###autoload
 (defgroup skk-study nil "SKK study related customization."

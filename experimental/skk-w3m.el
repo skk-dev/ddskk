@@ -3,34 +3,35 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.24 2001/07/05 21:33:46 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.25 2001/11/19 16:15:45 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/07/05 21:33:46 $
+;; Last Modified: $Date: 2001/11/19 16:15:45 $
 
 ;; This file is part of Daredevil SKK.
 
-;; Daredevil SKK is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either versions 2, or (at your option)
-;; any later version.
+;; Daredevil SKK is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either versions 2, or
+;; (at your option) any later version.
 
-;; Daredevil SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
-;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
-;; MA 02111-1307, USA.
+;; along with Daredevil SKK, see the file COPYING.  If not, write to
+;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
 
 ;;; Commentary:
+
 ;; w3m (http://ei5nazha.yz.yamagata-u.ac.jp/~aito/w3m/) を利用し、
 ;; Emacs の中から Web 検索エンジンによる検索をし、検索結果の中から
 ;; SKK の候補として取り出したいものを切り出して利用するプログラムで
 ;; す。
-;; 
+;;
 ;; skk-w3m-use-w3m-backend が non-nil であれば、w3m を backend オプ
 ;; ション付きで起動して w3m と直接交信します。nil であれば emacs-w3m
 ;; (http://www-nagao.kuee.kyoto-u.ac.jp/member/tsuchiya/w3m/) を経由
@@ -39,7 +40,7 @@
 ;; 動する必要がなくなり、プロセスの起動、終了に伴なうオーバーヘッドを
 ;; 減らすことができますが、w3m backend は開発中であり、今後大幅な仕様
 ;; 変更が行なわれる可能性もあり、予断を許しません。
-;; 
+;;
 ;; <HOW TO INSTALL>
 ;; .emacs を読み込まずに emacs-w3m が load できる環境が必須です。そ
 ;; の上でこのファイルを SKK-MK があるディレクトリにコピーし (リンク
@@ -74,9 +75,12 @@
 ;; o lookup は w3m-search.el を使った Web search を統合しないのだろう
 ;;   か...。統合すれば skk-lookup.el で一元管理できる？
 ;; o w3m backend の改良に追従。
-;; 
+
 ;;; Code
-(eval-when-compile (require 'skk-macs) (require 'skk-vars))
+
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars))
 
 (defgroup skk-w3m nil "SKK w3m related customization."
   :prefix "skk-w3m-"

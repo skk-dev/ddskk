@@ -6,35 +6,40 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-exserv.el,v 1.3 2001/02/03 00:22:59 minakaji Exp $
+;; Version: $Id: skk-exserv.el,v 1.4 2001/11/19 16:15:45 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/03 00:22:59 $
+;; Last Modified: $Date: 2001/11/19 16:15:45 $
 
 ;; This file is part of Daredevil SKK.
 
-;; Daredevil SKK is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either versions 2, or (at your option)
-;; any later version.
+;; Daredevil SKK is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either versions 2, or
+;; (at your option) any later version.
 
-;; Daredevil SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
-;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
-;; MA 02111-1307, USA.
+;; along with Daredevil SKK, see the file COPYING.  If not, write to
+;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
 
 ;;; Commentary:
-;; This file needs eieio package (which provides CLOS like OO 
+
+;; This file needs eieio package (which provides CLOS like OO
 ;; programming) that can be found at;
 ;;
 ;;    ftp://ftp.ultranet.com/pub/zappo
-;;
+
 ;;; Code:
-(eval-when-compile (require 'skk-macs) (require 'skk-vars) (require 'static))
+
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars)
+  (require 'static))
 (require 'eieio)
 (require 'skk-exsearch)
 

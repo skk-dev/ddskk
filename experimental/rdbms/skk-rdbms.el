@@ -3,28 +3,29 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-rdbms.el,v 1.5 2001/02/03 00:22:59 minakaji Exp $
+;; Version: $Id: skk-rdbms.el,v 1.6 2001/11/19 16:15:45 czkmt Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2001/02/03 00:22:59 $
+;; Last Modified: $Date: 2001/11/19 16:15:45 $
 
-;; This file is not part of SKK yet.
+;; This file is not part of Daredevil SKK yet.
 
-;; SKK is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either versions 2, or (at your option)
-;; any later version.
+;; Daredevil SKK is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either versions 2, or
+;; (at your option) any later version.
 
-;; SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
-;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
-;; MA 02111-1307, USA.
+;; along with Daredevil SKK, see the file COPYING.  If not, write to
+;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
 
 ;;; Commentary:
+
 ;; Currently this program only supports PostgreSQL, but may work with
 ;; other rdbms (such as mSQL or mySQL) by slightly changes.
 
@@ -32,12 +33,11 @@
 ;; を送る、という部分は、Emacs Calc の Gnuplot インターフェイス部分で
 ;; ある calc-graph.el を参考にした。
 
-;; Following people contributed modifications to skk-rdbms.el (Alphabetical order):
-
-;;; Change log:
-
 ;;; Code:
-(eval-when-compile (require 'skk-macs) (require 'skk-vars))
+
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars))
 
 ;; User variables.
 (defvar skk-rdbms-shell "psql"
