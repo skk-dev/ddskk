@@ -350,6 +350,17 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	    (cons str "$BAw$j$"$jJQ493+;O(B"))))))))
 
 (defun skk-kanagaki-adjust-rule-tree ()
+  (unless skk-kanagaki-rule-tree
+    (setq skk-kanagaki-rule-tree
+	  (skk-compile-rule-list
+	   skk-kanagaki-base-rule-list
+	   skk-kanagaki-rule-list)))
+  (unless skk-kanagaki-rom-kana-rule-tree
+    (setq skk-kanagaki-rom-kana-rule-tree
+	  (or skk-rule-tree
+	      (skk-compile-rule-list
+	       skk-rom-kana-base-rule-list
+	       skk-rom-kana-rule-list))))
   (let ((rule
 	 (case skk-kanagaki-state
 	   (kana
@@ -431,15 +442,6 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 			 (format
 			  "skk-kanagaki-%s-base-rule-list"
 			  skk-kanagaki-keyboard-type)))))
-  (setq skk-kanagaki-rule-tree
-	(skk-compile-rule-list
-	 skk-kanagaki-base-rule-list
-	 skk-kanagaki-rule-list))
-  (setq skk-kanagaki-rom-kana-rule-tree
-	(or skk-rule-tree
-	    (skk-compile-rule-list
-			 skk-rom-kana-base-rule-list
-			 skk-rom-kana-rule-list)))
   ;;
   (add-hook 'skk-mode-hook
 	    (function skk-kanagaki-adjust-rule-tree)
