@@ -87,6 +87,10 @@
   '((skk-share-private-jisyo
      (const :tag "複数の SKK が個人辞書を共有する" t) "")))
 
+(defun skk-cus-set ()
+  (dolist (param skk-custom-alist)
+    (set (car param) (cdr param))))
+
 (defun skk-custom-mode ()
   (kill-all-local-variables)
   (setq major-mode 'skk-custom-mode
@@ -237,11 +241,9 @@
 			 skk-cus-params-search
 			 skk-cus-params-input
 			 skk-cus-params-misc))
-    (set (car param)
-	 (let ((el (assq (car param) skk-custom-alist)))
-	   (if el
-	       (cdr el)
-	     nil))))
+    (unless (assq (car param) skk-custom-alist)
+      (push (cons (car param) nil) skk-custom-alist)))
+  (skk-cus-set)
   (with-temp-buffer
     (insert "(setq skk-custom-alist '"
 	    (prin1-to-string skk-custom-alist)
@@ -256,10 +258,8 @@
 (defun skk-cus-setup ()
   (let ((file (expand-file-name skk-custom-file)))
     (when (file-readable-p file)
-      (load-file file))
-    (when skk-custom-alist
-      (dolist (param skk-custom-alist)
-	(set (car param) (cdr param))))))
+      (load-file file)
+      (skk-cus-set))))
 
 ;;
 
