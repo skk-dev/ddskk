@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.4 1999/10/03 11:48:42 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.5 1999/10/03 11:54:44 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 11:48:42 $
+;; Last Modified: $Date: 1999/10/03 11:54:44 $
 
 ;; This file is part of SKK.
 
@@ -108,6 +108,7 @@ integer `1' を代入する。
   "ascii 数字の char type と漢数字の string type の連想リスト。
 \"1995\" -> \"壱阡九百九拾伍\" のような文字列の変換を行う際に利用する。" )
 
+;;;###autoload
 (skk-deflocalvar skk-num-list nil
   "skk-henkan-key の中に含まれる数字を表す文字列のリスト。
 例えば、\"▽へいせい7ねん10がつ\" の変換を行うとき、skk-henkan-key は

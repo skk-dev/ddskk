@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-server.el,v 1.2 1999/10/03 07:50:25 minakaji Exp $
+;; Version: $Id: skk-server.el,v 1.3 1999/10/03 11:50:10 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 07:50:25 $
+;; Last Modified: $Date: 1999/10/03 11:50:10 $
 
 ;; This file is part of SKK.
 
@@ -38,25 +38,21 @@
   :group 'skk )
 
 ;; user variables.
-;;;###autoload
 (defcustom skk-server-host (getenv "SKKSERVER")
   "*SKK 辞書サーバーを走らせているホスト名。"
   :type 'string
   :group 'skk-server )
 
-;;;###autoload
 (defcustom skk-server-prog (getenv "SKKSERV")
   "*SKK 辞書サーバープログラム名。フルパスで書く。"
   :type 'file
   :group 'skk-server )
 
-;;;###autoload
 (defcustom skk-server-jisyo (getenv "SKK_JISYO")
   "*SKK 辞書サーバープログラムに渡す辞書名。フルパスで書く。"
   :type 'file
   :group 'skk-server )
 
-;;;###autoload
 (defcustom skk-server-portnum nil
   "*Non-nil であれば、その値を port number として skkserv と TCP 接続する。
 /etc/services を直接書き換える権限がないユーザーのための変数。"
@@ -68,7 +64,6 @@
 ;;ディバッグ・モードで skkserv を走らせると、そのまま foreground で走り、メッセー
 ;;ジを出力する。キーボードから割りこみをかけることもできる。" )
 
-;;;###autoload
 (defcustom skk-servers-list nil
   "*辞書サーバー毎の情報リスト。
 
@@ -98,13 +93,11 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
 		(choice :tag "Port number" integer (const nil)) ))
   :group 'skk-server )
 
-;;;###autoload
 (defcustom skk-server-report-response nil
   "*Non-nil であれば、変換時サーバーの送出する文字を受け取るまでに accept-process-output を何回実行したかを報告する。"
   :type 'boolean
   :group 'skk-server )
 
-;;;###autoload
 (defcustom skk-server-remote-shell-program
   (or (getenv "REMOTESHELL")
       (and (boundp 'remote-shell-program) remote-shell-program)
@@ -121,7 +114,6 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
   :type 'file
   :group 'skk-server )
 
-;;;###autoload
 (defcustom skk-server-load-hook nil
   "*skk-server.el をロードした後にコールされるフック。"
   :type 'hook
@@ -132,7 +124,6 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
 (defconst skkserv-working-buffer " *skkserv*")
 (defvar skkserv-process nil)
 
-;;;###autoload
 (defun skk-server-version ()
   (interactive)
   (if (interactive-p)

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.8 1999/10/03 05:46:52 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.9 1999/10/03 11:51:49 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:46:52 $
+;; Last Modified: $Date: 1999/10/03 11:51:49 $
 
 ;; This file is part of SKK.
 
@@ -29,6 +29,11 @@
 ;;; Commentary:
 ;;; Code:
 (require 'skk)
+
+;;;###autoload
+(defgroup skk-tut nil "SKK tutorial conversion related customization."
+  :prefix "skk-tut-"
+  :group 'skk )
 
 ;; User variables.  prefix should be `skk-tut-'.
 (defcustom skk-tut-file 
