@@ -1,7 +1,7 @@
 2000-10-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi (ファイル構成, ユーザーオプションの設定方法, 辞書の
-	形式): 「ですます」調に変更。
+	形式, 辞書に関する設定): 「ですます」調に変更。
 
 2000-10-01  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
