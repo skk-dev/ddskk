@@ -1,3 +1,8 @@
+2002-03-05  IIDA Yosiaki  <iida@ring.gr.jp>
+
+	* skk-tut.el: Update initial dummy JISYO.  See [skk 2809].
+	Russia ==> Cyrillic and other minor JISYO updates and typo fix.
+
 2002-03-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el:
@@ -3713,8 +3718,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.666 2002/03/03 12:11:47 czkmt Exp $
-Last Modified: $Date: 2002/03/03 12:11:47 $
+Version: $Id: ChangeLog,v 1.667 2002/03/05 02:42:39 iida Exp $
+Last Modified: $Date: 2002/03/05 02:42:39 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
