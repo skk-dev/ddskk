@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.33 2003/07/07 13:35:58 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.34 2003/07/10 12:59:44 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/07 13:35:58 $
+;; Last Modified: $Date: 2003/07/10 12:59:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -126,8 +126,8 @@
 
 ;;; system internal variables and constants.
 ;; global variable
-(defconst skk-search-end-function 'skk-study-search)
-(defconst skk-update-end-function 'skk-study-update)
+(defvar skk-search-end-function 'skk-study-search)
+(defvar skk-update-end-function 'skk-study-update)
 
 (defconst skk-study-file-format-version "0.2")
 (defvar skk-kakutei-end-function nil)

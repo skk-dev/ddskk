@@ -1,3 +1,9 @@
+2003-07-10  NAKAJIMA Mikio  <minakaji@namazu.org>
+
+	* experimental/skk-study.el (skk-search-end-function): Declared
+	with defvar.
+	(skk-update-end-function): Ditto.
+
 2003-07-07  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* experimental/skk-study.el (skk-kakutei-initialize): Bug fixed.
@@ -4267,8 +4273,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.750 2003/07/07 13:35:58 minakaji Exp $
-Last Modified: $Date: 2003/07/07 13:35:58 $
+Version: $Id: ChangeLog,v 1.751 2003/07/10 12:59:44 minakaji Exp $
+Last Modified: $Date: 2003/07/10 12:59:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
