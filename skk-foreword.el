@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.15 2000/07/17 21:07:52 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.16 2000/10/12 09:55:27 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/07/17 21:07:52 $
+;; Last Modified: $Date: 2000/10/12 09:55:27 $
 
 ;; This file is not part of SKK yet.
 
@@ -88,7 +88,7 @@
 
 ;;;###autoload
 (eval-and-compile
-  (defconst skk-emacs-type (cond ((string-match "XEmacs" emacs-version) 'xemacs)
+  (defconst skk-emacs-type (cond ((featurep 'xemacs) 'xemacs)
 				 ((and (boundp 'mule-version)
 				       (string< "4.0" mule-version) 'mule4 ))
 				 ((and (boundp 'mule-version)
