@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.237 2002/03/12 14:07:30 czkmt Exp $
+;; Version: $Id: skk.el,v 1.238 2002/03/14 10:16:16 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/12 14:07:30 $
+;; Last Modified: $Date: 2002/03/14 10:16:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -868,8 +868,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	      skk-henkan-start-point skk-henkan-end-point))
 	    ((eq char 'ascii)
 	     (skk-jisx0208-latin-region
-	      skk-henkan-start-point skk-henkan-end-point))
-	    )))
+	      skk-henkan-start-point skk-henkan-end-point)))))
    ((and (skk-in-minibuffer-p)
 	 (not skk-j-mode))
     ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
@@ -1639,7 +1638,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	      (unless (equal str "")
 		;; (make-local-hook 'pre-command-hook)
 		;; (add-hook 'pre-command-hook
-		;; 	  (function skk-multiple-line-message-clear))))
+		;;	  (function skk-multiple-line-message-clear))))
 		(add-hook 'pre-command-hook
 			  (function skk-multiple-line-message-clear))))
 	  (quit (shrink-window (- (window-height) last-minibuffer-height))))
@@ -1845,7 +1844,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	(n 0)
 	(str "") cand message-log-max
 	(workinglst-ptr workinglst)
-        (keys-ptr keys))
+	(keys-ptr keys))
     (when (car workinglst)
       ;;(setq workinglst (skk-truncate-message workinglst))
       (while workinglst-ptr
@@ -3580,19 +3579,19 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 	    (if (skk-public-jisyo-has-word-p okurigana word)
 		(skk-compose-ignore-word words1 word)
 	      (delete word words1))))
-      ((and okurigana
-	    (or skk-henkan-okuri-strictly
-		skk-henkan-strict-okuri-precedence)
-	    (null (member word words2))
-	    (null (member word words4)))
-       ;; $BAw$j$"$j$G!"$+$D(B skk-henkan-okuri-strictly $B$+(B
-       ;; skk-henkan-strict-okuri-precedence $B$,(B non-nil
-       ;; $B$N>l9g$G!"$+$D$3$N(B word $B$H%Z%"$K$J$kAw$j2>L>$,(B
-       ;; okurigana $B$7$+$J$$$H$-!#(B
-       (setq words1 (delete word words1)))
-      (t
-       ;; $B$=$NB>$N>l9g$O2?$b$7$J$$!#(B
-       nil))
+     ((and okurigana
+	   (or skk-henkan-okuri-strictly
+	       skk-henkan-strict-okuri-precedence)
+	   (null (member word words2))
+	   (null (member word words4)))
+      ;; $BAw$j$"$j$G!"$+$D(B skk-henkan-okuri-strictly $B$+(B
+      ;; skk-henkan-strict-okuri-precedence $B$,(B non-nil
+      ;; $B$N>l9g$G!"$+$D$3$N(B word $B$H%Z%"$K$J$kAw$j2>L>$,(B
+      ;; okurigana $B$7$+$J$$$H$-!#(B
+      (setq words1 (delete word words1)))
+     (t
+      ;; $B$=$NB>$N>l9g$O2?$b$7$J$$!#(B
+      nil))
     (when words1 ;; words1 $B$,(B null $B$G$"$l$P!"$b$&2?$b$9$k$3$H$O$J$$!#(B
       (goto-char (if okurigana
 		     skk-okuri-ari-min
