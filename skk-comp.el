@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.35 2002/01/23 14:04:32 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.36 2002/01/23 14:21:24 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/23 14:04:32 $
+;; Last Modified: $Date: 2002/01/23 14:21:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -125,7 +125,7 @@
 	  (goto-char skk-okuri-nasi-min)))
       (catch 'word
 	(skk-loop-for-buffers buffers
-	  (setq word (skk-comp-do-1-in-buf (car buffers) key))
+	  (setq word (skk-comp-do-1-in-buf (current-buffer) key))
 	  (if word
 	      (throw 'word word)
 	    nil)))))))
