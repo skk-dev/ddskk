@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.239 2002/03/16 04:03:21 czkmt Exp $
+;; Version: $Id: skk.el,v 1.240 2002/03/16 14:44:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/16 04:03:21 $
+;; Last Modified: $Date: 2002/03/16 14:44:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3569,29 +3569,14 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
       (setq words1 (cons word (delete word words1))))
      ;; 送りなし、もしくは skk-henkan-okuri-strictly と
      ;; skk-henkan-strict-okuri-precedence が nil の場合。
-     ((not (and okurigana
-		(or skk-henkan-okuri-strictly
-		    skk-henkan-strict-okuri-precedence)))
+     (t
       ;; words1 を purge。共用辞書にある候補だったら、
       ;; skk-ignore-dic-word でクォートして次の変換から出力
       ;; しないようにする。共用辞書にない文字列は word を消す。
       (setq words1
 	    (if (skk-public-jisyo-has-word-p okurigana word)
 		(skk-compose-ignore-word words1 word)
-	      (delete word words1))))
-     ((and okurigana
-	   (or skk-henkan-okuri-strictly
-	       skk-henkan-strict-okuri-precedence)
-	   (null (member word words2))
-	   (null (member word words4)))
-      ;; 送りありで、かつ skk-henkan-okuri-strictly か
-      ;; skk-henkan-strict-okuri-precedence が non-nil
-      ;; の場合で、かつこの word とペアになる送り仮名が
-      ;; okurigana しかないとき。
-      (setq words1 (delete word words1)))
-     (t
-      ;; その他の場合は何もしない。
-      nil))
+	      (delete word words1)))))
     (when words1 ;; words1 が null であれば、もう何もすることはない。
       (goto-char (if okurigana
 		     skk-okuri-ari-min
