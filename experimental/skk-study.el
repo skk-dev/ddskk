@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.35 2003/07/10 20:57:54 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.36 2003/07/10 21:36:06 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/10 20:57:54 $
+;; Last Modified: $Date: 2003/07/10 21:36:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -190,7 +190,7 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
   (or skk-study-data-ring
       (setq skk-study-data-ring (make-ring skk-study-search-times)))
-  (when (not (string= kakutei-word (car skk-henkan-list)))
+  (when (not (string= word (car skk-henkan-list)))
     (with-current-buffer henkan-buffer
       (let ((inhibit-quit t)
 	    (last-data (if (not (ring-empty-p skk-study-data-ring))
