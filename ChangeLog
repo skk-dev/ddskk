@@ -1,4 +1,4 @@
-2001-10-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2001-10-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* READMES/Contributors
 	* doc/skk.texi:
@@ -2467,8 +2467,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.486 2001/10/16 11:41:52 czkmt Exp $
-Last Modified: $Date: 2001/10/16 11:41:52 $
+Version: $Id: ChangeLog,v 1.487 2001/10/16 11:42:15 czkmt Exp $
+Last Modified: $Date: 2001/10/16 11:42:15 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
