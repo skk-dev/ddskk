@@ -1,3 +1,7 @@
+2004-04-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-tooltip-show-at-point): Don't require `avoid'.
+
 2004-04-08  Masatake YAMATO  <jet@gyve.org>
 
 	* skk.el (skk-henkan-in-minibuff): Prepend "[辞書登録]"
@@ -4593,8 +4597,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.803 2004/04/08 22:43:12 czkmt Exp $
-Last Modified: $Date: 2004/04/08 22:43:12 $
+Version: $Id: ChangeLog,v 1.804 2004/04/11 23:55:26 czkmt Exp $
+Last Modified: $Date: 2004/04/11 23:55:26 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
