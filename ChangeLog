@@ -4,11 +4,6 @@
 	skk-henkan-face-default.
 	(skk-henkan-face-default): New face.
 
-2001-05-19  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
-
-	* skk-macs.el (skk-color-display-p): Always return t if on Emacs
-	21.
-
 2001-05-13  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el (skk-w3m-working-buffer): Removed.
@@ -3317,8 +3312,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.286 2001/05/19 23:52:33 czkmt Exp $
-Last Modified: $Date: 2001/05/19 23:52:33 $
+Version: $Id: ChangeLog,v 1.287 2001/05/20 00:08:27 czkmt Exp $
+Last Modified: $Date: 2001/05/20 00:08:27 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
