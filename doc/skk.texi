@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.17 2000/08/29 16:03:55 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.18 2000/08/30 15:32:34 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/08/29 16:03:55 $
+@c  Last Modified: $Date: 2000/08/30 15:32:34 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/08/29 16:03:55 $
+@set UPDATED $Date: 2000/08/30 15:32:34 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -1058,6 +1058,15 @@ SKK$B%b!<%I$O!"J8;z<oN`$K$h$k(B4$B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=
 $BNs!"!V8+=P$78l!W$rF~NO$7$F$f$/$3$H$,$G$-$k!#(B@samp{$B"&(B}$B%^!<%/$O!""&%b!<%I(B
 $B$G$"$k$H$$$&I=<($G$"$j!"$^$?!"8+=P$78l3+;OE@$r<($9I=<($G$b$"$k!#(B
 
+@menu
+* $B8e$+$i"&%b!<%I$KF~$kJ}K!(B::
+* $B"&%b!<%I$rH4$1$kJ}K!(B::
+@end menu
+
+@node $B8e$+$i"&%b!<%I$KF~$kJ}K!(B, $B"&%b!<%I$rH4$1$kJ}K!(B, $B"&%b!<%I(B, $B"&%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $B8e$+$i"&%b!<%I$KF~$kJ}K!(B
+
 @samp{K}$B$NJ8;z$rBgJ8;z$GF~NO$7K:$l$?>l9g$O!"<-=qJQ49$NBP>]$H$7$?$$J8;z(B
 $BNs$N@hF,$^$G%]%$%s%H(B
 @footnote{@xref{Point, ,$B%]%$%s%H(B, emacs, GNU Emacs Manual}.}$B$rLa$7(B 
@@ -1089,6 +1098,17 @@ SKK$B%b!<%I$O!"J8;z<oN`$K$h$k(B4$B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=
 ------ Buffer: foo ------
 @end group
 @end example
+
+@samp{7$B$,$D(B24$B$K$A(B}$B$N$h$&$KBgJ8;z$+$i;O$a$k$3$H$,$G$-$J$$J8;zNs$K$D$$$F$b!"(B
+$B"&%b!<%I$K$7$?$$>l9g$O(B @samp{Q} $B$r%?%$%W$7!""&%b!<%I$K$7$F$+$i(B @samp{7$B$,(B
+$B$D(B24$B$K$A(B} $B$NJ8;zNs$rF~NO$9$k!#$J$*!""&%b!<%I$G$O!"J8;zNs$N4V$K6uGr$r4^$a$k(B
+$B$3$H$O$G$-$J$$(B
+@footnote{$B$3$l$O!"<-=q$N8+=P$78l$K6uGr$r4^$a$k$3$H$,$G$-$J$$@)8B$+$i$-$F(B
+$B$$$k!#(B}$B!#(B
+
+@node $B"&%b!<%I$rH4$1$kJ}K!(B, , $B8e$+$i"&%b!<%I$KF~$kJ}K!(B, $B"&%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $B"&%b!<%I$rH4$1$kJ}K!(B
 
 $B8m$C$F"&%b!<%I$KF~$C$F$7$^$C$?$H$-$O(B@kbd{C-j}$B$H%?%$%W$7!""#%b!<%I$KLa(B
 $B$k$+(B@kbd{C-g}$B$H%?%$%W$7"&%b!<%I$G<-=qJQ49$HBP>]$H$J$C$F$$$kJ8;zNs$r>C(B
@@ -1133,12 +1153,6 @@ SKK$B%b!<%I$O!"J8;z<oN`$K$h$k(B4$B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=
 @end group
 @end example
 
-@samp{7$B$,$D(B24$B$K$A(B}$B$N$h$&$KBgJ8;z$+$i;O$a$k$3$H$,$G$-$J$$J8;zNs$K$D$$$F!"(B
-$B"&%b!<%I$K$7$?$$>l9g$O(B@samp{Q}$B$r%?%$%W$7!""&%b!<%I$K$7$F$+$i(B@samp{7$B$,$D(B
-24$B$K$A(B}$B$NJ8;zNs$rF~NO$9$k!#$J$*!""&%b!<%I$G$O!"J8;zNs$N4V$K6uGr$r4^$a$k(B
-$B$3$H$O$G$-$J$$(B@footnote{$B$3$l$O!"<-=q$N8+=P$78l$K6uGr$r4^$a$k$3$H$,$G$-$J(B
-$B$$@)8B$+$i$-$F$$$k!#(B}$B!#(B
-
 @node $B"'%b!<%I(B, $B<-=qEPO?%b!<%I(B, $B"&%b!<%I(B, $BJQ49%b!<%I(B
 @comment  node-name,  next,  previous,  up
 @subsubsection $B"'%b!<%I(B
@@ -1147,20 +1161,32 @@ SKK$B%b!<%I$O!"J8;z<oN`$K$h$k(B4$B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=
 @cindex $B0EL[$N3NDj(B[$B$"$s$b$/$N$+$/$F$$(B]
 @cindex $BJQ493+;O(B[$B$X$s$+$s$+$$$7(B]
 
-@b{$B!V"'%b!<%I!W(B}$B$G$O!""&%b!<%I$GF~NO$7$?8+=P$78l$r!"<-=q$K=>$$JQ49$9$k:n(B
-$B6H$r9T$J$&!#"&%b!<%I$G8+=P$78l$rF~NO$7$?8e(B@key{SPC}$B$r%?%$%W$9$k$3$H$G(B
-$B"'%b!<%I$KF~$k!#(B@samp{$B"&(B}$B%^!<%/$+$i(B@key{SPC}$B$r%?%$%W$7$?$H$-$N%]%$%s%H(B
-$B$^$G$NJ8;zNs&R$,8+=P$78l$H$7$F3NDj$5$l!"(B@samp{$B"&(B}$B%^!<%/$O(B@samp{$B"'(B}$B%^!<%/(B
-$B$GCV$-49$($i$l!"J8;zNs&R$,<-=q$NCf$G8!:w$5$l$k!#2>$K!"<-=q$K(B
+@b{$B!V"'%b!<%I!W(B} $B$G$O!""&%b!<%I$GF~NO$7$?8+=P$78l$r!"<-=q$K=>$$JQ49$9$k:n(B
+$B6H$r9T$J$&!#"&%b!<%I$G8+=P$78l$rF~NO$7$?8e(B @key{SPC} $B$r%?%$%W$9$k$3$H$G(B
+$B"'%b!<%I$KF~$k!#(B@samp{$B"&(B} $B%^!<%/$+$i(B @key{SPC} $B$r%?%$%W$7$?$H$-$N%]%$%s%H(B
+$B$^$G$NJ8;zNs&R$,8+=P$78l$H$7$F3NDj$5$l!"(B @samp{$B"&(B} $B%^!<%/$O(B @samp{$B"'(B} $B%^!<%/(B
+$B$GCV$-49$($i$l!"J8;zNs&R$,<-=q$NCf$G8!:w$5$l$k!#(B
+
+@menu
+* $BAw$j2>L>$,L5$$>l9g(B::
+* $B<!8uJd!&A08uJd(B::
+* $BAw$j2>L>$,M-$k>l9g(B::
+@end menu
+
+@node $BAw$j2>L>$,L5$$>l9g(B, $B<!8uJd!&A08uJd(B, $B"'%b!<%I(B, $B"'%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $BAw$j2>L>$,L5$$>l9g(B
+
+$B2>$K!"<-=q$K(B
 
 @example
 $B$+$s$8(B /$B4A;z(B/$B44;v(B/
 @end example
 
 @noindent
-$B$H$$$&%(%s%H%j(B@footnote{$BK\%^%K%e%"%k$G$O!"8+=P$78l$H8uJd72$r9g$o$;$?0l(B
-$B9T$r!V%(%s%H%j!W$H8F$V!#>\:Y$O!"(B@ref{$B<-=q$N7A<0(B}$B$r;2>H$N$3$H!#(B}$B$r4^$`$H(B
-$B$7$F!"Nc$r<($9!#(B
+$B$H$$$&%(%s%H%j(B
+@footnote{$BK\%^%K%e%"%k$G$O!"8+=P$78l$H8uJd72$r9g$o$;$?0l9T$r!V%(%s%H%j!W(B
+$B$H8F$V!#>\:Y$O!"(B@ref{$B<-=q$N7A<0(B}$B$r;2>H$N$3$H!#(B}$B$r4^$`$H$7$F!"Nc$r<($9!#(B
 
 @example
 @kbd{K a n j i}
@@ -1181,24 +1207,30 @@ SKK$B%b!<%I$O!"J8;z<oN`$K$h$k(B4$B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=
 @end example
 
 @noindent
-$B$3$NNc$G$O!""&%b!<%I$K$*$1$k(B@samp{$B"&(B}$B%^!<%/$+$i%]%$%s%H$^$G$N4V$NJ8;zNs(B
-@samp{$B$+$s$8(B}$B$r<-=qJQ49$NBP>]J8;zNs&R$H$7$F3NDj$7!"$=$NJ8;zNs&R$K$D$$$F<-=q(B
-$BFb$G$N8!:w$r9T$J$C$F$$$k!#<B:]$NJQ49F0:n$G$O!"8uJdItJ,$,%O%$%i%$%HI=<($5(B
-$B$l$k(B@footnote{$B%O%$%i%$%HI=<($O(BFSF Emacs$B$N(BOverlays$B!"(BXEmacs $B$N(Bextent$B$N5!(B
-$BG=$r;HMQ$7$F$$$k!#(B}$B!#(B
+$B$3$NNc$G$O!""&%b!<%I$K$*$1$k(B @samp{$B"&(B} $B%^!<%/$+$i%]%$%s%H$^$G$N4V$NJ8;zNs(B
+@samp{$B$+$s$8(B} $B$r<-=qJQ49$NBP>]J8;zNs$H$7$F3NDj$7!"$=$l$K$D$$$F<-=qFb$G$N(B
+$B8!:w$r9T$J$C$F$$$k!#<B:]$NJQ49F0:n$G$O!"8uJdItJ,$,%O%$%i%$%HI=<($5$l$k(B
+@footnote{$B%O%$%i%$%HI=<($O(BFSF Emacs$B$N(BOverlays$B!"(BXEmacs $B$N(Bextent$B$N5!G=$r;H(B
+$BMQ$7$F$$$k!#(B}$B!#(B
 
-@samp{$B4A;z(B}$B$,5a$a$k8l$G$"$k>l9g$O(B@kbd{C-j}$B$r%?%$%W$9$l$P!"$3$NJQ49$,3N(B
-$BDj$7!"%O%$%i%$%HI=<($b(B@samp{$B"'(B}$B%^!<%/$b>C$($k!#$^$?(B@kbd{C-j}$B$r%?%$%W$;$:(B
-$B$K!"?7$?$J3NDjF~NO$rB3$1$F9T$J$$!"$"$k$$$O?7$?$JJQ49$r3+;O$9$k$3$H$GD>A0(B
-$B$NJQ49$O<+F0E*$K3NDj$5$l$k!#$3$l$r(B@b{$B!V0EL[$N3NDj!W(B}$B$H8F$V!#I{:nMQ$H$7$F(B
-$B3NDj$rH<$J$&%-!<$O!"0u;z2DG=$JJ8;zA4$F$H(B@key{RET}$B$G$"$k!#C"$7!"(B
+@samp{$B4A;z(B} $B$,5a$a$k8l$G$"$k>l9g$O(B @kbd{C-j} $B$r%?%$%W$9$l$P!"$3$NJQ49$,(B
+$B3NDj$7!"%O%$%i%$%HI=<($b(B @samp{$B"'(B} $B%^!<%/$b>C$($k!#(B
+
+$B$^$?(B @kbd{C-j} $B$r%?%$%W$;$:$K!"?7$?$J3NDjF~NO$rB3$1$F9T$J$$!"$"$k$$$O?7(B
+$B$?$JJQ49$r3+;O$9$k$3$H$GD>A0$NJQ49$O<+F0E*$K3NDj$5$l$k!#$3$l$r(B @b{$B!V0EL[(B
+$B$N3NDj!W(B} $B$H8F$V!#I{:nMQ$H$7$F3NDj$rH<$J$&%-!<$O!"0u;z2DG=$JJ8;zA4$F$H(B 
+@key{RET} $B$G$"$k!#C"$7!"(B
 
 @ref{$B0EL[$N3NDj$N%?%$%_%s%0(B}
 
 $B;2>H$N$3$H!#(B
 
-$B5a$a$k$b$N$,(B@samp{$B4A;z(B}$B$G$J$1$l$P!"99$KB3$1$F(B@key{SPC}$B$r%?%$%W$9$k$3$H$G!"(B
-$BJ8;zNs&R$KBP$9$k<!8uJd$r8!:w$9$k!#(B
+@node $B<!8uJd!&A08uJd(B, $BAw$j2>L>$,M-$k>l9g(B, $BAw$j2>L>$,L5$$>l9g(B, $B"'%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $B<!8uJd!&A08uJd(B
+
+$B5a$a$k$b$N$,$9$0$K=P$J$1$l$P!"99$KB3$1$F(B @key{SPC} $B$r%?%$%W$9$k$3$H$G!"(B
+$B<!8uJd$r8!:w$9$k!#(B
 
 @example
 @group
@@ -1216,8 +1248,8 @@ SKK$B%b!<%I$O!"J8;z<oN`$K$h$k(B4$B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=
 @end group
 @end example
 
-$B8uJd$,(B5$B$D0J>e$"$k$H$-$O(B5$BHVL\0J9_$N8uJd$O(B7$B$D$:$D$^$H$a$F%(%3!<%(%j%"$KI=(B
-$B<($5$l$k!#Nc$($P!"<-=q$,(B
+$B8uJd$,(B 5 $B$D0J>e$"$k$H$-$O(B 5 $BHVL\0J9_$N8uJd$O(B 7 $B$D$:$D$^$H$a$F%(%3!<%(%j(B
+$B%"$KI=<($5$l$k!#Nc$($P!"<-=q$,(B
 
 @example
 @group
@@ -1238,36 +1270,47 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @end example
 
 @noindent
-$B$,%(%3!<%(%j%"(B@footnote{$B%(%3!<%(%j%"$H%_%K%P%C%U%!$O;k3PE*$K$OF10l$N>l=j(B
-$B$K$"$k$,!"%(%3!<%(%j%"$,C1$K%f!<%6!<$X$N%a%C%;!<%8$rI=<($9$k$N$_$G$"$k$N(B
-$B$KBP$7!"%_%K%P%C%U%!$OFHN)$N%P%C%U%!$H$7$F5!G=$9$kE@$,0c$&!#(B}$B$KI=<($5$l(B
-$B$k!#$3$3$G2>$K(B@samp{$B5v(B}$B$rA*Br$7$?$1$l$P!"(B@samp{k}$B$rF~NO$9$k!#(B@samp{A},
-@samp{S}, @samp{D}, @samp{F}, @samp{J}, @samp{K}, @samp{L}$B$N3FJ8;z$O!"2!(B
-$B$70W$5$r9MN8$7$F%-!<%\!<%I$N%[!<%`%]%8%7%g%s$+$i2#J}8~$K0lD>@~$KG[CV$5$l(B
-$B$F$$$k%-!<$,A*Dj$5$l$F$$$k!#$^$?!"8uJd$NA*Br$N$?$a$K2!$9%-!<$O!"BgJ8;z!"(B
-$B>.J8;z$N$$$:$l$G$bNI$$!#8uJd$NA*Br$KMQ$$$k%-!<$NJQ99$K$D$$$F$O!"(B
+$B$,%(%3!<%(%j%"(B
+@footnote{$B%(%3!<%(%j%"$H%_%K%P%C%U%!$O;k3PE*$K$OF10l$N>l=j$K$"$k$,!"%(%3!<(B
+$B%(%j%"$,C1$K%f!<%6!<$X$N%a%C%;!<%8$rI=<($9$k$N$_$G$"$k$N$KBP$7!"%_%K%P%C(B
+$B%U%!$OFHN)$N%P%C%U%!$H$7$F5!G=$9$kE@$,0c$&!#(B}$B$KI=<($5$l$k!#$3$3$G2>$K(B
+@samp{$B5v(B} $B$rA*Br$7$?$1$l$P!"(B @samp{k} $B$rF~NO$9$k!#(B
+
+@samp{A}, @samp{S}, @samp{D}, @samp{F}, @samp{J}, @samp{K}, @samp{L} $B$N(B
+$B3FJ8;z$O!"2!$70W$5$r9MN8$7$F%-!<%\!<%I$N%[!<%`%]%8%7%g%s$+$i2#J}8~$K0lD>(B
+$B@~$KG[CV$5$l$F$$$k%-!<$,A*Dj$5$l$F$$$k!#$^$?!"8uJd$NA*Br$N$?$a$K2!$9%-!<(B
+$B$O!"BgJ8;z!">.J8;z$N$$$:$l$G$bNI$$!#8uJd$NA*Br$KMQ$$$k%-!<$NJQ99$K$D$$$F(B
+$B$O!"(B
 
 @ref{$B8uJd$NA*Br$KMQ$$$k%-!<(B}
 
 $B$r;2>H!#(B
 
-@key{SPC}$B$rO"BG$7$F$7$^$$!"8m$C$F5a$a$k8uJd$rDL2a$7$F$7$^$C$?$H$-$O(B 
-@samp{x}$B$K$h$jA08uJd(B/$BA08uJd72$KLa$k$3$H$,$G$-$k(B@footnote{@samp{x}$B$O>.J8(B
-$B;z$GF~NO$9$kI,MW$,$"$k(B}$B!#(B
+@key{SPC} $B$rO"BG$7$F$7$^$$!"8m$C$F5a$a$k8uJd$rDL2a$7$F$7$^$C$?$H$-$O(B 
+ @samp{x} $B$K$h$jA08uJd(B/$BA08uJd72$KLa$k$3$H$,$G$-$k(B
+@footnote{@samp{x} $B$O>.J8;z$GF~NO$9$kI,MW$,$"$k(B}$B!#(B
 
 $B8uJd$r<!!9$HC5$7$F$b5a$a$k$b$N$,$J$1$l$P!"<+F0E*$K<-=qEPO?%b!<%I$K$J$k(B 
 ($B<-=qEPO?%b!<%I$O"'%b!<%I$N%5%V%b!<%I$G$"$k(B) $B!#$3$l$K$D$$$F$O(B
 @ref{$B<-=qEPO?%b!<%I(B}$B$K$F8e=R$9$k!#(B
 
-$B<!$KAw$j2>L>$N$"$kC18l$K$D$$$F@bL@$9$k!#(B@samp{$BF0$/(B}$B$rJQ49$K$h$j5a$a$?$$(B
-$B$H$-$O(B@kbd{U g o K u}$B$N$h$&$K!"$^$:"&%b!<%I$KF~$k$?$a$K(B@samp{U}$B$rBg(B
-$BJ8;z$GF~NO$7!"<!$KAw$j2>L>$N3+;O$r(BSKK$B$K65$($k$?$a$K(B@samp{K}$B$rBgJ8;z$G(B
-$BF~NO$9$k!#Aw$j2>L>$N(B@samp{K}$B$r%?%$%W$7$?;~E@$G(B@key{SPC}$B$r%?%$%W$9$k(B
-$B$3$H$J$/!""'%b!<%I$KF~$j<-=qJQ49$,9T$J$o$l$k!#Aw$j2>L>$NF~NO;~!"%m!<%^;z(B
-$B%W%l%U%#%C%/%9$,A^F~$5$l$?=V4V$K!"%W%l%U%#%C%/%9$ND>A0$K(B@samp{*}$B$r0l=VA^(B
-$BF~$7!"Aw$j2>L>$N3+;O;~E@$rL@<($9$k!#%W%l%U%#%C%/%9$KB3$/%-!<F~NO$G!"$+$J(B
-$BJ8;z$,40@.$7$?;~E@$G(B@samp{*}$B$O>C$($k!#%-!<F~NO$rJ,2r$7$FDI$$$J$,$i$b$&>/(B
-$B$7>\$7$/8@$&$H!"2<5-$N$h$&$K$J$k!#(B
+@node $BAw$j2>L>$,M-$k>l9g(B, , $B<!8uJd!&A08uJd(B, $B"'%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $BAw$j2>L>$,M-$k>l9g(B
+
+$B<!$KAw$j2>L>$N$"$kC18l$K$D$$$F@bL@$9$k!#(B
+
+@samp{$BF0$/(B} $B$rJQ49$K$h$j5a$a$?$$$H$-$O(B @kbd{U g o K u} $B$N$h$&$K!"$^$:(B $B"&(B
+$B%b!<%I(B $B$KF~$k$?$a$K(B @samp{U} $B$rBgJ8;z$GF~NO$7!"<!$KAw$j2>L>$N3+;O$r(B SKK 
+$B$K65$($k$?$a$K(B @samp{K} $B$rBgJ8;z$GF~NO$9$k!#Aw$j2>L>$N(B @samp{K} $B$r%?%$%W(B
+$B$7$?;~E@$G(B @key{SPC} $B$r%?%$%W$9$k$3$H$J$/!""'%b!<%I(B $B$KF~$j<-=qJQ49$,9T$J(B
+$B$o$l$k!#(B
+
+$BAw$j2>L>$NF~NO;~!"%m!<%^;z%W%l%U%#%C%/%9$,A^F~$5$l$?=V4V$K!"%W%l%U%#%C%/(B
+$B%9$ND>A0$K(B @samp{*} $B$r0l=VA^F~$7!"Aw$j2>L>$N3+;O;~E@$rL@<($9$k!#%W%l%U%#%C(B
+$B%/%9$KB3$/%-!<F~NO$G!"$+$JJ8;z$,40@.$7$?;~E@$G(B@samp{*}$B$O>C$($k!#(B
+
+$B%-!<F~NO$rJ,2r$7$FDI$$$J$,$i$b$&>/$7>\$7$/8@$&$H!"2<5-$N$h$&$K$J$k!#(B
 
 @example
 @kbd{U g o}
@@ -1295,13 +1338,13 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @end group
 @end example
 
-SKK$B$G$O$3$N$h$&$KAw$j2>L>$N3+;OCOE@$r%f!<%6!<$,L@<(E*$KF~NO$9$k$?$a$K!"(B
+SKK $B$G$O$3$N$h$&$KAw$j2>L>$N3+;OCOE@$r%f!<%6!<$,L@<(E*$KF~NO$9$k$?$a$K!"(B
 $B%7%9%F%`B&$GAw$j2>L>$rJ,2r$9$kI,MW$,$J$/!"9bB.$G%R%C%H8zN($,9b$$JQ49$,2DG=(B
 $B$G$"$k!#(B@xref{$BAw$j2>L>$N<+F0=hM}(B, , $BAw$j2>L>$N<+F0=hM}(B}.
 
 $BC"$7%5JQF0;l$NJQ49$G$O!"%5JQF0;l$N8l44$H$J$kL>;l$r(B@b{$B!VAw$j$J$7JQ49!W(B}
-@footnote{$B>\:Y$O!"(B@ref{$B<-=q$N7A<0(B, , $BAw$j$J$7JQ49(B}$B$r;2>H$N$3$H!#(B}
-$B$H$7$FJQ49$7!"$=$N8e(B@samp{$B$9$k(B}$B$r"#%b!<%I$GF~NO$7$?J}$,8zN($,NI$$!#(B
+@footnote{$B>\:Y$O!"(B@ref{$B<-=q$N7A<0(B, , $BAw$j$J$7JQ49(B}$B$r;2>H$N$3$H!#(B}$B$H$7$F(B
+$BJQ49$7!"$=$N8e(B@samp{$B$9$k(B}$B$r"#%b!<%I$GF~NO$7$?J}$,8zN($,NI$$!#(B
 @xref{$B<-=qEPO?%b!<%I(B, , $B%5JQF0;l$NF~NO(B}.
 
 @node $B<-=qEPO?%b!<%I(B,  , $B"'%b!<%I(B, $BJQ49%b!<%I(B
@@ -1320,10 +1363,10 @@ SKK$B$OFHN)$N<-=qEPO?%b!<%I$O;}$?$J$$!#<-=q$K$J$$C18l$K$D$$$F$NJQ49$r9T$J$C(B
 @end example
 
 @noindent
-$B$N%(%s%H%j$,$J$$>l9g$K!"(B@samp{$BJQ49Cf(B}$B$rF@$h$&$H$7$F!"(B@kbd{H e n k a n t
-y u u @key{SPC}}$B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!$O"'%b!<(B
-$B%I$N$^$^(B@samp{$B$X$s$+$s$A$e$&(B}$B$KBP$7$FJQ49$,$G$-$J$$>uBV$G5Y;_$7!"F1;~$K(B
-$B%_%K%P%C%U%!$K(B@samp{$B$X$s$+$s$A$e$&(B}$B$H$$$&%W%m%s%W%H$,I=<($5$l$k!#(B
+$B$N%(%s%H%j$,$J$$>l9g$K!"(B@samp{$BJQ49Cf(B} $B$rF@$h$&$H$7$F!"(B@w{@kbd{H e n k a
+n ty u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!$O(B $B"'(B
+$B%b!<%I(B $B$N$^$^(B @samp{$B$X$s$+$s$A$e$&(B} $B$KBP$7$FJQ49$,$G$-$J$$>uBV$G5Y;_$7!"(B
+$BF1;~$K%_%K%P%C%U%!$K(B @samp{$B$X$s$+$s$A$e$&(B} $B$H$$$&%W%m%s%W%H$,I=<($5$l$k!#(B
 
 @example
 @group
@@ -1336,6 +1379,18 @@ y u u @key{SPC}}$B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!$O"'%b!<(B
 ------ Minibuffer -------
 @end group
 @end example
+
+@menu
+* $BAw$j2>L>$,L5$$>l9g$N<-=qEPO?(B::
+* $BAw$j2>L>$,M-$k>l9g$N<-=qEPO?(B::
+* $B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B::
+* $B:F5"E*<-=qEPO?(B::
+* $B2~9TJ8;z$r4^$`<-=qEPO?(B::
+@end menu
+
+@node $BAw$j2>L>$,L5$$>l9g$N<-=qEPO?(B,  $BAw$j2>L>$,M-$k>l9g$N<-=qEPO?(B, $B<-=qEPO?%b!<%I(B, $B<-=qEPO?%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $BAw$j2>L>$,L5$$>l9g$N<-=qEPO?(B
 
 @noindent
 $B<-=qEPO?%b!<%I$G$O!"F~NO$O%_%K%P%C%U%!$KBP$7$F9T$o$l$k!#2>$K<-=q$K(B
@@ -1362,11 +1417,19 @@ y u u @key{SPC}}$B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!$O"'%b!<(B
 @end example
 
 @noindent
-$B$3$3$G(B@key{RET}$B$r%?%$%W$9$l$P(B@samp{$BJQ49Cf(B}$B$,8D?M<-=q$KEPO?$5$l!"<-=qEPO?(B
-$B%b!<%I$O=*N;$9$k(B@footnote{$B$3$3$G$b0EL[$N3NDj$,9T$J$o$l$k$N$G(B@kbd{C-j}$B$r(B
-$B%?%$%W$9$kI,MW$O$J$$!#C"$7!"(B@ref{$B"'%b!<%I$G$N(BRET}$B$r;2>H$N$3$H!#(B}$B!#F1;~$K(B
-$BJQ49$r9T$J$C$F$$$k%+%l%s%H%P%C%U%!$K$O!"(B@samp{$BJQ49Cf(B}$B$,A^F~$5$l3NDj$5$l(B
-$B$k!#(B@xref{$B<-=q$N7A<0(B, , $B8D?M<-=q(B}.
+$B$3$3$G(B @key{RET} $B$r%?%$%W$9$l$P(B @samp{$BJQ49Cf(B} $B$,8D?M<-=q$KEPO?$5$l!"<-=qEPO?(B
+$B%b!<%I$O=*N;$9$k(B
+@footnote{$B$3$3$G$b0EL[$N3NDj$,9T$J$o$l$k$N$G(B @kbd{C-j} $B$r%?%$%W$9$kI,MW(B
+$B$O$J$$!#C"$7!"(B@ref{$B"'%b!<%I$G$N(BRET }$B$r;2>H$N$3$H!#(B}$B!#F1;~$KJQ49$r9T$J$C(B
+$B$F$$$k%+%l%s%H%P%C%U%!$K$O!"(B@samp{$BJQ49Cf(B} $B$,A^F~$5$l3NDj$5$l$k!#(B
+@xref{$B<-=q$N7A<0(B, , $B8D?M<-=q(B}.
+
+$B<-=qEPO?%b!<%I$rH4$1$?$$$H$-$O(B@kbd{C-g}$B$r%?%$%W$9$k$+!"$b$7$/$O2?$bEPO?(B
+$B$;$:(B@key{RET}$B$r%?%$%W$9$k$H"&%b!<%I$KLa$k!#(B
+
+@node $BAw$j2>L>$,M-$k>l9g$N<-=qEPO?(B, $B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B, $BAw$j2>L>$,L5$$>l9g$N<-=qEPO?(B, $B<-=qEPO?%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $BAw$j2>L>$,M-$k>l9g$N<-=qEPO?(B
 
 $BAw$j2>L>$N$"$kC18l$NEPO?$G$O!"%_%K%P%C%U%!$G:n$k8uJd$KAw$j2>L>$=$N$b$N$r(B
 $BEPO?$7$J$$$h$&$KCm0U$7$J$1$l$P$J$i$J$$!#2>$K<-=q$K(B
@@ -1395,9 +1458,9 @@ y u u @key{SPC}}$B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!$O"'%b!<(B
 @end example
 
 @noindent
-$B%_%K%P%C%U%!$G<-=qEPO?$9$Y$-J8;zNs$O!"(B@samp{$BF0(B}$B$N$_$G$"$j!"Aw$j2>L>$N(B
-@samp{$B$/(B}$B$O4^$a$J$$!#(B@samp{$BF0$/(B}$B$rEPO?$7$F$7$^$&$H!"<!$K(B@kbd{U g o K u}
-$B$H%?%$%W$7$?$H$-$K=PNO$5$l$k8uJd$,(B@samp{$BF0$/$/(B}$B$K$J$C$F$7$^$&!#(B
+$B%_%K%P%C%U%!$G<-=qEPO?$9$Y$-J8;zNs$O!"(B@samp{$BF0(B} $B$N$_$G$"$j!"Aw$j2>L>$N(B
+@samp{$B$/(B} $B$O4^$a$J$$!#(B @samp{$BF0$/(B} $B$rEPO?$7$F$7$^$&$H!"<!$K(B @kbd{U g o K
+u} $B$H%?%$%W$7$?$H$-$K=PNO$5$l$k8uJd$,(B @samp{$BF0$/$/(B} $B$K$J$C$F$7$^$&!#(B
 
 @example
 @group
@@ -1419,27 +1482,35 @@ y u u @key{SPC}}$B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!$O"'%b!<(B
 @end group
 @end example
 
-$B%5JQF0;l(B($BL>;l$N8e$K(B@samp{$B$9$k(B}$B$rIU$1$?7A$G9=@.$5$l$kF0;l(B) $B$K$D$$$F$O!"(B
-@samp{$B$9$k(B}$B$rAw$j2>L>$H$7$?Aw$j$"$jJQ49(B@footnote{$BAw$j2>L>$rH<$J$&JQ49!#(B
-$B>\:Y$O!"(B@ref{$B<-=q$N7A<0(B, $BAw$j$"$jJQ49(B}$B$r;2>H$N$3$H!#(B}$B$r9T$J$o$:!"(B@samp{
-$B1?F0(B}$B$H(B@samp{$B$9$k(B}$B$HJ,$1$FF~NO$7$?J}$,8zN($,NI$$(B@footnote{$BL>;l$H$=$N%5JQ(B
-$BF0;l$H$rJL!9$K<-=q$K;}$C$?$N$G$O6u4VE*$J8zN($,0-$$$N$G!"4pK\E*$K!"<-=q$,(B
-$B%5JQF0;l$rAw$j$"$j$H$7$F0U<1$7$?:n$j$H$7$F$$$J$$!#=>$$!"(B@samp{$B$9$k(B}$B$rAw(B
-$B$j2>L>$H$7$?Aw$j$"$jJQ49$G$O!"<-=q$K8uJd$,$J$/<-=qEPO?%b!<%I$KF~$C$F$7$^(B
+@node $B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B, $B:F5"E*<-=qEPO?(B, $BAw$j2>L>$,M-$k>l9g$N<-=qEPO?(B, $B<-=qEPO?%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B,
+
+$B%5JQF0;l(B ($BL>;l$N8e$K(B @samp{$B$9$k(B} $B$rIU$1$?7A$G9=@.$5$l$kF0;l(B) $B$K$D$$$F$O!"(B
+@samp{$B$9$k(B} $B$rAw$j2>L>$H$7$?Aw$j$"$jJQ49(B
+@footnote{$BAw$j2>L>$rH<$J$&JQ49!#>\:Y$O!"(B@ref{$B<-=q$N7A<0(B, $BAw$j$"$jJQ49(B}$B$r(B
+$B;2>H$N$3$H!#(B}$B$r9T$J$o$:!"(B@samp{$B1?F0(B} $B$H(B @samp{$B$9$k(B} $B$HJ,$1$FF~NO$7$?J}$,(B
+$B8zN($,NI$$(B
+@footnote{$BL>;l$H$=$N%5JQF0;l$H$rJL!9$K<-=q$K;}$C$?$N$G$O6u4VE*$J8zN($,0-(B
+$B$$$N$G!"4pK\E*$K!"<-=q$,%5JQF0;l$rAw$j$"$j$H$7$F0U<1$7$?:n$j$H$7$F$$$J$$!#(B
+$B=>$$!"(B@samp{$B$9$k(B} $B$rAw$j2>L>$H$7$?Aw$j$"$jJQ49$G$O!"<-=q$K8uJd$,$J$/<-=qEPO?%b!<%I$KF~$C$F$7$^(B
 $B$&2DG=@-$,9b$$$N$G!"L>;l$H$7$FJ,2r$7$FF~NO$9$k$3$H$r4+$a$F$$$k!#0lJ}!"$3(B
 $B$N$h$&$KL>;l$KJ,2r$7$FF~NO$9$k$3$H$G!"%5JQF0;l$K$J$jF@$J$$L>;l$,8uJd$H$7(B
-$B$F=P$F$/$k$3$H$b$"$j(B($BNc$($P(B@samp{$B9'9T$9$k(B}$B$H$$$&JQ49$r9T$J$$$?$$>l9g$K(B
-@samp{$B9b9;(B}$B$,=P$F$/$k$J$I(B)$B!"8uJd$N9J$j9~$_$H$$$&E@$G$OI,$:$7$b8zN($,NI$/(B
-$B$J$$$N$G!">-Mh$N%P!<%8%g%s$K$*$$$F2~A1$9$kJ}8~$G8!F$$r?J$a$F$$$k!#>\:Y$O!"(B
-@ref{$B3HD%%"%$%G%#%"(B}$B$r;2>H$N$3$H!#(B}$B!#Nc$($P(B@samp{$B1?F0$9$k(B}$B$O(B@kbd{U n d o
-u @key{SPC}s u r u}$B$H%?%$%W$9$k$3$H$K$h$jF@$i$l$k!#L>;l$+$i:n$i$l$k7AMF(B
-$B;lEy$bF1MM$G$"$k!#(B
+$B$F=P$F$/$k$3$H$b$"$j(B ($BNc$($P(B @samp{$B9'9T$9$k(B} $B$H$$$&JQ49$r9T$J$$$?$$>l9g(B
+$B$K(B @samp{$B9b9;(B} $B$,=P$F$/$k$J$I(B)$B!"8uJd$N9J$j9~$_$H$$$&E@$G$OI,$:$7$b8zN($,(B
+$BNI$/$J$$$N$G!">-Mh$N%P!<%8%g%s$K$*$$$F2~A1$9$kJ}8~$G8!F$$r?J$a$F$$$k!#>\(B
+$B:Y$O!"(B@ref{$B3HD%%"%$%G%#%"(B} $B$r;2>H$N$3$H!#(B}$B!#(B
 
-$B8m$^$C$F<-=qEPO?%b!<%I$KF~$C$?$H$-$O(B@kbd{C-g}$B$r%?%$%W$9$k$+!"$b$7$/$O(B
-$B2?$bEPO?$;$:(B@key{RET}$B$r%?%$%W$9$k$H"&%b!<%I$KLa$k!#(B
+$BNc$($P(B @samp{$B1?F0$9$k(B} $B$O(B @kbd{U n d o u @key{SPC} s u r u} $B$H%?%$%W$9$k(B
+$B$3$H$K$h$jF@$i$l$k!#L>;l$+$i:n$i$l$k7AMF;lEy$bF1MM$G$"$k!#(B
 
-$B%_%K%P%C%U%!$r:F5"E*$K;H$$<-=qEPO?$r:F5"E*$K9T$J$&$3$H$,$G$-$k!#2>$K<-=q(B
-$B$K(B
+@node $B:F5"E*<-=qEPO?(B, $B2~9TJ8;z$r4^$`<-=qEPO?(B, $B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B, $B<-=qEPO?%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $B:F5"E*<-=qEPO?(B
+
+$B%_%K%P%C%U%!$r:F5"E*$K;H$$<-=qEPO?$r:F5"E*$K9T$J$&$3$H$,$G$-$k!#(B
+
+$B2>$K<-=q$K(B
 
 @example
 @group
@@ -1460,16 +1531,18 @@ u @key{SPC}s u r u}$B$H%?%$%W$9$k$3$H$K$h$jF@$i$l$k!#L>;l$+$i:n$i$l$k7AMF(B
 @end example
 
 @noindent
-$B$N$h$&$J%(%s%H%j$,$"$k$H$9$k!#$3$3$G(B@kbd{S a i k i t e k i @key{SPC}}
-$B$H%?%$%W$9$k$H!"J8;zNs(B@samp{$B$5$$$-$F$-(B}$B$KBP$9$k8uJd$r8+$D$1$i$l$J$$$N$G!"(B
-$B%_%K%P%C%U%!$K(B@samp{$B$5$$$-$F$-(B}$B$H$$$&%W%m%s%W%H$rI=<($7$F<-=qEPO?%b!<%I(B
-$B$KF~$k!#(B
+$B$N$h$&$J%(%s%H%j$,$"$k$H$9$k!#(B
 
-@samp{$B$5$$$-$F$-(B}$B$KBP$9$k<-=q%(%s%H%j$r:n$k$?$a(B@kbd{S a i k i
-@key{SPC}}$B$H%?%$%W$9$k$H!"99$K$3$N8uJd$b8+$D$1$i$l$J$$$N$G!"%_%K%P%C%U%!(B
-$B$K(B@samp{$B$5$$$-(B}$B$H$$$&%W%m%s%W%H$rI=<($7$F!":F5"E*$K(B@samp{$B$5$$$-(B}$B$N<-=qEP(B
-$BO?%b!<%I$KF~$k!#(B@kbd{S a i @key{SPC}K i @key{SPC}}$B$H%?%$%W$9$k$H!"%_%K(B
-$B%P%C%U%!$O!"(B
+$B$3$3$G(B @kbd{S a i k i t e k i @key{SPC}} $B$H%?%$%W$9$k$H!"J8;zNs(B @samp{$B$5(B
+$B$$$-$F$-(B} $B$KBP$9$k8uJd$r8+$D$1$i$l$J$$$N$G!"%_%K%P%C%U%!$K(B @samp{$B$5$$$-(B
+$B$F$-(B} $B$H$$$&%W%m%s%W%H$rI=<($7$F<-=qEPO?%b!<%I$KF~$k!#(B
+
+@samp{$B$5$$$-$F$-(B}$B$KBP$9$k<-=q%(%s%H%j$r:n$k$?$a(B @kbd{S a i k i
+@key{SPC}} $B$H%?%$%W$9$k$H!"99$K$3$N8uJd$b8+$D$1$i$l$J$$$N$G!"%_%K%P%C%U%!(B
+$B$K(B @samp{$B$5$$$-(B} $B$H$$$&%W%m%s%W%H$rI=<($7$F!":F5"E*$K(B @samp{$B$5$$$-(B} $B$N<-(B
+$B=qEPO?%b!<%I$KF~$k!#(B 
+
+@kbd{S a i @key{SPC}K i @key{SPC}}$B$H%?%$%W$9$k$H!"%_%K%P%C%U%!$O!"(B
 
 @example
 ------ Minibuffer -------
@@ -1478,16 +1551,18 @@ u @key{SPC}s u r u}$B$H%?%$%W$9$k$3$H$K$h$jF@$i$l$k!#L>;l$+$i:n$i$l$k7AMF(B
 @end example
 
 @noindent
-$B$H$J$k!#$3$3$G(B@key{RET}$B$r%?%$%W$9$k$H!"8D?M<-=q$K$O(B
+$B$H$J$k!#$3$3$G(B @key{RET} $B$r%?%$%W$9$k$H!"8D?M<-=q$K$O(B
 
 @example
 $B$5$$$-(B /$B:F5"(B/
 @end example
 
 @noindent
-$B$H$$$&%(%s%H%j$,EPO?$5$l!"%_%K%P%C%U%!$O(B@samp{$B$5$$$-$F$-(B}$B$N<-=qEPO?%b!<(B
-$B%I$KLa$j!"%W%m%s%W%H$O(B@samp{$B$5$$$-$F$-(B}$B$H$J$k!#:#EY$O(B@samp{$B:F5"(B}$B$,JQ492D(B
-$BG=$J$N$G(B@kbd{S a i k i @key{SPC}T e k i @key{SPC}}$B$H%?%$%W$9$k$H!"(B
+$B$H$$$&%(%s%H%j$,EPO?$5$l!"%_%K%P%C%U%!$O(B @samp{$B$5$$$-$F$-(B} $B$N<-=qEPO?%b!<(B
+$B%I$KLa$j!"%W%m%s%W%H$O(B @samp{$B$5$$$-$F$-(B} $B$H$J$k!#(B
+
+$B:#EY$O(B @samp{$B:F5"(B} $B$,JQ492DG=$J$N$G(B @kbd{S a i k i @key{SPC}T e k i
+@key{SPC}} $B$H%?%$%W$9$k$H!"(B
 
 @example
 ------ Minibuffer -------
@@ -1496,7 +1571,7 @@ u @key{SPC}s u r u}$B$H%?%$%W$9$k$3$H$K$h$jF@$i$l$k!#L>;l$+$i:n$i$l$k7AMF(B
 @end example
 
 @noindent
-$B$H$J$k!#$3$3$G(B@key{RET}$B$r%?%$%W$9$k$3$H$G!"(B@samp{$B$5$$$-$F$-(B}$B$N<-=qEP(B
+$B$H$J$k!#$3$3$G(B @key{RET} $B$r%?%$%W$9$k$3$H$G!"(B@samp{$B$5$$$-$F$-(B} $B$N<-=qEP(B
 $BO?%b!<%I$+$iH4$1!"8D?M<-=q$K(B
 
 @example
@@ -1507,8 +1582,12 @@ u @key{SPC}s u r u}$B$H%?%$%W$9$k$3$H$K$h$jF@$i$l$k!#L>;l$+$i:n$i$l$k7AMF(B
 $B$H$$$&%(%s%H%j$,EPO?$5$l$k!#%+%l%s%H%P%C%U%!$N%]%$%s%H$K$O!"(B@samp{$B:F5"E*(B}
 $B$,A^F~$5$l$k!#(B
 
+@node $B2~9TJ8;z$r4^$`<-=qEPO?(B, , $B:F5"E*<-=qEPO?(B, $B<-=qEPO?%b!<%I(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $B2~9TJ8;z$r4^$`<-=qEPO?(B
+
 $B2~9TJ8;z$r4^$`J8;zNs$r<-=q$KEPO?$9$k$K$O!"<-=qEPO?%b!<%I$G2~9TJ8;z$r(B 
-@kbd{C-q C-j}$B$K$h$jF~NO$9$k!#Nc$($P!"(B
+@kbd{C-q C-j} $B$K$h$jF~NO$9$k!#Nc$($P!"(B
 
 @example
 @group
@@ -1545,26 +1624,44 @@ u @key{SPC}s u r u}$B$H%?%$%W$9$k$3$H$K$h$jF@$i$l$k!#L>;l$+$i:n$i$l$k7AMF(B
 @kindex M-C-s
 @kindex M-C-r
 
-SKK$B$G$O!"@lMQ$N%$%s%/%j%a%s%?%k!&%5!<%A%W%m%0%i%`$r(BEmacs$BE:IU$N(Bisearch.el
-$B$N%i%C%Q!<$H$7$F<BAu$7$F$*$j!"F|K\8l$NJ8;zNs$K$D$$$F$N%$%s%/%j%a%s%?%k!&(B
-$B%5!<%A(B($BDL>o$NJ8;zNs$b@55,I=8=$rMQ$$$?$b$N$bN>J}(B)$B$r%"%9%-!<J8;z$HF1MM$NA`(B
-$B:n$G9T$J$&$3$H$,$G$-$k!#$7$+$bBgItJ,$NF0:n$O!"%*%j%8%J%k$N%$%s%/%j%a%s%?(B
-$B%k!&%5!<%A$N$b$N$N$^$^$G$"$k!#=>$C$F%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$N(B
-$B%3%^%s%I(B(@kbd{M-y}$B$N(B@code{isearch-yank-kill}$B$d(B@kbd{M-p}$B$N(B 
-@code{isearch-ring-retreat}, @kbd{M-n}$B$N(B@code{isearch-ring-advance}$B$J(B
-$B$I(B)$B$d%f!<%6!<JQ?t$G$N%+%9%?%^%$%:(B(@code{search-highlight}$B$J$I(B)$B$b$=$N$^(B
-$B$^MxMQ$G$-$k!#%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$K$D$$$F$O!"(B
-@ref{Incremental Search, ,Incremental Search, emacs, GNU Emacs Manual}
+SKK$B$G$O!"@lMQ$N%$%s%/%j%a%s%?%k!&%5!<%A%W%m%0%i%`$r(B Emacs $BE:IU$N(B
+isearch.el $B$N%i%C%Q!<$H$7$F<BAu$7$F$*$j!"F|K\8l$NJ8;zNs$K$D$$$F$N%$%s%/(B
+$B%j%a%s%?%k!&%5!<%A$r%"%9%-!<J8;z$HF1MM$NA`:n$G9T$J$&$3$H$,$G$-$k!#(B
+
+@menu
+* skk-isearch$B$NA`:n@-(B::
+* skk-isearch$B$HF~NO%b!<%I(B::
+@end menu
+
+@node skk-isearch$B$NA`:n@-(B, skk-isearch$B$HF~NO%b!<%I(B, $B%$%s%/%j%a%s%?%k!&%5!<%A(B, $B%$%s%/%j%a%s%?%k!&%5!<%A(B,
+@comment  node-name,  next,  previous,  up
+@subsection skk-isearch$B$NA`:n@-(B
+
+$BBgItJ,$NF0:n$O!"%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$N$b$N$N$^$^$G$"$k!#(B
+$B=>$C$F%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$N%3%^%s%I(B
+@footnote{@kbd{M-y} $B$N(B @code{isearch-yank-kill} $B$d(B @kbd{M-p} $B$N(B 
+@code{isearch-ring-retreat}, @kbd{M-n} $B$N(B @code{isearch-ring-advance} $B$J$I(B}$B$d%f!<%6!<JQ?t$G$N%+%9%?%^%$%:(B
+@footnote{@code{search-highlight} $B$J$I(B}$B$b$=$N$^$^MxMQ$G$-$k!#(B
+
+$B%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$K$D$$$F$O!"(B
+
+@ref{Incremental Search, ,Incremental Search, emacs, GNU Emacs Manual}.
+
 $B$r;2>H$N$3$H!#(B
 
 $B%$%s%/%j%a%s%?%k!&%5!<%ACf$NF~NOJ}K!$O!"DL>o$N%P%C%U%!$K$*$1$k3FF~NO%b!<(B
 $B%I!"JQ49%b!<%I$G$NF~NOJ}K!$HF10l$G$"$k!#(B
 
-@kbd{C-s}$B$d(B@kbd{C-r}$B!"$"$k$$$O(B@kbd{M-C-s}$B$d(B@kbd{M-C-r}$B$G%$%s%/%j%a(B
+@kbd{C-s} $B$d(B @kbd{C-r}$B!"$"$k$$$O(B @kbd{M-C-s} $B$d(B @kbd{M-C-r} $B$G%$%s%/%j%a(B
 $B%s%?%k!&%5!<%A$r5/F0$9$k$H!"%$%s%/%j%a%s%?%k!&%5!<%A$r5/F0$7$?%P%C%U%!$N(B
-$BF~NO%b!<%I$HF10l$NF~NO%b!<%I$G!"%-!<$H$J$kJ8;z$NF~NO$,2DG=$H$J$k!#F~NO%b!<(B
-$B%I$K9g$o$;$F!"%$%s%/%j%a%s%?%k!&%5!<%A$N%W%m%s%W%H$,I=<($5$l$k!#%W%m%s%W(B
-$B%H$N<oN`$O!"0J2<$N(B5$B$D$G$"$k!#(B
+$BF~NO%b!<%I$HF10l$NF~NO%b!<%I$G!"%-!<$H$J$kJ8;z$NF~NO$,2DG=$H$J$k!#(B
+
+@node skk-isearch$B$HF~NO%b!<%I(B, , skk-isearch$B$NA`:n@-(B, $B%$%s%/%j%a%s%?%k!&%5!<%A(B,
+@comment  node-name,  next,  previous,  up
+@subsection skk-isearch$B$HF~NO%b!<%I(B
+
+$BF~NO%b!<%I$K9g$o$;$F!"%$%s%/%j%a%s%?%k!&%5!<%A$N%W%m%s%W%H$,I=<($5$l$k!#(B
+$B%W%m%s%W%H$N<oN`$O!"0J2<$N(B5$B$D$G$"$k!#(B
 
 @table @asis
 
@@ -1581,8 +1678,8 @@ SKK$B$G$O!"@lMQ$N%$%s%/%j%a%s%?%k!&%5!<%A%W%m%0%i%`$r(BEmacs$BE:IU$N(Bisearc
 $BA41Q%b!<%I(B
 
 @item I-search: [--]
-$B%$%s%/%j%a%s%?%k!&%5!<%A%b!<%I$G(B@kbd{C-x C-j}$B$J$I$r%?%$%W$7$F(BSKK$B$r=*(B
-$BN;$7$?>l9g$O!"$3$N%W%m%s%W%H$,I=<($5$l$k!#(B
+$B%$%s%/%j%a%s%?%k!&%5!<%A%b!<%I$G(B @kbd{C-x C-j} $B$J$I$r%?%$%W$7$F(BSKK$B$r=*N;(B
+$B$7$?>l9g$O!"$3$N%W%m%s%W%H$,I=<($5$l$k!#(B
 
 @end table
 
@@ -2402,274 +2499,11 @@ file /$B#f#i#l#e(B/
 * $B?t;z$d5-9fJ8;z$NF~NO(B::        
 @end menu
 
-@c @node $B%m!<%^;z2>L>JQ49%k!<%k(B, $B?t;z$d5-9fJ8;z$NF~NO(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B
-@c @comment  node-name,  next,  previous,  up
-@c @subsubsection $B%m!<%^;z2>L>JQ49%k!<%k(B
-@c @vindex skk-prefix
-
-@c XXX
-@c SKK$B$G$O!"(B@code{skk-roma-kana-a}, @code{skk-roma-kana-i},
-@c @code{skk-roma-kana-u}, @code{skk-roma-kana-e}, @code{skk-roma-kana-o}
-@c $B$H$$$&(B5$B$D$NO"A[%j%9%H$r;}$A!"Jl2;$,F~NO$5$l$?;~E@$GBP1~$9$kO"A[%j%9%H$r(B
-@c $BAv::$7$FF~NO$9$Y$-$+$J(B/$B%+%JJ8;z$r7hDj$9$k!#(B
-
-@c $BNc$($P!"(B@code{skk-roma-kana-i}$B$NCM$O!"2<5-$N$h$&$K$J$C$F$$$k!#(B
-
-@c @lisp
-@c @group
-@c '(("" . ("$B$$(B" . "$B%$(B"))
-@c   ("b" . ("$B$S(B" . "$B%S(B")) ("by" . ("$B$S$#(B" . "$B%S%#(B"))
-@c   ("ch" . ("$B$A(B" . "$B%A(B")) ("cy" . ("$B$A$#(B" . "$B%A%#(B"))
-@c   ("d" . ("$B$B(B" . "$B%B(B")) ("dh" . ("$B$G$#(B" . "$B%G%#(B"))
-@c   ("dy" . ("$B$B$#(B" . "$B%B%#(B"))
-@c   ("f" . ("$B$U$#(B" . "$B%U%#(B")) ("fy" . ("$B$U$#(B" . "$B%U%#(B"))
-@c   ("g" . ("$B$.(B" . "$B%.(B")) ("gy" . ("$B$.$#(B" . "$B%.%#(B"))
-@c   ("h" . ("$B$R(B" . "$B%R(B")) ("hy" . ("$B$R$#(B" . "$B%R%#(B"))
-@c   ("j" . ("$B$8(B" . "$B%8(B")) ("jy" . ("$B$8$#(B" . "$B%8%#(B"))
-@c   ("k" . ("$B$-(B" . "$B%-(B")) ("ky" . ("$B$-$#(B" . "$B%-%#(B"))
-@c   ("m" . ("$B$_(B" . "$B%_(B")) ("my" . ("$B$_$#(B" . "$B%_%#(B"))
-@c   ("n" . ("$B$K(B" . "$B%K(B")) ("ny" . ("$B$K$#(B" . "$B%K%#(B"))
-@c   ("p" . ("$B$T(B" . "$B%T(B")) ("py" . ("$B$T$#(B" . "$B%T%#(B"))
-@c   ("r" . ("$B$j(B" . "$B%j(B")) ("ry" . ("$B$j$#(B" . "$B%j%#(B"))
-@c   ("s" . ("$B$7(B" . "$B%7(B")) ("sh" . ("$B$7(B" . "$B%7(B"))
-@c   ("sy" . ("$B$7$#(B" . "$B%7%#(B"))
-@c   ("t" . ("$B$A(B" . "$B%A(B")) ("th" . ("$B$F$#(B" . "$B%F%#(B"))
-@c   ("ty" . ("$B$A$#(B" . "$B%A%#(B"))
-@c   ("v" . ("$B$&!+$#(B" . "$B%t%#(B")) ("w" . ("$B$&$#(B" . "$B%&%#(B"))
-@c   ("x" . ("$B$#(B" . "$B%#(B")) ("xw" . ("$B$p(B" . "$B%p(B"))
-@c   ("z" . ("$B$8(B" . "$B%8(B")) ("zy" . ("$B$8$#(B" . "$B%8%#(B")))
-@c @end group
-@c @end lisp
-
-@c @noindent
-@c @samp{$B$A(B}$B$rA^F~$9$Y$/(B@kbd{t i}$B$H$$$&F~NO$r9T$J$C$?$H$9$k$H!":G8e$NJl2;(B
-@c $B$G$"$k(B@samp{i}$B$NF~NO;~E@$G!"(B@code{skk-roma-kana-i}$B$rAv::$9$k$3$H$,7h(B
-@c $BDj$5$l$k!#$3$NO"A[%j%9%H$NAv::%-!<$O!"F~NO$5$l$k2>L>J8;z$N%m!<%^;z%W%l(B
-@c $B%U%#%C%/%9(B@footnote{@xref{$B<-=q$N7A<0(B, , $B%m!<%^;z%W%l%U%#%C%/%9(B}.}$B$G!"$3(B
-@c $B$NNc$G$O(B ``t'' $B$H$J$k!#Av::7k2L$O!"(B
-
-@c @lisp
-@c ("t" . ("$B$A(B" . "$B%A(B"))
-@c @end lisp
-
-@c @noindent
-@c $B$H$J$k!#$+$J%b!<%I$N$H$-$O!"$3$N7k2L$+$i(B@code{cadr}
-@c @footnote{@code{cdr}$B$N(B@code{car}$B!#(B}$B$N(B``$B$A(B''$B$r!"%+%J%b!<%I$N$H$-$O!"(B
-@c @code{cddr}@footnote{@code{cdr}$B$N(B@code{cdr}$B!#(B}$B$N(B``$B%A(B''$B$r<h$j=P$7!"%+(B
-@c $B%l%s%H%P%C%U%!$KA^F~$9$k!#(B
-
-@c @samp{ch}$B$d(B@samp{f}$B$J$I%X%\%s<0$G$7$+;HMQ$7$J$$%-!<$N3dIU$1$r$d$a$?$$(B
-@c $B$H$-$O!"(B@file{~/.emacs}$B$d(B@file{~/.skk}$B$KITMW$J%;%k$r=|$$$?(B 
-@c @code{skk-roma-kana-i}$B$rD>@\=q$/$+!"(B@code{skk-load-hook}$B$rMxMQ$7$F!"2<(B
-@c $B5-$N$h$&$K=q$/!#(B
-
-@c @lisp
-@c @group
-@c (add-hook 'skk-load-hook
-@c           (function
-@c            (lambda ()
-@c              (setq skk-roma-kana-i
-@c                    (delq (assoc "ch" skk-roma-kana-i) skk-roma-kana-i)
-@c                    skk-roma-kana-i
-@c                    (delq (assoc "f" skk-roma-kana-i) skk-roma-kana-i)))))
-@c @end group
-@c @end lisp
-
-@c @noindent
-@c $B>e5-$N(B
-
-@c @lisp
-@c (assoc "ch" skk-roma-kana-i)
-@c @end lisp
-
-@c @noindent
-@c $B$NBe$j$K(B
-
-@c @lisp
-@c ("ch". ("$B$A(B" . "$B%A(B"))
-@c @end lisp
-
-@c @noindent
-@c $B$H=q$$$F$bNI$$$,!"$=$N>l9g$O!"(B@code{delq}$B$NBe$j$K(B@code{delete}$B$r;HMQ(B
-@c $B$9$k$3$H!#(B
-
-@c XXX
-@c $B5l%P!<%8%g%s$N(BSKK$B$G$OD9$5(B2$B0J>e$N%W%l%U%#%C%/%9$K$D$$$F(B 
-@c @code{skk-roma-kana-[aiueo]}$B$rJQ99$7$?$i!"BP1~$7$F(B 
-@c @code{skk-prefix-list}$B$bJQ99$9$kI,MW$,$"$C$?$,!"%P!<%8%g%s(B10.47$B$G$O$3$l$rFb(B
-@c $BItJQ?t(B@footnote{$B2~L>$5$l$F(B@code{skk-prefix-tree}$B$H$$$&JQ?t$K$J$C$?!#(BElib$B$N(BAVL$BLZ%Q%C%1!<%8$rMxMQ$7$?(BAVL$BLZ9=B$$H$J$C$F$$$k!#(B@code{skk-prefix-list}$B$ND9$5$O(B24$B$H7k9=D9$/!"(B@code{skk-kana-input}$B$GIQHK$K;2>H!"Av::$5$l$k$N$G(B@code{member}$B$K$h$kC`<!Av::$h$j$b(BAVL$BLZ$rMxMQ$7$?%P%$%J%j!<%5!<%A$NJ}$,M-Mx$HH=CG$7$?!#(B}
-@c $B$H$7$F!"(BSKK$B%b!<%I$r5/F0$9$kKh$K<+F07W;;$9$k$h$&$K$J$C$?!#4{$K(BSKK$B%b!<%I$K(B
-@c $B$J$C$F$$$k%P%C%U%!$G(B@code{skk-roma-kana-[aiueo]}$B$rJQ99$7$?>l9g$O!"(B
-@c @kbd{C-x C-j}$B$b$7$/$O(B@kbd{C-x j}$B$r(B2$BEY%?%$%W$7$F(B@code{skk-mode}$B$b$7(B
-@c $B$/$O(B@code{skk-auto-fill-mode}$B$r5/F0$7D>$9I,MW$,$"$k$N$GCm0U$9$k$3$H!#(B
-@c @code{skk-roma-kana-[aiueo]}$B$,%f!<%6!<JQ?t$G$"$k$?$a$K!"(BSKK$B5/F08e$K$3$l(B
-@c $B$i$NJQ?t$,JQ99$5$l$k2DG=@-$,$"$k$N$GKhEY7W;;$7D>$9$h$&$K@_7W$5$l$F$$$k!#(B
-
-@c @node $BM-8B>uBV%*!<%H%^%H%s$rMQ$$$?JQ49(B, $B?t;z$d5-9fJ8;z$NF~NO(B, $B%m!<%^;z2>L>JQ49%k!<%k(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B
-@c @comment  node-name,  next,  previous,  up
-@c @subsubsection $BM-8B>uBV%*!<%H%^%H%s$rMQ$$$?JQ49(B
-@c @cindex T-code
-@c @cindex TUT-code
-@c @cindex $B%*!<%H%^%H%s$N>uBVA+0\5,B'(B[$B$*!<$H$^$H$s$N$7$h$&$?$$$;$s$$$-$=$/(B]
-@c @cindex $BM-8B>uBV%*!<%H%^%H%s(B[$B$f$&$1$s$7$h$&$?$$$*!<$H$^$H$s(B]
-@c @vindex skk-rom-kana-rule-list
-@c
-@c @c XXX
-@c $B%m!<%^;z$+$JJQ49$O!"(B@code{skk-roma-kana-a}, @code{skk-roma-kana-i},
-@c @code{skk-roma-kana-u}, @code{skk-roma-kana-e}, @code{skk-roma-kana-o}
-@c $B$H$$$&(B5$B$D$NO"A[%j%9%H$K=>$$9T$o$l$k$3$H$OA0@a$G=R$Y$?DL$j$@$,!"(B
-@c @code{skk-rom-kana-rule-list}$B$K$h$jI=8=$5$l$kM-8B>uBV%*!<%H%^%H%s$rMQ$$(B
-@c $B$?JQ49$bJ;MQ$5$l$k(B@footnote{$B=g=x$H$7$F$O!"%*!<%H%^%H%s$N>uBVA+0\5,B'$rMQ$$$?%j%9%H$,@h$K;2>H$5$l!"$=$3$K3:Ev$N5,B'$,$J$1$l$P!"<!$K>e5-(B5$B%j%9%H$,;2>H$5$l$k!#(Bk}$B!#(B
-@c $B$3$N%j%9%H$N%G%#%U%)%k%HCM$O!"2<5-$NDL$j$G$"$k!#(B
-@c
-@c @lisp
-@c @group
-@c '(("nn" nil ("$B%s(B" . "$B$s(B"))
-@c   ("n'" nil ("$B%s(B" . "$B$s(B")))
-@c @end group
-@c @end lisp
-@c
-@c @noindent
-@c $B%j%9%H$N3FMWAG$O!"%*!<%H%^%H%s$N>uBVA+0\5,B'(B:
-@c
-@c @example
-@c <$B8=:_$N>uBV(B, $BF~NO(B, $B<!$N>uBV(B, $B=PNO(B>
-@c @end example
-@c
-@c @noindent
-@c $B$r(B
-@c
-@c @example
-@c ($B8=:_$N>uBV(B@@$BF~NO(B $B<!$N>uBV(B $B=PNO(B)
-@c @end example
-@c
-@c @noindent
-@c $B$H$$$&7A$N%j%9%H$GI=8=$7$?$b$N$G$"$k!#$3$3$G(B@samp{$B>uBV(B}$B$H$OJQ49$5$l$kA0(B
-@c $B$N%m!<%^;z$NJ8;zNs$G$"$j!"(B@samp{$BF~NO(B}$B$O:#%?%$%W$5$l$?J8;z$rD9$5(B1$B$NJ8;zNs(B
-@c $B$H$_$J$7$?$b$N$G$"$k!#(B@samp{@@}$B$OJ8;zNs$NO"@\$rI=$o$9!#(B@samp{$B=PNO(B}$B$O<!(B
-@c $B$N>uBV$KA+0\$9$k$H$-$K%P%C%U%!$KA^F~$5$l$kJ8;zNs$N%j%9%H$G$"$j!"$+$J%b!<(B
-@c $B%I$G$OEv3:%j%9%H$N(B@code{car}$B!"%+%J%b!<%I$G$O(B@code{cdr}$B$,%P%C%U%!$KA^(B
-@c $BF~$5$l$k!#!V<!$N>uBV!W$,(B@code{nil}$B$N$H$-$K$O:G=*>uBV$KA+0\$7!"%m!<%^;z(B
-@c $B$+$JJQ49$r=*N;$9$k!#(B
-@c
-@c $B=>$$!">e5-$N%G%#%U%)%k%HCM$O!"(B@kbd{nn}$B$^$?$O(B@kbd{n'}$B$r%?%$%W$9$k$H!"(B
-@c $B$+$J%b!<%I$G$O(B@samp{$B$s(B}$B$,!"%+%J%b!<%I$G$O(B@samp{$B%s(B}$B$,%+%l%s%H%P%C%U%!$KA^(B
-@c $BF~$5$l$k$3$H$r<($7$F$$$k!#$^$?!"(B
-@c
-@c @lisp
-@c @group
-@c (setq skk-rom-kana-rule-list
-@c       '(("nn" "n" ("$B%s(B" . "$B$s(B"))
-@c         ("n'" nil ("$B%s(B" . "$B$s(B"))))
-@c @end group
-@c @end lisp
-@c
-@c @noindent
-@c $B$H$9$l$P!"(B
-@c
-@c @example
-@c hannou @expansion{}$B$O$s$N$&(B
-@c han'ou @expansion{}$B$O$s$*$&(B
-@c @end example
-@c
-@c @noindent
-@c $B$N$h$&$K%m!<%^;z$+$JJQ49$,9T$o$l$k!#(B
-@c $B$H$3$m$G!"(B
-@c
-@c @example
-@c ohsaka @expansion{}$B$*$*$5$+(B
-@c ohta @expansion{}$B$*$*$?(B
-@c ohhira @expansion{}$B$*$*$R$i(B
-@c @end example
-@c
-@c @noindent
-@c $B$N$h$&$K(B@samp{oh}$B$OFCJL$K=hM}$5$l$k!#=>$$!"(B@samp{ohhonn}$B$H%?%$%W$9$k(B
-@c $B$H(B@samp{$B$*$*$[$s(B}$B$H$J$j(B@samp{$B$*$C$[$s(B}$B$H$O$J$i$J$$!#(B
-@c
-@c @example
-@c ohhonn @expansion{}$B$*$C$[$s(B
-@c @end example
-@c
-@c @noindent
-@c $B$N$h$&$KJQ49$7$?$1$l$P!"5,B'(B
-@c
-@c
-@c @lisp
-@c ("oh" "h" ("" . ""))
-@c @end lisp
-@c
-@c @noindent
-@c $B$rDI2C$9$k!#(B
-@c
-@c $B$3$NB>!"(B
-@c
-@c @example
-@c tp @expansion{}$BElKLBg3X(B
-@c skk @expansion{}skk
-@c skK @expansion{}SKK
-@c @end example
-@c
-@c @noindent
-@c $B$H$$$C$?JQ49$b!"(B
-@c
-@c
-@c @lisp
-@c @group
-@c ("tp" nil ("$BElKLBg3X(B" . "$BElKLBg3X(B"))
-@c ("sk" "sk" ("" . ""))
-@c ("skk" nil ("skk" . "skk"))
-@c ("skK" nil ("SKK" . "SKK"))
-@c @end group
-@c @end lisp
-@c
-@c @noindent
-@c $B$N$h$&$J5,B'$rDI2C$9$l$P2DG=$G$"$k!#<+J,$NL>A0$rF~NO$9$k$3$H$O$h$/$"$k$N(B
-@c $B$G!"E,Ev$J>JN,7A$rMQ$$$F!"$3$N%j%9%H$KDI2C$7$F$*$/$HJXMx$+$b$7$l$J$$!#(B
-@c
-@c $B99$K(B@code{skk-rom-kana-rule-list}$B$rMQ$$$l$P(BT-code$B$d(BTUT-code$B$K$h$kF|K\(B
-@c $B8lF~NO$r<B8=$9$k$3$H$b$G$-$k!#$3$N>l9g$O%k!<%k$N?t$,?t@i$K$J$j!"$3$N$^$^(B
-@c $B$G$O%k!<%k$X$N%"%/%;%9$KB?$/$N;~4V$rMW$9$k$h$&$K$J$k!#$3$N$h$&$K%k!<%k$N(B
-@c $B?t$,B?$$$H$-$O!"0J2<$N$h$&$K$7$F$"$i$+$8$a%k!<%k$N%j%9%H$rLZ$N7A$K%3%s%Q(B
-@c $B%$%k$7$F$*$/$H8zN($,NI$$!#(B
-@c
-@c @enumerate
-@c @item
-@c $B$^$:!"(B@file{.emacs}$B$J$I$K2<5-$N%U%)!<%`$rDI2C$9$k!#(B
-@c
-@c @lisp
-@c @group
-@c
-@c (setq skk-rom-kana-rule-tree
-@c       (skk-compile-rule-list skk-rom-kana-rule-list))
-@c
-@c @end group
-@c @end lisp
-@c
-@c @item
-@c $B$3$N$^$^$G$O(BSKK$B$r5/F0$9$k$H$-$KKh2s(B@code{skk-compile-rule-list}$B$r7W;;(B
-@c $B$9$k$3$H$K$J$k$N$G!"$&$^$/$f$/$3$H$,J,$l$P!">e5-$N%U%)!<%`$KBe$($F!"(B
-@c
-@c @lisp
-@c @group
-@c
-@c (skk-compile-rule-list skk-rom-kana-rule-list)
-@c
-@c @end group
-@c @end lisp
-@c
-@c @noindent
-@c $B$NCM$rD>$K(B@file{~/.emacs}$B$J$I$K=q$$$F$*$/!#(B
-@c @end enumerate
-
 @node $B"#%b!<%I$K$*$1$kJ8;zJQ49(B, $B?t;z$d5-9fJ8;z$NF~NO(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B
 @comment  node-name,  next,  previous,  up
 @subsubsection $B"#%b!<%I$K$*$1$kJ8;zJQ49(B
 @cindex T-code
 @cindex TUT-code
-@cindex $B%*!<%H%^%H%s$N>uBVA+0\5,B'(B[$B$*!<$H$^$H$s$N$7$h$&$?$$$;$s$$$-$=$/(B]
-@cindex $BM-8B>uBV%*!<%H%^%H%s(B[$B$f$&$1$s$7$h$&$?$$$*!<$H$^$H$s(B]
-
-XXX
 
 @vtable @code
 @item skk-rom-kana-base-rule-list
@@ -2678,76 +2512,91 @@ XXX
 
 SKK $B$N"#%b!<%I$K$*$1$kJ8;zJQ49$O!">e5-(B 2 $BJQ?t$rMQ$$$F9T$J$o$l$k!#(B
 
-$B$3$l$i$NCM$OM-8B>uBV%*!<%H%^%H%s$G$"$j!"%j%9%H$N3FMWAG$O!"%*!<%H%^%H%s$N(B
-$B>uBVA+0\5,B'(B:
+$B$3$l$i$O!"(B1 $B<o$N5,B'$G$"$j!"!VF~=PNO$N>uBV$,$$$+$K0\$jJQ$o$k$Y$-$+!W$r7h(B
+$BDj$9$k!#$=$NFbMF$O!"(B
 
 @example
-<$B8=:_$N>uBV(B, $BF~NO(B, $B<!$N>uBV(B, $B=PNO(B>
+($BF~NO$5$l$kJ8;zNs(B $B=PNO8e$K<+F0E*$KF~NO$KDI2C$5$l$kJ8;zNs(B $B=PNO(B)
 @end example
 
 @noindent
-$B$r(B
+$B$H$$$&7A$N%j%9%H$rNs5s$7$?$b$N$G$"$k!#(B
+
+@samp{$BF~NO$5$l$kJ8;zNs(B} $B$H$OJQ49$5$l$kA0$N(BASCII$BJ8;z$NJ8;zNs$G$"$k!#(B
+
+@samp{$B=PNO(B} $B$O<!$NF~NO>uBV$K0\$k$H$-$K%P%C%U%!$KA^F~$5$l$kJ8;zNs$NAH$_9g(B
+$B$o$;$G$"$j!"(B @w{("$B%"(B" . "$B$"(B")} $B$N$h$&$J%3%s%9%;%k$G$"$k!#(B
+
+2 $BJQ?t$N$&$A!"(B@code{skk-rom-kana-rule-list} $B$O;HMQ<T$,FH<+$N5,B'$rDj5A$9(B
+$B$k$?$a$KMQ0U$5$l$F$*$j!"(B@code{skk-rom-kana-base-rule-list} $B$N5,B'$h$jM%(B
+$B@h$5$l$k!#(B
+
+@menu
+* skk-rom-kana-base-rule-list$B$N6qBNNc(B::
+* skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#1(B)::
+* skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#2(B)::
+* $B"#%b!<%I$K4XO"$9$k$=$NB>$NJQ?t(B::
+@end menu
+
+@node skk-rom-kana-base-rule-list$B$N6qBNNc(B, skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#1(B), $B"#%b!<%I$K$*$1$kJ8;zJQ49(B, $B"#%b!<%I$K$*$1$kJ8;zJQ49(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec skk-rom-kana-base-rule-list$B$N6qBNNc(B
+
+@code{skk-rom-kana-base-rule-list} $B$K$O(B
 
 @example
-($B8=:_$N>uBV(B@@$BF~NO(B $B<!$N>uBV(B $B=PNO(B)
+("a" nil ("$B%"(B" . "$B$"(B"))
+("ki" nil ("$B%-(B" . "$B$-(B"))
+("tt" "t" ("$B%C(B" . "$B$C(B"))
+("nn" nil ("$B%s(B" . "$B$s(B"))
+("n'" nil ("$B%s(B" . "$B$s(B"))
 @end example
 
-@noindent
-$B$H$$$&7A$N%j%9%H$GI=8=$7$?$b$N$G$"$k!#$3$3$G(B@samp{$B8=:_$N>uBV(B}$B$H$OJQ49$5(B
-$B$l$kA0$N(BASCII$BJ8;z$NJ8;zNs$G$"$j!"(B@samp{$BF~NO(B}$B$O:#%?%$%W$5$l$?J8;z$rD9$5(B1
-$B$NJ8;zNs$H$_$J$7$?$b$N$G$"$k!#(B@samp{@@}$B$OJ8;zNs$NO"@\$rI=$o$9!#(B@samp{$B=P(B
-$BNO(B}$B$O<!$N>uBV$KA+0\$9$k$H$-$K%P%C%U%!$KA^F~$5$l$kJ8;zNs$N%j%9%H$G$"$j!"(B
-$B$+$J%b!<%I$G$OEv3:%j%9%H$N(B@code{car}$B!"%+%J%b!<%I$G$O(B@code{cdr}$B$,%P%C(B
-$B%U%!$KA^F~$5$l$k!#!V<!$N>uBV!W$,(B@code{nil}$B$N$H$-$K$O:G=*>uBV$KA+0\$7!"(B
-$B"#%b!<%I$K$*$1$kJ8;zJQ49$r=*N;$9$k!#(B
+$B$N$h$&$J5,B'$,$"$k!#$3$l$O(B
 
-$B=>$$!">e5-$N%G%#%U%)%k%HCM$O!"(B@kbd{nn}$B$^$?$O(B@kbd{n'}$B$r%?%$%W$9$k$H!"(B
-$B$+$J%b!<%I$G$O(B@samp{$B$s(B}$B$,!"%+%J%b!<%I$G$O(B@samp{$B%s(B}$B$,%+%l%s%H%P%C%U%!$KA^(B
-$BF~$5$l$k$3$H$r<($7$F$$$k!#$^$?!"(B
+@example
+a @expansion{}$B$"(B
+ki @expansion{}$B$-(B
+tt @expansion{}$B$C(Bt
+nn @expansion{}$B$s(B
+n' @expansion{}$B$s(B
+@end example
+
+$B$N$h$&$K$J$k$3$H$r0UL#$9$k!#(B
+
+@node skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#1(B), skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#2(B), skk-rom-kana-base-rule-list$B$N6qBNNc(B, $B"#%b!<%I$K$*$1$kJ8;zJQ49(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#1(B)
+
+@code{skk-rom-kana-base-rule-list} $B$N5,B'$K=>$&$H(B
+
+@example
+hannou @expansion{}$B$O$s$*$&(B
+han'ou @expansion{}$B$O$s$*$&(B
+hannnou @expansion{}$B$O$s$N$&(B
+@end example
+
+$B$N$h$&$K$J$k!#$3$3$G(B
 
 @lisp
 @group
-
+(setq rom-kana-rule-list
+      (append rom-kana-rule-list
+              '(("nn" "n" ("$B%s(B" . "$B$s(B"))
 @end group
 @end lisp
-@c
-@noindent
-$B$H$9$l$P!"(B
+
+$B$N$h$&$J@_Dj$K$9$k$3$H$G(B
 
 @example
 hannou @expansion{}$B$O$s$N$&(B
-han'ou @expansion{}$B$O$s$*$&(B
 @end example
 
-@noindent
-$B$N$h$&$K%m!<%^;z$+$JJQ49$,9T$o$l$k!#(B
-$B$H$3$m$G!"(B
+$B$N$h$&$K%m!<%^;z$+$JJQ49$,9T$o$l$k$h$&$K$J$k!#(B
 
-@example
-ohsaka @expansion{}$B$*$*$5$+(B
-ohta @expansion{}$B$*$*$?(B
-ohhira @expansion{}$B$*$*$R$i(B
-@end example
-
-@noindent
-$B$N$h$&$K(B@samp{oh}$B$OFCJL$K=hM}$5$l$k!#=>$$!"(B@samp{ohhonn}$B$H%?%$%W$9$k(B
-$B$H(B@samp{$B$*$*$[$s(B}$B$H$J$j(B@samp{$B$*$C$[$s(B}$B$H$O$J$i$J$$!#(B
-
-@example
-ohhonn @expansion{}$B$*$C$[$s(B
-@end example
-
-@noindent
-$B$N$h$&$KJQ49$7$?$1$l$P!"5,B'(B
-
-@lisp
-("oh" "h" ("" . ""))
-@end lisp
-
-@noindent
-$B$rDI2C$9$k!#(B
-
-$B$3$NB>!"(B
+@node skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#2(B), $B"#%b!<%I$K4XO"$9$k$=$NB>$NJQ?t(B, skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#1(B), $B"#%b!<%I$K$*$1$kJ8;zJQ49(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#2(B)
 
 @example
 tp @expansion{}$BElKLBg3X(B
@@ -2756,7 +2605,7 @@ skK @expansion{}SKK
 @end example
 
 @noindent
-$B$H$$$C$?JQ49$b!"(B
+$B$H$$$C$?JQ49$O!"(B
 
 @lisp
 @group
@@ -2775,6 +2624,49 @@ skK @expansion{}SKK
 $B8lF~NO$r<B8=$9$k$3$H$b$G$-$k!#Nc$($P(B TUT-code $B$K$h$kF~NO$K$D$$$F$O%=!<%9(B
 $B%"!<%+%$%V$N(B @samp{experimental/tut-code} $B%G%#%l%/%H%j$K<}O?$5$l$F$$$k%=!<(B
 $B%9%3!<%I$r;2>H$5$l$?$$!#(B
+
+@node $B"#%b!<%I$K4XO"$9$k$=$NB>$NJQ?t(B, , skk-rom-kana-rule-list$B$NMxMQNc(B($B$=$N#2(B), $B"#%b!<%I$K$*$1$kJ8;zJQ49(B
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec $B"#%b!<%I$K4XO"$9$k$=$NB>$NJQ?t(B
+
+@vtable @code
+@item skk-kana-input-search-function
+
+$B%k!<%k%j%9%H$NCf$K5-$;$J$$JQ49%k!<%k$r=hM}$9$k4X?t!#$3$l$O(B
+
+@example
+ohs @expansion{}$B$*$*(Bs
+@end example
+
+$B$N$h$&$JJQ49$r<B8=$9$k$?$a$KMQ0U$5$l$F$$$k!#$3$l$K$h$j(B
+
+@example
+ohsaka @expansion{}$B$*$*$5$+(B
+ohta @expansion{}$B$*$*$?(B
+@end example
+
+$B$N$h$&$KJQ49$5$l$k$,!"0lJ}(B
+
+@example
+ohhonn @expansion{}$B$*$C$[$s(B
+ohhira @expansion{}$B$*$C$R$i(B
+@end example
+
+$B$H$J$k>l9g$b$"$k!#$3$l$O(B @code{skk-rom-kana-rule-list} $B$N4{DjCM$K(B
+
+@example
+("hh" "h" ("$B%C(B" . "$B$C(B"))
+@end example
+
+$B$,F~$C$F$$$k$?$a$G!"$3$l$r:o=|$9$l$P(B
+
+@example
+ohhonn @expansion{}$B$*$*$[$s(B
+ohhira @expansion{}$B$*$*$R$i(B
+@end example
+
+$B$H$J$k!#(B
+@end vtable
 
 @node $B?t;z$d5-9fJ8;z$NF~NO(B,  , $B"#%b!<%I$K$*$1$kJ8;zJQ49(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B
 @comment  node-name,  next,  previous,  up
