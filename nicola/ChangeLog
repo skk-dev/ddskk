@@ -6,6 +6,7 @@
 
 	* skk-kanagaki.el (skk-kanagaki-isearch-buffer): New variable.
 	(skk-isearch-wrapper): New advice.
+	(skk-insert): Keep `skk-kanagaki-state' to rom in tutorial.
 
 	* skk-nicola.el (skk-nicola-use-koyubi-functions): New variable.
 	(skk-nicola-lshift-function): Call `exit-minibuffer' in

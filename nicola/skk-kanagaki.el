@@ -362,15 +362,17 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
 (defalias-maybe 'help-mode 'fundamental-mode)
 
 ;;;###autoload
-(defun skk-kanagaki-toggle-rom-kana ()
+(defun skk-kanagaki-toggle-rom-kana (&optional arg)
   "$B%m!<%^;zF~NO(B $B"N(B $B2>L>F~NO(B $B$r@Z$jBX$($k!#(B"
   (interactive)
   (setq skk-kanagaki-state
-	(case skk-kanagaki-state
-	  (kana 'rom)
-	  (rom 'kana)
-	  ;; $B$H$j$"$($:!#(B
-	  (t 'kana))))
+	(if (memq arg '(kana rom))
+	    arg
+	  (case skk-kanagaki-state
+	    (kana 'rom)
+	    (rom 'kana)
+	    ;; $B$H$j$"$($:!#(B
+	    (t 'kana)))))
 
 ;;;###autoload
 (defun skk-kanagaki-midashi-henkan (&optional arg)
@@ -521,6 +523,10 @@ X $B>e$G(B xmodmap $B$,%$%s%9%H!<%k$5$l$F$$$k>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe
 
 (defadvice skk-insert (around skk-kanagaki-ad activate compile)
   "$B2>L>F~NOMQ$N(B work around $B!#(B"
+  (when (and (local-variable-p 'skk-jisyo)
+	     (equal skk-jisyo "~/skk-tut-jisyo")
+	     (not (eq skk-kanagaki-state 'rom)))
+    (skk-kanagaki-toggle-rom-kana 'rom))
   (let* ((list (copy-sequence skk-special-midashi-char-list))
 	 (skk-special-midashi-char-list
 	  ;; $B6gFIE@F~NO;~$NLdBj$r2sHr!#(B $BF|K\8l(B 106 $B%-!<%\!<%I$G$O(B "<" $B$H(B ">" $B$K(B

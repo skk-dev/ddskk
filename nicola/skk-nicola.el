@@ -661,6 +661,23 @@ keycode 131 = underscore\n"))
 	     (call-interactively 'exit-minibuffer)
 	   (newline arg)))))
 
+(defun skk-nicola-setup-tutorial ()
+  (when skk-nicola-use-space-as-rshift
+    (define-key skktut-j-mode-map " " 'skk-nicola-self-insert-rshift))
+  ;;
+  (define-key skktut-j-mode-map skk-nicola-lshift-key
+    'skk-nicola-self-insert-lshift)
+  (define-key skktut-j-mode-map skk-nicola-rshift-key
+    'skk-nicola-self-insert-rshift)
+  ;;
+  (when skk-nicola-use-space-as-rshift
+    (define-key skktut-latin-mode-map " "
+      'skk-nicola-turn-on-j-mode))
+  ;;
+  (define-key skktut-latin-mode-map skk-nicola-lshift-key
+    'skk-nicola-turn-on-j-mode)
+  (define-key skktut-latin-mode-map skk-nicola-rshift-key
+    'skk-nicola-turn-on-j-mode))
 
 ;; Pieces of Advice.
 
@@ -782,6 +799,13 @@ keycode 131 = underscore\n"))
 	       (skk-kanagaki-set-okurigana (eq tag 'no-sokuon)))))
 	  (t
 	   ad-do-it))))
+
+(if (featurep 'skk-tut)
+    (skk-nicola-setup-tutorial)
+  ;;
+  (defadvice skk-tutorial (after skk-nicola-advice-to-skk-tutorial activate)
+    (skk-nicola-setup-tutorial)
+    (ad-deactivate-regexp "^skk-nicola-advice-for skk-tutorial$")))
 
 ;;
 

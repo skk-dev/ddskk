@@ -1,3 +1,25 @@
+2000-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk-faq.texi: No longer in the repository.
+
+	* doc/skk.texi: Integrate skk-faq.texi.
+
+	* etc/SKK.tut: Don't use more than 19 lines.
+
+	* experimental/skk-e18.el (skk-e18-make-local-map): New function.
+	* skk-macs.el (skk-j-mode-on, skk-latin-mode-on,
+	skk-jisx0208-latin-mode-on, skk-abbrev-mode-on): Call it.
+
+	* skk-setup.el.in: Call `ad-remove-advice' under XEmacs.
+
+	* skk-tut.el: Bug fixes, and modifications for Emacs 18.
+	(skktut-setup-delete-backward-char): New function.
+	(skk-tutorial): Call it.
+	Invoke `skk-mode' at least once before starting tutorial.
+
+	* skk.el (skk-mode, skk-save-jisyo-original, skk-make-new-jisyo):
+	Don't create or save `skk-jisyo' file, if it is one for tutorial.
+
 2000-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk-faq.texi: Typo.
@@ -2267,8 +2289,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.137 2000/11/13 10:55:38 czkmt Exp $
-Last Modified: $Date: 2000/11/13 10:55:38 $
+Version: $Id: ChangeLog,v 1.138 2000/11/14 12:52:43 czkmt Exp $
+Last Modified: $Date: 2000/11/14 12:52:43 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
