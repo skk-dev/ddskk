@@ -1,13 +1,13 @@
 ;;; skk-num.el --- 数値変換のためのプログラム
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-;;               1998, 1999, 2000
+;;               1998, 1999, 2000, 2001
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.14 2000/11/20 08:55:41 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.15 2001/05/27 22:07:41 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:41 $
+;; Last Modified: $Date: 2001/05/27 22:07:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -455,15 +455,17 @@
   ;; skk-current-date のサブルーチン。
   (mapconcat (function
 	      (lambda (c)
-		(cond ((or (not skk-number-style)
-			   (and (numberp skk-number-style)
-				(= skk-number-style 0)))
-		       (char-to-string c))
-		      ((or (eq skk-number-style t)
-			   (and (numberp skk-number-style)
-				(= skk-number-style 1)))
-		       (cdr (assq c skk-num-alist-type1)))
-		      (t (cdr (assq c skk-num-alist-type2))))))
+		(if (eq c ?\040) ; SPC
+		    nil
+		  (cond ((or (not skk-number-style)
+			     (and (numberp skk-number-style)
+				  (= skk-number-style 0)))
+			 (char-to-string c))
+			((or (eq skk-number-style t)
+			     (and (numberp skk-number-style)
+				  (= skk-number-style 1)))
+			 (cdr (assq c skk-num-alist-type1)))
+			(t (cdr (assq c skk-num-alist-type2)))))))
 	     str ""))
 
 (defadvice skk-kakutei-initialize (after skk-num-ad activate)

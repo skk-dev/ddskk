@@ -1,3 +1,13 @@
+2001-05-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-current-date-function): New user variable.
+	(skk-GYMDWHMS-list): Add symbol to and remove const t from its
+	type.
+	* skk-gadget.el (skk-current-date): Funcall
+	`skk-current-date-function'.
+
+	* skk-num.el (skk-num): Ignore white spaces.
+
 2001-05-26  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el (skk-w3m-run-command): Do not use catch
@@ -3372,8 +3382,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.294 2001/05/26 01:40:50 minakaji Exp $
-Last Modified: $Date: 2001/05/26 01:40:50 $
+Version: $Id: ChangeLog,v 1.295 2001/05/27 22:07:41 minakaji Exp $
+Last Modified: $Date: 2001/05/27 22:07:41 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

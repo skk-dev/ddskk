@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.37 2001/05/26 01:20:34 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.38 2001/05/27 22:07:41 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/26 01:20:34 $
+;; Last Modified: $Date: 2001/05/27 22:07:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1517,55 +1517,82 @@ nil であれば、表示しない。"
   :group 'skk-cursor)
 
 ;;; SKK-GADGET.EL related.
+(defcustom skk-current-date-function 
+  (function
+   (lambda (year month day day-of-week hour minute second and-time)
+     (setq year (if skk-date-ad
+		    (skk-num year)
+		  (let ((y (- (string-to-number year) 1988)))
+		    (if (= y 1) "元" (skk-num (number-to-string y)))))
+	   month (skk-num (cdr (assoc month skk-month-alist)))
+	   day (skk-num day)
+	   day-of-week (if (nth 4 skk-GYMDWHMS-list)
+			   (funcall (nth 4 skk-GYMDWHMS-list) day-of-week)
+			 (cdr (assoc day-of-week skk-week-alist))))
+     (concat (nth 0 skk-GYMDWHMS-list)
+	     year  (nth 1 skk-GYMDWHMS-list)
+	     month (nth 2 skk-GYMDWHMS-list)
+	     day   (nth 3 skk-GYMDWHMS-list)
+	     "\(" day-of-week "\)"
+	     (if (not and-time)
+		 nil
+	       " " 
+	       hour   (nth 5 skk-GYMDWHMS-list)
+	       minute (nth 6 skk-GYMDWHMS-list)
+	       second (nth 7 skk-GYMDWHMS-list)))))
+  "*`skk-current-date' で `funcall' される関数。"
+  :type 'function
+  :group 'skk-gadget)
+
 (defcustom skk-date-ad nil
   "*Non-nil であれば、skk-today, skk-clock で西暦表示する。
 nil であれば、元号表示する。"
   :type 'boolean
   :group 'skk-gadget)
 
-(defcustom skk-GYMDWHMS-list '("平成" "年" "月" "日" t "時" "分" "秒")
+(defcustom skk-GYMDWHMS-list '("平成" "年" "月" "日" nil "時" "分" "秒")
   "*skk-today によって表示される日付に用いられる文字列のリスト。
 リストの内容は
 
-	'(Gengou year month day week-transp hour minute second) 
+  '\(Gengou year month day week-transp hour minute second\) 
 
 となっている。week-transp を除いて全ては文字列である。
 
-week-transp は boolean で、もし t の場合には日本語の曜日表記となる。そう
-でない場合には Emacs が返す文字列となる。
+week-transp に関数名を指定すると、曜日文字列を引数にしてその関数を funcall 
+する。
 
 通常，日本語表示では
 
-	'(\"平成\" \"年\" \"月\" \"日\" t \"時\" \"分\" \"秒\")
+  '\(\"平成\" \"年\" \"月\" \"日\" t \"時\" \"分\" \"秒\"\)
 
 という設定になっている。この場合には 2001年5月18日(金) のような結果を得る。
 
 以下のように設定すればASCII文字しか利用しないようにできる。
 
-	'(\"H.\" \"-\" \"-\" \"\" nil \"h.\" \"min.\" \"sec.\")
+  '\(\"H.\" \"-\" \"-\" \"\" nil \"h.\" \"min.\" \"sec.\"\)
 
 この場合には 2001-5-18(Fri) のような結果を得る。
 String list for displaying date for skk-today.
 The contents of list is 
 
-	'(Gengou year month day week-transp hour minute second) 
+  '(Gengou year month day week-transp hour minute second\) 
 
 All items are string except week-transp. 
-When week-transp is t, the representation of a day becomes in Japanese way.
-Otherwise it will be emacs representation.
+When week-transp is a function name, it is called by `funcall'
+with its arguments a day representation string.
 
 Usual Japanese setting is 
 
-	'(\"平成\" \"年\" \"月\" \"日\" t \"時\" \"分\" \"秒\").
+  '\(\"平成\" \"年\" \"月\" \"日\" t \"時\" \"分\" \"秒\"\).
 
 Then you will get the result like 2001年5月18日(金).
 
 An example for only ASCII characters is
 
-	'(\"H.\" \"-\" \"-\" \"\" nil \"h.\" \"min.\" \"sec.\").
+  '\(\"H.\" \"-\" \"-\" \"\" nil \"h.\" \"min.\" \"sec.\"\).
 
 Then you will get the result as 2001-5-18(Fri)."
-  :type '(repeat (choice (const t) (const nil) string))
+  :type '(repeat (choice 'symbol (const nil) string))
   :group 'skk-gadget)
 
 (defcustom skk-number-style 1

@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.10 2001/05/26 01:32:23 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.11 2001/05/27 22:07:41 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/26 01:32:23 $
+;; Last Modified: $Date: 2001/05/27 22:07:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -60,34 +60,15 @@
   ;; 現在の日時を日本語で返す。skk-today と skk-clock のサブルーチン。
   ;; オプショナル引数の AND-TIME を指定すると、時間も返す。
   (let* ((str (current-time-string))
-         (year (if skk-date-ad
-                   (skk-num (substring str 20 24))
-                 (let ((y (- (string-to-number (substring str 20 24)) 1988)))
-                   (if (= y 1) "元" (skk-num (number-to-string y))))))
-         (month (skk-num (cdr (assoc (substring str 4 7) skk-month-alist))))
-         (day (substring str 8 10))
-	 (day-of-week
-	  (if (nth 4 skk-GYMDWHMS-list)
-	      (cdr (assoc (substring str 0 3) skk-week-alist))
-	    (substring str 0 3)))
-         hour minute second)
-    (if (eq (aref day 0) ?\040)		; SPC
-	(setq day (substring day 1)))
-    (setq day (skk-num day))
-    (concat (if skk-date-ad "" (nth 0 skk-GYMDWHMS-list))
-	    year  (nth 1 skk-GYMDWHMS-list)
-	    month (nth 2 skk-GYMDWHMS-list)
-	    day   (nth 3 skk-GYMDWHMS-list)
-	    "\(" day-of-week "\)"
-            (if and-time
-                (progn
-                  (setq hour (skk-num (substring str 11 13))
-                        minute (skk-num (substring str 14 16))
-                        second (skk-num (substring str 17 19)))
-                  (concat " " 
-			  hour   (nth 5 skk-GYMDWHMS-list)
-			  minute (nth 6 skk-GYMDWHMS-list)
-			  second (nth 7 skk-GYMDWHMS-list)))))))
+	 (year (skk-num (substring str 20 24)))
+	 (month (substring str 4 7))
+	 (day (substring str 8 10))
+	 (day-of-week (substring str 0 3))
+	 (hour (substring str 11 13))
+	 (minute (substring str 14 16))
+	 (second (substring str 17 19)))
+    (funcall skk-current-date-function year month day day-of-week 
+	     hour minute second and-time)))
 
 ;;;###autoload
 (defun skk-today (&optional and-time)
