@@ -1,3 +1,12 @@
+2001-10-13  SIMOYAMA Takasi  <simo@festa.or.jp>
+
+	* skk-vars.el
+	(skk-gyakubiki-jisyo-list): New variable.
+
+	* skk-kakasi.el
+	(skk-kakasi-region): Add reverse-dictionary argument to
+	skk-kakasi-command.
+
 2001-10-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-isearch.el
@@ -2390,8 +2399,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.476 2001/10/13 11:44:46 czkmt Exp $
-Last Modified: $Date: 2001/10/13 11:44:46 $
+Version: $Id: ChangeLog,v 1.477 2001/10/13 11:59:15 czkmt Exp $
+Last Modified: $Date: 2001/10/13 11:59:15 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
