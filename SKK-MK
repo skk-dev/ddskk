@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.6 1999/09/15 15:07:41 minakaji Exp $
-;; Last Modified: $Date: 1999/09/15 15:07:41 $
+;; Version: $Id: SKK-MK,v 1.7 1999/09/16 13:00:59 minakaji Exp $
+;; Last Modified: $Date: 1999/09/16 13:00:59 $
 
 ;; Commentary
 ;;
@@ -46,10 +46,18 @@
 
 ;; install.el is required before defining default variables.
 ;; GENERIC VARIABLE.
+(defvar SKK-MK-cleanup-trouble-makers 'backup
+  "*Non-nil means clean up already installed SKK package configration files.
+If symbol `backup' it only move backup file named `xxxx.BAK'.
+It is related only to XEmacs package install.
+
+Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
+`skk-vars.el' which exist in `package-locations', or `load-path' if
+`package-locations'does not exist." )
 (defvar DOCDIR "./doc")
 (defvar ETCDIR "./etc")
-(defvar SKK-INFOS '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4"))
-(defvar SKK-MODULES
+(defvar SKK_INFOS '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4"))
+(defvar SKK_MODULES
   (let ((list '(queue-m stack-m skk-foreword
 			skk-gadget skk-isearch skk-auto skk-comp
 			skk-kakasi skk-kcode skk-leim skk-look
@@ -68,8 +76,8 @@
 	 (setq list (nconc list (list 'skk-dbm))) )
     list ))
 (defvar SKK_PREFIX "skk")
-(defvar SKK-TEXIS '("skk.texi"))
-(defvar SKK-TUTORIALS '("SKK.tut" "SKK.tut.E"))
+(defvar SKK_TEXIS '("skk.texi"))
+(defvar SKK_TUTORIALS '("SKK.tut" "SKK.tut.E"))
 (defvar VERSION_SPECIFIC_LISPDIR nil)
 
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
@@ -111,7 +119,7 @@
 
 ;; load user custom file if exists.
 (load "./SKK-CFG" t nil t)
-(princ (format "SKK-MODULES=%s\n" SKK-MODULES))
+(princ (format "SKK_MODULES=%s\n" SKK_MODULES))
 
 (if (and VERSION_SPECIFIC_LISPDIR
 	 (null (member VERSION_SPECIFIC_LISPDIR load-path)) )
@@ -139,22 +147,24 @@
     (setq command-line-args-left (cdr command-line-args-left))
     (princ (format "PREFIX=%s\n" PREFIX)) ))
 
+(defun SKK-MK-compile ()
+  (SKK-MK-config)
+  (compile-elisp-modules SKK_MODULES ".") )
+
 (defun SKK-MK-install ()
   (SKK-MK-compile)
+  (setq DOCDIR (expand-file-name DOCDIR)
+	ETCDIR (expand-file-name ETCDIR) )
   ;; install Emacs Lisp programs.
-  (install-elisp-modules SKK-MODULES "." SKK_LISPDIR)
+  (install-elisp-modules SKK_MODULES "." SKK_LISPDIR)
   ;; install infos.
-  (cd DOCDIR)
-  (if (or (not (file-exists-p (expand-file-name (car SKK-INFOS) ".")))
-	  (file-newer-than-file-p (expand-file-name (car SKK-TEXIS) ".")
-				  (expand-file-name (car SKK-INFOS) ".") ))
-      (SKK-MK-texinfo-format SKK-TEXIS) )
-  (install-files SKK-INFOS "." SKK_INFODIR nil t nil)
-  (cd "..")
+  (if (or (not (file-exists-p (expand-file-name (car SKK_INFOS) DOCDIR)))
+	  (file-newer-than-file-p (expand-file-name (car SKK_TEXIS) DOCDIR)
+				  (expand-file-name (car SKK_INFOS) DOCDIR) ))
+      (SKK-MK-texinfo-format SKK_TEXIS) )
+  (install-files SKK_INFOS DOCDIR SKK_INFODIR nil t nil)
   ;; install tutorials.
-  (cd ETCDIR)
-  (install-files SKK-TUTORIALS "." SKK_DATADIR nil t nil)
-  (cd "..") )
+  (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil) )
 
 (defun SKK-MK-config-package ()
   (or (featurep 'xemacs) (error "This directive is only for XEmacs."))
@@ -163,36 +173,23 @@
     (or (string= "NONE" package-dir) (setq PACKAGEDIR package-dir))
     (setq command-line-args-left (cdr command-line-args-left))
     ;; skk-autoloads.el is not necessary for XEmacs package install.
-    (setq SKK-MODULES (delq 'skk-autoloads SKK-MODULES))
+    (setq SKK_MODULES (delq 'skk-autoloads SKK_MODULES))
     (princ (format "PACKAGEDIR=%s\n" PACKAGEDIR)) ))
 
 (defun SKK-MK-install-package ()
   (SKK-MK-config-package)
-  (if (not (file-exists-p SKK_PACKAGE_LISPDIR))
-      (make-directory SKK_PACKAGE_LISPDIR t)
-    (let ((files
-	   ;; (directory-files SKK_PACKAGE_LISPDIR 'full nil 'nosort t) ))
-	   (list (expand-file-name "auto-autoloads.el" SKK_PACKAGE_LISPDIR)
-		 (expand-file-name "custom-load.el" SKK_PACKAGE_LISPDIR)
-		 ;; unnecessary.
-		 (expand-file-name "skk-autoloads.el" SKK_PACKAGE_LISPDIR) 
-		 ;; obsolete.
-		 (expand-file-name "skk-vars.el" SKK_PACKAGE_LISPDIR) )))
-      (while files
-	(condition-case nil
-	    ;; clean up trouble maker.
-	    (progn
-	      (delete-file (car files))
-	      (delete-file (concat (car files) "c")) )
-	  (error) )
-	(setq files (cdr files)) )))
+  (if SKK-MK-cleanup-trouble-makers
+      (SKK-MK-cleanup-trouble-makers
+       (eq SKK-MK-cleanup-trouble-makers 'backup) ))
+  (or (file-exists-p SKK_PACKAGE_LISPDIR)
+      (make-directory SKK_PACKAGE_LISPDIR t) )
   (or (file-exists-p SKK_PACKAGE_DATADIR)
       (make-directory SKK_PACKAGE_DATADIR t) )
   (or (file-exists-p PACKAGE_INFODIR)
       (make-directory PACKAGE_INFODIR t) )
   ;; install Emacs Lisp programs.
-  (compile-elisp-modules SKK-MODULES ".")
-  (install-elisp-modules SKK-MODULES	"." SKK_PACKAGE_LISPDIR)
+  (compile-elisp-modules SKK_MODULES ".")
+  (install-elisp-modules SKK_MODULES "." SKK_PACKAGE_LISPDIR)
   (setq autoload-package-name "skk")
   (add-to-list 'command-line-args-left SKK_PACKAGE_LISPDIR)
   (batch-update-directory)
@@ -201,32 +198,78 @@
   (byte-compile-file (expand-file-name "auto-autoloads.el" SKK_PACKAGE_LISPDIR))
   (byte-compile-file (expand-file-name "custom-load.el" SKK_PACKAGE_LISPDIR))
   ;; install infos.
-  (cd DOCDIR)
-  (if (or (not (file-exists-p (expand-file-name (car SKK-INFOS) ".")))
-	  (file-newer-than-file-p (expand-file-name (car SKK-TEXIS) ".")
-				  (expand-file-name (car SKK-INFOS) ".") ))
-      (SKK-MK-texinfo-format SKK-TEXIS) )
-  (install-files SKK-INFOS "." PACKAGE_INFODIR nil t nil)
-  (cd "..")
+  (if (or (not (file-exists-p (expand-file-name (car SKK_INFOS) DOCDIR)))
+	  (file-newer-than-file-p (expand-file-name (car SKK_TEXIS) DOCDIR)
+				  (expand-file-name (car SKK_INFOS) DOCDIR) ))
+      (SKK-MK-texinfo-format SKK_TEXIS) )
+  (install-files SKK_INFOS DOCDIR PACKAGE_INFODIR nil t nil)
   ;; install tutorials.
-  (cd ETCDIR)
-  (install-files SKK-TUTORIALS "." SKK_PACKAGE_DATADIR nil t nil)
-  (cd "..") )
+  (install-files SKK_TUTORIALS ETCDIR SKK_PACKAGE_DATADIR nil t nil) )
 
-(defun SKK-MK-compile ()
-  (SKK-MK-config)
-  (compile-elisp-modules SKK-MODULES ".") )
-
+(defun SKK-MK-cleanup-trouble-makers (&optional backup)
+  (let ((dirs
+	 (if (boundp 'package-locations)
+	     (let ((l
+		    (mapcar
+		     (function (lambda (d) (expand-file-name "lisp/skk" (car d))))
+		     package-locations )))
+	       (if early-package-load-path
+		   (nconc
+		    l 
+		    (mapcar
+		     (function (lambda (d) (expand-file-name "lisp/skk" d)))
+		     early-packages )))
+	       (if late-package-load-path
+		   (nconc
+		    l
+		    (mapcar
+		     (function (lambda (d) (expand-file-name "lisp/skk" d)))
+		     late-packages )))
+	       (if last-package-load-path
+		   (nconc
+		    l
+		    (mapcar
+		     (function (lambda (d) (expand-file-name "lisp/skk" d)))
+		     last-packages )))
+	       l )
+	   load-path ))
+	(files '("auto-autoloads.el" "custom-load.el" "skk-autoloads.el"
+		 ;; obsolete.
+		 "skk-vars.el" ))
+	(index0 0) (index1 0) (counter 0) dir file )
+    (message "Cleanup trouble makers...")
+   (while (setq dir (nth index0 dirs))
+     (setq index1 0)
+      (while (setq file (nth index1 files))
+	(setq file (expand-file-name file dir))
+	(condition-case nil
+	    (progn
+	      (if (file-exists-p file)
+		  (progn
+		    (if backup
+			(copy-file file (concat file ".BAK") t t) )
+		    (delete-file file)
+		    (setq counter (1+ counter)) ))
+	      (if (file-exists-p (concat file "c"))
+		  (progn
+		    (if backup
+			(copy-file (concat file "c") (concat file ".BAK") t t) )
+		    (delete-file (concat file "c"))
+		    (setq counter (1+ counter)) )))
+	  (error) )
+	(setq index1 (1+ index1)) )
+      (setq index0 (1+ index0)) )
+    (message "Cleanup trouble makers...%s files done" counter) ))
 
 (defun SKK-MK-texinfo-format (targets)
-  (let (x obuf beg)
+  (let (
+	;; Emacs20.2's default is 'raw-text-unix.
+	(coding-system-for-write SKK-MK-texinfo-coding-system) 
+	x obuf beg )
     (while targets
-      (setq x (car targets))
+      (setq x (expand-file-name (car targets) DOCDIR))
       (find-file x)
       (setq obuf (current-buffer))
-      ;; Emacs20.2's default is 'raw-text-unix.
-      (and (fboundp 'set-default-buffer-file-coding-system)
-	   (set-default-buffer-file-coding-system SKK-MK-texinfo-coding-system) )
       (condition-case nil
 	  (texinfo-format-buffer)
 	(error				; one more try with no @direntry
@@ -234,14 +277,12 @@
 	 (set-buffer obuf)
 	 (goto-char (point-min))
 	 (message "Format failed. Trying no @direntry")
-	 (when (re-search-forward "@direntry" nil t)
-	   (setq beg (match-beginning 0))
-	   (when (re-search-forward "@end direntry" nil t)
-	     (delete-region beg (match-end 0))))
+	 (let (buffer-read-only)
+	   (when (re-search-forward "@direntry" nil t)
+	     (setq beg (match-beginning 0))
+	     (when (re-search-forward "@end direntry" nil t)
+	       (delete-region beg (match-end 0)) )))
 	 (texinfo-format-buffer) ))
-      ;; Emacs20.2's default is 'raw-text-unix.
-      (and (fboundp 'set-buffer-file-coding-system)
-	   (set-buffer-file-coding-system SKK-MK-texinfo-coding-system) )
       (save-buffer)
       (kill-buffer (current-buffer))	; info
       (kill-buffer obuf)		; texi
@@ -264,11 +305,11 @@ SKK tutorials:
   %s
   -> %s
 "
-		 (mapconcat 'symbol-name SKK-MODULES ", ")
+		 (mapconcat 'symbol-name SKK_MODULES ", ")
 		 SKK_LISPDIR
-		 (mapconcat 'identity SKK-INFOS ", ")
+		 (mapconcat 'identity SKK_INFOS ", ")
 		 SKK_INFODIR
-		 (mapconcat 'identity SKK-TUTORIALS ", ")
+		 (mapconcat 'identity SKK_TUTORIALS ", ")
 		 SKK_DATADIR )))
     (if (interactive-p)
 	(progn (with-output-to-temp-buffer "*What where*" (princ string))
@@ -292,11 +333,11 @@ SKK tutorials:
   %s
   -> %s
 "
-		 (mapconcat 'symbol-name SKK-MODULES ", ")
+		 (mapconcat 'symbol-name SKK_MODULES ", ")
 		 SKK_PACKAGE_LISPDIR
-		 (mapconcat 'identity SKK-INFOS ", ")
+		 (mapconcat 'identity SKK_INFOS ", ")
 		 PACKAGE_INFODIR
-		 (mapconcat 'identity SKK-TUTORIALS ", ")
+		 (mapconcat 'identity SKK_TUTORIALS ", ")
 		 SKK_PACKAGE_DATADIR )))
     (if (interactive-p)
 	(progn (with-output-to-temp-buffer "*What where*" (princ string))
