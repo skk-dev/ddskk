@@ -4,6 +4,8 @@
 
 	* skk-e18.el, skk-is-n.el: No longer in repository.
 
+	* experimental/skk-dos.el: Ditto.
+
 	* doc/skk.texi (SKKの歴史): New chapter.
 
 2001-09-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -1786,8 +1788,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.369 2001/09/09 02:34:20 czkmt Exp $
-Last Modified: $Date: 2001/09/09 02:34:20 $
+Version: $Id: ChangeLog,v 1.370 2001/09/09 02:35:44 czkmt Exp $
+Last Modified: $Date: 2001/09/09 02:35:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
