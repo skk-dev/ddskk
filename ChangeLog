@@ -1,5 +1,11 @@
 2000-03-16  FURUE Hideyuki  <furue@kke.co.jp>
 
+	* missing: Remove from the repository.
+
+	* mkinstalldirs: Ditto.
+
+2000-03-16  FURUE Hideyuki  <furue@kke.co.jp>
+
 	* SKK-MK (SKK-MK-compile): Remove local ``standard-output''.
 	(SKK-MK-generate-autoloads-el): Define ``standard-output'' locally.
 	(SKK-MK-texinfo-format): Define ``standard-output'' locally.
