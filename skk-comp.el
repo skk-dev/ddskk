@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.7 2000/10/30 22:10:14 minakaji Exp $
+;; Version: $Id: skk-comp.el,v 1.8 2000/11/24 14:27:01 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:14 $
+;; Last Modified: $Date: 2000/11/24 14:27:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -74,10 +74,11 @@
     (if (not c-word)
 	(progn
 	  (setq skk-completion-depth (1+ skk-completion-depth))
+	  (ding)
 	  (if skk-japanese-message-and-error
-	      (error "\"%s\" で補完すべき見出し語は%sありません"
+	      (message "\"%s\" で補完すべき見出し語は%sありません"
 		     skk-completion-word (if first "" "他に"))
-	    (error "No %scompletions for \"%s\""
+	    (message "No %scompletions for \"%s\""
 		   (if first "" "more ") skk-completion-word)))
       (delete-region skk-henkan-start-point (point))
       (insert c-word))))
@@ -116,7 +117,8 @@
 	  (delete-region skk-henkan-start-point (point))
 	  (insert c-word))
       (setq skk-completion-depth (1- skk-completion-depth))
-      (skk-error "\"%s\"で補完すべき見出し語は他にありません"
+      (ding)
+      (skk-message "\"%s\"で補完すべき見出し語は他にありません"
                  "No more previous completions for \"%s\""
                  skk-completion-word))))
 

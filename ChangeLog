@@ -6,6 +6,9 @@
 
 	* install-info.el: Add comments.
 
+	* skk-comp.el (skk-completion, skk-previous-completion): Don't
+	signal error. Just show the message.
+
 	* skk-vars.el: Require "pcustom" also at the load time.
 
 2000-11-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -2485,8 +2488,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.169 2000/11/24 14:11:57 czkmt Exp $
-Last Modified: $Date: 2000/11/24 14:11:57 $
+Version: $Id: ChangeLog,v 1.170 2000/11/24 14:27:01 czkmt Exp $
+Last Modified: $Date: 2000/11/24 14:27:01 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
