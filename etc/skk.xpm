@@ -3,7 +3,7 @@ static char *ddskk[] = {
 /* width height num_colors chars_per_pixel */
 "    14    14       12            1",
 /* colors */
-". c #f8fcf8",
+". c none",
 "# c #4040f8",
 "a c #0000f8",
 "b c #8080f8",
