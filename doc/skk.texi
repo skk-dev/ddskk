@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.124 2003/07/20 13:05:21 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.125 2003/07/20 13:09:57 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/20 13:05:21 $
+@c  Last Modified: $Date: 2003/07/20 13:09:57 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/20 13:05:21 $
+@set UPDATED $Date: 2003/07/20 13:09:57 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6801,6 +6801,10 @@ SKK $B<-=q$K4X$9$k%D!<%k$K$O!"(BPerl, C $B$N3F8@8l$K$h$j=q$+$l$?$b$N$,$"$j$^$
 @comment  node-name,  next,  previous,  up
 @section C$B$K$h$k%D!<%k(B
 
+C$B$K$h$k<-=q%D!<%k$O!"(B@url{http://openlab.ring.gr.jp/skk/tools-ja.html}
+$B$+$iF~<j$9$k$3$H$,$G$-$^$9!#(BWindows $BMQ$N%P%$%J%j$bF1(B page $B$+$i%@%&%s%m!<(B
+$B%I2DG=$G$9!#(B
+
 @menu
 * $B%W%m%0%i%`:n@.J}K!(B::          
 * skkdic-expr::                 $B<-=q$N2C=|(B
@@ -7009,7 +7013,8 @@ SKK $B<-=q$NCf$N8uJd?t$r?t$($^$9!#(B@samp{[} $B$H(B@samp{]} $B$G0O$^$l$?Aw$
 $B$N@_Dj$r8+D>$7$F$/$@$5$$!#(B GLIB-2.0 $B$,8+IU$+$i$J$$>l9g$O(B
 @code{skkdic-expr2} $B$O%3%s%Q%$%k$5$l$^$;$s!#(B
 
-$BI8=`$N(B SKK $B<-=q%D!<%k$HF1$8$G$9!#(BGLIB-2.0 $B$,8+IU$+$C$F$$$k>l9g$O!"(B
+$B$=$NB>$N6qBNE*$J%3%s%Q%$%kJ}K!$O!"I8=`$N(B SKK $B<-=q%D!<%k$HF1$8$G$9!#(B
+GLIB-2.0 $B$,8+IU$+$C$F$$$k>l9g$O!"(B
 
 @example
 $ ./configure; make
