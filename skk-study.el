@@ -5,9 +5,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.4 1999/10/05 10:50:31 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.5 1999/10/05 11:02:04 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/05 10:50:31 $
+;; Last Modified: $Date: 1999/10/05 11:02:04 $
 
 ;; This file is not part of SKK yet.
 
@@ -156,30 +156,32 @@
 	       ;; grandpa ::= (okuri-ari . (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))))
 	       (setq grandpa (assq (cond (skk-okuri-char 'okuri-ari )
 					 (t 'okuri-nasi) )
-				   skk-study-alist ))
-	       ;; papa ::= ("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
-	       (setq papa (assoc midasi (cdr grandpa))) )
-	  (cond (
-		 ;; car に見出し語を持つ cell がない
-		 (not (or papa purge))
-		 (setcdr grandpa
-			 (nconc
-			  (list (cons midasi (list (cons (cons last-key last-word)
-							 (list word) ))))
-			  (cdr grandpa) )))
-		;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) をキーにした
-		;; cell がない。
-		((not (or
-		       ;; baby ::= (("ふく" . "服") . ("着"))
-		       (setq baby (assoc (cons last-key last-word) (cdr papa)))
-		       purge ))
-		 (setcdr papa (cons (cons (cons last-key last-word) (list word)) (cdr papa))) )
-		;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけアップデートする。
-		((not purge)
-		 (setcdr baby (cons word (delete word (cdr baby))))
-		 (if (> (1- (length (cdr baby))) skk-study-associates-number)
-		     (skk-study-chomp (cdr baby) (1- skk-study-associates-number)) ))
-		(t (setcdr papa (delq baby (cdr papa)))) )))))
+				   skk-study-alist )))
+	  ;; papa ::= ("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
+	  ;; skk-study-alist に該当の cell がないと nil を返すので、and 条件に入れない。
+	  (progn
+	    (setq papa (assoc midasi (cdr grandpa)))
+	    (cond (
+		   ;; car に見出し語を持つ cell がない
+		   (not (or papa purge))
+		   (setcdr grandpa
+			   (nconc
+			    (list (cons midasi (list (cons (cons last-key last-word)
+							   (list word) ))))
+			    (cdr grandpa) )))
+		  ;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) をキーにした
+		  ;; cell がない。
+		  ((not (or
+			 ;; baby ::= (("ふく" . "服") . ("着"))
+			 (setq baby (assoc (cons last-key last-word) (cdr papa)))
+			 purge ))
+		   (setcdr papa (cons (cons (cons last-key last-word) (list word)) (cdr papa))) )
+		  ;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけアップデートする。
+		  ((not purge)
+		   (setcdr baby (cons word (delete word (cdr baby))))
+		   (if (> (1- (length (cdr baby))) skk-study-associates-number)
+		       (skk-study-chomp (cdr baby) (1- skk-study-associates-number)) ))
+		  (t (setcdr papa (delq baby (cdr papa)))) ))))))
 
 ;;;###autoload
 (defun skk-study-save (&optional nomsg)
