@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.12 2001/05/25 12:40:21 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.13 2001/05/26 01:40:50 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/05/25 12:40:21 $
+;; Last Modified: $Date: 2001/05/26 01:40:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -73,7 +73,7 @@
 ;; o 検索エンジンの増加。
 ;; o lookup は w3m-search.el を使った Web search を統合しないのだろう
 ;;   か...。統合すれば skk-lookup.el で一元管理できる？
-;; o w3m backend の改良に伴なう追従。
+;; o w3m backend の改良に追従。
 ;; 
 ;;; Code
 (eval-when-compile (require 'skk-macs) (require 'skk-vars))
@@ -315,22 +315,20 @@ w3m を backend で動かしていない)。")
     (let ((pmark (process-mark skk-w3m-process)))
       (accept-process-output)
       ;; 動いたポイントを保存するため save-excursion は使わない。
-      (catch 'exit
-	(goto-char pmark)
-	(set-marker skk-w3m-last-process-point (point))
-	(insert command)
-	(set-marker pmark (point))
-	(process-send-string skk-w3m-process command)
-	(accept-process-output (and (not skk-w3m-no-wait) skk-w3m-process))
-	(goto-char skk-w3m-last-process-point)
-	(while (not (re-search-forward
-		     skk-w3m-backend-command-prompt pmark t))
-	  ;; quit コマンドを送ったらプロンプトは帰ってこない。
-	  (if (eq (process-status skk-w3m-process) 'exit)
-	      (throw 'exit skk-w3m-last-process-point))
-	  (accept-process-output))
-	;;(skk-w3m-check-errors)
-	skk-w3m-last-process-point))))
+      (goto-char pmark)
+      (set-marker skk-w3m-last-process-point (point))
+      (insert command)
+      (set-marker pmark (point))
+      (process-send-string skk-w3m-process command)
+      (accept-process-output (and (not skk-w3m-no-wait) skk-w3m-process))
+      (goto-char skk-w3m-last-process-point)
+      (while (and (not (re-search-forward
+			skk-w3m-backend-command-prompt pmark t))
+		  ;; quit コマンドを送ったらプロンプトは帰ってこない。
+		  (not (eq (process-status skk-w3m-process) 'exit)))
+	(accept-process-output))
+      ;;(skk-w3m-check-errors)
+      skk-w3m-last-process-point)))
 
 ;; just a copy of w3m-url-encode-string of w3m.el
 (defun skk-w3m-url-encode-string (str &optional coding)

@@ -1,13 +1,17 @@
 2001-05-26  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* experimental/skk-w3m.el (skk-w3m-run-command): Do not use catch
+	and throw.
+
 	* skk-vars.el (skk-GYMDWHMS-list): Add `*' to top of the document.
 
 2001-05-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* experimental/skk-w3m.el (skk-w3m-search-engine-alist): Set nil
-	to 3th element of "goo-exceed-waei", "goo-exceed-eiwa" and
-	"goo-daily-shingo" since skk-w3m-get-candidates-from-* function
-	has not implemented yet.
+	* experimental/skk-w3m.el: Do not require w3m and w3m-search on
+	top level.
+	(skk-w3m-search-engine-alist): Set nil to 3th element of
+	"goo-exceed-waei", "goo-exceed-eiwa" and "goo-daily-shingo" since
+	skk-w3m-get-candidates-from-* function has not implemented yet.
 	(skk-w3m-search): Search `skk-w3m-cache' first.
 	Use `skk-w3m-search-by-backend', `skk-w3m-search-by-emcas-w3m' and
 	`skk-w3m-cache'.
@@ -3368,8 +3372,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.293 2001/05/26 01:20:34 minakaji Exp $
-Last Modified: $Date: 2001/05/26 01:20:34 $
+Version: $Id: ChangeLog,v 1.294 2001/05/26 01:40:50 minakaji Exp $
+Last Modified: $Date: 2001/05/26 01:40:50 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
