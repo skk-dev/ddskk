@@ -1,7 +1,7 @@
 2000-03-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-server.el (skk-adjust-search-prog-list-for-server-search):
-	Remove unproperly comments.
+	Remove unproper comments.
 
 2000-03-16  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
