@@ -908,8 +908,7 @@ keycode 131 = underscore\n"))
 	    (let ((pos (point)))
 	      (condition-case nil
 		  (progn
-		    (unless (eq this-command 'skk-nicola-self-insert-rshift)
-		      (skk-comp-do 'first 'silent))
+		    (skk-comp-do 'first 'silent)
 		    (skk-set-marker skk-dcomp-start-point pos)
 		    (skk-set-marker skk-dcomp-end-point (point))
 		    (skk-dcomp-face-on skk-dcomp-start-point
