@@ -4,7 +4,7 @@
 	rules.
 	(skk-jisx0201-mode-on): Make local varaible `skk-rule-tree'.
 	(skk-kanagaki-toggle-katakana): Kill local varaible
-	`skk-rule-tree'.
+	`skk-rule-tree'. Toggle hankaku kana <-> hiragana.
 	(skk-mode, skk-latin-mode, skk-jisx0208-latin-mode,
 	skk-abbrev-mode): Ditto.
 	(skk-jisx0201-zenkaku-region): New function.
@@ -1763,8 +1763,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.358 2001/09/07 11:31:07 czkmt Exp $
-Last Modified: $Date: 2001/09/07 11:31:07 $
+Version: $Id: ChangeLog,v 1.359 2001/09/07 20:37:14 czkmt Exp $
+Last Modified: $Date: 2001/09/07 20:37:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
