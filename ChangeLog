@@ -1,3 +1,8 @@
+2000-10-27  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* doc/skk.texi : "辞書の入手", "skk-look", "skk-lookup"
+	について加筆。
+	
 2000-10-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* READMEs/FAQ.txt (Emacs 20 に SKK 9.6 がインストールできません。,
