@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.133 2003/07/21 20:53:00 kaoru Exp $
+@c  Version: $Id: skk.texi,v 1.134 2003/08/03 08:32:03 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/21 20:53:00 $
+@c  Last Modified: $Date: 2003/08/03 08:32:03 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/21 20:53:00 $
+@set UPDATED $Date: 2003/08/03 08:32:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9370,4 +9370,5 @@ Emacs $B>e0J30$G$b(B SKK $B$_$?$$$JA`:n@-$r<B8=$9$k%=%U%H%&%'%"$,$"$j$^$9!#(
 
 @c Local Variables:
 @c fill-column: 72
+@c skk-kutouten-type: jp
 @c End:
