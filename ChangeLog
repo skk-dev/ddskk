@@ -14,7 +14,7 @@
 	 From skk.el.
 
 	* skk.el: Modify preface.
-	(skk-henkan-show-candidate-subr): Use `string-with', not
+	(skk-henkan-show-candidate-subr): Use `string-width', not
 	`string-bytes' {mm.el is broken}.
 	(minibuffer-keyboard-quit@arond@skk-ad): Move to skk-xemacs.el.
 	(exit-minibuffer@around@skk-ad): Don't advise Emacs 18.
@@ -2518,8 +2518,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.178 2000/11/25 20:26:03 czkmt Exp $
-Last Modified: $Date: 2000/11/25 20:26:03 $
+Version: $Id: ChangeLog,v 1.179 2000/11/25 20:27:56 czkmt Exp $
+Last Modified: $Date: 2000/11/25 20:27:56 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
