@@ -1,3 +1,26 @@
+2000-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-install-elc): Under Emacs 19 or earlier, copy
+	skk-setup.el to a directory in `default-load-path', not to a
+	subdirectory "skk".
+
+	* skk-macs.el (skk-update-modeline-with-extent): New function.
+	(skk-mode-off, skk-j-mode-on, skk-latin-mode-on,
+	skk-jisx0208-latin-mode-on, skk-abbrev-mode-on): Call it under
+	XEmacs.
+
+	* skk-setup.el.in: Emacs 19 or earlier, load "path-util" and add
+	subdirectory "skk" to load-path.
+
+	* skk-vars.el (skk-check-okurigana-on-touroku): Accpept the value
+	`auto'.
+
+	* skk.el (skk-remove-redundant-okurgana): Don't ask if
+	`skk-check-okurigana-on-touroku' is auto. Also check the okurigana
+	which consists of two characters.
+	(skk-henkan-show-candidates): Show previous candidates if the read
+	event is for `skk-delete-backward-char'.
+
 2000-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk-faq.texi: No longer in the repository.
@@ -2293,8 +2316,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.141 2000/11/14 16:12:52 czkmt Exp $
-Last Modified: $Date: 2000/11/14 16:12:52 $
+Version: $Id: ChangeLog,v 1.142 2000/11/15 09:57:21 czkmt Exp $
+Last Modified: $Date: 2000/11/15 09:57:21 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
