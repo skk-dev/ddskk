@@ -1,3 +1,11 @@
+2001-07-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/README.Mac: New file (its original file is written by
+	Yuh Ohmura <yutopia@t3.rim.or.jp>).
+
+	* READMEs/FAQ.txt ([Q.] SKK はどんなオペレーティングシステムで使え
+	ますか?): Updated.
+
 2001-07-10  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-hint.el: Require skk-macs and skk-vars instead
@@ -3560,8 +3568,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.310 2001/07/10 00:01:29 minakaji Exp $
-Last Modified: $Date: 2001/07/10 00:01:29 $
+Version: $Id: ChangeLog,v 1.311 2001/07/19 15:23:43 minakaji Exp $
+Last Modified: $Date: 2001/07/19 15:23:43 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
