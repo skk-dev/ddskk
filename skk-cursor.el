@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.18 2001/09/23 12:12:57 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.19 2001/10/07 01:14:18 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 12:12:57 $
+;; Last Modified: $Date: 2001/10/07 01:14:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -90,7 +90,6 @@
 (dolist (func '(;; cover to SKK functions.
 		skk-abbrev-mode
 		skk-auto-fill-mode
-		skk-jisx0201-mode
 		skk-jisx0208-latin-mode
 		skk-kakutei
 		skk-latin-mode
