@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.103 2003/02/26 08:49:53 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.104 2003/03/16 15:18:11 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/02/26 08:49:53 $
+@c  Last Modified: $Date: 2003/03/16 15:18:11 $
 @c
 @set EDITION 1.9
 @set SKK-VERSION 12.1.0
-@set UPDATED $Date: 2003/02/26 08:49:53 $
+@set UPDATED $Date: 2003/03/16 15:18:11 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3193,7 +3193,7 @@ t} の場合の送り仮名チェックの対象は、@samp{ち} です。辞書に
 れた文字列と連結したもの
 @footnote{@samp{該当の見出し語から切り捨てられた文字列} を送り仮名とみな
 して処理しています。}を、送り仮名の自動処理の最終候補として返します。上
-記の例では、 @samp{立ち上げる}、@samp{建ちあげる}、@samp{断ちあげる}、
+記の例は、@samp{立ち上げる}、@samp{建ちあげる}、@samp{断ちあげる}、
 @samp{経ちあげる}、@samp{立ちあげる} の 5 つが最終候補になります。
 
 ここで、自動送り機能の長所を考えてみると、
