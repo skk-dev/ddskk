@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.28 1999/10/17 12:16:54 minakaji Exp $
-;; Last Modified: $Date: 1999/10/17 12:16:54 $
+;; Version: $Id: SKK-MK,v 1.29 1999/10/17 12:47:32 minakaji Exp $
+;; Last Modified: $Date: 1999/10/17 12:47:32 $
 
 ;; Commentary
 ;;
@@ -40,8 +40,7 @@ Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
 if `package-locations' does not exist `load-path' of which directories name
 end with `skk'." )
 
-(defvar SKK-MK-debugging nil
-  "*Non-nil means making verbose output." )
+(defvar SKK-MK-debugging nil "*Non-nil means making verbose output.")
 
 ;;;; Load configuration file.
 ;; load user custom file if exists.
@@ -106,24 +105,31 @@ end with `skk'." )
 	(cond ((and
 		VERSION_SPECIFIC_LISPDIR
 		(setq emutmp (expand-file-name EMU_PREFIX VERSION_SPECIFIC_LISPDIR))
-		(progn
-		  (if (and (string= emutmp VERSION_SPECIFIC_LISPDIR)
-			   (string= EMU_PREFIX "") )
-		      ;; try again with not standard emu directory.
-		      (setq emutmp (expand-file-name "emu" VERSION_SPECIFIC_LISPDIR)) ))
-		(not (string= emutmp VERSION_SPECIFIC_LISPDIR))
-		(file-exists-p emutmp)
-		emutmp ))
-	      ((and apeldir 
-		    (setq emutmp (expand-file-name (concat "../" EMU_PREFIX) apeldir))
-		    (progn  
-		      (if (and (string= emutmp VERSION_SPECIFIC_LISPDIR)
-			       (string= EMU_PREFIX "") )
-			  ;; try again with not standard emu directory.
-			  (setq emutmp (expand-file-name "../emu" apeldir)) ))
-		    (not (string= emutmp VERSION_SPECIFIC_LISPDIR))
-		    (file-exists-p emutmp)
-		    emutmp )))))
+		(cond ((and (file-exists-p emutmp)
+			    (not (string= emutmp VERSION_SPECIFIC_LISPDIR))
+			    (file-exists-p (expand-file-name "emu.el" emutmp)) ))
+		      ((and
+			(string= EMU_PREFIX "")
+			;; try again with not standard emu directory.
+			(setq emutmp (expand-file-name "emu" VERSION_SPECIFIC_LISPDIR))
+			(not (string= emutmp VERSION_SPECIFIC_LISPDIR))
+			(file-exists-p emutmp)
+			(file-exists-p (expand-file-name "emu.el" emutmp)) ))))
+	       emutmp )
+	      ((and
+		apeldir 
+		(setq emutmp (expand-file-name (concat "../" EMU_PREFIX) apeldir))
+		(cond ((and (file-exists-p emutmp)
+			    (not (string= emutmp VERSION_SPECIFIC_LISPDIR))
+			    (file-exists-p (expand-file-name "emu.el" emutmp)) ))
+		      ((and
+			(string= EMU_PREFIX "")
+			;; try again with not standard emu directory.
+			(setq emutmp (expand-file-name "../emu" apeldir))
+			(not (string= emutmp VERSION_SPECIFIC_LISPDIR))
+			(file-exists-p emutmp)
+			(file-exists-p (expand-file-name "emu.el" emutmp)) ))))
+	       emutmp ))))
   (and emudir 
        (setq load-path (tinyinstall-add-load-path emudir load-path)) )
   (and apeldir
