@@ -21,7 +21,7 @@
 	* skk.el
 	(skk-katakana-henkan)
 	(skk-hiragana-henkan)
-	(skk-jisx0208-latin0henkan)
+	(skk-jisx0208-latin-henkan)
 	(skk-latin-henkan): Call `skk-*-henkan-2'.
 
 	(skk-*-henkan-2): New function.
@@ -2521,8 +2521,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.496 2001/10/20 07:06:41 czkmt Exp $
-Last Modified: $Date: 2001/10/20 07:06:41 $
+Version: $Id: ChangeLog,v 1.497 2001/10/21 02:41:23 czkmt Exp $
+Last Modified: $Date: 2001/10/21 02:41:23 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
