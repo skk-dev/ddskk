@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.287 2004/12/23 03:54:03 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.288 2005/02/24 07:33:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/12/23 03:54:03 $
+;; Last Modified: $Date: 2005/02/24 07:33:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1385,6 +1385,39 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
   (skk-henkan)
   (setq skk-okurigana nil))
 
+(defun skk-set-char-before-as-okurigana (&optional no-sokuon)
+  "ポイントの直前の文字を送り仮名と見倣して、変換を開始する。
+ただし、 もうひとつ前の文字が促音だった場合には、 それ以降を送り仮名と見倣す。"
+  (interactive)
+  (let ((pt1 (point))
+	pt2 okuri sokuon)
+    (setq okuri
+	  (skk-save-point
+	    (backward-char 1)
+	    (buffer-substring-no-properties
+	     (setq pt2 (point))
+	     pt1)))
+    (when okuri
+      (unless no-sokuon
+	(setq sokuon
+	      (skk-save-point
+		(backward-char 2)
+		(buffer-substring-no-properties
+		 (point)
+		 pt2)))
+	(unless (member sokuon '("っ" "ッ"))
+	  (setq sokuon nil)))
+      ;;
+      (skk-save-point
+	(backward-char (if sokuon 2 1))
+	(skk-set-marker skk-okurigana-start-point
+			(point)))
+      (setq skk-okuri-char (skk-okurigana-prefix okuri))
+      (unless skk-current-search-prog-list
+	(setq skk-current-search-prog-list
+	      skk-search-prog-list))
+      (skk-set-okurigana))))
+
 ;;; other inputting functions
 (defun skk-toggle-kutouten ()
   "句読点の種類をトグルで変更する。"
@@ -2567,11 +2600,28 @@ WORD で確定する。"
 	 (when sokuon
 	   (skk-erase-prefix 'clean)
 	   (insert-and-inherit (if skk-katakana "ッ" "っ")))
-	 (skk-set-marker skk-okurigana-start-point (point))
-	 (insert-and-inherit "*")
-	 (skk-set-marker skk-kana-start-point (point))
-	 (setq skk-okuri-char (char-to-string last-char)
-	       skk-okurigana t)))))
+	 (cond
+	  ((and (not sokuon)
+		(skk-get-prefix skk-current-rule-tree)
+		(memq last-command-char '(?A ?I ?U ?E ?O))
+		(= (char-before) (string-to-char skk-prefix)))
+	   ;; SKK の仕様にない例外の処理。
+	   ;; 例えば，ユーザが 「歩く」を挿入したくて "AruKu" と打つべき
+	   ;; ところを "ArukU" と打ってしまった場合。この場合 SKK 側で
+	   ;; どう処理するべきか、決まっていない。ここでは仮の処置として、
+	   ;; "AruKu" と同様の変換をするようにしておく。
+	   (setq skk-okuri-char nil
+		 skk-okurigana nil
+		 last-command-char last-char
+		 normal nil)
+	   (skk-kana-input arg)
+	   (skk-set-char-before-as-okurigana))
+	  (t
+	   (skk-set-marker skk-okurigana-start-point (point))
+	   (insert-and-inherit "*")
+	   (skk-set-marker skk-kana-start-point (point))
+	   (setq skk-okuri-char (char-to-string last-char)
+		 skk-okurigana t)))))))
     (when normal
       (setq last-command-char last-char)
       (skk-kana-input arg))))
