@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.63 2001/10/13 04:51:04 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.64 2001/10/13 11:59:00 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 04:51:04 $
+;; Last Modified: $Date: 2001/10/13 11:59:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1835,6 +1835,12 @@ nil であれば、訓令式 \"(「日本式」とも言うようだ)\" を用いる。
   "*skk-kakasi.el がロードされたときのフック。"
   :type 'hook
   :group 'skk-hooks-and-functions
+  :group 'skk-kakasi)
+
+(defcustom skk-gyakubiki-jisyo-list nil
+  "KAKASI を使った変換の際に参照する逆引き辞書のリスト。
+nil なら KAKASI コマンドは標準の辞書を参照する。"
+  :type '(repeat file)
   :group 'skk-kakasi)
 
 ;;; SKK-KCODE.EL related.
