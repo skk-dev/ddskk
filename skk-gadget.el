@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.12 2001/05/29 21:56:14 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.13 2001/05/31 01:56:06 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/29 21:56:14 $
+;; Last Modified: $Date: 2001/05/31 01:56:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -56,29 +56,96 @@
 
 ;; -- programs
 ;;;###autoload
-(defun skk-current-date (&optional and-time)
+(defun skk-current-date (&optional pp-function format and-time)
   ;; $B8=:_$NF|;~$rF|K\8l$GJV$9!#(Bskk-today $B$H(B skk-clock $B$N%5%V%k!<%A%s!#(B
   ;; $B%*%W%7%g%J%k0z?t$N(B AND-TIME $B$r;XDj$9$k$H!";~4V$bJV$9!#(B
-  (let* ((str (current-time-string))
-	 (year (skk-num (substring str 20 24)))
-	 (month (substring str 4 7))
-	 (day (substring str 8 10))
-	 (day-of-week (substring str 0 3))
-	 (hour (substring str 11 13))
-	 (minute (substring str 14 16))
-	 (second (substring str 17 19)))
-    (funcall skk-current-date-function year month day day-of-week 
-	     hour minute second and-time)))
+  (or pp-function (setq pp-function skk-default-current-date-function))
+  (funcall pp-function (skk-current-date-1) format skk-date-ad and-time))
+
+(defun skk-current-date-1 ()
+  ;; Return list of (year month day day-of-week hour minute second)
+  (let ((str (current-time-string)))
+    (list
+     (substring str 20 24) (substring str 4 7)
+     (substring str 8 10) (substring str 0 3)
+     (substring str 11 13) (substring str 14 16)
+     (substring str 17 19))))
 
 ;;;###autoload
-(defun skk-today (&optional and-time)
-  "$B8=:_$NF|;~$rF|K\8lI=5-$GJV$9!#(B
-$B%*%W%7%g%J%k0z?t$N(B AND-TIME $B$r;XDj$9$k$H!"F|IU$K;~4V$r2C$($k!#(B
-skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#(B"
-  (interactive "*P")
-  (if (interactive-p)
-      (insert (skk-today and-time))
-    (skk-current-date and-time)))
+(defun skk-default-current-date
+  ;; $BF|IU>pJs$NI8=`E*$J=PNO$r$9$kB>!"%f!<%6$,%+%9%?%^%$%:$K;H$$0W$$$h$&(B
+  ;; $B$K!"$"$kDxEY$N%+%9%?%^%$%:5!G=$rDs6!$9$k(B ($B$3$N4X?t$N0z?t$G%+%9%?%^(B
+  ;; $B%$%:$G$-$J$$=PNO$r4uK>$9$k>l9g$O!"(B`skk-default-current-date-function'
+  ;; $B$K<+A0$N4X?t$r;XDj$9$k(B)$B!#(B
+  ;;
+  ;; DATE-INFORMATION $B$O(B `current-time-string' $B$,JV$7$?J8;zNs$r(B 
+  ;; 
+  ;;   (year month day day-of-week hour minute second)
+  ;;
+  ;; $B$N7A<0$GJQ49$7$?%j%9%H(B ($B3FMWAG$OJ8;zNs(B)$B!#(B
+  ;; FORMAT $B$O(B `format' $B$NBh0l0z?t$NMM<0$K$h$k=PNO7ABV$r;XDj$9$kJ8;zNs!#(B
+  ;; NUM-TYPE $B$O(B
+  ;;   0 -> $BL5JQ49(B,
+  ;;   1 -> $BA43Q?t;z$XJQ49(B,
+  ;;   2 -> $B4A?t;z$XJQ49(B ($B0L<h$j$J$7(B),
+  ;;   3 -> $B4A?t;z$XJQ49(B ($B0L<h$j$r$9$k(B),
+  ;;   4 -> $B$=$N?t;z$=$N$b$N$r%-!<$K$7$F<-=q$r:F8!:w(B,
+  ;;   5 -> $B4A?t;z(B ($B<j7A$J$I$G;HMQ$9$kJ8;z$r;HMQ(B)$B$XJQ49(B ($B0L<h$j$r$9$k(B),
+  ;;   9 -> $B>-4}$G;HMQ$9$k?t;z(B ("$B#3;M(B" $B$J$I(B) $B$KJQ49(B
+  ;; GENGO $B$O859fI=<($9$k$+$I$&$+(B (boolean)$B!#(B
+  ;; GENGO-INDEX $B$O(B `skk-gengo-alist' $B$N3FMWAG$N(B cadr $B$r(B 0 $B$H$9$k(B index
+  ;;  (number)$B!#(B
+  ;; MONTH-ALIST-INDEX $B$O(B `skk-month-alist' $B$N3FMWAG$N(B cadr $B$r(B 0 $B$H$9$k(B
+  ;;  index (number)$B!#(B
+  ;; DAYOFWEEK-ALIST-INDEX $B$O(B `skk-day-of-week-alist' $B$N3FMWAG$N(B cadr $B$r(B
+  ;;  0 $B$H$9$k(B index (number)$B!#(B
+  ;; AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B (boolean)$B!#(B
+  (date-information
+   format num-type gengo gengo-index month-alist-index dayofweek-alist-index
+   &optional and-time)
+  (let ((year (car date-information))
+	(month (nth 1 date-information))
+	(day (nth 2 date-information))
+	(day-of-week (nth 3 date-information))
+	(hour (nth 4 date-information))
+	(minute (nth 5 date-information))
+	(second (nth 6 date-information))
+	v)
+    (if gengo 
+	(setq v (skk-ad-to-gengo-1 (string-to-number year))))
+    (setq year (if gengo (concat
+			  (if gengo-index 
+			      (nth gengo-index (car v))
+			    (car (car v)))
+			  (skk-num-exp (number-to-string (cdr v)) num-type))
+		 (skk-num-exp year num-type)))
+    (if month-alist-index
+	(setq month (skk-num-exp (nth month-alist-index
+				      (cdr (assoc month skk-month-alist)))
+				 num-type)))
+    (setq day (skk-num-exp day num-type))
+    (if dayofweek-alist-index
+	(setq day-of-week (nth dayofweek-alist-index
+			       (cdr (assoc day-of-week skk-day-of-week-alist)))))
+    (if and-time
+	(progn
+	  (setq hour (skk-num-exp hour num-type))
+	  (setq minute (skk-num-exp minute num-type))
+	  (setq second (skk-num-exp second num-type))))
+    (if and-time
+	(format (or format "%s$BG/(B%s$B7n(B%s$BF|(B(%s)%s$B;~(B%s$BJ,(B%s$BIC(B")
+		year month day day-of-week hour minute second)
+      (format (or format "%s$BG/(B%s$B7n(B%s$BF|(B(%s)") year month day day-of-week))))
+
+;;;###autoload
+(defun skk-today (arg)
+  "`current-time-string' $B$N=PNO$r2C9)$7!"8=:_$NF|;~$rI=$9J8;zNs$r:n$j!"A^F~$9$k!#(B
+$B<B<AE*$K(B today $B%(%s%H%j$N8F=P$7$J$N$G!"8D?M<-=q$N(B today $B%(%s%H%j$K$h$j%+%9%?%^(B
+$B%$%:$9$k$3$H$,$G$-$k!#(B"
+  (interactive "p")
+  (skk-set-henkan-point-subr)
+  (insert "today")
+  (skk-start-henkan arg))
 
 ;;;###autoload
 (defun skk-clock (&optional kakutei-when-quit time-signal)
@@ -134,7 +201,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
                 skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
 		skk-jisx0208-latin-mode)
             (while (not quit-flag)
-              (setq mes (skk-current-date t)
+              (setq mes (skk-current-date nil nil t)
 		    sec 0)
 	      (message "%s    Hit any key to quit" mes)
               (if time-signal
@@ -176,7 +243,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
         (quit
          (prog2
              (setq end (current-time))
-             (skk-current-date t)
+             (skk-current-date nil nil t)
            (if kakutei-when-quit
                (setq skk-kakutei-flag t))
            (message "$B7P2a;~4V(B: %s $BIC(B" (skk-time-difference start end))))))))
@@ -195,6 +262,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 	    (if (not (stringp (cdr v))) (number-to-string (cdr v)) (cdr v))
             tail)))
 
+;;;###autoload
 (defun skk-ad-to-gengo-1 (ad &optional not-gannen)
   ;; AD is a number and NOT-GANNEN is a boolean optional
   ;; arg.
@@ -234,6 +302,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 		  (string-to-number (car skk-num-list)))))
 	  (if v (concat head (number-to-string v) tail))))))
 
+;;;###autoload
 (defun skk-gengo-to-ad-1 (gengo number)
   ;; GENGO is a string and NUMBER is a number.
   ;; return a year (number) equal to GENGO-NUMBER.
@@ -250,12 +319,12 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 	   ((member gengo '("$B$?$$$7$g$&(B" "$BBg@5(B"))
 	    (if (> 15 number)
 		1911
-	      (skk-error "$BBg@5$O!"(B14 $BG/$^$G$G$9(B"
+	      (skk-error "$BBg@5$O(B 14 $BG/$^$G$G$9(B"
 			 "The last year of Taisyo is 14")))
 	   ((member gengo '("$B$a$$$8(B" "$BL@<#(B"))
 	    (if (> 45 number)
 		1867
-	      (skk-error "$BL@<#$O!"(B44 $BG/$^$G$G$9(B"
+	      (skk-error "$BL@<#$O(B 44 $BG/$^$G$G$9(B"
 			 "The last year of Meiji is 44")))
 	   (t (skk-error "$BH=JLITG=$J859f$G$9!*(B"
 			 "Unknown Gengo!")))))

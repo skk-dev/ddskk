@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.39 2001/05/29 21:56:14 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.40 2001/05/31 01:56:06 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/29 21:56:14 $
+;; Last Modified: $Date: 2001/05/31 01:56:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1517,83 +1517,57 @@ nil $B$G$"$l$P!"I=<($7$J$$!#(B"
   :group 'skk-cursor)
 
 ;;; SKK-GADGET.EL related.
-(defcustom skk-current-date-function 
+(defcustom skk-gengo-alist
+  '((heisei "$BJ?@.(B" "H") (showa "$B><OB(B" "S") (taisho "$BBg@5(B" "T")
+    (meiji "$BL@<#(B" "M"))
+  "*$B859f$rI=5-$7$?J8;zNs$N(B alist$B!#(B
+car $B$O859f$r%m!<%^;zI=5-$7$?(B symbol$B!#(B
+cdr $B$O859fI=5-$N(B string $B$+$i$J$k%j%9%H!#(B"
+  :type '(repeat (choice symbol string))
+  :group 'skk-gadget)
+	
+(defcustom skk-month-alist
+  '(("Jan" "1") ("Feb" "2") ("Mar" "3") ("Apr" "4") ("May" "5")
+    ("Jun" "6") ("Jul" "7") ("Aug" "8") ("Sep" "9") ("Oct" "10")
+    ("Nov" "11") ("Dec" "12"))
+  "*$B7nL>$N1Q8lI=5-$H$=$NB>$NI=5-K!$NO"A[%j%9%H!#(B
+$B3F(B cons cell $B$N(B car $B$O(B Emacs $B$NI8=`4X?t(B `current-time-string' $B$,JV$97A<0!#(B
+cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
+  :type '(repeat (repeat string))
+  :group 'skk-gadget)
+
+(defcustom skk-day-of-week-alist
+  '(("Sun" "$BF|(B" "So") ("Mon" "$B7n(B" "Mo") ("Tue" "$B2P(B" "Di") ("Wed" "$B?e(B" "Mi")
+    ("Thu" "$BLZ(B" "Do") ("Fri" "$B6b(B" "Fr") ("Sat" "$BEZ(B" "Sa"))
+  "*$BMKF|$N1Q8lI=5-$H$=$NB>$NL>$NI=5-K!$NO"A[%j%9%H!#(B
+$B3F(B cons cell $B$N(B car $B$O(B Emacs $B$NI8=`4X?t(B `current-time-string' $B$,JV$97A<0!#(B
+cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
+  :type '(repeat (repeat string))
+  :group 'skk-gadget)
+
+(defcustom skk-default-current-date-function
   (function
-   (lambda (year month day day-of-week hour minute second and-time)
-     (setq year (if skk-date-ad
-		    (skk-num year)
-		  (let ((v (skk-ad-to-gengo-1 year)))
-		    (if (stringp (cdr v)) (cdr v) (number-to-string (cdr v)))))
-	   month (skk-num (cdr (assoc month skk-month-alist)))
-	   day (skk-num day)
-	   day-of-week (if (nth 4 skk-GYMDWHMS-list)
-			   (funcall (nth 4 skk-GYMDWHMS-list) day-of-week)
-			 (cdr (assoc day-of-week skk-week-alist))))
-     (concat (nth 0 skk-GYMDWHMS-list)
-	     year  (nth 1 skk-GYMDWHMS-list)
-	     month (nth 2 skk-GYMDWHMS-list)
-	     day   (nth 3 skk-GYMDWHMS-list)
-	     "\(" day-of-week "\)"
-	     (if (not and-time)
-		 nil
-	       " " 
-	       hour   (nth 5 skk-GYMDWHMS-list)
-	       minute (nth 6 skk-GYMDWHMS-list)
-	       second (nth 7 skk-GYMDWHMS-list)))))
-  "*`skk-current-date' $B$G(B `funcall' $B$5$l$k4X?t!#(B"
-  :type 'function
+   (lambda (date-information format gengo and-time)
+     (skk-default-current-date date-information nil 0 gengo 0 0 0 and-time)))
+  "*`skk-current-date' $B$G%3!<%k$5$l$k%G%#%U%)%k%H$N4X?t!#(B
+$B;~4V>pJs$r0z?t$K<h$j2C9)$7$?J8;zNs$r=PNO$9$k!#(B
+
+$B0z?t$O(B DATE-INFORMATION, FORMAT, GENGO, AND-TIME $B$N(B 4 $B$D!#(B
+DATE-INFORMATION $B$O(B `current-time-string' $B$,JV$7$?J8;zNs$r(B 
+
+  \(year month day day-of-week hour minute second\)
+
+$B$N7A<0$GJQ49$7$?%j%9%H(B \($B3FMWAG$OJ8;zNs(B\)$B!#(B
+FORMAT $B$O(B `format' $B$NBh0l0z?t$NMM<0$K$h$k=PNO7ABV$r;XDj$9$kJ8;zNs!#(B
+GENGO $B$O859fI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B
+AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
+  :type '(choice function (const nil))
   :group 'skk-gadget)
 
 (defcustom skk-date-ad nil
   "*Non-nil $B$G$"$l$P!"(Bskk-today, skk-clock $B$G@>NqI=<($9$k!#(B
 nil $B$G$"$l$P!"859fI=<($9$k!#(B"
   :type 'boolean
-  :group 'skk-gadget)
-
-(defcustom skk-GYMDWHMS-list
-  '((if skk-date-ad "$BJ?@.(B") "$BG/(B" "$B7n(B" "$BF|(B" nil "$B;~(B" "$BJ,(B" "$BIC(B")
-  "*skk-today $B$K$h$C$FI=<($5$l$kF|IU$KMQ$$$i$l$kJ8;zNs$N%j%9%H!#(B
-$B%j%9%H$NFbMF$O(B
-
-  '\(Gengou year month day week-transp hour minute second\) 
-
-$B$H$J$C$F$$$k!#(Bweek-transp $B$r=|$$$FA4$F$OJ8;zNs$G$"$k!#(B
-
-week-transp $B$K4X?tL>$r;XDj$9$k$H!"MKF|J8;zNs$r0z?t$K$7$F$=$N4X?t$r(B funcall 
-$B$9$k!#(B
-
-$BDL>o!$F|K\8lI=<($G$O(B
-
-  '\(\"$BJ?@.(B\" \"$BG/(B\" \"$B7n(B\" \"$BF|(B\" t \"$B;~(B\" \"$BJ,(B\" \"$BIC(B\"\)
-
-$B$H$$$&@_Dj$K$J$C$F$$$k!#$3$N>l9g$K$O(B 2001$BG/(B5$B7n(B18$BF|(B($B6b(B) $B$N$h$&$J7k2L$rF@$k!#(B
-
-$B0J2<$N$h$&$K@_Dj$9$l$P(BASCII$BJ8;z$7$+MxMQ$7$J$$$h$&$K$G$-$k!#(B
-
-  '\(\"H.\" \"-\" \"-\" \"\" nil \"h.\" \"min.\" \"sec.\"\)
-
-$B$3$N>l9g$K$O(B 2001-5-18(Fri) $B$N$h$&$J7k2L$rF@$k!#(B
-String list for displaying date for skk-today.
-The contents of list is 
-
-  '(Gengou year month day week-transp hour minute second\) 
-
-All items are string except week-transp. 
-When week-transp is a function name, it is called by `funcall'
-with its arguments a day representation string.
-
-Usual Japanese setting is 
-
-  '\(\"$BJ?@.(B\" \"$BG/(B\" \"$B7n(B\" \"$BF|(B\" t \"$B;~(B\" \"$BJ,(B\" \"$BIC(B\"\).
-
-Then you will get the result like 2001$BG/(B5$B7n(B18$BF|(B($B6b(B).
-
-An example for only ASCII characters is
-
-  '\(\"H.\" \"-\" \"-\" \"\" nil \"h.\" \"min.\" \"sec.\"\).
-
-Then you will get the result as 2001-5-18(Fri)."
-  :type '(repeat (choice 'symbol (const nil) string))
   :group 'skk-gadget)
 
 (defcustom skk-number-style 1
@@ -1606,15 +1580,6 @@ Then you will get the result as 2001-5-18(Fri)."
 		 (integer :tag "Kansuuji" 3))
   :group 'skk-gadget)
 
-(defcustom skk-gengo-alist
-  '((heisei "$BJ?@.(B" "H") (showa "$B><OB(B" "S") (taisho "$BBg@5(B" "T")
-    (meiji "$BL@<#(B" "M"))
-  "*$B859f$rI=5-$7$?J8;zNs$N(B alist$B!#(B
-car $B$O859f$r%m!<%^;zI=5-$7$?(B symbol$B!#(B
-cdr $B$O859fI=5-$N(B string $B$+$i$J$k%j%9%H!#(B"
-  :type '(repeat (choice symbol string))
-  :group 'skk-gadget)
-	
 (defcustom skk-gadget-load-hook nil
   "*skk-gadget.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
   :type 'hook
@@ -2050,23 +2015,6 @@ The English version is SKK.tut.E."
 ;; (ones of other separate programs should be in the relative files.)
 ;; ---- global ones.
 ;;(defvar skk-henkan-face 'skk-henkan-face)
-(defconst skk-month-alist
-  '(("Jan" . "1") ("Feb" . "2") ("Mar" . "3") ("Apr" . "4") ("May" . "5")
-    ("Jun" . "6") ("Jul" . "7") ("Aug" . "8") ("Sep" . "9") ("Oct" . "10")
-    ("Nov" . "11") ("Dec" . "12"))
-  "$B1Q8l$N7nL>$H;;MQ?t;z$NO"A[%j%9%H!#(B
-
-$B;;MQ?t;z$+$i1Q8l$N7nL>$N$_$r=PNO$9$k$N$G$"$l$P!"%Y%/%?!<$r;H$C$?J}$,9bB.$@$,!"(B
-$B1Q8l$N7nL>$+$i;;MQ?t;z$r=PNO$9$k$N$G$"$l$PO"A[%j%9%H$G$J$1$l$PL5M}$J$N$G!"B?(B
-$BL\E*$K;HMQ$G$-$k$h$&O"A[%j%9%H$N7ABV$r<h$k!#(B"
-  ;;  "Alist of English month abbreviations and numerical values.
-  ;;
-  ;;Although it is faster to use a vector if we only want to output
-  ;;month abbreviations given the ordinal, without the alist it's
-  ;;unreasonable [sic] to output the ordinal given the abbreviation,
-  ;;so for multi-purpose utility we use the alist form."
-)
-
 (defconst skk-coding-system-alist
   (cond ((featurep 'jisx0213)
 	 '(("euc" . euc-jisx0213)
@@ -2469,10 +2417,6 @@ skk-dabbrev-like-completion $B$,(B non-nil $B$N>l9g$O!">o$K:G8e$KJd40$7$?8+=P
   "$B%_%K%P%C%U%!$KF~$kD>A0$N%+!<%=%k?'(B")
 
 ;;; -- SKK-GADGET.EL related internal variables
-(defconst skk-week-alist
-  '(("Sun" . "$BF|(B") ("Mon" . "$B7n(B") ("Tue" . "$B2P(B") ("Wed" . "$B?e(B") ("Thu" . "$BLZ(B")
-    ("Fri" . "$B6b(B") ("Sat" . "$BEZ(B"))
-  "$BMKF|L>$NO"A[%j%9%H!#(B\($B1Q8lI=5-J8;zNs(B . $BF|K\8lI=5-J8;zNs(B\)")
 
 ;;; SKK-ISEARCH.EL related internal constants and variables.
 (defconst skk-isearch-mode-canonical-alist

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.16 2001/05/29 21:56:14 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.17 2001/05/31 01:56:06 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/29 21:56:14 $
+;; Last Modified: $Date: 2001/05/31 01:56:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -183,8 +183,9 @@
       (setq src (cdr src)))
     dst))
 
+;;;###autoload
 (defun skk-num-exp (num type)
-  ;; ascii 数字の NUM を TYPE に従い変換し、変換後の文字列を返す。
+  ;; ascii 数字 (string) の NUM を TYPE に従い変換し、変換後の文字列を返す。
   ;; TYPE は下記の通り。
   ;; 0 -> 無変換
   ;; 1 -> 全角数字へ変換

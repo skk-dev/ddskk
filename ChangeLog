@@ -1,3 +1,27 @@
+2001-05-31  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-num.el (skk-num-exp): Add ;;;###autoload cookie.
+
+	* skk-gadget.el (skk-current-date): New optional argument
+	PP-FUNCTION and FORMAT.
+	(skk-clock): Use new `skk-current-date' (specifying new arg
+	PP-FUNCTION and FORMAT).
+	(skk-today): Ditto.  Insert "today" midasi and convert it.
+	(skk-current-date-1): New function.
+	(skk-default-current-date): Ditto.
+
+	* skk-vars.el (skk-month-alist): Declare with `defcustom' instead
+	of `defconst'.
+	(skk-day-of-week-alist): New user variable.
+	(skk-default-current-date-function): Ditto.
+	(skk-week-alist): Removed.
+	(skk-current-date-function): Removed.
+	(skk-GYMDWHMS-list): Removed.
+
+	* skk-viper.el (sentence-end): Add "．".
+
+	* skk-auto.el: Remove unnecessary spaces between parens.
+
 2001-05-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-gadget.el (skk-ad-to-gengo-1, skk-gengo-to-ad-1): New
@@ -5,6 +29,7 @@
 	(skk-gengo-to-ad): Use `skk-gengo-to-ad-1'.  New optional argument
 	HEAD.
 	(skk-ad-to-gengo): Use `skk-ad-to-gengo-1'.
+	(skk-gengo-to-ad-1): Modified error message slightly.
 
 	* skk-num.el (skk-num): Check C is a number representing character
 	or not.
@@ -3400,8 +3425,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.296 2001/05/29 21:56:14 minakaji Exp $
-Last Modified: $Date: 2001/05/29 21:56:14 $
+Version: $Id: ChangeLog,v 1.297 2001/05/31 01:56:05 minakaji Exp $
+Last Modified: $Date: 2001/05/31 01:56:05 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

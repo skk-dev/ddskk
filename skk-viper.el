@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.10 2000/12/14 03:53:35 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.11 2001/05/31 01:56:06 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/14 03:53:35 $
+;; Last Modified: $Date: 2001/05/31 01:56:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -53,8 +53,8 @@
 
 (setq skk-use-viper t)
 (save-match-data
-  (or (string-match sentence-end "。？！")
-      (setq sentence-end (concat "[。？！]\\|" sentence-end))))
+  (or (string-match sentence-end "。？！．")
+      (setq sentence-end (concat "[。？！．]\\|" sentence-end))))
 
 ;; cursor color support.
 ;; static-when を使いたいのに、 バイトコンパイル時に X window が
