@@ -1,3 +1,17 @@
+2001-10-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el:
+	Don't advise `skk-jisx0201-mode'.
+
+	* skk-macs.el
+	(skk-erase-prefix)
+	(skk-kana-cleanup): More specific.
+
+	* skk.el
+	(skk-henkan-show-candidates): Use `cdr-safe' instead of `consp'
+	followed by `cdr'.
+	(skk-insert-new-word): More specific.
+
 2001-10-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK:
@@ -2187,8 +2201,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.450 2001/10/06 14:35:03 czkmt Exp $
-Last Modified: $Date: 2001/10/06 14:35:03 $
+Version: $Id: ChangeLog,v 1.451 2001/10/07 01:15:55 czkmt Exp $
+Last Modified: $Date: 2001/10/07 01:15:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
