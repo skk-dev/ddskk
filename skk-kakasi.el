@@ -2,9 +2,9 @@
 ;; Copyright (C) 1996, 1998, 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kakasi.el,v 1.6 2000/09/08 09:18:36 akiho Exp $
+;; Version: $Id: skk-kakasi.el,v 1.7 2000/09/14 08:40:51 akiho Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/08 09:18:36 $
+;; Last Modified: $Date: 2000/09/14 08:40:51 $
 
 ;; This file is not part of SKK yet.
 
@@ -41,7 +41,6 @@
 
 ;;; Code:
 (require 'skk)
-(require 'skk-cursor)
 (require 'skk-foreword)
 ;; APEL
 (require 'path-util)
@@ -102,7 +101,8 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
     (delete-region start end)
     (goto-char start)
     (insert-and-inherit str) )
-  (skk-set-cursor-properly) )
+  (and (featurep 'skk-cursor)
+   (skk-set-cursor-properly)) )
 
 ;;;###autoload
 (defun skk-gyakubiki-message (start end &optional all)
@@ -118,7 +118,8 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
           ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
           (setq str (substring str (match-end 0))) ))
     (message "%s" str)
-    (skk-set-cursor-properly) ))
+    (and (featurep 'skk-cursor)
+     (skk-set-cursor-properly)) ))
 
 
 ;;;###autoload
@@ -133,7 +134,8 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
     (delete-region start end)
     (goto-char start)
     (insert-and-inherit str) )
-  (skk-set-cursor-properly) )
+  (and (featurep 'skk-cursor)
+   (skk-set-cursor-properly)) )
 
 ;;;###autoload
 (defun skk-gyakubiki-katakana-message (start end &optional all)
@@ -149,7 +151,8 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
           ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
           (setq str (substring str (match-end 0))) ))
     (message "%s" str)
-    (skk-set-cursor-properly) ))
+    (and (featurep 'skk-cursor)
+     (skk-set-cursor-properly)) ))
 
 (defun skk-gyakubiki-1 (start end all &optional katakana)
   ;; skk-gyakubiki-* $B$N%5%V%k!<%A%s!#(B
@@ -176,7 +179,8 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
     (delete-region start end)
     (goto-char start)
     (insert-and-inherit str) )
-  (skk-set-cursor-properly) )
+  (and (featurep 'skk-cursor)
+   (skk-set-cursor-properly)) )
 
 ;;;###autoload
 (defun skk-hurigana-message (start end &optional all)
@@ -190,7 +194,8 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
     $BCfEg(B -> {$B$J$+$7$^(B|$B$J$+$8$^(B}"
   (interactive "r\nP")
   (message "%s" (skk-hurigana-1 start end all))
-  (skk-set-cursor-properly) )
+  (and (featurep 'skk-cursor)
+   (skk-set-cursor-properly)) )
 
 ;;;###autoload
 (defun skk-hurigana-katakana-region (start end &optional all)
@@ -207,7 +212,8 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
     (delete-region start end)
     (goto-char start)
     (insert-and-inherit str) )
-  (skk-set-cursor-properly) )
+  (and (featurep 'skk-cursor)
+   (skk-set-cursor-properly)) )
 
 ;;;###autoload
 (defun skk-hurigana-katakana-message (start end &optional all)
@@ -221,7 +227,8 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
     $BCfEg(B -> {$B%J%+%7%^(B|$B%J%+%8%^(B}"
   (interactive "r\nP")
   (message "%s" (skk-hurigana-1 start end all 'katakana))
-  (skk-set-cursor-properly) )
+  (and (featurep 'skk-cursor)
+   (skk-set-cursor-properly)) )
 
 (defun skk-hurigana-1 (start end all &optional katakana)
   ;; skk-hurigana-* $B$N%5%V%k!<%A%s!#(B
@@ -254,7 +261,8 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
     (delete-region start end)
     (goto-char start)
     (insert-and-inherit str) )
-  (skk-set-cursor-properly) )
+  (and (featurep 'skk-cursor)
+   (skk-set-cursor-properly)) )
 
 ;;;###autoload
 (defun skk-romaji-message (start end)
@@ -273,7 +281,8 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
     (if (not skk-romaji-*-by-hepburn)
         (setq arg (cons "-rk" arg)) )
     (message "%s" (skk-kakasi-region start end arg))
-    (skk-set-cursor-properly) ))
+    (and (featurep 'skk-cursor)
+     (skk-set-cursor-properly)) ))
 
 (defun skk-kakasi-region (start end arglist)
   ;; START $B$H(B END $B4V$N%j!<%8%g%s$KBP$7(B kakasi $B%3%^%s%I$rE,MQ$9$k!#(BARGLIST $B$r(B
