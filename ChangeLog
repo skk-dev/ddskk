@@ -1,5 +1,18 @@
 2000-10-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* doc/skk.texi: Call `texinfo-every-node-update' and
+	`texinfo-all-menus-update'.
+	(APEL のインストール): Add reference to 「Q.2-4
+	APEL って何ですか？」.
+	
+	* doc/skk-faq.texi: Use `@code', `@file' `@samp' `@kbd' `@key',
+	`@example', `@enumerate' commands.
+	Add cindex, vindex and kindex.
+	Call `texinfo-every-node-update' and `texinfo-all-menus-update'.
+	([Q.4-4] SKK 形式の英和辞書を作る方法がある、と聞いたのですが。):
+	Change node name to `[Q.4-4] SKK 形式の英和辞書があると聞いたので
+	すが。  'Add description about how to get `SKK-JISYO.edict'.
+
 	* skk.el (skk-abbrev-comma): Bug fixed.
 
 2000-10-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
