@@ -1,5 +1,8 @@
 2001-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* *:
+	Comments fix.
+
 	* skk.el
 	(skk-get-jisyo-buffer): Bind `enable-character-translation'
 	non-nil if main Japanese characters do not belong to JIS X 0208
@@ -2819,8 +2822,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.542 2001/11/19 15:09:46 czkmt Exp $
-Last Modified: $Date: 2001/11/19 15:09:46 $
+Version: $Id: ChangeLog,v 1.543 2001/11/19 16:03:42 czkmt Exp $
+Last Modified: $Date: 2001/11/19 16:03:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
