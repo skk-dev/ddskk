@@ -55,6 +55,10 @@
 	 (point)))))
 
 ;; Functions.
+(defun install-info-skip-blank-lines ()
+  (while (and (eolp) (not (eobp)))
+    (install-info-forward-line 1)))
+
 (defun install-info-groups (section entry)
   (let (groups)
     (dolist (sec section)
@@ -169,8 +173,7 @@ from DIR-FILE; don't insert any new entries."
 			   (list (buffer-substring
 				  (match-end 0) (install-info-point-at-eol)))))
 	      (install-info-forward-line 1))
-	    (while (and (eolp) (not (eobp)))
-	      (install-info-forward-line 1))
+	    (install-info-skip-blank-lines)
 	    (when (looking-at "^START-INFO-DIR-ENTRY")
 	      (install-info-forward-line 1)
 	      (while (not (looking-at "^END-INFO-DIR-ENTRY"))
@@ -287,6 +290,7 @@ File: dir,	Node: Top	This is the top of the INFO tree
 	  (cond
 	   ((re-search-forward (concat "^" sec "$") nil t)
 	    (install-info-forward-line 1)
+	    (install-info-skip-blank-lines)
 	    (dolist (en entry)
 	      (let ((key (when (string-match ")" en)
 			   (substring en 0 (match-beginning 0)))))
@@ -304,15 +308,23 @@ File: dir,	Node: Top	This is the top of the INFO tree
 		     (t
 		      (install-info-forward-line 1)))))
 		(save-excursion
-		  (catch 'here
-		    (while (not (eolp))
-		      (let ((line (buffer-substring
-				   (point)
-				   (install-info-point-at-eol))))
-			(if (string-lessp line en)
-			    (install-info-forward-line 1)
-			  (throw 'here t)))))
-		  (install-info-forward-line 1)
+		  (while (not
+			  (catch 'here
+			    (while (not (eolp))
+			      (let ((line (buffer-substring
+					   (point)
+					   (install-info-point-at-eol))))
+				(if (string-lessp line en)
+				    (install-info-forward-line 1)
+				  (throw 'here t))))
+			    (let ((pt (point)))
+			      (install-info-skip-blank-lines)
+			      (if (looking-at "^* ")
+				  (throw 'here nil)
+				(goto-char pt)
+				(throw 'here t))))))
+		  (when (and (eobp) (not (bolp)))
+		    (install-info-forward-line 1))
 		  (insert (format "%s\n" en))))))
 	   (t
 	    (goto-char (point-max))
