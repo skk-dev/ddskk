@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.244 2002/03/29 23:15:29 obata Exp $
+;; Version: $Id: skk.el,v 1.245 2002/04/01 23:21:06 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/29 23:15:29 $
+;; Last Modified: $Date: 2002/04/01 23:21:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1832,25 +1832,26 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	 (workinglst
 	  ;; CANDIDATES $B$N@hF,$N(B 7 $B$D$N$_$N%j%9%H!#(B
-	 (let ((count 0) e v)
-	   (while (> max-candidates count)
-	     (setq e (nth count candidates))
-	     (if e
-		 (setq v (cons (cond
-				((and (skk-numeric-p) (consp e))
-				 (cdr e))
-				((not (skk-lisp-prog-p e))
-				 e)
-				((skk-eval-string e))
-				(t e))
-			       v)
-		       count (1+ count))
-	       (setq count max-candidates)))
-	   (nreverse v)))
-	(n 0)
-	(str "") cand message-log-max
-	(workinglst-ptr workinglst)
-	(keys-ptr keys))
+	  (let ((count 0) e v)
+	    (while (> max-candidates count)
+	      (setq e (nth count candidates))
+	      (if e
+		  (setq v (cons (progn
+				  (when (and (skk-numeric-p) (consp e))
+				    (setq e (cdr e)))
+				  (cond
+				   ((not (skk-lisp-prog-p e))
+				    e)
+				   ((skk-eval-string e))
+				   (t e)))
+				v)
+			count (1+ count))
+		(setq count max-candidates)))
+	    (nreverse v)))
+	 (n 0)
+	 (str "") cand message-log-max
+	 (workinglst-ptr workinglst)
+	 (keys-ptr keys))
     (when (car workinglst)
       ;;(setq workinglst (skk-truncate-message workinglst))
       (while workinglst-ptr
