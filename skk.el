@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.259 2003/03/23 03:03:59 czkmt Exp $
+;; Version: $Id: skk.el,v 1.260 2003/03/23 20:26:40 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/03/23 03:03:59 $
+;; Last Modified: $Date: 2003/03/23 20:26:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3534,6 +3534,16 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 	    (setq x (cdr origlist1)))
 	  (setq list2 (cdr list2)))
 	x)))))
+
+;;;###autoload
+(defun skk-remove-duplicates (list)
+  "LIST $B$+$i=EJ#$r$J$/$7$?%j%9%H$rJV$9!#(B"
+  (let (new)
+    (while list
+      (or (member (car list) new)
+	  (setq new (cons (car list) new)))
+      (setq list (cdr list)))
+    (nreverse new)))
 
 (defun skk-search-kakutei-jisyo-file (file limit &optional nomsg)
   "$B<-=q%U%!%$%k$rC5$7!"8uJd$r%j%9%H$GJV$9!#(B
