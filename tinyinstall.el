@@ -6,8 +6,8 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.6 2001/09/11 14:47:00 czkmt Exp $
-;; Last Modified: $Date: 2001/09/11 14:47:00 $
+;; Version: $Id: tinyinstall.el,v 1.7 2001/11/05 13:50:29 czkmt Exp $
+;; Last Modified: $Date: 2001/11/05 13:50:29 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -25,6 +25,16 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;;; Code:
+
+(if (not (fboundp 'when))
+    (defmacro when (cond &rest body)
+      "(when COND BODY...): if COND yields non-nil, do BODY, else return nil."
+      (list 'if cond (cons 'progn body))))
+
+(if (not (fboundp 'unless))
+    (defmacro unless (cond &rest body)
+      "(unless COND BODY...): if COND yields nil, do BODY, else return nil."
+      (cons 'if (cons cond (cons nil body)))))
 
 (defvar install-prefix
   (cond ((featurep 'xemacs)		; running-xemacs
@@ -44,10 +54,10 @@ subdirectory under load-path.")
 
 (defun install-detect-elisp-directory (&optional prefix elisp-prefix
 						 allow-version-specific)
-  (or prefix
-      (setq prefix install-prefix))
-  (or elisp-prefix
-      (setq elisp-prefix install-elisp-prefix))
+  (unless prefix
+    (setq prefix install-prefix))
+  (unless elisp-prefix
+    (setq elisp-prefix install-elisp-prefix))
   (or
    (catch 'tag
      (let ((rest default-load-path)
@@ -55,28 +65,29 @@ subdirectory under load-path.")
 			(expand-file-name (concat ".*/" elisp-prefix) prefix)
 			"/?$")))
        (while rest
-	 (if (string-match pat (car rest))
-	     (if (or allow-version-specific
-		     (not (string-match (format "/%d\\.%d"
-						emacs-major-version
-						emacs-minor-version)
-					(car rest))))
-		 (throw 'tag (car rest))))
+	 (when (and (string-match pat (car rest))
+		    (or allow-version-specific
+			(not (string-match (format "/%d\\.%d"
+						   emacs-major-version
+						   emacs-minor-version)
+					   (car rest)))))
+	   (throw 'tag (car rest)))
 	 (setq rest (cdr rest)))))
    (expand-file-name (concat
-		      (if (and		; running-emacs-19_29-or-later
-			   (not (featurep 'xemacs))
-			   (or (>= emacs-major-version 20)
-			       (and (= emacs-major-version 19)
-				    (>= emacs-minor-version 29))))
+		      (if (and (not (featurep 'xemacs))
+			       ;; running-emacs-19_29-or-later
+			       (or (>= emacs-major-version 20)
+				   (and (= emacs-major-version 19)
+					(>= emacs-minor-version 29))))
 			  "share/"
 			"lib/")
-		      (cond ((boundp 'MULE)   "mule/")
-			    ((featurep 'xemacs)	; running-xemacs
-			     (if (featurep 'mule)
-				 "xmule/"
-			       "xemacs/"))
-			    (t "emacs/"))
+		      (cond ((boundp 'MULE)
+			     "mule/")
+			    ((featurep 'xemacs)
+			     ;; running-xemacs
+			     "xemacs/")
+			    (t
+			     "emacs/"))
 		      elisp-prefix)
 		     prefix)))
 
