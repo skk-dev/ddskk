@@ -1,7 +1,7 @@
 -*- outline -*- 
 
-$Date: 2000/03/29 02:01:15 $
-$Id: CVS_on_Windows,v 1.3 2000/03/29 02:01:15 yutopia Exp $
+$Date: 2000/03/29 03:02:46 $
+$Id: CVS_on_Windows,v 1.4 2000/03/29 03:02:46 yutopia Exp $
 
 [cvs on Windows 95/NT Windows 95 $B$GF0:n3NG':Q$_(B (NT $B$G$OL$3NG'(B)] 
 
@@ -45,15 +45,6 @@ LF $B$r(B LF $B$N$^$^(B checkout $B$9$k$?$a$K$O(B Cygwin $B$G%3%s%Q%$%k$7
       $B%j%^%&%s%H$7$F2<$5$$!#(B
       $BNc$($P(B $TEMP=d:\tmp $B$@$H$7$?>l9g!"(B
    % umount /tmp ; mount -b d:\tmp /tmp
-
-* Windows $B$G(B commit $B$9$k:]$NCm0U(B
-
-$B4D6-JQ?t(B TZ $B$r@_Dj$7$F$$$J$$$H!"(Bcommit $B$9$k:]$N;~9o$,@5$7$/H?1G$5$l$^(B
-$B$;$s!#(B
-Windows NT $B$N>l9g$O%3%s%H%m!<%k%Q%M%k$N%7%9%F%`$N%W%m%Q%F%#$GEPO?$r9T(B
-$B$J$$$^$9$,!"(BWindows9x$B$G$O0J2<$N$h$&$K(Bautoexec.bat$B$G@_Dj$r9T$J$$$^$9!#(B 
-
-     SET TZ=JST-9
 
 [End of CVS_on_Widows]
 
