@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.24 2000/09/17 17:21:26 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.25 2000/09/21 10:48:48 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/09/17 17:21:26 $
+@c  Last Modified: $Date: 2000/09/21 10:48:48 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/09/17 17:21:26 $
+@set UPDATED $Date: 2000/09/21 10:48:48 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -184,7 +184,7 @@ SKK $B$r;H$$;O$a$kA0$K!"$"$J$?$N(B @file{~/.emacs} $B$K@_Dj$r=q$+$J$1$l$P$J$j
 @end group
 @end lisp
 
-$B%5!<%P!<$r;H$o$J$$>l9g$O!"99$K<-=q%U%!%$%k$r;XDj$9$kI,MW$,$"$k$^$9!#(B
+$B%5!<%P!<$r;H$o$J$$>l9g$O!"99$K<-=q%U%!%$%k$r;XDj$9$kI,MW$,$"$j$^$9!#(B
 
 @lisp
 (setq skk-large-jisyo "/your/path/to/SKK-JISYO.L")
