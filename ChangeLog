@@ -1,3 +1,7 @@
+2002-03-07  IIDA Yosiaki  <iida@ring.gr.jp>
+
+	* doc/skk.texi: GPL => GNU GPL.  Fix IIDA's email address.
+
 2002-03-06  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* skk-tut.el: Use \[] notation in help strings.
@@ -3722,8 +3726,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.668 2002/03/06 02:07:21 iida Exp $
-Last Modified: $Date: 2002/03/06 02:07:21 $
+Version: $Id: ChangeLog,v 1.669 2002/03/07 12:53:46 iida Exp $
+Last Modified: $Date: 2002/03/07 12:53:46 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
