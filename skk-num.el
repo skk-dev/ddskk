@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.32 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.33 2002/02/05 15:54:19 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/02/05 15:54:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -164,7 +164,8 @@
   (setq string (skk-num-rawnum-exp-1
 		string "[０-９]+" "#1" 0))
   (setq string (skk-num-rawnum-exp-1
-		string "\\([〇一九五三四七二八六十][十百千万億兆京]\\)+" "#3" 0))
+		string "\\([〇一九五三四七二八六十][十百千万億兆京]\\)+"
+		"#3" 0))
   ;; (mapcar 'char-to-string
   ;;         (sort
   ;;          '(?一 ?二 ?三 ?四 ?五 ?六 ?七 ?八 ?九 ?〇) '<))
