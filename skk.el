@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.9 1999/09/02 22:57:25 minakaji Exp $
+;; Version: $Id: skk.el,v 1.10 1999/09/15 03:41:23 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/02 22:57:25 $
+;; Last Modified: $Date: 1999/09/15 03:41:23 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -99,7 +99,7 @@
 ;;; Code:
 (require 'skk-foreword)
 
-(defconst skk-version "10.51")
+(defconst skk-version "10.52")
 (defconst skk-major-version (string-to-int (substring skk-version 0 2)))
 (defconst skk-minor-version (string-to-int (substring skk-version 3)))
 
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/09/02 22:57:25 $")
+      (let* ((raw-date "$Date: 1999/09/15 03:41:23 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -125,9 +125,9 @@
 ;;;; variables declaration
 ;;; user variables
 
-(defvar skk-init-file (if (eq system-type 'ms-dos) "~/_skk" "~/.skk")
+(defvar skk-init-file (convert-standard-filename "~/.skk")
   "*SKK $B$N=i4|@_Dj%U%!%$%kL>!#(B
-skk.el 9.x $B$h$j(B ~/.emacs $B$G$N%+%9%?%^%$%:$,2DG=$H$J$C$?!#(B"
+skk.el 9.x $B$h$j(B ~/.emacs $B$G$N%+%9%?%^%$%:$b2DG=$H$J$C$?!#(B"
 ;  "*Name of the SKK initialization file.
 ;From skk.el 9.x on all customization may be done in ~/.emacs."
 )
@@ -280,13 +280,12 @@ skk-search $B4X?t$,(B skk-search-prog-list $B$N(B car $B$+$i8eJ}8~$X=gHV$K
 $B9T$$JQ49$r9T$J$&!#(B" 
   :group 'skk )
 
-(defcustom skk-jisyo (if (eq system-type 'ms-dos) "~/_skk-jisyo" "~/.skk-jisyo")
+(defcustom skk-jisyo (convert-standard-filename "~/.skk-jisyo")
   "*SKK $B$N%f!<%6!<<-=q!#(B" 
   :type 'file
   :group 'skk )
 
-(defcustom skk-backup-jisyo
-  (if (eq system-type 'ms-dos) "~/_skk-jisyo.BAK" "~/.skk-jisyo.BAK")
+(defcustom skk-backup-jisyo (convert-standard-filename "~/.skk-jisyo.BAK")
   "*SKK $B$N%f!<%6!<<-=q$N%P%C%/%"%C%W%U%!%$%k!#(B" 
   :type 'file
   :group 'skk )
@@ -303,8 +302,7 @@ Mule $B$G$O!"(B*euc-japan*, *sjis*, *junet*$B!#(B
   :type 'boolean
   :group 'skk )
 
-(defcustom skk-record-file
-  (if (eq system-type 'ms-dos) "~/_skk-record" "~/.skk-record")
+(defcustom skk-record-file (convert-standard-filename "~/.skk-record")
   "*$B%f!<%6!<<-=q$NE}7W$r<h$k%U%!%$%k!#(B
 $B<-=q%;!<%V$N;~9o!"C18l$NEPO??t!"3NDj$r9T$C$?2s?t!"3NDjN(!"A4BN$N8l?t$N(B
 $B>pJs$r<}$a$k!#(B" 
@@ -1800,6 +1798,11 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 
 (defadvice exit-minibuffer (around skk-ad activate)
   "skk-egg-like-newline $B$,(B non-nil $B$@$C$?$i!"JQ49Cf$N(B exit-minibuffer $B$G3NDj$N$_9T$&!#(B"
+  (skk-remove-minibuffer-setup-hook
+   'skk-j-mode-on 'skk-setup-minibuffer
+   (function (lambda ()
+	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local) )))
+  (with-current-buffer (skk-minibuffer-origin) (skk-set-cursor-properly))
   (if (not (or skk-j-mode skk-abbrev-mode))
       ad-do-it
     (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
@@ -4088,8 +4091,7 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
                  (skk-yes-or-no-p "$BJT=8Cf$N8D?M<-=q$rGK4~$7$^$9$+!)(B"
                                   "Discard your editing private JISYO?" )))
         (progn
-          (save-excursion
-            (set-buffer buf)
+          (with-current-buffer buf
             (set-buffer-modified-p nil)
             (kill-buffer buf) )
           (or
