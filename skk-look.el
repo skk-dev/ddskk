@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.15 2001/10/20 02:33:00 czkmt Exp $
+;; Version: $Id: skk-look.el,v 1.16 2001/10/21 05:34:01 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/20 02:33:00 $
+;; Last Modified: $Date: 2001/10/21 05:34:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -134,9 +134,16 @@
 		pl nil)
 	(setq pl (cdr pl)
 	      n (1+ n))))
-    (skk-splice-in (default-value 'skk-search-prog-list)
-		   (1+ mark)
-		   '((skk-look)))))
+    (cond
+     (mark
+      (skk-splice-in (default-value 'skk-search-prog-list)
+		     (1+ mark)
+		     '((skk-look))))
+     (t
+      (setq-default skk-search-prog-list
+		    (skk-nunion
+		     (default-value 'skk-search-prog-list)
+		     '((skk-look))))))))
 
 ;; program
 ;;;###autoload
