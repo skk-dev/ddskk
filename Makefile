@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.1 1999/09/15 07:20:12 minakaji Exp $
-# Last Modified: $Date: 1999/09/15 07:20:12 $
+# Version: $Id: Makefile,v 1.2 1999/09/15 10:25:59 minakaji Exp $
+# Last Modified: $Date: 1999/09/15 10:25:59 $
 
 VERSION = 10.52
 
@@ -14,28 +14,32 @@ EMACS	= emacs
 XEMACS	= xemacs
 FLAGS   = -batch -q -no-site-file -l SKK-MK
 
+# When some value other than `NONE' is defined, overwrite variables
+# defined in SKK-MK and SKK-CFG.  You can specify in SKK-CFG, too.
 PREFIX = NONE
 LISPDIR = NONE
 PACKAGEDIR = NONE
 VERSION_SPECIFIC_LISPDIR = NONE
 
-
 elc:
-	$(EMACS) $(FLAGS) -f compile-skk
+	$(EMACS) $(FLAGS) -f SKK-MK-compile
 
 install:
-	$(EMACS) $(FLAGS) -f install-skk $(PREFIX) $(LISPDIR) \
+	$(EMACS) $(FLAGS) -f SKK-MK-install $(PREFIX) $(LISPDIR) \
 		$(VERSION_SPECIFIC_LISPDIR)
 
 
 install-package:
-	$(XEMACS) $(FLAGS) -f install-skk-package $(PACKAGEDIR)
+	$(XEMACS) $(FLAGS) -f SKK-MK-install-package $(PACKAGEDIR)
 
 
 what-where:
-	$(EMACS) $(FLAGS) -f what-where-skk $(PREFIX) $(LISPDIR) \
+	$(EMACS) $(FLAGS) -f SKK-MK-what-where $(PREFIX) $(LISPDIR) \
 		$(VERSION_SPECIFIC_LISPDIR)
 
+what-where-package:
+	$(EMACS) $(FLAGS) -f SKK-MK-what-where-package \
+                $(PACKAGEDIR)
 
 clean:
 	-$(RM) *.elc *~
