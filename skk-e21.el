@@ -74,6 +74,34 @@
       ["About Daredevil SKK..." skk-version t]
       ["Visit Daredevil Web Site" skk-e21-visit-openlab t])))
 
+(defvar skk-e21-menu-resource-ja
+  '(("Convert Region and Echo" . "領域を変換してミニバッファに表示")
+    ("Gyakubiki" . "逆引き")
+    ("to Hiragana" . "ひらがなに変換")
+    ("to Hiragana, All Candidates" . "ひらがなに変換、全ての候補を表示")
+    ("to Katakana" . "カタカナに変換")
+    ("to Katakana, All Candidates" . "カタカナに変換、全ての候補を表示")
+    ("Hurigana" . "ふりがな")
+    ("Convert Region and Replace" . "領域を変換して置き換える")
+    ("Ascii" . "全角英数を ASCII に変換")
+    ("Hiragana" . "ひらがな")
+    ("Katakana" . "カタカナ")
+    ("Romaji" . "ローマ字に変換")
+    ("Zenkaku" . "ASCII を全角英数に変換")
+    ("Count Jisyo Candidates" . "辞書中の候補数を数える")
+    ("Save Jisyo" . "辞書を保存する")
+    ("Undo Kakutei" . "確定を取り消す (アンドゥー)")
+    ("Version" . "SKK のバージョン")
+    ("Daredevil SKK Menu" . "Daredevil SKK メニュー")
+    ("Hankaku alphabet" . "半角英数")
+    ("Zenkaku alphabet" . "全角英数")
+    ("Read Manual" . "マニュアルを読む")
+    ("Start Tutorial" . "チュートリアル")
+    ("Customize Daredevil SKK" . "Daredevil SKK をカスタマイズ")
+    ("Send a Bug Report" . "バグを報告する")
+    ("About Daredevil SKK..." . "Daredevil SKK について...")
+    ("Visit Daredevil Web Site" . "Daredevil SKK のサイトへ")))
+
 (defvar skk-e21-modeline-property
   (when window-system
     (list 'local-map (let ((map (make-sparse-keymap)))
@@ -89,6 +117,10 @@
   (when window-system
     (list
      (cons 'latin skk-e21-modeline-property))))
+
+(defvar skk-e21-coding-system (if (eq window-system 'w32)
+				  'shift_jis
+				'euc-jp))
 
 ;; Functions.
 
@@ -190,6 +222,23 @@
     (if keys
 	(format "%s" (key-description keys))
       nil)))
+
+(defun skk-e21-encode-string (str)
+  (encode-coding-string str skk-e21-coding-system))
+
+(defun skk-e21-menu-replace (list)
+  (let (cons)
+    (while list
+      (cond
+       ((listp (car list))
+	(skk-e21-menu-replace (car list)))
+       ((and (stringp (car list))
+	     (setq cons (assoc (car list) skk-e21-menu-resource-ja)))
+	(setcar list (skk-e21-encode-string (cdr cons))))
+       ((and (vectorp (car list))
+	     (setq cons (assoc (aref (car list) 0) skk-e21-menu-resource-ja)))
+	(aset (car list) 0 (skk-e21-encode-string (cdr cons)))))
+      (setq list (cdr list)))))
 
 (require 'product)
 (product-provide
