@@ -288,20 +288,20 @@ Fifth arg HIST is ignored in this implementatin."
   ;; Emacs 18 においては `pre-command-hook' を利用する手立てが無いため、旧来
   ;; の手法 (`read-char' で次の入力を捕まえる) によらざるを得ない。
   (condition-case nil
-      (let ((char (if (and (setq char (read-char))
-			   skk-henkan-on
-			   (not skk-henkan-active)
-			   ;; we must distinguish the two cases where
-			   ;; SKK-ECHO is on and off
-			   (= skk-henkan-start-point
-			      (if skk-echo (1- (point)) (point)))
-			   (< 64 char) (< char 91))
-		      ;; this case takes care of the rare case where
-		      ;; one types two characters in upper case
-		      ;; consequtively.  For example, one sometimes
-		      ;; types "TE" when one should type "Te"
-		      (+ 32 char)
-		    char)))
+      (let ((char (read-char)))
+	(when (and char
+		   skk-henkan-on
+		   (not skk-henkan-active)
+		   ;; we must distinguish the two cases where
+		   ;; SKK-ECHO is on and off
+		   (= skk-henkan-start-point
+		      (if skk-echo (1- (point)) (point)))
+		   (< 64 char) (< char 91))
+	  ;; this case takes care of the rare case where
+	  ;; one types two characters in upper case
+	  ;; consequtively.  For example, one sometimes
+	  ;; types "TE" when one should type "Te"
+	  (setq char (+ 32 char)))
 	(unless (memq (key-binding (char-to-string char))
 		      skk-kana-cleanup-command-list)
 	  (skk-kana-cleanup t))
