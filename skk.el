@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.269 2003/07/12 10:52:54 minakaji Exp $
+;; Version: $Id: skk.el,v 1.270 2003/07/18 12:50:52 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/07/12 10:52:54 $
+;; Last Modified: $Date: 2003/07/18 12:50:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3373,12 +3373,8 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 			 (car list)))
 	    (t
 	     (car list)))))
-      (when skk-search-end-function
-	(setq words (funcall skk-search-end-function
-			     buffer
-			     midasi
-			     okurigana
-			     words)))
+      (dolist (function skk-search-end-function)
+	(setq words (funcall function buffer midasi okurigana words)))
       words)))
 
 (defun skk-compute-henkan-lists (okurigana)
@@ -3618,9 +3614,8 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 	  (when skk-share-private-jisyo
 	    (aset skk-jisyo-update-vector skk-update-jisyo-count
 		  (list midasi okurigana word purge)))
-	  (when skk-update-end-function
-	    (funcall skk-update-end-function
-		     henkan-buffer midasi okurigana word purge))
+	  (dolist (function skk-update-end-function)
+	    (funcall function henkan-buffer midasi okurigana word purge))
 	  (setq skk-update-jisyo-count (1+ skk-update-jisyo-count))
 	  (when (and skk-jisyo-save-count
 		     (= skk-jisyo-save-count skk-update-jisyo-count))

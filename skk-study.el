@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.44 2003/07/13 11:57:45 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.45 2003/07/18 12:50:53 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/13 11:57:45 $
+;; Last Modified: $Date: 2003/07/18 12:50:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -35,18 +35,13 @@
 ;; が、機能を欲張りすぎてものになりませんでした。直前の変換との関連性を保存する
 ;; ためだけに機能を絞って再構成したのがこのプログラムです。
 
-;; <How to work>
+;; <How to install>
 ;;
-;; XEmacs で SKK をパッケージインストールした場合は、.emacs に
+;; ~/.skk に
 ;;
-;;   (setq skk-search-end-function 'skk-study-search)
-;;   (setq skk-update-end-function 'skk-study-update)
+;;   (require 'skk-study)
 ;;
-;; と書くだけで十分です。それ以外の方は、
-;;
-;;   (add-hook 'skk-load-hook (function (lambda () (require 'skk-study))))
-;;
-;; などと書いて下さい。
+;; と書いて下さい。
 
 ;; <DATA STRUCTURE (SKK-STUDY-ALIST)>
 ;;
@@ -70,21 +65,30 @@
 ;;             ...)))
 ;;
 ;; <TODO>
-;;
+;; 科学、法律などとテーマを決めて、バッファ毎に学習データを切り替えできると便利かも。
 
 ;;; Code:
 
 (eval-when-compile
   (require 'cl))
 
+(require 'pym)
 (require 'skk-macs)
 (require 'skk-vars)
 (require 'ring)
+
+(defun-maybe ring-elements (ring)
+  "Return a list of the elements of RING."
+  ;; ring.el of Emacs 20 does not have ring-elements.
+  (mapcar #'identity (cddr ring)))
 
 ;;;; inline functions.
 (defsubst skk-study-get-last-henkan-data (index)
   (and (> (ring-length skk-study-data-ring) index)
        (ring-ref skk-study-data-ring index)))
+
+(add-to-list 'skk-search-end-function 'skk-study-search)
+(add-to-list 'skk-update-end-function 'skk-study-update)
 
 ;;;###autoload
 (defun skk-study-search (henkan-buffer midasi okurigana entry)

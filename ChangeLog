@@ -1,3 +1,18 @@
+2003-07-18  NAKAJIMA Mikio  <minakaji@namazu.org>
+
+	* skk.el (skk-select-words-from-list): Funcall each symbol of
+	skk-search-end-function.
+	(skk-update-jisyo-original): Funcall each symbol of
+	skk-update-end-function.
+
+	* skk-vars.el (skk-search-end-function, skk-update-end-function):
+	Remove duplicated declarations.
+	(skk-search-end-function): Change its type '(list symbol).
+	(skk-update-end-function): Ditto.
+
+	* skk-study.el: Require pym.el.
+	(ring-elements): Declare with defun-maybe.
+
 2003-07-13  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* skk-study.el (skk-study-read): Use `when' instead of `if'.
@@ -4326,8 +4341,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.761 2003/07/13 11:57:45 minakaji Exp $
-Last Modified: $Date: 2003/07/13 11:57:45 $
+Version: $Id: ChangeLog,v 1.762 2003/07/18 12:50:53 minakaji Exp $
+Last Modified: $Date: 2003/07/18 12:50:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

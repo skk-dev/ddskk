@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.114 2003/07/13 11:26:06 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.115 2003/07/18 12:50:53 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/07/13 11:26:06 $
+;; Last Modified: $Date: 2003/07/18 12:50:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -268,7 +268,7 @@ HENKAN-BUFFER, MIDASI, OKURIGANA, ENTRY $B$N(B 4 $B0z?t$rH<$J$C$F%3!<%k$5$l$k
 $B2C9)$7$?(B ENTRY $B$rJV$9$3$H!#(B
 $B$3$N4X?t$O!"<-=q%P%C%U%!$G%3!<%k$5$l$k$N$G!"JQ49$r9T$C$?%P%C%U%!%m!<%+%k$J(B
 $B>pJs$r<h$j=P$7$?$$$H$-$O!"(BHENKAN-BUFFER $B$rMxMQ$9$k!#(B"
-  :type '(choice function (const nil))
+  :type '(list symbol)
   :group 'skk-hooks-and-functions)
 
 (defcustom skk-update-end-function nil
@@ -278,7 +278,7 @@ HENKAN-BUFFER, MIDASI, OKURIGANA, WORD, PURGE $B$N(B 5 $B0z?t$rH<$J$C$F%3!<%k
 $B>pJs$r<h$j=P$7$?$$$H$-$O!"(BHENKAN-BUFFER $B$rMxMQ$9$k!#(B
 `skk-kakutei-initialize' $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!":G8e$N(B
 $B3NDj$K4X$9$k%U%i%0N`$O!"$3$N4X?t$NCf$+$i;2>H$9$k$3$H$,$G$-$k!#(B"
-  :type '(choice function (const nil))
+  :type '(list symbol)
   :group 'skk-hooks-and-functions)
 
 (defcustom skk-kakutei-end-function nil
@@ -3314,9 +3314,6 @@ nil $B$N>l9g$OD>A0$K3NDj$7$?%]%$%s%H$H$N5wN%$r9MN8$;$:$K3X=,$9$k!#(B"
 
 ;;; system internal variables and constants.
 ;; global variable
-(defvar skk-search-end-function 'skk-study-search)
-(defvar skk-update-end-function 'skk-study-update)
-
 (defconst skk-study-file-format-version "0.2")
 (defvar skk-kakutei-end-function nil)
 (defvar skk-study-alist nil)
