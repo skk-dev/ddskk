@@ -36,7 +36,7 @@
   (autoload 'Info-goto-node "info")
   (autoload 'browse-url "browse-url"))
 
-;;;###autoload (require 'skk-setup)
+;;;###autoload (unless (noninteractive) (require 'skk-setup))
 
 (static-when (< emacs-major-version 21)
   ;; From Naoki Wakamatsu <naoki-w@ht-net21.ne.jp>
