@@ -1,6 +1,14 @@
+2004-12-26  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/skk-bayesian.el 
+	(skk-bayesian-make-pending-data-alist): Bug fixed.
+	(skk-bayesian-get-pending-data-alist): Raise error if the key is invalid.
+	(skk-bayesian-update): Bug fixed.
+	(skk-bayesian-save-history): Finish the last pending if any.
+
 2004-12-24  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
-	* experimental/bayesian/skk-bayesian.el (skk-bayesian-make-pending-data-alist): But fixed.
+	* experimental/bayesian/skk-bayesian.el (skk-bayesian-make-pending-data-alist): Bug fixed.
 
 2004-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -4757,8 +4765,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.828 2004/12/24 21:25:41 skk-cvs Exp $
-Last Modified: $Date: 2004/12/24 21:25:41 $
+Version: $Id: ChangeLog,v 1.829 2004/12/26 21:34:56 skk-cvs Exp $
+Last Modified: $Date: 2004/12/26 21:34:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
