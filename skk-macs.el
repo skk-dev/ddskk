@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.88 2003/07/18 21:35:03 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.89 2004/01/26 14:46:14 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/07/18 21:35:03 $
+;; Last Modified: $Date: 2004/01/26 14:46:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -661,7 +661,20 @@ BUFFER defaults to the current buffer."
 ;;  (char-to-string (string-to-char string)))
 
 (defsubst skk-get-current-candidate-1 (&optional count)
-  (setq count (or count skk-henkan-count))
+  (or count
+      (setq count
+	    (static-cond
+	     ((featurep 'xemacs)
+	      ;;; ??? Workaround for XEmacs.
+	      (if (buffer-live-p skk-isearch-current-buffer)
+		  (let ((n (with-current-buffer skk-isearch-current-buffer
+			     skk-henkan-count)))
+		    (if (>= n 0)
+			n
+		      skk-henkan-count))
+		skk-henkan-count))
+	     (t
+	      skk-henkan-count))))
   (when (> 0 count)
     (skk-error "候補を取り出すことができません"
 	       "Cannot get current candidate"))
