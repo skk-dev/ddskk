@@ -402,7 +402,10 @@ keycode 131 = underscore\n"))
   (interactive "*p")
   (if (skk-sit-for skk-nicola-latin-interval t)
       ;; then
-      (let ((last-command-char ?\ ))
+      (let ((last-command-char
+	     (if (characterp (event-to-character last-command-event))
+		 (event-to-character last-command-event)
+	       ?\ )))
 	(call-interactively 'self-insert-command t))
     ;; else
     (let ((last (static-cond
@@ -418,7 +421,10 @@ keycode 131 = underscore\n"))
 	  char)
       (if (eq last next)
 	  ;; then
-	  (let ((last-command-char ?\ ))
+	  (let ((last-command-char
+		 (if (characterp (event-to-character last-command-event))
+		     (event-to-character last-command-event)
+		   ?\ )))
 	    (call-interactively 'self-insert-command t)
 	    (call-interactively 'self-insert-command t))
 	;; else
@@ -449,9 +455,13 @@ keycode 131 = underscore\n"))
 		    'text-cursor 'background skk-cursor-hiragana-color
 		    (current-buffer)))
 		  (t
-		   (set-buffer-local-cursor-color skk-cursor-hiragana-color)))))
+		   (set-buffer-local-cursor-color
+		    skk-cursor-hiragana-color)))))
 	      (char
-	       (let ((last-command-char ?\ ))
+	       (let ((last-command-char
+		      (if (characterp (event-to-character last-command-event))
+			  (event-to-character last-command-event)
+			?\ )))
 		 (call-interactively 'self-insert-command t))
 	       (let ((last-command-char char))
 		 (call-interactively 'self-insert-command t))))))))

@@ -3,6 +3,7 @@
 	* skk-nicola.el: Do nothing for tutorial under Emacs 18.
 	(skk-nicola-lshift-keys): Rename from `skk-nicola-lshift-key'.
 	(skk-nicola-rshift-keys): Rename from `skk-nicola-rshift-key'.
+	(skk-nicola-turn-on-j-mode): Insert original characters.
 
 2000-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
