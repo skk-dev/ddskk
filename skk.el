@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.147 2001/10/11 15:16:48 czkmt Exp $
+;; Version: $Id: skk.el,v 1.148 2001/10/13 01:21:55 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/11 15:16:48 $
+;; Last Modified: $Date: 2001/10/13 01:21:55 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -925,13 +925,15 @@ dependent."
   "SKK のモードを latin (ascii) モードに変更する。"
   (interactive "P")
   (skk-kakutei)
-  (skk-latin-mode-on))
+  (skk-latin-mode-on)
+  nil)
 
 (defun skk-jisx0208-latin-mode (arg)
   "SKK のモードを全角英字入力モードに変更する。"
   (interactive "P")
   (skk-kakutei)
-  (skk-jisx0208-latin-mode-on))
+  (skk-jisx0208-latin-mode-on)
+  nil)
 
 (defun skk-abbrev-mode (arg)
   "ascii 文字をキーにした変換を行うための入力モード。"
@@ -942,7 +944,8 @@ dependent."
 	(skk-henkan-on
 	 (skk-error "既に▽モードに入っています" "Already in ▽ mode")))
   (skk-set-henkan-point-subr)
-  (skk-abbrev-mode-on))
+  (skk-abbrev-mode-on)
+  nil)
 
 (defun skk-toggle-characters (arg)
   "■モード、▼モードで、ひらがなモードとカタカナモードをトグルで切り替える。
@@ -985,7 +988,8 @@ dependent."
     (skk-j-mode-on))
    (t
     (setq skk-katakana (not skk-katakana))))
-  (skk-kakutei))
+  (skk-kakutei)
+  nil)
 
 (defun skk-misc-for-picture ()
   ;; picture-mode へ入ったときに SKK 起動前の状態に戻す。
@@ -2667,7 +2671,8 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
      (skk-set-marker skk-kana-start-point (point))
      (skk-insert-prefix))
    (setq skk-henkan-on t)
-   (skk-set-marker skk-henkan-start-point (point))))
+   (skk-set-marker skk-henkan-start-point (point)))
+   nil)
 
 (defun skk-change-marker ()
   ;; "▽"を"▼"に変える。skk-henkan-active フラグを t にする。
@@ -2775,7 +2780,8 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	 (skk-henkan-face-off))
        (delete-region skk-henkan-start-point end)
        (skk-change-marker-to-white)
-       (skk-kakutei)))))
+       (skk-kakutei))))
+  nil)
 
 (defun skk-save-jisyo (&optional quiet)
   "SKK の辞書バッファをセーブする。
