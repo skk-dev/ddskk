@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.11 1999/09/15 13:42:35 minakaji Exp $
+;; Version: $Id: skk.el,v 1.12 1999/09/23 13:48:36 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/15 13:42:35 $
+;; Last Modified: $Date: 1999/09/23 13:48:36 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -99,7 +99,7 @@
 ;;; Code:
 (require 'skk-foreword)
 
-(defconst skk-version "10.52")
+(defconst skk-version "10.53")
 (defconst skk-major-version (string-to-int (substring skk-version 0 2)))
 (defconst skk-minor-version (string-to-int (substring skk-version 3)))
 
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/09/15 13:42:35 $")
+      (let* ((raw-date "$Date: 1999/09/23 13:48:36 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -136,6 +136,11 @@ skk.el 9.x $B$h$j(B ~/.emacs $B$G$N%+%9%?%^%$%:$b2DG=$H$J$C$?!#(B"
   :prefix "skk-"
   :group 'japanese
   :group 'input-method )
+
+(defgroup skk-faces nil
+  "Faces used by SKK."
+  :group 'skk
+  :group 'faces)
 
 (defcustom skk-special-midashi-char-list '(?> ?< ??)
   "*$B@\F,<-!"@\Hx<-$NF~NO$N$?$a$N%W%l%U%#%C%/%9%-!<!"%5%U%#%C%/%9%-!<$N%j%9%H!#(B"
@@ -947,12 +952,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B skk-load-hook $B$rMxMQ$7$F(B)$B!"(B
   :type 'boolean
   :group 'skk )
 
-(defcustom skk-henkan-face
-  (and (or window-system (skk-terminal-face-p))
-       (or (and (fboundp 'frame-face-alist)
-		(assq 'highlight (frame-face-alist (selected-frame))))
-	   (and (fboundp 'face-list) (memq 'highlight (face-list))) )
-       'highlight )
+(defcustom skk-henkan-face 'highlight
   "*$BJQ498uJd$N(B face $BB0@-!#(Bskk-use-face $B$,(B non-nil $B$N$H$-$N$_M-8z!#(B
 Emacs $BI8=`%U%'%$%9$N(B default, modeline, region, secondary-selection,
 highlight, underline, bold, italic, bold-italic $B$NB>!"?7$?$K(B face $B$r:n(B
@@ -1304,6 +1304,7 @@ skk-toggle-kutouten $B$O$3$l$r%H%0%k$G@Z$j49$($k!#(B
 
 ;;; -- internal constants and variables
 ;; ---- global ones.
+;;(defvar skk-henkan-face 'skk-henkan-face)
 (defconst skk-month-alist
   '(("Jan" . "1") ("Feb" . "2") ("Mar" . "3") ("Apr" . "4") ("May" . "5")
     ("Jun" . "6") ("Jul" . "7") ("Aug" . "8") ("Sep" . "9") ("Oct" . "10")
@@ -1693,8 +1694,7 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 		       'skk-process-okuri-early
 		       'skk-search-prog-list
 		       'skk-use-face
-		       'skk-use-viper
-		       'skk-use-rdbms )))
+		       'skk-use-viper )))
        (and (boundp 'skk-henkan-face)
 	    (setq base (append base '(skk-henkan-face))) )
        (and (boundp 'skk-server-host)
@@ -3943,7 +3943,10 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
          "$BAw$j$J$7%(%s%H%j$N%X%C%@!<$,$"$j$^$;$s(B $B!*(B SKK $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
          "Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo" )))
     (write-region-as-coding-system
-     (cond ((and skk-jisyo-code (coding-system-p skk-jisyo-code))
+     (cond ((and skk-jisyo-code
+		 (or (coding-system-p skk-jisyo-code)
+		     (and (fboundp 'find-coding-system)
+			  (find-coding-system skk-jisyo-code) )))
 	    skk-jisyo-code )
 	   ((and skk-jisyo-code (stringp skk-jisyo-code))
 	    (cdr (assoc skk-jisyo-code skk-coding-system-alist)) )
@@ -4200,18 +4203,12 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
   ;; $BI=<($7$J$$!#(B
   (if file
       (let ((inhibit-quit t)
-            ;; expand-file-name $B$r8F$s$G$*$+$J$$$H!";H$C$F$$$k(B OS $B>e$"$j$($J$$(B
-            ;; $B%U%!%$%k%M!<%`$G$b!"$=$N$^$^EO$5$l$F$7$^$&!#(B
-            ;; ($BNc(B) MSDOS $B$N>l9g(B ~/_skk-jisyo $B$N<B:]$N%U%!%$%k%M!<%`$O!"(BOS $B>e(B
-            ;; $B$N@)8B$+$i(B ~/_skk-jis $B$H$J$k!#(Bexpand-file-name $B$r8F$P$J$$$H!"(B
-            ;; " *_skk-jisyo*" $B$H$$$&%P%C%U%!$,$G$-$F$7$^$$!"(Bskk-save-jisyo $B$J(B
-            ;; $B$IB>$N4X?t$K1F6A$,=P$k!#(B
-            (file (expand-file-name file))
             (jisyo-buf (concat " *" (file-name-nondirectory file)
                                "*" )))
         ;; $B<-=q%P%C%U%!$H$7$F%*!<%W%s$5$l$F$$$k$J$i!"2?$b$7$J$$!#(B
         (or (get-buffer jisyo-buf)
             (with-current-buffer (setq jisyo-buf (get-buffer-create jisyo-buf))
+	      (setq file (expand-file-name file))
               (buffer-disable-undo jisyo-buf)
               (auto-save-mode -1)
               ;; $B%o!<%-%s%0%P%C%U%!$N%b!<%I%i%$%s$O%"%C%W%G!<%H$5$l$J$$!)(B
@@ -4236,13 +4233,15 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
                                (file-name-nondirectory file) ))
 	      (let (enable-character-translation enable-character-unification)
 		(insert-file-contents-as-coding-system
-		 (cond ((and skk-jisyo-code (coding-system-p skk-jisyo-code))
+		 (cond ((and skk-jisyo-code
+			     (or (coding-system-p skk-jisyo-code)
+				 (and (fboundp 'find-coding-system)
+				      (find-coding-system skk-jisyo-code) )))
 			skk-jisyo-code )
 		       ((and skk-jisyo-code (stringp skk-jisyo-code))
 			(cdr (assoc skk-jisyo-code skk-coding-system-alist)) )
 		       (t (cdr (assoc "euc" skk-coding-system-alist))) )
 		 file ))
-              (skk-set-jisyo-code)
               (or nomsg
                   (skk-message
                    "SKK $B<-=q(B %s $B$r%P%C%U%!$KFI$_9~$s$G$$$^$9(B...$B40N;!*(B"
@@ -4251,15 +4250,6 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
               (skk-setup-jisyo-buffer)
               (set-buffer-modified-p nil)
               jisyo-buf )))))
-
-(defun skk-set-jisyo-code ()
-  ;; $BJ8;z%3!<%I$r(B CODE $B$K%;%C%H$9$k!#(B
-  (if (not skk-jisyo-code)
-      nil
-    (if (stringp skk-jisyo-code)
-        (setq skk-jisyo-code (cdr
-                              (assoc skk-jisyo-code skk-coding-system-alist) )))
-    (set-buffer-file-coding-system skk-jisyo-code) ))
 
 (defun skk-setup-jisyo-buffer ()
   ;; skk-jisyo $B$N<-=q%P%C%U%!$G!"(B
@@ -4957,7 +4947,7 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 ;;   (and (> nth -1) (setcdr (nthcdr nth list) nil))
 ;;   list )
 
-(skk-defun-cond skk-henkan-face-on ()
+(defun skk-henkan-face-on ()
   ;; skk-use-face $B$,(B non-nil $B$N>l9g!"(Bskk-henkan-start-point $B$H(B
   ;; skk-henkan-end-point $B$N4V$N(B face $BB0@-$r(B skk-henkan-face $B$NCM$KJQ99$9$k!#(B
   ;;
@@ -4966,48 +4956,23 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
   ;; Overlays $B$O!"%F%-%9%H$N0lIt$G$O$J$$$N$G!"%P%C%U%!$+$iJ8;z$r@Z$j=P$7$F$b%3(B
   ;; $B%T!<$NBP>]$K$J$i$J$$$7!"%"%s%I%%;~$bL5;k$5$l$k$N$G!"JQ49$5$l$?8uJd$NI=<((B
   ;; $B$r0l;~E*$KJQ99$9$k$K$O(B Text Properties $B$h$j$b9%ET9g$G$"$k!#(B
-  ((eq skk-emacs-type 'xemacs)
-   (if (and skk-henkan-face
-	    (marker-position skk-henkan-start-point)
-	    (marker-position skk-henkan-end-point) )
-       (let ((inhibit-quit t))
-	 (if skk-henkan-overlay
-	     nil
-	   (setq skk-henkan-overlay
-		 (make-extent skk-henkan-start-point skk-henkan-end-point ))
-	   (set-extent-properties
-	    skk-henkan-overlay
-	    ;; detachable property is non-nil by default.
-	    (list 'face skk-henkan-face 'priority skk-henkan-overlay-priority) ))
-	 (insert-extent skk-henkan-overlay skk-henkan-start-point
-			skk-henkan-end-point ))))
-  (t
-   (if (and skk-henkan-face
-	    (marker-position skk-henkan-start-point)
-	    (marker-position skk-henkan-end-point) )
-       (let ((inhibit-quit t))
-	 ;; delete-overlay $B$5$l$F$b!"(Bgarbage collection $B$,5/$-$k$^$G$O!"(Blisp
-	 ;; object $B$H$7$F;D$C$F$$$k!#(B
-	 (if skk-henkan-overlay
-	     nil
-	   (setq skk-henkan-overlay
-		 (make-overlay skk-henkan-start-point skk-henkan-end-point ))
-	   (overlay-put skk-henkan-overlay 'priority
-			skk-henkan-overlay-priority ))
-	 (move-overlay skk-henkan-overlay skk-henkan-start-point
-		       skk-henkan-end-point )
-	 (overlay-put skk-henkan-overlay 'face skk-henkan-face) ))))
+  (if (and skk-henkan-face
+	   (marker-position skk-henkan-start-point)
+	   (marker-position skk-henkan-end-point) )
+      (skk-face-on skk-henkan-overlay
+		   skk-henkan-start-point skk-henkan-end-point
+		   skk-henkan-face skk-henkan-overlay-priority )))
 
-(skk-defun-cond skk-henkan-face-off ()
+(defun skk-henkan-face-off ()
   ;; skk-henkan-start-point $B$H(B skk-henkan-end-point $B$N4V$NI=<($rJQ99$7$F$$$k(B
   ;; skk-henkan-overlay $B$r>C$9!#(B
+  (and skk-henkan-face (skk-detach-extent skk-henkan-overlay)) )
+
+(skk-defun-cond skk-detach-extent (object)
   ((eq skk-emacs-type 'xemacs)
-   (and skk-henkan-face (extentp skk-henkan-overlay)
-	(detach-extent skk-henkan-overlay) ))
+   (and (extentp object) (detach-extent object)) )
   (t
-   ;; $B%j%+!<%7%V%_%K%P%C%U%!$KF~$C$?$H$-$O!"(Boverlayp $B$K$h$k8!::$,I,MW!)(B
-   (and skk-henkan-face (overlayp skk-henkan-overlay)
-	(delete-overlay skk-henkan-overlay) )))
+   (and (overlayp object) (delete-overlay object)) ))
 
 (defun skk-set-cursor-color (color)
   ;; $B%+!<%=%k$N?'$r(B COLOR $B$KJQ99$9$k!#(B
