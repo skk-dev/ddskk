@@ -1,7 +1,7 @@
 2001-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-jisx0201.el:
-	Don't set `minor-mode-map-alist here.
+	Don't set `minor-mode-map-alist' here.
 
 	* skk-macs.el
 	(skk-j-mode-on)
@@ -68,7 +68,7 @@
 
 	* install-info.el
 	(install-info-1): Missing `set-buffer' when the section is
-	`Miscellaneous'
+	`Miscellaneous'.
 
 2001-11-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2719,8 +2719,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.522 2001/11/13 10:59:52 czkmt Exp $
-Last Modified: $Date: 2001/11/13 10:59:52 $
+Version: $Id: ChangeLog,v 1.523 2001/11/13 11:06:26 czkmt Exp $
+Last Modified: $Date: 2001/11/13 11:06:26 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
