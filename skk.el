@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.138 2001/10/08 12:18:15 czkmt Exp $
+;; Version: $Id: skk.el,v 1.139 2001/10/09 10:33:23 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/08 12:18:15 $
+;; Last Modified: $Date: 2001/10/09 10:33:23 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -755,47 +755,56 @@ dependent."
 	(put func property t)))))
 
 (defun skk-setup-auto-paren ()
-  (if (and skk-auto-insert-paren skk-auto-paren-string-alist)
-      (let ((strlst (mapcar 'char-to-string skk-special-midashi-char-list))
-	    rulealst str alist)
-	(while strlst
-	  ;; skk-auto-paren-string-alist の中から、skk-special-midashi-char-list
-	  ;; の要素に関連するものを取り除く。
-	  (remove-alist 'skk-auto-paren-string-alist (car strlst))
-	  (setq strlst (cdr strlst)))
-	(if (null (memq t (mapcar (function
-				   (lambda (e)
-				     (skk-ascii-char-p (string-to-char (car e)))))
-				  skk-auto-paren-string-alist)))
-	    nil
-	  (setq alist skk-auto-paren-string-alist
-		rulealst (nconc (mapcar (function (lambda (e) (nth 2 e)))
-					skk-rom-kana-rule-list)
-				(mapcar (function (lambda (e) (nth 2 e)))
-					skk-rom-kana-base-rule-list)))
-	  (while alist
-	    (setq str (car (car alist)))
-	    (and (skk-ascii-char-p (string-to-char str))
-		 ;; 出力文字が入っているセルを調べて、いずれかのキーにバインド
-		 ;; されていないかどうかを確認する。
-		 (null (assoc str rulealst))
-		 (null (rassoc str rulealst))
-		 ;; 割り付けようとしているキーが、何か他の出力文字にバインドさ
-		 ;; れていないかどうかを確認する。
-		 (null (assoc str skk-rom-kana-base-rule-list))
-		 (null (assoc str skk-rom-kana-rule-list))
-		 ;; skk-auto-paren-string-alist の各要素の car の文字が
-		 ;; ascii char である場合は、skk-rom-kana-rule-list,
-		 ;; skk-rom-kana-base-rule-list にその文字を書き込む (本
-		 ;; 来は ascii char は skk-rom-kana-rule-list,
-		 ;; skk-rom-kana-base-rule-list に書く必要がない ---
-		 ;; skk-emulate-original-mapによる入力が行なわれる ---
-		 ;; が、skk-auto-paren-string-alist に指定された対になる
-		 ;; 文字の挿入のためには、キーとなる文字を書いておく必要が
-		 ;; ある)。
-		 (setq skk-rom-kana-rule-list (cons (list str nil str)
-						    skk-rom-kana-rule-list)))
-	    (setq alist (cdr alist)))))))
+  (when (and skk-auto-insert-paren
+	     skk-auto-paren-string-alist)
+    ;;
+    (let ((strlst (mapcar 'char-to-string
+			  skk-special-midashi-char-list))
+	  rulealst str alist)
+      (while strlst
+	;; skk-auto-paren-string-alist の中から、
+	;; skk-special-midashi-char-list の要素に
+	;; 関連するものを取り除く。
+	(remove-alist 'skk-auto-paren-string-alist (car strlst))
+	(setq strlst (cdr strlst)))
+      (when (memq t (mapcar
+		     (function
+		      (lambda (e)
+			(skk-ascii-char-p (string-to-char (car e)))))
+		     skk-auto-paren-string-alist))
+	;;
+	(setq alist skk-auto-paren-string-alist
+	      rulealst (nconc (mapcar (function
+				       (lambda (e)
+					 (nth 2 e)))
+				      skk-rom-kana-rule-list)
+			      (mapcar (function
+				       (lambda (e)
+					 (nth 2 e)))
+				      skk-rom-kana-base-rule-list)))
+	(dolist (cell alist)
+	  (setq str (car cell))
+	  (when (and (skk-ascii-char-p (string-to-char str))
+		     ;; 出力文字が入っているセルを調べて、いずれかの
+		     ;; キーにバインドされていないかどうかを確認する。
+		     (null (assoc str rulealst))
+		     (null (rassoc str rulealst))
+		     ;; 割り付けようとしているキーが、何か他の出力文字に
+		     ;; バインドされていないかどうかを確認する。
+		     (null (assoc str skk-rom-kana-base-rule-list))
+		     (null (assoc str skk-rom-kana-rule-list)))
+	    ;; skk-auto-paren-string-alist の各要素の car の文字が
+	    ;; ascii char である場合は、skk-rom-kana-rule-list,
+	    ;; skk-rom-kana-base-rule-list にその文字を書き込む (本
+	    ;; 来は ascii char は skk-rom-kana-rule-list,
+	    ;; skk-rom-kana-base-rule-list に書く必要がない ---
+	    ;; skk-emulate-original-mapによる入力が行なわれる ---
+	    ;; が、skk-auto-paren-string-alist に指定された対になる
+	    ;; 文字の挿入のためには、キーとなる文字を書いておく必要が
+	    ;; ある)。
+	    (setq skk-rom-kana-rule-list
+		  (cons (list str nil str)
+			skk-rom-kana-rule-list))))))))
 
 (defun skk-setup-minibuffer ()
   ;; カレントバッファの入力モードに従いミニバッファの入力モードを設定する。
@@ -2727,36 +2736,35 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;;オプショナル引数の QUIET が non-nil であれば、辞書セーブ時のメッセージを出さな
   ;;い。"
   (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
-    (if (or (not jisyo-buffer) (not (buffer-modified-p jisyo-buffer)))
-	(if (not quiet)
-	    (progn
-	      (skk-message "SKK 辞書を保存する必要はありません"
-			   "No need to save SKK jisyo")
-	      (sit-for 1)))
+    (if (not (and jisyo-buffer
+		  (buffer-modified-p jisyo-buffer)))
+	(unless quiet
+	  (skk-message "SKK 辞書を保存する必要はありません"
+		       "No need to save SKK jisyo")
+	  (sit-for 1))
+      ;;
       (with-current-buffer jisyo-buffer
-	(if (and skk-share-private-jisyo (skk-jisyo-is-shared-p))
-	    (progn
-	      (lock-buffer skk-jisyo)
-	      (skk-update-shared-jisyo)))
+	(when (and skk-share-private-jisyo
+		 (skk-jisyo-is-shared-p))
+	  (lock-buffer skk-jisyo)
+	  (skk-update-shared-jisyo))
 	(let ((inhibit-quit t)
 	      (tempo-file (skk-make-temp-jisyo)))
-	  (if (not quiet)
-	      (skk-message "SKK 辞書を保存しています..."
-			   "Saving SKK jisyo..."))
+	  (unless quiet
+	    (skk-message "SKK 辞書を保存しています..."
+			 "Saving SKK jisyo..."))
 	  (skk-save-jisyo-as tempo-file)
 	  (skk-check-size-and-do-save-jisyo tempo-file)
 	  ;; 辞書のセーブに成功して初めて modified フラッグを nil にする。
 	  (set-buffer-modified-p nil)
 	  (setq skk-update-jisyo-count 0)
-	  (if (not quiet)
-	      (progn
-		(skk-message "SKK 辞書を保存しています...完了！"
-			     "Saving SKK jisyo...done")
-		(sit-for 1))))
-	(if skk-share-private-jisyo
-	    (progn
-	      (skk-init-shared-jisyo)
-	      (unlock-buffer)))))))
+	  (unless quiet
+	    (skk-message "SKK 辞書を保存しています...完了！"
+			 "Saving SKK jisyo...done")
+	    (sit-for 1)))
+	(when skk-share-private-jisyo
+	  (skk-init-shared-jisyo)
+	  (unlock-buffer))))))
 
 (defun skk-init-shared-jisyo ()
   (fillarray skk-jisyo-update-vector nil)
@@ -2765,12 +2773,12 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)))
 
 (defun skk-jisyo-is-shared-p ()
-  (if (file-exists-p skk-emacs-id-file)
-      (with-temp-buffer
-	(insert-file-contents skk-emacs-id-file)
-	(goto-char (point-min))
-	;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
-	(not (search-forward skk-emacs-id nil t)))))
+  (and (file-exists-p skk-emacs-id-file)
+       (with-temp-buffer
+	 (insert-file-contents skk-emacs-id-file)
+	 (goto-char (point-min))
+	 ;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
+	 (not (search-forward skk-emacs-id nil t)))))
 
 (defun skk-update-shared-jisyo ()
   ;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
@@ -2797,14 +2805,12 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (save-match-data
     (let (buffer-read-only)
       (goto-char (point-min))
-      (if (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
-	  nil
+      (unless (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
 	(skk-error
 	 "送りありエントリのヘッダーがありません！ SKK 辞書のセーブを中止します"
 	 "Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
       ;; おっ、コメントフェイスが $ で終わらないぞ > hilit19.el
-      (if (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
-	  nil
+      (unless (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
 	(skk-error
 	 "送りなしエントリのヘッダーがありません ！ SKK 辞書のセーブを中止します"
 	 "Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
@@ -2814,41 +2820,42 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 
 (defun skk-check-size-and-do-save-jisyo (new-file)
   (let ((new-size (nth 7 (file-attributes new-file)))
-	old-size)
-    (if (= new-size 0)
-	(progn
-	  (delete-file new-file)
-	  (skk-error "SKK 辞書が空になっています！ 辞書のセーブを中止します"
-		     "Null SKK jisyo!  Stop saving jisyo")))
-    (if (or (not skk-compare-jisyo-size-when-saving)
-	    ;; 旧辞書とのサイズ比較を行なわない。
-	    (progn
-	      ;; (1)skk-jisyo がないか、
-	      ;; (2)new-file と skk-jisyo が同一のサイズか
-	      ;;    (skk-(aux-)large-jisyo から新規の単語を読み込まなかったり、
-	      ;;    新規単語の登録を行なわなかった場合はサイズが同じ)、
-	      ;; (3)new-file の方が大きい
-	      ;; 場合 (上記の 3 通りであればいずれも正常)。
-	      (setq old-size (nth 7 (file-attributes skk-jisyo)))
-	      (or (not old-size)
-		  (>= new-size old-size))))
-	(skk-make-new-jisyo new-file)
-      ;; yes-or-no-p に回答し、newline すると、this-command が変ってしまう。
-      (let (this-command this-command-char last-command last-command-char)
-	(if (skk-yes-or-no-p
-	     (format
-	      "skk-jisyo が %dbytes 小さくなりますが、セーブして良いですか？"
-	      (- old-size new-size))
-	     (format
-	      "New %s will be %dbytes smaller.  Save anyway?"
-	      skk-jisyo (- old-size new-size)))
-	    ;; とにかくセーブ。
-	    (skk-make-new-jisyo new-file)
-	  ;; セーブとり止め。
-	  (delete-file new-file)
-	  (with-output-to-temp-buffer "*SKK warning*"
-	    (if skk-japanese-message-and-error
-		(princ "\
+	old-size
+	;; yes-or-no-p に回答し、newline すると、this-command が変ってしまう。
+	this-command this-command-char last-command last-command-char)
+    (when (= new-size 0)
+      (delete-file new-file)
+      (skk-error "SKK 辞書が空になっています！ 辞書のセーブを中止します"
+		 "Null SKK jisyo!  Stop saving jisyo"))
+    (cond
+     ((or (not skk-compare-jisyo-size-when-saving)
+	  ;; 旧辞書とのサイズ比較を行なわない。
+	  (progn
+	    ;; (1)skk-jisyo がないか、
+	    ;; (2)new-file と skk-jisyo が同一のサイズか
+	    ;;    (skk-(aux-)large-jisyo から新規の単語を読み込まなかったり、
+	    ;;    新規単語の登録を行なわなかった場合はサイズが同じ)、
+	    ;; (3)new-file の方が大きい
+	    ;; 場合 (上記の 3 通りであればいずれも正常)。
+	    (setq old-size (nth 7 (file-attributes skk-jisyo)))
+	    (or (not old-size)
+		(>= new-size old-size))))
+      (skk-make-new-jisyo new-file))
+     ((skk-yes-or-no-p
+       (format
+	"skk-jisyo が %dbytes 小さくなりますが、セーブして良いですか？"
+	(- old-size new-size))
+       (format
+	"New %s will be %dbytes smaller.  Save anyway?"
+	skk-jisyo (- old-size new-size)))
+      ;; とにかくセーブ。
+      (skk-make-new-jisyo new-file))
+     (t
+      ;; セーブとり止め。
+      (delete-file new-file)
+      (with-output-to-temp-buffer "*SKK warning*"
+	(if skk-japanese-message-and-error
+	    (princ "\
 セーブしようとする辞書のサイズが元のものよりも小さくなってしまうので、
 セーブを中止しました。辞書のサイズが小さくなった原因には例えば、
 
@@ -2867,7 +2874,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     M-x skk-reread-private-jisyo
 
 を実行して下さい。")
-	      (princ "\
+	  (princ "\
 Saving your private dictionary has been canceled, since the size of the
 dictionary will be smaller.  The following cases should be considered:
 
@@ -2886,8 +2893,8 @@ If you want to restore the dictionary from the disc, try
 
     M-x skk-reread-private-jisyo
 ")))
-	  (skk-error "SKK 辞書のセーブを中止しました！"
-		     "Stop saving SKK jisyo!"))))))
+      (skk-error "SKK 辞書のセーブを中止しました！"
+		 "Stop saving SKK jisyo!")))))
 
 (defun skk-make-temp-jisyo ()
   ;; SKK 個人辞書保存のための作業用のファイルを作り、ファイルのモードを
@@ -3860,12 +3867,12 @@ If you want to restore the dictionary from the disc, try
   ;; Overlays は、テキストの一部ではないので、バッファから文字を切り出してもコ
   ;; ピーの対象にならないし、アンドゥ時も無視されるので、変換された候補の表示
   ;; を一時的に変更するには Text Properties よりも好都合である。
-  (if (and skk-henkan-face
-	   (marker-position skk-henkan-start-point)
-	   (marker-position skk-henkan-end-point))
-      (skk-face-on skk-henkan-overlay
-		   skk-henkan-start-point skk-henkan-end-point
-		   skk-henkan-face skk-henkan-overlay-priority)))
+  (when (and skk-henkan-face
+	     (marker-position skk-henkan-start-point)
+	     (marker-position skk-henkan-end-point))
+    (skk-face-on skk-henkan-overlay
+		 skk-henkan-start-point skk-henkan-end-point
+		 skk-henkan-face skk-henkan-overlay-priority)))
 
 (defun skk-henkan-face-off ()
   ;; skk-henkan-start-point と skk-henkan-end-point の間の表示を変更している
@@ -3887,19 +3894,19 @@ If you want to restore the dictionary from the disc, try
   ;; hilit19 に依存せずとりあえず face を自前で作ることができるように、という
   ;; 目的で作ったもので、簡単な色付けしかできない。あまり賢くはない。複雑な
   ;; face を作りたい人は hilit-lookup-face-create 等を使って下さい。
-  (or (car (memq face (face-list)))
-      (let ((face-name (symbol-name face)))
-	(setq face (make-face face))
-	(save-match-data
-	  (if (not (string-match "/" face-name))
-	      (set-face-foreground face face-name)
-	    (set-face-foreground
-	     face
-	     (substring face-name 0 (match-beginning 0)))
-	    (set-face-background
-	     face
-	     (substring face-name (1+ (match-beginning 0)))))
-	  face))))
+  (unless (car (memq face (face-list)))
+    (let ((face-name (symbol-name face)))
+      (setq face (make-face face))
+      (save-match-data
+	(if (not (string-match "/" face-name))
+	    (set-face-foreground face face-name)
+	  (set-face-foreground
+	   face
+	   (substring face-name 0 (match-beginning 0)))
+	  (set-face-background
+	   face
+	   (substring face-name (1+ (match-beginning 0)))))
+	face))))
 
 ;; skk-auto.el, skk-rdbms.el の両方で使うので、skk-auto.el より移動した。
 (defun skk-remove-common (word)
@@ -3909,83 +3916,89 @@ If you want to restore the dictionary from the disc, try
   ;; skk-henkan-okurigana := "って", word := "持" のように分解し、word を返す。
   ;; skk-auto-okuri-process の値が non-nil であるときにこの関数を使用する。
   ;; 変換が行なわれたバッファでコールされる (辞書バッファではない)。
-  (if (and (not (skk-numeric-p)) (not skk-abbrev-mode)
-	   (or skk-henkan-in-minibuff-flag
-	       (and (<= skk-okuri-index-min skk-henkan-count)
-		    (<= skk-henkan-count skk-okuri-index-max))))
-      (let ((midasi skk-henkan-key)
-	    (midasi-len (skk-str-length skk-henkan-key))
-	    (word-len (skk-str-length word))
-	    (cont t)
-	    char pos pos2 midasi-tail word-tail new-word okuri-first
-	    new-skk-okuri-char new-skk-henkan-key)
-	(if (not (and (>= midasi-len 2) (>= word-len 2)))
-	    nil
-	  ;; check if both midasi and word end with the same ascii char.
-	  (if (and (skk-ascii-char-p (skk-str-ref midasi (1- midasi-len)))
+  (when (and (not (skk-numeric-p))
+	     (not skk-abbrev-mode)
+	     (or skk-henkan-in-minibuff-flag
+		 (and (<= skk-okuri-index-min
+			  skk-henkan-count)
+		      (<= skk-henkan-count
+			  skk-okuri-index-max))))
+    (let ((midasi skk-henkan-key)
+	  (midasi-len (skk-str-length skk-henkan-key))
+	  (word-len (skk-str-length word))
+	  (cont t)
+	  char pos pos2
+	  midasi-tail word-tail new-word okuri-first
+	  new-skk-okuri-char new-skk-henkan-key)
+      (when (and (>= midasi-len 2) (>= word-len 2))
+	;; check if both midasi and word end with the same ascii char.
+	(when (and (skk-ascii-char-p (skk-str-ref midasi
+						  (1- midasi-len)))
 		   (eq (skk-str-ref midasi (1- midasi-len))
 		       (skk-str-ref word (1- word-len))))
-	      ;; if so chop off the char from midasi and word.
-	      ;; assume size of an ASCII char is always 1.
-	      (setq midasi (substring midasi 0 -1)
-		    midasi-len (1- midasi-len)
-		    word (substring word 0 -1)
-		    word-len (1- word-len)))
-	  (setq midasi-tail (skk-substring midasi (1- midasi-len)
-					   midasi-len)
-		word-tail (skk-substring word (1- word-len)
-					 word-len))
-	  (if (not (and (string= midasi-tail word-tail)
-			(or (and (skk-string<= "ぁ" midasi-tail)
-				 (skk-string<= midasi-tail "ん"))
-			    (member midasi-tail '("、" "。" "，" "．")))))
-	      nil
-	    ;; 見出し語と単語との末尾が同一のかな文字の場合。
-	    ;; 送りなしを送りありへ
-	    (setq pos (1- word-len)
-		  new-word new-skk-henkan-key)
-	    (while (and cont (> pos 0))
-	      (setq char (skk-substring word (1- pos) pos))
-	      (if (and (skk-string<= "亜" char) (skk-string<= char "瑤"))
-		  ;; char is the right-most Kanji
-		  (setq cont nil)
-		(setq pos (1- pos))))
-	    (setq pos2 (- midasi-len (- word-len pos)))
-	    ;; check if midasi and word has the same tail of length
-	    (if (not (string= (skk-substring midasi pos2 midasi-len)
-			      (skk-substring word pos word-len)))
-		nil
-	      (setq okuri-first (skk-substring word pos (1+ pos)))
-	      (setq skk-henkan-okurigana
-		    (if (and (string= okuri-first "っ")
-			     (<= (+ pos 2) word-len))
-			;; in this case okuriga consits of two
-			;; characters, e.g., 「残った」
-			(skk-substring word pos (+ pos 2))
-		      okuri-first))
-	      (setq new-word (skk-substring word 0 pos)
-		    new-skk-okuri-char (skk-okurigana-prefix skk-henkan-okurigana)
-		    new-skk-henkan-key (concat
-					(skk-substring midasi 0 pos2)
-					new-skk-okuri-char))
-	      (if (not skk-henkan-in-minibuff-flag)
-		  (setq word new-word
-			skk-henkan-key new-skk-henkan-key)
-		;; 辞書登録モードで登録された場合。
-		;; ask if register as okuri-ari word.
-		(let (inhibit-quit)	; allow keyboard quit
-		  (if (y-or-n-p
-		       (format
-			(if skk-japanese-message-and-error
-			    "%s /%s/ を送りあり候補として登録しますか？"
-			  "Shall I register this as okuri-ari word: %s /%s/ ? ")
-			new-skk-henkan-key new-word))
-		      (setq word new-word
-			    skk-okuri-char new-skk-okuri-char
-			    skk-henkan-key new-skk-henkan-key)
-		    (setq skk-henkan-okurigana nil
-			  skk-okuri-char nil)
-		    (message "")))))))))
+	  ;; if so chop off the char from midasi and word.
+	  ;; assume size of an ASCII char is always 1.
+	  (setq midasi (substring midasi 0 -1)
+		midasi-len (1- midasi-len)
+		word (substring word 0 -1)
+		word-len (1- word-len)))
+	(setq midasi-tail (skk-substring midasi (1- midasi-len)
+					 midasi-len)
+	      word-tail (skk-substring word (1- word-len)
+				       word-len))
+	(when (and (string= midasi-tail word-tail)
+		   (or (and (skk-string<= "ぁ" midasi-tail)
+			    (skk-string<= midasi-tail "ん"))
+		       (member midasi-tail '("、" "。" "，" "．"))))
+	  ;; 見出し語と単語との末尾が同一のかな文字の場合。
+	  ;; 送りなしを送りありへ
+	  (setq pos (1- word-len)
+		new-word new-skk-henkan-key)
+	  (while (and cont (> pos 0))
+	    (setq char (skk-substring word (1- pos) pos))
+	    (if (and (skk-string<= "亜" char)
+		     (skk-string<= char "瑤"))
+		;; char is the right-most Kanji
+		(setq cont nil)
+	      (setq pos (1- pos))))
+	  (setq pos2 (- midasi-len (- word-len pos)))
+	  ;; check if midasi and word has the same tail of length
+	  (when (string= (skk-substring midasi pos2 midasi-len)
+			 (skk-substring word pos word-len))
+	    (setq okuri-first (skk-substring word pos (1+ pos)))
+	    (setq skk-henkan-okurigana
+		  (if (and (string= okuri-first "っ")
+			   (<= (+ pos 2) word-len))
+		      ;; in this case okuriga consits of two
+		      ;; characters, e.g., 「残った」
+		      (skk-substring word pos (+ pos 2))
+		    okuri-first))
+	    (setq new-word (skk-substring word 0 pos)
+		  new-skk-okuri-char (skk-okurigana-prefix
+				      skk-henkan-okurigana)
+		  new-skk-henkan-key (concat
+				      (skk-substring midasi 0 pos2)
+				      new-skk-okuri-char))
+	    (let (inhibit-quit)	; allow keyboard quit
+	      (cond
+	       ((not skk-henkan-in-minibuff-flag)
+		(setq word new-word
+		      skk-henkan-key new-skk-henkan-key))
+	       ;; 辞書登録モードで登録された場合。
+	       ;; ask if register as okuri-ari word.
+	       ((y-or-n-p
+		 (format
+		  (if skk-japanese-message-and-error
+		      "%s /%s/ を送りあり候補として登録しますか？"
+		    "Shall I register this as okuri-ari word: %s /%s/ ? ")
+		  new-skk-henkan-key new-word))
+		(setq word new-word
+		      skk-okuri-char new-skk-okuri-char
+		      skk-henkan-key new-skk-henkan-key))
+	       (t
+		(setq skk-henkan-okurigana nil
+		      skk-okuri-char nil)
+		(message "")))))))))
   ;; 分解した word (送り仮名部分を除いたもの) を返す。
   word)
 
@@ -3993,16 +4006,23 @@ If you want to restore the dictionary from the disc, try
   (let ((headchar (skk-substring okurigana 0 1)))
     (cond ((string= headchar "ん")
 	   "n")
-	  ((not (and (skk-string<= "ぁ" headchar) (skk-string<= headchar "ん")))
+	  ((not (and (skk-string<= "ぁ" headchar)
+		     (skk-string<= headchar "ん")))
 	   nil)
-	  ((and (string= headchar "っ") (not (string= okurigana "っ")))
+	  ((and (string= headchar "っ")
+		(not (string= okurigana "っ")))
 	   (aref skk-kana-rom-vector
 		 ;; assume the character is hiragana of JIS X 0208.
 		 (- (skk-char-octet
-		     (string-to-char (skk-substring okurigana 1 2)) 1)
+		     (string-to-char (skk-substring okurigana
+						    1 2))
+		     1)
 		    33)))
-	  (t (aref skk-kana-rom-vector
-		   (- (skk-char-octet (string-to-char headchar) 1) 33))))))
+	  (t
+	   (aref skk-kana-rom-vector
+		 (- (skk-char-octet (string-to-char headchar)
+				    1)
+		    33))))))
 
 ;; from type-break.el.  Welcome!
 (defun skk-time-difference (a b)
@@ -4021,10 +4041,13 @@ If you want to restore the dictionary from the disc, try
    ((<= skk-kakutei-history-limit 0)
     (setq skk-kakutei-history nil))
    (t
-    (setq skk-kakutei-history (cons (cons midasi word) skk-kakutei-history))
-    (if (> (length skk-kakutei-history) skk-kakutei-history-limit)
-	(setcdr (nthcdr (1- skk-kakutei-history-limit) skk-kakutei-history)
-		nil)))))
+    (setq skk-kakutei-history (cons (cons midasi word)
+				    skk-kakutei-history))
+    (when (> (length skk-kakutei-history)
+	     skk-kakutei-history-limit)
+      (setcdr (nthcdr (1- skk-kakutei-history-limit)
+		      skk-kakutei-history)
+	      nil)))))
 
 (defun skk-remove-minibuffer-setup-hook (&rest args)
   ;; Remove all args from minibuffer-setup-hook.

@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.23 2001/10/08 12:16:25 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.24 2001/10/09 10:33:23 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/08 12:16:25 $
+;; Last Modified: $Date: 2001/10/09 10:33:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -216,20 +216,21 @@ kakutei'ed and erase the buffer contents."
       (skk-isearch-initialize-working-buffer)
       (skk-isearch-set-initial-mode initial)))
   ;; setup variables and keymap
-  (or (keymapp skk-isearch-mode-map)
-      (static-cond
-       ((eq skk-emacs-type 'xemacs)
-	(setq skk-isearch-mode-map (skk-isearch-setup-keymap
-				    (make-keymap)))
-	(set-keymap-parents skk-isearch-mode-map
-			    isearch-mode-map))
-       (t
-	(setq skk-isearch-mode-map
-	      (skk-isearch-setup-keymap (cons 'keymap
-					      isearch-mode-map))))))
+  (unless (keymapp skk-isearch-mode-map)
+    (static-cond
+     ((eq skk-emacs-type 'xemacs)
+      (setq skk-isearch-mode-map (skk-isearch-setup-keymap
+				  (make-keymap)))
+      (set-keymap-parents skk-isearch-mode-map
+			  isearch-mode-map))
+     (t
+      (setq skk-isearch-mode-map
+	    (skk-isearch-setup-keymap (cons 'keymap
+					    isearch-mode-map))))))
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
-  (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
+  (static-when
+      (memq skk-emacs-type '(mule3 mule4 mule5))
     (when (and current-input-method
 	       (string-match "^japanese-skk" current-input-method))
       (let* ((method current-input-method)
@@ -256,11 +257,11 @@ kakutei'ed and erase the buffer contents."
   "Hook function called when skk isearch is done."
   ;; remember the current skk mode for next use.
   (let ((mode (skk-current-input-mode)))
-    (and skk-isearch-use-previous-mode
-	 (setq skk-isearch-mode
-	       (with-current-buffer (get-buffer-create
-				     skk-isearch-working-buffer)
-		 (skk-isearch-current-numerical-mode))))
+    (when skk-isearch-use-previous-mode
+      (setq skk-isearch-mode
+	    (with-current-buffer (get-buffer-create
+				  skk-isearch-working-buffer)
+	      (skk-isearch-current-numerical-mode))))
     ;; reset the overrinding-local-map.
     (set skk-isearch-overriding-local-map nil)
     (setq skk-isearch-message nil
@@ -270,13 +271,20 @@ kakutei'ed and erase the buffer contents."
     ;; 変更されるので、カレントバッファの入力モードとモードラインの表示
     ;; とが sync しなくなる。従い、サーチが終了した際、モードラインをカ
     ;; レントバッファの入力モードと sync させる。
-    (cond ((eq mode 'hiragana) (skk-j-mode-on))
-	  ((eq mode 'katakana) (skk-j-mode-on t))
-	  ((eq mode 'abbrev) (skk-abbrev-mode-on))
-	  ((eq mode 'latin) (skk-latin-mode-on))
-	  ((eq mode 'jisx0208-latin) (skk-jisx0208-latin-mode-on))))
+    (case mode
+      (hiragana
+       (skk-j-mode-on))
+      (katakana
+       (skk-j-mode-on t))
+      (abbrev
+       (skk-abbrev-mode-on))
+      (latin
+       (skk-latin-mode-on))
+      (jisx0208-latin
+       (skk-jisx0208-latin-mode-on))))
   ;; Input Method として SKK を使っている場合の対策
-  (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
+  (static-when
+      (memq skk-emacs-type '(mule3 mule4 mule5))
     (when (string-match "^japanese-skk" (format "%s"
 						default-input-method))
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
@@ -290,9 +298,9 @@ kakutei'ed and erase the buffer contents."
   (remove-hook 'pre-command-hook 'skk-pre-command 'local)
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer
-   (function (lambda ()
-	       (add-hook 'pre-command-hook 'skk-pre-command nil
-			 'local)))))
+   (function
+    (lambda ()
+      (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
 
 (defun skk-isearch-incomplete-message (&optional prefix)
   "Show message when kana kanji conversion is in progress.
@@ -338,9 +346,9 @@ Optional argument PREFIX is appended if given."
   ;; Keys for `skk-isearch-skk-mode'.
   (let ((commands '(skk-mode skk-auto-fill-mode)))
     (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
-      (if (string-match "^japanese-skk"
-			(format "%s" default-input-method))
-	  (push 'toggle-input-method commands)))
+      (when (string-match "^japanese-skk"
+			  (format "%s" default-input-method))
+	(push 'toggle-input-method commands)))
     (skk-isearch-find-keys-define map commands 'skk-isearch-skk-mode))
 
   ;; Keys for `skk-isearch-delete-char'.
@@ -385,7 +393,8 @@ Optional argument PREFIX is appended if given."
 		       (this-command (key-binding keys)))
 		  (setq last-command-event (aref keys (1- (length keys))))
 		  (command-execute this-command))
-	      ((quit error) (signal (car error) (cdr error)))))
+	      ((quit error)
+	       (signal (car error) (cdr error)))))
 	  (skk-isearch-mode-message))
       (set skk-isearch-overriding-local-map local-map))))
 
@@ -402,7 +411,8 @@ If the conversion is in progress and no string is fixed, just return nil."
 			   (buffer-substring 1 start)
 			 (delete-region 1 start)))))
 		;; a conversion is in progress
-		((not (string= skk-prefix "")) nil)
+		((not (string= skk-prefix ""))
+		 nil)
 		;;(skk-current-rule-tree nil)
 		;; whole string in the buffer is fixed.
 		((not (zerop (buffer-size)))
@@ -419,8 +429,8 @@ If the conversion is in progress and no string is fixed, just return nil."
 ;; regexp search supports.
 ;;
 (defun skk-isearch-last-char (string)
-  (and (string-match ".\\'" string)
-       (string-to-char (substring string (match-beginning 0)))))
+  (when (string-match ".\\'" string)
+    (string-to-char (substring string (match-beginning 0)))))
 
 (defun skk-isearch-breakable-p (char)
   (and char
@@ -432,9 +442,9 @@ If the conversion is in progress and no string is fixed, just return nil."
 	   (result "" (concat result (char-to-string (car chars))))
 	   (chars (string-to-char-list string) (cdr chars)))
 	  ((null chars) result)
-	(if (and (skk-isearch-breakable-p prev)
-		 (skk-isearch-breakable-p (car chars)))
-	    (setq result (concat result skk-isearch-whitespace-regexp))))
+	(when (and (skk-isearch-breakable-p prev)
+		   (skk-isearch-breakable-p (car chars)))
+	  (setq result (concat result skk-isearch-whitespace-regexp))))
     ;; else
     string))
 
@@ -442,18 +452,19 @@ If the conversion is in progress and no string is fixed, just return nil."
   "Prepend the skk isearch mode string to `isearch-message'.
 If the current mode is different from previous, remove it first."
   (let ((mode-string (skk-isearch-mode-string)))
-    (if (string= mode-string skk-isearch-last-mode-string)
-	nil
+    (unless (string= mode-string skk-isearch-last-mode-string)
       (if (string-match skk-isearch-last-mode-regexp isearch-message)
-	  (setq isearch-message (substring isearch-message (match-end 0))))
+	  (setq isearch-message (substring isearch-message
+					   (match-end 0))))
       (setq skk-isearch-last-mode-string mode-string
-	    skk-isearch-last-mode-regexp (concat "^"
-						 (regexp-quote mode-string)))
+	    skk-isearch-last-mode-regexp (concat "^" (regexp-quote
+						      mode-string)))
       (setq isearch-message (concat mode-string isearch-message)))))
 
 (defun skk-isearch-process-search-string (string)
-  (isearch-process-search-string (skk-isearch-search-string-regexp string)
-				 string))
+  (isearch-process-search-string
+   (skk-isearch-search-string-regexp string)
+   string))
 
 
 ;;
@@ -486,7 +497,8 @@ If the current mode is different from previous, remove it first."
     (let ((cmd (nth 1 isearch-cmds))
 	  (prompt (skk-isearch-mode-string)))
       (unless (or (null cmd)
-		  (string-match (concat "^" (regexp-quote prompt)) (cadr cmd)))
+		  (string-match (concat "^" (regexp-quote prompt))
+				(cadr cmd)))
 	;; `skk-isearch-delete-char'が呼ばれる前に `skk-isearch-working-buffer'
 	;; 内のモードが切り替えられていた場合、 isearch-cmds  の第 2 要素につい
 	;; て、 messege の内容を update しないと [DEL] したときのモードの表示が
@@ -505,10 +517,10 @@ If the current mode is different from previous, remove it first."
   "Special wrapper for skk-kakutei or newline."
   (if (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	;; following code is highly depends on internal of skk.
-	(if (skk-isearch-conversion-active-p)
-	    (prog1
-		t
-	      (skk-isearch-skk-kakutei))))
+	(when (skk-isearch-conversion-active-p)
+	  (prog1
+	      t
+	    (skk-isearch-skk-kakutei))))
       (skk-isearch-process-search-string (skk-isearch-search-string))
     (funcall isearch-function)))
 
@@ -519,20 +531,23 @@ If the current mode is different from previous, remove it first."
 (defun skk-isearch-newline (&rest args)
   (interactive "P")
   ;; following code is highly depends on internal of skk.
-  (if (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
-	(if (memq (skk-isearch-current-mode) '(latin jisx0208-latin nil))
-	    (prog1
-		t
-	      ;; if the working buffer is latin or jisx0208-latin
-	      ;; mode, default behaviour of C-j is set current mode
-	      ;; to kana mode.
-	      (skk-isearch-turn-on-skk-mode)
-	      (skk-isearch-mode-message))))
-      (isearch-message)
-    (if (event-to-character last-command-event)
-	(skk-isearch-kakutei (function isearch-printing-char))
-      (skk-isearch-mode-message)
-      (isearch-message))))
+  (cond
+   ((with-current-buffer (get-buffer-create skk-isearch-working-buffer)
+      (when (memq (skk-isearch-current-mode)
+		  '(latin jisx0208-latin nil))
+	(prog1
+	    t
+	  ;; if the working buffer is latin or jisx0208-latin
+	  ;; mode, default behaviour of C-j is set current mode
+	  ;; to kana mode.
+	  (skk-isearch-turn-on-skk-mode)
+	  (skk-isearch-mode-message))))
+    (isearch-message))
+   ((event-to-character last-command-event)
+    (skk-isearch-kakutei (function isearch-printing-char)))
+   (t
+    (skk-isearch-mode-message)
+    (isearch-message))))
 
 ;;;###autoload
 (defun skk-isearch-skk-mode (&rest args)
@@ -554,9 +569,7 @@ If the current mode is different from previous, remove it first."
   (interactive "P")
   (skk-isearch-redo-function)
   (let ((string (skk-isearch-search-string)))
-    (if (null string)
-	;; on the way to converting to kanji.
-	nil
+    (when string ; nil means on the way to converting to kanji.
       ;; with saving value of old binding...
       (let ((local-map (symbol-value skk-isearch-overriding-local-map))
 	    (current-buffer (current-buffer)))
@@ -566,21 +579,24 @@ If the current mode is different from previous, remove it first."
 	    (progn
 	      (set skk-isearch-overriding-local-map isearch-mode-map)
 	      (let ((command (key-binding string)))
-		(cond ((not (commandp command))
-		       ;; just search literally.
-		       (skk-isearch-process-search-string string))
-		      ;; internationalized isearch.el
-		      ((fboundp 'isearch-process-search-multibyte-characters)
-		       ;; internationalized isearch.el binds all
-		       ;; multibyte characters to `isearch-printing-char'.
-		       (cond (
-			      ;; STRING is not a multibyte character.
-			      (> skk-kanji-len (length string))
-			      ;; process a special character, such as *, |, ...
-			      (command-execute command))
-			     (t (skk-isearch-process-search-string string))))
-		      ;; non internationalized isearch.el
-		      (t (command-execute command)))))
+		(cond
+		 ((not (commandp command))
+		  ;; just search literally.
+		  (skk-isearch-process-search-string string))
+		 ;; internationalized isearch.el
+		 ((fboundp 'isearch-process-search-multibyte-characters)
+		  ;; internationalized isearch.el binds all
+		  ;; multibyte characters to `isearch-printing-char'.
+		  (cond
+		   (;; STRING is not a multibyte character.
+		    (> skk-kanji-len (length string))
+		    ;; process a special character, such as *, |, ...
+		    (command-execute command))
+		   (t
+		    (skk-isearch-process-search-string string))))
+		 ;; non internationalized isearch.el
+		 (t
+		  (command-execute command)))))
 	  ;; restore the overriding local map.
 	  (set-buffer current-buffer)
 	  (set skk-isearch-overriding-local-map local-map))))))
@@ -626,9 +642,9 @@ If the current mode is different from previous, remove it first."
     (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
       (setq skk-isearch-state (skk-isearch-current-mode))
       (setq skk-isearch-in-editing t))
-    (and (string-match (concat "^" (regexp-quote (skk-isearch-mode-string)))
-		       isearch-message)
-	 (setq isearch-message (substring isearch-message (match-end 0))))))
+    (when (string-match (concat "^" (regexp-quote (skk-isearch-mode-string)))
+			isearch-message)
+      (setq isearch-message (substring isearch-message (match-end 0))))))
 
 (defadvice isearch-search (before skk-isearch-ad activate compile)
   "`isearch-message' を適切に設定する。"

@@ -35,8 +35,7 @@
 
 ;; Macros.
 (defmacro install-info-compressed-name-p (filename)
-  (if (not (featurep 'jka-compr))
-      nil
+  (when (featurep 'jka-compr)
     (` (jka-compr-get-compression-info (, filename)))))
 
 (defmacro install-info-forward-line (n)
@@ -138,13 +137,11 @@ from DIR-FILE; don't insert any new entries."
     (cond
      ((and entry section)
       ;; Both entry and section are given.
-      (if delete
-	  nil
+      (unless delete
 	(setq groups (install-info-groups section entry))))
      (entry
       ;; Only entry is given. Determine section from the info file.
-      (if delete
-	  nil
+      (unless delete
 	(save-excursion
 	  (set-buffer buf)
 	  (goto-char (point-min))
@@ -180,8 +177,7 @@ from DIR-FILE; don't insert any new entries."
 	      (install-info-forward-line 1)))))
       (unless (setq entry (nreverse entry))
 	(error "warning; no info dir entry in %s" info-file))
-      (if delete
-	  nil
+      (unless delete
 	(setq groups (install-info-groups section entry))))
      (t
       ;; Neither entry nor section is given.

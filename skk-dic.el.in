@@ -50,10 +50,7 @@ Small dictionary for SKK.")
 
 ;;;###autoload
 (defun skk-dic-setup-buffer ()
-  (cond
-   ((string= "" skk-small-dic)
-    nil)
-   (t
+  (unless (string= "" skk-small-dic)
     (let ((buf (get-buffer-create skk-dic-buffer-name)))
       (with-current-buffer buf
 	(when (zerop (buffer-size))
@@ -69,7 +66,7 @@ Small dictionary for SKK.")
 	  (setq buffer-read-only t)
 	  (set-buffer-modified-p nil)))
       ;;
-      buf))))
+      buf)))
 
 ;;
 
