@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.10 1999/09/15 03:41:23 minakaji Exp $
+;; Version: $Id: skk.el,v 1.11 1999/09/15 13:42:35 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/15 03:41:23 $
+;; Last Modified: $Date: 1999/09/15 13:42:35 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/09/15 03:41:23 $")
+      (let* ((raw-date "$Date: 1999/09/15 13:42:35 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -117,7 +117,7 @@
             (setq month (substring month (match-end 0))) )
         (if (string-match "^0" date)
             (setq date (substring date (match-end 0))) )
-        (message "SKK version %s of %s"
+        (message "SKK version %s of %s, APEL inside"
                  skk-version
                  (concat (car (rassoc month skk-month-alist))
                          " " date ", " year ))))))

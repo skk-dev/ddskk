@@ -1,12 +1,13 @@
 ; SKK tutorial for SKK version 10.46 and later versions
-;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998
+;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
+;;               1998, 1999
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.3 1999/08/30 12:34:56 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.4 1999/09/15 13:38:54 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/30 12:34:56 $
+;; Last Modified: $Date: 1999/09/15 13:38:54 $
 
 ;; This file is part of SKK.
 
@@ -43,22 +44,24 @@
 ;;      沈志勇 <jshen@cas.org>
 
 ;;; Code:
-(eval-when-compile (require 'skk))
-(require 'skk-foreword)
+(require 'skk)
 
 ;; User variables.  prefix should be `skk-tut-'.
-;;#SJT# This should be adjusted to XEmacs convention.
-;;      And patches to Murata-san should be SKK convention.
-(defvar skk-tut-file-alist
-  (` (("Japanese" .  (, (expand-file-name "skk/SKK.tut" data-directory)))
-      ("English" . (, (expand-file-name "skk/SKK.tut.E" data-directory))) ))
-  "*Alist of `(LANGUAGE . TUTORIAL-FILE)' pairs." )
-
-(defcustom skk-tut-file "/usr/local/share/skk/SKK.tut"
+(defcustom skk-tut-file 
+  (cond
+   ((and skk-package-data-directory
+	 (file-exists-p (expand-file-name "SKK.tut" skk-package-data-directory)) )
+    (expand-file-name "SKK.tut" skk-package-data-directory) )
+   (t (expand-file-name "skk/SKK.tut" data-directory)) )
   "*SKK チュートリアルのファイル名。
 The English version is SKK.tut.E."
   :type 'file
   :group 'skk-tut )
+
+(defvar skk-tut-file-alist
+  (` (("Japanese" . (, skk-tut-file))
+      ("English" . (, (concat skk-tut-file ".E"))) ))
+  "*Alist of `(LANGUAGE . TUTORIAL-FILE)' pairs." )
 
 (defcustom skk-tut-use-face t
   "*Non-nil であれば、チュートリアルで face を利用した表示を行なう。" 
