@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.3 1999/09/28 14:48:46 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.4 1999/09/28 15:35:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/28 14:48:46 $
+;; Last Modified: $Date: 1999/09/28 15:35:48 $
 
 ;; This file is not part of SKK yet.
 
@@ -72,44 +72,54 @@
 	     (unless (eq lookup-last-session lookup-current-session)
 	       (lookup-open-session) )))
        ;; セッションの途中でエラーが発生したときは最後のセッションに戻す。
-       (setq lookup-current-session lookup-last-session))))
+       (setq lookup-current-session lookup-last-session) )))
 
 ;;;###autoload
 (defun skk-lookup-search ()
-  (save-excursion
-    (save-window-excursion
-      (let ((module (lookup-default-module))
-	    v )	
-	;; Is it really necessary only to get headings?
-	(setq lookup-search-pattern skk-henkan-key)
-	(skk-lookup-start-session module 'lookup-search-session
-	  (let ((query (lookup-make-query 'exact skk-henkan-key))
-		(lookup-search-found)
-		heading kouho )
-	    (lookup-foreach
-	     (lambda (dictionary)
-	       (when (and (lookup-dictionary-selected-p dictionary)
-			  (setq entries (lookup-vse-search-query dictionary query)) )
-		 ;; Is it really necessary only to get headings?
-		 (if lookup-search-found
-		     (lookup-entry-append lookup-current-session entries)
-		   (setq lookup-search-found t)
-		   (lookup-session-set-query lookup-current-session query)
-		   (lookup-session-set-entries lookup-current-session entries)
-		   (lookup-open-session) )
-		 (lookup-foreach
-		  (lambda (entry)
-		    (setq heading (lookup-entry-heading entry))
-		    (when (string-match skk-lookup-pickup-pattern heading)
-		      (setq kouho (match-string 1 heading))
-		      (if (not skk-lookup-split-pattern)
-			  (setq v (cons kouho (delete kouho v)))
-			(lookup-foreach
-			 (lambda (k) (setq v (cons k (delete k v))))
-			 (split-string kouho skk-lookup-split-pattern) ))))
-		  entries )))
-	     (lookup-module-dictionaries module) )
-	    v ))))))
+  (current-buffer)
+  (save-window-excursion
+    (with-current-buffer
+	(let ((module (lookup-default-module)))
+	  ;; Is it really necessary only to get headings?
+	  (setq lookup-search-pattern skk-henkan-key)
+	  (skk-lookup-start-session module 'lookup-search-session
+	    (let ((query (lookup-make-query 'exact skk-henkan-key))
+		  (lookup-search-found)
+		  heading kouho v )
+	      (lookup-foreach
+	       (lambda (dictionary)
+		 (when (and (lookup-dictionary-selected-p dictionary)
+			    (setq entries (lookup-vse-search-query dictionary query)) )
+		   ;; Is it really necessary only to get headings?
+		   (current-buffer)
+		   (if lookup-search-found
+		       (lookup-entry-append lookup-current-session entries)
+		     (setq lookup-search-found t)
+		     (lookup-session-set-query lookup-current-session query)
+		     (lookup-session-set-entries lookup-current-session entries)
+		     (if lookup-last-session
+			 (lookup-session-save-excursion lookup-last-session))
+		     ;;(funcall (lookup-session-ref session 'display) session)
+		     (setq lookup-current-session lookup-current-session
+			   lookup-last-session lookup-current-session )
+		     (lookup-history-push (lookup-module-history
+					   (lookup-session-module lookup-current-session))
+					  lookup-current-session ))
+		   (current-buffer)
+		   (lookup-foreach
+		    (lambda (entry)
+		      (setq heading (lookup-entry-heading entry))
+		      (when (string-match skk-lookup-pickup-pattern heading)
+			(setq kouho (match-string 1 heading))
+			(if (not skk-lookup-split-pattern)
+			    (setq v (cons kouho (delete kouho v)))
+			  (lookup-foreach
+			   (lambda (k) (setq v (cons k (delete k v))))
+			   (split-string kouho skk-lookup-split-pattern) ))))
+		    entries )))
+	       (lookup-module-dictionaries module) )
+	      (current-buffer)
+	      v ))))))
 
 (provide 'skk-lookup)
 ;;; Local Variables:
