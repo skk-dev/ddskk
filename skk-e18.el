@@ -197,8 +197,9 @@ If fourth arg READ is non-nil, then interpret the result as a lisp object
 Fifth arg HIST is ignored in this implementatin."
   ;; This re-definition of `read-from-minibuffer' is intended to enable
   ;; `minibuffer-setup-hook' and `minibuffer-exit-hook'.  Not well tested.
-  (let (map)
-    (with-current-buffer (get-minibuffer (minibuffer-depth))
+  (let ((minibuf (get-minibuffer (minibuffer-depth)))
+	map)
+    (with-current-buffer minibuf
       ;; Note that `current-local-map' inside `minibuffer-setup-hook' should
       ;; return the 3rd arg KEYMAP.
       (use-local-map (or keymap minibuffer-local-map))
@@ -220,7 +221,9 @@ Fifth arg HIST is ignored in this implementatin."
 				 read)
       ;;
       (when minibuffer-exit-hook
-	(with-current-buffer (get-minibuffer (minibuffer-depth))
+	(with-current-buffer (if (buffer-live-p minibuf)
+				 minibuf
+			       (get-minibuffer (minibuffer-depth)))
 	  (save-window-excursion
 	    ;; Note that `(window-buffer (minibuffer-window))' should return
 	    ;; the new minibuffer.
