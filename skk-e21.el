@@ -108,10 +108,10 @@
 		       (define-key map [mode-line mouse-3]
 			 #'skk-e21-modeline-menu)
 		       (define-key map [mode-line mouse-1]
-			 #'skk-mode)
+			 #'skk-e21-modeline-menu)
 		       map)
 	  'help-echo
-	  "mouse-1: Toggle SKK, mouse-3: SKK Menu")))
+	  "mouse-1, mouse-3: SKK Menu")))
 
 (defvar skk-e21-property-alist
   (when window-system
