@@ -1,14 +1,14 @@
 ;;; skk-server.el --- SKK サーバーのためのプログラム
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996,
-;;               1997, 1998, 1999, 2000
+;;               1997, 1998, 1999, 2000, 2001
 ;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.17 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.18 2001/11/24 12:24:36 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/24 12:24:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -135,14 +135,10 @@
 
 (defun skk-open-server ()
   ;; SKK サーバーと接続する。サーバープロセスの status を返す。
-  (let (status code proc)
-    (when (or (skk-open-network-stream)
-	      (skk-open-server-1))
-      (setq status (process-status "skkservd"))
-      (when (eq status skk-network-open-status)
-	(setq code (cdr (assoc "euc" skk-coding-system-alist))
-	      proc (get-process "skkservd"))
-	(set-process-coding-system proc code code)))
+  (let (status code)
+    (when (or (skk-open-network-stream) (skk-open-server-1))
+      (setq code (cdr (assoc "euc" skk-coding-system-alist)))
+      (set-process-coding-system (get-process "skkservd") code code))
     status))
 
 (defun skk-open-server-1 ()
@@ -163,8 +159,7 @@
 					   skk-server-jisyo
 					   skk-server-portnum)))
       (setq skk-server-prog nil)))
-  (while (and (not (eq (process-status "skkservd")
-		       skk-network-open-status))
+  (while (and (not (eq (process-status "skkservd") skk-network-open-status))
 	      skk-servers-list)
     (let ((elt (car skk-servers-list))
 	  arg)
@@ -180,29 +175,25 @@
       ;;     `~/JISYO'     ~/JISYOを辞書として利用.
       (if skk-server-jisyo
 	  (setq arg (list skk-server-jisyo))
-	;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を
+       ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を
 	;; 参照する。
 	)
       ;;(if skk-server-debug
       ;;    (setq arg (cons "-d" arg)))
-      (when (and skk-server-portnum
-		 (not (= skk-server-portnum 1178)))
-	(setq arg
-	      (nconc (list "-p" (number-to-string skk-server-portnum))
-		     arg)))
-      (when (and skk-server-host
-		 (not (skk-open-network-stream))
-		 skk-server-prog)
-	;; skk-startup-server でサーバーを起動するには、skk-server-host と
-	;; skk-server-prog が設定されていることが必要。
+      ;;(when (and skk-server-portnum
+      ;;           (not (= skk-server-portnum 1178)))
+      (when skk-server-portnum
+	(setq arg (nconc (list "-p" (number-to-string skk-server-portnum))
+			 arg)))
+      (when (and skk-server-host (not (skk-open-network-stream))
+		 skk-server-prog
+		 (not (string-match "dbskkd-cdb$" skk-server-prog)))
 	(skk-startup-server arg))))
-  (if (not (eq (process-status "skkservd")
-	       skk-network-open-status))
+  (or (eq (process-status "skkservd") skk-network-open-status)
       ;; reset SKK-SERVER-HOST so as not to use server in this session
       (setq skk-server-host nil
 	    skk-server-prog nil
-	    skk-servers-list nil)
-    t))
+	    skk-servers-list nil)))
 
 (defun skk-open-network-stream ()
   ;; skk-server-host における skkserv サービスの TCP 接続をオープンし、プロセ
@@ -214,7 +205,8 @@
 			       skk-server-host
 			       (or skk-server-portnum
 				   "skkserv")))
-    (process-kill-without-query skkserv-process)))
+    (process-kill-without-query skkserv-process)
+    (eq (process-status "skkservd") skk-network-open-status)))
 
 (defun skk-startup-server (arg)
   ;; skkserv を起動できたら t を返す。
@@ -249,14 +241,14 @@
 	  (skk-message "ホスト %s の SKK サーバーが起動しました"
 		       "SKK SERVER on %s is active now"
 		       skk-server-host)
-	  (sit-for 1) ; return t
-	  t) ; でも念のため
+	  (sit-for 1)
+	  t)
       (skk-message "%s の SKK サーバーを起動することができませんでした"
 		   "Could not activate SKK SERVER on %s"
 		   skk-server-host)
       (sit-for 1)
-      (ding) ;return nil
-      nil))) ; でも念のため
+      (ding)
+      nil)))
 
 ;;;###autoload
 (defun skk-adjust-search-prog-list-for-server-search (&optional non-del)
@@ -281,8 +273,7 @@
 (defun skk-disconnect-server ()
   ;; サーバーを切り離す。
   (when (and skk-server-host
-	     (eq (process-status "skkservd")
-		 skk-network-open-status))
+	     (eq (process-status "skkservd") skk-network-open-status))
     (process-send-string "skkservd" "0") ; disconnect server
     (accept-process-output (get-process "skkservd"))))
 

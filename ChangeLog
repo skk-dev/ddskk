@@ -1,5 +1,12 @@
 2001-11-24  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* skk-server.el (skk-open-network-stream): Check if process status
+	of "skkservd" is equal to `skk-network-open-status'.
+	(skk-open-server): Omit process status.  Do not use temporary
+	variable PROC.
+	(skk-open-server-1): Check if `skk-server-prog' is dbskkd-cdb or
+	not before calling `skk-startup-server'.
+
 	* experimental/skk-w3m.el: Update comments.
 	(skk-w3m-search-by-emcas-w3m): Call `erase-buffer' after cutting
 	off a candidate.
@@ -2886,8 +2893,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.555 2001/11/24 07:19:33 minakaji Exp $
-Last Modified: $Date: 2001/11/24 07:19:33 $
+Version: $Id: ChangeLog,v 1.556 2001/11/24 12:24:36 minakaji Exp $
+Last Modified: $Date: 2001/11/24 12:24:36 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
