@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.120 2003/07/19 11:37:38 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.121 2003/07/19 11:48:48 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/19 11:37:38 $
+@c  Last Modified: $Date: 2003/07/19 11:48:48 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/19 11:37:38 $
+@set UPDATED $Date: 2003/07/19 11:48:48 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -219,10 +219,11 @@ SKK のインストールをする前に APEL をインストールして下さい。
 APEL をインストールしたら、 SKK をインストールしましょう。ここでは、
 UNIX 上で @code{make} コマンドが用意されている場合を想定しています
 @footnote{Windows 環境では、@code{makeit.bat} を使用することにより、同
-様の操作でインストールできます。 @file{READMEs/README.win} ファイルを
-参照して下さい。cygwin 環境をインストールされている方は make コマンド
-が使用できるので、ここの説明がそのまま当てはまります。また、Mac OS 環
-境の方は、@file{READMEs/README.Mac} ファイルを参照して下さい。}。
+様の操作でインストールできます。 @file{skk/main/READMEs/README.win} ファ
+イルを参照して下さい。cygwin 環境をインストールされている方は
+@code{make} コマンドが使用できるので、ここの説明がそのまま当てはまりま
+す。また、Mac OS 環境の方は、@file{skk/main/READMEs/README.Mac} ファイ
+ルを参照して下さい。}。
 
 まず、@code{tar} と @code{gzip} コマンドを使用して、 SKK を書庫
 (@file{ddskk-VERSION.tar.gz}) から取り出します。
@@ -8401,8 +8402,8 @@ DDSKK 12 に関しては
 あります (@code{look} や @code{ispell} など)。これらがお使いの OS にも
 あれば該当の拡張機能も基本的には使えるでしょう。
 
-Mac 版 Emacs に特化した情報については、@file{skk/READMEs/README.Mac}
-というファイルをご覧下さい。
+Mac 版 Emacs に特化した情報については、
+@file{skk/main/READMEs/README.Mac} というファイルをご覧下さい。
 
 @node Q.1-6 Emacs に付属の SKK を使っているのですが, Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえませんか?, Q.1-5 DDSKK はどんなオペレーティングシステムで使えますか?, Introduction
 @comment  node-name,  next,  previous,  up
