@@ -1,3 +1,11 @@
+2000-10-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/NEWS: Add description for SKK 10.62.
+
+	* doc/skk.texi (SKK-VERSION): Bump up to 10.62.
+
+	* skk.el (skk-version): Bump up to 10.62 {not yet released}.
+
 2000-10-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cursor.el (kill-buffer, select-frame, other-window,
