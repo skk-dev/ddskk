@@ -10,14 +10,12 @@ o New file ptexinfmt.el is for compiling skk.texi into Info.
 o skk-lookup.el is no longer experimental. It is provided as one of
   main programs.
 
-o skk-study.el has been moved to `experimental' directory.
-
 o Pieces of advice to interactive built-in functions now call
   `interactive' with proper arguments. This avoids errors in kbd
   macros.
 
 o Under Emacs 20, `read-from-minibuffer' now works with optional 7th
-  arg INHERIT-INPUT-METHOD, when SKK is used as an `input method'.
+  arg INHERIT-INPUT-METHOD when SKK is used as an `input method'.
 
 o The following functions have been fixed.
 
