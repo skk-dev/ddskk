@@ -1,3 +1,9 @@
+2000-10-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-tut.el (kill-buffer): Call `interactive' with args.
+
+	* skk.el (kill-buffer): Ditto.
+
 2000-10-15  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* doc/skk.texi: Fix links.
