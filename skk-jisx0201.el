@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.6 2000/11/20 20:05:59 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.7 2000/11/21 21:42:45 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2000/11/20 20:05:59 $
+;; Last Modified: $Date: 2000/11/21 21:42:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -700,5 +700,6 @@
 (require 'product)
 (product-provide (provide 'skk-jisx0201) (require 'skk-version))
 ;;; Local Variables:
+;;; eval: (cond ((boundp 'standard-translation-table-for-decode) (setq standard-translation-table-for-decode (make-translation-table nil)))((boundp 'standard-character-unification-table-for-decode) (setq standard-character-unification-table-for-decode (make-unification-table nil))))
 ;;; End:
 ;;; skk-jisx0201.el ends here

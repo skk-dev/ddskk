@@ -1,3 +1,14 @@
+2000-11-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-jisx0201.el: Put in a comment at the bottom to eval the form
+	which makes Emacs not to translate characters.
+	
+	* ChangeLog.daredevil: Put in a comment at the top to specify
+	change-log major mode.
+	
+	* READMEs/AUTHORS: Updated.
+	* READMEs/Contributors: Ditto.
+
 2000-11-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* SKK-MK (SKK-MK-detect-shadow-directory): New function.
@@ -2452,8 +2463,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.162 2000/11/21 11:58:34 minakaji Exp $
-Last Modified: $Date: 2000/11/21 11:58:34 $
+Version: $Id: ChangeLog,v 1.163 2000/11/21 21:42:45 minakaji Exp $
+Last Modified: $Date: 2000/11/21 21:42:45 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
