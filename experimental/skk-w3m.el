@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.25 2001/11/19 16:15:45 czkmt Exp $
+;; Version: $Id: skk-w3m.el,v 1.26 2001/11/24 03:31:36 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/11/19 16:15:45 $
+;; Last Modified: $Date: 2001/11/24 03:31:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -80,7 +80,10 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+  (condition-case nil
+      (progn (require 'w3m) (require 'w3m-search))
+   (error)))
 
 (defgroup skk-w3m nil "SKK w3m related customization."
   :prefix "skk-w3m-"
@@ -139,7 +142,7 @@ w3m を backend で動かしていない)。")
 
 (defvar skk-w3m-command (or (and (boundp 'w3m-command) w3m-command) "w3m")
   "*w3m コマンド名。")
- 
+
 (defvar skk-w3m-command-args "-backend"
   "*w3m の backend オプション。")
 
@@ -157,13 +160,13 @@ w3m を backend で動かしていない)。")
 
 (defvar skk-w3m-quote-yahoo-currency-symbol-alist
   ;;http://quote.yahoo.com/m5?a=1&s=USD&t=JPY&c=0 ; U.S. Dollar, Japanese Yen
-  ;;http://quote.yahoo.com/m5?a=1&s=DEM&t=JPY&c=0 ; German Mark           
-  ;;http://quote.yahoo.com/m5?a=1&s=FRF&t=JPY&c=0 ; French Franc          
+  ;;http://quote.yahoo.com/m5?a=1&s=DEM&t=JPY&c=0 ; German Mark
+  ;;http://quote.yahoo.com/m5?a=1&s=FRF&t=JPY&c=0 ; French Franc
   ;;http://quote.yahoo.com/m5?a=1&s=EUR&t=JPY&c=0 ; Euro
   ;;http://quote.yahoo.com/m5?a=1&s=ITL&t=JPY&c=0 ; Italian Lira .L
   ;;http://quote.yahoo.com/m5?a=100&s=KRW&t=JPY&c=0 ; Korean Won
   ;;http://quote.yahoo.com/m5?a=100&s=MYR&t=JPY&c=0 ; Malaysian Ringgit
-  ;;http://quote.yahoo.com/m5?a=100&s=THB&t=JPY&c=0 ; Thai Baht             
+  ;;http://quote.yahoo.com/m5?a=100&s=THB&t=JPY&c=0 ; Thai Baht
   ;;http://quote.yahoo.com/m5?a=100&s=CHF&t=JPY&c=0 ; Swiss Franc
   '((ARS . "Argentine Peso") (CHF . "Swiss Franc") (DEM . "German Mark")
     (EUR . "Euro") (FRF . "French Franc") (ITL . "Italian Lira .L")
@@ -174,12 +177,29 @@ w3m を backend で動かしていない)。")
 ;;;; system internal variables and constants.
 ;;; constants.
 (defconst skk-w3m-working-buffer " *skk-w3m-work*")
+(defconst skk-w3m-w3m-w3m-retrieve-has-new-argument-spec
+  (condition-case nil
+      (with-temp-buffer
+	(w3m-w3m-retrieve "http://openlab.ring.gr.jp")
+	nil)
+    (wrong-number-of-arguments t)
+    (error)))
 
 ;;; global variables
 (defvar skk-w3m-process nil)
 (defvar skk-w3m-cache nil)
 (defvar skk-w3m-currency-from nil)
 (defvar skk-w3m-currency-to nil)
+
+;;;; macros
+(defmacro skk-w3m-with-work-buffer (&rest body)
+  "Execute the forms in BODY with working buffer as the current buffer."
+  (` (with-current-buffer
+	 (w3m-get-buffer-create skk-w3m-working-buffer)
+       (,@ body))))
+
+(put 'skk-w3m-with-work-buffer 'lisp-indent-function 0)
+(put 'skk-w3m-with-work-buffer 'edebug-form-spec '(body))
 
 ;;;; inline functions
 (defsubst skk-w3m-process-alive ()
@@ -220,7 +240,7 @@ w3m を backend で動かしていない)。")
      (t
       (setq skk-w3m-cache (cons (cons search-engine (list (cons key list)))
 				skk-w3m-cache))))))
-	   
+	
 (defun skk-w3m-filter-string (string filters)
   (while filters
     (while (string-match (car filters) string)
@@ -236,24 +256,30 @@ w3m を backend で動かしていない)。")
   (let ((post-process (nth 3 dbase))
 	(process-key (nth 5 dbase))
 	(query-string-function (nth 6 dbase))
-	(w3m-async-exec nil)
-	(w3m-work-buffer-name " *skk-w3m-work*"))
+	(w3m-async-exec nil))
     (if process-key (setq key (funcall process-key key)))
-    (if post-process 
-	(w3m-with-work-buffer
-	  (or (w3m-w3m-retrieve
+    (if post-process
+	(skk-w3m-with-work-buffer
+	  (or (skk-w3m-w3m-retrieve 
 	       (if query-string-function
 		   (apply 'format (nth 1 dbase)
 			  (funcall query-string-function key))
 		 (format (nth 1 dbase)
 			 (w3m-search-escape-query-string key (nth 2 dbase)))))
-	      (error "")
-	      (funcall post-process key))))))
+	      (error ""))
+	  (decode-coding-region (point-min) (point-max) (nth 2 dbase))
+	  (funcall post-process key)))))
+
+(defun skk-w3m-w3m-retrieve (url)
+  (if skk-w3m-w3m-w3m-retrieve-has-new-argument-spec
+      ;;(w3m-w3m-retrieve url no-decode no-cache post-data referer handler)
+      (w3m-w3m-retrieve url nil t nil nil nil)
+    (w3m-w3m-retrieve url)))
 
 ;;; w3m backend dependent
 (defun skk-w3m-search-by-backend (dbase key)
   (let (pos)
-    (with-current-buffer (get-buffer-create skk-w3m-working-buffer)
+    (skk-w3m-with-work-buffer
       (or (skk-w3m-process-alive) (skk-w3m-init-w3m-backend))
       (let ((process-key (nth 5 dbase))
 	    (post-process (nth 3 dbase))
@@ -452,13 +478,13 @@ w3m を backend で動かしていない)。")
   ;; <!-- RESULT_BLOCK -->
   (save-match-data
     (let ((startregexp
-	   (if skk-w3m-use-w3m-backend 
+	   (if skk-w3m-use-w3m-backend
 	       nil
 	       ;;(format
 		;;"■［%s］の大辞林第二版からの検索結果　 <b>[0-9]+件</b>" key)
 	     "<!-- RESULT_BLOCK -->"))
 	  (endregexp
-	   (if skk-w3m-use-w3m-backend 
+	   (if skk-w3m-use-w3m-backend
 	       nil
 	       ;;(format
 		;;"■［%s］の大辞林第二版からの検索結果　 <b>[0-9]+件</b>" key)
@@ -466,7 +492,7 @@ w3m を backend で動かしていない)。")
 	  (start (if skk-w3m-use-w3m-backend (point-min)))
 	  (end (if skk-w3m-use-w3m-backend (process-mark skk-w3m-process)))
 	  temp v)
-      (if startregexp 
+      (if startregexp
 	  (progn
 	    (re-search-forward startregexp nil t nil)
 	    (setq start (point))))
@@ -477,16 +503,21 @@ w3m を backend で動かしていない)。")
       (if (not (and start end))
 	  nil
 	(goto-char start)
+	(setq key (mapconcat 'char-to-string key "-*"))
 	(setq key (format "\\(%s\\|%s\\)"
 			  ;; <b>8</b>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" target="_blank" hseq="35"><img_alt src="/Common/icon01.gif">新規で開く</img_alt></a>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" hseq="36">かんきょう【艦橋】</a>
 			  (format "<a href=\".+\">%s *【\\([^<>【】]+\\)】</a>" key)
+			  ;; <B>しこう-さくご―かう―【試行錯誤】</B>
 			  ;; <B>がいはんぼしぐわいはん―【外反拇趾】</B>
-			  (format "<B>%s[^<【]*【\\([^<>【】]+\\)】</B>" key)))
+			  ;; <B>なかみ  【中身・中味】  </B>
+			  ;; <B><FONT COLOR="0000FF">しこう-さくご</FONT>  <FONT><SMALL> ―かう―</SMALL></FONT>  【試行錯誤】  </B>
+			  (format "<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*%s[^<【]*【\\([^<>【】]+\\)】 *</B>" key)))
 	(while (re-search-forward key end t nil)
+	  ;; KEY = "\\(<a href=\".+\">し-*こ-*う-*さ-*く-*ご *【\\([^<>【】]+\\)】</a>\\|<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*し-*こ-*う-*さ-*く-*ご[^<【]*【\\([^<>【】]+\\)】 *</B>\\)"
 	  (setq temp (skk-w3m-filter-string
 		      ;; 〈何時〉
 		      (or (match-string-no-properties 2)
-			  (match-string-no-properties 3))
+			  (match-string-no-properties 4))
 		      '("〈" "〉")))
 	  (setq v (nconc (split-string temp "・") v)))
 	(nreverse v)))))
@@ -695,7 +726,7 @@ w3m を backend で動かしていない)。")
   ;; 1  新規で開く  very
   ;;
   ;; 2  新規で開く  Very light
-  ;; 
+  ;;
   ;; *
   ;; ■［very］のEXCEED英和辞典からの検索結果　 2件
   ;;
