@@ -1,3 +1,8 @@
+2002-03-01  IIDA Yosiaki  <iida@ring.gr.jp>
+
+	* NICOLA-SKK.tut, SKK.tut, SKK.tut.E: Correct cursor to point.
+	* SKK.tut.E: Correct display to buffer.
+
 2002-02-28  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* NICOLA-SKK.tut: Add RCS keyword.

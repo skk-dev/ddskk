@@ -6,15 +6,15 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut.E,v 1.9 2002/02/28 01:57:14 iida Exp $
+;; Version: $Id: SKK.tut.E,v 1.10 2002/03/01 02:20:31 iida Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2002/02/28 01:57:14 $
+;; Last Modified: $Date: 2002/03/01 02:20:31 $
 ;;
 ;; This is the tutorial text for Daredevil SKK version 11.1 and and later
 ;; versions.
 ;;
-;; Permission is granted to make and distribute verbatim copies of
-;; this tutorial text provided the copyright notice and this permission notice
+;; Permission is granted to make and distribute verbatim copies of this
+;; tutorial text provided the copyright notice and this permission notice
 ;; are preserved on all copies.
 ;;
 ;; Permission is granted to copy and distribute modified versions of this
@@ -22,10 +22,10 @@
 ;; the entire resulting derived work is distributed under the terms of a
 ;; permission notice identical to this one.
 ;;
-;; Permission is granted to copy and distribute translations of this tutorial
-;; text into another language, under the above conditions for modified
-;; versions, except that this permission notice may be stated in a
-;; translation approved by Masahiko Sato.
+;; Permission is granted to copy and distribute translations of this
+;; tutorial text into another language, under the above conditions for
+;; modified versions, except that this permission notice may be stated in
+;; a translation approved by Masahiko Sato.
 ----
 == How to use the SKK tutorial ==
 
@@ -228,7 +228,7 @@ But, there is also the following alternative way to achieve the same effect.
 
 !! Type 『C-b』(backward-char) three times.
 
-Cursor is now on 【か】.
+The point is now on 【か】.
 
 !! Type 『Q』.
 
@@ -263,7 +263,7 @@ Kana-to-kanji conversion in SKK is done as follows.
 As we have already seen, in the case of entering 【漢字】, the source
 string of the conversion is 【かんじ】.  If you type 『Kanji』, 【かんじ】
 will be entered in ▽ mode.  If you hit <space> in ▽ mode, the string
-between 【▽】 and the cursor becomes the source of the conversion.  At
+between 【▽】 and the point becomes the source of the conversion.  At
 the same time, the mode becomes ▼ mode and the first candidate will be
 shown.  In ▼ mode, <space> displays the next candidate.  If you type
 『C-j』 in ▼ mode, the current candidate becomes the final result of the
@@ -553,11 +553,11 @@ its initial segement and distinct from σ will be displayed.
 
 !! In ■ mode, type 『konoHikouki□yorianoHi』.
 
-The display becomes 【この飛行機よりあの▽ひ】.
+The buffer becomes 【この飛行機よりあの▽ひ】.
 
 !! Now, hit <tab> key.
 
-Completion is performed and the display becomes
+Completion is performed and the buffer becomes
 【この飛行機よりあの▽ひこうき】.
 
 >> この飛行機よりあの飛行機にしよう。
@@ -575,7 +575,7 @@ Let us try to enter the sentence 「佐藤と斎藤では佐藤のほうがありふれた名
 
 !! In ■ mode, type 『Satou□toSaitou□dehaSa』 and hit <tab> key.
 
-The display becomes【佐藤と斎藤では▽さいとう】.
+The buffer becomes 【佐藤と斎藤では▽さいとう】.
 
 !! Type 『..,』.
 

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut,v 1.9 2002/02/28 01:57:14 iida Exp $
+;; Version: $Id: SKK.tut,v 1.10 2002/03/01 02:20:31 iida Exp $
 ;; Keywords: japanese, help
-;; Last Modified: $Date: 2002/02/28 01:57:14 $
+;; Last Modified: $Date: 2002/03/01 02:20:31 $
 
 ;; This is the tutorial text for Daredevil SKK version 11.1 and later
 ;; versions.
@@ -227,7 +227,7 @@ SKK $B$O!X(BC-x C-j$B!Y$G5/F0$5$l$^$9!#(BSKK $B$K$O(B4$B$D$N%b!<%I$,$"$j$
 
 !! $B!X(BC-b$B!Y(B(backward-char) $B$r(B3$B2s%?%$%W$7$F$/$@$5$$!#(B
 
-$B%+!<%=%k$O!Z$+![$N$H$3$m$^$GLa$j$^$9!#(B
+$B%]%$%s%H$O!Z$+![$N$H$3$m$^$GLa$j$^$9!#(B
 
 !! $B!X(BQ$B!Y$r%?%$%W$7$F$/$@$5$$!#(B
 
@@ -265,7 +265,7 @@ SKK$B$G$N2>L>4A;zJQ49$O<!$N$h$&$K$7$F9T$o$l$^$9!#(B
 
 $B$9$G$K8+$?$h$&$K!"!Z4A;z![$rNc$K<h$l$P!"JQ49$NBP>]$H$J$kJ8;zNs$O!Z$+$s$8![(B
 $B$G$9!#!X(BKanji$B!Y$H:G=i$r1QBgJ8;z$G;O$a$F%?%$%W$9$l$P!"!Z$+$s$8![$,!V"&%b!<(B
-$B%I!W$GF~NO$5$l$^$9!#!V"&%b!<%I!W$G(B <space> $B$r%?%$%W$9$l$P!"!Z"&![$H%+!<%=%k(B
+$B%I!W$GF~NO$5$l$^$9!#!V"&%b!<%I!W$G(B <space> $B$r%?%$%W$9$l$P!"!Z"&![$H%]%$%s%H(B
 $B$N4V$NJ8;zNs$,JQ49$NBP>]$H$7$F3NDj$7$^$9!#F1;~$K%b!<%I$O!V"'%b!<%I!W$K$J(B
 $B$j!"JQ49$N:G=i$N8uJd$,I=<($5$l$^$9!#!V"'%b!<%I!W$G(B <space> $B$O<!8uJd$rI=<($7(B
 $B$^$9!#!V"'%b!<%I!W$G!X(BC-j$B!Y$r%?%$%W$9$l$P!"8=:_I=<($5$l$F$$$k8uJd$,A*Br$5(B
