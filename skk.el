@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.57 2000/11/15 09:41:00 czkmt Exp $
+;; Version: $Id: skk.el,v 1.58 2000/11/16 11:58:37 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/15 09:41:00 $
+;; Last Modified: $Date: 2000/11/16 11:58:37 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1867,7 +1867,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		   (skk-substring word (1- len) len)))
 	   (str2 (when (< 1 len)
 		   (skk-substring word (- len 2) (1- len))))
-	   (str (if (string-match "^[ぁ-ん]$" str2)
+	   (str (if (and str2 (string-match "^[ぁ-ん]$" str2))
 		    (concat str2 str1)
 		  str1)))
       (when (and str
