@@ -1,5 +1,11 @@
 2001-09-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* READMEs/Contributors
+	* doc/skk.texi:
+	Add the following person.
+
+	TAKAHASHI Kaoru <kaoru@kaisei.org>
+
 	* SKK-MK
 	(SKK-MK-skk-dic): Do nothing if skk-dic.el exists.
 
@@ -2071,8 +2077,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.427 2001/09/23 02:51:01 czkmt Exp $
-Last Modified: $Date: 2001/09/23 02:51:01 $
+Version: $Id: ChangeLog,v 1.428 2001/09/23 03:38:11 czkmt Exp $
+Last Modified: $Date: 2001/09/23 03:38:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
