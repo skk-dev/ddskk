@@ -1,3 +1,10 @@
+2004-04-12  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/bskk (save_DB): Bug fixed.
+
+	* experimental/bayesian/skk-bayesian.el (skk-bayesian-search): Bug
+	fixed.
+
 2004-04-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-tooltip-show-at-point): Don't require `avoid'.
@@ -4597,8 +4604,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.804 2004/04/11 23:55:26 czkmt Exp $
-Last Modified: $Date: 2004/04/11 23:55:26 $
+Version: $Id: ChangeLog,v 1.805 2004/04/12 12:52:33 kurihara Exp $
+Last Modified: $Date: 2004/04/12 12:52:33 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
