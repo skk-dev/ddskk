@@ -1,3 +1,9 @@
+2001-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-dcomp.el
+	(skk-set-henkan-point-subr): Don't call `skk-dcomp-do-completion'
+	when `char-after' returns non-nil.
+
 2001-11-24  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* Makefile (TAGS): New target.
@@ -2855,8 +2861,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.549 2001/11/24 00:32:59 minakaji Exp $
-Last Modified: $Date: 2001/11/24 00:32:59 $
+Version: $Id: ChangeLog,v 1.550 2001/11/24 00:47:11 czkmt Exp $
+Last Modified: $Date: 2001/11/24 00:47:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
