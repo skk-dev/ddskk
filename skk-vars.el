@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.14 2000/11/20 20:06:00 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.15 2000/11/24 13:15:24 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 20:06:00 $
+;; Last Modified: $Date: 2000/11/24 13:15:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -48,7 +48,6 @@
 	 (defvar (, var) (, default-value)
 	   (, (format "%s\n\(buffer local\)" documentation)))
 	 (make-variable-buffer-local '(, var)))))
-  (require 'pcustom)
   (require 'static))
 
 (eval-and-compile
@@ -63,7 +62,9 @@
 				 ((and (boundp 'mule-version)
 				       (string< "2.0" mule-version) 'mule2))
 				 ((and (boundp 'mule-version)
-				       (string< "1.0" mule-version) 'mule1)))))
+				       (string< "1.0" mule-version) 'mule1))))
+  ;;
+  (require 'pcustom))
 
 (defconst skk-ml-address "skk@ring.gr.jp")
 (defconst skk-ml-command-address "skk-request@ring.gr.jp")
