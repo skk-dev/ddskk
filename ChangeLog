@@ -1,3 +1,11 @@
+2001-09-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/Contributors: Add the following person.
+
+	Shigeru OKUMURA <shigeru@okunet.gr.jp>
+
+	* doc/skk.texi: Sync with READMEs/Contributors.
+
 2001-09-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el: Do not consider MS-DOS.
@@ -2035,8 +2043,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.423 2001/09/21 23:14:54 czkmt Exp $
-Last Modified: $Date: 2001/09/21 23:14:54 $
+Version: $Id: ChangeLog,v 1.424 2001/09/22 11:49:52 czkmt Exp $
+Last Modified: $Date: 2001/09/22 11:49:52 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
