@@ -4,6 +4,11 @@
 	(skk-kana-input@around@skk-dcomp-ad):
 	Do not call `skk-dcomp-do-completion' in skk-abbrev-mode.
 
+	* skk-look.el:
+	(skk-look):
+	(skk-look-completion):
+	Do not call `skk-look-ispell' for a null string.
+
 2002-06-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el:
@@ -3905,8 +3910,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.693 2002/07/06 11:59:09 czkmt Exp $
-Last Modified: $Date: 2002/07/06 11:59:09 $
+Version: $Id: ChangeLog,v 1.694 2002/07/06 12:18:47 czkmt Exp $
+Last Modified: $Date: 2002/07/06 12:18:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
