@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.54 2001/09/12 13:32:28 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.55 2001/09/13 13:56:28 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/12 13:32:28 $
+;; Last Modified: $Date: 2001/09/13 13:56:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -350,6 +350,7 @@ skk-search-prog-list $B$NCM$r@_Dj$9$k$3$H$K$h$j!"8!:wBP>]$N<-=q$NJQ99!"8!:w$N=g
   '((skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
     (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
     (skk-search-jisyo-file skk-jisyo 0 t)
+    (skk-search-small-dic)
     ;; skk-auto.el $B$r%m!<%I$9$k$H2<5-$NMWAG$,%W%i%9$5$l$k!#(B
     ;;(skk-okuri-search)
     (skk-search-jisyo-file skk-large-jisyo 10000)
