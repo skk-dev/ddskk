@@ -8,6 +8,10 @@
 	(skk-units-alist): Typo.
 	From someone at 2ch.
 
+	* tinyinstall.el
+	(when)
+	(unless): New macros.
+
 2001-11-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el
@@ -2657,8 +2661,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.514 2001/11/05 12:56:49 czkmt Exp $
-Last Modified: $Date: 2001/11/05 12:56:49 $
+Version: $Id: ChangeLog,v 1.515 2001/11/05 13:52:17 czkmt Exp $
+Last Modified: $Date: 2001/11/05 13:52:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
