@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.93 2001/12/16 11:01:55 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.94 2002/01/20 10:08:31 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/12/16 11:01:55 $
+@c  Last Modified: $Date: 2002/01/20 10:08:31 $
 @c
-@set EDITION 1.7
-@set SKK-VERSION 11.6.0
-@set UPDATED $Date: 2001/12/16 11:01:55 $
+@set EDITION 1.9
+@set SKK-VERSION 12.1.0
+@set UPDATED $Date: 2002/01/20 10:08:31 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -21,10 +21,11 @@
 * SKK: (skk).           Simple Kana to Kanji conversion program.
 @end direntry
 
-@c Texinfo $B$KDI2C$G$-$?$iNI$$$J$!$H;W$&E@$r=R$Y$^$9!#;d!"C1$J$k(B LaTeX $B%f!<(B
-@c $B%6!<$G!"(BPlain TeX $B%^%/%m$NAH$_J}$J$s$FA4A3CN$j$^$;$s$N$G!"%f!<%6!<$NN)>l(B
-@c $B$G$d$j$?$$$3$H$rB4D>$K!"$^$?L5@UG$$K=R$Y$k$KN1$a$^$9!#$"$7$+$i$:!#<B8=$G(B
-@c $B$-$kJ}K!$r$4B8CN$NJ}$,$$$i$C$7$c$$$^$7$?$i!"@'Hs65$($F2<$5$$!#(B
+@c Texinfo $B$KDI2C$G$-$?$iNI$$$J$!$H;W$&E@$r=R$Y$^$9!#;d!"C1$J$k(B LaTeX
+@c $B%f!<%6!<$G!"(BPlain TeX $B%^%/%m$NAH$_J}$J$s$FA4A3CN$j$^$;$s$N$G!"%f!<(B
+@c $B%6!<$NN)>l$G$d$j$?$$$3$H$rB4D>$K!"$^$?L5@UG$$K=R$Y$k$KN1$a$^$9!#$"$7(B
+@c $B$+$i$:!#<B8=$G$-$kJ}K!$r$4B8CN$NJ}$,$$$i$C$7$c$$$^$7$?$i!"@'Hs65$($F(B
+@c $B2<$5$$!#(B
 @c
 @c (1)$BF|K\8l$NMQ8l$K$D$$$F%4%7%C%/BN$G%W%j%s%H%"%&%H$7!"(Binfo $B$G$O(B "$B!V(B"
 @c    $B$H(B "$B!W(B" $B$r<+F0E*$KIU$1$k$h$&$J(B@jdfn{}$B$,M_$7$$!#K\=q$G$O!"F|K\8l(B
@@ -87,14 +88,14 @@ this manual provided the copyright notice and this permission notice
 are preserved on all copies.
 
 Permission is granted to copy and distribute modified versions of this
-manual under the conditions for verbatim copying, provided that the entire
-resulting derived work is distributed under the terms of a permission
-notice identical to this one.
+manual under the conditions for verbatim copying, provided that the
+entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
 
 Permission is granted to copy and distribute translations of this manual
 into another language, under the above conditions for modified versions,
-except that this permission notice may be stated in a translation approved
-by the author.
+except that this permission notice may be stated in a translation
+approved by the author.
 
 @end titlepage
 @page
@@ -137,14 +138,12 @@ SKK $B$N%P!<%8%g%s(B @value{SKK-VERSION} $B$KBP1~$7$F$$$^$9!#(B
 SKK $B$O9bB.$G8zN(E*$JF|K\8lF~NO4D6-$rDs6!$9$k%7%9%F%`$G$9!#(BGNU General
 Public License $B$K=>$C$?%U%j!<!&%=%U%H%&%'%"$H$7$FG[I[$5$l$^$9!#(B
 
-Daredevil SKK 11 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
+Daredevil SKK 12 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 
 @itemize @minus
-@item Emacs 19.28 $B0J9_$r%Y!<%9$H$7$?(B Mule 2.3 (Mule for Windows 1.21,
-1.22 $B$r4^$`(B)
-@item Emacs 20.2 $B0J9_(B (Meadow 1.00 $B0J9_(B $B$r4^$`(B)
-@item Emacs 21.1 $B0J9_(B 
-@item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 20.4 $B0J9_(B
+@item Emacs 20.4 $B0J9_(B (Meadow 1.10 $B0J9_(B $B$r4^$`(B)
+@item Emacs 21.1 $B0J9_(B
+@item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.1 $B0J9_(B
 @end itemize
 
 SKK $B$O!"(BSimple Kana to Kanji conversion program $B$K$A$J$s$GL>IU$1$i$l$^$7$?!#(B
@@ -1585,7 +1584,7 @@ SKK $B$K$O!"%A%e!<%H%j%"%k$,ImB0$7$F$$$^$9!#%A%e!<%H%j%"%k$G$O!"(B SKK $B$N4p
 @cindex @file{skk-viper.el}
 @cindex @file{skk.el}
 
-SKK $B%P!<%8%g%s(B 11 $B$G$O!"1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$r(B
+SKK $B%P!<%8%g%s(B 12 $B$G$O!"1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$r(B
 @file{skk.el} $B$H$OJL$N%U%!%$%k$K<}$a$F$$$^$9!#$3$l$i$O!"I,MW$K1~$8%*!<%H(B
 $B%m!<%I$9$k$h$&$K@_7W$5$l$F$$$^$9!#3F1~MQ5!G=$N35N,$H3:Ev$N%U%!%$%kL>$K$D(B
 $B$$$F@bL@$7$^$9!#(B
@@ -6875,14 +6874,16 @@ SKK $B$O(B $B$O%P!<%8%g%s$,>e$,$k$?$S$K!"Bg$-$JJQ99$,9T$o$l$F$$$^$9!#K\>O$G$O
 @table @asis
 @item $BBP1~$9$k(B Emacs $B$N%P!<%8%g%s(B
 
-Emacs 20 $B$H(B XEmacs 21 $B$r%5%]!<%H$7$?$3$H$,:G$b=EMW$JJQ99E@$G$9!#F1;~$K(B
-Mule 2.3 (Emacs 19.28 $B$^$?$O(B 19.34) $B$b%5%]!<%H$7$^$9!#(B
+Emacs 20 $B$H(B XEmacs 21 $B$r%5%]!<%H$7$?$3$H$,:G$b=EMW$JJQ99E@$G$9!#(B
 
-$B$^$?!"(BSKK 11 $B$O(B Emacs 21 $B$r%5%]!<%H$7$^$9!#(B
+SKK 11$B$8$O(B Mule 2.3 (Emacs 19.28 $B$^$?$O(B 19.34) $B$b%5%]!<%H$7$^$7$?(B
+$B$,!"(BSKK 12 $B$G$O%5%]!<%H$7$J$/$J$j$^$7$?!#(B
+
+$B$^$?!"(BSKK 12 $B$O(B Emacs 21 $B$r%5%]!<%H$7$^$9!#(B
 
 @item APEL $B%i%$%V%i%j$N;HMQ(B
 
-$BMM!9$J(B Emacsen $B$N>e$GF0:n$9$k$h$&$K$9$k$HJ]<i$,Fq$7$/$J$j$^$9!#(BSKK 11 $B$O(B
+$BMM!9$J(B Emacsen $B$N>e$GF0:n$9$k$h$&$K$9$k$HJ]<i$,Fq$7$/$J$j$^$9!#(BSKK 12 $B$O(B
  APEL $B%i%$%V%i%j$r3F<o(B Emacs $B$N:90[$r5[<}$9$kL\E*$G;HMQ$7!"$3$NLdBj$KBP(B
 $B=h$7$F$$$^$9!#(B
 
@@ -6892,7 +6893,7 @@ Mule 2.3 (Emacs 19.28 $B$^$?$O(B 19.34) $B$b%5%]!<%H$7$^$9!#(B
 @item Custom $B%Q%C%1!<%8$N;HMQ(B
 
 Emacs 20 $B$O%f!<%6!<%*%W%7%g%s$N@_Dj$N$?$a$NHFMQ%$%s%?!<%U%'%$%9$H$7$F(B
-Custom $B$H$$$&%Q%C%1!<%8$r:NMQ$7$F$$$^$9!#(BSKK 11 $B$b$3$l$r;H$C$?@_Dj$,$G$-(B
+Custom $B$H$$$&%Q%C%1!<%8$r:NMQ$7$F$$$^$9!#(BSKK 12 $B$b$3$l$r;H$C$?@_Dj$,$G$-(B
 $B$^$9!#(B
 
 @item $BB?$/$NJQ?t$N(B defcustom (defvar) $B2=(B
@@ -6900,7 +6901,7 @@ Custom $B$H$$$&%Q%C%1!<%8$r:NMQ$7$F$$$^$9!#(BSKK 11 $B$b$3$l$r;H$C$?@_Dj$,$G$
 $B0JA0$N%P!<%8%g%s$G$O!"JQ?t$N@k8@$K(B @code{defconst} $B$r;HMQ$7$F$$$^$7$?!#(B
 $B$3$l$O!"$I$N$h$&$J%+%9%?%^%$%:$,9T$J$o$l$F$$$k>l9g$G$b%A%e!<%H%j%"%k;HMQ(B
 $B;~$KI8=`@_Dj$KLa$9$N$,L\E*$G$7$?!#$3$N$?$a!"A4$F$N%+%9%?%^%$%:$O(B
-@file{~/.skk} $B$G9T$J$&I,MW$,$"$j$^$7$?!#(BSKK 11 $B$G$O!"(B@code{defcustom} $B$r(B
+@file{~/.skk} $B$G9T$J$&I,MW$,$"$j$^$7$?!#(BSKK 12 $B$G$O!"(B@code{defcustom} $B$r(B
 $B;HMQ$7$?@k8@$r9T$J$C$F$$$k$N$G!"$3$N@)8B$O$"$j$^$;$s!#(B
 
 @item @code{skk-input-vector} $B$NGQ;_(B
@@ -6908,7 +6909,7 @@ Custom $B$H$$$&%Q%C%1!<%8$r:NMQ$7$F$$$^$9!#(BSKK 11 $B$b$3$l$r;H$C$?@_Dj$,$G$
 
 SKK 9 $B$N$3$m$O!"!V(B?$B!W$d!V!(!W$J$I$N5-9f$r$$$o$f$kH>3Q$GF~NO$9$k$?$a$K!"(B
 @code{skk-input-vector} $B$H$$$&JQ?t$N@_Dj$r3F%f!<%6$,9T$C$F$$$^$7$?!#(B
-Daredevil SKK 11 $B$G$O!"$3$NJQ?t$OGQ;_$5$l$^$7$?$,!"Be$o$j$K(B
+Daredevil SKK 12 $B$G$O!"$3$NJQ?t$OGQ;_$5$l$^$7$?$,!"Be$o$j$K(B
 @code{skk-rom-kana-rule-list} $B$H$$$&JQ?t$r;H$C$F!"F1MM$N@_Dj$,$G$-$k$N$G(B
 $BLdBj$"$j$^$;$s!#$=$N@_DjJ}K!$rCN$j$?$$>l9g$O(B
 
@@ -7911,9 +7912,9 @@ SKK $B$N86:n<T$O!"8=5~ETBg3X$N:4F#2mI'65<x(B @w{<masahiko@@kuis.kyoto-u.ac.jp>
                                     Emacs 21.1 (MULE 5.0)
  Daredevil SKK 11.5.2
 
-2001$BG/(B12$B7n(B16$BF|(B
+2001$BG/(B12$B7n(B16$BF|(B                     2001$BG/(B12$B7n(B17$BF|(B
 
- Daredevil SKK 11.6.0
+ Daredevil SKK 11.6.0               XEmacs 21.4.6
 
 @end display
 
@@ -7953,14 +7954,14 @@ SKK $B$N86:n<T$O!"8=5~ETBg3X$N:4F#2mI'65<x(B @w{<masahiko@@kuis.kyoto-u.ac.jp>
 @comment  node-name,  next,  previous,  up
 @unnumberedsubsec Q.1-1 $B:G?7$N%P!<%8%g%s$O(B?
 
-$B8=:_!"3+H/HG$N:G?7HG$O(B Daredevil SKK ($B0J2<!V(BDDSKK$B!W$H$$$$$^$9(B) 11.x $B$G(B
+$B8=:_!"3+H/HG$N:G?7HG$O(B Daredevil SKK ($B0J2<!V(BDDSKK$B!W$H$$$$$^$9(B) 12.x $B$G(B
 $B$9!#(B
 
 $B0BDjHG$H$7$F3+H/$5$l$F$$$?(B SKK 10.x $B$O!"(B10.62a $B$r:G8e$K3+H/$,Cf;_$5$l(B
 $B$F$$$^$9$N$G!"8=:_$G$OI,$:$7$b(B SKK 10.x $B$NJ}$,0BDj$7$F$$$k$o$1$G$O$"$j(B
-$B$^$;$s(B ($B$=$j$c8O$lEY$O(B DDSKK 11.x $B$h$j$b(B SKK 10.x $B$NJ}$,>e$G$9$,(B...)$B!#(B
+$B$^$;$s(B ($B$=$j$c8O$lEY$O(B DDSKK 12.x $B$h$j$b(B SKK 10.x $B$NJ}$,>e$G$9$,(B...)$B!#(B
 
-DDSKK 11.x $B$N3+H/$O(B cvs $B$G9T$J$o$l!"F|?J7nJb$G?J$s$G$$$^$9!#(Bcvs $B>e$N%=!<(B
+DDSKK 12.x $B$N3+H/$O(B cvs $B$G9T$J$o$l!"F|?J7nJb$G?J$s$G$$$^$9!#(Bcvs $B>e$N%=!<(B
 $B%9(B (repositry) $B$,>o$K:G?7$G$9!#(B
 
 $B$^$?!"(B@url{http://openlab.ring.gr.jp/skk/maintrunk/} $B$K$O(B 3 $B<oN`$N%"!<(B
@@ -7970,13 +7971,13 @@ DDSKK 11.x $B$N3+H/$O(B cvs $B$G9T$J$o$l!"F|?J7nJb$G?J$s$G$$$^$9!#(Bcvs $B>
 @item
 SKK 10.x $B$N:G=*HG$G$"$k(B skk10.62a.tar.*,
 @item
-DDSKK $B$N(B official release $BHG$G$"$k(B ddskk11.x.tar.*,
+DDSKK $B$N(B official release $BHG$G$"$k(B ddskk12.x.tar.*,
 @item
 cvs $B$N%9%J%C%W%7%g%C%H$r(B 1 $B=54VKh$K8G$a$?(B ddskk@var{date}.tar.* (@var{date} $B$K$O(B @samp{20010715} $B$N$h$&$JF|IU$,F~$j$^$9(B)
 @end enumerate
 
-SKK 10.x $B$H(B DDSKK 11.x $B$H$G$O!"$$$/$D$+$NJQ?tL>$,JQ99$K$J$k$J$I!"<e43(B
-$B;EMM$N0[$J$kE@$,$"$j$^$9$,!"(BDDSKK 11.x $B$O>o$KJ]<i$5$l$F$$$^$9!#$"$J$?(B
+SKK 10.x $B$H(B DDSKK 12.x $B$H$G$O!"$$$/$D$+$NJQ?tL>$,JQ99$K$J$k$J$I!"<e43(B
+$B;EMM$N0[$J$kE@$,$"$j$^$9$,!"(BDDSKK 12.x $B$O>o$KJ]<i$5$l$F$$$^$9!#$"$J$?(B
 $B$,IaDL$N%f!<%6$G$"$l$P!">e5-(B 2. $B$N%"!<%+%$%V$r<hF@$5$l$k$N$,NI$$$G$7$g(B
 $B$&!#(B
 
