@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.41 2001/09/14 12:04:25 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.42 2001/09/15 05:26:54 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/14 12:04:25 $
+;; Last Modified: $Date: 2001/09/15 05:26:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -725,7 +725,9 @@ BUFFER defaults to the current buffer."
       (setq map skk-j-mode-map))
     (while commands
       (setq keys (nconc keys
-			(where-is-internal (car commands) map)))
+			(where-is-internal
+			 (car commands)
+			 map)))
       (setq commands (cdr commands)))
     (member (key-description key)
 	    (mapcar (function
