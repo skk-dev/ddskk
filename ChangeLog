@@ -25,7 +25,6 @@
 
 	Call them.
 
-
 2004-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-setup.el.in (isearch-mode-end-hook): Check the value of
@@ -4409,8 +4408,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.777 2004/01/26 17:44:21 czkmt Exp $
-Last Modified: $Date: 2004/01/26 17:44:21 $
+Version: $Id: ChangeLog,v 1.778 2004/01/26 17:44:37 czkmt Exp $
+Last Modified: $Date: 2004/01/26 17:44:37 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
