@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.5 1999/09/16 13:50:45 minakaji Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.6 1999/09/27 08:00:34 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/16 13:50:45 $
+;; Last Modified: $Date: 1999/09/27 08:00:34 $
 
 ;; This file is not part of SKK yet.
 
@@ -59,6 +59,12 @@
    ("\\" nil skk-tutcode-mode-off)
    ("\t" nil skk-toggle-kana)
    ("^" nil skk-input-by-code-or-menu) ))
+
+(if (and (eq skk-emacs-type 'xemacs) (= (emacs-major-version) 20))
+    (progn
+      (setq skk-rom-kana-base-rule-list
+	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list) )
+      (define-key skk-j-mode-map "\t" 'skk-toggle-kana) ))
 
 ;; The first few entries are necessary to disable special treatments of
 (setq skk-rom-kana-rule-list
@@ -947,6 +953,13 @@
 	(".yt" nil "窃") ("/yt" nil "卑") ("lyt" nil "菊")
 	(";yt" nil "那") ("oyt" nil "巡") ("pyt" nil "飼")
 	))
+
+(if skk-tutcode-use-touch16+
+    (setq skk-rom-kana-rule-list
+	  (nconc '(("tld" nil "ぱ") ("tle" nil "ぴ") ("tlr" nil "ぷ")
+		   ("tlg" nil "ぺ") ("tlf" nil "ぽ") ("dlr" nil "づ")
+		   ("alu" nil "ヴ") ("eld" nil "ヵ") ("elg" nil "ヶ") )
+		 skk-rom-kana-rule-list )))
 
 (provide 'skk-tutcdef)
 ;;; skk-tutcdef.el ends here

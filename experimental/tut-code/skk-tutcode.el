@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.9 1999/09/27 07:11:57 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.10 1999/09/27 08:01:20 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/27 07:11:57 $
+;; Last Modified: $Date: 1999/09/27 08:01:20 $
 
 ;; This file is not part of SKK yet.
 
@@ -42,13 +42,13 @@
 ;; Hajime Ohiwa <ohiwa@sfc.keio.ac.jp> wrote:
 ;;  
 ;; > 私は「てぃーゆーてぃーこーど」と読んでいますが、もう少し言い易い方が
-;; > よいと思います。TUTはこれを開発した豊橋技術科学大学の略称です。
+;; > よいと思います。TUTはこれを開発した豊橋技術科学大学の略称です。
 ;; > 米国人に見せたら、「たっと」と読みました。つたんかーめん王のことを英語
-;; > では king TUT と呼び、発音は「たっと」なのだそうです。「たっとこーど」
+;; > では king TUT と呼び、発音は「たっと」なのだそうです。「たっとこーど」
 ;; > の方がよいかもしれません。御意見をお聞かせ下さい。
 ;; 
 ;; To get more information, access following URL;
-;;    http://www.crew.sfc.keio.ac.jp/~chk/
+;;    http://www.crew.sfc.keio.ac.jp/~chk/
 ;;
 ;; To join TUT-code mailing list, send mail like following;
 ;;    To: tut-code-control@crew.sfc.keio.ac.jp
@@ -84,12 +84,16 @@
 ;;; Code:
 (eval-when-compile (require 'skk))
 
+(defgroup skk-tutcode nil "SKK/TUT-code related customization."
+  :prefix "skk-tutcode-"
+  :group 'skk )
+
 ;; all prefix of functions, variables and constants are
 ;; `skk-tutcode-'.
-;;
-;;(defgroup skk-tutcode nil "SKK/TUT-code related customization."
-;;  :prefix "skk-tutcode-"
-;;  :group 'skk )
+(defcustom skk-tutcode-use-touch16+ nil
+ "*Non-nil であれば、Touch16+ 拡張コードを利用する。"
+ :type 'boolean
+ :group 'skk-tutcode )
 
 ;;;###autoload
 (defun skk-tutcode-mode-off (foo)
