@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.14 2001/09/15 19:20:04 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.15 2001/09/15 22:26:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 19:20:04 $
+;; Last Modified: $Date: 2001/09/15 22:26:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,7 +28,7 @@
 ;;; Commentary:
 
 ;;; Code:
-(or (skk-color-display-p)
+(if (not (skk-color-display-p))
     (error "%s" "SKK-CURSOR requires color display"))
 
 (eval-when-compile
@@ -68,6 +68,12 @@
 	    force)
     (static-cond
      ((eq skk-emacs-type 'xemacs)
+      ;;At 10 Jul 2000 16:37:49 +0900,
+      ;;Yoshiki Hayashi <t90553@mail.ecc.u-tokyo.ac.jp> wrote:
+      ;;> foreground を background に変える必要があること以外は、今の
+      ;;> ところそのままで動いているようです。しばらく test してみます。
+      ;;> どうも、text-cursor も普通の face のようで、foreground が文
+      ;;> 字の色を、background が文字の背景の色を表しているようです。
       (set-face-property 'text-cursor
 			 'background
 			 (or color
@@ -78,55 +84,10 @@
        (or color
 	   (skk-cursor-current-color)))))))
 
-(static-cond
- ;; XEmacs
- ((eq skk-emacs-type 'xemacs)
+(static-when (eq skk-emacs-type 'xemacs)
+  ;; XEmacs
+
   ;; advices.
-  (defadvice skk-kakutei (after skk-cursor-ad activate)
-    ;;At 10 Jul 2000 16:37:49 +0900,
-    ;;Yoshiki Hayashi <t90553@mail.ecc.u-tokyo.ac.jp> wrote:
-    ;;> foreground を background に変える必要があること以外は、今の
-    ;;> ところそのままで動いているようです。しばらく test してみます。
-    ;;> どうも、text-cursor も普通の face のようで、foreground が文
-    ;;> 字の色を、background が文字の背景の色を表しているようです。
-    (skk-cursor-set))
-
-  (defadvice skk-mode (after skk-cursor-ad activate)
-    (skk-cursor-set (cond ((not (and skk-use-color-cursor
-				     skk-mode))
-			   skk-cursor-default-color)
-			  (skk-katakana
-			   skk-cursor-katakana-color)
-			  (skk-j-mode
-			   skk-cursor-hiragana-color))))
-
-  (defadvice skk-auto-fill-mode (after skk-cursor-ad activate)
-    (skk-cursor-set (cond ((not (and skk-use-color-cursor
-				     skk-mode))
-			   skk-cursor-default-color)
-			  (skk-katakana
-			   skk-cursor-katakana-color)
-			  (skk-j-mode
-			   skk-cursor-hiragana-color))))
-
-  (defadvice skk-abbrev-mode (after skk-cursor-ad activate)
-    (skk-cursor-set skk-cursor-abbrev-color))
-
-  (defadvice skk-jisx0201-mode (after skk-cursor-ad activate)
-    (skk-cursor-set skk-cursor-jisx0201-color))
-
-  (defadvice skk-jisx0208-latin-mode (after skk-cursor-ad activate)
-    (skk-cursor-set skk-cursor-jisx0208-latin-color))
-
-  (defadvice skk-latin-mode (after skk-cursor-ad activate)
-    (skk-cursor-set skk-cursor-latin-color))
-
-  (defadvice skk-toggle-kana (after skk-cursor-ad activate)
-    (skk-cursor-set (cond (skk-katakana
-			   skk-cursor-katakana-color)
-			  (skk-j-mode
-			   skk-cursor-hiragana-color))))
-
   (skk-defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
     (unless (or skk-henkan-on
 		skk-henkan-active)
@@ -149,34 +110,25 @@
 		(skk-cursor-set))
 	      (skk-cursor-set skk-cursor-default-color 'force))
 	    'append))
- ;; FSF Emacs
- (t
-  ;; advices.
-  (defvar skk-cursor-buffer-local-frame-params-ad-targets
-    '(;; cover to SKK functions.
-      skk-abbrev-mode
-      skk-auto-fill-mode
-      skk-jisx0201-mode
-      skk-jisx0208-latin-mode
-      skk-kakutei
-      skk-latin-mode
-      skk-mode
-      skk-toggle-kana))
 
-  (dolist (func skk-cursor-buffer-local-frame-params-ad-targets)
-    (if (and (commandp func)
-	     (subr-fboundp func))
-	(message "%s"
-		 "\
-WARNING: Adding advice to a subr command, %s\
- without mirroring its interactive spec"
-		 func))
-    (eval
-     (`
-      (defadvice (, (intern (symbol-name func))) (after skk-cursor-ad
-							activate)
+(defvar skk-cursor-buffer-local-frame-params-ad-targets
+  '(;; cover to SKK functions.
+    skk-abbrev-mode
+    skk-auto-fill-mode
+    skk-jisx0201-mode
+    skk-jisx0208-latin-mode
+    skk-kakutei
+    skk-latin-mode
+    skk-mode
+    skk-toggle-kana))
+
+(dolist (func skk-cursor-buffer-local-frame-params-ad-targets)
+  (eval
+   (`
+    (defadvice (, (intern (symbol-name func))) (after skk-cursor-ad
+						      activate)
 	"Set cursor color which represents skk mode."
-	(skk-cursor-set)))))))
+	(skk-cursor-set)))))
 
 (defun skk-cursor-init-function ()
   (skk-cursor-set)
