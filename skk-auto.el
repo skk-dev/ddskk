@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.8 2001/10/13 13:58:35 czkmt Exp $
+;; Version: $Id: skk-auto.el,v 1.9 2001/10/13 14:11:54 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 13:58:35 $
+;; Last Modified: $Date: 2001/10/13 14:11:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -123,8 +123,8 @@
   ;; `skk-okuri-search' を加える位置については、skk-jisyo の
   ;; 後が最良かどうかは分らないので、オプションで変更できる
   ;; ようにすべきだが...。
-  (unless (null (member '(skk-okuri-search)
-			(default-value 'skk-search-prog-list)))
+  (unless (member '(skk-okuri-search)
+		  (default-value 'skk-search-prog-list))
     (let ((pl (default-value 'skk-search-prog-list))
 	  (n 0) dic mark)
       (while pl
