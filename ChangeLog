@@ -1,3 +1,9 @@
+2001-06-01  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-gadget.el (skk-gadget-units-conversion): New function.
+
+	* skk-vars.el (skk-units-alist): New user variable.
+
 2001-05-31  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el (skk-w3m-search-escape-query-string):
@@ -3432,8 +3438,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.299 2001/05/31 02:55:32 minakaji Exp $
-Last Modified: $Date: 2001/05/31 02:55:32 $
+Version: $Id: ChangeLog,v 1.300 2001/06/01 08:47:54 minakaji Exp $
+Last Modified: $Date: 2001/06/01 08:47:54 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.15 2001/05/31 02:55:32 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.16 2001/06/01 08:47:54 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/31 02:55:32 $
+;; Last Modified: $Date: 2001/06/01 08:47:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -417,6 +417,12 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
   ;; $B後自分自身を skk-insert-new-word-function から取り除く自爆関数。
   (skk-henkan-face-off)
   (setq skk-insert-new-word-function nil))
+
+;;;###autoload
+(defun skk-gadget-units-conversion (unit-from number unit-to)
+  "`skk-units-alist'を参照し、NUMBER について UNIT-FROM から UNIT-TO への換算を行なう。"
+  (let ((v (assoc unit-to (cdr (assoc unit-from skk-units-alist)))))
+    (and v (concat (number-to-string (* number (cdr v))) (car v)))))
 
 (run-hooks 'skk-gadget-load-hook)
 

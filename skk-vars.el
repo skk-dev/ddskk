@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.40 2001/05/31 01:56:06 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.41 2001/06/01 08:47:54 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/31 01:56:06 $
+;; Last Modified: $Date: 2001/06/01 08:47:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1578,6 +1578,17 @@ nil であれば、元号表示する。"
   :type '(choice (choice :tag "Hankaku" (const nil) (integer 0))
 		 (choice :tag "Zenkaku" (const t) (integer 1))
 		 (integer :tag "Kansuuji" 3))
+  :group 'skk-gadget)
+
+(defcustom skk-units-alist
+  '(("mile" ("km" . 1.6093) ("yard" . 1760))
+    ("yard" ("feet" . 3) ("cm" . 91.44))
+    ("feet" ("inch" . 12) ("cm" . 30.48))
+    ("inch" ("feet" . 0.5) ("cm" 2.54)))
+  "*単位換算情報のエーリスト。
+各要素は \(基準となる単位 (変換する単位 . 変換時の倍率\)\) の形式による。
+`skk-gadget-units-conversion' で参照する。"
+  :type sexp
   :group 'skk-gadget)
 
 (defcustom skk-gadget-load-hook nil
