@@ -1,3 +1,25 @@
+2002-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el:
+	* skk-isearch.el:
+	* skk.el:
+	Use #' for functions.
+
+	* skk-vars.el
+	(skk-background-mode):
+	Use a little more simple conditions.
+
+	* skk-macs.el
+	(ignore-errors):
+	(skk-defadvice):
+	(skk-save-point):
+	(skk-deflocalvar):
+	(skk-with-point-move):
+	(skk-face-on):
+	(skk-cannot-be-undone):
+	(skk-loop-for-buffers):
+	Use common backquote style.
+
 2002-01-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	No longer support Emacs 20.2 or earlier.
@@ -3480,8 +3502,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.638 2002/01/18 14:19:50 czkmt Exp $
-Last Modified: $Date: 2002/01/18 14:19:50 $
+Version: $Id: ChangeLog,v 1.639 2002/01/19 01:04:34 czkmt Exp $
+Last Modified: $Date: 2002/01/19 01:04:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
