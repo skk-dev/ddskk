@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.12 1999/10/10 11:49:03 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.13 1999/10/10 12:51:59 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/10 11:49:03 $
+;; Last Modified: $Date: 1999/10/10 12:51:59 $
 
 ;; This file is not part of SKK yet.
 
@@ -399,6 +399,19 @@
 	  (setq count (1+ count)) )
 	(ring-insert skk-study-data-ring data) ))))
    
+(defadvice skk-undo-kakutei (after skk-study-ad activate)
+  (let ((last (ring-ref skk-study-data-ring 0))
+	(last2 (ring-ref skk-study-data-ring 1))
+	target )
+    (if (and last last2)
+	(progn
+	  (setq target (assoc (car last)
+			      (assq (cond ((skk-get-last-henkan-data 'okuri-char)
+					   'okuri-ari )
+					  (t 'okuri-nasi) )
+				    skk-study-alist )))
+	  (setq target (delq (assoc last2 (cdr target)) target)) ))))
+
 (add-hook 'skk-before-kill-emacs-hook 'skk-study-save)
 (provide 'skk-study)
 ;;; Local Variables:
