@@ -1,3 +1,14 @@
+2000-11-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMES/FAQ.txt: Update for version 11.4.
+
+	* doc/skk.texi: Ditto.
+
+	* skk-setup.el/in: Make sure dired/auto-autoloads.el exists.
+
+	* skk.el (skk-remove-redundant-okurgana): Make sure str2 is
+	non-nil.
+
 2000-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK-MK-install-elc): Under Emacs 20.2 or earlier, copy
@@ -2319,8 +2330,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.144 2000/11/15 15:59:47 czkmt Exp $
-Last Modified: $Date: 2000/11/15 15:59:47 $
+Version: $Id: ChangeLog,v 1.145 2000/11/16 11:59:11 czkmt Exp $
+Last Modified: $Date: 2000/11/16 11:59:11 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
