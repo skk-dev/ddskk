@@ -1,5 +1,19 @@
 2001-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-cus.el:
+	New file.
+
+	* SKK-MK
+	(SKK_MODULES): Add `skk-cus'.
+
+	* skk-e21.el
+	(skk-e21-modeline-menu-items): Call `skk-customize' instead of
+	`skk-e21-customize'.
+
+	* skk-xemacs.el
+	(skk-xemacs-modeline-menu-items): Call `skk-customize' instead of
+	`skk-xemacs-customize'.
+
 	* skk-jisx0201.el:
 	Don't set `minor-mode-map-alist' here.
 
@@ -16,6 +30,8 @@
 	(skk-define-abbrev-mode-map): New functions.
 
 	(skk-henkan): Use the candidate unmodified when `skk-numeric-p'.
+
+	(skk-mode-invoke): Call `skk-cus-setup'.
 
 	* skk-isearch.el
 	(skk-isearch-initialize-working-buffer): Set `skk-dcomp-activate'
@@ -2731,8 +2747,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.527 2001/11/13 12:35:46 czkmt Exp $
-Last Modified: $Date: 2001/11/13 12:35:46 $
+Version: $Id: ChangeLog,v 1.528 2001/11/13 15:23:14 czkmt Exp $
+Last Modified: $Date: 2001/11/13 15:23:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
