@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.8 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-dcomp.el,v 1.9 2001/08/31 22:45:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/08/31 22:45:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -61,7 +61,7 @@
 ;; ▽モードに入り見出し語を入力すると、個人辞書を自動的に検索し、見出
 ;; し語を コンプリーションします。下記のように動作します (カッコ内はキー
 ;; 入力を、-!- はポイント位置を表します)。
-;; 
+;;
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう
 ;;
 ;;   * SKK のコンプリーションは、元来個人辞書のみを参照して行なわれる
