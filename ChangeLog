@@ -1,3 +1,8 @@
+2002-04-12  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* skk.el (skk-multiple-line-message): Candidates should not be
+	hidden by existing message.
+
 2002-04-05  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* skk-num.el (skk-num-henkan-key): Call
@@ -3848,8 +3853,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.683 2002/04/05 02:54:40 obata Exp $
-Last Modified: $Date: 2002/04/05 02:54:40 $
+Version: $Id: ChangeLog,v 1.684 2002/04/12 19:08:41 obata Exp $
+Last Modified: $Date: 2002/04/12 19:08:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
