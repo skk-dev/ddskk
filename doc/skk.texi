@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.135 2004/03/04 09:48:33 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.136 2004/07/22 09:35:30 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2004/03/04 09:48:33 $
+@c  Last Modified: $Date: 2004/07/22 09:35:30 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2004/03/04 09:48:33 $
+@set UPDATED $Date: 2004/07/22 09:35:30 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1958,7 +1958,7 @@ DDSKK には、カタカナの入力にはカナモードを、全角アルファベットの入力には
 ドを切り換える必要がありません。
 @footnote{全英文字とアスキー文字のトグルでの変換を行うこともできます。
 ただし、全英モードやアスキーモードでは @kbd{Q} やその他の大文字により▽
-モードに入ることができないので、かな ⇔ カナ のときと同様にドグル変換で
+モードに入ることができないので、かな ⇔ カナ のときと同様にトグル変換で
 きるわけではありません。かなモード/カナモードにおいて、既に入力さ
 れた全英文字、アスキー文字に対してトグル変換をするような設計になっていま
 す。}
@@ -2264,7 +2264,7 @@ ohhira @expansion{}おおひら
 をエミュレートしています。具体的には、引数を渡すことによって同じ文字を複
 数、一度に挿入することが可能です
 @footnote{かつては、@samp{▽あ}などを入力する場合には引数渡しができなかっ
-たのですが、本バージョンでばこれもできるように拡張されています。}。
+たのですが、本バージョンではこれもできるように拡張されています。}。
 
 @example
 @group

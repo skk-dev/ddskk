@@ -1,3 +1,7 @@
+2004-07-22  Kitamoto Tsuyoshi <fmv5200na8x@yahoo.co.jp>
+
+	* doc/skk.texi: Typo fixed.
+
 2004-07-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-jisyo-edit-mode.el (skk-jisyo-edit-font-lock-keywords):
@@ -4627,8 +4631,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.810 2004/07/17 14:31:09 skk-cvs Exp $
-Last Modified: $Date: 2004/07/17 14:31:09 $
+Version: $Id: ChangeLog,v 1.811 2004/07/22 09:35:31 skk-cvs Exp $
+Last Modified: $Date: 2004/07/22 09:35:31 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
