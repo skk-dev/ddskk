@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.15 2001/08/31 14:52:47 czkmt Exp $
-;; Last Modified: $Date: 2001/08/31 14:52:47 $
+;; Version: $Id: SKK-CFG,v 1.16 2001/08/31 14:55:25 czkmt Exp $
+;; Last Modified: $Date: 2001/08/31 14:55:25 $
 
 ;;; Commentary:
 
@@ -38,14 +38,14 @@
 ;;; Explanation:
 
 ;; SKK-MK-debugging:
-;;  
+;;
 
 ;; APEL_SPECIFIC_LISPDIR:
 ;;   APEL がインストールされているディレクトリ。
-;;   APEL が APEL の提供する標準のインストール方法によりインストールされている場
-;;   合は、指定の必要がない。
-;;   このディレクトリが指定されると SKK_MODULES のコンパイルの際に load-path が通
-;;   される。
+;;   APEL が APEL の提供する標準のインストール方法によりインストールされている
+;;   場合は、指定の必要がない。
+;;   このディレクトリが指定されると SKK_MODULES のコンパイルの際に load-path
+;;   が通される。
 
 ;; PREFIX:
 ;;   全てのファイルがインストールされるディレクトリの root directory。
@@ -55,16 +55,16 @@
 
 ;; VERSION_SPECIFIC_LISPDIR:
 ;;   Emacs の version specific な Lisp program がインストールされているディレク
-;;   トリ。このディレクトリが指定されると SKK_MODULES のコンパイルの際に 
-;;   load-path が通される。APEL が APEL の提供する標準のインストール方法によりイ
-;;   ンストールされている場合は、指定の必要がない。
+;;   トリ。このディレクトリが指定されると SKK_MODULES のコンパイルの際に
+;;   load-path が通される。APEL が APEL の提供する標準のインストール方法により
+;;   インストールされている場合は、指定の必要がない。
 
 ;; ADDITIONAL_LISPDIR:
 ;;   例えば skk-lookup.el をインストールする際は、インストール時に lookup.el を
-;;   require するので、lookup がインストールされているディレクトリがディフォルト
-;;   で (emacs が -q オプション付きで起動されたとき) load-path に加えられていない
-;;   場合は、そのディレクトリを明示的に load-path に追加する必要がある。その際、
-;;   この変数を利用して下記のように設定する。
+;;   require するので、lookup がインストールされているディレクトリがディフォル
+;;   トで (emacs が -q オプション付きで起動されたとき) load-path に加えられてい
+;;   ない場合は、そのディレクトリを明示的に load-path に追加する必要がある。そ
+;;   の際、この変数を利用して下記のように設定する。
 ;;
 ;;   (setq ADDITIONAL_LISPDIR "/usr/local/lib/xemacs/site-lisp/lookup")
 ;;
