@@ -1,5 +1,8 @@
 2001-09-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-isearch.el (isearch-repeat): Don't show
+	`skk-isearch-whitespace-regexp' in regexp i-search.
+
 	* skk.el (skk-j-mode-map): Don't use
 	`substitute-key-definition'. Just get what are needed.
 	(skk-henkan-in-minibuff): Bind `minibuffer-max-depth' to nil.
@@ -1722,8 +1725,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.348 2001/09/05 15:00:06 czkmt Exp $
-Last Modified: $Date: 2001/09/05 15:00:06 $
+Version: $Id: ChangeLog,v 1.349 2001/09/05 21:31:24 czkmt Exp $
+Last Modified: $Date: 2001/09/05 21:31:24 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
