@@ -49,7 +49,7 @@
 (defmacro install-info-save-point (&rest forms)
   (` (let ((original-point (point)))
        (prog1
-	   (progn  (,@ forms))
+	   (progn (,@ forms))
 	 (goto-char original-point)))))
 
 (defmacro install-info-point-at-eol (&optional n)
