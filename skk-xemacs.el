@@ -236,13 +236,14 @@
 	(t
 	 (skk-erase-prefix 'clean)
 	 (if (> (point) skk-henkan-start-point)
-	     (delete-region (point)
-			    skk-henkan-start-point))
+	     (delete-region (point) skk-henkan-start-point))
 	 (skk-kakutei))))
 
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-xemacs) (require 'skk-version))
+(product-provide
+    (provide 'skk-xemacs)
+  (require 'skk-version))
 
 ;; skk-xemacs.el ends here

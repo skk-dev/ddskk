@@ -1,3 +1,14 @@
+2001-10-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-num.el
+	(skk-num-compute-henkan-key): Avoid duplicate processing.
+
+	* skk.el
+	(skk-jisx0208-latin-mode)
+	(skk-misc-for-picture)
+	(skk-kill-local-variables)
+	(skk-kana-input): More specific.
+
 2001-10-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cursor.el:
@@ -2221,8 +2232,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.453 2001/10/07 11:25:21 czkmt Exp $
-Last Modified: $Date: 2001/10/07 11:25:21 $
+Version: $Id: ChangeLog,v 1.454 2001/10/08 03:50:15 czkmt Exp $
+Last Modified: $Date: 2001/10/08 03:50:15 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
