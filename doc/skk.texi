@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.5 1999/09/23 13:56:05 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.6 1999/09/26 14:41:27 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 1999/09/23 13:56:05 $
+@c  Last Modified: $Date: 1999/09/26 14:41:27 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.51
-@set UPDATED $Date: 1999/09/23 13:56:05 $
+@set UPDATED $Date: 1999/09/26 14:41:27 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -298,17 +298,20 @@ GNU Emacs 20.2$B0J9_!"$b$7$/$O(BXEmacs20.4$B0J9_$G$O!"(Bdefault$B$G$3$N5!G=
 $B$9$k$3$H$,2DG=!#(B
 
 @item
-GNU Emacs 19.30 or later$B%Y!<%9$N(BMule$B$G$O!"(Bdefault$B$G(Bcustom$B%Q%C%1!<%8$rMQ(B
-$B0U$7$F$$$k$,!"(B@file{custom-1.9962.tar.gz}$B$H$$$&DI2C%Q%C%1!<%8$r(Bget$B$7(BSKK
-10$B$KIUB0$N%Q%C%A$rEv$F$F;HMQ$7$?J}$,F0:n$,0BDj$7$F$$$k$h$&$G$"$k!#(B
+GNU Emacs 19.30 or later$B%Y!<%9$N(BMule$B$G$O!"(Bdefault$B$G(Bcustom$B$,%P%s%I%k$5$l(B
+$B$F$$$k$,!"(BSKK$B$N%+%9%?%^%$%:5!G=$,A0Ds$H$7$F$$$k%$%s%?!<%U%'%$%9$r;}$C$F(B
+$B$$$J$$$N$G!"(Bdefault$B$N$^$^$G$O%+%9%?%^%$%:5!G=$,;H$($J$$!#=>$$!"(B
 @samp{ftp://ftp.dina.kvl.dk/pub/Staff/Per.Abrahamsen/custom/}
-$B$+$i(B@file{custom-1.9962.tar.gz}$B$rF~<j$7!"$=$NCf$N(B@file{cus-face.el}$B$K(B
-@file{patch/custom-1.9962.patch}$B$rEv$F$k!#(B
+$B$+$i(B@file{custom-1.9962.tar.gz}$B$rF~<j$7!"$3$l$r;HMQ$9$k!#$=$N%Q%C%1!<%8(B
+$B$N(B@file{cus-face.el}$B$K(B@file{patch/custom-1.9962.patch}$B$rEv$F$k!#(B
+$B%+%9%?%^%$%:5!G=$,;H$($J$/$FNI$1$l$P2?$b$7$J$/$FNI$$!#(B@samp{APEL}$B$,(B
+@file{tinycustom.el}$B$K$h$jA4$F$N(B@code{defcustom}$B$r(B@code{defvar}$B$HEy2A$K(B
+$B$9$k!#(B
 
 @item
-GNU Emacs 19.28$B%Y!<%9$N(BMule$B$G$O(Bdefault$B$G(Bcustom$B%Q%C%1!<%8$OMQ0U$5$l$F$*$i(B
-$B$:!"$7$+$bDI2C$N%Q%C%1!<%8$r%$%s%9%H!<%k$7$FF0:n$5$;$k$3$H$b:$Fq$J$h$&$G(B
-$B$"$k!#(B@samp{APEl}$B$G$O!"(B19.28$B%Y!<%9$N(BMule$B$N$?$a!"%(%_%e%l!<%7%g%s$NL\E*$G(B
+GNU Emacs 19.28$B%Y!<%9$N(BMule$B$G$O(Bdefault$B$G(Bcustom$B$O%P%s%I%k$5$l$F$*$i$:!"$7(B
+$B$+$bDI2C$N%Q%C%1!<%8$r%$%s%9%H!<%k$7$FF0:n$5$;$k$3$H$b:$Fq$J$h$&$G$"$k!#(B
+@samp{APEl}$B$G$O!"(B19.28$B%Y!<%9$N(BMule$B$N$?$a!"%(%_%e%l!<%7%g%s$NL\E*$G(B
 @file{tinycustom.el}$B$rMQ0U$7$F$$$k!#$3$N%W%m%0%i%`$K$h$jA4$F$N(B
 @code{defcustom}$B$O!"(B@code{defvar}$B$HEy2A$K$J$k!#(BSKK 10 $B$O!"(B@samp{APEL}$B$N(B
 @file{pcumstom.el}$B$r(Brequire$B$7!"$3$N%W%m%0%i%`$,I,MW$K1~$8(B
@@ -323,11 +326,20 @@ GNU Emacs 19.28$B%Y!<%9$N(BMule$B$G$O(Bdefault$B$G(Bcustom$B%Q%C%1!<%8$OM
 $B$$!#(B
 
 @item
-$B%H%C%W%G%#%l%/%H%j$K$F(B@code{make install}$B$r<B9T$9$k!#(B
-@code{emacs}$B$rL@<(E*$K;XDj$9$k$K$O!"Nc$($P!"(B
-@w{@code{make install EMACS=mule}}$B$N$h$&$K(B@var{EMACS}$B$NCM$r;XDj$9$k!#(B
-XEmacs$B$K$*$$$F(Bpackage install$B$9$k>l9g$O!"(B@w{@code{make install-package}}
-$B$r<B9T$9$k!#(B
+$B%H%C%W%G%#%l%/%H%j$K$F(B@code{make}$B$r<B9T$9$k!#(B@code{emacs}$B$N%3%^%s%I%M!<(B
+$B%`$rL@<(E*$K;XDj$9$k$K$O!"Nc$($P!"(B@w{@code{make EMACS=mule}}$B$N$h$&$K(B
+$BJQ?t(B@var{EMACS}$B$NCM$r;XDj$9$k!#(B
+
+@item
+$B%$%s%9%H!<%k$;$:$K%?!<%2%C%H%G%#%l%/%H%j$@$1CN$j$?$$>l9g$K$O!"(B
+@w{@code{make what-where}}$B$H$9$k(B($B8e=R$N(BXEmacs$B%Q%C%1!<%8%$%s%9%H!<%k$N>l(B
+$B9g$O(B@w{@code{make what-where-package}}$B$H$9$k(B)$B!#(B
+
+@item
+superuser$B$K$J$C$F!"(B@code{make install}$B$9$k!#(B@code{make}$B$N:]!"(B@var{EMACS}
+$B$NCM$r;XDj$7$?$J$i$P!"$3$3$G$b(B @code{make install EMACS=mule}$B$N$h$&$KF1(B
+$BMM$K;XDj$9$k!#(BXEmacs$B$K$*$$$F(Bpackage install$B$9$k>l9g$O!"(B
+@w{@code{make install-package}}$B$r<B9T$9$k!#(B
 
 @item
 SKK 9$B$HHf3S$7$F!"JQ?tL>!"4X?tL>$,BgI}$KJQ99$5$l$?$N$G!"(B
@@ -427,26 +439,27 @@ Emacs$B$G$OK\Mh(B@kbd{C-x j}$B$H(B@kbd{C-x J}$B$O%3%^%s%I(B
 @comment  node-name,  next,  previous,  up
 @subsection $B%5!<%P!<$N35N,(B
 
-skkserv$B$O!"(BSKK$B$N$?$a$N<-=q%5!<%P$G$"$k!#(Bskkserv($B%5!<%P(B)$B$O!"(BSKK/Emacs($B%/(B
-$B%i%$%"%s%H(B)$B$H$OFHN)$KF0:n$9$k!#0l$D$N%5!<%P$O!"J#?t$N%/%i%$%"%s%H$NMW5a(B
-$B$r=hM}$9$k$3$H$,$G$-$k!#(B
+@c XXX
+@c skkserv$B$O!"(BSKK$B$N$?$a$N<-=q%5!<%P$G$"$k!#(Bskkserv($B%5!<%P(B)$B$O!"(BSKK/Emacs($B%/(B
+@c $B%i%$%"%s%H(B)$B$H$OFHN)$KF0:n$9$k!#0l$D$N%5!<%P$O!"J#?t$N%/%i%$%"%s%H$NMW5a(B
+@c $B$r=hM}$9$k$3$H$,$G$-$k!#(B
 
-$B%5!<%P$O!"5/F0$5$l$k$H:G=i$K(BSKK$B7A<0$N<-=q$rFI$_$3$`!#<!$K!"L58B%k!<%W$K(B
-$BF~$j!"%/%i%$%"%s%H$+$i$NMW5a$rBT$D!#%5!<%P$O!"@\B3$rMW5a$7$?%/%i%$%"%s%H(B
-$B$4$H$KDL?.O)$r:n$j!"0J8e!"$=$N%/%i%$%"%s%H$+$iJ8;zNsJQ49$NMW5a$,5/$-$kKh(B
-$B$K<-=q$r8!:w$7$FJQ49J8;zNs$rJV$9!#%/%i%$%"%s%H$O!"J8;zNsJQ49MW5a0J30$K!"(B
-$B%5!<%P$N%P!<%8%g%sHV9fMW5a$d@\B3=*N;$J$I$N%a%C%;!<%8$r%5!<%P$KAw$k!#(B
+@c $B%5!<%P$O!"5/F0$5$l$k$H:G=i$K(BSKK$B7A<0$N<-=q$rFI$_$3$`!#<!$K!"L58B%k!<%W$K(B
+@c $BF~$j!"%/%i%$%"%s%H$+$i$NMW5a$rBT$D!#%5!<%P$O!"@\B3$rMW5a$7$?%/%i%$%"%s%H(B
+@c $B$4$H$KDL?.O)$r:n$j!"0J8e!"$=$N%/%i%$%"%s%H$+$iJ8;zNsJQ49$NMW5a$,5/$-$kKh(B
+@c $B$K<-=q$r8!:w$7$FJQ49J8;zNs$rJV$9!#%/%i%$%"%s%H$O!"J8;zNsJQ49MW5a0J30$K!"(B
+@c $B%5!<%P$N%P!<%8%g%sHV9fMW5a$d@\B3=*N;$J$I$N%a%C%;!<%8$r%5!<%P$KAw$k!#(B
 
-$B%5!<%P$H%/%i%$%"%s%H$N4V$NDL?.$K$O!"(BBSD$B7O(BUNIX$B$N%=%1%C%H$rMxMQ$9$k!#(B
-System V$B7O(BUNIX$B$G$b(BBSD$B7O$N%M%C%H%o!<%/5!G=$r<h$j$3$s$G$$$k$b$N$OF0:n$9$k(B
-$B$3$H$,$"$k!#>\$7$/$O(B@file{skkserv/Makefile}$B$N5-=R$r;2>H$N$3$H!#(B
-@file{skkserv}$B$N%F%9%H$O!"(BSunOS 4.0.3, 4.1.1$B!"(BNEWS OS 4.1.1$B!"(BUltrix V4.1$B!"(B
-System V release 4.0 $B$N>e$G9T$C$?!#$^$?!"%f!<%6$N%l%]!<%H$K$h$k$H!"%$%s(B
-$B%9%H!<%k;~$KE,@Z$J@_Dj$r$9$k$3$H$K$h$j!"(BHP-UX$B!"(BMassComp$B!"(B386BSD$B!"(BFreeBSD$B!"(B
-Linux$B$J$I$N>e$G$bF0:n$9$k$3$H$,$o$+$C$F$$$k!#(B
+@c $B%5!<%P$H%/%i%$%"%s%H$N4V$NDL?.$K$O!"(BBSD$B7O(BUNIX$B$N%=%1%C%H$rMxMQ$9$k!#(B
+@c System V$B7O(BUNIX$B$G$b(BBSD$B7O$N%M%C%H%o!<%/5!G=$r<h$j$3$s$G$$$k$b$N$OF0:n$9$k(B
+@c $B$3$H$,$"$k!#>\$7$/$O(B@file{skkserv/Makefile}$B$N5-=R$r;2>H$N$3$H!#(B
+@c @file{skkserv}$B$N%F%9%H$O!"(BSunOS 4.0.3, 4.1.1$B!"(BNEWS OS 4.1.1$B!"(BUltrix V4.1$B!"(B
+@c System V release 4.0 $B$N>e$G9T$C$?!#$^$?!"%f!<%6$N%l%]!<%H$K$h$k$H!"%$%s(B
+@c $B%9%H!<%k;~$KE,@Z$J@_Dj$r$9$k$3$H$K$h$j!"(BHP-UX$B!"(BMassComp$B!"(B386BSD$B!"(BFreeBSD$B!"(B
+@c Linux$B$J$I$N>e$G$bF0:n$9$k$3$H$,$o$+$C$F$$$k!#(B
 
-$B%5!<%P$H%/%i%$%"%s%H$O!"%M%C%H%o!<%/$G@\B3$5$l$?0[$J$k7W;;5!>e$GF0$+$9$3(B
-$B$H$,$G$-$k!#(B
+@c $B%5!<%P$H%/%i%$%"%s%H$O!"%M%C%H%o!<%/$G@\B3$5$l$?0[$J$k7W;;5!>e$GF0$+$9$3(B
+@c $B$H$,$G$-$k!#(B
 
 @node $B6&DL$N@_Dj(B,  , $B%5!<%P!<$N35N,(B, $B%5!<%P!<$N%$%s%9%H!<%k(B
 @comment  node-name,  next,  previous,  up
@@ -506,6 +519,7 @@ setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 
 @end table
 
+@c XXX dbskkd-cdb $B$O%f!<%6!<$,N)$A>e$2$k$3$H$OIT2D!)(B
 @c $B$J$*!"4{$K(B@file{skkserv}$B$,N)$A>e$,$C$F$$$k>l9g$O!">e5-$N(B
 @c @code{skk-server-host}$B!"(B@code{skk-server-prog}$B!"(B@code{skk-server-jisyo}
 @c $B$"$k$$$O$=$l$i$N4D6-JQ?t$O$$$:$l$b;2>H$5$l$J$$$,!"(B@file{skkserv}$B$,N)$A(B
@@ -817,7 +831,7 @@ off/on$B$H$b$KF10l?'(B)$B!#(B
 * $B"#%b!<%I(B::                    $B<-=qJQ49$r9T$J$o$J$$3NDjF~NO$N%b!<%I!#(B
 * $B"&%b!<%I(B::                    $B<-=qJQ49$N$?$a8+=P$78l$NF~NO$r9T$J$&%b!<%I!#(B
 * $B"'%b!<%I(B::                    $B<-=qJQ49$r9T$J$&%b!<%I!#(B
-* $B<-=qEPO?%b!<%I(B::               $B8D?M<-=q$X$NC18lEPO?$r9T$J$&%b!<%I!#(B
+* $B<-=qEPO?%b!<%I(B::              $B8D?M<-=q$X$NC18lEPO?$r9T$J$&%b!<%I!#(B
 @end menu
 
 @node $B"#%b!<%I(B, $B"&%b!<%I(B, $BJQ49%b!<%I(B, $BJQ49%b!<%I(B
@@ -1400,22 +1414,22 @@ SKK$B$G$O!"@lMQ$N%$%s%/%j%a%s%?%k!&%5!<%A%W%m%0%i%`$r(BEmacs$BE:IU$N(Bisearc
 
 @menu
 * $BM=HwCN<1(B::                    $B1~MQ5!G=$r;H$$$3$J$9$?$a$K!#(B
-* $BF~NO%b!<%I$N0l;~JQ99(B::          $B;HMQIQEY$N9b$/$J$$F~NO%b!<%I$r>/$7$N4V$@$1MxMQ$9$k!#(B
-* $B"#%b!<%I$K$*$1$kJ8;zF~NO(B::      $B$+$J(B/$B%+%J(B/$BA41Q%b!<%I$K$*$1$kJ8;zF~NO$N@_Dj$H%+%9%?%^%$%:!#(B
+* $BF~NO%b!<%I$N0l;~JQ99(B::        $B;HMQIQEY$N9b$/$J$$F~NO%b!<%I$r>/$7$N4V$@$1MxMQ$9$k!#(B
+* $B"#%b!<%I$K$*$1$kJ8;zF~NO(B::    $B$+$J(B/$B%+%J(B/$BA41Q%b!<%I$K$*$1$kJ8;zF~NO$N@_Dj$H%+%9%?%^%$%:!#(B
 * $B%]%$%s%H$rLa$7$F"&%b!<%I$X(B::  
-* $B3NDjJQ49$H$=$N%"%s%I%%(B::        $B%f!<%6!<B&$G3NDj$9$k$3$H$J$7$K3NDj$5$;$kJQ49J}K!$H$=$N%"%s%I%%!#(B
-* $B3NDj%"%s%I%%(B::                 $B8uJd$NA*Br%_%9$r%"%s%I%%!#(B
-* $B8+=P$78l4XO"(B::                 $BJQ49$N%-!<$H$J$k8l$N=hM}$K$D$$$F!#(B
-* $BAw$j2>L>4XO"(B::                 $BAw$j2>L>$N=hM}$K$D$$$F!#(B
-* $B<+F0JQ493+;O(B::                 @key{SPC}$B$r2!$5$:$KJQ493+;O!#(B
+* $B3NDjJQ49$H$=$N%"%s%I%%(B::      $B%f!<%6!<B&$G3NDj$9$k$3$H$J$7$K3NDj$5$;$kJQ49J}K!$H$=$N%"%s%I%%!#(B
+* $B3NDj%"%s%I%%(B::                $B8uJd$NA*Br%_%9$r%"%s%I%%!#(B
+* $B8+=P$78l4XO"(B::                $BJQ49$N%-!<$H$J$k8l$N=hM}$K$D$$$F!#(B
+* $BAw$j2>L>4XO"(B::                $BAw$j2>L>$N=hM}$K$D$$$F!#(B
+* $B<+F0JQ493+;O(B::                @key{SPC}$B$r2!$5$:$KJQ493+;O!#(B
 * $BFC<lJQ49(B::                    $B$A$g$C$HJQ$C$?JXMx$JJQ49J}K!!#(B
-* $B@\F,<-!&@\Hx<-(B::               $B@\F,<-!&@\Hx<-$r;XDj$7$F8uJd$N9J$j9~$_!#(B
-* $B0EL[$N3NDj$N%?%$%_%s%0(B::        $BJQ498e$N<!F~NO$G$9$0$K3NDj$9$k$+$7$P$i$/J|$C$F$*$/$+!#(B
-* $B%j!<%8%g%s0l3gJQ49(B::            $B%9%Q%C$H%j!<%8%g%s0l3gJQ49!#(B
-* $B4A;z%3!<%I4XO"(B::               $B4A;z%3!<%I$K$^$D$o$k5!G=!#(B
-* $B"'%b!<%I$NFC<l%-!<(B::            $B%-!<$NF0:n!"$"$k$$$O%-!<%P%$%s%IJQ99!#(B
+* $B@\F,<-!&@\Hx<-(B::              $B@\F,<-!&@\Hx<-$r;XDj$7$F8uJd$N9J$j9~$_!#(B
+* $B0EL[$N3NDj$N%?%$%_%s%0(B::      $BJQ498e$N<!F~NO$G$9$0$K3NDj$9$k$+$7$P$i$/J|$C$F$*$/$+!#(B
+* $B%j!<%8%g%s0l3gJQ49(B::          $B%9%Q%C$H%j!<%8%g%s0l3gJQ49!#(B
+* $B4A;z%3!<%I4XO"(B::              $B4A;z%3!<%I$K$^$D$o$k5!G=!#(B
+* $B"'%b!<%I$NFC<l%-!<(B::          $B%-!<$NF0:n!"$"$k$$$O%-!<%P%$%s%IJQ99!#(B
 * $B<-=q4XO"(B::                    $B<-=q$K$^$D$o$k5!G=!#(B
-* $B%G%3%l!<%7%g%s(B::               $BMM!9$JI=<($N@_Dj$HJQ99!#(B
+* $B%G%3%l!<%7%g%s(B::              $BMM!9$JI=<($N@_Dj$HJQ99!#(B
 * VIP/VIPER$B$H$NJ;MQ(B::           
 * I-search$B4XO"(B::                $B%$%s%/%j%a%s%?%k!&%5!<%A$K$^$D$o$k5!G=!#(B
 * skk-init-file$B$N%P%$%H%3%s%Q%$%k(B::  $B%$%K%7%c%k%U%!%$%k$N<+F0%P%$%H%3%s%Q%$%k!#(B
@@ -1458,6 +1472,7 @@ SKK$B$N%U%!%$%k9=@.$d%f!<%6!<%*%W%7%g%s$N@_Dj$K$D$$$F$N0lHLE*Cm0U$r=R$Y$k!#(B
 @cindex @file{skk-server.el}
 @cindex @file{skk-tut.el}
 @cindex @file{skk-viper.el}
+@cindex @file{skk-vars.el}
 @cindex @file{skk.el}
 @cindex @file{stack-m.el}
 
@@ -1523,6 +1538,9 @@ SKK$B%A%e!<%H%j%"%k%W%m%0%i%`!#(B
 
 @item skk-viper.el
 VIPER$B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
+
+@item skk-vars.el
+$B8E$$(BSKK 10$B$r%@%s%W$7$?(BXEmacs$B$G(BSKK 10$B$rF0$+$9$?$a$N%@%_!<%U%!%$%k!#(B
 
 @end table
 
@@ -2144,7 +2162,7 @@ file /$B#f#i#l#e(B/
 @subsection $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B
 
 @menu
-* $B%m!<%^;z2>L>JQ49%k!<%k(B::      
+* $B"#%b!<%I$K$*$1$kJ8;zJQ49(B::    
 * $B?t;z$d5-9fJ8;z$NF~NO(B::        
 @end menu
 
@@ -2407,7 +2425,7 @@ file /$B#f#i#l#e(B/
 @c $B$NCM$rD>$K(B@file{~/.emacs}$B$J$I$K=q$$$F$*$/!#(B
 @c @end enumerate
 
-@node $B"#%b!<%I$K$*$1$kJ8;zJQ49(B
+@node $B"#%b!<%I$K$*$1$kJ8;zJQ49(B, $B?t;z$d5-9fJ8;z$NF~NO(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B
 @comment  node-name,  next,  previous,  up
 @subsubsection $B"#%b!<%I$K$*$1$kJ8;zJQ49(B
 @cindex T-code
@@ -2540,7 +2558,7 @@ skK @expansion{}SKK
 $B$NCM$rD>$K(B@file{~/.emacs}$B$J$I$K=q$$$F$*$/!#(B
 @end enumerate
 
-@node $B?t;z$d5-9fJ8;z$NF~NO(B,  , $B%m!<%^;z2>L>JQ49%k!<%k(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B
+@node $B?t;z$d5-9fJ8;z$NF~NO(B,  , $B"#%b!<%I$K$*$1$kJ8;zJQ49(B, $B$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$1$kF~NO(B
 @comment  node-name,  next,  previous,  up
 @subsubsection $B?t;z$d5-9fJ8;z$NF~NO(B
 @findex skk-self-insert
@@ -6389,13 +6407,106 @@ SKK$B$O(B1988$BG/(B4$B7n$KBh(B1$BHG$r(BJUNET$B$KEj9F$7$F0JMh!"KhG/(B4
 @cindex @file{skkinput}
 
 @menu
+* dbskkd-cdb ::                 
+* SKK95::                       
 * KAKASI::                      $B5U0z%W%m%0%i%`(B
 * skkfep::                      SKK$B%/%m!<%s(BFEP
 * SKK on Jed::                  Jed$B$GF0$/(BSKK
 * skkinput::                    X$B>e$N(BSKK$BF~NO%W%m%0%i%`(B
 @end menu
 
-@node KAKASI, skkfep, SKK$B4XO"%=%U%H%&%'%"(B, SKK$B4XO"%=%U%H%&%'%"(B
+@node dbskkd-cdb , SKK95, SKK$B4XO"%=%U%H%&%'%"(B, SKK$B4XO"%=%U%H%&%'%"(B
+@comment  node-name,  next,  previous,  up
+@section dbskkd-cdb 
+@cindex dbskkd-cdb 
+@cindex cdb
+
+$B$3$N%;%/%7%g%s$O!"(Bdbskkd-cdb$B$N3+H/<T$G$"$kNOIp7r<!;a$K$h$j=q$+$l$?!#(B
+
+@table @asis
+
+@item $B@5<0L>>N(B
+dbskkd-cdb
+
+@item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
+SKK$BMQ$N%7%9%F%`<-=q%5!<%P!#(B
+
+@item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
+Linux, FreeBSD, Solaris 2.6$B>e$G$NF0:n$r3NG'$7$F$$$k!#8=>u$G$O;HMQ$9$k(BSKK
+$B%7%9%F%`<-=q$HHf$Y!"(Bcdb$B7A<0$N<-=q$N%5%$%:$O(B2$BG\<e$K$J$k!#%;%-%e%j%F%#8~>e(B
+$B$N$?$a!"(Binetd$B$+$i(Btcp_wrapper$B$J$I$r7PM3$7$F5/F0$9$k$3$H$rA0Ds$H$9$k!#(B
+Daniel J. Bernstein$B;a$N3+H/$7$?F1MM$N%=%U%H%&%'%"(Bucspi-tcp$B$N;HMQ$r?d>)$9(B
+$B$k!#9bB.2=$N$?$a!"(BDaniel J. Bernstein$B;a$N3+H/$7$?8GDj%G!<%?%Y!<%9MQ%i%$(B
+$B%V%i%j(Bcdb$B$r;H$C$F$$$k$N$G(Bcdb$B$N%$%s%9%H!<%k$,I,MW!#(B
+
+@item $B:G?7%P!<%8%g%s!"(Brelease $B$NF|IU(B
+1.00, 1999$BG/(B6$B7n(B16$BF|(B
+
+@item $B3+H/<T(B
+$BNOIp(B $B7r<!(B @w{<kenji.rikitake@@acm.org>}
+
+@item $BG[I[>r7o(B
+GPL$B$K=`5r!#(B
+
+@item $BF~<jJ}K!(B
+$B0l<!G[I[@h$O(B@w{@samp{http://www.k2r.org/kenji/software/jp-dbskkd.html}}
+$B$+$i;2>H$G$-$k!#(B
+
+@item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
+@w{@samp{kenji-dbskkd-cdb@@k2r.org}}
+
+@item $B$=$NB>(B
+$B$5$^$6$^$J(BUNIX$B7O(BOS$B$N>e$G$NF0:n%l%]!<%H$r4uK>$7$F$$$^$9!#(B
+@end table
+
+@node SKK95, KAKASI, dbskkd-cdb , SKK$B4XO"%=%U%H%&%'%"(B
+@comment  node-name,  next,  previous,  up
+@section SKK95
+@cindex IME
+@cindex SKK95
+@cindex Windows95
+@cindex Windows98
+@cindex WindowsNT
+
+$B$3$N%;%/%7%g%s$O!"(BSKK 95$B$N3+H/%a%s%P!<$G$"$k@n:j!w5~Bg%^%$%3%s%/%i%V;a$K(B
+$B$h$j=q$+$l$?!#(B
+
+@table @asis
+
+@item $B@5<0L>>N(B
+SKK95
+
+@item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
+Windows95, WindowsNT, Windows98$B>e$G(BSKK$B%i%$%/$J$+$J4A;zF~NO$r<B8=$9$k(BIME$B!#(B
+
+@item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
+$B>e5-$N(BOS($B$b$A$m$sF|K\8lHG(B)$B!#(B
+
+@item $B:G?7%P!<%8%g%s!"(Brelease $B$NF|IU(B
+$B&A(B13$B!#(B1999$BG/(B6$B7n(B9$BF|!#(B
+
+@item $B3+H/<T(B
+$B5~Bg%^%$%3%s%/%i%V(B
+
+@item $BG[I[>r7o(B
+SKK95$B$O%U%j!<%&%'%"$G$9!#>&6HL\E*0J30$NL\E*$N$?$a$J$i$P<+M3$K%3%T!<$7$F(B
+$B$$$?$@$$$F9=$$$^$;$s!#(BSKK95$B$r;HMQ$7$?$3$H$K$h$k$$$+$J$kHo32$KBP$7$F$b!"(B
+SKK95$B$N:n<T$O@UG$$rIi$$$^$;$s!#(B
+
+@item $BF~<jJ}K!(B
+$B2<5-$N%&%'%C%V%Z!<%8$+$iF~<j$7$F2<$5$$!#(B
+@w{@samp{http://www.kuis.kyoto-u.ac.jp/(J~(Bkmc/proj/skk95/}}
+
+@item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
+@w{@samp{skk95-bugs@@kmc.kyoto-u.ac.jp}}
+
+@item $B$=$NB>(B
+1999$BG/(B9$B7n8=:_!"(BSKk95$B$O&A%P!<%8%g%s$G$"$j!"F0:n$,0BDj$7$F$$$J$$$H$3$m$b$"(B
+$B$j$^$9!#(BWindowsNT$B$G$OHf3SE*0BDj$7$FF0:n$9$k$h$&$G$9!#(B
+
+@end table
+
+@node KAKASI, skkfep, SKK95, SKK$B4XO"%=%U%H%&%'%"(B
 @comment  node-name,  next,  previous,  up
 @section KAKASI
 @cindex Kanji Kana Simple Inverter
@@ -6653,7 +6764,6 @@ SKK$B<-=q$N=<<B$K$46(NO$$$?$@$1$kJ}$O!"?o;~0J2<$N%"%I%l%9$^$G8D?M<-=q$H(B
 @example
 @samp{skk-jisyo@@kuis.kyoto-u.ac.jp}
 @end example
-
 
 @node $B$"$H$,$-(B,  , $B$*4j$$(B, $B<U<-$H$*4j$$(B
 @comment  node-name,  next,  previous,  up
