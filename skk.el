@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.214 2002/01/09 16:47:18 czkmt Exp $
+;; Version: $Id: skk.el,v 1.215 2002/01/11 13:24:09 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/09 16:47:18 $
+;; Last Modified: $Date: 2002/01/11 13:24:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -230,6 +230,10 @@ dependent."
 (defun skk-restart ()
   "skk-init-file の再ロード及び各種再セットアップの後、SKK モードを起動する。"
   (interactive)
+  (kill-local-variable 'skk-rule-tree)
+  (setq skk-rule-tree nil)
+  (setq skk-rom-kana-rule-list
+	(eval (car (get 'skk-rom-kana-rule-list 'standard-value))))
   (let (skk-mode-invoked)
     (skk-mode 1)))
 
@@ -4155,9 +4159,8 @@ If you want to restore the dictionary from the disc, try
 
 ;;;###autoload
 (defun skk-preload ()
-  (skk-mode-invoke)
-  (when skk-use-color-cursor
-    (require 'skk-cursor)))
+  (with-temp-buffer
+    (skk-mode 1)))
 
 ;;;###autoload
 (add-hook 'after-init-hook
