@@ -1,3 +1,10 @@
+2001-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	(skk-henkan-show-candidate-subr): When the current window is a
+	minibuffer window, select anonther window before
+	`delete-other-windows'.
+
 2001-11-11  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* doc/skk.texi (起動と終了): Doc fixed.
@@ -2695,8 +2702,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.520 2001/11/11 08:20:49 czkmt Exp $
-Last Modified: $Date: 2001/11/11 08:20:49 $
+Version: $Id: ChangeLog,v 1.521 2001/11/11 14:51:08 czkmt Exp $
+Last Modified: $Date: 2001/11/11 14:51:08 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
