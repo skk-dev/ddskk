@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.47 2003/07/18 15:51:10 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.48 2003/07/18 17:18:51 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/18 15:51:10 $
+;; Last Modified: $Date: 2003/07/18 17:18:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,13 +27,16 @@
 
 ;;; Commentary:
 
-;; ある単語を変換した場合に、直前に変換した語を関連語として登録しておき、再度そ
-;; の単語の変換を行なったときに登録した関連語が辞書にあればそれを優先して出力す
-;; る単純な学習効果を提供するプログラムです。
+;; ある語 A' を確定した場合に、A' 及びその見出し語 A に対して、直前に
+;; 変換した語 B' とその見出し語 B を関連語として登録しておき、再度 A
+;; の変換を行ったときに、`skk-study-data-ring' (直前の何回かに確定した
+;; 語) を順に探し、B 及び B' のペアが見つかれば、A' を優先して出力する
+;; 単純な学習効果を提供するプログラムです。
 ;;
-;; 昔 SKK ML で話題になった単語の属性の保存のために、skk-attr.el を作りました
-;; が、機能を欲張りすぎてものになりませんでした。直前の変換との関連性を保存する
-;; ためだけに機能を絞って再構成したのがこのプログラムです。
+;; 昔 SKK ML で話題になった単語の属性の保存のために、skk-attr.el を作
+;; りましたが、機能を欲張りすぎてものになりませんでした。直前の変換と
+;; の関連性を保存するためだけに機能を絞って再構成したのがこのプログラ
+;; ムです。
 
 ;; <How to install>
 ;;
@@ -45,10 +48,10 @@
 
 ;; <DATA STRUCTURE (SKK-STUDY-ALIST)>
 ;;
-;; ((okuri-ari . (("現在の HENKAN-KEY" . ((("直前の HENKAN-KEY" . "直前の漢字") . ("HENKAN-KEY を見出し語とする関連語" ...))
-;;                                        ...))))
-;;  (okuri-nasi . (("現在の HENKAN-KEY" . ((("直前の HENKAN-KEY" . "直前の漢字") . ("HENKAN-KEY を見出し語とする関連語" ...))
-;;                                         ...)))))
+;; ((okuri-ari .  ((A . (((B . B') . (A' ...))
+;;                                       ...))))
+;;  (okuri-nasi . ((A . (((B . B') . (A' ...))
+;;                                       ...)))))
 ;;
 ;;  o examples
 ;;
