@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.14 2001/09/06 21:31:39 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.15 2001/09/06 21:40:52 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/06 21:31:39 $
+;; Last Modified: $Date: 2001/09/06 21:40:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -260,8 +260,13 @@
      (goto-char skk-okurigana-start-point)
      (when (eq (following-char) ?*)
        (delete-char 1))
-     (japanese-zenkaku-region skk-henkan-start-point
-			      skk-okurigana-start-point))
+     (funcall
+      (static-cond ((eq skk-emacs-type 'mule2)
+		    'zenkaku-katakana-region)
+		   (t
+		    'japanese-zenkaku-region))
+      skk-henkan-start-point
+      skk-okurigana-start-point))
     ;;
     (let* ((pt1 (point))
 	   okuri pt2 sokuon)
