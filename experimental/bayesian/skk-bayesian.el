@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.17 2005/02/17 08:07:36 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.18 2005/02/17 08:17:48 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/02/17 08:07:36 $
+;; Last Modified: $Date: 2005/02/17 08:17:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -500,8 +500,11 @@
         (or (not attrs) ;; ファイルが存在しなければ、attrs は、nil
             (eq (nth 8 attrs) 0))) ;; ファイルサイズが 0
       (with-temp-buffer
-        (insert ";; + means positive and - means negative.
-;; However, in some cases, negative data would be correct `henkan'
+        (insert ";; + means positive
+;; m means modified after henkan
+;; - menas wrong inference
+;; m and - are usually negative.
+;; However, in some cases, m data would be correct henkan
 ;; because we might delete correct henkan.")
         (write-file skk-bayesian-corpus-file)))
   (when skk-bayesian-corpus-buffer
