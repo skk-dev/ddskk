@@ -2,6 +2,7 @@
 
 	* doc/skk.texi (■モードにおける文字変換, 数字や記号文字の入力,
 	etc): Update for SKK 10.
+	(SKKIME): New section.
 
 2000-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
