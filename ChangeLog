@@ -1,5 +1,9 @@
 2000-09-08  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
+	* skk.el (skk-get-jisyo-buffer):skk-jisyo-code がシンボルか check
+	する。
+	(skk-save-jisyo-1):同上
+
 	* doc/skk.texi:dbskkd-cdb 配布先, KAKASI, 拡張アイディア, 起動と終
 	了, 基本的な使用方法, 最も基本的な設定 update & 辞書バッファの文字
 	コードの設定 typo fix
