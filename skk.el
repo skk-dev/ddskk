@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.150 2001/10/13 10:23:25 czkmt Exp $
+;; Version: $Id: skk.el,v 1.151 2001/10/13 13:59:30 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 10:23:25 $
+;; Last Modified: $Date: 2001/10/13 13:59:30 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -374,8 +374,7 @@ dependent."
 	    (getenv "SKKSERVER"))
     (require 'skk-server))
   (when (featurep 'skk-server)
-    ;; skk-search-server はサーバーが落ちても使えるので、外さない。
-    (skk-adjust-search-prog-list-for-server-search 'non-del))
+    (skk-adjust-search-prog-list-for-server-search))
   (when skk-auto-okuri-process
     (require 'skk-auto)
     (skk-adjust-search-prog-list-for-auto-okuri))
@@ -3129,6 +3128,25 @@ If you want to restore the dictionary from the disc, try
   ;; メッセージを出力しないようにする。
   (skk-search-jisyo-buf (skk-get-jisyo-buffer file nomsg)
 			limit))
+
+(defun skk-search-server (file limit &optional nomsg)
+  ;; SKK 辞書フォーマットの FILE で SKK サーバーを使用して
+  ;; `skk-henkan-key' をキーにして検索を行う。
+  ;; SKK サーバーが使用できないときは、FILE をバッファに
+  ;; 読み込んでサーチを行う。
+  ;; LIMIT と NOMSG は SKK サーバーを使用しないときのみ使う。
+  ;; これらの引数については `skk-search-jisyo-file' の
+  ;; コメントを参照。
+  (if (or skk-server-host
+	  skk-servers-list)
+      (skk-search-server-1 file limit)
+    (skk-search-jisyo-file file limit nomsg)))
+
+(defun skk-okuri-search ()
+  ;; skk-auto-okuri-process が non-nil ならば "Uresii" のように
+  ;; 送り仮名も含めてタイプしても送りありの "嬉しい" を探し出す。
+  (when skk-auto-okuri-process
+    (skk-okuri-search-1)))
 
 (defun skk-search-jisyo-buf (buf limit)
   ;; バッファを BUF に移動して、そこを辞書として検索する。
