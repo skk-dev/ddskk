@@ -4,9 +4,9 @@
 
 	* READMEs/Contributors: Following persons are added (a-b order).
 
-	Martin Buchholz <martin@xemacs.org>
-
 	Daiki Ueno <ueno@unixuser.org>
+
+	Martin Buchholz <martin@xemacs.org>
 
 	Yoshiki Hayashi <yoshiki@xemacs.org>
 
@@ -1927,8 +1927,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.393 2001/09/14 22:39:23 czkmt Exp $
-Last Modified: $Date: 2001/09/14 22:39:23 $
+Version: $Id: ChangeLog,v 1.394 2001/09/14 22:40:14 czkmt Exp $
+Last Modified: $Date: 2001/09/14 22:40:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
