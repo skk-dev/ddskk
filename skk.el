@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.251 2002/07/13 17:21:18 czkmt Exp $
+;; Version: $Id: skk.el,v 1.252 2002/07/16 14:27:01 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/13 17:21:18 $
+;; Last Modified: $Date: 2002/07/16 14:27:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2226,7 +2226,8 @@ WORD $B$G3NDj$9$k!#(B"
 		      comb-word (concat (nth 1 list2) (nth 1 list1))) ; $B:FMxMQ(B
 		(skk-update-jisyo comb-word))
 	      (setq skk-after-prefix nil)))
-	   ((string-match "^>[^\000-\177]+$" (caar skk-kakutei-history))
+	   ((and (stringp (caar skk-kakutei-history))
+		 (string-match "^>[^\000-\177]+$" (caar skk-kakutei-history)))
 	    ;; $B:#2s$N3NDj$,@\Hx<-$@$C$?>l9g!"A02s$N3NDj$H:#2s$N@\Hx<-$r(B
 	    ;; $B9g$o$;$?8l$r<-=qEPO?$9$k!#(B
 	    (let* ((history (cdr skk-kakutei-history))
@@ -2810,24 +2811,27 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
   "$B"'%b!<%I$G8=:_$N8uJd$r<-=q%P%C%U%!$+$i>C5n$9$k!#(B"
   (interactive "*P")
   (skk-with-point-move
-   (when (and (eq skk-henkan-mode 'active)
-	      (not (string= skk-henkan-key ""))
-	      (yes-or-no-p
-	       (format
-		(if skk-japanese-message-and-error
-		    "%s /%s/%s$B$r<-=q$+$i:o=|$7$^$9!#NI$$$G$9$+!)(B"
-		  "Really purge \"%s /%s/%s\"?")
-		skk-henkan-key
-		(skk-get-current-candidate)
-		(cond
-		 ((not (and skk-henkan-okurigana
-			    (or skk-henkan-okuri-strictly
-				skk-henkan-strict-okuri-precedence)))
-		  " ")
-		 (skk-japanese-message-and-error
-		  (format " ($BAw$j2>L>(B: %s) " skk-henkan-okurigana))
-		 (t
-		  (format " (okurigana: %s) " skk-henkan-okurigana))))))
+   (cond
+    ((not (eq skk-henkan-mode 'active))
+     (skk-emulate-original-map arg))
+    ((and (eq skk-henkan-mode 'active)
+	  (not (string= skk-henkan-key ""))
+	  (yes-or-no-p
+	   (format
+	    (if skk-japanese-message-and-error
+		"%s /%s/%s$B$r<-=q$+$i:o=|$7$^$9!#NI$$$G$9$+!)(B"
+	      "Really purge \"%s /%s/%s\"?")
+	    skk-henkan-key
+	    (skk-get-current-candidate)
+	    (cond
+	     ((not (and skk-henkan-okurigana
+			(or skk-henkan-okuri-strictly
+			    skk-henkan-strict-okuri-precedence)))
+	      " ")
+	     (skk-japanese-message-and-error
+	      (format " ($BAw$j2>L>(B: %s) " skk-henkan-okurigana))
+	     (t
+	      (format " (okurigana: %s) " skk-henkan-okurigana))))))
      ;; skk-henkan-start-point $B$+$i(B point $B$^$G:o=|$7$F$7$^$C$F$b!"JQ49D>8e(B
      ;; $B$K(B ($B%+!<%=%k$rF0$+$9$3$H$J$/(B) skk-purge-from-jisyo $B$r8F$Y$PLdBj$J$$(B
      ;; $B$,!"%+!<%=%k$,0c$&>l=j$X0\F0$7$F$$$?>l9g$O!":o=|$9$Y$-$G$J$$$b$N$^(B
@@ -2846,7 +2850,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	 (skk-henkan-face-off))
        (delete-region skk-henkan-start-point end)
        (skk-change-marker-to-white)
-       (skk-kakutei))))
+       (skk-kakutei)))))
   nil)
 
 (defun skk-save-jisyo (&optional quiet)
@@ -4524,6 +4528,14 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
   (when (and skk-mode
 	     skk-henkan-mode
 	     (interactive-p))
+    (skk-kakutei)))
+
+(defadvice next-line (before skk-ad activate)
+  (when (eq skk-henkan-mode 'active)
+    (skk-kakutei)))
+
+(defadvice previous-line (before skk-ad activate)
+  (when (eq skk-henkan-mode 'active)
     (skk-kakutei)))
 
 (skk-defadvice save-buffers-kill-emacs (before skk-ad activate)
