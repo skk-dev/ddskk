@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.6 1999/09/29 20:03:47 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.7 1999/09/29 21:18:10 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/09/29 20:03:47 $
+;; Last Modified: $Date: 1999/09/29 21:18:10 $
 
 ;; This file is not part of SKK yet.
 
@@ -60,14 +60,14 @@
 ;;   (2)複数の候補があったときは、`・' で連接されている。
 ;;
 ;;; Code:
-(eval-when-compile (require 'skk))
+(eval-when-compile (require 'skk) (require 'cl))
 (require 'lookup)
 
 (defgroup skk-lookup nil "SKK lookup related customization."
   :prefix "skk-lookup-"
   :group 'skk )
 
-(defcustom skk-lookup-pickup-pattern "【\\(.+\\)】"
+(defcustom skk-lookup-pickup-pattern "【\\([^【】]+\\)】"
   "*候補抽出のための regexp。
 \(match-string 1\) で候補が取り出せるように指定する。"
   :type 'regexp
@@ -81,40 +81,50 @@
 ;;;###autoload
 (defun skk-lookup-search ()
   (save-excursion
-    (save-match-data
-      (setq lookup-search-pattern 
-	    (if skk-use-numeric-conversion
-		(skk-num-compute-henkan-key skk-henkan-key)
-	      skk-henkan-key ))
-      (let ((module (lookup-default-module))
-	    (query (lookup-make-query 'exact skk-henkan-key))
-	    entries heading candidates-string candidates-list )
-	(lookup-module-setup module)
-	(lookup-foreach
-	 (lambda (dictionary)
-	   (when (and (lookup-dictionary-selected-p dictionary)
-		      (memq 'exact (lookup-dictionary-methods dictionary))
-		      (setq entries (lookup-vse-search-query dictionary query)) )
-	     (lookup-foreach
-	      (lambda (entry)
-		;; heading しか取り出さないのはもったいない？  他にも
-		;; 情報を取り出しておいて、必要に応じて参照するか？
-		(setq heading (lookup-entry-heading entry))
-		(when (string-match skk-lookup-pickup-pattern heading)
-		  (setq candidates-string (match-string 1 heading))
-		  (if (not skk-lookup-split-pattern)
-		      (setq candidates-list
-			    (cons candidates-string
-				  (delete candidates-string candidates-list) ))
-		    (lookup-foreach
-		     (lambda (k)
-		       (setq candidates-list
-			     (cons k (delete k candidates-list)) ))
-		     (split-string candidates-string skk-lookup-split-pattern) ))))
-	      entries )))
-	 (lookup-module-dictionaries module) )
-	candidates-list ))))
+    (setq lookup-search-pattern 
+	  (if skk-use-numeric-conversion
+	      (skk-num-compute-henkan-key skk-henkan-key)
+	    skk-henkan-key ))
+    (let ((module (lookup-default-module))
+	  (query (lookup-make-query 'exact skk-henkan-key))
+	  entries candidates-string candidates-list )
+      (lookup-module-setup module)
+      (lookup-foreach
+       (lambda (dictionary)
+	 (when (and (lookup-dictionary-selected-p dictionary)
+		    (memq 'exact (lookup-dictionary-methods dictionary))
+		    (setq entries (lookup-vse-search-query dictionary query)) )
+	   (lookup-foreach
+	    (lambda (entry)
+	      (setq candidates-string (lookup-entry-heading entry))
+	      (if (not (string= lookup-search-pattern candidates-string))
+		  (setq candidates-list
+			(nconc candidates-list 
+			   (skk-lookup-process-heading candidates-string) ))))
+	    entries )))
+       (lookup-module-dictionaries module) )
+      candidates-list )))
 
+(defun skk-lookup-process-heading (heading)
+  ;; heading しか取り出さないのはもったいない？  他にも情報を取り出し
+  ;; ておいて、必要に応じて参照するか？
+  (save-match-data
+    (do (candidates-string candidates-list)
+	((or (string= heading "")
+	     (not (string-match skk-lookup-pickup-pattern heading)) )
+	 candidates-list )
+      (setq candidates-string (match-string 1 heading)
+	    heading (substring heading (+ (match-end 1) skk-kanji-len)) )
+      (if (not skk-lookup-split-pattern)
+	  (setq candidates-list
+		(cons candidates-string
+		      (delete candidates-string candidates-list) ))
+	(lookup-foreach
+	 (lambda (k)
+	   (setq candidates-list
+		 (cons k (delete k candidates-list)) ))
+	 (split-string candidates-string skk-lookup-split-pattern) )))))
+  
 (provide 'skk-lookup)
 ;;; Local Variables:
 ;;; End:
