@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.3 2001/08/26 08:19:47 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.4 2001/08/26 09:55:04 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/08/26 08:19:47 $
+;; Last Modified: $Date: 2001/08/26 09:55:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -186,7 +186,7 @@
   (condition-case nil
       (save-window-excursion
 	(let ((minibuf-p (skk-in-minibuffer-p))
-	      event char key)
+	      event)
 	  (skk-annotation-insert annotation)
 	  (cond
 	   (minibuf-p
@@ -198,10 +198,9 @@
 	  (display-buffer skk-annotation-buffer)
 	  (when minibuf-p
 	    (select-window (minibuffer-window)))
-	  (setq event (next-command-event)
-		key (skk-event-key event))
+	  (setq event (next-command-event))
 	  (when (skk-key-binding-member
-		 key
+		 (skk-event-key event)
 		 '(key-board-quit
 		   skk-kanagaki-bs
 		   skk-kanagaki-esc)
