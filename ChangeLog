@@ -1,3 +1,7 @@
+2000-10-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/{skk-faq.texi, skk.texi}: Some modifications for TeX.
+
 2000-10-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* doc/skk.texi: Change maintainer's name to SKK Development Team
