@@ -7,17 +7,19 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.61 2000/10/31 03:55:16 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.62 2000/11/11 03:19:10 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/31 03:55:16 $
+@c  Last Modified: $Date: 2000/11/11 03:19:10 $
 @c
 @set EDITION 1.5
 @set SKK-VERSION 10.62
-@set UPDATED $Date: 2000/10/31 03:55:16 $
+@set UPDATED $Date: 2000/11/11 03:19:10 $
 @c @set UPDATED-MONTH Oct 1998
 
+@dircategory Emacs
+@dircategory GNU Emacs Lisp
 @direntry
-* SKK: (skk).         Simple Kana to Kanji conversion program
+* SKK: (skk).           Simple Kana to Kanji conversion program.
 @end direntry
 
 @c Texinfo $B$KDI2C$G$-$?$iNI$$$J$!$H;W$&E@$r=R$Y$^$9!#;d!"C1$J$k(B LaTeX $B%f!<(B
@@ -185,14 +187,14 @@ APEL $B$O(B Emacs/XEmacs $B$N%P!<%8%g%s%"%C%W$K9g$o$;$FF|?J7nJb$J$N$G!"$G$-$k
 $B$@$1?7$7$$%P!<%8%g%s$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
 
 @display
-@samp{ftp://ftp.jpl.org/pub/elisp/apel/}
+@url{ftp://ftp.jpl.org/pub/elisp/apel/}
 @end display
 
 @noindent
 $B$b$7$/$O(B
 
 @display
-@samp{ftp://ftp.m17n.org/pub/mule/apel/}
+@url{ftp://ftp.m17n.org/pub/mule/apel/}
 @end display
 
 @noindent
@@ -275,7 +277,7 @@ XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$9$k>l9g$O!"(B
 
 SKK $B$r;HMQ$9$k$K$O!"<-=q$,I,MW$G$9!#<-=q$O!"(B SKK $BK\BN(B(elisp) $B$K$OIUB0(B
 $B$7$^$;$s!#JLES!"F~<j$7$^$9!#(B CVS (@xref{CVS$B$K$h$k(BSKK$B$N<hF@(B})$B$b$7$/$O!"(B
-WWW (@samp{http://openlab.ring.gr.jp/skk/dic.html}) $B$+$iF~<j$G$-$^$9!#(B
+WWW (@url{http://openlab.ring.gr.jp/skk/dic.html}) $B$+$iF~<j$G$-$^$9!#(B
 
 $BMQ0U$5$l$F$$$k<-=q$O!"=>Mh$+$i$N(B
 
@@ -5447,7 +5449,7 @@ SKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @comment  node-name,  next,  previous,  up
 @subsection skk-lookup
 
-skk-lookup $B$r;HMQ$9$k$H!"<-=q8!:w%D!<%k$N(B Lookup (@samp{http://openlab.ring.gr.jp/lookup/}) $B$G(B
+skk-lookup $B$r;HMQ$9$k$H!"<-=q8!:w%D!<%k$N(B Lookup (@url{http://openlab.ring.gr.jp/lookup/}) $B$G(B
 $B8!:w$G$-$k<-=q$rMQ$$$FC18l$N8uJd$r=P$9$3$H$,$G$-$k$h$&$K$J$j$^$9(B
 @footnote{@file{skk-lookup} $B$O(B @file{skk-look} $B$H$OJL$b$N$G$9!#(B}$B!#(B
 
@@ -6092,7 +6094,7 @@ SKK $B<-=q$K4X$9$k%D!<%k$K$O!"(BPerl, C $B$N3F8@8l$K$h$j=q$+$l$?$b$N$,$"$j$^$
 $BF~<j$O!"(BWWW
 
 @display
-@file{http://openlab.ring.gr.jp/skk/skk/tools/}
+@url{http://openlab.ring.gr.jp/skk/skk/tools/}
 @end display
 
 @noindent
@@ -6539,7 +6541,7 @@ SKK 10 $B$G$O!"$3$NJQ?t$OGQ;_$5$l$^$7$?$,!"Be$o$j$K(B
 Canna $B$d(B Wnn $B$N%5!<%P$H@\B3$7$F8!:w$,2DG=$K$J$k$h$&$K$9$k(B
 @footnote{Tamago 4 $B$G$O!"(BEmacs Lisp $B%Y!<%9$G%5!<%P$H@\B3$G$-$k!#(B
 
-@samp{http://www.m17n.org/tamago/}}$B!#(B
+@url{http://www.m17n.org/tamago/}}$B!#(B
 
 @item
 $B$$$+$J$k%f!<%6!<%*%W%7%g%sJQ?t$r%P%C%U%!%m!<%+%k2=$7$F$bF0:n$9$k$h$&$K$9(B
@@ -6623,7 +6625,7 @@ Ring Server Openlab $B$G$O!"%K%e!<%9%5!<%P$K@\B3$7$F%a!<%j%s%0%j%9%H$N5-;v$r(B
 HTTP $B7PM3$G%K%e!<%9$r8+$k$3$H$b$G$-$^$9!#(B
 
 @display
-@samp{http://ring.etl.go.jp/news/openlab.skk/}
+@url{http://ring.etl.go.jp/news/openlab.skk/}
 @end display
 
 @noindent
@@ -6703,15 +6705,11 @@ SKK OpenLab $B$N%[!<%`%Z!<%8$G$O!"(BSKK $B$N:G?7HG$rG[I[$9$k$?$a$N%Z!<%8$r@_$
 @table @asis
 @item $BF|K\8lHG(BURL
 
-@samp{http://openlab.ring.gr.jp/skk/maintrunk-ja.html}
-@c Texinfo 3.9 has a @url command.  For the time being, we shuould use
-@c @samp instead of @url for compatibility purpose.  Moreover, @url
-@c command does not have a special effect other than the one which @samp
-@c has until Texinfo supports HTML conversion.
+@url{http://openlab.ring.gr.jp/skk/maintrunk-ja.html}
 
 @item $B1Q8lHG(BURL
 
-@samp{http://openlab.ring.gr.jp/skk/maintrunk.html}
+@url{http://openlab.ring.gr.jp/skk/maintrunk.html}
 
 @end table
 
@@ -6736,23 +6734,23 @@ CVS $B$rMxMQ$9$l$P!"(BSKK OpenLab $B$N%[!<%`%Z!<%8$K$F8x3+$5$l$F$$$k$b$N$h$j$
 CVS $B$O(B $B0J2<$N%5%$%H$GG[I[$5$l$F$$$^$9!#(B
 
 @display 
-@samp{ftp://ftp.cvshome.org/pub/}
+@url{ftp://ftp.cvshome.org/pub/}
 @end display
 
 $B$^$?!">/$799?7$,CY$l5$L#$N$h$&$G$9$,!"(B GNU $B$N%_%i!<%5%$%H$+$i$bF~<j$G$-(B
 $B$^$9!#%^%9%?!<%5%$%H$O(B
 
 @display 
-@samp{ftp://ftp.gnu.org/gnu/non-gnu/cvs/}
+@url{ftp://ftp.gnu.org/gnu/non-gnu/cvs/}
 @end display
 
 $B$G$9$,!"F|K\$+$iF~<j$9$k>l9g$O(B
 
 @display
-@samp{ftp://ftp.ring.gr.jp/pub/GNU/non-gnu/cvs/}
-@samp{ftp://ftp.win.ne.jp/pub/GNU/non-gnu/cvs/}
-@samp{ftp://ftp.iij.ad.jp/pub/GNU/non-gnu/cvs/}
-@samp{ftp://ftp.tokyonet.ad.jp/pub/GNU/non-gnu/cvs/}
+@url{ftp://ftp.ring.gr.jp/pub/GNU/non-gnu/cvs/}
+@url{ftp://ftp.win.ne.jp/pub/GNU/non-gnu/cvs/}
+@url{ftp://ftp.iij.ad.jp/pub/GNU/non-gnu/cvs/}
+@url{ftp://ftp.tokyonet.ad.jp/pub/GNU/non-gnu/cvs/}
 @end display
 
 @noindent
@@ -6760,7 +6758,7 @@ CVS $B$O(B $B0J2<$N%5%$%H$GG[I[$5$l$F$$$^$9!#(B
 $B3+H/HG$rMxMQ$7$?$$?M$O(B
 
 @display
-@samp{http://www.cvshome.org/dev/source.html}
+@url{http://www.cvshome.org/dev/source.html}
 @end display
 
 @noindent
@@ -6768,27 +6766,27 @@ CVS $B$O(B $B0J2<$N%5%$%H$GG[I[$5$l$F$$$^$9!#(B
 
 @c  $B$^$?!"(BWindows $B$N(B binary $B$,M_$7$$J}$O!"(B
 @c
-@c  @samp{ftp://ftp.cvshome.org/pub/cvs-1.10/windows/cvs-1.10-win.zip}
+@c  @url{ftp://ftp.cvshome.org/pub/cvs-1.10/windows/cvs-1.10-win.zip}
 @c
 @c  $B$K@5<0HG(B cvs-1.10 $B$N%P%$%J%j!<$,!"(B
 @c
-@c  @samp{ftp://ftp.cvshome.org/pub/cvs-1.10.5/windows/cvs.exe}
+@c  @url{ftp://ftp.cvshome.org/pub/cvs-1.10.5/windows/cvs.exe}
 @c
 @c  $B$K3+H/HG(B cvs-1.10.5 $B$N%P%$%J%j!<$,CV$+$l$F$$$^$9!#$^$?!"(BMac $BMQ(B CVS $B$O(B
 @c
-@c  @samp{http://www.maccvs.org/}
+@c  @url{http://www.maccvs.org/}
 @c
 @c  $B$+$iF~<j2DG=$G$9!#(B
 @c 
 CVS $B$K4X$9$k>pJs$O(B
 
 @display
-@samp{http://www.loria.fr/~molli/cvs-index.html}
-@samp{http://www.cvshome.org/}
-@samp{http://www.race.u-tokyo.ac.jp/~moro/cvs/}
-@samp{http://www.itojun.org/hack/cvs/tut-kernel.html}
-@samp{http://www-vox.dj.kit.ac.jp/nishi/cvs/}
-@samp{http://duff.kuicr.kyoto-u.ac.jp/~okuji/gnujdoc.html}
+@url{http://www.loria.fr/~molli/cvs-index.html}
+@url{http://www.cvshome.org/}
+@url{http://www.race.u-tokyo.ac.jp/~moro/cvs/}
+@url{http://www.itojun.org/hack/cvs/tut-kernel.html}
+@url{http://www-vox.dj.kit.ac.jp/nishi/cvs/}
+@url{http://duff.kuicr.kyoto-u.ac.jp/~okuji/gnujdoc.html}
 @end display
 
 @noindent
@@ -6900,7 +6898,7 @@ GPL $B$K=`5r!#(B
 $B0l<!G[I[@h$O(B
 
 @display
-@samp{http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html}
+@url{http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html}
 @end display
 
 @noindent
@@ -6954,7 +6952,7 @@ skkfep, jvim, ari $B$=$l$>$l$KBP$9$k%Q%C%A$H$7$FDs6!$7$F$$$k$N$G!"$=$l$>$l(B
 
 @item $BF~<jJ}K!(B
 
-@w{@samp{http://hiroshima.cool.ne.jp/deton/jvim-skk/}}
+@w{@url{http://hiroshima.cool.ne.jp/deton/jvim-skk/}}
 
 @item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
 
@@ -6974,7 +6972,7 @@ KAKASI$B$O!"(BKanji Kana Simple Inverter $B$K$A$J$s$G!"$^$?(BSKK$B$N5U8@MU$
 $BIU$1$i$l$^$7$?!#(BKAKASI $B$O8=:_!"(BNamazu $B$N%5%$%H(B
 
 @display
-@samp{http://www.namazu.org/}
+@url{http://www.namazu.org/}
 @end display
 
 @noindent
@@ -6983,7 +6981,7 @@ KAKASI$B$O!"(BKanji Kana Simple Inverter $B$K$A$J$s$G!"$^$?(BSKK$B$N5U8@MU$
 @table @asis
 @item $BF~<jJ}K!(B
 
-@w{@samp{http://kakasi.namazu.org/}}
+@w{@url{http://kakasi.namazu.org/}}
 @end table
 
 @node skkfep, SKK on Jed, KAKASI, SKK$B4XO"%=%U%H%&%'%"(B
@@ -7120,14 +7118,9 @@ SKK $B$HF1$8$G$9!#(B
 @item WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B
 WWW $B%/%i%$%"%s%H$rMxMQ$7$F(B
 
-@w{@samp{http://www.juice.or.jp/~toyofuku/jed.html}}
+@w{@url{http://www.juice.or.jp/~toyofuku/jed.html}}
 
 $B$+$iF~<j$G$-$^$9!#(B
-
-@c Texinfo 3.9 has a @url command.  For the time being, we shuould use
-@c @samp instead of @url for compatibility purpose.  Moreover, @url
-@c command does not have a special effect other than the one which @samp
-@c has until Texinfo supports HTML conversion.
 @end table
 
 @item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
@@ -7175,15 +7168,11 @@ UNIX + X11R5 $B$^$?$O(B X11R6 (R6.1)
 @item $BF~<jJ}K!(B
 
 @smallexample
-@w{@samp{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkinput.htm}}
+@w{@url{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkinput.htm}}
 @end smallexample
 
 @noindent
 $B$+$iF~<j$G$-$^$9!#(B
-@c Texinfo 3.9 has a @url command.  For the time being, we shuould use
-@c @samp instead of @url for compatibility purpose.  Moreover, @url
-@c command does not have a special effect other than the one which @samp
-@c has until Texinfo supports HTML conversion.
 
 @item bug report$B!"<ALd$N$?$a$N%"%I%l%9(B
 
@@ -7210,7 +7199,7 @@ SKKIME 1.0
 
 @item $BF~<j@h(B
 
-@w{@samp{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkime.htm}}
+@w{@url{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkime.htm}}
 @end table
 
 @node SKK95,  , SKKIME, SKK$B4XO"%=%U%H%&%'%"(B
@@ -7257,7 +7246,7 @@ SKK95 $B$N:n<T$O@UG$$rIi$$$^$;$s!#(B
 @item $BF~<jJ}K!(B
 $B2<5-$N%&%'%C%V%Z!<%8$+$iF~<j$7$F2<$5$$!#(B
 
-@w{@samp{http://www.kuis.kyoto-u.ac.jp/~kmc/proj/skk95/}}
+@w{@url{http://www.kuis.kyoto-u.ac.jp/~kmc/proj/skk95/}}
 
 @item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
 @w{@samp{skk95-bugs@@kmc.kyoto-u.ac.jp}}
@@ -7285,7 +7274,7 @@ SKK95 $B$N:n<T$O@UG$$rIi$$$^$;$s!#(B
 
 SKK 10 $B$K$D$$$F$N:G?7>pJs$O!"(B
 
-@w{@samp{http://openlab.ring.gr.jp/skk/}}
+@w{@url{http://openlab.ring.gr.jp/skk/}}
 
 @noindent
 $B$+$iF@$k$3$H$,$G$-$^$9!#(B

@@ -2,9 +2,9 @@
 @c
 @c  Author: Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk-faq.texi,v 1.15 2000/10/26 09:35:55 czkmt Exp $
+@c  Version: $Id: skk-faq.texi,v 1.16 2000/11/11 03:19:10 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/26 09:35:55 $
+@c  Last Modified: $Date: 2000/11/11 03:19:10 $
 @c
 @setfilename skk-faq.info
 @c @settitle Frequently Asked Questions (SKK)
@@ -219,7 +219,7 @@ SKK abbrev $B%b!<%I$H$$$&$N$O%"%9%-!<J8;z$rMxMQ$7$?JQ49$,$G$-$k%b!<%I$G(B
 @unnumberedsubsec Q.2-1 $B:G?7HG$N(B SKK $B$O$I$3$+$iF~<j$G$-$^$9$+!)(B
 
 @display
-@w{@samp{http://openlab.ring.gr.jp/skk/cvs-ja.html}}
+@url{http://openlab.ring.gr.jp/skk/cvs-ja.html}
 @end display
 
 @noindent
@@ -228,14 +228,14 @@ SKK abbrev $B%b!<%I$H$$$&$N$O%"%9%-!<J8;z$rMxMQ$7$?JQ49$,$G$-$k%b!<%I$G(B
 $B:G$b?7$7$/$J$/$FNI$1$l$P!"(B
 
 @display
-@w{@samp{http://openlab.ring.jp/skk/daredevil-ja.html}}
+@url{http://openlab.ring.jp/skk/daredevil-ja.html}
 @end display
 
 @noindent
 $B$b$7$/$O(B
 
 @display
-@w{@samp{http://openlab.ring.jp/skk/maintrunk-ja.html}}
+@url{http://openlab.ring.jp/skk/maintrunk-ja.html}
 @end display
 
 @noindent
@@ -246,7 +246,7 @@ SKK abbrev $B%b!<%I$H$$$&$N$O%"%9%-!<J8;z$rMxMQ$7$?JQ49$,$G$-$k%b!<%I$G(B
 @unnumberedsubsec Q.2-2 SKK $B$rF~<j$7$^$7$?$,!"<-=q$,IU$$$F$$$J$$$N$G$9$,!#(B
 
 @display
-@w{@samp{http://openlab.ring.jp/skk/dic-ja.html}}
+@url{http://openlab.ring.jp/skk/dic-ja.html}
 @end display
 
 @noindent
@@ -257,7 +257,7 @@ SKK abbrev $B%b!<%I$H$$$&$N$O%"%9%-!<J8;z$rMxMQ$7$?JQ49$,$G$-$k%b!<%I$G(B
 @unnumberedsubsec Q.2-3 SKK $B$rF~<j$7$^$7$?$,!"%5!<%P$,IU$$$F$$$J$$$N$G$9$,!#(B
 
 @display
-@w{@samp{http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html}}
+@url{http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html}
 @end display
 
 @noindent
@@ -297,7 +297,7 @@ SKK 9.6 $B$O(B Emacs 20 $B$,%j%j!<%9$5$l$k0JA0$N%P!<%8%g%s$G!"(BEmacs 20 $B
 $B1~$7$F$$$^$;$s!#<B:];H$($J$$$3$H$,3NG'$5$l$F$$$^$9!#(B
 
 @display
-@samp{http://openlab.ring.gr.jp/skk/index-j.html}
+@url{http://openlab.ring.gr.jp/skk/index-j.html}
 @end display
 
 @noindent
@@ -561,7 +561,7 @@ X $B>e$G$O!"(Bxmodmap $B$H$$$&%W%m%0%i%`$r;H$C$F%-!<G[Ns$rJQ99$G$-$^$9!#Nc$(
 $B>l9g$O!"F|K\8lF~NO%3%s%=!<%7%"%`$N(B Web $B%5%$%H(B
 
 @display
-@samp{http://nicola.sunicom.co.jp/}
+@url{http://nicola.sunicom.co.jp/}
 @end display
 
 @noindent
@@ -638,7 +638,7 @@ NICOLA $BG[Ns$O!"FCJL$KF|K\8lF~NO$N$?$a$K9M$($i$l$?G[Ns$J$N$G!"47$l$l$P(B
 $B$^$?!"$I$3$K$b<-=q$,%$%s%9%H!<%k$5$l$F$$$J$$>l9g$O(B
 
 @display
-@samp{http://openlab.ring.gr.jp/skk/dic/}
+@url{http://openlab.ring.gr.jp/skk/dic/}
 @end display
 
 @noindent
@@ -714,7 +714,7 @@ CVS $B$+$i<-=q$r<hF@$7$?>l9g$O!"(B@file{zipcode} $B$H$$$&%G%#%l%/%H%j$KF~$C$F
 $B$$$^$9!#(BWWW $B$G$O!"(B
 
 @display
-@w{@samp{http://openlab.ring.gr.jp/skk/dic/}}
+@url{http://openlab.ring.gr.jp/skk/dic/}
 @end display
 
 @noindent
@@ -737,7 +737,7 @@ SKK $BK\BN$N%Q%C%1!<%8$K$OF1Iu$5$l$F$$$^$;$s$,!"(Bskk-tools $B$H$$$&JL%Q%C%1!
 $B%8$,$"$j!"(B
 
 @display
-@w{@samp{http://openlab.ring.gr.jp/skk/tools-ja.html}}
+@url{http://openlab.ring.gr.jp/skk/tools-ja.html}
 @end display
 
 @noindent
@@ -755,7 +755,7 @@ SKK $BK\BN$N%Q%C%1!<%8$K$OF1Iu$5$l$F$$$^$;$s$,!"(Bskk-tools $B$H$$$&JL%Q%C%1!
 edict $B$OOB1Q<-=q$G$9$,!"$3$l$r(B SKK $B<-=q7A<0$N1QOB<-=q$KJQ49$7$?$b$N$r(B
 
 @display
-@w{@samp{http://openlab.ring.gr.jp/skk/dic/SKK-JISYO.edict}}
+@url{http://openlab.ring.gr.jp/skk/dic/SKK-JISYO.edict}
 @end display
 
 @noindent
@@ -765,7 +765,7 @@ edict $B$OOB1Q<-=q$G$9$,!"$3$l$r(B SKK $B<-=q7A<0$N1QOB<-=q$KJQ49$7$?$b$N$r(
 edict $B$r<+J,$G2C9)$7$F>e5-$HF1Ey$N$b$N$r:n@.$9$k$3$H$b$G$-$^$9!#(Bedict $B$O(B
 
 @display
-@w{@samp{ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/}}
+@url{ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/}
 @end display
 
 @noindent
@@ -793,7 +793,7 @@ skk-tools $B$NCf$N%W%m%0%i%`$r;H$$!"2<5-$N$h$&$K9T$J$$$^$9!#(B
 $B$J$*!"(Bedict $B$NG[I[>r7o$O(B GPL $B$G$O$"$j$^$;$s!#(B
 
 @display
-@w{@samp{http://www.csse.monash.edu.au/groups/edrdg/newlic.html}}
+@url{http://www.csse.monash.edu.au/groups/edrdg/newlic.html}
 @end display
 
 @noindent
@@ -939,7 +939,7 @@ Lookup $B$,07$($k<-=q$O$[$H$s$I;H$($^$9!#(BLookup $B$,%$%s%9%H!<%k$5$l$F$$$k
 Lookup $B$K$D$$$F$O!"(B
 
 @display
-@w{@samp{http://openlab.ring.gr.jp/lookup/}}
+@url{http://openlab.ring.gr.jp/lookup/}
 @end display
 
 @noindent

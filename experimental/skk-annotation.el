@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.8 2000/11/10 21:04:25 minakaji Exp $
+;; Version: $Id: skk-annotation.el,v 1.9 2000/11/11 03:15:46 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2000/11/10 21:04:25 $
+;; Last Modified: $Date: 2000/11/11 03:15:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -142,10 +142,11 @@
 (or (assq 'skk-annotation-mode minor-mode-alist)
     (setq minor-mode-alist (cons '(skk-annotation-mode " annotation")
 				 minor-mode-alist)))
-(or (assq 'skk-annotation-mode-map minor-mode-map-alist)
-    (setq minor-mode-map-alist
-	  (cons (cons 'skk-annotation-mode skk-annotation-mode-map)
-		minor-mode-map-alist)))
+(when (boundp 'minor-mode-map-alist)
+  (or (assq 'skk-annotation-mode-map minor-mode-map-alist)
+      (setq minor-mode-map-alist
+	    (cons (cons 'skk-annotation-mode skk-annotation-mode-map)
+		  minor-mode-map-alist))))
 
 ;; inline functions.
 (defsubst skk-annotation-erase-buffer ()
@@ -186,7 +187,7 @@
       (skk-annotation-insert annotation)
       (split-window-vertically)
       (display-buffer skk-annotation-buffer)
-      (setq event (skk-read-event))
+      (setq event (next-command-event))
       (skk-unread-event event))))
 
 (defun skk-annotation-show-as-message (annotation)

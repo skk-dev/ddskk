@@ -1,5 +1,29 @@
 -*- outline -*-
 
+* 11.4
+
+** Info のエントリの自動追加。
+
+例えば、skk.info を /usr/local/info/ 以下にインストールした場合、
+/usr/local/info/dir というファイルに skk.info を参照するためのエントリ
+を自動的に書き込む機能が追加されました。
+
+** 自動フィル機能の復活。
+
+自動フィル機能が有効になっているバッファにおける、自動フィルの挙動を
+SKK 9.6 以前のそれに戻しました。
+
+** NICOLA-DDSKK
+
+NICOLA-DDSKK はもはや実験版ではありません。experimental/nicola/ から
+nicola/ に移されました。
+
+** 「意味」を含む辞書の実現。
+
+experimental/skk-annotation.el という新たな実験プログラムが追加されま
+した。
+
+
 * 11.3
 
 ** 基本設定の自動化。
