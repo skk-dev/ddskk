@@ -4,14 +4,14 @@ rem Copyright (C) 1999 Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem
 rem Author: Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem Maintainer: SKK Development Team mailto:skk@ring.gr.jp
-rem Version: $Id: make1.bat,v 1.3 2001/01/24 06:11:46 yutopia Exp $
+rem Version: $Id: make1.bat,v 1.4 2001/01/25 22:05:12 minakaji Exp $
 rem Created: March 23, 1999
-rem Last Modified: $Date: 2001/01/24 06:11:46 $
+rem Last Modified: $Date: 2001/01/25 22:05:12 $
 
 rem --- argument
 rem ---   elc : byte compile
 rem ---   all, install : install
-rem ---   clean : cleaning garvage file
+rem ---   clean : cleaning garbage file
 rem ---   what-where : print where to install
 rem ---
 
@@ -51,7 +51,7 @@ rem --- This file should not be executed by itself. Use make.bat.
 :prnusage
 echo This file should not be executed by itself. Use make.bat.
 
-rem --- If error occurd, stay display until any key is typed.
+rem --- If error occurs, stay display until any key is typed.
 :pauseend
 echo Type any key when you're done reading the error message.
 pause
