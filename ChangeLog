@@ -1,9 +1,5 @@
 2000-11-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* READMEs/INSTALL: Required version of APEL is more than 10.2.
-
-	* doc/skk.texi: Ditto.
-
 	* experimental/skk-e18.el: (exit-minibuffer@around@skk-e18-ad):
 	New advice.
 	(read-from-minibuffer@before@skk-e18-ad): Ditto.
@@ -17,7 +13,7 @@
 	* skk-xemacs.el: (minibuffer-keyboard-quit@arond@skk-xemacs-ad):
 	 From skk.el.
 
-	* skk.el: Modify preface {Required version of APEL, etc}.
+	* skk.el: Modify preface.
 	(skk-henkan-show-candidate-subr): Use `string-with', not
 	`string-bytes' {mm.el is broken}.
 	(minibuffer-keyboard-quit@arond@skk-ad): Move to skk-xemacs.el.
@@ -2522,8 +2518,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.177 2000/11/25 19:56:38 czkmt Exp $
-Last Modified: $Date: 2000/11/25 19:56:38 $
+Version: $Id: ChangeLog,v 1.178 2000/11/25 20:26:03 czkmt Exp $
+Last Modified: $Date: 2000/11/25 20:26:03 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
