@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.38 2000/07/07 22:25:14 minakaji Exp $
-;; Last Modified: $Date: 2000/07/07 22:25:14 $
+;; Version: $Id: SKK-MK,v 1.39 2000/08/28 14:51:24 czkmt Exp $
+;; Last Modified: $Date: 2000/08/28 14:51:24 $
 
 ;; Commentary
 ;;
@@ -157,7 +157,8 @@
 (defvar ETCDIR (or (getenv "ETCDIR") "./etc"))
 (defvar SKK_INFOS
   (or (getenv "SKK_INFOS")
-      '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4")))
+      '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4"
+	"skk.info-5" "skk.info-6")))
 (defvar SKK_MODULES
   ;; こんなもんコマンドラインで指定する人いないよね？
   (or (getenv "SKK_MODULES")
@@ -316,23 +317,12 @@
 	;; Emacs20.2's default is 'raw-text-unix.
 	(coding-system-for-write SKK-MK-texinfo-coding-system)
 	x obuf beg standard-output)
+    (require 'ptexinfmt (expand-file-name "ptexinfmt.el" default-directory))
     (while targets
       (setq x (expand-file-name (car targets) DOCDIR))
       (find-file x)
       (setq obuf (current-buffer))
-      (condition-case nil
-	  (texinfo-format-buffer)
-	(error				; one more try with no @direntry
-	 ;;(kill-buffer (current-buffer))
-	 (set-buffer obuf)
-	 (goto-char (point-min))
-	 (message "Format failed. Trying no @direntry")
-	 (let (buffer-read-only)
-	   (when (re-search-forward "@direntry" nil t)
-	     (setq beg (match-beginning 0))
-	     (when (re-search-forward "@end direntry" nil t)
-	       (delete-region beg (match-end 0)))))
-	 (texinfo-format-buffer)))
+      (texinfo-format-buffer)
       (save-buffer)
       (kill-buffer (current-buffer))	; info
       (kill-buffer obuf)		; texi
