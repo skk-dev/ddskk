@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.53 2002/03/08 10:50:27 iida Exp $
+;; Version: $Id: skk-tut.el,v 1.54 2002/03/16 04:02:53 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/08 10:50:27 $
+;; Last Modified: $Date: 2002/03/16 04:02:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -297,6 +297,7 @@
     (skk-kcode-charset . (if (featurep 'jisx0213)
 			     (quote japanese-jisx0208)
 			   skk-kcode-charset))
+    (skk-dcomp-activate . nil)
 
     ;; not user variables but to be localized.
     (skk-insert-new-word-function . nil)
