@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.37 2001/10/10 10:25:32 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.38 2001/10/11 13:00:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/10 10:25:32 $
+;; Last Modified: $Date: 2001/10/11 13:00:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1002,7 +1002,7 @@ with the following command in the body of your email message
     (when skk-tut-use-face
       (save-match-data
 	(goto-char (point-min))
-        (re-search-forward "^!!.+" nil t nil)
+	(re-search-forward "^!!.+" nil t nil)
 	(put-text-property (match-beginning 0) (match-end 0)
 			   'face skk-tut-do-it-face)))
     (while (not skktut-tutorial-end)

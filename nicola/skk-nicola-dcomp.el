@@ -39,7 +39,7 @@
 
 (defadvice skk-nicola-self-insert-lshift (around skk-nicola-dcomp activate)
   (cond
-   ((or (not skk-dcomp-active)
+   ((or (not skk-dcomp-activate)
 	skk-henkan-active
 	(not skk-henkan-on))
     ad-do-it)
@@ -51,7 +51,7 @@
 	    (not skk-comp-stack))
 	(skk-set-marker skk-dcomp-start-point nil)
 	(skk-set-marker skk-dcomp-end-point nil))
-       (skk-dcomp-marked-p
+       ((skk-dcomp-marked-p)
 	(skk-dcomp-face-off)
 	(unless (member (this-command-keys)
 			skk-dcomp-keep-completion-keys)
