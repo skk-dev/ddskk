@@ -1,5 +1,9 @@
 2000-11-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* skk-version.el (skk-version): Change its argument meaning.  If
+	WITHOUT-CODENAME is non-nil, simply return SKK version.  If nil
+	return the version with its codename.
+
 	* SKK-MK (SKK-MK-what-where-package): Remove skk-autoloads from
 	SKK_MODULES.
 	(SKK-MK-install-elc): Set up setup.el.in for SKK_TUTORIALS
@@ -2390,8 +2394,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.154 2000/11/19 05:45:04 minakaji Exp $
-Last Modified: $Date: 2000/11/19 05:45:04 $
+Version: $Id: ChangeLog,v 1.155 2000/11/19 08:06:11 minakaji Exp $
+Last Modified: $Date: 2000/11/19 08:06:11 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -4,9 +4,9 @@
 ;;
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.3 2000/10/30 23:52:54 minakaji Exp $
+;; Version: $Id: skk-version.el,v 1.4 2000/11/19 08:06:11 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 23:52:54 $
+;; Last Modified: $Date: 2000/11/19 08:06:11 $
 ;;
 ;; This file is part of Daredevil SKK.
 ;;
@@ -42,12 +42,13 @@
   (product-string-1 'skk-version))
 
 ;;;###autoload
-(defun skk-version (&optional with-codename)
-  "Return SKK version.  If WITH-CODENAME is non-nil, add codename."
+(defun skk-version (&optional without-codename)
+  "Return SKK version with its codename.
+If WITHOUT-CODENAME is non-nil, simply return SKK version without the codename."
   (interactive "P")
   (if (interactive-p)
-      (message "%s" (skk-version with-codename))
-    (product-string-1 'skk-version with-codename)))
+      (message "%s" (skk-version without-codename))
+    (product-string-1 'skk-version (not without-codename))))
 
 ;; for backward compatibility
 ;;(defconst skk-version (product-version-string (product-find 'skk-version)))
