@@ -55,7 +55,7 @@ experimental/skk-hint.el という新たなプログラムが追加されました。
  `skk-day-of-week-alist'
  `skk-default-current-date-function'
 
-また、辞書への記入例は、最新の SKK=JISYO.L を取得して、today エントリ
+また、辞書への記入例は、最新の SKK-JISYO.L を取得して、today エントリ
 を参照してください。
 
 ** 混ぜ書き辞書
