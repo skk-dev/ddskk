@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.63 2000/11/11 23:40:21 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.64 2000/11/14 12:47:37 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/11/11 23:40:21 $
+@c  Last Modified: $Date: 2000/11/14 12:47:37 $
 @c
 @set EDITION 1.5
 @set SKK-VERSION 10.62
-@set UPDATED $Date: 2000/11/11 23:40:21 $
+@set UPDATED $Date: 2000/11/14 12:47:37 $
 @c @set UPDATED-MONTH Oct 1998
 
 @dircategory Emacs
@@ -7399,7 +7399,994 @@ SKK の原作者は、現京都大学の佐藤雅彦教授 @w{<masahiko@@kuis.kyoto-u.ac.jp>
 @comment      node-name, next,       previous, up
 @chapter よくある質問とその回答(FAQ)
 
-@include{skk-faq.texi}
+@c @include{skk-faq.texi}
+
+これは SKK に対するよくある質問と、それに対する回答集です。
+
+@menu
+* Introduction::                SKK のなぜなに。
+* Installation::                SKK の入手から導入まで。
+* Customization::               SKK の基本設定からお好みのカスタマイズまで。
+* Dictionaries::                SKK 辞書関連。
+* Miscellaneous::               SKK の活用法その他。
+* Forgotten Antique Questions(FAQ)::  化石的質問集。
+@end menu
+
+@node Introduction, Installation, よくある質問とその回答(FAQ), よくある質問とその回答(FAQ)
+@comment  node-name,  next,  previous,  up
+@section SKK のなぜなに
+
+@menu
+* Q.1-1 最新のバージョンは？::  
+* Q.1-2 SKK はシンプルなのが長所だったのでは？::  
+* Q.1-3 SKK はどのバージョンの Emacs で使えますか？::  
+* Q.1-4 SKK はどんなオペレーティングシステムで使えますか？::  
+* Q.1-5 Emacs に付属の SKK を使っているのですが::  
+* Q.1-6 開発版は何故、Daredevil と言うのですか？::  
+* Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえませんか？::  
+* Q.1-8 SKK の中に更にいくつもモードがあって良く分かりません。::  
+@end menu
+
+@node Q.1-1 最新のバージョンは？, Q.1-2 SKK はシンプルなのが長所だったのでは？, Introduction, Introduction
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.1-1 最新のバージョンは？
+
+現在、開発版の最新版は Daredevil SKK 11.x、安定版は SKK 10.6x です。
+
+@node Q.1-2 SKK はシンプルなのが長所だったのでは？, Q.1-3 SKK はどのバージョンの Emacs で使えますか？, Q.1-1 最新のバージョンは？, Introduction
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.1-2 SKK はシンプルなのが長所だったのでは？ 色々使わない機能があり過ぎるような。
+
+かような議論は 10 年来行われてきており、結論は出ていませんが、事実として
+現在まで開発が続けられています。
+
+@display
+「シンプルな操作性の維持と多機能化・高機能化は両立できる」
+@end display
+
+@noindent
+というのが現在の開発陣の考えであるようです。
+
+多機能化と言っても多くはユーザーオプションによって無効にすることができま
+すし、@file{skk.el} 本体が複雑化しないようにモジュール化されています。
+
+@node Q.1-3 SKK はどのバージョンの Emacs で使えますか？, Q.1-4 SKK はどんなオペレーティングシステムで使えますか？, Q.1-2 SKK はシンプルなのが長所だったのでは？, Introduction
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.1-3 SKK はどのバージョンの Emacs で使えますか？
+
+SKK 10 に関しては
+
+@itemize @minus
+@item Emacs 19.28 or later をベースとした Mule 2 or 3
+@item Emacs 20.2 or later
+@item --with-mule オプション付きでコンパイルされたXEmacs 20.4 or later
+@item Meadow 1.00, 1.01, 1.10
+@item Mule for Windows 1.21, 1.22
+@end itemize
+
+@noindent
+がサポートしようとする対象の Emacs です。Daredevil では、Nemacs 上で動
+くようです。
+
+@node Q.1-4 SKK はどんなオペレーティングシステムで使えますか？, Q.1-5 Emacs に付属の SKK を使っているのですが, Q.1-3 SKK はどのバージョンの Emacs で使えますか？, Introduction
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.1-4 SKK はどんなオペレーティングシステムで使えますか？
+
+基本的にサポート対象の Emacs がその OS で動いているなら、SKK の基本的
+な機能は動くはずです。
+
+拡張機能については、UNIX の各種コマンドを前提としているものがいくつか
+あります (@code{look} とか @code{ispell} とか)。これらがお使いの OS にも
+あれば使える場合が多いでしょう。
+
+Mac OS 版の Emacs でも動くようですが、インストールが UNIX @code{make} コ
+マンド、あるいは @code{make.bat} を前提にしているので、手作業で、
+@code{skk/SKK-MK} を評価するなどの手間がかかるでしょう (APEL についても
+同様の苦しみがあるはずですが)。@xref{Q.2-4 APEL って何ですか？}.
+Perl で動く @code{make} について、
+
+@example
+At Thu, 10 Aug 2000 19:06:31 +0900,
+SUZUKI Norio wrote:
+ 
+> CPANのmodules/by-category/Development_Supportに 
+> @file{Make-1.00.tar.gz} というperlで書かれた module があります。
+> MacPerlで動くかどうかは分かりませんが試す価値はあるでしょう。
+@end example
+
+@noindent
+という情報もあります。MacPerl で動作を確認した人がいらっしゃったら、情
+報をお寄せ下さい。
+
+@node Q.1-5 Emacs に付属の SKK を使っているのですが, Q.1-6 開発版は何故、Daredevil と言うのですか？, Q.1-4 SKK はどんなオペレーティングシステムで使えますか？, Introduction
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.1-5 Emacs に付属の SKK を使っているのですが...
+@cindex KKC
+
+まず初めに言っておかなければなりませんが、
+
+ 「Emacs には SKK は付いていません」
+@footnote{Nemacs 3.3.2 には SKK 2.25 が付いていたりしますが...}
+
+Emacs 20 には KKC というプログラムが付属し、Leim では KKC を利用した日本
+語入力機能を提供しています。これは SKK の辞書を利用しているため、ミニバッ
+ファに「Loading skk/skkdic...done」と表示されますが、決して SKK が動いて
+いる理由ではありません。
+
+開発中の Emacs ではこの問題は既に解決されています。
+
+@node Q.1-6 開発版は何故、Daredevil と言うのですか？, Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえませんか？, Q.1-5 Emacs に付属の SKK を使っているのですが, Introduction
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.1-6 開発版の SKK は何故、Daredevil などと言う branch 名がついているのですか？
+
+無責任な開発がどんどん続き、何が起こっても知りませんよ、と警告している
+のにこれを使おうとなさるあなたにぴったりのネーミングではありませんか
+;-p。
+
+開発陣の一人が講読している某ラジオ英会話講座の、ある日のスキット名が
+「Daredevil なんとか」で、その内容は「とにかくやってみよう。うぎゃぁぁぁ、
+やられたぁ」というものでした。これがあまりに自分の開発ポリシーに合致する
+ので、ここから Daredevil の名をいただいたのであります。
+
+@node Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえませんか？, Q.1-8 SKK の中に更にいくつもモードがあって良く分かりません。, Q.1-6 開発版は何故、Daredevil と言うのですか？, Introduction
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえませんか？
+
+同様の議論が過去散々あり、本家は検討したいと言い、一方、ぼく (中島) は
+APEL を使わない SKK の開発はやらない、と宣言したこともあって、部外の人
+から SKK community 分裂か？、と冷かされたりもしました。
+
+悪いけどぼくはやりません。せっかく良いものがあるのにそれを利用しないの
+は、無駄な努力だと思うからです。APEL から独立する努力をする時間があれ
+ば、その時間を使って APEL にもっと貢献したいです。
+
+APEL よりもっと遥かに効率の良いものができれば別ですが、それまでは APEL
+を利用し続けます。
+
+もちろん、あなたが APEL 非依存版の作成をやりたいんだったら止めはしませ
+ん。SKK Openlab に参加してやってもらっても良いですよ。但し、Maintrunk,
+Daredevil とは別 branch にして下さいね。
+
+@xref{Q.2-4 APEL って何ですか？}.
+
+@node Q.1-8 SKK の中に更にいくつもモードがあって良く分かりません。,  , Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえませんか？, Introduction
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.1-8 SKK の中に更にいくつもモードがあって良く分かりません。
+
+@table @asis
+@item 入力モード
+
+入力される文字別のモードには下記のものがあります。
+
+@smallexample
+    +------------------+--- skk-mode -----+--------------------+
+    |                  |                  |                    |
+    |                  |                  |                    |
+skk-j-mode      skk-latin-mode   skk-jisx0208-latin-mode skk-abbrev-mode
+(かな/カナモード) (ASCII モード)    (全英モード)        (SKK abbrev mode)
+@end smallexample
+
+ASCII モードと言うのは、@kbd{C-j} により @code{skk-j-mode} に移行する他
+は、全てのキーバインドは SKK を起動する前の状態と同一のモードです。SKK
+への入口が見えているモードと言えるかもしれません。
+
+SKK abbrev モードというのはアスキー文字を利用した変換ができるモードで
+す。このファイルの後半にが活用例が出ていますので、ご覧下さい。
+
+@item 辞書登録モード
+
+辞書登録モードは、かな/カナモード、SKK abbrev モードで変換した際、候補
+が見つからないときに辞書登録をするサブモードです。
+
+@item 変換モード
+
+入力文字がそのままバッファに挿入され、変換をしないモードを確定入力モー
+ドと言い、■モード、と呼びます。
+
+バッファに@samp{▽}のマーカが出て変換する文字の見出し語を入力するモードを
+▽モードと呼びます。
+
+▽モードから @key{SPC} を押して変換候補の選択をするモードを▼モードと呼
+びます。バッファに挿入されている@samp{▽}のマーカが@samp{▼}に変わります。
+@end table
+
+@node Installation, Customization, Introduction, よくある質問とその回答(FAQ)
+@comment  node-name,  next,  previous,  up
+@section SKK の入手から導入まで
+
+@menu
+* Q.2-1 最新版の SKK はどこから入手できますか？::  
+* Q.2-2 SKK を入手しましたが、辞書が付いていないのですが。::  
+* Q.2-3 SKK を入手しましたが、サーバが付いていないのですが。::  
+* Q.2-4 APEL って何ですか？::   
+* Q.2-5 色々別に入手するものがあってインストールが難しいですね。::  
+* Q.2-6 Emacs 20 に SKK 9.6 がインストールできません。::   
+@end menu
+
+@node Q.2-1 最新版の SKK はどこから入手できますか？, Q.2-2 SKK を入手しましたが、辞書が付いていないのですが。, Installation, Installation
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.2-1 最新版の SKK はどこから入手できますか？
+
+@display
+@url{http://openlab.ring.gr.jp/skk/cvs-ja.html}
+@end display
+
+@noindent
+をご覧の上、SKK Openlab の CVS から入手できるものが最も新しいです。
+
+最も新しくなくて良ければ、
+
+@display
+@url{http://openlab.ring.gr.jp/skk/daredevil-ja.html}
+@end display
+
+@noindent
+もしくは
+
+@display
+@url{http://openlab.ring.gr.jp/skk/maintrunk-ja.html}
+@end display
+
+@noindent
+からどうぞ。
+
+@node Q.2-2 SKK を入手しましたが、辞書が付いていないのですが。, Q.2-3 SKK を入手しましたが、サーバが付いていないのですが。, Q.2-1 最新版の SKK はどこから入手できますか？, Installation
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.2-2 SKK を入手しましたが、辞書が付いていないのですが。
+
+@display
+@url{http://openlab.ring.gr.jp/skk/dic-ja.html}
+@end display
+
+@noindent
+から別に入手して下さい。SKK Openlab の CVS には最新版があります。
+
+@node Q.2-3 SKK を入手しましたが、サーバが付いていないのですが。, Q.2-4 APEL って何ですか？, Q.2-2 SKK を入手しましたが、辞書が付いていないのですが。, Installation
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.2-3 SKK を入手しましたが、サーバが付いていないのですが。
+
+@display
+@url{http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html}
+@end display
+
+@noindent
+から dbskkd を入手して下さい。
+
+SKK 10.x, Daredevil ともにサーバの種類、バージョンには依存していないは
+ずなので、SKK 9.6 以前添付の @code{skkserv} や ruby で書いた
+@code{rskkserv} なども使えます。
+
+@node Q.2-4 APEL って何ですか？, Q.2-5 色々別に入手するものがあってインストールが難しいですね。, Q.2-3 SKK を入手しましたが、サーバが付いていないのですが。, Installation
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.2-4 APEL って何ですか？
+
+APEL は A Portable Emacs Library の略で、XEmacs/GNU Emacs 間、あるいは
+Emacs のそれぞれのバージョン間の差異を吸収するパッケージです。
+
+元は FLIM/SEMI のために開発されたものですが、旧 SKK で培ったバージョン
+間の work around のノウハウを全部反映してもらいましたので、APEL 自体、
+大幅に汎用性がアップしています。
+
+@node Q.2-5 色々別に入手するものがあってインストールが難しいですね。, Q.2-6 Emacs 20 に SKK 9.6 がインストールできません。, Q.2-4 APEL って何ですか？, Installation
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.2-5 色々別に入手するものがあってインストールが難しいですね。昔は全部一つで簡単だったのに。
+
+辞書やサーバーの配布が別なのは、それぞれアップデートされる頻度が異なる
+からです。毎回超特大のアーカイブを入手させられてもあなたは文句を言うで
+しょう。
+
+また、APEL のおかげでそれだけ多くの Emacsen で動きます。APEL に感謝こそ
+すれ、恨むのは筋違いでしょう。@xref{Q.2-4 APEL って何ですか？}.
+
+@node Q.2-6 Emacs 20 に SKK 9.6 がインストールできません。, , Q.2-5 色々別に入手するものがあってインストールが難しいですね。, Installation
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.2-6 Emacs 20 に SKK 9.6 がインストールできません。
+
+SKK 9.6 は Emacs 20 がリリースされる以前のバージョンで、Emacs 20 に対
+応していません。実際使えないことが確認されています。
+
+@display
+@url{http://openlab.ring.gr.jp/skk/index-j.html}
+@end display
+
+@noindent
+にて公開されている SKK は Emacs 20 に対応していますから、それをインス
+トールしてください。
+
+@node Customization, Dictionaries, Installation, よくある質問とその回答(FAQ)
+@comment  node-name,  next,  previous,  up
+@section SKK の基本設定からお好みのカスタマイズまで
+
+@menu
+* Q.3-1 インジケータをモード行の左端に置きたいのですが。::  
+* Q.3-2 「．」、「，」 が入力できるようにカスタマイズしたいのですが。::  
+* Q.3-3 「ゐ」や「ヰ」 が入力できるようにカスタマイズしたいのですが。::  
+* Q.3-4 skk-input-vector と skk-roma-kana-a が見当たりませんが。::  
+* Q.3-5 検索する辞書を増やしたいのですが。::  
+* Q.3-6 左手の小指を SHIFT で酷使したくありません。::  
+* Q.3-7 全く漢字が出てきません。::  
+* Q.3-8 チュートリアルが起動できません。::  
+* Q.3-9 スペースを押しても変換できません。::  
+@end menu
+
+@node Q.3-1 インジケータをモード行の左端に置きたいのですが。, Q.3-2 「．」、「，」 が入力できるようにカスタマイズしたいのですが。, Customization, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-1 インジケータをモード行の左端に置きたいのですが。
+
+@file{~/.skk} に
+
+@lisp
+(setq skk-status-indicator 'left)
+@end lisp
+
+@noindent
+と書いてみてください。
+
+@node Q.3-2 「．」、「，」 が入力できるようにカスタマイズしたいのですが。, Q.3-3 「ゐ」や「ヰ」 が入力できるようにカスタマイズしたいのですが。, Q.3-1 インジケータをモード行の左端に置きたいのですが。, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-2 @samp{.} で「．」、@samp{,} で「，」 が入力できるようにカスタマイズしたいのですが。
+
+@file{~/.skk} に
+
+@lisp
+@group
+(setq skk-rom-kana-rule-list
+      (append '(("." nil "．") ("," nil "，"))
+	      skk-rom-kana-rule-list))
+@end group
+@end lisp
+
+@noindent
+と書きましょう。■モード (確定入力モード) での動作が変わったはずです。
+
+@node Q.3-3 「ゐ」や「ヰ」 が入力できるようにカスタマイズしたいのですが。, Q.3-4 skk-input-vector と skk-roma-kana-a が見当たりませんが。, Q.3-2 「．」、「，」 が入力できるようにカスタマイズしたいのですが。, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-3 @samp{wi} で、「ゐ」や「ヰ」 が入力できるようにカスタマイズしたいのですが。
+
+一つ前の Q. の変形問題ですね。かな/カナモードでそれぞれ出力する文字
+を変えるやり方です。
+
+@file{~/.skk} に
+
+@lisp
+@group
+(setq skk-rom-kana-rule-list
+      (append '(("wi" nil ("ヰ" . "ゐ")))
+	      skk-rom-kana-rule-list))
+@end group
+@end lisp
+
+@noindent
+と書いてみましょう。
+
+一番内側の cons cell は car がカナモード、cdr がかなモー
+ドでの入力文字を表しています。
+
+一つ前の Q. に対する答えのように、カナモード、かなモードともに入力す
+る文字が変わらなければ、cons cell の代りに文字列を書くことができます。
+
+@node Q.3-4 skk-input-vector と skk-roma-kana-a が見当たりませんが。, Q.3-5 検索する辞書を増やしたいのですが。, Q.3-3 「ゐ」や「ヰ」 が入力できるようにカスタマイズしたいのですが。, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-4 @code{skk-input-vector} と @code{skk-roma-kana-a} が見当たりませんが。
+@vindex skk-rom-kana-base-rule-list
+@vindex skk-rom-kana-rule-list
+
+廃止されました (キッパリ)。
+
+その昔、かな/カナモードの入力系統をカスタマイズする変数は沢山ありまし
+たが、SKK 10.x 以降では @code{skk-rom-kana-base-rule-list} と
+@code{skk-rom-kana-rule-list} に統合されました。
+
+前者は標準的なキー入力を定めています。後者は、好みに左右されるものを定
+義しています。いずれもユーザー変数ですが、後者はリスト操作を容易にする
+ためにディフォルトの要素数を少なくしています。後者の設定は前者のものを
+上書きします。
+
+@node Q.3-5 検索する辞書を増やしたいのですが。, Q.3-6 左手の小指を SHIFT で酷使したくありません。, Q.3-4 skk-input-vector と skk-roma-kana-a が見当たりませんが。, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-5 検索する辞書を増やしたいのですが。
+@vindex skk-search-prog-list
+
+@code{skk-search-prog-list} で設定をしましょう。
+
+まず、現在の設定を確認しましょうね。*scratch* バッファに
+@code{skk-search-prog-list} と書いてそのシンボルの末尾にポイントを置いて
+@kbd{C-j} してみましょう。例えば次のように出力されます。
+ 
+@lisp
+@group
+  ((skk-search-jisyo-file skk-jisyo 0 t)
+   (skk-search-server skk-aux-large-jisyo 10000))
+@end group
+@end lisp
+
+上記の例は 2 つの要素を持ったリストになっています。設定によりもっと多
+くの要素があるかもしれません。
+
+各要素は検索する関数と辞書を指定したリストです。要素の順番に検索がなさ
+れます。上記の例だとまず最初に @code{skk-jisyo} (個人辞書) を
+@code{skk-search-jisyo} という関数を使ってリニアアーチ、次に
+@code{skk-search-server} という関数を使って @code{skk-aux-large-jisyo}
+をサーチします。
+
+変換の際、@key{SPC} を押しますよね？  1 回 @key{SPC} を押すと、SKK は候
+補が見つかるまでの間、@code{skk-search-prog-list} の要素を前から読んでいっ
+て検索を行ない、見つかればそこで一旦検索を止めてユーザに候補を提示します。
+
+ユーザが @key{SPC} を更に押してゆき最初の要素のプログラムが見つけた候補が尽
+きると、SKK は中断していた個所から再び @code{skk-search-prog-list} の次
+の要素を見つけ、ここで指定されている関数を使って検索する、で新しい候補が
+見つかればまた提示する、というシステムになっています。
+
+では、サーバを使って検索した後に、JIS 第 2 水準の単漢字辞書、
+@file{SKK-JISYO.JIS2} を検索したい場合はどうすれば良いでしょう？  もう分
+かりますよね？  サーバを使った検索式の次に第 2 水準辞書の検索式を書いた
+リストを @code{skk-search-prog-list} に指定すれば良いのです。
+@file{~/.skk} に次のように書きましょう。
+
+@lisp
+@group
+(setq skk-search-prog-list
+  '((skk-search-jisyo-file skk-jisyo 0 t)
+    (skk-search-server skk-aux-large-jisyo 10000)
+    (skk-search-jisyo-file "~/dic/SKK-JISYO.JIS2" 0))
+@end group
+@end lisp
+
+@code{skk-search-jisyo-file} の第 2 引数、0 の数字はリニアサーチにて検索
+するよう指定しています。第 2 水準辞書はあまり大きくないので、リニアサー
+チで十分でしょう。大きな辞書を検索する場合などは、
+
+@lisp
+(skk-search-jisyo-file "~/dic/SKK-JISYO.L" 10000)
+@end lisp
+
+@noindent
+のようにすると良いでしょう。SKK は Emacs のバッファに読み込まれた
+@file{~/dic/SKK-JISYO.L} の検索リージョンのポイント差が 10,000 未満にな
+るまではバイナリサーチを行ない、その後リニアサーチを行ないます。大きな辞
+書ではバイナリサーチを行なう方がはるかに効率が良いです。嘘だと思うなら、
+@file{SKK-JISYO.L} を読み込んでリニアサーチするような設定にして試してみ
+て下さい。
+
+ちなみに、@file{SKK-JISYO.JIS2} は、最大でもリージョン間のポイント差が
+8,500 程度です。
+
+@node Q.3-6 左手の小指を SHIFT で酷使したくありません。, Q.3-7 全く漢字が出てきません。, Q.3-5 検索する辞書を増やしたいのですが。, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-6 左手の小指を SHIFT で酷使したくありません。
+
+SKK を標準の状態で使っている場合、変換のためにシフトキーを多用しますの
+で小指への負担が大きくなります。
+@footnote{このため、ある人々は SKK を小指キラーと呼びます。}
+
+この苦しみを回避するためにここでは 3 つの方法を紹介します。
+
+@enumerate
+@item
+親指の近くにあるキーを利用してシフトキーの代用とする。
+
+日本語 106 キーボードのように無変換、変換などのキーがある場合は、これ
+らをシフトキーの代用とすることが可能です。こうすると、例えば
+
+@display
+@key{SHIFT} を押しながら @kbd{a} を押す
+@end display
+
+@noindent
+というキー操作は
+
+@display
+@key{無変換} を押して、その後で @kbd{a} を押す
+@end display
+
+@noindent
+という操作で置き換えることができるようになります。
+
+それでは具体的なやり方を説明しましょう。まず、使用中の Emacs が無変換
+キーを何という名前で認識しているか調べます。それには
+
+@example
+@kbd{M-x describe-key}
+@end example
+
+@noindent
+というコマンドを実行し、続いて 無変換キーを押してみます。XFree86 上で
+なら、おそらく
+
+@example
+muhenkan is undefined
+@end example
+
+@noindent
+という答えが返ってくるでしょう。次に、この名前を使って @file{~/.emacs}
+に設定を書きこみます。以下は @key{無変換} = @key{muhenkan} の場合の例で
+す。
+
+@lisp
+@group
+(if (keymapp key-translation-map)
+    nil
+  (setq key-translation-map (make-sparse-keymap)))
+
+(let ((i ?a))
+  (while (<= i ?z)
+    (define-key key-translation-map
+                (vector 'muhenkan i) (vector (- i 32)))
+    (setq i (1+ i))))
+@end group
+@end lisp
+@vindex key-translation-map
+
+この設定を終えると、@kbd{@key{muhenkan}-a} で @kbd{A} が入力できるように
+なります。つづいて、SKK を起動してみましょう。@kbd{@key{muhenkan}-a} で
+@samp{▽あ} となります。送りの開始点も、もちろん同様の操作で指定できます。
+@footnote{変数 @code{key-translation-map} の意味を調べてみてください。
+
+@kbd{M-x describe-variable} @key{RET} key-translation-map}
+
+@item
+xmodmap を使う。
+
+X 上では、xmodmap というプログラムを使ってキー配列を変更できます。例え
+ば、無変換キーをシフトキーとして使いたければ
+@cindex xmodmap
+
+@example
+% xmodmap -e 'add Shift = Muhenkan'
+@end example
+
+@noindent
+とします。これで無変換キーは通常のシフトキーと同じような感じで使えるよ
+うになります。
+
+@item
+親指シフト入力のエミュレーション機能を利用する。
+@cindex 親指シフト入力
+
+これは 1, 2 とはかなり違ったアプローチです。SKK 本来のローマ字的入力を捨
+てて、富士通のワープロ OASYS のような親指シフト入力を修得します。
+@footnote{親指シフト入力の詳細については、ここでは述べません。興味がある
+場合は、日本語入力コンソーシアムの Web サイト
+
+@display
+@url{http://nicola.sunicom.co.jp/}
+@end display
+
+@noindent
+を訪れてください。}
+@cindex OASYS
+@cindex NICOLA
+@cindex 日本語入力コンソーシアム
+
+この機能は、SKK 10 では利用できません。Daredevil SKK 11.3 以降には、
+NICOLA-DDSKK というプログラムが付属しており、これをインストールすると
+親指シフト入力が可能になります。インストール自体は簡単で、
+
+@example
+% cd experimental/nicola
+% make install
+@end example
+
+@noindent
+とした後に、@file{~/.skk} に
+
+@lisp
+@group
+(setq skk-use-kana-keyboard t)
+(setq skk-kanagaki-keyboard-type 'omelet-jis)
+@end group
+@end lisp
+
+@noindent
+と書くだけです。詳しいことは、NICOLA-DDSKK 付属のドキュメントを参照し
+てください。
+
+NICOLA 配列は、特別に日本語入力のために考えられた配列なので、慣れれば
+非常に効率的な日本語入力ができるようになると期待されます。一方で、ロー
+マ字的入力方式に慣れてしまっている人にとっては、NICOLA 配列に慣れるま
+でかなり練習を要することは確かです。
+@end enumerate
+
+@node Q.3-7 全く漢字が出てきません。, Q.3-8 チュートリアルが起動できません。, Q.3-6 左手の小指を SHIFT で酷使したくありません。, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-7 全く漢字が出てきません。
+
+恐らく辞書の設定ができていないのでしょう。
+
+@file{SKK-JISYO.L} というファイルがインストールされている場所を確認して
+ください。普通は
+
+@display
+@file{/usr/local/share/skk}
+@file{/usr/share/skk}
+@end display
+
+@noindent
+といった場所にインストールされています。XEmacs のパッケージならば
+
+@display
+@file{/usr/local/lib/xemacs/mule-packages/etc/skk}
+@end display
+
+@noindent
+などを確認します。その後で @file{~/.skk} に
+
+@lisp
+(setq skk-large-jisyo "/usr/local/share/skk/SKK-JISYO.L")
+@end lisp
+@vindex skk-large-jisyo
+
+@noindent
+のように設定します。
+
+なお、辞書サーバを使っている場合はこの設定は必要ありません。その場合は、
+辞書サーバの設定や、それがちゃんと起動しているかどうかを確認してくださ
+い。
+
+また、どこにも辞書がインストールされていない場合は
+
+@display
+@url{http://openlab.ring.gr.jp/skk/dic/}
+@end display
+
+@noindent
+から取得します。
+
+@node Q.3-8 チュートリアルが起動できません。, Q.3-9 スペースを押しても変換できません。, Q.3-7 全く漢字が出てきません。, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-8 チュートリアルが起動できません。
+@cindex チュートリアル
+
+@file{SKK.tut} というファイルがインストールされている場所を確認してくだ
+さい。普通は
+
+@display
+@file{/usr/local/share/skk}
+@file{/usr/share/skk}
+@end display
+
+@noindent
+といった場所にインストールされています。XEmacs のパッケージならば
+@cindex パッケージ
+
+@display
+@file{/usr/local/lib/xemacs/mule-packages/etc/skk}
+@end display
+
+@noindent
+などを確認します。その後で @file{~/.emacs} に
+
+@lisp
+(setq skk-tut-file "/usr/local/share/skk/SKK.tut")
+@end lisp
+@vindex skk-tut-file
+
+@noindent
+のように設定します。
+
+@node Q.3-9 スペースを押しても変換できません。, , Q.3-8 チュートリアルが起動できません。, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-9 スペースを押しても変換できません。
+
+以前のバージョンの SKK では、SKK を使う前に Canna の設定がされていると、
+スペースを押しても空白が挿入されるだけで変換できない、というバグがあり
+ました。これは SKK 10.62 以降では修正されています。
+@cindex Canna
+
+なお、このバグに対処するために
+
+@lisp
+(setq canna-use-space-key-as-henkan-region nil)
+@end lisp
+@vindex canna-use-space-key-as-henkan-region
+
+@noindent
+と設定していた場合は、もはやその必要はないので消して構いません。
+
+@node Dictionaries, Miscellaneous, Customization, よくある質問とその回答(FAQ)
+@comment  node-name,  next,  previous,  up
+@section SKK 辞書関連
+
+@menu
+* Q.4-1 Wnn でも Canna でも郵便番号辞書が使えるけれど、SKK では？::  
+* Q.4-2 SKK の辞書には、品詞情報がないんですね。::  
+* Q.4-3 SKK には辞書をマージするプログラムは付いてないの？::  
+* Q.4-4 SKK 形式の英和辞書があると聞いたのですが。::  
+@end menu
+
+@node Q.4-1 Wnn でも Canna でも郵便番号辞書が使えるけれど、SKK では？, Q.4-2 SKK の辞書には、品詞情報がないんですね。, Dictionaries, Dictionaries
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.4-1 Wnn でも Canna でも郵便番号辞書が使えるけれど、SKK では使えないの？
+
+CVS から辞書を取得した場合は、@file{zipcode} というディレクトリに入って
+います。WWW では、
+
+@display
+@url{http://openlab.ring.gr.jp/skk/dic/}
+@end display
+
+@noindent
+より入手できます。使用方法は、@file{zipcode/README.ja} を御覧下さい。
+
+@node Q.4-2 SKK の辞書には、品詞情報がないんですね。, Q.4-3 SKK には辞書をマージするプログラムは付いてないの？, Q.4-1 Wnn でも Canna でも郵便番号辞書が使えるけれど、SKK では？, Dictionaries
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.4-2 SKK の辞書には、品詞情報がないんですね。
+@cindex 品詞情報
+
+はい、そうです。品詞情報がなくとも効率の良い入力ができるシステムが SKK
+です。
+
+@node Q.4-3 SKK には辞書をマージするプログラムは付いてないの？, Q.4-4 SKK 形式の英和辞書があると聞いたのですが。, Q.4-2 SKK の辞書には、品詞情報がないんですね。, Dictionaries
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.4-3 SKK には辞書をマージするプログラムは付いてないの？
+@cindex 辞書のマージ
+
+SKK 本体のパッケージには同封されていませんが、skk-tools という別パッケー
+ジがあり、
+
+@display
+@url{http://openlab.ring.gr.jp/skk/tools-ja.html}
+@end display
+
+@noindent
+から入手可能です。
+
+@node Q.4-4 SKK 形式の英和辞書があると聞いたのですが。,  , Q.4-3 SKK には辞書をマージするプログラムは付いてないの？, Dictionaries
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.4-4 SKK 形式の英和辞書があると聞いたのですが。
+@cindex @file{edict2skk.awk}
+@cindex @file{skkdic-expr}
+@cindex @file{skkdic-sort}
+@cindex edict
+@cindex 英和辞書
+
+edict は和英辞書ですが、これを SKK 辞書形式の英和辞書に変換したものを
+
+@display
+@url{http://openlab.ring.gr.jp/skk/dic/SKK-JISYO.edict}
+@end display
+
+@noindent
+として置いています。これは edict を単純に機械的に変換した後、バグの修正
+や、エントリ・候補の追加が SKK Openlab で独自に行なわれているものです。
+
+edict を自分で加工して上記と同等のものを作成することもできます。edict は
+
+@display
+@url{ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/}
+@end display
+
+@noindent
+などから入手できます。
+
+加工には日本語の通る @code{gawk} と SKK 添付の @file{edict2skk.awk}、
+skk-tools の中のプログラムを使い、下記のように行ないます。
+
+@example
+% jgawk -f skk-10/lisp/look/edict2skk.awk edict > temp
+% skkdic-expr temp | skkdic-sort > SKK-JISYO.E2J
+% rm temp
+@end example
+
+できた @file{SKK-JISYO.E2J} の利用方法は色々ありますが、
+
+@example
+% skkdic-expr SKK-JISYO.E2J + /usr/local/share/skk/SKK-JISYO.L | \
+  skkdic-sort > SKK-JISYO.L
+@end example
+
+@noindent
+などとして、@file{SKK-JISYO.L} とマージして使うのが手軽です。
+
+なお、edict の配布条件は GPL ではありません。
+
+@display
+@url{http://www.csse.monash.edu.au/groups/edrdg/newlic.html}
+@end display
+
+@noindent
+をご覧下さい。@file{SKK-JISYO.edict} のヘッダー部分にもそのダイジェスト
+が記載されています。
+
+@node Miscellaneous, Forgotten Antique Questions(FAQ), Dictionaries, よくある質問とその回答(FAQ)
+@comment  node-name,  next,  previous,  up
+@section SKK の活用法その他
+
+@menu
+* Q.5-1 abbrev モードって何ですか？::  
+* Q.5-2 abbrev モードでもっと英単語を利用した変換ができませんか？::  
+* Q.5-3 市販の CD-ROM 辞書やネットワークの辞書サーバが利用できますか？::  
+* Q.5-4 他の FEP を使用中にも SHIFT を押してしまいます。::  
+@end menu
+
+@node Q.5-1 abbrev モードって何ですか？, Q.5-2 abbrev モードでもっと英単語を利用した変換ができませんか？, Miscellaneous, Miscellaneous
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.5-1 abbrev モードって何ですか？
+
+@example
+  @kbd{▽is} @key{SPC}
+       @expansion @samp{インクリメンタル・サーチ}
+@end example
+
+@noindent
+などのように短い英語見出しから変換できると便利だとは思いませんか？
+
+かな/カナモードで、@kbd{/} キーを入力してみて下さい。@samp{▽}が出てアス
+キー文字が入力できるようになるはずです。ここで英文字を入力して @key{SPC}
+を押せば変換できます。
+
+もちろん対応するエントリが辞書にないと単語登録モードに入りますよ。
+
+@node Q.5-2 abbrev モードでもっと英単語を利用した変換ができませんか？, Q.5-3 市販の CD-ROM 辞書やネットワークの辞書サーバが利用できますか？, Q.5-1 abbrev モードって何ですか？, Miscellaneous
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.5-2 abbrev モードでもっと英単語を利用した変換ができませんか？
+@cindex @file{look}
+@cindex @file{skk-look.el}
+@cindex edict 
+@cindex 英単語の検索
+@cindex 和英変換
+@kindex ,
+@kindex .
+@vindex skk-look-expanded-word-only
+@vindex skk-look-recursive-search
+@vindex skk-use-look
+
+UNIX @code{look} コマンドと @file{skk-look.el} を利用すると、色々できま
+すよ。まず、 @file{~/.skk} か @file{~/.emacs} で @code{skk-use-look} を
+t にセットして Emacs/SKK を立ち上げ直して下さい。
+
+さぁ、下記のような芸当が可能になりました。
+
+@enumerate
+@item
+英単語を補完ができます。
+
+@example
+  ▽abstr(@key{TAB}) @expansion ▽abstract 
+@end example
+
+通常の補完機能同様、@kbd{.} で次の補完候補、@kbd{,} でひとつ前の補完候補
+に移動できます。SKK 形式の英和辞書があれば、ここから @key{SPC} を押して
+英和変換ができますね。
+
+@item
+(2)英単語をあいまいに変換して取り出すことができます。
+
+@example
+  ▽abstr* (@key{SPC}) @expansion ▼abstract 
+@end example
+
+見出し語に @samp{*} を入れるのをお忘れなく。
+
+@item
+あいまいに変換した後、更に再帰的な英和変換を行なうことができます。
+
+まず、@code{skk-look-recursive-search} の値を non-nil にセットして下さい。
+Emacs/SKK を再起動する必要はありません。すると、例えば、
+
+@example
+  ▽abstr* (@key{SPC})
+       @expansion ▼abstract (@key{SPC})
+       @expansion ▼アブストラクト (@key{SPC})
+       @expansion ▼抽象 (@key{SPC})
+       @expansion ▼abstraction (@key{SPC})
+       @expansion ▼アブストラクション
+@end example
+
+このように英単語 + その英単語を見出し語にした候補の「セット」を変換結果
+として出力することができます。
+
+この際、@code{skk-look-expanded-word-only} の値が non-nil であれば、再帰
+検索に成功した英単語の「セット」だけを出力することができます (再帰検索で
+検出されなかった英単語は無視して出力しません) 。 
+
+もちろん、SKK 辞書に
+
+@example
+  abstract /アブストラクト/抽象/
+  abstraction /アブストラクション/
+@end example
+
+@noindent
+というエントリがあることを前提としています。edict を SKK 辞書形式に変換
+すると良いですね。
+@end enumerate
+
+@node Q.5-3 市販の CD-ROM 辞書やネットワークの辞書サーバが利用できますか？, Q.5-4 他の FEP を使用中にも SHIFT を押してしまいます。, Q.5-2 abbrev モードでもっと英単語を利用した変換ができませんか？, Miscellaneous
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.5-3 SKK の検索で、市販の CD-ROM 辞書やネットワークの辞書サーバが利用できますか？
+@cindex @file{skk-lookup.el} 
+@cindex Lookup
+
+Lookup が扱える辞書はほとんど使えます。Lookup がインストールされている
+状態で SKK をインストールすると、SKK と Lookup のゲートウェイプログラ
+ム @file{skk-lookup.el} がインストールされます。
+
+インストールで注意すべきは、@code{make} で呼び出される Emacs は
+@samp{-q -no-site-file} フラグ付きで呼ばれるので、@file{~/.emacs} や
+@file{site-start.el} などは読み込まれないことです。ディフォルトで
+@code{load-path} の通っているディレクトリに lookup をインストールするか、
+@file{SKK-CFG} の中で @var{VERSION_SPECIFIC_LISPDIR} などにディレクトリ
+を明示することで解決できます。
+
+さぁ、@file{~/.emacs} か @file{~/.skk} で @code{skk-search-prog-list} の
+要素に @code{(skk-lookup-search)} を追加しましょう。他の検索エンジンより
+も検索は比較的重いので、最後の方が良いと思います。
+
+こんな感じです。
+
+@lisp
+@group
+  (setq skk-search-prog-list
+        '((skk-search-jisyo-file skk-jisyo 0 t)
+          (skk-search-server skk-aux-large-jisyo 10000)
+          (skk-lookup-search)))
+@end group
+@end lisp
+
+Lookup については、
+
+@display
+@url{http://openlab.ring.gr.jp/lookup/}
+@end display
+
+@noindent
+をご参照下さい。ぼく (中島) は、ローカルマシンのハードディスクに広辞苑の
+第四版をコピーして利用していますが、速度的には十分満足しています。ちなみ
+にコピーした辞書データのサイズは 45MB 弱です。
+
+@node Q.5-4 他の FEP を使用中にも SHIFT を押してしまいます。,  , Q.5-3 市販の CD-ROM 辞書やネットワークの辞書サーバが利用できますか？, Miscellaneous
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.5-4 SKK を使い始めてから、他の FEP を使用中にも @key{SHIFT} を押してしまいます。(T_T)
+
+治すには SKK をやめるしかありません :-)
+
+Emacs 上以外でも SKK みたいな操作性を実現するソフトウェアがあります。
+
+@display
+@xref{SKK関連ソフトウェア}.
+@end display
+
+@noindent
+をご覧になってください。
+
+@node Forgotten Antique Questions(FAQ),  , Miscellaneous, よくある質問とその回答(FAQ)
+@comment  node-name,  next,  previous,  up
+@section 化石的質問集
+
+@menu
+* Q.6-1 SKK は Nemacs で使えますか？::  
+* Q.6-2 SKK は Demacs で使えますか？::  
+@end menu
+
+@node Q.6-1 SKK は Nemacs で使えますか？, Q.6-2 SKK は Demacs で使えますか？, Forgotten Antique Questions(FAQ), Forgotten Antique Questions(FAQ)
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.6-1 SKK は Nemacs で使えますか？
+@cindex Daredevil
+@cindex Nemacs
+
+SKK 10.xx は使えません。
+
+未確認情報ですが、Daredevil SKK 11.x では動いているという噂があります。
+開発者の中に最近 Back to the Future した者がいる可能性は否定できませんが、
+ただの Emacs オタクと考えたほうがいいでしょう。
+
+@node Q.6-2 SKK は Demacs で使えますか？,  , Q.6-1 SKK は Nemacs で使えますか？, Forgotten Antique Questions(FAQ)
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.6-2 SKK は Demacs で使えますか？
+@cindex Daredevil
+@cindex Demacs
+
+SKK 10.xx は使えません。
+
+最近、MS-DOS 7.1 上の Demacs 上で Daredevil SKK 11.x が動いているところ
+が目撃され、スクープされたそうです。
+
+ところが、DEMAgogiC Studio とかいうアプリケーションに付属のエディタも
+Demacs と呼ばれているらしく、本件はかの偉大な Demacs とは関係無いだろう
+とも言われています。
+
 
 @node 事項索引, 変数索引, よくある質問とその回答(FAQ), Top
 @comment      node-name, next,       previous, up
