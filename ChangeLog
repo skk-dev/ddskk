@@ -3,6 +3,10 @@
 	* SKK-MK
 	(SKK-MK-compile-package): Load auto-autoloads.el.
 
+	* skk-dcomp.el
+	(skk-dcopm-after-delete-backward-char): Don't complete in
+	`skk-abbrev-mode'.
+
 	* skk-tut.el
 	(skktut-init-variables-alist): Set `skk-kcode-charset'
 	japanese-jisx0208 when feature `jisx0213' is found.
@@ -3141,8 +3145,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.596 2001/12/16 03:56:43 czkmt Exp $
-Last Modified: $Date: 2001/12/16 03:56:43 $
+Version: $Id: ChangeLog,v 1.597 2001/12/16 04:05:37 czkmt Exp $
+Last Modified: $Date: 2001/12/16 04:05:37 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
