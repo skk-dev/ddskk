@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.23 2004/04/04 04:42:48 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.24 2004/04/04 05:49:35 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2004/04/04 04:42:48 $
+;; Last Modified: $Date: 2004/04/04 05:49:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -183,7 +183,7 @@
 (defun skk-annotation-show-1 (annotation)
   (cond
    ((and (eval-when-compile (eq skk-emacs-type 'mule5))
-	 skk-use-tooltip)
+	 skk-show-tooltip)
     (skk-tooltip-show-at-point annotation))
    ((and skk-annotation-show-as-message
 	 (not (skk-in-minibuffer-p)))
