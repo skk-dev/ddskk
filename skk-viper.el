@@ -6,9 +6,9 @@
 ;;         Murata Shuuichirou <mrt@astec.co.jp>
 ;; Maintainer: Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-viper.el,v 1.1 1999/08/16 00:02:41 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.2 1999/08/16 00:22:01 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/16 00:02:41 $
+;; Last Modified: $Date: 1999/08/16 00:22:01 $
 
 ;; This file is not part of SKK yet.
 
@@ -95,8 +95,12 @@
 	 (defadvice (, viper) (, arg) (,@ body))
        (defadvice (, vip) (, arg) (,@ body)) )))
 
-(defsubst skk-jisx0208-p (char)
-  (eq 'japanese-jisx0208 (car (find-charset-string (char-to-string char)))) )
+(cond ((boundp 'lc-jp)
+       (defsubst skk-jisx0208-p (char)
+	 (eq lc-jp (car (find-charset-string (char-to-string char)))) ))
+      (t
+       (defsubst skk-jisx0208-p (char)
+	 (eq 'japanese-jisx0208 (car (find-charset-string (char-to-string char)))) )))
 
 ;; cursor color support.
 (if (and (boundp 'viper-insert-state-cursor-color)
@@ -202,13 +206,14 @@
 (skk-viper-advice-select
  viper-join-lines vip-join-lines
  (after skk-ad activate)
- ("スペースの両側の文字セットが JISX0208 だったらスペースを取り除く。"
+ ("スペースの両側の文字セットが JISX0208 だったらスペースを取り除く。" ;
   (save-match-data
     (and (skk-jisx0208-p
-	  (char-before (skk-save-point (skip-chars-backward " ") (point))) )
+	  (char-after (progn (skip-chars-forward " ") (point))) )
 	 (skk-jisx0208-p
-	  (char-after (skk-save-point (skip-chars-forward " ") (point))) )
-         (delete-char 1) ))))
+	  (char-before (progn (skip-chars-backward " ") (point))) )
+	 (while (looking-at " ")
+	   (delete-char 1) ))))
 
 (defun skk-set-cursor-properly ()
   ;; カレントバッファの SKK のモードに従い、カーソルの色を変更する。
