@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.13 1999/10/03 11:30:49 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.14 1999/10/03 13:24:39 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/03 11:30:49 $
+;; Last Modified: $Date: 1999/10/03 13:24:39 $
 
 ;; This file is not part of SKK yet.
 
@@ -53,9 +53,9 @@
 ;;          (skk-search-server skk-aux-large-jisyo 10000)
 ;;          (skk-lookup-search) ))
 ;;
-;; $B8=:_BP1~$7$F$$$k<-=q$O!"(Bispell, CHIEZO, CHUJITEN, COLLOC, KANWA,
-;; KOJIEN, KOKUGO, KOUJIEN, MYPAEDIA, PLUS, RIKAGAKU, WAEI $B$G$9(B
-;; (lookup-dictionary-name $B$,JV$9CM$GI85-$7$F$$$^$9(B)$B!#(Bkakasi
+;; $B8=:_BP1~$7$F$$$k<-=q$O!"(Bispell, CHIEZO, CHUJITEN, COLLOC, IWAKOKU, 
+;; KANWA, KOJIEN, KOKUGO, KOUJIEN, MYPAEDIA, PLUS, RIKAGAKU, WAEI 
+;; $B$G$9(B (lookup-dictionary-name $B$,JV$9CM$GI85-$7$F$$$^$9(B)$B!#(Bkakasi
 ;; (KAKASI $B$rMxMQ$9$k$J$i(B skk-kakasi.el $B$r;H$$$^$7$g$&(B), ndcookie,
 ;; ndnmz $B$K$OBP1~$$$F$$$^$;$s$7!"BP1~$NI,MW$O$J$$$H9M$($F$$$^$9(B ($B%a%j%C(B
 ;; $B%H$,$"$l$P65$($F2<$5$$(B)$B!#(B
@@ -118,12 +118,16 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ("ispell" exact "-> \\([^ ]+\\)]$" nil)
     ;; "$B$"$+#3(B $B^@(B", "ethanol"
     ("CHUJITEN" exact "[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" nil)
+    ;; via ndtp
+    ("JITENBAN/CHUJITEN" exact "[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" nil)
     ;; "($BHiIf$J$I$N(B)$B$"$+(B <grime>", "$B!T1Q!U(B ($B%Q%$%W$J$I$N(B)$B$"$+(B <fur>"
     ("COLLOC" exact "\\([^ $B!T!U(B]+\\) <[a-z]+>$" nil)
     ;; "$B9$(B", "$B@V(B" 
     ("KANWA" exact nil nil)
     ;; "$B9$(B"
     ("MYPAEDIA" exact nil nil)
+    ;; via ndtp
+    ("JITENBAN/MYPAEDIA" exact nil nil)
     ;; "$B!!$"$+(B <scud$B#2(B>", "$B!!!V$"$+!W(B <rust>"
     ("PLUS" exact "^$B!!(B\\(.+\\) <[a-z$B#0(B-$B#9(B]+>$" nil)
     )
@@ -166,8 +170,9 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
        $B$,$G$-$k$h$&;XDj$9$k(B\)$B!#(B
   2th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!#(B
 
-$B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"CHIEZO\", \"KOJIEN\", \"KOUJIEN\",
-\"KOKUGO, \"RIKAGAKU\", \"WAEI\".
+$B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"CHIEZO\", \"JITENBAN/CHIEZO\", \"IWAKOKU\",
+\"JITENBAN/IWAKOKU\", \"KOJIEN\", \"KOUJIEN\", \"KOKUGO, \"RIKAGAKU\",
+\"WAEI\".
 `lookup-entry-heading' $B$G<h$j=P$7$?J8;zNs$,2<5-$N$h$&$K$J$k$3$H$rA0Ds$K$7$F$$$k!#(B
 
   \"$B$"!>$+!Z0!2J![!E%/%o(B\"
@@ -223,7 +228,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 	      (skk-num-compute-henkan-key skk-henkan-key)
 	    skk-henkan-key ))
     (let ((module (skk-lookup-default-module))
-	  lookup-enable-gaiji ; not to put out gaiji.
+	  (lookup-gaiji-alternate "")
+	  ;;lookup-enable-gaiji ; not to put out gaiji.
 	  name method entries candidates-string candidates-list )
       ;; setup modules.
       (lookup-module-setup module)
@@ -327,6 +333,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 ;; to check dictionary output of heading for creating new regexp.
 (defun skk-lookup-pickup-headings (pattern method)
   (let ((module (skk-lookup-default-module))
+	(lookup-gaiji-alternate "")
+	;;lookup-enable-gaiji ;  not to put out gaiji.
 	var )
     (lookup-module-setup module)
     (lookup-foreach 
