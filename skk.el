@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.284 2004/04/08 22:43:06 czkmt Exp $
+;; Version: $Id: skk.el,v 1.285 2004/06/07 08:54:28 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/04/08 22:43:06 $
+;; Last Modified: $Date: 2004/06/07 08:54:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -772,6 +772,10 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	    command)
 	;; have to search key binding after binding 4 minor mode flags to nil.
 	(setq command (key-binding keys))
+	(unless command
+	  (setq keys (lookup-key function-key-map keys))
+	  (when keys
+	    (setq command (key-binding keys))))
 	(unless (eq command this-command)
 	  ;; avoid recursive calling of skk-emulate-original-map.
 
