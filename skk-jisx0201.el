@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.17 2001/09/07 11:27:23 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.18 2001/09/07 11:31:07 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/07 11:27:23 $
+;; Last Modified: $Date: 2001/09/07 11:31:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -233,13 +233,19 @@
   (and skk-jisx0201-mode (skk-jisx0201-mode-on skk-jisx0201-roman)))
 
 (defadvice skk-latin-mode (after skk-jisx0201-ad activate)
-  (setq skk-jisx0201-mode nil))
+  (when skk-jisx0201-mode
+    (kill-local-variable 'skk-rule-tree)
+    (setq skk-jisx0201-mode nil)))
 
 (defadvice skk-jisx0208-latin-mode (after skk-jisx0201-ad activate)
-  (setq skk-jisx0201-mode nil))
+  (when skk-jisx0201-mode
+    (kill-local-variable 'skk-rule-tree)
+    (setq skk-jisx0201-mode nil)))
 
 (defadvice skk-abbrev-mode (after skk-jisx0201-ad activate)
-  (setq skk-jisx0201-mode nil))
+  (when skk-jisx0201-mode
+    (kill-local-variable 'skk-rule-tree)
+    (setq skk-jisx0201-mode nil)))
 
 (defadvice skk-set-okurigana (around skk-jisx0201-ad activate)
   "半角カナの送り仮名を正しく取得する。"
