@@ -9,11 +9,10 @@ jisyo = open(ARGV.shift, "rb")
 el = open("skk-dic.el", "wb")
 
 while line = infile.gets
+  el.puts line
   if line.index(/^  \"\\$/)
-    el.puts line
     break
   end
-  el.puts line
 end
 
 while line = jisyo.gets
