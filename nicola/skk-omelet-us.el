@@ -215,25 +215,26 @@ US 101 キーボードで omelet 入力するための基本ルール。")
 	       (eq last-command-char
 		   (car
 		    (rassoc '("。") skk-omelet-us-plain-rule-list))))
-	   (and skk-henkan-on
-		(not skk-henkan-active)))
+	   (or skk-henkan-on
+	       skk-henkan-active))
       ;; なぜかこける。原因解明中。
-      (setq marker skk-henkan-start-point)
-      (skk-kakutei)
-      ad-do-it
-      (unless (or
-	       (string=
-		(skk-char-to-string (char-before))
-		(car (cdr (rassoc '("、") skk-omelet-us-plain-rule-list))))
-	       (string=
-		(skk-char-to-string (char-before))
-		(car (cdr (rassoc '("。") skk-omelet-us-plain-rule-list)))))
-	(skk-save-point
-	 (goto-char marker)
-	 (skk-set-henkan-point-subr))))
-     (skk-henkan-active
-      (skk-kakutei)
-      ad-do-it)
+      (cond
+       ((not skk-henkan-active)
+	(setq marker skk-henkan-start-point)
+	(skk-kakutei)
+	ad-do-it
+	(unless (or
+		 (string=
+		  (skk-char-to-string (char-before))
+		  (car (cdr (rassoc '("、") skk-omelet-us-plain-rule-list))))
+		 (string=
+		  (skk-char-to-string (char-before))
+		  (car (cdr (rassoc '("。") skk-omelet-us-plain-rule-list)))))
+	  (skk-save-point
+	   (goto-char marker)
+	   (skk-set-henkan-point-subr))))
+       (t
+	ad-do-it)))
      (t
       ad-do-it))))
 
