@@ -12,9 +12,8 @@
 ;; specified in SKK-MK.  If you would like to change some of these,
 ;; you can edit this file (Do not edit SKK-MK directly).
 ;;
-;; Please note that as to `PREFIX', `LISPDIR', `PACKAGEDIR' and
-;; `VERSION_SPECIFIC_LISPDIR', definitions in Makefile (but other than
-;; `NONE') overwrite variables defined in SKK-MK and SKK-CFG.
+;; Please note that all variables specified in the command line 
+;; overwrite ones defined in SKK-MK and SKK-CFG.
 ;;
 ;; This file is composed of major three parts.  GENERIC VARIABLE
 ;; section, NON-PACKAGE INSTALL RELATED VARIABLE section, and PACKAGE
@@ -25,65 +24,91 @@
 ;; load SKK-MK.
 
 ;;; Code:
-;;;; GENERIC VARIABLE.
+
+;;;; User variables to control SKK-MK.
+;; (setq SKK-MK-cleanup-trouble-makers nil)
+;; (setq SKK-MK-debugging nil)
+;; (setq APEL_SPECIFIC_LISPDIR (getenv "APEL_SPECIFIC_LISPDIR"))
+;; ;; `install-prefix' is defined in install.el of APEL.
+;; ;; Maybe it is `/usr/local'.
+;; (setq PREFIX (or (getenv "PREFIX") install-prefix))
+;; (setq LISPDIR
+;;       (or (getenv "LISPDIR") (install-detect-elisp-directory PREFIX)) )
+;; (setq VERSION_SPECIFIC_LISPDIR
+;;       (or (getenv "VERSION_SPECIFIC_LISPDIR")
+;;           (install-detect-elisp-directory PREFIX nil 'version-specific) ))
 ;;
-;;(setq SKK-MK-cleanup-trouble-makers nil)
-;;(setq APEL_SPECIFIC_LISPDIR "/your/path/to/apel")
-;;(setq DOCDIR "./doc")
-;;(setq ETCDIR "./etc")
-;;(setq SKK-INFOS '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4"))
-;;(setq SKK-MODULES 
-;;      (let ((list '(queue-m stack-m skk-foreword
-;;			    skk-gadget skk-isearch skk-auto skk-comp
-;;			    skk-kakasi skk-kcode skk-leim skk-look 
-;;			    skk-num skk-obsolete skk-server skk-tut
-;;			    skk skk-autoloads
-;;			    ;; EXPERIMENTAL
-;;			    skk-rdbms skk-study
-;;			    ;; VIP 3.7
-;;			    ;; vip
-;;			    )))
-;;	(condition-case nil
-;;	    (and (require 'viper) (setq list (nconc list (list 'skk-viper))))
-;;	  (error) )
-;;	(and (or (featurep 'gdbm) (featurep 'dbm) (featurep 'berkdb)
-;;		 (featurep 'berkeley-db) )
-;;	     (setq list (nconc list (list 'skk-dbm))) )
-;;	list ))
-;;(setq SKK_PREFIX "skk")
-;;(setq SKK-TEXIS '("skk.texi"))
-;;(setq SKK-TUTORIALS '("SKK.tut" "SKK.tut.E"))
-;;(setq VERSION_SPECIFIC_LISPDIR nil)
-
-;;;; NON-PACKAGE INSTALL RELATED VARIABLE.
+;; (setq EMU_PREFIX
+;;       (if (or (featurep 'xemacs)
+;;               (and (fboundp 'set-buffer-multibyte)
+;;                    (subrp (symbol-function 'set-buffer-multibyte))))
+;;           "emu"
+;;         ""))
 ;;
-;;;; `install-prefix' is defined in install.el of APEL.
-;;;; Maybe it is `/usr/local'.
-;; (require 'install) ; you need to load install.el first.
-;;(setq PREFIX install-prefix)
-;;;; automatically detected.
-;;(setq LISPDIR (install-detect-elisp-directory PREFIX)))
-;;(setq SKK_DATADIR (expand-file-name
-;;		     SKK_PREFIX (expand-file-name "share" PREFIX) ))
-;;(setq SKK_INFODIR (expand-file-name "info" PREFIX))
-;;(setq SKK_LISPDIR (expand-file-name SKK_PREFIX LISPDIR))
-
-;;;; PACKAGE INSTALL RELATED VARIABLE.
-;;(setq PACKAGEDIR
-;;      (if (boundp 'early-packages)
-;;	  (let ((dirs
-;;		 (append (if early-package-load-path early-packages)
-;;			 (if late-package-load-path late-packages)
-;;			 (if last-package-load-path last-packages) ))
-;;		dir )
-;;	    (while (not (file-exists-p (setq dir (car dirs))))
-;;	      (setq dirs (cdr dirs)) )
-;;	    dir )))
-
-;;(setq PACKAGE_DATADIR (expand-file-name
-;;		       SKK_PREFIX (expand-file-name "etc" PACKAGEDIR) ))
-;;(setq PACKAGE_INFODIR (expand-file-name "info" PACKAGEDIR))
-;;(setq PACKAGE_LISPDIR (expand-file-name
-;;		       SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR) ))
-
+;; ;; GENERIC VARIABLE.
+;; (setq DOCDIR (or (getenv "DOCDIR") "./doc"))
+;; (setq ETCDIR (or (getenv "ETCDIR") "./etc"))
+;; (setq SKK_INFOS
+;;       (or (getenv "SKK_INFOS")
+;;           '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4") ))
+;; (setq SKK_MODULES
+;;       ;; こんなもんコマンドラインで指定する人いないよね？
+;;       (or (getenv "SKK_MODULES")
+;;           (let ((list '(queue-m stack-m skk-foreword
+;;                                 skk-gadget skk-isearch skk-auto skk-comp
+;;                                 skk-kakasi skk-kcode skk-leim skk-look
+;;                                 skk-num skk-obsolete skk-server skk-tut
+;;                                 skk skk-develop skk-autoloads
+;;                                 ;; EXPERIMENTAL
+;;                                 skk-rdbms skk-study
+;;                                 ;; VIP 3.7
+;;                                 ;; vip
+;;                                 )))
+;;             (and SKK-MK-running-xemacs
+;;                  (member "skk-leim" preloaded-file-list)
+;;                  (setq list (nconc list (list 'skk-vars))) )
+;;             (condition-case nil
+;;                 (and (require 'viper) (setq list (nconc list (list 'skk-viper))))
+;;               (error) )
+;;             (and (or (featurep 'gdbm) (featurep 'dbm) (featurep 'berkdb)
+;;                      (featurep 'berkeley-db) )
+;;                  (setq list (nconc list (list 'skk-dbm))) )
+;;             list )))
+;; (setq SKK_PREFIX (or (getenv "SKK_PREFIX") "skk"))
+;; (setq SKK_TEXIS (or (getenv "SKK_TEXIS") '("skk.texi")))
+;; (setq SKK_TUTORIALS (or (getenv "SKK_TUTORIALS") '("SKK.tut" "SKK.tut.E")))
+;;
+;; ;; NON-PACKAGE INSTALL RELATED VARIABLE.
+;; (setq SKK_DATADIR
+;;       (or (getenv "SKK_DATADIR")
+;;           (expand-file-name SKK_PREFIX (expand-file-name "share" PREFIX)) ))
+;; (setq SKK_INFODIR
+;;       (or (getenv "SKK_INFODIR")(expand-file-name "info" PREFIX)) )
+;; (setq SKK_LISPDIR
+;;       (or (getenv "SKK_LISPDIR") (expand-file-name SKK_PREFIX LISPDIR)) )
+;;
+;; ;; PACKAGE INSTALL RELATED VARIABLE.
+;; (setq PACKAGEDIR
+;;       (or (getenv "PACKAGEDIR")
+;;           (if (boundp 'early-packages)
+;;               (let ((dirs
+;;                      (append (if early-package-load-path early-packages)
+;;                              (if late-package-load-path late-packages)
+;;                              (if last-package-load-path last-packages) ))
+;;                     dir )
+;;                 (while (not (file-exists-p (setq dir (car dirs))))
+;;                   (setq dirs (cdr dirs)) )
+;;                 dir ))))
+;;
+;; (setq PACKAGE_INFODIR
+;;       (or (getenv "PACKAGE_INFODIR") (expand-file-name "info" PACKAGEDIR)) )
+;;
+;; (setq SKK_PACKAGE_DATADIR
+;;       (or (getenv "SKK_PACKAGE_DATADIR")
+;;           (expand-file-name SKK_PREFIX (expand-file-name "etc" PACKAGEDIR)) ))
+;;
+;; (setq SKK_PACKAGE_LISPDIR
+;;       (or (getenv "SKK_PACKAGE_LISPDIR")
+;;           (expand-file-name SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR)) ))
+;;
 ;;; SKK-CFG ends here
