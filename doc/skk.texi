@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.65 2000/11/16 11:55:26 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.66 2000/11/19 01:26:37 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/11/16 11:55:26 $
+@c  Last Modified: $Date: 2000/11/19 01:26:37 $
 @c
 @set EDITION 1.6
 @set SKK-VERSION 11.4
-@set UPDATED $Date: 2000/11/16 11:55:26 $
+@set UPDATED $Date: 2000/11/19 01:26:37 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5483,8 +5483,8 @@ skk-lookup を使用すると、辞書検索ツールの Lookup (@url{http://openlab.ring
 検索できる辞書を用いて単語の候補を出すことができるようになります
 @footnote{@file{skk-lookup} は @file{skk-look} とは別ものです。}。
 
-SKK をインストールする時に、 @file{SKK-CFG} を編集して、 @file{lookup.el}
-のあるパスを @samp{VERSION_SPECIFIC_LISPDIR} に設定してインストールして
+SKK をインストールする時に @file{SKK-CFG} を編集して、 @file{lookup.el}
+のあるパスを @samp{ADDITIONAL_LISPDIR} に設定してインストールして
 下さい。自動的に skk-lookup がインストールされます
 @footnote{関数 skk-lookup-search が @file{skk-autoloads.el} に追加されます
  (@xref{辞書検索のための関数})。}。
