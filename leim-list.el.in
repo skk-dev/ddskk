@@ -68,7 +68,7 @@
 		 (locate-library library nosuffix lpath interactive-call)))
 	    (if path
 		(progn
-		  (setq lpath (cdr-safe 
+		  (setq lpath (cdr-safe
 			       (member (directory-file-name
 					(file-name-directory path))
 				       lpath))
