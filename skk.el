@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.83 2000/12/13 07:41:19 minakaji Exp $
+;; Version: $Id: skk.el,v 1.84 2000/12/13 10:39:42 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/13 07:41:19 $
+;; Last Modified: $Date: 2000/12/13 10:39:42 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -583,7 +583,7 @@ dependent."
 		       ((string-match "^--" indicator)
 			;; mode-line left setting
 			(setq base (substring indicator (match-end 0)))
-			(if (string-match "::*" indicator)
+			(if (string-match "::*$" indicator)
 			    (setq base (substring base 0 (match-beginning 0)))))
 		       (t (setq base indicator)))
 		 (cons mode

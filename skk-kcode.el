@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.12 2000/11/20 08:55:40 czkmt Exp $
+;; Version: $Id: skk-kcode.el,v 1.13 2000/12/13 10:39:42 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:40 $
+;; Last Modified: $Date: 2000/12/13 10:39:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -298,9 +298,16 @@
   (static-cond
    ((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
     (let* ((char (string-to-char str))
-	   (charset (char-charset char)))
+	   (charset (char-charset char))
+	   (charset-list
+	    '(japanese-jisx0208 japanese-jisx0208-1978)))
+      (if (charsetp 'japanese-jisx0213-1)
+	  (setq charset-list
+		(nconc
+		 (list 'japanese-jisx0213-1 'japanese-jisx0213-2)
+		 charset-list)))
       (cond
-       ((memq charset '(japanese-jisx0208 japanese-jisx0208-1978))
+       ((memq charset charset-list)
 	(let* ((char1-j (skk-char-octet char 0))
 	       (char1-k (- char1-j 32))
 	       (char1-e (+ char1-j 128))

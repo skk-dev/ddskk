@@ -1,5 +1,24 @@
 2000-12-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* experimental/dbm/skk-dbm.el: Require skk-macs and skk-vars
+	instead of skk.
+        Remove unnecessary spaces between parens.
+
+	* skk-abbrev.el: Remove unnecessary spaces between parens.
+
+	* experimental/rdbms/skk-rdbms.el: Require skk-macs instead of
+	skk-forword.
+	Remove unnecessary spaces between parens.
+	
+	* tut-code/skk-tutcode.el (skk-tutcode-display-code-1): Declare
+	with defun using `static-cond' instead of `skk-defun-cond'.
+	Recognize jisx0213 charset characters.
+	
+	* skk-kcode.el (skk-display-code): Recognize jisx0213 charset
+	characters.
+
+	* skk.el (skk-make-indicator-alist): Bug fixed.
+
 	* skk-e18.el: Require pces.el.
 	(skk-latin-mode-map): Declare as a constant for dummy purpose.
 	(skk-j-mode-map): Ditto.
@@ -17,6 +36,11 @@
 	* skk-xemacs.el (skk-xemacs-prepare-modeline-properties): Bug
 	fixed.
 	Set `skk-xemacs-modeline-map' value in this function.
+	(skk-xemacs-hiragana-extent): Removed.
+	(skk-xemacs-katakana-extent): Ditto.
+	(skk-xemacs-jisx0208-latin-extent): Ditto.
+	(skk-xemacs-latin-extent): Ditto.
+	(skk-xemacs-jisx0201-extent): Ditto.
 	
 	* skk.el (skk-exit): Rename to `skk-mode-exit'.
 	(skk-invoke): Rename to `skk-mode-invoke'.
@@ -2846,8 +2870,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.211 2000/12/13 07:41:19 minakaji Exp $
-Last Modified: $Date: 2000/12/13 07:41:19 $
+Version: $Id: ChangeLog,v 1.212 2000/12/13 10:39:42 minakaji Exp $
+Last Modified: $Date: 2000/12/13 10:39:42 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
