@@ -1,3 +1,14 @@
+2002-02-04  YAMASHITA Junji  <ysjj@unixuser.org>
+
+	* ccc.el
+	(set-frame-cursor-color)
+	(set-frame-foreground-color)
+	(set-frame-background-color): New functions.
+
+	(frame-cursor-color)
+	(frame-foreground-color)
+	(frame-background-color): make these variables frame-local.
+
 2002-02-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-lookup-option-alist): Add regexp for KOJIEN.
@@ -3592,8 +3603,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.652 2002/02/03 12:31:14 minakaji Exp $
-Last Modified: $Date: 2002/02/03 12:31:14 $
+Version: $Id: ChangeLog,v 1.653 2002/02/05 15:57:17 czkmt Exp $
+Last Modified: $Date: 2002/02/05 15:57:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
