@@ -7,6 +7,10 @@
 	(skk-dcopm-after-delete-backward-char): Don't complete in
 	`skk-abbrev-mode'.
 
+	* skk-server.el
+	(skk-open-server-1): Refer to `skk-server-inhibit-startup-server'
+	earlier.
+
 	* skk-tut.el
 	(skktut-init-variables-alist): Set `skk-kcode-charset'
 	japanese-jisx0208 when feature `jisx0213' is found.
@@ -3145,8 +3149,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.597 2001/12/16 04:05:37 czkmt Exp $
-Last Modified: $Date: 2001/12/16 04:05:37 $
+Version: $Id: ChangeLog,v 1.598 2001/12/16 04:08:17 czkmt Exp $
+Last Modified: $Date: 2001/12/16 04:08:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
