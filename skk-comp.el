@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.36 2002/01/23 14:21:24 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.37 2002/01/23 14:27:44 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/23 14:21:24 $
+;; Last Modified: $Date: 2002/01/23 14:27:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -125,34 +125,32 @@
 	  (goto-char skk-okuri-nasi-min)))
       (catch 'word
 	(skk-loop-for-buffers buffers
-	  (setq word (skk-comp-do-1-in-buf (current-buffer) key))
+	  (setq word (skk-comp-search-current-buffer key))
 	  (if word
 	      (throw 'word word)
 	    nil)))))))
 
-(defun skk-comp-do-1-in-buf (buffer key)
-  (when (buffer-live-p buffer)
-    (let (c-word)
-      (with-current-buffer buffer
-	(save-match-data
-	  ;; case-fold-search は、辞書バッファでは常に nil。
-	  (while (and (not c-word)
-		      (search-forward
-		       (concat "\n"
-			       (if skk-use-numeric-conversion
-				   (skk-num-compute-henkan-key key)
-				 key))
-		       nil t))
-	    (unless (eq (following-char)
-			?\040) ;SPC
-	      (setq c-word
-		    (concat key
-			    (buffer-substring-no-properties
-			     ;; 見出し語に空白は含まれない。
-			     ;; " /" をサーチする必要はない。
-			     (point)
-			     (1- (search-forward " ")))))))
-	  c-word)))))
+(defun skk-comp-search-current-buffer (key)
+  (let (c-word)
+    (save-match-data
+      ;; `case-fold-search' は、辞書バッファでは常に nil。
+      (while (and (not c-word)
+		  (search-forward
+		   (concat "\n"
+			   (if skk-use-numeric-conversion
+			       (skk-num-compute-henkan-key key)
+			     key))
+		   nil t))
+	(unless (eq (following-char)
+		    ?\040) ;SPC
+	  (setq c-word
+		(concat key
+			(buffer-substring-no-properties
+			 ;; 見出し語に空白は含まれない。
+			 ;; " /" をサーチする必要はない。
+			 (point)
+			 (1- (search-forward " ")))))))
+      c-word)))
 
 ;;;###autoload
 (defun skk-comp-previous ()
