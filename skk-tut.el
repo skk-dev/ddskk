@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.10 2000/07/17 21:07:52 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.11 2000/09/21 10:49:43 akiho Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/07/17 21:07:52 $
+;; Last Modified: $Date: 2000/09/21 10:49:43 $
 
 ;; This file is part of SKK.
 
@@ -925,27 +925,27 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
      (if skktut-japanese-tut
 	 (concat "SKK $B%A%e!<%H%j%"%k$O$3$l$G=*$j$G$9!#(B\n\n"
 		 "SKK 10.x $B$K4X$9$k<ALd!"%3%a%s%H!"(Bbug report $BEy$O(B\n\n"
-		 "\tskk-develop@kuis.kyoto-u.ac.jp\n\n"
-		 "$BKx$*Aw$j2<$5$$!#$J$*!"$3$N%"%I%l%9$O3+H/<TMQ(B SKK $B%a%$%j%s%0(B"
-		 "$B%j%9%H$N%"%I%l%9$G$9!#(B\n"
+		 "\tskk@ring.gr.jp\n\n"
+		 "$BKx$*Aw$j2<$5$$!#$J$*!"$3$N%"%I%l%9$O(B SKK Ring Server Openlab $B%a%$%j%s%0(B"
+ 		 "$B%j%9%H$N%"%I%l%9$G$9!#(B\n"
 		 "$B2sEz$ODL>o$3$N%"%I%l%9$KBP$7$F$J$5$l$k$N$G!"%a%s%P!<$G$J$$(B"
 		 "$BJ}$O$=$N;]$rL@5-$7$F(B\n"
-		 "$B%a!<%k$r$*Aw$j$/$@$5$$!#3+H/<TMQ(B SKK $B%a%$%j%s%0%j%9%H$X;2(B"
+		 "$B%a!<%k$r$*Aw$j$/$@$5$$!#(BSKK Ring Server Openlab $B%a%$%j%s%0%j%9%H$X;2(B"
 		 "$B2C4uK>$N>l9g$O(B\n\n"
-		 "\tskk-develop-join@kuis.kyoto-u.ac.jp\n\n"
+		 "\tskk-request@ring.gr.jp\n\n"
 		 "$B$X%a!<%k$r$*Aw$j$/$@$5$$(B\n\n"
 		 "!! $B:G8e$K(B <return> $B%-!<$r2!$7$F$/$@$5$$!#(B" )
        (concat "Now we end the SKK tutorial.\n\n"
 	       "Please send comments, questions and bug reports on SKK "
 	       "version 10.x to:\n\n"
-	       "\tskk-develop@kuis.kyoto-u.ac.jp\n\n"
-	       "This is the address of the SKK developers mailing list, and "
+	       "\tskk@ring.gr.jp\n\n"
+	       "This is the address of the SKK Ring Server Openlab mailing list, and "
 	       "normally the responces\n"
 	       "will be sent only to the ML members.  So, if you are not a ML "
 	       "member, please say so \n"
-	       "in your mail. If you are interested in joining the SKK "
-	       "developers ML, send a mail to:\n\n"
-	       "\tskk-develop-join@kuis.kyoto-u.ac.jp\n\n"
+	       "in your mail. If you are interested in joining the SKK Ring Server "
+	       "Openlab ML, send a mail to:\n\n"
+	       "\tskk-request@ring.gr.jp\n\n"
 	       "!! Hit <return> key when you are ready." )))
     (if skk-tut-use-face
 	(save-match-data
