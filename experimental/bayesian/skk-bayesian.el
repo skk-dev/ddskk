@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.18 2005/02/17 08:17:48 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.19 2005/02/18 19:05:58 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/02/17 08:17:48 $
+;; Last Modified: $Date: 2005/02/18 19:05:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -444,7 +444,7 @@
         (delete-process skk-bayesian-process))
        ((eq status 'run)
         ;; send SIGTERM=15
-        (signal-process skk-bayesian-process 15)))
+        (signal-process (process-id skk-bayesian-process) 15)))
       (setq skk-bayesian-process nil))))
 
 (defun skk-bayesian-init ()
