@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.25 2002/01/18 14:03:48 czkmt Exp $
+;; Version: $Id: skk-lookup.el,v 1.26 2003/03/30 02:12:32 minakaji Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2002/01/18 14:03:48 $
+;; Last Modified: $Date: 2003/03/30 02:12:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -196,7 +196,7 @@
 	;; 送り仮名のかな prefix を捨てて lookup に渡す。
 	(setq henkan-key (substring henkan-key 0 (1- (length henkan-key)))
 	      okuri-process 2)))
-      (skk-lookup-search-1 module henkan-key okuri-process))))
+      (delete skk-henkan-key (skk-lookup-search-1 module henkan-key okuri-process)))))
 
 (defun skk-lookup-search-1 (module key okuri-process)
   ;; search pattern.
