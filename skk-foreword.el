@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.5 1999/08/31 03:15:40 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.6 1999/09/02 21:48:47 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/31 03:15:40 $
+;; Last Modified: $Date: 1999/09/02 21:48:47 $
 
 ;; This file is not part of SKK yet.
 
@@ -169,72 +169,6 @@
 	       (, (format "%s\n\(buffer local\)" documentation)))
        (make-variable-buffer-local '(, var))
      )))
-
-;; Message-Id: <19981218224936N.sakurada@kuis.kyoto-u.ac.jp>| Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; From: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>      | の実装
-;; Date: Fri, 18 Dec 1998 22:49:36 +0900 (JST)              | (Mule 4 では多バイト文字の長さが 1 になっちゃったので、カラムが
-;; 山下さん:                                                 | そろわんぜよ...トホホ。Picture mode の意味半減...)
-;; > やはり、カーソル移動をした場合は skk-prefix をクリアしてれ     |
-;; > 方がうれしいような気がします。                              | o with-point-move って名前はカッコいいし、そのまま使いたかった
-;; このあたりはなんとかしたいところの一つですね.                   |   んだけど、他のパッケージと名前の衝突が起こってはいけないので、
-;; コーディングする暇もないので単なる思いつきですが...              |   `skk-' prefix を付けた。
-;;                                                          |
-;; (1) pre-command-hook よりも post-command-hook と          |
-;; last-command の組みあわせのほうがいい気がする.                |
-;; (2) 「カーソル(ポイント)の移動」を抽象化したほうが              |
-;; いい気がする. たとえばこんなかんじ.                           |
-;; # 10分で書いたのであっさり破綻するかも...                     |
-;;                                                          |
-;; -- 櫻田                                                  |
-;;                                                         |
-;; 仮定:                                                    |
-;;   with-point-move ではバッファをまたがる移動はしない          | o この仮定をそのまま前提とした。
-;; TODO:                                                   |
-;;   hook/変数をバッファローカルにする必要がある                  | o skk-previous-point 変数、post-command-hook をそれぞれ
-;;                                                         |   バッファローカル変数・フックにした (skk-mode を起動した
-;;                                                          |   バッファだけで動作させるため)。
-;;                                                          |
-;;   with-point-move でのエラーがおきたら? (unwinding)         | o バッファをまたがない、という仮定をしたので、unwinding につ
-;;                                                          |   いては skk-previous-point のセット以外は考慮していない。
-;;                                                          |
-;; SKK側の変更:                                              |
-;;   skk-kana-input 等はほとんど (with-point-move ...)        | o post-command-hook というぐらいだから、interactive command
-;;   で囲む                                                  |        ^^^^^^^
-;;                                                          |   だけに的をしぼって skk-with-point-move を使った。
-;;                                                          |
-;; point が移動したときに走る hook                             |
-;; (defvar point-move-hook)                                 | o 複数の関数をフックに入れたりしないので、このフックは実装しない。
-;;                                                          |
-;; ポイントを保存する変数                                      |
-;; (defvar previous-point nil)                              | o skk-previous-point を skk-deflocalvar で宣言。
-;;                                                          |
-;; ポイントを移動するがフックを実行してほしくない場合に使う          |
-;;(defmacro with-point-move (&rest form)                    | o `skk-' prefix を付けほとんどそのままパクり。
-;;  `(progn                                                 |
-;;     ,@form                                               |
-;;     (setq previous-point (point))))                      |
-;;                                                          |
-;;;; ポイントが移動したら point-move-hook を実行                |
-;;(defun point-move-hook-execute ()                         | o skk-after-point-move として inline function として実装。
-;;  (if (and point-move-hook                                |   フックを run せずに、関数の中で必要処理をこなす。
-;;         (or (null previous-point)                        |
-;;             (not (= previous-point (point)))))           |
-;;      (with-point-move                                    |
-;;       (run-hooks 'point-move-hook))))                    |
-;;                                                          |
-;;                                                          |
-;;(add-hook 'post-command-hook 'point-move-hook-execute)    | o skk-mode の中でフックをローカル化して skk-after-point-move
-;;                                                          |   をフックした。
-;;                                                          |
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;   |
-;;
-;; 例
-;;
-;; (defun foo ()
-;;   (message "move !")
-;;   (beep))
-;;
-;; (add-hook 'point-move-hook 'foo)
 
 (defmacro skk-with-point-move (&rest form)
   ;; ポイントを移動するがフックを実行してほしくない場合に使う。

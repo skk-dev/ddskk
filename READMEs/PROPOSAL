@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 1999/08/29 07:03:46 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
-	     $Id: PROPOSAL,v 1.1 1999/08/29 07:03:46 minakaji Exp $  
+             $Date: 1999/09/02 21:48:27 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
+	     $Id: PROPOSAL,v 1.2 1999/09/02 21:48:27 minakaji Exp $
 
 
 $B$3$N%U%!%$%k$K$O!"(BSKK $B%3!<%G%#%s%0$K4X$7!"Cm0U$9$Y$-E@!"E}0l$7$?J}$,NI$$(B
@@ -58,7 +58,11 @@ JAIST ($BKLN&@hC<2J3X5;=QBg3X1!Bg3X(B) $B$N<i2,$5$sC#$K$h$C$F3+H/$5$l$F$$$k(
 APEL (A Portable Emacs Library$B!#0JA0$O(B emu $B$H$7$FCN$i$l$F$$$?(B) $B$K$h$C(B
 $B$F9T$J$o$l$^$9!#(BAPEL $B$O(B
 
-     ftp://ftp.etl.go.jp/pub/mule/apel/
+    ftp://ftp.m17n.org/pub/mule/apel/
+
+$B$b$7$/$O!"(B
+
+    ftp://ftp.etl.go.jp/pub/mule/apel/
 
 $B$+$i(B get $B$G$-$^$9!#(B
 
@@ -80,7 +84,7 @@ tm ML $B$K$O;22C$7$F$$$J$/$H$b(B
 (a)$BDL>o(B SKK $B$r;H$&HO0O$GI,?\$N4X?t!&JQ?t!"(B
 
 (b)$BJ,3d$9$k$K;j$i$J$$$h$&$J>.$5$J4X?t!&JQ?t$"$k$$$O!"FC<l5!G=$H$7$F0l(B
-$B$^$H$^$j$K$J$i$J$$$h$&$J$b$N!"(B
+   $B$^$H$^$j$K$J$i$J$$$h$&$J$b$N!"(B
 
 (c)$B3FJ,3d%U%!%$%k$G6&DL$G;H$&4X?t!&JQ?t(B
 
@@ -105,6 +109,10 @@ variables/constants $B$,$3$N%U%!%$%k$K4^$^$l$F$$$^$9!#(B
       (defun skk-completion (first)
          ... )
 
+XEmacs $B$G(B package install $B$9$k$H!"$3$l$G(B autoload $B$N@_Dj$b<+F0E*$K9T$J(B
+$B$o$l$^$9$,!"$=$l0J30$N(B Emacsen $B$N$?$a$K!"(Bautoload $B$N@_Dj$r(B
+skk-10/lisp/skk-autoloads.el $B$K=q$$$F$"$2$F2<$5$$!#(B
+
 * $B4X?tL>!&JQ?tL>$K$D$$$F(B
 
 ** $B%W%l%U%#%C%/%9(B
@@ -112,7 +120,7 @@ variables/constants $B$,$3$N%U%!%$%k$K4^$^$l$F$$$^$9!#(B
 skk-hoge.el $B$H$$$&%U%!%$%k$r?75,$K:n@.$7$?$i!"$=$NCf$K=q$/4X?t!&JQ?t$N(B
 $B%W%l%U%#%C%/%9$O!"2DG=$J8B$j(B `skk-hoge-' $B$H$7$F2<$5$$!#%U%!%$%k4V$NL>(B
 $BA0$N=EJ#$rHr$1$k$?$a$G$9!#(B
- 
+
 $BC"$7!"(B
 
 (a)$B%3%^%s%I(B completion $B$N:]$KM>7W$J%3%^%s%IL>$r=PNO$7$J$$$?$a$K!"$"$k(B
@@ -258,6 +266,45 @@ skk-okurigana-start-point $B$NCM$rD4@0$9$k%^%/%m$G$9!#(B
 $B$=$3$G$b:FEYD4@0$rM>57$J$/$5$l$^$9!#%P%C%U%!%m!<%+%kJQ?t$r;H$&>l9g$O!"$3(B
 $B$N$3$H$r==J,G0F,$KCV$$$F2<$5$$!#(B
 
+** $B%P%C%U%!%m!<%+%kJQ?t$H(B let
+
+$B%P%C%U%!%m!<%+%kJQ?t$HF1L>$NJQ?t$r(B let $B$K$F@k8@$9$k$3$H$K4X$7$F!"(BEmacs
+Lisp Reference Manual $B$N5-=R$r0J2<$K0lIt0zMQ$7$^$9!#(B
+
+   *Warning:* When a variable has buffer-local values in one or more
+buffers, you can get Emacs very confused by binding the variable with
+`let', changing to a different current buffer in which a different
+binding is in effect, and then exiting the `let'.  This can scramble
+the values of the buffer-local and default bindings.
+
+   To preserve your sanity, avoid using a variable in that way.  If you
+use `save-excursion' around each piece of code that changes to a
+different current buffer, you will not have this problem (*note
+Excursions::.).  Here is an example of what to avoid:
+
+     (setq foo 'b)
+     (set-buffer "a")
+     (make-local-variable 'foo)
+     (setq foo 'a)
+     (let ((foo 'temp))
+       (set-buffer "b")
+       BODY...)
+     foo => 'a      ; The old buffer-local value from buffer `a'
+                    ;   is now the default value.
+     (set-buffer "a")
+     foo => 'temp   ; The local `let' value that should be gone
+                    ;   is now the buffer-local value in buffer `a'.
+
+But `save-excursion' as shown here avoids the problem:
+
+     (let ((foo 'temp))
+       (save-excursion
+         (set-buffer "b")
+         BODY...))
+
+   Note that references to `foo' in BODY access the buffer-local
+binding of buffer `b'.
+
 * $B%(%i!<$d%a%C%;!<%8$J$I$NI=<((B ($BF|1QI=<((B) $B$K$D$$$F(B
 
 SKK $B$O(B `skk-japanese-message-and-error' $BJQ?t$,(B nil $B$N>l9g$O%(%i!<$d%a%C(B
@@ -316,3 +363,223 @@ nil $B$H$J$C$F$$$^$9!#(B
 `skk-num-type-list', `skk-numeric-conversion-float-num',
 `skk-uniq-numerals' $B$J$I$NJQ?t$K$D$$$F$O@k8@$9$kI,MW$,$"$j$^$;$s!#(B
 
+* $B%j%9%H$N:G8eHx$K0B2A$KMWAG$rDI2C$9$kJ}K!(B ($B%-%e!<(B) $B$K$D$$$F(B
+
+$B%j%9%H$N:G8eHx$K0B2A$KMWAG$rDI2C$9$kJ}K!$H$7$F!"(BSKK $B$G$O%-%e!<$rMxMQ$7(B
+$B$F$$$^$9!#0J2<!"%-%e!<$K$D$$$F@bL@$7$^$9!#(B
+
+$B%-%e!<4XO"$N4X?t$N;HMQ$K:]$7$F$O!"!V%W%m%0%i%`$N9=B$$H<B9T!W(B(H. $B%(!<%Y(B
+$B%k%=%s!"(BG.J.$B%5%9%^%s!"(BJ.$B%5%9%^%sCx!"855HJ8CKLu!#%^%0%m%&%R%k=PHG(B) $B$H(B
+Elib (the GNU emacs lisp library version 1.0) $B$r;29M$K$7$^$7$?!#$J$*!"(B
+$B$3$NJ88%$G2r@b$5$l$F$$$k%-%e!<$NI=8=$O!"(BElib $B$N(B queue-m.el $B$K$*$$$F<B(B
+$B8=$5$l$F$$$k$b$N$H$[$\F1$8<BAu$H$J$C$F$$$^$9!#(B
+
+$B%j%9%H$G$N%-%e!<$NI=8=$O!"6qBNE*$K$ONc$($P(B
+
+     ((A B C D E F) F)
+
+$B$N$h$&$J7A$K$J$C$F$*$j!"(Bcar $B$N%j%9%H(B
+
+     (A B C D E F)
+
+$B$,%-%e!<$NA4BN$rI=$o$7!"%-%e!<$N(B nth 1 $B$r<h$C$?$H$-$N(B F $B$,%-%e!<$N:G8e(B
+$BHx$rI=$o$7$^$9!#%-%e!<$N(B cdr $B$r<h$C$?$H$-$N(B
+
+     (F)
+
+$B$H$$$&%j%9%H$O!"%-%e!<$N(B car $B$KBP$7(B nthcdr 5 $B$r<h$C$?$H$-$N%j%9%H(B
+
+     (F)
+
+$B$H(B eq $B$G$9!#=>$$!"(Bcdr $B$N%j%9%H$N8e$K?7$7$$MWAG$rDI2C$9$k$3$H$G!"(Bcar $B$G(B
+$BI=$o$5$l$k%-%e!<$NKvHx$K?7$7$$MWAG$rDI2C$9$k$3$H$,$G$-$^$9!#(B
+
+$B0lJ}!"(Bnconc $B$d(B append $B$G%j%9%H$r$D$J$0$K$O!"$=$l$i$N4X?t$NBh(B 1 $B0z?t$N(B
+$B%j%9%H$NA4$F$NMWAG$rAv::$;$M$P$J$i$:!"(BO(n) $B$N;~4V$,$+$+$k$N$G!"D9$$%j(B
+$B%9%H$r$D$J$0$H$-$OHf3SE*%3%9%H$,$+$+$j$^$9!#(B
+
+$B$5$F!"6u$N(B queue == (cons nil nil) $B$KBP$7!"?7$7$$MWAG(B A $B$rDI2C$9$kJ}K!(B
+$B$r@bL@$7$^$9!#$^$:!"?7$7$$MWAG(B A $B$N$_$r4^$s$@D9$5(B 1 $B$N%j%9%H(B (A) $B$r:n(B
+$B$j$^$9(B ($B2>$K(B new-pair $B$H$$$&JQ?t$K<h$k(B)$B!#<!$K!"(B
+
+     (setcar queue new-pair)
+
+$B$r9T$J$&$3$H$K$h$j!"(Bqueue $B$,(B
+
+     ((A))
+
+$B$H$J$j$^$9(B (setcar, setcdr $B$NJV$jCM$O!"(Bnew-pair $B$G$"$k$3$H$KCm0U(B)$B!#<!(B
+$B$K(B
+
+     (setcdr queue new-pair)
+
+$B$7$F(B
+      ((A) A)
+
+$B$H$J$C$?$H$3$m$r?^<($7$^$9!#(Bfront, rear $B$NN>J}$N%]%$%s%?$,(B (A) $B$r;X$9(B
+$B$h$&$K$7$^$9(B ($B%-%e!<$NMWAG$,(B A $B$7$+$J$$$N$G!"(Bfront, rear $B%]%$%s%?$H$b(B
+$B$KF1$8$b$N$r;X$7$F$$$k(B)$B!#(B
+
+        queue
+  +-------+-------+
+  | Front |  Rear |
+  +---|---+---|---+
+      |       +---> +---------------+
+      +------------>|   o   |  nil  |
+                    +---|---+-------+
+                        |      +-------+
+                        +----> |   A   |
+                               +-------+
+
+$B>e5-$N(B queue,
+
+     ((A) A)
+
+$B$KBP$7!"99$K?7$7$$MWAG(B B $B$rDI2C$7$^$9!#Nc$K$h$j(B B $B$N$_$r4^$`D9$5(B 1 $B$N(B
+$B%j%9%H(B (B) $B$r:n$j!"JQ?t(B new-pair $B$K<h$j$^$9!#$3$3$G(B
+
+     (setcdr (cdr queue) new-pair)
+
+$B$rI>2A$9$k$H(B ($BCm(B1)$B!"(B* $B$N8D=j$N%]%$%s%?A`:n$,9T$J$o$l!"%-%e!<$N:G8eJ}$K(B
+$B?7$7$$MWAG$G$"$k(B B $B$,DI2C$5$l$k$3$H$K$J$j$^$9!#(Bqueue $B$O(B
+
+     ((A B) A B)
+
+$B$H$J$j$^$9!#(B
+
+        queue
+  +-------+-------+
+  | Front |  Rear |
+  +---|---+---|---+
+      |       +---> +---------------+   *    +---------------+
+      +------------>|   o   |   o --|------->|   o   |  nil  |
+                    +---|---+-------+        +-------+-------+
+                        |      +-------+         |      +-------+
+                        +----> |   A   |         +----> |   B   |
+                               +-------+                +-------+
+
+  $BCm(B1; $BDI2CA0$N%-%e!<$NMWAG$,(B 1 $B$D$N$H$-$O!"(Bfront $B$b(B rear $B$bF1$8$b$N$r;X$7(B
+       $B$F$$$k$N$G(B (setcdr (car queue) new-pair) $B$G$bEy2A$@$,!"%-%e!<$NMWAG(B
+       $B$,(B 2 $B$D0J>e$N$H$-$O(B (setcdr (cdr queue) new-pair) $B$G$J$$$H$^$:$$!#(B
+
+$B:G8e$K(B
+
+     (setcdr queue new-pair)
+
+$B$rI>2A$9$k$3$H$K$h$j!"(Brear $B%]%$%s%?$rD%$jJQ$($^$9(B (* $B$N8D=j$N%]%$%s%?(B
+$BA`:n$,9T$J$o$l$k(B)$B!#(Brear $B%]%$%s%?$,%-%e!<$N:G8eJ}$NMWAG$r;X$9$h$&$K$7$^(B
+$B$9!#(Bfront $B%]%$%s%?$,;X$9%j%9%H$O%-%e!<$NA4$F$NMWAG$rI=$o$7$^$9!#(B
+
+        queue
+  +-------+-------+           *
+  | Front |  Rear |---------------------+
+  +---|---+-------+                     |
+      |             +---------------+   +--> +---------------+
+      +------------>|   o   |   o --|------->|   o   |  nil  |
+                    +---|---+-------+        +-------+-------+
+                        |      +-------+         |      +-------+
+                        +----> |   A   |         +----> |   B   |
+                               +-------+                +-------+
+
+$B$3$N$h$&$K%-%e!<$N:G8eJ}$K?7$7$$MWAG$rDI2C$9$k$3$H(B ($B%j%9%H$N:G8eJ}$KD9$5(B 1
+$B$N?7$7$$%j%9%H$r$D$J$2$k$3$H(B) $B$,(B 2 $B2s$N%]%$%s%?A`:n$G2DG=$H$J$k$N$G!"$I$N$h(B
+$B$&$JD9$$%j%9%H$G$"$C$F$bO"7k$K$+$+$k%3%9%H$O0lDj(B (O(1) $B$N4X?t$G$"$k(B)
+$B$G$9!#(B
+
+$B$J$*!"8=>u$G$O!"J?6Q$7$F0B2A$K%j%9%H$N:G8eJ}$KMWAG$r$D$J$2$k!"$H$$$&L\(B
+$BE*$K$@$1%-%e!<$r;H$C$F$*$j!"%-%e!<K\Mh$NL\E*$G$O;HMQ$7$F$$$J$$$N$G!"Nc(B
+$B$($P!"(Bqueue-m.el $B$N2<5-$N$h$&$J4X?t$O;HMQ$7$F$$$F$$$^$;$s!#(B
+
+  queue-last, queue-first, queue-nth, queue-nthcdr, queue-dequeue
+
+* skk-with-point-move $B$N%"%$%G%#%"$H<BAu$K$D$$$F(B
+
+** $B]/ED$5$s$N%"%$%G%#%"(B
+
+Message-Id: <19981218224936N.sakurada@kuis.kyoto-u.ac.jp>
+From: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
+Date: Fri, 18 Dec 1998 22:49:36 +0900 (JST)
+
+$B;32<$5$s(B:
+> $B$d$O$j!"%+!<%=%k0\F0$r$7$?>l9g$O(B skk-prefix $B$r%/%j%"$7$F$l(B
+> $BJ}$,$&$l$7$$$h$&$J5$$,$7$^$9!#(B
+$B$3$N$"$?$j$O$J$s$H$+$7$?$$$H$3$m$N0l$D$G$9$M(B.
+$B%3!<%G%#%s%0$9$k2K$b$J$$$N$GC1$J$k;W$$$D$-$G$9$,(B...
+
+(1) pre-command-hook $B$h$j$b(B post-command-hook $B$H(B
+last-command $B$NAH$_$"$o$;$N$[$&$,$$$$5$$,$9$k(B.
+(2) $B!V%+!<%=%k(B($B%]%$%s%H(B)$B$N0\F0!W$rCj>]2=$7$?$[$&$,(B
+$B$$$$5$$,$9$k(B. $B$?$H$($P$3$s$J$+$s$8(B.
+# 10$BJ,$G=q$$$?$N$G$"$C$5$jGKC>$9$k$+$b(B...
+-- $B]/ED(B
+
+$B2>Dj(B:
+  with-point-move $B$G$O%P%C%U%!$r$^$?$,$k0\F0$O$7$J$$(B
+TODO:
+  hook/$BJQ?t$r%P%C%U%!%m!<%+%k$K$9$kI,MW$,$"$k(B
+  with-point-move $B$G$N%(%i!<$,$*$-$?$i(B? (unwinding)
+
+SKK$BB&$NJQ99(B:
+  skk-kana-input $BEy$O$[$H$s$I(B (with-point-move ...)
+  $B$G0O$`(B
+
+point $B$,0\F0$7$?$H$-$KAv$k(B hook
+(defvar point-move-hook)
+
+$B%]%$%s%H$rJ]B8$9$kJQ?t(B
+(defvar previous-point nil)
+
+$B%]%$%s%H$r0\F0$9$k$,%U%C%/$r<B9T$7$F$[$7$/$J$$>l9g$K;H$&(B
+(defmacro with-point-move (&rest form)
+ `(progn
+    ,@form
+    (setq previous-point (point))))
+
+; $B%]%$%s%H$,0\F0$7$?$i(B point-move-hook $B$r<B9T(B
+(defun point-move-hook-execute ()
+ (if (and point-move-hook
+        (or (null previous-point)
+            (not (= previous-point (point)))))
+     (with-point-move
+      (run-hooks 'point-move-hook))))
+
+
+(add-hook 'post-command-hook 'point-move-hook-execute)
+
+$BNc(B
+
+(defun foo ()
+  (message "move !")
+  (beep))
+
+(add-hook 'point-move-hook 'foo)
+
+** $BCfEg$N<BAu(B
+
+o with-point-move $B$C$FL>A0$O%+%C%3$$$$$7!"$=$N$^$^;H$$$?$+$C$?$s$@$1$I!"(B
+  $BB>$N%Q%C%1!<%8$HL>A0$N>WFM$,5/$3$C$F$O$$$1$J$$$N$G!"(B`skk-' prefix $B$rIU$1$?!#(B
+
+o with-point-move $B$G$O%P%C%U%!$r$^$?$,$k0\F0$O$7$J$$!"$H$$$&2>Dj$r$=$N(B
+  $B$^$^A0Ds$H$7$?!#(B
+
+o skk-previous-point $BJQ?t!"(Bpost-command-hook $B$r$=$l$>$l%P%C%U%!%m!<%+(B
+  $B%kJQ?t!&%U%C%/$K$7$?(B (skk-mode $B$r5/F0$7$?%P%C%U%!$@$1$GF0:n$5$;$k$?$a(B)$B!#(B
+
+o $B%P%C%U%!$r$^$?$,$J$$!"$H$$$&2>Dj$r$7$?$N$G!"(Bunwinding $B$K$D$$$F$O(B
+  skk-previous-point $B$N%$%K%7%c%i%$%:0J30$O9MN8$7$F$$$J$$!#(B
+
+o post-command-hook $B$H$$$&$0$i$$$@$+$i!"(Binteractive command $B$@$1$KE*$r(B
+       ^^^^^^^
+  $B$7$\$C$F(B skk-with-point-move $B$r;H$C$?!#(B
+
+o $BJ#?t$N4X?t$r%U%C%/$KF~$l$?$j$7$J$$$N$G!"(Bpoint-move-hook $B$O<BAu$7$J$$!#(B
+
+o skk-previous-point $B$r(B skk-deflocalvar $B$G@k8@!#(B
+
+o skk-after-point-move $B$H$7$F(B inline function $B$H$7$F<BAu!#%U%C%/$r(B run
+  $B$;$:$K!"4X?t$NCf$GI,MW=hM}$r$3$J$9!#(B
+
+o skk-mode $B$NCf$G(B post-command-hook $B$N%m!<%+%k%U%C%/$H$7$F(B
+  skk-after-point-move $B$r%U%C%/$7$?!#(B
+
+[end of PROPOSAL]

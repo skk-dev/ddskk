@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.7 1999/09/02 03:09:36 minakaji Exp $
+;; Version: $Id: skk.el,v 1.8 1999/09/02 21:50:44 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/02 03:09:36 $
+;; Last Modified: $Date: 1999/09/02 21:50:44 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/09/02 03:09:36 $")
+      (let* ((raw-date "$Date: 1999/09/02 21:50:44 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -4469,84 +4469,6 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
         ;;        entry1          entry2        entry3          entry4
         (list (queue-all q1) (queue-all q2) (queue-all q3) (queue-all q4)) ))))
 
-;; キュー関連の関数の使用に際しては、「プログラムの構造と実行」(H. エーベルソ
-;; ン、G.J.サスマン、J.サスマン著、元吉文男訳。マグロウヒル出版) と Elib (the
-;; GNU emacs lisp library version 1.0) を参考にした。上記の文献で解説されてい
-;; るキューの表現は、Elib の queue-m.el において実現されているものとほぼ同じ実
-;; 装となっている。
-;;
-;; リストでのキューの表現は、具体的には例えば ((A B C D E F) F) のような形になっ
-;; ており、car のリスト (A B C D E F) がキューの全体を表わし、キューの nth 1 
-;; を取ったときの F がキューの最後尾を表わす。キューの cdr を取ったときの (F) 
-;; というリストは、キューの car に対し nthcdr 5 を取ったときのリスト (F) と eq
-;; である。従い、cdr のリストの後に新しい要素を追加することで、car で表わされる
-;; キューの末尾に新しい要素を追加することができる。 
-;;
-;; 一方、nconc や append でつなぐには、それらの関数の第１引数のリストの全ての
-;; 要素を走査せねばならず、O(n) の時間がかかるので、長いリストをつなぐときは比
-;; 較的コストがかかる。
-;;
-;; さて、空の queue == (cons nil nil) に対し、新しい要素 A を追加する方法を説
-;; 明する。まず、新しい要素 A のみを含んだ長さ 1 のリスト (A) を作る (仮に 
-;; new-pair という変数に取る)。次に、(setcar queue new-pair) を行なうことによ
-;; り、queue が ((A)) となる (setcar, setcdr の返り値は、new-pair であることに
-;; 注意)。次に (setcdr queue new-pair) して ((A) A) となったところを図示する。
-;; front, rear の両方のポインタが (A) を指すようにする (キューの要素が A しか
-;; ないので、front, rear ポインタともに同じものを指している)。
-;;         queue
-;;   +-------+-------+
-;;   | Front |  Rear |
-;;   +---|---+---|---+
-;;       |       +---> +---------------+
-;;       +------------>|   o   |  nil  |
-;;                     +---|---+-------+
-;;                         |      +-------+
-;;                         +----> |   A   |
-;;                                +-------+
-;;
-;; 上記の queue, ((A) A) に対し、更に新しい要素 B を追加する。例により B のみ
-;; を含む長さ 1 のリスト (B) を作り、変数 new-pair に取る。ここで
-;; (setcdr (cdr queue) new-pair) を評価すると (注1)、* の個所のポインタ操作が
-;; 行なわれる。キューの最後方に新しい要素である B が追加されることになる。
-;; queue は ((A B) A B) となる。
-;;         queue
-;;   +-------+-------+
-;;   | Front |  Rear |
-;;   +---|---+---|---+
-;;       |       +---> +---------------+   *    +---------------+
-;;       +------------>|   o   |   o --|------->|   o   |  nil  |
-;;                     +---|---+-------+        +-------+-------+
-;;                         |      +-------+         |      +-------+
-;;                         +----> |   A   |         +----> |   B   |
-;;                                +-------+                +-------+
-;;
-;;   注1; 追加前のキューの要素が 1 つのときは、front も rear も同じものを指し
-;;        ているので (setcdr (car queue) new-pair) でも等価だが、キューの要素
-;;        が 2 つ以上のときは (setcdr (cdr queue) new-pair) でないとまずい。
-;;
-;; 最後に (setcdr queue new-pair) を評価することにより、rear ポインタを張り変
-;; える (* の個所のポインタ操作が行なわれる)。rear ポインタがキューの最後方の
-;; 要素を指すようにする。front ポインタが指すリストはキューの全ての要素を表わ
-;; す。
-;;         queue
-;;   +-------+-------+           *
-;;   | Front |  Rear |---------------------+
-;;   +---|---+-------+                     |
-;;       |             +---------------+   +--> +---------------+
-;;       +------------>|   o   |   o --|------->|   o   |  nil  |
-;;                     +---|---+-------+        +-------+-------+
-;;                         |      +-------+         |      +-------+
-;;                         +----> |   A   |         +----> |   B   |
-;;                                +-------+                +-------+
-;;
-;; このようにキューの最後方に新しい要素を追加すること (リストの最後方に長さ 1
-;; の新しいリストをつなげること) が 2 回のポインタ操作で可能となるので、どのよ
-;; うな長いリストであっても連結にかかるコストは一定 (O(1) の関数である) である。
-;; なお、現状では、平均して安価にリストの最後方に要素をつなげる、という目的に
-;; だけキューを使っている。キュー本来の目的では使用しておらないので、例えば、
-;; 下記のような関数は使用していない。
-;; queue-last, queue-first, queue-nth, queue-nthcdr, queue-dequeue
-
 (defun skk-nunion (x y)
   ;; X と Y の和集合を作る。等しいかどうかの比較は、equal で行われる。X に Y
   ;; を破壊的に連接する。
@@ -4659,7 +4581,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 		(skk-save-jisyo 'quiet) ))))))
 
 (defun skk-update-jisyo-1 (okurigana word old-entry-list purge)
-  ;; 既存エントリから計算した entry[1-4] の値と、今回の変換の結果 word とをマー
+  ;; 既存エントリから計算した entry[1-4] の値と、今回の変換の結果 word とをマー
   ;; ジして、新たなエントリを計算し、挿入する。
   (let ((entry1 (car old-entry-list)) (entry2 (nth 1 old-entry-list))
         (entry3 (nth 2 old-entry-list)) (entry4 (nth 3 old-entry-list)) )
