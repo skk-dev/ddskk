@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.114 2001/09/11 22:23:05 czkmt Exp $
+;; Version: $Id: skk.el,v 1.115 2001/09/11 22:47:00 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/11 22:23:05 $
+;; Last Modified: $Date: 2001/09/11 22:47:00 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -2801,11 +2801,17 @@ If you want to restore the dictionary from the disc, try
   ;; SKK 個人辞書保存のための作業用のファイルを作り、ファイルのモードを
   ;; skk-jisyo のものと同じに設定する。作った作業用ファイルの名前を返す。
   (let* ((dir
-	  (cond ((skk-file-exists-and-writable-p temporary-file-directory)
-		 temporary-file-directory)
-		(t (or (file-exists-p "~/tmp") (make-directory "~/tmp"))
-		   (or (file-writable-p "~/tmp") (set-file-modes "~/tmp" 1023))
-		   "~/tmp/")))
+	  (static-cond
+	   ((fboundp 'temp-directory)
+	    (temp-directory))
+	   (t
+	    (cond
+	     ((skk-file-exists-and-writable-p temporary-file-directory)
+	      temporary-file-directory)
+	     (t
+	      (or (file-exists-p "~/tmp") (make-directory "~/tmp"))
+	      (or (file-writable-p "~/tmp") (set-file-modes "~/tmp" 1023))
+	      "~/tmp/")))))
 	 (temp-name
 	  (make-temp-name (expand-file-name
 			   (static-if (featurep 'skk-dos)
