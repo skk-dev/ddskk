@@ -1,12 +1,13 @@
 ;; skk-gadget.el -- 実行変換のためのプログラム
+
 ;; Copyright (C) 1995, 1996, 1997, 1998, 1999, 2000, 2001
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.23 2001/11/16 01:17:14 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.24 2001/11/16 02:22:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 01:17:14 $
+;; Last Modified: $Date: 2001/11/16 02:22:20 $
 
 ;; This file is part of Daredevil SKK.
 

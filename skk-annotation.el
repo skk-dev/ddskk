@@ -1,12 +1,13 @@
 ;;; skk-annotation.el --- SKK annotation 関連プログラム
+
 ;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.11 2001/11/16 01:17:14 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.12 2001/11/16 02:22:19 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/11/16 01:17:14 $
+;; Last Modified: $Date: 2001/11/16 02:22:19 $
 
 ;; This file is part of Daredevil SKK.
 

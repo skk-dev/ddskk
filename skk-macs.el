@@ -1,12 +1,12 @@
-;;; skk-macs.el --- Macros and inline functions commonly use in
-;;                  Daredevil SKK package programs.
+;;; skk-macs.el --- Macros and inline functions commonly used in SKK
+
 ;; Copyright (C) 1999, 2000 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.66 2001/11/16 01:17:14 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.67 2001/11/16 02:22:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 01:17:14 $
+;; Last Modified: $Date: 2001/11/16 02:22:20 $
 
 ;; This file is part of Daredevil SKK.
 

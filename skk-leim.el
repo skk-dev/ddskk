@@ -1,12 +1,13 @@
 ;;; skk-leim.el --- SKK related code for LEIM
+
 ;; Copyright (C) 1997, 1999, 2000
 ;; Murata Shuuichirou <mrt@astec.co.jp>
 ;;
 ;; Author: Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-leim.el,v 1.11 2001/11/16 01:17:14 czkmt Exp $
+;; Version: $Id: skk-leim.el,v 1.12 2001/11/16 02:22:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 01:17:14 $
+;; Last Modified: $Date: 2001/11/16 02:22:20 $
 
 ;; This file is part of Daredevil SKK.
 

@@ -1,11 +1,12 @@
-;;; skk-develop.el --- support SKK developper.
+;;; skk-develop.el --- support SKK developper
+
 ;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.15 2001/11/16 01:17:14 czkmt Exp $
+;; Version: $Id: skk-develop.el,v 1.16 2001/11/16 02:22:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 01:17:14 $
+;; Last Modified: $Date: 2001/11/16 02:22:20 $
 
 ;; This file is part of Daredevil SKK.
 

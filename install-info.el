@@ -1,4 +1,5 @@
 ;;; install-info.el -- install-info in Emacs Lisp
+
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>

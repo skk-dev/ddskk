@@ -1,12 +1,13 @@
 ;;; skk-jisx0213.el --- SKK 用 JISX0213 文字コード関連プログラム
+
 ;; Copyright (C) 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0213.el,v 1.4 2001/11/16 01:17:14 czkmt Exp $
+;; Version: $Id: skk-jisx0213.el,v 1.5 2001/11/16 02:22:20 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 30, 2000.
-;; Last Modified: $Date: 2001/11/16 01:17:14 $
+;; Last Modified: $Date: 2001/11/16 02:22:20 $
 
 ;; This file is part of Daredevil SKK.
 

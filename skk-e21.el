@@ -1,4 +1,5 @@
-;;; skk-e21.el -- GNU Emacs 21 support for SKK.
+;;; skk-e21.el -- GNU Emacs 21 support for SKK
+
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>

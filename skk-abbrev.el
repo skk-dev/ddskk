@@ -1,12 +1,13 @@
-;;; skk-abbrev.el --- SKK/Emacs abbrev mode interface.
+;;; skk-abbrev.el --- SKK/Emacs abbrev mode interface
+
 ;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-abbrev.el,v 1.7 2001/11/16 01:17:14 czkmt Exp $
+;; Version: $Id: skk-abbrev.el,v 1.8 2001/11/16 02:22:19 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 23, 1999
-;; Last Modified: $Date: 2001/11/16 01:17:14 $
+;; Last Modified: $Date: 2001/11/16 02:22:19 $
 
 ;; This file is part of Daredevil SKK.
 

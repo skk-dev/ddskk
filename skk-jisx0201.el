@@ -1,12 +1,13 @@
 ;;; skk-jisx0201.el --- SKK 用 JISX 0201 カナ (と ローマ) 文字入力プログラム
+
 ;; Copyright (C) 1999, 2000, 2001 Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.38 2001/11/13 10:59:04 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.39 2001/11/16 02:22:20 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/11/13 10:59:04 $
+;; Last Modified: $Date: 2001/11/16 02:22:20 $
 
 ;; This file is part of Daredevil SKK.
 

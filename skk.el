@@ -1,13 +1,14 @@
 ;;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program)
+
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2000, 2001
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.186 2001/11/16 01:17:15 czkmt Exp $
+;; Version: $Id: skk.el,v 1.187 2001/11/16 02:22:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 01:17:15 $
+;; Last Modified: $Date: 2001/11/16 02:22:20 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free

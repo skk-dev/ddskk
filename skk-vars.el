@@ -1,12 +1,12 @@
-;;; skk-vars.el --- variables and constants commonly use
-;;    in Daredevil SKK package programs.
+;;; skk-vars.el --- variables and constants commonly used in SKK
+
 ;; Copyright (C) 1999, 2000, 2001 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.76 2001/11/16 01:17:15 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.77 2001/11/16 02:22:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 01:17:15 $
+;; Last Modified: $Date: 2001/11/16 02:22:20 $
 
 ;; This file is part of Daredevil SKK.
 

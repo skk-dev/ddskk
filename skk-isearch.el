@@ -1,12 +1,13 @@
-;;; skk-isearch.el --- isearch mode for skk with Emacs 19 or later and XEmacs.
+;;; skk-isearch.el --- isearch mode for SKK
+
 ;; Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999
 ;; Enami Tsugutomo <enami@ba2.so-net.or.jp>
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.29 2001/11/16 01:17:14 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.30 2001/11/16 02:22:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 01:17:14 $
+;; Last Modified: $Date: 2001/11/16 02:22:20 $
 
 ;; This file is part of Daredevil SKK.
 

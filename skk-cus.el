@@ -1,4 +1,5 @@
 ;;; skk-cus.el -- SKK の簡単かすたまいず試作品
+
 ;; Copyright (C) 2001 SKK Development Team
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>

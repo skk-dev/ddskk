@@ -1,4 +1,5 @@
 ;;; skk-jisyo-edit-mode.el -- Major mode for editing SKK dictionaries
+
 ;; Copyright (C) 2001 SKK Development Team
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
