@@ -1,3 +1,17 @@
+2001-11-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el
+	(skk-hiragana-to-jisx0201-region)
+	(skk-katakana-to-jisx0201-region): Abolish the optional argument
+	`vcontract'. Modify the regexp.
+
+	* SKK-MK:
+	Check the versions of Emacs and APEL here.
+
+	* skk.el
+	(skk-search-katakana): Accept an optional argument
+	`jisx0201-katakana'.
+
 2001-10-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ccc.el:
@@ -2607,8 +2621,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.507 2001/10/31 15:39:07 czkmt Exp $
-Last Modified: $Date: 2001/10/31 15:39:07 $
+Version: $Id: ChangeLog,v 1.508 2001/11/01 12:00:47 czkmt Exp $
+Last Modified: $Date: 2001/11/01 12:00:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
