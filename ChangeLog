@@ -1,3 +1,11 @@
+2002-02-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	(skk-save-jisyo-original):
+	When `skk-share-private-jisyo', bind `buffer-file-name' and
+	`buffer-file-truename' so that `set-buffer-modified-p' should
+	unlock the file `skk-jisyo'.
+
 2002-02-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-num.el:
@@ -3651,8 +3659,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.658 2002/02/14 14:43:19 czkmt Exp $
-Last Modified: $Date: 2002/02/14 14:43:19 $
+Version: $Id: ChangeLog,v 1.659 2002/02/17 06:15:41 czkmt Exp $
+Last Modified: $Date: 2002/02/17 06:15:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
