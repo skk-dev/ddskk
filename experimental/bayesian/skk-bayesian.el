@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.2 2004/02/29 01:05:10 minakaji Exp $
+;; Version: $Id: skk-bayesian.el,v 1.3 2004/02/29 01:28:42 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/02/29 01:05:10 $
+;; Last Modified: $Date: 2004/02/29 01:28:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -103,18 +103,16 @@
 (defconst skk-bayesian-command-save "#save\n")
 (defvar skk-bayesian-process nil)
 
-(defsubst skk-bayesian-debug-message (STRING &rest ARGS)
-  (if skk-bayesian-debug
-      (apply 'message STRING ARGS)))
+(defmacro skk-bayesian-debug-message (STRING &rest ARGS)
+  `(if skk-bayesian-debug
+       (message STRING ARGS)))
 
 (defsubst skk-bayesian-process-live-p ()
   "`skk-bayesian-process' が non-nil かつそのプロセスが実行中なら t を返す。 "
-  (if skk-bayesian-process
-      (let ((status (process-status skk-bayesian-process)))
-        ;; ネットワークプロセスなら、open, 通常のサブプロセスなら、run。
-        ;; これらは、排他的。
-        (or (eq status 'open)
-            (eq status 'run)))))
+  (and skk-bayesian-process
+       ;; ネットワークプロセスなら、open, 通常のサブプロセスなら、run。
+       ;; これらは、排他的。
+       (memq (process-status skk-bayesian-process) '(open run))))
 
 (defun skk-bayesian-search (henkan-buffer midasi okurigana entry)
   ;; 引数の例
@@ -186,11 +184,11 @@
       (process-send-string skk-bayesian-process
 			   (concat skk-bayesian-last-prefix-str "\n"))
       ;; wait for a message to synchronize skk-bayesian-process
-      (skk-bayesian-debug-message "add history...")
+      (skk-bayesian-debug-message "adding history...")
       (while (not (and (> (point-max) 1)
 		       (eq (char-after (1- (point-max))) ?\n)))
 	(accept-process-output skk-bayesian-process 0 5))
-      (skk-bayesian-debug-message "add history...done.")
+      (skk-bayesian-debug-message "adding history...done")
       )))
 
 (defun skk-bayesian-save-history ()
@@ -222,7 +220,7 @@
                                             skk-bayesian-host skk-bayesian-port)
                      (error (skk-bayesian-debug-message "Error: %s\n%s"
                                                         (error-message-string err)
-                                                        "run bskk as a sub process.")
+                                                        "run bskk as a sub process")
                             nil)))
               (start-process proc-name
                              proc-buf
@@ -246,7 +244,7 @@
 		       (eq (char-after (1- (point-max))) ?\n)))
 	(accept-process-output skk-bayesian-process 0 5))
       (when (skk-bayesian-process-live-p)
-	(skk-bayesian-debug-message "sent EOF, but the process still live.")
+	(skk-bayesian-debug-message "sent EOF, but the process still lives")
 	;; send SIGKILL or close the connection
 	(delete-process skk-bayesian-process))
       (setq skk-bayesian-process nil))))

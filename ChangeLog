@@ -1,8 +1,16 @@
 2004-02-29  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/bayesian/skk-bayesian.el
-	(skk-bayesian-save-history): Remove kuten and period from the
+	(skk-bayesian-save-history): Remove a kuten and a period from the
 	message strings.
+	(skk-bayesian-update): Remove a period from the message string.
+	(skk-bayesian-restart-process): Ditto.
+	(skk-bayesian-kill-process): Ditto.
+	(skk-bayesian-debug-message): Declare with `defmacro' instead of
+	`defsubst'.
+	(skk-bayesian-process-live-p): Simplify.
+	(skk-bayesian-kill-process): Slightly modify the message string.
+	(skk-bayesian-update): Ditto.
 
 	* SKK-MK (SKK_MODULES): Add skk-bayesian.
 
@@ -4444,8 +4452,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.782 2004/02/29 01:05:10 minakaji Exp $
-Last Modified: $Date: 2004/02/29 01:05:10 $
+Version: $Id: ChangeLog,v 1.783 2004/02/29 01:28:42 minakaji Exp $
+Last Modified: $Date: 2004/02/29 01:28:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
