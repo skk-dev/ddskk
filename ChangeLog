@@ -1,9 +1,17 @@
+2001-12-05  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* doc/skk.texi (FTPを利用して入手する方法): Add new section.
+	(WWWを利用して入手する方法): Add mirroring URL.
+
 2001-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
 	Call `skk-define-abbrev-mode-map' before `skk-define-j-mode-map'.
 
 2001-12-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-viper.el (skk-viper-advice-select): Put lisp-indent-function
+	property `defun' to it.
 
 	* READMEs/NEWS: Typo fixed.
 
@@ -3080,8 +3088,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.585 2001/12/04 13:05:42 czkmt Exp $
-Last Modified: $Date: 2001/12/04 13:05:42 $
+Version: $Id: ChangeLog,v 1.586 2001/12/05 11:26:53 minakaji Exp $
+Last Modified: $Date: 2001/12/05 11:26:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
