@@ -1,3 +1,11 @@
+2000-12-16  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-dcomp.el
+	(viper-del-backward-char-in-insert@after@skk-dcomp-ad): Call
+	`skk-dcomp-after-delete-backward-char' only when `skk-mode' and
+	`skk-dcomp-activate' are non-nil.
+	(vip-del-backward-char-in-insert@after@skk-dcomp-ad): Ditto.
+
 2000-12-15  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-e18.el (skk-latin-mode-map): Do not declare with defconst.
@@ -2925,8 +2933,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 	
-Version: $Id: ChangeLog,v 1.221 2000/12/15 22:48:09 minakaji Exp $
-Last Modified: $Date: 2000/12/15 22:48:09 $
+Version: $Id: ChangeLog,v 1.222 2000/12/15 23:25:01 minakaji Exp $
+Last Modified: $Date: 2000/12/15 23:25:01 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

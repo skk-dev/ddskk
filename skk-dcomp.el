@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.1 2000/12/10 10:47:53 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.2 2000/12/15 23:25:01 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/10 10:47:53 $
+;; Last Modified: $Date: 2000/12/15 23:25:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -228,19 +228,16 @@
       ad-do-it)))
 
 (defadvice skk-delete-backward-char (after skk-dcomp-ad activate)
-  (if (not skk-dcomp-activate)
-      nil
-    (skk-dcomp-after-delete-backward-char)))
+  (if skk-dcomp-activate
+      (skk-dcomp-after-delete-backward-char)))
 
 (defadvice viper-del-backward-char-in-insert (after skk-dcomp-ad activate)
-  (if (not skk-dcomp-activate)
-      nil
-    (skk-dcomp-after-delete-backward-char)))
+  (if (and skk-mode skk-dcomp-activate)
+      (skk-dcomp-after-delete-backward-char)))
 
 (defadvice vip-del-backward-char-in-insert (after skk-dcomp-ad activate)
-  (if (not skk-dcomp-activate)
-      nil
-    (skk-dcomp-after-delete-backward-char)))
+  (if (and skk-mode skk-dcomp-activate)
+      (skk-dcomp-after-delete-backward-char)))
 
 (require 'product)
 (product-provide (provide 'skk-dcomp) (require 'skk-version))
