@@ -1,6 +1,6 @@
 2000-11-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-kanagaki-util.el (skk-kanagaki-sit-for): Ablish.
+	* skk-kanagaki-util.el (skk-kanagaki-sit-for): Abolish.
 
 	* skk-nicola.el: Use `skk-sit-for'.
 
