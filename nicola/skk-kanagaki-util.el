@@ -63,15 +63,14 @@
 
 ;;;###autoload
 (defmacro skk-kanagaki-help-1 (bufname title list)
-  (`
-   (let ((buf (get-buffer-create (, bufname))))
+  `(let ((buf (get-buffer-create ,bufname)))
      (save-excursion
        (set-buffer buf)
        (setq buffer-read-only nil)
        (erase-buffer)
        (insert
 	(concat
-	 (format "%s\n\n" (, title))
+	 (format "%s\n\n" ,title)
 	 (mapconcat
 	  #'(lambda (cons)
 	      (cond
@@ -83,7 +82,7 @@
 	       (t
 		(format "%s … %s\n" (car cons) (cdr cons)))))
 	  ;;
-	  (delq nil (, list)) "")))
+	  (delq nil ,list) "")))
        ;;
        (setq buffer-read-only t)
        (set-buffer-modified-p nil)
@@ -91,7 +90,7 @@
        (help-mode))
      (let ((standard-output buf))
        (print-help-return-message))
-     (display-buffer buf))))
+     (display-buffer buf)))
 
 ;;;###autoload
 (defun skk-nicola-visit-nicola-website ()
