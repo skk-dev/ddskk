@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.64 2001/10/13 11:59:00 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.65 2001/10/13 13:59:06 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 11:59:00 $
+;; Last Modified: $Date: 2001/10/13 13:59:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -355,14 +355,9 @@ skk-search-prog-list $B$NCM$r@_Dj$9$k$3$H$K$h$j!"8!:wBP>]$N<-=q$NJQ99!"8!:w$N=g
     (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
     (skk-search-jisyo-file skk-jisyo 0 t)
     (skk-search-small-dic)
-    ;; skk-auto.el $B$r%m!<%I$9$k$H2<5-$NMWAG$,%W%i%9$5$l$k!#(B
-    ;;(skk-okuri-search)
+    (skk-okuri-search)
     (skk-search-jisyo-file skk-large-jisyo 10000)
-    ;; skk-server.el $B$r%m!<%I$9$k$H2<5-$NMWAG$,%W%i%9$5$l$k!#(B
-    ;;(skk-search-server skk-aux-large-jisyo 10000)
-    ;; skk-server-host $B$b$7$/$O(B skk-servers-list $B$r;XDj$9$k$H!"(Bskk-server.el
-    ;; $B$,(B autoload $B$5$l$k!#(B
-  )
+    (skk-search-server skk-aux-large-jisyo 10000))
   "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
 $BJQ49$7$?8uJd$rJV$9(B S $B<0$r%j%9%H$N7A$KI=5-$7$?$b$N!#(B
 skk-search $B4X?t$,(B skk-search-prog-list $B$N(B car $B$+$i8eJ}8~$X=gHV$K(B S $B<0$NI>2A$r(B
