@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.132 2003/07/21 20:01:40 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.133 2003/07/21 20:53:00 kaoru Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/21 20:01:40 $
+@c  Last Modified: $Date: 2003/07/21 20:53:00 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/21 20:01:40 $
+@set UPDATED $Date: 2003/07/21 20:53:00 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -180,7 +180,7 @@ DDSKK $B$N<g$JFCD'$O!"<!$NDL$j$G$9!#(B
 @end itemize
 
 SKK $B$NL>$NA0$KIU$$$F$$$k(B @samp{Daredevil} $B$,5$$K$J$kA!:Y$JJ}$O(B
-@w{@ref{Daredevil SKK $B$C$F(B SKK $B$H$O0c$&$N$G$9$+(B?}} $B$r$4;2>H2<$5$$!#(B
+@w{@ref{Q.1-2 Daredevil SKK $B$C$F(B SKK $B$H$O0c$&$N$G$9$+(B?}} $B$r$4;2>H2<$5$$!#(B
 
 @node $B%$%s%9%H!<%k(B, $B$O$8$a$N@_Dj(B, $B$O$8$a$K(B, Top
 @comment  node-name,  next,  previous,  up
@@ -524,8 +524,8 @@ SKK 9$B!"(B SKK 10 $B$HHf3S$7$F!"JQ?tL>!"4X?tL>$,BgI}$KJQ99$5$l$?$N$G!"(B
 
 $B<-=q%5!<%P$r;H$$$?$$$H$-$O!"(B@file{.emacs} $B$d(B @file{.skk} $B$G0J2<$N$h$&$K(B
 $B@_Dj$7$^$9!#(B
-@footnote{$B<-=q%5!<%P$NF~<jEy$K$D$$$F$O(B @ref{$B<-=q%5!<%P(B} $B$r;2>H$7$F$/$@$5(B
-$B$$!#(B}
+@footnote{$B<-=q%5!<%P$NF~<jEy$K$D$$$F$O(B @ref{$B<-=q%5!<%P$NF~<j(B} $B$r;2>H$7$F(B
+$B$/$@$5$$!#(B}
 
 @lisp
 @group
@@ -620,7 +620,7 @@ SKK $B%b!<%I$KF~$k$K$O(B @kbd{C-x C-j}$B!"$b$7$/$O(B @kbd{C-x j} $B$H%?%$%W
 @footnote{$B%+%i!<%G%#%9%W%l%$$r;HMQ$7!"%+%i!<I=<($r%5%]!<%H$7$F$$$k(B
 Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 
-@w{@xref{$BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B}}.}$B!#(B
+@w{@xref{$BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B}.}}$B!#(B
 
 @kbd{C-x C-j}$B!"$b$7$/$O(B @kbd{C-x j} $B$r:FEY%?%$%W$9$k$3$H$G!"(BSKK $B%b!<%I$K(B
 $BF~$kA0$N%b!<%I$KLa$j!"%+!<%=%k?'$b85$KLa$j$^$9!#(B
@@ -2428,7 +2428,7 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 
 @lisp
 @group
-(("$B!V(B" . "$B!W(B") ("$B!X(B" . "$B!Y(B") ("(" . ")") ("$B!J(B" . "$B!K(B") ("{" . "}")
+(("$B!V(B" . "$B!W(B") ("$B!X(B" . "$B!Y(B") ("(" . ")") ("$B!J(B" . "$B!K(B") ("@{" . "@}")
  ("$B!P(B" . "$B!Q(B") ("$B!R(B" . "$B!S(B") ("$B!T(B" . "$B!U(B") ("[" . "]") ("$B!N(B" . "$B!O(B")
  ("$B!L(B" . "$B!M(B") ("$B!Z(B" . "$B![(B") ("\"" . "\"") ("$B!H(B" . "$B!I(B") ("`" . "'"))
 @end group
@@ -8011,7 +8011,7 @@ DDSKK $B$K$D$$$F$N:G?7>pJs$O!"(B
 
 SKK Openlab $B$G$O!"3+H/<T!"J8>O$N@0Hw$K$46(NO$$$?$@$1$kJ}!"%F%9%?!<!"$h$m(B
 $B$:$b$N$r8@$&?M$J$I$J$I!">o$KJg=8$7$F$$$^$9!#(B
-@w{@xref{SKK Openlab $B%a!<%j%s%0%j%9%H(B}}.
+@w{@xref{SKK Openlab $B%a!<%j%s%0%j%9%H(B}.}
 
 $B$^$?!"(BSKK $B$N3+H/$O!"(B CVS $B$K$h$C$F$J$5$l$F$$$^$9!#(BCVS $B$r;H$C$F:G?7$N(B SKK
 $B$r<hF@$9$k>l9g!"(BCVS account $B$r<hF@$7$F3+H/$K;22C$5$l$k>l9g$O!"IUB0$N(B
@@ -9164,7 +9164,7 @@ edict $B$r<+J,$G2C9)$7$F>e5-$HF1Ey$N$b$N$r:n@.$9$k$3$H$b$G$-$^$9!#(Bedict $B$
 
 @example
   @kbd{$B"&(Bis} @key{SPC}
-       @expansion @samp{$B%$%s%/%j%a%s%?%k!&%5!<%A(B}
+       @expansion{} @samp{$B%$%s%/%j%a%s%?%k!&%5!<%A(B}
 @end example
 
 @noindent
@@ -9202,7 +9202,7 @@ t $B$K%;%C%H$7$F(B Emacs/SKK $B$rN)$A>e$2D>$7$F2<$5$$!#(B
 $B1QC18l$NJd40$,$G$-$^$9!#(B
 
 @example
-  $B"&(Babstr(@key{TAB}) @expansion $B"&(Babstract
+  $B"&(Babstr(@key{TAB}) @expansion{} $B"&(Babstract
 @end example
 
 $BDL>o$NJd405!G=F1MM!"(B@kbd{.} $B$G<!$NJd408uJd!"(B@kbd{,} $B$G$R$H$DA0$NJd408uJd(B
@@ -9217,7 +9217,7 @@ t $B$K%;%C%H$7$F(B Emacs/SKK $B$rN)$A>e$2D>$7$F2<$5$$!#(B
 $B$G8!:w$9$kA0$K(B @code{ispell} $B$G%9%Z%k%A%'%C%/!&=$@5$r$7$^$9!#(B
 
 @example
-  $B"&(Babstr* (@key{SPC}) @expansion $B"'(Babstract
+  $B"&(Babstr* (@key{SPC}) @expansion{} $B"'(Babstract
 @end example
 
 $B8+=P$78l$K(B @samp{*} $B$rF~$l$k$N$r$*K:$l$J$/!#(B
@@ -9230,11 +9230,11 @@ t $B$K%;%C%H$7$F(B Emacs/SKK $B$rN)$A>e$2D>$7$F2<$5$$!#(B
 
 @example
   $B"&(Babstr* (@key{SPC})
-       @expansion $B"'(Babstract (@key{SPC})
-       @expansion $B"'%"%V%9%H%i%/%H(B (@key{SPC})
-       @expansion $B"'Cj>](B (@key{SPC})
-       @expansion $B"'(Babstraction (@key{SPC})
-       @expansion $B"'%"%V%9%H%i%/%7%g%s(B
+       @expansion{} $B"'(Babstract (@key{SPC})
+       @expansion{} $B"'%"%V%9%H%i%/%H(B (@key{SPC})
+       @expansion{} $B"'Cj>](B (@key{SPC})
+       @expansion{} $B"'(Babstraction (@key{SPC})
+       @expansion{} $B"'%"%V%9%H%i%/%7%g%s(B
 @end example
 
 $B$3$N$h$&$K1QC18l(B + $B$=$N1QC18l$r8+=P$78l$K$7$?8uJd$N!V%;%C%H!W$rJQ497k2L(B
