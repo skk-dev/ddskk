@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.29 2001/11/27 14:57:29 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.30 2001/11/27 15:08:09 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/27 14:57:29 $
+;; Last Modified: $Date: 2001/11/27 15:08:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -214,7 +214,7 @@
   (let (
 	;;(msgbuff (get-buffer-create " *skkserv-msg*"))
 	(count 7)
-	process status)
+	process)
     (while (> count 0)
       (skk-message
        "%s の SKK サーバーが起動していません。起動します%s"
@@ -238,7 +238,7 @@
 	       (skk-server-live-p process))
 	  (setq count 0)
 	(setq count (1- count))))
-    (if (eq status skk-network-open-status)
+    (if (skk-server-live-p process)
 	(progn
 	  (skk-message "ホスト %s の SKK サーバーが起動しました"
 		       "SKK SERVER on %s is active now"
