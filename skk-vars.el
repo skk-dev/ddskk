@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.73 2001/11/04 00:55:28 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.74 2001/11/05 12:56:37 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/04 00:55:28 $
+;; Last Modified: $Date: 2001/11/05 12:56:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1713,7 +1713,7 @@ nil であれば、元号表示する。"
   '(("mile" ("km" . 1.6093) ("yard" . 1760))
     ("yard" ("feet" . 3) ("cm" . 91.44))
     ("feet" ("inch" . 12) ("cm" . 30.48))
-    ("inch" ("feet" . 0.5) ("cm" 2.54)))
+    ("inch" ("feet" . 0.5) ("cm" . 2.54)))
   "*単位換算情報の連想リスト。
 各要素は (基準となる単位 (変換する単位 . 変換時の倍率)) の形式による。
 `skk-gadget-units-conversion' で参照する。"
