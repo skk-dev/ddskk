@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-look.el,v 1.4 1999/10/03 11:39:49 minakaji Exp $
+;; Version: $Id: skk-look.el,v 1.5 1999/10/15 02:20:17 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 11:39:49 $
+;; Last Modified: $Date: 1999/10/15 02:20:17 $
 
 ;; This file is not part of SKK yet.
 
@@ -111,7 +111,7 @@
 ;; user variable.
 (defcustom skk-look-command (exec-installed-p "look")
   "*UNIX look コマンドの名前。"
-  :type 'string
+  :type 'file
   :group 'skk-look )
 
 (defcustom skk-look-ignore-case t
@@ -161,7 +161,9 @@ skk-look-recursive-search が non-nil であるときのみ有効。"
 (defconst skk-look-working-buffer " *skk look*")
 (defvar skk-look-completion-words nil)
 
-(and (null (member '(skk-look) skk-search-prog-list))
+
+(and skk-look-command
+     (null (member '(skk-look) skk-search-prog-list))
      (let ((pl skk-search-prog-list)
 	   (n 0) dic mark )
        (while pl
