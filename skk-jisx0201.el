@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.22 2001/09/07 21:39:39 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.23 2001/09/07 21:45:25 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/07 21:39:39 $
+;; Last Modified: $Date: 2001/09/07 21:45:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -228,9 +228,8 @@
 
 ;; Pieces of advice.
 (defadvice skk-mode (before skk-jisx0201-ad activate)
-  (when skk-jisx0201-mode
-    (setq skk-jisx0201-mode nil)
-    (kill-local-variable 'skk-rule-tree)))
+  (setq skk-jisx0201-mode nil)
+  (kill-local-variable 'skk-rule-tree))
 
 (defadvice skk-kakutei (around skk-jisx0201-ad activate)
   (cond (skk-jisx0201-mode
@@ -240,19 +239,16 @@
 	 ad-do-it)))
 
 (defadvice skk-latin-mode (before skk-jisx0201-ad activate)
-  (when skk-jisx0201-mode
-    (setq skk-jisx0201-mode nil)
-    (kill-local-variable 'skk-rule-tree)))
+  (setq skk-jisx0201-mode nil)
+  (kill-local-variable 'skk-rule-tree))
 
 (defadvice skk-jisx0208-latin-mode (before skk-jisx0201-ad activate)
-  (when skk-jisx0201-mode
-    (setq skk-jisx0201-mode nil)
-    (kill-local-variable 'skk-rule-tree)))
+  (setq skk-jisx0201-mode nil)
+  (kill-local-variable 'skk-rule-tree))
 
 (defadvice skk-abbrev-mode (before skk-jisx0201-ad activate)
-  (when skk-jisx0201-mode
-    (setq skk-jisx0201-mode nil)
-    (kill-local-variable 'skk-rule-tree)))
+  (setq skk-jisx0201-mode nil)
+  (kill-local-variable 'skk-rule-tree))
 
 (defadvice skk-set-okurigana (around skk-jisx0201-ad activate)
   "半角カナの送り仮名を正しく取得する。"
