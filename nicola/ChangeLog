@@ -1,3 +1,8 @@
+2001-03-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el (skk-nicola-treat-triple): New function.
+	(skk-nicola-insert): Call it.
+
 2001-03-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-nicola-temp-data): New variable.

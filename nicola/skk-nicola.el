@@ -485,10 +485,7 @@ keycode 131 = underscore\n"))
 (defun skk-nicola-insert (&optional arg)
   ;; 同時打鍵を認識して、NICOLA かな入力をする。
   (interactive "*p")
-  (let (time1 time2 
-	      next-event next
-	      third-event third
-	      period1 period2)
+  (let (time1 time2 next-event next)
     ;;
     (setq time1 (skk-nicola-format-time (current-time)))
     ;;
@@ -503,9 +500,44 @@ keycode 131 = underscore\n"))
 	   (setq time2 (skk-nicola-format-time (current-time)))
 	   ;;
 	   (setq next-event (next-command-event)
-		 next (skk-nicola-eventto-key next-event))
+		 next (skk-nicola-event-to-key next-event))
 	   (cond
 	    ((skk-nicola-maybe-double-p this-command next)
+	     (skk-nicola-treat-triple this-command next time1 time2 arg))
+	    (t
+	     ;; 最初の入力は単独打鍵でしかありえないと確定。
+	     (skk-nicola-insert-single this-command arg)
+	     (skk-unread-event next-event)))))
+    ;; 統計的価値があるかな...？
+;    (setq skk-nicola-temp-data
+;	  (cons
+;	   (list (or last-command-char this-command)
+;		 period1
+;		 next
+;		 period2
+;		 third)
+;	   skk-nicola-temp-data))
+    )
+  ;; `skk-kana-input' が何も入力しないように、nil を返しておく。
+  nil)
+
+(defun skk-nicola-format-time (time)
+  (let ((time1 (* (float 100000) (car time)))
+	(time2 (cadr time))
+	(time3 (/ (caddr time) (float 1000000))))
+    (+ time1 time2 time3)))
+
+(defun skk-nicola-event-to-key (event)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (let ((char (event-to-character event)))
+      (cond ((characterp char) char)
+	    (t (event-key event)))))
+   (t
+    (if (symbolp event)
+	(vector event)
+      event))))
+
 ;;; 〜 NICOLA 規格書より 〜
 ;;; 7.4.2　打鍵順序だけでは決定できない同時打鍵 
 ;;;
@@ -532,63 +564,37 @@ keycode 131 = underscore\n"))
 ;;;                                         (t1、t2は共に判定時間以内)
 ;;;
 ;;;       t1=t2ならば、文字キーaと親指キーsが同時打鍵、文字キーbは単独打鍵。
-	     (setq period1 (- time2 time1))
-	     (cond
-	      ((skk-sit-for period1 t)
-	       ;; 同時打鍵と確定。(< t1 t2)
-	       (skk-nicola-insert-double this-command next arg))
-	      (t
-	       ;; 更に次の event を調べる。
-	       (setq period2 (- (skk-nicola-format-time (current-time))
-				time2)
-		     third-event (next-command-event)
-		     third (skk-nicola-event-to-key third-event))
-	       (cond
-		((and
-		  (skk-nicola-maybe-double-p next third)
-		  ;; (要らないかも知らないが、多少 `sit-for' の返ってくる時
-		  ;; 間と `current-time' が返す時間との間にズレが生じること
-		  ;; もあるので、一応比較しておく)
-		  (> period1 period2))
-		 ;; 後の2打鍵が同時打鍵と確定。
-		 (skk-nicola-insert-single this-command arg)
-		 (skk-nicola-insert-double next third arg))
-		(t
-		 ;; 前の2打鍵が同時打鍵と確定。
-		 (skk-nicola-insert-double this-command next arg)
-		 (skk-unread-event third-event))))))
-	    (t
-	     ;; 最初の入力は単独打鍵でしかありえないと確定。
-	     (skk-nicola-insert-single this-command arg)
-	     (skk-unread-event next-event)))))
-    ;; 統計的価値があるかな...？
-    (setq skk-nicola-temp-data
-	  (cons
-	   (list (or last-command-char this-command)
-		 period1
-		 next
-		 period2
-		 third)
-	   skk-nicola-temp-data)))
-  ;; `skk-kana-input' が何も入力しないように、nil を返しておく。
-  nil)
-
-(defun skk-nicola-format-time (time)
-  (let ((time1 (* (float 100000) (car time)))
-	(time2 (cadr time))
-	(time3 (/ (caddr time) (float 1000000))))
-    (+ time1 time2 time3)))
-
-(defun skk-nicola-event-to-key (event)
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (let ((char (event-to-character event)))
-      (cond ((characterp char) char)
-	    (t (event-key event)))))
+(defun skk-nicola-treat-triple (first next time1 time2 arg)
+  (let ((period1 (- time2 time1))
+	time3 period2 str third-event third)
+  (cond
+   ((skk-sit-for period1 t)
+    ;; 同時打鍵と確定。(< t1 t2)
+    (skk-nicola-insert-double first next arg))
    (t
-    (if (symbolp event)
-	(vector event)
-      event))))
+    ;; 更に次の event を調べる。
+    (setq period2 (- (setq time3 (skk-nicola-format-time (current-time)))
+		     time2)
+	  str (if (characterp next) (char-to-string next))
+	  third-event (next-command-event)
+	  third (skk-nicola-event-to-key third-event))
+    (cond
+     ((and
+       (skk-nicola-maybe-double-p next third)
+       ;; (要らないかも知らないが、多少 `sit-for' の返ってくる時
+       ;; 間と `current-time' が返す時間との間にズレが生じること
+       ;; もあるので、一応比較しておく)
+       (> period1 period2))
+      ;; 前の2打鍵は同時打鍵ではないと確定。
+      ;; 後の2打鍵が同時打鍵かどうかは、更に次の入力を調べないと
+      ;; 確定しない。
+      (skk-nicola-insert-single this-command arg)
+      (skk-nicola-treat-triple
+       (lookup-key skk-j-mode-map (or str next)) third time2 time3 arg))
+     (t
+      ;; 前の2打鍵が同時打鍵と確定。
+      (skk-nicola-insert-double this-command next arg)
+      (skk-unread-event third-event)))))))
 
 (defun skk-nicola-insert-single (command arg)
   (let ((char last-command-char))
