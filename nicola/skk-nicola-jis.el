@@ -207,6 +207,12 @@
 
 ;;
 
+(when skk-nicola-use-koyubi-functions
+  (define-key skk-j-mode-map ":" 'skk-kanagaki-bs)
+  (define-key skk-j-mode-map "]" 'skk-kanagaki-esc))
+
+;;
+
 (require 'product)
 (product-provide (provide 'skk-nicola-jis) (require 'skk-version))
 

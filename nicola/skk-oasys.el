@@ -61,8 +61,6 @@
     ("h" nil skk-nicola-insert)  ("j" nil skk-nicola-insert)
     ("k" nil skk-nicola-insert)  ("l" nil skk-nicola-insert)
     (";" nil skk-nicola-insert)
-    (":" nil skk-kanagaki-delete-backward-char)
-    ("]" nil skk-nicola-insert)
     ;;
     ("z" nil skk-nicola-insert) ("x" nil skk-nicola-insert)
     ("c" nil skk-nicola-insert) ("v" nil skk-nicola-insert)
@@ -231,6 +229,12 @@
 	   (nconc skk-kanagaki-rule-list
 		  '(("_" nil "￣")
 		    ("~" nil "＊")))))))
+
+;;
+
+(when skk-nicola-use-koyubi-functions
+  (define-key skk-j-mode-map ":" 'skk-kanagaki-bs)
+  (define-key skk-j-mode-map "]" 'skk-kanagaki-esc))
 
 ;;
 

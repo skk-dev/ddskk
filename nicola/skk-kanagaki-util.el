@@ -161,36 +161,45 @@
 	   (skk-insert-str "゜")))))
 
 ;;;###autoload
-(defun skk-kanagaki-delete-backward-char (arg)
-  ;; skk-delete-backward-char をちょっとだけ変更。
+(defun skk-kanagaki-bs (arg)
+  ;; OASYS における BS キーの機能の代わり。どのような挙動をさせるべきかまだ決ま
+  ;; っていない。現在のところ
+  ;;
+  ;; o ▼モードでは `skk-kanagaki-esc' と同じ挙動
+  ;; o ▽モードでは `skk-delete-backward-char' と同じ挙動
+  ;; o ■モードでは `delete-backward-char' と同じ挙動
+  ;;
+  ;; というふうに考えている。
+  (interactive "*p")
+  (cond (skk-henkan-active
+	 (call-interactively 'keyboard-quit))
+	(skk-henkan-on
+	 (if (= (point) (marker-position skk-henkan-start-point))
+	     (skk-kakutei arg)
+	   (forward-char -1)
+	   (delete-char 1)))
+	(t
+	 (delete-backward-char arg))))
+
+;;;###autoload
+(defun skk-kanagaki-esc (&optional arg)
+  ;; OASYS における取り消し機能の代わり。 とりあえず keyboard-quit の場合と同様
+  ;; の動作をするようににしておく。OAK β版だと
+  ;;
+  ;; o 1 回目の取り消しで、変換前の状態に戻した上で変換開始点にポイントを移動
+  ;; o 2 回目の取り消しで変換対象の文字列全体を消去
+  ;;
+  ;; するようになっているが、SKK における変換対象の文字列は ▽ とポイントの間の
+  ;; 文字列であり、ポイントを移動すると変換対象が変わってしまう。そのため、ポイ
+  ;; ントは移動しないこととする。
   (interactive "*P")
-  (skk-with-point-move
-   (let ((count (prefix-numeric-value arg)))
-     (cond (skk-henkan-active
-	    (if (and (not skk-delete-implies-kakutei)
-		     (= skk-henkan-end-point (point)))
-		(skk-previous-candidate)
-	      (if overwrite-mode
-		  (progn
-		    (backward-char count)
-		    (delete-char count arg))
-		(delete-backward-char count))
-	      (if (> (length skk-prefix) count)
-		  (setq skk-prefix (substring skk-prefix 0
-					      (- (length skk-prefix) count)))
-		(setq skk-prefix ""))
-	      (and (>= skk-henkan-end-point (point)) (skk-kakutei))))
-	   ((and skk-henkan-on (>= skk-henkan-start-point (point)))
-	    (setq skk-henkan-count 0)
-	    (skk-kakutei))
-	   ((and skk-henkan-on overwrite-mode)
-	    (backward-char count)
-	    (delete-char count arg))
-	   (t
-	    (skk-delete-okuri-mark)
-	    (if (skk-get-prefix skk-current-rule-tree)
-		(skk-erase-prefix 'clean)
-	      (delete-backward-char count)))))))
+  (call-interactively
+   (cond ((skk-in-minibuffer-p)
+	  (if (fboundp 'minibuffer-keyboard-quit)
+	      'minibuffer-keyboard-quit
+	    'abort-recursive-edit))
+	 (t
+	  'keyboard-quit))))
 
 ;;;###autoload
 (defun skk-nicola-visit-nicola-website ()

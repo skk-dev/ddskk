@@ -1,8 +1,21 @@
+2000-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-util.el (skk-kanagaki-bs): Rename from
+	`skk-kanagaki-delete-backward-char'.
+	(skk-kanagaki-esc): New function.
+
+	* skk-nicola.el (skk-nicola-use-koyubi-functions): New variable.
+	(skk-nicola-lshift-function): Call `exit-minibuffer' in
+	minibuffer.
+
+	* skk-nicola-jis.el, skk-oasys.el, skk-omelet-jis.el: Define keys
+	when `skk-nicola-use-koyubi-functions' is non-nil.
+
 2000-11-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* README.ja: Update.
 
-	* *.el: Modify comments/
+	* *.el: Modify comments.
 
 2000-11-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

@@ -116,6 +116,17 @@
   :type '(repeat character)
   :group 'skk-nicola)
 
+(defcustom skk-nicola-use-koyubi-functions
+  (cond ((eq skk-kanagaki-keyboard-type 'oasys)
+	 t)
+	(t
+	 nil))
+  "\
+*Non-nil なら OASYS 風の BS キーと取り消しキーを用意する。
+これは、JIS キーボードでは \":\" と \"]\" の位置に相当する。"
+  :type 'boolean
+  :group 'skk-nicola)
+
 (defcustom skk-nicola-prefix-suffix-abbrev-chars
   (cond ((memq skk-kanagaki-keyboard-type '(nicola-dvorak omelet-dvorak))
 	 '(?i ?d))
@@ -637,11 +648,7 @@ keycode 131 = underscore\n"))
       (self-insert-command arg))))
 
 (defun skk-nicola-lshift-function (&optional arg)
-  (cond ((and skk-henkan-on (not skk-henkan-active)
-	      (not (markerp skk-nicola-okuri-flag)))
-	 ;; 試験中の機能。標識無しの送りあり変換開始。
-	 (skk-kanagaki-set-okurigana))
-	((or skk-henkan-active skk-henkan-on)
+  (cond ((or skk-henkan-active skk-henkan-on)
 	 ;; 確定に使う。
 	 (let ((skk-egg-like-newline t))
 	   (newline arg)))
@@ -650,7 +657,9 @@ keycode 131 = underscore\n"))
 	 (skk-nicola-space-function arg))
 	(t
 	 ;; 改行に使う。
-	 (newline arg))))
+	 (if (skk-in-minibuffer-p)
+	     (call-interactively 'exit-minibuffer)
+	   (newline arg)))))
 
 
 ;; Pieces of Advice.
