@@ -4,7 +4,7 @@
 	2005-02-24, bind `skk-dcomp-activate' to nil.
 	Call `skk-set-char-before-as-okurigana' even when
 	last-command-char does not belong to [AEIOU] solely for avoiding
-	deletion of following character.  Never use SKK this way.
+	deletion of the following character.  Never use SKK this way.
 
 2005-02-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -4853,8 +4853,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.841 2005/02/27 23:43:56 skk-cvs Exp $
-Last Modified: $Date: 2005/02/27 23:43:56 $
+Version: $Id: ChangeLog,v 1.842 2005/02/27 23:46:55 skk-cvs Exp $
+Last Modified: $Date: 2005/02/27 23:46:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
