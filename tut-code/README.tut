@@ -1,6 +1,6 @@
 -*- text -*-
-             $Date: 2001/07/19 16:50:48 $
-	     $Id: README.tut,v 1.1 2001/07/19 16:50:48 minakaji Exp $
+             $Date: 2001/10/29 22:27:18 $
+	     $Id: README.tut,v 1.2 2001/10/29 22:27:18 czkmt Exp $
 
 SKK-MK のあるディレクトリで、
 
@@ -26,7 +26,7 @@ skk-tutcdef.el の内容をカスタマイズしたいときは、例えば、下記のように
    (require 'skk-tutcdef)
    ;; your customizations...
    (setq skk-rom-kana-rule-list
-         '(...)))
+         '(...))
    (require 'skk-tutcode))
 
 [end of README]
