@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.8 2000/10/30 22:10:14 minakaji Exp $
+;; Version: $Id: skk-cursor.el,v 1.9 2000/11/11 03:11:32 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:14 $
+;; Last Modified: $Date: 2000/11/11 03:11:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -34,7 +34,7 @@
 
 (defun skk-cursor-current-color ()
   ;; カレントバッファの SKK のモードから、カーソルの色を取得する。
-  (cond ((not skk-mode) skk-cursor-default-color)
+  (cond ((not (and skk-use-color-cursor skk-mode)) skk-cursor-default-color)
 	;; skk-start-henkan の中では、skk-j-mode フラグを立てながら、
 	;; skk-abbrev-mode フラグも立てている (変換後、直後に入力する文字が
 	;; 元の入力モードにて行なわれるように)。従い、skk-abbrev-mode フラ
@@ -57,44 +57,52 @@
 	;;> ところそのままで動いているようです。しばらく test してみます。
 	;;> どうも、text-cursor も普通の face のようで、foreground が文
 	;;> 字の色を、background が文字の背景の色を表しているようです。
-	(set-face-property 'text-cursor 'background (skk-cursor-current-color)
-			   (current-buffer)))
+	(when skk-use-color-cursor
+	  (set-face-property 'text-cursor 'background (skk-cursor-current-color)
+			     (current-buffer))))
 
       (defadvice skk-mode (after skk-cursor-ad activate)
 	(set-face-property 'text-cursor 'background
-			   (cond ((not skk-mode) skk-cursor-default-color)
+			   (cond ((not (and skk-use-color-cursor skk-mode))
+				  skk-cursor-default-color)
 				 (skk-katakana skk-cursor-katakana-color)
 				 (skk-j-mode skk-cursor-hiragana-color))
 			   (current-buffer)))
 
       (defadvice skk-auto-fill-mode (after skk-cursor-ad activate)
 	(set-face-property 'text-cursor 'background
-			   (cond ((not skk-mode) skk-cursor-default-color)
+			   (cond ((not (and skk-use-color-cursor skk-mode))
+				  skk-cursor-default-color)
 				 (skk-katakana skk-cursor-katakana-color)
 				 (skk-j-mode skk-cursor-hiragana-color))
 			   (current-buffer)))
 
       (defadvice skk-abbrev-mode (after skk-cursor-ad activate)
-	(set-face-property 'text-cursor 'background skk-cursor-abbrev-color
-			   (current-buffer)))
+	(when skk-use-color-cursor
+	  (set-face-property 'text-cursor 'background skk-cursor-abbrev-color
+			     (current-buffer))))
 
       (defadvice skk-jisx0201-mode (after skk-cursor-ad activate)
-	(set-face-property 'text-cursor 'background skk-cursor-jisx0201-color
-			   (current-buffer)))
+	(when skk-use-color-cursor
+	  (set-face-property 'text-cursor 'background skk-cursor-jisx0201-color
+			     (current-buffer))))
 
       (defadvice skk-jisx0208-latin-mode (after skk-cursor-ad activate)
-	(set-face-property 'text-cursor 'background skk-cursor-jisx0208-latin-color
-			   (current-buffer)))
+	(when skk-use-color-cursor
+	  (set-face-property 'text-cursor 'background skk-cursor-jisx0208-latin-color
+			     (current-buffer))))
 
       (defadvice skk-latin-mode (after skk-cursor-ad activate)
-	(set-face-property 'text-cursor 'background skk-cursor-latin-color
-			   (current-buffer)))
+	(when skk-use-color-cursor
+	  (set-face-property 'text-cursor 'background skk-cursor-latin-color
+			     (current-buffer))))
 
       (defadvice skk-toggle-kana (after skk-cursor-ad activate)
-	(set-face-property 'text-cursor 'background
-			   (cond (skk-katakana skk-cursor-katakana-color)
-				 (skk-j-mode skk-cursor-hiragana-color))
-			   (current-buffer)))
+	(when skk-use-color-cursor
+	  (set-face-property 'text-cursor 'background
+			     (cond (skk-katakana skk-cursor-katakana-color)
+				   (skk-j-mode skk-cursor-hiragana-color))
+			     (current-buffer))))
 
       (skk-defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
 	(unless (or skk-henkan-on skk-henkan-active)
@@ -104,21 +112,27 @@
       ;; Hooks
       (add-hook 'isearch-mode-end-hook
 		(lambda ()
-		  (set-face-property 'text-cursor 'background
-				     (skk-cursor-current-color) (current-buffer)))
+		  (when skk-use-color-cursor
+		    (set-face-property 'text-cursor 'background
+				       (skk-cursor-current-color)
+				       (current-buffer))))
 		'append)
 
       (add-hook 'minibuffer-setup-hook 
 		(lambda ()
-		  (set-face-property 'text-cursor 'background
-				     (skk-cursor-current-color) (current-buffer)))
+		  (when skk-use-color-cursor
+		    (set-face-property 'text-cursor 'background
+				       (skk-cursor-current-color)
+				       (current-buffer))))
 		'append)
 
       (add-hook 'minibuffer-exit-hook
 		(lambda ()
-		  (with-current-buffer (nth 1 (buffer-list))
-		    (set-face-property 'text-cursor 'background
-				       (skk-cursor-current-color) (current-buffer)))
+		  (when skk-use-color-cursor
+		    (with-current-buffer (nth 1 (buffer-list))
+		      (set-face-property 'text-cursor 'background
+					 (skk-cursor-current-color)
+					 (current-buffer))))
 		  (set-face-property 'text-cursor 'background
 				     skk-cursor-default-color (current-buffer)))
 		'append)
@@ -150,7 +164,8 @@
 	(defadvice (, (intern (symbol-name (car funcs))))
 	  (after skk-cursor-ad activate)
 	  "Set cursor color which represents skk mode."
-	  (set-buffer-local-cursor-color (skk-cursor-current-color)))))
+	  (when skk-use-color-cursor
+	    (set-buffer-local-cursor-color (skk-cursor-current-color))))))
       (setq funcs (cdr funcs))))
   )
 ;;; Hooks

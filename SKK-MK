@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.46 2000/11/08 09:36:43 czkmt Exp $
-;; Last Modified: $Date: 2000/11/08 09:36:43 $
+;; Version: $Id: SKK-MK,v 1.47 2000/11/11 03:13:09 czkmt Exp $
+;; Last Modified: $Date: 2000/11/11 03:13:09 $
 
 ;; Commentary
 ;;
@@ -238,7 +238,7 @@
 (defvar SKK_INFODIR
   (or (getenv "SKK_INFODIR")
       (and (getenv "INFOPATH")
-	   (progn (require 'info) (car Info-directory-list)))
+ 	   (progn (require 'info) (car Info-directory-list)))
       (expand-file-name "info" PREFIX)))
 (defvar SKK_LISPDIR
   (or (getenv "SKK_LISPDIR")
@@ -283,28 +283,13 @@
 ;; Work around for Emacs 18.
 (if (= 18 emacs-major-version)
     (progn
-      (setq SKK_INFO nil)
-      (mapcar (function
-	       (lambda (elt)
-		 (setq SKK_MODULES (delq elt SKK_MODULES))))
-	      '(ccc skk-cursor skk-isearch skk-jisx0201 skk-study))
-      (condition-case nil
-	  (progn
-	    (load "bytecomp-runtime")
-	    (load "bytecomp")
-	    (load "byte-optimize"))
-	(error))
       (require 'cl)
-      ;; JUST WORKING AROUND FOR A BUG IN ORIGINAL EMACS 18.59.
-      ;; APPLY patch/e18/cl_el-defsetf.patch FOR REAL FIX.
-      (unless (get 'nth :setf-update-fn)
-	(message "%s" "\
-Loading cl... This CL is BROKEN!!
-You must overwrite cl.elc with patch/e18/cl.elc.
-Just working around for it...")
-	(defsetf nth
-	  setnth
-	  "`setf' inversion for `nth'"))
+      (setq SKK_INFO nil)
+      (dolist (elt '(ccc skk-cursor skk-isearch skk-jisx0201 skk-study))
+	(setq SKK_MODULES (delq elt SKK_MODULES)))
+      (condition-case nil
+	  (load "bytecomp-runtime")
+	(error))
       ;;
       (require 'skk-e18 (expand-file-name
 			 "experimental/skk-e18.el"
@@ -312,7 +297,9 @@ Just working around for it...")
       (condition-case nil
 	  (delete-file "experimental/skk-isearch.el")
 	(error))
-      (copy-file "experimental/skk-is-n.el" "experimental/skk-isearch.el" nil t)))
+      (copy-file "experimental/skk-is-n.el"
+		 "experimental/skk-isearch.el"
+		 nil 'keep-time)))
 
 ;;; [FUNCTIONS]
 (defun SKK-MK-make-setup-file (spec)
@@ -394,16 +381,16 @@ Just working around for it...")
 	 (SKK-MK-generate-autoloads-el)))
   (compile-elisp-modules SKK_MODULES (expand-file-name ".")))
 
-(defun SKK-MK-compile-package ()
-  (SKK-MK-generate-autoloads-el-package)
-  (compile-elisp-modules SKK_MODULES (expand-file-name ".")))
-
 (defun SKK-MK-compile-info ()
   (and SKK_INFO
        (if (or (not (file-exists-p (expand-file-name SKK_INFO DOCDIR)))
 	       (file-newer-than-file-p (expand-file-name (car SKK_TEXIS) DOCDIR)
 				       (expand-file-name SKK_INFO DOCDIR)))
 	   (SKK-MK-texinfo-format SKK_TEXIS))))
+
+(defun SKK-MK-compile-package ()
+  (SKK-MK-generate-autoloads-el-package)
+  (compile-elisp-modules SKK_MODULES (expand-file-name ".")))
 
 (defun SKK-MK-install ()
   (let ((dics SKK_DICTIONARIES)
@@ -416,8 +403,6 @@ Just working around for it...")
 	(make-directory SKK_LISPDIR t))
     (or (file-exists-p SKK_DATADIR)
 	(make-directory SKK_DATADIR t))
-    (or (file-exists-p SKK_INFODIR)
-	(make-directory SKK_INFODIR t))
     ;; delete already installed unnecessary files.
     (while SKK_DAREDEVIL_NOT_USE
       (setq SKK_MODULES (delq (car SKK_DAREDEVIL_NOT_USE) SKK_MODULES)
@@ -435,18 +420,6 @@ Just working around for it...")
       (install-elisp-modules '(skk-e18 skk-isearch) "./experimental" SKK_LISPDIR))
     (install-elisp-modules SKK_MODULES "." SKK_LISPDIR)
     (delete-file "./skk-autoloads.el")
-    ;; install infos.
-    (SKK-MK-compile-info)
-    (when SKK_INFO
-      (let ((files (list SKK_INFO))
-	    (i 1) file)
-	(while (file-exists-p
-		(expand-file-name (setq file (format "%s-%d" SKK_INFO i)) DOCDIR))
-	  (setq files (cons file files))
-	  (setq i (1+ i)))
-	(install-files (nreverse files) DOCDIR SKK_INFODIR nil t nil)))
-    ;; install tutorials.
-    (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil)
     ;; make skk-setup.el.
     (while dics
       (when (file-exists-p (expand-file-name (car dics) DICDIR))
@@ -504,7 +477,37 @@ Just working around for it...")
       (copy-file "skk-setup.el" "leim-list.el" 'ok-if-already-exists)
       (install-elisp-modules (list 'leim-list) "." SKK_LISPDIR))
     ;; install skk-setup.el
-    (install-elisp-modules (list 'skk-setup) "." SKK_LISPDIR)))
+    (install-elisp-modules (list 'skk-setup) "." SKK_LISPDIR)
+    ;; install infos.
+    (SKK-MK-install-info)
+    ;; install tutorials.
+    (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil)))
+
+(defun SKK-MK-install-info ()
+  (when SKK_INFO
+    (or (file-exists-p SKK_INFODIR)
+	(make-directory SKK_INFODIR t))
+    (SKK-MK-compile-info)
+    (let ((files (list SKK_INFO))
+	  (i 1) file)
+      (while (file-exists-p
+	      (expand-file-name (setq file (format "%s-%d" SKK_INFO i)) DOCDIR))
+	(setq files (cons file files))
+	(setq i (1+ i)))
+      (install-files (nreverse files) DOCDIR SKK_INFODIR nil t nil))
+    (require 'install-info
+	     (expand-file-name "install-info.el" default-directory))
+    (let ((info-file (expand-file-name SKK_INFO SKK_INFODIR))
+	  (dir-file
+	   (cond ((file-exists-p (expand-file-name "dir" SKK_INFODIR))
+		  (expand-file-name "dir" SKK_INFODIR))
+		 ((file-exists-p (expand-file-name "dir.info" SKK_INFODIR))
+		  (expand-file-name "dir.info" SKK_INFODIR))
+		 (t
+		  (expand-file-name "dir" SKK_INFODIR)))))
+      (when (file-readable-p dir-file)
+	(install-info info-file dir-file nil nil 'delete))
+      (install-info info-file dir-file nil nil nil))))
 
 (defun SKK-MK-install-package ()
   (let ((dics SKK_DICTIONARIES)
@@ -534,6 +537,58 @@ Just working around for it...")
     (install-elisp-modules SKK_MODULES "." PACKAGE_LISPDIR)
     (delete-file "./auto-autoloads.el")
     (delete-file "./custom-load.el")
+    ;; make skk-setup.el.
+    (while dics
+      (when (file-exists-p (expand-file-name (car dics) DICDIR))
+	(setq exist (cons (car dics) exist)))
+      (setq dics (cdr dics)))
+    (setq SKK_DICTIONARIES exist)
+    ;; move existing largest dictionay to car of `SKK_DICTIONARIES'.
+    (and (member "SKK-JISYO.M" SKK_DICTIONARIES)
+	 (setq SKK_DICTIONARIES
+	       (cons "SKK-JISYO.M" (delete "SKK-JISYO.M" SKK_DICTIONARIES))))
+    (and (member "SKK-JISYO.L" SKK_DICTIONARIES)
+	 (setq SKK_DICTIONARIES
+	       (cons "SKK-JISYO.L" (delete "SKK-JISYO.L" SKK_DICTIONARIES))))
+    (if SKK_DICTIONARIES
+	(progn
+	  (SKK-MK-make-setup-file
+	   (append
+	    '("@AUXDIC@" (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR))
+	    (if SKK_SET_JISYO
+		'("@DIC@" (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR)))
+	    (if SKK_TUTORIALS
+		'("@TUT@"
+		  (expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR)))))
+	  ;; install dictionaries if the files exist in ./dic directory.
+	  (install-files SKK_DICTIONARIES DICDIR PACKAGE_DATADIR nil t nil))
+      ;; when dictionaries do not exist in ./dic subdirectory, check
+      ;; already installed dictionary and detect largest one to setup
+      ;; skk-setup.el.in.
+      (setq dics '("SKK-JISYO.L" "SKK-JISYO.M" "SKK-JISYO.S"))
+      (while (and dics
+		  (not
+		   (or
+		    (file-exists-p (expand-file-name (car dics) PACKAGE_DATADIR))
+		    (file-exists-p (expand-file-name (car dics) SKK_DATADIR)))))
+	(setq dics (cdr dics)))
+      (if dics
+	  (let ((dic
+		 (if (file-exists-p (expand-file-name (car dics) PACKAGE_DATADIR))
+		     (expand-file-name (car dics) PACKAGE_DATADIR)
+		   (expand-file-name (car dics) SKK_DATADIR))))
+	    (SKK-MK-make-setup-file
+	     (append
+	      (list "@AUXDIC@" dic)
+	      (if SKK_SET_JISYO
+		  (list "@DIC@" dic))
+	      (if SKK_TUTORIALS
+		  '("@TUT@"
+		    (expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR))))))
+	;; merely copy without setup dictionary information.
+	(copy-file "skk-setup.el.in" "skk-setup.el" 'ok-if-already-exists)))
+    ;; install skk-setup.el
+    (install-elisp-modules (list 'skk-setup) "." PACKAGE_LISPDIR)
     ;; install infos.
     (SKK-MK-compile-info)
     (when SKK_INFO
@@ -545,59 +600,7 @@ Just working around for it...")
 	  (setq i (1+ i)))
 	(install-files (nreverse files) DOCDIR PACKAGE_INFODIR nil t nil)))
     ;; install tutorials.
-    (install-files SKK_TUTORIALS ETCDIR PACKAGE_DATADIR nil t nil)
-    ;; make skk-setup.el.
-    (while dics
-      (when (file-exists-p (expand-file-name (car dics) DICDIR))
-	(setq exist (cons (car dics) exist)))
-      (setq dics (cdr dics)))
-    (setq SKK_DICTIONARIES exist))
-  ;; move existing largest dictionay to car of `SKK_DICTIONARIES'.
-  (and (member "SKK-JISYO.M" SKK_DICTIONARIES)
-       (setq SKK_DICTIONARIES
-	     (cons "SKK-JISYO.M" (delete "SKK-JISYO.M" SKK_DICTIONARIES))))
-  (and (member "SKK-JISYO.L" SKK_DICTIONARIES)
-       (setq SKK_DICTIONARIES
-	     (cons "SKK-JISYO.L" (delete "SKK-JISYO.L" SKK_DICTIONARIES))))
-  (if SKK_DICTIONARIES
-      (progn
-	(SKK-MK-make-setup-file
-	 (append
-	  '("@AUXDIC@" (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR))
-	  (if SKK_SET_JISYO
-	      '("@DIC@" (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR)))
-	  (if SKK_TUTORIALS
-	      '("@TUT@"
-		(expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR)))))
-	;; install dictionaries if the files exist in ./dic directory.
-	(install-files SKK_DICTIONARIES DICDIR PACKAGE_DATADIR nil t nil))
-    ;; when dictionaries do not exist in ./dic subdirectory, check
-    ;; already installed dictionary and detect largest one to setup
-    ;; skk-setup.el.in.
-    (setq dics '("SKK-JISYO.L" "SKK-JISYO.M" "SKK-JISYO.S"))
-    (while (and dics
-		(not
-		 (or
-		  (file-exists-p (expand-file-name (car dics) PACKAGE_DATADIR))
-		  (file-exists-p (expand-file-name (car dics) SKK_DATADIR)))))
-      (setq dics (cdr dics)))
-    (if dics
-	(let ((dic
-	       (if (file-exists-p (expand-file-name (car dics) PACKAGE_DATADIR))
-		   (expand-file-name (car dics) PACKAGE_DATADIR)
-		 (expand-file-name (car dics) SKK_DATADIR))))
-	  (SKK-MK-make-setup-file
-	   (append
-	    (list "@AUXDIC@" dic)
-	    (if SKK_SET_JISYO
-		(list "@DIC@" dic))
-	    (if SKK_TUTORIALS
-		'("@TUT@"
-		  (expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR))))))
-      ;; merely copy without setup dictionary information.
-      (copy-file "skk-setup.el.in" "skk-setup.el" 'ok-if-already-exists)))
-  ;; install skk-setup.el
-  (install-elisp-modules (list 'skk-setup) "." PACKAGE_LISPDIR))
+    (install-files SKK_TUTORIALS ETCDIR PACKAGE_DATADIR nil t nil)))
 
 (defun SKK-MK-texinfo-format (targets)
   (let (

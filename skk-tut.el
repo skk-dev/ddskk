@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.14 2000/10/30 22:10:19 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.15 2000/11/11 03:10:51 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:19 $
+;; Last Modified: $Date: 2000/11/11 03:10:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -957,7 +957,7 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 			     'face skk-tut-do-it-face)))
     (while (not skktut-tutorial-end)
       (condition-case nil
-	  (let* ((event (skk-read-event))
+	  (let* ((event (next-command-event))
 		 (char (event-to-character event)))
 	    (skktut-message "<return> $B%-!<$r2!$7$F$/$@$5$$(B" "Hit <return> key")
 	    (if (and char (eq ?\C-m char))

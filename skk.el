@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.48 2000/11/10 21:03:41 minakaji Exp $
+;; Version: $Id: skk.el,v 1.49 2000/11/11 03:08:01 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/10 21:03:41 $
+;; Last Modified: $Date: 2000/11/11 03:08:01 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1215,7 +1215,11 @@ dependent."
     (and (boundp 'self-insert-after-hook) self-insert-after-hook
 	 (funcall self-insert-after-hook (- (point) (length str)) (point)))
     (and overwrite-mode
-	 (skk-del-char-with-pad (skk-ovwrt-len (string-width str))))))
+	 (skk-del-char-with-pad (skk-ovwrt-len (string-width str)))))
+  ;; SKK 9.6 ではこのタイミングで fill が行われていたが、SKK 10 では行われてい
+  ;; なかった。
+  (when (and skk-j-mode (not skk-henkan-on))
+    (skk-do-auto-fill)))
 
 (defun skk-ovwrt-len (len)
   ;; 上書きして良い長さを返す。
@@ -1542,7 +1546,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	 (setq n (skk-henkan-show-candidate-subr candidate-keys henkan-list))
 	 (if (> n 0)
 	     (condition-case nil
-		 (let* ((event (skk-read-event))
+		 (let* ((event (next-command-event))
 			(char (event-to-character event))
 			(key (static-cond
 			      ((eq skk-emacs-type 'xemacs)
@@ -1730,8 +1734,11 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 			  skk-read-from-minibuffer-function)
 		     (funcall skk-read-from-minibuffer-function))
 		 (static-when (memq skk-emacs-type '(nemacs mule1))
+		   ;; Emacs 18 では minibuffer-setup-hook が効かないので、直接
+		   ;; skk-mode を起動する。keymap も適切に与える必要がある。
 		   (with-current-buffer
-		       (get-buffer-create (format " *Minibuf-%d*" (minibuffer-depth)))
+		       (get-buffer-create
+			(format " *Minibuf-%d*" (minibuffer-depth)))
 		     (skk-j-mode-on))
 		   (append skk-j-mode-map (cdr minibuffer-local-map)))))
         (quit
@@ -1804,16 +1811,18 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; `skk-check-okurigana-on-touroku' を non-nil に設定している場合のみ有効。
   ;; 変換が行なわれたバッファでコールされる (ミニバッファ、辞書バッファではない)。
   (save-match-data
-    (if (and (string-match (concat skk-henkan-okurigana "$") word)
-	     (skk-y-or-n-p
-	      (format "辞書登録モードで入力した「%s」の「%s」は送り仮名ですか？"
-		      word skk-henkan-okurigana)
-	      (format "You mean \"%s\" in \"%s\" you typed in dictionary register mode is okurigana?"
-		      skk-henkan-okurigana word)))
-	;; ユーザの指示に従い送り仮名を取り除く。
+    (let* ((len (skk-str-length word))
+	   (str (skk-substring word (1- len) len)))
+      (if (and (string-match "^[ぁ-ん]$" str)
+	       (skk-y-or-n-p
+		(format "辞書登録モードで入力した「%s」の「%s」は送り仮名ですか？"
+			word str)
+		(format "You mean \"%s\" in \"%s\" you've registered is okurigana?"
+			str word)))
+	  ;; ユーザの指示に従い送り仮名を取り除く。
 	(progn
 	  (message "")
-	  (setq word (substring word 0 (match-beginning 0))))))
+	  (setq word (skk-substring word 0 (1- len)))))))
   word)
 
 (defun skk-setup-minibuffer ()
@@ -3681,7 +3690,8 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	 nil)
 	((string= okurigana "ん")
 	 "n")
-	((string= okurigana "っ")
+	((and (string= okurigana "っ")
+	      (not (string= skk-henkan-okurigana "っ")))
 	 (aref skk-kana-rom-vector
 	       ;; assume the character is hiragana of JIS X 0208.
 	       (static-cond

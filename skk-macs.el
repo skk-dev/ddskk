@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.4 2000/11/10 21:03:41 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.5 2000/11/11 03:08:44 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/10 21:03:41 $
+;; Last Modified: $Date: 2000/11/11 03:08:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -30,7 +30,10 @@
 ;;; Code:
 ;;;; macros
 (eval-when-compile
-  (require 'advice) (require 'static) (require 'skk-vars)
+  (require 'advice)
+  (require 'cl)
+  (require 'static)
+  (require 'skk-vars)
   (defconst skk-emacs-type
     (cond ((featurep 'xemacs) 'xemacs)
 	  ((and (boundp 'NEMACS)) 'nemacs)
@@ -183,6 +186,14 @@
 	       (overlay-put (, object) 'face (, face)))
 	   (move-overlay (, object) (, start) (, end))))))))
 
+(defmacro skk-sit-for (seconds &optional nodisplay)
+  (case skk-emacs-type
+   ((nemacs mule1 xemacs)
+    (` (sit-for (, seconds) (, nodisplay))))
+   (t
+    ;; Emacs 19 or later.
+    (` (sit-for (, seconds) nil (, nodisplay))))))
+
 ;;(defun-maybe mapvector (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
 ;;The result is a vector of the same length as SEQUENCE.
@@ -202,22 +213,64 @@
 ;;; version dependent
 (defsubst skk-color-display-p ()
   (static-cond
-   ((eq skk-emacs-type 'xemacs) (eq (device-class (selected-device)) 'color))
-   ((fboundp 'x-display-color-p) (and window-system (x-display-color-p)))))
+   ((eq skk-emacs-type 'xemacs)
+    (eq (device-class (selected-device)) 'color))
+   ((fboundp 'x-display-color-p)
+    ;; Emacs 19 or later.
+    (and window-system (x-display-color-p)))))
 
 (defsubst skk-str-length (str)
   (static-cond
-   ((memq skk-emacs-type '(xemacs mule5 mule4))
-    (length str))
+   ((memq skk-emacs-type '(nemacs mule1 mule2))
+    (length (string-to-char-list str)))
    ((eq skk-emacs-type 'mule3)
     (length (string-to-vector str)))
    (t
-    (length (string-to-char-list str)))))
+    ;; XEmacs, MULE 4.0 or later.
+    (length str))))
 
 (defsubst skk-substring (str pos1 pos2)
   (static-cond
-   ((memq skk-emacs-type '(xemacs mule5 mule4))
-    (substring str pos1 pos2))
+   ((eq skk-emacs-type 'nemacs)
+    ;; XXX not yet tested.
+    (if (< pos1 0)
+	(setq pos1 (+ (skk-str-length str) pos1)))
+    (if (< pos2 0)
+	(setq pos2 (+ (skk-str-length str) pos2)))
+    (if (>= pos1 pos2)
+	""
+      (let (start end n)
+	(with-temp-buffer
+	  (insert str)
+	  (goto-char (point-min))
+	  (setq n pos1)
+	  (while (and (not (eobp)) (> n 0))
+	    (if (eobp)
+		(signal 'error
+			(cons "Args out of range" (list str pos1 pos2)))
+	      (forward-char 1)
+	      (setq n (1- n))))
+	  (setq start (point))
+	  (setq n (- pos2 pos1))
+	  (while (and (not (eobp)) (> n 0))
+	    (if (eobp)
+		(signal 'error
+			(cons "Args out of range" (list str pos1 pos2)))
+	      (forward-char 1)
+	      (setq n (1- n))))
+	  (setq end (point))
+	  ;;
+	  (buffer-substring start end)))))
+   ((memq skk-emacs-type '(nemacs mule1 mule2))
+    (if (< pos1 0)
+	(setq pos1 (+ (skk-str-length str) pos1)))
+    (if (< pos2 0)
+	(setq pos2 (+ (skk-str-length str) pos2)))
+    (if (>= pos1 pos2)
+	""
+      (let ((sl (nthcdr pos1 (string-to-char-list str))))
+	(setcdr (nthcdr (- pos2 pos1 1) sl) nil)
+	(mapconcat 'char-to-string sl ""))))
    ((eq skk-emacs-type 'mule3)
     (if (< pos1 0)
 	(setq pos1 (+ (skk-str-length str) pos1)))
@@ -229,77 +282,72 @@
 	(setcdr (nthcdr (- pos2 pos1 1) sl) nil)
 	(concat sl))))
    (t
-    (if (< pos1 0)
-	(setq pos1 (+ (skk-str-length str) pos1)))
-    (if (< pos2 0)
-	(setq pos2 (+ (skk-str-length str) pos2)))
-    (if (>= pos1 pos2)
-	""
-      (let ((sl (nthcdr pos1 (string-to-char-list str))))
-	(setcdr (nthcdr (- pos2 pos1 1) sl) nil)
-	(mapconcat 'char-to-string sl ""))))))
-
-;; no argument use only in SKK.
-(defsubst skk-read-event ()
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (next-command-event))
-   ((fboundp 'read-event)
-    (read-event))
-   (t (read-char))))
+    ;; XEmacs, MULE 4.0 or later.
+    (substring str pos1 pos2))))
 
 (defsubst skk-char-to-string (char)
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (char-to-string char))
-   ((string< "20" emacs-version)
-    (condition-case nil (char-to-string char) (error)))
-   (t (char-to-string char))))
+  (condition-case nil (char-to-string char) (error)))
 
 (defsubst skk-ascii-char-p (char)
   ;; CHAR が ascii 文字だったら t を返す。
   (static-cond
-   ((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
-    (eq (char-charset char) 'ascii))
-   ((eq skk-emacs-type 'mule2)
+   ((eq skk-emacs-type 'nemacs)
+    (and (< ?\37 char) (< char ?\200)))
+   ((memq skk-emacs-type '(mule1 mule2))
     ;; Can I use this for mule1?
+    ;; (maybe < cz)
     (= (char-leading-char char) 0))
-   (t (and (< ?\37 char) (< char ?\200)))))
+   (t
+    ;; XEmacs, Emacs 20 or later.
+    (eq (char-charset char) 'ascii))))
 
 (defsubst skk-str-ref (str pos)
   (static-cond
-   ((memq skk-emacs-type '(xemacs mule5 mule4))
-    (aref str pos))
+   ((memq skk-emacs-type '(nemacs mule1 mule2))
+    (nth pos (string-to-char-list str)))
    ((eq skk-emacs-type 'mule3)
     (aref (string-to-vector str) pos))
-   (t (nth pos (string-to-char-list str)))))
+   (t
+    ;; XEmacs, MULE 4.0 or later.
+    (aref str pos))))
 
 (defsubst skk-jisx0208-p (char)
   (static-cond
-   ((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
-    (eq (char-charset char) 'japanese-jisx0208))
-   ((eq skk-emacs-type 'mule2)
+   ((eq skk-emacs-type 'nemacs)
+    (and (<= char ?\200) (<= ?\377 char)))
+   ((memq skk-emacs-type '(mule1 mule2))
     ;; Can I use this for mule1?
+    ;; (maybe < cz)
     (= (char-leading-char char) lc-jp))
    (t
-    (and (<= char ?\200) (<= ?\377 char)))))
+    ;; XEmacs, MULE 3.0 or later.
+    (eq (char-charset char) 'japanese-jisx0208))))
 
 (defsubst skk-jisx0213-p (char)
   (and (featurep 'jisx0213)
-    (memq (char-charset char) '(japanese-jisx0213-1 japanese-jisx0213-2))))
+       (memq (char-charset char) '(japanese-jisx0213-1 japanese-jisx0213-2))))
 
 (defsubst skk-char-octet (ch &optional n)
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (or (nth (if n (1+ n) 1) (split-char ch)) 0))
-   (t (char-octet ch n))))
+   (t
+    ;; FSF Emacs
+    (char-octet ch n))))
 
 ;; this one is called once in skk-kcode.el, too.
 (defsubst skk-charsetp (object)
   (static-cond
-   ((eq skk-emacs-type 'xemacs) (find-charset object))
-   ((fboundp 'charsetp) (charsetp object))
-   ((eq skk-emacs-type 'mule2) (character-set object))))
+   ((eq skk-emacs-type 'xemacs)
+    (find-charset object))
+   ((eq skk-emacs-type 'nemacs)
+    ;; XXX not yet tested.
+    (charset-description object))
+   ((memq skk-emacs-type '(mule1 mule2))
+    (character-set object))
+   (t
+    ;; MULE 3.0 or later.
+    (charsetp object))))
 
 ;;; version independent
 ;; ツリーにアクセスするためのインターフェース
@@ -535,7 +583,7 @@
 (defsubst skk-do-auto-fill ()
   ;; auto-fill-function/auto-fill-hook に値が代入されていれば、それをコールする。
   (static-cond
-   ((string< (substring emacs-version 0 2) "19")
+   ((memq skk-emacs-type '(nemacs mule1))
     (and auto-fill-hook (run-hooks 'auto-fill-hook)))
    (t (and auto-fill-function (funcall auto-fill-function)))))
 
@@ -572,7 +620,7 @@
 (defsubst skk-unread-event (event)
   ;; Unread single EVENT.
   (static-cond
-   ((string< (substring emacs-version 0 2) "19")
+   ((memq skk-emacs-type '(nemacs mule1))
     (setq unread-command-char event))
    (t (setq unread-command-events (nconc unread-command-events (list event))))))
 
@@ -596,7 +644,8 @@
 
 (defsubst skk-find-coding-system (code)
   (cond ((and code
-	      (or (coding-system-p code)
+	      (or (and (fboundp 'coding-system-p) 
+		       (coding-system-p code))
 		  (and (fboundp 'find-coding-system)
 		       (symbolp code)
 		       (find-coding-system code))))
