@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.77 2001/09/13 13:48:03 czkmt Exp $
-;; Last Modified: $Date: 2001/09/13 13:48:03 $
+;; Version: $Id: SKK-MK,v 1.78 2001/09/14 11:53:50 czkmt Exp $
+;; Last Modified: $Date: 2001/09/14 11:53:50 $
 
 ;; Commentary
 ;;
@@ -477,11 +477,9 @@ Try ddskk-e18 branch."))
   (let (enable-local-eval)
     (SKK-MK-generate-autoloads-el)
     (require 'skk-autoloads
-	     (expand-file-name "skk-autoloads.el"
-			       default-directory))
+	     (expand-file-name "skk-autoloads.el"))
     (require 'skk
-	     (expand-file-name "skk.el"
-			       default-directory))
+	     (expand-file-name "skk.el"))
     (compile-elisp-modules SKK_MODULES
 			   (expand-file-name "."))))
 
@@ -497,9 +495,7 @@ Try ddskk-e18 branch."))
 (defun SKK-MK-compile-package ()
   (SKK-MK-generate-autoloads-el-package)
   (require 'skk
-	   (expand-file-name
-	    "skk.el"
-	    default-directory))
+	   (expand-file-name "skk.el"))
   (autoload 'custom-add-loads "cus-load")
   (compile-elisp-modules
    SKK_MODULES
@@ -691,9 +687,7 @@ Try ddskk-e18 branch."))
 		     SKK_INFODIR
 		     nil t nil))
     (require 'install-info
-	     (expand-file-name
-	      "install-info.el"
-	      default-directory))
+	     (expand-file-name "install-info.el"))
     (let ((info-file (expand-file-name
 		      SKK_INFO
 		      SKK_INFODIR))
@@ -849,8 +843,7 @@ Try ddskk-e18 branch."))
   (let (;; Emacs20.2's default is 'raw-text-unix.
 	(coding-system-for-write SKK-MK-texinfo-coding-system)
 	x obuf beg standard-output)
-    (require 'ptexinfmt (expand-file-name
-			 "ptexinfmt.el" default-directory))
+    (require 'ptexinfmt (expand-file-name "ptexinfmt.el"))
     (while targets
       (setq x (expand-file-name (car targets) DOCDIR))
       (find-file x)
@@ -967,8 +960,7 @@ SKK tutorials:
 	     (fboundp 'generate-file-autoloads))
 	(while modules
 	  (let ((file (expand-file-name
-		       (format "%s.el" (car modules))
-		       default-directory)))
+		       (format "%s.el" (car modules)))))
 	    (when (file-exists-p file)
 	      (generate-file-autoloads file)))
 	  (setq modules (cdr modules)))
@@ -977,9 +969,8 @@ SKK tutorials:
 ;;; skk-autoloads.el ends here
 ")
 	(write-region-as-coding-system
-	 (if (boundp 'MULE)
-	     *junet*unix
-	   'iso-2022-jp)
+	 (cond ((boundp 'MULE) *junet*unix)
+	       (t 'iso-2022-jp))
 	 (point-min) (point-max)
 	 "skk-autoloads.el" nil 'quiet)
 	(kill-buffer buf))
@@ -995,14 +986,12 @@ SKK tutorials:
     (with-temp-buffer
       (dolist (module modules)
 	(let ((file (expand-file-name
-		     (format "%s.el" module)
-		     default-directory)))
+		     (format "%s.el" module))))
 	  (and (file-exists-p file)
 	       (generate-file-autoloads file))))
       (eval-current-buffer)
       (let ((generated-autoload-file
-	     (expand-file-name "auto-autoloads.el"
-			       default-directory)))
+	     (expand-file-name "auto-autoloads.el")))
 	(setq buffer-file-name generated-autoload-file)
 	(fixup-autoload-buffer "skk-autoloads")
 	(goto-char (point-max))
@@ -1022,5 +1011,42 @@ SKK tutorials:
 	 (point-min) (point-max) generated-autoload-file)))
     (add-to-list 'command-line-args-left ".")
     (Custom-make-dependencies)))
+
+(defun SKK-MK-skk-dic ()
+  (require 'poem)
+  (let ((buf (get-buffer-create " *SKK-JISYO.S*")))
+    (with-current-buffer buf
+      (erase-buffer)
+      (insert-file-contents-as-coding-system
+       (cond ((boundp 'MULE) *euc-japan*)
+	     (t 'euc-jp))
+       (expand-file-name "SKK-JISYO.S"
+			 "../dic"))
+      (goto-char (point-min))
+      (while (not (looking-at
+		   "^;; okuri-ari entries\\.$"))
+	(next-line 1))
+      (delete-region (point-min) (point)))
+    (with-temp-buffer
+      (erase-buffer)
+      (insert-file-contents-as-coding-system
+       (cond ((boundp 'MULE) *junet*)
+	     (t 'iso-2022-jp))
+       (expand-file-name "skk-dic.el"))
+      (let (start)
+	(goto-char (point-min))
+	(while (not (looking-at
+		     "^;; okuri-ari entries\\.$"))
+	  (next-line 1))
+	(setq start (point))
+	(while (not (looking-at "^\" \"\\\\$"))
+	  (next-line 1))
+	(delete-region start (point))
+	(insert-buffer buf))
+      (write-region-as-coding-system
+       (cond ((boundp 'MULE) *junet*unix)
+	     (t 'iso-2022-jp))
+       (point-min) (point-max)
+       (expand-file-name "skk-dic.el")))))
 
 ;;; SKK-MK ends here
