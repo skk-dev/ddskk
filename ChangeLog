@@ -4,6 +4,9 @@
 	* skk.el (skk-henkan-show-candidates): If input char is
 	`skk-force-registration-mode-char', force to enter into word
 	registration mode.
+	Doc fixed.
+	(skk-henkan-show-candidate-subr): Doc fixed.
+	(skk-undo-kakutei): Ditto.
 
 2002-11-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -4092,8 +4095,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.720 2003/01/28 00:08:21 minakaji Exp $
-Last Modified: $Date: 2003/01/28 00:08:21 $
+Version: $Id: ChangeLog,v 1.721 2003/01/28 00:12:49 minakaji Exp $
+Last Modified: $Date: 2003/01/28 00:12:49 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

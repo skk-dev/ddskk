@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.256 2003/01/28 00:08:21 minakaji Exp $
+;; Version: $Id: skk.el,v 1.257 2003/01/28 00:12:48 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/01/28 00:08:21 $
+;; Last Modified: $Date: 2003/01/28 00:12:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1661,7 +1661,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
     max))
 
 (defun skk-henkan-show-candidates ()
-  "$B%_%K%P%C%U%!$GJQ49$7$?8uJd72$rI=<($9$k!#(B"
+  "$B%(%3!<%(%j%"$GJQ49$7$?8uJd72$rI=<($9$k!#(B"
   (skk-save-point
    (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	  (candidate-keys ; $BI=<(MQ$N%-!<%j%9%H(B
@@ -1839,7 +1839,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 (defun skk-henkan-show-candidate-subr (keys candidates)
   "$B8uJd72$rI=<($9$k4X?t!#(B
 KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
-$BK~$?$J$+$C$?$i$=$3$GBG$A@Z$k(B) $B$NJ8;zNs$r:n$j!"%_%K%P%C%U%!$KI=<($9$k!#(B"
+$BK~$?$J$+$C$?$i$=$3$GBG$A@Z$k(B) $B$NJ8;zNs$r:n$j!"%(%3!<%(%j%"$KI=<($9$k!#(B"
   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	 (workinglst
 	  ;; CANDIDATES $B$N@hF,$N(B 7 $B$D$N$_$N%j%9%H!#(B
@@ -1968,8 +1968,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
       (cond
        ((string= new-one "")
 	(if skk-exit-show-candidates
-	    ;; $B%_%K%P%C%U%!$KI=<($7$?8uJd$,?T$-$F<-=qEPO?$KF~$C$?$,!"6uJ8;z(B
-	    ;; $BNs$,EPO?$5$l$?>l9g!#:G8e$K%_%K%P%C%U%!$KI=<($7$?8uJd72$r:FI=(B
+	    ;; $B%(%3!<%(%j%"$KI=<($7$?8uJd$,?T$-$F<-=qEPO?$KF~$C$?$,!"6uJ8;z(B
+	    ;; $BNs$,EPO?$5$l$?>l9g!#:G8e$K%(%3!<%(%j%"$KI=<($7$?8uJd72$r:FI=(B
 	    ;; $B<($9$k!#(B
 	    (progn
 	      (setq skk-henkan-count (cdr skk-exit-show-candidates))
@@ -2374,7 +2374,7 @@ WORD $B$G3NDj$9$k!#(B"
 (defun skk-undo-kakutei ()
   "$B0lHV:G8e$N3NDj$r%"%s%I%%$7!"8+=P$7$KBP$9$k8uJd$rI=<($9$k!#(B
 $B:G8e$K3NDj$7$?$H$-$N8uJd$O%9%-%C%W$5$l$k!#(B
-$B8uJd$,B>$K$J$$$H$-$O!"%_%K%P%C%U%!$G$N<-=qEPO?$KF~$k!#(B"
+$B8uJd$,B>$K$J$$$H$-$O!"%(%3!<%(%j%"$G$N<-=qEPO?$KF~$k!#(B"
   (interactive)
   (skk-with-point-move
    (cond ((eq last-command 'skk-undo-kakutei)
@@ -3210,7 +3210,7 @@ If you want to restore the dictionary from the disc, try
 (defun skk-create-file (file &optional japanese english modes)
   "FILE $B$,$J$1$l$P!"(BFILE $B$H$$$&L>A0$N6u%U%!%$%k$r:n$k!#(B
 $B%*%W%7%g%s0z?t$N(B JAPANESE/ENGLISH $B$r;XDj$9$k$H!"%U%!%$%k:n@.8e$=$N%a%C%;!<%8(B
-$B$r%_%K%P%C%U%!$KI=<($9$k!#(B"
+$B$r%(%3!<%(%j%"$KI=<($9$k!#(B"
   (let ((file (expand-file-name file)))
     (if (file-exists-p file)
 	(when modes
