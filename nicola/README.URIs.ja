@@ -1,8 +1,5 @@
 -*- mode: fundamental -*-
 
-	$Id: README.URIs.ja,v 1.1 2002/02/09 04:49:32 czkmt Exp $
-
-
 o 日本語入力コンソーシアム (NICOLA)
 
 http://nicola.sunicom.co.jp/
@@ -10,7 +7,7 @@ http://nicola.sunicom.co.jp/
 
 o NICOLA 配列 (NIHONGO-NYURYOKU CONSORTIUM LAYOUT) 規格書
 
-http://nicola.sunicom.co.jp/html/kikaku.htm
+http://nicola.sunicom.co.jp/spec/kikaku.htm
 
 
 o キーボード工房
@@ -30,7 +27,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/omelet.html
 
 o Q's Nicolatter for X
 
-http://www2.airnet.ne.jp/pak04955/dl-linux.htm#nicolatter
+http://www.nslabs.jp/xnicolatter.rhtml
 
 
 o OASYS のホームページ
