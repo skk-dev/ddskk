@@ -2,9 +2,9 @@
 @c
 @c  Author: Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk-faq.texi,v 1.10 2000/10/23 17:57:53 czkmt Exp $
+@c  Version: $Id: skk-faq.texi,v 1.11 2000/10/23 18:59:03 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/23 17:57:53 $
+@c  Last Modified: $Date: 2000/10/23 18:59:03 $
 @c
 @setfilename skk-faq.info
 
@@ -22,7 +22,7 @@
 * Forgotten Antique Questions(FAQ)::  $B2=@PE*<ALd=8!#(B
 @end menu
 
-@node Introduction, Installation
+@node Introduction, Installation, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ), $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @comment  node-name,  next,  previous,  up
 @section SKK $B$N$J$<$J$K(B
 
@@ -191,7 +191,7 @@ SKK abbrev $B%b!<%I$H$$$&$N$O%"%9%-!<J8;z$rMxMQ$7$?JQ49$,$G$-$k%b!<%I$G(B
 $B$S$^$9!#%P%C%U%!$KA^F~$5$l$F$$$k(B@samp{$B"&(B}$B$N%^!<%+$,(B@samp{$B"'(B}$B$KJQ$o$j$^$9!#(B
 @end table
 
-@node Installation, Customization, Introduction
+@node Installation, Customization, Introduction, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @comment  node-name,  next,  previous,  up
 @section SKK $B$NF~<j$+$iF3F~$^$G(B
 
@@ -278,7 +278,7 @@ Emacs $B$N$=$l$>$l$N%P!<%8%g%s4V$N:90[$r5[<}$9$k%Q%C%1!<%8$G$9!#(B
 $B$^$?!"(BAPEL $B$N$*$+$2$G$=$l$@$1B?$/$N(B Emacsen $B$GF0$-$^$9!#(BAPEL $B$K46<U$3$=(B
 $B$9$l!":($`$N$O6Z0c$$$G$7$g$&!#(B
 
-@node Customization, Dictionaries, Installation
+@node Customization, Dictionaries, Installation, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @comment  node-name,  next,  previous,  up
 @section SKK $B$N4pK\@_Dj$+$i$*9%$_$N%+%9%?%^%$%:$^$G(B
 
@@ -433,7 +433,7 @@ Emacs $B$N$=$l$>$l$N%P!<%8%g%s4V$N:90[$r5[<}$9$k%Q%C%1!<%8$G$9!#(B
 $B$A$J$_$K!"(B@file{SKK-JISYO.JIS2} $B$O!":GBg$G$b%j!<%8%g%s4V$N%]%$%s%H:9$,(B
 8,500 $BDxEY$G$9!#(B
 
-@node Dictionaries, Miscellaneous, Customization
+@node Dictionaries, Miscellaneous, Customization, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @comment  node-name,  next,  previous,  up
 @section SKK $B<-=q4XO"(B
 
@@ -536,7 +536,7 @@ skk-tools $B$NCf$N%W%m%0%i%`$r;H$$!"2<5-$N$h$&$K9T$J$$$^$9!#(B
 $B$r$4Mw2<$5$$!#(B@file{SKK-JISYO.edict} $B$N%X%C%@!<ItJ,$K$b$=$N%@%$%8%'%9%H(B
 $B$,5-:\$5$l$F$$$^$9!#(B
 
-@node Miscellaneous, Forgotten Antique Questions(FAQ), Dictionaries
+@node Miscellaneous, Forgotten Antique Questions(FAQ), Dictionaries, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @comment  node-name,  next,  previous,  up
 @section SKK $B$N3hMQK!$=$NB>(B
 
@@ -698,7 +698,7 @@ Emacs $B>e0J30$G$b(B SKK $B$_$?$$$JA`:n@-$r<B8=$9$k%=%U%H%&%'%"$,$"$j$^$9!#(
 @noindent
 $B$r$4Mw$K$J$C$F$/$@$5$$!#(B
 
-@node Forgotten Antique Questions(FAQ),  , Miscellaneous
+@node Forgotten Antique Questions(FAQ),  , Miscellaneous, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @comment  node-name,  next,  previous,  up
 @section $B2=@PE*<ALd=8(B
 
