@@ -1,0 +1,318 @@
+-*- outline -*-
+
+             $Date: 1999/08/29 07:03:46 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: PROPOSAL,v 1.1 1999/08/29 07:03:46 minakaji Exp $  
+
+
+このファイルには、SKK コーディングに関し、注意すべき点、統一した方が良い
+と思われる点を列挙しております。
+
+各項目に関しこれをご参考にしていただいて、コーディングする際は、特にご意
+見がなければこの方針に従っていただき、ご意見があれば、中島までお寄せ下さ
+れば幸いです。
+
+* アウトラインモードの概略
+
+このファイルはアウトラインモードによって記述されています。
+	
+     C-c C-t (M-x hide-body)
+
+すれば、見出しだけがご覧になれます。ご興味のある項目にカーソルを合わせ、
+
+     C-c C-e (M-x show-entry)
+
+すると、その項目の内容がご覧になれます。
+
+     C-c C-c (M-x hide-entry)
+
+で再度その項目を隠すことができます。
+
+     C-c C-a (M-x show-all)
+
+で全てのテキストを表示することができます。カーソル移動については、下記の
+通りです。
+
+     C-c C-n (次の項目へ移動。階層は無視)
+
+     C-c C-p (前の項目へ移動。階層は無視)
+
+     C-c C-f (同じ階層の次の項目へ移動)
+
+     C-c C-b (同じ階層の前の項目へ移動)
+
+* Emacs のバージョン
+
+** SKK 10 が動作する Emacs のバージョンは？
+
+SKK 10 開発陣がサポート可能な Emacs のみが対象です。現在は、Mule-2.3
+をサポートする開発陣が存在するので、事実上 Mule-2.3 (Emacs 19.28) 以降、
+ということになっています。開発陣が可能な限り、共有できるコードを書くこ
+とが望ましいです。
+
+ちなみに開発陣、とは、skk-develop ML において、コードをご提供いただく
+全ての方です。
+
+** Emacs のバージョン間差異の吸収は？
+
+JAIST (北陸先端科学技術大学院大学) の守岡さん達によって開発されている
+APEL (A Portable Emacs Library。以前は emu として知られていた) によっ
+て行なわれます。APEL は
+
+     ftp://ftp.etl.go.jp/pub/mule/apel/
+
+から get できます。
+
+この Emacs の関数は、最新の Emacs にしか装備されておらず (あるいは仕様
+が異なり)、私の Emacs では動かない、というものを発見された場合は、APEL
+に取り込んでいただきますので、「APEL に追加して」というような分りやす
+い Subject を付けて skk-develop ML か tm ML までお知せ下さい。
+tm ML には参加していなくとも
+
+	bug-tm-en@chamonix.jaist.ac.jp	(英語)
+	bug-tm-ja@chamonix.jaist.ac.jp	(日本語)
+
+にメールを送ることができます。
+
+* ファイル分割について
+
+** 分割の基準と目的
+
+(a)通常 SKK を使う範囲で必須の関数・変数、
+
+(b)分割するに至らないような小さな関数・変数あるいは、特殊機能として一
+まとまりにならないようなもの、
+
+(c)各分割ファイルで共通で使う関数・変数
+
+に関しては skk.el の中に、これ以外については、skk-hoge.el (例えば、
+skk-auto.el) というファイルに分割して下さい。特殊機能を使いたい人だけ
+にそのファイルをロードさせるようにし、メモリを不必要に食うことを避ける
+ためです。
+
+** 分割したファイルに必須の記述
+
+ファイルの冒頭部分、`;;; Code:' の直後に
+
+     (require 'skk-foreword)
+
+と書いて下さい。SKK 共通のマクロやインライン関数、primary
+variables/constants がこのファイルに含まれています。
+
+また、オートロードしたい関数の宣言の直前の行に、
+`;;;###autoload' と書いて下さい。こんな感じです。
+
+      ;;;###autoload
+      (defun skk-completion (first)
+         ... )
+
+* 関数名・変数名について
+
+** プレフィックス
+
+skk-hoge.el というファイルを新規に作成したら、その中に書く関数・変数の
+プレフィックスは、可能な限り `skk-hoge-' として下さい。ファイル間の名
+前の重複を避けるためです。
+ 
+但し、
+
+(a)コマンド completion の際に余計なコマンド名を出力しないために、ある
+   いは、ユーザー変数と内部変数とを区別しやすいために、関数名・変数名
+   のプレフィックスを区別することを妨げません。例えば、`skk-tut-' と
+   `skktut-' など。
+
+(b)skk-gadget.el は実行変換プログラムを集めたものです。この中に収める
+   関数を `skk-gadget-' プレフィックスに統一するのは少々冗長な気がしま
+   すので、今のところ手を付けていません。
+
+元々、skk.el は 1 つのファイルでした。これを機能別に個別のファイルに分
+けました。従い、この時点で既に存在した関数名・変数名については、上記の
+基準に従ったネーミングになっていません。
+
+** ネーミングの統一
+
+変数名や関数名を付ける際に統一して欲しい名称を挙げておきます。概念的に
+よりクリアになるもの、どちらでも良いが統一によりユーザーがメリットを受
+けるもの、を挙げています。
+
+ +----------------------+----------------------+---------------------+
+ |       not used       |        used          |       memo          |
+ +----------------------+----------------------+---------------------+
+ | hirakana             | hiragana             | skk-isearch.el's    |
+ |     ^                |                      | canonical base.     |
+ +----------------------+----------------------+---------------------+
+ | zenkaku              | jisx0208-latin       | same as above.      |
+ +----------------------+----------------------+---------------------+
+ | ascii                | latin                | same as above.      |
+ +----------------------+----------------------+---------------------+
+
+** ネーミングを変更したときは
+
+skk-obsolete.el の中の `skk-obsolete-variable-alist',
+`skk-obsolete-function-alist' に新旧の変数名、あるいは関数名を記載して
+おいて下さい。こうすることで、
+
+     M-x skk-obsolete-check
+
+コマンドで、イニシャルファイルの書換えを半自動的に行なうことができます。
+
+* バッファローカル変数について
+
+SKK は SKK モードを起したバッファのみで作動するようになっているため、
+そのコードはバッファローカル変数の宝庫となっていますが、必然性のない変
+数のバッファローカル化は差し控えて下さい。
+
+ユーザー変数がグローバル変数であっても、ユーザーが個人的に特定のバッファ
+やメジャーモードよって環境を変える目的でこれをバッファローカル化したい
+場合は、例えば、下記のように ~/.emacs に書くことができます。
+
+これで、hode-mode における括弧のペア挿入文字列を変更することができます。
+
+     (add-hook 'hoge-mode-hook
+	       (function (lambda()
+			   (make-local-variable 'skk-auto-paren-string-alist)
+			   (setq skk-auto-paren-string-alist ...) )))
+
+** バッファローカル変数の宣言
+
+バッファローカル変数の宣言には、`defvar' の代りに `skk-deflocalvar' を
+使って下さい。宣言だけで自動的にバッファローカルにされ、ドキュメントに
+`(buffer local)' の文字列が挿入されます。
+
+** バッファローカル変数の初期値
+
+バッファローカル変数に対し破壊的操作を行なう場合、その初期値は nil でな
+ければなりません。その理由を以下に述べます。破壊的操作とは、delete,
+delq, nconc, nreverse, setcar, setcdr など、Lisp の一般的な破壊的関数
+(setcar や setcdr は一般的でない？  一般的なのは rplaca, rplacd か) を使
+用する場合の他、set-marker などのマーカー操作の関数を使用する場合も含まれます。
+
+例えば、あるバッファ Buffer A で下記のようなフォームを順次評価したとします。
+
+---------- Buffer A ---------------+--------------- Buffer B ----------
+(setq test '(A B C))               |
+ -> (A B C)                        |
+                                   |
+(make-variable-buffer-local 'test) |
+                                   |
+test                               | test
+ -> (A B C)                        |  -> (A B C)
+                                   |
+(setcar test 'X)                   |
+                                   |
+test                               | test
+ -> (X B C)                        |  -> (X B C)
+
+バッファローカル値としての宣言をする前に non-nil 値を代入し、その non-nil
+値を直接書き変えるようなフォームを評価すると Buffer B から見えるディフォル
+ト値まで書き変ってしまいます。上記の例はリストですが、下記のようにマーカー
+を set-marker 関数で操作したときも同様の結果となります。
+
+---------- Buffer A ---------------+--------------- Buffer B ----------
+(setq test (make-marker))          |
+ -> #<marker in no buffer>         |
+                                   |
+(make-variable-buffer-local 'test) |
+                                   |
+test                               | test
+ -> #<marker in no buffer>         |  -> #<marker in no buffer>
+                                   |
+(set-marker test (point))          |
+                                   |
+test                               | test
+ -> #<marker at 122 in A>          |  -> #<marker at 122 in A>
+
+ところが下記のように初期値を nil にして、バッファローカル値としての宣言後、
+non-nil 値を代入すれば、以後そのバッファローカル値に破壊的操作をしてもその
+バッファに固有の値しか変化しません。
+
+---------- Buffer A ---------------+--------------- Buffer B ----------
+(setq test nil)                    |
+                                   |
+(make-variable-buffer-local 'test) |
+                                   |
+test                               | test
+ -> nil                            |  -> nil
+                                   |
+(setq test (make-marker))          |
+ -> #<marker in no buffer>         |
+                                   |
+(set-marker test (point))          |
+                                   |
+test                               | test
+ -> #<marker at 122 in A>          |  -> nil
+
+この現象に対応した実装としては、skk-forword.el の skk-set-marker をご参
+照下さい。これは、初期値が nil のバッファローカルのマーカー、
+skk-henkan-start-point, skk-henkan-end-point, skk-kana-start-point,
+skk-okurigana-start-point の値を調整するマクロです。
+
+** バッファローカル変数とミニバッファ
+
+バッファローカル変数対応の一番の難関は、ミニバッファです。ミニバッファは
+アクティブになった際に新規に作られるか、あるいは既存のものがあればそこに
+入る度に Emacs は kill-all-local-variables を実行するので、SKK が正しく
+動作するためには、ミニバッファに突入する度に、ミニバッファでのバッファロー
+カル変数を一々調整しなくてはなりません。
+
+おまけにリカーシブにミニバッファに入れば、そこはまた別のバッファであり、
+そこでも再度調整を余儀なくされます。バッファローカル変数を使う場合は、こ
+のことを十分念頭に置いて下さい。
+
+* エラーやメッセージなどの表示 (日英表示) について
+
+SKK は `skk-japanese-message-and-error' 変数が nil の場合はエラーやメッ
+セージなどを英語で表示し、そうでなければ日本語で表示します。この目的の
+ために、`skk-message', `skk-error', `skk-yes-or-no-p', `skk-y-or-n-p'
+というマクロを提供しています。
+
+     (skk-error "既に▽モードに入っています"
+                "Already in ▽ mode")
+
+     (skk-message "\"%c\" は有効なキーではありません！"
+                  "\"%c\" is not valid here!"
+                  char )
+
+のように使います。但し、`%c' などで表示する文字列が、日本語と英語で順
+序が異なる可能性があります。このような場合は、通常の `error' や
+`message' 関数と `skk-japanese-message-and-error' 変数を組み合わせて使っ
+て下さい。こんな感じです。
+
+     (if skk-japanese-message-and-error
+         (error "\"%s\" で補完すべき見出し語は%sありません"
+                skk-completion-word (if first "" "他に") )
+       (error "No %scompletions for \"%s\""
+              (if first "" "more ") skk-completion-word ))
+
+また、`skk-y-or-n-p' や `skk-yes-or-no-p' の引数には `%c', `%s' などを
+直接書くことができず、`format' 関数を使わなければなりません。このよう
+な場合は、通常の `y-or-n-p', `yes-or-no-p' を
+`skk-japanese-message-and-error' と組み合わせて直接書いた方が冗長にな
+りません。こんな感じです。
+
+     (if (yes-or-no-p
+          (format (if skk-japanese-message-and-error
+                      "辞書の保存をせずに %s を終了します。良いですか？"
+                    "Do you really wish to kill %s without saving Jisyo? " )
+                  (cond (skk-mule "Mule")
+                        (skk-xemacs "XEmacs")
+                        (t "Emacs") )))
+
+
+* 新規のユーザー変数 (オプション) を追加したときは
+
+チュートリアルでの動作をディフォルトに戻すため、
+`skktut-init-variables-alist' に変数名とチュートリアルでの値とのドット
+ペアを追加して下さい。
+
+追加する変数の性格により、skk.el でのディフォルト値ではなく、別の値を
+指定する必要がある場合があるので、ご注意下さい。例えば、
+`skk-keep-record' は non-nil であれば変換情報を ~/.skk-record に保存す
+るオプションで、そのディフォルト値は t ですが、チュートリアル中の辞書
+のデーターを取る必要はないので、`skktut-init-variables-alist' 中の値は、
+nil となっています。
+
+そもそも `skktut-init-variables-alist' に追加する必要のない変数もあり
+ます。例えば、チュートリアルでは、数値変換を行なわないので、
+`skk-num-type-list', `skk-numeric-conversion-float-num',
+`skk-uniq-numerals' などの変数については宣言する必要がありません。
+
