@@ -1,3 +1,14 @@
+2000-09-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* Makefile (DATE): Do not use universal time.
+	(MD5): New variable.
+	(SNAPBASE): Ditto.
+	(TAR): Do not specify absolute path.
+	(tar): Rearrange for making archive in openlab.ring.gr.jp.
+	(snapshot): Ditto.
+	(clean): Remove files that match `.#*' (files which make by CVS
+	when it finds there are conflicts).
+	
 2000-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-num.el (skk-num-list): Remove autoload cookie.
