@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.37 2001/11/01 13:03:29 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.38 2001/11/13 10:59:04 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/11/01 13:03:29 $
+;; Last Modified: $Date: 2001/11/13 10:59:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -184,10 +184,6 @@
   '(("\(" nil "(")
     ("{" nil "{"))
   "*SKK JISX0201 モードの追加のルール。")
-
-(set-modified-alist
- 'minor-mode-map-alist
- (list (cons 'skk-jisx0201-mode skk-j-mode-map)))
 
 (setq skk-jisx0201-base-rule-tree
       (skk-compile-rule-list skk-jisx0201-base-rule-list
