@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.88 2000/12/16 22:06:21 minakaji Exp $
+;; Version: $Id: skk.el,v 1.89 2000/12/16 23:25:06 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/16 22:06:21 $
+;; Last Modified: $Date: 2000/12/16 23:25:06 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -62,7 +62,7 @@
      ((not (or (featurep 'mule) (boundp 'NEMACS)))
       (error "This version of SKK requires MULE features")))
 
-;; Really new APEL (not yet released) is required.
+;; APEL 10.2 or higher is required.
 (eval-when-compile
   (require 'static))
 (require 'poe)
@@ -3967,7 +3967,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; subr command but no arg.
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer
-   '(lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
+   '(lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
   (cond ((not skk-mode) ad-do-it)
 	((not skk-henkan-on)
 	 (cond ((skk-get-prefix skk-current-rule-tree)
@@ -4035,16 +4035,15 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	  nil
 	(setq skk-mode nil)
 	ad-do-it)))
-   (t
-    (skk-remove-minibuffer-setup-hook
-     'skk-j-mode-on 'skk-setup-minibuffer
-     '(lambda ()
-	(add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
-    (if (not (or skk-j-mode skk-abbrev-mode))
-	ad-do-it
-      (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
-	(and skk-mode (skk-kakutei))
-	(or no-newline ad-do-it))))))
+   (t (skk-remove-minibuffer-setup-hook
+       'skk-j-mode-on 'skk-setup-minibuffer
+       '(lambda ()
+	  (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+      (if (not (or skk-j-mode skk-abbrev-mode))
+	  ad-do-it
+	(let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
+	  (and skk-mode (skk-kakutei))
+	  (or no-newline ad-do-it))))))
 
 (defadvice picture-mode-exit (before skk-ad activate)
   "SKK のバッファローカル変数を無効にし、picture-mode-exit をコールする。

@@ -8,6 +8,7 @@
 	(abort-recursive-edit@around@skk-ad): Use ' instead of `function'
 	for `skk-remove-minibuffer-setup-hook'.
 	(exit-minibuffer@around@skk-ad): Ditto.
+	(abort-recursive-edit@around@skk-ad): Bug fixed.
 
 	* skk-e18.el (exit-minibuffer@around@skk-e18-ad): Removed.
 
@@ -2953,8 +2954,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.227 2000/12/16 22:27:04 minakaji Exp $
-Last Modified: $Date: 2000/12/16 22:27:04 $
+Version: $Id: ChangeLog,v 1.228 2000/12/16 23:25:06 minakaji Exp $
+Last Modified: $Date: 2000/12/16 23:25:06 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
