@@ -1,5 +1,7 @@
 2003-07-06  NAKAJIMA Mikio  <minakaji@namazu.org>
 
+	* ptexinfmt.el: Sync up with the file in emacs-w3m 1.3.
+
 	* Makefile (VERSION): Change 12.1.1rc1 to 12.2.0rc1.
 	* skk-version.el (skk-version): Bump to 12.2.0 (Sone).
 
@@ -4248,8 +4250,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.744 2003/07/06 03:12:35 minakaji Exp $
-Last Modified: $Date: 2003/07/06 03:12:35 $
+Version: $Id: ChangeLog,v 1.745 2003/07/06 04:22:34 minakaji Exp $
+Last Modified: $Date: 2003/07/06 04:22:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
