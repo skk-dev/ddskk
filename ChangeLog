@@ -3,7 +3,7 @@
 	* Makefile (rb-skk-dic): New target.
 
 	(tar)
-	(snapshot): Create skk-dic.el
+	(snapshot): Create skk-dic.el.
 
 	* skk-jisyo-edit-mode.el (skk-jisyo-edit-font-lock-keywords):
 	Regexp improvement.
@@ -2019,8 +2019,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.419 2001/09/19 13:52:55 czkmt Exp $
-Last Modified: $Date: 2001/09/19 13:52:55 $
+Version: $Id: ChangeLog,v 1.420 2001/09/19 14:39:36 czkmt Exp $
+Last Modified: $Date: 2001/09/19 14:39:36 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
