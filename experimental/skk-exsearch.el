@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-exsearch.el,v 1.6 2001/12/16 05:03:11 czkmt Exp $
+;; Version: $Id: skk-exsearch.el,v 1.7 2002/05/12 14:22:42 akiho Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/12/16 05:03:11 $
+;; Last Modified: $Date: 2002/05/12 14:22:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -42,6 +42,10 @@
 (require 'path-util) ; for exec-installed-p.
 (require 'eieio)
 
+(defvar skk-grep-dic 
+  "/usr/local/share/skk/SKK-JISYO.L"
+  "*grep search dictionary.")
+
 (defclass search-engine ()
   ((program :initarg :program
 	    :initform nil
@@ -77,6 +81,15 @@ or a file name string.")
 Call program synchronously in separate process.
 Output of this type is a line that contains candidates delimited by slash.")
 
+
+(defclass grep-engine (synchronous-search-engine)
+  ((coding-system :initarg :coding-system
+		  :initform (lambda () (skk-find-coding-system skk-jisyo-code))))
+  "Regular search engine type for grep search.
+Call program synchronously in separate process.
+Output of this type is a line that contains candidates delimited by slash.")
+
+
 (defclass look-engine (synchronous-search-engine)
   (())
   "look type.
@@ -98,9 +111,17 @@ This type inserts multiple lines to the buffer.  Each line contains a candidate.
   "*cdbget search engine object.")
 (setup-synchronous-engine cdbget)
 
+(defvar grep (make-instance grep-engine :program 
+			    (exec-installed-p "grep")
+			    :infile skk-grep-dic)
+  "*grep search engine object.")
+
+(setup-synchronous-engine grep)
+
 (defvar look (make-instance look-engine :program 
 			    (exec-installed-p "look"))
   "*look search engine object.")
+
 			       
 (defmethod core-engine ((engine synchronous-search-engine) argument)
   ;; core search engine
@@ -131,6 +152,26 @@ This type inserts multiple lines to the buffer.  Each line contains a candidate.
 			(skk-nunion (nth 2 l) (car l)))
 		       (t (car l)))))))))
 
+(defmethod search-engine ((engine grep-engine) &rest argument)
+  (let ((okurigana (or skk-henkan-okurigana skk-okuri-char))
+        (tmparg argument)
+        l)
+    (with-temp-buffer 
+      (setq argument (cons (concat "^" (car tmparg) " ") nil))
+      (if (core-engine engine argument)
+	  (progn
+	    (while (not (eq (char-after) ?/))
+	      (forward-char 1))
+	    (forward-char 1)
+	    (and (setq l (skk-compute-henkan-lists okurigana))
+		 (cond ((and okurigana skk-henkan-okuri-strictly)
+			(nth 2 l))
+		       ((and okurigana skk-henkan-strict-okuri-precedence)
+			(skk-nunion (nth 2 l) (car l)))
+		       (t (car l)))))))))
+
+
+
 (defmethod search-engine ((engine look-engine) &rest argument)
   (with-temp-buffer 
     (let ((word argument)
@@ -157,9 +198,15 @@ This type inserts multiple lines to the buffer.  Each line contains a candidate.
 			  skk-henkan-key)))
 
 ;;;###autoload
+(defun skk-grep-search ()
+  (search-engine grep (if skk-use-numeric-conversion
+			    (skk-num-compute-henkan-key skk-henkan-key)
+			  skk-henkan-key)))
+
+;;;###autoload
 (defun skk-look-search ()
   (and skk-abbrev-mode
-       (eq (skk-str-ref skk-henkan-key (1- (length skk-henkan-key))) ?*)
+       (eq (aref skk-henkan-key (1- (length skk-henkan-key))) ?*)
        (let ((args (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
 	     v)
 	 (if (not skk-look-use-ispell)
