@@ -20,6 +20,11 @@
 	辞, 暗黙の確定のタイミング, 領域一括変換, 漢字コード関連, ▼モード
 	の特殊キー, 辞書関連): 「ですます」調に変更。
 
+2000-10-03  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/FAQ.txt: Change filename description in end of filename
+	tag.
+
 2000-10-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi (入力モードの一時変更, ■モードにおける文字入力, ポ
