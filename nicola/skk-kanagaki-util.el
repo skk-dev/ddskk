@@ -124,15 +124,6 @@
       (message "xmodmap の呼び出しに失敗しました")))))
 
 ;;;###autoload
-(defmacro skk-kanagaki-make-string (n str)
-  (case skk-emacs-type
-   ((xemacs mule4 mule5)
-    (` (make-string (, n) (string-to-char (, str)))))
-   (t
-    (` (mapconcat 'identity
-		  (make-vector (, n) (, str)) "")))))
-
-;;;###autoload
 (defun skk-nicola-visit-nicola-website ()
   (interactive)
   (let ((func (cond
@@ -209,10 +200,7 @@
 		      (point)
 		      pt1))))))
     (cond
-     ((setq char2 (funcall (if handakuten
-			       #'caddr
-			     #'cadr)
-			   (assoc char1 list)))
+     ((setq char2 (nth (if handakuten 2 1) (assoc char1 list)))
       (cond
        (skk-isearch-switch
 	(if henkan-on
@@ -230,13 +218,12 @@
 				  #'isearch-text-char-description
 				  isearch-string "")))
 	  (put 'isearch-barrier 'skk-kanagaki t)
-	  (setq unread-command-events
-		(list (character-to-event
-		       (aref (where-is-internal
-			      (if isearch-forward 'isearch-repeat-forward
-				'isearch-repeat-backward)
-			      isearch-mode-map t)
-			     0))))))
+	  (skk-unread-event (character-to-event
+			     (aref (where-is-internal
+				    (if isearch-forward 'isearch-repeat-forward
+				      'isearch-repeat-backward)
+				    isearch-mode-map t)
+				   0)))))
        (t
 	(delete-char -1)
 	(skk-insert-str char2))))
