@@ -1,9 +1,42 @@
 2000-11-06  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* skk-vars.el (skk-annotation-show-message): Rename to
+	`skk-annotation-show-as-message'.
+	(skk-annotation-function): Doc updated.
+
+	* experimental/skk-annotation.el: Comment (document) updated.
+	(skk-update-jisyo-format): Renamed to `skk-update-jisyo-format'.
+	Call `(skk-setup-jisyo-buffer)' first.
+	Make it interactive.
+	(skk-update-jisyo-format-1): Renamed to
+	`skk-annotation-update-jisyo-format-1'.
+	(skk-annotation-remove): Added user confirmation.
+	(skk-henkan-in-minibuff): New advice.
+	(skk-annotation-save-and-quit): Remove zenkaku spaces from
+	ANNOTATION, too.
+	If ANNOTATION is null string set it to nil.
+	Show "Added annotation" message only when ANNOTATION is actually
+	added.
+	(skk-annotation-show): Funcall with argument ANNOTATION.  Use
+	`skk-annotation-get'.
+	(skk-annotation-get): New inline function.
+	(skk-annotation-show-1): Do not cut off top `*' character.
+	(skk-annotation-kill): Call `(skk-annotation-erase-buffer)' before
+	killing current buffer.
+	(skk-annotation-show-message): Rename to
+	`skk-annotation-show-as-message'.
+
+	* skk.el (skk-quote-char): Do not quote `;'.
+	(skk-update-jisyo-format): Export to
+	experimental/skk-annotation.el.
+	(skk-update-jisyo-format-1): Ditto.
+
+	* SKK-MK (SKK_INFODIR): Get car of `Info-directory-list'.
+
 	* skk.el (skk-update-jisyo-format-1): Use temporary variable
 	CANDIDATE.
 	(skk-get-jisyo-buffer): Do not call `skk-update-jisyo-format'.
-	(skk-quote-char): Remove `;' temporarily from the first regexp.
+	(skk-quote-char): Remove `;' from the first regexp.
 
 	* experimental/skk-annotation.el: Require static.el.
 	(skk-annotation-show-message): When echo area is occupied by
@@ -2143,8 +2176,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.128 2000/11/06 06:49:18 minakaji Exp $
-Last Modified: $Date: 2000/11/06 06:49:18 $
+Version: $Id: ChangeLog,v 1.129 2000/11/06 10:38:53 minakaji Exp $
+Last Modified: $Date: 2000/11/06 10:38:53 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
