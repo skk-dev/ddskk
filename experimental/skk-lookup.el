@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.16 1999/10/03 15:21:52 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.17 1999/10/04 12:08:10 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/03 15:21:52 $
+;; Last Modified: $Date: 1999/10/04 12:08:10 $
 
 ;; This file is not part of SKK yet.
 
@@ -33,7 +33,7 @@
 ;; $B$,%$%s%9%H!<%k$5$l$F$$$J$$$H;H$($^$;$s!#(B
 ;;
 ;; skk.el $B$K$"$k(B kill-buffer $B$N(B advice $B$r<!$N$b$N$HF~$lBX$(%$%s%9%H!<(B
-;; $B%k$7D>$9I,MW$,$"$j$^$9!#(B
+;; $B%k$7D>$9I,MW$,$"$j$^$9(B (SKK 10.55 $B$O4{$KD>$C$F$$$^$9(B)$B!#(B
 ;;
 ;; (defadvice kill-buffer (around skk-ad activate)
 ;;   "SKK $B$N"'%b!<%I$@$C$?$i!"3NDj$7$F$+$i%P%C%U%!$r%-%k$9$k!#(B
@@ -53,12 +53,16 @@
 ;;          (skk-search-server skk-aux-large-jisyo 10000)
 ;;          (skk-lookup-search) ))
 ;;
-;; $B8=:_BP1~$7$F$$$k<-=q$O!"(Bispell, CHIEZO, CHUJITEN, COLLOC, IWAKOKU, 
-;; KANWA, KOJIEN, KOKUGO, KOUJIEN, MYPAEDIA, PLUS, RIKAGAKU, WAEI 
-;; $B$G$9(B (lookup-dictionary-name $B$,JV$9CM$GI85-$7$F$$$^$9(B)$B!#(Bkakasi
-;; (KAKASI $B$rMxMQ$9$k$J$i(B skk-kakasi.el $B$r;H$$$^$7$g$&(B), ndcookie,
-;; ndnmz $B$K$OBP1~$$$F$$$^$;$s$7!"BP1~$NI,MW$O$J$$$H9M$($F$$$^$9(B ($B%a%j%C(B
-;; $B%H$,$"$l$P65$($F2<$5$$(B)$B!#(B
+;; $B8=:_BP1~$7$F$$$k<-=q$O(B
+;; 
+;;   ispell, CHIEZO, CHUJITEN, COLLOC, GENIUS, GN99EP01, GN99EP02,
+;;   IWAKOKU, KANWA, KOJIEN, KOKUGO, KOUJIEN, MYPAEDIA, NEWANC, PLUS,
+;;   RIKAGAKU, WAEI
+;;
+;; $B$G$9(B (lookup-dictionary-name $B$,JV$9CM$GI85-$7$F$$$^$9(B)$B!#(B
+;; kakasi (KAKASI $B$rMxMQ$9$k$J$i(B skk-kakasi.el $B$r;H$$$^$7$g$&(B),
+;; ndcookie, ndnmz $B$K$OBP1~$$$F$$$^$;$s$7!"BP1~$NI,MW$O$J$$$H9M$($F$$(B
+;; $B$^$9(B ($B%a%j%C%H$,$"$l$P65$($F2<$5$$(B)$B!#(B
 ;;
 ;; $B$4<+J,$G;HMQ$7$F$$$k<-=q$N=PNO$,>e<j$/<h$j9~$a$J$$$H$-$O!"(B
 ;; `skk-lookup-pickup-headings' $B$r;HMQ$7$FNc$($P!"(B
@@ -72,9 +76,11 @@
 ;; $B$bCN$;$F2<$5$$!#(Bdefault value $B$K<h$j9~$_$?$$$H;W$$$^$9!#$h$m$7$/$*(B
 ;; $B4j$$$$$?$7$^$9!#(B
 ;;
-;; $BKvHx$J$,$i!"(BLookup $B$r:n$i$l$?(B Keisuke Nishida $B$5$s5Z$S(B Lookup
-;; Development Team $B$N3'MM!"3+H/$N=i4|$+$i%G%P%C%0$r<jEA$C$F$$$?$@$$$?!"(B
-;; NEMOTO Takashi <tnemoto@mvi.biglobe.ne.jp> $B$5$s$K?<$/46<U$$$?$7$^$9!#(B
+;; $BKvHx$J$,$i!"(BLookup $B$r:n$i$l$?(B Lookup Development Team $B$N3'MM!"(B
+;; Lookup $B$N(B $B86:n<T$G$"$j!"K\%W%m%0%i%`$N3+H/$K$b$$$/$D$+5.=E$J$40U8+$r$$$?$@(B
+;; $B$-$^$7$?(B Keisuke Nishida $B$5$s!"3+H/$N=i4|$+$i%G%P%C%0$r<jEA$C$F$$$?$@$$$?!"(B
+;; NEMOTO Takashi <tnemoto@mvi.biglobe.ne.jp> $B$5$s!"(B
+;; sphere <sphere@pop12.odn.ne.jp> $B$5$s$K?<$/46<U$$$?$7$^$9!#(B
 
 ;;; Code:
 (eval-when-compile (require 'skk) (require 'skk-num) (require 'cl))
@@ -87,7 +93,7 @@
 
 ;;;; user variables.
 (defcustom skk-lookup-search-agents
-  (let ((agents (copy-list lookup-search-agents))
+  (let ((agents (copy-sequence lookup-search-agents))
 	e )
     ;; use `skk-kakasi.el'.
     (setq agents (delete '(ndkks) agents))
@@ -116,30 +122,41 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   '(
     ;; "[spla -> splat]"
     ("ispell" exact "-> \\([^ ]+\\)]$" nil)
-    ;; "$B$"$+#3(B $B^@(B", "ethanol"
+    ;; what's this?
+    ("jedict" exact nil nil)
+    ;; $B!V<-!&E5!&HW!W(B "$B$"$+#3(B $B^@(B", "ethanol"
     ("CHUJITEN" exact "[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" nil)
-    ;; via ndtp
     ;; "($BHiIf$J$I$N(B)$B$"$+(B <grime>", "$B!T1Q!U(B ($B%Q%$%W$J$I$N(B)$B$"$+(B <fur>"
     ("COLLOC" exact "\\([^ $B!T!U(B]+\\) <[a-z]+>$" nil)
-    ;; "$B9$(B", "$B@V(B" 
+    ;; $B%8!<%K%"%91QOB(B, "$B$"$+(B[$B^@(B]"
+    ("GENIUS" exact "\\[\\(.+\\)\\]" nil)
+    ;; Super$BE}9g<-=q(B99 Disk1, 2/$B8=BeMQ8l$N4pACCN<1(B
+    ;; "$B"!<k!&3t!&<l!&<n!L;w$?$b$N4A;z!M(B" "$B"!@V%o%$%s!&%V!<%`!L7r9/LdBj!M(B"
+    ;; "$B!&(B" $B$,6h@Z$jJ8;z$G$"$k$H$-$H$=$&$G$J$$$H$-$,$"$k$J$!(B...$B!#(B
+    ("GN99EP01" exact "^$B"!(B\\([^$B!L!M(B]+\\)$B!L(B.+$B!M(B$" nil)
+    ("GN99EP02" exact "^$B"!(B\\([^$B!L!M(B]+\\)$B!L(B.+$B!M(B$" nil)
+    ;; "$B9$(B", "$B@V(B"
     ("KANWA" exact nil nil)
-    ;; "$B9$(B"
+    ;; $B!V<-!&E5!&HW!W(B "$B9$(B"
     ("MYPAEDIA" exact nil nil)
-    ;; via ndtp
+    ;; $B%K%e!<%"%s%+!<1QOB(B "$B$"$+#2(B $B9$(B"
+    ("NEWANC" exact "[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" nil)
     ;; "$B!!$"$+(B <scud$B#2(B>", "$B!!!V$"$+!W(B <rust>"
     ("PLUS" exact "^$B!!(B\\(.+\\) <[a-z$B#0(B-$B#9(B]+>$" nil)
     )
   "*$B<-=qKh$N8!:w!"J8;z@Z$j=P$7%*%W%7%g%s!#(B
 $B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
 
-  0th: lookup-dictionary-name $B$,JV$9J8;zNs!#(B 
+  0th: lookup-dictionary-name $B$,JV$9J8;zNs!#(B
   1th: search methods $B$r<($9%7%s%\%k!#(B
   2th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp \(\(match-string 1\) $B$G8uJd$r<h$j=P$9$3$H$,(B
-       $B$G$-$k$h$&;XDj$9$k(B\)$B!#(B
+       $B$G$-$k$h$&;XDj$9$k(B\)$B!#@Z$j=P$5$:$KJ8;zNsA4BN$rBP>]$K$9$k$H$-$O!"(Bnil $B$r;XDj(B
+       $B$9$k!#(B
   3th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!#(B
+       $BJ#?t$N8uJd$,F10l(B heading $B$NCf$K=PNO$5$l$J$$$H$-$O!"(Bnil $B$r;XDj$9$k!#(B
 
-$B8=:_BP1~$7$F$$$k<-=qL>$O!"(B\"CHUJITEN\", \"COLLOC\", \"KANWA\",
-\"MYPAEDIA\", \"PLUS\".
+$B8=:_BP1~$7$F$$$k<-=qL>$O!"(B\"CHUJITEN\", \"COLLOC\", \"KANWA\", \"MYPAEDIA\",
+\"PLUS\".
 
 `lookup-entry-heading' $B$,<+J,$N;HMQ$9$k<-=q$+$i$I$N$h$&$JJ8;zNs$r<h$j=P$9$N$+(B
 $B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
@@ -157,19 +174,27 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 		(choice :tag "regexp to split candidates"
 		       regexp (const nil) )))
   :group 'skk-lookup )
-    
+
 (defcustom skk-lookup-default-option-list
   '(exact "$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" "$B!&(B")
+  ;; CHIEZO: $B!V<-!&E5!&HW!W(B
+  ;; IWAKOKU: $B!V<-!&E5!&HW!W(B
+  ;; KANJIGEN: Super$BE}9g<-=q(B99 Disk2/$B4A;z8;(B : EPWING
+  ;; KOUJIEN: $B9-<-1q(B $BBh(B4$BHG(B($B4dGH(B,EPWING) $B%^%k%A%a%G%#%"HG(B
+  ;; KOJIEN: $B9-<-1qBh(B5$BHG(B($B4dGH(B,EPWING)
+  ;; RIKAGAKU: $BM}2=3X<-E5(B
   "*$B<-=q$N8!:w!"J8;z@Z$j=P$7%*%W%7%g%s$N%G%#%U%)%k%H!#(B
 $B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
 
   0th: search methods $B$r<($9%7%s%\%k!#(B
   1th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp \(\(match-string 1\) $B$G8uJd$r<h$j=P$9$3$H(B
-       $B$,$G$-$k$h$&;XDj$9$k(B\)$B!#(B
+       $B$,$G$-$k$h$&;XDj$9$k(B\)$B!#@Z$j=P$5$:$KJ8;zNsA4BN$rBP>]$K$9$k$H$-$O!"(Bnil $B$r;XDj(B
+       $B$9$k!#(B
   2th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!#(B
+       $BJ#?t$N8uJd$,F10l(B heading $B$NCf$K=PNO$5$l$J$$$H$-$O!"(Bnil $B$r;XDj$9$k!#(B
 
-$B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"CHIEZO\", \"IWAKOKU\", \"KOJIEN\", 
-\"KOUJIEN\", \"KOKUGO, \"RIKAGAKU\", \"WAEI\".
+$B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"CHIEZO\", \"IWAKOKU\", \"KANJIGEN\",
+\"KOJIEN\", \"KOUJIEN\", \"KOKUGO, \"RIKAGAKU\", \"WAEI\".
 `lookup-entry-heading' $B$G<h$j=P$7$?J8;zNs$,2<5-$N$h$&$K$J$k$3$H$rA0Ds$K$7$F$$$k!#(B
 
   \"$B$"!>$+!Z0!2J![!E%/%o(B\"
@@ -202,32 +227,44 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 (defvar skk-lookup-default-module nil)
 (defvar skk-lookup-module-list nil)
 
-;;;; inline functions. 
+;;;; inline functions.
 (defsubst skk-lookup-get-method (name)
-  (let ((list (assoc name skk-lookup-option-alist)))
-    (car (if list (cdr list) skk-lookup-default-option-list)) ))
+  (save-match-data
+    (let ((list (assoc name skk-lookup-option-alist)))
+      ;; If you search via ndtpd, book's name and slash are attached to NAME
+      ;; as prefix, like `IWANAMI/KOJIEN'.  The following forms will truncate
+      ;; it to `KOJIEN'.
+      (if (and (null list) (string-match "/\\(.+\\)$" name))
+	  (setq list (assoc (match-string 1 name) skk-lookup-option-alist)) )
+      (car (if list (cdr list) skk-lookup-default-option-list)) )))
 
 (defsubst skk-lookup-get-pickup-regexp (name)
-  (let ((list (assoc name skk-lookup-option-alist)))
-    (nth 1 (if list (cdr list) skk-lookup-default-option-list)) ))
+  (save-match-data
+    (let ((list (assoc name skk-lookup-option-alist)))
+      (if (and (null list) (string-match "/\\(.+\\)$" name))
+	  (setq list (assoc (match-string 1 name) skk-lookup-option-alist)) )
+      (nth 1 (if list (cdr list) skk-lookup-default-option-list)) )))
 
 (defsubst skk-lookup-get-split-regexp (name)
-  (let ((list (assoc name skk-lookup-option-alist)))
-    (nth 2 (if list (cdr list) skk-lookup-default-option-list)) ))
+  (save-match-data
+    (let ((list (assoc name skk-lookup-option-alist)))
+      (if (and (null list) (string-match "/\\(.+\\)$" name))
+	  (setq list (assoc (match-string 1 name) skk-lookup-option-alist)) )
+      (nth 2 (if list (cdr list) skk-lookup-default-option-list)) )))
 
 ;;;; funcitions.
 ;;;###autoload
 (defun skk-lookup-search ()
   (save-excursion
     ;; search pattern.
-    (setq lookup-search-pattern 
+    (setq lookup-search-pattern
 	  (if skk-use-numeric-conversion
 	      (skk-num-compute-henkan-key skk-henkan-key)
 	    skk-henkan-key ))
     (let ((module (skk-lookup-default-module))
 	  (lookup-gaiji-alternate "")
 	  ;;lookup-enable-gaiji ; not to put out gaiji.
-	  name method entries pickup-regexp split-regexp 
+	  name method entries pickup-regexp split-regexp
 	  candidates-string candidates-list )
       ;; setup modules.
       (lookup-module-setup module)
@@ -241,24 +278,25 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 		    ;; actual search.
 		    (setq entries (lookup-vse-search-query
 				   dictionary
-				   (lookup-make-query method skk-henkan-key) ))
-		    (setq pickup-regexp (skk-lookup-get-pickup-regexp name))
-		    (setq split-regexp (skk-lookup-get-split-regexp name)) )
+				   (lookup-make-query method skk-henkan-key) )))
+	   (setq pickup-regexp (skk-lookup-get-pickup-regexp name)
+		 split-regexp (skk-lookup-get-split-regexp name) )
 	   (lookup-foreach
 	    (lambda (entry)
 	      (setq candidates-string (lookup-entry-heading entry))
 	      (if (not (string= lookup-search-pattern candidates-string))
 		  (setq candidates-list
-			(nconc candidates-list 
-			       ;; pickup necessary string for SKK.
-			       (if (not (or pickup-regexp split-regexp))
-				   (list candidates-string)
-				 (skk-lookup-process-heading
-				  candidates-string pickup-regexp split-regexp ))))))
+			;; pickup necessary string for SKK.
+			(if (not (or pickup-regexp split-regexp))
+			    (cons candidates-string candidates-list)
+			  (nconc
+			   (skk-lookup-process-heading
+			    candidates-string pickup-regexp split-regexp )
+			   candidates-list )))))
 	    entries )))
        ;; dictionaries to be searched.
        (lookup-module-dictionaries module) )
-      candidates-list )))
+      (nreverse candidates-list) )))
 
 (defun skk-lookup-process-heading (heading pickup-regexp split-regexp)
   ;; heading $B$7$+<h$j=P$5$J$$$N$O$b$C$?$$$J$$!)(B  $BB>$K$b>pJs$r<h$j=P$7(B
@@ -335,9 +373,9 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 	;;lookup-enable-gaiji ;  not to put out gaiji.
 	var )
     (lookup-module-setup module)
-    (lookup-foreach 
+    (lookup-foreach
      (lambda (dictionary)
-       (lookup-foreach 
+       (lookup-foreach
 	(lambda (entry)
 	  (setq var (nconc (list
 			    (list (lookup-dictionary-name dictionary)
