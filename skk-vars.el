@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.93 2002/01/18 14:04:24 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.94 2002/01/19 01:01:29 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/18 14:04:24 $
+;; Last Modified: $Date: 2002/01/19 01:01:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -70,7 +70,8 @@
     (if (< (apply '+ (color-rgb-components
 		      (face-property 'default 'background)))
 	   (/ (apply '+ (color-rgb-components
-			 (make-color-specifier "white"))) 3))
+			 (make-color-specifier "white")))
+	      3))
 	'dark
       'light))
    (t
@@ -78,33 +79,27 @@
      ((and window-system (x-display-color-p))
       (let ((bg-resource (x-get-resource ".backgroundMode"
 					 "BackgroundMode"))
-	    params)
-	(if bg-resource
-	    (intern (downcase bg-resource))
-	  (setq params (frame-parameters))
-	  (static-cond
-	   ((and (eq system-type 'windows-nt)
-		 (fboundp 'win32-color-values))
-	    ;; Mule for Windows
-	    (< (apply '+ (win32-color-values
-			  (cdr (assq 'background-color params))))
-	       (/ (apply '+ (win32-color-values "white")) 3))
-	    'dark)
-	   ((and (eq system-type 'windows-nt)
-		 (not (fboundp 'x-color-values)))
-	    (if (string-match "light"
-			      (cdr (assq 'background-color params)))
-		'light
-	      'dark))
-	   (t
-	    (cond
-	     ((cdr (assq 'background-mode params)));; Emacs20.x (Meadow)
-	     ((< (apply '+ (x-color-values
-			    (cdr (assq 'background-color params))))
-		 (/ (apply '+ (x-color-values "white")) 3))
-	      'dark)
-	     (t 'light)))))))
-     (t 'mono)))))
+	    (params (frame-parameters)))
+	(cond
+	 (bg-resource
+	  (intern (downcase bg-resource)))
+	 ((and (eq system-type 'windows-nt)
+	       (not (fboundp 'x-color-values)))
+	  (if (string-match "light"
+			    (cdr (assq 'background-color params)))
+	      'light
+	    'dark))
+	 ((eq (cdr (assq 'background-mode params)) 'light)
+	  ;; Emacs20.x (Meadow)
+	  'light)
+	 ((< (apply '+ (x-color-values
+			(cdr (assq 'background-color params))))
+	     (/ (apply '+ (x-color-values "white")) 3))
+	  'dark)
+	 (t
+	  'light))))
+     (t
+      'mono)))))
 
 ;;;; variables declaration
 ;;; user variables
