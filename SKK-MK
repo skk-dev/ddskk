@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.113 2002/01/01 04:56:42 czkmt Exp $
-;; Last Modified: $Date: 2002/01/01 04:56:42 $
+;; Version: $Id: SKK-MK,v 1.114 2002/01/03 01:09:26 czkmt Exp $
+;; Last Modified: $Date: 2002/01/03 01:09:26 $
 
 ;;; Commentary:
 
@@ -245,7 +245,8 @@ This version of SKK requires MULE features"))
 (defvar SKK_TUTORIALS (or (getenv "SKK_TUTORIALS")
 			  '("SKK.tut"
 			    "SKK.tut.E"
-			    "NICOLA-SKK.tut")))
+			    "NICOLA-SKK.tut"
+			    "skk.xpm")))
 (defvar SKK_DICTIONARIES
   (or (getenv "SKK_DICTIONARIES")
       '("SKK-JISYO.L" "SKK-JISYO.M" "SKK-JISYO.S"
