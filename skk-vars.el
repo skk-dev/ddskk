@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.53 2001/09/12 11:17:06 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.54 2001/09/12 13:32:28 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/12 11:17:06 $
+;; Last Modified: $Date: 2001/09/12 13:32:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2194,6 +2194,16 @@ Mule-2.3 添付の egg.el よりコピーした。")
 
 (defconst skk-kana-cleanup-command-list
   '(skk-undo skk-kakutei skk-delete-backward-char skk-insert skk-previous-candidate))
+
+(defconst skk-quote-char-alist
+  '((?\; . "\\073")
+    (?/ . "\\057")
+    (?\n . "\\n")
+    (?\r . "\\r")
+    (?\" . "\\\"")
+    (?\\  . "\\\\"))
+  "辞書エントリ内に含めてはならない文字を置き変えるための連想リスト。
+`;' は、註釈と関係ない場合だけ置換する。")
 
 (defvar skk-emacs-id nil
   "複数 emacs を識別する文字列。
