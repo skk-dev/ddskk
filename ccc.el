@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.12 2001/12/02 10:37:43 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.13 2001/12/02 11:13:56 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/12/02 10:37:43 $
+;; Last Modified: $Date: 2001/12/02 11:13:56 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -159,7 +159,7 @@
 	(t
 	 (unless (ccc-color-equal (get-apparent-cursor-color)
 				  frame-cursor-color)
-	   frame-cursor-color))))
+	   (set-cursor-color frame-cursor-color)))))
 
 (defun set-cursor-color-buffer-local (arg)
   (if arg
@@ -191,7 +191,7 @@
 	(t
 	 (unless (ccc-color-equal (get-apparent-foreground-color)
 				  frame-foreground-color)
-	   frame-foreground-color))))
+	   (set-foreground-color frame-foreground-color)))))
 
 (defun set-foreground-color-buffer-local (arg)
   (if arg
@@ -223,7 +223,7 @@
 	(t
 	 (unless (ccc-color-equal (get-apparent-background-color)
 				  frame-background-color)
-	   frame-background-color))))
+	   (set-background-color frame-background-color)))))
 
 (defun set-background-color-buffer-local (arg)
   (if arg
