@@ -1069,7 +1069,7 @@ keycode 131 = underscore\n"))
 		skk-henkan-active))
     (setq skk-nicola-okuri-flag nil)))
 
-(defadvice skk-nicola-self-insert-lshift (around skk-nicola-dcomp)
+(defadvice skk-nicola-self-insert-lshift (around skk-nicola-dcomp activate)
   (cond
    (skk-dcomp-activate
     (if (or skk-henkan-active
