@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.15 2001/12/23 00:58:43 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.16 2001/12/23 04:20:38 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/12/23 00:58:43 $
+;; Last Modified: $Date: 2001/12/23 04:20:38 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -118,7 +118,10 @@
    ((string-lessp "20.5" emacs-version)
     (list (facemenu-read-color prompt)))
    (t
-    (list (read-string prompt)))))
+    (list (let ((str (read-string prompt)))
+	    (if (equal "" col)
+		nil
+	      str))))))
 
 (defsubst ccc-color-equal (a b)
   (static-cond
@@ -142,10 +145,8 @@
   (interactive (ccc-read-color "Cursor color: "))
   (let ((local buffer-local-cursor-color))
     (setq buffer-local-cursor-color
-	  (if (and (stringp color-name)
-		   (> (length color-name) 0))
-	      color-name
-	    frame-cursor-color))
+	  (or color-name
+	      frame-cursor-color))
     (condition-case nil
 	(update-buffer-local-cursor-color)
       (error
@@ -171,10 +172,8 @@
   (interactive (ccc-read-color "Foreground color: "))
   (let ((local buffer-local-foreground-color))
     (setq buffer-local-foreground-color
-	  (if (and (stringp color-name)
-		   (> (length color-name) 0))
-	      color-name
-	    frame-foreground-color))
+	  (or color-name
+	      frame-foreground-color))
     (condition-case nil
 	(update-buffer-local-foreground-color)
       (error
@@ -200,10 +199,8 @@
   (interactive (ccc-read-color "Background color: "))
   (let ((local buffer-local-background-color))
     (setq buffer-local-background-color
-	  (if (and (stringp color-name)
-		   (> (length color-name) 0))
-	      color-name
-	    frame-background-color))
+	  (or color-name
+	      frame-background-color))
     (condition-case nil
 	(update-buffer-local-background-color)
       (error
