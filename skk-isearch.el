@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.41 2002/09/01 00:57:37 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.42 2004/09/14 14:50:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/09/01 00:57:37 $
+;; Last Modified: $Date: 2004/09/14 14:50:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -520,11 +520,18 @@ If the current mode is different from previous, remove it first."
 		  (setq skk-isearch-incomplete-message (buffer-string))
 		  (skk-isearch-incomplete-message))))))
     ;;
-    (let ((cmd (nth 1 isearch-cmds))
-	  (prompt (skk-isearch-mode-string)))
+    (let* ((cmd (nth 1 isearch-cmds))
+	   (oldmsg (if (vectorp cmd)
+		       ;; Emacs 21.3.50 開発版で `isearch-cmds' の各要
+		       ;; 素の形式が list から vector に変更になってし
+		       ;; まったので workaround をおく。以下同様。
+		       (aref cmd 1)
+		     (cadr cmd)))
+	   (prompt (skk-isearch-mode-string))
+	   newmsg)
       (unless (or (null cmd)
 		  (string-match (concat "^" (regexp-quote prompt))
-				(cadr cmd)))
+				oldmsg))
 	;; `skk-isearch-delete-char'が呼ばれる前に `skk-isearch-working-buffer'
 	;; 内のモードが切り替えられていた場合、 isearch-cmds  の第 2 要素につい
 	;; て、 messege の内容を update しないと [DEL] したときのモードの表示が
@@ -532,11 +539,13 @@ If the current mode is different from previous, remove it first."
 	(do ((alist skk-isearch-mode-string-alist (cdr alist))
 	     (msg nil (when (string-match
 			     (concat "^" (regexp-quote (cdar alist)))
-			     (cadr cmd))
-			(substring (cadr cmd) (match-end 0)))))
+			     oldmsg)
+			(substring oldmsg (match-end 0)))))
 	    ((or msg (null alist))
-	     (setcdr cmd (cons (concat prompt (or msg (cadr cmd)))
-			       (cddr cmd)))))))
+	     (setq newmsg (concat prompt (or msg oldmsg)))
+	     (if (vectorp cmd)
+		 (aset cmd 1 newmsg)
+	       (setcdr cmd (cons newmsg (cddr cmd))))))))
     (isearch-delete-char)))
 
 (defun skk-isearch-kakutei (isearch-function)
