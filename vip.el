@@ -4,7 +4,7 @@
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 1999/09/15 01:55:53 $
+;; Last Modified: $Date: 1999/09/15 01:57:21 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -36,6 +36,8 @@
 ;; Execute info command by typing "M-x info" to get information on VIP.
 
 ;;; Code:
+;; APEL 9.22 required.
+(require 'poe)
 
 ;; external variables
 
@@ -131,8 +133,7 @@ If nil then it is bound to `delete-backward-char'.")
 
 (defvar vip-inhibit-startup-message nil)
 
-(defvar vip-startup-file (convert-standard-filename (if (eq system-type 'ms-dos)
-                                                        "~/_vip" "~/.vip" ))
+(defvar vip-startup-file (convert-standard-filename "~/.vip")
   "Filename used as startup file for vip.")
 
 ;; SKK related variables
