@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.28 2000/12/21 14:33:57 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.29 2001/06/04 21:17:25 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/21 14:33:57 $
+;; Last Modified: $Date: 2001/06/04 21:17:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -265,6 +265,7 @@
     (skk-search-excluding-word-pattern-function . nil)
     (skk-search-prog-list . '((skk-search-jisyo-file skktut-tut-jisyo 0 t)))
     (skk-set-henkan-point-key . '(?A ?B ?C ?D ?E ?F ?G ?H ?I ?J ?K ?M ?N ?O ?P ?R ?S ?T ?U ?V ?W ?Y ?Z))
+    (skk-share-private-jisyo . nil)
     (skk-special-midashi-char-list . '(?> ?< ??))
     (skk-start-henkan-key . " ")
     (skk-try-completion-key . "\t")

@@ -1,5 +1,11 @@
 2001-06-05  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* skk.el (skk-update-jisyo-original): Remove skk-tut.el related
+	code.
+
+	* skk-tut.el (skktut-init-variables-alist): Add cons cell
+	`(skk-share-private-jisyo . nil)'.
+	
 	* experimental/skk-w3m.el (skk-w3m-last-process-point): Removed.
 	(skk-w3m-get-candidates-from-goo-daijirin): Not to refer to
 	`skk-w3m-last-process-point'.
@@ -3474,8 +3480,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.303 2001/06/04 21:00:56 minakaji Exp $
-Last Modified: $Date: 2001/06/04 21:00:56 $
+Version: $Id: ChangeLog,v 1.304 2001/06/04 21:17:25 minakaji Exp $
+Last Modified: $Date: 2001/06/04 21:17:25 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

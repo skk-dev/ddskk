@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.96 2001/04/21 10:06:08 czkmt Exp $
+;; Version: $Id: skk.el,v 1.97 2001/06/04 21:17:25 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/04/21 10:06:08 $
+;; Last Modified: $Date: 2001/06/04 21:17:25 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -3371,7 +3371,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	(let ((inhibit-quit t) buffer-read-only old-entry okurigana)
 	  (if (> skk-okuri-index-min -1)
 	      (setq word (skk-remove-common word)
-		    ;; skk-henkan-key は skk-remove-common によって変更されてい
+	   ;; skk-henkan-key は skk-remove-common によって変更されてい
 		    ;; る可能性がある。
 		    midasi skk-henkan-key))
 	  (setq okurigana (or skk-henkan-okurigana skk-okuri-char))
@@ -3384,13 +3384,11 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	    (setq skk-henkan-key midasi
 		  old-entry (skk-search-jisyo-file-1 okurigana 0 'delete))
 	    (skk-update-jisyo-1 okurigana word old-entry purge)
-	    (unless (and (skk-local-variable-p 'skk-jisyo (current-buffer))
-			 (equal skk-jisyo "~/skk-tut-jisyo"))
-	      ;; 複数の emacs で SKK が起動されているときに個人辞書を整合的に
-	      ;; 更新するために確定の動作を記録する。
-	      (if skk-share-private-jisyo
-		  (aset skk-jisyo-update-vector skk-update-jisyo-count
-			(list midasi okurigana word purge))))
+	    ;; 複数の emacs で SKK が起動されているときに個人辞書を整合的に
+	    ;; 更新するために確定の動作を記録する。
+	    (if skk-share-private-jisyo
+		(aset skk-jisyo-update-vector skk-update-jisyo-count
+		      (list midasi okurigana word purge)))
 	    (and skk-update-end-function
 		 (funcall skk-update-end-function
 			  henkan-buffer midasi okurigana word purge))
