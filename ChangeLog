@@ -1,5 +1,11 @@
 2002-03-02   Daiki Ueno  <ueno@unixuser.org>
 
+	* skk.el (skk-henkan-show-candidate-subr): Select candidates
+	buffer before centering point in window.
+	[cf. <skk:2939>]
+
+2002-03-02   Daiki Ueno  <ueno@unixuser.org>
+
 	* skk-vars.el (skk-henkan-show-candidates-rows): New user option.
 	(skk-henkan-show-candidates-keys): Append 14 keys to default.
 
@@ -3681,8 +3687,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.661 2002/03/02 05:40:02 ueno Exp $
-Last Modified: $Date: 2002/03/02 05:40:02 $
+Version: $Id: ChangeLog,v 1.662 2002/03/02 07:44:36 ueno Exp $
+Last Modified: $Date: 2002/03/02 07:44:36 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
