@@ -90,6 +90,8 @@
 (defconst skk-cus-params-misc
   '((skk-share-private-jisyo
      (const :tag "複数の SKK が個人辞書を共有する" t) "")
+    (skk-show-icon
+     (const :tag "SKK のアイコンを表示する" t) "")
     (skk-preload
      (const :tag "SKK の初回起動を高速にする" t) "")))
 
