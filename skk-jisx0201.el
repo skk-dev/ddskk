@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.28 2001/10/03 22:17:56 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.29 2001/10/04 20:44:57 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/03 22:17:56 $
+;; Last Modified: $Date: 2001/10/04 20:44:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -334,54 +334,6 @@
    ;;
    (t
     ad-do-it)))
-
-(skk-defadvice newline (around skk-jisx0201-ad activate)
-  "`skk-egg-like-newline' だったら、変換中では確定のみ行い、改行しない。"
-  (interactive "*P")
-  (if (not (or skk-jisx0201-mode
-	       skk-abbrev-mode))
-      ad-do-it
-    (let ((no-newline (and skk-egg-like-newline
-			   skk-henkan-on))
-	  (auto-fill-function (if (interactive-p)
-				  auto-fill-function)))
-      (if skk-mode
-	  (skk-kakutei))
-      (unless no-newline
-	  ad-do-it))))
-
-(skk-defadvice newline-and-indent (around skk-jisx0201-ad activate)
-  "`skk-egg-like-newline' だったら、変換中では確定のみ行い、改行しない。"
-  (if (not (or skk-jisx0201-mode
-	       skk-abbrev-mode))
-      ad-do-it
-    (let ((no-newline (and skk-egg-like-newline
-			   skk-henkan-on))
-	  (auto-fill-function (if (interactive-p)
-				  auto-fill-function)))
-      (if skk-mode
-	  (skk-kakutei))
-      (unless no-newline
-	ad-do-it))))
-
-(skk-defadvice exit-minibuffer (around skk-jisx0201-ad activate)
-  "`skk-egg-like-newline' だったら、変換中では確定のみ行う。"
-  (skk-remove-minibuffer-setup-hook
-   'skk-jisx0201-mode-on 'skk-setup-minibuffer
-   (function (lambda ()
-	       (add-hook 'pre-command-hook
-			 'skk-pre-command
-			 nil
-			 'local))))
-  (if (not (or skk-jisx0201-mode
-	       skk-abbrev-mode))
-      ad-do-it
-    (let ((no-newline (and skk-egg-like-newline
-			   skk-henkan-on)))
-      (if skk-mode
-	  (skk-kakutei))
-      (unless no-newline
-	ad-do-it))))
 
 ;; functions.
 ;;;###autoload
