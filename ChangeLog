@@ -1,3 +1,90 @@
+2000-12-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-jisx0201.el (skk-toggle-katakana): Use new
+	`skk-update-modeline'.
+	(skk-jisx0201-mode-on): Ditto.
+
+	* tut-code/skk-def.el (skk-kana-rom-vector): Removed.
+	(skk-latin-mode-string): Removed.
+	(skk-hiragana-mode-string): Ditto.
+	(skk-katakana-mode-string): Ditto.
+	(skk-jisx0208-latin-mode-string): Ditto.
+
+	* tut-code/skk-tutcdef.el (skk-kana-rom-vector): Removed.
+	(skk-latin-mode-string): Comment out.
+	(skk-hiragana-mode-string): Ditto.
+	(skk-katakana-mode-string): Ditto.
+	(skk-jisx0208-latin-mode-string): Ditto.
+	(skk-abbrev-mode-string): Ditto.
+	(skk-auto-insert-paren): Removed.
+
+	* experimental/tut-code/skk-tutcode.el: Moved to skk-11/tut-code
+	directory.
+	* experimental/tut-code/skk-tutcdef.el: Ditto.
+	* experimental/tut-code/skk-def.el: Ditto.
+
+	* skk-xemacs.el (skk-xemacs-extent-alist): New internal variable.
+	(skk-xemacs-hiragana-extent): Comment out.
+	(skk-xemacs-katakana-extent): Ditto.
+	(skk-xemacs-jisx0208-latin-extent): Ditto.
+	(skk-xemacs-latin-extent): Ditto.
+	(skk-xemacs-jisx0201-extent): Ditto.
+	(skk-xemacs-prepare-modeline-properties): Refer to
+	`skk-xemacs-extent-alist' to set extent face.
+        Do not set `skk-default-indicator', `skk-latin-mode-indicator',
+	`skk-hiragana-mode-indicator', `skk-katakana-mode-indicator',
+	`skk-jisx0208-latin-mode-indicator', `skk-jisx0201-mode-indicator'
+	and `skk-abbrev-mode-indicator'.
+
+	* skk-e21.el (skk-e21-prepare-modeline-properties): Comment out.
+
+	* skk.el (skk-invoke): New function.
+	(skk-exit): Ditto.
+	Use new `skk-update-modeline'.
+	(skk-require-module): New function.
+	(skk-setup-shared-private-jisyo): Ditto.
+	(skk-setup-keymap): Ditto.
+	(skk-make-indicator-alist): Ditto.
+	(skk-make-indicator-alist-1):Ditto. 
+	(skk-regularize): Merged into `skk-invoke'.
+	(skk-setup-modeline): Delete null string and symbol
+	`skk-modeline-input-mode' from `mode-line-format' when 
+	`skk-status-indicator' is not equal to 'left.
+	Change conditions order (smaller body should be first).
+	(skk-mode): Use new `skk-update-modeline'.
+	Use `skk-exit', `skk-invoke', `skk-require-module' and
+	`skk-setup-keymap'.
+
+	* vip.el (vip-skk-mode-off): Do not use
+	`skk-mode-string-to-indicator'.
+
+	* skk-macs.el (skk-mode-string-to-indicator): Comment out.
+	(skk-update-modeline): Change macro to inline function.
+	New optional argument MODE.
+	Call `force-mode-line-update'.
+	(skk-mode-off): Use new `skk-update-modeline'.
+	(skk-j-mode-on): Ditto.
+	(skk-latin-mode-on): Ditto.
+	(skk-jisx0208-latin-mode-on): Ditto.
+	(skk-abbrev-mode-on): Ditto.
+
+	* skk-vars.el (skk-latin-mode-string): Remove space in the top of
+	its default value.
+	(skk-hiragana-mode-string): Ditto.
+	(skk-katakana-mode-string): Ditto
+	(skk-jisx0208-latin-mode-string): Ditto 
+	(skk-abbrev-mode-string): Ditto
+	(skk-status-indicator): Change its default value to 'left.
+	Add symbol to :type.
+	(skk-indicator-alist): New internal variable.
+	(skk-default-indicator): Removed.
+	(skk-latin-mode-indicator): Ditto.
+	(skk-hiragana-mode-indicator): Ditto.
+	(skk-katakana-mode-indicator): Ditto.
+	(skk-jisx0208-latin-mode-indicator): Ditto.
+	(skk-jisx0201-mode-indicator): Ditto.
+	(skk-abbrev-mode-indicator): Ditto.
+
 2000-12-10  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-dcomp.el (skk-dcomp): Move to skk-vars.el
@@ -2733,8 +2820,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.205 2000/12/10 10:47:53 minakaji Exp $
-Last Modified: $Date: 2000/12/10 10:47:53 $
+Version: $Id: ChangeLog,v 1.206 2000/12/12 09:00:57 minakaji Exp $
+Last Modified: $Date: 2000/12/12 09:00:57 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

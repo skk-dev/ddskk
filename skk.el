@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.79 2000/12/07 21:43:56 minakaji Exp $
+;; Version: $Id: skk.el,v 1.80 2000/12/12 09:00:58 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/07 21:43:56 $
+;; Last Modified: $Date: 2000/12/12 09:00:58 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -420,62 +420,10 @@ dependent."
                        ((> (prefix-numeric-value arg) 0) t)))
   (if (not skk-mode)
       ;; exit skk-mode
-      (progn
-        (let ((skk-mode t)) (skk-kakutei))
-        (skk-mode-off)
-	(remove-hook 'pre-command-hook 'skk-pre-command 'local)
-	(remove-hook 'post-command-hook 'skk-after-point-move 'local)
-	;; 途中で切り替えたときのために。
-	(or (eq skk-status-indicator 'minor-mode)
-	    (skk-update-modeline skk-default-indicator))
-	(static-if (eq skk-emacs-type 'xemacs) (easy-menu-remove skk-menu)))
-    ;; enter skk-mode
+      (skk-exit)
     (if (not skk-mode-invoked)
         ;; enter skk-mode for the first time in this session
-        (progn
-	  (static-if (and (eq skk-emacs-type 'xemacs)
-			  (boundp 'preloaded-file-list)
-			  (member "skk-leim" preloaded-file-list))
-	      ;; require dummy file.
-	      (require 'skk-xm20_4))
-          (skk-setup-init-file)
-          (load skk-init-file t)
-	  ;;
-	  (skk-setup-modeline)
-	  (require 'skk-autoloads)
-	  (static-if (or (memq skk-emacs-type '(mule3 mule4 mule5))
-			 (and (eq skk-emacs-type 'xemacs)
-			      (or
-			       ;; XEmacs 21 or later.
-			       (> emacs-major-version 20)
-			       ;; XEmacs 20.4 or later.
-			       (> emacs-minor-version 2))))
-	      (require 'skk-leim))
-	  (if skk-share-private-jisyo
-	      (progn
-		(skk-create-file skk-emacs-id-file)
-		(setq skk-emacs-id
-		      (make-temp-name
-		       (concat (system-name) ":"
-			       (mapconcat 'int-to-string (current-time) "")
-			       ":")))
-		(setq skk-jisyo-update-vector
-		      (make-vector skk-jisyo-save-count nil))
-		(with-temp-buffer
-		  (insert-file-contents skk-emacs-id-file)
-		  (insert skk-emacs-id "\n")
-		  (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg))))
-          (if skk-keep-record
-	      (skk-create-file skk-record-file
-			       "SKK の記録用ファイルを作りました"
-			       "I have created an SKK record file for you"))
-	  (skk-regularize)
-	  ;; 仮名入力を行う場合の初期設定。
-	  (when skk-use-kana-keyboard
-	    (require 'skk-kanagaki)
-	    (skk-kanagaki-initialize))
-	  ;;
-          (setq skk-mode-invoked t)))
+	(skk-invoke))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
     (unless (and (skk-local-variable-p 'skk-jisyo (current-buffer))
 		 (equal skk-jisyo "~/skk-tut-jisyo"))
@@ -483,54 +431,15 @@ dependent."
 		       "SKK の空辞書を作りました"
 		       "I have created an empty SKK Jisyo file for you"))
     (static-if (memq skk-emacs-type '(nemacs mule1)) (skk-e18-setup))
-    (and (or skk-use-color-cursor skk-cursor-change-width)
-	 (require 'skk-cursor))
-    (and skk-use-viper (require 'skk-viper))
-    ;; .skk で skk-kakutei-key の変更が可能になるように。
-    (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
-    (define-key skk-abbrev-mode-map (char-to-string skk-start-henkan-char)
-      'skk-start-henkan)
-    (define-key skk-abbrev-mode-map (char-to-string skk-try-completion-char)
-      'skk-try-completion)
-    (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei)
-    (define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei)
-    (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
-      'skk-insert)
-    (unless (featurep 'skk-kanagaki)
-      (define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
-	'skk-previous-candidate))
-    (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
-    (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
-    (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
-    (if skk-use-viper
-	()
-      (define-key skk-j-mode-map
-	(char-to-string skk-start-henkan-with-completion-char)
-	'skk-start-henkan-with-completion)
-      (define-key skk-abbrev-mode-map
-	(char-to-string skk-start-henkan-with-completion-char)
-	'skk-start-henkan-with-completion)
-      (define-key skk-j-mode-map
-	(char-to-string skk-backward-and-set-henkan-point-char)
-	'skk-backward-and-set-henkan-point)
-      (define-key skk-jisx0208-latin-mode-map
-	(char-to-string skk-backward-and-set-henkan-point-char)
-	'skk-backward-and-set-henkan-point))
-    (skk-setup-delete-backward-char)
-    (skk-setup-undo)
-    ;; XEmacs doesn't have minibuffer-local-ns-map
-    (and (boundp 'minibuffer-local-ns-map)
-	 (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
+    (skk-require-module)
+    (skk-setup-keymap)
     ;; To terminate kana input.
     (make-local-hook 'pre-command-hook)
     (add-hook 'pre-command-hook 'skk-pre-command nil 'local)
     (make-local-hook 'post-command-hook)
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
-    ;; 途中で切り替えたときのために。
-    (and (eq skk-status-indicator 'left)
-         (skk-update-modeline skk-hiragana-mode-indicator))
+    (skk-update-modeline 'hiragana)
     (skk-j-mode-on)
-    (static-if (eq skk-emacs-type 'xemacs) (easy-menu-add skk-menu))
     (run-hooks 'skk-mode-hook)))
 
 ;;;###autoload
@@ -573,11 +482,7 @@ dependent."
   (interactive)
   (let (skk-mode-invoked) (skk-mode 1)))
 
-(defun skk-regularize ()
-  ;; SKK の動作の正規化を図るため、内部変数やユーザー変数の調整を行なう。
-  (skk-setup-auto-paren)
-  (setq skk-rule-tree
-	(skk-compile-rule-list skk-rom-kana-base-rule-list skk-rom-kana-rule-list))
+(defun skk-require-module ()
   (and (not (featurep 'skk-server))
        (or (and (boundp 'skk-servers-list) skk-servers-list)
 	   (or (and (boundp 'skk-server-host) skk-server-host)
@@ -586,11 +491,228 @@ dependent."
   (and (featurep 'skk-server)
        ;; skk-search-server はサーバーが落ちても使えるので、外さない。
        (skk-adjust-search-prog-list-for-server-search 'non-del))
-  (and skk-auto-okuri-process (skk-adjust-search-prog-list-for-auto-okuri))
+  (and skk-auto-okuri-process
+       (require 'skk-auto)
+       (skk-adjust-search-prog-list-for-auto-okuri))
+  (and (or skk-use-color-cursor skk-cursor-change-width)
+       (require 'skk-cursor))
+  (and skk-use-viper (require 'skk-viper))
   (and skk-use-look (require 'skk-look))
-  (and skk-use-jisx0201-input-method (require 'skk-jisx0201))
+  (and skk-use-jisx0201-input-method (require 'skk-jisx0201)))
+
+(defun skk-exit ()
+  (let ((skk-mode t)) (skk-kakutei))
+  (skk-mode-off)
+  (remove-hook 'pre-command-hook 'skk-pre-command 'local)
+  (remove-hook 'post-command-hook 'skk-after-point-move 'local)
+  (skk-update-modeline)
+  (static-if (eq skk-emacs-type 'xemacs) (easy-menu-remove skk-menu)))
+
+(defun skk-invoke ()
+  (static-if (and (eq skk-emacs-type 'xemacs) (boundp 'preloaded-file-list)
+		  (member "skk-leim" preloaded-file-list))
+      ;; require dummy file.
+      (require 'skk-xm20_4))
+  (skk-setup-init-file)
+  (load skk-init-file t)
+  (skk-setup-modeline)
+  (require 'skk-autoloads)
+  (static-if (or (memq skk-emacs-type '(mule3 mule4 mule5))
+		 (and (eq skk-emacs-type 'xemacs)
+		      (or
+		       ;; XEmacs 21 or later.
+		       (> emacs-major-version 20)
+		       ;; XEmacs 20.4 or later.
+		       (> emacs-minor-version 2))))
+      (require 'skk-leim))
+  (if skk-share-private-jisyo (skk-setup-shared-private-jisyo))
+  (if skk-keep-record
+      (skk-create-file skk-record-file
+		       "SKK の記録用ファイルを作りました"
+		       "I have created an SKK record file for you"))
+  (setq skk-rule-tree (skk-compile-rule-list
+		       skk-rom-kana-base-rule-list skk-rom-kana-rule-list))
+  (when skk-use-kana-keyboard
+    (require 'skk-kanagaki)
+    ;; 仮名入力を行う場合の初期設定。
+    (skk-kanagaki-initialize))
+  (skk-setup-auto-paren)
   (skk-setup-delete-selection-mode)
-  (skk-adjust-user-option))
+  (skk-adjust-user-option)
+  (setq skk-mode-invoked t))
+ 
+;;; setup 
+(defun skk-setup-shared-private-jisyo ()
+  (skk-create-file skk-emacs-id-file)
+  (setq skk-emacs-id
+	(make-temp-name
+	 (concat (system-name) ":"
+		 (mapconcat 'int-to-string (current-time) "")
+		 ":")))
+  (setq skk-jisyo-update-vector (make-vector skk-jisyo-save-count nil))
+  (with-temp-buffer
+    (insert-file-contents skk-emacs-id-file)
+    (insert skk-emacs-id "\n")
+    (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)))
+
+(defun skk-setup-keymap ()
+  ;; .skk で skk-kakutei-key の変更が可能になるように。
+  (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
+  (define-key skk-abbrev-mode-map (char-to-string skk-start-henkan-char)
+    'skk-start-henkan)
+  (define-key skk-abbrev-mode-map (char-to-string skk-try-completion-char)
+    'skk-try-completion)
+  (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei)
+  (define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei)
+  (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
+    'skk-insert)
+  (unless (featurep 'skk-kanagaki)
+    (define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
+      'skk-previous-candidate))
+  (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
+  (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
+  (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
+  ;; XEmacs doesn't have minibuffer-local-ns-map
+  (and (boundp 'minibuffer-local-ns-map)
+       (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
+  (static-if (eq skk-emacs-type 'xemacs) (easy-menu-add skk-menu))
+  (if skk-use-viper
+      nil
+    (define-key skk-j-mode-map
+      (char-to-string skk-start-henkan-with-completion-char)
+      'skk-start-henkan-with-completion)
+    (define-key skk-abbrev-mode-map
+      (char-to-string skk-start-henkan-with-completion-char)
+      'skk-start-henkan-with-completion)
+    (define-key skk-j-mode-map
+      (char-to-string skk-backward-and-set-henkan-point-char)
+      'skk-backward-and-set-henkan-point)
+    (define-key skk-jisx0208-latin-mode-map
+      (char-to-string skk-backward-and-set-henkan-point-char)
+      'skk-backward-and-set-henkan-point))
+  (skk-setup-delete-backward-char)
+  (skk-setup-undo))
+
+(defun skk-make-indicator-alist ()
+  (static-if (eq skk-emacs-type 'xemacs)
+      (skk-xemacs-prepare-modeline-properties))
+  (let ((mode-string-list
+	 '(skk-latin-mode-string 
+	   skk-hiragana-mode-string
+	   skk-katakana-mode-string
+	   skk-jisx0208-latin-mode-string
+	   skk-abbrev-mode-string
+	   skk-jisx0201-mode-string))
+	mode indicator base)
+    (save-match-data
+      (cons 
+       (cons 'default
+	     (cons "" 
+		   (static-if (eq skk-emacs-type 'xemacs)
+		       (cons (make-extent nil nil) "")
+		     "")))
+       (mapcar (lambda (symbol)
+		 (setq mode (prin1-to-string symbol))
+		 (string-match "skk-\\([-a-z0-9]+\\)-mode-string" mode)
+		 (setq mode (intern (match-string-no-properties 1 mode)))
+		 (setq indicator (symbol-value symbol))
+		 ;; 本来ならこのようにユーザ変数を加工するのはおかしいが、
+		 ;; 移行期の処置として暫定的に行なう。
+		 (cond ((string-match "^ +" indicator)
+			;; minor-mode setting
+			(setq base (substring indicator (match-end 0))))
+		       ((string-match "^--" indicator)
+			;; mode-line left setting
+			(setq base (substring indicator (match-end 0)))
+			(if (string-match "::*" indicator)
+			    (setq base (substring base 0 (match-beginning 0)))))
+		       (t (setq base indicator)))
+		 (cons mode
+		       (cons (concat " " base)
+			     (skk-make-indicator-alist-1 mode base))))
+	       mode-string-list)))))
+
+(defun skk-make-indicator-alist-1 (mode base)
+  (let ((indicator
+	 (concat "--" base
+		 (if (skk-face-proportional-p 'modeline)
+		     ":"
+		   "::"))))
+    (static-cond
+     ((eq skk-emacs-type 'xemacs)
+      (cons (cdr (assq mode skk-xemacs-extent-alist))
+	    indicator))
+     ((eq skk-emacs-type 'mule5)
+      (apply 'propertize indicator skk-e21-modeline-property)
+      indicator)
+     (t indicator))))
+
+(defun skk-setup-modeline ()
+  "モード行へのステータス表示を準備する。"
+  (setq skk-indicator-alist (skk-make-indicator-alist))
+  (cond
+   ((not (eq skk-status-indicator 'left))
+    (if (and (listp mode-line-format)
+	     (equal (car mode-line-format) "")
+	     (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
+	;; for skk-restart.
+	(setq-default mode-line-format
+		      (nthcdr 2 mode-line-format)))
+    (let ((list (buffer-list))
+	  buf)
+      (while list
+	(when (buffer-live-p (setq buf (car list)))
+	  (set-buffer buf)
+	  (if (and (listp mode-line-format)
+		   (equal (car mode-line-format) "")
+		   (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
+	      ;; for skk-restart.
+	      (setq mode-line-format (nthcdr 2 mode-line-format)))
+	  (setq list (cdr list)))))
+    (setq-default skk-modeline-input-mode "")
+    (static-if (memq skk-emacs-type '(xemacs mule5))
+	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
+      (setq minor-mode-alist
+	    ;; each element of minor-mode-alist is not cons cell.
+	    (put-alist 'skk-mode
+		       '(skk-modeline-input-mode) minor-mode-alist))))
+   (t
+    (static-cond
+     ((eq skk-emacs-type 'xemacs)
+      (unless (memq 'skk-modeline-input-mode default-modeline-format)
+	(setq-default default-modeline-format
+		      (append '("" skk-modeline-input-mode)
+			      default-modeline-format)))
+      (save-excursion
+	(dolist (buf (buffer-list))
+	  (when (buffer-live-p buf)
+	    (set-buffer buf)
+	    (when (and (listp modeline-format)
+		       (not (memq 'skk-modeline-input-mode modeline-format)))
+	      (setq modeline-format
+		    (append '("" skk-modeline-input-mode)
+			    modeline-format)))))))
+     (t
+      (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
+	(setq-default mode-line-format
+		      (append '("" skk-modeline-input-mode)
+			      (default-value 'mode-line-format))))
+      (save-excursion
+	(let ((list (buffer-list))
+	      buf)
+	  (while list
+	    (when (buffer-live-p (setq buf (car list)))
+	      (set-buffer buf)
+	      (when (and (listp mode-line-format)
+			 (or (assq 'mode-line-format (buffer-local-variables))
+			     (memq 'mode-line-format (buffer-local-variables)))
+			 (not
+			  (memq 'skk-modeline-input-mode mode-line-format)))
+		(setq mode-line-format
+		      (append '("" skk-modeline-input-mode)
+			      mode-line-format))))
+	    (setq list (cdr list)))))))
+    (force-mode-line-update t))))
 
 (defun skk-setup-delete-backward-char ()
   (let ((commands '(backward-delete-char-untabify
@@ -658,53 +780,6 @@ dependent."
 	     (file-newer-than-file-p init-file elc)
 	     (delete-file elc))))))
 
-(defun skk-emulate-original-map (arg)
-  ;; キー入力に対して、SKK のモードではなく、Emacs のオリジナルのキー割り付けで
-  ;; コマンドを実行する。
-  (let ((prefix-arg arg)
-        (keys (skk-command-key-sequence (this-command-keys) this-command)))
-    (if (not keys)
-        ;; no alternative commands.  may be invoked by M-x.
-        nil
-      (static-if (not (memq skk-emacs-type '(nemacs mule1)))
-	  (let (skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
-			 skk-jisx0208-latin-mode command)
-	    ;; have to search key binding after binding 4 minor mode flags to nil.
-	    (setq command (key-binding keys))
-	    (if (eq command this-command)
-		;; avoid recursive calling of skk-emulate-original-map.
-		nil
-	      ;; if no bindings are found, call `undefined'.  it's
-	      ;; original behaviour.
-	      ;;(skk-cancel-undo-boundary)
-	      (command-execute (or command (function undefined)))))
-	(let (command local-map buf)
-	  (unwind-protect
-	      (progn
-		(setq buf (current-buffer)
-		      local-map (current-local-map))
-		(use-local-map skk-current-local-map)
-		(setq command (key-binding keys))
-		(if (eq command this-command)
-		    ;; avoid recursive calling of skk-emulate-original-map.
-		    nil
-		  ;; if no bindings are found, call `undefined'.  it's
-		  ;; original behaviour.
-		  ;;(skk-cancel-undo-boundary)
-		  (command-execute (or command (function undefined)))))
-	    ;; restore skk keymap.
-	    (save-excursion
-	      (set-buffer buf)
-	      (use-local-map local-map))))))))
-
-(defun skk-command-key-sequence (key command)
-  ;; KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。
-  ;; `execute-extended-command' によってコマンドが実行された場合は、nil を返す。
-  (while (not (or (zerop (length key))
-                  (eq command (key-binding key))))
-    (setq key (vconcat (cdr (append key nil)))))
-  (and (not (zerop (length key))) key))
-
 (defun skk-setup-delete-selection-mode ()
   ;; Delete Selection モードが SKK を使った日本語入力に対しても機能するように
   ;; セットアップする。
@@ -770,6 +845,117 @@ dependent."
 		 (setq skk-rom-kana-rule-list (cons (list str nil str)
 						    skk-rom-kana-rule-list)))
 	    (setq alist (cdr alist)))))))
+
+(defun skk-setup-minibuffer ()
+  ;; カレントバッファの入力モードに従いミニバッファの入力モードを設定する。
+  (cond ((eq skk-minibuffer-origin-mode 'hiragana)
+	 (skk-j-mode-on))
+	((eq skk-minibuffer-origin-mode 'katakana)
+	 (skk-j-mode-on t))
+	((eq skk-minibuffer-origin-mode 'abbrev)
+	 (skk-abbrev-mode-on))
+	((eq skk-minibuffer-origin-mode 'latin)
+	 (skk-latin-mode-on))
+	((eq skk-minibuffer-origin-mode 'jisx0208-latin)
+	 (skk-jisx0208-latin-mode-on))))
+
+(defun skk-setup-jisyo-buffer ()
+  ;; skk-jisyo の辞書バッファで、
+  ;; (1)空バッファであれば、新しくヘッダーを作り、
+  ;; (2)辞書エントリがある既存の辞書バッファならば、ヘッダーが正しいかどうかを
+  ;;    チェックする。
+  ;;
+  ;; skk-okuri-ari-min と skk-okuri-nasi-min の位置を変更した。
+  ;;                       ↓ 新しい skk-okuri-ari-min
+  ;;   ;; okuri-ari entries.
+  ;;   ← 以前の skk-okuri-ari-min
+  ;;
+  ;;   ↓ skk-okuri-ari-max ↓ 新しい skk-okuri-nasi-min
+  ;;   ;; okuri-nasi entries.
+  ;;   ← 以前の skk-okuri-nasi-min
+  ;;
+  ;;
+  ;; 変更前の位置であれば、下記のような空辞書の場合、
+  ;;
+  ;;   ;; okuri-ari entries.
+  ;;   ;; okuri-nasi entries.
+  ;;
+  ;; skk-okuri-ari-min と skk-okuri-ari-max のマーカーが重なってしまい、
+  ;; skk-okuri-ari-min の位置に挿入したエントリが skk-okuri-ari-max のマーカー
+  ;; を後方に押しやらない。
+  ;;
+  ;; この関数のオリジナルの名称は、j-check-jisyo だったが、skk-check-jisyo と
+  ;; いう名前にすると skk-tools.el 内の関数名と重複する。
+  ;; case-fold-search は、辞書バッファでは常に nil。
+  (save-match-data
+    (if (= (buffer-size) 0)
+	;; 空バッファだったら、ヘッダーのみ挿入。
+	(insert ";; okuri-ari entries.\n" ";; okuri-nasi entries.\n"))
+    (goto-char (point-min))
+    (if (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
+	;; 固定ポイントなので、(point) で十分。
+	(setq skk-okuri-ari-min (point))
+      (skk-error "送りありエントリのヘッダーがありません！"
+		 "Header line for okuri-ari entries is missing!"))
+    (if (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
+	(progn
+	  (beginning-of-line)
+	  ;; 共有辞書なら固定ポイントでも良いのだが、辞書バッファで編集を行
+	  ;; なったときのことを配慮してマーカーにしておく。
+	  (setq skk-okuri-ari-max (point-marker))
+	  (forward-line 1)
+	  (backward-char 1)
+	  (setq skk-okuri-nasi-min (point-marker)))
+      (skk-error "送りなしエントリのヘッダーがありません！"
+		 "Header line for okuri-nasi entries is missing!"))))
+
+(defun skk-emulate-original-map (arg)
+  ;; キー入力に対して、SKK のモードではなく、Emacs のオリジナルのキー割り付けで
+  ;; コマンドを実行する。
+  (let ((prefix-arg arg)
+        (keys (skk-command-key-sequence (this-command-keys) this-command)))
+    (if (not keys)
+        ;; no alternative commands.  may be invoked by M-x.
+        nil
+      (static-if (not (memq skk-emacs-type '(nemacs mule1)))
+	  (let (skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
+			 skk-jisx0208-latin-mode command)
+	    ;; have to search key binding after binding 4 minor mode flags to nil.
+	    (setq command (key-binding keys))
+	    (if (eq command this-command)
+		;; avoid recursive calling of skk-emulate-original-map.
+		nil
+	      ;; if no bindings are found, call `undefined'.  it's
+	      ;; original behaviour.
+	      ;;(skk-cancel-undo-boundary)
+	      (command-execute (or command (function undefined)))))
+	(let (command local-map buf)
+	  (unwind-protect
+	      (progn
+		(setq buf (current-buffer)
+		      local-map (current-local-map))
+		(use-local-map skk-current-local-map)
+		(setq command (key-binding keys))
+		(if (eq command this-command)
+		    ;; avoid recursive calling of skk-emulate-original-map.
+		    nil
+		  ;; if no bindings are found, call `undefined'.  it's
+		  ;; original behaviour.
+		  ;;(skk-cancel-undo-boundary)
+		  (command-execute (or command (function undefined)))))
+	    ;; restore skk keymap.
+	    (save-excursion
+	      (set-buffer buf)
+	      (use-local-map local-map))))))))
+
+(defun skk-command-key-sequence (key command)
+  ;; KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。
+  ;; `execute-extended-command' によってコマンドが実行された場合は、nil を返す。
+  (while (not (or (zerop (length key))
+                  (eq command (key-binding key))))
+    (setq key (vconcat (cdr (append key nil)))))
+  (and (not (zerop (length key))) key))
+
 
 (defun skk-adjust-user-option ()
   ;; 両立できないオプションの調整を行なう。
@@ -1849,18 +2035,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				    (1- len)))))))
   word)
 
-(defun skk-setup-minibuffer ()
-  ;; カレントバッファの入力モードに従いミニバッファの入力モードを設定する。
-  (cond ((eq skk-minibuffer-origin-mode 'hiragana)
-	 (skk-j-mode-on))
-	((eq skk-minibuffer-origin-mode 'katakana)
-	 (skk-j-mode-on t))
-	((eq skk-minibuffer-origin-mode 'abbrev)
-	 (skk-abbrev-mode-on))
-	((eq skk-minibuffer-origin-mode 'latin)
-	 (skk-latin-mode-on))
-	((eq skk-minibuffer-origin-mode 'jisx0208-latin)
-	 (skk-jisx0208-latin-mode-on))))
+
 
 (defun skk-previous-candidate (&optional arg)
   "▼モードであれば、一つ前の候補を表示する。
@@ -2942,56 +3117,6 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
               (set-buffer-modified-p nil)
               jisyo-buf)))))
 
-(defun skk-setup-jisyo-buffer ()
-  ;; skk-jisyo の辞書バッファで、
-  ;; (1)空バッファであれば、新しくヘッダーを作り、
-  ;; (2)辞書エントリがある既存の辞書バッファならば、ヘッダーが正しいかどうかを
-  ;;    チェックする。
-  ;;
-  ;; skk-okuri-ari-min と skk-okuri-nasi-min の位置を変更した。
-  ;;                       ↓ 新しい skk-okuri-ari-min
-  ;;   ;; okuri-ari entries.
-  ;;   ← 以前の skk-okuri-ari-min
-  ;;
-  ;;   ↓ skk-okuri-ari-max ↓ 新しい skk-okuri-nasi-min
-  ;;   ;; okuri-nasi entries.
-  ;;   ← 以前の skk-okuri-nasi-min
-  ;;
-  ;;
-  ;; 変更前の位置であれば、下記のような空辞書の場合、
-  ;;
-  ;;   ;; okuri-ari entries.
-  ;;   ;; okuri-nasi entries.
-  ;;
-  ;; skk-okuri-ari-min と skk-okuri-ari-max のマーカーが重なってしまい、
-  ;; skk-okuri-ari-min の位置に挿入したエントリが skk-okuri-ari-max のマーカー
-  ;; を後方に押しやらない。
-  ;;
-  ;; この関数のオリジナルの名称は、j-check-jisyo だったが、skk-check-jisyo と
-  ;; いう名前にすると skk-tools.el 内の関数名と重複する。
-  ;; case-fold-search は、辞書バッファでは常に nil。
-  (save-match-data
-    (if (= (buffer-size) 0)
-	;; 空バッファだったら、ヘッダーのみ挿入。
-	(insert ";; okuri-ari entries.\n" ";; okuri-nasi entries.\n"))
-    (goto-char (point-min))
-    (if (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
-	;; 固定ポイントなので、(point) で十分。
-	(setq skk-okuri-ari-min (point))
-      (skk-error "送りありエントリのヘッダーがありません！"
-		 "Header line for okuri-ari entries is missing!"))
-    (if (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
-	(progn
-	  (beginning-of-line)
-	  ;; 共有辞書なら固定ポイントでも良いのだが、辞書バッファで編集を行
-	  ;; なったときのことを配慮してマーカーにしておく。
-	  (setq skk-okuri-ari-max (point-marker))
-	  (forward-line 1)
-	  (backward-char 1)
-	  (setq skk-okuri-nasi-min (point-marker)))
-      (skk-error "送りなしエントリのヘッダーがありません！"
-		 "Header line for okuri-nasi entries is missing!"))))
-
 (defun skk-search ()
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
   ;; skk-henkan-keyをキーにして検索を行う。
@@ -3848,105 +3973,6 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	      (function (lambda ()
 			  (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))))
 
-(defun skk-setup-modeline ()
-  "モード行へのステータス表示を準備する。"
-  (cond
-   ((eq skk-status-indicator 'left)
-    ;;
-    (let ((list
-	   (cond
-	    ((skk-face-proportional-p 'modeline)
-	     '((skk-latin-mode-string . ("--SKK:" . " SKK"))
-	       (skk-hiragana-mode-string . ("--かな:" . " かな"))
-	       (skk-katakana-mode-string . ("--カナ:" . " カナ"))
-	       (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
-	       (skk-abbrev-mode-string . ("--aあ:" . " aあ"))
-	       (skk-jisx0201-mode-string . ("--jisx0201" . " jisx0201"))))
-	    (t
-	     '((skk-latin-mode-string . ("--SKK::" . " SKK"))
-	       (skk-hiragana-mode-string . ("--かな:" . " かな"))
-	       (skk-katakana-mode-string . ("--カナ:" . " カナ"))
-	       (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
-	       (skk-abbrev-mode-string . ("--aあ::" . " aあ"))
-	       (skk-jisx0201-mode-string . ("--jisx0201" . " jisx0201")))))))
-      (while list
-	(let ((sym (caar list))
-	      (strs (cdar list)))
-	  (if (string= (symbol-value sym) (cdr strs))
-	      (set sym (car strs))))
-	(setq list (cdr list))))
-    ;;
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      (skk-xemacs-prepare-modeline-properties))
-     ((eq skk-emacs-type 'mule5)
-      (skk-e21-prepare-modeline-properties))
-     (t
-      (setq-default skk-modeline-input-mode "")
-      (setq skk-default-indicator ""
-	    skk-latin-mode-indicator skk-latin-mode-string
-	    skk-hiragana-mode-indicator skk-hiragana-mode-string
-	    skk-katakana-mode-indicator skk-katakana-mode-string
-	    skk-jisx0208-latin-mode-indicator skk-jisx0208-latin-mode-string
-	    skk-jisx0201-mode-indicator skk-jisx0201-mode-string
-	    skk-abbrev-mode-indicator skk-abbrev-mode-string)))
-    ;;
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      ;;
-      (unless (memq 'skk-modeline-input-mode default-modeline-format)
-	(setq-default default-modeline-format
-		      (append '("" skk-modeline-input-mode)
-			     default-modeline-format)))
-      ;;
-      (save-excursion
-	(dolist (buf (buffer-list))
-	  (when (buffer-live-p buf)
-	    (set-buffer buf)
-	    (when (and (listp modeline-format)
-		       (not (memq 'skk-modeline-input-mode modeline-format)))
-	      (setq modeline-format
-		    (append '("" skk-modeline-input-mode)
-			   modeline-format)))))))
-     (t
-      ;;
-      (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
-	(setq-default mode-line-format
-		      (append '("" skk-modeline-input-mode)
-			     (default-value 'mode-line-format))))
-      (save-excursion
-	(let ((list (buffer-list))
-	      buf)
-	  (while list
-	    (when (buffer-live-p (setq buf (car list)))
-	      (set-buffer buf)
-	      (when (and (listp mode-line-format)
-			 (or (assq 'mode-line-format (buffer-local-variables))
-			     (memq 'mode-line-format (buffer-local-variables)))
-			 (not
-			  (memq 'skk-modeline-input-mode mode-line-format)))
-		(setq mode-line-format
-		      (append '("" skk-modeline-input-mode)
-			     mode-line-format))))
-	    (setq list (cdr list)))))))
-    ;;
-    (force-mode-line-update t))
-   ;;
-   ((eq skk-status-indicator 'minor-mode)
-    (setq-default skk-modeline-input-mode "")
-    (setq skk-default-indicator ""
-	  skk-latin-mode-indicator skk-latin-mode-string
-	  skk-hiragana-mode-indicator skk-hiragana-mode-string
-	  skk-katakana-mode-indicator skk-katakana-mode-string
-	  skk-jisx0208-latin-mode-indicator skk-jisx0208-latin-mode-string
-	  skk-jisx0201-mode-indicator skk-jisx0201-mode-string
-	  skk-abbrev-mode-indicator skk-abbrev-mode-string)
-    (static-if (memq skk-emacs-type '(xemacs mule5))
-	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
-      (setq minor-mode-alist
-	    ;; each element of minor-mode-alist is not cons cell.
-	    (put-alist 'skk-mode
-		       '(skk-modeline-input-mode) minor-mode-alist))))))
 
 ;; cover to original functions.
 

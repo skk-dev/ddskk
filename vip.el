@@ -4,7 +4,7 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 2000/11/25 21:06:09 $
+;; Last Modified: $Date: 2000/12/12 09:00:58 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -296,8 +296,10 @@ SKK-MODE.  Then, change mode to insert mode."
 	  vip-skk-input-mode-string)
     (skk-kakutei)
     (skk-mode-off)
-    (setq skk-modeline-input-mode (skk-mode-string-to-indicator
-				   (concat " [" str "]")))))
+    (setq skk-modeline-input-mode 
+	  ;; There was no MODE argument...?
+	  ;;(skk-mode-string-to-indicator (concat " [" str "]"))
+	  (concat " [" str "]"))))
 
 (defun vip-skk-mode-on ()
   (add-hook 'pre-command-hook 'skk-pre-command nil 'local)

@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.18 2000/12/04 03:41:17 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.19 2000/12/12 09:00:57 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/04 03:41:17 $
+;; Last Modified: $Date: 2000/12/12 09:00:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -190,9 +190,6 @@
     (t
      (` (ding (, arg))))))
 
-(defmacro skk-update-modeline (indicator)
-  (` (setq skk-modeline-input-mode (, indicator))))
-
 (defmacro skk-cannot-be-undone (&rest body)
   (` (let ((buffer-undo-list t)
 	   ;;buffer-read-only
@@ -360,6 +357,13 @@
     (charsetp object))))
 
 ;;; version independent
+(defsubst skk-update-modeline (&optional mode)
+  (or mode (setq mode 'default))
+  (let ((indicator (cdr (assq mode skk-indicator-alist))))
+    (setq skk-modeline-input-mode 
+	  (if (eq skk-status-indicator 'left) (cdr indicator) (car indicator)))
+    (force-mode-line-update)))
+
 ;; ツリーにアクセスするためのインターフェース
 (defsubst skk-make-rule-tree (char prefix nextstate kana branch-list)
   (list char
@@ -473,11 +477,10 @@
         ;; sub mode of skk-j-mode.
         skk-katakana nil)
   ;; initialize
-  (skk-update-modeline skk-default-indicator)
+  (skk-update-modeline)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map skk-current-local-map)
     (setq skk-current-local-map nil))
-  (force-mode-line-update)
   (remove-hook 'pre-command-hook 'skk-pre-command 'local))
 
 (defsubst skk-j-mode-on (&optional katakana)
@@ -488,16 +491,13 @@
         skk-jisx0208-latin-mode nil
         ;; sub mode of skk-j-mode.
         skk-katakana katakana)
-  (skk-update-modeline (if skk-katakana
-			   skk-katakana-mode-indicator
-			 skk-hiragana-mode-indicator))
+  (skk-update-modeline (if skk-katakana 'katakana 'hiragana))
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
      (skk-e18-make-local-map skk-j-mode-map
 			     (if (skk-in-minibuffer-p)
 				 minibuffer-local-map
-			       skk-current-local-map))))
-  (force-mode-line-update))
+			       skk-current-local-map)))))
 
 (defsubst skk-latin-mode-on ()
   (setq skk-mode t
@@ -507,14 +507,13 @@
         skk-jisx0208-latin-mode nil
         ;; sub mode of skk-j-mode.
         skk-katakana nil)
-  (skk-update-modeline skk-latin-mode-indicator)
+  (skk-update-modeline 'latin)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
      (skk-e18-make-local-map skk-latin-mode-map
 			     (if (skk-in-minibuffer-p)
 				 minibuffer-local-map
-			       skk-current-local-map))))
-  (force-mode-line-update))
+			       skk-current-local-map)))))
 
 (defsubst skk-jisx0208-latin-mode-on ()
   (setq skk-mode t
@@ -524,14 +523,13 @@
         skk-jisx0208-latin-mode t
         ;; sub mode of skk-j-mode.
         skk-katakana nil)
-  (skk-update-modeline skk-jisx0208-latin-mode-indicator)
+  (skk-update-modeline 'jisx0208-latin)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
      (skk-e18-make-local-map skk-jisx0208-latin-mode-map
 			     (if (skk-in-minibuffer-p)
 				 minibuffer-local-map
-			       skk-current-local-map))))
-  (force-mode-line-update))
+			       skk-current-local-map)))))
 
 (defsubst skk-abbrev-mode-on ()
   (setq skk-mode t
@@ -548,14 +546,13 @@
         ;; sub mode of skk-j-mode.
         ;;skk-katakana nil
         )
-  (skk-update-modeline skk-abbrev-mode-indicator)
+  (skk-update-modeline 'abbrev)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
      (skk-e18-make-local-map skk-abbrev-mode-map
 			     (if (skk-in-minibuffer-p)
 				 minibuffer-local-map
-			       skk-current-local-map))))
-  (force-mode-line-update))
+			       skk-current-local-map)))))
 
 (defsubst skk-in-minibuffer-p ()
   ;; カレントバッファがミニバッファかどうかをチェックする。
@@ -693,19 +690,19 @@ BUFFER defaults to the current buffer."
    (t
     nil)))
 
-(defsubst skk-mode-string-to-indicator (mode string)
-  (cond
-   ((eq skk-status-indicator 'left)
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      (cons (symbol-value (intern (format "skk-xemacs-%s-extent" mode)))
-	    string))
-     ((memq skk-emacs-type '(mule5))
-      (apply 'propertize string skk-e21-modeline-property))
-     (t
-      string)))
-   (t
-    string)))
+;; (defsubst skk-mode-string-to-indicator (mode string)
+;;   (cond
+;;    ((eq skk-status-indicator 'left)
+;;     (static-cond
+;;      ((eq skk-emacs-type 'xemacs)
+;;       (cons (symbol-value (intern (format "skk-xemacs-%s-extent" mode)))
+;; 	    string))
+;;      ((memq skk-emacs-type '(mule5))
+;;       (apply 'propertize string skk-e21-modeline-property))
+;;      (t
+;;       string)))
+;;    (t
+;;     string)))
 
 (defsubst skk-indicator-to-string (indicator &optional no-properties)
   (static-cond

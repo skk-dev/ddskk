@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.23 2000/12/10 10:47:53 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.24 2000/12/12 09:00:57 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/10 10:47:53 $
+;; Last Modified: $Date: 2000/12/12 09:00:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -651,35 +651,36 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
   :type '(repeat character)
   :group 'skk-keybinds)
 
-(defcustom skk-status-indicator 'minor-mode
+(defcustom skk-status-indicator 'left
   "*SKK $B$N>uBV$r%b!<%I9T$N$I$3$KI=<($9$k$+$r7h$a$k!#(B
 left $B$G$"$l$P:8C<$KI=<($9$k!#(B
 $B$5$b$J$1$l$P%^%$%J!<%b!<%I$H$7$F$NI=<(K!$r<h$k!#(B"
   :type '(choice (const minor-mode)
-		 (const left))
+		 (const left)
+		 symbol)
   :group 'skk-decoration)
 
-(defcustom skk-latin-mode-string " SKK"
+(defcustom skk-latin-mode-string "SKK"
   "*SKK $B$,(B latin (ascii) $B%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-decoration)
 
-(defcustom skk-hiragana-mode-string " $B$+$J(B"
+(defcustom skk-hiragana-mode-string "$B$+$J(B"
   "*$B$R$i$,$J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-decoration)
 
-(defcustom skk-katakana-mode-string " $B%+%J(B"
+(defcustom skk-katakana-mode-string "$B%+%J(B"
   "*$B%+%?%+%J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-decoration)
 
-(defcustom skk-jisx0208-latin-mode-string " $BA41Q(B"
+(defcustom skk-jisx0208-latin-mode-string "$BA41Q(B"
   "*$BA41Q%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-decoration)
 
-(defcustom skk-abbrev-mode-string " a$B$"(B"
+(defcustom skk-abbrev-mode-string "a$B$"(B"
   "*SKK abbrev $B%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-decoration)
@@ -2132,13 +2133,7 @@ nil $B$N$$$:$l$+!#(B")
 (defvar skk-menu nil)
 
 (skk-deflocalvar skk-modeline-input-mode nil)
-(defvar skk-default-indicator nil)
-(defvar skk-latin-mode-indicator nil)
-(defvar skk-hiragana-mode-indicator nil)
-(defvar skk-katakana-mode-indicator nil)
-(defvar skk-jisx0208-latin-mode-indicator nil)
-(defvar skk-jisx0201-mode-indicator nil)
-(defvar skk-abbrev-mode-indicator nil)
+(defvar skk-indicator-alist nil)
 
 ;; ---- buffer local variables
 ;; <$B%U%i%0N`(B>
@@ -2888,4 +2883,6 @@ skk-annotation-save-and-quit $B$r8F$V$H$3$N(B window configuration
 
 (require 'product)
 (product-provide (provide 'skk-vars) (require 'skk-version))
+;;; Local Variables:
+;;; End:
 ;;; skk-vars.el ends here

@@ -32,12 +32,21 @@
   (autoload 'browse-url "browse-url"))
 
 ;; Variables.
+(defvar skk-xemacs-extent-alist
+  (list
+   (cons 'hiragana (make-extent nil nil))
+   (cons 'katakana (make-extent nil nil))
+   (cons 'jisx0208-latin (make-extent nil nil))
+   (cons 'latin (make-extent nil nil))
+   (cons 'jisx0201 (make-extent nil nil))
+   (cons 'abbrev (make-extent nil nil))))
 
-(defvar skk-xemacs-hiragana-extent (make-extent nil nil))
-(defvar skk-xemacs-katakana-extent (make-extent nil nil))
-(defvar skk-xemacs-jisx0208-latin-extent (make-extent nil nil))
-(defvar skk-xemacs-latin-extent (make-extent nil nil))
-(defvar skk-xemacs-jisx0201-extent (make-extent nil nil))
+;;; Why skk-xemacs-abbrev-extent wasn't declared here?
+;;(defvar skk-xemacs-hiragana-extent (make-extent nil nil))
+;;(defvar skk-xemacs-katakana-extent (make-extent nil nil))
+;;(defvar skk-xemacs-jisx0208-latin-extent (make-extent nil nil))
+;;(defvar skk-xemacs-latin-extent (make-extent nil nil))
+;;(defvar skk-xemacs-jisx0201-extent (make-extent nil nil))
 
 (defvar skk-xemacs-modeline-menu-items
   '("Daredevil SKK Menu"
@@ -58,15 +67,18 @@
 	(eval '(make-modeline-command-wrapper 'skk-xemacs-modeline-menu)))
       map))
   ;;
-  (dolist (sym '(skk-xemacs-hiragana-extent
-		    skk-xemacs-katakana-extent
-		    skk-xemacs-jisx0208-latin-extent
-		    skk-xemacs-latin-extent
-		    skk-xemacs-jisx0201-extent))
-    (let ((extent (symbol-value sym)))
-    (set-extent-keymap extent skk-xemacs-modeline-map)
-    (set-extent-property extent 'help-echo
-			 "マウスの button 2 -> Daredevil SKK のメニュ−"))))
+  (let (extent)
+    ;;(dolist (sym '(skk-xemacs-hiragana-extent
+    ;;               skk-xemacs-katakana-extent
+    ;;               skk-xemacs-jisx0208-latin-extent
+    ;;               skk-xemacs-latin-extent
+    ;;               skk-xemacs-jisx0201-extent))
+    ;; (let ((extent (symbol-value sym)))
+    (dolist (mode '(hiragana katakana jisx0208-latin latin jisx0201))
+      (setq extent (assq mode skk-xemacs-extent-alist))
+      (set-extent-keymap extent skk-xemacs-modeline-map)
+      (set-extent-property extent 'help-echo
+			   "マウスの button 2 -> Daredevil SKK のメニュ−"))))
 
 ;; Functions.
 
@@ -98,7 +110,10 @@
 		   '(default mono win))
     (set-face-font 'skk-xemacs-hiragana-face [bold] nil
 		   '(default grayscale win)))
-  (set-extent-face skk-xemacs-hiragana-extent 'skk-xemacs-hiragana-face)
+  (set-extent-face 
+   ;;skk-xemacs-hiragana-extent 
+   (cdr (assq 'hiragana skk-xemacs-extent-alist))
+   'skk-xemacs-hiragana-face)
   ;;
   (make-face 'skk-xemacs-katakana-face)
   (set-face-parent 'skk-xemacs-katakana-face 'modeline nil '(default))
@@ -110,7 +125,10 @@
 		   '(default mono win))
     (set-face-font 'skk-xemacs-katakana-face [bold] nil
 		   '(default grayscale win)))
-  (set-extent-face skk-xemacs-katakana-extent 'skk-xemacs-katakana-face)
+  (set-extent-face 
+   ;;skk-xemacs-katakana-extent
+   (cdr (assq 'katakana skk-xemacs-extent-alist))
+   'skk-xemacs-katakana-face)
   ;;
   (make-face 'skk-xemacs-jisx0208-latin-face)
   (set-face-parent 'skk-xemacs-jisx0208-latin-face 'modeline
@@ -123,8 +141,10 @@
 		   '(default mono win))
     (set-face-font 'skk-xemacs-jisx0208-latin-face [bold] nil
 		   '(default grayscale win)))
-  (set-extent-face skk-xemacs-jisx0208-latin-extent
-		   'skk-xemacs-jisx0208-latin-face)
+  (set-extent-face
+   ;;skk-xemacs-jisx0208-latin-extent
+   (cdr (assq 'jisx0208-latin skk-xemacs-extent-alist))
+   'skk-xemacs-jisx0208-latin-face)
   ;;
   (make-face 'skk-xemacs-latin-face)
   (set-face-parent 'skk-xemacs-latin-face 'modeline nil '(default))
@@ -136,9 +156,12 @@
 		   '(default mono win))
     (set-face-font 'skk-xemacs-latin-face [bold] nil
 		   '(default grayscale win)))
-  (set-extent-face skk-xemacs-latin-extent 'skk-xemacs-latin-face)
+  (set-extent-face 
+   ;; skk-xemacs-latin-extent
+   (cdr (assq 'latin skk-xemacs-extent-alist))
+   'skk-xemacs-latin-face)
   ;;
-  (defconst skk-xemacs-abbrev-extent (make-extent nil nil))
+  ;;(defconst skk-xemacs-abbrev-extent (make-extent nil nil))
   (make-face 'skk-xemacs-abbrev-face)
   (set-face-parent 'skk-xemacs-abbrev-face 'modeline nil '(default))
   (when (featurep 'window-system)
@@ -149,7 +172,10 @@
 		   '(default mono win))
     (set-face-font 'skk-xemacs-abbrev-face [bold] nil
 		   '(default grayscale win)))
-  (set-extent-face skk-xemacs-abbrev-extent 'skk-xemacs-abbrev-face)
+  (set-extent-face 
+   ;;skk-xemacs-abbrev-extent
+   (cdr (assq 'abbrev skk-xemacs-extent-alist))
+   'skk-xemacs-abbrev-face)
   ;;
   (make-face 'skk-xemacs-jisx0201-face)
   (set-face-parent 'skk-xemacs-jisx0201-face 'modeline nil '(default))
@@ -161,23 +187,26 @@
 		   '(default mono win))
     (set-face-font 'skk-xemacs-jisx0201-face [bold] nil
 		   '(default grayscale win)))
-  (set-extent-face skk-xemacs-jisx0201-extent 'skk-xemacs-jisx0201-face)
+  (set-extent-face 
+   ;;skk-xemacs-jisx0201-extent
+   (cdr (assq 'jisx0201 skk-xemacs-extent-alist))
+   'skk-xemacs-jisx0201-face)
   ;;
-  (setq skk-default-indicator
-	(cons (make-extent nil nil) "")
-	skk-latin-mode-indicator
-	(cons skk-xemacs-latin-extent skk-latin-mode-string)
-	skk-hiragana-mode-indicator
-	(cons skk-xemacs-hiragana-extent skk-hiragana-mode-string)
-	skk-katakana-mode-indicator
-	(cons skk-xemacs-katakana-extent skk-katakana-mode-string)
-	skk-jisx0208-latin-mode-indicator
-	(cons skk-xemacs-jisx0208-latin-extent skk-jisx0208-latin-mode-string)
-	skk-jisx0201-mode-indicator
-	(cons skk-xemacs-jisx0201-extent skk-jisx0201-mode-string)
-	skk-abbrev-mode-indicator
-	(cons skk-xemacs-abbrev-extent skk-abbrev-mode-string)))
-
+  ;;(setq skk-default-indicator
+  ;;      (cons (make-extent nil nil) "")
+  ;;      skk-latin-mode-indicator
+  ;;      (cons skk-xemacs-latin-extent skk-latin-mode-string)
+  ;;      skk-hiragana-mode-indicator
+  ;;      (cons skk-xemacs-hiragana-extent skk-hiragana-mode-string)
+  ;;      skk-katakana-mode-indicator
+  ;;      (cons skk-xemacs-katakana-extent skk-katakana-mode-string)
+  ;;      skk-jisx0208-latin-mode-indicator
+  ;;      (cons skk-xemacs-jisx0208-latin-extent skk-jisx0208-latin-mode-string)
+  ;;      skk-jisx0201-mode-indicator
+  ;;      (cons skk-xemacs-jisx0201-extent skk-jisx0201-mode-string)
+  ;;      skk-abbrev-mode-indicator
+  ;;      (cons skk-xemacs-abbrev-extent skk-abbrev-mode-string)))
+  )
 ;; Hooks.
 
 ;;; Not necessary, but...
