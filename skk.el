@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.61 2000/11/20 08:55:42 czkmt Exp $
+;; Version: $Id: skk.el,v 1.62 2000/11/20 20:06:00 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:42 $
+;; Last Modified: $Date: 2000/11/20 20:06:00 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -408,7 +408,7 @@ dependent."
 	(remove-hook 'post-command-hook 'skk-after-point-move 'local)
 	;; 途中で切り替えたときのために。
 	(or (eq skk-status-indicator 'minor-mode)
-	    (setq skk-input-mode-string ""))
+	    (skk-update-modeline skk-default-indicator))
 	(static-if (eq skk-emacs-type 'xemacs) (easy-menu-remove skk-menu)))
     ;; enter skk-mode
     (if (not skk-mode-invoked)
@@ -504,7 +504,7 @@ dependent."
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
     ;; 途中で切り替えたときのために。
     (and (eq skk-status-indicator 'left)
-         (setq skk-input-mode-string skk-hiragana-mode-string))
+         (skk-update-modeline skk-hiragana-mode-indicator))
     (skk-j-mode-on)
     (static-if (eq skk-emacs-type 'xemacs) (easy-menu-add skk-menu))
     (run-hooks 'skk-mode-hook)))
@@ -3805,7 +3805,14 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
      ((eq skk-emacs-type 'mule5)
       (skk-e21-prepare-modeline-properties))
      (t
-      (setq-default skk-modeline-input-mode "")))
+      (setq-default skk-modeline-input-mode "")
+      (setq skk-default-indicator ""
+	    skk-latin-mode-indicator skk-latin-mode-string
+	    skk-hiragana-mode-indicator skk-hiragana-mode-string
+	    skk-katakana-mode-indicator skk-katakana-mode-string
+	    skk-jisx0208-latin-mode-indicator skk-jisx0208-latin-mode-string
+	    skk-jisx0201-mode-indicator skk-jisx0201-mode-string
+	    skk-abbrev-mode-indicator skk-abbrev-mode-string)))
     ;;
     (static-cond
      ((eq skk-emacs-type 'xemacs)
@@ -3851,16 +3858,23 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			(append '("" skk-modeline-input-mode)
 				mode-line-format))))))
 	  (setq list (cdr list))))))
-    (setq-default skk-input-mode-string "")
     (force-mode-line-update t))
    ;;
    ((eq skk-status-indicator 'minor-mode)
+    (setq-default skk-modeline-input-mode "")
+    (setq skk-default-indicator ""
+	  skk-latin-mode-indicator skk-latin-mode-string
+	  skk-hiragana-mode-indicator skk-hiragana-mode-string
+	  skk-katakana-mode-indicator skk-katakana-mode-string
+	  skk-jisx0208-latin-mode-indicator skk-jisx0208-latin-mode-string
+	  skk-jisx0201-mode-indicator skk-jisx0201-mode-string
+	  skk-abbrev-mode-indicator skk-abbrev-mode-string)
     (static-if (memq skk-emacs-type '(xemacs mule5))
-	(add-minor-mode 'skk-mode 'skk-input-mode-string)
+	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
       (setq minor-mode-alist
 	    ;; each element of minor-mode-alist is not cons cell.
 	    (put-alist 'skk-mode
-		       '(skk-input-mode-string) minor-mode-alist))))))
+		       '(skk-modeline-input-mode) minor-mode-alist))))))
 
 ;; cover to original functions.
 

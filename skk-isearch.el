@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.10 2000/11/20 08:55:39 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.11 2000/11/20 20:05:59 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:39 $
+;; Last Modified: $Date: 2000/11/20 20:05:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -218,7 +218,8 @@ kakutei'ed and erase the buffer contents."
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
   (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
-    (when (string-match "^japanese-skk" current-input-method)
+    (when (and current-input-method
+	       (string-match "^japanese-skk" current-input-method))
       (let* ((method current-input-method)
 	     (func (if (string= "japanese-skk" method)
 		       'skk-inactivate
@@ -562,6 +563,7 @@ If the current mode is different from previous, remove it first."
 	  ;; restore the overriding local map.
 	  (set-buffer current-buffer)
 	  (set skk-isearch-overriding-local-map local-map))))))
+
 
 ;;
 ;; Pieces of advice.
@@ -601,11 +603,48 @@ If the current mode is different from previous, remove it first."
 	     (skk-isearch-mode-string)
 	     (mapconcat 'isearch-text-char-description isearch-string ""))))))
 
-(static-when (memq skk-emacs-type '(mule3 mule4 mule5))
-  (defadvice isearch-message-prefix (around skk-setup-ad activate preactivate)
-    (if (string-match "^japanese-skk" (format "%s" default-input-method))
-	(let (current-input-method) ad-do-it)
-      ad-do-it)))
+;;; This advice will be enabled before skk-isearch is loaded.
+;;;###autoload
+(defconst skk-isearch-really-early-advice
+  '(lambda ()
+     (defadvice isearch-message-prefix (around skk-isearch-ad activate preactivate)
+       (if (string-match "^japanese-skk" (format "%s" default-input-method))
+	   (let (current-input-method) ad-do-it)
+	 ad-do-it))
+     (defadvice isearch-toggle-input-method (around skk-isearch-ad activate)
+       ;; Needed for calling skk-isearch via isearch-x.
+       (cond ((string-match "^japanese-skk" (format "%s" default-input-method))
+	      (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
+		(skk-isearch-mode-setup)
+		(skk-isearch-skk-mode)))
+	     ((null default-input-method)
+	      ad-do-it
+	      (when (string-match "^japanese-skk"
+				  (format "%s" default-input-method))
+		(let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
+		  (skk-isearch-mode-setup))
+		(inactivate-input-method)))
+	     (t
+	      ad-do-it)))))
+
+;;;###autoload
+(if (or (featurep 'xemacs)
+	(not (fboundp 'register-input-method)))
+    nil
+  (define-key isearch-mode-map [(control \\)] 'isearch-toggle-input-method)
+  (cond
+   ((and (featurep 'advice)
+	 (assq 'skk-isearch-ad
+	       (assq 'around
+		     (ad-get-advice-info 'isearch-toggle-input-method))))
+    ;; Already advised.
+    nil)
+   ((locate-library "advice")
+    ;; Advise now.
+    (funcall skk-isearch-really-early-advice))
+   (t
+    ;; Emacs 21 loads "leim-list" files before `load-path' is prepared.
+    (add-hook 'before-init-hook skk-isearch-really-early-advice))))
 
 
 ;;

@@ -2,6 +2,16 @@
 
 	* *: Plenty of `goodbye-warning's.
 
+	* Makefile (clean): Don't delete leim-list.el
+
+	* SKK-MK (SKK-MK-install-elc): Now leim-list.el and skk-setup.el
+	is not the same file.
+
+	* leim-list.el: New file.
+
+	* skk-setup.el.in: Move XEmacs related codes to skk-xemacs.el.
+	Move isearch related codes to skk-isearch.el.
+
 2000-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK_MODULES): Add `skk-e21'.
@@ -2421,8 +2431,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.157 2000/11/20 08:55:38 czkmt Exp $
-Last Modified: $Date: 2000/11/20 08:55:38 $
+Version: $Id: ChangeLog,v 1.158 2000/11/20 20:05:57 czkmt Exp $
+Last Modified: $Date: 2000/11/20 20:05:57 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.13 2000/11/20 08:55:41 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.14 2000/11/20 20:06:00 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:41 $
+;; Last Modified: $Date: 2000/11/20 20:06:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2089,9 +2089,6 @@ M-x skk-restart によっても再コンパイルされる。")
 
 (defvar skk-insert-new-word-function nil
   "候補を挿入したときに funcall される関数を保存する変数。")
-
-(skk-deflocalvar skk-input-mode-string skk-hiragana-mode-string
-  "SKK の入力モードを示す文字列。skk-mode 起動時は、skk-hiragana-mode-string。")
 
 (defvar skk-isearch-message nil
   "skk-isearch 関数をコールするためのフラグ。

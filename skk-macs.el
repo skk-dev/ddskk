@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.13 2000/11/20 08:55:40 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.14 2000/11/20 20:05:59 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:40 $
+;; Last Modified: $Date: 2000/11/20 20:05:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -30,7 +30,8 @@
 ;;; Code:
 
 (eval-when-compile
-  (defvar mule-version))
+  (defvar mule-version)
+  (defvar skk-e21-modeline-property))
 
 (eval-when-compile
   (require 'advice)
@@ -190,15 +191,7 @@
      '(ding))))
 
 (defmacro skk-update-modeline (indicator)
-  (case skk-emacs-type
-    ((xemacs mule5)
-     (`
-      (when (eq skk-status-indicator 'left)
-	(setq skk-modeline-input-mode (, indicator)))))
-    (t
-     (`
-      (when (eq skk-status-indicator 'left)
-	(setq skk-modeline-input-mode skk-input-mode-string))))))
+  (` (setq skk-modeline-input-mode (, indicator))))
 
 ;;(defun-maybe mapvector (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
@@ -469,7 +462,6 @@
         ;; sub mode of skk-j-mode.
         skk-katakana nil)
   ;; initialize
-  (setq skk-input-mode-string skk-hiragana-mode-string)
   (skk-update-modeline skk-default-indicator)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map skk-current-local-map)
@@ -485,8 +477,6 @@
         skk-jisx0208-latin-mode nil
         ;; sub mode of skk-j-mode.
         skk-katakana katakana)
-  (setq skk-input-mode-string (if skk-katakana skk-katakana-mode-string
-				skk-hiragana-mode-string))
   (skk-update-modeline (if skk-katakana
 			   skk-katakana-mode-indicator
 			 skk-hiragana-mode-indicator))
@@ -505,8 +495,7 @@
         skk-j-mode nil
         skk-jisx0208-latin-mode nil
         ;; sub mode of skk-j-mode.
-        skk-katakana nil
-        skk-input-mode-string skk-latin-mode-string)
+        skk-katakana nil)
   (skk-update-modeline skk-latin-mode-indicator)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
@@ -523,8 +512,7 @@
         skk-j-mode nil
         skk-jisx0208-latin-mode t
         ;; sub mode of skk-j-mode.
-        skk-katakana nil
-        skk-input-mode-string skk-jisx0208-latin-mode-string)
+        skk-katakana nil)
   (skk-update-modeline skk-jisx0208-latin-mode-indicator)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
@@ -548,7 +536,7 @@
 	;; しなければならない必然性はない。
         ;; sub mode of skk-j-mode.
         ;;skk-katakana nil
-        skk-input-mode-string skk-abbrev-mode-string)
+        )
   (skk-update-modeline skk-abbrev-mode-indicator)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
@@ -693,6 +681,20 @@ BUFFER defaults to the current buffer."
     (face-proportional-p face))
    (t
     nil)))
+
+(defsubst skk-mode-string-to-indicator (mode string)
+  (cond
+   ((eq skk-status-indicator 'left)
+    (static-cond
+     ((eq skk-emacs-type 'xemacs)
+      (cons (symbol-value (intern (format "skk-xemacs-%s-extent" mode)))
+	    string))
+     ((memq skk-emacs-type '(mule5))
+      (apply 'propertize string skk-e21-modeline-property))
+     (t
+      string)))
+   (t
+    string)))
 
 ;;;; from dabbrev.el.  Welcome!
 ;; 判定間違いを犯す場合あり。要改良。

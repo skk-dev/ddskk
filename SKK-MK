@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.56 2000/11/20 08:55:38 czkmt Exp $
-;; Last Modified: $Date: 2000/11/20 08:55:38 $
+;; Version: $Id: SKK-MK,v 1.57 2000/11/20 20:05:58 czkmt Exp $
+;; Last Modified: $Date: 2000/11/20 20:05:58 $
 
 ;; Commentary
 ;;
@@ -507,7 +507,6 @@
 	;; install dictionaries if the files exist in ./dic directory.
 	(install-files SKK_DICTIONARIES DICDIR SKK_DATADIR nil t nil))
     (when (and (fboundp 'register-input-method) (not (featurep 'xemacs)))
-      (copy-file "skk-setup.el" "leim-list.el" 'ok-if-already-exists)
       (install-elisp-modules (list 'leim-list) "." SKK_LISPDIR))
     ;; install skk-setup.el
     (let ((dir
@@ -809,6 +808,17 @@ SKK tutorials:
 	     (expand-file-name "auto-autoloads.el" default-directory)))
 	(setq buffer-file-name generated-autoload-file)
 	(fixup-autoload-buffer "skk-autoloads")
+	(goto-char (point-max))
+	(unless (bolp)
+	  (insert "\n"))
+	(insert "\
+
+;;;***
+\014
+;;; Load \"skk-setup.el\".
+
+(require 'skk-setup)
+")
 	(write-region-as-coding-system
 	 'iso-2022-jp
 	 (point-min) (point-max) generated-autoload-file)

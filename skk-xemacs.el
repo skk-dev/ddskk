@@ -26,10 +26,11 @@
 ;;; Code:
 
 (eval-and-compile
-  (autoload 'Info-goto-node "info" nil t)
+  (autoload 'Info-goto-node "info")
   (autoload 'browse-url "browse-url"))
 
 ;; Variables.
+
 (defvar skk-xemacs-hiragana-extent (make-extent nil nil))
 (defvar skk-xemacs-katakana-extent (make-extent nil nil))
 (defvar skk-xemacs-jisx0208-latin-extent (make-extent nil nil))
@@ -161,19 +162,28 @@
   (set-extent-face skk-xemacs-jisx0201-extent 'skk-xemacs-jisx0201-face)
   ;;
   (setq skk-default-indicator
-	(cons (make-extent nil nil) 'skk-input-mode-string)
+	(cons (make-extent nil nil) "")
 	skk-latin-mode-indicator
-	(cons skk-xemacs-latin-extent 'skk-input-mode-string)
+	(cons skk-xemacs-latin-extent skk-latin-mode-string)
 	skk-hiragana-mode-indicator
-	(cons skk-xemacs-hiragana-extent 'skk-input-mode-string)
+	(cons skk-xemacs-hiragana-extent skk-hiragana-mode-string)
 	skk-katakana-mode-indicator
-	(cons skk-xemacs-katakana-extent 'skk-input-mode-string)
+	(cons skk-xemacs-katakana-extent skk-katakana-mode-string)
 	skk-jisx0208-latin-mode-indicator
-	(cons skk-xemacs-jisx0208-latin-extent 'skk-input-mode-string)
+	(cons skk-xemacs-jisx0208-latin-extent skk-jisx0208-latin-mode-string)
 	skk-jisx0201-mode-indicator
-	(cons skk-xemacs-jisx0201-extent 'skk-input-mode-string)
+	(cons skk-xemacs-jisx0201-extent skk-jisx0201-mode-string)
 	skk-abbrev-mode-indicator
-	(cons skk-xemacs-abbrev-extent 'skk-input-mode-string)))
+	(cons skk-xemacs-abbrev-extent skk-abbrev-mode-string)))
+
+;; Hooks.
+
+;;; Not necessary, but...
+;;;###autoload
+(add-hook 'before-init-hook
+	  '(lambda ()
+	     ;; Don't give dired this!
+	     (define-key ctl-x-map [(control j)] 'skk-mode)))
 
 ;;
 

@@ -4,26 +4,26 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.12 2000/11/18 17:13:15 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.13 2000/11/20 20:05:59 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/18 17:13:15 $
+;; Last Modified: $Date: 2000/11/20 20:05:59 $
 
 ;; This file is part of Daredevil SKK.
 
-;; Daredevil SKK is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either versions 2, or (at your option)
-;; any later version.
+;; Daredevil SKK is free software; you can redistribute it and/or modify it
+;; under the terms of the GNU General Public License as published by the Free
+;; Software Foundation; either versions 2, or (at your option) any later
+;; version.
 
-;; Daredevil SKK is distributed in the hope that it will be useful
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
+;; Daredevil SKK is distributed in the hope that it will be useful but WITHOUT
+;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+;; FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+;; more details.
 
-;; You should have received a copy of the GNU General Public License
-;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
-;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
-;; MA 02111-1307, USA.
+;; You should have received a copy of the GNU General Public License along
+;; with Daredevil SKK, see the file COPYING.  If not, write to the Free
+;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston, MA
+;; 02111-1307, USA.
 
 ;;; Commentary:
 
@@ -40,6 +40,9 @@
      (require 'path-util "apel/path-util")))
   (add-latest-path "apel")
   (add-latest-path "skk"))
+
+;;; Autoloads.
+(require 'skk-autoloads)
 
 ;;; Key bindings.
 (global-set-key "\C-x\C-j" 'skk-mode)
@@ -64,80 +67,6 @@
        (add-hook 'isearch-mode-end-hook
 		 (lambda ()
 		   (and (featurep 'skk-isearch) (skk-isearch-mode-cleanup))))))
-
-
-;;; For XEmacs package system.
-(when (and (featurep 'xemacs)
-	   (file-exists-p
-	    (expand-file-name "auto-autoloads.el"
-			      (file-name-directory (locate-library "skk")))))
-  ;; SKK is installed as a XEmacs package. In this situation,
-  ;; "skk/leim-list.el" isn't expected to be loaded, thus load "skk-setup.el"
-  ;; in "skk/auto-autoloads.el" instead.
-  ;; Avoid duplicate loading.
-  (provide 'skk-autoloads)
-  ;; This shouldn't override the user's preference, thus called in
-  ;; `before-init-hook'.
-  (add-hook 'before-init-hook 'skk-setup-before-init-hook-function)
-  (defun skk-setup-before-init-hook-function ()
-    ;; Don't give dired this!
-    (global-set-key "\C-x\C-j" 'skk-mode)
-    (remove-hook 'before-init-hook 'skk-setup-before-init-hook-function)))
-
-
-;;; Autoloads.
-(require 'skk-autoloads)
-
-
-;;; Many ugly works for many reasons...
-(unless (or (featurep 'xemacs)
-	    (not (fboundp 'register-input-method)))
-  ;; GNU Emacs 20 or later.
-  ;; Override emcws.
-  (define-key isearch-mode-map "\C-\\" 'isearch-toggle-input-method)
-  ;; It isn't known whether this file is loaded automatically (as leim-list.el)
-  ;; or manually in `user-init-file', thus call the function in
-  ;; `after-init-hook'.
-  (add-hook 'after-init-hook 'skk-setup-after-init-hook-function)
-  (defun skk-setup-after-init-hook-function ()
-    (defadvice isearch-toggle-input-method (around skk-setup-ad activate)
-      (cond ((string-match "^japanese-skk" (format "%s" default-input-method))
-	     (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
-	       (skk-isearch-mode-setup)
-	       (skk-isearch-skk-mode)))
-	    ((null default-input-method)
-	     ad-do-it
-	     (when (string-match "^japanese-skk"
-				 (format "%s" default-input-method))
-	       (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
-		 (skk-isearch-mode-setup))
-	       (inactivate-input-method)))
-	    (t
-	     ad-do-it)))
-    (remove-hook 'after-init-hook 'skk-setup-after-init-hook-function))
-  ;; For Emacs 20. Load all "leim-list" files.
-  (when site-run-file
-    (cond
-     ((string-lessp "5.0" mule-version)
-      ;; Emacs 21 loads all "leim-list" files in load-path.
-      nil)
-     ((fboundp 'load-leim-list-except-this)
-      ;; "egg/leim-list.el" is already loaded.
-      nil)
-     ((locate-library "egg/leim-list.el" 'nosuffix)
-      ;; Try loading egg/leim-list.el.
-      (load "egg/leim-list.el" 'noerror 'nomessage 'nosuffix))
-     (t
-      ;; Shamelessly ripped off from "egg/leim-list.el" in Tamago 4.
-      (defun load-leim-list-except-this ()
-	(load-libraries
-	 "leim-list"
-	 (cdr-safe (member (directory-file-name
-			    (file-name-directory load-file-name))
-			   load-path))))
-      (message "Finished loading %s \n   and load others..." load-file-name)
-      (load-leim-list-except-this)))))
-
 
 (provide 'skk-setup)
 ;;; Local Variables:

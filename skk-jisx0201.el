@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.5 2000/11/20 08:55:39 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.6 2000/11/20 20:05:59 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2000/11/20 08:55:39 $
+;; Last Modified: $Date: 2000/11/20 20:05:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -245,8 +245,8 @@
         skk-latin-mode nil
         skk-j-mode nil
         skk-jisx0208-latin-mode nil
-        skk-katakana nil
-        skk-input-mode-string skk-jisx0201-mode-string)
+        skk-katakana nil)
+  (skk-update-modeline skk-jisx0201-mode-indicator)
   (force-mode-line-update))
 
 ;; Pieces of advice.
@@ -628,10 +628,8 @@
 	(progn
 	  (setq skk-jisx0201-mode nil)
 	  (skk-j-mode-on 'katakana)
-	  (setq skk-input-mode-string skk-katakana-mode-string)
 	  (skk-update-modeline skk-katakana-mode-indicator))
       (skk-jisx0201-mode-on)
-      (setq skk-input-mode-string skk-jisx0201-mode-string)
       (skk-update-modeline skk-jisx0201-mode-indicator)))
   (when skk-use-color-cursor
     (static-cond
