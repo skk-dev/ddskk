@@ -1,3 +1,8 @@
+2000-09-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-develop.el (skk-ml-address): Change address to
+	skk@ring.gr.jp.
+
 2000-09-14  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* doc/skk.texi : メニューに 配布条件 を追加.
