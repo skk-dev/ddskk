@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.30 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.31 2002/01/24 15:01:33 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/24 15:01:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -212,12 +212,9 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
 		  (and (boundp 'sound-alist)
 		       (eq t (catch 'tag
 			       (mapc
-				(function
-				 (lambda (list)
-				   (and
-				    (eq 'drum
-					(cadr (memq :sound list)))
-				    (throw 'tag t))))
+				#'(lambda (list)
+				    (when (eq 'drum (cadr (memq :sound list)))
+				      (throw 'tag t)))
 				sound-alist)))))
 	(unless (assq 'clink sound-alist)
 	  (load-sound-file "clink" 'clink))))
