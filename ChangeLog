@@ -5,7 +5,8 @@
 	More specific.
 
 	* skk.el
-	(skk-search-sagyo-henkaku): Accept an optional argument.
+	(skk-search-sagyo-henkaku): Accept an optional argument. Use
+	`skk-substring', not `substring'.
 
 	* skk-jisx0201.el
 	(skk-search-sagyo-henkaku): Set the argument.
@@ -2515,8 +2516,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.494 2001/10/20 02:34:23 czkmt Exp $
-Last Modified: $Date: 2001/10/20 02:34:23 $
+Version: $Id: ChangeLog,v 1.495 2001/10/20 04:16:48 czkmt Exp $
+Last Modified: $Date: 2001/10/20 04:16:48 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
