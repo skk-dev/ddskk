@@ -27,7 +27,7 @@
 ;;; Code:
 
 (eval-and-compile
-  (autoload 'Info-goto-node "info" nil t)
+  (autoload 'Info-goto-node "info")
   (autoload 'browse-url "browse-url"))
 
 ;; Variables.
