@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.6 2000/11/15 14:39:40 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.7 2000/11/15 14:58:34 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/15 14:39:40 $
+;; Last Modified: $Date: 2000/11/15 14:58:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -29,7 +29,11 @@
 
 ;;; Code:
 
-(if (or (boundp 'MULE) (boundp 'NEMACS))
+(if (or (boundp 'MULE)
+	(boundp 'NEMACS)
+	(not
+	 (or (featurep 'xemacs)
+	     (fboundp 'normal-top-level-add-subdirs-to-load-path))))
     (progn
       (condition-case nil
 	  (require 'path-util)

@@ -1,6 +1,6 @@
 2000-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* SKK-MK (SKK-MK-install-elc): Under Emacs 19 or earlier, copy
+	* SKK-MK (SKK-MK-install-elc): Under Emacs 20.2 or earlier, copy
 	skk-setup.el to a directory in `default-load-path', not to a
 	subdirectory "skk".
 
@@ -9,7 +9,7 @@
 	skk-jisx0208-latin-mode-on, skk-abbrev-mode-on): Call it under
 	XEmacs.
 
-	* skk-setup.el.in: Emacs 19 or earlier, load "path-util" and add
+	* skk-setup.el.in: Emacs 20.2 or earlier, load "path-util" and add
 	subdirectory "skk" to load-path.
 
 	* skk-vars.el (skk-check-okurigana-on-touroku): Accpept the value
@@ -2316,8 +2316,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.142 2000/11/15 09:57:21 czkmt Exp $
-Last Modified: $Date: 2000/11/15 09:57:21 $
+Version: $Id: ChangeLog,v 1.143 2000/11/15 14:58:33 czkmt Exp $
+Last Modified: $Date: 2000/11/15 14:58:33 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
