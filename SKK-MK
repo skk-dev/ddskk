@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.64 2000/11/24 15:39:46 czkmt Exp $
-;; Last Modified: $Date: 2000/11/24 15:39:46 $
+;; Version: $Id: SKK-MK,v 1.65 2000/11/25 18:08:30 czkmt Exp $
+;; Last Modified: $Date: 2000/11/25 18:08:30 $
 
 ;; Commentary
 ;;
@@ -178,7 +178,7 @@
 (defvar SKK_INFO (or (getenv "SKK_INFO") "skk.info"))
 (defvar SKK_TEXIS (or (getenv "SKK_TEXIS") '("skk.texi")))
 (defvar SKK_TUTORIALS (or (getenv "SKK_TUTORIALS")
-			  '("NICOLA-SKK.tut" "SKK.tut" "SKK.tut.E")))
+			  '("SKK.tut" "SKK.tut.E" "NICOLA-SKK.tut")))
 (defvar SKK_DICTIONARIES
   (or (getenv "SKK_DICTIONARIES")
       '("SKK-JISYO.L" "SKK-JISYO.M" "SKK-JISYO.S"
