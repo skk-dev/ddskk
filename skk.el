@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.94 2001/03/10 14:28:14 czkmt Exp $
+;; Version: $Id: skk.el,v 1.95 2001/03/12 11:20:59 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/03/10 14:28:14 $
+;; Last Modified: $Date: 2001/03/12 11:20:59 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1242,6 +1242,9 @@ dependent."
 	      (and skk-henkan-active (skk-kakutei))
 	      (setq skk-prefix "")
 	      (or queue
+		  ;; XXX 便宜上▽モードでは `skk-emulate-original-map'を呼ば
+		  ;; ない方がいいような気がするのですが、いかがでしょうか。
+		  skk-henkan-on
 		  (skk-emulate-original-map (skk-make-raw-arg arg))))
 	  ;;(skk-cancel-undo-boundary)
 	  (setq skk-prefix "")

@@ -278,7 +278,7 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"N(B $
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-previous-candidate-key "x" "\
+(defcustom skk-kanagaki-previous-candidate-key "\C-p" "\
 *$BA08uJd$rI=<($9$k$?$a$N%-!<!#(B
 XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]  (XEmacs $B$G$O(B
 [henkan-mode]) $B$K$9$l$P!"F|K\8l%-!<%\!<%I$N(B [$BA08uJd(B] $B%-!<$K3d$jEv$F$k$3$H$,$G(B
@@ -461,6 +461,14 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
     (when (and (symbol-value (car cell)) (commandp (cdr cell)))
       (define-key skk-j-mode-map
 	(symbol-value (car cell)) (cdr cell))))
+  ;;
+  (let ((char (and (stringp skk-kanagaki-previous-candidate-key)
+		   (string-to-char skk-kanagaki-previous-candidate-key))))
+    (when (eq skk-previous-candidate-char ?x)
+      ;; $B4{DjCM$N$^$^$G$"$k$H$-!"E,@Z$K@_Dj$9$k!#(B
+      (setq skk-previous-candidate-char (or char
+					    ;; C-p
+					    (int-char 16)))))
   ;;
   (define-key help-map skk-kanagaki-help-key 'skk-kanagaki-help)
   ;;

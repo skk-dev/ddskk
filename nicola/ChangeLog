@@ -1,3 +1,12 @@
+2001-03-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* README.NICOLA.ja: Update.
+
+	* skk-kanagaki.el (skk-kanagaki-previous-candidate-key): Change
+	the default value to "\C-p".
+	(skk-kanagaki-initialize): Set `skk-previous-candidate-char'
+	properly if necessary.
+
 2001-01-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-nicola-self-insert-lshift): Remove defvars
