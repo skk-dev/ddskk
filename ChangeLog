@@ -1,3 +1,12 @@
+2002-01-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el
+	(update-buffer-local-frame-params): New optional argument
+	FORCE-CURRENT-BUFFER.
+
+	(minibuffer-setup-hook): Force to refer to the values in the
+	specified buffer.
+
 2002-01-13  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* experimental/skk-azik.el:
@@ -3327,8 +3336,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.627 2002/01/13 20:47:36 obata Exp $
-Last Modified: $Date: 2002/01/13 20:47:36 $
+Version: $Id: ChangeLog,v 1.628 2002/01/14 06:34:22 czkmt Exp $
+Last Modified: $Date: 2002/01/14 06:34:22 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
