@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.5 2000/11/11 03:08:44 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.6 2000/11/14 12:49:35 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/11 03:08:44 $
+;; Last Modified: $Date: 2000/11/14 12:49:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -467,8 +467,9 @@
   (static-when (eq skk-emacs-type 'xemacs)
     (let ((cons (rassq 'skk-input-mode-string mode-line-format)))
       (and cons (setcar cons skk-xmas-hiragana-extent))))
-  (static-if (memq skk-emacs-type '(nemacs mule1))
-      (use-local-map skk-current-local-map))
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (use-local-map skk-current-local-map)
+    (setq skk-current-local-map nil))
   (force-mode-line-update)
   (remove-hook 'pre-command-hook 'skk-pre-command 'local))
 
@@ -491,10 +492,10 @@
 		     skk-xmas-hiragana-extent)))))
   (static-if (memq skk-emacs-type '(nemacs mule1))
       (use-local-map
-       (append skk-j-mode-map
-	       (cdr (if (skk-in-minibuffer-p)
-			minibuffer-local-map
-		      skk-current-local-map)))))
+       (skk-e18-make-local-map skk-j-mode-map
+			       (if (skk-in-minibuffer-p)
+				   minibuffer-local-map
+				 skk-current-local-map))))
   (force-mode-line-update))
 
 (defsubst skk-latin-mode-on ()
@@ -511,10 +512,10 @@
       (and cons (setcar cons skk-xmas-latin-extent))))
   (static-if (memq skk-emacs-type '(nemacs mule1))
       (use-local-map
-       (append skk-latin-mode-map
-	       (cdr (if (skk-in-minibuffer-p)
-			minibuffer-local-map
-		      skk-current-local-map)))))
+       (skk-e18-make-local-map skk-latin-mode-map
+			       (if (skk-in-minibuffer-p)
+				   minibuffer-local-map
+				 skk-current-local-map))))
   (force-mode-line-update))
 
 (defsubst skk-jisx0208-latin-mode-on ()
@@ -531,10 +532,10 @@
       (and cons (setcar cons skk-xmas-jisx0208-latin-extent))))
   (static-if (memq skk-emacs-type '(nemacs mule1))
       (use-local-map
-       (append skk-jisx0208-latin-mode-map
-	       (cdr (if (skk-in-minibuffer-p)
-			minibuffer-local-map
-		      skk-current-local-map)))))
+       (skk-e18-make-local-map skk-jisx0208-latin-mode-map
+			       (if (skk-in-minibuffer-p)
+				   minibuffer-local-map
+				 skk-current-local-map))))
   (force-mode-line-update))
 
 (defsubst skk-abbrev-mode-on ()
@@ -557,10 +558,10 @@
       (and cons (setcar cons skk-xmas-abbrev-extent))))
   (static-if (memq skk-emacs-type '(nemacs mule1))
       (use-local-map
-       (append skk-abbrev-mode-map
-	       (cdr (if (skk-in-minibuffer-p)
-			minibuffer-local-map
-		      skk-current-local-map)))))
+       (skk-e18-make-local-map skk-abbrev-mode-map
+			       (if (skk-in-minibuffer-p)
+				   minibuffer-local-map
+				 skk-current-local-map))))
   (force-mode-line-update))
 
 (defsubst skk-in-minibuffer-p ()
