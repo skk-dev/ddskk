@@ -1,4 +1,4 @@
-;;; ptexinfmt.el -- portable Texinfo formatter.
+;;; ptexinfmt.el --- portable Texinfo formatter.
 
 ;; Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993,
 ;;               1994, 1995, 1996, 1997 Free Software Foundation, Inc.

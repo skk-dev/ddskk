@@ -1,4 +1,5 @@
-;;; skk-nicola.el -- SKK に親指シフト入力インタフェイスを提供
+;;; skk-nicola.el --- SKK に親指シフト入力インタフェイスを提供
+
 ;; Copyright (C) 1996 - 2000 Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
 
 ;; Author: Itsushi Minoura <minoura@eva.hi-ho.ne.jp>

@@ -1,4 +1,5 @@
-;;; skk-nicola-dcomp.el
+;;; skk-nicola-dcomp.el --- skk-dcomp support for NICOLA-DDSKK
+
 ;; Copyright (C) 2001 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>

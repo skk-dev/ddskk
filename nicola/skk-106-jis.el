@@ -1,4 +1,5 @@
 ;;; skk-106-jis.el --- 日本語 106 キーボードによる仮名入力サポート
+
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>

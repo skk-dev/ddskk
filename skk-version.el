@@ -1,12 +1,12 @@
-;;; skk-version.el -- Version information for SKK.
+;;; skk-version.el --- Version information for SKK
 
 ;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.10 2001/11/16 02:22:20 czkmt Exp $
+;; Version: $Id: skk-version.el,v 1.11 2001/11/16 02:30:25 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/16 02:22:20 $
+;; Last Modified: $Date: 2001/11/16 02:30:25 $
 
 ;; This file is part of Daredevil SKK.
 ;;

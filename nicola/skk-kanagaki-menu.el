@@ -1,4 +1,5 @@
 ;;; skk-kanagaki-menu.el --- NICOLA-DDSKK のメニューサポート
+
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>

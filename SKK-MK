@@ -1,12 +1,10 @@
-;;; -*-Emacs-Lisp-*-
-
-;; SKK-MK: installer for SKK.
+;; SKK-MK --- installer for SKK  -*-Emacs-Lisp-*-
 ;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.101 2001/11/16 01:17:14 czkmt Exp $
-;; Last Modified: $Date: 2001/11/16 01:17:14 $
+;; Version: $Id: SKK-MK,v 1.102 2001/11/16 02:30:25 czkmt Exp $
+;; Last Modified: $Date: 2001/11/16 02:30:25 $
 
 ;; Commentary
 ;;

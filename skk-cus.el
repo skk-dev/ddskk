@@ -1,4 +1,4 @@
-;;; skk-cus.el -- SKK の簡単かすたまいず試作品
+;;; skk-cus.el --- SKK の簡単かすたまいず試作品
 
 ;; Copyright (C) 2001 SKK Development Team
 

@@ -1,11 +1,12 @@
-;;; ccc.el --- cursor color control.
+;;; ccc.el --- cursor color control
+
 ;; Copyright (C) 2000 Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.4 2001/10/31 13:05:13 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.5 2001/11/16 02:30:25 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/10/31 13:05:13 $
+;; Last Modified: $Date: 2001/11/16 02:30:25 $
 
 ;; This program is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free

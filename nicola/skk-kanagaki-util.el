@@ -1,4 +1,5 @@
 ;;; skk-kanagaki-util.el --- SKK の仮名入力サポートのための道具箱
+
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>

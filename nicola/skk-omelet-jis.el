@@ -1,4 +1,5 @@
-;;; skk-omelet-jis.el -- SKK に omelet (JIS) 入力環境を提供
+;;; skk-omelet-jis.el --- SKK に omelet (JIS) 入力環境を提供
+
 ;; Copyright (C) 1996 - 2000 Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
 
 ;; Author: Itsushi Minoura <minoura@eva.hi-ho.ne.jp>

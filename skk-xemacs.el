@@ -1,4 +1,4 @@
-;;; skk-xemacs.el -- XEmacs support for SKK.
+;;; skk-xemacs.el --- XEmacs support for SKK
 
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
