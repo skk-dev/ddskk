@@ -15,7 +15,10 @@
 	completion. Use `skk-loop-for-buffers'.
 
 	(skk-comp-do-1-in-buf):
-	Abolish optional argument FIRST.
+	Abolish function.
+
+	(skk-comp-search-current-buffer):
+	New function.
 
 	* skk-macs.el:
 	Require `skk-vars' at load time as well as at compile time.
@@ -3567,8 +3570,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.647 2002/01/23 14:21:31 czkmt Exp $
-Last Modified: $Date: 2002/01/23 14:21:31 $
+Version: $Id: ChangeLog,v 1.648 2002/01/23 14:27:53 czkmt Exp $
+Last Modified: $Date: 2002/01/23 14:27:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
