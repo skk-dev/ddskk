@@ -1,5 +1,15 @@
 2000-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* Makefile (what-where-package): Use $(XEMACS).
+
+	* SKK-MK (SKK-MK-running-xemacs): Abolish. Check the feature
+	xemacs instead.
+	(SKK_INFOS): Abolish. Stop guessing how many files resulting
+	info will be split into.
+	(SKK_INFO): New variable.
+	(PACKAGE_DATADIR): <= `SKK_PACKAGE_DATADIR'.
+	(PACKAGE_LISPDIR): <= `SKK_PACKAGE_LISPDIR'.
+
 	* skk-num.el (skk-num): Add autoload cookie.
 
 2000-09-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
