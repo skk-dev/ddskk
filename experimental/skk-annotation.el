@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.2 2000/10/30 22:18:14 minakaji Exp $
+;; Version: $Id: skk-annotation.el,v 1.3 2000/11/05 15:53:09 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2000/10/30 22:18:14 $
+;; Last Modified: $Date: 2000/11/05 15:53:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -92,11 +92,13 @@
 	 (skk-annotation-show-1 annotation))))
     
 (defun skk-annotation-show-1 (annotation)
-  (if (eq (aref annotation 0) ?*)
-      (setq annotation (substring annotation 1)))
-   (if skk-annotation-show-message
-      (skk-annotation-show-message annotation)
-    (skk-annotation-show-buffer annotation)))
+  (if (string= annotation "")
+      nil
+    (if (eq (aref annotation 0) ?*)
+	(setq annotation (substring annotation 1)))
+    (if skk-annotation-show-message
+	(skk-annotation-show-message annotation)
+      (skk-annotation-show-buffer annotation))))
 
 (defun skk-annotation-show-buffer (annotation)
   (save-window-excursion
