@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.79 2001/09/09 02:34:20 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.80 2001/09/22 11:49:25 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/09/09 02:34:20 $
+@c  Last Modified: $Date: 2001/09/22 11:49:25 $
 @c
 @set EDITION 1.6
 @set SKK-VERSION 11.4
-@set UPDATED $Date: 2001/09/09 02:34:20 $
+@set UPDATED $Date: 2001/09/22 11:49:25 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7446,6 +7446,8 @@ SKK の原作者は、現京都大学の佐藤雅彦教授 @w{<masahiko@@kuis.kyoto-u.ac.jp>
 @item 沈志勇 @w{<jshen@@cas.org>}
 @item 柘植 正大 @w{<ma-tsuge@@kdd.co.jp>}
 @item Chikanobu Toyofuku @w{<unbound@@papaya.juice.or.jp>}
+@item Daiki Ueno @w{<ueno@@unixuser.org>}
+@item EGUCHI Satoshi @w{<eguchi@@kyoto-wu.ac.jp>}
 @item FUKANO Masaaki @w{<fukano-m@@alp.cs.uec.ac.jp>}
 @item Fukaya Shigeru @w{<SFUKAYA@@oracle.co.jp>}
 @item FURUE Hideyuki @w{<furue@@kke.co.jp>}
@@ -7469,6 +7471,7 @@ SKK の原作者は、現京都大学の佐藤雅彦教授 @w{<masahiko@@kuis.kyoto-u.ac.jp>
 @item Koji Uchida @w{<uchida@@cfd.tytlabs.co.jp>}
 @item Makoto MATSUSHITA @w{<matusita@@ics.es.osaka-u.ac.jp>}
 @item Manabu Kawashima @w{<kaw@@lp.nm.fujitsu.co.jp>}
+@item Martin Buchholz @w{<martin@@xemacs.org>}
 @item Masahiko Sato @w{<masahiko@@kuis.kyoto-u.ac.jp>}
 @item Masahiko Suzuki @w{<suzmasa@@sm.sony.co.jp>}
 @item Masahiro Doteguchi @w{<xdote@@rp.open.cs.fujitsu.co.jp>}
@@ -7490,6 +7493,7 @@ SKK の原作者は、現京都大学の佐藤雅彦教授 @w{<masahiko@@kuis.kyoto-u.ac.jp>
 @item Sekita Daigo @w{<sekita@@mri.co.jp>}
 @item Shuhei KOBAYASHI @w{<shuhei@@aqua.ocn.ne.jp>}
 @item Shuji Ashizawa @w{<ashizawa@@zuken.co.jp>}
+@item Shigeru OKUMURA @w{<shigeru@@okunet.gr.jp>}
 @item SL Baur @w{<steve@@altair.xemacs.org>}
 @item sphere @w{<sphere@@pop12.odn.ne.jp>}
 @item Stephen Turnbull  @w{<turnbull@@sk.tsukuba.ac.jp>}
@@ -7507,6 +7511,7 @@ SKK の原作者は、現京都大学の佐藤雅彦教授 @w{<masahiko@@kuis.kyoto-u.ac.jp>
 @item Wataru Matsui @w{<matsui@@atr-rd.atr.co.jp>}
 @item Wataru Matsui @w{<matsui@@gf.hm.rd.sanyo.co.jp>}
 @item Yoshida Toyonobu @w{<toyono-y@@is.aist-nara.ac.jp>}
+@item Yoshiki Hayashi @w{<yoshiki@@xemacs.org>}
 @item YOSHIZAWA Masahiro @w{<manbou@@ceres.dti.ne.jp>}
 @item Yukiyoshi Kameyama @w{<kameyama@@kuis.kyoto-u.ac.jp>}
 @item Yuh Ohmura @w{<yutopia@@t3.rim.or.jp>}
