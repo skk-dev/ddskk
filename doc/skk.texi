@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.8 1999/10/03 15:25:50 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.9 1999/11/07 03:04:27 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 1999/10/03 15:25:50 $
+@c  Last Modified: $Date: 1999/11/07 03:04:27 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.51
-@set UPDATED $Date: 1999/10/03 15:25:50 $
+@set UPDATED $Date: 1999/11/07 03:04:27 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -149,8 +149,8 @@ SKK 10が動作を保証するEmacsenのバージョンは下記の通りである。
 @item Emacs 19.28 or later をベースとした Mule 2 or 3
 @item Emacs 20.2 or later
 @item --with-mule オプション付きでコンパイルされたXEmacs 20.4 or later
-@item Meadow 1.00, 1.01, 1.06b1, 1.06b2
-@item Mule for Windows 1.22
+@item Meadow 1.00, 1.01, 1.10
+@item Mule for Windows 1.21, 1.22
 @end table
 
 SKKは、Simple Kana to Kanji conversion programにちなんで名付けられた。
@@ -371,6 +371,7 @@ SKK 9と比較して、変数名、関数名が大幅に変更されたので、
 
 @lisp
 @group
+(autoload 'skk-mode "skk" nil t)
 (global-set-key "\C-x\C-j" 'skk-mode)
 (global-set-key "\C-xj" 'skk-auto-fill-mode)
 (global-set-key "\C-xt" 'skk-tutorial)
@@ -5368,7 +5369,7 @@ t
 SKKモードがオフであることを示すカーソル色。カーソルのある該当フレームに
 おけるディフォルトのカーソル色が代入される。
 
-@item skk-kana-cursor-color
+@item skk-hiragana-cursor-color
 かなモードであることを示すカーソル色。ディフォルト値は、reverseVideoが
 offのときは``coral4''onのときは``pink''。
 
