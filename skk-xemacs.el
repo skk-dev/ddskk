@@ -143,7 +143,8 @@
 	(let ((map (make-sparse-keymap)))
 	  (define-key map
 	    [button2]
-	    (eval '(make-modeline-command-wrapper 'skk-xemacs-modeline-menu)))
+	    (eval '(make-modeline-command-wrapper
+		    'skk-xemacs-modeline-menu)))
 	  map)))
     (dolist (mode '(hiragana
 		    katakana
@@ -156,31 +157,27 @@
       (setq face (intern (format "skk-xemacs-%s-face"
 				 mode)))
       (make-face face)
-      (set-face-parent face
-		       'modeline
-		       nil
+      (set-face-parent face 'modeline nil
 		       (if (> emacs-major-version 20)
 			   '(default)))
       (when (featurep 'window-system)
 	(set-extent-keymap extent
 			   skk-xemacs-modeline-map)
-	(set-extent-property extent
-			     'help-echo
-			     "マウスの button 2 -> Daredevil SKK のメニュ−")
+	(set-extent-property
+	 extent
+	 'help-echo
+	 "マウスの button 2 -> Daredevil SKK のメニュ−")
 	(when (> emacs-major-version 20)
 	  (set-face-foreground face
 			       (symbol-value
-				(intern (format "skk-cursor-%s-color"
-						mode)))
+				(intern (format
+					 "skk-cursor-%s-color"
+					 mode)))
 			       nil
 			       '(default color win))
-	  (set-face-font face
-			 [bold]
-			 nil
+	  (set-face-font face [bold] nil
 			 '(default mono win))
-	  (set-face-font face
-			 [bold]
-			 nil
+	  (set-face-font face [bold] nil
 			 '(default grayscale win))))
       (set-extent-face extent face))))
 
@@ -197,10 +194,9 @@
 			[(control j)]
 		      str))))
 	     (where-is-internal func skk-j-mode-map))))
-    (cond ((not keys)
-	   "")
-	  (t
-	   (sorted-key-descriptions keys)))))
+    (if keys
+	(sorted-key-descriptions keys)
+      "")))
 
 ;; Hooks.
 
@@ -212,30 +208,35 @@
 ;; Advice.
 
 (skk-defadvice minibuffer-keyboard-quit (around skk-xemacs-ad activate)
-  ;; XEmacs has `minibuffer-keyboard-quit' that has nothing to do with delsel.
+  ;; XEmacs has `minibuffer-keyboard-quit'
+  ;; that has nothing to do with delsel.
   (skk-remove-minibuffer-setup-hook
    #'skk-j-mode-on #'skk-setup-minibuffer
    #'(lambda ()
-       (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+       (add-hook 'pre-command-hook 'skk-pre-command nil
+		 'local)))
   (cond ((not skk-mode)
 	 ad-do-it)
 	((not skk-henkan-on)
 	 (cond ((skk-get-prefix skk-current-rule-tree)
 		(skk-erase-prefix 'clean))
-	       (t ad-do-it)))
+	       (t
+		ad-do-it)))
 	(skk-henkan-active
 	 (setq skk-henkan-count 0)
 	 (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
-	     (let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
+	     (let ((count (/ (length skk-henkan-okurigana)
+			     skk-kanji-len)))
 	       (skk-previous-candidate)
-	       ;; ここでは `delete-backward-char' に第二引数を渡さない方が
-	       ;; ベター？
+	       ;; ここでは `delete-backward-char' に
+	       ;; 第二引数を渡さない方がベター？
 	       (delete-backward-char count))
 	   (skk-previous-candidate)))
 	(t
 	 (skk-erase-prefix 'clean)
-	 (and (> (point) skk-henkan-start-point)
-	      (delete-region (point) skk-henkan-start-point))
+	 (if (> (point) skk-henkan-start-point)
+	     (delete-region (point)
+			    skk-henkan-start-point))
 	 (skk-kakutei))))
 
 ;;
