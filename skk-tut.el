@@ -1,13 +1,13 @@
 ; SKK tutorial for SKK version 10.46 and later versions
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-;;               1998, 1999
+;;               1998, 1999, 2000
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.9 1999/10/03 11:51:49 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.10 2000/07/17 21:07:52 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 11:51:49 $
+;; Last Modified: $Date: 2000/07/17 21:07:52 $
 
 ;; This file is part of SKK.
 
@@ -37,11 +37,8 @@
 
 ;; User variables.  prefix should be `skk-tut-'.
 (defcustom skk-tut-file 
-  (cond
-   ((and skk-package-data-directory
-	 (file-exists-p (expand-file-name "SKK.tut" skk-package-data-directory)) )
-    (expand-file-name "SKK.tut" skk-package-data-directory) )
-   (t "/usr/local/share/skk/SKK.tut") )
+  (static-cond ((eq skk-emacs-type 'xemacs) (locate-data-file "SKK.tut"))
+	       (t "/usr/local/share/skk/SKK.tut"))
   "*SKK チュートリアルのファイル名。
 The English version is SKK.tut.E."
   :type 'file

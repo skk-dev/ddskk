@@ -1,3 +1,10 @@
+2000-07-18  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-foreword.el (skk-package-data-directory): Removed.
+
+	* skk-tut.el (skk-tut-file): Use `locate-data-file' instead of
+	referring to `skk-package-data-directory'.
+
 2000-06-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-cursor.el: Change YAMATO san's email address.

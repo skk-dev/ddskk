@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.14 1999/11/10 12:09:03 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.15 2000/07/17 21:07:52 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/11/10 12:09:03 $
+;; Last Modified: $Date: 2000/07/17 21:07:52 $
 
 ;; This file is not part of SKK yet.
 
@@ -95,20 +95,6 @@
 				       (string< "3.0" mule-version) 'mule3 ))
 				 ((and (boundp 'mule-version)
 				       (string< "2.0" mule-version) 'mule2 )))))
-
-(defconst skk-package-data-directory
-  (if (boundp 'early-packages)
-      (let ((dirs (append (if early-package-load-path early-packages)
-			  (if late-package-load-path late-packages)
-			  (if last-package-load-path last-packages) ))
-	    dir )
-	(while (not (file-exists-p (setq dir (car dirs))))
-	  (setq dirs (cdr dirs)) )
-	(and dir
-	     (expand-file-name "skk" (expand-file-name "etc" dir)) ))))
-
-;;(princ (format "SKK-PACKAGE-DATA-DIRECTORY is %s\n"
-;;	       skk-package-data-directory ))
 
 ;; necessary macro and functions to be declared before user variable declarations.
 
