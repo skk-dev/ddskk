@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.39 2003/07/12 11:09:47 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.40 2003/07/12 11:14:29 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/12 11:09:47 $
+;; Last Modified: $Date: 2003/07/12 11:14:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -132,7 +132,7 @@
 (defcustom skk-study-max-distance 30
   "*直前に確定したポイントと今回の変換ポイントがこの距離以上離れていると学習しない。
 nil の場合は直前に確定したポイントとの距離を考慮せずに学習する。"
-  :type 'integer
+  :type '(choice integer (const nil))
   :group 'skk-study)
 
 ;;; system internal variables and constants.
