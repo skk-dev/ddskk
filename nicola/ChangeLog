@@ -1,3 +1,9 @@
+2002-07-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el:
+	(isearch-text-char-description): Do not put advice to this
+	function.
+
 2002-07-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el:
