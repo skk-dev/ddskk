@@ -114,8 +114,8 @@ Install patch/e18/advice.el in load-path and try again.")))
        (condition-case nil
 	   (run-hooks (, hook))
 	 (error
-	  (when (symbolp (quote (, hook)))
-	    (setq (, hook) nil)))))))
+	  (when (symbolp (, hook))
+	    (set (, hook) nil)))))))
 
 ;; Inline functions.
 ;; Pieces of advice.
@@ -191,7 +191,7 @@ Install patch/e18/advice.el in load-path and try again.")))
 	   (format " *Minibuf-%d*" (minibuffer-depth)))
 	(save-window-excursion
 	  (set-window-buffer (minibuffer-window) (current-buffer))
-	  (skk-e18-safe-run-hooks minibuffer-exit-hook))))))
+	  (skk-e18-safe-run-hooks 'minibuffer-exit-hook))))))
 
 ;; Emacs 18 において、`defadvice' は関数の定義後に呼ばれる必要があるため、以
 ;; 下の関数を定義しておいて、これを `skk-mode-invoke' から呼び出す。
