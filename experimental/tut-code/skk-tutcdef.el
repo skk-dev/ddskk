@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.6 1999/09/27 08:00:34 minakaji Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.8 1999/10/03 12:18:31 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/27 08:00:34 $
+;; Last Modified: $Date: 1999/10/03 12:18:31 $
 
 ;; This file is not part of SKK yet.
 
@@ -29,7 +29,7 @@
 ;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;;; Code:
-(eval-when-compile (require 'skk))
+(eval-when-compile (require 'skk) (require 'skk-tutcode))
 
 (define-key skk-j-mode-map "\C-l" 'skk-latin-mode)
 (setq skk-auto-insert-paren t)
@@ -60,7 +60,7 @@
    ("\t" nil skk-toggle-kana)
    ("^" nil skk-input-by-code-or-menu) ))
 
-(if (and (eq skk-emacs-type 'xemacs) (= (emacs-major-version) 20))
+(if (and (eq skk-emacs-type 'xemacs) (= emacs-major-version 20))
     (progn
       (setq skk-rom-kana-base-rule-list
 	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list) )

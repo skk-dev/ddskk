@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.10 1999/09/27 08:01:20 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.11 1999/10/03 12:16:07 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/27 08:01:20 $
+;; Last Modified: $Date: 1999/10/03 12:16:07 $
 
 ;; This file is not part of SKK yet.
 
@@ -84,6 +84,7 @@
 ;;; Code:
 (eval-when-compile (require 'skk))
 
+;;;###autoload
 (defgroup skk-tutcode nil "SKK/TUT-code related customization."
   :prefix "skk-tutcode-"
   :group 'skk )
