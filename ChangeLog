@@ -5,6 +5,8 @@
 	* skk.el (skk-compute-henkan-lists): Modify okuriganas in blocks
 	when `skk-use-kana-keyboard' and `skk-henkan-okuri-strictly' are
 	both non-nil.
+	(skk-set-henkan-point): When `skk-process-okuri-early' is non-nil,
+	Set `skk-okuri-char' according to `skk-okuri-char-alist'.
 
 2000-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2700,8 +2702,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.201 2000/12/05 12:04:52 czkmt Exp $
-Last Modified: $Date: 2000/12/05 12:04:52 $
+Version: $Id: ChangeLog,v 1.202 2000/12/05 15:00:22 czkmt Exp $
+Last Modified: $Date: 2000/12/05 15:00:22 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
