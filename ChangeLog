@@ -1,3 +1,20 @@
+2001-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-dcomp.el (skk-dcomp-marked-p): New function. Each function
+	should call it for checking if the word has been completed or not.
+	(skk-kana-input, skk-kakutei, keyboard-quit, skk-comp): `ad-do-it'
+	when skk-dcomp is not active.
+
+	* skk-develop.el (lisp-font-lock-keywords-2): Highlight
+	`skk-defadvice'.
+
+	* skk-e21.el, skk-xemacs.el: Add `skk-submit-bug-report' to the
+	popup menu.
+
+	* READMEs/NEWS: Update.
+
+	* etc/Emacs.ad: Add `skk-submit-bug-report'.
+
 2001-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Remove codes for Emacs 18.
@@ -1792,8 +1809,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.372 2001/09/09 03:39:03 czkmt Exp $
-Last Modified: $Date: 2001/09/09 03:39:03 $
+Version: $Id: ChangeLog,v 1.373 2001/09/11 13:52:37 czkmt Exp $
+Last Modified: $Date: 2001/09/11 13:52:37 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
