@@ -29,7 +29,15 @@ Beta.
 
 同梱のバージョンの SKK がサポートするもの。
 
-以下のものは動作確認できます。
+以下のものは正式対応です。
+
+o Emacs 20.7 以降
+
+  (対応するバージョンの Meadow を含む)
+
+o XEmacs 21.4.x
+
+以下のものは、動作確認は不十分ですが、一応動くものと思われます。
 
 o Mule 2.3 based on Emacs 19.28
 
@@ -37,20 +45,11 @@ o Mule 2.3 based on Emacs 19.28
 
 o Mule 2.3 based on Emacs 19.34
 
-o Emacs 20.7 以降
-
-  (対応するバージョンの Meadow を含む)
-
-o XEmacs 21.1.14
-
-o XEmacs 21.4.x
-
-
 NICOLA-DDSKK は、Nemacs と Mule 1.1 では動きません。その理由として
 
 o 浮動小数点数が扱えないこと
 
-o 関数 sit-for() の引数としてミリ秒を渡せないこと
+o #'sit-for の引数としてミリ秒を渡せないこと
 
 が挙げられます。
 
@@ -107,6 +106,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
    ストールしてください。つまり、SKK をバージョンアップしたら必ず
    NICOLA-DDSKK をインストールし直してください。
 
+   % cd nicola
    % make install (XEmacs では make install-package)
 
 
