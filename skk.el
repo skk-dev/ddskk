@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.121 2001/09/14 12:06:19 czkmt Exp $
+;; Version: $Id: skk.el,v 1.122 2001/09/14 12:07:19 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/14 12:06:19 $
+;; Last Modified: $Date: 2001/09/14 12:07:19 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3545,12 +3545,11 @@ If you want to restore the dictionary from the disc, try
   ;; 辞書の制限から辞書エントリ内に含めてはならない文字が WORD の中にあれば、
   ;; 評価したときにその文字となるような Lisp コードを返す。
   (save-match-data
-    (if (and
-	 word
-	 (string-match "[/\n\r\"]" word)
-	 ;; we should not quote WORD if it is a symbolic expression
-	 (not (skk-lisp-prog-p word))
-	 (not (string-match ";" word))) ; has an annotation
+    (if (and word
+	     (string-match "[/\n\r\"]" word)
+	     ;; we should not quote WORD if it is a symbolic expression
+	     (not (skk-lisp-prog-p word))
+	     (not (string-match ";" word))) ; has an annotation
 	(skk-quote-char-1 word (cdr skk-quote-char-alist))
       word)))
 
