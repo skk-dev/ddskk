@@ -2,11 +2,12 @@
 @c
 @c  Author: Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk-faq.texi,v 1.13 2000/10/25 00:14:32 minakaji Exp $
+@c  Version: $Id: skk-faq.texi,v 1.14 2000/10/25 15:34:17 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/25 00:14:32 $
+@c  Last Modified: $Date: 2000/10/25 15:34:17 $
 @c
 @setfilename skk-faq.info
+@c @settitle Frequently Asked Questions (SKK)
 
 @c @node Frequently Asked Questions, $B;v9`:w0z(B, $B<U<-$H$*4j$$(B, Top
 @c @chapter $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
@@ -50,8 +51,11 @@
 $B$+$h$&$J5DO@$O(B 10 $BG/Mh9T$o$l$F$-$F$*$j!"7kO@$O=P$F$$$^$;$s$,!";v<B$H$7$F(B
 $B8=:_$^$G3+H/$,B3$1$i$l$F$$$^$9!#(B
 
+@display
 $B!V%7%s%W%k$JA`:n@-$N0];}$HB?5!G=2=!&9b5!G=2=$ON>N)$G$-$k!W(B
+@end display
 
+@noindent
 $B$H$$$&$N$,8=:_$N3+H/?X$N9M$($G$"$k$h$&$G$9!#(B
 
 $BB?5!G=2=$H8@$C$F$bB?$/$O%f!<%6!<%*%W%7%g%s$K$h$C$FL58z$K$9$k$3$H$,$G$-$^(B
@@ -61,6 +65,8 @@
 @comment  node-name,  next,  previous,  up
 @unnumberedsubsec Q.1-3 SKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+!)(B
 
+SKK 10 $B$K4X$7$F$O(B
+
 @itemize @minus
 @item Emacs 19.28 or later $B$r%Y!<%9$H$7$?(B Mule 2 or 3
 @item Emacs 20.2 or later
@@ -69,6 +75,7 @@
 @item Mule for Windows 1.21, 1.22
 @end itemize
 
+@noindent
 $B$,%5%]!<%H$7$h$&$H$9$kBP>]$N(B Emacs $B$G$9!#(BDaredevil $B$G$O!"(BNemacs $B>e$GF0(B
 $B$/$h$&$G$9!#(B
 
@@ -93,9 +100,9 @@ Perl $B$GF0$/(B @code{make} $B$K$D$$$F!"(B
 At Thu, 10 Aug 2000 19:06:31 +0900,
 SUZUKI Norio wrote:
  
-> CPAN$B$N(Bmodules/by-category/Development_Support$B$K(B @file{Make-1.00.tar.gz} $B$H$$$&(B
-> perl$B$G=q$+$l$?(Bmodule$B$,$"$j$^$9!#!!(BMacPerl$B$GF0$/$+$I$&$+$OJ,$+$j$^$;$s$,(B
-> $B;n$92ACM$O$"$k$G$7$g$&!#(B
+> CPAN$B$N(Bmodules/by-category/Development_Support$B$K(B 
+> @file{Make-1.00.tar.gz} $B$H$$$&(Bperl$B$G=q$+$l$?(B module $B$,$"$j$^$9!#(B
+> MacPerl$B$GF0$/$+$I$&$+$OJ,$+$j$^$;$s$,;n$92ACM$O$"$k$G$7$g$&!#(B
 @end example
 
 @noindent
@@ -204,6 +211,7 @@ SKK abbrev $B%b!<%I$H$$$&$N$O%"%9%-!<J8;z$rMxMQ$7$?JQ49$,$G$-$k%b!<%I$G(B
 * Q.2-3 SKK $B$rF~<j$7$^$7$?$,!"%5!<%P$,IU$$$F$$$J$$$N$G$9$,!#(B::  
 * Q.2-4 APEL $B$C$F2?$G$9$+!)(B::   
 * Q.2-5 $B?'!9JL$KF~<j$9$k$b$N$,$"$C$F%$%s%9%H!<%k$,Fq$7$$$G$9$M!#(B::  
+* Q.2-6 Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B::   
 @end menu
 
 @node Q.2-1 $B:G?7HG$N(B SKK $B$O$I$3$+$iF~<j$G$-$^$9$+!)(B, Q.2-2 SKK $B$rF~<j$7$^$7$?$,!"<-=q$,IU$$$F$$$J$$$N$G$9$,!#(B, Installation, Installation
@@ -270,7 +278,7 @@ Emacs $B$N$=$l$>$l$N%P!<%8%g%s4V$N:90[$r5[<}$9$k%Q%C%1!<%8$G$9!#(B
 $B4V$N(B work around $B$N%N%&%O%&$rA4ItH?1G$7$F$b$i$$$^$7$?$N$G!"(BAPEL $B<+BN!"(B
 $BBgI}$KHFMQ@-$,%"%C%W$7$F$$$^$9!#(B
 
-@node Q.2-5 $B?'!9JL$KF~<j$9$k$b$N$,$"$C$F%$%s%9%H!<%k$,Fq$7$$$G$9$M!#(B,  , Q.2-4 APEL $B$C$F2?$G$9$+!)(B, Installation
+@node Q.2-5 $B?'!9JL$KF~<j$9$k$b$N$,$"$C$F%$%s%9%H!<%k$,Fq$7$$$G$9$M!#(B, Q.2-6 Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B, Q.2-4 APEL $B$C$F2?$G$9$+!)(B, Installation
 @comment  node-name,  next,  previous,  up
 @unnumberedsubsec Q.2-5 $B?'!9JL$KF~<j$9$k$b$N$,$"$C$F%$%s%9%H!<%k$,Fq$7$$$G$9$M!#@N$OA4It0l$D$G4JC1$@$C$?$N$K!#(B
 
@@ -280,6 +288,21 @@ Emacs $B$N$=$l$>$l$N%P!<%8%g%s4V$N:90[$r5[<}$9$k%Q%C%1!<%8$G$9!#(B
 
 $B$^$?!"(BAPEL $B$N$*$+$2$G$=$l$@$1B?$/$N(B Emacsen $B$GF0$-$^$9!#(BAPEL $B$K46<U$3$=(B
 $B$9$l!":($`$N$O6Z0c$$$G$7$g$&!#(B@xref{Q.2-4 APEL $B$C$F2?$G$9$+!)(B}.
+
+@node Q.2-6 Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B, , Q.2-5 $B?'!9JL$KF~<j$9$k$b$N$,$"$C$F%$%s%9%H!<%k$,Fq$7$$$G$9$M!#(B, Installation
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.2-6 Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B
+
+SKK 9.6 $B$O(B Emacs 20 $B$,%j%j!<%9$5$l$k0JA0$N%P!<%8%g%s$G!"(BEmacs 20 $B$KBP(B
+$B1~$7$F$$$^$;$s!#<B:];H$($J$$$3$H$,3NG'$5$l$F$$$^$9!#(B
+
+@display
+@samp{http://openlab.ring.gr.jp/skk/index-j.html}
+@end display
+
+@noindent
+$B$K$F8x3+$5$l$F$$$k(B SKK $B$O(B Emacs 20 $B$KBP1~$7$F$$$^$9$+$i!"$=$l$r%$%s%9(B
+$B%H!<%k$7$F$/$@$5$$!#(B
 
 @node Customization, Dictionaries, Installation, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @comment  node-name,  next,  previous,  up
@@ -292,6 +315,9 @@ Emacs $B$N$=$l$>$l$N%P!<%8%g%s4V$N:90[$r5[<}$9$k%Q%C%1!<%8$G$9!#(B
 * Q.3-4 skk-input-vector $B$H(B skk-roma-kana-a $B$,8+Ev$?$j$^$;$s$,!#(B::  
 * Q.3-5 $B8!:w$9$k<-=q$rA}$d$7$?$$$N$G$9$,!#(B::  
 * Q.3-6 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B::  
+* Q.3-7 $BA4$/4A;z$,=P$F$-$^$;$s!#(B::  
+* Q.3-8 $B%A%e!<%H%j%"%k$,5/F0$G$-$^$;$s!#(B::  
+* Q.3-9 $B%9%Z!<%9$r2!$7$F$bJQ49$G$-$^$;$s!#(B::  
 @end menu
 
 @node Q.3-1 $B%$%s%8%1!<%?$r%b!<%I9T$N:8C<$KCV$-$?$$$N$G$9$,!#(B, Q.3-2 $B!V!%!W!"!V!$!W(B $B$,F~NO$G$-$k$h$&$K%+%9%?%^%$%:$7$?$$$N$G$9$,!#(B, Customization, Customization
@@ -436,7 +462,8 @@ Emacs $B$N$=$l$>$l$N%P!<%8%g%s4V$N:90[$r5[<}$9$k%Q%C%1!<%8$G$9!#(B
 
 $B$A$J$_$K!"(B@file{SKK-JISYO.JIS2} $B$O!":GBg$G$b%j!<%8%g%s4V$N%]%$%s%H:9$,(B
 8,500 $BDxEY$G$9!#(B
-@node Q.3-6 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B, , Q.3-5 $B8!:w$9$k<-=q$rA}$d$7$?$$$N$G$9$,!#(B, Customization
+
+@node Q.3-6 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B, Q.3-7 $BA4$/4A;z$,=P$F$-$^$;$s!#(B, Q.3-5 $B8!:w$9$k<-=q$rA}$d$7$?$$$N$G$9$,!#(B, Customization
 @comment  node-name,  next,  previous,  up
 @unnumberedsubsec Q.3-6 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B
 
@@ -444,7 +471,7 @@ SKK $B$rI8=`$N>uBV$G;H$C$F$$$k>l9g!"JQ49$N$?$a$K%7%U%H%-!<$rB?MQ$7$^$9$N(B
 $B$G>.;X$X$NIiC4$,Bg$-$/$J$j$^$9!#(B
 @footnote{$B$3$N$?$a!"$"$k?M!9$O(B SKK $B$r>.;X%-%i!<$H8F$S$^$9!#(B}
 
-$B$3$N6l$7$_$r2sHr$9$k$?$a$K$3$3$G$O(B 2 $B$D$NJ}K!$r>R2p$7$^$9!#(B
+$B$3$N6l$7$_$r2sHr$9$k$?$a$K$3$3$G$O(B 3 $B$D$NJ}K!$r>R2p$7$^$9!#(B
 
 @enumerate
 @item
@@ -482,6 +509,7 @@ SKK $B$rI8=`$N>uBV$G;H$C$F$$$k>l9g!"JQ49$N$?$a$K%7%U%H%-!<$rB?MQ$7$^$9$N(B
 muhenkan is undefined
 @end example
 
+@noindent
 $B$H$$$&Ez$($,JV$C$F$/$k$G$7$g$&!#<!$K!"$3$NL>A0$r;H$C$F(B @file{~/.emacs}
 $B$K@_Dj$r=q$-$3$_$^$9!#0J2<$O(B @key{$BL5JQ49(B} = @key{muhenkan} $B$N>l9g$NNc$G(B
 $B$9!#(B
@@ -509,10 +537,25 @@ muhenkan is undefined
 @kbd{M-x describe-variable} @key{RET} key-translation-map}
 
 @item
+xmodmap $B$r;H$&!#(B
+
+X $B>e$G$O!"(Bxmodmap $B$H$$$&%W%m%0%i%`$r;H$C$F%-!<G[Ns$rJQ99$G$-$^$9!#Nc$((B
+$B$P!"L5JQ49%-!<$r%7%U%H%-!<$H$7$F;H$$$?$1$l$P(B
+@cindex xmodmap
+
+@example
+% xmodmap -e 'add Shift = Muhenkan'
+@end example
+
+@noindent
+$B$H$7$^$9!#$3$l$GL5JQ49%-!<$ODL>o$N%7%U%H%-!<$HF1$8$h$&$J46$8$G;H$($k$h(B
+$B$&$K$J$j$^$9!#(B
+
+@item
 $B?F;X%7%U%HF~NO$N%(%_%e%l!<%7%g%s5!G=$rMxMQ$9$k!#(B
 @cindex $B?F;X%7%U%HF~NO(B
 
-$B$3$l$O(B 1 $B$H$O$+$J$j0c$C$?%"%W%m!<%A$G$9!#(BSKK $BK\Mh$N%m!<%^;zE*F~NO$r<N(B
+$B$3$l$O(B 1, 2 $B$H$O$+$J$j0c$C$?%"%W%m!<%A$G$9!#(BSKK $BK\Mh$N%m!<%^;zE*F~NO$r<N(B
 $B$F$F!"IY;NDL$N%o!<%W%m(B OASYS $B$N$h$&$J?F;X%7%U%HF~NO$r=$F@$7$^$9!#(B
 @footnote{$B?F;X%7%U%HF~NO$N>\:Y$K$D$$$F$O!"$3$3$G$O=R$Y$^$;$s!#6=L#$,$"$k(B
 $B>l9g$O!"F|K\8lF~NO%3%s%=!<%7%"%`$N(B Web $B%5%$%H(B
@@ -555,6 +598,102 @@ NICOLA $BG[Ns$O!"FCJL$KF|K\8lF~NO$N$?$a$K9M$($i$l$?G[Ns$J$N$G!"47$l$l$P(B
 $B%^;zE*F~NOJ}<0$K47$l$F$7$^$C$F$$$k?M$K$H$C$F$O!"(BNICOLA $BG[Ns$K47$l$k$^(B
 $B$G$+$J$jN}=,$rMW$9$k$3$H$O3N$+$G$9!#(B
 @end enumerate
+
+@node Q.3-7 $BA4$/4A;z$,=P$F$-$^$;$s!#(B, Q.3-8 $B%A%e!<%H%j%"%k$,5/F0$G$-$^$;$s!#(B, Q.3-6 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-7 $BA4$/4A;z$,=P$F$-$^$;$s!#(B
+
+$B62$i$/<-=q$N@_Dj$,$G$-$F$$$J$$$N$G$7$g$&!#(B
+
+@file{SKK-JISYO.L} $B$H$$$&%U%!%$%k$,%$%s%9%H!<%k$5$l$F$$$k>l=j$r3NG'$7$F(B
+$B$/$@$5$$!#IaDL$O(B
+
+@display
+@file{/usr/local/share/skk}
+@file{/usr/share/skk}
+@end display
+
+@noindent
+$B$H$$$C$?>l=j$K%$%s%9%H!<%k$5$l$F$$$^$9!#(BXEmacs $B$N%Q%C%1!<%8$J$i$P(B
+
+@display
+@file{/usr/local/lib/xemacs/mule-packages/etc/skk}
+@end display
+
+@noindent
+$B$J$I$r3NG'$7$^$9!#$=$N8e$G(B @file{~/.skk} $B$K(B
+
+@lisp
+(setq skk-large-jisyo "/usr/local/share/skk/SKK-JISYO.L")
+@end lisp
+@vindex skk-large-jisyo
+
+@noindent
+$B$N$h$&$K@_Dj$7$^$9!#(B
+
+$B$J$*!"<-=q%5!<%P$r;H$C$F$$$k>l9g$O$3$N@_Dj$OI,MW$"$j$^$;$s!#$=$N>l9g$O!"(B
+$B<-=q%5!<%P$N@_Dj$d!"$=$l$,$A$c$s$H5/F0$7$F$$$k$+$I$&$+$r3NG'$7$F$/$@$5(B
+$B$$!#(B
+
+$B$^$?!"$I$3$K$b<-=q$,%$%s%9%H!<%k$5$l$F$$$J$$>l9g$O(B
+
+@display
+@samp{http://openlab.ring.gr.jp/skk/dic/}
+@end display
+
+@noindent
+$B$+$i<hF@$7$^$9!#(B
+
+@node Q.3-8 $B%A%e!<%H%j%"%k$,5/F0$G$-$^$;$s!#(B, Q.3-9 $B%9%Z!<%9$r2!$7$F$bJQ49$G$-$^$;$s!#(B, Q.3-7 $BA4$/4A;z$,=P$F$-$^$;$s!#(B, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-8 $B%A%e!<%H%j%"%k$,5/F0$G$-$^$;$s!#(B
+@cindex $B%A%e!<%H%j%"%k(B
+
+@file{SKK.tut} $B$H$$$&%U%!%$%k$,%$%s%9%H!<%k$5$l$F$$$k>l=j$r3NG'$7$F$/$@(B
+$B$5$$!#IaDL$O(B
+
+@display
+@file{/usr/local/share/skk}
+@file{/usr/share/skk}
+@end display
+
+@noindent
+$B$H$$$C$?>l=j$K%$%s%9%H!<%k$5$l$F$$$^$9!#(BXEmacs $B$N%Q%C%1!<%8$J$i$P(B
+@cindex $B%Q%C%1!<%8(B
+
+@display
+@file{/usr/local/lib/xemacs/mule-packages/etc/skk}
+@end display
+
+@noindent
+$B$J$I$r3NG'$7$^$9!#$=$N8e$G(B @file{~/.emacs} $B$K(B
+
+@lisp
+(setq skk-tut-file "/usr/local/share/skk/SKK.tut")
+@end lisp
+@vindex skk-tut-file
+
+@noindent
+$B$N$h$&$K@_Dj$7$^$9!#(B
+
+@node Q.3-9 $B%9%Z!<%9$r2!$7$F$bJQ49$G$-$^$;$s!#(B, , Q.3-8 $B%A%e!<%H%j%"%k$,5/F0$G$-$^$;$s!#(B, Customization
+@comment  node-name,  next,  previous,  up
+@unnumberedsubsec Q.3-9 $B%9%Z!<%9$r2!$7$F$bJQ49$G$-$^$;$s!#(B
+
+$B0JA0$N%P!<%8%g%s$N(B SKK $B$G$O!"(BSKK $B$r;H$&A0$K(B Canna $B$N@_Dj$,$5$l$F$$$k$H!"(B
+$B%9%Z!<%9$r2!$7$F$b6uGr$,A^F~$5$l$k$@$1$GJQ49$G$-$J$$!"$H$$$&%P%0$,$"$j(B
+$B$^$7$?!#$3$l$O(B SKK 10.62 $B0J9_$G$O=$@5$5$l$F$$$^$9!#(B
+@cindex Canna
+
+$B$J$*!"$3$N%P%0$KBP=h$9$k$?$a$K(B
+
+@lisp
+(setq canna-use-space-key-as-henkan-region nil)
+@end lisp
+@vindex canna-use-space-key-as-henkan-region
+
+@noindent
+$B$H@_Dj$7$F$$$?>l9g$O!"$b$O$d$=$NI,MW$O$J$$$N$G>C$7$F9=$$$^$;$s!#(B
 
 @node Dictionaries, Miscellaneous, Customization, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @comment  node-name,  next,  previous,  up
@@ -625,7 +764,9 @@ edict $B$OOB1Q<-=q$G$9$,!"$3$l$r(B SKK $B<-=q7A<0$N1QOB<-=q$KJQ49$7$?$b$N$r(
 
 edict $B$r<+J,$G2C9)$7$F>e5-$HF1Ey$N$b$N$r:n@.$9$k$3$H$b$G$-$^$9!#(Bedict $B$O(B
 
+@display
 @w{@samp{ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/}}
+@end display
 
 @noindent
 $B$J$I$+$iF~<j$G$-$^$9!#(B
