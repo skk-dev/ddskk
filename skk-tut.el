@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.18 2000/11/14 13:32:01 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.19 2000/11/14 16:12:16 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 13:32:01 $
+;; Last Modified: $Date: 2000/11/14 16:12:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -632,10 +632,13 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
   ;; Make window fill its frame.
   (delete-other-windows)
   (split-window-vertically)
+  (let ((height (window-height (selected-window))))
+    (unless (< 19 height)
+      ;; Keep at least 20 lines for the upper window.
+      (enlarge-window (- 20 height))))
   (other-window 1)
   ;; make it selected window and current buffer.
   (switch-to-buffer skktut-answer-buffer)
-  (enlarge-window (- (window-height (selected-window)) 20))
   ;; not make it current buffer but visible.
   (display-buffer skktut-question-buffer)
   (setq skktut-working-window-configuration (current-window-configuration)))
