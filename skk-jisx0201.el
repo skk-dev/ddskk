@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.35 2001/10/31 13:06:22 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.36 2001/11/01 11:59:57 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/31 13:06:22 $
+;; Last Modified: $Date: 2001/11/01 11:59:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -392,51 +392,39 @@
 			     'katakana-only))))
 
 (defun skk-jisx0201-henkan (arg)
-  "▽モードであれば、リージョンのひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
+  "▽モードであれば、領域のひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
 ▼モードでは何もしない。
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-*-henkan-2 'skk-jisx0201-region 'vcontract))
+  (skk-*-henkan-2 'skk-jisx0201-region))
 
-(defun skk-jisx0201-region (start end &optional vcontract)
-  "リージョンのひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
-オプショナル引数の VCONTRACT が non-nil であれば、\"う゛\" を \"ｳﾞ\" に変換す
-る。
+(defun skk-jisx0201-region (start end)
+  "領域のひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
 引数の START と END は数字でもマーカーでも良い。"
   (interactive "*r\nP")
   (setq end (set-marker (make-marker) end))
-  (skk-hiragana-to-jisx0201-region start end vcontract)
-  (skk-katakana-to-jisx0201-region start end vcontract)
+  (skk-hiragana-to-jisx0201-region start end)
+  (skk-katakana-to-jisx0201-region start end)
   (set-marker end nil))
 
-(defun skk-hiragana-to-jisx0201-region (start end &optional vcontract)
+;;;###autoload
+(defun skk-hiragana-to-jisx0201-region (start end)
   (skk-search-and-replace
    start end
-   "[ぁ-ん]+"
+   "[ぁ-ん。、・ー゛゜]+"
    (lambda (matched)
      (save-match-data
-       (skk-jisx0201-hankaku matched))))
-  (when vcontract
-    (skk-search-and-replace
-     start end
-     "う゛"
-     (lambda (matched)
-       "ｳﾞ"))))
+       (skk-jisx0201-hankaku matched)))))
 
-(defun skk-katakana-to-jisx0201-region (start end &optional vcontract)
+;;;###autoload
+(defun skk-katakana-to-jisx0201-region (start end)
   (skk-search-and-replace
    start end
-   "[ァ-ン]+"
+   "[ァ-ヴ。、・ー゛゜]+"
    (lambda (matched)
      (save-match-data
-       (skk-jisx0201-hankaku matched))))
-  (when vcontract
-    (skk-search-and-replace
-     start end
-     "ヴ"
-     (lambda (matched)
-       "ｳﾞ"))))
+       (skk-jisx0201-hankaku matched)))))
 
 ;;
 
