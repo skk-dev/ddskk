@@ -19,6 +19,9 @@
 	(minibuffer-keyboard-quit@arond@skk-ad): Move to skk-xemacs.el.
 	(exit-minibuffer@around@skk-ad): Don't advise Emacs 18.
 
+	* vip.el: Use `skk-modeline-input-mode' instead of
+	`skk-input-mode-string'.
+
 2000-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* etc/NICOLA-SKK.tut: New file.
@@ -2518,8 +2521,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.179 2000/11/25 20:27:56 czkmt Exp $
-Last Modified: $Date: 2000/11/25 20:27:56 $
+Version: $Id: ChangeLog,v 1.180 2000/11/25 21:06:08 czkmt Exp $
+Last Modified: $Date: 2000/11/25 21:06:08 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

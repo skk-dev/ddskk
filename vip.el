@@ -4,7 +4,7 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 2000/10/30 22:10:22 $
+;; Last Modified: $Date: 2000/11/25 21:06:09 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -287,15 +287,17 @@ SKK-MODE.  Then, change mode to insert mode."
 
 (defun vip-skk-mode-off ()
   (if skk-abbrev-mode (skk-j-mode-on))
-  (let ((str (substring skk-input-mode-string 1)))
-	(setq vip-skk-latin-mode skk-latin-mode
-	      vip-skk-j-mode skk-j-mode
-	      vip-skk-jisx0208-latin-mode skk-jisx0208-latin-mode
-	      vip-skk-katakana skk-katakana
-	      vip-skk-input-mode-string)
-	(skk-kakutei)
-	(skk-mode-off)
-	(setq skk-input-mode-string (concat " [" str "]"))))
+  (let ((str (substring (skk-indicator-to-string
+			 skk-modeline-input-mode t) 1)))
+    (setq vip-skk-latin-mode skk-latin-mode
+	  vip-skk-j-mode skk-j-mode
+	  vip-skk-jisx0208-latin-mode skk-jisx0208-latin-mode
+	  vip-skk-katakana skk-katakana
+	  vip-skk-input-mode-string)
+    (skk-kakutei)
+    (skk-mode-off)
+    (setq skk-modeline-input-mode (skk-mode-string-to-indicator
+				   (concat " [" str "]")))))
 
 (defun vip-skk-mode-on ()
   (add-hook 'pre-command-hook 'skk-pre-command nil 'local)
@@ -886,7 +888,8 @@ SKK is on, then read string with SKK-J-MODE on."
   (setq save-minibuffer-local-map (copy-keymap minibuffer-local-map))
   (let (str
 	(input-mode-str
-	 (and (boundp 'skk-input-mode-string) skk-input-mode-string)))
+	 (and (boundp 'skk-modeline-input-mode)
+	      (skk-indicator-to-string skk-modeline-input-mode t))))
     (if (and skk (boundp 'skk-mode) skk-mode)
 	(add-hook 'minibuffer-setup-hook 'skk-j-mode-on))
     (define-key minibuffer-local-map "\C-h" 'backward-char)
@@ -896,10 +899,12 @@ SKK is on, then read string with SKK-J-MODE on."
 	(setq str (read-string prompt init))
       (quit
        (setq minibuffer-local-map save-minibuffer-local-map)
-       (if input-mode-str (setq skk-input-mode-string input-mode-str))
+       (if input-mode-str (setq skk-modeline-input-mode
+				(skk-mode-string-to-indicator input-mode-str)))
        (signal 'quit nil)))
     (setq minibuffer-local-map save-minibuffer-local-map)
-    (if input-mode-str (setq skk-input-mode-string input-mode-str))
+    (if input-mode-str (setq skk-modeline-input-mode
+			     (skk-mode-string-to-indicator input-mode-str)))
     str))
 
 

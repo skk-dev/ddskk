@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.15 2000/11/25 18:03:23 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.16 2000/11/25 21:06:09 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 18:03:23 $
+;; Last Modified: $Date: 2000/11/25 21:06:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -695,6 +695,21 @@ BUFFER defaults to the current buffer."
       string)))
    (t
     string)))
+
+(defsubst skk-indicator-to-string (indicator &optional no-properties)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (if (stringp indicator)
+	indicator
+      (cdr indicator)))
+   ((eq skk-emacs-type 'mule5)
+    (if no-properties
+	(with-temp-buffer
+	  (insert indicator)
+	  (buffer-substring-no-properties (point-min) (point-max)))
+      indicator))
+   (t
+    indicator)))
 
 ;;;; from dabbrev.el.  Welcome!
 ;; 判定間違いを犯す場合あり。要改良。
