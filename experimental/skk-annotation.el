@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.9 2000/11/11 03:15:46 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.10 2000/11/19 01:21:28 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2000/11/11 03:15:46 $
+;; Last Modified: $Date: 2000/11/19 01:21:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -394,7 +394,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
        (if (string-match ";" candidate)
 	   (progn
 	     (delete-region beg end)
-	     (insert (skk-annotation-quote-1 candidate))
+	     (insert (skk-quote-semicolon candidate))
 	     (or quiet
 		 (message "Quoted"))))))))
 
