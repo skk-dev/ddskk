@@ -3,6 +3,13 @@
 	* skk-cursor.el:
 	Don't advise `skk-jisx0201-mode'.
 
+	* skk-jisx0201.el
+	(skk-toggle-jisx0201): Use one `cond'.
+
+	* skk-look.el
+	(skk-look-completion): Use `unless' instead of `or'. Use `pop'
+	instead of `prog1'.
+
 	* skk-macs.el
 	(skk-erase-prefix)
 	(skk-kana-cleanup): More specific.
@@ -10,7 +17,15 @@
 	* skk.el
 	(skk-henkan-show-candidates): Use `cdr-safe' instead of `consp'
 	followed by `cdr'.
+
 	(skk-insert-new-word): More specific.
+
+	(skk-latin-mode-map)
+	(skk-j-mode-map)
+	(skk-jisx0208-latin-mode-map)
+	(skk-abbrev-mode-map): Use `unless' instead of `or'.
+
+	(skk-jisx0208-to-ascii): Use `if' instead of `and'.
 
 2001-10-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2201,8 +2216,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.451 2001/10/07 01:15:55 czkmt Exp $
-Last Modified: $Date: 2001/10/07 01:15:55 $
+Version: $Id: ChangeLog,v 1.452 2001/10/07 08:38:02 czkmt Exp $
+Last Modified: $Date: 2001/10/07 08:38:02 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
