@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.15 1999/10/03 12:57:59 minakaji Exp $
+;; Version: $Id: skk.el,v 1.16 1999/10/03 14:58:23 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 12:57:59 $
+;; Last Modified: $Date: 1999/10/03 14:58:23 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/10/03 12:57:59 $")
+      (let* ((raw-date "$Date: 1999/10/03 14:58:23 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -83,6 +83,7 @@ skk.el 9.x より ~/.emacs でのカスタマイズも可能となった。"
 ;From skk.el 9.x on all customization may be done in ~/.emacs."
 )
 
+;;;###autoload
 (defgroup skk nil "SKK basic customization."
   :prefix "skk-"
   :group 'japanese
