@@ -1,3 +1,8 @@
+2001-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	Call `skk-define-abbrev-mode-map' before `skk-define-j-mode-map'.
+
 2001-12-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/NEWS: Typo fixed.
@@ -50,29 +55,29 @@
 	* Makefile (version): Change to 11.5.2.
 
 	* doc/skk.texi
-	(SKK¤ÎÎò»Ë): Update.
-	(SKK 9 ¤«¤é¤ÎÊÑ¹¹ÅÀ): Update.
+	(SKK$B$NNr;K(B): Update.
+	(SKK 9 $B$+$i$NJQ99E@(B): Update.
 
 2001-12-02  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* doc/skk.texi
-	(XEmacs & Emacs 21 ¤Î¥â¡¼¥É¥é¥¤¥ó): Doc fixed.
+	(XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B): Doc fixed.
 
 2001-12-02  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* skk-annotation.el(skk-annotation-show): Fixed.
 
-	* doc/skk.texi: Add ¼­½ñ¤Î¥¢¥Î¥Æ¡¼¥·¥ç¥ó(Ãð¼á).
-	Add XEmacs & Emacs 21 ¤Î¥â¡¼¥É¥é¥¤¥ó.
+	* doc/skk.texi: Add $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B).
+	Add XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B.
 	(skk-lookup): Update.
-	(±ÑÃ±¸ì¤ò¤¢¤¤¤Þ¤¤¤ËÊÑ´¹¤·¤Æ¼è¤ê½Ð¤·¤¿¸å¡¢¹¹¤ËºÆµ¢Åª¤Ê±ÑÏÂÊÑ´¹¤ò¹Ô¤¦): Update.
-	(¥µ¡¼¥Ð´ØÏ¢): Update.
+	($B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$7$?8e!"99$K:F5"E*$J1QOBJQ49$r9T$&(B): Update.
+	($B%5!<%P4XO"(B): Update.
 
 2001-12-01  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (¢¦¥â¡¼¥É¤Ë¤ª¤±¤ë¼«Æ°¥À¥¤¥Ê¥ß¥Ã¥¯¥³¥ó¥×¥ê¡¼¥·¥ç¥ó):
+	* doc/skk.texi ($B"&%b!<%I$K$*$1$k<+F0%@%$%J%_%C%/%3%s%W%j!<%7%g%s(B):
 	Update.
-	(¥µ¡¼¥Ð´ØÏ¢): Add description about
+	($B%5!<%P4XO"(B): Add description about
 	`skk-server-inhibit-startup-server'.
 
 2001-12-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -103,29 +108,29 @@
 
 2001-11-25  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
-	* doc/skk.texi (APEL ¤Î¥¤¥ó¥¹¥È¡¼¥ë): Doc fixed.
-	(ºÇ¤â´ðËÜÅª¤ÊÀßÄê): Add doc about
+	* doc/skk.texi (APEL $B$N%$%s%9%H!<%k(B): Doc fixed.
+	($B:G$b4pK\E*$J@_Dj(B): Add doc about
 	sample(etc/dot.emacs,etc/dot.skk) files.
-	(Á÷¤ê²¾Ì¾¤¬Í­¤ë¾ì¹ç¤Î¼­½ñÅÐÏ¿): Add doc about
+	($BAw$j2>L>$,M-$k>l9g$N<-=qEPO?(B): Add doc about
 	skk-check-okurigana-on-touroku.
-	(¥Õ¥¡¥¤¥ë¹½À®): Update doc.
-	(¥æ¡¼¥¶¡¼¥ª¥×¥·¥ç¥ó¤ÎÀßÄêÊýË¡): Coment out skk-viper-load-hook.
-	(skk-rom-kana-rule-list¤ÎÍøÍÑÎã): Sample code fixed.
-	(¥«¥¿¥«¥Ê¤Î¸«½Ð¤·¸ì): Update doc.
-	(¼­½ñÅÐÏ¿¤ÎºÝ¤ËÃí°Õ¤¹¤Ù¤­¤³¤È): Update doc.
-	(¥×¥í¥°¥é¥à¼Â¹ÔÊÑ´¹): Doc fixed.
-	(ÎÎ°è°ì³çÊÑ´¹): Add doc about menu-bar with kakasi. Update doc.
-	(´Á»ú¥³¡¼¥É¤òÃÎ¤ëÊýË¡): Update doc.
-	(¢§¥â¡¼¥É¤Ç¤ÎBS): Doc fixed.
-	(¸Ä¿Í¼­½ñ¤ÎÊÝÂ¸Æ°ºî): Doc fixed.
-	(ÊÑ´¹µÚ¤Ó¸Ä¿Í¼­½ñ¤Ë´Ø¤¹¤ëÅý·×): Update doc.
-	(ÆþÎÏ¥â¡¼¥É¤ò¼¨¤¹¥â¡¼¥É¥é¥¤¥ó¤ÎÊ¸»úÎó¤ÎÊÑ¹¹): Doc fixed.
-	(ÆþÎÏ¥â¡¼¥É¤ò¼¨¤¹¥«¡¼¥½¥ë¿§¤Ë´Ø¤¹¤ëÀßÄê): Doc fixed.
-	(µ¯Æ°»þ¤ÎÆþÎÏ¥â¡¼¥É¤Î»ØÄê): Doc fixed.
-	(WWW¤òÍøÍÑ¤·¤ÆÆþ¼ê¤¹¤ëÊýË¡): Doc fixed.
-	(SKK¤ÎÎò»Ë): Update doc.
-	(Q.1-4 DDSKK ¤Ï¤É¤Î¥Ð¡¼¥¸¥ç¥ó¤Î Emacs ¤Ç»È¤¨¤Þ¤¹¤«?): Update doc.
-	(Q.1-6 Emacs ¤ËÉÕÂ°¤Î SKK ¤ò»È¤Ã¤Æ¤¤¤ë¤Î¤Ç¤¹¤¬): Update doc.
+	($B%U%!%$%k9=@.(B): Update doc.
+	($B%f!<%6!<%*%W%7%g%s$N@_DjJ}K!(B): Coment out skk-viper-load-hook.
+	(skk-rom-kana-rule-list$B$NMxMQNc(B): Sample code fixed.
+	($B%+%?%+%J$N8+=P$78l(B): Update doc.
+	($B<-=qEPO?$N:]$KCm0U$9$Y$-$3$H(B): Update doc.
+	($B%W%m%0%i%`<B9TJQ49(B): Doc fixed.
+	($BNN0h0l3gJQ49(B): Add doc about menu-bar with kakasi. Update doc.
+	($B4A;z%3!<%I$rCN$kJ}K!(B): Update doc.
+	($B"'%b!<%I$G$N(BBS): Doc fixed.
+	($B8D?M<-=q$NJ]B8F0:n(B): Doc fixed.
+	($BJQ495Z$S8D?M<-=q$K4X$9$kE}7W(B): Update doc.
+	($BF~NO%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs$NJQ99(B): Doc fixed.
+	($BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B): Doc fixed.
+	($B5/F0;~$NF~NO%b!<%I$N;XDj(B): Doc fixed.
+	(WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B): Doc fixed.
+	(SKK$B$NNr;K(B): Update doc.
+	(Q.1-4 DDSKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?): Update doc.
+	(Q.1-6 Emacs $B$KIUB0$N(B SKK $B$r;H$C$F$$$k$N$G$9$,(B): Update doc.
 
 2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -169,8 +174,8 @@
 2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el
-	(skk-w3m-get-candidates-from-goo-daijirin): Filter out "¡Ô" and
-	"¡Õ " from a candidate.  Check if a candidate is redundant or not.
+	(skk-w3m-get-candidates-from-goo-daijirin): Filter out "$B!T(B" and
+	"$B!U(B " from a candidate.  Check if a candidate is redundant or not.
 	Update comments.
 
 	* skk-dcomp.el: Update comments.
@@ -281,10 +286,10 @@
 
 	* doc/skk.texi (EDITION): Updated to 1.7.
 	(SKK-VERSION) : Updated to 11.5.2.
-	(¤Ï¤¸¤á¤Ë) : Add support for GNU Emacs 21.
-	(¼­½ñ¤ÎÆþ¼ê): Update doc.
-	(SKK ¤Î¥¤¥ó¥¹¥È¡¼¥ë) : Change make.bat to makeit.bat.
-	(SKK Ring Server Openlab ¥á¡¼¥ê¥ó¥°¥ê¥¹¥È) : Change ring.etl.go.jp
+	($B$O$8$a$K(B) : Add support for GNU Emacs 21.
+	($B<-=q$NF~<j(B): Update doc.
+	(SKK $B$N%$%s%9%H!<%k(B) : Change make.bat to makeit.bat.
+	(SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B) : Change ring.etl.go.jp
 	to news.ring.gr.jp.
 
 2001-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -380,7 +385,7 @@
 
 2001-11-11  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
-	* doc/skk.texi (µ¯Æ°¤È½ªÎ»): Doc fixed.
+	* doc/skk.texi ($B5/F0$H=*N;(B): Doc fixed.
 
 2001-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1260,7 +1265,7 @@
 	(skk-num-get-kanji): New function.
 
 	* skk-vars.el (skk-num-alist-type3): New variable.
-	(skk-num-alist-type5): Add "Îí".
+	(skk-num-alist-type5): Add "$BNm(B".
 
 	* READMEs/NEWS: Update.
 
@@ -1278,7 +1283,7 @@
 
 2001-09-10  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* READMEs/CVS_digest (cvs ¤ÎÆþ¼êÊýË¡): Add note about pcvs of GNU
+	* READMEs/CVS_digest (cvs $B$NF~<jJ}K!(B): Add note about pcvs of GNU
 	Emacs 21.
 
 2001-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -1291,7 +1296,7 @@
 
 	* patch/e18: Ditto.
 
-	* doc/skk.texi (SKK¤ÎÎò»Ë): New chapter.
+	* doc/skk.texi (SKK$B$NNr;K(B): New chapter.
 
 	* skk.el (skk-kakutei): Always return nil.
 
@@ -1510,41 +1515,41 @@
 
 2001-07-22  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (Q.5-2 abbrev ¥â¡¼¥É¤Ç¤â¤Ã¤È±ÑÃ±¸ì¤òÍøÍÑ¤·¤¿ÊÑ´¹¤¬
-	¤Ç¤­¤Þ¤»¤ó¤«?): Typo fixed.
-	(Q.1-1 ºÇ¿·¤Î¥Ð¡¼¥¸¥ç¥ó¤Ï?): Sync up with
+	* doc/skk.texi (Q.5-2 abbrev $B%b!<%I$G$b$C$H1QC18l$rMxMQ$7$?JQ49$,(B
+	$B$G$-$^$;$s$+(B?): Typo fixed.
+	(Q.1-1 $B:G?7$N%P!<%8%g%s$O(B?): Sync up with
 	skk/main/READMEs/FAQ.txt.
-	(Q.1-3 SKK ¤Ï¤É¤Î¥Ð¡¼¥¸¥ç¥ó¤Î Emacs ¤Ç»È¤¨¤Þ¤¹¤«?): Ditto.
-	(Q.1-6 ³«È¯ÈÇ¤Ï²¿¸Î¡¢Daredevil ¤È¸À¤¦¤Î¤Ç¤¹¤«?): Ditto.
-	(Q.1-7 APEL ¤Ë°ÍÂ¸¤»¤º¤Ë SKK ¤À¤±¤ÇºÑ¤à¤è¤¦¤Ë³«È¯¤·¤Æ¤â¤é¤¨¤Þ¤»¤ó
-	¤«?): Ditto.
-	(Q.1-6 ³«È¯ÈÇ¤Ï²¿¸Î¡¢Daredevil ¤È¸À¤¦¤Î¤Ç¤¹¤«?): Change section
-	name to `Daredevil SKK ¤Ã¤Æ SKK ¤È¤Ï°ã¤¦¤Î¤Ç¤¹¤«?' and move to
+	(Q.1-3 SKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?): Ditto.
+	(Q.1-6 $B3+H/HG$O2?8N!"(BDaredevil $B$H8@$&$N$G$9$+(B?): Ditto.
+	(Q.1-7 APEL $B$K0MB8$;$:$K(B SKK $B$@$1$G:Q$`$h$&$K3+H/$7$F$b$i$($^$;$s(B
+	$B$+(B?): Ditto.
+	(Q.1-6 $B3+H/HG$O2?8N!"(BDaredevil $B$H8@$&$N$G$9$+(B?): Change section
+	name to `Daredevil SKK $B$C$F(B SKK $B$H$O0c$&$N$G$9$+(B?' and move to
 	Q.1-2.
-	(Q.1-4 SKK ¤Ï¤É¤Î¥Ð¡¼¥¸¥ç¥ó¤Î Emacs ¤Ç»È¤¨¤Þ¤¹¤«?): Change section
-	name to `Q.1-4 DDSKK ¤Ï¤É¤Î¥Ð¡¼¥¸¥ç¥ó¤Î Emacs ¤Ç»È¤¨¤Þ¤¹¤«?'.
-	(Q.1-5 SKK ¤Ï¤É¤ó¤Ê¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Ç»È¤¨¤Þ¤¹¤«?): Change
-	section name to `Q.1-5 DDSKK ¤Ï¤É¤ó¤Ê¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Ç»È
-	¤¨¤Þ¤¹¤«?' and sync up with skk/main/READMEs/FAQ.txt.
-	(Q.2-6 Emacs 20 ¤Ë SKK 9.6 ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤Ç¤­¤Þ¤»¤ó¡£): Sync up
+	(Q.1-4 SKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?): Change section
+	name to `Q.1-4 DDSKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?'.
+	(Q.1-5 SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?): Change
+	section name to `Q.1-5 DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H(B
+	$B$($^$9$+(B?' and sync up with skk/main/READMEs/FAQ.txt.
+	(Q.2-6 Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B): Sync up
 	with skk/main/READMEs/FAQ.txt.
 
-	* READMEs/FAQ.txt ([Q.] ºÇ¿·¤Î¥Ð¡¼¥¸¥ç¥ó¤Ï?): Updated.
-	([Q.] SKK ¤Ï¤É¤Î¥Ð¡¼¥¸¥ç¥ó¤Î Emacs ¤Ç»È¤¨¤Þ¤¹¤«?): Ditto.
-	([Q.] ºÇ¿·ÈÇ¤Î SKK ¤Ï¤É¤³¤«¤éÆþ¼ê¤Ç¤­¤Þ¤¹¤«?): Ditto.
-	([Q.] ³«È¯ÈÇ¤Î SKK ¤Ï²¿¸Î¡¢`Daredevil SKK' ¤Ê¤É¤È¸À¤¦Ì¾¤¬¤Ä¤¤¤Æ¤¤
-	¤ë¤Î¤Ç¤¹¤«?): Ditto.
-	(³«È¯ÈÇ¤Î SKK ¤Ï²¿¸Î¡¢`Daredevil SKK' ¤Ê¤É¤È¸À¤¦Ì¾¤¬¤Ä¤¤¤Æ¤¤¤ë¤Î¤Ç¤¹¤«?):
-	Change section name to `Daredevil SKK ¤Ã¤Æ SKK ¤È¤Ï°ã¤¦¤Î¤Ç¤¹¤«?'.
-	([Q.] SKK ¤Ï¤É¤ó¤Ê¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Ç»È¤¨¤Þ¤¹¤«?): Change
-	section name to `[Q.] DDSKK ¤Ï¤É¤ó¤Ê¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Ç»È¤¨
-	¤Þ¤¹¤«?'
-	([Q.] Emacs 20 ¤Ë SKK 9.6 ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤Ç¤­¤Þ¤»¤ó¡£): Change URL.
-	([Q.] SKK ¤Ï¤É¤ó¤Ê¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Ç»È¤¨¤Þ¤¹¤«?): Change
-	section name to `[Q.] DDSKK ¤Ï¤É¤ó¤Ê¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Ç»È¤¨
-	¤Þ¤¹¤«?' and update sentences.
+	* READMEs/FAQ.txt ([Q.] $B:G?7$N%P!<%8%g%s$O(B?): Updated.
+	([Q.] SKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?): Ditto.
+	([Q.] $B:G?7HG$N(B SKK $B$O$I$3$+$iF~<j$G$-$^$9$+(B?): Ditto.
+	([Q.] $B3+H/HG$N(B SKK $B$O2?8N!"(B`Daredevil SKK' $B$J$I$H8@$&L>$,$D$$$F$$(B
+	$B$k$N$G$9$+(B?): Ditto.
+	($B3+H/HG$N(B SKK $B$O2?8N!"(B`Daredevil SKK' $B$J$I$H8@$&L>$,$D$$$F$$$k$N$G$9$+(B?):
+	Change section name to `Daredevil SKK $B$C$F(B SKK $B$H$O0c$&$N$G$9$+(B?'.
+	([Q.] SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?): Change
+	section name to `[Q.] DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$((B
+	$B$^$9$+(B?'
+	([Q.] Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B): Change URL.
+	([Q.] SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?): Change
+	section name to `[Q.] DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$((B
+	$B$^$9$+(B?' and update sentences.
 
-	* READMEs/PROPOSAL (Emacs ¤Î¥Ð¡¼¥¸¥ç¥ó´Öº¹°Û¤ÎµÛ¼ý¤Ï?): Updated.
+	* READMEs/PROPOSAL (Emacs $B$N%P!<%8%g%s4V:90[$N5[<}$O(B?): Updated.
 
 	* READMEs/INSTALL (APEL): Updated.
 
@@ -1554,11 +1559,11 @@
 
 2001-07-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* READMEs/PROPOSAL (Ê¬³ä¤·¤¿¥Õ¥¡¥¤¥ë¤ËÉ¬¿Ü¤Îµ­½Ò): Updated.
-	Change section name to `skk.el °Ê³°¤Î¥Õ¥¡¥¤¥ë¤ËÉ¬¿Ü¤Îµ­½Ò'.
-	(SKK 10 ¤¬Æ°ºî¤¹¤ë Emacs ¤Î¥Ð¡¼¥¸¥ç¥ó¤Ï?): Change section name to
-	`Daredevil skk 11 ¤¬Æ°ºî¤¹¤ë Emacs ¤Î¥Ð¡¼¥¸¥ç¥ó¤Ï?'.
-	(Emacs ¤Î¥Ð¡¼¥¸¥ç¥ó´Öº¹°Û¤ÎµÛ¼ý¤Ï?): Updated.
+	* READMEs/PROPOSAL ($BJ,3d$7$?%U%!%$%k$KI,?\$N5-=R(B): Updated.
+	Change section name to `skk.el $B0J30$N%U%!%$%k$KI,?\$N5-=R(B'.
+	(SKK 10 $B$,F0:n$9$k(B Emacs $B$N%P!<%8%g%s$O(B?): Change section name to
+	`Daredevil skk 11 $B$,F0:n$9$k(B Emacs $B$N%P!<%8%g%s$O(B?'.
+	(Emacs $B$N%P!<%8%g%s4V:90[$N5[<}$O(B?): Updated.
 
 	* READMEs/README: Updated.
 
@@ -1595,9 +1600,9 @@
 	* READMEs/README.Mac: New file (its original file is written by
 	Yuh Ohmura <yutopia@t3.rim.or.jp>).
 
-	* READMEs/FAQ.txt ([Q.] SKK ¤Ï¤É¤ó¤Ê¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Ç»È¤¨
-	¤Þ¤¹¤«?): Updated.
-	([Q.] APEL ¤Ë°ÍÂ¸¤»¤º¤Ë SKK ¤À¤±¤ÇºÑ¤à¤è¤¦¤Ë³«È¯¤·¤Æ¤â¤é¤¨¤Þ¤»¤ó¤«?):
+	* READMEs/FAQ.txt ([Q.] SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$((B
+	$B$^$9$+(B?): Updated.
+	([Q.] APEL $B$K0MB8$;$:$K(B SKK $B$@$1$G:Q$`$h$&$K3+H/$7$F$b$i$($^$;$s$+(B?):
 	Updated.
 
 2001-07-10  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
@@ -1755,7 +1760,7 @@
 	(skk-current-date-function): Removed.
 	(skk-GYMDWHMS-list): Removed.
 
-	* skk-viper.el (sentence-end): Add "¡¥".
+	* skk-viper.el (sentence-end): Add "$B!%(B".
 
 	* skk-auto.el: Remove unnecessary spaces between parens.
 
@@ -1832,9 +1837,9 @@
 
 	* READMEs/Contributors: Update akiho's mail-address.
 
-	* doc/skk.texi (SKK Ring Server Openlab ¥á¡¼¥ê¥ó¥°¥ê¥¹¥È): Update
+	* doc/skk.texi (SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B): Update
 	for ml program change to ezmlm.
-	(SKK¤Îºî¼Ô) : Update akiho's mail-address.
+	(SKK$B$N:n<T(B) : Update akiho's mail-address.
 
 2001-05-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1875,7 +1880,7 @@
 	* experimental/skk-w3m.el (skk-w3m-get-candidates): Removed.
 	(skk-w3m-get-candidates-from-goo-daijirin): Do not use
 	`skk-w3m-get-candidates'.
-	Filter out "¡Ò" and "¡Ó".
+	Filter out "$B!R(B" and "$B!S(B".
 
 2001-04-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -1896,7 +1901,7 @@
 	(skk-w3m-get-candidates-from-goo-exceed-eiwa-1): New function.
 	(skk-w3m-get-candidates-from-goo-exceed-eiwa): Use
 	`skk-w3m-get-candidates-from-goo-exceed-eiwa-1'.
-	Call `w3m-view-this-url' when regexp "[0-9]+  ¿·µ¬¤Ç³«¤¯" is found
+	Call `w3m-view-this-url' when regexp "[0-9]+  $B?75,$G3+$/(B" is found
 	in a *w3m* buffer.
 
 2001-04-14  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
@@ -1944,11 +1949,11 @@
 
 2001-03-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (±ÑÃ±¸ì¤ò¤¢¤¤¤Þ¤¤¤ËÊÑ´¹¤·¤Æ¼è¤ê½Ð¤·¤¿¸å¡¢¹¹¤ËºÆµ¢Åª
-	¤Ê±ÑÏÂÊÑ´¹¤ò¹Ô¤¦): Remove obsolete footnote.
-	(SKK °Ê³°¤Î¥Ä¡¼¥ë¤òÍÑ¤¤¤¿¼­½ñ¸õÊä): Change the node name to
-	`look ¥³¥Þ¥ó¥É¤òÍÑ¤¤¤¿¼­½ñÊÑ´¹'.
-	(¢¦¥â¡¼¥É¤Ë¤ª¤±¤ë¼«Æ°¥À¥¤¥Ê¥ß¥Ã¥¯¥³¥ó¥×¥ê¡¼¥·¥ç¥ó): Add new
+	* doc/skk.texi ($B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$7$?8e!"99$K:F5"E*(B
+	$B$J1QOBJQ49$r9T$&(B): Remove obsolete footnote.
+	(SKK $B0J30$N%D!<%k$rMQ$$$?<-=q8uJd(B): Change the node name to
+	`look $B%3%^%s%I$rMQ$$$?<-=qJQ49(B'.
+	($B"&%b!<%I$K$*$1$k<+F0%@%$%J%_%C%/%3%s%W%j!<%7%g%s(B): Add new
 	section.
 
 	* READMEs/Contributors (Contributors): Add Satoshi Harauchi's
@@ -1960,7 +1965,7 @@
 
 2001-03-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (SKK¤Îºî¼Ô): Add Satoshi Harauchi's email address.
+	* doc/skk.texi (SKK$B$N:n<T(B): Add Satoshi Harauchi's email address.
 
 2001-03-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1986,7 +1991,7 @@
 
 2001-03-21  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* doc/skk.texi (¥æ¡¼¥¶¡¼¥á¡¼¥ê¥ó¥°¥ê¥¹¥È): Removed.
+	* doc/skk.texi ($B%f!<%6!<%a!<%j%s%0%j%9%H(B): Removed.
 
 2001-03-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2060,10 +2065,10 @@
 	each regexp of "KOJIEN" and "KOUJIEN".
 	As to "KOUJIEN" and "KOJIEN", use number list for `match-string'
 	argument in order to pick up a pattern like
-	`¥¢¥ê¥¹¥È¥Æ¥ì¥¹¡¾¤·¤å¤®¡Ú¡½¼çµÁ¡Û'.
+	`$B%"%j%9%H%F%l%9!>$7$e$.!Z!=<g5A![(B'.
 	Set to nil 7th element of "KOUJIEN" and "KOJIEN".
 	Add a regexp to 5th element of "KOJIEN" in order to pick up a
-	pattern like `¤Ç¤ó¤·¡¾¥Ö¥Ã¥¯¡ÚÅÅ»Ò¡½¡Û'.
+	pattern like `$B$G$s$7!>%V%C%/!ZEE;R!=![(B'.
 
 2001-02-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -2126,7 +2131,7 @@
 	* Daredevil SKK 11.4 released.
 
 	* Makefile (VERSION): Change to 11.4.
-	* READMEs/Codename (ÊÑ¹¹¸Ä½ê): Updated.
+	* READMEs/Codename ($BJQ998D=j(B): Updated.
 
 2000-12-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -2199,7 +2204,7 @@
 	bug}.
 
 	* skk-vars.el (skk-kana-rom-vector): Modify the value so that
-	`skk-okurigana-prefix' returns "t" for "¤Ã".
+	`skk-okurigana-prefix' returns "t" for "$B$C(B".
 
 	* skk.el (skk-mode-invoke): Call `skk-e18-advise-skk-functions'
 	under Emacs 18.
@@ -2799,8 +2804,8 @@
 	* doc/skk.texi (skk-lookup): Replace VERSION_SPECIFIC_LISPDIR with
 	ADDITIONAL_LISPDIR.
 
-	* READMEs/FAQ.txt ([Q.] SKK ¤Î¸¡º÷¤Ç¡¢»ÔÈÎ¤Î CD-ROM ¼­½ñ¤ä¥Í¥Ã¥È¥ï¡¼
-	¥¯¤Î¼­½ñ¥µ¡¼¥Ð¤¬ÍøÍÑ¤Ç¤­¤Þ¤¹¤«¡©): Replace
+	* READMEs/FAQ.txt ([Q.] SKK $B$N8!:w$G!";THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<(B
+	$B%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+!)(B): Replace
 	VERSION_SPECIFIC_LISPDIR with ADDITIONAL_LISPDIR.
 
 	* experimental/skk-annotation.el (skk-annotation-quote): Bug
@@ -2933,8 +2938,8 @@
 	* doc/skk.texi: Call `texinfo-every-node-update' and
 	`texinfo-all-menus-update'.
 
-	* doc/skk.texi (Á÷¤ê¤¢¤êÊÑ´¹Ãæ¤ÎC-g): Doc fixed.
-	(¥«¥Ê¥â¡¼¥É¤Ç¤ÎÊÑ´¹¤ÎÁ÷¤ê²¾Ì¾¤Î½èÍý): Removed.
+	* doc/skk.texi ($BAw$j$"$jJQ49Cf$N(BC-g): Doc fixed.
+	($B%+%J%b!<%I$G$NJQ49$NAw$j2>L>$N=hM}(B): Removed.
 
 2000-11-11  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -3060,11 +3065,11 @@
 2000-10-31  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* doc/skk.texi: Add 2000 year to Copyright notice.
-	(±ÑÃ±¸ì¤ò¤¢¤¤¤Þ¤¤¤ËÊÑ´¹¤·¤Æ¼è¤ê½Ð¤¹): Remove unnecessary sentence.
+	($B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$9(B): Remove unnecessary sentence.
 
-	* READMEs/README.win (APEL ¤Î byte-compile): Doc fixed.
+	* READMEs/README.win (APEL $B$N(B byte-compile): Doc fixed.
 
-	* READMEs/CVS_digest (Tagify): Change section name to `tag ÉÕ¤±'
+	* READMEs/CVS_digest (Tagify): Change section name to `tag $BIU$1(B'
 	and update sentences.
 
 	* READMEs/INSTALL (APEL): Modify sentence slightly.
@@ -3075,8 +3080,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.584 2001/12/02 23:51:17 minakaji Exp $
-Last Modified: $Date: 2001/12/02 23:51:17 $
+Version: $Id: ChangeLog,v 1.585 2001/12/04 13:05:42 czkmt Exp $
+Last Modified: $Date: 2001/12/04 13:05:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
