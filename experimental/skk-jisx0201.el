@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.4 1999/12/30 18:05:46 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.5 2000/09/14 08:39:08 akiho Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 1999/12/30 18:05:46 $
+;; Last Modified: $Date: 2000/09/14 08:39:08 $
 
 ;; This file is not part of SKK yet.
 
@@ -300,7 +300,8 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。" )
         skk-jisx0208-latin-mode nil
         skk-katakana nil
         skk-input-mode-string skk-jisx0201-mode-string )
-  (skk-set-cursor-color skk-jisx0201-cursor-color)
+  (and (featurep 'skk-cursor)
+       (skk-set-cursor-color skk-jisx0201-cursor-color)) 
   (force-mode-line-update) )
 
 ;; advices.
@@ -612,7 +613,8 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。" )
   (skk-hiragana-to-jisx0201-region start end vcontract)
   (skk-katakana-to-jisx0201-region start end vcontract)
   (set-marker end nil)
-  (skk-set-cursor-properly) )
+  (and (featurep 'skk-cursor)
+       (skk-set-cursor-properly)) )
 
 ;; skk-jisx0201- prefix may be changed to skk-.
 (defun skk-jisx0201-search-and-replace (start end regexp func)
