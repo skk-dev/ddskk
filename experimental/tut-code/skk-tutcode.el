@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.7 1999/09/27 07:08:49 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.8 1999/09/27 07:11:17 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/27 07:08:49 $
+;; Last Modified: $Date: 1999/09/27 07:11:17 $
 
 ;; This file is not part of SKK yet.
 
@@ -58,8 +58,6 @@
 ;; <INSTALL>
 ;;
 ;; Put the following lines in your .emacs.
-;;
-;;(setq skk-use-tutcode t)
 ;;
 ;; (defadvice skk-mode (around my-ad activate)
 ;;   (require 'skk-tutcdef)
