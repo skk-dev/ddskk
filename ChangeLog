@@ -3,6 +3,16 @@
 	* skk-dcomp.el (keyboard-quit@around@skk-dcomp-ad): Make sure
 	`skk-dcomp-start-point' and `skk-dcomp-end-point' are markers.
 
+	* skk-e21.el (skk-e21-property-alist): New variable.
+	(skk-e21-prepare-modeline-properties): New function.
+
+	* skk-macs.el (skk-mode-string-to-indicator): Refer to
+	`skk-e21-property-alist'
+
+	* skk.el (skk-make-indicator-alist): Call
+	`skk-e21-prepare-modeline-properties'.
+	(skk-make-indicator-alist-1): Refer to `skk-e21-property-alist'.
+
 2001-08-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* install-info.el (install-info-delete-entry): Regexp fix.
@@ -3749,8 +3759,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.333 2001/08/31 12:55:17 czkmt Exp $
-Last Modified: $Date: 2001/08/31 12:55:17 $
+Version: $Id: ChangeLog,v 1.334 2001/08/31 16:46:13 czkmt Exp $
+Last Modified: $Date: 2001/08/31 16:46:13 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
