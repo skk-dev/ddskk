@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.54 2001/10/11 13:41:59 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.55 2001/10/11 14:45:31 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/11 13:41:59 $
+;; Last Modified: $Date: 2001/10/11 14:45:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -106,29 +106,40 @@ the return value (nil if RESULT is omitted)."
 			   (ad-get-orig-definition function)
 			 (symbol-function function))))
 	interactive)
-    (if (or (not origfunc)
+    (unless
+	(or (not origfunc)
 	    (not (subrp origfunc))
-	    (memq function	; XXX possibilly Emacs version dependent
-		  ;; interactive commands which do not have interactive specs.
-		  '(abort-recursive-edit bury-buffer delete-frame delete-window
-					 exit-minibuffer)))
-	nil
+	    (memq function ; XXX possibilly Emacs version dependent
+		  ;; built-in commands which do not have interactive specs.
+		  '(abort-recursive-edit
+		    bury-buffer
+		    delete-frame
+		    delete-window
+		    exit-minibuffer)))
       ;; check if advice definition has a interactive call or not.
       (setq interactive
-	    (cond ((and (stringp (nth 1 everything-else)) ; have document
-			(eq 'interactive (car-safe (nth 2 everything-else))))
-		   (nth 2 everything-else))
-		  ((eq 'interactive (car-safe (nth 1 everything-else)))
-		   (nth 1 everything-else))))
-      (cond ((and (commandp origfunc) (not interactive))
-	     (message
-	      "*** WARNING: Adding advice to subr %s without mirroring its interactive spec ***"
-	      function))
-	    ((and (not (commandp origfunc)) interactive)
-	     (setq everything-else (delq interactive everything-else))
-	     (message
-	      "*** WARNING: Deleted interactive call from %s advice as % is not a subr command ***"
-	      function function))))
+	    (cond
+	     ((and (stringp (nth 1 everything-else)) ; have document
+		   (eq 'interactive (car-safe (nth 2 everything-else))))
+	      (nth 2 everything-else))
+	     ((eq 'interactive (car-safe (nth 1 everything-else)))
+	      (nth 1 everything-else))))
+      (cond
+       ((and (commandp origfunc)
+	     (not interactive))
+	(message "%s"
+		 "\
+*** WARNING: Adding advice to subr %s\
+ without mirroring its interactive spec ***"
+		 function))
+       ((and (not (commandp origfunc))
+	     interactive)
+	(setq everything-else (delq interactive everything-else))
+	(message
+	 "\
+*** WARNING: Deleted interactive call from %s advice\
+ as % is not a subr command ***"
+	 function function))))
     (` (defadvice (, function) (,@ everything-else)))))
 
 (put 'skk-defadvice 'lisp-indent-function 'defun)
@@ -144,8 +155,8 @@ the return value (nil if RESULT is omitted)."
 (def-edebug-spec skk-save-point t)
 
 (defmacro skk-message (japanese english &rest arg)
-  ;; skk-japanese-message-and-error が non-nil だったら JAPANESE を nil であれ
-  ;; ば ENGLISH をエコーエリアに表示する。
+  ;; skk-japanese-message-and-error が non-nil だったら JAPANESE を
+  ;; nil であれば ENGLISH をエコーエリアに表示する。
   ;; ARG は message 関数の第２引数以降の引数として渡される。
   (append
    (if arg
@@ -160,8 +171,8 @@ the return value (nil if RESULT is omitted)."
    arg))
 
 (defmacro skk-error (japanese english &rest arg)
-  ;; skk-japanese-message-and-error が non-nil だったら JAPANESE を nil であれ
-  ;; ば ENGLISH をエコーエリアに表示し、エラーを発生させる。
+  ;; skk-japanese-message-and-error が non-nil だったら JAPANESE を
+  ;; nil であれば ENGLISH をエコーエリアに表示し、エラーを発生させる。
   ;; ARG は error 関数の第２引数以降の引数として渡される。
   (append
    (if arg
@@ -176,17 +187,17 @@ the return value (nil if RESULT is omitted)."
    arg))
 
 (defmacro skk-yes-or-no-p (japanese english)
-  ;; skk-japanese-message-and-error が non-nil であれば、japanese を nil であ
-  ;; れば english をプロンプトとして yes-or-no-p を実行する。
-  ;; yes-or-no-p の引数のプロンプトが複雑に入れ込んでいる場合はこのマクロを使
-  ;; うよりオリジナルの yes-or-no-p を使用した方がコードが複雑にならない場合が
-  ;; ある。
+  ;; skk-japanese-message-and-error が non-nil であれば、japanese を
+  ;; nil であれば english をプロンプトとして yes-or-no-p を実行する。
+  ;; yes-or-no-p の引数のプロンプトが複雑に入れ込んでいる場合はこの
+  ;; マクロを使うよりオリジナルの yes-or-no-p を使用した方がコードが
+  ;; 複雑にならない場合がある。
   (list 'yes-or-no-p (list 'if 'skk-japanese-message-and-error
 				   japanese english)))
 
 (defmacro skk-y-or-n-p (japanese english)
-  ;; skk-japanese-message-and-error が non-nil であれば、japanese を nil であ
-  ;; れば english をプロンプトとして y-or-n-p を実行する。
+  ;; skk-japanese-message-and-error が non-nil であれば、japanese を
+  ;; nil であれば english をプロンプトとして y-or-n-p を実行する。
   (list 'y-or-n-p (list 'if 'skk-japanese-message-and-error
 				japanese english)))
 
@@ -204,14 +215,14 @@ the return value (nil if RESULT is omitted)."
   (` (progn
        (defvar (, var) (, default-value)
 	       (, (format "%s\n\(buffer local\)" documentation)))
-       (make-variable-buffer-local '(, var))
-       )))
+       (make-variable-buffer-local '(, var)))))
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
 
 (defmacro skk-with-point-move (&rest form)
   ;; ポイントを移動するがフックを実行してほしくない場合に使う。
   (` (unwind-protect
-	 (progn (,@ form))
+	 (progn
+	   (,@ form))
        (setq skk-previous-point (point)))))
 
 (def-edebug-spec skk-with-point-move t)
@@ -233,7 +244,8 @@ the return value (nil if RESULT is omitted)."
 	 (if (not (overlayp (, object)))
 	     (progn
 	       (setq (, object) (make-overlay (, start) (, end)))
-	       (and (, priority) (overlay-put (, object) 'priority (, priority)))
+	       (when (, priority)
+		 (overlay-put (, object) 'priority (, priority)))
 	       (overlay-put (, object) 'face (, face))
 	       ;;(overlay-put (, object) 'evaporate t)
 	       )
@@ -310,20 +322,20 @@ the return value (nil if RESULT is omitted)."
   (or pos2 (setq pos2 (skk-str-length str)))
   (static-cond
    ((eq skk-emacs-type 'mule2)
-    (if (< pos1 0)
-	(setq pos1 (+ (skk-str-length str) pos1)))
-    (if (< pos2 0)
-	(setq pos2 (+ (skk-str-length str) pos2)))
+    (when (< pos1 0)
+      (setq pos1 (+ (skk-str-length str) pos1)))
+    (when (< pos2 0)
+      (setq pos2 (+ (skk-str-length str) pos2)))
     (if (>= pos1 pos2)
 	""
       (let ((sl (nthcdr pos1 (string-to-char-list str))))
 	(setcdr (nthcdr (- pos2 pos1 1) sl) nil)
 	(mapconcat 'char-to-string sl ""))))
    ((eq skk-emacs-type 'mule3)
-    (if (< pos1 0)
-	(setq pos1 (+ (skk-str-length str) pos1)))
-    (if (< pos2 0)
-	(setq pos2 (+ (skk-str-length str) pos2)))
+    (when (< pos1 0)
+      (setq pos1 (+ (skk-str-length str) pos1)))
+    (when (< pos2 0)
+      (setq pos2 (+ (skk-str-length str) pos2)))
     (if (>= pos1 pos2)
 	""
       (let ((sl (nthcdr pos1 (string-to-char-list str))))
@@ -376,7 +388,8 @@ the return value (nil if RESULT is omitted)."
 (defsubst skk-char-octet (ch &optional n)
   (static-cond
    ((eq skk-emacs-type 'xemacs)
-    (or (nth (if n (1+ n) 1) (split-char ch)) 0))
+    (or (nth (if n (1+ n) 1) (split-char ch))
+	0))
    (t
     ;; FSF Emacs
     (char-octet ch n))))
@@ -486,7 +499,9 @@ BUFFER defaults to the current buffer."
 (defsubst skk-make-rule-tree (char prefix nextstate kana branch-list)
   (list char
 	prefix
-	(if (string= nextstate "") nil nextstate)
+	(if (string= nextstate "")
+	    nil
+	  nextstate)
 	kana
 	branch-list))
 
@@ -509,7 +524,8 @@ BUFFER defaults to the current buffer."
   (nth 2 tree))
 
 (defsubst skk-set-nextstate (tree nextstate)
-  (if (string= nextstate "") (setq nextstate nil))
+  (when (string= nextstate "")
+    (setq nextstate nil))
   (setcar (nthcdr 2 tree) nextstate))
 
 (defsubst skk-get-kana (tree)
@@ -579,18 +595,23 @@ BUFFER defaults to the current buffer."
       t)))
 
 (defsubst skk-numeric-p ()
-  (and skk-use-numeric-conversion (require 'skk-num) skk-num-list))
+  (and skk-use-numeric-conversion
+       (require 'skk-num)
+       skk-num-list))
 
 (defsubst skk-file-exists-and-writable-p (file)
   (and (setq file (expand-file-name file))
-       (file-exists-p file) (file-writable-p file)))
+       (file-exists-p file)
+       (file-writable-p file)))
 
 (defsubst skk-lower-case-p (char)
   ;; CHAR が小文字のアルファベットであれば、t を返す。
-  (and (<= ?a char) (>= ?z char)))
+  (and (<= ?a char)
+       (>= ?z char)))
 
 (defsubst skk-downcase (char)
-  (or (cdr (assq char skk-downcase-alist)) (downcase char)))
+  (or (cdr (assq char skk-downcase-alist))
+      (downcase char)))
 
 (defsubst skk-mode-off ()
   (setq skk-mode nil
@@ -669,21 +690,22 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-insert-prefix (&optional char)
   ;; skk-echo が non-nil であればカレントバッファに skk-prefix を挿入する。
-  (and skk-echo
-       ;; skk-prefix の挿入をアンドゥの対象としない。挿入したプレフィックスは、
-       ;; かな文字を挿入する前に全て消去するので、その間、buffer-undo-list を
-       ;; t にしてアンドゥ情報を蓄えなくとも問題がない。
-       (skk-cannot-be-undone
-	(insert-and-inherit (or char skk-prefix)))))
+  (when skk-echo
+    ;; skk-prefix の挿入をアンドゥの対象としない。挿入したプレフィックスは、
+    ;; かな文字を挿入する前に全て消去するので、その間、buffer-undo-list を
+    ;; t にしてアンドゥ情報を蓄えなくとも問題がない。
+    (skk-cannot-be-undone
+     (insert-and-inherit (or char skk-prefix)))))
 
 (defsubst skk-string<= (str1 str2)
   ;; STR1 と STR2 とを比較して、string< か string= であれば、t を返す。
-  (or (string< str1 str2) (string= str1 str2)))
+  (or (string< str1 str2)
+      (string= str1 str2)))
 
 (defsubst skk-do-auto-fill ()
   ;; auto-fill-function に値が代入されていれば、それをコールする。
-  (if auto-fill-function
-      (funcall auto-fill-function)))
+  (when auto-fill-function
+    (funcall auto-fill-function)))
 
 (defsubst skk-current-input-mode ()
   (cond (skk-abbrev-mode 'abbrev)
@@ -696,11 +718,11 @@ BUFFER defaults to the current buffer."
 ;;  (char-to-string (string-to-char string)))
 
 (defsubst skk-get-current-candidate-1 ()
-  (if (> 0 skk-henkan-count)
-      (skk-error "候補を取り出すことができません"
-		 "Cannot get current candidate")
-    ;; (nth -1 '(A B C)) は、A を返すので、負でないかどうかチェックする。
-    (nth skk-henkan-count skk-henkan-list)))
+  (when (> 0 skk-henkan-count)
+    (skk-error "候補を取り出すことができません"
+	       "Cannot get current candidate"))
+  ;; (nth -1 '(A B C)) は、A を返すので、負でないかどうかチェックする。
+  (nth skk-henkan-count skk-henkan-list))
 
 ;; convert skk-rom-kana-rule-list to skk-rule-tree.
 ;; The rule tree follows the following syntax:
@@ -717,7 +739,8 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-unread-event (event)
   ;; Unread single EVENT.
-  (setq unread-command-events (nconc unread-command-events (list event))))
+  (setq unread-command-events
+	(nconc unread-command-events (list event))))
 
 (defsubst skk-get-last-henkan-datum (key)
   (cdr (assq key skk-last-henkan-data)))
@@ -746,12 +769,14 @@ BUFFER defaults to the current buffer."
 	 code)
 	((and code (stringp code))
 	 (cdr (assoc code skk-coding-system-alist)))
-	(t (cdr (assoc "euc" skk-coding-system-alist)))))
+	(t
+	 (cdr (assoc "euc" skk-coding-system-alist)))))
 
 (defsubst skk-lisp-prog-p (string)
   ;; STRING が Lisp プログラムであれば、t を返す。
   (let ((l (skk-str-length string)))
-    (and (> l 2) (eq (aref string 0) ?\()
+    (and (> l 2)
+	 (eq (aref string 0) ?\()
 	 ;; second character is ascii or not.
 	 (skk-ascii-char-p (aref string 1))
 	 (eq (skk-str-ref string (1- l)) ?\)))))
@@ -759,15 +784,16 @@ BUFFER defaults to the current buffer."
 (defsubst skk-eval-string (string)
   ;; eval STRING as a lisp program and return the result.
   (let (func)
-    ;; (^_^;) のような文字列に対し、read-from-string を呼ぶとエラーになるの
-    ;; で、condition-case でそのエラーを捕まえる。
+    ;; (^_^;) のような文字列に対し、read-from-string を呼ぶと
+    ;; エラーになるので、condition-case でそのエラーを捕まえる。
     (condition-case nil
 	(setq func (car (read-from-string string)))
-      (error (setq func string)))
-    (condition-case nil
-	(and (listp func) (functionp (car func))
-	     (setq string (eval func)))
-      (error))
+      (error
+       (setq func string)))
+    (ignore-errors
+      (when (and (listp func)
+		 (functionp (car func)))
+	(setq string (eval func))))
     string))
 
 ;;;; from dabbrev.el.  Welcome!
