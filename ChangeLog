@@ -1,5 +1,7 @@
 2002-01-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* etc/skk.xpm: New file.
+
 	* SKK-MK
 	(SKK_TUTORIALS): Add skk.xpm.
 
@@ -3220,8 +3222,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.610 2002/01/03 01:23:48 czkmt Exp $
-Last Modified: $Date: 2002/01/03 01:23:48 $
+Version: $Id: ChangeLog,v 1.611 2002/01/03 13:59:35 czkmt Exp $
+Last Modified: $Date: 2002/01/03 13:59:35 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
