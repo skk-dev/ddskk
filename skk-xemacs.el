@@ -53,7 +53,8 @@
 			    (skk-cursor-current-color)
 			    (current-buffer))))
      :selected (and skk-j-mode (not skk-katakana))
-     :style radio]
+     :style radio
+     :keys nil]
     ["Katakana"
      (lambda ()
        (interactive)
@@ -88,15 +89,30 @@
 (defun skk-xemacs-modeline-menu ()
   (interactive)
   ;; Find keys
+  (aset (nth 1 skk-xemacs-modeline-menu-items)
+	7
+	(if skk-j-mode 
+	    (if skk-katakana
+		(skk-xemacs-find-func-keys 'skk-toggle-kana)
+	      "")
+	  (skk-xemacs-find-func-keys 'skk-kakutei)))
   (aset (nth 2 skk-xemacs-modeline-menu-items)
 	7
-	(skk-xemacs-find-func-keys 'skk-toggle-kana))
+	(if skk-j-mode
+	    (if skk-katakana
+		""
+	      (skk-xemacs-find-func-keys 'skk-toggle-kana))
+	  ""))
   (aset (nth 3 skk-xemacs-modeline-menu-items)
 	7
-	(skk-xemacs-find-func-keys 'skk-latin-mode))
+	(if skk-j-mode
+	    (skk-xemacs-find-func-keys 'skk-latin-mode)
+	  ""))
   (aset (nth 4 skk-xemacs-modeline-menu-items)
 	7
-	(skk-xemacs-find-func-keys 'skk-jisx0208-latin-mode))
+	(if skk-j-mode
+	    (skk-xemacs-find-func-keys 'skk-jisx0208-latin-mode)
+	  ""))
   ;;
   (popup-menu skk-xemacs-modeline-menu-items))
 

@@ -1,3 +1,11 @@
+2001-03-21  Masatake YAMATO  <jet@gyve.org>
+
+	* skk-xemacs.el (skk-xemacs-modeline-menu-items): 
+	Added :keys slot to "Hiragana" menu item vector.
+	(skk-xemacs-modeline-menu): Change the value of :keys
+	slot of skk-xemacs-modeline-menu-items according to
+	the input mode.
+
 2001-03-21  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* doc/skk.texi (ユーザーメーリングリスト): Removed.
@@ -5,7 +13,7 @@
 2001-03-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-xemacs.el (skk-xemacs-modeline-menu-items): Add new menu
-	items - "Hiragana", "Katakana""Hankaku alphabet" and
+	items - "Hiragana", "Katakana", "Hankaku alphabet" and
 	"Zenkaku alphabet".
 	(skk-xemacs-modeline-menu): Find keys for "Katakana".
 	(skk-xemacs-find-func-keys); New function.
@@ -3176,8 +3184,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.263 2001/03/21 03:47:01 akiho Exp $
-Last Modified: $Date: 2001/03/21 03:47:01 $
+Version: $Id: ChangeLog,v 1.264 2001/03/21 14:06:20 czkmt Exp $
+Last Modified: $Date: 2001/03/21 14:06:20 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
