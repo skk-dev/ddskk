@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.173 2001/11/02 13:59:38 czkmt Exp $
+;; Version: $Id: skk.el,v 1.174 2001/11/03 12:56:23 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/02 13:59:38 $
+;; Last Modified: $Date: 2001/11/03 12:56:23 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -977,7 +977,8 @@ dependent."
   (cond ((eq skk-henkan-mode 'active)
 	 ;; 接尾辞のための処理。
 	 (skk-kakutei)
-	 (skk-set-henkan-point-subr)
+	 (let (skk-kakutei-history)
+	   (skk-set-henkan-point-subr))
 	 (insert-and-inherit ?>))
 	((eq skk-henkan-mode 'on)
 	 ;; 接頭語の処理
