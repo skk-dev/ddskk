@@ -6,8 +6,8 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.5 2000/11/15 15:59:47 czkmt Exp $
-;; Last Modified: $Date: 2000/11/15 15:59:47 $
+;; Version: $Id: tinyinstall.el,v 1.6 2001/09/11 14:47:00 czkmt Exp $
+;; Last Modified: $Date: 2001/09/11 14:47:00 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -26,38 +26,15 @@
 
 ;;; Code:
 
-(defvar emacs-major-version
-  (progn (string-match "^[0-9]+" emacs-version)
-	 (string-to-int (substring emacs-version
-				   (match-beginning 0)(match-end 0))))
-  "Major version number of this version of Emacs.")
-
-(defvar data-directory exec-directory) ; For Emacs 18.
-
-(if (= emacs-major-version 18)
-    (progn
-      (require 'cl)
-      (defun member (elt list)
-	"Return non-nil if ELT is an element of LIST.  Comparison done with EQUAL.
-The value is actually the tail of LIST whose car is ELT."
-	(while (and list (not (equal elt (car list))))
-	  (setq list (cdr list)))
-	list)))
-
 (defvar install-prefix
-  (cond ((<= emacs-major-version 18)	; running-emacs-18
-	 (expand-file-name "../.." exec-directory))
-	((featurep 'xemacs)		; running-xemacs
+  (cond ((featurep 'xemacs)		; running-xemacs
 	 (expand-file-name "../../.." exec-directory))
 	((memq system-type '(ms-dos windows-nt))
 	 (expand-file-name ".." exec-directory))
 	(t
 	 (expand-file-name "../../../.." data-directory))))
 
-(defvar install-elisp-prefix
-  (if (>= emacs-major-version 19)
-      "site-lisp"
-    "local.lisp"))
+(defvar install-elisp-prefix "site-lisp")
 
 ;; from path-util.el
 (defvar default-load-path load-path
@@ -94,8 +71,7 @@ subdirectory under load-path.")
 				    (>= emacs-minor-version 29))))
 			  "share/"
 			"lib/")
-		      (cond ((boundp 'NEMACS) "nemacs/")
-			    ((boundp 'MULE)   "mule/")
+		      (cond ((boundp 'MULE)   "mule/")
 			    ((featurep 'xemacs)	; running-xemacs
 			     (if (featurep 'mule)
 				 "xmule/"
