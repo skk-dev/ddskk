@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.24 2002/01/01 04:56:59 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.25 2002/01/17 13:27:47 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/01 04:56:59 $
+;; Last Modified: $Date: 2002/01/17 13:27:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,9 +33,16 @@
 (cond
  ((featurep 'xemacs)
   (when (< emacs-major-version 21)
+    ;; From Naoki Wakamatsu <naoki-w@ht-net21.ne.jp>
+    ;;
+    ;; XEmacs 20.4 (Mule) includes SKK 10.38 and loads skk-leim.el on dump,
+    ;; and skk/auto-autoloads.el on initialization.
+    ;;
+    ;; For overriding those, the following files needs to be loaded.
     (load "skk-autoloads")
     (load "skk-leim")))
  ((fboundp 'normal-top-level-add-subdirs-to-load-path)
+  ;; Emacs 20.3 or later. `load-path' is constructed automatically.
   nil)
  (t
   ;; Emacs 19 and 20.2
