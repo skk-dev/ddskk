@@ -82,16 +82,13 @@
   (run-hooks 'skk-jisyo-edit-mode-hook))
 
 ;;;###autoload
-(unless (member '("SKK-JISYO" . skk-jisyo-edit-mode)
-		auto-mode-alist)
-  (setq auto-mode-alist
-	(append
-	 '(("SKK-JISYO" . skk-jisyo-edit-mode)
-	   ("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
-	    . skk-jisyo-edit-mode)
-	   ("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
-	    . skk-jisyo-edit-mode))
-	 auto-mode-alist)))
+(add-to-list 'auto-mode-alist '("SKK-JISYO" . skk-jisyo-edit-mode))
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
+				. skk-jisyo-edit-mode))
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
+				. skk-jisyo-edit-mode))
 
 (require 'product)
 (product-provide
