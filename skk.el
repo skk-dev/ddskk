@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.77 2000/12/05 11:35:34 czkmt Exp $
+;; Version: $Id: skk.el,v 1.78 2000/12/05 13:51:21 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/05 11:35:34 $
+;; Last Modified: $Date: 2000/12/05 13:51:21 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -2194,7 +2194,10 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	    (if skk-process-okuri-early
 		(progn
 		  (skk-set-marker skk-henkan-end-point (point))
-		  (setq skk-okuri-char (char-to-string last-char))
+		  (let ((char (char-to-string last-char)))
+		    (setq skk-okuri-char
+			  (or (cdr (assoc char skk-okuri-char-alist))
+			      char)))
 		  (if sokuon
 		      (progn
 			(setq skk-henkan-key
