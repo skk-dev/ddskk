@@ -7,6 +7,9 @@
 
 	(skk-define-j-mode-map): Always define keys for `skk-jisx0201'.
 
+	* doc/skk.texi:
+	Remove a duplicate URL.
+
 2001-11-19  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* skk-tut.el (skktut-end-tutorial) : Update for ml program change
@@ -2816,8 +2819,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.541 2001/11/19 15:05:30 czkmt Exp $
-Last Modified: $Date: 2001/11/19 15:05:30 $
+Version: $Id: ChangeLog,v 1.542 2001/11/19 15:09:46 czkmt Exp $
+Last Modified: $Date: 2001/11/19 15:09:46 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
