@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2001/07/20 05:49:59 $
-	     $Id: PROPOSAL,v 1.7 2001/07/20 05:49:59 minakaji Exp $
+             $Date: 2001/07/22 07:22:29 $
+	     $Id: PROPOSAL,v 1.8 2001/07/22 07:22:29 minakaji Exp $
 
 
 $B$3$N%U%!%$%k$K$O!"(BSKK $B%3!<%G%#%s%0$K4X$7!"Cm0U$9$Y$-E@!"E}0l$7$?J}$,NI$$(B
@@ -64,6 +64,8 @@ Emacs $B$N%P!<%8%g%s4V:90[$N5[<}$O(B APEL (A Portable Emacs Library$B!#0JA0(
     ftp://ftp.m17n.org/pub/mule/apel/
 
     ftp://ftp.jpl.org/pub/elisp/apel/
+
+    http://openlab.ring.gr.jp/skk/apel/
 
 $B$+$i(B get $B$G$-$^$9!#(B
 

@@ -1,10 +1,42 @@
 2001-07-22  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+	
+	* doc/skk.texi (Q.5-2 abbrev モードでもっと英単語を利用した変換が
+	できませんか?): Typo fixed.
+	(Q.1-1 最新のバージョンは?): Sync up with
+	skk/main/READMEs/FAQ.txt.
+	(Q.1-3 SKK はどのバージョンの Emacs で使えますか?): Ditto.
+	(Q.1-6 開発版は何故、Daredevil と言うのですか?): Ditto.
+	(Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえません
+	か?): Ditto.
+	(Q.1-6 開発版は何故、Daredevil と言うのですか?): Change section
+	name to `Daredevil SKK って SKK とは違うのですか?' and move to
+	Q.1-2.
+	(Q.1-4 SKK はどのバージョンの Emacs で使えますか?): Change section
+	name to `Q.1-4 DDSKK はどのバージョンの Emacs で使えますか?'.
+	(Q.1-5 SKK はどんなオペレーティングシステムで使えますか?): Change
+	section name to `Q.1-5 DDSKK はどんなオペレーティングシステムで使
+	えますか?' and sync up with skk/main/READMEs/FAQ.txt.
+	(Q.2-6 Emacs 20 に SKK 9.6 がインストールできません。): Sync up
+	with skk/main/READMEs/FAQ.txt.
 
 	* READMEs/FAQ.txt ([Q.] 最新のバージョンは?): Updated.
 	([Q.] SKK はどのバージョンの Emacs で使えますか?): Ditto.
 	([Q.] 最新版の SKK はどこから入手できますか?): Ditto.
 	([Q.] 開発版の SKK は何故、`Daredevil SKK' などと言う名がついてい
 	るのですか?): Ditto.
+	(開発版の SKK は何故、`Daredevil SKK' などと言う名がついているのですか?):
+	Change section name to `Daredevil SKK って SKK とは違うのですか?'.
+	([Q.] SKK はどんなオペレーティングシステムで使えますか?): Change
+	section name to `[Q.] DDSKK はどんなオペレーティングシステムで使え
+	ますか?'
+	([Q.] Emacs 20 に SKK 9.6 がインストールできません。): Change URL.
+	([Q.] SKK はどんなオペレーティングシステムで使えますか?): Change
+	section name to `[Q.] DDSKK はどんなオペレーティングシステムで使え
+	ますか?' and update sentences.
+
+	* READMEs/PROPOSAL (Emacs のバージョン間差異の吸収は?): Updated.
+
+	* READMEs/INSTALL (APEL): Updated.
 	
 	* skk-vars.el (skk-use-face): Set t when emacs-major-version is
 	more than 21.
@@ -3620,8 +3652,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.315 2001/07/21 23:25:28 minakaji Exp $
-Last Modified: $Date: 2001/07/21 23:25:28 $
+Version: $Id: ChangeLog,v 1.316 2001/07/22 07:22:30 minakaji Exp $
+Last Modified: $Date: 2001/07/22 07:22:30 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
