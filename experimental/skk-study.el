@@ -3,7 +3,7 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.46 2003/07/18 15:21:39 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.39 2003/07/18 15:21:39 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
 ;; Last Modified: $Date: 2003/07/18 15:21:39 $
@@ -65,7 +65,7 @@
 ;;             ...)))
 ;;
 ;; <TODO>
-;; 科学、法律などとテーマを決めて、バッファ毎に学習データを切り替えできると便利かも。
+;;
 
 ;;; Code:
 
@@ -77,6 +77,9 @@
 (require 'skk-vars)
 (require 'ring)
 
+(defconst skk-study-file-format-version "0.3")
+(skk-deflocalvar skk-study-current-buffer-theme nil)
+
 (defun-maybe ring-elements (ring)
   "Return a list of the elements of RING."
   ;; ring.el of Emacs 20 does not have ring-elements.
@@ -86,6 +89,17 @@
 (defsubst skk-study-get-last-henkan-data (index)
   (and (> (ring-length skk-study-data-ring) index)
        (ring-ref skk-study-data-ring index)))
+
+(defsubst skk-study-get-current-alist (&optional theme)
+  (let ((base-alist
+	 (cdr (if theme
+		  (assoc theme skk-study-alist)
+		(or (assoc skk-study-current-buffer-theme
+			   skk-study-alist)
+		    (assoc "general" skk-study-alist))))))
+    (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
+		 'okuri-ari)
+		(t 'okuri-nasi)) base-alist)))
 
 (add-to-list 'skk-search-end-function 'skk-study-search)
 (add-to-list 'skk-update-end-function 'skk-study-update)
@@ -100,14 +114,7 @@
     (with-current-buffer henkan-buffer
       ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
       ;;  ("なk" . ((("こども" . "子供") . ("泣")))))
-      (let ((alist
-	     (cdr
-	      (assoc
-	       midasi
-	       (cdr (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
-				 'okuri-ari)
-				(t 'okuri-nasi))
-			  skk-study-alist))))))
+      (let ((alist (cdr (assoc midasi (cdr (skk-study-get-current-alist))))))
 	(when alist
 	  (setq entry (skk-study-search-1 alist midasi okurigana entry))))))
   entry)
@@ -159,10 +166,7 @@
 		      (and (string= midasi (car last-data))
 			   (string= word (cdr last-data))))))
 	(or skk-study-alist (skk-study-read))
-	(setq grandpa (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
-				   'okuri-ari)
-				  (t 'okuri-nasi))
-			    skk-study-alist)
+	(setq grandpa (skk-study-get-current-alist)
 	      ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
 	      papa (assoc midasi (cdr grandpa)))
 	(cond (
@@ -246,6 +250,27 @@
 	(message "")))))
 
 ;;;###autoload
+(defun skk-study-switch-current-theme (theme)
+  "skk-study のカレントバッファに対する学習テーマを設定する。
+学習テーマには任意の文字列を設定できる。
+カレントバッファの学習テーマが設定されないときは、学習テーマ
+\"general\" に対する学習が行われる。"
+  (interactive
+   (list (completing-read
+	  "Theme of current buffer: (default: general) "
+	  (mapcar 'car skk-study-alist))))
+  (unless (stringp theme)
+    (skk-error "skk-study の theme が文字列ではありません"
+	       "Only string is allowed as theme of skk-study"))
+  (setq skk-study-current-buffer-theme theme)
+  (let ((alist (assoc theme skk-study-alist)))
+    (unless alist
+      (setq skk-study-alist
+	    (cons
+	     (cons theme '((okuri-ari) (okuri-nasi)))
+	     skk-study-alist)))))
+
+;;;###autoload
 (defun skk-study-read (&optional nomsg force)
   "`skk-study-file' から学習結果を読み込む。
 オプショナル引数の FORCE が non-nil であれば、破棄の確認をしない。"
@@ -282,76 +307,87 @@
   (with-temp-buffer
     (let ((version-string
 	   (format ";;; skk-study-file format version %s\n"
-		   skk-study-file-format-version)))
+		   skk-study-file-format-version))
+	  version)
       (insert-file-contents-as-coding-system
        (skk-find-coding-system skk-jisyo-code) file)
       (when (= (buffer-size) 0)
 	;; bare alist
-	(insert version-string "((okuri-ari) (okuri-nasi))"))
+	(insert version-string
+		"((\"general\" . ((okuri-ari) (okuri-nasi))))"))
       (goto-char (point-min))
-      (if (looking-at (regexp-quote version-string))
-	  (read (current-buffer))
-	(skk-error
-	 "skk-study-file フォーマットのバージョンが一致しません"
-	 "skk-study-file format version is inconsistent")))))
+      (when (looking-at "^;;; skk-study-file format version \\([.0-9]+\\)\n")
+	(setq version (match-string 1)))
+      (cond ((not version)
+	     (skk-error "skk-study-file が壊れています"
+			"Broken skk-study-file"))
+	    ((string= version skk-study-file-format-version)
+	     (read (current-buffer)))
+	    (t
+	     ;; convert the format to new one
+	     (list (cons "general" (read (current-buffer)))))))))
 
-(defun skk-study-check-alist-format (alist-file)
-  "ALIST-FILE の連想リストのフォーマットをチェックする。"
+(defun skk-study-check-alist-format (file)
+  "FILE の連想リストのフォーマットをチェックする。"
   (interactive
    (list (read-file-name
-	  (format "Alist file to check: (default: %s) " skk-study-file)
+	  (format "File to check: (default: %s) " skk-study-file)
 	  default-directory skk-study-file)))
-  (skk-message "%s ファイルの連想リストのフォーマットチェックを行なっています..."
-	       "Checking %s file alist format..." alist-file)
-  (or (skk-study-check-alist-format-1 (skk-study-read-1 alist-file))
-      (skk-error "%s の連想リストのフォーマットは壊れています"
-		 "%s alist format is corrupt" alist-file))
+  (skk-message "%s のフォーマットのチェックを行なっています..."
+	       "Checking format of %s..." file)
+  (or (skk-study-check-alist-format-1 (skk-study-read-1 file))
+      (skk-error "%s のフォーマットは壊れています"
+		 "%s format is broken" file))
   (skk-message
-   "%s ファイルの連想リストのフォーマットチェックを行なっています...完了!"
-   "Checking %s file alist format... done" alist-file)
+   "%s のフォーマットのチェックを行なっています...完了!"
+   "Checking format of %s...done" file)
   (sit-for 1)
   (message ""))
 
 (defun skk-study-check-alist-format-1 (alist)
-  (when (and (= (length alist) 2)
-	     (assq 'okuri-ari alist)
-	     (assq 'okuri-nasi alist))
-    (catch 'exit
-      (let ((index '(okuri-ari okuri-nasi))
-	    (func (function
-		   (lambda (str)
-		     (let ((len (length str)))
-		       (and
-			(> len 1)
-			(skk-ascii-char-p (aref str (1- len))))))))
-	    alist2 e f)
-	(while index
-	  (and (eq (car index) 'okuri-nasi)
-	       (setq func
-		     (function
-		      (lambda (str)
-			(let ((len (length str)))
-			  (cond ((= len 1))
-				((not (skk-ascii-char-p (aref str (1- len)))))
-				((skk-ascii-char-p (aref str (- len 2))))))))))
-	  (setq alist2 (cdr (assq (car index) alist)))
-	  (while alist2
-	    (setq e (car alist2))
-	    (or (funcall func (car e))
-		;; 見出し語のチェック
-		(throw 'exit nil))
-	    (setq f (cdr e))
-	    (while f
-	      (if (not (and
-			;; 直前の変換の情報
-			(consp (car (car f)))
-			;; 関連語リスト
-			(listp (cdr (car f)))))
-		  (throw 'exit nil))
-	      (setq f (cdr f)))
-	    (setq alist2 (cdr alist2)))
-	  (setq index (cdr index)))
-	t))))
+  (let (a)
+    (dolist (elm alist)
+      (when (and (= (length elm) 3)
+		 (stringp (car elm))
+		 (setq a (cdr elm))
+		 (assq 'okuri-ari a)
+		 (assq 'okuri-nasi a))
+	(catch 'exit
+	  (let ((index '(okuri-ari okuri-nasi))
+		(func (function
+		       (lambda (str)
+			 (let ((len (length str)))
+			   (and
+			    (> len 1)
+			    (skk-ascii-char-p (aref str (1- len))))))))
+		a2 e f)
+	    (while index
+	      (and (eq (car index) 'okuri-nasi)
+		   (setq func
+			 (function
+			  (lambda (str)
+			    (let ((len (length str)))
+			      (cond ((= len 1))
+				    ((not (skk-ascii-char-p (aref str (1- len)))))
+				    ((skk-ascii-char-p (aref str (- len 2))))))))))
+	      (setq a2 (cdr (assq (car index) a)))
+	      (while a2
+		(setq e (car a2))
+		(or (funcall func (car e))
+		    ;; 見出し語のチェック
+		    (throw 'exit nil))
+		(setq f (cdr e))
+		(while f
+		  (if (not (and
+			    ;; 直前の変換の情報
+			    (consp (car (car f)))
+			    ;; 関連語リスト
+			    (listp (cdr (car f)))))
+		      (throw 'exit nil))
+		  (setq f (cdr f)))
+		(setq a2 (cdr a2)))
+	      (setq index (cdr index)))
+	    t))))))
 
 (defun skk-study-prin1 (form &optional stream)
   (let ((print-readably t)
@@ -376,11 +412,9 @@
 	target)
     (when (and last last2)
       (setq target (assoc (car last)
-			  (assq (cond ((skk-get-last-henkan-datum 'okuri-char)
-				       'okuri-ari)
-				      (t 'okuri-nasi))
-				skk-study-alist)))
-      (setq target (delq (assoc last2 (cdr target)) target)))))
+			  ;; skk-undo-kakutei is called in henkan buffer
+			  (skk-study-get-current-alist))
+	    target (delq (assoc last2 (cdr target)) target)))))
 
 ;; time utilities...
 ;;  from ls-lisp.el.  Welcome!
