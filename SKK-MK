@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.109 2001/11/24 00:32:59 minakaji Exp $
-;; Last Modified: $Date: 2001/11/24 00:32:59 $
+;; Version: $Id: SKK-MK,v 1.110 2001/12/15 17:35:20 czkmt Exp $
+;; Last Modified: $Date: 2001/12/15 17:35:20 $
 
 ;;; Commentary:
 
@@ -266,7 +266,7 @@ This version of SKK requires MULE features"))
 		    skk-auto
 		    skk-autoloads
 		    skk-comp
-		    skk-cursor
+;		    skk-cursor
 		    skk-dcomp
 		    skk-develop
 		    skk-dic
@@ -322,7 +322,8 @@ This version of SKK requires MULE features"))
 	  (add-to-list 'list 'skk-xemacs))
 	 (t
 	  ;; FSFmacs
-	  (add-to-list 'list 'ccc)
+	  (when (featurep 'faces)
+	    (add-to-list 'list 'ccc))
 	  (when (= emacs-major-version 21)
 	    (add-to-list 'list 'skk-e21))))
 	;; skk-leim.el
@@ -343,15 +344,19 @@ This version of SKK requires MULE features"))
 		(error))
 	  (add-to-list 'list 'skk-lookup))
 	;; skk-w3m.el
-        ;;(when (condition-case nil
-        ;;          (require 'w3m-search)
-        ;;        (error))
-        ;;  (add-to-list 'list 'skk-w3m))
+	;;(when (condition-case nil
+	;;          (require 'w3m-search)
+	;;        (error))
+	;;  (add-to-list 'list 'skk-w3m))
 	;; skk-viper.el
 	(when (condition-case nil
 		  (require 'viper)
 		(error))
 	  (add-to-list 'list 'skk-viper))
+	;; skk-cursor.el
+	(when (or (featurep 'xemacs)
+		  (featurep 'faces))
+	  (add-to-list 'list 'skk-cursor))
 	;; skk-cus.el
 	(unless (featurep 'tinycustom)
 	  (add-to-list 'list 'skk-cus))
