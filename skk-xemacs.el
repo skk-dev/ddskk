@@ -86,17 +86,6 @@
     ["About Daredevil SKK..." skk-version t]
     ["Visit Daredevil SKK Home..." skk-xemacs-visit-openlab t]))
 
-(setq skk-icon
-      (if (and (locate-data-file "skk.xpm")
-	       (featurep 'xpm))
-	  (let ((glyph (make-glyph)))
-	    (set-glyph-image glyph
-			     (vector 'xpm
-				     :file (locate-data-file "skk.xpm")))
-	    (cons (cdr (assq 'hiragana skk-xemacs-extent-alist))
-		  glyph))
-	nil))
-
 ;; Functions.
 
 (defun skk-xemacs-modeline-menu ()
@@ -145,6 +134,18 @@
 
 ;;;###autoload
 (defun skk-xemacs-prepare-modeline-properties ()
+  (setq skk-icon
+	(if (and skk-show-icon
+		 (locate-data-file "skk.xpm")
+		 (featurep 'xpm))
+	    (let ((glyph (make-glyph)))
+	      (set-glyph-image glyph
+			       (vector 'xpm
+				       :file (locate-data-file "skk.xpm")))
+	      (cons (cdr (assq 'hiragana skk-xemacs-extent-alist))
+		    glyph))
+	  nil))
+  ;;
   (unless skk-use-color-cursor
     (setq skk-indicator-use-cursor-color nil))
   ;;
@@ -153,9 +154,13 @@
       (defvar skk-xemacs-modeline-map
 	(let ((map (make-sparse-keymap)))
 	  (define-key map
-	    [button2]
+	    [button3]
 	    (eval '(make-modeline-command-wrapper
 		    'skk-xemacs-modeline-menu)))
+	  (define-key map
+	    [button1]
+	    (eval '(make-modeline-command-wrapper
+		    'skk-mode)))
 	  map)))
     (dolist (mode '(hiragana
 		    katakana
@@ -164,14 +169,13 @@
 		    jisx0201
 		    abbrev))
       ;;
-      (setq extent (cdr (assq mode
-			      skk-xemacs-extent-alist)))
+      (setq extent (cdr (assq mode skk-xemacs-extent-alist)))
       (when window-system
 	(set-extent-keymap extent skk-xemacs-modeline-map)
 	(set-extent-property
 	 extent
 	 'help-echo
-	 "マウスの button 2 -> Daredevil SKK のメニュ−"))
+	 "button1 toggles SKK, button3 opens SKK menu"))
       ;;
       (setq face (intern (format "skk-xemacs-%s-face"
 				 mode)))
