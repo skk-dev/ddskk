@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.7 2000/11/15 14:58:34 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.8 2000/11/16 11:57:52 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/15 14:58:34 $
+;; Last Modified: $Date: 2000/11/16 11:57:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -51,7 +51,8 @@
   (let ((file
 	 (expand-file-name "auto-autoloads.el"
 			   (file-name-directory (locate-library "dired")))))
-    (when (and (file-exists-p file)
+    (when (and file
+	       (file-exists-p file)
 	       (not (featurep 'dired-autoloads)))
       (require 'advice)
       (eval
