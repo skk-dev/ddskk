@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <jet@airlab.cs.ritsumei.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-cursor.el,v 1.2 1999/11/10 12:09:03 minakaji Exp $
+;; Version: $Id: skk-cursor.el,v 1.3 1999/12/13 23:45:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/11/10 12:09:03 $
+;; Last Modified: $Date: 1999/12/13 23:45:14 $
 
 ;; This file is part of SKK.
 
@@ -190,7 +190,7 @@
       (skk-cursor-set-color (if skk-katakana skk-katakana-cursor-color
 			      skk-hiragana-cursor-color ))))
 
-(defadvice skk-save-jisyo-original (after skk-cursor-ad activate)
+(defadvice skk-save-jisyo (after skk-cursor-ad activate)
   "入力モードに応じカーソル色を変化させる。Ovwrt モードのときにカーソル幅を小さくする。"
   (skk-cursor-set-properly) )
 

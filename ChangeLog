@@ -1,4 +1,24 @@
+1999-12-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK_MAINTRUNK_NOT_USE): Add skk-vip.
+
+	* skk-comp.el (skk-previous-completion-original): Bug fixed.
+	(skk-completion-original): Ditto.
+
 1999-12-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-cursor.el (skk-save-jisyo-original): Change defadvice for
+	`skk-save-jisyo'.
+
+	* SKK-MK: Require poe.
+	(SKK_MAINTRUNK_NOT_USE): Add stack-m.
+	(SKK_MODULES): Remove stack-m.
+	Bind `lookup-byte-compile' to t not to load .lookup.
+	(SKK-MK-compile-info): New function.
+	(SKK-MK-generate-autoloads-el): Ditto.
+	(SKK-MK-collect-autoload-functions): Ditto.
+	(SKK-MK-install): Call `SKK-MK-compile-info'.
+	(SKK-MK-compile): Call `SKK-MK-generate-autoloads-el'.
 
 	* skk.el (skk-mode): Set `skk-mode-invoked' to t after all setting
 	are done properly.

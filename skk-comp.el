@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-comp.el,v 1.5 1999/12/12 00:24:18 minakaji Exp $
+;; Version: $Id: skk-comp.el,v 1.6 1999/12/13 23:45:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/12/12 00:24:18 $
+;; Last Modified: $Date: 1999/12/13 23:45:14 $
 
 ;; This file is part of SKK.
 
@@ -151,11 +151,13 @@ skk-dabbrev-like-completion $B$,(B non-nil $B$N>l9g$O!">o$K:G8e$KJd40$7$?8+=P
       (setq skk-completion-stack (cons c-word skk-completion-stack)) )
     ;; $B<-=q%P%C%U%!$N30!#(B
     (if (not c-word)
-	(if skk-japanese-message-and-error
-	    (error "\"%s\" $B$GJd40$9$Y$-8+=P$78l$O(B%s$B$"$j$^$;$s(B"
-		   skk-completion-word (if first "" "$BB>$K(B") )
-	  (error "No %scompletions for \"%s\""
-		 (if first "" "more ") skk-completion-word ))
+	(progn
+	  (setq skk-completion-depth (1+ skk-completion-depth))
+	  (if skk-japanese-message-and-error
+	      (error "\"%s\" $B$GJd40$9$Y$-8+=P$78l$O(B%s$B$"$j$^$;$s(B"
+		     skk-completion-word (if first "" "$BB>$K(B") )
+	    (error "No %scompletions for \"%s\""
+		   (if first "" "more ") skk-completion-word )) )
       (delete-region skk-henkan-start-point (point))
       (insert c-word) )))
 
@@ -177,6 +179,7 @@ skk-dabbrev-like-completion $B$,(B non-nil $B$N>l9g$O!">o$K:G8e$KJd40$7$?8+=P
 	(progn
 	  (delete-region skk-henkan-start-point (point))
 	  (insert c-word) )
+      (setq skk-completion-depth (1- skk-completion-depth))
       (skk-error "\"%s\"$B$GJd40$9$Y$-8+=P$78l$OB>$K$"$j$^$;$s(B"
                  "No more previous completions for \"%s\""
                  skk-completion-word ))))
