@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.119 2002/07/20 18:29:02 czkmt Exp $
-;; Last Modified: $Date: 2002/07/20 18:29:02 $
+;; Version: $Id: SKK-MK,v 1.120 2002/07/27 05:54:46 czkmt Exp $
+;; Last Modified: $Date: 2002/07/27 05:54:46 $
 
 ;;; Commentary:
 
@@ -1036,7 +1036,7 @@ SKK tutorials:
 	   (file-newer-than-file-p
 	    skk-dic
 	    (expand-file-name "skk-dic.el.in")))
-      (princ (format "No need to update %s
+      (princ (format "%s is up-to-date
 "
 		     skk-dic))
       nil)
