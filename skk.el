@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.263 2003/03/28 00:27:49 czkmt Exp $
+;; Version: $Id: skk.el,v 1.264 2003/03/28 03:20:14 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/03/28 00:27:49 $
+;; Last Modified: $Date: 2003/03/28 03:20:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -854,14 +854,12 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		    (looking-at "$B!<(B")
 		    (eq 'unknown (setq char (skk-what-char-type)))))
 	 (forward-char 1)))
-      (cond ((eq char 'hiragana)
-	     (skk-katakana-henkan arg))
-	    ((eq char 'katakana)
-	     (skk-hiragana-henkan arg))
-	    ((eq char 'jisx0208-latin)
-	     (skk-latin-henkan arg))
-	    ((eq char 'ascii)
-	     (skk-jisx0208-latin-henkan arg)))))
+      (skk-henkan-skk-region-by-func
+       (cond ((eq char 'hiragana) #'skk-katakana-region)
+	     ((eq char 'katakana) #'skk-hiragana-region)
+	     ((eq char 'jisx0208-latin) #'skk-latin-region)
+	     ((eq char 'ascii) #'skk-jisx0208-latin-region))
+       arg)))
    ((and (skk-in-minibuffer-p)
 	 (not skk-j-mode))
     ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
@@ -4043,62 +4041,10 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	(char-to-string char)
       nil)))
 
-(defun skk-katakana-henkan (arg)
-  "$B"&%b!<%I$G$"$l$P!"NN0h$N$R$i$,$J$r%+%?%+%J$KJQ49$9$k!#(B
-$B"'%b!<%I$G$O2?$b$7$J$$!#(B
-$B$=$NB>$N%b!<%I$G$O!"%*%j%8%J%k$N%-!<3d$jIU$1$G%P%$%s%I$5$l$F$$$k%3%^%s%I$r<B9T(B
-$B$9$k!#(B"
-  (interactive "*P")
-  (skk-*-henkan-2 #'skk-katakana-region 'vcontract))
-
-(defun skk-hiragana-henkan (arg)
-  "$B"&%b!<%I$G$"$l$P!"NN0h$N%+%?%+%J$r$R$i$,$J$KJQ49$9$k!#(B
-$B"'%b!<%I$G$O2?$b$7$J$$!#(B
-$B$=$NB>$N%b!<%I$G$O!"%*%j%8%J%k$N%-!<3d$jIU$1$G%P%$%s%I$5$l$F$$$k%3%^%s%I$r<B9T(B
-$B$9$k!#(B"
-  (interactive "*P")
-  (skk-*-henkan-2 #'skk-hiragana-region 'vexpand))
-
-(defun skk-jisx0208-latin-henkan (arg)
-  "$B"&%b!<%I$G$"$l$P!"(Bascii $BJ8;z$rBP1~$9$kA43Q1QJ8;z$KJQ49$9$k!#(B
-$B"'%b!<%I$G$O2?$b$7$J$$!#(B
-$B$=$NB>$N%b!<%I$G$O!"%*%j%8%J%k$N%-!<3d$jIU$1$G%P%$%s%I$5$l$F$$$k%3%^%s%I$r<B9T(B
-$B$9$k!#(B"
-  (interactive "*P")
-  (skk-*-henkan-2 #'skk-jisx0208-latin-region))
-
-(defun skk-latin-henkan (arg)
-  "$B"&%b!<%I$G$"$l$P!"A43Q1QJ8;z$rBP1~$9$k(B ascii $BJ8;z$KJQ49$9$k!#(B
-$B"'%b!<%I$G$O2?$b$7$J$$!#(B
-$B$=$NB>$N%b!<%I$G$O!"%*%j%8%J%k$N%-!<3d$jIU$1$G%P%$%s%I$5$l$F$$$k%3%^%s%I$r<B9T(B
-$B$9$k!#(B"
-  (interactive "*P")
-  (skk-*-henkan-2 #'skk-latin-region))
-
-(defun skk-*-henkan-1 (func &rest args)
+(defun skk-henkan-skk-region-by-func (func &optional arg)
   "`skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NJ8;zNs$rJQ49$9$k!#(B
 $BJQ492DG=$+$I$&$+$N%A%'%C%/$r$7$?8e$K(B ARGS $B$r0z?t$H$7$F(B FUNC $B$rE,MQ$7!"(B
 `skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NJ8;zNs$rJQ49$9$k!#(B"
-
-  (when (skk-get-prefix skk-current-rule-tree)
-    (skk-error "$BF~NOESCf$N2>L>%V%l%U%#%C%/%9$,$"$j$^$9(B"
-	       "There remains a kana prefix"))
-
-  (when (< (point) skk-henkan-start-point)
-    (skk-error "$B%+!<%=%k$,JQ493+;OCOE@$h$jA0$K$"$j$^$9(B"
-	       "Henkan end point must be after henkan start point"))
-
-  (when (and (not skk-allow-spaces-newlines-and-tabs)
-	     (skk-save-point
-	      (beginning-of-line)
-	      (> (point) skk-henkan-start-point)))
-    (skk-error "$BJQ49%-!<$K2~9T$,4^$^$l$F$$$^$9(B"
-	       "Henkan key may not contain a line feed"))
-
-  (apply func args)
-  (skk-kakutei))
-
-(defun skk-*-henkan-2 (func &optional arg)
   (skk-with-point-move
    (cond
     ((eq skk-henkan-mode 'active)
@@ -4113,12 +4059,25 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
        (skk-update-kakutei-history
 	(buffer-substring-no-properties
 	 skk-henkan-start-point (point))))
-     (apply #'skk-*-henkan-1
-	    func
-	    skk-henkan-start-point
-	    skk-henkan-end-point
-	    (when arg
-	      (list arg))))
+     ;; $BJQ492DG=$+$I$&$+$N:G=*%A%'%C%/(B
+     (when (skk-get-prefix skk-current-rule-tree)
+       (skk-error "$BF~NOESCf$N2>L>%V%l%U%#%C%/%9$,$"$j$^$9(B"
+		  "There remains a kana prefix"))
+
+     (when (< (point) skk-henkan-start-point)
+       (skk-error "$B%+!<%=%k$,JQ493+;OCOE@$h$jA0$K$"$j$^$9(B"
+		  "Henkan end point must be after henkan start point"))
+
+     (when (and (not skk-allow-spaces-newlines-and-tabs)
+		(skk-save-point
+		 (beginning-of-line)
+		 (> (point) skk-henkan-start-point)))
+       (skk-error "$BJQ49%-!<$K2~9T$,4^$^$l$F$$$^$9(B"
+		  "Henkan key may not contain a line feed"))
+     ;;
+     (apply func skk-henkan-start-point skk-henkan-end-point
+	    (if arg (list arg) nil))
+     (skk-kakutei))
     (t
      (skk-emulate-original-map arg)))))
 
