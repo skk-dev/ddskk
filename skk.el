@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.174 2001/11/03 12:56:23 czkmt Exp $
+;; Version: $Id: skk.el,v 1.175 2001/11/10 00:51:41 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/03 12:56:23 $
+;; Last Modified: $Date: 2001/11/10 00:51:41 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -788,7 +788,8 @@ dependent."
 
 (defun skk-command-key-sequence (key command)
   ;; KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。
-  ;; `execute-extended-command' によってコマンドが実行された場合は、nil を返す。
+  ;; `execute-extended-command' によってコマンドが実行された場合は、nil を
+  ;; 返す。
   (while (not (or (zerop (length key))
 		  (eq command (key-binding key))))
     (setq key (vconcat (cdr (append key nil)))))
