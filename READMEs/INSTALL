@@ -1,7 +1,7 @@
 -*- text -*-
-             $Date: 1999/09/25 11:36:33 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 1999/09/25 11:36:51 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.9 1999/09/25 11:36:33 minakaji Exp $ 
+	     $Id: INSTALL,v 1.10 1999/09/25 11:36:51 minakaji Exp $ 
 
 (1)APEL (A Portable Emacs Library) is required to install SKK.  Please
    make sure you have already installed APEL 9.22 or later.  It is
@@ -81,11 +81,11 @@ or
 (6)Run `make install' (You may have to be superuser).  
    You can specify Emacs command name in the command line, like
 
-   % make install EMACS=mule
+     % make install EMACS=mule
 
 (7)If you want install SKK as a XEmacs package, run
 
-   % make install-package
+     % make install-package
 
 (8)Many variables/functions names have been changed.  You are strongly
    recommended to load skk-obsolete.el and
