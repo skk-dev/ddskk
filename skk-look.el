@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.22 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-look.el,v 1.23 2002/01/18 14:03:38 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/18 14:03:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -156,7 +156,7 @@
   ;; する。
   (when (and skk-use-look
 	     skk-abbrev-mode
-	     (eq (skk-str-ref skk-henkan-key (1- (length skk-henkan-key)))
+	     (eq (sref skk-henkan-key (1- (length skk-henkan-key)))
 		 ?*))
     (let* ((args (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
 	   (v (if skk-look-use-ispell
