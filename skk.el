@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.148 2001/10/13 01:21:55 czkmt Exp $
+;; Version: $Id: skk.el,v 1.149 2001/10/13 04:50:49 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 01:21:55 $
+;; Last Modified: $Date: 2001/10/13 04:50:49 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -160,100 +160,17 @@
 (define-obsolete-function-alias 'skk-isearch-backward-regexp
   'isearch-backward-regexp)
 
-(defun skk-define-menu-bar-map (map)
-  ;; SKK メニューのトップに出現するコマンドのメニューへの定義を行なう。
-  (easy-menu-define
-   skk-menu map
-   "Menu used in SKK mode."
-   '("SKK"
-     ("Convert Region and Echo"
-      ("Gyakubiki"
-       ["to Hiragana" skk-gyakubiki-message skk-use-kakasi]
-       ["to Hiragana, All Candidates"
-	(call-interactively
-	 (function
-	  (lambda (start end)
-	    (interactive "r")
-	    (skk-gyakubiki-message start end 'all-candidates))))
-	skk-use-kakasi]
-       ["to Katakana" skk-gyakubiki-katakana-message skk-use-kakasi]
-       ["to Katakana, All Candidates"
-	(call-interactively
-	 (function
-	  (lambda (start end)
-	    (interactive "r")
-	    (skk-gyakubiki-katakana-message
-	     start end 'all-candidates))))
-	skk-use-kakasi])
-      ("Hurigana"
-       ["to Hiragana" skk-hurigana-message skk-use-kakasi]
-       ["to Hiragana, All Candidates"
-	(call-interactively
-	 (function
-	  (lambda (start end)
-	    (interactive "r")
-	    (skk-hurigana-message start end 'all-candidates))))
-	skk-use-kakasi]
-       ["to Katakana" skk-hurigana-katakana-message skk-use-kakasi]
-       ["to Katakana, All Candidates"
-	(call-interactively
-	 (function
-	  (lambda (start end)
-	    (interactive "r")
-	    (skk-hurigana-katakana-message
-	     start end 'all-candidates))))
-	skk-use-kakasi]))
-     ("Convert Region and Replace"
-      ["Ascii" skk-ascii-region skk-use-kakasi]
-      ("Gyakubiki"
-       ["to Hiragana" skk-gyakubiki-region skk-use-kakasi]
-       ["to Hiragana, All Candidates"
-	(call-interactively
-	 (function
-	  (lambda (start end)
-	    (interactive "r")
-	    (skk-gyakubiki-region start end 'all-candidates))))
-	skk-use-kakasi]
-       ["to Katakana" skk-gyakubiki-katakana-region skk-use-kakasi]
-       ["to Katakana, All Candidates"
-	(call-interactively
-	 (function
-	  (lambda (start end)
-	    (interactive "r")
-	    (skk-gyakubiki-katakana-region
-	     start end 'all-candidates))))
-	skk-use-kakasi])
-      ["Hiragana" skk-hiragana-region skk-use-kakasi]
-      ("Hurigana"
-       ["to Hiragana" skk-hurigana-region skk-use-kakasi]
-       ["to Hiragana, All Candidates"
-	(call-interactively
-	 (function
-	  (lambda (start end)
-	    (interactive "r")
-	    (skk-hurigana-region start end 'all-candidates))))
-	skk-use-kakasi]
-       ["to Katakana" skk-hurigana-katakana-region skk-use-kakasi]
-       ["to Katakana, All Candidates"
-	(call-interactively
-	 (function
-	  (lambda (start end) (interactive "r")
-	    (skk-hurigana-katakana-region
-	     start end 'all-candidates))))
-	skk-use-kakasi])
-      ["Katakana" skk-katakana-region skk-use-kakasi]
-      ["Romaji" skk-romaji-region skk-use-kakasi]
-      ["Zenkaku" skk-jisx0208-latin-region skk-use-kakasi])
-     ["Count Jisyo Candidates" skk-count-jisyo-candidates t]
-     ["Save Jisyo" skk-save-jisyo t]
-     ["Undo Kakutei" skk-undo-kakutei t]
-     ["Version" skk-version t])))
+(defun skk-define-menu (map)
+  (easy-menu-define skk-menu
+		    map
+		    "Menu used in SKK mode."
+		    skk-menu-items))
 
 (unless skk-latin-mode-map
   (let ((map (make-sparse-keymap)))
     ;; .skk で skk-kakutei-key の変更が可能になるように。
     ;;(define-key map skk-kakutei-key 'skk-kakutei)
-    (skk-define-menu-bar-map map)
+    (skk-define-menu map)
     (setq skk-latin-mode-map map)))
 
 (unless skk-j-mode-map
@@ -264,7 +181,7 @@
       (setq c (1+ c)))
     ;; .skk で skk-kakutei-key の変更が可能になるように。
     ;;(define-key map skk-kakutei-key 'skk-kakutei)
-    (skk-define-menu-bar-map map)
+    (skk-define-menu map)
     (setq skk-j-mode-map map)))
 
 (unless skk-jisx0208-latin-mode-map
@@ -276,7 +193,7 @@
 	    'skk-jisx0208-latin-insert))
       (setq i (1+ i)))
     (define-key map "\C-q" 'skk-latin-henkan)
-    (skk-define-menu-bar-map map)
+    (skk-define-menu map)
     (setq skk-jisx0208-latin-mode-map map)))
 
 (unless skk-abbrev-mode-map
@@ -286,7 +203,7 @@
     (define-key map "\C-q" 'skk-jisx0208-latin-henkan)
     ;; .skk で skk-kakutei-key の変更が可能になるように。
     ;;(define-key map skk-kakutei-key 'skk-kakutei)
-    (skk-define-menu-bar-map map)
+    (skk-define-menu map)
     (setq skk-abbrev-mode-map map)))
 
 (set-modified-alist
