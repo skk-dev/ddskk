@@ -1,3 +1,14 @@
+2004-02-29  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
+
+        * experimental/bayesian/bskk
+        (initialize): Use "/" as a separator instead of " ".
+        (to_s): Ditto.
+        (serve): Ditto.
+        (serve): Bug fixed. Handle double quotations correctly.
+
+        * experimental/bayesian/skk-bayesian.el
+        (skk-bayesian-search): Use "/" as a separator instead of " ".
+
 2004-02-29  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/bayesian/skk-bayesian.el
@@ -4452,8 +4463,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.783 2004/02/29 01:28:42 minakaji Exp $
-Last Modified: $Date: 2004/02/29 01:28:42 $
+Version: $Id: ChangeLog,v 1.784 2004/02/29 07:26:34 kurihara Exp $
+Last Modified: $Date: 2004/02/29 07:26:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
