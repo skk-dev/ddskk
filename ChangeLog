@@ -1,3 +1,11 @@
+2001-04-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-w3m.el (skk-w3m-search): Bind `w3m-async-exec'
+	to nil temporarily.
+	(skk-w3m-working-buffer): New constant.
+	(skk-w3m-search): Set to `skk-w3m-working-buffer' and call
+	`w3m-mode'.
+
 2001-04-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-kana-input): Call `skk-emulate-original-map' when
@@ -3275,8 +3283,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.279 2001/04/21 10:06:08 czkmt Exp $
-Last Modified: $Date: 2001/04/21 10:06:08 $
+Version: $Id: ChangeLog,v 1.280 2001/04/28 21:23:27 minakaji Exp $
+Last Modified: $Date: 2001/04/28 21:23:27 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

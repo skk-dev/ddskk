@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.8 2001/04/17 13:30:36 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.9 2001/04/28 21:23:27 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/04/17 13:30:36 $
+;; Last Modified: $Date: 2001/04/28 21:23:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -110,12 +110,14 @@ cdr は URL (検索文字列を %s で表わす),
 
 ;;; system internal variables and constants.
 ;; constants.
+(defconst skk-w3m-working-buffer " *skk-w3m*")
 ;; global variables
 
 ;;;###autoload
 (defun skk-w3m-search (search-engine)
   nil
   (let* ((w3m-display-inline-image nil)
+	 (w3m-async-exec nil)
 	 (w3m-search-engine-alist skk-w3m-search-engine-alist)
 	 (info (assoc search-engine w3m-search-engine-alist))
 	 (post-process (nth 3 info))
@@ -130,6 +132,8 @@ cdr は URL (検索文字列を %s で表わす),
 	      (save-window-excursion
 		(if process-key
 		    (setq henkan-key (funcall process-key henkan-key)))
+		(set-buffer (get-buffer-create skk-w3m-working-buffer))
+		(or (eq major-mode 'w3m-mode) (w3m-mode))
 		(w3m-search search-engine henkan-key) ; trip to other buffer...
 		(if post-process (funcall post-process henkan-key)))))
       (error)))) ; catch network unreachable error or something like that.
