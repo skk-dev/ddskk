@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.20 2001/09/07 21:07:46 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.21 2001/09/07 21:21:18 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/07 21:07:46 $
+;; Last Modified: $Date: 2001/09/07 21:21:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -231,8 +231,12 @@
   (when skk-jisx0201-mode
     (kill-local-variable 'skk-rule-tree)))
 
-(defadvice skk-kakutei (after skk-jisx0201-ad activate)
-  (and skk-jisx0201-mode (skk-jisx0201-mode-on skk-jisx0201-roman)))
+(defadvice skk-kakutei (around skk-jisx0201-ad activate)
+  (cond (skk-jisx0201-mode
+	 ad-do-it
+	 (skk-jisx0201-mode-on skk-jisx0201-roman))
+	(t
+	 ad-do-it)))
 
 (defadvice skk-latin-mode (before skk-jisx0201-ad activate)
   (when skk-jisx0201-mode
@@ -300,12 +304,12 @@
 	     ad-do-it)
 	    ;;
 	    ((and skk-henkan-on (eq ch skk-start-henkan-char))
+	     (skk-kana-cleanup 'force)
 	     (unless (or skk-okurigana
 			 skk-okuri-char)
 	       (let ((jisx0201 (buffer-substring-no-properties
 				skk-henkan-start-point (point)))
 		     jisx0208)
-		 (skk-kana-cleanup 'force)
 		 (when (and jisx0201 (setq jisx0208
 					   (skk-jisx0201-zenkaku jisx0201)))
 		   (insert-before-markers jisx0208)
