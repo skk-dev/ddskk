@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.19 2001/09/04 14:08:23 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.20 2001/09/11 16:00:46 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/04 14:08:23 $
+;; Last Modified: $Date: 2001/09/11 16:00:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -223,16 +223,29 @@
   ;; ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
   ;; 返す。例えば "1021" を "千二十一" に変換する。
   (save-match-data
-    (if (not (string-match "\\.[0-9]" num))
-	;; 小数点を含まない数
-	(let ((str (skk-num-type3-kanji-1 num)))
-	  (if (string= "" str) "〇" str)))))
+    (unless (string-match "\\.[0-9]" num)
+      ;; 小数点を含まない数
+      (skk-num-to-kanji num 'type3))))
 
-(defun skk-num-type3-kanji-1 (num)
-  ;; skk-num-type3-kanji のサブルーチン。
+(defun skk-num-type5-kanji (num)
+  ;; ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
+  ;; 返す。例えば "1021" を "壱阡弐拾壱" に変換する。
+  (save-match-data
+    (unless (string-match "\\.[0-9]" num)
+      ;; 小数点を含まない数
+      (skk-num-to-kanji num 'type5))))
+
+(defun skk-num-get-kanji (expression alist)
+  (cdr (assq expression alist)))
+
+(defun skk-num-to-kanji (num type &optional alist)
+  ;; NUM を TYPE の形式の漢数字にする。位などを表す漢字は ALIST から取得する。
   (let ((len (length num))
 	(i 0)
 	char v num1 v1)
+    (unless alist
+      (setq alist
+	    (symbol-value (intern (format "skk-num-alist-%s" type)))))
     ;; 「千京」までは出力する。
     (when (> len 20) (skk-error "位が大きすぎます！" "Too big number!"))
     (setq num (append num nil))
@@ -245,20 +258,25 @@
 	    ;; 位を表わす漢数字以外の漢数字。
 	    (unless (eq char ?0)
 	    ;; 一の位で 0 でない数。
-	      (setq v (concat v (cdr (assq char skk-num-alist-type2)))))
+	      (setq v (concat v (skk-num-get-kanji char alist))))
 	  ;; 位を表わす漢数字以外の漢数字。
-	  (unless (memq char '(?0 ?1))
-	    ;; 十の位以上で、かつ 0, 1 以外の数字。
-	    (setq v (concat v (cdr (assq char skk-num-alist-type2)))))
+	  (unless (or (and (eq type 'type3)
+			   (memq char '(?0 ?1)))
+		      (and (eq type 'type5)
+			   (eq char ?0)))
+	    ;; type3 のときは、十の位以上で、かつ 0, 1 以外の数字。
+	    ;; type5 のときは、十の位以上で、かつ 0 以外の数字。
+	    (setq v (concat v (skk-num-get-kanji char alist))))
 	  ;; 位を表わす漢数字。
-	  (when (and (not (eq char ?0)) (memq len '(2 3 4)))
+	  (when (and (not (eq char ?0)) (< 1 len))
 	    (setq v
 		  (concat
 		   v
-		   (cdr (assq len '((2 . "十") (3 . "百") (4 . "千"))))))))
-	(setq len (1- len) num (cdr num)))
-      (unless v
-	(setq v "")))
+		   (skk-num-get-kanji (cond ((eq len 2) 'ju) ; 十
+					    ((eq len 3) 'hyaku) ; 百
+					    (t 'sen)) ; 千
+				      alist)))))
+	(setq len (1- len) num (cdr num))))
      (t
       (setq num (nreverse num))
       (while num
@@ -267,8 +285,10 @@
 	  (setq num1 (cons (car num) num1)
 		num (cdr num)))
 	(when num1
-	  (setq v1 (skk-num-type3-kanji-1 num1))
-	  (when (and (eq i 1) (equal v1 "千"))
+	  (setq v1 (skk-num-to-kanji num1 type alist))
+	  (when (string= v1 (skk-num-get-kanji ?0 alist))
+	    (setq v1 ""))
+	  (when (and (eq type 'type3) (eq i 1) (equal v1 "千"))
 	    ;; 日本語では「千億」という表現はときに使われるが、「千万」という表
 	    ;; 現はまず使われないので、「一千万」に直す。
 	    (setq v1 (concat "一" v1)))
@@ -277,67 +297,17 @@
 	   (concat
 	    v1
 	    (when v1
-	      (cdr
-	       (assq
-		i '((0 . "") (1 . "万") (2 . "億") (3 . "兆") (4 . "京")))))
+	      (skk-num-get-kanji (cond ((eq i 0) ?\ )
+				       ((eq i 1) 'man) ; 万
+				       ((eq i 2) 'oku) ; 億
+				       ((eq i 3) 'cho) ; 兆
+				       ((eq i 4) 'kei)) ; 京
+				 alist))
 	    v)))
 	(setq i (1+ i)))))
-    v))
-
-(defun skk-num-type5-kanji (num)
-  ;; ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
-  ;; 返す。例えば "1021" を "壱阡弐拾壱" に変換する。
-  (save-match-data
-    (if (not (string-match "\\.[0-9]" num))
-	;; 小数点を含まない数
-	(let ((str (skk-num-type5-kanji-1 num)))
-	  (if (string= "" str) "零" str)))))
-
-(defun skk-num-type5-kanji-1 (num)
-  ;; skk-num-type5-kanji のサブルーチン。
-  (let ((len (length num))
-	(i 0)
-	char v num1 v1)
-    ;; 「千京」までは出力する。
-    (when (> len 20) (skk-error "位が大きすぎます！" "Too big number!"))
-    (setq num (append num nil))
-    (cond
-     ((<= len 4)
-      (while (setq char (car num))
-	(if (= len 1)
-	    (unless (eq char ?0)
-	      (setq v (concat v (cdr (assq char skk-num-alist-type5)))))
-	  ;; 位を表わす漢数字以外の漢数字。
-	  (setq v (concat v (cdr (assq char skk-num-alist-type5))))
-	  ;; 位を表わす漢数字。
-	  (when (and (not (eq char ?0)) (memq len '(2 3 4)))
-	    (setq v
-		  (concat
-		   v
-		   (cdr (assq len '((2 . "拾") (3 . "百") (4 . "阡"))))))))
-	(setq len (1- len) num (cdr num)))
-      (unless v
-	(setq v "")))
-     (t
-      (setq num (nreverse num))
-      (while num
-	(setq num1 nil)
-	(while (and (< (length num1) 4) num)
-	  (setq num1 (cons (car num) num1)
-		num (cdr num)))
-	(when num1
-	  (setq v1 (skk-num-type5-kanji-1 num1))
-	  (setq
-	   v
-	   (concat
-	    v1
-	    (when v1
-	      (cdr
-	       (assq
-		i '((0 . "") (1 . "萬") (2 . "億") (3 . "兆") (4 . "京")))))
-	    v)))
-	(setq i (1+ i)))))
-    v))
+    ;;
+    (or v
+	(skk-num-get-kanji ?0 alist))))
 
 (defun skk-num-shogi (num)
   ;; ascii 数字の NUM を将棋で使用される数字表記に変換する。
