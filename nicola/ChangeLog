@@ -1,3 +1,8 @@
+2001-09-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el
+	(skk-nicola-turn-on-j-mode): Call `skk-cursor-set'.
+
 2001-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-omelet-us.el (skk-insert): Now advise in skk-nicola.el.

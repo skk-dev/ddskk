@@ -53,6 +53,7 @@
     (require 'skk-e21)))
 
 (eval-and-compile
+  (autoload 'skk-cursor-set "skk-cursor")
   (autoload 'skk-dcomp-marked-p "skk-dcomp")
   (autoload 'skk-dcomp-face-off "skk-dcomp")
   (autoload 'skk-dcomp-face-on "skk-dcomp"))
@@ -536,15 +537,7 @@ keycode 131 = underscore\n"))
 	       (when (and skk-use-color-cursor
 			  (skk-color-display-p))
 		 ;; 新しい skk-cursor 対策
-		 (static-cond
-		  ((eq skk-emacs-type 'xemacs)
-		   (set-face-property 'text-cursor
-				      'background
-				      skk-cursor-hiragana-color
-		    (current-buffer)))
-		  (t
-		   (set-buffer-local-cursor-color
-		    skk-cursor-hiragana-color)))))
+		 (skk-cursor-set skk-cursor-hiragana-color)))
 	      (char
 	       (let ((last-command-char
 		      (if (characterp (event-to-character
