@@ -2,6 +2,7 @@
 
 	* skk-nicola.el (skk-nicola-self-insert-lshift): Do not do dynamic
 	completion when `skk-henkan-active'.
+	Call `skk-insert' when `skk-kanagaki-state' is not kana.
 
 2001-09-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

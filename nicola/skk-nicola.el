@@ -402,7 +402,13 @@ keycode 131 = underscore\n"))
 	    (or (not skk-henkan-on) skk-henkan-active))
     (setq skk-nicola-okuri-flag nil))
   ;;
-  (skk-nicola-insert arg))
+  (cond
+   ((eq skk-kanagaki-state 'kana)
+    (skk-nicola-insert arg))
+   (t
+    (unless last-command-char
+      (setq last-command-char ?\ ))
+    (call-interactively 'skk-insert))))
 
 ;;;###autoload
 (defun skk-nicola-turn-on-j-mode (&optional arg)
@@ -869,7 +875,7 @@ keycode 131 = underscore\n"))
 (defadvice skk-nicola-self-insert-lshift (around skk-nicola-ad-for-dcomp
 						 activate compile)
   (cond
-   ((featurep 'skk-dcomp)
+   (skk-dcomp-activate
     (if (or skk-henkan-active (not skk-henkan-on))
 	ad-do-it
       (let (pos)
