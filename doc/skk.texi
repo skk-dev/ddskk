@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.22 2000/09/15 05:39:52 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.23 2000/09/17 15:26:05 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/09/15 05:39:52 $
+@c  Last Modified: $Date: 2000/09/17 15:26:05 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/09/15 05:39:52 $
+@set UPDATED $Date: 2000/09/17 15:26:05 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -87,15 +87,14 @@ by the author.
 @node Top, $B$O$8$a$K(B, (dir), (dir)
 @top SKK
 
-This is Edition @value{EDITION},
-last updated @value{UPDATED},
-of @cite{The SKK Manual},
-for SKK, Version @value{SKK-VERSION}.
+($B:G=*99?7F|(B: @value{UPDATED})
 
-SKK version 10 $B$O(B Mule $B5!G=$r;}$C$?(B Emacs $B$N>e$K9bB.$G8zN(E*$JF|K\8lF~NO(B
-$B4D6-$rDs6!$9$k%7%9%F%`$G$9!#(B
+$B$3$l$O(B @cite{SKK $B%^%K%e%"%k(B} $BBh(B @value{EDITION} $BHG$G$9!#(B
+SKK $B$N%P!<%8%g%s(B@value{SKK-VERSION} $B$KBP1~$7$F$$$^$9!#(B
+
 
 @menu
+* $B$O$8$a$K(B::
 * $B$O$8$a$N@_Dj(B::
 * $B4pK\E*$J;HMQJ}K!(B::            
 * $BJXMx$J1~MQ5!G=$H%f!<%6!<%*%W%7%g%s(B::
@@ -112,7 +111,43 @@ SKK version 10 $B$O(B Mule $B5!G=$r;}$C$?(B Emacs $B$N>e$K9bB.$G8zN(E*$JF|K
 @end menu
 @end ifinfo
 
-@node $B$O$8$a$N@_Dj(B, $B4pK\E*$J;HMQJ}K!(B, Top, Top
+@node $B$O$8$a$K(B, $B$O$8$a$N@_Dj(B, Top, Top
+@comment  node-name,  next,  previous,  up
+@chapter $B$O$8$a$K(B
+
+SKK version 10 $B$O9bB.$G8zN(E*$JF|K\8lF~NO4D6-$rDs6!$9$k%7%9%F%`$G$9!#(B
+GNU General Public License $B$K=>$C$?%U%j!<!&%=%U%H%&%'%"$H$7$FG[I[$5$l$^$9!#(B
+
+SKK 10 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
+
+@itemize @minus
+@item  Emacs 19.28 $B0J9_$r%Y!<%9$H$7$?(B Mule 2.3 (Mule for Windows 1.21,
+1.22 $B$r4^$`(B)
+@item Emacs 20.2 $B0J9_(B (Meadow 1.00 $B0J9_(B $B$r4^$`(B)
+@item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 20.4 $B0J9_(B
+@end itemize
+
+SKK $B$O!"(BSimple Kana to Kanji conversion program $B$K$A$J$s$GL>IU$1$i$l$^$7$?!#(B
+
+$B<g$JFCD'$O!"<!$NDL$j$G$9!#(B
+
+@itemize @bullet
+@item $B%m!<%^;zF~NO$K$h$k!"J8K!E*CN<1$rMQ$$$J$$9bB.JQ492DG=$JF|K\8lF~NO(B/$BJQ49!#(B
+@item $B<-=q$KEPO?$5$l$F$$$J$$C18l$NEPO?$,4JC1!#(B
+@item $B8D?M<-=q$X$NC18l$NEPO?$K$h$kJQ49$N9b%R%C%H!#(B
+@item $B%^%$%J!<%b!<%I$H$7$F<BAu$5$l$F$$$k$N$G!"%a%8%c!<%b!<%I$K$[$H$s$I1F(B
+$B6A$rM?$($J$$!#$D$^$j!"(BEmacs $B$H$N?FOB@-$,9b$$!#(B
+@item SKK $BK\BN(B(Emacs Lisp) $B$H<-=q$N$_$GF0:n(B($B%5!<%P!<$OI,?\$G$O$J$$(B)$B!#<-(B
+$B=q%5!<%P!<$,%@%&%s$7$F$$$F$b;HMQ$G$-$k!#(B
+@item $B<-=q%5!<%P!<$r;H$&$3$H$G!"(BEmacs $B$N(B SKK $B;HMQ%a%b%j$r:o8:2DG=!#(B
+@item $B%G%#%9%/MFNL$K1~$8$FA*$Y$k<-=q!#(B
+@item SKK $B$HF1MM$NA`:n$G9T$($kF|K\8l%$%s%/%j%a%s%?%k%5!<%A!#(B
+@item Emacs Lisp $B$G=q$+$l$?%W%m%0%i%`$rJQ498uJd$K$G$-$k!#(B
+@item $B8D?M$N@_Dj$K$h$j!"%m!<%^;zF~NO$NBe$o$j$K(B T-Code$B!"(BTUT-code $B$K$h$kF~(B
+$BNO$b2DG=!#(B
+@end itemize
+
+@node $B$O$8$a$N@_Dj(B, $B4pK\E*$J;HMQJ}K!(B, $B$O$8$a$K(B, Top
 @comment  node-name,  next,  previous,  up
 @chapter $B$O$8$a$N@_Dj(B
 
