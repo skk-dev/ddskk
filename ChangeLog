@@ -1,3 +1,8 @@
+2001-05-19  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-macs.el (skk-color-display-p): Always return t if on Emacs
+	21.
+
 2001-05-13  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el (skk-w3m-working-buffer): Removed.
@@ -3306,8 +3311,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.282 2001/05/13 12:16:57 minakaji Exp $
-Last Modified: $Date: 2001/05/13 12:16:57 $
+Version: $Id: ChangeLog,v 1.283 2001/05/18 21:55:40 minakaji Exp $
+Last Modified: $Date: 2001/05/18 21:55:40 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.24 2001/02/03 00:22:58 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.25 2001/05/18 21:55:40 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Last Modified: $Date: 2001/05/18 21:55:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -172,7 +172,9 @@
 	     (progn
 	       (setq (, object) (make-overlay (, start) (, end)))
 	       (and (, priority) (overlay-put (, object) 'priority (, priority)))
-	       (overlay-put (, object) 'face (, face)))
+	       (overlay-put (, object) 'face (, face))
+	       ;;(overlay-put (, object) 'evaporate t)
+	       )
 	   (move-overlay (, object) (, start) (, end))))))))
 
 (defmacro skk-sit-for (seconds &optional nodisplay)
@@ -219,6 +221,8 @@
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (eq (device-class (selected-device)) 'color))
+   ;; Emacs 21 or later.
+   ((eq emacs-major-version 21) t)
    ((fboundp 'x-display-color-p)
     ;; Emacs 19 or later.
     (and window-system (x-display-color-p)))))
