@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.90 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.91 2002/01/09 16:17:30 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/09 16:17:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -215,6 +215,11 @@
 ;;(defgroup skk-viper nil "SKK/Viper related customization."
 ;;  :prefix "skk-viper-"
 ;;  :group 'skk-custom-by-filename)
+
+;;;###autoload
+(defvar skk-preload nil
+  "Non-nil ならば、SKK を前もってロードする。
+これによって初回起動が高速になる。")
 
 (defcustom skk-init-file (convert-standard-filename "~/.skk")
   "*SKK の初期設定ファイル名。
