@@ -533,93 +533,32 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	ad-do-it)
     ad-do-it))
 
-(defadvice skk-compute-henkan-lists (around skk-kanagaki-adjust-okurigana
-					    activate
-					    compile)
-  (let ((okurigana (ad-get-arg 0)))
-    (setq
-     ad-return-value
-     (cond
-      ((not okurigana)
-       (list (split-string
-	      (buffer-substring-no-properties
-	       (point)
-	       (progn
-		 (end-of-line)
-		 (1- (point))))
-	      "/")
-	     nil
-	     nil
-	     nil))
-      (t
-       (save-match-data
-	 (let ((stage 1)
-	       (q1 (queue-create))
-	       (q2 (queue-create))
-	       (q3 (queue-create))
-	       (q4 (queue-create))
-	       (okuri-key (concat "\[" okurigana))
-	       item
-	       headchar)
-	   (catch 'exit
-	     (while (not (eolp))
-	       (setq item     (buffer-substring-no-properties
-			       (point)
-			       (1- (search-forward "/")))
-		     headchar (if (string= item "")
-				  (int-char 0)
-				(skk-str-ref item 0)))
-	       (cond
-		((and (eq headchar ?\[)
-		      (<= stage 2))
-		 ;;
-		 (when (and skk-use-kana-keyboard
-			    skk-henkan-okuri-strictly)
-		   ;; $B2>L>F~NOMQ$NFC<l=hM}(B
-		   (cond
-		    ((eq skk-kanagaki-state 'kana)
-		     ;; okuri-key $B$,(B "$B$C(B" $B$G(B item $B$,(B "$B$C$F(B" $B$J$I$@$C$?(B
-		     ;; $B>l9g!"(Bitem $B$r(B okuri-key $B$KCV$-49$($k!#(B
-		     (when (and
-			    (not (string= okuri-key item))
-			    (string-match
-			     (concat "^"
-				     (regexp-quote okuri-key))
-			     item))
-		       (setq item okuri-key)))
-		    ((eq skk-kanagaki-state 'rom)
-		     ;; okuri-key $B$,(B "$B$C$F(B" $B$G(B item $B$,(B "$B$C(B" $B$J$I$@$C$?(B
-		     ;; $B>l9g!"(Bitem $B$r(B okuri-key $B$KCV$-49$($k!#(B
-		     (when (and
-			    (not (string= okuri-key item))
-			    (string-match
-			     (concat "^" (regexp-quote item))
-			     okuri-key))
-		       (setq item okuri-key)))))
-		 ;;
-		 (if (string= item okuri-key)
-		     (progn
-		       (queue-enqueue q2 item)
-		       (setq stage 3))
-		   (setq stage 2)
-		   (queue-enqueue q2 item)))
-		((= stage 1)
-		 (queue-enqueue q1 item))
-		((= stage 2)
-		 (queue-enqueue q2 item))
-		((= stage 3)
-		 (if (eq headchar ?\]) ; ?\]
-		     (progn
-		       (setq stage 4)
-		       (queue-enqueue q4 item))
-		   (queue-enqueue q3 item)))
-		((= stage 4)
-		 (queue-enqueue q4 item)))))
-	   ;;
-	   (list (queue-all q1)       ; words1
-		 (queue-all q2)       ; words2
-		 (queue-all q3)       ; words3
-		 (queue-all q4))))))))) ; words4
+(defadvice skk-compute-henkan-lists-sub-adjust-okuri
+  (around
+   skk-kanagaki-adjust-okurigana
+   activate compile)
+  ;;
+  (cond
+   ((and skk-use-kana-keyboard
+	 skk-henkan-okuri-strictly)
+    ;; $B2>L>F~NOMQ$NFC<l=hM}(B
+    (let ((item (ad-get-arg 0))
+	  (okuri-key (ad-get-arg 1)))
+      (setq ad-return-value
+	    (cond
+	     ((or (and (eq skk-kanagaki-state 'kana)
+		       ;; okuri-key $B$,(B "$B$C(B" $B$G(B item $B$,(B "$B$C$F(B" $B$J$I$@$C$?>l9g!#(B
+		       (string-match (concat "^" (regexp-quote okuri-key))
+				     item))
+		  (and (eq skk-kanagaki-state 'rom)
+		       ;; okuri-key $B$,(B "$B$C$F(B" $B$G(B item $B$,(B "$B$C(B" $B$J$I$@$C$?>l9g!#(B
+		       (string-match (concat "^" (regexp-quote item))
+				     okuri-key)))
+	      okuri-key)
+	     (t
+	      item)))))
+   (t
+    ad-do-it)))
 
 ;;
 
