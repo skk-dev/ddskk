@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.25 1999/10/03 12:43:40 minakaji Exp $
-;; Last Modified: $Date: 1999/10/03 12:43:40 $
+;; Version: $Id: SKK-MK,v 1.26 1999/10/07 10:22:35 minakaji Exp $
+;; Last Modified: $Date: 1999/10/07 10:22:35 $
 
 ;; Commentary
 ;;
@@ -58,53 +58,55 @@ end with `skk'." )
 (defvar LISPDIR
   (or (getenv "LISPDIR") (install-detect-elisp-directory PREFIX)) )
 (defvar VERSION_SPECIFIC_LISPDIR
-  (or (getenv "VERSION_SPECIFIC_LISPDIR")
-      (install-detect-elisp-directory PREFIX nil 'version-specific) ))
+  (let ((dir (expand-file-name
+	      (or (getenv "VERSION_SPECIFIC_LISPDIR")
+		  (install-detect-elisp-directory PREFIX nil 'version-specific) ))))
+    (if (file-exists-p dir) dir) ))
 
 (defvar EMU_PREFIX
-  (if (or (featurep 'xemacs)
-	  (and (fboundp 'set-buffer-multibyte)
-	       (subrp (symbol-function 'set-buffer-multibyte))))
-      "emu"
-    ""))
+  (or (getenv "EMU_PREFIX")
+      (if (or (featurep 'xemacs)
+	      (and (fboundp 'set-buffer-multibyte)
+		   (subrp (symbol-function 'set-buffer-multibyte))))
+	  "emu"
+	"")))
 
 ;; searching APEL installed directory...
 (if (and (boundp 'LISPDIR) LISPDIR
-	 (setq LISPDIR (expand-file-name LISPDIR))
-	 (file-exists-p LISPDIR) )
+	 (setq LISPDIR (expand-file-name LISPDIR)) )
     (setq default-load-path (tinyinstall-add-load-path LISPDIR default-load-path)
 	  load-path (tinyinstall-add-load-path LISPDIR load-path) ))
 
-(let* ((mule-for-win)
-       (apeldir
-	(or (and (file-exists-p (expand-file-name "apel" LISPDIR))
-		 (expand-file-name "apel" LISPDIR) )
-	    (and APEL_SPECIFIC_LISPDIR
-		 (setq APEL_SPECIFIC_LISPDIR (expand-file-name APEL_SPECIFIC_LISPDIR))
-		 (file-exists-p APEL_SPECIFIC_LISPDIR) 
-		 APEL_SPECIFIC_LISPDIR )
-	    ;; Unix
-	    (and (file-exists-p 
-		  (expand-file-name "../../site-lisp/apel" data-directory) )
+(let ((apeldir
+       (or (and APEL_SPECIFIC_LISPDIR
+		(setq APEL_SPECIFIC_LISPDIR (expand-file-name APEL_SPECIFIC_LISPDIR))
+		(file-exists-p APEL_SPECIFIC_LISPDIR) 
+		APEL_SPECIFIC_LISPDIR )
+	   (and (file-exists-p (expand-file-name "apel" LISPDIR))
+		(expand-file-name "apel" LISPDIR) )
+	   ;; Unix
+	   (and (file-exists-p 
 		 (expand-file-name "../../site-lisp/apel" data-directory) )
-	    ;; Mule for Windows.
-	    (and (file-exists-p
-		  (expand-file-name "../site-lisp/apel" exec-directory) )
-		 (setq mule-for-win t)
-		 (expand-file-name "../site-lisp/apel" exec-directory) )))
-       (emudir
-	(and VERSION_SPECIFIC_LISPDIR
-	     (expand-file-name EMU_PREFIX VERSION_SPECIFIC_LISPDIR) )))
-  (if (and apeldir
-	   (setq apeldir (expand-file-name apeldir))
-	   (null (member apeldir load-path)) )
-      (progn
-	(setq load-path (tinyinstall-add-load-path emudir load-path))
-	(if mule-for-win
-	    (setq load-path
-		  (tinyinstall-add-load-path
-		   (expand-file-name "../site-lisp" exec-directory) load-path ))
-	  (setq load-path (cons apeldir load-path)) ))))
+		(expand-file-name "../../site-lisp/apel" data-directory) )
+	   ;; Mule for Windows.
+	   (and (file-exists-p
+		 (expand-file-name "../site-lisp/apel" exec-directory) )
+		(expand-file-name "../site-lisp/apel" exec-directory) )))
+      (emudir
+       (if VERSION_SPECIFIC_LISPDIR
+	   (let ((emutmp (expand-file-name EMU_PREFIX VERSION_SPECIFIC_LISPDIR)))
+	     (cond ((and (not (string= emutmp VERSION_SPECIFIC_LISPDIR))
+			 (file-exists-p emutmp) )
+		    emutmp )
+		   ((and (string= emutmp VERSION_SPECIFIC_LISPDIR)
+			 (file-exists-p
+			  (expand-file-name "emu" VERSION_SPECIFIC_LISPDIR) ))
+		    ;; not standard emu directory, but add it to load-path anyway.
+		    (expand-file-name "emu" VERSION_SPECIFIC_LISPDIR) ))))))
+  (and emudir 
+       (setq load-path (tinyinstall-add-load-path emudir load-path)) )
+  (and apeldir
+       (setq load-path (tinyinstall-add-load-path apeldir load-path)) ))
   
 (setq load-path (cons (expand-file-name ".") load-path))
 
