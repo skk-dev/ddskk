@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.61 2001/09/23 03:48:49 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.62 2001/09/23 14:31:27 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 03:48:49 $
+;; Last Modified: $Date: 2001/09/23 14:31:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1557,7 +1557,7 @@ cdr は元号表記の string からなるリスト。"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "März")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Adrz")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
@@ -2610,7 +2610,9 @@ This map should be derived from isearch-mode-map.")
 (defvar skkserv-process nil)
 
 ;;; SKK-VIPER.EL related internal variables and constants.
-(defvar skk-viper-saved-cursor-color viper-insert-state-cursor-color)
+(defvar skk-viper-saved-cursor-color
+  (if (featurep 'viper)
+      (symbol-value 'viper-insert-state-cursor-color)))
 (make-variable-buffer-local 'viper-insert-state-cursor-color)
 
 (defconst skk-viper-use-vip-prefix
