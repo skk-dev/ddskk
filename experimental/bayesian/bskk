@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.9 2004/12/31 09:37:24 skk-cvs Exp $
+## Version: $Id: bskk,v 1.10 2005/02/01 02:31:09 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2004/12/31 09:37:24 $
+## Last Modified: $Date: 2005/02/01 02:31:09 $
 
 ## This file is part of Daredevil SKK.
 
@@ -444,6 +444,7 @@ def serve( db, input, out, history_file, history_file_bak )
       else
         out.puts( ";;unknown command: #{line}", err )
       end
+      out.flush
     end
   rescue IOError => e
     debug_log( "e.to_s" + Time.now.to_s )
