@@ -1,3 +1,7 @@
+2000-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-coding-system-alist): sjis => shift_jis.
+
 2000-09-08  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* skk.el (skk-get-jisyo-buffer):skk-jisyo-code がシンボルか check
