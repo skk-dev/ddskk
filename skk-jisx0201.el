@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.31 2001/10/11 13:42:10 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.32 2001/10/19 12:44:40 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/11 13:42:10 $
+;; Last Modified: $Date: 2001/10/19 12:44:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -71,9 +71,6 @@
     (require 'jisx0201)))
  (t
   (require 'japan-util)))
-
-(eval-and-compile
-  (autoload 'skk-isearch-message "skk-isearch"))
 
 ;; 諸般の事情により skk-vars.el に入れるべきでない変数
 (defvar skk-jisx0201-base-rule-list
@@ -297,12 +294,10 @@
 			   skk-current-rule-tree ch))))
 	    (and skk-henkan-on
 		 (memq ch skk-special-midashi-char-list)))
-	;;
 	ad-do-it)
        ;;
        ((and skk-henkan-on
 	     (eq ch skk-start-henkan-char))
-	;;
 	(skk-kana-cleanup 'force)
 	(unless (or skk-okurigana
 		    skk-okuri-char)
@@ -316,10 +311,8 @@
 	      (insert-before-markers jisx0208)
 	      (delete-region skk-henkan-start-point
 			     (- (point) (length jisx0208))))))
-	;;
 	(let ((skk-katakana t))
 	  (skk-start-henkan arg))
-	;;
 	(skk-cursor-set))
        ;;
        (skk-jisx0201-roman
@@ -402,15 +395,7 @@
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-with-point-move
-   (if skk-henkan-on
-       (unless skk-henkan-active
-	 (skk-set-marker skk-henkan-end-point (point))
-	 (skk-*-henkan-1 'skk-jisx0201-region
-			 skk-henkan-start-point
-			 skk-henkan-end-point
-			 'vcontract))
-     (skk-emulate-original-map arg))))
+  (skk-*-henkan-2 'skk-jisx0201-region 'vcontract))
 
 (defun skk-jisx0201-region (start end &optional vcontract)
   "リージョンのひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
@@ -425,35 +410,31 @@
 
 (defun skk-hiragana-to-jisx0201-region (start end &optional vcontract)
   (skk-search-and-replace
-   start
-   end
+   start end
    "[ぁ-ん]+"
    (lambda (matched)
      (save-match-data
        (skk-jisx0201-hankaku matched))))
-  (if vcontract
-      (skk-search-and-replace
-       start
-       end
-       "う゛"
-       (lambda (matched)
-	 "ｳﾞ"))))
+  (when vcontract
+    (skk-search-and-replace
+     start end
+     "う゛"
+     (lambda (matched)
+       "ｳﾞ"))))
 
 (defun skk-katakana-to-jisx0201-region (start end &optional vcontract)
   (skk-search-and-replace
-   start
-   end
+   start end
    "[ァ-ン]+"
    (lambda (matched)
      (save-match-data
        (skk-jisx0201-hankaku matched))))
-  (if vcontract
-      (skk-search-and-replace
-       start
-       end
-       "ヴ"
-       (lambda (matched)
-	 "ｳﾞ"))))
+  (when vcontract
+    (skk-search-and-replace
+     start end
+     "ヴ"
+     (lambda (matched)
+       "ｳﾞ"))))
 
 
 (require 'product)
