@@ -27,10 +27,6 @@
      (setq nicola-ddskk-modules
 	   (delq 'nicola-ddskk-autoloads nicola-ddskk-modules)))
 
-(and (= emacs-major-version 18)
-     (setq nicola-ddskk-modules
-	   (delq 'skk-kanagaki-menu nicola-ddskk-modules)))
-
 (and (featurep 'easymenu)
      (or (fboundp 'easy-menu-add-item)
 	 (setq nicola-ddskk-modules

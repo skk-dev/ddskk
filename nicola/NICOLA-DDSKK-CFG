@@ -14,8 +14,6 @@
 	 (string-to-int (substring emacs-version
 				   (match-beginning 0)(match-end 0)))))
 
-(defvar data-directory exec-directory) ; For Emacs 18.
-
 (or (fboundp 'member)
     (defun member (elt list)
       (while (and list (not (equal elt (car list))))
