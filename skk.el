@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.155 2001/10/14 01:25:21 czkmt Exp $
+;; Version: $Id: skk.el,v 1.156 2001/10/14 01:38:13 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/14 01:25:21 $
+;; Last Modified: $Date: 2001/10/14 01:38:13 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -504,15 +504,17 @@ dependent."
 		 (setq string (symbol-value symbol))
 		 ;; 本来ならこのようにユーザ変数を加工するのはおかしいが、
 		 ;; 移行期の処置として暫定的に行なう。
-		 (cond ((string-match "^ +" string)
-			;; minor-mode setting
-			(setq base (substring string (match-end 0))))
-		       ((string-match "^--" string)
-			;; mode-line left setting
-			(setq base (substring string (match-end 0)))
-			(if (string-match "::*$" base)
-			    (setq base (substring base 0 (match-beginning 0)))))
-		       (t (setq base string)))
+		 (cond
+		  ((string-match "^ +" string)
+		   ;; minor-mode setting
+		   (setq base (substring string (match-end 0))))
+		  ((string-match "^--" string)
+		   ;; mode-line left setting
+		   (setq base (substring string (match-end 0)))
+		   (when (string-match "::*$" base)
+		     (setq base (substring base 0 (match-beginning 0)))))
+		  (t
+		   (setq base string)))
 		 (cons mode
 		       (cons (concat " " base)
 			     (skk-make-indicator-alist-1 mode base))))
