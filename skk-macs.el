@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.72 2001/12/02 03:15:40 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.73 2001/12/02 11:06:25 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/02 03:15:40 $
+;; Last Modified: $Date: 2001/12/02 11:06:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -40,6 +40,7 @@
 
 ;;;; macros
 
+(put 'ignore-errors 'defmacro-maybe t)
 (defmacro-maybe ignore-errors (&rest body)
   "Execute FORMS; if an error occurs, return nil.
 Otherwise, return result of last FORM."
@@ -55,6 +56,7 @@ Otherwise, return result of last FORM."
 
 ;;;###autoload
 (put 'dolist 'lisp-indent-function 1)
+(put 'dolist 'defmacro-maybe t)
 (defmacro-maybe dolist (spec &rest body)
   "(dolist (VAR LIST [RESULT]) BODY...): loop over a list.
 Evaluate BODY with VAR bound to each car from LIST, in turn.
@@ -72,6 +74,7 @@ Then evaluate RESULT to get return value, default nil."
 
 ;;;###autoload
 (put 'dotimes 'lisp-indent-function 1)
+(put 'dotimes 'defmacro-maybe t)
 (defmacro-maybe dotimes (spec &rest body)
   "(dotimes (VAR COUNT [RESULT]) BODY...): loop a certain number of times.
 Evaluate BODY with VAR bound to successive integers running from 0,
