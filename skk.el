@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.201 2001/11/25 00:55:12 czkmt Exp $
+;; Version: $Id: skk.el,v 1.202 2001/11/25 13:27:22 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/25 00:55:12 $
+;; Last Modified: $Date: 2001/11/25 13:27:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -218,6 +218,8 @@ dependent."
     (skk-create-file skk-jisyo
 		     "SKK の空辞書を作りました"
 		     "I have created an empty SKK Jisyo file for you")
+    (static-when (eq skk-emacs-type 'xemacs)
+      (easy-menu-add skk-menu))
     (skk-require-module)
     ;; To terminate kana input.
     (make-local-hook 'pre-command-hook)
@@ -289,7 +291,7 @@ dependent."
     (require 'skk-look))
   (when (featurep 'skk-jisx0201)
     (setq skk-use-jisx0201-input-method t))
-  (when skk-dcomp-activate 
+  (when skk-dcomp-activate
     (require 'skk-dcomp)))
 
 (defun skk-mode-exit ()
@@ -324,8 +326,6 @@ dependent."
     (skk-kanagaki-initialize))
   (skk-setup-delete-selection-mode)
   (skk-adjust-user-option)
-  (static-when (eq skk-emacs-type 'xemacs)
-    (easy-menu-add skk-menu))
   (setq skk-mode-invoked t))
 
 ;;; setup
