@@ -1,3 +1,10 @@
+2002-03-22  FURUE Hideyuki  <furue@myrealbox.com>
+
+	* skk.el:
+	(skk-kakutei-cleanup-buffer): Fix bug that `skk-undo-kakutei`
+	does not treat the last okuri-ari kakutei correctly when
+	`skk-undo-kakutei-word-only' is t.
+
 2002-03-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el:
@@ -3783,8 +3790,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.676 2002/03/16 14:45:00 czkmt Exp $
-Last Modified: $Date: 2002/03/16 14:45:00 $
+Version: $Id: ChangeLog,v 1.677 2002/03/22 10:04:05 furue Exp $
+Last Modified: $Date: 2002/03/22 10:04:05 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

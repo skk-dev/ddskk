@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.240 2002/03/16 14:44:11 czkmt Exp $
+;; Version: $Id: skk.el,v 1.241 2002/03/22 10:04:05 furue Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/16 14:44:11 $
+;; Last Modified: $Date: 2002/03/22 10:04:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2227,15 +2227,23 @@ WORD で確定する。"
   (skk-delete-henkan-markers)
   (when skk-undo-kakutei-word-only
     (cond
-     ((> (point) (marker-position skk-henkan-start-point))
-      (let ((word (buffer-substring-no-properties
-		   skk-henkan-start-point (point))))
-	(delete-region skk-henkan-start-point (point))
+     ((> (point) skk-henkan-start-point)
+      (let ((kakutei-word (buffer-substring-no-properties
+			   skk-henkan-start-point skk-henkan-end-point))
+	    (tail (buffer-substring-no-properties
+		   skk-henkan-end-point (point))))
+	(delete-region skk-henkan-start-point skk-henkan-end-point)
+	(delete-region skk-henkan-end-point (point))
+
 	(setq buffer-undo-list skk-last-buffer-undo-list)
 	(setq skk-last-buffer-undo-list t)
 	(set-buffer-modified-p skk-last-buffer-modified)
-	(skk-insert-str word)
-	(skk-set-marker skk-henkan-end-point (point))))
+
+	(goto-char skk-henkan-start-point)
+	(skk-insert-str kakutei-word)
+	(skk-set-marker skk-henkan-end-point (point))
+	(skk-insert-str tail)
+	))
      (t
       (setq buffer-undo-list skk-last-buffer-undo-list)
       (setq skk-last-buffer-undo-list t)
