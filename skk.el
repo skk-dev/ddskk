@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.195 2001/11/21 14:44:25 czkmt Exp $
+;; Version: $Id: skk.el,v 1.196 2001/11/23 09:10:51 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/21 14:44:25 $
+;; Last Modified: $Date: 2001/11/23 09:10:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -341,48 +341,60 @@ dependent."
     (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)))
 
 (defun skk-setup-keymap ()
-  (skk-define-j-mode-map)
-  (skk-define-latin-mode-map)
-  (skk-define-jisx0208-latin-mode-map)
-  (skk-define-abbrev-mode-map)
-
-  ;; .skk で skk-kakutei-key の変更が可能になるように。
-  (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
-  (define-key skk-abbrev-mode-map (char-to-string skk-start-henkan-char)
-    'skk-start-henkan)
-  (define-key skk-abbrev-mode-map (char-to-string skk-try-completion-char)
-    'skk-try-completion)
-  (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei)
-  (when (vectorp skk-kakutei-key)
-    (define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei))
-  (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
-    'skk-insert)
-  (unless (featurep 'skk-kanagaki)
-    (define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
-      'skk-previous-candidate))
-  (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
+  (cond
+   (skk-j-mode
+    (skk-define-j-mode-map)
+    (when (vectorp skk-kakutei-key)
+      (define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei))
+    (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
+      'skk-insert)
+    (unless (featurep 'skk-kanagaki)
+      (define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
+	'skk-previous-candidate))
+    (when skk-use-jisx0201-input-method
+      ;; These commands are autoloaded.
+      (define-key skk-j-mode-map "\C-c\C-q" 'skk-toggle-jisx0201)
+      (define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana))
+    (unless skk-use-viper
+      (define-key skk-j-mode-map
+	(char-to-string skk-start-henkan-with-completion-char)
+	'skk-start-henkan-with-completion)
+      (define-key skk-j-mode-map
+	(char-to-string skk-backward-and-set-henkan-point-char)
+	'skk-backward-and-set-henkan-point))
+    (skk-setup-delete-backward-char)
+    (skk-setup-undo))
+   ;;
+   (skk-latin-mode
+    (skk-define-latin-mode-map)
+    (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei))
+   ;;
+   (skk-jisx0208-latin-mode
+    (skk-define-jisx0208-latin-mode-map)
+    (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
+    (unless skk-use-viper
+      (define-key skk-jisx0208-latin-mode-map
+	(char-to-string skk-backward-and-set-henkan-point-char)
+	'skk-backward-and-set-henkan-point)))
+   ;;
+   (skk-abbrev-mode-map
+    (skk-define-abbrev-mode-map)
+    (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
+    (define-key skk-abbrev-mode-map (char-to-string skk-start-henkan-char)
+      'skk-start-henkan)
+    (define-key skk-abbrev-mode-map (char-to-string skk-try-completion-char)
+      'skk-try-completion)
+    (unless skk-use-viper
+      (define-key skk-abbrev-mode-map
+	(char-to-string skk-start-henkan-with-completion-char)
+	'skk-start-henkan-with-completion))))
+  ;;
   (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
   (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
   ;; XEmacs doesn't have minibuffer-local-ns-map
   (when (and (boundp 'minibuffer-local-ns-map)
 	     (keymapp (symbol-value 'minibuffer-local-ns-map)))
     (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
-  (unless skk-use-viper
-    (define-key skk-j-mode-map
-      (char-to-string skk-start-henkan-with-completion-char)
-      'skk-start-henkan-with-completion)
-    (define-key skk-abbrev-mode-map
-      (char-to-string skk-start-henkan-with-completion-char)
-      'skk-start-henkan-with-completion)
-    (define-key skk-j-mode-map
-      (char-to-string skk-backward-and-set-henkan-point-char)
-      'skk-backward-and-set-henkan-point)
-    (define-key skk-jisx0208-latin-mode-map
-      (char-to-string skk-backward-and-set-henkan-point-char)
-      'skk-backward-and-set-henkan-point))
-  (when skk-j-mode
-    (skk-setup-delete-backward-char)
-    (skk-setup-undo))
   (unless skk-rule-tree
     (setq skk-rule-tree (skk-compile-rule-list
 			 skk-rom-kana-base-rule-list
@@ -400,11 +412,7 @@ dependent."
       (while (< i 127)
 	(define-key skk-j-mode-map (char-to-string i) 'skk-insert)
 	(setq i (1+ i))))
-    (skk-define-menu skk-j-mode-map))
-  (when skk-use-jisx0201-input-method
-    ;; These commands are autoloaded.
-    (define-key skk-j-mode-map "\C-c\C-q" 'skk-toggle-jisx0201)
-    (define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana)))
+    (skk-define-menu skk-j-mode-map)))
 
 (defun skk-define-latin-mode-map ()
   (unless (keymapp skk-latin-mode-map)
