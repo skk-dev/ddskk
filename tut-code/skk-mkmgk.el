@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-mkmgk.el,v 1.1 2001/07/28 05:03:30 minakaji Exp $
+;; Version: $Id: skk-mkmgk.el,v 1.2 2001/07/28 05:12:37 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/28 05:03:30 $
+;; Last Modified: $Date: 2001/07/28 05:12:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -30,8 +30,7 @@
 ;;
 ;;   $ skkdic-expr TMP | skkdic-sort > NEWDICT
 ;;
-;; として NEWDICT を作成すると混ぜ書き SKK 辞書が出来上がります。
-
+;; と加工すると混ぜ書き SKK 辞書 (NEWDICT) が出来上がります。
 
 ;;; Code:
 (eval-when-compile (require 'skk-macs))
