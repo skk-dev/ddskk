@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.43 2001/09/15 05:55:53 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.44 2001/09/15 06:14:49 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 05:55:53 $
+;; Last Modified: $Date: 2001/09/15 06:14:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -212,9 +212,9 @@
 (defmacro skk-loop-for-buffers (buffers &rest forms)
   (` (let ((list (, buffers)))
        (while list
-	 (when (buffer-live-p (car list))
-	   (with-current-buffer (car list)
-	     (,@ forms)))
+	 (if (buffer-live-p (car list))
+	     (with-current-buffer (car list)
+	       (,@ forms)))
 	 (setq list (cdr list))))))
 
 ;;(defun-maybe mapvector (function sequence)
