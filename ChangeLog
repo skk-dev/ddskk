@@ -1,3 +1,9 @@
+2001-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-tut.el
+	(skktut-init-variables-alist): Set `skk-kcode-charset'
+	japanese-jisx0208 when feature `jisx0213' is found.
+
 2001-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK
@@ -3132,8 +3138,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.594 2001/12/15 17:35:30 czkmt Exp $
-Last Modified: $Date: 2001/12/15 17:35:30 $
+Version: $Id: ChangeLog,v 1.595 2001/12/16 01:43:09 czkmt Exp $
+Last Modified: $Date: 2001/12/16 01:43:09 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
