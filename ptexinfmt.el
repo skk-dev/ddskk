@@ -41,18 +41,20 @@
 (provide 'ptexinfmt)
 
 ;;; Broken
-(defvar ptexinfmt-disable-broken-notice t
-  "If non-nil disable notice, when call `broken-facility'.")
+(defvar ptexinfmt-disable-broken-notice-flag t
+  "If non-nil disable notice, when call `broken-facility'.
+This is NO-NOTICE argument in `broken-facility'.")
 
 ;; sort -fd
 (broken-facility texinfo-format-printindex
   "Can't sort on Mule for Windows."
   (if (and (memq system-type '(windows-nt ms-dos))
+;;; I don't know version threshold. 
 ;;;	   (string< texinfmt-version "2.37 of 24 May 1997")
-	   (not (featurep 'meadow)))
+	   (boundp 'MULE) (not (featurep 'meadow))) ; Mule for Windows
       nil
     t)
-  ptexinfmt-disable-broken-notice)
+  ptexinfmt-disable-broken-notice-flag)
 
 ;; @var
 (broken-facility texinfo-format-var
@@ -65,7 +67,7 @@
 	  (texinfo-format-expand-region (point-min) (point-max))
 	  t))
     (error nil))
-  ptexinfmt-disable-broken-notice)
+  ptexinfmt-disable-broken-notice-flag)
 
 ;; @xref
 (broken-facility texinfo-format-xref
@@ -78,7 +80,7 @@
 	  (texinfo-format-expand-region (point-min) (point-max))
 	  t))
     (error nil))
-  ptexinfmt-disable-broken-notice)
+  ptexinfmt-disable-broken-notice-flag)
 
 ;; @uref
 (broken-facility texinfo-format-uref
@@ -91,11 +93,11 @@
 	  (texinfo-format-expand-region (point-min) (point-max))
 	  t))
     (error nil))
-  ptexinfmt-disable-broken-notice)
+  ptexinfmt-disable-broken-notice-flag)
 
 ;; @multitable
 (broken-facility texinfo-multitable-widths
-  "texinfo-multitable-widths unsupport wide-char."
+  "`texinfo-multitable-widths' unsupport wide-char."
   (if (fboundp 'texinfo-multitable-widths)
       (with-temp-buffer
 	(let ((str "幅広文字"))
@@ -107,12 +109,12 @@
 	    t)))
     ;; function definition is void
     t)
-  ptexinfmt-disable-broken-notice)
+  ptexinfmt-disable-broken-notice-flag)
 
 (broken-facility texinfo-multitable-item
-  "texinfo-multitable-item unsupport wide-char."
+  "`texinfo-multitable-item' unsupport wide-char."
   (if-broken texinfo-multitable-widths nil t)
-  ptexinfmt-disable-broken-notice)
+  ptexinfmt-disable-broken-notice-flag)
 
 
 ;;; Obsolete
@@ -176,7 +178,7 @@
 (defun-maybe texinfo-format-direntry ()
   (texinfo-push-stack 'direntry nil)
   (texinfo-discard-line)
-  (insert "START-INFO-DIR-ENTRY\n\n"))
+  (insert "START-INFO-DIR-ENTRY\n"))
 
 (put 'direntry 'texinfo-end 'texinfo-end-direntry)
 (defun-maybe texinfo-end-direntry ()
@@ -593,7 +595,7 @@ otherwise, insert URL-TITLE followed by URL in parentheses."
      ;; Case 3: Trouble
      (t
       (error
-       "You probably need to specify column widths for @multitable correctly.")))
+       "You probably need to specify column widths for @multitable correctly")))
     ;; Check whether columns fit on page.
     (let ((desired-columns
            (+
@@ -658,7 +660,7 @@ This command is executed when texinfmt sees @item inside @multitable."
       (while (search-forward "@tab" nil t)
         (setq tab-number (1+ tab-number)))
       (if (/= tab-number (length table-widths))
-          (error "Wrong number of @tab's in a @multitable row.")))
+          (error "Wrong number of @tab's in a @multitable row")))
     (goto-char (point-min))
 ;; 2. Format each cell, and copy to a rectangle
     ;; buffer looks like this:    A1  @tab  A2  @tab  A3
