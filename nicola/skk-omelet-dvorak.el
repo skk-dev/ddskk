@@ -24,8 +24,8 @@
 
 ;;; Commentary:
 
-;; このファイルは NICOLA 規格に準拠した omelet 独自 Dvorak 配列とそれを実現する
-;; ためのルールを提供します。
+;; このファイルは NICOLA 規格に準拠した omelet 独自 Dvorak 配列とそれを実現す
+;; るためのルールを提供します。
 
 ;;; Code:
 

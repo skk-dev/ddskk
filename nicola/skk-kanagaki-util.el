@@ -23,7 +23,7 @@
 
 ;;; Commentary:
 
-;; macro、inline function はここに置きます。  必要な場合は各モジュールの中から
+;; macro、inline function はここに置きます。必要な場合は各モジュールの中から
 ;; このプログラムをロードします。
 
 ;;; Code:

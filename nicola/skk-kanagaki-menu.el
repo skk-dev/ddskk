@@ -23,6 +23,8 @@
 
 ;;; Commentary:
 
+;; NICOLA-DDSKK のメニューを SKK 標準のメニューに追加します。
+
 ;;; Code:
 
 (eval-when-compile

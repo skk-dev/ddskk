@@ -24,14 +24,15 @@
 
 ;;; Commentary:
 
-;; このプログラムは箕浦逸史さん作の  NICOLA-SKK version 0.39 を基に、 Daredevil
-;; SKK に対応させたものです。原作のアイデアに基いて実装していく予定です。
+;; このプログラムは箕浦逸史さん作の NICOLA-SKK 0.39 を基に、 Daredevil SKK に
+;; 対応させたものです。原作のアイデアに基いて実装していく予定です。
 ;;
-;; キー配列のルールは別ファイルに細分化しています。これらは、同じく箕浦さん作の
-;; omelet (たまご用の親指シフト入力インターフェイス) および同氏の web site の文
-;; 章を基につくりました。
+;; キー配列のルールは別ファイルに細分化しています。これらは、同じく箕浦さん作
+;; の omelet (たまご用の親指シフト入力インターフェイス) および同氏の web site
+;; の文章を基につくりました。
 ;;
-;; 同氏のアイデアと親指シフト入力に関するご尽力に敬意を表します。
+;; 同氏のアイデアと親指シフト入力に関するご尽力に敬意を表し、また感謝いたしま
+;; す。
 
 ;;; Code:
 
@@ -60,8 +61,8 @@
 				   (/ (float 1) (float 10))
 				 1) "\
 *この時間以内に打鍵されたものを同時打鍵と判定する。
-単位は秒。デフォルトは 0.1 秒。ただし、 Emacs 18 の場合は浮動小数点数を扱えない
-ため、仮に 1 秒としておくが、実用的には厳しいと思われる。"
+単位は秒。デフォルトは 0.1 秒。ただし、 Emacs 18 の場合は浮動小数点数を扱えな
+いため、仮に 1 秒としておくが、実用的には厳しいと思われる。"
   :type 'number
   :group 'skk-nicola)
 
@@ -69,8 +70,8 @@
 					 (/ (float 1) (float 10))
 				       1) "\
 *この時間以内に打鍵されたものを同時打鍵と判定する。
-単位は秒。デフォルトは 0.1 秒。ただし、 Emacs 18 の場合は浮動小数点数を扱えない
-ため、仮に 1 秒としておくが、実用的には厳しいと思われる。"
+単位は秒。デフォルトは 0.1 秒。ただし、 Emacs 18 の場合は浮動小数点数を扱えな
+いため、仮に 1 秒としておくが、実用的には厳しいと思われる。"
   :type 'number
   :group 'skk-nicola)
 
@@ -210,8 +211,8 @@ Emacs 18 用の変数。")
   (case skk-kanagaki-jidou-key-symbol-kakikae-service
     ;;
     (nicola-jis
-     ;; Emacs 18 では Muhenkan, Henkan は使えないようなので、使えるキーに書換え
-     ;; る。
+     ;; Emacs 18 では Muhenkan, Henkan は使えないようなので、使えるキーに書換
+     ;; える。
      (skk-kanagaki-call-xmodmap
 	 (case skk-emacs-type
 	   (mule3
@@ -406,8 +407,8 @@ keycode 131 = underscore\n"))
 
 ;;;###autoload
 (defun skk-nicola-turn-on-j-mode (&optional arg)
-  ;; `skk-latin-mode' において、 左右親指キーの同時打鍵によって 'skk-j-mode' に
-  ;; 入る。
+  ;; `skk-latin-mode' において、 左右親指キーの同時打鍵によって 'skk-j-mode'
+  ;; に入る。
   (interactive "*p")
   (if (skk-sit-for skk-nicola-latin-interval t)
       ;; then
@@ -521,14 +522,14 @@ keycode 131 = underscore\n"))
 		   (cond ((or skk-henkan-on skk-henkan-active)
 			  (skk-kanagaki-insert arg)
 			  (unless (>= skk-nicola-interval 1)
-			    ;; Emacs 18  で単独打鍵を同一キー連続打鍵で代用でき
-			    ;; るように。
+			    ;; Emacs 18  で単独打鍵を同一キー連続打鍵で代用で
+			    ;; きるように。
 			    (skk-kanagaki-insert arg)))
 			 (t
 			  (self-insert-command
 			   (if (>= skk-nicola-interval 1)
-			       ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用で
-			       ;; きるように。
+			       ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用
+			       ;; できるように。
 			       arg
 			     (1+ arg)))))))
 		(skk-nicola-self-insert-lshift
@@ -551,8 +552,8 @@ keycode 131 = underscore\n"))
 		       (t
 			(skk-nicola-lshift-function arg)
 			(unless (>= skk-nicola-interval 1)
-			  ;; Emacs 18  で単独打鍵を同一キー連続打鍵で代用できる
-			  ;; ように。
+			  ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用でき
+			  ;; るように。
 			  (skk-nicola-lshift-function 1)))))
 		(skk-nicola-self-insert-rshift
 		 ;; [右 左]
@@ -590,14 +591,16 @@ keycode 131 = underscore\n"))
 		       ;; 接尾語の処理
 		       (skk-kakutei)
 		       (skk-set-henkan-point-subr)	
-		       (insert ?>))
-		      ((and skk-henkan-on (not skk-henkan-active))
+		       (insert-and-inherit ?>))
+		      (skk-henkan-on
 		       ;; 接頭語の処理
-		       (insert ?>)
+		       (skk-kana-cleanup 'force)
+		       (insert-and-inherit ?>)
 		       (skk-set-marker skk-henkan-end-point (point))
 		       (setq skk-henkan-count 0
-			     skk-henkan-key (buffer-substring
-					     skk-henkan-start-point (point)))
+			     skk-henkan-key (buffer-substring-no-properties
+					     skk-henkan-start-point (point))
+			     skk-prefix "")
 		       (skk-henkan))
 		      (t
 		       ;;
@@ -670,15 +673,15 @@ keycode 131 = underscore\n"))
 		(setq tag 'no-sokuon)))
 	   (static-cond
 	    ((memq skk-emacs-type '(nemacs mule1))
-	     ;; 理由がよく分からないが、point がズレてしまう。`skk-insert' を抜
-	     ;; けてから変換するとうまくいく。(??)
+	     ;; 理由がよく分からないが、point がズレてしまう。`skk-insert' を
+	     ;; 抜けてから変換するとうまくいく。(??)
 	     (throw 'okuri (or tag 'ari)))
 	    (t
 	     (skk-kanagaki-set-okurigana tag)))))))
 
 (defun skk-nicola-set-okuri-flag ()
-  ;; 送り開始点を marker で標識するとともに、`*' を挿入することで送りあり変換の
-  ;; 待ち状態であることを明示する。
+  ;; 送り開始点を marker で標識するとともに、`*' を挿入することで送りあり変換
+  ;; の待ち状態であることを明示する。
   (interactive)
   (when (and skk-henkan-on (not skk-henkan-active))
     ;; ▽モードのときだけ機能する。
@@ -747,10 +750,27 @@ keycode 131 = underscore\n"))
 	  (when (marker-position skk-dcomp-start-point)
 	    (skk-dcomp-face-off)
 	    (or (equal skk-dcomp-toggle-key (this-command-keys))
-		(condition-case nil
-		    (delete-region skk-dcomp-start-point skk-dcomp-end-point)
-		  (error)))))
+		;;
+		(if (eq this-command 'skk-nicola-self-insert-rshift)
+		    (setq pos (point))
+		  ;;
+		  (condition-case nil
+		      (delete-region skk-dcomp-start-point skk-dcomp-end-point)
+		    (error))))))
 	ad-do-it
+	;;
+	(when (and (eq this-command 'skk-nicola-self-insert-rshift)
+		   skk-henkan-on
+		   (not skk-henkan-active))
+	  (when (and (markerp skk-dcomp-start-point)
+		     (marker-position skk-dcomp-start-point)
+		     (< (marker-position skk-dcomp-start-point) pos))
+	    (delete-region skk-dcomp-start-point pos))
+	  (when (and (markerp skk-dcomp-end-point)
+		     (marker-position skk-dcomp-end-point)
+		     (< (point) (marker-position skk-dcomp-end-point)))
+	    (delete-region skk-dcomp-end-point (point))))
+	;;
 	(if (and (not (skk-get-prefix skk-current-rule-tree))
 		 (not skk-okurigana))
 	    (progn
