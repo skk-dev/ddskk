@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.19 1999/09/22 09:46:47 minakaji Exp $
-;; Last Modified: $Date: 1999/09/22 09:46:47 $
+;; Version: $Id: SKK-MK,v 1.20 1999/09/25 10:42:01 minakaji Exp $
+;; Last Modified: $Date: 1999/09/25 10:42:01 $
 
 ;; Commentary
 ;;
@@ -28,10 +28,10 @@
 ;; load this program.
 
 ;;; Code:
-;;
 ;; independent of APEL.
 (require 'tinyinstall (expand-file-name "./tinyinstall"))
 
+;;;; User variables to control SKK-MK.
 (defvar SKK-MK-cleanup-trouble-makers nil
   "*Non-nil means clean up already installed SKK package configration files.
 If symbol `backup' makes backup files named `xxxx.BAK'.
@@ -40,6 +40,86 @@ Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
 `skk-vars.el' which exist in `lisp/skk' under `package-locations', or
 if `package-locations' does not exist `load-path' of which directories name
 end with `skk'." )
+
+(defvar SKK-MK-debugging t
+  "*Non-nil means making verbose output." )
+
+;;;; Load configuration file/
+;; load user custom file if exists.
+(load (expand-file-name "./SKK-CFG") t nil t)
+
+;;;; load-path related.
+(defvar default-load-path load-path)
+
+(defvar APEL_SPECIFIC_LISPDIR (getenv "APEL_SPECIFIC_LISPDIR"))
+
+;; `install-prefix' is defined in install.el of APEL.
+;; Maybe it is `/usr/local'.
+(defvar PREFIX (or (getenv "PREFIX") install-prefix))
+(defvar LISPDIR
+  (or (getenv "LISPDIR") (install-detect-elisp-directory PREFIX)) )
+(defvar VERSION_SPECIFIC_LISPDIR
+  (or (getenv "VERSION_SPECIFIC_LISPDIR")
+      (install-detect-elisp-directory PREFIX nil 'version-specific) ))
+
+(defvar EMU_PREFIX
+  (if (or (featurep 'xemacs)
+	  (and (fboundp 'set-buffer-multibyte)
+	       (subrp (symbol-function 'set-buffer-multibyte))))
+      "emu"
+    ""))
+
+;; searching APEL installed directory...
+(if (and (boundp 'LISPDIR) LISPDIR
+	 (setq LISPDIR (expand-file-name LISPDIR))
+	 (file-exists-p LISPDIR) )
+    (setq default-load-path (tinyinstall-add-load-path LISPDIR default-load-path)
+	  load-path (tinyinstall-add-load-path LISPDIR load-path) ))
+
+(let* ((mule-for-win)
+       (apeldir
+	(or (and (file-exists-p (expand-file-name "apel" LISPDIR))
+		 (expand-file-name "apel" LISPDIR) )
+	    (and APEL_SPECIFIC_LISPDIR
+		 (setq APEL_SPECIFIC_LISPDIR (expand-file-name APEL_SPECIFIC_LISPDIR))
+		 (file-exists-p APEL_SPECIFIC_LISPDIR) 
+		 APEL_SPECIFIC_LISPDIR )
+	    ;; Unix
+	    (and (file-exists-p 
+		  (expand-file-name "../../site-lisp/apel" data-directory) )
+		 (expand-file-name "../../site-lisp/apel" data-directory) )
+	    ;; Mule for Windows.
+	    (and (file-exists-p
+		  (expand-file-name "../site-lisp/apel" exec-directory) )
+		 (setq mule-for-win t)
+		 (expand-file-name "../site-lisp/apel" exec-directory) )))
+       (emudir
+	(and VERSION_SPECIFIC_LISPDIR
+	     (expand-file-name EMU_PREFIX VERSION_SPECIFIC_LISPDIR) )))
+  (if (and apeldir
+	   (setq apeldir (expand-file-name apeldir))
+	   (null (member apeldir load-path)) )
+      (progn
+	(setq load-path (tinyinstall-add-load-path emudir load-path))
+	(if mule-for-win
+	    (setq load-path
+		  (tinyinstall-add-load-path
+		   (expand-file-name "../site-lisp" exec-directory) load-path ))
+	  (setq load-path (cons apeldir load-path)) ))))
+  
+(setq load-path (cons (expand-file-name ".") load-path))
+
+(and VERSION_SPECIFIC_LISPDIR
+     (setq load-path (tinyinstall-add-load-path
+		      (expand-file-name VERSION_SPECIFIC_LISPDIR) load-path )))
+
+(if SKK-MK-debugging
+    (progn
+      (princ (format "APEL_SPECIFIC_LISPDIR=%s\n" APEL_SPECIFIC_LISPDIR))
+      (princ (format "load-path=%s\n" load-path)) ))
+
+;; After seaching APEL installed dirctory, require full set install.el.
+(require 'install)
 
 ;; constants.
 (defconst SKK-MK-running-xemacs (string-match "XEmacs" emacs-version))
@@ -52,101 +132,72 @@ end with `skk'." )
     *junet* ))
 
 ;; GENERIC VARIABLE.
-(defvar APEL_SPECIFIC_LISPDIR nil)
-(defvar DOCDIR "./doc")
-(defvar ETCDIR "./etc")
-(defvar SKK_INFOS '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4"))
+(defvar DOCDIR (or (getenv "DOCDIR") "./doc"))
+(defvar ETCDIR (or (getenv "ETCDIR") "./etc"))
+(defvar SKK_INFOS
+  (or (getenv "SKK_INFOS")
+      '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4") ))
 (defvar SKK_MODULES
-  (let ((list '(queue-m stack-m skk-foreword
-			skk-gadget skk-isearch skk-auto skk-comp
-			skk-kakasi skk-kcode skk-leim skk-look
-			skk-num skk-obsolete skk-server skk-tut
-			skk skk-autoloads
-			;; EXPERIMENTAL
-			skk-rdbms skk-study
-			;; VIP 3.7
-			;; vip
-			)))
-    (and SKK-MK-running-xemacs
-	 (member "skk-leim" preloaded-file-list)
-	 (setq list (nconc list (list 'skk-vars))) )
-    (condition-case nil
-	(and (require 'viper) (setq list (nconc list (list 'skk-viper))))
-      (error) )
-    (and (or (featurep 'gdbm) (featurep 'dbm) (featurep 'berkdb)
-	     (featurep 'berkeley-db) )
-	 (setq list (nconc list (list 'skk-dbm))) )
-    list ))
-(defvar SKK_PREFIX "skk")
-(defvar SKK_TEXIS '("skk.texi"))
-(defvar SKK_TUTORIALS '("SKK.tut" "SKK.tut.E"))
-(defvar VERSION_SPECIFIC_LISPDIR nil)
+  ;; こんなもんコマンドラインで指定する人いないよね？
+  (or (getenv "SKK_MODULES")
+      (let ((list '(queue-m stack-m skk-foreword
+			    skk-gadget skk-isearch skk-auto skk-comp
+			    skk-kakasi skk-kcode skk-leim skk-look
+			    skk-num skk-obsolete skk-server skk-tut
+			    skk skk-develop skk-autoloads
+			    ;; EXPERIMENTAL
+			    skk-rdbms skk-study
+			    ;; VIP 3.7
+			    ;; vip
+			    )))
+	(and SKK-MK-running-xemacs
+	     (member "skk-leim" preloaded-file-list)
+	     (setq list (nconc list (list 'skk-vars))) )
+	(condition-case nil
+	    (and (require 'viper) (setq list (nconc list (list 'skk-viper))))
+	  (error) )
+	(and (or (featurep 'gdbm) (featurep 'dbm) (featurep 'berkdb)
+		 (featurep 'berkeley-db) )
+	     (setq list (nconc list (list 'skk-dbm))) )
+	list )))
+(defvar SKK_PREFIX (or (getenv "SKK_PREFIX") "skk"))
+(defvar SKK_TEXIS (or (getenv "SKK_TEXIS") '("skk.texi")))
+(defvar SKK_TUTORIALS (or (getenv "SKK_TUTORIALS") '("SKK.tut" "SKK.tut.E")))
 
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
-;; `install-prefix' is defined in install.el of APEL.
-;; Maybe it is `/usr/local'.
-(defvar PREFIX install-prefix)
-;; automatically detected.
-(defvar LISPDIR (install-detect-elisp-directory PREFIX))
-(defvar SKK_DATADIR (expand-file-name
-		     SKK_PREFIX (expand-file-name "share" PREFIX) ))
-(defvar SKK_INFODIR (expand-file-name "info" PREFIX))
-(defvar SKK_LISPDIR (expand-file-name SKK_PREFIX LISPDIR))
+(defvar SKK_DATADIR
+  (or (getenv "SKK_DATADIR")
+      (expand-file-name SKK_PREFIX (expand-file-name "share" PREFIX)) ))
+(defvar SKK_INFODIR
+  (or (getenv "SKK_INFODIR")(expand-file-name "info" PREFIX)) )
+(defvar SKK_LISPDIR
+  (or (getenv "SKK_LISPDIR") (expand-file-name SKK_PREFIX LISPDIR)) )
 
 ;; PACKAGE INSTALL RELATED VARIABLE.
 (defvar PACKAGEDIR
-  (if (boundp 'early-packages)
-      (let ((dirs
-	     (append (if early-package-load-path early-packages)
-		     (if late-package-load-path late-packages)
-		     (if last-package-load-path last-packages) ))
-	    dir )
-	(while (not (file-exists-p (setq dir (car dirs))))
-	  (setq dirs (cdr dirs)) )
-	dir )))
+  (or (getenv "PACKAGEDIR")
+      (if (boundp 'early-packages)
+	  (let ((dirs
+		 (append (if early-package-load-path early-packages)
+			 (if late-package-load-path late-packages)
+			 (if last-package-load-path last-packages) ))
+		dir )
+	    (while (not (file-exists-p (setq dir (car dirs))))
+	      (setq dirs (cdr dirs)) )
+	    dir ))))
 
-(defvar PACKAGE_INFODIR (expand-file-name "info" PACKAGEDIR))
-(defvar SKK_PACKAGE_DATADIR (expand-file-name
-			     SKK_PREFIX (expand-file-name "etc" PACKAGEDIR) ))
-(defvar SKK_PACKAGE_LISPDIR (expand-file-name
-			     SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR) ))
+(defvar PACKAGE_INFODIR
+  (or (getenv "PACKAGE_INFODIR") (expand-file-name "info" PACKAGEDIR)) )
 
-;; load user custom file if exists.
-(load (expand-file-name "./SKK-CFG") t nil t)
-(princ (format "SKK_MODULES=%s\n" SKK_MODULES))
+(defvar SKK_PACKAGE_DATADIR
+  (or (getenv "SKK_PACKAGE_DATADIR")
+      (expand-file-name SKK_PREFIX (expand-file-name "etc" PACKAGEDIR)) ))
 
-;; load-path related.
-(defvar default-load-path load-path)
-(and (file-exists-p (expand-file-name "../../site-lisp/apel" data-directory))
-     (setq load-path
-	   (cons (expand-file-name "../../site-lisp/apel" data-directory)
-		 load-path )))
+(defvar SKK_PACKAGE_LISPDIR
+  (or (getenv "SKK_PACKAGE_LISPDIR")
+      (expand-file-name SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR)) ))
 
-(if (and (boundp 'LISPDIR) LISPDIR)
-    (progn
-      (or (member LISPDIR default-load-path)
-	  (setq default-load-path (cons LISPDIR default-load-path)) )
-      (or (member LISPDIR load-path) (setq load-path (cons LISPDIR load-path)))
-      (or (member (expand-file-name "apel" LISPDIR) load-path)
-	  (setq load-path (cons (expand-file-name "apel" LISPDIR) load-path))  )))
-
-(princ (format "APEL_SPECIFIC_LISPDIR=%s\n" APEL_SPECIFIC_LISPDIR))
-(and APEL_SPECIFIC_LISPDIR
-     (file-exists-p (expand-file-name APEL_SPECIFIC_LISPDIR))
-     (null (member (expand-file-name APEL_SPECIFIC_LISPDIR) load-path))
-     (setq load-path (cons APEL_SPECIFIC_LISPDIR load-path)) )
-
-(setq load-path (cons (expand-file-name ".") load-path))
-
-(and VERSION_SPECIFIC_LISPDIR
-     (file-exists-p (expand-file-name VERSION_SPECIFIC_LISPDIR))
-     (null (member VERSION_SPECIFIC_LISPDIR load-path))
-     (setq load-path (cons VERSION_SPECIFIC_LISPDIR load-path)) )
-
-;;(princ (format "load-path=%s\n" load-path))
-
-;; After seaching APEL installed dirctory, require full set install.el.
-(require 'install)
+(if SKK-MK-debugging (princ (format "SKK_MODULES=%s\n" SKK_MODULES)))
 
 (defun SKK-MK-config ()
   (let (prefix lisp-dir version-specific-lisp-dir)
@@ -158,7 +209,13 @@ end with `skk'." )
 		 LISPDIR (install-detect-elisp-directory PREFIX)
 		 SKK_DATADIR (expand-file-name
 			      SKK_PREFIX (expand-file-name "share" PREFIX) )
-		 SKK_INFODIR (expand-file-name "info" PREFIX) )))
+		 SKK_INFODIR (expand-file-name "info" PREFIX)
+		 SKK_LISPDIR (expand-file-name SKK_PREFIX LISPDIR) )
+	   (if SKK-MK-debugging 
+	       (progn
+		 (princ (format "SKK_DATADIR=%s\n" SKK_DATADIR))
+		 (princ (format "SKK_INFODIR=%s\n" SKK_INFODIR))
+		 (princ (format "SKK_LISPDIR=%s\n" SKK_LISPDIR)) ))))
     (setq command-line-args-left (cdr command-line-args-left))
     (and (setq lisp-dir (car command-line-args-left))
 	 ;; overwrite as specified in Makefile.
@@ -174,10 +231,11 @@ end with `skk'." )
 	   ;; not overwrite a variable specified by user.
 	   (defvar VERSION_SPECIFIC_LISPDIR
 	     (install-detect-elisp-directory PREFIX nil 'version-specific) ))
-	 (princ (format "VERSION_SPECIFIC_LISPDIR=%s\n"
-			VERSION_SPECIFIC_LISPDIR )))
+	 (if SKK-MK-debugging 
+	     (princ (format "VERSION_SPECIFIC_LISPDIR=%s\n"
+			    VERSION_SPECIFIC_LISPDIR ))))
     (setq command-line-args-left (cdr command-line-args-left))
-    (princ (format "PREFIX=%s\n" PREFIX)) ))
+    (if SKK-MK-debugging (princ (format "PREFIX=%s\n" PREFIX))) ))
 
 (defun SKK-MK-compile ()
   (SKK-MK-config)
@@ -215,7 +273,7 @@ end with `skk'." )
     (setq command-line-args-left (cdr command-line-args-left))
     ;; skk-autoloads.el is not necessary for XEmacs package install.
     (setq SKK_MODULES (delq 'skk-autoloads SKK_MODULES))
-    (princ (format "PACKAGEDIR=%s\n" PACKAGEDIR)) ))
+    (if SKK-MK-debugging (princ (format "PACKAGEDIR=%s\n" PACKAGEDIR))) ))
 
 (defun SKK-MK-install-package ()
   (SKK-MK-config-package)
