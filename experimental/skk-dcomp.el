@@ -2,26 +2,26 @@
 ;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dcomp.el,v 1.5 1999/09/23 13:52:18 minakaji Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-dcomp.el,v 1.6 2000/10/30 22:18:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/23 13:52:18 $
+;; Last Modified: $Date: 2000/10/30 22:18:14 $
 
-;; This file is not part of SKK yet.
+;; This file is part of Daredevil SKK.
 
-;; SKK is free software; you can redistribute it and/or modify
+;; Daredevil SKK is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either versions 2, or (at your option)
 ;; any later version.
 
-;; SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
-;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the
+;; Free Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
 
 ;;; Commentary
@@ -30,7 +30,6 @@
 
 ;;; Code:
 (eval-when-compile (require 'skk))
-(require 'skk-foreword)
 (require 'skk-comp)
 
 (defgroup skk-dcomp nil "SKK dynamic completion related customization."
@@ -50,7 +49,7 @@
   :group 'skk-dcomp )
 
 (skk-deflocalvar skk-dcomp-start-point nil)
-(defvar skk-dcomp-extent nil)
+(skk-deflocalvar skk-dcomp-extent nil)
 ;; why is it necessary?
 (defvar skk-dcomp-face 'skk-dcomp-face)
 
@@ -89,7 +88,8 @@
   (setq skk-dcomp-start-point nil
 	skk-completion-stack nil ))
 
-(provide 'skk-dcomp)
+(require 'product)
+(product-provide (provide 'skk-dcomp) (require 'skk-version))
 ;;; Local Variables:
 ;;; End:
 ;;; skk-dcomp.el ends here

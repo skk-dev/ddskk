@@ -1,28 +1,27 @@
 ;; skk-gadget.el -- $B<B9TJQ49$N$?$a$N%W%m%0%i%`(B
-;; Copyright (C) 1995, 1996, 1997, 1998, 1999
+;; Copyright (C) 1995, 1996, 1997, 1998, 1999, 2000
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Maintainer: Murata Shuuichirou  <mrt@astec.co.jp>
-;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-gadget.el,v 1.5 2000/10/12 09:56:04 czkmt Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-gadget.el,v 1.6 2000/10/30 22:10:15 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/12 09:56:04 $
+;; Last Modified: $Date: 2000/10/30 22:10:15 $
 
-;; This file is part of SKK.
+;; This file is part of Daredevil SKK.
 
-;; SKK is free software; you can redistribute it and/or modify
+;; Daredevil SKK is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either versions 2, or (at your option)
 ;; any later version.
 
-;; SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
 ;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
 
@@ -50,43 +49,7 @@
 ;; $B$+$i:n$i$l$?B$8l$i$7$$!#(B
 
 ;;; Code:
-(eval-when-compile
-  (require 'static))
-(require 'skk)
-(require 'skk-foreword)
-;; -- user variables
-
-;;;###autoload
-(defgroup skk-gadget nil "SKK gadget related customization."
-  :prefix "skk-"
-  :group 'skk )
-
-(defcustom skk-date-ad nil
-  "*Non-nil $B$G$"$l$P!"(Bskk-today, skk-clock $B$G@>NqI=<($9$k!#(B
-nil $B$G$"$l$P!"859fI=<($9$k!#(B"
-  :type 'boolean
-  :group 'skk-gadget )
-
-(defcustom skk-number-style 1
-  "*skk-today, skk-clock $B$GI=<($9$k?t;z$N7A<0$rJQ2=$5$;$k!#(B
-$BH>3QI=(B: nil $B$b$7$/$O(B 0.
-$BA43QI=<((B: t $B$b$7$/$O!"(B1.
-$B4A?t;zI=(B: t, 0, 1 $B0J30$N(B non-nil $BCM!#(B"
-  :type '(choice (choice :tag "Hankaku" (const nil) (integer 0))
-		 (choice :tag "Zenkaku" (const t) (integer 1))
-		 (integer :tag "Kansuuji" 3) )
-  :group 'skk-gadget )
-
-(defcustom skk-gadget-load-hook nil
-  "*skk-gadget.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
-  :type 'hook
-  :group 'skk-gadget )
-
-;; --internal variables
-(defconst skk-week-alist
-  '(("Sun" . "$BF|(B") ("Mon" . "$B7n(B") ("Tue" . "$B2P(B") ("Wed" . "$B?e(B") ("Thu" . "$BLZ(B")
-    ("Fri" . "$B6b(B") ("Sat" . "$BEZ(B") )
-  "$BMKF|L>$NO"A[%j%9%H!#(B\($B1Q8lI=5-J8;zNs(B . $BF|K\8lI=5-J8;zNs(B\)" )
+(eval-when-compile (require 'skk-macs) (require 'skk-vars) (require 'static))
 
 ;; -- programs
 ;;;###autoload
@@ -97,13 +60,13 @@ nil $B$G$"$l$P!"859fI=<($9$k!#(B"
          (year (if skk-date-ad
                    (skk-num (substring str 20 24))
                  (let ((y (- (string-to-number (substring str 20 24)) 1988)))
-                   (if (= y 1) "$B85(B" (skk-num (number-to-string y))) )))
+                   (if (= y 1) "$B85(B" (skk-num (number-to-string y))))))
          (month (skk-num (cdr (assoc (substring str 4 7) skk-month-alist))))
          (day (substring str 8 10))
          (day-of-week (cdr (assoc (substring str 0 3) skk-week-alist)))
-         hour minute second )
+         hour minute second)
     (if (eq (aref day 0) ?\040) ; SPC
-	(setq day (substring day 1)) )
+	(setq day (substring day 1)))
     (setq day (skk-num day))
     (concat (if skk-date-ad "" "$BJ?@.(B") year "$BG/(B"
             month "$B7n(B" day "$BF|(B" "\(" day-of-week "\)"
@@ -111,8 +74,8 @@ nil $B$G$"$l$P!"859fI=<($9$k!#(B"
                 (progn
                   (setq hour (skk-num (substring str 11 13))
                         minute (skk-num (substring str 14 16))
-                        second (skk-num (substring str 17 19)) )
-                  (concat " " hour "$B;~(B" minute "$BJ,(B" second "$BIC(B") ))) ))
+                        second (skk-num (substring str 17 19)))
+                  (concat " " hour "$B;~(B" minute "$BJ,(B" second "$BIC(B"))))))
 
 ;;;###autoload
 (defun skk-today (&optional and-time)
@@ -122,7 +85,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
   (interactive "*P")
   (if (interactive-p)
       (insert (skk-today and-time))
-    (skk-current-date and-time) ))
+    (skk-current-date and-time)))
 
 ;;;###autoload
 (defun skk-clock (&optional kakutei-when-quit time-signal)
@@ -249,15 +212,15 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
   ;; $B$;$$$l$-(B#$B$M$s(B /(skk-ad-to-gengo nil "$BG/(B")/(skk-ad-to-gengo " " " $BG/(B")/
   (let ((ad (string-to-number (car skk-num-list))))
     (concat (cond ((>= 1866 ad)
-                   (skk-error "$BJ,$j$^$;$s(B" "Unkown year") )
+                   (skk-error "$BJ,$j$^$;$s(B" "Unkown year"))
                   ((>= 1911 ad)
-                   (concat "$BL@<#(B" fstr (number-to-string (- ad 1867))) )
+                   (concat "$BL@<#(B" fstr (number-to-string (- ad 1867))))
                   ((>= 1925 ad)
-                   (concat "$BBg@5(B" fstr (number-to-string (- ad 1911))) )
+                   (concat "$BBg@5(B" fstr (number-to-string (- ad 1911))))
                   ((>= 1988 ad)
-                   (concat "$B><OB(B" fstr (number-to-string (- ad 1925))) )
-                  (t (concat "$BJ?@.(B" fstr (number-to-string (- ad 1988)))) )
-            lstr )))
+                   (concat "$B><OB(B" fstr (number-to-string (- ad 1925))))
+                  (t (concat "$BJ?@.(B" fstr (number-to-string (- ad 1988)))))
+            lstr)))
 
 ;;;###autoload
 (defun skk-gengo-to-ad (&optional string)
@@ -267,34 +230,34 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
   ;; $B$7$g$&$o(B#$B$M$s(B /(skk-gengo-to-ad "$BG/(B")/(skk-gengo-to-ad " $BG/(B")/
   (save-match-data
     (let ((num (car skk-num-list))
-          gengo )
+          gengo)
       (string-match num skk-henkan-key)
       (setq gengo (substring skk-henkan-key 0 (match-beginning 0))
-            num (string-to-number num) )
+            num (string-to-number num))
       (concat (number-to-string
                (+ num
                   (cond ((eq num 0)
                          (skk-error "0 $BG/$O$"$jF@$J$$(B"
-                                    "Cannot convert 0 year" ))
+                                    "Cannot convert 0 year"))
                         ((string= gengo "$B$X$$$;$$(B") 1988)
                         ((string= gengo "$B$7$g$&$o(B")
                          (if (> 64 num)
                              1925
                            (skk-error "$B><OB$O(B 63 $BG/$^$G$G$9(B"
-                                      "The last year of Showa is 63" )))
+                                      "The last year of Showa is 63")))
                         ((string= gengo "$B$?$$$7$g$&(B")
                          (if (> 15 num)
                              1911
                            (skk-error "$BBg@5$O!"(B14 $BG/$^$G$G$9(B"
-                                      "The last year of Taisyo is 14" )))
+                                      "The last year of Taisyo is 14")))
                         ((string= gengo "$B$a$$$8(B")
                          (if (> 45 num)
                              1867
                            (skk-error "$BL@<#$O!"(B44 $BG/$^$G$G$9(B"
-                                      "The last year of Meiji is 44" )))
+                                      "The last year of Meiji is 44")))
                         (t (skk-error "$BH=JLITG=$J859f$G$9!*(B"
-                                      "Unknown Gengo!" )))))
-              string ))))
+                                      "Unknown Gengo!")))))
+              string))))
 
 ;(defun skk-calc (operator)
 ;  ;; 2 $B$D$N0z?t$r<h$C$F(B operator $B$N7W;;$r$9$k!#(B
@@ -303,7 +266,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
 ;  ;; $B<-=q8+=P$7Nc(B; #*# /(skk-calc '*)/
 ;  (number-to-string
 ;   (funcall operator (string-to-number (car skk-num-list))
-;            (string-to-number (nth 1 skk-num-list)) )))
+;            (string-to-number (nth 1 skk-num-list)))))
 
 ;;;###autoload
 (defun skk-calc (operator)
@@ -311,7 +274,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
   ;; $BCm0U(B: '/ $B$O0z?t$H$7$FEO$;$J$$$N$G(B (defalias 'div '/) $B$J$I$H$7!"JL$N7A$G(B
   ;; skk-calc $B$KEO$9!#(B
   ;; $B<-=q8+=P$7Nc(B; #*# /(skk-calc '*)/
-  (number-to-string (apply operator (mapcar 'string-to-number skk-num-list))) )
+  (number-to-string (apply operator (mapcar 'string-to-number skk-num-list))))
 
 ;;;###autoload
 (defun skk-plus ()
@@ -340,19 +303,19 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
     ;; skk-ignore-dic-word $B<+?H$N%(%s%H%j$r>C$9!#>C$9$Y$-8uJd$O(B
     ;; skk-henkan-list $B$+$iD>@\Cj=P$7$F$$$k$N$G(B delete $B$G$O$J$/(B delq $B$G==J,!#(B
     (setq skk-henkan-list (delq (nth skk-henkan-count skk-henkan-list)
-                                skk-henkan-list ))
+                                skk-henkan-list))
     ;; $BA48uJd$r(B skk-henkan-list $B$KF~$l$k!#(B
     (while skk-current-search-prog-list
-      (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search))) )
+      (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search))))
     ;; $BITMW$J8uJd$r<N$F$k!#(B
     (while no-show-list
       (setq skk-henkan-list (delete (car no-show-list) skk-henkan-list)
-            no-show-list (cdr no-show-list) ))
+            no-show-list (cdr no-show-list)))
     ;; $B%+%l%s%H$N8uJd(B (skk-ignore-dic-word $B<+?H$N%(%s%H%j(B) $B$r>C$7$?$N$G!"(B
     ;; skk-henkan-count $B$O<!$N8uJd$r;X$7$F$$$k!#(B
     (setq new-word (or (nth skk-henkan-count skk-henkan-list)
                        (progn (setq save-okurigana skk-okuri-char)
-                              (skk-henkan-in-minibuff) )))
+                              (skk-henkan-in-minibuff))))
     ;; $B8uJd$,$J$$$H$-!#(B
     (if (not new-word)
         ;; $B6uJ8;zNs$,EPO?$5$l$?$i<-=qEPO?$NA0$N>uBV$KLa$9!#(B
@@ -360,22 +323,22 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
         ;; $B$7$F$*$/I,MW$,$"$k!#(B
         (if (> skk-henkan-count 0)
             (setq skk-henkan-count (- skk-henkan-count 1)
-                  new-word (nth skk-henkan-count skk-henkan-list) )
+                  new-word (nth skk-henkan-count skk-henkan-list))
           ;; (1- skk-henkan-count) == -1 $B$K$J$k!#"&%b!<%I$KLa$9!#(B
           (setq new-word (if save-okurigana
                              (substring skk-henkan-key 0
-                                        (1- (length skk-henkan-key)) )
-                             skk-henkan-key )
+                                        (1- (length skk-henkan-key)))
+                             skk-henkan-key)
                 skk-henkan-count -1
                 ;; $B2<5-$NJQ?t$O!"(Bskk-henkan-in-minibuff $B$NCf$GD4@0$5$l$k!#(B
                 ;; skk-henkan-active nil
                 ;; skk-okuri-char nil
                 ;; skk-henkan-okurigana nil
-                  )
+                 )
           (if skk-use-face
               (setq skk-insert-new-word-function
-                    'skk-henkan-face-off-and-remove-itself ))))
-    new-word ))
+                    'skk-henkan-face-off-and-remove-itself))))
+    new-word))
 
 ;;;###autoload
 (defun skk-henkan-face-off-and-remove-itself ()
@@ -383,9 +346,10 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
   ;; $BJQ49ItJ,$,(B Overlay $B$N(B face $BB0@-$K$h$C$FI=<($,JQ99$5$l$F$$$k$N$rLa$7!"$=$N(B
   ;; $B8e<+J,<+?H$r(B skk-insert-new-word-function $B$+$i<h$j=|$/<+Gz4X?t!#(B
   (skk-henkan-face-off)
-  (setq skk-insert-new-word-function nil) )
+  (setq skk-insert-new-word-function nil))
 
 (run-hooks 'skk-gadget-load-hook)
 
-(provide 'skk-gadget)
+(require 'product)
+(product-provide (provide 'skk-gadget) (require 'skk-version))
 ;;; skk-gadget.el ends here

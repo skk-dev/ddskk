@@ -1,92 +1,54 @@
 ;;; skk-kakasi.el --- KAKASI $B4XO"%W%m%0%i%`(B
-;; Copyright (C) 1996, 1998, 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1996, 1998, 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kakasi.el,v 1.7 2000/09/14 08:40:51 akiho Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-kakasi.el,v 1.8 2000/10/30 22:10:16 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/14 08:40:51 $
+;; Last Modified: $Date: 2000/10/30 22:10:16 $
 
-;; This file is not part of SKK yet.
+;; This file is part of Daredevil SKK.
 
-;; SKK is free software; you can redistribute it and/or modify
+;; Daredevil SKK is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either versions 2, or (at your option)
 ;; any later version.
 
-;; SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
 ;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
 
 ;; skk-kakasi.el $B$O(B KAKASI $B$r(B SKK $B$NCf$+$i;H$&%$%s%?!<%U%'%$%9$G$9!#(BKAKASI $B$O!"(B
-;; $B9b66M5?.$5$s(B <takahasi@tiny.or.jp> $B$K$h$k!"!V4A;z$+$J$^$8$jJ8$r$R$i$,$JJ8$d(B
-;; $B%m!<%^;zJ8$KJQ49$9$k$3$H$rL\E*$H$7$F:n@.$7$?%W%m%0%i%`$H<-=q$NAm>N!W$G$9!#(B
-;; $B;d<+?H$,%K%e!<%9$d%a!<%k$rFI$s$G$$$F!"F|>oFI$_$,J,$i$J$/$FCQ$:$+$7$$;W$$$r(B
-;; $B$9$k$3$H$,B?$$$N$G!"5U0z$-$r$7$?$/$F:n$j$^$7$?!#(B
+;; $B9b66M5?.$5$s(B <hironobu@trc.rwcp.or.jp> $B$K$h$k!"!V4A;z$+$J$^$8$jJ8$r$R$i$,(B
+;; $B$JJ8$d%m!<%^;zJ8$KJQ49$9$k$3$H$rL\E*$H$7$F:n@.$7$?%W%m%0%i%`$H<-=q$NAm>N!W(B
+;; $B$G$9!#;d<+?H$,%K%e!<%9$d%a!<%k$rFI$s$G$$$F!"F|>oFI$_$,J,$i$J$/$FCQ$:$+$7$$(B
+;; $B;W$$$r$9$k$3$H$,B?$$$N$G!"5U0z$-$r$7$?$/$F:n$j$^$7$?!#(B
 ;;
-;; KAKASI $B$O!"(B1996 $BG/(B 4 $B7n(B 25 $BF|8=:_!"(B
-;; sunsite.sut.ac.jp:/pub/asia-info/japanese-src/packages/kakasi-2.2.5.tar.gz
-;; sunsite.sut.ac.jp:/pub/asia-info/japanese-src/packages/kakasidict.940620.gz
+;; KAKASI $B$O!"(B
+;; 
+;;  ftp://kakasi.namazu.org/pub/kakasi/
+;; 
 ;; $B$K$"$j(B anonymous ftp $B$GF~<j$G$-$^$9!#(B
 ;;
-;; $BAG@2$7$$%W%m%0%i%`(B KAKASI $B$r$*:n$j$K$J$C$?9b66$5$s$H!"(BKAKASI $B$r(B anonymous
-;; ftp $B$GF~<j2DG=$H$7$F$$$k(B sunsite.sut.ac.jp $B$K46<U$$$?$7$^$9!#(B
+;; $BAG@2$7$$%W%m%0%i%`(B KAKASI $B$r$*:n$j$K$J$C$?9b66$5$s$K46<U$$$?$7$^$9!#(B
 
 ;;; Code:
-(require 'skk)
-(require 'skk-foreword)
+(eval-when-compile (require 'skk-macs) (require 'skk-vars))
+
 ;; APEL
 (require 'path-util)
 
-;;;###autoload
-(defgroup skk-kakasi nil "SKK kakasi related customization."
-  :prefix "skk-"
-  :group 'skk )
-
-;;;;  VARIABLES
-
-;; --- user variable
-
-(defcustom skk-use-kakasi (exec-installed-p "kakasi")
-  "*Non-nil $B$G$"$l$P(B KAKASI $B$r;H$C$?JQ49$r9T$J$&!#(B" 
-  :type 'boolean
-  :group 'skk-kakasi )
-
-(defcustom skk-kakasi-command (exec-installed-p "kakasi")
-  "*KAKASI $B%3%^%s%IK\BN!#(B"
-  :type 'file
-  :group 'skk-kakasi )
-
-(defcustom skk-romaji-*-by-hepburn t
-  "*Non-nil $B$G$"$l$P(B KAKASI $B$r;H$C$?%m!<%^;z$X$NJQ49MM<0$K%X%\%s<0$rMQ$$$k!#(B
-$BNc$($P!"(B
-  \"$B$7(B\" -> \"shi\"
-
-nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
-$BNc$($P!"(B
-   \"$B$7(B\" -> \"si\"
-
-$B><OB(B 29 $BG/(B 12 $B7n(B 9 $BF|IUFb3U9p<(Bh0l9f$K$h$l$P!"86B'E*$K71Na<0(B \"($BF|K\<0(B)\" $B$r(B
-$BMQ$$$k$+$N$h$&$K5-:\$5$l$F$$$k$,!":#F|0lHLE*$J5-:\J}K!$O!"$`$7$m!"%X%\%s<0$G$"(B
-$B$k$h$&$K;W$&!#(B"
-  :type 'boolean
-  :group 'skk-kakasi )
-
-(defcustom skk-kakasi-load-hook nil
-  "*skk-kakasi.el $B$,%m!<%I$5$l$?$H$-$N%U%C%/!#(B"
-  :type 'hook
-  :group 'skk-kakasi )
-
 (if (fboundp 'modify-coding-system-alist)
     (let ((euc (cdr (assoc "euc" skk-coding-system-alist))))
-      (modify-coding-system-alist 'process "kakasi" (cons euc euc)) ))
+      (modify-coding-system-alist 'process "kakasi" (cons euc euc))))
 
 ;;;; FUNCTIONS
 ;;;###autoload
@@ -100,9 +62,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
   (let ((str (skk-gyakubiki-1 start end all)))
     (delete-region start end)
     (goto-char start)
-    (insert-and-inherit str) )
-  (and (featurep 'skk-cursor)
-   (skk-set-cursor-properly)) )
+    (insert-and-inherit str)))
 
 ;;;###autoload
 (defun skk-gyakubiki-message (start end &optional all)
@@ -116,11 +76,8 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
     (save-match-data
       (if (string-match "^[ $B!!(B\t]+" str)
           ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
-          (setq str (substring str (match-end 0))) ))
-    (message "%s" str)
-    (and (featurep 'skk-cursor)
-     (skk-set-cursor-properly)) ))
-
+          (setq str (substring str (match-end 0)))))
+    (message "%s" str)))
 
 ;;;###autoload
 (defun skk-gyakubiki-katakana-region (start end &optional all)
@@ -133,9 +90,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
   (let ((str (skk-gyakubiki-1 start end all 'katakana)))
     (delete-region start end)
     (goto-char start)
-    (insert-and-inherit str) )
-  (and (featurep 'skk-cursor)
-   (skk-set-cursor-properly)) )
+    (insert-and-inherit str)))
 
 ;;;###autoload
 (defun skk-gyakubiki-katakana-message (start end &optional all)
@@ -149,20 +104,18 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
     (save-match-data
       (if (string-match "^[ $B!!(B\t]+" str)
           ;; $B@hF,$N6uGr$r<h$j=|$/!#(B
-          (setq str (substring str (match-end 0))) ))
-    (message "%s" str)
-    (and (featurep 'skk-cursor)
-     (skk-set-cursor-properly)) ))
+          (setq str (substring str (match-end 0)))))
+    (message "%s" str)))
 
 (defun skk-gyakubiki-1 (start end all &optional katakana)
   ;; skk-gyakubiki-* $B$N%5%V%k!<%A%s!#(B
   ;; $B%*%W%7%g%J%k0z?t$N(B KATAKANA $B$,(B non-nil $B$G$"$l$P!"%+%?%+%J$XJQ49$9$k!#(B
   (let ((arg (if katakana '("-JK") '("-JH"))))
     (if skk-allow-spaces-newlines-and-tabs
-        (setq arg (cons "-c" arg)) )
+        (setq arg (cons "-c" arg)))
     (if all
-        (setq arg (cons "-p" arg)) )
-    (skk-kakasi-region start end arg)) )
+        (setq arg (cons "-p" arg)))
+    (skk-kakasi-region start end arg)))
 
 ;;;###autoload
 (defun skk-hurigana-region (start end &optional all)
@@ -178,9 +131,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
   (let ((str (skk-hurigana-1 start end all)))
     (delete-region start end)
     (goto-char start)
-    (insert-and-inherit str) )
-  (and (featurep 'skk-cursor)
-   (skk-set-cursor-properly)) )
+    (insert-and-inherit str)))
 
 ;;;###autoload
 (defun skk-hurigana-message (start end &optional all)
@@ -193,9 +144,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
 $BNc$($P!"(B
     $BCfEg(B -> {$B$J$+$7$^(B|$B$J$+$8$^(B}"
   (interactive "r\nP")
-  (message "%s" (skk-hurigana-1 start end all))
-  (and (featurep 'skk-cursor)
-   (skk-set-cursor-properly)) )
+  (message "%s" (skk-hurigana-1 start end all)))
 
 ;;;###autoload
 (defun skk-hurigana-katakana-region (start end &optional all)
@@ -211,9 +160,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
   (let ((str (skk-hurigana-1 start end all 'katakana)))
     (delete-region start end)
     (goto-char start)
-    (insert-and-inherit str) )
-  (and (featurep 'skk-cursor)
-   (skk-set-cursor-properly)) )
+    (insert-and-inherit str)))
 
 ;;;###autoload
 (defun skk-hurigana-katakana-message (start end &optional all)
@@ -226,19 +173,17 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
 $BNc$($P!"(B
     $BCfEg(B -> {$B%J%+%7%^(B|$B%J%+%8%^(B}"
   (interactive "r\nP")
-  (message "%s" (skk-hurigana-1 start end all 'katakana))
-  (and (featurep 'skk-cursor)
-   (skk-set-cursor-properly)) )
+  (message "%s" (skk-hurigana-1 start end all 'katakana)))
 
 (defun skk-hurigana-1 (start end all &optional katakana)
   ;; skk-hurigana-* $B$N%5%V%k!<%A%s!#(B
   ;; $B%*%W%7%g%J%k0z?t$N(B KATAKANA $B$,(B non-nil $B$G$"$l$P!"%+%?%+%J$XJQ49$9$k!#(B
   (let ((arg (if katakana '("-JK" "-f") '("-JH" "-f"))))
     (if skk-allow-spaces-newlines-and-tabs
-        (setq arg (cons "-c" arg)) )
+        (setq arg (cons "-c" arg)))
     (if all
-        (setq arg (cons "-p" arg)) )
-    (skk-kakasi-region start end arg)) )
+        (setq arg (cons "-p" arg)))
+    (skk-kakasi-region start end arg)))
 
 ;;;###autoload
 (defun skk-romaji-region (start end)
@@ -252,17 +197,15 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
 $B$k!#Nc$($P!"(B\"$B$7(B\" $B$O%X%\%s<0$G$O(B \"shi\" $B$@$,!"71Na<0$G$O(B \"si\" $B$H$J$k!#(B"
   (interactive "*r")
   (let ((arg '("-Ha" "-Ka" "-Ja" "-Ea" "-ka" "-s"))
-        str )
+        str)
     (if skk-allow-spaces-newlines-and-tabs
-        (setq arg (cons "-c" arg)) )
+        (setq arg (cons "-c" arg)))
     (if (not skk-romaji-*-by-hepburn)
-        (setq arg (cons "-rk" arg)) )
+        (setq arg (cons "-rk" arg)))
     (setq str (skk-kakasi-region start end arg))
     (delete-region start end)
     (goto-char start)
-    (insert-and-inherit str) )
-  (and (featurep 'skk-cursor)
-   (skk-set-cursor-properly)) )
+    (insert-and-inherit str)))
 
 ;;;###autoload
 (defun skk-romaji-message (start end)
@@ -277,19 +220,17 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
   (interactive "r")
   (let ((arg '("-Ha" "-Ka" "-Ja" "-Ea" "-ka" "-s")))
     (if skk-allow-spaces-newlines-and-tabs
-        (setq arg (cons "-c" arg)) )
+        (setq arg (cons "-c" arg)))
     (if (not skk-romaji-*-by-hepburn)
-        (setq arg (cons "-rk" arg)) )
-    (message "%s" (skk-kakasi-region start end arg))
-    (and (featurep 'skk-cursor)
-     (skk-set-cursor-properly)) ))
+        (setq arg (cons "-rk" arg)))
+    (message "%s" (skk-kakasi-region start end arg))))
 
 (defun skk-kakasi-region (start end arglist)
   ;; START $B$H(B END $B4V$N%j!<%8%g%s$KBP$7(B kakasi $B%3%^%s%I$rE,MQ$9$k!#(BARGLIST $B$r(B
   ;; kakasi $B$N0z?t$H$7$FEO$9!#(Bkakasi $B$N=PNO$rJV$9!#(B
   (or skk-use-kakasi skk-kakasi-command
       (skk-error "KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$$$+!";HMQ$7$J$$@_Dj$K$J$C$F$$$^$9!#(B"
-                 "KAKASI was not installed, or skk-use-kakasi is nil" ) )
+                 "KAKASI was not installed, or skk-use-kakasi is nil"))
   (let ((str (buffer-substring-no-properties start end)))
         ;; $BIQEY>pJs$r;H$C$F2?$+$*$b$7$m$$;H$$J}$,$G$-$k$+$J!)(B  $B8=>u$G$O;H$C$F(B
         ;; $B$$$J$$!#(B
@@ -306,12 +247,13 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
                           'delete-original-text
                           ;;(list t hindo-file)
                           '(t nil)
-                          nil arglist )
-                   0 )
-               (> (buffer-size) 0) )
+                          nil arglist)
+                   0)
+               (> (buffer-size) 0))
           (buffer-string)
-        (skk-error "$BJQ49$G$-$^$;$s(B" "Cannot convert!") ))))
+        (skk-error "$BJQ49$G$-$^$;$s(B" "Cannot convert!")))))
 
 (run-hooks 'skk-kakasi-load-hook)
-(provide 'skk-kakasi)
+(require 'product)
+(product-provide (provide 'skk-kakasi) (require 'skk-version))
 ;;; skk-kakasi.el ends here

@@ -1,26 +1,8 @@
 -*- text -*-
-             $Date: 1999/08/31 23:29:49 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-	     $Id: GUIDELINE,v 1.2 1999/08/31 23:29:49 minakaji Exp $
+             $Date: 2000/10/30 22:18:13 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: GUIDELINE,v 1.3 2000/10/30 22:18:13 minakaji Exp $
 
-
-o 全く新しい機能を提供するプログラムで、1998/11/13 (佐藤先生が
-  SKK unofficial version 10 を安定させ、official release に向け作業を
-  しませんかと提案された日) 以降にインプリメントされたもの (以下「実験
-  プロジェクトプログラム」と言います) はこのディレクトリに置くことにし
-  ます。
-
-o 「実験プロジェクトプログラム」は、とりあえず SKK official version 10
-  のディストリビューションの一部として配布することとします。
-
-o 「実験プロジェクトプログラム」によって提供される機能が安定しているか
-  どうかは、SKK 10 のオフィシャライズの作業とは切り離すこととします。
-  従い、安定しないまま、「実験プロジェクトプログラム」はオフィシャルに配
-  布されることとなる可能性があります。
-
-o version 10 official release までに十分安定したと考えられる「実験プロ
-  ジェクトプログラム」は、lisp/ ディレクトリに移される可能性があります。
-
-o 「実験プロジェクトプログラム」の開発は、SKK official version 10 がリ
-  リースされた後は、unofficial version 11 として続けられる予定です。
+o 全く新しい機能を提供するプログラムで、作者がまだ機能的に安定していな
+  いと判断するものはこのディレクトリに置くことにします。
 
 [end of GUIDELINE]

@@ -1,0 +1,78 @@
+-*- text -*-
+
+     $Id: CVS_00readme,v 1.2 2000/10/30 22:14:09 minakaji Exp $
+
+
+CVS の入手
+
+  CVS は 以下のサイトで配布されています。
+
+  ftp://ftp.cvshome.org/pub/
+
+  現時点での最新版は cvs-1.11 です。
+
+  また、少し更新が遅れ気味のようですが、 GNU のミラーサイトからも入手
+  できます。マスターサイトは
+
+  ftp://ftp.gnu.org/gnu/non-gnu/cvs/
+
+  ですが、日本から入手する場合は
+
+  ftp://ftp.ring.gr.jp/pub/GNU/non-gnu/cvs/ 
+  ftp://ftp.win.ne.jp/pub/GNU/non-gnu/cvs/ 
+  ftp://ftp.iij.ad.jp/pub/GNU/non-gnu/cvs/ 
+  ftp://ftp.tokyonet.ad.jp/pub/GNU/non-gnu/cvs/ 
+
+  等の日本のサイトを利用すればいいでしょう。
+
+  上記は安定した正式リリース版ですが、最新の開発版を利用したい人は
+
+  http://www.cvshome.org/dev/source.html
+
+  をご覧ください。
+
+  Windows の binary が欲しい方は、
+
+    ftp://ftp.cvshome.org/pub/cvs-1.10/windows/cvs-1.10-win.zip
+
+  に正式版 cvs-1.10 のバイナリーが、
+
+    ftp://ftp.cvshome.org/pub/cvs-1.10.5/windows/cvs.exe
+
+  に開発版 cvs-1.10.5 のバイナリーが置かれています。また、Mac 用 CVS は
+
+    http://www.maccvs.org/
+
+  から入手可能です。
+
+
+  cvs に関する情報は cvs のホームページ
+
+    http://www.loria.fr/~molli/cvs-index.html
+
+  および、
+
+    http://www.cvshome.org/
+
+  から入手可能です。
+
+
+  また、CVS に関する日本語の情報として、以下のようなページがあります。
+
+    http://www.race.u-tokyo.ac.jp/~moro/cvs/
+    http://www.itojun.org/hack/cvs/tut-kernel.html
+    http://www-vox.dj.kit.ac.jp/nishi/cvs/
+    http://duff.kuicr.kyoto-u.ac.jp/~okuji/gnujdoc.html
+
+
+# Local Variables:
+# eval: (local-set-key (if (featurep 'xemacs)
+			   [button3]
+			 [mouse-3]) 'browse-url-at-mouse)
+# eval: (save-excursion
+	  (goto-char (point-min))
+	  (while (re-search-forward "\\(ht\\|f\\)tp://.+$" nil t)
+	    (let ((overlay (make-overlay (match-beginning 0) (match-end 0))))
+	      (overlay-put overlay 'mouse-face 'highlight)
+	      (overlay-put overlay 'face 'bold))))
+# End:

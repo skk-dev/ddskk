@@ -1,13 +1,13 @@
 ;;; tinyinstall.el --- Emacs Lisp package install utility
 
-;; Copyright (C) 1996,1997,1998,1999 Free Software Foundation, Inc.
+;; Copyright (C) 1996,1997,1998,1999,2000 Free Software Foundation, Inc.
 
 ;; Author: MORIOKA Tomohiko <morioka@jaist.ac.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.3 1999/09/25 11:11:54 minakaji Exp $
-;; Last Modified: $Date: 1999/09/25 11:11:54 $
+;; Version: $Id: tinyinstall.el,v 1.4 2000/10/30 22:10:21 minakaji Exp $
+;; Last Modified: $Date: 2000/10/30 22:10:21 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -26,13 +26,31 @@
 
 ;;; Code:
 
+(defvar emacs-major-version
+  (progn (string-match "^[0-9]+" emacs-version)
+	 (string-to-int (substring emacs-version
+				   (match-beginning 0)(match-end 0))))
+  "Major version number of this version of Emacs.")
+
+(defvar data-directory exec-directory) ; For Emacs 18.
+
+(or (fboundp 'member)
+    (defun member (elt list)
+      "Return non-nil if ELT is an element of LIST.  Comparison done with EQUAL.
+The value is actually the tail of LIST whose car is ELT."
+      (while (and list (not (equal elt (car list))))
+	(setq list (cdr list)))
+      list))
+
 (defvar install-prefix
-  (if (or (<= emacs-major-version 18)	; running-emacs-18
-	  (featurep 'xemacs)		; running-xemacs
-	  (and (boundp 'system-configuration-options) ; 19.29 or later
-	       (string= system-configuration-options "NT"))) ; for Meadow
-      (expand-file-name "../../.." exec-directory)
-    (expand-file-name "../../../.." data-directory)))
+  (cond ((<= emacs-major-version 18)	; running-emacs-18
+	 (expand-file-name "../.." exec-directory))
+	((featurep 'xemacs)		; running-xemacs
+	 (expand-file-name "../../.." exec-directory))
+	((memq system-type '(ms-dos windows-nt))
+	 (expand-file-name ".." exec-directory))
+	(t
+	 (expand-file-name "../../../.." data-directory))))
 
 (defvar install-elisp-prefix
   (if (>= emacs-major-version 19)
@@ -87,10 +105,10 @@ subdirectory under load-path.")
 (defun tinyinstall-add-load-path (directory path)
   (setq directory (expand-file-name directory))
   (if (and (file-exists-p directory)
-	   (null (member directory path)) )
+	   (null (member directory path)))
       (cons directory path)
     ;; original path
-    path ))
+    path))
 
 (provide 'tinyinstall)
 ;; end of tinyinstall.el

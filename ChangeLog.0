@@ -1798,18 +1798,18 @@
 	換と同じように検索を行なうようにした。変換のために 1 回スペースを
 	押す毎に
 
-  	  検索 -> uniq -> 数値変換
+	  検索 -> uniq -> 数値変換
 
 	という一連の作業を行なうようになっているので、何度もスペースを押し
 	て変換しまくると、uniq の度に skk-henkan-list と
 	skk-noconv-henkan-list をシンクロさせるのが難しくなってくる。そこ
 	で、
 
-  	  数値変換前の skk-henkan-list;
+	  数値変換前の skk-henkan-list;
 
 	      ("#2" "#1" ...)
 
-  	  数値変換後の skk-henkan-list;
+	  数値変換後の skk-henkan-list;
 
 	      (("#2 . "一") ("#1" . "1") ...)
 
@@ -2042,7 +2042,7 @@
 	クスで始まるキーバインドを定義しないようにした。
 	(skk-setup-special-midashi-char): minor-mode-map-alist を使用した
 	キー定義でも有効になるようにした。
- 	(skk-jisx0208-to-ascii): New function. Mule-3 で、JISX0208 の英数
+	(skk-jisx0208-to-ascii): New function. Mule-3 で、JISX0208 の英数
 	字や記号類を ASCII に変換するコードが実装されていなかったので、対
 	応 (XEmacs 未対応! 救援求む)。
 	(skk-search-jisyo-file-1): enable-multibyte-characters を nil にバ
@@ -2192,7 +2192,7 @@
 	するキー変数 skk-input-mode-string を持つ) を頂点に、4 つの実マイ
 	ナーモードマップがあります。
 
-      	+----------------------+----- skk-mode ------+-------------------+
+	+----------------------+----- skk-mode ------+-------------------+
       |                      |                     |                   |
       |                      |                     |                   |
   skk-j-mode          skk-ascii-mode        skk-zenkaku-mode     skk-abbrev-mode
@@ -2207,7 +2207,7 @@ skk-j-mode-map
  skk-katakana: t
   KATAKANA
 
-  	この実マイナーモードは、それぞれ独自のマイナーモードマップを持って
+	この実マイナーモードは、それぞれ独自のマイナーモードマップを持って
 	おり、それぞれの関数名と同名の変数が t になったときにそれぞれのマ
 	イナーモードが有効になります。モードラインを操作する変数は独自に持
 	たず、代りに skk-input-mode-string に自分の入力モードを示す文字列

@@ -4,118 +4,34 @@
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.12 2000/09/30 15:28:26 minakaji Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-num.el,v 1.13 2000/10/30 22:10:18 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/30 15:28:26 $
+;; Last Modified: $Date: 2000/10/30 22:10:18 $
 
-;; This file is part of SKK.
+;; This file is part of Daredevil SKK.
 
-;; SKK is free software; you can redistribute it and/or modify
+;; Daredevil SKK is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either versions 2, or (at your option)
 ;; any later version.
 
-;; SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
 ;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
 
 ;;; Code:
-(eval-when-compile (require 'skk) (require 'cl))
-(require 'skk-foreword)
+(eval-when-compile (require 'skk-macs) (require 'skk-vars))
 
 ;;;###autoload
-(defgroup skk-num nil "SKK number conversion related customization."
-  :prefix "skk-num-"
-  :group 'skk)
-
-;; user variables.
-(defcustom skk-num-type-alist
-  '((0 . identity)
-    (1 . skk-num-jisx0208-latin)
-    (2 . skk-num-type2-kanji)
-    (3 . skk-num-type3-kanji)
-    (4 . skk-num-recompute)
-    (5 . skk-num-type5-kanji)
-    (9 . skk-num-shogi))
-  "*数値の変換のための、インデクスと変換に使用する関数とのエーリスト。
-各要素は、`\(インデクス . 関数名\)' という構成になっている。
-インデクスには、例えば見出し語が \"平成#1年\" のとき、`#' 記号の直後に表示される
-integer `1' を代入する。
-
-インデクスと関数の関係 \(ディフォルト値\) は下記の通り。
-    0 -> 無変換
-    1 -> 全角数字へ変換
-    2 -> 漢数字へ変換 \(位取りなし\)
-    3 -> 漢数字へ変換 \(位取りをする\)
-    4 -> その数字そのものをキーにして辞書を再検索
-    5 -> 漢数字 (手形などで使用する文字を使用) へ変換 (位取りをする)
-    9 -> 将棋で使用する数字 \(\"３四\" など\) に変換" 
-  :type '(repeat (cons (choice :tag "Index"
-			       (integer 0) (integer 1) (integer 2) (integer 3)
-			       (integer 4) (integer 5) (integer 9))
-		  (function :tag "Function")))
-  :group 'skk-num)
-
-(defcustom skk-num-convert-float nil
-  "*Non-nil であれば、浮動小数点数を使った見出し語に対応して変換を行なう。
-この値を non-nil にすることで、\"#.# /#1．#1/#0月#0日/\" などの辞書見出しが使用
-できなくなるので、注意。"
-  :type 'boolean
-  :group 'skk-num)
-
-(defcustom skk-num-uniq (or (assq 4 skk-num-type-alist)
-			    (and (assq 2 skk-num-type-alist)
-				 (assq 3 skk-num-type-alist)))
-  "*Non-nil であれば、異なる数値表現でも変換結果が同じ数値を重複して出力しない。"
-  :type 'boolean
-  :group 'skk-num)
-
-(defcustom skk-num-load-hook nil
-  "*skk-num.el をロードした後にコールされるフック。"
-  :type 'hook
-  :group 'skk-num)
-
-;; internal constants and variables
-(defconst skk-num-alist-type1
-  '((?0 . "０") (?1 . "１") (?2 . "２") (?3 . "３")
-    (?4 . "４") (?5 . "５") (?6 . "６") (?7 . "７")
-    (?8 . "８") (?9 . "９")
-    (?. . "．")				; 小数点。(?. . ".") の方が良い人もいるかも...。
-    (?  . ""))
-  "ascii 数字の char type と全角数字の string type の連想リスト。
-\"1995\" -> \"１９９５\" のような文字列の変換を行う際に利用する。")
-
-(defconst skk-num-alist-type2
-  '((?0 . "〇") (?1 . "一") (?2 . "二") (?3 . "三")
-    (?4 . "四") (?5 . "五") (?6 . "六") (?7 . "七")
-    (?8 . "八") (?9 . "九") (?  . ""))
-  "ascii 数字の char type と漢数字の string type の連想リスト。
-\"1995\" -> \"一九九五\" のような文字列の変換を行う際に利用する。")
-
-(defconst skk-num-alist-type5
-  '((?1 . "壱") (?2 . "弐") (?3 . "参")
-    (?4 . "四") (?5 . "伍") (?6 . "六") (?7 . "七")
-    (?8 . "八") (?9 . "九") (?  . ""))
-  "ascii 数字の char type と漢数字の string type の連想リスト。
-\"1995\" -> \"壱阡九百九拾伍\" のような文字列の変換を行う際に利用する。")
-
-(skk-deflocalvar skk-num-list nil
-  "skk-henkan-key の中に含まれる数字を表す文字列のリスト。
-例えば、\"▽へいせい7ねん10がつ\" の変換を行うとき、skk-henkan-key は
-\"へいせい7ねん10がつ\" であり、skk-num-list は \(\"7\" \"10\"\) となる。")
-
-(defvar skk-num-recompute-key nil
-  "#4 タイプのキーにより数値の再計算を行なったときの検索キー。")
-
 (defun skk-num-compute-henkan-key (key)
   ;; KEY の中の連続する数字を現わす文字列を "#" に置き換えた文字列を返す。"12"
   ;; や "０９" など連続する数字を 1 つの "#" に置き換えることに注意。
@@ -145,69 +61,75 @@ integer `1' を代入する。
                           (substring key (match-end 0)))))))
   key)
 
-(defun skk-num-convert (key)
-  ;; skk-henkan-list の skk-henkan-count が指している数値変換キーの
-  ;; 候補を変換し、skk-henkan-list を
+(defun skk-num-convert ()
+  ;; skk-henkan-list の skk-henkan-count が指している候補 (数値変換
+  ;; キーの) を変換し、skk-henkan-list を
   ;;   ("#2" ...) -> (("#2" ."一") ...)
   ;; のように変形する。
-    (if (not key)
+  (let ((key (skk-get-current-candidate-1))
+	convlist current)
+    (if (consp key)
+	nil
+      (setq convlist (skk-num-convert-1 key))
+      (cond ((null convlist) nil)
+	    ;; CONV-LIST の全要素が文字列。
+	    ((null (memq t (mapcar 'listp convlist)))
+	     (setq current (mapconcat 'identity convlist ""))
+	     (if (skk-get-current-candidate-1)
+		 ;; ("A" "#2" "C") -> ("A" ("#2" ."一") "C")
+		 (setcar (nthcdr skk-henkan-count skk-henkan-list)
+			 (cons key current))
+	       (setq skk-henkan-list
+		     (nconc skk-henkan-list (list (cons key current))))))
+	    ;; #4
+	    (t (let ((l (mapcar (function (lambda (e) (cons key e)))
+				(skk-num-flatten-list convlist))))
+		 (setq current (cdr (car l)))
+		 (if (and (> skk-henkan-count -1)
+			  (nth skk-henkan-count skk-henkan-list))
+		     (progn
+		       (setcar (nthcdr skk-henkan-count skk-henkan-list) (car l))
+		       (setq skk-henkan-list (skk-splice-in
+					      skk-henkan-list
+					      (1+ skk-henkan-count)
+					      (cdr l))))
+		   (setq skk-henkan-list (nconc skk-henkan-list l))
+		   (skk-num-uniq))))))))
+
+(defun skk-num-convert-1 (key)
+  ;; KEY を skk-num-list に従い変換し、変換後の文字列のパーツを
+  ;; 順にならべたリストを返す。
+  ;; KEY ::= `平成#0年', return ::= ("平成" "13" "年")
+  (if (or (not key) (consp key))
       nil
     (let ((numexp (if skk-num-convert-float
-                      "#[.0-9]+" "#[0-9]+"))
-          (n 0)
-          (workkey key)
-          num convnum string convlist current)
+		      "#[.0-9]+" "#[0-9]+"))
+	  (n 0)
+	  (workkey key)
+	  num convnum string convlist current beg)
       (save-match-data
-        (while (and (setq num (nth n skk-num-list))
-                    (string-match numexp workkey))
-          (setq convnum (save-match-data
-			  (skk-num-exp num (string-to-number
-					    (substring workkey
-						       (1+ (match-beginning 0))
-						       (match-end 0)))))
-                string (substring workkey 0 (match-beginning 0))
-                workkey (substring workkey (match-end 0))
+        (while (and (setq num (nth n skk-num-list)) ; 具体的な数値を保持しているリストを参照する。
+                    (setq beg (string-match numexp workkey)))
+	  (setq convnum			; 数値変換された部分の文字列
+		(skk-num-exp		; 具体的な数字を変換タイプに従い変換する。
+		 num
+		 (string-to-number (substring workkey (1+ beg) (match-end 0))))
+                string (substring workkey 0 beg) ; 処理された数値キーまでの prefix 文字列
+                workkey (substring workkey (match-end 0)) ; 未処理の文字列
                 n (1+ n))
-          (if (not (and (stringp convnum) (string= convnum "")
-                        (string= string "")))
-              (setq convlist (nconc convlist (list string convnum)))))
-        (setq convlist (nconc convlist (list workkey)))
-        (cond ((null convlist) nil)
-              ((and (null (cdr convlist)) (stringp (car convlist)))
-               (setq current (car convlist)))
-              ;; CONV-LIST の全要素が文字列。
-              ((null (memq t (mapcar 'listp convlist)))
-               (setq current (mapconcat 'identity convlist ""))
-               (if (and (> skk-henkan-count -1)
-                        (nth skk-henkan-count skk-henkan-list))
-                   ;; ("A" "#2" "C") -> ("A" ("#2" ."一") "C")
-                   (setf (nth skk-henkan-count skk-henkan-list)
-                         (cons key current))
-                 (setq skk-henkan-list
-                       (nconc skk-henkan-list (list (cons key current))))))
-              ;; #4
-              (t (let ((l (mapcar (function (lambda (e) (cons key e)))
-                                  (skk-num-flatten-list (delete "" convlist)))))
-                   (setq current (cdr (car l)))
-                   (if (and (> skk-henkan-count -1)
-                            (nth skk-henkan-count skk-henkan-list))
-                       (progn
-                         (setf (nth skk-henkan-count skk-henkan-list) (car l))
-                         (setq skk-henkan-list (skk-splice-in
-                                                skk-henkan-list
-                                                (1+ skk-henkan-count)
-                                                (cdr l))))
-                     (setq skk-henkan-list (nconc skk-henkan-list l))))))
-        current))))
+	  ;; 変換された文字と数値変換に関係のない無変換の文字を並べたリスト
+	  (setq convlist (nconc convlist (list string convnum))))
+        (delete "" (nconc convlist (list workkey)))))))
 
-(defun skk-num-convert*7 ()
+(defun skk-num-multiple-convert (&optional count)
   (let ((skk-henkan-count skk-henkan-count)
-        (n 7))
+        (n (or count (length skk-henkan-list))))
     (while (and (> n 0) (nth skk-henkan-count skk-henkan-list))
-      (skk-num-convert (skk-get-current-candidate))
+      (skk-num-convert)
+      ;; skk-henkan-count を操作しなくとも skk-num-convert が
+      ;; 有効になるようにしたい。
       (setq skk-henkan-count (1+ skk-henkan-count)
-            n (1- n)))
-    (and skk-num-recompute-key (skk-num-uniq))))
+            n (1- n)))))
 
 (defun skk-num-rawnum-exp (string)
   (setq string (skk-num-rawnum-exp-1
@@ -269,8 +191,9 @@ integer `1' を代入する。
   ;; 4 -> その数字そのものをキーにして辞書を再検索
   ;; 5 -> 漢数字 (手形などで使用する文字を使用) へ変換 (位取りをする)
   ;; 9 -> 将棋で使用する数字 ("３四" など) に変換
-  (let ((fun (cdr (assq type skk-num-type-alist))))
-    (if fun (funcall fun num))))
+  (save-match-data
+    (let ((fun (cdr (assq type skk-num-type-alist))))
+      (if fun (funcall fun num)))))
 
 (defun skk-num-jisx0208-latin (num)
   ;; ascii 数字の NUM を全角数字の文字列に変換し、変換後の文字列を返す。
@@ -458,8 +381,6 @@ integer `1' を代入する。
         (while (setq n1 (1+ n1) e1 (nth n1 skk-henkan-list))
           ;; cons cell でなければ skk-nunion で処理済みなので、重複はない。
           (if (consp e1)
-              ;; (car e1) と equal のものが消えるのだから e1 自身が消えるこ
-              ;; とはない。
               (setq skk-henkan-list (delete (car e1) skk-henkan-list)
                     skk-henkan-list (delete (cdr e1) skk-henkan-list)))
           (if (not (and skk-num-recompute-key (consp e1)))
@@ -502,27 +423,6 @@ integer `1' を代入する。
               (setq skk-henkan-list (delq type3 skk-henkan-list))))))))
 
 ;;;###autoload
-(defun skk-num-process-user-minibuf-input (key)
-  (save-match-data
-    (let (numexp orglen val)
-      (if (or (and (string-match "#[012349]" key)
-		   (setq numexp key))
-	      (and (setq numexp (skk-num-rawnum-exp key))
-		   (not (string= key numexp))))
-	  (progn
-	    (setq orglen (length skk-henkan-list)
-		  ;; skk-henkan-list の調整は、skk-num-convert の中で行なっ
-		  ;; てくれる。
-		  val (skk-num-convert numexp))
-	    (if (= (length skk-henkan-list) (1+ orglen))
-		;; #4 で複数の候補に変換できた場合は確定しない。
-		(setq skk-kakutei-flag t)))
-	(setq skk-henkan-list (nconc skk-henkan-list (list key))
-	      skk-kakutei-flag t
-	      val key))
-      val)))
-
-;;;###autoload
 (defun skk-num-initialize ()
   ;; skk-use-numeric-convert 関連の変数を初期化する。
   (setq skk-last-henkan-data
@@ -544,6 +444,7 @@ integer `1' を代入する。
       (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
 	(let ((skk-henkan-key skk-num-recompute-key)
 	      skk-use-numeric-conversion)
+	  ;;(message "%S" skk-num-recompute-key)
 	  (skk-update-jisyo word purge)))))
 
 ;;;###autoload
@@ -563,9 +464,13 @@ integer `1' を代入する。
 		      (t (cdr (assq c skk-num-alist-type2))))))
 	     str ""))
 
+(defadvice skk-kakutei-initialize (after skk-num-ad activate)
+  (and (skk-numeric-p) (skk-num-initialize)))
+
 (run-hooks 'skk-num-load-hook)
 
-(provide 'skk-num)
+(require 'product)
+(product-provide (provide 'skk-num) (require 'skk-version))
 ;;; Local Variables:
 ;;; End:
 ;;; skk-num.el ends here

@@ -1,100 +1,151 @@
--*- text -*-
-             $Date: 2000/10/29 21:38:03 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-                                                         　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.18 2000/10/29 21:38:03 minakaji Exp $ 
+-*- outline -*-
 
-(1)APEL (A Portable Emacs Library) is required to install SKK.  Please
-   make sure you have APEL 9.22 or later (It is highly recommened that
-   you install the latest release, 10.2).  It is available at: 
+             $Date: 2000/10/30 22:14:10 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+                                                         　　　　 <minakaji@pdx.ne.jp> 
+	     $Id: INSTALL,v 1.19 2000/10/30 22:14:10 minakaji Exp $ 
+
+* APEL 
+
+APEL (A Portable Emacs Library) is required to install SKK.  Please
+make sure you have already installed APEL 10.2 or later.  It is
+available at:
 
     ftp://ftp.jpl.org/pub/elisp/apel/ 
 or
     ftp://ftp.m17n.org/pub/mule/apel/
 
-(2)Make sure you have a correctly working version of custom with SKK.
+* custom
 
-   (a)If you use GNU Emacs 20 or XEmacs, SKK works correctly without
-      any modifications or additional packages.
+Make sure you have a correctly working version of custom with SKK.
 
-   (b)Custom package is originally bundled with GNU Emacs 19.30 or
-      later.  However, programmer's interfaces of that custom (old
-      custom) are totally different from ones of its current versions,
-      and the old custom does not work with SKK.  For instance, the
-      old version does not have a `defcustom' or `defface' interface.
-      So if you want to use custom features, you should get a current
-      version that work well on Emacs 19.30 or later,
-      `custom-1.9962.tar.gz'.  It is available at: 
+** GNU Emacs 20 or XEmacs
 
-        ftp://ftp.dina.kvl.dk/pub/Staff/Per.Abrahamsen/custom/
+If you use GNU Emacs 20 or XEmacs , SKK works correctly without any
+modifications or additional packages.
 
-      Apply patch skk-10/patch/custom-1.9962.patch to cus-face.el of
-      the package.
+** GNU Emacs 19.32 or later
 
-      If you do not want to use SKK customization feature, you have
-      to do nothing.  pcustom.el of APEL (required in skk-foreword.el)
-      will find that you use the old custom and provide emulation
-      features by tinycustom.el.
+*** If you DO NOT WANT to use SKK customization feature,
+you have to do nothing.  pcustom.el of APEL (required in
+skk-foreword.el) will find that you use the old custom and provide
+emulation features by tinycustom.el.
 
-   (c)Custom package is not bundled with GNU Emacs 19.28 and 19.29.
-      And it seems difficult to run `custom-1.9962.tar.gz' on 19.28
-      and 19.29.  On those Emacsen pcustom.el will find that you do
-      not have a custom package, and require tinycustom.el, so you
-      have to do nothing.  After loading tinycustom.el, all
-      `defcustom's defined in SKK package will be equal to `defvars'.
+*** If you WANT to use SKK customization feature,
+see this subsection diligently.
 
-(3)Edit SKK-CFG as you like.  Default value to be defined in SKK-MK is
-   described and commented.  If you use one of the variable, comment
-   out it, and specify your value.  Maybe you need not to edit
-   Makefile at all.  All customization can be done in SKK-CFG.
+Custom package is originally bundled with GNU Emacs 19.30 or later.
+However, programmer's interfaces of that custom (old custom) are
+totally different from ones of its current versions, and the old
+custom does not work with SKK.  For instance, the old version does not
+have a `defcustom' or `defface' interfaces.  So if you want to use
+custom features, you should get a current version that work well on
+Emacs 19.32 or later (19.30 and 19.31 does not work!  See next
+section.), `custom-1.9962.tar.gz'.  It is available at: 
 
-   Or you can specify configuration of installation in the command
-   line instead of editing SKK-CFG (See (4) below).
+     ftp://ftp.dina.kvl.dk/pub/Staff/Per.Abrahamsen/custom/
 
-(4)Run
+Apply patch skk-11/patch/custom-1.9962.patch to cus-face.el of the
+package.
 
-     % make
+Applications compiled with custom require the same version of
+"custom" at load-time (and run-time).  Therefore, if you use "new
+custom", you must always include "new custom" in your load-path.  The
+easiest way to achieve this is "subdirs.el"; if you installed "new
+custom" in `/usr/local/share/emacs/19.34/site-lisp/custom/', put the
+following line to `/usr/local/share/emacs/19.34/site-lisp/subdirs.el'
 
-   You can specify Emacs command name in the command line. For
-   examples,
+     (normal-top-level-add-to-load-path '("custom"))
 
-     % make EMACS=mule
+** GNU Emacs between 19.28 and 19.31
 
-   Also, in the command line you can specify any variables of capital
-   letters defined in SKK-MK.  For examples, if you want to install
-   SKK locally,
+GNU Emacs 19.30 and 19.31 have `old custom' and 19.28 and 19.29 do not
+have custom package.  And these Emacsen do not work with
+`custom-1.9962.tar.gz'.
 
-     % make PREFIX=~/
+On those Emacsen pcustom.el will find that you do not have a custom
+package, and require tinycustom.el, so you have to do nothing.  After
+loading tinycustom.el, all `defcustom's defined in SKK package will be
+equal to `defvars'.
 
-   then all Emacs lisp programs will be installed into
-   `~/share/emacs/site-lisp/skk'.  You can examine SKK-CFG to know
-   what variables will effect install configuration.  All of those
-   values described in SKK-CFG (but commented out) are default.
+* Get dictionaries and copy them to ./dic subdirectory.
 
-(5)If you want to know target directories to install without actual
-   installation, run
+If you do not have SKK dictionaries, get them from 
 
-     % make what-where
+  http://openlab.ring.gr.jp/skk/dic-ja.html
 
-   or
+and copy them ./dic subdirectory.  You don't have to get all size of
+dictionaries.  Maybe you want one of them.
 
-     % make what-where-package
+* Edit SKK-CFG.
 
-   for XEmacs package install.  As to package install, see below (7).
+Edit SKK-CFG as you like.  Default value to be defined in SKK-MK is
+described and commented.  If you use one of the variable, comment out
+it, and specify your value.  Maybe you need not to edit Makefile at
+all.  All customization can be done in SKK-CFG.
 
-(6)Run `make install' (You may have to be superuser).  
-   You can specify Emacs command name in the command line, like
+Or you can specify configuration of installation in the command line
+instead of editing SKK-CFG (See next section).
 
-     % make install EMACS=mule
+* Run make
 
-(7)If you want install SKK as a XEmacs package, run
+Run
 
-     % make install-package
+    % make
 
-(8)Many variables/functions names have been changed.  You are strongly
-   recommended to load skk-obsolete.el and
+You can specify Emacs command name in the command line. For examples,
 
-     M-x skk-obsolete-check-all-files.
+    % make EMACS=mule
 
-Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-               　　　　 <minakaji@pdx.ne.jp>
-http://www.asahi-net.or.jp/~gy2m-nkjm/
+Also, in the command line you can specify any variables of capital
+letters defined in SKK-MK.  For examples, if you want to install SKK
+locally,
+
+    % make PREFIX=~/
+
+then all Emacs lisp programs will be installed into
+`~/share/emacs/site-lisp/skk'.  You can examine SKK-CFG to know what
+variables will effect install configuration.  All of those values
+described in SKK-CFG (but commented out) are default. 
+
+* Detect directories to be install
+
+If you want to know target directories to install without actual
+installation, run
+
+    % make what-where
+
+or
+
+    % make what-where-package
+
+for XEmacs package install.  As to package install, see section
+`package install' below.
+
+
+* make install
+
+Run `make install' (You may have to be superuser).  You can specify
+Emacs command name in the command line, like
+
+    % make install EMACS=mule
+
+* package install
+
+If you want install SKK as a XEmacs package, run 
+
+    % make install-package
+
+* Obsolete check
+
+Many variables/functions names have been changed.  You are strongly
+recommended to load skk-obsolete.el and
+
+    M-x skk-obsolete-check-all-files.
+
+* Easy setup
+
+You can easily setup SKK.  Put the following form in your .emacs.
+
+   (require 'skk-setup)
+
+[End of INSTALL]

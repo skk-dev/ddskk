@@ -1,35 +1,33 @@
 ;;; skk-develop.el --- support SKK developper.
-;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-develop.el,v 1.8 2000/09/14 15:26:29 minakaji Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-develop.el,v 1.9 2000/10/30 22:10:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/14 15:26:29 $
+;; Last Modified: $Date: 2000/10/30 22:10:14 $
 
-;; This file is not part of SKK yet.
+;; This file is part of Daredevil SKK.
 
-;; SKK is free software; you can redistribute it and/or modify
+;; Daredevil SKK is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either versions 2, or (at your option)
 ;; any later version.
 
-;; SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
 ;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
 
 ;;; Code:
-(require 'skk)
-
-(defconst skk-ml-address "skk@ring.gr.jp")
+(eval-when-compile (require 'skk-macs) (require 'skk-vars))
 
 ;;;###autoload
 (defun skk-submit-bug-report ()
@@ -42,53 +40,52 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
   (require 'reporter)
   (if (not (skk-y-or-n-p
 	    "SKK $B$K$D$$$F$N%P%0%l%]!<%H$r=q$-$^$9$+!)(B "
-	    "Do you really want to write a bug report on SKK? " ))
+	    "Do you really want to write a bug report on SKK? "))
       nil
     (reporter-submit-bug-report
      skk-ml-address
-     (concat "skk.el " (skk-version)
-	     (if (or (and (boundp 'skk-servers-list) skk-servers-list)
-		     (or (and (boundp 'skk-server-host) skk-server-host)
-			 (getenv "SKKSERVER") )
-		     ;; refer to DEFAULT_JISYO when skk-server-jisyo is nil.
-		     ;;(or (and (boundp 'skk-server-jisyo) skk-server-jisyo)
-		     ;;    (getenv "SKK_JISYO") )))
-		     )
-		 (progn
-		   (require 'skk-server)
-		   (concat ", skkserv; " (skk-server-version)
-			   (if (getenv "SKKSERVER")
-			       (concat ",\nSKKSERVER; "
-				       (getenv "SKKSERVER") ))
-			   (if (getenv "SKKSERV")
-			       (concat ", SKKSERV; "
-				       (getenv "SKKSERV") ))))))
+     (concat (skk-version 'with-codename)
+	     ", "
+	     (cond ((or (and (boundp 'skk-servers-list) skk-servers-list)
+			(or (and (boundp 'skk-server-host) skk-server-host)
+			    (getenv "SKKSERVER"))
+			;; refer to DEFAULT_JISYO when skk-server-jisyo is nil.
+			;;(or (and (boundp 'skk-server-jisyo) skk-server-jisyo)
+			;;    (getenv "SKK_JISYO"))))
+			)
+		    (require 'skk-server)
+		    (concat "skkserv; " (skk-server-version)
+			    (if (getenv "SKKSERVER")
+				(concat ",\nSKKSERVER; "
+					(getenv "SKKSERVER")))
+			    (if (getenv "SKKSERV")
+				(concat ", SKKSERV; "
+					(getenv "SKKSERV")))))
+		   ((and (boundp 'skk-exserv-list) skk-exserv-list)
+		    (require 'skk-exserv)
+		    (skk-server-version))))
      (let ((base (list 'window-system
-		       'skk-auto-okuri-process
-		       'skk-auto-start-henkan
-		       'skk-egg-like-newline
-		       'skk-henkan-okuri-strictly
-		       'skk-henkan-strict-okuri-precedence
-		       'skk-kakutei-early
-		       'skk-process-okuri-early
-		       'skk-search-prog-list
-		       'skk-use-face
-		       'skk-use-viper )))
-       (and (boundp 'skk-henkan-face)
-	    (setq base (append base '(skk-henkan-face))) )
+		       'isearch-mode-hook
+		       'isearch-mode-end-hook
+                       'skk-auto-okuri-process
+                       'skk-auto-start-henkan
+                       'skk-egg-like-newline
+                       'skk-henkan-okuri-strictly
+                       'skk-henkan-strict-okuri-precedence
+                       'skk-kakutei-early
+                       'skk-process-okuri-early
+                       'skk-search-prog-list
+                       'skk-share-private-jisyo
+                       'skk-use-viper)))
        (and (boundp 'skk-server-host)
-	    (setq base (append base '(skk-server-host))) )
+	    (setq base (append base '(skk-server-host))))
        (and (boundp 'skk-server-prog)
-	    (setq base (append base '(skk-server-prog))) )
+	    (setq base (append base '(skk-server-prog))))
        (and (boundp 'skk-servers-list)
-	    (setq base (append base '(skk-servers-list))) )
-       base ))))
-
-(eval-after-load "edebug"
-  '(progn
-     (def-edebug-spec skk-save-point t)
-     (def-edebug-spec skk-with-point-move t)
-     ))
+	    (setq base (append base '(skk-servers-list))))
+       (and (boundp 'skk-exserv-list) 
+	    (setq base (append base '(skk-exserv-list))))
+       base))))
 
 (eval-after-load "hilit19"
   '(mapcar (function
@@ -96,30 +93,35 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
               (hilit-add-pattern
                (car pattern) (cdr pattern)
                (cond ((eq skk-background-mode 'mono)
-                      'bold )
+                      'bold)
                      ((eq skk-background-mode 'light)
-                      'RoyalBlue )
-                     (t 'cyan) )
-               'emacs-lisp-mode )))
+                      'RoyalBlue)
+                     (t 'cyan))
+               'emacs-lisp-mode)))
            '(("^\\s *(skk-deflocalvar\\s +\\S +" . "")
 	     ("^\\s *(skk-defun-cond\\s +\\S +" . "")
-	     ("^\\s *(skk-defsubst-cond\\s +\\S +" . "") )))
+	     ("^\\s *(skk-defadvice\\s +\\S +" . "")
+	     ("^\\s *(skk-defsubst-cond\\s +\\S +" . ""))))
 
 (eval-after-load "font-lock"
   '(setq lisp-font-lock-keywords-2
 	 (nconc
 	  '(("^(\\(skk-defun-cond\\)[ \t'\(]*\\(\\sw+\\)?"
 	     (1 font-lock-keyword-face)
-	     (2 font-lock-variable-name-face) )
+	     (2 font-lock-variable-name-face))
 	    ("^(\\(skk-defsubst-cond\\)[ \t'\(]*\\(\\sw+\\)?"
 	     (1 font-lock-keyword-face)
-	     (2 font-lock-variable-name-face) )
+	     (2 font-lock-variable-name-face))
+	    ("^(\\(skk-defavice\\)[ \t'\(]*\\(\\sw+\\)?"
+	     (1 font-lock-keyword-face)
+	     (2 font-lock-variable-name-face))
 	    ("^(\\(skk-deflocalvar\\)[ \t'\(]*\\(\\sw+\\)?"
 	     (1 font-lock-keyword-face)
-	     (2 font-lock-variable-name-face) ))
-	  lisp-font-lock-keywords-2 )))
+	     (2 font-lock-variable-name-face)))
+	  lisp-font-lock-keywords-2)))
 
-(provide 'skk-develop)
+(require 'product)
+(product-provide (provide 'skk-develop) (require 'skk-version))
 ;;; Local Variables:
 ;;; End:
 ;;; skk-develop.el ends here

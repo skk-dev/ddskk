@@ -1,14 +1,14 @@
-;; SKK English tutorial text (version 1.4)
+;; SKK English tutorial text
 ;; Copyright (C) 1992, 1996, 1998
-;; Masahiko Sato (masahiko@sato.riec.tohoku.ac.jp)
+;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK.tut.E,v 1.1 1999/09/15 09:52:19 minakaji Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: SKK.tut.E,v 1.2 2000/10/30 22:18:13 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/15 09:52:19 $
+;; Last Modified: $Date: 2000/10/30 22:18:13 $
 ;;
-;; This is the tutorial text for SKK version 10.46 and and later versions.
+;; This is the tutorial text for Daredevil SKK version 11.1 and and later versions.
 ;;
 ;; Permission is granted to make and distribute verbatim copies of
 ;; this tutorial text provided the copyright notice and this permission notice
@@ -23,10 +23,6 @@
 ;; text into another language, under the above conditions for modified
 ;; versions, except that this permission notice may be stated in a
 ;; translation approved by Masahiko Sato.
-;;
-;; version 1.3 released 1996.11.16
-;; version 1.2 released 1992.9.19
-;; version 1.1 released 1992.6.26
 ----
 == How to use the SKK tutorial ==
 

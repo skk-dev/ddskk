@@ -1,7 +1,7 @@
 -*- outline -*- 
 
-$Date: 2000/09/14 15:49:50 $
-$Id: CVS_on_Windows,v 1.5 2000/09/14 15:49:50 czkmt Exp $
+$Date: 2000/10/30 22:14:09 $
+$Id: CVS_on_Windows,v 1.6 2000/10/30 22:14:09 minakaji Exp $
 
 [cvs on Windows 95/NT Windows 95 $B$GF0:n3NG':Q$_(B (NT $B$G$OL$3NG'(B)] 
 
@@ -19,7 +19,7 @@ SKK 10.x (Maintrunk) $B5Z$S(B Daredevil SKK 11.1 $B$O<g$K(B UNIX $B>e$G3+H/
 
 $B$3$N$h$&$K9TKv%3!<%I$,JQ99$5$l$F$7$^$&$H!"(Bdiff $B$r<h$C$?$j(B patch $B$rEv$F(B
 $B$?$j$9$k$H$-$KITJX$J$N$G!"9TKv%3!<%I$r(B Windows native $B$K@55,2=$7$J$$(B
-(UNIX $B$HF1MM$K07$&(B) Cygwin $B$G%=!<%9$+$i%3%s%Q%$%k$9$D$3$H$r?d>)$7$^$9!#(B
+(UNIX $B$HF1MM$K07$&(B) Cygwin $B$G%=!<%9$+$i%3%s%Q%$%k$9$k$3$H$r?d>)$7$^$9!#(B
 
 * cvs $B$N(B version $B$O!)(B  $B$^$?$I$3$+$i(B get $B$G$-$^$9$+!)(B
 

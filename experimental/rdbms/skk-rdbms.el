@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-rdbms.el,v 1.2 2000/09/14 08:40:05 akiho Exp $
+;; Version: $Id: skk-rdbms.el,v 1.3 2000/10/30 22:22:10 minakaji Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2000/09/14 08:40:05 $
+;; Last Modified: $Date: 2000/10/30 22:22:10 $
 
 ;; This file is not part of SKK yet.
 
@@ -659,8 +659,7 @@ skk-rdbms-working-buffer の中でコールされる。" )
 (defun skk-rdbms-save-jisyo (&optional quiet)
   (let ((inhibit-quit t))
     (funcall skk-rdbms-save-jisyo-function quiet)
-      (and skk-hankaku-mode.el
-       (skk-set-cursor-properly)) ))
+      (skk-set-cursor-properly) ))
 
 (defun skk-rdbms-restore-private-jisyo (force)
   "ダンプファイルから個人辞書データベースを復元する。
@@ -912,5 +911,7 @@ C-u M-x skk-rdbms-restore-private-jisyo すると確認なしに復元する。"
 (add-hook 'skk-before-kill-emacs-hook 'skk-rdbms-kill 'append)
 
 (run-hooks 'skk-rdbms-load-hook)
-(provide 'skk-rdbms)
+
+(require 'product)
+(product-provide (provide 'skk-rdbms) (require 'skk-version))
 ;;; skk-rdbms.el ends here

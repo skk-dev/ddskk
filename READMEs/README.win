@@ -2,8 +2,8 @@
 
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2000/10/29 21:38:04 $
-$Id: README.win,v 1.8 2000/10/29 21:38:04 minakaji Exp $
+$Date: 2000/10/30 22:14:11 $
+$Id: README.win,v 1.9 2000/10/30 22:14:11 minakaji Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                　　　　 <minakaji@pdx.ne.jp> 
@@ -14,7 +14,7 @@ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 ** APEL のインストール
 
-まず APELをインストールする。SKK 10 では、APEL 9.22以降での動作
+まず APELをインストールする。Daredevil SKK では、APEL 10.2以降での動作
 が確認されているが、APEL は Emacs/XEmacs のバージョンアップに合わせて
 日進月歩なので、できるだけ新しいバージョンをインストールすることをお勧
 めする。
@@ -37,24 +37,14 @@ tar.exeは `ftp://ftp.etl.go.jp/pub/mule/Windows/tools/' などから入手できる。
 Emacs が `c:\usr\Meadow\1.10\bin\meadow95.exe' のとき、APEL を展開した
 ディレクトリに CD によって移動し、以下のコマンドを実行する。
 
-  C:temp\apel> c:\usr\meadow\1.10\bin\meadow95 -q -batch -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) (EMUDIR)
+  C:\temp\skk-11> c:\usr\meadow\1.10\bin\meadow -q -batch
+                 -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) (EMUDIR)
+  (改行はいれない)
 
-ただし、上の (LISPDIR) には apel モジュール (APEL の内、Emacs のバージョ
-ンに依存しないライブラリ) のインストール先、(EMUDIR) は同様に emu モ
-ジュール (APEL の内、Emacs のバージョンに依存するもの) のインストール
-先を指定する。
-
-例えば (LISPDIR) に \usr\meadow\site-lisp と指定とすれば、apel モジュー
-ルは \usr\meadow\site-lisp\apel にインストールされる。同様に (EMUDIR)
-に \usr\meadow\1.10\site-lisp\ と指定すれば emu モジュールは
-\usr\meadow\1.10\site-lisp\emu にインストールされる。
-
-コマンドラインにコマンド全てを入力しきらない場合は、上記の内容を書いた
-make.bat を作成し、
-
-  C:temp\apel> make.bat
-
-とする。
+ただし、上の (LISPDIR) には apel のインストール先(例えば
+\usr\meadow\site-lisp とすれば、 \usr\meadow\site-lisp\apel にインストー
+ルされる)で、(EMUDIR) は同様に emu のインストール先
+\usr\meadow\1.10\site-lisp\emu 等を指定する。
 
 *** load-path への追加
 
@@ -94,21 +84,7 @@ MAKE.BAT を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
 
 .emacs に次の内容を追加する。
 
-(require 'skk-autoloads)
-(global-set-key "\C-x\C-j" 'skk-mode)
-(global-set-key "\C-xj" 'skk-auto-fill-mode)
-(global-set-key "\C-xt" 'skk-tutorial)
-(add-hook 'isearch-mode-hook
-          (function (lambda ()
-                    (and (boundp 'skk-mode) skk-mode
-                         (skk-isearch-mode-setup) ))))
-(add-hook 'isearch-mode-end-hook
-          (function (lambda ()
-                    (and (boundp 'skk-mode) skk-mode
-                         (skk-isearch-mode-cleanup) ))))
-;;(add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
-;;(add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
-(setq skk-large-jisyo "(SKK-JISYOのパス)")
+(require 'skk-setup)
 
 ** cygwin32
 
@@ -123,7 +99,7 @@ Mule for Windows を使用する場合は以下の手順に従う。
 
 ** APEL のインストール
 
-まず APELをインストールする。SKK 10 では、APEL 9.22以降での動作
+まず APELをインストールする。Daredevil SKK では、APEL 9.22以降での動作
 が確認されたが、APEL は Emacs/XEmacs のバージョンアップに合わせて日進
 月歩なので、できるだけ新しいバージョンをインストールすることをお勧めす
 る。
@@ -154,24 +130,11 @@ tar.exeは `ftp://ftp.etl.go.jp/pub/mule/Windows/tools/' などから入手で
 Emacs が `c:\usr\mule\bin\mule.exe' のとき、APEL を展開したディレクト
 リに CD によって移動し、以下のコマンドを実行する。
 
-  C:\temp\skk-10> c:\usr\mule\bin\mule -q -batch -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) (EMUDIR)
+  C:\temp\skk-11> c:\usr\mule\bin\mule -q -batch -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) (EMUDIR)
 
-ただし、上の (LISPDIR) には apel モジュール (APEL の内、Emacs のバージョ
-ンに依存しないライブラリ) のインストール先、(EMUDIR) は同様に emu モ
-ジュール (APEL の内、Emacs のバージョンに依存するもの) のインストール
-先を指定する。
-
-例えば (LISPDIR) に \usr\mule\site-lisp と指定とすれば、apel モジュー
-ルは \usr\mule\site-lisp\apel にインストールされる。同様に (EMUDIR)
-に \usr\mule\site-lisp と指定すれば emu モジュールは
-\usr\mule\site-lisp\emu にインストールされる。
-
-コマンドラインにコマンド全てを入力しきらない場合は、上記の内容を書いた
-make.bat を作成し、
-
-  C:temp\apel> make.bat
-
-とする。
+ただし、上の LISPDIR には apel のインストール先(例えば
+\usr\mule\site-lisp とすれば、 \usr\mule\site-lisp\apel にインストール
+される)で、EMUDIRは同様に emu のインストール先である。
 
 *** .emacs への追加
 
@@ -187,14 +150,6 @@ TM がインストールされていない場合は同様に emu のディレクトリも .emacs
 *** SKK の展開(解凍)
 
 SKK ディストリビューションを上記の tar.exe を用いて展開する。
-
-*** SKK-CFG の編集
-
-SKK-CFG に APEL のパスを指定する。
- (setq APEL_SPECIFIC_LISPDIR "c:/usr/mule/site-lisp/apel")
-TM がインストールされていない場合は、
- (setq EMU_PREFIX "c:/usr/mule/site-lisp/emu")
-のように EMU_PREFIX も指定する。
 
 *** MAKE.BAT の編集
 
@@ -220,22 +175,7 @@ MAKE.BAT を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
 
 .emacs に次の内容を追加する。
 
-(setq load-path (cons "/usr/mule/site-lisp/skk" load-path))
-(require 'skk-autoloads)
-(global-set-key "\C-x\C-j" 'skk-mode)
-(global-set-key "\C-xj" 'skk-auto-fill-mode)
-(global-set-key "\C-xt" 'skk-tutorial)
-(add-hook 'isearch-mode-hook
-          (function (lambda ()
-                    (and (boundp 'skk-mode) skk-mode
-                         (skk-isearch-mode-setup) ))))
-(add-hook 'isearch-mode-end-hook
-          (function (lambda ()
-                    (and (boundp 'skk-mode) skk-mode
-                         (skk-isearch-mode-cleanup) ))))
-;;(add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
-;;(add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
-(setq skk-large-jisyo "(SKK-JISYOのパス)")
+(require 'skk-setup)
 
 ** cygwin32
 

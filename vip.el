@@ -1,10 +1,10 @@
 ;;; vip.el --- a VI Package for GNU Emacs
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 1999/09/23 13:27:50 $
+;; Last Modified: $Date: 2000/10/30 22:10:22 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -99,7 +99,7 @@
 
 (defvar vip-f-forward nil
   "For use by \";\" command.")
-  
+
 (defvar vip-f-offset nil
   "For use by \";\" command.")
 
@@ -158,8 +158,8 @@ If nil then it is bound to `delete-backward-char'.")
 (defmacro vip-move-marker-locally (marker position &optional buffer)
   (list 'progn
         (list 'if (list 'not marker)
-              (list 'setq marker (list 'make-marker)) )
-        (list 'set-marker marker position buffer) ))
+              (list 'setq marker (list 'make-marker)))
+        (list 'set-marker marker position buffer)))
 
 (global-set-key "\C-z" 'vip-change-mode-to-vi)
 
@@ -204,12 +204,12 @@ No message."
 ;; modified.
 
 (defun vip-normalize-minor-mode-map-alist ()
-  (setq minor-mode-map-alist 
+  (setq minor-mode-map-alist
 	(vip-append-filter-alist
 	 (list
 	       (cons 'vip-vi-mode vip-vi-mode-map)
 	       (cons 'vip-insert-mode vip-insert-mode-map)
-	       )
+	      )
 	 minor-mode-map-alist)))
 
 ;; Append LIS2 to LIS1, both alists, by side-effect and returns LIS1
@@ -242,25 +242,25 @@ No message."
 	   (vip-change-mode-line "Vi:  ")
 	   (setq vip-vi-mode t
 		 vip-insert-mode nil)
-	   )
+	  )
 	  ((eq new-mode 'insert-mode)
 	   (vip-move-marker-locally vip-insert-point (point))
 	   (if (eq vip-current-mode 'emacs-mode)
 	       (setq vip-emacs-mode-line-buffer-identification
-		     mode-line-buffer-identification ))
+		     mode-line-buffer-identification))
 	   (vip-change-mode-line "Insrt")
 	   (if skk-mode (vip-skk-mode-on))
 	   (setq vip-vi-mode nil
-		 vip-insert-mode t) )
-	  ((eq new-mode 'emacs-mode) 
+		 vip-insert-mode t))
+	  ((eq new-mode 'emacs-mode)
 	   (vip-change-mode-line "Emacs:")
 	   ;;(vip-skk-mode-off)
 	   (setq vip-vi-mode nil
-		 vip-insert-mode nil) ))
+		 vip-insert-mode nil)))
     (setq vip-current-mode new-mode)
     (vip-normalize-minor-mode-map-alist)
     (force-mode-line-update)
-    ))
+   ))
 
 ;; SKK related functions
 
@@ -292,7 +292,7 @@ SKK-MODE.  Then, change mode to insert mode."
 	      vip-skk-j-mode skk-j-mode
 	      vip-skk-jisx0208-latin-mode skk-jisx0208-latin-mode
 	      vip-skk-katakana skk-katakana
-	      vip-skk-input-mode-string) 
+	      vip-skk-input-mode-string)
 	(skk-kakutei)
 	(skk-mode-off)
 	(setq skk-input-mode-string (concat " [" str "]"))))
@@ -302,7 +302,7 @@ SKK-MODE.  Then, change mode to insert mode."
   ;; we need to go back to the mode stored in VIP-SKK-*-MODE.
   (cond (vip-skk-latin-mode (skk-latin-mode-on))
 	(vip-skk-j-mode (skk-j-mode-on vip-skk-katakana))
-	(vip-skk-jisx0208-latin-mode (skk-jisx0208-latin-mode-on)) ))
+	(vip-skk-jisx0208-latin-mode (skk-jisx0208-latin-mode-on))))
 
 (require 'advice)
 (defadvice skk-pre-command (around vip-ad activate)
@@ -389,8 +389,8 @@ Type `n' to quit this window for now.\n")
 ARG is used as the prefix value for the executed command.  If
 EVENTS is a list of events, which become the beginning of the command."
   (interactive "P")
-  (let ((change-mode-to-vi nil) 
-	(change-mode-to-insert nil) 
+  (let ((change-mode-to-vi nil)
+	(change-mode-to-insert nil)
 	(change-mode-to-emacs nil)
 	(save-vi-mode vip-vi-mode)
 	(save-insert-mode vip-insert-mode)
@@ -404,12 +404,12 @@ EVENTS is a list of events, which become the beginning of the command."
 	  (setq com (key-binding (setq key
                                        ;;(if vip-xemacs-p
                                        ;;    (read-key-sequence nil)
-                                       ;;  (read-key-sequence nil t) ))))
-				       (read-key-sequence nil t) )))
+                                       ;;  (read-key-sequence nil t)))))
+				       (read-key-sequence nil t))))
 	nil)
       (command-execute com prefix-arg)
       (setq prefix-arg nil);; reset prefix arg
-      )
+     )
     ;; we must check if the current buffer is the same after executing
     ;; the command.  if not, we have to restore the values of
     ;; VIP-VI-MODE and VIP-INSERT-MODE
@@ -421,7 +421,7 @@ EVENTS is a list of events, which become the beginning of the command."
 	  (cond (change-mode-to-vi (vip-change-mode-to-vi))
 		(change-mode-to-insert
 		 (vip-change-mode-to-insert)
-		 )
+		)
 		(change-mode-to-emacs (vip-change-mode-to-emacs))
 		(t (vip-change-mode vip-current-mode))))
       ;; since OLD-BUFF may not exist anymore, we have to first
@@ -438,9 +438,9 @@ EVENTS is a list of events, which become the beginning of the command."
       (cond (change-mode-to-vi (vip-change-mode-to-vi))
 	    (change-mode-to-insert (vip-change-mode-to-insert))
 	    (change-mode-to-emacs (vip-change-mode-to-emacs))
-	    (t (vip-change-mode vip-current-mode)) )
-      ) 
-    ))
+	    (t (vip-change-mode vip-current-mode)))
+     )
+   ))
 
 (defun vip-message-conditions (conditions)
   "Print CONDITIONS as a message."
@@ -481,7 +481,7 @@ EVENTS is a list of events, which become the beginning of the command."
   "Compute numeric prefix arg value.  Invoked by CHAR.  VALUE is the value
 obtained so far, and COM is the command part obtained so far."
   (while (and (>= char ?0) (<= char ?9))
-    (setq value (+ (* (if (numberp value) value 0) 10) (- char ?0)))	    
+    (setq value (+ (* (if (numberp value) value 0) 10) (- char ?0)))	
     (setq char (read-char)))
   (setq prefix-arg value)
   (if com (setq prefix-arg (cons prefix-arg com)))
@@ -531,7 +531,7 @@ obtained so far, and COM is the command part obtained so far."
 	       (setq com char)
 	       (setq char (read-char)))))))
   (if (atom com)
-      ;; com is a single char, so we construct prefix-arg 
+      ;; com is a single char, so we construct prefix-arg
       ;; and if char is ?, describe prefix arg, otherwise exit by
       ;; pushing the char back
       (progn
@@ -585,7 +585,7 @@ obtained so far, and COM is the command part obtained so far."
   (interactive "P")
   (condition-case conditions
       (vip-prefix-arg-com
-       last-command-char   
+       last-command-char
        (cond ((null arg) nil)
 	     ((consp arg) (car arg))
 	     ((numberp arg) arg)
@@ -884,8 +884,8 @@ each line in the region."
   "Setup MINIBUFFER-LOCAL-MAP appropriately and call READ-STRING.  If
 SKK is on, then read string with SKK-J-MODE on."
   (setq save-minibuffer-local-map (copy-keymap minibuffer-local-map))
-  (let (str 
-	(input-mode-str 
+  (let (str
+	(input-mode-str
 	 (and (boundp 'skk-input-mode-string) skk-input-mode-string)))
     (if (and skk (boundp 'skk-mode) skk-mode)
 	(add-hook 'minibuffer-setup-hook 'skk-j-mode-on))
@@ -911,7 +911,7 @@ vi command mode.  It will repeat the insertion command if original insertion
 command was invoked with argument > 1."
   (let ((i-com (car vip-d-com)) (val (car (cdr vip-d-com))))
     (if (and val (> val 1)) ;; first check that val is non-nil
-	(progn        
+	(progn
 	  (setq vip-d-com (list i-com (1- val) ?r))
 	  (vip-repeat nil)
 	  (setq vip-d-com (list i-com val ?r))))))
@@ -1013,7 +1013,7 @@ command was invoked with argument > 1."
 	  (vip-change-subr (mark 'force) (point))
 	(vip-change (mark 'force) (point))))
     (setq vip-d-com (list 'vip-substitute val ?r))))
-  
+
 (defun vip-substitute-line (arg)
   "Substitute lines."
   (interactive "p")
@@ -1033,7 +1033,7 @@ command was invoked with argument > 1."
   (interactive "P")
   (let ((val (vip-p-val arg)))
     (vip-line (cons val ?Y))))
-    
+
 
 ;; region command
 
@@ -1052,7 +1052,7 @@ command was invoked with argument > 1."
     (vip-move-marker-locally vip-com-point (point))
     (exchange-point-and-mark)
     (vip-execute-com 'vip-Region val com)))
-  
+
 (defun vip-replace-char (arg)
   "Replace the following ARG chars by the character read."
   (interactive "P")
@@ -1147,7 +1147,7 @@ beginning of buffer, stop and signal error."
 	(progn
 	  (forward-char)
 	  (vip-execute-com 'vip-end-of-word val com)))))
-			 
+			
 (defun vip-backward-word (arg)
   "Backward word."
   (interactive "P")
@@ -1754,7 +1754,7 @@ STRING.  Search will be forward if FORWARD, otherwise backward."
   (interactive)
   (message "\"%s\" line %d of %d"
 	   (if (buffer-file-name) (buffer-file-name) "")
-	   (1+ (count-lines (point-min) 
+	   (1+ (count-lines (point-min)
 			    (save-excursion
 			      (beginning-of-line)
 			      (point))))
@@ -1849,8 +1849,8 @@ STRING.  Search will be forward if FORWARD, otherwise backward."
 	       (skk-kakutei))
 	      ((and skk-henkan-on (>= skk-henkan-start-point (point)))
 	       (skk-kakutei))
-	      (t (delete-backward-char val t)) )
-      (delete-backward-char val t) )))
+	      (t (delete-backward-char val t)))
+      (delete-backward-char val t))))
 
 
 ;; join lines.
@@ -1909,7 +1909,7 @@ the query replace mode will toggle between string replace and regexp replace."
 	   (vip-read-string (format "Query replace regexp \"%s\" with: " str)))
 	(query-replace
 	 str
-	 (vip-read-string 
+	 (vip-read-string
 	  (format "Query replace \"%s\" with: " str) nil t))))))
 
 
@@ -2719,7 +2719,7 @@ a token has type \(command, address, end-mark\) and value."
 	     (string= ex-token "change")
 	     (string= ex-token "insert")
 	     (string= ex-token "open")
-	     )
+	    )
 	 (error "%s: no such command from VIP" ex-token))
 	((or (string= ex-token "abbreviate")
 	     (string= ex-token "list")
@@ -2732,7 +2732,7 @@ a token has type \(command, address, end-mark\) and value."
 	     (string= ex-token "unabbreviate")
 	     (string= ex-token "xit")
 	     (string= ex-token "z")
-	     )
+	    )
 	 (error "%s: not implemented in VIP" ex-token))
 	(t (error "%s: Not an editor command" ex-token))))
 
@@ -3051,7 +3051,7 @@ a token has type \(command, address, end-mark\) and value."
   (vip-change-mode-to-emacs)
   (shell))
 
-(defun ex-substitute (&optional repeat r-flag) 
+(defun ex-substitute (&optional repeat r-flag)
   "ex substitute.
 If REPEAT use previous reg-exp which is ex-reg-exp or
 vip-s-string"

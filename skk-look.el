@@ -1,27 +1,26 @@
-;; -*-byte-compile-dynamic: t;-*-
 ;;; skk-look.el --- UNIX look command interface for SKK
-;; Copyright (C) 1998, 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1998, 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-look.el,v 1.8 2000/09/09 23:11:58 minakaji Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-look.el,v 1.9 2000/10/30 22:10:17 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/09 23:11:58 $
+;; Last Modified: $Date: 2000/10/30 22:10:17 $
 
-;; This file is not part of SKK yet.
+;; This file is part of Daredevil SKK.
 
-;; SKK is free software; you can redistribute it and/or modify
+;; Daredevil SKK is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either versions 2, or (at your option)
 ;; any later version.
 
-;; SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
 ;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
 
@@ -110,83 +109,27 @@
 ;; ました。難波さんに感謝いたします。
 
 ;;; Code:
-(eval-when-compile (require 'skk) (require 'skk-comp))
-(require 'skk-foreword)
-;; APEL
-(require 'path-util)
-
-;;;###autoload
-(defgroup skk-look nil "SKK look conversion related customization."
-  :prefix "skk-look-"
-  :group 'skk )
-
-;; user variable.
-(defcustom skk-look-command (exec-installed-p "look")
-  "*UNIX look コマンドの名前。"
-  :type 'file
-  :group 'skk-look )
-
-(defcustom skk-look-ignore-case t
-  "*Non-nil であれば、大文字・小文字を区別しないで検索を行なう。
-look コマンドにオプション \"-f\" を渡す。"
-  :type 'boolean
-  :group 'skk-look )
-
-(defcustom skk-look-dictionary-order t
-  "*Non-nil であれば、辞書順にソートされた検索ファイルを使用する。
-look コマンドにオプション \"-d\" を渡す。"
-  :type 'boolean
-  :group 'skk-look )
-
-(defcustom skk-look-use-alternate-dictionary nil
-  "*Non-nil であれば、/usr/dict/web2 を使い検索を行なう。
-ディフォルトの辞書は、/usr/dict/words。
-look コマンドにオプション \"-a\" を渡す。"
-  :type '(choice file (const nil))
-  :group 'skk-look )
-
-(defcustom skk-look-termination-character nil
-  "*Non-nil であれば、その文字列を UNIX look コマンドが使う終端文字列として明示的に指定する。
-look コマンドにオプション \"-t\" とその文字列を渡す。"
-  :type '(choice string (const nil))
-  :group 'skk-look )
-
-(defcustom skk-look-dictionary nil
-  "*look コマンドが検索する辞書ファイル。
-nil であれば、/usr/dict/words を使用する。"
-  :type '(choice file (const nil))
-  :group 'skk-look )
-
-(defcustom skk-look-recursive-search nil
-  "*Non-nil であれば、look コマンドが見つけた英単語を変換キーにし、再検索を行なう。
-再検索の結果、候補が見つからなければ、元の英単語自身を候補として出力する。"
-  :type 'boolean
-  :group 'skk-look )
-
-(defcustom skk-look-expanded-word-only t
-  "*Non-nil であれば、look の出力に対する再検索が成功した場合のみを最終的な候補として表示する。
-skk-look-recursive-search が non-nil であるときのみ有効。"
-  :type 'boolean
-  :group 'skk-look )
-
-;; internal constant and variable.
-(defconst skk-look-working-buffer " *skk look*")
-(defvar skk-look-completion-words nil)
-
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars)
+  ;; shut up compiler warnings.
+  (defvar ispell-process)
+  (defvar ispell-filter)
+  (defvar ispell-filter))
 
 (and skk-look-command
      (null (member '(skk-look) skk-search-prog-list))
      (let ((pl skk-search-prog-list)
-	   (n 0) dic mark )
+	   (n 0) dic mark)
        (while pl
 	 (setq dic (car pl))
 	 (if (memq (nth 1 dic) '(skk-jisyo skk-rdbms-private-jisyo-table))
 	     (setq mark n
 		   pl nil)
 	   (setq pl (cdr pl)
-		 n (1+ n) )))
+		 n (1+ n))))
        (skk-splice-in skk-search-prog-list (1+ mark)
-		      '((skk-look)) )))
+		      '((skk-look)))))
 
 ;; program
 ;;;###autoload
@@ -197,66 +140,117 @@ skk-look-recursive-search が non-nil であるときのみ有効。"
   (and skk-abbrev-mode
        (eq (skk-str-ref skk-henkan-key (1- (length skk-henkan-key))) ?*)
        (let ((args (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
-	     v )
-	 (setq v (skk-look-1 args))
+	     v)
+	 (if (not skk-look-use-ispell)
+	     (setq v (skk-look-1 args))
+	   (setq v (skk-look-ispell args)))
 	 (if (not skk-look-recursive-search)
 	     v
 	   (let (skk-henkan-key v2 v3)
 	     (while v
 	       (let ((skk-current-search-prog-list
-		      (delete '(skk-look) (copy-sequence skk-search-prog-list)) ))
+		      (delete '(skk-look) (copy-sequence skk-search-prog-list))))
 		 (setq skk-henkan-key (car v))
 		 (while skk-current-search-prog-list
-		   (setq v3 (skk-search)
+		   (setq v3 (let (skk-use-numeric-conversion) (skk-search))
 			 v2 (if (not skk-look-expanded-word-only)
 				(skk-nunion v2 (cons (car v) v3))
 			      (if v3
 				  (skk-nunion v2 (cons (car v) v3))
-				v2 )))))
-	       (setq v (cdr v)) )
-	     v2 )))))
+				v2)))))
+	       (setq v (cdr v)))
+	     v2)))))
 
 (defun skk-look-1 (args)
   ;; core search engine
-  (condition-case nil
-      (save-excursion
-	(let (opt buffer-read-only)
-	  (set-buffer (get-buffer-create skk-look-working-buffer))
-	  (erase-buffer)
-	  (setq args (list args))
-	  (and skk-look-dictionary (nconc args (list skk-look-dictionary)))
-	  (and skk-look-dictionary-order (setq opt "d"))
-	  (and skk-look-ignore-case (setq opt (concat "f" opt)))
-	  (and skk-look-use-alternate-dictionary
-	       (setq opt (concat "a" opt)) )
-	  (and opt (setq args (cons (concat "-" opt) args)))
-	  (and skk-look-termination-character
-	       (setq args
-		     (cons (list "-t" skk-look-termination-character) args) ))
- 	  (and
-	   (= 0 (apply 'call-process skk-look-command nil t nil args))
-	   (> (buffer-size) 0)
-	   (split-string (buffer-substring-no-properties (point-min) (1- (point-max)))
-			 "\n" ))))
-    (file-error
-     (setq skk-search-prog-list (delete '(skk-look) skk-search-prog-list))
-     (skk-error "システム上に look コマンドが見つかりません"
-		"Sorry, can't find look command on your system" ))))
+  (with-temp-buffer
+    (let ((word args)
+	  opt)
+      (setq args (list args))
+      (and skk-look-dictionary (nconc args (list skk-look-dictionary)))
+      (and skk-look-dictionary-order (setq opt "d"))
+      (and skk-look-ignore-case (setq opt (concat "f" opt)))
+      (and skk-look-use-alternate-dictionary
+	   (setq opt (concat "a" opt)))
+      (and opt (setq args (cons (concat "-" opt) args)))
+      (and skk-look-termination-character
+	   (setq args
+		 (cons (list "-t" skk-look-termination-character) args)))
+      (and
+       (= 0 (apply 'call-process skk-look-command nil t nil args))
+       (> (buffer-size) 0)
+       (delete word (split-string (buffer-substring-no-properties
+				   (point-min) (1- (point-max)))
+				  "\n"))))))
 
 ;;;###autoload
 (defun skk-look-completion ()
   (or skk-look-completion-words
-      (let ((stacked skk-completion-stack))
+      (let ((stacked skk-completion-stack)) ; 他の機能による補完候補。
 	;; look は複数の候補を吐くので、一旦貯めておいて、一つづつ complete する。
 	(setq skk-look-completion-words
-	      (delete skk-completion-word (skk-look-1 skk-completion-word)) )
+	      (if (not skk-look-use-ispell)
+		  (skk-look-1 skk-completion-word)
+		(skk-look-ispell skk-completion-word)))
 	(while stacked
 	  (setq skk-look-completion-words
 		(delete (car stacked) skk-look-completion-words)
-		stacked (cdr stacked) ))))
+		stacked (cdr stacked)))
+	;;skk-look-completion-words の各要素は、実際に補完を行なった段階で
+	;; `skk-completion' により skk-completion-stack に入れられる。
+	))
   (prog1
       (car skk-look-completion-words)
-    (setq skk-look-completion-words (cdr skk-look-completion-words)) ))
+    (setq skk-look-completion-words (cdr skk-look-completion-words))))
 
-(provide 'skk-look)
+(defadvice skk-kakutei-initialize (after skk-look-ad activate)
+  (setq skk-look-completion-words nil))
+
+
+;;;###autoload
+(defun skk-look-ispell (word)
+  (require 'ispell)
+  (ispell-accept-buffer-local-defs)
+  (message "")
+  (process-send-string ispell-process "%\n") ;put in verbose mode
+  (process-send-string ispell-process (concat "^" word "\n"))
+  (while (progn
+	   (accept-process-output ispell-process)
+	   (not (string= "" (car ispell-filter)))))
+  (setq ispell-filter (cdr ispell-filter)) ; remove extra \n
+  (let ((poss (and ispell-filter (listp ispell-filter)
+		   ;; 1: t for an exact match.
+		   ;; 2: A string containing the root word matched via suffix removal.
+		   ;; 3: A list of possible correct spellings of the format:
+		   ;;    (ORIGINAL-WORD OFFSET MISS-LIST GUESS-LIST)
+		   ;;    ORIGINAL-WORD is a string of the possibly misspelled word.
+		   ;;    OFFSET is an integer giving the line offset of the word.
+		   ;;    MISS-LIST and GUESS-LIST are possibly null lists of guesses and misses.
+		   ;; 4: Nil when an error has occurred."
+		   (or (ispell-parse-output (car ispell-filter))
+		       'error)))
+	ret var)
+    (setq ispell-filter nil)
+    (cond ((eq poss 'error)
+	   (skk-message "ispell process でエラーが発生しました。"
+			"error in ispell process")
+	   (sit-for 1)
+	   (message "")
+	   nil)
+	  ((or (eq poss t)
+	       ;; root word に対して skk-look-1 かけちゃおうか？
+	       ;; でもちっとも補完ぢゃなくなっちまいますね... (^^;;。
+	       (stringp poss)
+	       (null (or (nth 2 poss) (nth 3 poss))))
+	   (skk-look-1 word))
+	  (t
+	   (setq var (nconc (nth 2 poss) (nth 3 poss)))
+	   (while var
+	     ;; call look command by each candidate put out by ispell.
+	     (setq ret (skk-nunion ret (cons (car var) (skk-look-1 (car var))))
+		   var (cdr var)))
+	   (delete word (skk-nunion (skk-look-1 word) ret))))))
+
+(require 'product)
+(product-provide (provide 'skk-look) (require 'skk-version))
 ;;; skk-look.el ends here

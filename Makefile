@@ -1,10 +1,11 @@
 # Makefile: makefile for SKK.
 #
-# Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.33 2000/10/29 21:55:13 minakaji Exp $
-# Last Modified: $Date: 2000/10/29 21:55:13 $
+# Maintainer: SKK Development Team <skk@ring.gr.jp>
+# Version: $Id: Makefile,v 1.34 2000/10/30 22:10:11 minakaji Exp $
+# Last Modified: $Date: 2000/10/30 22:10:11 $
 
-VERSION = 10.62a
+
+VERSION = 11.3
 
 BZIP2     = bzip2 -9
 CP	  = /bin/cp -p
@@ -17,9 +18,13 @@ RM	  = /bin/rm -f
 SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = tar
 XEMACS	  = xemacs
+set_jisyo =
 
 elc:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile
+
+package:
+	$(XEMACS) $(FLAGS) -f SKK-MK-compile-package
 
 info:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile-info
@@ -38,25 +43,26 @@ what-where-package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-what-where-package
 
 clean:
-	-$(RM) skk-autoloads.el *.elc ./doc/skk.info* experimental/*.elc \
-	 `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
+	-$(RM) skk-autoloads.el skk-setup.el leim-list.el *.elc experimental/*.elc \
+	auto-autoloads.el custom-load.el \
+	experimental/skk-isearch.el ./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 tar: clean
 	cd .. ;\
-	$(RM) skk-10.{60,61,62,63} skk-$(VERSION) skk-snapshot skk$(VERSION).tar.gz skk$(VERSION).tar.bz2 ;\
-	$(RM) skk$(VERSION) ;\
-	ln -sf main skk-$(VERSION) ;\
-	$(TAR) cvpf skk$(VERSION).tar --exclude-from=skk-$(VERSION)/skk.ex --dereference skk-$(VERSION) ;\
-	$(BZIP2) -cf skk$(VERSION).tar > skk$(VERSION).tar.bz2 ;\
-	$(GZIP) -cf skk$(VERSION).tar > skk$(VERSION).tar.gz ;\
-	$(RM) skk$(VERSION).tar ;\
-	$(RM) skk-$(VERSION) ;\
-	$(MD5) skk$(VERSION).tar.bz2 >skk$(VERSION).tar.bz2.md5 ;\
-	$(MD5) skk$(VERSION).tar.gz >skk$(VERSION).tar.gz.md5
+	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot ddskk-$(VERSION).tar.gz ddskk-$(VERSION).tar.bz2 ;\
+	$(RM) ddskk-$(VERSION) ;\
+	ln -sf main ddskk-$(VERSION) ;\
+	$(TAR) cvpf ddskk-$(VERSION).tar --exclude-from=ddskk-$(VERSION)/skk.ex --dereference ddskk-$(VERSION) ;\
+	$(BZIP2) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.bz2 ;\
+	$(GZIP) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.gz ;\
+	$(RM) ddskk-$(VERSION).tar ;\
+	$(RM) ddskk-$(VERSION) ;\
+	$(MD5) ddskk-$(VERSION).tar.bz2 >ddskk-$(VERSION).tar.bz2.md5 ;\
+	$(MD5) ddskk-$(VERSION).tar.gz >ddskk-$(VERSION).tar.gz.md5
 
 snapshot: clean
 	cd .. ;\
-	$(RM) skk-11.{60,61,62,63} skk-$(VERSION) skk-snapshot $(SNAPBASE).tar.gz $(SNAPBASE).tar.bz2 ;\
+	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot $(SNAPBASE).tar.gz $(SNAPBASE).tar.bz2 ;\
 	$(RM) $(SNAPBASE) ;\
 	ln -sf main $(SNAPBASE) ;\
 	$(TAR) cvpf $(SNAPBASE).tar --exclude-from=$(SNAPBASE)/skk.ex --dereference $(SNAPBASE);\

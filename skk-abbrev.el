@@ -2,11 +2,11 @@
 ;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-abbrev.el,v 1.3 2000/03/11 02:14:54 minakaji Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-abbrev.el,v 1.2 2000/10/30 22:10:13 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 23, 1999
-;; Last Modified: $Date: 2000/03/11 02:14:54 $
+;; Last Modified: $Date: 2000/10/30 22:10:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -38,7 +38,7 @@
 ;;       '((skk-search-jisyo-file skk-jisyo 0 t)
 ;;         ;; ADD NEXT LINE.
 ;;         (skk-abbrev-search)     
-;;         (skk-search-server skk-aux-large-jisyo 10000)))
+;;         (skk-search-server skk-aux-large-jisyo 10000) ))
 ;;
 ;;
 ;; <how to work>
@@ -53,7 +53,8 @@
 ;;    の方が先に検索されます。
 
 ;;; Code:
-(eval-when-compile (require 'skk-foreword) (require 'skk-comp))
+(eval-when-compile (require 'skk-macs) (require 'skk-vars)
+		   (require 'skk-comp) )
 
 ;;; ;;;###autoload
 ;;(defgroup skk-abbrev nil "SKK abbrev related customization."
@@ -63,7 +64,7 @@
 ;;;###autoload
 (defun skk-abbrev-search ()
   (let ((var (and skk-abbrev-mode (abbrev-expansion skk-henkan-key))))
-    (and var (list var))))
+    (and var (list var)) ))
 
 (defadvice skk-completion-original (around skk-abbrev-ad activate)
   (let ((first (ad-get-arg 0))
@@ -79,18 +80,20 @@
 	 (setq c-word (and (abbrev-expansion skk-completion-word)))
 	 (if (and skk-use-look
 		  (or (not c-word)
-		      (member c-word skk-completion-stack)))
+		      (member c-word skk-completion-stack) ))
 	     ;; more searching by look when abbreviating is not enough.
 	     (while (or (not c-word) (member c-word skk-completion-stack))
-	       (setq c-word (skk-look-completion)))))
+	       (setq c-word (skk-look-completion)) )))
        (if (not c-word)
 	   (if skk-japanese-message-and-error
 	       (error "\"%s\" で補完すべき見出し語は%sありません"
-		      skk-completion-word (if first "" "他に"))
+		      skk-completion-word (if first "" "他に") )
 	     (error "No %scompletions for \"%s\""
 		    (if first "" "more ") skk-completion-word ))
 	 (setq skk-completion-stack (cons c-word skk-completion-stack))
 	 (delete-region skk-henkan-start-point (point))
-	 (insert c-word))))))
+	 (insert c-word) )))))
 
+(require 'product)
+(product-provide (provide 'skk-abbrev) (require 'skk-version))
 ;; end of skk-abbrev.el

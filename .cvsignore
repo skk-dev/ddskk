@@ -1,5 +1,13 @@
-error
+*.BAK
+cvs.hist
+cvs.log
+leim-list.el
 make.log
-skk-abbrev.el
+not_used
+skk-annotation.el
 skk-autoloads.el
-skk-study.el
+skk-cursor2.el
+skk-cursor3.el
+skk-exsearch.el
+skk-exserv.el
+skk-setup.el

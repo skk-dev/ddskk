@@ -1,0 +1,86 @@
+-*- text -*-
+
+     $Id: README.ja,v 1.2 2000/10/30 22:22:56 minakaji Exp $
+
+このディレクトリには、Emacs 18 上で Daredevil SKK を利用する際に、必要
+なもの、およびあると便利なものを収録します。
+
+ - * - 注意 - * -
+
+Daredevil SKK に於ける Emacs 18 (Nemacs 3.3.2 または Mule 1.1) 対応は
+正式なものではなく、将来続けられるという保証もありません。バグ報告とパッ
+チは歓迎しますが、Daredevil SKK 及びここにあるファイルを使用した結果に
+ついては、すべて利用者本人がその責任を負うものとします。
+
+
+1. いそがしい人のための使い方
+
+ main/patch/e18% nemacs -batch -q -f batch-byte-compile ./advice.el
+ main/patch/e18% cp advice.el* cl.elc /usr/local/emacs/lisp/
+ main/patch/e18% cd ../..
+ main% make install EMACS=nemacs
+
+
+2. 説明つき利用法
+
+i. advice.el
+
+   これは Daredevil SKK を利用するのに必要です。load-path の通った所に
+   置いて、バイトコンパイルしてください。
+
+   (*) バイトコンパイルしないと、 SKK を make しているときに
+
+        "Lisp nesting exceeds max-lisp-eval-depth"
+
+       というエラーが出る場合があります。
+
+ii. cl.elc
+
+   Emacs 18.59 に付いてくる cl.elc は cl.el にあるバグの影響で、SKK を
+   make しているときに
+
+   "No `setf' update-function for `hogehoge' "
+
+   というエラーが発生します。修正するには、cl.elc をここにあるもので上
+   書きして下さい。
+
+   なお、Mule 1.1 の正式配布に付いてくる cl.elc は入れ替えなくても (一
+   応) そのまま使えます。
+
+iii. bytecomp 2.07
+
+   Daredevil SKK を利用するのには必要ではありません。使いたい人だけ使っ
+   て下さい。
+
+
+3. ファイルに関する説明
+
+i. advice.el 
+
+   Emacs Lisp 関数を定義しなおすこと無しにその挙動を操るための機構
+   (Advice) を提供します。Daredevil SKK は Advice を利用しています。
+
+ii. cl.elc
+
+   上記の説明を参照してください。
+   cl.el は Emacs に Common Lisp の機能を (不完全ながら) 提供します。
+   
+iii. cl_el-defsetf.patch
+
+   上記の cl.elc はこのパッチを当ててコンパイルし直したものです。
+
+iv. bytecomp-2.07
+
+   Emacs 19 のバイトコンパイラの原形で、Emacs 18 でも利用できるものを
+   収録しています。作者は Netscape Navigator や Lucid Emacs で有名な
+   Jamie Zawinski さんです。
+
+   これを使って生成したバイトコードは Emacs 18 オリジナルのバイトコン
+   パイラによるものよりもかなり高速に読み込み・実行されます。
+
+   macro の展開もこれによりうまくいくようになるはずです。ただし、Emacs
+   18 には macro の展開がうまくいかなかったお陰でひっそり生き残ってい
+   るバグがいくつかあるようですから、痛い目に遭うことは覚悟しておいた
+   方がいいでしょう。;-p
+
+   詳しいことは bytecomp-2.07/ 以下のドキュメントを参照してください。

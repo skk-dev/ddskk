@@ -1,12 +1,12 @@
 ;;; -*-Emacs-Lisp-*-
 
 ;; SKK-MK: installer for SKK.
-;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.43 2000/10/13 11:29:24 akiho Exp $
-;; Last Modified: $Date: 2000/10/13 11:29:24 $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: SKK-MK,v 1.44 2000/10/30 22:10:12 minakaji Exp $
+;; Last Modified: $Date: 2000/10/30 22:10:12 $
 
 ;; Commentary
 ;;
@@ -50,7 +50,11 @@
 (defvar PREFIX (or (getenv "PREFIX") install-prefix))
 (defvar LISPDIR
   (let ((dir (expand-file-name
-	      (or (getenv "LISPDIR") (install-detect-elisp-directory PREFIX)))))
+	      (or (getenv "LISPDIR")
+		  (cond ((memq system-type '(ms-dos windows-nt))
+			 (expand-file-name "site-lisp" PREFIX))
+			(t
+			 (install-detect-elisp-directory PREFIX)))))))
     (if (file-exists-p dir)
 	(progn
 	  ;; default-load-path takes effect for detecting directory.
@@ -59,7 +63,12 @@
 (defvar VERSION_SPECIFIC_LISPDIR
   (let ((dir (expand-file-name
 	      (or (getenv "VERSION_SPECIFIC_LISPDIR")
-		  (install-detect-elisp-directory PREFIX nil 'version-specific)))))
+		  (cond ((eq system-type 'windows-nt)
+			 (expand-file-name "site-lisp" PREFIX))
+			((eq system-type 'ms-dos)
+			 (expand-file-name "site-lis" PREFIX))
+			(t
+			 (install-detect-elisp-directory PREFIX nil 'version-specific)))))))
     (if (file-exists-p dir) dir)))
 (defvar APEL_SPECIFIC_LISPDIR (let ((dir (getenv "APEL_SPECIFIC_LISPDIR")))
 				(and dir (file-exists-p dir) (expand-file-name dir))))
@@ -144,47 +153,82 @@
 
 ;; constants.
 (defconst SKK-MK-texinfo-coding-system
-  (if (or (featurep 'xemacs)
-	  (and (boundp 'mule-version)
-	       (or (string< "4.0" mule-version) (string< "3.0" mule-version))))
-      'junet
-    *junet*))
+  (cond ((or (featurep 'xemacs)
+	     (and (boundp 'mule-version)
+		  (or (string< "4.0" mule-version) (string< "3.0" mule-version))))
+	 'junet)
+	((boundp 'MULE)
+	 *junet*)
+	(t
+	 nil)))
 
 ;; GENERIC VARIABLE.
 (defvar DOCDIR (or (getenv "DOCDIR") "./doc"))
 (defvar ETCDIR (or (getenv "ETCDIR") "./etc"))
+(defvar DICDIR (or (getenv "DICDIR") "./dic"))
 (defvar SKK_PREFIX (or (getenv "SKK_PREFIX") "skk"))
 (defvar SKK_INFO (or (getenv "SKK_INFO") "skk.info"))
 (defvar SKK_TEXIS (or (getenv "SKK_TEXIS") '("skk.texi")))
 (defvar SKK_TUTORIALS (or (getenv "SKK_TUTORIALS") '("SKK.tut" "SKK.tut.E")))
+(defvar SKK_DICTIONARIES
+  (or (getenv "SKK_DICTIONARIES")
+      '("SKK-JISYO.L" "SKK-JISYO.M" "SKK-JISYO.S"
+	"SKK-JISYO.JIS2" "SKK-JISYO.JIS3_4"
+	"SKK-JISYO.pubdic+" "SKK-JISYO.edict"
+	"SKK-JISYO.office.zipcode" "SKK-JISYO.zipcode")))
 (defvar SKK_MODULES
   ;; こんなもんコマンドラインで指定する人いないよね？
   (or (getenv "SKK_MODULES")
-      (let ((list '(queue-m skk-foreword
-			    skk-gadget skk-isearch skk-auto skk-comp
-			    skk-kakasi skk-kcode skk-leim skk-look
-			    skk-num skk-obsolete skk-server skk-tut
-			    skk skk-develop skk-cursor skk-autoloads
+      (let ((list '(queue-m skk-macs skk-vars
+			    skk skk-auto skk-autoloads skk-comp
+			    skk-develop skk-gadget
+			    skk-isearch skk-kakasi skk-kcode
+			    skk-leim skk-look skk-num skk-obsolete
+			    skk-cursor skk-server skk-tut skk-version
 			    ;; EXPERIMENTAL
-			    skk-rdbms skk-study skk-tutcode skk-tutcdef skk-dcomp
-			    skk-abbrev skk-jisx0201 skk-hankaku-mode
+			    skk-abbrev skk-dcomp skk-annotation
+			    skk-jisx0201 skk-rdbms skk-study
+			    skk-tutcdef skk-tutcode skk-correct
+			    skk-exsearch skk-exserv
 			    ;; VIP 3.7
 			    ;; vip
 			    )))
-	(and (featurep 'xemacs)
-	     (member "skk-leim" preloaded-file-list)
-	     (setq list (nconc list (list 'skk-vars))))
+	;; バイトコンパイル時に X window が initialize されていないというエラー
+	;; になる (;_;)。
+	;; yatex みたいに Window を開いてバイトコンパイルするようにもできるけど、
+	;; no-window の make コマンドを別に作らなきゃならないし、面倒だな...。
+        ;;(if (if (featurep 'xemacs)
+        ;;        (eq (device-class (selected-device)) 'color)
+        ;;      (x-display-color-p))
+        ;;    (setq list (nconc list (list 'skk-cursor))))
+	(cond ((featurep 'xemacs)
+	       ;; XEmacs
+	       (cond ((member "skk-leim" preloaded-file-list)
+		      (setq list (nconc list (list 'skk-xm20_4))))
+		     ((or (featurep 'gdbm) (featurep 'dbm) (featurep 'berkdb)
+			  (featurep 'berkeley-db))
+		      (setq list (nconc list (list 'skk-dbm))))))
+	      (t
+	       ;; FSFmacs
+	       (setq list (nconc list (list 'ccc)))
+	       (or (fboundp 'register-input-method)
+		   (setq list (delq 'skk-leim list)))))
+	;; skk-jisx0213.el
+	(condition-case nil
+	    (and (require 'jisx0213) (require 'un-define)
+		 (setq list (nconc list (list 'skk-jisx0213))))
+	  (error))
+	;; skk-lookup.el
 	(condition-case nil
 	    ;; you might have to add lookup installed directory to `load-path'.
 	    (and (let ((lookup-byte-compile t)) (require 'lookup))
                  (setq list (nconc list (list 'skk-lookup))))
 	  (error))
+	;; skk-viper.el
 	(condition-case nil
 	    (and (require 'viper) (setq list (nconc list (list 'skk-viper))))
 	  (error))
-	(and (or (featurep 'gdbm) (featurep 'dbm) (featurep 'berkdb)
-		 (featurep 'berkeley-db))
-	     (setq list (nconc list (list 'skk-dbm))))
+	;;
 	list)))
 
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
@@ -192,7 +236,7 @@
   (or (getenv "SKK_DATADIR")
       (expand-file-name SKK_PREFIX (expand-file-name "share" PREFIX))))
 (defvar SKK_INFODIR
-  (or (getenv "SKK_INFODIR")(expand-file-name "info" PREFIX)))
+  (or (getenv "SKK_INFODIR") (expand-file-name "info" PREFIX)))
 (defvar SKK_LISPDIR
   (or (getenv "SKK_LISPDIR")
       (and LISPDIR (expand-file-name SKK_PREFIX LISPDIR))
@@ -223,13 +267,133 @@
 
 (if SKK-MK-debugging (princ (format "SKK_MODULES=%s\n" SKK_MODULES)))
 
-(defconst SKK_PACKAGE_NOT_USE '(skk-autoloads))
-(defconst SKK_MAINTRUNK_NOT_USE '(skk-vip skk-macs skk-xm20_4 stack-m leim-list skk-setup))
+(defconst SKK_DAREDEVIL_NOT_USE '(skk-vip skk-foreword stack-m skk-cursor2 skk-cursor3))
+
+;; This code is for skk-jisx0201.el.
+(cond ((fboundp 'make-translation-table) ;; Emacs 20.3 or later
+       (setq standard-translation-table-for-decode
+	     (make-translation-table nil)))
+      ((fboundp 'make-unification-table) ;; Emacs 20.2
+       (setq standard-character-unification-table-for-decode
+	     (make-unification-table nil))))
+
+;; Work around for Emacs 18.
+(if (= 18 emacs-major-version)
+    (progn
+      (setq SKK_INFO nil)
+      (mapcar (function
+	       (lambda (elt)
+		 (setq SKK_MODULES (delq elt SKK_MODULES))))
+	      '(ccc skk-cursor skk-isearch skk-jisx0201 skk-study))
+      (condition-case nil
+	  (progn
+	    (load "bytecomp-runtime")
+	    (load "bytecomp")
+	    (load "byte-optimize"))
+	(error))
+      (require 'cl)
+      ;; JUST WORKING AROUND FOR A BUG IN ORIGINAL EMACS 18.59.
+      ;; APPLY patch/e18/cl_el-defsetf.patch FOR REAL FIX.
+      (unless (get 'nth :setf-update-fn)
+	(message "%s" "\
+Loading cl... This CL is BROKEN!!
+You must overwrite cl.elc with patch/e18/cl.elc.
+Just working around for it...")
+	(defsetf nth
+	  setnth
+	  "`setf' inversion for `nth'"))
+      ;;
+      (require 'skk-e18 (expand-file-name
+			 "experimental/skk-e18.el"
+			 default-directory))
+      (condition-case nil
+	  (delete-file "experimental/skk-isearch.el")
+	(error))
+      (copy-file "experimental/skk-is-n.el" "experimental/skk-isearch.el" nil t)))
 
 ;;; [FUNCTIONS]
+(defun SKK-MK-make-setup-file (spec)
+  ;; SPEC は交代リスト。
+  (with-temp-buffer
+    (save-excursion
+      (insert-file-contents "skk-setup.el.in")
+      (goto-char (point-min))
+      (when (looking-at ";;; -\\*- emacs-lisp -\\*-")
+	(delete-region (point) (progn (forward-line 1) (point))))
+      (when (search-forward ";;; skk-setup.el --- Initial setup for SKK")
+	(forward-char 1)
+	(insert ";; This file was generated automatically by SKK-MK at "
+		(current-time-string)
+		"\n"))
+      (while spec
+	(goto-char (point-min))
+	(while (re-search-forward (concat "^;;[^@]+\\(" (car spec) "\\)")
+				  nil t nil)
+	  (delete-region (match-beginning 1) (match-end 1))
+	  (insert (eval (nth 1 spec)))
+	  (beginning-of-line)
+	  (while (looking-at ";")
+	    (delete-char 1)))
+	(setq spec (nthcdr 2 spec)))
+      (write-region (point-min) (point-max) "skk-setup.el"))))
+
+(defun SKK-MK-server-installed-p (&optional server ps conf)
+  (or
+   (and
+    (or ps (setq ps (exec-installed-p "ps")))
+    (with-temp-buffer
+      (and (eq 0 (call-process
+		  ps nil
+		  (current-buffer) nil
+		  (if (eq 0 (call-process ps nil nil nil "-dfj"))
+		      ;; System V
+		      "-e"
+		    ;; BSD
+		    "-ax")))
+	   (progn
+	     (goto-char (point-min))
+	     (re-search-forward
+	      (or (and server (file-name-nondirectory server)) "skkserv")
+	      nil t)))))
+   (and
+    (file-readable-p (or conf (setq conf "/etc/inetd.conf")))
+    (with-temp-buffer
+      (insert-file-contents conf)
+      (goto-char (point-min))
+      (re-search-forward "^skkserv" nil t)))))
+
+(defvar SKK_SET_JISYO
+  (let* ((set_jisyo (or (getenv "set_jisyo") (getenv "SET_JISYO")))
+	 (flag
+	  (cond ((not (stringp set_jisyo))
+		 'fuzzy)
+		((member (downcase set_jisyo) '("yes" "1" "t" "y"))
+		 t)
+		((member (downcase set_jisyo) '("no" "0" "-1" "nil" "n"))
+		 nil)
+		(t
+		 'fuzzy))))
+    (if (eq flag 'fuzzy)
+	(not (SKK-MK-server-installed-p))
+      flag)))
+
 (defun SKK-MK-compile ()
-  (SKK-MK-generate-autoloads-el)
-  (compile-elisp-modules SKK_MODULES "."))
+  (cond ((= 18 emacs-major-version)
+	 (let ((SKK_MODULES (cons 'experimental/skk-isearch SKK_MODULES)))
+	   (SKK-MK-generate-autoloads-el))
+	 (when (< emacs-minor-version 59)
+	   (with-temp-buffer
+	     (insert-file-contents (expand-file-name "SKK-MK"
+						     default-directory))
+	     (eval-current-buffer)))
+	 (compile-elisp-modules '(skk-e18 skk-isearch) "./experimental"))
+	(t
+	 (SKK-MK-generate-autoloads-el)))
+  (compile-elisp-modules SKK_MODULES (expand-file-name ".")))
+
+(defun SKK-MK-compile-package ()
+  (SKK-MK-generate-autoloads-el-package)
+  (compile-elisp-modules SKK_MODULES (expand-file-name ".")))
 
 (defun SKK-MK-compile-info ()
   (and SKK_INFO
@@ -239,82 +403,198 @@
 	   (SKK-MK-texinfo-format SKK_TEXIS))))
 
 (defun SKK-MK-install ()
-  (SKK-MK-compile)
-  (SKK-MK-compile-info)
-  (setq DOCDIR (expand-file-name DOCDIR)
-	ETCDIR (expand-file-name ETCDIR))
-  (or (file-exists-p SKK_LISPDIR)
-      (make-directory SKK_LISPDIR t))
-  (or (file-exists-p SKK_DATADIR)
-      (make-directory SKK_DATADIR t))
-  (or (file-exists-p SKK_INFODIR)
-      (make-directory SKK_INFODIR t))
-  (let ((not-use SKK_MAINTRUNK_NOT_USE)
-	file)
-    (while not-use
-      (setq SKK_MODULES (delq (car not-use) SKK_MODULES)
-	    file (expand-file-name
-		  (concat (prin1-to-string (car not-use)) ".el")
-		  SKK_LISPDIR)
-	    not-use (cdr not-use))
-      (and (file-exists-p file) (delete-file file))
-      (setq file (concat file "c"))
-      (and (file-exists-p file) (delete-file file))))
-  ;; install Emacs Lisp programs.
-  (install-elisp-modules SKK_MODULES "." SKK_LISPDIR)
-  ;; install infos.
-  (when SKK_INFO
-    (let ((files (list SKK_INFO))
-	  (i 1) file)
-      (while (file-exists-p
-	      (expand-file-name (setq file (format "%s-%d" SKK_INFO i)) DOCDIR))
-	(setq files (cons file files))
-	(setq i (1+ i)))
-      (install-files (nreverse files) DOCDIR SKK_INFODIR nil t nil)))
-  ;; install tutorials.
-  (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil))
+  (let ((dics SKK_DICTIONARIES)
+	delete-target exists spec)
+    ;; make target directories.
+    (setq DOCDIR (expand-file-name DOCDIR)
+	  ETCDIR (expand-file-name ETCDIR)
+	  DICDIR (expand-file-name DICDIR))
+    (or (file-exists-p SKK_LISPDIR)
+	(make-directory SKK_LISPDIR t))
+    (or (file-exists-p SKK_DATADIR)
+	(make-directory SKK_DATADIR t))
+    (or (file-exists-p SKK_INFODIR)
+	(make-directory SKK_INFODIR t))
+    ;; delete already installed unnecessary files.
+    (while SKK_DAREDEVIL_NOT_USE
+      (setq SKK_MODULES (delq (car SKK_DAREDEVIL_NOT_USE) SKK_MODULES)
+	    delete-target (expand-file-name
+			   (concat (prin1-to-string (car SKK_DAREDEVIL_NOT_USE))
+				   ".el")
+			   SKK_LISPDIR)
+	    SKK_DAREDEVIL_NOT_USE (cdr SKK_DAREDEVIL_NOT_USE))
+      (and (file-exists-p delete-target) (delete-file delete-target))
+      (setq delete-target (concat delete-target "c"))
+      (and (file-exists-p delete-target) (delete-file delete-target)))
+    ;; install Emacs Lisp programs.
+    (SKK-MK-compile)
+    (when (= 18 emacs-major-version)
+      (install-elisp-modules '(skk-e18 skk-isearch) "./experimental" SKK_LISPDIR))
+    (install-elisp-modules SKK_MODULES "." SKK_LISPDIR)
+    (delete-file "./skk-autoloads.el")
+    ;; install infos.
+    (SKK-MK-compile-info)
+    (when SKK_INFO
+      (let ((files (list SKK_INFO))
+	    (i 1) file)
+	(while (file-exists-p
+		(expand-file-name (setq file (format "%s-%d" SKK_INFO i)) DOCDIR))
+	  (setq files (cons file files))
+	  (setq i (1+ i)))
+	(install-files (nreverse files) DOCDIR SKK_INFODIR nil t nil)))
+    ;; install tutorials.
+    (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil)
+    ;; make skk-setup.el.
+    (while dics
+      (when (file-exists-p (expand-file-name (car dics) DICDIR))
+	(setq exists (cons (car dics) exists)))
+      (setq dics (cdr dics)))
+    (setq SKK_DICTIONARIES exists)
+    ;; move existing largest dictionay to car of `SKK_DICTIONARIES'.
+    (and (member "SKK-JISYO.M" SKK_DICTIONARIES)
+	 (setq SKK_DICTIONARIES
+	       (cons "SKK-JISYO.M" (delete "SKK-JISYO.M" SKK_DICTIONARIES))))
+    (and (member "SKK-JISYO.L" SKK_DICTIONARIES)
+	 (setq SKK_DICTIONARIES
+	       (cons "SKK-JISYO.L" (delete "SKK-JISYO.L" SKK_DICTIONARIES))))
+    (if SKK_DICTIONARIES
+	(progn
+	  (setq spec '("@AUXDIC@"
+		       (expand-file-name (car SKK_DICTIONARIES) SKK_DATADIR)))
+	  (and SKK_SET_JISYO
+	       (setq spec
+		     (append spec
+			     '("@DIC@"
+			       (expand-file-name (car SKK_DICTIONARIES) SKK_DATADIR)))))
+	  (if SKK_TUTORIALS
+	      (setq spec (append spec '("@TUT@"
+					(expand-file-name
+					 (car SKK_TUTORIALS) SKK_DATADIR)))))
+	  (SKK-MK-make-setup-file spec)
+	  ;; install dictionaries if the files exist in ./dic directory.
+	  (install-files SKK_DICTIONARIES DICDIR SKK_DATADIR nil t nil))
+      ;; when dictionaries do not exist in ./dic subdirectory, check
+      ;; already installed dictionary and detect largest one to setup
+      ;; skk-setup.el.in.
+      (setq dics '("SKK-JISYO.L" "SKK-JISYO.M" "SKK-JISYO.S"))
+      (while (and dics
+		  (not
+		   (file-exists-p (expand-file-name (car dics) SKK_DATADIR))))
+	(setq dics (cdr dics)))
+      (if dics
+	  (progn
+	    (setq spec '("@AUXDIC@" (expand-file-name (car dics) SKK_DATADIR)))
+	    (and SKK_SET_JISYO
+		 (setq spec
+		       (append spec '("@DIC@"
+				      (expand-file-name
+				       (car dics) SKK_DATADIR)))))
+	    (if SKK_TUTORIALS
+		(setq spec (append spec '("@TUT@"
+					  (expand-file-name
+					   (car SKK_TUTORIALS) SKK_DATADIR)))))
+	    (SKK-MK-make-setup-file spec))
+	;; merely copy without setup dictionary information.
+	(copy-file "skk-setup.el.in" "skk-setup.el" 'ok-if-already-exists)))
+    ;;
+    (when (and (fboundp 'register-input-method) (not (featurep 'xemacs)))
+      (copy-file "skk-setup.el" "leim-list.el" 'ok-if-already-exists)
+      (install-elisp-modules (list 'leim-list) "." SKK_LISPDIR))
+    ;; install skk-setup.el
+    (install-elisp-modules (list 'skk-setup) "." SKK_LISPDIR)))
 
 (defun SKK-MK-install-package ()
-  (or (featurep 'xemacs) (error "This directive is only for XEmacs."))
-  (or (file-exists-p PACKAGE_LISPDIR)
-      (make-directory PACKAGE_LISPDIR t))
-  (or (file-exists-p PACKAGE_DATADIR)
-      (make-directory PACKAGE_DATADIR t))
-  (or (file-exists-p PACKAGE_INFODIR)
-      (make-directory PACKAGE_INFODIR t))
-  (let ((not-use (append SKK_PACKAGE_NOT_USE SKK_MAINTRUNK_NOT_USE))
-	file)
-    (while not-use
-      (setq SKK_MODULES (delq (car not-use) SKK_MODULES)
-	    file (expand-file-name
-		  (concat (prin1-to-string (car not-use)) ".el")
-		  PACKAGE_LISPDIR)
-	    not-use (cdr not-use))
-      (and (file-exists-p file) (delete-file file))
-      (setq file (concat file "c"))
-      (and (file-exists-p file) (delete-file file))))
-  ;; install Emacs Lisp programs.
-  (compile-elisp-modules SKK_MODULES ".")
-  (install-elisp-modules SKK_MODULES "." PACKAGE_LISPDIR)
-  (setq autoload-package-name "skk")
-  (add-to-list 'command-line-args-left PACKAGE_LISPDIR)
-  (batch-update-directory)
-  (add-to-list 'command-line-args-left PACKAGE_LISPDIR)
-  (Custom-make-dependencies)
-  (byte-compile-file (expand-file-name "auto-autoloads.el" PACKAGE_LISPDIR))
-  (byte-compile-file (expand-file-name "custom-load.el" PACKAGE_LISPDIR))
-  ;; install infos.
-  (SKK-MK-compile-info)
-  (when SKK_INFO
-    (let ((files (list SKK_INFO))
-	  (i 1) file)
-      (while (file-exists-p
-	      (expand-file-name (setq file (format "%s-%d" SKK_INFO i)) DOCDIR))
-	(setq files (cons file files))
-	(setq i (1+ i)))
-      (install-files (nreverse files) DOCDIR PACKAGE_INFODIR nil t nil)))
-  ;; install tutorials.
-  (install-files SKK_TUTORIALS ETCDIR PACKAGE_DATADIR nil t nil))
+  (let ((dics SKK_DICTIONARIES)
+	delete-target exist)
+    (or (featurep 'xemacs) (error "This directive is only for XEmacs."))
+    ;; make target directories.
+    (or (file-exists-p PACKAGE_LISPDIR)
+	(make-directory PACKAGE_LISPDIR t))
+    (or (file-exists-p PACKAGE_DATADIR)
+	(make-directory PACKAGE_DATADIR t))
+    (or (file-exists-p PACKAGE_INFODIR)
+	(make-directory PACKAGE_INFODIR t))
+    ;; delete already installed unnecessary files.
+    (setq SKK_MODULES (delq 'skk-autoloads
+			    (append SKK_MODULES '(auto-autoloads custom-load))))
+    (while SKK_DAREDEVIL_NOT_USE
+      (setq SKK_MODULES (delq (car SKK_DAREDEVIL_NOT_USE) SKK_MODULES)
+	    delete-target (expand-file-name
+			   (concat (prin1-to-string (car SKK_DAREDEVIL_NOT_USE)) ".el")
+			   PACKAGE_LISPDIR)
+	    SKK_DAREDEVIL_NOT_USE (cdr SKK_DAREDEVIL_NOT_USE))
+      (and (file-exists-p delete-target) (delete-file delete-target))
+      (setq delete-target (concat delete-target "c"))
+      (and (file-exists-p delete-target) (delete-file delete-target)))
+    ;; install Emacs Lisp programs.
+    (SKK-MK-compile-package)
+    (install-elisp-modules SKK_MODULES "." PACKAGE_LISPDIR)
+    (delete-file "./auto-autoloads.el")
+    (delete-file "./custom-load.el")
+    ;; install infos.
+    (SKK-MK-compile-info)
+    (when SKK_INFO
+      (let ((files (list SKK_INFO))
+	    (i 1) file)
+	(while (file-exists-p
+		(expand-file-name (setq file (format "%s-%d" SKK_INFO i)) DOCDIR))
+	  (setq files (cons file files))
+	  (setq i (1+ i)))
+	(install-files (nreverse files) DOCDIR PACKAGE_INFODIR nil t nil)))
+    ;; install tutorials.
+    (install-files SKK_TUTORIALS ETCDIR PACKAGE_DATADIR nil t nil)
+    ;; make skk-setup.el.
+    (while dics
+      (when (file-exists-p (expand-file-name (car dics) DICDIR))
+	(setq exist (cons (car dics) exist)))
+      (setq dics (cdr dics)))
+    (setq SKK_DICTIONARIES exist))
+  ;; move existing largest dictionay to car of `SKK_DICTIONARIES'.
+  (and (member "SKK-JISYO.M" SKK_DICTIONARIES)
+       (setq SKK_DICTIONARIES
+	     (cons "SKK-JISYO.M" (delete "SKK-JISYO.M" SKK_DICTIONARIES))))
+  (and (member "SKK-JISYO.L" SKK_DICTIONARIES)
+       (setq SKK_DICTIONARIES
+	     (cons "SKK-JISYO.L" (delete "SKK-JISYO.L" SKK_DICTIONARIES))))
+  (if SKK_DICTIONARIES
+      (progn
+	(SKK-MK-make-setup-file
+	 (append
+	  '("@AUXDIC@" (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR))
+	  (if SKK_SET_JISYO
+	      '("@DIC@" (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR)))
+	  (if SKK_TUTORIALS
+	      '("@TUT@"
+		(expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR)))))
+	;; install dictionaries if the files exist in ./dic directory.
+	(install-files SKK_DICTIONARIES DICDIR PACKAGE_DATADIR nil t nil))
+    ;; when dictionaries do not exist in ./dic subdirectory, check
+    ;; already installed dictionary and detect largest one to setup
+    ;; skk-setup.el.in.
+    (setq dics '("SKK-JISYO.L" "SKK-JISYO.M" "SKK-JISYO.S"))
+    (while (and dics
+		(not
+		 (or
+		  (file-exists-p (expand-file-name (car dics) PACKAGE_DATADIR))
+		  (file-exists-p (expand-file-name (car dics) SKK_DATADIR)))))
+      (setq dics (cdr dics)))
+    (if dics
+	(let ((dic
+	       (if (file-exists-p (expand-file-name (car dics) PACKAGE_DATADIR))
+		   (expand-file-name (car dics) PACKAGE_DATADIR)
+		 (expand-file-name (car dics) SKK_DATADIR))))
+	  (SKK-MK-make-setup-file
+	   (append
+	    (list "@AUXDIC@" dic)
+	    (if SKK_SET_JISYO
+		(list "@DIC@" dic))
+	    (if SKK_TUTORIALS
+		'("@TUT@"
+		  (expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR))))))
+      ;; merely copy without setup dictionary information.
+      (copy-file "skk-setup.el.in" "skk-setup.el" 'ok-if-already-exists)))
+  ;; install skk-setup.el
+  (install-elisp-modules (list 'skk-setup) "." PACKAGE_LISPDIR))
 
 (defun SKK-MK-texinfo-format (targets)
   (let (
@@ -390,9 +670,9 @@ SKK tutorials:
 (defun SKK-MK-generate-autoloads-el ()
   "Generate skk-autoload.el."
   (let ((modules SKK_MODULES)
-        (buf (get-buffer-create " *SKK-MK-generate-autoloads-el*"))
-        (sort-min)
-        (funcs)
+	(buf (get-buffer-create " *SKK-MK-generate-autoloads-el*"))
+	(sort-min)
+	(funcs)
 	standard-output)
     (save-excursion
       (set-buffer buf)
@@ -401,8 +681,8 @@ SKK tutorials:
 ;;; skk-autoloads.el --- autoload settings for SKK.
 
 ;; This file was generated automatically by SKK-MK at "
-              (current-time-string)
-              ".
+	      (current-time-string)
+	      ".
 
 ;; This file is part of Daredevil SKK.
 
@@ -422,22 +702,68 @@ SKK tutorials:
 ;; MA 02111-1307, USA.
 
 ;;; Code:\n\n")
-      (setq sort-min (point))
-      (while modules
-        (setq funcs (SKK-MK-collect-autoload-functions (car modules)))
-        (while funcs
-          (insert "(autoload '" (caar funcs)
-                  " \"" (symbol-name (car modules))
-                  "\" nil "
-                  (symbol-name (if (cdar funcs) t))
-                  " nil)\n")
-          (setq funcs (cdr funcs)))
-        (setq modules (cdr modules)))
-      (sort-lines nil sort-min (point-max))
-      (goto-char (point-max))
-      (insert "\n(provide 'skk-autoloads)\n;;; skk-autoloads.el ends here\n")
-      (write-region (point-min) (point-max) "skk-autoloads.el" nil 'quiet)
-      (kill-buffer buf))))
+      (cond
+       ((and (condition-case nil
+		 (and (require 'autoload)
+		      (require 'poem))
+	       (error))
+	     (fboundp 'generate-file-autoloads))
+	(mapcar
+	 (function
+	  (lambda (module)
+	    (let ((file (expand-file-name (format "%s.el" module) default-directory)))
+	      (and (file-exists-p file)
+		   (generate-file-autoloads file)))))
+	 modules)
+	(goto-char (point-max))
+	(insert "\n(provide 'skk-autoloads)\n;;; skk-autoloads.el ends here\n")
+	(write-region-as-coding-system
+	 (if (boundp 'MULE) *junet*unix 'iso-2022-jp)
+	 (point-min) (point-max) "skk-autoloads.el" nil 'quiet)
+	(kill-buffer buf))
+       (t
+	(setq sort-min (point))
+	(while modules
+	  (setq funcs (SKK-MK-collect-autoload-functions (car modules)))
+	  (while funcs
+	    (insert "(autoload '" (caar funcs)
+		    " \"" (file-name-nondirectory (symbol-name (car modules)))
+		    "\" nil "
+		    (symbol-name (if (cdar funcs) t))
+		    " nil)\n")
+	    (setq funcs (cdr funcs)))
+	  (setq modules (cdr modules)))
+	(sort-lines nil sort-min (point-max))
+	(goto-char (point-max))
+	(insert "\n(provide 'skk-autoloads)\n;;; skk-autoloads.el ends here\n")
+	(write-region (point-min) (point-max) "skk-autoloads.el" nil 'quiet)
+	(kill-buffer buf))))))
+
+(defun SKK-MK-generate-autoloads-el-package ()
+  "Generate auto-autoload.el."
+  (let ((modules SKK_MODULES)
+	(buf (get-buffer-create " *SKK-MK-generate-autoloads-el*")))
+    (require 'poem)
+    (save-excursion
+      (set-buffer buf)
+      (erase-buffer)
+      (mapcar
+       (function
+	(lambda (module)
+	  (let ((file (expand-file-name (format "%s.el" module) default-directory)))
+	    (and (file-exists-p file)
+		 (generate-file-autoloads file)))))
+       modules)
+      (let ((generated-autoload-file
+	     (expand-file-name "auto-autoloads.el" default-directory)))
+	(setq buffer-file-name generated-autoload-file)
+	(fixup-autoload-buffer "skk-autoloads")
+	(write-region-as-coding-system
+	 'iso-2022-jp
+	 (point-min) (point-max) generated-autoload-file)
+	(kill-buffer buf)
+	(add-to-list 'command-line-args-left ".")
+	(Custom-make-dependencies)))))
 
 (defun SKK-MK-collect-autoload-functions (module)
   "Return a list of autoload functions defined in MODULE."

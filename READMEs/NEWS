@@ -1,75 +1,210 @@
--*- text -*-
+-*- outline -*-
 
-10.62 ---
-o skk.texi has been thoroughly reviewed and updated.
+* 11.3
 
-o New file FAQ.txt is in this directory.
+** 基本設定の自動化。
 
-o New file ptexinfmt.el is for compiling skk.texi into Info.
+Emacs 20 以降のために leim-list.el を用意することにより、自動的に基本
+設定がされるようになった。
 
-o skk-lookup.el is no longer experimental. It is provided as one of
-  main programs.
+ただし、Emacs は起動時に load-path の最上位にある leim-list.el をロー
+ドするだけなので、skk のインストールされたディレクトリより上位のディレ
+クトリに leim-list.el があればこの機能は無効になる。(*)
 
-o Pieces of advice to interactive built-in functions now call
-  `interactive' with proper arguments. This avoids errors in kbd
-  macros.
+  (*) ただし、egg/leim-list.el は load-path 上のすべての leim-list.el
+      をロードするのでこの限りではない。同機能は skk/leim-list.el にも
+      取りこんだ。
 
-o Under Emacs 20, `read-from-minibuffer' now works with optional 7th
-  arg INHERIT-INPUT-METHOD when SKK is used as an `input method'.
+この問題は GNU Emacs 20 では普通現れないが、XEmacs では現れうる。
+具体的には、/usr/local/lib/xemacs/mule-packages/lisp/leim/ が
+/usr/local/lib/xemacs/mule-packages/lisp/skk/ より load-path の上位に
+くるため、leim/leim-list.el がロードされてしまい、skk/leim-list.el が
+ロードされない。そのため、XEmacs では skk/leim-list.el は用いないこと
+にしている。その代わり、XEmacs のパッケージでは auto-autoloads.el が自
+動的にロードされるのでこれを利用している。
 
-o Fixed a bug where SPC won't start conversion when `canna' is
-  installed.
+なお、leim-list.el をロードしないもの (Emacs 19) においても
 
-o The following functions have been fixed.
+(require 'skk-setup)
 
-  * skk-clock
-  * skk-count-jisyo-candidates-original
-  * skk-num-type3-kanji-1
+で基本設定ができる。
 
-10.56 ---
-o Minor bug fixed.
+** skk-isearch の input method 対応。
 
-o Experimental program skk-lookup.el supports okuri-ari henkan.
+** Emacs 18 対応。
 
-o Experimental program skk-abbrev.el is provided.
+Nemacs 3.3.2 および Mule 1.1 上で基本的な機能が動くようになった。ただ
+し飽くまで非公式対応。この機能は experimental/skk-e18.el により提供さ
+れる。
 
-10.55 ---
-o Minor bug fixed.
+また、Emacs 18 のために必要とされるもの、およびあると便利なものを
+patch/e18 ディレクトリに収録した。
 
-o Types of customization are more specific.
+** 候補表示が長い場合に対応する機能 (専用の window を使う)。
 
-o Experimental program skk-lookup.el (Lookup gateway) is provided.
+候補一覧が一行では表示しきれない場合に、ウィンドウを分割してそこに候補
+一覧が表示されるようになった。操作性に変更はない。
+
+** JIS X 0213 サポート。
+
+skk-jisx0213.el によりこの機能が提供される。
+
+** 仮名入力対応 (experimental/nicola)。
+
+experimental/nicola ディレクトリに、SKK を仮名入力対応させるためのプロ
+グラムが追加された。
+
+** skk-look による ispell を使用した修正。
+
+skk-look で英単語など検索する際に、ispell で綴りを修正する機能が追加さ
+れた。
+
+** APEL のバージョンチェック。
+
+APEL のバージョンをチェックするため、product.el を利用するようになりました。
+現在、APEL は 10.2 以降が必要となります。
+
+** 新しいカーソル制御機構を採用。
+
+GNU Emacs においては、ccc.el により新しいカーソル制御機構が提供される。
+XEmacs については本体がより良い制御機構を持っていることが分かったので、
+かなり簡潔な記述でカーソル制御ができるようになった。
+
+** 関数 skk-set-cursor-properly は廃止されました。
+
+isearch の設定で add-hook している場合など、 skk-set-cursor-properly  
+の設定を削除して下さい。
+
+** custom group の見直し。
+
+カスタマイズし易いように、custom group の見直しが行われた。
+
+** Input Method としての機能の改善。
+
+Emacs 20 の為の修正。SKK を Emacs の Input Method として使用していると
+き、関数 `read-from-minibuffer' の 第 7 引数 INHERIT-INPUT-METHOD を
+非 nil にしても正しく動作しないバグが修正された。
+
+** Canna との相性の改善。
+
+SKK を起動する前に Canna の設定をしていると、スペースを押しても変換で
+きない問題が修正された。
+
+** いくつかのバグの修正。
+
+以下の関数のバグが修正された (洩れがあったら追加してください)。
+
+o skk-count-jisyo-candidates-original
+o skk-clock
+o skk-num-type3-kanji-1
+
+
+* Daredevil branch 11.1
+
+** skk.el の更なるシェイプアップを検討。
+
+別ファイルにて提供できる特殊機能があれば、更に別にする、という方針で skk.el
+内を散策。変換候補に overlay/extent をかける機能も分離できるかもしれないが、
+分離しても小さいので、とりあえず見送り。他になんかあるかな？ ひらがな -> カ
+タカナ以外の region 変換機能、とか。
+
+とりあえず過去別だったカーソル変化機能を skk-cursor.el として分離。
+分離した変数・関数のプレフィックスを skk-cursor- に統一。
+ 
+** ミニマムの構成を skk.el のみにする、というのを検討。
+
+*** skk-foreword.el を skk.el と統合。
+
+skk-foreword.el はユーザー変数を定義する前に定義しておく必要のあるマクロ、イ
+ンライン関数、変数、定数などをまとめたものでった。skk-foreword.el を skk.el
+に統合することで当然ユーザー変数の見通しは悪くなる (どんな変数があるのかな〜、
+と思ったらプログラムファイルを見るのが手っ取り早いよね？)。
+
+*** ユーザー変数の見通しが悪いのを考慮。
+
+wl なんかを参考に、ユーザー変数、システム変数・定数をまとめて、skk-vars.el
+を作った。特殊機能を提供する別ファイルの変数も全部ここに閉じ込める。カスタマ
+イズに興味のあるユーザーは skk-vars.el を見れば一覧が得られる。
+
+これにより下記 2 点のメリットあり。
+
+o 全てのプログラムから (eval-when-compile (require 'skk-vars)) することでバ
+  イトコンパイルの際の変数に関する Warning が圧倒的に減る。
+
+o skk.el から (require 'skk-vars) することで、特殊機能に関する変数の boundp
+  チェックが不要になる。
+
+*** 本体、特殊機能提供プログラムの両方で使うマクロ、インライン関数の取り扱い。
+
+これらを skk.el に入れておくわけにはゆかない (特殊機能提供プログラムから
+skk.el を require するから無限 loop に陥いる)。仕方がないので skk-macs.el を
+作る。全プログラムから (eval-when-compile (require 'skk-macs)) する。
+
+*** 結局、現状は...。
+
+ミニマムの機能しか使わなくとも skk.el, skk-macs.el, skk-vars.el の 3 つを要
+することとなり、ファイルの数は main trunk よりも増えているが、各ファイルの役
+割を再確認したので、これを土台に更なる検討を加える。
+
+ちなみに APEL については何も検討していません。APEL から必要なものだけを機械
+的に取り出す...なんてことはできるんでしょうか？ (^^;; とりあえず SKK 側の構
+成を考えてからね。
+
+
+* 10.57
+
+** `skk-defmacro-cond', `skk-defsubst-cond' と `skk-defun-cond' を廃止。
+代りに `defmacro', `defsubst' と `defun' をそれぞれ `static-cond' と組み合わ
+せて使用。効果は同じ。バイトコンパイルファイルは、Mule2, Mule3, Mule4,
+XEmacs 間で共有できない。
+
+** skk.el からカーソルの変化機能のみを取り出し、skk-cursor.el を revive.
+
+* 10.56
+
+** Minor bug fixed.
+
+** Experimental program skk-lookup.el supports okuri-ari henkan.
+
+** Experimental program skk-abbrev.el is provided.
+
+* 10.55
+
+** Minor bug fixed.
+
+** Types of customization are more specific.
+
+** Experimental program skk-lookup.el (Lookup gateway) is provided.
   You can use many dictionaries by Lookup to get candidates.
 
-10.54 ---
-o Now SKK-MK will diligently search APEL installed directory
-  automatically (not only apel modules directory but also emu modules
-  directory).
+* 10.54
 
-o Now you can any variables in SKK-CFG in the command line.
+** Now SKK-MK will diligently search APEL installed directory automatically
+(not only apel modules directory but also emu modules directory).
 
-o All version specific functions and macros are defined with
-  `skk-defmacro-cond', `skk-defsubst-cond' and `skk-defun-cond' to
-  maintain easily.
+** Now you can any variables in SKK-CFG in the command line.
 
-o Experimentally, all conditions of `skk-defmacro-cond',
-  `skk-defsubst-cond' and `skk-defun-cond' are evaluated statically
-  (when compiling).  All elc files will be incompatible between Mule2,
-  Mule3, Mule4 and XEmacs.
+** All version specific functions and macros are defined with
+`skk-defmacro-cond', `skk-defsubst-cond' and `skk-defun-cond' to maintain
+easily.
 
-o All faces are defined with `defface'.
+** Experimentally, all conditions of `skk-defmacro-cond',
+`skk-defsubst-cond' and `skk-defun-cond' are evaluated statically (when
+compiling).  All elc files will be incompatible between Mule2, Mule3, Mule4
+and XEmacs.
 
-o Emacs Lisp programs are moved to top directory.
+** All faces are defined with `defface'.
 
-o Now you can install tutorial and info files.
+** Emacs Lisp programs are moved to top directory.
 
-o Now you don't have to copy skk-autoloads.el manually.
+** Now you can install tutorial and info files.
 
-o Now use extents (not overlay emulation) for XEmacs.
+** Now you don't have to copy skk-autoloads.el manually.
 
-o vip.el 3.7 is provided by Satou Sen-sei.  Now it works well with SKK
-  by itself.  skk-vip.el is discarded.
+** Now use extents (not overlay emulation) for XEmacs.
 
-o Experimental package skk-tutcode.el is provided by GUNJI Takao
-  <gunji@sils.shoin.ac.jp>.  Now you can imput Japanese by TUT-code
-   with SKK.
+** vip.el 3.7 is provided (for Emacs 19) by Satou Sen-sei.  Now it 
+works well with SKK by itself.  skk-vip.el is discarded.
+
+** Experimental package skk-tutcode.el is provided by GUNJI Takao
+<gunji@sils.shoin.ac.jp>.  Now you can imput Japanese by TUT-code with SKK.

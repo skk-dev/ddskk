@@ -1,0 +1,222 @@
+-*- mode: outline -*-
+
+	$Id: README.ja,v 1.2 2000/10/30 22:21:08 minakaji Exp $
+
+
+このディレクトリには SKK の仮名入力対応コードを置いています。
+
+
+* 概要
+
+Daredevil SKK をローマ字的入力以外の入力方式に対応させることを目的とし
+ます。現在は以下の入力方式について、サポートするべく開発しています。
+
+o 日本語 106 キーボードでの仮名入力
+
+o 親指シフトキーボードのエミュレーション
+
+後者については、 箕浦逸史さん作の NICOLA-SKK 0.39 を基にして開発を進め
+ています。というよりこちらが主力です。
+
+なお、 TUT-code 入力のサポートは別に開発されており、そのソースコードは
+SKK の experimental repository にあります。
+
+
+* ステータス
+
+Alpha.
+
+
+* サポートする Emacsen
+
+Daredevil SKK がサポートするもの。
+
+以下のものは動作確認できます。
+
+o Mule 2.3 based on Emacs 19.28
+
+  (Mule for Windows version 1.22 を含む)
+
+o Mule 2.3 based on Emacs 19.34
+
+o Emacs 20.6 以降
+
+  (対応するバージョンの Meadow を含む)
+
+o XEmacs 21.1.12
+
+o XEmacs 21.2.36
+
+
+NICOLA-DDSKK は、Nemacs と Mule 1.1 をサポートしません。その理由として
+
+o 浮動小数点数が扱えないこと
+
+o 関数 sit-for() の引数としてミリ秒を渡せないこと
+
+が挙げられます。上記の点を除けば、Emacs 18 でも一応動くと思います。
+
+(APEL の恩恵によるところが大きい。)
+
+
+* ファイル
+
+o skk-kanagaki.el … 仮名入力のための基本的な枠組み
+
+o skk-106-jis.el  … 日本語 106 キーボードで仮名入力するためのルール
+
+o skk-nicola.el   … 親指シフト入力をエミュレートする関数  (オリジナル
+                     の skk-nicola.el に書かれていた関数)
+
+o skk-nicola-*.el … NICOLA 配列のルール (JIS, US, Dvorak)
+
+o skk-oasys.el    … OASYS 風配列のルール
+
+o skk-omelet-*.el … omelet 独自配列のルール (JIS, US, Dvorak)
+
+
+skk-nicola-*.el, skk-oasys.el, skk-omelet-*.el の配列はすべて
+
+http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
+
+のものを利用させていただきました。
+
+
+* インストール
+
+** APEL の最新版をインストール
+
+   ftp://ftp.m17n.org/pub/mule/apel/
+
+   % make install (XEmacs では make install-package)
+
+** Daredevil SKK をインストール
+
+   [方法 1]
+
+   % cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot login
+
+   CVS password: guest (CR)
+
+   % cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot co \
+   -r deredevil skk/main
+
+   [方法 2]
+
+   http://www.remus.dti.ne.jp/%7Eczkmt/update/elisp/
+
+   % make install (XEmacs では make install-package)
+
+** NICOLA-DDSKK のインストール
+
+   % make install (XEmacs では make install-package)
+
+
+* 設定
+
+** Daredevil SKK の設定
+
+   ~/.emacs に
+
+     (require 'skk-setup)
+
+   と記入。
+
+** skk-kanagaki の設定
+
+   ~/.skk に
+
+     (setq skk-use-kana-keyboard t)
+     (setq skk-kanagaki-keyboard-type 'omelet-jis)
+
+   と記入。
+
+** カスタマイズ
+
+   skk-kanagaki-keyboard-type に対応したファイルに書かれている変数によっ
+   て、キー入力と挿入される文字のルールを変更します。
+
+   例えば skk-kanagaki-keyboard-type が omelet-jis であれば、
+   skk-omelet-jis.el に書かれている以下の変数を設定します。
+
+   `skk-kanagaki-omelet-jis-base-rule-list'
+
+        この変数は、各文字キーの入力を SKK にどう解釈させるかを決定し
+        ます。標準設定では、多くの文字キーは関数 `skk-nicola-insert'
+        を呼び出します。
+
+   `skk-omelet-jis-plain-rule-list'
+   `skk-omelet-jis-rshift-rule-list'
+   `skk-omelet-jis-lshift-rule-list'
+
+        これらの変数は、関数 `skk-nicola-insert' が文字を挿入する際の
+        ルールを決定します。順に単独打鍵、右シフト入力、左シフト入力の
+        ルールです。
+
+   これらの設定をファイル ~/.skk に記述してから SKK を起動すれば、設定
+   が反映されます。
+
+* 使用法
+
+** 仮名入力モードの主なキー定義
+
+   f2 … 変換開始点をセット
+   f3 … 接頭辞 or 接尾辞変換
+   f5 … コード入力
+   f6 … abbrev モード
+   f7 … カナモード or カナ変換
+   f8 … 全英モード
+   f9 … 半角カナモード or 半角カナ変換
+   f10 … latin モード
+   f12 … ローマ字入力 ⇔ 仮名入力
+   C-h 1 … ヘルプを表示
+   x … 前候補表示
+   SPC … 変換・次候補表示
+   S (SHIFT + s) … 送りあり変換開始
+
+   (多くはユーザオプションとして変更可能です。)
+
+** 親指シフト入力モードの独自キー定義
+
+   muhenkan … 左親指シフトキー
+   henkan-mode … 右親指シフトキー
+   space … 右親指シフトキー、送りなし変換開始
+   f + j … 変換開始点をセット、送り開始点指定
+   g + h … 接頭辞 or 接尾辞変換 (▽モード or ▼モード)
+   g + h … abbrev モード
+   d + k … カナモード or カナ変換
+   左親指シフト + 右親指シフト … latin モード ⇔ かなモード のトグル
+   C-h 2 … 現在の入力方式のキー配列を表示
+   C-h 3 … ヘルプを表示
+
+
+* 問題点
+
+親指シフト入力は、 まだ NICOLA-SKK と挙動の異なる部分があります。 問題
+は多くありますが、徐々に改良する予定です。また、omelet 及び NICOLA-SKK
+との互換性を十分考慮していない部分があります。
+
+日本語 106 キーボードで仮名入力する場合、 キー配列の関係で「ー」か「ろ」
+のいずれかが犠牲にならなければなりません。デフォルトでは、「ー」を犠牲
+にしてあります (SHIFT と共に押せば入力できるようにしてあります)。これ
+を刻印通りの入力にするには、 xmodmap を使うなどしてキー配列を変更する
+必要があります。
+
+
+# Local Variables:
+# eval: (local-set-key (if (featurep 'xemacs)
+			   [button3]
+			 [mouse-3]) 'browse-url-at-mouse)
+# eval: (save-excursion
+	  (goto-char (point-min))
+	  (while (re-search-forward "\\(ht\\|f\\)tp://.+$" nil t)
+	    (let ((overlay (make-overlay (match-beginning 0) (match-end 0))))
+	      (overlay-put overlay 'mouse-face 'highlight))))
+# eval: (defvar font-lock-keywords nil)
+# eval: (make-local-variable 'font-lock-keywords)
+# eval: (defvar outline-font-lock-keywords nil)
+# eval: (if (featurep 'font-lock) (font-lock-set-defaults)) 
+# eval: (setq font-lock-keywords
+	      (append outline-font-lock-keywords
+		      '(("\\(ht\\|f\\)tp://.+$" 0 'bold))))
+# End:

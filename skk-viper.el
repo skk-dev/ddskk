@@ -1,54 +1,36 @@
 ;; skk-viper.el --- SKK related code for Viper
-;; Copyright (C) 1996, 1997, 1998, 1999
+;; Copyright (C) 1996, 1997, 1998, 1999, 2000
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>, Murata Shuuichirou <mrt@astec.co.jp>
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
-;; Maintainer: Murata Shuuichirou <mrt@notwork.org>
-;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-viper.el,v 1.7 2000/03/11 02:14:53 minakaji Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-viper.el,v 1.8 2000/10/30 22:10:20 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/03/11 02:14:53 $
+;; Last Modified: $Date: 2000/10/30 22:10:20 $
 
-;; This file is not part of SKK yet.
+;; This file is part of Daredevil SKK.
 
-;; SKK is free software; you can redistribute it and/or modify
+;; Daredevil SKK is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either versions 2, or (at your option)
 ;; any later version.
 
-;; SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
 ;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
 
 ;;; Code:
-(eval-when-compile (require 'skk))
-(require 'skk-foreword)
+(eval-when-compile (require 'static) (require 'skk-macs) (require 'skk-vars))
 (require 'viper)
-
-;;(defgroup skk-viper nil "SKK/Viper related customization."
-;;  :prefix "skk-"
-;;  :group 'skk )
-
-;; internal constant.
-;;;###autoload
-(defconst skk-viper-use-vip-prefix
-  (not (fboundp 'viper-normalize-minor-mode-map-alist)))
-
-;;;###autoload
-(defconst skk-viper-normalize-map-function
-  (if skk-viper-use-vip-prefix 
-      'vip-normalize-minor-mode-map-alist 
-    'viper-normalize-minor-mode-map-alist )
-  "Viper が minor-mode-map-alist を調整するための関数。" )
 
 ;; macros and inline functions.
 (defmacro skk-viper-advice-select (viper vip arg body)
@@ -57,11 +39,11 @@
        (defadvice (, viper) (, arg) (,@ body)))))
 
 (setq skk-kana-cleanup-command-list
-      (cons 
+      (cons
        (if skk-viper-use-vip-prefix
 	   'vip-del-backward-char-in-insert
-	 'viper-del-backward-char-in-insert )
-       skk-kana-cleanup-command-list ))
+	 'viper-del-backward-char-in-insert)
+       skk-kana-cleanup-command-list))
 
 (setq skk-use-viper t)
 (save-match-data
@@ -69,36 +51,106 @@
       (setq sentence-end (concat "[。？！]\\|" sentence-end))))
 
 ;; cursor color support.
-(if (and (boundp 'viper-insert-state-cursor-color)
-	 viper-insert-state-cursor-color
-	 (fboundp 'viper-color-defined-p)
-	 (viper-color-defined-p viper-insert-state-cursor-color))
-    (setq skk-use-color-cursor nil))
+;; static-when を使いたいのに、 バイトコンパイル時に X window が
+;; initialize されていないというエラーになる (;_;)。
+;; yatex みたいに Window を開いてバイトコンパイルするようにもできるけど、
+;; no-window の make コマンドを別に作らなきゃならないし、面倒だな...。
+(when (skk-color-display-p)
+  (if skk-use-color-cursor
+      (progn
+	(defvar skk-viper-saved-cursor-color viper-insert-state-cursor-color)
+	;; 恐ろしや〜、必殺のバッファローカル...。
+	(make-variable-buffer-local 'viper-insert-state-cursor-color)
+	;; SKK-CURSOR related.
+	(defadvice skk-cursor-current-color (around skk-viper-cursor-ad activate)
+	  "vi-state のときは、SKK モードになっていてもディフォルトカーソルを返す。"
+	  (if (static-cond ((boundp 'viper-current-state)
+			    (eq viper-current-state 'vi-state))
+			   ((boundp 'vip-current-state)
+			    (eq vip-current-state 'vi-state)))
+	      skk-cursor-default-color
+	    (cond ((not skk-mode)
+		   (setq viper-insert-state-cursor-color
+			 skk-viper-saved-cursor-color)
+		   ad-do-it)
+		  (t
+		   (setq viper-insert-state-cursor-color ad-do-it)))))
 
-;; advices.
-(defadvice skk-cursor-set-properly (before skk-viper-ad activate)
-  "vi-state のときは、SKK モードになっていてもカーソルをディフォルトにしておく。"
-  (if (or (and (boundp 'viper-current-state)
-	       (eq viper-current-state 'vi-state))
-	  (and (boundp 'vip-current-state)
-	       (eq vip-current-state 'vi-state)))
-      (ad-set-arg 0 skk-default-cursor-color)))
+	;; cover to VIP/Viper functions.
+	(let ((funcs
+	       (if skk-viper-use-vip-prefix
+		   '(vip-Append vip-Insert vip-insert vip-intercept-ESC-key
+				vip-open-line)
+		 '(viper-Append viper-Insert viper-hide-replace-overlay
+				viper-insert viper-intercept-ESC-key
+				viper-open-line))))
+	  (while funcs
+	    (eval
+	     (`
+	      (defadvice (, (intern (symbol-name (car funcs))))
+		(after skk-viper-cursor-ad activate)
+		"Set cursor color which represents skk mode."
+		(set-buffer-local-cursor-color (skk-cursor-current-color)))))
+	    (setq funcs (cdr funcs))))
+
+	(if (boundp 'viper-insert-state-cursor-color)
+	    (let ((funcs '(skk-abbrev-mode skk-jisx0208-latin-mode
+					   skk-latin-mode skk-toggle-kana)))
+	      (while funcs
+		(eval
+		 (`
+		  (defadvice (, (intern (symbol-name (car funcs))))
+		    (after skk-viper-cursor-ad activate)
+		    "viper-insert-state-cursor-color を SKK の入力モードのカーソル色と合わせる。"
+		    (setq viper-insert-state-cursor-color (skk-cursor-current-color)))))
+		(setq funcs (cdr funcs)))))
+
+	(defadvice skk-mode (after skk-viper-cursor-ad activate)
+	  "viper-insert-state-cursor-color を SKK の入力モードのカーソル色と合わせる。"
+	  (setq viper-insert-state-cursor-color
+		(if skk-mode (skk-cursor-current-color)
+		  skk-viper-saved-cursor-color))
+	  ;; insert mode になったら Viper 側でカーソルを変更する。
+	  ;;(viper-change-cursor-color viper-insert-state-cursor-color)
+	 )
+	(defadvice skk-kakutei (after skk-viper-cursor-ad activate)
+	  (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))))
+
+;; vip-4 の同種の関数名は vip-read-string-with-history？
+(defadvice viper-read-string-with-history (after skk-viper-ad activate)
+  "次回ミニバッファに入ったときに SKK モードにならないようにする。"
+  (remove-hook 'pre-command-hook 'skk-pre-command 'local)
+  (skk-remove-minibuffer-setup-hook
+   'skk-j-mode-on 'skk-setup-minibuffer
+   (function (lambda ()
+	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
+
+(if skk-use-color-cursor
+    (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
+      "minibuffer-setup-hook に update-buffer-local-frame-params をフックする。
+viper-read-string-with-history は minibuffer-setup-hook を関数ローカル
+にしてしまうので、予め minibuffer-setup-hook にかけておいたフックが無効
+となる。"
+      ;; non-command subr.
+      (add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params 'append)))
 
 (skk-viper-advice-select
  viper-forward-word-kernel vip-forward-word-kernel
  (around skk-ad activate)
- ("SKK モードがオンで、ポイントの直後の文字が JISX0208 だったら forward-word する。"
-  (if (and skk-mode (skk-jisx0208-p (following-char)))
+ ("SKK モードがオンで、ポイントの直後の文字が JISX0208/JISX0213 だったら forward-word する。"
+  (if (and skk-mode (or (skk-jisx0208-p (following-char))
+			(skk-jisx0213-p (following-char))))
       (forward-word val)
-    ad-do-it )))
+    ad-do-it)))
 
 (skk-viper-advice-select
  viper-backward-word-kernel vip-backward-word-kernel
  (around skk-ad activate)
- ("SKK モードがオンで、ポイントの直前の文字が JISX0208 だったら backward-word する。"
-  (if (and skk-mode (skk-jisx0208-p (preceding-char)))
+ ("SKK モードがオンで、ポイントの直前の文字が JISX0208/JISX0213 だったら backward-word する。"
+  (if (and skk-mode (or (skk-jisx0208-p (preceding-char))
+			(skk-jisx0213-p (preceding-char))))
       (backward-word val)
-    ad-do-it )))
+    ad-do-it)))
 
 ;; please sync with advice to delete-backward-char
 (skk-viper-advice-select
@@ -124,7 +176,7 @@
 		 (progn
 		   (backward-char count)
 		   (delete-char count))
-	       ad-do-it )
+	       ad-do-it)
 	     ;; XXX assume skk-prefix has no multibyte chars.
 	     (if (> (length skk-prefix) count)
 		 (setq skk-prefix (substring skk-prefix 0 (- (length skk-prefix) count)))
@@ -152,22 +204,22 @@
 (skk-viper-advice-select
  viper-join-lines vip-join-lines
  (after skk-ad activate)
- ("スペースの両側の文字セットが JISX0208 だったらスペースを取り除く。" ;
+ ("スペースの両側の文字セットが JISX0208/JISX0213 だったらスペースを取り除く。" ;
   (save-match-data
-    (and (skk-jisx0208-p
-	  (char-after (progn (skip-chars-forward " ") (point))))
-	 (skk-jisx0208-p
-	  (char-before (progn (skip-chars-backward " ") (point))))
+    (let ((char-after (char-after (progn (skip-chars-forward " ") (point))))
+	  (char-before (char-before (progn (skip-chars-backward " ") (point)))))
+    (and (or (skk-jisx0208-p char-after) (skk-jisx0213-p char-after))
+	 (or (skk-jisx0208-p char-before) (skk-jisx0213-p char-before))
 	 (while (looking-at " ")
-	   (delete-char 1))))))
+	   (delete-char 1)))))))
 
 ;;; Functions.
 ;;;###autoload
 (defun skk-viper-normalize-map ()
   (let ((other-buffer
-	 (if (eq skk-emacs-type 'xemacs)
+	 (static-if (eq skk-emacs-type 'xemacs)
 	     (local-variable-p 'minor-mode-map-alist nil t)
-	   (local-variable-p 'minor-mode-map-alist))))
+	   (local-variable-if-set-p 'minor-mode-map-alist))))
     ;; for current buffer and buffers to be created in the future.
     ;; substantially the same job as viper-harness-minor-mode does.
     (funcall skk-viper-normalize-map-function)
@@ -187,13 +239,15 @@
 		   (list (cons 'skk-latin-mode skk-latin-mode-map)
 			 (cons 'skk-abbrev-mode skk-abbrev-mode-map)
 			 (cons 'skk-j-mode skk-j-mode-map)
-			 (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map)))
-		  (funcall skk-viper-normalize-map-function)))
+			 (cons 'skk-jisx0208-latin-mode
+			       skk-jisx0208-latin-mode-map)))))
+	    (funcall skk-viper-normalize-map-function)
 	    (setq buf (cdr buf))))))))
 
 (eval-after-load "viper-cmd"
   '(defun viper-toggle-case (arg)
-     "Toggle character case."
+     "Toggle character case.
+Convert hirakana to katakana and vice versa."
      (interactive "P")
      (let ((val (viper-p-val arg)) (c))
        (viper-set-destructive-command
@@ -215,7 +269,10 @@
 	 (if (eolp) (backward-char 1))
 	 (setq val (1- val))))))
 
+;; viper-toggle-key-action と連動させる？
 (skk-viper-normalize-map)
+(add-hook 'skk-mode-hook 'skk-mode-once-again)
 
-(provide 'skk-viper)
+(require 'product)
+(product-provide (provide 'skk-viper) (require 'skk-version))
 ;;; skk-viper.el ends here

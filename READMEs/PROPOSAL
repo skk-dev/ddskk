@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2000/08/18 12:54:15 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
-	     $Id: PROPOSAL,v 1.4 2000/08/18 12:54:15 czkmt Exp $
+             $Date: 2000/10/30 22:14:10 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
+	     $Id: PROPOSAL,v 1.5 2000/10/30 22:14:10 minakaji Exp $
 
 
 $B$3$N%U%!%$%k$K$O!"(BSKK $B%3!<%G%#%s%0$K4X$7!"Cm0U$9$Y$-E@!"E}0l$7$?J}$,NI$$(B
@@ -97,10 +97,11 @@ skk-auto.el) $B$H$$$&%U%!%$%k$KJ,3d$7$F2<$5$$!#FC<l5!G=$r;H$$$?$$?M$@$1(B
 
 $B%U%!%$%k$NKAF,ItJ,!"(B`;;; Code:' $B$ND>8e$K(B
 
-     (require 'skk-foreword)
+     (eval-when-compile (require 'skk-macs) (require 'skk-vars))
 
 $B$H=q$$$F2<$5$$!#(BSKK $B6&DL$N%^%/%m$d%$%s%i%$%s4X?t!"(Bprimary
-variables/constants $B$,$3$N%U%!%$%k$K4^$^$l$F$$$^$9!#(B
+variables/constants $B$,(B skk-macs.el $B$K!"A4$F$NJQ?t$,(B skk-vars.el $B$K4^$^(B
+$B$l$F$$$^$9!#(B
 
 $B$^$?!"%*!<%H%m!<%I$7$?$$4X?t$N@k8@$ND>A0$N9T$K!"(B
 `;;;###autoload' $B$H=q$$$F2<$5$$!#$3$s$J46$8$G$9!#(B
@@ -109,9 +110,7 @@ variables/constants $B$,$3$N%U%!%$%k$K4^$^$l$F$$$^$9!#(B
       (defun skk-completion (first)
          ... )
 
-XEmacs $B$G(B package install $B$9$k$H!"$3$l$G(B autoload $B$N@_Dj$b<+F0E*$K9T$J(B
-$B$o$l$^$9$,!"$=$l0J30$N(B Emacsen $B$N$?$a$K!"(Bautoload $B$N@_Dj$r(B
-skk-10/lisp/skk-autoloads.el $B$K=q$$$F$"$2$F2<$5$$!#(B
+$B$3$l$G(B autoload $B$N@_Dj$b<+F0E*$K9T$J$o$l$^$9!#(B
 
 * $B4X?tL>!&JQ?tL>$K$D$$$F(B
 
@@ -178,7 +177,7 @@ SKK $B$O(B SKK $B%b!<%I$r5/$7$?%P%C%U%!$N$_$G:nF0$9$k$h$&$K$J$C$F$$$k$?$a!"(
      (add-hook 'hoge-mode-hook
 	       (function (lambda()
 			   (make-local-variable 'skk-auto-paren-string-alist)
-			   (setq skk-auto-paren-string-alist ...) )))
+			   (setq skk-auto-paren-string-alist ...))))
 
 ** $B%P%C%U%!%m!<%+%kJQ?t$N@k8@(B
 

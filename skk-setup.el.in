@@ -1,0 +1,122 @@
+;;; -*- emacs-lisp -*-
+;;; skk-setup.el --- Initial setup for SKK
+;; Copyright (C) 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+
+;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-setup.el.in,v 1.2 2000/10/30 22:10:19 minakaji Exp $
+;; Keywords: japanese
+;; Last Modified: $Date: 2000/10/30 22:10:19 $
+
+;; This file is part of Daredevil SKK.
+
+;; Daredevil SKK is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either versions 2, or (at your option)
+;; any later version.
+
+;; Daredevil SKK is distributed in the hope that it will be useful
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
+;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
+;; MA 02111-1307, USA.
+
+;;; Commentary:
+
+;;; Code:
+(cond
+ ((and (featurep 'xemacs)
+       (file-exists-p
+	(expand-file-name "auto-autoloads.el"
+			  (file-name-directory (locate-library "skk")))))
+  ;; SKK is installed as a package.
+  (let ((file
+	 (expand-file-name "auto-autoloads.el"
+			   (file-name-directory (locate-library "dired")))))
+    (when (and (file-exists-p file)
+	       (not (featurep 'dired-autoloads)))
+      (require 'advice)
+      (eval
+       (`
+	(defadvice load (after skk-setup-ad-for-load activate)
+	  (when (equal (ad-get-arg 0)
+		       (file-name-sans-extension (, file)))
+	    (global-set-key "\C-x\C-j" 'skk-mode)
+	    (ad-deactivate-regexp "^skk-setup-ad-for-load$"))))))))
+ (t
+  (require 'skk-autoloads)))
+
+(global-set-key "\C-x\C-j" 'skk-mode)
+(global-set-key "\C-xj" 'skk-auto-fill-mode)
+(global-set-key "\C-xt" 'skk-tutorial)
+
+;; (add-hook 'isearch-mode-hook
+;; 	  (lambda () (and (boundp 'skk-mode) skk-mode
+;; 			  (skk-isearch-mode-setup))))
+;;
+;; (add-hook 'isearch-mode-end-hook
+;; 	  (lambda ()
+;; 	    (and (boundp 'skk-mode) skk-mode (skk-isearch-mode-cleanup))
+;; 		)))
+
+;;(defvar skk-large-jisyo "@DIC@")
+;;(defvar skk-aux-large-jisyo "@AUXDIC@")
+;;(defvar skk-tut-file "@TUT@")
+
+(add-hook 'isearch-mode-hook
+	  (lambda () (and (boundp 'skk-mode) skk-mode
+			  (skk-isearch-mode-setup))))
+
+(add-hook 'isearch-mode-end-hook
+	  (lambda ()
+	    (and (featurep 'skk-isearch) (skk-isearch-mode-cleanup))))
+
+(if (or (featurep 'xemacs)
+	(not (fboundp 'register-input-method)))
+    nil
+  ;; GNU Emacs 20 or later.
+  (define-key isearch-mode-map "\C-\\" 'isearch-toggle-input-method)
+  (defadvice isearch-toggle-input-method (around skk-setup-ad activate)
+    (cond ((string-match
+	    "^japanese-skk"
+	    (format "%s" default-input-method))
+	   (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
+	     (skk-isearch-mode-setup)
+	     (skk-isearch-skk-mode)))
+	  ((null default-input-method)
+	   ad-do-it
+	   (when (string-match
+		  "^japanese-skk"
+		  (format "%s" default-input-method))
+	     (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
+	       (skk-isearch-mode-setup))
+	     (inactivate-input-method)))
+	  (t
+	   ad-do-it)))
+  ;;
+  (when site-run-file
+    (cond
+     ((fboundp 'load-leim-list-except-this)
+      ;; egg/leim-list.el is already loaded.
+      nil)
+     ((locate-library "egg/leim-list.el" 'nosuffix)
+      ;; Try loading egg/leim-list.el.
+      (load "egg/leim-list.el" 'noerror 'nomessage 'nosuffix))
+     (t
+      (defun load-leim-list-except-this ()
+	(load-libraries
+	 "leim-list"
+	 (cdr-safe (member (directory-file-name
+			    (file-name-directory load-file-name))
+			   load-path))))
+      (message "Finished loading %s \n   and load others..." load-file-name)
+      (load-leim-list-except-this)))))
+
+(provide 'skk-setup)
+;;; Local Variables:
+;;; End:
+;;; skk-setup.el ends here

@@ -1,5 +1,10 @@
 -*- text -*-
 
-Originally written by Masahiko Sato.
-Developing version 10 is mainly written by Hideki Sakurada, Mikio Nakajima,
-and Murata Shuuichirou.
+o Originally written by Masahiko Sato.
+
+o Developing version 10 is mainly written by Hideki Sakurada, Mikio
+  Nakajima, and Murata Shuuichirou.
+
+o Daredevil branch was made by Mikio Nakajima.  It forked from SKK
+  10.56.  May as many as developers write additional code to daredevil
+  branch!

@@ -2,31 +2,29 @@
 ;; Copyright (C) 1999 GUNJI Takao <gunji@sils.shoin.ac.jp>
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.7 1999/10/03 12:17:38 minakaji Exp $
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-tutcdef.el,v 1.9 2000/10/30 22:22:10 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 12:17:38 $
+;; Last Modified: $Date: 2000/10/30 22:22:10 $
 
-;; This file is not part of SKK yet.
+;; This file is part of Daredevil SKK.
 
-;; SKK is free software; you can redistribute it and/or modify it under
-;; the terms of the GNU General Public License as published by the Free
-;; Software Foundation; either versions 2, or (at your option) any later
-;; version.
+;; Daredevil SKK is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either versions 2, or (at your option)
+;; any later version.
 
-;; SKK is distributed in the hope that it will be useful but WITHOUT
-;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-;; or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
-;; License for more details.
+;; Daredevil SKK is distributed in the hope that it will be useful
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with SKK, see the file COPYING.  If not, write to the Free
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
 ;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-;; Following people contributed modifications to skk.el (Alphabetical order):
-;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;;; Code:
 (eval-when-compile (require 'skk) (require 'skk-tutcode))
@@ -60,7 +58,7 @@
    ("\t" nil skk-toggle-kana)
    ("^" nil skk-input-by-code-or-menu) ))
 
-(if (and (eq skk-emacs-type 'xemacs) (= (emacs-major-version) 20))
+(if (and (eq skk-emacs-type 'xemacs) (= emacs-major-version 20))
     (progn
       (setq skk-rom-kana-base-rule-list
 	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list) )
@@ -961,5 +959,6 @@
 		   ("alu" nil "ヴ") ("eld" nil "ヵ") ("elg" nil "ヶ") )
 		 skk-rom-kana-rule-list )))
 
-(provide 'skk-tutcdef)
+(require 'product)
+(product-provide (provide 'skk-tutcdef) (require 'skk-version))
 ;;; skk-tutcdef.el ends here
