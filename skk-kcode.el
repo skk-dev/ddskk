@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.27 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-kcode.el,v 1.28 2002/01/18 14:03:24 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/18 14:03:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -120,10 +120,8 @@
     (make-char charset
 	       (logand (lognot 128) n1)
 	       (logand (lognot 128) n2)))
-   ((memq skk-emacs-type '(mule5 mule4 mule3))
-    (make-char charset n1 n2))
-   ((memq skk-emacs-type '(mule2 mule1))
-    (make-character charset n1 n2))))
+   (t
+    (make-char charset n1 n2))))
 
 (defun skk-next-n2-code (n)
   (if (<= (setq n (1+ n)) skk-code-n2-max)
@@ -363,69 +361,35 @@
     t)
 
 (defun skk-display-code (str)
-  (static-cond
-   ((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
-    (let* ((char (string-to-char str))
-	   (charset (char-charset char)))
-      (cond
-       ((memq charset '(japanese-jisx0208 japanese-jisx0208-1978))
-	(let* ((char1-j (skk-char-octet char 0))
-	       (char1-k (- char1-j 32))
-	       (char1-e (+ char1-j 128))
-	       (char2-j (skk-char-octet char 1))
-	       (char2-k (- char2-j 32))
-	       (char2-e (+ char2-j 128))
-	       (sjis (skk-jis2sjis char1-j char2-j))
-	       (char1-s (car sjis))
-	       (char2-s (cadr sjis)))
-	  (message
-	   "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d),\
+  (let* ((char (string-to-char str))
+	 (charset (char-charset char)))
+    (cond
+     ((memq charset '(japanese-jisx0208 japanese-jisx0208-1978))
+      (let* ((char1-j (skk-char-octet char 0))
+	     (char1-k (- char1-j 32))
+	     (char1-e (+ char1-j 128))
+	     (char2-j (skk-char-octet char 1))
+	     (char2-k (- char2-j 32))
+	     (char2-e (+ char2-j 128))
+	     (sjis (skk-jis2sjis char1-j char2-j))
+	     (char1-s (car sjis))
+	     (char2-s (cadr sjis)))
+	(message
+	 "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d),\
  KUTEN: (%2d, %2d), SJIS: %2x%2x"
-	   str
-	   char1-e char2-e char1-e char2-e
-	   char1-j char2-j char1-j char2-j
-	   char1-k char2-k
-	   char1-s char2-s)))
-       ((memq charset '(ascii latin-jisx0201))
-	(message "`%s' %2x (%3d)"
-		 str
-		 (skk-char-octet char 0)
-		 (skk-char-octet char 0)))
-       (t
-	(skk-error "判別できない文字です"
-		   "Cannot understand this character")))))
-   (t
-    ;; Mule 2
-    (let (;; 文字列を char に分解。
-	  ;; (mapcar '+ str) == (append str nil)
-	  (char-list (mapcar (function +) str)))
-      (cond
-       ((and (= 3 (length char-list))
-	     (memq (car char-list) (list lc-jp lc-jpold)))
-	(let* ((char1-e (car (cdr char-list)))
-	       (char1-j (- char1-e 128))
-	       (char1-k (- char1-j 32))
-	       (char2-e (car (cdr (cdr char-list))))
-	       (char2-j (- char2-e 128))
-	       (char2-k (- char2-j 32))
-	       (sjis (skk-jis2sjis char1-j char2-j))
-	       (char1-s (car sjis))
-	       (char2-s (cadr sjis)))
-	  (message
-	   "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d),\
- KUTEN: (%2d, %2d), SJIS: %2x%2x"
-	   str
-	   char1-e char2-e char1-e char2-e
-	   char1-j char2-j char1-j char2-j
-	   char1-k char2-k
-	   char1-s char2-s)))
-       ((or (= 1 (length char-list))	; ascii character
-	    (memq (car char-list) (list lc-ascii lc-roman)))
-	(let ((char (car char-list)))
-	  (message "`%c' %2x (%3d)" char char char)))
-       (t
-	(skk-error "判別できない文字です"
-		   "Cannot understand this character")))))))
+	 str
+	 char1-e char2-e char1-e char2-e
+	 char1-j char2-j char1-j char2-j
+	 char1-k char2-k
+	 char1-s char2-s)))
+     ((memq charset '(ascii latin-jisx0201))
+      (message "`%s' %2x (%3d)"
+	       str
+	       (skk-char-octet char 0)
+	       (skk-char-octet char 0)))
+     (t
+      (skk-error "判別できない文字です"
+		 "Cannot understand this character")))))
 
 (defun skk-jis2sjis (char1 char2)
   (let* ((ch2 (if (eq (* (/ char1 2) 2) char1)
