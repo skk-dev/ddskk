@@ -1,3 +1,8 @@
+2004-03-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-prepare-modeline-properties): Don't copy
+	face modeline.  Simply call `make-face'.
+
 2004-03-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-jisyo-edit-mode.el (skk-jisyo-edit-mode): Set major-mode
@@ -4490,8 +4495,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.788 2004/03/05 18:18:17 czkmt Exp $
-Last Modified: $Date: 2004/03/05 18:18:17 $
+Version: $Id: ChangeLog,v 1.789 2004/03/09 17:42:56 czkmt Exp $
+Last Modified: $Date: 2004/03/09 17:42:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
