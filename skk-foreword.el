@@ -1,13 +1,13 @@
 ;;; skk-foreword.el --- 前書き
-;; Copyright (C) 1997, 1998 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1997, 1998, 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.1 1999/08/17 22:52:00 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.2 1999/08/18 23:20:16 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/17 22:52:00 $
+;; Last Modified: $Date: 1999/08/18 23:20:16 $
 
 ;; This file is not part of SKK yet.
 
@@ -35,9 +35,10 @@
 ;; レンドリーではないと考えるからです。
 ;;
 ;; Following people contributed modifications to skk-foreword.el (Alphabetical order):
+;;       小野 孝男 <takao@hirata.nuee.nagoya-u.ac.jp>
 ;;       Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;       Shuhei KOBAYASHI <shuhei-k@jaist.ac.jp>
-;;       小野 孝男 <takao@hirata.nuee.nagoya-u.ac.jp>
+;;       TSUMURA Tomoaki <tsumura@kuis.kyoto-u.ac.jp>
 
 ;;; Change log:
 
@@ -82,7 +83,7 @@
 
 (require 'advice)
 (require 'easymenu)
-;; APEL 9.15 or later required.
+;; APEL 9.20 or later required.
 (require 'poe)
 (require 'poem)
 (require 'pcustom)
@@ -762,7 +763,7 @@
 	       ""
 	     (let ((sl (nthcdr pos1 (string-to-char-list str))))
 	       (setcdr (nthcdr (- pos2 pos1 1) sl) nil)
-	       (concat sl) )))
+	       (mapconcat 'char-to-string sl "") )))
 	 )))
 
 (eval-after-load "hilit19"
