@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.16 2005/01/31 05:50:19 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.17 2005/02/17 08:07:36 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/01/31 05:50:19 $
+;; Last Modified: $Date: 2005/02/17 08:07:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -80,6 +80,7 @@
 ;; % bskk -f ~/.skk-bayesian -s
 ;; として、立ち上げておく必要があります。
 ;; サーバを終了させる方法は、kill -TERM です。
+;; .skk には、(setq skk-bayesian-prefer-server t) を書いて下さい。
 ;;
 ;; <使用の覚え書き>
 ;; 各関数と、bskk のコメント内の Specifications に書かれている。
@@ -90,35 +91,87 @@
 (require 'skk-vars)
 (require 'skk-macs)
 
-;; customizable variables
-(defvar skk-bayesian-prefer-server nil
+(defgroup skk-bayesian nil "SKK Bayesian estimation group"
+  :prefix "skk-bayesian-"
+  :group 'skk)
+
+;;;
+;;; variables for skk-bayesian
+;;;
+(defcustom skk-bayesian-prefer-server nil
   "*non-nil ならば、`skk-bayesian-host'の`skk-bayesian-port'に接続する。
-そうでなければ、bskk をサブプロセスとして立ち上げる。")
-(defvar skk-bayesian-port 51178
-  "*`skk-bayesian-prefer-server'が non-nil の時に`skk-bayesian-host'に接続するポート番号")
-(defvar skk-bayesian-host "localhost"
-  "*`skk-bayesian-prefer-server'が non-nil の時に接続するホスト")
-(defvar skk-bayesian-context-len 20 "*学習や予測に使用する、変換語の直前の文字数")
-(defvar skk-bayesian-history-file "~/.skk-bayesian" "*history file")
-(defvar skk-bayesian-debug nil "*デバッグ用のメッセージを表示")
-(defvar skk-bayesian-max-commands-to-wait-for 15
-  "*確定の後に`skk-bayesian-max-commands-to-wait-for'回のコマンド
+そうでなければ、bskk をサブプロセスとして立ち上げる。"
+  :type 'boolean
+  :group 'skk-bayesian)
+
+(defcustom skk-bayesian-port 51178
+  "*`skk-bayesian-host'に接続するポート番号。
+サーバに接続するには`skk-bayesian-prefer-server'が non-nil である必要がある。"
+  :type 'integer
+  :group 'skk-bayesian)
+
+(defcustom skk-bayesian-host "localhost"
+  "*`skk-bayesian-prefer-server'が non-nil の時に接続するホスト名。"
+  :type 'string
+  :group 'skk-bayesian)
+
+(defcustom skk-bayesian-context-len 20
+  "*学習や予測に使用する、変換語の直前の文字数。"
+  :type 'integer
+  :group 'skk-bayesian)
+
+(defcustom skk-bayesian-history-file (convert-standard-filename
+                                      "~/.skk-bayesian")
+  "*履歴を記録するファイル名。
+`skk-bayesian-prefer-server'が non-nil の時にのみ使用される。"
+  :type 'file
+  :group 'skk-bayesian)
+
+(defcustom skk-bayesian-debug nil
+  "*non-nil ならばデバッグ用のメッセージを表示する。"
+  :type 'boolean
+  :group 'skk-bayesian)
+
+(defcustom skk-bayesian-max-commands-to-wait-for 15
+  "*確定語を学習するまでに待つコマンドの数。
+確定の後に`skk-bayesian-max-commands-to-wait-for'回のコマンド
 のうちに確定語(送り仮名を含む)が変更されなければ、その確定語を保存
 する。`skk-bayesian-max-commands-to-wait-for'が0以下ならば、確定後、
-直ちに履歴に保存する。")
+直ちに履歴に保存する。"
+  :type 'integer
+  :group 'skk-bayesian)
 
-;; global variables
-(defvar skk-bayesian-last-context nil "*確定語の直前の文字列")
-(defvar skk-bayesian-number-of-command-after-kakutei 0 "*確定後のコマンドの回数")
-(defvar skk-bayesian-pending-data-alist nil);; non-nil なら、pending 中
+(defcustom skk-bayesian-corpus-make nil
+  "*nin-nil ならば、corpus を `skk-bayesian-corpus-file' に作成する。"
+  :type 'boolean
+  :group 'skk-bayesian)
+
+(defcustom skk-bayesian-corpus-file (convert-standard-filename "~/.skk-corpus")
+  "*corpus を保存するファイル。"
+  :type 'file
+  :group 'skk-bayesian)
+
+;; internal variables
+(defvar skk-bayesian-last-context nil "*確定語の直前の文字列。")
+(defvar skk-bayesian-number-of-command-after-kakutei 0
+  "*前回の確定から現在までのコマンドの回数。")
+(defvar skk-bayesian-pending-data-alist nil "*non-nil ならば pending 中。")
 (defvar skk-bayesian-process nil)
+(defvar skk-bayesian-corpus-buffer nil)
+(defvar skk-bayesian-corpus-last-sorted-entry nil
+  "*前回 skk-bayesian-search で返した entry")
 
 ;; constants
 (defconst skk-bayesian-command-sort "#sort\n")
 (defconst skk-bayesian-command-add "#add\n")
 (defconst skk-bayesian-command-save "#save\n")
 (defconst skk-bayesian-coding-system 'euc-jp)
+(defconst skk-bayesian-corpus-buffer-name " *skk-corpus*")
 
+
+;;;
+;;; functions
+;;;
 (defmacro skk-bayesian-debug-message (STRING &rest ARGS)
   `(if skk-bayesian-debug
        (message ,STRING ,@ARGS)))
@@ -134,7 +187,7 @@
   (word okurigana midasi buffer henkan-point context)
   (setq skk-bayesian-pending-data-alist
         (if (and word midasi buffer henkan-point context)
-            ;; 特に henkan-point が nil になりやすい。
+            ;; 特に henkan-point が nil になり易いようだ。
             ;; okurigana は、nil でもよい。
             (list (cons 'word word)
                   (cons 'okurigana okurigana)
@@ -227,25 +280,35 @@
              (concat skk-bayesian-command-sort entry-str
                      "\n" context "\n")))
       ;; send debugging messages
-      (skk-bayesian-debug-message "search: entry-str=%s" entry-str)
-      (skk-bayesian-debug-message "search: context=%s" context)
-      (skk-bayesian-debug-message "search: sorted-entry=%s" sorted-entry)
+      (skk-bayesian-debug-message "Search: entry-str=%s" entry-str)
+      (skk-bayesian-debug-message "Search: context=%s" context)
+      (skk-bayesian-debug-message "Search: sorted-entry=%s" sorted-entry)
       ;; return sorted-entry or entry
       (if (and sorted-entry
                (listp sorted-entry))
           (progn
-            (setq skk-bayesian-last-context context)
+            (setq skk-bayesian-last-context context
+                  skk-bayesian-corpus-last-sorted-entry sorted-entry)
             sorted-entry)
         entry))))
 
 (defun skk-bayesian-update (henkan-buffer midasi okurigana word purge)
   (when skk-bayesian-last-context ;; entry の要素が 1 の時は、nil
+    (if (and skk-bayesian-corpus-make
+             skk-bayesian-corpus-last-sorted-entry
+             (not (string= word (car skk-bayesian-corpus-last-sorted-entry))))
+        ;; 第一候補が間違いだった時
+        (skk-bayesian-corpus-append 'bad-inference 
+                                    skk-bayesian-last-context 
+                                    midasi
+                                    okurigana
+                                    (car skk-bayesian-corpus-last-sorted-entry)))
     (add-hook 'post-command-hook 'skk-bayesian-check-modification-after-kakutei)
     (if skk-bayesian-pending-data-alist
         ;; pending していたのを保存
         (skk-bayesian-add-to-history))
     ;; pending 開始
-    (skk-bayesian-debug-message "update: pending... word=%s" word)
+    (skk-bayesian-debug-message "Update: pending... word=%s" word)
     (setq skk-bayesian-number-of-command-after-kakutei -1);; 確定に1回かかるので-1
     (skk-bayesian-make-pending-data-alist
      word 
@@ -297,15 +360,22 @@
              (context (skk-bayesian-get-pending-data-alist 'context)))
         ;; kakutei-word が変更されているか
         (if (not (string= current-word kakutei-with-okuri))
-            (skk-bayesian-debug-message "add: kakutei-word has been modified")
-          (skk-bayesian-debug-message "add: context=%s" context)
-          (skk-bayesian-debug-message "add: kakutei-word=%s" kakutei-word)
+            (progn
+              (skk-bayesian-debug-message "Add: kakutei-word has been modified")
+              (if skk-bayesian-corpus-make
+                  (skk-bayesian-corpus-append 'modified context midasi okurigana
+                                              kakutei-word)))
+          (skk-bayesian-debug-message "Add: context=%s" context)
+          (skk-bayesian-debug-message "Add: kakutei-word=%s" kakutei-word)
           (if (skk-bayesian-read-process-output
                (concat skk-bayesian-command-add
                        kakutei-word "\n"
                        context "\n"))
-              (skk-bayesian-debug-message "add: done")
-            (skk-bayesian-debug-message "add: failed")))))
+              (skk-bayesian-debug-message "Add: done")
+            (skk-bayesian-debug-message "Add: failed"))
+          (if skk-bayesian-corpus-make
+              (skk-bayesian-corpus-append 'positive context midasi okurigana
+                                          kakutei-word)))))
     (setq skk-bayesian-pending-data-alist nil)))
 
 (defun skk-bayesian-save-history ()
@@ -336,9 +406,10 @@
                        (open-network-stream proc-name
                                             proc-buf
                                             skk-bayesian-host skk-bayesian-port)
-                     (error (skk-bayesian-debug-message "Error: %s\n%s"
-                                                        (error-message-string err)
-                                                        "run bskk as a sub process")
+                     (error (skk-bayesian-debug-message
+                             "Error: %s\n%s"
+                             (error-message-string err)
+                             "Running bskk as a sub process")
                             nil)))
               (if skk-bayesian-debug
                   (start-process proc-name
@@ -350,8 +421,11 @@
                                proc-buf
                                "ruby" "-S" "bskk" "-f"
                                skk-bayesian-history-file))))
-    (skk-message "プロセス bskk を起動しています...完了"
-                 "Launching a process, bskk...done"))
+    (if skk-bayesian-process
+        (skk-message "プロセス bskk を起動しています...完了"
+                     "Launching a process, bskk...done")
+      (skk-message "プロセス bskk を起動しています...失敗"
+                   "Launching a process, bskk...failed")))
   (set-process-coding-system skk-bayesian-process
                              skk-bayesian-coding-system
                              skk-bayesian-coding-system)
@@ -386,8 +460,54 @@
 (add-hook 'skk-before-kill-emacs-hook 
           (function (lambda ()
                       (skk-bayesian-save-history)
+                      (skk-bayesian-corpus-save)
                       (skk-bayesian-kill-process))))
 
 (skk-bayesian-init)
+
+
+;;;
+;;; functions for skk-bayesian-corpus
+;;;
+(defun skk-bayesian-corpus-init ()
+  (unless (buffer-live-p skk-bayesian-corpus-buffer)
+    (setq skk-bayesian-corpus-buffer
+          (get-buffer-create skk-bayesian-corpus-buffer-name)) ))
+
+(defun skk-bayesian-corpus-append (flag context midasi okurigana word)
+  ;; called by `skk-bayesian-add-to-history'
+  ;; if flag is non-nil then append data as positive data
+  ;; otherwise append data as negative data
+  (when (and context midasi word) ;; okurigana can be nil
+    (skk-bayesian-corpus-init)
+    (with-current-buffer skk-bayesian-corpus-buffer
+      (goto-char (point-max))
+      (insert (concat (cond
+                       ((eq flag 'positive) "+")
+                       ((eq flag 'modified) "m")
+                       ((eq flag 'bad-inference) "-")
+                       (t (error (concat "Error; invalid flag=" 
+                                         (prin1-to-string flag)))))
+                      midasi " ["
+                      okurigana "/"
+                      word "/]"
+                      context "\n")))))
+
+(defun skk-bayesian-corpus-save ()
+  "Save corpus to `skk-bayesian-corpus-file'."
+  (interactive)
+  (if (let ((attrs (file-attributes skk-bayesian-corpus-file)))
+        (or (not attrs) ;; ファイルが存在しなければ、attrs は、nil
+            (eq (nth 8 attrs) 0))) ;; ファイルサイズが 0
+      (with-temp-buffer
+        (insert ";; + means positive and - means negative.
+;; However, in some cases, negative data would be correct `henkan'
+;; because we might delete correct henkan.")
+        (write-file skk-bayesian-corpus-file)))
+  (when skk-bayesian-corpus-buffer
+    (with-current-buffer skk-bayesian-corpus-buffer
+      (write-region (point-min) (point-max) skk-bayesian-corpus-file 'append)
+      (delete-region (point-min) (point-max)))))
+
 
 ;;; skk-bayesian.el ends here
