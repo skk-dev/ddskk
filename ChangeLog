@@ -1,5 +1,9 @@
 2001-10-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-isearch.el
+	(isearch-message-prefix): Bind `current-input-method' nil when
+	`skk-isearch-swtich' is on.
+
 	* skk.el
 	(skk-latin-mode)
 	(skk-toggle-characters)
@@ -2386,8 +2390,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.475 2001/10/13 10:23:39 czkmt Exp $
-Last Modified: $Date: 2001/10/13 10:23:39 $
+Version: $Id: ChangeLog,v 1.476 2001/10/13 11:44:46 czkmt Exp $
+Last Modified: $Date: 2001/10/13 11:44:46 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
