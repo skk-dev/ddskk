@@ -3,6 +3,7 @@
 	* Makefile (clean): No, don't skk-dic.el.
 
 	* SKK-MK: Keep skk-dic.el.
+	(SKK-MK-skk-dic): Check if JISYO is newer than skk-dic.el.
 
 2001-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1994,8 +1995,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.410 2001/09/16 09:21:23 czkmt Exp $
-Last Modified: $Date: 2001/09/16 09:21:23 $
+Version: $Id: ChangeLog,v 1.411 2001/09/16 09:28:41 czkmt Exp $
+Last Modified: $Date: 2001/09/16 09:28:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

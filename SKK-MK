@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.85 2001/09/16 09:21:24 czkmt Exp $
-;; Last Modified: $Date: 2001/09/16 09:21:24 $
+;; Version: $Id: SKK-MK,v 1.86 2001/09/16 09:28:41 czkmt Exp $
+;; Last Modified: $Date: 2001/09/16 09:28:41 $
 
 ;; Commentary
 ;;
@@ -481,8 +481,7 @@ Try ddskk-e18 branch."))
 
 (defun SKK-MK-compile ()
   (let (enable-local-eval)
-    (unless (file-exists-p (expand-file-name "skk-dic.el"))
-      (SKK-MK-skk-dic))
+    (SKK-MK-skk-dic)
     (SKK-MK-generate-autoloads-el)
     (require 'skk-autoloads
 	     (expand-file-name "skk-autoloads.el"))
@@ -501,8 +500,7 @@ Try ddskk-e18 branch."))
 	   (SKK-MK-texinfo-format SKK_TEXIS))))
 
 (defun SKK-MK-compile-package ()
-  (unless (file-exists-p (expand-file-name "skk-dic.el"))
-    (SKK-MK-skk-dic))
+  (SKK-MK-skk-dic)
   (SKK-MK-generate-autoloads-el-package)
   (require 'skk
 	   (expand-file-name "skk.el"))
@@ -1038,8 +1036,16 @@ SKK tutorials:
 		 ((file-readable-p jisyo2)
 		  jisyo2)
 		 ((file-readable-p jisyo3)
-		  jisyo3))))
+		  jisyo3)))
+	 (skk-dic (expand-file-name "skk-dic.el")))
     (cond
+     ((and jisyo
+	   (file-exists-p skk-dic)
+	   (file-newer-than-file-p skk-dic jisyo))
+      (princ (format "No need to update %s
+"
+		     skk-dic))
+      nil)
      (jisyo
       (princ (format "Processing %s...
 "
