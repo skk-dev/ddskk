@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.81 2002/01/27 02:07:18 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.82 2002/02/09 03:55:24 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/27 02:07:18 $
+;; Last Modified: $Date: 2002/02/09 03:55:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -88,6 +88,9 @@ the return value (nil if RESULT is omitted)."
 	     nil))))
 
 (defmacro skk-defadvice (function &rest everything-else)
+  "Defines a piece of advice for FUNCTION (a symbol).
+This is like `defadvice', but warns if FUNCTION is a subr command and advice
+doesn't give arguments of `interactive'. See `interactive' for details."
   (let ((origfunc (and (fboundp function)
 		       (if (ad-is-advised function)
 			   (ad-get-orig-definition function)
@@ -144,9 +147,10 @@ the return value (nil if RESULT is omitted)."
 (def-edebug-spec skk-save-point t)
 
 (defmacro skk-message (japanese english &rest arg)
-  ;; skk-japanese-message-and-error が non-nil だったら JAPANESE を
-  ;; nil であれば ENGLISH をエコーエリアに表示する。
-  ;; ARG は message 関数の第２引数以降の引数として渡される。
+  "メッセージを表示する。
+`skk-japanese-message-and-error' が non-nil だったら JAPANESE を nil であれば
+ENGLISH をエコーエリアに表示する。ARG は `message' 関数の第２引数以降の引数と
+して渡される。"
   (append
    (if arg
        (list 'message (list 'if
@@ -160,9 +164,10 @@ the return value (nil if RESULT is omitted)."
    arg))
 
 (defmacro skk-error (japanese english &rest arg)
-  ;; skk-japanese-message-and-error が non-nil だったら JAPANESE を
-  ;; nil であれば ENGLISH をエコーエリアに表示し、エラーを発生させる。
-  ;; ARG は error 関数の第２引数以降の引数として渡される。
+  "メッセージを表示して、エラーを発生させる。
+`skk-japanese-message-and-error' が non-nil だったら JAPANESE を nil であれば
+ENGLISH をエコーエリアに表示し、エラーを発生させる。 ARG は `error' 関数の第
+２引数以降の引数として渡される。"
   (append
    (if arg
        (list 'error (list 'if
@@ -176,24 +181,28 @@ the return value (nil if RESULT is omitted)."
    arg))
 
 (defmacro skk-yes-or-no-p (japanese english)
-  ;; skk-japanese-message-and-error が non-nil であれば、japanese を
-  ;; nil であれば english をプロンプトとして yes-or-no-p を実行する。
-  ;; yes-or-no-p の引数のプロンプトが複雑に入れ込んでいる場合はこの
-  ;; マクロを使うよりオリジナルの yes-or-no-p を使用した方がコードが
-  ;; 複雑にならない場合がある。
-  (list 'yes-or-no-p (list 'if 'skk-japanese-message-and-error
+  "ユーザに yes-or-no の質問をし、答えが yes だったら t を返す。
+`skk-japanese-message-and-error' が non-nil であれば JAPANESE を nil であれ
+ば ENGLISH をプロンプトとして `yes-or-no-p' を実行する。
+`yes-or-no-p' の引数のプロンプトが複雑に入れ込んでいる場合はこのマクロを使う
+よりオリジナルの `yes-or-no-p' を使用した方がコードが複雑にならない場合があ
+る。"
+ (list 'yes-or-no-p (list 'if 'skk-japanese-message-and-error
 				   japanese english)))
 
 (defmacro skk-y-or-n-p (japanese english)
-  ;; skk-japanese-message-and-error が non-nil であれば、japanese を
-  ;; nil であれば english をプロンプトとして y-or-n-p を実行する。
+  "ユーザに \"y or n\" の質問をし、答えが \y\" だったら t を返す。
+`skk-japanese-message-and-error' が non-nil であれば JAPANESE を nil であれ
+ば ENGLISH をプロンプトとして `y-or-n-p' を実行する。"
   (list 'y-or-n-p (list 'if 'skk-japanese-message-and-error
 				japanese english)))
 
 (defmacro skk-set-marker (marker position &optional buffer)
-  ;; バッファローカル値である skk-henkan-start-point, skk-henkan-end-point,
-  ;; skk-kana-start-point, あるいは skk-okurigana-start-point が nil だったら、
-  ;; 新規マーカーを作って代入する。
+  "マーカ MARKER を BUFFER の POSITION に移動する。
+詳細は `set-marker' を参照。
+バッファローカル値である `skk-henkan-start-point', `skk-henkan-end-point',
+`skk-kana-start-point', あるいは `skk-okurigana-start-point' が nil だったら、
+新規マーカーを作って代入する。"
   (list 'progn
 	(list 'if (list 'not marker)
 	      (list 'setq marker (list 'make-marker)))
@@ -202,14 +211,15 @@ the return value (nil if RESULT is omitted)."
 ;; From viper-util.el.  Welcome!
 ;;;###autoload
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
-(defmacro skk-deflocalvar (var default-value &optional documentation)
+(defmacro skk-deflocalvar (symbol initvalue &optional docstring)
+  "Define SYMBOL as a variable and make it buffer local."
   `(progn
-     (defvar ,var ,default-value
-       ,(format "%s\n\(buffer local\)" documentation))
-     (make-variable-buffer-local ',var)))
+     (defvar ,symbol ,initvalue
+       ,(format "%s\n\(buffer local\)" docstring))
+     (make-variable-buffer-local ',symbol)))
 
 (defmacro skk-with-point-move (&rest form)
-  ;; ポイントを移動するがフックを実行してほしくない場合に使う。
+  "ポイントを移動するがフックを実行してほしくない場合に使う。"
   `(unwind-protect
        (progn
 	 ,@form)
@@ -252,12 +262,13 @@ the return value (nil if RESULT is omitted)."
 
 ;;;###autoload
 (put 'skk-loop-for-buffers 'lisp-indent-function 1)
-(defmacro skk-loop-for-buffers (buffers &rest forms)
+(defmacro skk-loop-for-buffers (buffers &rest body)
+  "BUFFERS が指定する各バッファに移動して BODY を実行する。"
   `(save-current-buffer
      (dolist (buf ,buffers)
        (when (buffer-live-p buf)
 	 (set-buffer buf)
-	 ,@forms))))
+	 ,@body))))
 
 ;;(defun-maybe mapvector (function sequence)
 ;; "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
@@ -277,6 +288,7 @@ the return value (nil if RESULT is omitted)."
 ;;;; INLINE FUNCTIONS.
 ;;; version dependent
 (defsubst skk-sit-for (seconds &optional nodisplay)
+  "`sit-for' の Emacsen による違いを吸収する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (sit-for seconds  nodisplay))
@@ -284,6 +296,7 @@ the return value (nil if RESULT is omitted)."
     (sit-for seconds nil nodisplay))))
 
 (defsubst skk-ding (&optional arg sound device)
+  "`ding' の Emacsen による違いを吸収する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
      (ding arg sound device))
@@ -332,6 +345,7 @@ the return value (nil if RESULT is omitted)."
     (charsetp object))))
 
 (defsubst skk-indicator-to-string (indicator &optional no-properties)
+  "SKK インジケータ型オブジェクト INDICATOR を文字列に変換する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (if (stringp indicator)
@@ -347,6 +361,7 @@ the return value (nil if RESULT is omitted)."
     indicator)))
 
 (defsubst skk-mode-string-to-indicator (mode string)
+  "文字列 STRING を SKK インジケータ型オブジェクトに変換する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (cons (cdr (assq mode skk-xemacs-extent-alist))
@@ -378,6 +393,7 @@ BUFFER defaults to the current buffer."
     nil)))
 
 (defsubst skk-event-key (event)
+  "イベント EVENT を発生した入力の情報を取得する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (let ((tmp (event-key event)))
@@ -473,10 +489,10 @@ BUFFER defaults to the current buffer."
   (assq char (skk-get-branch-list tree)))
 
 (defsubst skk-erase-prefix (&optional clean)
-  ;; skk-echo が non-nil であればカレントバッファに挿入された skk-prefix を消
-  ;; す。オプショナル引数の CLEAN が指定されると、変数としての skk-prefix を
-  ;; null 文字に、skk-current-rule-tree を nil 初期化する。
-  ;;
+  "`skk-echo' が非 nil であれば現在のバッファに挿入された `skk-prefix' を消す。
+オプション引数の CLEAN が指定されると、変数としての `skk-prefix' を空文字に、
+`skk-current-rule-tree' を nil に初期化する。"
+
   ;; かな文字の入力がまだ完成していない場合にこの関数が呼ばれたときなどは、バッ
   ;; ファに挿入されている skk-prefix は削除したいが、変数としての skk-prefix は
   ;; null 文字にしたくない。
@@ -530,7 +546,7 @@ BUFFER defaults to the current buffer."
        (file-writable-p file)))
 
 (defsubst skk-lower-case-p (char)
-  ;; CHAR が小文字のアルファベットであれば、t を返す。
+  "CHAR が小文字のアルファベットであれば、t を返す。"
   (and (<= ?a char)
        (>= ?z char)))
 
@@ -614,11 +630,11 @@ BUFFER defaults to the current buffer."
   (skk-cursor-set))
 
 (defsubst skk-in-minibuffer-p ()
-  ;; カレントバッファがミニバッファかどうかをチェックする。
+  "カレントバッファがミニバッファかどうかをチェックする。"
   (eq (current-buffer) (window-buffer (minibuffer-window))))
 
 (defsubst skk-insert-prefix (&optional char)
-  ;; skk-echo が non-nil であればカレントバッファに skk-prefix を挿入する。
+  "`skk-echo' が non-nil であればカレントバッファに `skk-prefix' を挿入する。"
   (when skk-echo
     ;; skk-prefix の挿入をアンドゥの対象としない。挿入したプレフィックスは、
     ;; かな文字を挿入する前に全て消去するので、その間、buffer-undo-list を
@@ -627,12 +643,12 @@ BUFFER defaults to the current buffer."
      (insert-and-inherit (or char skk-prefix)))))
 
 (defsubst skk-string<= (str1 str2)
-  ;; STR1 と STR2 とを比較して、string< か string= であれば、t を返す。
+  "STR1 と STR2 とを比較して、string< か string= であれば、t を返す。"
   (or (string< str1 str2)
       (string= str1 str2)))
 
 (defsubst skk-do-auto-fill ()
-  ;; auto-fill-function に値が代入されていれば、それをコールする。
+  "`auto-fill-function' に値が代入されていれば、それをコールする。"
   (when auto-fill-function
     (funcall auto-fill-function)))
 
@@ -667,7 +683,7 @@ BUFFER defaults to the current buffer."
 	((numberp arg) (list arg))))
 
 (defsubst skk-unread-event (event)
-  ;; Unread single EVENT.
+  "Unread single EVENT."
   (setq unread-command-events
 	(nconc unread-command-events (list event))))
 
@@ -702,7 +718,7 @@ BUFFER defaults to the current buffer."
 	 (cdr (assoc "euc" skk-coding-system-alist)))))
 
 (defsubst skk-lisp-prog-p (string)
-  ;; STRING が Lisp プログラムであれば、t を返す。
+  "STRING が Lisp プログラムであれば、t を返す。"
   (let ((l (length string)))
     (and (> l 2)
 	 (eq (aref string 0) ?\()
@@ -711,7 +727,7 @@ BUFFER defaults to the current buffer."
 	 (eq (aref string (1- l)) ?\)))))
 
 (defsubst skk-eval-string (string)
-  ;; eval STRING as a lisp program and return the result.
+  "Eval STRING as a lisp program and return the result."
   (let (func)
     ;; (^_^;) のような文字列に対し、read-from-string を呼ぶと
     ;; エラーになるので、condition-case でそのエラーを捕まえる。
@@ -739,6 +755,10 @@ BUFFER defaults to the current buffer."
    (append word nil) ""))
 
 (defsubst skk-key-binding-member (key commands &optional map)
+  "入力 KEY が発動するコマンドが、COMMANDS に含まれれば 非 nil を返す。
+MAP は入力が書かれているキーマップを指定するが、指定されなければ
+`skk-j-mode-map' を参照する。
+この関数は、入力 KEY が `lookup-key' で探せない形式でありうる場合に用いる。"
   (let (keys)
     (unless map
       (setq map skk-j-mode-map))
