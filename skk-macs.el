@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.25 2001/05/18 21:55:40 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.26 2001/05/18 22:05:18 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/18 21:55:40 $
+;; Last Modified: $Date: 2001/05/18 22:05:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -221,8 +221,6 @@
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (eq (device-class (selected-device)) 'color))
-   ;; Emacs 21 or later.
-   ((eq emacs-major-version 21) t)
    ((fboundp 'x-display-color-p)
     ;; Emacs 19 or later.
     (and window-system (x-display-color-p)))))
