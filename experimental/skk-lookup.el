@@ -3,9 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.4 1999/09/28 15:35:48 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.5 1999/09/29 12:29:21 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/28 15:35:48 $
+;; Created: Sep. 23, 1999
+;; Last Modified: $Date: 1999/09/29 12:29:21 $
 
 ;; This file is not part of SKK yet.
 
@@ -26,8 +27,20 @@
 
 ;;; Commentary
 ;;
-;; 次のように skk-search-prog-list に加えて指定し使用する。skkserv を
-;; 使用した検索の後に持ってくるのがセオリー。
+;; skk.el にある kill-buffer の advice を次のものと入れ替えインストー
+;; ルし直す必要がある。
+;;
+;; (defadvice kill-buffer (around skk-ad activate)
+;;   "SKK の▼モードだったら、確定してからバッファをキルする。
+;;   バッファのキル後、SKK のモードに従いカーソルの色を変える。"
+;;   (and skk-mode skk-henkan-on (interactive-p) (skk-kakutei))
+;;   ad-do-it
+;;   ;; 別のバッファへ飛ぶコマンドは skk-mode が nil でもカーソル色を調整する必要
+;;   ;; がある。
+;;   (skk-set-cursor-properly) )
+;;
+;; 次のように skk-search-prog-list に加えて指定し使用する。
+;; skk-seach-server の検索の後に持ってくるのがセオリー。
 ;; 
 ;;  (setq skk-search-prog-list
 ;;        '((skk-search-jisyo-file skk-jisyo 0 t)
@@ -41,6 +54,11 @@
 ;;    広辞苑　第四版             かめ【亀】
 ;;    広辞苑　第四版             カメ
 ;; 
+;; つまり前提としている条件は次の 2 点。
+;;
+;;   (1)見出し語に対する候補は`【'と`】'でくくられている。
+;;   (2)複数の候補があったときは、`・' で連接されている。
+;;
 ;;; Code:
 (eval-when-compile (require 'skk))
 (require 'lookup)
@@ -50,7 +68,8 @@
   :group 'skk )
 
 (defcustom skk-lookup-pickup-pattern "【\\(.+\\)】$"
-  "*候補抽出のための regexp。"
+  "*候補抽出のための regexp。
+\(match-string 1\) で候補が取り出せるように指定する。"
   :type 'regexp
   :group 'skk-lookup )
 
@@ -59,67 +78,42 @@
   :type 'regexp
   :group 'skk-lookup )
 
-(put 'skk-lookup-start-session 'lisp-indent-function 2)
-(eval-after-load "edebug" '(def-edebug-spec skk-lookup-start-session t))
-
-(defmacro skk-lookup-start-session (module type &rest body)
-  ;; like skk-lookup-start-session but returns of body's value.
-  (` (unwind-protect
-	 (let ((lookup-current-session (lookup-make-session (, module) (, type))))
-	   (prog2
-	       (lookup-module-setup (, module))
-	       (,@ body)
-	     (unless (eq lookup-last-session lookup-current-session)
-	       (lookup-open-session) )))
-       ;; セッションの途中でエラーが発生したときは最後のセッションに戻す。
-       (setq lookup-current-session lookup-last-session) )))
-
 ;;;###autoload
 (defun skk-lookup-search ()
-  (current-buffer)
-  (save-window-excursion
-    (with-current-buffer
-	(let ((module (lookup-default-module)))
-	  ;; Is it really necessary only to get headings?
-	  (setq lookup-search-pattern skk-henkan-key)
-	  (skk-lookup-start-session module 'lookup-search-session
-	    (let ((query (lookup-make-query 'exact skk-henkan-key))
-		  (lookup-search-found)
-		  heading kouho v )
-	      (lookup-foreach
-	       (lambda (dictionary)
-		 (when (and (lookup-dictionary-selected-p dictionary)
-			    (setq entries (lookup-vse-search-query dictionary query)) )
-		   ;; Is it really necessary only to get headings?
-		   (current-buffer)
-		   (if lookup-search-found
-		       (lookup-entry-append lookup-current-session entries)
-		     (setq lookup-search-found t)
-		     (lookup-session-set-query lookup-current-session query)
-		     (lookup-session-set-entries lookup-current-session entries)
-		     (if lookup-last-session
-			 (lookup-session-save-excursion lookup-last-session))
-		     ;;(funcall (lookup-session-ref session 'display) session)
-		     (setq lookup-current-session lookup-current-session
-			   lookup-last-session lookup-current-session )
-		     (lookup-history-push (lookup-module-history
-					   (lookup-session-module lookup-current-session))
-					  lookup-current-session ))
-		   (current-buffer)
-		   (lookup-foreach
-		    (lambda (entry)
-		      (setq heading (lookup-entry-heading entry))
-		      (when (string-match skk-lookup-pickup-pattern heading)
-			(setq kouho (match-string 1 heading))
-			(if (not skk-lookup-split-pattern)
-			    (setq v (cons kouho (delete kouho v)))
-			  (lookup-foreach
-			   (lambda (k) (setq v (cons k (delete k v))))
-			   (split-string kouho skk-lookup-split-pattern) ))))
-		    entries )))
-	       (lookup-module-dictionaries module) )
-	      (current-buffer)
-	      v ))))))
+  (save-excursion
+    (save-match-data
+      (setq lookup-search-pattern 
+	    (if skk-use-numeric-conversion
+		(skk-num-compute-henkan-key skk-henkan-key)
+	      skk-henkan-key ))
+      (let ((module (lookup-default-module))
+	    (query (lookup-make-query 'exact skk-henkan-key))
+	    entries heading candidates-string candidates-list )
+	(lookup-module-setup module)
+	(lookup-foreach
+	 (lambda (dictionary)
+	   (when (and (lookup-dictionary-selected-p dictionary)
+		      (memq 'exact (lookup-dictionary-methods dictionary))
+		      (setq entries (lookup-vse-search-query dictionary query)) )
+	     (lookup-foreach
+	      (lambda (entry)
+		;; heading しか取り出さないのはもったいない？  他にも
+		;; 情報を取り出しておいて、必要に応じて参照するか？
+		(setq heading (lookup-entry-heading entry))
+		(when (string-match skk-lookup-pickup-pattern heading)
+		  (setq candidates-string (match-string 1 heading))
+		  (if (not skk-lookup-split-pattern)
+		      (setq candidates-list
+			    (cons candidates-string
+				  (delete candidates-string candidates-list) ))
+		    (lookup-foreach
+		     (lambda (k)
+		       (setq candidates-list
+			     (cons k (delete k candidates-list)) ))
+		     (split-string candidates-string skk-lookup-split-pattern) ))))
+	      entries )))
+	 (lookup-module-dictionaries module) )
+	candidates-list ))))
 
 (provide 'skk-lookup)
 ;;; Local Variables:
