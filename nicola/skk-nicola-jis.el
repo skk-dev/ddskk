@@ -208,6 +208,8 @@
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-nicola-jis) (require 'skk-version))
+(product-provide
+    (provide 'skk-nicola-jis)
+  (require 'skk-version))
 
 ;; skk-nicola-jis.el ends here

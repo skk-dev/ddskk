@@ -208,6 +208,8 @@ ANSI Dvorak 配列キーボードで omelet 入力するための基本ルール。")
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-omelet-dvorak) (require 'skk-version))
+(product-provide
+    (provide 'skk-omelet-dvorak)
+  (require 'skk-version))
 
 ;; skk-omelet.el ends here

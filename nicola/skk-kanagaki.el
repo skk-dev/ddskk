@@ -307,7 +307,8 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	 (skk-set-marker skk-henkan-end-point (point))
 	 (setq skk-henkan-count 0
 	       skk-henkan-key (buffer-substring-no-properties
-			       skk-henkan-start-point (point))
+			       skk-henkan-start-point
+			       (point))
 	       skk-prefix "")
 	 (skk-henkan))))
 
@@ -330,10 +331,12 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
       (skk-kanagaki-previous-candidate-key . "$BA08uJdI=<((B")
       (skk-kanagaki-start-henkan-key . "$BJQ49!&<!8uJdI=<((B"))
     (list
-     (cons (format "M-x help %s" skk-kanagaki-help-key) "$B$3$N%X%k%W$rI=<((B"))
+     (cons (format "M-x help %s" skk-kanagaki-help-key)
+	   "$B$3$N%X%k%W$rI=<((B"))
     ;;
     (list
-     (do ((spec (nth 4 skk-kanagaki-rule-tree) (cdr spec))
+     (do ((spec (nth 4 skk-kanagaki-rule-tree)
+		(cdr spec))
 	  (list nil (car spec))
 	  (str nil (when (memq
 			  (nth 3 list)
@@ -359,12 +362,13 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 (defun skk-kanagaki-insert (&optional arg)
   "SPC $B%-!<$@$1$3$l$r(B `skk-insert' $B$NBe$o$j$K;H$&!#(B"
   (interactive "*p")
-  (cond ((eq arg 1)
-	 (let ((last-command-char ?\ ))
-	   (skk-insert arg)))
-	(t
-	 ;; C-u [SPC] $B$GAw$j$"$jJQ49$r$9$k!#(B
-	 (skk-kanagaki-set-okurigana-no-sokuon t))))
+  (cond
+   ((eq arg 1)
+    (let ((last-command-char ?\ ))
+      (skk-insert arg)))
+   (t
+    ;; C-u [SPC] $B$GAw$j$"$jJQ49$r$9$k!#(B
+    (skk-kanagaki-set-okurigana-no-sokuon t))))
 
 ;;;###autoload
 (defun skk-kanagaki-set-okurigana (&optional no-sokuon)
@@ -377,29 +381,39 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	  (skk-save-point
 	    ;; $B$&$&!"$3$s$J$3$H$r$7$J$1$l$P$J$i$J$$$N$+(B...
 	    (backward-char 1)
-	    (buffer-substring-no-properties (setq pt2 (point)) pt1)))
+	    (buffer-substring-no-properties
+	     (setq pt2 (point))
+	     pt1)))
     (when okuri
       (unless no-sokuon
 	(setq sokuon
 	      (skk-save-point
 		(backward-char 2)
-		(buffer-substring-no-properties (point) pt2)))
+		(buffer-substring-no-properties
+		 (point)
+		 pt2)))
 	(unless (member sokuon '("$B$C(B" "$B%C(B"))
 	  (setq sokuon nil)))
       ;;
       (skk-save-point
 	(backward-char (if sokuon 2 1))
-	(skk-set-marker skk-okurigana-start-point (point)))
+	(skk-set-marker skk-okurigana-start-point
+			(point)))
       (setq skk-okuri-char (skk-okurigana-prefix okuri))
       (unless skk-current-search-prog-list
-	(setq skk-current-search-prog-list skk-search-prog-list))
+	(setq skk-current-search-prog-list
+	      skk-search-prog-list))
       (skk-set-okurigana))))
 
 ;;;###autoload
 (defun skk-kanagaki-set-okurigana-no-sokuon (&optional arg)
   "$B%]%$%s%H$ND>A0$NJ8;z$rAw$j2>L>$H8+Jo$7$F!"JQ49$r3+;O$9$k!#(B"
   (interactive "*p")
-  (skk-kanagaki-set-okurigana (if (eq (prefix-numeric-value arg) 4) nil t)))
+  (skk-kanagaki-set-okurigana
+   (if (eq (prefix-numeric-value arg)
+	   4)
+       nil
+     t)))
 
 (defun skk-kanagaki-initialize ()
   "SKK $B5/F0;~$NE,Ev$J%?%$%_%s%0$G2>L>F~NOMQ$N@_Dj$r9T$&!#(B"
@@ -408,67 +422,96 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 
   ;; $BI,MW$J%b%8%e!<%k$r%m!<%I!#(B
   (when skk-kanagaki-keyboard-type
-    (require (intern (format "skk-%s" skk-kanagaki-keyboard-type))))
+    (require (intern
+	      (format "skk-%s"
+		      skk-kanagaki-keyboard-type))))
   ;; $B%-!<%P%$%s%I!#$?$@$7$3$l$O!"$h$jE,@Z$J%-!<Dj5A$r8+$D$1$k$^$G$N;CDjE*=hCV!#(B
   ;; $B$3$3$G8@$&!V$h$jE,@Z$J%-!<Dj5A!W$H$O!"F~NOJ}<0$K0MB8$9$k$?$a!"(BSKK $B$N=EMW(B
   ;; $B$J%-!<Dj5A$r%U%!%s%/%7%g%s%-!<$K;D$7$F$*$/$3$H$O!"<BMQ$N$?$a$h$j$b$`$7$m(B
   ;; $B;29M$N$?$a!#(B
   (dolist
       (cell
-       '((skk-kanagaki-set-henkan-point-key . skk-set-henkan-point-subr)
-	 (skk-kanagaki-abbrev-mode-key . skk-abbrev-mode)
-	 (skk-kanagaki-katakana-mode-key . skk-toggle-kana)
-	 (skk-kanagaki-latin-jisx0208-mode-key . skk-jisx0208-latin-mode)
-	 (skk-kanagaki-latin-mode-key . skk-latin-mode)
-	 (skk-kanagaki-code-input-key . skk-input-by-code-or-menu)
-	 (skk-kanagaki-toggle-rom-kana-key . skk-kanagaki-toggle-rom-kana)
-	 (skk-kanagaki-midashi-henkan-key . skk-kanagaki-midashi-henkan)
-	 (skk-kanagaki-previous-candidate-key . skk-previous-candidate)))
-    (when (and (symbol-value (car cell)) (commandp (cdr cell)))
+       '((skk-kanagaki-set-henkan-point-key
+	  . skk-set-henkan-point-subr)
+	 (skk-kanagaki-abbrev-mode-key
+	  . skk-abbrev-mode)
+	 (skk-kanagaki-katakana-mode-key
+	  . skk-toggle-kana)
+	 (skk-kanagaki-latin-jisx0208-mode-key
+	  . skk-jisx0208-latin-mode)
+	 (skk-kanagaki-latin-mode-key
+	  . skk-latin-mode)
+	 (skk-kanagaki-code-input-key
+	  . skk-input-by-code-or-menu)
+	 (skk-kanagaki-toggle-rom-kana-key
+	  . skk-kanagaki-toggle-rom-kana)
+	 (skk-kanagaki-midashi-henkan-key
+	  . skk-kanagaki-midashi-henkan)
+	 (skk-kanagaki-previous-candidate-key
+	  . skk-previous-candidate)))
+    (when (and (symbol-value (car cell))
+	       (commandp (cdr cell)))
       (define-key skk-j-mode-map
 	(symbol-value (car cell)) (cdr cell))))
   ;;
-  (let ((char (and (stringp skk-kanagaki-previous-candidate-key)
-		   (string-to-char skk-kanagaki-previous-candidate-key))))
-    (when (eq skk-previous-candidate-char ?x)
+  (let ((char
+	 (when (stringp skk-kanagaki-previous-candidate-key)
+	   (string-to-char skk-kanagaki-previous-candidate-key))))
+    (when (eq skk-previous-candidate-char
+	      ?x)
       ;; $B4{DjCM$N$^$^$G$"$k$H$-!"E,@Z$K@_Dj$9$k!#(B
-      (setq skk-previous-candidate-char (or char
-					    ;; C-p
-					    (int-char 16)))))
+      (setq skk-previous-candidate-char
+	    (or char
+		;; C-p
+		(int-char 16)))))
   ;;
-  (define-key help-map skk-kanagaki-help-key 'skk-kanagaki-help)
+  (define-key help-map
+    skk-kanagaki-help-key
+    'skk-kanagaki-help)
   ;;
   (eval-after-load "skk-jisx0201"
     '(when skk-kanagaki-hankaku-mode-key
-       (define-key skk-j-mode-map skk-kanagaki-hankaku-mode-key
+       (define-key skk-j-mode-map
+	 skk-kanagaki-hankaku-mode-key
 	 'skk-toggle-katakana)))
 
   ;;
-  (define-key skk-j-mode-map skk-kanagaki-start-henkan-key
+  (define-key skk-j-mode-map
+    skk-kanagaki-start-henkan-key
     'skk-kanagaki-insert)
   ;;
   (unless skk-kanagaki-base-rule-list
     (setq skk-kanagaki-base-rule-list
-	  (symbol-value (intern (format "skk-kanagaki-%s-base-rule-list"
-				       skk-kanagaki-keyboard-type)))))
+	  (symbol-value (intern
+			 (format
+			  "skk-kanagaki-%s-base-rule-list"
+			  skk-kanagaki-keyboard-type)))))
   (setq skk-kanagaki-rule-tree
 	(skk-compile-rule-list
-	 skk-kanagaki-base-rule-list skk-kanagaki-rule-list))
-  (setq skk-kanagaki-rom-kana-rule-tree skk-rule-tree)
+	 skk-kanagaki-base-rule-list
+	 skk-kanagaki-rule-list))
+  (setq skk-kanagaki-rom-kana-rule-tree
+	skk-rule-tree)
   ;;
-  (add-hook 'skk-mode-hook (function skk-kanagaki-adjust-rule-tree) t)
+  (add-hook 'skk-mode-hook
+	    (function skk-kanagaki-adjust-rule-tree)
+	    t)
   ;; $B6gFIE@F~NO;~$NLdBj$r2sHr!#(B $BF|K\8l(B 106 $B%-!<%\!<%I$G$O(B "<" $B$H(B ">" $B$K$h$k@\(B
   ;; $BHx<-$NF~NO$O$G$-$J$/$J$k!#(B "?" $B$K$h$k@\Hx<-$NF~NO$O$G$-$k!#(B
   (dolist (char skk-special-midashi-char-list)
     (when (and skk-use-kana-keyboard
 	       (memq
-		(nth 2 (assoc (skk-char-to-string char)
-			      (symbol-value
-			       (intern (format "skk-kanagaki-%s-base-rule-list"
-					       skk-kanagaki-keyboard-type)))))
+		(nth 2 (assoc
+			(skk-char-to-string char)
+			(symbol-value
+			 (intern
+			  (format
+			   "skk-kanagaki-%s-base-rule-list"
+			   skk-kanagaki-keyboard-type)))))
 		'(skk-current-kuten skk-current-touten)))
       (setq skk-special-midashi-char-list
-	    (delq char skk-special-midashi-char-list)))))
+	    (delq char
+		  skk-special-midashi-char-list)))))
 
 ;; Pieces of advice.
 
@@ -489,71 +532,95 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 
 (defadvice skk-compute-henkan-lists (around skk-kanagaki-ad activate)
   (let ((okurigana (ad-get-arg 0)))
-    (if (not okurigana)
-	(setq ad-return-value
-	      (list (split-string (buffer-substring-no-properties
-				   (point) (progn (end-of-line) (1- (point))))
-				  "/") nil nil nil))
-      (save-match-data
-	(let ((stage 1) (q1 (queue-create)) (q2 (queue-create))
-	      (q3 (queue-create)) (q4 (queue-create))
-	      (okuri-key (concat "\[" okurigana)) item headchar)
-	  (catch 'exit
-	    (while (not (eolp))
-	      (setq item (buffer-substring-no-properties
-			  (point)
-			  (1- (search-forward "/")))
-		    headchar (if (string= item "")
-				 (int-char 0)
-			       (skk-str-ref item 0)))
-	      (cond ((and (eq headchar ?\[) (<= stage 2))
-		     ;;
-		     (when (and skk-use-kana-keyboard
-				skk-henkan-okuri-strictly)
-		       ;; $B2>L>F~NOMQ$NFC<l=hM}(B
-		       (cond
-			((eq skk-kanagaki-state 'kana)
-			 ;; okuri-key $B$,(B "$B$C(B" $B$G(B item $B$,(B "$B$C$F(B" $B$J$I$@$C$?(B
-			 ;; $B>l9g!"(Bitem $B$r(B okuri-key $B$KCV$-49$($k!#(B
-			 (when (and
-				(not (string= okuri-key item))
-				(string-match
-				 (concat "^" (regexp-quote okuri-key)) item))
-			   (setq item okuri-key)))
-			((eq skk-kanagaki-state 'rom)
-			 ;; okuri-key $B$,(B "$B$C$F(B" $B$G(B item $B$,(B "$B$C(B" $B$J$I$@$C$?(B
-			 ;; $B>l9g!"(Bitem $B$r(B okuri-key $B$KCV$-49$($k!#(B
-			 (when (and
-				(not (string= okuri-key item))
-				(string-match
-				 (concat "^" (regexp-quote item)) okuri-key))
-			   (setq item okuri-key)))))
-		     ;;
-		     (if (string= item okuri-key)
-			 (progn (queue-enqueue q2 item)
-				(setq stage 3))
-		       (setq stage 2)
-		       (queue-enqueue q2 item)))
-		    ((= stage 1)
-		     (queue-enqueue q1 item))
-		    ((= stage 2)
-		     (queue-enqueue q2 item))
-		    ((= stage 3)
-		     (if (eq headchar ?\]) ; ?\]
-			 (progn (setq stage 4)
-				(queue-enqueue q4 item))
-		       (queue-enqueue q3 item)))
-		    ((= stage 4)
-		     (queue-enqueue q4 item)))))
-	  (setq ad-return-value
-		(list (queue-all q1)
-		      (queue-all q2)
-		      (queue-all q3)
-		      (queue-all q4))))))))
+    (setq
+     ad-return-value
+     (cond
+      ((not okurigana)
+       (list (split-string
+	      (buffer-substring-no-properties
+	       (point)
+	       (progn
+		 (end-of-line)
+		 (1- (point))))
+	      "/")
+	     nil
+	     nil
+	     nil))
+      (t
+       (save-match-data
+	 (let ((stage 1)
+	       (q1 (queue-create))
+	       (q2 (queue-create))
+	       (q3 (queue-create))
+	       (q4 (queue-create))
+	       (okuri-key (concat "\[" okurigana))
+	       item
+	       headchar)
+	   (catch 'exit
+	     (while (not (eolp))
+	       (setq item     (buffer-substring-no-properties
+			       (point)
+			       (1- (search-forward "/")))
+		     headchar (if (string= item "")
+				  (int-char 0)
+				(skk-str-ref item 0)))
+	       (cond
+		((and (eq headchar ?\[)
+		      (<= stage 2))
+		 ;;
+		 (when (and skk-use-kana-keyboard
+			    skk-henkan-okuri-strictly)
+		   ;; $B2>L>F~NOMQ$NFC<l=hM}(B
+		   (cond
+		    ((eq skk-kanagaki-state 'kana)
+		     ;; okuri-key $B$,(B "$B$C(B" $B$G(B item $B$,(B "$B$C$F(B" $B$J$I$@$C$?(B
+		     ;; $B>l9g!"(Bitem $B$r(B okuri-key $B$KCV$-49$($k!#(B
+		     (when (and
+			    (not (string= okuri-key item))
+			    (string-match
+			     (concat "^"
+				     (regexp-quote okuri-key))
+			     item))
+		       (setq item okuri-key)))
+		    ((eq skk-kanagaki-state 'rom)
+		     ;; okuri-key $B$,(B "$B$C$F(B" $B$G(B item $B$,(B "$B$C(B" $B$J$I$@$C$?(B
+		     ;; $B>l9g!"(Bitem $B$r(B okuri-key $B$KCV$-49$($k!#(B
+		     (when (and
+			    (not (string= okuri-key item))
+			    (string-match
+			     (concat "^" (regexp-quote item))
+			     okuri-key))
+		       (setq item okuri-key)))))
+		 ;;
+		 (if (string= item okuri-key)
+		     (progn
+		       (queue-enqueue q2 item)
+		       (setq stage 3))
+		   (setq stage 2)
+		   (queue-enqueue q2 item)))
+		((= stage 1)
+		 (queue-enqueue q1 item))
+		((= stage 2)
+		 (queue-enqueue q2 item))
+		((= stage 3)
+		 (if (eq headchar ?\]) ; ?\]
+		     (progn
+		       (setq stage 4)
+		       (queue-enqueue q4 item))
+		   (queue-enqueue q3 item)))
+		((= stage 4)
+		 (queue-enqueue q4 item)))))
+	   ;;
+	   (list (queue-all q1)       ; words1
+		 (queue-all q2)       ; words2
+		 (queue-all q3)       ; words3
+		 (queue-all q4))))))))) ; words4
 
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-kanagaki) (require 'skk-version))
+(product-provide
+    (provide 'skk-kanagaki)
+  (require 'skk-version))
 
 ;;; skk-kanagaki.el ends here

@@ -205,6 +205,8 @@ US 101 キーボードで NICOLA 入力するための基本ルール。")
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-nicola-us) (require 'skk-version))
+(product-provide
+    (provide 'skk-nicola-us)
+  (require 'skk-version))
 
 ;; skk-nicola-us.el ends here

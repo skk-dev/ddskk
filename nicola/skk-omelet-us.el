@@ -205,6 +205,8 @@ US 101 キーボードで omelet 入力するための基本ルール。")
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-omelet-us) (require 'skk-version))
+(product-provide
+    (provide 'skk-omelet-us)
+  (require 'skk-version))
 
 ;; skk-omelet-us.el ends here

@@ -237,6 +237,8 @@
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-oasys) (require 'skk-version))
+(product-provide
+    (provide 'skk-oasys)
+  (require 'skk-version))
 
 ;; skk-oasys.el ends here

@@ -167,6 +167,8 @@ keycode 34 = at grave\n"
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-106-jis) (require 'skk-version))
+(product-provide
+    (provide 'skk-106-jis)
+  (require 'skk-version))
 
 ;; skk-106-jis.el ends here

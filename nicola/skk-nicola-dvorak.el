@@ -207,6 +207,8 @@ ANSI Dvorak 配列キーボードで NICOLA 入力するための基本ルール。")
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-nicola-dvorak) (require 'skk-version))
+(product-provide
+    (provide 'skk-nicola-dvorak)
+  (require 'skk-version))
 
 ;; skk-nicola-dvorak.el ends here

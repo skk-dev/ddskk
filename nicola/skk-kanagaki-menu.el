@@ -67,12 +67,12 @@ Convert to Hankaku Katakana or Toggle Katakana <=> Hankaku Katakana Mode"
 
 (static-cond
  ((eq skk-emacs-type 'xemacs)
-    (add-hook 'skk-mode-hook
-	      (function
-	       (lambda ()
-		 (add-submenu
-		  '("SKK")
-		  skk-kanagaki-menu-items)))))
+  (add-hook 'skk-mode-hook
+	    (function
+	     (lambda ()
+	       (add-submenu
+		'("SKK")
+		skk-kanagaki-menu-items)))))
  ((not (fboundp 'easy-menu-add-item))
   (require 'skk-kanagaki-menu-oe))
  (t
@@ -88,6 +88,8 @@ Convert to Hankaku Katakana or Toggle Katakana <=> Hankaku Katakana Mode"
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-kanagaki-menu) (require 'skk-version))
+(product-provide
+    (provide 'skk-kanagaki-menu)
+  (require 'skk-version))
 
 ;;; skk-kanagaki-menu.el ends here

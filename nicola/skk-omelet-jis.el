@@ -208,6 +208,8 @@
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-omelet-jis) (require 'skk-version))
+(product-provide
+    (provide 'skk-omelet-jis)
+  (require 'skk-version))
 
 ;; skk-omelet-jis.el ends here

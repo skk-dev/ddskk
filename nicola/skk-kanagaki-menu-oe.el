@@ -118,14 +118,19 @@
 
 (easy-menu-define
  skk-kanagaki-menu
- (list skk-j-mode-map skk-latin-mode-map skk-abbrev-mode-map
+ (list skk-j-mode-map
+       skk-latin-mode-map
+       skk-abbrev-mode-map
        skk-jisx0208-latin-mode-map)
  "SKK menu modified by NICOLA-DDSKK"
- (append skk-kanagaki-skk-menu-original (list skk-kanagaki-menu-items)))
+ (append skk-kanagaki-skk-menu-original
+	 (list skk-kanagaki-menu-items)))
 
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-kanagaki-menu-oe) (require 'skk-version))
+(product-provide
+    (provide 'skk-kanagaki-menu-oe)
+  (require 'skk-version))
 
 ;; skk-kanagaki-menu-oe.el ends here

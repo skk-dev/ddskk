@@ -65,10 +65,12 @@
     (temp-directory))
    (t
     (cond
-     ((and (boundp 'temporary-file-directory) temporary-file-directory)
+     ((and (boundp 'temporary-file-directory)
+	   temporary-file-directory)
       temporary-file-directory)
      (t
-      (or (getenv "TMP") "/tmp"))))))
+      (or (getenv "TMP")
+	  "/tmp"))))))
 
 ;;;###autoload
 (defmacro skk-kanagaki-help-1 (bufname title list)
@@ -88,7 +90,8 @@
 	      ((and (symbolp (car cons))
 		    (symbol-value (car cons)))
 	       (format "%s … %s\n"
-		       (key-description (symbol-value (car cons))) (cdr cons)))
+		       (key-description (symbol-value (car cons)))
+		       (cdr cons)))
 	      (t
 	       (format "%s … %s\n" (car cons) (cdr cons))))))
 	  ;;
@@ -112,7 +115,8 @@
    'let '((x (eq window-system 'x))
 	  (prog (exec-installed-p "xmodmap"))
 	  (tmp (make-temp-name
-		(expand-file-name "kanagaki" skk-kanagaki-temp-dir))))
+		(expand-file-name "kanagaki"
+				  skk-kanagaki-temp-dir))))
    (list
     'cond
     (list
@@ -126,7 +130,8 @@
 	    '(write-region (point-min) (point-max) tmp)
 	    '(eq 0 (call-process prog nil nil nil tmp))))
      ;;
-     (` (progn (,@ form)))
+     (` (progn
+	  (,@ form)))
      '(delete-file tmp)
      '(message "xmodmap を呼んでいます...完了"))
     '(t
@@ -138,15 +143,17 @@
    ((xemacs mule4 mule5)
     (` (make-string (, n) (string-to-char (, str)))))
    (t
-    (` (mapconcat 'identity (make-vector (, n) (, str)) "")))))
+    (` (mapconcat 'identity
+		  (make-vector (, n) (, str)) "")))))
 
 ;;;###autoload
 (defun skk-nicola-visit-nicola-website ()
   (interactive)
-  (let ((func (cond ((fboundp 'browse-url)
-		     'browse-url)
-		    (t
-		     'browse-url-netscape))))
+  (let ((func (cond
+	       ((fboundp 'browse-url)
+		'browse-url)
+	       (t
+		'browse-url-netscape))))
     (funcall func "http://nicola.sunicom.co.jp/")))
 
 ;;;###autoload
@@ -200,7 +207,9 @@
 	(setq char1
 	      (skk-save-point
 		(backward-char 1)
-		(buffer-substring-no-properties (point) pt1)))
+		(buffer-substring-no-properties
+		 (point)
+		 pt1)))
       (error))
     (cond ((setq char2 (cadr (assoc char1 list)))
 	   (delete-char -1)
@@ -219,7 +228,9 @@
 	(setq char1
 	      (skk-save-point
 		(backward-char 1)
-		(buffer-substring-no-properties (point) pt1)))
+		(buffer-substring-no-properties
+		 (point)
+		 pt1)))
       (error))
     (cond ((setq char2 (caddr (assoc char1 list)))
 	   (delete-char -1)
@@ -244,24 +255,26 @@
 	     (not skk-henkan-active)
 	     (markerp skk-dcomp-end-point)
 	     (marker-position skk-dcomp-end-point))
-    (delete-region skk-dcomp-end-point
-		   (if (< (point) (marker-position skk-dcomp-start-point))
-		       skk-dcomp-start-point
-		     (point))))
+    (delete-region
+     skk-dcomp-end-point
+     (if (< (point) (marker-position skk-dcomp-start-point))
+	 skk-dcomp-start-point
+       (point))))
   ;;
-  (cond (skk-henkan-active
-	 (call-interactively 'keyboard-quit))
-	(skk-henkan-on
-	 (if (= (point) (marker-position skk-henkan-start-point))
-	     (skk-kakutei arg)
-	   (forward-char -1)
-	   (delete-char 1)))
-	((and skk-isearch-switch
-	      (buffer-live-p skk-isearch-current-buffer))
-	 (with-current-buffer skk-isearch-current-buffer
-	   (skk-isearch-delete-char arg)))
-	(t
-	 (delete-backward-char arg))))
+  (cond
+   (skk-henkan-active
+    (call-interactively 'keyboard-quit))
+   (skk-henkan-on
+    (if (= (point) (marker-position skk-henkan-start-point))
+	(skk-kakutei arg)
+      (forward-char -1)
+      (delete-char 1)))
+   ((and skk-isearch-switch
+	 (buffer-live-p skk-isearch-current-buffer))
+    (with-current-buffer skk-isearch-current-buffer
+      (skk-isearch-delete-char arg)))
+   (t
+    (delete-backward-char arg))))
 
 ;;;###autoload
 (defun skk-kanagaki-esc (&optional arg)
@@ -275,19 +288,22 @@
   ;; 文字列であり、ポイントを移動すると変換対象が変わってしまう。そのため、ポイ
   ;; ントは移動しないこととする。
   (interactive "*P")
-  (cond ((skk-in-minibuffer-p)
-	 (call-interactively
-	  (if (fboundp 'minibuffer-keyboard-quit)
-	      'minibuffer-keyboard-quit
-	    'abort-recursive-edit)))
-	 ((or skk-henkan-on skk-henkan-active)
-	  (call-interactively 'keyboard-quit))
-	 (t
-	  nil)))
+  (cond
+   ((skk-in-minibuffer-p)
+    (call-interactively
+     (if (fboundp 'minibuffer-keyboard-quit)
+	 'minibuffer-keyboard-quit
+       'abort-recursive-edit)))
+   ((or skk-henkan-on skk-henkan-active)
+    (call-interactively 'keyboard-quit))
+   (t
+    nil)))
 
 ;;
 
 (require 'product)
-(product-provide (provide 'skk-kanagaki-util) (require 'skk-version))
+(product-provide
+    (provide 'skk-kanagaki-util)
+  (require 'skk-version))
 
 ;;; skk-kanagaki-util.el ends here
