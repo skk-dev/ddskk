@@ -202,12 +202,11 @@
   (interactive "*p")
   (let ((list skk-kanagaki-dakuten-alist)
 	(pt1 (point))
-	(len (if (eq skk-emacs-type 'nemacs) 2 1))
 	char1 char2)
     (condition-case nil
 	(setq char1
 	      (save-excursion
-		(backward-char (* len 1))
+		(backward-char 1)
 		(buffer-substring-no-properties (point) pt1)))
       (error))
     (cond ((setq char2 (cadr (assoc char1 list)))
@@ -222,12 +221,11 @@
   (interactive "*p")
   (let ((list skk-kanagaki-dakuten-alist)
 	(pt1 (point))
-	(len (if (eq skk-emacs-type 'nemacs) 2 1))
 	char1 char2)
     (condition-case nil
 	(setq char1
 	      (save-excursion
-		(backward-char (* len 1))
+		(backward-char 1)
 		(buffer-substring-no-properties (point) pt1)))
       (error))
     (cond ((setq char2 (caddr (assoc char1 list)))

@@ -154,9 +154,8 @@
 
 (require 'nicola-ddskk-autoloads)
 
-(static-unless (memq skk-emacs-type '(nemacs mule1))
-  (when window-system
-    (require 'skk-kanagaki-menu)))
+(when window-system
+  (require 'skk-kanagaki-menu))
 
 (defgroup skk-kanagaki nil "SKK kanagaki related customization."
   :prefix "skk-kanagaki-"
@@ -188,87 +187,51 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"N(B $
 		 (symbol :tag "Another Keyboard Type"))
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-set-henkan-point-key
-  (cond ((memq skk-emacs-type '(nemacs mule1))
-	 "\e[12~")
-	(t
-	 [f2])) "\
+(defcustom skk-kanagaki-set-henkan-point-key [f2] "\
 *$B$3$N%-!<$r2!$9$3$H$GJQ493+;O0LCV$r@_Dj$9$k!#(B
 $BJQ493+;O0LCV$N@_Dj$O2>L>$rF~NO$9$kA0$K$*$3$J$C$F$b!"(B $BF~NO$7=*$o$C$?8e$G$*$3$J$C(B
 $B$F$b9=$o$J$$!#(B"
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-abbrev-mode-key
-  (cond ((memq skk-emacs-type '(nemacs mule1))
-	 "\e[17~")
-	(t
-	 [f6])) "\
+(defcustom skk-kanagaki-abbrev-mode-key [f6] "\
 *$B$3$N%-!<$r2!$9$3$H$G(B abbrev $B%b!<%I$KF~$k!#(B"
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-katakana-mode-key
-  (cond ((memq skk-emacs-type '(nemacs mule1))
-	 "\e[18~")
-	(t
-	 [f7])) "\
+(defcustom skk-kanagaki-katakana-mode-key [f7] "\
 *$B$3$N%-!<$r2!$9$3$H$G%+%J%b!<%I$H$+$J%b!<%I$r@Z$j$+$($k!#(B
 $BJQ493+;O0LCV$N@_Dj8e$K2!$9$3$H$GBP>]J8;zNs$r%+%J$KJQ49$9$k$3$H$b$G$-$k!#(B"
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-latin-jisx0208-mode-key
-  (cond ((memq skk-emacs-type '(nemacs mule1))
-	 "\e[19~")
-	(t
-	 [f8])) "\
+(defcustom skk-kanagaki-latin-jisx0208-mode-key [f8] "\
 *$B$3$N%-!<$r2!$9$3$H$GA43Q1Q?t%b!<%I$KF~$k!#(B"
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-hankaku-mode-key
-  (cond ((memq skk-emacs-type '(nemacs mule1))
-	 "\e[20~")
-	(t
-	 [f9])) "\
+(defcustom skk-kanagaki-hankaku-mode-key [f9] "\
 *$B$3$N%-!<$r2!$9$3$H$GH>3Q%+%J%b!<%I$K@Z$j$+$($k!#(B
 $BJQ493+;O0LCV$N@_Dj8e$K2!$9$3$H$GBP>]J8;zNs$rH>3Q%+%J$KJQ49$9$k$3$H$b$G$-$k!#(B"
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-latin-mode-key
-  (cond ((memq skk-emacs-type '(nemacs mule1))
-	 "\e[21~")
-	(t
-	 [f10])) "\
+(defcustom skk-kanagaki-latin-mode-key [f10] "\
 *$B$3$N%-!<$r2!$9$3$H$G(B latin $B%b!<%I$KF~$k!#(B"
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-toggle-rom-kana-key
-  (cond ((memq skk-emacs-type '(nemacs mule1))
-	 "\e[24~")
-	(t
-	 [f12])) "\
+(defcustom skk-kanagaki-toggle-rom-kana-key [f12] "\
 *$B$3$N%-!<$r2!$9$3$H$G(B $B%m!<%^;zF~NO(B $B"N(B $B2>L>F~NO$N@Z$jBX$($,$G$-$k!#(B"
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-code-input-key
-  (cond ((memq skk-emacs-type '(nemacs mule1))
-	 "\e[15~")
-	(t
-	 [f5])) "\
+(defcustom skk-kanagaki-code-input-key [f5] "\
 *$B$3$N%-!<$r2!$9$3$H$G%3!<%IF~NO$,$G$-$k!#(B"
   :type 'sexp
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-midashi-henkan-key
-  (cond ((memq skk-emacs-type '(nemacs mule1))
-	 "\e[13~")
-	(t
-	 [f3])) "\
+(defcustom skk-kanagaki-midashi-henkan-key [f3] "\
 *$B$3$N%-!<$r2!$9$3$H$G@\F,<-$^$?$O@\Hx<-JQ49$r$9$k!#(B"
   :type 'sexp
   :group 'skk-kanagaki)
@@ -404,24 +367,23 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 $B$?$@$7!"(B $B$b$&$R$H$DA0$NJ8;z$,B%2;$@$C$?>l9g$K$O!"(B $B$=$l0J9_$rAw$j2>L>$H8+Jo$9!#(B"
   (interactive)
   (let ((pt1 (point))
-	(len (if (eq skk-emacs-type 'nemacs) 2 1))
 	pt2 okuri sokuon)
     (setq okuri
 	  (save-excursion
 	    ;; $B$&$&!"$3$s$J$3$H$r$7$J$1$l$P$J$i$J$$$N$+(B...
-	    (backward-char (* len 1))
+	    (backward-char 1)
 	    (buffer-substring-no-properties (setq pt2 (point)) pt1)))
     (when okuri
       (unless no-sokuon
 	(setq sokuon
 	      (save-excursion
-		(backward-char (* len 2))
+		(backward-char 2)
 		(buffer-substring-no-properties (point) pt2)))
 	(unless (member sokuon '("$B$C(B" "$B%C(B"))
 	  (setq sokuon nil)))
       ;;
       (save-excursion
-	(backward-char (* len (if sokuon 2 1)))
+	(backward-char (if sokuon 2 1))
 	(skk-set-marker skk-okurigana-start-point (point)))
       (setq skk-okuri-char (skk-okurigana-prefix okuri))
       (skk-set-okurigana))))
@@ -436,10 +398,7 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   "SKK $B5/F0;~$NE,Ev$J%?%$%_%s%0$G2>L>F~NOMQ$N@_Dj$r9T$&!#(B"
   ;; $B<B:]$K$O(B `skk-regularize' $B$N<B9T8e!"(BSKK $B$N4pK\%k!<%k$,(B compile $B$5$l$?8e(B
   ;; $B$K8F$P$l$k!#(B
-  (static-when (memq skk-emacs-type '(nemacs mule1))
-    ;; Nemacs $B$N(B canna.el $B$h$j0zMQ!#(B
-    (if (not (keymapp (global-key-binding "\e[")))
-	(global-unset-key "\e[")))
+
   ;; $BI,MW$J%b%8%e!<%k$r%m!<%I!#(B
   (when skk-kanagaki-keyboard-type
     (require (intern (format "skk-%s" skk-kanagaki-keyboard-type))))
@@ -473,11 +432,10 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   ;;
   (define-key help-map skk-kanagaki-help-key 'skk-kanagaki-help)
   ;;
-  (static-unless (memq skk-emacs-type '(nemacs mule1))
-    (eval-after-load "skk-jisx0201"
-      '(when skk-kanagaki-hankaku-mode-key
-	 (define-key skk-jisx0201-mode-map skk-kanagaki-hankaku-mode-key
-	   'skk-toggle-katakana))))
+  (eval-after-load "skk-jisx0201"
+    '(when skk-kanagaki-hankaku-mode-key
+       (define-key skk-jisx0201-mode-map skk-kanagaki-hankaku-mode-key
+	 'skk-toggle-katakana)))
   ;;
   (define-key skk-j-mode-map skk-kanagaki-start-henkan-key
     'skk-kanagaki-insert)

@@ -85,7 +85,7 @@
   (list (cond
 	 ((eq system-type 'windows-nt)
 	  [noconvert])
-	 ((memq skk-emacs-type '(nemacs mule1 mule3))
+	 ((memq skk-emacs-type '(mule3))
 	  ;; Don't know what is good..
 	  "\\")
 	 (t
@@ -96,7 +96,7 @@
   :group 'skk-nicola)
 
 (defcustom skk-nicola-rshift-keys
-  (if (memq skk-emacs-type '(nemacs mule1 mule3))
+  (if (memq skk-emacs-type '(mule3))
       '(" ")
     (append '(" ")
 	    (list (cond
@@ -215,7 +215,7 @@
 (skk-deflocalvar skk-current-local-map nil "\
 Emacs 18 用の変数。")
 
-(static-when (memq skk-emacs-type '(nemacs mule1 mule3))
+(static-when (memq skk-emacs-type '(mule3))
   (case skk-kanagaki-jidou-keymap-kakikae-service
     ;;
     (nicola-jis
@@ -304,13 +304,12 @@ keycode 131 = underscore\n"))
   (remove-hook 'skk-mode-hook 'skk-nicola-setup))
 
 (defun skk-nicola-setup-tutorial ()
-  (static-unless (memq skk-emacs-type '(nemacs mule1))
-    (dolist (key skk-nicola-lshift-keys)
-      (define-key skktut-j-mode-map key 'skk-nicola-self-insert-lshift)
-      (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))
-    (dolist (key skk-nicola-rshift-keys)
-      (define-key skktut-j-mode-map key 'skk-nicola-self-insert-rshift)
-      (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))))
+  (dolist (key skk-nicola-lshift-keys)
+    (define-key skktut-j-mode-map key 'skk-nicola-self-insert-lshift)
+    (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))
+  (dolist (key skk-nicola-rshift-keys)
+    (define-key skktut-j-mode-map key 'skk-nicola-self-insert-rshift)
+    (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode)))
 
 ;;;###autoload
 (defun skk-nicola-help (&optional arg)
@@ -426,8 +425,6 @@ keycode 131 = underscore\n"))
     (let ((last (static-cond
 		 ((eq skk-emacs-type 'xemacs)
 		  (event-key last-command-event))
-		 ((memq skk-emacs-type '(nemacs mule1))
-		  last-command-char)
 		 (t last-command-event)))
 	  (next (static-cond
 		 ((eq skk-emacs-type 'xemacs)
@@ -800,7 +797,7 @@ keycode 131 = underscore\n"))
   ;; 送り開始の標識により送り開始点を認識し、送りあり変換を開始する。
   (let ((okuri (buffer-substring-no-properties
 		(1+ skk-nicola-okuri-flag) (point)))
-	(len (if (eq skk-emacs-type 'nemacs) 2 1)) tag)
+	tag)
     (cond ((and (not (eq skk-nicola-okuri-style 'nicola-skk))
 		(member okuri '("っ" "ッ")))
 	   ;; 何もしない。
@@ -810,19 +807,13 @@ keycode 131 = underscore\n"))
 	    (goto-char skk-nicola-okuri-flag)
 	    (when (eq (following-char) ?*)
 	      (delete-char 1))
-	    (backward-char (* len 1))
+	    (backward-char 1)
 	    (if (member
 		 (buffer-substring-no-properties
 		  (point) (marker-position skk-nicola-okuri-flag))
 		 '("っ" "ッ"))
 		(setq tag 'no-sokuon)))
-	   (static-cond
-	    ((memq skk-emacs-type '(nemacs mule1))
-	     ;; 理由がよく分からないが、point がズレてしまう。`skk-insert' を
-	     ;; 抜けてから変換するとうまくいく。(??)
-	     (throw 'okuri (or tag 'ari)))
-	    (t
-	     (skk-kanagaki-set-okurigana tag)))))))
+	   (skk-kanagaki-set-okurigana tag)))))
 
 (defun skk-nicola-set-okuri-flag ()
   ;; 送り開始点を marker で標識するとともに、`*' を挿入することで送りあり変換
@@ -940,39 +931,37 @@ keycode 131 = underscore\n"))
    (t
     ad-do-it)))
 
-(static-unless (memq skk-emacs-type '(nemacs mule1))
-  ;;
-  (defadvice skk-isearch-setup-keymap (before skk-nicola-ad activate compile)
-    ;; 親指キーでサーチが終了してしまわないように。
-    (let ((keys (append skk-nicola-lshift-keys skk-nicola-rshift-keys)))
-      (while keys
-	(define-key (ad-get-arg 0) (car keys) 'skk-isearch-wrapper)
-	(setq keys (cdr keys)))))
-  ;;
-  (defadvice isearch-char-to-string (around skk-nicola-ad activate compile)
-    ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
-    (cond ((and skk-use-kana-keyboard (featurep 'skk-isearch)
-		(with-current-buffer
-		    (get-buffer-create skk-isearch-working-buffer)
-		  skk-mode))
-	   (condition-case nil
-	       ad-do-it
-	     (error)))
-	  (t
-	   ad-do-it)))
-  ;;
-  (defadvice isearch-text-char-description (around skk-nicola-ad activate
-						   compile)
-    ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
-    (cond ((and skk-use-kana-keyboard (featurep 'skk-isearch)
-		(with-current-buffer
-		    (get-buffer-create skk-isearch-working-buffer)
-		  skk-mode))
-	   (condition-case nil
-	       ad-do-it
-	     (error)))
-	  (t
-	   ad-do-it))))
+(defadvice skk-isearch-setup-keymap (before skk-nicola-ad activate compile)
+  ;; 親指キーでサーチが終了してしまわないように。
+  (let ((keys (append skk-nicola-lshift-keys skk-nicola-rshift-keys)))
+    (while keys
+      (define-key (ad-get-arg 0) (car keys) 'skk-isearch-wrapper)
+      (setq keys (cdr keys)))))
+
+(defadvice isearch-char-to-string (around skk-nicola-ad activate compile)
+  ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
+  (cond ((and skk-use-kana-keyboard (featurep 'skk-isearch)
+	      (with-current-buffer
+		  (get-buffer-create skk-isearch-working-buffer)
+		skk-mode))
+	 (condition-case nil
+	     ad-do-it
+	   (error)))
+	(t
+	 ad-do-it)))
+
+(defadvice isearch-text-char-description (around skk-nicola-ad activate
+						 compile)
+  ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
+  (cond ((and skk-use-kana-keyboard (featurep 'skk-isearch)
+	      (with-current-buffer
+		  (get-buffer-create skk-isearch-working-buffer)
+		skk-mode))
+	 (condition-case nil
+	     ad-do-it
+	   (error)))
+	(t
+	 ad-do-it)))
 
 (static-when (eq skk-emacs-type 'mule2)
   ;;
@@ -980,32 +969,6 @@ keycode 131 = underscore\n"))
     ;; この関数が日本語をちゃんと扱えないことに対策。
     (when (integerp (ad-get-arg 0))
       (setq ad-return-value (skk-char-to-string (ad-get-arg 0))))))
-
-(static-when (memq skk-emacs-type '(nemacs mule1))
-  ;; バグの原因が明らかになるまでの work around。
-  (defadvice skk-insert (around skk-nicola-ad-e18 activate)
-    (cond (skk-nicola-okuri-flag
-	   (let ((tag (catch 'okuri (skk-nicola-insert (ad-get-arg 0)))))
-	     (when (memq tag '(ari no-sokuon))
-	       (skk-kanagaki-set-okurigana (eq tag 'no-sokuon)))))
-	  (t
-	   ad-do-it)))
-  ;;
-  (defadvice skk-previous-candidate (around skk-nicola-ad-e18 activate)
-    (cond (skk-nicola-okuri-flag
-	   (let ((tag (catch 'okuri (skk-nicola-insert (ad-get-arg 0)))))
-	     (when (memq tag '(ari no-sokuon))
-	       (skk-kanagaki-set-okurigana (eq tag 'no-sokuon)))))
-	  (t
-	   ad-do-it)))
-  ;;
-  (defadvice skk-nicola-self-insert-lshift (around skk-nicola-ad-e18 activate)
-    (cond (skk-nicola-okuri-flag
-	   (let ((tag (catch 'okuri (skk-nicola-insert (ad-get-arg 0)))))
-	     (when (memq tag '(ari no-sokuon))
-	       (skk-kanagaki-set-okurigana (eq tag 'no-sokuon)))))
-	  (t
-	   ad-do-it))))
 
 ;;
 

@@ -24,7 +24,7 @@ o Emacs 19.28 以降をベースとした Mule 2.3
 o Emacs 20.2 以降 (Meadow 1.00 以降 を含む)
 o Mule 機能付きでコンパイルされた XEmacs 20.4 以降
 
-ただし GNU Emacs 20.7 以降または XEmacs 21.1.12 以降を推奨します。
+ただし GNU Emacs 20.7 以降または XEmacs 21.1.14 以降を推奨します。
 
 
 【はじめに】
