@@ -904,12 +904,12 @@ keycode 131 = underscore\n"))
 	    (delete-region skk-dcomp-end-point (point))))
 	;;
 	(if (and (not (skk-get-prefix skk-current-rule-tree))
-		 (not skk-okurigana)
-		 (not (eq this-command 'skk-nicola-self-insert-rshift)))
+		 (not skk-okurigana))
 	    (let ((pos (point)))
 	      (condition-case nil
 		  (progn
-		    (skk-comp-do 'first 'silent)
+		    (unless (eq this-command 'skk-nicola-self-insert-rshift)
+		      (skk-comp-do 'first 'silent))
 		    (skk-set-marker skk-dcomp-start-point pos)
 		    (skk-set-marker skk-dcomp-end-point (point))
 		    (skk-dcomp-face-on skk-dcomp-start-point
