@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.108 2002/07/27 06:24:48 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.109 2002/11/03 05:35:28 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/27 06:24:48 $
+;; Last Modified: $Date: 2002/11/03 05:35:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1719,6 +1719,12 @@ nil であれば、元号表示する。"
   :group 'skk-gadget)
 
 ;;; SKK-ISEARCH.EL related.
+(defcustom skk-isearch-mode-enable t
+  "*Non-nil であれば、インクリメンタルサーチで skk-isearch を利用する。
+migemo を利用したい場合などには nil に設定する。"
+  :type 'boolean
+  :group 'skk-isearch)
+
 (defcustom skk-isearch-mode-string-alist
   '((hiragana . "[か] ") (katakana . "[カ] ") (jisx0208-latin . "[英] ")
     (latin . "[aa] ") (abbrev . "[aあ] ") (nil . "[--] "))

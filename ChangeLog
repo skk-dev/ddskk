@@ -1,3 +1,11 @@
+2002-11-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-isearch-mode-enable): New user variable.
+
+	* skk-setup.el.in (isearch-mode-hook): Check if
+	`skk-isearch-mode-enable' is non-nil before invoking
+	`skk-isearch-mode-setup'.
+
 2002-10-28  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* doc/skk.texi
@@ -4041,8 +4049,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.713 2002/10/27 15:49:12 akiho Exp $
-Last Modified: $Date: 2002/10/27 15:49:12 $
+Version: $Id: ChangeLog,v 1.714 2002/11/03 05:35:28 minakaji Exp $
+Last Modified: $Date: 2002/11/03 05:35:28 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

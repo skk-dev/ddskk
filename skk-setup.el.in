@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.26 2002/01/18 14:04:10 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.27 2002/11/03 05:35:28 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/18 14:04:10 $
+;; Last Modified: $Date: 2002/11/03 05:35:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -47,7 +47,8 @@
 (add-hook 'isearch-mode-hook
 	  #'(lambda ()
 	      (when (and (boundp 'skk-mode)
-			 skk-mode)
+			 skk-mode
+			 skk-isearch-mode-enable)
 		(skk-isearch-mode-setup))))
 (add-hook 'isearch-mode-end-hook
 	  #'(lambda ()
