@@ -1,5 +1,9 @@
 2000-10-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* doc/gpl.texi: No longer in the repository.
+
+	* doc/skk-faq.texi: Sync with FAQ.txt.
+
 	* doc/skk.texi (よくある質問とその回答): 復活。
 
 2000-10-13  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
