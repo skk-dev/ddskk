@@ -1,3 +1,8 @@
+2001-12-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kangaki.el
+	(skk-kanagaki-adjust-rule-tree): Set rules.
+
 2001-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kangaki.el
