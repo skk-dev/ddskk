@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.84 2001/11/11 08:20:31 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.85 2001/11/18 16:12:14 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/11/11 08:20:31 $
+@c  Last Modified: $Date: 2001/11/18 16:12:14 $
 @c
-@set EDITION 1.6
-@set SKK-VERSION 11.4
-@set UPDATED $Date: 2001/11/11 08:20:31 $
+@set EDITION 1.7
+@set SKK-VERSION 11.5.2
+@set UPDATED $Date: 2001/11/18 16:12:14 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -143,6 +143,7 @@ Daredevil SKK 11 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!
 @item Emacs 19.28 $B0J9_$r%Y!<%9$H$7$?(B Mule 2.3 (Mule for Windows 1.21,
 1.22 $B$r4^$`(B)
 @item Emacs 20.2 $B0J9_(B (Meadow 1.00 $B0J9_(B $B$r4^$`(B)
+@item Emacs 21.1 $B0J9_(B 
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 20.4 $B0J9_(B
 @end itemize
 
@@ -214,10 +215,11 @@ SKK $B$N%$%s%9%H!<%k$r$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
 
 APEL $B$r%$%s%9%H!<%k$7$?$i!"(B SKK $B$r%$%s%9%H!<%k$7$^$7$g$&!#$3$3$G$O!"(B
 UNIX $B>e$G(B make $B%3%^%s%I$,MQ0U$5$l$F$$$k>l9g$rA[Dj$7$F$$$^$9(B
-@footnote{Windows $B4D6-$G$O!"(Bmake.bat $B$r;HMQ$9$k$3$H$K$h$j!"F1MM$NA`:n$G(B
+@footnote{Windows $B4D6-$G$O!"(Bmakeit.bat $B$r;HMQ$9$k$3$H$K$h$j!"F1MM$NA`:n$G(B
 $B%$%s%9%H!<%k$G$-$^$9!#(B @file{READMEs/README.win} $B%U%!%$%k$r;2>H$7$F2<$5(B
 $B$$!#(Bcygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B make $B%3%^%s%I$,;HMQ$G$-$k$N(B
-$B$G!"$3$3$N@bL@$,$=$N$^$^Ev$F$O$^$j$^$9!#(B}$B!#(B
+$B$G!"$3$3$N@bL@$,$=$N$^$^Ev$F$O$^$j$^$9!#$^$?!"(BMac OS $B4D6-$NJ}$O!"(B
+@file{READMEs/README.Mac} $B%U%!%$%k$r;2>H$7$F2<$5$$!#(B}$B!#(B
 
 $B$^$:!"(Btar $B$H(B gzip $B%3%^%s%I$r;HMQ$7$F!"(B SKK $B$r=q8K(B
 (@file{skk-VERSION.tar.gz}) $B$+$i<h$j=P$7$^$9!#(B
@@ -277,8 +279,9 @@ XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$9$k>l9g$O!"(B
 @comment  node-name,  next,  previous,  up
 @section $B<-=q$NF~<j(B
 
-SKK $B$r;HMQ$9$k$K$O!"<-=q$,I,MW$G$9!#<-=q$O!"(B SKK $BK\BN(B(elisp) $B$K$OIUB0(B
-$B$7$^$;$s!#JLES!"F~<j$7$^$9!#(B CVS (@xref{CVS$B$K$h$k(BSKK$B$N<hF@(B})$B$b$7$/$O!"(B
+SKK $B$r;HMQ$9$k$K$O!"<-=q$,I,MW$G$9!#(BSKK $BK\BN(B(elisp) $B$K$O(B S $B<-=q$,ImB0$7$^$9!#(B
+$B$=$l0J30$N<-=q$OJLES!"F~<j$7$^$9!#(B
+CVS (@xref{CVS$B$K$h$k(BSKK$B$N<hF@(B})$B$b$7$/$O!"(B
 WWW (@url{http://openlab.ring.gr.jp/skk/dic.html}) $B$+$iF~<j$G$-$^$9!#(B
 
 $BMQ0U$5$l$F$$$k<-=q$O!"=>Mh$+$i$N(B
@@ -318,8 +321,8 @@ SKK 11 $B$h$j!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#$"$J$?$N(B @file{.emacs} $B%U%!%
 @end lisp
 
 @noindent
-$B$H=q$/$@$1$G!"(BSKK $B$rMxMQ$9$k$3$H$,2DG=$K$J$j$^$9!#<B$O(B Emacs 20 $B$^$?$O(B
-XEmacs $B$G$O!"$3$l$r=q$/I,MW$9$i$"$j$^$;$s!#<+F0E*$K$3$N%U%!%$%k$,FI$_9~(B
+$B$H=q$/$@$1$G!"(BSKK $B$rMxMQ$9$k$3$H$,2DG=$K$J$j$^$9!#<B$O(B Emacs 20$B!"(BEmacs 21
+$B$^$?$O(B XEmacs $B$G$O!"$3$l$r=q$/I,MW$9$i$"$j$^$;$s!#<+F0E*$K$3$N%U%!%$%k$,FI$_9~(B
 $B$^$l!"@_Dj$5$l$^$9!#(B
 
 $B$b$7!"$3$N<+F0@_Dj$K$h$i$:!"<jF0$G@_Dj$r$7$?$$>l9g$O!"0J2<$N@bL@$r;2>H$7(B
@@ -6855,7 +6858,7 @@ Ring Server Openlab $B$G$O!"%K%e!<%9%5!<%P$K@\B3$7$F%a!<%j%s%0%j%9%H$N5-;v$r(B
 HTTP $B7PM3$G%K%e!<%9$r8+$k$3$H$b$G$-$^$9!#(B
 
 @display
-@url{http://ring.etl.go.jp/news/openlab.skk/}
+@url{http://news.ring.gr.jp/news/openlab.skk/}
 @end display
 
 @noindent
@@ -8227,7 +8230,7 @@ NICOLA-DDSKK $B$H$$$&%W%m%0%i%`$,IUB0$7$F$*$j!"$3$l$r%$%s%9%H!<%k$9$k$H(B
 $B?F;X%7%U%HF~NO$,2DG=$K$J$j$^$9!#%$%s%9%H!<%k<+BN$O4JC1$G!"(B
 
 @example
-% cd experimental/nicola
+% cd experimental/nicola (Daredevil SKK 11.4 $B0J9_(B $B$G$O(B cd nicola )
 % make install
 @end example
 
