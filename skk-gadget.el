@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.20 2001/10/09 10:32:45 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.21 2001/10/10 10:24:07 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/09 10:32:45 $
+;; Last Modified: $Date: 2001/10/10 10:24:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -424,7 +424,11 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
 	(when skk-use-face
 	  (setq skk-insert-new-word-function
 		'skk-henkan-face-off-and-remove-itself))))
-    new-word))
+    ;;
+    (if (string-match ";" new-word)
+	(cons (substring new-word 0 (match-beginning 0))
+	      (substring new-word (match-end 0)))
+      new-word)))
 
 ;;;###autoload
 (defun skk-henkan-face-off-and-remove-itself ()
