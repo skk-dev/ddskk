@@ -6,6 +6,8 @@
 
 	Daiki Ueno <ueno@unixuser.org>
 
+	EGUCHI Satoshi <eguchi@kyoto-wu.ac.jp>
+
 	Martin Buchholz <martin@xemacs.org>
 
 	Yoshiki Hayashi <yoshiki@xemacs.org>
@@ -1927,8 +1929,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.394 2001/09/14 22:40:14 czkmt Exp $
-Last Modified: $Date: 2001/09/14 22:40:14 $
+Version: $Id: ChangeLog,v 1.395 2001/09/14 22:54:56 czkmt Exp $
+Last Modified: $Date: 2001/09/14 22:54:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
