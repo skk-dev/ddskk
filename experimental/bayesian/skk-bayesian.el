@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.19 2005/02/18 19:05:58 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.20 2005/02/22 06:34:16 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/02/18 19:05:58 $
+;; Last Modified: $Date: 2005/02/22 06:34:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -184,6 +184,7 @@
        (memq (process-status skk-bayesian-process) '(open run))))
 
 (defsubst skk-bayesian-make-pending-data-alist
+  ;; henkan-point は確定語の最初の文字の位置の marker
   (word okurigana midasi buffer henkan-point context)
   (setq skk-bayesian-pending-data-alist
         (if (and word midasi buffer henkan-point context)
@@ -319,8 +320,12 @@
        ;; skk-get-last-henkan-datum は、buffer-local な変数を用いている。
        ;; skk-get-last-henkan-datum は、skk-update-end-function を読ん
        ;; だ後に更新される。ここでは使えない。
-       ;; (skk-get-last-henkan-datum 'henkan-point))
-       (point-marker))
+       (if skk-undo-kakutei-word-only
+           (point-marker)
+         (save-excursion
+           (message (prin1-to-string (point-marker)))
+           (forward-char (- 0 (length okurigana) (length word)))
+           (point-marker))))
      skk-bayesian-last-context)))
 
 (defun skk-bayesian-check-modification-after-kakutei ()
@@ -352,9 +357,9 @@
              (word-len (length kakutei-with-okuri))
              (midasi (skk-bayesian-get-pending-data-alist 'midasi))
              ;; henkan-point は、送り仮名がある場合は、送り仮名の point
-             (end (marker-position (skk-bayesian-get-pending-data-alist
+             (start (marker-position (skk-bayesian-get-pending-data-alist
                                     'henkan-point)))
-             (start (- end word-len))
+             (end (+ start word-len))
              (current-word (if (and (<= (point-min) start) (<= end (point-max)))
                                (buffer-substring-no-properties start end)))
              (context (skk-bayesian-get-pending-data-alist 'context)))
