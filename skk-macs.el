@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.79 2002/01/23 14:04:41 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.80 2002/01/24 15:01:48 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/23 14:04:41 $
+;; Last Modified: $Date: 2002/01/24 15:01:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -50,12 +50,6 @@ Otherwise, return result of last FORM."
        (progn
 	 ,@body)
      (error nil)))
-
-(eval-and-compile
-  (when (and (fboundp 'dolist)
-	     (not (eval (macroexpand '(dolist (var nil t))))))
-    ;; Old egg.el has invalid `dolist'.
-    (fmakunbound 'dolist)))
 
 ;;;###autoload
 (put 'dolist 'lisp-indent-function 1)
