@@ -61,7 +61,7 @@
 濁点と半濁点を入力するためのルール。")
 
 (defvar skk-kanagaki-temp-dir
-  (static-cond
+  (cond
    ((fboundp 'temp-directory)
     (temp-directory))
    ((and (boundp 'temporary-file-directory) temporary-file-directory)
@@ -204,10 +204,12 @@
 	(pt1 (point))
 	(len (if (eq skk-emacs-type 'nemacs) 2 1))
 	char1 char2)
-    (setq char1
-	  (save-excursion
-	    (backward-char (* len 1))
-	    (buffer-substring-no-properties (point) pt1)))
+    (condition-case nil
+	(setq char1
+	      (save-excursion
+		(backward-char (* len 1))
+		(buffer-substring-no-properties (point) pt1)))
+      (error))
     (cond ((setq char2 (cadr (assoc char1 list)))
 	   (delete-char -1)
 	   (skk-insert-str char2))
@@ -222,10 +224,12 @@
 	(pt1 (point))
 	(len (if (eq skk-emacs-type 'nemacs) 2 1))
 	char1 char2)
-    (setq char1
-	  (save-excursion
-	    (backward-char (* len 1))
-	    (buffer-substring-no-properties (point) pt1)))
+    (condition-case nil
+	(setq char1
+	      (save-excursion
+		(backward-char (* len 1))
+		(buffer-substring-no-properties (point) pt1)))
+      (error))
     (cond ((setq char2 (caddr (assoc char1 list)))
 	   (delete-char -1)
 	   (skk-insert-str char2))

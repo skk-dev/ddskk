@@ -1,3 +1,8 @@
+2001-01-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el (skk-nicola-insert-kana): When RULE indicates a
+	function, call it.
+
 2000-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el: Remove defvars for skk-dcomp.

@@ -641,12 +641,20 @@ keycode 131 = underscore\n"))
   ;; ARG を与えられた場合はその数だけ文字列を連結して入力する。
   (let* ((el (cadr (assq char rule)))
 	 (str (when el (cond ((stringp el) el)
+			     ((not (listp el)) nil)
 			     (skk-katakana (car el))
 			     (t (cdr el)))))
+	 (fun (when (and el (symbolp el)) el))
 	 (arg (prefix-numeric-value arg)))
     ;;
     (when str
-      (skk-insert-str (setq str (skk-kanagaki-make-string arg str))))
+      (if (symbolp str)
+	  (setq fun str
+		str nil)
+	(skk-insert-str (setq str (skk-kanagaki-make-string arg str)))))
+    ;;
+    (when fun
+      (funcall fun arg))
     ;;
     (cond (skk-nicola-okuri-flag
 	   (skk-nicola-process-okuri))

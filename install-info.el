@@ -128,31 +128,36 @@ from DIR-FILE; don't insert any new entries."
     (when (stringp section)
       (setq section (list section)))
     ;;
-    (save-excursion
-      (set-buffer buf)
-      (setq buffer-read-only nil)
-      (erase-buffer)
-      (install-info-insert-file-contents info-file))
+    (unless (and entry section)
+      (save-excursion
+	(set-buffer buf)
+	(setq buffer-read-only nil)
+	(erase-buffer)
+	(install-info-insert-file-contents info-file)))
     ;;
     (cond
      ((and entry section)
       ;; Both entry and section is given.
-      (setq groups (install-info-groups section entry)))
+      (if delete
+	  nil
+	(setq groups (install-info-groups section entry))))
      (entry
       ;; Only entry is given. Determine section from the info file.
-      (save-excursion
-	(set-buffer buf)
-	(goto-char (point-min))
-	(while (re-search-forward "^INFO-DIR-SECTION " nil t)
-	  (setq section
-		(nconc section
-		       (list (buffer-substring
-			      (match-end 0)
-			      (install-info-point-at-eol)))))))
-      (unless section
-	(setq section (list "Miscellaneous")))
-      (setq groups (install-info-groups section entry)))
-     (section
+      (if delete
+	  nil
+	(save-excursion
+	  (set-buffer buf)
+	  (goto-char (point-min))
+	  (while (re-search-forward "^INFO-DIR-SECTION " nil t)
+	    (setq section
+		  (nconc section
+			 (list (buffer-substring
+				(match-end 0)
+				(install-info-point-at-eol)))))))
+	(unless section
+	  (setq section (list "Miscellaneous")))
+	(setq groups (install-info-groups section entry))))
+     ((or section delete)
       ;; Only section is given. Determine entry from the info file.
       (save-excursion
 	(set-buffer buf)
@@ -162,6 +167,10 @@ from DIR-FILE; don't insert any new entries."
 	  (while (not (looking-at "^END-INFO-DIR-ENTRY"))
 	    (let ((start (point))
 		  str)
+	      (when (eobp)
+		(error
+		 "%s"
+		 "START-INFO-DIR-ENTRY without matching END-INFO-DIR-ENTRY"))
 	      (unless (eolp)
 		(setq str (buffer-substring start (install-info-point-at-eol)))
 		(if (string-match "^\\* " str)
@@ -173,7 +182,9 @@ from DIR-FILE; don't insert any new entries."
 	      (install-info-forward-line 1)))))
       (unless (setq entry (nreverse entry))
 	(error "warning; no info dir entry in %s" info-file))
-      (setq groups (install-info-groups section entry)))
+      (if delete
+	  nil
+	(setq groups (install-info-groups section entry))))
      (t
       ;; Neither entry or section is given.
       (save-excursion
@@ -209,40 +220,40 @@ from DIR-FILE; don't insert any new entries."
 	    (when (and section (setq entry (nreverse entry)))
 	      (setq groups
 		    (nconc groups
-			   (install-info-groups section entry))))))
-	;;
-	(unless groups
-	  ;; No section is specified on the info file. Use "Miscellaneous"
-	  ;; as the section name.
-	  (goto-char (point-min))
-	  (while (re-search-forward "^START-INFO-DIR-ENTRY" nil t)
-	    (install-info-forward-line 1)
-	    (while (not (looking-at "^END-INFO-DIR-ENTRY"))
-	      (let ((start (point))
-		    str)
-		(unless (eolp)
-		  (setq str (buffer-substring start
-					      (install-info-point-at-eol)))
-		  (if (string-match "^\\* " str)
-		      (setq entry (cons str entry))
-		    (when entry
-		      (setq entry
-			     (cons (format "%s\n%s" (car entry) str)
-				   (cdr entry))))))
-		(install-info-forward-line 1))))
-	  (unless (setq entry (nreverse entry))
-	    (error "warning; no info dir entry in %s" info-file))
-	  (unless section
-	    (setq section (list "Miscellaneous")))
-	  (setq groups (install-info-groups section entry))))))
+			   (install-info-groups section entry)))))))))
     ;;
     (if delete
-	(install-info-delete-groups groups dir-file)
+	(install-info-delete-entry entry dir-file)
+      (unless groups
+	;; No section is specified on the info file. Use "Miscellaneous"
+	;; as the section name.
+	(goto-char (point-min))
+	(while (re-search-forward "^START-INFO-DIR-ENTRY" nil t)
+	  (install-info-forward-line 1)
+	  (while (not (looking-at "^END-INFO-DIR-ENTRY"))
+	    (let ((start (point))
+		  str)
+	      (unless (eolp)
+		(setq str (buffer-substring start
+					    (install-info-point-at-eol)))
+		(if (string-match "^\\* " str)
+		    (setq entry (cons str entry))
+		  (when entry
+		    (setq entry
+			  (cons (format "%s\n%s" (car entry) str)
+				(cdr entry))))))
+	      (install-info-forward-line 1))))
+	(unless (setq entry (nreverse entry))
+	  (error "warning; no info dir entry in %s" info-file))
+	(unless section
+	  (setq section (list "Miscellaneous")))
+	(setq groups (install-info-groups section entry)))
+      ;;
       (install-info-add-groups groups dir-file))
     ;;
     (kill-buffer buf)))
 
-(defun install-info-delete-groups (groups dir)
+(defun install-info-delete-entry (entry dir)
   ;; Delete all entries given.
   (setq dir (expand-file-name dir))
   (let ((buf (get-buffer-create " *install-info-dir*")))
@@ -253,12 +264,18 @@ from DIR-FILE; don't insert any new entries."
       (if (not (file-exists-p dir))
 	  (error "No such file or directory for %s" dir)
 	(install-info-insert-file-contents dir)
-	(dolist (en (apply 'append (mapcar 'cdr groups)))
-	  (let ((key (when (string-match ")" en)
-		       (substring en 0 (match-beginning 0)))))
+	(dolist (en entry)
+	  (let (start file)
+	    ;; XEmacs-style entry is not considered here.
+	    (when (string-match "(" en)
+	      (setq en (substring en (match-end 0)))
+	      (setq file (when (string-match ")" en)
+			   (substring en 0 (match-beginning 0)))))
 	    (goto-char (point-min))
 	    (while (re-search-forward
-		    (concat "^" (regexp-quote key) "\\(\\.info\\)?)") nil t)
+		    (concat "^\\*.*("
+			    (regexp-quote file)
+			    "\\(\\.info\\)?)") nil t)
 	      (let ((start (match-beginning 0)))
 		(install-info-forward-line 1)
 		(while (not (or (eolp)
