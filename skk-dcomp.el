@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.12 2001/10/19 13:26:53 czkmt Exp $
+;; Version: $Id: skk-dcomp.el,v 1.13 2001/10/29 11:41:51 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/19 13:26:53 $
+;; Last Modified: $Date: 2001/10/29 11:41:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -168,10 +168,10 @@
   (when (and skk-mode
 	     skk-dcomp-activate
 	     skk-henkan-on
-	     (not skk-henkan-active)
-	     (skk-dcomp-marked-p))
-    (skk-dcomp-face-off)
-    (skk-dcomp-delete-completion)
+	     (not skk-henkan-active))
+    (when (skk-dcomp-marked-p)
+      (skk-dcomp-face-off)
+      (skk-dcomp-delete-completion))
     (skk-dcomp-do-completion (point))))
 
 ;;; advices.
@@ -196,6 +196,16 @@
     ad-do-it
     (unless (skk-get-prefix skk-current-rule-tree)
       (skk-dcomp-do-completion (point))))))
+
+(defadvice skk-set-henkan-point-subr (around skk-dcomp-ad activate)
+  (cond
+   (skk-dcomp-activate
+    (let ((henkan-on skk-henkan-on))
+      ad-do-it
+      (unless henkan-on
+	(skk-dcomp-do-completion (point)))))
+   (t
+    ad-do-it)))
 
 (defadvice skk-kakutei (around skk-dcomp-ad activate)
   (skk-dcomp-before-kakutei)
