@@ -1,0 +1,15 @@
+Jamie Zawinski <jwz@lucid.com> 氏による bytecompiler です。
+酒井さん (Kiyotaka Sakai<ksakai@netwk.ntt-at.co.jp>) より Nemacs 添
+付のバイトコンイパイラーではマクロの展開が上手くゆかないようだ、と
+いうご報告をいただきましたので、このパッケージを添付しております。
+SKK と Nemacs もしくは、Mule-1.x との組み合わせで使用されることを前
+提としております。
+
+インストールは添付の README.en ファイルなどをご覧下さい。また、
+Mule-1.x で使用される場合は、bytecomp_el-mule-1_1_pl04.patch を当て
+て下さい。
+
+このパッケージは、Emacs 19 に添付されているバイトコンパイラーの原形
+になったものです。
+
+中島幹夫 <gy2m-nkjm@asahi-net.or.jp>

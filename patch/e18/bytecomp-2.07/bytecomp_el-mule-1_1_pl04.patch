@@ -1,0 +1,80 @@
+  このパッチは bytecomp-2.07 の bytecomp.el を Mule で使うために、MIX
+editor/main の Rij 氏のログ (1992 年年末頃のもの。Demacs への対応をアッ
+プされていた) 及び Mule オリジナルの bytecomp.el を参考に私がてきと～
+に直したものです。この対応で一応 386BSD + Mule-1.1 PL0.4 で動いている
+ようですが動作の保証はしません。
+
+
+＃ mc-flag を nil にしているのに何故 write-region で *noconv* の引数を
+＃ 取らせなきゃならないんでしょうねぇ???
+
+
+  DOS で Mule を動かしていらっしゃる方は、このまま使えないかもしれませ
+ん。というのは Mule オリジナルの bytecomp.el に東田さんのパッチが入っ
+ているのですが、私には何をしてらっしゃるのか今一理解できない為、その
+コードを bytecomp-2.07 の bytecomp.el に持ってきていない為です。
+おわかりになった方は是非ご教授くださいませ m(__)m。
+
+  その他にも bytecomp-runtime.el は DOS ではファイル名が圧縮されてしまう為、
+適当な名前に変更し、bytecomp.el の 168 行目の load されるファイル名を
+それに合す作業がいるのではないでしょうか (Rij 氏のログにも書かれていた
+ように思いますが、正確なところを忘れてしまいました)。
+
+---- bytecomp.el -------------------------------------------------------------
+(or (fboundp 'defsubst)
+    ;; This really ought to be loaded already!
+    (load-library "bytecomp-runtime"))
+---- bytecomp.el -------------------------------------------------------------
+
+
+--- ちょっきん --- ちょっきん --- ちょっきん --- ちょっきん --- ちょっきん ---
+*** bytecomp.el	Thu Jul 16 04:06:10 1992
+--- /usr/local/mule/lisp/bytecomp.el	Wed Apr 27 19:25:05 1994
+***************
+*** 1067,1072 ****
+--- 1067,1073 ----
+  	       byte-compile-warnings-point-max
+  	     (save-excursion
+  	       (set-buffer (get-buffer-create "*Compile-Log*"))
++ 	       (setq mc-flag nil)           ; for mule
+  	       (point-max)))))
+       (list 'unwind-protect (cons 'progn body)
+         '(save-excursion
+***************
+*** 1192,1199 ****
+  		(delete-file target-file)
+  	      (error nil)))
+  	(if (file-writable-p target-file)
+!  	    (let ((kanji-flag nil)) ; for nemacs, from Nakagawa Takayuki
+! 	      (write-region 1 (point-max) target-file))
+  	  ;; This is just to give a better error message than write-region
+  	  (signal 'file-error (list "Opening output file"
+  				    (if (file-exists-p target-file)
+--- 1193,1202 ----
+  		(delete-file target-file)
+  	      (error nil)))
+  	(if (file-writable-p target-file)
+!  	    (let ((mc-flag nil)) ; for mule
+! 	      (write-region 1 (point-max) target-file
+! 			    nil nil *noconv* ;; for mule
+! 			    ))
+  	  ;; This is just to give a better error message than write-region
+  	  (signal 'file-error (list "Opening output file"
+  				    (if (file-exists-p target-file)
+
+--- ちょっきん --- ちょっきん --- ちょっきん --- ちょっきん --- ちょっきん ---
+
+  C ソースの方は、全て Emacs 19 向けみたいですが、eval.c.patch は、
+
+＞  eval.c.patch	This contains a better version of the macroexpand
+＞ 			function.  The patch is for v19, but you can easily
+＞ 			extract the function if you're so moved.
+
+なんて書いてあるので、Mule-1.1 PL04 の eval.c にハンドパッチを当てて
+使っていますが、とりあえず動いています。一体何が better なのか理論的に 
+(C は詳しくないので) も実感的にも理解しかねるのですが、これもお分りの
+方はご教授くださいませ。
+
+
+みきみきみっきん(PBC01764@niftyserve.or.jp)
+minakaji@mix
