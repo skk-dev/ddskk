@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.11 2000/11/15 09:40:16 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.12 2000/11/19 13:49:01 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/15 09:40:16 $
+;; Last Modified: $Date: 2000/11/19 13:49:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2044,6 +2044,15 @@ skk-record-file の \"登録:\" 項目のカウンター。")
 nil のいずれか。")
 
 (defvar skk-menu nil)
+
+(skk-deflocalvar skk-modeline-input-mode nil)
+(defvar skk-default-indicator nil)
+(defvar skk-latin-mode-indicator nil)
+(defvar skk-hiragana-mode-indicator nil)
+(defvar skk-katakana-mode-indicator nil)
+(defvar skk-jisx0208-latin-mode-indicator nil)
+(defvar skk-jisx0201-mode-indicator nil)
+(defvar skk-abbrev-mode-indicator nil)
 
 ;; ---- buffer local variables
 ;; <フラグ類>
