@@ -2,6 +2,7 @@
 
 	* doc/skk.texi (基本的な使用方法): 「ですます」調を採用。
 	Don't use concept index for variables and functions.
+	Fix node dependencies.
 
 2000-09-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
