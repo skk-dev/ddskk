@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.264 2003/03/28 03:20:14 czkmt Exp $
+;; Version: $Id: skk.el,v 1.265 2003/03/29 05:24:45 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/03/28 03:20:14 $
+;; Last Modified: $Date: 2003/03/29 05:24:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -306,8 +306,9 @@ dependent."
   (cond
    (skk-j-mode
     (skk-define-j-mode-map)
-    (unless (memq (lookup-key skk-j-mode-map skk-kakutei-key)
-		  '(skk-insert skk-kakutei))
+    (unless (eq (lookup-key skk-j-mode-map
+			    (char-to-string skk-try-completion-char))
+		  'skk-insert)
       (when (vectorp skk-kakutei-key)
 	(define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei))
       (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
