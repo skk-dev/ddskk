@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.276 2004/01/26 17:44:14 czkmt Exp $
+;; Version: $Id: skk.el,v 1.277 2004/01/26 18:00:19 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/01/26 17:44:14 $
+;; Last Modified: $Date: 2004/01/26 18:00:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1743,10 +1743,10 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 					      key-num-alist)))))
 		   (cond
 		    (num
+		     (skk-set-henkan-count (+ 4 (* loop max-candidates) num))
 		     (setq new-one (nth num henkan-list)
 			   skk-kakutei-flag t
-			   loop nil)
-		     (skk-set-henkan-count (+ 4 (* loop max-candidates) num)))
+			   loop nil))
 		    ((or (eq char ?\040) ; SPC
 			 (skk-key-binding-member
 			  key
