@@ -5,6 +5,8 @@
 	(update-buffer-local-foreground-color)
 	(update-buffer-local-background-color): Simplify.
 
+	(ccc-read-color): Return nil if `read-string' returns null string.
+
 2001-12-22  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* etc/dot.skk (skk-hyphen): Remove interactive spec.
@@ -3187,8 +3189,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.605 2001/12/23 00:58:53 czkmt Exp $
-Last Modified: $Date: 2001/12/23 00:58:53 $
+Version: $Id: ChangeLog,v 1.606 2001/12/23 04:20:47 czkmt Exp $
+Last Modified: $Date: 2001/12/23 04:20:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
