@@ -1,3 +1,12 @@
+2002-01-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK
+	(SKK_TUTORIALS): Add skk.xpm.
+
+	* skk-xemacs.el
+	(skk-icon): New varaible.
+	(skk-setup-modeline): Advise to display the icon.
+
 2002-01-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ccc.el
@@ -3211,8 +3220,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.609 2002/01/02 08:09:57 czkmt Exp $
-Last Modified: $Date: 2002/01/02 08:09:57 $
+Version: $Id: ChangeLog,v 1.610 2002/01/03 01:23:48 czkmt Exp $
+Last Modified: $Date: 2002/01/03 01:23:48 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
