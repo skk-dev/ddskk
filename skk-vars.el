@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.28 2001/02/04 03:55:31 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.29 2001/02/04 05:09:43 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/04 03:55:31 $
+;; Last Modified: $Date: 2001/02/04 05:09:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2650,17 +2650,16 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 $B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
 
   0th: `lookup-dictionary-name' $B$,JV$9J8;zNs(B \($B<-=q<oJL$rI=$o$9(B\)$B!#(B
-  1th: $BAw$j$J$7JQ49$N:]$N(B search method $B$r<($9%7%s%\%k!#(Bregexp $B8=:_$N$H$3$m;XDj(B
-       $BIT2D!#(B
+  1th: $BAw$j$J$7JQ49$N:]$N(B search method $B$r<($9%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(B
   2th: $BAw$j$"$jJQ49$G!"$+$D(B `skk-process-okuri-early' $B%*%W%7%g%s$r;XDj$7$F$$$J$$(B
        $B$H$-(B \($BAw$j2>L>7hDj$N8e$K8!:w$r3+;O$9$k$N$G!"Aw$j2>L>$,FCDj$G$-$k(B\) $B$N(B
-       search method $B$r<($9%7%s%\%k!#(Bregexp $B8=:_$N$H$3$m;XDjIT2D!#(Bnil $B$r;XDj$9$k(B
-       $B$H!"Aw$j$"$jJQ49$N:]$O$=$N<-=q$r8!:w$7$J$$!#(B
+       search method $B$r<($9%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(Bnil $B$r;XDj$9$k$H!"Aw$j$"(B
+       $B$jJQ49$N:]$O$=$N<-=q$r8!:w$7$J$$!#(B
   3th: $BAw$j$"$jJQ49$G!"$+$D(B `skk-process-okuri-early' $B$G$"$k$H$-(B \($BAw$j2>L>7hDj$N(B
        $BA0$K8!:w$r3+;O$7$F$*$j!"Aw$j2>L>$,FCDj$G$-$J$$$N$G!"Aw$j2>L>$N$+$J(B prefix
        $B$r=|$$$?ItJ,$r8!:w%-!<$H$7$F(B lookup $B$KEO$7$F$$$k(B\) $B$N(B search method $B$r<($9(B
-       $B%7%s%\%k!#(Bregexp $B$O8=:_$N$H$3$m;XDjIT2D!#(Bnil $B$r;XDj$9$k$HAw$j$"$jJQ49$N:](B
-       $B$O$=$N<-=q$r8!:w$7$J$$!#(B
+       $B%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(Bnil $B$r;XDj$9$k$HAw$j$"$jJQ49$N:]$O$=$N<-=q$r(B
+       $B8!:w$7$J$$!#(B
   4th: S $B<0!#$3$N(B S $B<0$rI>2A$7$F(B nil $B$K$J$k$H$-$O8!:w$7$J$$!#$"$k0lDj$N>r7o$rK~(B
        $B$7$?>l9g$K8!:w$7$J$$$h$&$K;XDj$G$-$k!#(B
   5th: `lookup-entry-heading' $B$,JV$9(B heading $B$+$i8uJd$H$7$F=PNO$9$kJ8;zNs$r@Z$j=P(B
@@ -2673,10 +2672,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 	        \(\(match-beginning 3\) 3\) \(\(match-beginning 4\) 4\)\)\)
        cdr $BIt$NI>2A7k2L$,?t;z$N%j%9%H$K$J$k$H$-$O!"$=$N?t;z$r=g$K(B match-string
        $B$KEO$7$FJ8;zNs$r@Z$j=P$7!"$=$l$iO"7k$7$?J8;zNs$r8uJd$H$7$FJV$9!#Nc$($P!"(B
-          \(cond \(\(match-beginning 2\) '\(1 2\)\)
-	        \(\(match-beginning 3\) 3\)
-	        \(\(match-beginning 4\) 4\)
-	        \(\(match-beginning 5\) '\(6 5\)\)\)\)
+          \(cond \(\(match-beginning 5\) '\(6 5\)\)\)
        $B$H;XDj$9$k$H!"(B\(match-beginning 5\) $B$,(B non-nil $B$K$J$C$?>l9g!"(B
        \(match-string 6\) $B$H(B \(match-string 5\) $B$r$=$N=g$KO"7k$7$?J8;zNs$r8uJd$H$7(B
        $B$F=PNO$9$k!#(B
@@ -2734,17 +2730,16 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 
 $B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
 
-  0th: $BAw$j$J$7JQ49$N:]$N(B search method $B$r<($9%7%s%\%k!#(Bregexp $B8=:_$N$H$3$m;XDj(B
-       $BIT2D!#(B
+  0th: $BAw$j$J$7JQ49$N:]$N(B search method $B$r<($9%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(B
   1th: $BAw$j$"$jJQ49$G!"$+$D(B `skk-process-okuri-early' $B%*%W%7%g%s$r;XDj$7$F$$$J$$(B
        $B$H$-(B \($BAw$j2>L>7hDj$N8e$K8!:w$r3+;O$9$k$N$G!"Aw$j2>L>$,FCDj$G$-$k(B\) $B$N(B
-       search method $B$r<($9%7%s%\%k!#(Bregexp $B8=:_$N$H$3$m;XDjIT2D!#(Bnil $B$r;XDj$9$k(B
-       $B$H!"Aw$j$"$jJQ49$N:]$O$=$N<-=q$r8!:w$7$J$$!#(B
+       search method $B$r<($9%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(Bnil $B$r;XDj$9$k$H!"Aw$j$"(B
+       $B$jJQ49$N:]$O$=$N<-=q$r8!:w$7$J$$!#(B
   2th: $BAw$j$"$jJQ49$G!"$+$D(B `skk-process-okuri-early' $B$G$"$k(B \($BAw$j2>L>7hDj$NA0$K(B
        $B8!:w$r3+;O$7$F$*$j!"Aw$j2>L>$,FCDj$G$-$J$$$N$G!"Aw$j2>L>$N$+$J(B prefix $B$r=|(B
        $B$$$?ItJ,$r8!:w%-!<$H$7$F(B lookup $B$KEO$7$F$$$k(B\) $B$H$-$N(B search method $B$r<($9(B
-       $B%7%s%\%k!#(Bregexp $B$O8=:_$N$H$3$m;XDjIT2D!#(Bnil $B$r;XDj$9$k$HAw$j$"$jJQ49$N:](B
-       $B$O$=$N<-=q$r8!:w$7$J$$!#(B
+       $B%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(Bnil $B$r;XDj$9$k$HAw$j$"$jJQ49$N:]$O$=$N<-=q$r(B
+       $B8!:w$7$J$$!#(B
   3th: S $B<0!#$3$N(B S $B<0$rI>2A$7$F(B nil $B$K$J$k$H$-$O8!:w$7$J$$!#$"$k0lDj$N>r7o$rK~(B
        $B$7$?>l9g$K8!:w$7$J$$$h$&$K;XDj$G$-$k!#(B
   4th: `lookup-entry-heading' $B$,JV$9(B heading $B$+$i8uJd$H$7$F=PNO$9$kJ8;zNs$r@Z$j=P(B
@@ -2757,10 +2752,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 	        \(\(match-beginning 3\) 3\) \(\(match-beginning 4\) 4\)\)\)
        cdr $BIt$NI>2A7k2L$,?t;z$N%j%9%H$K$J$k$H$-$O!"$=$N?t;z$r=g$K(B match-string
        $B$KEO$7$FJ8;zNs$r@Z$j=P$7!"$=$l$iO"7k$7$?J8;zNs$r8uJd$H$7$FJV$9!#Nc$($P!"(B
-          \(cond \(\(match-beginning 2\) '\(1 2\)\)
-	        \(\(match-beginning 3\) 3\)
-	        \(\(match-beginning 4\) 4\)
-	        \(\(match-beginning 5\) '\(6 5\)\)\)\)
+          \(cond \(\(match-beginning 5\) '\(6 5\)\)\)
        $B$H;XDj$9$k$H!"(B\(match-beginning 5\) $B$,(B non-nil $B$K$J$C$?>l9g!"(B
        \(match-string 6\) $B$H(B \(match-string 5\) $B$r$=$N=g$KO"7k$7$?J8;zNs$r8uJd$H$7(B
        $B$F=PNO$9$k!#(B
