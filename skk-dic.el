@@ -3365,7 +3365,6 @@ Small dictionary for SKK.")
 	  (load "skk-dic" t t))
 	(setq buffer-read-only nil)
 	(buffer-disable-undo jisyo-buf)
-	(auto-save-mode -1)
 	(setq case-fold-search nil
 	      major-mode 'skk-jisyo-mode
 	      mode-name "SKK dic")
