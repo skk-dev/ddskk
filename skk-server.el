@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.21 2001/11/25 10:52:45 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.22 2001/11/25 10:57:39 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/25 10:52:45 $
+;; Last Modified: $Date: 2001/11/25 10:57:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -51,7 +51,9 @@
       (when skkserv-process
 	(setq status (process-status skkserv-process)))
       (unless (eq status skk-network-open-status)
-	(setq status (process-status (skk-open-server))))
+	(skk-open-server)
+	(when skkserv-process
+	  (setq status (process-status skkserv-process))))
       (when (eq status skk-network-open-status)
 	(let (v)
 	  (save-match-data
@@ -141,7 +143,8 @@
   ;; SKK サーバーと接続する。サーバープロセスを返す。
   (let ((process (or (skk-open-network-stream) (skk-open-server-1)))
 	code)
-    (when (eq (process-status process) skk-network-open-status)
+    (when (and process
+	       (eq (process-status process) skk-network-open-status))
       (setq code (cdr (assoc "euc" skk-coding-system-alist)))
       (set-process-coding-system process code code))
     (setq skkserv-process process)))
@@ -224,7 +227,7 @@
   (let (
 	;;(msgbuff (get-buffer-create " *skkserv-msg*"))
 	(count 7)
-	process status)
+	status)
     (while (> count 0)
       (skk-message
        "%s の SKK サーバーが起動していません。起動します%s"
@@ -244,8 +247,8 @@
 	       ;; msgbuff
 	       0 nil skk-server-host skk-server-prog arg))
       (sit-for 3)
-      (if (and (setq process (skk-open-network-stream))
-	       (eq (setq status (process-status process))
+      (if (and (skk-open-network-stream)
+	       (eq (setq status (process-status skkserv-process))
 		   skk-network-open-status))
 	  (setq count 0)
 	(setq count (1- count))))
