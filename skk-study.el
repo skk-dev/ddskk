@@ -5,9 +5,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.3 1999/10/05 10:48:19 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.4 1999/10/05 10:50:31 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/05 10:48:19 $
+;; Last Modified: $Date: 1999/10/05 10:50:31 $
 
 ;; This file is not part of SKK yet.
 
@@ -121,27 +121,27 @@
   (if (null entry)
       nil
     (with-current-buffer henkan-buffer
-      (let ((index skk-study-associates-number))
-	grandpa papa associates r
-	;; buffer local variables.
-	last-key last-word )
-      (or skk-study-alist (skk-study-read))
-      (if (and skk-study-alist
-	       (setq last-key (skk-get-last-henkan-data 'henkan-key))
-	       (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
-	       ;; grandpa ::= (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
-	       ;;              ("なk" . ((("こども" . "子供") . ("泣")))) )
-	       (setq grandpa (cdr (assq (cond (skk-okuri-char 'okuri-ari)
-					      (t 'okuri-nasi) )
-					index skk-study-alist )))
-	       ;; papa ::= ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
-	       (setq papa (cdr (assoc midasi grandpa)))
-	       ;; associates ::= ("着")
-	       (setq associates (cdr (assoc (cons last-key last-word) papa))) )
-	  (while (and (> index 0) (setq r (nth (1- index) associates)))
-	    (setq entry (cons r (delete r entry))
-		  index (1- index) )))
-      entry )))
+      (let ((index skk-study-associates-number)
+	    grandpa papa associates r
+	    ;; buffer local variables.
+	    last-key last-word )
+	(or skk-study-alist (skk-study-read))
+	(if (and skk-study-alist
+		 (setq last-key (skk-get-last-henkan-data 'henkan-key))
+		 (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
+		 ;; grandpa ::= (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
+		 ;;              ("なk" . ((("こども" . "子供") . ("泣")))) )
+		 (setq grandpa (cdr (assq (cond (skk-okuri-char 'okuri-ari)
+						(t 'okuri-nasi) )
+					  skk-study-alist )))
+		 ;; papa ::= ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
+		 (setq papa (cdr (assoc midasi grandpa)))
+		 ;; associates ::= ("着")
+		 (setq associates (cdr (assoc (cons last-key last-word) papa))) )
+	    (while (and (> index 0) (setq r (nth (1- index) associates)))
+	      (setq entry (cons r (delete r entry))
+		    index (1- index) )))
+	entry ))))
 
 ;;;###autoload
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
@@ -149,7 +149,7 @@
     (let ((inhibit-quit t)
 	  grandpa papa baby
 	  ;; to get buffer local variables in henkan-buffer.
-	  last-key last-word index )
+	  last-key last-word )
       (or skk-study-alist (skk-study-read))
       (if (and (setq last-key (skk-get-last-henkan-data 'henkan-key))
 	       (setq last-word (car (skk-get-last-henkan-data 'henkan-list)))
