@@ -1,12 +1,12 @@
-;;; skk-w3m.el --- SKK w3m gateway
+;;; skk-w3m.el --- SKK search using w3m-search
 ;; Copyright (C) 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.2 2001/04/12 14:56:40 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.3 2001/04/12 23:56:48 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/04/12 14:56:40 $
+;; Last Modified: $Date: 2001/04/12 23:56:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -26,11 +26,15 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
+;; emacs-w3m (http://www.namazu.org/~tsuchiya/emacs-w3m) を利用し、
+;; Emacs の中から Web 検索エンジンによる検索をし、検索結果の中から
+;; SKK の候補として取り出したいものを切り出して利用するプログラムで
+;; す。
 ;;
 ;; <HOW TO INSTALL>
-;; emacs-w3m (http://www.namazu.org/~tsuchiya/emacs-w3m) が load で
-;; きる環境が必須です。このファイルを SKK-MK があるディレクトリにコ
-;; ピーし、後は普通に make install するだけです。
+;; .emacs を読み込まずに emacs-w3m が load できる環境が必須です。そ
+;; の上でこのファイルを SKK-MK があるディレクトリにコピーし、後は普
+;; 通に make install するだけです。
 ;;
 ;; <HOW TO WORK>
 ;; skk-search-prog-list に (skk-w3m-search "goo-daijirin") のような
@@ -44,22 +48,23 @@
 ;;         (skk-search-server skk-aux-large-jisyo 10000)
 ;;         (skk-w3m-search "goo-daijirin")))
 ;;
-;; 異なる検索エンジンを指定するには "goo-daijirin" に代えて他のもの
-;; を指定します。但し、skk-w3m-search-engine-alist に対応するエント
-;; リが必要です。w3m-search.el の標準の w3m-search-engine-alist は
-;; 見ませんので注意が必要です。
-;; 
+;; skk-w3m-search の引数は検索エンジンの種類を文字列で指定します。
+;; 但し、skk-w3m-search-engine-alist に対応するエントリが必要です。
+;; w3m-search.el の標準の w3m-search-engine-alist は見ませんので注意
+;; が必要です。
+;;
 ;; <TODO>
 ;; o とりあえず skk-w3m-get-candidates-from-goo-exceed-waei,
 ;;   skk-w3m-get-candidates-from-goo-exceed-eiwa,
 ;;   skk-w3m-get-candidates-from-goo-daily-shingo を完成させる。
 ;; o 検索エンジンの増加。
-;; o w3m の代わりに wget が使えないかと試したが、逆に速度遅し...。
 ;; o lookup は w3m-search.el を使った Web search を統合しないのだろう
 ;;   か...。統合すれば skk-lookup.el で一元管理できる？
+;; o w3m の代わりに wget が使えないか (その方が速いのでは？) と試した
+;;   が、検索開始からファイルの書き込みまでの速度があまり速くない割には
+;;   書き込まれたファイルには HTML タグという邪魔者が付いているという状
+;;   態なのでとりあえず見送り...。
 ;;
-;; (setq skk-search-prog-list '((skk-search-jisyo-file skk-jisyo 0 t)
-;;			        (skk-w3m-search "goo-daijirin")))
 ;;; Code
 (eval-when-compile (require 'skk-macs) (require 'skk-vars))
 (require 'w3m-search)
@@ -72,38 +77,64 @@
 (defvar skk-w3m-search-engine-alist
   '(("goo-daijirin"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=2" euc-japan
-     skk-w3m-get-candidates-from-goo-daijirin)
+     skk-w3m-get-candidates-from-goo-daijirin
+     (or 
+      ;; cannot search a key which contains okuri prefix.
+      skk-okuri-char
+      ;; cannot search by Web engine a string which containing SKK special `#' character.
+      skk-num-list skk-num-recompute-key
+      ;; this engine does not contain English entries.
+      skk-abbrev-mode))
     ("goo-exceed-waei"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=1" euc-japan
-     skk-w3m-get-candidates-from-goo-exceed-waei)
+     skk-w3m-get-candidates-from-goo-exceed-waei
+     (or skk-okuri-char skk-num-list skk-num-recompute-key skk-abbrev-mode))
     ("goo-exceed-eiwa"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=0" euc-japan
-     skk-w3m-get-candidates-from-goo-exceed-eiwa)
+     skk-w3m-get-candidates-from-goo-exceed-eiwa
+     (or (not skk-abbrev-mode) skk-okuri-char skk-num-list skk-num-recompute-key))
     ("goo-daily-shingo"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=3" euc-japan
-     skk-w3m-get-candidates-from-goo-daily-shingo))
-  "*")
+     skk-w3m-get-candidates-from-goo-daily-shingo
+     (or skk-okuri-char skk-num-list skk-num-recompute-key)))
+  "*検索エンジン毎の検索オプションを指定するエーリスト。
+car は検索エンジンを表わす文字列、
+cdr は URL (検索文字列を %s で表わす),
+2th は Web page の coding-system,
+3th は候補切り出しに使用する関数を表わすシンボル。
+4th (optional) は S 式を指定し、評価して non-nil になる状態のときは w3m
+    に検索処理をさせない。
+5th は `skk-henkan-key' を加工する関数。")
 
 ;;; system internal variables and constants.
 ;; constants.
 (defconst skk-w3m-working-buffer " *skk-w3m*")
 
-;; global variable
+;; global variables
 
 ;;;###autoload
 (defun skk-w3m-search (search-engine)
-  (let* ((w3m-search-engine-alist skk-w3m-search-engine-alist)
-	 (info (cdr (assoc search-engine w3m-search-engine-alist)))
-	 (post-process (nth 2 info))
-	 (henkan-key skk-henkan-key))
-    (if info
-	(condition-case nil
-	    (save-excursion
+  nil
+  (let* ((w3m-display-inline-image nil)
+	 (w3m-search-engine-alist skk-w3m-search-engine-alist)
+	 (info (assoc search-engine w3m-search-engine-alist))
+	 (post-process (nth 3 info))
+	 (sex (nth 4 info))
+	 (process-key (nth 5 info))
+	 (henkan-key skk-henkan-key))	; buffer local variable...
+    (condition-case nil
+	(save-excursion
+	  (if (and info
+		   (or (not sex)       ; always search this engine, or
+		       (not (eval sex)))) ; search this time.
 	      (save-window-excursion
+		(if process-key
+		   ; must proceed before entering into another buffer.
+		    (setq henkan-key (funcall process-key henkan-key)))
 		(set-buffer (get-buffer-create skk-w3m-working-buffer))
 		(w3m-search search-engine henkan-key)
-		(if post-process (funcall post-process henkan-key))))
-	  (error)))))
+		(if post-process (funcall post-process henkan-key)))))
+      (error)))) ; catch network unreachable error or something like that.
 
 (defun skk-w3m-get-candidates (header0 header1)
   (if (re-search-forward header0 nil t nil)
@@ -114,11 +145,14 @@
 
 (defun skk-w3m-get-candidates-from-goo-daijirin (key)
   (skk-w3m-get-candidates
-   (concat "■［" (regexp-quote key) "］の大辞林第二版からの検索結果　 [0-9]+件")
+   (concat "■\\［" (regexp-quote key) "\\］の大辞林第二版からの検索結果　 [0-9]+件")
    (concat "[0-9]+ +新規で開く +" (regexp-quote key) "【\\([^【】]+\\)】 +$")))
 
 (defun skk-w3m-get-candidates-from-goo-exceed-waei (key)
   ;; not yet.
+  ;;(skk-w3m-get-candidates
+   ;;(concat "■\\［" (regexp-quote key) "\\］のEXCEED和英辞典からの検索結果")
+   ;;(concat "[0-9]+ +新規で開く +" (regexp-quote key) "【\\([^【】]+\\)】 +$")))
   )
 
 (defun skk-w3m-get-candidates-from-goo-exceed-eiwa (key)

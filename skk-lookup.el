@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.12 2001/04/10 12:09:43 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.13 2001/04/12 23:56:48 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/04/10 12:09:43 $
+;; Last Modified: $Date: 2001/04/12 23:56:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -161,7 +161,7 @@
 ;;;; funcitions.
 ;;;###autoload
 (defun skk-lookup-search ()
-  (if (and (boundp 'skk-num-list) (or skk-num-list skk-num-recompute-key))
+  (if (or skk-num-list skk-num-recompute-key)
       ;; 数値変換のときは変換キーが `#' を含むものなので、lookup で検索しない。
       nil
     (save-excursion
