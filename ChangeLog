@@ -3,6 +3,8 @@
 	* skk-vars.el (skk-henkan-face-default): Use more simple
 	definition.
 
+	* skk-xemacs.el (before-init-hook): Use better key definition.
+
 2001-05-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-henkan-face): Default to
@@ -3317,8 +3319,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.288 2001/05/20 01:06:04 czkmt Exp $
-Last Modified: $Date: 2001/05/20 01:06:04 $
+Version: $Id: ChangeLog,v 1.289 2001/05/20 03:29:10 czkmt Exp $
+Last Modified: $Date: 2001/05/20 03:29:10 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

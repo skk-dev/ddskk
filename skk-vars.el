@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.34 2001/05/20 01:06:05 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.35 2001/05/20 03:29:10 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/20 01:06:05 $
+;; Last Modified: $Date: 2001/05/20 03:29:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1139,7 +1139,9 @@ canna:attribute-alist が良い例かもしれない。"
   :group 'skk-decoration)
 
 (defface skk-henkan-face-default
-  '((((class color) (background light))
+  '((((class color) (type tty))
+     (:foreground "black" :background "green"))
+    (((class color) (background light))
      (:foreground "black" :background "darkseagreen2"))
     (((class color) (background dark))
      (:foreground "white" :background "darkolivegreen"))
