@@ -1,3 +1,14 @@
+2004-04-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-coding-system): Default to nil if
+	window-system is w32, otherwise default to the value of
+	locale-coding-system.
+
+	(skk-e21-encode-string): Do not encode if skk-e21-coding-system is
+	nil.
+
+	* skk.el (skk-mode-invoke): Find skk menus by "SKK" or "skk".
+
 2004-03-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-e21-menu-resource-ja):
@@ -4531,8 +4542,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.790 2004/03/31 23:44:14 czkmt Exp $
-Last Modified: $Date: 2004/03/31 23:44:14 $
+Version: $Id: ChangeLog,v 1.791 2004/04/01 03:51:14 czkmt Exp $
+Last Modified: $Date: 2004/04/01 03:51:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
