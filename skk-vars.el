@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.51 2001/09/09 02:34:20 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.52 2001/09/11 16:01:06 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/09 02:34:20 $
+;; Last Modified: $Date: 2001/09/11 16:01:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2535,15 +2535,25 @@ This map should be derived from isearch-mode-map.")
 (defconst skk-num-alist-type2
   '((?0 . "〇") (?1 . "一") (?2 . "二") (?3 . "三")
     (?4 . "四") (?5 . "五") (?6 . "六") (?7 . "七")
-    (?8 . "八") (?9 . "九") (?  . ""))
+    (?8 . "八") (?9 . "九") (?\  . ""))
   "ascii 数字の char type と漢数字の string type の連想リスト。
 \"1995\" -> \"一九九五\" のような文字列の変換を行う際に利用する。")
 
+(defconst skk-num-alist-type3
+  (append
+   '((ju . "十") (hyaku . "百") (sen . "千")
+     (man . "万") (oku . "億") (cho . "兆") (kei . "京"))
+   skk-num-alist-type2)
+  "数字の漢字表記を連想するための alist。")
+
+
 (defconst skk-num-alist-type5
-  '((?1 . "壱") (?2 . "弐") (?3 . "参")
+  '((ju . "拾") (hyaku . "百") (sen . "阡")
+    (man . "萬") (oku . "億") (cho . "兆") (kei . "京")
+    (?0 . "零") (?1 . "壱") (?2 . "弐") (?3 . "参")
     (?4 . "四") (?5 . "伍") (?6 . "六") (?7 . "七")
-    (?8 . "八") (?9 . "九") (?  . ""))
-  "ascii 数字の char type と漢数字の string type の連想リスト。
+    (?8 . "八") (?9 . "九") (?\  . ""))
+  "数字の漢字表記を連想するための alist。
 \"1995\" -> \"壱阡九百九拾伍\" のような文字列の変換を行う際に利用する。")
 
 (skk-deflocalvar skk-num-list nil
