@@ -3,9 +3,9 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-e18.el,v 1.4 2000/11/25 17:27:18 czkmt Exp $
+;; Version: $Id: skk-e18.el,v 1.5 2000/11/25 17:42:58 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 17:27:18 $
+;; Last Modified: $Date: 2000/11/25 17:42:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -112,10 +112,9 @@ Install patch/e18/advice.el in load-path and try again.")))
 
 (defadvice exit-minibuffer (around skk-e18-ad activate)
   (let ((no-nl (and skk-egg-like-newline skk-henkan-on)))
-    (progn
-      ;; なぜか 2 回 skk-kautei を呼ばないとうまくいかない。
-      ;; 原因を考え中。
-      (skk-kakutei)
+    (when skk-henkan-on
+      (unless skk-mode
+	(skk-mode 1))
       (skk-kakutei))
     (if no-nl
 	nil
