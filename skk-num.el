@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.5 1999/10/03 11:54:44 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.6 1999/10/15 02:34:45 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 11:54:44 $
+;; Last Modified: $Date: 1999/10/15 02:34:45 $
 
 ;; This file is part of SKK.
 
@@ -398,10 +398,7 @@ integer `1' を代入する。
 (defun skk-num-recompute (num)
   ;; #4 の見出しに対し、skk-henkan-key に代入された数字そのものを再度検索する。
   (let (result)
-    ;; with-temp-buffer だと何故上手くゆかない...？ 確定されてしまう。
-    ;;(with-temp-buffer
-    (save-excursion
-      (set-buffer (get-buffer-create " *skk-work*"))
+    (with-temp-buffer
       ;; カレントバッファのバッファローカル変数に影響を及ぼさないよう、ワーキ
       ;; ングバッファへ一旦逃げる
       (let ((skk-current-search-prog-list skk-search-prog-list)
@@ -411,8 +408,8 @@ integer `1' を代入する。
 	    ;; のため、nil を入れておく。
             skk-henkan-okurigana skk-okuri-char skk-use-numeric-conversion )
         (while skk-current-search-prog-list
-          (setq result (skk-nunion result (skk-search))) )))
-    ;; ここで *skk-work* を出て変換を行なっているカレントバッファに戻る
+          (setq result (kk-nunion result (skk-search))) )))
+    ;; ここで temp-buffer を出て変換を行なっているカレントバッファに戻る
     ;; (バッファローカル値である skk-henkan-list を操作したいため)。
     (setq skk-num-recompute-key num)
     (if result
