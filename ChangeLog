@@ -1,3 +1,10 @@
+2002-02-26  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* skk.el
+	(skk-remove-redundant-okurigana):
+	Rename from `skk-remove-redundant-okurgana'.
+	Update doc string and modify prompt string.
+
 2002-02-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
@@ -3659,8 +3666,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.659 2002/02/17 06:15:41 czkmt Exp $
-Last Modified: $Date: 2002/02/17 06:15:41 $
+Version: $Id: ChangeLog,v 1.660 2002/02/26 05:37:54 obata Exp $
+Last Modified: $Date: 2002/02/26 05:37:54 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
