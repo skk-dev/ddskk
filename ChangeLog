@@ -1,3 +1,10 @@
+2002-04-01  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* skk.el (skk-henkan-show-candidate-subr): Fix bug that when
+	`skk-numeric-p' returns t, lisp program was not evaluated.
+
+	* skk-macs.el (skk-eval-string): Simplify.
+
 2002-03-29  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* skk-vars.el (skk-buffer-undo-list): New variable.
@@ -3811,8 +3818,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.679 2002/03/29 23:16:11 obata Exp $
-Last Modified: $Date: 2002/03/29 23:16:11 $
+Version: $Id: ChangeLog,v 1.680 2002/04/01 23:22:21 obata Exp $
+Last Modified: $Date: 2002/04/01 23:22:21 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
