@@ -1,5 +1,8 @@
 2001-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* SKK-MK
+	(SKK-MK-compile-package): Load auto-autoloads.el.
+
 	* skk-tut.el
 	(skktut-init-variables-alist): Set `skk-kcode-charset'
 	japanese-jisx0208 when feature `jisx0213' is found.
@@ -3138,8 +3141,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.595 2001/12/16 01:43:09 czkmt Exp $
-Last Modified: $Date: 2001/12/16 01:43:09 $
+Version: $Id: ChangeLog,v 1.596 2001/12/16 03:56:43 czkmt Exp $
+Last Modified: $Date: 2001/12/16 03:56:43 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
