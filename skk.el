@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.220 2002/01/18 14:04:50 czkmt Exp $
+;; Version: $Id: skk.el,v 1.221 2002/01/18 14:10:46 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/18 14:04:50 $
+;; Last Modified: $Date: 2002/01/18 14:10:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3295,7 +3295,7 @@ If you want to restore the dictionary from the disc, try
 		      (1- (search-forward "/")))
 		headchar (if (string= item "")
 			     (int-char 0)
-			   (sref item 0)))
+			   (aref item 0)))
 	  (cond
 	   ((and (eq headchar ?\[)
 		 (<= stage 2))
@@ -4011,9 +4011,9 @@ If you want to restore the dictionary from the disc, try
 	  new-skk-okuri-char new-skk-henkan-key)
       (when (and (>= midasi-len 2) (>= word-len 2))
 	;; check if both midasi and word end with the same ascii char.
-	(when (and (skk-ascii-char-p (sref midasi (1- midasi-len)))
-		   (eq (sref midasi (1- midasi-len))
-		       (sref word (1- word-len))))
+	(when (and (skk-ascii-char-p (aref midasi (1- midasi-len)))
+		   (eq (aref midasi (1- midasi-len))
+		       (aref word (1- word-len))))
 	  ;; if so chop off the char from midasi and word.
 	  ;; assume size of an ASCII char is always 1.
 	  (setq midasi (substring midasi 0 -1)

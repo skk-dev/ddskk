@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.76 2002/01/18 14:04:00 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.77 2002/01/18 14:10:46 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/18 14:04:00 $
+;; Last Modified: $Date: 2002/01/18 14:10:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -709,7 +709,7 @@ BUFFER defaults to the current buffer."
 	 (eq (aref string 0) ?\()
 	 ;; second character is ascii or not.
 	 (skk-ascii-char-p (aref string 1))
-	 (eq (sref string (1- l)) ?\)))))
+	 (eq (aref string (1- l)) ?\)))))
 
 (defsubst skk-eval-string (string)
   ;; eval STRING as a lisp program and return the result.
