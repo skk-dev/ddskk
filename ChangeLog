@@ -3,6 +3,9 @@
 	* skk-server.el
 	(skk-server-live-p): New function.
 
+	* skk.el
+	(skk-mode): For Emacs 21. Don't call `make-local-hook'.
+
 2001-11-27  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-viper.el (viper-forward-word-kernel@around@skk-ad,
@@ -2985,8 +2988,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.570 2001/11/27 14:29:30 czkmt Exp $
-Last Modified: $Date: 2001/11/27 14:29:30 $
+Version: $Id: ChangeLog,v 1.571 2001/11/27 15:04:44 czkmt Exp $
+Last Modified: $Date: 2001/11/27 15:04:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
