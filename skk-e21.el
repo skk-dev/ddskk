@@ -29,7 +29,9 @@
 
 (eval-when-compile
   (require 'cl)
-  (require 'static))
+  (require 'static)
+  (require 'tooltip)
+  (require 'avoid))
 
 (eval-and-compile
   (autoload 'Info-goto-node "info")
@@ -241,6 +243,21 @@
 	     (setq cons (assoc (aref (car list) 0) skk-e21-menu-resource-ja)))
 	(aset (car list) 0 (skk-e21-encode-string (cdr cons)))))
       (setq list (cdr list)))))
+
+(defun tooltip-show-at-point (text)
+  (require 'tooltip)
+  (require 'avoid)
+  (let* ((P (mouse-avoidance-point-position))
+	 (frame (car P))
+	 (x (cadr P))
+	 (y (cddr P))
+	 (oP (mouse-position))
+	 (oframe (car oP))
+	 (ox     (cadr oP))
+	 (oy     (cddr oP)))
+    (set-mouse-position frame x y)
+    (tooltip-show text)
+    (set-mouse-position oframe ox oy)))
 
 (require 'product)
 (product-provide
