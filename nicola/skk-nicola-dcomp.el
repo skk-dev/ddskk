@@ -63,15 +63,14 @@
 			     skk-dcomp-end-point))))))
       ad-do-it
       ;;
-      (when (and (eq this-command
-		     'skk-nicola-self-insert-rshift)
+      (when (and (eq this-command 'skk-nicola-self-insert-rshift)
 		 (eq skk-henkan-mode 'on))
 	(when (and (markerp skk-dcomp-start-point)
 		   (marker-position skk-dcomp-start-point)
+		   pos
 		   (< (marker-position skk-dcomp-start-point)
 		      pos))
-	  (delete-region skk-dcomp-start-point
-			 pos))
+	  (delete-region skk-dcomp-start-point pos))
 	(when (and (markerp skk-dcomp-end-point)
 		   (marker-position skk-dcomp-end-point)
 		   (< (point)
