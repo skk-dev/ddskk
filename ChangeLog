@@ -1,5 +1,11 @@
 2001-10-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-jisx0201.el
+	(skk-hiragana-to-jisx0201-region)
+	(skk-katakana-to-jisx0201-region): Don't consider JISX0201 Roman.
+
+2001-10-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-jisx0201.el:
 	Don't define keys here.
 
@@ -2148,8 +2154,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.441 2001/10/03 00:13:12 czkmt Exp $
-Last Modified: $Date: 2001/10/03 00:13:12 $
+Version: $Id: ChangeLog,v 1.442 2001/10/03 22:07:37 czkmt Exp $
+Last Modified: $Date: 2001/10/03 22:07:37 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
