@@ -1,7 +1,7 @@
 -*- text -*-
-             $Date: 1999/09/02 22:02:51 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 1999/09/02 22:15:26 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.3 1999/09/02 22:02:51 minakaji Exp $ 
+	     $Id: INSTALL,v 1.4 1999/09/02 22:15:26 minakaji Exp $ 
 
 (1)Get APEL 9.21 or later and install it.  You can get latest APEL at;
 
@@ -24,23 +24,12 @@ or
       cus-face.el of the package.
 
    (c)On GNU Emacs 19.28, SKK does not work with any custom package.
-      You should use pcustom.el (or you have to use tinycustom.el
-      directly) of APEL for an emulation purpose.
-
-      (i)If you don't have any custom.el in directories of load-path,
-         you have to do nothing.
-
-      (ii)If you have installed a custom.el which does not work
-          correctly with SKK but you can't delete it, you have to
-          change;
-
-            (require 'pcustom)
-
-         line of skk-foreword.el to
-
-            (require 'tinycustom)
-
-         So all defcustoms in SKK package will be equal to defvars.
+      You should use tinycustom.el of APEL for an emulation purpose.
+      By default, SKK requires pcumstom.el which automatically defines
+      to use actual custom package or tinycustom.el, and will define
+      to use tinycustom.el for GNU Emacs 19.28.  So you have to do
+      nothing.  After load tinycustom.el, all `defcustom's in SKK
+      package will be equal to `defvars'.
 
 (3)Edit lisp/Makefile as you like.
 
