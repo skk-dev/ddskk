@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.13 1999/09/17 01:34:33 minakaji Exp $
-;; Last Modified: $Date: 1999/09/17 01:34:33 $
+;; Version: $Id: SKK-MK,v 1.14 1999/09/17 11:08:56 minakaji Exp $
+;; Last Modified: $Date: 1999/09/17 11:08:56 $
 
 ;; Commentary
 ;;
@@ -28,6 +28,17 @@
 ;; load this program.
 
 ;;; Code:
+;; constants.
+(defconst SKK-MK-running-xemacs (string-match "XEmacs" emacs-version))
+
+(defconst SKK-MK-texinfo-coding-system
+  (if (or SKK-MK-running-xemacs 
+	  (and (boundp 'mule-version)
+	       (or (string< "4.0" mule-version) (string< "3.0" mule-version)) ))
+      'junet
+    *junet* ))
+
+;; load-path related.
 (defvar default-load-path load-path)
 (and (expand-file-name "../../site-lisp/apel" data-directory)
      (setq load-path (cons
@@ -69,6 +80,9 @@ end with `skk'." )
 			;; VIP 3.7
 			;; vip
 			)))
+    (and SKK-MK-running-xemacs
+	 (member "skk-leim" preloaded-file-list)
+	 (setq list (nconc list (list 'skk-vars))) )
     (condition-case nil
 	(and (require 'viper) (setq list (nconc list (list 'skk-viper))))
       (error) )
@@ -109,16 +123,6 @@ end with `skk'." )
 			     SKK_PREFIX (expand-file-name "etc" PACKAGEDIR) ))
 (defvar SKK_PACKAGE_LISPDIR (expand-file-name
 			     SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR) ))
-
-;; constants.
-(defconst SKK-MK-running-xemacs (string-match "XEmacs" emacs-version))
-
-(defconst SKK-MK-texinfo-coding-system
-  (if (or SKK-MK-running-xemacs 
-	  (and (boundp 'mule-version)
-	       (or (string< "4.0" mule-version) (string< "3.0" mule-version)) ))
-      'junet
-    *junet* ))
 
 ;; load user custom file if exists.
 (load "./SKK-CFG" t nil t)
