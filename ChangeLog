@@ -1,5 +1,9 @@
 2001-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-macs.el
+	* skk-num.el:
+	Add autoloads.
+
 	* skk.el:
 	Require `skk-autoloads' at the top level.
 
@@ -2752,8 +2756,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.529 2001/11/14 13:54:56 czkmt Exp $
-Last Modified: $Date: 2001/11/14 13:54:56 $
+Version: $Id: ChangeLog,v 1.530 2001/11/14 14:14:07 czkmt Exp $
+Last Modified: $Date: 2001/11/14 14:14:07 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
