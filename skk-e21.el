@@ -30,8 +30,7 @@
 (eval-when-compile
   (require 'cl)
   (require 'static)
-  (require 'tooltip)
-  (require 'avoid))
+  (require 'tooltip))
 
 (eval-and-compile
   (autoload 'Info-goto-node "info")
@@ -271,7 +270,6 @@ Analogous to mouse-position."
 
 (defun skk-tooltip-show-at-point (text)
   (require 'tooltip)
-  (require 'avoid)
   (let* ((P (skk-e21-mouse-position))
 	 (frame (car P))
 	 (x (cadr P))
