@@ -3,6 +3,13 @@
 	* skk.el
 	(skk-process-prefix-or-suffix): Bind `skk-kakutei-history' nil.
 
+	* skk-macs.el:
+	No need to declare `skk-emacs-type' here.
+
+	* skk-vars.el
+	(skk-emacs-type): No need to check if `mule-version' is bound for
+	FSF Emacsen.
+
 2001-11-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
@@ -2635,8 +2642,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.511 2001/11/03 12:56:39 czkmt Exp $
-Last Modified: $Date: 2001/11/03 12:56:39 $
+Version: $Id: ChangeLog,v 1.512 2001/11/03 23:03:42 czkmt Exp $
+Last Modified: $Date: 2001/11/03 23:03:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
