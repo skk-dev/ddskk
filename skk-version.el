@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.20 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-version.el,v 1.21 2001/12/16 12:35:21 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2001/12/16 12:35:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -35,7 +35,7 @@
 (provide 'skk-version) ; have to declare in the top.
 
 (product-provide 'skk-version
-  (product-define "Daredevil SKK" nil '(11 6 0) "Toyonaka"))
+  (product-define "Daredevil SKK" nil '(11 7 0) "Okamachi"))
 
 ;; set version-string
 (if (fboundp 'product-version-as-string)
