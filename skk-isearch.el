@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.11 2000/11/20 20:05:59 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.12 2000/11/25 04:43:36 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 20:05:59 $
+;; Last Modified: $Date: 2000/11/25 04:43:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -291,15 +291,15 @@ Optional argument PREFIX is appended if given."
 (defun skk-isearch-find-keys-define (map commands command)
   ;; COMMANDS のいずれかにバインドされているキーを全て調べる。skk-isearh の中で
   ;; それらのキーを COMMAND にバインドする。
-  (do ((commands commands (cdr commands))
-       prefs)
-      ((null commands))
-    (dolist (key (where-is-internal (car commands) (current-global-map)))
-      (when (and (= (length key) 2) (not (member (aref key 0) prefs)))
-	(define-key map (vector (aref key 0)) (make-sparse-keymap))
-	(setq prefs (cons (aref key 0) prefs)))
-      (when (<= (length key) 2)
-	(define-key map key command)))))
+  (let (prefs)
+    (while commands
+      (dolist (key (where-is-internal (car commands) (current-global-map)))
+	(when (and (= (length key) 2) (not (member (aref key 0) prefs)))
+	  (define-key map (vector (aref key 0)) (make-sparse-keymap))
+	  (setq prefs (cons (aref key 0) prefs)))
+	(when (<= (length key) 2)
+	  (define-key map key command)))
+      (setq commands (cdr commands)))))
 
 ;; XXX should be more generic
 (defun skk-isearch-setup-keymap (map)
