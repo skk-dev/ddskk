@@ -1,0 +1,159 @@
+@c Insert  "\input texinfo" at 1st line before texing this file alone.
+@setfilename skk-faq.info
+
+@c @node Frequently Asked Questions, 事項索引, 謝辞とお願い, Top
+@unnumbered よくある質問(FAQ)
+
+これは SKK に対するよくある質問と、それに対する回答集です。
+
+@menu
+* Introduction::                     SKK のなぜなに。
+* Installation::                     SKK の入手から導入まで。
+* Customization::                    SKK の基本設定からお好みのカスタマイズまで。
+* Dictionaries::                     SKK 辞書関連。
+* Miscellaneous::                    SKK の活用法その他。
+* Forgotten Antique Questions(FAQ):: 化石的質問集。
+@end menu
+
+@node Introduction, Installation, よくある質問(FAQ), よくある質問(FAQ)
+@comment  node-name,  next,  previous,  up
+@unnumberedsec Introduction
+
+@itemize @bullet
+@item
+Q.  最新のバージョンは ?
+
+現在、開発版の最新版は Daredevil SKK 11.x、安定版は SKK 10.6x です。
+
+@item
+Q.  SKK はシンプルなのが長所だったのでは? 色々使わない機能があり過ぎるよ
+うな...
+
+かような議論は 10 年来行われてきており、結論は出ていませんが、事実として
+現在まで開発が続けられています。
+
+「シンプルな操作性の維持と多機能化・高機能化は両立できる」
+
+というのが現在の開発陣の考えであるようです。
+
+多機能化と言っても多くはユーザーオプションによって無効にすることができま
+すし、skk.el 本体が複雑化しないようにモジュール化されています。
+
+@item
+Q. SKK はどんなオペレーティングシステムで使えますか ?
+
+@end itemize
+
+@node Installation, Customization, Introduction, よくある質問(FAQ)
+@comment  node-name,  next,  previous,  up
+@unnumberedsec Installation
+
+@itemize @bullet
+@item
+Q.  Emacs に付属の SKK を使っているのですが...
+
+まず初めに言っておかなければなりませんが、
+
+ 「Emacs には SKK は付いていません」
+@footnote{Nemacs 3.3.2 には SKK 2.25 が付いていたりしますが...}
+
+Emacs 20 には KKC というプログラムが付属し、Leim では KKC を利用した日本
+語入力機能を提供しています。これは SKK の辞書を利用しているため、ミニバッ
+ファに「Loading skk/skkdic...done」と表示されますが、決して SKK が動いて
+いる理由ではありません。
+
+開発中の Emacs ではこの問題は既に解決されています。
+
+@end itemize
+
+@node Customization, Dictionaries, Installation, よくある質問(FAQ)
+@comment  node-name,  next,  previous,  up
+@unnumberedsec Customization
+
+@itemize @bullet
+@item
+Q.  インジケータをモード行の左端に置きたいのですが。
+
+@file{~/.skk} に
+
+@lisp
+(setq skk-status-indicator 'left)
+@end lisp
+
+と書いてみてください。
+
+@end itemize
+
+@node Dictionaries, Miscellaneous, Customization, よくある質問(FAQ)
+@comment  node-name,  next,  previous,  up
+@unnumberedsec Dictionaries
+
+@itemize @bullet
+@item
+Q. Wnn でも Canna でも郵便番号辞書が使えるけれど、SKK では使えないの ?
+
+@item
+Q. SKK の辞書には、品詞情報がないんですね。
+
+@item
+Q. SKK には辞書をマージするプログラムは付いてないの ?
+
+@end itemize
+
+@node Miscellaneous, Forgotten Antique Questions(FAQ), Customization, よくある質問(FAQ)
+@comment  node-name,  next,  previous,  up
+@unnumberedsec Miscellaneous
+
+@itemize @bullet
+
+@c @item
+@c Q.  「飛び出す」の辞書登録で誤って送り仮名も入れちゃって、それ以降
+@c「飛び出すす」となってしまいます。(T_T)
+@c 
+@c ~/.skk に
+@c
+@c (setq skk-check-okurigana-on-touroku t)
+@c 
+@c と書いてみてください。
+@c 
+@item
+Q.  SKK を使い始めてから、他の FEP を使用中にも SHIFT を押してしまいます。
+(T_T)
+
+治すには SKK をやめるしかありません :-)
+
+Emacs 上以外でも SKK みたいな操作性を実現するソフトウェアがあります。
+
+@ref{SKK関連ソフトウェア}.
+
+をご覧になってください。
+
+@end itemize
+
+@node Forgotten Antique Questions(FAQ), , Miscellaneous, よくある質問(FAQ)
+@comment  node-name,  next,  previous,  up
+@unnumberedsec Forgotten Antique Questions(FAQ)
+
+@itemize @bullet
+@item
+Q. SKK は Nemacs で使えますか ?
+
+SKK 10.xx は使えません。
+
+未確認情報ですが、Daredevil SKK 11.x では動いているという噂があります。
+開発者の中に最近 Back to the Future した者がいる可能性は否定できませんが、
+ただの Emacs オタクと考えたほうがいいでしょう。
+
+@item
+Q. SKK は Demacs で使えますか ?
+
+SKK 10.xx は使えません。
+
+最近、MS-DOS 7.1 上の Demacs 上で Daredevil SKK 11.x が動いているところ
+が目撃され、スクープされたそうです。
+
+ところが、DEMAgogiC Studio とかいうアプリケーションに付属のエディタも
+Demacs と呼ばれているらしく、本件はかの偉大な Demacs とは関係無いだろう
+とも言われています。
+
+@end itemize
