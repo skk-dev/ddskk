@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.229 2002/02/17 06:15:21 czkmt Exp $
+;; Version: $Id: skk.el,v 1.230 2002/02/26 05:37:21 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/17 06:15:21 $
+;; Last Modified: $Date: 2002/02/26 05:37:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1886,7 +1886,7 @@ KEYS と CANDIDATES を組み合わせて 7 つの候補群 (候補数が
       (when (and skk-check-okurigana-on-touroku
 		 ;; 送りあり変換でも skk-okuri-char だけだと判断できない。
 		 skk-henkan-okurigana new-one)
-	(setq new-one (skk-remove-redundant-okurgana new-one)))
+	(setq new-one (skk-remove-redundant-okurigana new-one)))
       (cond
        ((string= new-one "")
 	(if skk-exit-show-candidates
@@ -1944,7 +1944,7 @@ KEYS と CANDIDATES を組み合わせて 7 つの候補群 (候補数が
 	      "*"
 	      skk-henkan-okurigana))))
 
-(defun skk-remove-redundant-okurgana (word)
+(defun skk-remove-redundant-okurigana (word)
   "辞書に登録される候補の持つ余計な送り仮名を取り除く。
 
 送りありの登録をするとき、送り仮名を消してから [RET] を押さなければ正しく登録
@@ -1952,6 +1952,7 @@ KEYS と CANDIDATES を組み合わせて 7 つの候補群 (候補数が
 の側でチェックできる範囲についてはユーザの確認を取る。
 
 `skk-check-okurigana-on-touroku' を non-nil に設定している場合のみ有効。
+auto に設定するとユーザに確認しない。
 変換が行われたバッファで実行される。ミニバッファ、辞書バッファではない。"
   (save-match-data
     (let* ((len (length word))
@@ -1969,11 +1970,11 @@ KEYS と CANDIDATES を組み合わせて 7 つの候補群 (候補数が
 			 'auto)
 		     (skk-y-or-n-p
 		      (format
-		       "今入力した `%s' の `%s' は送り仮名ですか？"
+		       "%s: `%s' を除いて登録しますか？"
 		       word str)
 		      (format
-		       "You mean `%s' in `%s' you've given is okurigana?"
-		       str word))))
+		       "%s: Remove `%s' when register?"
+		       word str))))
 	;; ユーザの指示に従い送り仮名を取り除く。
 	(message "")
 	(setq word (substring
