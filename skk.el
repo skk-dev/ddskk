@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.102 2001/07/19 16:50:49 minakaji Exp $
+;; Version: $Id: skk.el,v 1.103 2001/08/25 14:35:57 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/19 16:50:49 $
+;; Last Modified: $Date: 2001/08/25 14:35:57 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -52,7 +52,6 @@
   (defvar message-log-max)
   (defvar minibuffer-local-ns-map)
   (defvar self-insert-after-hook)
-  (defvar skk-kanagaki-state)
   (defvar skk-rdbms-private-jisyo-table)
   (defvar this-command-char))
 
@@ -1715,7 +1714,16 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				  skk-henkan-count (+ 4 (* loop 7) num)
 				  skk-kakutei-flag t
 				  loop nil))
-			   ((eq char ?\040) ; SPC
+			   ((or (eq char ?\040) ; SPC
+				(member
+				 (key-description key)
+				 (mapcar
+				  (function
+				   (lambda (key)
+				     (key-description key)))
+				  (where-is-internal
+				   'skk-nicola-self-insert-rshift
+				   skk-j-mode-map))))
 			    (if (or skk-current-search-prog-list
 				    (nthcdr 7 henkan-list))
 				(setq loop (1+ loop))

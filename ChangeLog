@@ -1,5 +1,13 @@
 2001-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* SKK-MK (SKK-MK-collect-autoload-functions): Don't look at a
+	newline.
+
+	* skk.el (skk-henkan-show-candidates): Treat a key event for
+	`skk-nicola-self-insert-rshift' as space.
+
+2001-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* SKK-MK (SKK-MK-server-installed-p): Check for config files of
 	xinetd.
 
@@ -3707,8 +3715,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.325 2001/08/18 21:40:18 czkmt Exp $
-Last Modified: $Date: 2001/08/18 21:40:18 $
+Version: $Id: ChangeLog,v 1.326 2001/08/25 14:35:56 czkmt Exp $
+Last Modified: $Date: 2001/08/25 14:35:56 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

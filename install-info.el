@@ -137,7 +137,7 @@ from DIR-FILE; don't insert any new entries."
     ;;
     (cond
      ((and entry section)
-      ;; Both entry and section is given.
+      ;; Both entry and section are given.
       (if delete
 	  nil
 	(setq groups (install-info-groups section entry))))

@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.72 2001/08/18 22:44:44 czkmt Exp $
-;; Last Modified: $Date: 2001/08/18 22:44:44 $
+;; Version: $Id: SKK-MK,v 1.73 2001/08/25 14:35:57 czkmt Exp $
+;; Last Modified: $Date: 2001/08/25 14:35:57 $
 
 ;; Commentary
 ;;
@@ -876,12 +876,12 @@ SKK tutorials:
             (insert-file-contents el-file)
             (while (re-search-forward "^;;;###autoload" nil t)
               (beginning-of-line 2)
-              (if (looking-at "(defun[ 	]+\\([^ 	(]+\\)")
+              (if (looking-at "(defun[ \t]+\\([^ \t\n(]+\\)")
                   (setq funcs
                         (cons (cons (match-string 1)
                                     (save-excursion
                                       (re-search-forward
-                                       "^[ 	]*(interactive"
+                                       "^[ \t]*(interactive"
                                        (save-excursion
 					 (re-search-forward "^(defun" nil t 2))
                                        t)))
