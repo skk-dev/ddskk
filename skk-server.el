@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-server.el,v 1.1 1999/08/29 06:35:45 minakaji Exp $
+;; Version: $Id: skk-server.el,v 1.2 1999/10/03 07:50:25 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 06:35:45 $
+;; Last Modified: $Date: 1999/10/03 07:50:25 $
 
 ;; This file is part of SKK.
 
@@ -27,24 +27,12 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-;; Following people contributed modifications to skk-server.el (Alphabetical
-;; order):
 ;;
-;;      Hitoshi SUZUKI <h-suzuki@ael.fujitsu.co.jp>
-;;      Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
-;;      Kenji Rikitake <kenji@reseau.toyonaka.osaka.jp>
-;;      Kiyotaka Sakai <ksakai@netwk.ntt-at.co.jp>
-;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;;      Makoto MATSUSHITA <matusita@ics.es.osaka-u.ac.jp>
-;;      TOKUYA Junichi <tokuya@crab.fuji-ric.co.jp>
-
-;;; Change log:
-
-
 ;;; Code:
 (eval-when-compile (require 'skk))
 (require 'skk-foreword)
 
+;;;###autoload
 (defgroup skk-server nil "SKK server related customization."
   :prefix "skk-server-"
   :group 'skk )
@@ -62,11 +50,13 @@
   :type 'file
   :group 'skk-server )
 
+;;;###autoload
 (defcustom skk-server-jisyo (getenv "SKK_JISYO")
   "*SKK 辞書サーバープログラムに渡す辞書名。フルパスで書く。"
   :type 'file
   :group 'skk-server )
 
+;;;###autoload
 (defcustom skk-server-portnum nil
   "*Non-nil であれば、その値を port number として skkserv と TCP 接続する。
 /etc/services を直接書き換える権限がないユーザーのための変数。"
@@ -101,13 +91,20 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
 
 のように、ホスト名だけを書くことができる。上記の設定例では、host1, host2 にお
 ける skkserv サービスの TCP 接続の開始のみ試み、サーバーの起動は試みない。"
+  :type '(repeat
+	  (list (string :tag "Hostname")
+		(choice :tag "Server" file (const nil))
+		(choice :tag "Dictionary" file (const nil))
+		(choice :tag "Port number" integer (const nil)) ))
   :group 'skk-server )
 
+;;;###autoload
 (defcustom skk-server-report-response nil
-  "*Non-nil であれば、変換時 SKK サーバーの送出する文字を受け取るまでに accept-process-output を何回実行したかを報告する。"
+  "*Non-nil であれば、変換時サーバーの送出する文字を受け取るまでに accept-process-output を何回実行したかを報告する。"
   :type 'boolean
   :group 'skk-server )
 
+;;;###autoload
 (defcustom skk-server-remote-shell-program
   (or (getenv "REMOTESHELL")
       (and (boundp 'remote-shell-program) remote-shell-program)
@@ -124,6 +121,7 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
   :type 'file
   :group 'skk-server )
 
+;;;###autoload
 (defcustom skk-server-load-hook nil
   "*skk-server.el をロードした後にコールされるフック。"
   :type 'hook
