@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.7 2004/12/08 10:03:48 skk-cvs Exp $
+## Version: $Id: bskk,v 1.8 2004/12/20 09:34:06 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2004/12/08 10:03:48 $
+## Last Modified: $Date: 2004/12/20 09:34:06 $
 
 ## This file is part of Daredevil SKK.
 
@@ -42,6 +42,7 @@
 
 ## Code:
 require 'ftools'
+require 'jcode'
 
 $KCODE = "EUC"
 
@@ -388,6 +389,13 @@ def try_lock( file, lock_mode=File::LOCK_EX, timeout=2, try_interval=0.1 )
   return false
 end
 
+def split_line( line )
+  array = []
+  line.chomp.each_char{ |char|
+    array.push( char )
+  }
+  return array
+end
 
 def serve( db, input, out, err, history_file, history_file_bak )
   begin
@@ -396,7 +404,7 @@ def serve( db, input, out, err, history_file, history_file_bak )
       case line
       when COMMAND_SORT
         entries = input.readline.chomp.split("/")
-        prefix_list = input.readline.split.reverse
+        prefix_list = split_line(input.readline).reverse
         sorted_entries, probs = db.sort( entries, prefix_list )
         out.puts "(" + sorted_entries.map!{|entry|
           entry.inspect
@@ -406,7 +414,7 @@ def serve( db, input, out, err, history_file, history_file_bak )
         out.puts ";;OK."
       when COMMAND_ADD
         kakutei_word = input.readline.chomp
-        prefix_list = input.readline.split.reverse
+        prefix_list = split_line(input.readline).reverse
         db.add_history( kakutei_word, prefix_list )
         out.puts "t"
         out.puts ";;OK."
