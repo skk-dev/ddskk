@@ -1,0 +1,556 @@
+#!/usr/bin/env ruby
+## -*-Ruby-*- 
+## bskk -- Bayesian estimation for SKK
+## Copyright (C) 2004 Kenichi Kurihara <kenichi_kurihara@nifty.com>
+
+## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
+## Maintainer: SKK Development Team <skk@ring.gr.jp>
+## Version: $Id: bskk,v 1.1 2004/02/26 02:42:17 kurihara Exp $
+## Keywords: japanese
+## Last Modified: $Date: 2004/02/26 02:42:17 $
+
+## This file is part of Daredevil SKK.
+
+## Daredevil SKK is free software; you can redistribute it and/or
+## modify it under the terms of the GNU General Public License as
+## published by the Free Software Foundation; either version 2, or
+## (at your option) any later version.
+
+## Daredevil SKK is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+## General Public License for more details.
+
+## You should have received a copy of the GNU General Public License
+## along with Daredevil SKK, see the file COPYING.  If not, write to
+## the Free Software Foundation Inc., 59 Temple Place - Suite 330,
+## Boston, MA 02111-1307, USA.
+
+### Commentary:
+## 使い方は、skk-bayesian.el の Commentary を参照
+
+## Code:
+
+COMMAND_SORT = "#sort"
+COMMAND_ADD  = "#add"
+COMMAND_SAVE = "#save"
+
+def check_type( variable, *types )
+  types.each{ |type|
+    if variable.is_a?( type )
+      return
+    end
+  }
+  raise TypeError.new("need #{type.to_s} but #{variable.class.to_s}")
+end
+
+## String を share する。
+class IString
+  @@str2instance = Hash.new
+
+  ## インスタンスの作成は、IString.new ではなく、
+  ## IString.get_instance を用いる。
+  def initialize( str )
+    check_type( str, String )
+    @str = str.clone
+    @str.freeze
+    @@str2instance[str] = self
+  end
+
+  public
+  def self.get_instance( str )
+    obj = @@str2instance[str]
+    if obj == nil
+      obj = IString.new( str )
+    end
+    return obj
+  end
+
+  def to_s
+    return @str
+  end
+
+  def hash
+    @str.hash
+  end
+
+  def eql?(other)
+    if other.is_a?( IString )
+      return @str.eql?( other.to_s )
+    else
+      return false
+    end
+  end
+end
+
+
+class Distribution
+
+  public
+  def initialize( obj )
+    @word2count = Hash.new(0)
+    @total_count = 0
+    word_count_regexp = /(.+)#(\d+)/
+    if obj != nil
+      check_type( obj, String )
+      line = obj
+      line.chomp.split(" ").each{ |word_count|
+        if word_count =~ word_count_regexp
+          word = IString.get_instance( $1 )
+          count = $2.to_i
+          @word2count[word] = count
+          @total_count += count
+        else
+          raise Exception.new("invalid line:#{line}")
+        end
+      }
+    end
+    decrement
+  end
+  
+  def to_s
+    decrement
+    line = ""
+    @word2count.each{ |word, count|
+      line += "#{word.to_s}##{count} "
+    }
+    return line
+  end
+  
+  def get_prob( word )
+    check_type( word, IString )
+    return @word2count[word].to_f / @total_count.to_f
+  end
+  
+  def increment( word )
+    check_type( word, IString )
+    @word2count[word] += 1
+    @total_count += 1
+  end
+
+  private
+  ## @total_count が Bignum なら、Fixnum に収まるようにする
+  def decrement
+    while @total_count.is_a?( Bignum )
+      temp = Hash.new
+      total = 0
+      @word2count.each{ |word, count|
+        new_count = (count / 10).to_i
+        if new_count > 0
+          temp[word] = new_count
+          total += new_count
+        end
+      }
+      @word2count = temp
+      @total_count = total
+    end
+  end
+end
+
+class DBHistoryFileSyntaxException < Exception
+end
+
+class DB
+  public
+  def initialize( io=nil )
+    check_type( io, IO, NilClass )
+    @i2prefix2dst = Array.new
+    if( io == nil )
+      return
+    end
+    regexp_index = /^&index=(\d+)/
+    regexp_prefix = /^#prefix=([^[:cntrl:][:blank:]]+)/
+    index = nil
+    prefix_char = nil
+    begin
+      while not io.eof?
+        line = io.readline
+        if line =~ regexp_index
+          index = $1.to_i
+        elsif line =~ regexp_prefix
+          prefix_char = IString.get_instance( $1 )
+        else
+          if index == nil or prefix_char == nil
+            raise Exception.new( "invalid file" )
+          end
+          if @i2prefix2dst.size <= index
+            @i2prefix2dst.fill( nil, @i2prefix2dst.size..index )
+          end
+          if @i2prefix2dst[index] == nil
+            @i2prefix2dst[index] = Hash.new
+          end
+          dst = Distribution.new( line[1..(line.length-1)] )
+          @i2prefix2dst[index][prefix_char] = dst
+        end
+      end
+    rescue Exception => e
+      raise DBHistoryFileSyntaxException.new( e.message )
+    end
+  end
+
+  ## 引数の例
+  ## word_str    : "着"
+  ## prefix_list : ["、", "を", "服", "の", "そ"]
+  def add_history( word_str, prefix_list )
+    check_type( word_str, String )
+    check_type( prefix_list, Array )
+    word = IString.get_instance( word_str )
+    if prefix_list.size > @i2prefix2dst.size
+      @i2prefix2dst.fill(nil, @i2prefix2dst.size..prefix_list.size )
+    end
+    prefix_list.each_with_index{ |prefix_str, i|
+      prefix2dst = @i2prefix2dst[i]
+      if prefix2dst == nil
+        prefix2dst = Hash.new
+        @i2prefix2dst[i] = prefix2dst
+      end
+      prefix_char = IString.get_instance( prefix_str )
+      dst = prefix2dst[prefix_char]
+      if dst == nil
+        dst = Distribution.new( nil )
+        @i2prefix2dst[i][prefix_char] = dst
+      end
+      dst.increment( word )
+    }
+  end
+
+  ## 引数の例
+  ## entries     : ["斬", "切", "着"]
+  ## prefix_list : ["、", "を", "服", "の", "そ"]
+  ## return      : [["着", "斬", "切"], [0.4, 0.2, 0.1]]
+  def sort( entries, prefix_list )
+    check_type( entries, Array )
+    check_type( prefix_list, Array )
+    size = entries.size
+    sorted_entries = Array.new( size )
+    entries.each_with_index{ |entry, i|
+      sorted_entries[i] = [entry, 0.0, IString.get_instance(entry)]
+    }
+    weights = weights( prefix_list.size )
+    prefix_list.each_with_index{ |prefix, p_i|
+      prefix2dst = @i2prefix2dst[p_i]
+      if prefix2dst == nil; next; end
+      dst = prefix2dst[IString.get_instance(prefix)]
+      if dst == nil; next; end
+      sorted_entries.each_with_index{ |entry, e_i|
+        prob = dst.get_prob( entry[2] )
+        entry[1] += prob * weights[p_i]
+      }
+    }
+    ## 降順にソート
+    sorted_entries.sort!{ |e1, e2|
+      e2[1] <=> e1[1]
+    }
+    probs = Array.new( size )
+    sorted_entries.each_with_index{ |e,i|
+      sorted_entries[i] = e[0]
+      probs[i] = e[1]
+    }
+    return [sorted_entries, probs]
+  end
+
+  def marshal( io )
+    check_type( io, IO )
+    @i2prefix2dst.each_with_index{ |prefix2dst, index|
+      if prefix2dst == nil
+        next
+      end
+      io.puts( "&index=#{index}" )
+      prefix2dst.each{ |prefix, dst|
+        io.puts( "#prefix=#{prefix}" )
+        io.puts( "%" + dst.to_s )
+        File.expand_path( ARGV[0] )
+      }
+    }
+  end
+
+  private
+  ## 混合分布の重みを返す
+  ## 返り値は、Array: [w_1, w_2, .., w_n]
+  ## p( word | p_1, .., p_n )
+  ## = \sum_{i=1}^n p( word | p_i ) * w_i
+  ## "p_n p_{n-1} .. p_1 word"
+  def weights( n )
+    if n == @weights_last_n
+      return @weights_last_weights
+    end
+    weights = Array.new( n )
+    t = n * (n+1) / 2
+    for i in 0..(n-1)
+      weights[i] = (n-i).to_f / t.to_f
+    end
+    @weights_last_n = n
+    @weights_last_weights = weights
+    return weights
+  end
+
+end
+
+
+## ensuring-bind tcp server
+## TCPServer は、bind をうまくしていないようだ。ruby 1.8.1
+## TCPServer.open で、bind されるようだが、bskk を2つ動かせた。
+## なぜか、3つは無理だった。
+## 詳しくは追っていない。
+class EBTCPServer
+  require "socket"
+  def initialize( port, backlog=5 )
+    @soc_waiting = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
+    @soc_waiting.bind( [Socket::AF_INET,port,127,0,0,1].pack("s n C4 x8") )
+    @soc_waiting.listen( backlog )
+  end
+
+  ## Socket のインスタンスを返す
+  def accept
+    if @soc_waiting
+      soc, adr = @soc_waiting.accept
+      return soc
+    else
+      raise Exception.new("already closed")
+    end
+  end
+
+  def close
+    @soc_waiting.close
+    @soc_waiting = nil
+  end
+end
+
+## verbose puts
+def v_puts( message, out=STDERR )
+  out.puts message if @verbose
+end
+
+
+def try_lock( file, lock_mode=File::LOCK_EX, timeout=2, try_interval=0.1 )
+  check_type( file, File )
+  check_type( timeout, Numeric )
+  check_type( try_interval, Numeric )
+  for i in 0..(timeout.to_f/try_interval.to_f).to_i
+    if file.flock( lock_mode | File::LOCK_NB )
+      return true
+    end
+    sleep try_interval
+  end
+  return false
+end
+
+
+# return 
+# true    success of  save_DB
+# false   otherwise
+def save_DB( db, path_to_file, path_to_bak )
+  if File.exist?( path_to_file )
+    system("cp -p #{path_to_file} #{path_to_bak}")
+  end
+  f = open( path_to_file, "w" )
+  if try_lock( f )
+    db.marshal( f )
+    f.flock( File::LOCK_UN )
+    return true
+  else
+    return false
+  end
+end
+
+
+# recieve EOF
+#   output
+#   "close session."
+# recieve COMMAND_SORT
+#   output
+#   "("日" "比")"
+#   ;;("0.2" "0.1")
+# recieve COMMAND_ADD
+#   output
+#   "added."
+# recieve COMMAND_SAVE
+#   output
+#   "saved."
+def serve( db, input, out, err, history_file, history_file_bak )
+  begin
+    while true
+      line = input.readline.chomp
+      case line
+      when COMMAND_SORT
+        entries = input.readline.split
+        prefix_list = input.readline.split.reverse
+        sorted_entries, probs = db.sort( entries, prefix_list )
+        # out.puts "(\"#{sorted_entries.join("\" \"")}\")" # ruby 1.6.8 で、不具合
+        out.puts "(\"" + sorted_entries.join("\" \"") + "\")"
+        # out.puts ";;(\"#{probs.join("\" \"")}\")" # ruby 1.6.8 で、不具合
+        out.puts ";;(\""+ probs.join("\" \"") + "\")"
+        out.puts ";;OK."
+      when COMMAND_ADD
+        kakutei_word = input.readline.chomp
+        prefix_list = input.readline.split.reverse
+        db.add_history( kakutei_word, prefix_list )
+        out.puts ";;OK."
+      when COMMAND_SAVE
+        save_DB( db, history_file, history_file_bak )
+        out.puts ";;OK."
+      else
+        v_puts( ";;unknown command: #{line}", err )
+      end
+    end
+  rescue EOFError # クライアントから接続が一方的に切られる時も、EOFError (1.8.1)
+    out.puts ";;EOF."
+  rescue IOError => e
+    err.puts e.to_s
+  rescue => e
+    err.puts e.to_s
+  end
+  save_DB( db, history_file, history_file_bak )
+end
+
+DEFAULT_PORT = 51178
+
+def mode_serve( history_file, server )
+  check_type( history_file, String )
+  check_type( server, TrueClass, FalseClass )
+  history_file_bak = history_file + ".BAK"
+  ## create DB
+  db = nil
+  if File.exist?( history_file ) # read history
+    f = open( history_file )
+    if try_lock( f )
+      begin
+        db = DB.new( f )
+      rescue DBHistoryFileSyntaxException => e
+        STDERR.puts(e.message)
+        STDERR.puts("#{history_file} is invalid.")
+        if File.exist?( history_file_bak )
+          STDERR.puts("use #{history_file_bak} instead of #{history_file}.")
+          f2 = open( history_file_bak )
+          if try_lock( f2 )
+            begin
+              db = DB.new( f2 )
+            rescue DBHistoryFileSyntaxException => e2
+              STDERR.puts(e2.message)
+              STDERR.puts("#{history_file_bak} is also invalid.")
+            ensure
+              f2.flock( File::LOCK_UN )
+              f2.close
+            end
+          end
+        end
+      ensure
+        f.flock( File::LOCK_UN )
+      end
+    end
+    f.close
+  end
+  if db == nil
+    db = DB.new
+  end
+  ## handle signals
+  begin
+    proc = Proc.new{
+      STDERR.puts "Signal SIGTERM"
+      STDERR.print "saving db..."
+      save_DB( db, history_file, history_file_bak )
+      STDERR.puts "done."
+      exit
+    }
+    if defined?( Signal ) # Signal is a ruby 1.7 feature
+      Signal.trap( :TERM, proc )
+    else
+      trap( :TERM, proc )
+    end
+  end
+  ## main routine
+  if server
+    socket = nil
+    begin
+      socket = EBTCPServer.new( DEFAULT_PORT )
+    rescue => e
+      STDERR.puts "Error: #{e.to_s}"
+      exit(1)
+    end
+    v_puts( "bind to #{DEFAULT_PORT.to_s}." )
+    pid = fork
+    if pid  ## parent
+      socket.close
+      exit
+    else    ## child
+      v_puts( "fork to be a deamon. PID=#{Process.pid}." )
+      while true
+        s = socket.accept
+        v_puts( "accept a new client." )
+        Thread.start( s ){ |io|
+          serve( db, io, io, STDERR, history_file, history_file_bak )
+          io.close
+          v_puts( "close an session", STDERR )
+        }
+        v_puts "#{(Thread.list.size-1).to_s} session(s) remain(s)."
+      end
+      socket.close
+    end
+  else
+    serve( db, STDIN, STDOUT, STDERR, history_file, history_file_bak )
+  end
+end
+
+def print_help
+  STDOUT.puts <<"----------"
+usage:
+  bskk (options)
+
+options:
+  -f  history_file      use history_file as a history_file.
+  -s                    run as a server.
+  -p  port              use port (default=#{DEFAULT_PORT}).
+  -v                    verbose.
+  -h                    show a help and exit.
+----------
+end
+
+def main
+  ## read arguments
+  history_file = nil
+  server = false
+  @verbose = false
+  begin
+    i = 0
+    while i < ARGV.size
+      case ARGV[i]
+      when "-f"
+        history_file = File.expand_path( ARGV[i+1] )
+        i += 1
+      when "-s"
+        server = true
+      when "-h"
+        print_help
+        exit
+      when "-p"
+        p = ARGV[i+1].to_i
+        if p
+          port = p
+        else
+          STDERR.puts( "-p needs an integer. #{ARGV[i+1]} is invalid." )
+          print_help
+          exit
+        end
+        i += 1
+      when "-v"
+        @verbose = true
+      else
+        STDERR.puts( "an unknown option: #{ARGV[i]}" )
+        print_help
+        exit
+      end
+      i += 1
+    end
+    if history_file == nil
+      STDERR.puts( "specify a history file by '-f'" )
+      print_help
+      exit
+    end
+  end
+  mode_serve( history_file, server )
+end
+
+# このファイルが実行ファイルとして実行された時
+if $0 == __FILE__
+  main
+end

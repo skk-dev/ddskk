@@ -1,3 +1,7 @@
+2004-02-26  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
+
+        * experimental/bayesian/bskk: New file.
+
 2004-02-21  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/bayesian/skk-bayesian.el
@@ -4417,8 +4421,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.780 2004/02/25 20:25:33 minakaji Exp $
-Last Modified: $Date: 2004/02/25 20:25:33 $
+Version: $Id: ChangeLog,v 1.781 2004/02/26 02:44:40 kurihara Exp $
+Last Modified: $Date: 2004/02/26 02:44:40 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
