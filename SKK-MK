@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.1 1999/08/31 10:58:48 minakaji Exp $
-;; Last Modified: $Date: 1999/08/31 10:58:48 $
+;; Version: $Id: SKK-MK,v 1.2 1999/08/31 10:58:55 minakaji Exp $
+;; Last Modified: $Date: 1999/08/31 10:58:55 $
 
 ;;; Code:
 
@@ -58,6 +58,7 @@
     (setq command-line-args-left (cdr command-line-args-left))
     (load-file "SKK-CFG")
     (load-file "SKK-ELS")
+    (setq skk-modules (delq 'skk-autoloads skk-modules))
 					  
     (princ (format "PACKAGEDIR=%s\n" PACKAGEDIR))
     ))
