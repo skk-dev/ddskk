@@ -1,5 +1,8 @@
 -*- outline -*-
 
+             $Date: 2000/09/25 01:29:06 $
+	     $Id: skk-faq.txt,v 1.3 2000/09/25 01:29:06 minakaji Exp $
+
 これは SKK に対するよくある質問と、それに対する回答集です。
 
 
@@ -268,8 +271,7 @@ skk-rom-kana-rule-list に統合されました。
 ** [Q.] SKK には辞書をマージするプログラムは付いてないの ?
 
 SKK 本体のパッケージには同封されていませんが、skk-tools という別パッケー
-ジがあり、Openlab の CVS から入手できます。少し版の古いもので良ければ、
-SKK の本家 Web site (http://skk.kuis.kyoto-u.ac.jp) から入手できます。
+ジがあり、http://openlab.ring.gr.jp/skk/tools-ja.html から入手可能です。
 
 ** [Q.] SKK 形式の英和辞書を作る方法がある、と聞いたのですが。
 
