@@ -1,3 +1,11 @@
+2001-11-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el
+	(skk-kanagaki-midashi-henkan): Bind `skk-kakutei-history' nil.
+
+	* skk-nicola.el
+	(skk-nicola-insert-double): Bind `skk-kakutei-history' nil.
+
 2001-10-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-util.el
