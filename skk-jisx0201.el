@@ -1,12 +1,12 @@
 ;;; skk-jisx0201.el --- SKK 用 JISX 0201 コード文字入力プログラム
-;; Copyright (C) 1999, 2000 Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
+;; Copyright (C) 1999, 2000, 2001 Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.10 2001/06/16 07:24:31 minakaji Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.11 2001/07/05 21:33:46 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/06/16 07:24:31 $
+;; Last Modified: $Date: 2001/07/05 21:33:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -334,13 +334,10 @@
 		(setq skk-jisx0201-roman t))))))
 
 (defun skk-jisx0201-string-conversion (str func)
-  (let ((buf (get-buffer-create " *SKK JIS X 0201 work*")))
-    (save-excursion
-      (set-buffer buf)
-      (erase-buffer)
-      (insert str)
-      (funcall func 1 (point))
-      (buffer-string))))
+  (with-temp-buffer
+    (insert str)
+    (funcall func 1 (point))
+    (buffer-string)))
 
 (defun skk-jisx0201-zenkaku (str)
   "STR の JIS X 0201 カナに属する文字列を対応する JIS X 0208 の文字列で置き換え

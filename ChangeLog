@@ -1,3 +1,33 @@
+2001-07-06  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Add skk-hint.
+	
+	* skk-tut.el (skk-tutorial-quit, skktut-setup-answer-buffer) 
+	(skktut-setup-jisyo-buffer, skktut-setup-question-buffer): 
+
+	* skk-jisx0201.el (skk-jisx0201-string-conversion): Use
+	`with-temp-buffer' instead of `save-excursion'.
+
+	* skk.el (skk-setup-modeline): Use `with-current-buffer' instead
+	of `save-excursion'.  Do not use `save-current-buffer'.
+	(skk-emulate-original-map): Use `with-current-buffer' instead
+	of `save-excursion'.
+	(skk-henkan-show-candidate-subr): Ditto.
+
+	* experimental/skk-w3m.el (skk-w3m-search-by-emcas-w3m): Do not
+	use `save-excursion'.
+
+	* skk-lookup.el (skk-lookup-search): Ditto.
+
+2001-07-05  Yoshiki Hayashi <yoshiki@xemacs.org>
+
+	* experimental/skk-hint.el: New file.
+
+	* skk-vars.el (skk-hint-start-char): New user variable.
+	(skk-hint-henkan-hint): New internal variable.
+	(skk-hint-start-point, skk-hint-end-point, skk-hint-okuri-char) 
+	(skk-hint-state, skk-hint-inhibit-kakutei): Ditto.
+
 2001-07-02  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk.el (skk-save-jisyo-original): Call `unlock-buffer' in
@@ -3518,8 +3548,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.308 2001/07/02 11:04:37 minakaji Exp $
-Last Modified: $Date: 2001/07/02 11:04:37 $
+Version: $Id: ChangeLog,v 1.309 2001/07/05 21:33:45 minakaji Exp $
+Last Modified: $Date: 2001/07/05 21:33:45 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

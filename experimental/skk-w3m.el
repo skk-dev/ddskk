@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.23 2001/07/02 11:04:37 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.24 2001/07/05 21:33:46 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/07/02 11:04:37 $
+;; Last Modified: $Date: 2001/07/05 21:33:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -229,23 +229,22 @@ w3m を backend で動かしていない)。")
 (defun skk-w3m-search-by-emcas-w3m (dbase key)
   (require 'w3m)
   (require 'w3m-search)
-  (save-excursion
-    (let ((post-process (nth 3 dbase))
-	  (process-key (nth 5 dbase))
-	  (query-string-function (nth 6 dbase))
-	  (w3m-async-exec nil)
-	  (w3m-work-buffer-name " *skk-w3m-work*"))
-      (if process-key (setq key (funcall process-key key)))
-      (if post-process 
-	  (w3m-with-work-buffer
-	    (or (w3m-w3m-retrieve
-		 (if query-string-function
-		     (apply 'format (nth 1 dbase)
-			    (funcall query-string-function key))
-		   (format (nth 1 dbase)
-			   (w3m-search-escape-query-string key (nth 2 dbase)))))
-		(error "")
-		(funcall post-process key)))))))
+  (let ((post-process (nth 3 dbase))
+	(process-key (nth 5 dbase))
+	(query-string-function (nth 6 dbase))
+	(w3m-async-exec nil)
+	(w3m-work-buffer-name " *skk-w3m-work*"))
+    (if process-key (setq key (funcall process-key key)))
+    (if post-process 
+	(w3m-with-work-buffer
+	  (or (w3m-w3m-retrieve
+	       (if query-string-function
+		   (apply 'format (nth 1 dbase)
+			  (funcall query-string-function key))
+		 (format (nth 1 dbase)
+			 (w3m-search-escape-query-string key (nth 2 dbase)))))
+	      (error "")
+	      (funcall post-process key))))))
 
 ;;; w3m backend dependent
 (defun skk-w3m-search-by-backend (dbase key)

@@ -1,13 +1,13 @@
 ; SKK tutorial for Daredevil SKK version 11.1 and later versions
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-;;               1998, 1999, 2000
+;;               1998, 1999, 2000, 2001
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.30 2001/06/14 21:43:58 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.31 2001/07/05 21:33:46 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/06/14 21:43:58 $
+;; Last Modified: $Date: 2001/07/05 21:33:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -535,8 +535,7 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
         (remove-hook 'before-make-frame-hook 'skktut-before-move-to-other-frame)
 	(skktut-disable-tutmap)
 	(skktut-disable-advice)
-	(save-excursion
-	  (set-buffer skktut-jisyo-buffer)
+	(with-current-buffer skktut-jisyo-buffer
 	  (set-buffer-modified-p nil)
 	  (kill-buffer skktut-jisyo-buffer))
         (kill-buffer skktut-working-buffer)
@@ -688,8 +687,7 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 
 (defun skktut-setup-jisyo-buffer ()
   ;; setup skktut-tut-jisyo buffer.
-  (save-excursion
-    (set-buffer (get-buffer-create skktut-jisyo-buffer))
+  (with-current-buffer (get-buffer-create skktut-jisyo-buffer)
     (buffer-disable-undo (current-buffer))
     (skktut-localize-and-init-variables)
     (setq case-fold-search nil
@@ -776,8 +774,7 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
       (if skk-tut-use-face (skktut-colored)))))
 
 (defun skktut-setup-question-buffer ()
-  (save-excursion
-    (set-buffer (get-buffer-create skktut-question-buffer))
+  (with-current-buffer (get-buffer-create skktut-question-buffer)
     (buffer-disable-undo (current-buffer))
     (skktut-erase-buffer) ; fail safe.
     (setq buffer-read-only t)
@@ -788,8 +785,7 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
     (local-set-key "\C-xs" 'skktut-skip-question)))
 
 (defun skktut-setup-answer-buffer ()
-  (save-excursion
-    (set-buffer (get-buffer-create skktut-answer-buffer))
+  (with-current-buffer (get-buffer-create skktut-answer-buffer)
     ;; users may use undo.
     ;; (buffer-disable-undo (current-buffer))
     ;; skktut-answer-buffer $B$N(B skk.el $B$NJQ?t$r%P%C%U%!%m!<%+%k2=$7!"=i4|2=$9$k!#(B

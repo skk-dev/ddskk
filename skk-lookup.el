@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.13 2001/04/12 23:56:48 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.14 2001/07/05 21:33:46 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/04/12 23:56:48 $
+;; Last Modified: $Date: 2001/07/05 21:33:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -164,35 +164,34 @@
   (if (or skk-num-list skk-num-recompute-key)
       ;; 数値変換のときは変換キーが `#' を含むものなので、lookup で検索しない。
       nil
-    (save-excursion
-      (let ((module (skk-lookup-default-module))
-	    ;; if `lookup-enable-gaiji' is nil, gaiji tag like
-	    ;; `<gaiji=za52a>' is put out.
-	    ;;(lookup-enable-gaiji nil)
-	    (lookup-gaiji-alternate "")
-	    (henkan-key skk-henkan-key)
-	    okuri-process v)
-	(cond ((not (or skk-henkan-okurigana skk-okuri-char))
-	       ;; okuri-nasi
-	       (setq okuri-process 0))
-	      ;; okuri-ari and `skk-lookup-process-henkan-key-function' is non-nil.
-	      (skk-lookup-process-henkan-key-function
-	       (setq v (funcall skk-lookup-process-henkan-key-function
-				henkan-key)
-		     henkan-key (car v)
-		     okuri-process (cdr v)))
-	      ;; okuri-ari and (not skk-process-okuri-early)
-	      (skk-henkan-okurigana
-	       ;; 送り仮名のかな prefix を捨て、送り仮名を足して lookup に渡す。
-	       (setq henkan-key (concat (substring henkan-key 0 (1- (length henkan-key)))
-					skk-henkan-okurigana)
-		     okuri-process 1))
-	      ;; okuri-ari and skk-process-okuri-early
-	      (skk-okuri-char
-	       ;; 送り仮名のかな prefix を捨てて lookup に渡す。
-	       (setq henkan-key (substring henkan-key 0 (1- (length henkan-key)))
-		     okuri-process 2)))
-	(skk-lookup-search-1 module henkan-key okuri-process)))))
+    (let ((module (skk-lookup-default-module))
+	  ;; if `lookup-enable-gaiji' is nil, gaiji tag like
+	  ;; `<gaiji=za52a>' is put out.
+	  ;;(lookup-enable-gaiji nil)
+	  (lookup-gaiji-alternate "")
+	  (henkan-key skk-henkan-key)
+	  okuri-process v)
+      (cond ((not (or skk-henkan-okurigana skk-okuri-char))
+	     ;; okuri-nasi
+	     (setq okuri-process 0))
+	    ;; okuri-ari and `skk-lookup-process-henkan-key-function' is non-nil.
+	    (skk-lookup-process-henkan-key-function
+	     (setq v (funcall skk-lookup-process-henkan-key-function
+			      henkan-key)
+		   henkan-key (car v)
+		   okuri-process (cdr v)))
+	    ;; okuri-ari and (not skk-process-okuri-early)
+	    (skk-henkan-okurigana
+	     ;; 送り仮名のかな prefix を捨て、送り仮名を足して lookup に渡す。
+	     (setq henkan-key (concat (substring henkan-key 0 (1- (length henkan-key)))
+				      skk-henkan-okurigana)
+		   okuri-process 1))
+	    ;; okuri-ari and skk-process-okuri-early
+	    (skk-okuri-char
+	     ;; 送り仮名のかな prefix を捨てて lookup に渡す。
+	     (setq henkan-key (substring henkan-key 0 (1- (length henkan-key)))
+		   okuri-process 2)))
+      (skk-lookup-search-1 module henkan-key okuri-process))))
 
 (defun skk-lookup-search-1 (module key okuri-process)
   ;; search pattern.

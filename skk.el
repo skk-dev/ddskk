@@ -1,13 +1,13 @@
-;;; skk.el --- SKK (Simple Kana to Kanji conversion program) Daredevil branch
+;;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program) 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2000, 2001
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.99 2001/07/02 11:04:37 minakaji Exp $
+;; Version: $Id: skk.el,v 1.100 2001/07/05 21:33:46 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/02 11:04:37 $
+;; Last Modified: $Date: 2001/07/05 21:33:46 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -593,70 +593,68 @@ dependent."
 (defun skk-setup-modeline ()
   "モード行へのステータス表示を準備する。"
   (setq skk-indicator-alist (skk-make-indicator-alist))
-  (save-current-buffer
-    (cond
-     ((not (eq skk-status-indicator 'left))
-      (if (and (listp mode-line-format)
-	       (equal (car mode-line-format) "")
-	       (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
-	  ;; for skk-restart.
-	  (setq-default mode-line-format
-			(nthcdr 2 mode-line-format)))
-      (let ((list (buffer-list))
-	    buf)
-	(while list
-	  (when (buffer-live-p (setq buf (car list)))
-	    (set-buffer buf)
+  (cond
+   ((not (eq skk-status-indicator 'left))
+    (if (and (listp mode-line-format)
+	     (equal (car mode-line-format) "")
+	     (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
+	;; for skk-restart.
+	(setq-default mode-line-format
+		      (nthcdr 2 mode-line-format)))
+
+    (let ((list (buffer-list))
+	  buf)
+      (while list
+	(when (buffer-live-p (setq buf (car list)))
+	  (with-current-buffer buf
 	    (if (and (listp mode-line-format)
 		     (equal (car mode-line-format) "")
 		     (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
 		;; for skk-restart.
 		(setq mode-line-format (nthcdr 2 mode-line-format)))
-	    (setq list (cdr list)))))
-      (setq-default skk-modeline-input-mode "")
-      (static-if (memq skk-emacs-type '(xemacs mule5))
-	  (add-minor-mode 'skk-mode 'skk-modeline-input-mode)
-	(setq minor-mode-alist
-	      ;; each element of minor-mode-alist is not cons cell.
-	      (put-alist 'skk-mode
-			 '(skk-modeline-input-mode) minor-mode-alist))))
-     (t
-      (static-cond
-       ((eq skk-emacs-type 'xemacs)
-	(unless (memq 'skk-modeline-input-mode default-modeline-format)
-	  (setq-default default-modeline-format
-			(append '("" skk-modeline-input-mode)
-				default-modeline-format)))
-	(save-excursion
-	  (dolist (buf (buffer-list))
-	    (when (buffer-live-p buf)
-	      (set-buffer buf)
-	      (when (and (listp modeline-format)
-			 (not (memq 'skk-modeline-input-mode modeline-format)))
-		(setq modeline-format
+	    (setq list (cdr list))))))
+    (setq-default skk-modeline-input-mode "")
+    (static-if (memq skk-emacs-type '(xemacs mule5))
+	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
+      (setq minor-mode-alist
+	    ;; each element of minor-mode-alist is not cons cell.
+	    (put-alist 'skk-mode
+		       '(skk-modeline-input-mode) minor-mode-alist))))
+   (t
+    (static-cond
+     ((eq skk-emacs-type 'xemacs)
+      (unless (memq 'skk-modeline-input-mode default-modeline-format)
+	(setq-default default-modeline-format
 		      (append '("" skk-modeline-input-mode)
-			      modeline-format)))))))
-       (t
-	(unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
-	  (setq-default mode-line-format
-			(append '("" skk-modeline-input-mode)
-				(default-value 'mode-line-format))))
-	(save-excursion
-	  (let ((list (buffer-list))
-		buf)
-	    (while list
-	      (when (buffer-live-p (setq buf (car list)))
-		(set-buffer buf)
-		(when (and (listp mode-line-format)
-			   (or (assq 'mode-line-format (buffer-local-variables))
-			       (memq 'mode-line-format (buffer-local-variables)))
-			   (not
-			    (memq 'skk-modeline-input-mode mode-line-format)))
-		  (setq mode-line-format
-			(append '("" skk-modeline-input-mode)
-				mode-line-format))))
-	      (setq list (cdr list)))))))
-      (force-mode-line-update t)))))
+			      default-modeline-format)))
+      (dolist (buf (buffer-list))
+	(when (buffer-live-p buf)
+	  (with-current-buffer buf
+	    (when (and (listp modeline-format)
+		       (not (memq 'skk-modeline-input-mode modeline-format)))
+	      (setq modeline-format
+		    (append '("" skk-modeline-input-mode)
+			    modeline-format)))))))
+     (t
+      (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
+	(setq-default mode-line-format
+		      (append '("" skk-modeline-input-mode)
+			      (default-value 'mode-line-format))))
+      (let ((list (buffer-list))
+	    buf)
+	(while list
+	  (when (buffer-live-p (setq buf (car list)))
+	    (with-current-buffer buf
+	      (when (and (listp mode-line-format)
+			 (or (assq 'mode-line-format (buffer-local-variables))
+			     (memq 'mode-line-format (buffer-local-variables)))
+			 (not
+			  (memq 'skk-modeline-input-mode mode-line-format)))
+		(setq mode-line-format
+		      (append '("" skk-modeline-input-mode)
+			      mode-line-format)))))
+	  (setq list (cdr list))))))
+    (force-mode-line-update t))))
 
 (defun skk-setup-delete-backward-char ()
   (let ((commands '(backward-delete-char-untabify
@@ -864,32 +862,31 @@ dependent."
       (static-if (not (memq skk-emacs-type '(nemacs mule1)))
 	  (let (skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
 			 skk-jisx0208-latin-mode command)
-	    ;; have to search key binding after binding 4 minor mode flags to nil.
+;; have to search key binding after binding 4 minor mode flags to nil.
 	    (setq command (key-binding keys))
 	    (if (eq command this-command)
-		;; avoid recursive calling of skk-emulate-original-map.
+	       ;; avoid recursive calling of skk-emulate-original-map.
 		nil
 	      ;; if no bindings are found, call `undefined'.  it's
 	      ;; original behaviour.
 	      ;;(skk-cancel-undo-boundary)
 	      (command-execute (or command (function undefined)))))
-	(let (command local-map buf)
+	(let ((buf (current-buffer))
+	      (local-map (current-local-map))
+	      command)
 	  (unwind-protect
 	      (progn
-		(setq buf (current-buffer)
-		      local-map (current-local-map))
 		(use-local-map skk-current-local-map)
 		(setq command (key-binding keys))
 		(if (eq command this-command)
-		    ;; avoid recursive calling of skk-emulate-original-map.
+	       ;; avoid recursive calling of skk-emulate-original-map.
 		    nil
 		  ;; if no bindings are found, call `undefined'.  it's
 		  ;; original behaviour.
 		  ;;(skk-cancel-undo-boundary)
 		  (command-execute (or command (function undefined)))))
 	    ;; restore skk keymap.
-	    (save-excursion
-	      (set-buffer buf)
+	    (with-current-buffer buf
 	      (use-local-map local-map))))))))
 
 (defun skk-command-key-sequence (key command)
@@ -1829,8 +1826,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	  (message "%s" str)
 	(let ((buff (get-buffer-create "*候補*"))
 	      (case-fold-search t))
-	  (save-excursion
-	    (set-buffer buff)
+	  (with-current-buffer buff
 	    (erase-buffer)
 	    (insert str)
 	    (goto-char (point-min))
