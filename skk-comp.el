@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.16 2001/09/15 00:42:17 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.17 2001/09/15 01:06:21 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 00:42:17 $
+;; Last Modified: $Date: 2001/09/15 01:06:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -68,11 +68,13 @@
       ;; skk-comp-key はバッファローカル値なので、辞書バッファに移る前に
       ;; 一時変数に移し変えておく。
       (and (setq c-word
-		 (or (skk-comp-do-1 skk-comp-key first)
+		 (or (let ((word (skk-comp-do-1 skk-comp-key first)))
+		       (if (member c-word skk-comp-stack)
+			   (skk-comp-do-1 skk-comp-key first)
+			 word))
 		     (and skk-abbrev-mode skk-use-look (skk-look-completion))))
 	   ;; 新規に見つけたときだけ cons する。
-	   (unless (member c-word skk-comp-stack)
-	     (setq skk-comp-stack (cons c-word skk-comp-stack)))))
+	   (setq skk-comp-stack (cons c-word skk-comp-stack))))
     ;; 辞書バッファの外。
     (if (not c-word)
 	(progn
@@ -94,6 +96,8 @@
 
 (defun skk-comp-do-1 (key first)
   ;; skk-comp-1 のサブルーチン。
+  (when first
+    (setq skk-dic-comp-first t))
   (cond
    ((string= key "")
     (skk-comp-by-history))
@@ -101,9 +105,11 @@
     (or (skk-comp-do-1-in-buf (skk-get-jisyo-buffer skk-jisyo)
 			      key
 			      first)
-	(skk-comp-do-1-in-buf (skk-dic-setup-buffer)
-			      key
-			      first)))))
+	(prog1
+	    (skk-comp-do-1-in-buf (skk-dic-setup-buffer)
+				  key
+				  skk-dic-comp-first)
+	  (setq skk-dic-comp-first nil))))))
 
 (defun skk-comp-do-1-in-buf (buffer key first)
   (when (buffer-live-p buffer)
