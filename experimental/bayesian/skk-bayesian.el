@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.6 2004/04/12 12:35:07 kurihara Exp $
+;; Version: $Id: skk-bayesian.el,v 1.7 2004/12/01 10:43:46 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/04/12 12:35:07 $
+;; Last Modified: $Date: 2004/12/01 10:43:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -79,6 +79,11 @@
 ;; まれる前に、
 ;; % bskk -f ~/.skk-bayesian -s
 ;; として、立ち上げておく必要があります。
+;; サーバを終了させる方法は、kill -TERM です。-TERM で終了させる際には、
+;; 終了の前に bskk は履歴を保存します。
+;;
+;; skk-bayesian.el は、emacs が終了する前に bskk に対して履歴を保存する
+;; ように指示をします。
 
 ;;; Code:
 
@@ -114,6 +119,24 @@
        ;; これらは、排他的。
        (memq (process-status skk-bayesian-process) '(open run))))
 
+(defsubst skk-bayesian-read-process-output (input)
+  "\\nが`skk-bayesian-process'のバッファに出力されるまで待ち、\\nが出力された時点で、バッファを評価する。 input が nil の時、EOF を`skk-bayesian-process'に送り、そうでなければ、input を`skk-bayesian-process'に送る。"
+  (with-current-buffer (process-buffer skk-bayesian-process)
+    (delete-region (point-min) (point-max))
+    (if input
+        (process-send-string skk-bayesian-process input)
+      (process-send-eof skk-bayesian-process))
+    (while (not (and (> (point-max) 1)
+                     (eq (char-after (1- (point-max))) ?\n)))
+      (accept-process-output skk-bayesian-process 0 5))
+    (goto-char (point-min))
+    (condition-case err
+        (read (current-buffer))
+      (error (skk-message "Error while reading the out put of bskk; %s"
+                          "bskk の出力の読み込み中にエラー; %s"
+                          (error-message-string err))
+             nil))))
+
 (defun skk-bayesian-search (henkan-buffer midasi okurigana entry)
   ;; 引数の例
   ;; entry : ("斬" "切" "着")
@@ -147,22 +170,10 @@
 	    (setq just-before-point (1- just-before-point))))
         (skk-bayesian-debug-message (concat "prefix-str=" prefix-str)))
       ;; send prefix-str to skk-bayesian-process
-      (with-current-buffer (process-buffer skk-bayesian-process)
-	(delete-region (point-min) (point-max))
-	(process-send-string skk-bayesian-process skk-bayesian-command-sort)
-	(process-send-string skk-bayesian-process (concat entry-str "\n"))
-	(process-send-string skk-bayesian-process (concat prefix-str "\n"))
-	(while (not (and (> (point-max) 1)
-			 (eq (char-after (1- (point-max))) ?\n)))
-	  (accept-process-output skk-bayesian-process 0 5))
-	(goto-char (point-min))
-	(setq new-entry
-	      (condition-case err
-		  (read (current-buffer))
-		(error (skk-message "Error while reading the out put of bskk; %s"
-				    "bskk の出力の読み込み中にエラー; %s"
-				    (error-message-string err))
-		       nil))))
+      (setq new-entry
+            (skk-bayesian-read-process-output
+             (concat skk-bayesian-command-sort entry-str
+                     "\n" prefix-str "\n")))
       (skk-bayesian-debug-message (concat "new-entry=" (prin1-to-string new-entry)))
       (if (and new-entry
                (listp new-entry))
@@ -176,35 +187,23 @@
     (skk-bayesian-init)
     (skk-bayesian-debug-message (concat "kakutei-word=" word))
     (skk-bayesian-debug-message (concat "prefix=" skk-bayesian-last-prefix-str))
-    (with-current-buffer (process-buffer skk-bayesian-process)
-      (delete-region (point-min) (point-max))
-      (process-send-string skk-bayesian-process skk-bayesian-command-add)
-      (process-send-string skk-bayesian-process
-			   (concat word "\n"))
-      (process-send-string skk-bayesian-process
-			   (concat skk-bayesian-last-prefix-str "\n"))
-      ;; wait for a message to synchronize skk-bayesian-process
-      (skk-bayesian-debug-message "adding history...")
-      (while (not (and (> (point-max) 1)
-		       (eq (char-after (1- (point-max))) ?\n)))
-	(accept-process-output skk-bayesian-process 0 5))
-      (skk-bayesian-debug-message "adding history...done")
-      )))
+    (skk-bayesian-debug-message "adding history...")
+    (if (skk-bayesian-read-process-output
+         (concat skk-bayesian-command-add word "\n"
+                 skk-bayesian-last-prefix-str "\n"))
+        (skk-bayesian-debug-message "adding history...done")
+      (skk-bayesian-debug-message "adding history...failed"))))
 
 (defun skk-bayesian-save-history ()
   "Save skk-bayesian history to `skk-bayesian-history-file'."
   (interactive)
   (when (skk-bayesian-process-live-p)
-    (with-current-buffer (process-buffer skk-bayesian-process)
-      (delete-region (point-min) (point-max))
-      (process-send-string skk-bayesian-process skk-bayesian-command-save)
-      ;; wait for a message to synchronize skk-bayesian-process
-      (skk-message "skk-bayesian の履歴を保存しています..." "saving history...")
-      (while (not (and (> (point-max) 1)
-		       (eq (char-after (1- (point-max))) ?\n)))
-	(accept-process-output skk-bayesian-process 0 5))
-      (skk-message "skk-bayesian の履歴を保存しています...完了" "saving history...done")
-      )))
+    (skk-message "skk-bayesian の履歴を保存しています..." "saving history...")
+    (if (skk-bayesian-read-process-output skk-bayesian-command-save)
+        (skk-message "skk-bayesian の履歴を保存しています...完了"
+                     "saving history...done")
+      (skk-message "skk-bayesian の履歴を保存しています...失敗"
+                   "saving history...failed"))))
 
 (defun skk-bayesian-restart-process ()
   (if (skk-bayesian-process-live-p) (skk-bayesian-kill-process))
@@ -225,7 +224,8 @@
               (start-process proc-name
                              proc-buf
                              "ruby" "-S" "bskk" "-f" skk-bayesian-history-file
-                             (if skk-bayesian-debug "-v" "")))))
+                             (if skk-bayesian-debug "-v")
+                             (if skk-bayesian-debug "-d")))))
   (set-process-coding-system skk-bayesian-process
                              skk-bayesian-coding-system
                              skk-bayesian-coding-system)
@@ -235,19 +235,13 @@
   "Kill skk-bayesian process."
   (interactive)
   (when (skk-bayesian-process-live-p)
-    (with-current-buffer (process-buffer skk-bayesian-process)
-      (delete-region (point-min) (point-max))
-      ;; send EOF
-      (process-send-eof skk-bayesian-process)
-      ;; wait for a skk-bayesian-debug-message to synchronize skk-bayesian-process
-      (while (not (and (> (point-max) 1)
-		       (eq (char-after (1- (point-max))) ?\n)))
-	(accept-process-output skk-bayesian-process 0 5))
+    (unless (skk-bayesian-read-process-output nil) ;; send EOF
+      ;; skk-bayesian-processがEOFを受理しなかった時
       (when (skk-bayesian-process-live-p)
 	(skk-bayesian-debug-message "sent EOF, but the process still lives")
 	;; send SIGKILL or close the connection
-	(delete-process skk-bayesian-process))
-      (setq skk-bayesian-process nil))))
+	(delete-process skk-bayesian-process)))
+    (setq skk-bayesian-process nil)))
 
 (defun skk-bayesian-init ()
   "Set up skk-bayesian process."
@@ -259,7 +253,10 @@
 
 (add-to-list 'skk-search-end-function 'skk-bayesian-search)
 (add-to-list 'skk-update-end-function 'skk-bayesian-update)
-(add-hook 'skk-before-kill-emacs-hook 'skk-bayesian-save-history)
+(add-hook 'skk-before-kill-emacs-hook 
+          (function (lambda ()
+                      (skk-bayesian-save-history)
+                      (skk-bayesian-kill-process))))
 (skk-bayesian-init)
 
 ;;; skk-bayesian.el ends here
