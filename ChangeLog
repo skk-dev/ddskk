@@ -13,6 +13,8 @@
 
 	(skk-define-menu): New function.
 
+	(skk-search-sagyo-henkaku): New funcion.
+
 	* skk-vars.el
 	(skk-menu-items): New variable.
 
@@ -2384,8 +2386,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.474 2001/10/13 04:51:17 czkmt Exp $
-Last Modified: $Date: 2001/10/13 04:51:17 $
+Version: $Id: ChangeLog,v 1.475 2001/10/13 10:23:39 czkmt Exp $
+Last Modified: $Date: 2001/10/13 10:23:39 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
