@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.5 2004/02/29 07:16:00 kurihara Exp $
+;; Version: $Id: skk-bayesian.el,v 1.6 2004/04/12 12:35:07 kurihara Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/02/29 07:16:00 $
+;; Last Modified: $Date: 2004/04/12 12:35:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -120,7 +120,8 @@
   ;; midasi: きr
   ;; okurigana: る
   (setq skk-bayesian-last-prefix-str nil)
-  (when (< 1 (length entry))
+  (if (= 1 (length entry))
+      entry
     (skk-bayesian-init)
     (let ((prefix-str "")
           (entry-str "")
