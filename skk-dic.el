@@ -29,7 +29,7 @@
 
 ;;; Commentary:
 
-;; This is the Small size dictionary SKK-JISYO.S, but given in Emacs Lisp.
+;; This is the small size dictionary SKK-JISYO.S, but given in Emacs Lisp.
 ;; Used as the default dictionary.
 
 ;;; Code:
@@ -3359,8 +3359,8 @@ Small dictionary for SKK.")
 ;;;###autoload
 (defun skk-search-small-dic ()
   (let ((buf (get-buffer-create " *skk-small-dic*")))
-    (with-current-buffer buf
-      (when (zerop (buffer-size))
+    (when (zerop (buffer-size buf))
+      (with-current-buffer buf
 	(unless (boundp 'skk-small-dic)
 	  (load "skk-dic" t t))
 	(insert skk-small-dic)
