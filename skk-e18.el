@@ -142,28 +142,24 @@ Install patch/e18/advice.el in load-path and try again."))))
 (defun skk-e18-advise-skk-functions ()
   ;; It is impossible to take advantage of `pre-command-hook' and
   ;; `post-command-hook'.
-  (defadvice skk-insert (after skk-e18-ad activate compile)
+  (defadvice skk-insert (around skk-e18-ad activate)
+    (skk-e18-adjust-local-variables-in-minibuffer)
+    ad-do-it
     (skk-e18-pre-command))
 
-  (defadvice skk-previous-candidate (after skk-e18-ad activate compile)
+  (defadvice skk-previous-candidate (around skk-e18-ad activate)
+    (skk-e18-adjust-local-variables-in-minibuffer)
+    ad-do-it
     (skk-e18-pre-command))
 
-  (defadvice skk-kana-input (before skk-e18-ad activate compile)
+  (defadvice skk-kana-input (before skk-e18-ad activate)
     ;; デバッグしていないバグのために work around する。
     (when (and skk-henkan-active
 	       skk-kakutei-early
 	       (not skk-process-okuri-early))
       (skk-kakutei)))
 
-  (defadvice skk-kakutei (around skk-e18-ad activate compile)
-    ;; skk-tut を利用しているときなど、`skk-kakutei' の前後で `skk-jisyo' の
-    ;; 値が変わってしまうことがある。まだデバッグしていないため、work around
-    ;; する。
-    (let ((skk-jisyo skk-jisyo))
-      (when skk-henkan-on
-	(unless skk-mode
-	  (skk-mode 1)))
-      ad-do-it)
+  (defadvice skk-kakutei (after skk-e18-ad activate)
     (skk-after-point-move)))
 
 ;; Other functions.
@@ -188,6 +184,11 @@ If fourth arg READ is non-nil, then interpret the result as a lisp object
 Fifth arg HIST is ignored in this implementatin."
   ;; This re-definition of `read-from-minibuffer' is intended to enable
   ;; `minibuffer-setup-hook' and `minibuffer-exit-hook'.  Not well tested.
+  ;;
+  ;; Callling `make-local-variables' in `minibuffer-setup-hook' is not
+  ;; recommended since there is no way to avoid resetting the data of buffer
+  ;; local variables at the call of `si:read-from-minibuffer' (though their
+  ;; (previously local) values may remain unchanged).
   (let ((minibuf (get-minibuffer (minibuffer-depth)))
 	map)
     (with-current-buffer minibuf
@@ -309,6 +310,21 @@ Fifth arg HIST is ignored in this implementatin."
      (if (skk-in-minibuffer-p)
 	 (abort-recursive-edit)
        (keyboard-quit)))))
+
+(defun skk-e18-adjust-local-variables-in-minibuffer ()
+  ;; この関数は、`read-from-minibuffer' で `minibuffer-setup-hook' が機能しな
+  ;; い点を補うもので、`skk-insert' において実行される。
+  (when (skk-in-minibuffer-p)
+    (when (and (memq 'skktut-localize-and-init-variables
+		     minibuffer-setup-hook) ; skk-tut の辞書登録モード
+	       (not (skk-local-variable-p 'skk-jisyo)))
+      ;; チュートリアルの中では `skk-jisyo' といくつかの変数は必ずローカル変
+      ;; 数として扱われなければならない。
+      (skktut-localize-and-init-variables))
+    ;;
+    (unless (skk-local-variable-p 'skk-j-mode)
+      ;; 通常このケースは辞書登録モード。
+      (skk-j-mode-on))))
 
 (defun skk-e18-setup ()
   (let ((keymap (if (skk-in-minibuffer-p)
