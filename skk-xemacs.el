@@ -63,12 +63,19 @@
 (defvar skk-xemacs-modeline-menu-items
   '("Daredevil SKK Menu"
     ["Hiragana"
-     (skk-j-mode-on)
+     (cond (skk-mode
+	    (skk-j-mode-on))
+	   (t
+	    (skk-mode t)))
      :selected (and skk-j-mode (not skk-katakana))
      :style radio
      :keys nil]
     ["Katakana"
-     (skk-j-mode-on t)
+     (cond (skk-mode
+	    (skk-j-mode-on t))
+	   (t
+	    (skk-mode t)
+	    (skk-j-mode-on t)))
      :selected (and skk-j-mode skk-katakana)
      :style radio
      :keys nil]
@@ -93,6 +100,32 @@
     ["About Daredevil SKK..." skk-version t]
     ["Visit Daredevil SKK Home..." skk-xemacs-visit-openlab t]))
 
+(defvar skk-icon
+  (when (locate-data-file "skk.xpm")
+    (let ((glyph (make-glyph)))
+      (set-glyph-image glyph
+		       (vector 'xpm
+			       :file (locate-data-file "skk.xpm")))
+      (cons (cdr (assq 'hiragana skk-xemacs-extent-alist))
+	    glyph))))
+
+(defadvice skk-setup-modeline (after skk-xemacs-icon activate)
+  (when skk-icon
+    (unless (memq 'skk-icon
+		  (default-value 'mode-line-format))
+      (setq-default mode-line-format
+		    (append '("" skk-icon)
+			    (default-value 'mode-line-format))))
+    (skk-loop-for-buffers (buffer-list)
+      (when (and (listp mode-line-format)
+		 (skk-local-variable-p 'mode-line-format)
+		 (null (memq 'skk-icon
+			     mode-line-format)))
+	(setq mode-line-format
+	      (append '("" skk-icon)
+		      mode-line-format))))
+    (force-mode-line-update t)))
+
 ;; Functions.
 
 (defun skk-xemacs-modeline-menu ()
@@ -102,6 +135,8 @@
 	7
 	(cond (skk-katakana
 	       (skk-xemacs-find-func-keys 'skk-toggle-kana))
+	      ((not skk-mode)
+	       (skk-xemacs-find-func-keys 'skk-mode))
 	      ((not skk-j-mode)
 	       (skk-xemacs-find-func-keys 'skk-kakutei))
 	      (t
