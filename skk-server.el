@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.26 2001/11/25 11:34:10 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.27 2001/11/27 14:29:18 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/25 11:34:10 $
+;; Last Modified: $Date: 2001/11/27 14:29:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -36,6 +36,12 @@
   (require 'skk-vars)
   (require 'static))
 
+(defun skk-server-live-p (&optional process)
+  (unless process
+    (setq process skkserv-process))
+  (and process
+       (eq (process-status process) skk-network-open-status)))
+
 ;;;###autoload
 (defun skk-server-version ()
   (interactive)
@@ -43,37 +49,34 @@
    ((interactive-p)
     (message "%s" (skk-server-version)))
    (t
-    (let (status)
-      (unless (or skk-server-host
-		  skk-servers-list)
-	(skk-error "Lack of host information of SKK server"
-		   "SKK サーバーのホスト情報がありません"))
-      (when (skk-open-server)
-	(setq status (process-status skkserv-process)))
-      (when (eq status skk-network-open-status)
-	(let (v)
-	  (save-match-data
-	    (with-current-buffer skkserv-working-buffer
-	      (erase-buffer)
-	      ;; サーバーバージョンを得る。
-	      (process-send-string skkserv-process "2")
-	      (while (eq (buffer-size) 0)
-		(accept-process-output))
-	      (setq v (buffer-string))
-	      (erase-buffer)
-	      ;; ホスト名を得る。
-	      (process-send-string skkserv-process "3")
-	      (while (eq (buffer-size) 0)
-		(accept-process-output))
-	      (goto-char (point-min))
-	      (format (concat "SKK SERVER version %s"
-			      (if skk-japanese-message-and-error
-				  "(ホスト名 %s)"
-				"running on HOST %s"))
-		      v
-		      (prog1
-			  (buffer-string)
-			(erase-buffer)))))))))))
+    (unless (or skk-server-host
+		skk-servers-list)
+      (skk-error "Lack of host information of SKK server"
+		 "SKK サーバーのホスト情報がありません"))
+    (when (skk-server-live-p (skk-open-server))
+      (let (v)
+	(save-match-data
+	  (with-current-buffer skkserv-working-buffer
+	    (erase-buffer)
+	    ;; サーバーバージョンを得る。
+	    (process-send-string skkserv-process "2")
+	    (while (eq (buffer-size) 0)
+	      (accept-process-output))
+	    (setq v (buffer-string))
+	    (erase-buffer)
+	    ;; ホスト名を得る。
+	    (process-send-string skkserv-process "3")
+	    (while (eq (buffer-size) 0)
+	      (accept-process-output))
+	    (goto-char (point-min))
+	    (format (concat "SKK SERVER version %s"
+			    (if skk-japanese-message-and-error
+				"(ホスト名 %s)"
+			      "running on HOST %s"))
+		    v
+		    (prog1
+			(buffer-string)
+		      (erase-buffer))))))))))
 
 ;;;###autoload
 (defun skk-search-server-1 (file limit)
@@ -84,20 +87,16 @@
 	   skk-henkan-key))
 	;; バッファローカル値の受け渡しのため、別名の一時変数に取る。
 	(okurigana (or skk-henkan-okurigana
-		       skk-okuri-char))
-	(status (when (skk-open-server)
-		  (process-status skkserv-process))))
+		       skk-okuri-char)))
     (cond
-     ((eq status skk-network-open-status)
+     ((skk-server-live-p (skk-open-server))
       (with-current-buffer skkserv-working-buffer
 	(let ((cont t)
 	      (count 0)
 	      l)
 	  (erase-buffer)
 	  (process-send-string skkserv-process (concat "1" key " "))
-	  (while (and cont
-		      (eq (process-status skkserv-process)
-			  skk-network-open-status))
+	  (while (and cont (skk-server-live-p))
 	    (accept-process-output)
 	    (setq count (1+ count))
 	    (when (> (buffer-size) 0)
@@ -135,12 +134,11 @@
   ;; SKK サーバーと接続する。サーバープロセスを返す。
   (let (code)
     (cond
-     ((and skkserv-process
-	   (eq (process-status skkserv-process) skk-network-open-status))
+     ((skk-server-live-p)
       nil)
      ((setq skkserv-process
 	    (or (skk-open-network-stream) (skk-open-server-1)))
-      (when (eq (process-status skkserv-process) skk-network-open-status)
+      (when (skk-server-live-p)
 	(setq code (cdr (assoc "euc" skk-coding-system-alist)))
 	(set-process-coding-system skkserv-process code code))))
     skkserv-process))
@@ -164,9 +162,7 @@
 					     skk-server-jisyo
 					     skk-server-portnum)))
 	(setq skk-server-prog nil)))
-    (while (and (or (not process)
-		    (not (eq (process-status process)
-			     skk-network-open-status)))
+    (while (and (not (skk-server-live-p process))
 		skk-servers-list)
       (let ((elt (car skk-servers-list))
 	    arg)
@@ -198,8 +194,7 @@
 	  (setq process (skk-startup-server arg)))))
     (prog1
 	process
-      (unless (and process
-		   (eq (process-status process) skk-network-open-status))
+      (unless (skk-server-live-p process)
 	;; reset SKK-SERVER-HOST so as not to use server in this session
 	(setq skk-server-host nil
 	      skk-server-prog nil
@@ -244,8 +239,7 @@
 	       0 nil skk-server-host skk-server-prog arg))
       (sit-for 3)
       (if (and (setq process (skk-open-network-stream))
-	       (eq (setq status (process-status process))
-		   skk-network-open-status))
+	       (skk-server-live-p process))
 	  (setq count 0)
 	(setq count (1- count))))
     (if (eq status skk-network-open-status)
@@ -285,8 +279,7 @@
 (defun skk-disconnect-server ()
   ;; サーバーを切り離す。
   (when (and skk-server-host
-	     skkserv-process
-	     (eq (process-status skkserv-process) skk-network-open-status))
+	     (skk-server-live-p))
     (process-send-string skkserv-process "0") ; disconnect server
     (accept-process-output skkserv-process)))
 
