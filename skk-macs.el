@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.46 2001/09/15 19:20:04 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.47 2001/09/15 20:54:00 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 19:20:04 $
+;; Last Modified: $Date: 2001/09/15 20:54:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -37,7 +37,6 @@
   (require 'advice)
   (require 'static)
   (require 'skk-vars)
-  (require 'cl)
   (defconst skk-emacs-type
     (cond ((featurep 'xemacs)
 	   'xemacs)
@@ -60,6 +59,12 @@
   (autoload 'skk-cursor-current-color "skk-cursor"))
 
 ;;;; macros
+
+(eval-and-compile
+  (when (and (fboundp 'dolist)
+	     (not (eval (macroexpand '(dolist (var nil t))))))
+    ;; egg.el has invalid `dolist'.
+    (fmakunbound 'dolist)))
 
 ;;;###autoload
 (put 'dolist 'lisp-indent-function 1)
@@ -218,21 +223,6 @@ the return value (nil if RESULT is omitted)."
 	       )
 	   (move-overlay (, object) (, start) (, end))))))))
 
-(defmacro skk-sit-for (seconds &optional nodisplay)
-  (case skk-emacs-type
-   (xemacs
-    (` (sit-for (, seconds) (, nodisplay))))
-   (t
-    ;; Emacs 19 or later.
-    (` (sit-for (, seconds) nil (, nodisplay))))))
-
-(defmacro skk-ding (&optional arg sound device)
-  (case skk-emacs-type
-    (xemacs
-     (` (ding (, arg) (, sound) (, device))))
-    (t
-     (` (ding (, arg))))))
-
 (defmacro skk-cannot-be-undone (&rest body)
   (` (let ((buffer-undo-list t)
 	   ;;buffer-read-only
@@ -266,6 +256,20 @@ the return value (nil if RESULT is omitted)."
 
 ;;;; INLINE FUNCTIONS.
 ;;; version dependent
+(defsubst skk-sit-for (seconds &optional nodisplay)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (sit-for seconds  nodisplay))
+   (t
+    (sit-for seconds nil nodisplay))))
+
+(defsubst skk-ding (&optional arg sound device)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+     (ding arg sound device))
+    (t
+     (ding arg))))
+
 (defsubst skk-color-display-p ()
   (static-cond
    ((eq skk-emacs-type 'xemacs)

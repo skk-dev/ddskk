@@ -9,6 +9,8 @@
 	(skk-key-binding-member)
 	(skk-loop-for-buffers): Use `dolist'.
 
+	Workaround for the pseudo-`dolist' in egg.el.
+
 	* skk-comp.el (skk-comp-do)
 	(skk-comp-by-history): Use `dolist' and `push'.
 
@@ -1972,8 +1974,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.406 2001/09/15 19:20:03 czkmt Exp $
-Last Modified: $Date: 2001/09/15 19:20:03 $
+Version: $Id: ChangeLog,v 1.407 2001/09/15 20:54:00 czkmt Exp $
+Last Modified: $Date: 2001/09/15 20:54:00 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
