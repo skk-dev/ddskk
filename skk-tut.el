@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.17 2000/11/14 12:50:35 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.18 2000/11/14 13:32:01 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 12:50:35 $
+;; Last Modified: $Date: 2000/11/14 13:32:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -351,6 +351,7 @@ The English version is SKK.tut.E."
 (defvar skktut-jisyo-buffer " *skk-tut-jisyo*")
 (defvar skktut-original-window-configuration nil)
 (defvar skktut-working-window-configuration nil)
+(defvar skktut-original-local-map nil)
 (defvar skktut-skk-mode-on nil
   "Non-nil $B$G$"$l$P!"(Bskk-tutorial $B$r5/F0$7$?$H$-$K(B SKK $B$,4{$K5/F0$5$l$F$$$?$3$H$r<($9!#(B")
 
@@ -565,7 +566,10 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
         ;; $B%A%e!<%H%j%"%k5/F0D>A0$K3+$$$F$$$?%P%C%U%!$G!"(Bskk-mode $B$r5/F0$7$F(B
         ;; $B$$$?$i!"$=$N>uBV$K$7$F!"%A%e!<%H%j%"%k$r=*N;$9$k!#(B
         (or skktut-skk-mode-on
-            (skk-mode -1)))))
+            (skk-mode -1))))
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (when skktut-original-local-map
+      (use-local-map skktut-original-local-map))))
 
 ;; the following commands are also interactive, but users may not call
 ;; them by name.  So prefix should be `skktut-'.
@@ -698,7 +702,9 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 (defun skktut-pre-setup-tutorial ()
   (setq skktut-original-window-configuration (current-window-configuration)
 	skktut-skk-mode-on skk-mode
-	skktut-question-count 1))
+	skktut-question-count 1)
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (setq skktut-original-local-map (current-local-map))))
 
 (defun skktut-setup-jisyo-buffer ()
   ;; setup skktut-tut-jisyo buffer.

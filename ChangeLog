@@ -17,6 +17,7 @@
 	(skktut-setup-delete-backward-char): New function.
 	(skk-tutorial): Call it.
 	Invoke `skk-mode' at least once before starting tutorial.
+	(skktut-original-local-map): New variable for Emacs 18.
 
 	* skk.el (skk-mode, skk-save-jisyo-original, skk-make-new-jisyo):
 	Don't create or save `skk-jisyo' file, if it is one for tutorial.
@@ -2290,8 +2291,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.139 2000/11/14 13:10:46 czkmt Exp $
-Last Modified: $Date: 2000/11/14 13:10:46 $
+Version: $Id: ChangeLog,v 1.140 2000/11/14 13:32:00 czkmt Exp $
+Last Modified: $Date: 2000/11/14 13:32:00 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
