@@ -1,3 +1,7 @@
+2000-11-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el: Eliminate warnings.
+
 2000-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-mode-hook): Update modeline indicators under

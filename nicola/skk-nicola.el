@@ -43,6 +43,10 @@
 (eval-and-compile
   (require 'skk-kanagaki))
 
+(static-when (eq skk-emacs-type 'mule5)
+  (eval-and-compile
+    (require 'skk-e21)))
+
 (defgroup skk-nicola nil "SKK NICOLA related customization."
   :prefix "skk-nicola-"
   :group 'skk
