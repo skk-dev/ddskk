@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.56 2000/11/14 13:14:34 czkmt Exp $
+;; Version: $Id: skk.el,v 1.57 2000/11/15 09:41:00 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 13:14:34 $
+;; Last Modified: $Date: 2000/11/15 09:41:00 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1578,10 +1578,15 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 			(char (event-to-character event))
 			(key (static-cond
 			      ((eq skk-emacs-type 'xemacs)
-			       event)
+			       (let ((tmp (event-key event)))
+				 (if (symbolp tmp)
+				     (vector tmp)
+				   event)))
 			      (t
-			       (let ((keys (recent-keys)))
-				 (vector (aref keys (1- (length keys))))))))
+			       (if char
+				   (vector char)
+				 (let ((keys (recent-keys)))
+				   (vector (aref keys (1- (length keys)))))))))
 			num)
 		   (if (eq skk-emacs-type 'xemacs)
 		       (message ""))	; clear out candidates in echo area
@@ -1621,8 +1626,12 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				   (lambda (key)
 				     (key-description key)))
 				  (append
-				   (where-is-internal 'skk-previous-candidate)
-				   (where-is-internal 'skk-undo)))))
+				   (where-is-internal 'skk-previous-candidate
+						      skk-j-mode-map)
+				   (where-is-internal 'skk-delete-backward-char
+						      skk-j-mode-map)
+				   (where-is-internal 'skk-undo
+						      skk-j-mode-map)))))
 			    (if (= loop 0)
 				;; skk-henkan-show-candidates を呼ぶ前の状態に戻
 				;; す。
@@ -1646,13 +1655,16 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 			       (lambda (key)
 				 (key-description key)))
 			      (append
-			       (where-is-internal 'keyboard-quit)
-			       (where-is-internal 'skk-kanagaki-bs)
-			       (where-is-internal 'skk-kanagaki-esc))))
+			       (where-is-internal 'keyboard-quit
+						  skk-j-mode-map)
+			       (where-is-internal 'skk-kanagaki-bs
+						  skk-j-mode-map)
+			       (where-is-internal 'skk-kanagaki-esc
+						  skk-j-mode-map))))
 			    (signal 'quit nil))
 			   (t
-			    (skk-message "\"%s\" は有効なキーではありません！"
-					 "\"%s\" is not valid here!"
+			    (skk-message "`%s' は無効なキーです！"
+					 "`%s' is not valid here!"
 					 (or (key-description key)
 					     (key-description char)))
 			    (sit-for 1)))))
@@ -1851,18 +1863,28 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; 変換が行なわれたバッファでコールされる (ミニバッファ、辞書バッファではない)。
   (save-match-data
     (let* ((len (skk-str-length word))
-	   (str (when (< 0 len)
-		  (skk-substring word (1- len) len))))
+	   (str1 (when (< 0 len)
+		   (skk-substring word (1- len) len)))
+	   (str2 (when (< 1 len)
+		   (skk-substring word (- len 2) (1- len))))
+	   (str (if (string-match "^[ぁ-ん]$" str2)
+		    (concat str2 str1)
+		  str1)))
       (when (and str
-		 (string-match "^[ぁ-ん]$" str)
-		 (skk-y-or-n-p
-		  (format "辞書登録モードで入力した「%s」の「%s」は送り仮名ですか？"
-			  word str)
-		  (format "You mean \"%s\" in \"%s\" you've registered is okurigana?"
-			  str word)))
+		 (string-match "^[ぁ-ん]$" str1)
+		 (or
+		  (eq skk-check-okurigana-on-touroku 'auto)
+		  (skk-y-or-n-p
+		   (format "辞書登録で入力した `%s' の `%s' は送り仮名ですか？"
+			   word str)
+		   (format "You mean `%s' in `%s' you've registered is okurigana?"
+			   str word))))
 	;; ユーザの指示に従い送り仮名を取り除く。
 	(message "")
-	(setq word (skk-substring word 0 (1- len))))))
+	(setq word (skk-substring word 0
+				  (if (string-match "^[ぁ-ん]$" str2)
+				      (- len 2)
+				    (1- len)))))))
   word)
 
 (defun skk-setup-minibuffer ()
