@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dcomp.el,v 1.4 1999/09/21 21:52:00 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.5 1999/09/23 13:52:18 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/21 21:52:00 $
+;; Last Modified: $Date: 1999/09/23 13:52:18 $
 
 ;; This file is not part of SKK yet.
 
@@ -33,42 +33,26 @@
 (require 'skk-foreword)
 (require 'skk-comp)
 
-(defvar skk-dcomp-face (skk-make-face 'DarkKhaki)
-  "*Face used to highlight region dynamically completed." )
+(defgroup skk-dcomp nil "SKK dynamic completion related customization."
+  :prefix "skk-dcomp-"
+  :group 'skk )
 
-(defvar skk-dcomp-face-priority 700
-  "*Overlay/extent priority of `skk-dcomp-face'." )
+(defface skk-dcomp-face
+  '((((class color)) (:foreground "DarkKhaki"))
+    (((class grayscale) (background light)) (:foreground "DimGray" :italic t))
+    (((class grayscale) (background dark)) (:foreground "LightGray" :italic t)) )
+  "*Face used to highlight region dynamically completed."
+  :group 'skk-faces )
+
+(defcustom skk-dcomp-face-priority 700
+  "*Overlay/extent priority of `skk-dcomp-face'."
+  :type 'integer
+  :group 'skk-dcomp )
 
 (skk-deflocalvar skk-dcomp-start-point nil)
 (defvar skk-dcomp-extent nil)
-
-;; to be moved to skk.el...
-(skk-defun-cond skk-face-on
-  (object start end face &optional priority)
-  ((eq skk-emacs-type 'xemacs)
-   (let ((inhibit-quit t))
-     (if (extentp object)
-	 nil
-       (setq object (make-extent start end))
-       (set-extent-properties
-	object
-	(if priority (list 'face face 'priority priority) (list 'face face)) ))
-     (insert-extent object start end) ))
-  (t
-   (let ((inhibit-quit t))
-     (if (overlayp object)
-	 nil
-       (setq object (make-overlay start end))
-       (and priority (overlay-put object 'priority priority)) )
-     (move-overlay object start end)
-     (overlay-put object 'face face) )))
-
-;; to be moved to skk.el...
-(skk-defun-cond skk-detach-extent (object)
-  ((eq skk-emacs-type 'xemacs)
-   (and (extentp object) (detach-extent object)) )
-  (t
-   (and (overlayp object) (delete-overlay object)) ))
+;; why is it necessary?
+(defvar skk-dcomp-face 'skk-dcomp-face)
 
 (defun skk-dcomp-face-on (start end)
   (skk-face-on skk-dcomp-extent start end skk-dcomp-face

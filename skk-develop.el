@@ -1,11 +1,11 @@
-;;; skk-edebug.el --- support SKK developper.
+;;; skk-develop.el --- support SKK developper.
 ;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-develop.el,v 1.1 1999/08/29 13:26:18 minakaji Exp $
+;; Version: $Id: skk-develop.el,v 1.2 1999/09/23 13:55:06 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 13:26:18 $
+;; Last Modified: $Date: 1999/09/23 13:55:06 $
 
 ;; This file is not part of SKK yet.
 
@@ -33,12 +33,18 @@
   '(progn
      (def-edebug-spec skk-save-point t)
      (def-edebug-spec skk-with-point-move t)
-     ;; よう分かりません...
-     ;;(def-edebug-spec skk-defun-cond
-     ;;  (&define name lambda-list
-     ;;           [&optional stringp]
-     ;;           [&rest form def-body] ))
-     ;;skk-defsubst-cond
+     (def-edebug-spec skk-defun-cond
+       (&define name lambda-list
+		[&optional stringp]
+		[&rest ([&not eval] [&rest sexp])]
+		[&optional (eval [&optional ("interactive" interactive)] def-body)]
+		&rest (&rest sexp) ))
+     (def-edebug-spec skk-defmacro-cond
+       (&define name lambda-list
+		[&rest ([&not eval] [&rest sexp])]
+		[&optional (eval def-body)]
+		&rest (&rest sexp) ))
+     (def-edebug-spec skk-defmacro-cond skk-defsubst-cond)
      ))
 
 (eval-after-load "hilit19"
