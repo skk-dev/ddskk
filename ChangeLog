@@ -1,6 +1,6 @@
 2000-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-vars.el (skk-num-list): Remove autoload cookie.
+	* skk-num.el (skk-num-list): Remove autoload cookie.
 
 2000-09-10  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
