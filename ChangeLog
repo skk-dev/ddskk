@@ -29,6 +29,8 @@
 
 	* skk.el (skk-check-size-and-do-save-jisyo): Call `princ' just
 	once.
+	(skk-make-temp-jisyo): If function `temp-directory' exists, call
+	it.
 
 	* tinyinstall.el: Remove codes for Emacs 18.
 
@@ -1826,8 +1828,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.377 2001/09/11 22:23:21 czkmt Exp $
-Last Modified: $Date: 2001/09/11 22:23:21 $
+Version: $Id: ChangeLog,v 1.378 2001/09/11 22:47:10 czkmt Exp $
+Last Modified: $Date: 2001/09/11 22:47:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
