@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.41 2003/07/18 16:02:39 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.42 2003/07/18 16:13:24 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/18 16:02:39 $
+;; Last Modified: $Date: 2003/07/18 16:13:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -251,7 +251,7 @@
 
 ;;;###autoload
 (defun skk-study-switch-current-theme (theme)
-  "skk-study のカレントバッファに対する学習テーマを設定する。
+  "skk-study のカレントバッファに対する学習テーマ THEME を設定する。
 学習テーマには任意の文字列を設定できる。
 カレントバッファの学習テーマが設定されないときは、学習テーマ
 \"general\" に対する学習が行われる。"
@@ -274,6 +274,31 @@
 	    (cons
 	     (cons theme '((okuri-ari) (okuri-nasi)))
 	     skk-study-alist)))))
+
+;;;###autoload
+(defun skk-study-remove-theme (theme)
+  "skk-study の学習テーマ THEME を削除する。"
+  (interactive
+   (list (completing-read
+	  "Remove skk-study theme: "
+	  (when (or skk-study-alist (skk-study-read))
+	    (let ((n 0))
+	      (mapcar (lambda (e)
+			(setq n (1+ n))
+			(cons e n))
+		      (mapcar 'car skk-study-alist))))
+	  nil 'require-match)))
+  (unless (stringp theme)
+    (skk-error "skk-study の theme が文字列ではありません"
+	       "Only string is allowed as theme of skk-study"))
+  (when (string= theme "general")
+    (skk-error "\"general\" テーマは削除できません"
+	       "Cannot remove theme \"general\""))
+  (setq skk-study-alist (delq (assoc theme skk-study-alist)
+			      skk-study-alist))
+  (when (and skk-study-current-buffer-theme
+	     (string= skk-study-current-buffer-theme theme))
+    (setq skk-study-current-buffer-theme nil)))
 
 ;;;###autoload
 (defun skk-study-read (&optional nomsg force)
