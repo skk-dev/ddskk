@@ -1,3 +1,8 @@
+2000-10-23  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* READMEs/README.win: Maintrunk 用の設定に変更。Mule for Windows
+	では SKK-CFG を編集することを追加。
+
 2000-10-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/{skk-faq.texi, skk.texi}: Some modifications for TeX.
