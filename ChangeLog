@@ -3,7 +3,7 @@
 	No longer support Emacs 20.2 or earlier.
 
 	* SKK-CFG:
-	Remove examples for Old Emacsen.
+	Remove examples for old Emacsen.
 
 	* SKK-MK
 	(SKK-MK-texinfo-Coding-system):
@@ -3480,8 +3480,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.637 2002/01/18 14:10:46 czkmt Exp $
-Last Modified: $Date: 2002/01/18 14:10:46 $
+Version: $Id: ChangeLog,v 1.638 2002/01/18 14:19:50 czkmt Exp $
+Last Modified: $Date: 2002/01/18 14:19:50 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
