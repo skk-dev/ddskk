@@ -1,3 +1,10 @@
+2002-06-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el:
+	(skk-annotation-add):
+	When `wholestring' does not contain annotation, then `realword'
+	should be the same as `wholestring'.
+
 2002-05-27  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* skk-tut.el (skktut-get-question-page): Trivial fix.
@@ -3873,8 +3880,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.688 2002/05/27 14:11:39 obata Exp $
-Last Modified: $Date: 2002/05/27 14:11:39 $
+Version: $Id: ChangeLog,v 1.689 2002/06/02 00:31:48 czkmt Exp $
+Last Modified: $Date: 2002/06/02 00:31:48 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
