@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.206 2001/12/06 06:56:34 minakaji Exp $
+;; Version: $Id: skk.el,v 1.207 2001/12/09 12:08:35 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/06 06:56:34 $
+;; Last Modified: $Date: 2001/12/09 12:08:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -372,7 +372,8 @@ dependent."
      'minor-mode-map-alist
      (list (cons 'skk-j-mode skk-j-mode-map)
 	   (cons 'skk-jisx0201-mode skk-j-mode-map))))
-  (unless (skk-key-binding-member "a" '(skk-insert) skk-j-mode-map)
+  (unless (eq (lookup-key skk-j-mode-map "a")
+	      'skk-insert)
     (let ((i 32))
       (while (< i 127)
 	(define-key skk-j-mode-map (char-to-string i) 'skk-insert)
@@ -393,8 +394,8 @@ dependent."
     (set-modified-alist
      'minor-mode-map-alist
      (list (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map))))
-  (unless (skk-key-binding-member "a" '(skk-jisx0208-latin-insert)
-				  skk-jisx0208-latin-mode-map)
+  (unless (eq (lookup-key skk-jisx0208-latin-mode-map "a")
+	      'skk-jisx0208-latin-insert)
     (let ((i 0))
       (while (< i 128)
 	(when (aref skk-jisx0208-latin-vector i)
