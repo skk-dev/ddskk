@@ -1,3 +1,7 @@
+2000-09-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ptexinfmt.el: Sync with Wanderlust.
+
 2000-09-22  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* doc/skk.texi: `チュートリアル'を追加. `stack-m.el' の記述削除.
