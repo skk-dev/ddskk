@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.53 2001/12/16 11:02:45 akiho Exp $
-# Last Modified: $Date: 2001/12/16 11:02:45 $
+# Version: $Id: Makefile,v 1.54 2002/11/20 10:59:31 minakaji Exp $
+# Last Modified: $Date: 2002/11/20 10:59:31 $
 
 
 VERSION = 11.6.0
@@ -16,7 +16,7 @@ FLAGS     = -batch -q -no-site-file -l SKK-MK
 GZIP      = gzip -9
 MD5	  = md5
 RM	  = /bin/rm -f
-SNAPBASE  = ddskk`$(DATE) '+%Y%m%d'`
+SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = tar
 XEMACS	  = xemacs
 RUBY      = ruby
@@ -33,7 +33,7 @@ info:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile-info
 
 install:
-	$(EMACS) $(FLAGS) -f SKK-MK-install 
+	$(EMACS) $(FLAGS) -f SKK-MK-install
 
 install-elc:
 	$(EMACS) $(FLAGS) -f SKK-MK-install-elc
@@ -42,7 +42,7 @@ install-info:
 	$(EMACS) $(FLAGS) -f SKK-MK-install-info
 
 install-package:
-	$(XEMACS) $(FLAGS) -f SKK-MK-install-package 
+	$(XEMACS) $(FLAGS) -f SKK-MK-install-package
 
 
 what-where:
@@ -68,16 +68,16 @@ clean:
 
 tar: clean rb-skk-dic
 	cd .. ;\
-	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot ddskk$(VERSION).tar.gz ddskk$(VERSION).tar.bz2 ;\
+	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot ddskk$(VERSION).tar.gz ddskk$(VERSION).tar.bz2 ddskk-$(VERSION).tar.gz ddskk-$(VERSION).tar.bz2 ;\
 	$(RM) ddskk-$(VERSION) ;\
 	ln -sf main ddskk-$(VERSION) ;\
-	$(TAR) -cvpf ddskk$(VERSION).tar --exclude-from=ddskk-$(VERSION)/skk.ex --dereference ddskk-$(VERSION) ;\
-	$(BZIP2) -cf ddskk$(VERSION).tar > ddskk$(VERSION).tar.bz2 ;\
-	$(GZIP) -cf ddskk$(VERSION).tar > ddskk$(VERSION).tar.gz ;\
-	$(RM) ddskk$(VERSION).tar ;\
-	$(RM) ddskk$(VERSION) ;\
-	$(MD5) ddskk$(VERSION).tar.bz2 >ddskk$(VERSION).tar.bz2.md5 ;\
-	$(MD5) ddskk$(VERSION).tar.gz >ddskk$(VERSION).tar.gz.md5
+	$(TAR) -cvpf ddskk-$(VERSION).tar --exclude-from=ddskk-$(VERSION)/skk.ex --dereference ddskk-$(VERSION) ;\
+	$(BZIP2) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.bz2 ;\
+	$(GZIP) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.gz ;\
+	$(RM) ddskk-$(VERSION).tar ;\
+	$(RM) ddskk-$(VERSION) ;\
+	$(MD5) ddskk-$(VERSION).tar.bz2 >ddskk-$(VERSION).tar.bz2.md5 ;\
+	$(MD5) ddskk-$(VERSION).tar.gz >ddskk-$(VERSION).tar.gz.md5
 	$(RM) skk-dic.el
 
 snapshot: clean rb-skk-dic
