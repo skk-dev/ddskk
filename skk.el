@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.218 2002/01/11 16:28:57 czkmt Exp $
+;; Version: $Id: skk.el,v 1.219 2002/01/11 23:53:31 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/11 16:28:57 $
+;; Last Modified: $Date: 2002/01/11 23:53:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2790,7 +2790,6 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 送りありエントリのヘッダーがありません！ SKK 辞書のセーブを中止します"
 	 "\
 Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
-      ;; おっ、コメントフェイスが $ で終わらないぞ > hilit19.el
       (unless (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
 	(skk-error
 	 "\
@@ -2921,8 +2920,8 @@ If you want to restore the dictionary from the disc, try
     (when (and buf
 	       (or force
 		   (skk-yes-or-no-p
-		    "編集中の個人辞書を破棄しますか？"
-		    "Discard your editing private JISYO?")))
+		    "未セーブの個人辞書を破棄しますか？"
+		    "Discard your unsaved private JISYO?")))
       (with-current-buffer buf
 	(set-buffer-modified-p nil)
 	(kill-buffer buf))

@@ -1,3 +1,7 @@
+2002-01-12  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-reread-private-jisyo): Modify prompt string.
+
 2002-01-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el
@@ -189,6 +193,12 @@
 	(skk-setup-keymap): Don't define keys many times.
 
 2001-12-06  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-make-plist): New function.
+	(skk-make-plist-alist): Ditto.
+
+	* skk-macs.el (skk-get): New inline function.
+	(skk-put): Ditto.
 
 	* skk.el (skk-after-point-move): Declare with `defun' instead of
 	`defsubst'.
@@ -3294,8 +3304,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.622 2002/01/11 16:29:09 czkmt Exp $
-Last Modified: $Date: 2002/01/11 16:29:09 $
+Version: $Id: ChangeLog,v 1.623 2002/01/11 23:53:31 minakaji Exp $
+Last Modified: $Date: 2002/01/11 23:53:31 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
