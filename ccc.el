@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.11 2001/12/02 03:30:53 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.12 2001/12/02 10:37:43 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/12/02 03:30:53 $
+;; Last Modified: $Date: 2001/12/02 10:37:43 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -120,6 +120,15 @@
    (t
     (list (read-string prompt)))))
 
+(defsubst ccc-color-equal (a b)
+  (static-cond
+   ((featurep 'facemenu)
+    (facemenu-color-equal a b))
+   (t
+    (and (stringp a)
+	 (stringp b)
+	 (string= a b)))))
+
 ;;;###autoload
 (defun update-buffer-local-frame-params ()
   (update-buffer-local-cursor-color)
@@ -143,11 +152,14 @@
        (setq buffer-local-cursor-color local)))))
 
 (defun update-buffer-local-cursor-color ()
-  (set-cursor-color
-   (cond ((stringp buffer-local-cursor-color)
-	  buffer-local-cursor-color)
-	 (t
-	  frame-cursor-color))))
+  (cond ((stringp buffer-local-cursor-color)
+	 (unless (ccc-color-equal (get-apparent-cursor-color)
+				  buffer-local-cursor-color)
+	   (set-cursor-color buffer-local-cursor-color)))
+	(t
+	 (unless (ccc-color-equal (get-apparent-cursor-color)
+				  frame-cursor-color)
+	   frame-cursor-color))))
 
 (defun set-cursor-color-buffer-local (arg)
   (if arg
@@ -172,11 +184,14 @@
        (setq buffer-local-foreground-color local)))))
 
 (defun update-buffer-local-foreground-color ()
-  (set-foreground-color
-   (cond ((stringp buffer-local-foreground-color)
-	  buffer-local-foreground-color)
-	 (t
-	  frame-foreground-color))))
+  (cond ((stringp buffer-local-foreground-color)
+	 (unless (ccc-color-equal (get-apparent-foreground-color)
+				  buffer-local-foreground-color)
+	   (set-foreground-color buffer-local-foreground-color)))
+	(t
+	 (unless (ccc-color-equal (get-apparent-foreground-color)
+				  frame-foreground-color)
+	   frame-foreground-color))))
 
 (defun set-foreground-color-buffer-local (arg)
   (if arg
@@ -201,11 +216,14 @@
        (setq buffer-local-background-color local)))))
 
 (defun update-buffer-local-background-color ()
-  (set-background-color
-   (cond ((stringp buffer-local-background-color)
-	  buffer-local-background-color)
-	 (t
-	  frame-background-color))))
+  (cond ((stringp buffer-local-background-color)
+	 (unless (ccc-color-equal (get-apparent-background-color)
+				  buffer-local-background-color)
+	   (set-background-color buffer-local-background-color)))
+	(t
+	 (unless (ccc-color-equal (get-apparent-background-color)
+				  frame-background-color)
+	   frame-background-color))))
 
 (defun set-background-color-buffer-local (arg)
   (if arg
