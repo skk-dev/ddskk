@@ -1,3 +1,10 @@
+2002-01-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	(skk-restart): Reset `skk-rom-kana-rule-list' and `skk-rule-tree'.
+
+	(skk-preload): Call `skk-mode' in temporary buffer.
+
 2002-01-10  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* experimental/skk-dinsert.el : New file.
@@ -3259,8 +3266,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.618 2002/01/10 10:17:48 obata Exp $
-Last Modified: $Date: 2002/01/10 10:17:48 $
+Version: $Id: ChangeLog,v 1.619 2002/01/11 13:24:32 czkmt Exp $
+Last Modified: $Date: 2002/01/11 13:24:32 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
