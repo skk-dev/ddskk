@@ -1,5 +1,9 @@
 2003-07-13  NAKAJIMA Mikio  <minakaji@namazu.org>
 
+	* ptexinfmt.el (texinfo-format-separate-node): Declare with
+	`ptexinfmt-broken-facility' and `ptexinfmt-defun-if-broken'.
+	(texinfo-format-end-node): Ditto.
+
 	* skk-study.el (skk-study-read): Require skk-macs.el, skk-vars.el
 	and ring.el outside `eval-when-compile'.
 	(skk-study-search): Use `when' instead of `if', simplified
@@ -4310,8 +4314,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.758 2003/07/13 09:59:29 minakaji Exp $
-Last Modified: $Date: 2003/07/13 09:59:29 $
+Version: $Id: ChangeLog,v 1.759 2003/07/13 10:56:46 minakaji Exp $
+Last Modified: $Date: 2003/07/13 10:56:46 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
