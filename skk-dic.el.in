@@ -1,4 +1,4 @@
-;;; skk-dic.el --- Default dictionary for SKK  -*- mode: emacs-lisp; coding: iso-2022-jp -*-
+;;; skk-dic.el --- Default dictionary for SKK  -*- emacs-lisp-*-
 
 ;; Copyright (C) 2001, 2002 SKK Development Team
 
