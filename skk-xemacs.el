@@ -75,7 +75,7 @@
     ;;               skk-xemacs-jisx0201-extent))
     ;; (let ((extent (symbol-value sym)))
     (dolist (mode '(hiragana katakana jisx0208-latin latin jisx0201))
-      (setq extent (assq mode skk-xemacs-extent-alist))
+      (setq extent (cdr (assq mode skk-xemacs-extent-alist)))
       (set-extent-keymap extent skk-xemacs-modeline-map)
       (set-extent-property extent 'help-echo
 			   "マウスの button 2 -> Daredevil SKK のメニュ−"))))

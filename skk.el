@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.80 2000/12/12 09:00:58 minakaji Exp $
+;; Version: $Id: skk.el,v 1.81 2000/12/12 21:14:51 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/12 09:00:58 $
+;; Last Modified: $Date: 2000/12/12 21:14:51 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -421,8 +421,9 @@ dependent."
   (if (not skk-mode)
       ;; exit skk-mode
       (skk-exit)
+    ;; enter into skk-mode.
     (if (not skk-mode-invoked)
-        ;; enter skk-mode for the first time in this session
+        ;; enter into skk-mode for the first time in this session.
 	(skk-invoke))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
     (unless (and (skk-local-variable-p 'skk-jisyo (current-buffer))
