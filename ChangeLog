@@ -4,6 +4,8 @@
 	(skk-hiragana-to-jisx0201-region)
 	(skk-katakana-to-jisx0201-region): Don't consider JISX0201 Roman.
 
+	Comments update.
+
 2001-10-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-jisx0201.el:
@@ -2154,8 +2156,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.443 2001/10/03 22:07:54 czkmt Exp $
-Last Modified: $Date: 2001/10/03 22:07:54 $
+Version: $Id: ChangeLog,v 1.444 2001/10/03 22:09:45 czkmt Exp $
+Last Modified: $Date: 2001/10/03 22:09:45 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

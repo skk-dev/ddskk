@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.26 2001/10/03 22:07:22 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.27 2001/10/03 22:09:45 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/03 22:07:22 $
+;; Last Modified: $Date: 2001/10/03 22:09:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -30,7 +30,7 @@
 ;;
 ;; ~/.skk に
 ;;
-;; (require 'skk-jisx0201)
+;; (setq skk-use-jisx0201-input-method t)
 ;;
 ;; と書くことでインストールされます。使い方は以下のようになります。
 ;;
