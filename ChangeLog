@@ -1,3 +1,10 @@
+2001-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el
+	(update-buffer-local-cursor-color)
+	(update-buffer-local-foreground-color)
+	(update-buffer-local-background-color): Simplify.
+
 2001-12-22  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* etc/dot.skk (skk-hyphen): Remove interactive spec.
@@ -3180,8 +3187,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.604 2001/12/22 00:43:46 minakaji Exp $
-Last Modified: $Date: 2001/12/22 00:43:46 $
+Version: $Id: ChangeLog,v 1.605 2001/12/23 00:58:53 czkmt Exp $
+Last Modified: $Date: 2001/12/23 00:58:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
