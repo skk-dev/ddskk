@@ -1,45 +1,61 @@
 -*- text -*-
-             $Date: 1999/09/15 11:44:20 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 1999/09/19 01:40:46 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.5 1999/09/15 11:44:20 minakaji Exp $ 
+	     $Id: INSTALL,v 1.6 1999/09/19 01:40:46 minakaji Exp $ 
 
-(1)Get APEL 9.22 or later and install it.  You can get latest APEL at;
+(1)APEL (A Portable Emacs Library) is required in order to install
+   SKK.  Please make sure you have installed APEL 9.22 or later
+   already.  It is available at:
 
     ftp://ftp.m17n.org/pub/mule/apel/
 or
     ftp://ftp.etl.go.jp/pub/mule/apel/
 
-(2)If you use Emacs 19 with mule feature, you may want custom package.
-   If you don't have it, APEL provides dummy functions.
+(2)If you want to use SKK customization feature, make sure you have a
+   correctly working version of custom with SKK.
 
-   (a)On GNU Emacs 20 or XEmacs, SKK should work correctly without any
-      modifications or additional packages.
+   (a)If you use GNU Emacs 20 or XEmacs, SKK works correctly without
+      any modifications or additional packages.
 
-   (b)On GNU Emacs 19.30 or later has custom package by default, but
-      you can get better version (custom-1.9962.tar.gz) at
+   (b)GNU Emacs 19.30 or later has custom feature by default, but to
+      work correctly you should use better version,
+      `custom-1.9962.tar.gz'.  It is available at: 
 
         ftp://ftp.dina.kvl.dk/pub/Staff/Per.Abrahamsen/custom/
 
-      Apply patch skk-10/patch/custom-1.9962.patch to
-      cus-face.el of the package.
+      Apply patch skk-10/patch/custom-1.9962.patch to cus-face.el of
+      the package.
 
-   (c)On GNU Emacs 19.28, SKK does not work with any custom package.
-      You should use tinycustom.el of APEL for an emulation purpose.
-      By default, SKK requires pcumstom.el which automatically defines
-      to use actual custom package or tinycustom.el, and will define
-      to use tinycustom.el for GNU Emacs 19.28.  So you have to do
-      nothing.  After load tinycustom.el, all `defcustom's in SKK
-      package will be equal to `defvars'.
+      If you do not want to use SKK customization feature, you have
+      to do nothing.  pcustom.el (required in skk-foreword.el) will
+      find that you use old custom and provide emulation features
+      requiring tinycustom.el.
 
-(3)Edit SKK-CFS as you like.  Maybe you do not need edit Makefile at
+   (c)GNU Emacs 19.28 does not have custom feature by default.  And it
+      seems difficult to run `custom-1.9962.tar.gz' on 19.28.
+      pcustom.el will find that you do not have a custom package, and
+      require tinycustom.el, so you have to do nothing.  After load
+      tinycustom.el, all `defcustom's defined in SKK package will be
+      equal to `defvars'.
+
+(3)Edit SKK-CFG as you like.  Maybe you need not to edit Makefile at
    all.  All customization can be done in SKK-CFG.
 
-(4)Run `make install' (You may have to be superuser).  Or you may want
-   to run `make install-package' if you use XEmacs (package install).
-  You can specify Emacs command name in a command line.  For examples,
-  `make install EMACS=mule'
+(4)Run `make'.  You can specify Emacs command name in command line.
+   For examples, `make install EMACS=mule'
 
-(5)Many variables/functions names have been changed.  You are strongly
+(5)If you want to know target directories to install without actual
+   installation, run `make what-where' (or `make what-where-package'
+   for XEmacs package install.  As to package install, see below (7).
+
+(6)Run `make install' (You may have to be superuser).  
+   You can specify Emacs command name in command line, like
+   `make install EMACS=mule'
+
+(7)If you want install SKK as a XEmacs package, run
+   `make install-package'.
+
+(8)Many variables/functions names have been changed.  You are strongly
    recommended to load skk-obsolete.el and
 
      M-x skk-obsolete-check-all-files.
