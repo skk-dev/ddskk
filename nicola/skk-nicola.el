@@ -228,25 +228,24 @@
 
 (add-hook
  'skk-mode-hook
- (function
-  (lambda ()
-    ;;
-    (case skk-kanagaki-state
-      (kana
-       (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
-	     skk-katakana-mode-string skk-nicola-katakana-mode-string))
-      (rom
-       (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
-	     skk-katakana-mode-string skk-nicola-katakana-rom-string)))
-    ;;
-    (skk-modify-indicator-alist 'katakana
-				skk-katakana-mode-string)
-    (skk-modify-indicator-alist 'hiragana
-				skk-hiragana-mode-string)
-    ;;
-    (skk-update-modeline (if skk-katakana
-			     'katakana
-			   'hiragana)))))
+ #'(lambda ()
+     ;;
+     (case skk-kanagaki-state
+       (kana
+	(setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
+	      skk-katakana-mode-string skk-nicola-katakana-mode-string))
+       (rom
+	(setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
+	      skk-katakana-mode-string skk-nicola-katakana-rom-string)))
+     ;;
+     (skk-modify-indicator-alist 'katakana
+				 skk-katakana-mode-string)
+     (skk-modify-indicator-alist 'hiragana
+				 skk-hiragana-mode-string)
+     ;;
+     (skk-update-modeline (if skk-katakana
+			      'katakana
+			    'hiragana))))
 
 ;; Functions.
 
@@ -332,17 +331,15 @@
    (nconc
     ;;
     (mapcar
-     (function
-      (lambda (key)
-	(cons (key-description key)
-	      "左親指シフトキー")))
+     #'(lambda (key)
+	 (cons (key-description key)
+	       "左親指シフトキー"))
      skk-nicola-lshift-keys)
     ;;
     (mapcar
-     (function
-      (lambda (key)
-	(cons (key-description key)
-	      "右親指シフトキー")))
+     #'(lambda (key)
+	 (cons (key-description key)
+	       "右親指シフトキー"))
      skk-nicola-rshift-keys)
     ;;
     (list (cons "SPC"
@@ -492,9 +489,8 @@
 	;;
 	(cond ((member next
 		       (mapcar
-			(function
-			 (lambda (key)
-			   (key-description key)))
+			#'(lambda (key)
+			    (key-description key))
 			(append
 			 skk-nicola-rshift-keys
 			 skk-nicola-lshift-keys)))

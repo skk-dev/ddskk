@@ -69,13 +69,10 @@ Convert to Hankaku Katakana or Toggle Katakana <=> Hankaku Katakana Mode"
 (static-cond
  ((eq skk-emacs-type 'xemacs)
   (add-hook 'skk-mode-hook
-	    (function
-	     (lambda ()
-	       (add-submenu
-		'("SKK")
-		skk-kanagaki-menu-items)))))
- ((not (fboundp 'easy-menu-add-item))
-  nil)
+	    #'(lambda ()
+		(add-submenu
+		 '("SKK")
+		 skk-kanagaki-menu-items))))
  (t
   (dolist (map (list skk-j-mode-map
 		     skk-latin-mode-map

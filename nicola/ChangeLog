@@ -1,3 +1,15 @@
+2002-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-menu.el:
+	* skk-kanagaki-util.el:
+	* skk-nicola-dcomp.el:
+	* skk-nicola-jis.el:
+	* skk-nicola-us.el:
+	* skk-nicola.el:
+	* skk-omelet-jis.el:
+	* skk-omelet-us.el:
+	Use #' for functions.
+
 2002-01-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el:

@@ -33,9 +33,9 @@
 
 ;;;###autoload
 (add-hook 'skk-mode-hook
-	  (lambda ()
-	    (if (and (featurep 'skk-dcomp)
-		     (featurep 'skk-nicola))
+	  #'(lambda ()
+	      (when (and (featurep 'skk-dcomp)
+			 (featurep 'skk-nicola))
 		(require 'skk-nicola-dcomp))))
 
 (defadvice skk-nicola-self-insert-lshift (around skk-nicola-dcomp activate)

@@ -85,16 +85,15 @@
 	(concat
 	 (format "%s\n\n" (, title))
 	 (mapconcat
-	  (function
-	   (lambda (cons)
-	     (cond
-	      ((and (symbolp (car cons))
-		    (symbol-value (car cons)))
-	       (format "%s … %s\n"
-		       (key-description (symbol-value (car cons)))
-		       (cdr cons)))
-	      (t
-	       (format "%s … %s\n" (car cons) (cdr cons))))))
+	  #'(lambda (cons)
+	      (cond
+	       ((and (symbolp (car cons))
+		     (symbol-value (car cons)))
+		(format "%s … %s\n"
+			(key-description (symbol-value (car cons)))
+			(cdr cons)))
+	       (t
+		(format "%s … %s\n" (car cons) (cdr cons)))))
 	  ;;
 	  (delq nil (, list)) "")))
        ;;

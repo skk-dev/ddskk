@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.221 2002/01/18 14:10:46 czkmt Exp $
+;; Version: $Id: skk.el,v 1.222 2002/01/19 01:00:33 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/18 14:10:46 $
+;; Last Modified: $Date: 2002/01/19 01:00:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -65,7 +65,6 @@
 (require 'poe)
 (require 'poem) ; requires pces.
 (require 'pces)
-(require 'pcustom)
 (require 'alist)
 
 ;; Elib 1.0 is required.
@@ -1856,8 +1855,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
       (add-hook
        'minibuffer-setup-hook
-       '(lambda ()
-	  (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+       #'(lambda ()
+	   (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
       (condition-case nil
 	  (setq new-one
 		(read-from-minibuffer
@@ -4156,8 +4155,8 @@ If you want to restore the dictionary from the disc, try
 	      (remove-hook 'pre-command-hook 'skk-pre-command 'local)
 	      (skk-remove-minibuffer-setup-hook
 	       'skk-j-mode-on 'skk-setup-minibuffer
-	       '(lambda ()
-		  (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
+	       #'(lambda ()
+		   (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
 
 ;;;###autoload
 (defun skk-preload ()
@@ -4213,7 +4212,7 @@ If you want to restore the dictionary from the disc, try
   ;; subr command but no arg.
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer
-   '(lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+   #'(lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
   (cond ((not skk-mode)
 	 ad-do-it)
 	((not skk-henkan-mode)
@@ -4290,8 +4289,8 @@ If you want to restore the dictionary from the disc, try
   "`skk-egg-like-newline' だったら、変換中は確定のみ行う。"
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer
-   '(lambda ()
-      (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+   #'(lambda ()
+       (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
   (if (not (or skk-j-mode
 	       skk-jisx0201-mode
 	       skk-abbrev-mode))
