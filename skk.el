@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.1 1999/08/17 09:32:10 minakaji Exp $
+;; Version: $Id: skk.el,v 1.2 1999/08/19 04:30:42 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/17 09:32:10 $
+;; Last Modified: $Date: 1999/08/19 04:30:42 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -99,9 +99,9 @@
 ;;; Code:
 (require 'skk-foreword)
 
-(defconst skk-version "10.49")
-(defconst skk-major-version 10)
-(defconst skk-minor-version 49)
+(defconst skk-version "10.50")
+(defconst skk-major-version (string-to-int (substring skk-version 0 2)))
+(defconst skk-minor-version (string-to-int (substring skk-version 3)))
 
 ;;;###autoload
 (defun skk-version ()
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/08/17 09:32:10 $")
+      (let* ((raw-date "$Date: 1999/08/19 04:30:42 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -658,7 +658,6 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
     ("kyi" nil ("$B%-%#(B" . "$B$-$#(B"))
     ("kyo" nil ("$B%-%g(B" . "$B$-$g(B"))
     ("kyu" nil ("$B%-%e(B" . "$B$-$e(B"))
-    ("mm" "c" ("$B%C(B" . "$B$C(B"))
     ("ma" nil ("$B%^(B" . "$B$^(B"))
     ("me" nil ("$B%a(B" . "$B$a(B"))
     ("mi" nil ("$B%_(B" . "$B$_(B"))
@@ -793,8 +792,8 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
     ("zyi" nil ("$B%8%#(B" . "$B$8$#(B"))
     ("zyo" nil ("$B%8%g(B" . "$B$8$g(B"))
     ("zyu" nil ("$B%8%e(B" . "$B$8$e(B"))
-    ("," nil skk-current-kuten)
-    ("." nil skk-current-touten)
+    ("." nil skk-current-kuten)
+    ("," nil skk-current-touten)
     ("-" nil "$B!<(B")
     (":" nil "$B!'(B")
     (";" nil "$B!((B")
@@ -840,6 +839,7 @@ skk-rom-kana-rule-list $B$NDj5A$,M%@h$5$l$k!#(B"
     ;; $B%f!<%6!<$N9%$_$G@_Dj$,J,$l$=$&$JMWAG$O!"(B
     ;; skk-rom-kana-base-rule-list $B$+$i$3$A$i$X0\$7$^$7$g$&(B...$B!#(B
     ("hh" "h" ("$B%C(B" . "$B$C(B"))
+    ("mm" "m" ("$B%s(B" . "$B$s(B"))
     )
   "*$B%m!<%^;z$+$JJQ49$N%*!<%H%^%H%s$N>uBVA+0\5,B'$G!"%f!<%6!<$NDI2C$N@_Dj$r9T$J$&$b$N!#(B
 $B%Y!<%9$H$J$k(B skk-rom-kana-base-rule-list $B$K$3$NJQ?t$NDj5A$,DI2C$5$l!"(B
@@ -1244,11 +1244,11 @@ priority $B$,9b$$$N$G!"M%@h$7$FI=<($5$l$k!#(B"
   :type 'integer
   :group 'skk )
 
-(defcustom skk-kuten-touten-alist '((jp . ("$B!"(B" . "$B!#(B")) (en . ("$B!$(B" . "$B!%(B")))
-  "*$B6hE@$HFIE@$N%(!<%j%9%H!#(B
+(defcustom skk-kuten-touten-alist '((jp . ("$B!#(B" . "$B!"(B" )) (en . ("$B!%(B" . "$B!$(B")))
+  "*$B6gE@$HFIE@$N%(!<%j%9%H!#(B
 $B3FMWAG$N7A<0$O!"(B
 
-   \($B%7%s%\%k(B . \($B6hE@$rI=$o$9J8;zNs(B . $BFIE@$rI=$o$9J8;zNs(B\)\)
+   \($B%7%s%\%k(B . \($B6gE@$rI=$o$9J8;zNs(B . $BFIE@$rI=$o$9J8;zNs(B\)\)
 
 $B$H$$$&(B cons cell$B!#%7%s%\%k$NItJ,$O!"(B`jp' $B$b$7$/$O(B `en' $B$H$7!"(B
 skk-toggle-kutouten $B$O$3$l$r%H%0%k$G@Z$j49$($k!#(B
@@ -2385,6 +2385,15 @@ skk-convert-okurigana-into-katakana $B$NCM$r(B non-nil $B$K$9$k!#(B
 
 ;;;; kana inputting functions
 
+(defun skk-uninsertable-p (p)
+  (if (or (= (point-min) p)
+	  (eq (get-text-property (1- p) 'rear-nonsticky) t)
+	  (memq 'read-only (get-text-property (1- p) 'rear-nonsticky)))
+      (and (get-text-property p 'read-only)
+	   (or (eq (get-text-property p 'front-sticky) t)
+	       (memq 'read-only (get-text-property p 'front-sticky))))
+    (get-text-property (1- p) 'read-only)))
+
 (defun skk-insert (&optional arg)
   "SKK $B$NJ8;zF~NO$r9T$J$&!#(B"
   ;; skk-rom-kana-\\(base-\\)*rule-list $B$N(B caddr $B$K4X?t$r=q$-!"$=$N4X?tFb$G!"0l(B
@@ -2417,7 +2426,7 @@ skk-convert-okurigana-into-katakana $B$NCM$r(B non-nil $B$K$9$k!#(B
   (skk-with-point-move
    (let ((ch last-command-char))
      ;; interactive $B$N0z?t$N(B "p" $B$K(B "*" $B$rIU$1$k$@$1$GBP=h$G$-$?$iNI$$$N$K$M!#(B
-     (and (get-text-property (point) 'read-only)
+     (and (skk-uninsertable-p (point))
 	  (error "Attempt to insert within read-only text") )
      (cond (
 	    ;; start writing a midasi key.
@@ -2430,7 +2439,8 @@ skk-convert-okurigana-into-katakana $B$NCM$r(B non-nil $B$K$9$k!#(B
 	    ;; skk-set-henkan-point -> skk-kana-input.
 	    (skk-set-henkan-point arg) )
 	   ;; start conversion.
-	   ((and skk-henkan-on (eq ch skk-start-henkan-char))
+	   ((and skk-henkan-on (eq ch skk-start-henkan-char)
+		 (string= skk-prefix "") )
 	    (skk-start-henkan arg) ) 
 	   ;; for completion.
 	   ((and skk-henkan-on (not skk-henkan-active))
@@ -5051,34 +5061,25 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
   ;; Overlays $B$O!"%F%-%9%H$N0lIt$G$O$J$$$N$G!"%P%C%U%!$+$iJ8;z$r@Z$j=P$7$F$b%3(B
   ;; $B%T!<$NBP>]$K$J$i$J$$$7!"%"%s%I%%;~$bL5;k$5$l$k$N$G!"JQ49$5$l$?8uJd$NI=<((B
   ;; $B$r0l;~E*$KJQ99$9$k$K$O(B Text Properties $B$h$j$b9%ET9g$G$"$k!#(B
-  (let ((inhibit-quit t)
-        cbuf )
-    (if (and skk-henkan-face
-             (setq cbuf (current-buffer))
-             (eq (marker-buffer skk-henkan-start-point) cbuf)
-             (eq (marker-buffer skk-henkan-end-point) cbuf)
-             (marker-position skk-henkan-start-point)
-             (marker-position skk-henkan-end-point) )
-        (progn
-          (or skk-henkan-overlay
-              (progn
-		(setq skk-henkan-overlay (make-overlay
-					  skk-henkan-start-point
-					  skk-henkan-end-point cbuf ))
-		(overlay-put skk-henkan-overlay 'priority
-			     skk-henkan-overlay-priority )))
-          (move-overlay skk-henkan-overlay skk-henkan-start-point
-			skk-henkan-end-point cbuf )
-          ;; evaporate $BB0@-$rIU$1$k$Y$-$+(B...$B!#$G$bJQ49$r7+$jJV$9$H$-$O!":FMxMQ(B
-          ;; $B$9$k$N$@$+$i!"$`$7$m!"4{$K:n$C$F$"$kJ}$,NI$$$+$b!#(B
-          (overlay-put skk-henkan-overlay 'face skk-henkan-face) ))))
+  (if (and skk-henkan-face
+	   (marker-position skk-henkan-start-point)
+	   (marker-position skk-henkan-end-point) )
+      (let ((inhibit-quit t))
+	(or skk-henkan-overlay
+	    (progn
+	      (setq skk-henkan-overlay
+		    (make-overlay skk-henkan-start-point skk-henkan-end-point ))
+	      (overlay-put skk-henkan-overlay 'priority
+			   skk-henkan-overlay-priority )))
+	(move-overlay skk-henkan-overlay skk-henkan-start-point
+		      skk-henkan-end-point )
+	(overlay-put skk-henkan-overlay 'face skk-henkan-face) )))
 
 (defun skk-henkan-face-off ()
   ;; skk-henkan-start-point $B$H(B skk-henkan-end-point $B$N4V$NI=<($rJQ99$7$F$$$k(B
   ;; skk-henkan-overlay $B$r>C$9!#(B
-  (and skk-henkan-face
-       ;; $B%j%+!<%7%V%_%K%P%C%U%!$KF~$C$?$H$-$O!"(Boverlayp $B$K$h$k8!::$,I,MW!)(B
-       (overlayp skk-henkan-overlay)
+  ;; $B%j%+!<%7%V%_%K%P%C%U%!$KF~$C$?$H$-$O!"(Boverlayp $B$K$h$k8!::$,I,MW!)(B
+  (and skk-henkan-face (overlayp skk-henkan-overlay)
        (delete-overlay skk-henkan-overlay) ))
 
 (defun skk-set-cursor-color (color)

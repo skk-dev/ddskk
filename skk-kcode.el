@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kcode.el,v 1.1 1999/08/19 04:28:19 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.2 1999/08/19 04:29:28 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/19 04:28:19 $
+;; Last Modified: $Date: 1999/08/19 04:29:28 $
 
 ;; This file is part of SKK.
 
@@ -99,7 +99,7 @@
 	  (format
 	   "7/8 bits or KUTEN code for %s (00nn or CR for Jump Menu): "
 	   skk-kcode-charset )))
-	(enable-recursive-mini-buffer t)
+	(enable-recursive-minibuffer t)
 	n1 n2 )
     (if (string-match "\\(.+\\)-\\(.+\\)" str)
 	(setq n1 (+ (string-to-number (match-string 1 str)) 32 128)
