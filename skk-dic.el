@@ -3359,8 +3359,8 @@ Small dictionary for SKK.")
 ;;;###autoload
 (defun skk-search-small-dic ()
   (let ((buf (get-buffer-create " *skk-small-dic*")))
-    (when (zerop (buffer-size buf))
-      (with-current-buffer buf
+    (with-current-buffer buf
+      (when (zerop (buffer-size))
 	(unless (boundp 'skk-small-dic)
 	  (load "skk-dic" t t))
 	(setq buffer-read-only nil)
