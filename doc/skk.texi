@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.138 2004/07/30 21:59:25 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.139 2004/09/04 10:01:08 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2004/07/30 21:59:25 $
+@c  Last Modified: $Date: 2004/09/04 10:01:08 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2004/07/30 21:59:25 $
+@set UPDATED $Date: 2004/09/04 10:01:08 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -294,7 +294,7 @@ XEmacs でパッケージとしてインストールする場合は、
 を実行すると、パッケージのインストール先が表示されます。
 
 @example
-% make install-packege
+% make install-package
 @end example
 
 @noindent
