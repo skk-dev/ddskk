@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.91 2001/09/30 03:55:56 czkmt Exp $
-;; Last Modified: $Date: 2001/09/30 03:55:56 $
+;; Version: $Id: SKK-MK,v 1.92 2001/10/06 14:34:23 czkmt Exp $
+;; Last Modified: $Date: 2001/10/06 14:34:23 $
 
 ;; Commentary
 ;;
@@ -321,11 +321,12 @@ Try ddskk-e18 branch."))
 ;; 消しておく。
 (let ((modules SKK_MODULES))
   (while modules
-    (or
-     ;; skk-autoloads.el は自動生成されるのでまだ存在しない。
-     (eq (car modules) 'skk-autoloads)
-     (file-exists-p (concat (symbol-name (car modules)) ".el"))
-     (setq SKK_MODULES (delq (car modules) SKK_MODULES)))
+    (unless (or
+	     ;; skk-autoloads.el は自動生成されるのでまだ存在しない。
+	     (memq (car modules) '(skk-autoloads skk-dic))
+	     (file-exists-p (concat (symbol-name (car modules))
+				    ".el")))
+      (setq SKK_MODULES (delq (car modules) SKK_MODULES)))
     (setq modules (cdr modules))))
 
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
