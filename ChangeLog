@@ -21,7 +21,8 @@
 	(skk-search-server)
 	(skk-okuri-search): New functions.
 
-	(skk-search-sagyo-henkaku): Do not use `skk-search'.
+	(skk-search-sagyo-henkaku): Do not use `skk-search'. Bind
+	`skk-auto-okuri-process' nil.
 
 	* SKK-MK
 	(SKK-MK-compile): Load skk-autoloads.el, not require.
@@ -2427,8 +2428,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.480 2001/10/13 14:28:55 czkmt Exp $
-Last Modified: $Date: 2001/10/13 14:28:55 $
+Version: $Id: ChangeLog,v 1.481 2001/10/13 14:31:06 czkmt Exp $
+Last Modified: $Date: 2001/10/13 14:31:06 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
