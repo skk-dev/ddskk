@@ -1,3 +1,9 @@
+2002-01-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el
+	(update-buffer-local-frame-params): Set buffer to be the window
+	buffer.
+
 2002-01-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-xemacs.el
@@ -3232,8 +3238,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.614 2002/01/07 11:40:53 czkmt Exp $
-Last Modified: $Date: 2002/01/07 11:40:53 $
+Version: $Id: ChangeLog,v 1.615 2002/01/09 14:07:32 czkmt Exp $
+Last Modified: $Date: 2002/01/09 14:07:32 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
