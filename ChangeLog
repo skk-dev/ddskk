@@ -7,7 +7,6 @@
 	(skk-set-henkan-point-subr)
 	(skk-purge-from-jisyo)
 	(skk-abbrev-mode)
-	(skk-today):
 	Return nil.
 
 	* skk-kcode.el:
@@ -2378,8 +2377,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.471 2001/10/13 01:45:05 czkmt Exp $
-Last Modified: $Date: 2001/10/13 01:45:05 $
+Version: $Id: ChangeLog,v 1.472 2001/10/13 02:01:03 czkmt Exp $
+Last Modified: $Date: 2001/10/13 02:01:03 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
