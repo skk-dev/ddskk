@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.19 1999/10/17 14:35:12 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.20 1999/10/20 14:50:10 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/17 14:35:12 $
+;; Last Modified: $Date: 1999/10/20 14:50:10 $
 
 ;; This file is not part of SKK yet.
 
@@ -249,7 +249,10 @@
 	  (setcdr e (sort (cdr e) (function (lambda (a b) (string< (car a) (car b)))))) )
 	(skk-study-prin1 skk-study-alist (current-buffer))
 	(write-region-as-coding-system
-	 (cond ((and skk-jisyo-code (coding-system-p skk-jisyo-code))
+	 (cond ((and skk-jisyo-code
+		     (or (coding-system-p skk-jisyo-code)
+			 (and (fboundp 'find-coding-system)
+			      (find-coding-system skk-jisyo-code) )))
 		skk-jisyo-code )
 	       ((and skk-jisyo-code (stringp skk-jisyo-code))
 		(cdr (assoc skk-jisyo-code skk-coding-system-alist)) )
