@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.249 2002/06/22 01:11:29 czkmt Exp $
+;; Version: $Id: skk.el,v 1.250 2002/07/13 17:18:41 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/06/22 01:11:29 $
+;; Last Modified: $Date: 2002/07/13 17:18:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -971,13 +971,13 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   ;; $BHx<-!&(B $B@\F,<-F~NO$,$G$-$k$h$&$K$9$k!#(B
   (interactive "*p")
   (cond ((eq skk-henkan-mode 'active)
-	 ;; $B@\Hx<-$N$?$a$N=hM}!#(B
+	 ;; $B@\Hx<-$N$?$a$N=hM}(B
 	 (skk-kakutei)
 	 (let (skk-kakutei-history)
 	   (skk-set-henkan-point-subr))
 	 (insert-and-inherit ?>))
 	((eq skk-henkan-mode 'on)
-	 ;; $B@\F,8l$N=hM}(B
+	 ;; $B@\F,<-$N=hM}(B
 	 (skk-kana-cleanup 'force)
 	 (insert-and-inherit ?>)
 	 (skk-set-marker skk-henkan-end-point (point))
@@ -985,6 +985,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	       skk-henkan-key (buffer-substring-no-properties
 			       skk-henkan-start-point (point))
 	       skk-prefix "")
+	 (setq skk-after-prefix t)
 	 (skk-henkan))
 	(last-command-char
 	 ;; `skk-insert' $B$+$i8F$P$l$k>l9g$K$O!"$3$N%1!<%9$O$J$$!#(B
@@ -2196,24 +2197,53 @@ WORD $B$G3NDj$9$k!#(B"
 			     skk-search-excluding-word-pattern-function
 			     kakutei-word))))
 	  (skk-update-jisyo kakutei-word)
-	  ;; $B:#2s$N3NDj$,@\Hx<-$@$C$?>l9g!"A02s$N3NDj$H:#2s$N@\Hx<-$r(B
-	  ;; $B9g$o$;$?8l$r<-=qEPO?$9$k!#(B
-	  (let* ((history (cdr skk-kakutei-history))
-		 (list1 (car skk-kakutei-history)) ; (>$B$F$-(B $BE*(B)
-		 (list2 (catch 'list ; ($B$+$s$I$&(B $B46F0(B)
-			  (while history
-			    (if (eq (nth 2 list1) (nth 2 (car history)))
-				;; $BF1$8%P%C%U%!$@$C$?$i(B
-				(throw 'list (car history))
-			      (setq history (cdr history))))))
-		 skk-henkan-key comb-word)
-	    (when (and (stringp (nth 1 list2))
-		       (string-match "^>[^\000-\177]+$" (car list1)))
-	      (setq skk-henkan-key
-		    (concat (car list2)
-			    (substring (car list1) 1)) ; $B$+$s$I$&$F$-(B
-		    comb-word (concat (nth 1 list2) (nth 1 list1))) ; $B46F0E*(B
-	      (skk-update-jisyo comb-word)))
+	  ;; $B@\Hx<-!&@\F,<-$K4X$9$k=hM}(B
+	  (cond
+	   ((and skk-after-prefix
+		 (not (string-match "^[^\000-\177].+>$" skk-henkan-key)))
+	    ;; $B$3$N%P%C%U%!$K$*$$$F!"@\F,<-$KB3$/F~NO$,?J9TCf!#(B
+	    (let* ((history (cdr skk-kakutei-history))
+		   (list1 (car skk-kakutei-history)) ; ($B$j$h$&(B $BMxMQ(B)
+		   (list2 (catch 'list ; ($B$5$$(B> $B:F(B)
+			    (while history
+			      (if (eq (nth 2 list1) (nth 2 (car history)))
+				  ;; $BF1$8%P%C%U%!$@$C$?$i(B
+				  (throw 'list (car history))
+				(setq history (cdr history))))))
+		   skk-henkan-key comb-word prefix)
+	      (when (and (stringp (nth 1 list2))
+			 (string-match "^[^\000-\177].+>$" (car list2))
+			 (skk-save-point
+			  (ignore-errors
+			    (goto-char (- skk-henkan-start-point
+					  (length (nth 1 list1))))
+			    (looking-at (nth 1 list2)))))
+		(setq skk-henkan-key
+		      (concat (substring (car list2)
+					 0
+					 (1- (length (car list2))))
+			      (car list1)) ; $B$5$$$j$h$&(B
+		      comb-word (concat (nth 1 list2) (nth 1 list1))) ; $B:FMxMQ(B
+		(skk-update-jisyo comb-word))
+	      (setq skk-after-prefix nil)))
+	   ((string-match "^>[^\000-\177]+$" (caar skk-kakutei-history))
+	    ;; $B:#2s$N3NDj$,@\Hx<-$@$C$?>l9g!"A02s$N3NDj$H:#2s$N@\Hx<-$r(B
+	    ;; $B9g$o$;$?8l$r<-=qEPO?$9$k!#(B
+	    (let* ((history (cdr skk-kakutei-history))
+		   (list1 (car skk-kakutei-history)) ; (>$B$F$-(B $BE*(B)
+		   (list2 (catch 'list ; ($B$+$s$I$&(B $B46F0(B)
+			    (while history
+			      (if (eq (nth 2 list1) (nth 2 (car history)))
+				  ;; $BF1$8%P%C%U%!$@$C$?$i(B
+				  (throw 'list (car history))
+				(setq history (cdr history))))))
+		   skk-henkan-key comb-word prefix)
+	      (when (stringp (nth 1 list2))
+		(setq skk-henkan-key
+		      (concat (car list2)
+			      (substring (car list1) 1)) ; $B$+$s$I$&$F$-(B
+		      comb-word (concat (nth 1 list2) (nth 1 list1))) ; $B46F0E*(B
+		(skk-update-jisyo comb-word)))))
 	  ;;
 	  (when (skk-numeric-p)
 	    (setq converted (skk-get-current-candidate))
@@ -3845,7 +3875,14 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	  words)
       (with-temp-buffer
 	(insert key)
+	;; $B@\F,<-!&@\Hx<-$NF~NO$@$C$?$i(B ">" $B$r>C$7$F$*$/!#(B
+	(goto-char (1- (point)))
+	(when (looking-at ">")
+	  (delete-char 1))
 	(goto-char (point-min))
+	(when (looking-at ">")
+	  (delete-char 1))
+	;;
 	(while (and
 		(not (eobp))
 		(or
