@@ -36,6 +36,8 @@
   (autoload 'Info-goto-node "info")
   (autoload 'browse-url "browse-url"))
 
+;;;###autoload (require 'skk-setup)
+
 (static-when
     (and (eq skk-emacs-type 'xemacs)
 	 (< emacs-major-version 21))
