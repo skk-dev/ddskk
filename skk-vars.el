@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-vars.el,v 1.4 1999/09/19 21:09:58 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.5 1999/10/03 12:31:07 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/19 21:09:58 $
+;; Last Modified: $Date: 1999/10/03 12:31:07 $
 
 ;; This file is not part of SKK yet.
 
@@ -72,6 +72,7 @@
 (autoload 'skk-isearch-mode-setup "skk-isearch" nil t nil)
 (autoload 'skk-look "skk-look" nil nil nil)
 (autoload 'skk-look-completion "skk-look" nil nil nil)
+(autoload 'skk-lookup-search "skk-lookup" nil nil nil)
 (autoload 'skk-minus "skk-gadget" nil nil nil)
 (autoload 'skk-mode "skk" nil t nil)
 (autoload 'skk-num "skk-num" nil nil nil)
@@ -97,10 +98,13 @@
 (autoload 'skk-study-save "skk-study" nil t nil)
 (autoload 'skk-study-search "skk-study" nil nil nil)
 (autoload 'skk-study-update "skk-study" nil nil nil)
+(autoload 'skk-submit-bug-report "skk-develop" nil t nil)
 (autoload 'skk-times "skk-gadget" nil nil nil)
 (autoload 'skk-today "skk-gadget" nil t nil)
+(autoload 'skk-tutcode-display-code "skk-tutcode" nil t nil)
+(autoload 'skk-tutcode-mode-off "skk-tutcode" nil nil nil)
 (autoload 'skk-tutorial "skk-tut" nil t nil)
-;;(autoload 'skk-version "skk" nil t nil)
+(autoload 'skk-version "skk" nil t nil)
 (autoload 'skk-viper-normalize-map "skk-viper" nil nil nil)
 
 ;; reload new skk-leim.el.
