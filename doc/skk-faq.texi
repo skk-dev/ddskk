@@ -82,6 +82,32 @@ Q.  インジケータをモード行の左端に置きたいのですが。
 
 と書いてみてください。
 
+@item
+Q.  ■モード (確定入力モード) で、@kbd{.} で@samp{．}、@kbd{,}で@samp{，}
+が入力できるようにカスタマイズしたいのですが。
+
+@file{~/.skk} に
+
+@lisp
+(setq skk-rom-kana-rule-list
+      (append '(("." nil "．") ("," nil "，"))
+	      skk-rom-kana-rule-list))
+@end lisp
+
+と書きましょう。
+
+
+@item
+Q.  @var{skk-input-vector}, @var{skk-roma-kana-a} などが見当たりませんが。
+
+廃止されました (キッパリ)。
+その昔、かな/カナモードの入力系統をカスタマイズする変数は沢山ありました
+が、SKK 10.x 以降では @var{skk-rom-kana-base-rule-list} と
+@var{skk-rom-kana-rule-list} に統合されました。前者は標準的なキー入力を
+定めています。後者は、好みに左右されるものを定義しています。
+いずれもユーザー変数ですが、後者はリスト操作を容易にするためにディフォル
+トの要素数を少なくしています。後者の設定は前者のものを上書きします。
+
 @end itemize
 
 @node Dictionaries, Miscellaneous, Customization, よくある質問(FAQ)

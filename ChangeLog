@@ -1,3 +1,8 @@
+2000-09-05  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* doc/skk-faq.texi (Customization): Add descriptions about
+	`skk-rom-kana-rule-list' and `skk-input-vector'.
+
 2000-09-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile (info): New target.
