@@ -1,3 +1,9 @@
+2004-04-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Patch by KOSEKI Yoshinori <kose@yk.NetLaputa.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Add module skk-e21 for Emacs 22 or greater.
+
 2004-04-12  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/bskk (save_DB): Bug fixed.
@@ -4605,8 +4611,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.806 2004/04/12 14:46:34 kurihara Exp $
-Last Modified: $Date: 2004/04/12 14:46:34 $
+Version: $Id: ChangeLog,v 1.807 2004/04/15 01:27:17 czkmt Exp $
+Last Modified: $Date: 2004/04/15 01:27:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
