@@ -1,6 +1,7 @@
 2004-04-12  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/bskk (save_DB): Bug fixed.
+	(Distribution::initialize): Bug fixed.
 
 	* experimental/bayesian/skk-bayesian.el (skk-bayesian-search): Bug
 	fixed.
@@ -4604,8 +4605,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.805 2004/04/12 12:52:33 kurihara Exp $
-Last Modified: $Date: 2004/04/12 12:52:33 $
+Version: $Id: ChangeLog,v 1.806 2004/04/12 14:46:34 kurihara Exp $
+Last Modified: $Date: 2004/04/12 14:46:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
