@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.23 2000/09/17 15:26:05 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.24 2000/09/17 17:21:26 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/09/17 15:26:05 $
+@c  Last Modified: $Date: 2000/09/17 17:21:26 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/09/17 15:26:05 $
+@set UPDATED $Date: 2000/09/17 17:21:26 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -121,7 +121,7 @@ GNU General Public License $B$K=>$C$?%U%j!<!&%=%U%H%&%'%"$H$7$FG[I[$5$l$^$9!#(
 SKK 10 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 
 @itemize @minus
-@item  Emacs 19.28 $B0J9_$r%Y!<%9$H$7$?(B Mule 2.3 (Mule for Windows 1.21,
+@item Emacs 19.28 $B0J9_$r%Y!<%9$H$7$?(B Mule 2.3 (Mule for Windows 1.21,
 1.22 $B$r4^$`(B)
 @item Emacs 20.2 $B0J9_(B (Meadow 1.00 $B0J9_(B $B$r4^$`(B)
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 20.4 $B0J9_(B
