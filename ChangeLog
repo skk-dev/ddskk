@@ -1,3 +1,19 @@
+2002-01-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK:
+	Always call `set-language-environment'.
+
+	(SKK-MK-generate-autoloads-el):
+	No longer check if `autoload' is valid.
+
+	* skk.el
+	(skk-mode-invoke):
+	Call `skk-adjust-user-option' just after `skk-cus-setup'.
+
+	(skk-adjust-user-option):
+	If `skk-jisyo-save-count' is nil, set `skk-share-private-jisyo'
+	nil.
+
 2002-01-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* patch/e19/custom-1.9962.patch:
@@ -3521,8 +3537,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.643 2002/01/20 10:08:43 czkmt Exp $
-Last Modified: $Date: 2002/01/20 10:08:43 $
+Version: $Id: ChangeLog,v 1.644 2002/01/22 15:26:16 czkmt Exp $
+Last Modified: $Date: 2002/01/22 15:26:16 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
