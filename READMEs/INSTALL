@@ -1,7 +1,7 @@
 -*- text -*-
-             $Date: 1999/08/29 07:03:20 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 1999/09/02 22:02:51 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.2 1999/08/29 07:03:20 minakaji Exp $ 
+	     $Id: INSTALL,v 1.3 1999/09/02 22:02:51 minakaji Exp $ 
 
 (1)Get APEL 9.21 or later and install it.  You can get latest APEL at;
 
@@ -48,13 +48,7 @@ or
    may want to run `make install-package' if you use XEmacs (package
    install).
 
-(5)If you DO NOT install as a package of XEmacs, you have to set
-   autoloads.  Copy skk-10/lisp/skk-autoloads.el to your load-path and 
-   add following line to your .emacs;
-
-     (require 'skk-autoloads)
-
-(6)Many variables/functions names have been changed.  You are strongly
+(5)Many variables/functions names have been changed.  You are strongly
    recommended to load skk-obsolete.el and
 
      M-x skk-obsolete-check-all-files.
