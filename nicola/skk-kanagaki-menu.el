@@ -74,7 +74,7 @@ Convert to Hankaku Katakana or Toggle Katakana <=> Hankaku Katakana Mode"
 		'("SKK")
 		skk-kanagaki-menu-items)))))
  ((not (fboundp 'easy-menu-add-item))
-  (require 'skk-kanagaki-menu-oe))
+  nil)
  (t
   (dolist (map (list skk-j-mode-map
 		     skk-latin-mode-map

@@ -28,9 +28,4 @@
     (setq nicola-ddskk-modules
 	  (delq 'nicola-ddskk-autoloads nicola-ddskk-modules)))
 
-(if (and (featurep 'easymenu)
-	 (not (fboundp 'easy-menu-add-item)))
-    (setq nicola-ddskk-modules
-	  (nconc nicola-ddskk-modules '(skk-kanagaki-menu-oe))))
-
 ;;; NICOLA-DDSKK-ELS ends here
