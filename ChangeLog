@@ -1,3 +1,9 @@
+2001-10-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-tut.el
+	* skk.el:
+	Modification concerning specificity.
+
 2001-10-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK
@@ -2328,8 +2334,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.464 2001/10/10 12:47:30 czkmt Exp $
-Last Modified: $Date: 2001/10/10 12:47:30 $
+Version: $Id: ChangeLog,v 1.465 2001/10/11 13:10:39 czkmt Exp $
+Last Modified: $Date: 2001/10/11 13:10:39 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

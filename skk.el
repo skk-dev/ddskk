@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.144 2001/10/10 12:46:19 czkmt Exp $
+;; Version: $Id: skk.el,v 1.145 2001/10/11 13:10:39 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/10 12:46:19 $
+;; Last Modified: $Date: 2001/10/11 13:10:39 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3392,36 +3392,38 @@ If you want to restore the dictionary from the disc, try
 (defun skk-nunion (x y)
   ;; X と Y の和集合を作る。等しいかどうかの比較は、`equal' で行われる。
   ;; X に Y を破壊的に連接する。
-  (if (null x)
-      y
-    (if (null y)
-	x
-      (save-match-data
-	(let ((list2 y) list1 origlist1 e1 e2)
-	  (while list2
-	    (setq list1 (cons nil x)
-		  e2 (car list2)
-		  origlist1 list1)
-	    (catch 'found
-	      (while (setq e1 (car (cdr list1)))
-		(cond
-		 ((equal e1 e2)
-		  (throw 'found nil))
-		 ((and (stringp e1)
-		       (stringp e2)
-		       (string-match ";" e1))
-		  (setq e1 (substring e1 0 (match-beginning 0)))
-		  (when (or (equal e1 e2)
-			    (and
-			     (string-match ";" e2)
-			     (equal (substring e2 0 (match-beginning 0))
-				    e1)))
-		    (throw 'found nil))))
-		(setq list1 (cdr list1)))
-	      (setcdr list1 (list e2))
-	      (setq x (cdr origlist1)))
-	    (setq list2 (cdr list2)))
-	  x)))))
+  (cond
+   ((null x)
+    y)
+   ((null y)
+    x)
+   (t
+    (save-match-data
+      (let ((list2 y) list1 origlist1 e1 e2)
+	(while list2
+	  (setq list1 (cons nil x)
+		e2 (car list2)
+		origlist1 list1)
+	  (catch 'found
+	    (while (setq e1 (car (cdr list1)))
+	      (cond
+	       ((equal e1 e2)
+		(throw 'found nil))
+	       ((and (stringp e1)
+		     (stringp e2)
+		     (string-match ";" e1))
+		(setq e1 (substring e1 0 (match-beginning 0)))
+		(when (or (equal e1 e2)
+			  (and
+			   (string-match ";" e2)
+			   (equal (substring e2 0 (match-beginning 0))
+				  e1)))
+		  (throw 'found nil))))
+	      (setq list1 (cdr list1)))
+	    (setcdr list1 (list e2))
+	    (setq x (cdr origlist1)))
+	  (setq list2 (cdr list2)))
+	x)))))
 
 (defun skk-search-kakutei-jisyo-file (file limit &optional nomsg)
   ;; 辞書ファイルを探し、候補をリストで返す。
@@ -3556,19 +3558,19 @@ If you want to restore the dictionary from the disc, try
 	    (if (skk-public-jisyo-has-word-p okurigana word)
 		(skk-compose-ignore-word words1 word)
 	      (delete word words1))))
-      (t
+      ((and okurigana
+	    (or skk-henkan-okuri-strictly
+		skk-henkan-strict-okuri-precedence)
+	    (null (member word words2))
+	    (null (member word words4)))
        ;; 送りありで、かつ skk-henkan-okuri-strictly か
        ;; skk-henkan-strict-okuri-precedence が non-nil
        ;; の場合で、かつこの word とペアになる送り仮名が
        ;; okurigana しかないとき。
-       (if (and okurigana
-		(or skk-henkan-okuri-strictly
-		    skk-henkan-strict-okuri-precedence)
-		(null (member word words2))
-		(null (member word words4)))
-	   (setq words1 (delete word words1))
-	 ;; その他の場合は何もしない。
-	 nil)))
+       (setq words1 (delete word words1)))
+      (t
+       ;; その他の場合は何もしない。
+       nil))
     (when words1 ;; words1 が null であれば、もう何もすることはない。
       (goto-char (if okurigana
 		     skk-okuri-ari-min
