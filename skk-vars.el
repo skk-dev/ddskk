@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.95 2002/01/19 03:53:25 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.96 2002/01/23 14:04:51 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/19 03:53:25 $
+;; Last Modified: $Date: 2002/01/23 14:04:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3223,10 +3223,6 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 (skk-deflocalvar skk-dcomp-end-point nil)
 (skk-deflocalvar skk-dcomp-extent nil)
 (defvar skk-dcomp-face 'skk-dcomp-face)
-
-;; SKK-DIC related internal constants and variables.
-
-(defvar skk-dic-comp-first nil)
 
 (require 'product)
 (product-provide
