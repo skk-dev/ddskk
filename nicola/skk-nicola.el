@@ -24,6 +24,8 @@
 
 ;;; Commentary:
 
+;; 1. 概要および謝辞
+
 ;; このプログラムは箕浦逸史さん作の NICOLA-SKK 0.39 を基に、 Daredevil SKK に
 ;; 対応させたものです。原作のアイデアに基いて実装していく予定です。
 ;;
@@ -99,20 +101,20 @@
 (defcustom skk-nicola-rshift-keys
   (if (memq skk-emacs-type '(nemacs mule1 mule3))
       '(" ")
-    (nconc '(" ")
-	   (list (cond
-		  ((eq system-type 'windows-nt)
-		   [convert])
-		  ((eq skk-emacs-type 'xemacs)
-		   [henkan-mode])
-		  ((string-match "^19.\\(29\\|3[0-4]\\)" emacs-version)
-		   [numbersign])
-		  ((string-match "^19.2" emacs-version)
-		   ;; Mule 2.3@19.28 or earlier (?)
-		   [key-35])
-		  (t
-		   ;; Emacs 20.3 or later
-		   [henkan]))))) "\
+    (append '(" ")
+	    (list (cond
+		   ((eq system-type 'windows-nt)
+		    [convert])
+		   ((eq skk-emacs-type 'xemacs)
+		    [henkan-mode])
+		   ((string-match "^19\\.\\(29\\|3[0-4]\\)" emacs-version)
+		    [numbersign])
+		   ((string-match "^19\\.2" emacs-version)
+		    ;; Mule 2.3@19.28 or earlier (?)
+		    [key-35])
+		   (t
+		    ;; Emacs 20.3 or later
+		    [henkan]))))) "\
 *右親指キーとして使うキー。"
   :type 'sexp
   :group 'skk-nicola)
@@ -340,7 +342,7 @@ keycode 131 = underscore\n"))
 	       (cons (key-description key) "右親指シフトキー")))
 	    skk-nicola-rshift-keys)
     ;;
-    '(("SPC" . "送りなし変換開始"))
+    (list (cons "SPC" "送りなし変換開始"))
     ;;
     (list
      (do ((spec (nth 4 skk-kanagaki-rule-tree) (cdr spec))
@@ -586,7 +588,9 @@ keycode 131 = underscore\n"))
 		 (memq next skk-nicola-set-henkan-point-chars))
 		;; [fj]
 		(cond ((and skk-henkan-on (not skk-henkan-active))
-		       (skk-nicola-set-okuri-flag))
+		       (if (memq skk-kanagaki-keyboard-type '(106-jis))
+			   (skk-kanagaki-set-okurigana-no-sokuon arg)
+			 (skk-nicola-set-okuri-flag)))
 		      (t
 		       (skk-set-henkan-point-subr 1))))
 	       ((and

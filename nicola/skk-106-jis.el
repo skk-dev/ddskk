@@ -42,26 +42,43 @@
 ;; 日本語 106 キーボード (旧 JIS 配列) のルール
 
 (defvar skk-kanagaki-106-jis-base-rule-list
-  '(("1" nil ("ヌ" . "ぬ")) ("2" nil ("フ" . "ふ")) ("3" nil ("ア" . "あ"))
-    ("4" nil ("ウ" . "う")) ("5" nil ("エ" . "え")) ("6" nil ("オ" . "お"))
-    ("7" nil ("ヤ" . "や")) ("8" nil ("ユ" . "ゆ")) ("9" nil ("ヨ" . "よ"))
-    ("0" nil ("ワ" . "わ")) ("-" nil ("ホ" . "ほ")) ("^" nil ("ヘ" . "へ"))
-    ("q" nil ("タ" . "た")) ("w" nil ("テ" . "て")) ("e" nil ("イ" . "い"))
-    ("r" nil ("ス" . "す")) ("t" nil ("カ" . "か")) ("y" nil ("ン" . "ん"))
-    ("u" nil ("ナ" . "な")) ("i" nil ("ニ" . "に")) ("o" nil ("ラ" . "ら"))
-    ("p" nil ("セ" . "せ"))
+  '(("1" nil skk-nicola-insert)  ("2" nil skk-nicola-insert)
+    ("3" nil skk-nicola-insert)  ("4" nil skk-nicola-insert)
+    ("5" nil skk-nicola-insert)
+    ;;
+    ("6" nil skk-nicola-insert) ("7" nil skk-nicola-insert)
+    ("8" nil skk-nicola-insert) ("9" nil skk-nicola-insert)
+    ("0" nil skk-nicola-insert) ("-" nil skk-nicola-insert)
+    ("^" nil skk-nicola-insert) ("\\" nil skk-nicola-insert)
+    ;;
+    ("q" nil skk-nicola-insert) ("w" nil skk-nicola-insert)
+    ("e" nil skk-nicola-insert) ("r" nil skk-nicola-insert)
+    ("t" nil skk-nicola-insert)
+    ;;
+    ("y" nil skk-nicola-insert)  ("u" nil skk-nicola-insert)
+    ("i" nil skk-nicola-insert)  ("o" nil skk-nicola-insert)
+    ("p" nil skk-nicola-insert)
     ("@" nil skk-kanagaki-dakuten)
     ("[" nil skk-kanagaki-handakuten)
-    ("a" nil ("チ" . "ち")) ("s" nil ("ト" . "と"))  ("d" nil ("シ" . "し"))
-    ("f" nil ("ハ" . "は")) ("g" nil ("キ" . "き"))  ("h" nil ("ク" . "く"))
-    ("j" nil ("マ" . "ま")) ("k" nil ("ノ" . "の"))  ("l" nil ("リ" . "り"))
-    (";" nil ("レ" . "れ")) (":" nil ("ケ" . "け"))  ("]" nil ("ム" . "む"))
-    ("z" nil ("ツ" . "つ")) ("x" nil ("サ" . "さ"))  ("c" nil ("ソ" . "そ"))
-    ("v" nil ("ヒ" . "ひ")) ("b" nil ("コ" . "こ"))  ("n" nil ("ミ" . "み"))
-    ("m" nil ("モ" . "も")) ("," nil ("ネ" . "ね"))  ("." nil ("ル" . "る"))
-    ("/" nil ("メ" . "め")) ("\\" nil ("ロ" . "ろ"))
     ;;
-    ("#" nil ("ァ" . "ぁ"))
+    ("a" nil skk-nicola-insert) ("s" nil skk-nicola-insert)
+    ("d" nil skk-nicola-insert) ("f" nil skk-nicola-insert)
+    ("g" nil skk-nicola-insert)
+    ;;
+    ("h" nil skk-nicola-insert)  ("j" nil skk-nicola-insert)
+    ("k" nil skk-nicola-insert)  ("l" nil skk-nicola-insert)
+    (";" nil skk-nicola-insert)  (":" nil skk-nicola-insert)
+    ("]" nil skk-nicola-insert)
+    ;;
+    ("z" nil skk-nicola-insert) ("x" nil skk-nicola-insert)
+    ("c" nil skk-nicola-insert) ("v" nil skk-nicola-insert)
+    ("b" nil skk-nicola-insert)
+    ;;
+    ("n" nil skk-nicola-insert)  ("m" nil skk-nicola-insert)
+    ("," nil skk-nicola-insert)  ("." nil skk-nicola-insert)
+    ("/" nil skk-nicola-insert)
+    ;;
+    ("#" Nil ("ァ" . "ぁ"))
     ("$" nil ("ゥ" . "ぅ")) ("%" nil ("ェ" . "ぇ"))  ("&" nil ("ォ" . "ぉ"))
     ("'" nil ("ャ" . "ゃ")) ("(" nil ("ュ" . "ゅ"))  (")" nil ("ョ" . "ょ"))
     ("~" nil ("ヲ" . "を")) ("=" nil "£")
@@ -94,6 +111,33 @@
 この設定では \"ー\" の入力が刻印どおりにできないが、 SHIFT キーを押すことででき
 る。 刻印どおりに入力できるようにするためには、仮想キーコードのレベルで制御する
 必要がある。")
+
+;;
+
+(defvar skk-106-jis-plain-rule-list
+  '((?1 ("ヌ" . "ぬ")) (?2 ("フ" . "ふ")) (?3 ("ア" . "あ"))
+    (?4 ("ウ" . "う")) (?5 ("エ" . "え")) (?6 ("オ" . "お"))
+    (?7 ("ヤ" . "や")) (?8 ("ユ" . "ゆ")) (?9 ("ヨ" . "よ"))
+    (?0 ("ワ" . "わ")) (?- ("ホ" . "ほ")) (?^ ("ヘ" . "へ"))
+    (?q ("タ" . "た")) (?w ("テ" . "て")) (?e ("イ" . "い"))
+    (?r ("ス" . "す")) (?t ("カ" . "か")) (?y ("ン" . "ん"))
+    (?u ("ナ" . "な")) (?i ("ニ" . "に")) (?o ("ラ" . "ら"))
+    (?p ("セ" . "せ"))
+    (?a ("チ" . "ち")) (?s ("ト" . "と"))  (?d ("シ" . "し"))
+    (?f ("ハ" . "は")) (?g ("キ" . "き"))  (?h ("ク" . "く"))
+    (?j ("マ" . "ま")) (?k ("ノ" . "の"))  (?l ("リ" . "り"))
+    (?\; ("レ" . "れ")) (?: ("ケ" . "け"))  (?\] ("ム" . "む"))
+    (?z ("ツ" . "つ")) (?x ("サ" . "さ"))  (?c ("ソ" . "そ"))
+    (?v ("ヒ" . "ひ")) (?b ("コ" . "こ"))  (?n ("ミ" . "み"))
+    (?m ("モ" . "も")) (?\, ("ネ" . "ね"))  (?\. ("ル" . "る"))
+    (?/ ("メ" . "め")) (?\\ ("ロ" . "ろ"))))
+
+(defvar skk-106-jis-lshift-rule-list nil)
+(defvar skk-106-jis-rshift-rule-list nil)
+
+;;
+
+(require 'skk-nicola)
 
 ;;
 

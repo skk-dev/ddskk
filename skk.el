@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.76 2000/12/04 10:54:42 czkmt Exp $
+;; Version: $Id: skk.el,v 1.77 2000/12/05 11:35:34 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/04 10:54:42 $
+;; Last Modified: $Date: 2000/12/05 11:35:34 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -52,6 +52,7 @@
   (defvar message-log-max)
   (defvar minibuffer-local-ns-map)
   (defvar self-insert-after-hook)
+  (defvar skk-kanagaki-state)
   (defvar skk-rdbms-private-jisyo-table)
   (defvar this-command-char))
 
@@ -3131,6 +3132,28 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			(1- (search-forward "/")))
                   headchar (if (string= item "") (int-char 0) (skk-str-ref item 0)))
             (cond ((and (eq headchar ?\[) (<= stage 2))
+		   ;;
+		   (when (and skk-use-kana-keyboard
+			      skk-henkan-okuri-strictly)
+		     ;; 仮名入力用の特殊処理
+		     (cond
+		      ((eq skk-kanagaki-state 'kana)
+		       ;; okuri-key が "っ" で item が "って" などだった場合、
+		       ;; item を okuri-key に置き換える。
+		       (when (and
+			      (not (string= okuri-key item))
+			      (string-match
+			       (concat "^" (regexp-quote okuri-key)) item))
+			 (setq item okuri-key)))
+		      ((eq skk-kanagaki-state 'rom)
+		       ;; okuri-key が "って" で item が "っ" などだった場合、
+		       ;; item を okuri-key に置き換える。
+		       (when (and
+			      (not (string= okuri-key item))
+			      (string-match
+			       (concat "^" (regexp-quote item)) okuri-key))
+			 (setq item okuri-key)))))
+		   ;;
                    (if (string= item okuri-key)
                        (progn (queue-enqueue q2 item)
                               (setq stage 3))

@@ -58,7 +58,6 @@
     ("h" nil skk-nicola-insert) ("j" nil skk-nicola-insert)
     ("k" nil skk-nicola-insert) ("l" nil skk-nicola-insert)
     (";" nil skk-nicola-insert)
-    ;;(":" nil skk-nicola-delete-backward-char)
     (":" nil skk-nicola-insert) ("]" nil skk-nicola-insert)
     ;;
     ("z" nil skk-nicola-insert) ("x" nil skk-nicola-insert)

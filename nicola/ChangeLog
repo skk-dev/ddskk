@@ -1,3 +1,9 @@
+2000-12-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* README.NICOLA.ja: New file.
+
+	* skk-106-jis.el: Require `skk-nicola'.
+
 2000-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Modify Comments.

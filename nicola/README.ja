@@ -122,12 +122,17 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
    と記入。
 
-** skk-kanagaki の設定
+** NICOLA-DDSKK の設定
 
-   ~/.skk に
+   親指シフト入力する場合は ~/.skk に
 
      (setq skk-use-kana-keyboard t)
      (setq skk-kanagaki-keyboard-type 'omelet-jis)
+
+   と記入。旧 JIS 配列の仮名入力を行う場合は
+
+     (setq skk-use-kana-keyboard t)
+     (setq skk-kanagaki-keyboard-type '106-jis)
 
    と記入。
 
@@ -158,7 +163,43 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
 * 使用法
 
-** 仮名入力モードの主なキー定義
+親指シフト入力についての詳しいことは、README.NICOLA.ja をご一読くださ
+い。
+
+それ以外の仮名入力について詳しいことは skk-kanagaki.el の冒頭のコメン
+トをご一読ください。
+
+以下で、[fj] などというのは f と j とを同時に打鍵することを意味します。
+
+** 一般的キー定義
+
+   [fj]     … 変換開始点をセット
+   [gh]     … 接頭辞 or 接尾辞変換 (▽モード or ▼モード)
+   [gh]     … abbrev モード
+   [dk]     … カナモード or カナ変換
+   space    … 送りなし変換開始、変換・次候補表示
+   x        … 前候補表示
+   S (SHIFT + s) … 送りあり変換開始
+   C-h 1    … ヘルプを表示
+
+** 親指シフト入力モードの独自キー定義
+
+   muhenkan … 左親指シフトキー
+   henkan   … 右親指シフトキー
+   space    … 右親指シフトキー
+   [fj]     … 送り開始点指定
+   [muhenkan + henkan] … latin モード ⇔ かなモードの切り替え
+   C-h 2    … 現在の入力方式のキー配列を表示
+   C-h 3    … ヘルプを表示
+
+** 旧 JIS 仮名入力モードの独自キー定義
+
+   [fj]     … 直前の 1 文字を送り仮名として送りあり変換を開始。
+   [muhenkan + henkan] … latin モード ⇔ かなモード の切り替え
+   C-h 2    … 現在の入力方式のキー配列を表示
+   C-h 3    … ヘルプを表示
+
+** 特殊機能の退避キー
 
    f2 … 変換開始点をセット
    f3 … 接頭辞 or 接尾辞変換
@@ -169,26 +210,6 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
    f9 … 半角カナモード or 半角カナ変換
    f10 … latin モード
    f12 … ローマ字入力 ⇔ 仮名入力
-   C-h 1 … ヘルプを表示
-   x … 前候補表示
-   SPC … 変換・次候補表示
-   S (SHIFT + s) … 送りあり変換開始
-
-   (多くはユーザオプションとして変更可能です。)
-
-** 親指シフト入力モードの独自キー定義
-
-   muhenkan … 左親指シフトキー
-   henkan-mode … 右親指シフトキー
-   space … 右親指シフトキー、送りなし変換開始
-   f + j … 変換開始点をセット、送り開始点指定
-   g + h … 接頭辞 or 接尾辞変換 (▽モード or ▼モード)
-   g + h … abbrev モード
-   d + k … カナモード or カナ変換
-   左親指シフト + 右親指シフト … latin モード ⇔ かなモード のトグル
-   C-h 2 … 現在の入力方式のキー配列を表示
-   C-h 3 … ヘルプを表示
-
 
 * 問題点
 
