@@ -1,3 +1,19 @@
+2002-07-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el:
+	(skk-ater-prefix): New variable.
+
+	* skk.el:
+	(skk-process-prefix-or-suffix): When inserting prefix, turn
+	`skk-after-prefix' on.
+
+	(skk-search-katakana): When inserting prefix or suffix, remove ">"
+	before conversion.
+
+	(skk-kakutei): When the word before `kakutei-word' is a prefix,
+	combine the prefix and the current `kakutei-word', and record the
+	combined word in the private dictionary.
+
 2002-07-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-dcomp.el:
@@ -3910,8 +3926,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.694 2002/07/06 12:18:47 czkmt Exp $
-Last Modified: $Date: 2002/07/06 12:18:47 $
+Version: $Id: ChangeLog,v 1.695 2002/07/13 17:18:52 czkmt Exp $
+Last Modified: $Date: 2002/07/13 17:18:52 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
