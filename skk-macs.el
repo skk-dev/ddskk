@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.58 2001/10/14 02:03:01 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.59 2001/10/14 03:51:28 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/14 02:03:01 $
+;; Last Modified: $Date: 2001/10/14 03:51:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -58,7 +58,9 @@
 (defmacro-maybe ignore-errors (&rest body)
   "Execute FORMS; if an error occurs, return nil.
 Otherwise, return result of last FORM."
-  (` (condition-case nil (progn (,@ body)) (error nil))))
+  (` (condition-case nil
+	 (progn (,@ body))
+       (error nil))))
 
 (eval-and-compile
   (when (and (fboundp 'dolist)
