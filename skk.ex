@@ -2,7 +2,6 @@ RCS
 not_used
 *,v
 *.elc
-skk-vars.el
 make.log
 temp.el
 dic/SKK-JISYO.E2J
