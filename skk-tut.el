@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.56 2002/07/27 06:24:37 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.57 2003/03/29 05:23:43 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/27 06:24:37 $
+;; Last Modified: $Date: 2003/03/29 05:23:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -376,7 +376,7 @@
   (let ((map (make-sparse-keymap)))
     (define-key map "," 'skk-abbrev-comma)
     (define-key map "." 'skk-abbrev-period)
-    (define-key map "\C-q" 'skk-jisx0208-latin-henkan)
+    (define-key map "\C-q" 'skk-toggle-characters)
     (define-key map "\C-j" 'skk-kakutei)
     (define-key map " " 'skk-start-henkan)
     (define-key map "\t" 'skk-try-completion)
