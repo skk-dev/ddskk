@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.91 2004/01/26 17:21:32 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.92 2004/03/04 11:20:56 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/01/26 17:21:32 $
+;; Last Modified: $Date: 2004/03/04 11:20:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -117,8 +117,8 @@ doesn't give arguments of `interactive'. See `interactive' for details."
       (cond
        ((and (commandp origfunc)
 	     (not interactive))
-	(message "%s"
-		 "\
+	(message
+	 "\
 *** WARNING: Adding advice to subr %s\
  without mirroring its interactive spec ***"
 		 function))
@@ -385,10 +385,11 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-face-proportional-p (face)
   (static-cond
-   ((fboundp 'face-proportional-p)
+   ((eq skk-emacs-type 'xemacs)
     (face-proportional-p face))
-   (t
-    nil)))
+   ((eq skk-emacs-type 'mule5)
+    (or (face-equal face 'variable-pitch)
+	(eq (face-attribute face :inherit) 'variable-pitch)))))
 
 (defsubst skk-event-key (event)
   "イベント EVENT を発生した入力の情報を取得する。"
