@@ -1,5 +1,9 @@
 2005-02-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-isearch.el (skk-isearch-setup-keymap): Define [?\C-x t]
+	after defining keys for `skk-isearch-skk-mode', for properly
+	exiting isearch.
+
 	* skk-server.el (skk-open-network-stream): For Emacs 22.0.50 or
 	greater, call `set-process-query-on-exit-flag' instead of
 	`process-kill-without-query'.
@@ -4841,8 +4845,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.839 2005/02/26 04:36:49 skk-cvs Exp $
-Last Modified: $Date: 2005/02/26 04:36:49 $
+Version: $Id: ChangeLog,v 1.840 2005/02/26 08:37:14 skk-cvs Exp $
+Last Modified: $Date: 2005/02/26 08:37:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
