@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.66 2000/11/28 16:32:45 czkmt Exp $
-;; Last Modified: $Date: 2000/11/28 16:32:45 $
+;; Version: $Id: SKK-MK,v 1.67 2000/12/30 08:52:09 minakaji Exp $
+;; Last Modified: $Date: 2000/12/30 08:52:09 $
 
 ;; Commentary
 ;;
@@ -35,7 +35,7 @@
 
 ;;;; Load configuration file.
 ;; load user custom file if exists.
-(load (expand-file-name "./SKK-CFG") t nil t)
+(load (expand-file-name "./SKK-CFG") t nil nil)
 
 ;;;; load-path related.
 ;; `install-prefix' is defined in tinyinstall.el.

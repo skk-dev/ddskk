@@ -1,3 +1,10 @@
+2000-12-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/CVS_digest : Sync up with skk/web/cvs-ja.html.
+
+	* SKK-MK : Set nil to of load NOSUFFIX argument in order to load
+	SKK-CFG.el instead of SKK-CFG when SKK-CFG.el exists.
+
 2000-12-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-exsearch.el (setup-synchronous-engine): Check
@@ -3047,8 +3054,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.241 2000/12/28 12:11:12 minakaji Exp $
-Last Modified: $Date: 2000/12/28 12:11:12 $
+Version: $Id: ChangeLog,v 1.242 2000/12/30 08:52:09 minakaji Exp $
+Last Modified: $Date: 2000/12/30 08:52:09 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
