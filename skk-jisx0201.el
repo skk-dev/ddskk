@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.3 2000/11/19 01:27:40 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.4 2000/11/19 13:47:23 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2000/11/19 01:27:40 $
+;; Last Modified: $Date: 2000/11/19 13:47:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -619,15 +619,10 @@
 	  (setq skk-jisx0201-mode nil)
 	  (skk-j-mode-on 'katakana)
 	  (setq skk-input-mode-string skk-katakana-mode-string)
-	  (static-when (eq skk-emacs-type 'xemacs)
-	    (let ((cons (rassq 'skk-input-mode-string mode-line-format)))
-	      (and cons
-		   (setcar cons skk-xemacs-katakana-extent)))))
+	  (skk-update-modeline skk-katakana-mode-indicator))
       (skk-jisx0201-mode-on)
       (setq skk-input-mode-string skk-jisx0201-mode-string)
-      (static-when (eq skk-emacs-type 'xemacs)
-	(let ((cons (rassq 'skk-input-mode-string mode-line-format)))
-	  (and cons (setcar cons skk-xemacs-jisx0201-extent))))))
+      (skk-update-modeline skk-jisx0201-mode-indicator)))
   (when skk-use-color-cursor
     (static-cond
      ((eq skk-emacs-type 'xemacs)
