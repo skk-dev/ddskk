@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.7 2000/11/26 10:33:27 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.8 2000/11/27 23:00:10 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/26 10:33:27 $
+;; Last Modified: $Date: 2000/11/27 23:00:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -77,7 +77,7 @@
 	(progn
 	  (setq skk-dcomp-start-point (point))
 	  (condition-case nil
-	      (skk-completion 'first)
+	      (skk-completion 'first 'silent)
 	    (error
 	     (setq skk-completion-stack nil)
 	     (message nil)))
