@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.154 2001/10/13 14:43:46 czkmt Exp $
+;; Version: $Id: skk.el,v 1.155 2001/10/14 01:25:21 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 14:43:46 $
+;; Last Modified: $Date: 2001/10/14 01:25:21 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3595,19 +3595,26 @@ If you want to restore the dictionary from the disc, try
   ;; 辞書の制限から辞書エントリ内に含めてはならない文字が WORD の中にあれば、
   ;; 評価したときにその文字となるような Lisp コードを返す。
   (save-match-data
-    (if (and word
-	     (string-match "[/\n\r\"]" word)
-	     ;; we should not quote WORD if it is a symbolic expression
-	     (not (skk-lisp-prog-p word))
-	     (not (string-match ";" word))) ; has an annotation
-	(skk-quote-char-1 word (cdr skk-quote-char-alist))
-      word)))
+    (cond
+     ((and word
+	   (string-match "[/\n\r\"]" word)
+	   ;; we should not quote WORD if it is a symbolic expression
+	   (not (skk-lisp-prog-p word))
+	   ;; has an annotation
+	   (not (string-match ";" word)))
+      (format "(concat \"%s\")"
+	      (skk-quote-char-1 word (cdr skk-quote-char-alist))))
+     (t
+       word))))
 
 (defun skk-quote-semicolon (word)
   ;; `save-match-data' は要らない。
-  (if (string-match ";" word)
-      (skk-quote-char-1 word skk-quote-char-alist)
-    word))
+  (cond
+   ((string-match ";" word)
+    (format "(concat \"%s\")"
+	    (skk-quote-char-1 word skk-quote-char-alist)))
+   (t
+    word)))
 
 (defun skk-public-jisyo-has-word-p (okurigana word)
   ;; 共有辞書が MIDASHI 及びそれに対応する 候補 WORD を持っていれば、
@@ -3690,17 +3697,14 @@ If you want to restore the dictionary from the disc, try
 	    words))))
 
 (defun skk-compose-ignore-word-sub-quote-char (str)
-  (if (string-match "[/\n\r\";]" str)
-      (let ((alist (if (string-match ";" str)
-		       skk-quote-char-alist
-		     (cdr skk-quote-char-alist))))
-	(mapconcat
-	 (function
-	  (lambda (char)
-	    (or (cdr (assq char alist))
-	      (char-to-string char))))
-	 (append str nil) ""))
-    str))
+  (cond
+   ((string-match "[/\n\r\";]" str)
+    (let ((alist (if (string-match ";" str)
+		     skk-quote-char-alist
+		   (cdr skk-quote-char-alist))))
+      (skk-quote-char-1 str alist)))
+   (t
+    str)))
 
 (defun skk-katakana-region (start end &optional vcontract)
   "リージョンのひらがなをカタカナに変換する。
