@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.18 1999/10/17 07:10:42 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.19 1999/10/17 14:35:12 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/17 07:10:42 $
+;; Last Modified: $Date: 1999/10/17 14:35:12 $
 
 ;; This file is not part of SKK yet.
 
@@ -174,6 +174,8 @@
 
 ;;;###autoload
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
+  (or skk-study-data-ring 
+      (setq skk-study-data-ring (make-ring skk-study-search-times)) )
   (with-current-buffer henkan-buffer
     (let ((inhibit-quit t)
 	  (last-data (if (not (ring-empty-p skk-study-data-ring))
