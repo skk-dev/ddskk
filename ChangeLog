@@ -12,7 +12,7 @@
 
 	(skk-comp-do-1):
 	When FIRST, move point to `skk-okuri-nasi-min' in all buffers for
-	completion.
+	completion. Use `skk-loop-for-buffers'.
 
 	(skk-comp-do-1-in-buf):
 	Abolish optional argument FIRST.
@@ -3567,8 +3567,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.646 2002/01/23 14:15:50 czkmt Exp $
-Last Modified: $Date: 2002/01/23 14:15:50 $
+Version: $Id: ChangeLog,v 1.647 2002/01/23 14:21:31 czkmt Exp $
+Last Modified: $Date: 2002/01/23 14:21:31 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
