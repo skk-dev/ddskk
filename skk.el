@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.161 2001/10/19 11:35:56 czkmt Exp $
+;; Version: $Id: skk.el,v 1.162 2001/10/19 13:50:04 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/19 11:35:56 $
+;; Last Modified: $Date: 2001/10/19 13:50:04 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3730,7 +3730,7 @@ If you want to restore the dictionary from the disc, try
 	  words)
       (ignore-errors
 	(dolist (form skk-search-prog-list)
-	  (setq words (nconc words (eval form)))))
+	  (setq words (skk-nunion words (eval form)))))
       words)))
 
 (defun skk-katakana-region (start end &optional vcontract)
