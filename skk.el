@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.78 2000/12/05 13:51:21 czkmt Exp $
+;; Version: $Id: skk.el,v 1.79 2000/12/07 21:43:56 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/05 13:51:21 $
+;; Last Modified: $Date: 2000/12/07 21:43:56 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1272,10 +1272,6 @@ dependent."
 		  (1+ skk-self-insert-non-undo-count))))
     (setq skk-self-insert-non-undo-count 1)))
 
-(defun skk-translate-okuri-char (okurigana)
-  (and skk-okuri-char-alist
-       (cdr (assoc (skk-okurigana-prefix okurigana) skk-okuri-char-alist))))
-
 (defun skk-set-okurigana ()
   ;; 見出し語から skk-henkan-okurigana, skk-henkan-key の各値をセットする。
   (cancel-undo-boundary)
@@ -1291,8 +1287,7 @@ dependent."
   (setq skk-henkan-key (concat (buffer-substring-no-properties
 				skk-henkan-start-point
 				skk-henkan-end-point)
-			       (or (skk-translate-okuri-char
-				    skk-henkan-okurigana)
+			       (or (skk-okurigana-prefix skk-henkan-okurigana)
 				   skk-okuri-char))
         skk-prefix "")
   (if skk-katakana

@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.20 2000/12/04 10:54:42 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.21 2000/12/07 21:43:56 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/04 10:54:42 $
+;; Last Modified: $Date: 2000/12/07 21:43:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1353,30 +1353,6 @@ SKK abbrev モードで、「英文字 + アスタリスク」にて変換を行なうと、lo
   :type 'boolean
   :group 'skk-look)
 
-(defcustom skk-kana-rom-vector
-  ["x" "a" "x" "i" "x" "u" "x" "e" "x" "o" "k" "g" "k" "g" "k" "g"
-   "k" "g" "k" "g" "s" "z" "s" "j" "s" "z" "s" "z" "s" "z" "t" "d"
-   "t" "d" "x" "t" "d" "t" "d" "t" "d" "n" "n" "n" "n" "n" "h" "b"
-   "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "m" "m" "m"
-   "m" "m" "x" "y" "x" "y" "x" "y" "r" "r" "r" "r" "r" "x" "w" "x"
-   "x" "w" "n"]
-  "*skk-remove-common で使用するかな文字からローマ字への変換ルール。
-下記の該当するかな文字をその文字のローマ字プレフィックスで現わしたもの。
-    ぁ  あ  ぃ  い  ぅ  う  ぇ  え  ぉ  お  か  が  き  ぎ  く  ぐ
-    け  げ  こ  ご  さ  ざ  し  じ  す  ず  せ  ぜ  そ  ぞ  た  だ
-    ち  ぢ  っ  つ  づ  て  で  と  ど  な  に  ぬ  ね  の  は  ば
-    ぱ  ひ  び  ぴ  ふ  ぶ  ぷ  へ  べ  ぺ  ほ  ぼ  ぽ  ま  み  む
-    め  も  ゃ  や  ゅ  ゆ  ょ  よ  ら  り  る  れ  ろ  ゎ  わ  ゐ
-    ゑ  を  ん
-それぞれのかな文字が送り仮名である場合にどのローマ字プレフィックスを対応させる
-のかを指定することができる。「じ」、「ち」、「ふ」の文字について、対応するロー
-マ字プレフィックスを \"z\", \"c\",\"f\" に変更を希望する場合もあるであろう。
-skk-auto-okuri-process の値が non-nil のとき、あるいはサ変補助変換が行なわれる
-とき参照される。"
-  :type 'sexp
-  :group 'skk-keybinds
-  :group 'skk-auto)
-
 (defcustom skk-henkan-overlay-priority 600
   "*変換した候補に重ねる overlay の priority。
 例えば、Viper で R コマンドにより replace を行なうときに、
@@ -2005,6 +1981,36 @@ The English version is SKK.tut.E."
 	     ("sjis". *sjis*)
 	     ("jis" . *junet*))))
   "coding-system の文字列表現と、シンボル表現の連想リスト。")
+
+(defconst skk-kana-rom-vector
+  ["x" "a" "x" "i" "x" "u" "x" "e" "x" "o" "k" "g" "k" "g" "k" "g"
+   "k" "g" "k" "g" "s" "z" "s" "j" "s" "z" "s" "z" "s" "z" "t" "d"
+   "t" "d" "x" "t" "d" "t" "d" "t" "d" "n" "n" "n" "n" "n" "h" "b"
+   "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "m" "m" "m"
+   "m" "m" "x" "y" "x" "y" "x" "y" "r" "r" "r" "r" "r" "x" "w" "x"
+   "x" "w" "n"]
+  "*かな文字からローマ字への変換ルール。
+下記の該当するかな文字をその文字のローマ字プレフィックスで現わしたもの。
+    ぁ  あ  ぃ  い  ぅ  う  ぇ  え  ぉ  お  か  が  き  ぎ  く  ぐ
+    け  げ  こ  ご  さ  ざ  し  じ  す  ず  せ  ぜ  そ  ぞ  た  だ
+    ち  ぢ  っ  つ  づ  て  で  と  ど  な  に  ぬ  ね  の  は  ば
+    ぱ  ひ  び  ぴ  ふ  ぶ  ぷ  へ  べ  ぺ  ほ  ぼ  ぽ  ま  み  む
+    め  も  ゃ  や  ゅ  ゆ  ょ  よ  ら  り  る  れ  ろ  ゎ  わ  ゐ
+    ゑ  を  ん"
+  ;; (length skk-kana-rom-vector)
+  ;; --> 83
+  ;; (setq kana '("ぁ" "あ" "ぃ" "い" "ぅ" "う" "ぇ" "え" "ぉ" "お" "か" "が" "き" "ぎ" "く" "ぐ"
+  ;; 	     "け" "げ" "こ" "ご" "さ" "ざ" "し" "じ" "す" "ず" "せ" "ぜ" "そ" "ぞ" "た" "だ"
+  ;; 	     "ち" "ぢ" "っ" "つ" "づ" "て" "で" "と" "ど" "な" "に" "ぬ" "ね" "の" "は" "ば"
+  ;; 	     "ぱ" "ひ" "び" "ぴ" "ふ" "ぶ" "ぷ" "へ" "べ" "ぺ" "ほ" "ぼ" "ぽ" "ま" "み" "む"
+  ;; 	     "め" "も" "ゃ" "や" "ゅ" "ゆ" "ょ" "よ" "ら" "り" "る" "れ" "ろ" "ゎ" "わ" "ゐ"
+  ;; 	     "ゑ" "を" "ん"))
+  ;; (length kana)
+  ;; --> 83
+  ;; (mapcar (lambda (s) (- (char-octet (string-to-char s) 1) 33))
+  ;; 	kana)
+  ;; --> (0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82)
+  )
 
 (defconst skk-default-jisx0208-latin-vector
   ;; note that skk-jisx0208-latin-vector is a user variable.

@@ -1,3 +1,16 @@
+2000-12-08  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-translate-okuri-char): Removed.
+
+	* skk-vars.el (skk-kana-rom-vector): Use `defconst' instead of
+	`defcustom' to declare its as an internal constant.
+	Modify doc string.
+	
+2000-12-08  Murata Shuuichirou <mrt@notwork.org>
+	
+	* skk.el (skk-set-okurigana): Use `skk-okurigana-prefix' instead
+	of `skk-translate-okuri-char'.
+	
 2000-12-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-jisx0201.el (skk-jisx0201-insert): Modify for skk-comp.
@@ -2702,8 +2715,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.202 2000/12/05 15:00:22 czkmt Exp $
-Last Modified: $Date: 2000/12/05 15:00:22 $
+Version: $Id: ChangeLog,v 1.203 2000/12/07 21:43:56 minakaji Exp $
+Last Modified: $Date: 2000/12/07 21:43:56 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
