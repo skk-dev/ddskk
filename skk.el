@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.247 2002/04/12 19:08:11 obata Exp $
+;; Version: $Id: skk.el,v 1.248 2002/06/22 00:05:26 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/04/12 19:08:11 $
+;; Last Modified: $Date: 2002/06/22 00:05:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2196,6 +2196,19 @@ WORD で確定する。"
 			     skk-search-excluding-word-pattern-function
 			     kakutei-word))))
 	  (skk-update-jisyo kakutei-word)
+	  ;; 今回の確定が接尾辞だった場合、前回の確定と今回の接尾辞を
+	  ;; 合わせた語を辞書登録する。
+	  (let ((cell1 (car skk-kakutei-history)) ; (>てき . 的)
+		(cell2 (cadr skk-kakutei-history)) ; (かんどう . 感動)
+		skk-henkan-key comb-word)
+	    (when (and (stringp (cdr cell2))
+		       (string-match "^>[^\000-\177]" (car cell1)))
+	      (setq skk-henkan-key
+		    (concat (car cell2)
+			    (substring (car cell1) 1)) ; かんどうてき
+		    comb-word (concat (cdr cell2) (cdr cell1))) ; 感動的
+	      (skk-update-jisyo comb-word)))
+	  ;;
 	  (when (skk-numeric-p)
 	    (setq converted (skk-get-current-candidate))
 	    (skk-num-update-jisyo kakutei-word converted))))
