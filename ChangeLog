@@ -1,3 +1,11 @@
+2003-03-16  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
+
+	* doc/skk.texi: 
+	To avoid texinfo error on Emacs 21, following changes.
+
+	Modify stirng from "上記の例では、" to "上記の例は、".
+	Delete a space before @samp{立ち上げる}.
+
 2003-02-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi:
@@ -4117,8 +4125,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.724 2003/02/26 08:50:16 czkmt Exp $
-Last Modified: $Date: 2003/02/26 08:50:16 $
+Version: $Id: ChangeLog,v 1.725 2003/03/16 15:18:42 akiho Exp $
+Last Modified: $Date: 2003/03/16 15:18:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
