@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.20 2002/01/15 11:40:47 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.21 2002/02/05 15:57:06 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2002/01/15 11:40:47 $
+;; Last Modified: $Date: 2002/02/05 15:57:06 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -49,18 +49,30 @@
 (defsubst get-apparent-background-color ()
   (cdr (assq 'background-color (frame-parameters (selected-frame)))))
 
+(defsubst set-frame-cursor-color (frame color)
+  (modify-frame-parameters frame (list (cons 'frame-cursor-color color))))
+
+(defsubst set-frame-foreground-color (frame color)
+  (modify-frame-parameters frame (list (cons 'frame-foreground-color color))))
+
+(defsubst set-frame-background-color (frame color)
+  (modify-frame-parameters frame (list (cons 'frame-background-color color))))
+				       
 ;; Internal variables.
 (defvar frame-cursor-color (get-apparent-cursor-color))
+(make-variable-frame-local 'frame-cursor-color)
 
 (defvar buffer-local-cursor-color nil)
 (make-variable-buffer-local 'buffer-local-cursor-color)
 
 (defvar frame-foreground-color (get-apparent-foreground-color))
+(make-variable-frame-local 'frame-foreground-color)
 
 (defvar buffer-local-foreground-color nil)
 (make-variable-buffer-local 'buffer-local-foreground-color)
 
 (defvar frame-background-color (get-apparent-background-color))
+(make-variable-frame-local 'frame-background-color)
 
 (defvar buffer-local-background-color nil)
 (make-variable-buffer-local 'buffer-local-background-color)
@@ -262,13 +274,17 @@
 (defadvice modify-frame-parameters (after ccc-ad activate)
   (when (and (assq 'cursor-color (ad-get-arg 1))
 	     (null buffer-local-cursor-color))
-    (setq frame-cursor-color (get-apparent-cursor-color)))
+    (set-frame-cursor-color (ad-get-arg 0)
+			    (cdr (assq 'cursor-color (ad-get-arg 1)))))
   (when (and (assq 'foreground-color (ad-get-arg 1))
 	     (null buffer-local-foreground-color))
-    (setq frame-foreground-color (get-apparent-foreground-color)))
+    (set-frame-foreground-color (ad-get-arg 0)
+				(cdr (assq 'foreground-color (ad-get-arg 1)))))
   (when (and (assq 'background-color (ad-get-arg 1))
 	     (null buffer-local-background-color))
-    (setq frame-background-color (get-apparent-background-color))))
+    (set-frame-background-color (ad-get-arg 0)
+				(cdr (assq 'background-color
+					   (ad-get-arg 1))))))
 
 ;; Hooks
 (add-hook 'isearch-mode-end-hook 'update-buffer-local-frame-params 'append)
@@ -276,6 +292,12 @@
 (add-hook 'minibuffer-exit-hook
 	  (lambda ()
 	    (update-buffer-local-frame-params (nth 1 (buffer-list))))
+	  'append)
+(add-hook 'after-make-frame-functions
+	  (lambda (new-frame)
+	    (set-frame-cursor-color new-frame frame-cursor-color)
+	    (set-frame-foreground-color new-frame frame-foreground-color)
+	    (set-frame-background-color new-frame frame-background-color))
 	  'append)
 
 (provide 'ccc)
