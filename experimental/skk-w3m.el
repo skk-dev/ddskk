@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.1 2001/04/12 14:37:39 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.2 2001/04/12 14:56:40 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/04/12 14:37:39 $
+;; Last Modified: $Date: 2001/04/12 14:56:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -97,11 +97,13 @@
 	 (post-process (nth 2 info))
 	 (henkan-key skk-henkan-key))
     (if info
-	(save-excursion
-	  (save-window-excursion
-	    (set-buffer (get-buffer-create skk-w3m-working-buffer))
-	    (w3m-search search-engine henkan-key)
-	    (if post-process (funcall post-process henkan-key)))))))
+	(condition-case nil
+	    (save-excursion
+	      (save-window-excursion
+		(set-buffer (get-buffer-create skk-w3m-working-buffer))
+		(w3m-search search-engine henkan-key)
+		(if post-process (funcall post-process henkan-key))))
+	  (error)))))
 
 (defun skk-w3m-get-candidates (header0 header1)
   (if (re-search-forward header0 nil t nil)

@@ -1,6 +1,7 @@
 2001-04-12  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el: New file.
+	(skk-w3m-search): Wrap around by condition-case.
 
 	* SKK-MK (SKK_MODULES): Add `skk-w3m'.
 
@@ -3229,8 +3230,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.271 2001/04/12 14:37:39 minakaji Exp $
-Last Modified: $Date: 2001/04/12 14:37:39 $
+Version: $Id: ChangeLog,v 1.272 2001/04/12 14:56:40 minakaji Exp $
+Last Modified: $Date: 2001/04/12 14:56:40 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
