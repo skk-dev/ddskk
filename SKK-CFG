@@ -28,7 +28,7 @@
 ;;;; GENERIC VARIABLE.
 ;;
 ;;(setq SKK-MK-cleanup-trouble-makers nil)
-;;(setq APEL_SPECIFIC_LISPDIR nil)
+;;(setq APEL_SPECIFIC_LISPDIR "/your/path/to/apel")
 ;;(setq DOCDIR "./doc")
 ;;(setq ETCDIR "./etc")
 ;;(setq SKK-INFOS '("skk.info" "skk.info-1" "skk.info-2" "skk.info-3" "skk.info-4"))
