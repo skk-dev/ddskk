@@ -1,8 +1,8 @@
 
 -*- outline -*-
 
-             $Date: 2000/10/24 20:55:26 $
-	     $Id: FAQ.txt,v 1.6 2000/10/24 20:55:26 czkmt Exp $
+             $Date: 2000/10/24 21:00:03 $
+	     $Id: FAQ.txt,v 1.7 2000/10/24 21:00:03 czkmt Exp $
 
 これは SKK に対するよくある質問と、それに対する回答集です。
 
@@ -367,7 +367,7 @@ SKK を標準の状態で使っている場合、変換のためにシフトキーを多用しますの
 つづいて、SKK を起動してみましょう。「muhenkan - a」で 「▽あ」となり
 ます。送りの開始点も、もちろん同様の操作で指定できます。
 
-   (*) 変数 key-translation-map の意味はご自身で調べてみてください。
+   (*) 変数 key-translation-map の意味を調べてみてください。
 
        M-x describe-variable [RET] key-translation-map
 
