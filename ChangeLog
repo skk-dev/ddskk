@@ -1,3 +1,15 @@
+2002-03-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el:
+	(skk-isearch-setup-keymap):
+	Key for `skk-previous-candidate-char' runs `skk-isearch-wrapper'.
+
+	(skk-isearch-delete-char):
+	Consider the behavior of `skk-delete-backward-char' when
+	`skk-henkan-mode' is active. If `skk-delete-implies-kakutei' is
+	non-nil, perform implicit kakutei, otherwise call
+	`skk-previous-candidate'.
+
 2002-03-07  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* doc/skk.texi: GPL => GNU GPL.  Fix IIDA's email address.
@@ -3726,8 +3738,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.669 2002/03/07 12:53:46 iida Exp $
-Last Modified: $Date: 2002/03/07 12:53:46 $
+Version: $Id: ChangeLog,v 1.670 2002/03/07 15:13:49 czkmt Exp $
+Last Modified: $Date: 2002/03/07 15:13:49 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
