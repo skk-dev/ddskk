@@ -1,5 +1,12 @@
 2002-03-02   Daiki Ueno  <ueno@unixuser.org>
 
+	* skk-e21.el (skk-e21-icon-image): New variable.
+
+	* skk-macs.el (skk-mode-string-to-indicator) [Emacs21]: Insert
+	`skk-e21-icon-image' before mode string.
+	
+2002-03-02   Daiki Ueno  <ueno@unixuser.org>
+
 	* skk.el (skk-setup-modeline): Don't prepend `skk-icon' to each
 	buffer's mode-line-format.
 
@@ -3704,8 +3711,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.663 2002/03/02 12:12:32 ueno Exp $
-Last Modified: $Date: 2002/03/02 12:12:32 $
+Version: $Id: ChangeLog,v 1.664 2002/03/02 12:32:15 ueno Exp $
+Last Modified: $Date: 2002/03/02 12:32:15 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
