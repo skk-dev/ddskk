@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.34 2000/10/05 16:21:30 czkmt Exp $
+;; Version: $Id: skk.el,v 1.35 2000/10/08 13:13:36 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/05 16:21:30 $
+;; Last Modified: $Date: 2000/10/08 13:13:36 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 2000/10/05 16:21:30 $")
+      (let* ((raw-date "$Date: 2000/10/08 13:13:36 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)))
@@ -3974,7 +3974,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 		    'skk-count-jisyo-candidates-original)
 		(read-file-name
 		 (format "Jisyo file: (default: %s) " skk-jisyo)
-		 "~/" skk-jisyo 'confirm))
+		 default-directory skk-jisyo 'confirm))
 	       ((eq skk-count-jisyo-candidates-function
 		    'skk-rdbms-count-jisyo-candidates)
 		;; データベースファイルを直接ファイル名で指定できる
@@ -3990,7 +3990,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; (interactive "f辞書ファイル: ")
   (let ((count (funcall skk-count-jisyo-candidates-function file-or-table)))
     (if (interactive-p)
-	(message "%d candidates" count)
+	(message (if (= count 1) "%d candidate" "%d candidates") count)
       count)))
 
 (defun skk-count-jisyo-candidates-original (file)
