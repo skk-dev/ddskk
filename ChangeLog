@@ -17,6 +17,8 @@
 	(skk-mode)
 	(skk-toggle-kana): Don't advise.
 
+	(skk-cursor-init-function): Abolish.
+
 	* skk-macs.el
 	(skk-cursor-set): New function.
 
@@ -2361,8 +2363,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.468 2001/10/11 14:45:31 czkmt Exp $
-Last Modified: $Date: 2001/10/11 14:45:31 $
+Version: $Id: ChangeLog,v 1.469 2001/10/11 15:11:03 czkmt Exp $
+Last Modified: $Date: 2001/10/11 15:11:03 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
