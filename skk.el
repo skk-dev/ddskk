@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.170 2001/10/31 13:06:22 czkmt Exp $
+;; Version: $Id: skk.el,v 1.171 2001/10/31 15:38:55 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 13:06:22 $
+;; Last Modified: $Date: 2001/10/31 15:38:55 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3051,7 +3051,8 @@ If you want to restore the dictionary from the disc, try
       (when modes
 	(set-file-modes file modes))
       (when (or japanese english)
-	(message (if skk-japanese-message-and-error
+	(message "%s"
+		 (if skk-japanese-message-and-error
 		     japanese
 		   english))
 	(sit-for 3)))))
