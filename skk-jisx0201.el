@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.32 2001/10/19 12:44:40 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.33 2001/10/20 02:33:33 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/19 12:44:40 $
+;; Last Modified: $Date: 2001/10/20 02:33:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -324,6 +324,10 @@
    ;;
    (t
     ad-do-it)))
+
+(defadvice skk-search-sagyo-henkaku (before skk-jisx0201-set-okuri activate)
+  (when skk-jisx0201-mode
+    (ad-set-arg 0 '("ｻ" "ｼ" "ｽ" "ｾ"))))
 
 ;; functions.
 ;;;###autoload
