@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.15 1999/10/03 14:27:44 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.16 1999/10/03 15:21:52 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/03 14:27:44 $
+;; Last Modified: $Date: 1999/10/03 15:21:52 $
 
 ;; This file is not part of SKK yet.
 
@@ -169,7 +169,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   2th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!#(B
 
 $B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"CHIEZO\", \"IWAKOKU\", \"KOJIEN\", 
-"KOUJIEN\", \"KOKUGO, \"RIKAGAKU\", \"WAEI\"."
+\"KOUJIEN\", \"KOKUGO, \"RIKAGAKU\", \"WAEI\".
 `lookup-entry-heading' $B$G<h$j=P$7$?J8;zNs$,2<5-$N$h$&$K$J$k$3$H$rA0Ds$K$7$F$$$k!#(B
 
   \"$B$"!>$+!Z0!2J![!E%/%o(B\"
