@@ -163,7 +163,8 @@ Install patch/e18/advice.el in load-path and try again.")))
 	  (error))))))
 
 (defun skk-e18-advise-skk-functions ()
-  ;; It is impossible to take advantage of `pre-command-hook'.
+  ;; It is impossible to take advantage of `pre-command-hook' and
+  ;; `post-command-hook'.
   (defadvice skk-insert (after skk-e18-ad activate)
     (skk-e18-pre-command))
 
@@ -175,7 +176,8 @@ Install patch/e18/advice.el in load-path and try again.")))
       (when skk-henkan-on
 	(unless skk-mode
 	  (skk-mode 1)))
-      ad-do-it)))
+      ad-do-it)
+    (skk-after-point-move)))
 
 ;; Other functions.
 (defun-maybe window-minibuffer-p (&optional window)

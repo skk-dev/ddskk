@@ -5,10 +5,14 @@
 	`minibuffer-setup-hook' is called.
 	(skk-insert, skk-previous-candidate): Advise to call
 	`skk-e18-pre-command'.
+	(skk-kakutei): Advise to call `skk-after-point-move'.
 	(skk-e18-pre-command, skk-e18-advise-skk-functions): New function.
 
 	* skk-macs.el (skk-in-minibuffer-p): Compare buffers instead of
 	windows.
+
+	* skk-vars.el (skk-kana-rom-vector): Modify the value so that
+	`skk-okurigana-prefix' returns "t" for "っ".
 
 	* skk.el (skk-mode-invoke): Call `skk-e18-advise-skk-functions'
 	under Emacs 18.
@@ -2971,8 +2975,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.229 2000/12/18 14:57:23 czkmt Exp $
-Last Modified: $Date: 2000/12/18 14:57:23 $
+Version: $Id: ChangeLog,v 1.230 2000/12/18 15:36:26 czkmt Exp $
+Last Modified: $Date: 2000/12/18 15:36:26 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

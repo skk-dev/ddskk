@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.24 2000/12/12 09:00:57 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.25 2000/12/18 15:36:26 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/12 09:00:57 $
+;; Last Modified: $Date: 2000/12/18 15:36:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1986,7 +1986,7 @@ The English version is SKK.tut.E."
 (defconst skk-kana-rom-vector
   ["x" "a" "x" "i" "x" "u" "x" "e" "x" "o" "k" "g" "k" "g" "k" "g"
    "k" "g" "k" "g" "s" "z" "s" "j" "s" "z" "s" "z" "s" "z" "t" "d"
-   "t" "d" "x" "t" "d" "t" "d" "t" "d" "n" "n" "n" "n" "n" "h" "b"
+   "t" "d" "t" "t" "d" "t" "d" "t" "d" "n" "n" "n" "n" "n" "h" "b"
    "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "m" "m" "m"
    "m" "m" "x" "y" "x" "y" "x" "y" "r" "r" "r" "r" "r" "x" "w" "x"
    "x" "w" "n"]

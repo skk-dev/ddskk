@@ -422,12 +422,7 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
       (save-excursion
 	(backward-char (* len (if sokuon 2 1)))
 	(skk-set-marker skk-okurigana-start-point (point)))
-      (setq skk-okuri-char
-	    (cond ((or sokuon (member okuri '("$B$C(B" "$B%C(B")))
-		   "t")
-		  (t
-		   (let ((skk-henkan-okurigana okuri))
-		     (skk-okurigana-prefix okuri)))))
+      (setq skk-okuri-char (skk-okurigana-prefix okuri))
       (skk-set-okurigana))))
 
 ;;;###autoload
@@ -518,14 +513,6 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   (if (eq  skk-kanagaki-state 'kana)
       (let (skk-set-henkan-point-key)
 	ad-do-it)
-    ad-do-it))
-
-(defadvice skk-okurigana-prefix (around skk-kanagaki-ad activate compile)
-  (if (eq skk-kanagaki-state 'kana)
-      (if (member (ad-get-arg 0) '("$B$C(B" "$B%C(B"))
-	  (setq ad-return-value "t")
-	(let ((skk-henkan-okurigana (ad-get-arg 0)))
-	  ad-do-it))
     ad-do-it))
 
 ;;
