@@ -164,7 +164,7 @@
 		      abbrev))
 	(setq face (intern (format "skk-e21-%s-face" mode)))
 	(unless (facep face)
-	  (copy-face 'modeline face)
+	  (make-face face)
 	  (when skk-indicator-use-cursor-color
 	    (set-face-foreground face
 				 (symbol-value
