@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.9 2001/04/28 21:23:27 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.10 2001/04/29 09:52:34 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/04/28 21:23:27 $
+;; Last Modified: $Date: 2001/04/29 09:52:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -146,16 +146,16 @@ cdr は URL (検索文字列を %s で表わす),
     (setq filters (cdr filters)))
   string)
 
-(defun skk-w3m-get-candidates (header0 header1 &optional split)
-  (save-match-data
-    (if (re-search-forward header0 nil t nil)
-	(let (temp v)
-	  (while (re-search-forward header1 nil t nil)
-	    (setq temp (match-string-no-properties 1))
-	    (if split
-		(setq v (nconc (split-string temp split) v))
-	      (setq v (cons temp v))))
-	  (nreverse v)))))
+;; (defun skk-w3m-get-candidates (header0 header1 &optional split)
+;;   (save-match-data
+;;     (if (re-search-forward header0 nil t nil)
+;; 	(let (temp v)
+;; 	  (while (re-search-forward header1 nil t nil)
+;; 	    (setq temp (match-string-no-properties 1))
+;; 	    (if split
+;; 		(setq v (nconc (split-string temp split) v))
+;; 	      (setq v (cons temp v))))
+;; 	  (nreverse v)))))
 
 (defun skk-w3m-get-candidates-from-goo-daijirin (key)
   ;; 15:■［こうこう］の大辞林第二版からの検索結果　 39件
@@ -169,10 +169,21 @@ cdr は URL (検索文字列を %s で表わす),
   ;; ...
   ;; 97:*
   ;; 98:■［こうこう］の大辞林第二版からの検索結果　 39件
-  (skk-w3m-get-candidates
-   (concat "■\\［" (regexp-quote key) "\\］の大辞林第二版からの検索結果　 [0-9]+件")
-   (concat "[0-9]+ +新規で開く +" (regexp-quote key) "【\\([^【】]+\\)】 +$")
-   "・"))
+  (save-match-data
+    (if (re-search-forward 
+	 (concat "■\\［" (regexp-quote key) "\\］の大辞林第二版からの検索結果　 [0-9]+件")
+	 nil t nil)
+	(let (temp v)
+	  (while (re-search-forward 
+		  (concat "[0-9]+ +新規で開く +" (regexp-quote key) "【\\([^【】]+\\)】 +$")
+		  nil t nil)
+	    (setq temp (skk-w3m-filter-string
+			 ;; 〈何時〉
+			(match-string-no-properties 1) '("〈" "〉")))
+	    (if split
+		(setq v (nconc (split-string temp "・") v))
+	      (setq v (cons temp v))))
+	  (nreverse v)))))
 
 ;; (defun skk-w3m-get-candidates-from-goo-exceed-waei (key)
 ;;   ;; 15:■［ねっしん］のEXCEED和英辞典からの検索結果　
