@@ -3,6 +3,9 @@
 	* skk-comp.el (skk-comp-do-in-buf): New function
 	(skk-comp-do-1): Call it.
 
+	* skk-dic.el (skk-dic-setup-buffer): New function.
+	(skk-search-small-dic): Call it.
+
 2001-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version.el (skk-version): Bump to 11.5.1.
@@ -1940,8 +1943,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.398 2001/09/15 00:15:19 czkmt Exp $
-Last Modified: $Date: 2001/09/15 00:15:19 $
+Version: $Id: ChangeLog,v 1.399 2001/09/15 00:37:37 czkmt Exp $
+Last Modified: $Date: 2001/09/15 00:37:37 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

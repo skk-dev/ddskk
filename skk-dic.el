@@ -3354,11 +3354,18 @@ russia /а/б/в/г/д/е/ё/ж/
 " "\
 Small dictionary for SKK.")
 
+(defconst skk-dic-buffer-name " *skk-small-dic*")
+
 ;; Functions.
 
 ;;;###autoload
 (defun skk-search-small-dic ()
-  (let ((buf (get-buffer-create " *skk-small-dic*")))
+  (skk-search-jisyo-buf (skk-dic-setup-buffer)
+			10000))
+
+;;;###autoload
+(defun skk-dic-setup-buffer ()
+  (let ((buf (get-buffer-create skk-dic-buffer-name)))
     (with-current-buffer buf
       (when (zerop (buffer-size))
 	(unless (boundp 'skk-small-dic)
@@ -3373,7 +3380,8 @@ Small dictionary for SKK.")
 	(skk-setup-jisyo-buffer)
 	(setq buffer-read-only t)
 	(set-buffer-modified-p nil)))
-    (skk-search-jisyo-buf buf 10000)))
+    ;;
+    buf))
 
 ;;
 

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.13 2001/09/15 00:15:19 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.14 2001/09/15 00:37:37 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 00:15:19 $
+;; Last Modified: $Date: 2001/09/15 00:37:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -100,7 +100,7 @@
     (or (skk-comp-do-1-in-buf (skk-get-jisyo-buffer skk-jisyo)
 			      key
 			      first)
-	(skk-comp-do-1-in-buf (get-buffer " *skk-small-dic*")
+	(skk-comp-do-1-in-buf (skk-dic-setup-buffer)
 			      key
 			      first)))))
 
