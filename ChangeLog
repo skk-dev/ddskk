@@ -1,7 +1,7 @@
 2001-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version.el
-	(skk-version): Bump to 11.5.3.
+	(skk-version): Bump to 11.6.0.
 
 	* ccc.el
 	(buffer-local-cursor-color-default)
@@ -18,6 +18,7 @@
 	(buffer-local-background-color): Default values are nil.
 
 	(ccc-read-color)
+	(ccc-color-equal)
 	(get-apparent-cursor-color)
 	(get-apparent-foreground-color)
 	(get-apparent-background-color)
@@ -3066,8 +3067,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.581 2001/12/02 03:34:52 czkmt Exp $
-Last Modified: $Date: 2001/12/02 03:34:52 $
+Version: $Id: ChangeLog,v 1.582 2001/12/02 10:37:51 czkmt Exp $
+Last Modified: $Date: 2001/12/02 10:37:51 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
