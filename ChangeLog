@@ -1,12 +1,16 @@
 2004-04-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-show-1): Under Emacs 21, call
-	`tooltip-show-at-point' if skk-show-tooltip is non-nil.
+	`skk-tooltip-show-at-point' if skk-show-tooltip is non-nil.
 
 	* skk-e21.el (skk-e21-mouse-position): New function, almost
 	identical to `mouse-avoidance-point-position' except that
 	skk-henkan-start-point is used for stop pos when the marker is set.
-	(tooltip-show-at-point): Call it.
+	(skk-tooltip-show-at-point): Rename from
+	`tooltip-show-at-point'. Call `skk-e21-mouse-position'.
+
+	* skk.el (skk-henkan-show-candidate-subr): Call
+	`skk-tooltip-show-at-point'.
 
 2004-04-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -4574,8 +4578,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.797 2004/04/04 03:52:10 czkmt Exp $
-Last Modified: $Date: 2004/04/04 03:52:10 $
+Version: $Id: ChangeLog,v 1.798 2004/04/04 04:43:36 czkmt Exp $
+Last Modified: $Date: 2004/04/04 04:43:36 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
