@@ -1,3 +1,8 @@
+2002-03-08  IIDA Yosiaki  <iida@ring.gr.jp>
+
+	* skk-tut.el: Use \[] notation and call
+	substitute-key-definition for guidance in answer buffer.
+
 2002-03-07  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* skk.el (skk-setup-keymap): Use `skk-comp-start-henkan' instead
@@ -3743,8 +3748,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.671 2002/03/07 22:05:55 obata Exp $
-Last Modified: $Date: 2002/03/07 22:05:55 $
+Version: $Id: ChangeLog,v 1.672 2002/03/08 10:50:49 iida Exp $
+Last Modified: $Date: 2002/03/08 10:50:49 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
