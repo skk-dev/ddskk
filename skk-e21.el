@@ -75,8 +75,7 @@
 (defvar skk-e21-modeline-property
   (when window-system
     (list 'local-map (static-if
-			 (fboundp
-			  'make-mode-line-mouse-map)
+			 (fboundp 'make-mode-line-mouse-map)
 			 (make-mode-line-mouse-map
 			  'mouse-2 #'skk-e21-modeline-menu)
 		       (make-mode-line-mouse2-map
