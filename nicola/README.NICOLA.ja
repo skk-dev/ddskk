@@ -99,7 +99,7 @@ README.ja を参照してください。
  (setq skk-use-kana-keyboard t)
 
 という設定は必ずします。日本語 106 キーボードの場合、
-skk-kanagaki-keybard-type という変数は nicola-jis, oasys, omelet-jis
+skk-kanagaki-keyboard-type という変数は nicola-jis, oasys, omelet-jis
 のいずれかにすることになるでしょう。それぞれ微妙にキー配列が違います。
 
  (setq skk-kanagaki-keyboard-type 'omelet-jis)
@@ -123,7 +123,7 @@ o 右親指キー => [変換]
 (*) 上記は XFree86 上での GNU Emacs 20.3 以降の例です。[henkan] の部分
     がEmacs の種類によって違ってくるので以下のように変更してください。
 
-    - Mule for Windows または Neadow … [convert]
+    - Mule for Windows または Meadow … [convert]
     - XFree86 上での XEmacs … [henkan-mode]
     - XFree86 上での Mule2.3@19.34 … [numbersign]
     - XFree86 上での Mule2.3@19.28 … [key-35]
