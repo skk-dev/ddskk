@@ -1,12 +1,12 @@
 ;;; skk-study.el --- SKK 学習効果提供プログラム
-;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000, 2002 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.26 2001/12/16 05:03:11 czkmt Exp $
+;; Version: $Id: skk-study.el,v 1.27 2002/02/09 06:36:24 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2001/12/16 05:03:11 $
+;; Last Modified: $Date: 2002/02/09 06:36:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -118,7 +118,7 @@
   "*Non-nil であれば、学習結果の読み込み時に連想リストのフォーマットをチェックする。"
   :type 'boolean
   :group 'skk-study)
-	 
+
 (defcustom skk-study-search-times 3
   "*現在の変換キーに対する関連変換キーをいくつまで遡って検索するか。"
   :type 'integer
@@ -148,7 +148,7 @@
 
 ;;;###autoload
 (defun skk-study-search (henkan-buffer midasi okurigana entry)
-  (or skk-study-data-ring 
+  (or skk-study-data-ring
       (setq skk-study-data-ring (make-ring skk-study-search-times)))
   (if (or (null entry)
 	  ;; list of single element.
@@ -158,7 +158,7 @@
       (if (or skk-study-alist (skk-study-read))
 	  ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
 	  ;;  ("なk" . ((("こども" . "子供") . ("泣")))))
-	    
+
 	  (let ((target-alist
 		 (cdr (assoc midasi
 			     (cdr (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
@@ -174,7 +174,7 @@
        (times skk-study-search-times (1- times))
        last-data associates e modified)
       ((or modified (= times 0)) entry)
-    (and 
+    (and
      (setq last-data (skk-study-get-last-henkan-data index))
      ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
      ;; ("着")
@@ -187,7 +187,7 @@
 
 ;;;###autoload
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
-  (or skk-study-data-ring 
+  (or skk-study-data-ring
       (setq skk-study-data-ring (make-ring skk-study-search-times)))
   (with-current-buffer henkan-buffer
     (let ((inhibit-quit t)
@@ -240,7 +240,7 @@
 	e)
     (if (or (and (null skk-study-alist) (not nomsg))
 	    (not skk-study-last-read)
-	    (and skk-study-last-save 
+	    (and skk-study-last-save
 		 (skk-study-time-lessp
 		  skk-study-last-read skk-study-last-save)))
 	(progn
@@ -361,7 +361,7 @@
       (let ((index '(okuri-ari okuri-nasi))
 	    (func (function
 		   (lambda (str)
-		     (let ((len (skk-str-length str)))
+		     (let ((len (length str)))
 		       (and
 			(> len 1)
 			(skk-ascii-char-p (skk-str-ref str (1- len))))))))
@@ -371,7 +371,7 @@
 	       (setq func
 		     (function
 		      (lambda (str)
-			(let ((len (skk-str-length str)))
+			(let ((len (length str)))
 			  (cond ((= len 1))
 				((not (skk-ascii-char-p (skk-str-ref str (1- len)))))
 				((skk-ascii-char-p (skk-str-ref str (- len 2))))))))))
@@ -418,7 +418,7 @@
 	       (throw 'exit nil))
 	  (setq count (1+ count)))
 	(ring-insert skk-study-data-ring data)))))
-   
+
 (defadvice skk-undo-kakutei (after skk-study-ad activate)
   (let ((last (ring-ref skk-study-data-ring 0))
 	(last2 (ring-ref skk-study-data-ring 1))

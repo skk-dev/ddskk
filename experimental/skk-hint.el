@@ -29,7 +29,7 @@
 ;; 例えば、▽かんどう となっているときに、; michi SPC と入力すると、
 ;; ▼間道という状態になります。
 ;;
-;; 厳密に積集合を取っているわけではなく、▽かんどう で ; doubutsu SPC 
+;; 厳密に積集合を取っているわけではなく、▽かんどう で ; doubutsu SPC
 ;; と入力すると▼感動という状態になります。
 ;;
 ;; つまり、通常の変換候補のなかで、ヒントとして与えられた読みを含んだ
@@ -179,7 +179,7 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
   ;; 文字列のリスト KOUHO の中に文字 CHAR を含むものがあれば、その文字列を返す
   (catch 'found
     (dolist (word kouho)
-      (let ((length (skk-str-length word)))
+      (let ((length (length word)))
 	(dotimes (i length)
 	  (if (eq char (skk-str-ref word i))
 	      (throw 'found word)))))))
@@ -190,7 +190,7 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
   (let ((kouho (copy-sequence kouho))
 	result)
     (dolist (string hint)
-      (let ((length (skk-str-length string)))
+      (let ((length (length string)))
 	(dotimes (i length)
 	  (let (ret)
 	    (when (setq ret (skk-hint-member (skk-str-ref string i) kouho))
