@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.27 2001/08/09 11:24:15 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.28 2001/08/26 08:20:19 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/09 11:24:15 $
+;; Last Modified: $Date: 2001/08/26 08:20:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -746,6 +746,35 @@ BUFFER defaults to the current buffer."
 		    ((eq c ?\\) "\\\\")
 		    (t (char-to-string c)))))
 	   (append word nil) "")))
+
+(defsubst skk-event-key (event)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (let ((tmp (event-key event)))
+      (if (symbolp tmp)
+	  (vector tmp)
+	event)))
+   (t
+    (let ((char (event-to-character event))
+	  keys)
+      (if char
+	  (vector char)
+	(setq keys (recent-keys))
+	(vector (aref keys (1- (length keys)))))))))
+
+(defsubst skk-key-binding-member (key commands &optional map)
+  (let (keys)
+    (unless map
+      (setq map skk-j-mode-map))
+    (while commands
+      (setq keys (nconc keys
+			(where-is-internal (car commands) map)))
+      (setq commands (cdr commands)))
+    (member (key-description key)
+	    (mapcar (function
+		     (lambda (key)
+		       (key-description key)))
+		    keys))))
 
 (require 'product)
 (product-provide (provide 'skk-macs) (require 'skk-version))
