@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.55 2000/11/14 13:10:47 czkmt Exp $
+;; Version: $Id: skk.el,v 1.56 2000/11/14 13:14:34 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 13:10:47 $
+;; Last Modified: $Date: 2000/11/14 13:14:34 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -151,7 +151,7 @@
     (let ((keymap (if (skk-in-minibuffer-p)
 		      minibuffer-local-map
 		    (current-local-map))))
-      (if (eq (lookup-key keymap "a") 'skk-insert)
+      (if (and keymap (eq (lookup-key keymap "a") 'skk-insert))
 	  nil
 	(setq skk-current-local-map keymap)))))
  (t
