@@ -1,3 +1,10 @@
+2001-07-31  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* tut-code/skk-mkmgk.el (skk-make-mazegaki-dic-region): Add more
+	doc string.
+	(skk-mkmgk-filter): Bug fixed.
+	(skk-mkmgk-binary-search): Ditto.
+
 2001-07-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* tut-code/skk-mkmgk.el (skk-make-mazegaki-dic): Bug fixed.
@@ -3690,8 +3697,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.322 2001/07/30 07:34:54 minakaji Exp $
-Last Modified: $Date: 2001/07/30 07:34:54 $
+Version: $Id: ChangeLog,v 1.323 2001/07/30 23:45:54 minakaji Exp $
+Last Modified: $Date: 2001/07/30 23:45:54 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

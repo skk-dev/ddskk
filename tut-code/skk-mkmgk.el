@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-mkmgk.el,v 1.6 2001/07/30 07:34:54 minakaji Exp $
+;; Version: $Id: skk-mkmgk.el,v 1.7 2001/07/30 23:45:54 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/30 07:34:54 $
+;; Last Modified: $Date: 2001/07/30 23:45:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -39,9 +39,9 @@
 ;; <KNOWN BUG>
 ;; + お遊び /お遊び/                                fixed.
 ;; + きりえ /切り絵/切絵/ → きりり絵 /切り絵/      とりあえず仮名を含む候補は捨てることにしました。
+;; + さく /作/冊/錯/索/策/窄/柵/朔/昨/搾/咋/削/酢/ → さ /作/   fixed.
 ;; - はん仮くかたかな /半角片仮名/                  こりゃどうしようもないな (^^;;
-;; - くさり /鎖/ → く鎖り /鎖/                      ditto...
-;; - さく /作/冊/錯/索/策/窄/柵/朔/昨/搾/咋/削/酢/ → さ /作/
+;; - くさり /鎖/ → く鎖り /鎖/                      (訓読みの一部の文字が音読みの文字と同一) ditto...
 
 ;;; Code:
 (eval-when-compile (require 'skk-macs))
@@ -105,7 +105,8 @@
 
 として加工する必要あり。
 オプショナル引数の reference を指定すると、加工の際に検索する辞書を
-別に指定することができる。"
+別に指定することができる。reference の指定がない場合は、リージョン
+内で検索できる語のみを利用して見出し語を加工する。"
   (interactive "r\nP")
   (unwind-protect
       (let ((outbuf (get-buffer-create " *skkmkmgk working*"))
@@ -233,6 +234,7 @@
 	      (message "No entries of Mazegaki dictionary")))))))
 
 (defun skk-mkmgk-filter (list &optional onecharacter)
+  ;; Optional arg ONECHARACTER means put out one character.
   (delete "" ; there was a bug in SKK-JISYO.L...
 	  (delq nil
 		(mapcar
@@ -245,7 +247,7 @@
 				   (if (string-match ";" word)
 				       (substring word 0 (match-beginning 0))
 				     word)))
-		    (if (and onecharacter (> (skk-str-length word) 1))
+		    (if (and (not onecharacter) (= (skk-str-length word) 1))
 			(setq word nil))
 		    word))
 		 list))))
@@ -265,7 +267,7 @@
     (goto-char min)
     (beginning-of-line)
     (if (re-search-forward (concat "^" key " /") max 'noerror)
-	(skk-mkmgk-filter (car (skk-compute-henkan-lists nil)) 'onecharacter))))
+	(skk-mkmgk-filter (car (skk-compute-henkan-lists nil))))))
 
 (require 'product)
 (product-provide (provide 'skk-mkmgk) (require 'skk-version))
