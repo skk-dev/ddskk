@@ -1,3 +1,16 @@
+2001-10-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el
+	(skk-viper-saved-cursor-color): Make sure
+	`viper-insert-state-cursor-color' is bound.
+
+	(skk-menu-items): Call `skk-latin-region' instead of
+	`skk-ascii-region'.
+
+	* skk.el
+	(skk-latin-region): Search char category j instead of category A
+	or S.
+
 2001-10-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el
@@ -2541,8 +2554,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.500 2001/10/21 12:09:10 czkmt Exp $
-Last Modified: $Date: 2001/10/21 12:09:10 $
+Version: $Id: ChangeLog,v 1.501 2001/10/23 12:59:40 czkmt Exp $
+Last Modified: $Date: 2001/10/23 12:59:40 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
