@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.75 2001/09/09 02:34:20 czkmt Exp $
-;; Last Modified: $Date: 2001/09/09 02:34:20 $
+;; Version: $Id: SKK-MK,v 1.76 2001/09/11 14:46:47 czkmt Exp $
+;; Last Modified: $Date: 2001/09/11 14:46:47 $
 
 ;; Commentary
 ;;
@@ -27,6 +27,13 @@
 ;; load this program.
 
 ;;; Code:
+
+(if (string-lessp emacs-version "19")
+    (error "%s"
+	   "\
+Emacs 18 or older is not supported by this version of SKK.
+Try ddskk-e18 branch."))
+
 ;; tinyinstall.el is independent of APEL.
 (require 'tinyinstall (expand-file-name "./tinyinstall"))
 
@@ -311,12 +318,6 @@
       ((fboundp 'make-unification-table) ;; Emacs 20.2
        (setq standard-character-unification-table-for-decode
 	     (make-unification-table nil))))
-
-;; Work around for Emacs 18.
-(if (= 18 emacs-major-version)
-    (error "%s"
-	   "Emacs 18 is not supported by this version of SKK.
-Try ddskk-e18 branch."))
 
 ;;; [FUNCTIONS]
 (defun SKK-MK-make-setup-file (spec)
