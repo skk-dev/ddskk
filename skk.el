@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.146 2001/10/11 13:42:21 czkmt Exp $
+;; Version: $Id: skk.el,v 1.147 2001/10/11 15:16:48 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/11 13:42:21 $
+;; Last Modified: $Date: 2001/10/11 15:16:48 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -897,7 +897,7 @@ dependent."
   (while (not (or (zerop (length key))
 		  (eq command (key-binding key))))
     (setq key (vconcat (cdr (append key nil)))))
-  (when (not (zerop (length key)))
+  (unless (zerop (length key))
     key))
 
 (defun skk-adjust-user-option ()
