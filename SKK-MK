@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.5 1999/09/15 15:05:55 minakaji Exp $
-;; Last Modified: $Date: 1999/09/15 15:05:55 $
+;; Version: $Id: SKK-MK,v 1.6 1999/09/15 15:07:41 minakaji Exp $
+;; Last Modified: $Date: 1999/09/15 15:07:41 $
 
 ;; Commentary
 ;;
@@ -41,10 +41,6 @@
       (or (member (expand-file-name "apel" LISPDIR) load-path)
 	  (setq load-path (cons (expand-file-name "apel" LISPDIR) load-path)) )))
 (setq load-path (cons (expand-file-name ".") load-path))
-(if (and VERSION_SPECIFIC_LISPDIR
-	 (null (member VERSION_SPECIFIC_LISPDIR load-path)) )
-    (setq load-path (cons VERSION_SPECIFIC_LISPDIR load-path)) )
-
 ;; APEL required.
 (require 'install)
 
@@ -116,6 +112,10 @@
 ;; load user custom file if exists.
 (load "./SKK-CFG" t nil t)
 (princ (format "SKK-MODULES=%s\n" SKK-MODULES))
+
+(if (and VERSION_SPECIFIC_LISPDIR
+	 (null (member VERSION_SPECIFIC_LISPDIR load-path)) )
+    (setq load-path (cons VERSION_SPECIFIC_LISPDIR load-path)) )
 
 (defun SKK-MK-config ()
   (let (prefix lisp-dir version-specific-lisp-dir)
