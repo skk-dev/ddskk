@@ -1,3 +1,17 @@
+2003-07-12  NAKAJIMA Mikio  <minakaji@namazu.org>
+
+	* skk-study.el: Move from experimental directory.
+	(skk-kakutei-initialize): Simplified it by using `ring-elements'.
+	(skk-study-search-times): Change its default value to 5.
+	(skk-study-max-distance): New user variable.
+	(skk-study-update): Bug fixed.
+	Not to study henkan relationship when (i) buffer was changed since
+	last henkan, (ii) distance from last henkan point was negative or
+	(iii) such distance is longer than `skk-study-max-distance'.
+
+	* skk.el (skk-kakutei-initialize): Store buffer and point (marker)
+	data of last henkan.
+
 2003-07-11  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* experimental/skk-study.el (skk-kakutei-initialize): Bug fixed.
@@ -4280,8 +4294,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.753 2003/07/10 21:54:00 minakaji Exp $
-Last Modified: $Date: 2003/07/10 21:54:00 $
+Version: $Id: ChangeLog,v 1.754 2003/07/12 10:52:55 minakaji Exp $
+Last Modified: $Date: 2003/07/12 10:52:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

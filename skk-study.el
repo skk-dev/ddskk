@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.37 2003/07/10 21:54:00 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.38 2003/07/12 10:52:55 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/10 21:54:00 $
+;; Last Modified: $Date: 2003/07/12 10:52:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -119,8 +119,13 @@
   :type 'boolean
   :group 'skk-study)
 
-(defcustom skk-study-search-times 3
+(defcustom skk-study-search-times 5
   "*現在の変換キーに対する関連変換キーをいくつまで遡って検索するか。"
+  :type 'integer
+  :group 'skk-study)
+
+(defcustom skk-study-max-distance 30
+  "*直前に確定したポイントと今回の変換ポイントがこの距離以上離れていると学習しない。"
   :type 'integer
   :group 'skk-study)
 
@@ -172,17 +177,17 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
 (defun skk-study-search-1 (target-alist midasi okurigana entry)
   (do ((index 0 (1+ index))
        (times skk-study-search-times (1- times))
-       last-data associates e modified)
-      ((or modified (= times 0)) entry)
+       last-data associates e exit)
+      ((or exit (= times 0)) entry)
     (and
      (setq last-data (skk-study-get-last-henkan-data index))
      ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
      ;; ("着")
      (setq associates (cdr (assoc last-data target-alist)))
      (setq associates (reverse associates))
-     ;; XXX what is modified?  I forgot it.
-     (setq modified t)
+     (setq exit t)
      (while (setq e (car associates))
+       ;;uniq
        (setq entry (cons e (delete e entry))
 	     associates (cdr associates))))))
 
@@ -190,47 +195,50 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
   (or skk-study-data-ring
       (setq skk-study-data-ring (make-ring skk-study-search-times)))
-  (when (not (string= word (car skk-henkan-list)))
+  (let ((inhibit-quit t)
+	last-data diff grandpa papa baby)
     (with-current-buffer henkan-buffer
-      (let ((inhibit-quit t)
-	    (last-data (if (not (ring-empty-p skk-study-data-ring))
-			   (ring-ref skk-study-data-ring 0)))
-	    grandpa papa baby)
-	(if (and (or skk-study-alist (skk-study-read))
-		 midasi word last-data
-		 (not (or (string= midasi "") (string= word "")
-			  (and (string= midasi (car last-data))
-			       (string= word (cdr last-data))))))
-	    (progn
-	      (setq grandpa (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
-					 'okuri-ari)
-					(t 'okuri-nasi))
-				  skk-study-alist)
-		    ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
-		    papa (assoc midasi (cdr grandpa)))
-	      (cond (
-		     ;; car に見出し語を持つ cell がない
-		     (not (or papa purge))
-		     (setcdr grandpa
-			     (nconc
-			      (list (cons midasi (list (cons last-data (list word)))))
-			      (cdr grandpa))))
-		    ;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) を
-		    ;; キーにした cell がない。
-		    ((not (or
-			   ;; (("ふく" . "服") . ("着"))
-			   (setq baby (assoc last-data (cdr papa)))
-			   purge))
-		     (setcdr papa (cons (cons last-data (list word)) (cdr papa))))
-		    ;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけ
-		    ;; アップデートする。
-		    ((not purge)
-		     ;; ring データの方がもっと効率的か？  でもここの部分のデータのアップデート
-		     ;; が効率良くできない。
-		     (setcdr baby (cons word (delete word (cdr baby))))
-		     (if (> (1- (length (cdr baby))) skk-study-associates-number)
-			 (skk-study-chomp (cdr baby) (1- skk-study-associates-number))))
-		    (t (setcdr grandpa (delq baby (cdr grandpa)))))))))))
+      (when (and (not (string= word (car skk-henkan-list)))
+		 (eq (skk-get-last-henkan-datum 'henkan-buffer) henkan-buffer)
+		 (setq diff (- (point) (skk-get-last-henkan-datum 'henkan-point)))
+		 (> diff 0)
+		 (> skk-study-max-distance diff))
+	(when (and (or skk-study-alist (skk-study-read))
+		   midasi word
+		   (setq last-data (if (not (ring-empty-p skk-study-data-ring))
+				       (ring-ref skk-study-data-ring 0)))
+		   (not (or (string= midasi "") (string= word "")
+			    (and (string= midasi (car last-data))
+				 (string= word (cdr last-data))))))
+	  (setq grandpa (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
+				     'okuri-ari)
+				    (t 'okuri-nasi))
+			      skk-study-alist)
+		;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
+		papa (assoc midasi (cdr grandpa)))
+	  (cond (
+		 ;; car に見出し語を持つ cell がない
+		 (not (or papa purge))
+		 (setcdr grandpa
+			 (nconc
+			  (list (cons midasi (list (cons last-data (list word)))))
+			  (cdr grandpa))))
+		;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) を
+		;; キーにした cell がない。
+		((not (or
+		       ;; (("ふく" . "服") . ("着"))
+		       (setq baby (assoc last-data (cdr papa)))
+		       purge))
+		 (setcdr papa (cons (cons last-data (list word)) (cdr papa))))
+		;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけ
+		;; アップデートする。
+		((not purge)
+		 ;; ring データの方がもっと効率的か？  でもここの部分のデータのアップデート
+		 ;; が効率良くできない。
+		 (setcdr baby (cons word (delete word (cdr baby))))
+		 (if (> (1- (length (cdr baby))) skk-study-associates-number)
+		     (skk-study-chomp (cdr baby) (1- skk-study-associates-number))))
+		(t (setcdr grandpa (delq baby (cdr grandpa))))))))))
 
 ;;;###autoload
 (defun skk-study-save (&optional nomsg)
@@ -414,20 +422,11 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
 
 (defadvice skk-kakutei-initialize (before skk-study-ad activate)
   (let ((kakutei-word (ad-get-arg 0))
-	(count 0) data max vector)
+	data)
     (when kakutei-word
       (setq data (cons skk-henkan-key kakutei-word))
-      (setq vector (nthcdr 2 skk-study-data-ring))
-      (setq max (length vector))
-      ;;XXX Is this simpler?
-      ;;(unless (member data (ring-elements skk-study-data-ring))
-      ;;  (ring-insert skk-study-data-ring data)
-      (catch 'exit
-	(while (> max count)
-	  (and (equal (aref vector count) data)
-	       (throw 'exit nil))
-	  (setq count (1+ count)))
-	(ring-insert skk-study-data-ring data)))))
+      (unless (member data (ring-elements skk-study-data-ring))
+        (ring-insert skk-study-data-ring data)))))
 
 (defadvice skk-undo-kakutei (after skk-study-ad activate)
   (let ((last (ring-ref skk-study-data-ring 0))
