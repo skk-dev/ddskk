@@ -87,10 +87,11 @@
      (cons 'latin skk-e21-modeline-property))))
 
 (setq skk-icon
-      (let* ((load-path (cons (directory-file-name
-			       (file-name-directory skk-tut-file))
-			      load-path))
-	     (image (find-image '((:type xpm :file "skk.xpm" :ascent center))))
+      (let* ((dir (file-name-directory skk-tut-file))
+	     (image (find-image
+		     `((:type xpm
+			:file ,(expand-file-name "skk.xpm" dir)
+			:ascent center))))
 	     (string "dummy"))
 	(if (and window-system image)
 	    (apply 'propertize string
