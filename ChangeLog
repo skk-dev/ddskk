@@ -1,3 +1,8 @@
+2002-11-10  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-dic.el.in: Set buffer coding system to iso-2022-jp and
+	specify the coding system in the header.
+
 2002-11-09  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-dic.el.in (skk-search-small-dic): Add doc string.
@@ -4072,8 +4077,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.716 2002/11/09 05:24:17 minakaji Exp $
-Last Modified: $Date: 2002/11/09 05:24:17 $
+Version: $Id: ChangeLog,v 1.717 2002/11/09 21:51:01 minakaji Exp $
+Last Modified: $Date: 2002/11/09 21:51:01 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

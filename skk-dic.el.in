@@ -1,4 +1,4 @@
-;;; skk-dic.el --- Default dictionary for SKK  -*- emacs-lisp -*-
+;;; skk-dic.el --- Default dictionary for SKK  -*- mode: emacs-lisp; coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2001, 2002 SKK Development Team
 
@@ -44,10 +44,10 @@
 
 ;;;###autoload
 (defun skk-search-small-dic ()
-  "`skk-henkan-key' ¤Ë¤Ä¤¤¤Æ `skk-dic-buffer' ¤ò¸¡º÷¤·¡¢¸õÊä¤Î¥ê¥¹¥È¤òÊÖ¤¹¡£
-`skk-search-prog-list' ¤ÎÍ×ÁÇ¤Ë `(skk-search-small-dic)' ¤ò»ØÄê¤·¤ÆÍøÍÑ¤¹¤ë¡£
-SKK ¥¤¥ó¥¹¥È¡¼¥ë»þ¤Ë¥¤¥ó¥¹¥È¡¼¥é¤¬ SKK-JISYO.S ¤ò¸«¤Ä¤±¤¿¤é¡¢skk-dic.el
-¥í¡¼¥É»þ¤Ë `skk-dic-buffer' ¤Ï¼«Æ°Åª¤ËÀßÄê¤µ¤ì¤ë¡£"
+  "`skk-henkan-key' $B$K$D$$$F(B `skk-dic-buffer' $B$r8!:w$7!"8uJd$N%j%9%H$rJV$9!#(B
+`skk-search-prog-list' $B$NMWAG$K(B `(skk-search-small-dic)' $B$r;XDj$7$FMxMQ$9$k!#(B
+SKK $B%$%s%9%H!<%k;~$K%$%s%9%H!<%i$,(B SKK-JISYO.S $B$r8+$D$1$?$i!"(Bskk-dic.el
+$B%m!<%I;~$K(B `skk-dic-buffer' $B$O<+F0E*$K@_Dj$5$l$k!#(B"
   (when (buffer-live-p skk-dic-buffer)
     (skk-search-jisyo-buf skk-dic-buffer 10000)))
 
