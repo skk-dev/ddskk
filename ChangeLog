@@ -1,3 +1,15 @@
+2001-09-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (rb-skk-dic): New target.
+
+	(tar)
+	(snapshot): Create skk-dic.el
+
+	* skk-jisyo-edit-mode.el (skk-jisyo-edit-font-lock-keywords):
+	Regexp improvement.
+
+	* etc/skk-dic.rb: New file.
+
 2001-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el: Put dotimes' value of lisp-indent-function.
@@ -2007,8 +2019,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.418 2001/09/17 14:23:24 czkmt Exp $
-Last Modified: $Date: 2001/09/17 14:23:24 $
+Version: $Id: ChangeLog,v 1.419 2001/09/19 13:52:55 czkmt Exp $
+Last Modified: $Date: 2001/09/19 13:52:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
