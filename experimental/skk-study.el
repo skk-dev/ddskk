@@ -5,9 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.8 1999/10/07 13:10:15 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.9 1999/10/07 13:19:16 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/07 13:10:15 $
+;; Created: Apr. 11, 1999
+;; Last Modified: $Date: 1999/10/07 13:19:16 $
 
 ;; This file is not part of SKK yet.
 
