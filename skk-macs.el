@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.55 2001/10/11 14:45:31 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.56 2001/10/13 14:37:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/11 14:45:31 $
+;; Last Modified: $Date: 2001/10/13 14:37:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -138,7 +138,7 @@ the return value (nil if RESULT is omitted)."
 	(message
 	 "\
 *** WARNING: Deleted interactive call from %s advice\
- as % is not a subr command ***"
+ as %s is not a subr command ***"
 	 function function))))
     (` (defadvice (, function) (,@ everything-else)))))
 
