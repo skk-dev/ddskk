@@ -4,7 +4,7 @@
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 1999/09/15 01:57:21 $
+;; Last Modified: $Date: 1999/09/15 03:32:19 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -40,17 +40,18 @@
 (require 'poe)
 
 ;; external variables
+;;(defconst vip-xemacs-p (string-match "XEmacs" emacs-version))
 
 (defvar vip-insert-point nil
   "Remember insert point as a marker.  (Buffer-specific.)")
 
-(set-default 'vip-insert-point (make-marker))
+(set-default 'vip-insert-point nil)
 (make-variable-buffer-local 'vip-insert-point)
 
 (defvar vip-com-point nil
   "Remember com point as a marker.  (Buffer-specific.)")
 
-(set-default 'vip-com-point (make-marker))
+(set-default 'vip-com-point nil)
 (make-variable-buffer-local 'vip-com-point)
 
 (defvar vip-current-mode nil
@@ -153,6 +154,11 @@ If nil then it is bound to `delete-backward-char'.")
 
 
 ;; basic set up
+(defmacro vip-move-marker-locally (marker position &optional buffer)
+  (list 'progn
+        (list 'if (list 'not marker)
+              (list 'setq marker (list 'make-marker)) )
+        (list 'set-marker marker position buffer) ))
 
 (global-set-key "\C-z" 'vip-change-mode-to-vi)
 
@@ -183,7 +189,7 @@ No message."
     (save-excursion
       (end-of-line)
       (if (> val (1+ (current-column))) (error "")))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (beginning-of-line)
     (forward-char (1- val))
     (if com (vip-execute-com 'vip-goto-col val com))))
@@ -237,7 +243,7 @@ No message."
 		 vip-insert-mode nil)
 	   )
 	  ((eq new-mode 'insert-mode)
-	   (move-marker vip-insert-point (point))
+	   (vip-move-marker-locally vip-insert-point (point))
 	   (if (eq vip-current-mode 'emacs-mode)
 	       (setq vip-emacs-mode-line-buffer-identification
 		     mode-line-buffer-identification ))
@@ -394,7 +400,11 @@ EVENTS is a list of events, which become the beginning of the command."
       (setq prefix-arg arg)
       ;;(use-local-map vip-emacs-local-map)
       (unwind-protect
-	  (setq com (key-binding (setq key (read-key-sequence nil))))
+	  (setq com (key-binding (setq key
+                                       ;;(if vip-xemacs-p
+                                       ;;    (read-key-sequence nil)
+                                       ;;  (read-key-sequence nil t) ))))
+				       (read-key-sequence nil t) )))
 	nil)
       (command-execute com prefix-arg)
       (setq prefix-arg nil);; reset prefix arg
@@ -402,7 +412,7 @@ EVENTS is a list of events, which become the beginning of the command."
     ;; we must check if the current buffer is the same after executing
     ;; the command.  if not, we have to restore the values of
     ;; VIP-VI-MODE and VIP-INSERT-MODE
-    (if (equal (current-buffer) old-buff)
+    (if (eq (current-buffer) old-buff)
 	;; in case one of the values of CHANGE-MODE-TO-VI/INSERT/EMACS was
 	;; changed dynamically in executing the command COM, then
 	;; change mode to the specified mode. otherwise keep the mode.
@@ -1009,7 +1019,7 @@ command was invoked with argument > 1."
 
 (defun vip-line (arg)
   (let ((val (car arg)) (com (cdr arg)))
-    (move-marker vip-com-point (point))
+    (vip-move-marker-locally vip-com-point (point))
     (next-line (1- val))
     (vip-execute-com 'vip-line val com)))
 
@@ -1026,7 +1036,7 @@ command was invoked with argument > 1."
   (interactive "P")
   (let ((val (vip-P-val arg))
 	(com (vip-getcom arg)))
-    (move-marker vip-com-point (point))
+    (vip-move-marker-locally vip-com-point (point))
     (exchange-point-and-mark)
     (vip-execute-com 'vip-region val com)))
 
@@ -1034,7 +1044,7 @@ command was invoked with argument > 1."
   (interactive "P")
   (let ((val (vip-P-val arg))
 	(com (vip-getCom arg)))
-    (move-marker vip-com-point (point))
+    (vip-move-marker-locally vip-com-point (point))
     (exchange-point-and-mark)
     (vip-execute-com 'vip-Region val com)))
   
@@ -1084,7 +1094,7 @@ the query replace mode will toggle between string replace and regexp replace."
 of buffer, stop and signal error."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (forward-char val)
     (if com (vip-execute-com 'vip-forward-char val com))))
 
@@ -1093,7 +1103,7 @@ of buffer, stop and signal error."
 beginning of buffer, stop and signal error."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (backward-char val)
     (if com (vip-execute-com 'vip-backward-char val com))))
 
@@ -1105,7 +1115,7 @@ beginning of buffer, stop and signal error."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (forward-word val)
     (skip-chars-forward " \t\n")
     (if com
@@ -1124,7 +1134,7 @@ beginning of buffer, stop and signal error."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (forward-char)
     (forward-word val)
     (backward-char)
@@ -1138,7 +1148,7 @@ beginning of buffer, stop and signal error."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (backward-word val)
     (if com (vip-execute-com 'vip-backward-word val com))))
 
@@ -1147,7 +1157,7 @@ beginning of buffer, stop and signal error."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (re-search-forward "[^ \t\n]*[ \t\n]+" nil t val)
     (if com
 	(progn
@@ -1165,7 +1175,7 @@ beginning of buffer, stop and signal error."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (forward-char)
     (if (re-search-forward "[^ \t\n]+" nil t val) (backward-char))
     (if com
@@ -1178,7 +1188,7 @@ beginning of buffer, stop and signal error."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (if (re-search-backward "[ \t\n]+[^ \t\n]+" nil t val)
 	(forward-char)
       (goto-char (point-min)))
@@ -1188,7 +1198,7 @@ beginning of buffer, stop and signal error."
   "Go to beginning of line."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (beginning-of-line val)
     (if com (vip-execute-com 'vip-beginning-of-line val com))))
 
@@ -1196,7 +1206,7 @@ beginning of buffer, stop and signal error."
   "Beginning of line at first non-white character."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (back-to-indentation)
     (if com (vip-execute-com 'vip-bol-and-skip-white val com))))
 
@@ -1204,7 +1214,7 @@ beginning of buffer, stop and signal error."
   "Go to end of line."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (end-of-line val)
     (if com (vip-execute-com 'vip-goto-eol val com))))
 
@@ -1212,7 +1222,7 @@ beginning of buffer, stop and signal error."
   "Go to next line."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getCom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (line-move val)
     (setq this-command 'next-line)
     (if com (vip-execute-com 'vip-next-line val com))))
@@ -1221,7 +1231,7 @@ beginning of buffer, stop and signal error."
   "Next line at beginning of line."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getCom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (next-line val)
     (back-to-indentation)
     (if com (vip-execute-com 'vip-next-line-at-bol val com))))
@@ -1230,7 +1240,7 @@ beginning of buffer, stop and signal error."
   "Go to previous line."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getCom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (next-line (- val))
     (setq this-command 'previous-line)
     (if com (vip-execute-com 'vip-previous-line val com))))
@@ -1239,7 +1249,7 @@ beginning of buffer, stop and signal error."
   "Previous line at beginning of line."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getCom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (next-line (- val))
     (back-to-indentation)
     (if com (vip-execute-com 'vip-previous-line val com))))
@@ -1261,7 +1271,7 @@ beginning of buffer, stop and signal error."
   "Go to ARG's line.  Without ARG go to end of buffer."
   (interactive "P")
   (let ((val (vip-P-val arg)) (com (vip-getCom arg)))
-    (move-marker vip-com-point (point))
+    (vip-move-marker-locally vip-com-point (point))
     (set-mark (point))
     (if (null val)
 	(goto-char (point-max))
@@ -1311,7 +1321,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
 	      vip-f-forward t
 	      vip-f-offset nil)
       (setq val (- val)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (vip-find-char val (if (> (vip-p-val arg) 0) vip-f-char vip-F-char) t nil)
     (setq val (- val))
     (if com
@@ -1330,7 +1340,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
 	      vip-f-forward t
 	      vip-f-offset t)
       (setq val (- val)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (vip-find-char val (if (> (vip-p-val arg) 0) vip-f-char vip-F-char) t t)
     (setq val (- val))
     (if com
@@ -1349,7 +1359,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
 	      vip-f-forward nil
 	      vip-f-offset nil)
       (setq val (- val)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (vip-find-char
      val (if (> (vip-p-val arg) 0) vip-f-char vip-F-char) nil nil)
     (setq val (- val))
@@ -1368,7 +1378,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
 	      vip-f-forward nil
 	      vip-f-offset t)
       (setq val (- val)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (vip-find-char val (if (> (vip-p-val arg) 0) vip-f-char vip-F-char) nil t)
     (setq val (- val))
     (if com
@@ -1380,7 +1390,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
   "Repeat previous find command."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (vip-find-char val vip-f-char vip-f-forward vip-f-offset)
     (if com
 	(progn
@@ -1391,7 +1401,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
   "Repeat previous find command in the opposite direction."
   (interactive "P")
   (let ((val (vip-p-val arg)) (com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (vip-find-char val vip-f-char (not vip-f-forward) vip-f-offset)
     (if com
 	(progn
@@ -1414,7 +1424,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getCom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (move-to-window-line (1- val))
     (if com (vip-execute-com 'vip-window-top val com))))
 
@@ -1423,7 +1433,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getCom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (move-to-window-line (+ (/ (1- (window-height)) 2) (1- val)))
     (if com (vip-execute-com 'vip-window-middle val com))))
 
@@ -1432,7 +1442,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getCom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (move-to-window-line (- val))
     (if com (vip-execute-com 'vip-window-bottom val com))))
 
@@ -1467,14 +1477,14 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
 	     (/ (* (point-max) arg) 100)))
 	  (back-to-indentation))
     (cond ((looking-at "[\(\[{]")
-	   (if com (move-marker vip-com-point (point)))
+	   (if com (vip-move-marker-locally vip-com-point (point)))
 	   (forward-sexp 1)
 	   (if com
 	       (vip-execute-com 'vip-paren-match nil com)
 	     (backward-char)))
 	  ((looking-at "[])}]")
 	   (forward-char)
-	   (if com (move-marker vip-com-point (point)))
+	   (if com (vip-move-marker-locally vip-com-point (point)))
 	   (backward-sexp 1)
 	   (if com (vip-execute-com 'vip-paren-match nil com)))
 	  (t (error ""))))))
@@ -1487,7 +1497,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (forward-sentence val)
     (if com (vip-execute-com 'vip-forward-sentence nil com))))
 
@@ -1496,7 +1506,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getcom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (backward-sentence val)
     (if com (vip-execute-com 'vip-backward-sentence nil com))))
 
@@ -1505,7 +1515,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getCom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (forward-paragraph val)
     (if com (vip-execute-com 'vip-forward-paragraph nil com))))
 
@@ -1514,7 +1524,7 @@ used.  This behaviour is controlled by the sign of prefix numeric value."
   (interactive "P")
   (let ((val (vip-p-val arg))
 	(com (vip-getCom arg)))
-    (if com (move-marker vip-com-point (point)))
+    (if com (vip-move-marker-locally vip-com-point (point)))
     (backward-paragraph val)
     (if com (vip-execute-com 'vip-backward-paragraph nil com))))
 
@@ -1589,7 +1599,7 @@ giving null search string."
       (vip-search vip-s-string t val)
       (if com
 	  (progn
-	    (move-marker vip-com-point (mark 'force))
+	    (vip-move-marker-locally vip-com-point (mark 'force))
 	    (vip-execute-com 'vip-search-next val com))))))
 
 (defun vip-search-backward (arg)
@@ -1609,7 +1619,7 @@ giving null search string."
       (vip-search vip-s-string nil val)
       (if com
 	  (progn
-	    (move-marker vip-com-point (mark 'force))
+	    (vip-move-marker-locally vip-com-point (mark 'force))
 	    (vip-execute-com 'vip-search-next val com))))))
 
 (defun vip-search (string forward arg &optional no-offset init-point)
@@ -1940,7 +1950,7 @@ the query replace mode will toggle between string replace and regexp replace."
 (defun vip-goto-mark-subr (char com skip-white)
   (cond ((and (<= ?a char) (<= char ?z))
 	 (let ((buff (current-buffer)))
-	   (if com (move-marker vip-com-point (point)))
+	   (if com (vip-move-marker-locally vip-com-point (point)))
 	   (goto-char (register-to-point (- char (- ?a ?\C-a))))
 	   (if skip-white (back-to-indentation))
 	   (vip-change-mode-to-vi)
@@ -1955,11 +1965,11 @@ the query replace mode will toggle between string replace and regexp replace."
 		 (vip-change-mode-to-vi)
 		 (error "")))))
 	((and (not skip-white) (eq char ?`))
-	 (if com (move-marker vip-com-point (point)))
+	 (if com (vip-move-marker-locally vip-com-point (point)))
 	 (exchange-point-and-mark)
 	 (if com (vip-execute-com 'vip-goto-mark nil com)))
 	((and skip-white (eq char ?'))
-	 (if com (move-marker vip-com-point (point)))
+	 (if com (vip-move-marker-locally vip-com-point (point)))
 	 (exchange-point-and-mark)
 	 (back-to-indentation)
 	 (if com (vip-execute-com 'vip-goto-mark-and-skip-white nil com)))
