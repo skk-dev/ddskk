@@ -11,6 +11,8 @@ experimental/skk-dinsert.el として開発されています。
 
 SKK で 拡張ローマ字入力法 AZIK を利用する機能。これは
 experimental/skk-azik.el として開発されています。
+AZIK については、以下の URL を参照下さい。
+http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm
 
 ** アイコン
 
