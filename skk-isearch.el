@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.26 2001/10/31 13:06:22 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.27 2001/11/13 12:24:03 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 13:06:22 $
+;; Last Modified: $Date: 2001/11/13 12:24:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -203,6 +203,8 @@ More precicely, turn on skk-mode, put into kana mode, make sure
 kakutei'ed and erase the buffer contents."
   (skk-isearch-turn-on-skk-mode)
   (skk-isearch-skk-kakutei)
+  (make-local-variable 'skk-dcomp-activate)
+  (setq skk-dcomp-activate nil)
   (erase-buffer))
 
 ;;;###autoload
