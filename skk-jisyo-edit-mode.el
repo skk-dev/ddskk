@@ -69,7 +69,6 @@
   (make-local-variable 'skk-jisyo-edit-syntax-table)
   (setq skk-jisyo-edit-syntax-table (make-syntax-table))
   (set-syntax-table skk-jisyo-edit-syntax-table)
-
   (let ((map (make-sparse-keymap)))
     (static-cond
      ((featurep 'xemacs)
@@ -82,16 +81,16 @@
   (run-hooks 'skk-jisyo-edit-mode-hook))
 
 ;;;###autoload
-(unless (member '("SKK-JISYO" . skk-jisyo-edit-mode)
-		auto-mode-alist)
-  (setq auto-mode-alist
-	(append
-	 '(("SKK-JISYO" . skk-jisyo-edit-mode)
-	   ("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
-	    . skk-jisyo-edit-mode)
-	   ("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
-	    . skk-jisyo-edit-mode))
-	 auto-mode-alist)))
+(if (not (member '("SKK-JISYO" . skk-jisyo-edit-mode)
+		 auto-mode-alist))
+    (setq auto-mode-alist
+	  (append
+	   '(("SKK-JISYO" . skk-jisyo-edit-mode)
+	     ("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
+	      . skk-jisyo-edit-mode)
+	     ("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
+	      . skk-jisyo-edit-mode))
+	   auto-mode-alist)))
 
 (require 'product)
 (product-provide
