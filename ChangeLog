@@ -1,3 +1,8 @@
+2001-09-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-num.el (skk-num-type3-kanji-1, skk-num-type5-kanji-1):
+	Return "" for "0".
+
 2001-09-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-lookup.el: Require lookup after loading lookup.el and only
@@ -1711,8 +1716,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.344 2001/09/02 21:12:39 minakaji Exp $
-Last Modified: $Date: 2001/09/02 21:12:39 $
+Version: $Id: ChangeLog,v 1.345 2001/09/04 14:08:35 czkmt Exp $
+Last Modified: $Date: 2001/09/04 14:08:35 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
