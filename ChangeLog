@@ -1,3 +1,11 @@
+2002-01-12  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* experimental/skk-dinsert.el
+	Comments update.
+	(skk-dinsert-mode): Doc update.
+	(skk-dinsert): Deactivate when `skk-henkan-mode' is non-nil and
+	cursor is at `skk-henkan-start-point'.
+
 2002-01-12  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk.el (skk-reread-private-jisyo): Modify prompt string.
@@ -3304,8 +3312,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.623 2002/01/11 23:53:31 minakaji Exp $
-Last Modified: $Date: 2002/01/11 23:53:31 $
+Version: $Id: ChangeLog,v 1.624 2002/01/12 00:37:25 obata Exp $
+Last Modified: $Date: 2002/01/12 00:37:25 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
