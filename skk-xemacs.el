@@ -168,16 +168,16 @@
 ;; Hooks.
 
 ;;; Not necessary, but...
-;;;###autoload (add-hook 'before-init-hook '(lambda () (define-key ctl-x-map "\C-j" 'skk-mode)))
+;;;###autoload (add-hook 'before-init-hook #'(lambda () (define-key ctl-x-map "\C-j" 'skk-mode)))
 
 ;; Advice.
 
 (skk-defadvice minibuffer-keyboard-quit (around skk-xemacs-ad activate)
-  ;; XEmacs has minibuffer-keyboard-quit that has nothing to do with delsel.
+  ;; XEmacs has `minibuffer-keyboard-quit' that has nothing to do with delsel.
   (skk-remove-minibuffer-setup-hook
-   'skk-j-mode-on 'skk-setup-minibuffer
-   (function (lambda ()
-	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
+   #'skk-j-mode-on #'skk-setup-minibuffer
+   #'(lambda ()
+       (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
   (cond ((not skk-mode)
 	 ad-do-it)
 	((not skk-henkan-on)
@@ -189,7 +189,7 @@
 	 (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
 	     (let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
 	       (skk-previous-candidate)
-	       ;; ここでは delete-backward-char に第二引数を渡さない方が
+	       ;; ここでは `delete-backward-char' に第二引数を渡さない方が
 	       ;; ベター？
 	       (delete-backward-char count))
 	   (skk-previous-candidate)))
