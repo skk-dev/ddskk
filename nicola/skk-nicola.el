@@ -539,17 +539,17 @@ keycode 131 = underscore\n"))
       event))))
 
 ;;; 〜 NICOLA 規格書より 〜
-;;; 7.4.2　打鍵順序だけでは決定できない同時打鍵 
+;;; 7.4.2　打鍵順序だけでは決定できない同時打鍵
 ;;;
 ;;;        文字キーa、親指キーs、文字キーbの３つのキーが、判定時間以内の間
 ;;;        隔で重複して押された場合は、中央に挟まれた親指キーsが文字キーaを
 ;;;        修飾するものか、文字キーbを修飾するものかを決定しなければならな
-;;;        い。（図６） 
+;;;        い。（図６）
 ;;;
 ;;;        基本的には、押下時刻が、より親指キーに近い文字キーとの間に同時打
-;;;        鍵が成立すると判断する。 
+;;;        鍵が成立すると判断する。
 ;;;
-;;;              図6　　　「文字キーON→親指キーON→文字キーON」の例 
+;;;              図6　　　「文字キーON→親指キーON→文字キーON」の例
 ;;;
 ;;;              　　文字キーa 　　　　　　　|￣￣￣|
 ;;;              　　　　　　　　　　…………　　　　……………………
@@ -700,7 +700,7 @@ keycode 131 = underscore\n"))
 	 (cond (skk-henkan-active
 		;; 接尾語の処理
 		(skk-kakutei)
-		(skk-set-henkan-point-subr)	
+		(skk-set-henkan-point-subr)
 		(insert-and-inherit ?>))
 	       (skk-henkan-on
 		;; 接頭語の処理
@@ -799,7 +799,7 @@ keycode 131 = underscore\n"))
 (defun skk-nicola-process-okuri ()
   ;; 送り開始の標識により送り開始点を認識し、送りあり変換を開始する。
   (let ((okuri (buffer-substring-no-properties
-                              (1+ skk-nicola-okuri-flag) (point)))
+		(1+ skk-nicola-okuri-flag) (point)))
 	(len (if (eq skk-emacs-type 'nemacs) 2 1)) tag)
     (cond ((and (not (eq skk-nicola-okuri-style 'nicola-skk))
 		(member okuri '("っ" "ッ")))
@@ -931,7 +931,8 @@ keycode 131 = underscore\n"))
 		    (skk-comp-do 'first 'silent)
 		    (skk-set-marker skk-dcomp-start-point pos)
 		    (skk-set-marker skk-dcomp-end-point (point))
-		    (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
+		    (skk-dcomp-face-on skk-dcomp-start-point
+				       skk-dcomp-end-point)
 		    (goto-char skk-dcomp-start-point))
 		(error
 		 (setq skk-comp-stack nil)

@@ -96,7 +96,7 @@
     ("J" nil skk-abbrev-mdoe)
     ("K" nil skk-toggle-kana)
     ("L" nil skk-jisx0208-latin-mode)
-    ("+" nil "』")          ("*" nil ("ヶ" . "ヶ"))  ("}" nil "」")
+    ("+" nil "』") ("*" nil ("ヶ" . "ヶ"))  ("}" nil "」")
     ("Z" nil ("ッ" . "っ"))
     ("X" nil skk-purge-from-jisyo)
     ("C" nil skk-input-by-code-or-menu)
