@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.27 1999/10/17 12:00:58 minakaji Exp $
-;; Last Modified: $Date: 1999/10/17 12:00:58 $
+;; Version: $Id: SKK-MK,v 1.28 1999/10/17 12:16:54 minakaji Exp $
+;; Last Modified: $Date: 1999/10/17 12:16:54 $
 
 ;; Commentary
 ;;
@@ -103,18 +103,24 @@ end with `skk'." )
 		(file-exists-p (expand-file-name "../site-lisp/apel" exec-directory)) )
 	       (expand-file-name "../site-lisp/apel" exec-directory) )))
        (emudir
-	;; not standard emu directory, but add it to load-path anyway.
 	(cond ((and
 		VERSION_SPECIFIC_LISPDIR
-		(setq emutmp (expand-file-name (if (string= EMU_PREFIX "") "emu" EMU_PREFIX)
-					       VERSION_SPECIFIC_LISPDIR ))
+		(setq emutmp (expand-file-name EMU_PREFIX VERSION_SPECIFIC_LISPDIR))
+		(progn
+		  (if (and (string= emutmp VERSION_SPECIFIC_LISPDIR)
+			   (string= EMU_PREFIX "") )
+		      ;; try again with not standard emu directory.
+		      (setq emutmp (expand-file-name "emu" VERSION_SPECIFIC_LISPDIR)) ))
 		(not (string= emutmp VERSION_SPECIFIC_LISPDIR))
 		(file-exists-p emutmp)
 		emutmp ))
 	      ((and apeldir 
-		    (setq emutmp (expand-file-name
-				  (concat "../" (if (string= EMU_PREFIX "") "emu" EMU_PREFIX))
-				  apeldir ))
+		    (setq emutmp (expand-file-name (concat "../" EMU_PREFIX) apeldir))
+		    (progn  
+		      (if (and (string= emutmp VERSION_SPECIFIC_LISPDIR)
+			       (string= EMU_PREFIX "") )
+			  ;; try again with not standard emu directory.
+			  (setq emutmp (expand-file-name "../emu" apeldir)) ))
 		    (not (string= emutmp VERSION_SPECIFIC_LISPDIR))
 		    (file-exists-p emutmp)
 		    emutmp )))))
