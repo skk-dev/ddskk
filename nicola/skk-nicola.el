@@ -58,7 +58,7 @@
 
 (defgroup skk-nicola nil "SKK NICOLA related customization."
   :prefix "skk-nicola-"
-  :group 'skk
+  :group 'skk-custom-by-filename
   :group 'skk-kanagaki)
 
 ;; Variables.
@@ -67,8 +67,7 @@
 				   (/ (float 1) (float 10))
 				 1) "\
 *この時間以内に打鍵されたものを同時打鍵と判定する。
-単位は秒。デフォルトは 0.1 秒。ただし、 Emacs 18 の場合は浮動小数点数を扱えな
-いため、仮に 1 秒としておくが、実用的には厳しいと思われる。"
+単位は秒。デフォルトは 0.1 秒。"
   :type 'number
   :group 'skk-nicola)
 
@@ -76,8 +75,7 @@
 					 (/ (float 1) (float 10))
 				       1) "\
 *この時間以内に打鍵されたものを同時打鍵と判定する。
-単位は秒。デフォルトは 0.1 秒。ただし、 Emacs 18 の場合は浮動小数点数を扱えな
-いため、仮に 1 秒としておくが、実用的には厳しいと思われる。"
+単位は秒。デフォルトは 0.1 秒。"
   :type 'number
   :group 'skk-nicola)
 
@@ -212,15 +210,12 @@
 
 (skk-deflocalvar skk-nicola-okuri-flag nil)
 
-(skk-deflocalvar skk-current-local-map nil "\
-Emacs 18 用の変数。")
-
 (static-when (memq skk-emacs-type '(mule3))
   (case skk-kanagaki-jidou-keymap-kakikae-service
     ;;
     (nicola-jis
-     ;; Emacs 18 では Muhenkan, Henkan は使えないようなので、使えるキーに書換
-     ;; える。
+     ;; Emacs 20.2 では Muhenkan, Henkan は使えないようなので、使えるキーに書
+     ;; 換える。
      (skk-kanagaki-call-xmodmap
 	 (case skk-emacs-type
 	   (mule3
@@ -627,14 +622,12 @@ keycode 131 = underscore\n"))
 	    (cond ((or skk-henkan-on skk-henkan-active)
 		   (skk-kanagaki-insert arg)
 		   (unless (>= skk-nicola-interval 1)
-		     ;; Emacs 18  で単独打鍵を同一キー連続打鍵で代用で
-		     ;; きるように。
+		     ;; 単独打鍵を同一キー連続打鍵で代用できるように。
 		     (skk-kanagaki-insert arg)))
 		  (t
 		   (self-insert-command
 		    (if (>= skk-nicola-interval 1)
-			;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用
-			;; できるように。
+			;; 単独打鍵を同一キー連続打鍵で代用できるように。
 			arg
 		      (1+ arg)))))))
 	 (skk-nicola-self-insert-lshift
@@ -657,8 +650,7 @@ keycode 131 = underscore\n"))
 		(t
 		 (skk-nicola-lshift-function arg)
 		 (unless (>= skk-nicola-interval 1)
-		   ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用でき
-		   ;; るように。
+		   ;; 単独打鍵を同一キー連続打鍵で代用できるように。
 		   (skk-nicola-lshift-function 1)))))
 	 (skk-nicola-self-insert-rshift
 	  ;; [右 左]
@@ -733,7 +725,7 @@ keycode 131 = underscore\n"))
 		    isearch-cmds))))
 	 (unless (and (>= skk-nicola-interval 1)
 		      (eq next char))
-	   ;; Emacs 18 で単独打鍵を同一キー連続打鍵で代用できるように。
+	   ;; 単独打鍵を同一キー連続打鍵で代用できるように。
 	   (skk-nicola-insert-kana next skk-nicola-plain-rule))))))))
 
 (defun skk-nicola-maybe-double-p (first next)
@@ -798,22 +790,19 @@ keycode 131 = underscore\n"))
   (let ((okuri (buffer-substring-no-properties
 		(1+ skk-nicola-okuri-flag) (point)))
 	tag)
-    (cond ((and (not (eq skk-nicola-okuri-style 'nicola-skk))
-		(member okuri '("っ" "ッ")))
-	   ;; 何もしない。
-	   )
-	  (t
-	   (save-excursion
-	    (goto-char skk-nicola-okuri-flag)
-	    (when (eq (following-char) ?*)
-	      (delete-char 1))
-	    (backward-char 1)
-	    (if (member
-		 (buffer-substring-no-properties
-		  (point) (marker-position skk-nicola-okuri-flag))
-		 '("っ" "ッ"))
-		(setq tag 'no-sokuon)))
-	   (skk-kanagaki-set-okurigana tag)))))
+    (unless (and (not (eq skk-nicola-okuri-style 'nicola-skk))
+		 (member okuri '("っ" "ッ")))
+      (save-excursion
+	(goto-char skk-nicola-okuri-flag)
+	(when (eq (following-char) ?*)
+	  (delete-char 1))
+	(backward-char 1)
+	(if (member
+	     (buffer-substring-no-properties
+	      (point) (marker-position skk-nicola-okuri-flag))
+	     '("っ" "ッ"))
+	    (setq tag 'no-sokuon)))
+      (skk-kanagaki-set-okurigana tag))))
 
 (defun skk-nicola-set-okuri-flag ()
   ;; 送り開始点を marker で標識するとともに、`*' を挿入することで送りあり変換

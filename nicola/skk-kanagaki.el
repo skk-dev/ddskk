@@ -159,17 +159,9 @@
 
 (defgroup skk-kanagaki nil "SKK kanagaki related customization."
   :prefix "skk-kanagaki-"
-  :group 'skk)
+  :group 'skk-custom-by-filename)
 
 ;; Variables.
-
-(defcustom skk-use-kana-keyboard t "\
-*Non-nil なら仮名入力用の設定を読み込む。
-SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ⇔ 仮名入力 の切り替
-えができる。"
-  :type 'boolean
-  :group 'skk
-  :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-keyboard-type '106-jis "\
 *仮名入力に使用するキーボードの種別。
