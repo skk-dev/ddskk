@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.4 2001/08/26 09:55:04 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.5 2001/08/27 09:41:37 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/08/26 09:55:04 $
+;; Last Modified: $Date: 2001/08/27 09:41:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -186,11 +186,13 @@
   (condition-case nil
       (save-window-excursion
 	(let ((minibuf-p (skk-in-minibuffer-p))
-	      event)
+	      event window)
 	  (skk-annotation-insert annotation)
 	  (cond
 	   (minibuf-p
-	    (select-window (get-buffer-window (skk-minibuffer-origin)))
+	    (if (setq window (get-buffer-window (skk-minibuffer-origin)))
+		(select-window window)
+	      (other-window 1))
 	    (unless (eq (next-window) (selected-window))
 	      (delete-other-windows)))
 	   (t

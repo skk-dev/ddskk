@@ -1,3 +1,8 @@
+2001-08-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-buffer): Call
+	`other-window' if no window for the minibuffer origin is found.
+
 2001-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-show-1): Call
@@ -3727,8 +3732,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.328 2001/08/26 08:21:29 czkmt Exp $
-Last Modified: $Date: 2001/08/26 08:21:29 $
+Version: $Id: ChangeLog,v 1.329 2001/08/27 09:41:37 czkmt Exp $
+Last Modified: $Date: 2001/08/27 09:41:37 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
