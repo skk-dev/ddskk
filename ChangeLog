@@ -1,5 +1,8 @@
 2000-12-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* skk-xemacs.el (skk-xemacs-prepare-modeline-properties): Bug
+	fixed.
+
 	* skk.el (skk-exit): Rename to `skk-mode-exit'.
 	(skk-invoke): Rename to `skk-mode-invoke'.
 
@@ -2828,8 +2831,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.209 2000/12/13 03:22:02 minakaji Exp $
-Last Modified: $Date: 2000/12/13 03:22:02 $
+Version: $Id: ChangeLog,v 1.210 2000/12/13 05:27:41 minakaji Exp $
+Last Modified: $Date: 2000/12/13 05:27:41 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

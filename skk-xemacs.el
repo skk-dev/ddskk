@@ -41,13 +41,6 @@
    (cons 'jisx0201 (make-extent nil nil))
    (cons 'abbrev (make-extent nil nil))))
 
-;;; Why skk-xemacs-abbrev-extent wasn't declared here?
-;;(defvar skk-xemacs-hiragana-extent (make-extent nil nil))
-;;(defvar skk-xemacs-katakana-extent (make-extent nil nil))
-;;(defvar skk-xemacs-jisx0208-latin-extent (make-extent nil nil))
-;;(defvar skk-xemacs-latin-extent (make-extent nil nil))
-;;(defvar skk-xemacs-jisx0201-extent (make-extent nil nil))
-
 (defvar skk-xemacs-modeline-menu-items
   '("Daredevil SKK Menu"
     ["Read Manual" skk-xemacs-info t]
@@ -56,23 +49,6 @@
     "--"
     ["About Daredevil SKK..." skk-version t]
     ["Visit Daredevil SKK Home..." skk-xemacs-visit-openlab t]))
-
-(when (featurep 'window-system)
-  ;;
-  (defvar skk-xemacs-modeline-map
-    (let ((map (make-sparse-keymap)))
-      (define-key
-	map
-	[button2]
-	(eval '(make-modeline-command-wrapper 'skk-xemacs-modeline-menu)))
-      map))
-  ;;
-  (let (extent)
-    (dolist (mode '(hiragana katakana jisx0208-latin latin jisx0201 abbrev))
-      (setq extent (cdr (assq mode skk-xemacs-extent-alist)))
-      (set-extent-keymap extent skk-xemacs-modeline-map)
-      (set-extent-property extent 'help-echo
-			   "マウスの button 2 -> Daredevil SKK のメニュ−"))))
 
 ;; Functions.
 
@@ -95,15 +71,25 @@
 ;;;###autoload
 (defun skk-xemacs-prepare-modeline-properties ()
   (let (extent face-sym)
+    (when (featurep 'window-system)
+      (defvar skk-xemacs-modeline-map
+	(let ((map (make-sparse-keymap)))
+	  (define-key
+	    map
+	    [button2]
+	    (eval '(make-modeline-command-wrapper 'skk-xemacs-modeline-menu)))
+	  map)))
     (dolist (mode '(hiragana katakana jisx0208-latin latin jisx0201 abbrev))
-      (setq extent (cdr (assq 'hiragana skk-xemacs-extent-alist)))
+      (setq extent (cdr (assq mode skk-xemacs-extent-alist)))
       (setq face-sym (intern (format "skk-xemacs-%s-face" mode)))
       (make-face face-sym)
       (set-face-parent face-sym 'modeline nil '(default))
       (when (featurep 'window-system)
+	(set-extent-keymap extent skk-xemacs-modeline-map)
+	(set-extent-property
+	 extent 'help-echo "マウスの button 2 -> Daredevil SKK のメニュ−")
 	(set-face-foreground
-	 face-sym 
-	 ;;skk-cursor-hiragana-color 
+	 face-sym
 	 (intern (format "skk-cursor-%s-color" mode)) nil '(default color win))
 	(set-face-font face-sym [bold] nil '(default mono win))
 	(set-face-font face-sym [bold] nil '(default grayscale win)))
