@@ -1,3 +1,8 @@
+2001-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK
+	(SKK-MK-skk-dic): Check if skk-dic.el is newer than skk-dic.el.in.
+
 2001-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el
@@ -2758,8 +2763,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.531 2001/11/14 15:12:54 czkmt Exp $
-Last Modified: $Date: 2001/11/14 15:12:54 $
+Version: $Id: ChangeLog,v 1.532 2001/11/15 03:24:54 czkmt Exp $
+Last Modified: $Date: 2001/11/15 03:24:54 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
