@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.34 2002/02/14 14:43:08 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.35 2002/04/03 10:17:37 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/14 14:43:08 $
+;; Last Modified: $Date: 2002/04/03 10:17:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -190,18 +190,20 @@
   (let ((dst (car list))
 	(src (cdr list))
 	elt)
+    (unless (listp dst)
+      (setq dst (list dst)))
     (while src
       (setq elt (car src))
       (setq dst
 	    (cond
 	     ((consp elt)
-	      (apply (function nconc)
+	      (apply #'nconc
 		     (mapcar
-		      (lambda (str0)
-			(mapcar
-			 (lambda (str1)
-			   (concat str0 str1))
-			 elt))
+		      #'(lambda (str0)
+			  (mapcar
+			   #'(lambda (str1)
+			       (concat str0 str1))
+			   elt))
 		      dst)))
 	     (t
 	      (mapcar
