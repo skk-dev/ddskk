@@ -1,3 +1,11 @@
+2002-07-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el:
+	(skk-icon):
+	(skk-modeline-input-mode):
+
+	Mark variables risky-local-variable.
+
 2002-07-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el:
@@ -3926,8 +3934,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.696 2002/07/13 17:22:57 czkmt Exp $
-Last Modified: $Date: 2002/07/13 17:22:57 $
+Version: $Id: ChangeLog,v 1.697 2002/07/14 00:39:47 czkmt Exp $
+Last Modified: $Date: 2002/07/14 00:39:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
