@@ -1,6 +1,32 @@
 2000-10-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* doc/skk.texi: Unify the words 「ディレクトリィ」to「ディレクトリ」
+	and 「エントリー」 to 「エントリ」.
+	(APEL のインストール): Add description about what APEL is. 
+	Recommend using latest version of APEL.
+	(辞書の保存): Put on @vindex skk-backup-jisyo and skk-jisyo.
+	Add description about how to change filename "~/.skk-jisyo" or
+	"~/.skk-jisyo.BAK".
+	(最も基本的な設定): Add note for XEmacs/package-install.
+	Remove referece to 「拡張アイディア」 (there's no mentioning about
+	key bindings).
+	(インクリメント検索の設定): Put on @vindex isearch-mode-hook and
+	isearch-mode-end-hook.
+	Change the latter form for isearch-mode-end-hook in order to set
+	cursor color.
+	Add description about forms for isearch-mode-end-hook if cursor
+	color feature is not used.
+	(起動と終了): Add reference to 「入力モードを示すカーソル色に関す
+	る設定」.
+	(辞書の保存): Change xref node 「辞書の形式」 to 「辞書の種別」.
+	(送り仮名が無い場合の辞書登録): Ditto.
+	(送り仮名が無い場合): Change reference node 「辞書の形式」 to 「送
+	りありエントリと送りなしエントリ」.
+	(送り仮名が有る場合): Change reference node 「辞書登録モード」 to
+	「サ変動詞の辞書登録に関する注意」.
+
 	* READMEs/README.win: Sync up with daredevil's one.
+	Change APEL version 10.2 to 9.22.
 
 2000-10-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
