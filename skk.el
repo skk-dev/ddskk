@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.4 1999/08/29 21:25:53 minakaji Exp $
+;; Version: $Id: skk.el,v 1.5 1999/08/30 12:31:15 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 21:25:53 $
+;; Last Modified: $Date: 1999/08/30 12:31:15 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -99,7 +99,7 @@
 ;;; Code:
 (require 'skk-foreword)
 
-(defconst skk-version "10.50")
+(defconst skk-version "10.51")
 (defconst skk-major-version (string-to-int (substring skk-version 0 2)))
 (defconst skk-minor-version (string-to-int (substring skk-version 3)))
 
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/08/29 21:25:53 $")
+      (let* ((raw-date "$Date: 1999/08/30 12:31:15 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -2872,6 +2872,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	    (backward-char count)
 	    (delete-char count arg) )
 	   (t 
+	    (skk-delete-okuri-mark)
 	    (if (skk-get-prefix skk-current-rule-tree)
 		(skk-erase-prefix 'clean)
 	      (skk-emulate-original-map arg) ))))))

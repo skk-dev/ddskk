@@ -1,12 +1,12 @@
-;; SKK tutorial for SKK version 10.46 and later versions
+; SKK tutorial for SKK version 10.46 and later versions
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.2 1999/08/29 09:07:24 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.3 1999/08/30 12:34:56 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 09:07:24 $
+;; Last Modified: $Date: 1999/08/30 12:34:56 $
 
 ;; This file is part of SKK.
 
@@ -192,7 +192,7 @@ The English version is SKK.tut.E."
     (skk-katakana-mode-string . " カナ")
     (skk-kcode-load-hook . nil)
     (skk-keep-record . nil)
-    (skk-kuten-touten-alist . '((jp . ("、" . "。"))))
+    (skk-kuten-touten-alist . '((jp . ("。" . "、"))))
     (skk-kutouten-type . 'jp)
     (skk-latin-cursor-color . "ivory4")
     (skk-latin-mode-string . " SKK")
