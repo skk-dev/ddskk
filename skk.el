@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.104 2001/08/26 08:20:55 czkmt Exp $
+;; Version: $Id: skk.el,v 1.105 2001/08/31 16:45:58 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/26 08:20:55 $
+;; Last Modified: $Date: 2001/08/31 16:45:58 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -536,20 +536,23 @@ dependent."
   (skk-setup-undo))
 
 (defun skk-make-indicator-alist ()
-  (static-if (eq skk-emacs-type 'xemacs)
-      (skk-xemacs-prepare-modeline-properties))
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (skk-xemacs-prepare-modeline-properties))
+   ((eq skk-emacs-type 'mule5)
+    (skk-e21-prepare-modeline-properties)))
   (let ((mode-string-list
-	 '(skk-latin-mode-string 
+	 '(skk-latin-mode-string
 	   skk-hiragana-mode-string
 	   skk-katakana-mode-string
 	   skk-jisx0208-latin-mode-string
 	   skk-abbrev-mode-string
 	   skk-jisx0201-mode-string))
-	mode indicator base)
+	mode string base)
     (save-match-data
-      (cons 
+      (cons
        (cons 'default
-	     (cons "" 
+	     (cons ""
 		   (static-if (eq skk-emacs-type 'xemacs)
 		       (cons (cdr (assq 'default skk-xemacs-extent-alist)) "")
 		     "")))
@@ -557,37 +560,43 @@ dependent."
 		 (setq mode (prin1-to-string symbol))
 		 (string-match "skk-\\([-a-z0-9]+\\)-mode-string" mode)
 		 (setq mode (intern (match-string-no-properties 1 mode)))
-		 (setq indicator (symbol-value symbol))
+		 (setq string (symbol-value symbol))
 		 ;; 本来ならこのようにユーザ変数を加工するのはおかしいが、
 		 ;; 移行期の処置として暫定的に行なう。
-		 (cond ((string-match "^ +" indicator)
+		 (cond ((string-match "^ +" string)
 			;; minor-mode setting
-			(setq base (substring indicator (match-end 0))))
-		       ((string-match "^--" indicator)
+			(setq base (substring string (match-end 0))))
+		       ((string-match "^--" string)
 			;; mode-line left setting
-			(setq base (substring indicator (match-end 0)))
-			(if (string-match "::*$" indicator)
+			(setq base (substring string (match-end 0)))
+			(if (string-match "::*$" base)
 			    (setq base (substring base 0 (match-beginning 0)))))
-		       (t (setq base indicator)))
+		       (t (setq base string)))
 		 (cons mode
 		       (cons (concat " " base)
 			     (skk-make-indicator-alist-1 mode base))))
 	       mode-string-list)))))
 
 (defun skk-make-indicator-alist-1 (mode base)
-  (let ((indicator
+  (let ((string
 	 (concat "--" base
-		 (if (skk-face-proportional-p 'modeline)
-		     ":"
-		   "::"))))
+		 (cond
+		  ((skk-face-proportional-p 'modeline)
+		   ":")
+		  ((memq mode '(latin abbrev))
+		   "::")
+		  (t
+		   ":")))))
     (static-cond
      ((eq skk-emacs-type 'xemacs)
       (cons (cdr (assq mode skk-xemacs-extent-alist))
-	    indicator))
+	    string))
      ((eq skk-emacs-type 'mule5)
-      (apply 'propertize indicator skk-e21-modeline-property))
+      (apply 'propertize
+	     string
+	     (cdr (assq mode skk-e21-property-alist))))
      (t
-      indicator))))
+      string))))
 
 (defun skk-setup-modeline ()
   "モード行へのステータス表示を準備する。"
