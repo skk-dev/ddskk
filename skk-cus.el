@@ -70,9 +70,9 @@
      (const :tag "送り仮名が厳密に正しい候補を優先して表示する" t) "")
     (skk-check-okurigana-on-touroku
      (choice :tag "辞書登録時の余計な送り仮名の自動処理は？"
-      (const :tag "Auto" auto)
-      (const :tag "Query" ask)
-      (const :tag "Do Nothing" nil))
+	     (const :tag "Auto" auto)
+	     (const :tag "Query" ask)
+	     (const :tag "Do Nothing" nil))
      "")))
 
 (defconst skk-cus-params-search
