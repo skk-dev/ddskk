@@ -1,3 +1,9 @@
+2001-01-24  Yuh Ohmura <yutopia@t3.rim.or.jp>
+
+	*make.bat : delete.
+	*makeit.bat : rename from make.bat and sync with cmail
+	*make1.bat : sync with cmail
+
 2001-01-16  Yuh Ohmura <yutopia@t3.rim.or.jp>
 
 	* make1.bat : rename from make.bat and 
@@ -3063,8 +3069,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.247 2001/01/16 02:17:31 yutopia Exp $
-Last Modified: $Date: 2001/01/16 02:17:31 $
+Version: $Id: ChangeLog,v 1.248 2001/01/24 05:42:20 yutopia Exp $
+Last Modified: $Date: 2001/01/24 05:42:20 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
