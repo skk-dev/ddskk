@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.12 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-develop.el,v 1.13 2001/09/11 13:51:21 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/09/11 13:51:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -108,21 +108,25 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 	     ("^\\s *(skk-defadvice\\s +\\S +" . "")
 	     ("^\\s *(skk-defsubst-cond\\s +\\S +" . ""))))
 
+;;;###autoload
 (eval-after-load "font-lock"
   '(setq lisp-font-lock-keywords-2
 	 (nconc
-	  '(("^(\\(skk-defun-cond\\)[ \t'\(]*\\(\\sw+\\)?"
-	     (1 font-lock-keyword-face)
-	     (2 font-lock-variable-name-face))
-	    ("^(\\(skk-defsubst-cond\\)[ \t'\(]*\\(\\sw+\\)?"
-	     (1 font-lock-keyword-face)
-	     (2 font-lock-variable-name-face))
-	    ("^(\\(skk-defavice\\)[ \t'\(]*\\(\\sw+\\)?"
-	     (1 font-lock-keyword-face)
-	     (2 font-lock-variable-name-face))
-	    ("^(\\(skk-deflocalvar\\)[ \t'\(]*\\(\\sw+\\)?"
-	     (1 font-lock-keyword-face)
-	     (2 font-lock-variable-name-face)))
+	  (list
+	   (list
+	    (concat "(\\(skk-def\\("
+		    ;; Function declarations.
+		    "\\(un-cond\\|subst-cond\\|advice\\)\\|"
+		    ;; Variable declarations.
+		    "\\(var\\|localvar\\)"
+		    "\\)\\)\\>"
+		    ;; Any whitespace and defined object.
+		    "[ \t'\(]*"
+		    "\\(\\sw+\\)?")
+	    '(1 font-lock-keyword-face)
+	    '(5 (cond ((match-beginning 3) font-lock-function-name-face)
+		      ((match-beginning 5) font-lock-variable-name-face))
+		nil t)))
 	  lisp-font-lock-keywords-2)))
 
 (require 'product)
