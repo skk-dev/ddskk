@@ -46,7 +46,7 @@
    ("^\\(;.+\\)$" 1 font-lock-comment-face)
    ("^\\([^; ]+ \\)/" 1 font-lock-function-name-face)
    ("\\(;[^/]*\\)/" 1 font-lock-type-face)
-   ("/\\([^/]+[^/]\\)$" 1 highlight)
+   ("/\\([^/\n]+\\)$" 1 highlight)
    ("\\(/\\)" 1 font-lock-warning-face))
  "Additional expressions to highlight in SKK JISYO edit mode.")
 
