@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.15 2001/05/27 22:07:41 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.16 2001/05/29 21:56:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/27 22:07:41 $
+;; Last Modified: $Date: 2001/05/29 21:56:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -455,17 +455,16 @@
   ;; skk-current-date のサブルーチン。
   (mapconcat (function
 	      (lambda (c)
-		(if (eq c ?\040) ; SPC
-		    nil
-		  (cond ((or (not skk-number-style)
-			     (and (numberp skk-number-style)
-				  (= skk-number-style 0)))
-			 (char-to-string c))
-			((or (eq skk-number-style t)
-			     (and (numberp skk-number-style)
-				  (= skk-number-style 1)))
-			 (cdr (assq c skk-num-alist-type1)))
-			(t (cdr (assq c skk-num-alist-type2)))))))
+		(if (and (>= ?9 c) (>= c 0))
+		    (cond ((or (not skk-number-style)
+			       (and (numberp skk-number-style)
+				    (= skk-number-style 0)))
+			   (char-to-string c))
+			  ((or (eq skk-number-style t)
+			       (and (numberp skk-number-style)
+				    (= skk-number-style 1)))
+			   (cdr (assq c skk-num-alist-type1)))
+			  (t (cdr (assq c skk-num-alist-type2)))))))
 	     str ""))
 
 (defadvice skk-kakutei-initialize (after skk-num-ad activate)

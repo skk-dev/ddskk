@@ -1,3 +1,21 @@
+2001-05-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-gadget.el (skk-ad-to-gengo-1, skk-gengo-to-ad-1): New
+	functions.
+	(skk-gengo-to-ad): Use `skk-gengo-to-ad-1'.  New optional argument
+	HEAD.
+	(skk-ad-to-gengo): Use `skk-ad-to-gengo-1'.
+
+	* skk-num.el (skk-num): Check C is a number representing character
+	or not.
+
+	* skk-dcomp.el (skk-dcomp-after-delete-backward-char): Do markerp
+	check for `skk-dcomp-start-point' and `skk-dcomp-end-point'.
+	
+	* skk-vars.el (skk-gengo-alist): New user variable.
+	(skk-look-termination-character): Doc shortened and simplified.
+	(skk-henkan-face-default): Doc modified.
+
 2001-05-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-current-date-function): New user variable.
@@ -3382,8 +3400,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.295 2001/05/27 22:07:41 minakaji Exp $
-Last Modified: $Date: 2001/05/27 22:07:41 $
+Version: $Id: ChangeLog,v 1.296 2001/05/29 21:56:14 minakaji Exp $
+Last Modified: $Date: 2001/05/29 21:56:14 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

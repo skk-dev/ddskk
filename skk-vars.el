@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.38 2001/05/27 22:07:41 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.39 2001/05/29 21:56:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/27 22:07:41 $
+;; Last Modified: $Date: 2001/05/29 21:56:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1146,7 +1146,7 @@ canna:attribute-alist $B$,NI$$Nc$+$b$7$l$J$$!#(B"
     (((class color) (background dark))
      (:foreground "white" :background "darkolivegreen"))
     (((class grayscale)) (:underline t)))
-  "*$BJQ498uJd$N(B face $BB0@-$N!"I8=`!#(B"
+  "*$BI8=`$NJQ498uJd$N(B face $BB0@-!#(B"
   :group 'skk-decoration)
 
 (when (and skk-use-face
@@ -1522,8 +1522,8 @@ nil $B$G$"$l$P!"I=<($7$J$$!#(B"
    (lambda (year month day day-of-week hour minute second and-time)
      (setq year (if skk-date-ad
 		    (skk-num year)
-		  (let ((y (- (string-to-number year) 1988)))
-		    (if (= y 1) "$B85(B" (skk-num (number-to-string y)))))
+		  (let ((v (skk-ad-to-gengo-1 year)))
+		    (if (stringp (cdr v)) (cdr v) (number-to-string (cdr v)))))
 	   month (skk-num (cdr (assoc month skk-month-alist)))
 	   day (skk-num day)
 	   day-of-week (if (nth 4 skk-GYMDWHMS-list)
@@ -1550,7 +1550,8 @@ nil $B$G$"$l$P!"859fI=<($9$k!#(B"
   :type 'boolean
   :group 'skk-gadget)
 
-(defcustom skk-GYMDWHMS-list '("$BJ?@.(B" "$BG/(B" "$B7n(B" "$BF|(B" nil "$B;~(B" "$BJ,(B" "$BIC(B")
+(defcustom skk-GYMDWHMS-list
+  '((if skk-date-ad "$BJ?@.(B") "$BG/(B" "$B7n(B" "$BF|(B" nil "$B;~(B" "$BJ,(B" "$BIC(B")
   "*skk-today $B$K$h$C$FI=<($5$l$kF|IU$KMQ$$$i$l$kJ8;zNs$N%j%9%H!#(B
 $B%j%9%H$NFbMF$O(B
 
@@ -1605,6 +1606,15 @@ Then you will get the result as 2001-5-18(Fri)."
 		 (integer :tag "Kansuuji" 3))
   :group 'skk-gadget)
 
+(defcustom skk-gengo-alist
+  '((heisei "$BJ?@.(B" "H") (showa "$B><OB(B" "S") (taisho "$BBg@5(B" "T")
+    (meiji "$BL@<#(B" "M"))
+  "*$B859f$rI=5-$7$?J8;zNs$N(B alist$B!#(B
+car $B$O859f$r%m!<%^;zI=5-$7$?(B symbol$B!#(B
+cdr $B$O859fI=5-$N(B string $B$+$i$J$k%j%9%H!#(B"
+  :type '(repeat (choice symbol string))
+  :group 'skk-gadget)
+	
 (defcustom skk-gadget-load-hook nil
   "*skk-gadget.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
   :type 'hook
@@ -1701,7 +1711,6 @@ regexp isearch $B$N:]!"$3$N@55,I=8=$K%^%C%A$9$kJ8;z$,8!:wJ8;zNs$N4V$K4^$^$l$F$$
 
 ;;; SKK-KAKASI.EL related.
 (defcustom skk-use-kakasi (exec-installed-p "kakasi")
-
   "*Non-nil $B$G$"$l$P(B KAKASI $B$r;H$C$?JQ49$r9T$J$&!#(B"
   :type 'boolean
   :group 'skk-kakasi)
@@ -1794,8 +1803,9 @@ look $B%3%^%s%I$K%*%W%7%g%s(B \"-a\" $B$rEO$9!#(B"
   :group 'skk-look)
 
 (defcustom skk-look-termination-character nil
-  "*Non-nil $B$G$"$l$P!"$=$NJ8;zNs$r(B UNIX look $B%3%^%s%I$,;H$&=*C<J8;zNs$H$7$FL@<(E*$K;XDj$9$k!#(B
-look $B%3%^%s%I$K%*%W%7%g%s(B \"-t\" $B$H$=$NJ8;zNs$rEO$9!#(B"
+  "*UNIX look $B%3%^%s%I%*%W%7%g%s$N=*C<J8;zNs!#(B
+look $B%3%^%s%I$K%*%W%7%g%s(B \"-t\" $B$H$=$NJ8;zNs$rEO$9!#(B
+nil $B$G$"$l$P$3$N%*%W%7%g%s$O;HMQ$5$l$J$$!#(B"
   :type '(choice string (const nil))
   :group 'skk-look)
 

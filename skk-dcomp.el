@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.5 2001/02/03 00:19:36 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.6 2001/05/29 21:56:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/03 00:19:36 $
+;; Last Modified: $Date: 2001/05/29 21:56:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -116,6 +116,8 @@
 
 (defun skk-dcomp-after-delete-backward-char ()
   (if (and skk-henkan-on (not skk-henkan-active)
+	   (markerp skk-dcomp-start-point)
+	   (markerp skk-dcomp-end-point)
 	   (marker-position skk-dcomp-start-point)
 	   (marker-position skk-dcomp-end-point))
       (let (pos)

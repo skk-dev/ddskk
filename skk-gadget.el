@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.11 2001/05/27 22:07:41 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.12 2001/05/29 21:56:14 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/27 22:07:41 $
+;; Last Modified: $Date: 2001/05/29 21:56:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -182,69 +182,83 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
            (message "$B経過時間: %s 秒" (skk-time-difference start end))))))))
 
 ;;;###autoload
-(defun skk-ad-to-gengo (&optional fstr lstr)
-  ;; 西暦を元号に変換する。オプション引数の fstr が指定されていれば、年号と
-  ;; 数字の間に、lstr が指定されていれば、数字の末尾に、それぞれの文字列を連結
+(defun skk-ad-to-gengo (gengo-index &optional divider tail not-gannen)
+  ;; 西暦を元号に変換する。オプション引数の divider が指定されていれば、年号と
+  ;; 数字の間に、tail が指定されていれば、数字の末尾に、それぞれの文字列を連結
   ;; する。
   ;; 辞書見出し例;
-  ;; せいれき#ねん /(skk-ad-to-gengo nil "年")/(skk-ad-to-gengo " " " 年")/
-  (let ((ad (string-to-number (car skk-num-list))))
-    (concat (cond ((>= 1866 ad)
-                   (skk-error "分りません" "Unkown year"))
-                  ((>= 1911 ad)
-                   (concat "明治" fstr (number-to-string (- ad 1867))))
-                  ((>= 1925 ad)
-                   (concat "大正" fstr (number-to-string (- ad 1911))))
-                  ((>= 1988 ad)
-                   (concat "昭和" fstr (number-to-string (- ad 1925))))
-                  (t (concat "平成" fstr (number-to-string (- ad 1988)))))
-            lstr)))
+  ;; せいれき#ねん /(skk-ad-to-gengo 0 nil "年")/(skk-ad-to-gengo 0 " " " 年")/
+  (let ((v (skk-ad-to-gengo-1 (string-to-number (car skk-num-list))
+			      not-gannen)))
+    (concat (nth gengo-index (car v))
+	    divider
+	    (if (not (stringp (cdr v))) (number-to-string (cdr v)) (cdr v))
+            tail)))
+
+(defun skk-ad-to-gengo-1 (ad &optional not-gannen)
+  ;; AD is a number and NOT-GANNEN is a boolean optional
+  ;; arg.
+  ;; return a cons cell of which car is a Gengo list
+  ;; gotten from `skk-gengo-alist', and cdr is a number
+  ;; of year.
+  ;; if NOT-GANNEN is non-nil and calculated year is 1,
+  ;; return a value of which cdr is "元" (string).
+  (if (>= 1866 ad)
+      (skk-error "分りません" "Unkown year")
+    (cons (cond ((>= 1911 ad)
+		 (setq ad (- ad 1867)) 
+		 (cdr (assq 'meiji skk-gengo-alist)))
+		((>= 1925 ad)
+		 (setq ad (- ad 1911))
+		 (cdr (assq 'taisho skk-gengo-alist)))
+		((>= 1988 ad)
+		 (setq ad (- ad 1925))
+		 (cdr (assq 'showa skk-gengo-alist)))
+		(t
+		 (setq ad (- ad 1988))
+		 (cdr (assq 'heisei skk-gengo-alist))))
+	  (cond (not-gannen ad)
+		((= ad 1) "元")
+		(t ad)))))
 
 ;;;###autoload
-(defun skk-gengo-to-ad (&optional string)
-  ;; 元号を西暦に変換する。オプション引数の string が指定されていれば、
-  ;; その文字列を末尾に連結する。
+(defun skk-gengo-to-ad (&optional head tail)
+  ;; 元号を西暦に変換する。オプション引数の HEAD, TAIL が指定されてい
+  ;; れば、その文字列を先頭、末尾に連結する。
   ;; 辞書見出し例;
-  ;; しょうわ#ねん /(skk-gengo-to-ad "年")/(skk-gengo-to-ad " 年")/
+  ;; しょうわ#ねん /(skk-gengo-to-ad "" "年")/(skk-gengo-to-ad "" " 年")/(skk-gengo-to-ad "西暦" "年")/(skk-gengo-to-ad "西暦" " 年")/
   (save-match-data
-    (let ((num (car skk-num-list))
-          gengo)
-      (string-match num skk-henkan-key)
-      (setq gengo (substring skk-henkan-key 0 (match-beginning 0))
-            num (string-to-number num))
-      (concat (number-to-string
-               (+ num
-                  (cond ((eq num 0)
-                         (skk-error "0 年はあり得ない"
-                                    "Cannot convert 0 year"))
-                        ((string= gengo "へいせい") 1988)
-                        ((string= gengo "しょうわ")
-                         (if (> 64 num)
-                             1925
-                           (skk-error "昭和は 63 年までです"
-                                      "The last year of Showa is 63")))
-                        ((string= gengo "たいしょう")
-                         (if (> 15 num)
-                             1911
-                           (skk-error "大正は、14 年までです"
-                                      "The last year of Taisyo is 14")))
-                        ((string= gengo "めいじ")
-                         (if (> 45 num)
-                             1867
-                           (skk-error "明治は、44 年までです"
-                                      "The last year of Meiji is 44")))
-                        (t (skk-error "判別不能な元号です！"
-                                      "Unknown Gengo!")))))
-              string))))
+    (if (string-match (car skk-num-list) skk-henkan-key)
+	(let ((v (skk-gengo-to-ad-1 
+		  (substring skk-henkan-key 0 (match-beginning 0))
+		  (string-to-number (car skk-num-list)))))
+	  (if v (concat head (number-to-string v) tail))))))
 
-;(defun skk-calc (operator)
-;  ;; 2 つの引数を取って operator の計算をする。
-;  ;; 注意: '/ は引数として渡せないので (defalias 'div '/) などとし、別の形で
-;  ;; skk-calc に渡す。
-;  ;; 辞書見出し例; #*# /(skk-calc '*)/
-;  (number-to-string
-;   (funcall operator (string-to-number (car skk-num-list))
-;            (string-to-number (nth 1 skk-num-list)))))
+(defun skk-gengo-to-ad-1 (gengo number)
+  ;; GENGO is a string and NUMBER is a number.
+  ;; return a year (number) equal to GENGO-NUMBER.
+  (+ number
+     (cond ((eq number 0)
+	    (skk-error "0 年はあり得ない"
+		       "Cannot convert 0 year"))
+	   ((member gengo '("へいせい" "平成")) 1988)
+	   ((member gengo '("しょうわ" "昭和"))
+	    (if (> 64 number)
+		1925
+	      (skk-error "昭和は 63 年までです"
+			 "The last year of Showa is 63")))
+	   ((member gengo '("たいしょう" "大正"))
+	    (if (> 15 number)
+		1911
+	      (skk-error "大正は、14 年までです"
+			 "The last year of Taisyo is 14")))
+	   ((member gengo '("めいじ" "明治"))
+	    (if (> 45 number)
+		1867
+	      (skk-error "明治は、44 年までです"
+			 "The last year of Meiji is 44")))
+	   (t (skk-error "判別不能な元号です！"
+			 "Unknown Gengo!")))))
 
 ;;;###autoload
 (defun skk-calc (operator)
