@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.17 2001/09/09 02:34:20 czkmt Exp $
+;; Version: $Id: skk-lookup.el,v 1.18 2001/10/21 05:32:43 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/09/09 02:34:20 $
+;; Last Modified: $Date: 2001/10/21 05:32:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -121,7 +121,8 @@
 (require 'lookup)
 
 (static-when (memq skk-emacs-type '(mule4 mule3 mule2))
-  (when lookup-use-bitmap (require 'bitmap)))
+  (when lookup-use-bitmap
+    (require 'bitmap)))
 
 (eval-and-compile
   (autoload 'lookup-vse-search-query "lookup-vse"))
@@ -137,8 +138,8 @@
 		;; If you search via ndtpd, book's name and slash are attached
 		;; to NAME as prefix, like `IWANAMI/KOJIEN'.  The following
 		;; forms will truncate it to `KOJIEN'.
-		(if (string-match "/\\(.+\\)$" name)
-		    (assoc (match-string 1 name) skk-lookup-option-alist)))))))
+		(when (string-match "/\\(.+\\)$" name)
+		  (assoc (match-string 1 name) skk-lookup-option-alist)))))))
     (nth index (or list skk-lookup-default-option-list))))
 
 (defsubst skk-lookup-get-method (name okuri-process)
@@ -161,9 +162,9 @@
 ;;;; funcitions.
 ;;;###autoload
 (defun skk-lookup-search ()
-  (if (or skk-num-list skk-num-recompute-key)
-      ;; 数値変換のときは変換キーが `#' を含むものなので、lookup で検索しない。
-      nil
+  (unless (or skk-num-list
+	      skk-num-recompute-key)
+    ;; 数値変換のときは変換キーが `#' を含むものなので、lookup で検索しない。
     (let ((module (skk-lookup-default-module))
 	  ;; if `lookup-enable-gaiji' is nil, gaiji tag like
 	  ;; `<gaiji=za52a>' is put out.
@@ -171,26 +172,28 @@
 	  (lookup-gaiji-alternate "")
 	  (henkan-key skk-henkan-key)
 	  okuri-process v)
-      (cond ((not (or skk-henkan-okurigana skk-okuri-char))
-	     ;; okuri-nasi
-	     (setq okuri-process 0))
-	    ;; okuri-ari and `skk-lookup-process-henkan-key-function' is non-nil.
-	    (skk-lookup-process-henkan-key-function
-	     (setq v (funcall skk-lookup-process-henkan-key-function
-			      henkan-key)
-		   henkan-key (car v)
-		   okuri-process (cdr v)))
-	    ;; okuri-ari and (not skk-process-okuri-early)
-	    (skk-henkan-okurigana
-	     ;; 送り仮名のかな prefix を捨て、送り仮名を足して lookup に渡す。
-	     (setq henkan-key (concat (substring henkan-key 0 (1- (length henkan-key)))
-				      skk-henkan-okurigana)
-		   okuri-process 1))
-	    ;; okuri-ari and skk-process-okuri-early
-	    (skk-okuri-char
-	     ;; 送り仮名のかな prefix を捨てて lookup に渡す。
-	     (setq henkan-key (substring henkan-key 0 (1- (length henkan-key)))
-		   okuri-process 2)))
+      (cond
+       ((not (or skk-henkan-okurigana skk-okuri-char))
+	;; okuri-nasi
+	(setq okuri-process 0))
+       ;; okuri-ari and `skk-lookup-process-henkan-key-function' is non-nil.
+       (skk-lookup-process-henkan-key-function
+	(setq v (funcall skk-lookup-process-henkan-key-function
+			 henkan-key)
+	      henkan-key (car v)
+	      okuri-process (cdr v)))
+       ;; okuri-ari and (not skk-process-okuri-early)
+       (skk-henkan-okurigana
+	;; 送り仮名のかな prefix を捨て、送り仮名を足して lookup に渡す。
+	(setq henkan-key (concat (substring henkan-key
+					    0 (1- (length henkan-key)))
+				 skk-henkan-okurigana)
+	      okuri-process 1))
+       ;; okuri-ari and skk-process-okuri-early
+       (skk-okuri-char
+	;; 送り仮名のかな prefix を捨てて lookup に渡す。
+	(setq henkan-key (substring henkan-key 0 (1- (length henkan-key)))
+	      okuri-process 2)))
       (skk-lookup-search-1 module henkan-key okuri-process))))
 
 (defun skk-lookup-search-1 (module key okuri-process)
@@ -210,7 +213,8 @@
 		  ;; actual search.
 		  (setq entries (lookup-vse-search-query
 				 dictionary
-				 (lookup-make-query method lookup-search-pattern))))
+				 (lookup-make-query method
+						    lookup-search-pattern))))
 	 (lookup-foreach
 	  (lambda (entry)
 	    ;; pickup necessary string for SKK.
@@ -234,40 +238,42 @@
     (nreverse candidates-list)))
 
 (defun skk-lookup-process-okurigana (string process-type)
-  (cond ((string= string "")
-	 ;; KOUJIEN has a heading like `ま‐き【真木・(GAIJI)・槙】'
-	 ;; As GAIJI cannot be processed by skk-lookup.el, the heading
-	 ;; is equal to `ま‐き【真木・・槙】' for skk-lookup.el.
-	 ;; It causes to produce a null string candidate.
-	 ;;   (split-string "真木・・槙" "・") -> ("真木" "" "槙")
-	 ;; So return nil if STRING is a null string.
-	 nil)
-	;; okuri-nasi
-	((= process-type 0) string)
-	;; okuri-ari
-	(t
-	 (let* ((okuri-length
-		 (cond
-		  ;; has `skk-henkan-okurigana'.
-		  ((= process-type 1) (length skk-henkan-okurigana))
-		  ;; `skk-process-okuri-early' is non-nil.
-		  ((= process-type 2)
-		   ;; don't know exactly how long okurigana is.
-		   ;; truncate length of one character anyway.
-		   skk-kanji-len)))
-		(okurigana (and (> (length string) okuri-length)
-				(substring string (- okuri-length)))))
-	   (cond (
-		  ;; cannot detect okurigana in STRING.
-		  (not okurigana) nil)
-		 (skk-henkan-okuri-strictly
-		  (and (string= skk-henkan-okurigana okurigana)
-		       ;; cut okurigana off.
-		       (substring string 0 (- okuri-length))))
-		 ;; `skk-process-okuri-early' or not `skk-henkan-okuri-strictly'.
-		 ((string= (skk-okurigana-prefix okurigana) skk-okuri-char)
+  (cond
+   ((string= string "")
+    ;; KOUJIEN has a heading like `ま‐き【真木・(GAIJI)・槙】'
+    ;; As GAIJI cannot be processed by skk-lookup.el, the heading
+    ;; is equal to `ま‐き【真木・・槙】' for skk-lookup.el.
+    ;; It causes to produce a null string candidate.
+    ;;   (split-string "真木・・槙" "・") -> ("真木" "" "槙")
+    ;; So return nil if STRING is a null string.
+    nil)
+   ;; okuri-nasi
+   ((= process-type 0)
+    string)
+   ;; okuri-ari
+   (t
+    (let* ((okuri-length
+	    (cond
+	     ;; has `skk-henkan-okurigana'.
+	     ((= process-type 1) (length skk-henkan-okurigana))
+	     ;; `skk-process-okuri-early' is non-nil.
+	     ((= process-type 2)
+	      ;; don't know exactly how long okurigana is.
+	      ;; truncate length of one character anyway.
+	      skk-kanji-len)))
+	   (okurigana (and (> (length string) okuri-length)
+			   (substring string (- okuri-length)))))
+      (cond (
+	     ;; cannot detect okurigana in STRING.
+	     (not okurigana) nil)
+	    (skk-henkan-okuri-strictly
+	     (and (string= skk-henkan-okurigana okurigana)
 		  ;; cut okurigana off.
-		  (substring string 0 (- okuri-length))))))))
+		  (substring string 0 (- okuri-length))))
+	    ;; `skk-process-okuri-early' or not `skk-henkan-okuri-strictly'.
+	    ((string= (skk-okurigana-prefix okurigana) skk-okuri-char)
+	     ;; cut okurigana off.
+	     (substring string 0 (- okuri-length))))))))
 
 (defun skk-lookup-process-heading (name heading okuri-process-type)
   ;; heading しか取り出さないのはもったいない？  他にも情報を取り出し
@@ -284,46 +290,53 @@
 	;; 1 つの heading に対し、複数の切り出し作業が必要になる場合
 	;; があるのでループで作業する。
 	((or (string= heading "")
-	     (and pickup-regexp (not (string-match pickup-regexp heading))))
+	     (and pickup-regexp
+		  (not (string-match pickup-regexp heading))))
 	 candidates-list)
       (setq match (eval match))
-      (if pickup-regexp
-	  (if (listp match)
-	      (setq candidates-string
-		    (mapconcat (function
-				(lambda (num)
-				  (match-string-no-properties num heading)))
-			       match "")
-		    ;; XXX MATCH が複数だったら、heading 切り出しは一度だけしかできない...。
-		    heading "")
-	    (setq candidates-string (match-string-no-properties match heading)
-		  heading (substring heading (min (+ (match-end match) skk-kanji-len)
-						  (length heading)))))
+      (cond
+       ((and pickup-regexp
+	     (listp match))
+	(setq candidates-string
+	      (mapconcat (function
+			  (lambda (num)
+			    (match-string-no-properties num heading)))
+			 match "")
+	      ;; XXX MATCH が複数だったら、heading 切り出しは
+	      ;; 一度だけしかできない...。
+	      heading ""))
+       (pickup-regexp
+	(setq candidates-string (match-string-no-properties match heading)
+	      heading (substring heading
+				 (min (+ (match-end match) skk-kanji-len)
+				      (length heading)))))
+       (t
 	;; XXX never be used?
 	(setq candidates-string heading
-	      heading ""))
-      (if cleanup-regexp
-	  (while (string-match cleanup-regexp candidates-string)
-	    (setq candidates-string
-		  (concat (substring candidates-string 0 (match-beginning 0))
-			  (substring candidates-string (match-end 0))))))
-      (if split-regexp
-	  (lookup-foreach
-	   (lambda (c)
-	     (if (string= lookup-search-pattern c)
-		 nil
-	       (setq c (skk-lookup-process-okurigana c okuri-process-type))
-	       (if c
-		   (setq candidates-list (cons c (delete c candidates-list))))))
-	   (split-string candidates-string split-regexp))
-	(if (string= lookup-search-pattern candidates-string)
-	    nil
-	  (setq candidates-string (skk-lookup-process-okurigana
-				   candidates-string okuri-process-type))
-	  (if candidates-string
-	      (setq candidates-list
-		    (cons candidates-string
-			  (delete candidates-string candidates-list)))))))))
+	      heading "")))
+      (when cleanup-regexp
+	(while (string-match cleanup-regexp candidates-string)
+	  (setq candidates-string
+		(concat (substring candidates-string 0 (match-beginning 0))
+			(substring candidates-string (match-end 0))))))
+      (cond
+       (split-regexp
+	(lookup-foreach
+	 (lambda (c)
+	   (unless (string= lookup-search-pattern c)
+	     (setq c (skk-lookup-process-okurigana c okuri-process-type))
+	     (when c
+	       (setq candidates-list (cons c (delete c candidates-list))))))
+	 (split-string candidates-string split-regexp)))
+	((string= lookup-search-pattern candidates-string)
+	 nil)
+	(t
+	 (setq candidates-string (skk-lookup-process-okurigana
+				  candidates-string okuri-process-type))
+	 (when candidates-string
+	   (setq candidates-list
+		 (cons candidates-string
+		       (delete candidates-string candidates-list)))))))))
 
 ;; The following four functions were imported from lookup.el and
 ;; lookup-types.el.
@@ -368,19 +381,19 @@
 (defun skk-lookup-agent-list ()
   (or skk-lookup-agent-list
       (progn
-	(if (null skk-lookup-search-agents)
-	    ;; copy-list is a C primitive of XEmacs, but FSFmacs has it
-	    ;; in cl.el.
-	    (setq skk-lookup-search-agents
-		  (let ((agents (copy-sequence lookup-search-agents))
-			e)
-		    ;; use `skk-kakasi.el' instead of ndkks.
-		    (setq agents (delete '(ndkks) agents))
-		    (while (setq e (assq 'ndcookie agents))
-		      (setq agents (delq e agents)))
-		    (while (setq e (assq 'ndnmz agents))
-		      (setq agents (delq e agents)))
-		    agents)))
+	(unless skk-lookup-search-agents
+	  ;; copy-list is a C primitive of XEmacs, but FSFmacs has it
+	  ;; in cl.el.
+	  (setq skk-lookup-search-agents
+		(let ((agents (copy-sequence lookup-search-agents))
+		      e)
+		  ;; use `skk-kakasi.el' instead of ndkks.
+		  (setq agents (delete '(ndkks) agents))
+		  (while (setq e (assq 'ndcookie agents))
+		    (setq agents (delq e agents)))
+		  (while (setq e (assq 'ndnmz agents))
+		    (setq agents (delq e agents)))
+		  agents)))
 	(setq skk-lookup-agent-list
 	      (mapcar 'lookup-new-agent skk-lookup-search-agents)))))
 
@@ -402,13 +415,15 @@
      (lambda (dictionary)
        (lookup-foreach
 	(lambda (entry)
-	  (setq var (nconc (list
-			    (list (lookup-dictionary-name dictionary)
-				  (lookup-dictionary-id dictionary)
-				  (lookup-entry-heading entry)
-				  ;;(lookup-dictionary-command dictionary 'content entry)
-				))
-			   var)))
+	  (setq var
+		(nconc
+		 (list
+		  (list (lookup-dictionary-name dictionary)
+			(lookup-dictionary-id dictionary)
+			(lookup-entry-heading entry)
+			;;(lookup-dictionary-command dictionary 'content entry)
+			))
+		 var)))
 	(lookup-vse-search-query
 	 dictionary (lookup-make-query method pattern))))
      (lookup-module-dictionaries module))
