@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.78 2001/09/14 11:53:50 czkmt Exp $
-;; Last Modified: $Date: 2001/09/14 11:53:50 $
+;; Version: $Id: SKK-MK,v 1.79 2001/09/14 12:09:26 czkmt Exp $
+;; Last Modified: $Date: 2001/09/14 12:09:26 $
 
 ;; Commentary
 ;;
@@ -1046,7 +1046,8 @@ SKK tutorials:
       (write-region-as-coding-system
        (cond ((boundp 'MULE) *junet*unix)
 	     (t 'iso-2022-jp))
-       (point-min) (point-max)
+       (point-min)
+       (point-max)
        (expand-file-name "skk-dic.el")))))
 
 ;;; SKK-MK ends here
