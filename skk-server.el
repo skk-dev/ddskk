@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.23 2001/11/25 10:59:17 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.24 2001/11/25 11:02:31 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/25 10:59:17 $
+;; Last Modified: $Date: 2001/11/25 11:02:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -289,7 +289,8 @@
 (defun skk-disconnect-server ()
   ;; サーバーを切り離す。
   (when (and skk-server-host
-	     (eq skkserv-process skk-network-open-status))
+	     skkserv-process
+	     (eq (process-status skkserv-process) skk-network-open-status))
     (process-send-string skkserv-process "0") ; disconnect server
     (accept-process-output skkserv-process)))
 
