@@ -6,9 +6,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut.E,v 1.6 2002/02/25 12:55:06 iida Exp $
+;; Version: $Id: SKK.tut.E,v 1.7 2002/02/26 02:35:04 iida Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2002/02/25 12:55:06 $
+;; Last Modified: $Date: 2002/02/26 02:35:04 $
 ;;
 ;; This is the tutorial text for Daredevil SKK version 11.1 and and later versions.
 ;;
@@ -29,9 +29,9 @@
 == How to use the SKK tutorial ==
 
 SKK is a software system that provides a very fast and efficient Japanese
-input environment for Mule.  As it is implemented based on a very simple
+input environment for Emacs.  As it is implemented based on a very simple
 principle, you can master the usage of SKK quickly.  This tutorial explains
-SKK assuming that you know enough about Mule.
+SKK assuming that you know enough about Emacs.
 
 You will learn the usage of SKK by solving problems.  The bottom line of
 each Problem Window will begin with 【>>】.  You have to make a line which
@@ -581,10 +581,10 @@ The display becomes【佐藤と斎藤では▽さいとう】.
 
 >> 佐藤と斎藤では佐藤のほうがありふれた名字だ。
 ----
-When SKK is invoked for the first time in the current Mule session, it
+When SKK is invoked for the first time in the current Emacs session, it
 reads in your personal 辞書 file into the 辞書 buffers.  A 辞書 buffer
 will be updated each time you make a kakutei.
-When you exit from Mule, SKK saves the content of the 辞書 buffer into
+When you exit from Emacs, SKK saves the content of the 辞書 buffer into
 your personal 辞書 file.  So, normally, you don't have to worry about
 savings of the 辞書 buffers.  When SKK updates your personal 辞書 file
 (.skk-jisyo) it copies the content of the current .skk-jisyo to
