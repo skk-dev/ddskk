@@ -4,9 +4,9 @@
 
 ;; Author: Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dinsert.el,v 1.4 2002/01/13 20:39:55 obata Exp $
+;; Version: $Id: skk-dinsert.el,v 1.5 2002/05/06 01:52:21 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/13 20:39:55 $
+;; Last Modified: $Date: 2002/05/06 01:52:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -48,17 +48,18 @@
 ;; また、SKK 本体に統合されるまでは、skk-dinsert-rule-list の設定より
 ;; も下の方に以下のコードを追加して下さい。
 ;;
-;;   (let ((count 0))
-;;     (dolist (r skk-dinsert-rule-list)
-;;       (setq skk-rom-kana-rule-list
-;;             (cons (list (car r)
-;;                         (cadr r)
-;;                         `(lambda (arg)
-;;                            (skk-dinsert arg ,count)))
-;;                   skk-rom-kana-rule-list))
-;;       (setq count (1+ count))))
-;;
-;;   (require 'skk-dinsert)
+;;   (when (locate-library "skk-dinsert")
+;;     (require 'skk-dinsert)
+;;     (setq skk-rom-kana-rule-list
+;;           (nconc skk-rom-kana-rule-list
+;;                  (let ((count -1))
+;;                    (mapcar #'(lambda (r)
+;;                                (setq count (1+ count))
+;;                                (list (car r)
+;;                                      (cadr r)
+;;                                      `(lambda (arg)
+;;                                         (skk-dinsert arg ,count))))
+;;                            skk-dinsert-rule-list)))))
 ;;
 ;; さらに、このファイルを load-path の通ったディレクトリに置いて下さい。
 ;;
@@ -159,7 +160,7 @@ VAL には、以下の 3つの形式を指定できる。
 が用いられ、これは上の 3つの形式の何れかである必要がある。
 
 `skk-rom-kana-rule-list' とは異なり、アトムでない要素は指定できない。このため
-(\"カナ\" . \"かな\") とは指定できない。かなモード、カナモードによって条件分けし
+\(\"カナ\" . \"かな\") とは指定できない。かなモード、カナモードによって条件分けし
 い場合には、変数 `skk-hiragana', `skk-katakana' によって調べる事ができる。
   note: `skk-hiragana' は `skk-dinsert' の中においてのみ有効なローカル変数である。")
 
@@ -168,106 +169,106 @@ VAL には、以下の 3つの形式を指定できる。
   "動的な入力の有効/無効を切り替える。"
   (interactive "P")
   (setq skk-dinsert-mode (cond ((null arg)
-                                (not skk-dinsert-mode))
-                               ((> (prefix-numeric-value arg) 0)
-                                t)
-                               (t
-                                nil))))
+				(not skk-dinsert-mode))
+			       ((> (prefix-numeric-value arg) 0)
+				t)
+			       (t
+				nil))))
 
 (defun skk-dinsert (arg idx)
   (let* ((rule-alist (nth 2 (nth idx skk-dinsert-rule-list)))
-         ;; VAL に ("カナ" . "かな") の形式が書けないので
-         ;; せめて変数を提供してみる
-         (skk-hiragana (and (not skk-katakana) skk-j-mode))
-         val cur-rule cnd)
+	 ;; VAL に ("カナ" . "かな") の形式が書けないので
+	 ;; せめて変数を提供してみる
+	 (skk-hiragana (and (not skk-katakana) skk-j-mode))
+	 val cur-rule cnd)
     (if (or (not skk-dinsert-mode)
-            (and skk-henkan-mode
-                 (= skk-henkan-start-point skk-kana-start-point))
-            (and skk-isearch-switch
-                 (buffer-live-p skk-isearch-current-buffer)))
-        ;; isearch 又は 動的な入力をしないなら t に対応する値を使う
-        (setq val (cdr (assq t rule-alist)))
+	    (and skk-henkan-mode
+		 (= skk-henkan-start-point skk-kana-start-point))
+	    (and skk-isearch-switch
+		 (buffer-live-p skk-isearch-current-buffer)))
+	;; isearch 又は 動的な入力をしないなら t に対応する値を使う
+	(setq val (cdr (assq t rule-alist)))
       (catch 'return
-        (dolist (cur-rule rule-alist)
-          (setq cnd (car cur-rule))
-          (cond
-           ((stringp cnd)               ; REGEXP
-            (let (found s-exp m-d)
-              (setq val
-                    (save-match-data
-                      (save-excursion
-                        (let* ((i 0)
-                               (regexp cnd)
-                               (r cur-rule)
-                               (v (progn
-                                    (while (not (atom r))
-                                      (setq i (1+ i)
-                                            r (cdr r)))
-                                    r))
-                               l-a i-lf b-regexp lim pos)
-                          ;; (0 1 2 3 4 . 5) の形式を採用しているので
-                          ;; (nth n LIST) をするには i > n である事が必要
-                          (ignore-errors
-                            (setq l-a (nth 1 cur-rule)
-                                  i-lf (nth 2 cur-rule)
-                                  b-regexp i-lf
-                                  lim (nth 3 cur-rule)
-                                  s-exp (nth 4 cur-rule)))
-                          ;; re-search-backward の limit 調整
-                          (when lim
-                            (setq lim
-                                  (if (numberp lim)
-                                      (- (point) lim) ; 負になっても ok
-                                    (eval lim))))
-                          (cond
-                           (l-a         ; looking-at
-                            (when b-regexp
-                              (re-search-backward b-regexp lim t))
-                            (when (looking-at regexp)
-                              (setq found t
-                                    m-d (match-data))
-                              v))
-                           (t           ; re-search-backward
-                            (when (and (not (bobp))
-                                       (bolp)
-                                       (if (> i 2)
-                                           i-lf
-                                         skk-dinsert-ignore-lf))
-                              (backward-char))
-                            (setq pos (point))
-                            (when (and (re-search-backward regexp lim t)
-                                       (= pos
-                                          (match-end 0)))
-                              (setq found t
-                                    m-d (match-data))
-                              v)))))))
-              ;; match-data を用いて出力を生成 or 条件判定
-              ;; skk-dinsert 自身の引数は arg
-              ;; match-data の内容は m-d
-              (when (and found
-                         s-exp)
-                (setq val
-                      (let ((retval (eval s-exp)))
-                        (when retval
-                          (or val
-                              retval))))))
-            (when val
-              (throw 'return nil)))
-           (t                           ; S-EXP
-            (let ((retval (eval cnd))
-                  (v (cdr cur-rule)))
-              (setq val
-                    (when retval
-                      (or v
-                          retval))))
-            (when val
-              (throw 'return nil)))))))
+	(dolist (cur-rule rule-alist)
+	  (setq cnd (car cur-rule))
+	  (cond
+	   ((stringp cnd)		; REGEXP
+	    (let (found s-exp m-d)
+	      (setq val
+		    (save-match-data
+		      (save-excursion
+			(let* ((i 0)
+			       (regexp cnd)
+			       (r cur-rule)
+			       (v (progn
+				    (while (not (atom r))
+				      (setq i (1+ i)
+					    r (cdr r)))
+				    r))
+			       l-a i-lf b-regexp lim pos)
+			  ;; (0 1 2 3 4 . 5) の形式を採用しているので
+			  ;; (nth n LIST) をするには i > n である事が必要
+			  (ignore-errors
+			    (setq l-a (nth 1 cur-rule)
+				  i-lf (nth 2 cur-rule)
+				  b-regexp i-lf
+				  lim (nth 3 cur-rule)
+				  s-exp (nth 4 cur-rule)))
+			  ;; re-search-backward の limit 調整
+			  (when lim
+			    (setq lim
+				  (if (numberp lim)
+				      (- (point) lim) ; 負になっても ok
+				    (eval lim))))
+			  (cond
+			   (l-a		; looking-at
+			    (when b-regexp
+			      (re-search-backward b-regexp lim t))
+			    (when (looking-at regexp)
+			      (setq found t
+				    m-d (match-data))
+			      v))
+			   (t		; re-search-backward
+			    (when (and (not (bobp))
+				       (bolp)
+				       (if (> i 2)
+					   i-lf
+					 skk-dinsert-ignore-lf))
+			      (backward-char))
+			    (setq pos (point))
+			    (when (and (re-search-backward regexp lim t)
+				       (= pos
+					  (match-end 0)))
+			      (setq found t
+				    m-d (match-data))
+			      v)))))))
+	      ;; match-data を用いて出力を生成 or 条件判定
+	      ;; skk-dinsert 自身の引数は arg
+	      ;; match-data の内容は m-d
+	      (when (and found
+			 s-exp)
+		(setq val
+		      (let ((retval (eval s-exp)))
+			(when retval
+			  (or val
+			      retval))))))
+	    (when val
+	      (throw 'return nil)))
+	   (t				; S-EXP
+	    (let ((retval (eval cnd))
+		  (v (cdr cur-rule)))
+	      (setq val
+		    (when retval
+		      (or v
+			  retval))))
+	    (when val
+	      (throw 'return nil)))))))
     (cond ((stringp val)
-           val)
-          ((functionp val)
-           (funcall val arg))
-          (t
-           (format "%S" val)))))
+	   val)
+	  ((functionp val)
+	   (funcall val arg))
+	  (t
+	   (format "%S" val)))))
 
 
 (provide 'skk-dinsert)
