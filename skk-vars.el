@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.57 2001/09/15 01:06:36 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.58 2001/09/21 23:14:54 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 01:06:36 $
+;; Last Modified: $Date: 2001/09/21 23:14:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -92,13 +92,14 @@
 	    (intern (downcase bg-resource))
 	  (setq params (frame-parameters))
 	  (static-cond
-	   ((and (eq system-type 'windows-nt);; Mule for Win32
+	   ((and (eq system-type 'windows-nt)
 		 (fboundp 'win32-color-values))
+	    ;; Mule for Windows
 	    (< (apply '+ (win32-color-values
 			  (cdr (assq 'background-color params))))
 	       (/ (apply '+ (win32-color-values "white")) 3))
 	    'dark)
-	   ((and (memq system-type '(ms-dos windows-nt))
+	   ((and (eq system-type 'windows-nt)
 		 (not (fboundp 'x-color-values)))
 	    (if (string-match "light"
 			      (cdr (assq 'background-color params)))
@@ -216,11 +217,7 @@
 ;;  :prefix "skk-viper-"
 ;;  :group 'skk-custom-by-filename)
 
-(defcustom skk-init-file (convert-standard-filename
-			  (cond ((eq system-type 'ms-dos)
-				 "~/_skk")
-				(t
-				 "~/.skk")))
+(defcustom skk-init-file (convert-standard-filename "~/.skk")
   "*SKK $B$N=i4|@_Dj%U%!%$%kL>!#(B
 $B$3$N%U%!%$%k$NBe$o$j$K(B ~/.emacs $B$G@_Dj$9$k$3$H$b2DG=!#(B"
   ;;"*Name of the SKK initialization file.
@@ -379,20 +376,12 @@ skk-search $B4X?t$,(B skk-search-prog-list $B$N(B car $B$+$i8eJ}8~$X=gHV$K
 			(const t) (const nil))))
   :group 'skk-dictionary)
 
-(defcustom skk-jisyo (convert-standard-filename
-		      (cond ((eq system-type 'ms-dos)
-			     "~/_skk-jis")
-			    (t
-			     "~/.skk-jisyo")))
+(defcustom skk-jisyo (convert-standard-filename "~/.skk-jisyo")
   "*SKK $B$N%f!<%6!<<-=q!#(B"
   :type 'file
   :group 'skk-filenames)
 
-(defcustom skk-backup-jisyo (convert-standard-filename
-			     (cond ((eq system-type 'ms-dos)
-				    "~/_skk-bak")
-				   (t
-				    "~/.skk-jisyo.BAK")))
+(defcustom skk-backup-jisyo (convert-standard-filename "~/.skk-jisyo.BAK")
   "*SKK $B$N%f!<%6!<<-=q$N%P%C%/%"%C%W%U%!%$%k!#(B"
   :type 'file
   :group 'skk-filenames)
@@ -411,11 +400,7 @@ nil $B$G$"$l$P!"JQ49$K4X$9$k5-O?$r<h$i$J$$!#(B"
   :type '(choice integer (const t) (const nil))
   :group 'skk-misc)
 
-(defcustom skk-record-file (convert-standard-filename
-			    (cond ((eq system-type 'ms-dos)
-				   "~/_skk-rec")
-				  (t
-				   "~/.skk-record")))
+(defcustom skk-record-file (convert-standard-filename "~/.skk-record")
   "*$B%f!<%6!<<-=q$NE}7W$r<h$k%U%!%$%k!#(B
 $B<-=q%;!<%V$N;~9o!"C18l$NEPO??t!"3NDj$r9T$C$?2s?t!"3NDjN(!"A4BN$N8l?t$N(B
 $B>pJs$r<}$a$k!#(B"
@@ -1561,19 +1546,6 @@ skk-use-color-cursor $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
   :group 'skk-decoration
   :group 'skk-cursor)
 
-(defcustom skk-cursor-report-set-error t
-  "*Non-nil $B$G$"$l$P!"%+%i!<%^%C%W@Z$l$,5/$-$?>l9g!"%(%i!<%a%C%;!<%8$rI=<($9$k!#(B
-nil $B$G$"$l$P!"I=<($7$J$$!#(B"
-  :type 'boolean
-  :group 'skk-decoration
-  :group 'skk-cursor)
-
-(defcustom skk-cursor-change-width window-system
-  "*Non-nil $B$G$"$l$P!"(BOvwrt $B%^%$%J!<%b!<%I;~$K%+!<%=%k$NI}$r=L$a$k!#(B"
-  :type 'boolean
-  :group 'skk-decoration
-  :group 'skk-cursor)
-
 ;;; SKK-GADGET.EL related.
 (defcustom skk-gengo-alist
   '((heisei "$BJ?@.(B" "H") (showa "$B><OB(B" "S") (taisho "$BBg@5(B" "T")
@@ -1939,11 +1911,10 @@ integer `1' $B$rBeF~$9$k!#(B
   :group 'skk-filenames
   :group 'skk-server)
 
-(defcustom skk-server-portnum
-  (static-if (memq system-type '(ms-dos windows-nt)) 1178 nil)
+(defcustom skk-server-portnum (if (eq system-type 'windows-nt) 1178)
   "*Non-nil $B$G$"$l$P!"$=$NCM$r(B port number $B$H$7$F(B skkserv $B$H(B TCP $B@\B3$9$k!#(B
 /etc/services $B$rD>@\=q$-49$($k8"8B$,$J$$%f!<%6!<$N$?$a$NJQ?t!#(B
-MSDOS $B7O$N(B OS $B$G$O%G%#%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
+Windows $B$G$O%G%#%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
   :type '(choice integer (const nil)))
 
 ;;(defvar skk-server-debug nil

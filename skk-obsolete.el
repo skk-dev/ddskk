@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.5 2001/02/03 00:22:58 minakaji Exp $
+;; Version: $Id: skk-obsolete.el,v 1.6 2001/09/21 23:14:54 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Last Modified: $Date: 2001/09/21 23:14:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -47,9 +47,7 @@
     (skk-recompute-numerals-key . skk-num-recompute-key)
     (skk-remote-shell-program . skk-server-remote-shell-program)
     (skk-report-server-response . skk-server-report-response)
-    (skk-report-set-cursor-error . skk-cursor-report-set-error)
     (skk-uniq-numerals . skk-num-uniq)
-    (skk-use-cursor-change . skk-cursor-change-width)
     (skk-zenkaku-cursor-color . skk-jisx0208-latin-cursor-color)
     (skk-zenkaku-mode . skk-jisx0208-latin-mode)
     (skk-zenkaku-mode-map . skk-jisx0208-latin-mode-map)

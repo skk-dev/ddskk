@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.35 2001/09/12 11:16:43 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.36 2001/09/21 23:14:54 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/12 11:16:43 $
+;; Last Modified: $Date: 2001/09/21 23:14:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -140,7 +140,6 @@
     (skk-process-okuri-early . nil)
     (skk-public-jisyo-has-entry-p-function
      . 'skk-public-jisyo-has-entry-p-original)
-    (skk-cursor-report-set-error . t)
     (skk-rom-kana-base-rule-list
      .
      '(("a" nil ("ア" . "あ")) ("bb" "b" ("ッ" . "っ"))
@@ -282,7 +281,6 @@
      . (and window-system
 	    (fboundp 'x-display-color-p)
 	    (x-display-color-p)))
-    (skk-cursor-change-width . nil)
     (skk-use-face . window-system)
     (skk-use-look . nil)
     (skk-use-numeric-conversion . t)
