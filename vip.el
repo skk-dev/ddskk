@@ -4,7 +4,7 @@
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 1999/09/15 03:32:19 $
+;; Last Modified: $Date: 1999/09/15 10:42:12 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -40,6 +40,7 @@
 (require 'poe)
 
 ;; external variables
+;; Not so easy to work on XEmacs...
 ;;(defconst vip-xemacs-p (string-match "XEmacs" emacs-version))
 
 (defvar vip-insert-point nil
