@@ -1,12 +1,12 @@
 ;;; skk-vars.el --- variables and constants commonly used in SKK -*- coding: iso-2022-jp-2 -*-
 
-;; Copyright (C) 1999, 2000, 2001, 2002 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999, 2000, 2001, 2002, 2003 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.110 2002/11/09 03:19:51 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.111 2003/01/28 00:08:21 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/11/09 03:19:51 $
+;; Last Modified: $Date: 2003/01/28 00:08:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -434,6 +434,11 @@ nil であれば、変換に関する記録を取らない。"
 
 (defcustom skk-backward-and-set-henkan-point-char ?\321 ; M-Q
   "*ポイントを戻して▽モードに入るキーキャラクタ。"
+  :type 'character
+  :group 'skk-keybinds)
+
+(defcustom skk-force-registration-mode-char ?.
+  "*エコーエリアで候補表示中に辞書登録モードに強制的に入るキーキャラクタ。"
   :type 'character
   :group 'skk-keybinds)
 

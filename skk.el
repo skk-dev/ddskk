@@ -1,14 +1,13 @@
 ;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program)
 
-;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-;;               1998, 1999, 2000, 2001, 2002
-;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
+;; Copyright (C) 1988-1997 Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
+;; Copyright (C) 1999-2003 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.255 2002/11/09 03:19:51 minakaji Exp $
+;; Version: $Id: skk.el,v 1.256 2003/01/28 00:08:21 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/11/09 03:19:51 $
+;; Last Modified: $Date: 2003/01/28 00:08:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1777,6 +1776,14 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 			 ;; --- nil)を指す。
 			 (setq skk-henkan-count (+ last-showed-index n)
 			       loop nil))))
+		    ((eq char skk-force-registration-mode-char)
+		     (let ((last-showed-index (+ 4 (* loop max-candidates))))
+		       (setq skk-exit-show-candidates
+			     ;; cdr 部は、辞書登録に入る前に最後に表示し
+			     ;; た候補群の中で最初の候補を指すインデクス
+			     (cons loop last-showed-index))
+		       (setq skk-henkan-count last-showed-index
+			     loop nil)))
 		    ((or (eq char skk-previous-candidate-char) ; ?x
 			 (skk-key-binding-member
 			  key
