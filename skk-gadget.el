@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-gadget.el,v 1.2 1999/10/03 11:35:40 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.3 1999/10/03 12:11:10 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 11:35:40 $
+;; Last Modified: $Date: 1999/10/03 12:11:10 $
 
 ;; This file is part of SKK.
 
@@ -66,12 +66,13 @@ nil であれば、元号表示する。"
   :group 'skk-gadget )
 
 (defcustom skk-number-style 1
-  "*nil もしくは 0 であれば、skk-today, skk-clock の数字を半角で表示する。
-t もしくは、1 であれば、全角表示する。
-t, 0, 1 以外の non-nil 値であれば、漢数字で表示する。"
+  "*skk-today, skk-clock で表示する数字の形式を変化させる。
+半角表: nil もしくは 0.
+全角表示: t もしくは、1.
+漢数字表: t, 0, 1 以外の non-nil 値。"
   :type '(choice (choice :tag "Hankaku" (const nil) (integer 0))
 		 (choice :tag "Zenkaku" (const t) (integer 1))
-		 (choice :tag "Kansuuji" (integet 3)) )
+		 (integer :tag "Kansuuji" 3) )
   :group 'skk-gadget )
 
 (defcustom skk-gadget-load-hook nil
