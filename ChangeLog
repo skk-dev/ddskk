@@ -1,5 +1,7 @@
 2001-03-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* doc/skk.texi: Typo.
+
 	* skk.el (skk-kana-input): Don't call `skk-emulate-original-map'
 	when `skk-henkan-on' is t.
 
@@ -3160,8 +3162,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.259 2001/03/12 11:20:59 czkmt Exp $
-Last Modified: $Date: 2001/03/12 11:20:59 $
+Version: $Id: ChangeLog,v 1.260 2001/03/12 15:57:13 czkmt Exp $
+Last Modified: $Date: 2001/03/12 15:57:13 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
