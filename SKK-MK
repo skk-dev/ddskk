@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.68 2001/02/03 00:22:58 minakaji Exp $
-;; Last Modified: $Date: 2001/02/03 00:22:58 $
+;; Version: $Id: SKK-MK,v 1.69 2001/04/12 14:37:39 minakaji Exp $
+;; Last Modified: $Date: 2001/04/12 14:37:39 $
 
 ;; Commentary
 ;;
@@ -235,6 +235,12 @@
 	    ;; you might have to add lookup installed directory to `load-path'.
 	    (and (let ((lookup-byte-compile t)) (require 'lookup))
                  (setq list (nconc list (list 'skk-lookup))))
+	  (error))
+	;; skk-w3m.el
+	(condition-case nil
+	    ;; you might have to add w3m installed directory to `load-path'.
+	    (and (require 'w3m-search)
+		 (setq list (nconc list (list 'skk-w3m))))
 	  (error))
 	;; skk-viper.el
 	(condition-case nil
