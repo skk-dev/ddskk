@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.33 2002/02/05 15:54:19 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.34 2002/02/14 14:43:08 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/05 15:54:19 $
+;; Last Modified: $Date: 2002/02/14 14:43:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -43,12 +43,12 @@
 
 ;;;###autoload
 (defun skk-num-compute-henkan-key (key)
-  ;; KEY の中の連続する数字を現わす文字列を "#" に置き換えた文字列を返す。"12"
-  ;; や "０９" など連続する数字を 1 つの "#" に置き換えることに注意。
-  ;; 置き換えた数字を skk-num-list の中にリストの形で保存する。
-  ;; 例えば、KEY が "へいせい7年12がつ" であれば、"へいせい#ねん#がつ"
-  ;; と変換し、skk-num-list に ("7" "12") というリストを代入する。
-  ;; 辞書の見出し語の検索に使用する。
+  "KEY の中の連続する数字を現わす文字列を \"#\" に置き換えた文字列を返す。
+\"12\" や \"０９\" など連続する数字を 1 つの \"#\" に置き換えることに注意。
+置き換えた数字を `skk-num-list' の中にリストの形で保存する。
+例えば、KEY が \"へいせい7年12がつ\" であれば、\"へいせい#ねん#がつ\"
+と変換し、`skk-num-list' に (\"7\" \"12\") というリストを代入する。
+辞書の見出し語の検索に使用する。"
   (let ((numexp (if skk-num-convert-float
 		    "[.0-9]+"
 		  "[0-9]+")))
@@ -77,10 +77,11 @@
 
 ;;;###autoload
 (defun skk-num-convert ()
-  ;; skk-henkan-list の skk-henkan-count が指している候補 (数値変換
-  ;; キーの) を変換し、skk-henkan-list を
-  ;;   ("#2" ...) -> (("#2" ."一") ...)
-  ;; のように変形する。
+  "`skk-henkan-list' を変換する。
+`skk-henkan-list' の `skk-henkan-count' が指している候補 (数値変換
+キーの) を変換し、`skk-henkan-list' を
+  (\"#2\" ...) -> ((\"#2\" .\"一\") ...)
+のように変形する。"
   (let ((key (skk-get-current-candidate-1))
 	convlist current)
     (unless (consp key)
@@ -115,9 +116,9 @@
 	    (skk-num-uniq))))))))
 
 (defun skk-num-convert-1 (key)
-  ;; KEY を skk-num-list に従い変換し、変換後の文字列のパーツを
-  ;; 順にならべたリストを返す。
-  ;; KEY ::= `平成#0年', return ::= ("平成" "13" "年")
+  "KEY を `skk-num-list' に従い変換する。
+変換後の文字列のパーツを順にならべたリストを返す。例えば
+  KEY ::= `平成#0年', return ::= (\"平成\" \"13\" \"年\")"
   (unless (or (not key)
 	      (consp key))
     (let ((numexp (if skk-num-convert-float
@@ -183,9 +184,9 @@
     string))
 
 (defun skk-num-flatten-list (list)
-  ;; 与えられたリストの各要素から組み合せ可能な文字列の連接を作り、リストで返
-  ;; す。
-  ;; (("A" "B") "1" ("X" "Y")) -> ("A1X" "A1Y" "B1X" "B1Y")
+  "与えられたリストの各要素から組み合せ可能な文字列の連接を作る。
+結果はリストで返す。例えば
+  ((\"A\" \"B\") \"1\" (\"X\" \"Y\")) -> (\"A1X\" \"A1Y\" \"B1X\" \"B1Y\")"
   (let ((dst (car list))
 	(src (cdr list))
 	elt)
@@ -212,23 +213,23 @@
 
 ;;;###autoload
 (defun skk-num-exp (num type)
-  ;; ascii 数字 (string) の NUM を TYPE に従い変換し、変換後の文字列を返す。
-  ;; TYPE は下記の通り。
-  ;; 0 -> 無変換
-  ;; 1 -> 全角数字へ変換
-  ;; 2 -> 漢数字へ変換 (位取りなし)
-  ;; 3 -> 漢数字へ変換 (位取りをする)
-  ;; 4 -> その数字そのものをキーにして辞書を再検索
-  ;; 5 -> 漢数字 (手形などで使用する文字を使用) へ変換 (位取りをする)
-  ;; 9 -> 将棋で使用する数字 ("３四" など) に変換
+  "ascii 数字 (string) の NUM を TYPE に従い変換し、変換後の文字列を返す。
+TYPE は下記の通り。
+0 -> 無変換
+1 -> 全角数字へ変換
+2 -> 漢数字へ変換 (位取りなし)
+3 -> 漢数字へ変換 (位取りをする)
+4 -> その数字そのものをキーにして辞書を再検索
+5 -> 漢数字 (手形などで使用する文字を使用) へ変換 (位取りをする)
+9 -> 将棋で使用する数字 (\"３四\" など) に変換"
   (save-match-data
     (let ((fun (cdr (assq type skk-num-type-alist))))
       (when fun
 	(funcall fun num)))))
 
 (defun skk-num-jisx0208-latin (num)
-  ;; ascii 数字の NUM を全角数字の文字列に変換し、変換後の文字列を返す。
-  ;; 例えば "45" を "４５" に変換する。
+  "ascii 数字の NUM を全角数字の文字列に変換し、変換後の文字列を返す。
+例えば \"45\" を \"４５\" に変換する。"
   (let ((candidate
 	 (mapconcat (function
 		     (lambda (c)
@@ -238,8 +239,8 @@
       candidate)))
 
 (defun skk-num-type2-kanji (num)
-  ;; ascii 数字 NUM を漢数字の文字列に変換し、変換後の文字列を返す。
-  ;; 例えば、"45" を "四五" に変換する。
+  "ascii 数字 NUM を漢数字の文字列に変換し、変換後の文字列を返す。
+例えば、\"45\" を \"四五\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       (let ((candidate
@@ -253,23 +254,23 @@
 	  candidate)))))
 
 (defun skk-num-type3-kanji (num)
-  ;; ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
-  ;; 返す。例えば "1021" を "千二十一" に変換する。
+  "ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
+返す。例えば \"1021\" を \"千二十一\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       ;; 小数点を含まない数
       (skk-num-to-kanji num 'type3))))
 
 (defun skk-num-type5-kanji (num)
-  ;; ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
-  ;; 返す。例えば "1021" を "壱阡弐拾壱" に変換する。
+  "ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
+返す。例えば \"1021\" を \"壱阡弐拾壱\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       ;; 小数点を含まない数
       (skk-num-to-kanji num 'type5))))
 
 (defun skk-num-to-kanji (num type &optional alist)
-  ;; NUM を TYPE の形式の漢数字にする。位などを表す漢字は ALIST から取得する。
+  "NUM を TYPE の形式の漢数字にする。位などを表す漢字は ALIST から取得する。"
   (let ((len (length num))
 	(i 0)
 	char v num1 v1)
@@ -346,8 +347,8 @@
 	(skk-num-get-suuji ?0 alist))))
 
 (defun skk-num-shogi (num)
-  ;; ascii 数字の NUM を将棋で使用される数字表記に変換する。
-  ;; 例えば "34" を "３四" に変換する。
+  "ascii 数字の NUM を将棋で使用される数字表記に変換する。
+例えば \"34\" を \"３四\" に変換する。"
   (save-match-data
     (when (and (= (length num) 2)
 	       (skk-num-int-p num))
@@ -358,7 +359,7 @@
 	  candidate)))))
 
 (defun skk-num-recompute (num)
-  ;; #4 の見出しに対し、skk-henkan-key に代入された数字そのものを再度検索する。
+  "#4 の見出しに対し `skk-henkan-key' に代入された数字そのものを再度検索する。"
   (let (result)
     (setq skk-num-recompute-key num)
     (with-temp-buffer
@@ -443,7 +444,7 @@
 
 ;;;###autoload
 (defun skk-num-initialize ()
-  ;; skk-use-numeric-convert 関連の変数を初期化する。
+  "`skk-use-numeric-conversion' 関連の変数を初期化する。"
   (setq skk-last-henkan-data
 	(put-alist 'num-list skk-num-list skk-last-henkan-data)
 	skk-num-list nil
@@ -451,14 +452,15 @@
 
 ;;;###autoload
 (defun skk-num-henkan-key ()
-  ;; type4 の数値再変換が行なわれたときは、数値自身を返し、それ以外の数値変換
-  ;; では、skk-henkan-key を返す。
+  "適切な変換キーを返す。
+type4 の数値再変換が行なわれたときは、数値自身を返し、それ以外の数値変換
+では、`skk-henkan-key' を返す。"
   (or skk-num-recompute-key
       skk-henkan-key))
 
 ;;;###autoload
 (defun skk-num-update-jisyo (noconvword word &optional purge)
-  ;; 数字自身を見出し語として辞書のアップデートを行なう。
+  "数字自身を見出し語として辞書のアップデートを行なう。"
   (when (and skk-num-recompute-key
 	     (save-match-data (string-match "#4" noconvword)))
     (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
@@ -469,8 +471,8 @@
 
 ;;;###autoload
 (defun skk-num (str)
-  ;; 数字を skk-number-style の値に従い変換する。
-  ;; skk-current-date のサブルーチン。
+  "数字を `skk-number-style' の値に従い変換する。
+`skk-current-date' のサブルーチン。"
   (mapconcat (function
 	      (lambda (c)
 		(cond
