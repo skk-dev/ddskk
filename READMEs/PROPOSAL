@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 1999/09/02 21:48:27 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
-	     $Id: PROPOSAL,v 1.2 1999/09/02 21:48:27 minakaji Exp $
+             $Date: 1999/10/23 15:01:26 $ Mikio Nakajima/$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
+	     $Id: PROPOSAL,v 1.3 1999/10/23 15:01:26 minakaji Exp $
 
 
 $B$3$N%U%!%$%k$K$O!"(BSKK $B%3!<%G%#%s%0$K4X$7!"Cm0U$9$Y$-E@!"E}0l$7$?J}$,NI$$(B
@@ -58,11 +58,11 @@ JAIST ($BKLN&@hC<2J3X5;=QBg3X1!Bg3X(B) $B$N<i2,$5$sC#$K$h$C$F3+H/$5$l$F$$$k(
 APEL (A Portable Emacs Library$B!#0JA0$O(B emu $B$H$7$FCN$i$l$F$$$?(B) $B$K$h$C(B
 $B$F9T$J$o$l$^$9!#(BAPEL $B$O(B
 
-    ftp://ftp.m17n.org/pub/mule/apel/
+    ftp://ftp.jpl.org/pub/elisp/apel/
 
 $B$b$7$/$O!"(B
 
-    ftp://ftp.etl.go.jp/pub/mule/apel/
+    ftp://ftp.m17n.org/pub/mule/apel/
 
 $B$+$i(B get $B$G$-$^$9!#(B
 

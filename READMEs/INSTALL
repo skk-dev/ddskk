@@ -1,15 +1,15 @@
 -*- text -*-
-             $Date: 1999/10/03 14:36:24 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 1999/10/23 14:58:10 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.16 1999/10/03 14:36:24 minakaji Exp $ 
+	     $Id: INSTALL,v 1.17 1999/10/23 14:58:10 minakaji Exp $ 
 
 (1)APEL (A Portable Emacs Library) is required to install SKK.  Please
    make sure you have already installed APEL 9.22 or later.  It is
    available at:
 
-    ftp://ftp.m17n.org/pub/mule/apel/
+    ftp://ftp.jpl.org/pub/elisp/apel/ 
 or
-    ftp://ftp.etl.go.jp/pub/mule/apel/
+    ftp://ftp.m17n.org/pub/mule/apel/
 
 (2)Make sure you have a correctly working version of custom with SKK.
 
@@ -42,7 +42,7 @@ or
       have to do nothing.  After loading tinycustom.el, all
       `defcustom's defined in SKK package will be equal to `defvars'.
 
-(3)Edit SKK-CFG as you like.  Default value to be defined in SKK-MK is 
+(3)Edit SKK-CFG as you like.  Default value to be defined in SKK-MK is
    described and commented.  If you use one of the variable, comment
    out it, and specify your value.  Maybe you need not to edit
    Makefile at all.  All customization can be done in SKK-CFG.
