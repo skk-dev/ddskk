@@ -287,6 +287,7 @@ keycode 131 = underscore\n"))
 ;; Functions.
 
 (defun skk-nicola-setup ()
+  "NICOLA の初期設定をする。"
   ;; SKK の初回起動時のみ実行されるべきものはこの関数に入れる。
   (dolist (key skk-nicola-lshift-keys)
     (define-key skk-j-mode-map
@@ -351,7 +352,7 @@ keycode 131 = underscore\n"))
 
 ;;;###autoload
 (defun skk-nicola-help (&optional arg)
-  ;; キー配列を表示する。
+  "現在使われている親指シフトキー配列を表示する。"
   (interactive "p")
   (describe-variable
    (intern (format "skk-%s-keymap-display"
@@ -359,7 +360,7 @@ keycode 131 = underscore\n"))
 
 ;;;###autoload
 (defun skk-nicola-2nd-help ()
-  ;; skk-nicola.el 独自のキー定義一覧を表示する。
+  "skk-nicola.el 独自のキー定義一覧を表示する。"
   (interactive)
   (skk-kanagaki-help-1
    "* SKK 親指シフト入力 ヘルプ*"
@@ -479,8 +480,8 @@ keycode 131 = underscore\n"))
 
 ;;;###autoload
 (defun skk-nicola-turn-on-j-mode (&optional arg)
-  ;; `skk-latin-mode' において、 左右親指キーの同時打鍵によって
-  ;; `skk-j-mode' に入る。
+  "`skk-latin-mode' において、`skk-j-mode' に入るためのコマンド。
+左右親指キーの同時打鍵を検出した場合に `skk-j-mode' に入る。"
   (interactive "*p")
   (if (skk-sit-for skk-nicola-latin-interval t)
       ;; then
@@ -549,7 +550,7 @@ keycode 131 = underscore\n"))
 
 ;;;###autoload
 (defun skk-nicola-insert (&optional arg)
-  ;; 同時打鍵を認識して、NICOLA かな入力をする。
+  "同時打鍵を認識して、NICOLA かな入力をする。"
   (interactive "*p")
   (let (time1
 	time2
@@ -600,6 +601,7 @@ keycode 131 = underscore\n"))
   nil)
 
 (defun skk-nicola-format-time (time)
+  "`current-time' の返す結果を変換して評価できるようにする。"
   (let ((time1 (* (float 100000)
 		  (car time)))
 	(time2 (cadr time))
@@ -608,6 +610,7 @@ keycode 131 = underscore\n"))
     (+ time1 time2 time3)))
 
 (defun skk-nicola-event-to-key (event)
+  "EVENT を発生するキーを取得する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (let ((char (event-to-character event)))
@@ -646,6 +649,7 @@ keycode 131 = underscore\n"))
 ;;
 ;;   t1=t2ならば、文字キーaと親指キーsが同時打鍵、文字キーbは単独打鍵。
 (defun skk-nicola-treat-triple (first next time1 time2 arg)
+  "3 つの打鍵のうち、どの 2 打鍵が同時打鍵か判定してバッファに挿入する。"
   (let ((period1 (- time2 time1))
 	time3
 	period2
@@ -654,10 +658,10 @@ keycode 131 = underscore\n"))
 	third)
   (cond
    ((skk-sit-for period1 t)
-    ;; 同時打鍵と確定。(< t1 t2)
+    ;; 3 つめの打鍵は制限時間内になかった。同時打鍵と確定。(< t1 t2)
     (skk-nicola-insert-double first next arg))
    (t
-    ;; 更に次の event を調べる。
+    ;; 3 つめの打鍵が制限時間内にあった。その event を調べる。
     (setq period2 (- (setq time3 (skk-nicola-format-time
 				  (current-time)))
 		     time2)
@@ -672,8 +676,8 @@ keycode 131 = underscore\n"))
        ;; 間と `current-time' が返す時間との間にズレが生じること
        ;; もあるので、一応比較しておく)
        (> period1 period2))
-      ;; 前の2打鍵は同時打鍵ではないと確定。
-      ;; 後の2打鍵が同時打鍵かどうかは、更に次の入力を調べないと
+      ;; 前の 2 打鍵は同時打鍵ではないと確定。
+      ;; 後の 2 打鍵が同時打鍵かどうかは、更に次の入力を調べないと
       ;; 確定しない。
       (skk-nicola-insert-single this-command arg)
       (skk-nicola-treat-triple
@@ -683,11 +687,12 @@ keycode 131 = underscore\n"))
        time3
        arg))
      (t
-      ;; 前の2打鍵が同時打鍵と確定。
+      ;; 前の 2 打鍵が同時打鍵と確定。(< t1 t2)
       (skk-nicola-insert-double this-command next arg)
       (skk-unread-event third-event)))))))
 
 (defun skk-nicola-insert-single (command arg)
+  "単独打鍵を処理する。"
   (let ((char last-command-char))
     (case command
       (skk-nicola-self-insert-rshift
@@ -703,6 +708,7 @@ keycode 131 = underscore\n"))
 			       arg)))))
 
 (defun skk-nicola-insert-double (first next arg)
+  "同時打鍵を処理する。"
   (let ((command (cond
 		  ((commandp first)
 		   first)
@@ -853,6 +859,7 @@ keycode 131 = underscore\n"))
 	    skk-nicola-plain-rule))))))))
 
 (defun skk-nicola-double-shift ()
+  "親指右キーと親指左キーの同時打鍵を処理する。"
   (cond
    ((and skk-j-mode
 	 (not skk-katakana))
@@ -862,6 +869,7 @@ keycode 131 = underscore\n"))
   nil)
 
 (defun skk-nicola-maybe-double-p (first next)
+  "FIRST と NEXT が同時打鍵だったら non-nil を返す。"
   (let ((command (cond
 		  ((commandp first)
 		   first)
@@ -903,8 +911,8 @@ keycode 131 = underscore\n"))
 		     skk-nicola-toggle-kana-chars)))))))
 
 (defun skk-nicola-insert-kana (char rule &optional arg)
-  ;; CHAR を RULE の中から探して入力すべき文字列を決定する。
-  ;; ARG を与えられた場合はその数だけ文字列を連結して入力する。
+  "CHAR を RULE の中から探して入力すべき文字列を決定する。
+ARG を与えられた場合はその数だけ文字列を連結して入力する。"
   (let* ((el (cadr (assq char rule)))
 	 (str (when el
 		(cond ((stringp el)
@@ -939,8 +947,7 @@ keycode 131 = underscore\n"))
     str))
 
 (defun skk-nicola-process-okuri ()
-  ;; 送り開始の標識により送り開始点を認識し、
-  ;; 送りあり変換を開始する。
+  "送り開始の標識により送り開始点を認識し、送りあり変換を開始する。"
   (let ((okuri (buffer-substring-no-properties
 		(1+ skk-nicola-okuri-flag)
 		(point)))
@@ -962,9 +969,8 @@ keycode 131 = underscore\n"))
       (skk-kanagaki-set-okurigana tag))))
 
 (defun skk-nicola-set-okuri-flag ()
-  ;; 送り開始点を marker で標識するとともに、
-  ;; `*' を挿入することで送りあり変換の待ち
-  ;; 状態であることを明示する。
+  "送り開始点を marker で標識し、送りあり変換の待ち状態に入る。
+`*' を挿入することで標識する。"
   (interactive)
   (when (eq skk-henkan-mode 'on)
     ;; ▽モードのときだけ機能する。
@@ -979,6 +985,7 @@ keycode 131 = underscore\n"))
 	(insert-and-inherit "*")))))
 
 (defun skk-nicola-space-function (&optional arg)
+  "親指右キー単独打鍵時の挙動を決める関数。"
   (let ((last-command-char ?\ ))
     (cond
      ((eq skk-henkan-mode 'active)
@@ -989,6 +996,7 @@ keycode 131 = underscore\n"))
       (self-insert-command arg)))))
 
 (defun skk-nicola-lshift-function (&optional arg)
+  "親指左キー単独打鍵時の挙動を決める関数。"
   (cond (skk-henkan-mode
 	 ;; 確定に使う。
 	 (skk-kakutei))
@@ -1008,6 +1016,7 @@ keycode 131 = underscore\n"))
 ;; Pieces of Advice.
 
 (defadvice skk-insert (before skk-nicola-update-flag activate)
+  "送り待ち状態を管理する。"
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)
 		     (marker-position
@@ -1015,9 +1024,8 @@ keycode 131 = underscore\n"))
 	    (not (eq skk-henkan-mode 'on)))
     (setq skk-nicola-okuri-flag nil)))
 
-(defadvice skk-kakutei (before skk-nicola-update-flag
-			       activate)
-  ;;
+(defadvice skk-kakutei (before skk-nicola-update-flag activate)
+  "送り待ち状態を管理する。"
   (when (and skk-j-mode
 	     (eq skk-henkan-mode 'on)
 	     (markerp skk-nicola-okuri-flag))
@@ -1029,8 +1037,8 @@ keycode 131 = underscore\n"))
   ;;
   (setq skk-nicola-okuri-flag nil))
 
-(defadvice skk-previous-candidate (before skk-nicola-update-flag
-					  activate)
+(defadvice skk-previous-candidate (before skk-nicola-update-flag activate)
+  "送り待ち状態を管理する。"
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)
 		     (marker-position
@@ -1073,9 +1081,8 @@ keycode 131 = underscore\n"))
      (t
       ad-do-it))))
 
-(defadvice skk-isearch-setup-keymap (before skk-nicola-workaround
-					    activate)
-  ;; 親指キーでサーチが終了してしまわないように。
+(defadvice skk-isearch-setup-keymap (before skk-nicola-workaround activate)
+  "親指キーでサーチが終了してしまわないようにする。"
   (let ((keys (append skk-nicola-lshift-keys
 		      skk-nicola-rshift-keys)))
     (while keys
@@ -1084,9 +1091,8 @@ keycode 131 = underscore\n"))
 	'skk-isearch-wrapper)
       (setq keys (cdr keys)))))
 
-(defadvice isearch-char-to-string (around skk-nicola-workaround
-					  activate)
-  ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
+(defadvice isearch-char-to-string (around skk-nicola-workaround activate)
+  "エラーが出ると検索が中断して使い辛いので、黙らせる。"
   (cond ((and skk-use-kana-keyboard
 	      (featurep 'skk-isearch)
 	      (with-current-buffer
@@ -1100,7 +1106,7 @@ keycode 131 = underscore\n"))
 
 (defadvice isearch-text-char-description (around skk-nicola-workaround
 						 activate)
-  ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
+  "エラーが出ると検索が中断して使い辛いので、黙らせる。"
   (cond ((and skk-use-kana-keyboard
 	      (featurep 'skk-isearch)
 	      (with-current-buffer
@@ -1114,9 +1120,8 @@ keycode 131 = underscore\n"))
 
 (static-when (eq skk-emacs-type 'mule2)
   ;;
-  (defadvice isearch-char-to-string (after skk-nicola-workaround
-					   activate)
-    ;; この関数が日本語をちゃんと扱えないことに対策。
+  (defadvice isearch-char-to-string (after skk-nicola-workaround activate)
+    "この関数が日本語をちゃんと扱えないことに対策。"
     (when (integerp (ad-get-arg 0))
       (setq ad-return-value (skk-char-to-string
 			     (ad-get-arg 0))))))
