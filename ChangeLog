@@ -30,11 +30,11 @@
 
 	* skk-xemacs.el (skk-xemacs-extent-alist): Add default extent.
 	(skk-xemacs-prepare-modeline-properties): Refer to the symbol
-	value of `skk-cursor-%s-face'.
+	values of `skk-cursor-%s-face'.
 
 	* skk.el (skk-make-indicator-alist): Refer to
-	`skk-xemacs-extent-alist' for the defalt extent.
-	(skk-make-indicator-alist-1): Under Emacs 21, Return the
+	`skk-xemacs-extent-alist' for the default extent.
+	(skk-make-indicator-alist-1): Under Emacs 21, return the
 	propertized string.
 
 2000-12-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
@@ -2910,8 +2910,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.216 2000/12/14 10:24:12 czkmt Exp $
-Last Modified: $Date: 2000/12/14 10:24:12 $
+Version: $Id: ChangeLog,v 1.217 2000/12/14 10:25:51 czkmt Exp $
+Last Modified: $Date: 2000/12/14 10:25:51 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
