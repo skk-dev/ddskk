@@ -5,6 +5,9 @@
 
 	(skk-preload): Call `skk-mode' in temporary buffer.
 
+	(skk-adjust-user-option): Set `skk-use-color-cursor' nil when
+	`skk-color-display-p' returns nil.
+
 2002-01-10  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* experimental/skk-dinsert.el : New file.
@@ -3266,8 +3269,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.619 2002/01/11 13:24:32 czkmt Exp $
-Last Modified: $Date: 2002/01/11 13:24:32 $
+Version: $Id: ChangeLog,v 1.620 2002/01/11 13:31:49 czkmt Exp $
+Last Modified: $Date: 2002/01/11 13:31:49 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
