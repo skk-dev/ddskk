@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.17 2001/09/23 12:10:40 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.18 2001/09/23 12:12:57 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 12:10:40 $
+;; Last Modified: $Date: 2001/09/23 12:12:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -121,7 +121,7 @@
 (static-when (eq skk-emacs-type 'xemacs)
   (add-hook 'minibuffer-exit-hook
 	    (lambda ()
-	      (with-current-buffer (nth 1 (buffer-list))
+	      (with-current-buffer (skk-minibuffer-origin)
 		(skk-cursor-set))
 	      (skk-cursor-set skk-cursor-default-color 'force))
 	    'append))
