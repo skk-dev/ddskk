@@ -1,3 +1,8 @@
+2000-12-02  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* Makefile (tar) : Do not use tar 's --exclude-from option.
+	(snapshot): Ditto.
+
 2000-12-01  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk.el (skk-insert): Arrange order of conditions.
@@ -2635,8 +2640,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.193 2000/12/01 09:15:48 minakaji Exp $
-Last Modified: $Date: 2000/12/01 09:15:48 $
+Version: $Id: ChangeLog,v 1.194 2000/12/02 00:35:41 minakaji Exp $
+Last Modified: $Date: 2000/12/02 00:35:41 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
