@@ -1,12 +1,12 @@
 ;;; skk-dbm.el --- SKK dbm interfaces.
-;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dbm.el,v 1.2 2000/10/30 22:22:09 minakaji Exp $
+;; Version: $Id: skk-dbm.el,v 1.3 2000/12/13 10:38:16 minakaji Exp $
 ;; Keywords: japanese, dbm, gdbm
 ;; Created: Jan. 1, 1999
-;; Last Modified: $Date: 2000/10/30 22:22:09 $
+;; Last Modified: $Date: 2000/12/13 10:38:16 $
 
 ;; This file is not part of SKK yet.
 
@@ -49,13 +49,13 @@
 ;;
 ;;    (setq skk-search-prog-list
 ;;         '((skk-search-jisyo-file skk-jisyo 0 t)
-;;   	     (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg) ))
+;;   	     (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg)))
 ;;
 ;; 下記のように設定すると、個人辞書もデータベース化して検索を行なうことができます。
 ;;
 ;;    (setq skk-search-prog-list
 ;;         '((skk-dbm-search-jisyo-database skk-dbm-jisyo)
-;;   	     (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg) ))
+;;   	     (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg)))
 ;;
 ;; pskkserv 添付の makedbmdic で作った辞書では何故か検索できません (XEmacs のデー
 ;; タベース機能がコーディングシステムを無視しているから？)。このファイルの
@@ -68,36 +68,36 @@
 
 ;;; Code:
 (or (featurep 'gdbm) (featurep 'dbm) (featurep 'berkeley-db)
-    (error "You need XEmacs built with --with-database option") )
-(eval-when-compile (require 'skk))
+    (error "You need XEmacs built with --with-database option"))
+(eval-when-compile (require 'skk-macs) (require 'skk-vars))
 
 (defgroup skk-dbm nil "SKK dbm related customization."
   :prefix "skk-dbm-"
-  :group 'skk )
+  :group 'skk)
 
 ;; User variables.
 ;;;###autoload
 (defcustom skk-dbm-jisyo "~/.skk-jisyo.db"
   "*dbm データベース化された個人辞書のファイル名。"
   :type 'file
-  :group 'skk-dbm )
+  :group 'skk-dbm)
 
 ;;;###autoload
 (defcustom skk-dbm-large-jisyo "/usr/local/share/skk/SKK-JISYO.L.db"
   "*dbm データベース化された SKK-JISYO.L のファイル名。"
   :type 'file
-  :group 'skk-dbm )
+  :group 'skk-dbm)
 
 ;;;###autoload
 (defcustom skk-dbm-subtype
   (save-match-data
     (and (or (string-match "\\.db$" skk-dbm-jisyo)
-	     (string-match "\\.db$" skk-dbm-large-jisyo) )
-	 'hash ))
+	     (string-match "\\.db$" skk-dbm-large-jisyo))
+	 'hash))
   "*database 辞書の subtype。 hash, btree, recno のいずれか。
 berkeley-db を使用する場合のみ指定すること。"
   :type '(choice (const hash) (const btree) (const recno) (const nil))
-  :group 'skk-dbm )
+  :group 'skk-dbm)
 
 (and (member '(skk-dbm-search-jisyo-database skk-dbm-jisyo) skk-search-prog-list)
      (setq skk-update-jisyo-function 'skk-dbm-update-jisyo)
@@ -107,14 +107,14 @@ berkeley-db を使用する場合のみ指定すること。"
 	      (if (not quiet)
 		  (progn
 		    (skk-message "SKK データベース辞書を閉じています..."
-				 "Closing SKK database jisyo..." )
-		    (sit-for 1) ))
+				 "Closing SKK database jisyo...")
+		    (sit-for 1)))
 	      (skk-dbm-close-all-database)
 	      (if (not quiet)
 		  (progn
 		    (skk-message "SKK データベース辞書を閉じています...完了!"
-				 "Closing SKK database jisyo...done" )
-		    (sit-for 1) ))))))
+				 "Closing SKK database jisyo...done")
+		    (sit-for 1)))))))
 	
 ;; System constants and variables.
 (defvar skk-dbm-alist nil)
@@ -133,19 +133,19 @@ berkeley-db を使用する場合のみ指定すること。"
 	(midasi
 	 (if skk-use-numeric-conversion
 	     (skk-num-compute-henkan-key skk-henkan-key)
-	   skk-henkan-key ))
+	   skk-henkan-key))
 	(henkan-buffer (current-buffer))
-	string entry-list entry )
+	string entry-list entry)
     (or (and database (databasep database) (database-live-p database))
 	(setq database (skk-dbm-get-jisyo-database dbfile nomsg)
 	      ;; this should do in Emacs internal like Vbuffer_alist of
 	      ;; buffer.c.
-	      skk-dbm-alist (cons (cons dbfile database) skk-dbm-alist) ))
+	      skk-dbm-alist (cons (cons dbfile database) skk-dbm-alist)))
     (skk-dbm-init-working-buffer)
     (with-current-buffer skk-dbm-working-buffer
       ;;(and okurigana
       ;;     (setq okurigana (encode-coding-string
-      ;;                    okurigana skk-dbm-coding-system )))
+      ;;                    okurigana skk-dbm-coding-system)))
       ;;(setq midasi (encode-coding-string midasi skk-dbm-coding-system))
       (setq string (get-database midasi database))
       (if (not string)
@@ -157,14 +157,14 @@ berkeley-db を使用する場合のみ指定すること。"
 	(setq entry-list (skk-compute-henkan-lists okurigana))
 	(setq entry
 	      (cond ((and okurigana skk-henkan-okuri-strictly)
-		     (nth 2 entry-list) )
+		     (nth 2 entry-list))
 		    ((and okurigana skk-henkan-strict-okuri-precedence)
 		     (skk-nunion (nth 2 entry-list) (car entry-list)))
-		    (t (car entry-list)) ))
+		    (t (car entry-list))))
 	(and skk-search-end-function
 	     (setq entry (funcall skk-search-end-function henkan-buffer
-				  midasi okurigana entry )))
-	entry ))))
+				  midasi okurigana entry)))
+	entry))))
 
 (defun skk-dbm-get-jisyo-database (dbfile &optional nomsg)
   ;; Return database object.
@@ -177,58 +177,58 @@ berkeley-db を使用する場合のみ指定すること。"
 	    (setq modes 0600)
 	    (or (file-exists-p dbfile)
 		;; なければ plain text の辞書からデータベース辞書を作成する。
-		(skk-dbm-make-private-jisyo) ))
+		(skk-dbm-make-private-jisyo)))
 	;; 共有辞書
 	(setq modes 0444)
 	(or (file-exists-p dbfile)
 	    ;; なかったらエラーにする。作成するのに時間がかかるものね。
 	    (skk-error "データベース辞書 %s が見つかりません"
-		       "Cannot find out database jisyo %s" dbfile ))
+		       "Cannot find out database jisyo %s" dbfile))
 	(or (file-readable-p dbfile)
 	    (skk-error "データベース辞書 %s が読めません"
-		       "Cannot read database jisyo %s" dbfile )))
+		       "Cannot read database jisyo %s" dbfile)))
       (or nomsg
 	  (skk-message "SKK 辞書データベース %s を開いています..."
 		       "Opening SKK dictionary database %s ..."
-		       (file-name-nondirectory dbfile) ))
+		       (file-name-nondirectory dbfile)))
       (setq skk-dbm-type
 	    (cond
 	     ((and (featurep 'berkeley-db)
-		   (string-match "\\.db$" dbfile) )
-	      'berkeley-db )
+		   (string-match "\\.db$" dbfile))
+	      'berkeley-db)
 	     ((and (featurep 'gdbm)
-		   (string-match "\\.gdbm$" dbfile) )
-	      'gdbm )
+		   (string-match "\\.gdbm$" dbfile))
+	      'gdbm)
 	     ((and (featurep 'dbm)
 		   (not (string-match "\\.db$" dbfile))
-		   (not (string-match "\\.gdbm$" dbfile)) )
-	      'dbm )
+		   (not (string-match "\\.gdbm$" dbfile)))
+	      'dbm)
 	     (t
 	      (skk-error
 	       "データベース辞書を開くための適当なタイプを決めることができません"
-	       "Cannot find out proper type for opening database jisyo" )))
+	       "Cannot find out proper type for opening database jisyo")))
 	    access (if (string= (file-name-nondirectory dbfile)
-				(file-name-nondirectory skk-dbm-jisyo) )
-		       "+rw" "r" ))
+				(file-name-nondirectory skk-dbm-jisyo))
+		       "+rw" "r"))
       (and skk-dbm-subtype (not (eq skk-dbm-type 'berkeley-db))
 	   (skk-error "データベースタイプとサブタイプが矛盾しています"
-		      "Database type and subtype conflicts" ))
+		      "Database type and subtype conflicts"))
       (and (string= access "+rw")
 	   (not (file-writable-p (file-name-directory dbfile)))
 	   (skk-error "%s に書き込み権限がありません"
 		      "You don't have write permission to %s"
-		      (file-name-directory dbfile) ))
+		      (file-name-directory dbfile)))
       (setq database (open-database dbfile skk-dbm-type skk-dbm-subtype access
-				    modes ))
+				    modes))
       (or (databasep database)
 	  (skk-error "SKK 辞書データベース %s を開くことができません"
 		     "Cannot open SKK dictionary database %s"
-		     (file-name-nondirectory dbfile) ))
+		     (file-name-nondirectory dbfile)))
       (or nomsg
 	  (skk-message "SKK 辞書データベース %s を開いています...完了！"
 		       "Opening SKK dictionary database %s ...done"
-		       (file-name-nondirectory dbfile) ))
-      database )))
+		       (file-name-nondirectory dbfile)))
+      database)))
 
 (defun skk-dbm-init-working-buffer ()
   (or (get-buffer skk-dbm-working-buffer)
@@ -239,25 +239,25 @@ berkeley-db を使用する場合のみ指定すること。"
 	(setq buffer-read-only nil
 	      case-fold-search nil
 	      major-mode 'skk-jisyo-mode
-	      mode-name "SKK dbmdic" ))))
+	      mode-name "SKK dbmdic"))))
 
 (defun skk-dbm-update-jisyo (word &optional purge)
   (let* ((database (cdr (assoc (expand-file-name skk-dbm-jisyo) skk-dbm-alist)))
 	 (midasi (if skk-use-numeric-conversion
 		     (skk-num-compute-henkan-key skk-henkan-key)
-		   skk-henkan-key ))
+		   skk-henkan-key))
 	 (old-str (get-database midasi database))
 	 (inhibit-quit t)
 	 (henkan-buffer (current-buffer))
-	 old-entry okurigana )
+	 old-entry okurigana)
     (if (> skk-okuri-index-min -1)
 	(setq word (skk-remove-common word)
-	      midasi skk-henkan-key ))
+	      midasi skk-henkan-key))
     (setq okurigana (or skk-henkan-okurigana skk-okuri-char))
     (with-current-buffer skk-dbm-working-buffer
       (let ((skk-okuri-ari-min (point-min)) ; dymmy
 	    (skk-okuri-nasi-min (point-min)) ; dymmy
-	    buffer-read-only )
+	    buffer-read-only)
 	(setq skk-henkan-key midasi)
 	(erase-buffer)
 	(if (not old-str)
@@ -269,7 +269,7 @@ berkeley-db を使用する場合のみ指定すること。"
 	  ;; ず、文字列 (あるいはリスト) を引数に取って文字列 (あるいはリスト)
 	  ;; を返すような、もっと一般的なライブラリにするべきかな。
 	  (setq old-entry (skk-compute-henkan-lists okurigana))
-	  (erase-buffer) )
+	  (erase-buffer))
 	(skk-update-jisyo-1 okurigana word old-entry purge)
 	(if (> 1 (buffer-size))
 	    nil
@@ -278,10 +278,10 @@ berkeley-db を使用する場合のみ指定すること。"
 	  (put-database
 	   skk-henkan-key
 	   (buffer-substring-no-properties (1- (point)) (point-max))
-	   database 'replace ))
+	   database 'replace))
 	(and skk-update-end-function
 	     (funcall skk-update-end-function
-		      henkan-buffer midasi okurigana word purge ))))))
+		      henkan-buffer midasi okurigana word purge))))))
 
 ;;;###autoload
 (defun skk-dbm-make-jisyo (file dbm &optional type subtype nomsg)
@@ -289,95 +289,95 @@ berkeley-db を使用する場合のみ指定すること。"
     (let ((start (current-time)))
       (or nomsg
 	  (skk-message "SKK データベース辞書を作成しています..."
-		       "Making SKK database jisyo..." ))
+		       "Making SKK database jisyo..."))
       (or type (setq type (cond ((featurep 'berkeley-db) 'berkeley-db)
 				((featurep 'gdbm) 'gdbm)
-				(t 'dbm) )))
+				(t 'dbm))))
       (and subtype (not (eq type 'berkeley-db))
 	   (skk-error
 	    "berkeley-db でないデータベースに subtype を指定することはできません"
-	    "Cannot specify subtype for a non berkeley-db database" ))
+	    "Cannot specify subtype for a non berkeley-db database"))
       (save-excursion
 	(set-buffer (get-buffer-create " *skk-work*"))
 	(let ((dbase (or (open-database (expand-file-name dbm) type subtype "+")
 			 ;; モードを指定すると何故か database を open できない。
-			 ;;0600 )
+			 ;;0600)
 			 (skk-error "データベース %s を開くことができません"
-				    "Cannot open database %s" dbm )))
+				    "Cannot open database %s" dbm)))
 	      enable-character-translation enable-character-unification
-	      midasi cand )
+	      midasi cand)
 	  (and (eq type 'gdbm) (fboundp 'set-database-property)
-	       (set-database-property dbase 'fastmode t) )
+	       (set-database-property dbase 'fastmode t))
 	  (buffer-disable-undo)
 	  (erase-buffer)
 	  ;; coding-system-for-read が undecided や automatic-conversion じゃ文字コー
 	  ;; ド誤判定になってしまう... (on XEmacs 21.2b7)。
 	  (insert-file-contents-as-coding-system 
 	   (cond ((and skk-jisyo-code (coding-system-p skk-jisyo-code))
-		  skk-jisyo-code )
+		  skk-jisyo-code)
 		 ((and skk-jisyo-code (stringp skk-jisyo-code))
-		  (cdr (assoc skk-jisyo-code skk-coding-system-alist)) )
-		 (t skk-dbm-coding-system) )
-	   (expand-file-name file) )
+		  (cdr (assoc skk-jisyo-code skk-coding-system-alist)))
+		 (t skk-dbm-coding-system))
+	   (expand-file-name file))
 	  (goto-char (point-min))
 	  (while (= (forward-line 1) 0)
 	    (beginning-of-line)
 	    (if (or (looking-at ";") (eobp))
 		nil
 	      (setq midasi (buffer-substring-no-properties
-			    (point) (search-forward " ") ))
+			    (point) (search-forward " ")))
 	      (and (string-match " $" midasi)
-		   (setq midasi (substring midasi 0 (match-beginning 0))) )
+		   (setq midasi (substring midasi 0 (match-beginning 0))))
 	      (setq cand (buffer-substring-no-properties
-			  (point) (progn (end-of-line) (point)) ))
-	      (put-database midasi cand dbase 'replace) ))
+			  (point) (progn (end-of-line) (point))))
+	      (put-database midasi cand dbase 'replace)))
 	  (close-database dbase)
 	  (or nomsg
 	      (skk-message "SKK データベース辞書を作成しています...完了！"
-			   "Making SKK database jisyo...done" ))
+			   "Making SKK database jisyo...done"))
 	  (sit-for 1)
 	  (or nomsg
 	      (skk-message "データベース辞書を作成するのに %s 秒かかりました"
 			   "It took %s minutes to make database jisyo"
-			   (skk-time-difference start (current-time)) ))
-	  (sit-for 2) )))))
+			   (skk-time-difference start (current-time))))
+	  (sit-for 2))))))
 
 (defun skk-dbm-make-private-jisyo ()
   (save-match-data
     (let* ((type
 	    (cond
 	     ((and (featurep 'berkeley-db)
-		   (string-match "\\.db$" skk-dbm-jisyo) )
-	      'berkeley-db )
+		   (string-match "\\.db$" skk-dbm-jisyo))
+	      'berkeley-db)
 	     ((and (featurep 'gdbm)
-		   (string-match "\\.gdbm$" skk-dbm-jisyo) )
-	      'gdbm )
+		   (string-match "\\.gdbm$" skk-dbm-jisyo))
+	      'gdbm)
 	     ((and (featurep 'dbm)
 		   (not (string-match "\\.db$" skk-dbm-jisyo))
-		   (not (string-match "\\.gdbm$" skk-dbm-jisyo)) )
-	      'dbm )
+		   (not (string-match "\\.gdbm$" skk-dbm-jisyo)))
+	      'dbm)
 	     (t
 	      (skk-error
 	       "データベース辞書を作成するための適当なタイプを決めることができません"
-	       "Cannot find out proper type for making database jisyo" ))))
-	   (subtype (and (eq type 'berkeley-db) 'hash)) )
-      (skk-dbm-make-jisyo skk-jisyo skk-dbm-jisyo type subtype) )))
+	       "Cannot find out proper type for making database jisyo"))))
+	   (subtype (and (eq type 'berkeley-db) 'hash)))
+      (skk-dbm-make-jisyo skk-jisyo skk-dbm-jisyo type subtype))))
 
 (defun skk-dbm-close-all-database ()
   (let ((alist skk-dbm-alist)
-	e )
+	e)
     (condition-case nil
 	(progn
 	  (while alist
 	    (and (setq e (car alist))
 		 (database-live-p (cdr e))
-		 (close-database  (cdr e)) )
-	    (setq alist (cdr alist)) )
+		 (close-database  (cdr e)))
+	    (setq alist (cdr alist)))
 	  ;; set global alist to nil if successfully finished.
-	  (setq skk-dbm-alist nil) )
+	  (setq skk-dbm-alist nil))
       (error
        ;; if error occurred, delete such element from skk-dbm-alist.
-       (setq skk-dbm-alist (delq e skk-dbm-alist)) ))))
+       (setq skk-dbm-alist (delq e skk-dbm-alist))))))
 
 ;; advices.
 (defadvice close-database (around skk-ad activate)
@@ -385,7 +385,7 @@ berkeley-db を使用する場合のみ指定すること。"
     (prog1
 	ad-do-it
       ;; this should do in Emacs internal.
-      (setq skk-dbm-alist (delq (assoc file skk-dbm-alist) skk-dbm-alist)) )))
+      (setq skk-dbm-alist (delq (assoc file skk-dbm-alist) skk-dbm-alist)))))
 	
 ;;(add-hook 'kill-emacs-hook 'skk-dbm-close-all-database)
 
