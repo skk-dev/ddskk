@@ -12,6 +12,10 @@
 	(when)
 	(unless): New macros.
 
+	* install-info.el
+	(install-info-1): Missing `set-buffer' when the section is
+	`Miscellaneous'
+
 2001-11-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el
@@ -2661,8 +2665,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.515 2001/11/05 13:52:17 czkmt Exp $
-Last Modified: $Date: 2001/11/05 13:52:17 $
+Version: $Id: ChangeLog,v 1.516 2001/11/05 14:10:44 czkmt Exp $
+Last Modified: $Date: 2001/11/05 14:10:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
