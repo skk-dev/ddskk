@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.10 2000/09/13 10:00:47 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.11 2000/09/27 14:02:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/13 10:00:47 $
+;; Last Modified: $Date: 2000/09/27 14:02:40 $
 
 ;; This file is part of SKK.
 
@@ -306,47 +306,55 @@ integer `1' を代入する。
 (defun skk-num-type3-kanji-1 (num)
   ;; skk-num-type3-kanji のサブルーチン。
   (let ((len (length num))
-        modulo char prevchar v)
+	(i 0)
+        char v num1 v1)
     ;; 「千京」までは出力する。
     (when (> len 20) (skk-error "位が大きすぎます！" "Too big number!"))
     (setq num (append num nil))
-    (while (setq char (car num))
-      ;; 位:     一    十     百    千    万   十万   百万    千万     億
-      ;; modulo: 1 --> 2 --> 3 --> 0 -> 1 --> 2 ---> 3 ---> 0 ---> 1
-      ;; len:    1     2     3     4    5     6      7      8      9
-      (setq modulo (mod len 4))
-      (if (= len 1)
-	  ;; 一の位で 0 でない数。
-	  (unless (eq char ?0)
+    (cond
+     ((<= len 4)
+      (while (setq char (car num))
+	;; 位:   一  十  百  千
+	;; len:   1   2   3   4
+	(if (= len 1)
 	    ;; 位を表わす漢数字以外の漢数字。
+	    (unless (eq char ?0)
+	    ;; 一の位で 0 でない数。
+	      (setq v (concat v (cdr (assq char skk-num-alist-type2)))))
+	  ;; 位を表わす漢数字以外の漢数字。
+	  (unless (memq char '(?0 ?1))
+	    ;; 十の位以上で、かつ 0, 1 以外の数字。
 	    (setq v (concat v (cdr (assq char skk-num-alist-type2)))))
-	;; 位を表わす漢数字以外の漢数字。
-	(when (or
-	       ;; 十の位以上で、かつ 0, 1 以外の数字。
-	       (null (memq char '(?0 ?1)))
-	       ;; 十の位以上の 1 で、この位が、位を表わす漢数字に "一" を
-	       ;; 併記すべき (例えば、"一億" など。"億" ではおかしい) とき。
-	       (and (eq char ?1) (= modulo 1)))
-	  (setq v (concat v (cdr (assq char skk-num-alist-type2)))))
-	;; 位を表わす漢数字。
-	(if (and (eq char ?0) (not (= modulo 1)))
-	    nil
-	  (when (memq modulo '(2 3 0))
-	    (setq v (concat v (cdr (assq modulo '((2 . "十") (3 . "百") (0 . "千")))))))
-	  ;; 「十万」以上の位でその後も 0 が続くとき。
-	  (when (> len 5)
-	    (cond ((and (= modulo 2) (eq (nth 1 num) ?0))
-		   (setq num (cdr num) len (1- len) char (nth 1 num)))
-		  ((and (= modulo 3) (eq (nth 1 num) ?0) (eq (nth 2 num) ?0))
-		   (setq num (nthcdr 2 num) len (- len 2) char (nth 2 num)))
-		  ((and (= modulo 0) (eq (nth 1 num) ?0) (eq (nth 2 num) ?0)
-			(eq (nth 3 num) ?0))
-		   (setq num (nthcdr 3 num) len (- len 3) char (nth 3 num)))))
-	  (when (and (memq len '(5 9 13 17)) (not (eq prevchar ?0)))
-	    (setq v (concat
-		     v
-		     (cdr (assq len '((5 . "万") (9 . "億") (13 . "兆") (17 . "京")))))))))
-      (setq len (1- len) prevchar char num (cdr num)))
+	  ;; 位を表わす漢数字。
+	  (when (and (not (eq char ?0)) (memq len '(2 3 4)))
+	    (setq v
+		  (concat
+		   v
+		   (cdr (assq len '((2 . "十") (3 . "百") (4 . "千"))))))))
+	(setq len (1- len) num (cdr num))))
+     (t
+      (setq num (nreverse num))
+      (while num
+	(setq num1 nil)
+	(while (and (< (length num1) 4) num)
+	  (setq num1 (cons (car num) num1)
+		num (cdr num)))
+	(when num1
+	  (setq v1 (skk-num-type3-kanji-1 num1))
+	  (when (and (eq i 1) (equal v1 "千"))
+	    ;; 日本語では「千億」という表現はときに使われるが、「千万」という表
+	    ;; 現はまず使われないので、「一千万」に直す。
+	    (setq v1 (concat "一" v1)))
+	  (setq
+	   v
+	   (concat
+	    v1
+	    (when v1
+	      (cdr
+	       (assq
+		i '((0 . "") (1 . "万") (2 . "億") (3 . "兆") (4 . "京")))))
+	    v)))
+	(setq i (1+ i)))))
     v))
 
 (defun skk-num-type5-kanji (num)
@@ -361,36 +369,45 @@ integer `1' を代入する。
 (defun skk-num-type5-kanji-1 (num)
   ;; skk-num-type5-kanji のサブルーチン。
   (let ((len (length num))
-        modulo char prevchar v)
+	(i 0)
+         char v num1 v1)
     ;; 「千京」までは出力する。
     (when (> len 20) (skk-error "位が大きすぎます！" "Too big number!"))
     (setq num (append num nil))
-    (while (setq char (car num))
-      (setq modulo (mod len 4))
-      (if (= len 1)
-	  (unless (eq char ?0)
-	    (setq v (concat v (cdr (assq char skk-num-alist-type5)))))
-	;; 位を表わす漢数字以外の漢数字。
-	(setq v (concat v (cdr (assq char skk-num-alist-type5))))
-	;; 位を表わす漢数字。
-	(if (and (eq char ?0) (not (= modulo 1)))
-	    nil
-	  (when (memq modulo '(2 3 0))
-	    (setq v (concat v (cdr (assq modulo '((2 . "拾") (3 . "百") (0 . "阡")))))))
-	  ;; 「十万」以上の位でその後も 0 が続くとき。
-	  (when (> len 5)
-	    (cond ((and (= modulo 2) (eq (nth 1 num) ?0))
-		   (setq num (cdr num) len (1- len) char (nth 1 num)))
-		  ((and (= modulo 3) (eq (nth 1 num) ?0) (eq (nth 2 num) ?0))
-		   (setq num (nthcdr 2 num) len (- len 2) char (nth 2 num)))
-		  ((and (= modulo 0) (eq (nth 1 num) ?0) (eq (nth 2 num) ?0)
-			(eq (nth 3 num) ?0))
-		   (setq num (nthcdr 3 num) len (- len 3) char (nth 3 num)))))
-	  (when (and (memq len '(5 9 13 17)) (not (eq prevchar ?0)))
-	    (setq v (concat
-		     v
-		     (cdr (assq len '((5 . "萬") (9 . "億") (13 . "兆") (17 . "京")))))))))
-      (setq len (1- len) prevchar char num (cdr num)))
+    (cond
+     ((<= len 4)
+      (while (setq char (car num))
+	(if (= len 1)
+	    (unless (eq char ?0)
+	      (setq v (concat v (cdr (assq char skk-num-alist-type5)))))
+	  ;; 位を表わす漢数字以外の漢数字。
+	  (setq v (concat v (cdr (assq char skk-num-alist-type5))))
+	  ;; 位を表わす漢数字。
+	  (when (and (not (eq char ?0)) (memq len '(2 3 4)))
+	    (setq v
+		  (concat
+		   v
+		   (cdr (assq len '((2 . "拾") (3 . "百") (4 . "阡"))))))))
+	(setq len (1- len) num (cdr num))))
+     (t
+      (setq num (nreverse num))
+      (while num
+	(setq num1 nil)
+	(while (and (< (length num1) 4) num)
+	  (setq num1 (cons (car num) num1)
+		num (cdr num)))
+	(when num1
+	  (setq v1 (skk-num-type5-kanji-1 num1))
+	  (setq
+	   v
+	   (concat
+	    v1
+	    (when v1
+	      (cdr
+	       (assq
+		i '((0 . "") (1 . "萬") (2 . "億") (3 . "兆") (4 . "京")))))
+	    v)))
+	(setq i (1+ i)))))
     v))
 
 (defun skk-num-shogi (num)
