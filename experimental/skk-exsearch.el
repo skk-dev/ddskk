@@ -1,11 +1,11 @@
 ;;; skk-exsearch.el --- 外部検索プログラム共用 interface
-;; Copyright (C) 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-exsearch.el,v 1.3 2000/12/28 12:11:12 minakaji Exp $
+;; Version: $Id: skk-exsearch.el,v 1.4 2001/02/03 00:22:59 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/28 12:11:12 $
+;; Last Modified: $Date: 2001/02/03 00:22:59 $
 
 ;; This file is part of Daredevil SKK.
 

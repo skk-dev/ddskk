@@ -1,11 +1,11 @@
 -- stroke.sql
 --
--- Copyright (C) 1998 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+-- Copyright (C) 1998 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 --
--- Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+-- Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 -- Created: Sep 1, 1998
--- Last Modified: $Date: 1999/11/07 03:10:21 $
--- Version: $Id: stroke.sql,v 1.1 1999/11/07 03:10:21 minakaji Exp $
+-- Last Modified: $Date: 2001/02/03 00:23:00 $
+-- Version: $Id: stroke.sql,v 1.2 2001/02/03 00:23:00 minakaji Exp $
 --
 -- This file is not part of SKK yet.
 --

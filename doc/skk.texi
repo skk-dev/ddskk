@@ -5,15 +5,15 @@
 @c 
 @c  Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
-@c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
+@c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.68 2000/11/25 20:26:04 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.69 2001/02/03 00:22:59 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/11/25 20:26:04 $
+@c  Last Modified: $Date: 2001/02/03 00:22:59 $
 @c
 @set EDITION 1.6
 @set SKK-VERSION 11.4
-@set UPDATED $Date: 2000/11/25 20:26:04 $
+@set UPDATED $Date: 2001/02/03 00:22:59 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -79,7 +79,7 @@ by the author.
 @vskip 0pt plus 1filll
 Copyright @copyright{}1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
 1999, 2000 @w{Masahiko Sato}(佐藤雅彦), @*
-@w{Yukiyoshi Kameyama}(亀山幸義) and @w{Mikio Nakajima}(中島幹夫).
+@w{Yukiyoshi Kameyama}(亀山幸義) and @w{NAKAJIMA Mikio}(中島幹夫).
 Revised by @w{Kiyotaka Sakai}(酒井清隆) and @w{Satoshi Harauchi}(原内聡).
 
 Permission is granted to make and distribute verbatim copies of

@@ -1,12 +1,9 @@
 -*- outline -*-
 
-             $Date: 2000/12/30 08:52:09 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-	     $Id: CVS_digest,v 1.6 2000/12/30 08:52:09 minakaji Exp $
+             $Date: 2001/02/03 00:22:59 $
+	     $Id: CVS_digest,v 1.7 2001/02/03 00:22:59 minakaji Exp $
 
 [CVS ダイジェスト]
-
-自分の理解を助けるために書いたものです。間違いのご指摘、簡便なやり方が
-他にあるなどの情報をいただければ幸いです。
 
 * cvs repository tree
 

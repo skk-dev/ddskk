@@ -1,11 +1,11 @@
 ;;; skk-kakasi.el --- KAKASI 関連プログラム
-;; Copyright (C) 1996, 1998, 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1996, 1998, 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.9 2000/11/20 08:55:40 czkmt Exp $
+;; Version: $Id: skk-kakasi.el,v 1.10 2001/02/03 00:22:58 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:40 $
+;; Last Modified: $Date: 2001/02/03 00:22:58 $
 
 ;; This file is part of Daredevil SKK.
 

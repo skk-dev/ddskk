@@ -1,11 +1,11 @@
 ;;; skk-correct.el --- correct key word for conversion.
-;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-correct.el,v 1.2 2000/10/30 22:18:14 minakaji Exp $
+;; Version: $Id: skk-correct.el,v 1.3 2001/02/03 00:22:59 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:18:14 $
+;; Last Modified: $Date: 2001/02/03 00:22:59 $
 
 ;; This file is part of Daredevil SKK.
 

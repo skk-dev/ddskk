@@ -1,12 +1,12 @@
 ;;; -*-Emacs-Lisp-*-
 
 ;; SKK-CFG: user configuration file for SKK installation.
-;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.13 2000/11/19 01:20:36 minakaji Exp $
-;; Last Modified: $Date: 2000/11/19 01:20:36 $
+;; Version: $Id: SKK-CFG,v 1.14 2001/02/03 00:22:58 minakaji Exp $
+;; Last Modified: $Date: 2001/02/03 00:22:58 $
 
 ;;; Commentary:
 

@@ -1,11 +1,11 @@
 # dicconv.awk -- SKK 辞書をリレーショナルデータベースのテーブルに登録しやすい形に変換する awk スクリプト。
 #
-# Copyright (C) 1998 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+# Copyright (C) 1998 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 #
-# Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+# Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 # Created: Apr 18, 1998
-# Last Modified: $Date: 1999/11/07 03:09:39 $
-# Version: $Id: dicconv.awk,v 1.1 1999/11/07 03:09:39 minakaji Exp $
+# Last Modified: $Date: 2001/02/03 00:22:59 $
+# Version: $Id: dicconv.awk,v 1.2 2001/02/03 00:22:59 minakaji Exp $
 # This file is not part of SKK yet.
 
 # SKK is free software; you can redistribute it and/or modify

@@ -1,11 +1,11 @@
 ;;; skk-rdbms.el --- SKK Relational Data Base Management System.
-;; Copyright (C) 1998, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1998, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-rdbms.el,v 1.4 2000/12/13 10:38:35 minakaji Exp $
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Version: $Id: skk-rdbms.el,v 1.5 2001/02/03 00:22:59 minakaji Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2000/12/13 10:38:35 $
+;; Last Modified: $Date: 2001/02/03 00:22:59 $
 
 ;; This file is not part of SKK yet.
 

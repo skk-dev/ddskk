@@ -1,12 +1,12 @@
 ;;; skk-lookup.el --- SKK lookup gateway
-;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.7 2001/02/02 23:46:29 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.8 2001/02/03 00:22:58 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/02/02 23:46:29 $
+;; Last Modified: $Date: 2001/02/03 00:22:58 $
 
 ;; This file is part of Daredevil SKK.
 

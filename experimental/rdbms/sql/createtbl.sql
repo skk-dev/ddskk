@@ -1,9 +1,9 @@
 -- createtbl.sql
 -- Create private_jisyo table from an expanded format of SKK private dictionary.
 --
--- Mikio Nakajima <minakaji@osaka.email.ne.jp>
--- $Date: 1999/11/07 03:10:13 $:
--- Version: $Id: createtbl.sql,v 1.1 1999/11/07 03:10:13 minakaji Exp $
+-- NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+-- $Date: 2001/02/03 00:23:00 $:
+-- Version: $Id: createtbl.sql,v 1.2 2001/02/03 00:23:00 minakaji Exp $
 -- 
 -- 
 --      % nkf -e ~/.skk-jisyo | gawk -f ./awk/dicconv.awk  - > ./tmp/private.txt

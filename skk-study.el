@@ -1,12 +1,12 @@
 ;;; skk-study.el --- SKK 学習効果提供プログラム
-;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.23 2000/10/30 22:18:16 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.24 2001/02/03 00:22:59 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2000/10/30 22:18:16 $
+;; Last Modified: $Date: 2001/02/03 00:22:59 $
 
 ;; This file is part of Daredevil SKK.
 

@@ -1,12 +1,12 @@
 ;;; skk-dbm.el --- SKK dbm interfaces.
-;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dbm.el,v 1.3 2000/12/13 10:38:16 minakaji Exp $
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Version: $Id: skk-dbm.el,v 1.4 2001/02/03 00:22:59 minakaji Exp $
 ;; Keywords: japanese, dbm, gdbm
 ;; Created: Jan. 1, 1999
-;; Last Modified: $Date: 2000/12/13 10:38:16 $
+;; Last Modified: $Date: 2001/02/03 00:22:59 $
 
 ;; This file is not part of SKK yet.
 

@@ -1,11 +1,11 @@
 ;;; skk-def.el --- SKK default definition.
-;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-def.el,v 1.1 2000/12/12 08:59:42 minakaji Exp $
+;; Version: $Id: skk-def.el,v 1.2 2001/02/03 00:23:00 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/12 08:59:42 $
+;; Last Modified: $Date: 2001/02/03 00:23:00 $
 
 ;; This file is part of Daredevil SKK.
 

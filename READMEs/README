@@ -1,6 +1,6 @@
 -*- text -*-
-             $Date: 2000/10/30 22:14:11 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-	     $Id: README,v 1.4 2000/10/30 22:14:11 minakaji Exp $
+             $Date: 2001/02/03 00:22:59 $
+	     $Id: README,v 1.5 2001/02/03 00:22:59 minakaji Exp $
 
 Daredevil SKK is a branch of SKK (Simple Kana to Kanji conversion
 program, an input method of Japanese).  It forked from the maintrunk,
@@ -35,5 +35,4 @@ Thank you.
 <Post>
   To: skk@ring.gr.jp
 
-Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-http://www.asahi-net.or.jp/~gy2m-nkjm/
+[end of README]

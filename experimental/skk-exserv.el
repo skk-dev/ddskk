@@ -2,13 +2,13 @@
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996,
 ;;               1997, 1998, 1999, 2000
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-exserv.el,v 1.2 2000/10/30 22:18:15 minakaji Exp $
+;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Version: $Id: skk-exserv.el,v 1.3 2001/02/03 00:22:59 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:18:15 $
+;; Last Modified: $Date: 2001/02/03 00:22:59 $
 
 ;; This file is part of Daredevil SKK.
 
