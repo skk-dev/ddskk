@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.288 2005/02/24 07:33:06 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.289 2005/02/27 23:43:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/02/24 07:33:06 $
+;; Last Modified: $Date: 2005/02/27 23:43:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2603,8 +2603,8 @@ WORD で確定する。"
 	 (cond
 	  ((and (not sokuon)
 		(skk-get-prefix skk-current-rule-tree)
-		(memq last-command-char '(?A ?I ?U ?E ?O))
-		(= (char-before) (string-to-char skk-prefix)))
+		normal
+		(eq (char-before) (string-to-char skk-prefix)))
 	   ;; SKK の仕様にない例外の処理。
 	   ;; 例えば，ユーザが 「歩く」を挿入したくて "AruKu" と打つべき
 	   ;; ところを "ArukU" と打ってしまった場合。この場合 SKK 側で
@@ -2613,7 +2613,8 @@ WORD で確定する。"
 	   (setq skk-okuri-char nil
 		 skk-okurigana nil
 		 last-command-char last-char
-		 normal nil)
+		 normal nil
+		 skk-dcomp-activate nil)
 	   (skk-kana-input arg)
 	   (skk-set-char-before-as-okurigana))
 	  (t
