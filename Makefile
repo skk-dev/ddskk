@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.10 1999/09/25 10:52:04 minakaji Exp $
-# Last Modified: $Date: 1999/09/25 10:52:04 $
+# Version: $Id: Makefile,v 1.11 1999/09/25 11:54:02 minakaji Exp $
+# Last Modified: $Date: 1999/09/25 11:54:02 $
 
 VERSION = 10.54
 
@@ -14,13 +14,6 @@ CHMOD   = /bin/chmod
 EMACS	= emacs
 XEMACS	= xemacs
 FLAGS   = -batch -q -no-site-file -l SKK-MK
-
-# When some value other than `NONE' is defined, overwrite variables
-# defined in SKK-MK and SKK-CFG.  You can specify in SKK-CFG, too.
-#PREFIX = NONE
-#LISPDIR = NONE
-#PACKAGEDIR = NONE
-#VERSION_SPECIFIC_LISPDIR = NONE
 
 elc:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile
