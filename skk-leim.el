@@ -5,9 +5,9 @@
 
 ;; Author: Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-leim.el,v 1.13 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-leim.el,v 1.14 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,7 +27,10 @@
 ;; MA 02111-1307, USA.
 
 ;;; Code:
-(eval-when-compile (require 'skk-macs) (require 'skk-vars))
+
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars))
 
 ;;;###autoload
 (defun skk-activate (&optional name)

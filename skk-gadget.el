@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.26 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.27 2001/11/18 16:28:10 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:28:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,7 +27,7 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-;;
+
 ;; プログラム実行変換とは
 ;; ======================
 ;; 送り仮名のない辞書の変換の候補に Emacs Lisp のコードが書いてあれば、SKK
@@ -50,6 +50,7 @@
 ;; から作られた造語らしい。
 
 ;;; Code:
+
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars)

@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.12 2001/11/17 05:40:17 czkmt Exp $
+;; Version: $Id: skk-version.el,v 1.13 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:17 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This file is part of Daredevil SKK.
 ;;
@@ -26,10 +26,11 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
+
 ;; This is a copy of elmo-version.el and wl-version.el...
 
 ;;; Code:
-;;
+
 (require 'product)
 (provide 'skk-version) ; have to declare in the top.
 

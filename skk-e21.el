@@ -179,4 +179,4 @@
     (provide 'skk-e21)
   (require 'skk-version))
 
-;; skk-e21.el ends here
+;;; skk-e21.el ends here

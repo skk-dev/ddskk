@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.5 2001/11/16 02:30:25 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.6 2001/11/18 16:28:10 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/11/16 02:30:25 $
+;; Last Modified: $Date: 2001/11/18 16:28:10 $
 
 ;; This program is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -23,12 +23,14 @@
 ;; Foundation Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 ;;; Commentary:
+
 ;; Buffer local frame parameters
 ;; --- cursor, foreground, background
 ;; --- TODO: support other frame parameters
 ;;           should use uni prefix for functions and variables?
 
 ;;; Code:
+
 (eval-when-compile
   (require 'advice)
   (require 'poe)
@@ -87,7 +89,7 @@
 (put 'ccc-defadvice 'lisp-indent-function 'defun)
 (def-edebug-spec ccc-defadvice defadvice)
 
-;;; functions.
+;; functions.
 ;;;###autoload
 (defun update-buffer-local-frame-params ()
   (update-buffer-local-cursor-color)
@@ -178,7 +180,7 @@
       (error
        (setq buffer-local-background-color nil)))))
 
-;;; internal variables.
+;; internal variables.
 (defvar buffer-local-cursor-color-default
   (buffer-local-cursor-color-default))
 (defvar buffer-local-cursor-color
@@ -197,7 +199,7 @@
   (buffer-local-background-color-default))
 (make-variable-buffer-local 'buffer-local-background-color)
 
-;;; advices.
+;; advices.
 (let ((funcs '(
 	       ;; cover to original Emacs functions.
 	       ;; subr, but no argument.
@@ -243,7 +245,7 @@
 	  (update-buffer-local-frame-params)))))
     (setq funcs (cdr funcs))))
 
-;;; Hooks
+;; Hooks
 (add-hook 'isearch-mode-end-hook 'update-buffer-local-frame-params 'append)
 (add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params 'append)
 (add-hook 'minibuffer-exit-hook
@@ -252,6 +254,5 @@
 	      (update-buffer-local-frame-params))) 'append)
 
 (provide 'ccc)
-;;; Local Variables:
-;;; End:
+
 ;;; ccc.el ends here

@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.31 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.32 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,6 +27,7 @@
 ;; 02111-1307, USA.
 
 ;;; Commentary:
+
 ;; functions for hooks.
 ;;
 ;; 1. always invoke skk isearch.
@@ -54,6 +55,7 @@
 ;; skk-mode.
 
 ;;; Code:
+
 (eval-when-compile
   (require 'cl)
   (require 'skk-macs)

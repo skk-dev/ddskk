@@ -76,4 +76,4 @@ Small dictionary for SKK.")
     (provide 'skk-dic)
   (require 'skk-version))
 
-;; skk-dic.el ends here
+;;; skk-dic.el ends here

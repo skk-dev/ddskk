@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-abbrev.el,v 1.9 2001/11/17 05:40:15 czkmt Exp $
+;; Version: $Id: skk-abbrev.el,v 1.10 2001/11/18 16:28:10 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 23, 1999
-;; Last Modified: $Date: 2001/11/17 05:40:15 $
+;; Last Modified: $Date: 2001/11/18 16:28:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,7 +27,7 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary
-;;
+
 ;; <how to install>
 ;;   下記のフォームを .emacs か .skk に書いて下さい。skk-search-prog-list に
 ;; ついては、全部を写す必要はありません。(skk-abbrev-search) を含むように指定し
@@ -54,6 +54,7 @@
 ;;    の方が先に検索されます。
 
 ;;; Code:
+
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars)
@@ -106,4 +107,4 @@
     (provide 'skk-abbrev)
   (require 'skk-version))
 
-;; skk-abbrev.el ends here
+;;; skk-abbrev.el ends here

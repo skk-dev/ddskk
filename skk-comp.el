@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.31 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.32 2001/11/18 16:28:10 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:28:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,9 +28,11 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
+
 ;; ▽さ (TAB) -> ▽さとう (.) -> ▽さいとう (,) -> ▽さとう(.) -> ▽さいとう
 
 ;;; Code:
+
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars))

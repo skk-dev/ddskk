@@ -4,9 +4,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.6 2001/11/17 05:40:17 czkmt Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.7 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:17 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,7 +28,10 @@
 ;;; Commentary:
 
 ;;; Code:
-(eval-when-compile (require 'skk) (require 'skk-tutcode))
+
+(eval-when-compile
+  (require 'skk)
+  (require 'skk-tutcode))
 
 (define-key skk-j-mode-map "\C-l" 'skk-latin-mode)
 (setq skk-try-completion-char ?\016)	; \C-n

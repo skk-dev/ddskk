@@ -94,4 +94,4 @@
     (provide 'skk-jisyo-edit)
   (require 'skk-version))
 
-;; skk-jisyo-edit.el ends here
+;;; skk-jisyo-edit.el ends here

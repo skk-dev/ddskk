@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.21 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-lookup.el,v 1.22 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,7 +27,7 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary
-;;
+
 ;; Keisuke Nishida <kxn30@po.cwru.edu> さんの作られた辞書検索ツール
 ;; Lookup と SKK との gateway を行ない、Lookup で検索できる辞書を使っ
 ;; て候補を出力するプログラムです。
@@ -111,6 +111,7 @@
 ;; んに深く感謝いたします。
 
 ;;; Code:
+
 (eval-when-compile
   (require 'cl)
   (require 'skk-macs)

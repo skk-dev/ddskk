@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.13 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.14 2001/11/18 16:28:10 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:28:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -25,9 +25,9 @@
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to the
 ;; Free Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 ;; MA 02111-1307, USA.
-;;
+
 ;;; Commentary:
-;;
+
 ;; これは、SKK 個人辞書に付けたアノテーション (註釈) を活用するプログ
 ;; ラムです。
 ;;
@@ -128,8 +128,9 @@
 ;;
 ;; Viper 対策はまだ行なっていません。~/.viper に次のように書いて下さい。
 ;; (viper-harness-minor-mode "skk-annotation")
-;;
+
 ;;; Code:
+
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars)

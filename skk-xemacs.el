@@ -255,4 +255,4 @@
     (provide 'skk-xemacs)
   (require 'skk-version))
 
-;; skk-xemacs.el ends here
+;;; skk-xemacs.el ends here

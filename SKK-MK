@@ -4,11 +4,11 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.105 2001/11/18 11:31:40 czkmt Exp $
-;; Last Modified: $Date: 2001/11/18 11:31:40 $
+;; Version: $Id: SKK-MK,v 1.106 2001/11/18 16:28:10 czkmt Exp $
+;; Last Modified: $Date: 2001/11/18 16:28:10 $
 
 ;; Commentary
-;;
+
 ;; Those values of variables below are default configurations.
 ;; If you would like to change some of those, you should edit SKK-CFG.
 ;;

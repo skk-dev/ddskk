@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.24 2001/11/17 05:40:17 czkmt Exp $
+;; Version: $Id: skk-viper.el,v 1.25 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:17 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -31,6 +31,7 @@
 ;;; Commentary:
 
 ;;; Code:
+
 (eval-when-compile
   (require 'static)
   (require 'skk-macs)

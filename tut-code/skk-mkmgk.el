@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-mkmgk.el,v 1.9 2001/11/17 05:40:17 czkmt Exp $
+;; Version: $Id: skk-mkmgk.el,v 1.10 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:17 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -26,7 +26,7 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary
-;;
+
 ;; M-x skk-make-mazegaki-dic して出力された辞書 (下記の例では TMP) を
 ;;
 ;;   $ skkdic-expr TMP | skkdic-sort > NEWDICT
@@ -45,6 +45,7 @@
 ;; - くさり /鎖/ → く鎖り /鎖/                      (訓読みの一部の文字が音読みの文字と同一) ditto...
 
 ;;; Code:
+
 (eval-when-compile (require 'skk-macs))
 (require 'skk)
 
@@ -275,4 +276,4 @@
     (provide 'skk-mkmgk)
   (require 'skk-version))
 
-;; skk-mkmgk.el ends here
+;;; skk-mkmgk.el ends here

@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.18 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-dcomp.el,v 1.19 2001/11/18 16:28:10 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:28:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -26,7 +26,7 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary
-;;
+
 ;; これは▽モードにおける見出し語の入力を、自動的にダイナミックにコンプ
 ;; リーションするプログラムです。
 ;;
@@ -98,8 +98,9 @@
 ;; 見出し語から再度コンプリーションを行ないます。
 ;;
 ;;   (Ho) ▽ほ -> ▽ほ-!-んとう (ka) -> ▽ほか-!-ん (BS) -> ▽ほ-!-んとう
-;;
+
 ;;; Code:
+
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars))

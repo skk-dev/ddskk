@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-def.el,v 1.4 2001/11/17 05:40:17 czkmt Exp $
+;; Version: $Id: skk-def.el,v 1.5 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:17 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -31,6 +31,7 @@
 ;; Following people contributed modifications to skk.el (Alphabetical order):
 
 ;;; Code:
+
 (setq skk-start-henkan-char ?\040)
 
 (setq skk-rom-kana-base-rule-list

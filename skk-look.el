@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.19 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-look.el,v 1.20 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -26,7 +26,7 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-;;
+
 ;; <How to work>
 ;; .skk か .emacs で `skk-use-look' を t にセットしてこれを評価して下さい。その
 ;; 後 skk-mode を立ち上げるか、M-x skk-restart すると、 下記のような芸当が可能
@@ -111,6 +111,7 @@
 ;; できました。難波さんに感謝いたします。
 
 ;;; Code:
+
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars)

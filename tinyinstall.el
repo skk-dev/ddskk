@@ -6,8 +6,8 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.8 2001/11/16 01:17:15 czkmt Exp $
-;; Last Modified: $Date: 2001/11/16 01:17:15 $
+;; Version: $Id: tinyinstall.el,v 1.9 2001/11/18 16:28:11 czkmt Exp $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -101,4 +101,4 @@ subdirectory under load-path.")
 
 (provide 'tinyinstall)
 
-;; tinyinstall.el ends here
+;;; tinyinstall.el ends here

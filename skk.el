@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.188 2001/11/17 05:40:17 czkmt Exp $
+;; Version: $Id: skk.el,v 1.189 2001/11/18 16:28:11 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:17 $
+;; Last Modified: $Date: 2001/11/18 16:28:11 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -47,6 +47,7 @@
 ;;   KATAKANA
 
 ;;; Code:
+
 (eval-when-compile ; shut up compiler warning.
   (defvar enable-character-translation)
   (defvar enable-character-unification)
