@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.49 2001/09/06 21:28:44 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.50 2001/09/06 21:31:39 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/06 21:28:44 $
+;; Last Modified: $Date: 2001/09/06 21:31:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2518,6 +2518,7 @@ This map should be derived from isearch-mode-map.")
 ;;; -- SKK-JISX0201.EL related internal constants and variables.
 (defvar skk-jisx0201-base-rule-tree nil)
 (defvar skk-jisx0201-roman-rule-tree nil)
+(defvar skk-jisx0201-orig-rule-tree nil)
 (skk-deflocalvar skk-jisx0201-roman nil)
 
 (skk-deflocalvar skk-jisx0201-mode nil

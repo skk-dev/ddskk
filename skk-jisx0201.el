@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.13 2001/09/06 21:25:35 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.14 2001/09/06 21:31:39 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/06 21:25:35 $
+;; Last Modified: $Date: 2001/09/06 21:31:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -212,13 +212,13 @@
  'minor-mode-map-alist
  (list (cons 'skk-jisx0201-mode skk-j-mode-map)))
 
-(defconst skk-jisx0201-base-rule-tree
-  (skk-compile-rule-list skk-jisx0201-base-rule-list
-			 skk-jisx0201-rule-list))
-(defconst skk-jisx0201-roman-rule-tree
-  (skk-compile-rule-list skk-jisx0201-roman-rule-list))
+(setq skk-jisx0201-base-rule-tree
+      (skk-compile-rule-list skk-jisx0201-base-rule-list
+			     skk-jisx0201-rule-list))
+(setq skk-jisx0201-roman-rule-tree
+      (skk-compile-rule-list skk-jisx0201-roman-rule-list))
 
-(defconst skk-jisx0201-orig-rule-tree skk-rule-tree)
+(setq skk-jisx0201-orig-rule-tree skk-rule-tree)
 
 ;; inline functions.
 (defsubst skk-jisx0201-mode-on (&optional arg)
