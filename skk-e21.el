@@ -73,23 +73,21 @@
       ["Visit Daredevil SKK Home..." skk-e21-visit-openlab t])))
 
 (defvar skk-e21-modeline-property
-  (if window-system
-      (list 'local-map (static-if
-			   (fboundp
-			    'make-mode-line-mouse-map)
-			   (make-mode-line-mouse-map
-			    'mouse-2 #'skk-e21-modeline-menu)
-			 (make-mode-line-mouse2-map
-			  #'skk-e21-modeline-menu))
-	    'help-echo
-	    "マウスの button 2 -> Daredevil SKK のメニュ−")
-    nil))
+  (when window-system
+    (list 'local-map (static-if
+			 (fboundp
+			  'make-mode-line-mouse-map)
+			 (make-mode-line-mouse-map
+			  'mouse-2 #'skk-e21-modeline-menu)
+		       (make-mode-line-mouse2-map
+			#'skk-e21-modeline-menu))
+	  'help-echo
+	  "マウスの button 2 -> Daredevil SKK のメニュ−")))
 
 (defvar skk-e21-property-alist
-  (if window-system
-      (list
-       (cons 'latin skk-e21-modeline-property))
-    nil))
+  (when window-system
+    (list
+     (cons 'latin skk-e21-modeline-property))))
 
 ;; Functions.
 
