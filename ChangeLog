@@ -1,7 +1,11 @@
 2001-09-23  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* skk-viper.el: Change Murata-san's email address to
-	`mrt@notwork.org'.
+	* skk-viper.el: Check if `viper-insert-state-cursor-color' is
+	bound instead of checking by `skk-color-display-p' for cursor
+	support.
+	(read-from-minibuffer@before@skk-viper-ad): Not advise if
+	`skk-emacs-type' is `xemacs'.
+	Change Murata-san's email address to `mrt@notwork.org'.
 	(skk-viper-saved-cursor-color): Moved to skk-vars.el.
 	(skk-color-display-p): Use `skk-cursor-set' instead of
 	`set-buffer-local-cursor-color' for `vip-Append', `vip-Insert',
@@ -2088,8 +2092,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.429 2001/09/23 03:48:49 minakaji Exp $
-Last Modified: $Date: 2001/09/23 03:48:49 $
+Version: $Id: ChangeLog,v 1.430 2001/09/23 04:54:35 minakaji Exp $
+Last Modified: $Date: 2001/09/23 04:54:35 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

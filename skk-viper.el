@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.13 2001/09/23 03:48:49 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.14 2001/09/23 04:54:35 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 03:48:49 $
+;; Last Modified: $Date: 2001/09/23 04:54:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -38,7 +38,7 @@
 (eval-when-compile
   (defvar viper-insert-state-cursor-color))
 
-;; macros and inline functions.
+;;; macros and inline functions.
 (defmacro skk-viper-advice-select (viper vip arg body)
   (` (if skk-viper-use-vip-prefix
 	 (defadvice (, vip) (, arg) (,@ body))
@@ -56,70 +56,79 @@
   (or (string-match sentence-end "$B!#!)!*!%(B")
       (setq sentence-end (concat "[$B!#!)!*!%(B]\\|" sentence-end))))
 
-;; cursor color support.
-;; static-when $B$r;H$$$?$$$N$K!"(B $B%P%$%H%3%s%Q%$%k;~$K(B X window $B$,(B
-;; initialize $B$5$l$F$$$J$$$H$$$&%(%i!<$K$J$k(B (;_;)$B!#(B
-;; yatex $B$_$?$$$K(B Window $B$r3+$$$F%P%$%H%3%s%Q%$%k$9$k$h$&$K$b$G$-$k$1$I!"(B
-;; no-window $B$N(B make $B%3%^%s%I$rJL$K:n$i$J$-$c$J$i$J$$$7!"LLE]$@$J(B...$B!#(B
-(when (skk-color-display-p)
-  (if skk-use-color-cursor
-      (progn
-	;; SKK-CURSOR related.
-	(defadvice skk-cursor-current-color (around skk-viper-cursor-ad activate)
-	  "vi-state $B$N$H$-$O!"(BSKK $B%b!<%I$K$J$C$F$$$F$b%G%#%U%)%k%H%+!<%=%k$rJV$9!#(B"
-	  (if (static-cond ((boundp 'viper-current-state)
-			    (eq viper-current-state 'vi-state))
-			   ((boundp 'vip-current-state)
-			    (eq vip-current-state 'vi-state)))
-	      skk-cursor-default-color
-	    (cond ((not skk-mode)
-		   (setq viper-insert-state-cursor-color
-			 skk-viper-saved-cursor-color)
-		   ad-do-it)
-		  (t
-		   ad-do-it
-		   (setq viper-insert-state-cursor-color ad-return-value)))))
+;;; cursor color support.
+;; what should we do if older Viper that doesn't have `viper-insert-state-cursor-color'?
+(static-if (not (boundp 'viper-insert-state-cursor-color))
+    nil
+  (defadvice skk-cursor-current-color (around skk-viper-cursor-ad activate)
+    "vi-state $B$N$H$-$O!"(BSKK $B%b!<%I$K$J$C$F$$$F$b%G%#%U%)%k%H%+!<%=%k$rJV$9!#(B"
+    (if (not skk-use-color-cursor)
+	ad-do-it
+      (if (static-cond ((boundp 'viper-current-state)
+			(eq viper-current-state 'vi-state))
+		       ((boundp 'vip-current-state)
+			(eq vip-current-state 'vi-state)))
+	  skk-cursor-default-color
+	(cond ((not skk-mode)
+	       (setq viper-insert-state-cursor-color
+		     skk-viper-saved-cursor-color)
+	       ad-do-it)
+	      (t
+	       ad-do-it
+	       (setq viper-insert-state-cursor-color ad-return-value))))))
 
-	;; cover to VIP/Viper functions.
-	(let ((funcs
-	       (if skk-viper-use-vip-prefix
-		   '(vip-Append vip-Insert vip-insert vip-intercept-ESC-key
-				vip-open-line)
-		 '(viper-Append viper-Insert viper-hide-replace-overlay
-				viper-insert viper-intercept-ESC-key
-				viper-open-line))))
-	  (while funcs
-	    (eval
-	     (`
-	      (defadvice (, (intern (symbol-name (car funcs))))
-		(after skk-viper-cursor-ad activate)
-		"Set cursor color which represents skk mode."
-		(skk-cursor-set))))
-	    (setq funcs (cdr funcs))))
+  (let ((funcs
+	 ;; cover to VIP/Viper functions.
+	 (if skk-viper-use-vip-prefix
+	     '(vip-Append vip-Insert vip-insert vip-intercept-ESC-key
+			  vip-open-line)
+	   '(viper-Append viper-Insert viper-hide-replace-overlay
+			  viper-insert viper-intercept-ESC-key
+			  viper-open-line))))
+    (while funcs
+      (eval
+       (`
+	(defadvice (, (intern (symbol-name (car funcs))))
+	  (after skk-viper-cursor-ad activate)
+	  "Set cursor color which represents skk mode."
+	  (if skk-use-color-cursor (skk-cursor-set)))))
+      (setq funcs (cdr funcs))))
 
-	(if (boundp 'viper-insert-state-cursor-color)
-	    (let ((funcs '(skk-abbrev-mode skk-jisx0208-latin-mode
-					   skk-latin-mode skk-toggle-kana)))
-	      (while funcs
-		(eval
-		 (`
-		  (defadvice (, (intern (symbol-name (car funcs))))
-		    (after skk-viper-cursor-ad activate)
-		    "viper-insert-state-cursor-color $B$r(B SKK $B$NF~NO%b!<%I$N%+!<%=%k?'$H9g$o$;$k!#(B"
-		    (setq viper-insert-state-cursor-color (skk-cursor-current-color)))))
-		(setq funcs (cdr funcs)))))
-
-	(defadvice skk-mode (after skk-viper-cursor-ad activate)
+  (let ((funcs '(skk-abbrev-mode skk-jisx0208-latin-mode
+				 skk-latin-mode skk-toggle-kana)))
+    (while funcs
+      (eval
+       (`
+	(defadvice (, (intern (symbol-name (car funcs))))
+	  (after skk-viper-cursor-ad activate)
 	  "viper-insert-state-cursor-color $B$r(B SKK $B$NF~NO%b!<%I$N%+!<%=%k?'$H9g$o$;$k!#(B"
-	  (setq viper-insert-state-cursor-color
-		(if skk-mode (skk-cursor-current-color)
-		  skk-viper-saved-cursor-color))
-	  ;; insert mode $B$K$J$C$?$i(B Viper $BB&$G%+!<%=%k$rJQ99$9$k!#(B
-	  ;;(viper-change-cursor-color viper-insert-state-cursor-color)
-	 )
-	(defadvice skk-kakutei (after skk-viper-cursor-ad activate)
-	  (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))))
+	  (if skk-use-color-cursor
+	      (setq viper-insert-state-cursor-color (skk-cursor-current-color))))))
+      (setq funcs (cdr funcs))))
 
+  (defadvice skk-mode (after skk-viper-cursor-ad activate)
+    "viper-insert-state-cursor-color $B$r(B SKK $B$NF~NO%b!<%I$N%+!<%=%k?'$H9g$o$;$k!#(B"
+    (if skk-use-color-cursor
+	(setq viper-insert-state-cursor-color
+	      (if skk-mode (skk-cursor-current-color)
+		skk-viper-saved-cursor-color))))
+
+  (defadvice skk-kakutei (after skk-viper-cursor-ad activate)
+    (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))
+
+(static-if (and (boundp 'viper-insert-state-cursor-color)
+		(not (eq skk-emacs-type 'xemacs)))
+    (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
+      "minibuffer-setup-hook $B$K(B update-buffer-local-frame-params $B$r%U%C%/$9$k!#(B
+viper-read-string-with-history $B$O(B minibuffer-setup-hook $B$r4X?t%m!<%+%k(B
+$B$K$7$F$7$^$&$N$G!"M=$a(B minibuffer-setup-hook $B$K$+$1$F$*$$$?%U%C%/$,L58z(B
+$B$H$J$k!#(B"
+      (if skk-use-color-cursor
+	  ;; non-command subr.
+	  (add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params
+		    'append))))
+
+;;; advices.
 ;; vip-4 $B$NF1<o$N4X?tL>$O(B vip-read-string-with-history$B!)(B
 (defadvice viper-read-string-with-history (after skk-viper-ad activate)
   "$B<!2s%_%K%P%C%U%!$KF~$C$?$H$-$K(B SKK $B%b!<%I$K$J$i$J$$$h$&$K$9$k!#(B"
@@ -128,15 +137,6 @@
    'skk-j-mode-on 'skk-setup-minibuffer
    (function (lambda ()
 	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
-
-(if skk-use-color-cursor
-    (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
-      "minibuffer-setup-hook $B$K(B update-buffer-local-frame-params $B$r%U%C%/$9$k!#(B
-viper-read-string-with-history $B$O(B minibuffer-setup-hook $B$r4X?t%m!<%+%k(B
-$B$K$7$F$7$^$&$N$G!"M=$a(B minibuffer-setup-hook $B$K$+$1$F$*$$$?%U%C%/$,L58z(B
-$B$H$J$k!#(B"
-      ;; non-command subr.
-      (add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params 'append)))
 
 (skk-viper-advice-select
  viper-forward-word-kernel vip-forward-word-kernel
@@ -217,7 +217,7 @@ viper-read-string-with-history $B$O(B minibuffer-setup-hook $B$r4X?t%m!<%+%k
 	 (while (looking-at " ")
 	   (delete-char 1)))))))
 
-;;; Functions.
+;;; functions.
 ;;;###autoload
 (defun skk-viper-normalize-map ()
   (let ((other-buffer
