@@ -24,7 +24,7 @@
 
 	* skk.el
 	(skk-insert-new-word): If word is a lisp program and it returns a
-	cons cell, its car is a word, while its cdr is a note.
+	cons cell, car of the return value is a word, while cdr is a note.
 
 	(skk-compose-ignore-word-sub-quote-char): New function.
 
@@ -2328,8 +2328,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.463 2001/10/10 12:36:00 czkmt Exp $
-Last Modified: $Date: 2001/10/10 12:36:00 $
+Version: $Id: ChangeLog,v 1.464 2001/10/10 12:47:30 czkmt Exp $
+Last Modified: $Date: 2001/10/10 12:47:30 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
