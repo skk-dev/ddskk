@@ -1,3 +1,15 @@
+2001-03-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* doc/skk.texi (英単語をあいまいに変換して取り出した後、更に再帰的
+	な英和変換を行う): Remove obsolete footnote.
+	(SKK 以外のツールを用いた辞書候補): Change the node name to
+	`look コマンドを用いた辞書変換'.
+	(▽モードにおける自動ダイナミックコンプリーション): Add new
+	section.
+
+	* READMEs/Contributors (Contributors): Add Satoshi Harauchi's
+	email address.
+
 2001-03-30  Norio Maeda  <nmaeda@dd.iij4u.or.jp>
 
 	* skk-kcode.el (skk-display-code): added SJIS encoding.
@@ -3206,8 +3218,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.268 2001/03/30 12:06:24 nmaeda Exp $
-Last Modified: $Date: 2001/03/30 12:06:24 $
+Version: $Id: ChangeLog,v 1.269 2001/03/30 12:43:56 minakaji Exp $
+Last Modified: $Date: 2001/03/30 12:43:56 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
