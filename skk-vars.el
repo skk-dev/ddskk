@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.106 2002/07/14 00:39:25 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.107 2002/07/19 23:06:26 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/14 00:39:25 $
+;; Last Modified: $Date: 2002/07/19 23:06:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -510,7 +510,7 @@ Emacs 19 以上ならば、下記の式を評価することで、単語登録に入ったときだけ
 
     \"Uresii (\"UreSii\" ではなく) -> 嬉しい\"
 
-のように変換される。但し、skk-jisyo 辞書 \(プライベート辞書\) が、
+のように変換される。但し、skk-jisyo 辞書 (プライベート辞書) が、
 
     \"うれs /嬉/[し/嬉/]/\"
 
@@ -1735,7 +1735,7 @@ nil であれば、元号表示する。"
 (defcustom skk-isearch-mode-string-alist
   '((hiragana . "[か] ") (katakana . "[カ] ") (jisx0208-latin . "[英] ")
     (latin . "[aa] ") (abbrev . "[aあ] ") (nil . "[--] "))
-  ;;  "*Alist of \(MODE-SYMBOL . PROMPT-STRING\).
+  ;;  "*Alist of (MODE-SYMBOL . PROMPT-STRING).
   ;;MODE-SYMBOL is a symbol indicates canonical mode of skk for skk-isearch.
   ;;Valid MODE-SYMBOL is one of `hiragana', `katakana', `jisx0208-latin',
   ;;`latin' or nil.
@@ -2768,8 +2768,8 @@ This map should be derived from isearch-mode-map.")
 (skk-deflocalvar skk-num-list nil
   "skk-henkan-key の中に含まれる数字を表す文字列のリスト。
 例えば、\"▽へいせい7ねん10がつ\" の変換を行うとき、skk-henkan-key は
-\"へいせい7ねん10がつ\" であり、skk-num-list は \(\"7\" \"10\"\) となる。
-\(buffer local\)")
+\"へいせい7ねん10がつ\" であり、skk-num-list は (\"7\" \"10\"となる。
+\(buffer local)")
 
 (defvar skk-num-recompute-key nil
   "#4 タイプのキーにより数値の再計算を行ったときの検索キー。")
@@ -2799,7 +2799,7 @@ This map should be derived from isearch-mode-map.")
   "*検索エージェントの設定のリスト。
 リストの各要素は次の形式を取る:
 
-  \(CLASS LOCATION [KEY1 VALUE1 \[KEY2 VALUE2 \[...\]\]\]\)
+  (CLASS LOCATION [KEY1 VALUE1 [KEY2 VALUE2 [...]]])
 
 CLASS には、エージェントの種類をシンボルで指定する。
 LOCATION には、エージェントの所在を文字列で指定する。
