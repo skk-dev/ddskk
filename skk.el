@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.66 2000/11/25 08:36:40 czkmt Exp $
+;; Version: $Id: skk.el,v 1.67 2000/11/25 08:58:06 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 08:36:40 $
+;; Last Modified: $Date: 2000/11/25 08:58:06 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -3834,10 +3834,10 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (let ((extent (make-extent nil nil)))
 	(unless (rassq 'skk-modeline-input-mode default-modeline-format)
 	  (setq-default default-modeline-format
-			(append (list
-				 ""
-				 (cons extent 'skk-modeline-input-mode)
-				 default-modeline-format))))
+			(nconc (list
+				""
+				(cons extent 'skk-modeline-input-mode)
+				default-modeline-format))))
 	;;
 	(save-excursion
 	  (dolist (buf (buffer-list))
@@ -3847,16 +3847,16 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			 (not
 			  (rassq 'skk-modeline-input-mode modeline-format)))
 		(setq modeline-format
-		      (append (list
-			       ""
-			       (cons extent 'skk-modeline-input-mode)
-			       modeline-format)))))))))
+		      (nconc (list
+			      ""
+			      (cons extent 'skk-modeline-input-mode)
+			      modeline-format)))))))))
      (t
       ;;
       (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
 	(setq-default mode-line-format
-		      (append '("" skk-modeline-input-mode)
-			      (default-value 'mode-line-format))))
+		      (nconc '("" skk-modeline-input-mode)
+			     (default-value 'mode-line-format))))
       (save-excursion
 	(let ((list (buffer-list))
 	      buf)
@@ -3869,8 +3869,8 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			 (not
 			  (memq 'skk-modeline-input-mode mode-line-format)))
 		(setq mode-line-format
-		      (append '("" skk-modeline-input-mode)
-			      mode-line-format))))
+		      (nconc '("" skk-modeline-input-mode)
+			     mode-line-format))))
 	    (setq list (cdr list)))))))
     (force-mode-line-update t))
    ;;
