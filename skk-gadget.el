@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-gadget.el,v 1.4 2000/09/14 08:37:02 akiho Exp $
+;; Version: $Id: skk-gadget.el,v 1.5 2000/10/12 09:56:04 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/14 08:37:02 $
+;; Last Modified: $Date: 2000/10/12 09:56:04 $
 
 ;; This file is part of SKK.
 
@@ -50,6 +50,8 @@
 ;; から作られた造語らしい。
 
 ;;; Code:
+(eval-when-compile
+  (require 'static))
 (require 'skk)
 (require 'skk-foreword)
 ;; -- user variables
@@ -137,44 +139,57 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。"
   (interactive "*")
   (let ((start (current-time))
-        ;; Hit any key としたいところだが、何故か上手くゆかない (;_;)...。
-        ;;(now-map (if skk-emacs19
-        ;;             '(keymap (t . keyboard-quit))
-        ;;           (fillarray (make-keymap) 'keyboard-quit) ))
-        (overriding-terminal-local-map
-         (fillarray (setcar (cdr (make-keymap)) (make-vector 256 nil))
-                    'keyboard-quit ))
-        end mes expr1 expr2 )
+        end mes expr1 expr2 sec snd)
     (cond ((or (not skk-number-style)
-               (eq skk-number-style 0) )
+               (eq skk-number-style 0))
            (setq expr1 "[789]秒"
-                 expr2 "0秒" ))
+                 expr2 "0秒"))
           ((or (eq skk-number-style t)
                ;; skk-number-style に 数字と t 以外の non-nil 値を入れている場
                ;; 合、= を使うと Wrong type argument: number-or-marker-p, xxxx
                ;; になってしまう。
-               (eq skk-number-style 1) )
+               (eq skk-number-style 1))
            (setq expr1 "[７８９]秒"
-                 expr2 "０秒" ))
+                 expr2 "０秒"))
           (t
            (setq expr1 "[七八九]秒"
-                 expr2 "〇秒" )))
+                 expr2 "〇秒")))
+    ;;
+    (static-when (eq skk-emacs-type 'xemacs)
+      ;; XEmacs で sound がロードされているかどうか。
+      (when (setq snd (and (boundp 'sound-alist)
+			   (eq t (catch 'tag
+				   (mapc
+				    (function
+				     (lambda (list)
+				       (and
+					(eq 'drum
+					    (cadr (memq :sound list)))
+					(throw 'tag t))))
+				    sound-alist)))))
+	;;
+	(unless (assq 'clink sound-alist)
+	  (load-sound-file "clink" 'clink))))
+    ;;
     (save-match-data
       (condition-case nil
           (let (case-fold-search
                 inhibit-quit visible-bell
                 skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
-		skk-jisx0208-latin-mode )
+		skk-jisx0208-latin-mode)
             (while (not quit-flag)
-              (setq mes (skk-current-date t))
-              (message (concat  mes "    Hit C-g quit"))
-              ;;(message (concat  mes "    Hit any key to quit"))
+              (setq mes (skk-current-date t)
+		    sec 0)
+	      (message "%s    Hit any key to quit" mes)
               (if time-signal
                   (if (string-match expr1 mes)
                       ;; [7890] のように正規表現を使わず、7 だけで全てのマシンが
                       ;; 着いてゆけば良いのだが...。丁度この関数実行時に Garbage
                       ;; collection が呼ばれても表示される数字が飛ぶ場合がある。
-                      (ding)
+		      (static-if (eq skk-emacs-type 'xemacs)
+			  ;; いい音がないなぁ...
+			  (ding nil 'drum)
+			(ding))
                     (if (string-match expr2 mes)
                         ;; 0 だけ「ポ〜ン」といきたいところですが、マシンによっ
                         ;; て差がある。
@@ -183,15 +198,47 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
                         ;; $B「ピピッ」となり、音のタイミングは良いのだが、とき
                         ;; どき 1 秒分ついていけなくなる。Pentium 90Mhz +
                         ;; Mule-2.xだと「ピッ」という単音になってしまう... (;_;)。
-                        (progn (ding)(ding)) )))
-              (sit-for 1) ))
+			(static-cond
+			 ((eq skk-emacs-type 'xemacs)
+			  (if snd
+			      ;; ちょっともたつく ?
+			      (ding nil 'clink)
+			    (ding)
+			    (unless (sit-for (setq sec
+						   (+ sec
+						      (/ (float 1) (float 6))))
+					     'nodisplay)
+			      (next-command-event)
+			      (signal 'quit nil))
+			    (ding)))
+			 ((featurep 'lisp-float-type)
+			  (ding)
+			  (unless (sit-for (setq sec
+						 (+ sec
+						    (/ (float 1) (float 6))))
+					   nil
+					   'nodisplay)
+			    (next-command-event)
+			    (signal 'quit nil))
+			  (ding))
+			 (t
+			  ;; Emacs 18
+			  (ding)
+			  (ding))))))
+	      (unless (static-cond
+		       ((memq skk-emacs-type '(nemacs mule1 xemacs))
+			(sit-for (- 1 sec) 'nodisplay))
+		       (t
+			(sit-for (- 1 sec) nil 'nodisplay)))
+		(next-command-event)
+		(signal 'quit nil))))
         (quit
          (prog2
              (setq end (current-time))
              (skk-current-date t)
            (if kakutei-when-quit
-               (setq skk-kakutei-flag t) )
-           (message (format "経過時間: %s 秒" (skk-time-difference start end))) ))))))
+               (setq skk-kakutei-flag t))
+           (message "経過時間: %s 秒" (skk-time-difference start end))))))))
 
 ;;;###autoload
 (defun skk-ad-to-gengo (&optional fstr lstr)
