@@ -1,5 +1,10 @@
 2003-07-19  NAKAJIMA Mikio  <minakaji@namazu.org>
 
+	* skk.el (skk-kakutei-initialize): Reuse marker in henkan-point.
+
+	* skk-macs.el (skk-set-marker): Fix doc string.
+	(skk-deflocalvar): Update doc string.
+
 	* experimental/skk-study.el (skk-study-file-format-version): Bump
 	up to 0.3.
 	(skk-study-current-buffer-theme): New buffer local variable.
@@ -4359,8 +4364,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.768 2003/07/18 16:59:40 minakaji Exp $
-Last Modified: $Date: 2003/07/18 16:59:40 $
+Version: $Id: ChangeLog,v 1.769 2003/07/18 21:35:03 minakaji Exp $
+Last Modified: $Date: 2003/07/18 21:35:03 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

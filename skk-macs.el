@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.87 2002/04/04 22:03:35 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.88 2003/07/18 21:35:03 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/04/04 22:03:35 $
+;; Last Modified: $Date: 2003/07/18 21:35:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -199,10 +199,8 @@ ENGLISH をエコーエリアに表示し、エラーを発生させる。 ARG は `error' 
 
 (defmacro skk-set-marker (marker position &optional buffer)
   "マーカ MARKER を BUFFER の POSITION に移動する。
-詳細は `set-marker' を参照。
-バッファローカル値である `skk-henkan-start-point', `skk-henkan-end-point',
-`skk-kana-start-point', あるいは `skk-okurigana-start-point' が nil だったら、
-新規マーカーを作って代入する。"
+BUFFER のディフォルト値はカレントバッファである。
+MARKER が nil だったら、新規マーカーを作って代入する。"
   (list 'progn
 	(list 'if (list 'not marker)
 	      (list 'setq marker (list 'make-marker)))
@@ -212,7 +210,7 @@ ENGLISH をエコーエリアに表示し、エラーを発生させる。 ARG は `error' 
 ;;;###autoload
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
 (defmacro skk-deflocalvar (symbol initvalue &optional docstring)
-  "Define SYMBOL as a variable and make it buffer local."
+  "SYMBOL について INITVALUE を値に持つ変数として宣言し、バッファローカル値にする。"
   `(progn
      (defvar ,symbol ,initvalue
        ,(format "%s\n\(buffer local\)" docstring))

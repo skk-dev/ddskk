@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.270 2003/07/18 12:50:52 minakaji Exp $
+;; Version: $Id: skk.el,v 1.271 2003/07/18 21:35:02 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/07/18 12:50:52 $
+;; Last Modified: $Date: 2003/07/18 21:35:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2345,7 +2345,12 @@ WORD で確定する。"
 		 (cons kakutei-word
 		       (delete kakutei-word skk-henkan-list)))
 	   (cons 'henkan-buffer (current-buffer))
-	   (cons 'henkan-point (point-marker))
+	   (cons 'henkan-point
+		 (let ((hpoint
+			(skk-get-last-henkan-datum 'henkan-point)))
+		   (if hpoint
+		       (set-marker hpoint (point))
+		     (point-marker))))
 	   ;; (eq last-command 'skk-kakutei-henkan) でポータブルに確認でき
 	   ;; るのであえていらないか。
 	   ;; (cons 'kakutei-henkan (eq this-command 'skk-kakutei-henkan))
