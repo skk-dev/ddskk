@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.11 2000/11/19 13:47:46 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.12 2000/11/19 16:19:30 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/19 13:47:46 $
+;; Last Modified: $Date: 2000/11/19 16:19:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -458,7 +458,7 @@
         skk-katakana nil)
   ;; initialize
   (setq skk-input-mode-string skk-hiragana-mode-string)
-  (skk-update-modeline skk-hiragana-mode-indicator)
+  (skk-update-modeline skk-default-indicator)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map skk-current-local-map)
     (setq skk-current-local-map nil))
