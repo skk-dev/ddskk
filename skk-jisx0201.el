@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.29 2001/10/04 20:44:57 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.30 2001/10/07 08:36:30 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/04 20:44:57 $
+;; Last Modified: $Date: 2001/10/07 08:36:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -350,14 +350,12 @@
    ((and skk-henkan-on
 	 (not skk-henkan-active))
     (skk-jisx0201-henkan arg))
+   (skk-jisx0201-roman
+    (setq skk-rule-tree skk-jisx0201-base-rule-tree
+	  skk-jisx0201-roman nil))
    (t
-    (cond
-     (skk-jisx0201-roman
-      (setq skk-rule-tree skk-jisx0201-base-rule-tree
-	    skk-jisx0201-roman nil))
-     (t
-      (setq skk-rule-tree skk-jisx0201-roman-rule-tree
-	    skk-jisx0201-roman t))))))
+    (setq skk-rule-tree skk-jisx0201-roman-rule-tree
+	  skk-jisx0201-roman t))))
 
 (defun skk-jisx0201-string-conversion (str func)
   (with-temp-buffer
@@ -398,8 +396,7 @@
    ((eq skk-emacs-type 'mule2)
     (zenkaku-katakana-region start end))
    (t
-    (japanese-zenkaku-region start
-			     end
+    (japanese-zenkaku-region start end
 			     'katakana-only))))
 
 (defun skk-jisx0201-henkan (arg)
