@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.53 2000/11/19 01:29:39 czkmt Exp $
-;; Last Modified: $Date: 2000/11/19 01:29:39 $
+;; Version: $Id: SKK-MK,v 1.54 2000/11/19 05:45:05 minakaji Exp $
+;; Last Modified: $Date: 2000/11/19 05:45:05 $
 
 ;; Commentary
 ;;
@@ -343,7 +343,7 @@
 	(while (re-search-forward (concat "^;;[^@]+\\(" (car spec) "\\)")
 				  nil t nil)
 	  (delete-region (match-beginning 1) (match-end 1))
-	  (insert (eval (nth 1 spec)))
+	  (insert (nth 1 spec))
 	  (beginning-of-line)
 	  (while (looking-at ";")
 	    (delete-char 1)))
@@ -460,22 +460,20 @@
     (and (member "SKK-JISYO.L" SKK_DICTIONARIES)
 	 (setq SKK_DICTIONARIES
 	       (cons "SKK-JISYO.L" (delete "SKK-JISYO.L" SKK_DICTIONARIES))))
+    (if SKK_TUTORIALS
+	(setq spec (append spec (list "@TUT@"
+				      (expand-file-name
+				       (car SKK_TUTORIALS) SKK_DATADIR)))))
     (if SKK_DICTIONARIES
 	(progn
-	  (setq spec '("@AUXDIC@"
-		       (expand-file-name (car SKK_DICTIONARIES) SKK_DATADIR)))
+	  (setq spec (list "@AUXDIC@"
+			   (expand-file-name (car SKK_DICTIONARIES) SKK_DATADIR)))
 	  (and SKK_SET_JISYO
 	       (setq spec
 		     (append spec
-			     '("@DIC@"
-			       (expand-file-name (car SKK_DICTIONARIES) SKK_DATADIR)))))
-	  (if SKK_TUTORIALS
-	      (setq spec (append spec '("@TUT@"
-					(expand-file-name
-					 (car SKK_TUTORIALS) SKK_DATADIR)))))
-	  (SKK-MK-make-setup-file spec)
-	  ;; install dictionaries if the files exist in ./dic directory.
-	  (install-files SKK_DICTIONARIES DICDIR SKK_DATADIR nil t nil))
+			     (list
+			      "@DIC@"
+			      (expand-file-name (car SKK_DICTIONARIES) SKK_DATADIR))))))
       ;; when dictionaries do not exist in ./dic subdirectory, check
       ;; already installed dictionary and detect largest one to setup
       ;; skk-setup.el.in.
@@ -486,20 +484,19 @@
 	(setq dics (cdr dics)))
       (if dics
 	  (progn
-	    (setq spec '("@AUXDIC@" (expand-file-name (car dics) SKK_DATADIR)))
+	    (setq spec (list "@AUXDIC@" (expand-file-name (car dics) SKK_DATADIR)))
 	    (and SKK_SET_JISYO
 		 (setq spec
-		       (append spec '("@DIC@"
-				      (expand-file-name
-				       (car dics) SKK_DATADIR)))))
-	    (if SKK_TUTORIALS
-		(setq spec (append spec '("@TUT@"
+		       (append spec (list "@DIC@"
 					  (expand-file-name
-					   (car SKK_TUTORIALS) SKK_DATADIR)))))
-	    (SKK-MK-make-setup-file spec))
+					   (car dics) SKK_DATADIR))))))))
+    (if (not spec)
 	;; merely copy without setup dictionary information.
-	(copy-file "skk-setup.el.in" "skk-setup.el" 'ok-if-already-exists)))
-    ;;
+	(copy-file "skk-setup.el.in" "skk-setup.el" 'ok-if-already-exists)
+      (SKK-MK-make-setup-file spec))
+    (if SKK_DICTIONARIES
+	;; install dictionaries if the files exist in ./dic directory.
+	(install-files SKK_DICTIONARIES DICDIR SKK_DATADIR nil t nil))
     (when (and (fboundp 'register-input-method) (not (featurep 'xemacs)))
       (copy-file "skk-setup.el" "leim-list.el" 'ok-if-already-exists)
       (install-elisp-modules (list 'leim-list) "." SKK_LISPDIR))
@@ -548,9 +545,9 @@
       (install-info info-file dir-file nil nil nil))))
 
 (defun SKK-MK-install-package ()
+  (or (featurep 'xemacs) (error "This directive is only for XEmacs."))
   (let ((dics SKK_DICTIONARIES)
-	delete-target exist)
-    (or (featurep 'xemacs) (error "This directive is only for XEmacs."))
+	delete-target exist specs)
     ;; make target directories.
     (or (file-exists-p PACKAGE_LISPDIR)
 	(make-directory PACKAGE_LISPDIR t))
@@ -576,6 +573,10 @@
     (delete-file "./auto-autoloads.el")
     (delete-file "./custom-load.el")
     ;; make skk-setup.el.
+    (if SKK_TUTORIALS
+	(setq specs (list
+		     "@TUT@"
+		     (expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR))))
     (while dics
       (when (file-exists-p (expand-file-name (car dics) DICDIR))
 	(setq exist (cons (car dics) exist)))
@@ -590,14 +591,14 @@
 	       (cons "SKK-JISYO.L" (delete "SKK-JISYO.L" SKK_DICTIONARIES))))
     (if SKK_DICTIONARIES
 	(progn
-	  (SKK-MK-make-setup-file
-	   (append
-	    '("@AUXDIC@" (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR))
-	    (if SKK_SET_JISYO
-		'("@DIC@" (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR)))
-	    (if SKK_TUTORIALS
-		'("@TUT@"
-		  (expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR)))))
+	  (setq specs (list "@AUXDIC@"
+			    (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR)))
+	  (if SKK_SET_JISYO
+	      (setq specs
+		    (nconc specs
+			   (list
+			    "@DIC@"
+			    (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR)))))
 	  ;; install dictionaries if the files exist in ./dic directory.
 	  (install-files SKK_DICTIONARIES DICDIR PACKAGE_DATADIR nil t nil))
       ;; when dictionaries do not exist in ./dic subdirectory, check
@@ -615,16 +616,13 @@
 		 (if (file-exists-p (expand-file-name (car dics) PACKAGE_DATADIR))
 		     (expand-file-name (car dics) PACKAGE_DATADIR)
 		   (expand-file-name (car dics) SKK_DATADIR))))
-	    (SKK-MK-make-setup-file
-	     (append
-	      (list "@AUXDIC@" dic)
-	      (if SKK_SET_JISYO
-		  (list "@DIC@" dic))
-	      (if SKK_TUTORIALS
-		  '("@TUT@"
-		    (expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR))))))
+	    (setq specs (list "@AUXDIC@" dic))
+	    (if SKK_SET_JISYO
+		(setq specs (nconc specs (list "@DIC@" dic)))))))
+    (if (not specs)
 	;; merely copy without setup dictionary information.
-	(copy-file "skk-setup.el.in" "skk-setup.el" 'ok-if-already-exists)))
+	(copy-file "skk-setup.el.in" "skk-setup.el" 'ok-if-already-exists)
+      (SKK-MK-make-setup-file specs))
     ;; install skk-setup.el
     (install-elisp-modules (list 'skk-setup) "." PACKAGE_LISPDIR)
     ;; install infos.
@@ -700,7 +698,8 @@ SKK tutorials:
   %s
   -> %s
 "
-		 (mapconcat 'symbol-name SKK_MODULES ", ")
+		 (mapconcat 'symbol-name (delq 'skk-autoloads SKK_MODULES)
+			    ", ")
 		 PACKAGE_LISPDIR
 		 SKK_INFO
 		 PACKAGE_INFODIR

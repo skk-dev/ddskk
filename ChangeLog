@@ -1,3 +1,18 @@
+2000-11-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK-MK-what-where-package): Remove skk-autoloads from
+	SKK_MODULES.
+	(SKK-MK-install-elc): Set up setup.el.in for SKK_TUTORIALS
+	even if SKK_DICTIONARIES is nil.
+	(SKK-MK-install-package): Ditto.  Call error in the top of
+	the function if running emacs does not have feature xemacs.
+	(SKK-MK-make-setup-file): Do not eval 1th of SPEC.
+
+	* Makefile (tar): Change ddskk-$(VERSION) to ddskk$(VERSION) for
+	file name of tar ball.
+	(SNAPBASE): Replace ddskk-`$(DATE) '+%Y%m%d' with
+	`ddskk`$(DATE) '+%Y%m%d'`.
+	
 2000-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK_MODULES): Add `skk-xemacs'.
@@ -2375,8 +2390,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.153 2000/11/19 01:30:47 czkmt Exp $
-Last Modified: $Date: 2000/11/19 01:30:47 $
+Version: $Id: ChangeLog,v 1.154 2000/11/19 05:45:04 minakaji Exp $
+Last Modified: $Date: 2000/11/19 05:45:04 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.36 2000/11/12 10:47:20 czkmt Exp $
-# Last Modified: $Date: 2000/11/12 10:47:20 $
+# Version: $Id: Makefile,v 1.37 2000/11/19 05:45:05 minakaji Exp $
+# Last Modified: $Date: 2000/11/19 05:45:05 $
 
 
 VERSION = 11.3
@@ -15,7 +15,7 @@ FLAGS     = -batch -q -no-site-file -l SKK-MK
 GZIP      = gzip -9
 MD5	  = md5
 RM	  = /bin/rm -f
-SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
+SNAPBASE  = ddskk`$(DATE) '+%Y%m%d'`
 TAR	  = tar
 XEMACS	  = xemacs
 set_jisyo =
@@ -55,16 +55,16 @@ clean:
 
 tar: clean
 	cd .. ;\
-	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot ddskk-$(VERSION).tar.gz ddskk-$(VERSION).tar.bz2 ;\
+	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot ddskk$(VERSION).tar.gz ddskk$(VERSION).tar.bz2 ;\
 	$(RM) ddskk-$(VERSION) ;\
 	ln -sf main ddskk-$(VERSION) ;\
-	$(TAR) cvpf ddskk-$(VERSION).tar --exclude-from=ddskk-$(VERSION)/skk.ex --dereference ddskk-$(VERSION) ;\
-	$(BZIP2) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.bz2 ;\
-	$(GZIP) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.gz ;\
-	$(RM) ddskk-$(VERSION).tar ;\
-	$(RM) ddskk-$(VERSION) ;\
-	$(MD5) ddskk-$(VERSION).tar.bz2 >ddskk-$(VERSION).tar.bz2.md5 ;\
-	$(MD5) ddskk-$(VERSION).tar.gz >ddskk-$(VERSION).tar.gz.md5
+	$(TAR) cvpf ddskk$(VERSION).tar --exclude-from=ddskk-$(VERSION)/skk.ex --dereference ddskk-$(VERSION) ;\
+	$(BZIP2) -cf ddskk$(VERSION).tar > ddskk$(VERSION).tar.bz2 ;\
+	$(GZIP) -cf ddskk$(VERSION).tar > ddskk$(VERSION).tar.gz ;\
+	$(RM) ddskk$(VERSION).tar ;\
+	$(RM) ddskk$(VERSION) ;\
+	$(MD5) ddskk$(VERSION).tar.bz2 >ddskk$(VERSION).tar.bz2.md5 ;\
+	$(MD5) ddskk$(VERSION).tar.gz >ddskk$(VERSION).tar.gz.md5
 
 snapshot: clean
 	cd .. ;\
