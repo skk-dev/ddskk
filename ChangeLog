@@ -2,9 +2,11 @@
 
 	* skk-version.el (skk-version): Bump to 11.5.1.
 
-	* READMEs/Contributors: Following two persons are added.
+	* READMEs/Contributors: Following persons are added (a-b order).
 
 	Martin Buchholz <martin@xemacs.org>
+
+	Daiki Ueno <ueno@unixuser.org>
 
 	Yoshiki Hayashi <yoshiki@xemacs.org>
 
@@ -1925,8 +1927,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.392 2001/09/14 16:14:42 czkmt Exp $
-Last Modified: $Date: 2001/09/14 16:14:42 $
+Version: $Id: ChangeLog,v 1.393 2001/09/14 22:39:23 czkmt Exp $
+Last Modified: $Date: 2001/09/14 22:39:23 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
