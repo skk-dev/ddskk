@@ -1,3 +1,7 @@
+2002-11-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* README.MacOSX.ja: New file.
+
 2002-11-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* Makefile (SNAPBASE, tar, snapshot): Add `-'.
@@ -4081,8 +4085,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.718 2002/11/20 10:59:31 minakaji Exp $
-Last Modified: $Date: 2002/11/20 10:59:31 $
+Version: $Id: ChangeLog,v 1.719 2002/11/30 02:17:18 minakaji Exp $
+Last Modified: $Date: 2002/11/30 02:17:18 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
