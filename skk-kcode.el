@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kcode.el,v 1.8 1999/11/10 12:09:03 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.9 1999/11/28 04:46:02 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/11/10 12:09:03 $
+;; Last Modified: $Date: 1999/11/28 04:46:02 $
 
 ;; This file is part of SKK.
 
@@ -112,13 +112,13 @@
     (if skk-henkan-active (skk-kakutei)) ))
 
 (defun skk-char-to-hex (char &optional jischar)
-  (cond ((> char 96) (- char 87)) ; a-f
-        ((> char 64) (- char 55)) ; A-F
-        ((> char 47) ; 0-9
-	 (cond (jischar (- char 40)) (t (- char 48)) ))
-        (t (skk-error "%c を 6 進数に変換できません"
-		      "Cannot convert %c to hexadecimal number" ))))
-
+  (cond ((and (<= char 102) (> char 96)) (- char 87)) ; a-f
+	((and (<= char 70) (> char 64)) (- char 55)) ; A-F
+	((and (<= char 57) (> char 47)) ; 0-9
+ 	 (cond (jischar (- char 40)) (t (- char 48)) ))
+	(t (skk-error "%c を 16 進数に変換できません"
+ 		      "Cannot convert %c to hexadecimal number" char))))
+  
 (defun skk-make-string (n1 n2)
   (char-to-string (skk-make-char skk-kcode-charset n1 n2)) )
 

@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.32 1999/11/10 12:09:03 minakaji Exp $
-;; Last Modified: $Date: 1999/11/10 12:09:03 $
+;; Version: $Id: SKK-MK,v 1.33 1999/11/28 04:46:01 minakaji Exp $
+;; Last Modified: $Date: 1999/11/28 04:46:01 $
 
 ;; Commentary
 ;;
@@ -233,6 +233,10 @@ end with `skk'." )
 
 (if SKK-MK-debugging (princ (format "SKK_MODULES=%s\n" SKK_MODULES)))
 
+(defconst SKK_PACKAGE_NOT_USE '(skk-autoloads))
+(defconst SKK_MAINTRUNK_NOT_USE '(skk-macs skk-xm20_4))
+
+;;; [FUNCTIONS]
 (defun SKK-MK-compile ()
   (compile-elisp-modules SKK_MODULES ".") )
 
@@ -243,6 +247,23 @@ end with `skk'." )
        (eq SKK-MK-cleanup-trouble-makers 'backup) ))
   (setq DOCDIR (expand-file-name DOCDIR)
 	ETCDIR (expand-file-name ETCDIR) )
+  (or (file-exists-p SKK_LISPDIR)
+      (make-directory SKK_LISPDIR t) )
+  (or (file-exists-p SKK_DATADIR)
+      (make-directory SKK_DATADIR t) )
+  (or (file-exists-p SKK_INFODIR)
+      (make-directory SKK_INFODIR t) )
+  (let ((not-use SKK_MAINTRUNK_NOT_USE)
+	file )
+    (while not-use 
+      (setq SKK_MODULES (delq (car not-use) SKK_MODULES)
+	    file (expand-file-name
+		  (concat (prin1-to-string (car not-use)) ".el")
+		  SKK_LISPDIR )
+	    not-use (cdr not-use) )
+      (and (file-exists-p file) (delete-file file))
+      (setq file (concat file "c"))
+      (and (file-exists-p file) (delete-file file)) ))
   ;; install Emacs Lisp programs.
   (install-elisp-modules SKK_MODULES "." SKK_LISPDIR)
   ;; install infos.
@@ -265,6 +286,17 @@ end with `skk'." )
       (make-directory SKK_PACKAGE_DATADIR t) )
   (or (file-exists-p PACKAGE_INFODIR)
       (make-directory PACKAGE_INFODIR t) )
+  (let ((not-use (append SKK_PACKAGE_NOT_USE SKK_MAINTRUNK_NOT_USE))
+	file )
+    (while not-use 
+      (setq SKK_MODULES (delq (car not-use) SKK_MODULES)
+	    file (expand-file-name
+		  (concat (prin1-to-string (car not-use)) ".el")
+		  SKK_PACKAGE_LISPDIR )
+	    not-use (cdr not-use) )
+      (and (file-exists-p file) (delete-file file))
+      (setq file (concat file "c"))
+      (and (file-exists-p file) (delete-file file)) ))
   ;; install Emacs Lisp programs.
   (compile-elisp-modules SKK_MODULES ".")
   (install-elisp-modules SKK_MODULES "." SKK_PACKAGE_LISPDIR)

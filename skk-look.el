@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-look.el,v 1.5 1999/10/15 02:20:17 minakaji Exp $
+;; Version: $Id: skk-look.el,v 1.6 1999/11/28 04:46:02 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/15 02:20:17 $
+;; Last Modified: $Date: 1999/11/28 04:46:02 $
 
 ;; This file is not part of SKK yet.
 
@@ -192,7 +192,7 @@ skk-look-recursive-search が non-nil であるときのみ有効。"
 	   (let (skk-henkan-key v2 v3)
 	     (while v
 	       (let ((skk-current-search-prog-list
-		      (delete '(skk-look) (copy-list skk-search-prog-list)) ))
+		      (delete '(skk-look) (copy-sequence skk-search-prog-list)) ))
 		 (setq skk-henkan-key (car v))
 		 (while skk-current-search-prog-list
 		   (setq v3 (skk-search)

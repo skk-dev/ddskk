@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.6 1999/10/15 02:34:45 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.7 1999/11/28 04:46:03 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/15 02:34:45 $
+;; Last Modified: $Date: 1999/11/28 04:46:03 $
 
 ;; This file is part of SKK.
 
@@ -162,10 +162,11 @@ integer `1' を代入する。
       (save-match-data
         (while (and (setq num (nth n skk-num-list))
                     (string-match numexp workkey) )
-          (setq convnum (skk-num-exp num (string-to-number
-                                          (substring workkey
-                                                     (1+ (match-beginning 0))
-                                                     (match-end 0) )))
+          (setq convnum (save-match-data
+			  (skk-num-exp num (string-to-number
+					    (substring workkey
+						       (1+ (match-beginning 0))
+						       (match-end 0) ))))
                 string (substring workkey 0 (match-beginning 0))
                 workkey (substring workkey (match-end 0))
                 n (1+ n) )
@@ -239,16 +240,26 @@ integer `1' を代入する。
   ;; 与えられたリストの各要素から組み合せ可能な文字列の連接を作り、リストで返
   ;; す。
   ;; (("A" "B") "1" ("X" "Y")) -> ("A1X" "A1Y" "B1X" "B1Y")
-  (do ((result
-        (if (atom (car list)) (list (car list)) (car list))
-        (mapcan (function
-                 (lambda (a)
-                   (mapcar (function (lambda (b) (concat a b)))
-                           (if (atom (car tail)) (list (car tail))
-                             (car tail) ))))
-                result ))
-       (tail (cdr list) (cdr tail)) )
-      ((null tail) result) ))
+  (let ((dst (car list))
+ 	(src (cdr list))
+ 	elt)
+    (while src
+      (setq elt (car src))
+      (if (consp elt)
+ 	  (setq dst (apply (function nconc)
+ 			   (mapcar
+ 			    (lambda (str0)
+ 			      (mapcar
+ 			       (lambda (str1)
+ 				 (concat str0 str1))
+ 			       elt))
+ 			    dst)))
+ 	(setq dst (mapcar
+ 		   (lambda (str0)
+ 		     (concat str0 elt))
+ 		   dst)))
+      (setq src (cdr src)))
+    dst))
 
 (defun skk-num-exp (num type)
   ;; ascii 数字の NUM を TYPE に従い変換し、変換後の文字列を返す。
@@ -408,7 +419,7 @@ integer `1' を代入する。
 	    ;; のため、nil を入れておく。
             skk-henkan-okurigana skk-okuri-char skk-use-numeric-conversion )
         (while skk-current-search-prog-list
-          (setq result (kk-nunion result (skk-search))) )))
+          (setq result (skk-nunion result (skk-search))) )))
     ;; ここで temp-buffer を出て変換を行なっているカレントバッファに戻る
     ;; (バッファローカル値である skk-henkan-list を操作したいため)。
     (setq skk-num-recompute-key num)

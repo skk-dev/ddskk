@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-isearch.el,v 1.5 1999/10/23 13:29:22 minakaji Exp $
+;; Version: $Id: skk-isearch.el,v 1.6 1999/11/28 04:46:02 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/23 13:29:22 $
+;; Last Modified: $Date: 1999/11/28 04:46:02 $
 
 ;; This file is part of SKK.
 
@@ -192,7 +192,6 @@ CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
   "Keymap for skk isearch mode.
 This map should be derived from isearch-mode-map." )
 
-;;;###autoload
 (defvar skk-isearch-overriding-local-map
   (cond ((eq skk-emacs-type 'xemacs)
 	 (cond
@@ -355,6 +354,7 @@ kakutei'ed and erase the buffer contents."
   ;; determined in the original buffer and set in working buffer.
   (let ((initial (skk-isearch-initial-mode)))
     (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
+      (skk-erase-prefix 'clean)
       (skk-isearch-initialize-working-buffer)
       (skk-isearch-set-initial-mode initial)))
   ;; setup variables and keymap

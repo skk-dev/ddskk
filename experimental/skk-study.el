@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.21 1999/10/23 13:54:43 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.22 1999/11/28 04:46:51 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/23 13:54:43 $
+;; Last Modified: $Date: 1999/11/28 04:46:51 $
 
 ;; This file is not part of SKK yet.
 
@@ -119,7 +119,7 @@
 (defconst skk-search-end-function 'skk-study-search)
 (defconst skk-update-end-function 'skk-study-update)
 
-(defconst skk-study-file-format-version 0.2)
+(defconst skk-study-file-format-version "0.2")
 (defvar skk-kakutei-end-function nil)
 (defvar skk-study-alist nil)
 (defvar skk-study-data-ring nil

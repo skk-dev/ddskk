@@ -1,3 +1,33 @@
+1999-11-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-study.el (skk-study-file-format-version):
+	Change version number to string.
+
+	* skk-isearch.el (skk-isearch-overriding-local-map): Remove 
+	`;;;###autoload' cookie.
+
+	* SKK-MK (SKK_PACKAGE_NOT_USE): New constant.
+	(SKK_MAINTRUNK_NOT_USE): Ditto.
+	(SKK-MK-install): Make directories, SKK_LISPDIR, SKK_DATADIR and 
+	SKK_INFODIR if they do not exist.
+	Remove SKK_MAINTRUNK_NOT_USE from SKK_MODULES and delete related
+	files.
+	(SKK-MK-install-package): Remove SKK_PACKAGE_NOT_USE and
+	SKK_MAINTRUNK_NOT_USE from SKK_MODULES and delete related files.
+	
+	* skk.el (skk-%-to-%%): Removed.
+	
+1999-11-28  FURUE Hideyuki  <furue@kke.co.jp>
+	
+	* skk-num.el (skk-num-convert): Bug fixed.
+	(skk-num-recompute): Ditto.
+	* skk.el (skk-henkan-show-candidates): Ditto.
+	(skk-mode): Call `skk-create-file' for `skk-jisyo'.
+	(skk-henkan-show-candidate-subr): Do not use `skk-%-to-%%'.
+	* skk-kcode.el (skk-char-to-hex): Bug fixed.
+	* skk-isearch.el (skk-isearch-mode-setup): Call `skk-erase-prefix'
+	with its argument non-nil in `skk-isearch-working-buffer'.
+
 1999-11-18  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/CVS_digest: New file.
@@ -53,6 +83,13 @@
 	(minibuffer-setup-hook): Ditto.
 	(minibuffer-exit-hook): Ditto.
 
+1999-11-09  Shuhei KOBAYASHI <shuhei@aqua.ocn.ne.jp>
+	
+	* skk-look.el (skk-look): Use copy-sequence instead of `copy-list'
+	not to depend on CL package on FSF Emacs.
+	* skk-num.el (skk-num-flatten-list): Do not use `mapcan' not to
+	depend on CL package on FSF Emacs.
+	
 1999-11-09  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk.el (skk-detach-extent): Use `defun' and `static-cond'
