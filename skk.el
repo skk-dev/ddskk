@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.236 2002/03/07 22:05:14 obata Exp $
+;; Version: $Id: skk.el,v 1.237 2002/03/12 14:07:30 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/07 22:05:14 $
+;; Last Modified: $Date: 2002/03/12 14:07:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3821,6 +3821,20 @@ SKK 辞書の候補として正しい形に整形する。"
 	  (setq words (nconc words (list (buffer-string))))))
       words)))
 
+(defun skk-search-all-progs (key)
+  (let ((skk-henkan-key key)
+	(skk-henkan-okurigana nil)
+	(skk-okuri-char nil)
+	(skk-auto-okuri-process nil)
+	words)
+      (ignore-errors
+	(dolist (form skk-search-prog-list)
+	  (dolist (word (eval form))
+	    (when (string-match ";" word)
+	      (setq word (substring word 0 (match-beginning 0))))
+	    (setq words (skk-nunion words (list word))))))
+      words))
+
 (defun skk-search-sagyo-henkaku (&optional okuri-list anything)
   "見出し語をサ行変格活用の動詞とみなして、送りあり候補を検索する。"
   (unless okuri-list
@@ -3828,17 +3842,29 @@ SKK 辞書の候補として正しい形に整形する。"
   (when (and skk-henkan-okurigana
 	     (or (member skk-henkan-okurigana okuri-list)
 		 anything))
-    (let ((skk-henkan-key (substring
-			   skk-henkan-key
-			   0 (1- (length skk-henkan-key))))
-	  skk-henkan-okurigana
-	  skk-okuri-char
-	  skk-auto-okuri-process
-	  words)
-      (ignore-errors
-	(dolist (form skk-search-prog-list)
-	  (setq words (skk-nunion words (eval form)))))
-      words)))
+    (skk-search-all-progs (substring skk-henkan-key
+				     0
+				     (1- (length skk-henkan-key))))))
+
+(defun skk-search-with-suffix ()
+  (unless (or skk-henkan-okurigana
+	      (get 'skk-search-with-suffix 'active))
+    (let ((i 1)
+	  (len (length skk-henkan-key))
+	  key suf-key words suffixes list)
+      (put 'skk-search-with-suffix 'active t)
+      (while (< i len)
+	(setq key (substring skk-henkan-key 0 i)
+	      suf-key (substring skk-henkan-key i))
+	(setq words (skk-search-all-progs key)
+	      suffixes (skk-search-all-progs (concat ">" suf-key)))
+	(when (and words suffixes)
+	  (dolist (word words)
+	    (dolist (suffix suffixes)
+	      (setq list (nconc list (list (concat word suffix)))))))
+	(setq i (1+ i)))
+      (put 'skk-search-with-suffix 'active nil)
+      list)))
 
 (defun skk-katakana-region (start end &optional vcontract)
   "領域のひらがなをカタカナに変換する。
