@@ -17,6 +17,9 @@ o Pieces of advice to interactive built-in functions now call
 o Under Emacs 20, `read-from-minibuffer' now works with optional 7th
   arg INHERIT-INPUT-METHOD when SKK is used as an `input method'.
 
+o Fixed a bug where SPC won't start conversion when `canna' is
+  installed.
+
 o The following functions have been fixed.
 
   * skk-clock
