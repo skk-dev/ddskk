@@ -1,6 +1,7 @@
 ;;; skk-kanagaki-util.el --- SKK の仮名入力サポートのための道具箱
 
-;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+;; Copyright (C) 2000, 2001, 2002, 2003, 2004
+;;   Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 ;; Keywords: hardware, japanese, mule, input method
