@@ -7,6 +7,8 @@
 	* skk.el:
 	Require `skk-autoloads' at the top level.
 
+	(skk-search-sagyo-henkaku): New optional argument `anything'.
+
 2001-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cus.el:
@@ -2756,8 +2758,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.530 2001/11/14 14:14:07 czkmt Exp $
-Last Modified: $Date: 2001/11/14 14:14:07 $
+Version: $Id: ChangeLog,v 1.531 2001/11/14 15:12:54 czkmt Exp $
+Last Modified: $Date: 2001/11/14 15:12:54 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
