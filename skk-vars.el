@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.55 2001/09/13 13:56:28 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.56 2001/09/14 12:04:25 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/13 13:56:28 $
+;; Last Modified: $Date: 2001/09/14 12:04:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -51,15 +51,22 @@
   (require 'static))
 
 (eval-and-compile
-  (defconst skk-emacs-type (cond ((featurep 'xemacs) 'xemacs)
-				 ((and (boundp 'mule-version)
-				       (string< "5.0" mule-version) 'mule5))
-				 ((and (boundp 'mule-version)
-				       (string< "4.0" mule-version) 'mule4))
-				 ((and (boundp 'mule-version)
-				       (string< "3.0" mule-version) 'mule3))
-				 ((and (boundp 'mule-version)
-				       (string< "2.0" mule-version) 'mule2))))
+  (defconst skk-emacs-type
+    (cond
+     ((featurep 'xemacs)
+      'xemacs)
+     ((and (boundp 'mule-version)
+	   (string< "5.0" mule-version))
+      'mule5)
+     ((and (boundp 'mule-version)
+	   (string< "4.0" mule-version))
+      'mule4)
+     ((and (boundp 'mule-version)
+	   (string< "3.0" mule-version))
+      'mule3)
+     ((and (boundp 'mule-version)
+	   (string< "2.0" mule-version))
+      'mule2)))
   ;;
   (require 'pcustom))
 
