@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.9 2001/08/31 22:45:20 czkmt Exp $
+;; Version: $Id: skk-dcomp.el,v 1.10 2001/09/08 01:33:02 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 22:45:20 $
+;; Last Modified: $Date: 2001/09/08 01:33:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -195,7 +195,8 @@
     (if (and (markerp skk-dcomp-start-point)
 	     (markerp skk-dcomp-end-point)
 	     (marker-position skk-dcomp-start-point)
-	     (marker-position skk-dcomp-end-point))
+	     (marker-position skk-dcomp-end-point)
+	     (< skk-dcomp-start-point skk-dcomp-end-point))
 	(progn
 	  (skk-dcomp-face-off)
 	  (delete-region skk-dcomp-end-point (point))
