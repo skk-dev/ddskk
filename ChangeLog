@@ -1,3 +1,7 @@
+2001-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi (SKKの歴史): New chapter.
+
 2001-09-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* READMEs/NEWS: Update.
@@ -1778,8 +1782,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.367 2001/09/08 03:20:00 czkmt Exp $
-Last Modified: $Date: 2001/09/08 03:20:00 $
+Version: $Id: ChangeLog,v 1.368 2001/09/08 22:55:42 czkmt Exp $
+Last Modified: $Date: 2001/09/08 22:55:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

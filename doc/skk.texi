@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.77 2001/08/31 20:23:39 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.78 2001/09/08 22:55:42 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/08/31 20:23:39 $
+@c  Last Modified: $Date: 2001/09/08 22:55:42 $
 @c
 @set EDITION 1.6
 @set SKK-VERSION 11.4
-@set UPDATED $Date: 2001/08/31 20:23:39 $
+@set UPDATED $Date: 2001/09/08 22:55:42 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -121,6 +121,7 @@ SKK のバージョン @value{SKK-VERSION} に対応しています。
 * SKKの入手方法::
 * SKK関連ソフトウェア::
 * 最新情報など::
+* SKKの歴史::
 * よくある質問とその回答(FAQ)::
 * 事項索引::
 * 変数索引::
@@ -7354,7 +7355,7 @@ SKK95 の作者は責任を負いません。
 もあります。WindowsNT では比較的安定して動作するようです。
 @end table
 
-@node 最新情報など, よくある質問とその回答(FAQ), SKK関連ソフトウェア, Top
+@node 最新情報など, SKKの歴史, SKK関連ソフトウェア, Top
 @comment  node-name,  next,  previous,  up
 @chapter 最新情報など
 
@@ -7522,7 +7523,134 @@ SKK の原作者は、現京都大学の佐藤雅彦教授 @w{<masahiko@@kuis.kyoto-u.ac.jp>
 本マニュアルは、SKK オープンラボの有志の貢献により、従来のマニュアルに加
 筆修正したものです。
 
-@node よくある質問とその回答(FAQ), 事項索引, 最新情報など, Top
+@node SKKの歴史, よくある質問とその回答(FAQ), 最新情報など, Top
+@comment      node-name, next,       previous, up
+@chapter SKKの歴史
+
+@display
+1987年 7月頃                       1987年 6月12日
+
+ 佐藤雅彦氏が SKK の開発に          Nemacs 1.1 (Emacs 18.47)
+ 着手
+
+1988年 4月22日                     1988年 6月15日
+
+ SKK 1.13 リリース                  Nemacs 2.1
+
+1989年 4月15日                     1989年 6月14日
+
+ SKK 2.25                           Nemacs 3.1
+
+1990年 4月頃
+
+ 東北大学において SKK メーリ
+ ングリスト開設
+
+1990年 4月29日                     1990年 6月 6日
+
+ SKK 3.47                           Nemacs 3.3.2 (Emacs 18.55)
+                                    SKK 2.25 を収録
+                                    (世間では 3.47 と言われている
+1991年 4月頃                         が、肝心の Nemacs を展開する
+                                     と 2.25 しか見当たらない)
+ 雑誌「bit」が 1991年4月号に
+ 佐藤氏の SKK に関する記事を
+ 掲載
+
+1991年 5月 9日                     1991年12月12日 (?)
+
+ SKK 4.33                           Demacs 1.2.0 (Emacs 18.55)
+
+1992年 5月 9日                     1992年 3月 4日
+
+ SKK 5.30                           Mule 0.9.0 Beta
+ このころから Mule 対応が
+ 進められる
+
+1993年 4月 24日
+                                   1994年 2月 8日
+ SKK 6.32
+                                    Mule 1.1 (Emacs 18.59)
+1994年 6月 7日
+                                   1994年 8月 6日
+ SKK 7.18
+                                    Mule 2.0 (Emacs 19.25)
+                                    Emacs 19 になり GUI が進化
+1995年 5月17日
+                                   1995年 7月24日
+ SKK 8.6
+ Emacs 19 に対応した                Mule 2.3 (Emacs 19.28)
+ i-search 機能を搭載
+
+ 佐藤氏とともに                    1996年 8月 (?)
+ 開発の場が京大に移動
+                                    Mule 2.3 (Emacs 19.34) 非公式版
+
+                                    このころ FSF, XEmacs とも
+                                    Mule の統合が行われた
+
+1997年 2月 7日                     1997年 2月 9日
+
+ SKK 9.6                            XEmacs 20.0
+ face を利用したカラフルなUI
+ は SKK のイメージを変えた
+
+1997年 2月頃
+
+ SKK 10 の開発が始まる             1997年 9月14日
+ いわゆる「非公式」時代
+                                    Emacs 20.1 (MULE 3.0)
+ Mule, Emacs, XEmacs など           SKK 9.6 がそのままでは動かなかっ
+ 多様な環境で動作すること           た
+ が求められるようになる
+                                   1998年 2月23日
+1998年 3月 1日
+                                    XEmacs 20.4
+ SKK 10.39                          SKK 10.38 を同梱
+
+                                    Mule をサポートした XEmacs に
+                                    ユーザが流れ始める
+1998年 7月27日
+                                   1998年 8月19日
+ SKK 10.44.8
+                                    Emacs 20.3 (MULE 4.0)
+                                    このバージョンにおける変更は
+                                    SKK にとって重大で、一部では混
+1998年 10月頃                       乱がみられた
+
+ APEL が採用される                 1999年 3月25日
+ この頃から XEmacs での
+ 動作が安定し始める                 XEmacs 21.0.67
+
+                                   1999年 7月12日
+1999年10月23日
+                                    Emacs 20.4 (MULE 4.0)
+ SKK 10.56                          20.3 から 1, 2週間の予定が
+                                    1 年近くかかってやっと安定
+1999年11月頃
+
+ SKK オープンラボ開設
+ Daredevil SKK の開発を開始
+ 本家とは別の道を歩み始める
+                                   2000年 6月14日
+2000年10月30日
+                                    Emacs 20.7 (MULE 4.0)
+ SKK 10.62a
+ SKK 10 の開発が凍結され、
+ Daredevil SKK が開発の幹に
+
+2000年11月頃
+
+ 京大での開発終了が宣言される
+
+2001年 1月 2日
+                                   2001年 3月21日
+ Daredevil SKK 11.4
+                                    XEmacs 21.2.46
+
+@end display
+
+@node よくある質問とその回答(FAQ), 事項索引, SKKの歴史, Top
 @comment      node-name, next,       previous, up
 @chapter よくある質問とその回答(FAQ)
 
