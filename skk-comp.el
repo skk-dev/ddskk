@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.10 2000/12/01 09:15:48 minakaji Exp $
+;; Version: $Id: skk-comp.el,v 1.11 2001/03/10 14:28:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/01 09:15:48 $
+;; Last Modified: $Date: 2001/03/10 14:28:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -60,9 +60,6 @@
     (and (or first skk-dabbrev-like-completion)
 	 (setq skk-comp-key
 	       (buffer-substring-no-properties skk-henkan-start-point (point))))
-    (and (string= skk-comp-key "")
-	 (skk-error "空文字から補完することはできません！"
-		    "Cannot complete an empty string!"))
     (if (> skk-comp-depth 0)
 	;; (過去に探索済みの読みをアクセス中)
 	(setq skk-comp-depth (1- skk-comp-depth)
@@ -82,34 +79,40 @@
 	  (if silent
 	      nil
 	  (ding)
-	  (if skk-japanese-message-and-error
-	      (message "\"%s\" で補完すべき見出し語は%sありません"
-		     skk-comp-key (if first "" "他に"))
-	    (message "No %scompletions for \"%s\""
-		   (if first "" "more ") skk-comp-key))))
+	  (if (string= skk-comp-key "")
+	      (skk-message
+	       "これ以上の履歴はありません"
+	       "No more words on history")
+	    (if skk-japanese-message-and-error
+		(message "\"%s\" で補完すべき見出し語は%sありません"
+			 skk-comp-key (if first "" "他に"))
+	      (message "No %scompletions for \"%s\""
+		       (if first "" "more ") skk-comp-key)))))
       (delete-region skk-henkan-start-point (point))
       (insert c-word))))
 
 (defun skk-comp-do-1 (key first)
   ;; skk-comp-1 のサブルーチン。
   (let (c-word)
-    (with-current-buffer (skk-get-jisyo-buffer skk-jisyo)
-      (if first (goto-char skk-okuri-nasi-min))
-      (save-match-data
-	;; case-fold-search は、辞書バッファでは常に nil。
-	(while (and (not c-word)
-		    (search-forward (concat "\n"
-					    (if skk-use-numeric-conversion
-						(skk-num-compute-henkan-key key)
-					      key))
-				    nil t))
-	  (or (eq (following-char) ?\040) ;SPC
-	      (setq c-word (concat key
-				   (buffer-substring-no-properties
-				    ;; 見出し語に空白は含まれない。" /" をサー
-				    ;; チする必要はない。
-				    (point) (1- (search-forward " ")))))))
-	c-word))))
+    (if (string= skk-comp-key "")
+	(skk-comp-by-history)
+      (with-current-buffer (skk-get-jisyo-buffer skk-jisyo)
+	(if first (goto-char skk-okuri-nasi-min))
+	(save-match-data
+	  ;; case-fold-search は、辞書バッファでは常に nil。
+	  (while (and (not c-word)
+		      (search-forward (concat "\n"
+					      (if skk-use-numeric-conversion
+						  (skk-num-compute-henkan-key key)
+						key))
+				      nil t))
+	    (or (eq (following-char) ?\040) ;SPC
+		(setq c-word (concat key
+				     (buffer-substring-no-properties
+				      ;; 見出し語に空白は含まれない。" /" をサー
+				      ;; チする必要はない。
+				      (point) (1- (search-forward " ")))))))
+	  c-word)))))
 
 ;;;###autoload
 (defun skk-comp-previous ()
@@ -137,6 +140,20 @@
 	 (skk-comp-do nil))
 	((eq ch skk-previous-completion-char)
 	 (skk-previous-completion))))
+
+(defun skk-comp-by-history ()
+  (unless skk-comp-stack
+    (let ((hist skk-kakutei-history)
+	  list el)
+      (while hist
+	(setq el (caar hist))
+	(unless (member el list)
+	  (setq list (cons el list)))
+	(setq hist (cdr hist)))
+      (setq skk-comp-kakutei-midasi-list (nreverse list))))
+  (prog1
+      (car skk-comp-kakutei-midasi-list)
+    (setq skk-comp-kakutei-midasi-list (cdr skk-comp-kakutei-midasi-list))))
 
 (defalias 'skk-previous-completion 'skk-comp-previous)
 (defalias 'skk-start-henkan-with-completion 'skk-comp-start-henkan)

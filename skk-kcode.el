@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.13 2000/12/13 10:39:42 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.14 2001/03/10 14:28:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/13 10:39:42 $
+;; Last Modified: $Date: 2001/03/10 14:28:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -56,7 +56,7 @@
 	   "7/8 bits or KUTEN code for %s (00nn or CR for Jump Menu): "
 	   skk-kcode-charset)))
 	(enable-recursive-minibuffer t)
-	n1 n2)
+	n1 n2 kanji)
     (if (string-match "\\(.+\\)-\\(.+\\)" str)
 	(setq n1 (+ (string-to-number (match-string-no-properties 1 str)) 32 128)
 	      n2 (+ (string-to-number (match-string-no-properties 2 str)) 32 128))
@@ -68,9 +68,13 @@
 		    (skk-char-to-hex (aref str 3))))))
     (if (or (> n1 256) (> n2 256))
 	(skk-error "無効なコードです" "Invalid code"))
-    (insert (if (> n1 160)
-		(skk-make-string n1 n2)
-	      (skk-input-by-code-or-menu-0 n1 n2)))
+    (insert (setq kanji (if (> n1 160)
+			    (skk-make-string n1 n2)
+			  (skk-input-by-code-or-menu-0 n1 n2))))
+    ;; 履歴を更新する。
+    (when (> skk-kakutei-history-limit 0)
+      (skk-update-kakutei-history kanji))
+    ;;
     (if skk-henkan-active (skk-kakutei))))
 
 (defun skk-char-to-hex (char &optional jischar)

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.93 2001/02/14 03:56:42 minakaji Exp $
+;; Version: $Id: skk.el,v 1.94 2001/03/10 14:28:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/14 03:56:42 $
+;; Last Modified: $Date: 2001/03/10 14:28:14 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -2123,7 +2123,14 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		  (if (skk-numeric-p)
 		      (progn
 			(setq converted (skk-get-current-candidate))
-			(skk-num-update-jisyo kakutei-word converted)))))))
+			(skk-num-update-jisyo kakutei-word converted))))))
+	;; ▽モードで確定した場合。便宜的に現在のポイントまでを見出し語を扱い
+	;; して履歴を更新する。
+	(when (and (> skk-kakutei-history-limit 0)
+		   (< skk-henkan-start-point (point)))
+	  (skk-update-kakutei-history
+	   (buffer-substring-no-properties skk-henkan-start-point
+					   (point)))))
       (if skk-mode
 	  (progn
 	    (skk-kakutei-cleanup-buffer)
@@ -3351,6 +3358,11 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	     (skk-num-compute-henkan-key skk-henkan-key)
 	   skk-henkan-key))
 	(henkan-buffer (and skk-update-end-function (current-buffer))))
+    ;; 入力履歴を更新する。
+    ;; 送りあり入力は省略し、送りなし入力のみ履歴をとる。
+    (unless skk-henkan-okurigana
+      (skk-update-kakutei-history midasi word))
+    ;;
     (if jisyo-buffer
 	(let ((inhibit-quit t) buffer-read-only old-entry okurigana)
 	  (if (> skk-okuri-index-min -1)
@@ -3930,6 +3942,18 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; bits wide.
   (+ (lsh (- (car b) (car a)) 16)
      (- (nth 1 b) (nth 1 a))))
+
+(defun skk-update-kakutei-history (midasi &optional word)
+  ;; 変数 `skk-kakutei-history' を更新する。
+  ;; この履歴はskk-comp.el において利用される。
+  (cond
+   ((<= skk-kakutei-history-limit 0)
+    (setq skk-kakutei-history nil))
+   (t
+    (setq skk-kakutei-history (cons (cons midasi word) skk-kakutei-history))
+    (if (> (length skk-kakutei-history) skk-kakutei-history-limit)
+	(setcdr (nthcdr (1- skk-kakutei-history-limit) skk-kakutei-history)
+		nil)))))
 
 (defun skk-remove-minibuffer-setup-hook (&rest args)
   ;; Remove all args from minibuffer-setup-hook.

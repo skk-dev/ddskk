@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.31 2001/03/03 23:39:16 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.32 2001/03/10 14:28:14 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/03/03 23:39:16 $
+;; Last Modified: $Date: 2001/03/10 14:28:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1171,6 +1171,12 @@ nil $B$G$"$l$P!"@hF,$NJ8;z$r6&DL$K$9$kJ8;zNs$K$D$$$FJd40$,9T$J$o$l$k!#(B
   :group 'skk-hooks-and-functions
   :group 'skk-comp)
 
+(defcustom skk-kakutei-history-limit 20
+  "$BJQ?t(B `skk-kakutei-history' $B$NCM(B ($BO"A[%j%9%H(B) $B$ND9$5$N>e8B!#(B"
+  :type 'integer
+  :group 'skk-misc
+  :group 'skk-comp)
+
 (defcustom skk-use-color-cursor (and (not (memq skk-emacs-type '(ms-dos nemacs mule1)))
 				     window-system (fboundp 'x-display-color-p)
 				     (x-display-color-p))
@@ -2126,6 +2132,13 @@ skk-record-file $B$N(B \"$BEPO?(B:\" $B9`L\$N%+%&%s%?!<!#(B")
 $B%H%;!<%V$,9T$J$o$l$k!#(B
 $B<-=q$N%;!<%V$,9T$J$o$l$k$H%$%K%7%c%i%$%:$5$l$k!#(B")
 
+(defvar skk-kakutei-history nil
+  "$BAw$j$J$7$G3NDj$5$l$?8+=P$78l!&8uJd$NMzNr!#(B
+
+   (\"$B$_$@$7$4(B\" . \"$B8+=P$78l(B\")
+
+   $B$H$$$&7A<0$NO"A[%j%9%H!#(B")
+
 (defvar skk-minibuffer-origin-mode nil
   "$BF~NO%b!<%I$rI=$o$9%7%s%\%k!#(B
 $BM-8z$JCM$O!"(B`hiragana', `katakana', `abbrev', `latin', `jisx0208-latin' $B$b$7$/$O(B
@@ -2348,6 +2361,9 @@ skk-dabbrev-like-completion $B$,(B non-nil $B$N>l9g$O!">o$K:G8e$KJd40$7$?8+=P
 
 (skk-deflocalvar skk-comp-depth 0
   "$BJd40$7$?8l$r(B skk-comp-stack $B$+$i<h$j=P$90LCV!#(B")
+
+(skk-deflocalvar skk-comp-kakutei-midasi-list nil
+  "$B3NDjMzNr$+$iF@$i$l$?8+=P$78l$N%j%9%H!#(B")
 
 ;;; -- SKK-CURSOR.EL related internal variables
 (skk-deflocalvar skk-cursor-color-before-entering-minibuffer nil
