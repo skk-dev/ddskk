@@ -137,9 +137,13 @@ Message-ID: <380bc098380b2426@tkcs11.tkccc.nasda.go.jp>
           例えば LISPDIR=c:\usr\mule\site-lisp とすれば、
           c:\usr\mule\site-lisp\skk にインストールされる。
 
-       3. MAKE.BAT を実行する。
+       3. MAKE.BAT info-mule-for-win を実行する。一時的に Window が
+          開いて、info マニュアルが作成されます。
+          (この操作は、Mule for Windows のみ必要です)
 
-       4. .emacs に以下の内容を追加する。
+       4. MAKE.BAT を実行する。
+
+       5. .emacs に以下の内容を追加する。
 
          (require 'skk-autoloads)
          (global-set-key "\C-x\C-j" 'skk-mode)
