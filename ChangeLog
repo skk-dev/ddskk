@@ -1,11 +1,30 @@
 2001-09-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* SKK-MK (SKK-MK-skk-dic): Do nothing if skk-dic.el exists.
+	* SKK-MK
+	(SKK-MK-skk-dic): Do nothing if skk-dic.el exists.
 
-	* skk-jisyo-edit-mode.el (auto-mode-alist): Add association for
-	private jisyo.
+	* skk-jisyo-edit-mode.el
+	(auto-mode-alist): Add association for private jisyo.
 
-	* skk-xemacs.el (before-init-hook): Fill.
+	* skk-xemacs.el
+	(before-init-hook): Fill.
+
+	* skk-cursor.el
+	(skk-cursor-buffer-local-frame-params-ad-targets): Thought this
+	variable is not needed.
+
+	(isearch-mode-end-hook): Call `skk-cursor-set'.
+
+	* skk-jisx0201.el
+	(skk-jisx0201-mode-on)
+	(skk-insert): Call `skk-cursor-set'.
+
+	* skk-macs.el
+	(skk-j-mode-on): Ditto.
+
+	* skk-vars.el
+	(skk-cursor-color-before-entering-minibuffer): This is
+	obsolete. Abolish.
 
 2001-09-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2052,8 +2071,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.426 2001/09/23 00:44:37 czkmt Exp $
-Last Modified: $Date: 2001/09/23 00:44:37 $
+Version: $Id: ChangeLog,v 1.427 2001/09/23 02:51:01 czkmt Exp $
+Last Modified: $Date: 2001/09/23 02:51:01 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.58 2001/09/21 23:14:54 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.59 2001/09/23 02:51:01 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/21 23:14:54 $
+;; Last Modified: $Date: 2001/09/23 02:51:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2459,8 +2459,6 @@ skk-dabbrev-like-completion $B$,(B non-nil $B$N>l9g$O!">o$K:G8e$KJd40$7$?8+=P
   "$B3NDjMzNr$+$iF@$i$l$?8+=P$78l$N%j%9%H!#(B")
 
 ;;; -- SKK-CURSOR.EL related internal variables
-(skk-deflocalvar skk-cursor-color-before-entering-minibuffer nil
-  "$B%_%K%P%C%U%!$KF~$kD>A0$N%+!<%=%k?'(B")
 
 ;;; -- SKK-GADGET.EL related internal variables
 

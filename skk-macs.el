@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.48 2001/09/17 14:21:54 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.49 2001/09/23 02:51:01 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/17 14:21:54 $
+;; Last Modified: $Date: 2001/09/23 02:51:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -54,9 +54,7 @@
 	   'mule2))))
 
 (eval-and-compile
-  (unless (eq skk-emacs-type 'xemacs)
-    (autoload 'set-buffer-local-cursor-color "ccc"))
-  (autoload 'skk-cursor-current-color "skk-cursor"))
+  (autoload 'skk-cursor-set "skk-cursor"))
 
 ;;;; macros
 
@@ -586,15 +584,11 @@ BUFFER defaults to the current buffer."
 	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana katakana)
-  (skk-update-modeline (if skk-katakana 'katakana 'hiragana))
+  (skk-update-modeline (if skk-katakana
+			   'katakana
+			 'hiragana))
   (when skk-use-color-cursor
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      (set-face-property 'text-cursor 'background
-			 (skk-cursor-current-color)
-			 (current-buffer)))
-     (t
-      (set-buffer-local-cursor-color (skk-cursor-current-color))))))
+    (skk-cursor-set)))
 
 (defsubst skk-latin-mode-on ()
   (setq skk-mode t
