@@ -109,8 +109,9 @@
 	(mapcar
 	 #'(lambda (el)
 	     (let ((val (symbol-value (car el))))
-	       (and val
-		    (cons (car el) val))))
+	       (if val
+		   (cons (car el) val)
+		 nil)))
 	 params)))
 
 (defun skk-customize ()
