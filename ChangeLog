@@ -1,3 +1,24 @@
+2001-11-19  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
+
+	* skk-tut.el (skktut-end-tutorial) : Update for ml program change
+	to ezmlm.
+
+	* skk-vars.el (skk-ml-command-address) : Update for ml program 
+	change to ezmlm.
+	
+	* READMEs/NEWS : Add support for GNU Emacs 21.
+	Add that archive include S dictoionary.
+
+	* READMEs/README.win : Update site of tar.exe.
+
+	* doc/skk.texi (EDITION): Updated to 1.7.
+	(SKK-VERSION) : Updated to 11.5.2.
+	(はじめに) : Add support for GNU Emacs 21.
+	(辞書の入手): Update doc.
+	(SKK のインストール) : Change make.bat to makeit.bat.
+	(SKK Ring Server Openlab メーリングリスト) : Change ring.etl.go.jp 
+	to news.ring.gr.jp.
+	
 2001-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK:
@@ -2786,8 +2807,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.537 2001/11/18 11:31:50 czkmt Exp $
-Last Modified: $Date: 2001/11/18 11:31:50 $
+Version: $Id: ChangeLog,v 1.538 2001/11/18 16:12:59 akiho Exp $
+Last Modified: $Date: 2001/11/18 16:12:59 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
