@@ -1,0 +1,177 @@
+-*- outline -*-
+
+             $Date: 1999/11/17 14:04:46 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: CVS_digest,v 1.2 1999/11/17 14:04:46 minakaji Exp $
+
+[CVS ダイジェスト]
+
+自分の理解を助けるために書いたものです。間違いのご指摘、簡便なやり方が
+他にあるなどの情報をいただければ幸いです。
+
+* cvs server repositry tree
+
+  $CVSROOT(openlab.ring.gr.jp:/circus/cvsroot)
+     |
+     |
+     +-- skk --+-- main (Main distribution -- Emacs Lisp, info, tutorials, etc)
+     	       |
+	       |
+	       +-- dic (Dictionaries)
+	       |
+	       |
+	       +-- tools (Dictionary maintenance tools)
+
+* cvs サーバからのソースをもらってくる (checkout)。
+
+** Login
+
+まず、guest アカウントで openlab.ring.gr.jp の cvs server にログインし
+ます (openlab.ring.gr.jp の cvs server 用に個人のアカウントを持ってらっ
+しゃる方は、それを使いましょう)。
+
+  $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot login
+
+プロンプトが出るので、パスワードに `guest' を入れ、CR しましょう。
+
+  CVS password: guest (CR)
+
+~/.cvspass というファイルに password が記録され、次からは明示的な
+login は不要になります (*注1)。
+
+
+** Checkout
+
+Checkout して cvs server からソースをもらってきます (このファイルをワー
+キングコピーといいます) (*注2)。Maintrunk を入手したければ、下記のようにします。
+
+  $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot checkout skk/main
+
+Daredevil branch を入手したければ、下記のようにします。
+
+  $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot checkout -r daredevil skk/main
+
+カレントディレクトリの下にできる skk/main というディレクトリにワーキン
+グコピーがコピーされます。
+
+  $ cd skk/main
+
+コンパイルして使うなり、編集するなりご自由にどうぞ。
+
+
+* 手元のソースを変更して cvs server にあるソースに変更を反映する (update, commit, etc)。
+
+** cvs account の発行
+
+openlab.ring.gr.jp の cvs server 上にアカウントがないと update,
+commit, tag できません。minakaji@ring.gr.jp 宛てに希望するアカウント名
+と、crypt されたパスワード文字列を連絡して下さい。
+
+登録が完了したらご連絡申し上げます。
+
+** Login
+
+まず、openlab.ring.gr.jp の cvs server にログインします。
+
+  $ cvs -d :pserver:your_account@openlab.ring.gr.jp:/circus/cvsroot login
+                    ^^^^^^^^^^^^
+
+登録されたパスワードを入力して下さい。
+
+  CVS password: ** (CR)
+
+次からは login 手続きは要りません。
+
+ 
+** Checkout 
+
+上記の guest の checkout と手続き的には同じです (アカウントを自分のア
+カウントにするだけ)。
+
+guest で checkout したワーキングコピーは guest@openlab.ring.gr.jp で
+login するよう CVS/Root に情報が収納されていますので、commit するなど、
+cvs server 上のソースに変更を加える場合は、この情報を
+
+   `自分のアカウント名@ring.gr.jp'
+
+に変更するか、自分のアカウントを使って再度 checkout する必要があります。
+
+
+** Update
+
+ワーキングコピーは残しておくと、cvs server 上のソースに変更が加えられ
+たときに差分だけ取り寄せ、ワーキングコピーを最新の状態にすることができ
+ます。
+ワーキングコピーは、openlab.ring.gr.jp:/circus/cvsroot を指しているこ
+とを記憶している (*注3) ので、update から始めると、自動的にログインでき
+ます。
+
+   $ cvs update
+
+
+** Commit
+
+下記の手順を踏んで commit して下さいね。
+
+まず、ワーキングコピーのソースを自分の環境でコンパイル & インストー
+ルします。
+
+自分が普段使っている環境で動作確認をして下さい。(少なくとも一度、SKK
+を起動 & 終了して問題がないことを確認してね)。
+
+ML に投稿するためのリリースノートを書いて下さい (主な変更点が分る程度
+の簡単なもので結構です) 。この際、上記でインストールした新たなワーキン
+グコピーからコンパイルした SKK を必ず使用して下さい。
+
+リリースノートの記事を書いている間中も SKK に問題がなければ、ワーキグ
+コピーを commit して上記リリースノートを ML に投稿して下さい。
+
+ChangeLog の更新をお忘れなく (英語で書いていますが、英語が苦痛なら日本
+語で書いても全然問題ありません)(*注4)。
+
+  $ cd skk/main
+  $ cvs commit -m "" ChangeLog
+  $ cvs commit -m "" skk.el
+
+
+** Tagify
+
+Daredevil SKK に新たな機能を加えた人は、このファイルと同じディレクトリ
+にある Codename というファイルの中身を参照して tag 付けして下さい (但
+し、tag には空白文字を含めることができないようなので、TAG 付けするのは、
+Codename のうち、駅名の部分だけで結構です)。
+
+     $ cvs tag (Codename) .
+
+Maintrunk には tag 付けしないで下さい。Maintrunk の tag 付けルールはま
+だ考えていません
+
+* 脚注
+
+** 注1
+
+ワーキングコピーは、openlab.ring.gr.jp:/circus/cvsroot を指しているこ
+とを記憶している (*注3) ので、ワーキングコピーを置いているディレクトリ
+で checkout, update, commit, tag などの cvs コマンドを実行すると、自動
+的に openlab.ring.gr.jp にログインして、それぞれのコマンドを実行します。
+
+
+** 注2
+
+~/.cvsrc に、
+
+  cvs -z9
+
+と書いておくと、cvs server との通信内容が圧縮されます。
+
+
+** 注3
+
+ワーキングコピーのあるディレクトリ (及びそのサブディレクトリ) の
+CVS/Root というファイルにサーバ情報が保存されています。
+
+** 注4
+
+ChangeLog を書けば、cvs の -m オプションで渡すコメントは特に不要、と考
+えていますが、このコメントの便利な使い方があるのなら、ご指導下さい。 
+
+[end of CVS_digest]
