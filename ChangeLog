@@ -1,9 +1,16 @@
+2005-02-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-server.el (skk-open-network-stream): For Emacs 22.0.50 or
+	greater, call `set-process-query-on-exit-flag' instead of
+	`process-kill-without-query'.
+
 2005-02-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-jisyo-edit-mode.el (skk-jisyo-edit-font-lock-keywords):
 	`defvar' instead of `defconst'.
 
 	* skk.el (skk-set-char-before-as-okurigana): New function.
+
 	(skk-set-henkan-point): When user mistypes, e.g. "ArukU" for
 	"AruKu", insert "Aruku" and call
 	`skk-set-char-before-as-okurigana'.
@@ -4834,8 +4841,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.838 2005/02/24 07:33:23 skk-cvs Exp $
-Last Modified: $Date: 2005/02/24 07:33:23 $
+Version: $Id: ChangeLog,v 1.839 2005/02/26 04:36:49 skk-cvs Exp $
+Last Modified: $Date: 2005/02/26 04:36:49 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
