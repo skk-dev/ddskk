@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.11 2000/09/27 14:02:40 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.12 2000/09/30 15:28:26 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/27 14:02:40 $
+;; Last Modified: $Date: 2000/09/30 15:28:26 $
 
 ;; This file is part of SKK.
 
@@ -146,12 +146,11 @@ integer `1' を代入する。
   key)
 
 (defun skk-num-convert (key)
-  ;; KEY と skk-num-list から数値変換後の文字列を返す。
-  ;; skk-henkan-count が指している数値変換キーの候補を変換し、
-  ;; skk-henkan-list を
+  ;; skk-henkan-list の skk-henkan-count が指している数値変換キーの
+  ;; 候補を変換し、skk-henkan-list を
   ;;   ("#2" ...) -> (("#2" ."一") ...)
   ;; のように変形する。
-  (if (not key)
+    (if (not key)
       nil
     (let ((numexp (if skk-num-convert-float
                       "#[.0-9]+" "#[0-9]+"))
@@ -176,7 +175,7 @@ integer `1' を代入する。
         (cond ((null convlist) nil)
               ((and (null (cdr convlist)) (stringp (car convlist)))
                (setq current (car convlist)))
-              ;; RAW-LIST の全要素が文字列。
+              ;; CONV-LIST の全要素が文字列。
               ((null (memq t (mapcar 'listp convlist)))
                (setq current (mapconcat 'identity convlist ""))
                (if (and (> skk-henkan-count -1)
@@ -504,23 +503,24 @@ integer `1' を代入する。
 
 ;;;###autoload
 (defun skk-num-process-user-minibuf-input (key)
-  (let (numexp orglen val)
-    (if (or (and (string-match "#[012349]" key)
-                 (setq numexp key))
-            (and (setq numexp (skk-num-rawnum-exp key))
-                 (not (string= key numexp))))
-        (progn
-          (setq orglen (length skk-henkan-list)
-                ;; skk-henkan-list の調整は、skk-num-convert の中で行なっ
-                ;; てくれる。
-                val (skk-num-convert numexp))
-          (if (= (length skk-henkan-list) (1+ orglen))
-              ;; #4 で複数の候補に変換できた場合は確定しない。
-              (setq skk-kakutei-flag t)))
-      (setq skk-henkan-list (nconc skk-henkan-list (list key))
-            skk-kakutei-flag t
-            val key))
-    val))
+  (save-match-data
+    (let (numexp orglen val)
+      (if (or (and (string-match "#[012349]" key)
+		   (setq numexp key))
+	      (and (setq numexp (skk-num-rawnum-exp key))
+		   (not (string= key numexp))))
+	  (progn
+	    (setq orglen (length skk-henkan-list)
+		  ;; skk-henkan-list の調整は、skk-num-convert の中で行なっ
+		  ;; てくれる。
+		  val (skk-num-convert numexp))
+	    (if (= (length skk-henkan-list) (1+ orglen))
+		;; #4 で複数の候補に変換できた場合は確定しない。
+		(setq skk-kakutei-flag t)))
+	(setq skk-henkan-list (nconc skk-henkan-list (list key))
+	      skk-kakutei-flag t
+	      val key))
+      val)))
 
 ;;;###autoload
 (defun skk-num-initialize ()

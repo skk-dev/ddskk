@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.2 2000/09/10 01:07:41 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.3 2000/09/30 15:28:26 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2000/09/10 01:07:41 $
+;; Last Modified: $Date: 2000/09/30 15:28:26 $
 ;; This file is part of Daredevil SKK.
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify
@@ -88,6 +88,11 @@
 ;;; Code:
 (eval-when-compile (require 'skk) (require 'skk-num) (require 'cl))
 
+(if (memq skk-emacs-type '(mule5 mule4 mule3 mule2 mule1))
+    (condition-case nil
+	(require 'bitmap)
+      (error)))
+    
 (require 'poe)
 (require 'lookup)
 

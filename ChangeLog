@@ -1,3 +1,10 @@
+2000-10-01  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-lookup.el: Require bitmap when running on MULE.
+
+	* skk-num.el (skk-num-convert): Comment fixed.
+	(skk-num-process-user-minibuf-input): Use `save-match-data'.
+
 2000-09-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/FAQ.txt: Fixed a description about 「検索する辞書を増や
