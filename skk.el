@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.166 2001/10/23 12:59:26 czkmt Exp $
+;; Version: $Id: skk.el,v 1.167 2001/10/23 23:07:06 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/23 12:59:26 $
+;; Last Modified: $Date: 2001/10/23 23:07:06 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -230,8 +230,9 @@
 	   (get-char-code-property (string-to-char string)
 				   'ascii)))))
     ;;
-    (when char
-      (char-to-string char))))
+    (if char
+	(char-to-string char)
+      nil)))
 
 ;;;###autoload
 (defun skk-mode (&optional arg)
@@ -1281,9 +1282,9 @@ dependent."
 	  (when (symbolp key)
 	    (setq key (eval key))
 	    (setcar rule key))
-	  (when (not (or (string-match "\\w" key)
-			 (eq (key-binding key)
-			     'self-insert-command)))
+	  (unless (or (string-match "\\w" key)
+		      (eq (key-binding key)
+			  'self-insert-command))
 	    (define-key skk-j-mode-map key 'skk-insert)))
 	(skk-add-rule tree rule)))
     tree))
@@ -2291,8 +2292,9 @@ WORD で確定する。"
   ;;"変換を開始するポイントをマークし、対応する skk-prefix か母音を入力する。"
   (let* ((last-char (skk-downcase last-command-char))
 	 (normal (not (eq last-char last-command-char)))
-	 (sokuon (when (string= skk-prefix (char-to-string last-char))
-		   (/= last-char ?o)))
+	 (sokuon (if (string= skk-prefix (char-to-string last-char))
+		     (/= last-char ?o)
+		   nil))
 	 (henkan-active skk-henkan-active))
     (cond
      ((or (not skk-henkan-on) skk-henkan-active)

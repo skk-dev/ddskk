@@ -101,20 +101,25 @@
 	(cond (skk-katakana
 	       (skk-xemacs-find-func-keys 'skk-toggle-kana))
 	      ((not skk-j-mode)
-	       (skk-xemacs-find-func-keys 'skk-kakutei))))
+	       (skk-xemacs-find-func-keys 'skk-kakutei))
+	      (t
+	       nil)))
   (aset (nth 2 skk-xemacs-modeline-menu-items)
 	7
-	(when (and skk-j-mode
-		   (not skk-katakana))
-	  (skk-xemacs-find-func-keys 'skk-toggle-kana)))
+	(if (and skk-j-mode
+		 (not skk-katakana))
+	    (skk-xemacs-find-func-keys 'skk-toggle-kana)
+	  nil))
   (aset (nth 3 skk-xemacs-modeline-menu-items)
 	7
-	(when skk-j-mode
-	  (skk-xemacs-find-func-keys 'skk-latin-mode)))
+	(if skk-j-mode
+	    (skk-xemacs-find-func-keys 'skk-latin-mode)
+	  nil))
   (aset (nth 4 skk-xemacs-modeline-menu-items)
 	7
-	(when skk-j-mode
-	  (skk-xemacs-find-func-keys 'skk-jisx0208-latin-mode)))
+	(if skk-j-mode
+	    (skk-xemacs-find-func-keys 'skk-jisx0208-latin-mode)
+	  nil))
   ;;
   (popup-menu skk-xemacs-modeline-menu-items))
 
@@ -154,7 +159,8 @@
       (make-face face)
       (set-face-parent face 'modeline nil
 		       (if (> emacs-major-version 20)
-			   '(default)))
+			   '(default)
+			 nil))
       (when window-system
 	(set-extent-keymap extent
 			   skk-xemacs-modeline-map)
@@ -184,13 +190,17 @@
 				     func)
 			     (nth 1 list))))
 		 ((or str (null spec))
-		  (when (stringp str)
-		    (if (string= str "\C-j")
-			[(control j)]
-		      str))))
+		  (cond
+		   ((not (stringp str))
+		    nil)
+		   ((string= str "\C-j")
+		    [(control j)])
+		   (t
+		    str))))
 	     (where-is-internal func skk-j-mode-map))))
-    (when keys
-      (sorted-key-descriptions keys))))
+    (if keys
+	(sorted-key-descriptions keys)
+      nil)))
 
 ;; Hooks.
 

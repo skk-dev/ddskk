@@ -73,21 +73,23 @@
       ["Visit Daredevil SKK Home..." skk-e21-visit-openlab t])))
 
 (defvar skk-e21-modeline-property
-  (when window-system
-    (list 'local-map (static-if
-			 (fboundp
-			  'make-mode-line-mouse-map)
-			 (make-mode-line-mouse-map
-			  'mouse-2 #'skk-e21-modeline-menu)
-		       (make-mode-line-mouse2-map
-			#'skk-e21-modeline-menu))
-	  'help-echo
-	  "マウスの button 2 -> Daredevil SKK のメニュ−")))
+  (if window-system
+      (list 'local-map (static-if
+			   (fboundp
+			    'make-mode-line-mouse-map)
+			   (make-mode-line-mouse-map
+			    'mouse-2 #'skk-e21-modeline-menu)
+			 (make-mode-line-mouse2-map
+			  #'skk-e21-modeline-menu))
+	    'help-echo
+	    "マウスの button 2 -> Daredevil SKK のメニュ−")
+    nil))
 
 (defvar skk-e21-property-alist
-  (when window-system
-    (list
-     (cons 'latin skk-e21-modeline-property))))
+  (if window-system
+      (list
+       (cons 'latin skk-e21-modeline-property))
+    nil))
 
 ;; Functions.
 
@@ -99,20 +101,25 @@
 	(cond (skk-katakana
 	       (skk-e21-find-func-keys 'skk-toggle-kana))
 	      ((not skk-j-mode)
-	       (skk-e21-find-func-keys 'skk-kakutei))))
+	       (skk-e21-find-func-keys 'skk-kakutei))
+	      (t
+	       nil)))
   (aset (nth 2 skk-e21-modeline-menu-items)
 	7
-	(when (and skk-j-mode
-		   (not skk-katakana))
-	  (skk-e21-find-func-keys 'skk-toggle-kana)))
+	(if (and skk-j-mode
+		 (not skk-katakana))
+	    (skk-e21-find-func-keys 'skk-toggle-kana)
+	  nil))
   (aset (nth 3 skk-e21-modeline-menu-items)
 	7
-	(when skk-j-mode
-	  (skk-e21-find-func-keys 'skk-latin-mode)))
+	(if skk-j-mode
+	    (skk-e21-find-func-keys 'skk-latin-mode)
+	  nil))
   (aset (nth 4 skk-e21-modeline-menu-items)
 	7
-	(when skk-j-mode
-	  (skk-e21-find-func-keys 'skk-jisx0208-latin-mode)))
+	(if skk-j-mode
+	    (skk-e21-find-func-keys 'skk-jisx0208-latin-mode)
+	  nil))
   ;;
   (let ((easy-menu-converted-items-table
 	 (make-hash-table :test 'equal)))
@@ -158,11 +165,13 @@
 				     func)
 			     (nth 1 list))))
 		 ((or str (null spec))
-		  (when (stringp str)
-		    str)))
+		  (if (stringp str)
+		      str
+		    nil)))
 	     (car (where-is-internal func skk-j-mode-map)))))
-    (when keys
-      (format "%s" (key-description keys)))))
+    (if keys
+	(format "%s" (key-description keys))
+      nil)))
 
 ;;
 
