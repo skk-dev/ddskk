@@ -1,3 +1,12 @@
+2002-09-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el:
+
+	(skk-isearch-mode-setup):
+	(skk-isearch-mode-cleanup):
+
+	Do not consider MULE 3.
+
 2002-08-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK:
@@ -4011,8 +4020,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.708 2002/08/03 12:06:04 czkmt Exp $
-Last Modified: $Date: 2002/08/03 12:06:04 $
+Version: $Id: ChangeLog,v 1.709 2002/09/01 00:57:44 czkmt Exp $
+Last Modified: $Date: 2002/09/01 00:57:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
