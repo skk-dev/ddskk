@@ -32,6 +32,37 @@
 ;; Variables.
 (defvar skk-e21-modeline-menu-items
   '("Daredevil SKK Menu"
+    ["Hiragana"
+     (call-interactively
+      (lambda ()
+	(interactive)
+	(skk-j-mode-on)
+	(when skk-use-color-cursor
+	  (set-buffer-local-cursor-color (skk-cursor-current-color)))))
+     :selected (and skk-j-mode (not skk-katakana))
+     :style radio
+     :key-sequence nil]
+    ["Katakana"
+     (call-interactively
+      (lambda ()
+	(interactive)
+	(skk-j-mode-on t)
+	(when skk-use-color-cursor
+	  (set-buffer-local-cursor-color (skk-cursor-current-color)))))
+     :selected (and skk-j-mode skk-katakana)
+     :style radio
+     :key-sequence nil]
+    ["Hankaku alphabet"
+     skk-latin-mode
+     :selected skk-latin-mode
+     :style radio
+     :key-sequence nil]
+    ["Zenkaku alphabet"
+     skk-jisx0208-latin-mode
+     :selected skk-jisx0208-latin-mode
+     :style radio 
+     :key-sequence nil]
+    "--"
     ["Read Manual" skk-e21-info t]
     ["Start Tutorial" skk-tutorial t]
     ["Customize Daredevil SKK" skk-e21-customize t]
@@ -49,6 +80,36 @@
 
 (defun skk-e21-modeline-menu ()
   (interactive)
+  ;; Find keys
+  (aset (nth 1 skk-e21-modeline-menu-items)
+	0
+	(format "Hiragana %s"
+		(if skk-j-mode
+		    (if skk-katakana
+			(skk-e21-find-func-keys 'skk-toggle-kana)
+		      "")
+		  (skk-e21-find-func-keys 'skk-kakutei))))
+  (aset (nth 2 skk-e21-modeline-menu-items)
+	0
+	(format "Katakana %s"
+		(if skk-j-mode
+		    (if skk-katakana
+			""
+		      (skk-e21-find-func-keys 'skk-toggle-kana))
+		  "")))
+  (aset (nth 3 skk-e21-modeline-menu-items)
+	0
+	(format "Hankaku alphabet %s"
+		(if skk-j-mode
+		    (skk-e21-find-func-keys 'skk-latin-mode)
+		  "")))
+  (aset (nth 4 skk-e21-modeline-menu-items)
+	0
+	(format "Zenkaku alphabet %s"
+		(if skk-j-mode
+		    (skk-e21-find-func-keys 'skk-jisx0208-latin-mode)
+		  "")))
+  ;;
   (popup-menu skk-e21-modeline-menu-items))
 
 (defun skk-e21-info ()
@@ -62,6 +123,21 @@
 (defun skk-e21-visit-openlab ()
   (interactive)
   (browse-url "http://openlab.ring.gr.jp/skk/index-j.html"))
+
+(defun skk-e21-find-func-keys (func)
+  (let ((keys
+	 (or (do ((spec (nth 4 skk-rule-tree) (cdr spec))
+		  (list nil (car spec))
+		  (str nil (when (eq (nth 3 list)
+				     func)
+			     (nth 1 list))))
+		 ((or str (null spec))
+		  (when (stringp str)
+		    str)))
+	     (car (where-is-internal func skk-j-mode-map)))))
+    (if keys
+	(format "(%s)" (key-description keys))
+      "")))
 
 (require 'product)
 (product-provide (provide 'skk-e21) (require 'skk-version))
