@@ -1,3 +1,7 @@
+2003-03-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Update for skkinput, SKKIME, and SKK95.
+
 2003-03-16  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* doc/skk.texi: 
@@ -4125,8 +4129,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.725 2003/03/16 15:18:42 akiho Exp $
-Last Modified: $Date: 2003/03/16 15:18:42 $
+Version: $Id: ChangeLog,v 1.726 2003/03/22 16:50:57 czkmt Exp $
+Last Modified: $Date: 2003/03/22 16:50:57 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
