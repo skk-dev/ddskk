@@ -174,11 +174,9 @@ from DIR-FILE; don't insert any new entries."
 	      (unless (eolp)
 		(setq str (buffer-substring start (install-info-point-at-eol)))
 		(if (string-match "^\\* " str)
-		    (setq entry (cons str entry))
+		    (push str entry)
 		  (when entry
-		    (setq entry
-			  (cons (format "%s\n%s" (car entry) str)
-				(cdr entry))))))
+		    (setcar entry (format "%s\n%s" (car entry) str)))))
 	      (install-info-forward-line 1)))))
       (unless (setq entry (nreverse entry))
 	(error "warning; no info dir entry in %s" info-file))
@@ -210,12 +208,10 @@ from DIR-FILE; don't insert any new entries."
 		    (setq str (buffer-substring start
 						(install-info-point-at-eol)))
 		    (if (string-match "^\\* " str)
-			(setq entry (cons str entry))
+			(push str entry)
 		      ;; Sometimes mutiple lines are used for one entry.
 		      (when entry
-			(setq entry
-			      (cons (format "%s\n%s" (car entry) str)
-				    (cdr entry))))))
+			(setcar entry (format "%s\n%s" (car entry) str)))))
 		  (install-info-forward-line 1))))
 	    (when (and section (setq entry (nreverse entry)))
 	      (setq groups
@@ -237,11 +233,9 @@ from DIR-FILE; don't insert any new entries."
 		(setq str (buffer-substring start
 					    (install-info-point-at-eol)))
 		(if (string-match "^\\* " str)
-		    (setq entry (cons str entry))
+		    (push str entry)
 		  (when entry
-		    (setq entry
-			  (cons (format "%s\n%s" (car entry) str)
-				(cdr entry))))))
+		    (setcar entry (format "%s\n%s" (car entry) str)))))
 	      (install-info-forward-line 1))))
 	(unless (setq entry (nreverse entry))
 	  (error "warning; no info dir entry in %s" info-file))

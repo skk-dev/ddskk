@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.23 2001/09/15 06:29:24 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.24 2001/09/15 19:20:03 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 06:29:24 $
+;; Last Modified: $Date: 2001/09/15 19:20:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -87,8 +87,8 @@
 		      (if (and skk-abbrev-mode
 			       skk-use-look)
 			  (skk-look-completion))))
-	;; 新規に見つけたときだけ cons する。
-	(setq skk-comp-stack (cons c-word skk-comp-stack)))))
+	;; 新規に見つけたときだけ push する。
+	(push c-word skk-comp-stack))))
     ;; 辞書バッファの外。
     (cond
      (c-word
@@ -184,14 +184,12 @@
 
 (defun skk-comp-by-history ()
   (unless skk-comp-stack
-    (let ((hist skk-kakutei-history)
-	  list
+    (let (list
 	  el)
-      (while hist
-	(setq el (caar hist))
+      (dolist (cell skk-kakutei-history)
+	(setq el (car cell))
 	(unless (member el list)
-	  (setq list (cons el list)))
-	(setq hist (cdr hist)))
+	  (push el list)))
       (setq skk-comp-kakutei-midasi-list
 	    (nreverse list))))
   (prog1

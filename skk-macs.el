@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.45 2001/09/15 06:15:51 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.46 2001/09/15 19:20:04 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 06:15:51 $
+;; Last Modified: $Date: 2001/09/15 19:20:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -60,6 +60,40 @@
   (autoload 'skk-cursor-current-color "skk-cursor"))
 
 ;;;; macros
+
+;;;###autoload
+(put 'dolist 'lisp-indent-function 1)
+(defmacro-maybe dolist (spec &rest body)
+  "(dolist (VAR LIST [RESULT]) BODY...): loop over a list.
+Evaluate BODY with VAR bound to each car from LIST, in turn.
+Then evaluate RESULT to get return value, default nil."
+  (let ((temp (make-symbol "--dolist-temp--")))
+    (list 'let (list (list temp (nth 1 spec)) (car spec))
+	  (list 'while temp
+		(list 'setq (car spec) (list 'car temp))
+		(cons 'progn
+		      (append body
+			      (list (list 'setq temp (list 'cdr temp))))))
+	  (if (cdr (cdr spec))
+	      (cons 'progn
+		    (cons (list 'setq (car spec) nil) (cdr (cdr spec))))))))
+
+;;;###autoload
+(put 'dolist 'lisp-indent-function 1)
+(defmacro-maybe dotimes (spec &rest body)
+  "(dotimes (VAR COUNT [RESULT]) BODY...): loop a certain number of times.
+Evaluate BODY with VAR bound to successive integers running from 0,
+inclusive, to COUNT, exclusive.  Then evaluate RESULT to get
+the return value (nil if RESULT is omitted)."
+  (let ((temp (make-symbol "--dotimes-temp--")))
+    (list 'let (list (list temp (nth 1 spec)) (list (car spec) 0))
+	   (list 'while (list '< (car spec) temp)
+		 (cons 'progn
+		       (append body (list (list 'setq (car spec)
+						(list '1+ (car spec)))))))
+	   (if (cdr (cdr spec))
+	       (car (cdr (cdr spec)))
+	     nil))))
 
 (defmacro skk-defadvice (function &rest everything-else)
   (let ((origfunc (and (fboundp function)
@@ -210,12 +244,10 @@
 ;;;###autoload
 (put 'skk-loop-for-buffers 'lisp-indent-function 1)
 (defmacro skk-loop-for-buffers (buffers &rest forms)
-  (` (let ((list (, buffers)))
-       (while list
-	 (if (buffer-live-p (car list))
-	     (with-current-buffer (car list)
-	       (,@ forms)))
-	 (setq list (cdr list))))))
+  (` (dolist (buf (, buffers))
+       (when (buffer-live-p buf)
+	 (with-current-buffer buf
+	   (,@ forms))))))
 
 ;;(defun-maybe mapvector (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
@@ -317,7 +349,8 @@
 
 (defsubst skk-jisx0213-p (char)
   (and (featurep 'jisx0213)
-       (memq (char-charset char) '(japanese-jisx0213-1 japanese-jisx0213-2))))
+       (memq (char-charset char)
+	     '(japanese-jisx0213-1 japanese-jisx0213-2))))
 
 (defsubst skk-char-octet (ch &optional n)
   (static-cond
@@ -617,8 +650,9 @@ BUFFER defaults to the current buffer."
   (or (string< str1 str2) (string= str1 str2)))
 
 (defsubst skk-do-auto-fill ()
-  ;; auto-fill-function/auto-fill-hook に値が代入されていれば、それをコールする。
-  (and auto-fill-function (funcall auto-fill-function)))
+  ;; auto-fill-function に値が代入されていれば、それをコールする。
+  (if auto-fill-function
+      (funcall auto-fill-function)))
 
 (defsubst skk-current-input-mode ()
   (cond (skk-abbrev-mode 'abbrev)
@@ -661,16 +695,15 @@ BUFFER defaults to the current buffer."
   (let ((e (assq key skk-last-henkan-data)))
     (if e
 	(setcdr e val)
-      (setq skk-last-henkan-data (cons (cons key val) skk-last-henkan-data)))))
+      (push (cons key val) skk-last-henkan-data))))
 
 (defsubst skk-put-last-henkan-data (alist)
-  (let (kv e)
-    (while (setq kv (car alist))
+  (let (e)
+    (dolist (kv alist)
       (if (setq e (assq (car kv) skk-last-henkan-data))
 	  (setcdr e (cdr kv))
-	(setq skk-last-henkan-data
-	      (cons (cons (car kv) (cdr kv)) skk-last-henkan-data)))
-      (setq alist (cdr alist)))))
+	(push (cons (car kv) (cdr kv))
+	      skk-last-henkan-data)))))
 
 (defsubst skk-find-coding-system (code)
   (cond ((and code
@@ -725,18 +758,14 @@ BUFFER defaults to the current buffer."
   (let (keys)
     (unless map
       (setq map skk-j-mode-map))
-    (while commands
+    (dolist (command commands)
       (setq keys (nconc keys
-			(where-is-internal
-			 (car commands)
-			 map)))
-      (setq commands (cdr commands)))
+			(where-is-internal command map))))
     (member (key-description key)
 	    (mapcar (function
 		     (lambda (k)
 		       (key-description k)))
 		    keys))))
-
 (require 'product)
 (product-provide (provide 'skk-macs) (require 'skk-version))
 ;;; end of skk-macs.el.

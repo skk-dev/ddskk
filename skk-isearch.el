@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.18 2001/09/12 11:15:35 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.19 2001/09/15 19:20:04 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/12 11:15:35 $
+;; Last Modified: $Date: 2001/09/15 19:20:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -295,14 +295,14 @@ Optional argument PREFIX is appended if given."
   ;; COMMANDS のいずれかにバインドされているキーを全て調べる。skk-isearh の中で
   ;; それらのキーを COMMAND にバインドする。
   (let (prefs)
-    (while commands
-      (dolist (key (where-is-internal (car commands) (current-global-map)))
-	(when (and (= (length key) 2) (not (member (aref key 0) prefs)))
+    (dolist (c commands)
+      (dolist (key (where-is-internal c (current-global-map)))
+	(when (and (= (length key) 2)
+		   (not (member (aref key 0) prefs)))
 	  (define-key map (vector (aref key 0)) (make-sparse-keymap))
-	  (setq prefs (cons (aref key 0) prefs)))
+	  (push (aref key 0) prefs))
 	(when (<= (length key) 2)
-	  (define-key map key command)))
-      (setq commands (cdr commands)))))
+	  (define-key map key command))))))
 
 ;; XXX should be more generic
 (defun skk-isearch-setup-keymap (map)
@@ -324,7 +324,7 @@ Optional argument PREFIX is appended if given."
   (let ((commands '(skk-mode skk-auto-fill-mode)))
     (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
       (if (string-match "^japanese-skk" (format "%s" default-input-method))
-	  (setq commands (cons 'toggle-input-method commands))))
+	  (push 'toggle-input-method commands)))
     (skk-isearch-find-keys-define map commands 'skk-isearch-skk-mode))
 
   ;; Keys for `skk-isearch-delete-char'.

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.125 2001/09/14 15:54:56 czkmt Exp $
+;; Version: $Id: skk.el,v 1.126 2001/09/15 19:20:05 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/14 15:54:56 $
+;; Last Modified: $Date: 2001/09/15 19:20:05 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -699,15 +699,11 @@ dependent."
   (let ((map (if (and (boundp 'overriding-local-map)
 		      (keymapp 'overriding-local-map))
 		 overriding-local-map
-	       (current-global-map)))
-	keys)
-    (while commands
-      (setq keys (where-is-internal (car commands) map)
-	    commands (cdr commands))
-      (while keys
-	(define-key skk-abbrev-mode-map (car keys) emulation)
-	(define-key skk-j-mode-map (car keys) emulation)
-	(setq keys (cdr keys))))))
+	       (current-global-map))))
+    (dolist (command commands)
+      (dolist (key (where-is-internal command map))
+	(define-key skk-abbrev-mode-map key emulation)
+	(define-key skk-j-mode-map key emulation)))))
 
 (defun skk-setup-delete-backward-char ()
   (skk-setup-emulation-commands

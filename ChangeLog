@@ -1,5 +1,28 @@
 2001-09-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-macs.el (dolist)
+	(dotimes): New macros. From Emacs 21.
+
+	(skk-put-last-henkan-datum)
+	(skk-put-last-henkan-data): Use `push'.
+
+	(skk-key-binding-member)
+	(skk-loop-for-buffers): Use `dolist'.
+
+	* skk-comp.el (skk-comp-do)
+	(skk-comp-by-history): Use `dolist' and `push'.
+
+	* skk-cursor.el (skk-cursor-set): New function. Advice,
+	hooks and functions in this program will call it.
+
+	* skk-isearch.el (skk-isearch-setup-keymap): Use `push'.
+
+	* skk.el (skk-setup-emulation-commands): Use `dolist'.
+
+	* install-info.el (install-info-1): Use `push' and `setcar'.
+
+2001-09-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-comp.el: Re-indent and re-order cases.
 	(skk-comp-do-1-in-buf): New function.
 	(skk-comp-do-1): Call it. Refer to `skk-dic-comp-first'.
@@ -1949,8 +1972,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.405 2001/09/15 06:14:49 czkmt Exp $
-Last Modified: $Date: 2001/09/15 06:14:49 $
+Version: $Id: ChangeLog,v 1.406 2001/09/15 19:20:03 czkmt Exp $
+Last Modified: $Date: 2001/09/15 19:20:03 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
