@@ -1,3 +1,16 @@
+2000-10-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK 10.62 released.
+	
+	* doc/skk.texi (EDITION): Updated to 1.5.
+	(英単語をあいまいに変換して取り出す): Simplified sample.
+	
+	* READMEs/README.win (APEL の byte-compile): Doc fixed.
+	
+	* READMEs/INSTALL: Ditto.
+	
+	* Makefile (VERSION): Updated to 10.62.
+
 2000-10-27  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* doc/skk.texi : "辞書の入手", "skk-look", "skk-lookup"

@@ -1,10 +1,10 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.29 2000/09/28 10:32:48 akiho Exp $
-# Last Modified: $Date: 2000/09/28 10:32:48 $
+# Version: $Id: Makefile,v 1.30 2000/10/29 21:38:03 minakaji Exp $
+# Last Modified: $Date: 2000/10/29 21:38:03 $
 
-VERSION = 10.61
+VERSION = 10.62
 
 BZIP2     = bzip2 -9
 CP	  = /bin/cp -p
