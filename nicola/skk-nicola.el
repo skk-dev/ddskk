@@ -89,20 +89,22 @@
   :group 'skk-nicola)
 
 (defcustom skk-nicola-rshift-keys
-  (nconc '(" ")
-	 (list (cond
-		((eq system-type 'windows-nt)
-		 [convert])
-		((eq skk-emacs-type 'xemacs)
-		 [henkan-mode])
-		((string-match "^19.\\(29\\|3[0-4]\\)" emacs-version)
-		 [numbersign])
-		((string-match "^19.2" emacs-version)
-		 ;; Mule 2.3@19.28 or earlier (?)
-		 [key-35])
-		(t
-		 ;; Emacs 20.3 or later
-		 [henkan])))) "\
+  (if (memq skk-emacs-type '(nemacs mule1 mule3))
+      '(" ")
+    (nconc '(" ")
+	   (list (cond
+		  ((eq system-type 'windows-nt)
+		   [convert])
+		  ((eq skk-emacs-type 'xemacs)
+		   [henkan-mode])
+		  ((string-match "^19.\\(29\\|3[0-4]\\)" emacs-version)
+		   [numbersign])
+		  ((string-match "^19.2" emacs-version)
+		   ;; Mule 2.3@19.28 or earlier (?)
+		   [key-35])
+		  (t
+		   ;; Emacs 20.3 or later
+		   [henkan]))))) "\
 *右親指キーとして使うキー。"
   :type 'sexp
   :group 'skk-nicola)
@@ -689,13 +691,14 @@ keycode 131 = underscore\n"))
 	     (call-interactively 'exit-minibuffer)
 	   (newline arg)))))
 
-(defun skk-nicola-setup-tutorial ()
-  (dolist (key skk-nicola-lshift-keys)
-    (define-key skktut-j-mode-map key 'skk-nicola-self-insert-lshift)
-    (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))
-  (dolist (key skk-nicola-rshift-keys)
-    (define-key skktut-j-mode-map key 'skk-nicola-self-insert-rshift)
-    (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode)))
+(static-unless (memq skk-emacs-type '(nemacs mule1))
+  (defun skk-nicola-setup-tutorial ()
+    (dolist (key skk-nicola-lshift-keys)
+      (define-key skktut-j-mode-map key 'skk-nicola-self-insert-lshift)
+      (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))
+    (dolist (key skk-nicola-rshift-keys)
+      (define-key skktut-j-mode-map key 'skk-nicola-self-insert-rshift)
+      (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))))
 
 ;; Pieces of Advice.
 
@@ -830,12 +833,13 @@ keycode 131 = underscore\n"))
 	  (t
 	   ad-do-it))))
 
-(if (featurep 'skk-tut)
-    (skk-nicola-setup-tutorial)
-  ;;
-  (defadvice skk-tutorial (after skk-nicola-advice-to-skk-tutorial activate)
-    (skk-nicola-setup-tutorial)
-    (ad-deactivate-regexp "^skk-nicola-advice-for skk-tutorial$")))
+(static-unless (memq skk-emacs-type '(nemacs mule1))
+  (if (featurep 'skk-tut)
+      (skk-nicola-setup-tutorial)
+    ;;
+    (defadvice skk-tutorial (after skk-nicola-advice-to-skk-tutorial activate)
+      (skk-nicola-setup-tutorial)
+      (ad-deactivate-regexp "^skk-nicola-advice-for skk-tutorial$"))))
 
 ;;
 

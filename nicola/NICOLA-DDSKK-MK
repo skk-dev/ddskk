@@ -37,9 +37,9 @@
 LISPDIR=%s\n" PREFIX LISPDIR))))
 
 (defun compile-nicola-ddskk ()
+  (condition-case nil (load "bytecomp-runtime.el") (error))
   (config-nicola-ddskk)
   (require 'pcustom)
-  (condition-case nil (load "bytecomp-runtime.el") (error))
   (require 'skk-isearch)
   (require 'skk-macs)
   (require 'skk)

@@ -1,7 +1,7 @@
-2000-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2000-11-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-nicola.el (skk-nicola-lshift-keys): Rename from
-	`skk-nicola-lshift-key'.
+	* skk-nicola.el: Do nothing for tutorial under Emacs 18.
+	(skk-nicola-lshift-keys): Rename from `skk-nicola-lshift-key'.
 	(skk-nicola-rshift-keys): Rename from `skk-nicola-rshift-key'.
 
 2000-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
