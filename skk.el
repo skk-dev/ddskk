@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.246 2002/04/04 22:03:35 minakaji Exp $
+;; Version: $Id: skk.el,v 1.247 2002/04/12 19:08:11 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/04/04 22:03:35 $
+;; Last Modified: $Date: 2002/04/12 19:08:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1631,6 +1631,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		  (apply (function message) fmt args)
 		(let ((buffer-undo-list skk-buffer-undo-list))
 		  (erase-buffer)
+		  (message nil)
 		  (insert-string str)
 		  (setq skk-buffer-undo-list buffer-undo-list)))
 	      ;; We also need to clear `current-message' in case
