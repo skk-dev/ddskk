@@ -54,7 +54,7 @@
 ;; (setq skk-delete-implies-kakutei nil)
 
 ;; 対応する閉括弧を自動的に挿入する
-;; (setq skk-auto-insert-paren t)
+(setq skk-auto-insert-paren t)
 
 ;; 句読点に ．， を使う
 ;; (setq skk-kutouten-type 'en)
@@ -119,10 +119,8 @@
 ;; (when skk-use-kana-keyboard
 ;;   ;; 旧 JIS 配列を使う
 ;;   ;; (setq skk-kanagaki-keyboard-type '106-jis)
-
 ;;   ;; 親指シフトエミュレーションを使う
 ;;   (setq skk-kanagaki-keyboard-type 'omelet-jis)
-
 ;;   ;; OASYS 風の後退・取消キーを使う
 ;;   (setq skk-nicola-use-koyubi-functions t))
 
