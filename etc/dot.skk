@@ -61,7 +61,7 @@
 (setq skk-kutouten-type 'en)
 
 ;; 動的な補完を使う
-(require 'skk-dcomp)
+(setq skk-dcomp-activate t)
 
 ;; viper と組み合わせて使う
 ;; (setq skk-use-viper t)
