@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.8 2000/11/20 08:55:39 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.9 2001/05/26 01:13:31 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 08:55:39 $
+;; Last Modified: $Date: 2001/05/26 01:13:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -66,19 +66,28 @@
                    (if (= y 1) "元" (skk-num (number-to-string y))))))
          (month (skk-num (cdr (assoc (substring str 4 7) skk-month-alist))))
          (day (substring str 8 10))
-         (day-of-week (cdr (assoc (substring str 0 3) skk-week-alist)))
+	 (day-of-week
+	  (if (nth 4 skk-GYMDWHMS-list)
+	      (cdr (assoc (substring str 0 3) skk-week-alist))
+	    (substring str 0 3)))
          hour minute second)
-    (if (eq (aref day 0) ?\040) ; SPC
+    (if (eq (aref day 0) ?\040)		; SPC
 	(setq day (substring day 1)))
     (setq day (skk-num day))
-    (concat (if skk-date-ad "" "平成") year "年"
-            month "月" day "日" "\(" day-of-week "\)"
+    (concat (if skk-date-ad "" (nth 0 skk-GYMDWHMS-list))
+	    year  (nth 1 skk-GYMDWHMS-list)
+	    month (nth 2 skk-GYMDWHMS-list)
+	    day   (nth 3 skk-GYMDWHMS-list)
+	    "\(" day-of-week "\)"
             (if and-time
                 (progn
                   (setq hour (skk-num (substring str 11 13))
                         minute (skk-num (substring str 14 16))
                         second (skk-num (substring str 17 19)))
-                  (concat " " hour "時" minute "分" second "秒"))))))
+                  (concat " " 
+			  hour   (nth 5 skk-GYMDWHMS-list)
+			  minute (nth 6 skk-GYMDWHMS-list)
+			  second (nth 7 skk-GYMDWHMS-list)))))))
 
 ;;;###autoload
 (defun skk-today (&optional and-time)

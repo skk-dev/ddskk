@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.35 2001/05/20 03:29:10 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.36 2001/05/26 01:13:31 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/20 03:29:10 $
+;; Last Modified: $Date: 2001/05/26 01:13:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1521,6 +1521,51 @@ nil であれば、表示しない。"
   "*Non-nil であれば、skk-today, skk-clock で西暦表示する。
 nil であれば、元号表示する。"
   :type 'boolean
+  :group 'skk-gadget)
+
+(defcustom skk-GYMDWHMS-list '("平成" "年" "月" "日" t "時" "分" "秒")
+  "skk-today によって表示される日付に用いられる文字列のリスト。
+リストの内容は
+
+	'(Gengou year month day week-transp hour minute second) 
+
+となっている。week-transp を除いて全ては文字列である。
+
+week-transp は boolean で、もし t の場合には日本語の曜日表記となる。そう
+でない場合には Emacs が返す文字列となる。
+
+通常，日本語表示では
+
+	'(\"平成\" \"年\" \"月\" \"日\" t \"時\" \"分\" \"秒\")
+
+という設定になっている。この場合には 2001年5月18日(金) のような結果を得る。
+
+以下のように設定すればASCII文字しか利用しないようにできる。
+
+	'(\"H.\" \"-\" \"-\" \"\" nil \"h.\" \"min.\" \"sec.\")
+
+この場合には 2001-5-18(Fri) のような結果を得る。
+String list for displaying date for skk-today.
+The contents of list is 
+
+	'(Gengou year month day week-transp hour minute second) 
+
+All items are string except week-transp. 
+When week-transp is t, the representation of a day becomes in Japanese way.
+Otherwise it will be emacs representation.
+
+Usual Japanese setting is 
+
+	'(\"平成\" \"年\" \"月\" \"日\" t \"時\" \"分\" \"秒\").
+
+Then you will get the result like 2001年5月18日(金).
+
+An example for only ASCII characters is
+
+	'(\"H.\" \"-\" \"-\" \"\" nil \"h.\" \"min.\" \"sec.\").
+
+Then you will get the result as 2001-5-18(Fri)."
+  :type '(repeat (choice (const t) (const nil) string))
   :group 'skk-gadget)
 
 (defcustom skk-number-style 1
