@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.142 2001/10/10 10:24:45 czkmt Exp $
+;; Version: $Id: skk.el,v 1.143 2001/10/10 11:49:08 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/10 10:24:45 $
+;; Last Modified: $Date: 2001/10/10 11:49:08 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3735,7 +3735,9 @@ If you want to restore the dictionary from the disc, try
 		 (t
 		  add)))
       (cons (format "(skk-ignore-dic-word \"%s\")"
-		    (skk-compose-ignore-word-sub-quote-char arg))
+		    (if (equal arg add)
+			(skk-compose-ignore-word-sub-quote-char arg)
+		      arg))
 	    words))))
 
 (defun skk-compose-ignore-word-sub-quote-char (str)
