@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.219 2002/01/11 23:53:31 minakaji Exp $
+;; Version: $Id: skk.el,v 1.220 2002/01/18 14:04:50 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/11 23:53:31 $
+;; Last Modified: $Date: 2002/01/18 14:04:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,7 +52,6 @@
 
 (eval-when-compile ; shut up compiler warning.
   (defvar enable-character-translation)
-  (defvar enable-character-unification)
   (defvar epoch::version)
   (defvar message-log-max)
   (defvar minibuffer-local-ns-map)
@@ -214,9 +213,10 @@ dependent."
 	      "辞書の保存をせずに %s を終了します。良いですか？"
 	    "Do you really wish to kill %s without saving Jisyo? ")
 	  (static-cond
-	   ((eq skk-emacs-type 'xemacs) "XEmacs")
-	   ((eq skk-emacs-type 'mule2) "Mule")
-	   (t "Emacs"))))
+	   ((eq skk-emacs-type 'xemacs)
+	    "XEmacs")
+	   (t
+	    "Emacs"))))
     (let ((buff (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
       (ad-disable-advice 'save-buffers-kill-emacs 'before 'skk-ad)
       (ad-activate 'save-buffers-kill-emacs)
@@ -273,8 +273,7 @@ dependent."
 (defun skk-mode-invoke ()
   (skk-setup-init-file)
   (load skk-init-file t)
-  (unless (featurep 'tinycustom)
-    (skk-cus-setup))
+  (skk-cus-setup)
   (skk-setup-modeline)
   (when skk-share-private-jisyo
     (skk-setup-shared-private-jisyo))
@@ -454,27 +453,27 @@ dependent."
       (cons
        (cons 'default
 	     (cons "" (skk-mode-string-to-indicator 'default "")))
-       (mapcar (lambda (symbol)
-		 (setq mode (prin1-to-string symbol))
-		 (string-match "skk-\\([-a-z0-9]+\\)-mode-string" mode)
-		 (setq mode (intern (match-string-no-properties 1 mode)))
-		 (setq string (symbol-value symbol))
-		 ;; 本来ならこのようにユーザ変数を加工するのはおかしいが、
-		 ;; 移行期の処置として暫定的に行なう。
-		 (cond
-		  ((string-match "^ +" string)
-		   ;; minor-mode setting
-		   (setq base (substring string (match-end 0))))
-		  ((string-match "^--" string)
-		   ;; mode-line left setting
-		   (setq base (substring string (match-end 0)))
-		   (when (string-match "::*$" base)
-		     (setq base (substring base 0 (match-beginning 0)))))
-		  (t
-		   (setq base string)))
-		 (cons mode
-		       (cons (concat " " base)
-			     (skk-make-indicator-alist-1 mode base))))
+       (mapcar #'(lambda (symbol)
+		   (setq mode (prin1-to-string symbol))
+		   (string-match "skk-\\([-a-z0-9]+\\)-mode-string" mode)
+		   (setq mode (intern (match-string-no-properties 1 mode)))
+		   (setq string (symbol-value symbol))
+		   ;; 本来ならこのようにユーザ変数を加工するのはおかしいが、
+		   ;; 移行期の処置として暫定的に行なう。
+		   (cond
+		    ((string-match "^ +" string)
+		     ;; minor-mode setting
+		     (setq base (substring string (match-end 0))))
+		    ((string-match "^--" string)
+		     ;; mode-line left setting
+		     (setq base (substring string (match-end 0)))
+		     (when (string-match "::*$" base)
+		       (setq base (substring base 0 (match-beginning 0)))))
+		    (t
+		     (setq base string)))
+		   (cons mode
+			 (cons (concat " " base)
+			       (skk-make-indicator-alist-1 mode base))))
 	       mode-string-list)))))
 
 (defun skk-make-indicator-alist-1 (mode base)
@@ -648,19 +647,16 @@ dependent."
 	(remove-alist 'skk-auto-paren-string-alist (car strlst))
 	(setq strlst (cdr strlst)))
       (when (memq t (mapcar
-		     (function
-		      (lambda (e)
-			(skk-ascii-char-p (string-to-char (car e)))))
+		     #'(lambda (e)
+			 (skk-ascii-char-p (string-to-char (car e))))
 		     skk-auto-paren-string-alist))
 	;;
 	(setq alist skk-auto-paren-string-alist
-	      rulealst (nconc (mapcar (function
-				       (lambda (e)
-					 (nth 2 e)))
+	      rulealst (nconc (mapcar #'(lambda (e)
+					  (nth 2 e))
 				      skk-rom-kana-rule-list)
-			      (mapcar (function
-				       (lambda (e)
-					 (nth 2 e)))
+			      (mapcar #'(lambda (e)
+					  (nth 2 e))
 				      skk-rom-kana-base-rule-list)))
 	(dolist (cell alist)
 	  (setq str (car cell))
@@ -770,7 +766,7 @@ dependent."
 	  ;; original behaviour.
 	  ;;(skk-cancel-undo-boundary)
 	  (command-execute (or command
-			       (function undefined))))))))
+			       #'undefined)))))))
 
 (defun skk-command-key-sequence (key command)
   ;; KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。
@@ -1604,23 +1600,21 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   (skk-save-point
    (let* ((candidate-keys ; 表示用のキーリスト
 	   (mapcar
-	    (function
-	     (lambda (c)
-	       (when (memq c '(?\C-g ?\040 ?x)) ; ?\040 is SPC.
-		 (skk-error "`%s' に無効なキーが指定されています"
-			    "Illegal key in `%s'"
-			    "skk-henkan-show-candidates-keys"))
-	       (char-to-string (upcase c))))
+	    #'(lambda (c)
+		(when (memq c '(?\C-g ?\040 ?x)) ; ?\040 is SPC.
+		  (skk-error "`%s' に無効なキーが指定されています"
+			     "Illegal key in `%s'"
+			     "skk-henkan-show-candidates-keys"))
+		(char-to-string (upcase c)))
 	    skk-henkan-show-candidates-keys))
 	  key-num-alist	; 候補選択用の連想リスト
 	  (key-num-alist1 ; key-num-alist を組み立てるための作業用連想リスト。
 	   (let ((count 6))
 	     (mapcar
-	      (function
-	       (lambda (key)
-		 (prog1
-		     (cons key count)
-		   (setq count (1- count)))))
+	      #'(lambda (key)
+		  (prog1
+		      (cons key count)
+		    (setq count (1- count))))
 	      ;; 逆さまにしておいて、表示する候補の数が少なかったら先
 	      ;; 頭から幾つか削る。
 	      (reverse skk-henkan-show-candidates-keys))))
@@ -1940,18 +1934,20 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	      skk-henkan-okurigana))))
 
 (defun skk-remove-redundant-okurgana (word)
-  ;; 送りありの登録をするとき、送り仮名を消してから [RET] を押さなけ
-  ;; れば正しく登録できない。 そこで、ユーザが間違えて送り仮名を消し
-  ;; 忘れていないかどうか、 SKK の側でチェックできる範囲についてはユ
-  ;; ーザの確認を取る。この部分は`skk-check-okurigana-on-touroku' を
-  ;;  non-nil に設定している場合のみ有効。変換が行われたバッファで実
-  ;; 行される。ミニバッファ、辞書バッファではない。
+  "辞書に登録される候補の持つ余計な送り仮名を取り除く。
+
+送りありの登録をするとき、送り仮名を消してから [RET] を押さなければ正しく登録
+できない。 そこで、ユーザが間違えて送り仮名を消し忘れていないかどうか、 SKK 
+の側でチェックできる範囲についてはユーザの確認を取る。
+
+`skk-check-okurigana-on-touroku' を non-nil に設定している場合のみ有効。
+変換が行われたバッファで実行される。ミニバッファ、辞書バッファではない。"
   (save-match-data
-    (let* ((len (skk-str-length word))
+    (let* ((len (length word))
 	   (str1 (when (< 0 len)
-		   (skk-substring word (1- len) len)))
+		   (substring word (1- len) len)))
 	   (str2 (when (< 1 len)
-		   (skk-substring word (- len 2) (1- len))))
+		   (substring word (- len 2) (1- len))))
 	   (str (if (and str2
 			 (string-match "^[ぁ-ん]$" str2))
 		    (concat str2 str1)
@@ -1969,7 +1965,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		       str word))))
 	;; ユーザの指示に従い送り仮名を取り除く。
 	(message "")
-	(setq word (skk-substring
+	(setq word (substring
 		    word 0
 		    (if (string-match "^[ぁ-ん]$" str2)
 			(- len 2)
@@ -2594,7 +2590,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 (defun skk-change-marker ()
   ;; "▽"を"▼"に変える。`skk-henkan-mode' を active にする。
   (skk-save-point
-   (goto-char (- skk-henkan-start-point skk-kanji-len))
+   (goto-char (1- skk-henkan-start-point))
    (unless (looking-at "▽")
      (skk-kakutei)
      (skk-error "▽がありません"
@@ -2608,7 +2604,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 (defun skk-change-marker-to-white ()
   ;; "▼"を"▽"に変える。`skk-henkan-mode' を on にする。
   (skk-save-point
-   (goto-char (- skk-henkan-start-point skk-kanji-len))
+   (goto-char (1- skk-henkan-start-point))
    (cancel-undo-boundary)
    (if (looking-at "▼")
        (let ((buffer-undo-list t))
@@ -2626,7 +2622,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (when (marker-position skk-henkan-start-point)
     (save-match-data
       (skk-save-point
-       (goto-char (- skk-henkan-start-point skk-kanji-len))
+       (goto-char (1- skk-henkan-start-point))
        (cond
 	((eq skk-henkan-mode 'active)
 	 (when skk-use-face
@@ -3065,12 +3061,10 @@ If you want to restore the dictionary from the disc, try
 	   (code (skk-find-coding-system (if (consp file)
 					     (cdr file)
 					   skk-jisyo-code)))
-	   (file (if (consp file)
-		     (car file)
-		   file))
+	   (file (or (car-safe file)
+		     file))
 	   (enable-character-translation
 	    (not (memq code '(euc-japan shift_jis junet))))
-	   (enable-character-unification enable-character-translation)
 	   (buf-name (concat " *"
 			     (file-name-nondirectory file)
 			     "*"))
@@ -3301,7 +3295,7 @@ If you want to restore the dictionary from the disc, try
 		      (1- (search-forward "/")))
 		headchar (if (string= item "")
 			     (int-char 0)
-			   (skk-str-ref item 0)))
+			   (sref item 0)))
 	  (cond
 	   ((and (eq headchar ?\[)
 		 (<= stage 2))
@@ -3573,14 +3567,14 @@ If you want to restore the dictionary from the disc, try
 	;;         + "["
 	;;         + 今回使用した送り仮名 (送り仮名のみ。その送り
 	;;           仮名を使用する漢字の候補群は、words3 に含まれる)
-	(insert (mapconcat 'skk-quote-char
+	(insert (mapconcat #'skk-quote-char
 			   words2
 			   "/")
 		"/")
 	;; words2 が null なら words3 も null。
 	(when words3
 	  ;; words3 -- 今回使用した送り仮名を使う全漢字候補
-	  (insert (mapconcat 'skk-quote-char
+	  (insert (mapconcat #'skk-quote-char
 			     words3
 			     "/")
 		  "/"))
@@ -3589,7 +3583,7 @@ If you want to restore the dictionary from the disc, try
 	(when words4
 	  ;; words4 -- "]" + 他の送り仮名を使う全漢字候補
 	  ;; (words2 の残り)。
-	  (insert (mapconcat 'skk-quote-char
+	  (insert (mapconcat #'skk-quote-char
 			     words4
 			     "/")
 		  "/"))))))
@@ -3744,9 +3738,9 @@ If you want to restore the dictionary from the disc, try
   (when (and skk-henkan-okurigana
 	     (or (member skk-henkan-okurigana okuri-list)
 		 anything))
-    (let ((skk-henkan-key (skk-substring
+    (let ((skk-henkan-key (substring
 			   skk-henkan-key
-			   0 (1- (skk-str-length skk-henkan-key))))
+			   0 (1- (length skk-henkan-key))))
 	  skk-henkan-okurigana
 	  skk-okuri-char
 	  skk-auto-okuri-process
@@ -3764,10 +3758,13 @@ If you want to restore the dictionary from the disc, try
   (interactive "*r\nP")
   (when vcontract
     (skk-search-and-replace
-     start end "う゛" (lambda (matched) nil "ヴ")))
+     start end "う゛"
+     #'(lambda (matched)
+	 nil "ヴ")))
   (skk-search-and-replace
    start end "[ぁ-ん]+"
-   (lambda (matched) (skk-hiragana-to-katakana matched))))
+   #'(lambda (matched)
+       (skk-hiragana-to-katakana matched))))
 
 (defun skk-hiragana-region (start end &optional vexpand)
   "領域のカタカナをひらがなに変換する。
@@ -3778,28 +3775,30 @@ If you want to restore the dictionary from the disc, try
   (interactive "*r\nP")
   (when vexpand
     (skk-search-and-replace
-     start end "ヴ" (lambda (matched) nil "う゛")))
+     start end "ヴ"
+     #'(lambda (matched)
+	 nil "う゛")))
   (skk-search-and-replace
    start end "[ァ-ン]+"
-   (lambda (matched)
-     (skk-katakana-to-hiragana matched))))
+   #'(lambda (matched)
+       (skk-katakana-to-hiragana matched))))
 
 (defun skk-jisx0208-latin-region (start end)
   "領域の ascii 文字を対応する全角英文字に変換する。"
   (interactive "*r")
   (skk-search-and-replace
    start end "[ -~]"
-   (lambda (matched)
-     (aref skk-default-jisx0208-latin-vector (string-to-char matched)))))
+   #'(lambda (matched)
+       (aref skk-default-jisx0208-latin-vector (string-to-char matched)))))
 
 (defun skk-latin-region (start end)
   ;; 領域の全角英数字を対応する ascii 文字に変換する。
   (interactive "*r")
   (skk-search-and-replace
    start end "\\cj"
-   (lambda (matched)
-     (or (skk-jisx0208-to-ascii matched)
-	 matched))))
+   #'(lambda (matched)
+       (or (skk-jisx0208-to-ascii matched)
+	   matched))))
 
 (defun skk-search-and-replace (start end regexp func)
   (let (matched replace)
@@ -3822,20 +3821,9 @@ If you want to restore the dictionary from the disc, try
        (set-marker end nil)))))
 
 (defun skk-jisx0208-to-ascii (string)
-  (let ((char
-	 (static-cond
-	  ((eq skk-emacs-type 'mule2)
-	   (let* ((ch (string-to-char string))
-		  (ch1 (char-component ch 1)))
-	     (cond ((eq ch1 ?\241)
-		    (cdr (assq (char-component ch 2)
-			       skk-hankaku-alist)))
-		   ((eq ch1 ?\243)
-		    (- (char-component ch 2) ?\200)))))
-	  (t
-	   (require 'japan-util)
-	   (get-char-code-property (string-to-char string)
-				   'ascii)))))
+  (require 'japan-util)
+  (let ((char (get-char-code-property (string-to-char string)
+				      'ascii)))
     ;;
     (if char
 	(char-to-string char)
@@ -3847,7 +3835,7 @@ If you want to restore the dictionary from the disc, try
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-*-henkan-2 'skk-katakana-region 'vcontract))
+  (skk-*-henkan-2 #'skk-katakana-region 'vcontract))
 
 (defun skk-hiragana-henkan (arg)
   "▽モードであれば、領域のカタカナをひらがなに変換する。
@@ -3855,7 +3843,7 @@ If you want to restore the dictionary from the disc, try
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-*-henkan-2 'skk-hiragana-region 'vexpand))
+  (skk-*-henkan-2 #'skk-hiragana-region 'vexpand))
 
 (defun skk-jisx0208-latin-henkan (arg)
   "▽モードであれば、ascii 文字を対応する全角英文字に変換する。
@@ -3863,7 +3851,7 @@ If you want to restore the dictionary from the disc, try
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-*-henkan-2 'skk-jisx0208-latin-region))
+  (skk-*-henkan-2 #'skk-jisx0208-latin-region))
 
 (defun skk-latin-henkan (arg)
   "▽モードであれば、ascii 文字を対応する全角文字に変換する。
@@ -3871,7 +3859,7 @@ If you want to restore the dictionary from the disc, try
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-*-henkan-2 'skk-latin-region))
+  (skk-*-henkan-2 #'skk-latin-region))
 
 (defun skk-*-henkan-1 (func &rest args)
   ;; 変換可能かどうかのチェックをした後に ARGS を引数として FUNC を適用し、
@@ -3902,7 +3890,7 @@ If you want to restore the dictionary from the disc, try
      nil)
     ((eq skk-henkan-mode 'on)
      (skk-set-marker skk-henkan-end-point (point))
-     (apply 'skk-*-henkan-1
+     (apply #'skk-*-henkan-1
 	    func
 	    skk-henkan-start-point
 	    skk-henkan-end-point
@@ -3914,19 +3902,19 @@ If you want to restore the dictionary from the disc, try
 (defun skk-hiragana-to-katakana (hiragana)
   (let ((diff (- ?ア ?あ)))
     (mapconcat
-     (function (lambda (e)
-		 (if (and (<= ?ぁ e) (>= ?ん e))
-		     (char-to-string (+ e diff))
-		   (char-to-string e))))
+     #'(lambda (e)
+	 (if (and (<= ?ぁ e) (>= ?ん e))
+	     (char-to-string (+ e diff))
+	   (char-to-string e)))
      (string-to-int-list hiragana) "")))
 
 (defun skk-katakana-to-hiragana (katakana)
   (let ((diff (- ?ア ?あ)))
     (mapconcat
-     (function (lambda (e)
-		 (if (and (<= ?ァ e) (>= ?ン e))
-		     (char-to-string (- e diff))
-		   (char-to-string e))))
+     #'(lambda (e)
+	 (if (and (<= ?ァ e) (>= ?ン e))
+	     (char-to-string (- e diff))
+	   (char-to-string e)))
      (string-to-int-list katakana) "")))
 
 (defun skk-splice-in (org offset spliced)
@@ -4015,27 +4003,26 @@ If you want to restore the dictionary from the disc, try
 		      (<= skk-henkan-count
 			  skk-okuri-index-max))))
     (let ((midasi skk-henkan-key)
-	  (midasi-len (skk-str-length skk-henkan-key))
-	  (word-len (skk-str-length word))
+	  (midasi-len (length skk-henkan-key))
+	  (word-len (length word))
 	  (cont t)
 	  char pos pos2
 	  midasi-tail word-tail new-word okuri-first
 	  new-skk-okuri-char new-skk-henkan-key)
       (when (and (>= midasi-len 2) (>= word-len 2))
 	;; check if both midasi and word end with the same ascii char.
-	(when (and (skk-ascii-char-p (skk-str-ref midasi
-						  (1- midasi-len)))
-		   (eq (skk-str-ref midasi (1- midasi-len))
-		       (skk-str-ref word (1- word-len))))
+	(when (and (skk-ascii-char-p (sref midasi (1- midasi-len)))
+		   (eq (sref midasi (1- midasi-len))
+		       (sref word (1- word-len))))
 	  ;; if so chop off the char from midasi and word.
 	  ;; assume size of an ASCII char is always 1.
 	  (setq midasi (substring midasi 0 -1)
 		midasi-len (1- midasi-len)
 		word (substring word 0 -1)
 		word-len (1- word-len)))
-	(setq midasi-tail (skk-substring midasi (1- midasi-len)
+	(setq midasi-tail (substring midasi (1- midasi-len)
 					 midasi-len)
-	      word-tail (skk-substring word (1- word-len)
+	      word-tail (substring word (1- word-len)
 				       word-len))
 	(when (and (string= midasi-tail word-tail)
 		   (or (and (skk-string<= "ぁ" midasi-tail)
@@ -4046,7 +4033,7 @@ If you want to restore the dictionary from the disc, try
 	  (setq pos (1- word-len)
 		new-word new-skk-henkan-key)
 	  (while (and cont (> pos 0))
-	    (setq char (skk-substring word (1- pos) pos))
+	    (setq char (substring word (1- pos) pos))
 	    (if (and (skk-string<= "亜" char)
 		     (skk-string<= char "瑤"))
 		;; char is the right-most Kanji
@@ -4054,21 +4041,21 @@ If you want to restore the dictionary from the disc, try
 	      (setq pos (1- pos))))
 	  (setq pos2 (- midasi-len (- word-len pos)))
 	  ;; check if midasi and word has the same tail of length
-	  (when (string= (skk-substring midasi pos2 midasi-len)
-			 (skk-substring word pos word-len))
-	    (setq okuri-first (skk-substring word pos (1+ pos)))
+	  (when (string= (substring midasi pos2 midasi-len)
+			 (substring word pos word-len))
+	    (setq okuri-first (substring word pos (1+ pos)))
 	    (setq skk-henkan-okurigana
 		  (if (and (string= okuri-first "っ")
 			   (<= (+ pos 2) word-len))
 		      ;; in this case okuriga consits of two
 		      ;; characters, e.g., 「残った」
-		      (skk-substring word pos (+ pos 2))
+		      (substring word pos (+ pos 2))
 		    okuri-first))
-	    (setq new-word (skk-substring word 0 pos)
+	    (setq new-word (substring word 0 pos)
 		  new-skk-okuri-char (skk-okurigana-prefix
 				      skk-henkan-okurigana)
 		  new-skk-henkan-key (concat
-				      (skk-substring midasi 0 pos2)
+				      (substring midasi 0 pos2)
 				      new-skk-okuri-char))
 	    (let (inhibit-quit)	; allow keyboard quit
 	      (cond
@@ -4094,7 +4081,7 @@ If you want to restore the dictionary from the disc, try
   word)
 
 (defun skk-okurigana-prefix (okurigana)
-  (let ((headchar (skk-substring okurigana 0 1)))
+  (let ((headchar (substring okurigana 0 1)))
     (cond ((string= headchar "ん")
 	   "n")
 	  ((not (and (skk-string<= "ぁ" headchar)
@@ -4105,8 +4092,7 @@ If you want to restore the dictionary from the disc, try
 	   (aref skk-kana-rom-vector
 		 ;; assume the character is hiragana of JIS X 0208.
 		 (- (skk-char-octet
-		     (string-to-char (skk-substring okurigana
-						    1 2))
+		     (string-to-char (substring okurigana 1 2))
 		     1)
 		    33)))
 	  (t
@@ -4161,17 +4147,17 @@ If you want to restore the dictionary from the disc, try
     (remove-hook 'minibuffer-setup-hook (car args))
     (setq args (cdr args))))
 
-(add-hook 'edit-picture-hook 'skk-misc-for-picture 'append)
-(add-hook 'skk-before-kill-emacs-hook 'skk-record-jisyo-data)
+(add-hook 'edit-picture-hook #'skk-misc-for-picture 'append)
+(add-hook 'skk-before-kill-emacs-hook #'skk-record-jisyo-data)
 ;; add 'skk-save-jisyo only to remove easily.
-(add-hook 'skk-before-kill-emacs-hook 'skk-save-jisyo)
+(add-hook 'skk-before-kill-emacs-hook #'skk-save-jisyo)
 (add-hook 'minibuffer-exit-hook
-	  '(lambda ()
-	    (remove-hook 'pre-command-hook 'skk-pre-command 'local)
-	    (skk-remove-minibuffer-setup-hook
-	     'skk-j-mode-on 'skk-setup-minibuffer
-	     '(lambda ()
-		(add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
+	  #'(lambda ()
+	      (remove-hook 'pre-command-hook 'skk-pre-command 'local)
+	      (skk-remove-minibuffer-setup-hook
+	       'skk-j-mode-on 'skk-setup-minibuffer
+	       '(lambda ()
+		  (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
 
 ;;;###autoload
 (defun skk-preload ()
@@ -4180,15 +4166,14 @@ If you want to restore the dictionary from the disc, try
 
 ;;;###autoload
 (add-hook 'after-init-hook
-	  (lambda ()
-	    (if init-file-user
-		(progn
-		  (if (and (boundp 'skk-custom-file)
+	  #'(lambda ()
+	      (when init-file-user
+		(when (and (boundp 'skk-custom-file)
 			   (load skk-custom-file t)
 			   (cdr (assq 'skk-preload skk-custom-alist)))
-		      (setq skk-preload t))
-		  (if skk-preload
-		      (skk-preload))))))
+		  (setq skk-preload t))
+		(when skk-preload
+		  (skk-preload)))))
 
 ;;; cover to original functions.
 (skk-defadvice keyboard-quit (around skk-ad activate)
@@ -4209,7 +4194,7 @@ If you want to restore the dictionary from the disc, try
    ((eq skk-henkan-mode 'active)
     (setq skk-henkan-count 0)
     (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
-	(let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
+	(let ((count (length skk-henkan-okurigana)))
 	  (skk-previous-candidate)
 	  ;; ここでは delete-backward-char に第二引数を渡さない方がベター？
 	  (delete-backward-char count))
@@ -4240,7 +4225,7 @@ If you want to restore the dictionary from the disc, try
 	 (setq skk-henkan-count 0)
 	 (if (and skk-delete-okuri-when-quit
 		  skk-henkan-okurigana)
-	     (let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
+	     (let ((count (length skk-henkan-okurigana)))
 	       (skk-previous-candidate)
 	       ;; ここでは delete-backward-char に
 	       ;; 第二引数を渡さない方がベター？
