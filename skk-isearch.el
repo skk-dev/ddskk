@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.20 2001/09/15 19:55:20 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.21 2001/10/03 22:14:57 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 19:55:20 $
+;; Last Modified: $Date: 2001/10/03 22:14:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -29,19 +29,22 @@
 ;; functions for hooks.
 ;;
 ;; 1. always invoke skk isearch.
+;;
 ;; (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
 ;; (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
 ;;
 ;; 2. invoke only if skk-mode is on.
+;;
 ;; (add-hook 'isearch-mode-hook
-;;           (function (lambda ()
-;;			 (and (boundp 'skk-mode) skk-mode
-;;			      (skk-isearch-mode-setup)))))
+;;	  (lambda ()
+;;	    (if (and (boundp 'skk-mode)
+;;		     skk-mode)
+;;		(skk-isearch-mode-setup))))
 ;;
 ;; (add-hook 'isearch-mode-end-hook
-;;           (function
-;;            (lambda ()
-;;              (and (boundp 'skk-mode) skk-mode (skk-isearch-mode-cleanup)))))
+;;	  (lambda ()
+;;	    (if (featurep 'skk-isearch)
+;;		(skk-isearch-mode-cleanup))))
 ;;
 ;; 3. invoke if current buffer has japanese characters.
 ;; ...
