@@ -176,7 +176,7 @@
 		   :help-echo "終わったらボクを押して。"
 		   :action 'skk-customize-done)
     (widget-insert " を押してください。\n\n")
-    (widget-insert "いくつかの設定は再起動が必要です。\n\n")
+    (widget-insert "注意: いくつかの設定は再起動が必要です。\n\n")
     (setq skk-custom-params
 	  (list
 	   (widget-create 'group
