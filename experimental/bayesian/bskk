@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.4 2004/04/12 14:46:48 kurihara Exp $
+## Version: $Id: bskk,v 1.5 2004/04/12 14:51:32 kurihara Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2004/04/12 14:46:48 $
+## Last Modified: $Date: 2004/04/12 14:51:32 $
 
 ## This file is part of Daredevil SKK.
 
@@ -90,7 +90,7 @@ class Distribution
   def initialize( obj )
     @word2count = Hash.new(0)
     @total_count = 0
-    word_count_regexp = /^(.+)#(\d+)/
+    word_count_regexp = /^(.+)#(\d+)$/
     if obj != nil
       check_type( obj, String )
       line = obj
