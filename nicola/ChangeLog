@@ -1,3 +1,8 @@
+2004-04-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola-dcomp.el (skk-nicola-self-insert-lshift): Do not try
+	to delete region when local variable pos is not set.
+
 2004-03-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki.el (skk-kanagaki-jidou-keymap-kakikae-service):
