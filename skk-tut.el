@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.16 2000/11/11 23:39:14 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.17 2000/11/14 12:50:35 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/11 23:39:14 $
+;; Last Modified: $Date: 2000/11/14 12:50:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -133,9 +133,15 @@ The English version is SKK.tut.E."
     (skk-count-private-jisyo-candidates-exactly . nil)
     (skk-dabbrev-like-completion . nil)
     (skk-date-ad . 1)
-    (skk-cursor-default-color . (if (eq skk-emacs-type 'xemacs)
-				    (frame-property (selected-frame) 'cursor-color)
-				  (cdr (assq 'cursor-color (frame-parameters (selected-frame))))))
+    (skk-cursor-default-color . (cond
+				 ((eq skk-emacs-type 'xemacs)
+				  (frame-property (selected-frame) 'cursor-color))
+				 ((memq skk-emacs-type '(nemacs mule1))
+				  nil)
+				 (t
+				  (cdr
+				   (assq 'cursor-color
+					 (frame-parameters (selected-frame)))))))
     (skk-delete-implies-kakutei . t)
     (skk-delete-okuri-when-quit . nil)
     (skk-downcase-alist . nil)
@@ -359,22 +365,26 @@ The English version is SKK.tut.E."
 (defvar skktut-j-mode-map nil
   "SKK $B%A%e!<%H%j%"%k$+$J(B/$B%+%J%b!<%I%-!<%^%C%W!#(B")
 
-(or skktut-j-mode-map
-    (let ((map (make-sparse-keymap)))
-      (substitute-key-definition 'self-insert-command 'skk-insert map
-				 global-map)
-      (substitute-key-definition 'egg-self-insert-command 'skk-insert map
-				 global-map)
-      (substitute-key-definition 'canna-self-insert-command 'skk-insert map
-				 global-map)
-      (substitute-key-definition 'canna-henkan-region-or-self-insert 'skk-insert
-				 map global-map)
-      (substitute-key-definition 'can-n-egg-self-insert-command 'skk-insert map
-				 global-map)
-      (define-key map "x" 'skk-previous-candidate)
-      (define-key map "\C-j" 'skk-kakutei)
-      (define-key map "\t" 'skk-insert)
-      (setq skktut-j-mode-map map)))
+(static-cond
+ ((memq skk-emacs-type '(nemacs mule1))
+  nil)
+ (t
+  (or skktut-j-mode-map
+      (let ((map (make-sparse-keymap)))
+	(substitute-key-definition 'self-insert-command 'skk-insert map
+				   global-map)
+	(substitute-key-definition 'egg-self-insert-command 'skk-insert map
+				   global-map)
+	(substitute-key-definition 'canna-self-insert-command 'skk-insert map
+				   global-map)
+	(substitute-key-definition 'canna-henkan-region-or-self-insert 'skk-insert
+				   map global-map)
+	(substitute-key-definition 'can-n-egg-self-insert-command 'skk-insert map
+				   global-map)
+	(define-key map "x" 'skk-previous-candidate)
+	(define-key map "\C-j" 'skk-kakutei)
+	(define-key map "\t" 'skk-insert)
+	(setq skktut-j-mode-map map)))))
 
 (defvar skktut-jisx0208-latin-mode-map nil
   "SKK $B%A%e!<%H%j%"%kA43Q1Q?t;z%b!<%I%-!<%^%C%W!#(B")
@@ -472,10 +482,10 @@ The English version is SKK.tut.E."
 
 (skk-defadvice save-buffers-kill-emacs (around skktut-ad disable)
   "SKK $B%A%e!<%H%j%"%kMQ%"%I%P%$%9IU!#(B"
-  (if (skktut-yes-or-no-p "Tutorial $B$b(B Emacs $B$b=*N;$7$^$9!#$h$m$7$$$G$9$M!)(B "
-			  "Quit tutorial and kill emacs? ")
-      (progn (skk-tutorial-quit 'now)
-	     ad-do-it)))
+  (when (skktut-yes-or-no-p "Tutorial $B$b(B Emacs $B$b=*N;$7$^$9!#$h$m$7$$$G$9$M!)(B "
+			    "Quit tutorial and kill emacs? ")
+    (skk-tutorial-quit 'now)
+    ad-do-it))
 
 ;; interactive commands. prefix should be `skk-tutorial'.
 ;;;###autoload
@@ -483,6 +493,17 @@ The English version is SKK.tut.E."
   "SKK $B%A%e!<%H%j%"%k$r5/F0$9$k!#(B
 C-u M-x skk-tutorial $B$9$k$H!"%A%e!<%H%j%"%k%U%!%$%k$NA*Br$,2DG=!#(B"
   (interactive "P")
+  ;;
+  (unless skk-mode-invoked
+    ;; SKK $B$r5/F0$;$:$K$$$-$J$j(B
+    ;; skk-tutorial $B$r<B9T$7$?$H$-$K(B skk-jisyo $B%P%C%U%!$,:n$i$l$J$$$N$G(B
+    ;; skk-setup-jisyo-buffer $B$G%(%i!<$H$J$j!"(BEmacs $B$N=*N;$,$G$-$J$/(B
+    ;; $B$J$k$N$G(B SKK $B%b!<%I$r0lEY5/$3$7$F$*$/!#(B
+    ;; ($BDI5-(B: $B%b!<%I9T$N@_Dj$J$I$K$b(B SKK $B$r5/F0$7$F$*$/$3$H$OI,MW$J$N$G!"(B
+    ;; $B$H$j$"$($:!"$J$k$Y$/Aa$$%?%$%_%s%0$KJQ99$7$^$9!#(B)
+    (skk-mode 1)
+    (skk-mode -1))
+  ;;
   (if query-language
       (let* ((lang (completing-read "Language: " skk-tut-file-alist))
 	     (file (cdr (assoc lang skk-tut-file-alist))))
@@ -503,7 +524,8 @@ C-u M-x skk-tutorial $B$9$k$H!"%A%e!<%H%j%"%k%U%!%$%k$NA*Br$,2DG=!#(B"
       (skktut-enable-tutmap)
       (add-hook 'before-make-frame-hook 'skktut-before-move-to-other-frame)
       (add-hook 'minibuffer-setup-hook 'skktut-localize-and-init-variables)
-      (skktut-make-windows))))
+      (skktut-make-windows)))
+  (skktut-setup-delete-backward-char))
 
 (defun skk-tutorial-again (&optional now)
   "SKK $B%A%e!<%H%j%"%k$r:G=i$+$i$d$jD>$9!#(B
@@ -540,11 +562,6 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
         (kill-buffer skktut-answer-buffer)
         (kill-buffer skktut-question-buffer)
 	(set-window-configuration skktut-original-window-configuration)
-        ;; SKK $B$r5/F0$;$:$K$$$-$J$j(B
-        ;; skk-tutorial $B$r<B9T$7$?$H$-$K(B skk-jisyo $B%P%C%U%!$,:n$i$l$J$$$N$G(B
-        ;; skk-setup-jisyo-buffer $B$G%(%i!<$H$J$j!"(BEmacs $B$N=*N;$,$G$-$J$/(B
-        ;; $B$J$k$N$G(B SKK $B%b!<%I$r0lEY5/$3$7$F$*$/!#(B
-        (skk-mode 1)
         ;; $B%A%e!<%H%j%"%k5/F0D>A0$K3+$$$F$$$?%P%C%U%!$G!"(Bskk-mode $B$r5/F0$7$F(B
         ;; $B$$$?$i!"$=$N>uBV$K$7$F!"%A%e!<%H%j%"%k$r=*N;$9$k!#(B
         (or skktut-skk-mode-on
@@ -558,10 +575,11 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
   ;; called in skktut-answer-buffer.
   (save-match-data
     (let (user-ans)
-      (goto-char (point-min))
-      (end-of-line)
-      (skip-chars-backward " \t")
-      (setq user-ans (buffer-substring-no-properties (point-min) (point)))
+      (save-excursion
+	(goto-char (point-min))
+	(end-of-line)
+	(skip-chars-backward " \t")
+	(setq user-ans (buffer-substring-no-properties (point-min) (point))))
       (if (string-match "^>* *" user-ans)
 	  (setq user-ans (substring user-ans (match-end 0))))
       (if (not (string= skktut-right-answer user-ans))
@@ -574,7 +592,12 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 	(skktut-get-question-page skktut-question-count)
 	(if (>= skktut-question-count (1+ skktut-question-numbers))
 	    (skk-tutorial-quit 'now)
-	  (skktut-next-answer-buffer))))))
+	  (skktut-next-answer-buffer)))))
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (local-set-key "\C-xq" 'skk-tutorial-quit)
+    (local-set-key "\C-xt" 'skk-tutorial-again)
+    (local-set-key "\C-xn" 'skktut-next-question)
+    (local-set-key "\C-xs" 'skktut-skip-question)))
 
 (defun skktut-skip-question (arg)
   (interactive "p")
@@ -593,7 +616,12 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
   (skktut-get-question-page skktut-question-count)
   (if skktut-tutorial-end
       (skk-tutorial-quit 'now)
-    (skktut-next-answer-buffer)))
+    (skktut-next-answer-buffer))
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (local-set-key "\C-xq" 'skk-tutorial-quit)
+    (local-set-key "\C-xt" 'skk-tutorial-again)
+    (local-set-key "\C-xn" 'skktut-next-question)
+    (local-set-key "\C-xs" 'skktut-skip-question)))
 
 ;; internal functions.  prefix should be `skktut-'.
 (defun skktut-make-windows ()
@@ -627,41 +655,45 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
       (setq alist (cdr alist)))))
 
 (defun skktut-enable-tutmap ()
-  (let ((inhibit-quit t))
-    (set-modified-alist
-     'minor-mode-map-alist
-     ;; tut map
-     (list (cons 'skk-latin-mode skktut-latin-mode-map)
-	   (cons 'skk-abbrev-mode skktut-abbrev-mode-map)
-	   (cons 'skk-j-mode skktut-j-mode-map)
-	   (cons 'skk-jisx0208-latin-mode skktut-jisx0208-latin-mode-map)))
-    ;; for minor-mode-map-alist localized by Viper.
-    (if (not (featurep 'viper))
-	nil
-      (if (if (eq skk-emacs-type 'xemacs)
-	      (local-variable-p 'minor-mode-map-alist nil t)
-	    (local-variable-p 'minor-mode-map-alist))
-	  (setq-default minor-mode-map-alist minor-mode-map-alist)))))
+  (static-if (memq skk-emacs-type '(nemacs mule1))
+      nil
+    (let ((inhibit-quit t))
+      (set-modified-alist
+       'minor-mode-map-alist
+       ;; tut map
+       (list (cons 'skk-latin-mode skktut-latin-mode-map)
+	     (cons 'skk-abbrev-mode skktut-abbrev-mode-map)
+	     (cons 'skk-j-mode skktut-j-mode-map)
+	     (cons 'skk-jisx0208-latin-mode skktut-jisx0208-latin-mode-map)))
+      ;; for minor-mode-map-alist localized by Viper.
+      (if (not (featurep 'viper))
+	  nil
+	(if (if (eq skk-emacs-type 'xemacs)
+		(local-variable-p 'minor-mode-map-alist nil t)
+	      (local-variable-p 'minor-mode-map-alist))
+	    (setq-default minor-mode-map-alist minor-mode-map-alist))))))
 
 (defun skktut-disable-tutmap ()
-  (let ((inhibit-quit t)
-	(minor-mode-list
-	 '(skk-abbrev-mode skk-latin-mode skk-j-mode skk-jisx0208-latin-mode))
-	minor-mode e)
-    (while minor-mode-list
-      (setq minor-mode (car minor-mode-list)
-	    minor-mode-list (cdr minor-mode-list))
-      ;; fail safe.
-      (while (setq e (assq minor-mode minor-mode-map-alist))
-	(setq minor-mode-map-alist (delq e minor-mode-map-alist))))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-latin-mode skk-latin-mode-map)
-	   (cons 'skk-abbrev-mode skk-abbrev-mode-map)
-	   (cons 'skk-j-mode skk-j-mode-map)
-	   (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map))))
-  ;; for minor-mode-map-alist localized by Viper.
-  (and (default-value skk-use-viper) (skk-viper-normalize-map)))
+  (static-if (memq skk-emacs-type '(nemacs mule1))
+      nil
+    (let ((inhibit-quit t)
+	  (minor-mode-list
+	   '(skk-abbrev-mode skk-latin-mode skk-j-mode skk-jisx0208-latin-mode))
+	  minor-mode e)
+      (while minor-mode-list
+	(setq minor-mode (car minor-mode-list)
+	      minor-mode-list (cdr minor-mode-list))
+	;; fail safe.
+	(while (setq e (assq minor-mode minor-mode-map-alist))
+	  (setq minor-mode-map-alist (delq e minor-mode-map-alist))))
+      (set-modified-alist
+       'minor-mode-map-alist
+       (list (cons 'skk-latin-mode skk-latin-mode-map)
+	     (cons 'skk-abbrev-mode skk-abbrev-mode-map)
+	     (cons 'skk-j-mode skk-j-mode-map)
+	     (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map))))
+    ;; for minor-mode-map-alist localized by Viper.
+    (and (default-value skk-use-viper) (skk-viper-normalize-map))))
 
 (defun skktut-pre-setup-tutorial ()
   (setq skktut-original-window-configuration (current-window-configuration)
@@ -965,6 +997,31 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 	      ;;(skk-unread-event event)
 	     ))
 	(error nil)))))
+
+(defun skktut-setup-delete-backward-char ()
+  (static-if (memq skk-emacs-type '(nemacs mule1))
+      nil
+    (let ((commands '(backward-delete-char-untabify
+		      backward-delete-char
+		      backward-or-forward-delete-char
+		      delete-backward-char
+		      picture-backward-clear-column
+		      ;; following two are SKK adviced.
+		      ;;viper-del-backward-char-in-insert
+		      ;;vip-del-backward-char-in-insert
+		      ))
+	  (map (if (and (boundp 'overriding-local-map)
+			(keymapp 'overriding-local-map))
+		   overriding-local-map
+		 (current-global-map)))
+	  keys)
+      (while commands
+	(setq keys (where-is-internal (car commands) map)
+	      commands (cdr commands))
+	(while keys
+	  (define-key skktut-abbrev-mode-map (car keys) 'skk-delete-backward-char)
+	  (define-key skktut-j-mode-map (car keys) 'skk-delete-backward-char)
+	  (setq keys (cdr keys)))))))
 
 (require 'product)
 (product-provide (provide 'skk-tut) (require 'skk-version))
