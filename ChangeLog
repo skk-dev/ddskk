@@ -6,8 +6,13 @@
 	(skk-kanagaki-toggle-katakana): Kill local varaible
 	`skk-rule-tree'. Toggle hankaku kana <-> hiragana.
 	(skk-mode, skk-latin-mode, skk-jisx0208-latin-mode,
-	skk-abbrev-mode): Ditto.
+	skk-abbrev-mode): Kill local varaible `skk-rule-tree'. Now these
+	are before-advised.
 	(skk-jisx0201-zenkaku-region): New function.
+
+	* skk-macs.el (skk-mode-off, skk-j-mode-on, skk-latin-mode,
+	skk-jisx0208-latin-mode, skk-abbrev-mode): Set `skk-jsix0201-mode'
+	nil.
 
 2001-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1763,8 +1768,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.359 2001/09/07 20:37:14 czkmt Exp $
-Last Modified: $Date: 2001/09/07 20:37:14 $
+Version: $Id: ChangeLog,v 1.360 2001/09/07 21:08:10 czkmt Exp $
+Last Modified: $Date: 2001/09/07 21:08:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
