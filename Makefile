@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.47 2001/09/16 09:21:24 czkmt Exp $
-# Last Modified: $Date: 2001/09/16 09:21:24 $
+# Version: $Id: Makefile,v 1.48 2001/09/16 09:37:10 czkmt Exp $
+# Last Modified: $Date: 2001/09/16 09:37:10 $
 
 
 VERSION = 11.5
@@ -49,6 +49,7 @@ what-where-package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-what-where-package
 
 skk-dic:
+	$(RM) -f skk-dic.el
 	$(EMACS) $(FLAGS) -f SKK-MK-skk-dic
 
 clean:
