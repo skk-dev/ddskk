@@ -1,3 +1,11 @@
+2003-07-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-util.el:
+	(skk-kanagaki-temp-dir): Abolish variable.
+
+	(skk-kanagaki-call-xmodmap): Call `make-temp-file', not
+	`make-temp-name'.
+
 2002-07-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el:
