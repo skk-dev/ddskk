@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.280 2004/04/01 03:51:02 czkmt Exp $
+;; Version: $Id: skk.el,v 1.281 2004/04/03 17:07:49 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/04/01 03:51:02 $
+;; Last Modified: $Date: 2004/04/03 17:07:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1860,7 +1860,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	 (n 0)
 	 (str "") cand message-log-max
 	 (workinglst-ptr workinglst)
-	 (keys-ptr keys))
+	 (keys-ptr keys)
+	 tooltip-str)
     (when (car workinglst)
       ;;(setq workinglst (skk-truncate-message workinglst))
       (while workinglst-ptr
@@ -1871,10 +1872,12 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 			  (if (consp (car workinglst-ptr))
 			      (cdr (car workinglst-ptr))
 			    (car workinglst-ptr))))
+	(setq tooltip-str (concat str "\n"))
 	;; $B;D$j$N(B 6 $B$D$r<h$j=P$9!#8uJd$H8uJd$N4V$r6uGr$G$D$J$0!#(B
 	(while (and (< n 7) (setq cand (nth n workinglst-ptr)))
 	  (setq cand (if (consp cand) (cdr cand) cand)
 		str (concat str "  " (nth n keys-ptr) ":" cand)
+		tooltip-str (concat tooltip-str (nth n keys-ptr) ":" cand "\n")
 		n (1+ n)))
 	(if (setq workinglst-ptr (nthcdr 7 workinglst-ptr))
 	    (setq str (concat str "\n")
@@ -1885,7 +1888,17 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 				    (make-string
 				     (length skk-current-search-prog-list)
 				     ?+)))
+	    tooltip-str (concat tooltip-str
+				(format "[$B;D$j(B %d%s]"
+					(- (length candidates)
+					   (length workinglst))
+					(make-string
+					 (length skk-current-search-prog-list)
+					 ?+)))
 	    n (length workinglst))
+      (static-when (eq skk-emacs-type 'mule5)
+	(when skk-use-tooltip
+	  (tooltip-show-at-point tooltip-str)))
       (if (> (frame-width) (skk-multiple-line-string-width str))
 	  (skk-multiple-line-message "%s" str)
 	(let ((buff (get-buffer-create "*$B8uJd(B*"))
