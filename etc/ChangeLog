@@ -1,3 +1,7 @@
+2002-05-27  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* SKK.tut, SKK.tut.E: Don't call `delete-region' many times.
+
 2002-03-01  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* NICOLA-SKK.tut, SKK.tut, SKK.tut.E: Correct cursor to point.
