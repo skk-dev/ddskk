@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.2 1999/08/29 13:28:01 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.3 1999/09/29 21:46:57 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 13:28:01 $
+;; Last Modified: $Date: 1999/09/29 21:46:57 $
 
 ;; This file is part of SKK.
 
@@ -35,9 +35,8 @@
 ;;      Manabu Kawashima <kaw@lp.nm.fujitsu.co.jp>
 
 ;;; Code:
-(eval-when-compile (require 'skk))
+(eval-when-compile (require 'skk) (require 'cl))
 (require 'skk-foreword)
-(require 'cl)
 
 (defgroup skk-num nil "SKK number conversion related customization."
   :prefix "skk-num-"
