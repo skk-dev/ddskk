@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.92 2002/01/11 16:28:46 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.93 2002/01/18 14:04:24 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/11 16:28:46 $
+;; Last Modified: $Date: 2002/01/18 14:04:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -57,13 +57,9 @@
      ((string< "5.0" mule-version)
       'mule5)
      ((string< "4.0" mule-version)
-      'mule4)
-     ((string< "3.0" mule-version)
-      'mule3)
-     ((string< "2.0" mule-version)
-      'mule2)))
+      'mule4)))
   ;;
-  (require 'pcustom))
+  (require 'poe))
 
 (defconst skk-ml-address "skk@ring.gr.jp")
 (defconst skk-ml-command-address "skk-subscribe@ring.gr.jp")
@@ -1094,12 +1090,11 @@ NEXT-STATE に状態を移したうえで、入力待ち状態となる。
   :group 'skk-keybinds)
 
 (defcustom skk-kana-input-search-function
-  (function
-   (lambda ()
-     (save-match-data
-       (and (string-match "^h\\([bcdfghjklmnpqrstvwxz]\\)$" skk-prefix)
-	    (member (char-to-string (preceding-char)) '("お" "オ"))
-	    (cons '("オ" . "お") (match-string 1 skk-prefix))))))
+  #'(lambda ()
+      (save-match-data
+	(and (string-match "^h\\([bcdfghjklmnpqrstvwxz]\\)$" skk-prefix)
+	     (member (char-to-string (preceding-char)) '("お" "オ"))
+	     (cons '("オ" . "お") (match-string 1 skk-prefix)))))
   "*ルールリストの中に記せない変換ルールを処理する関数。
 `skk-rom-kana-base-rule-list' と `skk-rom-kana-rule-list' の要素を全て検索
 した後にコールされる。引数はない。
@@ -1515,37 +1510,33 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
       ["to Hiragana" skk-gyakubiki-message skk-use-kakasi]
       ["to Hiragana, All Candidates"
        (call-interactively
-	(function
-	 (lambda (start end)
-	   (interactive "r")
-	   (skk-gyakubiki-message start end 'all-candidates))))
+	#'(lambda (start end)
+	    (interactive "r")
+	    (skk-gyakubiki-message start end 'all-candidates)))
        skk-use-kakasi]
       ["to Katakana" skk-gyakubiki-katakana-message skk-use-kakasi]
       ["to Katakana, All Candidates"
        (call-interactively
-	(function
-	 (lambda (start end)
-	   (interactive "r")
-	   (skk-gyakubiki-katakana-message
-	    start end 'all-candidates))))
+	#'(lambda (start end)
+	    (interactive "r")
+	    (skk-gyakubiki-katakana-message
+	     start end 'all-candidates)))
        skk-use-kakasi])
      ("Hurigana"
       ["to Hiragana" skk-hurigana-message skk-use-kakasi]
       ["to Hiragana, All Candidates"
        (call-interactively
-	(function
-	 (lambda (start end)
-	   (interactive "r")
-	   (skk-hurigana-message start end 'all-candidates))))
+	#'(lambda (start end)
+	    (interactive "r")
+	    (skk-hurigana-message start end 'all-candidates)))
        skk-use-kakasi]
       ["to Katakana" skk-hurigana-katakana-message skk-use-kakasi]
       ["to Katakana, All Candidates"
        (call-interactively
-	(function
-	 (lambda (start end)
-	   (interactive "r")
-	   (skk-hurigana-katakana-message
-	    start end 'all-candidates))))
+	#'(lambda (start end)
+	    (interactive "r")
+	    (skk-hurigana-katakana-message
+	     start end 'all-candidates)))
        skk-use-kakasi]))
     ("Convert Region and Replace"
      ["Ascii" skk-latin-region t]
@@ -1553,37 +1544,33 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
       ["to Hiragana" skk-gyakubiki-region skk-use-kakasi]
       ["to Hiragana, All Candidates"
        (call-interactively
-	(function
-	 (lambda (start end)
-	   (interactive "r")
-	   (skk-gyakubiki-region start end 'all-candidates))))
+	#'(lambda (start end)
+	    (interactive "r")
+	    (skk-gyakubiki-region start end 'all-candidates)))
        skk-use-kakasi]
       ["to Katakana" skk-gyakubiki-katakana-region skk-use-kakasi]
       ["to Katakana, All Candidates"
        (call-interactively
-	(function
-	 (lambda (start end)
-	   (interactive "r")
-	   (skk-gyakubiki-katakana-region
-	    start end 'all-candidates))))
+	#'(lambda (start end)
+	    (interactive "r")
+	    (skk-gyakubiki-katakana-region
+	     start end 'all-candidates)))
        skk-use-kakasi])
      ["Hiragana" skk-hiragana-region t]
      ("Hurigana"
       ["to Hiragana" skk-hurigana-region skk-use-kakasi]
       ["to Hiragana, All Candidates"
        (call-interactively
-	(function
-	 (lambda (start end)
-	   (interactive "r")
-	   (skk-hurigana-region start end 'all-candidates))))
+	#'(lambda (start end)
+	    (interactive "r")
+	    (skk-hurigana-region start end 'all-candidates)))
        skk-use-kakasi]
       ["to Katakana" skk-hurigana-katakana-region skk-use-kakasi]
       ["to Katakana, All Candidates"
        (call-interactively
-	(function
-	 (lambda (start end) (interactive "r")
-	   (skk-hurigana-katakana-region
-	    start end 'all-candidates))))
+	#'(lambda (start end) (interactive "r")
+	    (skk-hurigana-katakana-region
+	     start end 'all-candidates)))
        skk-use-kakasi])
      ["Katakana" skk-katakana-region t]
      ["Romaji" skk-romaji-region skk-use-kakasi]
@@ -1688,9 +1675,8 @@ cdr は対応する任意の形式。"
   :group 'skk-gadget)
 
 (defcustom skk-default-current-date-function
-  (function
-   (lambda (date-information format gengo and-time)
-     (skk-default-current-date date-information nil 0 gengo 0 0 0 and-time)))
+  #'(lambda (date-information format gengo and-time)
+      (skk-default-current-date date-information nil 0 gengo 0 0 0 and-time))
   "*`skk-current-date' でコールされるディフォルトの関数。
 時間情報を引数に取り加工した文字列を出力する。
 
@@ -1886,11 +1872,11 @@ nil なら KAKASI コマンドは標準の辞書を参照する。"
   :group 'skk-kcode)
 
 (defcustom skk-kcode-charset
-  (cond ((featurep 'jisx0213) 'japanese-jisx0213-1)
-	((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
-	 'japanese-jisx0208)
-	(t lc-jp))
-  "*skk-input-by-code-or-menu で使われる文字セット。"
+  (cond ((featurep 'jisx0213)
+	 'japanese-jisx0213-1)
+	(t
+	 'japanese-jisx0208))
+  "*`skk-input-by-code-or-menu' で使われる文字セット。"
   :type 'symbol
   :group 'skk-kcode)
 
@@ -2195,16 +2181,11 @@ The English version is SKK.tut.E."
 	   ("ujis" . euc-jisx0213)
 	   ("sjis". shift_jisx0213)
 	   ("jis" . iso-2022-jp-3-strict)))
-	((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
+	(t
 	 '(("euc" . euc-japan)
 	   ("ujis" . euc-japan)
 	   ("sjis". shift_jis)
-	   ("jis" . junet)))
-	(t
-	 '(("euc" . *euc-japan*)
-	   ("ujis" . *euc-japan*)
-	   ("sjis". *sjis*)
-	   ("jis" . *junet*))))
+	   ("jis" . junet))))
   "coding-system の文字列表現と、シンボル表現の連想リスト。")
 
 (defconst skk-kana-rom-vector
@@ -2267,48 +2248,6 @@ The English version is SKK.tut.E."
    "ｘ" "ｙ" "ｚ" "｛" "｜" "｝" "〜" nil]
   "skk-jisx0208-latin-region で参照する文字テーブル。
 \"ascii\" -> \"ａｓｃｉｉ\" のような全角文字への変換を行う際に利用する。")
-
-(defconst skk-kanji-len (length "あ")
-  "漢字一文字の長さ。Mule[1-3] では 3 になる。Mule4, XEmacs では 1。")
-
-(defconst skk-hankaku-alist
-  (when (eq skk-emacs-type 'mule2)
-    '((161 . 32)	; ?\
-      (170 . 33)	;?\!
-      (201 . 34)	;?\"
-      (244 . 35)	;?\#
-      (240 . 36)	;?\$
-      (243 . 37)	;?\%
-      (245 . 38)	;?\&
-      (199 . 39)	;?\'
-      (202 . 40)	;?\(
-      (203 . 41)	;?\)
-      (246 . 42)	;?\*
-      (220 . 43)	;?\+
-      (164 . 44)	;?\,
-      (221 . 45)	;?\-
-      (165 . 46)	;?\.
-      (191 . 47)	;?\/
-      (167 . 58)	;?\:
-      (168 . 59)	;?\;
-      (227 . 60)	;?\<
-      (225 . 61)	;?\=
-      (228 . 62)	;?\>
-      (169 . 63)	;?\?
-      (247 . 64)	;?\@
-      (206 . 91)	;?\[
-      (239 . 92)	;?\\
-      (207 . 93)	;?\]
-      (176 . 94)	;?^
-      (178 . 95)	;?\_
-      (208 . 123)	;?\{
-      (195 . 124)	;?\|
-      (209 . 125)	;?\}
-      (177 . 126)	;?\~
-      (198 . 96)))	;?`
-  "文字コードの 2 番目のバイトと対応する ascii 文字 (char) との連想リスト。
-Mule 2 を使用する場合に `skk-latin-region' で参照する。
-Mule-2.3 添付の egg.el よりコピーした。")
 
 (defconst skk-kana-cleanup-command-list
   '(skk-undo
@@ -2697,18 +2636,17 @@ CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
 (defconst skk-isearch-breakable-character-p-function
   (static-cond
    ((fboundp 'char-category-set)
-    (function (lambda (char)
-		;; see emacs/lisp/fill.el how the category `|' is
-		;; treated.
-		(aref (char-category-set char) ?|))))
+    #'(lambda (char)
+	;; see emacs/lisp/fill.el how the category `|' is
+	;; treated.
+	(aref (char-category-set char) ?|)))
    ((boundp 'word-across-newline)
-    (function (lambda (char)
-		;; (let ((lc (char-leading-char char)))
-		;;   (or (= lc lc-jp) (= lc lc-cn)))
-		(string-match word-across-newline
-			      (char-to-string char)))))
-   (t (error "No appropriate function as: %s"
-	     'skk-isearch-breakable-character-p-function)))
+    #'(lambda (char)
+	(string-match word-across-newline
+		      (char-to-string char))))
+   (t
+    (error "No appropriate function as: %s"
+	   'skk-isearch-breakable-character-p-function)))
   "Function to test if we can insert a newline around CHAR when filling.")
 
 (defconst skk-isearch-working-buffer " *skk-isearch*"
@@ -2770,8 +2708,9 @@ This map should be derived from isearch-mode-map.")
 (defconst skk-code-n2-max 254)
 (defconst skk-code-null 128)
 (defconst skk-kcode-charset-list
-  (static-if (memq skk-emacs-type '(xemacs mule5 mule4 mule3))
-      (mapcar '(lambda (x) (list (symbol-name x))) (charset-list))))
+  (mapcar #'(lambda (x)
+	      (list (symbol-name x)))
+	  (charset-list)))
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
 
 ;;; SKK-LOOK.EL related internal constant and variable.
