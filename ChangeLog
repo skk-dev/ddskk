@@ -1,3 +1,13 @@
+2003-03-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-modeline-menu): When variable `skk-mode' is
+	nil, find keys for function `skk-mode'.
+
+	* skk-xemacs.el (skk-xemacs-find-func-keys): Do not show
+	"linefeed" in menu.
+
+	* skk.el (skk-remove-duplicates): New function.
+
 2003-03-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Update for skkinput, SKKIME, and SKK95.
@@ -4129,8 +4139,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.726 2003/03/22 16:50:57 czkmt Exp $
-Last Modified: $Date: 2003/03/22 16:50:57 $
+Version: $Id: ChangeLog,v 1.727 2003/03/23 20:26:48 czkmt Exp $
+Last Modified: $Date: 2003/03/23 20:26:48 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
