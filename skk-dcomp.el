@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.3 2001/01/25 10:16:46 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.4 2001/01/27 00:21:45 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/01/25 10:16:46 $
+;; Last Modified: $Date: 2001/01/27 00:21:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -186,7 +186,7 @@
     (skk-set-marker skk-dcomp-end-point nil)
     (setq skk-comp-stack nil)))
 
-(defadvice skk-henkan (before skk-dcomp-ad activate)
+(defun skk-dcomp-cleanup-buffer ()
   (if (not skk-dcomp-activate)
       nil
     (if (and (markerp skk-dcomp-start-point)
@@ -197,6 +197,13 @@
 	  (skk-dcomp-face-off)
 	  (delete-region skk-dcomp-end-point (point))
 	  (skk-set-marker skk-dcomp-end-point (point))))))
+
+;;(defadvice skk-henkan (before skk-dcomp-ad activate)
+(defadvice skk-start-henkan (before skk-dcomp-ad activate)
+  (skk-dcomp-cleanup-buffer))
+
+(defadvice skk-process-prefix-or-suffix (before skk-dcomp-ad activate)
+  (if skk-henkan-on (skk-dcomp-cleanup-buffer)))
 
 (skk-defadvice keyboard-quit (around skk-dcomp-ad activate)
   (if (not skk-dcomp-activate)

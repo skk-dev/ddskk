@@ -1,3 +1,11 @@
+2001-01-27  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-dcomp.el (skk-dcomp-cleanup-buffer): New function.
+	(skk-henkan@before@skk-dcomp-ad): Removed.
+	(skk-start-henkan@before@skk-dcomp-ad): Revive.  Use
+	`skk-dcomp-cleanup-buffer'.
+	(skk-process-prefix-or-suffix@before@skk-dcomp-ad): New advice.
+	
 2001-01-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-dcomp.el (skk-start-henkan@before@skk-dcomp-ad): Change its
@@ -3076,8 +3084,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.249 2001/01/25 10:16:46 minakaji Exp $
-Last Modified: $Date: 2001/01/25 10:16:46 $
+Version: $Id: ChangeLog,v 1.250 2001/01/27 00:21:45 minakaji Exp $
+Last Modified: $Date: 2001/01/27 00:21:45 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
