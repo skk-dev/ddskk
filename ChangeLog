@@ -1,3 +1,15 @@
+2001-10-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	(skk-latin-mode)
+	(skk-toggle-characters)
+	(skk-jisx0208-latin-mode)
+	(skk-set-henkan-point-subr)
+	(skk-purge-from-jisyo)
+	(skk-abbrev-mode)
+	(skk-today):
+	Return nil.
+
 2001-10-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el
@@ -2363,8 +2375,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.469 2001/10/11 15:11:03 czkmt Exp $
-Last Modified: $Date: 2001/10/11 15:11:03 $
+Version: $Id: ChangeLog,v 1.470 2001/10/13 01:22:11 czkmt Exp $
+Last Modified: $Date: 2001/10/13 01:22:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
