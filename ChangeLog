@@ -2,6 +2,10 @@
 
 	* READMEs/CVS_on_Windows: Update.
 
+	* doc/skk.texi (配布条件, 概要): Remove these chapters.
+	(はじめの設定): <= chapter `インストール'. Simplify.
+	(その他): <= chapter `謝辞とお願い'. Add section `SKKの作者'.
+
 2000-09-15  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/skk-faq.txt: New file.
