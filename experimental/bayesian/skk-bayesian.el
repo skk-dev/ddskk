@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.8 2004/12/07 08:24:06 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.9 2004/12/08 01:24:41 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/12/07 08:24:06 $
+;; Last Modified: $Date: 2004/12/08 01:24:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -236,6 +236,7 @@
   合は追加しない。参考:`skk-bayesian-max-commands-to-wait-for'"
   (setq skk-bayesian-add-to-history-pending nil)
   (when (and skk-bayesian-last-kakutei-word
+             (skk-get-last-henkan-datum 'henkan-point)
              skk-bayesian-last-buffer)
     (skk-bayesian-debug-message "adding history...")
     (with-current-buffer skk-bayesian-last-buffer
@@ -246,7 +247,7 @@
              (end (marker-position (skk-get-last-henkan-datum 'henkan-point)))
              (start (- end word-len))
              (current-word (if (and (<= (point-min) start) (<= end (point-max)))
-                               (buffer-substring start end))))
+                               (buffer-substring-no-properties start end))))
         ;; kakutei-word が変更されているか
         (if (not (string= current-word kakutei-with-okuri))
             (skk-bayesian-debug-message "kakutei-word has been modified")
@@ -292,8 +293,8 @@
               (start-process proc-name
                              proc-buf
                              "ruby" "-S" "bskk" "-f" skk-bayesian-history-file
-                             (if skk-bayesian-debug "-v")
-                             (if skk-bayesian-debug "-d")))))
+                             (if skk-bayesian-debug "-v" "")
+                             (if skk-bayesian-debug "-d" "")))))
   (set-process-coding-system skk-bayesian-process
                              skk-bayesian-coding-system
                              skk-bayesian-coding-system)
