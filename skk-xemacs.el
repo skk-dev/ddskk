@@ -25,11 +25,27 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'static))
+
 (eval-and-compile
   (require 'skk-macs)
   ;;
   (autoload 'Info-goto-node "info")
   (autoload 'browse-url "browse-url"))
+
+(static-when
+    (and (eq skk-emacs-type 'xemacs)
+	 (< emacs-major-version 21))
+  ;; From Naoki Wakamatsu <naoki-w@ht-net21.ne.jp>
+  ;;
+  ;; XEmacs 20.4 (Mule) includes SKK 10.38 and loads skk-leim.el on dump,
+  ;; and skk/auto-autoloads.el on initialization.
+  ;;
+  ;; For overriding those, the following files needs to be loaded.
+  (unless (featurep 'skk-setup)
+    (load "skk-autoloads")
+    (load "skk-leim")))
 
 ;; Variables.
 (defvar skk-xemacs-extent-alist
@@ -121,31 +137,52 @@
 
 ;;;###autoload
 (defun skk-xemacs-prepare-modeline-properties ()
-  (let (extent face-sym)
+  (let (extent face)
     (when (featurep 'window-system)
       (defvar skk-xemacs-modeline-map
 	(let ((map (make-sparse-keymap)))
-	  (define-key
-	    map
+	  (define-key map
 	    [button2]
 	    (eval '(make-modeline-command-wrapper 'skk-xemacs-modeline-menu)))
 	  map)))
-    (dolist (mode '(hiragana katakana jisx0208-latin latin jisx0201 abbrev))
-      (setq extent (cdr (assq mode skk-xemacs-extent-alist)))
-      (setq face-sym (intern (format "skk-xemacs-%s-face" mode)))
-      (make-face face-sym)
-      (set-face-parent face-sym 'modeline nil '(default))
+    (dolist (mode '(hiragana
+		    katakana
+		    jisx0208-latin
+		    latin
+		    jisx0201
+		    abbrev))
+      (setq extent (cdr (assq mode
+			      skk-xemacs-extent-alist)))
+      (setq face (intern (format "skk-xemacs-%s-face"
+				 mode)))
+      (make-face face)
+      (set-face-parent face
+		       'modeline
+		       nil
+		       (if (> emacs-major-version 20)
+			   '(default)))
       (when (featurep 'window-system)
-	(set-extent-keymap extent skk-xemacs-modeline-map)
-	(set-extent-property
-	 extent 'help-echo "マウスの button 2 -> Daredevil SKK のメニュ−")
-	(set-face-foreground
-	 face-sym
-	 (symbol-value (intern (format "skk-cursor-%s-color" mode)))
-	 nil '(default color win))
-	(set-face-font face-sym [bold] nil '(default mono win))
-	(set-face-font face-sym [bold] nil '(default grayscale win)))
-      (set-extent-face extent face-sym))))
+	(set-extent-keymap extent
+			   skk-xemacs-modeline-map)
+	(set-extent-property extent
+			     'help-echo
+			     "マウスの button 2 -> Daredevil SKK のメニュ−")
+	(when (> emacs-major-version 20)
+	  (set-face-foreground face
+			       (symbol-value
+				(intern (format "skk-cursor-%s-color"
+						mode)))
+			       nil
+			       '(default color win))
+	  (set-face-font face
+			 [bold]
+			 nil
+			 '(default mono win))
+	  (set-face-font face
+			 [bold]
+			 nil
+			 '(default grayscale win))))
+      (set-extent-face extent face))))
 
 (defun skk-xemacs-find-func-keys (func)
   (let ((keys
