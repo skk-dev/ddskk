@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.101 2002/03/02 19:27:21 ueno Exp $
+;; Version: $Id: skk-vars.el,v 1.102 2002/03/03 12:08:15 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/02 19:27:21 $
+;; Last Modified: $Date: 2002/03/03 12:08:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -681,6 +681,11 @@ left であれば左端に表示する。
 					       (fboundp 'x-display-color-p)
 					       (x-display-color-p))
   "*Non-nil ならばカーソルと同じ色でインジケータを表示する"
+  :type 'boolean
+  :group 'skk-decoration)
+
+(defcustom skk-show-icon nil
+  "*Non-nil であれば、SKK のアイコンを常時表示する。"
   :type 'boolean
   :group 'skk-decoration)
 
