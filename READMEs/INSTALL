@@ -1,7 +1,7 @@
 -*- text -*-
-             $Date: 1999/09/25 11:36:51 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 1999/09/25 11:41:43 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.10 1999/09/25 11:36:51 minakaji Exp $ 
+	     $Id: INSTALL,v 1.11 1999/09/25 11:41:43 minakaji Exp $ 
 
 (1)APEL (A Portable Emacs Library) is required to install SKK.  Please
    make sure you have already installed APEL 9.22 or later.  It is
@@ -91,6 +91,15 @@ or
    recommended to load skk-obsolete.el and
 
      M-x skk-obsolete-check-all-files.
+
+(9)convert-starndard-filename of poe.el (APEL 9.22) might be collaped
+  for system-type windows-nt and ms-dos.  If you cannot open
+  skk-jisyo, skk-backup-jisyo and/or skk-record-file, put the
+  following form into your .skk;
+
+     (setq skk-jisyo "~/_skk-jisyo"
+           skk-backup-jisyo "~/_skk-jisyo.BAK"
+           skk-record-file "~/_skk-record" )
 
 Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                　　　　 <minakaji@pdx.ne.jp>
