@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-mkmgk.el,v 1.3 2001/07/28 06:58:40 minakaji Exp $
+;; Version: $Id: skk-mkmgk.el,v 1.4 2001/07/28 10:51:00 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/28 06:58:40 $
+;; Last Modified: $Date: 2001/07/28 10:51:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -35,6 +35,10 @@
 ;;; Code:
 (eval-when-compile (require 'skk-macs))
 (require 'skk)
+
+(defvar skk-mkmgk-region-limit 10000
+  "*検索リージョンのサイズがこの数より小さい場合に、バイナリサーチを止めリニアサーチに移行する。
+個人辞書を加工する場合は、0 に設定する。")
 
 ;;;###autoload
 (defun skk-make-mazegaki-dic (dic &optional nomsg)
@@ -132,11 +136,9 @@
 		(save-excursion
 		  (goto-char (point-min))
 		  ;; 分解したひらがな見出しを 1 文字づつ見出しにして再検索 e.x. "あい"
-		  (if (not (re-search-forward (concat "^" header1 " /") nil t nil))
+		  (if (not (setq candidates1 (skk-mkmgk-binary-search
+					      header1 (point-min) max skk-mkmgk-region-limit)))
 		      nil
-		    ;; 分解した見出し語をキーにした候補 e.x. "相"
-		    (setq candidates1 (skk-mkmgk-filter
-				       (car (skk-compute-henkan-lists nil))))
 		    (let ((can0 candidates0))
 		      (while (and candidates1 can0)
 			(if (not (string-match (car candidates1) (car can0)))
@@ -189,16 +191,34 @@
 	     (function
 	      (lambda (word)
 		(if (and
+		     ;; 漢字 1 文字を混ぜ書きすることはないでしょう...
+		     (> (skk-str-length word) 1)
 		     ;; カタカナ語を skip
 		     (not (string-match "^[ーァ-ン]+$" word))
 		     ;; 英語を skip
-		     (not (string-match "^[a-zA-Z]+$" word))
-		     (> (skk-str-length word) 1))
+		     (not (string-match "^[a-zA-Z]+$" word)))
 		    (if (string-match ";" word)
 			(substring word 0 (match-beginning 0))
 		      word))))
 	     list)))
-							 
+
+(defun skk-mkmgk-binary-search (key min max limit)
+  (let ((case-fold-search nil)
+        size p)
+    (if (> limit 0)
+	(while (progn (setq size (- max min)) (> size limit))
+	  (goto-char (+ min (/ size 2)))
+	  (beginning-of-line)
+	  (setq p (point))
+	  (if (string< key (buffer-substring-no-properties
+			    p (1- (search-forward " "))))
+	      (setq max p)
+	    (setq min p))))
+    (goto-char min)
+    (beginning-of-line)
+    (if (re-search-forward (concat "^" key " /") max 'noerror)
+	(skk-mkmgk-filter (car (skk-compute-henkan-lists nil))))))
+
 (require 'product)
 (product-provide (provide 'skk-mkmgk) (require 'skk-version))
 ;; end of skk-mkmgk.el

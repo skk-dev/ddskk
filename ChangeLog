@@ -3,6 +3,11 @@
 	* tut-code/skk-mkmgk.el: New file.
 	(skk-mkmgk-filter): New function.
 	(skk-make-mazegaki-dic-1): Use `skk-mkmgk-filter'.
+	(skk-mkmgk-region-limit): New user variable.
+	(skk-mkmgk-filter): Arrange conditions order.
+	(skk-mkmgk-binary-search): New function.
+	(skk-make-mazegaki-dic-1): Use `skk-mkmgk-binary-search' instead
+	of renear search using `re-search-forward'.
 
 2001-07-23  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -3662,8 +3667,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.319 2001/07/28 06:58:40 minakaji Exp $
-Last Modified: $Date: 2001/07/28 06:58:40 $
+Version: $Id: ChangeLog,v 1.320 2001/07/28 10:51:01 minakaji Exp $
+Last Modified: $Date: 2001/07/28 10:51:01 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
