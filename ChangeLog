@@ -1,3 +1,7 @@
+2001-11-11  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* doc/skk.texi (起動と終了): Doc fixed.
+
 2001-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version.el
@@ -2670,8 +2674,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.517 2001/11/10 00:57:09 czkmt Exp $
-Last Modified: $Date: 2001/11/10 00:57:09 $
+Version: $Id: ChangeLog,v 1.518 2001/11/11 02:54:19 czkmt Exp $
+Last Modified: $Date: 2001/11/11 02:54:19 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
