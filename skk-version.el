@@ -1,12 +1,12 @@
-;;; skk-version.el --- Version information for SKK
+;;; skk-version.el --- version information for SKK
 
 ;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.16 2001/11/19 16:03:10 czkmt Exp $
+;; Version: $Id: skk-version.el,v 1.17 2001/11/23 11:47:33 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 16:03:10 $
+;; Last Modified: $Date: 2001/11/23 11:47:33 $
 
 ;; This file is part of Daredevil SKK.
 

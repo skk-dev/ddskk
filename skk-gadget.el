@@ -1,13 +1,13 @@
-;; skk-gadget.el --- 実行変換のためのプログラム
+;;; skk-gadget.el --- 実行変換のためのプログラム
 
 ;; Copyright (C) 1995, 1996, 1997, 1998, 1999, 2000, 2001
 ;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.28 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.29 2001/11/23 11:47:33 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/23 11:47:33 $
 
 ;; This file is part of Daredevil SKK.
 

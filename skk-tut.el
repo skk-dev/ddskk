@@ -1,4 +1,4 @@
-;;; skk-tut.el --- SKK tutorial for Daredevil SKK
+;;; skk-tut.el --- SKK tutorial
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2000, 2001
@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.46 2001/11/21 14:44:50 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.47 2001/11/23 11:47:33 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/21 14:44:50 $
+;; Last Modified: $Date: 2001/11/23 11:47:33 $
 
 ;; This file is part of Daredevil SKK.
 

@@ -1,12 +1,12 @@
-;;; skk-setup.el --- Initial setup for SKK  -*- emacs-lisp -*-
+;;; skk-setup.el --- initial setup for SKK  -*- emacs-lisp -*-
 
 ;; Copyright (C) 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.21 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.22 2001/11/23 11:47:33 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/23 11:47:33 $
 
 ;; This file is part of Daredevil SKK.
 

@@ -1,4 +1,4 @@
-;;; skk-jisyo-edit-mode.el --- Major mode for editing SKK dictionaries
+;;; skk-jisyo-edit-mode.el --- major mode for editing SKK dictionaries
 
 ;; Copyright (C) 2001 SKK Development Team
 
