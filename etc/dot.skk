@@ -2,8 +2,7 @@
 
 ;;; Commentary:
 
-;; 以下は ~/.skk の設定例です。このままコピーするのではなく、必要なところだけ
-;; 抜きだして利用されることをお勧めします。
+;; 以下は ~/.skk の設定例です。
 
 ;;; Code:
 
@@ -27,13 +26,13 @@
 ;; カーソルに色を付けない
 ;; (setq skk-use-color-cursor nil)
 
-(when skk-use-color-cursor
-  ;; カーソル色を変えてみる
-  (setq skk-cursor-hiragana-color "blue"
-	skk-cursor-katakana-color "green"
-	skk-cursor-abbrev-color "red"
-	skk-cursor-jisx0208-latin-color "red"
-	skk-cursor-jisx0201-color "purple"))
+;; (when skk-use-color-cursor
+;;   ;; カーソル色を変えてみる
+;;   (setq skk-cursor-hiragana-color "blue"
+;;	   skk-cursor-katakana-color "green"
+;;	   skk-cursor-abbrev-color "red"
+;;	   skk-cursor-jisx0208-latin-color "red"
+;;	   skk-cursor-jisx0201-color "purple"))
 
 ;; インジケータに色を付けない
 ;; (setq skk-indicator-use-cursor-color nil)
@@ -41,10 +40,10 @@
 ;; 変換中の文字列をハイライトしない
 ;; (setq skk-use-face nil)
 
-(when skk-use-face
-  ;; 変換文字列の色を変えてみる
-  (skk-make-face 'DimGray/PeachPuff1)
-  (setq skk-henkan-face 'DimGray/PeachPuff1))
+;; (when skk-use-face
+;;   ;; 変換文字列の色を変えてみる
+;;   (skk-make-face 'DimGray/PeachPuff1)
+;;   (setq skk-henkan-face 'DimGray/PeachPuff1))
 
 ;; @@ 基本的なユーザ・インターフェース
 
@@ -52,16 +51,16 @@
 (setq skk-egg-like-newline t)
 
 ;; ▼モードで BS を押したときには確定しないで前候補を表示する
-(setq skk-delete-implies-kakutei nil)
+;; (setq skk-delete-implies-kakutei nil)
 
 ;; 対応する閉括弧を自動的に挿入する
-(setq skk-auto-insert-paren t)
+;; (setq skk-auto-insert-paren t)
 
 ;; 句読点に ．， を使う
-(setq skk-kutouten-type 'en)
+;; (setq skk-kutouten-type 'en)
 
 ;; 動的な補完を使う
-(setq skk-dcomp-activate t)
+;; (setq skk-dcomp-activate t)
 
 ;; viper と組み合わせて使う
 ;; (setq skk-use-viper t)
@@ -75,75 +74,75 @@
 ;; @@ 変換動作の調整
 
 ;; 送り仮名が厳密に正しい候補を優先して表示する
-(setq skk-henkan-strict-okuri-precedence t)
+;; (setq skk-henkan-strict-okuri-precedence t)
 
 ;; 辞書登録のとき、余計な送り仮名を送らないようにする
-(setq skk-check-okurigana-on-touroku 'auto)
+;; (setq skk-check-okurigana-on-touroku 'auto)
 
 ;; @@ 検索に関連した設定
 
 ;; look コマンドを使った検索をする
-(setq skk-use-look t)
+;; (setq skk-use-look t)
 
-(when skk-use-look
-  ;; look が見つけた語を見出し語として検索する
-  (setq skk-look-recursive-search t)
-  ;; ispell を look と一緒に使うのはやめる
-  (setq skk-look-use-ispell nil))
+;; (when skk-use-look
+;;   ;; look が見つけた語を見出し語として検索する
+;;   (setq skk-look-recursive-search t)
+;;   ;; ispell を look と一緒に使うのはやめる
+;;   (setq skk-look-use-ispell nil))
 
 ;; lookup を利用した変換を行う
-(setq skk-search-prog-list
-      (skk-nunion skk-search-prog-list
-		  '((skk-lookup-search))))
+;; (setq skk-search-prog-list
+;;       (skk-nunion skk-search-prog-list
+;;		     '((skk-lookup-search))))
 
 ;; 送りあり変換を送りなし変換と同じ操作でできるようにする
-(setq skk-auto-okuri-process t)
+;; (setq skk-auto-okuri-process t)
 
 ;; カタカナ語を変換候補に加える
-(setq skk-search-prog-list
-      (skk-nunion skk-search-prog-list
-		  '((skk-search-katakana))))
+;; (setq skk-search-prog-list
+;;       (skk-nunion skk-search-prog-list
+;;		     '((skk-search-katakana))))
 
 ;; サ行変格活用の動詞も送りあり変換出来るようにする
-(setq skk-search-prog-list
-      (skk-nunion skk-search-prog-list
-		  '((skk-search-sagyo-henkaku))))
+;; (setq skk-search-prog-list
+;;       (skk-nunion skk-search-prog-list
+;;		     '((skk-search-sagyo-henkaku))))
 
 ;; @@ かな入力関連の設定
 
 ;; 半角カナ入力メソッドを使う
-(setq skk-use-jisx0201-input-method t)
+;; (setq skk-use-jisx0201-input-method t)
 
 ;; かな配列キーボードで入力する
 ;; (setq skk-use-kana-keyboard t)
 
-(when skk-use-kana-keyboard
-  ;; 旧 JIS 配列を使う
-  ;; (setq skk-kanagaki-keyboard-type '106-jis)
+;; (when skk-use-kana-keyboard
+;;   ;; 旧 JIS 配列を使う
+;;   ;; (setq skk-kanagaki-keyboard-type '106-jis)
 
-  ;; 親指シフトエミュレーションを使う
-  (setq skk-kanagaki-keyboard-type 'omelet-jis)
+;;   ;; 親指シフトエミュレーションを使う
+;;   (setq skk-kanagaki-keyboard-type 'omelet-jis)
 
-  ;; OASYS 風の後退・取消キーを使う
-  (setq skk-nicola-use-koyubi-functions t))
+;;   ;; OASYS 風の後退・取消キーを使う
+;;   (setq skk-nicola-use-koyubi-functions t))
 
 ;; @@ その他いろいろ
 
 ;; 複数の Emacsen を起動して個人辞書を共有する
-(setq skk-share-private-jisyo t)
+;; (setq skk-share-private-jisyo t)
 
 ;; 数字だけの見出し語は個人辞書から消去する (郵便辞書用)
-(defadvice skk-save-jisyo (before pr-ad activate)
-  (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
-	start)
-    (set-buffer jisyo-buffer)
-    (goto-char (point-min))
-    (search-forward ";; okuri-nasi entries." nil t)
-    (while (re-search-forward "^\\([0-9]+\\*?\\|#\\*\\) " nil t)
-      (beginning-of-line)
-      (setq start (point))
-      (forward-line)
-      (delete-region start (point))
-      (forward-line -1))))
+;; (defadvice skk-save-jisyo (before pr-ad activate)
+;;   (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
+;;	   start)
+;;     (with-current-buffer jisyo-buffer
+;;       (goto-char (point-min))
+;;       (search-forward ";; okuri-nasi entries." nil t)
+;;       (while (re-search-forward "^\\([0-9]+\\*?\\|#\\*\\) " nil t)
+;;	 (beginning-of-line)
+;;	 (setq start (point))
+;;	 (forward-line)
+;;	 (delete-region start (point))
+;;	 (forward-line -1)))))
 
 ;;; dot.skk ends here
