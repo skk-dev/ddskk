@@ -1,5 +1,10 @@
 2003-07-12  NAKAJIMA Mikio  <minakaji@namazu.org>
 
+	* skk-study.el (skk-study-update): Check if
+	`skk-study-max-distance' is nil or not.
+	Check if `skk-study-first-candidate' is nil or not.
+	(skk-study-first-candidate): New user variable.
+
 	* Makefile (VERSION): Change 12.2.0rc1 to 12.2.0.
 
 	* skk-study.el: Move from experimental directory.
@@ -4296,8 +4301,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.755 2003/07/12 10:54:07 minakaji Exp $
-Last Modified: $Date: 2003/07/12 10:54:07 $
+Version: $Id: ChangeLog,v 1.756 2003/07/12 11:09:47 minakaji Exp $
+Last Modified: $Date: 2003/07/12 11:09:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

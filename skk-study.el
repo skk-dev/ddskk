@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.38 2003/07/12 10:52:55 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.39 2003/07/12 11:09:47 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/12 10:52:55 $
+;; Last Modified: $Date: 2003/07/12 11:09:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -124,8 +124,14 @@
   :type 'integer
   :group 'skk-study)
 
+(defcustom skk-study-first-candidate t
+  "*Non-nil であれば、第一候補で確定した際も学習する。"
+  :type 'boolean
+  :group 'skk-study)
+
 (defcustom skk-study-max-distance 30
-  "*直前に確定したポイントと今回の変換ポイントがこの距離以上離れていると学習しない。"
+  "*直前に確定したポイントと今回の変換ポイントがこの距離以上離れていると学習しない。
+nil の場合は直前に確定したポイントとの距離を考慮せずに学習する。"
   :type 'integer
   :group 'skk-study)
 
@@ -198,11 +204,15 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
   (let ((inhibit-quit t)
 	last-data diff grandpa papa baby)
     (with-current-buffer henkan-buffer
-      (when (and (not (string= word (car skk-henkan-list)))
+      (when (and (or skk-study-first-candidate
+		     (not (string= word (car skk-henkan-list))))
 		 (eq (skk-get-last-henkan-datum 'henkan-buffer) henkan-buffer)
-		 (setq diff (- (point) (skk-get-last-henkan-datum 'henkan-point)))
-		 (> diff 0)
-		 (> skk-study-max-distance diff))
+		 (or (not skk-study-max-distance)
+		     (and (setq diff
+				(- (point)
+				   (skk-get-last-henkan-datum 'henkan-point)))
+			  (> diff 0)
+			  (> skk-study-max-distance diff))))
 	(when (and (or skk-study-alist (skk-study-read))
 		   midasi word
 		   (setq last-data (if (not (ring-empty-p skk-study-data-ring))
