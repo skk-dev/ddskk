@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.12 2004/12/24 21:24:14 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.13 2004/12/26 21:34:12 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/12/24 21:24:14 $
+;; Last Modified: $Date: 2004/12/26 21:34:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -133,8 +133,9 @@
 (defsubst skk-bayesian-make-pending-data-alist
   (word okurigana midasi buffer henkan-point context)
   (setq skk-bayesian-pending-data-alist
-        (if (and word okurigana midasi buffer henkan-point context)
+        (if (and word midasi buffer henkan-point context)
             ;; 特に henkan-point が nil になりやすい。
+            ;; okurigana は、nil でもよい。
             (list (cons 'word word)
                   (cons 'okurigana okurigana)
                   (cons 'midasi midasi)
@@ -143,7 +144,9 @@
                   (cons 'context context)))))
 
 (defsubst skk-bayesian-get-pending-data-alist (key)
-  (cdr (assq key skk-bayesian-pending-data-alist)))
+  (if (memq key (list 'word 'okurigana 'midasi 'buffer 'henkan-point 'context))
+      (cdr (assq key skk-bayesian-pending-data-alist))
+    (error (concat "Error; invalid key=" (prin1-to-string 'key)))))
   
 (defsubst skk-bayesian-read-process-output (input)
   "input が nil の時、EOF を`skk-bayesian-process'に送り、そうでな
@@ -252,8 +255,11 @@
      midasi
      henkan-buffer
      (with-current-buffer henkan-buffer
-       ;; skk-get-last-henkan-datum は、buffer-local な変数を用いている。
-       (skk-get-last-henkan-datum 'henkan-point))
+       (point-marker))
+;;        ;; skk-get-last-henkan-datum は、buffer-local な変数を用いている。
+;;        ;; skk-get-last-henkan-datum は、skk-update-end-function を読ん
+;;        ;; だ後に更新される。ここでは使えない。
+;;        (skk-get-last-henkan-datum 'henkan-point))
      skk-bayesian-last-context)))
 
 (defun skk-bayesian-check-modification-after-kakutei ()
@@ -304,6 +310,9 @@
 (defun skk-bayesian-save-history ()
   "Save skk-bayesian history to `skk-bayesian-history-file'."
   (interactive)
+  (if skk-bayesian-pending-data-alist
+      ;; pending していたのを保存
+      (skk-bayesian-add-to-history))
   (when (skk-bayesian-process-live-p)
     (skk-message "skk-bayesian の履歴を保存しています..." "saving history...")
     (if (skk-bayesian-read-process-output skk-bayesian-command-save)
@@ -364,9 +373,6 @@
 (add-to-list 'skk-update-end-function 'skk-bayesian-update)
 (add-hook 'skk-before-kill-emacs-hook 
           (function (lambda ()
-                      (if skk-bayesian-pending-data-alist
-                          ;; pending していたのを保存
-                          (skk-bayesian-add-to-history))
                       (skk-bayesian-save-history)
                       (skk-bayesian-kill-process))))
 
