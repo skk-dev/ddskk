@@ -47,8 +47,9 @@
 (put 'install-info-save-point 'lisp-indent-function 0)
 (defmacro install-info-save-point (&rest forms)
   (` (let ((original-point (point)))
-       (progn  (,@ forms))
-       (goto-char original-point))))
+       (prog1
+	   (progn  (,@ forms))
+	 (goto-char original-point)))))
 
 (defmacro install-info-point-at-eol (&optional n)
   (if (fboundp 'point-at-eol)

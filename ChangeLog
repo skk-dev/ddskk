@@ -1,5 +1,7 @@
 2000-11-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* install-info.el (install-info-point-at-eol): Use `prog1'.
+
 	* skk.el (skk-setup-modeline): Don't use unnecessary extents.
 
 2000-11-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
@@ -2607,8 +2609,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.191 2000/11/30 07:58:26 czkmt Exp $
-Last Modified: $Date: 2000/11/30 07:58:26 $
+Version: $Id: ChangeLog,v 1.192 2000/11/30 10:43:32 czkmt Exp $
+Last Modified: $Date: 2000/11/30 10:43:32 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
