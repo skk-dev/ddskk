@@ -1,3 +1,13 @@
+2005-02-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisyo-edit-mode.el (skk-jisyo-edit-font-lock-keywords):
+	`defvar' instead of `defconst'.
+
+	* skk.el (skk-set-char-before-as-okurigana): New function.
+	(skk-set-henkan-point): When user mistypes, e.g. "ArukU" for
+	"AruKu", insert "Aruku" and call
+	`skk-set-char-before-as-okurigana'.
+
 2005-02-21  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/skk-bayesian.el (skk-bayesian-update): Bug fixed; when skk-undo-kakutei-word-only is non-nil.
@@ -4824,8 +4834,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.837 2005/02/22 06:34:57 skk-cvs Exp $
-Last Modified: $Date: 2005/02/22 06:34:57 $
+Version: $Id: ChangeLog,v 1.838 2005/02/24 07:33:23 skk-cvs Exp $
+Last Modified: $Date: 2005/02/24 07:33:23 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
