@@ -5,9 +5,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.21 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-kakasi.el,v 1.22 2005/01/10 19:24:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2005/01/10 19:24:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -260,7 +260,7 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
 			      'delete-original-text
 			      ;;(list t hindo-file)
 			      '(t nil)
-			      nil arglist)
+			      nil (cons "-ieuc" (cons "-oeuc" arglist)))
 		       0)
 		   (> (buffer-size) 0))
 	(skk-error "$BJQ49$G$-$^$;$s(B"
