@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.69 2001/10/23 12:59:08 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.70 2001/10/31 13:05:26 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/23 12:59:08 $
+;; Last Modified: $Date: 2001/10/31 13:05:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2436,12 +2436,11 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B skk-mode $B$r5/F0$7$F$$$k$3$H$r<
 (skk-deflocalvar skk-okurigana nil
   "Non-nil $B$G$"$l$P!"Aw$j2>L>ItJ,$,F~NOCf$G$"$k$3$H$r<($9!#(B")
 
-(skk-deflocalvar skk-henkan-on nil
-  "Non-nil $B$G$"$l$P!""&%b!<%I$G$"$k$3$H$r<($9!#(B
-$B"&%b!<%I$H$O!"JQ49BP>]$NJ8;zNs7hDj$N$?$a$N%b!<%I$G$"$k!#(B")
-
-(skk-deflocalvar skk-henkan-active nil
-  "Non-nil $B$G$"$l$P!""'%b!<%I(B ($BJQ49Cf(B) $B$G$"$k$3$H$r<($9!#(B")
+(skk-deflocalvar skk-henkan-mode nil
+  "$BJQ49%b!<%I$r<($9!#(B
+`on' $B$G$"$l$P!""&%b!<%I!#(B
+`active' $B$G$"$l$P!""'%b!<%I!#(B
+`nil' $B$G$"$l$P!"3NDjF~NO%b!<%I!#(B")
 
 (skk-deflocalvar skk-kakutei-flag nil
   "Non-nil $B$J$i3NDj$7$FNI$$8uJd$r8+$D$1$?>uBV$G$"$k$3$H$r;X$9!#(B
