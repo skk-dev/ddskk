@@ -279,7 +279,7 @@ from DIR-FILE; don't insert any new entries."
 	      (let ((start (match-beginning 0)))
 		(install-info-forward-line 1)
 		(while (not (or (eolp)
-				(looking-at "^* ")))
+				(looking-at "^\\* ")))
 		  (install-info-forward-line 1))
 		(delete-region start (point)))))))
       (install-info-write-region (point-min) (point-max) dir))
