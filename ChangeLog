@@ -1,3 +1,15 @@
+2000-11-08  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk-macs.el (skk-eval-string): Remove unnecessary STRING when
+	error occured.
+	
+	* experimental/skk-annotation.el (skk-annotation-add): Bug fixed.
+	(skk-annotation-insert): Use `skk-string-eval' instead of `eval'.
+	(skk-annotation-show-as-message): Use `skk-string-eval' for
+	ANNOTATION.
+
+	* skk.el (skk-quote-char): Do not quote if WORD has an annotation.
+
 2000-11-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK_INFODIR): See `Info-directory-list' only when
@@ -7,6 +19,9 @@
 
 2000-11-06  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* experimental/skk-annotation.el (skk-henkan-in-minibuff): Bug
+	fixed.
+	
 	* experimental/skk-annotation.el
 	(skk-annotation-update-jisyo-format): Add autoload cookie.  Bug
 	fixed.
@@ -2190,8 +2205,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.131 2000/11/08 09:37:16 czkmt Exp $
-Last Modified: $Date: 2000/11/08 09:37:16 $
+Version: $Id: ChangeLog,v 1.132 2000/11/08 14:43:48 minakaji Exp $
+Last Modified: $Date: 2000/11/08 14:43:48 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

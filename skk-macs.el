@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.2 2000/10/30 22:10:17 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.3 2000/11/08 14:43:49 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:17 $
+;; Last Modified: $Date: 2000/11/08 14:43:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -624,7 +624,7 @@
     (condition-case nil
 	(and (listp func) (functionp (car func))
 	     (setq string (eval func)))
-      (error string))
+      (error))
     string))
 
 ;;;; from dabbrev.el.  Welcome!
