@@ -85,9 +85,9 @@
 	  "マウスの button 2 -> Daredevil SKK のメニュ−")))
 
 (defvar skk-e21-property-alist
-  (and window-system
-       (list
-	(cons 'latin skk-e21-modeline-property))))
+  (when window-system
+    (list
+     (cons 'latin skk-e21-modeline-property))))
 
 ;; Functions.
 
@@ -96,30 +96,26 @@
   ;; Find keys
   (aset (nth 1 skk-e21-modeline-menu-items)
 	7
-	(if skk-j-mode
-	    (if skk-katakana
-		(skk-e21-find-func-keys 'skk-toggle-kana)
-	      nil)
-	  (skk-e21-find-func-keys 'skk-kakutei)))
+	(cond (skk-katakana
+	       (skk-e21-find-func-keys 'skk-toggle-kana))
+	      ((not skk-j-mode)
+	       (skk-e21-find-func-keys 'skk-kakutei))))
   (aset (nth 2 skk-e21-modeline-menu-items)
 	7
-	(if skk-j-mode
-	    (if skk-katakana
-		nil
-	      (skk-e21-find-func-keys 'skk-toggle-kana))
-	  nil))
+	(when (and skk-j-mode
+		   (not skk-katakana))
+	  (skk-e21-find-func-keys 'skk-toggle-kana)))
   (aset (nth 3 skk-e21-modeline-menu-items)
 	7
-	(if skk-j-mode
-	    (skk-e21-find-func-keys 'skk-latin-mode)
-	  nil))
+	(when skk-j-mode
+	  (skk-e21-find-func-keys 'skk-latin-mode)))
   (aset (nth 4 skk-e21-modeline-menu-items)
 	7
-	(if skk-j-mode
-	    (skk-e21-find-func-keys 'skk-jisx0208-latin-mode)
-	  nil))
+	(when skk-j-mode
+	  (skk-e21-find-func-keys 'skk-jisx0208-latin-mode)))
   ;;
-  (let ((easy-menu-converted-items-table (make-hash-table :test 'equal)))
+  (let ((easy-menu-converted-items-table
+	 (make-hash-table :test 'equal)))
     (popup-menu skk-e21-modeline-menu-items)))
 
 (defun skk-e21-info ()
@@ -165,11 +161,14 @@
 		  (when (stringp str)
 		    str)))
 	     (car (where-is-internal func skk-j-mode-map)))))
-    (if keys
-	(format "%s" (key-description keys))
-      nil)))
+    (when keys
+      (format "%s" (key-description keys)))))
+
+;;
 
 (require 'product)
-(product-provide (provide 'skk-e21) (require 'skk-version))
+(product-provide
+    (provide 'skk-e21)
+  (require 'skk-version))
 
 ;; skk-e21.el ends here

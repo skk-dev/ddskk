@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.92 2001/10/06 14:34:23 czkmt Exp $
-;; Last Modified: $Date: 2001/10/06 14:34:23 $
+;; Version: $Id: SKK-MK,v 1.93 2001/10/10 10:25:32 czkmt Exp $
+;; Last Modified: $Date: 2001/10/10 10:25:32 $
 
 ;; Commentary
 ;;
@@ -887,9 +887,10 @@ SKK tutorials:
 		 (mapconcat 'identity SKK_TUTORIALS ", ")
 		 SKK_DATADIR)))
     (if (interactive-p)
-	(progn (with-output-to-temp-buffer
-		   "*What where*" (princ string))
-	       (message ""))
+	(progn
+	  (with-output-to-temp-buffer
+	      "*What where*" (princ string))
+	  (message ""))
       (princ string))))
 
 (defun SKK-MK-what-where-package ()
@@ -997,8 +998,8 @@ SKK tutorials:
       (dolist (module modules)
 	(let ((file (expand-file-name
 		     (format "%s.el" module))))
-	  (and (file-exists-p file)
-	       (generate-file-autoloads file))))
+	  (when (file-exists-p file)
+	    (generate-file-autoloads file))))
       (eval-current-buffer)
       (let ((generated-autoload-file
 	     (expand-file-name "auto-autoloads.el")))

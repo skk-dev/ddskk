@@ -410,10 +410,7 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   "$B%]%$%s%H$ND>A0$NJ8;z$rAw$j2>L>$H8+Jo$7$F!"JQ49$r3+;O$9$k!#(B"
   (interactive "*p")
   (skk-kanagaki-set-okurigana
-   (if (eq (prefix-numeric-value arg)
-	   4)
-       nil
-     t)))
+   (not (eq 4 (prefix-numeric-value arg)))))
 
 ;;;###autoload
 (defun skk-kanagaki-initialize ()
@@ -430,26 +427,24 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   ;; $B$3$3$G8@$&!V$h$jE,@Z$J%-!<Dj5A!W$H$O!"F~NOJ}<0$K0MB8$9$k$?$a!"(BSKK $B$N=EMW(B
   ;; $B$J%-!<Dj5A$r%U%!%s%/%7%g%s%-!<$K;D$7$F$*$/$3$H$O!"<BMQ$N$?$a$h$j$b$`$7$m(B
   ;; $B;29M$N$?$a!#(B
-  (dolist
-      (cell
-       '((skk-kanagaki-set-henkan-point-key
-	  . skk-set-henkan-point-subr)
-	 (skk-kanagaki-abbrev-mode-key
-	  . skk-abbrev-mode)
-	 (skk-kanagaki-katakana-mode-key
-	  . skk-toggle-kana)
-	 (skk-kanagaki-latin-jisx0208-mode-key
-	  . skk-jisx0208-latin-mode)
-	 (skk-kanagaki-latin-mode-key
-	  . skk-latin-mode)
-	 (skk-kanagaki-code-input-key
-	  . skk-input-by-code-or-menu)
-	 (skk-kanagaki-toggle-rom-kana-key
-	  . skk-kanagaki-toggle-rom-kana)
-	 (skk-kanagaki-midashi-henkan-key
-	  . skk-kanagaki-midashi-henkan)
-	 (skk-kanagaki-previous-candidate-key
-	  . skk-previous-candidate)))
+  (dolist (cell '((skk-kanagaki-set-henkan-point-key
+		   . skk-set-henkan-point-subr)
+		  (skk-kanagaki-abbrev-mode-key
+		   . skk-abbrev-mode)
+		  (skk-kanagaki-katakana-mode-key
+		   . skk-toggle-kana)
+		  (skk-kanagaki-latin-jisx0208-mode-key
+		   . skk-jisx0208-latin-mode)
+		  (skk-kanagaki-latin-mode-key
+		   . skk-latin-mode)
+		  (skk-kanagaki-code-input-key
+		   . skk-input-by-code-or-menu)
+		  (skk-kanagaki-toggle-rom-kana-key
+		   . skk-kanagaki-toggle-rom-kana)
+		  (skk-kanagaki-midashi-henkan-key
+		   . skk-kanagaki-midashi-henkan)
+		  (skk-kanagaki-previous-candidate-key
+		   . skk-previous-candidate)))
     (when (and (symbol-value (car cell))
 	       (commandp (cdr cell)))
       (define-key skk-j-mode-map
@@ -458,8 +453,7 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   (let ((char
 	 (when (stringp skk-kanagaki-previous-candidate-key)
 	   (string-to-char skk-kanagaki-previous-candidate-key))))
-    (when (eq skk-previous-candidate-char
-	      ?x)
+    (when (eq ?x skk-previous-candidate-char)
       ;; $B4{DjCM$N$^$^$G$"$k$H$-!"E,@Z$K@_Dj$9$k!#(B
       (setq skk-previous-candidate-char
 	    (or char
@@ -501,18 +495,16 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   ;; $BHx<-$NF~NO$O$G$-$J$/$J$k!#(B "?" $B$K$h$k@\Hx<-$NF~NO$O$G$-$k!#(B
   (dolist (char skk-special-midashi-char-list)
     (when (and skk-use-kana-keyboard
-	       (memq
-		(nth 2 (assoc
-			(skk-char-to-string char)
-			(symbol-value
-			 (intern
-			  (format
-			   "skk-kanagaki-%s-base-rule-list"
-			   skk-kanagaki-keyboard-type)))))
-		'(skk-current-kuten skk-current-touten)))
+	       (memq (nth 2 (assoc
+			     (skk-char-to-string char)
+			     (symbol-value
+			      (intern
+			       (format
+				"skk-kanagaki-%s-base-rule-list"
+				skk-kanagaki-keyboard-type)))))
+		     '(skk-current-kuten skk-current-touten)))
       (setq skk-special-midashi-char-list
-	    (delq char
-		  skk-special-midashi-char-list)))))
+	    (delq char skk-special-midashi-char-list)))))
 
 ;; Pieces of advice.
 
@@ -527,10 +519,13 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
     ;; $B$=$b0UL#$N$J$$%*%W%7%g%s$J$N$G6/@)E*$K(B off $B$K$9$k!#(B
     (setq skk-process-okuri-early nil))
   ;;
-  (if (and (eq skk-kanagaki-state 'kana)
-	   (not skk-jisx0201-mode))
-      (let (skk-set-henkan-point-key)
-	ad-do-it)
+  (let ((skk-set-henkan-point-key
+	 (cond
+	  ((and (eq skk-kanagaki-state 'kana)
+		(not skk-jisx0201-mode))
+	   nil)
+	  (t
+	   skk-set-henkan-point-key))))
     ad-do-it))
 
 (defadvice skk-compute-henkan-lists-sub-adjust-okuri (around

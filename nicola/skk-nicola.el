@@ -659,9 +659,7 @@ keycode 131 = underscore\n"))
   (cond
    ((skk-sit-for period1 t)
     ;; 同時打鍵と確定。(< t1 t2)
-    (skk-nicola-insert-double first
-			      next
-			      arg))
+    (skk-nicola-insert-double first next arg))
    (t
     ;; 更に次の event を調べる。
     (setq period2 (- (setq time3 (skk-nicola-format-time
@@ -673,8 +671,7 @@ keycode 131 = underscore\n"))
 	  third (skk-nicola-event-to-key third-event))
     (cond
      ((and
-       (skk-nicola-maybe-double-p next
-				  third)
+       (skk-nicola-maybe-double-p next third)
        ;; (要らないかも知らないが、多少 `sit-for' の返ってくる時
        ;; 間と `current-time' が返す時間との間にズレが生じること
        ;; もあるので、一応比較しておく)
@@ -682,20 +679,16 @@ keycode 131 = underscore\n"))
       ;; 前の2打鍵は同時打鍵ではないと確定。
       ;; 後の2打鍵が同時打鍵かどうかは、更に次の入力を調べないと
       ;; 確定しない。
-      (skk-nicola-insert-single this-command
-				arg)
+      (skk-nicola-insert-single this-command arg)
       (skk-nicola-treat-triple
-       (lookup-key skk-j-mode-map (or str
-				      next))
+       (lookup-key skk-j-mode-map (or str next))
        third
        time2
        time3
        arg))
      (t
       ;; 前の2打鍵が同時打鍵と確定。
-      (skk-nicola-insert-double this-command
-				next
-				arg)
+      (skk-nicola-insert-double this-command next arg)
       (skk-unread-event third-event)))))))
 
 (defun skk-nicola-insert-single (command arg)
@@ -726,12 +719,10 @@ keycode 131 = underscore\n"))
 	(char (if (characterp first)
 		  first
 		last-command-char))
-	(str (if (characterp next)
-		 (char-to-string next))))
+	(str (when (characterp next)
+	       (char-to-string next))))
     ;;
-    (case (lookup-key skk-j-mode-map
-		      (or str
-			  next))
+    (case (lookup-key skk-j-mode-map (or str next))
       (skk-nicola-self-insert-rshift
        ;; 右シフト
        (case command
@@ -748,18 +739,16 @@ keycode 131 = underscore\n"))
 		     (skk-kanagaki-insert arg)))
 		  (t
 		   (self-insert-command
-		    (if (>= skk-nicola-interval
-			    1)
+		    (if (< 1 skk-nicola-interval)
 			;; 単独打鍵を同一キー連続打鍵で代用する。
 			arg
 		      (1+ arg)))))))
 	 (skk-nicola-self-insert-lshift
 	  ;; [左 右]
-	  (cond ((and skk-j-mode
-		      (not skk-katakana))
-		 (skk-latin-mode 1))
-		(t
-		 (skk-toggle-kana 1))))
+	  (if (and skk-j-mode
+		   (not skk-katakana))
+	      (skk-latin-mode 1)
+	    (skk-toggle-kana 1)))
 	 (t
 	  ;; [文字 右]
 	  (skk-nicola-insert-kana char
@@ -774,8 +763,7 @@ keycode 131 = underscore\n"))
 		 (exit-minibuffer))
 		(t
 		 (skk-nicola-lshift-function arg)
-		 (unless (>= skk-nicola-interval
-			     1)
+		 (unless (< 1 skk-nicola-interval)
 		   ;; 単独打鍵を同一キー連続打鍵で代用する。
 		   (skk-nicola-lshift-function 1)))))
 	 (skk-nicola-self-insert-rshift
@@ -809,14 +797,14 @@ keycode 131 = underscore\n"))
 		    skk-nicola-set-henkan-point-chars))
 	 ;; [fj]
 	 (cond
-	  ((and skk-henkan-on
-		(not skk-henkan-active))
-	   (if (memq skk-kanagaki-keyboard-type
-		     '(106-jis))
-	       (skk-kanagaki-set-okurigana-no-sokuon arg)
-	     (skk-nicola-set-okuri-flag)))
+	  ((or (not skk-henkan-on)
+	       skk-henkan-active)
+	   (skk-set-henkan-point-subr 1))
+	  ((memq skk-kanagaki-keyboard-type
+		 '(106-jis))
+	   (skk-kanagaki-set-okurigana-no-sokuon arg))
 	  (t
-	   (skk-set-henkan-point-subr 1))))
+	   (skk-nicola-set-okuri-flag))))
 	((and (not (eq char next))
 	      (memq char
 		    skk-nicola-prefix-suffix-abbrev-chars)
@@ -869,12 +857,12 @@ keycode 131 = underscore\n"))
 				   str))
 		     (cddar isearch-cmds))
 		    isearch-cmds))))
-	 (unless (and (>= skk-nicola-interval
-			  1)
+	 (unless (and (< 1 skk-nicola-interval)
 		      (eq next char))
 	   ;; 単独打鍵を同一キー連続打鍵で代用できるように。
-	   (skk-nicola-insert-kana next
-				   skk-nicola-plain-rule))))))))
+	   (skk-nicola-insert-kana
+	    next
+	    skk-nicola-plain-rule))))))))
 
 (defun skk-nicola-maybe-double-p (first next)
   (let ((command (cond
@@ -888,8 +876,8 @@ keycode 131 = underscore\n"))
 	(char (if (characterp first)
 		  first
 		last-command-char))
-	(str (if (characterp next)
-		 (char-to-string next)))
+	(str (when (characterp next)
+	       (char-to-string next)))
 	(shifts '(skk-nicola-self-insert-lshift
 		  skk-nicola-self-insert-rshift)))
   (or
@@ -930,7 +918,8 @@ keycode 131 = underscore\n"))
 		       (car el))
 		      (t
 		       (cdr el)))))
-	 (fun (when (and el (symbolp el))
+	 (fun (when (and el
+			 (symbolp el))
 		el))
 	 (arg (prefix-numeric-value arg)))
     ;;
@@ -938,19 +927,16 @@ keycode 131 = underscore\n"))
       (if (symbolp str)
 	  (setq fun str
 		str nil)
-	(skk-insert-str (setq str
-			      (skk-kanagaki-make-string arg
-							str)))))
+	(skk-insert-str
+	 (setq str (skk-kanagaki-make-string arg str)))))
     ;;
     (when fun
       (funcall fun arg))
     ;;
     (cond (skk-nicola-okuri-flag
 	   (skk-nicola-process-okuri))
-	  (t
-	   ;;
-	   (when skk-henkan-active
-	     (skk-kakutei))))
+	  (skk-henkan-active
+	   (skk-kakutei)))
     ;; 何かに使うことがあるかもしれないので、
     ;; STR を返しておく。
     str))
@@ -971,12 +957,11 @@ keycode 131 = underscore\n"))
 		  ?*)
 	  (delete-char 1))
 	(backward-char 1)
-	(if (member
-	     (buffer-substring-no-properties
-	      (point)
-	      (marker-position skk-nicola-okuri-flag))
-	     '("っ" "ッ"))
-	    (setq tag 'no-sokuon)))
+	(when (member (buffer-substring-no-properties
+		       (point)
+		       (marker-position skk-nicola-okuri-flag))
+		      '("っ" "ッ"))
+	  (setq tag 'no-sokuon)))
       (skk-kanagaki-set-okurigana tag))))
 
 (defun skk-nicola-set-okuri-flag ()
@@ -1046,8 +1031,7 @@ keycode 131 = underscore\n"))
     ;; 確定するときは送り開始の標識を消す。
     (skk-save-point
       (goto-char skk-nicola-okuri-flag)
-      (when (eq (following-char)
-		?*)
+      (when (eq ?* (following-char))
 	(delete-char 1))))
   ;;
   (setq skk-nicola-okuri-flag nil))

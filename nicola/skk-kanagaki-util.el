@@ -187,56 +187,41 @@
     (skk-modify-indicator-alist 'katakana skk-katakana-mode-string)
     (skk-modify-indicator-alist 'hiragana skk-hiragana-mode-string)
     ;;
-    (dolist (buf (buffer-list))
-      (when (buffer-live-p buf)
-	(with-current-buffer buf
-	  (when (and skk-j-mode (listp mode-line-format))
-	    ;;
-	    (skk-update-modeline (if skk-katakana
-				     'katakana
-				   'hiragana))))))))
+    (skk-loop-for-buffers (buffer-list)
+      (when (and skk-j-mode
+		 (listp mode-line-format))
+	(skk-update-modeline (if skk-katakana
+				 'katakana
+			       'hiragana))))))
 
 ;;;###autoload
-(defun skk-kanagaki-dakuten (&optional arg)
+(defun skk-kanagaki-dakuten (&optional arg handakuten)
   "直前の文字を見て可能なら濁点を付加し、さもなければ \"゛\" を入力する。"
   (interactive "*p")
   (let ((list skk-kanagaki-dakuten-alist)
 	(pt1 (point))
 	char1 char2)
-    (condition-case nil
-	(setq char1
-	      (skk-save-point
-		(backward-char 1)
-		(buffer-substring-no-properties
-		 (point)
-		 pt1)))
-      (error))
-    (cond ((setq char2 (cadr (assoc char1 list)))
-	   (delete-char -1)
-	   (skk-insert-str char2))
-	  (t
-	   (skk-insert-str "゛")))))
+    (ignore-errors
+      (setq char1 (skk-save-point
+		   (backward-char 1)
+		   (buffer-substring-no-properties
+		    (point)
+		    pt1))))
+    (cond
+     ((setq char2 (funcall (if handakuten
+			       'caddr
+			     'cadr)
+			   (assoc char1 list)))
+      (delete-char -1)
+      (skk-insert-str char2))
+     (t
+      (skk-insert-str "゛")))))
 
 ;;;###autoload
 (defun skk-kanagaki-handakuten (&optional arg)
   "直前の文字を見て可能なら半濁点を付加し、さもなければ \"゜\" を入力する。"
   (interactive "*p")
-  (let ((list skk-kanagaki-dakuten-alist)
-	(pt1 (point))
-	char1 char2)
-    (condition-case nil
-	(setq char1
-	      (skk-save-point
-		(backward-char 1)
-		(buffer-substring-no-properties
-		 (point)
-		 pt1)))
-      (error))
-    (cond ((setq char2 (caddr (assoc char1 list)))
-	   (delete-char -1)
-	   (skk-insert-str char2))
-	  (t
-	   (skk-insert-str "゜")))))
+  (skk-kanagaki-dakuten arg t))
 
 ;;;###autoload
 (defun skk-kanagaki-bs (arg)
@@ -264,11 +249,13 @@
   (cond
    (skk-henkan-active
     (call-interactively 'keyboard-quit))
+   ((and skk-henkan-on
+	 (= (point) (marker-position 
+		     skk-henkan-start-point)))
+    (skk-kakutei arg))
    (skk-henkan-on
-    (if (= (point) (marker-position skk-henkan-start-point))
-	(skk-kakutei arg)
-      (forward-char -1)
-      (delete-char 1)))
+    (forward-char -1)
+    (delete-char 1))
    ((and skk-isearch-switch
 	 (buffer-live-p skk-isearch-current-buffer))
     (with-current-buffer skk-isearch-current-buffer
@@ -294,7 +281,8 @@
      (if (fboundp 'minibuffer-keyboard-quit)
 	 'minibuffer-keyboard-quit
        'abort-recursive-edit)))
-   ((or skk-henkan-on skk-henkan-active)
+   ((or skk-henkan-on
+	skk-henkan-active)
     (call-interactively 'keyboard-quit))
    (t
     nil)))
