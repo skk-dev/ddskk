@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.59 2001/09/23 02:51:01 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.60 2001/09/23 02:56:11 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 02:51:01 $
+;; Last Modified: $Date: 2001/09/23 02:56:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -77,10 +77,10 @@
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (if (< (apply '+ (color-rgb-components
-                      (face-property 'default 'background)))
-           (/ (apply '+ (color-rgb-components
-                         (make-color-specifier "white"))) 3))
-        'dark
+		      (face-property 'default 'background)))
+	   (/ (apply '+ (color-rgb-components
+			 (make-color-specifier "white"))) 3))
+	'dark
       'light))
    (t
     (cond
