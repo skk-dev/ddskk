@@ -1,3 +1,9 @@
+2003-07-11  NAKAJIMA Mikio  <minakaji@namazu.org>
+
+	* experimental/skk-study.el (skk-kakutei-initialize): Bug fixed.
+	(skk-study-update): Do not add/update data to `skk-study-alist'
+	when KAKUTEI-WORD is equal to car of `skk-henkan-list'.
+
 2003-07-10  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* experimental/skk-study.el (skk-search-end-function): Declared
@@ -4273,8 +4279,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.751 2003/07/10 12:59:44 minakaji Exp $
-Last Modified: $Date: 2003/07/10 12:59:44 $
+Version: $Id: ChangeLog,v 1.752 2003/07/10 20:57:54 minakaji Exp $
+Last Modified: $Date: 2003/07/10 20:57:54 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
