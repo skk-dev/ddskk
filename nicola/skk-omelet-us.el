@@ -200,11 +200,7 @@ US 101 キーボードで omelet 入力するための基本ルール。")
     (?\  " ")) "\
 左親指キーが押されたときの入力ルール。")
 
-;;
-
 (require 'skk-nicola)
-
-;;
 
 (when skk-nicola-use-koyubi-functions
   (add-hook 'skk-mode-hook

@@ -408,8 +408,6 @@ File: dir,	Node: Top	This is the top of the INFO tree
       (install-info-write-region (point-min) (point-max) dir))
     (kill-buffer buf)))
 
-;;
-
 (provide 'install-info)
 
 ;;; install-info.el ends here

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.69 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.70 2001/11/20 14:36:30 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/20 14:36:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -818,8 +818,6 @@ BUFFER defaults to the current buffer."
 		     (lambda (k)
 		       (key-description k)))
 		    keys))))
-
-;;
 
 (require 'product)
 (product-provide

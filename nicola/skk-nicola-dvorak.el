@@ -202,11 +202,7 @@ ANSI Dvorak 配列キーボードで NICOLA 入力するための基本ルール。")
     (?\  " ")) "\
 右親指キーが押されたときの入力ルール。")
 
-;;
-
 (require 'skk-nicola)
-
-;;
 
 (require 'product)
 (product-provide

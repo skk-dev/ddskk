@@ -70,8 +70,6 @@ Small dictionary for SKK.")
       ;;
       buf)))
 
-;;
-
 (require 'product)
 (product-provide
     (provide 'skk-dic)

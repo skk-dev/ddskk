@@ -97,8 +97,6 @@
 	     (setq skk-comp-stack nil)
 	     (message nil)))))))))
 
-;;
-
 (require 'product)
 (product-provide
     (provide 'skk-nicola-dcomp)

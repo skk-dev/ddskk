@@ -263,8 +263,6 @@
       (load-file file)
       (skk-cus-set))))
 
-;;
-
 (require 'product)
 (product-provide
     (provide 'skk-cus)

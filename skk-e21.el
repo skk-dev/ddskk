@@ -1,6 +1,6 @@
 ;;; skk-e21.el --- GNU Emacs 21 support for SKK
 
-;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+;; Copyright (C) 2000, 2001 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
@@ -172,8 +172,6 @@
     (if keys
 	(format "%s" (key-description keys))
       nil)))
-
-;;
 
 (require 'product)
 (product-provide

@@ -86,8 +86,6 @@ Convert to Hankaku Katakana or Toggle Katakana <=> Hankaku Katakana Mode"
      '("menu-bar" "SKK")
      skk-kanagaki-menu-items))))
 
-;;
-
 (require 'product)
 (product-provide
     (provide 'skk-kanagaki-menu)

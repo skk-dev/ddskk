@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.33 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.34 2001/11/20 14:36:30 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/20 14:36:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -713,9 +713,6 @@ If the current mode is different from previous, remove it first."
    (t
     ;; Emacs 21 loads "leim-list" files before `load-path' is prepared.
     (add-hook 'before-init-hook skk-isearch-really-early-advice)))))
-
-
-;;
 
 (put 'skk-isearch-wrapper 'isearch-command t)
 (put 'skk-isearch-keyboard-quit 'isearch-command t)

@@ -197,11 +197,7 @@
     (?\ " ")) "\
 左親指キーが押されたときの入力ルール。")
 
-;;
-
 (require 'skk-nicola)
-
-;;
 
 (when skk-nicola-use-koyubi-functions
   (add-hook 'skk-mode-hook
@@ -209,8 +205,6 @@
 	     (lambda ()
 	       (define-key skk-j-mode-map ":" 'skk-kanagaki-bs)
 	       (define-key skk-j-mode-map "]" 'skk-kanagaki-esc)))))
-
-;;
 
 (require 'product)
 (product-provide

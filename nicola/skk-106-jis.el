@@ -112,8 +112,6 @@
 る。 刻印どおりに入力できるようにするためには、仮想キーコードのレベルで制御する
 必要がある。")
 
-;;
-
 (defvar skk-106-jis-plain-rule-list
   '((?1 ("ヌ" . "ぬ")) (?2 ("フ" . "ふ")) (?3 ("ア" . "あ"))
     (?4 ("ウ" . "う")) (?5 ("エ" . "え")) (?6 ("オ" . "お"))
@@ -135,11 +133,7 @@
 (defvar skk-106-jis-lshift-rule-list nil)
 (defvar skk-106-jis-rshift-rule-list nil)
 
-;;
-
 (require 'skk-nicola)
-
-;;
 
 (case skk-kanagaki-jidou-keymap-kakikae-service
   ;;
@@ -164,8 +158,6 @@ keycode 34 = at grave\n"
 		    ("!" nil ("ヲ" . "を"))
 		    ("\"" nil ("ロ" . "ろ"))
 		    ("_" nil "｜")))))))
-
-;;
 
 (require 'product)
 (product-provide

@@ -1,6 +1,6 @@
 ;;; skk-xemacs.el --- XEmacs support for SKK
 
-;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+;; Copyright (C) 2000, 2001 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
@@ -248,8 +248,6 @@
 	 (when (> (point) skk-henkan-start-point)
 	   (delete-region (point) skk-henkan-start-point))
 	 (skk-kakutei))))
-
-;;
 
 (require 'product)
 (product-provide

@@ -1122,13 +1122,9 @@ keycode 131 = underscore\n"))
       (setq ad-return-value (skk-char-to-string
 			     (ad-get-arg 0))))))
 
-;;
-
 (put 'skk-nicola-insert 'isearch-command t)
 (put 'skk-nicola-self-insert-lshift 'isearch-command t)
 (put 'skk-nicola-self-insert-rshift 'isearch-command t)
-
-;;
 
 (require 'product)
 (product-provide

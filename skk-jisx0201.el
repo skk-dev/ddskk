@@ -4,10 +4,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.42 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.43 2001/11/20 14:36:30 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/20 14:36:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -433,8 +433,6 @@
    (lambda (matched)
      (save-match-data
        (skk-jisx0201-hankaku matched)))))
-
-;;
 
 (require 'product)
 (product-provide

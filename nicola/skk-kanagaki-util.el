@@ -286,8 +286,6 @@
    (t
     nil)))
 
-;;
-
 (require 'product)
 (product-provide
     (provide 'skk-kanagaki-util)

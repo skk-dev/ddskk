@@ -4,9 +4,11 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.7 2001/11/19 15:54:00 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.8 2001/11/20 14:36:30 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/11/19 15:54:00 $
+;; Last Modified: $Date: 2001/11/20 14:36:30 $
+
+;; This file is not part of GNU Emacs.
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

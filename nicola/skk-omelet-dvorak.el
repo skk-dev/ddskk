@@ -203,11 +203,7 @@ ANSI Dvorak 配列キーボードで omelet 入力するための基本ルール。")
     (?\  " ")) "\
 左親指キーが押されたときの入力ルール。")
 
-;;
-
 (require 'skk-nicola)
-
-;;
 
 (require 'product)
 (product-provide
