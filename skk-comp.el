@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.8 2000/11/24 14:27:01 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.9 2000/11/27 22:59:42 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/24 14:27:01 $
+;; Last Modified: $Date: 2000/11/27 22:59:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -45,7 +45,7 @@
     (skk-emulate-original-map arg)))
 
 ;;;###autoload
-(defun skk-completion (first)
+(defun skk-completion (first &optional silent)
   ;; skk-try-completion のサブルーチン。
   (let ((inhibit-quit t)
 	;; skk-num が require されてないと buffer-local 値を壊す恐れあり。
@@ -74,12 +74,14 @@
     (if (not c-word)
 	(progn
 	  (setq skk-completion-depth (1+ skk-completion-depth))
+	  (if silent
+	      nil
 	  (ding)
 	  (if skk-japanese-message-and-error
 	      (message "\"%s\" で補完すべき見出し語は%sありません"
 		     skk-completion-word (if first "" "他に"))
 	    (message "No %scompletions for \"%s\""
-		   (if first "" "more ") skk-completion-word)))
+		   (if first "" "more ") skk-completion-word))))
       (delete-region skk-henkan-start-point (point))
       (insert c-word))))
 
