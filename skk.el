@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.113 2001/09/09 03:39:03 czkmt Exp $
+;; Version: $Id: skk.el,v 1.114 2001/09/11 22:23:05 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/09 03:39:03 $
+;; Last Modified: $Date: 2001/09/11 22:23:05 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -2756,68 +2756,44 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	  (delete-file new-file)
 	  (with-output-to-temp-buffer "*SKK warning*"
 	    (if skk-japanese-message-and-error
-		(progn
-		  (princ "セーブしようとする辞書のサイズが元のものよりも小さなってしまうので、")
-		  (terpri)
-		  (princ "セーブを途中で中止しました。辞書のサイズが小さくなった原因には例え")
-		  (terpri)
-		  (princ "ば、")
-		  (terpri)
-		  (terpri)
-		  (princ "    ・M-x skk-purge-from-jisyo を実行した。")
-		  (terpri)
-		  (terpri)
-		  (princ "    ・.skk-jisyo の漢字コードと、\" *.skk-jisyo*\" バッファの漢字コード")
-		  (terpri)
-		  (princ "      が異なっている。")
-		  (terpri)
-		  (terpri)
-		  (princ "    ・\" *.skk-jisyo*\" バッファを自分で編集した。")
-		  (terpri)
-		  (terpri)
-		  (princ "などが考えられます (最初の 2 つが原因であれば、異常ではありません。")
-		  (terpri)
-		  (princ "最後の場合は、あなたがどのような編集をしたかによります)。原因を確認")
-		  (terpri)
-		  (princ "後、慎重に辞書のセーブを行なうことをお勧めします。")
-		  (terpri)
-		  (terpri)
-		  (princ "元の辞書を再度読み込むには、")
-		  (terpri)
-		  (terpri)
-		  (princ "    M-x skk-reread-private-jisyo")
-		  (terpri)
-		  (terpri)
-		  (princ "を実行して下さい。"))
-	      (princ "As size of your private JISYO to be saved is smaller than the")
-	      (terpri)
-	      (princ "original, we have stopped saving JISYO.  For example, the following")
-	      (terpri)
-	      (princ "condition makes a smaller private JISYO;")
-	      (terpri)
-	      (terpri)
-	      (princ "    (a)You executed M-x skk-purge-from-jisyo,")
-	      (terpri)
-	      (terpri)
-	      (princ "    (b)Kanji code of .skk-jisyo is different from the one of")
-	      (terpri)
-	      (princ "       \" *.skk-jisyo*\" buffer, or")
-	      (terpri)
-	      (terpri)
-	      (princ "    (c)You edited \" *.skk-jisyo*\" buffer manually.")
-	      (terpri)
-	      (terpri)
-	      (princ "The first two conditions are not strange, but the last one depends on")
-	      (terpri)
-	      (princ "how you edited JISYO.  We strongly recommend to save JISYO")
-	      (terpri)
-	      (princ "carefully after checking what causes this.")
-	      (terpri)
-	      (princ "If you want to reread your original private JISYO, type")
-	      (terpri)
-	      (terpri)
-	      (princ "    M-x skk-reread-private-jisyo")
-	      (terpri)))
+		(princ "\
+セーブしようとする辞書のサイズが元のものよりも小さくなってしまうので、
+セーブを中止しました。辞書のサイズが小さくなった原因には例えば、
+
+    (a) M-x skk-purge-from-jisyo を実行した。
+
+    (b) ~/.skk-jisyo の漢字コードと、違う漢字コードで \" *.skk-jisyo*\"
+       バッファが保存されようとしている。
+
+    (c) \" *.skk-jisyo*\" バッファを自分で編集した。
+
+などがあります。a と b の場合は、異常ではありません。c の場合は、編集の
+内容によります。原因を確認後、慎重に辞書を保存することをお勧めします。
+
+元の辞書を再度読み込むには、
+
+    M-x skk-reread-private-jisyo
+
+を実行して下さい。")
+	      (princ "\
+Saving your private dictionary has been canceled, since the size of the
+dictionary will be smaller.  The following cases should be considered:
+
+   (a) You executed M-x skk-purge-from-jisyo,
+
+   (b) The coding system SKK tried to save \" *.skk-jisyo*\" buffer in
+       is different from that of ~/.skk-jisyo.
+
+   (c) You have edited \" *.skk-jisyo*\" buffer manually.
+
+Either the case (a) or (b) is not strange.  Probability of the case (c)
+depends on how you edited the buffer.  Anyway, it is strongly recommended
+that you check each of the cases above and save the dictionary carefully.
+
+If you want to restore the dictionary from the disc, try
+
+    M-x skk-reread-private-jisyo
+")))
 	  (skk-error "SKK 辞書のセーブを中止しました！"
 		     "Stop saving SKK jisyo!"))))))
 
