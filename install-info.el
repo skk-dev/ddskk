@@ -290,42 +290,74 @@ File: dir,	Node: Top	This is the top of the INFO tree
 	  (cond
 	   ((re-search-forward (concat "^" sec "$") nil t)
 	    (install-info-forward-line 1)
-	    (install-info-skip-blank-lines)
-	    (dolist (en entry)
-	      (let ((key (when (string-match ")" en)
-			   (substring en 0 (match-beginning 0)))))
-		(save-excursion
-		  (while (not (eolp))
-		    (cond
-		     ((looking-at
-		       (concat "^" (regexp-quote key) "\\(\\.info\\)?)"))
-		      (let ((start (point)))
-			(install-info-forward-line 1)
-			(while (not (or (eolp)
-					(looking-at "^* ")))
-			  (install-info-forward-line 1))
-			(delete-region start (point))))
-		     (t
-		      (install-info-forward-line 1)))))
-		(save-excursion
-		  (while (not
-			  (catch 'here
-			    (while (not (eolp))
-			      (let ((line (buffer-substring
-					   (point)
-					   (install-info-point-at-eol))))
-				(if (string-lessp line en)
+	    (let ((sec-start (point)))
+	      (install-info-skip-blank-lines)
+	      (let ((en-start (point)))
+		(dolist (en entry)
+		  (if (or (eobp)
+			  (not (looking-at "^\\* ")))
+		      ;; No entries in the section.
+		      (progn
+			(goto-char sec-start)
+			(unless (eolp)
+			  (insert "\n")
+			  (goto-char sec-start)))
+		    ;; Delete the old entry.
+		    (let ((key (when (string-match ")" en)
+				 (substring en 0 (match-beginning 0)))))
+		      (while (not
+			      (catch 'end
+				(cond
+				 ((looking-at
+				   (concat "^" (regexp-quote key)
+					   "\\(\\.info\\)?)"))
+				  (let ((start (point)))
 				    (install-info-forward-line 1)
-				  (throw 'here t))))
-			    (let ((pt (point)))
-			      (install-info-skip-blank-lines)
-			      (if (looking-at "^* ")
-				  (throw 'here nil)
-				(goto-char pt)
-				(throw 'here t))))))
+				    (while (looking-at "^[ \t]")
+				      ;; Entry has two or more lines.
+				      (install-info-forward-line 1))
+				    (delete-region start (point))
+				    (throw 'end t)))
+				 ((eobp)
+				  (throw 'end t))
+				 ((eolp)
+				  (install-info-forward-line 1))
+				 ((not (looking-at "^\\(\\*\\|[ \t]\\)"))
+				  ;; next section
+				  (throw 'end t))
+				 (t
+				  (install-info-forward-line 1)))))))
+		    (goto-char en-start)
+		    ;; Insert the new entry.
+		    (while (not
+			    (catch 'here
+			      (while (not (eolp))
+				(let ((line (buffer-substring
+					     (point)
+					     (install-info-point-at-eol))))
+				  (cond
+				   ((not (looking-at "^\\(\\*\\|[ \t]\\)"))
+				    ;; next section
+				    (let ((pt (point)))
+				      (insert "\n")
+				      (foto-char (point)))
+				    (throw 'here t))
+				   ((or (looking-at "^[ \t]")
+					(string-lessp line en))
+				    (install-info-forward-line 1))
+				   (t
+				    (throw 'here t)))))
+			      (let ((maybe-here (point)))
+				(install-info-skip-blank-lines)
+				(if (looking-at "^\\(\\*\\|[ \t]\\)")
+				    (throw 'here nil)
+				  ;; reaches next section.
+				  (goto-char maybe-here)
+				  (throw 'here t)))))))
 		  (when (and (eobp) (not (bolp)))
 		    (install-info-forward-line 1))
-		  (insert (format "%s\n" en))))))
+		  (insert (format "%s\n" en))
+		  (goto-char en-start)))))
 	   (t
 	    (goto-char (point-max))
 	    (install-info-forward-line 1)

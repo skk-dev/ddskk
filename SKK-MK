@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.59 2000/11/21 11:58:34 minakaji Exp $
-;; Last Modified: $Date: 2000/11/21 11:58:34 $
+;; Version: $Id: SKK-MK,v 1.60 2000/11/22 18:54:30 czkmt Exp $
+;; Last Modified: $Date: 2000/11/22 18:54:30 $
 
 ;; Commentary
 ;;
@@ -393,7 +393,6 @@
       flag)))
 
 (defun SKK-MK-compile ()
-  (require 'skk (expand-file-name "skk.el" default-directory))
   (cond ((= 18 emacs-major-version)
 	 (let ((SKK_MODULES (cons 'experimental/skk-isearch SKK_MODULES)))
 	   (SKK-MK-generate-autoloads-el))
@@ -407,6 +406,7 @@
 	 (SKK-MK-generate-autoloads-el)))
   (require 'skk-autoloads
 	   (expand-file-name "skk-autoloads.el" default-directory))
+  (require 'skk (expand-file-name "skk.el" default-directory))
   (compile-elisp-modules SKK_MODULES (expand-file-name ".")))
 
 (defun SKK-MK-compile-info ()
@@ -417,10 +417,8 @@
 	   (SKK-MK-texinfo-format SKK_TEXIS))))
 
 (defun SKK-MK-compile-package ()
-  (require 'skk (expand-file-name "skk.el" default-directory))
   (SKK-MK-generate-autoloads-el-package)
-  (require 'skk-autoloads
-	   (expand-file-name "auto-autoloads.el" default-directory))
+  (require 'skk (expand-file-name "skk.el" default-directory))
   (autoload 'custom-add-loads "cus-load")
   (compile-elisp-modules SKK_MODULES (expand-file-name ".")))
 
@@ -823,13 +821,11 @@ SKK tutorials:
     (save-excursion
       (set-buffer buf)
       (erase-buffer)
-      (mapcar
-       (function
-	(lambda (module)
-	  (let ((file (expand-file-name (format "%s.el" module) default-directory)))
-	    (and (file-exists-p file)
-		 (generate-file-autoloads file)))))
-       modules)
+      (dolist (module modules)
+	(let ((file (expand-file-name (format "%s.el" module) default-directory)))
+	  (and (file-exists-p file)
+	       (generate-file-autoloads file))))
+      (eval-current-buffer)
       (let ((generated-autoload-file
 	     (expand-file-name "auto-autoloads.el" default-directory)))
 	(setq buffer-file-name generated-autoload-file)
@@ -843,7 +839,8 @@ SKK tutorials:
 \014
 ;;; Load \"skk-setup.el\".
 
-(require 'skk-setup)
+(when site-start-file
+  (require 'skk-setup))
 ")
 	(write-region-as-coding-system
 	 'iso-2022-jp

@@ -1,3 +1,13 @@
+2000-11-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-generate-autoloads-el-package): Eval the
+	temporary buffer.
+
+	* install-info.el (install-info-add-groups): Detect the next
+	section more correctly.
+
+	* leim-list.el.in: Do nothing when `site-run-file' is non-nil.
+
 2000-11-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-jisx0201.el: Put in a comment at the bottom to eval the form
@@ -2463,8 +2473,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.163 2000/11/21 21:42:45 minakaji Exp $
-Last Modified: $Date: 2000/11/21 21:42:45 $
+Version: $Id: ChangeLog,v 1.164 2000/11/22 18:54:29 czkmt Exp $
+Last Modified: $Date: 2000/11/22 18:54:29 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
