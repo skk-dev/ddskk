@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.3 1999/08/29 21:25:41 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.4 1999/08/30 21:36:13 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 21:25:41 $
+;; Last Modified: $Date: 1999/08/30 21:36:13 $
 
 ;; This file is not part of SKK yet.
 
@@ -448,10 +448,10 @@
        (let ((buffer-undo-list t)
 	     (start (marker-position skk-kana-start-point)) )
 	 (and start
-	      ;; このチェックがないとエラーになることがあった。 
-	      ;;   マーカーなのに何故かな？
-	      (< start (point-max))
-	      (delete-region start (+ start (length skk-prefix))) )))
+	      (condition-case nil
+		  (delete-region start (+ start (length skk-prefix)))
+		(error
+		 (skk-set-marker skk-kana-start-point nil) )))))
   (and clean (setq skk-prefix ""
 		   skk-current-rule-tree nil ))) ; fail safe
 
