@@ -14,6 +14,7 @@
 	(skk-study-switch-current-theme): Bug fixed.
 	(skk-study-remove-theme): New function.
 	(skk-study-copy-theme): Ditto.
+	(skk-study-check-alist-format): Modified doc string.
 
 2003-07-18  NAKAJIMA Mikio  <minakaji@namazu.org>
 
@@ -4358,8 +4359,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.767 2003/07/18 16:52:00 minakaji Exp $
-Last Modified: $Date: 2003/07/18 16:52:00 $
+Version: $Id: ChangeLog,v 1.768 2003/07/18 16:59:40 minakaji Exp $
+Last Modified: $Date: 2003/07/18 16:59:40 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

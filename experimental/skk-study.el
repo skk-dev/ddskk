@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.44 2003/07/18 16:55:09 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.45 2003/07/18 16:59:40 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/18 16:55:09 $
+;; Last Modified: $Date: 2003/07/18 16:59:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -385,7 +385,7 @@ TO の既存データは破壊される。"
 	     (list (cons "general" (read (current-buffer)))))))))
 
 (defun skk-study-check-alist-format (file)
-  "FILE の連想リストのフォーマットをチェックする。"
+  "skk-study の学習データファイル FILE のフォーマットをチェックする。"
   (interactive
    (list (read-file-name
 	  (format "File to check: (default: %s) " skk-study-file)
