@@ -1,5 +1,9 @@
 2001-05-31  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* skk-gadget.el (skk-current-date): Add doc string.
+	(skk-current-date-1): Ditto.
+	(skk-default-current-date): Ditto.
+
 	* skk-num.el (skk-num-exp): Add ;;;###autoload cookie.
 
 	* skk-gadget.el (skk-current-date): New optional argument
@@ -3425,8 +3429,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.297 2001/05/31 01:56:05 minakaji Exp $
-Last Modified: $Date: 2001/05/31 01:56:05 $
+Version: $Id: ChangeLog,v 1.298 2001/05/31 02:47:37 minakaji Exp $
+Last Modified: $Date: 2001/05/31 02:47:37 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

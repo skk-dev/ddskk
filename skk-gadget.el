@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.13 2001/05/31 01:56:06 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.14 2001/05/31 02:47:37 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/31 01:56:06 $
+;; Last Modified: $Date: 2001/05/31 02:47:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -57,13 +57,20 @@
 ;; -- programs
 ;;;###autoload
 (defun skk-current-date (&optional pp-function format and-time)
-  ;; 現在の日時を日本語で返す。skk-today と skk-clock のサブルーチン。
-  ;; オプショナル引数の AND-TIME を指定すると、時間も返す。
+  "`current-time-string' の出力を加工し、現在の日時 \(string\)を返す。
+オプショナル引数の PP-FUNCTION を指定すると、`skk-current-date-1'
+の返り値、FORMAT と AND-TIME を引数にして `funcall' する。
+PP-FUNCTION の指定がない場合は `skk-default-current-date-function' を
+`funcall' する。
+FORMAT は `format' の第一引数の様式 \(string\)による出力指定テンプレート。
+AND-TIME \(boolean\) を指定すると時刻も返す。
+`skk-today' と `skk-clock' のサブルーチン。"
   (or pp-function (setq pp-function skk-default-current-date-function))
   (funcall pp-function (skk-current-date-1) format skk-date-ad and-time))
 
 (defun skk-current-date-1 ()
-  ;; Return list of (year month day day-of-week hour minute second)
+  "`current-time-string' の出力を加工し、日付・時刻情報をリストにして返す。
+\(year month day day-of-week hour minute second\)"
   (let ((str (current-time-string)))
     (list
      (substring str 20 24) (substring str 4 7)
@@ -73,33 +80,35 @@
 
 ;;;###autoload
 (defun skk-default-current-date
-  ;; 日付情報の標準的な出力をする他、ユーザがカスタマイズに使い易いよう
-  ;; に、ある程度のカスタマイズ機能を提供する (この関数の引数でカスタマ
-  ;; イズできない出力を希望する場合は、`skk-default-current-date-function'
-  ;; に自前の関数を指定する)。
-  ;;
-  ;; DATE-INFORMATION は `current-time-string' が返した文字列を 
-  ;; 
-  ;;   (year month day day-of-week hour minute second)
-  ;;
-  ;; の形式で変換したリスト (各要素は文字列)。
-  ;; FORMAT は `format' の第一引数の様式による出力形態を指定する文字列。
-  ;; NUM-TYPE は
-  ;;   0 -> 無変換,
-  ;;   1 -> 全角数字へ変換,
-  ;;   2 -> 漢数字へ変換 (位取りなし),
-  ;;   3 -> 漢数字へ変換 (位取りをする),
-  ;;   4 -> その数字そのものをキーにして辞書を再検索,
-  ;;   5 -> 漢数字 (手形などで使用する文字を使用)へ変換 (位取りをする),
-  ;;   9 -> 将棋で使用する数字 ("３四" など) に変換
-  ;; GENGO は元号表示するかどうか (boolean)。
-  ;; GENGO-INDEX は `skk-gengo-alist' の各要素の cadr を 0 とする index
-  ;;  (number)。
-  ;; MONTH-ALIST-INDEX は `skk-month-alist' の各要素の cadr を 0 とする
-  ;;  index (number)。
-  ;; DAYOFWEEK-ALIST-INDEX は `skk-day-of-week-alist' の各要素の cadr を
-  ;;  0 とする index (number)。
-  ;; AND-TIME は時刻も表示するかどうか (boolean)。
+  "日付情報の標準的な出力をする他、ユーザにある程度のカスタマイズ機能を提供する。
+この関数の引数でカスタマイズできない出力を希望する場合は、
+`skk-default-current-date-function' に自前の関数を指定する。
+
+DATE-INFORMATION は `current-time-string' が返した文字列を 
+
+  \(year month day day-of-week hour minute second\)
+
+の形式で変換したリスト \(各要素は文字列\)。
+FORMAT は `format' の第一引数の様式による出力形態を指定する文字列。
+  nil であれば \"%s年%s月%s日\(%s\)%s時%s分%s秒\" \(もしくは
+  \"%s年%s月%s日\(%s\)\" が使われる。
+NUM-TYPE \(number\) は
+  0 -> 無変換,
+  1 -> 全角数字へ変換,
+  2 -> 漢数字へ変換 \(位取りなし\),
+  3 -> 漢数字へ変換 \(位取りをする\),
+  4 -> その数字そのものをキーにして辞書を再検索,
+  5 -> 漢数字 \(手形などで使用する文字を使用\)へ変換 \(位取りをする\),
+  9 -> 将棋で使用する数字 \(\"３四\" など\) に変換
+GENGO は元号表示するかどうか \(boolean\)。
+GENGO-INDEX は `skk-gengo-alist' の各要素の cadr を 0 とする index
+ \(number\)。nil であれば `current-time-string' の出力のまま無変換。
+MONTH-ALIST-INDEX は `skk-month-alist' の各要素の cadr を 0 とする
+ index \(number\)。nil であれば `current-time-string' の出力のまま無変換。
+DAYOFWEEK-ALIST-INDEX は `skk-day-of-week-alist' の各要素の cadr を
+ 0 とする index \(number\)。nil であれば `current-time-string' の出力のま
+ま無変換。
+AND-TIME は時刻も表示するかどうか \(boolean\)。"
   (date-information
    format num-type gengo gengo-index month-alist-index dayofweek-alist-index
    &optional and-time)
