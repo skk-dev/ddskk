@@ -1,3 +1,8 @@
+2000-11-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el, etc/SKk.tut.E: Typos.
+	Reported by Yoshiki Hayashi <yoshiki@xemacs.org>.
+
 2000-10-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ptexinfmt.el: Sync with Wanderlust.
