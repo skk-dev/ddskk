@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.35 2001/09/06 09:02:55 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.36 2001/09/07 21:07:59 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/06 09:02:55 $
+;; Last Modified: $Date: 2001/09/07 21:07:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -558,6 +558,7 @@ BUFFER defaults to the current buffer."
 	skk-latin-mode nil
 	skk-j-mode nil
 	skk-jisx0208-latin-mode nil
+	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana nil)
   ;; initialize
@@ -573,6 +574,7 @@ BUFFER defaults to the current buffer."
 	skk-latin-mode nil
 	skk-j-mode t
 	skk-jisx0208-latin-mode nil
+	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana katakana)
   (skk-update-modeline (if skk-katakana 'katakana 'hiragana))
@@ -597,6 +599,7 @@ BUFFER defaults to the current buffer."
 	skk-latin-mode t
 	skk-j-mode nil
 	skk-jisx0208-latin-mode nil
+	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana nil)
   (skk-update-modeline 'latin)
@@ -613,6 +616,7 @@ BUFFER defaults to the current buffer."
 	skk-latin-mode nil
 	skk-j-mode nil
 	skk-jisx0208-latin-mode t
+	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana nil)
   (skk-update-modeline 'jisx0208-latin)
@@ -629,6 +633,7 @@ BUFFER defaults to the current buffer."
 	skk-latin-mode nil
 	skk-j-mode nil
 	skk-jisx0208-latin-mode nil
+	skk-jisx0201-mode nil
 	;; skk-abbrev-mode は一時的な ascii 文字による変換なので、変換後は元の
 	;; 入力モード (かなモードかカナモード) に戻ることが期待される。
 	;; skk-katakana は minor-mode フラグではなく、skk-j-mode マイナーモード
