@@ -1,3 +1,12 @@
+2001-10-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el:
+	Don't define keys here.
+
+	* skk.el
+	(skk-require-module): If `skk-use-jisx0201-input-method' is
+	non-noil, define keys instead of loading skk-jisx0201.el.
+
 2001-09-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* install-info.el:
@@ -2139,8 +2148,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.439 2001/09/30 07:32:33 czkmt Exp $
-Last Modified: $Date: 2001/09/30 07:32:33 $
+Version: $Id: ChangeLog,v 1.440 2001/10/02 22:32:07 czkmt Exp $
+Last Modified: $Date: 2001/10/02 22:32:07 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.127 2001/09/30 03:58:03 czkmt Exp $
+;; Version: $Id: skk.el,v 1.128 2001/10/02 22:31:52 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/30 03:58:03 $
+;; Last Modified: $Date: 2001/10/02 22:31:52 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -461,7 +461,9 @@ dependent."
   (when skk-use-look
     (require 'skk-look))
   (when skk-use-jisx0201-input-method
-    (require 'skk-jisx0201)))
+    ;; These commands are autoloaded.
+    (define-key skk-j-mode-map "\C-c\C-q" 'skk-toggle-jisx0201)
+    (define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana)))
 
 (defun skk-mode-exit ()
   (let ((skk-mode t))
@@ -656,37 +658,19 @@ dependent."
 		       '(skk-modeline-input-mode)
 		       minor-mode-alist))))
    (t
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      (unless (memq 'skk-modeline-input-mode
-		    default-modeline-format)
-	(setq default-modeline-format
+    (unless (memq 'skk-modeline-input-mode
+		  (default-value 'mode-line-format))
+      (setq-default mode-line-format
+		    (append '("" skk-modeline-input-mode)
+			    (default-value 'mode-line-format))))
+    (skk-loop-for-buffers (buffer-list)
+      (when (and (listp mode-line-format)
+		 (skk-local-variable-p 'mode-line-format)
+		 (null (memq 'skk-modeline-input-mode
+			     mode-line-format)))
+	(setq mode-line-format
 	      (append '("" skk-modeline-input-mode)
-		      default-modeline-format)))
-
-      (skk-loop-for-buffers (buffer-list)
-       (when (and (listp modeline-format)
-		  (null (memq 'skk-modeline-input-mode
-			      modeline-format)))
-	 (setq modeline-format
-	       (append '("" skk-modeline-input-mode)
-		       modeline-format)))))
-     (t
-      (unless (memq 'skk-modeline-input-mode
-		    (default-value 'mode-line-format))
-	(setq-default mode-line-format
-		      (append '("" skk-modeline-input-mode)
-			      (default-value 'mode-line-format))))
-
-      (skk-loop-for-buffers (buffer-list)
-       (when (and (listp mode-line-format)
-		  (skk-local-variable-p 'mode-line-format)
-		  (null (memq 'skk-modeline-input-mode
-			      mode-line-format)))
-	 (setq mode-line-format
-	       (append '("" skk-modeline-input-mode)
-		       mode-line-format))))))
-
+		      mode-line-format))))
     (force-mode-line-update t))))
 
 (defun skk-setup-emulation-commands (commands emulation)
@@ -749,25 +733,24 @@ dependent."
 (defun skk-setup-delete-selection-mode ()
   ;; Delete Selection モードが SKK を使った日本語入力に対しても機能するように
   ;; セットアップする。
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (and (featurep 'pending-del)
-	 (not (get 'skk-insert 'pending-delete))
-	 (mapcar (function (lambda (func) (put func 'pending-delete t)))
-		 '(skk-current-kuten
-		   skk-current-touten
-		   skk-input-by-code-or-menu
-		   skk-insert
-		   skk-today))))
-   (t
-    (and (featurep 'delsel)
-	 (not (get 'skk-insert 'delete-selection))
-	 (mapcar (function (lambda (func) (put func 'delete-selection t)))
-		 '(skk-current-kuten
-		   skk-current-touten
-		   skk-input-by-code-or-menu
-		   skk-insert
-		   skk-today))))))
+  (let ((feature (static-cond
+		  ((eq skk-emacs-type 'xemacs)
+		   'pending-del)
+		  (t
+		   'delsel)))
+	(property (static-cond
+		  ((eq skk-emacs-type 'xemacs)
+		   'pending-delete)
+		  (t
+		   'delete-selection))))
+    (when (and (featurep feature)
+	       (not (get 'skk-insert property)))
+      (dolist (func '(skk-current-kuten
+		      skk-current-touten
+		      skk-input-by-code-or-menu
+		      skk-insert
+		      skk-today))
+	(put func property t)))))
 
 (defun skk-setup-auto-paren ()
   (if (and skk-auto-insert-paren skk-auto-paren-string-alist)
@@ -883,10 +866,13 @@ dependent."
     (if (not keys)
 	;; no alternative commands.  may be invoked by M-x.
 	nil
-      (let (skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
-		     skk-jisx0208-latin-mode
-		     skk-jisx0201-mode
-		     command)
+      (let (skk-mode
+	    skk-latin-mode
+	    skk-j-mode
+	    skk-abbrev-mode
+	    skk-jisx0208-latin-mode
+	    skk-jisx0201-mode
+	    command)
 	;; have to search key binding after binding 4 minor mode flags to nil.
 	(setq command (key-binding keys))
 	(if (eq command this-command)
