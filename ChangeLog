@@ -1,3 +1,20 @@
+2001-06-15  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-w3m.el
+	(skk-w3m-get-candidates-from-goo-daijirin): Fixed regexp.
+
+	* skk-tut.el (skktut-adviced-alist): Add `(skk-create-file . around)'
+	and `(skk-save-jisyo-original . around)' cells to the alist.
+	(skk-create-file@around@skktut-ad): New dummy advice.
+	(skk-save-jisyo-original@around@skktut-ad): Ditto.
+
+	* skk.el (skk-mode): Remove skk-tut.el related code.
+	(skk-save-jisyo-original): Ditto.
+	(skk-make-new-jisyo): Ditto.
+	(skk-define-menu-bar-map): Change ENABLE
+	`(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))'
+	to `skk-use-kakasi'.
+
 2001-06-05  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk.el (skk-update-jisyo-original): Remove skk-tut.el related
@@ -3480,8 +3497,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.304 2001/06/04 21:17:25 minakaji Exp $
-Last Modified: $Date: 2001/06/04 21:17:25 $
+Version: $Id: ChangeLog,v 1.305 2001/06/14 21:43:57 minakaji Exp $
+Last Modified: $Date: 2001/06/14 21:43:57 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

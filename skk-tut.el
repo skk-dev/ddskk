@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.29 2001/06/04 21:17:25 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.30 2001/06/14 21:43:58 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/06/04 21:17:25 $
+;; Last Modified: $Date: 2001/06/14 21:43:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -54,6 +54,8 @@
     (skk-kakutei . before) (skk-mode . before)
     (kill-buffer . around) (other-frame . before)
     (save-buffers-kill-emacs . around)
+    (skk-create-file . around)
+    (skk-save-jisyo-original . around)
     ;;(select-frame . before)
    )
   "SKK チュートリアルで advice が付けられる関数と advice class のエーリスト。")
@@ -394,6 +396,12 @@
   (list 'yes-or-no-p (list 'if 'skktut-japanese-tut japanese english)))
 
 ;; advices.
+(defadvice skk-create-file (around skktut-ad disable)
+  )
+
+(defadvice skk-save-jisyo-original (around skktut-ad disable)
+  )
+
 (defadvice skk-abbrev-mode (before skktut-ad disable)
   "SKK チュートリアル用アドバイス付。"
   (and (> 12 skktut-question-count)

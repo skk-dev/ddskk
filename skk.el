@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.97 2001/06/04 21:17:25 minakaji Exp $
+;; Version: $Id: skk.el,v 1.98 2001/06/14 21:43:58 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/06/04 21:17:25 $
+;; Last Modified: $Date: 2001/06/14 21:43:58 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -153,88 +153,70 @@
    '("SKK"
      ("Convert Region and Echo"
       ("Gyakubiki"
-       ["to Hiragana" skk-gyakubiki-message
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+       ["to Hiragana" skk-gyakubiki-message skk-use-kakasi]
        ["to Hiragana, All Candidates"
 	(call-interactively
 	 (function (lambda (start end) (interactive "r")
 		     (skk-gyakubiki-message start end 'all-candidates))))
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
-       ["to Katakana" skk-gyakubiki-katakana-message
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+	skk-use-kakasi]
+       ["to Katakana" skk-gyakubiki-katakana-message skk-use-kakasi]
        ["to Katakana, All Candidates"
 	(call-interactively
 	 (function (lambda (start end) (interactive "r")
 		     (skk-gyakubiki-katakana-message
 		      start end 'all-candidates))))
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))])
+	skk-use-kakasi])
       ("Hurigana"
-       ["to Hiragana" skk-hurigana-message
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+       ["to Hiragana" skk-hurigana-message skk-use-kakasi]
        ["to Hiragana, All Candidates"
 	(call-interactively
 	 (function (lambda (start end) (interactive "r")
 		     (skk-hurigana-message start end 'all-candidates))))
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
-       ["to Katakana" skk-hurigana-katakana-message
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+	skk-use-kakasi]
+       ["to Katakana" skk-hurigana-katakana-message skk-use-kakasi]
        ["to Katakana, All Candidates"
 	(call-interactively
 	 (function (lambda (start end) (interactive "r")
 		     (skk-hurigana-katakana-message
 		      start end 'all-candidates))))
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]))
+	skk-use-kakasi]))
      ("Convert Region and Replace"
-      ["Ascii" skk-ascii-region
-       (or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+      ["Ascii" skk-ascii-region skk-use-kakasi]
       ("Gyakubiki"
-       ["to Hiragana" skk-gyakubiki-region
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+       ["to Hiragana" skk-gyakubiki-region skk-use-kakasi]
        ["to Hiragana, All Candidates"
 	(call-interactively
 	 (function (lambda (start end) (interactive "r")
 		     (skk-gyakubiki-region start end 'all-candidates))))
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
-       ["to Katakana" skk-gyakubiki-katakana-region
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+	skk-use-kakasi]
+       ["to Katakana" skk-gyakubiki-katakana-region skk-use-kakasi]
        ["to Katakana, All Candidates"
 	(call-interactively
 	 (function (lambda (start end) (interactive "r")
 		     (skk-gyakubiki-katakana-region
 		      start end 'all-candidates))))
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))])
-      ["Hiragana" skk-hiragana-region
-       (or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+	skk-use-kakasi])
+      ["Hiragana" skk-hiragana-region skk-use-kakasi]
       ("Hurigana"
-       ["to Hiragana" skk-hurigana-region
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+       ["to Hiragana" skk-hurigana-region skk-use-kakasi]
        ["to Hiragana, All Candidates"
 	(call-interactively
 	 (function (lambda (start end) (interactive "r")
 		     (skk-hurigana-region start end 'all-candidates))))
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
-       ["to Katakana" skk-hurigana-katakana-region
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
+	skk-use-kakasi]
+       ["to Katakana" skk-hurigana-katakana-region skk-use-kakasi]
        ["to Katakana, All Candidates" (function
 				       (lambda (start end) (interactive "r")
 					 (skk-hurigana-katakana-region
 					  start end 'all-candidates)))
-	(or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))])
-      ["Katakana" skk-katakana-region
-       (or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
-      ["Romaji" skk-romaji-region
-       (or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
-      ["Zenkaku" skk-jisx0208-latin-region
-       (or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))])
-     ["Count Jisyo Candidates" skk-count-jisyo-candidates
-      (or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
-     ["Save Jisyo" skk-save-jisyo
-      (or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
-     ["Undo Kakutei" skk-undo-kakutei
-      (or (not (boundp 'skktut-problem-count)) (eq skktut-problem-count 0))]
-     ["Version" skk-version
-      (or (not (boundp 'skktut-problem-count))
-	  (eq skktut-problem-count 0))])))
+	skk-use-kakasi])
+      ["Katakana" skk-katakana-region skk-use-kakasi]
+      ["Romaji" skk-romaji-region skk-use-kakasi]
+      ["Zenkaku" skk-jisx0208-latin-region skk-use-kakasi])
+     ["Count Jisyo Candidates" skk-count-jisyo-candidates t]
+     ["Save Jisyo" skk-save-jisyo t]
+     ["Undo Kakutei" skk-undo-kakutei t]
+     ["Version" skk-version t])))
 
 (or skk-latin-mode-map
     (let ((map (make-sparse-keymap)))
@@ -384,11 +366,9 @@ dependent."
         ;; enter into skk-mode for the first time in this session.
 	(skk-mode-invoke))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
-    (unless (and (skk-local-variable-p 'skk-jisyo (current-buffer))
-		 (equal skk-jisyo "~/skk-tut-jisyo"))
-      (skk-create-file skk-jisyo
-		       "SKK の空辞書を作りました"
-		       "I have created an empty SKK Jisyo file for you"))
+    (skk-create-file skk-jisyo
+		     "SKK の空辞書を作りました"
+		     "I have created an empty SKK Jisyo file for you")
     (static-if (memq skk-emacs-type '(nemacs mule1)) (skk-e18-setup))
     (skk-require-module)
     (skk-setup-keymap)
@@ -2682,68 +2662,63 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;;"SKK の辞書バッファをセーブする。
   ;;オプショナル引数の QUIET が non-nil であれば、辞書セーブ時のメッセージを出さな
   ;;い。"
-  (let ((skk-jisyo
-	 (if (and (skk-local-variable-p 'skk-jisyo (current-buffer))
-		  (equal skk-jisyo "~/skk-tut-jisyo"))
-	     (default-value 'skk-jisyo)
-	   skk-jisyo)))
-    (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
-      (if (or (not jisyo-buffer) (not (buffer-modified-p jisyo-buffer)))
+  (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
+    (if (or (not jisyo-buffer) (not (buffer-modified-p jisyo-buffer)))
+	(if (not quiet)
+	    (progn
+	      (skk-message "SKK 辞書を保存する必要はありません"
+			   "No need to save SKK jisyo")
+	      (sit-for 1)))
+      (with-current-buffer jisyo-buffer
+	(if (and skk-share-private-jisyo
+		 (file-exists-p skk-emacs-id-file)
+	 ;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
+		 (with-temp-buffer
+		   (insert-file-contents skk-emacs-id-file)
+		   (goto-char (point-min))
+		   (not (search-forward skk-emacs-id nil t))))
+	    (progn
+	      (lock-buffer skk-jisyo)
+       ;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
+	      ;; 更新した skk-jisyo を読み込む。
+	      (erase-buffer)
+	      (insert-file-contents skk-jisyo)
+	      (skk-setup-jisyo-buffer)
+	   ;; skk-jisyo-update-vector にしたがってバッファを更新する。
+	      (let ((index 0) list skk-henkan-key)
+		(while (and (< index skk-jisyo-save-count)
+			    (setq list (aref skk-jisyo-update-vector index)))
+		  ;; skk-update-jisyo-1, skk-search-jisyo-file-1
+		  ;; で参照される skk-henkan-key をセットする
+		  (setq skk-henkan-key (car list))
+		  (skk-update-jisyo-1
+		   ;; okurigana    word
+		   (nth 1 list) (nth 2 list)
+		   (skk-search-jisyo-file-1 (nth 1 list) 0 'delete)
+		   ;; purge
+		   (nth 3 list))
+		  (setq index (1+ index))))))
+	(let ((inhibit-quit t)
+	      (tempo-file (skk-make-temp-jisyo)))
+	  (if (not quiet)
+	      (skk-message "SKK 辞書を保存しています..."
+			   "Saving SKK jisyo..."))
+	  (skk-save-jisyo-1 tempo-file)
+	  (skk-check-size-and-do-save-jisyo tempo-file)
+      ;; 辞書のセーブに成功して初めて modified フラッグを nil にする。
+	  (set-buffer-modified-p nil)
+	  (setq skk-update-jisyo-count 0)
 	  (if (not quiet)
 	      (progn
-		(skk-message "SKK 辞書を保存する必要はありません"
-			     "No need to save SKK jisyo")
-		(sit-for 1)))
-	(with-current-buffer jisyo-buffer
-	  (if (and skk-share-private-jisyo
-		   (file-exists-p skk-emacs-id-file)
-		   ;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
-		   (with-temp-buffer
-		     (insert-file-contents skk-emacs-id-file)
-		     (goto-char (point-min))
-		     (not (search-forward skk-emacs-id nil t))))
-	      (progn
-		(lock-buffer skk-jisyo)
-		;; 現在の jisyo-buffer の内容を消去して、他の emacs 上の skk が
-		;; 更新した skk-jisyo を読み込む。
-		(erase-buffer)
-		(insert-file-contents skk-jisyo)
-		(skk-setup-jisyo-buffer)
-		;; skk-jisyo-update-vector にしたがってバッファを更新する。
-		(let ((index 0) list skk-henkan-key)
-		  (while (and (< index skk-jisyo-save-count)
-			      (setq list (aref skk-jisyo-update-vector index)))
-		    ;; skk-update-jisyo-1, skk-search-jisyo-file-1
-		    ;; で参照される skk-henkan-key をセットする
-		    (setq skk-henkan-key (car list))
-		    (skk-update-jisyo-1
-		     ;; okurigana    word
-		     (nth 1 list) (nth 2 list)
-		     (skk-search-jisyo-file-1 (nth 1 list) 0 'delete)
-		     ;; purge
-		     (nth 3 list))
-		    (setq index (1+ index))))))
-	  (let ((inhibit-quit t)
-		(tempo-file (skk-make-temp-jisyo)))
-	    (if (not quiet)
-		(skk-message "SKK 辞書を保存しています..."
-			     "Saving SKK jisyo..."))
-	    (skk-save-jisyo-1 tempo-file)
-	    (skk-check-size-and-do-save-jisyo tempo-file)
-	    ;; 辞書のセーブに成功して初めて modified フラッグを nil にする。
-	    (set-buffer-modified-p nil)
-	    (setq skk-update-jisyo-count 0)
-	    (if (not quiet)
-		(progn
-		  (skk-message "SKK 辞書を保存しています...完了！"
-			       "Saving SKK jisyo...done")
-		  (sit-for 1))))
-	  (if skk-share-private-jisyo
-	      (with-temp-buffer
-		(fillarray skk-jisyo-update-vector nil)
-		(insert skk-emacs-id "\n")
-		(write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)
-		(unlock-buffer))))))))
+		(skk-message "SKK 辞書を保存しています...完了！"
+			     "Saving SKK jisyo...done")
+		(sit-for 1))))
+	(if skk-share-private-jisyo
+	    (with-temp-buffer
+	      (fillarray skk-jisyo-update-vector nil)
+	      (insert skk-emacs-id "\n")
+	      (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)
+	      (unlock-buffer)))))))
 
 (defun skk-save-jisyo-1 (file)
   (save-match-data
@@ -2896,18 +2871,13 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 (defun skk-make-new-jisyo (tempo-file)
   ;; TEMPO-FILE を新規の skk-jisyo にする。skk-backup-jisyo が non-nil だった
   ;; らバックアップ辞書を作る。
-  (let ((skk-jisyo
-	 (if (and (skk-local-variable-p 'skk-jisyo (current-buffer))
-		  (equal skk-jisyo "~/skk-tut-jisyo"))
-	     (default-value 'skk-jisyo)
-	   skk-jisyo)))
-    (if skk-backup-jisyo
-	(progn
-	  (if (file-exists-p skk-backup-jisyo)
-	      (delete-file skk-backup-jisyo))
-	  (rename-file skk-jisyo skk-backup-jisyo))
-      (delete-file skk-jisyo))
-    (rename-file tempo-file skk-jisyo 'ok-if-already-exists)))
+  (if skk-backup-jisyo
+      (progn
+	(if (file-exists-p skk-backup-jisyo)
+	    (delete-file skk-backup-jisyo))
+	(rename-file skk-jisyo skk-backup-jisyo))
+    (delete-file skk-jisyo))
+  (rename-file tempo-file skk-jisyo 'ok-if-already-exists))
 
 (defun skk-reread-private-jisyo (&optional force)
   "バッファに読み込んだ個人辞書を破棄し、ファイルからバッファへ再読み込みする。

@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.19 2001/06/04 21:00:56 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.20 2001/06/14 21:43:58 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/06/04 21:00:56 $
+;; Last Modified: $Date: 2001/06/14 21:43:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -473,11 +473,17 @@ w3m を backend で動かしていない)。")
       (if (not (and start end))
 	  nil
 	(goto-char start)
-	(setq key (format "<a href=\".+\">%s *【\\([^<>【】]+\\)】</a>" key))
+	(setq key (format "\\(%s\\|%s\\)"
+			  ;;  <b>8</b>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" target="_blank" hseq="35"><img_alt src="/Common/icon01.gif">新規で開く</img_alt></a>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" hseq="36">かんきょう【艦橋】</a>
+			  (format "<a href=\".+\">%s *【\\([^<>【】]+\\)】</a>" key)
+			  ;; <B>がいはんぼしぐわいはん―【外反拇趾】</B>
+			  (format "<B>%s[^<【]*【\\([^<>【】]+\\)】</B>" key)))
 	(while (re-search-forward key end t nil)
 	  (setq temp (skk-w3m-filter-string
 		      ;; 〈何時〉
-		      (match-string-no-properties 1) '("〈" "〉")))
+		      (or (match-string-no-properties 2)
+			  (match-string-no-properties 3))
+		      '("〈" "〉")))
 	  (setq v (nconc (split-string temp "・") v)))
 	(nreverse v)))))
 
