@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.104 2003/03/16 15:18:11 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.105 2003/03/22 16:50:46 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/03/16 15:18:11 $
+@c  Last Modified: $Date: 2003/03/22 16:50:46 $
 @c
 @set EDITION 1.9
 @set SKK-VERSION 12.1.0
-@set UPDATED $Date: 2003/03/16 15:18:11 $
+@set UPDATED $Date: 2003/03/22 16:50:46 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7606,40 +7606,42 @@ WWW クライアントを利用して
 @section skkinput
 @cindex @file{skkinput}
 
-本節は、skkinput の開発者である阪本崇氏により書かれたものを若干修正した
-ものです。
-
 @table @asis
 @item 正式名称
+
 skkinput
 
 @item どのようなソフトウェアか
 
-日本語テキスト入力を要求する X11 のアプリケーションのための入力サーバ。
-現在は Kinput Protocol にしか対応していませんが、将来的には XIM や
-Kinput2 Protocol に対応させる予定です。
+skkinput は、kinput protocol/kinput2 protocol/Ximp Protocol/X Input
+Method(X11R6標準)を用いた X Window System 上で動作する日本語入力のための
+アプリケーションです。
 
 @item 使用するために要求される環境
 
-UNIX + X11R5 または X11R6 (R6.1)
+UNIX + X11R6
 
 @item 最新バージョン ,release の日付
 
-2.03,
+skkinput 2 … 2.06.3 (安定版)
+skkinput 3 … 3.0.6
 
 @item 開発者
 
 阪本 崇 (@w{@samp{sakamoto@@yajima.kuis.kyoto-u.ac.jp}},
-@*@w{@samp{PXG01715@@niftyserve.or.jp}})
+@*@w{@samp{PXG01715@@nifty.ne.jp}})
+
+Fumitoshi UKAI (@w{@samp{ukai@@debian.or.jp}})
 
 @item 配布条件
 
-ありません。
+GNU GPL
 
 @item 入手方法
 
 @smallexample
-@w{@url{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkinput.htm}}
+@w{@url{http://sourceforge.jp/projects/skkinput2/}}
+@w{@url{http://sourceforge.jp/projects/skkinput3/}}
 @end smallexample
 
 @noindent
@@ -7648,12 +7650,8 @@ UNIX + X11R5 または X11R6 (R6.1)
 @item bug report、質問のためのアドレス
 
 @w{sakamoto@@yajima.kuis.kyoto-u.ac.jp} もしくは
-@w{PXG01715@@niftyserve.or.jp} まで御願い致します。
+@w{PXG01715@@nifty.ne.jp} まで御願い致します。
 
-@item その他
-
-SKK 8.6 にはかなり近付けたと思うのですが、まだまだ異なる部分が残っていま
-す。特に操作体系で異なると感じられた方は私までレポートを御願い致します。
 @end table
 
 @node SKKIME, SKK95, skkinput, SKK関連ソフトウェア
@@ -7670,7 +7668,7 @@ SKKIME 1.0
 
 @item 入手先
 
-@w{@url{http://member.nifty.ne.jp/Tatari_SAKAMOTO/skkime.htm}}
+@w{@url{http://www.tatari-sakamoto.jp/~tatari/skkime.jis.html}}
 @end table
 
 @node SKK95,  , SKKIME, SKK関連ソフトウェア
@@ -7717,7 +7715,7 @@ SKK95 の作者は責任を負いません。
 @item 入手方法
 下記のウェッブページから入手して下さい。
 
-@w{@url{http://www.kuis.kyoto-u.ac.jp/~kmc/proj/skk95/}}
+@w{@url{http://www.kmc.gr.jp/proj/skk95/}}
 
 @item bug report,質問のためのアドレス
 @w{@samp{skk95-bugs@@kmc.kyoto-u.ac.jp}}
