@@ -1,3 +1,9 @@
+2001-10-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el
+	(skk-nicola-turn-on-j-mode): Don't check if color cursor is
+	required.
+
 2001-10-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* NICOLA-DDSKK-ELS
