@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.18 1999/09/22 05:05:20 minakaji Exp $
-;; Last Modified: $Date: 1999/09/22 05:05:20 $
+;; Version: $Id: SKK-MK,v 1.19 1999/09/22 09:46:47 minakaji Exp $
+;; Last Modified: $Date: 1999/09/22 09:46:47 $
 
 ;; Commentary
 ;;
@@ -138,10 +138,10 @@ end with `skk'." )
 
 (setq load-path (cons (expand-file-name ".") load-path))
 
-(if (and VERSION_SPECIFIC_LISPDIR
-	 (file-exists-p (expand-file-name VERSION_SPECIFIC_LISPDIR))
-	 (null (member VERSION_SPECIFIC_LISPDIR load-path)) )
-    (setq load-path (cons VERSION_SPECIFIC_LISPDIR load-path)) )
+(and VERSION_SPECIFIC_LISPDIR
+     (file-exists-p (expand-file-name VERSION_SPECIFIC_LISPDIR))
+     (null (member VERSION_SPECIFIC_LISPDIR load-path))
+     (setq load-path (cons VERSION_SPECIFIC_LISPDIR load-path)) )
 
 ;;(princ (format "load-path=%s\n" load-path))
 
