@@ -1,3 +1,11 @@
+2005-01-30  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/skk-bayesian.el
+	(skk-bayesian-search): Bug fixed.
+	(skk-bayesian-update): Ditto.
+	(skk-bayesian-add-to-history): Ditto.
+	(skk-bayesian-restart-process): Ditto.
+
 2005-01-10  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
 	* skk-kakasi.el (skk-kakasi-region): Add options "-ieuc" and "-oeuc".
@@ -4788,8 +4796,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.831 2005/01/10 19:24:58 skk-cvs Exp $
-Last Modified: $Date: 2005/01/10 19:24:58 $
+Version: $Id: ChangeLog,v 1.832 2005/01/31 05:50:34 skk-cvs Exp $
+Last Modified: $Date: 2005/01/31 05:50:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
