@@ -1,3 +1,12 @@
+2000-12-21  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-e18.el (exit-minibuffer@around@skk-e18-ad): Revive.
+
+	* skk.el (exit-minibuffer@around@skk-ad): Remove nemacs and mule1
+	part of advices.
+	Defined for non-`nemacs' and non-`mule1' Emacsen using
+	static-unless.
+	
 2000-12-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e18.el: Call `require' at toplevel for the feature `advice'.
@@ -2993,8 +3002,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.234 2000/12/20 15:27:11 czkmt Exp $
-Last Modified: $Date: 2000/12/20 15:27:11 $
+Version: $Id: ChangeLog,v 1.235 2000/12/20 16:14:26 minakaji Exp $
+Last Modified: $Date: 2000/12/20 16:14:26 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -99,6 +99,24 @@ Install patch/e18/advice.el in load-path and try again."))))
   (define-key skk-jisx0208-latin-mode-map "\C-q" 'skk-latin-henkan))
 
 ;; Pieces of advice.
+(defadvice exit-minibuffer (around skk-e18-ad activate)
+  (let ((no-nl (and skk-egg-like-newline skk-henkan-on)))
+    (when skk-henkan-on
+      (unless skk-mode
+	(skk-mode 1))
+      (skk-kakutei))
+    (if no-nl
+	nil
+      (setq skk-mode nil)
+      ad-do-it)))
+
+(defadvice byte-code-function-p (around skk-e18-ad activate)
+  ;; これは一時の APEL のバグに対して work around したものだから、最新の
+  ;; APEL に対しては不要。
+  (cond ((and (consp (ad-get-arg 0)) (consp (cdr (ad-get-arg 0))))
+	 ad-do-it)
+	(t
+	 nil)))
 
 ;; 時折、検索系の関数が数値を返すことを期待しているコードがあるため、
 ;; それらが動くように以下の 4 関数への advice をする。

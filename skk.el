@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.90 2000/12/18 14:57:23 czkmt Exp $
+;; Version: $Id: skk.el,v 1.91 2000/12/20 16:14:26 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/18 14:57:23 $
+;; Last Modified: $Date: 2000/12/20 16:14:26 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -4020,29 +4020,19 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (undo-boundary)
       (or no-newline ad-do-it))))
 
-(skk-defadvice exit-minibuffer (around skk-ad activate)
-  ;; subr command but no arg.
-  "skk-egg-like-newline が non-nil だったら、変換中の exit-minibuffer で確定のみ行う。"
-  (static-cond
-   ((memq skk-emacs-type '(nemacs mule1))
-    (let ((no-nl (and skk-egg-like-newline skk-henkan-on)))
-      (when skk-henkan-on
-	(unless skk-mode
-	  (skk-mode 1))
-	(skk-kakutei))
-      (if no-nl
-	  nil
-	(setq skk-mode nil)
-	ad-do-it)))
-   (t (skk-remove-minibuffer-setup-hook
-       'skk-j-mode-on 'skk-setup-minibuffer
-       '(lambda ()
-	  (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
-      (if (not (or skk-j-mode skk-abbrev-mode))
-	  ad-do-it
-	(let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
-	  (and skk-mode (skk-kakutei))
-	  (or no-newline ad-do-it))))))
+(static-unless (memq skk-emacs-type '(nemacs mule1))
+  (skk-defadvice exit-minibuffer (around skk-ad activate)
+    ;; subr command but no arg.
+    "skk-egg-like-newline が non-nil だったら、変換中の exit-minibuffer で確定のみ行う。"
+    (skk-remove-minibuffer-setup-hook
+     'skk-j-mode-on 'skk-setup-minibuffer
+     '(lambda ()
+	(add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+    (if (not (or skk-j-mode skk-abbrev-mode))
+	ad-do-it
+      (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
+	(and skk-mode (skk-kakutei))
+	(or no-newline ad-do-it)))))
 
 (defadvice picture-mode-exit (before skk-ad activate)
   "SKK のバッファローカル変数を無効にし、picture-mode-exit をコールする。
