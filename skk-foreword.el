@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.4 1999/08/30 21:36:13 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.5 1999/08/31 03:15:40 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/30 21:36:13 $
+;; Last Modified: $Date: 1999/08/31 03:15:40 $
 
 ;; This file is not part of SKK yet.
 
@@ -451,7 +451,9 @@
 	      (condition-case nil
 		  (delete-region start (+ start (length skk-prefix)))
 		(error
-		 (skk-set-marker skk-kana-start-point nil) )))))
+		 (skk-set-marker skk-kana-start-point nil) 
+		 (setq skk-prefix ""
+		       skk-current-rule-tree nil ))))))
   (and clean (setq skk-prefix ""
 		   skk-current-rule-tree nil ))) ; fail safe
 
