@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.250 2002/07/13 17:18:41 czkmt Exp $
+;; Version: $Id: skk.el,v 1.251 2002/07/13 17:21:18 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/13 17:18:41 $
+;; Last Modified: $Date: 2002/07/13 17:21:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2210,7 +2210,7 @@ WORD で確定する。"
 				  ;; 同じバッファだったら
 				  (throw 'list (car history))
 				(setq history (cdr history))))))
-		   skk-henkan-key comb-word prefix)
+		   skk-henkan-key comb-word)
 	      (when (and (stringp (nth 1 list2))
 			 (string-match "^[^\000-\177].+>$" (car list2))
 			 (skk-save-point
@@ -2237,7 +2237,7 @@ WORD で確定する。"
 				  ;; 同じバッファだったら
 				  (throw 'list (car history))
 				(setq history (cdr history))))))
-		   skk-henkan-key comb-word prefix)
+		   skk-henkan-key comb-word)
 	      (when (stringp (nth 1 list2))
 		(setq skk-henkan-key
 		      (concat (car list2)
