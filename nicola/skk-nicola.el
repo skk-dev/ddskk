@@ -98,7 +98,8 @@
 		 [convert])
 		((eq skk-emacs-type 'xemacs)
 		 [henkan-mode])
-		((string-match "^19\\.\\(29\\|3[0-4]\\)" emacs-version)
+		((string-match "^19\\.\\(29\\|3[0-4]\\)"
+			       emacs-version)
 		 [numbersign])
 		((string-match "^19\\.2" emacs-version)
 		 ;; Mule 2.3@19.28 or earlier (?)
@@ -473,8 +474,8 @@ keycode 131 = underscore\n"))
 
 ;;;###autoload
 (defun skk-nicola-turn-on-j-mode (&optional arg)
-  ;; `skk-latin-mode' において、 左右親指キーの同時打鍵によって 'skk-j-mode'
-  ;; に入る。
+  ;; `skk-latin-mode' において、 左右親指キーの同時打鍵によって
+  ;; `skk-j-mode' に入る。
   (interactive "*p")
   (if (skk-sit-for skk-nicola-latin-interval t)
       ;; then
@@ -629,13 +630,13 @@ keycode 131 = underscore\n"))
 ;;; 〜 NICOLA 規格書より 〜
 ;;; 7.4.2　打鍵順序だけでは決定できない同時打鍵
 ;;;
-;;;        文字キーa、親指キーs、文字キーbの３つのキーが、判定時間以内の間
-;;;        隔で重複して押された場合は、中央に挟まれた親指キーsが文字キーaを
-;;;        修飾するものか、文字キーbを修飾するものかを決定しなければならな
-;;;        い。（図６）
+;;;        文字キーa、親指キーs、文字キーbの３つのキーが、判定時間以内
+;;;        の間隔で重複して押された場合は、中央に挟まれた親指キーsが文
+;;;        字キーaを修飾するものか、文字キー bを修飾するものかを決定し
+;;;        なければならない。（図６）
 ;;;
-;;;        基本的には、押下時刻が、より親指キーに近い文字キーとの間に同時打
-;;;        鍵が成立すると判断する。
+;;;        基本的には、押下時刻が、 より親指キーに近い文字キーとの間に
+;;;        同時打鍵が成立すると判断する。
 ;;;
 ;;;              図6　　　「文字キーON→親指キーON→文字キーON」の例
 ;;;
@@ -651,7 +652,7 @@ keycode 131 = underscore\n"))
 ;;;             　　　　　　　　　　　　　　|-t1-|-t2-|
 ;;;                                         (t1、t2は共に判定時間以内)
 ;;;
-;;;       t1=t2ならば、文字キーaと親指キーsが同時打鍵、文字キーbは単独打鍵。
+;;;   t1=t2ならば、文字キーaと親指キーsが同時打鍵、文字キーbは単独打鍵。
 (defun skk-nicola-treat-triple (first next time1 time2 arg)
   (let ((period1 (- time2 time1))
 	time3
@@ -713,7 +714,8 @@ keycode 131 = underscore\n"))
       (t
        ;; 文字
        (skk-nicola-insert-kana char
-			       skk-nicola-plain-rule arg)))))
+			       skk-nicola-plain-rule
+			       arg)))))
 
 (defun skk-nicola-insert-double (first next arg)
   (let ((command (cond
@@ -747,13 +749,13 @@ keycode 131 = underscore\n"))
 		   (skk-kanagaki-insert arg)
 		   (unless (>= skk-nicola-interval
 			       1)
-		     ;; 単独打鍵を同一キー連続打鍵で代用できるように。
+		     ;; 単独打鍵を同一キー連続打鍵で代用する。
 		     (skk-kanagaki-insert arg)))
 		  (t
 		   (self-insert-command
 		    (if (>= skk-nicola-interval
 			    1)
-			;; 単独打鍵を同一キー連続打鍵で代用できるように。
+			;; 単独打鍵を同一キー連続打鍵で代用する。
 			arg
 		      (1+ arg)))))))
 	 (skk-nicola-self-insert-lshift
@@ -779,7 +781,7 @@ keycode 131 = underscore\n"))
 		 (skk-nicola-lshift-function arg)
 		 (unless (>= skk-nicola-interval
 			     1)
-		   ;; 単独打鍵を同一キー連続打鍵で代用できるように。
+		   ;; 単独打鍵を同一キー連続打鍵で代用する。
 		   (skk-nicola-lshift-function 1)))))
 	 (skk-nicola-self-insert-rshift
 	  ;; [右 左]
@@ -950,11 +952,13 @@ keycode 131 = underscore\n"))
 	   ;;
 	   (when skk-henkan-active
 	     (skk-kakutei))))
-    ;; 何かに使うことがあるかもしれないので、STR を返しておく。
+    ;; 何かに使うことがあるかもしれないので、
+    ;; STR を返しておく。
     str))
 
 (defun skk-nicola-process-okuri ()
-  ;; 送り開始の標識により送り開始点を認識し、送りあり変換を開始する。
+  ;; 送り開始の標識により送り開始点を認識し、
+  ;; 送りあり変換を開始する。
   (let ((okuri (buffer-substring-no-properties
 		(1+ skk-nicola-okuri-flag)
 		(point)))
@@ -977,8 +981,9 @@ keycode 131 = underscore\n"))
       (skk-kanagaki-set-okurigana tag))))
 
 (defun skk-nicola-set-okuri-flag ()
-  ;; 送り開始点を marker で標識するとともに、`*' を挿入することで送りあり変換
-  ;; の待ち状態であることを明示する。
+  ;; 送り開始点を marker で標識するとともに、
+  ;; `*' を挿入することで送りあり変換の待ち
+  ;; 状態であることを明示する。
   (interactive)
   (when (and skk-henkan-on
 	     (not skk-henkan-active))
