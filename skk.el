@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.72 2000/11/27 17:23:27 czkmt Exp $
+;; Version: $Id: skk.el,v 1.73 2000/11/30 07:58:26 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/27 17:23:27 $
+;; Last Modified: $Date: 2000/11/30 07:58:26 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -3859,31 +3859,26 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     ;;
     (static-cond
      ((eq skk-emacs-type 'xemacs)
-      (let ((extent (make-extent nil nil)))
-	(unless (rassq 'skk-modeline-input-mode default-modeline-format)
-	  (setq-default default-modeline-format
-			(nconc (list
-				""
-				(cons extent 'skk-modeline-input-mode)
-				default-modeline-format))))
-	;;
-	(save-excursion
-	  (dolist (buf (buffer-list))
-	    (when (buffer-live-p buf)
-	      (set-buffer buf)
-	      (when (and (listp modeline-format)
-			 (not
-			  (rassq 'skk-modeline-input-mode modeline-format)))
-		(setq modeline-format
-		      (nconc (list
-			      ""
-			      (cons extent 'skk-modeline-input-mode)
-			      modeline-format)))))))))
+      ;;
+      (unless (memq 'skk-modeline-input-mode default-modeline-format)
+	(setq-default default-modeline-format
+		      (append '("" skk-modeline-input-mode)
+			     default-modeline-format)))
+      ;;
+      (save-excursion
+	(dolist (buf (buffer-list))
+	  (when (buffer-live-p buf)
+	    (set-buffer buf)
+	    (when (and (listp modeline-format)
+		       (not (memq 'skk-modeline-input-mode modeline-format)))
+	      (setq modeline-format
+		    (append '("" skk-modeline-input-mode)
+			   modeline-format)))))))
      (t
       ;;
       (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
 	(setq-default mode-line-format
-		      (nconc '("" skk-modeline-input-mode)
+		      (append '("" skk-modeline-input-mode)
 			     (default-value 'mode-line-format))))
       (save-excursion
 	(let ((list (buffer-list))
@@ -3897,9 +3892,10 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			 (not
 			  (memq 'skk-modeline-input-mode mode-line-format)))
 		(setq mode-line-format
-		      (nconc '("" skk-modeline-input-mode)
+		      (append '("" skk-modeline-input-mode)
 			     mode-line-format))))
 	    (setq list (cdr list)))))))
+    ;;
     (force-mode-line-update t))
    ;;
    ((eq skk-status-indicator 'minor-mode)
