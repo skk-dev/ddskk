@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.49 2001/09/23 02:51:01 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.50 2001/10/07 01:14:52 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 02:51:01 $
+;; Last Modified: $Date: 2001/10/07 01:14:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -515,38 +515,44 @@ BUFFER defaults to the current buffer."
   ;; かな文字の入力がまだ完成していない場合にこの関数が呼ばれたときなどは、バッ
   ;; ファに挿入されている skk-prefix は削除したいが、変数としての skk-prefix は
   ;; null 文字にしたくない。
-  (and skk-echo skk-kana-start-point
-       (not (string= skk-prefix ""))	; fail safe.
-       (let ((start (marker-position skk-kana-start-point)))
-	 (and start
-	      (condition-case nil
-		  ;; skk-prefix の消去をアンドゥの対象としない。
-		  (skk-cannot-be-undone
-		   (delete-region start (+ start (length skk-prefix))))
-		(error
-		 (skk-set-marker skk-kana-start-point nil)
-		 (setq skk-prefix ""
-		       skk-current-rule-tree nil))))))
-  (and clean (setq skk-prefix ""
-		   skk-current-rule-tree nil))) ; fail safe
+  (when (and skk-echo
+	     skk-kana-start-point
+	     (not (string= skk-prefix ""))) ; fail safe.
+    (let ((start (marker-position skk-kana-start-point)))
+      (when start
+	(condition-case nil
+	    ;; skk-prefix の消去をアンドゥの対象としない。
+	    (skk-cannot-be-undone
+	     (delete-region start (+ start (length skk-prefix))))
+	  (error
+	   (skk-set-marker skk-kana-start-point nil)
+	   (setq skk-prefix ""
+		 skk-current-rule-tree nil))))))
+  (when clean
+    (setq skk-prefix ""
+	  skk-current-rule-tree nil))) ; fail safe
 
 (defsubst skk-kana-cleanup (&optional force)
-  (let ((data (or
-	       (and skk-current-rule-tree
-		    (null (skk-get-nextstate skk-current-rule-tree))
-		    (skk-get-kana skk-current-rule-tree))
-	       (and skk-kana-input-search-function
-		    (car (funcall skk-kana-input-search-function)))))
+  (let ((data (cond
+	       ((and skk-current-rule-tree
+		     (null (skk-get-nextstate skk-current-rule-tree)))
+		(skk-get-kana skk-current-rule-tree))
+	       (skk-kana-input-search-function
+		(car (funcall skk-kana-input-search-function)))))
 	kana)
-	(if (or force data)
-	    (progn
-	      (skk-erase-prefix 'clean)
-	      (setq kana (if (functionp data) (funcall data nil) data))
-	      (if (consp kana)
-		  (setq kana (if skk-katakana (car kana) (cdr kana))))
-	      (if (stringp kana) (skk-insert-str kana))
-	      (skk-set-marker skk-kana-start-point nil)
-	      t))))
+    (when (or force data)
+      (skk-erase-prefix 'clean)
+      (setq kana (if (functionp data)
+		     (funcall data nil)
+		   data))
+      (when (consp kana)
+	(setq kana (if skk-katakana
+		       (car kana)
+		     (cdr kana))))
+      (when (stringp kana)
+	(skk-insert-str kana))
+      (skk-set-marker skk-kana-start-point nil)
+      t)))
 
 (defsubst skk-numeric-p ()
   (and skk-use-numeric-conversion (require 'skk-num) skk-num-list))
@@ -764,6 +770,9 @@ BUFFER defaults to the current buffer."
 		     (lambda (k)
 		       (key-description k)))
 		    keys))))
+
+;;
+
 (require 'product)
 (product-provide (provide 'skk-macs) (require 'skk-version))
 ;;; end of skk-macs.el.
