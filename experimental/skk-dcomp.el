@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.9 2000/11/28 13:06:34 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.10 2000/11/28 13:56:00 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/28 13:06:34 $
+;; Last Modified: $Date: 2000/11/28 13:56:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -25,9 +25,25 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary
+;;
+;; これは見出し語の入力を、自動的にダイナミックにコンプリーションする
+;; プログラムです。増井俊之 さんが開発している POBox や MS Excel のセ
+;; ルでの文字入力に影響を受けています (POBox とはインタフェイス自身は
+;; 少し異なりますが、動作はこちらの方がかなり高速なはずです)。
+;;
+;; <INSTALL>
+;; skk-11/experimental/skk-dcomp.el を skk-11/skk-dcomp.el にコピーし
+;; て後は普通に make して下さい。skk-dcomp.el がインストールされ、
+;; autoload の設定が自動的に生成されます。
+;;
+;; <HOW TO USE>
+;; .emacs もしくは .skk に (require 'skk-dcomp) と書きましょう。それだ
+;; けです。
+;;
+;; <HOW TO WORK>
+;; SKK を普通に使い始めてみて下さい。きっと最初は驚くはずですが、イン
+;; タフェイスは言葉で説明するよりも、体感した方が早いと思います ;-)。
 ;; 
-;; Inspired by POBox developed by 増井俊之.
-
 ;;; Code:
 (eval-when-compile (require 'skk))
 (require 'skk-comp)
