@@ -1,6 +1,7 @@
 2000-12-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-xemacs.el: Bug fixed.
+	(skk-xemacs-prepare-modeline-properties): Simplify.
 
 2000-12-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -2824,8 +2825,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.207 2000/12/12 21:14:51 minakaji Exp $
-Last Modified: $Date: 2000/12/12 21:14:51 $
+Version: $Id: ChangeLog,v 1.208 2000/12/12 22:01:58 minakaji Exp $
+Last Modified: $Date: 2000/12/12 22:01:58 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

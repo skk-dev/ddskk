@@ -68,13 +68,7 @@
       map))
   ;;
   (let (extent)
-    ;;(dolist (sym '(skk-xemacs-hiragana-extent
-    ;;               skk-xemacs-katakana-extent
-    ;;               skk-xemacs-jisx0208-latin-extent
-    ;;               skk-xemacs-latin-extent
-    ;;               skk-xemacs-jisx0201-extent))
-    ;; (let ((extent (symbol-value sym)))
-    (dolist (mode '(hiragana katakana jisx0208-latin latin jisx0201))
+    (dolist (mode '(hiragana katakana jisx0208-latin latin jisx0201 abbrev))
       (setq extent (cdr (assq mode skk-xemacs-extent-alist)))
       (set-extent-keymap extent skk-xemacs-modeline-map)
       (set-extent-property extent 'help-echo
@@ -100,113 +94,21 @@
 
 ;;;###autoload
 (defun skk-xemacs-prepare-modeline-properties ()
-  (make-face 'skk-xemacs-hiragana-face)
-  (set-face-parent 'skk-xemacs-hiragana-face 'modeline nil '(default))
-  (when (featurep 'window-system)
-    (set-face-foreground 'skk-xemacs-hiragana-face
-			 skk-cursor-hiragana-color nil
-			 '(default color win))
-    (set-face-font 'skk-xemacs-hiragana-face [bold] nil
-		   '(default mono win))
-    (set-face-font 'skk-xemacs-hiragana-face [bold] nil
-		   '(default grayscale win)))
-  (set-extent-face 
-   ;;skk-xemacs-hiragana-extent 
-   (cdr (assq 'hiragana skk-xemacs-extent-alist))
-   'skk-xemacs-hiragana-face)
-  ;;
-  (make-face 'skk-xemacs-katakana-face)
-  (set-face-parent 'skk-xemacs-katakana-face 'modeline nil '(default))
-  (when (featurep 'window-system)
-    (set-face-foreground 'skk-xemacs-katakana-face
-			 skk-cursor-katakana-color nil
-			 '(default color win))
-    (set-face-font 'skk-xemacs-katakana-face [bold] nil
-		   '(default mono win))
-    (set-face-font 'skk-xemacs-katakana-face [bold] nil
-		   '(default grayscale win)))
-  (set-extent-face 
-   ;;skk-xemacs-katakana-extent
-   (cdr (assq 'katakana skk-xemacs-extent-alist))
-   'skk-xemacs-katakana-face)
-  ;;
-  (make-face 'skk-xemacs-jisx0208-latin-face)
-  (set-face-parent 'skk-xemacs-jisx0208-latin-face 'modeline
-		   nil '(default))
-  (when (featurep 'window-system)
-    (set-face-foreground 'skk-xemacs-jisx0208-latin-face
-			 skk-cursor-jisx0208-latin-color nil
-			 '(default color win))
-    (set-face-font 'skk-xemacs-jisx0208-latin-face [bold] nil
-		   '(default mono win))
-    (set-face-font 'skk-xemacs-jisx0208-latin-face [bold] nil
-		   '(default grayscale win)))
-  (set-extent-face
-   ;;skk-xemacs-jisx0208-latin-extent
-   (cdr (assq 'jisx0208-latin skk-xemacs-extent-alist))
-   'skk-xemacs-jisx0208-latin-face)
-  ;;
-  (make-face 'skk-xemacs-latin-face)
-  (set-face-parent 'skk-xemacs-latin-face 'modeline nil '(default))
-  (when (featurep 'window-system)
-    (set-face-foreground 'skk-xemacs-latin-face
-			 skk-cursor-latin-color nil
-			 '(default color win))
-    (set-face-font 'skk-xemacs-latin-face [bold] nil
-		   '(default mono win))
-    (set-face-font 'skk-xemacs-latin-face [bold] nil
-		   '(default grayscale win)))
-  (set-extent-face 
-   ;; skk-xemacs-latin-extent
-   (cdr (assq 'latin skk-xemacs-extent-alist))
-   'skk-xemacs-latin-face)
-  ;;
-  ;;(defconst skk-xemacs-abbrev-extent (make-extent nil nil))
-  (make-face 'skk-xemacs-abbrev-face)
-  (set-face-parent 'skk-xemacs-abbrev-face 'modeline nil '(default))
-  (when (featurep 'window-system)
-    (set-face-foreground 'skk-xemacs-abbrev-face
-			 skk-cursor-abbrev-color nil
-			 '(default color win))
-    (set-face-font 'skk-xemacs-abbrev-face [bold] nil
-		   '(default mono win))
-    (set-face-font 'skk-xemacs-abbrev-face [bold] nil
-		   '(default grayscale win)))
-  (set-extent-face 
-   ;;skk-xemacs-abbrev-extent
-   (cdr (assq 'abbrev skk-xemacs-extent-alist))
-   'skk-xemacs-abbrev-face)
-  ;;
-  (make-face 'skk-xemacs-jisx0201-face)
-  (set-face-parent 'skk-xemacs-jisx0201-face 'modeline nil '(default))
-  (when (featurep 'window-system)
-    (set-face-foreground 'skk-xemacs-jisx0201-face
-			 skk-cursor-jisx0201-color nil
-			 '(default color win))
-    (set-face-font 'skk-xemacs-jisx0201-face [bold] nil
-		   '(default mono win))
-    (set-face-font 'skk-xemacs-jisx0201-face [bold] nil
-		   '(default grayscale win)))
-  (set-extent-face 
-   ;;skk-xemacs-jisx0201-extent
-   (cdr (assq 'jisx0201 skk-xemacs-extent-alist))
-   'skk-xemacs-jisx0201-face)
-  ;;
-  ;;(setq skk-default-indicator
-  ;;      (cons (make-extent nil nil) "")
-  ;;      skk-latin-mode-indicator
-  ;;      (cons skk-xemacs-latin-extent skk-latin-mode-string)
-  ;;      skk-hiragana-mode-indicator
-  ;;      (cons skk-xemacs-hiragana-extent skk-hiragana-mode-string)
-  ;;      skk-katakana-mode-indicator
-  ;;      (cons skk-xemacs-katakana-extent skk-katakana-mode-string)
-  ;;      skk-jisx0208-latin-mode-indicator
-  ;;      (cons skk-xemacs-jisx0208-latin-extent skk-jisx0208-latin-mode-string)
-  ;;      skk-jisx0201-mode-indicator
-  ;;      (cons skk-xemacs-jisx0201-extent skk-jisx0201-mode-string)
-  ;;      skk-abbrev-mode-indicator
-  ;;      (cons skk-xemacs-abbrev-extent skk-abbrev-mode-string)))
-  )
+  (let (extent face-sym)
+    (dolist (mode '(hiragana katakana jisx0208-latin latin jisx0201 abbrev))
+      (setq extent (cdr (assq 'hiragana skk-xemacs-extent-alist)))
+      (setq face-sym (intern (format "skk-xemacs-%s-face" mode)))
+      (make-face face-sym)
+      (set-face-parent face-sym 'modeline nil '(default))
+      (when (featurep 'window-system)
+	(set-face-foreground
+	 face-sym 
+	 ;;skk-cursor-hiragana-color 
+	 (intern (format "skk-cursor-%s-color" mode)) nil '(default color win))
+	(set-face-font face-sym [bold] nil '(default mono win))
+	(set-face-font face-sym [bold] nil '(default grayscale win)))
+      (set-extent-face extent face-sym))))
+
 ;; Hooks.
 
 ;;; Not necessary, but...
