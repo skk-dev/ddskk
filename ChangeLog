@@ -1,3 +1,7 @@
+2000-10-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi (Perl によるツール): Fix.
+
 2000-10-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi (どのように変換されるか): Use `@samp'.
@@ -11,7 +15,7 @@
 
 	* skk.el (skk-count-jisyo-candidates): Use `default-directory'
 	instead of "~/".
-	Show "candidate" instead of "candidates" if `count' is 0.
+	Show "candidate" instead of "candidates" if `count' is 1.
 
 2000-10-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
