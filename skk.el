@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.160 2001/10/18 13:12:08 czkmt Exp $
+;; Version: $Id: skk.el,v 1.161 2001/10/19 11:35:56 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/18 13:12:08 $
+;; Last Modified: $Date: 2001/10/19 11:35:56 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3697,6 +3697,42 @@ If you want to restore the dictionary from the disc, try
    (t
     str)))
 
+(defun skk-search-katakana ()
+  ;; これは `skk-search-prog-list' に追加されるべき機能で、変換キーを単純にカ
+  ;; タカナに変換したものを候補として返す。
+  ;; 一般的な FEP は単純にカタカナに変換したものが候補に現れるものが多いが、
+  ;; そのような挙動が好みの場合にはこの関数を用いるとよい。
+  (unless skk-henkan-okurigana
+    (let ((key skk-henkan-key) char)
+      (with-temp-buffer
+	(insert key)
+	(goto-char (point-min))
+	(while (and
+		(not (eobp))
+		(or
+		 ;; "ー" では文字種別が判別できないので、ポイントを進める。
+		 (looking-at "ー")
+		 (eq 'unknown (setq char (skk-what-char-type)))))
+	  (forward-char 1))
+	(when (eq char 'hiragana)
+	  (skk-katakana-region (point-min) (point-max) 'vcontract)
+	  (list (buffer-substring-no-properties
+		 (point-min) (point-max))))))))
+
+(defun skk-search-sagyo-henkaku ()
+  (when (member skk-henkan-okurigana
+		'("さ" "し" "す" "せ"))
+    (let ((skk-henkan-key (substring
+			   skk-henkan-key
+			   0 (1- (skk-str-length skk-henkan-key))))
+	  skk-henkan-okurigana
+	  skk-auto-okuri-process
+	  words)
+      (ignore-errors
+	(dolist (form skk-search-prog-list)
+	  (setq words (nconc words (eval form)))))
+      words)))
+
 (defun skk-katakana-region (start end &optional vcontract)
   "リージョンのひらがなをカタカナに変換する。
 オプショナル引数の VCONTRACT が non-nil であれば、\"う゛\" を \"ヴ\" に変換す
@@ -3742,42 +3778,6 @@ If you want to restore the dictionary from the disc, try
      (let ((ascii (skk-jisx0208-to-ascii matched)))
        (or ascii matched)))))
 
-(defun skk-search-katakana ()
-  ;; これは `skk-search-prog-list' に追加されるべき機能で、変換キーを単純にカ
-  ;; タカナに変換したものを候補として返す。
-  ;; 一般的な FEP は単純にカタカナに変換したものが候補に現れるものが多いが、
-  ;; そのような挙動が好みの場合にはこの関数を用いるとよい。
-  (unless skk-henkan-okurigana
-    (let ((key skk-henkan-key) char)
-      (with-temp-buffer
-	(insert key)
-	(goto-char (point-min))
-	(while (and
-		(not (eobp))
-		(or
-		 ;; "ー" では文字種別が判別できないので、ポイントを進める。
-		 (looking-at "ー")
-		 (eq 'unknown (setq char (skk-what-char-type)))))
-	  (forward-char 1))
-	(when (eq char 'hiragana)
-	  (skk-katakana-region (point-min) (point-max) 'vcontract)
-	  (list (buffer-substring-no-properties
-		 (point-min) (point-max))))))))
-
-(defun skk-search-sagyo-henkaku ()
-  (when (member skk-henkan-okurigana
-		'("さ" "し" "す" "せ"))
-    (let ((skk-henkan-key (substring
-			   skk-henkan-key
-			   0 (1- (skk-str-length skk-henkan-key))))
-	  skk-henkan-okurigana
-	  skk-auto-okuri-process
-	  words)
-      (ignore-errors
-	(dolist (form skk-search-prog-list)
-	  (setq words (nconc words (eval form)))))
-      words)))
-
 (defun skk-search-and-replace (start end regexp func)
   (let (matched replace)
     (save-match-data
@@ -3804,13 +3804,7 @@ If you want to restore the dictionary from the disc, try
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-with-point-move
-   (if skk-henkan-on
-       (unless skk-henkan-active
-	 (skk-set-marker skk-henkan-end-point (point))
-	 (skk-*-henkan-1 'skk-katakana-region skk-henkan-start-point
-			 skk-henkan-end-point 'vcontract))
-     (skk-emulate-original-map arg))))
+  (skk-*-henkan-2 'skk-katakana-region 'vcontract))
 
 (defun skk-hiragana-henkan (arg)
   "▽モードであれば、リージョンのカタカナをひらがなに変換する。
@@ -3818,13 +3812,7 @@ If you want to restore the dictionary from the disc, try
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-with-point-move
-   (if skk-henkan-on
-       (unless skk-henkan-active
-	 (skk-set-marker skk-henkan-end-point (point))
-	 (skk-*-henkan-1 'skk-hiragana-region skk-henkan-start-point
-			 skk-henkan-end-point 'vexpand))
-     (skk-emulate-original-map arg))))
+  (skk-*-henkan-2 'skk-hiragana-region 'vexpand))
 
 (defun skk-jisx0208-latin-henkan (arg)
   "▽モードであれば、ascii 文字を対応する全角英文字に変換する。
@@ -3832,13 +3820,7 @@ If you want to restore the dictionary from the disc, try
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-with-point-move
-   (if skk-henkan-on
-       (unless skk-henkan-active
-	 (skk-set-marker skk-henkan-end-point (point))
-	 (skk-*-henkan-1 'skk-jisx0208-latin-region skk-henkan-start-point
-			 skk-henkan-end-point))
-     (skk-emulate-original-map arg))))
+  (skk-*-henkan-2 'skk-jisx0208-latin-region))
 
 (defun skk-latin-henkan (arg)
   "▽モードであれば、ascii 文字を対応する全角文字に変換する。
@@ -3846,13 +3828,7 @@ If you want to restore the dictionary from the disc, try
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-with-point-move
-   (if skk-henkan-on
-       (unless skk-henkan-active
-	 (skk-set-marker skk-henkan-end-point (point))
-	 (skk-*-henkan-1 'skk-latin-region skk-henkan-start-point
-			 skk-henkan-end-point))
-     (skk-emulate-original-map arg))))
+  (skk-*-henkan-2 'skk-latin-region))
 
 (defun skk-*-henkan-1 (func &rest args)
   ;; 変換可能かどうかのチェックをした後に ARGS を引数として FUNC を適用し、
@@ -3870,6 +3846,22 @@ If you want to restore the dictionary from the disc, try
 		    "Henkan key may not contain a new line character")))
   (apply func args)
   (skk-kakutei))
+
+(defun skk-*-henkan-2 (func &optional arg)
+  (skk-with-point-move
+   (cond
+    (skk-henkan-active
+     nil)
+    (skk-henkan-on
+     (skk-set-marker skk-henkan-end-point (point))
+     (apply 'skk-*-henkan-1
+	    func
+	    skk-henkan-start-point
+	    skk-henkan-end-point
+	    (when arg
+	      (list arg))))
+    (t
+     (skk-emulate-original-map arg)))))
 
 (defun skk-hiragana-to-katakana (hiragana)
   (let ((diff (- ?ア ?あ)))
