@@ -217,15 +217,6 @@
 
 (require 'skk-nicola)
 
-(case skk-kanagaki-jidou-keymap-kakikae-service
-  (oasys
-   (skk-kanagaki-call-xmodmap
-       "keycode 19 = 0 underscore\n"
-     (setq skk-kanagaki-rule-list
-	   (nconc skk-kanagaki-rule-list
-		  '(("_" nil "￣")
-		    ("~" nil "＊")))))))
-
 (when skk-nicola-use-koyubi-functions
   (define-key skk-j-mode-map ":" 'skk-kanagaki-bs)
   (define-key skk-j-mode-map "]" 'skk-kanagaki-esc))

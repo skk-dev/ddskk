@@ -39,6 +39,9 @@
 ;;        keycode 211 = underscore underscore
 ;;        % xmodmap ~/.Xmodmap
 ;;
+;;       (注) 上記の例では仮想キーコード 211 となっていますが、環境によって
+;;            異なるので xev など用いて自分で調べてください。
+;;
 ;;       2. ~/.skk にて以下の設定をする。
 ;;
 ;;        (eval-after-load "skk-106-jis"
@@ -161,28 +164,6 @@
 (defvar skk-106-jis-rshift-rule-list skk-106-jis-plain-rule-list)
 
 (require 'skk-nicola)
-
-(case skk-kanagaki-jidou-keymap-kakikae-service
-  ;;
-  (106-jis
-   (skk-kanagaki-call-xmodmap
-       "keycode 211 = underscore underscore\n"
-     (setcar (cdr (assq ?\\ skk-106-jis-plain-rule-list)) "ー")))
-  ;;
-  (106-jis-kodawari
-   (skk-kanagaki-call-xmodmap
-       "keycode 211 = quotedbl underscore
-keycode 19 = 0 exclam
-keycode 21 = asciicircum asciitilde
-keycode 34 = at grave\n"
-     (setq skk-kanagaki-rule-list
-	   (nconc skk-kanagaki-rule-list
-		  '(("~" nil "々")
-		    ("\\" nil "ー")
-		    ("|" nil "¬")
-		    ("!" nil ("ヲ" . "を"))
-		    ("\"" nil ("ロ" . "ろ"))
-		    ("_" nil "｜")))))))
 
 (require 'product)
 (product-provide
