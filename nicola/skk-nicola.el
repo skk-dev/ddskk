@@ -759,6 +759,8 @@
 	  ((memq skk-kanagaki-keyboard-type
 		 '(106-jis))
 	   (skk-kanagaki-set-okurigana-no-sokuon arg))
+	  ((eq (point) (marker-position skk-henkan-start-point))
+	   nil)
 	  (t
 	   (skk-nicola-set-okuri-flag))))
 	((and (not (eq char next))
