@@ -1,3 +1,26 @@
+2004-03-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-version.el (skk-version): Bump to 12.2.1.
+
+	* ccc.el (ccc-defadvice):
+	* skk-macs.el (skk-defadvice):
+
+	Remove irregular format spec passed to `message'.
+
+	* skk-comp.el (skk-comp-do-1):
+	(skk-comp-search-current-buffer):
+	(skk-comp-search-current-buffer):
+	(skk-comp-by-history):
+
+	Add autoload cookie.
+
+	* skk-dcomp.el (skk-dcomp-do-completion): Do not do complete if
+	point is on `skk-henkan-start-point'.
+
+	* skk-macs.el (skk-face-proportional-p): Under Emacs 21, return
+	non-nil if FACE is equal to face `variable-pitch' or inherits the
+	property of `variable-pitch'.
+
 2004-02-29  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/bskk
@@ -4463,8 +4486,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.785 2004/02/29 07:34:51 minakaji Exp $
-Last Modified: $Date: 2004/02/29 07:34:51 $
+Version: $Id: ChangeLog,v 1.786 2004/03/04 11:24:44 czkmt Exp $
+Last Modified: $Date: 2004/03/04 11:24:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
