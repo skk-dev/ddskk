@@ -1,12 +1,12 @@
-;;; skk-jisx0201.el --- SKK 用 JISX 0201 コード文字入力プログラム
+;;; skk-jisx0201.el --- SKK 用 JISX 0201 カナ (と ローマ) 文字入力プログラム
 ;; Copyright (C) 1999, 2000, 2001 Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.19 2001/09/07 20:37:03 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.20 2001/09/07 21:07:46 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/07 20:37:03 $
+;; Last Modified: $Date: 2001/09/07 21:07:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -56,12 +56,7 @@
 ;;
 ;; (setq standard-translation-table-for-decode (make-translation-table nil))
 ;;
-;; を評価してください。 同様に Emacs 20.2 でこのファイルを編集する場合は、この
-;; ファイルを開く前に
-;;
-;; (setq standard-character-unification-table-for-decode (make-unification-table nil))
-;;
-;; を評価してください (Mule 2.3 については分かりません)。
+;; を評価してください。
 
 ;;; Code:
 (eval-when-compile
@@ -221,31 +216,35 @@
 	skk-j-mode nil
 	skk-jisx0208-latin-mode nil
 	skk-katakana nil)
-  (skk-update-modeline 'jisx0201))
+  (skk-update-modeline 'jisx0201)
+  (when skk-use-color-cursor
+    (static-cond
+     ((eq skk-emacs-type 'xemacs)
+      (set-face-property
+       'text-cursor 'background (skk-cursor-current-color)
+       (current-buffer)))
+     (t
+      (set-buffer-local-cursor-color (skk-cursor-current-color))))))
 
 ;; Pieces of advice.
-(defadvice skk-mode (after skk-jisx0201-ad activate)
+(defadvice skk-mode (before skk-jisx0201-ad activate)
   (when skk-jisx0201-mode
-    (kill-local-variable 'skk-rule-tree)
-    (setq skk-jisx0201-mode nil)))
+    (kill-local-variable 'skk-rule-tree)))
 
 (defadvice skk-kakutei (after skk-jisx0201-ad activate)
   (and skk-jisx0201-mode (skk-jisx0201-mode-on skk-jisx0201-roman)))
 
-(defadvice skk-latin-mode (after skk-jisx0201-ad activate)
+(defadvice skk-latin-mode (before skk-jisx0201-ad activate)
   (when skk-jisx0201-mode
-    (kill-local-variable 'skk-rule-tree)
-    (setq skk-jisx0201-mode nil)))
+    (kill-local-variable 'skk-rule-tree)))
 
-(defadvice skk-jisx0208-latin-mode (after skk-jisx0201-ad activate)
+(defadvice skk-jisx0208-latin-mode (before skk-jisx0201-ad activate)
   (when skk-jisx0201-mode
-    (kill-local-variable 'skk-rule-tree)
-    (setq skk-jisx0201-mode nil)))
+    (kill-local-variable 'skk-rule-tree)))
 
-(defadvice skk-abbrev-mode (after skk-jisx0201-ad activate)
+(defadvice skk-abbrev-mode (before skk-jisx0201-ad activate)
   (when skk-jisx0201-mode
-    (kill-local-variable 'skk-rule-tree)
-    (setq skk-jisx0201-mode nil)))
+    (kill-local-variable 'skk-rule-tree)))
 
 (defadvice skk-set-okurigana (around skk-jisx0201-ad activate)
   "半角カナの送り仮名を正しく取得する。"
@@ -419,15 +418,7 @@
       (skk-j-mode-on)
       (kill-local-variable 'skk-rule-tree))
      (t
-      (skk-jisx0201-mode-on))))
-  (when skk-use-color-cursor
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      (set-face-property
-       'text-cursor 'background (skk-cursor-current-color)
-       (current-buffer)))
-     (t
-      (set-buffer-local-cursor-color (skk-cursor-current-color))))))
+      (skk-jisx0201-mode-on)))))
 
 (defun skk-jisx0201-zenkaku-region (start end)
   (static-cond
