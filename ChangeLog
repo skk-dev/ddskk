@@ -13,7 +13,14 @@
 
 	* skk-abbrev.el
 	* skk-kakasi.el:
+	* skk-dcomp.el
 	More specific.
+
+	* skk-dcomp.el
+	(skk-dcomp-delete-completion)
+	(skk-dcomp-do-completion)
+	(skk-dcomp-before-kakutei)
+	(skk-dcomp-after-kakutei): New functions.
 
 2001-10-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2493,8 +2500,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.490 2001/10/19 12:45:54 czkmt Exp $
-Last Modified: $Date: 2001/10/19 12:45:54 $
+Version: $Id: ChangeLog,v 1.491 2001/10/19 13:27:03 czkmt Exp $
+Last Modified: $Date: 2001/10/19 13:27:03 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
