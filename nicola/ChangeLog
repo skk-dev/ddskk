@@ -1,5 +1,8 @@
 2001-09-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-kanagaki.el (skk-toggle-katakana): Make or kill local
+	variable `skk-kanagaki-state'.
+
 	* skk-nicola.el (skk-nicola-self-insert-lshift): Do not do dynamic
 	completion if `this-command' is `skk-nicola-self-insert-rshift'.
 

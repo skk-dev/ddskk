@@ -435,10 +435,11 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 	 (cond
 	  (skk-jisx0201-mode
 	   (when skk-use-kana-keyboard
+	     (make-local-variable 'skk-kanagaki-state)
 	     (setq skk-kanagaki-state 'rom)))
 	  (t
 	   (when skk-use-kana-keyboard
-	     (skk-kanagaki-toggle-rom-kana 'kana)))))))
+	     (kill-local-variable 'skk-kanagaki-state)))))))
   ;;
   (define-key skk-j-mode-map skk-kanagaki-start-henkan-key
     'skk-kanagaki-insert)
@@ -480,7 +481,7 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
     ;; $B$=$b0UL#$N$J$$%*%W%7%g%s$J$N$G6/@)E*$K(B off $B$K$9$k!#(B
     (setq skk-process-okuri-early nil))
   ;;
-  (if (eq  skk-kanagaki-state 'kana)
+  (if (eq skk-kanagaki-state 'kana)
       (let (skk-set-henkan-point-key)
 	ad-do-it)
     ad-do-it))
