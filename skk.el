@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.167 2001/10/23 23:07:06 czkmt Exp $
+;; Version: $Id: skk.el,v 1.168 2001/10/24 23:23:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/23 23:07:06 $
+;; Last Modified: $Date: 2001/10/24 23:23:22 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -2324,9 +2324,12 @@ WORD で確定する。"
       ((and (or
 	     ;; for KAnji, KanJIru
 	     (not (skk-get-prefix skk-current-rule-tree))
-	     (and (not (= skk-henkan-start-point skk-kana-start-point))
-		  (or sokuon	; for TaSSi or TasSi
-		      (skk-kana-cleanup)))) ; for NEko
+	     (if (/= skk-kana-start-point skk-henkan-start-point)
+		 (prog1
+		     t
+		   (unless sokuon ; for TaSSi or TasSi
+		     (skk-kana-cleanup))) ; for NEko
+	       nil))
 	    (not skk-okurigana)
 	    (or (= skk-henkan-start-point (point))
 		(let ((p (char-before)))
@@ -2377,16 +2380,15 @@ WORD で確定する。"
 	 ;; we set skk-kana-start-point here, since the marker may no
 	 ;; longer point at the correct position after skk-henkan.
 	 (skk-set-marker skk-kana-start-point (point)))
-	(t
-	 (unless (= skk-henkan-start-point (point))
-	   (when sokuon
-	     (skk-erase-prefix 'clean)
-	     (insert-and-inherit (if skk-katakana "ッ" "っ")))
-	   (skk-set-marker skk-okurigana-start-point (point))
-	   (insert-and-inherit "*")
-	   (skk-set-marker skk-kana-start-point (point))
-	   (setq skk-okuri-char (char-to-string last-char)
-		 skk-okurigana t))))))
+	((/= skk-henkan-start-point (point))
+	 (when sokuon
+	   (skk-erase-prefix 'clean)
+	   (insert-and-inherit (if skk-katakana "ッ" "っ")))
+	 (skk-set-marker skk-okurigana-start-point (point))
+	 (insert-and-inherit "*")
+	 (skk-set-marker skk-kana-start-point (point))
+	 (setq skk-okuri-char (char-to-string last-char)
+	       skk-okurigana t)))))
     (when normal
       (setq last-command-char last-char)
       (skk-kana-input arg))))
