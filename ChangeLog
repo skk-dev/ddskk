@@ -1,3 +1,14 @@
+2002-03-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-tut.el:
+	(skktut-init-variables-alist):
+	Bind `skk-dcomp-activate' nil.
+
+	* skk.el:
+	(skk-update-jisyo-1):
+	1st arg of `nthcdr' couldn't be a negative integer. So work
+	around it.
+
 2002-03-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* etc/Emacs.ad:
@@ -3763,8 +3774,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.673 2002/03/12 14:07:41 czkmt Exp $
-Last Modified: $Date: 2002/03/12 14:07:41 $
+Version: $Id: ChangeLog,v 1.674 2002/03/16 04:04:15 czkmt Exp $
+Last Modified: $Date: 2002/03/16 04:04:15 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
