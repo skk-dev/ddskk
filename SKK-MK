@@ -3,8 +3,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.102 2001/11/16 02:30:25 czkmt Exp $
-;; Last Modified: $Date: 2001/11/16 02:30:25 $
+;; Version: $Id: SKK-MK,v 1.103 2001/11/16 02:34:20 czkmt Exp $
+;; Last Modified: $Date: 2001/11/16 02:34:20 $
 
 ;; Commentary
 ;;
@@ -474,7 +474,7 @@ This version of SKK requires MULE features"))
 			 (point))))
       (when (search-forward
 	     ";;; skk-setup.el --- Initial setup for SKK")
-	(forward-char 1)
+	(forward-line 1)
 	(insert
 	 ";; This file was generated automatically by SKK-MK at "
 	 (current-time-string)
