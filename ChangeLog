@@ -1,3 +1,8 @@
+2001-11-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el
+	(skk-isearch-switch): Autoload.
+
 2001-11-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
@@ -2642,8 +2647,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.512 2001/11/03 23:03:42 czkmt Exp $
-Last Modified: $Date: 2001/11/03 23:03:42 $
+Version: $Id: ChangeLog,v 1.513 2001/11/04 00:55:40 czkmt Exp $
+Last Modified: $Date: 2001/11/04 00:55:40 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
