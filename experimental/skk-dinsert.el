@@ -4,9 +4,9 @@
 
 ;; Author: Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dinsert.el,v 1.3 2002/01/12 00:35:56 obata Exp $
+;; Version: $Id: skk-dinsert.el,v 1.4 2002/01/13 20:39:55 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/12 00:35:56 $
+;; Last Modified: $Date: 2002/01/13 20:39:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -68,6 +68,10 @@
 ;; 続く一文字目については無効になります。
 
 ;;; Code:
+
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars))
 
 (defvar skk-dinsert-mode t
   "*Non-nil であれば、`skk-dinsert' による動的な入力を有効にする。
