@@ -148,6 +148,7 @@
 
 (eval-when-compile
   (require 'cl)
+  (require 'skk-dcomp)
   (require 'skk-kanagaki-util)
   (require 'skk-macs)
   (require 'skk-vars))
@@ -368,42 +369,12 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]  (XEmacs $B$G$O
       (skk-insert arg)))
    (t
     ;; C-u [SPC] $B$GAw$j$"$jJQ49$r$9$k!#(B
+    (when (featurep 'skk-dcomp)
+      (skk-dcomp-cleanup-buffer))
     (skk-kanagaki-set-okurigana-no-sokuon t))))
 
 ;;;###autoload
-(defun skk-kanagaki-set-okurigana (&optional no-sokuon)
-  "$B%]%$%s%H$ND>A0$NJ8;z$rAw$j2>L>$H8+Jo$7$F!"JQ49$r3+;O$9$k!#(B
-$B$?$@$7!"(B $B$b$&$R$H$DA0$NJ8;z$,B%2;$@$C$?>l9g$K$O!"(B $B$=$l0J9_$rAw$j2>L>$H8+Jo$9!#(B"
-  (interactive)
-  (let ((pt1 (point))
-	pt2 okuri sokuon)
-    (setq okuri
-	  (skk-save-point
-	    ;; $B$&$&!"$3$s$J$3$H$r$7$J$1$l$P$J$i$J$$$N$+(B...
-	    (backward-char 1)
-	    (buffer-substring-no-properties
-	     (setq pt2 (point))
-	     pt1)))
-    (when okuri
-      (unless no-sokuon
-	(setq sokuon
-	      (skk-save-point
-		(backward-char 2)
-		(buffer-substring-no-properties
-		 (point)
-		 pt2)))
-	(unless (member sokuon '("$B$C(B" "$B%C(B"))
-	  (setq sokuon nil)))
-      ;;
-      (skk-save-point
-	(backward-char (if sokuon 2 1))
-	(skk-set-marker skk-okurigana-start-point
-			(point)))
-      (setq skk-okuri-char (skk-okurigana-prefix okuri))
-      (unless skk-current-search-prog-list
-	(setq skk-current-search-prog-list
-	      skk-search-prog-list))
-      (skk-set-okurigana))))
+(defalias 'skk-kanagaki-set-okurigana 'skk-set-char-before-as-okurigana)
 
 ;;;###autoload
 (defun skk-kanagaki-set-okurigana-no-sokuon (&optional arg)
