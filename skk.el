@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.107 2001/09/01 17:10:53 czkmt Exp $
+;; Version: $Id: skk.el,v 1.108 2001/09/02 06:46:07 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/01 17:10:53 $
+;; Last Modified: $Date: 2001/09/02 06:46:07 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -155,29 +155,37 @@
        ["to Hiragana" skk-gyakubiki-message skk-use-kakasi]
        ["to Hiragana, All Candidates"
 	(call-interactively
-	 (function (lambda (start end) (interactive "r")
-		     (skk-gyakubiki-message start end 'all-candidates))))
+	 (function
+	  (lambda (start end)
+	    (interactive "r")
+	    (skk-gyakubiki-message start end 'all-candidates))))
 	skk-use-kakasi]
        ["to Katakana" skk-gyakubiki-katakana-message skk-use-kakasi]
        ["to Katakana, All Candidates"
 	(call-interactively
-	 (function (lambda (start end) (interactive "r")
-		     (skk-gyakubiki-katakana-message
-		      start end 'all-candidates))))
+	 (function
+	  (lambda (start end)
+	    (interactive "r")
+	    (skk-gyakubiki-katakana-message
+	     start end 'all-candidates))))
 	skk-use-kakasi])
       ("Hurigana"
        ["to Hiragana" skk-hurigana-message skk-use-kakasi]
        ["to Hiragana, All Candidates"
 	(call-interactively
-	 (function (lambda (start end) (interactive "r")
-		     (skk-hurigana-message start end 'all-candidates))))
+	 (function
+	  (lambda (start end)
+	    (interactive "r")
+	    (skk-hurigana-message start end 'all-candidates))))
 	skk-use-kakasi]
        ["to Katakana" skk-hurigana-katakana-message skk-use-kakasi]
        ["to Katakana, All Candidates"
 	(call-interactively
-	 (function (lambda (start end) (interactive "r")
-		     (skk-hurigana-katakana-message
-		      start end 'all-candidates))))
+	 (function
+	  (lambda (start end)
+	    (interactive "r")
+	    (skk-hurigana-katakana-message
+	     start end 'all-candidates))))
 	skk-use-kakasi]))
      ("Convert Region and Replace"
       ["Ascii" skk-ascii-region skk-use-kakasi]
@@ -185,29 +193,37 @@
        ["to Hiragana" skk-gyakubiki-region skk-use-kakasi]
        ["to Hiragana, All Candidates"
 	(call-interactively
-	 (function (lambda (start end) (interactive "r")
-		     (skk-gyakubiki-region start end 'all-candidates))))
+	 (function
+	  (lambda (start end)
+	    (interactive "r")
+	    (skk-gyakubiki-region start end 'all-candidates))))
 	skk-use-kakasi]
        ["to Katakana" skk-gyakubiki-katakana-region skk-use-kakasi]
        ["to Katakana, All Candidates"
 	(call-interactively
-	 (function (lambda (start end) (interactive "r")
-		     (skk-gyakubiki-katakana-region
-		      start end 'all-candidates))))
+	 (function
+	  (lambda (start end)
+	    (interactive "r")
+	    (skk-gyakubiki-katakana-region
+	     start end 'all-candidates))))
 	skk-use-kakasi])
       ["Hiragana" skk-hiragana-region skk-use-kakasi]
       ("Hurigana"
        ["to Hiragana" skk-hurigana-region skk-use-kakasi]
        ["to Hiragana, All Candidates"
 	(call-interactively
-	 (function (lambda (start end) (interactive "r")
-		     (skk-hurigana-region start end 'all-candidates))))
+	 (function
+	  (lambda (start end)
+	    (interactive "r")
+	    (skk-hurigana-region start end 'all-candidates))))
 	skk-use-kakasi]
        ["to Katakana" skk-hurigana-katakana-region skk-use-kakasi]
-       ["to Katakana, All Candidates" (function
-				       (lambda (start end) (interactive "r")
-					 (skk-hurigana-katakana-region
-					  start end 'all-candidates)))
+       ["to Katakana, All Candidates"
+	(call-interactively
+	 (function
+	  (lambda (start end) (interactive "r")
+	    (skk-hurigana-katakana-region
+	     start end 'all-candidates))))
 	skk-use-kakasi])
       ["Katakana" skk-katakana-region skk-use-kakasi]
       ["Romaji" skk-romaji-region skk-use-kakasi]
