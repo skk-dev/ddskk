@@ -4,6 +4,9 @@
 
 	Enable Koyubi fnctions.
 
+	* skk-nicola.el (skk-nicola-lshift-function): New variable.
+	(skk-nicola-lshift-function): Refer to it.
+
 2001-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Re-indent.

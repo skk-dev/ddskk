@@ -118,6 +118,12 @@
   :type 'boolean
   :group 'skk-nicola)
 
+(defcustom skk-nicola-lshift-function nil "\
+*Non-nil であれば左親指キーを押したときにこの関数を実行する。"
+  :type 'function
+  :group 'skk-nicola)
+
+
 (defcustom skk-nicola-set-henkan-point-chars
   (cond ((memq skk-kanagaki-keyboard-type
 	       '(nicola-dvorak
@@ -1016,6 +1022,10 @@ keycode 131 = underscore\n"))
 	(skk-nicola-use-lshift-as-space
 	 ;;
 	 (skk-nicola-space-function arg))
+	(skk-nicola-lshift-function
+	 (if (commandp skk-nicola-lshift-function)
+	     (call-interactively skk-nicola-lshift-function)
+	   (funcall skk-nicola-lshift-function arg)))
 	(t
 	 ;; 改行に使う。
 	 (if (skk-in-minibuffer-p)
