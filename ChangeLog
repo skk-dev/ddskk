@@ -1,3 +1,13 @@
+2001-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el: Put dotimes' value of lisp-indent-function.
+
+	* skk-jisyo-edit-mode.el: New file.
+
+	* SKK-MK: Setup Japanese environment on Emacs 20 or lator.
+
+	(SKK_MODULES): Add skk-jisyo-edit-mode.
+
 2001-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile (clean): No, don't delete skk-dic.el.
@@ -1997,8 +2007,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.416 2001/09/16 21:16:48 czkmt Exp $
-Last Modified: $Date: 2001/09/16 21:16:48 $
+Version: $Id: ChangeLog,v 1.417 2001/09/17 14:22:26 czkmt Exp $
+Last Modified: $Date: 2001/09/17 14:22:26 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

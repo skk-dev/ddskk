@@ -463,8 +463,7 @@ keycode 131 = underscore\n"))
   ;;
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)
-		     (marker-position
-		      skk-nicola-okuri-flag)))
+		     (marker-position skk-nicola-okuri-flag)))
 	    (or (not skk-henkan-on)
 		skk-henkan-active))
     (setq skk-nicola-okuri-flag nil))
@@ -581,12 +580,10 @@ keycode 131 = underscore\n"))
 				arg))
      (t
       ;; Some key's pressed.
-      (setq time2 (skk-nicola-format-time
-		   (current-time)))
+      (setq time2 (skk-nicola-format-time (current-time)))
       ;;
       (setq next-event (next-command-event)
-	    next (skk-nicola-event-to-key
-		  next-event))
+	    next (skk-nicola-event-to-key next-event))
       (cond
        ((skk-nicola-maybe-double-p this-command
 				   next)
@@ -624,10 +621,10 @@ keycode 131 = underscore\n"))
 (defun skk-nicola-event-to-key (event)
   (static-cond
    ((eq skk-emacs-type 'xemacs)
-    (let ((char (event-to-character
-		 event)))
-      (cond ((characterp char) char)
-	    (t (event-key event)))))
+    (let ((char (event-to-character event)))
+      (if (characterp char)
+	  char
+	(event-key event))))
    (t
     (if (symbolp event)
 	(vector event)
@@ -680,8 +677,7 @@ keycode 131 = underscore\n"))
 	  str (if (characterp next)
 		  (char-to-string next))
 	  third-event (next-command-event)
-	  third (skk-nicola-event-to-key
-		 third-event))
+	  third (skk-nicola-event-to-key third-event))
     (cond
      ((and
        (skk-nicola-maybe-double-p next
@@ -696,7 +692,8 @@ keycode 131 = underscore\n"))
       (skk-nicola-insert-single this-command
 				arg)
       (skk-nicola-treat-triple
-       (lookup-key skk-j-mode-map (or str next))
+       (lookup-key skk-j-mode-map (or str
+				      next))
        third
        time2
        time3
@@ -728,9 +725,8 @@ keycode 131 = underscore\n"))
 		  ((commandp first)
 		   first)
 		  ((characterp first)
-		   (lookup-key
-		    skk-j-mode-map
-		    (char-to-string first)))
+		   (lookup-key skk-j-mode-map
+			       (char-to-string first)))
 		  (t
 		   (lookup-key skk-j-mode-map
 			       first))))
@@ -814,10 +810,10 @@ keycode 131 = underscore\n"))
 				 skk-nicola-lshift-rule
 				 arg))
 	((and (not (eq char next))
-	  (memq last-command-char
-		skk-nicola-set-henkan-point-chars)
-	  (memq next
-		skk-nicola-set-henkan-point-chars))
+	      (memq last-command-char
+		    skk-nicola-set-henkan-point-chars)
+	      (memq next
+		    skk-nicola-set-henkan-point-chars))
 	 ;; [fj]
 	 (cond
 	  ((and skk-henkan-on
@@ -829,10 +825,10 @@ keycode 131 = underscore\n"))
 	  (t
 	   (skk-set-henkan-point-subr 1))))
 	((and (not (eq char next))
-	  (memq char
-		skk-nicola-prefix-suffix-abbrev-chars)
-	  (memq next
-		skk-nicola-prefix-suffix-abbrev-chars))
+	      (memq char
+		    skk-nicola-prefix-suffix-abbrev-chars)
+	      (memq next
+		    skk-nicola-prefix-suffix-abbrev-chars))
 	 ;; [gh] suffix の 入力
 	 (cond
 	  (skk-henkan-active
@@ -847,19 +843,19 @@ keycode 131 = underscore\n"))
 	   (skk-set-marker skk-henkan-end-point
 			   (point))
 	   (setq skk-henkan-count 0
-		 skk-henkan-key (buffer-substring-no-properties
-				 skk-henkan-start-point
-				 (point))
-		 skk-prefix "")
+		 skk-henkan-key   (buffer-substring-no-properties
+				   skk-henkan-start-point
+				   (point))
+		 skk-prefix       "")
 	   (skk-henkan))
 	  (t
 	   ;;
 	   (skk-abbrev-mode 1))))
 	((and (not (eq char next))
-	  (memq char
-		skk-nicola-toggle-kana-chars)
-	  (memq next
-		skk-nicola-toggle-kana-chars))
+	      (memq char
+		    skk-nicola-toggle-kana-chars)
+	      (memq next
+		    skk-nicola-toggle-kana-chars))
 	 ;; [dk]
 	 (skk-toggle-kana 1))
 	(t
@@ -906,7 +902,8 @@ keycode 131 = underscore\n"))
   (or
    ;; * どちらか一方が親指
    (or (memq command shifts)
-       (memq (lookup-key skk-j-mode-map (or str next))
+       (memq (lookup-key skk-j-mode-map (or str
+					    next))
 	     shifts))
    ;; * skk-nicola に於ける特殊同時打鍵キー
    (and (not (eq char next))
@@ -932,10 +929,14 @@ keycode 131 = underscore\n"))
   ;; ARG を与えられた場合はその数だけ文字列を連結して入力する。
   (let* ((el (cadr (assq char rule)))
 	 (str (when el
-		(cond ((stringp el) el)
-		      ((not (listp el)) nil)
-		      (skk-katakana (car el))
-		      (t (cdr el)))))
+		(cond ((stringp el)
+		       el)
+		      ((not (listp el))
+		       nil)
+		      (skk-katakana
+		       (car el))
+		      (t
+		       (cdr el)))))
 	 (fun (when (and el (symbolp el))
 		el))
 	 (arg (prefix-numeric-value arg)))
@@ -945,9 +946,8 @@ keycode 131 = underscore\n"))
 	  (setq fun str
 		str nil)
 	(skk-insert-str (setq str
-			      (skk-kanagaki-make-string
-			       arg
-			       str)))))
+			      (skk-kanagaki-make-string arg
+							str)))))
     ;;
     (when fun
       (funcall fun arg))
@@ -1034,7 +1034,7 @@ keycode 131 = underscore\n"))
 
 ;; Pieces of Advice.
 
-(defadvice skk-insert (before skk-nicola-ad activate compile)
+(defadvice skk-insert (before skk-nicola-update-flag activate)
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)
 		     (marker-position
@@ -1043,7 +1043,8 @@ keycode 131 = underscore\n"))
 		skk-henkan-active))
     (setq skk-nicola-okuri-flag nil)))
 
-(defadvice skk-kakutei (before skk-nicola-ad activate compile)
+(defadvice skk-kakutei (before skk-nicola-update-flag
+			       activate)
   ;;
   (when (and skk-j-mode
 	     skk-henkan-on
@@ -1058,7 +1059,8 @@ keycode 131 = underscore\n"))
   ;;
   (setq skk-nicola-okuri-flag nil))
 
-(defadvice skk-previous-candidate (before skk-nicola-ad activate compile)
+(defadvice skk-previous-candidate (before skk-nicola-update-flag
+					  activate)
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)
 		     (marker-position
@@ -1067,10 +1069,7 @@ keycode 131 = underscore\n"))
 		skk-henkan-active))
     (setq skk-nicola-okuri-flag nil)))
 
-(defadvice skk-nicola-self-insert-lshift (around
-					  skk-nicola-ad-for-dcomp
-					  activate
-					  compile)
+(defadvice skk-nicola-self-insert-lshift (around skk-nicola-dcomp)
   (cond
    (skk-dcomp-activate
     (if (or skk-henkan-active
@@ -1135,7 +1134,44 @@ keycode 131 = underscore\n"))
    (t
     ad-do-it)))
 
-(defadvice skk-isearch-setup-keymap (before skk-nicola-ad activate compile)
+(defadvice skk-insert (around skk-nicola-workaround activate)
+  ;;
+  (let* ((list (symbol-value
+		(intern (format "skk-%s-plain-rule-list"
+				skk-kanagaki-keyboard-type))))
+	 (cell1 (rassoc '("、") list))
+	 (cell2 (rassoc '("。") list))
+	 marker)
+    (cond
+     ((and (eq skk-kanagaki-state 'kana)
+	   skk-j-mode
+	   (or (eq last-command-char
+		   (car cell1))
+	       (eq last-command-char
+		   (car cell2)))
+	   (or skk-henkan-on
+	       skk-henkan-active))
+      ;; なぜかこける。原因解明中。
+      (cond
+       ((not skk-henkan-active)
+	(setq marker skk-henkan-start-point)
+	(skk-kakutei)
+	ad-do-it
+	(unless (or (string= (skk-char-to-string (char-before))
+			     (cadr cell1))
+		    (string= (skk-char-to-string (char-before))
+			     (cadr cell2)))
+	  (skk-save-point
+	   (goto-char marker)
+	   (skk-set-henkan-point-subr))))
+       (t
+	(skk-kakutei)
+	ad-do-it)))
+     (t
+      ad-do-it))))
+
+(defadvice skk-isearch-setup-keymap (before skk-nicola-workaround
+					    activate)
   ;; 親指キーでサーチが終了してしまわないように。
   (let ((keys (append skk-nicola-lshift-keys
 		      skk-nicola-rshift-keys)))
@@ -1145,7 +1181,8 @@ keycode 131 = underscore\n"))
 	'skk-isearch-wrapper)
       (setq keys (cdr keys)))))
 
-(defadvice isearch-char-to-string (around skk-nicola-ad activate compile)
+(defadvice isearch-char-to-string (around skk-nicola-workaround
+					  activate)
   ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
   (cond ((and skk-use-kana-keyboard
 	      (featurep 'skk-isearch)
@@ -1159,8 +1196,8 @@ keycode 131 = underscore\n"))
 	(t
 	 ad-do-it)))
 
-(defadvice isearch-text-char-description (around skk-nicola-ad activate
-						 compile)
+(defadvice isearch-text-char-description (around skk-nicola-workaround
+						 activate)
   ;; エラーが出ると検索が中断して使い辛いので、黙らせる。
   (cond ((and skk-use-kana-keyboard
 	      (featurep 'skk-isearch)
@@ -1176,7 +1213,8 @@ keycode 131 = underscore\n"))
 
 (static-when (eq skk-emacs-type 'mule2)
   ;;
-  (defadvice isearch-char-to-string (after skk-nicola-ad activate compile)
+  (defadvice isearch-char-to-string (after skk-nicola-workaround
+					   activate)
     ;; この関数が日本語をちゃんと扱えないことに対策。
     (when (integerp (ad-get-arg 0))
       (setq ad-return-value (skk-char-to-string

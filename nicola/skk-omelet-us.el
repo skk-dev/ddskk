@@ -204,41 +204,6 @@ US 101 キーボードで omelet 入力するための基本ルール。")
 
 ;;
 
-(defadvice skk-insert (around skk-omelet-us activate)
-  (let (marker)
-    (cond
-     ((and (eq skk-kanagaki-state 'kana)
-	   skk-j-mode
-	   (or (eq last-command-char
-		   (car
-		    (rassoc '("、") skk-omelet-us-plain-rule-list)))
-	       (eq last-command-char
-		   (car
-		    (rassoc '("。") skk-omelet-us-plain-rule-list))))
-	   (or skk-henkan-on
-	       skk-henkan-active))
-      ;; なぜかこける。原因解明中。
-      (cond
-       ((not skk-henkan-active)
-	(setq marker skk-henkan-start-point)
-	(skk-kakutei)
-	ad-do-it
-	(unless (or
-		 (string=
-		  (skk-char-to-string (char-before))
-		  (car (cdr (rassoc '("、") skk-omelet-us-plain-rule-list))))
-		 (string=
-		  (skk-char-to-string (char-before))
-		  (car (cdr (rassoc '("。") skk-omelet-us-plain-rule-list)))))
-	  (skk-save-point
-	   (goto-char marker)
-	   (skk-set-henkan-point-subr))))
-       (t
-	(skk-kakutei)
-	ad-do-it)))
-     (t
-      ad-do-it))))
-
 (when skk-nicola-use-koyubi-functions
   (define-key skk-j-mode-map "'" 'skk-kanagaki-bs))
 ;  (define-key skk-j-mode-map "]" 'skk-kanagaki-esc))

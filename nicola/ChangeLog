@@ -1,3 +1,11 @@
+2001-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-omelet-us.el (skk-insert): Now advise in skk-nicola.el.
+
+	* skk-kanagaki.el, skk-nicola.el: Rename each one of advice.
+
+	* skk-nicola-us.el: Enable Koyubi fnctions.
+
 2001-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-omelet-us.el (skk-insert): Workaround.
