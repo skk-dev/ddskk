@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.49 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.50 2002/01/15 11:40:57 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/15 11:40:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -118,6 +118,7 @@
     (skk-jisx0208-latin-vector . skk-default-jisx0208-latin-vector)
     (skk-jisyo . "~/skk-tut-jisyo")
     (skk-jisyo-save-count . nil)
+    (skk-update-jisyo-count . 0)
     (skk-kakutei-early . t)
     (skk-kakutei-key . "\C-j")
     (skk-kana-input-search-function
@@ -282,7 +283,7 @@
     (skk-special-midashi-char-list . '(?> ?< ??))
     (skk-start-henkan-key . " ")
     (skk-try-completion-key . "\t")
-    (skk-update-jisyo-function . 'skk-update-jisyo-original)
+    (skk-update-jisyo-function . 'skktut-update-jisyo)
     (skk-use-color-cursor
      . (and window-system
 	    (fboundp 'x-display-color-p)
@@ -692,6 +693,11 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
   (setq skktut-original-window-configuration (current-window-configuration)
 	skktut-skk-mode-on skk-mode
 	skktut-question-count 1))
+
+(defun skktut-update-jisyo (word &optional purge)
+  (let ((skk-share-private-jisyo nil)
+	(skk-update-jisyo-count 0))
+    (skk-update-jisyo-original word purge)))
 
 (defun skktut-setup-jisyo-buffer ()
   ;; setup skktut-tut-jisyo buffer.
