@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.38 2001/09/12 13:32:16 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.39 2001/09/12 13:37:11 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/12 13:32:16 $
+;; Last Modified: $Date: 2001/09/12 13:37:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -716,8 +716,8 @@ BUFFER defaults to the current buffer."
       (setq commands (cdr commands)))
     (member (key-description key)
 	    (mapcar (function
-		     (lambda (key)
-		       (key-description key)))
+		     (lambda (k)
+		       (key-description k)))
 		    keys))))
 
 (require 'product)
