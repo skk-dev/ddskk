@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.54 2002/03/16 04:02:53 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.55 2002/05/27 14:10:54 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/16 04:02:53 $
+;; Last Modified: $Date: 2002/05/27 14:10:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -931,8 +931,8 @@ tutorial /チュートリアル/
 	  (setq pos (point))
 	  (end-of-line)
 	  (skk-save-point
-	   (eval-region pos (point) nil)
-	   (forward-char 1)))
+	   (eval-region pos (point) nil))
+	  (forward-char 1))
 	(unless skktut-tutorial-end
 	  (setq pos (point))
 	  (search-forward "\n>>")
