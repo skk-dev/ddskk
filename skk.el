@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.110 2001/09/05 14:59:45 czkmt Exp $
+;; Version: $Id: skk.el,v 1.111 2001/09/06 21:25:52 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/05 14:59:45 $
+;; Last Modified: $Date: 2001/09/06 21:25:52 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -880,7 +880,9 @@ dependent."
 	nil
       (static-if (not (memq skk-emacs-type '(nemacs mule1)))
 	  (let (skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
-			 skk-jisx0208-latin-mode command)
+			 skk-jisx0208-latin-mode
+			 skk-jisx0201-mode
+			 command)
 	    ;; have to search key binding after binding 4 minor mode flags to nil.
 	    (setq command (key-binding keys))
 	    (if (eq command this-command)
