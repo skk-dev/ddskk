@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.4 1999/08/28 23:42:38 minakaji Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.5 1999/09/16 13:50:45 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/28 23:42:38 $
+;; Last Modified: $Date: 1999/09/16 13:50:45 $
 
 ;; This file is not part of SKK yet.
 
@@ -31,6 +31,7 @@
 ;;; Code:
 (eval-when-compile (require 'skk))
 
+(define-key skk-j-mode-map "\C-l" 'skk-latin-mode)
 (setq skk-auto-insert-paren t)
 (setq skk-try-completion-char ?\016)	; \C-n
 (setq skk-latin-mode-string " sTUT")
@@ -55,7 +56,6 @@
    ("L" nil skk-jisx0208-latin-mode)
    ("Q" nil skk-set-henkan-point-subr)
    ("X" nil skk-purge-from-jisyo)
-   ("\\C-l" nil skk-latin-mode)
    ("\\" nil skk-tutcode-mode-off)
    ("\t" nil skk-toggle-kana)
    ("^" nil skk-input-by-code-or-menu) ))

@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.5 1999/08/29 09:05:18 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.6 1999/09/16 13:52:02 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 09:05:18 $
+;; Last Modified: $Date: 1999/09/16 13:52:02 $
 
 ;; This file is not part of SKK yet.
 
@@ -143,7 +143,7 @@
     ;; エコーした文字列をカレントバッファに挿入しないように。
     t ))
 
-(skk-defun-cond skk-tutcode-display-code-1 ()
+(skk-defun-cond skk-tutcode-display-code-1 (str)
   ((memq skk-emacs-type '(xemacs mule4 mule3))
    (let* ((char (string-to-char str))
 	  (charset (char-charset char)))
