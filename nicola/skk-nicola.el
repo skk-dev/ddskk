@@ -82,9 +82,6 @@
   (list (cond
 	 ((eq system-type 'windows-nt)
 	  [noconvert])
-	 ((memq skk-emacs-type '(mule3))
-	  ;; Don't know what is good..
-	  "\\")
 	 (t
 	  ;; XEmacs, Emacs 19 or later
 	  ;; (except Emacs 20.1 & 20.2)
@@ -106,8 +103,6 @@
 		((string-match "^19\\.2" emacs-version)
 		 ;; Mule 2.3@19.28 or earlier (?)
 		 [key-35])
-		((memq skk-emacs-type '(mule3))
-		 nil)
 		(t
 		 ;; Emacs 20.3 or later
 		 [henkan])))) "\
@@ -222,37 +217,6 @@
 (defvar skk-nicola-temp-data nil)
 
 (skk-deflocalvar skk-nicola-okuri-flag nil)
-
-(static-when (memq skk-emacs-type
-		   '(mule3))
-  (case skk-kanagaki-jidou-keymap-kakikae-service
-    ;;
-    (nicola-jis
-     ;; Emacs 20.2 では Muhenkan, Henkan は使えないようなので、使えるキーに書
-     ;; 換える。
-     (skk-kanagaki-call-xmodmap
-	 (case skk-emacs-type
-	   (mule3
-	    "keycode 129 = F19 Mode_switch
-keycode 131 = F18\n")
-	   (t
-	    "keycode 129 = space Mode_switch
-keycode 131 = underscore\n"))
-       (case skk-emacs-type
-	 (mule3
-	  (setq skk-nicola-lshift-keys (nconc
-					skk-nicola-lshift-keys
-					'([f18]))
-		skk-nicola-rshift-keys (nconc
-					skk-nicola-rshift-keys
-					'([f19]))))
-	 (t
-	  (setq skk-nicola-lshift-keys (nconc
-					skk-nicola-lshift-keys
-					'("_"))
-		skk-nicola-rshift-keys (nconc
-					skk-nicola-rshift-keys
-					'(" ")))))))))
 
 ;; Shut up compiler.
 (defvar skktut-j-mode-map)
@@ -495,11 +459,13 @@ keycode 131 = underscore\n"))
     (let ((last (static-cond
 		 ((eq skk-emacs-type 'xemacs)
 		  (event-key last-command-event))
-		 (t last-command-event)))
+		 (t
+		  last-command-event)))
 	  (next (static-cond
 		 ((eq skk-emacs-type 'xemacs)
 		  (event-key (next-command-event)))
-		 (t (next-command-event))))
+		 (t
+		  (next-command-event))))
 	  char)
       (if (eq last next)
 	  ;; then
@@ -1117,14 +1083,6 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
 	   ad-do-it))
 	(t
 	 ad-do-it)))
-
-(static-when (eq skk-emacs-type 'mule2)
-  ;;
-  (defadvice isearch-char-to-string (after skk-nicola-workaround activate)
-    "この関数が日本語をちゃんと扱えないことに対策。"
-    (when (integerp (ad-get-arg 0))
-      (setq ad-return-value (skk-char-to-string
-			     (ad-get-arg 0))))))
 
 (put 'skk-nicola-insert 'isearch-command t)
 (put 'skk-nicola-self-insert-lshift 'isearch-command t)

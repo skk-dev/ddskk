@@ -150,8 +150,7 @@
   (require 'cl)
   (require 'skk-kanagaki-util)
   (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'static))
+  (require 'skk-vars))
 
 (require 'nicola-ddskk-autoloads)
 
