@@ -1,3 +1,9 @@
+2004-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-delete-char): Workaound for
+	modification in Emacs 21.3.50 which uses a vector, instead of a
+	list, for each element of `isearch-cmds'.
+
 2004-08-19  Masatake YAMATO  <jet@gyve.org>
 
 	* skk-e21.el (skk-tooltip-show-at-point): Don't use ox and oy if
@@ -4652,8 +4658,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.815 2004/09/04 10:01:22 skk-cvs Exp $
-Last Modified: $Date: 2004/09/04 10:01:22 $
+Version: $Id: ChangeLog,v 1.816 2004/09/14 14:50:53 skk-cvs Exp $
+Last Modified: $Date: 2004/09/14 14:50:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
