@@ -4,10 +4,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.49 2003/03/28 03:19:57 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.50 2003/03/29 05:23:07 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2003/03/28 03:19:57 $
+;; Last Modified: $Date: 2003/03/29 05:23:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -376,10 +376,14 @@
    ((eq skk-henkan-mode 'on)
     (skk-jisx0201-henkan arg))
    (skk-jisx0201-mode
+    (when (eq skk-henkan-mode 'active)
+      (skk-kakutei))
     (setq skk-jisx0201-mode nil)
     (skk-j-mode-on)
     (kill-local-variable 'skk-rule-tree))
    (t
+    (when (eq skk-henkan-mode 'active)
+      (skk-kakutei))
     (skk-jisx0201-mode-on))))
 
 (defun skk-jisx0201-zenkaku-region (start end)
