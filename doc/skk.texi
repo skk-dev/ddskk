@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.40 2000/10/09 15:42:20 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.41 2000/10/10 10:37:48 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/09 15:42:20 $
+@c  Last Modified: $Date: 2000/10/10 10:37:48 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/10/09 15:42:20 $
+@set UPDATED $Date: 2000/10/10 10:37:48 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -5918,9 +5918,9 @@ SKK $B<-=q$NCf$N8uJd?t$r?t$($^$9!#(B@samp{[} $B$H(B@samp{]} $B$G0O$^$l$?Aw$
 $B$3$l$O!"<-=q$r7k9g$7$?$j!"(Bpubdic $B<-=q$r(B SKK $B<-=q$N7A<0$KJQ49$7$?$j$9$k$?(B
 $B$a$N%D!<%k72$G$9!#(B
 
-SKK $B<-=q$O8+=P$78l$KBP1~$9$kJ#?t$N4A;z$,(B @samp{/} $B$G6h@Z$i$l$?9=B$$r$7$F(B
-$B$$$^$9$,!"$3$N%D!<%k$G$OFI$_$H4A;z$,(B 1 $BBP(B 1 $B$KBP1~$7$?7A<0(B
-@footnote {$B$3$l$r(B@b{$B!V%j%9%H7A<0!W(B}$B$H8F$S$^$9!#(B}$B$N%U%!%$%k$rCf4V7A<0$H$7(B
+SKK $B<-=q$O8+=P$78l$KBP1~$9$kJ#?t$N8uJd$,(B @samp{/} $B$G6h@Z$i$l$?9=B$$r$7$F(B
+$B$$$^$9$,!"$3$N%D!<%k$G$OFI$_$H8uJd$,(B 1 $BBP(B 1 $B$KBP1~$7$?7A<0(B
+@footnote{$B$3$l$r(B @samp{$B%j%9%H7A<0(B} $B$H8F$S$^$9!#(B}$B$N%U%!%$%k$rCf4V7A<0$H$7(B
 $B$F<h$j07$$$^$9!#(B
 
 Perl $B$K$h$k%D!<%k$K$O0J2<$N%W%m%0%i%`$,$"$j$^$9!#(B
