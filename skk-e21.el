@@ -76,27 +76,19 @@
 
 (defvar skk-e21-modeline-property
   (when window-system
-    (list 'local-map (make-mode-line-mouse-map
-		      'mouse-2 #'skk-e21-modeline-menu)
+    (list 'local-map (let ((map (make-sparse-keymap)))
+		       (define-key map [mode-line mouse-3]
+			 #'skk-e21-modeline-menu)
+		       (define-key map [mode-line mouse-1]
+			 #'skk-mode)
+		       map)
 	  'help-echo
-	  "マウスの button 2 -> Daredevil SKK のメニュ−")))
+	  "mouse-1: Toggle SKK, mouse-3: SKK Menu")))
 
 (defvar skk-e21-property-alist
   (when window-system
     (list
      (cons 'latin skk-e21-modeline-property))))
-
-(setq skk-icon
-      (let* ((dir (file-name-directory skk-tut-file))
-	     (image (find-image
-		     `((:type xpm
-			:file ,(expand-file-name "skk.xpm" dir)
-			:ascent center))))
-	     (string "dummy"))
-	(if (and window-system image)
-	    (apply 'propertize string
-		   (cons 'display (cons image skk-e21-modeline-property)))
-	  nil)))
 
 ;; Functions.
 
@@ -146,6 +138,18 @@
 
 ;;;###autoload
 (defun skk-e21-prepare-modeline-properties ()
+  (setq skk-icon
+	(let* ((dir (file-name-directory skk-tut-file))
+	       (image (find-image
+		       `((:type xpm
+				:file ,(expand-file-name "skk.xpm" dir)
+				:ascent center))))
+	       (string "dummy"))
+	  (if (and skk-show-icon window-system image)
+	      (apply 'propertize string
+		     (cons 'display (cons image skk-e21-modeline-property)))
+	    nil)))
+  ;;
   (unless skk-use-color-cursor
     (setq skk-indicator-use-cursor-color nil))
   ;;
