@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.241 2002/03/22 10:04:05 furue Exp $
+;; Version: $Id: skk.el,v 1.242 2002/03/22 10:21:49 furue Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/22 10:04:05 $
+;; Last Modified: $Date: 2002/03/22 10:21:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2228,6 +2228,8 @@ WORD で確定する。"
   (when skk-undo-kakutei-word-only
     (cond
      ((> (point) skk-henkan-start-point)
+      (if (null skk-henkan-end-point)
+	  (skk-set-marker skk-henkan-end-point (point)))
       (let ((kakutei-word (buffer-substring-no-properties
 			   skk-henkan-start-point skk-henkan-end-point))
 	    (tail (buffer-substring-no-properties
