@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.159 2001/10/16 11:41:39 czkmt Exp $
+;; Version: $Id: skk.el,v 1.160 2001/10/18 13:12:08 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/16 11:41:39 $
+;; Last Modified: $Date: 2001/10/18 13:12:08 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -456,7 +456,8 @@ dependent."
   (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
   (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
   ;; XEmacs doesn't have minibuffer-local-ns-map
-  (when (boundp 'minibuffer-local-ns-map)
+  (when (and (boundp 'minibuffer-local-ns-map)
+	     (keymapp (symbol-value 'minibuffer-local-ns-map)))
     (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
   (static-when (eq skk-emacs-type 'xemacs)
     (easy-menu-add skk-menu))
