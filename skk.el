@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.29 2000/07/07 22:25:15 minakaji Exp $
+;; Version: $Id: skk.el,v 1.30 2000/09/08 09:16:40 akiho Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/07/07 22:25:15 $
+;; Last Modified: $Date: 2000/09/08 09:16:40 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 2000/07/07 22:25:15 $")
+      (let* ((raw-date "$Date: 2000/09/08 09:16:40 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)))
@@ -930,7 +930,7 @@ skk.el のロード後 (もしくは skk-load-hook を利用して)、
   :group 'skk)
 
 (defcustom skk-use-face (or window-system (skk-terminal-face-p))
-  "*Non-nil であれば、Emacs の face の機能を使用して変換表示を行なう。"
+  "*Non-nil であれば、Emacs の face の機能を使用して変換候補をハイライト表示する。"
   :type 'boolean
   :group 'skk)
 
