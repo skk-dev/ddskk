@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.65 2000/11/25 18:08:30 czkmt Exp $
-;; Last Modified: $Date: 2000/11/25 18:08:30 $
+;; Version: $Id: SKK-MK,v 1.66 2000/11/28 16:32:45 czkmt Exp $
+;; Last Modified: $Date: 2000/11/28 16:32:45 $
 
 ;; Commentary
 ;;
@@ -313,19 +313,14 @@
 	(while list
 	  (setq SKK_MODULES (delq (car list) SKK_MODULES))
 	  (setq list (cdr list))))
+      (setq SKK_MODULES
+	    (nconc SKK_MODULES
+		   '(skk-e18 skk-is-n)))
       (condition-case nil
 	  (load "bytecomp-runtime")
 	(error))
       ;;
-      (require 'skk-e18 (expand-file-name
-			 "experimental/skk-e18.el"
-			 default-directory))
-      (condition-case nil
-	  (delete-file "experimental/skk-isearch.el")
-	(error))
-      (copy-file "experimental/skk-is-n.el"
-		 "experimental/skk-isearch.el"
-		 nil 'keep-time)))
+      (require 'skk-e18 (expand-file-name "skk-e18.el" default-directory))))
 
 ;;; [FUNCTIONS]
 (defun SKK-MK-make-setup-file (spec)
@@ -395,17 +390,14 @@
 
 (defun SKK-MK-compile ()
   (let (enable-local-eval)
-    (cond ((= 18 emacs-major-version)
-	   (let ((SKK_MODULES (cons 'experimental/skk-isearch SKK_MODULES)))
-	     (SKK-MK-generate-autoloads-el))
-	   (when (< emacs-minor-version 59)
-	     (with-temp-buffer
-	       (insert-file-contents (expand-file-name "SKK-MK"
-						       default-directory))
-	       (eval-current-buffer)))
-	   (compile-elisp-modules '(skk-e18 skk-isearch) "./experimental"))
-	  (t
-	   (SKK-MK-generate-autoloads-el)))
+    (SKK-MK-generate-autoloads-el)
+    (when (and (= 18 emacs-major-version)
+	       (< emacs-minor-version 59))
+      ;; Emacs 18.55, etc.
+      (with-temp-buffer
+	(insert-file-contents (expand-file-name "SKK-MK"
+						default-directory))
+	(eval-current-buffer)))
     (require 'skk-autoloads
 	     (expand-file-name "skk-autoloads.el" default-directory))
     (require 'skk (expand-file-name "skk.el" default-directory))
@@ -453,8 +445,6 @@
       (and (file-exists-p delete-target) (delete-file delete-target)))
     ;; install Emacs Lisp programs.
     (SKK-MK-compile)
-    (when (= 18 emacs-major-version)
-      (install-elisp-modules '(skk-e18 skk-isearch) "./experimental" SKK_LISPDIR))
     (install-elisp-modules SKK_MODULES "." SKK_LISPDIR)
     (delete-file "./skk-autoloads.el")
     ;; make skk-setup.el.
