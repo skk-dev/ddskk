@@ -160,7 +160,7 @@
 	  (define-key map
 	    [button1]
 	    (eval '(make-modeline-command-wrapper
-		    'skk-mode)))
+		    'skk-xemacs-modeline-menu)))
 	  map)))
     (dolist (mode '(hiragana
 		    katakana
@@ -175,7 +175,7 @@
 	(set-extent-property
 	 extent
 	 'help-echo
-	 "button1 toggles SKK, button3 shows SKK menu"))
+	 "button1 or button3 shows SKK menu"))
       ;;
       (setq face (intern (format "skk-xemacs-%s-face"
 				 mode)))
