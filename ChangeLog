@@ -8,7 +8,7 @@
 	(skk-mode, skk-latin-mode, skk-jisx0208-latin-mode,
 	skk-abbrev-mode): Kill local variable `skk-rule-tree'. Now these
 	are before-advised.
-	(skk-insert): make sure kana prefix be clean.
+	(skk-insert): Make sure kana prefix be clean.
 	(skk-jisx0201-zenkaku-region): New function.
 
 	* skk-macs.el (skk-mode-off, skk-j-mode-on, skk-latin-mode,
@@ -1769,8 +1769,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.362 2001/09/07 21:22:10 czkmt Exp $
-Last Modified: $Date: 2001/09/07 21:22:10 $
+Version: $Id: ChangeLog,v 1.363 2001/09/07 21:34:41 czkmt Exp $
+Last Modified: $Date: 2001/09/07 21:34:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
