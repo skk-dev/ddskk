@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.89 2004/01/26 14:46:14 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.90 2004/01/26 15:13:39 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/01/26 14:46:14 $
+;; Last Modified: $Date: 2004/01/26 15:13:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -669,7 +669,7 @@ BUFFER defaults to the current buffer."
 	      (if (buffer-live-p skk-isearch-current-buffer)
 		  (let ((n (with-current-buffer skk-isearch-current-buffer
 			     skk-henkan-count)))
-		    (if (>= n 0)
+		    (if (> n 0)
 			n
 		      skk-henkan-count))
 		skk-henkan-count))
