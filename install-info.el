@@ -184,7 +184,7 @@ from DIR-FILE; don't insert any new entries."
 	  nil
 	(setq groups (install-info-groups section entry))))
      (t
-      ;; Neither entry or section is given.
+      ;; Neither entry nor section is given.
       (save-excursion
 	(set-buffer buf)
 	(goto-char (point-min))
