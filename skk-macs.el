@@ -1,12 +1,12 @@
 ;;; skk-macs.el --- macros and inline functions commonly used in SKK
 
-;; Copyright (C) 1999, 2000 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999, 2000, 2001, 2002 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.86 2002/04/01 23:21:46 obata Exp $
+;; Version: $Id: skk-macs.el,v 1.87 2002/04/04 22:03:35 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/04/01 23:21:46 $
+;; Last Modified: $Date: 2002/04/04 22:03:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -662,12 +662,13 @@ BUFFER defaults to the current buffer."
 ;;(defsubst skk-substring-head-character (string)
 ;;  (char-to-string (string-to-char string)))
 
-(defsubst skk-get-current-candidate-1 ()
-  (when (> 0 skk-henkan-count)
+(defsubst skk-get-current-candidate-1 (&optional count)
+  (setq count (or count skk-henkan-count))
+  (when (> 0 count)
     (skk-error "候補を取り出すことができません"
 	       "Cannot get current candidate"))
   ;; (nth -1 '(A B C)) は、A を返すので、負でないかどうかチェックする。
-  (nth skk-henkan-count skk-henkan-list))
+  (nth count skk-henkan-list))
 
 ;; convert skk-rom-kana-rule-list to skk-rule-tree.
 ;; The rule tree follows the following syntax:

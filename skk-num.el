@@ -1,14 +1,14 @@
 ;;; skk-num.el --- 数値変換のためのプログラム
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-;;               1998, 1999, 2000, 2001
+;;               1998, 1999, 2000, 2001, 2002
 ;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.35 2002/04/03 10:17:37 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.36 2002/04/04 22:03:35 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/04/03 10:17:37 $
+;; Last Modified: $Date: 2002/04/04 22:03:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -76,13 +76,12 @@
   key)
 
 ;;;###autoload
-(defun skk-num-convert ()
-  "`skk-henkan-list' を変換する。
-`skk-henkan-list' の `skk-henkan-count' が指している候補 (数値変換
-キーの) を変換し、`skk-henkan-list' を
-  (\"#2\" ...) -> ((\"#2\" .\"一\") ...)
-のように変形する。"
-  (let ((key (skk-get-current-candidate-1))
+(defun skk-num-convert (index)
+  "INDEX が指す `skk-henkan-list' の要素を数値変換のために加工する。
+`skk-henkan-list' の INDEX が指している候補 \(数値変換キーの)\ を
+  \"#2\" -> \(\"#2\" .\"一\"\)
+のように変換する。"
+  (let ((key (skk-get-current-candidate-1 index))
 	convlist current)
     (unless (consp key)
       (setq convlist (skk-num-convert-1 key))
@@ -94,7 +93,7 @@
 	(setq current (mapconcat 'identity convlist ""))
 	(if (skk-get-current-candidate-1)
 	    ;; ("A" "#2" "C") -> ("A" ("#2" ."一") "C")
-	    (setcar (nthcdr skk-henkan-count skk-henkan-list)
+	    (setcar (nthcdr index skk-henkan-list)
 		    (cons key current))
 	  (setq skk-henkan-list
 		(nconc skk-henkan-list (list (cons key current))))))
@@ -103,14 +102,13 @@
 	(let ((l (mapcar (function (lambda (e) (cons key e)))
 			 (skk-num-flatten-list convlist))))
 	  (setq current (cdr (car l)))
-	  (if (and (> skk-henkan-count -1)
-		   (nth skk-henkan-count skk-henkan-list))
+	  (if (and (> index -1)
+		   (nth index skk-henkan-list))
 	      (progn
-		(setcar (nthcdr skk-henkan-count skk-henkan-list)
-			(car l))
+		(setcar (nthcdr index skk-henkan-list) (car l))
 		(setq skk-henkan-list (skk-splice-in
 				       skk-henkan-list
-				       (1+ skk-henkan-count)
+				       (1+ index)
 				       (cdr l))))
 	    (setq skk-henkan-list (nconc skk-henkan-list l))
 	    (skk-num-uniq))))))))
@@ -148,14 +146,16 @@
 
 ;;;###autoload
 (defun skk-num-multiple-convert (&optional count)
-  (let ((skk-henkan-count skk-henkan-count)
-	(n (or count (length skk-henkan-list))))
-    (while (and (> n 0) (nth skk-henkan-count skk-henkan-list))
-      (skk-num-convert)
-      ;; skk-henkan-count を操作しなくとも skk-num-convert が
-      ;; 有効になるようにしたい。
-      (setq skk-henkan-count (1+ skk-henkan-count)
-	    n (1- n)))))
+  (let ((index skk-henkan-count))
+    (catch 'break
+      (while (nth index skk-henkan-list)
+	(when (and count (> 0 count))
+	  (throw 'break nil))
+	(skk-num-convert index)
+	(setq index (1+ index))
+	(when count
+	  (setq count (1- count)))))
+    (skk-num-uniq)))
 
 (defun skk-num-rawnum-exp (string)
   (setq string (skk-num-rawnum-exp-1

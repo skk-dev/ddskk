@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.245 2002/04/01 23:21:06 obata Exp $
+;; Version: $Id: skk.el,v 1.246 2002/04/04 22:03:35 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/04/01 23:21:06 $
+;; Last Modified: $Date: 2002/04/04 22:03:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1986,7 +1986,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 				     (list new-one)))
 	(when (skk-numeric-p)
 	  (setq orglen (length skk-henkan-list))
-	  (skk-num-convert)
+	  (skk-num-convert skk-henkan-count)
 	  (setq new-one (cdr (skk-get-current-candidate-1))))
 	(when (or (not orglen)
 		  (= orglen (length skk-henkan-list)))
@@ -2241,11 +2241,11 @@ WORD $B$G3NDj$9$k!#(B"
 		(tail (buffer-substring-no-properties
 		       skk-henkan-end-point (point))))
 	    (delete-region skk-henkan-start-point (point))
-	    
+
 	    (setq buffer-undo-list skk-last-buffer-undo-list)
 	    (setq skk-last-buffer-undo-list t)
 	    (set-buffer-modified-p skk-last-buffer-modified)
-	    
+
 	    (goto-char skk-henkan-start-point)
 	    (skk-insert-str kakutei-word)
 	    (skk-set-marker skk-henkan-end-point (point))
@@ -2253,11 +2253,11 @@ WORD $B$G3NDj$9$k!#(B"
 	(let ((word (buffer-substring-no-properties
 		     skk-henkan-start-point (point))))
 	  (delete-region skk-henkan-start-point (point))
-	  
+
 	  (setq buffer-undo-list skk-last-buffer-undo-list)
 	  (setq skk-last-buffer-undo-list t)
 	  (set-buffer-modified-p skk-last-buffer-modified)
-	  
+
 	  (goto-char skk-henkan-start-point)
 	  (skk-insert-str word))))
      (t
