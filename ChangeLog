@@ -7,6 +7,9 @@
 	(skk-num-get-suuji): it.
 	(skk-num-jisx0208-latin, skk-num-type2-kanji, skk-num-shogi): Use
 	it.
+	(skk-num-int-p): New function.
+	(skk-num-type2-kanji, skk-num-type3-kanji, skk-num-type5-kanji,
+	skk-num-shogi): Use it.
 
 	* skk-tut.el (skktut-init-variables-alist): Add `skk-kakutei-key'
 	to `skk-rom-kana-base-rule-list'.
@@ -1856,8 +1859,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.380 2001/09/12 13:32:39 czkmt Exp $
-Last Modified: $Date: 2001/09/12 13:32:39 $
+Version: $Id: ChangeLog,v 1.381 2001/09/12 14:45:01 czkmt Exp $
+Last Modified: $Date: 2001/09/12 14:45:01 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
