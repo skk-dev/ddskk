@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.100 2002/10/27 15:48:55 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.101 2002/11/09 04:59:35 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2002/10/27 15:48:55 $
+@c  Last Modified: $Date: 2002/11/09 04:59:35 $
 @c
 @set EDITION 1.9
 @set SKK-VERSION 12.1.0
-@set UPDATED $Date: 2002/10/27 15:48:55 $
+@set UPDATED $Date: 2002/11/09 04:59:35 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5109,7 +5109,7 @@ SKK $B$G$O!"8D?M<-=q$H6&M-<-=q$H$$$&$h$&$KJ#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#(B
 $B$9!#(B
 
 @menu
-* $BJ#?t<-=q$N8!:wJ}K!(B::        
+* $BJ#?t<-=q$N8!:wJ}K!(B::          
 * $B<-=q8!:w$N$?$a$N4X?t(B::        
 * $B<-=q%U%!%$%k$r;XDj$9$kJQ?t(B::  
 * $B<-=q8!:w$N@_Dj$N6qBNNc(B::      
@@ -5220,7 +5220,7 @@ SKK $B$G$O!"8D?M<-=q$H6&M-<-=q$H$$$&$h$&$KJ#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#(B
 
 
 
-@node $B<-=q8!:w$N$?$a$N4X?t(B, $B<-=q%U%!%$%k$r;XDj$9$kJQ?t(B, $B<-=q$K4X$9$k@_Dj(B, $B<-=q$K4X$9$k@_Dj(B
+@node $B<-=q8!:w$N$?$a$N4X?t(B, $B<-=q%U%!%$%k$r;XDj$9$kJQ?t(B, $BJ#?t<-=q$N8!:wJ}K!(B, $B<-=q$K4X$9$k@_Dj(B
 @comment  node-name,  next,  previous,  up
 @subsubsection $B<-=q8!:w$N$?$a$N4X?t(B
 
@@ -6766,7 +6766,7 @@ SKK $B<-=q$K4X$9$k%D!<%k$K$O!"(BPerl, C $B$N3F8@8l$K$h$j=q$+$l$?$b$N$,$"$j$^$
 $B$3$N:9J,$r>-Mh$N(B SKK $B<-=q$KH?1G$5$;$kJ}K!$K$D$$$F$O(B
 
 @display
-@xref{$B$*4j$$(B}.
+@xref{SKK$B<-=q$K$D$$$F(B}.
 @end display
 
 @noindent
@@ -7716,7 +7716,7 @@ SKK95 $B$N:n<T$O@UG$$rIi$$$^$;$s!#(B
 @menu
 * $B:G?7>pJs(B::                    
 * $B<U<-(B::                        
-* $B$*4j$$(B::                      
+* SKK$B<-=q$K$D$$$F(B::             
 * SKK$B$N:n<T(B::                   
 * $B$3$N%^%K%e%"%k$K$D$$$F(B::      
 @end menu
@@ -7743,7 +7743,7 @@ SKK Openlab $B$G$O!"3+H/<T!"J8>O$N@0Hw$K$46(NO$$$?$@$1$kJ}!"%F%9%?!<!"$h$m$:(B
 $B<hF@$9$k>l9g!"(BCVS account $B$r<hF@$7$F3+H/$K;22C$5$l$k>l9g$O!"IUB0$N(B
 @samp{READMEs/CVS_digest} $B%U%!%$%k$r;2>H$7$F2<$5$$!#(B
 
-@node $B<U<-(B, $B$*4j$$(B, $B:G?7>pJs(B, $B:G?7>pJs$J$I(B
+@node $B<U<-(B, SKK$B<-=q$K$D$$$F(B, $B:G?7>pJs(B, $B:G?7>pJs$J$I(B
 @comment  node-name,  next,  previous,  up
 @section $B<U<-(B
 
@@ -7763,28 +7763,19 @@ SKK$B<-=qBh(B 2, 3, 4, 5, 6, 7, 8 $BHG:n@.$N$?$a$N%G!<%?$rDs6!$7$F$/$@$5$C$?J
 
 SKK$B<-=qBh(B 6, 7 $BHG:n@.$K$"$?$j6(NO$7$F$/$@$5$C$?9b66M5?.;a$K46<U$7$^$9!#(B
 
-@node $B$*4j$$(B, SKK$B$N:n<T(B, $B<U<-(B, $B:G?7>pJs$J$I(B
+@node SKK$B<-=q$K$D$$$F(B, SKK$B$N:n<T(B, $B<U<-(B, $B:G?7>pJs$J$I(B
 @comment  node-name,  next,  previous,  up
-@section $B$*4j$$(B
+@section SKK$B<-=q$K$D$$$F(B
 
 SKK $B<-=q$OB?$/$N%f!<%6$NJ}!9$+$iDs6!$5$l$?<-=q$K$h$j%3%T!<%U%j!<$N<-=q$H(B
 $B$7$F$O:GBg5,LO$N<-=q$K$J$C$F$$$^$9!#:#8e$b$3$NJ}<0$K$h$j(B SKK $B<-=q$r$h$j(B
 $B=<<B$7$?$b$N$K$7$F$$$-$?$$$H;W$$$^$9!#(B
 
-SKK $B<-=q$N=<<B$K$46(NO$$$?$@$1$kJ}$O!"?o;~0J2<$N%"%I%l%9$^$G8D?M<-=q$H(B
-@file{SKK-JISYO.L} $B$H$N:9J,$r$*Aw$j$/$@$5$$!#$*Aw$j$$$?$@$$$?<-=q$r@0M}(B
-$B$7$F(B @file{SKK-JISYO.L} $B$K4^$a$5$;$F$$$?$@$-$^$9!#:9J,%U%!%$%k$N:n@.J}K!(B
-$B$K$D$$$F$O(B @ref{skkdic-expr} $B$r;2>H$7$F$/$@$5$$!#(B
+SKK $B<-=q$KDI2C$7$?$$C18l!"8mEPO?$H$7$F:o=|$7$?$$C18l$,$"$k$h$&$G$7$?$i!"(B
+@url{http://openlab.ring.gr.jp/skk/registdic.cgi} $B$K$F(B Web/cgi $B$rMxMQ(B
+$B$7$?EPO?!&:o=|4uK>%U%)!<%`$r1?MQ$7$F$*$j$^$9$N$G!"@'Hs$4MxMQ2<$5$$!#(B
 
-$B$^$?(B, @file{SKK-JISYO.L} $B$N8m$j$rH/8+$5$l$?>l9g$K$b!"B?>/$K$+$+$o$i$:!"(B
-$B2<5-$N%"%I%l%9$^$G$*CN$i$;$/$@$5$$!#(B
-
-@example
-@samp{skk-dic@@maid.ne.jp}
-@samp{skk@@ring.gr.jp}
-@end example
-
-@node SKK$B$N:n<T(B, $B$3$N%^%K%e%"%k$K$D$$$F(B, $B$*4j$$(B, $B:G?7>pJs$J$I(B
+@node SKK$B$N:n<T(B, $B$3$N%^%K%e%"%k$K$D$$$F(B, SKK$B<-=q$K$D$$$F(B, $B:G?7>pJs$J$I(B
 @comment  node-name,  next,  previous,  up
 @section SKK$B$N:n<T(B
 
@@ -7797,86 +7788,95 @@ SKK $B$N86:n<T$O!"8=5~ETBg3X$N:4F#2mI'65<x(B @w{<masahiko@@kuis.kyoto-u.ac.jp>
 $BJs$/$@$5$$!#(B
 
 @itemize @asis
-@item $B>.4X(B $B5HB'(B @w{<kose@@wizard.tamra.co.jp>}
-@item $B>.Ln(B $B9'CK(B @w{<takao@@hirata.nuee.nagoya-u.ac.jp>}
-@item $B?JF#M5;V(B @w{<shindo@@super.ees.saitama-u.ac.jp>}
-@item $BCfDE;3(B $B91(B @w{<hisashi@@rst.fujixerox.co.jp>}
-@item $BD@;VM&(B @w{<jshen@@cas.org>}
-@item $BDS?"(B $B@5Bg(B @w{<ma-tsuge@@kdd.co.jp>}
-@item Chikanobu Toyofuku @w{<unbound@@papaya.juice.or.jp>}
-@item Daiki Ueno @w{<ueno@@unixuser.org>}
-@item EGUCHI Satoshi @w{<eguchi@@kyoto-wu.ac.jp>}
-@item Eiji Obata @w{<obata@@suzuki.kuee.kyoto-u.ac.jp>}
-@item FUKANO Masaaki @w{<fukano-m@@alp.cs.uec.ac.jp>}
-@item Fukaya Shigeru @w{<SFUKAYA@@oracle.co.jp>}
-@item FURUE Hideyuki @w{<furue@@kke.co.jp>}
-@item GUNJI Takao @w{<gunji@@lisa.lang.osaka-u.ac.jp>}
-@item Haru Mizuno @w{<mizu@@cs3.cs.oki.co.jp>}
-@item Haru'yasu Ueda @w{<hal@@sics.se>}
-@item Hideki Sakurada @w{<sakurada@@kuis.kyoto-u.ac.jp>}
-@item Hisao Kuroda @w{<kuroda@@msi.co.jp>}
-@item Hitoshi SUZUKI @w{<h-suzuki@@ael.fujitsu.co.jp>}
-@item IIDA Yosiaki @w{<iida@@ring.gr.jp>}
-@item Jun-ichi Nakamura @w{<nakamura@@pluto.ai.kyutech.ac.jp>}
-@item Katuya Tomioka @w{<tomioka@@culle.l.chiba-u.ac.jp>}
-@item Kazuo Hirokawa @w{<hirokawa@@rics.co.jp>}
-@item Kazushi Marukawa @w{<kazushi@@kubota.co.jp>}
-@item Keisuke Nishida @w{<kxn30@@po.cwru.edu>}
-@item Kenji Rikitake @w{<kenji@@reseau.toyonaka.osaka.jp>}
-@item Kenji Yamashita @w{<kenji@@cs.titech.ac.jp>}
-@item Kimura Chikahiro @w{<kimura@@oa1.kb.nec.co.jp>}
-@item Kiyotaka Sakai @w{<ksakai@@netwk.ntt-at.co.jp>}
-@item Koichi MORI @w{<kmori@@onsei2.rilp.m.u-tokyo.ac.jp>}
-@item Koji Uchida @w{<uchida@@cfd.tytlabs.co.jp>}
-@item Makoto MATSUSHITA @w{<matusita@@ics.es.osaka-u.ac.jp>}
-@item Manabu Kawashima @w{<kaw@@lp.nm.fujitsu.co.jp>}
-@item Martin Buchholz @w{<martin@@xemacs.org>}
-@item Masahiko Sato @w{<masahiko@@kuis.kyoto-u.ac.jp>}
-@item Masahiko Suzuki @w{<suzmasa@@sm.sony.co.jp>}
-@item Masahiro Doteguchi @w{<xdote@@rp.open.cs.fujitsu.co.jp>}
-@item Masakazu Takahashi @w{<masaka-t@@ascii.co.jp>}
-@item Masatake YAMATO @w{<masata-y@@is.aist-nara.ac.jp>}
-@item Mikio Nakajima @w{<minakaji@@osaka.email.ne.jp>}
-@item MINOURA Itsushi @w{<minoura@@uni.zool.s.u-tokyo.ac.jp>}
-@item MIYOSHI Tsutomu @w{<minkov@@fuzzy.or.jp>}
-@item Motohiko Mouri @w{<mouri@@jaist.ac.jp>}
-@item Murata Shuuichirou @w{<mrt@@notwork.org>}
-@item NAMBA Seiich @w{<pi9s-nnb@@asahi-net.or.jp>}
-@item Naoki HAMADA @w{<nao@@mimo.jaist-east.ac.jp>}
-@item Naoki Wakamatsu @w{<naoki-w@@ht-net21.ne.jp>}
-@item NEMOTO Takashi @w{<tnemoto@@mvi.biglobe.ne.jp>}
-@item NISHIDA Keisuke @w{<knishida@@nn.iij4u.or.jp>}
-@item Rei FURUKAWA @w{<furukawa@@tcp-ip.or.jp>}
-@item Ryoichi Hashimoto @w{<gnu@@ipri.go.jp>}
-@item Satoshi Harauchi @w{<satoshi@@sys.sdl.melco.co.jp>}
-@item Sekita Daigo @w{<sekita@@mri.co.jp>}
-@item Shuhei KOBAYASHI @w{<shuhei@@aqua.ocn.ne.jp>}
-@item Shuji Ashizawa @w{<ashizawa@@zuken.co.jp>}
-@item Shigeru OKUMURA @w{<shigeru@@okunet.gr.jp>}
-@item SIMOYAMA Takasi @w{<simo@@festa.or.jp>}
-@item SL Baur @w{<steve@@altair.xemacs.org>}
-@item sphere @w{<sphere@@pop12.odn.ne.jp>}
-@item Stephen Turnbull  @w{<turnbull@@sk.tsukuba.ac.jp>}
-@item TAKAHASHI Kaoru @w{<kaoru@@kaisei.org>}
-@item Takao KAWAMURA @w{<kawamura@@ike.tottori-u.ac.jp>}
-@item Takeshi OHTANI @w{<ohtani@@iias.flab.fujitsu.co.jp>}
-@item Thierry Emery @w{<Thierry.Emery@@nmu.alcatel.fr>}
-@item TOKUYA Junichi @w{<tokuya@@crab.fuji-ric.co.jp>}
-@item Tomotaka SUWA @w{<cooper@@saitama.fujimic.fujisankei-g.co.jp>}
-@item Tomoyuki Hiro @w{<hiro@@momo.it.okayama-u.ac.jp>}
-@item Toyonobu Yoshida @w{<toyono-y@@is.aist-nara.ac.jp>}
-@item Tsugutomo Enami @w{<enami@@ptgd.sony.co.jp>}
-@item Tsukamoto Tetsuo  @w{<czkmt@@remus.dti.ne.jp>}
-@item Tsuyoshi AKIHO @w{<akiho@@sky.email.ne.jp>}
-@item TSUMURA Tomoaki @w{<tsumura@@kuis.kyoto-u.ac.jp>}
-@item Wataru Matsui @w{<matsui@@atr-rd.atr.co.jp>}
-@item Wataru Matsui @w{<matsui@@gf.hm.rd.sanyo.co.jp>}
-@item Yoshida Toyonobu @w{<toyono-y@@is.aist-nara.ac.jp>}
-@item Yukihiro Nakai @w{<ynakai@@redhat.com>}
-@item Yoshiki Hayashi @w{<yoshiki@@xemacs.org>}
-@item YOSHIZAWA Masahiro @w{<manbou@@ceres.dti.ne.jp>}
-@item Yukiyoshi Kameyama @w{<kameyama@@kuis.kyoto-u.ac.jp>}
-@item Yuh Ohmura @w{<yutopia@@t3.rim.or.jp>}
+@item $BCfDE;3(B $B91(B @w{hisashi@@rst.fujixerox.co.jp>}
+@item $B>.4X(B $B5HB'(B @w{kose@@wizard.tamra.co.jp>}
+@item $B>.Ln(B $B9'CK(B @w{takao@@hirata.nuee.nagoya-u.ac.jp>}
+@item $B>>0f9'M:(B/MATUI Takao @w{mat@@nuis.ac.jp>}
+@item $B?JF#M5;V(B @w{shindo@@super.ees.saitama-u.ac.jp>}
+@item $BD@;VM&(B @w{jshen@@cas.org>}
+@item $BDS?"(B $B@5Bg(B @w{ma-tsuge@@kdd.co.jp>}
+@item Akihiro Motoki  @w{amotoki@@dd.iij4u.or.jp>}
+@item Chikanobu Toyofuku @w{unbound@@papaya.juice.or.jp>}
+@item Daiki Ueno @w{ueno@@unixuser.org>}
+@item EGUCHI Satoshi @w{eguchi@@kyoto-wu.ac.jp>}
+@item Eiji Obata @w{obata@@suzuki.kuee.kyoto-u.ac.jp>}
+@item FUKANO Masaaki @w{fukano-m@@alp.cs.uec.ac.jp>}
+@item Fukaya Shigeru @w{SFUKAYA@@oracle.co.jp>}
+@item FURUE Hideyuki @w{furue@@kke.co.jp>}
+@item GUNJI Takao @w{gunji@@sils.shoin.ac.jp>}
+@item Haru Mizuno @w{mizu@@cs3.cs.oki.co.jp>}
+@item Haru'yasu Ueda @w{hal@@sics.se>}
+@item Hideki Sakurada @w{sakurada@@kuis.kyoto-u.ac.jp>}
+@item Hiroya Murata @w{lapis-lazuli@@pop06.odn.ne.jp>}
+@item Hisao Kuroda @w{kuroda@@msi.co.jp>}
+@item IIDA Yosiaki @w{iida@@ring.gr.jp>}
+@item ISHIKAWA Naoya @w{ml@@be.to>}
+@item Jun-ichi Nakamura @w{nakamura@@pluto.ai.kyutech.ac.jp>}
+@item Katuya Tomioka @w{tomioka@@culle.l.chiba-u.ac.jp>}
+@item Kazuo Hirokawa @w{hirokawa@@rics.co.jp>}
+@item Kazushi Marukawa @w{kazushi@@kubota.co.jp>}
+@item Keisuke Nishida @w{kxn30@@po.cwru.edu>}
+@item Kenichi OKADA @w{okada@@opaopa.org>}
+@item Kenji Rikitake @w{kenji@@reseau.toyonaka.osaka.jp>}
+@item Kenji Yamashita @w{kenji@@cs.titech.ac.jp>}
+@item KIHARA Hideto @w{deton@@m1.interq.or.jp>}
+@item Kimura Chikahiro @w{kimura@@oa1.kb.nec.co.jp>}
+@item Koichi MORI @w{kmori@@onsei2.rilp.m.u-tokyo.ac.jp>}
+@item Koji Uchida @w{uchida@@cfd.tytlabs.co.jp>}
+@item Makoto MATSUSHITA @w{matusita@@ics.es.osaka-u.ac.jp>}
+@item Manabu Kawashima @w{kaw@@lp.nm.fujitsu.co.jp>}
+@item Martin Buchholz @w{martin@@xemacs.org>}
+@item Masahiko Suzuki @w{suzmasa@@sm.sony.co.jp>}
+@item Masahiro Doteguchi @w{xdote@@rp.open.cs.fujitsu.co.jp>}
+@item Masakazu Takahashi @w{masaka-t@@ascii.co.jp>}
+@item Masatake YAMATO @w{masata-y@@is.aist-nara.ac.jp>}
+@item NAKAJIMA Mikio @w{minakaji@@osaka.email.ne.jp>}
+@item MINOURA Itsushi @w{minoura@@uni.zool.s.u-tokyo.ac.jp>}
+@item MIYOSHI Tsutomu @w{minkov@@fuzzy.or.jp>}
+@item Motohiko Mouri @w{mouri@@jaist.ac.jp>}
+@item Murata Shuuichirou @w{mrt@@notwork.org>}
+@item Naoki HAMADA @w{nao@@mimo.jaist-east.ac.jp>}
+@item Naoki Wakamatsu @w{naoki-w@@ht-net21.ne.jp>}
+@item NEMOTO Takashi @w{tnemoto@@mvi.biglobe.ne.jp>}
+@item NISHIDA Keisuke @w{knishida@@nn.iij4u.or.jp>}
+@item Norio Maeda  @w{nmaeda@@dd.iij4u.or.jp>}
+@item ONODA Arata  @w{onoto@@ma.nma.ne.jp>}
+@item Rei FURUKAWA @w{furukawa@@tcp-ip.or.jp>}
+@item Ryoichi Hashimoto @w{gnu@@ipri.go.jp>}
+@item SAKAI Kiyotaka @w{ksakai@@kso.netwk.ntt-at.co.jp>}
+@item Satoshi Harauchi @w{satoshi@@sys.sdl.melco.co.jp>}
+@item Seiichi NAMBA @w{sn@@asahi-net.email.ne.jp>}
+@item Sekita Daigo @w{sekita@@mri.co.jp>}
+@item Shigeru OKUMURA @w{shigeru@@okunet.gr.jp>}
+@item Shuhei KOBAYASHI @w{shuhei@@aqua.ocn.ne.jp>}
+@item Shuji Ashizawa @w{ashizawa@@zuken.co.jp>}
+@item SIMOYAMA Takasi @w{simo@@festa.or.jp>}
+@item SL Baur @w{steve@@altair.xemacs.org>}
+@item sphere @w{sphere@@pop12.odn.ne.jp>}
+@item Stephen Turnbull @w{turnbull@@sk.tsukuba.ac.jp>}
+@item SUZUKI Hitoshi @w{sigh@@kuzirabekon.econ.nagasaki-u.ac.jp>}
+@item TAKAHASHI Kaoru @w{kaoru@@kaisei.org>}
+@item Takao KAWAMURA @w{kawamura@@ike.tottori-u.ac.jp>}
+@item Takeshi OHTANI @w{ohtani@@iias.flab.fujitsu.co.jp>}
+@item Thierry Emery @w{Thierry.Emery@@nmu.alcatel.fr>}
+@item TOKUYA Junichi @w{tokuya@@crab.fuji-ric.co.jp>}
+@item Tomotaka SUWA @w{cooper@@saitama.fujimic.fujisankei-g.co.jp>}
+@item Tomoyuki Hiro @w{hiro@@momo.it.okayama-u.ac.jp>}
+@item Toru YANO @w{toru@@maid.ne.jp>}
+@item Toyonobu Yoshida @w{toyono-y@@is.aist-nara.ac.jp>}
+@item Tsugutomo Enami @w{enami@@ptgd.sony.co.jp>}
+@item Tsukamoto Tetsuo @w{czkmt@@remus.dti.ne.jp>}
+@item TSUMURA Tomoaki @w{tsumura@@kuis.kyoto-u.ac.jp>}
+@item Tsuyoshi AKIHO @w{akiho@@sky.email.ne.jp>}
+@item Wataru Matsui @w{matsui@@atr-rd.atr.co.jp>}
+@item Wataru Matsui @w{matsui@@gf.hm.rd.sanyo.co.jp>}
+@item YAMASHITA Junji @w{ysjj@@unixuser.org>}
+@item Yoshida Toyonobu @w{toyono-y@@is.aist-nara.ac.jp>}
+@item Yukihiro Nakai @w{ynakai@@redhat.com>}
+@item Yoshiki Hayashi @w{yoshiki@@xemacs.org>}
+@item YOSHIZAWA Masahiro @w{manbou@@ceres.dti.ne.jp>}
+@item Yuh Ohmura @w{yutopia@@t3.rim.or.jp>}
+@item Yukiyoshi Kameyama @w{kameyama@@kuis.kyoto-u.ac.jp>}
 @end itemize
 
 @node $B$3$N%^%K%e%"%k$K$D$$$F(B,  , SKK$B$N:n<T(B, $B:G?7>pJs$J$I(B
