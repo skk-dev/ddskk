@@ -44,9 +44,18 @@
 (defvar ptexinfmt-disable-broken-notice t
   "If non-nil disable notice, when call `broken-facility'.")
 
+;; sort -fd
+(broken-facility texinfo-format-printindex
+  "Can't sort on Windows."
+  (if (and (memq system-type '(windows-nt ms-dos))
+	   (string< texinfmt-version "2.37 of 24 May 1997"))
+      nil
+    t)
+  ptexinfmt-disable-broken-notice)
+ 
 ;; @var
 (broken-facility texinfo-format-var
-  "Don't perse @COMMAND included @var"
+  "Don't perse @var argument."
   (condition-case nil
       (with-temp-buffer
 	(let (texinfo-enclosure-list texinfo-alias-list)
@@ -59,7 +68,7 @@
 
 ;; @xref
 (broken-facility texinfo-format-xref
-  "Can't format 1st argument empty @xref."
+  "Can't format @xref, 1st argument is empty."
   (condition-case nil
       (with-temp-buffer
 	(let (texinfo-enclosure-list texinfo-alias-list)
@@ -72,7 +81,7 @@
 
 ;; @uref
 (broken-facility texinfo-format-uref
-  "Parse 2 times @uref argument."
+  "Parse twice @uref argument."
   (condition-case nil
       (with-temp-buffer
 	(let (texinfo-enclosure-list texinfo-alias-list)
@@ -82,6 +91,25 @@
 	  t))
     (error nil))
   ptexinfmt-disable-broken-notice)
+
+;; @multitable
+(broken-facility texinfo-multitable-widths
+  "texinfo-multitable-widths unsupport wide-char."
+  (with-temp-buffer
+    (let ((str "幅広文字"))
+      (texinfo-mode)
+      (insert (format " {%s}\n" str))
+      (goto-char (point-min))
+      (if (= (car (texinfo-multitable-widths)) (length str))
+	  nil
+	t)))
+  ptexinfmt-disable-broken-notice)
+
+(broken-facility texinfo-multitable-item
+  "texinfo-multitable-item unsupport wide-char."
+  (if-broken texinfo-multitable-widths nil t)
+  ptexinfmt-disable-broken-notice)
+
 
 ;;; Obsolete
 ;; Removed Texinfo 3.8
@@ -505,6 +533,9 @@ otherwise, insert URL-TITLE followed by URL in parentheses."
   (texinfo-discard-command)
   (texinfo-pop-stack 'multitable))
 
+(when-broken texinfo-multitable-widths
+  (fmakunbound 'texinfo-multitable-widths))
+
 (defun-maybe texinfo-multitable-widths ()
   "Return list of widths of each column in a multi-column table."
   (let (texinfo-multitable-width-list)
@@ -592,6 +623,9 @@ Cells within rows are separated by @tab."
                      (buffer-substring start (point)))))
     (delete-region texinfo-command-start end)
     row))
+
+(when-broken texinfo-multitable-item
+  (fmakunbound 'texinfo-multitable-item))
 
 (put 'multitable 'texinfo-item 'texinfo-multitable-item)
 (defun-maybe texinfo-multitable-item ()
@@ -698,5 +732,23 @@ This command is executed when texinfmt sees @item inside @multitable."
         (setq column-number (1+ column-number))))
     (kill-buffer texinfo-multitable-buffer-name)
     (setq fill-column existing-fill-column)))
+
+
+(when-broken texinfo-format-printindex
+  (fmakunbound 'texinfo-format-printindex))
+
+(defun-maybe texinfo-format-printindex ()
+  (let ((indexelts (symbol-value
+                    (cdr (assoc (texinfo-parse-arg-discard)
+                                texinfo-indexvar-alist))))
+        opoint)
+    (insert "\n* Menu:\n\n")
+    (setq opoint (point))
+    (texinfo-print-index nil indexelts)
+
+    (if (memq system-type '(vax-vms windows-nt ms-dos))
+        (texinfo-sort-region opoint (point))
+      (shell-command-on-region opoint (point) "sort -fd" 1))))
+
 
 ;;; ptexinfmt.el ends here
