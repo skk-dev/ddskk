@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.129 2003/07/21 03:20:01 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.130 2003/07/21 12:41:13 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/21 03:20:01 $
+@c  Last Modified: $Date: 2003/07/21 12:41:13 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/21 03:20:01 $
+@set UPDATED $Date: 2003/07/21 12:41:13 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1997,7 +1997,7 @@ SKK $B$K$O!"%+%?%+%J$NF~NO$K$O%+%J%b!<%I$r!"A43Q%"%k%U%!%Y%C%H$NF~NO$K$OA4(B
 $B$J(B/$B%+%?%+%J:.$8$jJ8$r=q$/$H$-$K!"$=$NETEY(B @kbd{q} $B%-!<$r2!$7$FF~NO%b!<(B
 $B%I$r@Z$j49$($kI,MW$,$"$j$^$;$s!#(B
 @footnote{$BA41QJ8;z$H%"%9%-!<J8;z$N%H%0%k$G$NJQ49$r9T$&$3$H$b$G$-$^$9!#(B
-$B$?$@$7!"A41Q%b!<%I$d%"%9%-!<%b!<%I$G$O(B @lbd{Q} $B$d$=$NB>$NBgJ8;z$K$h$j"&(B
+$B$?$@$7!"A41Q%b!<%I$d%"%9%-!<%b!<%I$G$O(B @kbd{Q} $B$d$=$NB>$NBgJ8;z$K$h$j"&(B
 $B%b!<%I$KF~$k$3$H$,$G$-$J$$$N$G!"$+$J(B $B"N(B $B%+%J(B $B$N$H$-$HF1MM$K%I%0%kJQ49$G(B
 $B$-$k$o$1$G$O$"$j$^$;$s!#$+$J%b!<%I(B/$B%+%J%b!<%I$K$*$$$F!"4{$KF~NO$5(B
 $B$l$?A41QJ8;z!"%"%9%-!<J8;z$KBP$7$F%H%0%kJQ49$r$9$k$h$&$J@_7W$K$J$C$F$$$^(B
@@ -7577,6 +7577,7 @@ Canna $B$d(B Wnn $B$N%5!<%P$H@\B3$7$F8!:w$,2DG=$K$J$k$h$&$K$9$k(B
 
 @item
 $BIt<sJQ49%W%m%0%i%`$H<-=q$r:n$k$3$H!#(B
+@end itemize
 
 @node SKK$B%a!<%j%s%0%j%9%H(B, SKK$B$NF~<jJ}K!(B, $B3HD%%"%$%G%#%"(B, Top
 @comment  node-name,  next,  previous,  up
@@ -8778,7 +8779,48 @@ SKK 9.6 $B$O(B Emacs 20 $B$,%j%j!<%9$5$l$k0JA0$N%P!<%8%g%s$G!"(BEmacs 20 $B
 @comment  node-name,  next,  previous,  up
 @unnumberedsubsec Q.3-2 @samp{.} $B$G!V!%!W!"(B@samp{,} $B$G!V!$!W(B $B$,F~NO$G$-$k$h$&$K%+%9%?%^%$%:$7$?$$$N$G$9$,!#(B
 
-@file{~/.skk} $B$K(B
+3$BDL$j$NJ}K!$r>R2p$7$^$9!#(B
+
+@enumerate
+@item
+$BDL>o(B @samp{.} $B$G!V!%!W!"(B@samp{,} $B$G!V!$!W$rF~NO$7$?$$>l9g(B
+
+@file{~/.skk}$B$K0J2<$r@_Dj$7$^$9!#(B
+
+@lisp
+@group
+(setq skk-kutouten-type 'en)
+@end group
+@end lisp
+
+@item
+$B0l;~E*$K(B @samp{.} $B$G!V!%!W!"(B@samp{,} $B$G!V!$!W$rF~NO$7$?$$>l9g(B
+
+@kbd{M-x skk-toggle-kutouten} $B$r<B9T$9$k$H!"$=$N>l$G!V!$!W!V!%!W$K@Z$jBX$($k(B
+$B$3$H$,$G$-$^$9!#!V!"!W!V!#!W$KLa$9$K$O!"$b$&0lEY(B
+@kbd{M-x skk-toggle-kutouten} $B$r<B9T$r<B9T$7$^$9!#(B
+$BFCDj$N%P%C%U%!$G$N$_!V!$!W!V!%!W$K@Z$jBX$($?$$>l9g$O!"(B File Variables
+@footnote{
+@xref{File Variables, , File Variables, emacs, GNU Emacs Manual}}
+$B$r;2>H2<$5$$!#(B
+$BNc$($P!"(B tex $B%b!<%I$G$N$_!V!$!W!V!%!W$K@Z$jBX$($?$$>l9g$O!"$D$.$N@_Dj$r(B
+tex$B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B
+
+@example
+% Local Variables:
+% skk-kutouten-type: en
+% end:
+@end example
+
+@item
+$B>o$K(B @samp{.} $B$G!V!%!W!"(B@samp{,} $B$G!V!$!W$rF~NO$7$?$$>l9g(B
+
+@code{skk-rom-kana-rule-list}$B$rD>@\JQ99$7$^$9!#(B
+$B$J$*!"$3$N@_Dj$r$9$k$H!"(B@kbd{M-x skk-toggle-kutouten} $B$G$N@Z$jBX$($,(B
+$B8z$+$J$/$J$k$N$G!"Cm0U$7$F2<$5$$!#(B
+
+
+@file{~/.skk} $B$K0J2<$rDI2C$7$^$9!#(B
 
 @lisp
 @group
@@ -8788,8 +8830,11 @@ SKK 9.6 $B$O(B Emacs 20 $B$,%j%j!<%9$5$l$k0JA0$N%P!<%8%g%s$G!"(BEmacs 20 $B
 @end group
 @end lisp
 
-@noindent
-$B$H=q$-$^$7$g$&!#"#%b!<%I(B ($B3NDjF~NO%b!<%I(B) $B$G$NF0:n$,JQ$o$C$?$O$:$G$9!#(B
+$B$3$N@_DjJ}K!$O1~MQ$,8z$-!":Y$+$/@)8f$9$k$3$H$,2DG=$G$9!#(B
+@samp{$B!%(B} $B$H(B @samp{$B!$(B} $B$N$H$3$m$r$=$l$>$l!"(B@samp{.} $B$H(B @samp{,} $B$H$9$k$3$H$G!"(B
+$B!V$+$J%b!<%I!W!V%+%J%b!<%I!W$G$b!"(B@samp{.} $B$H(B@samp{,} $B$rD>@\F~NO$9$k$3$H$,(B
+$B$G$-$^$9!#(B
+@end enumerate
 
 @node Q.3-3 $B!V$p!W$d!V%p!W(B $B$,F~NO$G$-$k$h$&$K%+%9%?%^%$%:$7$?$$$N$G$9$,!#(B, Q.3-4 skk-input-vector $B$H(B skk-roma-kana-a $B$,8+Ev$?$j$^$;$s$,!#(B, Q.3-2 $B!V!%!W!"!V!$!W(B $B$,F~NO$G$-$k$h$&$K%+%9%?%^%$%:$7$?$$$N$G$9$,!#(B, Customization
 @comment  node-name,  next,  previous,  up
