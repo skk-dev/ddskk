@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.9 1999/09/20 10:05:37 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.10 1999/09/23 13:36:06 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/20 10:05:37 $
+;; Last Modified: $Date: 1999/09/23 13:36:06 $
 
 ;; This file is not part of SKK yet.
 
@@ -129,6 +129,68 @@
 ;; save-match-data of subr.el of GNU Emacs. And should we use the same manner
 ;; in the save-current-buffer, with-temp-buffer and with-temp-file macro
 ;; definition?
+(defmacro skk-defun-cond (name args &optional doc &rest everything-else)
+  (or (stringp doc)
+      (setq everything-else (cons doc everything-else)
+	    doc nil))
+  (` (prog1
+	 (cond
+	  (,@ (mapcar
+	       (function
+		(lambda (case)
+		  (list (car case)
+			(if doc
+			    (` (defun (, name) (, args)
+				 (, doc)
+				 (,@ (cdr case))))
+			  (` (defun (, name) (, args)
+			       (,@ (cdr case))))))))
+	       everything-else)))
+       (setq current-load-list
+	     (cons (quote (, name)) current-load-list))
+       )))
+
+(defmacro skk-defsubst-cond (name args &optional doc &rest everything-else)
+  (or (stringp doc)
+      (setq everything-else (cons doc everything-else)
+	    doc nil))
+  (` (prog1
+	 (cond
+	  (,@ (mapcar
+	       (function
+		(lambda (case)
+		  (list (car case)
+			(if doc
+			    (` (defsubst (, name) (, args)
+				 (, doc)
+				 (,@ (cdr case))))
+			  (` (defsubst (, name) (, args)
+			       (,@ (cdr case))))))))
+	       everything-else)))
+       (setq current-load-list
+	     (cons (quote (, name)) current-load-list))
+       )))
+
+(defmacro skk-defmacro-cond (name args &optional doc &rest everything-else)
+  (or (stringp doc)
+      (setq everything-else (cons doc everything-else)
+	    doc nil))
+  (` (prog1
+	 (cond
+	  (,@ (mapcar
+	       (function
+		(lambda (case)
+		  (list (car case)
+			(if doc
+			    (` (defmacro (, name) (, args)
+				 (, doc)
+				 (,@ (cdr case))))
+			  (` (defmacro (, name) (, args)
+			       (,@ (cdr case))))))))
+	       everything-else)))
+       (setq current-load-list
+	     (cons (quote (, name)) current-load-list)))))
+
 (defmacro skk-save-point (&rest body)
   (` (let ((skk-save-point (point-marker)))
        (unwind-protect
@@ -190,72 +252,29 @@
 	 (progn (,@ form))
        (setq skk-previous-point (point)) )))
 
-(defmacro skk-defun-cond (name args &optional doc &rest everything-else)
-  (or (stringp doc)
-      (setq everything-else (cons doc everything-else)
-	    doc nil))
-  (` (prog1
-	 (cond
-	  (,@ (mapcar
-	       (function
-		(lambda (case)
-		  (list (car case)
-			(if doc
-			    (` (defun (, name) (, args)
-				 (, doc)
-				 (,@ (cdr case))))
-			  (` (defun (, name) (, args)
-			       (,@ (cdr case))))))))
-	       everything-else)))
-       (setq current-load-list
-	     (cons (quote (, name)) current-load-list))
-       )))
+(skk-defmacro-cond skk-face-on (object start end face &optional priority)
+  ((eq skk-emacs-type 'xemacs)
+   (` (let ((inhibit-quit t))
+	(if (not (extentp (, object)))
+	    (progn
+	      (setq (, object) (make-extent (, start) (, end)))
+	      (if (not (, priority))
+		  (set-extent-face (, object) (, face))
+		(set-extent-properties
+		 (, object) (list 'face (, face) 'priority (, priority)) )))
+	  (set-extent-endpoints (, object) (, start) (, end))  ))))
+  (t
+   (` (let ((inhibit-quit t))
+	(if (not (overlayp (, object)))
+	    (progn
+	      (setq (, object) (make-overlay (, start) (, end)))
+	      (and (, priority) (overlay-put (, object) 'priority (, priority)))
+	      (overlay-put (, object) 'face (, face)) )
+	  (move-overlay (, object) (, start) (, end)) )))))
 
-(defmacro skk-defsubst-cond (name args &optional doc &rest everything-else)
-  (or (stringp doc)
-      (setq everything-else (cons doc everything-else)
-	    doc nil))
-  (` (prog1
-	 (cond
-	  (,@ (mapcar
-	       (function
-		(lambda (case)
-		  (list (car case)
-			(if doc
-			    (` (defsubst (, name) (, args)
-				 (, doc)
-				 (,@ (cdr case))))
-			  (` (defsubst (, name) (, args)
-			       (,@ (cdr case))))))))
-	       everything-else)))
-       (setq current-load-list
-	     (cons (quote (, name)) current-load-list))
-       )))
-
-;;(defmacro skk-defmacro-cond (name args &optional doc &rest everything-else)
-;;  (or (stringp doc)
-;;      (setq everything-else (cons doc everything-else)
-;;	    doc nil))
-;;  (` (prog1
-;;	 (cond
-;;	  (,@ (mapcar
-;;	       (function
-;;		(lambda (case)
-;;		  (list (car case)
-;;			(if doc
-;;			    (` (defmacro (, name) (, args)
-;;				 (, doc)
-;;				 (,@ (cdr case))))
-;;			  (` (defmacro (, name) (, args)
-;;			       (,@ (cdr case))))))))
-;;	       everything-else)))
-;;       (setq current-load-list
-;;	     (cons (quote (, name)) current-load-list)))))
-;;
 ;;;;) ;eval-when-compile
-;;
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
-;;(put 'skk-defmacro-cond 'lisp-indent-function 'defun)
+(put 'skk-defmacro-cond 'lisp-indent-function 'defun)
 (put 'skk-defsubst-cond 'lisp-indent-function 'defun)
 (put 'skk-defun-cond  'lisp-indent-function 'defun)
 

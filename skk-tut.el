@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.6 1999/09/16 21:26:36 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.7 1999/09/23 13:34:15 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/16 21:26:36 $
+;; Last Modified: $Date: 1999/09/23 13:34:15 $
 
 ;; This file is part of SKK.
 
@@ -68,64 +68,52 @@ The English version is SKK.tut.E."
   :type 'boolean
   :group 'skk-tut )
 
-(defcustom skk-tut-section-face
-  (and skk-tut-use-face
-       (cond ((and (eq skk-background-mode 'mono) (skk-terminal-face-p))
-              'bold-italic )
-             ((eq skk-background-mode 'light)
-              (skk-make-face 'yellow/dodgerblue) )
-             (t (skk-make-face 'yellow/slateblue)) ))
+(defface skk-tut-section-face
+  '((((class color) (background light))
+     (:foreground "yellow" :background "dodgerblue"))
+    (((class color) (background dark))
+     (:foreground "yellow" :background "slateblue"))
+    (((class grayscale)) (:bold t) (:italic t)) )
   "*チュートリアル中のセクションの表示部分の face。" 
-  :type 'face
-  :group 'skk-tut )
+  :group 'skk-faces )
 
-(defcustom skk-tut-do-it-face
-  (and skk-tut-use-face
-       (cond ((and (eq skk-background-mode 'mono) (skk-terminal-face-p))
-              'bold )
-             ((eq skk-background-mode 'light)
-              (skk-make-face 'DarkGoldenrod) )
-             (t (skk-make-face 'LightGoldenrod)) ))
+(defface skk-tut-do-it-face
+  '((((class color) (background light)) (:foreground "DarkGoldenrod"))
+    (((class color) (background dark)) (:foreground "LightGoldenrod"))
+    (((class grayscale)) (:bold t)) )
   "*チュートリアル中の指示項目の表示部分の face。"
-  :type 'face
-  :group 'skk-tut )
+  :group 'skk-faces )
 
-(defcustom skk-tut-question-face
-  (and skk-tut-use-face
-       (cond ((and (eq skk-background-mode 'mono) (skk-terminal-face-p))
-              'underline )
-             ((eq skk-background-mode 'light)
-              (skk-make-face 'Blue) )
-             (t (skk-make-face 'LightSkyBlue)) ))
+(defface skk-tut-question-face
+  '((((class color) (background light)) (:foreground "Blue"))
+    (((class color) (background dark)) (:foreground "LightSkyBlue"))
+    (((class grayscale)) (:underline t)) )
   "*チュートリアル中の問題の表示部分の face。"
-  :type 'face
-  :group 'skk-tut )
+  :group 'skk-faces )
 
-(defcustom skk-tut-key-bind-face
-  (and skk-tut-use-face
-       (cond ((and (eq skk-background-mode 'mono) (skk-terminal-face-p))
-              'bold )
-             ((eq skk-background-mode 'light)
-              (skk-make-face 'Firebrick) )
-             (t (skk-make-face 'OrangeRed)) ))
+(defface skk-tut-key-bind-face
+  '((((class color) (background light)) (:foreground "Firebrick"))
+    (((class color) (background dark)) (:foreground "OrangeRed"))
+    (((class grayscale)) (:bold t)) )
   "*チュートリアル中のキーバインドの表示部分の face。"
-  :type 'face
-  :group 'skk-tut )
+  :group 'skk-faces )
 
-(defcustom skk-tut-hint-face
-  (and skk-tut-use-face
-       (cond ((and (eq skk-background-mode 'mono) (skk-terminal-face-p))
-              'italic )
-             ((eq skk-background-mode 'light)
-              (skk-make-face 'CadetBlue) )
-             (t (skk-make-face 'Aquamarine)) ))
+(defface skk-tut-hint-face
+  '((((class color) (background light)) (:foreground "CadetBlue"))
+    (((class color) (background dark)) (:foreground "Aquamarine"))
+    (((class grayscale)) (:italic t)) )
   "*チュートリアル中のヒントの表示部分の face。
 現在のところ、SKK.tut.E でしか使用されていない。"
-  :type 'face
-  :group 'skk-tut )
+  :group 'skk-faces )
 
 ;; internal variables and constants.
 ;; prefix should be `skktut-'.
+(defvar skk-tut-section-face 'skk-tut-section-face)
+(defvar skk-tut-do-it-face 'skk-tut-do-it-face)
+(defvar skk-tut-question-face 'skk-tut-question-face)
+(defvar skk-tut-key-bind-face 'skk-tut-key-bind-face)
+(defvar skk-tut-hint-face 'skk-tut-hint-face)
+
 (defconst skktut-adviced-alist
   '((skk-abbrev-mode . before) (skk-insert . before)
     (skk-kakutei . before) (skk-mode . before)
