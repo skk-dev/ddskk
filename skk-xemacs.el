@@ -47,22 +47,14 @@
     ["Hiragana"
      (lambda ()
        (interactive)
-       (skk-j-mode-on)
-       (when skk-use-color-cursor
-	 (set-face-property 'text-cursor 'background
-			    (skk-cursor-current-color)
-			    (current-buffer))))
+       (skk-j-mode-on))
      :selected (and skk-j-mode (not skk-katakana))
      :style radio
      :keys nil]
     ["Katakana"
      (lambda ()
        (interactive)
-       (skk-j-mode-on t)
-       (when skk-use-color-cursor
-	 (set-face-property 'text-cursor 'background
-			    (skk-cursor-current-color)
-			    (current-buffer))))
+       (skk-j-mode-on t))
      :selected (and skk-j-mode skk-katakana)
      :style radio
      :keys nil]
