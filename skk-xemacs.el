@@ -52,7 +52,6 @@
 	 (set-face-property 'text-cursor 'background
 			    (skk-cursor-current-color)
 			    (current-buffer))))
-     :active (not (and skk-j-mode (not skk-katakana)))
      :selected (and skk-j-mode (not skk-katakana))
      :style radio]
     ["Katakana"
@@ -63,20 +62,19 @@
 	 (set-face-property 'text-cursor 'background
 			    (skk-cursor-current-color)
 			    (current-buffer))))
-     :active (not (and skk-j-mode skk-katakana))
      :selected (and skk-j-mode skk-katakana)
      :style radio
-     :keys "q"]
+     :keys nil]
     ["Hankaku alphabet"
      skk-latin-mode
-     :active (not skk-latin-mode)
      :selected skk-latin-mode
-     :style radio]
+     :style radio
+     :keys nil]
     ["Zenkaku alphabet"
      skk-jisx0208-latin-mode
-     :active (not skk-jisx0208-latin-mode)
      :selected skk-jisx0208-latin-mode
-     :style radio]
+     :style radio
+     :keys nil]
     "--"
     ["Read Manual" skk-xemacs-info t]
     ["Start Tutorial" skk-tutorial t]
@@ -89,17 +87,17 @@
 
 (defun skk-xemacs-modeline-menu ()
   (interactive)
+  ;; Find keys
   (aset (nth 2 skk-xemacs-modeline-menu-items)
-	9
-	(or (do ((spec (nth 4 skk-rule-tree) (cdr spec))
-		 (list nil (car spec))
-		 (str nil (when (eq (nth 3 list)
-				    'skk-toggle-kana)
-			    (nth 1 list))))
-		((or str (null spec))
-		 (when (stringp str)
-		   str)))
-		""))
+	7
+	(skk-xemacs-find-func-keys 'skk-toggle-kana))
+  (aset (nth 3 skk-xemacs-modeline-menu-items)
+	7
+	(skk-xemacs-find-func-keys 'skk-latin-mode))
+  (aset (nth 4 skk-xemacs-modeline-menu-items)
+	7
+	(skk-xemacs-find-func-keys 'skk-jisx0208-latin-mode))
+  ;;
   (popup-menu skk-xemacs-modeline-menu-items))
 
 (defun skk-xemacs-info ()
@@ -141,6 +139,18 @@
 	(set-face-font face-sym [bold] nil '(default mono win))
 	(set-face-font face-sym [bold] nil '(default grayscale win)))
       (set-extent-face extent face-sym))))
+
+(defun skk-xemacs-find-func-keys (func)
+  (or (do ((spec (nth 4 skk-rule-tree) (cdr spec))
+	   (list nil (car spec))
+	   (str nil (when (eq (nth 3 list)
+			      func)
+		      (nth 1 list))))
+	  ((or str (null spec))
+	   (when (stringp str)
+	     str)))
+      (where-is-internal func skk-j-mode-map)
+      ""))
 
 ;; Hooks.
 
