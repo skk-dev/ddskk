@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.14 1999/10/03 05:59:40 minakaji Exp $
+;; Version: $Id: skk.el,v 1.15 1999/10/03 12:57:59 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:59:40 $
+;; Last Modified: $Date: 1999/10/03 12:57:59 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/10/03 05:59:40 $")
+      (let* ((raw-date "$Date: 1999/10/03 12:57:59 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -234,6 +234,13 @@ skk-search-prog-list $B$NCM$r@_Dj$9$k$3$H$K$h$j!"8!:wBP>]$N<-=q$NJQ99!"8!:w$N=g
 $BJQ49$7$?8uJd$rJV$9(B S $B<0$r%j%9%H$N7A$KI=5-$7$?$b$N!#(B
 skk-search $B4X?t$,(B skk-search-prog-list $B$N(B car $B$+$i8eJ}8~$X=gHV$K(B S $B<0$NI>2A$r(B
 $B9T$$JQ49$r9T$J$&!#(B" 
+  :type '(repeat
+	  (list (function :tag "Search funcition")
+		(choice :tag "Dictionary" file (const nil))
+		(choice :tag "Minimum region size to be binary-searched"
+			integer (const nil) )
+		(choice :tag "Quietly reading dictionary to Emacs buffer"
+			(const t) (const nil) )))
   :group 'skk )
 
 (defcustom skk-jisyo (convert-standard-filename "~/.skk-jisyo")
@@ -1913,6 +1920,14 @@ dependent."
           (skk-setup-init-file)
           (load skk-init-file t)
 	  (require 'skk-autoloads)
+	  (if (or (memq skk-emacs-type '(mule3 mule4))
+		  (and (eq skk-emacs-type 'xemacs)
+		       (or 
+			;; XEmacs 21 or later.
+			(> emacs-major-version 20)
+			;; XEmacs 20.4 or later.
+			(> emacs-minor-version 2) )))
+	      (require 'skk-leim) )
 	  (if skk-use-numeric-conversion (require 'skk-num))
           (if skk-keep-record
 	      (skk-create-file skk-record-file
@@ -3759,8 +3774,6 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 						skk-henkan-end-point )
 		      skk-henkan-end-point ))
 	       (word (skk-get-current-candidate-simply (skk-numeric-p))) )
-	   ;;(if skk-use-numeric-conversion
-	   ;;    (skk-num-update-jisyo purge-word 'purge) )
 	   (skk-update-jisyo word 'purge)
 	   ;; Emacs 19.28 $B$@$H(B Overlay $B$r>C$7$F$*$+$J$$$H!"<!$K(B insert $B$5$l$k(B
 	   ;; skk-henkan-key $B$K2?8N$+(B Overlay $B$,$+$+$C$F$7$^$&!#(B
