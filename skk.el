@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.103 2001/08/25 14:35:57 czkmt Exp $
+;; Version: $Id: skk.el,v 1.104 2001/08/26 08:20:55 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/25 14:35:57 $
+;; Last Modified: $Date: 2001/08/26 08:20:55 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1687,17 +1687,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	     (condition-case nil
 		 (let* ((event (next-command-event))
 			(char (event-to-character event))
-			(key (static-cond
-			      ((eq skk-emacs-type 'xemacs)
-			       (let ((tmp (event-key event)))
-				 (if (symbolp tmp)
-				     (vector tmp)
-				   event)))
-			      (t
-			       (if char
-				   (vector char)
-				 (let ((keys (recent-keys)))
-				   (vector (aref keys (1- (length keys)))))))))
+			(key (skk-event-key event))
 			num)
 		   (if (eq skk-emacs-type 'xemacs)
 		       (message ""))	; clear out candidates in echo area
@@ -1715,15 +1705,10 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				  skk-kakutei-flag t
 				  loop nil))
 			   ((or (eq char ?\040) ; SPC
-				(member
-				 (key-description key)
-				 (mapcar
-				  (function
-				   (lambda (key)
-				     (key-description key)))
-				  (where-is-internal
-				   'skk-nicola-self-insert-rshift
-				   skk-j-mode-map))))
+				(skk-key-binding-member
+				 key
+				 '(skk-nicola-self-insert-rshift)
+				 skk-j-mode-map))
 			    (if (or skk-current-search-prog-list
 				    (nthcdr 7 henkan-list))
 				(setq loop (1+ loop))
@@ -1739,19 +1724,12 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				(setq skk-henkan-count (+ last-showed-index n)
 				      loop nil))))
 			   ((or (eq char skk-previous-candidate-char) ; ?x
-				(member
-				 (key-description key)
-				 (mapcar
-				  (function
-				   (lambda (key)
-				     (key-description key)))
-				  (append
-				   (where-is-internal 'skk-previous-candidate
-						      skk-j-mode-map)
-				   (where-is-internal 'skk-delete-backward-char
-						      skk-j-mode-map)
-				   (where-is-internal 'skk-undo
-						      skk-j-mode-map)))))
+				(skk-key-binding-member
+				 key
+				 '(skk-previous-candidate
+				   skk-delete-backward-char
+				   skk-undo)
+				 skk-j-mode-map))
 			    (if (= loop 0)
 				;; skk-henkan-show-candidates を呼ぶ前の状態に戻
 				;; す。
@@ -1768,19 +1746,12 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				  (throw 'unread nil))
 			      ;; 一つ前の候補群をエコーエリアに表示する。
 			      (setq reverse t)))
-			   ((member
-			     (key-description key)
-			     (mapcar
-			      (function
-			       (lambda (key)
-				 (key-description key)))
-			      (append
-			       (where-is-internal 'keyboard-quit
-						  skk-j-mode-map)
-			       (where-is-internal 'skk-kanagaki-bs
-						  skk-j-mode-map)
-			       (where-is-internal 'skk-kanagaki-esc
-						  skk-j-mode-map))))
+			   ((skk-key-binding-member
+			     key
+			     '(keyboard-quit
+			       skk-kanagaki-bs
+			       skk-kanagaki-esc)
+			     skk-j-mode-map)
 			    (signal 'quit nil))
 			   (t
 			    (skk-message "`%s' は無効なキーです！"
