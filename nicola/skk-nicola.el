@@ -1068,20 +1068,6 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
 	(t
 	 ad-do-it)))
 
-(defadvice isearch-text-char-description (around skk-nicola-workaround
-						 activate)
-  "エラーが出ると検索が中断して使い辛いので、黙らせる。"
-  (cond ((and skk-use-kana-keyboard
-	      (featurep 'skk-isearch)
-	      (with-current-buffer
-		  (get-buffer-create
-		   skk-isearch-working-buffer)
-		skk-mode))
-	 (ignore-errors
-	   ad-do-it))
-	(t
-	 ad-do-it)))
-
 (put 'skk-nicola-insert 'isearch-command t)
 (put 'skk-nicola-self-insert-lshift 'isearch-command t)
 (put 'skk-nicola-self-insert-rshift 'isearch-command t)
