@@ -204,8 +204,11 @@
 ;;
 
 (when skk-nicola-use-koyubi-functions
-  (define-key skk-j-mode-map ":" 'skk-kanagaki-bs)
-  (define-key skk-j-mode-map "]" 'skk-kanagaki-esc))
+  (add-hook 'skk-mode-hook
+	    (function
+	     (lambda ()
+	       (define-key skk-j-mode-map ":" 'skk-kanagaki-bs)
+	       (define-key skk-j-mode-map "]" 'skk-kanagaki-esc)))))
 
 ;;
 
