@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.22 2001/09/12 14:44:48 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.23 2001/10/08 03:49:03 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/12 14:44:48 $
+;; Last Modified: $Date: 2001/10/08 03:49:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -61,6 +61,9 @@
 	  (setq key (concat (substring key 0 (match-beginning 0))
 			    (skk-jisx0208-to-ascii zen-num)
 			    (substring key (match-end 0))))))
+      ;; 重複を避ける。
+      (when (string-match numexp key)
+	(setq skk-num-list nil))
       ;; ascii 数字を "#" に置き換え、その数字を skk-num-list の中に保存。
       (while (string-match numexp key)
 	(setq skk-num-list (nconc skk-num-list (list (match-string 0 key)))
