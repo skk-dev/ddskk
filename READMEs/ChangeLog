@@ -3,3 +3,17 @@
 	* ChangeLog:
 	New file.
 
+	* AUTHORS.ja:
+	* CODENAME.ja:
+	* CVS_digest.ja:
+	* CVS_on_Windows.ja:
+	* FAQ.ja:
+	* NEWS.ja:
+	* PROPOSAL.ja:
+	* README.Mac.ja:
+	* README.w32.ja:
+	* TODO.ja:
+	Rename files according to the languages.
+
+	* README.VIP:
+	No longer in the repository.
