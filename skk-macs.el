@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.84 2002/03/02 12:32:05 ueno Exp $
+;; Version: $Id: skk-macs.el,v 1.85 2002/03/02 19:27:21 ueno Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/02 12:32:05 $
+;; Last Modified: $Date: 2002/03/02 19:27:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -364,19 +364,13 @@ ENGLISH をエコーエリアに表示し、エラーを発生させる。 ARG は `error' 
   "文字列 STRING を SKK インジケータ型オブジェクトに変換する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
-    (if (and skk-xemacs-icon-glyph
-	     (not (eq mode 'default)))
-	(list (cdr (assq mode skk-xemacs-extent-alist))
-	      "" skk-xemacs-icon-glyph string)
-      string))
+    (cons (cdr (assq mode skk-xemacs-extent-alist))
+	  string))
    ((memq skk-emacs-type '(mule5))
     (if (and window-system
 	     (not (eq mode 'default)))
-	(progn
-	  (setq string (concat "x" string))
-	  (put-text-property 0 1 'display skk-e21-icon-image string)
-	  (apply 'propertize string
-		 (cdr (assq mode skk-e21-property-alist))))
+	(apply 'propertize string
+	       (cdr (assq mode skk-e21-property-alist)))
       string))
    (t
     string)))

@@ -86,12 +86,17 @@
     (list
      (cons 'latin skk-e21-modeline-property))))
 
-(defvar skk-e21-icon-image
-  (find-image (list (list :type 'xpm
-			  :file (expand-file-name
-				 "skk.xpm"
-				 (file-name-directory skk-tut-file))
-			  :ascent 'center))))
+(setq skk-icon
+      (let* ((dir (file-name-directory skk-tut-file))
+	     (image (find-image
+		     `((:type xpm
+			:file ,(expand-file-name "skk.xpm" dir)
+			:ascent center))))
+	     (string "dummy"))
+	(if (and window-system image)
+	    (apply 'propertize string
+		   (cons 'display (cons image skk-e21-modeline-property)))
+	  nil)))
 
 ;; Functions.
 
@@ -162,7 +167,7 @@
 					   mode))))))
 	(push (cons mode (append skk-e21-modeline-property
 				 (list 'face face)))
-	      skk-e21-property-alist)))))
+	       skk-e21-property-alist)))))
 
 (defun skk-e21-find-func-keys (func)
   (let ((keys
