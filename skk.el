@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.124 2001/09/14 14:26:05 czkmt Exp $
+;; Version: $Id: skk.el,v 1.125 2001/09/14 15:54:56 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/14 14:26:05 $
+;; Last Modified: $Date: 2001/09/14 15:54:56 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -488,13 +488,11 @@ dependent."
   (load skk-init-file t)
   (skk-setup-modeline)
   (require 'skk-autoloads)
-  (static-if (or (memq skk-emacs-type '(mule3 mule4 mule5))
-		 (and (eq skk-emacs-type 'xemacs)
-		      (or
-		       ;; XEmacs 21 or later.
-		       (> emacs-major-version 20)
-		       ;; XEmacs 20.4 or later.
-		       (> emacs-minor-version 2))))
+  (static-if (memq skk-emacs-type
+		   '(mule3
+		     mule4
+		     mule5
+		     xemacs))
       (require 'skk-leim))
   (if skk-share-private-jisyo (skk-setup-shared-private-jisyo))
   (if skk-keep-record
