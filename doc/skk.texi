@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.118 2003/07/19 10:06:07 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.119 2003/07/19 10:08:26 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/19 10:06:07 $
+@c  Last Modified: $Date: 2003/07/19 10:08:26 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/19 10:06:07 $
+@set UPDATED $Date: 2003/07/19 10:08:26 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1629,7 +1629,7 @@ SKK $B8D?M<-=q$KIU$1$?%"%N%F!<%7%g%s(B ($BCp<a(B) $B$r3hMQ$9$k%W%m%0%i%`$r=
 @cindex @file{skk-autoloads.el}
 
 $B%*!<%H%m!<%I$N@_Dj$r5-=R$7$?%U%!%$%k!#(BXEmacs $B$G(B SKK $B$r%Q%C%1!<%8$H$7$F%$(B
-$B%s%9%H!<%k$7$?>l9g$O(B auto-autoloads.el $B$H$$$&%U%!%$%k$,$3$l$KAjEv$9$k!#(B
+$B%s%9%H!<%k$7$?>l9g$O(B @file{auto-autoloads.el} $B$H$$$&%U%!%$%k$,$3$l$KAjEv$9$k!#(B
 
 @item skk-comp.el
 @cindex @file{skk-comp.el}
