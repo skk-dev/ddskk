@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.15 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.16 2001/09/05 21:31:07 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/09/05 21:31:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -246,7 +246,8 @@ kakutei'ed and erase the buffer contents."
   (let ((mode (skk-current-input-mode)))
     (and skk-isearch-use-previous-mode
 	 (setq skk-isearch-mode
-	       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
+	       (with-current-buffer (get-buffer-create
+				     skk-isearch-working-buffer)
 		 (skk-isearch-current-numerical-mode))))
     ;; reset the overrinding-local-map.
     (set skk-isearch-overriding-local-map nil)
@@ -469,7 +470,7 @@ If the current mode is different from previous, remove it first."
 	  (prompt (skk-isearch-mode-string)))
       (unless (or (null cmd)
 		  (string-match (concat "^" (regexp-quote prompt)) (cadr cmd)))
-	;; `skk-isearch-delete-char' が呼ばれる前に `skk-isearch-working-buffer'
+	;; `skk-isearch-delete-char'が呼ばれる前に `skk-isearch-working-buffer'
 	;; 内のモードが切り替えられていた場合、 isearch-cmds  の第 2 要素につい
 	;; て、 messege の内容を update しないと [DEL] したときのモードの表示が
 	;; おかしくなる。
@@ -571,7 +572,7 @@ If the current mode is different from previous, remove it first."
 ;; Pieces of advice.
 ;;
 
-(defadvice isearch-repeat (after skk-isearch-ad activate preactivate)
+(defadvice isearch-repeat (after skk-isearch-ad activate compile)
   "`isearch-message' を適切に設定する。"
   (when skk-isearch-switch
     (unless (string-match (concat "^" (regexp-quote (skk-isearch-mode-string)))
@@ -582,9 +583,26 @@ If the current mode is different from previous, remove it first."
 	     (mapconcat 'isearch-text-char-description isearch-string "")))
       (setq isearch-cmds (cdr isearch-cmds))
       (isearch-push-state)
-      (isearch-update))))
+      (isearch-update))
+    ;;
+    (when isearch-regexp
+      (let ((regexp
+	     (regexp-quote
+	      (mapconcat 'isearch-text-char-description
+			 skk-isearch-whitespace-regexp
+			 ""))))
+	(when (string-match regexp isearch-message))
+	(setq isearch-message
+	      (with-temp-buffer
+		(insert isearch-message)
+		(goto-char (point-min))
+		(replace-regexp regexp "")
+		(buffer-substring (point-min) (point-max))))
+	(setq isearch-cmds (cdr isearch-cmds))
+	(isearch-push-state)
+	(isearch-update)))))
 
-(defadvice isearch-edit-string (before skk-isearch-ad activate preactivate)
+(defadvice isearch-edit-string (before skk-isearch-ad activate compile)
   "`isearch-message' を適切に設定する。"
   (when skk-isearch-switch
     (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
@@ -594,11 +612,12 @@ If the current mode is different from previous, remove it first."
 		       isearch-message)
 	 (setq isearch-message (substring isearch-message (match-end 0))))))
 
-(defadvice isearch-search (before skk-isearch-ad activate preactivate)
+(defadvice isearch-search (before skk-isearch-ad activate compile)
   "`isearch-message' を適切に設定する。"
   (when skk-isearch-switch
     (unless (or isearch-nonincremental
-		(string-match (concat "^" (regexp-quote (skk-isearch-mode-string)))
+		(string-match (concat "^" (regexp-quote
+					   (skk-isearch-mode-string)))
 			      isearch-message))
       (setq isearch-message
 	    (concat
@@ -609,7 +628,7 @@ If the current mode is different from previous, remove it first."
 ;;;###autoload
 (defconst skk-isearch-really-early-advice
   '(lambda ()
-     (defadvice isearch-message-prefix (around skk-isearch-ad activate preactivate)
+     (defadvice isearch-message-prefix (around skk-isearch-ad activate)
        (if (string-match "^japanese-skk" (format "%s" default-input-method))
 	   (let (current-input-method) ad-do-it)
 	 ad-do-it))
