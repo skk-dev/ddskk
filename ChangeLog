@@ -1,3 +1,13 @@
+2000-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Add `skk-xemacs'.
+
+	* skk-jisx0201.el, skk-macs.el: Modify for skk-xemacs.el.
+
+	* skk-xemacs.el: New file.
+
+	* skk.el (skk-mode): Call `skk-xemacs-prepare-extents'.
+
 2000-11-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* doc/skk.texi (skk-lookup): Replace VERSION_SPECIFIC_LISPDIR with
@@ -2365,8 +2375,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.152 2000/11/19 01:26:36 minakaji Exp $
-Last Modified: $Date: 2000/11/19 01:26:36 $
+Version: $Id: ChangeLog,v 1.153 2000/11/19 01:30:47 czkmt Exp $
+Last Modified: $Date: 2000/11/19 01:30:47 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
