@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.19 2001/10/07 01:14:18 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.20 2001/10/11 13:41:48 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/07 01:14:18 $
+;; Last Modified: $Date: 2001/10/11 13:41:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -40,7 +40,7 @@
     (eq skk-emacs-type 'xemacs)
   (require 'ccc))
 
-
+;; FUnctions.
 (defun skk-cursor-current-color ()
   ;; カレントバッファの SKK のモードから、カーソルの色を取得する。
   (cond
@@ -64,49 +64,31 @@
    (t
     skk-cursor-latin-color)))
 
-(defun skk-cursor-set (&optional color force)
-  (when (or skk-use-color-cursor
-	    force)
-    (static-cond
-     ((eq skk-emacs-type 'xemacs)
-      ;;At 10 Jul 2000 16:37:49 +0900,
-      ;;Yoshiki Hayashi <t90553@mail.ecc.u-tokyo.ac.jp> wrote:
-      ;;> foreground を background に変える必要があること以外は、今の
-      ;;> ところそのままで動いているようです。しばらく test してみます。
-      ;;> どうも、text-cursor も普通の face のようで、foreground が文
-      ;;> 字の色を、background が文字の背景の色を表しているようです。
-      (set-face-property 'text-cursor
-			 'background
-			 (or color
-			     (skk-cursor-current-color))
-			 (current-buffer)))
-     (t
-      (set-buffer-local-cursor-color
-       (or color
-	   (skk-cursor-current-color)))))))
-
+;;;###autoload
+(defun skk-cursor-set-1 (color)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    ;;At 10 Jul 2000 16:37:49 +0900,
+    ;;Yoshiki Hayashi <t90553@mail.ecc.u-tokyo.ac.jp> wrote:
+    ;;> foreground を background に変える必要があること以外は、今の
+    ;;> ところそのままで動いているようです。しばらく test してみます。
+    ;;> どうも、text-cursor も普通の face のようで、foreground が文
+    ;;> 字の色を、background が文字の背景の色を表しているようです。
+    (set-face-property 'text-cursor
+		       'background
+		       (or color
+			   (skk-cursor-current-color))
+		       (current-buffer)))
+   (t
+    (set-buffer-local-cursor-color
+     (or color
+	 (skk-cursor-current-color))))))
 
 ;; advices.
-(dolist (func '(;; cover to SKK functions.
-		skk-abbrev-mode
-		skk-auto-fill-mode
-		skk-jisx0208-latin-mode
-		skk-kakutei
-		skk-latin-mode
-		skk-mode
-		skk-toggle-kana))
-  (eval
-   (`
-    (defadvice (, (intern (symbol-name func))) (after skk-cursor-ad
-						      activate)
-	"Set cursor color which represents skk mode."
-	(skk-cursor-set)))))
-
 (skk-defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
   (unless (or skk-henkan-on
 	      skk-henkan-active)
     (skk-cursor-set skk-cursor-default-color)))
-
 
 ;; Hooks
 (add-hook 'isearch-mode-end-hook
