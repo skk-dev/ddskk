@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.207 2001/12/09 12:08:35 czkmt Exp $
+;; Version: $Id: skk.el,v 1.208 2001/12/09 12:15:09 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/09 12:08:35 $
+;; Last Modified: $Date: 2001/12/09 12:15:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3784,6 +3784,26 @@ If you want to restore the dictionary from the disc, try
 	 (delete-region (+ (match-beginning 0) (length replace))
 			(+ (match-end 0) (length replace))))
        (set-marker end nil)))))
+
+(defun skk-jisx0208-to-ascii (string)
+  (let ((char
+	 (static-cond
+	  ((eq skk-emacs-type 'mule2)
+	   (let* ((ch (string-to-char string))
+		  (ch1 (char-component ch 1)))
+	     (cond ((eq ch1 ?\241)
+		    (cdr (assq (char-component ch 2)
+			       skk-hankaku-alist)))
+		   ((eq ch1 ?\243)
+		    (- (char-component ch 2) ?\200)))))
+	  (t
+	   (require 'japan-util)
+	   (get-char-code-property (string-to-char string)
+				   'ascii)))))
+    ;;
+    (if char
+	(char-to-string char)
+      nil)))
 
 (defun skk-katakana-henkan (arg)
   "▽モードであれば、領域のひらがなをカタカナに変換する。
