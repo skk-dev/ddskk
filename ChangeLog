@@ -43,7 +43,8 @@
 	(skk-cursor-buffer-local-frame-params-ad-targets): Thought this
 	variable is not needed.
 
-	(isearch-mode-end-hook): Call `skk-cursor-set'.
+	(isearch-mode-end-hook)
+	(minibuffer-setup-hook): Don't call `lambda'.
 
 	* skk-jisx0201.el
 	(skk-jisx0201-mode-on)
@@ -2101,8 +2102,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.432 2001/09/23 10:41:41 minakaji Exp $
-Last Modified: $Date: 2001/09/23 10:41:41 $
+Version: $Id: ChangeLog,v 1.433 2001/09/23 12:10:39 czkmt Exp $
+Last Modified: $Date: 2001/09/23 12:10:39 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

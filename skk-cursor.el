@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.16 2001/09/23 02:50:36 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.17 2001/09/23 12:10:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 02:50:36 $
+;; Last Modified: $Date: 2001/09/23 12:10:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -111,13 +111,11 @@
 
 ;; Hooks
 (add-hook 'isearch-mode-end-hook
-	  (lambda ()
-	    (skk-cursor-set))
+	  'skk-cursor-set
 	  'append)
 
 (add-hook 'minibuffer-setup-hook
-	  (lambda ()
-	    (skk-cursor-set))
+	  'skk-cursor-set
 	  'append)
 
 (static-when (eq skk-emacs-type 'xemacs)
@@ -134,7 +132,6 @@
 	       'skk-cursor-init-function))
 
 (add-hook 'skk-mode-hook 'skk-cursor-init-function)
-(add-hook 'isearch-mode-end-hook 'skk-cursor-set 'append)
 
 
 ;;
