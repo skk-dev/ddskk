@@ -45,16 +45,12 @@
 (defvar skk-xemacs-modeline-menu-items
   '("Daredevil SKK Menu"
     ["Hiragana"
-     (lambda ()
-       (interactive)
-       (skk-j-mode-on))
+     (skk-j-mode-on)
      :selected (and skk-j-mode (not skk-katakana))
      :style radio
      :keys nil]
     ["Katakana"
-     (lambda ()
-       (interactive)
-       (skk-j-mode-on t))
+     (skk-j-mode-on t)
      :selected (and skk-j-mode skk-katakana)
      :style radio
      :keys nil]
@@ -72,6 +68,9 @@
     ["Read Manual" skk-xemacs-info t]
     ["Start Tutorial" skk-tutorial t]
     ["Customize Daredevil SKK" skk-xemacs-customize t]
+    ["Send a Bug Report"
+     (let (skk-japanese-message-and-error)
+       (skk-submit-bug-report)) t]
     "--"
     ["About Daredevil SKK..." skk-version t]
     ["Visit Daredevil SKK Home..." skk-xemacs-visit-openlab t]))

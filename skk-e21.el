@@ -36,19 +36,13 @@
 (defvar skk-e21-modeline-menu-items
   '("Daredevil SKK Menu"
     ["Hiragana"
-     (call-interactively
-      (lambda ()
-	(interactive)
-	(skk-j-mode-on)))
+     (skk-j-mode-on)
      :selected (and skk-j-mode (not skk-katakana))
      :style radio
      :keys nil
      :key-sequence nil]
     ["Katakana"
-     (call-interactively
-      (lambda ()
-	(interactive)
-	(skk-j-mode-on t)))
+     (skk-j-mode-on t)
      :selected (and skk-j-mode skk-katakana)
      :style radio
      :keys nil
@@ -69,6 +63,9 @@
     ["Read Manual" skk-e21-info t]
     ["Start Tutorial" skk-tutorial t]
     ["Customize Daredevil SKK" skk-e21-customize t]
+    ["Send a Bug Report"
+     (let (skk-japanese-message-and-error)
+       (skk-submit-bug-report)) t]
     "--"
     ["About Daredevil SKK..." skk-version t]
     ["Visit Daredevil SKK Home..." skk-e21-visit-openlab t]))
