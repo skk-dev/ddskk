@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2001/07/22 07:22:29 $
-	     $Id: INSTALL,v 1.24 2001/07/22 07:22:29 minakaji Exp $ 
+             $Date: 2002/02/09 16:41:07 $
+	     $Id: INSTALL,v 1.25 2002/02/09 16:41:07 czkmt Exp $ 
 
 * APEL 
 
@@ -17,59 +17,6 @@ the latest release).  APEL is available at:
 
 or
     http://openlab.ring.gr.jp/skk/apel/
-
-* custom
-
-Make sure you have a correctly working version of custom with SKK.
-
-** GNU Emacs 20 or XEmacs
-
-If you use GNU Emacs 20 or XEmacs , SKK works correctly without any
-modifications or additional packages.
-
-** GNU Emacs 19.32 or later
-
-*** If you DO NOT WANT to use SKK customization feature,
-you have to do nothing.  pcustom.el of APEL (required in
-skk-foreword.el) will find that you use the old custom and provide
-emulation features by tinycustom.el.
-
-*** If you WANT to use SKK customization feature,
-see this subsection diligently.
-
-Custom package is originally bundled with GNU Emacs 19.30 or later.
-However, programmer's interfaces of that custom (old custom) are
-totally different from ones of its current versions, and the old
-custom does not work with SKK.  For instance, the old version does not
-have a `defcustom' or `defface' interfaces.  So if you want to use
-custom features, you should get a current version that work well on
-Emacs 19.32 or later (19.30 and 19.31 does not work!  See next
-section.), `custom-1.9962.tar.gz'.  It is available at: 
-
-     ftp://ftp.dina.kvl.dk/pub/Staff/Per.Abrahamsen/custom/
-
-Apply patch skk-11/patch/custom-1.9962.patch to cus-face.el of the
-package.
-
-Applications compiled with custom require the same version of
-"custom" at load-time (and run-time).  Therefore, if you use "new
-custom", you must always include "new custom" in your load-path.  The
-easiest way to achieve this is "subdirs.el"; if you installed "new
-custom" in `/usr/local/share/emacs/19.34/site-lisp/custom/', put the
-following line to `/usr/local/share/emacs/19.34/site-lisp/subdirs.el'
-
-     (normal-top-level-add-to-load-path '("custom"))
-
-** GNU Emacs between 19.28 and 19.31
-
-GNU Emacs 19.30 and 19.31 have `old custom' and 19.28 and 19.29 do not
-have custom package.  And these Emacsen do not work with
-`custom-1.9962.tar.gz'.
-
-On those Emacsen pcustom.el will find that you do not have a custom
-package, and require tinycustom.el, so you have to do nothing.  After
-loading tinycustom.el, all `defcustom's defined in SKK package will be
-equal to `defvars'.
 
 * Get dictionaries and copy them to ./dic subdirectory.
 
@@ -98,7 +45,7 @@ Run
 
 You can specify Emacs command name in the command line. For examples,
 
-    % make EMACS=mule
+    % make EMACS=/usr/bin/emacs
 
 Also, in the command line you can specify any variables of capital
 letters defined in SKK-MK.  For examples, if you want to install SKK
@@ -131,7 +78,7 @@ for XEmacs package install.  As to package install, see section
 Run `make install' (You may have to be superuser).  You can specify
 Emacs command name in the command line, like
 
-    % make install EMACS=mule
+    % make install EMACS=/usr/bin/emacs
 
 * package install
 
