@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.58 2000/11/21 10:13:51 czkmt Exp $
-;; Last Modified: $Date: 2000/11/21 10:13:51 $
+;; Version: $Id: SKK-MK,v 1.59 2000/11/21 11:58:34 minakaji Exp $
+;; Last Modified: $Date: 2000/11/21 11:58:34 $
 
 ;; Commentary
 ;;
@@ -430,6 +430,7 @@
 
 (defun SKK-MK-install-elc ()
   (let ((dics SKK_DICTIONARIES)
+	;;standard-output
 	delete-target exists spec)
     ;; make target directories.
     (setq DOCDIR (expand-file-name DOCDIR)
@@ -526,7 +527,29 @@
 		  SKK_LISPDIR))))
       (install-elisp-modules (list 'skk-setup) "." dir))
     ;; install tutorials.
-    (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil)))
+    (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil)
+    (SKK-MK-detect-shadow-directory)))
+
+(defun SKK-MK-detect-shadow-directory ()
+  (condition-case nil
+      (progn
+	(require 'shadow)
+	(save-match-data
+	  (let ((list (find-emacs-lisp-shadows load-path))
+		shadowed)
+	    (while list
+	      (if (and (string-match "skk-autoloads" (car list))
+		       (setq list (cdr list))
+		       (string-match "skk-autoloads" (car list)))
+		  (setq shadowed
+			(substring (file-name-directory (car list)) 0 -1)
+			list nil))
+	      (setq list (cdr list)))
+	    (if (not shadowed)
+		nil
+	      (princ
+	       (format "** WARNING ** %s is shadowed.  You might want to remove it\n"
+		       shadowed))))))))
 
 (defun SKK-MK-install-info ()
   (when SKK_INFO
@@ -646,7 +669,8 @@
 	  (setq i (1+ i)))
 	(install-files (nreverse files) DOCDIR PACKAGE_INFODIR nil t nil)))
     ;; install tutorials.
-    (install-files SKK_TUTORIALS ETCDIR PACKAGE_DATADIR nil t nil)))
+    (install-files SKK_TUTORIALS ETCDIR PACKAGE_DATADIR nil t nil)
+    (SKK-MK-detect-shadow-directory)))
 
 (defun SKK-MK-texinfo-format (targets)
   (let (

@@ -1,3 +1,9 @@
+2000-11-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK-MK-detect-shadow-directory): New function.
+	(SKK-MK-install-elc): Use `SKK-MK-detect-shadow-directory'.
+	(SKK-MK-install-package): Ditto.
+
 2000-11-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile (clean): Undo the last change.
@@ -2446,8 +2452,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.161 2000/11/21 10:14:32 czkmt Exp $
-Last Modified: $Date: 2000/11/21 10:14:32 $
+Version: $Id: ChangeLog,v 1.162 2000/11/21 11:58:34 minakaji Exp $
+Last Modified: $Date: 2000/11/21 11:58:34 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
