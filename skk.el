@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.109 2001/09/05 14:39:16 czkmt Exp $
+;; Version: $Id: skk.el,v 1.110 2001/09/05 14:59:45 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/05 14:39:16 $
+;; Last Modified: $Date: 2001/09/05 14:59:45 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1871,6 +1871,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; 辞書登録モードに入り、登録した単語の文字列を返す。
   (save-match-data
     (let ((enable-recursive-minibuffers t)
+	  ;; XEmacs では次の変数が再帰的ミニバッファの可否に影響する。
+	  minibuffer-max-depth
 	  ;; 変換中に isearch message が出ないようにする。
 	  skk-isearch-message orglen new-one)
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
