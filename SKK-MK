@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.121 2002/08/02 08:56:04 czkmt Exp $
-;; Last Modified: $Date: 2002/08/02 08:56:04 $
+;; Version: $Id: SKK-MK,v 1.122 2002/08/03 12:05:57 czkmt Exp $
+;; Last Modified: $Date: 2002/08/03 12:05:57 $
 
 ;;; Commentary:
 
@@ -34,6 +34,11 @@
   (error "%s" "\
 Emacs 18 or older is not supported by this version of SKK.
 Try ddskk-e18 branch"))
+
+(when (string-lessp emacs-version "20.3")
+  (error "%s" "\
+Emacs 20.2 or older is not supported by this version of SKK.
+Please install Daredevil SKK 11.6.0"))
 
 (unless (featurep 'mule)
   (error "%s" "\
