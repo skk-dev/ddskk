@@ -77,15 +77,15 @@
 (defun install-info-insert-file-contents (file &optional visit beg end replace)
   (let ((coding-system-for-read 'raw-text))
     (funcall (if (install-info-compressed-name-p file)
-		 'jka-compr-insert-file-contents
-	       'insert-file-contents)
+		 #'jka-compr-insert-file-contents
+	       #'insert-file-contents)
 	     file visit beg end replace)))
 
 (defun install-info-write-region (start end file &optional append visit)
   (let ((coding-system-for-write 'raw-text))
     (funcall (if (install-info-compressed-name-p file)
-		 'jka-compr-write-region
-	       'write-region)
+		 #'jka-compr-write-region
+	       #'write-region)
 	     start end file append visit)))
 
 (defun install-info (info-file dir-file &optional entry section delete)
@@ -315,9 +315,8 @@ File: dir,	Node: Top	This is the top of the INFO tree
 
 * Menu:
 "))
-      (dolist (group (sort groups (function
-				   (lambda (g1 g2)
-				     (string-lessp (car g1) (car g2))))))
+      (dolist (group (sort groups #'(lambda (g1 g2)
+				      (string-lessp (car g1) (car g2)))))
 	(let ((sec (car group))
 	      (entry (cdr group)))
 	  (goto-char (point-min))
@@ -402,7 +401,7 @@ File: dir,	Node: Top	This is the top of the INFO tree
 	    (goto-char (point-max))
 	    (install-info-forward-line 1)
 	    (insert (format "\n%s\n" sec))
-	    (dolist (en (sort entry 'string-lessp))
+	    (dolist (en (sort entry #'string-lessp))
 		(insert (format "%s\n" en)))))))
       ;;
       (install-info-write-region (point-min) (point-max) dir))
