@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.21 2001/09/12 11:15:35 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.22 2001/09/12 14:44:48 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/12 11:15:35 $
+;; Last Modified: $Date: 2001/09/12 14:44:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -32,6 +32,12 @@
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars))
+
+(defsubst skk-num-get-suuji (expression alist)
+  (cdr (assq expression alist)))
+
+(defsubst skk-num-int-p (num)
+  (not (string-match "\\.[0-9]" num)))
 
 ;;;###autoload
 (defun skk-num-compute-henkan-key (key)
@@ -198,15 +204,13 @@
     (let ((fun (cdr (assq type skk-num-type-alist))))
       (if fun (funcall fun num)))))
 
-(defsubst skk-num-get-suuji (expression alist)
-  (cdr (assq expression alist)))
-
 (defun skk-num-jisx0208-latin (num)
   ;; ascii 数字の NUM を全角数字の文字列に変換し、変換後の文字列を返す。
   ;; 例えば "45" を "４５" に変換する。
   (let ((candidate
-	 (mapconcat (function (lambda (c)
-				(skk-num-get-suuji c skk-num-alist-type1)))
+	 (mapconcat (function
+		     (lambda (c)
+		       (skk-num-get-suuji c skk-num-alist-type1)))
 		    num "")))
     (if (not (string= candidate ""))
 	candidate)))
@@ -215,21 +219,22 @@
   ;; ascii 数字 NUM を漢数字の文字列に変換し、変換後の文字列を返す。
   ;; 例えば、"45" を "四五" に変換する。
   (save-match-data
-    (if (not (string-match "\\.[0-9]" num))
-	(let ((candidate
-	       (mapconcat (function (lambda (c)
-				      (skk-num-get-suuji
-				       c
-				       skk-num-alist-type2)))
-			  num "")))
-	  (if (not (string= candidate ""))
-	      candidate)))))
+    (when (skk-num-int-p num)
+      (let ((candidate
+	     (mapconcat (function
+			 (lambda (c)
+			   (skk-num-get-suuji
+			    c
+			    skk-num-alist-type2)))
+			num "")))
+	(if (not (string= candidate ""))
+	    candidate)))))
 
 (defun skk-num-type3-kanji (num)
   ;; ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
   ;; 返す。例えば "1021" を "千二十一" に変換する。
   (save-match-data
-    (unless (string-match "\\.[0-9]" num)
+    (when (skk-num-int-p num)
       ;; 小数点を含まない数
       (skk-num-to-kanji num 'type3))))
 
@@ -237,7 +242,7 @@
   ;; ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
   ;; 返す。例えば "1021" を "壱阡弐拾壱" に変換する。
   (save-match-data
-    (unless (string-match "\\.[0-9]" num)
+    (when (skk-num-int-p num)
       ;; 小数点を含まない数
       (skk-num-to-kanji num 'type5))))
 
@@ -321,7 +326,7 @@
   ;; 例えば "34" を "３四" に変換する。
   (save-match-data
     (if (and (= (length num) 2)
-	     (not (string-match "\\.[0-9]" num)))
+	     (skk-num-int-p num))
 	(let ((candidate
 	       (concat (skk-num-get-suuji (aref num 0) skk-num-alist-type1)
 		       (skk-num-get-suuji (aref num 1) skk-num-alist-type2))))
