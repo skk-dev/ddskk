@@ -1,9 +1,9 @@
 -*- text -*-
-             $Date: 1999/09/02 22:15:26 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 1999/09/15 11:44:20 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.4 1999/09/02 22:15:26 minakaji Exp $ 
+	     $Id: INSTALL,v 1.5 1999/09/15 11:44:20 minakaji Exp $ 
 
-(1)Get APEL 9.21 or later and install it.  You can get latest APEL at;
+(1)Get APEL 9.22 or later and install it.  You can get latest APEL at;
 
     ftp://ftp.m17n.org/pub/mule/apel/
 or
@@ -20,7 +20,7 @@ or
 
         ftp://ftp.dina.kvl.dk/pub/Staff/Per.Abrahamsen/custom/
 
-      Apply patch skk-10/lisp/patch/custom-1.9962.patch to
+      Apply patch skk-10/patch/custom-1.9962.patch to
       cus-face.el of the package.
 
    (c)On GNU Emacs 19.28, SKK does not work with any custom package.
@@ -31,11 +31,13 @@ or
       nothing.  After load tinycustom.el, all `defcustom's in SKK
       package will be equal to `defvars'.
 
-(3)Edit lisp/Makefile as you like.
+(3)Edit SKK-CFS as you like.  Maybe you do not need edit Makefile at
+   all.  All customization can be done in SKK-CFG.
 
-(4)Run `make' and `make install' (You may have to be superuser).  You
-   may want to run `make install-package' if you use XEmacs (package
-   install).
+(4)Run `make install' (You may have to be superuser).  Or you may want
+   to run `make install-package' if you use XEmacs (package install).
+  You can specify Emacs command name in a command line.  For examples,
+  `make install EMACS=mule'
 
 (5)Many variables/functions names have been changed.  You are strongly
    recommended to load skk-obsolete.el and
