@@ -67,8 +67,6 @@
    (t
     (or (getenv "TMP") "/tmp"))))
 
-;; Macros
-
 ;;;###autoload
 (defmacro skk-kanagaki-help-1 (bufname title list)
   (`
