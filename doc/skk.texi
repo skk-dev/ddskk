@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.139 2004/09/04 10:01:08 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.140 2005/02/12 10:53:12 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2004/09/04 10:01:08 $
+@c  Last Modified: $Date: 2005/02/12 10:53:12 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2004/09/04 10:01:08 $
+@set UPDATED $Date: 2005/02/12 10:53:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -642,7 +642,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 @kindex C-x j
 
 @kbd{C-x j} $B$H%?%$%W$9$l$P!"(BSKK $B%b!<%I$KF~$k$HF1;~$K%*!<%H%U%#%k%b!<%I(B
-@footnote{@xref{Auto Fill, , Auto Fill, emacs, GNU Emacs Manual}.}
+(@pxref{Auto Fill, , Auto Fill, emacs, GNU Emacs Manual})
 $B$r%*%s$K$7$^$9!#(B
 
 $B4{$K%*!<%H%U%#%k%b!<%I$,%*%s$K$J$C$F$$$k%P%C%U%!$G(B @kbd{C-x j}$B$r%?%$%W$9(B
@@ -8671,8 +8671,7 @@ SKK 9.6 $B$O(B Emacs 20 $B$,%j%j!<%9$5$l$k0JA0$N%P!<%8%g%s$G!"(BEmacs 20 $B
 $B$3$H$,$G$-$^$9!#!V!"!W!V!#!W$KLa$9$K$O!"$b$&0lEY(B
 @kbd{M-x skk-toggle-kutouten} $B$r<B9T$r<B9T$7$^$9!#(B
 $BFCDj$N%P%C%U%!$G$N$_!V!$!W!V!%!W$K@Z$jBX$($?$$>l9g$O!"(B File Variables
-@footnote{
-@xref{File Variables, , File Variables, emacs, GNU Emacs Manual}}
+(@pxref{File Variables, , File Variables, emacs, GNU Emacs Manual})
 $B$r;2>H2<$5$$!#(B
 $BNc$($P!"(B tex $B%b!<%I$G$N$_!V!$!W!V!%!W$K@Z$jBX$($?$$>l9g$O!"$D$.$N@_Dj$r(B
 tex$B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B

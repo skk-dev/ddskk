@@ -1,3 +1,7 @@
+2005-02-12  TAKAHASHI Kaoru  <kaoru@kaisei.org>
+
+	* doc/skk.texi: Use @pxref instead of @xref+@footnote.
+
 2005-01-31  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/bskk (serve): Bug fixed.
@@ -4800,8 +4804,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.833 2005/02/01 02:31:45 skk-cvs Exp $
-Last Modified: $Date: 2005/02/01 02:31:45 $
+Version: $Id: ChangeLog,v 1.834 2005/02/12 10:53:12 skk-cvs Exp $
+Last Modified: $Date: 2005/02/12 10:53:12 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
