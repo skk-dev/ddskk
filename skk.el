@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.58 2000/11/16 11:58:37 czkmt Exp $
+;; Version: $Id: skk.el,v 1.59 2000/11/19 01:24:42 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/16 11:58:37 $
+;; Last Modified: $Date: 2000/11/19 01:24:42 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -411,87 +411,8 @@ dependent."
           (load skk-init-file t)
 	  ;;
 	  (static-when (eq skk-emacs-type 'xemacs)
-	    (defconst skk-xmas-hiragana-extent (make-extent nil nil))
-	    (make-face 'skk-xmas-hiragana-face)
-	    (set-face-parent 'skk-xmas-hiragana-face
-			     'modeline nil '(default))
-	    (when (featurep 'window-system)
-	      (set-face-foreground 'skk-xmas-hiragana-face
-				   skk-cursor-hiragana-color nil
-				   '(default color win))
-	      (set-face-font 'skk-xmas-hiragana-face [bold] nil
-			     '(default mono win))
-	      (set-face-font 'skk-xmas-hiragana-face [bold] nil
-			     '(default grayscale win)))
-	    (set-extent-face skk-xmas-hiragana-extent 'skk-xmas-hiragana-face)
-	    ;;
-	    (defconst skk-xmas-katakana-extent (make-extent nil nil))
-	    (make-face 'skk-xmas-katakana-face)
-	    (set-face-parent 'skk-xmas-katakana-face 'modeline nil '(default))
-	    (when (featurep 'window-system)
-	      (set-face-foreground 'skk-xmas-katakana-face
-				   skk-cursor-katakana-color nil
-				   '(default color win))
-	      (set-face-font 'skk-xmas-katakana-face [bold] nil
-			     '(default mono win))
-	      (set-face-font 'skk-xmas-katakana-face [bold] nil
-			     '(default grayscale win)))
-	    (set-extent-face skk-xmas-katakana-extent 'skk-xmas-katakana-face)
-	    ;;
-	    (defconst skk-xmas-jisx0208-latin-extent (make-extent nil nil))
-	    (make-face 'skk-xmas-jisx0208-latin-face)
-	    (set-face-parent 'skk-xmas-jisx0208-latin-face 'modeline
-			     nil '(default))
-	    (when (featurep 'window-system)
-	      (set-face-foreground 'skk-xmas-jisx0208-latin-face
-				   skk-cursor-jisx0208-latin-color nil
-				   '(default color win))
-	      (set-face-font 'skk-xmas-jisx0208-latin-face [bold] nil
-			     '(default mono win))
-	      (set-face-font 'skk-xmas-jisx0208-latin-face [bold] nil
-			     '(default grayscale win)))
-	    (set-extent-face skk-xmas-jisx0208-latin-extent
-			     'skk-xmas-jisx0208-latin-face)
-	    ;;
-	    (defconst skk-xmas-latin-extent (make-extent nil nil))
-	    (make-face 'skk-xmas-latin-face)
-	    (set-face-parent 'skk-xmas-latin-face 'modeline nil '(default))
-	    (when (featurep 'window-system)
-	      (set-face-foreground 'skk-xmas-latin-face
-				   skk-cursor-latin-color nil
-				   '(default color win))
-	      (set-face-font 'skk-xmas-latin-face [bold] nil
-			     '(default mono win))
-	      (set-face-font 'skk-xmas-latin-face [bold] nil
-			     '(default grayscale win)))
-	    (set-extent-face skk-xmas-latin-extent 'skk-xmas-latin-face)
-	    ;;
-	    (defconst skk-xmas-abbrev-extent (make-extent nil nil))
-	    (make-face 'skk-xmas-abbrev-face)
-	    (set-face-parent 'skk-xmas-abbrev-face 'modeline nil '(default))
-	    (when (featurep 'window-system)
-	      (set-face-foreground 'skk-xmas-abbrev-face
-				   skk-cursor-abbrev-color nil
-				   '(default color win))
-	      (set-face-font 'skk-xmas-abbrev-face [bold] nil
-			     '(default mono win))
-	      (set-face-font 'skk-xmas-abbrev-face [bold] nil
-			     '(default grayscale win)))
-	    (set-extent-face skk-xmas-abbrev-extent 'skk-xmas-abbrev-face)
-	    ;;
-	    (defconst skk-xmas-jisx0201-extent (make-extent nil nil))
-	    (make-face 'skk-xmas-jisx0201-face)
-	    (set-face-parent 'skk-xmas-jisx0201-face 'modeline nil '(default))
-	    (when (featurep 'window-system)
-	      (set-face-foreground 'skk-xmas-jisx0201-face
-				   skk-cursor-jisx0201-color nil
-				   '(default color win))
-	      (set-face-font 'skk-xmas-jisx0201-face [bold] nil
-			     '(default mono win))
-	      (set-face-font 'skk-xmas-jisx0201-face [bold] nil
-			     '(default grayscale win)))
-	    (set-extent-face skk-xmas-jisx0201-extent 'skk-xmas-jisx0201-face))
-	  ;; end when (eq skk-emacs-type 'xemacs)
+	    (skk-xemacs-prepare-extents))
+	  ;;
 	  (skk-setup-modeline)
 	  (require 'skk-autoloads)
 	  (static-if (or (memq skk-emacs-type '(mule3 mule4 mule5))
