@@ -1,6 +1,6 @@
 2000-11-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* READMES/FAQ.txt: Update for version 11.4.
+	* READMEs/FAQ.txt: Update for version 11.4.
 
 	* doc/skk.texi: Ditto.
 
@@ -2330,8 +2330,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.145 2000/11/16 11:59:11 czkmt Exp $
-Last Modified: $Date: 2000/11/16 11:59:11 $
+Version: $Id: ChangeLog,v 1.146 2000/11/16 17:01:03 czkmt Exp $
+Last Modified: $Date: 2000/11/16 17:01:03 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
