@@ -79,7 +79,8 @@
   (install-detect-elisp-directory PREFIX nil 'version-specific))
 
 ;; (setq FLIM_DIR (expand-file-name FLIM_PREFIX VERSION_SPECIFIC_LISPDIR))
-(setq NICOLA-DDSKK_DIR (expand-file-name NICOLA-DDSKK_PREFIX LISPDIR))
+(setq NICOLA-DDSKK_DIR (expand-file-name NICOLA-DDSKK_PREFIX
+					 VERSION_SPECIFIC_LISPDIR))
 
 (defvar PACKAGEDIR
   (if (boundp 'early-packages)

@@ -56,48 +56,59 @@
 
 ;; Variables.
 
-(defcustom skk-nicola-interval
-  (if (featurep 'lisp-float-type) (/ (float 1) (float 10)) 1) "\
+(defcustom skk-nicola-interval (if (featurep 'lisp-float-type)
+				   (/ (float 1) (float 10))
+				 1) "\
 *この時間以内に打鍵されたものを同時打鍵と判定する。
 単位は秒。デフォルトは 0.1 秒。ただし、 Emacs 18 の場合は浮動小数点数を扱えない
 ため、仮に 1 秒としておくが、実用的には厳しいと思われる。"
   :type 'number
   :group 'skk-nicola)
 
-(defcustom skk-nicola-latin-interval
-  (if (featurep 'lisp-float-type) (/ (float 1) (float 10)) 1) "\
+(defcustom skk-nicola-latin-interval (if (featurep 'lisp-float-type)
+					 (/ (float 1) (float 10))
+				       1) "\
 *この時間以内に打鍵されたものを同時打鍵と判定する。
 単位は秒。デフォルトは 0.1 秒。ただし、 Emacs 18 の場合は浮動小数点数を扱えない
 ため、仮に 1 秒としておくが、実用的には厳しいと思われる。"
   :type 'number
   :group 'skk-nicola)
 
-(defcustom skk-nicola-lshift-key
-  (cond ((eq system-type 'windows-nt) [noconvert])
-	((memq skk-emacs-type '(nemacs mule1 mule3)) "\\")
-	(t [muhenkan])) "\
+(defcustom skk-nicola-lshift-keys
+  (list (cond
+	 ((eq system-type 'windows-nt)
+	  [noconvert])
+	 ((memq skk-emacs-type '(nemacs mule1 mule3))
+	  ;; Don't know what is good..
+	  "\\")
+	 (t
+	  ;; XEmacs, Emacs 19 or later (except Emacs 20.1 & 20.2)
+	  [muhenkan]))) "\
 *左親指キーとして使うキー。"
-  :type 'sexp
+  :type '(repeat sexp)
   :group 'skk-nicola)
 
-(defcustom skk-nicola-rshift-key
-  (cond ((eq system-type 'windows-nt) [convert])
-	((eq skk-emacs-type 'xemacs) [henkan-mode])
-	((string-match "^19.28" emacs-version) [key-35])
-	((string-match "^19.\\(29\\|3[0-4]\\)" emacs-version) [numbersign])
-	((memq skk-emacs-type '(nemacs mule1 mule3)) " ")
-	(t [henkan])) "\
+(defcustom skk-nicola-rshift-keys
+  (nconc '(" ")
+	 (list (cond
+		((eq system-type 'windows-nt)
+		 [convert])
+		((eq skk-emacs-type 'xemacs)
+		 [henkan-mode])
+		((string-match "^19.\\(29\\|3[0-4]\\)" emacs-version)
+		 [numbersign])
+		((string-match "^19.2" emacs-version)
+		 ;; Mule 2.3@19.28 or earlier (?)
+		 [key-35])
+		(t
+		 ;; Emacs 20.3 or later
+		 [henkan])))) "\
 *右親指キーとして使うキー。"
   :type 'sexp
   :group 'skk-nicola)
 
 (defcustom skk-nicola-use-lshift-as-space nil "\
 *Non-nil であれば左親指キーもスペースキーとして利用する。"
-  :type 'boolean
-  :group 'skk-nicola)
-
-(defcustom skk-nicola-use-space-as-rshift t "\
-*Non-nil であればスペースキーも右親指キーとして利用する。"
   :type 'boolean
   :group 'skk-nicola)
 
@@ -188,9 +199,6 @@
 (defvar skk-nicola-lshift-rule nil)
 (defvar skk-nicola-rshift-rule nil)
 
-(skk-deflocalvar skk-nicola-lshift-original nil "\
-skk-mode に入る際に、左親指キーの本来の定義を調べるための変数。")
-
 (skk-deflocalvar skk-nicola-okuri-flag nil)
 
 (skk-deflocalvar skk-current-local-map nil "\
@@ -212,11 +220,15 @@ keycode 131 = F18\n")
 keycode 131 = underscore\n"))
        (case skk-emacs-type
 	 (mule3
-	  (setq skk-nicola-lshift-key [f18]
-		skk-nicola-rshift-key [f19]))
+	  (setq skk-nicola-lshift-keys (nconc skk-nicola-lshift-keys
+					      '([f18]))
+		skk-nicola-rshift-keys (nconc skk-nicola-rshift-keys
+					      '([f19]))))
 	 (t
-	  (setq skk-nicola-lshift-key "_"
-		skk-nicola-rshift-key " ")))))))
+	  (setq skk-nicola-lshift-keys (nconc skk-nicola-lshift-keys
+					      '("_"))
+		skk-nicola-rshift-keys (nconc skk-nicola-rshift-keys
+					      '(" ")))))))))
 
 ;; Shut up compiler.
 (defvar skktut-j-mode-map)
@@ -231,18 +243,6 @@ keycode 131 = underscore\n"))
  (function
   (lambda ()
     ;;
-    (setq skk-nicola-lshift-original
-	  (static-cond
-	   ((memq skk-emacs-type '(nemacs mule1))
-	    (or (lookup-key (or skk-current-local-map
-				(make-sparse-keymap))
-			    skk-nicola-lshift-key)
-		(lookup-key (current-global-map)
-			    skk-nicola-lshift-key)))
-	   (t
-	    (let (skk-mode skk-j-mode)
-	      (key-binding skk-nicola-lshift-key)))))
-    ;;
     (case skk-kanagaki-state
       (kana
        (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
@@ -250,6 +250,7 @@ keycode 131 = underscore\n"))
       (rom
        (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
 	     skk-katakana-mode-string skk-nicola-katakana-rom-string)))
+    ;;
     (setq skk-hiragana-mode-indicator
 	  (skk-mode-string-to-indicator 'hiragana
 					skk-hiragana-mode-string))
@@ -264,48 +265,33 @@ keycode 131 = underscore\n"))
 
 (defun skk-nicola-setup ()
   ;; SKK の初回起動時のみ実行されるべきものはこの関数に入れる。
-  (when skk-nicola-use-space-as-rshift
-    (define-key skk-j-mode-map " " 'skk-nicola-self-insert-rshift))
-  ;;
-  (define-key skk-j-mode-map skk-nicola-lshift-key
-    'skk-nicola-self-insert-lshift)
-  (define-key skk-j-mode-map skk-nicola-rshift-key
-    'skk-nicola-self-insert-rshift)
-  ;;
-  (when skk-nicola-use-space-as-rshift
-    (define-key skk-latin-mode-map " "
-      'skk-nicola-turn-on-j-mode))
-  ;;
-  (define-key skk-latin-mode-map skk-nicola-lshift-key
-    'skk-nicola-turn-on-j-mode)
-  (define-key skk-latin-mode-map skk-nicola-rshift-key
-    'skk-nicola-turn-on-j-mode)
+  (dolist (key skk-nicola-lshift-keys)
+    (define-key skk-j-mode-map key 'skk-nicola-self-insert-lshift)
+    (define-key skk-latin-mode-map key 'skk-nicola-turn-on-j-mode))
+  (dolist (key skk-nicola-rshift-keys)
+    (define-key skk-j-mode-map key 'skk-nicola-self-insert-rshift)
+    (define-key skk-latin-mode-map key 'skk-nicola-turn-on-j-mode))
   ;;
   (when skk-nicola-help-key
-    (define-key help-map skk-nicola-help-key
-      'skk-nicola-help))
+    (define-key help-map skk-nicola-help-key 'skk-nicola-help))
   (when skk-nicola-2nd-help-key
-    (define-key help-map skk-nicola-2nd-help-key
-      'skk-nicola-2nd-help))
+    (define-key help-map skk-nicola-2nd-help-key 'skk-nicola-2nd-help))
   ;;
   (unless skk-nicola-plain-rule
     (setq skk-nicola-plain-rule
 	  (symbol-value
 	   (intern
-	    (format "skk-%s-plain-rule-list"
-		    skk-kanagaki-keyboard-type)))))
+	    (format "skk-%s-plain-rule-list" skk-kanagaki-keyboard-type)))))
   (unless skk-nicola-lshift-rule
     (setq skk-nicola-lshift-rule
 	  (symbol-value
 	   (intern
-	    (format "skk-%s-lshift-rule-list"
-		    skk-kanagaki-keyboard-type)))))
+	    (format "skk-%s-lshift-rule-list" skk-kanagaki-keyboard-type)))))
   (unless skk-nicola-rshift-rule
     (setq skk-nicola-rshift-rule
 	  (symbol-value
 	   (intern
-	    (format "skk-%s-rshift-rule-list"
-		    skk-kanagaki-keyboard-type)))))
+	    (format "skk-%s-rshift-rule-list" skk-kanagaki-keyboard-type)))))
   ;;
   (remove-hook 'skk-mode-hook 'skk-niola-setup))
 
@@ -324,14 +310,18 @@ keycode 131 = underscore\n"))
    "* SKK 親指シフト入力 ヘルプ*"
    "親指シフト入力モードの独自キー定義:"
    (append
-    '((skk-nicola-lshift-key . "左親指シフトキー")
-      (skk-nicola-rshift-key . "右親指シフトキー"))
     ;;
-    (list
-     (when (and skk-nicola-use-space-as-rshift
-		(not (member (key-description skk-nicola-rshift-key)
-			     '("SPC" "space"))))
-       '("space" . "右親指シフトキー、送りなし変換開始")))
+    (mapcar (function
+	     (lambda (key)
+	       (cons (key-description key) "左親指シフトキー")))
+	    skk-nicola-lshift-keys)
+    ;;
+    (mapcar (function
+	     (lambda (key)
+	       (cons (key-description key) "右親指シフトキー")))
+	    skk-nicola-rshift-keys)
+    ;;
+    '(("SPC" . "送りなし変換開始"))
     ;;
     (list
      (do ((spec (nth 4 skk-kanagaki-rule-tree) (cdr spec))
@@ -367,7 +357,6 @@ keycode 131 = underscore\n"))
 	    (cons str "全英モード")))))
     ;;
     (list
-     
      (cons (format "%c + %c"
 		   (car skk-nicola-set-henkan-point-chars)
 		   (cadr skk-nicola-set-henkan-point-chars))
@@ -447,10 +436,8 @@ keycode 131 = underscore\n"))
 				(lambda (key)
 				  (key-description key)))
 			       (append
-				(list skk-nicola-rshift-key
-				      skk-nicola-lshift-key)
-				(when skk-nicola-use-space-as-rshift
-				  (list " ")))))
+				skk-nicola-rshift-keys
+				skk-nicola-lshift-keys)))
 	       (skk-j-mode-on)
 	       (when (and skk-use-color-cursor (skk-color-display-p))
 		 ;; 新しい skk-cursor 対策
@@ -703,22 +690,12 @@ keycode 131 = underscore\n"))
 	   (newline arg)))))
 
 (defun skk-nicola-setup-tutorial ()
-  (when skk-nicola-use-space-as-rshift
-    (define-key skktut-j-mode-map " " 'skk-nicola-self-insert-rshift))
-  ;;
-  (define-key skktut-j-mode-map skk-nicola-lshift-key
-    'skk-nicola-self-insert-lshift)
-  (define-key skktut-j-mode-map skk-nicola-rshift-key
-    'skk-nicola-self-insert-rshift)
-  ;;
-  (when skk-nicola-use-space-as-rshift
-    (define-key skktut-latin-mode-map " "
-      'skk-nicola-turn-on-j-mode))
-  ;;
-  (define-key skktut-latin-mode-map skk-nicola-lshift-key
-    'skk-nicola-turn-on-j-mode)
-  (define-key skktut-latin-mode-map skk-nicola-rshift-key
-    'skk-nicola-turn-on-j-mode))
+  (dolist (key skk-nicola-lshift-keys)
+    (define-key skktut-j-mode-map key 'skk-nicola-self-insert-lshift)
+    (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode))
+  (dolist (key skk-nicola-rshift-keys)
+    (define-key skktut-j-mode-map key 'skk-nicola-self-insert-rshift)
+    (define-key skktut-latin-mode-map key 'skk-nicola-turn-on-j-mode)))
 
 ;; Pieces of Advice.
 
@@ -796,8 +773,10 @@ keycode 131 = underscore\n"))
   ;;
   (defadvice skk-isearch-setup-keymap (before skk-nicola-ad activate compile)
     ;; 親指キーでサーチが終了してしまわないように。
-    (define-key (ad-get-arg 0) skk-nicola-lshift-key 'skk-isearch-wrapper)
-    (define-key (ad-get-arg 0) skk-nicola-rshift-key 'skk-isearch-wrapper))
+    (let ((keys (append skk-nicola-lshift-keys skk-nicola-rshift-keys)))
+      (while keys
+	(define-key (ad-get-arg 0) (car keys) 'skk-isearch-wrapper)
+	(setq keys (cdr keys)))))
   ;;
   (defadvice isearch-char-to-string (around skk-nicola-ad activate compile)
     ;; エラーが出ると検索が中断して使い辛いので、黙らせる。

@@ -1,5 +1,11 @@
 2000-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-nicola.el (skk-nicola-lshift-keys): Rename from
+	`skk-nicola-lshift-key'.
+	(skk-nicola-rshift-keys): Rename from `skk-nicola-rshift-key'.
+
+2000-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-nicola.el (skk-nicola-2nd-help): Add keys.
 
 2000-11-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
