@@ -4,7 +4,7 @@
 
 	* skk-jisyo-edit-mode.el: New file.
 
-	* SKK-MK: Setup Japanese environment on Emacs 20 or lator.
+	* SKK-MK: Setup Japanese environment on Emacs 20 or later.
 
 	(SKK_MODULES): Add skk-jisyo-edit-mode.
 
@@ -2007,8 +2007,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.417 2001/09/17 14:22:26 czkmt Exp $
-Last Modified: $Date: 2001/09/17 14:22:26 $
+Version: $Id: ChangeLog,v 1.418 2001/09/17 14:23:24 czkmt Exp $
+Last Modified: $Date: 2001/09/17 14:23:24 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -22,7 +22,7 @@
 
 ;;; Commentary:
 
-;; This is a minor mode for editing SKK dictionaries.
+;; This is a major mode for editing SKK dictionaries.
 
 ;;; Code:
 
