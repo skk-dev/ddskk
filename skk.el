@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.122 2001/09/14 12:07:19 czkmt Exp $
+;; Version: $Id: skk.el,v 1.123 2001/09/14 14:23:33 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/14 12:07:19 $
+;; Last Modified: $Date: 2001/09/14 14:23:33 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -535,7 +535,8 @@ dependent."
   (define-key skk-abbrev-mode-map (char-to-string skk-try-completion-char)
     'skk-try-completion)
   (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei)
-  ;;(define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei)
+  (when (vectorp skk-kakutei-key)
+    (define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei))
   (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
     'skk-insert)
   (unless (featurep 'skk-kanagaki)

@@ -30,6 +30,9 @@
 	(skk-compose-ignore-entry): Rename to ...
 	(skk-compose-ignore-word): it.
 
+	(skk-setup-keymap): When `skk-kakutei-key' is a vector, bind it to
+	`skk-kakutei'.
+
 2001-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK: Re-indent.
@@ -1910,8 +1913,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.387 2001/09/14 12:04:24 czkmt Exp $
-Last Modified: $Date: 2001/09/14 12:04:24 $
+Version: $Id: ChangeLog,v 1.388 2001/09/14 14:23:32 czkmt Exp $
+Last Modified: $Date: 2001/09/14 14:23:32 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
