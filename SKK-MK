@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.81 2001/09/15 05:11:44 czkmt Exp $
-;; Last Modified: $Date: 2001/09/15 05:11:44 $
+;; Version: $Id: SKK-MK,v 1.82 2001/09/16 08:35:16 czkmt Exp $
+;; Last Modified: $Date: 2001/09/16 08:35:16 $
 
 ;; Commentary
 ;;
@@ -239,6 +239,10 @@ Try ddskk-e18 branch."))
 	"SKK-JISYO.pubdic+" "SKK-JISYO.edict"
 	"SKK-JISYO.office.zipcode" "SKK-JISYO.zipcode")))
 
+(defvar SKK_DEFAULT_JISYO
+  (or (getenv "SKK_DEFAULT_JISYO")
+      "SKK-JISYO.S"))
+
 (defvar SKK_MODULES
   ;; こんなもんコマンドラインで指定する人いないよね？
   (or (getenv "SKK_MODULES")
@@ -251,7 +255,8 @@ Try ddskk-e18 branch."))
 	       skk-leim skk-look skk-num skk-obsolete
 	       skk-cursor skk-server skk-tut skk-version
 	       skk-abbrev skk-dcomp skk-annotation
-	       skk-jisx0201 skk-dic
+	       skk-jisx0201
+	       ;; skk-dic
 
 	       ;; EXPERIMENTAL
 	       skk-rdbms skk-study
@@ -476,6 +481,7 @@ Try ddskk-e18 branch."))
 
 (defun SKK-MK-compile ()
   (let (enable-local-eval)
+    (SKK-MK-skk-dic)
     (SKK-MK-generate-autoloads-el)
     (require 'skk-autoloads
 	     (expand-file-name "skk-autoloads.el"))
@@ -494,6 +500,7 @@ Try ddskk-e18 branch."))
 	   (SKK-MK-texinfo-format SKK_TEXIS))))
 
 (defun SKK-MK-compile-package ()
+  (SKK-MK-skk-dic)
   (SKK-MK-generate-autoloads-el-package)
   (require 'skk
 	   (expand-file-name "skk.el"))
@@ -1016,40 +1023,51 @@ SKK tutorials:
 
 (defun SKK-MK-skk-dic ()
   (require 'poem)
-  (let ((buf (get-buffer-create " *SKK-JISYO.S*")))
-    (with-current-buffer buf
-      (erase-buffer)
-      (insert-file-contents-as-coding-system
-       (cond ((boundp 'MULE) *euc-japan*)
-	     (t 'euc-jp))
-       (expand-file-name "SKK-JISYO.S"
-			 "../dic"))
-      (goto-char (point-min))
-      (while (not (looking-at
-		   "^;; okuri-ari entries\\.$"))
-	(next-line 1))
-      (delete-region (point-min) (point)))
-    (with-temp-buffer
-      (erase-buffer)
-      (insert-file-contents-as-coding-system
-       (cond ((boundp 'MULE) *junet*)
-	     (t 'iso-2022-jp))
-       (expand-file-name "skk-dic.el"))
-      (let (start)
+  (let* ((buf (get-buffer-create " *SKK-JISYO.S*"))
+	 (jisyo1 (expand-file-name SKK_DEFAULT_JISYO "dic"))
+	 (jisyo2 (expand-file-name "SKK-JISYO.S" "dic"))
+	 (jisyo3 (expand-file-name "SKK-JISYO.S" "../dic"))
+	 (jisyo (cond
+		 ((file-readable-p jisyo1)
+		  jisyo1)
+		 ((file-readable-p jisyo2)
+		  jisyo2)
+		 ((file-readable-p jisyo3)
+		  jisyo3))))
+    (cond
+     (jisyo
+      (princ (format "Processing %s...
+"
+		     jisyo))
+      (with-current-buffer buf
+	(erase-buffer)
+	(insert-file-contents-as-coding-system
+	 (cond ((boundp 'MULE) *euc-japan*)
+	       (t 'euc-jp))
+	 jisyo)
 	(goto-char (point-min))
 	(while (not (looking-at
 		     "^;; okuri-ari entries\\.$"))
 	  (next-line 1))
-	(setq start (point))
+	(delete-region (point-min) (point)))
+      (with-temp-buffer
+	(erase-buffer)
+	(insert-file-contents-as-coding-system
+	 (cond ((boundp 'MULE) *junet*)
+	       (t 'iso-2022-jp))
+	 (expand-file-name "skk-dic.el.in"))
+	(goto-char (point-min))
 	(while (not (looking-at "^\" \"\\\\$"))
 	  (next-line 1))
-	(delete-region start (point))
-	(insert-buffer buf))
-      (write-region-as-coding-system
-       (cond ((boundp 'MULE) *junet*unix)
-	     (t 'iso-2022-jp))
-       (point-min)
-       (point-max)
-       (expand-file-name "skk-dic.el")))))
+	(insert-buffer buf)
+	(write-region-as-coding-system
+	 (cond ((boundp 'MULE) *junet*unix)
+	       (t 'iso-2022-jp))
+	 (point-min)
+	 (point-max)
+	 (expand-file-name "skk-dic.el"))))
+     (t
+      (copy-file "skk-dic.el.in" "skk-dic.el" t t)))
+    (push 'skk-dic SKK_MODULES)))
 
 ;;; SKK-MK ends here
