@@ -1,3 +1,9 @@
+2000-10-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi (飾りつけ, VIP/VIPERとの併用, I-search関連,
+	skk-init-fileのコンパイル, picture-modeとの併用, サーバー関連):
+	「ですます」調に変更。
+
 2000-10-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi (送り仮名関連, 自動変換開始, 特殊変換, 接頭辞・接尾
