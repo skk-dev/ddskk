@@ -1,3 +1,34 @@
+2001-10-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK
+	* skk-e21.el
+	* skk-leim.el
+	* skk-tut.el
+	* skk-xemacs.el
+	* skk.el:
+	Modification concerning specificity.
+
+	* skk-annotation.el
+	(skk-annotation-show): Do nothing when `skk-kakutei-flag' is
+	non-nil.
+
+	* skk-dic.el.in
+	(skk-dic-setup-buffer): Call `buffer-disable-undo' without an
+	argument.
+
+	* skk-gadget.el
+	(skk-ignore-dic-word): If new-word contains a note, rip it off and
+	return a cell of the word and the note.
+
+	* skk.el
+	(skk-insert-new-word): If word is a lisp program and it returns a
+	cons cell, its car is a word, while its cdr is a note.
+
+	(skk-compose-ignore-word-sub-quote-char): New function.
+
+	(skk-compose-ignore-word): Quote characters in
+	`skk-quote-char-alist'.
+
 2001-10-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el
@@ -2295,8 +2326,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.460 2001/10/09 14:13:40 czkmt Exp $
-Last Modified: $Date: 2001/10/09 14:13:40 $
+Version: $Id: ChangeLog,v 1.461 2001/10/10 10:26:15 czkmt Exp $
+Last Modified: $Date: 2001/10/10 10:26:15 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
