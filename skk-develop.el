@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.20 2001/12/16 05:03:09 czkmt Exp $
+;; Version: $Id: skk-develop.el,v 1.21 2002/01/18 14:02:55 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:09 $
+;; Last Modified: $Date: 2002/01/18 14:02:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -97,22 +97,6 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
        (when (boundp 'skk-exserv-list)
 	 (setq base (append base '(skk-exserv-list))))
        base))))
-
-(eval-after-load "hilit19"
-  '(mapcar (function
-	    (lambda (pattern)
-	      (hilit-add-pattern
-	       (car pattern) (cdr pattern)
-	       (cond ((eq skk-background-mode 'mono)
-		      'bold)
-		     ((eq skk-background-mode 'light)
-		      'RoyalBlue)
-		     (t 'cyan))
-	       'emacs-lisp-mode)))
-	   '(("^\\s *(skk-deflocalvar\\s +\\S +" . "")
-	     ("^\\s *(skk-defun-cond\\s +\\S +" . "")
-	     ("^\\s *(skk-defadvice\\s +\\S +" . "")
-	     ("^\\s *(skk-defsubst-cond\\s +\\S +" . ""))))
 
 ;;;###autoload
 (eval-after-load "font-lock"
