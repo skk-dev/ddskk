@@ -1,3 +1,11 @@
+2001-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-version.el
+	(skk-version): Bump to 11.7.0.
+
+	* SKK-MK
+	(SKK-MK-server-installed-p): Use `skk-server-live-p'.
+
 2001-12-16  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* Daredevil SKK 11.6.0 released.
@@ -3161,8 +3169,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.600 2001/12/16 11:02:59 akiho Exp $
-Last Modified: $Date: 2001/12/16 11:02:59 $
+Version: $Id: ChangeLog,v 1.601 2001/12/16 12:35:50 czkmt Exp $
+Last Modified: $Date: 2001/12/16 12:35:50 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
