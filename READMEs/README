@@ -1,57 +1,39 @@
 -*- text -*-
-             $Date: 1999/10/23 15:00:47 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-	     $Id: README,v 1.2 1999/10/23 15:00:47 minakaji Exp $
+             $Date: 2000/09/15 21:59:02 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: README,v 1.3 2000/09/15 21:59:02 minakaji Exp $
 
-<Warning>
+This is the version 10 of SKK (Simple Kana to Kanji conversion
+program, an input method of Japanese).   It consists of a simple core
+and many optional programs which provide extensive features, however,
+our target is to more simplify core, and more expand its optional
+features.
 
-SKK version 10 is under the GPL protection, however, it is neither
-officially supported nor recognized as the official beta version. SKK
-version 10 is developed by developers in the skk-develop Mailing list
-and is solely experimental.  Developers provide no warranty on the
-results caused by using this program.
+If you want to join developing SKK 10.x, you can access its sources
+via a cvs server on the Ring Server Openlab.  See CVS_digest to learn
+briefly how to access the cvs server.
 
-<How to join skk-develop ML>
-When you want to join skk-develop ML,
-     Send your mail to `skk-develop-join@kuis.kyoto-u.ac.jp', and your
-     e-mail address will be registered.
+If you want to join the SKK Ring Server Openlab Mailing list, see
+a description below.
 
-When you want to post your mail to skk-develop ML,
-     Send your mail to `skk-develop@kuis.kyoto-u.ac.jp'.
+SKK is under the GNU General Public License.  See COPYING for its
+details.
 
-When you want to change your e-mail address registered in skk-develop
-ML,
-     Send your mail with your new mail address to
-     `skk-develop-change@kuis.kyoto-u.ac.jp'.  The form of mail to be
-     sent is;
-          `Old: YOUR-OLD-ADDRESS'
+Thank you.
 
-When you want to quit from skk-develop ML,
-     Send your mail to `skk-develop-leave@kuis.kyoto-u.ac.jp'.
+<How to join SKK Ring Server Openlab Mailing list>
 
+<Subscribe request>
 
-〔注意〕
-この SKK 10 は GPL の保護下にあるプログラムですが、オフィシャルにサポー
-トされているわけでも、オフィシャルなベータバージョンとして認識されてい
-るわけでもありません。SKK 10 は、skk-develop ML における有志による開発
-版であり、その性格は実験的なものです。開発陣は、このプログラムによって
-起こる結果についていかなる保証もいたしません。
+  To: skk-request@ring.gr.jp
+  Mail body (not subject): subscribe 
 
-〔skk-develop ML への参加方法〕
-メーリングリストへ参加したいとき。
-     `skk-develop-join@kuis.kyoto-u.ac.jp' へメールを送れば、自動的に発
-     信者のメールアドレスが登録される。
+<unsubscribe request>
 
-メーリングリストへの記事の投稿を行なうとき。
-     `skk-develop@kuis.kyoto-u.ac.jp' へ送れば自動的に全ての登録者に送付
-     される。
+  To: skk-request@ring.gr.jp
+  Mail body (not subject): unsubscribe 
 
-メーリングリストに登録したアドレスを変更したいとき。
-     新しいメールアドレスから `skk-develop-change@kuis.kyoto-u.ac.jp' 宛
-     に、本文の1行目に下記の書式で旧アドレスを書いたメールを送付する。
-          `Old: YOUR-OLD-ADDRESS
-
-メーリングリストから抜けたいとき。
-     `skk-develop-leave@kuis.kyoto-u.ac.jp' へメールを送る。
+<Post>
+  To: skk@ring.gr.jp
 
 Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
 http://www.asahi-net.or.jp/~gy2m-nkjm/
