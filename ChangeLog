@@ -1,5 +1,7 @@
 2003-07-05  NAKAJIMA Mikio  <minakaji@namazu.org>
 
+	* Makefile (VERSION): Change 11.6.0 to 12.1.1rc1.
+
 	* SKK-MK: Change required APEL version to 10.6.
 
 2003-06-25  Masatake YAMATO  <jet@gyve.org>
@@ -4242,8 +4244,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.742 2003/07/05 08:27:04 minakaji Exp $
-Last Modified: $Date: 2003/07/05 08:27:04 $
+Version: $Id: ChangeLog,v 1.743 2003/07/05 09:24:17 minakaji Exp $
+Last Modified: $Date: 2003/07/05 09:24:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
