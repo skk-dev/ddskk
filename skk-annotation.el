@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.19 2002/02/11 08:03:48 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.20 2002/06/02 00:31:38 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2002/02/11 08:03:48 $
+;; Last Modified: $Date: 2002/06/02 00:31:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -270,12 +270,14 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		       '(start-closed t end-open t)
 		     '(front-sticky t rear-nonsticky t))))
 	   (wholestring (car (nth 2 skk-annotation-annotated-word)))
-	   (realword (when (and wholestring
+	   (realword (if (and wholestring
+			      (string-match ";\\**" wholestring))
+			 (substring wholestring 0 (match-beginning 0))
+		       wholestring))
+	   (annotation (if (and realword
 				(string-match ";\\**" wholestring))
-		       (substring wholestring 0 (match-beginning 0))))
-	   (annotation (when (and realword
-				  (string-match ";\\**" wholestring))
-			 (substring wholestring (match-end 0)))))
+			   (substring wholestring (match-end 0))
+			 nil)))
       (setq skk-annotation-original-window-configuration
 	    (current-window-configuration))
       (delete-other-windows)
