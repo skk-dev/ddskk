@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.5 2004/04/12 14:51:32 kurihara Exp $
+## Version: $Id: bskk,v 1.6 2004/12/01 10:43:34 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2004/04/12 14:51:32 $
+## Last Modified: $Date: 2004/12/01 10:43:34 $
 
 ## This file is part of Daredevil SKK.
 
@@ -28,6 +28,17 @@
 
 ### Commentary:
 ## 使い方は、skk-bayesian.el の Commentary を参照
+
+
+### Specification:
+
+## emacs は終了の前に bskk に対して COMMAND_SAVE を送り履歴の保存をさせ
+## なくてはいけない。
+
+## サーバ(-s オンプション)として起動された bskk を終了させる方法は、
+## kill -TERM でなくてはならない。-HUP による再起動はサポートしていな
+## い。-TERM により終了する際には、bskk は履歴を保存してから終了しなく
+## てはならない。
 
 ## Code:
 
@@ -151,10 +162,13 @@ class DBHistoryFileSyntaxException < Exception
 end
 
 class DB
+  attr_reader :dirty
+  
   public
   def initialize( io=nil )
     check_type( io, IO, NilClass )
     @i2prefix2dst = Array.new
+    @dirty = false
     if( io == nil )
       return
     end
@@ -194,6 +208,7 @@ class DB
   def add_history( word_str, prefix_list )
     check_type( word_str, String )
     check_type( prefix_list, Array )
+    @dirty = true
     word = IString.get_instance( word_str )
     if prefix_list.size > @i2prefix2dst.size
       @i2prefix2dst.fill(nil, @i2prefix2dst.size..prefix_list.size )
@@ -249,6 +264,35 @@ class DB
     return [sorted_entries, probs]
   end
 
+  # return 
+  # true    success of save
+  # false   otherwise
+  def save( path_to_file, path_to_bak )
+    debug_log( "save...    ;" + Time.now.to_s )
+    if not @dirty
+      debug_log( "save...done; not dirty; " + Time.now.to_s )
+      return true
+    end
+    if File.exist?( path_to_file )
+      system("cp -p #{path_to_file} #{path_to_bak}")
+    end
+    path_to_lock = path_to_file + ".lock"
+    lock = open( path_to_lock, "w" )
+    if try_lock( lock )
+      f = open( path_to_file, "w" )
+      marshal( f )
+      f.close
+      lock.close
+      debug_log( "save...done; " + Time.now.to_s )
+      return true
+    else
+      lock.close
+      debug_log( "save...failed; " + Time.now.to_s )
+      return false
+    end
+  end
+
+  private
   def marshal( io )
     check_type( io, IO )
     @i2prefix2dst.each_with_index{ |prefix2dst, index|
@@ -264,7 +308,6 @@ class DB
     }
   end
 
-  private
   ## 混合分布の重みを返す
   ## 返り値は、Array: [w_1, w_2, .., w_n]
   ## p( word | p_1, .., p_n )
@@ -321,6 +364,13 @@ def v_puts( message, out=STDERR )
   out.puts message if @verbose
 end
 
+def debug_log( message )
+  if $debug and File.directory?( ENV["HOME"] + "/tmp" )
+    f = open( ENV["HOME"] + "/tmp/bskk.log", "a" )
+    f.puts message
+    f.close
+  end
+end
 
 def try_lock( file, lock_mode=File::LOCK_EX, timeout=2, try_interval=0.1 )
   check_type( file, File )
@@ -335,25 +385,6 @@ def try_lock( file, lock_mode=File::LOCK_EX, timeout=2, try_interval=0.1 )
   return false
 end
 
-
-# return 
-# true    success of  save_DB
-# false   otherwise
-def save_DB( db, path_to_file, path_to_bak )
-  if File.exist?( path_to_file )
-    system("cp -p #{path_to_file} #{path_to_bak}")
-  end
-  f = open( path_to_file, "w" )
-  if try_lock( f )
-    db.marshal( f )
-    f.flock( File::LOCK_UN )
-    f.close
-    return true
-  else
-    f.close
-    return false
-  end
-end
 
 def serve( db, input, out, err, history_file, history_file_bak )
   begin
@@ -374,27 +405,36 @@ def serve( db, input, out, err, history_file, history_file_bak )
         kakutei_word = input.readline.chomp
         prefix_list = input.readline.split.reverse
         db.add_history( kakutei_word, prefix_list )
+        out.puts "t"
         out.puts ";;OK."
       when COMMAND_SAVE
-        save_DB( db, history_file, history_file_bak )
-        out.puts ";;OK."
+        if db.save( history_file, history_file_bak )
+          out.puts "t"
+          out.puts ";;Succeeded."
+        else
+          out.puts "nil"
+          out.puts ";;Failed."
+          debug_log( "failed in saving; " + Time.now.to_s )
+        end
       else
         v_puts( ";;unknown command: #{line}", err )
       end
     end
   rescue EOFError # クライアントから接続が一方的に切られる時も、EOFError (1.8.1)
+    out.puts "t"
     out.puts ";;EOF."
   rescue IOError => e
     err.puts e.to_s
   rescue => e
     err.puts e.to_s
   end
-  save_DB( db, history_file, history_file_bak )
+  out.puts ";;finish saving."
+  debug_log( "finish (server); " + Time.now.to_s )
 end
 
 DEFAULT_PORT = 51178
 
-def mode_serve( history_file, server )
+def mode_serve( history_file, server, port )
   check_type( history_file, String )
   check_type( server, TrueClass, FalseClass )
   history_file_bak = history_file + ".BAK"
@@ -402,43 +442,40 @@ def mode_serve( history_file, server )
   db = nil
   if File.exist?( history_file ) # read history
     f = open( history_file )
-    if try_lock( f )
-      begin
+    begin
+      if try_lock( f, File::LOCK_SH )
         db = DB.new( f )
-      rescue DBHistoryFileSyntaxException => e
-        STDERR.puts(e.message)
-        STDERR.puts("#{history_file} is invalid.")
-        if File.exist?( history_file_bak )
-          STDERR.puts("use #{history_file_bak} instead of #{history_file}.")
-          f2 = open( history_file_bak )
-          if try_lock( f2 )
-            begin
-              db = DB.new( f2 )
-            rescue DBHistoryFileSyntaxException => e2
-              STDERR.puts(e2.message)
-              STDERR.puts("#{history_file_bak} is also invalid.")
-            ensure
-              f2.flock( File::LOCK_UN )
-              f2.close
-            end
-          end
-        end
-      ensure
-        f.flock( File::LOCK_UN )
       end
+    rescue DBHistoryFileSyntaxException => e
+      STDERR.puts(e.message)
+      STDERR.puts("#{history_file} is invalid.")
+      if File.exist?( history_file_bak )
+        STDERR.puts("use #{history_file_bak} instead of #{history_file}.")
+        f2 = open( history_file_bak )
+        begin
+          if try_lock( f2, File::LOCK_SH )
+            db = DB.new( f2 )
+          end
+        rescue DBHistoryFileSyntaxException => e2
+          STDERR.puts(e2.message)
+          STDERR.puts("#{history_file_bak} is also invalid.")
+        ensure
+          f2.close
+        end
+      end
+    ensure
+      f.close
     end
-    f.close
   end
   if db == nil
     db = DB.new
   end
-  ## handle signals
+  ## handle SIGTERM
   begin
     proc = Proc.new{
+      debug_log( "SIGTERM; " + Time.now.to_s )
       STDERR.puts "Signal SIGTERM"
-      STDERR.print "saving db..."
-      save_DB( db, history_file, history_file_bak )
-      STDERR.puts "done."
+      db.save( history_file, history_file_bak )
       exit
     }
     if defined?( Signal ) # Signal is a ruby 1.7 feature
@@ -448,35 +485,41 @@ def mode_serve( history_file, server )
     end
   end
   ## main routine
-  if server
-    socket = nil
-    begin
-      socket = EBTCPServer.new( DEFAULT_PORT )
-    rescue => e
-      STDERR.puts "Error: #{e.to_s}"
-      exit(1)
-    end
-    v_puts( "bind to #{DEFAULT_PORT.to_s}." )
-    pid = fork
-    if pid  ## parent
-      socket.close
-      exit
-    else    ## child
-      v_puts( "fork to be a deamon. PID=#{Process.pid}." )
-      while true
-        s = socket.accept
-        v_puts( "accept a new client." )
-        Thread.start( s ){ |io|
-          serve( db, io, io, STDERR, history_file, history_file_bak )
-          io.close
-          v_puts( "close an session", STDERR )
-        }
-        v_puts "#{(Thread.list.size-1).to_s} session(s) remain(s)."
+  begin
+    if server
+      socket = nil
+      begin
+        socket = EBTCPServer.new( port )
+      rescue => e
+        STDERR.puts "Error: #{e.to_s}"
+        exit(1)
       end
-      socket.close
+      v_puts( "bind to #{DEFAULT_PORT.to_s}." )
+      pid = fork
+      if pid  ## parent
+        socket.close
+        exit
+      else    ## child
+        v_puts( "fork to be a deamon. PID=#{Process.pid}." )
+        while true
+          s = socket.accept
+          v_puts( "accept a new client." )
+          Thread.start( s ){ |io|
+            serve( db, io, io, STDERR, history_file, history_file_bak )
+            io.close
+            v_puts( "close an session", STDERR )
+          }
+          v_puts "#{(Thread.list.size-1).to_s} session(s) remain(s)."
+        end
+        socket.close
+      end
+    else
+      serve( db, STDIN, STDOUT, STDERR, history_file, history_file_bak )
     end
-  else
-    serve( db, STDIN, STDOUT, STDERR, history_file, history_file_bak )
+  rescue SignalException => e # TERM 以外
+    debug_log( "SIG #{e.to_s}; " + Time.now.to_s )
+    STDERR.puts "Signal #{e.to_s}"
+    exit
   end
 end
 
@@ -490,6 +533,7 @@ options:
   -s                    run as a server.
   -p  port              use port (default=#{DEFAULT_PORT}).
   -v                    verbose.
+  -d                    debug mode.
   -h                    show a help and exit.
 ----------
 end
@@ -499,6 +543,7 @@ def main
   history_file = nil
   server = false
   @verbose = false
+  port = DEFAULT_PORT
   begin
     i = 0
     while i < ARGV.size
@@ -523,6 +568,8 @@ def main
         i += 1
       when "-v"
         @verbose = true
+      when "-d"
+        $debug = true
       else
         STDERR.puts( "an unknown option: #{ARGV[i]}" )
         print_help
@@ -536,7 +583,7 @@ def main
       exit
     end
   end
-  mode_serve( history_file, server )
+  mode_serve( history_file, server, port )
 end
 
 # このファイルが実行ファイルとして実行された時
