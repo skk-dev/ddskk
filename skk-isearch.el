@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.16 2001/09/05 21:31:07 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.17 2001/09/05 21:33:19 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/05 21:31:07 $
+;; Last Modified: $Date: 2001/09/05 21:33:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -591,16 +591,16 @@ If the current mode is different from previous, remove it first."
 	      (mapconcat 'isearch-text-char-description
 			 skk-isearch-whitespace-regexp
 			 ""))))
-	(when (string-match regexp isearch-message))
-	(setq isearch-message
-	      (with-temp-buffer
-		(insert isearch-message)
-		(goto-char (point-min))
-		(replace-regexp regexp "")
-		(buffer-substring (point-min) (point-max))))
-	(setq isearch-cmds (cdr isearch-cmds))
-	(isearch-push-state)
-	(isearch-update)))))
+	(when (string-match regexp isearch-message)
+	  (setq isearch-message
+		(with-temp-buffer
+		  (insert isearch-message)
+		  (goto-char (point-min))
+		  (replace-regexp regexp "")
+		  (buffer-substring (point-min) (point-max))))
+	  (setq isearch-cmds (cdr isearch-cmds))
+	  (isearch-push-state)
+	  (isearch-update))))))
 
 (defadvice isearch-edit-string (before skk-isearch-ad activate compile)
   "`isearch-message' を適切に設定する。"
