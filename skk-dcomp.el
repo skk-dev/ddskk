@@ -1,11 +1,11 @@
 ;;; skk-dcomp.el --- SKK dynamic completion
-;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.4 2001/01/27 00:21:45 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.5 2001/02/03 00:19:36 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/01/27 00:21:45 $
+;; Last Modified: $Date: 2001/02/03 00:19:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -47,10 +47,11 @@
 ;;
 ;; <INSTALL>
 ;;
-;; skk-11/experimental/skk-dcomp.el を skk-11/skk-dcomp.el にコピーし
-;; て後は普通に make して下さい。skk-dcomp.el がインストールされ、
-;; autoload の設定が自動的に生成されます。後は .emacs もしくは .skk に
-;; (require 'skk-dcomp) と書きましょう。
+;; SKK を普通に make して下さい。特に作業は不要です。
+;;
+;; <HOW TO USE>
+;;
+;; .emacs もしくは .skk に (require 'skk-dcomp) と書きましょう。
 ;; 一旦 (require 'skk-dcomp) した後に、ダイナミックコンプリーションの
 ;; 機能を止めたかったら、(setq skk-dcomp-activate nil) を評価しましょう。
 ;;

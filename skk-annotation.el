@@ -1,12 +1,12 @@
 ;;; skk-annotation.el --- SKK annotation 関連プログラム
-;; Copyright (C) 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.1 2000/12/10 10:47:53 minakaji Exp $
+;; Version: $Id: skk-annotation.el,v 1.2 2001/02/03 00:19:36 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2000/12/10 10:47:53 $
+;; Last Modified: $Date: 2001/02/03 00:19:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -31,12 +31,9 @@
 ;; ラムです。
 ;;
 ;; <INSTALL>
-;; skk-11/experimental/skk-annotation.el を skk-11/skk-annotation.el
-;; にコピーして後は普通に make して下さい。skk-annotation.el がインス
-;; トールされ、autoload の設定が自動的に生成されます。
 ;;
-;; Viper 対策はまだ行なっていません。~/.viper に次のように書いて下さい。
-;; (viper-harness-minor-mode "skk-annotation")
+;; SKK を普通に make して下さい。特に作業は不要です。
+;;
 ;;
 ;; <HOW TO USE>
 ;;
@@ -127,6 +124,9 @@
 ;; 自体も候補と区別できずに quote されてしまいますので、ご注意下さい
 ;; (今のところ手作業で quote されないように退避するなどしか方法はあり
 ;; ません)。
+;;
+;; Viper 対策はまだ行なっていません。~/.viper に次のように書いて下さい。
+;; (viper-harness-minor-mode "skk-annotation")
 ;;
 ;;; Code:
 (eval-when-compile

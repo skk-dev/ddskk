@@ -1,5 +1,8 @@
 2001-02-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* skk-dcomp.el: Update install notes.
+	* skk-annotation.el: Ditto.
+
 	* skk-vars.el (skk-lookup-option-alist): Change 4th and 7th value
 	of "KOUJIEN" and "KOJIEN" to pick up composed word properly.
 
@@ -3092,8 +3095,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.251 2001/02/02 23:46:28 minakaji Exp $
-Last Modified: $Date: 2001/02/02 23:46:28 $
+Version: $Id: ChangeLog,v 1.252 2001/02/03 00:19:36 minakaji Exp $
+Last Modified: $Date: 2001/02/03 00:19:36 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
