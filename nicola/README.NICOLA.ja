@@ -78,17 +78,19 @@ Licence $B$NBh(B 2 $B%P!<%8%g%s0J9_(B ($B$NG$0U$N(B 1 $B$D$N%P!<%8%g%s(B
 
 $BK\%W%m%0%i%`$OM-MQ$G$"$k$H;W$o$l$^$9$,!"$=$NG[I[$OL5J]>Z$G$9!#;T>l@-$^(B
 $B$?$OFCDj$NL\E*$X$NE,9g@-$N$?$a$KDL>oG'$a$i$l$k$h$&$J0EL[$NJ]>Z$9$i$5$l(B
-$B$^$;$s!#(BNU General Public License $B$r;2>H$9$l$P$h$j>\$7$$$3$H$,J,$+$j$^(B
-$B$9!#(B
+$B$^$;$s!#(BGNU General Public License $B$r;2>H$9$l$P$h$j>\$7$$$3$H$,J,$+$j(B
+$B$^$9!#(B
 
-Daredevil SKK $B$H$H$b$K(B the GNU General Public License $B$,0lIt<}O?$5$l$F(B
-$B$$$k$O$:$G$9!#(BCOPYING $B$H$$$&L>A0$N%U%!%$%k$r8+$F$/$@$5$$!#$b$7$3$l$,$J(B
-$B$1$l$P!"<!$N08@h$K<j;f$rAw$C$F$/$@$5$$!#(BFree Software Foundation Inc.,
-59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Daredevil SKK $B$H$H$b$K(B GNU General Public License $B$,<}O?$5$l$F$$$k$O$:(B
+$B$G$9!#(BCOPYING $B$H$$$&L>A0$N%U%!%$%k$r8+$F$/$@$5$$!#$b$7$3$l$,$J$1$l$P!"(B
+$B<!$N08@h$K<j;f$rAw$C$F$/$@$5$$!#(BFree Software Foundation Inc., 59
+Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
 
 $B!Z%$%s%9%H!<%k![(B
 
 README.ja $B$r;2>H$7$F$/$@$5$$!#(B
+
 
 $B!Z@_Dj![(B
 
@@ -101,6 +103,7 @@ skk-kanagaki-keybard-type $B$H$$$&JQ?t$O(B nicola-jis, oasys, omelet-jis
 $B$N$$$:$l$+$K$9$k$3$H$K$J$k$G$7$g$&!#$=$l$>$lHyL/$K%-!<G[Ns$,0c$$$^$9!#(B
 
  (setq skk-kanagaki-keyboard-type 'omelet-jis)
+
 
 $B!Z;HMQK!![(B
 
@@ -249,7 +252,7 @@ Daredevil SKK $B$K$O!"(BNICOLA $BHG$N%A%e!<%H%j%"%k$,IUB0$7$F$$$^$9!#?F;X%7(
 
    o skk-nicola-lshift-keys
 
-     $B:8?F;X%-!<$H$7$F;H$&%-!<$k%j%9%H!#(B
+     $B:8?F;X%-!<$H$7$F;H$&%-!<$N%j%9%H!#(B
      $BI8=`$G$OL5JQ49%-!<!#(B
      $BL5JQ49%-!<$rI=$9%7%s%]%k$b(B Emacs $B$N<oN`$K$h$C$F0[$J$k$3$H$,$"$k!#(B
 
