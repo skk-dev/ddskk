@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.95 2002/01/29 11:52:25 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.96 2002/02/09 06:16:58 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2002/01/29 11:52:25 $
+@c  Last Modified: $Date: 2002/02/09 06:16:58 $
 @c
 @set EDITION 1.9
 @set SKK-VERSION 12.1.0
-@set UPDATED $Date: 2002/01/29 11:52:25 $
+@set UPDATED $Date: 2002/02/09 06:16:58 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8017,13 +8017,13 @@ SKK Openlab $B$G3+H/!"%j%j!<%9$5$l$k(B SKK $B$O!"5~Bg$N:4F#@h@8$,Cf?4$K$J$C(
 @comment  node-name,  next,  previous,  up
 @unnumberedsubsec Q.1-4 DDSKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?
 
+DDSKK 12 $B$K4X$7$F$O(B
+
 @itemize @minus
-@item Emacs 19.28 $B0J9_(B $B$r4p$H$7$?(B Mule 2.3
-@item Emacs 20.2 $B0J9_(B
+@item Emacs 20.4 $B0J9_(B
 @item Emacs 21.1 $B0J9_(B
-@item MULE $B5!G=IU$-$G:n@.$5$l$?(B XEmacs 20.4 $B0J9_(B
-@item Meadow 1.00 $B0J9_(B
-@item Mule for Windows 1.21, 1.22
+@item MULE $B5!G=IU$-$G:n@.$5$l$?(B XEmacs 21 $B0J9_(B
+@item Meadow 1.10 $B0J9_(B
 @end itemize
 
 @noindent
