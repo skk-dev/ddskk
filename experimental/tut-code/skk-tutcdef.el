@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.3 1999/08/21 14:43:09 minakaji Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.4 1999/08/28 23:42:38 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/21 14:43:09 $
+;; Last Modified: $Date: 1999/08/28 23:42:38 $
 
 ;; This file is not part of SKK yet.
 
@@ -25,16 +25,20 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-
 ;; Following people contributed modifications to skk.el (Alphabetical order):
 ;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
-
-;;; Change log:
 
 ;;; Code:
 (eval-when-compile (require 'skk))
 
+(setq skk-auto-insert-paren t)
 (setq skk-try-completion-char ?\016)	; \C-n
+(setq skk-latin-mode-string " sTUT")
+(setq skk-hiragana-mode-string " ｓたっと")
+(setq skk-katakana-mode-string " ｓタット")
+(setq skk-jisx0208-latin-mode-string " ｓＴＵＴ")
+(setq skk-abbrev-mode-string " sた")
+(setq skk-start-henkan-char ?\^@)
 
 (setq skk-kana-rom-vector
   ["r" "r" "r" "r" "r" "r" "r" "r" "r" "r" "e" "e" "e" "e" "e" "e"
@@ -51,7 +55,7 @@
    ("L" nil skk-jisx0208-latin-mode)
    ("Q" nil skk-set-henkan-point-subr)
    ("X" nil skk-purge-from-jisyo)
-   ("\C-l" nil skk-latin-mode)
+   ("\\C-l" nil skk-latin-mode)
    ("\\" nil skk-tutcode-mode-off)
    ("\t" nil skk-toggle-kana)
    ("^" nil skk-input-by-code-or-menu) ))
