@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.6 2000/11/20 08:55:40 czkmt Exp $
+;; Version: $Id: skk-lookup.el,v 1.7 2001/02/02 23:46:29 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2000/11/20 08:55:40 $
+;; Last Modified: $Date: 2001/02/02 23:46:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -260,11 +260,20 @@
 	((or (string= heading "")
 	     (and pickup-regexp (not (string-match pickup-regexp heading))))
 	 candidates-list)
+      (setq match (eval match))
       (if pickup-regexp
 	  (setq candidates-string
-		(match-string-no-properties (eval match) heading)
+		;; XXX
+		;;(if (listp match)
+		;;    (mapconcat (function
+		;;		(lambda (num)
+		;;		  (match-string-no-properties num heading)))
+		;;	       match "")
+		(match-string-no-properties match heading)
+		;;)
 		heading
-		(substring heading (min (+ (match-end (eval match)) skk-kanji-len)
+		;;(substring heading (min (+ (match-end (eval match)) skk-kanji-len)
+		(substring heading (min (+ (match-end match) skk-kanji-len)
 					(length heading))))
 	(setq candidates-string heading
 	      heading ""))

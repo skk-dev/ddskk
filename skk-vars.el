@@ -1,12 +1,12 @@
 ;;; skk-vars.el --- variables and constants commonly use
 ;;    in Daredevil SKK package programs.
-;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000, 2001 SKK Development Team <skk@ring.gr.jp>
 
-;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.25 2000/12/18 15:36:26 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.26 2001/02/02 23:46:29 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/18 15:36:26 $
+;; Last Modified: $Date: 2001/02/02 23:46:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2576,14 +2576,25 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; $B$"$$!Z4V![%"%R(B
     ;; $B%&%#!Z(Boui $B%U%i%s%9![(B
     ;; $B%=!Z(Bsol $B%$%?%j%"![(B
+    ;; $B%"%j%9%H%F%l%9!>$7$e$.!Z!=<g5A![(B
     ;; ($BL$BP1~(B) $B%"!<%H%^%s!Z(B_tman $B[p![(B; $B30;z$r4^$`8uJd!#(B_ $B$O30;z(B
     ("KOUJIEN" exact exact prefix t
-     ("$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" .
-      (cond ((match-beginning 1) 1) ((match-beginning 2) 2))) "$B!&(B" nil)
+     ("\\([^$B!Z![(B]+$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B[^$B!Z![(B]+$B![(B\\)\\|$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" .
+      (cond ((match-beginning 1) 1)
+	    ((match-beginning 2) 2)
+	    ((match-beginning 3) 3)
+	    ;;((match-beginning 3) '(3 4))
+	    ))
+     "$B!&(B" "$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$")
     ;; KOJIEN: $B9-<-1qBh(B5$BHG(B($B4dGH(B,EPWING)
     ("KOJIEN" exact exact prefix t
-     ("$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" .
-      (cond ((match-beginning 1) 1) ((match-beginning 2) 2))) "$B!&(B" nil)
+     ("\\([^$B!Z![(B]+$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B[^$B!Z![(B]+$B![(B\\)\\|$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" .
+      (cond ((match-beginning 1) 1)
+	    ((match-beginning 2) 2)
+	    ((match-beginning 3) 3)
+	    ;;((match-beginning 3) '(3 4))
+	    ))
+     "$B!&(B" "$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$")
     ;; KOKUGO: $B;0>JF2(B $BF|K\8l<-E5!J8=Be9q8l!"30Mh8l!K(B
     ;; `$B!R(B' $B$O!"EvMQ4A;zI=$K$J$$4A;z$G!"(B`$B!T(B' $B$O!"EvMQ4A;zI=$K$O$"$k$,!"$=$N2;!"(B
     ;; $B71$,EvMQ4A;zI=$N2;71I=$K$J$$4A;z!#(B
