@@ -2,9 +2,9 @@
 @c
 @c  Author: Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk-faq.texi,v 1.16 2000/11/11 03:19:10 czkmt Exp $
+@c  Version: $Id: skk-faq.texi,v 1.17 2000/11/13 10:33:46 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/11/11 03:19:10 $
+@c  Last Modified: $Date: 2000/11/13 10:33:46 $
 @c
 @setfilename skk-faq.info
 @c @settitle Frequently Asked Questions (SKK)
@@ -228,14 +228,14 @@ SKK abbrev モードというのはアスキー文字を利用した変換ができるモードで
 最も新しくなくて良ければ、
 
 @display
-@url{http://openlab.ring.jp/skk/daredevil-ja.html}
+@url{http://openlab.ring.gr.jp/skk/daredevil-ja.html}
 @end display
 
 @noindent
 もしくは
 
 @display
-@url{http://openlab.ring.jp/skk/maintrunk-ja.html}
+@url{http://openlab.ring.gr.jp/skk/maintrunk-ja.html}
 @end display
 
 @noindent
@@ -246,7 +246,7 @@ SKK abbrev モードというのはアスキー文字を利用した変換ができるモードで
 @unnumberedsubsec Q.2-2 SKK を入手しましたが、辞書が付いていないのですが。
 
 @display
-@url{http://openlab.ring.jp/skk/dic-ja.html}
+@url{http://openlab.ring.gr.jp/skk/dic-ja.html}
 @end display
 
 @noindent
