@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.13 1999/09/25 11:13:08 minakaji Exp $
+;; Version: $Id: skk.el,v 1.14 1999/10/03 05:59:40 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/25 11:13:08 $
+;; Last Modified: $Date: 1999/10/03 05:59:40 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -47,59 +47,10 @@
 ;;   KATAKANA
 
 
-;; Following people contributed to skk.el (Alphabetical order):
-;;      Chikanobu Toyofuku <unbound@papaya.juice.or.jp>
-;;      FURUE Hideyuki <furue@kke.co.jp>
-;;      Fukaya Shigeru <SFUKAYA@oracle.co.jp>
-;;      GUNJI Takao <gunji@lisa.lang.osaka-u.ac.jp>
-;;      Haru Mizuno <mizu@cs3.cs.oki.co.jp>
-;;      Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
-;;      Hisao Kuroda <kuroda@msi.co.jp>
-;;      Hitoshi SUZUKI <h-suzuki@ael.fujitsu.co.jp>
-;;      IIDA Yosiaki <iida@secom-sis.co.jp>
-;;      Jun-ichi Nakamura <nakamura@pluto.ai.kyutech.ac.jp>
-;;      Katuya Tomioka <tomioka@culle.l.chiba-u.ac.jp>
-;;      Kazuo Hirokawa <hirokawa@rics.co.jp>
-;;      Kazushi Marukawa <kazushi@kubota.co.jp>
-;;      Kenji Yamashita <kenji@cs.titech.ac.jp>
-;;      Kimura Chikahiro <kimura@oa1.kb.nec.co.jp>
-;;      Kiyotaka Sakai <ksakai@netwk.ntt-at.co.jp>
-;;      Koichi MORI <kmori@onsei2.rilp.m.u-tokyo.ac.jp>
-;;      $B>.4X(B $B5HB'(B <kose@wizard.tamra.co.jp>
-;;      MINOURA Itsushi <minoura@uni.zool.s.u-tokyo.ac.jp>
-;;      MIYOSHI Tsutomu <minkov@fuzzy.or.jp>
-;;      Makoto MATSUSHITA <matusita@ics.es.osaka-u.ac.jp>
-;;      Masahiko Suzuki <suzmasa@sm.sony.co.jp>
-;;      Masahiro Doteguchi <xdote@rp.open.cs.fujitsu.co.jp>
-;;      Masakazu Takahashi <masaka-t@ascii.co.jp>
-;;      Masatake YAMATO <jet@airlab.cs.ritsumei.ac.jp>
-;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;;      Motohiko Mouri <mouri@jaist.ac.jp>
-;;      Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
-;;      $BCfDE;3(B $B91(B <hisashi@rst.fujixerox.co.jp>
-;;      NAMBA Seiich <pi9s-nnb@asahi-net.or.jp>
-;;      Naoki HAMADA <nao@mimo.jaist-east.ac.jp>
-;;      NISHIDA Keisuke <knishida@nn.iij4u.or.jp>
-;;      Ryoichi Hashimoto <gnu@ipri.go.jp>
-;;      Sekita Daigo <sekita@mri.co.jp>
-;;      $B?JF#M5;V(B <shindo@super.ees.saitama-u.ac.jp>
-;;      Shuji Ashizawa <ashizawa@zuken.co.jp>
-;;      Takeshi OHTANI <ohtani@iias.flab.fujitsu.co.jp>
-;;      Takao KAWAMURA <kawamura@ike.tottori-u.ac.jp>
-;;      TSUMURA Tomoaki <tsumura@kuis.kyoto-u.ac.jp>
-;;	Stephen Turnbull  <turnbull@sk.tsukuba.ac.jp>
-;;      Tomoyuki Hiro <hiro@momo.it.okayama-u.ac.jp>
-;       $BDS?"(B $B@5Bg(B (ma-tsuge@kdd.co.jp)
-;;      Tsugutomo Enami <enami@ptgd.sony.co.jp>
-;;      Wataru Matsui <matsui@atr-rd.atr.co.jp>
-;;      Yoshida Toyonobu <toyono-y@is.aist-nara.ac.jp>
-
-;;; Change log:
-
 ;;; Code:
 (require 'skk-foreword)
 
-(defconst skk-version "10.54")
+(defconst skk-version "10.55")
 (defconst skk-major-version (string-to-int (substring skk-version 0 2)))
 (defconst skk-minor-version (string-to-int (substring skk-version 3)))
 
@@ -109,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/09/25 11:13:08 $")
+      (let* ((raw-date "$Date: 1999/10/03 05:59:40 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -186,7 +137,7 @@ HENKAN-BUFFER, MIDASI, OKURIGANA, ENTRY $B$N(B 4 $B0z?t$rH<$J$C$F%3!<%k$5$l$k
 $B2C9)$7$?(B ENTRY $B$rJV$9$3$H!#(B
 $B$3$N4X?t$O!"<-=q%P%C%U%!$G%3!<%k$5$l$k$N$G!"JQ49$r9T$J$C$?%P%C%U%!%m!<%+%k$J>pJs$r(B
 $B<h$j=P$7$?$$$H$-$O!"(BHENKAN-BUFFER $B$rMxMQ$9$k!#(B"
-  :type 'function
+  :type '(choice function (const nil))
   :group 'skk )
  
 (defcustom skk-update-end-function nil
@@ -196,7 +147,7 @@ HENKAN-BUFFER, MIDASI, OKURIGANA, WORD, PURGE $B$N(B 5 $B0z?t$rH<$J$C$F%3!<%k
 $B=P$7$?$$$H$-$O!"(BHENKAN-BUFFER $B$rMxMQ$9$k!#(B
 skk-kakutei-initialize $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!":G8e$N3NDj(B
 $B$K4X$9$k%U%i%0N`$O!"$3$N4X?t$NCf$+$i;2>H$9$k$3$H$,$G$-$k!#(B"
-  :type 'function
+  :type '(choice function (const nil))
   :group 'skk )
   
 (defcustom skk-kakutei-end-function nil
@@ -204,7 +155,7 @@ skk-kakutei-initialize $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!":G8e$N3N
 KAKUTEI-WORD $B0z?t$rH<$J$C$F!"JQ49$r9T$J$C$?%P%C%U%!$G%3!<%k$5$l$k!#(B
 skk-kakutei-initialize $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!":G8e$N3NDj(B
 $B$K4X$9$k%U%i%0N`$O!"$3$N4X?t$NCf$+$i;2>H$9$k$3$H$,$G$-$k!#(B" 
-  :type 'function
+  :type '(choice function (const nil))
   :group 'skk )
 
 (defcustom skk-kakutei-jisyo nil
@@ -1761,7 +1712,7 @@ picture-mode $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!
 (defadvice kill-buffer (around skk-ad activate)
   "SKK $B$N"'%b!<%I$@$C$?$i!"3NDj$7$F$+$i%P%C%U%!$r%-%k$9$k!#(B
   $B%P%C%U%!$N%-%k8e!"(BSKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (and skk-mode skk-henkan-on (skk-kakutei))
+  (and skk-mode skk-henkan-on (interactive-p) (skk-kakutei))
   ad-do-it
   ;; $BJL$N%P%C%U%!$XHt$V%3%^%s%I$O(B skk-mode $B$,(B nil $B$G$b%+!<%=%k?'$rD4@0$9$kI,MW(B
   ;; $B$,$"$k!#(B
@@ -1822,10 +1773,6 @@ picture-mode $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!
   (skk-set-cursor-properly) ) 
 
 ;; cover to hilit19 functions.
-;; forward advice $B$H(B automatic advice activation $B5!G=$,$"$k$+$i!"(Bhilit19.el 
-;; $B$N%m!<%IA0$K(B defadvice $B$7$F$bBg>fIW!#(B
-;;(if (not (fboundp 'hilit-add-pattern))
-;;    nil
 (defadvice hilit-yank (after skk-ad activate)
   "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
   (and skk-mode (skk-set-cursor-properly)) )
@@ -3484,10 +3431,10 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 			 ;; previous char is an ascii numeric char
 			 (and (<= ?0 p) (<= p ?9))
 			 ;; previous char is a JIS X 0208 numeric char
-			  (and (skk-jisx0208-p char)
-			       (= (skk-char-octet char 0) 35) ;?#
-			       (<= 48 (skk-char-octet char 1)) ; ?0
-			       (<= (skk-char-octet char 1) 57) )  ; ?9
+			  (and (skk-jisx0208-p p)
+			       (= (skk-char-octet p 0) 35) ;?#
+			       (<= 48 (skk-char-octet p 1)) ; ?0
+			       (<= (skk-char-octet p 1) 57) )  ; ?9
 			  )))))
 	    (if skk-process-okuri-early
 		(progn

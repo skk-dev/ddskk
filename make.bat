@@ -4,9 +4,9 @@ rem Copyright (C) 1999 Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem
 rem Author: Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem Maintainer: Mikio Nakajima, mailto:minakaji@osaka.email.ne.jp
-rem Version: $Id: make.bat,v 1.7 1999/09/20 03:12:12 minakaji Exp $
+rem Version: $Id: make.bat,v 1.8 1999/10/03 06:02:27 minakaji Exp $
 rem Created: March 23, 1999
-rem Last Modified: $Date: 1999/09/20 03:12:12 $
+rem Last Modified: $Date: 1999/10/03 06:02:27 $
 
 rem ********************************************************************
 rem *                                                                  *
@@ -20,5 +20,5 @@ set PACKAGEDIR=NONE
 set V_S_LISPDIR=NONE
 rem ********************************************************************
 
-%EMACS% -batch -q -no-site-file -l SKK-MK -f SKK-MK-install %PREFIX% %LISPDIR% %V_S_LISPDIR%
+%EMACS% -batch -q -no-site-file -l SKK-MK -f SKK-MK-install
 
