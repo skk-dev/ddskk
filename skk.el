@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.285 2004/06/07 08:54:28 czkmt Exp $
+;; Version: $Id: skk.el,v 1.286 2004/11/26 23:41:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/06/07 08:54:28 $
+;; Last Modified: $Date: 2004/11/26 23:41:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -916,7 +916,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 ;;;; kana inputting functions
 (defun skk-insert (&optional arg)
   "SKK $B$NJ8;zF~NO$r9T$J$&!#(B"
-  (interactive "*p")
+  (interactive "p")
+  (barf-if-buffer-read-only)
   (skk-with-point-move
    (let ((ch last-command-char))
      (cond ((and skk-henkan-mode
@@ -1435,7 +1436,8 @@ skk-jisx0208-latin-vector $B$r%F!<%V%k$H$7$F!":G8e$KF~NO$5$l$?%-!<$KBP1~$9$kJ8
 $B;z$rA^F~$9$k!#(B
 skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string-alist $B$K(B
 $BBP1~$9$kJ8;zNs$,$"$k$H$-$O!"$=$NBP1~$9$kJ8;zNs(B ($B$+$C$3N`(B) $B$r<+F0E*$KA^F~$9$k!#(B"
-  (interactive "*p")
+  (interactive "p")
+  (barf-if-buffer-read-only)
   (skk-with-point-move
    (let* ((str (aref skk-jisx0208-latin-vector last-command-char))
 	  (arg2 arg)
