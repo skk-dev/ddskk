@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.51 2002/03/05 02:42:39 iida Exp $
+;; Version: $Id: skk-tut.el,v 1.52 2002/03/06 02:07:22 iida Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/05 02:42:39 $
+;; Last Modified: $Date: 2002/03/06 02:07:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -471,7 +471,7 @@
 ;;;###autoload
 (defun skk-tutorial (&optional query-language)
   "SKK $B%A%e!<%H%j%"%k$r5/F0$9$k!#(B
-C-u M-x skk-tutorial $B$9$k$H!"%A%e!<%H%j%"%k%U%!%$%k$NA*Br$,2DG=!#(B"
+\\[universal-argument] \\[skk-tutorial] $B$9$k$H!"%A%e!<%H%j%"%k%U%!%$%k$NA*Br$,2DG=!#(B"
   (interactive "P")
   ;;
   (unless skk-mode-invoked
@@ -520,7 +520,7 @@ C-u M-x skk-tutorial $B$9$k$H!"%A%e!<%H%j%"%k%U%!%$%k$NA*Br$,2DG=!#(B"
 
 (defun skk-tutorial-again (&optional now)
   "SKK $B%A%e!<%H%j%"%k$r:G=i$+$i$d$jD>$9!#(B
-C-u M-x skk-tutorial-again $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$K$d$j(B
+\\[universal-argument] \\[skk-tutorial-again] $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$K$d$j(B
 $BD>$9!#(B"
  (interactive "P")
   (when (or now
@@ -532,7 +532,7 @@ C-u M-x skk-tutorial-again $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A
 
 (defun skk-tutorial-quit (&optional now)
   "SKK $B%A%e!<%H%j%"%k$r$d$a$k!#(B
-C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$K$d$a(B
+\\[universal-argument] \\[skk-tutorial-quit] $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$K$d$a(B
 $B$k!#(B"
   (interactive "P")
   (when (or now
