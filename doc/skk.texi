@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.42 2000/10/10 14:06:25 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.43 2000/10/11 11:06:10 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/10 14:06:25 $
+@c  Last Modified: $Date: 2000/10/11 11:06:10 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/10/10 14:06:25 $
+@set UPDATED $Date: 2000/10/11 11:06:10 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -5860,8 +5860,11 @@ skkdic-expr $B$r<B9T$9$k$H$-!":n6HMQ$N%U%!%$%k$H$7$F<-=q$N(B 2 $BG\DxEY$NBg$-
 @end example
 
 @noindent
-$B$3$N:9J,$r>-Mh$N(B SKK $B<-=q$KH?1G$5$;$kJ}K!$K$D$$$F$O(B@ref{$B<U<-$H$*4j$$(B}$B$r(B
-$B;2>H$7$F$/$@$5$$!#(B
+$B$3$N:9J,$r>-Mh$N(B SKK $B<-=q$KH?1G$5$;$kJ}K!$K$D$$$F$O(B
+
+@ref{$B$*4j$$(B}
+
+$B$r;2>H$7$F$/$@$5$$!#(B
 
 @item
 2 $B$D$N<-=q$N6&DLItJ,$r<h$j=P$9!#(B
