@@ -18,7 +18,7 @@
 	(skk-num-get-kanji): New function.
 
 	* skk-vars.el (skk-num-alist-type3): New variable.
-	(skk-num-alist-type5): Add "零",
+	(skk-num-alist-type5): Add "零".
 
 	* READMEs/NEWS: Update.
 
@@ -1823,8 +1823,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.375 2001/09/11 16:01:20 czkmt Exp $
-Last Modified: $Date: 2001/09/11 16:01:20 $
+Version: $Id: ChangeLog,v 1.376 2001/09/11 16:05:43 czkmt Exp $
+Last Modified: $Date: 2001/09/11 16:05:43 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
