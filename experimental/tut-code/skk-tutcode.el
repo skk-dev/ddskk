@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.8 1999/09/27 07:11:17 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.9 1999/09/27 07:11:57 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/27 07:11:17 $
+;; Last Modified: $Date: 1999/09/27 07:11:57 $
 
 ;; This file is not part of SKK yet.
 
@@ -59,18 +59,18 @@
 ;;
 ;; Put the following lines in your .emacs.
 ;;
-;; (defadvice skk-mode (around my-ad activate)
+;; (defadvice skk-mode (before my-ad activate)
 ;;   (require 'skk-tutcdef)
 ;;   (require 'skk-tutcode) )
 ;; 
-;; (defadvice skk-auto-fill-mode (around my-ad activate)
+;; (defadvice skk-auto-fill-mode (before my-ad activate)
 ;;   (require 'skk-tutcdef)
 ;;   (require 'skk-tutcode) )
 ;; 
 ;; If you would like to customize some definitions in skk-tutcdef.el,
 ;; you could do, for example;
 ;;
-;; (defadvice skk-mode (around my-ad activate)
+;; (defadvice skk-mode (before my-ad activate)
 ;;   (require 'skk-tutcdef)
 ;;   ;; your customizations...
 ;;   (setq skk-rom-kana-rule-list
