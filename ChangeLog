@@ -1,3 +1,8 @@
+2000-09-28  Shuhei KOBAYASHI  <shuhei@aqua.ocn.ne.jp>
+
+	* skk.el: (skk-insert, skk-previous-candidate):
+	Fix interactive spec.
+
 2000-09-28  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* ptexinfmt.el: @multitable bug fix (TAKAHASHI Kaoru さん提供,
