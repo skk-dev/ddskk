@@ -28,6 +28,8 @@
 
 	* skk-e21.el (skk-e21-modeline-property): Use `static-if'.
 
+	(skk-e21-modeline-menu-items): nil under tty.
+
 	* skk-macs.el (skk-loop-for-buffers): New macro.
 
 	* skk-vars.el (skk-emacs-type): Use ordinary clauses.
@@ -1933,8 +1935,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.396 2001/09/14 22:58:18 czkmt Exp $
-Last Modified: $Date: 2001/09/14 22:58:18 $
+Version: $Id: ChangeLog,v 1.397 2001/09/14 23:08:52 czkmt Exp $
+Last Modified: $Date: 2001/09/14 23:08:52 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -35,53 +35,54 @@
 
 ;; Variables.
 (defvar skk-e21-modeline-menu-items
-  '("Daredevil SKK Menu"
-    ["Hiragana"
-     (skk-j-mode-on)
-     :selected (and skk-j-mode (not skk-katakana))
-     :style radio
-     :keys nil
-     :key-sequence nil]
-    ["Katakana"
-     (skk-j-mode-on t)
-     :selected (and skk-j-mode skk-katakana)
-     :style radio
-     :keys nil
-     :key-sequence nil]
-    ["Hankaku alphabet"
-     skk-latin-mode
-     :selected skk-latin-mode
-     :style radio
-     :keys nil
-     :key-sequence nil]
-    ["Zenkaku alphabet"
-     skk-jisx0208-latin-mode
-     :selected skk-jisx0208-latin-mode
-     :style radio
-     :keys nil
-     :key-sequence nil]
-    "--"
-    ["Read Manual" skk-e21-info t]
-    ["Start Tutorial" skk-tutorial t]
-    ["Customize Daredevil SKK" skk-e21-customize t]
-    ["Send a Bug Report"
-     (let (skk-japanese-message-and-error)
-       (skk-submit-bug-report)) t]
-    "--"
-    ["About Daredevil SKK..." skk-version t]
-    ["Visit Daredevil SKK Home..." skk-e21-visit-openlab t]))
+  (when window-system
+    '("Daredevil SKK Menu"
+      ["Hiragana"
+       (skk-j-mode-on)
+       :selected (and skk-j-mode (not skk-katakana))
+       :style radio
+       :keys nil
+       :key-sequence nil]
+      ["Katakana"
+       (skk-j-mode-on t)
+       :selected (and skk-j-mode skk-katakana)
+       :style radio
+       :keys nil
+       :key-sequence nil]
+      ["Hankaku alphabet"
+       skk-latin-mode
+       :selected skk-latin-mode
+       :style radio
+       :keys nil
+       :key-sequence nil]
+      ["Zenkaku alphabet"
+       skk-jisx0208-latin-mode
+       :selected skk-jisx0208-latin-mode
+       :style radio
+       :keys nil
+       :key-sequence nil]
+      "--"
+      ["Read Manual" skk-e21-info t]
+      ["Start Tutorial" skk-tutorial t]
+      ["Customize Daredevil SKK" skk-e21-customize t]
+      ["Send a Bug Report"
+       (let (skk-japanese-message-and-error)
+	 (skk-submit-bug-report)) t]
+      "--"
+      ["About Daredevil SKK..." skk-version t]
+      ["Visit Daredevil SKK Home..." skk-e21-visit-openlab t])))
 
 (defvar skk-e21-modeline-property
-  (and window-system
-       (list 'local-map (static-if
-			    (fboundp
-			     'make-mode-line-mouse-map)
-			    (make-mode-line-mouse-map
-			     'mouse-2 #'skk-e21-modeline-menu)
-			  (make-mode-line-mouse2-map
-			   #'skk-e21-modeline-menu))
-	     'help-echo
-	     "マウスの button 2 -> Daredevil SKK のメニュ−")))
+  (when window-system
+    (list 'local-map (static-if
+			 (fboundp
+			  'make-mode-line-mouse-map)
+			 (make-mode-line-mouse-map
+			  'mouse-2 #'skk-e21-modeline-menu)
+		       (make-mode-line-mouse2-map
+			#'skk-e21-modeline-menu))
+	  'help-echo
+	  "マウスの button 2 -> Daredevil SKK のメニュ−")))
 
 (defvar skk-e21-property-alist
   (and window-system
