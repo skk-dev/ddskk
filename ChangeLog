@@ -1,5 +1,15 @@
 2001-09-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-macs.el (skk-j-mode-on): Set cursor color both on FSF Emacs
+	and XEmacs.
+
+	* skk-e21.el (skk-e21-modeline-menu-items): Don't set cursor
+	color.
+
+	* skk-xemacs.el (skk-xemacs-modeline-menu-items): Ditto.
+
+2001-09-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-isearch.el (isearch-repeat): Don't show
 	`skk-isearch-whitespace-regexp' in regexp i-search.
 
@@ -1725,8 +1735,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.349 2001/09/05 21:31:24 czkmt Exp $
-Last Modified: $Date: 2001/09/05 21:31:24 $
+Version: $Id: ChangeLog,v 1.350 2001/09/06 09:03:42 czkmt Exp $
+Last Modified: $Date: 2001/09/06 09:03:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
