@@ -78,7 +78,14 @@
   (modify-syntax-entry ?/ "w" skk-jisyo-edit-syntax-table)
   (run-hooks 'skk-jisyo-edit-mode-hook))
 
-;;;###autoload (setq auto-mode-alist (cons '("SKK-JISYO" . skk-jisyo-edit-mode) auto-mode-alist))
+;;;###autoload (setq auto-mode-alist
+;;;###autoload       (append
+;;;###autoload        '(("SKK-JISYO" . skk-jisyo-edit-mode)
+;;;###autoload	 ("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)$"
+;;;###autoload	  . skk-jisyo-edit-mode)
+;;;###autoload	 ("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)$"
+;;;###autoload	  . skk-jisyo-edit-mode))
+;;;###autoload        auto-mode-alist))
 
 (require 'product)
 (product-provide

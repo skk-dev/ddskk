@@ -168,7 +168,9 @@
 ;; Hooks.
 
 ;;; Not necessary, but...
-;;;###autoload (add-hook 'before-init-hook #'(lambda () (define-key ctl-x-map "\C-j" 'skk-mode)))
+;;;###autoload (add-hook 'before-init-hook
+;;;###autoload	  #'(lambda ()
+;;;###autoload	      (define-key ctl-x-map "\C-j" 'skk-mode)))
 
 ;; Advice.
 
