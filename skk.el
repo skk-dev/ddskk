@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.198 2001/11/23 21:55:58 minakaji Exp $
+;; Version: $Id: skk.el,v 1.199 2001/11/24 01:07:39 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/23 21:55:58 $
+;; Last Modified: $Date: 2001/11/24 01:07:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2141,7 +2141,8 @@ WORD で確定する。"
 	   kakutei-word))))
     (skk-do-auto-fill)
     (if skk-mode
-	(unless skk-j-mode
+	(unless (or skk-j-mode
+		    skk-jisx0201-mode)
 	  (skk-j-mode-on skk-katakana))
       ;; カレントバッファでまだ skk-mode が
       ;; コールされていなかったら、コールする。
