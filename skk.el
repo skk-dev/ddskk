@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.197 2001/11/23 13:40:02 czkmt Exp $
+;; Version: $Id: skk.el,v 1.198 2001/11/23 21:55:58 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/23 13:40:02 $
+;; Last Modified: $Date: 2001/11/23 21:55:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -856,13 +856,12 @@ dependent."
 	    ((eq char 'katakana)
 	     (skk-hiragana-region
 	      skk-henkan-start-point skk-henkan-end-point))
-	    ;; currently these two features are not used.
-	    ;;((eq char 'jisx0208-latin)
-	    ;; (skk-latin-region
-	    ;;  skk-henkan-start-point skk-henkan-end-point))
-	    ;;((eq char 'ascii)
-	    ;; (skk-jisx0208-latin-region
-	    ;;  skk-henkan-start-point skk-henkan-end-point))
+	    ((eq char 'jisx0208-latin)
+	     (skk-latin-region
+	      skk-henkan-start-point skk-henkan-end-point))
+	    ((eq char 'ascii)
+	     (skk-jisx0208-latin-region
+	      skk-henkan-start-point skk-henkan-end-point))
 	    )))
    ((and (skk-in-minibuffer-p)
 	 (not skk-j-mode))
@@ -2567,7 +2566,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 
 (defun skk-set-henkan-point-subr (&optional arg)
   "かなを入力した後で、ポイントに変換開始のマーク \(▽\) を付ける。
-元々はこの関数は skk-set-henkan-point の内部関数である。"
+この関数は skk-set-henkan-point の内部関数としても使用されている。"
   (interactive "*P")
   (skk-with-point-move
    (unless skk-undo-kakutei-word-only
