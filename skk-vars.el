@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.67 2001/10/21 15:41:08 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.68 2001/10/22 13:31:42 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/21 15:41:08 $
+;; Last Modified: $Date: 2001/10/22 13:31:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1165,7 +1165,8 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 
 (defcustom skk-use-face (or window-system
 			    (fboundp 'selected-frame)
-			    (fboundp 'frame-face-alist) ; XEmacs does not have this.
+			    ; XEmacs does not have this.
+			    (fboundp 'frame-face-alist)
 			    (> emacs-major-version 20))
   "*Non-nil $B$G$"$l$P!"(BEmacs $B$N(B face $B$N5!G=$r;HMQ$7$FJQ49I=<($r9T$&!#(B"
   :type 'boolean
@@ -1768,7 +1769,8 @@ PROMPT-STRING $B$O!"3:Ev$N(B SKK $B%b!<%I$KBP$7=P$9%W%m%s%W%H$NJ8;zNs!#(B"
   ;;the mode of the buffer, otherwise perform ascii search.
   ;;If `latin' or `ascii' perfrom ascii search.
   ;;If `hiragana', `hirakana' or `kana' -> hira kana search.
-  ;;If `jisx0208-latin' or `eiji', perform zenkaku eiji (i.e. JIS X0208 alphabet) search."
+  ;;If `jisx0208-latin' or `eiji', perform zenkaku eiji (i.e. JIS X0208
+  ;;alphabet) search."
   "*$B%+%l%s%H%P%C%U%!$G(B isearch $B$r9T$&:]$NF~NO%b!<%I!#(B
 `skk-isearch-use-previous-mode' $B$,(B nil $B$N>l9g$N$_M-8z!#(B
 isearch $B$r9T$&>l9g!">o$K$3$NJQ?t$G;XDj$7$?F~NO%b!<%I$,;HMQ$5$l$k(B ($B%f!<%6!<$,(B
@@ -2026,8 +2028,8 @@ Windows $B$G$O%G%#%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
 
 ;;(defvar skk-server-debug nil
 ;;  "*Non-nil $B$G$"$l$P!"<-=q%5!<%P!<%W%m%0%i%`$r%G%#%P%C%0%b!<%I$G5/F0$9$k!#(B
-;;$B%G%#%P%C%0!&%b!<%I$G(B skkserv $B$rAv$i$;$k$H!"$=$N$^$^(B foreground $B$GAv$j!"%a%C%;!<(B
-;;$B%8$r=PNO$9$k!#%-!<%\!<%I$+$i3d$j$3$_$r$+$1$k$3$H$b$G$-$k!#(B")
+;;$B%G%#%P%C%0!&%b!<%I$G(B skkserv $B$rAv$i$;$k$H!"$=$N$^$^(B foreground $B$GAv$j!"(B
+;;$B%a%C%;!<%8$r=PNO$9$k!#%-!<%\!<%I$+$i3d$j$3$_$r$+$1$k$3$H$b$G$-$k!#(B")
 
 (defcustom skk-servers-list nil
   "*$B<-=q%5!<%P!<Kh$N>pJs%j%9%H!#(B
