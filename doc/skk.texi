@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.15 2000/08/26 05:51:13 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.16 2000/08/27 04:56:03 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/08/26 05:51:13 $
+@c  Last Modified: $Date: 2000/08/27 04:56:03 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/08/26 05:51:13 $
+@set UPDATED $Date: 2000/08/27 04:56:03 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -6647,7 +6647,7 @@ SKK 8.6にはかなり近付けたと思うのですが、まだまだ異なる部分が残っていま
 @section SKKIME
 @cindex SKKIME
 
-@table
+@table @asis
 
 @item  開発者
 skkinput と同じく 阪本崇氏
