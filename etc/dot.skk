@@ -86,6 +86,8 @@
 (setq skk-use-look t)
 
 (when skk-use-look
+  ;; look が見つけた語を見出し語として検索する
+  (setq skk-look-recursive-search t)
   ;; ispell を look と一緒に使うのはやめる
   (setq skk-look-use-ispell nil))
 
