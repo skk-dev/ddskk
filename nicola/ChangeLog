@@ -2,6 +2,8 @@
 
 	* skk-kanagaki.el (skk-toggle-katakana): Make or kill local
 	variable `skk-kanagaki-state'.
+	(skk-mode, skk-latin-mode, skk-jisx0208-latin-mode,
+	skk-abbrev-mode): New advice.
 
 	* skk-nicola.el (skk-nicola-self-insert-lshift): Do not do dynamic
 	completion if `this-command' is `skk-nicola-self-insert-rshift'.
