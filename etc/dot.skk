@@ -123,4 +123,18 @@
 ;; 複数の Emacsen を起動して個人辞書を共有する
 (setq skk-share-private-jisyo t)
 
+;; 数字だけの見出し語は個人辞書から消去する (郵便辞書用)
+(defadvice skk-save-jisyo (before pr-ad activate)
+  (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
+	start)
+    (set-buffer jisyo-buffer)
+    (goto-char (point-min))
+    (search-forward ";; okuri-nasi entries." nil t)
+    (while (re-search-forward "^\\([0-9]+\\*?\\|#\\*\\) " nil t)
+      (beginning-of-line)
+      (setq start (point))
+      (forward-line)
+      (delete-region start (point))
+      (forward-line -1))))
+
 ;;; dot.skk ends here
