@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.15 1999/10/10 13:04:17 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.16 1999/10/14 21:15:05 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/10 13:04:17 $
+;; Last Modified: $Date: 1999/10/14 21:15:05 $
 
 ;; This file is not part of SKK yet.
 
@@ -257,8 +257,9 @@
 	    (message "") )))))
 
 ;;;###autoload
-(defun skk-study-read (&optional nomsg)
-  "skk-study-file から学習結果を読み込む。"
+(defun skk-study-read (&optional nomsg quiet)
+  "skk-study-file から学習結果を読み込む。
+オプショナル引数の QUIET が non-nil であれば、破棄の確認をしない。"
   (interactive "P")
   (skk-create-file
    skk-study-file
@@ -267,6 +268,7 @@
 	   "SKK の学習結果ファイルを作りました"
 	 "I have created an SKK study file for you" )))
   (if (or (null skk-study-alist)
+	  quiet
 	  (skk-yes-or-no-p (format "%s を再読み込みしますか？" skk-study-file)
 			   (format "Reread %s?" skk-study-file) ))
       (progn
