@@ -74,6 +74,15 @@
 ;;                 XEmacs on XFree86 では [henkan-mode]
 ;;                 Meadow            では [convert]
 
+;; 接頭・接尾辞変換のキーを設定する
+;; 例 1) 標準の設定
+;; (setq skk-special-midashi-char-list '(?> ?< ??))
+;; 例 2) ? は普通に入力したいから外す
+;; (setq skk-special-midashi-char-list '(?> ?<))
+;; 例 3) 文字キーは普通に入力したいから他のキーを使う
+;; (setq skk-special-midashi-char-list nil)
+;; (define-key skk-j-mode-map [muhenkan] 'skk-process-prefix-or-suffix)
+
 ;; @@ 変換動作の調整
 
 ;; 送り仮名が厳密に正しい候補を優先して表示する
