@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.37 2002/01/23 14:27:44 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.38 2002/07/27 06:24:27 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/23 14:27:44 $
+;; Last Modified: $Date: 2002/07/27 06:24:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -67,8 +67,7 @@
     (when first
       (setq skk-comp-stack nil
 	    skk-comp-depth 0))
-    (when (or first
-	      skk-dabbrev-like-completion)
+    (when first
       (setq skk-comp-key (buffer-substring-no-properties
 			  skk-henkan-start-point (point))))
     (cond
