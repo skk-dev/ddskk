@@ -247,7 +247,9 @@
 (defun skk-e21-mouse-position ()
   "Return the position of point as (FRAME X . Y).
 Analogous to mouse-position."
-  (let* ((w (selected-window))
+  (let* ((w (if skk-isearch-switch
+		(minibuffer-window)
+	      (selected-window)))
 	 (edges (window-edges w))
 	 (list
 	  (compute-motion (max (window-start w) (point-min))   ; start pos
