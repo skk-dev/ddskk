@@ -1,3 +1,21 @@
+2000-09-28  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* ptexinfmt.el: @multitable bug fix (TAKAHASHI Kaoru さん提供,
+	Thanks).
+
+	* doc/skk.texi: SKKオートフィルモード , SKK Ring Server
+	Openlab メーリングリスト typo fix. skk-lookup.el の記述を追加.
+	tools の入手方法を追加. 
+
+	* READMEs/README.win: Mule for Windows では, SKK-CFG で APEL のパ
+	スを設定することを記述. MAKE.BAT info-mule-for-win の記述削除.
+
+	* Makefile: info-mule-for-win を削除.
+
+	* make.bat: 同様.
+
+	* SKK-MK: SKK-MK-compile-info-for-mule4win32 を削除.
+
 2000-09-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi (SKK 9 と SKK 10 の違い): New section.
