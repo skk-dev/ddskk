@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.26 2001/11/19 15:54:02 czkmt Exp $
+;; Version: $Id: skk-viper.el,v 1.27 2001/11/27 09:14:09 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:02 $
+;; Last Modified: $Date: 2001/11/27 09:14:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -169,7 +169,7 @@ viper-read-string-with-history $B$O(B minibuffer-setup-hook $B$r4X?t%m!<%+%k
   (if (and skk-mode
 	   (or (skk-jisx0208-p (following-char))
 	       (skk-jisx0213-p (following-char))))
-      (forward-word val)
+      (forward-word (ad-get-arg 0))
     ad-do-it)))
 
 (skk-viper-advice-select
@@ -179,7 +179,7 @@ viper-read-string-with-history $B$O(B minibuffer-setup-hook $B$r4X?t%m!<%+%k
  backward-word $B$9$k!#(B"
   (if (and skk-mode (or (skk-jisx0208-p (preceding-char))
 			(skk-jisx0213-p (preceding-char))))
-      (backward-word val)
+      (backward-word (ad-get-arg 0))
     ad-do-it)))
 
 ;; please sync with advice to delete-backward-char

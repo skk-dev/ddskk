@@ -1,9 +1,17 @@
+2001-11-27  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-viper.el (viper-forward-word-kernel@around@skk-ad,
+	vip-forward-word-kernel@around@skk-ad): Use `ad-get-arg' instead
+	of referring to temporary variable VAL.
+	(viper-backward-word-kernel@around@skk-ad,
+	vip-backward-word-kernel@around@skk-ad):  Ditto.
+
 2001-11-25  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* doc/skk.texi (APEL のインストール): Doc fixed.
-	(最も基本的な設定): Add doc about 
+	(最も基本的な設定): Add doc about
 	sample(etc/dot.emacs,etc/dot.skk) files.
-	(送り仮名が有る場合の辞書登録): Add doc about 
+	(送り仮名が有る場合の辞書登録): Add doc about
 	skk-check-okurigana-on-touroku.
 	(ファイル構成): Update doc.
 	(ユーザーオプションの設定方法): Coment out skk-viper-load-hook.
@@ -2972,8 +2980,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.568 2001/11/25 14:57:55 akiho Exp $
-Last Modified: $Date: 2001/11/25 14:57:55 $
+Version: $Id: ChangeLog,v 1.569 2001/11/27 09:14:09 minakaji Exp $
+Last Modified: $Date: 2001/11/27 09:14:09 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
