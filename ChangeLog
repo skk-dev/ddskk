@@ -1,3 +1,12 @@
+2001-02-14  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-toggle-characters): Move point forward not until the
+	end of buffer but until SKK-HENKAN-END-POINT to determine a
+	character type.
+	Set SKK-KATAKANA value (not change midasi strings) when
+	SKK-HENKAN-ACTIVE is non-nil.
+	Update doc string.
+	
 2001-02-04  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-lookup-default-option-list): Doc fixed.
@@ -3117,8 +3126,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.255 2001/02/04 05:09:43 minakaji Exp $
-Last Modified: $Date: 2001/02/04 05:09:43 $
+Version: $Id: ChangeLog,v 1.256 2001/02/14 03:56:42 minakaji Exp $
+Last Modified: $Date: 2001/02/14 03:56:42 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

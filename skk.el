@@ -1,13 +1,13 @@
 ;;; skk.el --- SKK (Simple Kana to Kanji conversion program) Daredevil branch
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-;;               1998, 1999, 2000
+;;               1998, 1999, 2000, 2001
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.92 2001/01/10 08:31:03 czkmt Exp $
+;; Version: $Id: skk.el,v 1.93 2001/02/14 03:56:42 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/01/10 08:31:03 $
+;; Last Modified: $Date: 2001/02/14 03:56:42 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -966,22 +966,18 @@ dependent."
   (skk-abbrev-mode-on))
 
 (defun skk-toggle-characters (arg)
-  "■モードで、ひらがなモードとカタカナモードをトグルで切り替える。
-▼モード、▽モードでは、skk-henkan-start-point (▽の直後) とカーソルの間の文字列を
-
-    ひらがな <=> カタカナ
-    全角英数字 <=> ascii
-
-のように変換する。"
+  "■モード、▼モードで、ひらがなモードとカタカナモードをトグルで切り替える。
+▽モードでは skk-henkan-start-point (▽の直後) とカーソルの間の文字列につい
+て、ひらがなとカタカナを入れ替える。"
   (interactive "P")
-  (cond (skk-henkan-on
+  (cond ((and skk-henkan-on (not skk-henkan-active))
          (let (char)
            (skk-set-marker skk-henkan-end-point (point))
            (skk-save-point
 	    (goto-char skk-henkan-start-point)
-	    
 	    (while (and
-		    (not (eobp))
+		    ;;(not (eobp))
+		    (>= skk-henkan-end-point (point))
 		    (or 
 		     ;; "ー" では文字種別が判別できないので、ポイントを進める。
 		     (looking-at "ー")
@@ -994,12 +990,14 @@ dependent."
                  ((eq char 'katakana)
                   (skk-hiragana-region
 		   skk-henkan-start-point skk-henkan-end-point))
-                 ((eq char 'jisx0208-latin)
-                  (skk-latin-region
-		   skk-henkan-start-point skk-henkan-end-point))
-                 ((eq char 'ascii)
-                  (skk-jisx0208-latin-region
-		   skk-henkan-start-point skk-henkan-end-point)))))
+		 ;; currently these two features are not used.
+                 ;;((eq char 'jisx0208-latin)
+                 ;; (skk-latin-region
+                 ;;  skk-henkan-start-point skk-henkan-end-point))
+                 ;;((eq char 'ascii)
+                 ;; (skk-jisx0208-latin-region
+                 ;;  skk-henkan-start-point skk-henkan-end-point))
+		 )))
         ((and (skk-in-minibuffer-p) (not skk-j-mode))
          ;; ミニバッファへの初突入時。
          (skk-j-mode-on))
@@ -2146,9 +2144,6 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   (if skk-okurigana
       (progn
         (skk-delete-okuri-mark)))
-  ;;(and skk-katakana skk-convert-okurigana-into-katakana
-  ;;     (< skk-henkan-end-point (point))
-  ;;     (skk-katakana-region skk-henkan-end-point (point)))
   (skk-delete-henkan-markers)
   (if skk-undo-kakutei-word-only
     (if (> (point) (marker-position skk-henkan-start-point))
