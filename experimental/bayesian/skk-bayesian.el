@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.10 2004/12/20 09:33:56 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.11 2004/12/21 07:39:50 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/12/20 09:33:56 $
+;; Last Modified: $Date: 2004/12/21 07:39:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -90,6 +90,7 @@
 (require 'skk-vars)
 (require 'skk-macs)
 
+;; customizable variables
 (defvar skk-bayesian-prefer-server nil
   "non-nil ならば、`skk-bayesian-host'の`skk-bayesian-port'に接続する。
 そうでなければ、bskk をサブプロセスとして立ち上げる。")
@@ -97,29 +98,26 @@
   "*`skk-bayesian-prefer-server'が non-nil の時に`skk-bayesian-host'に接続するポート番号")
 (defvar skk-bayesian-host "localhost"
   "*`skk-bayesian-prefer-server'が non-nil の時に接続するホスト")
-(defvar skk-bayesian-coding-system 'euc-jp)
 (defvar skk-bayesian-context-len 20 "*学習や予測に使用する、変換語の直前の文字数")
-(defvar skk-bayesian-last-context nil "*確定語の直前の文字列")
-(defvar skk-bayesian-last-context-pending nil 
-  "*pendingされた確定語の直前の文字列")
 (defvar skk-bayesian-history-file "~/.skk-bayesian" "*history file")
 (defvar skk-bayesian-debug nil "*デバッグ用のメッセージを表示")
-(defvar skk-bayesian-number-of-command-after-kakutei 0 "*確定後のコマンドの回数")
-(defvar skk-bayesian-last-kakutei-word nil "直前の確定語")
-(defvar skk-bayesian-last-buffer nil "直前の確定が行われた buffer")
-(defvar skk-bayesian-last-henkan-point nil "直前の確定が行われた marker")
-(defvar skk-bayesian-last-okurigana nil "直前の確定の送り仮名")
-(defvar skk-bayesian-add-to-history-pending nil "確定語の履歴登録待ちかどうか")
-(defvar skk-bayesian-max-commands-to-wait-for 5
+(defvar skk-bayesian-max-commands-to-wait-for 15
   "*確定の後に`skk-bayesian-max-commands-to-wait-for'回のコマンド
 のうちに確定語(送り仮名を含む)が変更されなければ、その確定語を保存
 する。`skk-bayesian-max-commands-to-wait-for'が0以下ならば、確定後、
 直ちに履歴に保存する。")
 
+;; global variables
+(defvar skk-bayesian-last-context nil "*確定語の直前の文字列")
+(defvar skk-bayesian-number-of-command-after-kakutei 0 "*確定後のコマンドの回数")
+(defvar skk-bayesian-pending-data-alist nil);; non-nil なら、pending 中
+(defvar skk-bayesian-process nil)
+
+;; constants
 (defconst skk-bayesian-command-sort "#sort\n")
 (defconst skk-bayesian-command-add "#add\n")
 (defconst skk-bayesian-command-save "#save\n")
-(defvar skk-bayesian-process nil)
+(defconst skk-bayesian-coding-system 'euc-jp)
 
 (defmacro skk-bayesian-debug-message (STRING &rest ARGS)
   `(if skk-bayesian-debug
@@ -132,11 +130,25 @@
        ;; これらは、排他的。
        (memq (process-status skk-bayesian-process) '(open run))))
 
+(defsubst skk-bayesian-make-pending-data-alist
+  (word okurigana midasi buffer henkan-point context)
+  (setq skk-bayesian-pending-data-alist
+        (list (cons 'word word)
+              (cons 'okurigana okurigana)
+              (cons 'midasi midasi)
+              (cons 'buffer buffer)
+              (cons 'henkan-point henkan-point)
+              (cons 'context context))))
+
+(defsubst skk-bayesian-get-pending-data-alist (key)
+  (cdr (assq key skk-bayesian-pending-data-alist)))
+  
 (defsubst skk-bayesian-read-process-output (input)
   "input が nil の時、EOF を`skk-bayesian-process'に送り、そうでな
   ければ、input を`skk-bayesian-process'に送る。その後、\\nが
   `skk-bayesian-process'のバッファに出力されるまで待ち、\\nが出力
   された時点で、バッファを評価する。 "
+  (skk-bayesian-init)
   (with-current-buffer (process-buffer skk-bayesian-process)
     (delete-region (point-min) (point-max))
     (if input
@@ -156,7 +168,6 @@
 (defun skk-bayesian-make-context (henkan-buffer)
   ;; "▼" があれば、`skk-bayesian-context-len'の長さの文字列を返す。
   ;; なければ、nil。
-  (interactive)
   (let ((raw-text
          (with-current-buffer henkan-buffer
            (let ((kakutei-mark-point
@@ -198,7 +209,6 @@
   (setq skk-bayesian-last-context nil)
   (if (= 1 (length entry))
       entry
-    (skk-bayesian-init)
     (let ((context (skk-bayesian-make-context henkan-buffer))
           entry-str
           new-entry)
@@ -228,26 +238,26 @@
 (defun skk-bayesian-update (henkan-buffer midasi okurigana word purge)
   (when skk-bayesian-last-context ;; entry の要素が 1 の時は、nil
     (add-hook 'post-command-hook 'skk-bayesian-check-modification-after-kakutei)
-    (if skk-bayesian-add-to-history-pending
+    (if skk-bayesian-pending-data-alist
         ;; pending していたのを保存
         (skk-bayesian-add-to-history))
     ;; pending 開始
     (skk-bayesian-debug-message (concat "update: pending..." word))
-    (setq skk-bayesian-number-of-command-after-kakutei -1;; 確定に1回かかるので-1
-          skk-bayesian-add-to-history-pending t
-          skk-bayesian-last-buffer henkan-buffer
-          skk-bayesian-last-kakutei-word word
-          skk-bayesian-last-okurigana okurigana
-          skk-bayesian-last-context-pending skk-bayesian-last-context)
-    (with-current-buffer henkan-buffer
-      ;; skk-get-last-henkan-datum は、buffer-local な変数を用いている。
-      (setq skk-bayesian-last-henkan-point
-            (skk-get-last-henkan-datum 'henkan-point)))))
+    (setq skk-bayesian-number-of-command-after-kakutei -1);; 確定に1回かかるので-1
+    (skk-bayesian-make-pending-data-alist
+     word 
+     okurigana
+     midasi
+     henkan-buffer
+     (with-current-buffer henkan-buffer
+       ;; skk-get-last-henkan-datum は、buffer-local な変数を用いている。
+       (skk-get-last-henkan-datum 'henkan-point))
+     skk-bayesian-last-context)))
 
 (defun skk-bayesian-check-modification-after-kakutei ()
   ;; skk-bayesian-max-commands-to-wait-for 回数コマンドが実行されれば、
   ;; skk-bayesian-add-to-history を実行する。
-  (when skk-bayesian-add-to-history-pending
+  (when skk-bayesian-pending-data-alist
     (setq skk-bayesian-number-of-command-after-kakutei
           (1+ skk-bayesian-number-of-command-after-kakutei))
     (when (<= skk-bayesian-max-commands-to-wait-for
@@ -259,41 +269,35 @@
 し、`skk-bayesian-last-kakutei-word' が変換後に修正されていた場合
 は追加しない。参考:`skk-bayesian-max-commands-to-wait-for'。"
   ;; 依存している変数
-  ;; skk-bayesian-add-to-history-pending
-  ;; skk-bayesian-last-kakutei-word
-  ;; skk-bayesian-last-buffer
-  ;; skk-bayesian-last-okurigana
-  ;; skk-bayesian-last-henkan-point
-  ;; skk-bayesian-last-context-pending
+  ;; skk-bayesian-pending-data-alist
   ;; 注意
   ;; skk-get-last-henkan-datum は、新しい確定が pending 中に起こるので、使えない。
-  (setq skk-bayesian-add-to-history-pending nil)
-  (when (and skk-bayesian-last-kakutei-word
-             skk-bayesian-last-henkan-point
-             skk-bayesian-last-buffer)
-    (with-current-buffer skk-bayesian-last-buffer
-      (let* ((kakutei-with-okuri (concat skk-bayesian-last-kakutei-word
-                                         skk-bayesian-last-okurigana))
+  (when skk-bayesian-pending-data-alist
+    (with-current-buffer (skk-bayesian-get-pending-data-alist 'buffer)
+      (let* ((kakutei-word (skk-bayesian-get-pending-data-alist 'word))
+             (kakutei-with-okuri (concat kakutei-word
+                                         (skk-bayesian-get-pending-data-alist
+                                          'okurigana)))
              (word-len (length kakutei-with-okuri))
              ;; henkan-point は、送り仮名がある場合は、送り仮名の point
-             (end (marker-position skk-bayesian-last-henkan-point))
+             (end (marker-position (skk-bayesian-get-pending-data-alist
+                                    'henkan-point)))
              (start (- end word-len))
              (current-word (if (and (<= (point-min) start) (<= end (point-max)))
-                               (buffer-substring-no-properties start end))))
+                               (buffer-substring-no-properties start end)))
+             (context (skk-bayesian-get-pending-data-alist 'context)))
         ;; kakutei-word が変更されているか
         (if (not (string= current-word kakutei-with-okuri))
             (skk-bayesian-debug-message "add: kakutei-word has been modified")
-          (skk-bayesian-debug-message (concat "add: context="
-                                              skk-bayesian-last-context-pending))
-          (skk-bayesian-debug-message (concat "add: kakutei-word="
-                                              skk-bayesian-last-kakutei-word))
-          (skk-bayesian-init)
+          (skk-bayesian-debug-message (concat "add: context=" context))
+          (skk-bayesian-debug-message (concat "add: kakutei-word=" kakutei-word))
           (if (skk-bayesian-read-process-output
                (concat skk-bayesian-command-add
-                       skk-bayesian-last-kakutei-word "\n"
-                       skk-bayesian-last-context-pending "\n"))
+                       kakutei-word "\n"
+                       context "\n"))
               (skk-bayesian-debug-message "add: done")
-            (skk-bayesian-debug-message "add: failed")))))))
+            (skk-bayesian-debug-message "add: failed")))))
+    (setq skk-bayesian-pending-data-alist nil)))
 
 (defun skk-bayesian-save-history ()
   "Save skk-bayesian history to `skk-bayesian-history-file'."
@@ -358,8 +362,12 @@
 (add-to-list 'skk-update-end-function 'skk-bayesian-update)
 (add-hook 'skk-before-kill-emacs-hook 
           (function (lambda ()
+                      (if skk-bayesian-pending-data-alist
+                          ;; pending していたのを保存
+                          (skk-bayesian-add-to-history))
                       (skk-bayesian-save-history)
                       (skk-bayesian-kill-process))))
+
 (skk-bayesian-init)
 
 ;;; skk-bayesian.el ends here
