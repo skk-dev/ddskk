@@ -3,9 +3,9 @@
 ;; Murata Shuuichirou <mrt@astec.co.jp>
 ;;
 ;; Author: Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
-;; Version: $Id: skk-leim.el,v 1.3 1999/10/03 13:01:57 minakaji Exp $
+;; Version: $Id: skk-leim.el,v 1.4 1999/10/16 11:59:07 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 13:01:57 $
+;; Last Modified: $Date: 1999/10/16 11:59:07 $
 
 ;; This file is not part of SKK yet.
 
@@ -47,12 +47,12 @@
   (skk-auto-fill-mode -1) )
 
 (register-input-method
- 'japanese-skk "Japanese"
+ "japanese-skk" "Japanese"
  'skk-activate nil
  "Simple Kana to Kanji conversion program" )
 
 (register-input-method
- 'japanese-skk-auto-fill "Japanese"
+ "japanese-skk-auto-fill" "Japanese"
  'skk-auto-fill-activate nil
  "Simple Kana to Kanji conversion program with auto-fill" )
 
