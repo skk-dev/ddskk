@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-autoloads.el,v 1.4 1999/10/23 13:59:01 minakaji Exp $
+;; Version: $Id: skk-autoloads.el,v 1.5 1999/10/31 11:25:19 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/23 13:59:01 $
+;; Last Modified: $Date: 1999/10/31 11:25:19 $
 
 ;; This file is not part of SKK yet.
 
@@ -92,6 +92,9 @@
 (autoload 'skk-tutorial "skk-tut" nil t nil)
 (autoload 'skk-version "skk" nil t nil)
 (autoload 'skk-viper-normalize-map "skk-viper" nil nil nil)
+(autoload 'skk-jisx0201-mode "skk-jisx0201" nil t nil)
+(autoload 'skk-toggle-katakana "skk-jisx0201" nil t nil)
+(autoload 'skk-jisx0201-henkan "skk-jisx0201" nil t nil)
 
 (provide 'skk-autoloads)
 ;;; skk-autoloads.el ends here
