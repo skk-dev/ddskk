@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.26 2001/10/09 14:13:40 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.27 2001/10/18 13:11:55 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/09 14:13:40 $
+;; Last Modified: $Date: 2001/10/18 13:11:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -74,21 +74,20 @@
       ;; (過去に探索済みの読みをアクセス中)
       (setq skk-comp-depth (1- skk-comp-depth)
 	    c-word (nth skk-comp-depth skk-comp-stack)))
-     (t
-      ;; (新規の読みを辞書バッファから探索)
-      ;; skk-comp-key はバッファローカル値なので、辞書バッファに移る前に
-      ;; 一時変数に移し変えておく。
-      (when (setq c-word
-		  (or (let ((word (skk-comp-do-1 skk-comp-key first)))
-			(while (member word skk-comp-stack)
-			  (setq word (skk-comp-do-1 skk-comp-key first)))
-			word)
-		      ;;
-		      (when (and skk-abbrev-mode
-			       skk-use-look)
-			(skk-look-completion))))
-	;; 新規に見つけたときだけ push する。
-	(push c-word skk-comp-stack))))
+     ;; (新規の読みを辞書バッファから探索)
+     ;; skk-comp-key はバッファローカル値なので、辞書バッファに移る前に
+     ;; 一時変数に移し変えておく。
+     ((setq c-word
+	    (or (let ((word (skk-comp-do-1 skk-comp-key first)))
+		  (while (member word skk-comp-stack)
+		    (setq word (skk-comp-do-1 skk-comp-key first)))
+		  word)
+		;;
+		(when (and skk-abbrev-mode
+			   skk-use-look)
+		  (skk-look-completion))))
+      ;; 新規に見つけたときだけ push する。
+      (push c-word skk-comp-stack)))
     ;; 辞書バッファの外。
     (cond
      (c-word
