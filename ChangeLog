@@ -1,3 +1,18 @@
+2002-03-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* etc/Emacs.ad:
+	* skk-e21.el:
+	* skk-xemacs.el:
+	Menu items update.
+
+	* skk.el:
+	(skk-search-all-progs):
+	(skk-search-with-suffix):
+	New functions.
+
+	(skk-search-sagyo-henkaku):
+	Call `skk-search-all-progs'.
+
 2002-03-08  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* skk-tut.el: Use \[] notation and call
@@ -3748,8 +3763,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.672 2002/03/08 10:50:49 iida Exp $
-Last Modified: $Date: 2002/03/08 10:50:49 $
+Version: $Id: ChangeLog,v 1.673 2002/03/12 14:07:41 czkmt Exp $
+Last Modified: $Date: 2002/03/12 14:07:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
