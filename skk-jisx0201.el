@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.15 2001/09/06 21:40:52 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.16 2001/09/07 09:59:35 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/06 21:40:52 $
+;; Last Modified: $Date: 2001/09/07 09:59:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -191,21 +191,8 @@
   "*SKK JISX0201 モードの Roman のルール。")
 
 (defvar skk-jisx0201-rule-list
-  '(("!" nil "!") ("\"" nil "\"") ("#" nil "#") ("%" nil "%") ("&" nil "&")
-    ("'" nil "'") ("\(" nil "(") ("\)" nil ")") ("*" nil "*") ("+" nil "+")
-    ("-" nil "-")
-    ("1" nil "1") ("2" nil "2") ("3" nil "3") ("4" nil "4") ("5" nil "5")
-    ("6" nil "6") ("7" nil "7") ("8" nil "8") ("9" nil "9")
-    (":" nil ":") (";" nil ";") ("<" nil "<") ("=" nil "=") (">" nil ">")
-    ("?" nil "?") ("@" nil "@")
-    ("A" nil "A") ("B" nil "B") ("C" nil "C") ("D" nil "D") ("E" nil "E")
-    ("F" nil "F") ("G" nil "G") ("H" nil "H") ("I" nil "I") ("J" nil "J")
-    ("K" nil "K") ("L" nil "L") ("M" nil "M") ("N" nil "N") ("O" nil "O")
-    ("P" nil "P") ("Q" nil "Q") ("R" nil "R") ("S" nil "S") ("T" nil "T")
-    ("U" nil "U") ("V" nil "V") ("W" nil "W") ("X" nil "X") ("Y" nil "Y")
-    ("Z" nil "Z")
-    ("^" nil "^") ("_" nil "_") ("`" nil "`") ("{" nil "{") ("|" nil "|")
-    ("}" nil "}") ("~" nil "~") (" " nil " "))
+  '(("\(" nil "(")
+    ("{" nil "{"))
   "*SKK JISX0201 モードの追加のルール。")
 
 (set-modified-alist
@@ -218,10 +205,11 @@
 (setq skk-jisx0201-roman-rule-tree
       (skk-compile-rule-list skk-jisx0201-roman-rule-list))
 
-(setq skk-jisx0201-orig-rule-tree skk-rule-tree)
+;; Hooks.
 
 ;; inline functions.
 (defsubst skk-jisx0201-mode-on (&optional arg)
+  (make-local-variable 'skk-rule-tree)
   (setq skk-mode t
 	skk-jisx0201-mode t
 	skk-jisx0201-roman arg
@@ -252,21 +240,15 @@
   (setq skk-jisx0201-mode nil))
 
 (defadvice skk-set-okurigana (around skk-jisx0201-ad activate)
-  "ポイントの直前の文字を送り仮名と見倣して、変換を開始する。
-ただし、 もうひとつ前の文字が促音だった場合には、 それ以降を送り仮名と見倣す。"
+  "半角カナの送り仮名を正しく取得する。"
   (cond
    (skk-jisx0201-mode
     (skk-save-point
      (goto-char skk-okurigana-start-point)
      (when (eq (following-char) ?*)
        (delete-char 1))
-     (funcall
-      (static-cond ((eq skk-emacs-type 'mule2)
-		    'zenkaku-katakana-region)
-		   (t
-		    'japanese-zenkaku-region))
-      skk-henkan-start-point
-      skk-okurigana-start-point))
+     (skk-jisx0201-zenkaku-region skk-henkan-start-point
+				  skk-okurigana-start-point))
     ;;
     (let* ((pt1 (point))
 	   okuri pt2 sokuon)
@@ -316,6 +298,7 @@
 	       (let ((jisx0201 (buffer-substring-no-properties
 				skk-henkan-start-point (point)))
 		     jisx0208)
+		 (skk-kana-cleanup 'force)
 		 (when (and jisx0201 (setq jisx0208
 					   (skk-jisx0201-zenkaku jisx0201)))
 		   (insert-before-markers jisx0208)
@@ -406,12 +389,7 @@
 
 (defun skk-jisx0201-zenkaku (str)
   "STR のJIS X 0201 カナに属する文字を対応する JIS X 0208 の文字で置き換える。"
-  (skk-jisx0201-string-conversion
-   str
-   (static-cond ((eq skk-emacs-type 'mule2)
-		 'zenkaku-katakana-region)
-		(t
-		 'japanese-zenkaku-region))))
+  (skk-jisx0201-string-conversion str 'skk-jisx0201-zenkaku-region))
 
 (defun skk-jisx0201-hankaku (str)
   "STR のJIS X 0208 に属する文字を対応する JIS X 0201 カナの文字で置き換える。"
@@ -431,7 +409,7 @@
      (skk-jisx0201-mode
       (setq skk-jisx0201-mode nil)
       (skk-j-mode-on 'katakana)
-      (setq skk-rule-tree skk-jisx0201-orig-rule-tree)
+      (kill-local-variable 'skk-rule-tree)
       (skk-update-modeline 'katakana))
      (t
       (skk-jisx0201-mode-on)
@@ -444,6 +422,13 @@
        (current-buffer)))
      (t
       (set-buffer-local-cursor-color (skk-cursor-current-color))))))
+
+(defun skk-jisx0201-zenkaku-region (start end)
+  (static-cond
+   ((eq skk-emacs-type 'mule2)
+    (zenkaku-katakana-region start end))
+   (t
+    (japanese-zenkaku-region start end 'katakana-only))))
 
 (defun skk-jisx0201-henkan (arg)
   "▽モードであれば、リージョンのひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
