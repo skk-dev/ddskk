@@ -1,5 +1,12 @@
 2000-12-16  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* READMEs/CVS_on_Windows: Sync up with web/cvswin-ja.html.
+
+	* skk-e18.el (read-from-minibuffer@around@skk-e18-ad): Put an
+	advice if apel version is 10.2 or earlier (10.3 will have
+	read-from-minibuffer that call `minibuffer-setup-hook' and
+	`minibuffer-exit-hook'.
+
 	* skk-dcomp.el
 	(viper-del-backward-char-in-insert@after@skk-dcomp-ad): Call
 	`skk-dcomp-after-delete-backward-char' only when `skk-mode' and
@@ -2933,8 +2940,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 	
-Version: $Id: ChangeLog,v 1.222 2000/12/15 23:25:01 minakaji Exp $
-Last Modified: $Date: 2000/12/15 23:25:01 $
+Version: $Id: ChangeLog,v 1.223 2000/12/16 12:05:19 minakaji Exp $
+Last Modified: $Date: 2000/12/16 12:05:19 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

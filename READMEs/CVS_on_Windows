@@ -1,52 +1,64 @@
 -*- outline -*- 
 
-$Date: 2000/10/30 22:14:09 $
-$Id: CVS_on_Windows,v 1.6 2000/10/30 22:14:09 minakaji Exp $
+$Date: 2000/12/16 12:05:19 $
+$Id: CVS_on_Windows,v 1.7 2000/12/16 12:05:19 minakaji Exp $
 
 [cvs on Windows 95/NT Windows 95 で動作確認済み (NT では未確認)] 
 
-* cvs.exe はどれを使うのでしょう？
+* Windows 上で cvs を利用して開発に参加する際の注意
 
-Cygwin 環境で、ソースからコンパイルしましょう。理由を以下に述べます。
-CVS ではリポジトリの行末コードは正規化されるので、Windows 用にコンパイ
-ルされた cvs のバイナリーで checkout すると LF なファイルが CRLF にな
-ります。
+Windows 上で CVS を利用して SKK Openlab の開発に参加するときは、
+Windows ネイティブの cvs.exe を利用してはいけません。理由を以下に述べ
+ます。
 
-SKK 10.x (Maintrunk) 及び Daredevil SKK 11.1 は主に UNIX 上で開発され
-ているので、主なファイルの行末コードは LF であり、Windows 専用のファイ
-ルのみ CRLF にしています。これらを Windows 用の cvs.exe で update する
-と、LF は CRLF になり、CRLF は CRCRLF になってしまいます。
+cvs ではリポジトリの行末コードは正規化されるので、Windows ネイティブの
+cvs.exe で checkout すると LF なファイルが CRLF になります。
 
-このように行末コードが変更されてしまうと、diff を取ったり patch を当て
-たりするときに不便なので、行末コードを Windows native に正規化しない
-(UNIX と同様に扱う) Cygwin でソースからコンパイルすることを推奨します。
+Daredevil SKK は主に UNIX 上で開発されているので、主なファイルの行末コー
+ドは LF であり、Windows 専用のファイルのみ CRLF にしています。これらを
+Windows ネイティブの cvs.exe で update すると、LF は CRLF になり、CRLF
+は CRCRLF になってしまいます。
 
-* cvs の version は？  またどこから get できますか？
+このように行末コードが変更されてしまうと、make.bat が実行できなくなっ
+たり、更に diff を取ったり patch を当てたりするときに不便なので、行末
+コードを Windows native に正規化しない (UNIX と同様に扱う) cygwin
+の cvs.exe を利用する必要があるというわけです。
 
-cvs のバージョンは、1.10.7 以上が良いようです (それ以下のバージョンで
-はコンパイルエラーが出ることがあります)。1.10.8 が最新版で、これは例え
-ば、
+cygwin については、http://sources.redhat.com/cygwin/ をご参照下さい。
 
-ftp://ftp.cvshome.org/pub/cvs-1.10.8/cvs-1.10.8.tar.gz
+* cygwin を利用する際の注意点
 
-から get できます。
+cygwin の  setup で Default Text FileType を Unix に指定してインストー
+ルしましょう
 
-* cvs.exe をコンパイルできたら、次は...？
+LF を LF のまま checkout するためには cygwin の cvs.exe をバイナリマウ
+ントした filesystem 上で使う必要があります。
 
-LF を LF のまま checkout するためには Cygwin でコンパイルした cvs をバ
-イナリマウントした filesystem 上で使う必要があります。checkout するド
-ライブをバイナリマウントするには、下記のように設定して下さい。
-(ドライブを c ドライブと仮定します。)以下のコマンドは一度だけ実行すれ
-ば結構です。
+cygwin root (正しい呼び方かどうか分かりませんが、cygwin をインストール
+する際の root directory です。ディフォルト値は c:/cygwin です) はバイ
+ナリマウントされていますので、c:/cygwin 以下のディレクトリに checkout
+すれば OK です。
 
-   % umount / ; mount -b c: /
+バイナリマウントされているかどうかは cygwin の mount コマンドを実行す
+れば分かります。Flags に binmode と出ていればバイナリマウントされてい
+ます。
 
-  注1; .bashrc の行末コードは必ず LF にしておいて下さい。
-  注2; $TEMP が他のドライブにマウントされているときは $TEMP をバイナ
-      リマウントして下さい。
-      例えば $TEMP=d:\tmp だとした場合、
+  Device              Directory           Type         Flags
+  C:\cygwin\bin       /usr/bin            system       binmode
+  C:\cygwin\lib       /usr/lib            system       binmode
+  C:\cygwin           /                   system       binmode
+
+cygwin root があるドライブ以外のドライブをバイナリマウントするには、下
+記のように設定して下さい。例えば d ドライブをマウントするのであれば、
+以下のコマンドを実行します。
+
+   % umount / ; mount -b d: /
+
+注1; .bashrc の行末コードは必ず LF にしておいて下さい。
+注2; $TEMP が他のドライブにマウントされているときは $TEMP をバイナリマ
+     ウントして下さい。例えば $TEMP=d:\tmp だとした場合、下記のように
+     します。
+
    % umount /tmp ; mount -b d:\tmp /tmp
 
 [End of CVS_on_Widows]
-
-

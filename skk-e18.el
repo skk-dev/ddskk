@@ -134,23 +134,25 @@ Install patch/e18/advice.el in load-path and try again.")))
 	       (null ad-return-value))
       (setq ad-return-value 0))))
 
-(defadvice read-from-minibuffer (around skk-e18-ad activate)
-  ;;
-  (when minibuffer-setup-hook
-    (with-current-buffer
-	(get-buffer-create
-	 (format " *Minibuf-%d*" (minibuffer-depth)))
-      (run-hooks 'minibuffer-setup-hook)))
-  ;;
-  ad-do-it
-  ;;
-  (when minibuffer-exit-hook
-    (with-current-buffer
-	(get-buffer-create
-	 (format " *Minibuf-%d*" (minibuffer-depth)))
-      (condition-case nil
-	  (run-hooks 'minibuffer-exit-hook)
-	(error)))))
+(if (product-version>= 'apel-ver '(10 3))
+    nil
+  (defadvice read-from-minibuffer (around skk-e18-ad activate)
+    ;;
+    (when minibuffer-setup-hook
+      (with-current-buffer
+	  (get-buffer-create
+	   (format " *Minibuf-%d*" (minibuffer-depth)))
+	(run-hooks 'minibuffer-setup-hook)))
+    ;;
+    ad-do-it
+    ;;
+    (when minibuffer-exit-hook
+      (with-current-buffer
+	  (get-buffer-create
+	   (format " *Minibuf-%d*" (minibuffer-depth)))
+	(condition-case nil
+	    (run-hooks 'minibuffer-exit-hook)
+	  (error))))))
 
 (defadvice exit-minibuffer (around skk-e18-ad activate)
   (let ((no-nl (and skk-egg-like-newline skk-henkan-on)))
