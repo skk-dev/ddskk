@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.80 2001/09/14 15:57:54 czkmt Exp $
-;; Last Modified: $Date: 2001/09/14 15:57:54 $
+;; Version: $Id: SKK-MK,v 1.81 2001/09/15 05:11:44 czkmt Exp $
+;; Last Modified: $Date: 2001/09/15 05:11:44 $
 
 ;; Commentary
 ;;
@@ -1007,9 +1007,10 @@ SKK tutorials:
 (when site-start-file
   (require 'skk-setup))
 ")
-	(write-region-as-coding-system
-	 'iso-2022-jp
-	 (point-min) (point-max) generated-autoload-file)))
+	(write-region-as-coding-system 'iso-2022-jp
+				       (point-min)
+				       (point-max)
+				       generated-autoload-file)))
     (add-to-list 'command-line-args-left ".")
     (Custom-make-dependencies)))
 
