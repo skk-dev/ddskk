@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.79 2001/09/14 12:09:26 czkmt Exp $
-;; Last Modified: $Date: 2001/09/14 12:09:26 $
+;; Version: $Id: SKK-MK,v 1.80 2001/09/14 15:57:54 czkmt Exp $
+;; Last Modified: $Date: 2001/09/14 15:57:54 $
 
 ;; Commentary
 ;;
@@ -243,23 +243,24 @@ Try ddskk-e18 branch."))
   ;; こんなもんコマンドラインで指定する人いないよね？
   (or (getenv "SKK_MODULES")
       (let ((list
-	     '(queue-m skk-macs skk-vars
-		       skk skk-auto skk-autoloads skk-comp
-		       skk-develop skk-gadget
-		       skk-isearch skk-kakasi skk-kcode
-		       skk-leim skk-look skk-num skk-obsolete
-		       skk-cursor skk-server skk-tut skk-version
-		       skk-abbrev skk-dcomp skk-annotation
-		       skk-jisx0201 skk-dic
+	     '(queue-m
+	       skk-macs skk-vars
+	       skk skk-auto skk-autoloads skk-comp
+	       skk-develop skk-gadget
+	       skk-isearch skk-kakasi skk-kcode
+	       skk-leim skk-look skk-num skk-obsolete
+	       skk-cursor skk-server skk-tut skk-version
+	       skk-abbrev skk-dcomp skk-annotation
+	       skk-jisx0201 skk-dic
 
-		       ;; EXPERIMENTAL
-		       skk-rdbms skk-study
-		       skk-tutcdef skk-tutcode skk-correct
-		       skk-exsearch skk-exserv
-		       skk-hint
-		       ;; VIP 3.7
-		       ;; vip
-		       )))
+	       ;; EXPERIMENTAL
+	       skk-rdbms skk-study
+	       skk-tutcdef skk-tutcode skk-correct
+	       skk-exsearch skk-exserv
+	       skk-hint
+	       ;; VIP 3.7
+	       ;; vip
+	       )))
 	;; バイトコンパイル時に X window が initialize されていないというエラー
 	;; になる (;_;)。
 	;; yatex みたいに Window を開いてバイトコンパイルするようにもできるけど、
