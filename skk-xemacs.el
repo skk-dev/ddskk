@@ -25,8 +25,11 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'info))
+
 (eval-and-compile
-  (autoload 'browse-url-netscape "browse-url"))
+  (autoload 'browse-url "browse-url"))
 
 ;; Variables.
 (defvar skk-xemacs-hiragana-extent (make-extent nil nil))
@@ -87,10 +90,9 @@
   (browse-url "http://openlab.ring.gr.jp/skk/index-j.html"))
 
 ;;;###autoload
-(defun skk-xemacs-prepare-extents ()
+(defun skk-xemacs-prepare-modeline-properties ()
   (make-face 'skk-xemacs-hiragana-face)
-  (set-face-parent 'skk-xemacs-hiragana-face
-		   'modeline nil '(default))
+  (set-face-parent 'skk-xemacs-hiragana-face 'modeline nil '(default))
   (when (featurep 'window-system)
     (set-face-foreground 'skk-xemacs-hiragana-face
 			 skk-cursor-hiragana-color nil
@@ -149,20 +151,35 @@
     (set-face-font 'skk-xemacs-abbrev-face [bold] nil
 		   '(default mono win))
     (set-face-font 'skk-xemacs-abbrev-face [bold] nil
-    '(default grayscale win)))
+		   '(default grayscale win)))
   (set-extent-face skk-xemacs-abbrev-extent 'skk-xemacs-abbrev-face)
   ;;
   (make-face 'skk-xemacs-jisx0201-face)
   (set-face-parent 'skk-xemacs-jisx0201-face 'modeline nil '(default))
   (when (featurep 'window-system)
     (set-face-foreground 'skk-xemacs-jisx0201-face
-    skk-cursor-jisx0201-color nil
-    '(default color win))
+			 skk-cursor-jisx0201-color nil
+			 '(default color win))
     (set-face-font 'skk-xemacs-jisx0201-face [bold] nil
-    '(default mono win))
+		   '(default mono win))
     (set-face-font 'skk-xemacs-jisx0201-face [bold] nil
-    '(default grayscale win)))
-  (set-extent-face skk-xemacs-jisx0201-extent 'skk-xemacs-jisx0201-face))
+		   '(default grayscale win)))
+  (set-extent-face skk-xemacs-jisx0201-extent 'skk-xemacs-jisx0201-face)
+  ;;
+  (setq skk-default-indicator
+	(cons (make-extent nil nil) 'skk-input-mode-string)
+	skk-latin-mode-indicator
+	(cons skk-xemacs-latin-extent 'skk-input-mode-string)
+	skk-hiragana-mode-indicator
+	(cons skk-xemacs-hiragana-extent 'skk-input-mode-string)
+	skk-katakana-mode-indicator
+	(cons skk-xemacs-katakana-extent 'skk-input-mode-string)
+	skk-jisx0208-latin-mode-indicator
+	(cons skk-xemacs-jisx0208-latin-extent 'skk-input-mode-string)
+	skk-jisx0201-mode-indicator
+	(cons skk-xemacs-jisx0201-extent 'skk-input-mode-string)
+	skk-abbrev-mode-indicator
+	(cons skk-xemacs-abbrev-extent 'skk-input-mode-string)))
 
 ;;
 
