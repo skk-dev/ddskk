@@ -1,6 +1,6 @@
 ;;; skk-autoloads.el --- autoload settings for SKK.
 
-;; This file was generated automatically by SKK-MK at Fri Dec 31 03:21:18 1999.
+;; This file was generated automatically by SKK-MK at Mon Jan 17 13:04:18 2000.
 
 ;; This file is part of Daredevil SKK.
 

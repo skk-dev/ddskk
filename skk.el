@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.24 1999/12/30 18:06:48 czkmt Exp $
+;; Version: $Id: skk.el,v 1.26 2000/01/17 04:08:05 furue Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/12/30 18:06:48 $
+;; Last Modified: $Date: 2000/01/17 04:08:05 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/12/30 18:06:48 $")
+      (let* ((raw-date "$Date: 2000/01/17 04:08:05 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -1650,7 +1650,7 @@ skk-remove-common $B$G;2>H$5$l$k!#(B" )
 	  ;; $B$3$3$G$O(B delete-backward-char $B$KBhFs0z?t$rEO$5$J$$J}$,%Y%?!<!)(B
 	  (delete-backward-char count) )
       (skk-previous-candidate) ))
-   ;; $B"&(B mode (Midashi imput mode).
+   ;; $B"&(B mode (Midashi input mode).
    (t (skk-erase-prefix 'clean)
       (and (> (point) skk-henkan-start-point)
 	   (delete-region (point) skk-henkan-start-point) )
@@ -1738,22 +1738,6 @@ picture-mode $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!
   "SKK $B$N"'%b!<%I$@$C$?$i!"3NDj$7$F$+$i%P%C%U%!$r%-%k$9$k!#(B
   $B%P%C%U%!$N%-%k8e!"(BSKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
   (and skk-mode skk-henkan-on (interactive-p) (skk-kakutei)) )
-
-(defadvice query-replace-regexp  (before skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (setq skk-minibuffer-origin-mode (skk-current-insert-mode))
-  (add-hook
-   'minibuffer-setup-hook
-   (function (lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local))) )
-  (add-hook 'minibuffer-setup-hook 'skk-setup-minibuffer) )
-
-(defadvice query-replace (before skk-ad activate)
-  "SKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
-  (setq skk-minibuffer-origin-mode (skk-current-insert-mode))
-  (add-hook
-   'minibuffer-setup-hook
-   (function (lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local))) )
-  (add-hook 'minibuffer-setup-hook 'skk-setup-minibuffer) )
 
 (defadvice save-buffers-kill-emacs (before skk-ad activate)
   (run-hooks 'skk-before-kill-emacs-hook) )
@@ -2300,7 +2284,7 @@ skk-convert-okurigana-into-katakana $B$NCM$r(B non-nil $B$K$9$k!#(B
 			  (skk-previous-completion) )
 			 (t (skk-kana-input arg)) ))
 		  (t (skk-kana-input arg)) ))
-	   ;; just imput Kana.
+	   ;; just input Kana.
 	   (t (skk-kana-input arg)) ))))
 
 (defun skk-kana-input (&optional arg)
@@ -3679,7 +3663,8 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 (defun skk-delete-okuri-mark ()
   ;; $BAw$j2>L>F~NOCf$K%+%l%s%H%P%C%U%!$KI=$o$l$k(B `*' $B%^!<%/$r>C$7!"Aw$j2>L>4XO"(B
   ;; $B%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
-  (if (or (not skk-okurigana-start-point)
+  (if (or (not skk-okurigana)
+	  (not skk-okurigana-start-point)
 	  (not (markerp skk-okurigana-start-point))
 	  (not (marker-position skk-okurigana-start-point)) )
       nil
