@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.31 2003/07/06 11:10:23 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.32 2003/07/06 11:19:28 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/06 11:10:23 $
+;; Last Modified: $Date: 2003/07/06 11:19:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -180,6 +180,7 @@
      ;; ("着")
      (setq associates (cdr (assoc last-data target-alist)))
      (setq associates (reverse associates))
+     ;; XXX what is modified?  I forgot it.
      (setq modified t)
      (while (setq e (car associates))
        (setq entry (cons e (delete e entry))
@@ -268,9 +269,13 @@
 	    nil
 	  ;; sort is not necessary, but make an alist rather readable.
 	  (setq e (assq 'okuri-ari skk-study-alist))
-	  (setcdr e (sort (cdr e) (function (lambda (a b) (string< (car a) (car b))))))
+	  (setcdr e (sort (cdr e)
+			  (function (lambda (a b)
+				      (string< (car a) (car b))))))
 	  (setq e (assq 'okuri-nasi skk-study-alist))
-	  (setcdr e (sort (cdr e) (function (lambda (a b) (string< (car a) (car b)))))))
+	  (setcdr e (sort (cdr e)
+			  (function (lambda (a b)
+				      (string< (car a) (car b)))))))
 	(skk-study-prin1 skk-study-alist (current-buffer))
 	(write-region-as-coding-system
 	 (skk-find-coding-system skk-jisyo-code)
@@ -325,7 +330,8 @@
     (let ((version-string
 	   (format ";;; skk-study-file format version %s\n"
 		   skk-study-file-format-version)))
-      (insert-file-contents-as-coding-system (skk-find-coding-system skk-jisyo-code) file)
+      (insert-file-contents-as-coding-system
+       (skk-find-coding-system skk-jisyo-code) file)
       (if (= (buffer-size) 0)
 	  ;; bare alist
 	  (insert version-string "((okuri-ari) (okuri-nasi))"))
@@ -413,6 +419,9 @@
       (setq data (cons skk-henkan-key kakutei-word))
       (setq vector (nthcdr 2 skk-study-data-ring))
       (setq max (length vector))
+      ;;XXX Is this simpler?
+      ;;(unless (member data (ring-elements skk-study-data-ring))
+      ;;  (ring-insert skk-study-data-ring data)
       (catch 'exit
 	(while (> max count)
 	  (and (equal (aref vector count) data)
