@@ -30,7 +30,7 @@
 
 ;;; Code:
 
-(when site-run-file
+(unless noninteractive
   ;; No need to load this file when Emacs is called for `make' or most of other
   ;; batch processings.
 
