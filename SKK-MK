@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.108 2001/11/23 11:47:33 czkmt Exp $
-;; Last Modified: $Date: 2001/11/23 11:47:33 $
+;; Version: $Id: SKK-MK,v 1.109 2001/11/24 00:32:59 minakaji Exp $
+;; Last Modified: $Date: 2001/11/24 00:32:59 $
 
 ;;; Commentary:
 
@@ -298,6 +298,7 @@ This version of SKK requires MULE features"))
 		    skk-study
 		    skk-tutcdef
 		    skk-tutcode
+		    skk-w3m
 		    ;; VIP 3.7
 		    ;; vip
 		    )))
@@ -342,12 +343,10 @@ This version of SKK requires MULE features"))
 		(error))
 	  (add-to-list 'list 'skk-lookup))
 	;; skk-w3m.el
-	(when (condition-case nil
-		  ;; you might have to add w3m installed directory
-		  ;; to `load-path'.
-		  (require 'w3m-search)
-		(error))
-	  (add-to-list 'list 'skk-w3m))
+        ;;(when (condition-case nil
+        ;;          (require 'w3m-search)
+        ;;        (error))
+        ;;  (add-to-list 'list 'skk-w3m))
 	;; skk-viper.el
 	(when (condition-case nil
 		  (require 'viper)

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.14 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-auto.el,v 1.15 2001/11/24 00:32:59 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/24 00:32:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -139,9 +139,10 @@
 		  pl nil)
 	  (setq pl (cdr pl)
 		n (1+ n))))
-      (skk-splice-in (default-value 'skk-search-prog-list)
-		     (1+ mark)
-		     '((skk-okuri-search))))))
+      (when mark
+	(skk-splice-in (default-value 'skk-search-prog-list)
+		       (1+ mark)
+		       '((skk-okuri-search)))))))
 
 ;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-auto-okuri)
 

@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.50 2001/10/14 14:17:55 akiho Exp $
-# Last Modified: $Date: 2001/10/14 14:17:55 $
+# Version: $Id: Makefile,v 1.51 2001/11/24 00:32:59 minakaji Exp $
+# Last Modified: $Date: 2001/11/24 00:32:59 $
 
 
 VERSION = 11.5
@@ -11,6 +11,7 @@ BZIP2     = bzip2 -9
 CP	  = /bin/cp -p
 DATE	  = date
 EMACS	  = emacs
+ETAGS	  = etags
 FLAGS     = -batch -q -no-site-file -l SKK-MK
 GZIP      = gzip -9
 MD5	  = md5
@@ -58,6 +59,8 @@ rb-skk-dic:
 	$(RM) skk-dic.el
 	$(RUBY) etc/skk-dic.rb ../dic/SKK-JISYO.S
 
+TAGS:
+	$(ETAGS) `find . -name '*.el'`
 clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
 	auto-autoloads.el custom-load.el \
@@ -90,4 +93,5 @@ snapshot: clean rb-skk-dic
 	$(MD5) $(SNAPBASE).tar.bz2 >$(SNAPBASE).tar.bz2.md5 ;\
 	$(MD5) $(SNAPBASE).tar.gz >$(SNAPBASE).tar.gz.md5
 	$(RM) skk-dic.el
+
 # end of Makefile.
