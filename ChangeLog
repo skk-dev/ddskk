@@ -1,3 +1,8 @@
+2002-08-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-version.el:
+	(skk-version): Bump to 12.1.1.
+
 2002-07-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi:
@@ -3990,8 +3995,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.703 2002/07/31 08:50:03 czkmt Exp $
-Last Modified: $Date: 2002/07/31 08:50:03 $
+Version: $Id: ChangeLog,v 1.704 2002/08/01 10:11:27 czkmt Exp $
+Last Modified: $Date: 2002/08/01 10:11:27 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
