@@ -1,3 +1,9 @@
+2001-10-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	(skk-require-module): If the feature `skk-jisx0201' is present,
+	set `skk-use-jisx0201-input-method' t.
+
 2001-10-14  Tsuyoshi AKIHO  <akiho@sky.email.ne.jp>
 
 	* READMEs/README.Mac : Add note of byte compile.
@@ -2450,8 +2456,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.484 2001/10/14 14:18:21 akiho Exp $
-Last Modified: $Date: 2001/10/14 14:18:21 $
+Version: $Id: ChangeLog,v 1.485 2001/10/15 10:01:34 czkmt Exp $
+Last Modified: $Date: 2001/10/15 10:01:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
