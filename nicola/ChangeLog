@@ -1,6 +1,7 @@
 2000-11-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el: Eliminate warnings.
+	Call `skk-mode-string-to-indicator'.
 
 2000-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

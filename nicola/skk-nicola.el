@@ -248,14 +248,12 @@ keycode 131 = underscore\n"))
       (rom
        (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
 	     skk-katakana-mode-string skk-nicola-katakana-rom-string)))
-    (setq skk-input-mode-string skk-hiragana-mode-string)
-    (static-when (eq skk-emacs-type 'mule5)
-      (setq skk-hiragana-mode-indicator
-	    (apply 'propertize skk-hiragana-mode-string
-		   skk-e21-modeline-property))
-      (setq skk-katakana-mode-indicator
-	    (apply 'propertize skk-katakana-mode-string
-		   skk-e21-modeline-property)))
+    (setq skk-hiragana-mode-indicator
+	  (skk-mode-string-to-indicator 'hiragana
+					skk-hiragana-mode-string))
+    (setq skk-katakana-mode-indicator
+	  (skk-mode-string-to-indicator 'katakana
+					skk-katakana-mode-string))
     (skk-update-modeline (if skk-katakana
 			     skk-katakana-mode-indicator
 			   skk-hiragana-mode-indicator)))))
@@ -743,23 +741,18 @@ keycode 131 = underscore\n"))
     (rom
      (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
 	   skk-katakana-mode-string skk-nicola-katakana-rom-string)))
-  (static-when (eq skk-emacs-type 'mule5)
-    (setq skk-hiragana-mode-indicator
-	  (apply 'propertize skk-hiragana-mode-string
-		 skk-e21-modeline-property))
-    (setq skk-katakana-mode-indicator
-	  (apply 'propertize skk-katakana-mode-string
-		 skk-e21-modeline-property)))
+  (setq skk-hiragana-mode-indicator
+	(skk-mode-string-to-indicator 'hiragana
+				      skk-hiragana-mode-string))
+  (setq skk-katakana-mode-indicator
+	(skk-mode-string-to-indicator 'katakana
+				      skk-katakana-mode-string))
   (let ((list (buffer-list))
 	buf)
     (while list
       (when (buffer-live-p (setq buf (car list)))
 	(with-current-buffer buf
 	  (when skk-j-mode
-	    (setq skk-input-mode-string
-		  (if skk-katakana
-		      skk-katakana-mode-string
-		    skk-hiragana-mode-string))
 	    (skk-update-modeline (if skk-katakana
 				     skk-katakana-mode-indicator
 				   skk-hiragana-mode-indicator)))))

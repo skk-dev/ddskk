@@ -9,8 +9,14 @@
 
 	* leim-list.el: New file.
 
+	* skk-macs.el (skk-mode-string-to-indicator): New function.
+
 	* skk-setup.el.in: Move XEmacs related codes to skk-xemacs.el.
 	Move isearch related codes to skk-isearch.el.
+
+	* skk-vars.el (skk-input-mode-string): Abolish.
+
+	* skk.el (skk-setup-modeline): Always use `skk-modeline-input-mode'.
 
 2000-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2431,8 +2437,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.158 2000/11/20 20:05:57 czkmt Exp $
-Last Modified: $Date: 2000/11/20 20:05:57 $
+Version: $Id: ChangeLog,v 1.159 2000/11/20 20:08:26 czkmt Exp $
+Last Modified: $Date: 2000/11/20 20:08:26 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
