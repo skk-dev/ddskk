@@ -802,7 +802,8 @@ keycode 131 = underscore\n"))
 	  ((eq skk-henkan-mode 'active)
 	   ;; 接尾語の処理
 	   (skk-kakutei)
-	   (skk-set-henkan-point-subr)
+	   (let (skk-kakutei-history)
+	     (skk-set-henkan-point-subr))
 	   (insert-and-inherit ?>))
 	  ((eq skk-henkan-mode 'on)
 	   ;; 接頭語の処理
