@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.16 1999/10/14 21:15:05 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.17 1999/10/14 21:34:38 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/14 21:15:05 $
+;; Last Modified: $Date: 1999/10/14 21:34:38 $
 
 ;; This file is not part of SKK yet.
 
@@ -177,7 +177,7 @@
 	  grandpa papa baby )
       (if (and (or skk-study-alist (skk-study-read))
 	       midasi word last-data
-	       (not (or (string= word "") (string= word "")
+	       (not (or (string= midasi "") (string= word "")
 			(and (string= midasi (car last-data))
 			     (string= word (cdr last-data)) ))))
 	  (progn
@@ -257,9 +257,9 @@
 	    (message "") )))))
 
 ;;;###autoload
-(defun skk-study-read (&optional nomsg quiet)
+(defun skk-study-read (&optional nomsg force)
   "skk-study-file から学習結果を読み込む。
-オプショナル引数の QUIET が non-nil であれば、破棄の確認をしない。"
+オプショナル引数の FORCE が non-nil であれば、破棄の確認をしない。"
   (interactive "P")
   (skk-create-file
    skk-study-file
@@ -268,7 +268,7 @@
 	   "SKK の学習結果ファイルを作りました"
 	 "I have created an SKK study file for you" )))
   (if (or (null skk-study-alist)
-	  quiet
+	  force
 	  (skk-yes-or-no-p (format "%s を再読み込みしますか？" skk-study-file)
 			   (format "Reread %s?" skk-study-file) ))
       (progn
@@ -350,8 +350,6 @@
 	    alist2 e f )
 	(while index
 	  (and (eq (car index) 'okuri-nasi)
-	       ;;(setcdr (nthcdr 1 (nth 2 func))
-	       ;;        (list (cons 'not (cdr (nthcdr 1 (nth 2 func))))) )))
 	       (setq func
 		     (function
 		      (lambda (str)
