@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.15 2000/11/24 13:15:24 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.16 2000/11/27 01:33:05 furue Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/24 13:15:24 $
+;; Last Modified: $Date: 2000/11/27 01:33:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1435,6 +1435,11 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
   :type 'boolean
   :group 'skk-keybinds)
 
+(defcustom skk-undo-kakutei-word-only nil
+  "*Non-nil $B$G$"$l$P(B $B"&%b!<%I$H"'%b!<%I;~$N%"%s%I%%>pJs$r5-O?$7$J$$!#(B"
+  :type 'boolean
+  :group 'skk-misc)
+
 (defvar skk-latin-mode-map nil "*ASCII $B%b!<%I$N%-!<%^%C%W!#(B")
 (defvar skk-j-mode-map nil "*$B$+$J%b!<%I$N%-!<%^%C%W!#(B")
 (defvar skk-jisx0208-latin-mode-map nil "*$BA43Q%b!<%I$N%-!<%^%C%W!#(B")
@@ -2069,7 +2074,7 @@ Mule l $B$b$7$/$O(B  Mule 2 $B$r;HMQ$9$k>l9g$K(B skk-latin-region $B$G;2>H$
 Mule-2.3 $BE:IU$N(B egg.el $B$h$j%3%T!<$7$?!#(B")
 
 (defconst skk-kana-cleanup-command-list
-  '(skk-delete-backward-char skk-insert skk-previous-candidate))
+  '(skk-undo skk-kakutei skk-delete-backward-char skk-insert skk-previous-candidate))
 
 (defvar skk-emacs-id nil
   "$BJ#?t(B emacs $B$r<1JL$9$kJ8;zNs!#(B
@@ -2317,6 +2322,12 @@ skk-remove-common $B$G;2>H$5$l$k!#(B")
 
 (skk-deflocalvar skk-okuri-index-max -1
   "skk-henkan-list $B$N%$%s%G%/%9$G<+F0Aw$j=hM}!"$b$7$/$O%5JQ8!:w$G8!:w$7$?:G8e$N8uJd$r;X$9$b$N!#(B")
+
+(skk-deflocalvar skk-last-buffer-undo-list nil
+  "$B"&%b!<%I$KF~$kD>A0$N(B buffer-undo-list $B$rB`Hr$7$F$*$/JQ?t!#(B")
+
+(skk-deflocalvar skk-last-buffer-modified nil
+  "$B"&%b!<%I$KF~$kD>A0$N%P%C%U%!JQ99%U%i%0$rB`Hr$7$F$*$/JQ?t!#(B")
 
 ;;; -- SKK-COMP.EL related internal variables
 ;; ---- buffer local variables

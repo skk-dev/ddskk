@@ -1,3 +1,30 @@
+2000-11-27  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* skk.el (skk-emulate-original-map): Remove `skk-cancel-undo-boundary'.
+	(skk-kana-input): Reset `skk-kana-start-point' when ``NEXT have
+	at least one branch''.
+	Do `skk-cancel-undo-boundary' only when kana insertion.
+	(skk-delete-backward-char): kana cleanup.
+	(skk-undo): kana cleanup.
+	(skk-kakutei-cleanup-buffer): Enable undo again if
+	`skk-undo-kakutei-word-only' is set.
+	(skk-undo-kakutei): Disable undo temporarily if
+	`skk-undo-kakutei-word-only' is set.
+	(skk-set-henkan-point-subr): Disable undo temporarily if
+	`skk-undo-kakutei-word-only' is set.
+	(newline): Do `undo-boundary'.
+	(newline-and-indent): Do `undo-boundary'.
+
+	* skk-vars.el (skk-kana-cleanup-command-list): Add `skk-undo' and
+	`skk-kakutei'.
+	(skk-undo-kakutei-word-only): New user variable.
+	(skk-last-buffer-modified): New buffer local variable.
+	(skk-last-buffer-modified): New buffer local variable.
+
+	* skk-macs.el (skk-cannot-be-undone): New macro.
+	(skk-erase-prefix): Use `skk-cannot-be-undone'.
+	(skk-insert-prefix): Use `skk-cannot-be-undone'.
+
 2000-11-26  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-dcomp.el: Remove unnecessary spaces between
@@ -2528,8 +2555,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.181 2000/11/26 10:32:50 minakaji Exp $
-Last Modified: $Date: 2000/11/26 10:32:50 $
+Version: $Id: ChangeLog,v 1.182 2000/11/27 01:33:04 furue Exp $
+Last Modified: $Date: 2000/11/27 01:33:04 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

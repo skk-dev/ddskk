@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.16 2000/11/25 21:06:09 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.17 2000/11/27 01:33:05 furue Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 21:06:09 $
+;; Last Modified: $Date: 2000/11/27 01:33:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -192,6 +192,14 @@
 
 (defmacro skk-update-modeline (indicator)
   (` (setq skk-modeline-input-mode (, indicator))))
+
+(defmacro skk-cannot-be-undone (&rest body)
+  (` (let ((buffer-undo-list t)
+	   ;;buffer-read-only
+	   (modified (buffer-modified-p)))
+       (unwind-protect
+	   (progn (,@ body))
+	 (set-buffer-modified-p modified)))))
 
 ;;(defun-maybe mapvector (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
@@ -408,12 +416,12 @@
   ;; null 文字にしたくない。
   (and skk-echo skk-kana-start-point
        (not (string= skk-prefix ""))	; fail safe.
-       ;; skk-prefix の消去をアンドゥの対象としない。
-       (let ((buffer-undo-list t)
-	     (start (marker-position skk-kana-start-point)))
+       (let ((start (marker-position skk-kana-start-point)))
 	 (and start
 	      (condition-case nil
-		  (delete-region start (+ start (length skk-prefix)))
+		  ;; skk-prefix の消去をアンドゥの対象としない。
+		  (skk-cannot-be-undone
+		   (delete-region start (+ start (length skk-prefix))))
 		(error
 		 (skk-set-marker skk-kana-start-point nil)
 		 (setq skk-prefix ""
@@ -556,8 +564,8 @@
        ;; skk-prefix の挿入をアンドゥの対象としない。挿入したプレフィックスは、
        ;; かな文字を挿入する前に全て消去するので、その間、buffer-undo-list を
        ;; t にしてアンドゥ情報を蓄えなくとも問題がない。
-       (let ((buffer-undo-list t))
-         (insert-and-inherit (or char skk-prefix)))))
+       (skk-cannot-be-undone
+	(insert-and-inherit (or char skk-prefix)))))
 
 (defsubst skk-string<= (str1 str2)
   ;; STR1 と STR2 とを比較して、string< か string= であれば、t を返す。

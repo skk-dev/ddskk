@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.70 2000/11/26 10:32:51 minakaji Exp $
+;; Version: $Id: skk.el,v 1.71 2000/11/27 01:33:06 furue Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/26 10:32:51 $
+;; Last Modified: $Date: 2000/11/27 01:33:06 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -670,7 +670,7 @@ dependent."
 		nil
 	      ;; if no bindings are found, call `undefined'.  it's
 	      ;; original behaviour.
-	      (skk-cancel-undo-boundary)
+	      ;;(skk-cancel-undo-boundary)
 	      (command-execute (or command (function undefined)))))
 	(let (command local-map buf)
 	  (unwind-protect
@@ -684,7 +684,7 @@ dependent."
 		    nil
 		  ;; if no bindings are found, call `undefined'.  it's
 		  ;; original behaviour.
-		  (skk-cancel-undo-boundary)
+		  ;;(skk-cancel-undo-boundary)
 		  (command-execute (or command (function undefined)))))
 	    ;; restore skk keymap.
 	    (save-excursion
@@ -1021,7 +1021,9 @@ dependent."
 		  (and skk-henkan-active
 		       skk-kakutei-early
 		       (not skk-process-okuri-early)
-		       (skk-kakutei))
+		       (progn
+			 (skk-kakutei)
+			 (skk-set-marker skk-kana-start-point (point))))
 		  (setq queue (cdr queue)
 			skk-current-rule-tree next))
 	      ;; NEXT does not have any branch (i.e. NEXT is a leaf)
@@ -1066,7 +1068,7 @@ dependent."
 	      (setq skk-prefix "")
 	      (or queue
 		  (skk-emulate-original-map (skk-make-raw-arg arg))))
-	  (skk-cancel-undo-boundary)
+	  ;;(skk-cancel-undo-boundary)
 	  (setq skk-prefix "")
 	  (and (functionp data)
 	       (setq data (funcall data (skk-make-raw-arg arg))))
@@ -1083,6 +1085,7 @@ dependent."
 	      ;; arg は保存しておかないと、0 になってしまい、queue
 	      ;; がたまっていて再度ここへやって来たときに文字入力が
 	      ;; できなくなる。
+	      (skk-cancel-undo-boundary)
 	      (while (> count0 0)
 		(skk-insert-str str)
 		(setq count0 (1- count0)))
@@ -1389,6 +1392,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	    (skk-delete-okuri-mark)
 	    (if (skk-get-prefix skk-current-rule-tree)
 		(skk-erase-prefix 'clean)
+	      (skk-set-marker skk-kana-start-point nil)
 	      (skk-emulate-original-map arg)))))))
 
 ;;;; henkan routines
@@ -1900,7 +1904,9 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 
 (defun skk-undo (&optional arg)
   (interactive "*P")
-  (cond (skk-henkan-active
+  (cond ((skk-get-prefix skk-current-rule-tree)
+	 (skk-kana-cleanup 'force))
+	(skk-henkan-active
 	 (skk-previous-candidate))
 	(skk-henkan-on
 	 (if (= (point) (marker-position skk-henkan-start-point))
@@ -1988,6 +1994,19 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;;     (< skk-henkan-end-point (point))
   ;;     (skk-katakana-region skk-henkan-end-point (point)))
   (skk-delete-henkan-markers)
+  (if skk-undo-kakutei-word-only
+    (if (> (point) (marker-position skk-henkan-start-point))
+	(let ((word (buffer-substring-no-properties
+		     skk-henkan-start-point (point))))
+	  (delete-region skk-henkan-start-point (point))
+	  (setq buffer-undo-list skk-last-buffer-undo-list)
+	  (setq skk-last-buffer-undo-list t)
+	  (set-buffer-modified-p skk-last-buffer-modified)
+	  (skk-insert-str word)
+	  (skk-set-marker skk-henkan-end-point (point)))
+      (setq buffer-undo-list skk-last-buffer-undo-list)
+      (setq skk-last-buffer-undo-list t)
+      (set-buffer-modified-p skk-last-buffer-modified)))
   (and (boundp 'self-insert-after-hook) self-insert-after-hook
        (funcall self-insert-after-hook skk-henkan-start-point (point)))
   (and overwrite-mode
@@ -2075,6 +2094,10 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	      ;; (skk-process-okuri-early が non-nil なら送り仮名を把握できない)、
 	      ;; 送り仮名を含めた部分までを消す。
 	      (delete-region skk-henkan-start-point end))
+	 (if skk-undo-kakutei-word-only
+	     (setq skk-last-buffer-undo-list buffer-undo-list
+		   buffer-undo-list t
+		   skk-last-buffer-modified (buffer-modified-p)))
 	 (goto-char skk-henkan-start-point)
 	 (insert-and-inherit "▼")
 	 (skk-set-marker skk-henkan-start-point (point))
@@ -2358,9 +2381,13 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 元々はこの関数は skk-set-henkan-point の内部関数である。"
   (interactive "*P")
   (skk-with-point-move
-   (cancel-undo-boundary)
+   (if (not skk-undo-kakutei-word-only) (cancel-undo-boundary))
    (if skk-henkan-on (skk-kakutei)
      (skk-kana-cleanup));; XXX
+   (if skk-undo-kakutei-word-only
+       (setq skk-last-buffer-undo-list buffer-undo-list
+	     buffer-undo-list t
+	     skk-last-buffer-modified (buffer-modified-p)))
    (if (not (skk-get-prefix skk-current-rule-tree))
        (insert-and-inherit "▽")
      (skk-erase-prefix)
@@ -3962,6 +3989,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       ;;      (if (and (not (= opos (point))) (integerp arg))
       ;;          (ad-set-arg 0 (1- arg)))))
       (and skk-mode (skk-kakutei))
+      (undo-boundary)
       (if (not no-newline)
 	  ad-do-it))))
 
@@ -3972,6 +4000,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     (let ((no-newline (and skk-egg-like-newline skk-henkan-on))
 	  (auto-fill-function (and (interactive-p) auto-fill-function)))
       (and skk-mode (skk-kakutei))
+      (undo-boundary)
       (or no-newline ad-do-it))))
 
 (static-unless (memq skk-emacs-type '(nemacs mule1))
