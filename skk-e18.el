@@ -248,9 +248,8 @@ Fifth arg HIST is ignored in this implementatin."
       (buffer-enable-undo buf))
      (t
       ;; reset_buffer() is called in get_minibuffer() also under Emacs 18.
-      (save-current-buffer
+      (with-current-buffer buf
 	;; Emulate Emacs 19.34.
-	(set-buffer buf)
 	(kill-all-local-variables))))
     buf))
 
