@@ -1,3 +1,21 @@
+2000-09-14  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* doc/skk.texi : メニューに 配布条件 を追加.
+
+	* skk-gadget.el : eval-when-compile を削除.
+
+	* skk-kakasi.el : (require 'skk-cursor)を削除.
+	(skk-set-cursor-properly) を使う前に, (featurep 'skk-cursor) で
+	skk-cursor が load されているか check する.
+
+	* experimental/skk-hankaku-mode.el : 同上.
+
+	* experimental/rdbms/skk-rdbms.el : 同上.
+
+	* experimental/skk-jisx0201.el : 同上. skk-set-cursor-color を使う
+	前に, (featurep 'skk-cursor) で skk-cursor が load されているか
+	check する.
+
 2000-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile (what-where-package): Use $(XEMACS).
