@@ -3,9 +3,9 @@
 ;; Murata Shuuichirou <mrt@astec.co.jp>
 ;;
 ;; Author: Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
-;; Version: $Id: skk-leim.el,v 1.4 1999/10/16 11:59:07 minakaji Exp $
+;; Version: $Id: skk-leim.el,v 1.5 1999/10/24 21:40:32 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/16 11:59:07 $
+;; Last Modified: $Date: 1999/10/24 21:40:32 $
 
 ;; This file is not part of SKK yet.
 
@@ -58,8 +58,8 @@
 
 (unless (string= current-language-environment "Japanese")
   (set-language-environment "Japanese") )
-(setq-default default-input-method 'japanese-skk)
-(setq default-input-method 'japanese-skk)
+(setq-default default-input-method "japanese-skk")
+(setq default-input-method "japanese-skk")
 
 (provide 'skk-leim)
 ;;; skk-leim.el ends here
