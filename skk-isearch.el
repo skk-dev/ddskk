@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.22 2001/10/06 06:46:24 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.23 2001/10/08 12:16:25 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/06 06:46:24 $
+;; Last Modified: $Date: 2001/10/08 12:16:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -468,7 +468,8 @@ If the current mode is different from previous, remove it first."
 		  t
 		(cond
 		 ((save-excursion
-		    (condition-case nil (goto-char (point-max)) (error))
+		    (ignore-errors
+		      (goto-char (point-max)))
 		    (>= skk-henkan-start-point (point)))
 		  (setq skk-henkan-count 0)
 		  (skk-kakutei)
@@ -546,7 +547,8 @@ If the current mode is different from previous, remove it first."
 	(skk-isearch-redo-function)
 	;; update echo area message.
 	(skk-isearch-search-string))
-    (quit (isearch-abort))))
+    (quit
+     (isearch-abort))))
 
 (defun skk-isearch-wrapper (&rest args)
   (interactive "P")
@@ -646,8 +648,8 @@ If the current mode is different from previous, remove it first."
   '(lambda ()
      (defadvice isearch-message-prefix (around skk-isearch-ad activate)
        (let ((current-input-method
-	      (string-match "^japanese-skk"
-			    (format "%s" default-input-method))))
+	      (not (string-match "^japanese-skk"
+				 (format "%s" default-input-method)))))
 	 ad-do-it))
      (defadvice isearch-toggle-input-method (around skk-isearch-ad activate)
        ;; Needed for calling skk-isearch via isearch-x.
