@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.8 2000/11/16 11:57:52 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.9 2000/11/18 04:50:58 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/16 11:57:52 $
+;; Last Modified: $Date: 2000/11/18 04:50:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -29,18 +29,16 @@
 
 ;;; Code:
 
-(if (or (boundp 'MULE)
-	(boundp 'NEMACS)
-	(not
-	 (or (featurep 'xemacs)
-	     (fboundp 'normal-top-level-add-subdirs-to-load-path))))
-    (progn
-      (condition-case nil
-	  (require 'path-util)
-	(error
-	 (require 'path-util "apel/path-util")))
-      (add-latest-path "apel")
-      (add-latest-path "skk")))
+(if (or (featurep 'xemacs)
+	(fboundp 'normal-top-level-add-subdirs-to-load-path))
+    nil
+  ;; Emacs 18, 19 and 20.2
+  (condition-case nil
+      (require 'path-util)
+    (error
+     (require 'path-util "apel/path-util")))
+  (add-latest-path "apel")
+  (add-latest-path "skk"))
 
 (cond
  ((and (featurep 'xemacs)
@@ -71,26 +69,23 @@
 (global-set-key "\C-xj" 'skk-auto-fill-mode)
 (global-set-key "\C-xt" 'skk-tutorial)
 
-;; (add-hook 'isearch-mode-hook
-;; 	  (lambda () (and (boundp 'skk-mode) skk-mode
-;; 			  (skk-isearch-mode-setup))))
-;;
-;; (add-hook 'isearch-mode-end-hook
-;; 	  (lambda ()
-;; 	    (and (boundp 'skk-mode) skk-mode (skk-isearch-mode-cleanup))
-;; 		)))
-
 ;;(defvar skk-large-jisyo "@DIC@")
 ;;(defvar skk-aux-large-jisyo "@AUXDIC@")
 ;;(defvar skk-tut-file "@TUT@")
 
-(add-hook 'isearch-mode-hook
-	  (lambda () (and (boundp 'skk-mode) skk-mode
-			  (skk-isearch-mode-setup))))
 
-(add-hook 'isearch-mode-end-hook
-	  (lambda ()
-	    (and (featurep 'skk-isearch) (skk-isearch-mode-cleanup))))
+(cond ((eq emacs-major-version 18)
+       (define-key global-map "\C-s" 'skk-isearch-forward)
+       (define-key global-map "\C-r" 'skk-isearch-backward)
+       (define-key esc-map "\C-s" 'skk-isearch-forward-regexp)
+       (define-key esc-map "\C-r" 'skk-isearch-backward-regexp))
+      (t
+       (add-hook 'isearch-mode-hook
+		 (lambda () (and (boundp 'skk-mode) skk-mode
+				 (skk-isearch-mode-setup))))
+       (add-hook 'isearch-mode-end-hook
+		 (lambda ()
+		   (and (featurep 'skk-isearch) (skk-isearch-mode-cleanup))))))
 
 (if (or (featurep 'xemacs)
 	(not (fboundp 'register-input-method)))
