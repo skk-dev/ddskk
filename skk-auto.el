@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.16 2001/12/16 05:03:09 czkmt Exp $
+;; Version: $Id: skk-auto.el,v 1.17 2002/01/18 14:02:47 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:09 $
+;; Last Modified: $Date: 2002/01/18 14:02:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -43,7 +43,7 @@
 	     ;; we don't do auto-okuri-process
 	     ;; if henkan key contains numerals.
 	     (not (skk-numeric-p))
-	     (> (length skk-henkan-key) skk-kanji-len))
+	     (> (length skk-henkan-key) 1))
     (let (l)
       (setq skk-okuri-index-min (length skk-henkan-list)
 	    l (funcall skk-okuri-search-function)
@@ -58,7 +58,7 @@
 (defun skk-okuri-search-subr-original ()
   ;; skk-okuri-search のサブルーチン。見つけたエントリのリストを返す。
   (let* ((henkan-key skk-henkan-key)
-	 (key (substring henkan-key 0 skk-kanji-len))
+	 (key (substring henkan-key 0 1))
 	 (len (length henkan-key))
 	 (key1 (concat "\n" key))
 	 key2 len2 key3 len3 okuri3
