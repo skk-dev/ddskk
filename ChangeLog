@@ -1,3 +1,27 @@
+2001-10-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el:
+	Modification concerning specificity.
+
+	* skk-vars.el
+	(skk-henkan-on)
+	(skk-henkan-active): Abolish.
+
+	(skk-henkan-mode): New variable.
+
+	* experimental/skk-hint.el
+	* skk-comp.el
+	* skk-cursor.el
+	* skk-dcomp.el
+	* skk-isearch.el
+	* skk-jisx0201.el
+	* skk-kcode.el
+	* skk-viper.el
+	* skk-xemacs.el
+	* skk.el
+	* vip.el:
+	Refer to `skk-henkan-mode'.
+
 2001-10-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK
@@ -2577,8 +2601,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.504 2001/10/29 11:42:28 czkmt Exp $
-Last Modified: $Date: 2001/10/29 11:42:28 $
+Version: $Id: ChangeLog,v 1.505 2001/10/31 13:08:29 czkmt Exp $
+Last Modified: $Date: 2001/10/31 13:08:29 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
