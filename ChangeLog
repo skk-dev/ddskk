@@ -7,7 +7,7 @@
 	identical to `mouse-avoidance-point-position' except that
 	skk-henkan-start-point is used for stop pos when the marker is set.
 	(skk-tooltip-show-at-point): Rename from
-	`tooltip-show-at-point'. Call `skk-e21-mouse-position'.
+	`tooltip-show-at-point'.  Call `skk-e21-mouse-position'.
 
 	* skk.el (skk-henkan-show-candidate-subr): Call
 	`skk-tooltip-show-at-point'.
@@ -157,7 +157,7 @@
 
 2004-02-26  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
-        * experimental/bayesian/bskk: New file.
+	* experimental/bayesian/bskk: New file.
 
 2004-02-21  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -4578,8 +4578,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.798 2004/04/04 04:43:36 czkmt Exp $
-Last Modified: $Date: 2004/04/04 04:43:36 $
+Version: $Id: ChangeLog,v 1.799 2004/04/04 05:24:27 czkmt Exp $
+Last Modified: $Date: 2004/04/04 05:24:27 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
