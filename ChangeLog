@@ -1,3 +1,10 @@
+2001-12-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	(skk-define-j-mode-map)
+	(skk-define-jisx0208-mode-map): Use `lookup-key' instead of
+	`skk-key-binding-member'.
+
 2001-12-06  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk.el (skk-after-point-move): Declare with `defun' instead of
@@ -3104,8 +3111,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.588 2001/12/06 06:56:34 minakaji Exp $
-Last Modified: $Date: 2001/12/06 06:56:34 $
+Version: $Id: ChangeLog,v 1.589 2001/12/09 12:08:47 czkmt Exp $
+Last Modified: $Date: 2001/12/09 12:08:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
