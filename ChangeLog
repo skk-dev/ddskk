@@ -9,6 +9,9 @@
 	E.g. "かんどう /感動/" + ">てき /的/"
 	===> "かんどうてき /感動的/"
 
+	(skk-update-kakutei-history):
+	Record the buffer where the kakutei is performed.
+
 2002-06-10  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* skk-annotation.el: Update comments.
@@ -3896,8 +3899,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.691 2002/06/22 00:05:42 czkmt Exp $
-Last Modified: $Date: 2002/06/22 00:05:42 $
+Version: $Id: ChangeLog,v 1.692 2002/06/22 01:11:39 czkmt Exp $
+Last Modified: $Date: 2002/06/22 01:11:39 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
