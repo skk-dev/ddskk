@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.8 2004/12/20 09:34:06 skk-cvs Exp $
+## Version: $Id: bskk,v 1.9 2004/12/31 09:37:24 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2004/12/20 09:34:06 $
+## Last Modified: $Date: 2004/12/31 09:37:24 $
 
 ## This file is part of Daredevil SKK.
 
@@ -30,15 +30,15 @@
 ## 使い方は、skk-bayesian.el の Commentary を参照
 
 
-### Specification:
+### Specifications:
+
+## bskk を終了させる方法は -s オプションがあるかによらず、TERM シグナル
+## を送ること。
+
+## TERM シグナルを受け取ると直ちに終了する。履歴の保存は行わない。
 
 ## emacs は終了の前に bskk に対して COMMAND_SAVE を送り履歴の保存をさせ
 ## なくてはいけない。
-
-## サーバ(-s オンプション)として起動された bskk を終了させる方法は、
-## kill -TERM でなくてはならない。-HUP による再起動はサポートしていな
-## い。-TERM により終了する際には、bskk は履歴を保存してから終了しなく
-## てはならない。
 
 ## Code:
 require 'ftools'
@@ -100,6 +100,8 @@ end
 
 class Distribution
   public
+  # obj.class == String -> e.g. obj="着#1/着#2/"
+  #                             改行コードを含んではいけない
   def initialize( obj )
     @word2count = Hash.new(0)
     @total_count = 0
@@ -107,14 +109,14 @@ class Distribution
     if obj != nil
       check_type( obj, String )
       line = obj
-      line.chomp.split("/").each{ |word_count|
+      line.split("/").each{ |word_count|
         if word_count =~ word_count_regexp
           word = IString.get_instance( $1 )
           count = $2.to_i
           @word2count[word] = count
           @total_count += count
         else
-          raise Exception.new("invalid line:#{line}")
+          STDERR.puts(";; invalid line=#{line}.")
         end
       }
     end
@@ -175,19 +177,17 @@ class DB
       return
     end
     regexp_index = /^&index=(\d+)/
-    regexp_prefix = /^#prefix=([^[:cntrl:][:blank:]]+)/
+    regexp_prefix = /^#prefix=(.+)$/
+    regexp_counts = /^%(.+)$/
     index = nil
     prefix_char = nil
     begin
       while not io.eof?
-        line = io.readline
-        if line =~ regexp_index
-          index = $1.to_i
-        elsif line =~ regexp_prefix
-          prefix_char = IString.get_instance( $1 )
-        else
+        line = io.readline.chomp!
+        if line =~ regexp_counts
           if index == nil or prefix_char == nil
-            raise Exception.new( "invalid file" )
+            STDERR.puts(";; couldn't find index and prefix.  ignore #{line}.")
+            next
           end
           if @i2prefix2dst.size <= index
             @i2prefix2dst.fill( nil, @i2prefix2dst.size..index )
@@ -195,8 +195,15 @@ class DB
           if @i2prefix2dst[index] == nil
             @i2prefix2dst[index] = Hash.new
           end
-          dst = Distribution.new( line[1..(line.length-1)] )
+          dst = Distribution.new( $1 )
           @i2prefix2dst[index][prefix_char] = dst
+        elsif line =~ regexp_index
+          index = $1.to_i
+        elsif line =~ regexp_prefix
+          prefix_char = IString.get_instance( $1 )
+        else
+          STDERR.puts(";; ignore invlid line=#{line}.")
+          next
         end
       end
     rescue Exception => e
@@ -364,8 +371,8 @@ class EBTCPServer
 end
 
 ## verbose puts
-def v_puts( message, out=STDERR )
-  out.puts message if @verbose
+def v_err_puts( message )
+  STDERR.puts message if @verbose
 end
 
 def debug_log( message )
@@ -397,8 +404,13 @@ def split_line( line )
   return array
 end
 
-def serve( db, input, out, err, history_file, history_file_bak )
+# out は、emacs の buffer に出力される
+def serve( db, input, out, history_file, history_file_bak )
+  # emacs は、最初の改行を受けとった時点で buffer を評価する。
+  # 2 行目以降に評価の必要な情報を出力してはいけない。
+  # また、2 行目以降はコメントアウトする必要がある。
   begin
+    # mail loop
     while true
       line = input.readline.chomp
       case line
@@ -415,7 +427,9 @@ def serve( db, input, out, err, history_file, history_file_bak )
       when COMMAND_ADD
         kakutei_word = input.readline.chomp
         prefix_list = split_line(input.readline).reverse
-        db.add_history( kakutei_word, prefix_list )
+        if prefix_list != nil
+          db.add_history( kakutei_word, prefix_list )
+        end
         out.puts "t"
         out.puts ";;OK."
       when COMMAND_SAVE
@@ -428,18 +442,14 @@ def serve( db, input, out, err, history_file, history_file_bak )
           debug_log( "failed in saving; " + Time.now.to_s )
         end
       else
-        v_puts( ";;unknown command: #{line}", err )
+        out.puts( ";;unknown command: #{line}", err )
       end
     end
-  rescue EOFError # クライアントから接続が一方的に切られる時も、EOFError (1.8.1)
-    out.puts "t"
-    out.puts ";;EOF."
   rescue IOError => e
-    err.puts e.to_s
+    debug_log( "e.to_s" + Time.now.to_s )
   rescue => e
-    err.puts e.to_s
+    debug_log( "e.to_s" + Time.now.to_s )
   end
-  out.puts ";;finish saving."
   debug_log( "finish (server); " + Time.now.to_s )
 end
 
@@ -486,7 +496,7 @@ def mode_serve( history_file, server, port )
     proc = Proc.new{
       debug_log( "SIGTERM; " + Time.now.to_s )
       STDERR.puts "Signal SIGTERM"
-      db.save( history_file, history_file_bak )
+      STDERR.puts "halt bskk"
       exit
     }
     if defined?( Signal ) # Signal is a ruby 1.7 feature
@@ -505,31 +515,32 @@ def mode_serve( history_file, server, port )
         STDERR.puts "Error: #{e.to_s}"
         exit(1)
       end
-      v_puts( "bind to #{DEFAULT_PORT.to_s}." )
+      v_err_puts( "bind to #{DEFAULT_PORT.to_s}." )
       pid = fork
       if pid  ## parent
         socket.close
         exit
       else    ## child
-        v_puts( "fork to be a deamon. PID=#{Process.pid}." )
+        v_err_puts( "fork to be a deamon. PID=#{Process.pid}." )
         while true
           s = socket.accept
-          v_puts( "accept a new client." )
+          v_err_puts( "accept a new client." )
           Thread.start( s ){ |io|
-            serve( db, io, io, STDERR, history_file, history_file_bak )
+            serve( db, io, io, history_file, history_file_bak )
             io.close
-            v_puts( "close an session", STDERR )
+            v_err_puts( "close an session." )
           }
-          v_puts "#{(Thread.list.size-1).to_s} session(s) remain(s)."
+          v_err_puts( "#{(Thread.list.size-1).to_s} session(s) remain(s)." )
         end
         socket.close
       end
     else
-      serve( db, STDIN, STDOUT, STDERR, history_file, history_file_bak )
+      serve( db, STDIN, STDOUT, history_file, history_file_bak )
     end
   rescue SignalException => e # TERM 以外
     debug_log( "SIG #{e.to_s}; " + Time.now.to_s )
     STDERR.puts "Signal #{e.to_s}"
+    STDERR.puts "use TERM signal to halt bskk."
     exit
   end
 end
