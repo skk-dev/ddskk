@@ -214,4 +214,4 @@ ANSI Dvorak 配列キーボードで omelet 入力するための基本ルール。")
     (provide 'skk-omelet-dvorak)
   (require 'skk-version))
 
-;; skk-omelet.el ends here
+;;; skk-omelet.el ends here

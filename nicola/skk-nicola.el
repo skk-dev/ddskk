@@ -1135,4 +1135,4 @@ keycode 131 = underscore\n"))
     (provide 'skk-nicola)
   (require 'skk-version))
 
-;; skk-nicola.el ends here
+;;; skk-nicola.el ends here

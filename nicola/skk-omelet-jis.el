@@ -217,4 +217,4 @@
     (provide 'skk-omelet-jis)
   (require 'skk-version))
 
-;; skk-omelet-jis.el ends here
+;;; skk-omelet-jis.el ends here

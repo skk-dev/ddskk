@@ -172,4 +172,4 @@ keycode 34 = at grave\n"
     (provide 'skk-106-jis)
   (require 'skk-version))
 
-;; skk-106-jis.el ends here
+;;; skk-106-jis.el ends here

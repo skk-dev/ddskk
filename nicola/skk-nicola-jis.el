@@ -217,4 +217,4 @@
     (provide 'skk-nicola-jis)
   (require 'skk-version))
 
-;; skk-nicola-jis.el ends here
+;;; skk-nicola-jis.el ends here

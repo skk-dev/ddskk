@@ -219,4 +219,4 @@ US 101 キーボードで NICOLA 入力するための基本ルール。")
     (provide 'skk-nicola-us)
   (require 'skk-version))
 
-;; skk-nicola-us.el ends here
+;;; skk-nicola-us.el ends here

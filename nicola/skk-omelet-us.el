@@ -217,4 +217,4 @@ US 101 キーボードで omelet 入力するための基本ルール。")
     (provide 'skk-omelet-us)
   (require 'skk-version))
 
-;; skk-omelet-us.el ends here
+;;; skk-omelet-us.el ends here

@@ -243,4 +243,4 @@
     (provide 'skk-oasys)
   (require 'skk-version))
 
-;; skk-oasys.el ends here
+;;; skk-oasys.el ends here
