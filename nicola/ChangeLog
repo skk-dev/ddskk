@@ -2,6 +2,7 @@
 
 	* skk-nicola.el: Integrate some pieces of advice into original
 	functions.
+	(skk-nicola-lshift-function): Simply call `skk-kakutei'.
 
 2000-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

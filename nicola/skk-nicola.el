@@ -699,8 +699,7 @@ keycode 131 = underscore\n"))
 (defun skk-nicola-lshift-function (&optional arg)
   (cond ((or skk-henkan-active skk-henkan-on)
 	 ;; 確定に使う。
-	 (let ((skk-egg-like-newline t))
-	   (newline arg)))
+	 (skk-kakutei))
 	(skk-nicola-use-lshift-as-space
 	 ;;
 	 (skk-nicola-space-function arg))
