@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.3 1999/09/15 14:57:25 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.4 1999/09/16 21:48:16 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 1999/09/15 14:57:25 $
+@c  Last Modified: $Date: 1999/09/16 21:48:16 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.51
-@set UPDATED $Date: 1999/09/15 14:57:25 $
+@set UPDATED $Date: 1999/09/16 21:48:16 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -2656,7 +2656,8 @@ Emacs$B$N%b!<%I8GM-$N%U%C%/$J$I$rMxMQ$7$F>e5-$N$h$&$J4X?t$r<B9T$9$l$P!"%b!<(B
 
 @code{skk-self-insert}$B$O!"(BEmacs$B$N%*%j%8%J%k4X?t$G$"$k(B 
 @code{self-insert-command}$B$r%(%_%e%l!<%H$7$F$$$k$N$G!"0z?t$rEO$9$3$H$K(B
-$B$h$jF1$8J8;z$rJ#?t!"0lEY$KA^F~$9$k$3$H$,2DG=$G$"$k(B@footnote{$B;DG0$J$,$i!"(B@samp{$B$"(B}$B$J$I$rF~NO$9$k(B@code{skk-insert-[aiue]}$B$d(B@samp{$B"&$"(B}$B$J$I$rF~NO$9$k(B@code{skk-set-henkan-point}$B$G$O0z?tEO$7$G$-$J$$!#(B}$B!#(B
+$B$h$jF1$8J8;z$rJ#?t!"0lEY$KA^F~$9$k$3$H$,2DG=$G$"$k(B
+@footnote{$B;DG0$J$,$i!"(B@samp{$B"&$"(B}$B$J$I$rF~NO$9$k(B@code{skk-set-henkan-point}$B$G$O0z?tEO$7$G$-$J$$!#(B}$B!#(B
 
 @example
 @group
@@ -2716,7 +2717,6 @@ Emacs$B$N%b!<%I8GM-$N%U%C%/$J$I$rMxMQ$7$F>e5-$N$h$&$J4X?t$r<B9T$9$l$P!"%b!<(B
 @findex self-insert-command
 @findex skk-abbrev-comma
 @findex skk-abbrev-period
-@findex skk-insert-[aiue]
 @findex skk-insert-comma
 @findex skk-insert-period
 @findex skk-kana-input
@@ -2729,10 +2729,9 @@ SKK$B%b!<%I$K$J$C$F$$$J$$(BEmacs$B%*%j%8%J%k%P%C%U%!$G$O!"O"B3$9$k(B20$BJ8;
 $B$,0lEY$N%"%s%I%%$NBP>]$H$J$C$F$$$k!#$+$J!&%+%J!&A41Q%b!<%I$K$*$1$kF~NO$b!"(B
 $B$3$N%*%j%8%J%k$NF0:n$r%(%_%e%l!<%H$7$F$$$k(B 
 @footnote{@code{buffer-undo-list}$B$K(BEmacs$B$,A^F~$7$?%"%s%I%%$N6-L\$NL\0u$r<h$j=|$/J}K!$G%(%_%e%l!<%H$7$F$$$k!#(B}$B!#(B
-$B@53N$K8@$($P!"(B@code{skk-insert-[aiue]}, @code{skk-insert-comma},
-@code{skk-insert-period}, @code{skk-kana-input}, @code{skk-self-insert},
-@code{skk-set-henkan-point}, @code{skk-zenkaku-insert}
-@footnote{SKK abbrev$B%b!<%I$G$O!"%"%9%-!<J8;zF~NO$,(BEmacs$B%*%j%8%J%k$N(B@code{self-insert-command}$B$K$h$j9T$J$o$l$F$$$k$N$G!"%(%_%e%l!<%H$N$?$a$NFbItJQ?t$G$"$k(B@code{skk-self-insert-non-undo-count}$B$r%$%s%/%j%a%s%H$9$k$3$H$,$G$-$:!"%"%s%I%%$r%(%_%e%l!<%H$G$-$J$$!#$7$+$b!"%+%s%^$d%T%j%*%I$rA^F~$7$?;~E@$G!"(B@code{skk-abbrev-comma}$B$d(B@code{skk-abbrev-period}$B$r;H$&$3$H$K$J$k$N$G!"%*%j%8%J%k$N%"%s%I%%$N5!G=$bB;$J$C$F$7$^$&!#$?$@!"8=<BLdBj$H$7$F$O!"85Mh(BSKK abbrev$B%b!<%I$O>JN,7A$H$7$F$N8+=P$78l$rA^F~$9$k$?$a$N%b!<%I$G$"$k$N$G!"D9$$8+=P$78l$rA^F~$9$k$3$H$O$"$^$j$J$/!"LdBj$b>.$5$$$H9M$($i$l$k!#(B}$B$N3F4X?t$K%P%$%s%I$5$l$?%-!<F~NO$K$D$$$F$O!"O"B3$7$FF~NO$5$l$?(B20$BJ8;z$r(B1$B$D$N%"%s%I%%$NBP>]$H$7$F$$$k(B@footnote{`20'$B$O(BEmacs$B$N%=!<%9%U%!%$%k$N0lIt$G$"$k(B@file{keyboard.c}$B$KDj$a$i$l$?%^%8%C%/%J%s%P!<$H0lCW$9$k!#(B}$B!#(B
+$B@53N$K8@$($P!"(B@code{skk-insert-comma}, @code{skk-insert-period},
+@code{skk-kana-input}, @code{skk-self-insert},
+@code{skk-set-henkan-point}, @code{skk-zenkaku-insert} @footnote{SKK abbrev$B%b!<%I$G$O!"%"%9%-!<J8;zF~NO$,(BEmacs$B%*%j%8%J%k$N(B@code{self-insert-command}$B$K$h$j9T$J$o$l$F$$$k$N$G!"%(%_%e%l!<%H$N$?$a$NFbItJQ?t$G$"$k(B@code{skk-self-insert-non-undo-count}$B$r%$%s%/%j%a%s%H$9$k$3$H$,$G$-$:!"%"%s%I%%$r%(%_%e%l!<%H$G$-$J$$!#$7$+$b!"%+%s%^$d%T%j%*%I$rA^F~$7$?;~E@$G!"(B@code{skk-abbrev-comma}$B$d(B@code{skk-abbrev-period}$B$r;H$&$3$H$K$J$k$N$G!"%*%j%8%J%k$N%"%s%I%%$N5!G=$bB;$J$C$F$7$^$&!#$?$@!"8=<BLdBj$H$7$F$O!"85Mh(BSKK abbrev$B%b!<%I$O>JN,7A$H$7$F$N8+=P$78l$rA^F~$9$k$?$a$N%b!<%I$G$"$k$N$G!"D9$$8+=P$78l$rA^F~$9$k$3$H$O$"$^$j$J$/!"LdBj$b>.$5$$$H9M$($i$l$k!#(B}$B$N3F4X?t$K%P%$%s%I$5$l$?%-!<F~NO$K$D$$$F$O!"O"B3$7$FF~NO$5$l$?(B20$BJ8;z$r(B1$B$D$N%"%s%I%%$NBP>]$H$7$F$$$k(B@footnote{`20'$B$O(BEmacs$B$N%=!<%9%U%!%$%k$N0lIt$G$"$k(B@file{keyboard.c}$B$KDj$a$i$l$?%^%8%C%/%J%s%P!<$H0lCW$9$k!#(B}$B!#(B
 
 $BC"$7!">e5-$N(BSKK$B$N4X?t$H(BEmacs$B$N%*%j%8%J%k$N(B@code{self-insert-command}$B$r(B
 $B?%$j:.$<$F%-!<F~NO$7$?>l9g(B@footnote{$B$+$J%b!<%I$G$NF~NOCf!"%"%9%-!<%b!<%I$K0\9T$7$F%?%$%W$7$?>l9g$J$I$,$3$l$K$"$?$k$G$"$m$&!#(B}$B$O!"$3$N%(%_%e%l!<%H5!G=$O@5>o$KF/$+$J$$$N$GCm0U$9$k$3$H!#$3$N%(%_%e!<%l!<%H5!G=$O!"(BMule-2.3$BE:IU$N(B@file{egg.el}$B$r;29M$K$7$?!#(B

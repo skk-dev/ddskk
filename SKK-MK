@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.7 1999/09/16 13:00:59 minakaji Exp $
-;; Last Modified: $Date: 1999/09/16 13:00:59 $
+;; Version: $Id: SKK-MK,v 1.8 1999/09/16 21:38:51 minakaji Exp $
+;; Last Modified: $Date: 1999/09/16 21:38:51 $
 
 ;; Commentary
 ;;
@@ -41,10 +41,11 @@
       (or (member (expand-file-name "apel" LISPDIR) load-path)
 	  (setq load-path (cons (expand-file-name "apel" LISPDIR) load-path)) )))
 (setq load-path (cons (expand-file-name ".") load-path))
-;; APEL required.
+
+;; install.el is required AFTER seaching APEL installed dirctory and add it to 
+;; load-path, and BEFORE defining default variables.
 (require 'install)
 
-;; install.el is required before defining default variables.
 ;; GENERIC VARIABLE.
 (defvar SKK-MK-cleanup-trouble-makers 'backup
   "*Non-nil means clean up already installed SKK package configration files.
@@ -103,9 +104,9 @@ Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
 	  (setq dirs (cdr dirs)) )
 	dir )))
 
+(defvar PACKAGE_INFODIR (expand-file-name "info" PACKAGEDIR))
 (defvar SKK_PACKAGE_DATADIR (expand-file-name
 			     SKK_PREFIX (expand-file-name "etc" PACKAGEDIR) ))
-(defvar PACKAGE_INFODIR (expand-file-name "info" PACKAGEDIR))
 (defvar SKK_PACKAGE_LISPDIR (expand-file-name
 			     SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR) ))
 
@@ -129,11 +130,20 @@ Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
   (let (prefix lisp-dir version-specific-lisp-dir)
     (and (setq prefix (car command-line-args-left))
 	 ;; overwrite as specified in Makefile.
-	 (or (string-equal "NONE" prefix) (setq PREFIX prefix)))
+	 (if (string-equal "NONE" prefix)
+	     nil
+	   (setq PREFIX prefix
+		 LISPDIR (install-detect-elisp-directory PREFIX)
+		 SKK_DATADIR (expand-file-name
+			      SKK_PREFIX (expand-file-name "share" PREFIX) )
+		 SKK_INFODIR (expand-file-name "info" PREFIX) )))
     (setq command-line-args-left (cdr command-line-args-left))
     (and (setq lisp-dir (car command-line-args-left))
 	 ;; overwrite as specified in Makefile.
-	 (or (string-equal "NONE" lisp-dir) (setq LISPDIR lisp-dir)) )
+	 (if (string-equal "NONE" lisp-dir)
+	     nil
+	   (setq LISPDIR lisp-dir
+		 SKK_LISPDIR (expand-file-name SKK_PREFIX LISPDIR)) ))
     (setq command-line-args-left (cdr command-line-args-left))
     (and (setq version-specific-lisp-dir (car command-line-args-left))
 	 (if (not (string-equal "NONE" version-specific-lisp-dir))
@@ -170,7 +180,13 @@ Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
   (or (featurep 'xemacs) (error "This directive is only for XEmacs."))
   (let ((package-dir (car command-line-args-left)))
     ;; overwrite as specified in Makefile.
-    (or (string= "NONE" package-dir) (setq PACKAGEDIR package-dir))
+    (if (not (string= "NONE" package-dir))
+	(setq PACKAGEDIR package-dir
+	      PACKAGE_INFODIR (expand-file-name "info" PACKAGEDIR)
+	      SKK_PACKAGE_DATADIR (expand-file-name
+				   SKK_PREFIX (expand-file-name "etc" PACKAGEDIR) )
+	      SKK_PACKAGE_LISPDIR (expand-file-name
+				   SKK_PREFIX (expand-file-name "lisp" PACKAGEDIR) )))
     (setq command-line-args-left (cdr command-line-args-left))
     ;; skk-autoloads.el is not necessary for XEmacs package install.
     (setq SKK_MODULES (delq 'skk-autoloads SKK_MODULES))
@@ -247,12 +263,14 @@ Deleted files are `auto-autoloads.el', `custom-load.el', `skk-autoloads.el',
 	      (if (file-exists-p file)
 		  (progn
 		    (if backup
+			;; XXX not for ms-dos...
 			(copy-file file (concat file ".BAK") t t) )
 		    (delete-file file)
 		    (setq counter (1+ counter)) ))
 	      (if (file-exists-p (concat file "c"))
 		  (progn
 		    (if backup
+			;; XXX not for ms-dos...
 			(copy-file (concat file "c") (concat file ".BAK") t t) )
 		    (delete-file (concat file "c"))
 		    (setq counter (1+ counter)) )))
