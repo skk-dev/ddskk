@@ -1,3 +1,10 @@
+2001-03-04  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-vars.el (skk-server-host): Set "localhost" to its default
+	value if "SKKSERVER" environment value is not found.
+	(skk-server-portnum): Set 1178 to its default value on MS-DOS
+	variants.
+
 2001-02-14  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk.el (skk-toggle-characters): Move point forward not until the
@@ -3126,8 +3133,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.256 2001/02/14 03:56:42 minakaji Exp $
-Last Modified: $Date: 2001/02/14 03:56:42 $
+Version: $Id: ChangeLog,v 1.257 2001/03/03 23:39:16 minakaji Exp $
+Last Modified: $Date: 2001/03/03 23:39:16 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.30 2001/02/04 05:33:11 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.31 2001/03/03 23:39:16 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/02/04 05:33:11 $
+;; Last Modified: $Date: 2001/03/03 23:39:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1779,7 +1779,7 @@ integer `1' を代入する。
   :group 'skk-num)
 
 ;;; SKK-SERVER.EL related.
-(defcustom skk-server-host (getenv "SKKSERVER")
+(defcustom skk-server-host (or (getenv "SKKSERVER") "localhost")
   "*SKK 辞書サーバーを走らせているホスト名。"
   :type '(choice (string :tag "Name of the Host")
 		 (const nil))
@@ -1799,11 +1799,12 @@ integer `1' を代入する。
   :group 'skk-filenames
   :group 'skk-server)
 
-(defcustom skk-server-portnum nil
+(defcustom skk-server-portnum
+  (static-if (memq system-type '(ms-dos windows-nt)) 1178 nil)
   "*Non-nil であれば、その値を port number として skkserv と TCP 接続する。
-/etc/services を直接書き換える権限がないユーザーのための変数。"
-  :type '(choice integer (const nil))
-  :group 'skk-server)
+/etc/services を直接書き換える権限がないユーザーのための変数。
+MSDOS 系の OS ではディフォルト値として 1178 が設定される。"
+  :type '(choice integer (const nil)))
 
 ;;(defvar skk-server-debug nil
 ;;  "*Non-nil であれば、辞書サーバープログラムをディバッグモードで起動する。
