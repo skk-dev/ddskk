@@ -1,6 +1,7 @@
 2000-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-setup.el/in: Modify for Emacs 18.
+	* skk-setup.el.in: Modify for Emacs 18.
+	Quite ugly works for Emacs 21.
 
 2000-11-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2334,8 +2335,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.147 2000/11/18 04:51:23 czkmt Exp $
-Last Modified: $Date: 2000/11/18 04:51:23 $
+Version: $Id: ChangeLog,v 1.148 2000/11/18 13:40:21 czkmt Exp $
+Last Modified: $Date: 2000/11/18 13:40:21 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
