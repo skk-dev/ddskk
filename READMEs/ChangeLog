@@ -11,9 +11,7 @@
 	* NEWS.ja:
 	* PROPOSAL.ja:
 	* README.Mac.ja:
+	* README.VIP.ja:
 	* README.w32.ja:
 	* TODO.ja:
 	Rename files according to the languages.
-
-	* README.VIP:
-	No longer in the repository.
