@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.47 2000/11/08 14:43:49 minakaji Exp $
+;; Version: $Id: skk.el,v 1.48 2000/11/10 21:03:41 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/08 14:43:49 $
+;; Last Modified: $Date: 2000/11/10 21:03:41 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1441,7 +1441,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
             (skk-set-marker mark nil)
 	    (backward-char 1))
         (goto-char (point-max)))
-      (and kakutei-henkan (skk-kakutei)))))
+      (and kakutei-henkan (skk-kakutei new-word)))))
 
 (defun skk-henkan-1 ()
   ;; skk-henkan のサブルーチン。
@@ -1764,7 +1764,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
               ;; skk-henkan-count が -1 でなければ、カレントバッファでは最後の
               ;; 候補を表示したままなので (表示関連では何もしなくても、もう既
               ;; に望みの状態になっている) 何もしない。
-            ))
+	      ))
         (and (string-match "[ 　]+$" new-one)
 	     (setq new-one (substring new-one 0 (match-beginning 0))))
 	(setq skk-henkan-list (nconc skk-henkan-list (list new-one)))
@@ -1780,7 +1780,11 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       ;; (nth skk-henkan-count skk-henkan-list) が nil だから辞書登録に
       ;; 入っている。skk-henkan-count をインクリメントする必要はない。
       ;; new-one が空文字列だったら nil を返す。
-      (if (not (string= new-one "")) new-one))))
+      (if (string= new-one "")
+	  nil
+	(if (string-match ";" new-one)
+	    (skk-quote-semicolon new-one)
+	  new-one)))))
 
 (defun skk-compute-henkan-key2 ()
   ;; skk-henkan-okurigana が non-nil なら skk-henkan-key から、かつて
@@ -3061,21 +3065,33 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 (defun skk-nunion (x y)
   ;; X と Y の和集合を作る。等しいかどうかの比較は、equal で行われる。X に Y
   ;; を破壊的に連接する。
-  (cond ((null x) y)
-        ((null y) x)
-        (t (let ((list2 y))
-	     (while list2
-	       (let* ((list1 (cons nil x))
-		      (oldlist1 list1))
-		 (catch 'found
-		   (while (cdr list1)
-		     (if (equal (car (cdr list1)) (car list2))
-			 (throw 'found nil)
-		       (setq list1 (cdr list1))))
-		   (setcdr list1 (list (car list2)))
-		   (setq x (cdr oldlist1)))
-		 (setq list2 (cdr list2)))))
-	   x)))
+  (if (null x)
+      y
+    (if (null y)
+	x
+      (save-match-data
+	(let ((list2 y) list1 origlist1 e1 e2)
+	  (while list2
+	    (setq list1 (cons nil x)
+		  e2 (car list2)
+		  origlist1 list1)
+	    (catch 'found
+	      (while (setq e1 (car (cdr list1)))
+		(if (equal e1 e2)
+		    (throw 'found nil)
+		  (if (not (string-match ";" e1))
+		      nil
+		    (setq e1 (substring e1 0 (match-beginning 0)))
+		    (if (or (equal e1 e2)
+			    (and
+			     (string-match ";" e2)
+			     (equal (substring e2 0 (match-beginning 0)) e1)))
+			(throw 'found nil))))
+		(setq list1 (cdr list1)))
+	      (setcdr list1 (list e2))
+	      (setq x (cdr origlist1)))
+	    (setq list2 (cdr list2)))
+	  x)))))
 
 (defun skk-search-kakutei-jisyo-file (file limit &optional nomsg)
   ;; 辞書ファイルを探し、候補をリストで返す。
@@ -3269,7 +3285,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
              ;; we should not quote WORD if it is a symbolic expression
              (not (skk-lisp-prog-p word))
 	     (not (string-match ";" word))) ; has an annotation
-        (concat "(concat \""
+	(format "(concat \"%s\")"
                 (mapconcat (function (lambda (c)
                                        (cond ((eq c ?/) "\\057")
                                              ((eq c ?\n) "\\n")
@@ -3278,8 +3294,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
                                              ((eq c ?\\) "\\\\")
                                              (t (char-to-string c)))))
                            ;; 文字列を対応する char のリストに分解する。
-                           (append word nil) "")
-                "\")")
+                           (append word nil) ""))
       word)))
 
 (defun skk-public-jisyo-has-entry-p (okurigana word)

@@ -1,3 +1,21 @@
+2000-11-11  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-quote-char): Use `format' instead of `concat'.
+	(skk-henkan): Hand NEW-WORD to `skk-kakutei'.
+	(skk-henkan-in-minibuff): Use `skk-quote-semicolon' if NEW-ONE
+	contains `;'.
+	(skk-nunion): Recognize annotated word.
+
+	* skk-macs.el (skk-annotation-quote-1): Rename to
+	`skk-quote-semicolon'.
+
+	* experimental/skk-annotation.el (skk-annotation-add): Use
+	`start-closed' property for XEmacs.
+	(skk-annotation-quote-1): Use `format' instead of `concat'.
+	Export to `skk-macs.el'.
+	(skk-henkan-in-minibuff): Removed.
+	(skk-nunion): Removed.
+	
 2000-11-08  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-macs.el (skk-eval-string): Remove unnecessary STRING when
@@ -2205,8 +2223,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.132 2000/11/08 14:43:48 minakaji Exp $
-Last Modified: $Date: 2000/11/08 14:43:48 $
+Version: $Id: ChangeLog,v 1.133 2000/11/10 21:03:40 minakaji Exp $
+Last Modified: $Date: 2000/11/10 21:03:40 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.3 2000/11/08 14:43:49 minakaji Exp $
+;; Version: $Id: skk-macs.el,v 1.4 2000/11/10 21:03:41 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/08 14:43:49 $
+;; Last Modified: $Date: 2000/11/10 21:03:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -631,6 +631,12 @@
 ;; 判定間違いを犯す場合あり。要改良。
 (defsubst skk-minibuffer-origin ()
   (nth 1 (buffer-list)))
+
+(defsubst skk-quote-semicolon (word)
+  (format "(concat \"%s\")"
+ 	  (mapconcat
+ 	   (function (lambda (c) (if (eq c ?\;) "\\073" (char-to-string c))))
+ 	   (append word nil) "")))
 
 (require 'product)
 (product-provide (provide 'skk-macs) (require 'skk-version))
