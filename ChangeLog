@@ -1,3 +1,14 @@
+2002-06-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el:
+	(skk-kakutei):
+	When `kakutei-word' is a suffix, combine the previous
+	`kakutei-word' and the current `kakutei-word', and record the
+	combined word in the private dictionary.
+
+	E.g. "かんどう /感動/" + ">てき /的/"
+	===> "かんどうてき /感動的/"
+
 2002-06-10  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* skk-annotation.el: Update comments.
@@ -3885,8 +3896,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.690 2002/06/10 00:22:53 obata Exp $
-Last Modified: $Date: 2002/06/10 00:22:53 $
+Version: $Id: ChangeLog,v 1.691 2002/06/22 00:05:42 czkmt Exp $
+Last Modified: $Date: 2002/06/22 00:05:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
