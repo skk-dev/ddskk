@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.10 2001/09/08 01:33:02 czkmt Exp $
+;; Version: $Id: skk-dcomp.el,v 1.11 2001/09/11 13:52:25 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/08 01:33:02 $
+;; Last Modified: $Date: 2001/09/11 13:52:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -114,12 +114,16 @@
 (defsubst skk-dcomp-face-off ()
   (skk-detach-extent skk-dcomp-extent))
 
+(defsubst skk-dcomp-marked-p ()
+  (and (markerp skk-dcomp-start-point)
+       (markerp skk-dcomp-end-point)
+       (marker-position skk-dcomp-start-point)
+       (marker-position skk-dcomp-end-point)
+       (< skk-dcomp-start-point skk-dcomp-end-point)))
+
 (defun skk-dcomp-after-delete-backward-char ()
   (if (and skk-henkan-on (not skk-henkan-active)
-	   (markerp skk-dcomp-start-point)
-	   (markerp skk-dcomp-end-point)
-	   (marker-position skk-dcomp-start-point)
-	   (marker-position skk-dcomp-end-point))
+	   (skk-dcomp-marked-p))
       (let (pos)
 	(skk-dcomp-face-off)
 	(condition-case nil
@@ -141,7 +145,7 @@
 ;; main dynamic completion engine.
 (defadvice skk-kana-input (around skk-dcomp-ad activate)
   (if (not skk-dcomp-activate)
-      nil
+      ad-do-it
     (if (not skk-henkan-on)
 	ad-do-it
       (if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
@@ -149,8 +153,7 @@
 	  (progn
 	    (skk-set-marker skk-dcomp-start-point nil)
 	    (skk-set-marker skk-dcomp-end-point nil))
-	(when (and (marker-position skk-dcomp-start-point)
-		   (marker-position skk-dcomp-end-point))
+	(when (skk-dcomp-marked-p)
 	  (skk-dcomp-face-off)
 	  (or (member (this-command-keys) skk-dcomp-keep-completion-keys)
 	      (condition-case nil
@@ -158,7 +161,9 @@
 		(error)))))
       ad-do-it
       (if (and (not (skk-get-prefix skk-current-rule-tree))
-	       (not skk-okurigana))
+	       (not skk-okurigana)
+	       skk-henkan-on
+	       (not skk-henkan-active))
 	  (let ((pos (point)))
 	    (condition-case nil
 		(progn
@@ -173,12 +178,9 @@
 
 (defadvice skk-kakutei (around skk-dcomp-ad activate)
   (if (not skk-dcomp-activate)
-      nil
+      ad-do-it
     (if (and skk-henkan-on (not skk-henkan-active)
-	     (markerp skk-dcomp-start-point)
-	     (markerp skk-dcomp-end-point)
-	     (marker-position skk-dcomp-start-point)
-	     (marker-position skk-dcomp-end-point))
+	     (skk-dcomp-marked-p))
 	(progn
 	  (skk-dcomp-face-off)
 	  (condition-case nil
@@ -192,11 +194,7 @@
 (defun skk-dcomp-cleanup-buffer ()
   (if (not skk-dcomp-activate)
       nil
-    (if (and (markerp skk-dcomp-start-point)
-	     (markerp skk-dcomp-end-point)
-	     (marker-position skk-dcomp-start-point)
-	     (marker-position skk-dcomp-end-point)
-	     (< skk-dcomp-start-point skk-dcomp-end-point))
+    (if (skk-dcomp-marked-p)
 	(progn
 	  (skk-dcomp-face-off)
 	  (delete-region skk-dcomp-end-point (point))
@@ -211,12 +209,9 @@
 
 (skk-defadvice keyboard-quit (around skk-dcomp-ad activate)
   (if (not skk-dcomp-activate)
-      nil
+      ad-do-it
     (if (and skk-henkan-on (not skk-henkan-active)
-	     (markerp skk-dcomp-start-point)
-	     (markerp skk-dcomp-end-point)
-	     (marker-position skk-dcomp-start-point)
-	     (marker-position skk-dcomp-end-point))
+	     (skk-dcomp-marked-p))
 	(progn
 	  (skk-dcomp-face-off)
 	  (condition-case nil
@@ -229,9 +224,8 @@
 
 (defadvice skk-comp (around skk-dcomp-ad activate)
   (if (not skk-dcomp-activate)
-      nil
-    (if (and (marker-position skk-dcomp-start-point)
-	     (marker-position skk-dcomp-end-point))
+      ad-do-it
+    (if (skk-dcomp-marked-p)
 	(progn
 	  (goto-char skk-dcomp-end-point)
 	  (setq this-command 'skk-comp-do)
