@@ -10,6 +10,8 @@
 
 	* skk-vars.el (skk-dic-comp-first): New variable.
 
+	* skk-macs.el (skk-loop-for-buffers): Use `while'.
+
 2001-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version.el (skk-version): Bump to 11.5.1.
@@ -1947,8 +1949,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.403 2001/09/15 05:06:55 czkmt Exp $
-Last Modified: $Date: 2001/09/15 05:06:55 $
+Version: $Id: ChangeLog,v 1.404 2001/09/15 05:55:53 czkmt Exp $
+Last Modified: $Date: 2001/09/15 05:55:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

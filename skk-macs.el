@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.42 2001/09/15 05:26:54 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.43 2001/09/15 05:55:53 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 05:26:54 $
+;; Last Modified: $Date: 2001/09/15 05:55:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -210,10 +210,12 @@
 ;;;###autoload
 (put 'skk-loop-for-buffers 'lisp-indent-function 1)
 (defmacro skk-loop-for-buffers (buffers &rest forms)
-    (` (dolist (buf (, buffers))
-	   (when (buffer-live-p buf)
-	     (with-current-buffer buf
-	       (,@ forms))))))
+  (` (let ((list (, buffers)))
+       (while list
+	 (when (buffer-live-p (car list))
+	   (with-current-buffer (car list)
+	     (,@ forms)))
+	 (setq list (cdr list))))))
 
 ;;(defun-maybe mapvector (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
