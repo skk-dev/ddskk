@@ -1,3 +1,7 @@
+2001-03-21  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* doc/skk.texi (ユーザーメーリングリスト): Removed.
+
 2001-03-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-xemacs.el (skk-xemacs-modeline-menu-items): Add new menu
@@ -3172,8 +3176,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.262 2001/03/20 16:25:35 czkmt Exp $
-Last Modified: $Date: 2001/03/20 16:25:35 $
+Version: $Id: ChangeLog,v 1.263 2001/03/21 03:47:01 akiho Exp $
+Last Modified: $Date: 2001/03/21 03:47:01 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
