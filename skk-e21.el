@@ -44,6 +44,7 @@
 	  (set-buffer-local-cursor-color (skk-cursor-current-color)))))
      :selected (and skk-j-mode (not skk-katakana))
      :style radio
+     :keys nil
      :key-sequence nil]
     ["Katakana"
      (call-interactively
@@ -54,16 +55,19 @@
 	  (set-buffer-local-cursor-color (skk-cursor-current-color)))))
      :selected (and skk-j-mode skk-katakana)
      :style radio
+     :keys nil
      :key-sequence nil]
     ["Hankaku alphabet"
      skk-latin-mode
      :selected skk-latin-mode
      :style radio
+     :keys nil
      :key-sequence nil]
     ["Zenkaku alphabet"
      skk-jisx0208-latin-mode
      :selected skk-jisx0208-latin-mode
      :style radio
+     :keys nil
      :key-sequence nil]
     "--"
     ["Read Manual" skk-e21-info t]
@@ -85,42 +89,38 @@
    (cons 'default nil)
    (cons 'latin skk-e21-modeline-property)))
 
-
 ;; Functions.
 
 (defun skk-e21-modeline-menu ()
   (interactive)
   ;; Find keys
   (aset (nth 1 skk-e21-modeline-menu-items)
-	0
-	(format "Hiragana %s"
-		(if skk-j-mode
-		    (if skk-katakana
-			(skk-e21-find-func-keys 'skk-toggle-kana)
-		      "")
-		  (skk-e21-find-func-keys 'skk-kakutei))))
+	7
+	(if skk-j-mode
+	    (if skk-katakana
+		(skk-e21-find-func-keys 'skk-toggle-kana)
+	      nil)
+	  (skk-e21-find-func-keys 'skk-kakutei)))
   (aset (nth 2 skk-e21-modeline-menu-items)
-	0
-	(format "Katakana %s"
-		(if skk-j-mode
-		    (if skk-katakana
-			""
-		      (skk-e21-find-func-keys 'skk-toggle-kana))
-		  "")))
+	7
+	(if skk-j-mode
+	    (if skk-katakana
+		nil
+	      (skk-e21-find-func-keys 'skk-toggle-kana))
+	  nil))
   (aset (nth 3 skk-e21-modeline-menu-items)
-	0
-	(format "Hankaku alphabet %s"
-		(if skk-j-mode
-		    (skk-e21-find-func-keys 'skk-latin-mode)
-		  "")))
+	7
+	(if skk-j-mode
+	    (skk-e21-find-func-keys 'skk-latin-mode)
+	  nil))
   (aset (nth 4 skk-e21-modeline-menu-items)
-	0
-	(format "Zenkaku alphabet %s"
-		(if skk-j-mode
-		    (skk-e21-find-func-keys 'skk-jisx0208-latin-mode)
-		  "")))
+	7
+	(if skk-j-mode
+	    (skk-e21-find-func-keys 'skk-jisx0208-latin-mode)
+	  nil))
   ;;
-  (popup-menu skk-e21-modeline-menu-items))
+  (let ((easy-menu-converted-items-table (make-hash-table :test 'equal)))
+    (popup-menu skk-e21-modeline-menu-items)))
 
 (defun skk-e21-info ()
   (interactive)
@@ -162,8 +162,8 @@
 		    str)))
 	     (car (where-is-internal func skk-j-mode-map)))))
     (if keys
-	(format "(%s)" (key-description keys))
-      "")))
+	(format "%s" (key-description keys))
+      nil)))
 
 (require 'product)
 (product-provide (provide 'skk-e21) (require 'skk-version))
