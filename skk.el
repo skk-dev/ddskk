@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.23 1999/12/12 00:24:19 minakaji Exp $
+;; Version: $Id: skk.el,v 1.24 1999/12/30 18:06:48 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/12/12 00:24:19 $
+;; Last Modified: $Date: 1999/12/30 18:06:48 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/12/12 00:24:19 $")
+      (let* ((raw-date "$Date: 1999/12/30 18:06:48 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -4983,12 +4983,21 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 			  (strs (cdr el)))
 		      (if (string= (symbol-value sym) (cdr strs))
 			  (set sym (car strs)) ))))
-		 '((skk-latin-mode-string . ("--SKK:" . " SKK"))
-		   (skk-hiragana-mode-string . ("--かな:" . " かな"))
-		   (skk-katakana-mode-string . ("--カナ:" . " カナ"))
-		   (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
-		   (skk-abbrev-mode-string . ("--aあ:" . " aあ")) ))
-	 (cond ((featurep 'xemacs)
+		 (cond
+		  ((and (fboundp 'face-proportional-p)
+			(face-proportional-p 'modeline))
+		   '((skk-latin-mode-string . ("--SKK:" . " SKK"))
+		     (skk-hiragana-mode-string . ("--かな:" . " かな"))
+		     (skk-katakana-mode-string . ("--カナ:" . " カナ"))
+		     (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
+		     (skk-abbrev-mode-string . ("--aあ:" . " aあ"))))
+		  (t
+		   '((skk-latin-mode-string . ("--SKK::" . " SKK"))
+		     (skk-hiragana-mode-string . ("--かな:" . " かな"))
+		     (skk-katakana-mode-string . ("--カナ:" . " カナ"))
+		     (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
+		     (skk-abbrev-mode-string . ("--aあ::" . " aあ"))))))
+	 (cond ((eq skk-emacs-type 'xemacs)
 		(or (memq 'skk-input-mode-string default-mode-line-format)
 		    (setq-default default-modeline-format
 				  (append '("" skk-input-mode-string)
