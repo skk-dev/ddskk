@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.31 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.32 2001/08/31 22:43:48 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/08/31 22:43:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -412,6 +412,21 @@ BUFFER defaults to the current buffer."
    (t
     nil)))
 
+(defsubst skk-event-key (event)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (let ((tmp (event-key event)))
+      (if (symbolp tmp)
+	  (vector tmp)
+	event)))
+   (t
+    (let ((char (event-to-character event))
+	  keys)
+      (if char
+	  (vector char)
+	(setq keys (recent-keys))
+	(vector (aref keys (1- (length keys)))))))))
+
 ;;; version independent
 (defsubst skk-modify-indicator-alist (mode string)
   (setcdr (assq mode skk-indicator-alist)
@@ -755,21 +770,6 @@ BUFFER defaults to the current buffer."
 		    ((eq c ?\\) "\\\\")
 		    (t (char-to-string c)))))
 	   (append word nil) "")))
-
-(defsubst skk-event-key (event)
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (let ((tmp (event-key event)))
-      (if (symbolp tmp)
-	  (vector tmp)
-	event)))
-   (t
-    (let ((char (event-to-character event))
-	  keys)
-      (if char
-	  (vector char)
-	(setq keys (recent-keys))
-	(vector (aref keys (1- (length keys)))))))))
 
 (defsubst skk-key-binding-member (key commands &optional map)
   (let (keys)
