@@ -1,13 +1,47 @@
 2001-10-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-macs.el
+	(ignore-errors): New macro.
+
+	(skk-message)
+	(skk-error): 1st argument for `message' or `error' should be a
+	format string.
+
 	* skk-num.el
 	(skk-num-compute-henkan-key): Avoid duplicate processing.
+
+	* skk-server.el
+	(skk-server-version)
+	(skk-search-server-subr)
+	(skk-open-server)
+	(skk-open-server-1)
+	(skk-open-network-stream)
+	(skk-startup-server)
+	(skk-adjust-search-prog-list-for-server-search)
+	(skk-disconnect-server): More specific.
 
 	* skk.el
 	(skk-jisx0208-latin-mode)
 	(skk-misc-for-picture)
 	(skk-kill-local-variables)
 	(skk-kana-input): More specific.
+
+	(skk-mode-invoke): No need to require `skk-kanagaki'.
+
+	(skk-del-char-with-pad)
+	(skk-cancel-undo-boundary)
+	(skk-set-okurigana)
+	(skk-toggle-kutouten)
+	(skk-current-kuten)
+	(skk-henkan-face-off)
+	(skk-make-face)
+	(abort-recursive-edit)
+	(newline)
+	(newline-and-indent)
+	(exit-minibuffer)
+	(undo)
+	(kill-buffer)
+	(commint-send-input): More specific.
 
 2001-10-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2232,8 +2266,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.454 2001/10/08 03:50:15 czkmt Exp $
-Last Modified: $Date: 2001/10/08 03:50:15 $
+Version: $Id: ChangeLog,v 1.455 2001/10/08 08:38:46 czkmt Exp $
+Last Modified: $Date: 2001/10/08 08:38:46 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
