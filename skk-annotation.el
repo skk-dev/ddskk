@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.2 2001/02/03 00:19:36 minakaji Exp $
+;; Version: $Id: skk-annotation.el,v 1.3 2001/08/26 08:19:47 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/02/03 00:19:36 $
+;; Last Modified: $Date: 2001/08/26 08:19:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -177,18 +177,45 @@
       (skk-annotation-show-1 (skk-annotation-get annotation))))
 
 (defun skk-annotation-show-1 (annotation)
-  (if skk-annotation-show-as-message
+  (if (and skk-annotation-show-as-message
+	   (not (skk-in-minibuffer-p)))
       (skk-annotation-show-as-message annotation)
     (skk-annotation-show-buffer annotation)))
 
 (defun skk-annotation-show-buffer (annotation)
-  (save-window-excursion
-    (let (event)
-      (skk-annotation-insert annotation)
-      (split-window-vertically)
-      (display-buffer skk-annotation-buffer)
-      (setq event (next-command-event))
-      (skk-unread-event event))))
+  (condition-case nil
+      (save-window-excursion
+	(let ((minibuf-p (skk-in-minibuffer-p))
+	      event char key)
+	  (skk-annotation-insert annotation)
+	  (cond
+	   (minibuf-p
+	    (select-window (get-buffer-window (skk-minibuffer-origin)))
+	    (unless (eq (next-window) (selected-window))
+	      (delete-other-windows)))
+	   (t
+	    (split-window-vertically)))
+	  (display-buffer skk-annotation-buffer)
+	  (when minibuf-p
+	    (select-window (minibuffer-window)))
+	  (setq event (next-command-event)
+		key (skk-event-key event))
+	  (when (skk-key-binding-member
+		 key
+		 '(key-board-quit
+		   skk-kanagaki-bs
+		   skk-kanagaki-esc)
+		 skk-j-mode-map)
+	    (signal 'quit nil))
+	  (skk-unread-event event)))
+    (quit
+     ;; skk-previous-candidate へ
+     (setq skk-henkan-count 0)
+     (skk-unread-event
+      (character-to-event
+       (aref
+	(car (where-is-internal 'skk-previous-candidate skk-j-mode-map))
+	0))))))
 
 (defun skk-annotation-show-as-message (annotation)
   (if (> skk-henkan-count 3)
