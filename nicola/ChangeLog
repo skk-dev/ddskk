@@ -1,11 +1,11 @@
 2005-02-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-kanagaki.el (skk-kanagaki-insert): when skk-dcomp is used,
+	* skk-kanagaki.el (skk-kanagaki-insert): When skk-dcomp is used,
 	call `skk-dcomp-cleanup-buffer' before calling
 	`skk-set-okurigana-no-sokuon'.
 
 	(skk-kanagaki-set-okurigana): Redefine function as an alias to
-	`skk-set-char-before-as-okurigana
+	`skk-set-char-before-as-okurigana'.
 
 2004-08-29  Yoichi NAKAYAMA  <yoichi@geiin.org>
 
