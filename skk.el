@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.59 2000/11/19 01:24:42 czkmt Exp $
+;; Version: $Id: skk.el,v 1.60 2000/11/19 13:45:35 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/19 01:24:42 $
+;; Last Modified: $Date: 2000/11/19 13:45:35 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -409,9 +409,6 @@ dependent."
 	      (require 'skk-xm20_4))
           (skk-setup-init-file)
           (load skk-init-file t)
-	  ;;
-	  (static-when (eq skk-emacs-type 'xemacs)
-	    (skk-xemacs-prepare-extents))
 	  ;;
 	  (skk-setup-modeline)
 	  (require 'skk-autoloads)
@@ -3764,84 +3761,95 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 
 (defun skk-setup-modeline ()
   "モード行へのステータス表示を準備する。"
-  (cond ((eq skk-status-indicator 'left)
-	 (let ((list
-		(cond
-		 ((and (fboundp 'face-proportional-p)
-		       (face-proportional-p 'modeline))
-		  '((skk-latin-mode-string . ("--SKK:" . " SKK"))
-		    (skk-hiragana-mode-string . ("--かな:" . " かな"))
-		    (skk-katakana-mode-string . ("--カナ:" . " カナ"))
-		    (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
-		    (skk-abbrev-mode-string . ("--aあ:" . " aあ"))
-		    (skk-jisx0201-mode-string . ("--jisx0201" . " jisx0201"))))
-		 (t
-		  '((skk-latin-mode-string . ("--SKK::" . " SKK"))
-		    (skk-hiragana-mode-string . ("--かな:" . " かな"))
-		    (skk-katakana-mode-string . ("--カナ:" . " カナ"))
-		    (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
-		    (skk-abbrev-mode-string . ("--aあ::" . " aあ"))
-		    (skk-jisx0201-mode-string . ("--jisx0201" . " jisx0201")))))))
-	   (while list
-	     (let ((sym (caar list))
-		   (strs (cdar list)))
-	       (if (string= (symbol-value sym) (cdr strs))
-		   (set sym (car strs))))
-	     (setq list (cdr list))))
-	 ;;
-	 (static-cond
-	  ((eq skk-emacs-type 'xemacs)
-	   (let ((extent (make-extent nil nil)))
-	     (unless (rassq 'skk-input-mode-string default-modeline-format)
-	       (setq-default default-modeline-format
-			     (append (list
-				      ""
-				      (cons extent 'skk-input-mode-string)
-				      default-modeline-format))))
-	     (mapc
-	      (function
-	       (lambda (buf)
-		 (when (buffer-live-p buf)
-		   (save-excursion
-		     (set-buffer buf)
-		     (when (and (listp modeline-format)
-				(not (rassq 'skk-input-mode-string modeline-format)))
-		       (setq modeline-format
-			     (append (list
-				      ""
-				      (cons extent 'skk-input-mode-string))
-				     modeline-format)))))))
-	      (buffer-list))))
-	  ;;
-	  (t
-	   (unless (memq 'skk-input-mode-string (default-value 'mode-line-format))
-	     (setq-default mode-line-format
-			   (append '("" skk-input-mode-string)
-				   (default-value 'mode-line-format))))
-	   (let ((list (buffer-list)))
-	     (while list
-	       (let ((buf (car list)))
-		 (when (buffer-live-p buf)
-		   (save-excursion
-		     (set-buffer buf)
-		     (when (and (listp mode-line-format)
-				(or (assq 'mode-line-format (buffer-local-variables))
-				    (memq 'mode-line-format (buffer-local-variables)))
-				(not (memq 'skk-input-mode-string mode-line-format)))
-		       (setq mode-line-format
-			     (append '("" skk-input-mode-string)
-				     mode-line-format))))))
-	       (setq list (cdr list))))))
-	 (setq-default skk-input-mode-string "")
-	 (force-mode-line-update t))
-	;;
-	((eq skk-status-indicator 'minor-mode)
-	 (static-if (eq skk-emacs-type 'xemacs)
-	     (add-minor-mode 'skk-mode 'skk-input-mode-string)
-	   (setq minor-mode-alist
-		 ;; each element of minor-mode-alist is not cons cell.
-		 (put-alist 'skk-mode
-			    '(skk-input-mode-string) minor-mode-alist))))))
+  (cond
+   ((eq skk-status-indicator 'left)
+    ;;
+    (let ((list
+	   (cond
+	    ((and (fboundp 'face-proportional-p)
+		  (face-proportional-p 'modeline))
+	     '((skk-latin-mode-string . ("--SKK:" . " SKK"))
+	       (skk-hiragana-mode-string . ("--かな:" . " かな"))
+	       (skk-katakana-mode-string . ("--カナ:" . " カナ"))
+	       (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
+	       (skk-abbrev-mode-string . ("--aあ:" . " aあ"))
+	       (skk-jisx0201-mode-string . ("--jisx0201" . " jisx0201"))))
+	    (t
+	     '((skk-latin-mode-string . ("--SKK::" . " SKK"))
+	       (skk-hiragana-mode-string . ("--かな:" . " かな"))
+	       (skk-katakana-mode-string . ("--カナ:" . " カナ"))
+	       (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
+	       (skk-abbrev-mode-string . ("--aあ::" . " aあ"))
+	       (skk-jisx0201-mode-string . ("--jisx0201" . " jisx0201")))))))
+      (while list
+	(let ((sym (caar list))
+	      (strs (cdar list)))
+	  (if (string= (symbol-value sym) (cdr strs))
+	      (set sym (car strs))))
+	(setq list (cdr list))))
+    ;;
+    (static-cond
+     ((eq skk-emacs-type 'xemacs)
+      (skk-xemacs-prepare-modeline-properties))
+     ((eq skk-emacs-type 'mule5)
+      (skk-e21-prepare-modeline-properties))
+     (t
+      (setq-default skk-modeline-input-mode "")))
+    ;;
+    (static-cond
+     ((eq skk-emacs-type 'xemacs)
+      (let ((extent (make-extent nil nil)))
+	(unless (rassq 'skk-modeline-input-mode default-modeline-format)
+	  (setq-default default-modeline-format
+			(append (list
+				 ""
+				 (cons extent 'skk-modeline-input-mode)
+				 default-modeline-format))))
+	(let ((list (buffer-list))
+	      buf)
+	  (while list
+	    (setq buf (car list))
+	    (when (buffer-live-p buf)
+	      (save-excursion
+		(set-buffer buf)
+		(when (and (listp modeline-format)
+			   (not (rassq 'skk-modeline-input-mode modeline-format)))
+		  (setq modeline-format
+			(append (list
+			       ""
+			       (cons extent 'skk-modeline-input-mode)
+			       modeline-format))))))
+	    (setq list (cdr list))))))
+     (t
+      ;;
+      (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
+	(setq-default mode-line-format
+		      (append '("" skk-modeline-input-mode)
+			      (default-value 'mode-line-format))))
+      (let ((list (buffer-list)))
+	(while list
+	  (let ((buf (car list)))
+	    (when (buffer-live-p buf)
+	      (save-excursion
+		(set-buffer buf)
+		(when (and (listp mode-line-format)
+			   (or (assq 'mode-line-format (buffer-local-variables))
+			       (memq 'mode-line-format (buffer-local-variables)))
+			   (not (memq 'skk-modeline-input-mode mode-line-format)))
+		  (setq mode-line-format
+			(append '("" skk-modeline-input-mode)
+				mode-line-format))))))
+	  (setq list (cdr list))))))
+    (setq-default skk-input-mode-string "")
+    (force-mode-line-update t))
+   ;;
+   ((eq skk-status-indicator 'minor-mode)
+    (static-if (memq skk-emacs-type '(xemacs mule5))
+	(add-minor-mode 'skk-mode 'skk-input-mode-string)
+      (setq minor-mode-alist
+	    ;; each element of minor-mode-alist is not cons cell.
+	    (put-alist 'skk-mode
+		       '(skk-input-mode-string) minor-mode-alist))))))
 
 ;; cover to original functions.
 
