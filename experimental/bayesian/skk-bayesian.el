@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.14 2004/12/28 05:46:34 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.15 2004/12/31 09:37:32 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/12/28 05:46:34 $
+;; Last Modified: $Date: 2004/12/31 09:37:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -79,11 +79,11 @@
 ;; まれる前に、
 ;; % bskk -f ~/.skk-bayesian -s
 ;; として、立ち上げておく必要があります。
-;; サーバを終了させる方法は、kill -TERM です。-TERM で終了させる際には、
-;; 終了の前に bskk は履歴を保存します。
+;; サーバを終了させる方法は、kill -TERM です。
 ;;
-;; skk-bayesian.el は、emacs が終了する前に bskk に対して履歴を保存する
-;; ように指示をします。
+;; <使用の覚え書き>
+;; 各関数と、bskk のコメント内の Specifications に書かれている。
+;;
 
 ;;; Code:
 
@@ -92,7 +92,7 @@
 
 ;; customizable variables
 (defvar skk-bayesian-prefer-server nil
-  "non-nil ならば、`skk-bayesian-host'の`skk-bayesian-port'に接続する。
+  "*non-nil ならば、`skk-bayesian-host'の`skk-bayesian-port'に接続する。
 そうでなければ、bskk をサブプロセスとして立ち上げる。")
 (defvar skk-bayesian-port 51178
   "*`skk-bayesian-prefer-server'が non-nil の時に`skk-bayesian-host'に接続するポート番号")
@@ -149,26 +149,22 @@
     (error (concat "Error; invalid key=" (prin1-to-string 'key)))))
   
 (defsubst skk-bayesian-read-process-output (input)
-  "input が nil の時、EOF を`skk-bayesian-process'に送り、そうでな
-  ければ、input を`skk-bayesian-process'に送る。その後、\\nが
-  `skk-bayesian-process'のバッファに出力されるまで待ち、\\nが出力
-  された時点で、バッファを評価する。 "
-  (skk-bayesian-init)
-  (with-current-buffer (process-buffer skk-bayesian-process)
-    (delete-region (point-min) (point-max))
-    (if input
-        (process-send-string skk-bayesian-process input)
-      (process-send-eof skk-bayesian-process))
-    (while (not (and (> (point-max) 1)
-                     (eq (char-after (1- (point-max))) ?\n)))
-      (accept-process-output skk-bayesian-process 0 5))
-    (goto-char (point-min))
-    (condition-case err
-        (read (current-buffer))
-      (error (skk-message "Error while reading the out put of bskk; %s"
-                          "bskk の出力の読み込み中にエラー; %s"
-                          (error-message-string err))
-             nil))))
+  "input を`skk-bayesian-process'に送る。その後、\\nが `skk-bayesian-process'のバッファに出力されるまで待ち、\\nが出力された時点で、バッファを評価し返す。"
+  (when input
+    (skk-bayesian-init)
+    (with-current-buffer (process-buffer skk-bayesian-process)
+      (delete-region (point-min) (point-max))
+      (process-send-string skk-bayesian-process input)
+      (while (not (and (> (point-max) 1)
+                       (eq (char-after (1- (point-max))) ?\n)))
+        (accept-process-output skk-bayesian-process 0 5))
+      (goto-char (point-min))
+      (condition-case err
+          (read (current-buffer))
+        (error (skk-message "Error while reading the out put of bskk; %s"
+                            "bskk の出力の読み込み中にエラー; %s"
+                            (error-message-string err))
+               nil)))))
 
 (defun skk-bayesian-make-context (henkan-buffer)
   ;; "▼" があれば、`skk-bayesian-context-len'の長さの文字列を返す。
@@ -255,11 +251,11 @@
      midasi
      henkan-buffer
      (with-current-buffer henkan-buffer
+       ;; skk-get-last-henkan-datum は、buffer-local な変数を用いている。
+       ;; skk-get-last-henkan-datum は、skk-update-end-function を読ん
+       ;; だ後に更新される。ここでは使えない。
+       ;; (skk-get-last-henkan-datum 'henkan-point))
        (point-marker))
-;;        ;; skk-get-last-henkan-datum は、buffer-local な変数を用いている。
-;;        ;; skk-get-last-henkan-datum は、skk-update-end-function を読ん
-;;        ;; だ後に更新される。ここでは使えない。
-;;        (skk-get-last-henkan-datum 'henkan-point))
      skk-bayesian-last-context)))
 
 (defun skk-bayesian-check-modification-after-kakutei ()
@@ -280,6 +276,8 @@
   ;; skk-bayesian-pending-data-alist
   ;; 注意
   ;; skk-get-last-henkan-datum は、新しい確定が pending 中に起こるので、使えない。
+  (if (not (skk-bayesian-process-live-p))
+      (setq skk-bayesian-pending-data-alist nil))
   (when (and skk-bayesian-pending-data-alist
              (buffer-live-p (skk-bayesian-get-pending-data-alist 'buffer)))
     (with-current-buffer (skk-bayesian-get-pending-data-alist 'buffer)
@@ -353,14 +351,16 @@
 (defun skk-bayesian-kill-process ()
   "Kill skk-bayesian process."
   (interactive)
-  (when (skk-bayesian-process-live-p)
-    (unless (skk-bayesian-read-process-output nil) ;; send EOF
-      ;; skk-bayesian-processがEOFを受理しなかった時
-      (when (skk-bayesian-process-live-p)
-	(skk-bayesian-debug-message "sent EOF, but the process still lives")
-	;; send SIGKILL or close the connection
-	(delete-process skk-bayesian-process)))
-    (setq skk-bayesian-process nil)))
+  (when skk-bayesian-process
+    (let ((status (process-status skk-bayesian-process)))
+      (cond 
+       ((memq status '(open connect))
+        ;; close connection
+        (delete-process skk-bayesian-process))
+       ((eq status 'run)
+        ;; send SIGTERM=15
+        (signal-process skk-bayesian-process 15)))
+      (setq skk-bayesian-process nil))))
 
 (defun skk-bayesian-init ()
   "Set up skk-bayesian process."
