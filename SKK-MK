@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.3 1999/09/15 13:42:21 minakaji Exp $
-;; Last Modified: $Date: 1999/09/15 13:42:21 $
+;; Version: $Id: SKK-MK,v 1.4 1999/09/15 14:52:12 minakaji Exp $
+;; Last Modified: $Date: 1999/09/15 14:52:12 $
 
 ;; Commentary
 ;;
@@ -28,8 +28,6 @@
 ;; load this program.
 
 ;;; Code:
-;; APEL required.
-(require 'install)
 
 ;; GENERIC VARIABLE.
 (defvar DOCDIR "./doc")
@@ -165,7 +163,9 @@
       (while files
 	(condition-case nil
 	    ;; clean up trouble maker.
-	    (delete-file (car files))
+	    (progn
+	      (delete-file (car files))
+	      (delete-file (concat (car files) "c")) )
 	  (error) )
 	(setq files (cdr files)) )))
   (or (file-exists-p SKK_PACKAGE_DATADIR)
@@ -215,7 +215,9 @@
   (setq load-path (cons (expand-file-name ".") load-path))
   (if (and VERSION_SPECIFIC_LISPDIR
 	   (null (member VERSION_SPECIFIC_LISPDIR load-path)) )
-      (setq load-path (cons VERSION_SPECIFIC_LISPDIR load-path)) ))
+      (setq load-path (cons VERSION_SPECIFIC_LISPDIR load-path)) )
+  ;; APEL required.
+  (require 'install) )
 
 (defun SKK-MK-texinfo-format (targets)
   (let (x obuf beg)
