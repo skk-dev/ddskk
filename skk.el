@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.208 2001/12/09 12:15:09 czkmt Exp $
+;; Version: $Id: skk.el,v 1.209 2001/12/09 12:29:31 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/09 12:15:09 $
+;; Last Modified: $Date: 2001/12/09 12:29:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -304,56 +304,67 @@ dependent."
   (cond
    (skk-j-mode
     (skk-define-j-mode-map)
-    (when (vectorp skk-kakutei-key)
-      (define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei))
-    (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
-      'skk-insert)
-    (unless (featurep 'skk-kanagaki)
-      (define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
-	'skk-previous-candidate))
-    (when skk-use-jisx0201-input-method
-      ;; This command is autoloaded.
-      (define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana))
-    (unless skk-use-viper
-      (define-key skk-j-mode-map
-	(char-to-string skk-start-henkan-with-completion-char)
-	'skk-start-henkan-with-completion)
-      (define-key skk-j-mode-map
-	(char-to-string skk-backward-and-set-henkan-point-char)
-	'skk-backward-and-set-henkan-point))
-    (skk-setup-delete-backward-char)
-    (skk-setup-undo))
+    (unless (memq (lookup-key skk-j-mode-map skk-kakutei-key)
+		  '(skk-insert skk-kakutei))
+      (when (vectorp skk-kakutei-key)
+	(define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei))
+      (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
+	'skk-insert)
+      (unless (featurep 'skk-kanagaki)
+	(define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
+	  'skk-previous-candidate))
+      (when skk-use-jisx0201-input-method
+	;; This command is autoloaded.
+	(define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana))
+      (unless skk-use-viper
+	(define-key skk-j-mode-map
+	  (char-to-string skk-start-henkan-with-completion-char)
+	  'skk-start-henkan-with-completion)
+	(define-key skk-j-mode-map
+	  (char-to-string skk-backward-and-set-henkan-point-char)
+	  'skk-backward-and-set-henkan-point))
+      (skk-setup-delete-backward-char)
+      (skk-setup-undo)))
    ;;
    (skk-latin-mode
     (skk-define-latin-mode-map)
-    (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei))
+    (unless (eq (lookup-key skk-latin-mode-map skk-kakutei-key)
+		'skk-kakutei)
+      (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei)))
    ;;
    (skk-jisx0208-latin-mode
     (skk-define-jisx0208-latin-mode-map)
-    (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
-    (unless skk-use-viper
-      (define-key skk-jisx0208-latin-mode-map
-	(char-to-string skk-backward-and-set-henkan-point-char)
-	'skk-backward-and-set-henkan-point)))
+    (unless (eq (lookup-key skk-jisx0208-latin-mode-map skk-kakutei-key)
+		'skk-kakutei)
+      (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
+      (unless skk-use-viper
+	(define-key skk-jisx0208-latin-mode-map
+	  (char-to-string skk-backward-and-set-henkan-point-char)
+	  'skk-backward-and-set-henkan-point))))
    ;;
    (skk-abbrev-mode-map
     (skk-define-abbrev-mode-map)
-    (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
-    (define-key skk-abbrev-mode-map (char-to-string skk-start-henkan-char)
-      'skk-start-henkan)
-    (define-key skk-abbrev-mode-map (char-to-string skk-try-completion-char)
-      'skk-try-completion)
-    (unless skk-use-viper
-      (define-key skk-abbrev-mode-map
-	(char-to-string skk-start-henkan-with-completion-char)
-	'skk-start-henkan-with-completion))))
+    (unless (eq (lookup-key skk-abbrev-mode-map skk-kakutei-key)
+		'skk-kakutei)
+      (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
+      (define-key skk-abbrev-mode-map (char-to-string skk-start-henkan-char)
+	'skk-start-henkan)
+      (define-key skk-abbrev-mode-map (char-to-string skk-try-completion-char)
+	'skk-try-completion)
+      (unless skk-use-viper
+	(define-key skk-abbrev-mode-map
+	  (char-to-string skk-start-henkan-with-completion-char)
+	  'skk-start-henkan-with-completion)))))
   ;;
-  (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
-  (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
-  ;; XEmacs doesn't have minibuffer-local-ns-map
-  (when (and (boundp 'minibuffer-local-ns-map)
-	     (keymapp (symbol-value 'minibuffer-local-ns-map)))
-    (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
+  (unless (eq (lookup-key minibuffer-local-map skk-kakutei-key)
+	      'skk-kakutei)
+    (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
+    (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
+    ;; XEmacs doesn't have minibuffer-local-ns-map
+    (when (and (boundp 'minibuffer-local-ns-map)
+	       (keymapp (symbol-value 'minibuffer-local-ns-map)))
+      (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei)))
+  ;;
   (unless skk-rule-tree
     (setq skk-rule-tree (skk-compile-rule-list
 			 skk-rom-kana-base-rule-list
