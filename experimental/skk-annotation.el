@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.7 2000/11/08 14:44:43 minakaji Exp $
+;; Version: $Id: skk-annotation.el,v 1.8 2000/11/10 21:04:25 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2000/11/08 14:44:43 $
+;; Last Modified: $Date: 2000/11/10 21:04:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -160,13 +160,6 @@
     (skk-annotation-erase-buffer)
     (insert (skk-eval-string annotation))))
 
-(defsubst skk-annotation-quote-1 (word)
-  (concat "(concat \""
-	  (mapconcat
-	   (function (lambda (c) (if (eq c ?\;) "\\073" (char-to-string c))))
-	   (append word nil) "")
-	  "\")"))
-
 (defsubst skk-annotation-get (annotation)
   (or (string= annotation "")
       (if (eq (aref annotation 0) ?*)
@@ -174,21 +167,6 @@
 	annotation)))
 
 ;; advices.
-(defadvice skk-nunion (around skk-annotation-ad activate)
-  (save-match-data
-    (let* ((var ad-do-it) (tmp var))
-      (while tmp
-	(if (string-match ";" (car tmp))
-	    (setq tmp (delete (substring (car tmp) 0 (match-beginning 0)) tmp)))
-	(setq tmp (cdr tmp)))
-      var)))
-
-(defadvice skk-henkan-in-minibuff (around skk-annotation-ad activate)
-  (save-match-data
-    (let ((string ad-do-it))
-      (if (and string (string-match ";" string))
-	  (skk-annotation-quote-1 string)
-	string))))
 
 ;; functions.
 ;;;###autoload
@@ -256,11 +234,10 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (save-match-data
     (skk-kakutei)
     (skk-annotation-setup)
-    (let* (;;(last-henkan-data skk-last-henkan-data)
-	   (plist (append
+    (let* ((plist (append
 		   '(intangible t read-only t)
 		   (static-if (eq skk-emacs-type 'xemacs)
-		       '(end-open t)
+		       '(start-closed t end-open t)
 		     '(front-sticky t rear-nonsticky t))))
 	   (wholestring (car (nth 2 skk-annotation-annotated-word)))
 	   (realword (and wholestring
