@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.75 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.76 2002/01/18 14:04:00 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/18 14:04:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -296,83 +296,18 @@ the return value (nil if RESULT is omitted)."
    ((eq skk-emacs-type 'xemacs)
     (eq (device-class (selected-device)) 'color))
    ((fboundp 'x-display-color-p)
-    ;; Emacs 19 or later.
+    ;; FSF Emacs on X Window System.
     (and window-system (x-display-color-p)))))
-
-(defsubst skk-str-length (str)
-  ;; multibyte 文字を 1 と数えたときの文字列の長さ。
-  (static-cond
-   ((eq skk-emacs-type 'mule2)
-    (length (string-to-char-list str)))
-   ((eq skk-emacs-type 'mule3)
-    (length (string-to-vector str)))
-   (t
-    ;; XEmacs, MULE 4.0 or later.
-    (length str))))
-
-(defsubst skk-substring (str pos1 &optional pos2)
-  ;; multibyte 文字を 1 と数えて substring する。
-  (unless pos2
-    (setq pos2 (skk-str-length str)))
-  (static-cond
-   ((eq skk-emacs-type 'mule2)
-    (when (< pos1 0)
-      (setq pos1 (+ (skk-str-length str) pos1)))
-    (when (< pos2 0)
-      (setq pos2 (+ (skk-str-length str) pos2)))
-    (if (>= pos1 pos2)
-	""
-      (let ((sl (nthcdr pos1 (string-to-char-list str))))
-	(setcdr (nthcdr (- pos2 pos1 1) sl) nil)
-	(mapconcat 'char-to-string sl ""))))
-   ((eq skk-emacs-type 'mule3)
-    (when (< pos1 0)
-      (setq pos1 (+ (skk-str-length str) pos1)))
-    (when (< pos2 0)
-      (setq pos2 (+ (skk-str-length str) pos2)))
-    (if (>= pos1 pos2)
-	""
-      (let ((sl (nthcdr pos1 (string-to-char-list str))))
-	(setcdr (nthcdr (- pos2 pos1 1) sl) nil)
-	(concat sl))))
-   (t
-    ;; XEmacs, MULE 4.0 or later.
-    (substring str pos1 pos2))))
 
 (defsubst skk-char-to-string (char)
   (ignore-errors
     (char-to-string char)))
 
 (defsubst skk-ascii-char-p (char)
-  ;; CHAR が ascii 文字だったら t を返す。
-  (static-cond
-   ((eq skk-emacs-type 'mule2)
-    ;; Can I use this for mule1?
-    ;; (maybe < cz)
-    (= (char-leading-char char) 0))
-   (t
-    ;; XEmacs, Emacs 20 or later.
-    (eq (char-charset char) 'ascii))))
-
-(defsubst skk-str-ref (str pos)
-  (static-cond
-   ((eq skk-emacs-type 'mule2)
-    (nth pos (string-to-char-list str)))
-   ((eq skk-emacs-type 'mule3)
-    (aref (string-to-vector str) pos))
-   (t
-    ;; XEmacs, MULE 4.0 or later.
-    (aref str pos))))
+  (eq (char-charset char) 'ascii))
 
 (defsubst skk-jisx0208-p (char)
-  (static-cond
-   ((eq skk-emacs-type 'mule2)
-    ;; Can I use this for mule1?
-    ;; (maybe < cz)
-    (= (char-leading-char char) lc-jp))
-   (t
-    ;; XEmacs, MULE 3.0 or later.
-    (eq (char-charset char) 'japanese-jisx0208))))
+  (eq (char-charset char) 'japanese-jisx0208))
 
 (defsubst skk-jisx0213-p (char)
   (and (featurep 'jisx0213)
@@ -385,7 +320,7 @@ the return value (nil if RESULT is omitted)."
     (or (nth (if n (1+ n) 1) (split-char ch))
 	0))
    (t
-    ;; FSF Emacs
+    ;; FSF Emacs.
     (char-octet ch n))))
 
 ;; this one is called once in skk-kcode.el, too.
@@ -393,10 +328,8 @@ the return value (nil if RESULT is omitted)."
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (find-charset object))
-   ((eq skk-emacs-type 'mule2)
-    (character-set object))
    (t
-    ;; MULE 3.0 or later.
+    ;; FSF Emacs 20 or later.
     (charsetp object))))
 
 (defsubst skk-indicator-to-string (indicator &optional no-properties)
@@ -435,14 +368,8 @@ BUFFER defaults to the current buffer."
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (local-variable-p variable (or buffer (current-buffer)) afterset))
-   ((fboundp 'local-variable-p)
-    (local-variable-p variable (or buffer (current-buffer))))
    (t
-    (and
-     (or (assq variable (buffer-local-variables buffer)) ; local and bound.
-	 (memq variable (buffer-local-variables buffer))); local but void.
-     ;; docstring is ambiguous; 20.3 returns bool value.
-     t))))
+    (local-variable-p variable (or buffer (current-buffer))))))
 
 (defsubst skk-face-proportional-p (face)
   (static-cond
@@ -777,12 +704,12 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-lisp-prog-p (string)
   ;; STRING が Lisp プログラムであれば、t を返す。
-  (let ((l (skk-str-length string)))
+  (let ((l (length string)))
     (and (> l 2)
 	 (eq (aref string 0) ?\()
 	 ;; second character is ascii or not.
 	 (skk-ascii-char-p (aref string 1))
-	 (eq (skk-str-ref string (1- l)) ?\)))))
+	 (eq (sref string (1- l)) ?\)))))
 
 (defsubst skk-eval-string (string)
   ;; eval STRING as a lisp program and return the result.
