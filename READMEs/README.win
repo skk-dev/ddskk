@@ -137,9 +137,12 @@ Message-ID: <380bc098380b2426@tkcs11.tkccc.nasda.go.jp>
           例えば LISPDIR=c:\usr\mule\site-lisp とすれば、
           c:\usr\mule\site-lisp\skk にインストールされる。
 
-       3. MAKE.BAT info-mule-for-win を実行する。一時的に Window が
-          開いて、info マニュアルが作成されます。
-          (この操作は、Mule for Windows のみ必要です)
+       3. SKK-CFG に APEL のパスを指定する。
+          (setq APEL_SPECIFIC_LISPDIR 
+                "/usr/mule/site-lisp/apel")
+          TM がインストールされていない場合は、
+          (setq EMU_PREFIX "/usr/mule/site-lisp/emu")
+          のように指定する。
 
        4. MAKE.BAT を実行する。
 
