@@ -1,8 +1,15 @@
 ;;; dot.emacs --- SKK related customization in ~/.emacs  -*- emacs-lisp -*-
 
+;;; Commentary:
+
+;; ~/.emacs に追加するための設定例です。
+
+;;; Code:
+
 ;; @@ 基本の設定
 
-(require 'skk-autoloads)
+;; Mule 2.3 (Emacs 19) を使っている場合は必要
+;; (require 'skk-setup)
 
 ;; カタカナ/ひらがな キーで SKK を起動する
 (global-set-key [hiragana-katakana] 'skk-mode)
