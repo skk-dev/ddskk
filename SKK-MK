@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.48 2000/11/12 10:46:57 czkmt Exp $
-;; Last Modified: $Date: 2000/11/12 10:46:57 $
+;; Version: $Id: SKK-MK,v 1.49 2000/11/15 09:37:55 czkmt Exp $
+;; Last Modified: $Date: 2000/11/15 09:37:55 $
 
 ;; Commentary
 ;;
@@ -481,7 +481,14 @@
       (copy-file "skk-setup.el" "leim-list.el" 'ok-if-already-exists)
       (install-elisp-modules (list 'leim-list) "." SKK_LISPDIR))
     ;; install skk-setup.el
-    (install-elisp-modules (list 'skk-setup) "." SKK_LISPDIR)
+    (let ((dir
+	   (cond ((or (boundp 'MULE) (boundp 'NEMACS))
+		  ;; Old Emacsen.
+		  (if (member (expand-file-name ".." SKK_LISPDIR)
+			      default-load-path)
+		      (expand-file-name ".." SKK_LISPDIR)
+		    SKK_LISPDIR)))))
+      (install-elisp-modules (list 'skk-setup) "." dir))
     ;; install tutorials.
     (install-files SKK_TUTORIALS ETCDIR SKK_DATADIR nil t nil)))
 
