@@ -2,9 +2,9 @@
 @c
 @c  Author: Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk-faq.texi,v 1.12 2000/10/24 20:56:00 czkmt Exp $
+@c  Version: $Id: skk-faq.texi,v 1.13 2000/10/25 00:14:32 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/24 20:56:00 $
+@c  Last Modified: $Date: 2000/10/25 00:14:32 $
 @c
 @setfilename skk-faq.info
 
@@ -86,7 +86,8 @@
 Mac OS 版の Emacs でも動くようですが、インストールが UNIX @code{make} コ
 マンド、あるいは @code{make.bat} を前提にしているので、手作業で、
 @code{skk/SKK-MK} を評価するなどの手間がかかるでしょう (APEL についても
-同様の苦しみがあるはずですが)。Perl で動く @code{make} について、
+同様の苦しみがあるはずですが)。@xref{Q.2-4 APEL って何ですか？}.
+Perl で動く @code{make} について、
 
 @example
 At Thu, 10 Aug 2000 19:06:31 +0900,
@@ -150,6 +151,8 @@ APEL よりもっと遥かに効率の良いものができれば別ですが、それまでは APEL
 ん。SKK Openlab に参加してやってもらっても良いですよ。但し、Maintrunk,
 Daredevil とは別 branch にして下さいね。
 
+@xref{Q.2-4 APEL って何ですか？}.
+
 @node Q.1-8 SKK の中に更にいくつもモードがあって良く分かりません。,  , Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえませんか？, Introduction
 @comment  node-name,  next,  previous,  up
 @unnumberedsubsec Q.1-8 SKK の中に更にいくつもモードがあって良く分かりません。
@@ -163,8 +166,8 @@ Daredevil とは別 branch にして下さいね。
     +------------------+--- skk-mode -----+--------------------+
     |                  |                  |                    |
     |                  |                  |                    |
-skk-j-mode  skk-latin-mode skk-jisx0208-latin-mode skk-abbrev-mode
-(かな/カナモード) (ASCII モード)  (全英モード)   (SKK abbrev mode)
+skk-j-mode      skk-latin-mode   skk-jisx0208-latin-mode skk-abbrev-mode
+(かな/カナモード) (ASCII モード)    (全英モード)        (SKK abbrev mode)
 @end smallexample
 
 ASCII モードと言うのは、@kbd{C-j} により @code{skk-j-mode} に移行する他
@@ -276,7 +279,7 @@ Emacs のそれぞれのバージョン間の差異を吸収するパッケージです。
 しょう。
 
 また、APEL のおかげでそれだけ多くの Emacsen で動きます。APEL に感謝こそ
-すれ、恨むのは筋違いでしょう。
+すれ、恨むのは筋違いでしょう。@xref{Q.2-4 APEL って何ですか？}.
 
 @node Customization, Dictionaries, Installation, よくある質問とその回答(FAQ)
 @comment  node-name,  next,  previous,  up

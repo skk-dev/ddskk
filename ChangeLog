@@ -1,3 +1,12 @@
+2000-10-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* doc/skk-faq.texi (Q.1-4 SKK はどんなオペレーティングシステムで使
+	えますか？): Add cross reference to `Q.2-4 APEL って何ですか？'.
+	(Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえません
+	か？): Ditto.
+	(Q.2-5 色々別に入手するものがあってインストールが難しいですね。):
+	Ditto.
+
 2000-10-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* READMES/FAQ.txt (左手の小指を SHIFT で酷使したくありません。):
