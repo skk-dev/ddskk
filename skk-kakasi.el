@@ -5,9 +5,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.18 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-kakasi.el,v 1.19 2001/11/25 12:40:54 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/25 12:40:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -92,7 +92,7 @@
 くって表示する。
 例えば、
     中島 -> {ナカシマ|ナカジマ}"
-  (interactive "*r\P")
+  (interactive "*r\nP")
   (let ((str (skk-gyakubiki-1 start end all 'katakana)))
     (delete-region start end)
     (goto-char start)
