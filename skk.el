@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.31 2000/09/08 11:47:23 akiho Exp $
+;; Version: $Id: skk.el,v 1.32 2000/09/09 04:32:58 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/08 11:47:23 $
+;; Last Modified: $Date: 2000/09/09 04:32:58 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 2000/09/08 11:47:23 $")
+      (let* ((raw-date "$Date: 2000/09/09 04:32:58 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)))
@@ -1308,7 +1308,7 @@ skk-toggle-kutouten はこれをトグルで切り換える。
   (if (memq skk-emacs-type '(xemacs mule4 mule3))
       '(("euc" . euc-japan)
         ("ujis" . euc-japan)
-        ("sjis". sjis)
+        ("sjis". shift_jis)
         ("jis" . junet))
     '(("euc" . *euc-japan*)
       ("ujis" . *euc-japan*)
