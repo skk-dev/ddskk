@@ -2953,9 +2953,10 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.225 2000/12/16 22:14:25 minakaji Exp $
-Last Modified: $Date: 2000/12/16 22:14:25 $
+Version: $Id: ChangeLog,v 1.226 2000/12/16 22:22:48 minakaji Exp $
+Last Modified: $Date: 2000/12/16 22:22:48 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
 End:
+
