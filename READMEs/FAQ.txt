@@ -1,8 +1,8 @@
 
 -*- outline -*-
 
-             $Date: 2000/10/30 22:14:10 $
-	     $Id: FAQ.txt,v 1.9 2000/10/30 22:14:10 minakaji Exp $
+             $Date: 2000/11/16 11:54:34 $
+	     $Id: FAQ.txt,v 1.10 2000/11/16 11:54:34 czkmt Exp $
 
 これは SKK に対するよくある質問と、それに対する回答集です。
 
@@ -57,16 +57,16 @@
 
 ** [Q.] SKK はどのバージョンの Emacs で使えますか ?
 
-SKK 10 に関しては
+SKK 11 に関しては
 
-Emacs 19.28 or later をベースとした Mule 2 or 3
-Emacs 20.2 or later
---with-mule オプション付きでコンパイルされたXEmacs 20.4 or later
-Meadow 1.00, 1.01, 1.10
-Mule for Windows 1.21, 1.22
+ Emacs 19.28 以降 を基とした Mule 2.3
+ Emacs 20.2 以降
+ MULE 機能付きで作成された XEmacs 20.4 以降
+ Meadow 1.00 以降
+ Mule for Windows 1.21, 1.22
 
-がサポートしようとする対象の Emacs です。Daredevil では、Nemacs 上で動
-くようです。
+がサポートしようとする対象の Emacs です。また非公式ですが、Nemacs 上でも
+動くようです。
 
 ** [Q.] SKK はどんなオペレーティングシステムで使えますか ?
 
