@@ -4,6 +4,7 @@
 	items - "Hiragana", "Katakana""Hankaku alphabet" and
 	"Zenkaku alphabet".
 	(skk-xemacs-modeline-menu): Find keys for "Katakana".
+	(skk-xemacs-find-func-keys); New function.
 
 	From Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 
@@ -3171,8 +3172,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.261 2001/03/20 15:16:31 czkmt Exp $
-Last Modified: $Date: 2001/03/20 15:16:31 $
+Version: $Id: ChangeLog,v 1.262 2001/03/20 16:25:35 czkmt Exp $
+Last Modified: $Date: 2001/03/20 16:25:35 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

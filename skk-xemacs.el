@@ -141,17 +141,19 @@
       (set-extent-face extent face-sym))))
 
 (defun skk-xemacs-find-func-keys (func)
-  (or (do ((spec (nth 4 skk-rule-tree) (cdr spec))
-	   (list nil (car spec))
-	   (str nil (when (eq (nth 3 list)
-			      func)
-		      (nth 1 list))))
-	  ((or str (null spec))
-	   (when (stringp str)
-	     (key-description str))))
-      (key-description
-       (car (where-is-internal func skk-j-mode-map)))
-      ""))
+  (let ((keys
+	 (or (do ((spec (nth 4 skk-rule-tree) (cdr spec))
+		  (list nil (car spec))
+		  (str nil (when (eq (nth 3 list)
+				     func)
+			     (nth 1 list))))
+		 ((or str (null spec))
+		  (when (stringp str)
+		    str)))
+	     (car (where-is-internal func skk-j-mode-map)))))
+    (if keys
+	(key-description keys)
+      "")))
 
 ;; Hooks.
 
