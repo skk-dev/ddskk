@@ -8,6 +8,14 @@
 	(skk-cursor-set-1): New function.
 	(skk-cursor-set): Abolish.
 
+	(skk-abbrev-mode)
+	(skk-auto-fill-mode)
+	(skk-jisx0208-latin-mode)
+	(skk-kakutei)
+	(skk-latin-mode)
+	(skk-mode)
+	(skk-toggle-kana): Don't advise.
+
 	* skk-macs.el
 	(skk-cursor-set): New function.
 
@@ -2352,8 +2360,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.466 2001/10/11 13:42:35 czkmt Exp $
-Last Modified: $Date: 2001/10/11 13:42:35 $
+Version: $Id: ChangeLog,v 1.467 2001/10/11 14:22:55 czkmt Exp $
+Last Modified: $Date: 2001/10/11 14:22:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
