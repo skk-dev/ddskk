@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.24 2001/09/15 19:20:03 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.25 2001/10/06 00:08:54 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 19:20:03 $
+;; Last Modified: $Date: 2001/10/06 00:08:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -192,10 +192,7 @@
 	  (push el list)))
       (setq skk-comp-kakutei-midasi-list
 	    (nreverse list))))
-  (prog1
-      (car skk-comp-kakutei-midasi-list)
-    (setq skk-comp-kakutei-midasi-list
-	  (cdr skk-comp-kakutei-midasi-list))))
+  (pop skk-comp-kakutei-midasi-list))
 
 (defalias 'skk-previous-completion 'skk-comp-previous)
 (defalias 'skk-start-henkan-with-completion 'skk-comp-start-henkan)
