@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.20 2000/09/09 23:11:59 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.21 2000/09/14 08:36:10 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/09/09 23:11:59 $
+@c  Last Modified: $Date: 2000/09/14 08:36:10 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/09/09 23:11:59 $
+@set UPDATED $Date: 2000/09/14 08:36:10 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -86,6 +86,7 @@ of @cite{The SKK Manual},
 for SKK, Version @value{SKK-VERSION}.
 
 @menu
+* 配布条件::                        
 * 概要::                        
 * インストール::                
 * 基本的な使用方法::            
