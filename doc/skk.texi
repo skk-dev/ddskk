@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.137 2004/07/23 11:19:47 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.138 2004/07/30 21:59:25 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2004/07/23 11:19:47 $
+@c  Last Modified: $Date: 2004/07/30 21:59:25 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2004/07/23 11:19:47 $
+@set UPDATED $Date: 2004/07/30 21:59:25 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -82,7 +82,7 @@ by the author.
 @c The following two commands start the copyright page.
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{}1991-2003 @w{Masahiko Sato}($B:4F#2mI'(B), @*
+Copyright @copyright{}1991-2004 @w{Masahiko Sato}($B:4F#2mI'(B), @*
 @w{Yukiyoshi Kameyama}($B55;39,5A(B), @w{NAKAJIMA Mikio}($BCfEg44IW(B),
 @w{Tsukamoto Tetsuo}($BDMK\E0M:(B) and @w{Tsuyoshi AKIHO} ($B=)J]6/(B).
 Revised by @w{Kiyotaka Sakai}($B<r0f@6N4(B) and @w{Satoshi Harauchi}($B86FbAo(B).
@@ -1657,7 +1657,7 @@ SKK abbrev mode $B$N5!G=$rDs6!$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 @item skk-develop.el
 @cindex @file{skk-develop.el}
 
-$B%P%/%l%]!<%H$N%a!<%k%P%C%U%!$rMQ0U$9$k%W%m%0%i%`%U%!%$%k!#(B
+$B%P%0%l%]!<%H$N%a!<%k%P%C%U%!$rMQ0U$9$k%W%m%0%i%`%U%!%$%k!#(B
 
 @item skk-dic.el
 @cindex @file{skk-dic.el}
@@ -1989,7 +1989,7 @@ DDSKK $B$K$O!"%+%?%+%J$NF~NO$K$O%+%J%b!<%I$r!"A43Q%"%k%U%!%Y%C%H$NF~NO$K$O(B
 ------ Buffer: foo ------
 @end group
 
-@kbd{q}
+@kbd{C-q}
 
 @group
 ------ Buffer: foo ------
@@ -6013,7 +6013,7 @@ other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!(
 @findex skk-lookup-search
 
 @file{skk-lookup.el} $B$r;HMQ$9$k$H!"<-=q8!:w%D!<%k$N(B Lookup
-(@url{http://openlab.ring.gr.jp/lookup/}) $B$G8!:w$G$-$k<-=q$rMQ$$$FC18l(B
+(@url{http://openlab.ring.gr.jp/edict/lookup/}) $B$G8!:w$G$-$k<-=q$rMQ$$$FC18l(B
 $B$N8uJd$r=P$9$3$H$,$G$-$k$h$&$K$J$j$^$9(B @footnote{@file{skk-lookup.el}
 $B$O(B @file{skk-look.el} $B$H$OJL$b$N$G$9!#(B}$B!#(B
 
@@ -6081,17 +6081,24 @@ ndcookie, ndnmz $B$r<h$j5n$C$?$b$N$G$9(B
 SKK abbrev mode $B$,3HD%$5$l$F!"(B@code{look} $B%3%^%s%I$r;HMQ$7$?Jd40$,M-8z(B
 $B$K$J$j$^$9!#(B
 
-/abstr
+@example
+@kbd{/abstr}
 
+@group
 ------ Buffer: foo ------
 $B"&(Babstr
 ------ Buffer: foo ------
+@end group
 
-[tab]
+@kbd{@key{TAB}}
 
+@group
 ------ Buffer: foo ------
 $B"&(Babstract
 ------ Buffer: foo ------
+@end group
+
+@end example
 
 $B$HJd40$7$F$/$l$^$9!#DL>o$NJd40$HF1MM$K!"(B@kbd{.} $B$G<!$NJd408uJd!"(B@kbd{,} $B$G(B
 $B$R$H$DA0$NJd408uJd$K0\F0$G$-$^$9!#(B
@@ -6107,15 +6114,23 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
 $B8+=P$78l$K%"%9%?%j%9%/(B (*) $B$rF~$l$F!"(B@key{SPC} $B$r2!$9$H1QC18l$r$"$$$^$$(B
 $B$K$7$FJQ49$G$-$^$9!#(B
 
+@example
+
+@group
 ------ Buffer: foo ------
 $B"&(Babstr*
 ------ Buffer: foo ------
+@end group
 
 @key{SPC}
 
+@group
 ------ Buffer: foo ------
 $B"'(Babstract
 ------ Buffer: foo ------
+@end group
+
+@end example
 
 $B3NDj$9$k$H!"(B@samp{abstr*} $B$r8+=P$78l!"(B@samp{abstract} $B$r8uJd$H$9$k(B
 $B%(%s%H%j$,8D?M<-=q$KDI2C$5$l$^$9!#$3$N$h$&$J%(%s%H%j$rDI2C$7$?$/$J$$>l9g!"(B
@@ -6415,7 +6430,7 @@ DDSKK $B$N%$%s%8%1!<%?$r%b!<%I9T$N:8$KI=<($7$F$$$k>l9g(B@footnote{$B%G%U%)%k%
 $B$G$O!":8$G$9!#(B@w{@xref{$B5/F0$H=*N;(B}.}
 @*@w{@xref{Q.3-1 $B%$%s%8%1!<%?$r%b!<%I9T$N:8C<$KCV$-$?$$$N$G$9$,!#(B}.}}$B!"(B
 $B%+!<%=%k$N?'$HF1$8?'$,IU$/$h$&$K$J$j$^$7$?!#$^$?!"%b!<%I9T$N(B DDSKK $B$N%$(B
-$B%s%8%2!<%?$r%^%&%9$J$I$N%]%$%s%F%#%s%0%G%P%$%9$NBh(B 2$B%\%?%s$r%/%j%C%/$9$k(B
+$B%s%8%1!<%?$r%^%&%9$J$I$N%]%$%s%F%#%s%0%G%P%$%9$NBh(B 2$B%\%?%s$r%/%j%C%/$9$k(B
 $B$H%a%K%e!<$,I=<($5$l$^$9!#(B
 
 DDSKK $B$N%$%s%8%1!<%?$N?'$rIU$1$J$$>l9g$O!"JQ?t(B
