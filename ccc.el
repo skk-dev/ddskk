@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.22 2002/02/05 16:02:36 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.23 2004/03/04 11:20:09 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2002/02/05 16:02:36 $
+;; Last Modified: $Date: 2004/03/04 11:20:09 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -105,7 +105,7 @@
       (cond
        ((and (commandp origfunc)
 	     (not interactive))
-	(message "%s"
+	(message
 		 "\
 *** WARNING: Adding advice to subr %s\
  without mirroring its interactive spec ***"
