@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.14 2000/11/20 20:05:59 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.15 2000/11/25 18:03:23 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 20:05:59 $
+;; Last Modified: $Date: 2000/11/25 18:03:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -188,7 +188,7 @@
     (xemacs
      (` (ding (, arg) (, sound) (, device))))
     (t
-     '(ding))))
+     (` (ding (, arg))))))
 
 (defmacro skk-update-modeline (indicator)
   (` (setq skk-modeline-input-mode (, indicator))))

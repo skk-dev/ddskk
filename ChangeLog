@@ -8,6 +8,8 @@
 	New advice.
 	(read-from-minibuffer@before@skk-e18-ad): Ditto.
 
+	* skk-macs.el (skk-ding): Use the first arg under FSF Emacs.
+
 	* skk-setup.el.in: Use `add-path' instead of `add-latest-path'.
 
 	* skk-xemacs.el: (minibuffer-keyboard-quit@arond@skk-xemacs-ad):
@@ -2518,8 +2520,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.175 2000/11/25 17:27:17 czkmt Exp $
-Last Modified: $Date: 2000/11/25 17:27:17 $
+Version: $Id: ChangeLog,v 1.176 2000/11/25 18:03:23 czkmt Exp $
+Last Modified: $Date: 2000/11/25 18:03:23 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
