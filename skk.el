@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.267 2003/06/20 12:11:20 minakaji Exp $
+;; Version: $Id: skk.el,v 1.268 2003/07/05 08:27:04 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/06/20 12:11:20 $
+;; Last Modified: $Date: 2003/07/05 08:27:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -58,7 +58,7 @@
   (defvar skk-rdbms-private-jisyo-table)
   (defvar this-command-char))
 
-;; APEL 10.5 or higher is required.
+;; APEL 10.6 or higher is required.
 (eval-when-compile
   (require 'static))
 (require 'poe)

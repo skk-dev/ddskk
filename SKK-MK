@@ -1,11 +1,12 @@
 ;;; SKK-MK --- installer for SKK  -*-emacs-lisp-*-
 
-;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@namazu.org>
+;; Copyright (C) 2003 SKK Development Team <skk@ring.gr.jp>
 
-;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.122 2002/08/03 12:05:57 czkmt Exp $
-;; Last Modified: $Date: 2002/08/03 12:05:57 $
+;; Version: $Id: SKK-MK,v 1.123 2003/07/05 08:27:04 minakaji Exp $
+;; Last Modified: $Date: 2003/07/05 08:27:04 $
 
 ;;; Commentary:
 
@@ -216,12 +217,12 @@ This version of SKK requires MULE features"))
     (require 'product)
   (error
    (error "%s"
-	  "This version of Daredevil SKK requires APEL/10.2 or later")))
+	  "This version of Daredevil SKK requires APEL/10.6 or later")))
 
 (unless (product-version>= 'apel-ver
-			   '(10 2))
+			   '(10 6))
  (error "%s"
-	"This version of Daredevil SKK requires APEL/10.2 or later"))
+	"This version of Daredevil SKK requires APEL/10.6 or later"))
 
 ;; constants.
 (defconst SKK-MK-texinfo-coding-system 'iso-2022-jp)

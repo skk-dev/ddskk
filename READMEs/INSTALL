@@ -1,12 +1,12 @@
 -*- outline -*-
 
-             $Date: 2003/06/20 12:11:20 $
-	     $Id: INSTALL,v 1.26 2003/06/20 12:11:20 minakaji Exp $
+             $Date: 2003/07/05 08:24:01 $
+	     $Id: INSTALL,v 1.27 2003/07/05 08:24:01 minakaji Exp $
 
 * APEL
 
 APEL (A Portable Emacs Library) is required to install SKK.  Make sure
-you have APEL 10.5 or later (It is highly recommened that you install
+you have APEL 10.6 or later (It is highly recommened that you install
 the latest release).  APEL is available at:
 
     http://cvs.m17n.org/elisp/APEL

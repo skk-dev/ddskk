@@ -2,8 +2,8 @@
 
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2003/06/20 12:11:20 $
-$Id: README.w32.ja,v 1.3 2003/06/20 12:11:20 minakaji Exp $
+$Date: 2003/07/05 08:24:01 $
+$Id: README.w32.ja,v 1.4 2003/07/05 08:24:01 minakaji Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
@@ -13,7 +13,7 @@ NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 ** APEL のインストール
 
-まず APELをインストールする。Daredevil SKK では、APEL 10.5 以降での動作
+まず APELをインストールする。Daredevil SKK では、APEL 10.6 以降での動作
 が確認されているが、APEL は Emacs/XEmacs のバージョンアップに合わせて
 日進月歩なので、できるだけ新しいバージョンをインストールすることをお勧
 めする。
