@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.56 2001/10/13 14:37:14 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.57 2001/10/14 01:25:10 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 14:37:14 $
+;; Last Modified: $Date: 2001/10/14 01:25:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -802,14 +802,13 @@ BUFFER defaults to the current buffer."
   (nth 1 (buffer-list)))
 
 (defsubst skk-quote-char-1 (word alist)
-  (format "(concat \"%s\")"
-	  (mapconcat
-	   (function
-	    (lambda (char)
-	      (or (cdr (assq char alist))
-		  (char-to-string char))))
-	   ;; 文字列を対応する char のリストに分解する。
-	   (append word nil) "")))
+  (mapconcat
+   (function
+    (lambda (char)
+      (or (cdr (assq char alist))
+	  (char-to-string char))))
+   ;; 文字列を対応する char のリストに分解する。
+   (append word nil) ""))
 
 (defsubst skk-key-binding-member (key commands &optional map)
   (let (keys)
