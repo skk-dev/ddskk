@@ -56,6 +56,9 @@
 ;; 対応する閉括弧を自動的に挿入する
 (setq skk-auto-insert-paren t)
 
+;; ▽モードと▼モード時のアンドゥ情報を記録しない
+;; (setq skk-undo-kakutei-word-only t)
+
 ;; 句読点に ．， を使う
 ;; (setq skk-kutouten-type 'en)
 
@@ -84,11 +87,21 @@
 ;; look コマンドを使った検索をする
 ;; (setq skk-use-look t)
 
-;; (when skk-use-look
+;;   (when skk-use-look
 ;;   ;; look が見つけた語を見出し語として検索する
 ;;   (setq skk-look-recursive-search t)
 ;;   ;; ispell を look と一緒に使うのはやめる
-;;   (setq skk-look-use-ispell nil))
+;;   (setq skk-look-use-ispell nil)
+;;   ;; `skk-abbrev-mode' で skk-look を使った検索をしたときに確定情報を
+;;   ;; 個人辞書に記録しないようにする
+;;   (setq skk-search-excluding-word-pattern-function
+;;	   ;; KAKUTEI-WORD を引数にしてコールされるので、不要でも引数を取る
+;;	   ;; 必要あり
+;;	   (lambda (kakutei-word)
+;;	     (and skk-abbrev-mode
+;;		  (save-match-data
+;;		    ;; `skk-henkan-key' が "*" で終わるとき
+;;		    (string-match "\\*$" skk-henkan-key)))))))
 
 ;; lookup を利用した変換を行う
 ;; (setq skk-search-prog-list
@@ -127,20 +140,6 @@
 ;; @@ その他いろいろ
 
 ;; 複数の Emacsen を起動して個人辞書を共有する
-;; (setq skk-share-private-jisyo t)
-
-;; 数字だけの見出し語は個人辞書から消去する (郵便辞書用)
-;; (defadvice skk-save-jisyo (before pr-ad activate)
-;;   (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
-;;	   start)
-;;     (with-current-buffer jisyo-buffer
-;;       (goto-char (point-min))
-;;       (search-forward ";; okuri-nasi entries." nil t)
-;;       (while (re-search-forward "^\\([0-9]+\\*?\\|#\\*\\) " nil t)
-;;	 (beginning-of-line)
-;;	 (setq start (point))
-;;	 (forward-line)
-;;	 (delete-region start (point))
-;;	 (forward-line -1)))))
+(setq skk-share-private-jisyo t)
 
 ;;; dot.skk ends here
