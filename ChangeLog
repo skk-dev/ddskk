@@ -1,3 +1,10 @@
+2001-01-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-dcomp.el (skk-start-henkan@before@skk-dcomp-ad): Change its
+	advice for `skk-henkan@before@skk-dcomp-ad' (Thanks for Hiroya
+	Murata <lapis-lazuli@pop06.odn.ne.jp>'s patch of Message-ID:
+	<uae8jyu3c.wl@cistp.pop06.odn.ne.jp>)
+
 2001-01-24  Yuh Ohmura <yutopia@t3.rim.or.jp>
 
 	*make.bat : delete.
@@ -3069,8 +3076,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.248 2001/01/24 05:42:20 yutopia Exp $
-Last Modified: $Date: 2001/01/24 05:42:20 $
+Version: $Id: ChangeLog,v 1.249 2001/01/25 10:16:46 minakaji Exp $
+Last Modified: $Date: 2001/01/25 10:16:46 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
