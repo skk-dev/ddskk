@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.242 2002/03/22 10:21:49 furue Exp $
+;; Version: $Id: skk.el,v 1.243 2002/03/29 07:22:47 furue Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/22 10:21:49 $
+;; Last Modified: $Date: 2002/03/29 07:22:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2228,24 +2228,31 @@ WORD で確定する。"
   (when skk-undo-kakutei-word-only
     (cond
      ((> (point) skk-henkan-start-point)
-      (if (null skk-henkan-end-point)
-	  (skk-set-marker skk-henkan-end-point (point)))
-      (let ((kakutei-word (buffer-substring-no-properties
-			   skk-henkan-start-point skk-henkan-end-point))
-	    (tail (buffer-substring-no-properties
-		   skk-henkan-end-point (point))))
-	(delete-region skk-henkan-start-point skk-henkan-end-point)
-	(delete-region skk-henkan-end-point (point))
-
-	(setq buffer-undo-list skk-last-buffer-undo-list)
-	(setq skk-last-buffer-undo-list t)
-	(set-buffer-modified-p skk-last-buffer-modified)
-
-	(goto-char skk-henkan-start-point)
-	(skk-insert-str kakutei-word)
-	(skk-set-marker skk-henkan-end-point (point))
-	(skk-insert-str tail)
-	))
+      (if skk-henkan-end-point
+	  (let ((kakutei-word (buffer-substring-no-properties
+			       skk-henkan-start-point skk-henkan-end-point))
+		(tail (buffer-substring-no-properties
+		       skk-henkan-end-point (point))))
+	    (delete-region skk-henkan-start-point (point))
+	    
+	    (setq buffer-undo-list skk-last-buffer-undo-list)
+	    (setq skk-last-buffer-undo-list t)
+	    (set-buffer-modified-p skk-last-buffer-modified)
+	    
+	    (goto-char skk-henkan-start-point)
+	    (skk-insert-str kakutei-word)
+	    (skk-set-marker skk-henkan-end-point (point))
+	    (skk-insert-str tail))
+	(let ((word (buffer-substring-no-properties
+		     skk-henkan-start-point (point))))
+	  (delete-region skk-henkan-start-point (point))
+	  
+	  (setq buffer-undo-list skk-last-buffer-undo-list)
+	  (setq skk-last-buffer-undo-list t)
+	  (set-buffer-modified-p skk-last-buffer-modified)
+	  
+	  (goto-char skk-henkan-start-point)
+	  (skk-insert-str word))))
      (t
       (setq buffer-undo-list skk-last-buffer-undo-list)
       (setq skk-last-buffer-undo-list t)
@@ -2311,7 +2318,8 @@ WORD で確定する。"
 		     "Cannot undo kakutei in ▼ mode"))
 	 ( ; skk-henkan-key may be nil or "".
 	  (or (not (skk-get-last-henkan-datum 'henkan-key))
-	      (string= (skk-get-last-henkan-datum 'henkan-key) ""))
+	      (string= (skk-get-last-henkan-datum 'henkan-key) "")
+	      (null skk-henkan-end-point))
 	  (skk-error "アンドゥデータがありません"
 		     "Lost undo data")))
    (condition-case nil
@@ -2668,8 +2676,9 @@ TYPE (文字の種類) に応じた文字をスキップしてバッファの先頭方向へ戻る。
      (skk-set-marker skk-kana-start-point (point))
      (skk-insert-prefix))
    (setq skk-henkan-mode 'on)
+   (setq skk-henkan-end-point nil)
    (skk-set-marker skk-henkan-start-point (point)))
-   nil)
+  nil)
 
 (defun skk-change-marker ()
   "\"$B▽\"を\"▼\"に変える。`skk-henkan-mode' を active にする。"
@@ -2699,6 +2708,7 @@ TYPE (文字の種類) に応じた文字をスキップしてバッファの先頭方向へ戻る。
      (skk-set-marker skk-henkan-start-point (point))
      (skk-message "$B▼がありません"
 		  "It seems that you have deleted ▼"))
+   (setq skk-henkan-end-point nil)
    (setq skk-henkan-mode 'on)))
 
 (defun skk-delete-henkan-markers (&optional nomesg)

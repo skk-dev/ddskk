@@ -1,9 +1,23 @@
+2002-03-29  FURUE Hideyuki  <furue@myrealbox.com>
+
+	* skk.el:
+	(skk-kakutei-cleanup-buffer):
+	Fix bug that kakutei in ▽ mode inserts junk characters to the
+	current	bufffer when `skk-undo-kakutei-word-only' is t.
+
+	(skk-set-henkan-point-subr):
+	(skk-change-marker-to-white):
+	Bind `skk-henkan-end-point' to nil after entering ▽ mode.
+
+	(skk-undo-kakutei):
+	Do nothing when `skk-henkan-end-point' is nil.
+	
 2002-03-22  FURUE Hideyuki  <furue@myrealbox.com>
 
 	* skk.el:
-	(skk-kakutei-cleanup-buffer): Fix bug that `skk-undo-kakutei`
-	does not treat the last okuri-ari kakutei correctly when
-	`skk-undo-kakutei-word-only' is t.
+	(skk-kakutei-cleanup-buffer):
+	Fix bug that `skk-undo-kakutei'	does not treat the last okuri-ari
+	kakutei correctly when `skk-undo-kakutei-word-only' is t.
 
 2002-03-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -3790,8 +3804,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.677 2002/03/22 10:04:05 furue Exp $
-Last Modified: $Date: 2002/03/22 10:04:05 $
+Version: $Id: ChangeLog,v 1.678 2002/03/29 07:22:47 furue Exp $
+Last Modified: $Date: 2002/03/29 07:22:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
