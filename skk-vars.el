@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.81 2001/11/23 13:25:18 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.82 2001/11/24 01:55:25 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/23 13:25:18 $
+;; Last Modified: $Date: 2001/11/24 01:55:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2427,7 +2427,6 @@ Non-nil であれば、`skk-isearch-message' 関数をコールする。")
 
 ;;    ;; 変換結果の候補のリスト
 ;;    ;; (henkan-list . nil)
-
 
 ;;    ;; 現在の変換の送り仮名部分
 ;;    ;; (henkan-okurigana . nil)
