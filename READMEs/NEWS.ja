@@ -43,11 +43,43 @@ skk-isearch $B$rMxMQ$7$J$$$h$&$K$9$k$3$H$,2DG=$K$J$j$^$7$?!#(Bmigemo $B$rMx(
 $BMQ$7$?$$>l9g$J$I$K$O(B `nil' $B$K@_Dj$9$k$HNI$$$G$7$g$&!#(B
 
 ** skk-study.el $B$,@5<0%5%]!<%H$NBP>]$K$J$j$^$7$?!#(B
+
 $B$3$l$KH<$$!"%W%m%0%i%`$,(B skk/main/experimental/skk-study.el $B$+$i(B
 skk/main/skk-study.el $B$K0\F0$5$l$^$7$?!#(B`skk-study-first-candidate',
 `skk-study-max-distance' $B$N(B 2 $B$D$N?7$7$$%f!<%6JQ?t$,A}$($F$$$^$9(B ($B>\:Y(B
 $B$O(B C-h v skk-study-first-candidate $B$J$I$H$7$FI=<($5$l$k%I%-%e%a%s%H$r(B
 $B$4;2>H2<$5$$(B)$B!#(B
+
+** $B99$K<B83E*$J(B experimental/skk-study.el $B$,2C$o$j$^$7$?!#(B
+
+experimental/skk-study.el $B$O3X=,%F!<%^BP1~$G$9!#(B
+
+M-x skk-study-switch-current-theme $B$7$FG$0U$NJ8;zNs(B ($BNc$($P2J3X$NOCBj(B
+$B$r=q$/%P%C%U%!$G$O(B science $B$J$I(B) $B$rF~$l$k$H!"0J9_$=$N%P%C%U%!$G$O(B
+science $B$H$$$&%F!<%^$G3X=,%G!<%?$r%"%C%W%G!<%H$7$^$9!#JQ49;~(B ($BC18l8!:w(B
+$B;~(B) $B$O$^$:(B science $B$H$$$&%F!<%^$N3X=,%G!<%?$rC5$7!"$=$N<!$K(B general $B$H(B
+$B$$$&HFMQ3X=,%G!<%?$rC5$7$^$9!#(B
+
+$BB>$N%P%C%U%!$K0\$C$?$H$-$K!"$=$N%P%C%U%!$G$b2J3X$NOCBj$r=q$/$N$G$"$l$P!"(B
+M-x skk-study-switch-current-theme $B$7$F(B science $B$HF~$l$^$7$g$&!#@hDx3X(B
+$B=,$7$?(B science $BHG3X=,%G!<%?$r;HMQ$7$^$9!#$=$N%P%C%U%!$G$OK!N'$K$D$$$F(B
+$B=q$-$?$$$N$G$"$l$P!"%F!<%^$r(B law $B$J$I$H$9$k$H(B science $B$J3X=,%G!<%?$O;2(B
+$B>H$7$^$;$s!#3X=,%F!<%^$O(B Emacs $B$G07$($kJ8;zNs$J$i$P!"(Bmultibyte $BJ8;zNs(B
+$B$G$b9=$$$^$;$s!#(B
+
+$B$^$@==J,8!>Z$5$l$F$*$i$:!"(B~/.skk-study $B$N%U%)!<%^%C%H$r2u$7$F$7$^$&62(B
+$B$l$,$"$k$?$a!"%P%C%/%"%C%W$r<h$C$F$*$/$3$H$r6/$/$*4+$a$7$^$9!#(B
+
+experimental $BHG$N(B skk-study-file-format-version $B$O(B 0.3 $B$G$9!#(B0.2 $B$N%U%)!<(B
+$B%^%C%H$rFI$_9~$`$H<+F0E*$K(B conversion $B$9$k$h$&$K$J$C$F$$$^$9!#(B
+downgrade $B$O<+F02=$5$l$F$$$J$$$N$G$4Cm0U2<$5$$!#(B
+
+$B;n$7$F$$$_$?$$J}$O!"(Bexperimental/skk-study.el $B$r(B 1 $B$D>e$N%G%#%l%/%H%j(B
+$B$N(B skk-study.el $B$K>e=q$-$7$F(B make $B$7$F2<$5$$!#(B
+
+$B$J$*!"(BM-x skk-study-remove-theme $B$GITMW$J%F!<%^$r>C$9$3$H$,$G$-(B ($B%F!<(B
+$B%^(B general $B$O>C$;$^$;$s(B) M-x skk-study-copy-theme $B$G$"$k%F!<%^$N3X=,%G!<(B
+$B%?$rB>$N%F!<%^$K%3%T!<$9$k$3$H$,$G$-$^$9!#(B
 
 ** $BJT=8$NJ8L.$K1~$8$?<+F0E*$J(B latin $B%b!<%I$X$N@Z$jBX$(%5%]!<%H(B
 
