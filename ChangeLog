@@ -1,3 +1,7 @@
+2001-03-30  Norio Maeda  <nmaeda@dd.iij4u.or.jp>
+
+	* skk-kcode.el (skk-display-code): added SJIS encoding.
+
 2001-03-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* doc/skk.texi (SKKの作者): Add Satoshi Harauchi's email address.
@@ -3202,8 +3206,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.267 2001/03/28 04:23:41 minakaji Exp $
-Last Modified: $Date: 2001/03/28 04:23:41 $
+Version: $Id: ChangeLog,v 1.268 2001/03/30 12:06:24 nmaeda Exp $
+Last Modified: $Date: 2001/03/30 12:06:24 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
