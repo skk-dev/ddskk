@@ -1,12 +1,12 @@
 ;;; skk-study.el --- SKK 学習効果提供プログラム
-;; Copyright (C) 1999, 2000, 2002 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000, 2002, 2003 NAKAJIMA Mikio <minakaji@namazu.org>
 
-;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.27 2002/02/09 06:36:24 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.28 2003/07/06 08:49:11 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2002/02/09 06:36:24 $
+;; Last Modified: $Date: 2003/07/06 08:49:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -364,7 +364,7 @@
 		     (let ((len (length str)))
 		       (and
 			(> len 1)
-			(skk-ascii-char-p (skk-str-ref str (1- len))))))))
+			(skk-ascii-char-p (aref str (1- len))))))))
 	    alist2 e f)
 	(while index
 	  (and (eq (car index) 'okuri-nasi)
@@ -373,8 +373,8 @@
 		      (lambda (str)
 			(let ((len (length str)))
 			  (cond ((= len 1))
-				((not (skk-ascii-char-p (skk-str-ref str (1- len)))))
-				((skk-ascii-char-p (skk-str-ref str (- len 2))))))))))
+				((not (skk-ascii-char-p (aref str (1- len)))))
+				((skk-ascii-char-p (aref str (- len 2))))))))))
 	  (setq alist2 (cdr (assq (car index) alist)))
 	  (while alist2
 	    (setq e (car alist2))

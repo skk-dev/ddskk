@@ -1,5 +1,5 @@
 ;;; skk-hint.el --- SKK conversion with hints
-;; Copyright (C) 2001 Yoshiki Hayashi <yoshiki@xemacs.org>
+;; Copyright (C) 2001, 2003 Yoshiki Hayashi <yoshiki@xemacs.org>
 
 ;; Author: Yoshiki Hayashi <yoshiki@xemacs.org>
 ;; Keywords: japanese
@@ -181,7 +181,7 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
     (dolist (word kouho)
       (let ((length (length word)))
 	(dotimes (i length)
-	  (if (eq char (skk-str-ref word i))
+	  (if (eq char (aref word i))
 	      (throw 'found word)))))))
 
 (defun skk-hint-limit (kouho hint)
@@ -193,7 +193,7 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
       (let ((length (length string)))
 	(dotimes (i length)
 	  (let (ret)
-	    (when (setq ret (skk-hint-member (skk-str-ref string i) kouho))
+	    (when (setq ret (skk-hint-member (aref string i) kouho))
 	      (setq result (cons ret result))
 	      (delete ret kouho))))))
     (nreverse result)))

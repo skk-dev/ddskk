@@ -1,11 +1,11 @@
 ;;; skk-rdbms.el --- SKK Relational Data Base Management System.
-;; Copyright (C) 1998, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1998, 2000, 2003 NAKAJIMA Mikio <minakaji@namazu.org>
 
-;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-rdbms.el,v 1.7 2001/12/16 05:03:11 czkmt Exp $
+;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
+;; Maintainer: NAKAJIMA Mikio <minakaji@namazu.org>
+;; Version: $Id: skk-rdbms.el,v 1.8 2003/07/06 08:49:11 minakaji Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2001/12/16 05:03:11 $
+;; Last Modified: $Date: 2003/07/06 08:49:11 $
 
 ;; This file is not part of Daredevil SKK yet.
 
@@ -83,7 +83,7 @@ skk-rdbms-shell のバージョンによって異なる動きをしたい場合に使用する。")
 
 CREATE TABLE YOUR-LOGIN-NAME_private_jisyo \(
 	okuriari int2 NOT NULL,
-	yomi varchar\(50\) NOT NULL, -- longest entry of yomi in SKK-JISYO.L is 
+	yomi varchar\(50\) NOT NULL, -- longest entry of yomi in SKK-JISYO.L is
 				   -- 'ほくりくせんたんかがくぎじゅつだいがくいんだいがく'
 	kanji text NOT NULL,
 	okurigana varchar\(4\),
@@ -162,7 +162,7 @@ CREATE TABLE busyu_base \(
 	yomi1 varchar\(16\) NOT NULL,
 	yomi2 varchar\(16\),
 	yomi3 varchar\(16\),
-	yomi4 varchar\(16\) 
+	yomi4 varchar\(16\)
 \);")
 
 (defvar skk-rdbms-busyu-data-table "busyu_data"
@@ -220,7 +220,7 @@ CREATE TABLE hinsi_data \(
   (`
    (concat
     (format
-     "DELETE FROM %s WHERE kanji = '%s' AND yomi = '%s' AND okuriari = %s " 
+     "DELETE FROM %s WHERE kanji = '%s' AND yomi = '%s' AND okuriari = %s "
 	    skk-rdbms-private-jisyo-table (, word) skk-henkan-key
 	    (if skk-okuri-char 1 0))
     (if (and skk-henkan-okuri-strictly skk-henkan-okurigana)
@@ -451,7 +451,7 @@ skk-rdbms-working-buffer の中でコールされる。")
 (setq skk-previous-completion-function 'skk-rdbms-previous-completion)
 (setq skk-okuri-search-function 'skk-rdbms-okuri-search)
 (setq skk-public-jisyo-to-be-searched-function 'skk-rdbms-public-jisyo-to-be-searched)
- 
+
 (defun skk-rdbms-init ()
   (or (skk-rdbms-process-alive)
       (let ((process-connection-type t)
@@ -684,14 +684,14 @@ C-u M-x skk-rdbms-restore-private-jisyo すると確認なしに復元する。"
 	    shell-file-name
 	    nil (list nil skk-rdbms-dump-error) t
 	    "-c" (format "%s %s < %s" skk-rdbms-shell ; PostgreSQL only command.
-			 skk-rdbms-shell-args 
+			 skk-rdbms-shell-args
 			 (expand-file-name skk-rdbms-private-jisyo-dump)))
 	   0)
 	(skk-message "ダンプファイルから個人辞書データベースを復元しています...完了!"
 		     "Restoring private jisyo database from dump file...done!")
       (skk-error "ダンプファイルからの個人辞書データベースの復元に失敗しました"
 		 "Failed to restore private jisyo database from dump file"))))
-      
+
 (defun skk-rdbms-count-jisyo-candidates (table)
   (if (interactive-p)
       (message "Counting jisyo candidates..."))
@@ -832,7 +832,7 @@ C-u M-x skk-rdbms-restore-private-jisyo すると確認なしに復元する。"
 	     skk-okuri-char
 	     (eq ?z (car (memq (string-to-char skk-okuri-char) '(?s ?z))))))
 	   ((and okurigana
-		 (string= "ず" (char-to-string (skk-str-ref okurigana 0)))))))
+		 (string= "ず" (char-to-string (aref okurigana 0)))))))
 	 (skk-henkan-key
 	  (cond
 	   (skk-okuri-char
@@ -890,7 +890,7 @@ C-u M-x skk-rdbms-restore-private-jisyo すると確認なしに復元する。"
 		      (if skk-japanese-message-and-error "漢字: " "Kanji: "))))
   (if (interactive-p)
       (message (skk-rdbms-kanji-to-stroke kanji))
-   (let (v) 
+   (let (v)
      (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
      (add-hook
       'minibuffer-setup-hook
@@ -905,7 +905,7 @@ C-u M-x skk-rdbms-restore-private-jisyo すると確認なしに復元する。"
        (if skk-japanese-message-and-error
 	   (concat v " 画")
 	 (concat v " stroke" (if (not (string= v "1")) "s")))))))
-  
+
 ;; skk-rdbms-save-jisyo の中で VACUUM した後にプロセスを殺す。
 (add-hook 'skk-before-kill-emacs-hook 'skk-rdbms-kill 'append)
 

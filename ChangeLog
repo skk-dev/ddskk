@@ -1,5 +1,12 @@
 2003-07-06  NAKAJIMA Mikio  <minakaji@namazu.org>
 
+	* experimental/skk-hint.el (skk-hint-limit): Use `aref' instead of
+	`skk-str-ref'.
+	(skk-hint-member): Ditto.
+	* experimental/skk-study.el (skk-study-check-alist-format-1):
+	Ditto.
+	* experimental/rdbms/skk-rdbms.el (skk-rdbms-sahen-search-1):
+	Ditto.
 	* ptexinfmt.el: Sync up with the file in emacs-w3m 1.3.
 
 	* Makefile (VERSION): Change 12.1.1rc1 to 12.2.0rc1.
@@ -4250,8 +4257,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.745 2003/07/06 04:22:34 minakaji Exp $
-Last Modified: $Date: 2003/07/06 04:22:34 $
+Version: $Id: ChangeLog,v 1.746 2003/07/06 08:49:11 minakaji Exp $
+Last Modified: $Date: 2003/07/06 08:49:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
