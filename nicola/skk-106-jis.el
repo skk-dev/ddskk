@@ -76,11 +76,14 @@
     ("S" nil skk-kanagaki-set-okurigana-no-sokuon)
     ("D" nil skk-today)
     ("F" nil skk-display-code-for-char-at-point)
+    ("J" nil skk-abbrev-mdoe)
+    ("K" nil skk-toggle-kana)
     ("L" nil skk-jisx0208-latin-mode)
     ("+" nil "』")          ("*" nil ("ヶ" . "ヶ"))  ("}" nil "」")
     ("Z" nil ("ッ" . "っ"))
     ("X" nil skk-purge-from-jisyo)
     ("C" nil skk-input-by-code-or-menu)
+    ("M" nil skk-kanagaki-midashi-henkan)
     ("<" nil skk-current-touten)
     (">" nil skk-current-kuten)
     ("?" nil "・")
@@ -94,7 +97,7 @@
 
 ;;
 
-(case skk-kanagaki-jidou-key-symbol-kakikae-service
+(case skk-kanagaki-jidou-keymap-kakikae-service
   ;;
   (106-jis
    (skk-kanagaki-call-xmodmap

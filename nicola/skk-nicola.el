@@ -215,7 +215,7 @@
 Emacs 18 用の変数。")
 
 (static-when (memq skk-emacs-type '(nemacs mule1 mule3))
-  (case skk-kanagaki-jidou-key-symbol-kakikae-service
+  (case skk-kanagaki-jidou-keymap-kakikae-service
     ;;
     (nicola-jis
      ;; Emacs 18 では Muhenkan, Henkan は使えないようなので、使えるキーに書換

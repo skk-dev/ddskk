@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.19 2000/12/04 04:05:19 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.20 2000/12/04 10:54:42 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/04 04:05:19 $
+;; Last Modified: $Date: 2000/12/04 10:54:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -220,15 +220,15 @@
 				(t
 				 "~/.skk")))
   "*SKK の初期設定ファイル名。
-skk.el 9.x より ~/.emacs でのカスタマイズも可能となった。"
+このファイルの代わりに ~/.emacs で設定することも可能。"
   ;;"*Name of the SKK initialization file.
   ;;From skk.el 9.x on all customization may be done in ~/.emacs."
   :type '(choice file (const nil))
   :group 'skk-filenames)
 
 (defcustom skk-special-midashi-char-list '(?> ?< ??)
-  "*接頭辞、接尾辞の入力のためのプレフィックスキー、サフィックスキーのリスト。"
-  ;;  "*List of prefix and suffix keys for entering `settoji' and `setsubiji'."
+  "*接頭辞、接尾辞の入力を指定する文字のリスト。"
+  ;;  "*List of characters for entering prefixes and suffixes."
   :type '(repeat character)
   :group 'skk-keybinds)
 

@@ -1,3 +1,13 @@
+2000-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* install-info.el: Modify Comments.
+
+	* skk-vars.el (skk-init-file, skk-special-midashi-char-list):
+	Modify doc strings.
+
+	* skk.el (skk-process-prefix-or-suffix): New function.
+	(skk-insert): Call it.
+
 2000-12-04  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-okuri-char-alist): Doc updated.
@@ -2682,8 +2692,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.198 2000/12/04 04:05:19 minakaji Exp $
-Last Modified: $Date: 2000/12/04 04:05:19 $
+Version: $Id: ChangeLog,v 1.199 2000/12/04 10:54:42 czkmt Exp $
+Last Modified: $Date: 2000/12/04 10:54:42 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

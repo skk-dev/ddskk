@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.75 2000/12/04 03:41:17 minakaji Exp $
+;; Version: $Id: skk.el,v 1.76 2000/12/04 10:54:42 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/04 03:41:17 $
+;; Last Modified: $Date: 2000/12/04 10:54:42 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -890,13 +890,14 @@ dependent."
   (interactive "*p")
   (skk-with-point-move
    (let ((ch last-command-char))
-     (cond (
-	    ;; start writing a midasi key.
-	    (or (and (memq ch skk-set-henkan-point-key)
-		     (or skk-okurigana
-			 (not (skk-get-prefix skk-current-rule-tree))
-			 (not (skk-select-branch skk-current-rule-tree ch))))
-		(and skk-henkan-on (memq ch skk-special-midashi-char-list)))
+     (cond ((and skk-henkan-on (memq ch skk-special-midashi-char-list))
+	    ;; 接頭辞・接尾辞の処理。
+	    (skk-process-prefix-or-suffix arg))
+	   (;; start writing a midasi key.
+	    (and (memq ch skk-set-henkan-point-key)
+		 (or skk-okurigana
+		     (not (skk-get-prefix skk-current-rule-tree))
+		     (not (skk-select-branch skk-current-rule-tree ch))))
 	    ;; normal pattern
 	    ;; skk-set-henkan-point -> skk-kana-input.
 	    (skk-set-henkan-point arg))
@@ -929,6 +930,42 @@ dependent."
 	    (skk-comp-previous/next ch))
 	   ;; just imput Kana.
 	   (t (skk-kana-input arg))))))
+
+(defun skk-process-prefix-or-suffix (&optional arg)
+  "接頭辞または接尾辞の入力を開始する。
+これは、普通 `skk-special-midashi-char-list' に指定された文字の入力があった場
+合に非対話的に呼び出されるが、対話的に呼出すことも可能である。"
+  ;; SKK 10 までは、> < ? の 3 つについて扱いが平等でなかった。Daredevil SKK
+  ;; 11 以降では、辞書における表現を > で統一することにより、3 者の扱いを平等
+  ;; にし、なおかつ、このコマンドが文字キーでない入力により呼ばれたときにも接
+  ;; 尾辞・ 接頭辞入力ができるようにする。
+  (interactive "*p")
+  (cond (skk-henkan-active
+	 ;; 接尾辞のための処理。
+	 (skk-kakutei)
+	 (skk-set-henkan-point-subr)	
+	 (insert-and-inherit ?>))
+	(skk-henkan-on
+	 ;; 接頭語の処理
+	 (skk-kana-cleanup 'force)
+	 (insert-and-inherit ?>)
+	 (skk-set-marker skk-henkan-end-point (point))
+	 (setq skk-henkan-count 0
+	       skk-henkan-key (buffer-substring-no-properties
+			       skk-henkan-start-point (point))
+	       skk-prefix "")
+	 (skk-henkan))
+	(t
+	 ;; `skk-insert' から呼ばれる場合には、このケースはない。
+	 (if last-command-char
+	     (let ((i (prefix-numeric-value arg))
+		   (str (skk-char-to-string last-command-char)))
+	       (while (> i 0)
+		 (skk-insert-str str)
+		 (setq i (1- i))))
+	   ;; どうするべきかまだ決まっていない。
+	   ;; (skk-emulate-original-map arg)
+	   ))))
 
 (defun skk-kana-input (&optional arg)
   ;;"かな文字の入力を行うルーチン。"

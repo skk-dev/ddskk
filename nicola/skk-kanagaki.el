@@ -263,7 +263,6 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"N(B $
   :type 'sexp
   :group 'skk-kanagaki)
 
-
 (defcustom skk-kanagaki-toggle-rom-kana-key
   (cond ((memq skk-emacs-type '(nemacs mule1))
 	 "\e[24~")
@@ -328,7 +327,7 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]  (XEmacs $B$G$O
 			 (string :tag "3-2 (hiragana string)")))))
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-jidou-key-symbol-kakikae-service nil "\
+(defcustom skk-kanagaki-jidou-keymap-kakikae-service nil "\
 *Non-nil $B$J$i2>L>F~NO$N$?$a$K>!<j$K%-!<G[Ns$r=q49$($k!#(B
 X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N%b!<%I(B
 $B$d%"%W%j%1!<%7%g%s$K$b(B $B%-!<G[Ns$NJQ99$,1F6A$9$k$H$$$&I{:nMQ$,$"$k$N$G!"==J,Cm(B
@@ -359,13 +358,16 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
   (cond (skk-henkan-active
 	 (skk-kakutei)
 	 (skk-set-henkan-point-subr)	
-	 (insert ?>))
-	((and skk-henkan-on (not skk-henkan-active))
-	 (insert ?>)
+	 (insert-and-inherit ?>))
+	(skk-henkan-on
+	 ;; $B@\F,8l$N=hM}(B
+	 (skk-kana-cleanup 'force)
+	 (insert-and-inherit ?>)
 	 (skk-set-marker skk-henkan-end-point (point))
 	 (setq skk-henkan-count 0
-	       skk-henkan-key (buffer-substring
-			       skk-henkan-start-point (point)))
+	       skk-henkan-key (buffer-substring-no-properties
+			       skk-henkan-start-point (point))
+	       skk-prefix "")
 	 (skk-henkan))))
 
 ;;;###autoload

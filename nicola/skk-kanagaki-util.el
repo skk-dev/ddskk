@@ -33,6 +33,8 @@
   (require 'static))
 
 (eval-when-compile
+  (defvar skk-dcomp-start-point)
+  (defvar skk-dcomp-end-point)
   (defvar skk-isearch-current-buffer)
   (defvar skk-nicola-okuri-flag)
   (defvar skk-nicola-hiragana-mode-string)
@@ -243,6 +245,17 @@
   ;;
   ;; というふうに考えている。
   (interactive "*p")
+  ;; skk-dcomp 利用時の際の使い勝手をよくする。
+  (when (and (featurep 'skk-dcomp)
+	     skk-henkan-on
+	     (not skk-henkan-active)
+	     (markerp skk-dcomp-end-point)
+	     (marker-position skk-dcomp-end-point))
+    (delete-region skk-dcomp-end-point
+		   (if (< (point) (marker-position skk-dcomp-start-point))
+		       skk-dcomp-start-point
+		     (point))))
+  ;;
   (cond (skk-henkan-active
 	 (call-interactively 'keyboard-quit))
 	(skk-henkan-on

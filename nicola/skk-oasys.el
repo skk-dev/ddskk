@@ -226,7 +226,7 @@
 
 ;;
 
-(case skk-kanagaki-jidou-key-symbol-kakikae-service
+(case skk-kanagaki-jidou-keymap-kakikae-service
   (oasys
    (skk-kanagaki-call-xmodmap
        "keycode 19 = 0 underscore\n"
