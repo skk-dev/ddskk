@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.17 1999/10/23 13:28:51 minakaji Exp $
+;; Version: $Id: skk.el,v 1.18 1999/10/23 13:35:51 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/23 13:28:51 $
+;; Last Modified: $Date: 1999/10/23 13:35:51 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/10/23 13:28:51 $")
+      (let* ((raw-date "$Date: 1999/10/23 13:35:51 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -4091,19 +4091,14 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; オプショナル引数の JAPANESE/ENGLISH を指定すると、ファイル作成後そのメッセ
   ;; ージをミニバッファに表示する。
   (let ((file (expand-file-name file)))
-    (cond ((file-exists-p file)
-	   ;; nothing to do.
-	   )
-	  ((file-writable-p file)
-	   (write-region 1 1 file nil 0)
-	   (if (or japanese english)
-	       (progn
-		 (message (if skk-japanese-message-and-error
-			      japanese english ))
-		 (sit-for 3) )))
-	  (t
-	   (skk-error "")
-	   ))))
+    (or (file-exists-p file)
+	(progn
+	  (write-region 1 1 file nil 0)
+	  (if (or japanese english)
+	      (progn
+ 		(message (if skk-japanese-message-and-error
+ 			     japanese english ))
+		(sit-for 3) ))))))
 
 (defun skk-get-jisyo-buffer (file &optional nomsg)
   ;; FILE を開いて SKK 辞書バッファを作り、バッファを返す。
