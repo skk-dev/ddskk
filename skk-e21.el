@@ -285,7 +285,8 @@ Analogous to mouse-position."
 	(sit-for skk-tooltip-hide-delay)
       (quit
        (tooltip-hide)
-       (set-mouse-position oframe ox oy)
+       (when (and ox oy)
+	 (set-mouse-position oframe ox oy))
        (skk-set-henkan-count 0)
        (skk-unread-event
 	(character-to-event
@@ -296,7 +297,8 @@ Analogous to mouse-position."
        ;; skk-henkan まで一気に throw する。
        (throw 'unread nil)))
     (tooltip-hide)
-    (set-mouse-position oframe ox oy)))
+    (when (and ox oy)
+      (set-mouse-position oframe ox oy))))
 
 (require 'product)
 (product-provide
