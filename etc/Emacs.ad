@@ -29,3 +29,15 @@
 *XlwMenu.saveJisyo.labelString: 辞書を保存する
 *XlwMenu.undoKakutei.labelString: 確定を取り消す (アンドゥー)
 *XlwMenu.version.labelString: SKK のバージョン
+
+*XlwMenu.hiragana.labelString: ひらがな
+*XlwMenu.katakana.labelString: カタカナ
+*XlwMenu.hankakuAlphabet.labelString: 半角英数
+*XlwMenu.zenkakuAlphabet.labelString: 全角英数
+
+*XlwMenu.readManual.labelString: マニュアルを読む
+*XlwMenu.startTutorial.labelString: チュートリアル
+*XlwMenu.customizeDaredevilSKK.labelString: Daredevil SKK をカスタマイズ
+
+*XlwMenu.aboutDaredevilSKK___.labelString: Daredevil SKK について...
+*XlwMenu.visitDaredevilSKKHome___.labelString: Daredevil SKK のサイトへ
