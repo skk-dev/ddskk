@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.278 2004/01/29 02:52:52 czkmt Exp $
+;; Version: $Id: skk.el,v 1.279 2004/03/31 23:44:04 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/01/29 02:52:52 $
+;; Last Modified: $Date: 2004/03/31 23:44:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -284,6 +284,12 @@ dependent."
   (when skk-use-kana-keyboard
     ;; 仮名入力を行う場合の初期設定。
     (skk-kanagaki-initialize))
+  (static-when (eq skk-emacs-type 'mule5)
+    (when skk-show-japanese-menu
+      (skk-e21-menu-replace skk-e21-modeline-menu-items)
+      (dolist (map (list skk-j-mode-map skk-latin-mode-map
+			 skk-jisx0208-latin-mode-map skk-abbrev-mode-map))
+	(skk-e21-menu-replace (assq 'skk (assq 'menu-bar map))))))
   (skk-setup-delete-selection-mode)
   (setq skk-mode-invoked t))
 
@@ -291,7 +297,7 @@ dependent."
 (defun skk-setup-shared-private-jisyo ()
   (setq skk-jisyo-update-vector (make-vector skk-jisyo-save-count nil))
   (setq skk-emacs-id
-        (concat (system-name) ":" (number-to-string (emacs-pid))
+	(concat (system-name) ":" (number-to-string (emacs-pid))
 		":" (mapconcat 'int-to-string (current-time) "") ":"))
   (skk-create-file skk-emacs-id-file nil nil 384) ; 0600
   (with-temp-buffer
