@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.116 2003/07/19 09:05:27 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.117 2003/07/19 09:55:02 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/19 09:05:27 $
+@c  Last Modified: $Date: 2003/07/19 09:55:02 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/19 09:05:27 $
+@set UPDATED $Date: 2003/07/19 09:55:02 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7219,9 +7219,15 @@ APEL 10.6 については、
 @code{temporary-file-directory} などの変数の設定が影響を受けます。この
 問題について詳しくは、
 
+@itemize @asis
+@item
 @url{http://bugs.debian.org/cgi-bin/bugreport.cgi?archive=no&bug=192732}
-@url{http://bugs.debian.org/cgi-bin/bugreport.cgi?archive=no&bug=198567}
 
+@item
+@url{http://bugs.debian.org/cgi-bin/bugreport.cgi?archive=no&bug=198567}
+@end itemize
+
+@noindent
 をご参照下さい。Emacs 21 ではこの脆弱性はフィックスされています。
 
 @item 新しいユーザ変数 @code{skk-force-registration-mode-char}
