@@ -268,7 +268,7 @@ Analogous to mouse-position."
 	  (cons (+ (car edges)       (car (cdr list)))
 		(+ (car (cdr edges)) (car (cdr (cdr list))))))))
 
-(defun tooltip-show-at-point (text)
+(defun skk-tooltip-show-at-point (text)
   (require 'tooltip)
   (require 'avoid)
   (let* ((P (skk-e21-mouse-position))
@@ -284,7 +284,17 @@ Analogous to mouse-position."
     (condition-case nil
 	(sit-for tooltip-hide-delay)
       (quit
-       (call-interactively #'keyboard-quit)))
+       (tooltip-hide)
+       (set-mouse-position oframe ox oy)
+       (skk-set-henkan-count 0)
+       (skk-unread-event
+	(character-to-event
+	 (aref (car (where-is-internal
+		     'skk-previous-candidate
+		     skk-j-mode-map))
+	       0)))
+       ;; skk-henkan まで一気に throw する。
+       (throw 'unread nil)))
     (tooltip-hide)
     (set-mouse-position oframe ox oy)))
 
