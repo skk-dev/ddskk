@@ -1,7 +1,7 @@
 -*- text -*-
-             $Date: 1999/09/22 10:11:33 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+             $Date: 1999/09/25 11:36:33 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
                                                          　　　　 <minakaji@pdx.ne.jp> 
-	     $Id: INSTALL,v 1.8 1999/09/22 10:11:33 minakaji Exp $ 
+	     $Id: INSTALL,v 1.9 1999/09/25 11:36:33 minakaji Exp $ 
 
 (1)APEL (A Portable Emacs Library) is required to install SKK.  Please
    make sure you have already installed APEL 9.22 or later.  It is
@@ -43,21 +43,49 @@ or
       `defcustom's defined in SKK package will be equal to `defvars'.
 
 (3)Edit SKK-CFG as you like.  Maybe you need not to edit Makefile at
-   all.  All customization can be done in SKK-CFG.
+   all.  All customization can be done in SKK-CFG.  Or you can specify 
+   configuration of installation in the command line instead of
+   editing SKK-CFG (See (4) below).
 
-(4)Run `make'.  You can specify Emacs command name in command line.
-   For examples, `make install EMACS=mule'
+(4)Run
+
+     % make
+
+   You can specify Emacs command name in the command line. For
+   examples,
+
+     % make EMACS=mule
+
+   Also, in the command line you can specify any variables of capital
+   letters defined in SKK-MK.  For examples, if you want to install
+   SKK locally,
+
+     % make PREFIX=~/
+
+   then all Emacs lisp programs will be installed into
+   `~/share/emacs/site-lisp/skk'.  You can examine SKK-CFG to know
+   what variables will effect install configuration.  All of those
+   values described in SKK-CFG (but commented out) are default.
 
 (5)If you want to know target directories to install without actual
-   installation, run `make what-where' (or `make what-where-package'
+   installation, run
+
+     % make what-where
+
+   or
+
+     % make what-where-package
+
    for XEmacs package install.  As to package install, see below (7).
 
 (6)Run `make install' (You may have to be superuser).  
-   You can specify Emacs command name in command line, like
-   `make install EMACS=mule'
+   You can specify Emacs command name in the command line, like
+
+   % make install EMACS=mule
 
 (7)If you want install SKK as a XEmacs package, run
-   `make install-package'.
+
+   % make install-package
 
 (8)Many variables/functions names have been changed.  You are strongly
    recommended to load skk-obsolete.el and
