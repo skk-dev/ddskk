@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.46 2003/07/18 15:21:39 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.47 2003/07/18 15:51:10 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/18 15:21:39 $
+;; Last Modified: $Date: 2003/07/18 15:51:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -202,7 +202,7 @@
 	    (not skk-study-last-read)
 	    (and skk-study-last-save
 		 (skk-study-time-lessp
-		  skk-study-last-read skk-study-last-save)))
+		  skk-study-last-save skk-study-last-read)))
 	(progn
 	  (skk-message "SKK の学習結果をセーブする必要はありません"
 		       "No SKK study need saving")

@@ -1,7 +1,5 @@
 2003-07-19  NAKAJIMA Mikio  <minakaji@namazu.org>
 
-	* skk-study.el (skk-study-save): Bug fixed.
-
 	* experimental/skk-study.el (skk-study-file-format-version): Bump
 	up to 0.3.
 	(skk-study-current-buffer-theme): New buffer local variable.
@@ -4357,8 +4355,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.763 2003/07/18 15:21:39 minakaji Exp $
-Last Modified: $Date: 2003/07/18 15:21:39 $
+Version: $Id: ChangeLog,v 1.764 2003/07/18 15:51:10 minakaji Exp $
+Last Modified: $Date: 2003/07/18 15:51:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
