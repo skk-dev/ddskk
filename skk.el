@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.26 2000/01/17 04:08:05 furue Exp $
+;; Version: $Id: skk.el,v 1.25 2000/01/17 04:05:23 furue Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/01/17 04:08:05 $
+;; Last Modified: $Date: 2000/01/17 04:05:23 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 2000/01/17 04:08:05 $")
+      (let* ((raw-date "$Date: 2000/01/17 04:05:23 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -1650,7 +1650,7 @@ skk-remove-common で参照される。" )
 	  ;; ここでは delete-backward-char に第二引数を渡さない方がベター？
 	  (delete-backward-char count) )
       (skk-previous-candidate) ))
-   ;; ▽ mode (Midashi input mode).
+   ;; ▽ mode (Midashi imput mode).
    (t (skk-erase-prefix 'clean)
       (and (> (point) skk-henkan-start-point)
 	   (delete-region (point) skk-henkan-start-point) )
@@ -2284,7 +2284,7 @@ skk-convert-okurigana-into-katakana の値を non-nil にする。
 			  (skk-previous-completion) )
 			 (t (skk-kana-input arg)) ))
 		  (t (skk-kana-input arg)) ))
-	   ;; just input Kana.
+	   ;; just imput Kana.
 	   (t (skk-kana-input arg)) ))))
 
 (defun skk-kana-input (&optional arg)
