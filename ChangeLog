@@ -1,3 +1,14 @@
+2001-10-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el
+	(skk-quote-char-1): Don't use `format'.
+
+	* skk.el
+	(skk-quote-char)
+	(skk-quote-semicolon): Use `format'.
+
+	(skk-compose-ignore-word-sub-quote-char): Call `skk-quote-char-1'.
+
 2001-10-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-auto.el
@@ -2428,8 +2439,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.481 2001/10/13 14:31:06 czkmt Exp $
-Last Modified: $Date: 2001/10/13 14:31:06 $
+Version: $Id: ChangeLog,v 1.482 2001/10/14 01:25:35 czkmt Exp $
+Last Modified: $Date: 2001/10/14 01:25:35 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
