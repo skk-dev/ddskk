@@ -1,5 +1,11 @@
 2001-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* READMEs/Contributors: Following two persons are added.
+
+	Martin Buchholz <martin@xemacs.org>
+
+	Yoshiki Hayashi <yoshiki@xemacs.org>
+
 	* Makefile (skk-dic): New target.
 
 	* SKK-CFG: Modify examples for Windows.
@@ -1917,8 +1923,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.390 2001/09/14 15:55:09 czkmt Exp $
-Last Modified: $Date: 2001/09/14 15:55:09 $
+Version: $Id: ChangeLog,v 1.391 2001/09/14 16:06:20 czkmt Exp $
+Last Modified: $Date: 2001/09/14 16:06:20 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
