@@ -31,10 +31,7 @@
   (require 'static))
 
 (eval-and-compile
-  (require 'skk-macs)
-  ;;
-  (autoload 'Info-goto-node "info")
-  (autoload 'browse-url "browse-url"))
+  (require 'skk-macs))
 
 ;;;###autoload (unless (noninteractive) (require 'skk-setup))
 
@@ -100,31 +97,16 @@
     ["About Daredevil SKK..." skk-version t]
     ["Visit Daredevil SKK Home..." skk-xemacs-visit-openlab t]))
 
-(defvar skk-icon
-  (when (locate-data-file "skk.xpm")
-    (let ((glyph (make-glyph)))
-      (set-glyph-image glyph
-		       (vector 'xpm
-			       :file (locate-data-file "skk.xpm")))
-      (cons (cdr (assq 'hiragana skk-xemacs-extent-alist))
-	    glyph))))
-
-(defadvice skk-setup-modeline (after skk-xemacs-icon activate)
-  (when skk-icon
-    (unless (memq 'skk-icon
-		  (default-value 'mode-line-format))
-      (setq-default mode-line-format
-		    (append '("" skk-icon)
-			    (default-value 'mode-line-format))))
-    (skk-loop-for-buffers (buffer-list)
-      (when (and (listp mode-line-format)
-		 (skk-local-variable-p 'mode-line-format)
-		 (null (memq 'skk-icon
-			     mode-line-format)))
-	(setq mode-line-format
-	      (append '("" skk-icon)
-		      mode-line-format))))
-    (force-mode-line-update t)))
+(setq skk-icon
+      (if (and (locate-data-file "skk.xpm")
+	       (featurep 'xpm))
+	  (let ((glyph (make-glyph)))
+	    (set-glyph-image glyph
+			     (vector 'xpm
+				     :file (locate-data-file "skk.xpm")))
+	    (cons (cdr (assq 'hiragana skk-xemacs-extent-alist))
+		  glyph))
+	nil))
 
 ;; Functions.
 
