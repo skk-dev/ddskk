@@ -10,7 +10,8 @@
 	* READMEs/INSTALL: Ditto.
 	
 	* Makefile (VERSION): Updated to 10.62.
-	(tar): Change skk-$(VERSION) to skk$(VERSION).
+	(tar): Change skk-$(VERSION) to skk$(VERSION) for file name of tar
+	ball.
 	(snapshot): Ditto.
 
 2000-10-27  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
