@@ -1,5 +1,8 @@
 2002-08-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* SKK-MK:
+	(SKK_MODULES): Always install `skk-leim'.
+
 	* skk-isearch.el:
 
 	No longer check if `register-input-method' is bound.
@@ -4002,8 +4005,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.706 2002/08/02 08:53:22 czkmt Exp $
-Last Modified: $Date: 2002/08/02 08:53:22 $
+Version: $Id: ChangeLog,v 1.707 2002/08/02 08:56:09 czkmt Exp $
+Last Modified: $Date: 2002/08/02 08:56:09 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
