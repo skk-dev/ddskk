@@ -4,9 +4,9 @@
 
 ;; Author: Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dinsert.el,v 1.2 2002/01/11 14:47:45 obata Exp $
+;; Version: $Id: skk-dinsert.el,v 1.3 2002/01/12 00:35:56 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/11 14:47:45 $
+;; Last Modified: $Date: 2002/01/12 00:35:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -61,29 +61,21 @@
 ;;   (require 'skk-dinsert)
 ;;
 ;; さらに、このファイルを load-path の通ったディレクトリに置いて下さい。
-
-;;; Tips:
-
-;; 一時的に動的な入力を無効にしたい場合には、Q の入力で▽モードに入る
-;; 事を利用する方法が考えられます。この時には、カーソル直前の文字が
-;; "▽" かつ 変数 skk-henkan-mode が on なので、
 ;;
-;;   ("▽" nil nil nil skk-henkan-mode . VAL)
 ;;
-;; というルールを最初に入れておくと良いでしょう。
-;; ただし、one stroke でない rule-list かつ skk-echo が Non-nil の時に
-;; は利用できないので、 (skk-henkan-mode . VAL) 程度で妥協してください。
-
-;;; Todo:
-
-;; Q による▽モードで一時的 off をできるようにする。
-;; 制御構造を持つ rule-list を用意する(??)。
+;; 動的な入力を無効にしたい時は、M-x skk-toggle-dinsert して下さい。
+;; 又、一時的に無効にしたい時は、Q の入力により▽モードに入って下さい。
+;; 続く一文字目については無効になります。
 
 ;;; Code:
 
 (defvar skk-dinsert-mode t
   "*Non-nil であれば、`skk-dinsert' による動的な入力を有効にする。
-nil であれば `skk-dinsert-rule-list' での t に対応する値を用いる。")
+nil であれば `skk-dinsert-rule-list' での t に対応する値を用いる。
+
+isearch の際には、この変数の値によらず、動的な入力は無効になる。又、
+Q (skk-set-henkan-point-subr) の入力によって▽モードに入ると、直後の
+入力に限り無効になる。")
 
 (defvar skk-dinsert-ignore-lf t
   "*Non-nil であれば、カーソル以前の文字列による条件判定を行頭で行なった場合、改行を無視する。
@@ -185,6 +177,8 @@ VAL には、以下の 3つの形式を指定できる。
          (skk-hiragana (and (not skk-katakana) skk-j-mode))
          val cur-rule cnd)
     (if (or (not skk-dinsert-mode)
+            (and skk-henkan-mode
+                 (= skk-henkan-start-point skk-kana-start-point))
             (and skk-isearch-switch
                  (buffer-live-p skk-isearch-current-buffer)))
         ;; isearch 又は 動的な入力をしないなら t に対応する値を使う
