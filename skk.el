@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.158 2001/10/15 10:01:20 czkmt Exp $
+;; Version: $Id: skk.el,v 1.159 2001/10/16 11:41:39 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/15 10:01:20 $
+;; Last Modified: $Date: 2001/10/16 11:41:39 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -648,14 +648,15 @@ dependent."
 		  ((eq skk-emacs-type 'xemacs)
 		   'pending-delete)
 		  (t
-		   'delete-selection))))
+		   'delete-selection)))
+	(funcs '(skk-current-kuten
+		 skk-current-touten
+		 skk-input-by-code-or-menu
+		 skk-insert
+		 skk-today)))
     (when (and (featurep feature)
 	       (not (get 'skk-insert property)))
-      (dolist (func '(skk-current-kuten
-		      skk-current-touten
-		      skk-input-by-code-or-menu
-		      skk-insert
-		      skk-today))
+      (dolist (func funcs)
 	(put func property t)))))
 
 (defun skk-setup-auto-paren ()
