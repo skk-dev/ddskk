@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.6 2004/12/01 10:43:34 skk-cvs Exp $
+## Version: $Id: bskk,v 1.7 2004/12/08 10:03:48 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2004/12/01 10:43:34 $
+## Last Modified: $Date: 2004/12/08 10:03:48 $
 
 ## This file is part of Daredevil SKK.
 
@@ -41,6 +41,7 @@
 ## てはならない。
 
 ## Code:
+require 'ftools'
 
 $KCODE = "EUC"
 
@@ -274,7 +275,7 @@ class DB
       return true
     end
     if File.exist?( path_to_file )
-      system("cp -p #{path_to_file} #{path_to_bak}")
+      File.copy(path_to_file, path_to_bak)
     end
     path_to_lock = path_to_file + ".lock"
     lock = open( path_to_lock, "w" )
@@ -295,6 +296,7 @@ class DB
   private
   def marshal( io )
     check_type( io, IO )
+    time = Time.now
     @i2prefix2dst.each_with_index{ |prefix2dst, index|
       if prefix2dst == nil
         next
@@ -306,6 +308,7 @@ class DB
         File.expand_path( ARGV[0] )
       }
     }
+    debug_log( "marchasl() took " + (Time.now-time).to_f.to_s + "(sec)." )
   end
 
   ## 混合分布の重みを返す
