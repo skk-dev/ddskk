@@ -1,28 +1,29 @@
 ;; SKK Japanese tutorial text
 ;; Copyright (C) 1988, 1992, 1996, 1998
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;;
+
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut,v 1.3 2000/11/14 12:52:04 czkmt Exp $
-;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 12:52:04 $
+;; Version: $Id: SKK.tut,v 1.4 2000/11/24 14:10:59 czkmt Exp $
+;; Keywords: japanese, help
+;; Last Modified: $Date: 2000/11/24 14:10:59 $
 
-;; This is the tutorial text for Daredevil SKK version 11.1 and and later versions.
-;;
-;; Permission is granted to make and distribute verbatim copies of
-;; this tutorial text provided the copyright notice and this permission notice
+;; This is the tutorial text for Daredevil SKK version 11.1 and later
+;; versions.
+
+;; Permission is granted to make and distribute verbatim copies of this
+;; tutorial text provided the copyright notice and this permission notice
 ;; are preserved on all copies.
 ;;
 ;; Permission is granted to copy and distribute modified versions of this
-;; tutorial text under the conditions for verbatim copying, provided that 
-;; the entire resulting derived work is distributed under the terms of a 
+;; tutorial text under the conditions for verbatim copying, provided that
+;; the entire resulting derived work is distributed under the terms of a
 ;; permission notice identical to this one.
 ;;
-;; Permission is granted to copy and distribute translations of this tutorial
-;; text into another language, under the above conditions for modified
-;; versions, except that this permission notice may be stated in a
-;; translation approved by Masahiko Sato.
+;; Permission is granted to copy and distribute translations of this
+;; tutorial text into another language, under the above conditions for
+;; modified versions, except that this permission notice may be stated in
+;; a translation approved by Masahiko Sato.
 ----
 == SKK チュートリアルの使い方 ==
 
@@ -349,7 +350,7 @@ SKKでの仮名漢字変換は次のようにして行われます。
 【*答*】画面は【▽かなかんじへんけん】となります。
 
 !! カーソルが【*答*】画面にあることを確認し、<delete>キーを２回押してから、
-!! 『kan□.』タイプして下さい。
+!! 『kan□.』とタイプして下さい。
 
 >> 仮名漢字変換。
 ----
@@ -470,8 +471,8 @@ SKKでは、【動く】といった、送り仮名のある語は、以下のように辞書に登録
 
 促音を含む単語の変換は、次の例のようになります。
 
-	『TukaTta□』 → 【使った】
-	『HosSuru□』 → 【欲する】
+	『TukaTta<C-j>』 → 【使った】
+	『HosSuru』 → 【欲する】
 
 辞書は次のようになっています。
 
@@ -533,7 +534,6 @@ russia /а/б/в/г/д/е/ё/ж/
 ミニバッファに
 【7/8 bits or KUTEN code for japanese-jisx0208 (00nn or CR for Jump Menu):】
 というプロンプトがでます。
-
 
 !! 『555c』とタイプし、<return>キーを押して下さい。
 
