@@ -1,3 +1,7 @@
+2000-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* install-info.el: Add comments.
+
 2000-11-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK-MK-generate-autoloads-el-package): Eval the
@@ -2475,8 +2479,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.166 2000/11/23 15:24:48 czkmt Exp $
-Last Modified: $Date: 2000/11/23 15:24:48 $
+Version: $Id: ChangeLog,v 1.167 2000/11/24 05:31:46 czkmt Exp $
+Last Modified: $Date: 2000/11/24 05:31:46 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

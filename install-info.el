@@ -44,10 +44,16 @@
        (unless (bolp)
 	 (insert "\n")))))
 
+(put 'install-info-save-point 'lisp-indent-function 0)
+(defmacro install-info-save-point (&rest forms)
+  (` (let ((original-point (point)))
+       (progn  (,@ forms))
+       (goto-char original-point))))
+
 (defmacro install-info-point-at-eol (&optional n)
   (if (fboundp 'point-at-eol)
       (` (point-at-eol (, n)))
-    (` (save-excursion
+    (` (install-info-save-point
 	 (if (or (null (, n)) (= 1 (, n)))
 	     (end-of-line)
 	   (when (eq (forward-line (- (, n) 1)) 0)
@@ -125,8 +131,10 @@ from DIR-FILE; don't insert any new entries."
     ;;
     (cond
      ((and entry section)
+      ;; Both entry and section is given.
       (setq groups (install-info-groups section entry)))
      (entry
+      ;; Only entry is given. Determine section from the info file.
       (save-excursion
 	(set-buffer buf)
 	(goto-char (point-min))
@@ -140,6 +148,7 @@ from DIR-FILE; don't insert any new entries."
 	(setq section (list "Miscellaneous")))
       (setq groups (install-info-groups section entry)))
      (section
+      ;; Only section is given. Determine entry from the info file.
       (save-excursion
 	(set-buffer buf)
 	(goto-char (point-min))
@@ -150,7 +159,7 @@ from DIR-FILE; don't insert any new entries."
 		  str)
 	      (unless (eolp)
 		(setq str (buffer-substring start (install-info-point-at-eol)))
-		(if (string-match "^* " str)
+		(if (string-match "^\\* " str)
 		    (setq entry (cons str entry))
 		  (when entry
 		    (setq entry
@@ -161,6 +170,7 @@ from DIR-FILE; don't insert any new entries."
 	(error "warning; no info dir entry in %s" info-file))
       (setq groups (install-info-groups section entry)))
      (t
+      ;; Neither entry or section is given.
       (save-excursion
 	(set-buffer buf)
 	(goto-char (point-min))
@@ -168,6 +178,7 @@ from DIR-FILE; don't insert any new entries."
 	  (let (section entry)
 	    (beginning-of-line)
 	    (while (looking-at "^INFO-DIR-SECTION ")
+	      ;; Sometimes multiple sections are given for one entry.
 	      (setq section
 		    (nconc section
 			   (list (buffer-substring
@@ -182,8 +193,9 @@ from DIR-FILE; don't insert any new entries."
 		  (unless (eolp)
 		    (setq str (buffer-substring start
 						(install-info-point-at-eol)))
-		    (if (string-match "^* " str)
+		    (if (string-match "^\\* " str)
 			(setq entry (cons str entry))
+		      ;; Sometimes mutiple lines are used for one entry.
 		      (when entry
 			(setq entry
 			      (cons (format "%s\n%s" (car entry) str)
@@ -195,6 +207,8 @@ from DIR-FILE; don't insert any new entries."
 			   (install-info-groups section entry))))))
 	;;
 	(unless groups
+	  ;; No section is specified on the info file. Use "Miscellaneous"
+	  ;; as the section name.
 	  (goto-char (point-min))
 	  (while (re-search-forward "^START-INFO-DIR-ENTRY" nil t)
 	    (install-info-forward-line 1)
@@ -204,7 +218,7 @@ from DIR-FILE; don't insert any new entries."
 		(unless (eolp)
 		  (setq str (buffer-substring start
 					      (install-info-point-at-eol)))
-		  (if (string-match "^* " str)
+		  (if (string-match "^\\* " str)
 		      (setq entry (cons str entry))
 		    (when entry
 		      (setq entry
@@ -224,6 +238,7 @@ from DIR-FILE; don't insert any new entries."
     (kill-buffer buf)))
 
 (defun install-info-delete-groups (groups dir)
+  ;; Delete all entries given.
   (setq dir (expand-file-name dir))
   (let ((buf (get-buffer-create " *install-info-dir*")))
     (save-excursion
@@ -262,7 +277,9 @@ from DIR-FILE; don't insert any new entries."
 		(and (re-search-forward "^\037" nil t)
 		     (re-search-forward "Node:.*Top" nil t)
 		     (re-search-forward "^\\* Menu:" nil t)))
+	;; If the existing dir file is not valid, replace it with a good one.
 	(unless (= 0 (buffer-size))
+	  ;; Create a backup file.
 	  (install-info-write-region (point-min) (point-max) (concat dir "~")))
 	(erase-buffer)
 	(insert "This is the file .../info/dir, which contains the
@@ -289,6 +306,7 @@ File: dir,	Node: Top	This is the top of the INFO tree
 	  (goto-char (point-min))
 	  (cond
 	   ((re-search-forward (concat "^" sec "$") nil t)
+	    ;; section exists
 	    (install-info-forward-line 1)
 	    (let ((sec-start (point)))
 	      (install-info-skip-blank-lines)
@@ -323,7 +341,7 @@ File: dir,	Node: Top	This is the top of the INFO tree
 				 ((eolp)
 				  (install-info-forward-line 1))
 				 ((not (looking-at "^\\(\\*\\|[ \t]\\)"))
-				  ;; next section
+				  ;; reaches the next section
 				  (throw 'end t))
 				 (t
 				  (install-info-forward-line 1)))))))
@@ -337,13 +355,16 @@ File: dir,	Node: Top	This is the top of the INFO tree
 					     (install-info-point-at-eol))))
 				  (cond
 				   ((not (looking-at "^\\(\\*\\|[ \t]\\)"))
-				    ;; next section
+				    ;; reaches the next section
 				    (let ((pt (point)))
 				      (insert "\n")
-				      (foto-char (point)))
+				      (goto-char (point)))
 				    (throw 'here t))
-				   ((or (looking-at "^[ \t]")
-					(string-lessp line en))
+				   ((or
+				     ;; not at the head of an entry
+				     (looking-at "^[ \t]")
+				     ;; on the way
+				     (string-lessp line en))
 				    (install-info-forward-line 1))
 				   (t
 				    (throw 'here t)))))
@@ -351,7 +372,7 @@ File: dir,	Node: Top	This is the top of the INFO tree
 				(install-info-skip-blank-lines)
 				(if (looking-at "^\\(\\*\\|[ \t]\\)")
 				    (throw 'here nil)
-				  ;; reaches next section.
+				  ;; reaches the next section.
 				  (goto-char maybe-here)
 				  (throw 'here t)))))))
 		  (when (and (eobp) (not (bolp)))
@@ -359,11 +380,13 @@ File: dir,	Node: Top	This is the top of the INFO tree
 		  (insert (format "%s\n" en))
 		  (goto-char en-start)))))
 	   (t
+	    ;; section doesn't exist. Add it at the bottom.
 	    (goto-char (point-max))
 	    (install-info-forward-line 1)
 	    (insert (format "\n%s\n" sec))
 	    (dolist (en (sort entry 'string-lessp))
 		(insert (format "%s\n" en)))))))
+      ;;
       (install-info-write-region (point-min) (point-max) dir))
     (kill-buffer buf)))
 
