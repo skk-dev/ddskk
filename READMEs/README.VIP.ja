@@ -1,0 +1,28 @@
+-*- text -*-
+
+o VIP 3.7 does not work on XEmacs (nor Emacs 20, maybe).
+
+As to vip.el 3.7...
+
+To: skk@sato.kuis.kyoto-u.ac.jp, skk-develop@kuis.kyoto-u.ac.jp
+Subject: 個人辞書サポート と vip.el の改良
+From: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
+Message-Id: <19990825181018Y.masahiko@kuis.kyoto-u.ac.jp>
+Date: Wed, 25 Aug 1999 18:10:18 +0900
+
+o emacs 19.34 では vip-mode で viper ロードされる。これに対抗するため
+  には、以下のように .emacs で設定すればよい。
+
+     (defalias 'vip-mode 'Vip-mode)
+     (autoload 'vip-mode "vip" nil t)
+     (global-set-key "\C-z" 'vip-mode)
+
+o vip と skk の両方を使うユーザは、さらに、以下を追加する。
+
+     (autoload 'vip-skk-mode "vip" nil t)
+     (global-set-key "\C-x\C-j" 'vip-skk-mode)
+
+o vip, skk の両方に関係するコードはすべて、vip.el に吸収したので、skk
+  での個人設定は何もしなくてよい。
+
+[end of README.VIP]
