@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.43 2001/07/05 21:33:46 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.44 2001/07/10 00:01:29 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/05 21:33:46 $
+;; Last Modified: $Date: 2001/07/10 00:01:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -456,11 +456,6 @@ nil であれば、変換に関する記録を取らない。"
 
 (defcustom skk-backward-and-set-henkan-point-char ?\321 ; M-Q
   "*ポイントを戻して▽モードに入るキーキャラクタ。"
-  :type 'character
-  :group 'skk-keybinds)
-
-(defcustom skk-hint-start-char ?\73 ; ;
-  "*ヒント変換を開始するキーキャラクタ"
   :type 'character
   :group 'skk-keybinds)
 
@@ -1532,7 +1527,7 @@ cdr は元号表記の string からなるリスト。"
   :group 'skk-gadget)
 	
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Adrz")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "März")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
@@ -3003,16 +2998,6 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 (skk-deflocalvar skk-dcomp-end-point nil)
 (skk-deflocalvar skk-dcomp-extent nil)
 (defvar skk-dcomp-face 'skk-dcomp-face)
-
-(skk-deflocalvar skk-hint-henkan-hint nil
-  "ヒント付き変換時のヒント部分。
-skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
-
-(skk-deflocalvar skk-hint-start-point nil)
-(skk-deflocalvar skk-hint-end-point nil)
-(skk-deflocalvar skk-hint-okuri-char nil)
-(skk-deflocalvar skk-hint-state nil)
-(skk-deflocalvar skk-hint-inhibit-kakutei nil)
 
 (require 'product)
 (product-provide (provide 'skk-vars) (require 'skk-version))

@@ -1,3 +1,15 @@
+2001-07-10  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* experimental/skk-hint.el: Require skk-macs and skk-vars instead
+	of skk.
+	(skk-hint-member, skk-hint-limit): Use `skk-str-length' instead of
+	`length' and `skk-str-ref' instead of `aref' respectively.
+
+	* skk-vars.el (skk-hint-start-char, skk-hint-henkan-hint) 
+	(skk-hint-start-point, skk-hint-end-point, skk-hint-okuri-char) 
+	(skk-hint-state, skk-hint-inhibit-kakutei): Move to
+	experimental/skk-hint.el.
+
 2001-07-06  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* SKK-MK (SKK_MODULES): Add skk-hint.
@@ -3548,8 +3560,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.309 2001/07/05 21:33:45 minakaji Exp $
-Last Modified: $Date: 2001/07/05 21:33:45 $
+Version: $Id: ChangeLog,v 1.310 2001/07/10 00:01:29 minakaji Exp $
+Last Modified: $Date: 2001/07/10 00:01:29 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

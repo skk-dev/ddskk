@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.100 2001/07/05 21:33:46 minakaji Exp $
+;; Version: $Id: skk.el,v 1.101 2001/07/10 00:01:29 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/05 21:33:46 $
+;; Last Modified: $Date: 2001/07/10 00:01:29 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -862,7 +862,7 @@ dependent."
       (static-if (not (memq skk-emacs-type '(nemacs mule1)))
 	  (let (skk-mode skk-latin-mode skk-j-mode skk-abbrev-mode
 			 skk-jisx0208-latin-mode command)
-;; have to search key binding after binding 4 minor mode flags to nil.
+	    ;; have to search key binding after binding 4 minor mode flags to nil.
 	    (setq command (key-binding keys))
 	    (if (eq command this-command)
 	       ;; avoid recursive calling of skk-emulate-original-map.
@@ -879,7 +879,7 @@ dependent."
 		(use-local-map skk-current-local-map)
 		(setq command (key-binding keys))
 		(if (eq command this-command)
-	       ;; avoid recursive calling of skk-emulate-original-map.
+		    ;; avoid recursive calling of skk-emulate-original-map.
 		    nil
 		  ;; if no bindings are found, call `undefined'.  it's
 		  ;; original behaviour.

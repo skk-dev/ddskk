@@ -36,8 +36,24 @@
 ;; 漢字を持つものに候補を絞ります。
 
 ;;;Code
-(eval-when-compile (require 'skk))
+(eval-when-compile (require 'skk-macs)(require 'skk-vars))
+;; is this necessary?
 (require 'skk-comp)
+
+(defcustom skk-hint-start-char ?\73 ; ;
+  "*ヒント変換を開始するキーキャラクタ"
+  :type 'character
+  :group 'skk-keybinds)
+
+(skk-deflocalvar skk-hint-henkan-hint nil
+  "ヒント付き変換時のヒント部分。
+skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
+
+(skk-deflocalvar skk-hint-start-point nil)
+(skk-deflocalvar skk-hint-end-point nil)
+(skk-deflocalvar skk-hint-okuri-char nil)
+(skk-deflocalvar skk-hint-state nil)
+(skk-deflocalvar skk-hint-inhibit-kakutei nil)
 
 (defadvice skk-search (around skk-hint-ad activate)
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
@@ -159,9 +175,9 @@
   ;; 文字列のリスト KOUHO の中に文字 CHAR を含むものがあれば、その文字列を返す
   (catch 'found
     (dolist (word kouho)
-      (let ((length (length word)))
+      (let ((length (skk-str-length word)))
 	(dotimes (i length)
-	  (if (eq char (aref word i))
+	  (if (eq char (skk-str-ref word i))
 	      (throw 'found word)))))))
 
 (defun skk-hint-limit (kouho hint)
@@ -170,10 +186,10 @@
   (let ((kouho (copy-sequence kouho))
 	result)
     (dolist (string hint)
-      (let ((length (length string)))
+      (let ((length (skk-str-length string)))
 	(dotimes (i length)
 	  (let (ret)
-	    (when (setq ret (skk-hint-member (aref string i) kouho))
+	    (when (setq ret (skk-hint-member (skk-str-ref string i) kouho))
 	      (setq result (cons ret result))
 	      (delete ret kouho))))))
     (nreverse result)))
