@@ -4,7 +4,7 @@
 
 	* skk-kanagaki.el, skk-nicola.el: Rename each one of advice.
 
-	* skk-nicola-us.el: Enable Koyubi fnctions.
+	* skk-nicola-us.el: Enable Koyubi functions.
 
 2001-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
