@@ -1,3 +1,8 @@
+2002-01-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-xemacs.el
+	Don't require skk-setup when XEmacs is started noninteractively.
+
 2002-01-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
@@ -3227,8 +3232,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.613 2002/01/06 09:38:00 czkmt Exp $
-Last Modified: $Date: 2002/01/06 09:38:00 $
+Version: $Id: ChangeLog,v 1.614 2002/01/07 11:40:53 czkmt Exp $
+Last Modified: $Date: 2002/01/07 11:40:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
