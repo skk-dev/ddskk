@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.253 2002/07/27 06:25:01 czkmt Exp $
+;; Version: $Id: skk.el,v 1.254 2002/09/11 11:20:21 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/27 06:25:01 $
+;; Last Modified: $Date: 2002/09/11 11:20:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -808,8 +808,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (interactive "P")
   (skk-with-point-move
    (if (eq skk-henkan-mode 'on)
-       (skk-comp (not (and (= arg 1)
-			   (eq last-command 'skk-comp-do))))
+       (skk-comp (or arg
+		     (not (eq last-command 'skk-comp-do))))
      (skk-emulate-original-map arg))))
 
 (defun skk-latin-mode (arg)
