@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.24 2001/11/25 11:02:31 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.25 2001/11/25 11:05:52 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/25 11:02:31 $
+;; Last Modified: $Date: 2001/11/25 11:05:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -198,7 +198,7 @@
 			   arg)))
 	(when (and skk-server-host (not (skk-open-network-stream))
 		   skk-server-prog
-		   (not (string-match "dbskkd-cdb$" skk-server-prog)))
+		   (not skk-server-inhibit-startup-server))
 	  (setq process (skk-startup-server arg)))))
     (prog1
 	process

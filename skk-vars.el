@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.84 2001/11/25 09:50:24 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.85 2001/11/25 11:05:52 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/25 09:50:24 $
+;; Last Modified: $Date: 2001/11/25 11:05:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2093,6 +2093,12 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
   "*リモートシェルのプログラム名。"
   :type 'file
   :group 'skk-filenames
+  :group 'skk-server)
+
+(defcustom skk-server-inhibit-startup-server
+  "*Non-nil であればサーバと接続できない場合でも `call-process' して立ち上げようとしない。"
+  (string-match "dbskkd" skk-server-prog)
+  :type 'boolean
   :group 'skk-server)
 
 (defcustom skk-server-load-hook nil

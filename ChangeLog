@@ -1,3 +1,11 @@
+2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-server.el (skk-open-server-1): Refer to
+	`skk-server-inhibit-startup-server'.
+
+	* skk-vars.el (skk-server-inhibit-startup-server): New user
+	variable.
+
 2001-11-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-server.el
@@ -2927,8 +2935,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.562 2001/11/25 10:34:55 czkmt Exp $
-Last Modified: $Date: 2001/11/25 10:34:55 $
+Version: $Id: ChangeLog,v 1.563 2001/11/25 11:05:52 minakaji Exp $
+Last Modified: $Date: 2001/11/25 11:05:52 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
