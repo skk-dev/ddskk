@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.47 2000/10/21 02:03:11 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.48 2000/10/21 02:31:46 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/21 02:03:11 $
+@c  Last Modified: $Date: 2000/10/21 02:31:46 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.62
-@set UPDATED $Date: 2000/10/21 02:03:11 $
+@set UPDATED $Date: 2000/10/21 02:31:46 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -6236,14 +6236,13 @@ SKK 10 $B$O!"(B Ring Server Openlab $B$K$F(B CVS $B$rMQ$$$F3+H/$5$l$F$$$^$9
 @item $B%a!<%j%s%0%j%9%H$K;22C$9$k>l9g(B
 
 @samp{skk-request@@ring.gr.jp} $B08$F$N%a!<%k$KK\J8$K(B (@samp{Subject} $B$G$O$"$j(B
-$B$^$;$s(B) @samp{subscribe} $B$H$@$1=q$$$FAw$C$F2<$5$$!#5!3#E*$K=hM}$5$l!"9XFI$,(B
-$B3+;O$5$l$^$9!#(B
+$B$^$;$s(B) @samp{subscribe} $B$H$@$1=q$$$FAw$C$F2<$5$$!#5!3#E*$K2CF~=hM}$5$l$^$9!#(B
 
 @item $B%a!<%j%s%0%j%9%H$+$iC&2q$9$k>l9g(B
 
 @samp{skk-request@@ring.gr.jp} $B08$F$N%a!<%k$KK\J8$K(B (@samp{Subject} $B$G$O$"$j(B
-$B$^$;$s(B) @samp{unsubscribe} $B$H$@$1=q$$$FAw$C$F2<$5$$!#5!3#E*$K=hM}$5$l!"9XFI(B
-$B$,Cf;_$5$l$^$9!#(B
+$B$^$;$s(B) @samp{unsubscribe} $B$H$@$1=q$$$FAw$C$F2<$5$$!#(BML$B$N%a%s%P!<$+$i$"(B
+$B$J$?$N%"%I%l%9$,5!3#E*$K:o=|$5$l$^$9!#(B
 
 @item $BEPO?$7$?%"%I%l%9$NJQ99$9$k>l9g(B
 
@@ -6259,6 +6258,11 @@ SKK 10 $B$O!"(B Ring Server Openlab $B$K$F(B CVS $B$rMQ$$$F3+H/$5$l$F$$$^$9
 Ring Server Openlab $B$G$O!"%K%e!<%9%5!<%P$K@\B3$7$F%a!<%j%s%0%j%9%H$N5-;v$r(B
 $BFI$`$3$H$,$G$-$^$9!#(BNNTP $B%/%i%$%"%s%H$G(B @samp{news.ring.gr.jp} $B$K@\B3$7$^$9!#(B
 $B%K%e!<%9%0%k!<%WL>$O!"(B @samp{ring.openlab.skk} $B$G$9!#(B
+
+HTTP $B7PM3$G%K%e!<%9$r8+$k$3$H$b$G$-$^$9!#(B
+@w{@samp{http://ring.etl.go.jp/news/openlab.skk/}}
+$B%G!<%?%Y!<%9%(%s%8%s$,AuHw$5$l$F$$$^$9$N$G!"%K%e!<%95-;v$N%-!<%o!<%I8!:w(B
+$B$r9T$J$&$3$H$b$G$-$^$9!#(B
 
 @node $B%f!<%6!<%a!<%j%s%0%j%9%H(B, , SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B, SKK$B%a!<%j%s%0%j%9%H(B
 @comment  node-name,  next,  previous,  up
@@ -6386,19 +6390,23 @@ CVS $B$O(B $B0J2<$N%5%$%H$GG[I[$5$l$F$$$^$9!#(B
 
 @samp{http://www.cvshome.org/dev/source.html}
 
-$B$r$4Mw$/$@$5$$!#$^$?!"(BWindows $B$N(B binary $B$,M_$7$$J}$O!"(B
+$B$r$4Mw$/$@$5$$!#(B
 
-@samp{ftp://ftp.cvshome.org/pub/cvs-1.10/windows/cvs-1.10-win.zip}
+@c  $B$^$?!"(BWindows $B$N(B binary $B$,M_$7$$J}$O!"(B
+@c
+@c  @samp{ftp://ftp.cvshome.org/pub/cvs-1.10/windows/cvs-1.10-win.zip}
+@c
+@c  $B$K@5<0HG(B cvs-1.10 $B$N%P%$%J%j!<$,!"(B
+@c
+@c  @samp{ftp://ftp.cvshome.org/pub/cvs-1.10.5/windows/cvs.exe}
+@c
+@c  $B$K3+H/HG(B cvs-1.10.5 $B$N%P%$%J%j!<$,CV$+$l$F$$$^$9!#$^$?!"(BMac $BMQ(B CVS $B$O(B
+@c
+@c  @samp{http://www.maccvs.org/}
+@c
+@c  $B$+$iF~<j2DG=$G$9!#(B
 
-$B$K@5<0HG(B cvs-1.10 $B$N%P%$%J%j!<$,!"(B
-
-@samp{ftp://ftp.cvshome.org/pub/cvs-1.10.5/windows/cvs.exe}
-
-$B$K3+H/HG(B cvs-1.10.5 $B$N%P%$%J%j!<$,CV$+$l$F$$$^$9!#$^$?!"(BMac $BMQ(B CVS $B$O(B
-
-@samp{http://www.maccvs.org/}
-
-$B$+$iF~<j2DG=$G$9!#(BCVS $B$K4X$9$k>pJs$O(B
+CVS $B$K4X$9$k>pJs$O(B
 
 @table @samp
 @item http://www.loria.fr/~molli/cvs-index.html}

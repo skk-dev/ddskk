@@ -24,6 +24,9 @@
 	りありエントリと送りなしエントリ」.
 	(送り仮名が有る場合): Change reference node 「辞書登録モード」 to
 	「サ変動詞の辞書登録に関する注意」.
+	(SKK Ring Server Openlab メーリングリスト): Do not use the word
+	「講読」.
+	Add description about hot to read news via http.
 
 	* READMEs/README.win: Sync up with daredevil's one.
 	Change APEL version 10.2 to 9.22.
