@@ -3,7 +3,7 @@
 	* skk.el:
 	(skk-update-jisyo-1):
 	When PURGE, do not consider `skk-henkan-okuri-strictly' or
-	`skk-henkan-strict-okuri-precedence'. I think it is a trial.
+	`skk-henkan-strict-okuri-precedence'.  I think it is a trial.
 	It will be reverted to the original as soon as something is found
 	to be wrong.
 
@@ -3783,8 +3783,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.675 2002/03/16 14:44:30 czkmt Exp $
-Last Modified: $Date: 2002/03/16 14:44:30 $
+Version: $Id: ChangeLog,v 1.676 2002/03/16 14:45:00 czkmt Exp $
+Last Modified: $Date: 2002/03/16 14:45:00 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
