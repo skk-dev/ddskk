@@ -1,3 +1,11 @@
+2000-10-01  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
+
+	* doc/skk.texi: "辞書サーバを使いたいときの設定" typo fix.
+	"チュートリアル" 英語のチュートリアルファイルについて記述.
+	"ファイル構成"	ファイル名を sort した順番に変更し,
+	skk-cursor.el, skk-develop の記述を追加. 
+	"見出し語の補完" 見易いように space を追加. 
+
 2000-10-01  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-lookup.el: Require bitmap when running on MULE.
