@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.19 2001/09/15 03:35:15 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.20 2001/09/15 03:37:16 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/15 03:35:15 $
+;; Last Modified: $Date: 2001/09/15 03:37:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -79,18 +79,17 @@
       ;; (新規の読みを辞書バッファから探索)
       ;; skk-comp-key はバッファローカル値なので、辞書バッファに移る前に
       ;; 一時変数に移し変えておく。
-      (when (setq c-word (or (let ((word (skk-comp-do-1
-					  skk-comp-key
-					  first)))
-			       (if (member word
-					   skk-comp-stack)
-				   (skk-comp-do-1 skk-comp-key
-						  first)
-				 word))
-			     ;;
-			     (if (and skk-abbrev-mode
-				      skk-use-look)
-				 (skk-look-completion))))
+      (when (setq c-word
+		  (or (let ((word (skk-comp-do-1 skk-comp-key
+						 first)))
+			(if (member word skk-comp-stack)
+			    (skk-comp-do-1 skk-comp-key
+					   first)
+			  word))
+		      ;;
+		      (if (and skk-abbrev-mode
+			       skk-use-look)
+			  (skk-look-completion))))
 	;; 新規に見つけたときだけ cons する。
 	(setq skk-comp-stack (cons c-word skk-comp-stack)))))
     ;; 辞書バッファの外。
