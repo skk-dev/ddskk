@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.5 1999/08/30 12:31:15 minakaji Exp $
+;; Version: $Id: skk.el,v 1.6 1999/08/30 21:10:58 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/30 12:31:15 $
+;; Last Modified: $Date: 1999/08/30 21:10:58 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -109,7 +109,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/08/30 12:31:15 $")
+      (let* ((raw-date "$Date: 1999/08/30 21:10:58 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -3826,7 +3826,9 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 (defun skk-delete-okuri-mark ()
   ;; 送り仮名入力中にカレントバッファに表われる `*' マークを消し、送り仮名関連
   ;; フラグを nil にセットする。
-  (if (not (marker-position skk-okurigana-start-point))
+  (if (or (not skk-okurigana-start-point)
+	  (not (markerp skk-okurigana-start-point))
+	  (not (marker-position skk-okurigana-start-point)) )
       nil
     (skk-save-point
       (and (eq (char-after skk-okurigana-start-point) ?*) ; ?*
