@@ -2,240 +2,240 @@
 
 * 11.5
 
-** GNU Emacs 21 ÂÐ±þ
+** GNU Emacs 21 $BBP1~(B
 
-GNU Emacs 21 ¤ËÂÐ±þ¤·¤Þ¤·¤¿¡£
+GNU Emacs 21 $B$KBP1~$7$^$7$?!#(B
 
-** ÇÛÉÛÊª¤Ë S ¼­½ñ¤¬´Þ¤Þ¤ì¤Þ¤¹¡£
+** $BG[I[J*$K(B S $B<-=q$,4^$^$l$^$9!#(B
 
-½¾Íè¤ÏÊÌ¤Ë¼­½ñ¤òÆþ¼ê¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤·¤¿¡£¸½ºß¤Ç¤ÏÇÛÉÛÊª¤ÎÃæ¤Ë S ¼­½ñ
-¤¬´Þ¤Þ¤ì¤ë¤è¤¦¤Ë¤Ê¤ê¤Þ¤·¤¿¡£
+$B=>Mh$OJL$K<-=q$rF~<j$9$kI,MW$,$"$j$^$7$?!#8=:_$G$OG[I[J*$NCf$K(B S $B<-=q(B
+$B$,4^$^$l$k$h$&$K$J$j$^$7$?!#(B
 
-** Windows ÍÑ¥¤¥ó¥¹¥È¡¼¥é (make.bat) ¤Î²þÎÉ
+** Windows $BMQ%$%s%9%H!<%i(B (make.bat) $B$N2~NI(B
 
-½¾Íè¤Î make.bat ¤Ï´Ä¶­ÊÑ¿ô¤ÎÄêµÁ¤ò½ü¤¤¤¿¾å¤Ç¡¢make1.bat ¤Ë²þÌ¾¤µ¤ì¤Þ¤·
-¤¿¡£
+$B=>Mh$N(B make.bat $B$O4D6-JQ?t$NDj5A$r=|$$$?>e$G!"(Bmake1.bat $B$K2~L>$5$l$^$7(B
+$B$?!#(B
 
-¤Þ¤¿¡¢¤è¤êÈÆÍÑÀ­¤Î¹â¤¤¥¤¥ó¥¹¥È¡¼¥é¤È¤·¤Æ makeit.bat ¤¬ÄÉ²Ã¤µ¤ì¤Þ¤·¤¿¡£
-»ÈÍÑË¡¤Ï ¤³¤Î¥Ç¥£¥ì¥¯¥È¥ê¤Ë¤¢¤ë README.win ¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£
+$B$^$?!"$h$jHFMQ@-$N9b$$%$%s%9%H!<%i$H$7$F(B makeit.bat $B$,DI2C$5$l$^$7$?!#(B
+$B;HMQK!$O(B $B$3$N%G%#%l%/%H%j$K$"$k(B README.win $B$r;2>H$7$F$/$@$5$$!#(B
 
-** Web ¸¡º÷¥¨¥ó¥¸¥ó¤Ë¤è¤ë¸¡º÷
+** Web $B8!:w%(%s%8%s$K$h$k8!:w(B
 
-experimental/skk-w3m.el ¤È¤¤¤¦¿·¤¿¤Ê¥×¥í¥°¥é¥à¤¬ÄÉ²Ã¤µ¤ì¤Þ¤·¤¿¡£
+experimental/skk-w3m.el $B$H$$$&?7$?$J%W%m%0%i%`$,DI2C$5$l$^$7$?!#(B
 
-ÄÌ¾ï¤ÎÊÑ´¹¤Î¤Û¤«¡¢ÄÌ²ß¤ÎÃ±°Ì´¹»»¤Ê¤É¡¢¤«¤Ê¤ê¥¤¥±¤Æ¤ë¤è¤¦¤Ç¤¹¡£
-Îã¤¨¤Ð¡¢¥É¥ë¤ò±ß¤Ë´¹»»¤¹¤ë¤Ë¤Ï
+$BDL>o$NJQ49$N$[$+!"DL2_$NC10L49;;$J$I!"$+$J$j%$%1$F$k$h$&$G$9!#(B
+$BNc$($P!"%I%k$r1_$K49;;$9$k$K$O(B
 
-$# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "±ß")/
-$#.# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "±ß")/
+$# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "$B1_(B")/
+$#.# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "$B1_(B")/
 
-¤È¤¤¤¦¥¨¥ó¥È¥ê¤ò¸Ä¿Í¼­½ñ¤ËÄÉ²Ã¤·¤Þ¤¹¡£
+$B$H$$$&%(%s%H%j$r8D?M<-=q$KDI2C$7$^$9!#(B
 
-skk-w3m.el ¤ò»È¤¦¤Ë¤Ï w3m ¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£
+skk-w3m.el $B$r;H$&$K$O(B w3m $B$r%$%s%9%H!<%k$9$kI,MW$,$"$j$^$9!#(B
 
 http://emacs-w3m.namazu.org
 
-** SKK ¤Ë¥Ò¥ó¥È¤òÍ¿¤¨¤ÆÊÑ´¹
+** SKK $B$K%R%s%H$rM?$($FJQ49(B
 
-experimental/skk-hint.el ¤È¤¤¤¦¿·¤¿¤Ê¥×¥í¥°¥é¥à¤¬ÄÉ²Ã¤µ¤ì¤Þ¤·¤¿¡£
+experimental/skk-hint.el $B$H$$$&?7$?$J%W%m%0%i%`$,DI2C$5$l$^$7$?!#(B
 
-¤³¤ì¤ò»È¤¦¤È¡¢ÄÌ¾ï¤ÎÊÑ´¹Áàºî¤Î¤Ê¤«¤Ç¡¢SKK ¤Ë¥Ò¥ó¥È¤òÍ¿¤¨¤ë¤³¤È¤¬¤Ç¤­¤Þ
-¤¹¡£SKK ¤ÏÍ¿¤¨¤é¤ì¤¿ÆÉ¤ß¤ò´Þ¤ó¤À´Á»ú¤ò»ý¤Ä¤â¤Î¤Ë¸õÊä¤ò¹Ê¤ê¤Þ¤¹¡£
+$B$3$l$r;H$&$H!"DL>o$NJQ49A`:n$N$J$+$G!"(BSKK $B$K%R%s%H$rM?$($k$3$H$,$G$-$^(B
+$B$9!#(BSKK $B$OM?$($i$l$?FI$_$r4^$s$@4A;z$r;}$D$b$N$K8uJd$r9J$j$^$9!#(B
 
-** Ã±°Ì´¹»»¼Â¹ÔÊÑ´¹
+** $BC10L49;;<B9TJQ49(B
 
-Ä¹¤µ¤Ê¤É¤ÎÃ±°Ì´¹»»¤¬¤Ç¤­¤ëµ¡Ç½¤Ç¤¹¡£ºÇ¿·¤Î SKK-JISYO.L ¤òÍÑ¤¤¤ì¤Ð
+$BD9$5$J$I$NC10L49;;$,$G$-$k5!G=$G$9!#:G?7$N(B SKK-JISYO.L $B$rMQ$$$l$P(B
 
-  ¢¦97mile ¢ª 156.1021km
+  $B"&(B97mile $B"*(B 156.1021km
 
-¤Î¤è¤¦¤ÊÊÑ´¹¤¬²ÄÇ½¤Ç¤¹¡£Â¾¤Ë yard, feet, inch ¤òÂ¾¤ÎÃ±°Ì¤Ë´¹»»¤Ç¤­¤Þ
-¤¹¡£`skk-units-alist' ¤È¤¤¤¦ÊÑ¿ô¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£
+$B$N$h$&$JJQ49$,2DG=$G$9!#B>$K(B yard, feet, inch $B$rB>$NC10L$K49;;$G$-$^(B
+$B$9!#(B`skk-units-alist' $B$H$$$&JQ?t$r;2>H$7$F$/$@$5$$!#(B
 
-** ÆüÉÕÁÞÆþµ¡Ç½¤Î¶¯²½
+** $BF|IUA^F~5!G=$N6/2=(B
 
-ÄÌ¾ï @ ¤ò²¡¤¹¤³¤È¤Ë¤è¤Ã¤ÆÆüÉÕ¤¬ÁÞÆþ¤µ¤ì¤Þ¤¹¤¬¡¢¤³¤Îµ¡Ç½¤¬³ÈÄ¥¤µ¤ì¤Þ¤·
-¤¿¡£¼­½ñ¤ÎÀßÄê¤ÈÊÑ¿ô¤ÎÀßÄê¼¡Âè¤ÇÍÍ¡¹¤Ê·Á¼°¤ÎÆüÉÕ¤òÁÞÆþ¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ
-¤¹¡£É¸½à¤Ç¤Ï±Ñ¸ìÉ½µ­¡¢ÆüËÜ¸ìÉ½µ­¤Ë²Ã¤¨¤Æ¡¢¥É¥¤¥Ä¸ìÉ½µ­¤â²ÄÇ½¤Ç¤¹¡£
+$BDL>o(B @ $B$r2!$9$3$H$K$h$C$FF|IU$,A^F~$5$l$^$9$,!"$3$N5!G=$,3HD%$5$l$^$7(B
+$B$?!#<-=q$N@_Dj$HJQ?t$N@_Dj<!Bh$GMM!9$J7A<0$NF|IU$rA^F~$9$k$3$H$,$G$-$^(B
+$B$9!#I8=`$G$O1Q8lI=5-!"F|K\8lI=5-$K2C$($F!"%I%$%D8lI=5-$b2DG=$G$9!#(B
 
-°Ê²¼¤ÎÊÑ¿ô¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£
+$B0J2<$NJQ?t$r;2>H$7$F$/$@$5$$!#(B
 
  `skk-gengo-alist'
  `skk-month-alist'
  `skk-day-of-week-alist'
  `skk-default-current-date-function'
 
-¤Þ¤¿¡¢¼­½ñ¤Ø¤Îµ­ÆþÎã¤Ï¡¢ºÇ¿·¤Î SKK-JISYO.L ¤ò¼èÆÀ¤·¤Æ¡¢today ¥¨¥ó¥È¥ê
-¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£
+$B$^$?!"<-=q$X$N5-F~Nc$O!":G?7$N(B SKK-JISYO.L $B$r<hF@$7$F!"(Btoday $B%(%s%H%j(B
+$B$r;2>H$7$F$/$@$5$$!#(B
 
-** º®¤¼½ñ¤­¼­½ñ
+** $B:.$<=q$-<-=q(B
 
-tut-code/skk-mkmgk.el ¤Ïº®¤¼½ñ¤­ SKK ¼­½ñ¤òºîÀ®¤¹¤ë¥Ä¡¼¥ë¤Ç¤¹¡£
+tut-code/skk-mkmgk.el $B$O:.$<=q$-(B SKK $B<-=q$r:n@.$9$k%D!<%k$G$9!#(B
 
-¤Þ¤¿¡¢ºîÀ®¤µ¤ì¤¿º®¤¼½ñ¤­¼­½ñ¤¬ SKK-JISYO.mazegaki ¤È¤¤¤¦Ì¾Á°¤Ç SKK ³«
-È¯¥é¥Ü¤«¤éÇÛÉÛ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£
+$B$^$?!":n@.$5$l$?:.$<=q$-<-=q$,(B SKK-JISYO.mazegaki $B$H$$$&L>A0$G(B SKK $B3+(B
+$BH/%i%\$+$iG[I[$5$l$F$$$^$9!#(B
 
-** ¤Á¤ç¤Ã¤È¥ª¥·¥ã¥ì (?) ¤Ê¥¤¥ó¥¸¥±¡¼¥¿
+** $B$A$g$C$H%*%7%c%l(B (?) $B$J%$%s%8%1!<%?(B
 
-¤³¤Îµ¡Ç½¤Ï FSF Emacs 21 ¤È XEmacs ¤Î¤ßÍ­¸ú¤Ç¤¹¡£¥¤¥ó¥¸¥±¡¼¥¿¤ò¥â¡¼¥É¹Ô
-¤Îº¸¤ËÉ½¼¨¤¹¤ë¾ì¹ç¡¢¥«¡¼¥½¥ë¤Î¿§¤ÈÆ±¤¸¿§¤¬ÉÕ¤¯¤è¤¦¤Ë¤·¤Þ¤·¤¿¡£¤Þ¤¿¡¢¤³
-¤Î¥¤¥ó¥¸¥±¡¼¥¿¤Î¤È¤³¤í¤Ç¥Þ¥¦¥¹¤ÎÂè 2 ¥Ü¥¿¥ó¤ò¥¯¥ê¥Ã¥¯¤¹¤ë¤È¡¢¥Ý¥Ã¥×¥¢¥Ã
-¥×¥á¥Ë¥å¡¼¤¬É½¼¨¤µ¤ì¤Þ¤¹¡£¥á¥Ë¥å¡¼¤Î¹àÌÜ¤Ï¡¢½é¿´¼Ô¤ËÌòÎ©¤Á¤½¤¦¤Ê¤³¤È¤ò
-Ãæ¿´¤ËÁª¤ó¤Ç¤¤¤Þ¤¹¡£
+$B$3$N5!G=$O(B FSF Emacs 21 $B$H(B XEmacs $B$N$_M-8z$G$9!#%$%s%8%1!<%?$r%b!<%I9T(B
+$B$N:8$KI=<($9$k>l9g!"%+!<%=%k$N?'$HF1$8?'$,IU$/$h$&$K$7$^$7$?!#$^$?!"$3(B
+$B$N%$%s%8%1!<%?$N$H$3$m$G%^%&%9$NBh(B 2 $B%\%?%s$r%/%j%C%/$9$k$H!"%]%C%W%"%C(B
+$B%W%a%K%e!<$,I=<($5$l$^$9!#%a%K%e!<$N9`L\$O!"=i?4<T$KLrN)$A$=$&$J$3$H$r(B
+$BCf?4$KA*$s$G$$$^$9!#(B
 
-(²èÁü¤ò»È¤Ã¤Æ¤â¤Ã¤È¥ª¥·¥ã¥ì¤Ë¤¹¤ë¡¢¤Ê¤ó¤Æ¤³¤È¤â²ÄÇ½¤Ç¤¹¡£)
+($B2hA|$r;H$C$F$b$C$H%*%7%c%l$K$9$k!"$J$s$F$3$H$b2DG=$G$9!#(B)
 
-** ¸«½Ð¤·¸ì¤Î·«¤êÊÖ¤·ÆþÎÏ
+** $B8+=P$78l$N7+$jJV$7F~NO(B
 
-`Q' ¤ò²¡¤·¤Æ¢¦¥â¡¼¥É¤ËÆþ¤ê¡¢TAB ¤ò²¡¤¹¤È¡¢¤½¤ì¤Þ¤Ç¤Ë³ÎÄê¤·¤¿Á÷¤êÌµ¤·¤Î
-¸«½Ð¤·¸ì¤¬ÁÞÆþ¤µ¤ì¤Þ¤¹¡£¤³¤ì¤ÏÀÎ¤Î¥ï¡¼¥×¥í¤Ç¤¤¤¦¤È¤³¤í¤Î·«¤êÊÖ¤·ÆþÎÏ
-(¥Æ¥ó¥×¥ì¡¼¥ÈÆþÎÏ¡©) ¤Î¤è¤¦¤Ê´¶¤¸¤Îµ¡Ç½¤È¤¤¤¨¤Ð¤¤¤¤¤ó¤Ç¤·¤ç¤¦¤«¡£
+`Q' $B$r2!$7$F"&%b!<%I$KF~$j!"(BTAB $B$r2!$9$H!"$=$l$^$G$K3NDj$7$?Aw$jL5$7$N(B
+$B8+=P$78l$,A^F~$5$l$^$9!#$3$l$O@N$N%o!<%W%m$G$$$&$H$3$m$N7+$jJV$7F~NO(B
+($B%F%s%W%l!<%HF~NO!)(B) $B$N$h$&$J46$8$N5!G=$H$$$($P$$$$$s$G$7$g$&$+!#(B
 
-·«¤êÊÖ¤· TAB ¤ò²¡¤¹¤³¤È¤Ç¡¢³ÎÄê¤·¤¿¸«½Ð¤·¸ì¤ÎÍúÎò¤ò¤¿¤É¤ë¤³¤È¤¬¤Ç¤­¤Þ
-¤¹¡£¤³¤ÎÍúÎò¤Ï `skk-kakutei-history' ¤È¤¤¤¦ÊÑ¿ô¤ËÊÝ»ý¤µ¤ì¤Þ¤¹¡£¤Þ¤¿¡¢
-ÊÝ»ý¤¹¤ëÍúÎò¤Î¿ô¤ÎºÇÂçÃÍ¤Ï `skk-kakutei-history-limit' ¤ÎÃÍ¤Ë¤è¤Ã¤Æ·è
-¤Þ¤ê¤Þ¤¹¡£É¸½à¤Ç¤Ï¡¢20 ¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£
+$B7+$jJV$7(B TAB $B$r2!$9$3$H$G!"3NDj$7$?8+=P$78l$NMzNr$r$?$I$k$3$H$,$G$-$^(B
+$B$9!#$3$NMzNr$O(B `skk-kakutei-history' $B$H$$$&JQ?t$KJ];}$5$l$^$9!#$^$?!"(B
+$BJ];}$9$kMzNr$N?t$N:GBgCM$O(B `skk-kakutei-history-limit' $B$NCM$K$h$C$F7h(B
+$B$^$j$^$9!#I8=`$G$O!"(B20 $B$H$J$C$F$$$^$9!#(B
 
-** ¥«¥¿¥«¥Ê¸ì¤òÊÑ´¹¤Ë¤è¤Ã¤ÆÆþÎÏ
+** $B%+%?%+%J8l$rJQ49$K$h$C$FF~NO(B
 
-ÊÑ´¹¸õÊä¤Ë¥«¥¿¥«¥Ê¸ì¤¬¸½¤ì¤ë¤è¤¦¤Ë¤·¤¿¤¤¾ì¹ç¤Ï ~/.skk ¤Ë
+$BJQ498uJd$K%+%?%+%J8l$,8=$l$k$h$&$K$7$?$$>l9g$O(B ~/.skk $B$K(B
 
  (setq skk-search-prog-list
        (skk-nunion skk-search-prog-list
                    '((skk-search-katakana))))
 
-¤È½ñ¤­¤Þ¤¹¡£¤³¤ÎÊýË¡¤Ç¤Ï¡¢q ¤Ç¥«¥¿¥«¥Ê¤òÆþÎÏ¤¹¤ë¤Î¤ËÈæ¤Ù¤Æ¡¢¼­½ñÅÐÏ¿¤Ç
-¤­¤ë¤È¤¤¤¦¥á¥ê¥Ã¥È¤¬¤¢¤ê¤Þ¤¹¡£
+$B$H=q$-$^$9!#$3$NJ}K!$G$O!"(Bq $B$G%+%?%+%J$rF~NO$9$k$N$KHf$Y$F!"<-=qEPO?$G(B
+$B$-$k$H$$$&%a%j%C%H$,$"$j$^$9!#(B
 
-** µ¼»÷¥µÊÑÆþÎÏ
+** $B5<;w%5JQF~NO(B
 
-¥µ¹ÔÊÑ³Ê³èÍÑ¤ÎÆ°»ì¤òÁ÷¤ê¤¢¤êÊÑ´¹¤Ç¤­¤ë¤è¤¦¤Ë¤¹¤ë¤Ë¤Ï ~/.skk ¤Ë
+$B%59TJQ3J3hMQ$NF0;l$rAw$j$"$jJQ49$G$-$k$h$&$K$9$k$K$O(B ~/.skk $B$K(B
 
  (setq skk-search-prog-list
        (skk-nunion skk-search-prog-list
                    '((skk-search-sagyo-henkaku))))
 
-¤È½ñ¤­¤Þ¤¹¡£
+$B$H=q$-$^$9!#(B
 
 
 * 11.4
 
-** ¡Ö°ÕÌ£¡×¤ò´Þ¤à¼­½ñ¤Î¼Â¸½¡£
+** $B!V0UL#!W$r4^$`<-=q$N<B8=!#(B
 
-experimental/skk-annotation.el ¤È¤¤¤¦¿·¤¿¤Ê¼Â¸³¥×¥í¥°¥é¥à¤¬ÄÉ²Ã¤µ¤ì¤Þ
-¤·¤¿¡£
-¤³¤ì¤ËÈ¼¤¤¡¢SKK ¼­½ñ¤Ë¡Ö°ÕÌ£(Ãð¼á)¡×¤ò½ñ¤­¤³¤à¤¿¤á¤Î»ÅÍÍ¤Ë¤Ä¤¤¤ÆµÄÏÀ¤µ
-¤ì¡¢Daredevil SKK ËÜÂÎ¤Ë¤Ï¤³¤Î¤¿¤á¤Îµ¡Ç½¤¬ÄÉ²Ã¤µ¤ì¤Þ¤·¤¿¡£
+experimental/skk-annotation.el $B$H$$$&?7$?$J<B83%W%m%0%i%`$,DI2C$5$l$^(B
+$B$7$?!#(B
+$B$3$l$KH<$$!"(BSKK $B<-=q$K!V0UL#(B($BCp<a(B)$B!W$r=q$-$3$`$?$a$N;EMM$K$D$$$F5DO@$5(B
+$B$l!"(BDaredevil SKK $BK\BN$K$O$3$N$?$a$N5!G=$,DI2C$5$l$^$7$?!#(B
 
-** Info ¤Î¥¨¥ó¥È¥ê¤Î¼«Æ°ÄÉ²Ã¡£
+** Info $B$N%(%s%H%j$N<+F0DI2C!#(B
 
-Îã¤¨¤Ð¡¢skk.info ¤ò /usr/local/info/ °Ê²¼¤Ë¥¤¥ó¥¹¥È¡¼¥ë¤·¤¿¾ì¹ç¡¢
-/usr/local/info/dir ¤È¤¤¤¦¥Õ¥¡¥¤¥ë¤Ë skk.info ¤ò»²¾È¤¹¤ë¤¿¤á¤Î¥¨¥ó¥È¥ê
-¤ò¼«Æ°Åª¤Ë½ñ¤­¹þ¤àµ¡Ç½¤¬ÄÉ²Ã¤µ¤ì¤Þ¤·¤¿¡£
+$BNc$($P!"(Bskk.info $B$r(B /usr/local/info/ $B0J2<$K%$%s%9%H!<%k$7$?>l9g!"(B
+/usr/local/info/dir $B$H$$$&%U%!%$%k$K(B skk.info $B$r;2>H$9$k$?$a$N%(%s%H%j(B
+$B$r<+F0E*$K=q$-9~$`5!G=$,DI2C$5$l$^$7$?!#(B
 
-** ¼«Æ°¥Õ¥£¥ëµ¡Ç½¤ÎÉü³è¡£
+** $B<+F0%U%#%k5!G=$NI|3h!#(B
 
-¼«Æ°¥Õ¥£¥ëµ¡Ç½¤¬Í­¸ú¤Ë¤Ê¤Ã¤Æ¤¤¤ë¥Ð¥Ã¥Õ¥¡¤Ë¤ª¤±¤ë¡¢¼«Æ°¥Õ¥£¥ë¤ÎµóÆ°¤ò
-SKK 9.6 °ÊÁ°¤Î¤½¤ì¤ËÌá¤·¤Þ¤·¤¿¡£
+$B<+F0%U%#%k5!G=$,M-8z$K$J$C$F$$$k%P%C%U%!$K$*$1$k!"<+F0%U%#%k$N5sF0$r(B
+SKK 9.6 $B0JA0$N$=$l$KLa$7$^$7$?!#(B
 
 ** NICOLA-DDSKK
 
-NICOLA-DDSKK ¤Ï¤â¤Ï¤ä¼Â¸³ÈÇ¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£experimental/nicola/ ¤«¤é
-nicola/ ¤Ë°Ü¤µ¤ì¤Þ¤·¤¿¡£
+NICOLA-DDSKK $B$O$b$O$d<B83HG$G$O$"$j$^$;$s!#(Bexperimental/nicola/ $B$+$i(B
+nicola/ $B$K0\$5$l$^$7$?!#(B
 
 
 * 11.3
 
-** ´ðËÜÀßÄê¤Î¼«Æ°²½¡£
+** $B4pK\@_Dj$N<+F02=!#(B
 
-Emacs 20 °Ê¹ß¤Î¤¿¤á¤Ë leim-list.el ¤òÍÑ°Õ¤¹¤ë¤³¤È¤Ë¤è¤ê¡¢¼«Æ°Åª¤Ë´ðËÜ
-ÀßÄê¤¬¤µ¤ì¤ë¤è¤¦¤Ë¤Ê¤Ã¤¿¡£
+Emacs 20 $B0J9_$N$?$a$K(B leim-list.el $B$rMQ0U$9$k$3$H$K$h$j!"<+F0E*$K4pK\(B
+$B@_Dj$,$5$l$k$h$&$K$J$C$?!#(B
 
-¤¿¤À¤·¡¢Emacs ¤Ïµ¯Æ°»þ¤Ë load-path ¤ÎºÇ¾å°Ì¤Ë¤¢¤ë leim-list.el ¤ò¥í¡¼
-¥É¤¹¤ë¤À¤±¤Ê¤Î¤Ç¡¢skk ¤Î¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤¿¥Ç¥£¥ì¥¯¥È¥ê¤è¤ê¾å°Ì¤Î¥Ç¥£¥ì
-¥¯¥È¥ê¤Ë leim-list.el ¤¬¤¢¤ì¤Ð¤³¤Îµ¡Ç½¤ÏÌµ¸ú¤Ë¤Ê¤ë¡£(*)
+$B$?$@$7!"(BEmacs $B$O5/F0;~$K(B load-path $B$N:G>e0L$K$"$k(B leim-list.el $B$r%m!<(B
+$B%I$9$k$@$1$J$N$G!"(Bskk $B$N%$%s%9%H!<%k$5$l$?%G%#%l%/%H%j$h$j>e0L$N%G%#%l(B
+$B%/%H%j$K(B leim-list.el $B$,$"$l$P$3$N5!G=$OL58z$K$J$k!#(B(*)
 
-  (*) ¤¿¤À¤·¡¢egg/leim-list.el ¤Ï load-path ¾å¤Î¤¹¤Ù¤Æ¤Î leim-list.el
-      ¤ò¥í¡¼¥É¤¹¤ë¤Î¤Ç¤³¤Î¸Â¤ê¤Ç¤Ï¤Ê¤¤¡£Æ±µ¡Ç½¤Ï skk/leim-list.el ¤Ë¤â
-      ¼è¤ê¤³¤ó¤À¡£
+  (*) $B$?$@$7!"(Begg/leim-list.el $B$O(B load-path $B>e$N$9$Y$F$N(B leim-list.el
+      $B$r%m!<%I$9$k$N$G$3$N8B$j$G$O$J$$!#F15!G=$O(B skk/leim-list.el $B$K$b(B
+      $B<h$j$3$s$@!#(B
 
-¤³¤ÎÌäÂê¤Ï GNU Emacs 20 ¤Ç¤ÏÉáÄÌ¸½¤ì¤Ê¤¤¤¬¡¢XEmacs ¤Ç¤Ï¸½¤ì¤¦¤ë¡£
-¶ñÂÎÅª¤Ë¤Ï¡¢/usr/local/lib/xemacs/mule-packages/lisp/leim/ ¤¬
-/usr/local/lib/xemacs/mule-packages/lisp/skk/ ¤è¤ê load-path ¤Î¾å°Ì¤Ë
-¤¯¤ë¤¿¤á¡¢leim/leim-list.el ¤¬¥í¡¼¥É¤µ¤ì¤Æ¤·¤Þ¤¤¡¢skk/leim-list.el ¤¬
-¥í¡¼¥É¤µ¤ì¤Ê¤¤¡£¤½¤Î¤¿¤á¡¢XEmacs ¤Ç¤Ï skk/leim-list.el ¤ÏÍÑ¤¤¤Ê¤¤¤³¤È
-¤Ë¤·¤Æ¤¤¤ë¡£¤½¤ÎÂå¤ï¤ê¡¢XEmacs ¤Î¥Ñ¥Ã¥±¡¼¥¸¤Ç¤Ï auto-autoloads.el ¤¬¼«
-Æ°Åª¤Ë¥í¡¼¥É¤µ¤ì¤ë¤Î¤Ç¤³¤ì¤òÍøÍÑ¤·¤Æ¤¤¤ë¡£
+$B$3$NLdBj$O(B GNU Emacs 20 $B$G$OIaDL8=$l$J$$$,!"(BXEmacs $B$G$O8=$l$&$k!#(B
+$B6qBNE*$K$O!"(B/usr/local/lib/xemacs/mule-packages/lisp/leim/ $B$,(B
+/usr/local/lib/xemacs/mule-packages/lisp/skk/ $B$h$j(B load-path $B$N>e0L$K(B
+$B$/$k$?$a!"(Bleim/leim-list.el $B$,%m!<%I$5$l$F$7$^$$!"(Bskk/leim-list.el $B$,(B
+$B%m!<%I$5$l$J$$!#$=$N$?$a!"(BXEmacs $B$G$O(B skk/leim-list.el $B$OMQ$$$J$$$3$H(B
+$B$K$7$F$$$k!#$=$NBe$o$j!"(BXEmacs $B$N%Q%C%1!<%8$G$O(B auto-autoloads.el $B$,<+(B
+$BF0E*$K%m!<%I$5$l$k$N$G$3$l$rMxMQ$7$F$$$k!#(B
 
-¤Ê¤ª¡¢leim-list.el ¤ò¥í¡¼¥É¤·¤Ê¤¤¤â¤Î (Emacs 19) ¤Ë¤ª¤¤¤Æ¤â
+$B$J$*!"(Bleim-list.el $B$r%m!<%I$7$J$$$b$N(B (Emacs 19) $B$K$*$$$F$b(B
 
 (require 'skk-setup)
 
-¤Ç´ðËÜÀßÄê¤¬¤Ç¤­¤ë¡£
+$B$G4pK\@_Dj$,$G$-$k!#(B
 
-** skk-isearch ¤Î input method ÂÐ±þ¡£
+** skk-isearch $B$N(B input method $BBP1~!#(B
 
-** Emacs 18 ÂÐ±þ¡£
+** Emacs 18 $BBP1~!#(B
 
-Nemacs 3.3.2 ¤ª¤è¤Ó Mule 1.1 ¾å¤Ç´ðËÜÅª¤Êµ¡Ç½¤¬Æ°¤¯¤è¤¦¤Ë¤Ê¤Ã¤¿¡£¤¿¤À
-¤·Ë°¤¯¤Þ¤ÇÈó¸ø¼°ÂÐ±þ¡£¤³¤Îµ¡Ç½¤Ï experimental/skk-e18.el ¤Ë¤è¤êÄó¶¡¤µ
-¤ì¤ë¡£
+Nemacs 3.3.2 $B$*$h$S(B Mule 1.1 $B>e$G4pK\E*$J5!G=$,F0$/$h$&$K$J$C$?!#$?$@(B
+$B$7K0$/$^$GHs8x<0BP1~!#$3$N5!G=$O(B experimental/skk-e18.el $B$K$h$jDs6!$5(B
+$B$l$k!#(B
 
-¤Þ¤¿¡¢Emacs 18 ¤Î¤¿¤á¤ËÉ¬Í×¤È¤µ¤ì¤ë¤â¤Î¡¢¤ª¤è¤Ó¤¢¤ë¤ÈÊØÍø¤Ê¤â¤Î¤ò
-patch/e18 ¥Ç¥£¥ì¥¯¥È¥ê¤Ë¼ýÏ¿¤·¤¿¡£
+$B$^$?!"(BEmacs 18 $B$N$?$a$KI,MW$H$5$l$k$b$N!"$*$h$S$"$k$HJXMx$J$b$N$r(B
+patch/e18 $B%G%#%l%/%H%j$K<}O?$7$?!#(B
 
-** ¸õÊäÉ½¼¨¤¬Ä¹¤¤¾ì¹ç¤ËÂÐ±þ¤¹¤ëµ¡Ç½ (ÀìÍÑ¤Î window ¤ò»È¤¦)¡£
+** $B8uJdI=<($,D9$$>l9g$KBP1~$9$k5!G=(B ($B@lMQ$N(B window $B$r;H$&(B)$B!#(B
 
-¸õÊä°ìÍ÷¤¬°ì¹Ô¤Ç¤ÏÉ½¼¨¤·¤­¤ì¤Ê¤¤¾ì¹ç¤Ë¡¢¥¦¥£¥ó¥É¥¦¤òÊ¬³ä¤·¤Æ¤½¤³¤Ë¸õÊä
-°ìÍ÷¤¬É½¼¨¤µ¤ì¤ë¤è¤¦¤Ë¤Ê¤Ã¤¿¡£ÁàºîÀ­¤ËÊÑ¹¹¤Ï¤Ê¤¤¡£
+$B8uJd0lMw$,0l9T$G$OI=<($7$-$l$J$$>l9g$K!"%&%#%s%I%&$rJ,3d$7$F$=$3$K8uJd(B
+$B0lMw$,I=<($5$l$k$h$&$K$J$C$?!#A`:n@-$KJQ99$O$J$$!#(B
 
-** JIS X 0213 ¥µ¥Ý¡¼¥È¡£
+** JIS X 0213 $B%5%]!<%H!#(B
 
-skk-jisx0213.el ¤Ë¤è¤ê¤³¤Îµ¡Ç½¤¬Äó¶¡¤µ¤ì¤ë¡£
+skk-jisx0213.el $B$K$h$j$3$N5!G=$,Ds6!$5$l$k!#(B
 
-** ²¾Ì¾ÆþÎÏÂÐ±þ (experimental/nicola)¡£
+** $B2>L>F~NOBP1~(B (experimental/nicola)$B!#(B
 
-experimental/nicola ¥Ç¥£¥ì¥¯¥È¥ê¤Ë¡¢SKK ¤ò²¾Ì¾ÆþÎÏÂÐ±þ¤µ¤»¤ë¤¿¤á¤Î¥×¥í
-¥°¥é¥à¤¬ÄÉ²Ã¤µ¤ì¤¿¡£
+experimental/nicola $B%G%#%l%/%H%j$K!"(BSKK $B$r2>L>F~NOBP1~$5$;$k$?$a$N%W%m(B
+$B%0%i%`$,DI2C$5$l$?!#(B
 
-** skk-look ¤Ë¤è¤ë ispell ¤ò»ÈÍÑ¤·¤¿½¤Àµ¡£
+** skk-look $B$K$h$k(B ispell $B$r;HMQ$7$?=$@5!#(B
 
-skk-look ¤Ç±ÑÃ±¸ì¤Ê¤É¸¡º÷¤¹¤ëºÝ¤Ë¡¢ispell ¤ÇÄÖ¤ê¤ò½¤Àµ¤¹¤ëµ¡Ç½¤¬ÄÉ²Ã¤µ
-¤ì¤¿¡£
+skk-look $B$G1QC18l$J$I8!:w$9$k:]$K!"(Bispell $B$GDV$j$r=$@5$9$k5!G=$,DI2C$5(B
+$B$l$?!#(B
 
-** APEL ¤Î¥Ð¡¼¥¸¥ç¥ó¥Á¥§¥Ã¥¯¡£
+** APEL $B$N%P!<%8%g%s%A%'%C%/!#(B
 
-APEL ¤Î¥Ð¡¼¥¸¥ç¥ó¤ò¥Á¥§¥Ã¥¯¤¹¤ë¤¿¤á¡¢product.el ¤òÍøÍÑ¤¹¤ë¤è¤¦¤Ë¤Ê¤ê¤Þ¤·¤¿¡£
-¸½ºß¡¢APEL ¤Ï 10.2 °Ê¹ß¤¬É¬Í×¤È¤Ê¤ê¤Þ¤¹¡£
+APEL $B$N%P!<%8%g%s$r%A%'%C%/$9$k$?$a!"(Bproduct.el $B$rMxMQ$9$k$h$&$K$J$j$^$7$?!#(B
+$B8=:_!"(BAPEL $B$O(B 10.2 $B0J9_$,I,MW$H$J$j$^$9!#(B
 
-** ¿·¤·¤¤¥«¡¼¥½¥ëÀ©¸æµ¡¹½¤òºÎÍÑ¡£
+** $B?7$7$$%+!<%=%k@)8f5!9=$r:NMQ!#(B
 
-GNU Emacs ¤Ë¤ª¤¤¤Æ¤Ï¡¢ccc.el ¤Ë¤è¤ê¿·¤·¤¤¥«¡¼¥½¥ëÀ©¸æµ¡¹½¤¬Äó¶¡¤µ¤ì¤ë¡£
-XEmacs ¤Ë¤Ä¤¤¤Æ¤ÏËÜÂÎ¤¬¤è¤êÎÉ¤¤À©¸æµ¡¹½¤ò»ý¤Ã¤Æ¤¤¤ë¤³¤È¤¬Ê¬¤«¤Ã¤¿¤Î¤Ç¡¢
-¤«¤Ê¤ê´Ê·é¤Êµ­½Ò¤Ç¥«¡¼¥½¥ëÀ©¸æ¤¬¤Ç¤­¤ë¤è¤¦¤Ë¤Ê¤Ã¤¿¡£
+GNU Emacs $B$K$*$$$F$O!"(Bccc.el $B$K$h$j?7$7$$%+!<%=%k@)8f5!9=$,Ds6!$5$l$k!#(B
+XEmacs $B$K$D$$$F$OK\BN$,$h$jNI$$@)8f5!9=$r;}$C$F$$$k$3$H$,J,$+$C$?$N$G!"(B
+$B$+$J$j4J7i$J5-=R$G%+!<%=%k@)8f$,$G$-$k$h$&$K$J$C$?!#(B
 
-** ´Ø¿ô skk-set-cursor-properly ¤ÏÇÑ»ß¤µ¤ì¤Þ¤·¤¿¡£
+** $B4X?t(B skk-set-cursor-properly $B$OGQ;_$5$l$^$7$?!#(B
 
-isearch ¤ÎÀßÄê¤Ç add-hook ¤·¤Æ¤¤¤ë¾ì¹ç¤Ê¤É¡¢ skk-set-cursor-properly
-¤ÎÀßÄê¤òºï½ü¤·¤Æ²¼¤µ¤¤¡£
+isearch $B$N@_Dj$G(B add-hook $B$7$F$$$k>l9g$J$I!"(B skk-set-cursor-properly
+$B$N@_Dj$r:o=|$7$F2<$5$$!#(B
 
-** custom group ¤Î¸«Ä¾¤·¡£
+** custom group $B$N8+D>$7!#(B
 
-¥«¥¹¥¿¥Þ¥¤¥º¤·°×¤¤¤è¤¦¤Ë¡¢custom group ¤Î¸«Ä¾¤·¤¬¹Ô¤ï¤ì¤¿¡£
+$B%+%9%?%^%$%:$70W$$$h$&$K!"(Bcustom group $B$N8+D>$7$,9T$o$l$?!#(B
 
-** Input Method ¤È¤·¤Æ¤Îµ¡Ç½¤Î²þÁ±¡£
+** Input Method $B$H$7$F$N5!G=$N2~A1!#(B
 
-Emacs 20 ¤Î°Ù¤Î½¤Àµ¡£SKK ¤ò Emacs ¤Î Input Method ¤È¤·¤Æ»ÈÍÑ¤·¤Æ¤¤¤ë¤È
-¤­¡¢´Ø¿ô `read-from-minibuffer' ¤Î Âè 7 °ú¿ô INHERIT-INPUT-METHOD ¤ò
-Èó nil ¤Ë¤·¤Æ¤âÀµ¤·¤¯Æ°ºî¤·¤Ê¤¤¥Ð¥°¤¬½¤Àµ¤µ¤ì¤¿¡£
+Emacs 20 $B$N0Y$N=$@5!#(BSKK $B$r(B Emacs $B$N(B Input Method $B$H$7$F;HMQ$7$F$$$k$H(B
+$B$-!"4X?t(B `read-from-minibuffer' $B$N(B $BBh(B 7 $B0z?t(B INHERIT-INPUT-METHOD $B$r(B
+$BHs(B nil $B$K$7$F$b@5$7$/F0:n$7$J$$%P%0$,=$@5$5$l$?!#(B
 
-** Canna ¤È¤ÎÁêÀ­¤Î²þÁ±¡£
+** Canna $B$H$NAj@-$N2~A1!#(B
 
-SKK ¤òµ¯Æ°¤¹¤ëÁ°¤Ë Canna ¤ÎÀßÄê¤ò¤·¤Æ¤¤¤ë¤È¡¢¥¹¥Ú¡¼¥¹¤ò²¡¤·¤Æ¤âÊÑ´¹¤Ç
-¤­¤Ê¤¤ÌäÂê¤¬½¤Àµ¤µ¤ì¤¿¡£
+SKK $B$r5/F0$9$kA0$K(B Canna $B$N@_Dj$r$7$F$$$k$H!"%9%Z!<%9$r2!$7$F$bJQ49$G(B
+$B$-$J$$LdBj$,=$@5$5$l$?!#(B
 
-** ¤¤¤¯¤Ä¤«¤Î¥Ð¥°¤Î½¤Àµ¡£
+** $B$$$/$D$+$N%P%0$N=$@5!#(B
 
-°Ê²¼¤Î´Ø¿ô¤Î¥Ð¥°¤¬½¤Àµ¤µ¤ì¤¿ (±Ì¤ì¤¬¤¢¤Ã¤¿¤éÄÉ²Ã¤·¤Æ¤¯¤À¤µ¤¤)¡£
+$B0J2<$N4X?t$N%P%0$,=$@5$5$l$?(B ($B1L$l$,$"$C$?$iDI2C$7$F$/$@$5$$(B)$B!#(B
 
 o skk-count-jisyo-candidates-original
 o skk-clock
@@ -244,64 +244,64 @@ o skk-num-type3-kanji-1
 
 * Daredevil branch 11.1
 
-** skk.el ¤Î¹¹¤Ê¤ë¥·¥§¥¤¥×¥¢¥Ã¥×¤ò¸¡Æ¤¡£
+** skk.el $B$N99$J$k%7%'%$%W%"%C%W$r8!F$!#(B
 
-ÊÌ¥Õ¥¡¥¤¥ë¤Ë¤ÆÄó¶¡¤Ç¤­¤ëÆÃ¼ìµ¡Ç½¤¬¤¢¤ì¤Ð¡¢¹¹¤ËÊÌ¤Ë¤¹¤ë¡¢¤È¤¤¤¦Êý¿Ë¤Ç skk.el
-Æâ¤ò»¶ºö¡£ÊÑ´¹¸õÊä¤Ë overlay/extent ¤ò¤«¤±¤ëµ¡Ç½¤âÊ¬Î¥¤Ç¤­¤ë¤«¤â¤·¤ì¤Ê¤¤¤¬¡¢
-Ê¬Î¥¤·¤Æ¤â¾®¤µ¤¤¤Î¤Ç¡¢¤È¤ê¤¢¤¨¤º¸«Á÷¤ê¡£Â¾¤Ë¤Ê¤ó¤«¤¢¤ë¤«¤Ê¡© ¤Ò¤é¤¬¤Ê -> ¥«
-¥¿¥«¥Ê°Ê³°¤Î region ÊÑ´¹µ¡Ç½¡¢¤È¤«¡£
+$BJL%U%!%$%k$K$FDs6!$G$-$kFC<l5!G=$,$"$l$P!"99$KJL$K$9$k!"$H$$$&J}?K$G(B skk.el
+$BFb$r;6:v!#JQ498uJd$K(B overlay/extent $B$r$+$1$k5!G=$bJ,N%$G$-$k$+$b$7$l$J$$$,!"(B
+$BJ,N%$7$F$b>.$5$$$N$G!"$H$j$"$($:8+Aw$j!#B>$K$J$s$+$"$k$+$J!)(B $B$R$i$,$J(B -> $B%+(B
+$B%?%+%J0J30$N(B region $BJQ495!G=!"$H$+!#(B
 
-¤È¤ê¤¢¤¨¤º²áµîÊÌ¤À¤Ã¤¿¥«¡¼¥½¥ëÊÑ²½µ¡Ç½¤ò skk-cursor.el ¤È¤·¤ÆÊ¬Î¥¡£
-Ê¬Î¥¤·¤¿ÊÑ¿ô¡¦´Ø¿ô¤Î¥×¥ì¥Õ¥£¥Ã¥¯¥¹¤ò skk-cursor- ¤ËÅý°ì¡£
+$B$H$j$"$($:2a5nJL$@$C$?%+!<%=%kJQ2=5!G=$r(B skk-cursor.el $B$H$7$FJ,N%!#(B
+$BJ,N%$7$?JQ?t!&4X?t$N%W%l%U%#%C%/%9$r(B skk-cursor- $B$KE}0l!#(B
 
-** ¥ß¥Ë¥Þ¥à¤Î¹½À®¤ò skk.el ¤Î¤ß¤Ë¤¹¤ë¡¢¤È¤¤¤¦¤Î¤ò¸¡Æ¤¡£
+** $B%_%K%^%`$N9=@.$r(B skk.el $B$N$_$K$9$k!"$H$$$&$N$r8!F$!#(B
 
-*** skk-foreword.el ¤ò skk.el ¤ÈÅý¹ç¡£
+*** skk-foreword.el $B$r(B skk.el $B$HE}9g!#(B
 
-skk-foreword.el ¤Ï¥æ¡¼¥¶¡¼ÊÑ¿ô¤òÄêµÁ¤¹¤ëÁ°¤ËÄêµÁ¤·¤Æ¤ª¤¯É¬Í×¤Î¤¢¤ë¥Þ¥¯¥í¡¢¥¤
-¥ó¥é¥¤¥ó´Ø¿ô¡¢ÊÑ¿ô¡¢Äê¿ô¤Ê¤É¤ò¤Þ¤È¤á¤¿¤â¤Î¤Ç¤Ã¤¿¡£skk-foreword.el ¤ò skk.el
-¤ËÅý¹ç¤¹¤ë¤³¤È¤ÇÅöÁ³¥æ¡¼¥¶¡¼ÊÑ¿ô¤Î¸«ÄÌ¤·¤Ï°­¤¯¤Ê¤ë (¤É¤ó¤ÊÊÑ¿ô¤¬¤¢¤ë¤Î¤«¤Ê¡Á¡¢
-¤È»×¤Ã¤¿¤é¥×¥í¥°¥é¥à¥Õ¥¡¥¤¥ë¤ò¸«¤ë¤Î¤¬¼ê¤Ã¼è¤êÁá¤¤¤è¤Í¡©)¡£
+skk-foreword.el $B$O%f!<%6!<JQ?t$rDj5A$9$kA0$KDj5A$7$F$*$/I,MW$N$"$k%^%/%m!"%$(B
+$B%s%i%$%s4X?t!"JQ?t!"Dj?t$J$I$r$^$H$a$?$b$N$G$C$?!#(Bskk-foreword.el $B$r(B skk.el
+$B$KE}9g$9$k$3$H$GEvA3%f!<%6!<JQ?t$N8+DL$7$O0-$/$J$k(B ($B$I$s$JJQ?t$,$"$k$N$+$J!A!"(B
+$B$H;W$C$?$i%W%m%0%i%`%U%!%$%k$r8+$k$N$,<j$C<h$jAa$$$h$M!)(B)$B!#(B
 
-*** ¥æ¡¼¥¶¡¼ÊÑ¿ô¤Î¸«ÄÌ¤·¤¬°­¤¤¤Î¤ò¹ÍÎ¸¡£
+*** $B%f!<%6!<JQ?t$N8+DL$7$,0-$$$N$r9MN8!#(B
 
-wl ¤Ê¤ó¤«¤ò»²¹Í¤Ë¡¢¥æ¡¼¥¶¡¼ÊÑ¿ô¡¢¥·¥¹¥Æ¥àÊÑ¿ô¡¦Äê¿ô¤ò¤Þ¤È¤á¤Æ¡¢skk-vars.el
-¤òºî¤Ã¤¿¡£ÆÃ¼ìµ¡Ç½¤òÄó¶¡¤¹¤ëÊÌ¥Õ¥¡¥¤¥ë¤ÎÊÑ¿ô¤âÁ´Éô¤³¤³¤ËÊÄ¤¸¹þ¤á¤ë¡£¥«¥¹¥¿¥Þ
-¥¤¥º¤Ë¶½Ì£¤Î¤¢¤ë¥æ¡¼¥¶¡¼¤Ï skk-vars.el ¤ò¸«¤ì¤Ð°ìÍ÷¤¬ÆÀ¤é¤ì¤ë¡£
+wl $B$J$s$+$r;29M$K!"%f!<%6!<JQ?t!"%7%9%F%`JQ?t!&Dj?t$r$^$H$a$F!"(Bskk-vars.el
+$B$r:n$C$?!#FC<l5!G=$rDs6!$9$kJL%U%!%$%k$NJQ?t$bA4It$3$3$KJD$89~$a$k!#%+%9%?%^(B
+$B%$%:$K6=L#$N$"$k%f!<%6!<$O(B skk-vars.el $B$r8+$l$P0lMw$,F@$i$l$k!#(B
 
-¤³¤ì¤Ë¤è¤ê²¼µ­ 2 ÅÀ¤Î¥á¥ê¥Ã¥È¤¢¤ê¡£
+$B$3$l$K$h$j2<5-(B 2 $BE@$N%a%j%C%H$"$j!#(B
 
-o Á´¤Æ¤Î¥×¥í¥°¥é¥à¤«¤é (eval-when-compile (require 'skk-vars)) ¤¹¤ë¤³¤È¤Ç¥Ð
-  ¥¤¥È¥³¥ó¥Ñ¥¤¥ë¤ÎºÝ¤ÎÊÑ¿ô¤Ë´Ø¤¹¤ë Warning ¤¬°µÅÝÅª¤Ë¸º¤ë¡£
+o $BA4$F$N%W%m%0%i%`$+$i(B (eval-when-compile (require 'skk-vars)) $B$9$k$3$H$G%P(B
+  $B%$%H%3%s%Q%$%k$N:]$NJQ?t$K4X$9$k(B Warning $B$,05E]E*$K8:$k!#(B
 
-o skk.el ¤«¤é (require 'skk-vars) ¤¹¤ë¤³¤È¤Ç¡¢ÆÃ¼ìµ¡Ç½¤Ë´Ø¤¹¤ëÊÑ¿ô¤Î boundp
-  ¥Á¥§¥Ã¥¯¤¬ÉÔÍ×¤Ë¤Ê¤ë¡£
+o skk.el $B$+$i(B (require 'skk-vars) $B$9$k$3$H$G!"FC<l5!G=$K4X$9$kJQ?t$N(B boundp
+  $B%A%'%C%/$,ITMW$K$J$k!#(B
 
-*** ËÜÂÎ¡¢ÆÃ¼ìµ¡Ç½Äó¶¡¥×¥í¥°¥é¥à¤ÎÎ¾Êý¤Ç»È¤¦¥Þ¥¯¥í¡¢¥¤¥ó¥é¥¤¥ó´Ø¿ô¤Î¼è¤ê°·¤¤¡£
+*** $BK\BN!"FC<l5!G=Ds6!%W%m%0%i%`$NN>J}$G;H$&%^%/%m!"%$%s%i%$%s4X?t$N<h$j07$$!#(B
 
-¤³¤ì¤é¤ò skk.el ¤ËÆþ¤ì¤Æ¤ª¤¯¤ï¤±¤Ë¤Ï¤æ¤«¤Ê¤¤ (ÆÃ¼ìµ¡Ç½Äó¶¡¥×¥í¥°¥é¥à¤«¤é
-skk.el ¤ò require ¤¹¤ë¤«¤éÌµ¸Â loop ¤Ë´Ù¤¤¤ë)¡£»ÅÊý¤¬¤Ê¤¤¤Î¤Ç skk-macs.el ¤ò
-ºî¤ë¡£Á´¥×¥í¥°¥é¥à¤«¤é (eval-when-compile (require 'skk-macs)) ¤¹¤ë¡£
+$B$3$l$i$r(B skk.el $B$KF~$l$F$*$/$o$1$K$O$f$+$J$$(B ($BFC<l5!G=Ds6!%W%m%0%i%`$+$i(B
+skk.el $B$r(B require $B$9$k$+$iL58B(B loop $B$K4Y$$$k(B)$B!#;EJ}$,$J$$$N$G(B skk-macs.el $B$r(B
+$B:n$k!#A4%W%m%0%i%`$+$i(B (eval-when-compile (require 'skk-macs)) $B$9$k!#(B
 
-*** ·ë¶É¡¢¸½¾õ¤Ï...¡£
+*** $B7k6I!"8=>u$O(B...$B!#(B
 
-¥ß¥Ë¥Þ¥à¤Îµ¡Ç½¤·¤«»È¤ï¤Ê¤¯¤È¤â skk.el, skk-macs.el, skk-vars.el ¤Î 3 ¤Ä¤òÍ×
-¤¹¤ë¤³¤È¤È¤Ê¤ê¡¢¥Õ¥¡¥¤¥ë¤Î¿ô¤Ï main trunk ¤è¤ê¤âÁý¤¨¤Æ¤¤¤ë¤¬¡¢³Æ¥Õ¥¡¥¤¥ë¤ÎÌò
-³ä¤òºÆ³ÎÇ§¤·¤¿¤Î¤Ç¡¢¤³¤ì¤òÅÚÂæ¤Ë¹¹¤Ê¤ë¸¡Æ¤¤ò²Ã¤¨¤ë¡£
+$B%_%K%^%`$N5!G=$7$+;H$o$J$/$H$b(B skk.el, skk-macs.el, skk-vars.el $B$N(B 3 $B$D$rMW(B
+$B$9$k$3$H$H$J$j!"%U%!%$%k$N?t$O(B main trunk $B$h$j$bA}$($F$$$k$,!"3F%U%!%$%k$NLr(B
+$B3d$r:F3NG'$7$?$N$G!"$3$l$rEZBf$K99$J$k8!F$$r2C$($k!#(B
 
-¤Á¤Ê¤ß¤Ë APEL ¤Ë¤Ä¤¤¤Æ¤Ï²¿¤â¸¡Æ¤¤·¤Æ¤¤¤Þ¤»¤ó¡£APEL ¤«¤éÉ¬Í×¤Ê¤â¤Î¤À¤±¤òµ¡³£
-Åª¤Ë¼è¤ê½Ð¤¹...¤Ê¤ó¤Æ¤³¤È¤Ï¤Ç¤­¤ë¤ó¤Ç¤·¤ç¤¦¤«¡© (^^;; ¤È¤ê¤¢¤¨¤º SKK Â¦¤Î¹½
-À®¤ò¹Í¤¨¤Æ¤«¤é¤Í¡£
+$B$A$J$_$K(B APEL $B$K$D$$$F$O2?$b8!F$$7$F$$$^$;$s!#(BAPEL $B$+$iI,MW$J$b$N$@$1$r5!3#(B
+$BE*$K<h$j=P$9(B...$B$J$s$F$3$H$O$G$-$k$s$G$7$g$&$+!)(B (^^;; $B$H$j$"$($:(B SKK $BB&$N9=(B
+$B@.$r9M$($F$+$i$M!#(B
 
 
 * 10.57
 
-** `skk-defmacro-cond', `skk-defsubst-cond' ¤È `skk-defun-cond' ¤òÇÑ»ß¡£
-Âå¤ê¤Ë `defmacro', `defsubst' ¤È `defun' ¤ò¤½¤ì¤¾¤ì `static-cond' ¤ÈÁÈ¤ß¹ç¤ï
-¤»¤Æ»ÈÍÑ¡£¸ú²Ì¤ÏÆ±¤¸¡£¥Ð¥¤¥È¥³¥ó¥Ñ¥¤¥ë¥Õ¥¡¥¤¥ë¤Ï¡¢Mule2, Mule3, Mule4,
-XEmacs ´Ö¤Ç¶¦Í­¤Ç¤­¤Ê¤¤¡£
+** `skk-defmacro-cond', `skk-defsubst-cond' $B$H(B `skk-defun-cond' $B$rGQ;_!#(B
+$BBe$j$K(B `defmacro', `defsubst' $B$H(B `defun' $B$r$=$l$>$l(B `static-cond' $B$HAH$_9g$o(B
+$B$;$F;HMQ!#8z2L$OF1$8!#%P%$%H%3%s%Q%$%k%U%!%$%k$O!"(BMule2, Mule3, Mule4,
+XEmacs $B4V$G6&M-$G$-$J$$!#(B
 
-** skk.el ¤«¤é¥«¡¼¥½¥ë¤ÎÊÑ²½µ¡Ç½¤Î¤ß¤ò¼è¤ê½Ð¤·¡¢skk-cursor.el ¤ò revive.
+** skk.el $B$+$i%+!<%=%k$NJQ2=5!G=$N$_$r<h$j=P$7!"(Bskk-cursor.el $B$r(B revive.
 
 * 10.56
 
