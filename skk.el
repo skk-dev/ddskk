@@ -6,9 +6,11 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.189 2001/11/18 16:28:11 czkmt Exp $
+;; Version: $Id: skk.el,v 1.190 2001/11/18 16:40:22 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/18 16:28:11 $
+;; Last Modified: $Date: 2001/11/18 16:40:22 $
+
+;; This file is part of Daredevil SKK.
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
