@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.13 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-look.el,v 1.14 2001/10/07 08:36:44 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/10/07 08:36:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -189,23 +189,21 @@
 
 ;;;###autoload
 (defun skk-look-completion ()
-  (or skk-look-completion-words
-      (let ((stacked skk-comp-stack)) ; 他の機能による補完候補。
-	;; look は複数の候補を吐くので、一旦貯めておいて、一つづつ complete する。
+  (unless skk-look-completion-words
+    (let ((stacked skk-comp-stack)) ; 他の機能による補完候補。
+      ;; look は複数の候補を吐くので、一旦貯めておいて、一つずつ complete する。
+      (setq skk-look-completion-words
+	    (if (not skk-look-use-ispell)
+		(skk-look-1 skk-comp-key)
+	      (skk-look-ispell skk-comp-key)))
+      (while stacked
 	(setq skk-look-completion-words
-	      (if (not skk-look-use-ispell)
-		  (skk-look-1 skk-comp-key)
-		(skk-look-ispell skk-comp-key)))
-	(while stacked
-	  (setq skk-look-completion-words
-		(delete (car stacked) skk-look-completion-words)
-		stacked (cdr stacked)))
-	;;skk-look-completion-words の各要素は、実際に補完を行なった段階で
-	;; `skk-completion' により skk-comp-stack に入れられる。
-	))
-  (prog1
-      (car skk-look-completion-words)
-    (setq skk-look-completion-words (cdr skk-look-completion-words))))
+	      (delete (car stacked) skk-look-completion-words)
+	      stacked (cdr stacked)))
+      ;;skk-look-completion-words の各要素は、実際に補完を行なった段階で
+      ;; `skk-completion' により skk-comp-stack に入れられる。
+      ))
+  (pop skk-look-completion-words))
 
 (defadvice skk-kakutei-initialize (after skk-look-ad activate)
   (setq skk-look-completion-words nil))
