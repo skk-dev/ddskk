@@ -1,11 +1,12 @@
-;;; skk-tutcdef.el --- SKK TUT-code default definition.
+;;; skk-tutcdef.el --- SKK TUT-code default definition
+
 ;; Copyright (C) 1999, 2000 GUNJI Takao <gunji@sils.shoin.ac.jp>
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.4 2001/08/31 19:31:18 czkmt Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.5 2001/11/16 06:33:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:31:18 $
+;; Last Modified: $Date: 2001/11/16 06:33:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -952,5 +953,8 @@
 		 skk-rom-kana-rule-list)))
 
 (require 'product)
-(product-provide (provide 'skk-tutcdef) (require 'skk-version))
+(product-provide
+    (provide 'skk-tutcdef)
+  (require 'skk-version))
+
 ;;; skk-tutcdef.el ends here

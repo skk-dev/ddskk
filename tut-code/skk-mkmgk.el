@@ -1,11 +1,12 @@
 ;;; skk-mkmgk.el --- Make Mazegaki dictionary from SKK-JISYO.*
+
 ;; Copyright (C) 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-mkmgk.el,v 1.7 2001/07/30 23:45:54 minakaji Exp $
+;; Version: $Id: skk-mkmgk.el,v 1.8 2001/11/16 06:33:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/30 23:45:54 $
+;; Last Modified: $Date: 2001/11/16 06:33:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -270,5 +271,8 @@
 	(skk-mkmgk-filter (car (skk-compute-henkan-lists nil))))))
 
 (require 'product)
-(product-provide (provide 'skk-mkmgk) (require 'skk-version))
-;; end of skk-mkmgk.el
+(product-provide
+    (provide 'skk-mkmgk)
+  (require 'skk-version))
+
+;; skk-mkmgk.el ends here

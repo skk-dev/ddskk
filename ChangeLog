@@ -5,6 +5,7 @@
 
 	* skk-cus.el
 	(skk-cus-set): New function.
+
 	(skk-customize-done): Push all options into `skk-custom-alist'.
 
 2001-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -2772,8 +2773,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.534 2001/11/16 02:08:02 czkmt Exp $
-Last Modified: $Date: 2001/11/16 02:08:02 $
+Version: $Id: ChangeLog,v 1.535 2001/11/16 06:33:40 czkmt Exp $
+Last Modified: $Date: 2001/11/16 06:33:40 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
