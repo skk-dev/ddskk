@@ -4,6 +4,14 @@
 
 2001-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* READMEs/Contributors
+	* doc/skk.texi:
+	Following persons are added (a-b order).
+
+	Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	Yukihiro Nakai <ynakai@redhat.com>
+
 	* skk-vars.el
 	(skk-indicator-use-cursor-color): New variable.
 
@@ -2687,8 +2695,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.519 2001/11/11 07:42:34 czkmt Exp $
-Last Modified: $Date: 2001/11/11 07:42:34 $
+Version: $Id: ChangeLog,v 1.520 2001/11/11 08:20:49 czkmt Exp $
+Last Modified: $Date: 2001/11/11 08:20:49 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
