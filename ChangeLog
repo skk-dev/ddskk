@@ -1,5 +1,7 @@
 2000-03-11  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* skk-autoloads.el: Remove from the repository.
+
 	* Makefile (clean): Remove old archive, links and backup file
 	initiated with dot.
 	
