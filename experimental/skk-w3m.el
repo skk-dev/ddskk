@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.5 2001/04/13 22:50:43 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.6 2001/04/13 23:32:52 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/04/13 22:50:43 $
+;; Last Modified: $Date: 2001/04/13 23:32:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -238,7 +238,8 @@ cdr は URL (検索文字列を %s で表わす),
 	  nil
 	(while (re-search-forward "\\[clear\\] [a-z]+\\.　\\([^ a-zA-Z][^．]+\\)．" nil t nil)
 	  (setq temp (match-string-no-properties 1))
-	  (setq temp (skk-w3m-filter-string temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）")))
+	  (setq temp (skk-w3m-filter-string
+		      temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)")))
 	  (while (string-match "\\([^，；]+\\)［\\([^，；]+\\)］\\([^，；]+\\)*" temp)
 	    (setq temp (concat (substring temp 0 (match-beginning 0))
 			       (match-string-no-properties 1 temp)
@@ -247,11 +248,7 @@ cdr は URL (検索文字列を %s で表わす),
 			       (match-string-no-properties 2 temp)
 			       (match-string-no-properties 3 temp)
 			       (substring temp (match-end 0)))))
-	  (cond ((string-match "；" temp)
-		 (setq v (nconc v (split-string temp "；"))))
-		((string-match "，" temp)
-		 (setq v (nconc v (split-string temp "，"))))
-		(t (setq v (nconc v (list temp))))))
+	  (setq v (nconc v (split-string temp "[，；]"))))
 	v))))
 
 (defun skk-w3m-get-candidates-from-goo-daily-shingo (key)

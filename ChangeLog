@@ -8,6 +8,9 @@
 	(skk-w3m-get-candidates-from-goo-daijirin): Use optional argument
 	split of `skk-w3m-get-candidates'.
 	(skk-w3m-get-candidates-from-goo-exceed-eiwa): New function.
+	Filter "([, a-z]+)" out to remove a string like a
+	`(with, on, in)'.
+	Bug fixed.
 	(skk-w3m-working-buffer): Removed.
 	(skk-w3m-search): Do not set to `skk-w3m-working-buffer'.
 
@@ -3257,8 +3260,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.275 2001/04/13 22:50:43 minakaji Exp $
-Last Modified: $Date: 2001/04/13 22:50:43 $
+Version: $Id: ChangeLog,v 1.276 2001/04/13 23:32:52 minakaji Exp $
+Last Modified: $Date: 2001/04/13 23:32:52 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
