@@ -1,3 +1,8 @@
+2001-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-server.el
+	(skk-server-live-p): New function.
+
 2001-11-27  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-viper.el (viper-forward-word-kernel@around@skk-ad,
@@ -2980,8 +2985,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.569 2001/11/27 09:14:09 minakaji Exp $
-Last Modified: $Date: 2001/11/27 09:14:09 $
+Version: $Id: ChangeLog,v 1.570 2001/11/27 14:29:30 czkmt Exp $
+Last Modified: $Date: 2001/11/27 14:29:30 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
