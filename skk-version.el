@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.15 2001/11/19 15:54:02 czkmt Exp $
+;; Version: $Id: skk-version.el,v 1.16 2001/11/19 16:03:10 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:02 $
+;; Last Modified: $Date: 2001/11/19 16:03:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -45,7 +45,8 @@
 ;;;###autoload
 (defun skk-version (&optional without-codename)
   "Return SKK version with its codename.
-If WITHOUT-CODENAME is non-nil, simply return SKK version without the codename."
+If WITHOUT-CODENAME is non-nil, simply return SKK version without
+the codename."
   (interactive "P")
   (if (interactive-p)
       (message "%s" (skk-version without-codename))
