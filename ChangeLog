@@ -5,6 +5,7 @@
 	(skk-jisx0201-mode-on): Make local varaible `skk-rule-tree'.
 	(skk-kanagaki-toggle-katakana): Kill local varaible
 	`skk-rule-tree'.
+	(skk-mode): Ditto.
 	(skk-jisx0201-zenkaku-region): New function.
 
 2001-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -1761,8 +1762,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.356 2001/09/07 09:59:52 czkmt Exp $
-Last Modified: $Date: 2001/09/07 09:59:52 $
+Version: $Id: ChangeLog,v 1.357 2001/09/07 11:27:33 czkmt Exp $
+Last Modified: $Date: 2001/09/07 11:27:33 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
