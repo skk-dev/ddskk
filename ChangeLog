@@ -1,3 +1,23 @@
+2002-07-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-comp.el:
+	(skk-comp-do): Do not refer to `skk-dabbrev-like-completion'.
+
+	* skk-tut.el:
+	(skktut-init-variables-alist): Do not consider
+	`skk-dabbrev-like-completion'.
+
+	* skk-vars.el:
+	(skk-dabbrev-like-completion): Abolish variable.
+
+	* skk.el:
+	(skk-try-completion):
+	(skk-insert):
+
+	When the user types C-u TAB instead of soly TAB, discard the
+	current copmletion key, get new comletion key from the current
+	buffer, and begin new completion.
+
 2002-07-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK:
@@ -3963,8 +3983,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.699 2002/07/20 18:29:20 czkmt Exp $
-Last Modified: $Date: 2002/07/20 18:29:20 $
+Version: $Id: ChangeLog,v 1.700 2002/07/27 06:25:10 czkmt Exp $
+Last Modified: $Date: 2002/07/27 06:25:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
