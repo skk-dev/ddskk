@@ -74,7 +74,6 @@ Install patch/e18/advice.el in load-path and try again."))))
 (defvar-maybe post-command-hook nil)
 (defvar-maybe minibuffer-setup-hook nil)
 (defvar-maybe minibuffer-exit-hook nil)
-(defvar-maybe minor-mode-map-alist nil)
 
 (let ((i 0) e list)
   (setq list '(skk-latin-mode-map skk-j-mode-map skk-jisx0208-latin-mode-map
