@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.105 2002/07/13 17:18:27 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.106 2002/07/14 00:39:25 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/13 17:18:27 $
+;; Last Modified: $Date: 2002/07/14 00:39:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2329,8 +2329,11 @@ Non-nil であれば、`skk-isearch-message' 関数をコールする。")
 
 (defvar skk-icon nil
   "SKK のアイコン。")
+(put 'skk-icon 'risky-local-variable t)
 
 (skk-deflocalvar skk-modeline-input-mode nil)
+(put 'skk-modeline-input-mode 'risky-local-variable t)
+
 (defvar skk-indicator-alist nil)
 
 (defvar skk-buffer-undo-list nil)
