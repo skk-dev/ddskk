@@ -1,3 +1,13 @@
+2002-10-28  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
+
+	* doc/skk.texi
+	(予備知識): remove.
+	(ファイル構成 & ユーザーオプションの設定方法): move from
+	(予備知識) to (便利な応用機能).
+	(辞書の形式 & 辞書に関する設定): move from (予備知識) to (辞書関連).
+	(辞書に関する設定): Add subsubsection(複数辞書の検索方法).
+	(旧バージョンからの変更点): Add section(SKK 11 からの変更点).
+
 2002-10-22  Yano Keisuke <yano@moon.email.ne.jp>
 
 	* skk-kcode.el (skk-display-code): Modified for JISX0213.
@@ -4031,8 +4041,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.712 2002/10/26 09:48:15 minakaji Exp $
-Last Modified: $Date: 2002/10/26 09:48:15 $
+Version: $Id: ChangeLog,v 1.713 2002/10/27 15:49:12 akiho Exp $
+Last Modified: $Date: 2002/10/27 15:49:12 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
