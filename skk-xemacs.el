@@ -148,8 +148,9 @@
 		      (nth 1 list))))
 	  ((or str (null spec))
 	   (when (stringp str)
-	     str)))
-      (where-is-internal func skk-j-mode-map)
+	     (key-description str))))
+      (key-description
+       (car (where-is-internal func skk-j-mode-map)))
       ""))
 
 ;; Hooks.
