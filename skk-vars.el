@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.94 2002/01/19 01:01:29 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.95 2002/01/19 03:53:25 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/19 01:01:29 $
+;; Last Modified: $Date: 2002/01/19 03:53:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -89,9 +89,9 @@
 			    (cdr (assq 'background-color params)))
 	      'light
 	    'dark))
-	 ((eq (cdr (assq 'background-mode params)) 'light)
+	 ((not (null (cdr (assq 'background-mode params))))
 	  ;; Emacs20.x (Meadow)
-	  'light)
+	  (cdr (assq 'background-mode params)))
 	 ((< (apply '+ (x-color-values
 			(cdr (assq 'background-color params))))
 	     (/ (apply '+ (x-color-values "white")) 3))
