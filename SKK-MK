@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.62 2000/11/23 03:17:48 czkmt Exp $
-;; Last Modified: $Date: 2000/11/23 03:17:48 $
+;; Version: $Id: SKK-MK,v 1.63 2000/11/24 04:54:28 czkmt Exp $
+;; Last Modified: $Date: 2000/11/24 04:54:28 $
 
 ;; Commentary
 ;;
@@ -475,8 +475,11 @@
 				       (car SKK_TUTORIALS) SKK_DATADIR)))))
     (if SKK_DICTIONARIES
 	(progn
-	  (setq spec (list "@AUXDIC@"
-			   (expand-file-name (car SKK_DICTIONARIES) SKK_DATADIR)))
+	  (setq spec
+		(append spec
+			(list "@AUXDIC@"
+			      (expand-file-name
+			       (car SKK_DICTIONARIES) SKK_DATADIR))))
 	  (and SKK_SET_JISYO
 	       (setq spec
 		     (append spec
@@ -493,7 +496,10 @@
 	(setq dics (cdr dics)))
       (if dics
 	  (progn
-	    (setq spec (list "@AUXDIC@" (expand-file-name (car dics) SKK_DATADIR)))
+	    (setq spec
+		  (append spec
+			  (list "@AUXDIC@"
+				(expand-file-name (car dics) SKK_DATADIR))))
 	    (and SKK_SET_JISYO
 		 (setq spec
 		       (append spec (list "@DIC@"
@@ -580,7 +586,7 @@
 (defun SKK-MK-install-package ()
   (or (featurep 'xemacs) (error "This directive is only for XEmacs."))
   (let ((dics SKK_DICTIONARIES)
-	delete-target exist specs)
+	delete-target exist spec)
     ;; make target directories.
     (or (file-exists-p PACKAGE_LISPDIR)
 	(make-directory PACKAGE_LISPDIR t))
@@ -607,7 +613,7 @@
     (delete-file "./custom-load.el")
     ;; make skk-setup.el.
     (if SKK_TUTORIALS
-	(setq specs (list
+	(setq spec (list
 		     "@TUT@"
 		     (expand-file-name (car SKK_TUTORIALS) PACKAGE_DATADIR))))
     (while dics
@@ -624,11 +630,14 @@
 	       (cons "SKK-JISYO.L" (delete "SKK-JISYO.L" SKK_DICTIONARIES))))
     (if SKK_DICTIONARIES
 	(progn
-	  (setq specs (list "@AUXDIC@"
-			    (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR)))
+	  (setq spec
+		(append spec
+			(list "@AUXDIC@"
+			    (expand-file-name
+			     (car SKK_DICTIONARIES) PACKAGE_DATADIR))))
 	  (if SKK_SET_JISYO
-	      (setq specs
-		    (nconc specs
+	      (setq spec
+		    (nconc spec
 			   (list
 			    "@DIC@"
 			    (expand-file-name (car SKK_DICTIONARIES) PACKAGE_DATADIR)))))
@@ -649,13 +658,13 @@
 		 (if (file-exists-p (expand-file-name (car dics) PACKAGE_DATADIR))
 		     (expand-file-name (car dics) PACKAGE_DATADIR)
 		   (expand-file-name (car dics) SKK_DATADIR))))
-	    (setq specs (list "@AUXDIC@" dic))
+	    (setq spec (nconc spec (list "@AUXDIC@" dic)))
 	    (if SKK_SET_JISYO
-		(setq specs (nconc specs (list "@DIC@" dic)))))))
-    (if (not specs)
+		(setq spec (nconc spec (list "@DIC@" dic)))))))
+    (if (not spec)
 	;; merely copy without setup dictionary information.
 	(copy-file "skk-setup.el.in" "skk-setup.el" 'ok-if-already-exists)
-      (SKK-MK-make-setup-file specs))
+      (SKK-MK-make-setup-file spec))
     ;; install skk-setup.el
     (install-elisp-modules (list 'skk-setup) "." PACKAGE_LISPDIR)
     ;; install infos.
