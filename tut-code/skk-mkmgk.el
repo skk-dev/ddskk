@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-mkmgk.el,v 1.4 2001/07/28 10:51:00 minakaji Exp $
+;; Version: $Id: skk-mkmgk.el,v 1.5 2001/07/29 01:41:05 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/28 10:51:00 $
+;; Last Modified: $Date: 2001/07/29 01:41:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -31,6 +31,13 @@
 ;;   $ skkdic-expr TMP | skkdic-sort > NEWDICT
 ;;
 ;; と加工すると混ぜ書き SKK 辞書 (NEWDICT) が出来上がります。
+;;
+;; <TODO>
+;; - search okuri-ari entries, too.
+;; - fix a know bug below.
+;;
+;; <KNOWN BUG>
+;; きりえ /切り絵/切絵/ → きりり絵 /切り絵/
 
 ;;; Code:
 (eval-when-compile (require 'skk-macs))
@@ -49,65 +56,87 @@
 
 として加工する必要あり。"
   (interactive "f辞書ファイル:\nP ")
-  (let ((cont t)
-	(workbuf (get-buffer-create " *skkmkmgk working*"))
-	max output)
-    (while cont
-      (setq output (read-file-name
-		    "どこに出力しますか? "
-		    nil
-		    (convert-standard-filename "~/.skk-jisyo.tmp")))
-      (if (or (not (file-exists-p output))
-	      (yes-or-no-p
-	       (format "%s に上書きしてよろしいですか? " output)))
-	  (setq cont nil)))
-    (with-current-buffer workbuf (erase-buffer))
-    (with-temp-buffer
-      (insert-file-contents-as-coding-system
-       (cdr (assoc "euc" skk-coding-system-alist))
-       (expand-file-name dic))
-      (re-search-forward "^;; okuri-nasi entries\\.$")
-      ;; abbrev 候補を skip
-      (delete-region (point-min) (progn (re-search-forward "^あ")
-					(beginning-of-line)
-					;;(forward-char -1)
-					(point)))
-      (skk-make-mazegaki-dic-1 workbuf nomsg))
-    (with-current-buffer workbuf
-      (if (not (> (buffer-size) 0))
-	  (or nomsg
-	      (message "No entries of Mazegaki dictionary"))
-	(write-region-as-coding-system
-	 (cdr (assoc "euc" skk-coding-system-alist))
-	 ;; only Emacs 21's write-region has 6th arg MUSTBENEW.
-	 1 (point-max) output nil t nil)
-	(or nomsg
-	    (message "Making Mazegaki dictionary...100%% done"))))
+  (unwind-protect
+      (let ((cont t)
+	    (workbuf (get-buffer-create " *skkmkmgk working*"))
+	    max output ret)
+	(while cont
+	  (setq output (read-file-name
+			"どこに出力しますか? "
+			nil
+			(convert-standard-filename "~/.skk-jisyo.tmp")))
+	  (if (or (not (file-exists-p output))
+		  (yes-or-no-p
+		   (format "%s に上書きしてよろしいですか? " output)))
+	      (setq cont nil)))
+	(with-current-buffer workbuf (erase-buffer))
+	(with-temp-buffer
+	  (insert-file-contents-as-coding-system
+	   (cdr (assoc "euc" skk-coding-system-alist))
+	   (expand-file-name dic))
+	  (re-search-forward "^;; okuri-nasi entries\\.$")
+	  ;; abbrev 候補を skip
+	  (delete-region (point-min) (progn (re-search-forward "^あ")
+					    (beginning-of-line)
+					    (point)))
+	  (setq ret (skk-make-mazegaki-dic-1 workbuf nomsg)))
+	(if ret
+	    (with-current-buffer workbuf
+	      (write-region-as-coding-system
+	       (cdr (assoc "euc" skk-coding-system-alist))
+	       ;; only Emacs 21's write-region has 6th arg MUSTBENEW.
+	       1 (point-max) output nil t nil)
+	      (or nomsg
+		  (message "Making Mazegaki dictionary...100%% done")))))
     (kill-buffer workbuf)))
 
 ;;;###autoload
-(defun skk-make-mazegaki-dic-region (min max &optional nomsg)
+(defun skk-make-mazegaki-dic-region (min max &optional reference)
   "SKK 形式の辞書から TUT-Code などで使われれる混ぜ書き辞書を作る。
 加工した辞書を作業バッファに書き出し `pop-to-buffer' する。
 出力されたバッファをファイル (下記の例では TMP) に保存し
 
   $ skkdic-expr TMP | skkdic-sort > NEWDICT
 
-として加工する必要あり。"
+として加工する必要あり。
+オプショナル引数の reference を指定すると、加工の際に検索する辞書を
+別に指定することができる。"
   (interactive "r\nP")
-  (let ((outbuf (get-buffer-create " *skkmkmgk working*")))
-    (save-excursion
-      (save-restriction
-	(narrow-to-region min max)
-	(goto-char min)
-	(skk-make-mazegaki-dic-1 outbuf nomsg)))
-    (pop-to-buffer outbuf)
-    (goto-char (point-min))))
- 
-(defun skk-make-mazegaki-dic-1 (outbuf nomsg)
+  (unwind-protect
+      (let ((outbuf (get-buffer-create " *skkmkmgk working*"))
+	    ret)
+	(if reference
+	    (progn
+	      (setq reference (read-file-name "どの辞書を参照しますか? "
+					      nil nil 'mustmatch))
+	      (with-current-buffer (get-buffer-create " *skkmkmgk working1*")
+		(erase-buffer)
+		(insert-file-contents-as-coding-system
+		 (cdr (assoc "euc" skk-coding-system-alist))
+		 (expand-file-name reference))
+		(goto-char (point-min))
+		(re-search-forward "^;; okuri-nasi entries\\.$")
+		;; abbrev 候補を skip
+		(delete-region (point-min) (progn (re-search-forward "^あ")
+						  (beginning-of-line)
+						  (point)))
+		(setq reference (current-buffer)))))
+	(save-excursion
+	  (save-restriction
+	    (narrow-to-region min max)
+	    (goto-char min)
+	    (setq ret (skk-make-mazegaki-dic-1 outbuf nil reference))))
+	(if ret
+	    (progn
+	      (pop-to-buffer outbuf)
+	      (goto-char (point-min)))))
+    (kill-buffer reference)))
+
+(defun skk-make-mazegaki-dic-1 (outbuf nomsg &optional reference)
   (let ((max (point-max))
 	(cont t)
 	header0 header-list candidates0 candidates1)
+    (or reference (setq reference (current-buffer)))
     (while (and cont (not (eobp)))
       (or nomsg
 	  (message (format "Making Mazegaki dictionary...%d%%%% done"
@@ -128,16 +157,19 @@
 	    nil
 	  ;; ひらがな見出しを分解
 	  (setq header-list (string-to-char-list header0))
-	  (while header-list
-	    (let* ((header-list1 header-list)
-		   (header1 (char-to-string (car header-list1)))
-		   (n 1))
-	      (while (and header1 (> (length header0) (length header1)))
-		(save-excursion
-		  (goto-char (point-min))
+	  (save-excursion
+	    (set-buffer reference)
+	    (let ((max (point-max)) (min (point-min))
+		  (header-list1 header-list)
+		  header1 n)
+	      (while header-list1
+		(setq header1 (char-to-string (car header-list1))
+		      n 1)
+		(while (and header1 (> (length header0) (length header1)))
+		  (goto-char min)
 		  ;; 分解したひらがな見出しを 1 文字づつ見出しにして再検索 e.x. "あい"
 		  (if (not (setq candidates1 (skk-mkmgk-binary-search
-					      header1 (point-min) max skk-mkmgk-region-limit)))
+					      header1 min max skk-mkmgk-region-limit)))
 		      nil
 		    (let ((can0 candidates0))
 		      (while (and candidates1 can0)
@@ -180,27 +212,35 @@
 			    n (1+ n))
 		    ;; 次の char を頭にした検索開始
 		    ;; e.x. "あ" → "い" → "か" → "わ"
-		    (setq header1 nil))))
-	      (setq header-list (cdr header-list1))))))
+		    (setq header1 nil)))
+		(setq header-list1 (cdr header-list1)))))))
       (setq cont (= (forward-line 1) 0)))
-    (or nomsg
-	(message "Making Mazegaki dictionary...100%% done"))))
+    (let ((ret (with-current-buffer outbuf (> (buffer-size) 0))))
+      (prog1
+	  ret
+	(or nomsg
+	    (if ret
+		(message "Making Mazegaki dictionary...100%% done")
+	      (message "No entries of Mazegaki dictionary")))))))
 
-(defun skk-mkmgk-filter (list)
-  (delq nil (mapcar
-	     (function
-	      (lambda (word)
-		(if (and
-		     ;; 漢字 1 文字を混ぜ書きすることはないでしょう...
-		     (> (skk-str-length word) 1)
-		     ;; カタカナ語を skip
-		     (not (string-match "^[ーァ-ン]+$" word))
-		     ;; 英語を skip
-		     (not (string-match "^[a-zA-Z]+$" word)))
-		    (if (string-match ";" word)
-			(substring word 0 (match-beginning 0))
-		      word))))
-	     list)))
+(defun skk-mkmgk-filter (list &optional onecharacter)
+  (delete "" ; there was a bug in SKK-JISYO.L...
+	  (delq nil
+		(mapcar
+		 (function
+		  (lambda (word)
+		    (setq word (if (and
+				    ;; カタカナ語を skip
+				    (not (string-match "^[ーァ-ン]+$" word))
+				    ;; 英語を skip
+				    (not (string-match "^[a-zA-Z]+$" word)))
+				   (if (string-match ";" word)
+				       (substring word 0 (match-beginning 0))
+				     word)))
+		    (if (and onecharacter (> (skk-str-length word) 1))
+			(setq word nil))
+		    word))
+		 list))))
 
 (defun skk-mkmgk-binary-search (key min max limit)
   (let ((case-fold-search nil)
@@ -217,7 +257,7 @@
     (goto-char min)
     (beginning-of-line)
     (if (re-search-forward (concat "^" key " /") max 'noerror)
-	(skk-mkmgk-filter (car (skk-compute-henkan-lists nil))))))
+	(skk-mkmgk-filter (car (skk-compute-henkan-lists nil)) 'onecharacter))))
 
 (require 'product)
 (product-provide (provide 'skk-mkmgk) (require 'skk-version))

@@ -1,3 +1,17 @@
+2001-07-29  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* tut-code/skk-mkmgk.el (skk-make-mazegaki-dic-1): Created new
+	optional arg REFERENCE.
+	(skk-make-mazegaki-dic): Use `unwind-protect' to secure kill
+	working buffer.
+	(skk-make-mazegaki-dic-region): Ditto.
+	Not to pop up working buffer when no Mazegaki entries are there.
+	Abolish optional arg NOMSG and created new optional arg REFERENCE.
+	(skk-mkmgk-filter): New optional arg ONECHARACTER.  Delete "" to
+	avoid SKK-JISYO.L bug.
+	(skk-mkmgk-binary-search): Use `skk-mkmgk-filter' with optional
+	arg ONECHARACTER.
+
 2001-07-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* tut-code/skk-mkmgk.el: New file.
@@ -3667,8 +3681,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.320 2001/07/28 10:51:01 minakaji Exp $
-Last Modified: $Date: 2001/07/28 10:51:01 $
+Version: $Id: ChangeLog,v 1.321 2001/07/29 01:41:05 minakaji Exp $
+Last Modified: $Date: 2001/07/29 01:41:05 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
