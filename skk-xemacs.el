@@ -86,16 +86,10 @@
     ["About Daredevil SKK..." skk-version t]
     ["Visit Daredevil SKK Home..." skk-xemacs-visit-openlab t]))
 
-(setq skk-icon
-      (if (and (locate-data-file "skk.xpm")
-	       (featurep 'xpm))
-	  (let ((glyph (make-glyph)))
-	    (set-glyph-image glyph
-			     (vector 'xpm
-				     :file (locate-data-file "skk.xpm")))
-	    (cons (cdr (assq 'hiragana skk-xemacs-extent-alist))
-		  glyph))
-	nil))
+(defvar skk-xemacs-icon-glyph
+  (let ((xpm (locate-data-file "skk.xpm")))
+    (if (and (featurep 'xpm) xpm)
+	(make-glyph (vector 'xpm :file xpm)))))
 
 ;; Functions.
 
