@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.25 2002/04/27 10:43:05 obata Exp $
+;; Version: $Id: skk-look.el,v 1.26 2002/07/06 12:18:40 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/04/27 10:43:05 $
+;; Last Modified: $Date: 2002/07/06 12:18:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -159,7 +159,8 @@
 	     (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
 		 ?*))
     (let* ((args (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
-	   (v (if skk-look-use-ispell
+	   (v (if (and skk-look-use-ispell
+		       (> (length args) 0))
 		  (skk-look-ispell args)
 		(skk-look-1 args)))
 	   skk-henkan-key
@@ -214,7 +215,8 @@
       ;; look は複数の候補を吐くので、一旦貯めておいて、
       ;; 一つずつ complete する。
       (setq skk-look-completion-words
-	    (if skk-look-use-ispell
+	    (if (and skk-look-use-ispell
+		     (> (length skk-comp-key) 0))
 		(skk-look-ispell skk-comp-key)
 	      (skk-look-1 skk-comp-key)))
       (dolist (word stacked)
