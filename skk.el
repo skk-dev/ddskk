@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.196 2001/11/23 09:10:51 czkmt Exp $
+;; Version: $Id: skk.el,v 1.197 2001/11/23 13:40:02 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/23 09:10:51 $
+;; Last Modified: $Date: 2001/11/23 13:40:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -871,6 +871,8 @@ dependent."
    (t
     (setq skk-katakana (not skk-katakana))))
   (skk-kakutei)
+  (when skk-j-mode
+    (skk-j-mode-on skk-katakana))
   nil)
 
 (defun skk-misc-for-picture ()
@@ -2140,7 +2142,8 @@ WORD で確定する。"
 	   kakutei-word))))
     (skk-do-auto-fill)
     (if skk-mode
-	(skk-j-mode-on skk-katakana)
+	(unless skk-j-mode
+	  (skk-j-mode-on skk-katakana))
       ;; カレントバッファでまだ skk-mode が
       ;; コールされていなかったら、コールする。
       (skk-mode 1)))
