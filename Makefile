@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile,v 1.27 2000/09/13 18:03:29 czkmt Exp $
-# Last Modified: $Date: 2000/09/13 18:03:29 $
+# Version: $Id: Makefile,v 1.28 2000/09/21 10:47:49 akiho Exp $
+# Last Modified: $Date: 2000/09/21 10:47:49 $
 
 VERSION = 10.61
 
@@ -23,6 +23,9 @@ elc:
 
 info:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile-info
+
+info-mule-for-win:
+	$(EMACS) -q -no-site-file -l SKK-MK -f SKK-MK-compile-info-for-mule4win32
 
 install:
 	$(EMACS) $(FLAGS) -f SKK-MK-install 
