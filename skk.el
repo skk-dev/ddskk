@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.165 2001/10/20 07:06:28 czkmt Exp $
+;; Version: $Id: skk.el,v 1.166 2001/10/23 12:59:26 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/20 07:06:28 $
+;; Last Modified: $Date: 2001/10/23 12:59:26 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3774,10 +3774,10 @@ If you want to restore the dictionary from the disc, try
   ;; リージョンの全角英数字を対応する ascii 文字に変換する。
   (interactive "*r")
   (skk-search-and-replace
-   start end "\\cS\\|\\cA" ; "゛" にマッチしちゃう...
+   start end "\\cj"
    (lambda (matched)
-     (let ((ascii (skk-jisx0208-to-ascii matched)))
-       (or ascii matched)))))
+     (or (skk-jisx0208-to-ascii matched)
+	 matched))))
 
 (defun skk-search-and-replace (start end regexp func)
   (let (matched replace)
