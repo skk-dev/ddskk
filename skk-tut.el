@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.12 2000/10/11 15:24:45 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.13 2000/10/18 15:47:51 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/11 15:24:45 $
+;; Last Modified: $Date: 2000/10/18 15:47:51 $
 
 ;; This file is part of SKK.
 
@@ -444,8 +444,10 @@ The English version is SKK.tut.E."
        (= skktut-question-count 1)
        (skktut-error "このキーはまだ使えません" "Cannot use this key yet" ) ))
 
+;;; XXX interactive subr with args.
 (defadvice kill-buffer (around skktut-ad disable)
   "SKK チュートリアル用アドバイス付。"
+  (interactive "bKill buffer: ")
   (cond ((or (not (interactive-p))
 	     (null (member (ad-get-arg 0) (list skktut-working-buffer
 						skktut-question-buffer

@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.36 2000/10/11 15:25:35 czkmt Exp $
+;; Version: $Id: skk.el,v 1.37 2000/10/18 15:47:51 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/11 15:25:35 $
+;; Last Modified: $Date: 2000/10/18 15:47:51 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 2000/10/11 15:25:35 $")
+      (let* ((raw-date "$Date: 2000/10/18 15:47:51 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)))
@@ -1736,9 +1736,11 @@ picture-mode $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!
   "SKK $B%b!<%I$,(B on $B$J$i(B skk-self-insert-non-undo-count $B$r=i4|2=$9$k!#(B"
   (and skk-mode (setq skk-self-insert-non-undo-count 0)))
 
+;;; XXX interactive subr with args.
 (defadvice kill-buffer (before skk-ad activate)
   "SKK $B$N"'%b!<%I$@$C$?$i!"3NDj$7$F$+$i%P%C%U%!$r%-%k$9$k!#(B
   $B%P%C%U%!$N%-%k8e!"(BSKK $B$N%b!<%I$K=>$$%+!<%=%k$N?'$rJQ$($k!#(B"
+  (interactive "bKill buffer: ")
   (and skk-mode skk-henkan-on (interactive-p) (skk-kakutei)))
 
 (defadvice save-buffers-kill-emacs (before skk-ad activate)
