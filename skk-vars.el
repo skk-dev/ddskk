@@ -4,29 +4,28 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.79 2001/11/18 16:10:41 akiho Exp $
+;; Version: $Id: skk-vars.el,v 1.80 2001/11/19 15:54:01 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/18 16:10:41 $
+;; Last Modified: $Date: 2001/11/19 15:54:01 $
 
 ;; This file is part of Daredevil SKK.
 
-;; Daredevil SKK is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either versions 2, or (at your option)
-;; any later version.
+;; Daredevil SKK is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either versions 2, or
+;; (at your option) any later version.
 
-;; Daredevil SKK is distributed in the hope that it will be useful
+;; Daredevil SKK is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
-;; Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
-;; MA 02111-1307, USA.
+;; along with Daredevil SKK, see the file COPYING.  If not, write to
+;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
 
 ;;; Commentary:
-;;
 
 ;;; Code:
 
@@ -1661,7 +1660,7 @@ cdr は元号表記の string からなるリスト。"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "März")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Adrz")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
