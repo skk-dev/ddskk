@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.80 2002/01/24 15:01:48 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.81 2002/01/27 02:07:18 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/24 15:01:48 $
+;; Last Modified: $Date: 2002/01/27 02:07:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -287,8 +287,8 @@ the return value (nil if RESULT is omitted)."
   (static-cond
    ((eq skk-emacs-type 'xemacs)
      (ding arg sound device))
-    (t
-     (ding arg))))
+   (t
+    (ding arg))))
 
 (defsubst skk-color-display-p ()
   (static-cond
