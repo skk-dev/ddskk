@@ -1,3 +1,12 @@
+2001-11-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola-jis.el
+	* skk-nicola-us.el
+	* skk-omelet-jis.el
+	* skk-omelet-us.el:
+	Use `skk-mode-hook' when `skk-nicola-use-koyubi-functions' is
+	non-nil.
+
 2001-11-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki.el
