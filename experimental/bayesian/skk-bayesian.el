@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.11 2004/12/21 07:39:50 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.12 2004/12/24 21:24:14 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/12/21 07:39:50 $
+;; Last Modified: $Date: 2004/12/24 21:24:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -133,12 +133,14 @@
 (defsubst skk-bayesian-make-pending-data-alist
   (word okurigana midasi buffer henkan-point context)
   (setq skk-bayesian-pending-data-alist
-        (list (cons 'word word)
-              (cons 'okurigana okurigana)
-              (cons 'midasi midasi)
-              (cons 'buffer buffer)
-              (cons 'henkan-point henkan-point)
-              (cons 'context context))))
+        (if (and word okurigana midasi buffer henkan-point context)
+            ;; 特に henkan-point が nil になりやすい。
+            (list (cons 'word word)
+                  (cons 'okurigana okurigana)
+                  (cons 'midasi midasi)
+                  (cons 'buffer buffer)
+                  (cons 'henkan-point henkan-point)
+                  (cons 'context context)))))
 
 (defsubst skk-bayesian-get-pending-data-alist (key)
   (cdr (assq key skk-bayesian-pending-data-alist)))
