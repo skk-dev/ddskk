@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.112 2001/09/09 02:34:20 czkmt Exp $
+;; Version: $Id: skk.el,v 1.113 2001/09/09 03:39:03 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/09 02:34:20 $
+;; Last Modified: $Date: 2001/09/09 03:39:03 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -2099,7 +2099,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
     (if skk-mode
 	(skk-j-mode-on skk-katakana)
       ;; カレントバッファでまだ skk-mode がコールされていなかったら、コールする。
-      (skk-mode 1))))
+      (skk-mode 1)))
+  nil)
 
 (defun skk-kakutei-cleanup-buffer ()
   ;; 確定直後のバッファの整形を行なう。

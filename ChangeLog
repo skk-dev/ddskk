@@ -10,6 +10,8 @@
 
 	* doc/skk.texi (SKKの歴史): New chapter.
 
+	* skk.el (skk-kakutei): Always return nil.
+
 2001-09-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* READMEs/NEWS: Update.
@@ -1790,8 +1792,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.371 2001/09/09 03:15:06 czkmt Exp $
-Last Modified: $Date: 2001/09/09 03:15:06 $
+Version: $Id: ChangeLog,v 1.372 2001/09/09 03:39:03 czkmt Exp $
+Last Modified: $Date: 2001/09/09 03:39:03 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
