@@ -175,7 +175,7 @@
 	(set-extent-property
 	 extent
 	 'help-echo
-	 "button1 toggles SKK, button3 opens SKK menu"))
+	 "button1 toggles SKK, button3 shows SKK menu"))
       ;;
       (setq face (intern (format "skk-xemacs-%s-face"
 				 mode)))
