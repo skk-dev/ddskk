@@ -1,3 +1,7 @@
+2001-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-omelet-us.el (skk-insert): Workaround.
+
 2001-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Re-indent.
