@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.18 1999/10/23 13:35:51 minakaji Exp $
+;; Version: $Id: skk.el,v 1.19 1999/11/07 02:54:26 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/23 13:35:51 $
+;; Last Modified: $Date: 1999/11/07 02:54:26 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -50,7 +50,7 @@
 ;;; Code:
 (require 'skk-foreword)
 
-(defconst skk-version "10.56")
+(defconst skk-version "10.57")
 (defconst skk-major-version (string-to-int (substring skk-version 0 2)))
 (defconst skk-minor-version (string-to-int (substring skk-version 3)))
 
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/10/23 13:35:51 $")
+      (let* ((raw-date "$Date: 1999/11/07 02:54:26 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -481,6 +481,14 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
 $B$k!#(B\"x\", \" \" $B5Z$S(B \"C-g\" $B$O8uJdA*Br;~$K$=$l$>$lFCJL$J;E;v$K3d$jEv(B
 $B$F$i$l$F$$$k$N$G!"$3$N%j%9%H$NCf$K$O4^$a$J$$$3$H!#(B"
   :type '(repeat character)
+  :group 'skk )
+
+(defcustom skk-status-indicator 'minor-mode
+  "*SKK $B$N>uBV$r%b!<%I9T$N$I$3$KI=<($9$k$+$r7h$a$k!#(B
+left $B$G$"$l$P:8C<$KI=<($9$k!#(B
+$B$5$b$J$1$l$P%^%$%J!<%b!<%I$H$7$F$NI=<(K!$r<h$k!#(B"
+  :type '(choice (const minor-mode)
+		 (const left))
   :group 'skk )
 
 (defcustom skk-latin-mode-string " SKK"
@@ -1597,10 +1605,6 @@ skk-remove-common $B$G;2>H$5$l$k!#(B" )
 
 (skk-deflocalvar skk-okuri-index-max -1
   "skk-henkan-list $B$N%$%s%G%/%9$G<+F0Aw$j=hM}!"$b$7$/$O%5JQ8!:w$G8!:w$7$?:G8e$N8uJd$r;X$9$b$N!#(B" )
-(setq minor-mode-alist
-      (put-alist 'skk-mode
-		 ;; each element of minor-mode-alist is not cons cell.
-		 '(skk-input-mode-string) minor-mode-alist) )
 
 (set-modified-alist
  'minor-mode-map-alist
@@ -1917,6 +1921,8 @@ dependent."
       (progn
         (let ((skk-mode t)) (skk-kakutei))
         (skk-mode-off) 
+	(and (eq skk-status-indicator 'left)
+	     (setq skk-input-mode-string "") )
 	(and (eq skk-emacs-type 'xemacs) (easy-menu-remove skk-menu)) )
     ;; enter skk-mode
     (if (not skk-mode-invoked)
@@ -1925,6 +1931,7 @@ dependent."
           (setq skk-mode-invoked t)
           (skk-setup-init-file)
           (load skk-init-file t)
+	  (skk-setup-modeline)
 	  (require 'skk-autoloads)
 	  (if (or (memq skk-emacs-type '(mule3 mule4))
 		  (and (eq skk-emacs-type 'xemacs)
@@ -1966,6 +1973,8 @@ dependent."
     (add-hook 'pre-command-hook 'skk-pre-command nil 'local)
     (make-local-hook 'post-command-hook)
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
+    (and (eq skk-status-indicator 'left)
+	 (setq skk-input-mode-string skk-hiragana-mode-string) )
     (skk-j-mode-on)
     (and (eq skk-emacs-type 'xemacs) (easy-menu-add skk-menu))
     (run-hooks 'skk-mode-hook) ))
@@ -5056,6 +5065,50 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 	      (function (lambda ()
 			  (add-hook 'pre-command-hook 'skk-pre-command nil 'local) )))
              (skk-set-cursor-properly) )))
+
+(defun skk-setup-modeline ()
+  "$B%b!<%I9T$X$N%9%F!<%?%9I=<($r=`Hw$9$k!#(B"
+  (cond ((eq skk-status-indicator 'left)
+	 (mapcar (function
+		  (lambda (el)
+		    (let ((sym (car el))
+			  (strs (cdr el)))
+		      (if (string= (symbol-value sym) (cdr strs))
+			  (set sym (car strs)) ))))
+		 '((skk-latin-mode-string . ("--SKK:" . " SKK"))
+		   (skk-hiragana-mode-string . ("--$B$+$J(B:" . " $B$+$J(B"))
+		   (skk-katakana-mode-string . ("--$B%+%J(B:" . " $B%+%J(B"))
+		   (skk-jisx0208-latin-mode-string . ("--$BA41Q(B:" . " $BA41Q(B"))
+		   (skk-abbrev-mode-string . ("--a$B$"(B:" . " a$B$"(B")) ))
+	 (cond ((featurep 'xemacs)
+		(or (memq 'skk-input-mode-string default-mode-line-format)
+		    (setq-default default-modeline-format
+				  (append '("" skk-input-mode-string)
+					  default-modeline-format) ))
+		(mapc
+		 (function
+		  (lambda (buf)
+		    (if (buffer-live-p buf)
+			(save-excursion
+			  (set-buffer buf)
+			  (or (memq 'skk-input-mode-string modeline-format)
+			      (setq modeline-format
+				    (append '("" skk-input-mode-string)
+					    modeline-format) ))))))
+		 (buffer-list) ))
+	       (t
+		(or (memq 'skk-input-mode-string mode-line-format)
+		    (setq-default
+		     mode-line-format
+		     (append '("" skk-input-mode-string)
+			     mode-line-format) ))))
+	 (setq-default skk-input-mode-string "")
+	 (force-mode-line-update t) )
+	(t
+	 (setq minor-mode-alist
+	       (put-alist 'skk-mode
+			  ;; each element of minor-mode-alist is not cons cell.
+			  '(skk-input-mode-string) minor-mode-alist) ))))
 
 (run-hooks 'skk-load-hook)
 

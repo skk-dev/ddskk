@@ -1,12 +1,12 @@
-;;; skk-jisx0201.el --- SKK 用 JISX 0201 カナ入力プログラム
+;;; skk-jisx0201.el --- SKK 用 JISX 0201 コード文字入力プログラム
 ;; Copyright (C) 1999 Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.2 1999/10/31 14:27:54 minakaji Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.3 1999/11/07 02:53:06 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 1999/10/31 14:27:54 $
+;; Last Modified: $Date: 1999/11/07 02:53:06 $
 
 ;; This file is not part of SKK yet.
 
@@ -38,6 +38,14 @@
 ;; ◎ひらがな/カタカナ両モード内での▽モードにおいて、
 ;;   ・"C-q" を押すと､見出し語として入力されたひらがな/カタカナをﾊﾝｶｸｶﾀｶﾅに変換します｡
 ;;
+;; skk-jisx0201-rule-list に JISX0201.1976 Japanese Roman (latin-jisx0201) 
+;; の文字列を定義しています。いわゆる半角カタカナだけで良ければ、
+;; .emacs か .skk に
+;;
+;;   (setq skk-jisx0201-rule-list nil)
+;;
+;; と書いて下さい。
+
 ;;; Code:
 (require 'skk)
 
@@ -54,8 +62,8 @@ skk-use-color-cursor が non-nil のときに使用される。"
   :type 'string
   :group 'skk )
 
-(defcustom skk-jisx0201-mode-string " ｶﾅ"
-  "*SKK が latin (ascii) モードであるときにモードラインに表示される文字列。"
+(defcustom skk-jisx0201-mode-string " jisx0201"
+  "*SKK が JISX0201 モードであるときにモードラインに表示される文字列。"
   :type 'string
   :group 'skk )
 
@@ -146,10 +154,106 @@ skk-use-color-cursor が non-nil のときに使用される。"
     ("@" nil skk-today)
     ("\\" nil skk-input-by-code-or-menu)
     )
-  "*SKK JISX0201 カナモードのベースのルール。")
+  "*SKK JISX0201 モードのベースのルール。")
 
-(defvar skk-jisx0201-rule-list nil
-  "*SKK JISX0201 カナモードの追加のルール。")
+(defvar skk-jisx0201-rule-list
+  '(
+    ("!" nil "!")
+    ("\"" nil """)
+    ("#" nil "#")
+    ;;("$" nil "$")
+    ("%" nil "%")
+    ("&" nil "&")
+    ("'" nil "'")
+    ("\(" nil "(")
+    ("\)" nil ")")
+    ("*" nil "*")
+    ("+" nil "+")
+    ;;("," nil ",")
+    ("-" nil "-")
+    ;;("." nil ".")
+    ;;("/" nil "/")
+    ;;("0" nil "0")
+    ("1" nil "1")
+    ("2" nil "2")
+    ("3" nil "3")
+    ("4" nil "4")
+    ("5" nil "5")
+    ("6" nil "6")
+    ("7" nil "7")
+    ("8" nil "8")
+    ("9" nil "9")
+    (":" nil ":")
+    (";" nil ";")
+    ("<" nil "<")
+    ("=" nil "=")
+    (">" nil ">")
+    ("?" nil "?")
+    ("@" nil "@")
+    ("A" nil "A")
+    ("B" nil "B")
+    ("C" nil "C")
+    ("D" nil "D")
+    ("E" nil "E")
+    ("F" nil "F")
+    ("G" nil "G")
+    ("H" nil "H")
+    ("I" nil "I")
+    ("J" nil "J")
+    ("K" nil "K")
+    ("L" nil "L")
+    ("M" nil "M")
+    ("N" nil "N")
+    ("O" nil "O")
+    ("P" nil "P")
+    ("Q" nil "Q")
+    ("R" nil "R")
+    ("S" nil "S")
+    ("T" nil "T")
+    ("U" nil "U")
+    ("V" nil "V")
+    ("W" nil "W")
+    ("X" nil "X")
+    ("Y" nil "Y")
+    ("Z" nil "Z")
+    ;;("[" nil "[")
+    ;;("\\" nil "\")
+    ;;("]" nil "]")
+    ("^" nil "^")
+    ("_" nil "_")
+    ("`" nil "`")
+    ;;("a" nil "a")
+    ;;("b" nil "b")
+    ;;("c" nil "c")
+    ;;("d" nil "d")
+    ;;("e" nil "e")
+    ;;("f" nil "f")
+    ;;("g" nil "g")
+    ;;("h" nil "h")
+    ;;("i" nil "i")
+    ;;("j" nil "j")
+    ;;("k" nil "k")
+    ;;("l" nil "l")
+    ;;("m" nil "m")
+    ;;("n" nil "n")
+    ;;("o" nil "o")
+    ;;("p" nil "p")
+    ;;("q" nil "q")
+    ;;("r" nil "r")
+    ;;("s" nil "s")
+    ;;("t" nil "t")
+    ;;("u" nil "u")
+    ;;("v" nil "v")
+    ;;("w" nil "w")
+    ;;("x" nil "x")
+    ;;("y" nil "y")
+    ;;("z" nil "z")
+    ("{" nil "{")
+    ("|" nil "|")
+    ("}" nil "}")
+    ("~" nil "~")
+    )
+"*SKK JISX0201 モードの追加のルール。")
 
 (defvar skk-jisx0201-mode-map nil
   "*SKK JISX0201 モードのキーマップ。")
@@ -510,55 +614,50 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。" )
   (set-marker end nil)
   (skk-set-cursor-properly) )
 
-(defun skk-hiragana-to-jisx0201-region (start end &optional vcontract)
-  (save-match-data
-    (let (object jisx0201)
+;; skk-jisx0201- prefix may be changed to skk-.
+(defun skk-jisx0201-search-and-replace (start end regexp func)
+  (let (matched replace)
+    (save-match-data
       (skk-save-point
+       ;; END may be changed when length of MATCHED and one of REPLACE
+       ;; are different.
+       (setq end (set-marker (make-marker) end))
        (goto-char start)
-       (while (re-search-forward  "[ぁ-ん]+" end 'noerror)
-	 (setq object (buffer-substring-no-properties
-		       (match-beginning 0) (match-end 0) )
-	       jisx0201 (save-match-data (japanese-hankaku object)) )
-	 (backward-char (skk-str-length object))
+       (while (re-search-forward regexp end 'noerror)
+	 (setq matched (buffer-substring-no-properties
+			(match-beginning 0) (match-end 0) )
+	       replace (funcall func matched) )
+	 (backward-char (skk-str-length matched))
 	 ;; firstly insert a new string, secondly delete an old string to save
 	 ;; the cursor position.
-	 (insert-and-inherit jisx0201)
-	 (delete-region (+ (match-beginning 0) (length jisx0201))
-			(+ (match-end 0) (length jisx0201)) ))
-       (if vcontract
-	   (progn
-	     (goto-char start)
-	     (while (re-search-forward  "ウ゛" end 'noerror)
-	       (backward-char (skk-str-length "ウ゛"))
-	       (let ((vu-len (length "ｳﾞ")))
-		 (insert-and-inherit "ｳﾞ")
-		 (delete-region (+ (match-beginning 0) vu-len)
-				(+ (match-end 0) vu-len) )))))))))
+	 (insert-and-inherit replace)
+	 (delete-region (+ (match-beginning 0) (length replace))
+			(+ (match-end 0) (length replace)) ))
+       (set-marker end nil) ))))
 
-(defun skk-katakana-to-jisx0201-region (start end &optional vcontract)
-  (save-match-data
-    (let (object jisx0201)
-      (skk-save-point
-       (goto-char start)
-       (while (re-search-forward  "[ァ-ン]+" end 'noerror)
-	 (setq object (buffer-substring-no-properties
-		       (match-beginning 0) (match-end 0) )
-	       jisx0201 (save-match-data (japanese-hankaku object)) )
-	 (backward-char (skk-str-length object))
-	 ;; firstly insert a new string, secondly delete an old string to save
-	 ;; the cursor position.
-	 (insert-and-inherit jisx0201)
-	 (delete-region (+ (match-beginning 0) (length jisx0201))
-			(+ (match-end 0) (length jisx0201)) ))
-       (if vcontract
-	   (progn
-	     (goto-char start)
-	     (while (re-search-forward  "う゛" end 'noerror)
-	       (backward-char (skk-str-length "う゛"))
-	       (let ((vu-len (length "ｳﾞ")))
-		 (insert-and-inherit "ｳﾞ")
-		 (delete-region (+ (match-beginning 0) vu-len)
-				(+ (match-end 0) vu-len) )))))))))
+(defun skk-hiragana-to-jisx0201-region
+  (start end &optional vcontract latin-jisx0201)
+  (skk-jisx0201-search-and-replace
+   start end "[ぁ-ん]+"
+   (lambda (matched) (save-match-data (japanese-hankaku matched))) )
+  (if vcontract
+      (skk-jisx0201-search-and-replace
+       start end "う゛" (lambda (matched) (identity "ｳﾞ")) ))
+  (if latin-jisx0201
+      ;; not yet
+      ))
+
+(defun skk-katakana-to-jisx0201-region
+  (start end &optional vcontract latin-jisx0201)
+  (skk-jisx0201-search-and-replace
+   start end "[ァ-ン]+"
+   (lambda (matched) (save-match-data (japanese-hankaku matched))) )
+  (if vcontract
+      (skk-jisx0201-search-and-replace
+       start end "ヴ" (lambda (matched) (identity "ｳﾞ")) ))
+  (if latin-jisx0201
+      ;; not yet
+      ))
 
 ;; overwrite the function of same name in skk.el
 (defun skk-setup-modeline ()
@@ -575,7 +674,7 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。" )
 		   (skk-katakana-mode-string . ("--カナ:" . " カナ"))
 		   (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
 		   (skk-abbrev-mode-string . ("--aあ:" . " aあ"))
-		   (skk-jisx0201-mode-string . ("--ｶﾅ" . " ｶﾅ")) ))
+		   (skk-jisx0201-mode-string . ("--jisx0201" . " jisx0201")) ))
 	 (cond ((featurep 'xemacs)
 		(or (memq 'skk-input-mode-string default-mode-line-format)
 		    (setq-default default-modeline-format
