@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.113 2003/07/12 11:22:33 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.114 2003/07/13 11:26:06 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/07/12 11:22:33 $
+;; Last Modified: $Date: 2003/07/13 11:26:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3291,7 +3291,7 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
   :type 'boolean
   :group 'skk-study)
 
-(defcustom skk-study-check-alist-format t
+(defcustom skk-study-check-alist-format nil
   "*Non-nil であれば、学習結果の読み込み時に連想リストのフォーマットをチェックする。"
   :type 'boolean
   :group 'skk-study)

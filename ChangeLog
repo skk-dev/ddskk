@@ -1,5 +1,15 @@
 2003-07-13  NAKAJIMA Mikio  <minakaji@namazu.org>
 
+	* skk-study.el (skk-study-read): Use `when' instead of `if'.
+	(skk-undo-kakutei): Ditto.
+	(skk-study-check-alist-format-1): Ditto.
+	(skk-study-read-1): Ditto.
+	(skk-study-save): Ditto.
+	(skk-study-read): Use `unless' instead of `or'.
+
+	* skk-vars.el (skk-study-check-alist-format): Change its default
+	value to nil.
+
 	* ptexinfmt.el (texinfo-format-separate-node): Declare with
 	`ptexinfmt-broken-facility' and `ptexinfmt-defun-if-broken'.
 	(texinfo-format-end-node): Ditto.
@@ -4314,8 +4324,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.759 2003/07/13 10:56:46 minakaji Exp $
-Last Modified: $Date: 2003/07/13 10:56:46 $
+Version: $Id: ChangeLog,v 1.760 2003/07/13 11:26:06 minakaji Exp $
+Last Modified: $Date: 2003/07/13 11:26:06 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

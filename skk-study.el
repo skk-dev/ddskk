@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.42 2003/07/13 09:59:29 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.43 2003/07/13 11:26:06 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/13 09:59:29 $
+;; Last Modified: $Date: 2003/07/13 11:26:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -96,7 +96,7 @@
     (with-current-buffer henkan-buffer
       ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
       ;;  ("なk" . ((("こども" . "子供") . ("泣")))))
-      (let ((target-alist
+      (let ((alist
 	     (cdr
 	      (assoc
 	       midasi
@@ -104,8 +104,8 @@
 				 'okuri-ari)
 				(t 'okuri-nasi))
 			  skk-study-alist))))))
-	(when target-alist
-	  (setq entry (skk-study-search-1 target-alist midasi okurigana entry))))))
+	(when alist
+	  (setq entry (skk-study-search-1 alist midasi okurigana entry))))))
   entry)
 
 (defun skk-study-search-1 (target-alist midasi okurigana entry)
@@ -187,7 +187,8 @@
 
 ;;;###autoload
 (defun skk-study-save (&optional nomsg)
-  "skk-study-file に学習結果を保存する."
+  "`skk-study-file' に学習結果を保存する。
+オプショナル引数の NOMSG が non-nil であれば、保存メッセージを出力しない。"
   (interactive "P")
   (let ((inhibit-quit t)
 	(last-time
@@ -202,9 +203,9 @@
 	  (skk-message "SKK の学習結果をセーブする必要はありません"
 		       "No SKK study need saving")
 	  (sit-for 1))
-      (if (not nomsg)
-	  (skk-message "%s に SKK の学習結果をセーブしています..."
-		       "Saving SKK study to %s..." skk-study-file))
+      (when (not nomsg)
+	(skk-message "%s に SKK の学習結果をセーブしています..."
+		     "Saving SKK study to %s..." skk-study-file))
       (and skk-study-backup-file
 	   (file-exists-p (expand-file-name skk-study-file))
 	   (cond ((eq system-type 'ms-dos)
@@ -219,8 +220,7 @@
 	(insert
 	 (format ";;; skk-study-file format version %s\n"
 		 skk-study-file-format-version))
-	(if (not skk-study-sort-saving)
-	    nil
+	(when skk-study-sort-saving
 	  ;; sort is not necessary, but make an alist rather readable.
 	  (setq e (assq 'okuri-ari skk-study-alist))
 	  (setcdr e (sort (cdr e)
@@ -235,16 +235,15 @@
 	 (skk-find-coding-system skk-jisyo-code)
 	 (point-min) (point-max) skk-study-file))
       (setq skk-study-last-save (current-time))
-      (if (not nomsg)
-	  (progn
-	    (skk-message "%s に SKK の学習結果をセーブしています...完了！"
-			 "Saving SKK study to %s...done" skk-study-file)
-	    (sit-for 1)
-	    (message ""))))))
+      (when (not nomsg)
+	(skk-message "%s に SKK の学習結果をセーブしています...完了！"
+		     "Saving SKK study to %s...done" skk-study-file)
+	(sit-for 1)
+	(message "")))))
 
 ;;;###autoload
 (defun skk-study-read (&optional nomsg force)
-  "skk-study-file から学習結果を読み込む。
+  "`skk-study-file' から学習結果を読み込む。
 オプショナル引数の FORCE が non-nil であれば、破棄の確認をしない。"
   (interactive "P")
   (skk-create-file
@@ -253,30 +252,26 @@
        (if skk-japanese-message-and-error
 	   "SKK の学習結果ファイルを作りました"
 	 "I have created an SKK study file for you")))
-  (if (or (null skk-study-alist)
-	  force
-	  (skk-yes-or-no-p (format "%s を再読み込みしますか？" skk-study-file)
-			   (format "Reread %s?" skk-study-file)))
-      (progn
-	(or nomsg
-	    (skk-message "%s の SKK 学習結果を展開しています..."
-			 "Expanding SKK study of %s ..."
-			 (file-name-nondirectory skk-study-file)))
-	;; 安定したらディフォルトを nil にするね。
-	(if skk-study-check-alist-format
-	    (skk-study-check-alist-format skk-study-file))
-	(setq skk-study-alist (skk-study-read-1 skk-study-file))
-	(setq skk-study-last-read (current-time))
-	(if (null skk-study-alist)
-	    nil
-	  (or nomsg
-	      (progn
-		(skk-message
-		 "%s の SKK 学習結果を展開しています...完了！"
-		 "Expanding SKK study of %s ...done"
-		 (file-name-nondirectory skk-study-file))
-		(sit-for 1)
-		(message "")))))))
+  (when (or (null skk-study-alist)
+	    force
+	    (skk-yes-or-no-p
+	     (format "%s を再読み込みしますか？" skk-study-file)
+	     (format "Reread %s?" skk-study-file)))
+    (unless nomsg
+      (skk-message "%s の SKK 学習結果を展開しています..."
+		   "Expanding SKK study of %s ..."
+		   (file-name-nondirectory skk-study-file)))
+    (when skk-study-check-alist-format
+      (skk-study-check-alist-format skk-study-file))
+    (setq skk-study-alist (skk-study-read-1 skk-study-file))
+    (setq skk-study-last-read (current-time))
+    (when (and skk-study-alist (not nomsg))
+      (skk-message
+       "%s の SKK 学習結果を展開しています...完了！"
+       "Expanding SKK study of %s ...done"
+       (file-name-nondirectory skk-study-file))
+      (sit-for 1)
+      (message ""))))
 
 (defun skk-study-read-1 (file)
   ;; read FILE and return alist.
@@ -286,9 +281,9 @@
 		   skk-study-file-format-version)))
       (insert-file-contents-as-coding-system
        (skk-find-coding-system skk-jisyo-code) file)
-      (if (= (buffer-size) 0)
-	  ;; bare alist
-	  (insert version-string "((okuri-ari) (okuri-nasi))"))
+      (when (= (buffer-size) 0)
+	;; bare alist
+	(insert version-string "((okuri-ari) (okuri-nasi))"))
       (goto-char (point-min))
       (if (looking-at (regexp-quote version-string))
 	  (read (current-buffer))
@@ -314,9 +309,9 @@
   (message ""))
 
 (defun skk-study-check-alist-format-1 (alist)
-  (if (not (and (= (length alist) 2) (assq 'okuri-ari alist)
-		(assq 'okuri-nasi alist)))
-      nil
+  (when (and (= (length alist) 2)
+	     (assq 'okuri-ari alist)
+	     (assq 'okuri-nasi alist))
     (catch 'exit
       (let ((index '(okuri-ari okuri-nasi))
 	    (func (function
@@ -377,14 +372,13 @@
   (let ((last (ring-ref skk-study-data-ring 0))
 	(last2 (ring-ref skk-study-data-ring 1))
 	target)
-    (if (and last last2)
-	(progn
-	  (setq target (assoc (car last)
-			      (assq (cond ((skk-get-last-henkan-datum 'okuri-char)
-					   'okuri-ari)
-					  (t 'okuri-nasi))
-				    skk-study-alist)))
-	  (setq target (delq (assoc last2 (cdr target)) target))))))
+    (when (and last last2)
+      (setq target (assoc (car last)
+			  (assq (cond ((skk-get-last-henkan-datum 'okuri-char)
+				       'okuri-ari)
+				      (t 'okuri-nasi))
+				skk-study-alist)))
+      (setq target (delq (assoc last2 (cdr target)) target)))))
 
 ;; time utilities...
 ;;  from ls-lisp.el.  Welcome!
