@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.1 1999/08/29 06:35:56 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.2 1999/08/29 09:07:24 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 06:35:56 $
+;; Last Modified: $Date: 1999/08/29 09:07:24 $
 
 ;; This file is part of SKK.
 
@@ -346,7 +346,6 @@ The English version is SKK.tut.E."
     (skk-use-numeric-conversion . t)
     (skk-use-rdbms . nil)
     (skk-use-relation . nil)
-    (skk-use-vip . nil)
     (skk-use-viper . nil)
 
     ;; not user variables but to be localized.

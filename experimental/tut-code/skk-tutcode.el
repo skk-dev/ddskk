@@ -1,11 +1,11 @@
-;;; skk-tutcode.el --- SKK TUT-code inputting program.
+;;; skk-tutcode.el --- assist TUT-code inputting in SKK environment.
 ;; Copyright (C) 1999 GUNJI Takao <gunji@sils.shoin.ac.jp>
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.4 1999/08/28 23:37:13 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.5 1999/08/29 09:05:18 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/28 23:37:13 $
+;; Last Modified: $Date: 1999/08/29 09:05:18 $
 
 ;; This file is not part of SKK yet.
 
@@ -32,10 +32,25 @@
 ;;
 ;; <INFORMATION>
 ;;
-;; Access following URL to know what TUT-code is;
-;;    http://www.crew.sfc.keio.ac.jp/~chk/
+;; TUT-code was developed by Hajime Ohiwa <ohiwa@sfc.keio.ac.jp> and
+;; Takaaki Takashima of Toyohashi University of Technology in 1982.
+;; TUT-code is a kind of direct input method of Japanese with two
+;; strokes.  You can pronounce it `Tea You Tea' or `TUT' like 
+;; Tutankamen's nickname, king `TUT'.
+;;
+;; At Mon, 23 Aug 1999 01:13:34 +0900,
+;; Hajime Ohiwa <ohiwa@sfc.keio.ac.jp> wrote:
+;;  
+;; > 私は「てぃーゆーてぃーこーど」と読んでいますが、もう少し言い易い方が
+;; > よいと思います。TUTはこれを開発した豊橋技術科学大学の略称です。
+;; > 米国人に見せたら、「たっと」と読みました。つたんかーめん王のことを英語
+;; > では king TUT と呼び、発音は「たっと」なのだそうです。「たっとこーど」
+;; > の方がよいかもしれません。御意見をお聞かせ下さい。
 ;; 
-;; Send following mail to join TUT-code mailing list;
+;; To get more information, access following URL;
+;;    http://www.crew.sfc.keio.ac.jp/~chk/
+;;
+;; To join TUT-code mailing list, send mail like following;
 ;;    To: tut-code-control@crew.sfc.keio.ac.jp
 ;;    Subject: APPEND
 ;;    Body: an introduction of yourself (null body is available).
@@ -94,6 +109,10 @@
 ;;	       (let (skk-mode-invoked) ad-do-it) )
 ;;	   ad-do-it ))))
 ;;
+;; <TODO>
+;; - Mazegaki (e.x. provided by T-code driver) support.
+;; - To switch easyly okurigana prefix in jisyo buffer.
+
 ;;; Code:
 (eval-when-compile (require 'skk))
 

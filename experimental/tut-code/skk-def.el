@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-def.el,v 1.1 1999/08/21 15:21:47 minakaji Exp $
+;; Version: $Id: skk-def.el,v 1.2 1999/08/29 09:05:44 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/21 15:21:47 $
+;; Last Modified: $Date: 1999/08/29 09:05:44 $
 
 ;; This file is not part of SKK yet.
 
@@ -34,6 +34,7 @@
 (setq skk-katakana-mode-string " カナ")
 (setq skk-jisx0208-latin-mode-string " 全英")
 (setq skk-abbrev-mode-string " aあ")
+(setq skk-start-henkan-char ?\040)
 
 (setq skk-kana-rom-vector
       ["x" "a" "x" "i" "x" "u" "x" "e" "x" "o" "k" "g" "k" "g" "k" "g"
