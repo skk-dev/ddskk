@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.73 2001/12/02 11:06:25 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.74 2001/12/05 13:45:10 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/02 11:06:25 $
+;; Last Modified: $Date: 2001/12/05 13:45:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -472,6 +472,10 @@ BUFFER defaults to the current buffer."
 	    force)
     (skk-cursor-set-1 color)))
 
+(defsubst skk-cursor-off ()
+  (when skk-use-color-cursor
+    (skk-cursor-off-1)))
+
 (defsubst skk-modify-indicator-alist (mode string)
   (setcdr (assq mode skk-indicator-alist)
 	  (cons string (skk-mode-string-to-indicator mode string))))
@@ -619,9 +623,7 @@ BUFFER defaults to the current buffer."
 	skk-katakana nil)
   ;; initialize
   (skk-update-modeline)
-  (skk-cursor-set)
-  (static-unless (featurep 'xemacs)
-    (set-cursor-color-buffer-local nil))
+  (skk-cursor-off)
   (remove-hook 'pre-command-hook 'skk-pre-command 'local))
 
 (defsubst skk-j-mode-on (&optional katakana)
