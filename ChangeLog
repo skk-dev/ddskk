@@ -1,9 +1,24 @@
 2004-04-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	Patch by Masatake YAMATO <jet@gyve.org>.
+
+	* skk-e21.el (tooltip-show-at-point): New function.
+
+	* skk-vars.el (skk-show-japanese-menu): New user option.
+
+	* skk.el (skk-henkan-show-candidate-subr): Under Emacs 21, Call
+	`tooltip-show-at-point' for showing candidates if
+	skk-show-japanese-menu is non-nil.
+
+2004-04-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-e21.el (skk-e21-modeline-property): mouse-1 pops up menu.
 
 	* skk-jisyo-edit-mode.el (skk-jisyo-edit-font-lock-keywords):
 	Highlight okuri blocks.
+
+	* skk-xemacs.el (skk-xemacs-prepare-modeline-properties): button1
+	pops up menu.
 
 2004-04-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -4549,8 +4564,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.793 2004/04/03 00:46:52 czkmt Exp $
-Last Modified: $Date: 2004/04/03 00:46:52 $
+Version: $Id: ChangeLog,v 1.794 2004/04/03 17:08:06 czkmt Exp $
+Last Modified: $Date: 2004/04/03 17:08:06 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
