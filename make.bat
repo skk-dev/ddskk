@@ -1,12 +1,12 @@
 echo off
 rem MAKE.BAT for SKK.
-rem Copyright (C) 1999 Yuh Ohmura <yutopia@t3.rim.or.jp>
+rem Copyright (C) 1999 Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem
-rem Author: Yuh Ohmura <yutopia@t3.rim.or.jp>
-rem Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-rem Version: $Id: make.bat,v 1.1 1999/08/19 12:56:00 minakaji Exp $
+rem Author: Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
+rem Maintainer: Mikio Nakajima, mailto:minakaji@osaka.email.ne.jp
+rem Version: $Id: make.bat,v 1.2 1999/08/19 12:58:32 minakaji Exp $
 rem Created: March 23, 1999
-rem Last Modified: $Date: 1999/08/19 12:56:00 $
+rem Last Modified: $Date: 1999/08/19 12:58:32 $
 
 rem ********************************************************************
 rem *                                                                  *
@@ -20,10 +20,5 @@ set PACKAGEDIR=NONE
 set V_S_LISPDIR=NONE
 rem ********************************************************************
 
-rem *********************************************
-rem set FLAGS="-batch -q -no-site-file -l SKK-MK"
-rem *********************************************
-
 %EMACS% -batch -q -no-site-file -l SKK-MK -f install-skk %PREFIX% %LISPDIR% %V_S_LISPDIR%
-rem copy default.el %LISPDIR%
 
