@@ -3,9 +3,9 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-e18.el,v 1.2 2000/10/30 22:18:15 minakaji Exp $
+;; Version: $Id: skk-e18.el,v 1.3 2000/11/14 12:48:51 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:18:15 $
+;; Last Modified: $Date: 2000/11/14 12:48:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -118,6 +118,31 @@ If FRAME is omitted, describe the currently selected frame."
 be applied to `file-coding-system-for-read'."
     (let ((file-coding-system-for-read coding-system))
       (insert-file-contents filename visit))))
+
+(defun skk-e18-make-local-map (map1 map2)
+  (let ((alist1 (cdr (copy-sequence map1)))
+	(alist2 (cdr (copy-sequence map2)))
+	alist cell1 cell2 cell)
+    (while alist1
+      (setq cell nil)
+      (setq cell1 (car alist1))
+      (cond ((and (keymapp (cdr cell1))
+		  (setq cell2 (assq (car cell1) alist2))
+		  (keymapp (cdr cell2)))
+	     (setq cell (cons (car cell1)
+			      (skk-e18-make-local-map
+			       (cdr cell1)
+			       (cdr cell2))))
+	     (setq alist2 (delete cell2 alist2)))
+	    (t
+	     (setq cell cell1)))
+      (when cell
+	(setq alist (nconc alist (list cell))))
+      (setq alist1 (cdr alist1)))
+    (while alist2
+      (setq alist (nconc alist (list (car alist2))))
+      (setq alist2 (cdr alist2)))
+    (cons 'keymap alist)))
 
 ;; Hooks.
 
