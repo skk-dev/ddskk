@@ -80,9 +80,7 @@
     ("L" nil skk-jisx0208-latin-mode)
     ("Z" nil skk-jisx0208-latin-mode)
     ("X" nil skk-purge-from-jisyo)
-    ("C" nil skk-input-by-code-or-menu)
-    ;;
-    ) "\
+    ("C" nil skk-input-by-code-or-menu)) "\
 日本語 106 キーボードで NICOLA 入力するための基本ルール。")
 
 (defconst skk-nicola-jis-keymap-display 'dummy "\
@@ -167,9 +165,7 @@
     (?n ("ヌ" . "ぬ")) (?m ("ユ" . "ゆ")) (?, ("ム" . "む")) (?. ("ワ" . "わ"))
     (?/ ("ォ" . "ぉ"))
     ;;
-    (?\ " ")
-    ;;
-    ) "\
+    (?\ " ")) "\
 右親指キーが押されたときの入力ルール。")
 
 (defvar skk-nicola-jis-lshift-rule-list
@@ -196,9 +192,7 @@
     (?n ("プ" . "ぷ")) (?m ("ゾ" . "ぞ")) (?, ("ペ" . "ぺ")) (?. ("ボ" . "ぼ"))
     (?/ ("ヮ" . "ゎ"))
     ;;
-    (?\ " ")
-    ;;
-    ) "\
+    (?\ " ")) "\
 左親指キーが押されたときの入力ルール。")
 
 ;;

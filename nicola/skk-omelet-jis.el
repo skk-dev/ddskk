@@ -80,9 +80,7 @@
     ("L" nil skk-jisx0208-latin-mode)
     ("Z" nil skk-jisx0208-latin-mode)
     ("X" nil skk-purge-from-jisyo)
-    ("C" nil skk-input-by-code-or-menu)
-    ;;
-    ) "\
+    ("C" nil skk-input-by-code-or-menu)) "\
 日本語 106 キーボードで omelet 入力するための基本ルール。")
 
 (defconst skk-omelet-jis-keymap-display 'dummy "\
@@ -140,9 +138,7 @@
     (?n ("メ" . "め")) (?m ("ソ" . "そ")) (?, ("ネ" . "ね")) (?. ("ホ" . "ほ"))
     (?/ "・")
     ;;
-    (?\  " ")
-    ;;
-    ) "\
+    (?\  " ")) "\
 単独打鍵時の入力ルール。")
 
 (defvar skk-omelet-jis-rshift-rule-list
@@ -169,9 +165,7 @@
     (?n ("ヌ" . "ぬ")) (?m ("ユ" . "ゆ")) (?, ("ム" . "む")) (?. ("ワ" . "わ"))
     (?/ ("ォ" . "ぉ"))
     ;;
-    (?\  " ")
-    ;;
-    ) "\
+    (?\  " ")) "\
 右親指キーが押されたときの入力ルール。")
 
 (defvar skk-omelet-jis-lshift-rule-list
@@ -198,9 +192,7 @@
     (?n ("プ" . "ぷ")) (?m ("ゾ" . "ぞ")) (?, ("ペ" . "ぺ")) (?. ("ボ" . "ぼ"))
     (?/ ("ヮ" . "ゎ"))
     ;;
-    (?\  " ")
-    ;;
-    ) "\
+    (?\  " ")) "\
 左親指キーが押されたときの入力ルール。")
 
 ;;

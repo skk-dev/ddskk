@@ -104,9 +104,8 @@
     ("<" nil skk-current-touten)
     (">" nil skk-current-kuten)
     ("?" nil "・")
-    ("_" nil ("ロ" . "ろ")) ;; 上記の「ー」の問題をひきずっている。
-    ;;
-    ) "\
+    ;; 上記の「ー」の問題をひきずっている。
+    ("_" nil ("ロ" . "ろ"))) "\
 日本語 106 キーボードで仮名入力するための基本ルール。
 この設定では \"ー\" の入力が刻印どおりにできないが、 SHIFT キーを押すことででき
 る。 刻印どおりに入力できるようにするためには、仮想キーコードのレベルで制御する
@@ -155,15 +154,15 @@
        "keycode 123 = quotedbl underscore
 keycode 19 = 0 exclam
 keycode 21 = asciicircum asciitilde
-keycode 34 = at grave\n")
-   (setq skk-kanagaki-rule-list
-	 (nconc skk-kanagaki-rule-list
-		'(("~" nil "々")
-		  ("\\" nil "ー")
-		  ("|" nil "¬")
-		  ("!" nil ("ヲ" . "を"))
-		  ("\"" nil ("ロ" . "ろ"))
-		  ("_" nil "｜"))))))
+keycode 34 = at grave\n"
+     (setq skk-kanagaki-rule-list
+	   (nconc skk-kanagaki-rule-list
+		  '(("~" nil "々")
+		    ("\\" nil "ー")
+		    ("|" nil "¬")
+		    ("!" nil ("ヲ" . "を"))
+		    ("\"" nil ("ロ" . "ろ"))
+		    ("_" nil "｜")))))))
 
 ;;
 
