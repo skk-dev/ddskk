@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.23 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.24 2002/01/01 04:56:59 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/01 04:56:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -48,7 +48,8 @@
   (add-path "nicola-ddskk")))
 
 ;;; Autoloads.
-(require 'skk-autoloads)
+(if (not (featurep 'xemacs))
+    (require 'skk-autoloads))
 
 ;;; Key bindings.
 (global-set-key "\C-x\C-j" 'skk-mode)
