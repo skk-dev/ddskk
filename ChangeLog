@@ -1,3 +1,9 @@
+2004-06-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-emulate-original-map): When `key-binding' fails to
+	find command for KEYS, translate KEYS according to
+	function-key-map and call `key-binding' again.
+
 2004-04-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-e21-coding-system): Default to nil if
@@ -4616,8 +4622,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.808 2004/04/18 05:40:10 czkmt Exp $
-Last Modified: $Date: 2004/04/18 05:40:10 $
+Version: $Id: ChangeLog,v 1.809 2004/06/07 08:54:55 czkmt Exp $
+Last Modified: $Date: 2004/06/07 08:54:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
