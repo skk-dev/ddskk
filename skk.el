@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.265 2003/03/29 05:24:45 czkmt Exp $
+;; Version: $Id: skk.el,v 1.266 2003/04/05 08:26:16 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/03/29 05:24:45 $
+;; Last Modified: $Date: 2003/04/05 08:26:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -860,7 +860,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	     ((eq char 'katakana) #'skk-hiragana-region)
 	     ((eq char 'jisx0208-latin) #'skk-latin-region)
 	     ((eq char 'ascii) #'skk-jisx0208-latin-region))
-       arg)))
+       ;; #'skk-katakana-region $B$N0z?t(B VCONTRACT $B$rM?$($k!#(B
+       (eq char 'hiragana))))
    ((and (skk-in-minibuffer-p)
 	 (not skk-j-mode))
     ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
