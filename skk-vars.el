@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.52 2001/09/11 16:01:06 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.53 2001/09/12 11:17:06 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/11 16:01:06 $
+;; Last Modified: $Date: 2001/09/12 11:17:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -623,6 +623,7 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
 
 (defcustom skk-check-okurigana-on-touroku nil
   "*Non-nil $B$G$"$l$P!"Aw$j$"$j$NEPO?;~$K!"M>7W$J2>L>$r%A%'%C%/$9$k!#(B
+
 $BNc$($P!"(B
 
      \"$B$H$S$@(B*$B$9(B $BHt$S=P(B\"
@@ -632,7 +633,15 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
      \"$B$H$S$@(B*$B$9(B $BHt$S=P$9(B\"
 
 $B$G$&$C$+$j(B [RET] $B$r2!$7$F$7$^$C$?$H$-$K!":G8e$N!V$9!W$,Aw$j2>L>$G$"$k$+$I$&$+(B
-$B%f!<%6$K3NG'$r5a$a!"Aw$j2>L>$J$i$P$3$l$r<h$j=|$$$F$+$iEPO?$9$k!#(B"
+$BD4$Y$k!#(B
+
+$B$3$NJQ?t$O0J2<$NCM$r$H$jF@$k!#(B
+
+ask  -- $B%f!<%6$K3NG'$r5a$a!"Aw$j2>L>$HG'$a$i$l$l$P$3$l$r<h$j=|$$$F$+$iEPO?$9(B
+        $B$k!#(B
+auto -- $B%f!<%6$K3NG'$r5a$a$:!">!<j$KAw$j2>L>$rH=CG$7$F:o=|$7$F$+$iEPO?$9$k!#(B
+nil  -- $B0l@ZAw$j2>L>$N%A%'%C%/$r$;$:!"A4BN$rC18l$H$7$FEPO?$9$k!#$3$l$O(B SKK $BK\(B
+       $BMh$NF0:n$G$"$j!"=>$C$F$3$NJQ?t$N4{DjCM$O(B nil $B$G$"$k!#(B"
   :type '(choice (const auto)
 		 (const ask)
 		 (const nil))
@@ -947,59 +956,88 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
     )
   ;; $B%3%s%9%?%s%H$K$7$F$7$^$o$J$$$N$O!"%m!<%^;zF~NO$H$OA4$/JL$N@_Dj$r(B
   ;; $B$9$k?M$b$$$k$+$i$G$9!#(B
-  "*$B%-!<F~NO$KBP$9$kJQ49J8;z$r8=$o$9%*!<%H%^%H%s>uBVA+0\5,B'!#(B
-$B%j%9%H$N3FMWAG$O!"2<5-$N%j%9%H7A<0$rK~$?$7$F$$$J$1$l$P$J$i$J$$!#(B
+  "*$B%-!<F~NO$r$$$+$K=hM}$9$k$+$rI=$9!">uBVA+0\5,B'$N%j%9%H!#(B
 
-\($B8=:_$N%-!<F~NO>uBV(B[@$B<!%-!<F~NO(B0][@$B<!%-!<F~NO(B1]...[@$B<!%-!<F~NO(Bn] $B:G=*$N%-!<F~NO>uBV(B $B=PNO(B\)
+$B%j%9%H$N3FMWAG$O!"$=$l$>$l$,0l$D$N5,B'$G$"$j!"2<5-$N7A<0$rK~$?$7$F$$$J$1$l$P(B
+$B$J$i$J$$!#(B
 
-\($BC"$7!"(B\"@\" $B$OO"@\(B\) $B$r0UL#$9$k!#(B
+\(INPUT-STATE NEXT-STATE OUTPUT\)
 
-$B=PNO$K;XDj$G$-$k$b$N$O!"J8;zNs!"J8;zNs$r(B car, cdr $B$K;}$D(B dot pair$B!"(B
-$B4X?tL>%7%s%\%k$N$$$:$l$+!#(Bdot pair $B$O!"%+%J%b!<%I$N$H$-$O(B car $B$NJ8(B
-$B;zNs!"$+$J%b!<%I$N$H$-$O(B cdr $B$NJ8;zNs$,A^F~$5$l$k!#J8;zNs$N$_;XDj$5$l(B
-$B$F$$$k>l9g$O!"F~NO%b!<%I$K$+$+$o$i$:$=$NJ8;z$,A^F~$5$l$k!#(B
-$BJ8;zNs$rA^F~$9$k4X?t$K$D$$$F$O!"(Binsert $B$rL@<(E*$K8F$VI,MW$O$J$/!"J8;z(B
-$BNs$rJV$;$PNI$$!#J8;zNs$rA^F~$7$J$$4X?t$K$D$$$F$b;XDj$O2D!#(B
+SKK $B$O(B INPUT-STATE $B$r8!=P$9$k$H!"(BOUTPUT $B$r%P%C%U%!$KA^F~$7!"B3$$$F(B
+NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
 
-$B$3$NJQ?t$NDj5A$r%Y!<%9$K(B skk-rom-kana-rule-list $B$,DI2C$5$l!"(Bskk-mode
-$B5/F0;~$K(B skk-rule-tree $B$H$$$&LZ$N7A$K%3%s%Q%$%k$5$l$k!#(B
-2 $B$D$N%k!<%k%j%9%H$K=EJ#$9$k%-!<$N@_Dj$,$"$k>l9g$O!"(B
-skk-rom-kana-rule-list $B$NDj5A$,M%@h$5$l$k!#(B"
+$BNc$($P!"(B
+
+     (\"a\" nil (\"$B%"(B\" . \"$B$"(B\"))
+     (\"ki\" nil (\"$B%-(B\" . \"$B$-(B\"))
+     (\"tt\" \"t\" (\"$B%C(B\" . \"$B$C(B\"))
+     (\"nn\" nil (\"$B%s(B\" . \"$B$s(B\"))
+     (\"n'\" nil (\"$B%s(B\" . \"$B$s(B\"))
+
+$B>e5-$N5,B'$O!"$=$l$>$l!"(B
+
+     a  => $B$"(B
+     ki => $B$-(B
+     tt => $B$C(Bt
+     nn => $B$s(B
+     n' => $B$s(B
+
+$B$3$N$h$&$K>uBV$,0\$jJQ$o$k$3$H$r0UL#$9$k!#(B
+
+INPUT-STATE $B$*$h$S(B NEXT-STATE $B$O!"DL>o(B US-ASCII $BJ8;z$+$i$J$kJ8;zNs$rMQ$$$k!#(B
+$B$?$@$7!"FCJL$J>l9g$K$O(B INPUT-STATE $B$K$=$l0J30$NJ8;zNs$r;XDj$9$k$3$H$,$"$k!#(B
+
+OUTPUT $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
+
+$BJ8;zNs(B -- $B$+$J%b!<%I!"%+%J%b!<%I$H$b!"$3$l$,A^F~$5$l$k!#(B
+$BJ8;zNs$HJ8;zNs$N%;%k(B ($B%I%C%H%Z%"(B)
+       -- $B$+$J%b!<%I$K$*$$$F$O(B CDR $B$N!"%+%J%b!<%I$K$*$$$F$O(B CAR $B$NJ8;zNs$,!"(B
+          $B$=$l$>$lA^F~$5$l$k!#(B
+$B4X?tL>%7%s%\%k(B
+       -- $B4X?t$r<B9T$9$k!#$b$7$=$N4X?t$NJV$jCM$,J8;zNs$J$i$P!"$=$NJ8;zNs$r(B
+          $BA^F~$9$k!#(B
+
+$BF1MM$N5,B'$rI=$9JQ?t$K(B `skk-rom-kana-rule-list' $B$,$"$k!#(BSKK $B$ON>J}$N5,B'$rMx(B
+$BMQ$9$k$,!"(B `skk-rom-kana-rule-list' $B$NJ}$,M%@h$5$l$k!#=>$C$F%f!<%6$,FH<+$N5,(B
+$BB'$r@_Dj$7$?$$>l9g$K$O!"(B`skk-rom-kana-rule-list' $B$NJ}$r;H$&$N$,$h$$!#(B"
   :type '(repeat
 	  (list :tag "Rule"
-		(string :tag "1 (string)")
-		(choice :tag "2 (choice)"
+		(string :tag "1 Input State (string)")
+		(choice :tag "2 Next State (choice)"
 			string
 			(const nil))
-		(choice :tag "3 (choice)"
+		(choice :tag "3 Output (choice)"
 			(symbol :tag "Function")
 			string
-			(cons (string :tag "3-1 (string)")
-			      (string :tag "3-2 (string)")))))
+			(cons (string :tag "3-1 Katakana (string)")
+			      (string :tag "3-2 Hiragana (string)")))))
   :group 'skk-keybinds)
 
 (defcustom skk-rom-kana-rule-list
-  '(
-    ;; $B%f!<%6!<$N9%$_$G@_Dj$,J,$l$=$&$JMWAG$O!"(B
+  '(;; $B%f!<%6!<$N9%$_$G@_Dj$,J,$l$=$&$JMWAG$O!"(B
     ;; skk-rom-kana-base-rule-list $B$+$i$3$A$i$X0\$7$^$7$g$&(B...$B!#(B
     ("hh" "h" ("$B%C(B" . "$B$C(B"))
     ;; when you may want to insert $B!V$,$s$^!W(Bby "gamma"...
-    ("mm" "m" ("$B%s(B" . "$B$s(B"))
-  )
-  "*$B%-!<F~NO$KBP$9$kJQ49J8;z$r8=$o$9%*!<%H%^%H%s>uBVA+0\5,B'$G!"%f!<%6!<$NDI2C$N@_Dj$r9T$J$&$b$N!#(B
-$B%Y!<%9$H$J$k(B skk-rom-kana-base-rule-list $B$K$3$NJQ?t$NDj5A$,DI2C$5$l!"(B
-skk-mode $B5/F0;~$K(B skk-rule-tree $B$H$$$&LZ$N7A$K%3%s%Q%$%k$5$l$k!#(B
-2 $B$D$N%k!<%k%j%9%H$K=EJ#$9$k%-!<$N@_Dj$,$"$k>l9g$O!"$3$NJQ?t$NDj5A$,M%(B
-$B@h$5$l$k!#(B
+    ("mm" "m" ("$B%s(B" . "$B$s(B")))
+  "*$B>uBVA+0\5,B'$N%j%9%H$G!"%f!<%6$NDI2C@_DjMQ$NJQ?t!#(B
 
-$B%j%9%H$N3FMWAG$O!"2<5-$N%j%9%H7A<0$rK~$?$7$F$$$J$1$l$P$J$i$J$$!#(B
+$B$3$NJQ?t$O!"(B`skk-rom-kana-base-rule-list' $B$HF1MM$N=q<0$rK~$?$9I,MW$,$"$k!#(B
 
-\($B8=:_$N%-!<F~NO>uBV(B[@$B<!%-!<F~NO(B0][@$B<!%-!<F~NO(B1]...[@$B<!%-!<F~NO(Bn] $B:G=*$N%-!<F~NO>uBV(B $B=PNO(B\)
+SKK $B$O5/F0;~$K$3$N(B 2 $BJQ?t$rJT=8$7$F(B `skk-rule-tree' $B$r:n@.$9$k$,!"(B
+`skk-rom-kana-rule-list' $B$N5,B'$O(B `skk-rom-kana-base-rule-list' $B$N5,B'$h$j$b(B
+$BM%@h$5$l$k!#(B
 
-\($BC"$7!"(B\"@\" $B$OO"@\(B\) $B$r0UL#$9$k!#(B
+$B%j%9%H$N3FMWAG$O!"$=$l$>$l$,0l$D$N5,B'$G$"$j!"2<5-$N7A<0$rK~$?$7$F$$$J$1$l$P(B
+$B$J$i$J$$!#(B
 
-$B=PNO$N<oN`$K$D$$$F$O!"(Bskk-rom-kana-base-rule-list $B$r;2>H$N$3$H!#(B
-$B%f!<%6!<$,DI2C$7$?$$%k!<%k$r(B
+\(INPUT-STATE NEXT-STATE OUTPUT\)
+
+SKK $B$O(B INPUT-STATE $B$r8!=P$9$k$H!"(BOUTPUT $B$r%P%C%U%!$KA^F~$7!"B3$$$F(B
+NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
+
+$B>\$7$/$O!"(B`skk-rom-kana-base-rule-list' $B$N@bL@$r;2>H$N$3$H!#(B
+
+$B%f!<%6$O!"DI2C$7$?$$5,B'$r!"Nc$($P(B
 
     \(setq skk-rom-kana-rule-list
       '\(
@@ -1008,34 +1046,48 @@ skk-mode $B5/F0;~$K(B skk-rule-tree $B$H$$$&LZ$N7A$K%3%s%Q%$%k$5$l$k!#(B
         ...
         \)
 
-$B$N$h$&$K(B .emacs $B$d(B skk-init-file $B$KD>@\=q$/$N$,<j7Z!#(B
+$B>e5-$N$h$&$K(B `.emacs' $B$^$?$O(B `skk-init-file' $B$K$F@_Dj$9$k$3$H$,$G$-$k!#(B
 
-$B%G%#%U%)%k%H$G$O!"(B\(\"hh\" \"h\" \(\"$B%C(B\" . \"$B$C(B\"\)\) $B$H$$$&MWAG$,@_(B
-$BDj$5$l$F$$$k$,!"(B\"ohhira\" -> \"$B$*$*$R$i(B\" $B$N$h$&$K(B \"hh\" $B$rB%2;=hM}(B
-$B$7$?$/$J$1$l$P!"(Bskk-rom-kana-rule-list $B$+$i(B
+$B$3$NJQ?t$OI8=`$G$O!"(B
 
     \(\"hh\" \"h\" \(\"$B%C(B\" . \"$B$C(B\"\)\)
 
-$B$H$$$&MWAG$r>C$9!#(B
-$B$^$?!"(B`@' $B$G(B skk-today ($BEvF|$NF|IU$NF~NO(B) $B$r5/F0$9$kBe$j$K(B `$B!w(B' $B$rF~(B
-$BNO$7$?$$>l9g$O!"(Bskk-rom-kana-rule-list $B$K(B
+$B>e5-$N@_Dj$,$5$l$F$$$k!#$3$N5,B'$K$h$k$H!"(B
+
+    ohhonn => $B$*$C$[$s(B
+    ohhira => $B$*$C$R$i(B
+
+$B$N$h$&$KA^F~$5$l$k!#$b$7$3$l$r(B
+
+    ohhonn  => $B$*$*$[$s(B
+    ohhira  => $B$*$*$R$i(B
+
+$B$N$h$&$KJQ99$7$?$1$l$P!"(B
+
+    \(\"hh\" \"h\" \(\"$B%C(B\" . \"$B$C(B\"\)\)
+
+$B$3$N@_Dj$r:o=|$9$k!#(B
+
+$B$^$?!"(B`@' $B$G(B `skk-today' ($BEvF|$NF|IU$NF~NO(B) $B$r5/F0$9$kBe$j$K(B `$B!w(B' $B$rF~(B
+$BNO$7$?$$>l9g$O!"(B`skk-rom-kana-rule-list' $B$K(B
 
     \(\"@\" nil \"$B!w(B\"\)
 
-$B$H$$$&MWAG$r2C$($k!#(Bskk-mode $B$N5/F08e(B skk-rom-kana-rule-list $B$NJQ99$r(B
-$B9T$J$C$?>l9g!"$=$N@_Dj$rH?1G$5$;$k$K$O(B M-x skk-restart $B$r<B9T$9$kI,MW(B
-$B$,$"$k!#(B"
+$B$H$$$&MWAG$r2C$($k!#(B
+
+$B$b$7!"(BSKK $B$r5/F0$7$?8e$G(B `skk-rom-kana-rule-list' $B$NJQ99$r9T$C$?>l9g!"$=$N@_(B
+$BDj$rH?1G$5$;$k$K$O(B \\[skk-restart] $B$r<B9T$9$kI,MW$,$"$k!#(B"
   :type '(repeat
 	  (list :tag "Rule"
-		(string :tag "1 (string)")
-		(choice :tag "2 (choice)"
+		(string :tag "1 Input State (string)")
+		(choice :tag "2 Next State (choice)"
 			string
 			(const nil))
-		(choice :tag "3 (choice)"
+		(choice :tag "3 Output (choice)"
 			(symbol :tag "Function")
 			string
-			(cons (string :tag "3-1 (string)")
-			      (string :tag "3-2 (string)")))))
+			(cons (string :tag "3-1 Katakana (string)")
+			      (string :tag "3-2 Hiragana (string)")))))
   :group 'skk-keybinds)
 
 (defcustom skk-kana-input-search-function
@@ -2158,7 +2210,7 @@ Mule-2.3 $BE:IU$N(B egg.el $B$h$j%3%T!<$7$?!#(B")
   "$B%m!<%^;z(B -> $B$+$JJQ49$N>uBVA+0\5,B'$rI=$9%D%j!<$N=i4|>uBV!#(B
 $B:G=i$K(B skk-mode $B$r5/F0$7$?$H$-$K(B skk-rom-kana-base-rule-list $B$H(B
 skk-rom-kana-rule-list $B$+$iLZ$N7A$K%3%s%Q%$%k$5$l$k!#(B
-M-x skk-restart $B$K$h$C$F$b:F%3%s%Q%$%k$5$l$k!#(B")
+\\[skk-restart] $B$K$h$C$F$b:F%3%s%Q%$%k$5$l$k!#(B")
 
 (defvar skk-insert-new-word-function nil
   "$B8uJd$rA^F~$7$?$H$-$K(B funcall $B$5$l$k4X?t$rJ]B8$9$kJQ?t!#(B")
@@ -2544,8 +2596,8 @@ This map should be derived from isearch-mode-map.")
    '((ju . "$B==(B") (hyaku . "$BI4(B") (sen . "$B@i(B")
      (man . "$BK|(B") (oku . "$B2/(B") (cho . "$BC{(B") (kei . "$B5~(B"))
    skk-num-alist-type2)
-  "$B?t;z$N4A;zI=5-$rO"A[$9$k$?$a$N(B alist$B!#(B")
-
+  "$B?t;z$N4A;zI=5-$rI=$9O"A[%j%9%H!#(B
+\"1995\" -> \"$B@i6eI46e==8^(B\" $B$N$h$&$JJ8;zNs$NJQ49$r9T$&:]$KMxMQ$9$k!#(B")
 
 (defconst skk-num-alist-type5
   '((ju . "$B=&(B") (hyaku . "$BI4(B") (sen . "$Bot(B")
@@ -2553,7 +2605,7 @@ This map should be derived from isearch-mode-map.")
     (?0 . "$BNm(B") (?1 . "$B0m(B") (?2 . "$BFu(B") (?3 . "$B;2(B")
     (?4 . "$B;M(B") (?5 . "$B8`(B") (?6 . "$BO;(B") (?7 . "$B<7(B")
     (?8 . "$BH,(B") (?9 . "$B6e(B") (?\  . ""))
-  "$B?t;z$N4A;zI=5-$rO"A[$9$k$?$a$N(B alist$B!#(B
+  "$B?t;z$N4A;zI=5-$rI=$9O"A[%j%9%H!#(B
 \"1995\" -> \"$B0mot6eI46e=&8`(B\" $B$N$h$&$JJ8;zNs$NJQ49$r9T$&:]$KMxMQ$9$k!#(B")
 
 (skk-deflocalvar skk-num-list nil
