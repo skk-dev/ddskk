@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.9 2001/02/04 01:32:38 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.10 2001/02/04 03:55:31 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/02/04 01:32:38 $
+;; Last Modified: $Date: 2001/02/04 03:55:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -256,7 +256,8 @@
 	  (match (if (consp pickup) (cdr pickup) 1))
 	  (split-regexp (skk-lookup-get-split-regexp name))
 	  (cleanup-regexp (skk-lookup-get-cleanup-regexp name))
-	  candidates-string candidates-list)
+	  (candidates-list (if (not pickup) (list heading)))
+	  candidates-string)
 	;; `だし【出し】【出し・〈出汁〉】【｛山車｝】' などのように
 	;; 1 つの heading に対し、複数の切り出し作業が必要になる場合
 	;; があるのでループで作業する。
