@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.85 2002/03/02 19:27:21 ueno Exp $
+;; Version: $Id: skk-macs.el,v 1.86 2002/04/01 23:21:46 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/02 19:27:21 $
+;; Last Modified: $Date: 2002/04/01 23:21:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -730,12 +730,9 @@ BUFFER defaults to the current buffer."
   "Eval STRING as a lisp program and return the result."
   (let (func)
     ;; (^_^;) のような文字列に対し、read-from-string を呼ぶと
-    ;; エラーになるので、condition-case でそのエラーを捕まえる。
-    (condition-case nil
-	(setq func (car (read-from-string string)))
-      (error
-       (setq func string)))
+    ;; エラーになるので、ignore-errors で囲む。
     (ignore-errors
+      (setq func (car (read-from-string string)))
       (when (and (listp func)
 		 (functionp (car func)))
 	(setq string (eval func))))
