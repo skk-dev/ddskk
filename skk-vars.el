@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.111 2003/01/28 00:08:21 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.112 2003/03/28 00:01:23 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/01/28 00:08:21 $
+;; Last Modified: $Date: 2003/03/28 00:01:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2322,9 +2322,9 @@ Non-nil であれば、`skk-isearch-message' 関数をコールする。")
 (defvar skk-kakutei-history nil
   "送りなしで確定された見出し語・候補の履歴。
 
-   (\"みだしご\" . \"見出し語\")
+   (\"みだしご\" \"見出し語\" buffer)
 
-   という形式の連想リスト。")
+   という形式のリスト。")
 
 (defvar skk-minibuffer-origin-mode nil
   "入力モードを表わすシンボル。
