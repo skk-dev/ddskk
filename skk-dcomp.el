@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.21 2001/11/24 00:45:42 czkmt Exp $
+;; Version: $Id: skk-dcomp.el,v 1.22 2001/11/24 22:59:11 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/24 00:45:42 $
+;; Last Modified: $Date: 2001/11/24 22:59:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,9 +52,9 @@
 ;;
 ;; <HOW TO USE>
 ;;
-;; .emacs もしくは .skk に (require 'skk-dcomp) と書きましょう。
-;; 一旦 (require 'skk-dcomp) した後に、ダイナミックコンプリーションの
-;; 機能を止めたかったら、(setq skk-dcomp-activate nil) を評価しましょう。
+;; .emacs もしくは .skk に (setq skk-dcomp-activate t) と書きましょう。
+;; SKK 起動後にダイナミックコンプリーションの機能を止めたかったら、
+;; (setq skk-dcomp-activate nil) を評価しましょう。
 ;;
 ;;
 ;; <HOW TO WORK>

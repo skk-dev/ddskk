@@ -1,3 +1,10 @@
+2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-dcomp.el: Update comments.
+
+	* skk.el (skk-require-module): Require skk-dcomp when
+	`skk-dcomp-activate' is non-nil.
+
 2001-11-24  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-server.el (skk-open-network-stream): Check if process status
@@ -2895,8 +2902,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.557 2001/11/24 14:00:26 minakaji Exp $
-Last Modified: $Date: 2001/11/24 14:00:26 $
+Version: $Id: ChangeLog,v 1.558 2001/11/24 22:59:11 minakaji Exp $
+Last Modified: $Date: 2001/11/24 22:59:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
