@@ -1,3 +1,20 @@
+2001-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el:
+	Don't set `minor-mode-map-alist here.
+
+	* skk-macs.el
+	(skk-j-mode-on)
+	(skk-latin-mode-on)
+	(skk-jisx0208-latin-mode-on)
+	(skk-abbrev-mode-on): Call `skk-setup-keymap'.
+
+	* skk.el
+	(skk-define-j-mode-map)
+	(skk-define-latin-mode-map)
+	(skk-define-jisx0208-latin-mode-map)
+	(skk-define-abbrev-mode-map): New functions.
+	
 2001-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el
@@ -2702,8 +2719,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.521 2001/11/11 14:51:08 czkmt Exp $
-Last Modified: $Date: 2001/11/11 14:51:08 $
+Version: $Id: ChangeLog,v 1.522 2001/11/13 10:59:52 czkmt Exp $
+Last Modified: $Date: 2001/11/13 10:59:52 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
