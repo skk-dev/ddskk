@@ -1,3 +1,8 @@
+2002-01-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	(skk-compile-rule-list): Don't add rule when key is not a string.
+
 2002-01-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* etc/skk.xpm: New file.
@@ -3222,8 +3227,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.612 2002/01/04 09:37:38 czkmt Exp $
-Last Modified: $Date: 2002/01/04 09:37:38 $
+Version: $Id: ChangeLog,v 1.613 2002/01/06 09:38:00 czkmt Exp $
+Last Modified: $Date: 2002/01/06 09:38:00 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
