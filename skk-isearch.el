@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.27 2001/11/13 12:24:03 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.28 2001/11/13 12:31:41 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 12:24:03 $
+;; Last Modified: $Date: 2001/11/13 12:31:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -114,6 +114,7 @@
   "Set current skk mode to normal latin input mode."
   (skk-latin-mode-on))
 
+;;;###autoload
 (defun skk-isearch-message ()
   "Show isearch message."
   (skk-isearch-incomplete-message

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.180 2001/11/13 12:28:05 czkmt Exp $
+;; Version: $Id: skk.el,v 1.181 2001/11/13 12:31:41 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 12:28:05 $
+;; Last Modified: $Date: 2001/11/13 12:31:41 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -83,11 +83,6 @@
    ((eq skk-emacs-type 'xemacs)
     (require 'skk-xemacs)))
   ;; Shut up, compiler.
-  (autoload 'skk-isearch-message "skk-isearch")
-  (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
-  (autoload 'skk-kanagaki-initialize "skk-kanagaki")
-  (autoload 'skk-num-convert "skk-num")
-  (autoload 'skk-num-multiple-convert "skk-num")
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
 
 ;; aliases.
