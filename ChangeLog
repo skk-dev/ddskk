@@ -1,3 +1,9 @@
+2001-01-02  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* Makefile (VERSION): Change to 11.4.
+
+	* READMEs/Codename (変更個所): Updated.
+
 2000-12-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/CVS_digest : Sync up with skk/web/cvs-ja.html.
@@ -3054,8 +3060,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.242 2000/12/30 08:52:09 minakaji Exp $
-Last Modified: $Date: 2000/12/30 08:52:09 $
+Version: $Id: ChangeLog,v 1.243 2001/01/02 08:08:22 minakaji Exp $
+Last Modified: $Date: 2001/01/02 08:08:22 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
