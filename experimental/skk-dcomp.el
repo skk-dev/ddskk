@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.11 2000/11/28 22:32:48 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.12 2000/12/01 09:19:11 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/28 22:32:48 $
+;; Last Modified: $Date: 2000/12/01 09:19:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -57,6 +57,7 @@
     (((class grayscale) (background light)) (:foreground "DimGray" :italic t))
     (((class grayscale) (background dark)) (:foreground "LightGray" :italic t)))
   "*Face used to highlight region dynamically completed."
+  :group 'skk-dcomp
   :group 'skk-faces)
 
 (defcustom skk-dcomp-face-priority 700
@@ -64,17 +65,32 @@
   :type 'integer
   :group 'skk-dcomp)
 
+(defcustom skk-dcomp-keep-completion-keys nil
+  ;;   (delq
+  ;;    nil
+  ;;    (list
+  ;;     (car (rassoc (list nil 'skk-toggle-kana) skk-rom-kana-rule-list))
+  ;;     (car (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-rule-list))
+  ;;     (car (rassoc (list nil 'skk-toggle-kana) skk-rom-kana-base-rule-list))
+  ;;     (car (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-base-rule-list))))
+  "*自動補完された見出し語を消さないキーのリスト。
+通常は見出し語の補完後、次のキー入力をすると、自動補完されたキー入力が消えて
+しまうが、このリストに指定されたキー入力があったときは自動補完された見出し語
+を消さない。"
+  :type '(choice (repeat string) (const nil))
+  :group 'skk-dcomp
+  :group 'skk-filenames)
+
 (skk-deflocalvar skk-dcomp-start-point nil)
 (skk-deflocalvar skk-dcomp-end-point nil)
 (skk-deflocalvar skk-dcomp-extent nil)
-;; why is it necessary?
 (defvar skk-dcomp-face 'skk-dcomp-face)
-(defvar skk-dcomp-toggle-key
-  (car-safe
-   (or (rassoc (list nil 'skk-toggle-kana) skk-rom-kana-rule-list)
-       (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-rule-list)
-       (rassoc (list nil 'skk-toggle-kana) skk-rom-kana-base-rule-list)
-       (rassoc (list nil 'skk-toggle-characters) skk-rom-kana-base-rule-list))))
+
+;; functions.
+(defsubst skk-extentp (object)
+  (static-cond
+   ((eq skk-emacs-type 'xemacs) (extentp object))
+   (t (overlayp object))))
 
 (defun skk-dcomp-face-on (start end)
   (skk-face-on skk-dcomp-extent start end skk-dcomp-face
@@ -87,48 +103,79 @@
 (defadvice skk-kana-input (around skk-dcomp-ad activate)
   (if (not skk-henkan-on)
       ad-do-it
-    (let (pos)
-      (if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
-	      (not skk-completion-stack))
+    (if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
+	    (not skk-comp-stack))
+	(progn
 	  (skk-set-marker skk-dcomp-start-point nil)
-	(when (marker-position skk-dcomp-start-point)
-	  (skk-dcomp-face-off)
-	  (or (equal skk-dcomp-toggle-key (this-command-keys))
-	      (condition-case nil
-		  (delete-region skk-dcomp-start-point skk-dcomp-end-point)
-		(error)))))
-      ad-do-it
-      (if (and (not (skk-get-prefix skk-current-rule-tree))
-	       (not skk-okurigana))
-	  (progn
-	    (setq pos (point))
+	  (skk-set-marker skk-dcomp-end-point nil))
+      (when (and (marker-position skk-dcomp-start-point)
+		 (marker-position skk-dcomp-end-point))
+	(skk-dcomp-face-off)
+	(or (member (this-command-keys) skk-dcomp-keep-completion-keys)
 	    (condition-case nil
-		(skk-completion 'first 'silent)
-	      (error
-	       (setq skk-completion-stack nil)
-	       (message nil)))
-	    (skk-set-marker skk-dcomp-start-point pos)
-	    (skk-set-marker skk-dcomp-end-point (point))
-	    (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
-	    (goto-char skk-dcomp-start-point))))))
+		(delete-region skk-dcomp-start-point skk-dcomp-end-point)
+	      (error)))))
+    ad-do-it
+    (if (and (not (skk-get-prefix skk-current-rule-tree))
+	     (not skk-okurigana))
+	(let ((pos (point)))
+	  (condition-case nil
+	      (progn
+		(skk-comp-do 'first 'silent)
+		(skk-set-marker skk-dcomp-start-point pos)
+		(skk-set-marker skk-dcomp-end-point (point))
+		(skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
+		(goto-char skk-dcomp-start-point))
+	    (error
+	     (setq skk-comp-stack nil)
+	     (message nil)))))))
 
-(defadvice skk-kakutei (after skk-dcomp-ad activate)
-  (skk-dcomp-face-off)
+(defadvice skk-kakutei (around skk-dcomp-ad activate)
+  (if (and skk-henkan-on (not skk-henkan-active)
+	   (marker-position skk-dcomp-start-point)
+	   (marker-position skk-dcomp-end-point))
+      (progn
+	(skk-dcomp-face-off)
+	(condition-case nil
+	    (delete-region skk-dcomp-start-point skk-dcomp-end-point)
+	  (error))))
+  ad-do-it
   (skk-set-marker skk-dcomp-start-point nil)
   (skk-set-marker skk-dcomp-end-point nil)
-  (setq skk-completion-stack nil))
+  (setq skk-comp-stack nil))
 
 (defadvice skk-start-henkan (before skk-dcomp-ad activate)
-  (skk-dcomp-face-off)
-  (delete-region skk-dcomp-end-point (point))
-  (skk-set-marker skk-dcomp-end-point (point)))
-  
-(defadvice keyboard-quit (after skk-dcomp-ad activate)
-  (if skk-henkan-on
+  (if (and (marker-position skk-dcomp-start-point)
+	   (marker-position skk-dcomp-end-point))
       (progn
+	(skk-dcomp-face-off)
+	(delete-region skk-dcomp-end-point (point))
+	(skk-set-marker skk-dcomp-end-point (point)))))
+ 
+(skk-defadvice keyboard-quit (around skk-dcomp-ad activate)
+  (if (and skk-henkan-on (not skk-henkan-active)
+	   (marker-position skk-dcomp-start-point)
+	   (marker-position skk-dcomp-end-point))
+      (progn
+	(skk-dcomp-face-off)
+	(condition-case nil
+	    (delete-region skk-dcomp-start-point skk-dcomp-end-point)
+	  (error))))
+  ad-do-it
+  (skk-set-marker skk-dcomp-start-point nil)
+  (skk-set-marker skk-dcomp-end-point nil)
+  (setq skk-comp-stack nil))
+
+(defadvice skk-comp (around skk-dcomp-ad activate)
+  (if (and (marker-position skk-dcomp-start-point)
+	   (marker-position skk-dcomp-end-point))
+      (progn
+	(goto-char skk-dcomp-end-point)
+	(setq this-command 'skk-comp-do)
+	(skk-dcomp-face-off)
 	(skk-set-marker skk-dcomp-start-point nil)
-	(skk-set-marker skk-dcomp-end-point nil)
-	(setq skk-completion-stack nil))))
+	(skk-set-marker skk-dcomp-end-point nil))
+    ad-do-it))
 
 (require 'product)
 (product-provide (provide 'skk-dcomp) (require 'skk-version))
