@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.35 2000/10/08 13:13:36 czkmt Exp $
+;; Version: $Id: skk.el,v 1.36 2000/10/11 15:25:35 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/08 13:13:36 $
+;; Last Modified: $Date: 2000/10/11 15:25:35 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 2000/10/08 13:13:36 $")
+      (let* ((raw-date "$Date: 2000/10/11 15:25:35 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)))
@@ -1254,6 +1254,8 @@ skk-toggle-kutouten はこれをトグルで切り換える。
 				 global-map)
       (substitute-key-definition 'canna-self-insert-command 'skk-insert map
 				 global-map)
+      (substitute-key-definition 'canna-henkan-region-or-self-insert
+				 'skk-insert map global-map)
       (substitute-key-definition 'can-n-egg-self-insert-command 'skk-insert map
 				 global-map)
       ;; .skk で skk-kakutei-key の変更が可能になるように。
@@ -4969,26 +4971,27 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 (defun skk-setup-modeline ()
   "モード行へのステータス表示を準備する。"
   (cond ((eq skk-status-indicator 'left)
-	 (mapcar (function
-		  (lambda (el)
-		    (let ((sym (car el))
-			  (strs (cdr el)))
-		      (if (string= (symbol-value sym) (cdr strs))
-			  (set sym (car strs))))))
-		 (cond
-		  ((and (fboundp 'face-proportional-p)
-			(face-proportional-p 'modeline))
-		   '((skk-latin-mode-string . ("--SKK:" . " SKK"))
-		     (skk-hiragana-mode-string . ("--かな:" . " かな"))
-		     (skk-katakana-mode-string . ("--カナ:" . " カナ"))
-		     (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
-		     (skk-abbrev-mode-string . ("--aあ:" . " aあ"))))
-		  (t
-		   '((skk-latin-mode-string . ("--SKK::" . " SKK"))
-		     (skk-hiragana-mode-string . ("--かな:" . " かな"))
-		     (skk-katakana-mode-string . ("--カナ:" . " カナ"))
-		     (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
-		     (skk-abbrev-mode-string . ("--aあ::" . " aあ"))))))
+	 (let ((list
+		(cond
+		 ((and (fboundp 'face-proportional-p)
+		       (face-proportional-p 'modeline))
+		  '((skk-latin-mode-string . ("--SKK:" . " SKK"))
+		    (skk-hiragana-mode-string . ("--かな:" . " かな"))
+		    (skk-katakana-mode-string . ("--カナ:" . " カナ"))
+		    (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
+		    (skk-abbrev-mode-string . ("--aあ:" . " aあ"))))
+		 (t
+		  '((skk-latin-mode-string . ("--SKK::" . " SKK"))
+		    (skk-hiragana-mode-string . ("--かな:" . " かな"))
+		    (skk-katakana-mode-string . ("--カナ:" . " カナ"))
+		    (skk-jisx0208-latin-mode-string . ("--全英:" . " 全英"))
+		    (skk-abbrev-mode-string . ("--aあ::" . " aあ")))))))
+	   (while list
+	     (let ((sym (caar list))
+		   (strs (cdar list)))
+	       (if (string= (symbol-value sym) (cdr strs))
+		   (set sym (car strs))))
+	     (setq list (cdr list))))
 	 (cond ((eq skk-emacs-type 'xemacs)
 		(or (memq 'skk-input-mode-string default-mode-line-format)
 		    (setq-default default-modeline-format
