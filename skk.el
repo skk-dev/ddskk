@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.190 2001/11/18 16:40:22 czkmt Exp $
+;; Version: $Id: skk.el,v 1.191 2001/11/18 16:41:13 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/18 16:40:22 $
+;; Last Modified: $Date: 2001/11/18 16:41:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,7 +28,7 @@
 ;; 02111-1307, USA.
 
 ;;; Commentary:
-;;
+
 ;; SKK-MODE is a mode for inputting Japanese to a current buffer which is
 ;; composed of four minor modes described below.
 ;;
