@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-mkmgk.el,v 1.5 2001/07/29 01:41:05 minakaji Exp $
+;; Version: $Id: skk-mkmgk.el,v 1.6 2001/07/30 07:34:54 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/07/29 01:41:05 $
+;; Last Modified: $Date: 2001/07/30 07:34:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -37,7 +37,11 @@
 ;; - fix a know bug below.
 ;;
 ;; <KNOWN BUG>
-;; きりえ /切り絵/切絵/ → きりり絵 /切り絵/
+;; + お遊び /お遊び/                                fixed.
+;; + きりえ /切り絵/切絵/ → きりり絵 /切り絵/      とりあえず仮名を含む候補は捨てることにしました。
+;; - はん仮くかたかな /半角片仮名/                  こりゃどうしようもないな (^^;;
+;; - くさり /鎖/ → く鎖り /鎖/                      ditto...
+;; - さく /作/冊/錯/索/策/窄/柵/朔/昨/搾/咋/削/酢/ → さ /作/
 
 ;;; Code:
 (eval-when-compile (require 'skk-macs))
@@ -56,39 +60,40 @@
 
 として加工する必要あり。"
   (interactive "f辞書ファイル:\nP ")
-  (unwind-protect
-      (let ((cont t)
-	    (workbuf (get-buffer-create " *skkmkmgk working*"))
-	    max output ret)
-	(while cont
-	  (setq output (read-file-name
-			"どこに出力しますか? "
-			nil
-			(convert-standard-filename "~/.skk-jisyo.tmp")))
-	  (if (or (not (file-exists-p output))
-		  (yes-or-no-p
-		   (format "%s に上書きしてよろしいですか? " output)))
-	      (setq cont nil)))
-	(with-current-buffer workbuf (erase-buffer))
-	(with-temp-buffer
-	  (insert-file-contents-as-coding-system
-	   (cdr (assoc "euc" skk-coding-system-alist))
-	   (expand-file-name dic))
-	  (re-search-forward "^;; okuri-nasi entries\\.$")
-	  ;; abbrev 候補を skip
-	  (delete-region (point-min) (progn (re-search-forward "^あ")
-					    (beginning-of-line)
-					    (point)))
-	  (setq ret (skk-make-mazegaki-dic-1 workbuf nomsg)))
-	(if ret
-	    (with-current-buffer workbuf
-	      (write-region-as-coding-system
-	       (cdr (assoc "euc" skk-coding-system-alist))
-	       ;; only Emacs 21's write-region has 6th arg MUSTBENEW.
-	       1 (point-max) output nil t nil)
-	      (or nomsg
-		  (message "Making Mazegaki dictionary...100%% done")))))
-    (kill-buffer workbuf)))
+  (let ((cont t)
+	(workbuf (get-buffer-create " *skkmkmgk working*"))
+	max output ret)
+    (unwind-protect
+	(progn
+	  (while cont
+	    (setq output (read-file-name
+			  "どこに出力しますか? "
+			  nil
+			  (convert-standard-filename "~/.skk-jisyo.tmp")))
+	    (if (or (not (file-exists-p output))
+		    (yes-or-no-p
+		     (format "%s に上書きしてよろしいですか? " output)))
+		(setq cont nil)))
+	  (with-current-buffer workbuf (erase-buffer))
+	  (with-temp-buffer
+	    (insert-file-contents-as-coding-system
+	     (cdr (assoc "euc" skk-coding-system-alist))
+	     (expand-file-name dic))
+	    (re-search-forward "^;; okuri-nasi entries\\.$")
+	    ;; abbrev 候補を skip
+	    (delete-region (point-min) (progn (re-search-forward "^あ")
+					      (beginning-of-line)
+					      (point)))
+	    (setq ret (skk-make-mazegaki-dic-1 workbuf nomsg)))
+	  (if ret
+	      (with-current-buffer workbuf
+		(write-region-as-coding-system
+		 (cdr (assoc "euc" skk-coding-system-alist))
+		;; only Emacs 21's write-region has 6th arg MUSTBENEW.
+		 1 (point-max) output nil t nil)
+		(or nomsg
+		    (message "Making Mazegaki dictionary...100%% done")))))
+      (kill-buffer workbuf))))
 
 ;;;###autoload
 (defun skk-make-mazegaki-dic-region (min max &optional reference)
@@ -105,6 +110,7 @@
   (unwind-protect
       (let ((outbuf (get-buffer-create " *skkmkmgk working*"))
 	    ret)
+	(with-current-buffer outbuf (erase-buffer))
 	(if reference
 	    (progn
 	      (setq reference (read-file-name "どの辞書を参照しますか? "
@@ -139,9 +145,9 @@
     (or reference (setq reference (current-buffer)))
     (while (and cont (not (eobp)))
       (or nomsg
-	  (message (format "Making Mazegaki dictionary...%d%%%% done"
-			   (* (/ (* (point) 100.00) (* max 100.00))
-			      100.0))))
+	  (message "Making Mazegaki dictionary...%d%% done"
+		   (* (/ (* (point) 100.00) (* max 100.00))
+		      100.0)))
       (beginning-of-line)
       ;; ひらがな見出し e.x. "あいかわ"
       (setq header0 (buffer-substring-no-properties
@@ -157,7 +163,7 @@
 	    nil
 	  ;; ひらがな見出しを分解
 	  (setq header-list (string-to-char-list header0))
-	  (save-excursion
+	  (save-excursion ; have to restore point after searching
 	    (set-buffer reference)
 	    (let ((max (point-max)) (min (point-min))
 		  (header-list1 header-list)
@@ -171,33 +177,36 @@
 		  (if (not (setq candidates1 (skk-mkmgk-binary-search
 					      header1 min max skk-mkmgk-region-limit)))
 		      nil
-		    (let ((can0 candidates0))
+		    (let ((can0 candidates0) key0 key1)
 		      (while (and candidates1 can0)
 			(if (not (string-match (car candidates1) (car can0)))
+			    ;;(string-match header1 header0 (* skk-kanji-len (1- n)))))
 			    (or (setq candidates1 (cdr candidates1))
 				(setq can0 (cdr can0)))
-			  ;; XXX
-			  ;; "あいかわ" のような例では、"あい" と "かわ" で
-			  ;; 2 度 match するので、同じものを出力してしまう。
-			  ;; いずれにせよ skkdic-expr & skkdic-sort しなけ
-			  ;; れば SKK 辞書として使えないので、まぁいっか...。
-			  (with-current-buffer outbuf
-			    ;; 分解キー (e.x. あい) による候補 e.x. "相" が
-			    ;; オリジナルキー (e.x. あいかわ) の候補 e.x.
-			    ;; "相川" に match したら
-			    (goto-char (point-max))
-			    ;; あい川 /相川/
-			    (insert (substring (car can0) 0 (match-beginning 0))
-				    header1
-				    (substring (car can0) (match-end 0))
-				    " /" (car can0) "/\n")
-			    (if (string-match header1 header0)
-				(insert
-				 ;; 相かわ /相川/
-				 (substring header0 0 (match-beginning 0))
-				 (car candidates1)
-				 (substring header0 (match-end 0))
-				 " /" (car can0) "/\n")))
+			  ;; 分解キー (e.x. あい) による候補 e.x. "相" が
+			  ;; オリジナルキー (e.x. あいかわ) の候補 e.x.
+			  ;; "相川" に match したら
+			  (setq key0 (concat
+				      (substring (car can0)
+						 0 (match-beginning 0))
+				      header1
+				      (substring (car can0) (match-end 0))))
+			  (if (string-match header1 header0)
+			      (setq key1 (concat
+					  (substring header0 0
+						     (match-beginning 0))
+					  (car candidates1)
+					  (substring header0 (match-end 0)))))
+			  (or (string= key0 (car can0))
+			      (with-current-buffer outbuf
+				(goto-char (point-max))
+				;; あい川 /相川/
+				(insert key0 " /" (car can0) "/\n")))
+			  (or (string= key1 (car can0))
+			      (with-current-buffer outbuf
+				(goto-char (point-max))
+				;; 相かわ /相川/
+				(insert key1 " /" (car can0) "/\n")))
 			  (setq candidates1 nil)))))
 		  (if (> (skk-str-length
 			  (mapconcat 'char-to-string header-list1 nil)) n)
@@ -210,9 +219,9 @@
 				     header1
 				     (char-to-string (nth n header-list1)))
 			    n (1+ n))
-		    ;; 次の char を頭にした検索開始
-		    ;; e.x. "あ" → "い" → "か" → "わ"
 		    (setq header1 nil)))
+		;; 次の char を頭にした検索開始
+		;; e.x. "あ" → "い" → "か" → "わ"
 		(setq header-list1 (cdr header-list1)))))))
       (setq cont (= (forward-line 1) 0)))
     (let ((ret (with-current-buffer outbuf (> (buffer-size) 0))))
@@ -230,8 +239,7 @@
 		 (function
 		  (lambda (word)
 		    (setq word (if (and
-				    ;; カタカナ語を skip
-				    (not (string-match "^[ーァ-ン]+$" word))
+				    (not (string-match "[ぁ-んァ-ン]" word))
 				    ;; 英語を skip
 				    (not (string-match "^[a-zA-Z]+$" word)))
 				   (if (string-match ";" word)

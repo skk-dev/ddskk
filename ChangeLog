@@ -1,3 +1,12 @@
+2001-07-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* tut-code/skk-mkmgk.el (skk-make-mazegaki-dic): Bug fixed.
+	(skk-make-mazegaki-dic-region): Erase OUTBUF before working.
+	(skk-make-mazegaki-dic-1): Do not use `format'.
+	Bug fixed.
+	(skk-mkmgk-filter): Do not put out string that contains any
+	katakana or hiragana.
+
 2001-07-29  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* tut-code/skk-mkmgk.el (skk-make-mazegaki-dic-1): Created new
@@ -3681,8 +3690,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.321 2001/07/29 01:41:05 minakaji Exp $
-Last Modified: $Date: 2001/07/29 01:41:05 $
+Version: $Id: ChangeLog,v 1.322 2001/07/30 07:34:54 minakaji Exp $
+Last Modified: $Date: 2001/07/30 07:34:54 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
