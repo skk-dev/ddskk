@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.21 2001/10/11 13:43:57 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.22 2001/10/11 15:10:54 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/11 13:43:57 $
+;; Last Modified: $Date: 2001/10/11 15:10:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -106,14 +106,6 @@
 		(skk-cursor-set))
 	      (skk-cursor-set skk-cursor-default-color 'force))
 	    'append))
-
-(defun skk-cursor-init-function ()
-  (skk-cursor-set)
-  (remove-hook 'skk-mode-hook
-	       'skk-cursor-init-function))
-
-(add-hook 'skk-mode-hook 'skk-cursor-init-function)
-
 
 ;;
 (require 'product)
