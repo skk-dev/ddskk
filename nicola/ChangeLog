@@ -1,3 +1,9 @@
+2002-07-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el:
+	(skk-nicola-insert-double): Do not call
+	`skk-nicola-set-okuri-flag' at the henkan start point.
+
 2002-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-menu.el:
