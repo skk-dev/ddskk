@@ -1,6 +1,8 @@
 2002-10-22  Yano Keisuke <yano@moon.email.ne.jp>
 
 	* skk-kcode.el (skk-display-code): Modified for JISX0213.
+	Change display of KUTEN code in accordance with `規格協会「JIS漢字
+	字典」.
 	(skk-jis2sjis2): New function.
 
 2002-09-05  Akihiro MOTOKI  <amotoki@dd.iij4u.or.jp>
@@ -4029,8 +4031,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.711 2002/10/26 09:37:27 minakaji Exp $
-Last Modified: $Date: 2002/10/26 09:37:27 $
+Version: $Id: ChangeLog,v 1.712 2002/10/26 09:48:15 minakaji Exp $
+Last Modified: $Date: 2002/10/26 09:48:15 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
