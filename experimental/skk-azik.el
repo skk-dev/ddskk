@@ -1,0 +1,542 @@
+;;; skk-azik.el --- 拡張ローマ字入力 "AZIK" を SKK で使うための設定
+
+;; Copyright (C) 2002 ONODA Arata <onoto@ma.nma.ne.jp>
+
+;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-azik.el,v 1.1 2002/01/09 16:47:33 akiho Exp $
+;; Keywords: japanese, mule, input method
+;; Created: Jan. 9, 2002
+;; Last Modified: $Date: 2002/01/09 16:47:33 $
+
+;; This file is part of Daredevil SKK.
+
+;; Daredevil SKK is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 2, or
+;; (at your option) any later version.
+
+;; Daredevil SKK is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with Daredevil SKK, see the file COPYING.  If not, write to
+;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
+
+;;; Commentary:
+;; 拡張ローマ字入力 "AZIK" を SKK で使うための設定です。
+;; "AZIK"については、以下の URL を参照して下さい。
+;;   http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm
+;;
+;; 使い方 - このファイルを適当なディレクトリに置き、"/hoge/hoge"
+;;          の部分をそのディレクトリに合わせて置き換えた下記の設定を
+;;          .skk に加えてください。
+;;          その後 Emacs(Mule) を再起動すれば skk による AZIK での
+;;          入力が可能です。
+;;          
+;;          (setq skk-azik-keyboard-type 'jp106)
+;;          (load "/hoge/hoge/skk-azik.el")
+;;        
+;;          変数 skk-azik-keyboard-type にお使いのキーボードのタイプを
+;;          指定して下さい。skk-azik-keyboard-type はシンボルで
+;;          'jp106 もしくは 'jp-pc98 、または、 'en を指定します。
+;;
+;; 
+;;   注意 1 - AZIK では "q" を "ん" の入力に使うので、"q" のもともと
+;;            の機能である "skk-toggle-kana" には、日本語キーボード
+;;            であれば "@" を、英語キーボードであれば、"[" で代用します。
+;;            SKK 標準の "@"(日本語キーボード) や "["(英語キーボード) は、
+;;            は、 z を付けて、それぞれ "z@" と "z[" で使用できます。
+;;
+;;        2 - 純正の AZIK では "la" で "ぁ" を入力します。しかし
+;;            SKK では L を ASCII/全英モードの切り替えキーとして
+;;            使用するので、 "xxa" で "ぁ" が入力できるようにして
+;;            います。
+
+
+;;; Code:
+
+(defvar skk-azik-keyboard-type 'jp106
+  "AZIK で使うときのキーボードのタイプをシンボルで指定する。
+デフォルトは、 'jp106。
+指定できるのは、
+    'jp106
+    'jp-pc98
+jp106 および jp-pc98 以外が指定されると英語キーボードとして処理します。
+nil が指定された場合は、キーボードのタイプの違いを吸収する割当てを行いません。")
+
+(defvar skk-azik-load-hook nil
+  "skk-azik を load した後に実行される hook")
+
+;; キーボード依存部分。
+;; skk-azik-keyboard-type が設定されていれば以下を実行。
+(if skk-azik-keyboard-type
+    (cond 
+     ((eq skk-azik-keyboard-type 'jp106)
+      (setq skk-set-henkan-point-key
+            (append '(?+) skk-set-henkan-point-key))
+      (setq skk-downcase-alist
+            (append '((?+ . ?\;)) skk-downcase-alist))
+      (setq skk-rom-kana-rule-list
+            (append 
+             '(
+               ("@" nil skk-toggle-kana)                  
+               ("z@" nil skk-today)
+               ("`" nil skk-set-henkan-point-subr)
+               (":" nil "ー")
+               )))
+      )
+     ((eq skk-azik-keyboard-type 'jp-pc98)
+      (setq skk-set-henkan-point-key
+            (append '(?+) skk-set-henkan-point-key))
+      (setq skk-downcase-alist
+            (append '((?+ . ?\;)) skk-downcase-alist))
+      (setq skk-rom-kana-rule-list
+            (append 
+             '(
+               ("@" nil skk-toggle-kana)
+               ("z@" nil skk-today)
+               ("~" nil skk-set-henkan-point-subr)
+               ("z~" nil "~")
+               (":" nil "ー")
+               )))
+      )
+     (t
+      (setq skk-set-henkan-point-key
+            (append '(?:) skk-set-henkan-point-key))
+      (setq skk-downcase-alist
+            (append '((?: . ?\;)) skk-downcase-alist))
+      (setq skk-rom-kana-rule-list
+            (append 
+             '(
+               ("@" nil skk-toggle-kana)                  
+               ("z@" nil skk-today)
+               ("\'" nil "ー")
+               ("[" nil skk-toggle-kana)
+               ("{" nil skk-set-henkan-point-subr)
+               ("z[" nil "「")
+               )))
+      )
+     ))
+
+;; 以下共通
+(setq skk-set-henkan-point-key
+      (append '(?Q ?X) skk-set-henkan-point-key))
+
+(setq skk-del-list-for-azik '
+      ("cha" "che" "chi" "cho" "chu"
+       "dha" "dhe" "dhi" "dho" "dhu"
+       "sha" "she" "shi" "sho" "shu"
+       "tha" "the" "thi" "tho" "thu"))
+(let ((a skk-del-list-for-azik) b)
+  (while a
+    (setq b (car a))
+    (setq skk-rom-kana-base-rule-list 
+	  (del-alist b skk-rom-kana-base-rule-list))
+    (setq a (cdr a))))
+
+
+;;============================================
+(setq skk-rom-kana-rule-list
+      (append 
+       '(
+	      (";" nil ("ッ" . "っ"))
+	      ("z;" nil ";")
+	      ("q" nil ("ン" . "ん"))
+	      ("bd" nil ("ベン" . "べん"))
+	      ("bh" nil ("ブウ" . "ぶう"))
+	      ("bj" nil ("ブン" . "ぶん"))
+	      ("bk" nil ("ビン" . "びん"))
+	      ("bl" nil ("ボン" . "ぼん"))
+	      ("bn" nil ("バン" . "ばん"))
+	      ("bp" nil ("ボウ" . "ぼう"))
+	      ("bq" nil ("バイ" . "ばい"))
+	      ("bt" nil ("ビト" . "びと"))
+	      ("bw" nil ("ベイ" . "べい"))
+	      ("byh" nil ("ビュウ" . "びゅう"))
+	      ("byj" nil ("ビュン" . "びゅん"))
+	      ("byp" nil ("ビョウ" . "びょう"))
+	      ("ca" nil ("チャ" . "ちゃ"))
+	      ("cd" nil ("チェン" . "ちぇん"))
+	      ("cf" nil ("チェ" . "ちぇ"))
+	      ("ch" nil ("チュウ" . "ちゅう"))
+	      ("cj" nil ("チュン" . "ちゅん"))
+	      ("ck" nil ("チン" . "ちん"))
+	      ("cl" nil ("チョン" . "ちょん"))
+	      ("cn" nil ("チャン" . "ちゃん"))
+	      ("co" nil ("チョ" . "ちょ"))
+	      ("cp" nil ("チョウ" . "ちょう"))
+	      ("cq" nil ("チャイ" . "ちゃい"))
+	      ("cu" nil ("チュ" . "ちゅ"))
+	      ("dch" nil ("ドゥー" . "どぅう"))
+	      ("dci" nil ("ディ" . "でぃ"))
+	      ("dcj" nil ("ドゥン" . "どぅん"))
+	      ("dck" nil ("ディン" . "でぃん"))
+	      ("dcu" nil ("ドゥ" . "どぅ"))
+	      ("dd" nil ("デン" . "でん"))
+	      ("df" nil ("デ" . "で"))
+	      ("dga" nil ("ヂャ" . "ぢゃ"))
+	      ("dge" nil ("ヂェ" . "ぢぇ"))
+	      ("dgj" nil ("ヂュン" . "ぢゅん"))
+	      ("dgl" nil ("ヂョン" . "ぢょん"))
+	      ("dgo" nil ("ヂョ" . "ぢょ"))
+	      ("dgq" nil ("ヂャイ" . "ぢゃい"))
+	      ("dgu" nil ("ヂュ" . "ぢゅ"))
+	      ("dgz" nil ("ヂャン" . "ぢゃん"))
+	      ("dh" nil ("ヅウ" . "づう"))
+	      ("dj" nil ("ヅン" . "づん"))
+	      ("dk" nil ("ヂン" . "ぢん"))
+	      ("dl" nil ("ドン" . "どん"))
+	      ("dm" nil ("デモ" . "でも"))
+	      ("dn" nil ("ダン" . "だん"))
+	      ("dp" nil ("ドウ" . "どう"))
+	      ("dq" nil ("ダイ" . "だい"))
+	      ("dr" nil ("デアル" . "である"))
+	      ("ds" nil ("デス" . "です"))
+	      ("dt" nil ("ダチ" . "だち"))
+	      ("dw" nil ("デイ" . "でい"))
+	      ("dya" nil ("デャ" . "でゃ"))
+	      ("dyh" nil ("デュー" . "でゅう"))
+	      ("dyj" nil ("デュン" . "でゅん"))
+	      ("dyq" nil ("デャイ" . "でゃい"))
+	      ("dyu" nil ("デュ" . "でゅ"))
+	      ("dyz" nil ("デャン" . "でゃん"))
+	      ("dz" nil ("ダン" . "だん"))
+	      ("fd" nil ("フェン" . "ふぇん"))
+	      ("fh" nil ("フウ" . "ふう"))
+	      ("fj" nil ("フン" . "ふん"))
+	      ("fk" nil ("フィン" . "ふぃん"))
+	      ("fl" nil ("フォン" . "ふぉん"))
+	      ("fn" nil ("ファン" . "ふぁん"))
+	      ("fp" nil ("フォウ" . "ふぉう"))
+	      ("fq" nil ("ファイ" . "ふぁい"))
+	      ("fw" nil ("フェイ" . "ふぇい"))
+	      ("fyh" nil ("フュー" . "ふゅう"))
+	      ("fyj" nil ("フュン" . "ふゅん"))
+	      ("fz" nil ("ファン" . "ふぁん"))
+	      ("gd" nil ("ゲン" . "げん"))
+	      ("gh" nil ("グウ" . "ぐう"))
+	      ("gj" nil ("グン" . "ぐん"))
+	      ("gk" nil ("ギン" . "ぎん"))
+	      ("gl" nil ("ゴン" . "ごん"))
+	      ("gn" nil ("ガン" . "がん"))
+	      ("gp" nil ("ゴウ" . "ごう"))
+	      ("gq" nil ("ガイ" . "がい"))
+	      ("gr" nil ("ガラ" . "がら"))
+	      ("gt" nil ("ゴト" . "ごと"))
+	      ("gw" nil ("ゲイ" . "げい"))
+	      ("gyh" nil ("ギュウ" . "ぎゅう"))
+	      ("gyj" nil ("ギュン" . "ぎゅん"))
+	      ("gyl" nil ("ギョン" . "ぎょん"))
+	      ("gyp" nil ("ギョウ" . "ぎょう"))
+	      ("gyq" nil ("ギャイ" . "ぎゃい"))
+	      ("gyz" nil ("ギャン" . "ぎゃん"))
+	      ("gz" nil ("ガン" . "がん"))
+	      ("hd" nil ("ヘン" . "へん"))
+	      ("hf" nil ("フ" . "ふ"))
+	      ("hga" nil ("ヒャ" . "ひゃ"))
+	      ("hgd" nil ("ヒェン" . "ひぇん"))
+	      ("hge" nil ("ヒェ" . "ひぇ"))
+	      ("hgh" nil ("ヒュウ" . "ひゅう"))
+	      ("hgj" nil ("ヒュン" . "ひゅん"))
+	      ("hgl" nil ("ヒョン" . "ひょん"))
+	      ("hgn" nil ("ヒャン" . "ひゃん"))
+	      ("hgo" nil ("ヒョ" . "ひょ"))
+	      ("hgp" nil ("ヒョウ" . "ひょう"))
+	      ("hgq" nil ("ヒャイ" . "ひゃい"))
+	      ("hgu" nil ("ヒュ" . "ひゅ"))
+	      ("hgz" nil ("ヒャン" . "ひゃん"))
+	      ("hh" nil ("フウ" . "ふう"))
+	      ("hj" nil ("フン" . "ふん"))
+	      ("hk" nil ("ヒン" . "ひん"))
+	      ("hl" nil ("ホン" . "ほん"))
+	      ("hp" nil ("ホウ" . "ほう"))
+	      ("hq" nil ("ハイ" . "はい"))
+	      ("ht" nil ("ヒト" . "ひと"))
+	      ("hw" nil ("ヘイ" . "へい"))
+	      ("hyd" nil ("ヒェン" . "ひぇん"))
+	      ("hyh" nil ("ヒュウ" . "ひゅう"))
+	      ("hyj" nil ("ヒュン" . "ひゅん"))
+	      ("hyl" nil ("ヒョン" . "ひょん"))
+	      ("hyp" nil ("ヒョウ" . "ひょう"))
+	      ("hyq" nil ("ヒャイ" . "ひゃい"))
+	      ("hyz" nil ("ヒャン" . "ひゃん"))
+	      ("hz" nil ("ハン" . "はん"))
+	      ("jd" nil ("ジェン" . "じぇん"))
+	      ("jf" nil ("ジュ" . "じゅ"))
+	      ("jh" nil ("ジュウ" . "じゅう"))
+	      ("jj" nil ("ジュン" . "じゅん"))
+	      ("jk" nil ("ジン" . "じん"))
+	      ("jl" nil ("ジョン" . "じょん"))
+	      ("jp" nil ("ジョウ" . "じょう"))
+	      ("jq" nil ("ジャイ" . "じゃい"))
+	      ("jw" nil ("ジェイ" . "じぇい"))
+	      ("jz" nil ("ジャン" . "じゃん"))
+	      ("kd" nil ("ケン" . "けん"))
+	      ("kf" nil ("キ" . "き"))
+	      ("kga" nil ("キャ" . "きゃ"))
+	      ("kgh" nil ("キュウ" . "きゅう"))
+	      ("kgj" nil ("キュン" . "きゅん"))
+	      ("kgl" nil ("キョン" . "きょん"))
+	      ("kgn" nil ("キャン" . "きゃん"))
+	      ("kgo" nil ("キョ" . "きょ"))
+	      ("kgp" nil ("キョウ" . "きょう"))
+	      ("kgq" nil ("キャイ" . "きゃい"))
+	      ("kgu" nil ("キュ" . "きゅ"))
+	      ("kgz" nil ("キャン" . "きゃん"))
+	      ("kh" nil ("クウ" . "くう"))
+	      ("kj" nil ("クン" . "くん"))
+	      ("kk" nil ("キン" . "きん"))
+	      ("kl" nil ("コン" . "こん"))
+	      ("km" nil ("カモ" . "かも"))
+	      ("kp" nil ("コウ" . "こう"))
+	      ("kq" nil ("カイ" . "かい"))
+	      ("kr" nil ("カラ" . "から"))
+	      ("kt" nil ("コト" . "こと"))
+	      ("kw" nil ("ケイ" . "けい"))
+	      ("kyh" nil ("キュウ" . "きゅう"))
+	      ("kyj" nil ("キュン" . "きゅん"))
+	      ("kyl" nil ("キョン" . "きょん"))
+	      ("kyp" nil ("キョウ" . "きょう"))
+	      ("kyq" nil ("キャイ" . "きゃい"))
+	      ("kyz" nil ("キャン" . "きゃん"))
+	      ("kz" nil ("カン" . "かん"))
+	      ("md" nil ("メン" . "めん"))
+	      ("mf" nil ("ム" . "む"))
+	      ("mga" nil ("ミャ" . "みゃ"))
+	      ("mgh" nil ("ミュウ" . "みゅう"))
+	      ("mgj" nil ("ミュン" . "みゅん"))
+	      ("mgl" nil ("ミョン" . "みょん"))
+	      ("mgn" nil ("ミャン" . "みゃん"))
+	      ("mgo" nil ("ミョ" . "みょ"))
+	      ("mgp" nil ("ミョウ" . "みょう"))
+	      ("mgq" nil ("ミャイ" . "みゃい"))
+	      ("mgu" nil ("ミュ" . "みゅ"))
+	      ("mgz" nil ("ミャン" . "みゃん"))
+	      ("mh" nil ("ムウ" . "むう"))
+	      ("mj" nil ("ムン" . "むん"))
+	      ("mk" nil ("ミン" . "みん"))
+	      ("ml" nil ("モン" . "もん"))
+	      ("mn" nil ("モノ" . "もの"))
+	      ("mp" nil ("モウ" . "もう"))
+	      ("mq" nil ("マイ" . "まい"))
+	      ("ms" nil ("マス" . "ます"))
+	      ("mt" nil ("マタ" . "また"))
+	      ("mw" nil ("メイ" . "めい"))
+	      ("myh" nil ("ミュウ" . "みゅう"))
+	      ("myj" nil ("ミュン" . "みゅん"))
+	      ("myl" nil ("ミョン" . "みょん"))
+	      ("myp" nil ("ミョウ" . "みょう"))
+	      ("myq" nil ("ミャイ" . "みゃい"))
+	      ("myz" nil ("ミャン" . "みゃん"))
+	      ("mz" nil ("マン" . "まん"))
+	      ("nb" nil ("ネバ" . "ねば"))
+	      ("nd" nil ("ネン" . "ねん"))
+	      ("nf" nil ("ヌ" . "ぬ"))
+	      ("nga" nil ("ニャ" . "にゃ"))
+	      ("ngh" nil ("ニュウ" . "にゅう"))
+	      ("ngj" nil ("ニュン" . "にゅん"))
+	      ("ngl" nil ("ニョン" . "にょん"))
+	      ("ngn" nil ("ニャン" . "にゃん"))
+	      ("ngo" nil ("ニョ" . "にょ"))
+	      ("ngp" nil ("ニョウ" . "にょう"))
+	      ("ngq" nil ("ニャイ" . "にゃい"))
+	      ("ngu" nil ("ニュ" . "にゅ"))
+	      ("ngz" nil ("ニャン" . "にゃん"))
+	      ("nh" nil ("ヌウ" . "ぬう"))
+	      ("nj" nil ("ヌン" . "ぬん"))
+	      ("nk" nil ("ニン" . "にん"))
+	      ("nl" nil ("ノン" . "のん"))
+	      ("np" nil ("ノウ" . "のう"))
+	      ("nq" nil ("ナイ" . "ない"))
+	      ("nr" nil ("ナル" . "なる"))
+	      ("nt" nil ("ニチ" . "にち"))
+	      ("nw" nil ("ネイ" . "ねい"))
+	      ("nz" nil ("ナン" . "なん"))
+	      ("pd" nil ("ペン" . "ぺん"))
+	      ("pf" nil ("ポン" . "ぽん"))
+	      ("pga" nil ("ピャ" . "ぴゃ"))
+	      ("pgh" nil ("ピュウ" . "ぴゅう"))
+	      ("pgj" nil ("ピュン" . "ぴゅん"))
+	      ("pgl" nil ("ピョン" . "ぴょん"))
+	      ("pgn" nil ("ピャン" . "ぴゃん"))
+	      ("pgo" nil ("ピョ" . "ぴょ"))
+	      ("pgp" nil ("ピョウ" . "ぴょう"))
+	      ("pgq" nil ("ピャイ" . "ぴゃい"))
+	      ("pgu" nil ("ピュ" . "ぴゅ"))
+	      ("pgz" nil ("ピャン" . "ぴゃん"))
+	      ("ph" nil ("プウ" . "ぷう"))
+	      ("pj" nil ("プン" . "ぷん"))
+	      ("pk" nil ("ピン" . "ぴん"))
+	      ("pl" nil ("ポン" . "ぽん"))
+	      ("pp" nil ("ポウ" . "ぽう"))
+	      ("pq" nil ("パイ" . "ぱい"))
+	      ("pw" nil ("ペイ" . "ぺい"))
+	      ("pyh" nil ("ピュウ" . "ぴゅう"))
+	      ("pyj" nil ("ピュン" . "ぴゅん"))
+	      ("pyl" nil ("ピョン" . "ぴょん"))
+	      ("pyp" nil ("ピョウ" . "ぴょう"))
+	      ("pyq" nil ("ピャイ" . "ぴゃい"))
+	      ("pz" nil ("パン" . "ぱん"))
+	      ("rd" nil ("レン" . "れん"))
+	      ("rh" nil ("ルウ" . "るう"))
+	      ("rj" nil ("ルン" . "るん"))
+	      ("rk" nil ("リン" . "りん"))
+	      ("rl" nil ("ロン" . "ろん"))
+	      ("rn" nil ("ラン" . "らん"))
+	      ("rp" nil ("ロウ" . "ろう"))
+	      ("rq" nil ("ライ" . "らい"))
+	      ("rr" nil ("ラレ" . "られ"))
+	      ("rw" nil ("レイ" . "れい"))
+	      ("ryh" nil ("リュウ" . "りゅう"))
+	      ("ryj" nil ("リュン" . "りゅん"))
+	      ("ryl" nil ("リョン" . "りょん"))
+	      ("ryp" nil ("リョウ" . "りょう"))
+	      ("ryq" nil ("リャイ" . "りゃい"))
+	      ("ryz" nil ("リャン" . "りゃん"))
+	      ("rz" nil ("ラン" . "らん"))
+	      ("sd" nil ("セン" . "せん"))
+	      ("sf" nil ("サイ" . "さい"))
+	      ("sh" nil ("スウ" . "すう"))
+	      ("sj" nil ("スン" . "すん"))
+	      ("sk" nil ("シン" . "しん"))
+	      ("sl" nil ("ソン" . "そん"))
+	      ("sn" nil ("サン" . "さん"))
+	      ("sp" nil ("ソウ" . "そう"))
+	      ("sq" nil ("サイ" . "さい"))
+	      ("sr" nil ("スル" . "する"))
+	      ("ss" nil ("セイ" . "せい"))
+	      ("st" nil ("シタ" . "した"))
+	      ("syi" nil ("スィ" . "すぃ"))
+	      ("syk" nil ("スィン" . "すぃん"))
+	      ("sya" nil ("シャ" . "しゃ"))
+	      ("syd" nil ("シェン" . "しぇん"))
+	      ("sye" nil ("シェ" . "しぇ"))
+	      ("syh" nil ("シュウ" . "しゅう"))
+	      ("syj" nil ("シュン" . "しゅん"))
+	      ("syl" nil ("ション" . "しょん"))
+	      ("syn" nil ("シャン" . "しゃん"))
+	      ("syo" nil ("ショ" . "しょ"))
+	      ("syp" nil ("ショウ" . "しょう"))
+	      ("syq" nil ("シャイ" . "しゃい"))
+	      ("syu" nil ("シュ" . "しゅ"))
+	      ("syz" nil ("シャン" . "しゃん"))
+	      ("tb" nil ("タビ" . "たび"))
+	      ("td" nil ("テン" . "てん"))
+	      ("tgh" nil ("トゥー". "とぅー"))
+	      ("tgi" nil ("ティ" . "てぃ"))
+	      ("tgj" nil ("トゥン" . "とぅん"))
+	      ("tgk" nil ("ティン" . "てぃん"))
+	      ("tgu" nil ("トゥ" . "とぅ"))
+	      ("th" nil ("ツウ" . "つう"))
+	      ("tj" nil ("ツン" . "つん"))
+	      ("tk" nil ("チン" . "ちん"))
+	      ("tl" nil ("トン" . "とん"))
+	      ("tm" nil ("タメ" . "ため"))
+	      ("tn" nil ("タン" . "たん"))
+	      ("tp" nil ("トウ" . "とう"))
+	      ("tq" nil ("タイ" . "たい"))
+	      ("tr" nil ("タラ" . "たら"))
+	      ("tsa" nil ("ツァ" . "つぁ"))
+	      ("tsd" nil ("ツェン" . "つぇん"))
+	      ("tse" nil ("ツェ" . "つぇ"))
+	      ("tsi" nil ("ツィ" . "つぃ"))
+	      ("tsk" nil ("ツィン" . "つぃん"))
+	      ("tsl" nil ("ツォン" . "つぉん"))
+	      ("tso" nil ("ツォ" . "つぉ"))
+	      ("tsq" nil ("ツァイ" . "つぁい"))
+	      ("tst" nil ("トシテ" . "として"))
+	      ("tsz" nil ("ツァン" . "つぁん"))
+	      ("tt" nil ("タチ" . "たち"))
+	      ("tw" nil ("テイ" . "てい"))
+	      ("tya" nil ("チャ" . "ちゃ"))
+	      ("tyd" nil ("チェン" . "ちぇん"))
+	      ("tye" nil ("チェ" . "ちぇ"))
+	      ("tyh" nil ("チュウ" . "ちゅう"))
+	      ("tyj" nil ("チュン" . "ちゅん"))
+	      ("tyl" nil ("チョン" . "ちょん"))
+	      ("tyn" nil ("チャン" . "ちゃん"))
+	      ("tyo" nil ("チョ" . "ちょ"))
+	      ("typ" nil ("チョウ" . "ちょう"))
+	      ("tyq" nil ("チャイ" . "ちゃい"))
+	      ("tyu" nil ("チュ" . "ちゅ"))
+	      ("tyz" nil ("チャン" . "ちゃん"))
+	      ("vd" nil ("ウ゛ェン" . "う゛ぇん"))
+	      ("vh" nil ("ウ゛ー" . "う゛ー"))
+	      ("vj" nil ("ウ゛ン" . "う゛ん"))
+	      ("vk" nil ("ウ゛ィン" . "う゛ぃん"))
+	      ("vl" nil ("ウ゛ォン" . "う゛ぉん"))
+	      ("vn" nil ("ウ゛ァン" . "う゛ぁん"))
+	      ("vp" nil ("ウ゛ォウ" . "う゛ぉう"))
+	      ("vq" nil ("ウ゛ァイ" . "う゛ぁい"))
+	      ("vw" nil ("ウ゛ェイ" . "う゛ぇい"))
+	      ("vyh" nil ("ウ゛ュー" . "う゛ゅう"))
+	      ("vyj" nil ("ウ゛ュン" . "う゛ゅん"))
+	      ("vyu" nil ("ウ゛ュ" . "う゛ゅ"))
+	      ("wd" nil ("ウェン" . "うぇん"))
+	      ("wf" nil ("ワイ" . "わい"))
+	      ("wk" nil ("ウィン" . "うぃん"))
+	      ("wl" nil ("ウォン" . "うぉん"))
+	      ("wn" nil ("ワン" . "わん"))
+	      ("wp" nil ("ウォー" . "うぉー"))
+	      ("wq" nil ("ワイ" . "わい"))
+	      ("wr" nil ("ワレ" . "われ"))
+	      ("wse" nil ("ヱ" . "ゑ"))
+	      ("wsi" nil ("ヰ" . "ゐ"))
+	      ("wso" nil ("ウォ" . "うぉ"))
+	      ("wt" nil ("ワタ" . "わた"))
+	      ("ww" nil ("ウェイ" . "うぇい"))
+	      ("xa" nil ("シャ" . "しゃ"))
+	      ("xd" nil ("シェン" . "しぇん"))
+	      ("xe" nil ("シェ" . "しぇ"))
+	      ("xh" nil ("シュウ" . "しゅう"))
+	      ("xi" nil ("シ" . "し"))
+	      ("xj" nil ("シュン" . "しゅん"))
+	      ("xk" nil ("シン" . "しん"))
+	      ("xl" nil ("ション" . "しょん"))
+	      ("xn" nil ("シャン" . "しゃん"))
+	      ("xo" nil ("ショ" . "しょ"))
+	      ("xp" nil ("ショウ" . "しょう"))
+	      ("xq" nil ("シャイ" . "しゃい"))
+	      ("xu" nil ("シュ" . "しゅ"))
+	      ("xw" nil ("シェイ" . "しぇい"))
+	      ("xxa" nil ("ァ" . "ぁ"))
+	      ("xxi" nil ("ィ" . "ぃ"))
+	      ("xxu" nil ("ゥ" . "ぅ"))
+	      ("xxe" nil ("ェ" . "ぇ"))
+	      ("xxo" nil ("ォ" . "ぉ"))
+	      ("yd" nil ("イェン" . "いぇん"))
+	      ("ye" nil ("イェ" . "いぇ"))
+	      ("yf" nil ("ユ" . "ゆ"))
+	      ("yh" nil ("ユウ" . "ゆう"))
+	      ("yj" nil ("ユン" . "ゆん"))
+	      ("yl" nil ("ヨン" . "よん"))
+	      ("yp" nil ("ヨウ" . "よう"))
+	      ("yq" nil ("ヤイ" . "やい"))
+	      ("yr" nil ("ヨル" . "よる"))
+	      ("yw" nil ("イェイ" . "いぇい"))
+	      ("yz" nil ("ヤン" . "やん"))
+	      ("zc" nil ("ザ" . "ざ"))
+	      ("zd" nil ("ゼン" . "ぜん"))
+	      ("zh" nil ("ズウ" . "ずう"))
+	      ("zj" nil ("ズン" . "ずん"))
+	      ("zk" nil ("ジン" . "じん"))
+	      ("zl" nil ("ゾン" . "ぞん"))
+	      ("zn" nil ("ザン" . "ざん"))
+	      ("zp" nil ("ゾウ" . "ぞう"))
+	      ("zq" nil ("ザイ" . "ざい"))
+	      ("zr" nil ("ザル" . "ざる"))
+	      ("zv" nil ("ザイ" . "ざい"))
+	      ("zw" nil ("ゼイ" . "ぜい"))
+	      ("zx" nil ("ゼイ" . "ぜい"))
+	      ("zyi" nil ("ズィ" . "ずぃ"))
+	      ("zyk" nil ("ズィン" . "ずぃん"))
+	      )
+	      skk-rom-kana-rule-list))
+
+(run-hooks 'skk-azik-load-hook)
+
+(provide 'skk-azik)
