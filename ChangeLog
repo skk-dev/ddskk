@@ -18,6 +18,9 @@
 	(skk-set-okurigana, skk-insert): Advise to do OKURI-ARI
 	conversion.
 
+	* skk-vars.el (skk-jisx0201-rule-tree,
+	skk-jisx0201-current-rule-tree, jsix0201-mode-map): Abolish.
+
 	* skk.el (skk-emulate-original-map): Do emulation also in
 	skk-jisx0201-mode.
 
@@ -1748,8 +1751,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.352 2001/09/06 21:26:17 czkmt Exp $
-Last Modified: $Date: 2001/09/06 21:26:17 $
+Version: $Id: ChangeLog,v 1.353 2001/09/06 21:28:44 czkmt Exp $
+Last Modified: $Date: 2001/09/06 21:28:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

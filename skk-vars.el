@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.48 2001/09/06 21:26:17 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.49 2001/09/06 21:28:44 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/06 21:26:17 $
+;; Last Modified: $Date: 2001/09/06 21:28:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1533,7 +1533,7 @@ cdr は元号表記の string からなるリスト。"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Adrz")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "März")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
