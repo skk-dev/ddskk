@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.3 1999/09/29 21:46:57 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.4 1999/10/03 11:48:42 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/29 21:46:57 $
+;; Last Modified: $Date: 1999/10/03 11:48:42 $
 
 ;; This file is part of SKK.
 
@@ -28,22 +28,16 @@
 
 ;;; Commentary:
 
-;;; Change log:
-
-;; Following people contributed modifications to skk.el (Alphabetical order):
-;;      Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
-;;      Manabu Kawashima <kaw@lp.nm.fujitsu.co.jp>
-
 ;;; Code:
 (eval-when-compile (require 'skk) (require 'cl))
 (require 'skk-foreword)
 
+;;;###autoload
 (defgroup skk-num nil "SKK number conversion related customization."
   :prefix "skk-num-"
   :group 'skk )
 
 ;; user variables.
-;;;###autoload
 (defcustom skk-num-type-alist
   '((0 . identity)
     (1 . skk-num-jisx0208-latin)
@@ -53,11 +47,11 @@
     (5 . skk-num-type5-kanji)
     (9 . skk-num-shogi) )
   "*数値の変換のための、インデクスと変換に使用する関数とのエーリスト。
-各要素は、`(インデクス . 関数名)' という構成になっている。
-car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 記号の直後に表示される数
-字 `1' を代入する。
+各要素は、`\(インデクス . 関数名\)' という構成になっている。
+インデクスには、例えば見出し語が \"平成#1年\" のとき、`#' 記号の直後に表示される
+integer `1' を代入する。
 
-インデクスと関数の関係は下記の通り。
+インデクスと関数の関係 \(ディフォルト値\) は下記の通り。
     0 -> 無変換
     1 -> 全角数字へ変換
     2 -> 漢数字へ変換 \(位取りなし\)
@@ -65,15 +59,10 @@ car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 
     4 -> その数字そのものをキーにして辞書を再検索
     5 -> 漢数字 (手形などで使用する文字を使用) へ変換 (位取りをする)
     9 -> 将棋で使用する数字 \(\"３四\" など\) に変換" 
-  :type '(repeat (cons
-		  (choice (integer 0 :tag "Muhenkan")
-			  (integer 1 :tag "Zenkaku Henkan")
-			  (integer 2 :tag "Kansuuji Henkan (Kuraidori ari)")
-			  (integer 3 :tag "Kansuuji Henkan (Kuraidori nasi)")
-			  (integer 4 :tag "Saikensaku")
-			  (integer 5 :tag "Kansuuji Henkan (old Kanji)")
-			  (integer 9 :tag "Shogi Moji") )
-		  function ))
+  :type '(repeat (cons (choice :tag "Index"
+			       (integer 0) (integer 1) (integer 2) (integer 3)
+			       (integer 4) (integer 5) (integer 9) )
+		  (function :tag "Function") ))
   :group 'skk-num )
 
 (defcustom skk-num-convert-float nil
@@ -83,7 +72,6 @@ car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 
   :type 'boolean
   :group 'skk-num )
 
-;;;###autoload
 (defcustom skk-num-uniq (or (assq 4 skk-num-type-alist)
 			    (and (assq 2 skk-num-type-alist)
 				 (assq 3 skk-num-type-alist) ))
@@ -97,7 +85,6 @@ car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 
   :group 'skk-num )
 
 ;; internal constants and variables
-;;;###autoload
 (defconst skk-num-alist-type1
   '((?0 . "０") (?1 . "１") (?2 . "２") (?3 . "３")
     (?4 . "４") (?5 . "５") (?6 . "６") (?7 . "７")
@@ -121,17 +108,14 @@ car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 
   "ascii 数字の char type と漢数字の string type の連想リスト。
 \"1995\" -> \"壱阡九百九拾伍\" のような文字列の変換を行う際に利用する。" )
 
-;;;###autoload
 (skk-deflocalvar skk-num-list nil
   "skk-henkan-key の中に含まれる数字を表す文字列のリスト。
 例えば、\"▽へいせい7ねん10がつ\" の変換を行うとき、skk-henkan-key は
 \"へいせい7ねん10がつ\" であり、skk-num-list は \(\"7\" \"10\"\) となる。" )
 
-;;;###autoload
 (skk-deflocalvar skk-num-recompute-key nil
   "#4 タイプのキーにより数値の再計算を行なったときの検索キー。" )
 
-;;;###autoload
 (defun skk-num-compute-henkan-key (key)
   ;; KEY の中の連続する数字を現わす文字列を "#" に置き換えた文字列を返す。"12"
   ;; や "０９" など連続する数字を 1 つの "#" に置き換えることに注意。
@@ -161,7 +145,6 @@ car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 
                           (substring key (match-end 0)) )))))
   key )
 
-;;;###autoload
 (defun skk-num-convert (key)
   ;; KEY と skk-num-list から数値変換後の文字列を返す。
   ;; skk-henkan-count が指している数値変換キーの候補を変換し、
@@ -217,7 +200,6 @@ car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 
                      (setq skk-henkan-list (nconc skk-henkan-list l)) ))))
         current ))))
 
-;;;###autoload
 (defun skk-num-convert*7 ()
   (let ((skk-henkan-count skk-henkan-count)
         (n 7) )
@@ -362,7 +344,7 @@ car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 
   (save-match-data
     (if (not (string-match "\\.[0-9]" num))
 	;; 小数点を含まない数
-        (let ((str (skk-num-type5-kanji-subr num)))
+        (let ((str (skk-num-type5-kanji-1 num)))
           (if (string= "" str) "零" str) ))))
 
 (defun skk-num-type5-kanji-1 (num)
@@ -538,7 +520,6 @@ car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 
 	(message "%S" skk-num-recompute-key)
         (skk-update-jisyo word purge) )))
 
-;;;###autoload
 (defun skk-num (str)
   ;; 数字を skk-number-style の値に従い変換する。
   ;; skk-current-date のサブルーチン。
