@@ -1,7 +1,7 @@
 -*- outline -*-
 
-                       $Date: 2002/02/09 04:36:11 $ 
-	               $Id: CODENAME.ja,v 1.1 2002/02/09 04:36:11 czkmt Exp $
+                       $Date: 2003/07/06 03:12:35 $
+	               $Id: CODENAME.ja,v 1.2 2003/07/06 03:12:35 minakaji Exp $
 
 * Rule
 
@@ -80,16 +80,16 @@ o $B0[$J$kO)@~$GF1$81X$rFsEYDL2a$7$F$bF1$8(B Codename $B$O(B 2 $BEY=P$5$J$$
 $B:y0f(B                Sakurai
 $B@P66(B                Ishibashi --- $B:e5^JuDM@~(B
 $B7VCS(B($BBg:e6u9AA0(B)      Hotarugaike
-$BK-Cf(B                Toyonaka
-$B2,D.(B                Okamachi
-$BA>:,(B                Sone
+$BK-Cf(B                Toyonaka      11.6.0
+$B2,D.(B                Okamachi      12.1.0
+$BA>:,(B                Sone          12.2.0
 $BI~It(B                Hattori
 $B>1Fb(B                Syounai
 $B;09q(B                Mikuni
 $B==;0(B                Juso
 $BCfDE(B                Nakatsu
 $BG_ED(B                Umeda
- 
+
 * Next, where shall we go?
 
 [End of Codename]
