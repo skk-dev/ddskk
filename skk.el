@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.120 2001/09/14 11:54:11 czkmt Exp $
+;; Version: $Id: skk.el,v 1.121 2001/09/14 12:06:19 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/14 11:54:11 $
+;; Last Modified: $Date: 2001/09/14 12:06:19 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3569,10 +3569,9 @@ If you want to restore the dictionary from the disc, try
     (when okurigana
       (setq skk-henkan-okurigana okurigana))
     ;; skkserv を使う設定になっていたら、skk-server.el をロードする。
-    (when (and (not (featurep 'skk-server))
-	       (or skk-servers-list
-		   skk-server-host
-		   (getenv "SKKSERVER")))
+    (when (or skk-servers-list
+	      skk-server-host
+	      (getenv "SKKSERVER"))
       (require 'skk-server))
     (setq fn (funcall skk-public-jisyo-to-be-searched-function))
     ;;
