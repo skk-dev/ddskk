@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.115 2003/07/18 12:50:53 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.116 2004/03/31 23:43:49 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/07/18 12:50:53 $
+;; Last Modified: $Date: 2004/03/31 23:43:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1502,6 +1502,11 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
   "*Non-nil であれば ▽モードと▼モード時のアンドゥ情報を記録しない。"
   :type 'boolean
   :group 'skk-misc)
+
+(defcustom skk-show-japanese-menu nil "\
+*Non-nil であれば日本語メニューを表示する。"
+  :type 'boolean
+  :group 'skk-decoration)
 
 (defvar skk-latin-mode-map nil
   "*ASCII モードのキーマップ。")
