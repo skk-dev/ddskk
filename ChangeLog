@@ -21,7 +21,8 @@
 
 	* skk.el (skk-setup-emulation-commands): Use `dolist'.
 
-	* install-info.el (install-info-1): Use `push' and `setcar'.
+	* install-info.el (install-info-1): Use `push' and `setcar'. Use
+	`cond' instead of `if'.
 
 2001-09-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1974,8 +1975,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.407 2001/09/15 20:54:00 czkmt Exp $
-Last Modified: $Date: 2001/09/15 20:54:00 $
+Version: $Id: ChangeLog,v 1.408 2001/09/15 22:10:24 czkmt Exp $
+Last Modified: $Date: 2001/09/15 22:10:24 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

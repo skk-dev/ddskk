@@ -328,14 +328,15 @@ File: dir,	Node: Top	This is the top of the INFO tree
 	      (install-info-skip-blank-lines)
 	      (let ((en-start (point)))
 		(dolist (en entry)
-		  (if (or (eobp)
-			  (not (looking-at "^\\* ")))
+		  (cond
+		   ((or (eobp)
+			(not (looking-at "^\\* ")))
 		      ;; No entries in the section.
-		      (progn
-			(goto-char sec-start)
-			(unless (eolp)
-			  (insert "\n")
-			  (goto-char sec-start)))
+		    (goto-char sec-start)
+		    (unless (eolp)
+		      (insert "\n")
+		      (goto-char sec-start)))
+		   (t
 		    ;; Delete the old entry.
 		    (let ((key (when (string-match ")" en)
 				 (substring en 0 (match-beginning 0)))))
@@ -390,7 +391,7 @@ File: dir,	Node: Top	This is the top of the INFO tree
 				    (throw 'here nil)
 				  ;; reaches the next section.
 				  (goto-char maybe-here)
-				  (throw 'here t)))))))
+				  (throw 'here t))))))))
 		  (when (and (eobp) (not (bolp)))
 		    (install-info-forward-line 1))
 		  (insert (format "%s\n" en))
