@@ -234,6 +234,7 @@ US 101 キーボードで omelet 入力するための基本ルール。")
 	   (goto-char marker)
 	   (skk-set-henkan-point-subr))))
        (t
+	(skk-kakutei)
 	ad-do-it)))
      (t
       ad-do-it))))
