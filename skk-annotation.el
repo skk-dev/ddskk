@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.8 2001/10/09 12:30:14 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.9 2001/10/10 10:23:44 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/10/09 12:30:14 $
+;; Last Modified: $Date: 2001/10/10 10:23:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -172,9 +172,10 @@
 ;; functions.
 ;;;###autoload
 (defun skk-annotation-show (annotation)
-  (if (or (not skk-annotation-function)
-	  (funcall skk-annotation-function annotation))
-      (skk-annotation-show-1 (skk-annotation-get annotation))))
+  (unless skk-kakutei-flag
+    (if (or (not skk-annotation-function)
+	    (funcall skk-annotation-function annotation))
+	(skk-annotation-show-1 (skk-annotation-get annotation)))))
 
 (defun skk-annotation-show-1 (annotation)
   (if (and skk-annotation-show-as-message
