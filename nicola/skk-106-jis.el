@@ -27,6 +27,26 @@
 ;; このファイルは、日本語 106 キーボード (旧 JIS 配列) による仮名入力のためのル
 ;; ールを提供します。
 
+;; X 上などの標準では \ (backslash) を割りあてられているキーが 2 つあるため、
+;; "ろ" と "ー" の両方を仕様の通りに挿入することはできません。デフォルトでは
+;; \ の入力により "ろ" を挿入し、 "ー" の方は当該のキーを SHIFT と共に押すこと
+;; で挿入可能としています。 XFree86 上では、これを次のような手順で仕様の通りの
+;; 挙動にすることができます。
+
+;; (例)  1. xmodmap にて以下のような設定をする。
+;;
+;;        % cat ~/.Xmodmap
+;;        keycode 211 = underscore underscore
+;;        % xmodmap ~/.Xmodmap
+;;
+;;       2. ~/.skk にて以下の設定をする。
+;;
+;;        (eval-after-load "skk-106-jis"
+;;          '(setcar (cdr (assq ?\\ skk-106-jis-plain-rule-list)) "ー"))
+
+;; 更に "々" が標準では入力できなくなっている点が旧 JIS 配列の仕様と異なりま
+;; す。これに関しても必要な場合は上記と同様な方法で対処することになります。
+
 ;;; Code:
 
 (eval-when-compile
@@ -79,14 +99,15 @@
     ("," nil skk-nicola-insert)  ("." nil skk-nicola-insert)
     ("/" nil skk-nicola-insert)
     ;;
-    ("#" Nil ("ァ" . "ぁ"))
+    ("#" nil ("ァ" . "ぁ"))
     ("$" nil ("ゥ" . "ぅ")) ("%" nil ("ェ" . "ぇ"))  ("&" nil ("ォ" . "ぉ"))
     ("'" nil ("ャ" . "ゃ")) ("(" nil ("ュ" . "ゅ"))  (")" nil ("ョ" . "ょ"))
     ("~" nil ("ヲ" . "を")) ("=" nil "£")
-    ("|" nil "ー") ;; これが一番の問題。
+    ("|" nil skk-nicola-insert) ;; これが一番の問題。
     ("Q" nil skk-set-henkan-point-subr)
     ("E" nil ("ィ" . "ぃ"))
-    ("T" nil ("ヵ" . "ヵ"))  ("Y" nil ("ン" . "ん"))
+    ("T" nil ("ヵ" . "ヵ"))
+    ("Y" nil skk-nicola-insert)
     ("P" nil "『")
     ("`" nil "¢")
     ("{" nil "「")
@@ -98,15 +119,14 @@
     ("K" nil skk-toggle-kana)
     ("L" nil skk-jisx0208-latin-mode)
     ("+" nil "』") ("*" nil ("ヶ" . "ヶ"))  ("}" nil "」")
-    ("Z" nil ("ッ" . "っ"))
+    ("Z" nil skk-nicola-insert)
     ("X" nil skk-purge-from-jisyo)
     ("C" nil skk-input-by-code-or-menu)
     ("M" nil skk-kanagaki-midashi-henkan)
     ("<" nil skk-current-touten)
     (">" nil skk-current-kuten)
     ("?" nil "・")
-    ;; 上記の「ー」の問題をひきずっている。
-    ("_" nil ("ロ" . "ろ"))) "\
+    ("_" nil skk-nicola-insert)) "\
 日本語 106 キーボードで仮名入力するための基本ルール。
 この設定では \"ー\" の入力が刻印どおりにできないが、 SHIFT キーを押すことででき
 る。 刻印どおりに入力できるようにするためには、仮想キーコードのレベルで制御する
@@ -128,10 +148,17 @@
     (?z ("ツ" . "つ")) (?x ("サ" . "さ"))  (?c ("ソ" . "そ"))
     (?v ("ヒ" . "ひ")) (?b ("コ" . "こ"))  (?n ("ミ" . "み"))
     (?m ("モ" . "も")) (?\, ("ネ" . "ね"))  (?\. ("ル" . "る"))
-    (?/ ("メ" . "め")) (?\\ ("ロ" . "ろ"))))
+    (?/ ("メ" . "め"))
+    ;; 次の 2 つが問題。
+    (?\\ ("ロ" . "ろ"))
+    (?| "ー")
+    ;; 上記の「ー」の問題をひきずっている。
+    (?_ ("ロ" . "ろ"))
+    (?Y ("ン" . "ん"))
+    (?Z ("ッ" . "っ"))))
 
-(defvar skk-106-jis-lshift-rule-list nil)
-(defvar skk-106-jis-rshift-rule-list nil)
+(defvar skk-106-jis-lshift-rule-list skk-106-jis-plain-rule-list)
+(defvar skk-106-jis-rshift-rule-list skk-106-jis-plain-rule-list)
 
 (require 'skk-nicola)
 
@@ -139,14 +166,12 @@
   ;;
   (106-jis
    (skk-kanagaki-call-xmodmap
-       "keycode 123 = underscore underscore\n"
-     (setq skk-kanagaki-rule-list
-	   (nconc skk-kanagaki-rule-list
-		  '(("\\" nil "ー"))))))
+       "keycode 211 = underscore underscore\n"
+     (setcar (cdr (assq ?\\ skk-106-jis-plain-rule-list)) "ー")))
   ;;
   (106-jis-kodawari
    (skk-kanagaki-call-xmodmap
-       "keycode 123 = quotedbl underscore
+       "keycode 211 = quotedbl underscore
 keycode 19 = 0 exclam
 keycode 21 = asciicircum asciitilde
 keycode 34 = at grave\n"
