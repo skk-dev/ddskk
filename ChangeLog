@@ -1,5 +1,16 @@
 2001-10-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* READMES/Contributors
+	* doc/skk.texi:
+	Add the following person.
+
+	SIMOYAMA Takasi <simo@festa.or.jp>
+
+	* skk.el
+	(skk-setup-delete-selection-mode): Bind functions.
+
+2001-10-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk.el
 	(skk-require-module): If the feature `skk-jisx0201' is present,
 	set `skk-use-jisx0201-input-method' t.
@@ -2456,8 +2467,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.485 2001/10/15 10:01:34 czkmt Exp $
-Last Modified: $Date: 2001/10/15 10:01:34 $
+Version: $Id: ChangeLog,v 1.486 2001/10/16 11:41:52 czkmt Exp $
+Last Modified: $Date: 2001/10/16 11:41:52 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
