@@ -1,5 +1,34 @@
 2002-01-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* install-info.el
+	(install-info-insert-file-contents):
+	(install-info-write-region):
+	(install-info-add-groups):
+	Use common syntax for functions.
+
+	* skk-comp.el
+	(skk-comp-do):
+	When no more comletion is left, don't increment `skk-comp-depth'.
+
+	(skk-comp-do-1):
+	When FIRST, move point to `skk-okuri-nasi-min' in all buffers for
+	completion.
+
+	(skk-comp-do-1-in-buf): Abolish optional argument FIRST.
+
+	* skk-macs.el:
+	Require `skk-vars' at load time as well as at compile time.
+
+	* skk-vars.el
+	(skk-dic-comp-first):
+	Abolish optional argument.
+
+	* skk.el
+	(after-init-hook):
+	Avoid warning for `init-file-user'.
+
+2002-01-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* SKK-MK:
 	Always call `set-language-environment'.
 
@@ -3537,8 +3566,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.644 2002/01/22 15:26:16 czkmt Exp $
-Last Modified: $Date: 2002/01/22 15:26:16 $
+Version: $Id: ChangeLog,v 1.645 2002/01/23 14:05:14 czkmt Exp $
+Last Modified: $Date: 2002/01/23 14:05:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
