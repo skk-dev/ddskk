@@ -1,3 +1,11 @@
+2001-05-20  Tsuyoshi AKIHO  <akiho@sky.email.ne.jp>
+
+	* READMEs/Contributors : Update akiho's mail-address.
+
+	* doc/skk.texi (SKK Ring Server Openlab メーリングリスト): Update
+	for ml program change to ezmlm.
+	(SKKの作者) : Update akiho's mail-address.
+
 2001-05-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-henkan-face-default): Use more simple
@@ -3319,8 +3327,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.289 2001/05/20 03:29:10 czkmt Exp $
-Last Modified: $Date: 2001/05/20 03:29:10 $
+Version: $Id: ChangeLog,v 1.290 2001/05/20 11:02:20 akiho Exp $
+Last Modified: $Date: 2001/05/20 11:02:20 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
