@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.171 2001/10/31 15:38:55 czkmt Exp $
+;; Version: $Id: skk.el,v 1.172 2001/11/01 12:00:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/31 15:38:55 $
+;; Last Modified: $Date: 2001/11/01 12:00:22 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -56,12 +56,6 @@
   (defvar skk-rdbms-private-jisyo-table)
   (defvar this-command-char))
 
-(cond ((or (and (boundp 'epoch::version) epoch::version)
-	   (string< (substring emacs-version 0 2) "19"))
-       (error "%s" "This version of SKK does not work on Emacs 18"))
-      ((not (featurep 'mule))
-       (error "%s" "This version of SKK requires MULE features")))
-
 ;; APEL 10.2 or higher is required.
 (eval-when-compile
   (require 'static))
@@ -70,17 +64,6 @@
 (require 'pces)
 (require 'pcustom)
 (require 'alist)
-
-(condition-case nil
-    (require 'product)
-  (error
-   (error "%s"
-	  "This version of Daredevil SKK requires APEL/10.2 or later")))
-
-(unless (product-version>= 'apel-ver
-			   '(10 2))
- (error "%s"
-	"This version of Daredevil SKK requires APEL/10.2 or later"))
 
 ;; Elib 1.0 is required.
 (require 'queue-m)
@@ -3709,13 +3692,15 @@ If you want to restore the dictionary from the disc, try
    (t
     str)))
 
-(defun skk-search-katakana ()
+(defun skk-search-katakana (&optional jisx0201-kana)
   ;; これは `skk-search-prog-list' に追加されるべき機能で、変換キーを単純にカ
   ;; タカナに変換したものを候補として返す。
   ;; 一般的な FEP は単純にカタカナに変換したものが候補に現れるものが多いが、
   ;; そのような挙動が好みの場合にはこの関数を用いるとよい。
   (unless skk-henkan-okurigana
-    (let ((key skk-henkan-key) char)
+    (let ((key skk-henkan-key)
+	  char
+	  words)
       (with-temp-buffer
 	(insert key)
 	(goto-char (point-min))
@@ -3727,9 +3712,14 @@ If you want to restore the dictionary from the disc, try
 		 (eq 'unknown (setq char (skk-what-char-type)))))
 	  (forward-char 1))
 	(when (eq char 'hiragana)
-	  (skk-katakana-region (point-min) (point-max) 'vcontract)
-	  (list (buffer-substring-no-properties
-		 (point-min) (point-max))))))))
+	  (skk-katakana-region (point-min) (point-max) t)
+	  (setq words (list (buffer-string))))
+	(when (and jisx0201-kana
+		   (or (eq char 'hiragana)
+		       (string-match "ー" key)))
+	  (skk-katakana-to-jisx0201-region (point-min) (point-max))
+	  (setq words (nconc words (list (buffer-string))))))
+      words)))
 
 (defun skk-search-sagyo-henkaku (&optional okuri-list)
   (unless okuri-list
