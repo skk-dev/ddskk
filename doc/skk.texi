@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.44 2000/10/13 21:14:46 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.45 2000/10/15 12:35:30 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/13 21:14:46 $
+@c  Last Modified: $Date: 2000/10/15 12:35:30 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/10/13 21:14:46 $
+@set UPDATED $Date: 2000/10/15 12:35:30 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -480,7 +480,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B}$B!#(B
 $B%^%s%I$K@5$N0z?t$rEO$7$^$9(B
 @footnote{$B!V0z?t!W$K$D$$$F$O!"(B
 
-@ref{Numeric Arguments, , Arguments, emacs, GNU Emacs Manual}.
+@xref{Arguments, , Arguments, emacs, GNU Emacs Manual}.
 
 $B$r;2>H$N$3$H!#(B}$B!#(B
 
@@ -957,7 +957,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @footnote{@samp{x} $B$O>.J8;z$GF~NO$9$kI,MW$,$"$j$^$9(B}$B!#(B
 
 $B8uJd$r<!!9$HC5$7$F$b5a$a$k$b$N$,$J$1$l$P!"<+F0E*$K<-=qEPO?%b!<%I$K$J$j$^$9(B
-($B<-=qEPO?%b!<%I$O"'%b!<%I$N%5%V%b!<%I$G$9(B) $B!#$3$l$K$D$$$F$O(B
+($B<-=qEPO?%b!<%I$O"'%b!<%I$N%5%V%b!<%I$G$9(B) $B!#(B
 @ref{$B<-=qEPO?%b!<%I(B}$B$K$F@bL@$7$^$9!#(B
 
 @node $BAw$j2>L>$,M-$k>l9g(B, $B<-=qEPO?%b!<%I(B, $B<!8uJd!&A08uJd(B, $B"'%b!<%I(B
@@ -1007,10 +1007,10 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 SKK $B$G$O$3$N$h$&$K!"Aw$j2>L>$N3+;OCOE@$r%f!<%6!<$,L@<(E*$KF~NO$9$k$N$G!"(B
 $B%7%9%F%`B&$GAw$j2>L>$rJ,2r$9$kI,MW$,$"$j$^$;$s!#$3$l$K$h$j!"9bB.$G%R%C%H(B
 $B8zN($,9b$$JQ49$,2DG=$K$J$j$^$9!#(B
-@xref{$BAw$j2>L>$N<+F0=hM}(B, , $BAw$j2>L>$N<+F0=hM}(B}.
+@xref{$BAw$j2>L>$N<+F0=hM}(B}.
 
 $BC"$7%5JQF0;l$NJQ49$G$O!"%5JQF0;l$N8l44$H$J$kL>;l$r(B @b{$B!VAw$j$J$7JQ49!W(B}
-@footnote{$B>\:Y$O!"(B@ref{$B<-=q$N7A<0(B, , $BAw$j$J$7JQ49(B}$B$r;2>H$7$F$/$@$5$$!#(B}
+@footnote{$B>\:Y$O!"(B@ref{$BAw$j2>L>$,L5$$>l9g(B}$B$r;2>H$7$F$/$@$5$$!#(B}
 $B$H$7$FJQ49$7!"$=$N8e(B @samp{$B$9$k(B} $B$r"#%b!<%I$GF~NO$7$?J}$,8zN($,NI$/$J$j(B
 $B$^$9!#(B @xref{$B<-=qEPO?%b!<%I(B, , $B%5JQF0;l$NF~NO(B}.
 
@@ -1156,7 +1156,7 @@ k a n ty u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 
 $B%5JQF0;l(B ($BL>;l$N8e$K(B @samp{$B$9$k(B} $B$rIU$1$?7A$G9=@.$5$l$kF0;l(B) $B$K$D$$$F$O!"(B
 @samp{$B$9$k(B} $B$rAw$j2>L>$H$7$?Aw$j$"$jJQ49(B
-@footnote{$BAw$j2>L>$rH<$J$&JQ49!#>\$7$/$O!"(B@ref{$B<-=q$N7A<0(B, $BAw$j$"$jJQ49(B}$B$r(B
+@footnote{$BAw$j2>L>$rH<$J$&JQ49!#>\$7$/$O!"(B@ref{$BAw$j2>L>$,M-$k>l9g(B}$B$r(B
 $B;2>H$7$F$/$@$5$$!#(B}$B$r$7$J$$$G!"(B@samp{$B1?F0(B} $B$H(B @samp{$B$9$k(B} $B$HJ,$1$FF~NO$7(B
 $B$?J}$,8zN($,NI$/$J$j$^$9(B
 @footnote{$BL>;l$H$=$N%5JQF0;l$H$rJL!9$K<-=q$K;}$D$H6u4VE*$J8zN($,0-$$$N$G!"(B
