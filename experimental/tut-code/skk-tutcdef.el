@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.1 1999/08/21 09:56:00 minakaji Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.2 1999/08/21 13:23:08 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/21 09:56:00 $
+;; Last Modified: $Date: 1999/08/21 13:23:08 $
 
 ;; This file is not part of SKK yet.
 
@@ -34,10 +34,8 @@
 ;;; Code:
 (eval-when-compile (require 'skk))
 
-(eval-after-load "skk"
-    '(progn
-       (define-key skk-j-mode-map "\C-l" 'skk-latin-mode)
-       (define-key skk-j-mode-map "\t" 'skk-toggle-kana) ))
+(define-key skk-j-mode-map "\C-l" 'skk-latin-mode)
+(define-key skk-j-mode-map "\t" 'skk-toggle-kana)
 
 (setq skk-try-completion-char ?\016)	; \C-n
 
@@ -54,10 +52,10 @@
    ("Q" nil skk-set-henkan-point-subr)
    ("X" nil skk-purge-from-jisyo)
    ("'" nil skk-abbrev-mode)
-   ("$" nil skk-display-TUT-code-for-char-at-point)
+   ("$" nil skk-tutcode-display-code)
    ;; ("@" nil skk-today)
    ("^" nil skk-input-by-code-or-menu)
-   ("\\" nil skk-mode-off2) ))
+   ("\\" nil skk-tutcode-mode-off) ))
 
 ;; The first few entries are necessary to disable special treatments of
 (setq skk-rom-kana-rule-list

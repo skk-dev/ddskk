@@ -3,9 +3,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tutcode.el,v 1.1 1999/08/21 09:56:04 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.2 1999/08/21 13:22:50 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/21 09:56:04 $
+;; Last Modified: $Date: 1999/08/21 13:22:50 $
 
 ;; This file is not part of SKK yet.
 
@@ -26,69 +26,63 @@
 
 ;;; Commentary:
 
-;; Following people contributed modifications to skk.el (Alphabetical order):
+;; Following people contributed modifications to skk-tutcode.el
+;; (Alphabetical order):
 ;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
-
-;;; Change log:
+;;
+;; INSTALL
+;; 
+;; Put the following two advices in your .emacs.
+;;
+;; (defadvice skk-mode (before my-ad activate)
+;;   (require 'skk-tutcdef)
+;;   (require 'skk-tutcode) )
+;; 
+;; (defadvice skk-auto-fill-mode (before my-ad activate)
+;;   (require 'skk-tutcdef)
+;;   (require 'skk-tutcode) )
+;; 
+;; If you would like to customize some definitions in skk-tutcdef.el,
+;; you could do, for example;
+;; 
+;; (defadvice skk-mode (before my-ad activate)
+;;   (require 'skk-tutcdef)
+;;   (require 'skk-tutcode)
+;;   ;; your customizations...
+;;   (setq skk-rom-kana-rule-list
+;;	 '(...) ))
 
 ;;; Code:
 (eval-when-compile (require 'skk))
 
-;; patch for skk.el
-(setq skk-kuten-touten-alist
-      '((jp . ("。" . "、")) (zen . ("．" . "，")) (hen . (". " . ", "))))
+;; all prefix of functions, variables and constants are
+;; `skk-tutcode-'.
+;;
+;;(defgroup skk-tutcode nil "SKK/TUT-code related customization."
+;;  :prefix "skk-tutcode-"
+;;  :group 'skk )
 
-(defun skk-toggle-kutouten ()
-  "句読点の種類をトグルで変更する（3通り）。"
-  (interactive)
-  (setq skk-kutouten-type
-	(cond
-	 ((eq skk-kutouten-type 'jp) 'zen)
-	 ((eq skk-kutouten-type 'zen) 'hen)
-	 ((eq skk-kutouten-type 'hen) 'jp)))
-  (and (interactive-p)
-       (skk-message "句点: `%s'  読点: `%s'"
-		    "Kuten: `%s'  Touten: `%s'"
-		    (skk-current-kuten nil) (skk-current-touten nil) )))
+;;;###autoload
+(defun skk-tutcode-mode-off (foo) 
+  (skk-latin-mode t)
+  (skk-insert-str "\\") )
 
-;; some new stuff
-(defun skk-get-TUT-code (key)
-  (let ((srkr-list skk-rom-kana-rule-list) (cont t) (val nil))
-    (while cont
-      (if (null srkr-list)
-	  (setq cont nil)
-	(if (listp (car (cdr (cdr (car srkr-list)))))
-	    (cond
-	     ((string= key (car (car (cdr (cdr (car srkr-list))))))
-	      (setq cont nil
-		    val (car (car srkr-list))))
-	     ((string= key (cdr (car (cdr (cdr (car srkr-list))))))
-	      (setq cont nil
-		    val (car (car srkr-list))))
-	     (t (setq srkr-list (cdr srkr-list))))
-	  (cond
-	   ((string= key (car (cdr (cdr (car srkr-list)))))
-	    (setq cont nil
-		  val (car (car srkr-list))))
-	   (t  (setq srkr-list (cdr srkr-list)))))))
-
-    val))
-
-;; adapted from skk-kcode.el
-(defun skk-display-TUT-code-for-char-at-point (&optional arg)
+;;;###autoload
+(defun skk-tutcode-display-code (&optional arg)
+  ;; adapted from skk-kcode.el
   "ポイントにある文字の EUC コード、JIS コード、TUT コードを表示する。"
   (interactive "P")
   (if (eobp)
       (skk-error "カーソルがバッファの終端にあります"
                  "Cursor is at the end of the buffer" )
-    (skk-display-TUT-code-for-char-at-point-1 
+    (skk-tutcode-display-code-1 
      (buffer-substring-no-properties
       (point)
       (skk-save-point (forward-char 1) (point)) ))
     ;; エコーした文字列をカレントバッファに挿入しないように。
     t ))
 
-(skk-defun-cond skk-display-TUT-code-for-char-at-point-1 ()
+(skk-defun-cond skk-tutcode-display-code-1 ()
   ((memq skk-emacs-type '(xemacs mule4 mule3))
    (let* ((char (string-to-char str))
 	  (charset (char-charset char)))
@@ -100,7 +94,7 @@
 	      (char2-j (char-octet char 1))
 	      (char2-k (- char2-j 32))
 	      (char2-e (+ char2-j 128))
-	      (char3 (skk-get-TUT-code str)))
+	      (char3 (skk-tutcode-get-code str)))
 	 (message
 	  "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d), TUT: `%s'"
 	  str char1-e char2-e char1-e char2-e
@@ -127,7 +121,7 @@
 	      (char2-e (car (cdr (cdr char-list))))
 	      (char2-j (- char2-e 128))
 	      (char2-k (- char2-j 32))
-	      (char3 (skk-get-TUT-code str)))
+	      (char3 (skk-tutcode-get-code str)))
 	 (message
 	  "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d), TUT: `%s'"
 	  str char1-e char2-e char1-e char2-e
@@ -140,9 +134,28 @@
        (skk-error "判別できない文字です"
 		  "Cannot understand this character" ))))))
 
-(defun skk-mode-off2 (foo) 
-  (skk-latin-mode t)
-  (skk-insert-str "\\") )
+;; some new stuff
+(defun skk-tutcode-get-code (key)
+  (let ((srkr-list skk-rom-kana-rule-list) (cont t) (val nil))
+    (while cont
+      (if (null srkr-list)
+	  (setq cont nil)
+	(if (listp (car (cdr (cdr (car srkr-list)))))
+	    (cond
+	     ((string= key (car (car (cdr (cdr (car srkr-list))))))
+	      (setq cont nil
+		    val (car (car srkr-list))))
+	     ((string= key (cdr (car (cdr (cdr (car srkr-list))))))
+	      (setq cont nil
+		    val (car (car srkr-list))))
+	     (t (setq srkr-list (cdr srkr-list))))
+	  (cond
+	   ((string= key (car (cdr (cdr (car srkr-list)))))
+	    (setq cont nil
+		  val (car (car srkr-list))))
+	   (t  (setq srkr-list (cdr srkr-list)))))))
+
+    val))
 
 (provide 'skk-tutcode)
 ;;; skk-tutcode.el ends here
