@@ -1,8 +1,8 @@
 2000-10-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi (入力モードの一時変更, ■モードにおける文字入力, ポ
-	イントを戻して▽モードへ, 確定変換とその取り消し, 確定アンドゥ):
-	「ですます」調に変更。
+	イントを戻して▽モードへ, 確定変換とその取り消し, 確定アンドゥ, 見
+	出し語関連): 「ですます」調に変更。
 	(旧バージョンからの変更点): New chapter.
 
 2000-10-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
