@@ -1,3 +1,13 @@
+2001-11-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK
+	(SKK_INFODIR): Refer to `Info-default-directory-list' instead of
+	`Info-directory-list'. Consider FHS.
+
+	* skk-vars.el
+	(skk-units-alist): Typo.
+	From someone at 2ch.
+
 2001-11-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el
@@ -2647,8 +2657,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.513 2001/11/04 00:55:40 czkmt Exp $
-Last Modified: $Date: 2001/11/04 00:55:40 $
+Version: $Id: ChangeLog,v 1.514 2001/11/05 12:56:49 czkmt Exp $
+Last Modified: $Date: 2001/11/05 12:56:49 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
