@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.80 2001/11/19 15:54:01 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.81 2001/11/23 13:25:18 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:01 $
+;; Last Modified: $Date: 2001/11/23 13:25:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2630,11 +2630,11 @@ skk-remove-common で参照される。")
 
 (skk-deflocalvar skk-okuri-index-min -1
   "`skk-henkan-list'のインデクスを挿すポインタのひとつ。
-自動送り処理・サ変検索で検索した最初の候補を指す。")
+自動送り処理で検索した最初の候補を指す。")
 
 (skk-deflocalvar skk-okuri-index-max -1
   "skk-henkan-list のインデクスを挿すポインタのひとつ。
-自動送り処理、もしくはサ変検索で検索した最後の候補を指す。")
+自動送り処理で検索した最後の候補を指す。")
 
 (skk-deflocalvar skk-last-buffer-undo-list nil
   "▽モードに入る直前の buffer-undo-list を退避しておく変数。")
