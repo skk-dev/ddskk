@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.98 2002/02/03 12:31:13 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.99 2002/03/02 05:39:47 ueno Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/03 12:31:13 $
+;; Last Modified: $Date: 2002/03/02 05:39:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -634,9 +634,10 @@ nil  -- $B0l@ZAw$j2>L>$N%A%'%C%/$r$;$:!"A4BN$rC18l$H$7$FEPO?$9$k!#$3$l$O(B SKK
 		 (const nil))
   :group 'skk-okurigana)
 
-(defcustom skk-henkan-show-candidates-keys '(?a ?s ?d ?f ?j ?k ?l)
+(defcustom skk-henkan-show-candidates-keys
+  '(?a ?s ?d ?f ?j ?k ?l ?q ?w ?e ?r ?u ?i ?o ?z ?c ?v ?b ?n ?m ?,)
   "*$B%a%K%e!<7A<0$G8uJd$rA*Br$9$k$H$-$NA*Br%-!<$N%j%9%H!#(B
-\"x\", \" \" $B5Z$S(B \"C-g\" $B0J30$N(B 7 $B$D$N%-!<(B (char type) $B$r4^$`I,MW$,$"(B
+\"x\", \" \" $B5Z$S(B \"C-g\" $B0J30$N(B 7 $B$NG\?t8D$N%-!<(B (char type) $B$r4^$`I,MW$,$"(B
 $B$k!#(B\"x\", \" \" $B5Z$S(B \"C-g\" $B$O8uJdA*Br;~$K$=$l$>$lFCJL$J;E;v$K3d$jEv(B
 $B$F$i$l$F$$$k$N$G!"$3$N%j%9%H$NCf$K$O4^$a$J$$$3$H!#(B"
   :type '(repeat character)
@@ -1168,6 +1169,11 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   "*Non-nil $B$G$"$l$P!"(BEmacs $B$N(B face $B$N5!G=$r;HMQ$7$FJQ49I=<($r9T$&!#(B"
   :type 'boolean
   :group 'skk-decoration)
+
+(defcustom skk-henkan-show-candidates-rows 1
+  "*$BJQ498uJd72$NI=<(9T?t!#(B"
+  :type 'integer
+  :group 'skk-misc)
 
 ;; should use defface?  however, can I use defface for highlight?
 (defcustom skk-henkan-face 'skk-henkan-face-default

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.230 2002/02/26 05:37:21 obata Exp $
+;; Version: $Id: skk.el,v 1.231 2002/03/02 05:39:47 ueno Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/26 05:37:21 $
+;; Last Modified: $Date: 2002/03/02 05:39:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1605,10 +1605,58 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	     skk-jisx0213-prohibit)
     (skk-jisx0213-henkan-list-filter)))
 
+(defun skk-multiple-line-message-clear ()
+  (skk-multiple-line-message nil)
+  (remove-hook 'pre-command-hook
+	       (function skk-multiple-line-message-clear)))
+
+(defun skk-multiple-line-message (fmt &rest args)
+  (if (and (not (eq skk-emacs-type 'xemacs))
+	   (boundp 'emacs-major-version)
+	   (>= emacs-major-version 21))
+      (apply (function message) fmt args)
+    (save-selected-window
+      (select-window (minibuffer-window))
+      (let* ((str (if fmt (apply (function format) fmt args) ""))
+	     (lines 1)
+	     (last-minibuffer-height (window-height))
+	     (tmp str))
+	;; (setq lines (count ?\n tmp))
+	(while (string-match "\n" tmp)
+	  (setq lines (1+ lines)
+		tmp (substring tmp (match-end 0))))
+	(condition-case nil
+	    (progn
+	      (enlarge-window (- lines last-minibuffer-height))
+	      (static-if (eq skk-emacs-type 'xemacs)
+		  (apply (function message) fmt args)
+		(let (buffer-undo-list)	;prevent entry
+		  (erase-buffer)
+		  (insert-string str)))
+	      ;; We also need to clear `current-message' in case
+	      ;; running under XEmacs so that the height of
+	      ;; `minibuffer-window' is left unchanged.
+	      (unless (equal str "")
+		;; (make-local-hook 'pre-command-hook)
+		;; (add-hook 'pre-command-hook
+		;; 	  (function skk-multiple-line-message-clear))))
+		(add-hook 'pre-command-hook
+			  (function skk-multiple-line-message-clear))))
+	  (quit (shrink-window (- (window-height) last-minibuffer-height))))
+	str))))
+
+(defun skk-multiple-line-string-width (str)
+  (let ((max 0))
+    (while (and (not (equal str "")) (string-match "\n\\|$" str))
+      (setq max (max max (string-width (substring str 0 (match-beginning 0))))
+	    str (substring str (match-end 0))))
+    max))
+
 (defun skk-henkan-show-candidates ()
   "ミニバッファで変換した候補群を表示する。"
   (skk-save-point
-   (let* ((candidate-keys ; 表示用のキーリスト
+   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
+	  (candidate-keys ; 表示用のキーリスト
 	   (mapcar
 	    #'(lambda (c)
 		(when (memq c '(?\C-g ?\040 ?x)) ; ?\040 is SPC.
@@ -1619,7 +1667,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	    skk-henkan-show-candidates-keys))
 	  key-num-alist	; 候補選択用の連想リスト
 	  (key-num-alist1 ; key-num-alist を組み立てるための作業用連想リスト。
-	   (let ((count 6))
+	   (let ((count (1- (length skk-henkan-show-candidates-keys))))
 	     (mapcar
 	      #'(lambda (key)
 		  (prog1
@@ -1630,6 +1678,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	      (reverse skk-henkan-show-candidates-keys))))
 	  (loop 0)
 	  inhibit-quit
+	  (echo-keystrokes 0)
 	  henkan-list
 	  new-one
 	  reverse
@@ -1644,7 +1693,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
        (cond
 	(reverse
 	 (setq loop (1- loop)
-	       henkan-list (nthcdr (+ 4 (* loop 7))
+	       henkan-list (nthcdr (+ 4 (* loop max-candidates))
 				   skk-henkan-list)
 	       reverse nil))
 	(skk-exit-show-candidates
@@ -1660,13 +1709,13 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	 ;; が出てくるまでサーチを続ける。
 	 (skk-henkan-list-filter)
 	 (while (and skk-current-search-prog-list
-		     (null (nthcdr (+ 11 (* loop 7))
+		     (null (nthcdr (+ 4 max-candidates (* loop max-candidates))
 				   skk-henkan-list)))
 	   (setq skk-henkan-list
 		 (skk-nunion skk-henkan-list
 			     (skk-search)))
 	   (skk-henkan-list-filter))
-	 (setq henkan-list (nthcdr (+ 4 (* loop 7))
+	 (setq henkan-list (nthcdr (+ 4 (* loop max-candidates))
 				   skk-henkan-list))))
        (save-window-excursion
 	 (setq n (skk-henkan-show-candidate-subr
@@ -1678,13 +1727,12 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		      (char (event-to-character event))
 		      (key (skk-event-key event))
 		      num)
-		 (static-when (eq skk-emacs-type 'xemacs)
-		   ;; clear out candidates in echo area
-		   (message ""))
+		 ;; clear out candidates in echo area
+		 (skk-multiple-line-message "")
 		 (if (and (null char)
 			  (null key))
 		     (skk-unread-event event)
-		   (setq key-num-alist (nthcdr (- 7 n)
+		   (setq key-num-alist (nthcdr (- max-candidates n)
 					       key-num-alist1))
 		   (when (and key-num-alist
 			      char)
@@ -1697,7 +1745,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		   (cond
 		    (num
 		     (setq new-one (nth num henkan-list)
-			   skk-henkan-count (+ 4 (* loop 7) num)
+			   skk-henkan-count (+ 4 (* loop max-candidates) num)
 			   skk-kakutei-flag t
 			   loop nil))
 		    ((or (eq char ?\040) ; SPC
@@ -1707,10 +1755,10 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 			  skk-j-mode-map))
 		     ;;
 		     (if (or skk-current-search-prog-list
-			     (nthcdr 7 henkan-list))
+			     (nthcdr max-candidates henkan-list))
 			 (setq loop (1+ loop))
 		       ;; 候補が尽きた。この関数から抜ける。
-		       (let ((last-showed-index (+ 4 (* loop 7))))
+		       (let ((last-showed-index (+ 4 (* loop max-candidates))))
 			 (setq skk-exit-show-candidates
 			       ;; cdr 部は、辞書登録に入る前に最後に表示し
 			       ;; た候補群の中で最初の候補を指すインデクス
@@ -1774,12 +1822,13 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 
 (defun skk-henkan-show-candidate-subr (keys candidates)
   "候補群を表示する関数。
-KEYS と CANDIDATES を組み合わせて 7 つの候補群 (候補数が 7 に満たなかったらそ
-こで打ち切る) の文字列を作り、ミニバッファに表示する。"
-  (let ((workinglst
-	 ;; CANDIDATES の先頭の 7 つのみのリスト。
+KEYS と CANDIDATES を組み合わせて 7 の倍数個の候補群 (候補数が
+満たなかったらそこで打ち切る) の文字列を作り、ミニバッファに表示する。"
+  (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
+	 (workinglst
+	  ;; CANDIDATES の先頭の 7 つのみのリスト。
 	 (let ((count 0) e v)
-	   (while (> 7 count)
+	   (while (> max-candidates count)
 	     (setq e (nth count candidates))
 	     (if e
 		 (setq v (cons (cond
@@ -1791,29 +1840,39 @@ KEYS と CANDIDATES を組み合わせて 7 つの候補群 (候補数が
 				(t e))
 			       v)
 		       count (1+ count))
-	       (setq count 7)))
+	       (setq count max-candidates)))
 	   (nreverse v)))
 	(n 0)
-	str cand message-log-max)
+	(str "") cand message-log-max
+	(workinglst-ptr workinglst)
+        (keys-ptr keys))
     (when (car workinglst)
       ;;(setq workinglst (skk-truncate-message workinglst))
-      (setq n 1
-	    ;; 最初の候補の前に空白をくっつけないように最初の候補だけ先に取り
-	    ;; 出す。
-	    str (concat (car keys) ":" (if (consp (car workinglst))
-					   (cdr (car workinglst))
-					 (car workinglst))))
-      ;; 残りの 6 つを取り出す。候補と候補の間を空白でつなぐ。
-      (while (and (< n 7) (setq cand (nth n workinglst)))
-	(setq cand (if (consp cand) (cdr cand) cand)
-	      str (concat str "  " (nth n keys) ":" cand)
-	      n (1+ n)))
-      (setq str (format
-		 "%s  [残り %d%s]"
-		 str (length (nthcdr n candidates))
-		 (make-string (length skk-current-search-prog-list) ?+)))
-      (if (> (frame-width) (string-width str))
-	  (message "%s" str)
+      (while workinglst-ptr
+	(setq n 1
+	      ;; 最初の候補の前に空白をくっつけないように最初の候補だけ先に取り
+	      ;; 出す。
+	      str (concat str (car keys-ptr) ":"
+			  (if (consp (car workinglst-ptr))
+			      (cdr (car workinglst-ptr))
+			    (car workinglst-ptr))))
+	;; 残りの 6 つを取り出す。候補と候補の間を空白でつなぐ。
+	(while (and (< n 7) (setq cand (nth n workinglst-ptr)))
+	  (setq cand (if (consp cand) (cdr cand) cand)
+		str (concat str "  " (nth n keys-ptr) ":" cand)
+		n (1+ n)))
+	(if (setq workinglst-ptr (nthcdr 7 workinglst-ptr))
+	    (setq str (concat str "\n")
+		  keys-ptr (nthcdr 7 keys-ptr))))
+      (setq str (concat str (format "  [残り %d%s]"
+				    (- (length candidates)
+				       (length workinglst))
+				    (make-string
+				     (length skk-current-search-prog-list)
+				     ?+)))
+	    n (length workinglst))
+      (if (> (frame-width) (skk-multiple-line-string-width str))
+	  (skk-multiple-line-message "%s" str)
 	(let ((buff (get-buffer-create "*候補*"))
 	      (case-fold-search t))
 	  (with-current-buffer buff
