@@ -6,7 +6,7 @@
 	(SKK_TUTORIALS): Add skk.xpm.
 
 	* skk-xemacs.el
-	(skk-icon): New varaible.
+	(skk-icon): New variable.
 	(skk-setup-modeline): Advise to display the icon.
 
 2002-01-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -23,10 +23,10 @@
 	(SKK-MK-generate-autoloads-el-package): Don't add
 	(require 'skk-setup) here.
 
-	* skk-setup.el.in
+	* skk-setup.el.in:
 	Don't require skk-autoloads under XEmacs.
 
-	* skk-xemacs.el
+	* skk-xemacs.el:
 	Add (require 'skk-setup) here.
 
 	Don't need to check `skk-emacs-type'.
@@ -3222,8 +3222,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.611 2002/01/03 13:59:35 czkmt Exp $
-Last Modified: $Date: 2002/01/03 13:59:35 $
+Version: $Id: ChangeLog,v 1.612 2002/01/04 09:37:38 czkmt Exp $
+Last Modified: $Date: 2002/01/04 09:37:38 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
