@@ -1,3 +1,10 @@
+2001-12-01  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* doc/skk.texi (▽モードにおける自動ダイナミックコンプリーション):
+	Update.
+	(サーバ関連): Add description about
+	`skk-server-inhibit-startup-server'.
+	
 2001-12-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-dcomp.el
@@ -2998,8 +3005,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.573 2001/12/01 03:29:49 czkmt Exp $
-Last Modified: $Date: 2001/12/01 03:29:49 $
+Version: $Id: ChangeLog,v 1.574 2001/12/01 09:13:58 minakaji Exp $
+Last Modified: $Date: 2001/12/01 09:13:58 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
