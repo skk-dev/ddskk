@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.6 2000/10/30 22:10:15 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.7 2000/11/11 03:09:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:15 $
+;; Last Modified: $Date: 2000/11/11 03:09:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -162,37 +162,23 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
                         ;; $Bどき 1 秒分ついていけなくなる。Pentium 90Mhz +
                         ;; Mule-2.xだと「ピッ」という単音になってしまう... (;_;)。
 			(static-cond
-			 ((eq skk-emacs-type 'xemacs)
+			 ((featurep 'lisp-float-type)
 			  (if snd
 			      ;; ちょっともたつく ?
 			      (ding nil 'clink)
 			    (ding)
-			    (unless (sit-for (setq sec
-						   (+ sec
-						      (/ (float 1) (float 6))))
-					     'nodisplay)
+			    (unless (skk-sit-for
+				     (setq sec
+					   (+ sec (/ (float 1) (float 6))))
+				     'nodisplay)
 			      (next-command-event)
 			      (signal 'quit nil))
 			    (ding)))
-			 ((featurep 'lisp-float-type)
-			  (ding)
-			  (unless (sit-for (setq sec
-						 (+ sec
-						    (/ (float 1) (float 6))))
-					   nil
-					   'nodisplay)
-			    (next-command-event)
-			    (signal 'quit nil))
-			  (ding))
 			 (t
 			  ;; Emacs 18
 			  (ding)
 			  (ding))))))
-	      (unless (static-cond
-		       ((memq skk-emacs-type '(nemacs mule1 xemacs))
-			(sit-for (- 1 sec) 'nodisplay))
-		       (t
-			(sit-for (- 1 sec) nil 'nodisplay)))
+	      (unless (skk-sit-for (- 1 sec) 'nodisplay)
 		(next-command-event)
 		(signal 'quit nil))))
         (quit

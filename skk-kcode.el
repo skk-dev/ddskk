@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.10 2000/10/30 22:10:16 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.11 2000/11/11 03:10:02 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:16 $
+;; Last Modified: $Date: 2000/11/11 03:10:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -140,7 +140,7 @@
                                 "  "))
               (setq i (1+ i)))
             (message "%s" str))
-          (let ((char (event-to-character (skk-read-event)))
+          (let ((char (event-to-character (next-command-event)))
                 rest ch)
             (if (not (characterp char))
                 (progn
@@ -177,7 +177,7 @@
                        n-org skk-code-n1-min n-org skk-code-n1-min
                        (- n-org 128) (- skk-code-n1-min 128)
                        (- n-org 128) (- skk-code-n1-min 128))
-                      (skk-read-event)
+                      (next-command-event)
                       (setq n n-org)
                       nil)
                      (t
@@ -213,7 +213,7 @@
               (setq str (concat str (nth i menu-keys2) ":" (nth i chars) " "))
               (setq i (1+ i)))
             (message str))
-          (let ((char (event-to-character (skk-read-event)))
+          (let ((char (event-to-character (next-command-event)))
 		rest ch)
             (if (not (characterp char))
                 (progn
@@ -252,7 +252,7 @@
                        (car chars) n1-org n2-org n1-org n2-org
                        (- n1-org 128) (- n2-org 128)
                        (- n1-org 128) (- n2-org 128))
-                      (skk-read-event)
+                      (next-command-event)
                       (setq n1 n1-org n2 n2-org)
                       nil)
                      ((eq char ?>)
