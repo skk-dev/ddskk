@@ -4,6 +4,9 @@
 	`skk-kanagaki-delete-backward-char'.
 	(skk-kanagaki-esc): New function.
 
+	* skk-kanagaki.el (skk-kanagaki-isearch-buffer): New variable.
+	(skk-isearch-wrapper): New advice.
+
 	* skk-nicola.el (skk-nicola-use-koyubi-functions): New variable.
 	(skk-nicola-lshift-function): Call `exit-minibuffer' in
 	minibuffer.

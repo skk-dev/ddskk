@@ -178,6 +178,10 @@
 	     (skk-kakutei arg)
 	   (forward-char -1)
 	   (delete-char 1)))
+	((and skk-isearch-switch
+	      (buffer-live-p skk-kanagaki-isearch-buffer))
+	 (with-current-buffer skk-kanagaki-isearch-buffer
+	   (skk-isearch-delete-char arg)))
 	(t
 	 (delete-backward-char arg))))
 
@@ -193,13 +197,15 @@
   ;; 文字列であり、ポイントを移動すると変換対象が変わってしまう。そのため、ポイ
   ;; ントは移動しないこととする。
   (interactive "*P")
-  (call-interactively
-   (cond ((skk-in-minibuffer-p)
+  (cond ((skk-in-minibuffer-p)
+	 (call-interactively
 	  (if (fboundp 'minibuffer-keyboard-quit)
 	      'minibuffer-keyboard-quit
-	    'abort-recursive-edit))
+	    'abort-recursive-edit)))
+	 ((or skk-henkan-on skk-henkan-active)
+	  (call-interactively 'keyboard-quit))
 	 (t
-	  'keyboard-quit))))
+	  nil)))
 
 ;;;###autoload
 (defun skk-nicola-visit-nicola-website ()
