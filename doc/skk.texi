@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.94 2002/01/20 10:08:31 czkmt Exp $
+@c  Version: $Id: skk.texi,v 1.95 2002/01/29 11:52:25 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2002/01/20 10:08:31 $
+@c  Last Modified: $Date: 2002/01/29 11:52:25 $
 @c
 @set EDITION 1.9
 @set SKK-VERSION 12.1.0
-@set UPDATED $Date: 2002/01/20 10:08:31 $
+@set UPDATED $Date: 2002/01/29 11:52:25 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8758,6 +8758,7 @@ skk-tools の中のプログラムを使い、下記のように行ないます。
 @vindex skk-look-expanded-word-only
 @vindex skk-look-recursive-search
 @vindex skk-use-look
+@vindex skk-look-use-ispell
 
 UNIX @code{look} コマンドと @file{skk-look.el} を利用すると、色々できま
 すよ。まず、 @file{~/.skk} か @file{~/.emacs} で @code{skk-use-look} を
@@ -8775,10 +8776,14 @@ t にセットして Emacs/SKK を立ち上げ直して下さい。
 
 通常の補完機能同様、@kbd{.} で次の補完候補、@kbd{,} でひとつ前の補完候補
 に移動できます。SKK 形式の英和辞書があれば、ここから @key{SPC} を押して
-英和変換ができますね。
+英和変換ができますね。また、@code{skk-look-use-ispell} の値が non-nil
+であれば、@code{look} で検索する前に @code{ispell} でスペルチェック・
+修正をします。
 
 @item
-(2)英単語をあいまいに変換して取り出すことができます。
+英単語をあいまいに変換して取り出すことができます。上記同様、
+@code{skk-look-use-ispell} の値が non-nil であれば、@code{look} で検索
+する前に @code{ispell} でスペルチェック・修正をします。
 
 @example
   ▽abstr* (@key{SPC}) @expansion ▼abstract
@@ -8819,6 +8824,11 @@ Emacs/SKK を再起動する必要はありません。すると、例えば、
 というエントリがあることを前提としています。edict を SKK 辞書形式に変換
 すると良いですね。
 @end enumerate
+
+なお、@file{skk-look.el} を使った補完・変換が期待するスピードよりも遅
+い、補完・変換で余分な候補が出る、とお感じの貴方は、
+@code{skk-look-use-ispell} の値を nil にして @code{ispell} によるスペ
+ルチェック・修正をオフにしてお試し下さい。
 
 @node Q.5-3 市販の CD-ROM 辞書やネットワークの辞書サーバが利用できますか?, Q.5-4 他の FEP を使用中にも SHIFT を押してしまいます。, Q.5-2 abbrev モードでもっと英単語を利用した変換ができませんか?, Miscellaneous
 @comment  node-name,  next,  previous,  up

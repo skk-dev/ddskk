@@ -1,3 +1,8 @@
+2002-01-29  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* doc/skk.texi (Q.5-2 abbrev モードでもっと英単語を利用した変換が
+	できませんか?): Write about `skk-look-use-ispell'.
+
 2002-01-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-gadget.el
@@ -207,7 +212,7 @@
 	Following person is added.
 
 	ONODA Arata  <onoto@ma.nma.ne.jp>
-	
+
 	* READMEs/NEWS: Add AZIK's URL.
 
 2002-01-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -3579,8 +3584,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.649 2002/01/24 15:01:48 czkmt Exp $
-Last Modified: $Date: 2002/01/24 15:01:48 $
+Version: $Id: ChangeLog,v 1.650 2002/01/29 11:52:26 minakaji Exp $
+Last Modified: $Date: 2002/01/29 11:52:26 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
