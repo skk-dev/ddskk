@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.132 2001/10/07 01:15:21 czkmt Exp $
+;; Version: $Id: skk.el,v 1.133 2001/10/07 08:37:33 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/07 01:15:21 $
+;; Last Modified: $Date: 2001/10/07 08:37:33 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -249,45 +249,45 @@
      ["Undo Kakutei" skk-undo-kakutei t]
      ["Version" skk-version t])))
 
-(or skk-latin-mode-map
-    (let ((map (make-sparse-keymap)))
-      ;; .skk で skk-kakutei-key の変更が可能になるように。
-      ;;(define-key map skk-kakutei-key 'skk-kakutei)
-      (skk-define-menu-bar-map map)
-      (setq skk-latin-mode-map map)))
+(unless skk-latin-mode-map
+  (let ((map (make-sparse-keymap)))
+    ;; .skk で skk-kakutei-key の変更が可能になるように。
+    ;;(define-key map skk-kakutei-key 'skk-kakutei)
+    (skk-define-menu-bar-map map)
+    (setq skk-latin-mode-map map)))
 
-(or skk-j-mode-map
-    (let ((map (make-sparse-keymap))
-	  (c 32))
-      (while (< c 127)
-	(define-key map (char-to-string c) 'skk-insert)
-	(setq c (1+ c)))
-      ;; .skk で skk-kakutei-key の変更が可能になるように。
-      ;;(define-key map skk-kakutei-key 'skk-kakutei)
-      (skk-define-menu-bar-map map)
-      (setq skk-j-mode-map map)))
+(unless skk-j-mode-map
+  (let ((map (make-sparse-keymap))
+	(c 32))
+    (while (< c 127)
+      (define-key map (char-to-string c) 'skk-insert)
+      (setq c (1+ c)))
+    ;; .skk で skk-kakutei-key の変更が可能になるように。
+    ;;(define-key map skk-kakutei-key 'skk-kakutei)
+    (skk-define-menu-bar-map map)
+    (setq skk-j-mode-map map)))
 
-(or skk-jisx0208-latin-mode-map
-    (let ((map (make-sparse-keymap))
-	  (i 0))
-      (while (< i 128)
-	(and (aref skk-jisx0208-latin-vector i)
-	     (define-key map (char-to-string i)
-	       'skk-jisx0208-latin-insert))
-	(setq i (1+ i)))
-      (define-key map "\C-q" 'skk-latin-henkan)
-      (skk-define-menu-bar-map map)
-      (setq skk-jisx0208-latin-mode-map map)))
+(unless skk-jisx0208-latin-mode-map
+  (let ((map (make-sparse-keymap))
+	(i 0))
+    (while (< i 128)
+      (and (aref skk-jisx0208-latin-vector i)
+	   (define-key map (char-to-string i)
+	     'skk-jisx0208-latin-insert))
+      (setq i (1+ i)))
+    (define-key map "\C-q" 'skk-latin-henkan)
+    (skk-define-menu-bar-map map)
+    (setq skk-jisx0208-latin-mode-map map)))
 
-(or skk-abbrev-mode-map
-    (let ((map (make-sparse-keymap)))
-      (define-key map "," 'skk-abbrev-comma)
-      (define-key map "." 'skk-abbrev-period)
-      (define-key map "\C-q" 'skk-jisx0208-latin-henkan)
-      ;; .skk で skk-kakutei-key の変更が可能になるように。
-      ;;(define-key map skk-kakutei-key 'skk-kakutei)
-      (skk-define-menu-bar-map map)
-      (setq skk-abbrev-mode-map map)))
+(unless skk-abbrev-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "," 'skk-abbrev-comma)
+    (define-key map "." 'skk-abbrev-period)
+    (define-key map "\C-q" 'skk-jisx0208-latin-henkan)
+    ;; .skk で skk-kakutei-key の変更が可能になるように。
+    ;;(define-key map skk-kakutei-key 'skk-kakutei)
+    (skk-define-menu-bar-map map)
+    (setq skk-abbrev-mode-map map)))
 
 (set-modified-alist
  'minor-mode-map-alist
@@ -313,8 +313,8 @@
 	   (get-char-code-property (string-to-char string)
 				   'ascii)))))
     ;;
-    (and char
-	 (char-to-string char))))
+    (if char
+	(char-to-string char))))
 
 ;;;###autoload
 (defun skk-mode (&optional arg)
