@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.36 2001/11/01 11:59:57 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.37 2001/11/01 13:03:29 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/11/01 11:59:57 $
+;; Last Modified: $Date: 2001/11/01 13:03:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -177,7 +177,7 @@
     ("p" nil "p") ("q" nil "q") ("r" nil "r") ("s" nil "s") ("t" nil "t")
     ("u" nil "u") ("v" nil "v") ("w" nil "w") ("x" nil "x") ("y" nil "y")
     ("z" nil "z")
-    ("{" nil "{") ("|" nil "|") ("}" nil "}") ("~" nil "~") (" " nil " "))
+    ("{" nil "{") ("|" nil "|") ("}" nil "}") ("~" nil "~"))
   "*SKK JISX0201 モードの Roman のルール。")
 
 (defvar skk-jisx0201-rule-list
@@ -255,21 +255,30 @@
       (setq okuri
 	    (skk-save-point
 	     (backward-char 1)
-	     (buffer-substring-no-properties (setq pt2 (point))
-					     pt1)))
-      (when okuri
+	     (buffer-substring-no-properties
+	      (setq pt2 (point)) pt1)))
+      (cond
+       ((member okuri '("ﾞ" "ﾟ"))
+	(setq okuri
+	      (concat (skk-save-point
+		       (backward-char 2)
+		       (buffer-substring-no-properties
+			(point)	pt2))
+		       okuri))
+	(setq sokuon t))
+       (okuri
 	(setq sokuon
 	      (skk-save-point
 	       (backward-char 2)
-	       (buffer-substring-no-properties (point)
-					       pt2)))
+	       (buffer-substring-no-properties
+		(point) pt2)))
 	(unless (member sokuon '("ｯ"))
-	  (setq sokuon nil))
-	;;
+	  (setq sokuon nil))))
+      ;;
+      (when okuri
 	(skk-save-point
 	 (backward-char (if sokuon 2 1))
-	 (skk-set-marker skk-okurigana-start-point
-			 (point)))
+	 (skk-set-marker skk-okurigana-start-point (point)))
 	(setq skk-okuri-char (skk-okurigana-prefix
 			      (skk-katakana-to-hiragana
 			       (skk-jisx0201-zenkaku okuri))))
