@@ -1,3 +1,20 @@
+2000-12-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e18.el (read-from-minibuffer): Call
+	`kill-all-local-variables', and store the keymap just after
+	`minibuffer-setup-hook' is called.
+	(skk-insert, skk-previous-candidate): Advise to call
+	`skk-e18-pre-command'.
+	(skk-e18-pre-command, skk-e18-advise-skk-functions): New function.
+
+	* skk-macs.el (skk-in-minibuffer-p): Compare buffers instead of
+	windows.
+
+	* skk.el (skk-mode-invoke): Call `skk-e18-advise-skk-functions'
+	under Emacs 18.
+	(skk-henkan-in-minibuff): Changes for Emacs 18. No longer
+	{perhaps} need to give a keymap here.
+
 2000-12-17  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk.el (exit-minibuffer@around@skk-ad): Define piece of advice
@@ -2954,8 +2971,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.228 2000/12/16 23:25:06 minakaji Exp $
-Last Modified: $Date: 2000/12/16 23:25:06 $
+Version: $Id: ChangeLog,v 1.229 2000/12/18 14:57:23 czkmt Exp $
+Last Modified: $Date: 2000/12/18 14:57:23 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

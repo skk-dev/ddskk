@@ -69,6 +69,8 @@ Install patch/e18/advice.el in load-path and try again.")))
 (defvar skk-current-local-map nil)
 (make-variable-buffer-local 'skk-current-local-map)
 
+(defvar-maybe pre-command-hook nil)
+(defvar-maybe post-command-hook nil)
 (defvar-maybe minibuffer-setup-hook nil)
 (defvar-maybe minibuffer-exit-hook nil)
 (defvar-maybe minor-mode-map-alist nil)
@@ -134,17 +136,23 @@ Install patch/e18/advice.el in load-path and try again.")))
 	       (null ad-return-value))
       (setq ad-return-value 0))))
 
-(if (product-version>= 'apel-ver '(10 3))
-    nil
-  (defadvice read-from-minibuffer (around skk-e18-ad activate)
+(defadvice read-from-minibuffer (around skk-e18-ad activate)
+  ;;
+  (let (keymap)
+    (with-current-buffer
+	(get-buffer-create
+	 (format " *Minibuf-%d*" (minibuffer-depth)))
+      (kill-all-local-variables)
+      (when minibuffer-setup-hook
+	(run-hooks 'minibuffer-setup-hook))
+      (setq keymap (or (current-local-map) minibuffer-local-map)))
     ;;
-    (when minibuffer-setup-hook
-      (with-current-buffer
-	  (get-buffer-create
-	   (format " *Minibuf-%d*" (minibuffer-depth)))
-	(run-hooks 'minibuffer-setup-hook)))
-    ;;
-    ad-do-it
+    (setq ad-return-value
+	  (si:read-from-minibuffer
+	   (ad-get-arg 0) ; prompt
+	   (ad-get-arg 1) ; initial-contents
+	   (or (ad-get-arg 2) keymap) ; keymap
+	   (ad-get-arg 3))) ; read
     ;;
     (when minibuffer-exit-hook
       (with-current-buffer
@@ -154,12 +162,20 @@ Install patch/e18/advice.el in load-path and try again.")))
 	    (run-hooks 'minibuffer-exit-hook)
 	  (error))))))
 
-(defadvice skk-kakutei (around skk-e18-ad activate)
-  (let ((skk-jisyo skk-jisyo))
-    (when skk-henkan-on
-      (unless skk-mode
-	(skk-mode 1)))
-    ad-do-it))
+(defun skk-e18-advise-skk-functions ()
+  ;; It is impossible to take advantage of `pre-command-hook'.
+  (defadvice skk-insert (after skk-e18-ad activate)
+    (skk-e18-pre-command))
+
+  (defadvice skk-previous-candidate (after skk-e18-ad activate)
+    (skk-e18-pre-command))
+
+  (defadvice skk-kakutei (around skk-e18-ad activate)
+    (let ((skk-jisyo skk-jisyo))
+      (when skk-henkan-on
+	(unless skk-mode
+	  (skk-mode 1)))
+      ad-do-it)))
 
 ;; Other functions.
 (defun-maybe window-minibuffer-p (&optional window)
@@ -211,6 +227,27 @@ be applied to `file-coding-system-for-read'."
       (setq alist (nconc alist (list (car alist2))))
       (setq alist2 (cdr alist2)))
     (cons 'keymap alist)))
+
+(defun skk-e18-pre-command ()
+  (let ((char (if (= (setq char (read-char)) ?\C-g)
+		    (signal 'quit nil)
+		  (if (and skk-henkan-on
+			   (not skk-henkan-active)
+			   ;; we must distinguish the two cases where
+			   ;; SKK-ECHO is on and off
+			   (= skk-henkan-start-point
+			      (if skk-echo (1- (point)) (point)))
+			   (< 64 char) (< char 91))
+		      ;; this case takes care of the rare case where
+		      ;; one types two characters in upper case
+		      ;; consequtively.  For example, one sometimes
+		      ;; types "TE" when one should type "Te"
+		      (+ 32 char)
+		    char))))
+    (unless (memq (key-binding (char-to-string char))
+		  skk-kana-cleanup-command-list)
+      (skk-kana-cleanup t))
+    (setq unread-command-char char)))
 
 (defun skk-e18-setup ()
   (let ((keymap (if (skk-in-minibuffer-p)

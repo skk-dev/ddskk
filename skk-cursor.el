@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.10 2000/12/14 03:53:35 minakaji Exp $
+;; Version: $Id: skk-cursor.el,v 1.11 2000/12/18 14:57:23 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/14 03:53:35 $
+;; Last Modified: $Date: 2000/12/18 14:57:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -30,7 +30,8 @@
 ;;; Code:
 (or (skk-color-display-p) (error "SKK-CURSOR requires color display"))
 (eval-when-compile (require 'static) (require 'skk-macs) (require 'skk-vars))
-(or (eq skk-emacs-type 'xemacs) (require 'ccc))
+(static-unless (eq skk-emacs-type 'xemacs)
+  (require 'ccc))
 
 (defun skk-cursor-current-color ()
   ;; カレントバッファの SKK のモードから、カーソルの色を取得する。

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.89 2000/12/16 23:25:06 minakaji Exp $
+;; Version: $Id: skk.el,v 1.90 2000/12/18 14:57:23 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/16 23:25:06 $
+;; Last Modified: $Date: 2000/12/18 14:57:23 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -472,6 +472,10 @@ dependent."
 		  (member "skk-leim" preloaded-file-list))
       ;; require dummy file.
       (require 'skk-xm20_4))
+  ;;
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (skk-e18-advise-skk-functions))
+  ;;
   (skk-setup-init-file)
   (load skk-init-file t)
   (skk-setup-modeline)
@@ -1894,12 +1898,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
                          " ")
 		 (if (and (not skk-okuri-char)
 			  skk-read-from-minibuffer-function)
-		     (funcall skk-read-from-minibuffer-function))
-		 (static-when (memq skk-emacs-type '(nemacs mule1))
-		   ;; Emacs 18 では minibuffer-setup-hook が効かないので、直接
-		   ;; skk-mode を起動する。keymap も適切に与える必要がある。
-		   (skk-e18-make-local-map
-		    skk-j-mode-map minibuffer-local-map))))
+		     (funcall skk-read-from-minibuffer-function))))
         (quit
          (setq new-one "")))
       (if (and skk-check-okurigana-on-touroku

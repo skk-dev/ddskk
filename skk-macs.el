@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.20 2000/12/13 12:24:24 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.21 2000/12/18 14:57:23 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/13 12:24:24 $
+;; Last Modified: $Date: 2000/12/18 14:57:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -615,7 +615,7 @@ BUFFER defaults to the current buffer."
 
 (defsubst skk-in-minibuffer-p ()
   ;; カレントバッファがミニバッファかどうかをチェックする。
-  (window-minibuffer-p (selected-window)))
+  (eq (current-buffer) (window-buffer (minibuffer-window))))
 
 (defsubst skk-insert-prefix (&optional char)
   ;; skk-echo が non-nil であればカレントバッファに skk-prefix を挿入する。
