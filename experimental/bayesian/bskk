@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.1 2004/02/26 02:42:17 kurihara Exp $
+## Version: $Id: bskk,v 1.2 2004/02/29 07:14:32 kurihara Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2004/02/26 02:42:17 $
+## Last Modified: $Date: 2004/02/29 07:14:32 $
 
 ## This file is part of Daredevil SKK.
 
@@ -30,6 +30,8 @@
 ## 使い方は、skk-bayesian.el の Commentary を参照
 
 ## Code:
+
+$KCODE = "EUC"
 
 COMMAND_SORT = "#sort"
 COMMAND_ADD  = "#add"
@@ -83,9 +85,7 @@ class IString
   end
 end
 
-
 class Distribution
-
   public
   def initialize( obj )
     @word2count = Hash.new(0)
@@ -94,7 +94,7 @@ class Distribution
     if obj != nil
       check_type( obj, String )
       line = obj
-      line.chomp.split(" ").each{ |word_count|
+      line.chomp.split("/").each{ |word_count|
         if word_count =~ word_count_regexp
           word = IString.get_instance( $1 )
           count = $2.to_i
@@ -112,7 +112,7 @@ class Distribution
     decrement
     line = ""
     @word2count.each{ |word, count|
-      line += "#{word.to_s}##{count} "
+      line += "#{word.to_s}##{count}/"
     }
     return line
   end
@@ -353,31 +353,18 @@ def save_DB( db, path_to_file, path_to_bak )
   end
 end
 
-
-# recieve EOF
-#   output
-#   "close session."
-# recieve COMMAND_SORT
-#   output
-#   "("日" "比")"
-#   ;;("0.2" "0.1")
-# recieve COMMAND_ADD
-#   output
-#   "added."
-# recieve COMMAND_SAVE
-#   output
-#   "saved."
 def serve( db, input, out, err, history_file, history_file_bak )
   begin
     while true
       line = input.readline.chomp
       case line
       when COMMAND_SORT
-        entries = input.readline.split
+        entries = input.readline.chomp.split("/")
         prefix_list = input.readline.split.reverse
         sorted_entries, probs = db.sort( entries, prefix_list )
-        # out.puts "(\"#{sorted_entries.join("\" \"")}\")" # ruby 1.6.8 で、不具合
-        out.puts "(\"" + sorted_entries.join("\" \"") + "\")"
+        out.puts "(" + sorted_entries.map!{|entry|
+          entry.inspect
+        }.join(" ") + ")"
         # out.puts ";;(\"#{probs.join("\" \"")}\")" # ruby 1.6.8 で、不具合
         out.puts ";;(\""+ probs.join("\" \"") + "\")"
         out.puts ";;OK."
