@@ -1,3 +1,8 @@
+2005-02-21  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/skk-bayesian.el (skk-bayesian-update): Bug fixed; when skk-undo-kakutei-word-only is non-nil.
+	(skk-bayesian-add-to-history): Ditto. 
+
 2005-02-18  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/skk-bayesian.el (skk-bayesian-kill-process): Bug fixed.
@@ -4819,8 +4824,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.836 2005/02/18 19:06:29 skk-cvs Exp $
-Last Modified: $Date: 2005/02/18 19:06:29 $
+Version: $Id: ChangeLog,v 1.837 2005/02/22 06:34:57 skk-cvs Exp $
+Last Modified: $Date: 2005/02/22 06:34:57 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
