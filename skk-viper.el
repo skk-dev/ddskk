@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.14 2001/09/23 04:54:35 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.15 2001/09/23 10:28:20 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/23 04:54:35 $
+;; Last Modified: $Date: 2001/09/23 10:28:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -274,8 +274,9 @@ Convert hirakana to katakana and vice versa."
 	 (setq val (1- val))))))
 
 (defun skk-viper-init-function ()
-  (if (featurep 'skk-cursor)
-      (setq viper-insert-state-cursor-color (skk-cursor-current-color)))
+  (static-if (boundp 'viper-insert-state-cursor-color)
+      (if (featurep 'skk-cursor)
+	  (setq viper-insert-state-cursor-color (skk-cursor-current-color))))
   ;; viper-toggle-key-action と連動させる？
   (skk-viper-normalize-map)
   (remove-hook 'skk-mode-hook 'skk-viper-init-function))
