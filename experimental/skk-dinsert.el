@@ -4,9 +4,9 @@
 
 ;; Author: Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dinsert.el,v 1.1 2002/01/10 10:16:44 obata Exp $
+;; Version: $Id: skk-dinsert.el,v 1.2 2002/01/11 14:47:45 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/10 10:16:44 $
+;; Last Modified: $Date: 2002/01/11 14:47:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -103,7 +103,7 @@ SKK $B$O(B INPUT-STATE $B$r8!=P$9$k$H!"(BRULE-ALIST $B$K4p$E$$$F%P%C%U%!$KJ
 RULE-ALIST $B$O>r7o$H!"$=$l$,@.N)$7$?;~$K=PNO$5$l$kCM$NO"A[%j%9%H$G$"$k!#(B
 $B$=$l$>$l$N%k!<%k$O(B
 
-  (REGEXP looking-at ignore-lf/b-regexp limit s-exp . VAL)
+  (REGEXP looking-at b-regexp/ignore-lf limit s-exp . VAL)
 
 $BKt$O(B
 
@@ -184,84 +184,86 @@ VAL $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
          ;; $B$;$a$FJQ?t$rDs6!$7$F$_$k(B
          (skk-hiragana (and (not skk-katakana) skk-j-mode))
          val cur-rule cnd)
-    (if skk-dinsert-mode
-        (catch 'return
-          (dolist (cur-rule rule-alist)
-            (setq cnd (car cur-rule))
-            (cond
-             ((stringp cnd)             ; REGEXP
-              (let (found s-exp m-d)
+    (if (or (not skk-dinsert-mode)
+            (and skk-isearch-switch
+                 (buffer-live-p skk-isearch-current-buffer)))
+        ;; isearch $BKt$O(B $BF0E*$JF~NO$r$7$J$$$J$i(B t $B$KBP1~$9$kCM$r;H$&(B
+        (setq val (cdr (assq t rule-alist)))
+      (catch 'return
+        (dolist (cur-rule rule-alist)
+          (setq cnd (car cur-rule))
+          (cond
+           ((stringp cnd)               ; REGEXP
+            (let (found s-exp m-d)
+              (setq val
+                    (save-match-data
+                      (save-excursion
+                        (let* ((i 0)
+                               (regexp cnd)
+                               (r cur-rule)
+                               (v (progn
+                                    (while (not (atom r))
+                                      (setq i (1+ i)
+                                            r (cdr r)))
+                                    r))
+                               l-a i-lf b-regexp lim pos)
+                          ;; (0 1 2 3 4 . 5) $B$N7A<0$r:NMQ$7$F$$$k$N$G(B
+                          ;; (nth n LIST) $B$r$9$k$K$O(B i > n $B$G$"$k;v$,I,MW(B
+                          (ignore-errors
+                            (setq l-a (nth 1 cur-rule)
+                                  i-lf (nth 2 cur-rule)
+                                  b-regexp i-lf
+                                  lim (nth 3 cur-rule)
+                                  s-exp (nth 4 cur-rule)))
+                          ;; re-search-backward $B$N(B limit $BD4@0(B
+                          (when lim
+                            (setq lim
+                                  (if (numberp lim)
+                                      (- (point) lim) ; $BIi$K$J$C$F$b(B ok
+                                    (eval lim))))
+                          (cond
+                           (l-a         ; looking-at
+                            (when b-regexp
+                              (re-search-backward b-regexp lim t))
+                            (when (looking-at regexp)
+                              (setq found t
+                                    m-d (match-data))
+                              v))
+                           (t           ; re-search-backward
+                            (when (and (not (bobp))
+                                       (bolp)
+                                       (if (> i 2)
+                                           i-lf
+                                         skk-dinsert-ignore-lf))
+                              (backward-char))
+                            (setq pos (point))
+                            (when (and (re-search-backward regexp lim t)
+                                       (= pos
+                                          (match-end 0)))
+                              (setq found t
+                                    m-d (match-data))
+                              v)))))))
+              ;; match-data $B$rMQ$$$F=PNO$r@8@.(B or $B>r7oH=Dj(B
+              ;; skk-dinsert $B<+?H$N0z?t$O(B arg
+              ;; match-data $B$NFbMF$O(B m-d
+              (when (and found
+                         s-exp)
                 (setq val
-                      (save-match-data
-                        (save-excursion
-                          (let* ((i 0)
-                                 (regexp cnd)
-                                 (r cur-rule)
-                                 (v (progn
-                                      (while (not (atom r))
-                                        (setq i (1+ i)
-                                              r (cdr r)))
-                                      r))
-                                 l-a i-lf b-regexp lim pos)
-                            ;; (0 1 2 3 4 . 5) $B$N7A<0$r:NMQ$7$F$$$k$N$G(B
-                            ;; (nth n LIST) $B$r$9$k$K$O(B i > n $B$G$"$k;v$,I,MW(B
-                            (ignore-errors
-                              (setq l-a (nth 1 cur-rule)
-                                    i-lf (nth 2 cur-rule)
-                                    b-regexp i-lf
-                                    lim (nth 3 cur-rule)
-                                    s-exp (nth 4 cur-rule)))
-                            ;; re-search-backward $B$N(B limit $BD4@0(B
-                            (when lim
-                              (setq lim
-                                    (if (numberp lim)
-                                        (- (point) lim) ; $BIi$K$J$C$F$b(B ok
-                                      (eval lim))))
-                            (cond
-                             (l-a       ; looking-at
-                              (when b-regexp
-                                (re-search-backward b-regexp lim t))
-                              (when (looking-at regexp)
-                                (setq found t
-                                      m-d (match-data))
-                                v))
-                             (t         ; re-search-backward
-                              (when (and (not (bobp))
-                                         (bolp)
-                                         (if (> i 2)
-                                             i-lf
-                                           skk-dinsert-ignore-lf))
-                                (backward-char))
-                              (setq pos (point))
-                              (when (and (re-search-backward regexp lim t)
-                                         (= pos
-                                            (match-end 0)))
-                                (setq found t
-                                      m-d (match-data))
-                                v)))))))
-                ;; match-data $B$rMQ$$$F=PNO$r@8@.(B or $B>r7oH=Dj(B
-                ;; skk-dinsert $B<+?H$N0z?t$O(B arg
-                ;; match-data $B$NFbMF$O(B m-d
-                (when (and found
-                           s-exp)
-                  (setq val
-                        (let ((retval (eval s-exp)))
-                          (when retval
-                            (or val
-                                retval))))))
-              (when val
-                (throw 'return nil)))
-             (t                         ; S-EXP
-              (let ((retval (eval cnd))
-                    (v (cdr cur-rule)))
-                (setq val
-                      (when retval
-                        (or v
-                            retval))))
-              (when val
-                (throw 'return nil))))))
-      ;; $BF0E*$JF~NO$r$7$J$$$J$i(B t $B$KBP1~$9$kCM$r;H$&(B
-      (setq val (cdr (assq t rule-alist))))
+                      (let ((retval (eval s-exp)))
+                        (when retval
+                          (or val
+                              retval))))))
+            (when val
+              (throw 'return nil)))
+           (t                           ; S-EXP
+            (let ((retval (eval cnd))
+                  (v (cdr cur-rule)))
+              (setq val
+                    (when retval
+                      (or v
+                          retval))))
+            (when val
+              (throw 'return nil)))))))
     (cond ((stringp val)
            val)
           ((functionp val)
