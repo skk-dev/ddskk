@@ -1,3 +1,11 @@
+2000-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk-faq.texi: Typo.
+
+	* skk.el (skk-henkan-show-candidates): Signal quit when the read
+	event is for `keyboard-quit', `skk-kanagaki-bs' or
+	`skk-kanagaki-esc'.
+
 2000-11-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-coding-system-alist): Use
@@ -2259,8 +2267,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.136 2000/11/13 05:29:48 minakaji Exp $
-Last Modified: $Date: 2000/11/13 05:29:48 $
+Version: $Id: ChangeLog,v 1.137 2000/11/13 10:55:38 czkmt Exp $
+Last Modified: $Date: 2000/11/13 10:55:38 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
