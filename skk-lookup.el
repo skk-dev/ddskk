@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.24 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-lookup.el,v 1.25 2002/01/18 14:03:48 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/18 14:03:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -122,7 +122,7 @@
 (require 'poe)
 (require 'lookup)
 
-(static-when (memq skk-emacs-type '(mule4 mule3 mule2))
+(static-when (memq skk-emacs-type '(mule4))
   (when lookup-use-bitmap
     (require 'bitmap)))
 
@@ -262,7 +262,7 @@
 	     ((= process-type 2)
 	      ;; don't know exactly how long okurigana is.
 	      ;; truncate length of one character anyway.
-	      skk-kanji-len)))
+	      1)))
 	   (okurigana (and (> (length string) okuri-length)
 			   (substring string (- okuri-length)))))
       (cond (
@@ -310,7 +310,7 @@
        (pickup-regexp
 	(setq candidates-string (match-string-no-properties match heading)
 	      heading (substring heading
-				 (min (+ (match-end match) skk-kanji-len)
+				 (min (1+ (match-end match))
 				      (length heading)))))
        (t
 	;; XXX never be used?
