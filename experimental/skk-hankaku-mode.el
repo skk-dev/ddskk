@@ -2,9 +2,9 @@
 ;; Copyright (C) 1999 Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
-;; Version: $Id: skk-hankaku-mode.el,v 1.2 1999/10/31 08:33:50 minakaji Exp $
+;; Version: $Id: skk-hankaku-mode.el,v 1.3 2000/09/14 08:39:50 akiho Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/31 08:33:50 $
+;; Last Modified: $Date: 2000/09/14 08:39:50 $
 
 ;; This file is not part of SKK yet.
 
@@ -400,7 +400,8 @@
   (skk-hiragana-to-hankaku-region start end vcontract)
   (skk-katakana-to-hankaku-region start end vcontract)
   (set-marker end nil)
-  (skk-set-cursor-properly) )
+  (and (featurep 'skk-cursor)
+   (skk-set-cursor-properly)) )
 
 (defun skk-hiragana-to-hankaku-region (start end &optional vcontract)
   (save-match-data
