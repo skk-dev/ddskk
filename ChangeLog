@@ -1,3 +1,7 @@
+2000-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* READMEs/PROPOSAL : tm ML => APEL ML.
+
 2000-07-18  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-foreword.el (skk-package-data-directory): Removed.
