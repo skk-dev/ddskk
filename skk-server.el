@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.19 2001/11/24 14:00:26 minakaji Exp $
+;; Version: $Id: skk-server.el,v 1.20 2001/11/25 10:34:41 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/24 14:00:26 $
+;; Last Modified: $Date: 2001/11/25 10:34:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -48,22 +48,23 @@
 		  skk-servers-list)
 	(skk-error "Lack of host information of SKK server"
 		   "SKK サーバーのホスト情報がありません"))
-      (setq status (process-status "skkservd"))
+      (when skkserv-process
+	(setq status (process-status skkserv-process)))
       (unless (eq status skk-network-open-status)
-	(setq status (skk-open-server)))
+	(setq status (process-status (skk-open-server))))
       (when (eq status skk-network-open-status)
 	(let (v)
 	  (save-match-data
 	    (with-current-buffer skkserv-working-buffer
 	      (erase-buffer)
 	      ;; サーバーバージョンを得る。
-	      (process-send-string "skkservd" "2")
+	      (process-send-string skkserv-process "2")
 	      (while (eq (buffer-size) 0)
 		(accept-process-output))
 	      (setq v (buffer-string))
 	      (erase-buffer)
 	      ;; ホスト名を得る。
-	      (process-send-string "skkservd" "3")
+	      (process-send-string skkserv-process "3")
 	      (while (eq (buffer-size) 0)
 		(accept-process-output))
 	      (goto-char (point-min))
@@ -79,16 +80,19 @@
 ;;;###autoload
 (defun skk-search-server-1 (file limit)
   ;; skk-search-server のサブルーチン。
-  (let ((key
-	 (if skk-use-numeric-conversion
-	     (skk-num-compute-henkan-key skk-henkan-key)
-	   skk-henkan-key))
-	;; バッファローカル値の受け渡しのため、別名の一時変数に取る。
-	(okurigana (or skk-henkan-okurigana
-		       skk-okuri-char))
-	(status (process-status "skkservd")))
+  (let* ((key
+	  (if skk-use-numeric-conversion
+	      (skk-num-compute-henkan-key skk-henkan-key)
+	    skk-henkan-key))
+	 ;; バッファローカル値の受け渡しのため、別名の一時変数に取る。
+	 (okurigana (or skk-henkan-okurigana
+			skk-okuri-char))
+	 (status (when skkserv-process
+		   (process-status skkserv-process))))
     (unless (eq status skk-network-open-status)
-      (setq status (skk-open-server)))
+      (skk-open-server)
+      (when skkserv-process
+	(setq status (process-status skkserv-process))))
     (cond
      ((eq status skk-network-open-status)
       (with-current-buffer skkserv-working-buffer
@@ -96,9 +100,9 @@
 	      (count 0)
 	      l)
 	  (erase-buffer)
-	  (process-send-string "skkservd" (concat "1" key " "))
+	  (process-send-string skkserv-process (concat "1" key " "))
 	  (while (and cont
-		      (eq (process-status "skkservd")
+		      (eq (process-status skkserv-process)
 			  skk-network-open-status))
 	    (accept-process-output)
 	    (setq count (1+ count))
@@ -134,85 +138,92 @@
       (skk-search-jisyo-file file limit)))))
 
 (defun skk-open-server ()
-  ;; SKK サーバーと接続する。サーバープロセスの status を返す。
-  (let (status code)
-    (when (setq status (or (skk-open-network-stream) (skk-open-server-1)))
+  ;; SKK サーバーと接続する。サーバープロセスを返す。
+  (let ((process (or (skk-open-network-stream) (skk-open-server-1)))
+	code)
+    (when (eq (process-status process) skk-network-open-status)
       (setq code (cdr (assoc "euc" skk-coding-system-alist)))
-      (set-process-coding-system (get-process "skkservd") code code))
-    status))
+      (set-process-coding-system process code code))
+    (setq skkserv-process process)))
 
 (defun skk-open-server-1 ()
   ;; skk-open-server のサブルーチン。
-  ;; skkserv サービスをオープンできたら process-status を返す。
+  ;; skkserv サービスをオープンできたら process を返す。
   ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を参照する。
-  (unless skk-servers-list
-    ;; Emacs 起動後に環境変数を設定した場合。
-    (unless skk-server-host
-      (setq skk-server-host (getenv "SKKSERVER")))
-    (unless skk-server-prog
-      (setq skk-server-prog (getenv "SKKSERV")))
-    (unless skk-server-jisyo
-      (setq skk-server-jisyo (getenv "SKK_JISYO")))
-    (if skk-server-host
-	(setq skk-servers-list (list (list skk-server-host
-					   skk-server-prog
-					   skk-server-jisyo
-					   skk-server-portnum)))
-      (setq skk-server-prog nil)))
-  (while (and (not (eq (process-status "skkservd") skk-network-open-status))
-	      skk-servers-list)
-    (let ((elt (car skk-servers-list))
-	  arg)
-      (setq skk-server-host (car elt)
-	    skk-server-prog (nth 1 elt)
-	    skk-server-jisyo (nth 2 elt)
-	    skk-server-portnum (nth 3 elt)
-	    skk-servers-list (cdr skk-servers-list))
-      ;; skkserv の起動オプションは下記の通り。
-      ;;     skkserv [-d] [-p NNNN] [JISHO]
-      ;;     `-d'     ディバッグ・モード
-      ;;     `-p NNNN'     通信用のポート番号としてNNNNを使う.
-      ;;     `~/JISYO'     ~/JISYOを辞書として利用.
-      (if skk-server-jisyo
-	  (setq arg (list skk-server-jisyo))
-       ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を
-	;; 参照する。
-	)
-      ;;(if skk-server-debug
-      ;;    (setq arg (cons "-d" arg)))
-      ;;(when (and skk-server-portnum
-      ;;           (not (= skk-server-portnum 1178)))
-      (when skk-server-portnum
-	(setq arg (nconc (list "-p" (number-to-string skk-server-portnum))
-			 arg)))
-      (when (and skk-server-host (not (skk-open-network-stream))
-		 skk-server-prog
-		 (not (string-match "dbskkd-cdb$" skk-server-prog)))
-	(skk-startup-server arg))))
-  (or (eq (process-status "skkservd") skk-network-open-status)
-      ;; reset SKK-SERVER-HOST so as not to use server in this session
-      (setq skk-server-host nil
-	    skk-server-prog nil
-	    skk-servers-list nil)))
+  (let (process)
+    (unless skk-servers-list
+      ;; Emacs 起動後に環境変数を設定した場合。
+      (unless skk-server-host
+	(setq skk-server-host (getenv "SKKSERVER")))
+      (unless skk-server-prog
+	(setq skk-server-prog (getenv "SKKSERV")))
+      (unless skk-server-jisyo
+	(setq skk-server-jisyo (getenv "SKK_JISYO")))
+      (if skk-server-host
+	  (setq skk-servers-list (list (list skk-server-host
+					     skk-server-prog
+					     skk-server-jisyo
+					     skk-server-portnum)))
+	(setq skk-server-prog nil)))
+    (while (and (or (not process)
+		    (not (eq (process-status process)
+			     skk-network-open-status)))
+		skk-servers-list)
+      (let ((elt (car skk-servers-list))
+	    arg)
+	(setq skk-server-host (car elt)
+	      skk-server-prog (nth 1 elt)
+	      skk-server-jisyo (nth 2 elt)
+	      skk-server-portnum (nth 3 elt)
+	      skk-servers-list (cdr skk-servers-list))
+	;; skkserv の起動オプションは下記の通り。
+	;;     skkserv [-d] [-p NNNN] [JISHO]
+	;;     `-d'     ディバッグ・モード
+	;;     `-p NNNN'     通信用のポート番号としてNNNNを使う.
+	;;     `~/JISYO'     ~/JISYOを辞書として利用.
+	(if skk-server-jisyo
+	    (setq arg (list skk-server-jisyo))
+	  ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を
+	  ;; 参照する。
+	  )
+	;;(if skk-server-debug
+	;;    (setq arg (cons "-d" arg)))
+	;;(when (and skk-server-portnum
+	;;           (not (= skk-server-portnum 1178)))
+	(when skk-server-portnum
+	  (setq arg (nconc (list "-p" (number-to-string skk-server-portnum))
+			   arg)))
+	(when (and skk-server-host (not (skk-open-network-stream))
+		   skk-server-prog
+		   (not (string-match "dbskkd-cdb$" skk-server-prog)))
+	  (setq process (skk-startup-server arg)))))
+    (prog1
+	process
+      (unless (eq (process-status process) skk-network-open-status)
+	;; reset SKK-SERVER-HOST so as not to use server in this session
+	(setq skk-server-host nil
+	      skk-server-prog nil
+	      skk-servers-list nil)))))
 
 (defun skk-open-network-stream ()
-  ;; skk-server-host における skkserv サービスの TCP 接続をオープンし、プロセ
-  ;; スを返す。
+  ;; skk-server-host における skkserv サービスの TCP 接続をオープンし、
+  ;; プロセスを返す。
   (ignore-errors
-    (setq skkserv-process
-	  (open-network-stream "skkservd"
-			       skkserv-working-buffer
-			       skk-server-host
-			       (or skk-server-portnum
-				   "skkserv")))
-    (process-kill-without-query skkserv-process)
-    (eq (process-status "skkservd") skk-network-open-status)))
+    (let ((process
+	   (open-network-stream "skkservd"
+				skkserv-working-buffer
+				skk-server-host
+				(or skk-server-portnum
+				    "skkserv"))))
+      (process-kill-without-query process)
+      process)))
 
 (defun skk-startup-server (arg)
   ;; skkserv を起動できたら t を返す。
   (let (
 	;;(msgbuff (get-buffer-create " *skkserv-msg*"))
-	(count 7))
+	(count 7)
+	process status)
     (while (> count 0)
       (skk-message
        "%s の SKK サーバーが起動していません。起動します%s"
@@ -232,17 +243,18 @@
 	       ;; msgbuff
 	       0 nil skk-server-host skk-server-prog arg))
       (sit-for 3)
-      (if (and (skk-open-network-stream)
-	       (eq (process-status "skkservd") skk-network-open-status))
+      (if (and (setq process (skk-open-network-stream))
+	       (eq (setq status (process-status process))
+		   skk-network-open-status))
 	  (setq count 0)
 	(setq count (1- count))))
-    (if (eq (process-status "skkservd") skk-network-open-status)
+    (if (eq status skk-network-open-status)
 	(progn
 	  (skk-message "ホスト %s の SKK サーバーが起動しました"
 		       "SKK SERVER on %s is active now"
 		       skk-server-host)
 	  (sit-for 1)
-	  t)
+	  process)
       (skk-message "%s の SKK サーバーを起動することができませんでした"
 		   "Could not activate SKK SERVER on %s"
 		   skk-server-host)
@@ -273,9 +285,9 @@
 (defun skk-disconnect-server ()
   ;; サーバーを切り離す。
   (when (and skk-server-host
-	     (eq (process-status "skkservd") skk-network-open-status))
-    (process-send-string "skkservd" "0") ; disconnect server
-    (accept-process-output (get-process "skkservd"))))
+	     (eq skkserv-process skk-network-open-status))
+    (process-send-string skkserv-process "0") ; disconnect server
+    (accept-process-output skkserv-process)))
 
 ;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-server-search)
 (add-hook 'skk-before-kill-emacs-hook 'skk-disconnect-server)
