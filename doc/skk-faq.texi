@@ -2,14 +2,14 @@
 @c
 @c  Author: Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk-faq.texi,v 1.9 2000/10/23 08:52:49 czkmt Exp $
+@c  Version: $Id: skk-faq.texi,v 1.10 2000/10/23 17:57:53 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/10/23 08:52:49 $
+@c  Last Modified: $Date: 2000/10/23 17:57:53 $
 @c
 @setfilename skk-faq.info
 
 @c @node Frequently Asked Questions, 事項索引, 謝辞とお願い, Top
-@chapter よくある質問とその回答(FAQ)
+@c @chapter よくある質問とその回答(FAQ)
 
 これは SKK に対するよくある質問と、それに対する回答集です。
 
@@ -199,7 +199,7 @@ SKK abbrev モードというのはアスキー文字を利用した変換ができるモードで
 * Q.2-1 最新版の SKK はどこから入手できますか？::  
 * Q.2-2 SKK を入手しましたが、辞書が付いていないのですが。::  
 * Q.2-3 SKK を入手しましたが、サーバが付いていないのですが。::  
-* Q.2-4 APEL って何ですか？::  
+* Q.2-4 APEL って何ですか？::   
 * Q.2-5 色々別に入手するものがあってインストールが難しいですね。::  
 @end menu
 
