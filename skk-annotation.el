@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.17 2001/12/16 05:03:09 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.18 2002/02/09 03:54:58 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2001/12/16 05:03:09 $
+;; Last Modified: $Date: 2002/02/09 03:54:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -192,12 +192,11 @@
   (condition-case nil
       (save-window-excursion
 	(let ((minibuf-p (skk-in-minibuffer-p))
-	      event window)
+	      event)
 	  (skk-annotation-insert annotation)
 	  (cond
 	   (minibuf-p
-	    (if (setq window (get-buffer-window
-			      (skk-minibuffer-origin)))
+	    (if (get-buffer-window (skk-minibuffer-origin))
 		(select-window window)
 	      (other-window 1))
 	    (unless (eq (next-window) (selected-window))
