@@ -163,4 +163,12 @@
           ((and (<= ?０ c) (>= ?９ c)) "−")
           (t "ー"))))
 
+;; Tips といえるものではないが、`lisp-interaction-mode' において "C-j"
+;; (`eval-print-last-sexp') を利用する人にとっては、英数モードにおいて
+;; "C-j" によって かなモードに入る仕様は使いづらい。
+;; (defadvice skk-latin-mode (after no-latin-mode-in-lisp-interaction activate)
+;;   "`lisp-interaction-mode' において英数モードを回避する。"
+;;   (when (eq major-mode 'lisp-interaction-mode)
+;;     (skk-mode-off)))
+
 ;;; dot.skk ends here
