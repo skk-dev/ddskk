@@ -64,7 +64,7 @@
   (interactive)
   (kill-all-local-variables)
   (setq mode-name "SKK JISYO Edit")
-  (setq major-mode 'skk-jisyo-edit)
+  (setq major-mode #'skk-jisyo-edit-mode)
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults '(skk-jisyo-edit-font-lock-keywords))
   (make-local-variable 'skk-jisyo-edit-syntax-table)
