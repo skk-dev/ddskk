@@ -5,9 +5,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-foreword.el,v 1.11 1999/09/25 11:12:46 minakaji Exp $
+;; Version: $Id: skk-foreword.el,v 1.12 1999/10/03 05:36:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/25 11:12:46 $
+;; Last Modified: $Date: 1999/10/03 05:36:48 $
 
 ;; This file is not part of SKK yet.
 
@@ -34,16 +34,6 @@
 ;; ちゃごちゃとユーザーに興味がないものが並んでいたのでは、ユーザーフ
 ;; レンドリーではないと考えるからです。
 ;;
-;; Following people contributed to skk-foreword.el (Alphabetical order):
-;;       小野 孝男 <takao@hirata.nuee.nagoya-u.ac.jp>
-;;       Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
-;;       Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;;       Rei FURUKAWA <furukawa@tcp-ip.or.jp>
-;;       Shuhei KOBAYASHI <shuhei-k@jaist.ac.jp>
-;;       TSUMURA Tomoaki <tsumura@kuis.kyoto-u.ac.jp>
-
-;;; Change log:
-
 ;;; Code:
 (cond ((or (and (boundp 'epoch::version) epoch::version)
 	   (string< (substring emacs-version 0 2) "18") )
@@ -88,6 +78,7 @@
 (require 'advice)
 (require 'easymenu)
 ;; APEL 9.22 or later required.
+;;(eval-when-compile (require 'static) (require 'pcustom))
 (eval-when-compile (require 'static))
 (require 'poe)
 (require 'poem) ; requires pces.
@@ -433,13 +424,15 @@
   (char-to-string (string-to-char string)) )
 
 (defsubst skk-get-current-candidate-simply (&optional noconv)
-  (if (> skk-henkan-count -1)
-      ;; (nth -1 '(A B C)) は、A を返すので、負でないかどうかチェックする。
-      (let ((word (nth skk-henkan-count skk-henkan-list)))
-        (and word
-             (if (and (skk-numeric-p) (consp word))
-                 (if noconv (car word) (cdr word))
-               word )))))
+  (if (> 0 skk-henkan-count)
+      (skk-error "候補を取り出すことができません"
+		 "Cannot get current candidate" )
+    ;; (nth -1 '(A B C)) は、A を返すので、負でないかどうかチェックする。
+    (let ((word (nth skk-henkan-count skk-henkan-list)))
+      (and word
+	   (if (and (skk-numeric-p) (consp word))
+	       (if noconv (car word) (cdr word))
+	     word )))))
 
 ;; convert skk-rom-kana-rule-list to skk-rule-tree.
 ;; The rule tree follows the following syntax:
@@ -547,7 +540,8 @@
 
 (defun skk-terminal-face-p ()
   (and (not window-system)
-       (fboundp 'frame-face-alist) ;; 変数名みたいな関数だな...。
+       ;;; XEmacs does not have this funciton...
+       (fboundp 'frame-face-alist) ; 変数名みたいな関数だな...。
        (fboundp 'selected-frame) ))
 
 ;;;; aliases

@@ -1,12 +1,13 @@
 ;;; skk-comp.el --- 補完のためのプログラム
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997
+;;               1999
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-comp.el,v 1.2 1999/09/02 21:34:44 minakaji Exp $
+;; Version: $Id: skk-comp.el,v 1.3 1999/10/03 05:36:20 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/02 21:34:44 $
+;; Last Modified: $Date: 1999/10/03 05:36:20 $
 
 ;; This file is part of SKK.
 
@@ -26,13 +27,7 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-;; Following people contributed modifications to skk.el (Alphabetic order):
-;;      Hitoshi SUZUKI <h-suzuki@ael.fujitsu.co.jp>
-;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
-;;; Change log:
-;; version 1.2.1 released 1997.2.2 (derived from the skk.el 8.6)
-
 ;;; Code:
 (eval-when-compile (require 'skk))
 (require 'skk-foreword)

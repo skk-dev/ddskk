@@ -1,13 +1,13 @@
 ;; -*- byte-compile-dynamic-docstring: t;-*-
-;;; skk-isearch.el --- isearch mode for skk with Emacs 19 and 20.
+;;; skk-isearch.el --- isearch mode for skk with Emacs 19 or later and XEmacs.
 ;; Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999
 ;; Enami Tsugutomo <enami@ba2.so-net.or.jp>
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-isearch.el,v 1.2 1999/09/02 21:32:18 minakaji Exp $
+;; Version: $Id: skk-isearch.el,v 1.3 1999/10/03 05:39:22 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/02 21:32:18 $
+;; Last Modified: $Date: 1999/10/03 05:39:22 $
 
 ;; This file is part of SKK.
 
@@ -52,8 +52,6 @@
 ;; skk-isearch-initial-mode examine the variable of skk before calling
 ;; skk-mode.
 
-;;; Change log:
-
 ;;; Code:
 (require 'skk)
 (require 'skk-foreword)
@@ -88,12 +86,13 @@ MODE-SYMBOL は入力モードを表わすシンボルで、
 
 nil は、SKK モードオフを表わす。
 PROMPT-STRING は、該当の SKK モードに対し出すプロンプトの文字列。"
-  :type '(repeat (cons (choice (const hiragana)
+  :type '(repeat (cons (choice :tag "Mode symbol"
+			       (const hiragana)
 			       (const katakana)
 			       (const jisx0208-latin)
 			       (const latin)
 			       (const nil) )
-		       string ))
+		       (string :tag "Prompt string") ))
   :group 'skk-isearch )
 
 (defcustom skk-isearch-start-mode nil

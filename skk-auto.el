@@ -1,12 +1,13 @@
 ;;; skk-auto.el --- 送り仮名の自動処理のためのプログラム
-;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998
+;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
+;;               1999
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-auto.el,v 1.1 1999/08/29 06:32:22 minakaji Exp $
+;; Version: $Id: skk-auto.el,v 1.2 1999/10/03 05:34:41 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 06:32:22 $
+;; Last Modified: $Date: 1999/10/03 05:34:41 $
 
 ;; This file is part of SKK.
 
@@ -26,12 +27,6 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-;; Following people contributed modifications to skk-server.el (Alphabetic
-;; order):
-;;
-;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
-
-;;; Change log:
 
 ;;; Code:
 (eval-when-compile (require 'skk))

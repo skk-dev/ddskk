@@ -2,9 +2,9 @@
 ;; Copyright (C) 1996, 1998, 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kakasi.el,v 1.1 1999/08/29 06:32:47 minakaji Exp $
+;; Version: $Id: skk-kakasi.el,v 1.2 1999/10/03 05:40:03 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 06:32:47 $
+;; Last Modified: $Date: 1999/10/03 05:40:03 $
 
 ;; This file is not part of SKK yet.
 
@@ -38,8 +38,6 @@
 ;;
 ;; 素晴しいプログラム KAKASI をお作りになった高橋さんと、KAKASI を anonymous
 ;; ftp で入手可能としている sunsite.sut.ac.jp に感謝いたします。
-
-;;; Change log:
 
 ;;; Code:
 (eval-when-compile (require 'skk))
