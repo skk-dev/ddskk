@@ -1,7 +1,7 @@
 2000-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi (■モードにおける文字変換, 数字や記号文字の入力):
-	Update for SKK 10.
+	* doc/skk.texi (■モードにおける文字変換, 数字や記号文字の入力,
+	etc): Update for SKK 10.
 
 2000-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
