@@ -65,6 +65,11 @@
 
 	* tinyinstall.el: Remove codes for Emacs 18.
 
+2001-09-10  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/CVS_digest (cvs の入手方法): Add note about pcvs of GNU
+	Emacs 21.
+
 2001-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Remove codes for Emacs 18.
@@ -1859,8 +1864,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.381 2001/09/12 14:45:01 czkmt Exp $
-Last Modified: $Date: 2001/09/12 14:45:01 $
+Version: $Id: ChangeLog,v 1.382 2001/09/12 21:20:41 minakaji Exp $
+Last Modified: $Date: 2001/09/12 21:20:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

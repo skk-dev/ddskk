@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2001/02/03 00:22:59 $
-	     $Id: CVS_digest,v 1.7 2001/02/03 00:22:59 minakaji Exp $
+             $Date: 2001/09/12 21:20:41 $
+	     $Id: CVS_digest,v 1.8 2001/09/12 21:20:41 minakaji Exp $
 
 [CVS ダイジェスト]
 
@@ -89,7 +89,7 @@ http://www.itojun.org/hack/cvs/tut-kernel.html
 http://www.race.u-tokyo.ac.jp/~moro/cvs/
 
 なお、Emacs の CVS インターフェイスである pcl-cvs が以下のサイトから入
-手できます。
+手できます (GNU Emacs 21.x には pcvs という名前で添付されています)。
 
 ftp://rum.cs.yale.edu/pub/monnier/pcl-cvs
 
