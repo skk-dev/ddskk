@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.52 2002/03/06 02:07:22 iida Exp $
+;; Version: $Id: skk-tut.el,v 1.53 2002/03/08 10:50:27 iida Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/06 02:07:22 $
+;; Last Modified: $Date: 2002/03/08 10:50:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -897,15 +897,21 @@ tutorial /チュートリアル/
 	    (add-text-properties (point-min) (- (point) 2) plist)
 	    (setq p (point))
 	    (insert
-	     (if skktut-japanese-tut
-		 (concat "* 答ができたら `C-x n'; 途中でやめるには `C-x q'"
-			 (if (= skktut-question-count 37)
-			     " *"
-			   "; スキップするには`C-x s' *"))
-	       (concat "* For next question `C-x n'; to quit `C-x q'"
-		       (if (= skktut-question-count 37)
-			   " *"
-			 "; to skip this question `C-x s' *"))))
+	     (let ((next " `\\[skktut-next-question]'")
+		   (quit " `\\[skk-tutorial-quit]'")
+		   (skip " `\\[skktut-skip-question]'"))
+	       (substitute-command-keys
+		(if skktut-japanese-tut
+		    (concat
+		     "* 答ができたら" next "; 途中でやめるには" quit
+		     (if (/= skktut-question-count skktut-question-numbers)
+			 (concat "; スキップするには" skip))
+		     " *")
+		  (concat
+		   "* For next question" next "; to quit " quit
+		   (if (/= skktut-question-count skktut-question-numbers)
+		       (concat "; to skip this question" skip))
+		   " *")))))
 	    (when skk-tut-use-face
 	      (put-text-property p (point) 'face skk-tut-key-bind-face))
 	    (add-text-properties p (point) plist)
