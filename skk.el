@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.179 2001/11/13 11:42:50 czkmt Exp $
+;; Version: $Id: skk.el,v 1.180 2001/11/13 12:28:05 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 11:42:50 $
+;; Last Modified: $Date: 2001/11/13 12:28:05 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -110,39 +110,6 @@
     (skk-kana-cleanup t)))
 
 ;;; normal functions.
-;;;; aliases
-;; for backward compatibility.
-(define-obsolete-function-alias 'skk-zenkaku-mode
-  'skk-jisx0208-latin-mode)
-(define-obsolete-function-alias 'skk-zenkaku-mode-on
-  'skk-jisx0208-latin-mode-on)
-(define-obsolete-function-alias 'skk-zenkaku-insert
-  'skk-jisx0208-latin-insert)
-(define-obsolete-function-alias 'skk-zenkaku-region
-  'skk-jisx0208-latin-region)
-(define-obsolete-function-alias 'skk-zenkaku-henkan
-  'skk-jisx0208-latin-henkan)
-(define-obsolete-function-alias 'skk-ascii-mode-on
-  'skk-latin-mode-on)
-(define-obsolete-function-alias 'skk-ascii-mode
-  'skk-latin-mode)
-(define-obsolete-function-alias 'skk-ascii-region
-  'skk-latin-region)
-(define-obsolete-function-alias 'skk-ascii-henkan
-  'skk-latin-henkan)
-(define-obsolete-function-alias 'skk-convert-ad-to-gengo
-  'skk-ad-to-gengo)
-(define-obsolete-function-alias 'skk-convert-gengo-to-ad
-  'skk-gengo-to-ad)
-(define-obsolete-function-alias 'skk-isearch-forward
-  'isearch-forward)
-(define-obsolete-function-alias 'skk-isearch-forward-regexp
-  'isearch-forward-regexp)
-(define-obsolete-function-alias 'skk-isearch-backward
-  'isearch-backward)
-(define-obsolete-function-alias 'skk-isearch-backward-regexp
-  'isearch-backward-regexp)
-
 (defun skk-define-menu (map)
   (easy-menu-define skk-menu
 		    map
