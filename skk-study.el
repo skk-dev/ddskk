@@ -5,10 +5,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-study.el,v 1.17 1999/10/14 21:34:38 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.18 1999/10/17 07:10:42 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 1999/10/14 21:34:38 $
+;; Last Modified: $Date: 1999/10/17 07:10:42 $
 
 ;; This file is not part of SKK yet.
 
@@ -116,13 +116,17 @@
 
 ;;; system internal variables and constants.
 ;; global variable
-(defconst skk-study-file-format-version 0.2)
+(defconst skk-search-end-function 'skk-study-search)
+(defconst skk-update-end-function 'skk-study-update)
 
+(defconst skk-study-file-format-version 0.2)
 (defvar skk-kakutei-end-function nil)
-(defvar skk-search-end-function 'skk-study-search)
 (defvar skk-study-alist nil)
-(defvar skk-study-data-ring nil)
-(defvar skk-update-end-function 'skk-study-update)
+(defvar skk-study-data-ring nil
+  "ring.el を使った直前の skk-study-search-times 個分の変換キーと確定語データ。
+具体的には、下記のような構造になっている。
+
+\(2 3 . [\(\"こうぞう\" . \"構造\"\) \(\"ぐたいてき\" . \"具体的\"\) \(\"かき\" . \"下記\"\)]\)" )
 
 ;;;; inline functions.
 (defsubst skk-study-get-last-henkan-data (index)
