@@ -2,11 +2,11 @@
 
 	* skk-jisx0201.el (skk-jisx0201-rule-list): Remove unnecessary
 	rules.
-	(skk-jisx0201-mode-on): Make local varaible `skk-rule-tree'.
-	(skk-kanagaki-toggle-katakana): Kill local varaible
+	(skk-jisx0201-mode-on): Make local variable `skk-rule-tree'.
+	(skk-kanagaki-toggle-katakana): Kill local variable
 	`skk-rule-tree'. Toggle hankaku kana <-> hiragana.
 	(skk-mode, skk-latin-mode, skk-jisx0208-latin-mode,
-	skk-abbrev-mode): Kill local varaible `skk-rule-tree'. Now these
+	skk-abbrev-mode): Kill local variable `skk-rule-tree'. Now these
 	are before-advised.
 	(skk-insert): make sure kana prefix be clean.
 	(skk-jisx0201-zenkaku-region): New function.
@@ -1769,8 +1769,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.361 2001/09/07 21:21:27 czkmt Exp $
-Last Modified: $Date: 2001/09/07 21:21:27 $
+Version: $Id: ChangeLog,v 1.362 2001/09/07 21:22:10 czkmt Exp $
+Last Modified: $Date: 2001/09/07 21:22:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
