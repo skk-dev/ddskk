@@ -384,11 +384,11 @@ File: dir,	Node: Top	This is the top of the INFO tree
 				    (throw 'here t)))))
 			      (let ((maybe-here (point)))
 				(install-info-skip-blank-lines)
-				(if (looking-at "^\\(\\*\\|[ \t]\\)")
-				    (throw 'here nil)
-				  ;; reaches the next section.
-				  (goto-char maybe-here)
-				  (throw 'here t))))))))
+				(when (looking-at "^\\(\\*\\|[ \t]\\)")
+				  (throw 'here nil))
+				;; reaches the next section.
+				(goto-char maybe-here)
+				(throw 'here t)))))))
 		  (when (and (eobp) (not (bolp)))
 		    (install-info-forward-line 1))
 		  (insert (format "%s\n" en))
