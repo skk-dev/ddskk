@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.11 2000/07/07 22:25:17 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.12 2000/08/26 01:59:03 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/07/07 22:25:17 $
+@c  Last Modified: $Date: 2000/08/26 01:59:03 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/07/07 22:25:17 $
+@set UPDATED $Date: 2000/08/26 01:59:03 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -2532,32 +2532,9 @@ skK @expansion{}SKK
 で、適当な省略形を用いて、このリストに追加しておくと便利かもしれない。
 
 更に@code{skk-rom-kana-rule-list}を用いればT-codeやTUT-codeによる日本
-語入力を実現することもできる。この場合はルールの数が数千になり、このまま
-ではルールへのアクセスに多くの時間を要するようになる。このようにルールの
-数が多いときは、以下のようにしてあらかじめルールのリストを木の形にコンパ
-イルしておくと効率が良い。
-
-@enumerate
-@item
-まず、@file{.emacs}などに下記のフォームを追加する。
-
-@lisp
-@group
-(setq skk-rom-kana-rule-tree
-      (skk-compile-rule-list skk-rom-kana-rule-list) )
-@end group
-@end lisp
-@item
-このままではSKKを起動するときに毎回@code{skk-compile-rule-list}を計算
-することになるので、うまくゆくことが分れば、上記のフォームに代えて、
-@lisp
-@group
-(skk-compile-rule-list skk-rom-kana-rule-list)
-@end group
-@end lisp
-@noindent
-の値を直に@file{~/.emacs}などに書いておく。
-@end enumerate
+語入力を実現することもできる。例えば TUT-code による入力についてはソース
+アーカイブの @file{experimental/tut-code} ディレクトリに収録されているソー
+スコードを参照されたい。
 
 @node 数字や記号文字の入力,  , ■モードにおける文字変換, かなモード/カナモードにおける入力
 @comment  node-name,  next,  previous,  up
@@ -2565,8 +2542,9 @@ skK @expansion{}SKK
 @findex skk-self-insert
 @findex skk-set-henkan-point
 
-かなモード/カナモードにおける次のキーは、@code{skk-self-insert}関数にバ
-インドされている。
+かなモード/カナモードにおける次のキーは、かつては @code{skk-self-insert} 
+関数にバインドされていたが、現在は他のキーと同様に @code{skk-insert} 関
+数にバインドされている。
 
 @example
 @group
@@ -2585,98 +2563,39 @@ skK @expansion{}SKK
 @end example
 
 これらの数字や記号文字のキーに対応し挿入される文字は、ベクトル
-@code{skk-input-vector}の値により決定される。@code{skk-input-vector}の
-ディフォルト値は、下記の通り。
+@code{skk-input-vector}の値により決定されていたが、このバージョンの SKK 
+ではこの変数は廃止された。カスタマイズするためには、代わりに変数
+@code{skk-rom-kana-rule-list} を利用する。例えば、SKK 9.6 以前において、
 
 @lisp
-@group
-[nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  "！" nil  nil  nil  nil  nil  nil
- nil  nil  nil  nil  "、" "ー" "。" nil
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  "：" "；" nil  nil  nil  "？"
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  nil  "「" nil  "」" nil  nil
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  nil  nil  nil  nil  nil  nil
- nil  nil  nil  nil  nil  nil  nil  nil]
-@end group
+(aset skk-input-vector ?! nil)
+(aset skk-input-vector ?, nil)
+(aset skk-input-vector ?. nil)
+(aset skk-input-vector ?: nil)
+(aset skk-input-vector ?; nil)
+(aset skk-input-vector ?? nil)
 @end lisp
 
-このベクトルは、キーのアスキーコード順に対応する文字列を並べたものである。
-例えば@samp{!}のアスキーコードは33で@footnote{@samp{!}をEmacsのchartypeで表現した@samp{?!}をEmacsの@code{lisp-interaction-mode}で評価すると33が返ってくる。}、
-このベクトルの33番目@footnote{0から数える。}の要素には全角文字の@samp{！}
-が割り振られているので、@samp{!}のキー入力に対し、全角文字である@samp{！}
-がバッファに挿入される。
-
-要素が@code{nil}のところは使用されないか、または入力キーがそのまま挿入
-されることを示している。具体例を言えば、▽モードへ入るキーの1つに 
-@samp{A}があるが、このキーは、@code{skk-set-henkan-point}に割り付けら
-れており@footnote{@samp{A}をタイプすると@samp{あ}を挿入する他、▽モードに入る、という仕事をしなければならないので、@code{skk-self-insert}ではなく、@code{skk-set-henkan-point}に割り付けられている。}、
-@code{skk-input-vector}では参照されないので、@samp{A}のアスキーコード
-である65番目の要素は@code{nil}である。また、@samp{*}は、前述の通り 
-@code{skk-self-insert}に割り付けられているが、そのアスキーコードは42で
-あり、@code{skk-input-vector}の42番目の要素は@code{nil}なので、そのま
-ま@samp{*}が挿入される。
-
-あるインデックスに対するベクトルの要素を簡単に調べるには、Emacsの組み込
-み関数である@code{aref}を使い、
+このような設定をしていた場合、本バージョンの SKK で同様の入力をするため
+には、
 
 @lisp
-(aref skk-input-vector 33)
+(setq skk-rom-kana-rule-list
+      '(("!" nil "!")
+        ("," nil ",")
+        ("." nil ".")
+        (":" nil ":")
+        (";" nil ";")
+        ("?" nil "?")))
 @end lisp
 
-@noindent
-のようにする。返り値が対応する値である。
+のような設定に変更する必要がある。
 
-かなモード/カナモードで@samp{*}にて対応し全角文字の@samp{＊}を入力した
-ければ、@file{~/.skk}@file{~/.emacs}に42番目の要素が全角文字の``＊''で
-あるような@code{skk-input-vector}を直接書いておくか、@file{~/.skk}や 
-@code{skk-load-hook}を利用して下記のような式を評価する 
-@footnote{@code{aset}の第2引数の42の代りに@samp{?*}のように@samp{*}のchar type表現をそのまま書いても良い。@code{aset}を使って@code{skk-input-vector}の値を変更するのは、@file{skk.el}のロード後でなければならないので、この式を@file{.emacs}などで設定してはならない}。
-
-@lisp
-(aset skk-input-vector 42 "＊")
-@end lisp
-
-バッファに依存して異なる@code{skk-input-vector}を用いるには、バッファ
-ローカルな同名の変数を作り、その変数の値の設定を変更すればよい 
-@footnote{@code{skk-input-vector}が元々グローバル変数であることに注意。}。
-例えば、下記の関数をあるバッファで実行すれば、そのバッファでは区切記号 
-@samp{!}, @samp{,}, @samp{.}, @samp{:}, @samp{;}, @samp{?}の各キー入力
-に対して、対応するアスキー文字をそのまま入力できるようになる
-@footnote{初期値が@code{nil}でないバッファローカル値に破壊的関数を使用すると、カレントバッファだけでなく、他のバッファから見える値まで変更されてしまう。詳細については、@file{skk.el}の@code{skk-make-henkan-marker}関数のコメントを参照願いたい。@code{skk-ascii-punc}では、初期値が@code{nil}でない@code{skk-input-vector}をバッファローカル化し、@code{aset}で直接書換えするので、予め@code{copy-sequence}で複写し、バッファローカル化された@code{skk-input-vector}が指す実体をグローバル変数@code{skk-input-vector}の指すものから変更している。}。
-
-@lisp
-@group
-(defun skk-ascii-punc ()
-  "use ascii punctuation marks."
-  (interactive)      
-  (make-local-variable 'skk-input-vector)
-  (setq skk-input-vector
-        (copy-sequence (default-value 'skk-input-vector)))
-  (aset skk-input-vector ?! nil)
-  (aset skk-input-vector ?, nil)
-  (aset skk-input-vector ?. nil)
-  (aset skk-input-vector ?: nil)
-  (aset skk-input-vector ?; nil)
-  (aset skk-input-vector ?? nil) )
-@end group
-@end lisp
-
-Emacsのモード固有のフックなどを利用して上記のような関数を実行すれば、モー
-ドに依存して自動的に@code{skk-input-vector}をカスタム化できる。
-
-@code{skk-self-insert}は、Emacsのオリジナル関数である 
+@code{skk-insert}は、Emacsのオリジナル関数である 
 @code{self-insert-command}をエミュレートしているので、引数を渡すことに
 より同じ文字を複数、一度に挿入することが可能である
-@footnote{残念ながら、@samp{▽あ}などを入力する@code{skk-set-henkan-point}では引数渡しできない。}。
+@footnote{かつては、@samp{▽あ}などを入力する場合には引数渡しができなかっ
+たが、本バージョンでばこれもできるように拡張されている。}。
 
 @example
 @group
