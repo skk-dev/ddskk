@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.275 2004/01/26 17:24:07 czkmt Exp $
+;; Version: $Id: skk.el,v 1.276 2004/01/26 17:44:14 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/01/26 17:24:07 $
+;; Last Modified: $Date: 2004/01/26 17:44:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1695,14 +1695,14 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	       henkan-list (nthcdr (+ 4 (* loop max-candidates))
 				   skk-henkan-list)
 	       reverse nil))
-	(skk-exit-show-candidates
+	((skk-exit-show-candidates)
 	 ;; $B8uJd$,?T$-$F$7$^$C$F!"(Bskk-henkan-show-candidates ->
 	 ;; skk-henkan-in-minibuff -> skk-henkan
 	 ;; -> skk-henkan-show-candidates $B$N=g$G!":F$S$3$N4X?t$,8F$P$l(B
 	 ;; $B$?$H$-$O!"$3$3$G(B henkan-list $B$H(B loop $B$r7W;;$9$k!#(B
 	 (setq henkan-list (nthcdr (skk-henkan-count) skk-henkan-list)
-	       loop (car skk-exit-show-candidates)
-	       skk-exit-show-candidates nil))
+	       loop (car (skk-exit-show-candidates)))
+	 (skk-set-exit-show-candidates nil))
 	(t
 	 ;; skk-henkan-show-candidates-keys $B$N:G=*$N%-!<$KBP1~$9$k8uJd(B
 	 ;; $B$,=P$F$/$k$^$G%5!<%A$rB3$1$k!#(B
@@ -1758,10 +1758,10 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 			 (setq loop (1+ loop))
 		       ;; $B8uJd$,?T$-$?!#$3$N4X?t$+$iH4$1$k!#(B
 		       (let ((last-showed-index (+ 4 (* loop max-candidates))))
-			 (setq skk-exit-show-candidates
-			       ;; cdr $BIt$O!"<-=qEPO?$KF~$kA0$K:G8e$KI=<($7(B
-			       ;; $B$?8uJd72$NCf$G:G=i$N8uJd$r;X$9%$%s%G%/%9(B
-			       (cons loop last-showed-index))
+			 (skk-set-exit-show-candidates
+			  ;; cdr $BIt$O!"<-=qEPO?$KF~$kA0$K:G8e$KI=<($7(B
+			  ;; $B$?8uJd72$NCf$G:G=i$N8uJd$r;X$9%$%s%G%/%9(B
+			  (cons loop last-showed-index))
 			 ;; $B<-=qEPO?$KF~$k!#(Bskk-henkan-count $B$O(B
 			 ;; skk-henkan-list $B$N:G8e$N8uJd$N<!(B ($BB8:_$7$J$$(B
 			 ;; --- nil)$B$r;X$9!#(B
@@ -1769,10 +1769,10 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 			 (setq loop nil))))
 		    ((eq char skk-force-registration-mode-char)
 		     (let ((last-showed-index (+ 4 (* loop max-candidates))))
-		       (setq skk-exit-show-candidates
-			     ;; cdr $BIt$O!"<-=qEPO?$KF~$kA0$K:G8e$KI=<($7(B
-			     ;; $B$?8uJd72$NCf$G:G=i$N8uJd$r;X$9%$%s%G%/%9(B
-			     (cons loop last-showed-index))
+		       (skk-set-exit-show-candidates
+			;; cdr $BIt$O!"<-=qEPO?$KF~$kA0$K:G8e$KI=<($7(B
+			;; $B$?8uJd72$NCf$G:G=i$N8uJd$r;X$9%$%s%G%/%9(B
+			(cons loop last-showed-index))
 		       (skk-set-henkan-count last-showed-index)
 		       (setq loop nil)))
 		    ((or (eq char skk-previous-candidate-char) ; ?x
@@ -1958,12 +1958,12 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	(setq new-one (skk-remove-redundant-okurigana new-one)))
       (cond
        ((string= new-one "")
-	(if skk-exit-show-candidates
+	(if (skk-exit-show-candidates)
 	    ;; $B%(%3!<%(%j%"$KI=<($7$?8uJd$,?T$-$F<-=qEPO?$KF~$C$?$,!"6uJ8;z(B
 	    ;; $BNs$,EPO?$5$l$?>l9g!#:G8e$K%(%3!<%(%j%"$KI=<($7$?8uJd72$r:FI=(B
 	    ;; $B<($9$k!#(B
 	    (progn
-	      (skk-set-henkan-count (cdr skk-exit-show-candidates))
+	      (skk-set-henkan-count (cdr (skk-exit-show-candidates)))
 	      (skk-henkan))
 	  ;; skk-henkan-show-candidates $B$KF~$kA0$K8uJd$,?T$-$?>l9g(B
 	  (skk-set-henkan-count (1- (skk-henkan-count)))
@@ -2358,8 +2358,9 @@ WORD $B$G3NDj$9$k!#(B"
 	   ;; skk-kakutei-end-function $B$rMxMQ$9$k!#(B
 	   )))
   (skk-set-henkan-count -1)
+  (skk-set-exit-show-candidates nil)
   (setq skk-abbrev-mode nil
-	skk-exit-show-candidates nil
+
 	skk-henkan-in-minibuff-flag nil
 	skk-henkan-key nil
 	skk-henkan-list nil
@@ -4310,6 +4311,28 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
       (setq skk-henkan-count i)))
    (t
     (setq skk-henkan-count i))))
+
+;; ??? Workaround for XEmacs isearch.
+(defun skk-exit-show-candidates ()
+  (static-cond
+   ((featurep 'xemacs)
+    (if skk-isearch-switch
+	(with-current-buffer skk-isearch-working-buffer
+	  skk-exit-show-candidates)
+      skk-exit-show-candidates))
+   (t
+    skk-exit-show-candidates)))
+
+;; ??? Workaround for XEmacs isearch.
+(defun skk-set-exit-show-candidates (list)
+  (static-cond
+   ((featurep 'xemacs)
+    (if skk-isearch-switch
+	(with-current-buffer skk-isearch-working-buffer
+	  (setq skk-exit-show-candidates list))
+      (setq skk-exit-show-candidates list)))
+   (t
+    (setq skk-exit-show-candidates list))))
 
 ;;; functions for hooks.
 (defun skk-after-point-move ()
