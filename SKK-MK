@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.99 2001/11/13 15:22:26 czkmt Exp $
-;; Last Modified: $Date: 2001/11/13 15:22:26 $
+;; Version: $Id: SKK-MK,v 1.100 2001/11/15 03:24:31 czkmt Exp $
+;; Last Modified: $Date: 2001/11/15 03:24:31 $
 
 ;; Commentary
 ;;
@@ -1099,7 +1099,10 @@ SKK tutorials:
 		  jisyo3)))
 	 (skk-dic (expand-file-name "skk-dic.el")))
     (cond
-     ((file-exists-p skk-dic)
+     ((and (file-exists-p skk-dic)
+	   (file-newer-than-file-p
+	    skk-dic
+	    (expand-file-name "skk-dic.el.in")))
       (princ (format "No need to update %s
 "
 		     skk-dic))
