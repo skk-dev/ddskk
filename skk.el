@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.152 2001/10/13 14:28:43 czkmt Exp $
+;; Version: $Id: skk.el,v 1.153 2001/10/13 14:30:56 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 14:28:43 $
+;; Last Modified: $Date: 2001/10/13 14:30:56 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3776,6 +3776,7 @@ If you want to restore the dictionary from the disc, try
 			   skk-henkan-key
 			   0 (1- (skk-str-length skk-henkan-key))))
 	  skk-henkan-okurigana
+	  skk-auto-okuri-process
 	  words)
       (ignore-errors
 	(dolist (prog skk-search-prog-list)
