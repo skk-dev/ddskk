@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.65 2000/11/25 06:11:04 czkmt Exp $
+;; Version: $Id: skk.el,v 1.66 2000/11/25 08:36:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 06:11:04 $
+;; Last Modified: $Date: 2000/11/25 08:36:40 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,8 +60,10 @@
       (message "This version of SKK may not work on Emacs 18..."))
      ((not (or (featurep 'mule) (boundp 'NEMACS)))
       (error "This version of SKK requires MULE features")))
-;; APEL 10.2 or later required.
-(eval-when-compile (require 'static))
+
+;; Really new APEL (not yet released) is required.
+(eval-when-compile
+  (require 'static))
 (require 'poe)
 (require 'poem) ; requires pces.
 (require 'pces)
@@ -69,22 +71,38 @@
 (require 'alist)
 (condition-case nil
     (require 'product)
-  (error (error "This version of Daredevil SKK requires APEL/10.2 or later")))
-(or (product-version>= 'apel-ver '(10 2))
-    (error "This version of Daredevil SKK requires APEL/10.2 or later"))
+  (error (error "This version of Daredevil SKK requires APEL at 2000/10/10 or later")))
+(or
+ ;; (product-version>= 'apel-ver '(10 2))
+ (fboundp 'product-version-as-string)
+ (error "This version of Daredevil SKK requires APEL at 2000/10/10 or later"))
+
 ;; Elib 1.0 is required.
 (require 'queue-m)
+
 ;; Emacs 18.
-(static-when (= 18 emacs-major-version) (require 'skk-e18))
+(static-when (= emacs-major-version 18)
+  ;; Intend to load skk-e18.el before advice.
+  (require 'skk-e18))
+
 ;; Emacs standard library.
 (require 'advice)
 (condition-case nil
     (require 'easymenu)
   (error
    (defalias 'easy-menu-define 'ignore)))
-(eval-and-compile (require 'skk-vars) (require 'skk-macs))
 
 (eval-and-compile
+  ;; SKK common.
+  (require 'skk-vars)
+  (require 'skk-macs)
+  ;; SKK version dependent.
+  (static-cond
+   ((eq skk-emacs-type 'mule5)
+    (require 'skk-e21))
+   ((eq skk-emacs-type 'xemacs)
+    (require 'skk-xemacs)))
+  ;; Shut up, compiler.
   (autoload 'skk-isearch-message "skk-isearch")
   (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
   (autoload 'skk-num-convert "skk-num")
@@ -3826,7 +3844,8 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 	    (when (buffer-live-p buf)
 	      (set-buffer buf)
 	      (when (and (listp modeline-format)
-			 (not (rassq 'skk-modeline-input-mode modeline-format)))
+			 (not
+			  (rassq 'skk-modeline-input-mode modeline-format)))
 		(setq modeline-format
 		      (append (list
 			       ""
@@ -3847,7 +3866,8 @@ C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
 	      (when (and (listp mode-line-format)
 			 (or (assq 'mode-line-format (buffer-local-variables))
 			     (memq 'mode-line-format (buffer-local-variables)))
-			 (not (memq 'skk-modeline-input-mode mode-line-format)))
+			 (not
+			  (memq 'skk-modeline-input-mode mode-line-format)))
 		(setq mode-line-format
 		      (append '("" skk-modeline-input-mode)
 			      mode-line-format))))
@@ -3993,31 +4013,6 @@ picture-mode $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!
 	 (skk-kakutei)
 	 (unless skk-egg-like-newline ad-do-it))
 	(t ad-do-it)))
-
-(static-if (eq skk-emacs-type 'xemacs)
-    (skk-defadvice minibuffer-keyboard-quit (around skk-ad activate)
-      ;; XEmacs has minibuffer-keyboard-quit that has nothing to do with delsel.
-      (skk-remove-minibuffer-setup-hook
-       'skk-j-mode-on 'skk-setup-minibuffer
-       (function (lambda ()
-		   (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
-      (cond ((not skk-mode) ad-do-it)
-	    ((not skk-henkan-on)
-	     (cond ((skk-get-prefix skk-current-rule-tree)
-		    (skk-erase-prefix 'clean))
-		   (t ad-do-it)))
-	    (skk-henkan-active
-	     (setq skk-henkan-count 0)
-	     (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
-		 (let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
-		   (skk-previous-candidate)
-		   ;; $B$3$3$G$O(B delete-backward-char $B$KBhFs0z?t$rEO$5$J$$J}$,%Y%?!<!)(B
-		   (delete-backward-char count))
-	       (skk-previous-candidate)))
-	    (t (skk-erase-prefix 'clean)
-	       (and (> (point) skk-henkan-start-point)
-		    (delete-region (point) skk-henkan-start-point))
-	       (skk-kakutei)))))
 
 (defun skk-mode-once-again ()
   ;; skk-mode $B$N5/F0Cf$K(B skk-mode $B$K(B advice $B$rD%$C$?>l9g!":G=i$N(B 1 $B2s$@$1$=$N(B

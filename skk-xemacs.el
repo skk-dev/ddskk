@@ -26,6 +26,8 @@
 ;;; Code:
 
 (eval-and-compile
+  (require 'skk-macs)
+  ;;
   (autoload 'Info-goto-node "info")
   (autoload 'browse-url "browse-url"))
 
@@ -184,6 +186,35 @@
 	  '(lambda ()
 	     ;; Don't give dired this!
 	     (define-key ctl-x-map [(control j)] 'skk-mode)))
+
+;; Advice.
+
+(skk-defadvice minibuffer-keyboard-quit (around skk-xemacs-ad activate)
+  ;; XEmacs has minibuffer-keyboard-quit that has nothing to do with delsel.
+  (skk-remove-minibuffer-setup-hook
+   'skk-j-mode-on 'skk-setup-minibuffer
+   (function (lambda ()
+	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
+  (cond ((not skk-mode)
+	 ad-do-it)
+	((not skk-henkan-on)
+	 (cond ((skk-get-prefix skk-current-rule-tree)
+		(skk-erase-prefix 'clean))
+	       (t ad-do-it)))
+	(skk-henkan-active
+	 (setq skk-henkan-count 0)
+	 (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
+	     (let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
+	       (skk-previous-candidate)
+	       ;; ここでは delete-backward-char に第二引数を渡さない方が
+	       ;; ベター？
+	       (delete-backward-char count))
+	   (skk-previous-candidate)))
+	(t
+	 (skk-erase-prefix 'clean)
+	 (and (> (point) skk-henkan-start-point)
+	      (delete-region (point) skk-henkan-start-point))
+	 (skk-kakutei))))
 
 ;;
 
