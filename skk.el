@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.135 2001/10/08 03:49:49 czkmt Exp $
+;; Version: $Id: skk.el,v 1.136 2001/10/08 03:53:42 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/08 03:49:49 $
+;; Last Modified: $Date: 2001/10/08 03:53:42 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -1975,11 +1975,12 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; skk-henkan-key2 と呼ばれていたものを作る。
   ;; skk-henkan-key2 とは、「漢字部分の読み + "*" + 送り仮名」の形式の文字列を
   ;; 言う。
-  (if skk-henkan-okurigana
-      (save-match-data
-	(string-match "[a-z]+$" skk-henkan-key)
-	(concat (substring skk-henkan-key 0 (match-beginning 0))
-		"*" skk-henkan-okurigana))))
+  (when skk-henkan-okurigana
+    (save-match-data
+      (string-match "[a-z]+$" skk-henkan-key)
+      (concat (substring skk-henkan-key 0 (match-beginning 0))
+	      "*"
+	      skk-henkan-okurigana))))
 
 (defun skk-remove-redundant-okurgana (word)
   ;; 送りありの登録をするとき、送り仮名を消してから [RET] を押さなけ
@@ -1991,16 +1992,13 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   (save-match-data
     (let* ((len (skk-str-length word))
 	   (str1 (when (< 0 len)
-		   (skk-substring word
-				  (1- len)
+		   (skk-substring word (1- len)
 				  len)))
 	   (str2 (when (< 1 len)
-		   (skk-substring word
-				  (- len 2)
+		   (skk-substring word (- len 2)
 				  (1- len))))
 	   (str (if (and str2
-			 (string-match "^[ぁ-ん]$"
-				       str2))
+			 (string-match "^[ぁ-ん]$" str2))
 		    (concat str2 str1)
 		  str1)))
       (when (and str
@@ -2017,10 +2015,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	;; ユーザの指示に従い送り仮名を取り除く。
 	(message "")
 	(setq word (skk-substring
-		    word
-		    0
-		    (if (string-match "^[ぁ-ん]$"
-				      str2)
+		    word 0
+		    (if (string-match "^[ぁ-ん]$" str2)
 			(- len 2)
 		      (1- len)))))))
   ;;
