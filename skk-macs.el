@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.29 2001/08/30 19:14:37 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.30 2001/08/31 16:45:37 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/30 19:14:37 $
+;; Last Modified: $Date: 2001/08/31 16:45:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -384,7 +384,8 @@
     (cons (cdr (assq mode skk-xemacs-extent-alist))
 	  string))
    ((memq skk-emacs-type '(mule5))
-    (apply 'propertize string skk-e21-modeline-property))
+    (apply 'propertize string
+	   (cdr (assq mode skk-e21-property-alist))))
    (t
     string)))
 
