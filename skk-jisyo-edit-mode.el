@@ -44,7 +44,7 @@
 (unless skk-jisyo-edit-map
   (setq skk-jisyo-edit-map (make-sparse-keymap 'skk-jisyo-edit-map)))
 
-(defconst skk-jisyo-edit-font-lock-keywords
+(defvar skk-jisyo-edit-font-lock-keywords
  '(("^\\(;; okuri-ari entries\\.\\)$" 1 font-lock-keyword-face)
    ("^\\(;; okuri-nasi entries\\.\\)$" 1 font-lock-keyword-face)
    ("^\\(;.+\\)$" 1 font-lock-comment-face)
