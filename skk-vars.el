@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.102 2002/03/03 12:08:15 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.103 2002/03/29 23:15:45 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/03 12:08:15 $
+;; Last Modified: $Date: 2002/03/29 23:15:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1115,7 +1115,7 @@ NEXT-STATE に状態を移したうえで、入力待ち状態となる。
 car に「実際のキー入力によるかな prefix 文字列」、cdr に「SKK の辞書が予
 想しているかな prefix 文字列」を持つ cons cell のリスト。
 
-この規則が使われるのは、`skk-process-okuri-early' が非 nil の場合のみである。
+この規則が使われるのは、`skk-process-okuri-early' が non-nil の場合のみである。
 
 例えば、か行の送り仮名入力に \"c\" の prefix を使うのであれば、
 
@@ -2201,7 +2201,7 @@ The English version is SKK.tut.E."
    "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "m" "m" "m"
    "m" "m" "x" "y" "x" "y" "x" "y" "r" "r" "r" "r" "r" "x" "w" "x"
    "x" "w" "n"]
-  "*かな文字からローマ字への変換ルール。
+  "かな文字からローマ字への変換ルール。
 下記の該当するかな文字をその文字のローマ字プレフィックスで現わしたもの。
     ぁ  あ  ぃ  い  ぅ  う  ぇ  え  ぉ  お  か  が  き  ぎ  く  ぐ
     け  げ  こ  ご  さ  ざ  し  じ  す  ず  せ  ぜ  そ  ぞ  た  だ
@@ -2332,6 +2332,8 @@ Non-nil であれば、`skk-isearch-message' 関数をコールする。")
 
 (skk-deflocalvar skk-modeline-input-mode nil)
 (defvar skk-indicator-alist nil)
+
+(defvar skk-buffer-undo-list nil)
 
 ;; ---- buffer local variables
 
