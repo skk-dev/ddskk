@@ -1,5 +1,7 @@
 2001-11-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* etc/dot.skk: New file.
+
 	* skk.el
 	(skk-setup-keymap): Use conditions a little better.
 
@@ -2839,8 +2841,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.546 2001/11/23 13:41:00 czkmt Exp $
-Last Modified: $Date: 2001/11/23 13:41:00 $
+Version: $Id: ChangeLog,v 1.547 2001/11/23 13:54:51 czkmt Exp $
+Last Modified: $Date: 2001/11/23 13:54:51 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
