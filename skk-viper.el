@@ -1,13 +1,13 @@
 ;; skk-viper.el --- SKK related code for Viper
-;; Copyright (C) 1996, 1997, 1998, 1999, 2000
-;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>, Murata Shuuichirou <mrt@astec.co.jp>
+;; Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001
+;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>, Murata Shuuichirou <mrt@notwork.org>
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.12 2001/08/31 19:30:15 czkmt Exp $
+;; Version: $Id: skk-viper.el,v 1.13 2001/09/23 03:48:49 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:15 $
+;; Last Modified: $Date: 2001/09/23 03:48:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -64,9 +64,6 @@
 (when (skk-color-display-p)
   (if skk-use-color-cursor
       (progn
-	(defvar skk-viper-saved-cursor-color viper-insert-state-cursor-color)
-	;; 恐ろしや〜、必殺のバッファローカル...。
-	(make-variable-buffer-local 'viper-insert-state-cursor-color)
 	;; SKK-CURSOR related.
 	(defadvice skk-cursor-current-color (around skk-viper-cursor-ad activate)
 	  "vi-state のときは、SKK モードになっていてもディフォルトカーソルを返す。"
@@ -97,7 +94,7 @@
 	      (defadvice (, (intern (symbol-name (car funcs))))
 		(after skk-viper-cursor-ad activate)
 		"Set cursor color which represents skk mode."
-		(set-buffer-local-cursor-color (skk-cursor-current-color)))))
+		(skk-cursor-set))))
 	    (setq funcs (cdr funcs))))
 
 	(if (boundp 'viper-insert-state-cursor-color)

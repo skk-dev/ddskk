@@ -1,3 +1,14 @@
+2001-09-23  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-viper.el: Change Murata-san's email address to
+	`mrt@notwork.org'.
+	(skk-viper-saved-cursor-color): Moved to skk-vars.el.
+	(skk-color-display-p): Use `skk-cursor-set' instead of
+	`set-buffer-local-cursor-color' for `vip-Append', `vip-Insert',
+	`vip-insert', `vip-intercept-ESC-key', `vip-open-line',
+	'viper-Append', `viper-Insert' `viper-hide-replace-overlay',
+	`viper-insert',  `viper-intercept-ESC-key' and `viper-open-line'.
+
 2001-09-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* READMEs/Contributors
@@ -2077,8 +2088,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.428 2001/09/23 03:38:11 czkmt Exp $
-Last Modified: $Date: 2001/09/23 03:38:11 $
+Version: $Id: ChangeLog,v 1.429 2001/09/23 03:48:49 minakaji Exp $
+Last Modified: $Date: 2001/09/23 03:48:49 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
