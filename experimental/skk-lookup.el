@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.18 1999/10/05 12:30:07 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.19 1999/10/05 12:32:13 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/05 12:30:07 $
+;; Last Modified: $Date: 1999/10/05 12:32:13 $
 
 ;; This file is not part of SKK yet.
 
@@ -137,7 +137,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ("GN99EP02" exact "^$B"!(B\\([^$B!L!M(B]+\\)$B!L(B.+$B!M(B$" nil)
     ;; IWAKOKU: $B!V<-!&E5!&HW!W(B
     ;; "$B$7$?$$!Z;`BN!&;SBN![(B", "$B$7$?$$!Z;YBb![!Z;^Bb![(B",
-    ;; "$B$"$$!Z0&![(B", "$B$"$$(J($B$"$p(J)$B!ZMu![(B"
+    ;; "$B$"$$!Z0&![(B", "$B$"$$(B($B$"$p(B)$B!ZMu![(B"
     ;; "$B$"$$(J<gaiji=za52a>$B0%(J<gaiji=za52b>(B"
     ("IWAKOKU" exact "$B!Z(B\\(.+\\)$B![(B" "$B![!Z(B\\|$B!&(B")
     ;; "$B9$(B", "$B@V(B"
