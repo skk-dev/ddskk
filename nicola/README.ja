@@ -254,21 +254,12 @@ NICOLA を利用すれば、この問題は非常に積極的に解決できる、ということに、
 に慣れてしまい、快適だと感じています。という段階になって、あらためて原
 作者の箕浦さんに感謝いたしたく思います。
 
-
-# Local Variables:
-# eval: (local-set-key (if (featurep 'xemacs)
-			   [button3]
-			 [mouse-3]) 'browse-url-at-mouse)
-# eval: (save-excursion
-	  (goto-char (point-min))
-	  (while (re-search-forward "\\(ht\\|f\\)tp://.+$" nil t)
-	    (let ((overlay (make-overlay (match-beginning 0) (match-end 0))))
-	      (overlay-put overlay 'mouse-face 'highlight))))
-# eval: (defvar font-lock-keywords nil)
-# eval: (make-local-variable 'font-lock-keywords)
-# eval: (defvar outline-font-lock-keywords nil)
-# eval: (if (featurep 'font-lock) (font-lock-set-defaults)) 
-# eval: (setq font-lock-keywords
-	      (append outline-font-lock-keywords
-		      '(("\\(ht\\|f\\)tp://.+$" 0 'bold))))
-# End:
+
+* 後日談 (2004-03-10)
+
+実は、SKK のモデルとなったかな漢字変換システムである Kanzen は標準でロー
+マ字式入力と新 JIS 配列かな入力に対応していたようです。(旧ではなくて新
+なところがあれですが...)
+
+   http://www.nue.org/people/amagai/kanzen/index.html
+
