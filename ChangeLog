@@ -1,3 +1,16 @@
+2005-02-18  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/bskk (EBTCPServer::initialize): setsockopt SO_REUSEADDR.
+
+2005-02-17  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/skk-bayesian.el : Use defcustom instead of defvar.
+	(skk-bayesian-corpus-*): New.
+	(skk-bayesian-corpus-save): Fix comments.
+
+	* experimental/bayesian/bskk (IString): Remove.
+	(DB::save): Bug fixed; set @dirty to false.
+
 2005-02-12  TAKAHASHI Kaoru  <kaoru@kaisei.org>
 
 	* doc/skk.texi: Use @pxref instead of @xref+@footnote.
@@ -4804,8 +4817,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.834 2005/02/12 10:53:12 skk-cvs Exp $
-Last Modified: $Date: 2005/02/12 10:53:12 $
+Version: $Id: ChangeLog,v 1.835 2005/02/18 09:32:59 skk-cvs Exp $
+Last Modified: $Date: 2005/02/18 09:32:59 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
