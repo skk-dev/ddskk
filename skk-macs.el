@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.53 2001/10/08 12:18:15 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.54 2001/10/11 13:41:59 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/08 12:18:15 $
+;; Last Modified: $Date: 2001/10/11 13:41:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,9 +52,6 @@
 	  ((and (boundp 'mule-version)
 		(string< "2.0" mule-version))
 	   'mule2))))
-
-(eval-and-compile
-  (autoload 'skk-cursor-set "skk-cursor"))
 
 ;;;; macros
 
@@ -462,6 +459,11 @@ BUFFER defaults to the current buffer."
 	(vector (aref keys (1- (length keys)))))))))
 
 ;;; version independent
+(defsubst skk-cursor-set (&optional color force)
+  (when (or skk-use-color-cursor
+	    force)
+    (skk-cursor-set-1 color)))
+
 (defsubst skk-modify-indicator-alist (mode string)
   (setcdr (assq mode skk-indicator-alist)
 	  (cons string (skk-mode-string-to-indicator mode string))))
@@ -601,6 +603,7 @@ BUFFER defaults to the current buffer."
 	skk-katakana nil)
   ;; initialize
   (skk-update-modeline)
+  (skk-cursor-set)
   (remove-hook 'pre-command-hook 'skk-pre-command 'local))
 
 (defsubst skk-j-mode-on (&optional katakana)
@@ -615,8 +618,7 @@ BUFFER defaults to the current buffer."
   (skk-update-modeline (if skk-katakana
 			   'katakana
 			 'hiragana))
-  (when skk-use-color-cursor
-    (skk-cursor-set)))
+  (skk-cursor-set))
 
 (defsubst skk-latin-mode-on ()
   (setq skk-mode t
@@ -627,7 +629,8 @@ BUFFER defaults to the current buffer."
 	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana nil)
-  (skk-update-modeline 'latin))
+  (skk-update-modeline 'latin)
+  (skk-cursor-set))
 
 (defsubst skk-jisx0208-latin-mode-on ()
   (setq skk-mode t
@@ -638,7 +641,8 @@ BUFFER defaults to the current buffer."
 	skk-jisx0201-mode nil
 	;; sub mode of skk-j-mode.
 	skk-katakana nil)
-  (skk-update-modeline 'jisx0208-latin))
+  (skk-update-modeline 'jisx0208-latin)
+  (skk-cursor-set))
 
 (defsubst skk-abbrev-mode-on ()
   (setq skk-mode t
@@ -656,7 +660,8 @@ BUFFER defaults to the current buffer."
 	;; sub mode of skk-j-mode.
 	;;skk-katakana nil
 	)
-  (skk-update-modeline 'abbrev))
+  (skk-update-modeline 'abbrev)
+  (skk-cursor-set))
 
 (defsubst skk-in-minibuffer-p ()
   ;; カレントバッファがミニバッファかどうかをチェックする。
