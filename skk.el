@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.260 2003/03/23 20:26:40 czkmt Exp $
+;; Version: $Id: skk.el,v 1.261 2003/03/27 23:12:42 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/03/23 20:26:40 $
+;; Last Modified: $Date: 2003/03/27 23:12:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2262,7 +2262,10 @@ WORD で確定する。"
 	;; ▽モードで確定した場合。便宜的に現在のポイントまでを見出し語を扱い
 	;; して履歴を更新する。
 	(when (and (> skk-kakutei-history-limit 0)
-		   (< skk-henkan-start-point (point)))
+		   (< skk-henkan-start-point (point))
+		   (skk-save-point
+		    (goto-char skk-henkan-start-point)
+		    (eq (skk-what-char-type) 'hiragana)))
 	  (skk-update-kakutei-history
 	   (buffer-substring-no-properties
 	    skk-henkan-start-point (point))))))
