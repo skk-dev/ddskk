@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut,v 1.10 2002/03/01 02:20:31 iida Exp $
+;; Version: $Id: SKK.tut,v 1.11 2002/05/27 14:12:35 obata Exp $
 ;; Keywords: japanese, help
-;; Last Modified: $Date: 2002/03/01 02:20:31 $
+;; Last Modified: $Date: 2002/05/27 14:12:35 $
 
 ;; This is the tutorial text for Daredevil SKK version 11.1 and later
 ;; versions.
@@ -448,7 +448,7 @@ SKKでは、【動く】といった、送り仮名のある語は、以下のように辞書に登録
 
 >> 動こうにも動けなかった。
 ----
-;; (save-excursion (save-match-data (set-buffer " *skk-tut-jisyo*") (goto-char skk-okuri-ari-min) (search-forward "\nうごk /動/" skk-okuri-nasi-min) (delete-region (progn (beginning-of-line) (point)) (progn (forward-line 1) (point)))))
+;; (save-excursion (save-match-data (set-buffer " *skk-tut-jisyo*") (goto-char skk-okuri-ari-min) (when (search-forward "\nうごk /動/" skk-okuri-nasi-min t) (delete-region (progn (beginning-of-line) (point)) (progn (forward-line 1) (point))))))
 == 送り仮名のある単語の登録 ==
 
 辞書に「うごk」という見出し語がないときはどうなるでしょう。

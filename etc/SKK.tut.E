@@ -6,9 +6,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut.E,v 1.10 2002/03/01 02:20:31 iida Exp $
+;; Version: $Id: SKK.tut.E,v 1.11 2002/05/27 14:12:57 obata Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2002/03/01 02:20:31 $
+;; Last Modified: $Date: 2002/05/27 14:12:57 $
 ;;
 ;; This is the tutorial text for Daredevil SKK version 11.1 and and later
 ;; versions.
@@ -447,7 +447,7 @@ separately.
 
 >> 動こうにも動けなかった。
 ----
-;; (save-excursion (save-match-data (set-buffer " *skk-tut-jisyo*") (goto-char skk-okuri-ari-min) (search-forward "\nうごk /動/" skk-okuri-nasi-min) (delete-region (progn (beginning-of-line) (point)) (progn (forward-line 1) (point)))))
+;; (save-excursion (save-match-data (set-buffer " *skk-tut-jisyo*") (goto-char skk-okuri-ari-min) (when (search-forward "\nうごk /動/" skk-okuri-nasi-min t) (delete-region (progn (beginning-of-line) (point)) (progn (forward-line 1) (point))))))
 == How to register words with okurigana ==
 
 Let's see what happens if 辞書 does not have 「うごk」 as 見出し語.
