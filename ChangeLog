@@ -15,6 +15,11 @@
 
 	* etc/Emacs.ad: Add `skk-submit-bug-report'.
 
+	* SKK-MK: Make Emacs 18 or older exit before loading
+	tinyinstall.el.
+
+	* tinyinstall.el: Remove codes for Emacs 18.
+
 2001-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* *: Remove codes for Emacs 18.
@@ -1809,8 +1814,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.373 2001/09/11 13:52:37 czkmt Exp $
-Last Modified: $Date: 2001/09/11 13:52:37 $
+Version: $Id: ChangeLog,v 1.374 2001/09/11 14:47:16 czkmt Exp $
+Last Modified: $Date: 2001/09/11 14:47:16 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
