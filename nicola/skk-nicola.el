@@ -756,12 +756,6 @@ keycode 131 = underscore\n"))
 
 (defadvice skk-nicola-self-insert-lshift (around skk-nicola-ad-for-dcomp
 						 activate compile)
-  (eval-when-compile
-    (defvar skk-dcomp-start-point)
-    (defvar skk-dcomp-end-point)
-    (defvar skk-dcomp-keep-completion-keys)
-    (autoload 'skk-dcomp-face-off "skk-dcomp")
-    (autoload 'skk-dcomp-face-on "skk-dcomp"))
   (cond
    ((featurep 'skk-dcomp)
     (if (or skk-henkan-active (not skk-henkan-on))
