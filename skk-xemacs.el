@@ -137,6 +137,9 @@
 
 ;;;###autoload
 (defun skk-xemacs-prepare-modeline-properties ()
+  (unless skk-use-color-cursor
+    (setq skk-indicator-use-cursor-color nil))
+  ;;
   (let (extent face)
     (when window-system
       (defvar skk-xemacs-modeline-map
@@ -152,34 +155,33 @@
 		    latin
 		    jisx0201
 		    abbrev))
+      ;;
       (setq extent (cdr (assq mode
 			      skk-xemacs-extent-alist)))
-      (setq face (intern (format "skk-xemacs-%s-face"
-				 mode)))
-      (make-face face)
-      (set-face-parent face 'modeline nil
-		       (if (> emacs-major-version 20)
-			   '(default)
-			 nil))
       (when window-system
-	(set-extent-keymap extent
-			   skk-xemacs-modeline-map)
+	(set-extent-keymap extent skk-xemacs-modeline-map)
 	(set-extent-property
 	 extent
 	 'help-echo
-	 "マウスの button 2 -> Daredevil SKK のメニュ−")
-	(when (> emacs-major-version 20)
-	  (set-face-foreground face
-			       (symbol-value
-				(intern (format
-					 "skk-cursor-%s-color"
-					 mode)))
-			       nil
-			       '(default color win))
-	  (set-face-font face [bold] nil
-			 '(default mono win))
-	  (set-face-font face [bold] nil
-			 '(default grayscale win))))
+	 "マウスの button 2 -> Daredevil SKK のメニュ−"))
+      ;;
+      (setq face (intern (format "skk-xemacs-%s-face"
+				 mode)))
+      (unless (find-face face)
+	(make-face face)
+	(set-face-parent face 'modeline nil
+			 (if (> emacs-major-version 20)
+			     '(default)
+			   nil))
+	(when window-system
+	  (when (> emacs-major-version 20)
+	    (set-face-foreground face
+				 (symbol-value
+				  (intern (format
+					   "skk-cursor-%s-color"
+					   mode)))
+				 nil
+				 '(default color win)))))
       (set-extent-face extent face))))
 
 (defun skk-xemacs-find-func-keys (func)
