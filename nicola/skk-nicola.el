@@ -904,7 +904,8 @@ keycode 131 = underscore\n"))
 	    (delete-region skk-dcomp-end-point (point))))
 	;;
 	(if (and (not (skk-get-prefix skk-current-rule-tree))
-		 (not skk-okurigana))
+		 (not skk-okurigana)
+		 (not skk-henkan-active))
 	    (let ((pos (point)))
 	      (condition-case nil
 		  (progn
