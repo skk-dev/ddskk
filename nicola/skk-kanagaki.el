@@ -266,18 +266,6 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]  (XEmacs $B$G$O
 			 (string :tag "3-2 (hiragana string)")))))
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-jidou-keymap-kakikae-service nil "\
-*Non-nil $B$J$i2>L>F~NO$N$?$a$K>!<j$K%-!<G[Ns$r=q49$($k!#(B
-X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N%b!<%I(B
-$B$d%"%W%j%1!<%7%g%s$K$b(B $B%-!<G[Ns$NJQ99$,1F6A$9$k$H$$$&I{:nMQ$,$"$k$N$G!"==J,Cm(B
-$B0U$7$F;H$C$F$/$@$5$$!#(B"
-  :type '(choice (const 106-jis)
-		 (const 106-jis-kodawari)
-		 (const nicola-jis)
-		 (const oasys)
-		 (const nil))
-  :group 'skk-kanagaki)
-
 ;; Internal constants and variables.
 
 (defvar skk-kanagaki-base-rule-list nil)
