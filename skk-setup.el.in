@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.10 2000/11/18 13:39:41 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.11 2000/11/18 16:18:45 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/18 13:39:41 $
+;; Last Modified: $Date: 2000/11/18 16:18:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -41,36 +41,6 @@
   (add-latest-path "apel")
   (add-latest-path "skk"))
 
-;;; For incompatibility between GNU Emacs and XEmacs.
-(cond
- ((and (featurep 'xemacs)
-       (file-exists-p
-	(expand-file-name "auto-autoloads.el"
-			  (file-name-directory (locate-library "skk")))))
-  ;; SKK is installed as a XEmacs package.
-  ;; For XEmacs, "skk/leim-list.el" isn't expected to be loaded, thus load
-  ;; skk-setup.el in "skk/auto-autoloads.el".
-  (let ((file
-	 (expand-file-name "auto-autoloads.el"
-			   (file-name-directory (locate-library "dired")))))
-    (when (and file
-	       (file-exists-p file)
-	       (not (featurep 'dired-autoloads)))
-      (require 'advice)
-      (eval
-       (`
-	(defadvice load (after skk-setup-ad-to-load activate)
-	  (when (equal (ad-get-arg 0)
-		       (file-name-sans-extension (, file)))
-	    ;; Don't give dired this!
-	    (global-set-key "\C-x\C-j" 'skk-mode)
-	    (ad-deactivate-regexp "^skk-setup-ad-to-load$")
-	    (ad-remove-advice 'load 'after 'skk-setup-ad-to-load))))))))
- (t
-  ;; SKK is installed for GNU Emacs or XEmacs, not as a package.
-  (require 'skk-autoloads)))
-
-
 ;;; Key bindings.
 (global-set-key "\C-x\C-j" 'skk-mode)
 (global-set-key "\C-xj" 'skk-auto-fill-mode)
@@ -80,7 +50,6 @@
 ;;(defvar skk-large-jisyo "@DIC@")
 ;;(defvar skk-aux-large-jisyo "@AUXDIC@")
 ;;(defvar skk-tut-file "@TUT@")
-
 
 ;;; Isearch setting.
 (cond ((eq emacs-major-version 18)
@@ -96,61 +65,78 @@
 		 (lambda ()
 		   (and (featurep 'skk-isearch) (skk-isearch-mode-cleanup))))))
 
+
+;;; For XEmacs package system.
+(when (and (featurep 'xemacs)
+	   (file-exists-p
+	    (expand-file-name "auto-autoloads.el"
+			      (file-name-directory (locate-library "skk")))))
+  ;; SKK is installed as a XEmacs package. In this situation,
+  ;; "skk/leim-list.el" isn't expected to be loaded, thus load "skk-setup.el"
+  ;; in "skk/auto-autoloads.el" instead.
+  ;; Avoid duplicate loading.
+  (provide 'skk-autoloads)
+  ;; This shouldn't override the user's preference, thus called in
+  ;; `before-init-hook'.
+  (add-hook 'before-init-hook 'skk-setup-before-init-hook-function)
+  (defun skk-setup-before-init-hook-function ()
+    ;; Don't give dired this!
+    (global-set-key "\C-x\C-j" 'skk-mode)
+    (remove-hook 'before-init-hook 'skk-setup-before-init-hook-function)))
+
+
+;;; Autoloads.
+(require 'skk-autoloads)
+
+
 ;;; Many ugly works for many reasons...
 (unless (or (featurep 'xemacs)
 	    (not (fboundp 'register-input-method)))
   ;; GNU Emacs 20 or later.
-  ;;
-  ;; For incompatibility between Emacs 21 and Emacs 20.
-  (when (string-lessp "5.0" mule-version)
-    ;; Work arond for Emacs 21. advice.el cannot be loaded here since this
-    ;; file is loaded before `load-path' Is prepared.
-      (condition-case nil
-	  (unless (locate-library "advice")
-	    (let ((default-directory
-		    (expand-file-name "../lisp" data-directory)))
-	      (load (expand-file-name "subdirs.el" default-directory) t t t)))
-	(error)))
-  ;;
-  ;; For isearch. Allways use skk-isearch since it is better.
+  ;; Override emcws.
   (define-key isearch-mode-map "\C-\\" 'isearch-toggle-input-method)
-  (defadvice isearch-toggle-input-method (around skk-setup-ad activate)
-  (cond ((string-match "^japanese-skk" (format "%s" default-input-method))
-	 (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
-	   (skk-isearch-mode-setup)
-	   (skk-isearch-skk-mode)))
-	((null default-input-method)
-	 ad-do-it
-	 (when (string-match "^japanese-skk"
-			     (format "%s" default-input-method))
-	   (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
-	     (skk-isearch-mode-setup))
-	   (inactivate-input-method)))
-	(t
-	 ad-do-it)))
-  ;;
+  ;; It isn't known whether this file is loaded automatically (as leim-list.el)
+  ;; or manually in `user-init-file', thus call the function in
+  ;; `after-init-hook'.
+  (add-hook 'after-init-hook 'skk-setup-after-init-function)
+  (defun skk-setup-after-init-function ()
+    (defadvice isearch-toggle-input-method (around skk-setup-ad activate)
+      (cond ((string-match "^japanese-skk" (format "%s" default-input-method))
+	     (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
+	       (skk-isearch-mode-setup)
+	       (skk-isearch-skk-mode)))
+	    ((null default-input-method)
+	     ad-do-it
+	     (when (string-match "^japanese-skk"
+				 (format "%s" default-input-method))
+	       (let ((skk-isearch-initial-mode-when-skk-mode-disabled 'latin))
+		 (skk-isearch-mode-setup))
+	       (inactivate-input-method)))
+	    (t
+	     ad-do-it)))
+    (remove-hook 'after-init-hook 'skk-setup-after-init-function))
   ;; For Emacs 20. Load all "leim-list" files.
   (when site-run-file
-  (cond
-   ((string-lessp "5.0" mule-version)
-    ;; Emacs 21 loads all "leim-list" files in load-path.
-    nil)
-   ((fboundp 'load-leim-list-except-this)
-    ;; "egg/leim-list.el" is already loaded.
-    nil)
-   ((locate-library "egg/leim-list.el" 'nosuffix)
-    ;; Try loading egg/leim-list.el.
-    (load "egg/leim-list.el" 'noerror 'nomessage 'nosuffix))
-   (t
-    ;; Shamelessly ripped off from "egg/leim-list.el" in Tamago 4.
-    (defun load-leim-list-except-this ()
-      (load-libraries
-       "leim-list"
-       (cdr-safe (member (directory-file-name
-			  (file-name-directory load-file-name))
-			 load-path))))
-    (message "Finished loading %s \n   and load others..." load-file-name)
-    (load-leim-list-except-this)))))
+    (cond
+     ((string-lessp "5.0" mule-version)
+      ;; Emacs 21 loads all "leim-list" files in load-path.
+      nil)
+     ((fboundp 'load-leim-list-except-this)
+      ;; "egg/leim-list.el" is already loaded.
+      nil)
+     ((locate-library "egg/leim-list.el" 'nosuffix)
+      ;; Try loading egg/leim-list.el.
+      (load "egg/leim-list.el" 'noerror 'nomessage 'nosuffix))
+     (t
+      ;; Shamelessly ripped off from "egg/leim-list.el" in Tamago 4.
+      (defun load-leim-list-except-this ()
+	(load-libraries
+	 "leim-list"
+	 (cdr-safe (member (directory-file-name
+			    (file-name-directory load-file-name))
+			   load-path))))
+      (message "Finished loading %s \n   and load others..." load-file-name)
+      (load-leim-list-except-this)))))
 
 
 (provide 'skk-setup)
