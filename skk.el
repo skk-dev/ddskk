@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.252 2002/07/16 14:27:01 czkmt Exp $
+;; Version: $Id: skk.el,v 1.253 2002/07/27 06:25:01 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/16 14:27:01 $
+;; Last Modified: $Date: 2002/07/27 06:25:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -808,7 +808,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (interactive "P")
   (skk-with-point-move
    (if (eq skk-henkan-mode 'on)
-       (skk-comp (not (eq last-command 'skk-comp-do)))
+       (skk-comp (not (and (= arg 1)
+			   (eq last-command 'skk-comp-do))))
      (skk-emulate-original-map arg))))
 
 (defun skk-latin-mode (arg)
@@ -951,7 +952,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   ;; $B$b(B)$B!#(B
 	   ((and (eq skk-henkan-mode 'on)
 		 (eq ch skk-try-completion-char))
-	    (skk-comp (not (eq last-command 'skk-comp-do))))
+	    (skk-comp (not (and (= arg 1) ; C-u TAB $B$GJd40%-!<$r=i4|2=$9$k(B
+				(eq last-command 'skk-comp-do)))))
 	   ((and (eq skk-henkan-mode 'on)
 		 (memq ch (list skk-next-completion-char
 				skk-previous-completion-char))
