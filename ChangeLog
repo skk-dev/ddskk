@@ -1,3 +1,10 @@
+2000-09-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/FAQ.txt: Add a description about 「検索する辞書を増やし
+	たいのですが」.
+
+	* READMEs/skk-faq.txt: Rename to FAQ.txt.
+
 2000-09-28  Shuhei KOBAYASHI  <shuhei@aqua.ocn.ne.jp>
 
 	* skk.el: (skk-insert, skk-previous-candidate):
