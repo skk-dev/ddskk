@@ -1,5 +1,7 @@
 2001-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* *: Mega typo fix.
+
 	* SKK-MK
 	(SKK-MK-compile-package): Load auto-autoloads.el.
 
@@ -3149,8 +3151,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.598 2001/12/16 04:08:17 czkmt Exp $
-Last Modified: $Date: 2001/12/16 04:08:17 $
+Version: $Id: ChangeLog,v 1.599 2001/12/16 05:03:28 czkmt Exp $
+Last Modified: $Date: 2001/12/16 05:03:28 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
