@@ -1,3 +1,12 @@
+2004-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* CVS_on_Windows.ja: Modify the cygwin site URL.
+
+	* FAQ.ja: 
+	* PROPOSAL.ja: 
+	
+	DDSKK 11.x -> 12.x.
+
 2002-02-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ChangeLog:

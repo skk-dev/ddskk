@@ -1,7 +1,7 @@
 -*- outline -*- 
 
-$Date: 2002/02/09 04:44:34 $
-$Id: CVS_on_Windows.ja,v 1.1 2002/02/09 04:44:34 czkmt Exp $
+$Date: 2004/01/19 11:02:47 $
+$Id: CVS_on_Windows.ja,v 1.2 2004/01/19 11:02:47 czkmt Exp $
 
 [cvs on Windows 95/NT Windows 95 で動作確認済み (NT では未確認)] 
 
@@ -24,7 +24,7 @@ Windows ネイティブの cvs.exe で update すると、LF は CRL
 コードを Windows native に正規化しない (UNIX と同様に扱う) cygwin
 の cvs.exe を利用する必要があるというわけです。
 
-cygwin については、http://sources.redhat.com/cygwin/ をご参照下さい。
+cygwin については、http://www.cygwin.com/ をご参照下さい。
 
 * cygwin を利用する際の注意点
 
