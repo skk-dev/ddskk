@@ -1,3 +1,9 @@
+2000-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-leim.el (skk-leim-exit-from-minibuffer): New function.
+	(skk-activate, skk-auto-fill-activate): In minibuffer, add
+	`skk-leim-exit-from-minibuffer' to `minibuffer-exit-hook'.
+
 2000-09-05  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* doc/skk-faq.texi (Customization): Add descriptions about
