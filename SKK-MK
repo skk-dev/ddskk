@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.35 2000/01/17 04:04:55 furue Exp $
-;; Last Modified: $Date: 2000/01/17 04:04:55 $
+;; Version: $Id: SKK-MK,v 1.36 2000/03/16 04:53:16 furue Exp $
+;; Last Modified: $Date: 2000/03/16 04:53:16 $
 
 ;; Commentary
 ;;
@@ -240,7 +240,7 @@ end with `skk'." )
 
 ;;; [FUNCTIONS]
 (defun SKK-MK-compile ()
-  (let (standard-output) (SKK-MK-generate-autoloads-el))
+  (SKK-MK-generate-autoloads-el)
   (compile-elisp-modules SKK_MODULES ".") )
 
 (defun SKK-MK-compile-info ()
@@ -390,7 +390,7 @@ end with `skk'." )
   (let (
 	;; Emacs20.2's default is 'raw-text-unix.
 	(coding-system-for-write SKK-MK-texinfo-coding-system) 
-	x obuf beg )
+	x obuf beg standard-output)
     (while targets
       (setq x (expand-file-name (car targets) DOCDIR))
       (find-file x)
@@ -473,7 +473,8 @@ SKK tutorials:
   (let ((modules SKK_MODULES)
         (buf (get-buffer-create " *SKK-MK-generate-autoloads-el*"))
         (sort-min)
-        (funcs))
+        (funcs)
+	standard-output)
     (save-excursion
       (set-buffer buf)
       (erase-buffer)

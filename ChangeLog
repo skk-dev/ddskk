@@ -1,3 +1,9 @@
+2000-03-16  FURUE Hideyuki  <furue@kke.co.jp>
+
+	* SKK-MK (SKK-MK-compile): Remove local ``standard-output''.
+	(SKK-MK-generate-autoloads-el): Define ``standard-output'' locally.
+	(SKK-MK-texinfo-format): Define ``standard-output'' locally.
+
 2000-03-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* Makefile (tar): Replace white spaces with tab.
