@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.78 2002/01/19 01:04:25 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.79 2002/01/23 14:04:41 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/19 01:04:25 $
+;; Last Modified: $Date: 2002/01/23 14:04:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -35,7 +35,9 @@
 
 (eval-when-compile
   (require 'advice)
-  (require 'static)
+  (require 'static))
+
+(eval-and-compile
   (require 'skk-vars))
 
 ;;;; macros
