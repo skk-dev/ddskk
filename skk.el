@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.271 2003/07/18 21:35:02 minakaji Exp $
+;; Version: $Id: skk.el,v 1.272 2004/01/26 15:13:08 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/07/18 21:35:02 $
+;; Last Modified: $Date: 2004/01/26 15:13:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2279,6 +2279,11 @@ WORD で確定する。"
       ;; カレントバッファでまだ skk-mode が
       ;; コールされていなかったら、コールする。
       (skk-mode 1)))
+  (static-when (featurep 'xemacs)
+    ;; ??? Workaround for XEmacs.
+    (when (buffer-live-p skk-isearch-current-buffer)
+      (with-current-buffer skk-isearch-current-buffer
+	(setq skk-henkan-count -1))))
   nil)
 
 (defun skk-kakutei-cleanup-buffer ()
