@@ -1,5 +1,9 @@
 2000-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* etc/NICOLA-SKK.tut: New file.
+
+	* etc/SKK.tut: Typo.
+
 	* install-info.el: Add comments.
 
 	* skk-vars.el: Require "pcustom" also at the load time.
@@ -2481,8 +2485,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.168 2000/11/24 13:15:25 czkmt Exp $
-Last Modified: $Date: 2000/11/24 13:15:25 $
+Version: $Id: ChangeLog,v 1.169 2000/11/24 14:11:57 czkmt Exp $
+Last Modified: $Date: 2000/11/24 14:11:57 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
