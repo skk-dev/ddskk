@@ -1,5 +1,7 @@
 2000-03-16  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* Makefile (VERSION): Change it to 10.60.
+
 	* skk.el: Version 10.60 released.
 
 	* SKK-MK (SKK-MK-what-where-package): Remove all spaces between
