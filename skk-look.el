@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.24 2002/01/18 14:10:46 czkmt Exp $
+;; Version: $Id: skk-look.el,v 1.25 2002/04/27 10:43:05 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/18 14:10:46 $
+;; Last Modified: $Date: 2002/04/27 10:43:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -225,8 +225,9 @@
       ))
   (pop skk-look-completion-words))
 
-(defadvice skk-kakutei-initialize (after skk-look-ad activate)
-  (setq skk-look-completion-words nil))
+(defadvice skk-try-completion (before skk-look-ad activate)
+  (unless (eq last-command 'skk-comp-do)
+    (setq skk-look-completion-words nil)))
 
 
 ;;;###autoload
