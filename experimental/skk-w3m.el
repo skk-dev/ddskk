@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.13 2001/05/26 01:40:50 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.14 2001/05/31 02:55:32 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/05/26 01:40:50 $
+;; Last Modified: $Date: 2001/05/31 02:55:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -348,7 +348,7 @@ w3m を backend で動かしていない)。")
 (defun skk-w3m-search-escape-query-string (str &optional coding)
   (mapconcat (lambda (s)
 	       (skk-w3m-url-encode-string
-		s (or coding skk-w3m-search-default-coding-system)))
+		s (or coding skk-w3m-default-process-coding-system)))
 	     (split-string str)
 	     "+"))
 

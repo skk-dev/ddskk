@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.14 2001/05/31 02:47:37 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.15 2001/05/31 02:55:32 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/05/31 02:47:37 $
+;; Last Modified: $Date: 2001/05/31 02:55:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -80,6 +80,9 @@ AND-TIME \(boolean\) $B$r;XDj$9$k$H;~9o$bJV$9!#(B
 
 ;;;###autoload
 (defun skk-default-current-date
+  (date-information
+   format num-type gengo gengo-index month-alist-index dayofweek-alist-index
+   &optional and-time)
   "$BF|IU>pJs$NI8=`E*$J=PNO$r$9$kB>!"%f!<%6$K$"$kDxEY$N%+%9%?%^%$%:5!G=$rDs6!$9$k!#(B
 $B$3$N4X?t$N0z?t$G%+%9%?%^%$%:$G$-$J$$=PNO$r4uK>$9$k>l9g$O!"(B
 `skk-default-current-date-function' $B$K<+A0$N4X?t$r;XDj$9$k!#(B
@@ -109,9 +112,6 @@ DAYOFWEEK-ALIST-INDEX $B$O(B `skk-day-of-week-alist' $B$N3FMWAG$N(B cadr $B
  0 $B$H$9$k(B index \(number\)$B!#(Bnil $B$G$"$l$P(B `current-time-string' $B$N=PNO$N$^(B
 $B$^L5JQ49!#(B
 AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
-  (date-information
-   format num-type gengo gengo-index month-alist-index dayofweek-alist-index
-   &optional and-time)
   (let ((year (car date-information))
 	(month (nth 1 date-information))
 	(day (nth 2 date-information))
