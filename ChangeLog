@@ -6,6 +6,8 @@
 	variable PROC.
 	(skk-open-server-1): Check if `skk-server-prog' is dbskkd-cdb or
 	not before calling `skk-startup-server'.
+	(skk-open-server-1): Update comment.
+	(skk-open-server): Bug fixed.
 
 	* experimental/skk-w3m.el: Update comments.
 	(skk-w3m-search-by-emcas-w3m): Call `erase-buffer' after cutting
@@ -2893,8 +2895,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.556 2001/11/24 12:24:36 minakaji Exp $
-Last Modified: $Date: 2001/11/24 12:24:36 $
+Version: $Id: ChangeLog,v 1.557 2001/11/24 14:00:26 minakaji Exp $
+Last Modified: $Date: 2001/11/24 14:00:26 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.18 2001/11/24 12:24:36 minakaji Exp $
+;; Version: $Id: skk-server.el,v 1.19 2001/11/24 14:00:26 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/24 12:24:36 $
+;; Last Modified: $Date: 2001/11/24 14:00:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -136,14 +136,14 @@
 (defun skk-open-server ()
   ;; SKK サーバーと接続する。サーバープロセスの status を返す。
   (let (status code)
-    (when (or (skk-open-network-stream) (skk-open-server-1))
+    (when (setq status (or (skk-open-network-stream) (skk-open-server-1)))
       (setq code (cdr (assoc "euc" skk-coding-system-alist)))
       (set-process-coding-system (get-process "skkservd") code code))
     status))
 
 (defun skk-open-server-1 ()
   ;; skk-open-server のサブルーチン。
-  ;; skkserv サービスをオープンできたら t を返す。
+  ;; skkserv サービスをオープンできたら process-status を返す。
   ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を参照する。
   (unless skk-servers-list
     ;; Emacs 起動後に環境変数を設定した場合。
