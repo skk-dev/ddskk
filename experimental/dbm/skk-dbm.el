@@ -3,16 +3,16 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dbm.el,v 1.5 2001/11/19 16:15:45 czkmt Exp $
+;; Version: $Id: skk-dbm.el,v 1.6 2001/12/16 05:03:11 czkmt Exp $
 ;; Keywords: japanese, dbm, gdbm
 ;; Created: Jan. 1, 1999
-;; Last Modified: $Date: 2001/11/19 16:15:45 $
+;; Last Modified: $Date: 2001/12/16 05:03:11 $
 
 ;; This file is not part of Daredevil SKK yet.
 
 ;; Daredevil SKK is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either versions 2, or
+;; published by the Free Software Foundation; either version 2, or
 ;; (at your option) any later version.
 
 ;; Daredevil SKK is distributed in the hope that it will be useful,

@@ -5,15 +5,15 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.31 2001/12/05 13:44:59 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.32 2001/12/16 05:03:09 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/05 13:44:59 $
+;; Last Modified: $Date: 2001/12/16 05:03:09 $
 
 ;; This file is part of Daredevil SKK.
 
 ;; Daredevil SKK is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either versions 2, or
+;; published by the Free Software Foundation; either version 2, or
 ;; (at your option) any later version.
 
 ;; Daredevil SKK is distributed in the hope that it will be useful,
