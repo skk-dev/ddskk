@@ -154,17 +154,6 @@ Install patch/e18/advice.el in load-path and try again.")))
 	    (run-hooks 'minibuffer-exit-hook)
 	  (error))))))
 
-(defadvice exit-minibuffer (around skk-e18-ad activate)
-  (let ((no-nl (and skk-egg-like-newline skk-henkan-on)))
-    (when skk-henkan-on
-      (unless skk-mode
-	(skk-mode 1))
-      (skk-kakutei))
-    (if no-nl
-	nil
-      (setq skk-mode nil)
-      ad-do-it)))
-
 (defadvice skk-kakutei (around skk-e18-ad activate)
   (let ((skk-jisyo skk-jisyo))
     (when skk-henkan-on

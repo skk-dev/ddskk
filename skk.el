@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.87 2000/12/15 03:37:44 minakaji Exp $
+;; Version: $Id: skk.el,v 1.88 2000/12/16 22:06:21 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/15 03:37:44 $
+;; Last Modified: $Date: 2000/12/16 22:06:21 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1882,8 +1882,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
       (add-hook
        'minibuffer-setup-hook
-       (function (lambda ()
-		   (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
+       '(lambda ()
+	  (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
       (condition-case nil
           (setq new-one
                 (read-from-minibuffer
@@ -3925,17 +3925,14 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 ;; add 'skk-save-jisyo only to remove easily.
 (add-hook 'skk-before-kill-emacs-hook 'skk-save-jisyo)
 (add-hook 'minibuffer-exit-hook
-          (function
-           (lambda ()
-	     (remove-hook 'pre-command-hook 'skk-pre-command 'local)
-	     (skk-remove-minibuffer-setup-hook
-	      'skk-j-mode-on 'skk-setup-minibuffer
-	      (function (lambda ()
-			  (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))))
-
+	  '(lambda ()
+	    (remove-hook 'pre-command-hook 'skk-pre-command 'local)
+	    (skk-remove-minibuffer-setup-hook
+	     'skk-j-mode-on 'skk-setup-minibuffer
+	     '(lambda ()
+		(add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
 
 ;; cover to original functions.
-
 (skk-defadvice keyboard-quit (around skk-ad activate)
   "▼モードであれば、候補の表示をやめて▽モードに戻す (見出し語は残す)。
 ▽モードであれば、見出し語を削除する。
@@ -3970,7 +3967,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; subr command but no arg.
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer
-   (function (lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
+   '(lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
   (cond ((not skk-mode) ad-do-it)
 	((not skk-henkan-on)
 	 (cond ((skk-get-prefix skk-current-rule-tree)
@@ -4024,19 +4021,30 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (undo-boundary)
       (or no-newline ad-do-it))))
 
-(static-unless (memq skk-emacs-type '(nemacs mule1))
-  (skk-defadvice exit-minibuffer (around skk-ad activate)
-    "skk-egg-like-newline が non-nil だったら、変換中の exit-minibuffer で確定のみ行う。"
-    ;; subr command but no arg.
+(skk-defadvice exit-minibuffer (around skk-ad activate)
+  ;; subr command but no arg.
+  "skk-egg-like-newline が non-nil だったら、変換中の exit-minibuffer で確定のみ行う。"
+  (static-cond
+   ((memq skk-emacs-type '(nemacs mule1))
+    (let ((no-nl (and skk-egg-like-newline skk-henkan-on)))
+      (when skk-henkan-on
+	(unless skk-mode
+	  (skk-mode 1))
+	(skk-kakutei))
+      (if no-nl
+	  nil
+	(setq skk-mode nil)
+	ad-do-it)))
+   (t
     (skk-remove-minibuffer-setup-hook
      'skk-j-mode-on 'skk-setup-minibuffer
-     (function (lambda ()
-		 (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
+     '(lambda ()
+	(add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
     (if (not (or skk-j-mode skk-abbrev-mode))
 	ad-do-it
       (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
 	(and skk-mode (skk-kakutei))
-	(or no-newline ad-do-it)))))
+	(or no-newline ad-do-it))))))
 
 (defadvice picture-mode-exit (before skk-ad activate)
   "SKK のバッファローカル変数を無効にし、picture-mode-exit をコールする。

@@ -1,3 +1,16 @@
+2000-12-17  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (exit-minibuffer@around@skk-ad): Define piece of advice
+	for Emacs 18 that was exit-minibuffer@around@skk-e18-ad.
+	(minibuffer-exit-hook): Use ' instead of `function'.
+	(skk-henkan-in-minibuff): Use ' instead of `function' for
+	`minibuffer-setup-hook'.
+	(abort-recursive-edit@around@skk-ad): Use ' instead of `function'
+	for `skk-remove-minibuffer-setup-hook'.
+	(exit-minibuffer@around@skk-ad): Ditto.
+
+	* skk-e18.el (exit-minibuffer@around@skk-e18-ad): Removed.
+
 2000-12-16  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/CVS_on_Windows: Sync up with web/cvswin-ja.html.
@@ -2940,8 +2953,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 	
-Version: $Id: ChangeLog,v 1.223 2000/12/16 12:05:19 minakaji Exp $
-Last Modified: $Date: 2000/12/16 12:05:19 $
+Version: $Id: ChangeLog,v 1.224 2000/12/16 22:06:21 minakaji Exp $
+Last Modified: $Date: 2000/12/16 22:06:21 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
