@@ -1,5 +1,23 @@
 2000-11-06  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* skk.el (skk-update-jisyo-format-1): Use temporary variable
+	CANDIDATE.
+	(skk-get-jisyo-buffer): Do not call `skk-update-jisyo-format'.
+	(skk-quote-char): Remove `;' temporarily from the first regexp.
+
+	* experimental/skk-annotation.el: Require static.el.
+	(skk-annotation-show-message): When echo area is occupied by
+	candidates, open other window and show annotation.
+	(skk-annotation-erase-buffer): New inline function.
+	(skk-annotation-insert): Use `skk-annotation-erase-buffer'.
+	(skk-annotation-add): Ditto.   Bug fixed.
+	(skk-annotation-last-word-1): Remove unnecessary temporary
+	variable CANDIDATE.
+	(skk-annotation-save-and-quit): Trim whitespaces, newlines and
+	tabs in head of the annotation.
+
+	* skk.el: Require product.el first for APEL version check.
+	
 	* skk.el (skk-update-jisyo-format): New function.
 	(skk-update-jisyo-format-1): New function.
 	(skk-get-jisyo-buffer): Use `skk-update-jisyo-format'.
@@ -2125,8 +2143,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.127 2000/11/05 16:03:40 minakaji Exp $
-Last Modified: $Date: 2000/11/05 16:03:40 $
+Version: $Id: ChangeLog,v 1.128 2000/11/06 06:49:18 minakaji Exp $
+Last Modified: $Date: 2000/11/06 06:49:18 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

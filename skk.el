@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.42 2000/11/05 15:52:21 minakaji Exp $
+;; Version: $Id: skk.el,v 1.43 2000/11/06 06:49:19 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/05 15:52:21 $
+;; Last Modified: $Date: 2000/11/06 06:49:19 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -62,6 +62,9 @@
 (require 'pces)
 (require 'pcustom)
 (require 'alist)
+(condition-case nil
+    (require 'product)
+  ((error) (error "This version of Daredevil SKK requires APEL/10.2 or later")))
 (or (product-version>= 'apel-ver '(10 2))
     (error "This version of Daredevil SKK requires APEL/10.2 or later"))
 ;; Elib 1.0 is required.
@@ -1882,9 +1885,9 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; skk-henkan-key に何故か Overlay がかかってしまう。
   (save-match-data
     (let (annotation)
-      (and (not skk-show-annotation) (string-match ";" word)
-	   (setq annotation (substring word (match-end 0))
-		 word (substring word 0 (match-beginning 0))))
+      (if (string-match ";" word)
+	  (setq annotation (substring word (match-end 0))
+		word (substring word 0 (match-beginning 0))))
       (setq word (if (skk-lisp-prog-p word) (skk-eval-string word) word))
       (and skk-use-face (skk-henkan-face-off))
       (delete-region skk-henkan-start-point skk-henkan-end-point)
@@ -2845,7 +2848,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
                    "Inserting contents of %s ...done"
                    (file-name-nondirectory file)))
               (skk-setup-jisyo-buffer)
-	      (skk-update-jisyo-format)
+	      ;;(skk-update-jisyo-format)
               (set-buffer-modified-p nil)
               jisyo-buf)))))
 
@@ -2910,19 +2913,20 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   )
 
 (defun skk-update-jisyo-format-1 (min max)
-  (goto-char min)
-  (while (re-search-forward "\\/\\([^\n/]*;[^\n/]*\\)\\/" max t nil)
-    (setq candidate (buffer-substring-no-properties
-		     (match-beginning 1) (match-end 1)))
-    (delete-region (match-beginning 1) (match-end 1))
-    (goto-char (match-beginning 1))
-    (insert 
-     (concat "(concat \""
-	     (mapconcat
-	      (function
-	       (lambda (c) (if (eq c ?\;) "\\073" (char-to-string c))))
-	      (append candidate nil) "")
-	     "\")"))))
+  (let (candidate)
+    (goto-char min)
+    (while (re-search-forward "\\/\\([^\n/]*;[^\n/]*\\)\\/" max t nil)
+      (setq candidate (buffer-substring-no-properties
+		       (match-beginning 1) (match-end 1)))
+      (delete-region (match-beginning 1) (match-end 1))
+      (goto-char (match-beginning 1))
+      (insert 
+       (concat "(concat \""
+	       (mapconcat
+		(function
+		 (lambda (c) (if (eq c ?\;) "\\073" (char-to-string c))))
+		(append candidate nil) "")
+	       "\")")))))
 
 (defun skk-search ()
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
@@ -3288,7 +3292,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   ;; 評価したときにその文字となるような Lisp コードを返す。
   (save-match-data
     (if (and word
-             (string-match "[;/\n\r\"]" word)
+             (string-match "[/\n\r\"]" word)
              ;; we should not quote WORD if it is a symbolic expression
              (not (skk-lisp-prog-p word)))
         (concat "(concat \""
