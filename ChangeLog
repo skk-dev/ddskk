@@ -1,5 +1,7 @@
 2001-07-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
+	* READMEs/README: Updated.
+
 	* skk-vars.el (skk-rom-kana-base-rule-list): Add an element whose
 	car is skk-kakutei-key. 
 
@@ -3598,8 +3600,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.312 2001/07/19 16:50:49 minakaji Exp $
-Last Modified: $Date: 2001/07/19 16:50:49 $
+Version: $Id: ChangeLog,v 1.313 2001/07/19 17:05:07 minakaji Exp $
+Last Modified: $Date: 2001/07/19 17:05:07 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
