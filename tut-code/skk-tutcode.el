@@ -1,11 +1,11 @@
 ;;; skk-tutcode.el --- assist TUT-code inputting in SKK environment.
-;; Copyright (C) 1999 GUNJI Takao <gunji@sils.shoin.ac.jp>
+;; Copyright (C) 1999, 2000 GUNJI Takao <gunji@sils.shoin.ac.jp>
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcode.el,v 1.2 2000/12/13 10:38:50 minakaji Exp $
+;; Version: $Id: skk-tutcode.el,v 1.3 2000/12/13 11:24:18 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/13 10:38:50 $
+;; Last Modified: $Date: 2000/12/13 11:24:18 $
 
 ;; This file is part of Daredevil SKK.
 

@@ -13,6 +13,7 @@
 	* tut-code/skk-tutcode.el (skk-tutcode-display-code-1): Declare
 	with defun using `static-cond' instead of `skk-defun-cond'.
 	Recognize jisx0213 charset characters.
+	Recognize skk-emacs-type mule5.
 	
 	* skk-kcode.el (skk-display-code): Recognize jisx0213 charset
 	characters.
@@ -2870,8 +2871,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.212 2000/12/13 10:39:42 minakaji Exp $
-Last Modified: $Date: 2000/12/13 10:39:42 $
+Version: $Id: ChangeLog,v 1.213 2000/12/13 11:24:18 minakaji Exp $
+Last Modified: $Date: 2000/12/13 11:24:18 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
