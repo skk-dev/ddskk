@@ -6,9 +6,9 @@
 ;;         Murata Shuuichirou <mrt@astec.co.jp>
 ;; Maintainer: Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-viper.el,v 1.3 1999/08/29 21:25:58 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.4 1999/09/25 05:52:01 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 21:25:58 $
+;; Last Modified: $Date: 1999/09/25 05:52:01 $
 
 ;; This file is not part of SKK yet.
 
@@ -61,12 +61,6 @@
   (` (if skk-viper-use-vip-prefix
 	 (defadvice (, vip) (, arg) (,@ body))
        (defadvice (, viper) (, arg) (,@ body)) )))
-
-(skk-defsubst-cond skk-jisx0208-p (char)
-  ((boundp 'lc-jp)
-   (eq lc-jp (car (find-charset-string (char-to-string char)))) )
-  (t
-   (eq 'japanese-jisx0208 (car (find-charset-string (char-to-string char)))) ))
 
 (setq skk-kana-cleanup-command-list
       (cons 
