@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.9 1999/10/02 14:00:03 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.10 1999/10/03 07:56:01 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/02 14:00:03 $
+;; Last Modified: $Date: 1999/10/03 07:56:01 $
 
 ;; This file is not part of SKK yet.
 
@@ -88,7 +88,7 @@
 ;;;; user variables.
 ;;;###autoload
 (defcustom skk-lookup-search-agents
-  (let ((agents (copy-sequence lookup-search-agents))
+  (let ((agents (copy-list lookup-search-agents))
 	e )
     ;; use `skk-kakasi.el'.
     (setq agents (delete '(ndkks) agents))
@@ -110,7 +110,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
           '((ndtp \"dserver\" :port 2010)
             (ndeb \"/cdrom\" :enable (\"EIWA\")))))"
   :type '(repeat (sexp :tag "agent"))	; type $B$O$A$g$C$H$d$d$3$7$9$.!&!&(B
-  :group 'skk-lookup )
+  :group 'skk-lookup
+  :require 'lookup-vars )
 
 ;;;###autoload
 (defcustom skk-lookup-option-alist
@@ -122,9 +123,9 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; "($BHiIf$J$I$N(B)$B$"$+(B <grime>", "$B!T1Q!U(B ($B%Q%$%W$J$I$N(B)$B$"$+(B <fur>"
     ("COLLOC" exact "\\([^ $B!T!U(B]+\\) <[a-z]+>$" nil)
     ;; "$B9$(B", "$B@V(B" 
-    ("KANWA" exact "^\\(.+\\)$" nil)
+    ("KANWA" exact nil nil)
     ;; "$B9$(B"
-    ("MYPAEDIA" exact "^\\(.+\\)$" nil)
+    ("MYPAEDIA" exact nil nil)
     ;; "$B!!$"$+(B <scud$B#2(B>", "$B!!!V$"$+!W(B <rust>"
     ("PLUS" exact "^$B!!(B\\(.+\\) <[a-z$B#0(B-$B#9(B]+>$" nil)
     )
@@ -133,8 +134,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 
   0th: lookup-dictionary-name $B$,JV$9J8;zNs!#(B 
   1th: search methods $B$r<($9%7%s%\%k!#(B
-  2th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp \(\(match-string 1\)
-       $B$G8uJd$r<h$j=P$9$3$H$,$G$-$k$h$&;XDj$9$k(B\)$B!#(B
+  2th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp \(\(match-string 1\) $B$G8uJd$r<h$j=P$9$3$H$,(B
+       $B$G$-$k$h$&;XDj$9$k(B\)$B!#(B
   3th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!#(B
 
 $B8=:_BP1~$7$F$$$k<-=qL>$O!"(B\"CHUJITEN\", \"COLLOC\", \"KANWA\",
@@ -144,7 +145,17 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 $B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
 
  \(skk-lookup-pickup-headings \"$B$3$7$g$&(B\" 'exact\)"
-  :type '(repeat (sexp :tag "Dictionary options alist"))
+  :type '(repeat
+	  (list (string :tag "Dictionary name")
+		(choice :tag "Search method"
+			(const exact) (const prefix)
+			(const suffix) (const substring)
+			(const regexp) (const keyword)
+			(const text) )
+		(choice :tag "regexp to substring candidate from heading"
+			regexp (const nil) )
+		(choice :tag "regexp to split candidates"
+		       regexp (const nil) )))
   :group 'skk-lookup )
     
 ;;;###autoload
@@ -154,8 +165,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 $B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
 
   0th: search methods $B$r<($9%7%s%\%k!#(B
-  1th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp \(\(match-string 1\)
-       $B$G8uJd$r<h$j=P$9$3$H$,$G$-$k$h$&;XDj$9$k(B\)$B!#(B
+  1th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp \(\(match-string 1\) $B$G8uJd$r<h$j=P$9$3$H(B
+       $B$,$G$-$k$h$&;XDj$9$k(B\)$B!#(B
   2th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!#(B
 
 $B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"CHIEZO\", \"KOJIEN\", \"KOUJIEN\",
@@ -170,7 +181,15 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 $B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
 
  \(skk-lookup-pickup-headings \"$B$3$7$g$&(B\" 'exact\)"
-  :type '(repeat (sexp :tag "Default dictionary options"))
+  :type '(list (choice :tag "Search method"
+		       (const exact) (const prefix)
+		       (const suffix) (const substring)
+		       (const regexp) (const keyword)
+		       (const text) )
+	       (choice :tag "regexp to substring candidate from heading"
+		       regexp (const nil) )
+	       (choice :tag "regexp to split candidates"
+		       regexp (const nil) ))
   :group 'skk-lookup )
 
 ;;;###autoload
@@ -243,7 +262,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     (do ((pickup-pattern (skk-lookup-get-pickup-regexp name))
 	 (split-pattern (skk-lookup-get-split-regexp name))
 	 candidates-string candidates-list )
-	((or (string= heading "")
+	((or (and (not pickup-pattern) (setq candidate-list (list heading)))
+	     (string= heading "")
 	     (not (string-match pickup-pattern heading)) )
 	 candidates-list )
       (setq candidates-string (match-string 1 heading)
