@@ -6,8 +6,8 @@
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.1 1999/09/22 04:00:17 minakaji Exp $
-;; Last Modified: $Date: 1999/09/22 04:00:17 $
+;; Version: $Id: tinyinstall.el,v 1.2 1999/09/22 04:41:29 minakaji Exp $
+;; Last Modified: $Date: 1999/09/22 04:41:29 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -38,6 +38,12 @@
   (if (>= emacs-major-version 19)
       "site-lisp"
     "local.lisp"))
+
+;; from path-util.el
+(defvar default-load-path load-path
+  "*Base of `load-path'.
+It is used as default value of target path to search file or
+subdirectory under load-path.")
 
 (defun install-detect-elisp-directory (&optional prefix elisp-prefix
 						 allow-version-specific)
