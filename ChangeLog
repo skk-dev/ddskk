@@ -112,7 +112,7 @@
 	(skk-delete-henkan-markers):
 	(keyboard-quit):
 	(abort-recursive-edit):
-	Don not refer to `skk-kanji-len'.
+	Do not refer to `skk-kanji-len'.
 
 	(skk-compute-henkan-lists):
 	(skk-remove-common):
@@ -3506,8 +3506,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.640 2002/01/19 02:15:44 czkmt Exp $
-Last Modified: $Date: 2002/01/19 02:15:44 $
+Version: $Id: ChangeLog,v 1.641 2002/01/19 03:57:58 czkmt Exp $
+Last Modified: $Date: 2002/01/19 03:57:58 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
