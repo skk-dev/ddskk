@@ -1,15 +1,13 @@
 -*- mode: outline -*-
 
-	$Id: README.ja,v 1.3 2000/11/12 01:27:12 czkmt Exp $
-
 
 このディレクトリには SKK の仮名入力対応コードを置いています。
 
 
 * 概要
 
-Daredevil SKK をローマ字的入力以外の入力方式に対応させることを目的とし
-ます。現在は以下の入力方式について、サポートするべく開発しています。
+SKK をローマ字的入力以外の入力方式に対応させることを目的とします。現在
+は以下の入力方式について、サポートするべく開発しています。
 
 o 日本語 106 キーボードでの仮名入力
 
@@ -29,7 +27,7 @@ Alpha.
 
 * サポートする Emacsen
 
-Daredevil SKK がサポートするもの。
+同梱のバージョンの SKK がサポートするもの。
 
 以下のものは動作確認できます。
 
@@ -90,7 +88,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
    % make install (XEmacs では make install-package)
 
-** Daredevil SKK をインストール
+** SKK をインストール
 
    [方法 1]
 
@@ -98,23 +96,24 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
    CVS password: guest (CR)
 
-   % cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot co \
-   -r deredevil skk/main
+   % cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot \
+   co skk/main
 
    [方法 2]
 
-   http://www.remus.dti.ne.jp/%7Eczkmt/update/elisp/
-
-   % make install (XEmacs では make install-package)
+   http://openlab.ring.gr.jp/skk/
 
 ** NICOLA-DDSKK のインストール
+
+   必ず、上でインストールした SKK に同梱されている NICOLA-DDSKK をイン
+   ストールしてください。
 
    % make install (XEmacs では make install-package)
 
 
 * 設定
 
-** Daredevil SKK の設定
+** SKK の設定
 
    ~/.emacs に
 
@@ -229,7 +228,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
 がよく考えられていて素晴しいものであると感じました。その一方で、
 NICOLA-SKK が SKK 8.6 辺りをベースにしているためか、苦労されているよう
-に思える部分もありました。Daredevil SKK は SKK 8.6 よりもかなり実装が
+に思える部分もありました。この当時の SKK は SKK 8.6 よりもかなり実装が
 きれいになっているので、そのような余計な苦労はある程度無くすことができ
 るだろうと考えました。
 
@@ -250,6 +249,8 @@ NICOLA を利用すれば、この問題は非常に積極的に解決できる、ということに、
 ときにはタッチタイプなんて出来ていませんでした。今ではすっかり NICOLA
 に慣れてしまい、快適だと感じています。
 
+なお、NICOLA-DDSKK という名前は、本プログラムを書いた当時の SKK の開発
+版が Daredevil SKK と呼ばれていたところから付けられています。
 
 
 # Local Variables:
