@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.3 2004/02/29 01:28:42 minakaji Exp $
+;; Version: $Id: skk-bayesian.el,v 1.4 2004/02/29 01:39:38 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2004/02/29 01:28:42 $
+;; Last Modified: $Date: 2004/02/29 01:39:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -105,7 +105,7 @@
 
 (defmacro skk-bayesian-debug-message (STRING &rest ARGS)
   `(if skk-bayesian-debug
-       (message STRING ARGS)))
+       (message ,STRING ,@ARGS)))
 
 (defsubst skk-bayesian-process-live-p ()
   "`skk-bayesian-process' が non-nil かつそのプロセスが実行中なら t を返す。 "
