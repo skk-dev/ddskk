@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.40 2003/07/18 15:51:10 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.41 2003/07/18 16:02:39 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/18 15:51:10 $
+;; Last Modified: $Date: 2003/07/18 16:02:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -258,7 +258,12 @@
   (interactive
    (list (completing-read
 	  "Theme of current buffer: (default: general) "
-	  (mapcar 'car skk-study-alist))))
+	  (when (or skk-study-alist (skk-study-read))
+	    (let ((n 0))
+	      (mapcar (lambda (e)
+			(setq n (1+ n))
+			(cons e n))
+		      (mapcar 'car skk-study-alist)))))))
   (unless (stringp theme)
     (skk-error "skk-study の theme が文字列ではありません"
 	       "Only string is allowed as theme of skk-study"))
