@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.52 2000/11/12 10:46:20 czkmt Exp $
+;; Version: $Id: skk.el,v 1.53 2000/11/13 10:33:08 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/12 10:46:20 $
+;; Last Modified: $Date: 2000/11/13 10:33:08 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1615,10 +1615,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				   (lambda (key)
 				     (key-description key)))
 				  (append
-				   (where-is-internal 'skk-previous-candidate
-						      skk-j-mode-map)
-				   (where-is-internal 'skk-undo
-						      skk-j-mode-map)))))
+				   (where-is-internal 'skk-previous-candidate)
+				   (where-is-internal 'skk-undo)))))
 			    (if (= loop 0)
 				;; skk-henkan-show-candidates を呼ぶ前の状態に戻
 				;; す。
@@ -1635,14 +1633,23 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				  (throw 'unread nil))
 			      ;; 一つ前の候補群をエコーエリアに表示する。
 			      (setq reverse t)))
-			   ;; これがないと quit できない。何故？
-			   ((and (eq skk-emacs-type 'xemacs)
-				 (eq char (quit-char)))
+			   ((member
+			     (key-description key)
+			     (mapcar
+			      (function
+			       (lambda (key)
+				 (key-description key)))
+			      (append
+			       (where-is-internal 'keyboard-quit)
+			       (where-is-internal 'skk-kanagaki-bs)
+			       (where-is-internal 'skk-kanagaki-esc))))
 			    (signal 'quit nil))
-			   (t (skk-message "\"%c\" は有効なキーではありません！"
-					   "\"%c\" is not valid here!"
-					   char)
-			      (sit-for 1)))))
+			   (t
+			    (skk-message "\"%s\" は有効なキーではありません！"
+					 "\"%s\" is not valid here!"
+					 (or (key-description key)
+					     (key-description char)))
+			    (sit-for 1)))))
 	       (quit
 		;; skk-previous-candidate へ
 		(setq skk-henkan-count 0)
