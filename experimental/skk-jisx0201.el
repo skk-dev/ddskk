@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.1 1999/10/31 10:52:16 minakaji Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.2 1999/10/31 14:27:54 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 1999/10/31 10:52:16 $
+;; Last Modified: $Date: 1999/10/31 14:27:54 $
 
 ;; This file is not part of SKK yet.
 
@@ -208,7 +208,7 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。" )
   (define-key skk-jisx0201-mode-map skk-kakutei-key 'skk-kakutei) )
 
 (defadvice skk-kakutei (after skk-jisx0201-ad activate)
-  (setq skk-jisx0201-mode nil) )
+  (and skk-jisx0201-mode (skk-jisx0201-mode-on)) )
 
 (defadvice skk-latin-mode (after skk-jisx0201-ad activate)
   (setq skk-jisx0201-mode nil) )
@@ -240,11 +240,19 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。" )
 			 (not (skk-select-branch skk-jisx0201-current-rule-tree ch)) ))
 		(and skk-henkan-on (memq ch skk-special-midashi-char-list)) )
 	    ;; normal pattern
-	    ;; skk-set-henkan-point -> skk-kana-input.
-	    (skk-set-henkan-point arg) )
+	    ;; skk-set-henkan-point -> skk-jisx0201-kana-input.
+	    (skk-jisx0201-set-henkan-point arg) )
 	   ;; start conversion.
 	   ((and skk-henkan-on (eq ch skk-start-henkan-char))
-	    (skk-start-henkan arg) )
+	    (let ((jisx0201 (buffer-substring-no-properties
+			     skk-henkan-start-point (point) ))
+		  jisx0208 )
+	      (if (and jisx0201 (setq jisx0208 (japanese-zenkaku jisx0201)))
+		  (progn
+		    (insert-before-markers jisx0208)
+		    (delete-region skk-henkan-start-point
+				   (- (point) (length jisx0208)) )))
+	      (let ((skk-katakana t)) (skk-start-henkan arg)) ))
 	   ;; for completion.
 	   ((and skk-henkan-on (not skk-henkan-active))
 	    (cond ((eq ch skk-try-completion-char)
@@ -256,7 +264,7 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。" )
 			  (skk-completion nil) )
 			 ((eq ch skk-previous-completion-char)
 			  (skk-previous-completion) )))
-		  (t (skk-kana-input arg)) ))
+		  (t (skk-jisx0201-kana-input arg)) ))
 	   ;; just imput JISX0201 Kana.
 	   (t (skk-jisx0201-kana-input arg)) ))))
 
@@ -330,16 +338,14 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。" )
 	       (setq data (funcall data (skk-make-raw-arg arg))) )
 	  (if (not (stringp (if (consp data) (car data) data)))
 	      nil
-	    (let* ((str (if (consp data) (if skk-katakana (car data) (cdr data))
-			  data ))
-		   (pair (and skk-auto-insert-paren
-			      (cdr (assoc str skk-auto-paren-string-alist)) ))
-		   (count0 arg) (count1 arg) (inserted 0) )
+	    (let ((pair (and skk-auto-insert-paren
+			     (cdr (assoc data skk-auto-paren-string-alist)) ))
+		  (count0 arg) (count1 arg) (inserted 0) )
 	      (and skk-henkan-active
 		   skk-kakutei-early (not skk-process-okuri-early)
 		   (skk-kakutei) )
 	      (while (> count0 0)
-		(skk-insert-str str)
+		(skk-insert-str data)
 		(setq count0 (1- count0)) )
 	      (if (not pair)
 		  nil
@@ -352,6 +358,120 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。" )
 		(or (= inserted 0) (backward-char inserted)) )
 	      (and skk-okurigana (null queue) (skk-set-okurigana)) ))))
       (and skk-isearch-message (skk-isearch-message)) )))
+
+(defun skk-jisx0201-set-henkan-point (&optional arg)
+  ;;"変換を開始するポイントをマークし、対応する skk-prefix か、母音を入力する。"
+  (let* ((last-char (skk-downcase last-command-char))
+	 (normal (not (eq last-char last-command-char)))
+	 (sokuon (and (string= skk-prefix (char-to-string last-char))
+		      (/= last-char ?o)))
+	 (henkan-active skk-henkan-active))
+    (if (or (not skk-henkan-on) skk-henkan-active)
+	(if normal
+	    (skk-jisx0201-set-henkan-point-subr)
+	  (and skk-henkan-on (skk-jisx0201-set-henkan-point-subr))
+	  (if henkan-active
+	      (skk-emulate-original-map arg)
+	    ;; What's to be here?
+	    ;;(skk-self-insert arg)
+	    ))
+      (if (not normal)
+	  (progn			; special char
+	    (insert-and-inherit last-char)
+	    (skk-set-marker skk-henkan-end-point (point))
+	    (setq skk-henkan-count 0
+		  skk-henkan-key (buffer-substring-no-properties
+				  skk-henkan-start-point (point) )
+		  skk-prefix "" )
+	    (skk-henkan) )
+	;; prepare for the processing of okurigana if not skk-okurigana
+	;; and the preceding character is not a numeric character.
+	;; if the previous char is a special midashi char or a
+	;; numeric character, we assume that the user intended to type the
+	;; last-command-char in lower case.
+	(if (and (or (not (skk-get-prefix skk-jisx0201-current-rule-tree)) ; for KAnji, KanJIru
+		     (and
+		      (not (= skk-henkan-start-point skk-kana-start-point))
+		      (or sokuon	; for TaSSi or TasSi
+			  (skk-kana-cleanup)) )) ; for NEko
+		 (not skk-okurigana)
+		 (or (= skk-henkan-start-point (point))
+		     (let ((p (char-before)))
+		       (not
+			(or
+			 ;; previous char is a special midashi char
+			 (memq p skk-special-midashi-char-list)
+			 ;; previous char is an ascii numeric char
+			 (and (<= ?0 p) (<= p ?9))
+			 ;; previous char is a JIS X 0208 numeric char
+			 (and (skk-jisx0208-p p)
+			      (= (skk-char-octet p 0) 35) ;?#
+			      (<= 48 (skk-char-octet p 1)) ; ?0
+			      (<= (skk-char-octet p 1) 57) ) ; ?9
+			 )))))
+	    (if skk-process-okuri-early
+		(progn
+		  (skk-set-marker skk-henkan-end-point (point))
+		  (setq skk-okuri-char (char-to-string last-char))
+		  (if sokuon
+		      (progn
+			(setq skk-henkan-key
+			      (concat (buffer-substring-no-properties
+				       skk-henkan-start-point
+				       skk-kana-start-point )
+				      "ﾂ"
+				      skk-henkan-okurigana ))
+			(skk-erase-prefix)
+			(insert-and-inherit "ﾂ")
+			(setq skk-prefix ""
+			      skk-henkan-count 0 )
+			(skk-henkan)
+			(delete-backward-char 2) )
+		    (setq skk-henkan-key (concat
+					  (buffer-substring-no-properties
+					   skk-henkan-start-point
+					   (point) )
+					  skk-okuri-char ))
+		    (insert-and-inherit " ")
+		    (setq skk-prefix ""
+			  skk-henkan-count 0 )
+		    (skk-henkan)
+		    (delete-backward-char 1) )
+		  ;; we set skk-kana-start-point here, since the marker may no
+		  ;; longer point at the correct position after skk-henkan.
+		  (skk-set-marker skk-kana-start-point (point)) )
+	      (if (= skk-henkan-start-point (point))
+		  nil
+		(if sokuon
+		    (progn
+		      (skk-erase-prefix 'clean)
+		      (insert-and-inherit "ﾂ") ))
+		(skk-set-marker skk-okurigana-start-point (point))
+		(insert-and-inherit "*")
+		(skk-set-marker skk-kana-start-point (point))
+		(setq skk-okuri-char (char-to-string last-char)
+		      skk-okurigana t ))))))
+    (if normal
+	(progn
+	  (setq last-command-char last-char)
+	  (skk-jisx0201-kana-input arg) ))))
+
+(defun skk-jisx0201-set-henkan-point-subr (&optional arg)
+  "かなを入力した後で、ポイントに変換開始のマーク \(▽\) を付ける。
+元々はこの関数は skk-set-henkan-point の内部関数である。"
+  (interactive "*P")
+  (skk-with-point-move
+   (cancel-undo-boundary)
+   (if skk-henkan-on (skk-kakutei)
+     (skk-kana-cleanup) );; XXX
+   (if (not (skk-get-prefix skk-jisx0201-current-rule-tree))
+       (insert-and-inherit "▽")
+     (skk-erase-prefix)
+     (insert-and-inherit "▽")
+     (skk-set-marker skk-kana-start-point (point))
+     (skk-insert-prefix) )
+   (setq skk-henkan-on t)
+   (skk-set-marker skk-henkan-start-point (point)) ))
 
 (defun skk-toggle-katakana (arg)
   (interactive "P")
