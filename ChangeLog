@@ -14,7 +14,7 @@
 	(skk-try-completion):
 	(skk-insert):
 
-	When the user types C-u TAB instead of solely TAB, discard the
+	When the user types C-u TAB instead of TAB solely, discard the
 	current copmletion key, get new comletion key from the current
 	buffer, and begin new completion.
 
@@ -3983,8 +3983,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.701 2002/07/27 06:27:16 czkmt Exp $
-Last Modified: $Date: 2002/07/27 06:27:16 $
+Version: $Id: ChangeLog,v 1.702 2002/07/27 06:28:01 czkmt Exp $
+Last Modified: $Date: 2002/07/27 06:28:01 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
