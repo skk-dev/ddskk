@@ -1,4 +1,4 @@
-;;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program)
+;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program)
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2000, 2001
@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.227 2002/02/10 03:05:17 czkmt Exp $
+;; Version: $Id: skk.el,v 1.228 2002/02/10 10:22:38 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/10 03:05:17 $
+;; Last Modified: $Date: 2002/02/10 10:22:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3620,7 +3620,7 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
 
 (defun skk-quote-semicolon (word)
   "WORD を辞書エントリとして正しい形に整形する。
-`skk-quote^char' と似ているが、註釈と関係ないセミコロン (;) を処理する点が
+`skk-quote-char' と似ているが、註釈と関係ないセミコロン (;) を処理する点が
 異なる。"
   ;; `save-match-data' は要らない。
   (cond
