@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.238 2002/03/14 10:16:16 czkmt Exp $
+;; Version: $Id: skk.el,v 1.239 2002/03/16 04:03:21 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/14 10:16:16 $
+;; Last Modified: $Date: 2002/03/16 04:03:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3617,12 +3617,23 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
 	      ;; words3 として挿入するものが全くなければ、"/[く/]/" のよ
 	      ;; うな送り仮名のみの候補を作らないようにする (必要で
 	      ;; あれば、words2 の最後方と) words4 の先頭の "]" を削除。
-	      (let ((last2 (nthcdr (- (length words2) 2)
-				   words2)))
+	      (let* ((len (length words2))
+		     (last2 (cond
+			     ((= len 0)
+			      nil)
+			     ((= len 1)
+			      (list nil (car words2)))
+			     (t
+			      (nthcdr (- (length words2) 2)
+				      words2)))))
 		;; words2 の最後方は常に "[送り仮名" とは限らない。
-		(when (string= (nth 1 last2)
-			       (concat "[" okurigana))
-		  (setcdr last2 nil))
+		(when (and last2 (string= (nth 1 last2)
+					  (concat "[" okurigana)))
+		  (cond
+		   ((= len 1)
+		    (setq words2 nil))
+		   (t
+		    (setcdr last2 nil))))
 		;; words4 の先頭は常に "]"。
 		(setq words4 (cdr words4)))))))
 	 (t
