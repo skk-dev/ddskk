@@ -1,12 +1,12 @@
-;;; skk-lookup.el --- SKK lookup interface
+;;; skk-lookup.el --- SKK lookup gateway
 ;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.8 1999/10/02 09:31:18 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.9 1999/10/02 14:00:03 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/02 09:31:18 $
+;; Last Modified: $Date: 1999/10/02 14:00:03 $
 
 ;; This file is not part of SKK yet.
 
@@ -27,8 +27,13 @@
 
 ;;; Commentary
 ;;
+;; Keisuke Nishida <kxn30@po.cwru.edu> $B$5$s$N:n$i$l$?<-=q8!:w%D!<%k(B
+;; Lookup $B$H(B SKK $B$H$N(B gateway $B$r9T$J$$!"(BLookup $B$G8!:w$G$-$k<-=q$r;H$C(B
+;; $B$F8uJd$r=PNO$9$k%W%m%0%i%`$G$9!#EvA3$G$9$,!"(BLookup $B5Z$SBP1~$9$k<-=q(B
+;; $B$,%$%s%9%H!<%k$5$l$F$$$J$$$H;H$($^$;$s!#(B
+;;
 ;; skk.el $B$K$"$k(B kill-buffer $B$N(B advice $B$r<!$N$b$N$HF~$lBX$(%$%s%9%H!<(B
-;; $B%k$7D>$9I,MW$,$"$k!#(B
+;; $B%k$7D>$9I,MW$,$"$j$^$9!#(B
 ;;
 ;; (defadvice kill-buffer (around skk-ad activate)
 ;;   "SKK $B$N"'%b!<%I$@$C$?$i!"3NDj$7$F$+$i%P%C%U%!$r%-%k$9$k!#(B
@@ -39,15 +44,38 @@
 ;;   ;; $B$,$"$k!#(B
 ;;   (skk-set-cursor-properly) )
 ;;
-;; $B<!$N$h$&$K(B skk-search-prog-list $B$K2C$($F;XDj$7;HMQ$9$k!#(B
-;; skk-seach-server $B$N8!:w$N8e$K;}$C$F$/$k$N$,%;%*%j!<!#(B
+;; $B<!$N$h$&$K(B skk-search-prog-list $B$K2C$($F;XDj$7;HMQ$7$^$9!#(B
+;; SKK $B$,MQ0U$7$F$$$k8!:w%W%m%0%i%`$NCf$G:G$b=E$$$N$G!"(B
+;; skk-seach-server $B$N8!:w$N8e$K;}$C$F$/$k$N$,%;%*%j!<$G$9!#(B
 ;; 
 ;;  (setq skk-search-prog-list
 ;;        '((skk-search-jisyo-file skk-jisyo 0 t)
 ;;          (skk-search-server skk-aux-large-jisyo 10000)
 ;;          (skk-lookup-search) ))
 ;;
+;; $B8=:_BP1~$7$F$$$k<-=q$O!"(Bispell, CHIEZO, CHUJITEN, COLLOC, KANWA,
+;; KOJIEN, KOKUGO, KOUJIEN, MYPAEDIA, PLUS, RIKAGAKU, WAEI $B$G$9(B
+;; (lookup-dictionary-name $B$,JV$9CM$GI85-$7$F$$$^$9(B)$B!#(Bkakasi
+;; (KAKASI $B$rMxMQ$9$k$J$i(B skk-kakasi.el $B$r;H$$$^$7$g$&(B), ndcookie,
+;; ndnmz $B$K$OBP1~$$$F$$$^$;$s$7!"BP1~$NI,MW$O$J$$$H9M$($F$$$^$9(B ($B%a%j%C(B
+;; $B%H$,$"$l$P65$($F2<$5$$(B)$B!#(B
 ;;
+;; $B$4<+J,$G;HMQ$7$F$$$k<-=q$N=PNO$,>e<j$/<h$j9~$a$J$$$H$-$O!"(B
+;; `skk-lookup-pickup-headings' $B$r;HMQ$7$FNc$($P!"(B
+;; 
+;;   (skk-lookup-pickup-headings "$B$3$7$g$&(B" 'exact)
+;;
+;; $B$J$I$HI>2A$7$F(B ("$B$3$7$g$&(B" $B$NJ8;zNsItJ,$OLdBj$H$J$C$F$$$k8!:wBP>]$H(B
+;; $BF~$lBX$($^$7$g$&(B) `lookup-dictionary-name' $B$H(B
+;; `lookup-entry-heading' $B$,JV$9CM$r;29M$K!"(B`'skk-lookup-option-alist'
+;; $B$KI,MW$J%j%9%H$r2C$($^$7$g$&!#?7$?$J%j%9%H$r2C$($i$l$?$i@'Hs:n<T$K(B
+;; $B$bCN$;$F2<$5$$!#(Bdefault value $B$K<h$j9~$_$?$$$H;W$$$^$9!#$h$m$7$/$*(B
+;; $B4j$$$$$?$7$^$9!#(B
+;;
+;; $BKvHx$J$,$i!"(BLookup $B$r:n$i$l$?(B Keisuke Nishida $B$5$s5Z$S(B Lookup
+;; Development Team $B$N3'MM!"3+H/$N=i4|$+$i%G%P%C%0$r<jEA$C$F$$$?$@$$$?!"(B
+;; NEMOTO Takashi <tnemoto@mvi.biglobe.ne.jp> $B$5$s$K?<$/46<U$$$?$7$^$9!#(B
+
 ;;; Code:
 (eval-when-compile (require 'skk) (require 'cl))
 (require 'lookup)
@@ -58,9 +86,17 @@
   :group 'skk )
 
 ;;;; user variables.
-;; not used yet.
 ;;;###autoload
-(defcustom skk-search-agents lookup-search-agents 
+(defcustom skk-lookup-search-agents
+  (let ((agents (copy-sequence lookup-search-agents))
+	e )
+    ;; use `skk-kakasi.el'.
+    (setq agents (delete '(ndkks) agents))
+    (while (setq e (assq 'ndcookie agents))
+      (setq agents (delq e agents)) )
+    (while (setq e (assq 'ndnmz agents))
+      (setq agents (delq e agents)) )
+    agents )
   "*$B8!:w%(!<%8%'%s%H$N@_Dj$N%j%9%H!#(B
 $B%j%9%H$N3FMWAG$O<!$N7A<0$r<h$k(B:
 
@@ -79,45 +115,48 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 ;;;###autoload
 (defcustom skk-lookup-option-alist
   '(
+    ;; "[spla -> splat]"
+    ("ispell" exact "-> \\([^ ]+\\)]$" nil)
     ;; "$B$"$+#3(B $B^@(B", "ethanol"
-    ("CHUJITEN" exact "[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" nil nil nil)
+    ("CHUJITEN" exact "[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" nil)
     ;; "($BHiIf$J$I$N(B)$B$"$+(B <grime>", "$B!T1Q!U(B ($B%Q%$%W$J$I$N(B)$B$"$+(B <fur>"
-    ("COLLOC" exact "\\([^ $B!T!U(B]+\\) <[a-z]+>$" nil nil nil)
-    ;; like default but should process gaiji.
-    ("IWAKOKU" exact "$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" "$B!&(B" t "_")
+    ("COLLOC" exact "\\([^ $B!T!U(B]+\\) <[a-z]+>$" nil)
     ;; "$B9$(B", "$B@V(B" 
-    ("KANWA" exact "^\\(.+\\)$" nil nil nil)
+    ("KANWA" exact "^\\(.+\\)$" nil)
     ;; "$B9$(B"
-    ("MYPAEDIA" exact "^\\(.+\\)$" nil nil nil)
+    ("MYPAEDIA" exact "^\\(.+\\)$" nil)
     ;; "$B!!$"$+(B <scud$B#2(B>", "$B!!!V$"$+!W(B <rust>"
-    ("PLUS" exact "^$B!!(B\\(.+\\) <[a-z$B#0(B-$B#9(B]+>$" nil nil nil)
+    ("PLUS" exact "^$B!!(B\\(.+\\) <[a-z$B#0(B-$B#9(B]+>$" nil)
     )
   "*$B<-=qKh$N8!:w!"J8;z@Z$j=P$7%*%W%7%g%s!#(B
 $B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
 
-  0th: lookup-dictionary-name $B$,JV$9J8;zNs!"(B 
-  1th: search methods $B$r<($9%7%s%\%k!"(B
-  2th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp$B!"(B
-  3th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!"(B
-  4th: $B30;z%G!<%?$r@Z$j<N$F$k$+$I$&$+!"(B
-  5th: $B30;z%G!<%?$r<($9(B regexp$B!#(B
+  0th: lookup-dictionary-name $B$,JV$9J8;zNs!#(B 
+  1th: search methods $B$r<($9%7%s%\%k!#(B
+  2th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp \(\(match-string 1\)
+       $B$G8uJd$r<h$j=P$9$3$H$,$G$-$k$h$&;XDj$9$k(B\)$B!#(B
+  3th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!#(B
 
-$B8=:_BP1~$7$F$$$k<-=qL>$O!"(B\"CHUJITEN\", \"COLLOC\", \"IWAKOKU\", \"KANWA\",
-\"MYPAEDIA\", \"PLUS\"."
+$B8=:_BP1~$7$F$$$k<-=qL>$O!"(B\"CHUJITEN\", \"COLLOC\", \"KANWA\",
+\"MYPAEDIA\", \"PLUS\".
+
+`lookup-entry-heading' $B$,<+J,$N;HMQ$9$k<-=q$+$i$I$N$h$&$JJ8;zNs$r<h$j=P$9$N$+(B
+$B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
+
+ \(skk-lookup-pickup-headings \"$B$3$7$g$&(B\" 'exact\)"
   :type '(repeat (sexp :tag "Dictionary options alist"))
   :group 'skk-lookup )
     
 ;;;###autoload
 (defcustom skk-lookup-default-option-list
-  '(exact "$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" "$B!&(B" nil nil)
+  '(exact "$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" "$B!&(B")
   "*$B<-=q$N8!:w!"J8;z@Z$j=P$7%*%W%7%g%s$N%G%#%U%)%k%H!#(B
 $B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
 
-  0th: search methods $B$r<($9%7%s%\%k!"(B
-  1th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp$B!"(B
-  2th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!"(B
-  3th: $B30;z%G!<%?$r@Z$j<N$F$k$+$I$&$+!"(B
-  4th: $B30;z%G!<%?$r<($9(B regexp$B!#(B
+  0th: search methods $B$r<($9%7%s%\%k!#(B
+  1th: $B8uJd$r@Z$j=P$9$?$a$N(B regexp \(\(match-string 1\)
+       $B$G8uJd$r<h$j=P$9$3$H$,$G$-$k$h$&;XDj$9$k(B\)$B!#(B
+  2th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B regexp$B!#(B
 
 $B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"CHIEZO\", \"KOJIEN\", \"KOUJIEN\",
 \"KOKUGO, \"RIKAGAKU\", \"WAEI\".
@@ -125,9 +164,26 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 
   \"$B$"!>$+!Z0!2J![!E%/%o(B\"
   \"$B$"$+!Zod2@![(B\"
-  \"$B$3!>$7$g$&!Z>.@+!&>.@-![!E%7%d%&(B\""
+  \"$B$3!>$7$g$&!Z>.@+!&>.@-![!E%7%d%&(B\"
+
+`lookup-entry-heading' $B$,<+J,$N;HMQ$9$k<-=q$+$i$I$N$h$&$JJ8;zNs$r<h$j=P$9$N$+(B
+$B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
+
+ \(skk-lookup-pickup-headings \"$B$3$7$g$&(B\" 'exact\)"
   :type '(repeat (sexp :tag "Default dictionary options"))
   :group 'skk-lookup )
+
+;;;###autoload
+(defcustom skk-lookup-search-modules nil
+  "*$B8!:w%b%8%e!<%k$N@_Dj$N%j%9%H!#(B"
+  :type '(repeat (cons :tag "Module" (string :tag "name")
+		       (repeat :tag "Dictionary" (string :tag "ID"))))
+  :group 'skk-lookup )
+
+;;;; internal variables.
+(defvar skk-lookup-agent-list nil)
+(defvar skk-lookup-default-module nil)
+(defvar skk-lookup-module-list nil)
 
 ;;;; inline functions. 
 (defsubst skk-lookup-get-method (name)
@@ -142,10 +198,6 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   (let ((list (assoc name skk-lookup-option-alist)))
     (nth 2 (if list (cdr list) skk-lookup-default-option-list)) ))
 
-(defsubst skk-lookup-get-process-gaiji-flag (name)
-  (let ((list (assoc name skk-lookup-option-alist)))
-    (nth 3 (if list (cdr list) skk-lookup-default-option-list)) ))
-
 ;;;; funcitions.
 ;;;###autoload
 (defun skk-lookup-search ()
@@ -155,8 +207,9 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 	  (if skk-use-numeric-conversion
 	      (skk-num-compute-henkan-key skk-henkan-key)
 	    skk-henkan-key ))
-    (let ((module (lookup-default-module))
-	  name method query entries candidates-string candidates-list )
+    (let ((module (skk-lookup-default-module))
+	  lookup-enable-gaiji ; not to put out gaiji.
+	  name method entries candidates-string candidates-list )
       ;; setup modules.
       (lookup-module-setup module)
       (lookup-foreach
@@ -189,8 +242,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   (save-match-data
     (do ((pickup-pattern (skk-lookup-get-pickup-regexp name))
 	 (split-pattern (skk-lookup-get-split-regexp name))
-	 (process-gaiji (skk-lookup-get-process-gaiji-flag name))
-	 gaji-regexp candidates-string candidates-list )
+	 candidates-string candidates-list )
 	((or (string= heading "")
 	     (not (string-match pickup-pattern heading)) )
 	 candidates-list )
@@ -199,46 +251,78 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 					    (length heading) )))
       (if (not split-pattern)
 	  (progn
-	    (when process-gaiji 
-	      (setq gaji-regexp (skk-lookup-get-gaiji-pattern name))
-	      (setq candidates-list (skk-lookup-process-gaiji
-				     gaiji-regexp candidates-string )))
 	    (if (not (string= lookup-search-pattern candidates-string))
-		(setq candidates-string
+		(setq candidates-list
 		      (cons candidates-string
 			    (delete candidates-string candidates-list) ))))
-	(when process-gaiji 
-	  (setq gaji-regexp (skk-lookup-get-gaiji-pattern name)) )
 	(setq candidates-string
 	      (lookup-foreach
 	       (lambda (k)
-		 (if process-gaiji
-		     (setq k (skk-lookup-process-gaiji gaiji-regexp k)) )
 		 (if (not (string= lookup-search-pattern candidates-string))
 		     (setq candidates-list (cons k (delete k candidates-list))) ))
 	       (split-string candidates-string split-pattern) )))
-      candidates-string )))
+      candidates-list )))
 
-(defun skk-lookup-process-gaiji (gaiji-regexp tring)
-  (save-match-data
-    (while (string-match gaiji-regexp  string)
-      (setq string (concat (substring string 0 (match-beginning 0))
-			   (substring string (min (1+ (match-beginning 0))
-						  (length string) )))))
-    string ))
+;; The following four functions were imported from lookup.el and
+;; lookup-types.el.
+(defun skk-lookup-default-module ()
+  (or skk-lookup-default-module
+      (setq skk-lookup-default-module (car (skk-lookup-module-list))) ))
 
-;; for creating new regexp.
+(defun skk-lookup-module-list ()
+  (or skk-lookup-module-list
+      (setq skk-lookup-module-list
+	    (mapcar 'skk-lookup-new-module (or skk-lookup-search-modules
+					       '(("%SKK-EVERY" "")) )))))
+(defun skk-lookup-new-module (spec)
+  (let ((name (car spec))
+	(id-list (cdr spec))
+	module agents match start )
+    ;; get agent list
+    (lookup-foreach (lambda (id)
+		      ;; get the list of agents matched with ID
+		      (setq match (concat "^" (regexp-quote id))
+			    start agents )
+		      (lookup-foreach
+		       (lambda (e)
+			 (when (string-match match (lookup-agent-id e))
+			   (setq agents (cons e agents)) ))
+		       (skk-lookup-agent-list) )
+		      (when (eq start agents)
+			(error "No match agent: %s" id) ))
+		    ;; get a list of agent-IDs
+		    (lookup-nunique
+		     (mapcar (lambda (id)
+			       (string-match "^[^:]*" id)
+			       (substring id 0 (match-end 0)) )
+			     id-list )))
+    (setq agents (nreverse (lookup-nunique agents 'eq)))
+    ;; construct module
+    (setq module (lookup-make-module name nil))
+    (lookup-module-put-property module 'agents agents)
+    (lookup-module-put-property module 'id-list id-list)
+    (lookup-module-init module) ))
+
+(defun skk-lookup-agent-list ()
+  (or skk-lookup-agent-list
+      (setq skk-lookup-agent-list
+	    (mapcar 'lookup-new-agent skk-lookup-search-agents))))
+
+;; to check dictionary output of heading for creating new regexp.
 (defun skk-lookup-pickup-headings (pattern method)
-  (let ((module (lookup-default-module))
+  (let ((module (skk-lookup-default-module))
 	var )
     (lookup-module-setup module)
     (lookup-foreach 
      (lambda (dictionary)
        (lookup-foreach 
 	(lambda (entry)
-	  (setq var (nconc (list (list (lookup-dictionary-name dictionary)
-				       (lookup-dictionary-id dictionary)
-				       (lookup-entry-heading entry) ))
+	  (setq var (nconc (list
+			    (list (lookup-dictionary-name dictionary)
+				  (lookup-dictionary-id dictionary)
+				  (lookup-entry-heading entry)
+				  ;;(lookup-dictionary-command dictionary 'content entry)
+				  ))
 			   var )))
 	(lookup-vse-search-query
 	 dictionary (lookup-make-query method pattern) )))
