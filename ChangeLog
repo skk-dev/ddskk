@@ -1,3 +1,29 @@
+2000-12-27  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* dic/README: New file.
+
+2000-12-23  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* SKK-MK (SKK-MK-install-elc): Use `install-cp' instead of
+	`install-files'.
+	Use `install-elisp' instead of `install-elisp-modules'.
+	Use `file-name-nondirectory' to calculate SPEC.
+	(SKK-MK-install-package): Ditto.
+	(SKK-MK-install-info): Use `install-cp' instead of
+	`install-files'.
+	Use `file-name-nondirectory' to calculate INFO-FILE.
+	(DOCDIR): Removed.
+	(ETCDIR): Ditto.
+	(DICDIR): Ditto.
+	(SKK_MODULES): Delete symbol of which source file does not exist.
+	(SKK_INFO): Add relative path to filename.
+	(SKK_TEXIS): Ditto.
+	(SKK_TUTORIALS): Add relative paths to each filenames.
+	(SKK_DICTIONARIES): Ditto.
+	(install-cp): New function.
+	(install-elisp): Ditto.
+	(install-cp-1): Ditto.
+
 2000-12-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e18.el (skk-e18-pre-command): Do not set char.
@@ -24,7 +50,7 @@
 2000-12-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e18.el: Call `require' at toplevel for the feature `advice'.
-	From  Shuhei KOBAYASHI  <shuhei@aqua.ocn.ne.jp>.
+	From Shuhei KOBAYASHI  <shuhei@aqua.ocn.ne.jp>.
 
 	(get-minibuffer, safe-run-hooks): New functions.
 	(read-from-minibuffer): Use them.
@@ -3016,8 +3042,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.239 2000/12/22 17:57:01 czkmt Exp $
-Last Modified: $Date: 2000/12/22 17:57:01 $
+Version: $Id: ChangeLog,v 1.240 2000/12/27 11:16:35 minakaji Exp $
+Last Modified: $Date: 2000/12/27 11:16:35 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
