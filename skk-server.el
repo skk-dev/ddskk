@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.32 2001/12/16 04:08:05 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.33 2002/02/11 08:04:38 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/12/16 04:08:05 $
+;; Last Modified: $Date: 2002/02/11 08:04:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -37,6 +37,8 @@
   (require 'static))
 
 (defun skk-server-live-p (&optional process)
+  "Return t if PROCESS is alive.
+When PROCESS is nil, check `skkserv-process' instead."
   (unless process
     (setq process skkserv-process))
   (and process
@@ -44,6 +46,8 @@
 
 ;;;###autoload
 (defun skk-server-version ()
+  "Return version information of SKK server.
+When called interactively, print version information."
   (interactive)
   (cond
    ((interactive-p)
@@ -79,7 +83,7 @@
 
 ;;;###autoload
 (defun skk-search-server-1 (file limit)
-  ;; skk-search-server のサブルーチン。
+  "skk-search-server のサブルーチン。"
   (let ((key
 	 (if skk-use-numeric-conversion
 	     (skk-num-compute-henkan-key skk-henkan-key)
@@ -130,7 +134,7 @@
       (skk-search-jisyo-file file limit)))))
 
 (defun skk-open-server ()
-  ;; SKK サーバーと接続する。サーバープロセスを返す。
+  "SKK サーバーと接続する。サーバープロセスを返す。"
   (unless (skk-server-live-p)
     (setq skkserv-process (or (skk-open-network-stream)
 			      (skk-open-server-1)))
@@ -140,9 +144,9 @@
   skkserv-process)
 
 (defun skk-open-server-1 ()
-  ;; skk-open-server のサブルーチン。
-  ;; skkserv サービスをオープンできたら process を返す。
-  ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を参照する。
+  "`skk-open-server' のサブルーチン。
+skkserv サービスをオープンできたら process を返す。
+skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を参照する。"
   (let (process)
     (unless skk-server-inhibit-startup-server
       (unless skk-servers-list
@@ -197,8 +201,8 @@
 	      skk-servers-list nil)))))
 
 (defun skk-open-network-stream ()
-  ;; skk-server-host における skkserv サービスの TCP 接続をオープンし、
-  ;; プロセスを返す。
+  "`skk-server-host' における skkserv サービスの TCP 接続をオープンする。
+プロセスを返す。"
   (ignore-errors
     (let ((process
 	   (open-network-stream "skkservd"
@@ -210,7 +214,7 @@
       process)))
 
 (defun skk-startup-server (arg)
-  ;; skkserv を起動できたら t を返す。
+  "直接 skkserv を起動する。起動できたら t を返す。"
   (let (
 	;;(msgbuff (get-buffer-create " *skkserv-msg*"))
 	(count 7)
@@ -254,9 +258,10 @@
 
 ;;;###autoload
 (defun skk-adjust-search-prog-list-for-server-search (&optional non-del)
-  ;; skk-server-host もしくは skk-servers-list が nil であれば、
-  ;; skk-search-prog-list から skk-search-server を car に持つリストを消す。
-  ;; non-nil であれば、加える。
+  "変数 `skk-search-prog-list' を調整する。
+`skk-server-host' もしくは `skk-servers-list' が nil であれば、
+`skk-search-prog-list' から `skk-search-server' を car に持つリストを消す。
+non-nil であれば、加える。"
   (when (and (or skk-server-host
 		 skk-servers-list)
 	     (not (assq 'skk-search-server
@@ -273,7 +278,7 @@
 	     '(skk-search-server skk-aux-large-jisyo 10000))))))
 
 (defun skk-disconnect-server ()
-  ;; サーバーを切り離す。
+  "サーバーを切り離す。"
   (when (and skk-server-host
 	     (skk-server-live-p))
     (process-send-string skkserv-process "0") ; disconnect server

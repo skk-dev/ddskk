@@ -36,7 +36,8 @@
 (defvar skk-jisyo-edit-map nil
   "Keymap for SKK JISYO Edit mode.")
 
-(defvar skk-jisyo-edit-mode-hook nil)
+(defvar skk-jisyo-edit-mode-hook nil
+  "Hook run on entry in `skk-jisyo-edit-mode'.")
 
 (defvar skk-jisyo-edit-syntax-table nil)
 

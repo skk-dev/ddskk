@@ -4,10 +4,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.47 2002/01/18 14:03:15 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.48 2002/02/11 08:04:37 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2002/01/18 14:03:15 $
+;; Last Modified: $Date: 2002/02/11 08:04:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -193,6 +193,7 @@
 
 ;; inline functions.
 (defsubst skk-jisx0201-mode-on (&optional arg)
+  "SKK JIS X 0201 (カナ) モードを起動する。"
   (make-local-variable 'skk-rule-tree)
   (setq skk-mode t
 	skk-jisx0201-mode t
@@ -283,7 +284,7 @@
     ad-do-it)))
 
 (defadvice skk-insert (around skk-jisx0201-ad activate)
-  "SKK JISX0201 モードの文字入力を行なう。"
+  "SKK JIS X 0201 モードの文字入力を行なう。"
   (cond
    (skk-jisx0201-mode
     (let ((arg (ad-get-arg 0))
@@ -329,13 +330,14 @@
     ad-do-it)))
 
 (defadvice skk-search-sagyo-henkaku (before skk-jisx0201-set-okuri activate)
+  "SKK JIS X 0201 モードでは送り仮名を半角カナにする。"
   (when skk-jisx0201-mode
     (ad-set-arg 0 '("ｻ" "ｼ" "ｽ" "ｾ"))))
 
 ;; functions.
 ;;;###autoload
 (defun skk-jisx0201-mode (arg)
-  "SKK のモードを JISX0201 モードに変更する。"
+  "SKK のモードを JIS X 0201 モードに変更する。"
   (interactive "P")
   (skk-kakutei)
   (skk-jisx0201-mode-on))
@@ -360,11 +362,11 @@
     (buffer-string)))
 
 (defun skk-jisx0201-zenkaku (str)
-  "STR のJIS X 0201 カナに属する文字を対応する JIS X 0208 の文字で置き換える。"
+  "STR の JIS X 0201 カナ文字を対応する JIS X 0208 の文字で置き換える。"
   (skk-jisx0201-string-conversion str #'skk-jisx0201-zenkaku-region))
 
 (defun skk-jisx0201-hankaku (str)
-  "STR のJIS X 0208 に属する文字を対応する JIS X 0201 カナの文字で置き換える。"
+  "STR の JIS X 0208 文字を対応する JIS X 0201 カナの文字で置き換える。"
   (skk-jisx0201-string-conversion str #'japanese-hankaku-region))
 
 ;;;###autoload
@@ -381,7 +383,7 @@
     (skk-jisx0201-mode-on))))
 
 (defun skk-jisx0201-zenkaku-region (start end)
-  (japanese-zenkaku-region start end #'katakana-only))
+  (japanese-zenkaku-region start end 'katakana-only))
 
 (defun skk-jisx0201-henkan (arg)
   "▽モードであれば、領域のひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
