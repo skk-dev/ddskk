@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.16 2001/09/07 09:59:35 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.17 2001/09/07 11:27:23 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/07 09:59:35 $
+;; Last Modified: $Date: 2001/09/07 11:27:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -225,7 +225,9 @@
 
 ;; Pieces of advice.
 (defadvice skk-mode (after skk-jisx0201-ad activate)
-  (setq skk-jisx0201-mode nil))
+  (when skk-jisx0201-mode
+    (kill-local-variable 'skk-rule-tree)
+    (setq skk-jisx0201-mode nil)))
 
 (defadvice skk-kakutei (after skk-jisx0201-ad activate)
   (and skk-jisx0201-mode (skk-jisx0201-mode-on skk-jisx0201-roman)))
