@@ -1,3 +1,9 @@
+1999-12-02  Yuh Ohmura (yutopia@t3.rim.or.jp>
+
+	* READMEs/CVS_on_Windows: update
+
+	* make.bat: add what-where and clean option
+	
 1999-11-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/CVS_on_Windows: New file.
