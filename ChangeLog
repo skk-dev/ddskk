@@ -1,3 +1,7 @@
+2000-10-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skk.el (skk-abbrev-comma): Bug fixed.
+
 2000-10-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk-faq.texi: Clean up.
@@ -34,7 +38,14 @@
 	「サ変動詞の辞書登録に関する注意」.
 	(SKK Ring Server Openlab メーリングリスト): Do not use the word
 	「講読」.
-	Add description about hot to read news via http.
+	Add description about how to read news via http.
+	(skkdic-expr): Add description about `skkdic-sort', put on cindex
+	skkdic-sort and reference to skkdic-sort.
+	(skkdic-sort): Add description about `skkdic-expr', put on cindex
+	skkdic-expr and reference to skkdic-expr.
+	(プログラム作成方法): Use `@file' for skkdic-expr, `@code' for
+	ndbm and gdbm, and @var for TMPDIR
+	Use `@var' for CFLAGS instead of `@code'.
 
 	* READMEs/README.win: Sync up with daredevil's one.
 	Change APEL version 10.2 to 9.22.

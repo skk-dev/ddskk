@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.38 2000/10/19 08:37:20 czkmt Exp $
+;; Version: $Id: skk.el,v 1.39 2000/10/22 05:12:38 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/19 08:37:20 $
+;; Last Modified: $Date: 2000/10/22 05:12:38 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 2000/10/19 08:37:20 $")
+      (let* ((raw-date "$Date: 2000/10/22 05:12:38 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)))
@@ -2647,7 +2647,9 @@ SKK abbrev モード以外では、skk-insert-comma 関数を使用すること。"
   (interactive "*P")
   (skk-with-point-move
    (if (eq last-command 'skk-completion)
-       (skk-previous-completion)
+       (progn
+	 (setq this-command 'skk-completion)
+	 (skk-previous-completion))
      (skk-emulate-original-map arg))))
 
 (defun skk-jisx0208-latin-insert (arg)
