@@ -1,3 +1,29 @@
+2001-11-25  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
+
+	* doc/skk.texi (APEL のインストール): Doc fixed.
+	(最も基本的な設定): Add doc about 
+	sample(etc/dot.emacs,etc/dot.skk) files.
+	(送り仮名が有る場合の辞書登録): Add doc about 
+	skk-check-okurigana-on-touroku.
+	(ファイル構成): Update doc.
+	(ユーザーオプションの設定方法): Coment out skk-viper-load-hook.
+	(skk-rom-kana-rule-listの利用例): Sample code fixed.
+	(カタカナの見出し語): Update doc.
+	(辞書登録の際に注意すべきこと): Update doc.
+	(プログラム実行変換): Doc fixed.
+	(領域一括変換): Add doc about menu-bar with kakasi. Update doc.
+	(漢字コードを知る方法): Update doc.
+	(▼モードでのBS): Doc fixed.
+	(個人辞書の保存動作): Doc fixed.
+	(変換及び個人辞書に関する統計): Update doc.
+	(入力モードを示すモードラインの文字列の変更): Doc fixed.
+	(入力モードを示すカーソル色に関する設定): Doc fixed.
+	(起動時の入力モードの指定): Doc fixed.
+	(WWWを利用して入手する方法): Doc fixed.
+	(SKKの歴史): Update doc.
+	(Q.1-4 DDSKK はどのバージョンの Emacs で使えますか?): Update doc.
+	(Q.1-6 Emacs に付属の SKK を使っているのですが): Update doc.
+
 2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-kakasi.el (skk-gyakubiki-katakana-region): Bug fixed.
@@ -2946,8 +2972,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.567 2001/11/25 13:27:34 czkmt Exp $
-Last Modified: $Date: 2001/11/25 13:27:34 $
+Version: $Id: ChangeLog,v 1.568 2001/11/25 14:57:55 akiho Exp $
+Last Modified: $Date: 2001/11/25 14:57:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
