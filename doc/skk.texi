@@ -6,13 +6,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          Mikio Nakajima <minakaji@osaka.email.ne.jp>
 @c  Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-@c  Version: $Id: skk.texi,v 1.21 2000/09/14 08:36:10 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.22 2000/09/15 05:39:52 czkmt Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2000/09/14 08:36:10 $
+@c  Last Modified: $Date: 2000/09/15 05:39:52 $
 @c
 @set EDITION 1.4
 @set SKK-VERSION 10.61
-@set UPDATED $Date: 2000/09/14 08:36:10 $
+@set UPDATED $Date: 2000/09/15 05:39:52 $
 @c @set UPDATED-MONTH Oct 1998
 
 @direntry
@@ -65,6 +65,13 @@ Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
 are preserved on all copies.
 
+@ignore
+Permission is granted to process this file through TeX and print the
+results, provided the printed document carries a copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+
+@end ignore
 Permission is granted to copy and distribute modified versions of this
 manual under the conditions for verbatim copying, provided that the entire
 resulting derived work is distributed under the terms of a permission
@@ -77,7 +84,7 @@ by the author.
 @end titlepage
 
 @ifinfo
-@node Top, $BG[I[>r7o(B, (dir), (dir)
+@node Top, $B$O$8$a$K(B, (dir), (dir)
 @top SKK
 
 This is Edition @value{EDITION},
@@ -85,374 +92,53 @@ last updated @value{UPDATED},
 of @cite{The SKK Manual},
 for SKK, Version @value{SKK-VERSION}.
 
+SKK version 10 $B$O(B Mule $B5!G=$r;}$C$?(B Emacs $B$N>e$K9bB.$G8zN(E*$JF|K\8lF~NO(B
+$B4D6-$rDs6!$9$k%7%9%F%`$G$9!#(B
+
 @menu
-* $BG[I[>r7o(B::                        
-* $B35MW(B::                        
-* $B%$%s%9%H!<%k(B::                
+* $B$O$8$a$N@_Dj(B::
 * $B4pK\E*$J;HMQJ}K!(B::            
-* $BJXMx$J1~MQ5!G=$H%f!<%6!<%*%W%7%g%s(B::  
-* $B<-=q%f!<%F%#%j%F%#%W%m%0%i%`(B::  
-* $B3HD%%"%$%G%#%"(B::              
-* SKK$B%a!<%j%s%0%j%9%H(B::         
-* SKK$B$NF~<jJ}K!(B::               
-* SKK$B4XO"%=%U%H%&%'%"(B::         
-* $B<U<-$H$*4j$$(B::                
-* $B$h$/$"$k<ALd(B(FAQ)::
-* $B;v9`:w0z(B::                    
-* $BJQ?t:w0z(B::                    
-* $B4X?t:w0z(B::                    
-* $B%-!<:w0z(B::                    
+* $BJXMx$J1~MQ5!G=$H%f!<%6!<%*%W%7%g%s(B::
+* $B<-=q%f!<%F%#%j%F%#%W%m%0%i%`(B::
+* $B3HD%%"%$%G%#%"(B::
+* SKK$B%a!<%j%s%0%j%9%H(B::
+* SKK$B$NF~<jJ}K!(B::
+* SKK$B4XO"%=%U%H%&%'%"(B::
+* $B$=$NB>(B::
+* $B;v9`:w0z(B::
+* $BJQ?t:w0z(B::
+* $B4X?t:w0z(B::
+* $B%-!<:w0z(B::
 @end menu
-
-Copyright (C) 1996, 1991, 1992, 1993, 1994, 1996, 1997, 1998, 1999
-Masahiko Sato, Yukiyoshi Kameyama and Mikio Nakajima.
-Revised by Kiyotaka Sakai and Satoshi Harauchi.
-
-Permission is granted to make and distribute verbatim copies of this
-manual provided the copyright notice and this permission notice are
-preserved on all copies.
-
-@ignore
-Permission is granted to process this file through TeX and print the
-results, provided the printed document carries a copying permission
-notice identical to this one except for the removal of this paragraph
-(this paragraph not being relevant to the printed manual).
-
-@end ignore
-Permission is granted to copy and distribute modified versions of this
-manual under the conditions for verbatim copying, provided also that the
-sections entitled ``Copying'' and ``GNU General Public License'' are
-included exactly as in the original, and provided that the entire
-resulting derived work is distributed under the terms of a permission
-notice identical to this one.
-
-Permission is granted to copy and distribute translations of this manual
-into another language, under the above conditions for modified versions,
-except that this permission notice may be stated in a translation
-approved by the Free Software Foundation.
 @end ifinfo
 
-@node $BG[I[>r7o(B, $B35MW(B, Top, Top
+@node $B$O$8$a$N@_Dj(B, $B4pK\E*$J;HMQJ}K!(B, Top, Top
 @comment  node-name,  next,  previous,  up
-@include gpl.texi
+@chapter $B$O$8$a$N@_Dj(B
 
-@node $B35MW(B, $B%$%s%9%H!<%k(B, Top, Top
-@comment  node-name,  next,  previous,  up
-@chapter $B35MW(B
-
-@cindex Simple Kana to Kanji conversion program
-
-SKK version 10 $B$O(B Mule $B5!G=$r;}$C$?3F<o(B Emacsen $B$N>e$K9bB.$G8zN(E*$JF|K\(B
-$B8lF~NO4D6-$rDs6!$9$k%7%9%F%`$G$"$j!"(B GNU General Public License $B$K=>$C$?(B
-$B%U%j!<!&%=%U%H%&%'%"$H$7$FG[I[$5$l$k!#(B
-
-SKK 10 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$"$k!#(B
-
-@itemize @minus
-@item Emacs 19.28 $B0J9_$r%Y!<%9$H$7$?(B Mule 2.3
-(Mule for Windows 1.21, 1.22 $B$r4^$`(B)
-@item Emacs 20.2 $B0J9_(B (Meadow 1.00 $B0J9_(B $B$r4^$`(B)
-@item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 20.4 $B0J9_(B
-@end itemize
-
-SKK $B$O!"(BSimple Kana to Kanji conversion program $B$K$A$J$s$GL>IU$1$i$l$?!#(B
-
-@menu
-* SKK$B$NFCD'(B::
-* SKK$B$N:n<T(B::
-@end menu
-
-@node SKK$B$NFCD'(B, SKK$B$N:n<T(B, $B35MW(B, $B35MW(B
-@comment  node-name,  next,  previous,  up
-@section SKK$B$NFCD'(B
-
-SKK $B$O!"$$$o$f$k%m!<%^;zF~NO$K$h$k!"J8K!E*CN<1$rMQ$$$J$$9bB.JQ492DG=$JF|(B
-$BK\8lF~NO(B/$BJQ49%W%m%0%i%`$G$"$k!#K\BNItJ,$N%W%m%0%i%`$O!"(BEmacs Lisp $B$K$h$j(B
-$B=q$+$l$F$*$j3HD%@-$,9b$$!#<g$JFCD'$r5s$2$k!#(B
-
-@menu
-* $BFCD'$=$N(B1::
-* $BFCD'$=$N(B2::
-@end menu
-
-@node $BFCD'$=$N(B1, $BFCD'$=$N(B2, SKK$B$NFCD'(B, SKK$B$NFCD'(B
-@comment  node-name,  next,  previous,  up
-@subsection $BFCD'$=$N(B1
-
-@itemize @bullet
-
-@item
-$B<-=qJQ49$NC10L$r>.$5$/$*$5$($k$3$H$K$h$j!"J8K!E*CN<1$rMQ$$$J$$$G9bB.$K!"(B
-$B$+$D8zN(E*$K$+$J4A;zJQ49$r9T$J$&!#<-=qJQ49C10L$ODL>o(B 1 $BC18l$G$"$j!"JQ49(B
-$B$N%"%k%4%j%:%`$,J8K!E*$JCN<1$rMQ$$$J$$$N$G!"8E8l!"8=Be8l!"J}8@!"J88l!"8}(B
-$B8lEy!"$$$:$l$K$D$$$F$bF1MM$K8zN(E*$JJQ49$,$G$-$k!#(B
-
-@item
-$B<-=qJQ49$7A*Br$5$l$?8uJd$NC18l$r$I$s$I$s(B @b{$B!V8D?M<-=q!W(B} @footnote{$B<-=q(B
-$B$rMQ$$$?8D?M$NJQ49FbMF$rC`<!5-O?$7$F$$$k<-=q!#>\:Y$O!"(B
-
-@ref{$B<-=q$N7A<0(B,$B8D?M<-=q(B},
-
-$B$r;2>H$N$3$H!#(B}$B$K<h$j9~$`%I%i%9%F%#%C%/$JJ}K!$r<h$C$F$*$j!"8D?M(B
-$B$G;HMQIQEY$N9b$$8uJd=g$KM%@hE*$K<-=qJQ49$5$l$k$N$G!"<-=qJQ49$N:]$N%R%C%H(B
-$BN($,Hs>o$K9b$$!#(B
-
-@item
-$BFHN)$7$?<-=qEPO?%b!<%I$r;}$?$:FHN)$7$?EPO?<jB3$-$,ITMW$G!"IJ;l$N;XDj$J$I(B
-$BJ8K!E*CN<1$rI,MW$H$7$J$$!#(B
-
-@item
-$BEPO?;~$K<-=q$K$J$$C18l$NJQ49$r9T$J$C$?>l9g$K$O:F5"E*$J<-=qEPO?%b!<%I$KF~(B
-$B$k$J$I!"C18lEPO?$N<j4V$,BgI}$K4JN,2=$5$l$F$$$k!#(B
-
-@end itemize
-
-@node $BFCD'$=$N(B2,  , $BFCD'$=$N(B1, SKK$B$NFCD'(B
-@comment  node-name,  next,  previous,  up
-@subsection $BFCD'$=$N(B2
-
-@itemize @bullet
-
-@item
-$B%^%$%J!<%b!<%I$H$7$F<BAu$5$l$F$*$j!"(BSKK $B$r5/F0$7$F$bF|K\8l$NF~NO$,2DG=$H(B
-$B$J$kB>$O!"%a%8%c!<%b!<%I$K$[$H$s$I1F6A$rM?$($:!"(BEmacs $B$H$N?FOB@-$,9b$$!#(B
-
-@xref{Major Modes, ,$B%a%8%c!<%b!<%I(B, emacs, GNU Emacs Manual}.
-
-@xref{Minor Modes, , $B%^%$%J!<%b!<%I(B, emacs, GNU Emacs Manual}.
-
-@item
-$B%5!<%P!<%W%m%0%i%`$r;HMQ$9$k$3$H$K$h$j!"(B Emacs $BK\BN$N%a%b%j;HMQ$N7Z8:$r(B
-$B7W$l$k$,!"%5!<%P!<$,2>$K%@%&%s$7$F$b(B SKK $B$N;HMQ$r7QB3$9$k$3$H$,2DG=(B 
-(Emacs $B$N%P%C%U%!$K<-=q$r<h$j9~$`$N$G!"%a%b%j$O05Gw$9$k$,!"9bB.$K<-=q%"(B
-$B%/%;%9$,2DG=(B)$B!#(B
-
-@item
-$BJQ498uJd$H$7$F(B Emacs Lisp $B$G=q$+$l$?%W%m%0%i%`$r;XDj$9$k$3$H$,2DG=!#(B
-
-@item
-$B%m!<%^;zF~NO$r<gBN$H$9$k$,!"8D?M$N@_Dj$K$h$j(B T-Code$B!"(BTUT-code $B$K$h$kF~NO(B
-$B$b2DG=$G$"$k!#(B
-
-@item
-$B%$%s%/%j%a%s%?%k%5!<%AMQ$N%W%m%0%i%`$rFH<+$K;}$C$F$*$j!"F|K\8l$N8!:w$N:](B
-$B$KFCJL$NA`:n$rMW$7$J$$!#(B
-
-@end itemize
-
-@node SKK$B$N:n<T(B,  , SKK$B$NFCD'(B, $B35MW(B
-@comment  node-name,  next,  previous,  up
-@section SKK$B$N:n<T(B
-
-SKK $B$O!"J#?t$N%W%m%0%i%`$h$j9=@.$5$l$k!#%W%m%0%i%`$N9=@.$H<g$J:n<T$O2<5-(B
-$B$NDL$j!#(B
-
-@menu
-* Lisp$B4XO"$N:n<T(B::
-* $B<-=q4XO"$N:n<T(B::
-@end menu
-
-@node Lisp$B4XO"$N:n<T(B, $B<-=q4XO"$N:n<T(B, SKK$B$N:n<T(B, SKK$B$N:n<T(B
-@comment  node-name,  next,  previous,  up
-@subsection Lisp$B4XO"$N:n<T(B
-
-@table @asis
-@item $BK\BNItJ,$N(B Emacs Lisp $B%W%m%0%i%`(B
-
-$B86:n<T$O!":4F#2mI'(B @w{<masahiko@@kuis.kyoto-u.ac.jp>} $B$G$"$k!#(B SKK
-version 10 $B$O!"<g$K!"(BHideki Sakurada @w{<sakurada@@kuis.kyoto-u.ac.jp>}$B!"(B
-$B$`$i$?$7$e$&$$$A$m$&(B @w{<mrt@@notwork.org>} $B5Z$S(B $BCfEg44IW(B
-@w{<minakaji@@osaka.email.ne.jp>} $B$N(B3$B?M$,3+H/$7$?!#(B
-@c Texinfo 3.9 has a @email command.  For the time being, we shuould use
-@c @samp instead of @email for compatibility purpose.  Moreover, @email
-@c command does not have a special effect other than the one which @samp
-@c has until Texinfo supports HTML conversion.
-
-@item $B%$%s%/%j%a%s%?%k!&%5!<%A%W%m%0%i%`(B
-
-$B1]JB;LCR;a(B @w{<enami@@ba2.so-net.or.jp>} $B$,3+H/$7$?!#(B
-
-@item $B$=$NB>(B
-
-$B3F<o(B Emacsen $B$N:90[5[<}$N$?$a$K!"(BAPEL(A Portable Emacs Library)
-@footnote{JAIST ($BKLN&@hC<2J3X5;=QBg3X1!Bg3X(B) $B$N<i2,CNI';a(B
-@w{<tomo@@etl.go.jp>} $B$i$,3+H/$7$F$$$k!#0JA0$O(B emu $B$H$7$FCN$i$l$F$$$?!#(B}
-$B$rMxMQ$7$F$$$k!#$^$?!"(BEmacs Lisp $B$G=q$+$l$?ItJ,$NFbIt=hM}$N$?$a$K!"(BElib
-@footnote{Elib $B$H$O!"(Bthe GNU emacs lisp library $B$NN,$G!"%-%e!<!"(BAVL$BLZ9=(B
-$BB$!"Fs=EO"7k%j%9%H$J$I$r07$&$?$a$N%k!<%A%s$,F~$C$F$$$k!#(B
-
-@xref{Whatis Elib?, ,Elib, elib.info, Elib - The Emacs Lisp Library}.
-}$B$NCf$N$$$/$D$+$N%W%m%0%i%`$rMxMQ$7$F$$$k!#(B
-
-@end table
-
-@node $B<-=q4XO"$N:n<T(B,  , Lisp$B4XO"$N:n<T(B, SKK$B$N:n<T(B
-@comment  node-name,  next,  previous,  up
-@subsection $B<-=q4XO"$N:n<T(B
-
-@table @asis
-@c @item $B<-=q%5!<%P(B@file{skkserv}
-@c $B55;39,5A(B@w{<kameyama@@kuis.kyoto-u.ac.jp>}$B$,3+H/$7$?!#(B
-@c $B%P%$%J%j%5!<%A$r9T$J$&%Q%C%A$O<h$j9~$^$l$?$N$@$m$&$+!)(B  $B$^$?!"$I$J$?(B
-@c $B$,:n$C$?$N$+!)(B
-@c XXX dbskkd
-@item $B<-=q(B
-
-$B$=$NBh(B 1 $BHG$rElKLBg3XEE5$DL?.8&5f=j:4F#8&5f<<$N(B $B0BF#Bg!"Cv2,H~5*!"1|@n=_(B
-$B0l!":4!9LZ><I'!":4F#9n;V!";34_?.42$N3F;a$,:n@.$7!"$=$N8e!"B??t$N%f!<%6$+(B
-$B$iDs6!$5$l$?<-=q$r$b$H$K3HD%$5$l$?!#(B
-
-@item $B<-=q%f!<%F%#%j%F%#%W%m%0%i%`(B
-
-$BA}0f=SG7;a(B @w{<masui@@csl.sony.co.jp>}$B!"(B $BA0ED7{CK;a$*$h$S9b66M5?.;a(B
-@w{<takahasi@@tiny.or.jp>}$B$K$h$j:n@.$5$l$?!#(B
-
-@end table
-
-@node $B%$%s%9%H!<%k(B, $B4pK\E*$J;HMQJ}K!(B, $B35MW(B, Top
-@comment  node-name,  next,  previous,  up
-@chapter $B%$%s%9%H!<%k(B
-
-@menu
-* custom$B$N%$%s%9%H!<%k(B::  
-* APEL$B$N%$%s%9%H!<%k(B::  
-* SKK$B$N%$%s%9%H!<%k(B::  
-* $B4pK\E*@_Dj(B::                
-* $B%5!<%P!<$N%$%s%9%H!<%k(B::      
-@end menu
-
-@node custom$B$N%$%s%9%H!<%k(B, APEL$B$N%$%s%9%H!<%k(B, $B%$%s%9%H!<%k(B, $B%$%s%9%H!<%k(B
-@comment  node-name,  next,  previous,  up
-@section custom$B$N%$%s%9%H!<%k(B
-
-SKK 10 $B$O(B custom $B%Q%C%1!<%8$r;H$C$?%f!<%6!<%*%W%7%g%s@_Dj5!G=$r;}$D!#(B
-$B$7$+$7(B Emacsen $B$N<oN`$K$h$j$$$/$i$+:n6H$,I,MW$H$J$k!#(B
-
-@menu
-* custom$B$,;H$($k(BEmacsen::
-* custom$B$,;H$($J$$(BEmacsen::
-@end menu
-
-@node custom$B$,;H$($k(BEmacsen, custom$B$,;H$($J$$(BEmacsen, custom$B$N%$%s%9%H!<%k(B, custom$B$N%$%s%9%H!<%k(B
-@comment  node-name,  next,  previous,  up
-@subsection custom$B$,;H$($k(BEmacsen
-
-@itemize @bullet
-
-@item
-GNU Emacs 20.2 $B0J9_!"$b$7$/$O(B XEmacs 20.4 $B0J9_$G$O!"=i4|>uBV$G$3$N5!G=$r(B
-$BMxMQ$9$k$3$H$,2DG=!#(B
-
-@item
-GNU Emacs 19.32 $B0J9_$r%Y!<%9$H$7$?(B Mule $B$G$O!"=i$a$+$i(B custom $B$,%P%s%I%k(B
-$B$5$l$F$$$k$,!"(B $B$3$l$O8E$/$FDc5!G=$J$b$N$J$N$G!";H$($J$$!#(B 
-
-@itemize @minus
-@item @w{ftp://ftp.dina.kvl.dk/pub/Staff/Per.Abrahamsen/custom/}
-@end itemize
-
-$B$+$i(B @file{custom-1.9962.tar.gz} $B$rF~<j$7!"$3$l$r;HMQ$9$k$3$H$,$G$-$k$,!"(B
-$B$=$N%Q%C%1!<%8$N(B @file{cus-face.el} $B$K(B @file{patch/custom-1.9962.patch}
-$B$rEv$F$kI,MW$,$"$k!#%+%9%?%^%$%:5!G=$,;H$($J$/$FNI$1$l$P2?$b$7$J$/$FNI$$!#(B
-
-@ref{custom$B$,;H$($J$$(BEmacsen}.
-
-$B$r;2>H$5$l$?$$!#(B
-
-@end itemize
-
-@node custom$B$,;H$($J$$(BEmacsen,  , custom$B$,;H$($k(BEmacsen, custom$B$N%$%s%9%H!<%k(B
-@comment  node-name,  next,  previous,  up
-@subsection custom$B$,;H$($J$$(BEmacsen
-
-GNU Emacs 19.28 $B%Y!<%9$N(B Mule $B$G$O(B custom $B$O%P%s%I%k$5$l$F$*$i$:!"$7$+$b(B
-$BDI2C$N%Q%C%1!<%8$r%$%s%9%H!<%k$7$FF0:n$5$;$k$3$H$b:$Fq$J$h$&$G$"$k!#(B
-
-$B$7$+$7!"LdBj$O$J$$!#(B@samp{APEL} $B$,!"(B@file{tinycustom.el} $B$rMQ0U$7$F$$$F!"(B
-custom $B$NM-L5$r<+F0E*$K8!=P$7!"D4@0$7$F$/$l$k$+$i$G$"$k!#(B
-
-$B%f!<%6!<%*%W%7%g%s@_Dj$b=>MhDL$j(B @file{.skk} $B$K=q$1$k$N$G?4G[$OMW$i$J$$!#(B
-
-@node APEL$B$N%$%s%9%H!<%k(B, SKK$B$N%$%s%9%H!<%k(B, custom$B$N%$%s%9%H!<%k(B, $B%$%s%9%H!<%k(B
-@comment  node-name,  next,  previous,  up
-@section APEL$B$N%$%s%9%H!<%k(B
-
-APEL $B$r%$%s%9%H!<%k$9$k!#(B SKK 10 $B$G$O!"(BAPEL 9.22 $B0J9_$,I,?\$G$"$k!#(B
-
-@itemize @minus
-@item @w{ftp://ftp.m17n.org/pub/mule/apel/}
-@item @w{ftp://ftp.etl.go.jp/pub/mule/apel/}
-@end itemize
-
-$B$+$iF~<j$G$-$k!#(B
-
-@node SKK$B$N%$%s%9%H!<%k(B, $B4pK\E*@_Dj(B, APEL$B$N%$%s%9%H!<%k(B, $B%$%s%9%H!<%k(B
-@comment  node-name,  next,  previous,  up
-@section SKK$B$N%$%s%9%H!<%k(B
-@cindex @file{Makefile}
-@cindex @file{cus-face.el}
-@cindex @file{custom-1.9962.patch}
-@cindex @file{custom-1.9962.tar.gz}
-@cindex @file{pcustom.el}
-@cindex @file{tinycustom.el}
-@cindex @samp{APEL}
-@cindex @var{EMACS}
-
-@enumerate
-
-@item
-@file{SKK-CFG} $B$rI,MW$K1~$8JT=8$9$k!#$3$N%U%!%$%k$O(B Emacs Lisp $B$G5-=R$9(B
-$B$k!#$3$3$GDj5A$7$?CM$O!"(B@file{SKK-MK} $B$NCM$r>e=q$-$9$k!#I,MW$G$"$l$P(B 
- @file{Makefile} $B$rJT=8$7$F$bNI$$$,!"$[$H$s$I$N%+%9%?%^%$%:$O(B 
- @file{SKK-CFG} $B$G9T$J$($k$N$G!"(B@file{Makefile} $B$rJT=8$9$kI,MW$O$[$H$s$I(B
-$B$J$$!#(B
-
-@item
-$B%H%C%W%G%#%l%/%H%j$K$F(B @code{make} $B$r<B9T$9$k!#(B@code{emacs} $B$N%3%^%s%IL>(B
-$B$rL@<(E*$K;XDj$9$k$K$O!"Nc$($P!"(B@w{@code{make EMACS=mule}} $B$N$h$&$KJQ?t(B 
-@var{EMACS}$B$NCM$r;XDj$9$k!#(B
-
-@item
-$B%$%s%9%H!<%k$;$:$K%?!<%2%C%H%G%#%l%/%H%j$@$1CN$j$?$$>l9g$K$O!"(B
- @w{@code{make what-where}} $B$H$9$k(B ($B8e=R$N(B XEmacs $B%Q%C%1!<%8%$%s%9%H!<%k(B
-$B$N>l9g$O(B @w{@code{make what-where-package}} $B$H$9$k(B)$B!#(B
-
-@item
-$B%9!<%Q!<%f!<%6$K$J$C$F!"(B@code{make install} $B$9$k!#(B@code{make} $B$N:]!"(B 
- @var{EMACS} $B$NCM$r;XDj$7$?$J$i$P!"$3$3$G$b(B @w{@code{make install EMACS=mule}}
-$B$N$h$&$KF1MM$K;XDj$9$k!#(B XEmacs $B$K$*$$$F%Q%C%1!<%8$H$7$F(B
-$B%$%s%9%H!<%k$9$k>l9g$O!"(B@w{@code{make install-package}} $B$r<B9T$9$k!#(B
-
-@end enumerate
-
-@node $B4pK\E*@_Dj(B, $B%5!<%P!<$N%$%s%9%H!<%k(B, SKK$B$N%$%s%9%H!<%k(B, $B%$%s%9%H!<%k(B
-@comment  node-name,  next,  previous,  up
-@section $B4pK\E*@_Dj(B
-@cindex @file{.emacs}
-@kindex @kbd{M-x skk-obsolete-check-all-files}
-
-$B4pK\E*$J@_Dj$O%[!<%`%G%#%l%/%H%j$N(B @file{.emacs}
-@footnote{OS $B$,(B MS-DOS $B$N>l9g$O(B @file{_emacs} $B$G$"$k!#0J2<F1MM!#(B}
-$B$H$$$&%U%!%$%k$K=q$/I,MW$,$"$k!#(B
+SKK $B$r;H$$;O$a$kA0$K!"$"$J$?$N(B @file{~/.emacs} $B$K@_Dj$r=q$+$J$1$l$P$J$j(B
+$B$^$;$s!#$3$3$G$O$=$NJ}K!$r@bL@$7$^$9!#(B
 
 @menu
 * $B:G$b4pK\E*$J@_Dj(B::
 * $B%$%s%/%j%a%s%H8!:w$N@_Dj(B::
 * $B8E$$@_Dj$N%A%'%C%/(B::
+* $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B::
 @end menu
 
-@node $B:G$b4pK\E*$J@_Dj(B, $B%$%s%/%j%a%s%H8!:w$N@_Dj(B, $B4pK\E*@_Dj(B, $B4pK\E*@_Dj(B
+@node $B:G$b4pK\E*$J@_Dj(B, $B%$%s%/%j%a%s%H8!:w$N@_Dj(B, $B$O$8$a$N@_Dj(B, $B$O$8$a$N@_Dj(B
 @comment  node-name,  next,  previous,  up
-@subsection $B:G$b4pK\E*$J@_Dj(B
+@section $B:G$b4pK\E*$J@_Dj(B
 @cindex @file{skk-obsolete.el}
 
-$B0J2<$N$h$&$K(B @file{.emacs} $B$K5-=R$9$k!#(B
-@footnote{$B$$$/$D$+$N%-!<Dj5A$O(B Emacs $BI8=`$N%3%^%s%I$H=E$J$k!#$3$l$rLdBj(B
-$B$H$9$k%f!<%6!<$O@_Dj$rJQ99$5$l$?$$!#>-Mh2~A1$5$l$kM=Dj$G$"$k!#(B
+$B0J2<$N$h$&$K(B @file{.emacs} $B$K=q$-$^$9!#(B
+@footnote{$B$$$/$D$+$N%-!<Dj5A$O(B Emacs $BI8=`$N%3%^%s%I$H=E$J$k$N$G!"LdBj$,(B
+$B$"$k>l9g$O@_Dj$rJQ99$7$F$/$@$5$$!#>-Mh!"$3$NE@$K$D$$$F2~NI$5$l$kM=Dj$G$9(B
+$B$,!"6=L#$,$"$C$?$i(B
 
 @xref{$B3HD%%"%$%G%#%"(B}.
 
-$B$r;2>H!#(B}
+$B$r;2>H$7$F$/$@$5$$!#(B}
 
 @lisp
 @group
@@ -463,7 +149,7 @@ APEL $B$r%$%s%9%H!<%k$9$k!#(B SKK 10 $B$G$O!"(BAPEL 9.22 $B0J9_$,I,?\$G$"$k
 @end group
 @end lisp
 
-$B%5!<%P!<$r;H$o$J$$>l9g$O!"99$K<-=q%U%!%$%k$r;XDj$9$kI,MW$,$"$k!#(B
+$B%5!<%P!<$r;H$o$J$$>l9g$O!"99$K<-=q%U%!%$%k$r;XDj$9$kI,MW$,$"$k$^$9!#(B
 
 @lisp
 (setq skk-large-jisyo "/your/path/to/SKK-JISYO.L")
@@ -471,13 +157,13 @@ APEL $B$r%$%s%9%H!<%k$9$k!#(B SKK 10 $B$G$O!"(BAPEL 9.22 $B0J9_$,I,?\$G$"$k
 
 @code{skk-large-jisyo} $B$O(BEmacs$B$N%P%C%U%!$K<h$j9~$s$G;HMQ$9$k$N$G!"$3$l$K(B
 $B$h$j%a%b%j$,05Gw$5$l$9$.$k>l9g$O!">e5-$N(B @file{SKK-JISYO.L} $B$r(B
- @file{SKK-JISYO.S} $B$d(B @file{SKK-JISYO.M} $B$KJQ99$9$k!#(B
+ @file{SKK-JISYO.S} $B$d(B @file{SKK-JISYO.M} $B$KJQ99$7$^$9!#(B
 
-@node $B%$%s%/%j%a%s%H8!:w$N@_Dj(B, $B8E$$@_Dj$N%A%'%C%/(B, $B:G$b4pK\E*$J@_Dj(B, $B4pK\E*@_Dj(B
+@node $B%$%s%/%j%a%s%H8!:w$N@_Dj(B, $B8E$$@_Dj$N%A%'%C%/(B, $B:G$b4pK\E*$J@_Dj(B, $B$O$8$a$N@_Dj(B
 @comment  node-name,  next,  previous,  up
-@subsection $B%$%s%/%j%a%s%H8!:w$N@_Dj(B
+@section $B%$%s%/%j%a%s%H8!:w$N@_Dj(B
 
-$B0J2<$N$h$&$K(B @file{.emacs} $B$K5-=R$9$k!#(B
+$B0J2<$N$h$&$K(B @file{.emacs} $B$K=q$-$^$9!#(B
 
 @lisp
 @group
@@ -496,9 +182,9 @@ APEL $B$r%$%s%9%H!<%k$9$k!#(B SKK 10 $B$G$O!"(BAPEL 9.22 $B0J9_$,I,?\$G$"$k
 @end lisp
 
 $B>e5-$N@_Dj$G$O!"(BSKK$B$,5/F0$5$l$F$$$k$H$-$N$_!"IUB0$N%$%s%/%j%a%s%?%k%5!<(B
-$B%A$r;HMQ$9$k!#>o$KIUB0$N%$%s%/%j%a%s%?%k%5!<%A$r;HMQ$7$?$+$C$?$i>e5-$N(B 
+$B%A$r;HMQ$7$^$9!#>o$KIUB0$N%$%s%/%j%a%s%?%k%5!<%A$r;HMQ$7$?$+$C$?$i>e5-$N(B 
  @code{isearch-mode-hook}$B!"(B @code{isearch-mode-end-hook} $B$N@_Dj$r2<5-$N(B
-$B@_Dj$KJQ99$9$k!#(B
+$B@_Dj$KJQ99$7$^$9!#(B
 
 @lisp
 @group
@@ -507,7 +193,7 @@ APEL $B$r%$%s%9%H!<%k$9$k!#(B SKK 10 $B$G$O!"(BAPEL 9.22 $B0J9_$,I,?\$G$"$k
 @end group
 @end lisp
 
-@node $B8E$$@_Dj$N%A%'%C%/(B,  , $B%$%s%/%j%a%s%H8!:w$N@_Dj(B, $B4pK\E*@_Dj(B
+@node $B8E$$@_Dj$N%A%'%C%/(B, $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B, $B%$%s%/%j%a%s%H8!:w$N@_Dj(B, $B$O$8$a$N@_Dj(B
 @comment  node-name,  next,  previous,  up
 @subsection $B8E$$@_Dj$N%A%'%C%/(B
 
@@ -516,7 +202,7 @@ APEL $B$r%$%s%9%H!<%k$9$k!#(B SKK 10 $B$G$O!"(BAPEL 9.22 $B0J9_$,I,?\$G$"$k
 @item skk-obsolete-check-all-files
 
 $B$3$N%3%^%s%I$O!"3F8D?M$N@_Dj%U%!%$%k$N8E$$@_Dj$rD4$Y$F!"2DG=$J8B$j?7$7$$(B
-$B@_Dj$K=q49$($k!#(B SKK 9 $B$HHf3S$7$F!"JQ?tL>!"4X?tL>$,BgI}$KJQ99$5$l$?$N$G!"(B
+$B@_Dj$K=q49$($^$9!#(B SKK 9 $B$HHf3S$7$F!"JQ?tL>!"4X?tL>$,BgI}$KJQ99$5$l$?$N$G!"(B
 
 @example
 @file{skk-obsolete.el}
@@ -528,55 +214,24 @@ APEL $B$r%$%s%9%H!<%k$9$k!#(B SKK 10 $B$G$O!"(BAPEL 9.22 $B0J9_$,I,?\$G$"$k
 @kbd{M-x skk-obsolete-check-all-files} 
 @end example
 
-$B$r<B9T$9$k$3$H$r6/$/$*4+$a$9$k!#(B
+$B$r<B9T$9$k$3$H$r6/$/$*4+$a$7$^$9!#(B
 
 @end ftable
 
-@node $B%5!<%P!<$N%$%s%9%H!<%k(B,  , $B4pK\E*@_Dj(B, $B%$%s%9%H!<%k(B
+@node $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B, , $B8E$$@_Dj$N%A%'%C%/(B, $B$O$8$a$N@_Dj(B
 @comment  node-name,  next,  previous,  up
-@section $B%5!<%P!<$N%$%s%9%H!<%k(B
-
-$B%5!<%P!<$r;HMQ$9$k>l9g$O!"K\@a$K=>$$%$%s%9%H!<%k$r9T$J$&I,MW$,$"$k!#(B
-
-@menu
-* $B%5!<%P!<$N35N,(B::              
-* $B6&DL$N@_Dj(B::                  
-@end menu
-
-@node $B%5!<%P!<$N35N,(B, $B6&DL$N@_Dj(B, $B%5!<%P!<$N%$%s%9%H!<%k(B, $B%5!<%P!<$N%$%s%9%H!<%k(B
-@comment  node-name,  next,  previous,  up
-@subsection $B%5!<%P!<$N35N,(B
-
-@c XXX
-@c skkserv$B$O!"(BSKK$B$N$?$a$N<-=q%5!<%P$G$"$k!#(Bskkserv($B%5!<%P(B)$B$O!"(BSKK/Emacs($B%/(B
-@c $B%i%$%"%s%H(B)$B$H$OFHN)$KF0:n$9$k!#0l$D$N%5!<%P$O!"J#?t$N%/%i%$%"%s%H$NMW5a(B
-@c $B$r=hM}$9$k$3$H$,$G$-$k!#(B
-
-@c $B%5!<%P$O!"5/F0$5$l$k$H:G=i$K(BSKK$B7A<0$N<-=q$rFI$_$3$`!#<!$K!"L58B%k!<%W$K(B
-@c $BF~$j!"%/%i%$%"%s%H$+$i$NMW5a$rBT$D!#%5!<%P$O!"@\B3$rMW5a$7$?%/%i%$%"%s%H(B
-@c $B$4$H$KDL?.O)$r:n$j!"0J8e!"$=$N%/%i%$%"%s%H$+$iJ8;zNsJQ49$NMW5a$,5/$-$kKh(B
-@c $B$K<-=q$r8!:w$7$FJQ49J8;zNs$rJV$9!#%/%i%$%"%s%H$O!"J8;zNsJQ49MW5a0J30$K!"(B
-@c $B%5!<%P$N%P!<%8%g%sHV9fMW5a$d@\B3=*N;$J$I$N%a%C%;!<%8$r%5!<%P$KAw$k!#(B
-
-@c $B%5!<%P$H%/%i%$%"%s%H$N4V$NDL?.$K$O!"(BBSD$B7O(BUNIX$B$N%=%1%C%H$rMxMQ$9$k!#(B
-@c System V$B7O(BUNIX$B$G$b(BBSD$B7O$N%M%C%H%o!<%/5!G=$r<h$j$3$s$G$$$k$b$N$OF0:n$9$k(B
-@c $B$3$H$,$"$k!#>\$7$/$O(B@file{skkserv/Makefile}$B$N5-=R$r;2>H$N$3$H!#(B
-@c @file{skkserv}$B$N%F%9%H$O!"(BSunOS 4.0.3, 4.1.1$B!"(BNEWS OS 4.1.1$B!"(BUltrix V4.1$B!"(B
-@c System V release 4.0 $B$N>e$G9T$C$?!#$^$?!"%f!<%6$N%l%]!<%H$K$h$k$H!"%$%s(B
-@c $B%9%H!<%k;~$KE,@Z$J@_Dj$r$9$k$3$H$K$h$j!"(BHP-UX$B!"(BMassComp$B!"(B386BSD$B!"(BFreeBSD$B!"(B
-@c Linux$B$J$I$N>e$G$bF0:n$9$k$3$H$,$o$+$C$F$$$k!#(B
-
-@c $B%5!<%P$H%/%i%$%"%s%H$O!"%M%C%H%o!<%/$G@\B3$5$l$?0[$J$k7W;;5!>e$GF0$+$9$3(B
-@c $B$H$,$G$-$k!#(B
-
-@node $B6&DL$N@_Dj(B,  , $B%5!<%P!<$N35N,(B, $B%5!<%P!<$N%$%s%9%H!<%k(B
-@comment  node-name,  next,  previous,  up
-@subsection $B6&DL$N@_Dj(B
+@section $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B
 @cindex @var{SKKSERVER}
 @cindex @var{SKKSERV}
 @cindex @var{SKK_JISYO}
 
-$B%5!<%P!<$r;HMQ$9$k>l9g$K$O!"(B@file{.emacs}$B$d(B@file{.skk}$B$K0J2<$N@_Dj$r=q$/!#(B
+$B<-=q%5!<%P$r;H$$$?$$$H$-$O!"(B@file{.emacs}$B$d(B@file{.skk} $B$G0J2<$N$h$&$K@_(B
+$BDj$7$^$9!#(B
+@footnote{$B<-=q%5!<%Q$r;H$C$F$_$?$$>l9g$O(B
+
+@xref{dbskkd-cdb}.
+
+$B$r;2>H$7$F$/$@$5$$!#(B}
 
 @smalllisp
 @group
@@ -586,8 +241,17 @@ APEL $B$r%$%s%9%H!<%k$9$k!#(B SKK 10 $B$G$O!"(BAPEL 9.22 $B0J9_$,I,?\$G$"$k
 @end group
 @end smalllisp
 
+@vtable @code
+@item skk-server-host
+$B<-=q%5!<%P!<$rAv$i$;$k%[%9%HL>!"$^$?$O(B IP $B%"%I%l%9!#(B
+@item skk-server-prog
+$B<-=q%5!<%P!<%W%m%0%i%`(B($B%U%k%Q%9$G;XDj$9$k(B)$B!#(B
+@item skk-server-jisyo
+$B%5!<%P!<$KEO$9<-=q(B($B%U%k%Q%9$G;XDj$9$k(B)$B!#(B
+@end vtable
+
 @noindent
-$B$3$N@_Dj$O!"4D6-JQ?t$rMxMQ$7$F2<5-$N$h$&$K$9$k$3$H$b$G$-$k!#(B
+$B$3$N@_Dj$O!"4D6-JQ?t$rMxMQ$7$F2<5-$N$h$&$K$9$k$3$H$b$G$-$^$9!#(B
 
 @table @asis
 @item B$B%7%'%k$N>l9g(B (sh, bash, ksh, zsh $B$J$I(B)
@@ -611,145 +275,7 @@ setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 @end example
 @end table
 
-@vtable @code
-@item skk-server-host
-$B<-=q%5!<%P!<$rAv$i$;$k%[%9%HL>!#(B
-@item skk-server-prog
-$B<-=q%5!<%P!<%W%m%0%i%`(B($B%U%k%Q%9$G;XDj$9$k(B)$B!#(B
-@item skk-server-jisyo
-$B%5!<%P!<$KEO$9<-=q(B($B%U%k%Q%9$G;XDj$9$k(B)$B!#(B
-@end vtable
-@c XXX dbskkd-cdb $B$O%f!<%6!<$,N)$A>e$2$k$3$H$OIT2D!)(B
-@c $B$J$*!"4{$K(B@file{skkserv}$B$,N)$A>e$,$C$F$$$k>l9g$O!">e5-$N(B
-@c @code{skk-server-host}$B!"(B@code{skk-server-prog}$B!"(B@code{skk-server-jisyo}
-@c $B$"$k$$$O$=$l$i$N4D6-JQ?t$O$$$:$l$b;2>H$5$l$J$$$,!"(B@file{skkserv}$B$,N)$A(B
-@c $B>e$,$C$F$$$J$$$H$-$O!"$3$l$i$NJQ?t$r;2>H$7$F(B@file{skkserv}$B$rN)$A>e$2$h(B
-@c $B$&$H$9$k$N$G!"0BA4$N$?$a$K$3$l$i$NJQ?t$r@_Dj$7$F$*$/J}$,NI$$!#(B
- 
-@c @node $B%9!<%Q!<%f!<%6$N8"8B$r;}$D?M$N>l9g(B, $B%9!<%Q!<%f!<%6$N8"8B$r;}$?$J$$?M$N>l9g(B, $B6&DL$N@_Dj(B, $B%5!<%P!<$N%$%s%9%H!<%k(B
-@c @comment  node-name,  next,  previous,  up
-@c @subsection $B%9!<%Q!<%f!<%6$N8"8B$r;}$D?M$N>l9g(B
-@c
-@c $B$^$:!"(B@file{skkserv/Makefile}$B$rJT=8$9$k!#<+J,$N7W;;5!$N>u67$K1~$8$F!"0J(B
-@c $B2<$NJQ?t$NCM$rJQ99$9$k!#(B
-@c
-@c @table @var
-@c
-@c @item SERVERDIR
-@c @file{skkserv}$B$,%$%s%9%H!<%k$5$l$k%G%#%l%/%H%j$G$"$j!"DL>o(B 
-@c @var{$EMACS/etc}$B$K$9$k!#(BEmacs 19.29$B0J>e$N%P!<%8%g%s$G$O!"(B@code{wakeup}
-@c $B$J$I!"$+$D$F(B@var{$EMACS/etc}$B$KCV$+$l$F$$$?%W%m%0%i%`$O!"(B
-@c @w{@file{/usr/local/libexec/emacs/19.33/i586-pc-linux-gnu/}}$B$N$h$&$J(B
-@c libexec$B%G%#%l%/%H%j$KG[CV$5$l$k$h$&$K$J$C$?$N$G!"(B@var{SERVERDIR}$B$b$3$A(B
-@c $B$i$r;XDj$9$k$N$,NI$$$G$"$m$&!#(B
-@c
-@c @item JISYODIR
-@c $B<-=q$,%$%s%9%H!<%k$5$l$k%G%#%l%/%H%j$G$"$j!"DL>o(B@var{$EMACS/etc}$B$K$9$k!#(B
-@c
-@c @item JISYO
-@c SKK$B<-=q$NL>A0$G$"$j!"DL>o(B@file{SKK-JISYO.L}$B$H$9$k!#(B
-@c @end table
-     
-@c $B<!$K(B@file{skkserv}$B$r%3%s%Q%$%k$9$k!#(B
-@c
-@c @example
-@c % make
-@c @end example
-@c
-@c $B:G8e$K%9!<%Q!<%f!<%6$K$J$j!"(B@file{skkserv}$B$r%$%s%9%H!<%k$9$k!#(B
-@c
-@c @example
-@c @group
-@c % su
-@c Password: XXXXXXXX
-@c # make install
-@c @end group
-@c @end example
-@c
-@c @noindent
-@c $B<!$K(B@file{/etc/services}$B$K0J2<$N9T$rDI2C$9$k!#(B
-@c
-@c @example
-@c skkserv         1178/tcp
-@c @end example
-@c
-@c $B$^$?!"(B@file{/etc/rc.local}$B$K0J2<$N9T$rDI2C$9$k!#(B
-@c
-@c @example
-@c @group
-@c if [ -x /your/path/to/skkserv ]; then
-@c         /your/path/to/skkserv /your/path/to/SKK-JISYO.L
-@c fi
-@c @end group
-@c @end example
-@c
-@c NIS($B5lL>(BYP)$B$r;H$C$F$$$k>l9g$O!"99$K(BNIS$B$N%^%9%?%5!<%P$H$J$C$F$$$k7W;;5!$G(B
-@c $B%9!<%Q!<%f!<%6$K$J$j!"(B@file{/etc/services}$B$K(B
-@c
-@c @example
-@c skkserv               1178/tcp        skk-jisyo-server
-@c @end example
-@c
-@c @noindent
-@c $B$H$$$&9T$r2C$($?8e!"(B
-@c
-@c @example
-@c @group
-@c # cd /var/yp ($B$^$?$O(B cd /etc/yp)
-@c # make services
-@c @end group
-@c @end example
-@c
-@c @noindent
-@c $B$H$9$k!#(B
-@c
-@c @node $B%9!<%Q!<%f!<%6$N8"8B$r;}$?$J$$?M$N>l9g(B,  , $B%9!<%Q!<%f!<%6$N8"8B$r;}$D?M$N>l9g(B, $B%5!<%P!<$N%$%s%9%H!<%k(B
-@c @comment  node-name,  next,  previous,  up
-@c @subsection $B%9!<%Q!<%f!<%6$N8"8B$r;}$?$J$$?M$N>l9g(B
-@c
-@c $B$^$:!"(B@file{skkserv/Makefile}$B$rJT=8$9$k!#(B
-@c
-@c @table @var
-@c
-@c @item SERVERDIR
-@c @file{skkserv}$B$NCV$->l=j$G$"$k!#G$0U$N%G%#%l%/%H%j$r@_Dj$9$k!#(B
-@c
-@c @end table
-@c
-@c @file{Makefile}$B$N8e$N9`L\$K$D$$$F$O!"(B
-@c @ref{$B%9!<%Q!<%f!<%6$N8"8B$r;}$D?M$N>l9g(B}$B$r;2>H$N$3$H!#(B
-@c     
-@c $B<!$K!"(B@file{skkserv}$B$r:n$j!"%$%s%9%H!<%k$9$k!#(B
-@c
-@c @example
-@c @group
-@c % make
-@c % make install
-@c @end group
-@c @end example
-@c
-@c @noindent
-@c @file{~/.emacs}$B$d(B@file{~/.skk}$B$K(B
-@c
-@c @example
-@c (setq skk-server-portnum 1178)
-@c @end example
-@c
-@c @noindent
-@c $B$rDI2C$9$k!#(B
-@c
-@c SKK$B$r;H$&A0$K(B@file{skkserv}$B$rF0$+$97W;;5!$N>e$G!"<+J,$G(B
-@c
-@c @example
-@c % skkserv /your/path/to/SKK-JISYO.L
-@c @end example
-@c
-@c @noindent
-@c $B$H$7$F%5!<%P!<$r5/F0$9$k!#$3$l$O!"%5!<%P!<$,(BSKK$B8F=P$7;~$K<+F0E*$K5/F0$5(B
-@c $B$l$k$h$&$K$J$C$F$$$k$N$@$,!"I,$:$7$b@.8y$7$J$$$?$a$G$"$k!#(B
-@c @file{SKK-JISYO.L}$B$r%U%k%Q%9$G;XDj$9$kBe$j$K4D6-JQ?t(B@var{SKK_JISYO}$B$r(B
-@c $BMxMQ$9$k$3$H$b$G$-$k!#(B@xref{$B6&DL$N@_Dj(B}.
-@node $B4pK\E*$J;HMQJ}K!(B, $BJXMx$J1~MQ5!G=$H%f!<%6!<%*%W%7%g%s(B, $B%$%s%9%H!<%k(B, Top
+@node $B4pK\E*$J;HMQJ}K!(B, $BJXMx$J1~MQ5!G=$H%f!<%6!<%*%W%7%g%s(B, $B$O$8$a$N@_Dj(B, Top
 @comment  node-name,  next,  previous,  up
 @chapter $B4pK\E*$J;HMQJ}K!(B
 
@@ -6474,7 +6000,7 @@ SKK$B$O(B1988$BG/(B4$B7n$KBh(B1$BHG$r(BJUNET$B$KEj9F$7$F0JMh!"KhG/(B4
 $B%W(Bfj.sources$B$K?7$7$$%P!<%8%g%s$rEj9F$7$F$$$k!#$3$NJ}<0$b$R$-$D$E$-B3$1$F(B
 $B$$$-$?$$$H9M$($F$$$k!#(B
 
-@node SKK$B4XO"%=%U%H%&%'%"(B, $B<U<-$H$*4j$$(B, SKK$B$NF~<jJ}K!(B, Top
+@node SKK$B4XO"%=%U%H%&%'%"(B, $B$=$NB>(B, SKK$B$NF~<jJ}K!(B, Top
 @comment  node-name,  next,  previous,  up
 @chapter SKK$B4XO"%=%U%H%&%'%"(B
 @cindex @file{kakasi}
@@ -6868,14 +6394,15 @@ SKK95 $B$N:n<T$O@UG$$rIi$$$^$;$s!#(B
 
 @end table
 
-@node $B<U<-$H$*4j$$(B, $B;v9`:w0z(B, SKK$B4XO"%=%U%H%&%'%"(B, Top
+@node $B$=$NB>(B, $B;v9`:w0z(B, SKK$B4XO"%=%U%H%&%'%"(B, Top
 @comment  node-name,  next,  previous,  up
-@chapter $B<U<-$H$*4j$$(B
+@chapter $B$=$NB>(B
 
 @menu
-* $B<U<-(B::                        
-* $B$*4j$$(B::                      
-* $B$"$H$,$-(B::                    
+* $B<U<-(B::                    
+* $B$*4j$$(B::
+* SKK$B$N:n<T(B::
+* $B$3$N%^%K%e%"%k$K$D$$$F(B::
 @end menu
 
 @node $B<U<-(B, $B$*4j$$(B, $B<U<-$H$*4j$$(B, $B<U<-$H$*4j$$(B
@@ -6895,10 +6422,14 @@ SKK$B<-=qBh(B2, 3, 4, 5, 6, 7, 8$BHG:n@.$N$?$a$N%G!<%?$rDs6!$7$F$/$@$5$C$?J}!
 
 SKK$B<-=qBh(B6, 7$BHG:n@.$K$"$?$j6(NO$7$F$/$@$5$C$?9b66M5?.;a$K46<U$7$^$9!#(B
 
-$B$=$NB>!"(BSKK$B2~NI$N$?$a$K%W%m%0%i%`Ey$rDs6!$7$F$/$@$5$C$?Bg@*$NJ}!9$K46<U(B
-$B$7$^$9!#(B
+$B$=$NB>!"(BSKK $B$X$N9W8%<T$K$D$$$F$O!"%=!<%9G[I[$N(B
 
-@node $B$*4j$$(B, $B$"$H$,$-(B, $B<U<-(B, $B<U<-$H$*4j$$(B
+@file{READMEs/Contributors}
+
+$B$H$$$&%U%!%$%k$K5-:\$5$l$F$$$^$9!#$9$Y$F$N9W8%<T$N$_$J$5$s$K46<U$$$?$7$^(B
+$B$9!#(B
+
+@node $B$*4j$$(B, SKK$B$N:n<T(B, $B<U<-(B, $B$=$NB>(B
 @comment  node-name,  next,  previous,  up
 @section $B$*4j$$(B
 
@@ -6918,17 +6449,81 @@ SKK$B<-=q$N=<<B$K$46(NO$$$?$@$1$kJ}$O!"?o;~0J2<$N%"%I%l%9$^$G8D?M<-=q$H(B
 @samp{skk@@ring.gr.jp}
 @end example
 
-@node $B$"$H$,$-(B,  , $B$*4j$$(B, $B<U<-$H$*4j$$(B
+@node SKK$B$N:n<T(B, $B$3$N%^%K%e%"%k$K$D$$$F(B, $B$*4j$$(B, $B$=$NB>(B
 @comment  node-name,  next,  previous,  up
-@section $B$"$H$,$-(B
+@section SKK$B$N:n<T(B
 
-$BK\%^%K%e%"%k$O!":4F#$H55;3$,(BLatexinfo$B$r;HMQ$7$F(BSKK$B%P!<%8%g%s(B8.6$B$K$D$$$F(B
-$B=q$$$?$b$N$r!"CfEg$,(BTexinfo$B7A<0$G2CI.!&=$@5$7!"<r0f@6N4!"86FbAo$,9;@5$7(B
-$B$?$b$N$G$"$k!#2CI.$d=$@5$NBgItJ,$O!"(BSKK$B$N3HD%5!G=$KH<$J$&$b$N$G$"$k!#(B
+SKK $B$O!"J#?t$N%W%m%0%i%`$h$j9=@.$5$l$k!#%W%m%0%i%`$N9=@.$H<g$J:n<T$O2<5-(B
+$B$NDL$j!#(B
 
-@node $B$h$/$"$k<ALd(B(FAQ), $B;v9`:w0z(B, $B<U<-$H$*4j$$(B, Top
-@comment      node-name, next,       previous, up
-@include skk-faq.texi
+@menu
+* Lisp$B4XO"$N:n<T(B::
+* $B<-=q4XO"$N:n<T(B::
+@end menu
+
+@node Lisp$B4XO"$N:n<T(B, $B<-=q4XO"$N:n<T(B, SKK$B$N:n<T(B, SKK$B$N:n<T(B
+@comment  node-name,  next,  previous,  up
+@subsection Lisp$B4XO"$N:n<T(B
+
+@table @asis
+@item $BK\BNItJ,$N(B Emacs Lisp $B%W%m%0%i%`(B
+
+$B86:n<T$O!":4F#2mI'(B @w{<masahiko@@kuis.kyoto-u.ac.jp>} $B$G$"$k!#(B SKK
+version 10 $B$O!"<g$K!"(BHideki Sakurada @w{<sakurada@@kuis.kyoto-u.ac.jp>}$B!"(B
+$B$`$i$?$7$e$&$$$A$m$&(B @w{<mrt@@notwork.org>} $B5Z$S(B $BCfEg44IW(B
+@w{<minakaji@@osaka.email.ne.jp>} $B$N(B3$B?M$,3+H/$7$?!#(B
+@c Texinfo 3.9 has a @email command.  For the time being, we shuould use
+@c @samp instead of @email for compatibility purpose.  Moreover, @email
+@c command does not have a special effect other than the one which @samp
+@c has until Texinfo supports HTML conversion.
+
+@item $B%$%s%/%j%a%s%?%k!&%5!<%A%W%m%0%i%`(B
+
+$B1]JB;LCR;a(B @w{<enami@@ba2.so-net.or.jp>} $B$,3+H/$7$?!#(B
+
+@item $B$=$NB>(B
+
+$B3F<o(B Emacsen $B$N:90[5[<}$N$?$a$K!"(BAPEL(A Portable Emacs Library)
+@footnote{JAIST ($BKLN&@hC<2J3X5;=QBg3X1!Bg3X(B) $B$N<i2,CNI';a(B
+@w{<tomo@@etl.go.jp>} $B$i$,3+H/$7$F$$$k!#0JA0$O(B emu $B$H$7$FCN$i$l$F$$$?!#(B}
+$B$rMxMQ$7$F$$$k!#$^$?!"(BEmacs Lisp $B$G=q$+$l$?ItJ,$NFbIt=hM}$N$?$a$K!"(BElib
+@footnote{Elib $B$H$O!"(Bthe GNU emacs lisp library $B$NN,$G!"%-%e!<!"(BAVL$BLZ9=(B
+$BB$!"Fs=EO"7k%j%9%H$J$I$r07$&$?$a$N%k!<%A%s$,F~$C$F$$$k!#(B
+
+@xref{Whatis Elib?, ,Elib, elib.info, Elib - The Emacs Lisp Library}.
+}$B$NCf$N$$$/$D$+$N%W%m%0%i%`$rMxMQ$7$F$$$k!#(B
+
+@end table
+
+@node $B<-=q4XO"$N:n<T(B,  , Lisp$B4XO"$N:n<T(B, SKK$B$N:n<T(B
+@comment  node-name,  next,  previous,  up
+@subsection $B<-=q4XO"$N:n<T(B
+
+@table @asis
+@c @item $B<-=q%5!<%P(B@file{skkserv}
+@c $B55;39,5A(B@w{<kameyama@@kuis.kyoto-u.ac.jp>}$B$,3+H/$7$?!#(B
+@c $B%P%$%J%j%5!<%A$r9T$J$&%Q%C%A$O<h$j9~$^$l$?$N$@$m$&$+!)(B  $B$^$?!"$I$J$?(B
+@c $B$,:n$C$?$N$+!)(B
+@c XXX dbskkd
+@item $B<-=q(B
+
+$B$=$NBh(B 1 $BHG$rElKLBg3XEE5$DL?.8&5f=j:4F#8&5f<<$N(B $B0BF#Bg!"Cv2,H~5*!"1|@n=_(B
+$B0l!":4!9LZ><I'!":4F#9n;V!";34_?.42$N3F;a$,:n@.$7!"$=$N8e!"B??t$N%f!<%6$+(B
+$B$iDs6!$5$l$?<-=q$r$b$H$K3HD%$5$l$?!#(B
+
+@item $B<-=q%f!<%F%#%j%F%#%W%m%0%i%`(B
+
+$BA}0f=SG7;a(B @w{<masui@@csl.sony.co.jp>}$B!"(B $BA0ED7{CK;a$*$h$S9b66M5?.;a(B
+@w{<takahasi@@tiny.or.jp>}$B$K$h$j:n@.$5$l$?!#(B
+
+@end table
+
+@node $B$3$N%^%K%e%"%k$K$D$$$F(B,  , SKK$B$N:n<T(B, $B$=$NB>(B
+@comment  node-name,  next,  previous,  up
+@section $B$3$N%^%K%e%"%k$K$D$$$F(B
+
+$BK\%^%K%e%"%k$O!"(BSKK $B%*!<%W%s%i%\$NM-;V$N9W8%$K$h$j!"=>Mh$N%^%K%e%"%k$r(B
+SKK $B%P!<%8%g%s(B 10 $B$K9g$o$;$F2CI.=$@5$7$?$b$N$G$9!#(B
 
 @node $B;v9`:w0z(B, $BJQ?t:w0z(B, $B<U<-$H$*4j$$(B, Top
 @comment      node-name, next,       previous, up
