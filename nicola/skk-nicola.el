@@ -53,6 +53,7 @@
     (require 'skk-e21)))
 
 (eval-and-compile
+  (autoload 'skk-dcomp-marked-p "skk-dcomp")
   (autoload 'skk-dcomp-face-off "skk-dcomp")
   (autoload 'skk-dcomp-face-on "skk-dcomp"))
 
@@ -799,7 +800,7 @@ keycode 131 = underscore\n"))
 	tag)
     (unless (and (not (eq skk-nicola-okuri-style 'nicola-skk))
 		 (member okuri '("っ" "ッ")))
-      (save-excursion
+      (skk-save-point
 	(goto-char skk-nicola-okuri-flag)
 	(when (eq (following-char) ?*)
 	  (delete-char 1))
@@ -860,7 +861,7 @@ keycode 131 = underscore\n"))
   (when (and skk-j-mode skk-henkan-on (not skk-henkan-active)
 	     (markerp skk-nicola-okuri-flag))
     ;; 確定するときは送り開始の標識を消す。
-    (save-excursion
+    (skk-save-point
       (goto-char skk-nicola-okuri-flag)
       (when (eq (following-char) ?*)
 	(delete-char 1))))
@@ -885,8 +886,7 @@ keycode 131 = underscore\n"))
 	    (progn
 	      (skk-set-marker skk-dcomp-start-point nil)
 	      (skk-set-marker skk-dcomp-end-point nil))
-	  (when (and (marker-position skk-dcomp-start-point)
-		     (marker-position skk-dcomp-end-point))
+	  (when (skk-dcomp-marked-p)
 	    (skk-dcomp-face-off)
 	    (or (member (this-command-keys) skk-dcomp-keep-completion-keys)
 		;;
