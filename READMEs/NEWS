@@ -2,7 +2,7 @@
 
 * 11.5
 
-** Window 用インストーラ (make.bat) の改良
+** Windows 用インストーラ (make.bat) の改良
 
 従来の make.bat は環境変数の定義を除いた上で、make1.bat に改名されまし
 た。
