@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.5 1999/09/29 12:29:21 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.6 1999/09/29 20:03:47 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/09/29 12:29:21 $
+;; Last Modified: $Date: 1999/09/29 20:03:47 $
 
 ;; This file is not part of SKK yet.
 
@@ -50,9 +50,9 @@
 ;; EPWING 岩波広辞苑第四版を使用して開発した。Entry バッファが次のよう
 ;; な出力になることを前提に各ユーザー変数のディフォルト値を決めている。
 ;;
-;;    広辞苑　第四版             かめ【瓶・甕】
-;;    広辞苑　第四版             かめ【亀】
-;;    広辞苑　第四版             カメ
+;; 広辞苑　第四版             こ‐しょう【小姓・小性】‥シヤウ
+;; 広辞苑　第四版             こ‐しょう【孤称】
+;; 広辞苑　第四版             こ‐しょう【故障】‥シヤウ
 ;; 
 ;; つまり前提としている条件は次の 2 点。
 ;;
@@ -67,7 +67,7 @@
   :prefix "skk-lookup-"
   :group 'skk )
 
-(defcustom skk-lookup-pickup-pattern "【\\(.+\\)】$"
+(defcustom skk-lookup-pickup-pattern "【\\(.+\\)】"
   "*候補抽出のための regexp。
 \(match-string 1\) で候補が取り出せるように指定する。"
   :type 'regexp
