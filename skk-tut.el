@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.26 2000/12/14 10:24:12 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.27 2000/12/20 15:27:11 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/14 10:24:12 $
+;; Last Modified: $Date: 2000/12/20 15:27:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -500,6 +500,7 @@ C-u M-x skk-tutorial すると、チュートリアルファイルの選択が可能。"
       ;; 原因が分かるまでの work around です。
       (static-when (memq skk-emacs-type '(nemacs mule1))
 	(make-variable-buffer-local 'skk-jisyo)
+	;; あとから nconc したりするとよろしくないが...
 	(make-variable-buffer-local 'skk-search-prog-list))
       ;;
       (skktut-make-windows)))

@@ -41,11 +41,13 @@
 ;; `defmacro-maybe' or `defun-maybe', but jwz's bytecompiler can do.
 ;; so require pces to expand such macros.
 (require 'pces)
-(condition-case nil
-    (require 'advice)
-  (error
-   (error "advice.el is required for this version of SKK.
-Install patch/e18/advice.el in load-path and try again.")))
+(require
+ (condition-case nil
+     (require 'advice)
+   (error
+    (error "%s"
+	   "advice.el is required for this version of SKK.
+Install patch/e18/advice.el in load-path and try again."))))
 
 ;; for safety.
 (defconst skk-use-color-cursor nil)
@@ -56,7 +58,6 @@ Install patch/e18/advice.el in load-path and try again.")))
 (require 'skk-vars)
 
 ;; Variables.
-(defvar-maybe auto-fill-function nil)
 (defvar skk-e18-self-insert-keys
   (append (where-is-internal 'self-insert-command global-map)
 	  (where-is-internal 'canna-self-insert-command global-map)
@@ -97,35 +98,7 @@ Install patch/e18/advice.el in load-path and try again.")))
     (setq i (1+ i)))
   (define-key skk-jisx0208-latin-mode-map "\C-q" 'skk-latin-henkan))
 
-;; Macros.
-(defmacro-maybe save-match-data (&rest body)
-  "Execute the BODY forms, restoring the global value of the match data."
-  (let ((original (make-symbol "match-data")))
-    (list 'let (list (list original '(match-data)))
-          (list 'unwind-protect
-                (cons 'progn body)
-                (list 'store-match-data original)))))
-
-(defmacro skk-e18-safe-run-hooks (hook)
-  ;; If we get an error while running the hook, cause the hook variable
-  ;; to be nil.  Also inhibit quits, so that C-g won't cause the hook
-  ;; to mysteriously evaporate.
-  (` (let ((inhibit-quit (, hook)))
-       (condition-case nil
-	   (run-hooks (, hook))
-	 (error
-	  (when (symbolp (, hook))
-	    (set (, hook) nil)))))))
-
-;; Inline functions.
 ;; Pieces of advice.
-(defadvice byte-code-function-p (around skk-e18-ad activate)
-  ;; これは一時の APEL のバグに対して work around したものだから、最新の
-  ;; APEL に対しては不要。
-  (cond ((and (consp (ad-get-arg 0)) (consp (cdr (ad-get-arg 0))))
-	 ad-do-it)
-	(t
-	 nil)))
 
 ;; 時折、検索系の関数が数値を返すことを期待しているコードがあるため、
 ;; それらが動くように以下の 4 関数への advice をする。
@@ -155,46 +128,8 @@ Install patch/e18/advice.el in load-path and try again.")))
 	       (null ad-return-value))
       (setq ad-return-value 0))))
 
-(defadvice read-from-minibuffer (around skk-e18-ad activate compile)
-  ;; `minibuffer-setup-hook' と `minibuffer-exit-hook' を有効にするための実験
-  ;; 的コード。SKK での動作確認は一応行っているが、汎用して問題がないと言える
-  ;; 段階ではない。
-  (let (keymap)
-    (with-current-buffer
-	(get-buffer-create
-	 (format " *Minibuf-%d*" (minibuffer-depth)))
-	(kill-all-local-variables)
-	(when minibuffer-setup-hook
-	  (save-window-excursion
-	    ;; 次の一行は
-	    ;;
-	    ;; `(window-buffer (minibuffer-window))'
-	    ;;
-	    ;; の返り値が上位の Emacsen と同等になるために必要。
-	    (set-window-buffer (minibuffer-window) (current-buffer))
-	    (run-hooks 'minibuffer-setup-hook)))
-	;; オリジナルの `read-from-minibuffer' の引数として、この段階における
-	;; local keymap を渡すため、ここで保存しておく。
-	(setq keymap (or (current-local-map)
-			 minibuffer-local-map)))
-    ;;
-    (setq ad-return-value
-	  (si:read-from-minibuffer
-	   (ad-get-arg 0) ; prompt
-	   (ad-get-arg 1) ; initial-contents
-	   (or (ad-get-arg 2) keymap) ; keymap
-	   (ad-get-arg 3))) ; read
-    ;;
-    (when minibuffer-exit-hook
-      (with-current-buffer
-	  (get-buffer-create
-	   (format " *Minibuf-%d*" (minibuffer-depth)))
-	(save-window-excursion
-	  (set-window-buffer (minibuffer-window) (current-buffer))
-	  (skk-e18-safe-run-hooks 'minibuffer-exit-hook))))))
-
-;; Emacs 18 において、`defadvice' は関数の定義後に呼ばれる必要があるため、以
-;; 下の関数を定義しておいて、これを `skk-mode-invoke' から呼び出す。
+;; Emacs 18 において、`defadvice' は関数の定義後に呼ばれる必要があるらしいの
+;; で、以下の関数を定義しておいて、これを `skk-mode-invoke' から呼び出す。
 (defun skk-e18-advise-skk-functions ()
   ;; It is impossible to take advantage of `pre-command-hook' and
   ;; `post-command-hook'.
@@ -203,6 +138,13 @@ Install patch/e18/advice.el in load-path and try again.")))
 
   (defadvice skk-previous-candidate (after skk-e18-ad activate compile)
     (skk-e18-pre-command))
+
+  (defadvice skk-kana-input (before skk-e18-ad activate compile)
+    ;; デバッグしていないバグのために work around する。
+    (when (and skk-henkan-active
+	       skk-kakutei-early
+	       (not skk-process-okuri-early))
+      (skk-kakutei)))
 
   (defadvice skk-kakutei (around skk-e18-ad activate compile)
     ;; skk-tut を利用しているときなど、`skk-kakutei' の前後で `skk-jisyo' の
@@ -216,30 +158,91 @@ Install patch/e18/advice.el in load-path and try again.")))
     (skk-after-point-move)))
 
 ;; Other functions.
-(defun-maybe window-minibuffer-p (&optional window)
-"Return non-nil if WINDOW is a minibuffer window."
-  (eq (or window (selected-window)) (minibuffer-window)))
-
-(defun-maybe overlayp (object))
-
-(defun-maybe float (arg)
-  arg)
-
 (defun-maybe frame-width (&optional frame)
   "Return number of columns available for display on FRAME.
 If FRAME is omitted, describe the currently selected frame."
+  ;; Note that this function will be defined in APEL 10.3.
   (screen-width))
 
-(defalias-maybe 'insert-and-inherit 'insert)
-(defalias-maybe 'number-to-string 'int-to-string)
+(defun read-from-minibuffer (prompt &optional
+				    initial-contents keymap read hist)
+  "Read a string from the minibuffer, prompting with string PROMPT.
+If optional second arg INITIAL-CONTENTS is non-nil, it is a string
+  to be inserted into the minibuffer before reading input.
+  If INITIAL-CONTENTS is (STRING . POSITION), the initial input
+  is STRING, but point is placed at position POSITION in the minibuffer.
+Third arg KEYMAP is a keymap to use whilst reading;
+  if omitted or nil, the default is `minibuffer-local-map'.
+If fourth arg READ is non-nil, then interpret the result as a lisp object
+  and return that object:
+  in other words, do `(car (read-from-string INPUT-STRING))'
+Fifth arg HIST is ignored in this implementatin."
+  ;; This re-definition of `read-from-minibuffer' is intended to enable
+  ;; `minibuffer-setup-hook' and `minibuffer-exit-hook'.  Not well tested.
+  (let ((minibuf (get-minibuffer (minibuffer-depth)))
+	map)
+    (with-current-buffer minibuf
+      ;; Note that `current-local-map' inside `minibuffer-setup-hook' should
+      ;; return the 3rd arg KEYMAP.
+      (use-local-map (or keymap minibuffer-local-map))
+      ;;
+      (when minibuffer-setup-hook
+	(save-window-excursion
+	  ;; Note that `(window-buffer (minibuffer-window))' should return
+	  ;; the new minibuffer.
+	  (set-window-buffer (minibuffer-window) (current-buffer))
+	  (run-hooks 'minibuffer-setup-hook)))
+      ;; The local keymap here will be passed to `si:read-from-minibuffer'.
+      ;; if the 3rd arg KEYMAP is nil.
+      (setq map (current-local-map)))
+    ;; `minibuffer-exit-hook' should be called even on abnormai exits.
+    (unwind-protect
+	(si:read-from-minibuffer prompt
+				 initial-contents
+				 (or keymap map)
+				 read)
+      ;;
+      (when minibuffer-exit-hook
+	(with-current-buffer (if (buffer-live-p minibuf)
+				 minibuf
+			       (get-minibuffer (minibuffer-depth)))
+	  (save-window-excursion
+	    ;; Note that `(window-buffer (minibuffer-window))' should return
+	    ;; the new minibuffer.
+	    (set-window-buffer (minibuffer-window) (current-buffer))
+	    (safe-run-hooks 'minibuffer-exit-hook)))))))
 
-(when (eq skk-emacs-type 'mule1)
-  (defun-maybe insert-file-contents-as-coding-system
-    (coding-system filename &optional visit beg end replace)
-    "Like `insert-file-contents', q.v., but CODING-SYSTEM the first arg will
-be applied to `file-coding-system-for-read'."
-    (let ((file-coding-system-for-read coding-system))
-      (insert-file-contents filename visit))))
+(defun safe-run-hooks (hook)
+  ;; /* If we get an error while running the hook, cause the hook variable
+  ;;    to be nil.  Also inhibit quits, so that C-g won't cause the hook
+  ;;    to mysteriously evaporate. */
+  (let ((inhibit-quit hook))
+    (condition-case nil
+	(run-hooks hook)
+      (error
+       (when (symbolp hook)
+	 (set hook nil))))))
+
+(defun get-minibuffer (depth)
+  ;; /* Return a buffer to be used as the minibuffer at depth `depth'.
+  ;;  depth = 0 is the lowest allowed argument, and that is the value
+  ;;  used for nonrecursive minibuffer invocations */
+  (let* ((name (format " *Minibuf-%d*" depth))
+	 (buf (get-buffer name)))
+    (cond
+     ((not (buffer-live-p buf))
+      (setq buf (get-buffer-create name))
+      ;; Emulate Emacs 19.28.
+      ;; /* Although the buffer's name starts with a space, undo should be
+      ;;    enabled in it.  */
+      (buffer-enable-undo buf))
+     (t
+      ;; reset_buffer() is called in get_minibuffer() also under Emacs 18.
+      (save-current-buffer
+	;; Emulate Emacs 19.34.
+	(set-buffer buf)
+	(kill-all-local-variables))))
+    buf))
 
 (defun skk-e18-make-local-map (map1 map2)
   ;; MAP1 と MAP2 の両方のキー定義が使えるキーマップを返す。
@@ -275,7 +278,8 @@ be applied to `file-coding-system-for-read'."
   ;; Emacs 18 においては `pre-command-hook' を利用する手立てが無いため、旧来
   ;; の手法 (`read-char' で次の入力を捕まえる) によらざるを得ない。
   (condition-case nil
-      (let ((char (if (and skk-henkan-on
+      (let ((char (if (and (setq char (read-char))
+			   skk-henkan-on
 			   (not skk-henkan-active)
 			   ;; we must distinguish the two cases where
 			   ;; SKK-ECHO is on and off

@@ -1,3 +1,12 @@
+2000-12-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e18.el: Call `require' at toplevel for the feature `advice'.
+	From  Shuhei KOBAYASHI  <shuhei@aqua.ocn.ne.jp>.
+
+	(get-minibuffer, safe-run-hooks): New functions.
+	(read-from-minibuffer): Use them.
+	(skk-kana-input): Advise to work around a bug {until debugged}.
+
 2000-12-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e18.el (read-from-minibuffer): Set the minibuffer window's
@@ -2984,8 +2993,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.233 2000/12/19 15:48:21 czkmt Exp $
-Last Modified: $Date: 2000/12/19 15:48:21 $
+Version: $Id: ChangeLog,v 1.234 2000/12/20 15:27:11 czkmt Exp $
+Last Modified: $Date: 2000/12/20 15:27:11 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
