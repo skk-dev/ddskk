@@ -1,3 +1,8 @@
+2001-12-15  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
+
+	* skk.texi (SKK-VERSION): Updated to 11.6.0.
+	Add (送り仮名の優先的なマッチ).
+
 2001-12-10  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* skk-vars.el
@@ -3121,8 +3126,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.592 2001/12/09 15:06:56 akiho Exp $
-Last Modified: $Date: 2001/12/09 15:06:56 $
+Version: $Id: ChangeLog,v 1.593 2001/12/15 14:19:45 akiho Exp $
+Last Modified: $Date: 2001/12/15 14:19:45 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
