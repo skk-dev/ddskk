@@ -1,3 +1,4 @@
+
 ;;; skk-e21.el -- GNU Emacs 21 support for SKK.
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
@@ -25,10 +26,8 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'info))
-
 (eval-and-compile
+  (autoload 'Info-goto-node "info" nil t)
   (autoload 'browse-url "browse-url"))
 
 ;; Variables.
