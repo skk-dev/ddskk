@@ -36,17 +36,18 @@
 ;; ます。
 
 ;;; Code:
+
+;; Although v18 original compiler cannot expand APEL specific macro such as
+;; `defmacro-maybe' or `defun-maybe', but jwz's bytecompiler can do.
+;; so require pces to expand such macros.
+(require 'pces)
 (condition-case nil
     (require 'advice)
   (error
    (error "advice.el is required for this version of SKK.
 Install patch/e18/advice.el in load-path and try again.")))
 
-(defvar-maybe minibuffer-setup-hook nil)
-(defvar-maybe minibuffer-exit-hook nil)
-
-;; skk-vars.el で default variable を nil にしておきましたが、念のた
-;; め、defconst しておきましょう。
+;; for safety.
 (defconst skk-use-color-cursor nil)
 (defconst skk-cursor-change-width nil)
 (defconst skk-use-face nil)
@@ -55,7 +56,51 @@ Install patch/e18/advice.el in load-path and try again.")))
 (require 'skk-vars)
 
 ;; Variables.
-(defvar auto-fill-function nil)
+(defvar-maybe auto-fill-function nil)
+(defvar skk-e18-self-insert-keys
+  (append (where-is-internal 'self-insert-command global-map)
+	  (where-is-internal 'canna-self-insert-command global-map)
+	  (where-is-internal 'canna-henkan-region-or-self-insert global-map)
+	  (where-is-internal 'egg-self-insert-command global-map)
+	  '("\t")))
+
+;; Can v18 original compiler expand `skk-deflocalvar'?
+;; I'm not sure...
+(defvar skk-current-local-map nil)
+(make-variable-buffer-local 'skk-current-local-map)
+
+;; never used (Emacs 18 does not have minor mode map.   It only can use
+;; `use-local-map'.)
+(defconst skk-latin-mode-map t)
+(defconst skk-j-mode-map t)
+(defconst skk-jisx0208-latin-mode-map t)
+(defconst skk-abbrev-mode-map t)
+
+(defvar-maybe minibuffer-setup-hook nil)
+(defvar-maybe minibuffer-exit-hook nil)
+(defvar-maybe minor-mode-map-alist nil)
+
+(let ((i 0) e list)
+  (setq list '(skk-latin-mode-map skk-j-mode-map skk-jisx0208-latin-mode-map
+				  skk-abbrev-mode-map))
+  (while (setq e (nth i list))
+    (set e (make-sparse-keymap))
+    (setq i (1+ i)))
+  ;; Defined in skk-mode.
+  ;; (define-key skk-latin-mode-map skk-kakutei-key 'skk-kakutei)
+  (setq i 0 list skk-e18-self-insert-keys)
+  (while (setq e (nth i list))
+    (define-key skk-j-mode-map e 'skk-insert)
+    (setq i (1+ i)))
+  ;; Defined in skk-mode.
+  ;; (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
+  (setq i 0)
+  (while (< i 128)
+    (and (aref skk-jisx0208-latin-vector i)
+	 (define-key skk-jisx0208-latin-mode-map
+	   (char-to-string i) 'skk-jisx0208-latin-insert))
+    (setq i (1+ i)))
+  (define-key skk-jisx0208-latin-mode-map "\C-q" 'skk-latin-henkan))
 
 ;; Macros.
 (defmacro-maybe save-match-data (&rest body)
@@ -151,7 +196,7 @@ If FRAME is omitted, describe the currently selected frame."
 (defalias-maybe 'number-to-string 'int-to-string)
 
 (when (eq skk-emacs-type 'mule1)
-  (defun insert-file-contents-as-coding-system
+  (defun-maybe insert-file-contents-as-coding-system
     (coding-system filename &optional visit beg end replace)
     "Like `insert-file-contents', q.v., but CODING-SYSTEM the first arg will
 be applied to `file-coding-system-for-read'."
@@ -182,6 +227,14 @@ be applied to `file-coding-system-for-read'."
       (setq alist (nconc alist (list (car alist2))))
       (setq alist2 (cdr alist2)))
     (cons 'keymap alist)))
+
+(defun skk-e18-setup ()
+  (let ((keymap (if (skk-in-minibuffer-p)
+		    minibuffer-local-map
+		  (current-local-map))))
+    (if (and keymap (eq (lookup-key keymap "a") 'skk-insert))
+	nil
+      (setq skk-current-local-map keymap))))
 
 ;; Hooks.
 

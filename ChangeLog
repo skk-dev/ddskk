@@ -1,8 +1,23 @@
 2000-12-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* skk-e18.el: Require pces.el.
+	(skk-latin-mode-map): Declare as a constant for dummy purpose.
+	(skk-j-mode-map): Ditto.
+	(skk-jisx0208-latin-mode-map): Ditto.
+	(skk-abbrev-mode-map): Ditto.
+	(insert-file-contents-as-coding-system): Declare with
+	`defun-maybe' instead of `defun' (APEL 10.2 has it already).
+	(auto-fill-function): Declare with `defvar-maybe' instead of
+	`defvar' (APEL 10.2 has it already).
+
+	* skk.el (skk-e18-self-insert-keys): Move to skk-e18.el
+	(skk-current-local-map): Ditto.
+	(skk-e18-setup): Ditto.
+	
 	* skk-xemacs.el (skk-xemacs-prepare-modeline-properties): Bug
 	fixed.
-
+	Set `skk-xemacs-modeline-map' value in this function.
+	
 	* skk.el (skk-exit): Rename to `skk-mode-exit'.
 	(skk-invoke): Rename to `skk-mode-invoke'.
 
@@ -2831,8 +2846,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.210 2000/12/13 05:27:41 minakaji Exp $
-Last Modified: $Date: 2000/12/13 05:27:41 $
+Version: $Id: ChangeLog,v 1.211 2000/12/13 07:41:19 minakaji Exp $
+Last Modified: $Date: 2000/12/13 07:41:19 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
