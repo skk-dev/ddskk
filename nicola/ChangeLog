@@ -1,3 +1,8 @@
+2001-07-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el (skk-compute-henkan-lists): I guess that is
+	preferred, then had better let the function advised.
+
 2001-07-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-kanagaki.el (skk-compute-henkan-lists): The function that
