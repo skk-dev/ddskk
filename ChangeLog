@@ -1,3 +1,31 @@
+2001-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (skk-dic): New target.
+
+	* SKK-MK (SKK-MK-skk-dic): New function.
+
+	* skk-dic.el (skk-small-dic): Typo.
+
+	* skk-e21.el (skk-e21-modeline-property): Use `static-if'.
+
+	* skk-macs.el (skk-loop-for-buffers): New macro.
+
+	* skk.el: Re-indent.
+	Make the 1st argment of `error' a format string.
+
+	(skk-mode): The usage of term `entry' is not valid. Say `input'.
+
+	(skk-update-jisyo-original)
+	(skk-compute-henkan-lists)
+	(skk-update-jisyo-1): The usage of term `entry' is not valid. Say
+	`words'.
+
+	(skk-public-jisyo-has-entry-p): Rename to ...
+	(skk-public-jisyo-has-word-p): it.
+
+	(skk-compose-ignore-entry): Rename to ...
+	(skk-compose-ignore-word): it.
+
 2001-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK: Re-indent.
@@ -1878,8 +1906,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.384 2001/09/13 13:56:42 czkmt Exp $
-Last Modified: $Date: 2001/09/13 13:56:42 $
+Version: $Id: ChangeLog,v 1.385 2001/09/14 11:54:10 czkmt Exp $
+Last Modified: $Date: 2001/09/14 11:54:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

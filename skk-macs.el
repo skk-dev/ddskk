@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.39 2001/09/12 13:37:11 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.40 2001/09/14 11:54:11 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/09/12 13:37:11 $
+;; Last Modified: $Date: 2001/09/14 11:54:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -64,7 +64,7 @@
 	interactive)
     (if (or (not origfunc)
 	    (not (subrp origfunc))
-	    (memq function		; XXX possibilly Emacs version dependent
+	    (memq function	; XXX possibilly Emacs version dependent
 		  ;; interactive commands which do not have interactive specs.
 		  '(abort-recursive-edit bury-buffer delete-frame delete-window
 					 exit-minibuffer)))
@@ -95,7 +95,7 @@
        (unwind-protect
 	   (progn (,@ body))
 	 (goto-char skk-save-point)
-         (skk-set-marker skk-save-point nil)))))
+	 (skk-set-marker skk-save-point nil)))))
 
 (def-edebug-spec skk-save-point t)
 
@@ -201,6 +201,14 @@
        (unwind-protect
 	   (progn (,@ body))
 	 (set-buffer-modified-p modified)))))
+
+;;;###autoload
+(put 'skk-loop-for-buffers 'lisp-indent-function 1)
+(defmacro skk-loop-for-buffers (buffers &rest forms)
+    (` (dolist (buf (, buffers))
+	   (when (buffer-live-p buf)
+	     (with-current-buffer buf
+	       (,@ forms))))))
 
 ;;(defun-maybe mapvector (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
