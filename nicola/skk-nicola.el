@@ -97,12 +97,6 @@
 		 [convert])
 		((eq skk-emacs-type 'xemacs)
 		 [henkan-mode])
-		((string-match "^19\\.\\(29\\|3[0-4]\\)"
-			       emacs-version)
-		 [numbersign])
-		((string-match "^19\\.2" emacs-version)
-		 ;; Mule 2.3@19.28 or earlier (?)
-		 [key-35])
 		(t
 		 ;; Emacs 20.3 or later
 		 [henkan])))) "\
