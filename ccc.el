@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.9 2001/12/02 03:15:15 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.10 2001/12/02 03:28:17 czkmt Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2001/12/02 03:15:15 $
+;; Last Modified: $Date: 2001/12/02 03:28:17 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -118,7 +118,7 @@
    ((string-lessp "20.5" emacs-version)
     (list (facemenu-read-color prompt)))
    (t
-    (format "s%s" prompt))))
+    (list (format "s%s" prompt)))))
 
 ;;;###autoload
 (defun update-buffer-local-frame-params ()
