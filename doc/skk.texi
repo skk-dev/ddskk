@@ -7,13 +7,13 @@
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.89 2001/12/01 15:50:32 akiho Exp $
+@c  Version: $Id: skk.texi,v 1.90 2001/12/02 02:00:20 akiho Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2001/12/01 15:50:32 $
+@c  Last Modified: $Date: 2001/12/02 02:00:20 $
 @c
 @set EDITION 1.7
 @set SKK-VERSION 11.5.2
-@set UPDATED $Date: 2001/12/01 15:50:32 $
+@set UPDATED $Date: 2001/12/02 02:00:20 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6167,8 +6167,10 @@ SKK $B$N%$%s%8%1!<%?$r%b!<%I9T$N:8$KI=<($7$F$$$k>l9g(B
 SKK $B$N%$%s%8%1!<%?$N?'$rIU$1$J$$>l9g$O!"JQ?t(B
 @code{skk-indicator-use-cursor-color}$B$r(B nil $B$K$7$^$9!#(B
 
-$B%$%s%8%1!<%?$KFH<+?'$r;H$$$?$$>l9g$O!"0J2<$NJQ?t$r@_Dj$7$^$9!#(B
+$B%$%s%8%1!<%?$KFH<+?'$r;H$$$?$$>l9g$O!"0J2<$N%U%'%$%9$r@_Dj$7$^$9!#(B
 $B$3$N>l9g%+!<%=%k$N?'$O;2>H$7$^$;$s!#(B
+
+Emacs 21 $B$N>l9g(B
 
 @display
 @code{skk-e21-hiragana-face} 
@@ -6176,6 +6178,17 @@ SKK $B$N%$%s%8%1!<%?$N?'$rIU$1$J$$>l9g$O!"JQ?t(B
 @code{skk-e21-jisx0208-latin-face} 
 @code{skk-e21-jisx0201-face} 
 @code{skk-e21-abbrev-face} 
+@end display
+
+XEmacs $B$N>l9g(B
+
+@display
+@code{skk-xemacs-hiragana-face}
+@code{skk-xemacs-katakana-face}
+@code{skk-xemacs-jisx0208-latin-face}
+@code{skk-xemacs-latin-face}
+@code{skk-xemacs-jisx0201-face}
+@code{skk-xemacs-abbrev-face}
 @end display
 
 
@@ -6822,7 +6835,7 @@ SKK $B$O(B $B$O%P!<%8%g%s$,>e$,$k$?$S$K!"Bg$-$JJQ99$,9T$o$l$F$$$^$9!#K\>O$G$O
 Emacs 20 $B$H(B XEmacs 21 $B$r%5%]!<%H$7$?$3$H$,:G$b=EMW$JJQ99E@$G$9!#F1;~$K(B
 Mule 2.3 (Emacs 19.28 $B$^$?$O(B 19.34) $B$b%5%]!<%H$7$^$9!#(B
 
-SKK 11 $B$O(B Emacs 21 $B$r%5%]!<%H$9$kM=Dj$G$9!#(B
+$B$^$?!"(BSKK 11 $B$O(B Emacs 21 $B$r%5%]!<%H$7$^$9!#(B
 
 @item APEL $B%i%$%V%i%j$N;HMQ(B
 
@@ -7841,7 +7854,7 @@ SKK $B$N86:n<T$O!"8=5~ETBg3X$N:4F#2mI'65<x(B @w{<masahiko@@kuis.kyoto-u.ac.jp>
                                     XEmacs 21.2.46
 
                                    2001$BG/(B10$B7n(B20$BF|(B
-2001$BG/(B12$B7nM=Dj(B
+2001$BG/(B12$B7n(B 2$BF|(B
                                     Emacs 21.1 (MULE 5.0)
  Daredevil SKK 11.5.2
 

@@ -1,5 +1,20 @@
 2001-12-02  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
+	* Daredevil SKK 11.5.2 released.
+
+	* Makefile (version): Change to 11.5.2.
+
+	* doc/skk.texi 
+	(SKKの歴史): Update.
+	(SKK 9 からの変更点): Update.
+
+2001-12-02  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* doc/skk.texi
+	(XEmacs & Emacs 21 のモードライン): Doc fixed.
+	
+2001-12-02  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
+
 	* skk-annotation.el(skk-annotation-show): Fixed.
 
 	* doc/skk.texi: Add 辞書のアノテーション(註釈).
@@ -3015,8 +3030,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.575 2001/12/01 15:51:01 akiho Exp $
-Last Modified: $Date: 2001/12/01 15:51:01 $
+Version: $Id: ChangeLog,v 1.576 2001/12/02 02:00:40 akiho Exp $
+Last Modified: $Date: 2001/12/02 02:00:40 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
