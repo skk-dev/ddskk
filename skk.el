@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.243 2002/03/29 07:22:47 furue Exp $
+;; Version: $Id: skk.el,v 1.244 2002/03/29 23:15:29 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/03/29 07:22:47 $
+;; Last Modified: $Date: 2002/03/29 23:15:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1629,13 +1629,19 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	      (enlarge-window (- lines last-minibuffer-height))
 	      (static-if (eq skk-emacs-type 'xemacs)
 		  (apply (function message) fmt args)
-		(let (buffer-undo-list)	;prevent entry
+		(let ((buffer-undo-list skk-buffer-undo-list))
 		  (erase-buffer)
-		  (insert-string str)))
+		  (insert-string str)
+		  (setq skk-buffer-undo-list buffer-undo-list)))
 	      ;; We also need to clear `current-message' in case
 	      ;; running under XEmacs so that the height of
 	      ;; `minibuffer-window' is left unchanged.
-	      (unless (equal str "")
+	      (if (equal str "")
+		  (when (eq skk-emacs-type 'mule4)
+		    (let (buffer-undo-list)
+		      (primitive-undo (length skk-buffer-undo-list)
+				      skk-buffer-undo-list)
+		      (setq skk-buffer-undo-list nil)))
 		;; (make-local-hook 'pre-command-hook)
 		;; (add-hook 'pre-command-hook
 		;;	  (function skk-multiple-line-message-clear))))
