@@ -1,3 +1,8 @@
+2001-03-22  Masatake YAMATO  <jet@gyve.org>
+
+	* skk-xemacs.el.new (skk-xemacs-find-func-keys): Use
+	sorted-key-descriptions instead of key-description.
+
 2001-03-21  Masatake YAMATO  <jet@gyve.org>
 
 	* skk-xemacs.el (skk-xemacs-modeline-menu-items): 
@@ -3184,8 +3189,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.264 2001/03/21 14:06:20 czkmt Exp $
-Last Modified: $Date: 2001/03/21 14:06:20 $
+Version: $Id: ChangeLog,v 1.265 2001/03/21 21:20:18 czkmt Exp $
+Last Modified: $Date: 2001/03/21 21:20:18 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

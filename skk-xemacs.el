@@ -166,9 +166,9 @@
 		 ((or str (null spec))
 		  (when (stringp str)
 		    str)))
-	     (car (where-is-internal func skk-j-mode-map)))))
+	     (where-is-internal func skk-j-mode-map))))
     (if keys
-	(key-description keys)
+	(sorted-key-descriptions keys)
       "")))
 
 ;; Hooks.
