@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-isearch.el,v 1.3 1999/10/03 05:39:22 minakaji Exp $
+;; Version: $Id: skk-isearch.el,v 1.4 1999/10/03 11:38:07 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:39:22 $
+;; Last Modified: $Date: 1999/10/03 11:38:07 $
 
 ;; This file is part of SKK.
 
@@ -57,6 +57,7 @@
 (require 'skk-foreword)
 
 ;; user variables
+;;;###autoload
 (defgroup skk-isearch nil "SKK incremental search related customization."
   :prefix "skk-isearch-"
   :group 'skk )

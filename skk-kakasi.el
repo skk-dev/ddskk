@@ -2,9 +2,9 @@
 ;; Copyright (C) 1996, 1998, 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kakasi.el,v 1.3 1999/10/03 05:44:28 minakaji Exp $
+;; Version: $Id: skk-kakasi.el,v 1.4 1999/10/03 11:38:47 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:44:28 $
+;; Last Modified: $Date: 1999/10/03 11:38:47 $
 
 ;; This file is not part of SKK yet.
 
@@ -45,6 +45,7 @@
 ;; APEL
 (require 'path-util)
 
+;;;###autoload
 (defgroup skk-kakasi nil "SKK kakasi related customization."
   :prefix "skk-"
   :group 'skk )

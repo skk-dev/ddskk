@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-lookup.el,v 1.12 1999/10/03 11:30:05 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.13 1999/10/03 11:30:49 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 1999/10/03 11:30:05 $
+;; Last Modified: $Date: 1999/10/03 11:30:49 $
 
 ;; This file is not part of SKK yet.
 
@@ -77,7 +77,7 @@
 ;; NEMOTO Takashi <tnemoto@mvi.biglobe.ne.jp> さんに深く感謝いたします。
 
 ;;; Code:
-(eval-when-compile (require 'skk) (require 'cl))
+(eval-when-compile (require 'skk) (require 'skk-num) (require 'cl))
 (require 'lookup)
 
 ;;;###autoload

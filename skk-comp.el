@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-comp.el,v 1.3 1999/10/03 05:36:20 minakaji Exp $
+;; Version: $Id: skk-comp.el,v 1.4 1999/10/03 11:32:23 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:36:20 $
+;; Last Modified: $Date: 1999/10/03 11:32:23 $
 
 ;; This file is part of SKK.
 
@@ -34,6 +34,7 @@
 ;; Elib version 1.0 required.
 (require 'stack-m)
 
+;;;###autoload
 (defgroup skk-comp nil "SKK completion related customization."
   :prefix "skk-"
   :group 'skk )

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-auto.el,v 1.2 1999/10/03 05:34:41 minakaji Exp $
+;; Version: $Id: skk-auto.el,v 1.3 1999/10/03 11:31:50 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:34:41 $
+;; Last Modified: $Date: 1999/10/03 11:31:50 $
 
 ;; This file is part of SKK.
 
@@ -32,6 +32,7 @@
 (eval-when-compile (require 'skk))
 (require 'skk-foreword)
 
+;;;###autoload
 (defgroup skk-auto nil "SKK auto okuri process related customization."
   :prefix "skk-"
   :group 'skk )

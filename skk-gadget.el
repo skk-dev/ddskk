@@ -1,13 +1,13 @@
 ;; skk-gadget.el -- 実行変換のためのプログラム
-;; Copyright (C) 1995, 1996, 1997, 1998
+;; Copyright (C) 1995, 1996, 1997, 1998, 1999
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Murata Shuuichirou  <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-gadget.el,v 1.1 1999/08/29 06:32:37 minakaji Exp $
+;; Version: $Id: skk-gadget.el,v 1.2 1999/10/03 11:35:40 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 06:32:37 $
+;; Last Modified: $Date: 1999/10/03 11:35:40 $
 
 ;; This file is part of SKK.
 
@@ -27,11 +27,6 @@
 ;; MA 02111-1307, USA.
 
 ;;; Commentary:
-;; Following people contributed to skk-gadget.el (Alphabetical order):
-;;      Kazuo Hirokawa <hirokawa@rics.co.jp>
-;;      Kiyotaka Sakai <ksakai@netwk.ntt-at.co.jp>
-;;      Koichi MORI <kmori@onsei2.rilp.m.u-tokyo.ac.jp>
-;;      Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;;
 ;; プログラム実行変換とは
 ;; ======================
@@ -54,33 +49,29 @@
 ;; 余談だが、X Window で使用される `Widget' という言葉は、`window'+`gadget'
 ;; から作られた造語らしい。
 
-;;; Change log:
-
 ;;; Code:
 (eval-when-compile (require 'skk))
 (require 'skk-foreword)
 ;; -- user variables
 
+;;;###autoload
 (defgroup skk-gadget nil "SKK gadget related customization."
   :prefix "skk-"
   :group 'skk )
 
-;;;###autoload
 (defcustom skk-date-ad nil
   "*Non-nil であれば、skk-today, skk-clock で西暦表示する。
 nil であれば、元号表示する。"
   :type 'boolean
   :group 'skk-gadget )
 
-;;;###autoload
 (defcustom skk-number-style 1
   "*nil もしくは 0 であれば、skk-today, skk-clock の数字を半角で表示する。
 t もしくは、1 であれば、全角表示する。
 t, 0, 1 以外の non-nil 値であれば、漢数字で表示する。"
-  :type '(choice (integer :tag "Hankaku" 0)
-		 (integer :tag "Zenkaku" 1)
-		 (const nil) (const t)
-		 (other :tag "Kansuuji" (const kanji)) )
+  :type '(choice (choice :tag "Hankaku" (const nil) (integer 0))
+		 (choice :tag "Zenkaku" (const t) (integer 1))
+		 (choice :tag "Kansuuji" (integet 3)) )
   :group 'skk-gadget )
 
 (defcustom skk-gadget-load-hook nil

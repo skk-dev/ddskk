@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-kcode.el,v 1.6 1999/10/03 05:40:56 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.7 1999/10/03 11:39:09 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:40:56 $
+;; Last Modified: $Date: 1999/10/03 11:39:09 $
 
 ;; This file is part of SKK.
 
@@ -32,6 +32,7 @@
 (eval-when-compile (require 'skk))
 (require 'skk-foreword)
 
+;;;###autoload
 (defgroup skk-kcode nil "SKK Kanji Code related customization."
   :prefix "skk-"
   :group 'skk )

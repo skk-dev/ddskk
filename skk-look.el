@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-look.el,v 1.3 1999/10/03 05:46:02 minakaji Exp $
+;; Version: $Id: skk-look.el,v 1.4 1999/10/03 11:39:49 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/10/03 05:46:02 $
+;; Last Modified: $Date: 1999/10/03 11:39:49 $
 
 ;; This file is not part of SKK yet.
 
@@ -103,12 +103,12 @@
 ;; APEL
 (require 'path-util)
 
+;;;###autoload
 (defgroup skk-look nil "SKK look conversion related customization."
   :prefix "skk-look-"
   :group 'skk )
 
 ;; user variable.
-;;;###autoload
 (defcustom skk-look-command (exec-installed-p "look")
   "*UNIX look コマンドの名前。"
   :type 'string
