@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.78 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.79 2001/11/18 16:10:41 akiho Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:10:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -67,7 +67,7 @@
   (require 'pcustom))
 
 (defconst skk-ml-address "skk@ring.gr.jp")
-(defconst skk-ml-command-address "skk-request@ring.gr.jp")
+(defconst skk-ml-command-address "skk-subscribe@ring.gr.jp")
 (defconst skk-background-mode
   ;; from font-lock-make-faces of font-lock.el  Welcome!
   (static-cond
@@ -1661,7 +1661,7 @@ cdr は元号表記の string からなるリスト。"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Adrz")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "März")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.43 2001/11/17 05:40:16 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.44 2001/11/18 16:10:28 akiho Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/17 05:40:16 $
+;; Last Modified: $Date: 2001/11/18 16:10:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -963,11 +963,7 @@ SKK Ring Server Openlab ML へ参加希望の場合は
 
 \t%s
 
-へ本文に(表題にではありません)
-
-\tsubscribe
-
-と記したメールをお送りください。
+へ本文と Subject が空のメールをお送りください。
 
 !! 最後に <return> キーを押してください。"
 
@@ -986,10 +982,7 @@ send mail to:
 
 \t%s
 
-with the following command in the body of your email message
-(not in subject):
-
-\tsubscribe
+of which mail body or subject is empty.
 
 !! Hit <return> key when you are ready.")
 		 (product-string-1 'skk-version t)
