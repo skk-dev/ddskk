@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.40 2002/08/02 08:50:48 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.41 2002/09/01 00:57:37 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/08/02 08:50:48 $
+;; Last Modified: $Date: 2002/09/01 00:57:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -236,7 +236,7 @@ kakutei'ed and erase the buffer contents."
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
   (static-when
-      (memq skk-emacs-type '(mule3 mule4 mule5))
+      (memq skk-emacs-type '(mule4 mule5))
     (when (and current-input-method
 	       (string-match "^japanese-skk" current-input-method))
       (let* ((method current-input-method)
@@ -265,8 +265,7 @@ kakutei'ed and erase the buffer contents."
   (let ((mode (skk-current-input-mode)))
     (when skk-isearch-use-previous-mode
       (setq skk-isearch-mode
-	    (with-current-buffer (get-buffer-create
-				  skk-isearch-working-buffer)
+	    (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	      (skk-isearch-current-numerical-mode))))
     ;; reset the overrinding-local-map.
     (set skk-isearch-overriding-local-map nil)
@@ -290,9 +289,8 @@ kakutei'ed and erase the buffer contents."
        (skk-jisx0208-latin-mode-on))))
   ;; Input Method として SKK を使っている場合の対策
   (static-when
-      (memq skk-emacs-type '(mule3 mule4 mule5))
-    (when (string-match "^japanese-skk" (format "%s"
-						default-input-method))
+      (memq skk-emacs-type '(mule4 mule5))
+    (when (string-match "^japanese-skk" (format "%s" default-input-method))
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	(inactivate-input-method))))
   ;; skk-isearch の状態を表す内部変数の設定
