@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.33 2002/02/11 08:04:38 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.34 2002/04/03 10:18:01 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/02/11 08:04:38 $
+;; Last Modified: $Date: 2002/04/03 10:18:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -42,7 +42,7 @@ When PROCESS is nil, check `skkserv-process' instead."
   (unless process
     (setq process skkserv-process))
   (and process
-       (eq (process-status process) skk-network-open-status)))
+       (eq (process-status process) 'open)))
 
 ;;;###autoload
 (defun skk-server-version ()
