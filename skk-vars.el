@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-vars.el,v 1.3 1999/09/19 13:12:24 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.4 1999/09/19 21:09:58 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/19 13:12:24 $
+;; Last Modified: $Date: 1999/09/19 21:09:58 $
 
 ;; This file is not part of SKK yet.
 
@@ -103,5 +103,7 @@
 ;;(autoload 'skk-version "skk" nil t nil)
 (autoload 'skk-viper-normalize-map "skk-viper" nil nil nil)
 
+;; reload new skk-leim.el.
+(load "skk-leim")
 (provide 'skk-vars)
 ;;; skk-vars.el ends here
