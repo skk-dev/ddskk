@@ -7,9 +7,9 @@
 ;; Maintainer: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
 ;;             Murata Shuuichirou <mrt@astec.co.jp>
 ;;             Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk.el,v 1.21 1999/11/28 04:46:03 minakaji Exp $
+;; Version: $Id: skk.el,v 1.22 1999/11/28 14:15:10 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/11/28 04:46:03 $
+;; Last Modified: $Date: 1999/11/28 14:15:10 $
 
 ;; SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -60,7 +60,7 @@
   (if (not (interactive-p))
       skk-version
     (save-match-data
-      (let* ((raw-date "$Date: 1999/11/28 04:46:03 $")
+      (let* ((raw-date "$Date: 1999/11/28 14:15:10 $")
              (year (substring raw-date 7 11))
              (month (substring raw-date 12 14))
              (date (substring raw-date 15 17)) )
@@ -2486,11 +2486,11 @@ skk-convert-okurigana-into-katakana の値を non-nil にする。
 
 ;; convert skk-rom-kana-rule-list to skk-rule-tree.
 ;; The rule tree follows the following syntax:
-;; <branch-list>    ::= nil | (<tree> . <branch-list>)
-;; <tree>         ::= (<char> <prefix> <nextstate> <kana> <branch-list>)
-;; <kana>         ::= (<ひらがな文字列> . <カタカナ文字列>) | nil
-;; <char>         ::= <英小文字>
-;; <nextstate>    ::= <英小文字文字列> | nil
+;; <branch-list>  := nil | (<tree> . <branch-list>)
+;; <tree>         := (<char> <prefix> <nextstate> <kana> <branch-list>)
+;; <kana>         := (<ひらがな文字列> . <カタカナ文字列>) | nil
+;; <char>         := <英小文字>
+;; <nextstate>    := <英小文字文字列> | nil
 (defun skk-compile-rule-list (&rest l)
   ;; rule-list を木の形にコンパイルする。
   (let ((tree (skk-make-rule-tree nil "" nil nil nil))
