@@ -1,3 +1,18 @@
+2004-11-26  Masatake YAMATO  <jet@gyve.org>
+
+	Introduce a context to check whether the current
+	buffer is read-only or not in context-skk.
+
+	* experimental/context-skk.el (context-skk-mode): Rename
+	the minor mode from `context-skk'.
+	(context-skk-insert): Show a message when the skk is
+	turned off by context-skk.
+	(context-skk-in-read-only-buffer-p): New function.
+
+	* skk.el (skk-insert): Don't use * in `interactive'.
+	Use `barf-if-buffer-read-only' instead.
+	(skk-jisx0208-latin-insert): Ditto.
+
 2004-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-e21-mouse-position): When skk-isearch is on,
@@ -4663,8 +4678,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.817 2004/11/13 16:06:08 skk-cvs Exp $
-Last Modified: $Date: 2004/11/13 16:06:08 $
+Version: $Id: ChangeLog,v 1.818 2004/11/26 23:41:56 skk-cvs Exp $
+Last Modified: $Date: 2004/11/26 23:41:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
