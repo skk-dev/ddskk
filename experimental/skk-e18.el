@@ -3,9 +3,9 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-e18.el,v 1.3 2000/11/14 12:48:51 czkmt Exp $
+;; Version: $Id: skk-e18.el,v 1.4 2000/11/25 17:27:18 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 12:48:51 $
+;; Last Modified: $Date: 2000/11/25 17:27:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -42,6 +42,9 @@
   (error
    (error "advice.el is required for this version of SKK.
 Install patch/e18/advice.el in load-path and try again.")))
+
+(defvar-maybe minibuffer-setup-hook nil)
+(defvar-maybe minibuffer-exit-hook nil)
 
 ;; skk-vars.el で default variable を nil にしておきましたが、念のた
 ;; め、defconst しておきましょう。
@@ -92,6 +95,32 @@ Install patch/e18/advice.el in load-path and try again.")))
     (when (and (not (eq 0 (ad-get-arg 2)))
 	       (null ad-return-value))
       (setq ad-return-value 0))))
+
+(defadvice read-from-minibuffer (before skk-e18-ad activate)
+  ;;
+  (when (and minibuffer-exit-hook
+	     (skk-in-minibuffer-p))
+    (condition-case nil
+	(run-hooks 'minibuffer-exit-hook)
+      (error)))
+  ;;
+  (when minibuffer-setup-hook
+    (with-current-buffer
+	(get-buffer-create
+	 (format " *Minibuf-%d*" (minibuffer-depth)))
+      (run-hooks 'minibuffer-setup-hook))))
+
+(defadvice exit-minibuffer (around skk-e18-ad activate)
+  (let ((no-nl (and skk-egg-like-newline skk-henkan-on)))
+    (progn
+      ;; なぜか 2 回 skk-kautei を呼ばないとうまくいかない。
+      ;; 原因を考え中。
+      (skk-kakutei)
+      (skk-kakutei))
+    (if no-nl
+	nil
+      (setq skk-mode nil)
+      ad-do-it)))
 
 ;; Other functions.
 (defun-maybe window-minibuffer-p (&optional window)

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.67 2000/11/25 08:58:06 czkmt Exp $
+;; Version: $Id: skk.el,v 1.68 2000/11/25 17:27:18 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 08:58:06 $
+;; Last Modified: $Date: 2000/11/25 17:27:18 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -1710,12 +1710,11 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
     (let ((enable-recursive-minibuffers t)
           ;; 変換中に isearch message が出ないようにする。
           skk-isearch-message orglen new-one)
-      (static-unless (memq skk-emacs-type '(nemacs mule1))
-	(add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
-	(add-hook
-	 'minibuffer-setup-hook
-	 (function (lambda ()
-		     (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
+      (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
+      (add-hook
+       'minibuffer-setup-hook
+       (function (lambda ()
+		   (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
       (condition-case nil
           (setq new-one
                 (read-from-minibuffer
@@ -1730,11 +1729,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		 (static-when (memq skk-emacs-type '(nemacs mule1))
 		   ;; Emacs 18 では minibuffer-setup-hook が効かないので、直接
 		   ;; skk-mode を起動する。keymap も適切に与える必要がある。
-		   (with-current-buffer
-		       (get-buffer-create
-			(format " *Minibuf-%d*" (minibuffer-depth)))
-		     (skk-j-mode-on))
-		   (append skk-j-mode-map (cdr minibuffer-local-map)))))
+		   (skk-e18-make-local-map
+		    skk-j-mode-map minibuffer-local-map))))
         (quit
          (setq new-one "")))
       (if (and skk-check-okurigana-on-touroku
@@ -3978,18 +3974,19 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (and skk-mode (skk-kakutei))
       (or no-newline ad-do-it))))
 
-(skk-defadvice exit-minibuffer (around skk-ad activate)
-  "skk-egg-like-newline が non-nil だったら、変換中の exit-minibuffer で確定のみ行う。"
-  ;; subr command but no arg.
-  (skk-remove-minibuffer-setup-hook
-   'skk-j-mode-on 'skk-setup-minibuffer
-   (function (lambda ()
-	       (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
-  (if (not (or skk-j-mode skk-abbrev-mode))
-      ad-do-it
-    (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
-      (and skk-mode (skk-kakutei))
-      (or no-newline ad-do-it))))
+(static-unless (memq skk-emacs-type '(nemacs mule1))
+  (skk-defadvice exit-minibuffer (around skk-ad activate)
+    "skk-egg-like-newline が non-nil だったら、変換中の exit-minibuffer で確定のみ行う。"
+    ;; subr command but no arg.
+    (skk-remove-minibuffer-setup-hook
+     'skk-j-mode-on 'skk-setup-minibuffer
+     (function (lambda ()
+		 (add-hook 'pre-command-hook 'skk-pre-command nil 'local))))
+    (if (not (or skk-j-mode skk-abbrev-mode))
+	ad-do-it
+      (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
+	(and skk-mode (skk-kakutei))
+	(or no-newline ad-do-it)))))
 
 (defadvice picture-mode-exit (before skk-ad activate)
   "SKK のバッファローカル変数を無効にし、picture-mode-exit をコールする。

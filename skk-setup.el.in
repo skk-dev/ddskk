@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.13 2000/11/20 20:05:59 czkmt Exp $
+;; Version: $Id: skk-setup.el.in,v 1.14 2000/11/25 17:27:17 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/20 20:05:59 $
+;; Last Modified: $Date: 2000/11/25 17:27:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -38,8 +38,9 @@
       (require 'path-util)
     (error
      (require 'path-util "apel/path-util")))
-  (add-latest-path "apel")
-  (add-latest-path "skk"))
+  (add-path "apel")
+  (add-path "skk")
+  (add-path "nicola-ddskk"))
 
 ;;; Autoloads.
 (require 'skk-autoloads)
