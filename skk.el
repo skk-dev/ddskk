@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.183 2001/11/13 15:23:02 czkmt Exp $
+;; Version: $Id: skk.el,v 1.184 2001/11/14 13:54:42 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/11/13 15:23:02 $
+;; Last Modified: $Date: 2001/11/14 13:54:42 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -74,6 +74,7 @@
 
 (eval-and-compile
   ;; SKK common.
+  (require 'skk-autoloads)
   (require 'skk-vars)
   (require 'skk-macs)
   ;; SKK version dependent.
@@ -305,7 +306,6 @@ dependent."
   (unless (featurep 'tinycustom)
     (skk-cus-setup))
   (skk-setup-modeline)
-  (require 'skk-autoloads)
   (when skk-share-private-jisyo
     (skk-setup-shared-private-jisyo))
   (when skk-keep-record
