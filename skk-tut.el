@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.19 2000/11/14 16:12:16 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.20 2000/11/20 08:55:41 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 16:12:16 $
+;; Last Modified: $Date: 2000/11/20 08:55:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,72 +28,18 @@
 
 ;;; Commentary:
 ;;; Code:
-(eval-when-compile (require 'skk-macs))
-(require 'skk-vars)
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'static))
+
+(eval-and-compile
+  (require 'skk-vars)
+  (autoload 'skk-viper-normalize-map "skk-viper"))
 
 ;; skk-tut.el $B4XO"$@$1$OF|>o;H$o$J$$$3$H$NJ}$,B?$$$N$G!"%0%k!<%W!"JQ?t$r$"$($F!"(B
 ;; skk-vars.el $B$KF~$l$J$$!#(B
 ;;;###autoload
-(defgroup skk-tut nil "SKK tutorial conversion related customization."
-  :prefix "skk-tut-"
-  :group 'skk)
-
 ;; User variables.  prefix should be `skk-tut-'.
-(defcustom skk-tut-file 
-  (static-cond ((eq skk-emacs-type 'xemacs) (locate-data-file "SKK.tut"))
-	       (t "/usr/local/share/skk/SKK.tut"))
-  "*SKK $B%A%e!<%H%j%"%k$N%U%!%$%kL>!#(B
-The English version is SKK.tut.E."
-  :type 'file
-  :group 'skk-tut)
-
-(defvar skk-tut-file-alist
-  (` (("Japanese" . (, skk-tut-file))
-      ("English" . (, (concat skk-tut-file ".E")))))
-  "*Alist of `(LANGUAGE . TUTORIAL-FILE)' pairs.")
-
-(defcustom skk-tut-use-face t
-  "*Non-nil $B$G$"$l$P!"%A%e!<%H%j%"%k$G(B face $B$rMxMQ$7$?I=<($r9T$J$&!#(B"
-  :type 'boolean
-  :group 'skk-tut)
-
-(defface skk-tut-section-face
-  '((((class color) (background light))
-     (:foreground "yellow" :background "dodgerblue"))
-    (((class color) (background dark))
-     (:foreground "yellow" :background "slateblue"))
-    (((class grayscale)) (:bold t) (:italic t)))
-  "*$B%A%e!<%H%j%"%kCf$N%;%/%7%g%s$NI=<(ItJ,$N(B face$B!#(B"
-  :group 'skk-faces)
-
-(defface skk-tut-do-it-face
-  '((((class color) (background light)) (:foreground "DarkGoldenrod"))
-    (((class color) (background dark)) (:foreground "LightGoldenrod"))
-    (((class grayscale)) (:bold t)))
-  "*$B%A%e!<%H%j%"%kCf$N;X<(9`L\$NI=<(ItJ,$N(B face$B!#(B"
-  :group 'skk-faces)
-
-(defface skk-tut-question-face
-  '((((class color) (background light)) (:foreground "Blue"))
-    (((class color) (background dark)) (:foreground "LightSkyBlue"))
-    (((class grayscale)) (:underline t)))
-  "*$B%A%e!<%H%j%"%kCf$NLdBj$NI=<(ItJ,$N(B face$B!#(B"
-  :group 'skk-faces)
-
-(defface skk-tut-key-bind-face
-  '((((class color) (background light)) (:foreground "Firebrick"))
-    (((class color) (background dark)) (:foreground "OrangeRed"))
-    (((class grayscale)) (:bold t)))
-  "*$B%A%e!<%H%j%"%kCf$N%-!<%P%$%s%I$NI=<(ItJ,$N(B face$B!#(B"
-  :group 'skk-faces)
-
-(defface skk-tut-hint-face
-  '((((class color) (background light)) (:foreground "CadetBlue"))
-    (((class color) (background dark)) (:foreground "Aquamarine"))
-    (((class grayscale)) (:italic t)))
-  "*$B%A%e!<%H%j%"%kCf$N%R%s%H$NI=<(ItJ,$N(B face$B!#(B
-$B8=:_$N$H$3$m!"(BSKK.tut.E $B$G$7$+;HMQ$5$l$F$$$J$$!#(B"
-  :group 'skk-faces)
 
 ;; internal variables and constants.
 ;; prefix should be `skktut-'.
@@ -673,12 +619,9 @@ C-u M-x skk-tutorial-quit $B$9$k$H!"(Byes-or-no-p $B$G?R$M$i$l$k$3$H$J$/D>$A$
 	     (cons 'skk-j-mode skktut-j-mode-map)
 	     (cons 'skk-jisx0208-latin-mode skktut-jisx0208-latin-mode-map)))
       ;; for minor-mode-map-alist localized by Viper.
-      (if (not (featurep 'viper))
-	  nil
-	(if (if (eq skk-emacs-type 'xemacs)
-		(local-variable-p 'minor-mode-map-alist nil t)
-	      (local-variable-p 'minor-mode-map-alist))
-	    (setq-default minor-mode-map-alist minor-mode-map-alist))))))
+      (if (and (featurep 'viper)
+	       (skk-local-variable-p 'minor-mode-map-alist nil t))
+	  (setq-default minor-mode-map-alist minor-mode-map-alist)))))
 
 (defun skktut-disable-tutmap ()
   (static-if (memq skk-emacs-type '(nemacs mule1))

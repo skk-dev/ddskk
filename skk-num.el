@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.13 2000/10/30 22:10:18 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.14 2000/11/20 08:55:41 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:18 $
+;; Last Modified: $Date: 2000/11/20 08:55:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -29,7 +29,9 @@
 ;;; Commentary:
 
 ;;; Code:
-(eval-when-compile (require 'skk-macs) (require 'skk-vars))
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars))
 
 ;;;###autoload
 (defun skk-num-compute-henkan-key (key)
@@ -106,7 +108,7 @@
 		      "#[.0-9]+" "#[0-9]+"))
 	  (n 0)
 	  (workkey key)
-	  num convnum string convlist current beg)
+	  num convnum string convlist beg)
       (save-match-data
         (while (and (setq num (nth n skk-num-list)) ; 具体的な数値を保持しているリストを参照する。
                     (setq beg (string-match numexp workkey)))

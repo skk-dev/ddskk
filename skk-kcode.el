@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.11 2000/11/11 03:10:02 czkmt Exp $
+;; Version: $Id: skk-kcode.el,v 1.12 2000/11/20 08:55:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/11 03:10:02 $
+;; Last Modified: $Date: 2000/11/20 08:55:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -29,8 +29,14 @@
 ;;; Commentary:
 
 ;;; Code:
-(eval-when-compile (require 'static)
-		   (require 'skk-macs) (require 'skk-vars))
+(eval-when-compile
+  (require 'static)
+  (require 'skk-macs)
+  (require 'skk-vars))
+
+(eval-when-compile
+  (defvar enable-recursive-minibuffer)
+  (defvar message-log-max))
 
 ;;;###autoload
 (defun skk-input-by-code-or-menu (&optional arg)

@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.12 2000/11/19 16:19:30 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.13 2000/11/20 08:55:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/19 16:19:30 $
+;; Last Modified: $Date: 2000/11/20 08:55:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,7 +28,10 @@
 ;;; Commentary:
 
 ;;; Code:
-;;;; macros
+
+(eval-when-compile
+  (defvar mule-version))
+
 (eval-when-compile
   (require 'advice)
   (require 'cl)
@@ -47,6 +50,8 @@
 		(string< "2.0" mule-version) 'mule2))
 	  ((and (boundp 'mule-version)
 		(string< "1.0" mule-version) 'mule1)))))
+
+;;;; macros
 
 (defmacro skk-defadvice (function &rest everything-else)
   (let ((origfunc (and (fboundp function)
@@ -176,6 +181,13 @@
    (t
     ;; Emacs 19 or later.
     (` (sit-for (, seconds) nil (, nodisplay))))))
+
+(defmacro skk-ding (&optional arg sound device)
+  (case skk-emacs-type
+    (xemacs
+     (` (ding (, arg) (, sound) (, device))))
+    (t
+     '(ding))))
 
 (defmacro skk-update-modeline (indicator)
   (case skk-emacs-type
@@ -660,10 +672,12 @@
     string))
 
 ;;; This function is not complete, but enough for our purpose.
-(defsubst skk-local-variable-p (variable &optional buffer)
+(defsubst skk-local-variable-p (variable &optional buffer afterset)
   "Non-nil if VARIABLE has a local binding in buffer BUFFER.
 BUFFER defaults to the current buffer."
   (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (local-variable-p variable (or buffer (current-buffer)) afterset))
    ((fboundp 'local-variable-p)
     (local-variable-p variable (or buffer (current-buffer))))
    (t
@@ -672,6 +686,13 @@ BUFFER defaults to the current buffer."
 	 (memq variable (buffer-local-variables buffer))); local but void.
      ;; docstring is ambiguous; 20.3 returns bool value.
      t))))
+
+(defsubst skk-face-proportional-p (face)
+  (static-cond
+   ((fboundp 'face-proportional-p)
+    (face-proportional-p face))
+   (t
+    nil)))
 
 ;;;; from dabbrev.el.  Welcome!
 ;; 判定間違いを犯す場合あり。要改良。

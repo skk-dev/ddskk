@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.8 2000/10/30 22:10:16 minakaji Exp $
+;; Version: $Id: skk-kakasi.el,v 1.9 2000/11/20 08:55:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:16 $
+;; Last Modified: $Date: 2000/11/20 08:55:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -41,14 +41,17 @@
 ;; 素晴しいプログラム KAKASI をお作りになった高橋さんに感謝いたします。
 
 ;;; Code:
-(eval-when-compile (require 'skk-macs) (require 'skk-vars))
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars)
+  (require 'static))
 
 ;; APEL
 (require 'path-util)
 
-(if (fboundp 'modify-coding-system-alist)
-    (let ((euc (cdr (assoc "euc" skk-coding-system-alist))))
-      (modify-coding-system-alist 'process "kakasi" (cons euc euc))))
+(static-when (fboundp 'modify-coding-system-alist)
+  (let ((euc (cdr (assoc "euc" skk-coding-system-alist))))
+    (modify-coding-system-alist 'process "kakasi" (cons euc euc))))
 
 ;;;; FUNCTIONS
 ;;;###autoload

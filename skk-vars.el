@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.12 2000/11/19 13:49:01 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.13 2000/11/20 08:55:41 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/19 13:49:01 $
+;; Last Modified: $Date: 2000/11/20 08:55:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -38,13 +38,18 @@
   ;; shut down compiler warnings.
   (defvar word-across-newline)
   (defvar emacs-beta-version)
+  (defvar mule-version)
+
+  (defalias-maybe 'frame-property 'ignore)
+  (defalias-maybe 'locate-data-file 'ignore)
 
   (defmacro skk-deflocalvar (var default-value &optional documentation)
     (` (progn
 	 (defvar (, var) (, default-value)
 	   (, (format "%s\n\(buffer local\)" documentation)))
 	 (make-variable-buffer-local '(, var)))))
-  (require 'pcustom))
+  (require 'pcustom)
+  (require 'static))
 
 (eval-and-compile
   (defconst skk-emacs-type (cond ((featurep 'xemacs) 'xemacs)
@@ -64,7 +69,7 @@
 (defconst skk-ml-command-address "skk-request@ring.gr.jp")
 (defconst skk-background-mode
   ;; from font-lock-make-faces of font-lock.el  Welcome!
-  (cond
+  (static-cond
    ((eq skk-emacs-type 'xemacs)
     (if (< (apply '+ (color-rgb-components
                       (face-property 'default 'background)))
@@ -74,32 +79,37 @@
       'light))
    ((memq skk-emacs-type '(nemacs mule1))
     nil)
-   ((and window-system (x-display-color-p))
-    (let ((bg-resource (x-get-resource ".backgroundMode"
-                                       "BackgroundMode"))
-          params)
-      (if bg-resource
-          (intern (downcase bg-resource))
-        (setq params (frame-parameters))
-        (cond ((cdr (assq 'background-mode params)));; Emacs20.x (Meadow)
-	      ((and (eq system-type 'windows-nt);; Mule for Win32
-                    (fboundp 'win32-color-values))
-               (< (apply '+ (win32-color-values
-                             (cdr (assq 'background-color params))))
-                  (/ (apply '+ (win32-color-values "white")) 3))
-               'dark)
-              ((and (memq system-type '(ms-dos windows-nt))
-                    (not (fboundp 'x-color-values)))
-               (if (string-match "light"
-                                 (cdr (assq 'background-color params)))
-                   'light
-                 'dark))
-              ((< (apply '+ (x-color-values
-                             (cdr (assq 'background-color params))))
-                  (/ (apply '+ (x-color-values "white")) 3))
-               'dark)
-              (t 'light)))))
-   (t 'mono)))
+   (t
+    (cond
+     ((and window-system (x-display-color-p))
+      (let ((bg-resource (x-get-resource ".backgroundMode"
+					 "BackgroundMode"))
+	    params)
+	(if bg-resource
+	    (intern (downcase bg-resource))
+	  (setq params (frame-parameters))
+	  (static-cond
+	   ((and (eq system-type 'windows-nt);; Mule for Win32
+		 (fboundp 'win32-color-values))
+	    (< (apply '+ (win32-color-values
+			  (cdr (assq 'background-color params))))
+	       (/ (apply '+ (win32-color-values "white")) 3))
+	    'dark)
+	   ((and (memq system-type '(ms-dos windows-nt))
+		 (not (fboundp 'x-color-values)))
+	    (if (string-match "light"
+			      (cdr (assq 'background-color params)))
+		'light
+	      'dark))
+	   (t
+	    (cond
+	     ((cdr (assq 'background-mode params)));; Emacs20.x (Meadow)
+	     ((< (apply '+ (x-color-values
+			    (cdr (assq 'background-color params))))
+		 (/ (apply '+ (x-color-values "white")) 3))
+	      'dark)
+	     (t 'light)))))))
+     (t 'mono)))))
 
 ;;;; variables declaration
 ;;; user variables
@@ -190,6 +200,10 @@
 (defgroup skk-server nil "SKK server related customization." 
   :prefix "skk-server-" 
   :group 'skk-custom-by-filename)
+
+(defgroup skk-tut nil "SKK tutorial conversion related customization."
+  :prefix "skk-tut-"
+  :group 'skk)
 
 (defgroup skk-annotation nil "SKK annotation related customization." 
   :prefix "skk-annotation-" 
@@ -1427,10 +1441,12 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 
 ;;; SKK-CURSOR.EL related.
 (defcustom skk-cursor-default-color
-  (cond ((eq skk-emacs-type 'xemacs)
-	 (frame-property (selected-frame) 'cursor-color))
-	((memq skk-emacs-type '(nemacs mule1)) nil)
-	(t (cdr (assq 'cursor-color (frame-parameters (selected-frame))))))
+  (cond
+   ((eq skk-emacs-type 'xemacs)
+    (frame-property (selected-frame) 'cursor-color))
+   ((memq skk-emacs-type '(nemacs mule1)) nil)
+   (t
+    (cdr (assq 'cursor-color (frame-parameters (selected-frame))))))
   "*SKK モードのオフを示すカーソル色。
 skk-use-color-cursor が non-nil のときに使用される。"
   :group 'skk-decoration
@@ -1853,7 +1869,8 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
 
 (defcustom skk-server-remote-shell-program
   (or (getenv "REMOTESHELL")
-      (and (boundp 'remote-shell-program) remote-shell-program)
+      (and (boundp 'remote-shell-program)
+	   (symbol-value 'remote-shell-program))
       (cond
        ((eq system-type 'berkeley-unix)
         (if (file-exists-p "/usr/ucb/rsh") "/usr/ucb/rsh" "/usr/bin/rsh"))
@@ -1879,6 +1896,65 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
 Mule-UCS がインストールされていないときはこの値は動作に影響しない。"
   :type 'boolean
   :group 'skk-misc)
+
+;;; SKK-TUT.EL related.
+(defcustom skk-tut-file
+  (cond ((eq skk-emacs-type 'xemacs)
+	 (locate-data-file "SKK.tut"))
+	(t
+	 "/usr/local/share/skk/SKK.tut"))
+  "*SKK チュートリアルのファイル名。
+The English version is SKK.tut.E."
+  :type 'file
+  :group 'skk-tut)
+
+(defvar skk-tut-file-alist
+  (` (("Japanese" . (, skk-tut-file))
+      ("English" . (, (concat skk-tut-file ".E")))))
+  "*Alist of `(LANGUAGE . TUTORIAL-FILE)' pairs.")
+
+(defcustom skk-tut-use-face t
+  "*Non-nil であれば、チュートリアルで face を利用した表示を行なう。"
+  :type 'boolean
+  :group 'skk-tut)
+
+(defface skk-tut-section-face
+  '((((class color) (background light))
+     (:foreground "yellow" :background "dodgerblue"))
+    (((class color) (background dark))
+     (:foreground "yellow" :background "slateblue"))
+    (((class grayscale)) (:bold t) (:italic t)))
+  "*チュートリアル中のセクションの表示部分の face。"
+  :group 'skk-faces)
+
+(defface skk-tut-do-it-face
+  '((((class color) (background light)) (:foreground "DarkGoldenrod"))
+    (((class color) (background dark)) (:foreground "LightGoldenrod"))
+    (((class grayscale)) (:bold t)))
+  "*チュートリアル中の指示項目の表示部分の face。"
+  :group 'skk-faces)
+
+(defface skk-tut-question-face
+  '((((class color) (background light)) (:foreground "Blue"))
+    (((class color) (background dark)) (:foreground "LightSkyBlue"))
+    (((class grayscale)) (:underline t)))
+  "*チュートリアル中の問題の表示部分の face。"
+  :group 'skk-faces)
+
+(defface skk-tut-key-bind-face
+  '((((class color) (background light)) (:foreground "Firebrick"))
+    (((class color) (background dark)) (:foreground "OrangeRed"))
+    (((class grayscale)) (:bold t)))
+  "*チュートリアル中のキーバインドの表示部分の face。"
+  :group 'skk-faces)
+
+(defface skk-tut-hint-face
+  '((((class color) (background light)) (:foreground "CadetBlue"))
+    (((class color) (background dark)) (:foreground "Aquamarine"))
+    (((class grayscale)) (:italic t)))
+  "*チュートリアル中のヒントの表示部分の face。
+現在のところ、SKK.tut.E でしか使用されていない。"
+  :group 'skk-faces)
 
 ;;; -- INTERNAL CONSTANTS AND VARIABLES of SKK.EL
 ;; (ones of other separate programs should be in the relative files.)
@@ -2286,21 +2362,22 @@ ALIAS can be used as an alias of CANONICAL.
 CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
 
 (defconst skk-isearch-breakable-character-p-function
-  (cond ((fboundp 'char-category-set)
-	 (function (lambda (char)
-		     ;; see emacs/lisp/fill.el how the category `|' is
-		     ;; treated.
-		     (aref (char-category-set char) ?|))))
-	((boundp 'word-across-newline)
-	 (function (lambda (char)
-		     ;; (let ((lc (char-leading-char char)))
-		     ;;   (or (= lc lc-jp) (= lc lc-cn)))
-		     (string-match word-across-newline
-				   (char-to-string char)))))
-	((memq skk-emacs-type '(nemacs mule1))
-	 nil)
-	(t (error "No appropriate function as: %s"
-		  'skk-isearch-breakable-character-p-function)))
+  (static-cond
+   ((fboundp 'char-category-set)
+    (function (lambda (char)
+		;; see emacs/lisp/fill.el how the category `|' is
+		;; treated.
+		(aref (char-category-set char) ?|))))
+   ((boundp 'word-across-newline)
+    (function (lambda (char)
+		;; (let ((lc (char-leading-char char)))
+		;;   (or (= lc lc-jp) (= lc lc-cn)))
+		(string-match word-across-newline
+			      (char-to-string char)))))
+   ((memq skk-emacs-type '(nemacs mule1))
+    nil)
+   (t (error "No appropriate function as: %s"
+	     'skk-isearch-breakable-character-p-function)))
   "Function to test if we can insert a newline around CHAR when filling.")
 
 (defconst skk-isearch-working-buffer " *skk-isearch*"
@@ -2374,7 +2451,7 @@ skk-rom-kana-rule-list から木の形にコンパイルされる。")
 (defconst skk-code-n2-max 254)
 (defconst skk-code-null 128)
 (defconst skk-kcode-charset-list
-  (if (memq skk-emacs-type '(xemacs mule5 mule4 mule3))
+  (static-if (memq skk-emacs-type '(xemacs mule5 mule4 mule3))
       (mapcar '(lambda (x) (list (symbol-name x))) (charset-list))))
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
 

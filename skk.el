@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.60 2000/11/19 13:45:35 czkmt Exp $
+;; Version: $Id: skk.el,v 1.61 2000/11/20 08:55:42 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/19 13:45:35 $
+;; Last Modified: $Date: 2000/11/20 08:55:42 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -46,9 +46,14 @@
 
 ;;; Code:
 (eval-when-compile ; shut up compiler warning.
+  (defvar enable-character-translation)
+  (defvar enable-character-unification)
   (defvar epoch::version)
+  (defvar message-log-max)
+  (defvar minibuffer-local-ns-map)
   (defvar self-insert-after-hook)
-  (defvar skk-rdbms-private-jisyo-table))
+  (defvar skk-rdbms-private-jisyo-table)
+  (defvar this-command-char))
 
 (cond ((or (and (boundp 'epoch::version) epoch::version)
 	   (string< (substring emacs-version 0 2) "19"))
@@ -78,6 +83,13 @@
   (error
    (defalias 'easy-menu-define 'ignore)))
 (eval-and-compile (require 'skk-vars) (require 'skk-macs))
+
+(eval-and-compile
+  (autoload 'skk-isearch-message "skk-isearch")
+  (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
+  (autoload 'skk-num-convert "skk-num")
+  (autoload 'skk-num-multiple-convert "skk-num")
+  (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
 
 ;; aliases.
 (defalias 'skk-toggle-kana 'skk-toggle-characters)
@@ -1920,7 +1932,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   ;; なくなる。
   (interactive)
   (let ((inhibit-quit t)
-	converted kakutei-word var)
+	converted kakutei-word)
     (if (not skk-henkan-on)
 	nil
       (if skk-henkan-active
@@ -3766,8 +3778,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
     ;;
     (let ((list
 	   (cond
-	    ((and (fboundp 'face-proportional-p)
-		  (face-proportional-p 'modeline))
+	    ((skk-face-proportional-p 'modeline)
 	     '((skk-latin-mode-string . ("--SKK:" . " SKK"))
 	       (skk-hiragana-mode-string . ("--かな:" . " かな"))
 	       (skk-katakana-mode-string . ("--カナ:" . " カナ"))
@@ -3908,6 +3919,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 	
 (skk-defadvice newline (around skk-ad activate)
   "skk-egg-like-newline が non-nil だったら、変換中の newline で確定のみ行い、改行しない。"
+  (interactive "*P")
   (if (not (or skk-j-mode skk-abbrev-mode))
       ad-do-it
     (let (

@@ -106,7 +106,8 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 ** NICOLA-DDSKK のインストール
 
    必ず、上でインストールした SKK に同梱されている NICOLA-DDSKK をイン
-   ストールしてください。
+   ストールしてください。つまり、SKK をバージョンアップしたら必ず
+   NICOLA-DDSKK をインストールし直してください。
 
    % make install (XEmacs では make install-package)
 

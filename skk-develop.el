@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.9 2000/10/30 22:10:14 minakaji Exp $
+;; Version: $Id: skk-develop.el,v 1.10 2000/11/20 08:55:39 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:14 $
+;; Last Modified: $Date: 2000/11/20 08:55:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,7 +27,12 @@
 ;;; Commentary:
 
 ;;; Code:
-(eval-when-compile (require 'skk-macs) (require 'skk-vars))
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars))
+
+(eval-when-compile
+  (defvar skk-exserv-list))
 
 ;;;###autoload
 (defun skk-submit-bug-report ()

@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.5 2000/10/30 22:10:17 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.6 2000/11/20 08:55:40 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2000/10/30 22:10:17 $
+;; Last Modified: $Date: 2000/11/20 08:55:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -87,14 +87,21 @@
 ;; さん、sphere <sphere@pop12.odn.ne.jp> さんに深く感謝いたします。
 
 ;;; Code:
-(eval-when-compile (require 'cl) (require 'skk-macs) (require 'skk-vars)
-		   (require 'skk-num))
+(eval-when-compile
+  (require 'cl)
+  (require 'skk-macs)
+  (require 'skk-vars)
+  (require 'skk-num)
+  (require 'static))
 
-(if (memq skk-emacs-type '(mule5 mule4 mule3 mule2 mule1))
-    (condition-case nil (require 'bitmap) (error)))
+(static-when (memq skk-emacs-type '(mule5 mule4 mule3 mule2 mule1))
+  (condition-case nil (require 'bitmap) (error)))
  
 (require 'poe)
 (require 'lookup)
+
+(eval-and-compile
+  (autoload 'lookup-vse-search-query "lookup-vse"))
 
 (defalias-maybe 'skk-okurigana-prefix 'skk-auto-okurigana-prefix)
 
@@ -240,8 +247,7 @@
 		  ;; cut okurigana off.
 		  (substring string 0 (- okuri-length))))))))
 
-(defun skk-lookup-process-heading
-  (dicname heading okuri-process-type)
+(defun skk-lookup-process-heading (name heading okuri-process-type)
   ;; heading しか取り出さないのはもったいない？  他にも情報を取り出し
   ;; ておいて、必要に応じて参照するか？
   (save-match-data

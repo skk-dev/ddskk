@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.4 2000/11/19 13:47:23 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.5 2000/11/20 08:55:39 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2000/11/19 13:47:23 $
+;; Last Modified: $Date: 2000/11/20 08:55:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -64,7 +64,10 @@
 ;; を評価してください (Mule 2.3 については分かりません)。
 
 ;;; Code:
-(eval-when-compile (require 'skk-macs) (require 'skk-vars) (require 'static))
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars)
+  (require 'static))
 
 (static-cond ((eq skk-emacs-type 'mule2)
 	      (eval-and-compile
@@ -72,6 +75,12 @@
 		(require 'jisx0201)))
 	     (t
 	      (require 'japan-util)))
+
+(eval-and-compile
+  (unless (eq skk-emacs-type 'xemacs)
+    (autoload 'set-buffer-local-cursor-color "ccc"))
+  (autoload 'skk-cursor-current-color "skk-cursor")
+  (autoload 'skk-isearch-message "skk-isearch"))
 
 ;; 諸般の事情により skk-vars.el に入れるべきでない変数
 (defvar skk-jisx0201-base-rule-list
@@ -259,6 +268,7 @@
 
 (skk-defadvice newline (around skk-jisx0201-ad activate)
   "skk-egg-like-newline が non-nil だったら、変換中の newline で確定のみ行い、改行しない。"
+  (interactive "*P")
   (if (not (or skk-jisx0201-mode skk-abbrev-mode))
       ad-do-it
     (let (

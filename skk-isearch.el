@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.9 2000/11/01 11:18:22 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.10 2000/11/20 08:55:39 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/01 11:18:22 $
+;; Last Modified: $Date: 2000/11/20 08:55:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -217,16 +217,16 @@ kakutei'ed and erase the buffer contents."
 	      (skk-isearch-setup-keymap (cons 'keymap isearch-mode-map))))))
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
-  (when (and (boundp 'current-input-method) current-input-method
-	     (string-match "^japanese-skk" current-input-method))
-    (let* ((method current-input-method)
-	   (func (if (string= "japanese-skk" method)
-		     'skk-inactivate
-		   'skk-auto-fill-inactivate)))
-      (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
-	(unless current-input-method
-	  (setq inactivate-current-input-method-function func)
-	  (setq current-input-method method)))))
+  (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
+    (when (string-match "^japanese-skk" current-input-method)
+      (let* ((method current-input-method)
+	     (func (if (string= "japanese-skk" method)
+		       'skk-inactivate
+		     'skk-auto-fill-inactivate)))
+	(with-current-buffer (get-buffer-create skk-isearch-working-buffer)
+	  (unless current-input-method
+	    (setq inactivate-current-input-method-function func)
+	    (setq current-input-method method))))))
   ;; skk-isearch の状態を表す内部変数の設定
   (setq skk-isearch-switch t)
   (setq skk-isearch-in-editing nil)
@@ -261,10 +261,10 @@ kakutei'ed and erase the buffer contents."
 	  ((eq mode 'latin) (skk-latin-mode-on))
 	  ((eq mode 'jisx0208-latin) (skk-jisx0208-latin-mode-on))))
   ;; Input Method として SKK を使っている場合の対策
-  (when (and (boundp 'default-input-method)
-	     (string-match "^japanese-skk" (format "%s" default-input-method)))
-    (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
-      (inactivate-input-method)))
+  (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
+    (when (string-match "^japanese-skk" (format "%s" default-input-method))
+      (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
+	(inactivate-input-method))))
   ;; skk-isearch の状態を表す内部変数の設定
   (setq skk-isearch-switch nil)
   (unless skk-isearch-in-editing
@@ -318,9 +318,9 @@ Optional argument PREFIX is appended if given."
 
   ;; Keys for `skk-isearch-skk-mode'.
   (let ((commands '(skk-mode skk-auto-fill-mode)))
-    (if (and (boundp 'default-input-method)
-	     (string-match "^japanese-skk" (format "%s" default-input-method)))
-	(setq commands (cons 'toggle-input-method commands)))
+    (static-when (memq skk-emacs-type '(mule3 mule4 mule5))
+      (if (string-match "^japanese-skk" (format "%s" default-input-method))
+	  (setq commands (cons 'toggle-input-method commands))))
     (skk-isearch-find-keys-define map commands 'skk-isearch-skk-mode))
 
   ;; Keys for `skk-isearch-delete-char'.

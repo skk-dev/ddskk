@@ -3,9 +3,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.9 2000/10/30 22:10:17 minakaji Exp $
+;; Version: $Id: skk-look.el,v 1.10 2000/11/20 08:55:40 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:17 $
+;; Last Modified: $Date: 2000/11/20 08:55:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -116,6 +116,10 @@
   (defvar ispell-process)
   (defvar ispell-filter)
   (defvar ispell-filter))
+
+(eval-and-compile
+  (autoload 'ispell-accept-buffer-local-defs "ispell")
+  (autoload 'ispell-parse-output "ispell"))
 
 (and skk-look-command
      (null (member '(skk-look) skk-search-prog-list))

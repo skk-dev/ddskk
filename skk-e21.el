@@ -1,4 +1,3 @@
-
 ;;; skk-e21.el -- GNU Emacs 21 support for SKK.
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
@@ -44,13 +43,7 @@
   (list 'local-map (purecopy
 		    (make-mode-line-mouse2-map
 		     #'skk-e21-modeline-menu))
-	'help-echo "マウスの button 2 -> Daredevil SKK のメニュ−")
-  (let ((map (make-sparse-keymap)))
-    (define-key
-      map
-      [button2]
-      (eval '(make-modeline-command-wrapper 'skk-xemacs-modeline-menu)))
-    map))
+	'help-echo "マウスの button 2 -> Daredevil SKK のメニュ−"))
 
 ;; Functions.
 

@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.7 2000/11/11 03:09:20 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.8 2000/11/20 08:55:39 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/11 03:09:20 $
+;; Last Modified: $Date: 2000/11/20 08:55:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -49,7 +49,10 @@
 ;; から作られた造語らしい。
 
 ;;; Code:
-(eval-when-compile (require 'skk-macs) (require 'skk-vars) (require 'static))
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars)
+  (require 'static))
 
 ;; -- programs
 ;;;###autoload
@@ -164,8 +167,7 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
 			(static-cond
 			 ((featurep 'lisp-float-type)
 			  (if snd
-			      ;; $Bちょっともたつく ?
-			      (ding nil 'clink)
+			      (skk-ding nil 'clink)
 			    (ding)
 			    (unless (skk-sit-for
 				     (setq sec

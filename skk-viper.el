@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.8 2000/10/30 22:10:20 minakaji Exp $
+;; Version: $Id: skk-viper.el,v 1.9 2000/11/20 08:55:41 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:10:20 $
+;; Last Modified: $Date: 2000/11/20 08:55:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -29,8 +29,14 @@
 ;;; Commentary:
 
 ;;; Code:
-(eval-when-compile (require 'static) (require 'skk-macs) (require 'skk-vars))
+(eval-when-compile
+  (require 'static)
+  (require 'skk-macs)
+  (require 'skk-vars))
 (require 'viper)
+
+(eval-when-compile
+  (defvar viper-insert-state-cursor-color))
 
 ;; macros and inline functions.
 (defmacro skk-viper-advice-select (viper vip arg body)
