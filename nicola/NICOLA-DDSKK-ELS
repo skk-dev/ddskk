@@ -5,8 +5,8 @@
 ;;; Code:
 
 (require 'path-util)
-(and (module-installed-p 'easymenu)
-     (require 'easymenu))
+(if (module-installed-p 'easymenu)
+    (require 'easymenu))
 
 (setq nicola-ddskk-modules
       '(nicola-ddskk-autoloads
@@ -24,13 +24,13 @@
 	skk-omelet-jis
 	skk-omelet-us))
 
-(and (featurep 'xemacs)
-     (setq nicola-ddskk-modules
-	   (delq 'nicola-ddskk-autoloads nicola-ddskk-modules)))
+(if (featurep 'xemacs)
+    (setq nicola-ddskk-modules
+	  (delq 'nicola-ddskk-autoloads nicola-ddskk-modules)))
 
-(and (featurep 'easymenu)
-     (or (fboundp 'easy-menu-add-item)
-	 (setq nicola-ddskk-modules
-	       (nconc nicola-ddskk-modules '(skk-kanagaki-menu-oe)))))
+(if (and (featurep 'easymenu)
+	 (not (fboundp 'easy-menu-add-item)))
+    (setq nicola-ddskk-modules
+	  (nconc nicola-ddskk-modules '(skk-kanagaki-menu-oe))))
 
 ;;; NICOLA-DDSKK-ELS ends here

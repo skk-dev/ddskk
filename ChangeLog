@@ -3,6 +3,7 @@
 	* SKK-MK
 	* install-info.el
 	* skk-e21.el
+	* skk-gadget.el
 	* skk-leim.el
 	* skk-tut.el
 	* skk-xemacs.el
@@ -2327,8 +2328,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.462 2001/10/10 12:08:18 czkmt Exp $
-Last Modified: $Date: 2001/10/10 12:08:18 $
+Version: $Id: ChangeLog,v 1.463 2001/10/10 12:36:00 czkmt Exp $
+Last Modified: $Date: 2001/10/10 12:36:00 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

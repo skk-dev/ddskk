@@ -1102,9 +1102,8 @@ keycode 131 = underscore\n"))
 		  (get-buffer-create
 		   skk-isearch-working-buffer)
 		skk-mode))
-	 (condition-case nil
-	     ad-do-it
-	   (error)))
+	 (ignore-errors
+	   ad-do-it))
 	(t
 	 ad-do-it)))
 
@@ -1117,9 +1116,8 @@ keycode 131 = underscore\n"))
 		  (get-buffer-create
 		   skk-isearch-working-buffer)
 		skk-mode))
-	 (condition-case nil
-	     ad-do-it
-	   (error)))
+	 (ignore-errors
+	   ad-do-it))
 	(t
 	 ad-do-it)))
 

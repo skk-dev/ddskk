@@ -4,9 +4,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.21 2001/10/10 10:24:07 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.22 2001/10/10 12:36:00 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/10 10:24:07 $
+;; Last Modified: $Date: 2001/10/10 12:36:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -288,23 +288,23 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
   ;; of year.
   ;; if NOT-GANNEN is non-nil and calculated year is 1,
   ;; return a value of which cdr is "$B85(B" (string).
-  (if (>= 1866 ad)
-      (skk-error "$BJ,$j$^$;$s(B" "Unkown year")
-    (cons (cond ((>= 1911 ad)
-		 (setq ad (- ad 1867))
-		 (cdr (assq 'meiji skk-gengo-alist)))
-		((>= 1925 ad)
-		 (setq ad (- ad 1911))
-		 (cdr (assq 'taisho skk-gengo-alist)))
-		((>= 1988 ad)
-		 (setq ad (- ad 1925))
-		 (cdr (assq 'showa skk-gengo-alist)))
-		(t
-		 (setq ad (- ad 1988))
-		 (cdr (assq 'heisei skk-gengo-alist))))
-	  (cond (not-gannen ad)
-		((= ad 1) "$B85(B")
-		(t ad)))))
+  (when (>= 1866 ad)
+    (skk-error "$BJ,$j$^$;$s(B" "Unkown year"))
+  (cons (cond ((>= 1911 ad)
+	       (setq ad (- ad 1867))
+	       (cdr (assq 'meiji skk-gengo-alist)))
+	      ((>= 1925 ad)
+	       (setq ad (- ad 1911))
+	       (cdr (assq 'taisho skk-gengo-alist)))
+	      ((>= 1988 ad)
+	       (setq ad (- ad 1925))
+	       (cdr (assq 'showa skk-gengo-alist)))
+	      (t
+	       (setq ad (- ad 1988))
+	       (cdr (assq 'heisei skk-gengo-alist))))
+	(cond (not-gannen ad)
+	      ((= ad 1) "$B85(B")
+	      (t ad))))
 
 ;;;###autoload
 (defun skk-gengo-to-ad (&optional head tail)
