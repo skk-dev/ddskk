@@ -5,8 +5,8 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: SKK-MK,v 1.15 1999/09/22 03:59:59 minakaji Exp $
-;; Last Modified: $Date: 1999/09/22 03:59:59 $
+;; Version: $Id: SKK-MK,v 1.16 1999/09/22 04:33:38 minakaji Exp $
+;; Last Modified: $Date: 1999/09/22 04:33:38 $
 
 ;; Commentary
 ;;
@@ -30,7 +30,7 @@
 ;;; Code:
 ;;
 ;; independent of APEL.
-(require 'tinyinstall "./tinyinstall.el")
+(require 'tinyinstall "./tinyinstall")
 
 (defvar SKK-MK-cleanup-trouble-makers nil
   "*Non-nil means clean up already installed SKK package configration files.
