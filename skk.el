@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.134 2001/10/07 11:24:53 czkmt Exp $
+;; Version: $Id: skk.el,v 1.135 2001/10/08 03:49:49 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/07 11:24:53 $
+;; Last Modified: $Date: 2001/10/08 03:49:49 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -271,9 +271,9 @@
   (let ((map (make-sparse-keymap))
 	(i 0))
     (while (< i 128)
-      (and (aref skk-jisx0208-latin-vector i)
-	   (define-key map (char-to-string i)
-	     'skk-jisx0208-latin-insert))
+      (if (aref skk-jisx0208-latin-vector i)
+	  (define-key map (char-to-string i)
+	    'skk-jisx0208-latin-insert))
       (setq i (1+ i)))
     (define-key map "\C-q" 'skk-latin-henkan)
     (skk-define-menu-bar-map map)
@@ -488,11 +488,8 @@ dependent."
   (load skk-init-file t)
   (skk-setup-modeline)
   (require 'skk-autoloads)
-  (static-if (memq skk-emacs-type
-		   '(mule3
-		     mule4
-		     mule5
-		     xemacs))
+  (static-if
+      (memq skk-emacs-type '(mule3 mule4 mule5 xemacs))
       (require 'skk-leim))
   (if skk-share-private-jisyo (skk-setup-shared-private-jisyo))
   (if skk-keep-record
@@ -544,11 +541,11 @@ dependent."
   (define-key minibuffer-local-map skk-kakutei-key 'skk-kakutei)
   (define-key minibuffer-local-completion-map skk-kakutei-key 'skk-kakutei)
   ;; XEmacs doesn't have minibuffer-local-ns-map
-  (and (boundp 'minibuffer-local-ns-map)
-       (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
-  (static-if (eq skk-emacs-type 'xemacs) (easy-menu-add skk-menu))
-  (if skk-use-viper
-      nil
+  (if (boundp 'minibuffer-local-ns-map)
+      (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
+  (static-if (eq skk-emacs-type 'xemacs)
+      (easy-menu-add skk-menu))
+  (unless skk-use-viper
     (define-key skk-j-mode-map
       (char-to-string skk-start-henkan-with-completion-char)
       'skk-start-henkan-with-completion)
@@ -570,20 +567,22 @@ dependent."
     (skk-xemacs-prepare-modeline-properties))
    ((eq skk-emacs-type 'mule5)
     (skk-e21-prepare-modeline-properties)))
-  (let ((mode-string-list
-	 '(skk-latin-mode-string
-	   skk-hiragana-mode-string
-	   skk-katakana-mode-string
-	   skk-jisx0208-latin-mode-string
-	   skk-abbrev-mode-string
-	   skk-jisx0201-mode-string))
+  ;;
+  (let ((mode-string-list '(skk-latin-mode-string
+			    skk-hiragana-mode-string
+			    skk-katakana-mode-string
+			    skk-jisx0208-latin-mode-string
+			    skk-abbrev-mode-string
+			    skk-jisx0201-mode-string))
 	mode string base)
     (save-match-data
       (cons
        (cons 'default
 	     (cons ""
-		   (static-if (eq skk-emacs-type 'xemacs)
-		       (cons (cdr (assq 'default skk-xemacs-extent-alist)) "")
+		   (static-if
+		       (eq skk-emacs-type 'xemacs)
+		       (cons (cdr (assq 'default skk-xemacs-extent-alist))
+			     "")
 		     "")))
        (mapcar (lambda (symbol)
 		 (setq mode (prin1-to-string symbol))
@@ -622,8 +621,7 @@ dependent."
 	    string))
      ((eq skk-emacs-type 'mule5)
       (if window-system
-	  (apply 'propertize
-		 string
+	  (apply 'propertize string
 		 (cdr (assq mode skk-e21-property-alist)))
 	string))
      (t
@@ -994,7 +992,8 @@ dependent."
   ;; の中で使用している move-to-column で全角文字を無視したカラム数が与えられ
   ;; たときにカーソル移動ができないから) である。消したい文字にポイントを合わ
   ;; せ、C-c C-d で一文字づつ消すしか方法はない。
-  (and skk-mode (skk-kill-local-variables)))
+  (when skk-mode
+    (skk-kill-local-variables)))
 
 (defun skk-kill-local-variables ()
   ;; SKK 関連のバッファローカル変数を無効にする。
@@ -1005,8 +1004,9 @@ dependent."
       (setq v (car (car lv))
 	    lv (cdr lv)
 	    vstr (prin1-to-string v))
-      (and (> (length vstr) 3) (string= "skk-" (substring vstr 0 4))
-	   (kill-local-variable v)))))
+      (when (and (> (length vstr) 3)
+		 (string= "skk-" (substring vstr 0 4)))
+	(kill-local-variable v)))))
 
 ;;;; kana inputting functions
 
@@ -1053,8 +1053,9 @@ dependent."
 				skk-previous-completion-char))
 		 (eq last-command 'skk-comp-do))
 	    (skk-comp-previous/next ch))
-	   ;; just imput Kana.
-	   (t (skk-kana-input arg))))))
+	   (t
+	   ;; just input Kana.
+	    (skk-kana-input arg))))))
 
 (defun skk-process-prefix-or-suffix (&optional arg)
   "接頭辞または接尾辞の入力を開始する。
@@ -1160,82 +1161,101 @@ dependent."
 	(skk-erase-prefix))
       (setq skk-prefix (concat (skk-get-prefix skk-current-rule-tree)
 			       (char-to-string last-command-char)))
-      (let ((next (skk-select-branch skk-current-rule-tree (car queue)))
+      (let ((next (skk-select-branch
+		   skk-current-rule-tree
+		   (car queue)))
 	    data)
-	(if next
-	    ;; can go down SKK-CURRENT-RULE-TREE
-	    (if (skk-get-branch-list next)
-		;; NEXT have at least one branch
-		(progn
-		  (and skk-henkan-active
+	(cond
+	 (next
+	  ;; can go down SKK-CURRENT-RULE-TREE
+	  (cond
+	   ((skk-get-branch-list next)
+	    ;; NEXT have at least one branch
+	    (when (and skk-henkan-active
 		       skk-kakutei-early
-		       (not skk-process-okuri-early)
-		       (progn
-			 (skk-kakutei)
-			 (skk-set-marker skk-kana-start-point (point))))
-		  (setq queue (cdr queue)
-			skk-current-rule-tree next))
-	      ;; NEXT does not have any branch (i.e. NEXT is a leaf)
-	      (setq data (skk-get-kana next)
-		    queue (nconc (string-to-char-list (skk-get-nextstate next))
-				 (cdr queue))
-		    skk-current-rule-tree nil))
+		       (not skk-process-okuri-early))
+	      (skk-kakutei)
+	      (skk-set-marker skk-kana-start-point (point)))
+	    (setq queue (cdr queue)
+		  skk-current-rule-tree next))
+	   (t
+	    ;; NEXT does not have any branch (i.e. NEXT is a leaf)
+	    (setq data (skk-get-kana next)
+		  queue (nconc (string-to-char-list
+				(skk-get-nextstate next))
+			       (cdr queue))
+		  skk-current-rule-tree nil))))
+	 (t
 	  ;; can not go down SKK-CURRENT-RULE-TREE
 	  (let ((d (skk-get-kana skk-current-rule-tree)))
-	    (if d
-		;; SKK-CURRENT-RULE-TREE have a roma->kana rule
-		(setq data d
-		      queue
-		      (nconc (string-to-char-list
-			      (skk-get-nextstate skk-current-rule-tree))
-			     queue)
-		      skk-current-rule-tree nil)
+	    (cond
+	     (d
+	      ;; SKK-CURRENT-RULE-TREE have a roma->kana rule
+	      (setq data d
+		    queue (nconc (string-to-char-list
+				  (skk-get-nextstate
+				   skk-current-rule-tree))
+				 queue)
+		    skk-current-rule-tree nil))
+	     (t
 	      ;; SKK-CURRENT-RULE-TREE does not have any roma->kana rule
-	      (let ((dd (and skk-kana-input-search-function
-			     (funcall skk-kana-input-search-function))))
-		(if dd
-		    (setq data (car dd)
-			  queue (nconc (string-to-char-list (cdr dd))
-				       (cdr queue))
-			  skk-current-rule-tree nil)
-		  (if (eq skk-current-rule-tree skk-rule-tree)
-		      ;; typo on the root of tree
-		      (setq queue nil
-			    skk-current-rule-tree nil)
-		    ;; otherwise move to root of the tree, and redo
-		    (setq skk-current-rule-tree nil)))))))
-	(if (not data)
-	    (if skk-current-rule-tree
-		(progn
-		  ;;(digit-argument arg)
-		  ;; う〜ん、よう分からん。とりあえず。
-		  (or skk-isearch-message (setq prefix-arg arg))
-		  (setq skk-prefix (skk-get-prefix skk-current-rule-tree))
-		  (skk-insert-prefix skk-prefix))
-	      ;;(skk-kana-cleanup 'force)
-
-	      (and skk-henkan-active (skk-kakutei))
-	      (setq skk-prefix "")
-	      (or queue
-		  ;; XXX 便宜上▽モードでは `skk-emulate-original-map'を呼ば
-		  ;; ない方がいいような気がするのですが、いかがでしょうか。
-		  (and (not (eq this-command 'skk-insert))
-		       skk-henkan-on)
-		  (skk-emulate-original-map (skk-make-raw-arg arg))))
+	      (let ((dd (when skk-kana-input-search-function
+			  (funcall skk-kana-input-search-function))))
+		(cond
+		 (dd
+		  (setq data (car dd)
+			queue (nconc (string-to-char-list (cdr dd))
+				     (cdr queue))
+			skk-current-rule-tree nil))
+		 ((eq skk-current-rule-tree skk-rule-tree)
+		  ;; typo on the root of tree
+		  (setq queue nil
+			skk-current-rule-tree nil))
+		 (t
+		  ;; otherwise move to root of the tree, and redo
+		  (setq skk-current-rule-tree nil)))))))))
+	(cond
+	 ((not data)
+	  (if skk-current-rule-tree
+	      (progn
+		;;(digit-argument arg)
+		;; う〜ん、よう分からん。とりあえず。
+		(unless skk-isearch-message
+		  (setq prefix-arg arg))
+		(setq skk-prefix (skk-get-prefix skk-current-rule-tree))
+		(skk-insert-prefix skk-prefix))
+	    ;;(skk-kana-cleanup 'force)
+	    (when skk-henkan-active
+	      (skk-kakutei))
+	    (setq skk-prefix "")
+	    (unless (or queue
+			(and (not (eq this-command 'skk-insert))
+			     skk-henkan-on))
+	      (skk-emulate-original-map (skk-make-raw-arg arg)))))
+	 (t
 	  ;;(skk-cancel-undo-boundary)
 	  (setq skk-prefix "")
-	  (and (functionp data)
-	       (setq data (funcall data (skk-make-raw-arg arg))))
-	  (if (not (stringp (if (consp data) (car data) data)))
-	      nil
-	    (let* ((str (if (consp data) (if skk-katakana (car data) (cdr data))
+	  (when (functionp data)
+	    (setq data (funcall data (skk-make-raw-arg arg))))
+	  (when (stringp (if (consp data)
+			     (car data)
+			   data))
+	    (let* ((str (if (consp data)
+			    (if skk-katakana
+				(car data)
+			      (cdr data))
 			  data))
-		   (pair (and skk-auto-insert-paren
-			      (cdr (assoc str skk-auto-paren-string-alist))))
-		   (count0 arg) (count1 arg) (inserted 0))
-	      (and skk-henkan-active
-		   skk-kakutei-early (not skk-process-okuri-early)
-		   (skk-kakutei))
+		   (pair (when skk-auto-insert-paren
+			   (cdr (assoc
+				 str
+				 skk-auto-paren-string-alist))))
+		   (count0 arg)
+		   (count1 arg)
+		   (inserted 0))
+	      (when (and skk-henkan-active
+			 skk-kakutei-early
+			 (not skk-process-okuri-early))
+		(skk-kakutei))
 	      ;; arg は保存しておかないと、0 になってしまい、queue
 	      ;; がたまっていて再度ここへやって来たときに文字入力が
 	      ;; できなくなる。
@@ -1243,18 +1263,21 @@ dependent."
 	      (while (> count0 0)
 		(skk-insert-str str)
 		(setq count0 (1- count0)))
-	      (if (not pair)
-		  nil
+	      (when pair
 		(while (> count1 0)
 		  (if (not (string= pair (char-to-string (following-char))))
 		      (progn
 			(setq inserted (1+ inserted))
 			(skk-insert-str pair)))
 		  (setq count1 (1- count1)))
-		(or (= inserted 0) (backward-char inserted)))
-	      (and skk-okurigana (null queue) (skk-set-okurigana))))))
+		(unless (= inserted 0)
+		  (backward-char inserted)))
+	      (when (and skk-okurigana
+			 (null queue))
+		(skk-set-okurigana)))))))
       ;; XXX I don't know how skk-isearch-message works....
-      (and skk-isearch-message (skk-isearch-message)))))
+      (when skk-isearch-message
+	(skk-isearch-message)))))
 
 ;; tree procedure (ツリーにアクセスするためのインターフェース)
 (defun skk-search-tree (tree char-list)
