@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.10 2000/11/19 01:27:40 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.11 2000/11/19 13:47:46 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/19 01:27:40 $
+;; Last Modified: $Date: 2000/11/19 13:47:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -177,14 +177,16 @@
     ;; Emacs 19 or later.
     (` (sit-for (, seconds) nil (, nodisplay))))))
 
-(defmacro skk-update-modeline-with-extent (extent)
-  (`
-   (let* ((orig (rassq 'skk-input-mode-string modeline-format))
-	  (former (or (nreverse (cdr (memq orig (reverse modeline-format))))
-		      '("")))
-	  (latter (cdr (memq orig modeline-format)))
-	  (new (cons (, extent) 'skk-input-mode-string)))
-     (setq modeline-format (nconc former (list new) latter)))))
+(defmacro skk-update-modeline (indicator)
+  (case skk-emacs-type
+    ((xemacs mule5)
+     (`
+      (when (eq skk-status-indicator 'left)
+	(setq skk-modeline-input-mode (, indicator)))))
+    (t
+     (`
+      (when (eq skk-status-indicator 'left)
+	(setq skk-modeline-input-mode skk-input-mode-string))))))
 
 ;;(defun-maybe mapvector (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
@@ -456,8 +458,7 @@
         skk-katakana nil)
   ;; initialize
   (setq skk-input-mode-string skk-hiragana-mode-string)
-  (static-when (eq skk-emacs-type 'xemacs)
-    (skk-update-modeline-with-extent skk-xemacs-hiragana-extent))
+  (skk-update-modeline skk-hiragana-mode-indicator)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map skk-current-local-map)
     (setq skk-current-local-map nil))
@@ -474,11 +475,9 @@
         skk-katakana katakana)
   (setq skk-input-mode-string (if skk-katakana skk-katakana-mode-string
 				skk-hiragana-mode-string))
-  (static-when (eq skk-emacs-type 'xemacs)
-    (skk-update-modeline-with-extent
-     (if skk-katakana
-	 skk-xemacs-katakana-extent
-       skk-xemacs-hiragana-extent)))
+  (skk-update-modeline (if skk-katakana
+			   skk-katakana-mode-indicator
+			 skk-hiragana-mode-indicator))
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
      (skk-e18-make-local-map skk-j-mode-map
@@ -496,8 +495,7 @@
         ;; sub mode of skk-j-mode.
         skk-katakana nil
         skk-input-mode-string skk-latin-mode-string)
-  (static-when (eq skk-emacs-type 'xemacs)
-    (skk-update-modeline-with-extent skk-xemacs-latin-extent))
+  (skk-update-modeline skk-latin-mode-indicator)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
      (skk-e18-make-local-map skk-latin-mode-map
@@ -515,8 +513,7 @@
         ;; sub mode of skk-j-mode.
         skk-katakana nil
         skk-input-mode-string skk-jisx0208-latin-mode-string)
-  (static-when (eq skk-emacs-type 'xemacs)
-    (skk-update-modeline-with-extent skk-xemacs-jisx0208-latin-extent))
+  (skk-update-modeline skk-jisx0208-latin-mode-indicator)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
      (skk-e18-make-local-map skk-jisx0208-latin-mode-map
@@ -540,8 +537,7 @@
         ;; sub mode of skk-j-mode.
         ;;skk-katakana nil
         skk-input-mode-string skk-abbrev-mode-string)
-  (static-when (eq skk-emacs-type 'xemacs)
-    (skk-update-modeline-with-extent skk-xemacs-abbrev-extent))
+  (skk-update-modeline skk-abbrev-mode-indicator)
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map
      (skk-e18-make-local-map skk-abbrev-mode-map
