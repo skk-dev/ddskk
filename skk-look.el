@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.14 2001/10/07 08:36:44 czkmt Exp $
+;; Version: $Id: skk-look.el,v 1.15 2001/10/20 02:33:00 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/07 08:36:44 $
+;; Last Modified: $Date: 2001/10/20 02:33:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -121,19 +121,22 @@
   (autoload 'ispell-accept-buffer-local-defs "ispell")
   (autoload 'ispell-parse-output "ispell"))
 
-(and skk-look-command
-     (null (member '(skk-look) skk-search-prog-list))
-     (let ((pl skk-search-prog-list)
-	   (n 0) dic mark)
-       (while pl
-	 (setq dic (car pl))
-	 (if (memq (nth 1 dic) '(skk-jisyo skk-rdbms-private-jisyo-table))
-	     (setq mark n
-		   pl nil)
-	   (setq pl (cdr pl)
-		 n (1+ n))))
-       (skk-splice-in skk-search-prog-list (1+ mark)
-		      '((skk-look)))))
+(when (and skk-look-command
+	   (null (member '(skk-look)
+			 (default-value 'skk-search-prog-list))))
+  (let ((pl (default-value 'skk-search-prog-list))
+	(n 0)
+	dic mark)
+    (while pl
+      (setq dic (car pl))
+      (if (memq (nth 1 dic) '(skk-jisyo skk-rdbms-private-jisyo-table))
+	  (setq mark n
+		pl nil)
+	(setq pl (cdr pl)
+	      n (1+ n))))
+    (skk-splice-in (default-value 'skk-search-prog-list)
+		   (1+ mark)
+		   '((skk-look)))))
 
 ;; program
 ;;;###autoload
@@ -141,29 +144,33 @@
   ;; UNIX look コマンドを利用した変換を行なう。
   ;; SKK abbrev モードにて、英文字 + アスタリスクで uncompleted spelling を指定
   ;; する。
-  (and skk-abbrev-mode
-       (eq (skk-str-ref skk-henkan-key (1- (length skk-henkan-key))) ?*)
-       (let ((args (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
-	     v)
-	 (if (not skk-look-use-ispell)
-	     (setq v (skk-look-1 args))
-	   (setq v (skk-look-ispell args)))
-	 (if (not skk-look-recursive-search)
-	     v
-	   (let (skk-henkan-key v2 v3)
-	     (while v
-	       (let ((skk-current-search-prog-list
-		      (delete '(skk-look) (copy-sequence skk-search-prog-list))))
-		 (setq skk-henkan-key (car v))
-		 (while skk-current-search-prog-list
-		   (setq v3 (let (skk-use-numeric-conversion) (skk-search))
-			 v2 (if (not skk-look-expanded-word-only)
-				(skk-nunion v2 (cons (car v) v3))
-			      (if v3
-				  (skk-nunion v2 (cons (car v) v3))
-				v2)))))
-	       (setq v (cdr v)))
-	     v2)))))
+  (when (and skk-use-look
+	     skk-abbrev-mode
+	     (eq (skk-str-ref skk-henkan-key (1- (length skk-henkan-key)))
+		 ?*))
+    (let* ((args (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
+	   (v (if skk-look-use-ispell
+		  (skk-look-ispell args)
+		(skk-look-1 args)))
+	   skk-henkan-key
+	   skk-use-look
+	   v2 v3)
+      (cond
+       ((not skk-look-recursive-search)
+	v)
+       (t
+	(dolist (key v)
+	  (let ((skk-current-search-prog-list
+		 (copy-sequence skk-search-prog-list)))
+	    (setq skk-henkan-key key)
+	    (while skk-current-search-prog-list
+	      (setq v3 (let (skk-use-numeric-conversion)
+			 (skk-search))
+		    v2 (if (or (not skk-look-expanded-word-only)
+			       v3)
+			   (skk-nunion v2 (cons key v3))
+			 v2)))))
+	v2)))))
 
 (defun skk-look-1 (args)
   ;; core search engine
@@ -171,35 +178,38 @@
     (let ((word args)
 	  opt)
       (setq args (list args))
-      (and skk-look-dictionary (nconc args (list skk-look-dictionary)))
-      (and skk-look-dictionary-order (setq opt "d"))
-      (and skk-look-ignore-case (setq opt (concat "f" opt)))
-      (and skk-look-use-alternate-dictionary
-	   (setq opt (concat "a" opt)))
-      (and opt (setq args (cons (concat "-" opt) args)))
-      (and skk-look-termination-character
-	   (setq args
-		 (cons (list "-t" skk-look-termination-character) args)))
-      (and
-       (= 0 (apply 'call-process skk-look-command nil t nil args))
-       (> (buffer-size) 0)
-       (delete word (split-string (buffer-substring-no-properties
-				   (point-min) (1- (point-max)))
-				  "\n"))))))
+      (when skk-look-dictionary
+	(nconc args (list skk-look-dictionary)))
+      (when skk-look-dictionary-order
+	(setq opt "d"))
+      (when skk-look-ignore-case
+	(setq opt (concat "f" opt)))
+      (when skk-look-use-alternate-dictionary
+	(setq opt (concat "a" opt)))
+      (when opt
+	(setq args (cons (concat "-" opt) args)))
+      (when skk-look-termination-character
+	(setq args
+	      (cons (list "-t" skk-look-termination-character) args)))
+      (when (and (= 0 (apply 'call-process skk-look-command nil t nil args))
+		 (> (buffer-size) 0))
+	(delete word (split-string (buffer-substring-no-properties
+				    (point-min) (1- (point-max)))
+				   "\n"))))))
 
 ;;;###autoload
 (defun skk-look-completion ()
   (unless skk-look-completion-words
     (let ((stacked skk-comp-stack)) ; 他の機能による補完候補。
-      ;; look は複数の候補を吐くので、一旦貯めておいて、一つずつ complete する。
+      ;; look は複数の候補を吐くので、一旦貯めておいて、
+      ;; 一つずつ complete する。
       (setq skk-look-completion-words
-	    (if (not skk-look-use-ispell)
-		(skk-look-1 skk-comp-key)
-	      (skk-look-ispell skk-comp-key)))
-      (while stacked
+	    (if skk-look-use-ispell
+		(skk-look-ispell skk-comp-key)
+	      (skk-look-1 skk-comp-key)))
+      (dolist (word stacked)
 	(setq skk-look-completion-words
-	      (delete (car stacked) skk-look-completion-words)
-	      stacked (cdr stacked)))
+	      (delete word skk-look-completion-words)))
       ;;skk-look-completion-words の各要素は、実際に補完を行なった段階で
       ;; `skk-completion' により skk-comp-stack に入れられる。
       ))
@@ -220,38 +230,42 @@
 	   (accept-process-output ispell-process)
 	   (not (string= "" (car ispell-filter)))))
   (setq ispell-filter (cdr ispell-filter)) ; remove extra \n
-  (let ((poss (and ispell-filter (listp ispell-filter)
-		   ;; 1: t for an exact match.
-		   ;; 2: A string containing the root word matched via suffix removal.
-		   ;; 3: A list of possible correct spellings of the format:
-		   ;;    (ORIGINAL-WORD OFFSET MISS-LIST GUESS-LIST)
-		   ;;    ORIGINAL-WORD is a string of the possibly misspelled word.
-		   ;;    OFFSET is an integer giving the line offset of the word.
-		   ;;    MISS-LIST and GUESS-LIST are possibly null lists of guesses and misses.
-		   ;; 4: Nil when an error has occurred."
-		   (or (ispell-parse-output (car ispell-filter))
-		       'error)))
+  (let ((poss (when (and ispell-filter
+			 (listp ispell-filter))
+		;; 1: t for an exact match.
+		;; 2: A string containing the root word matched via suffix
+		;;    removal.
+		;; 3: A list of possible correct spellings of the format:
+		;;    (ORIGINAL-WORD OFFSET MISS-LIST GUESS-LIST)
+		;;    ORIGINAL-WORD is a string of the possibly misspelled
+		;;    word.
+		;;    OFFSET is an integer giving the line offset of the word.
+		;;    MISS-LIST and GUESS-LIST are possibly null lists of
+		;;    guesses and misses.
+		;; 4: Nil when an error has occurred."
+		(or (ispell-parse-output (car ispell-filter))
+		    'error)))
 	ret var)
     (setq ispell-filter nil)
-    (cond ((eq poss 'error)
-	   (skk-message "ispell process でエラーが発生しました。"
-			"error in ispell process")
-	   (sit-for 1)
-	   (message "")
-	   nil)
-	  ((or (eq poss t)
-	       ;; root word に対して skk-look-1 かけちゃおうか？
-	       ;; でもちっとも補完ぢゃなくなっちまいますね... (^^;;。
-	       (stringp poss)
-	       (null (or (nth 2 poss) (nth 3 poss))))
-	   (skk-look-1 word))
-	  (t
-	   (setq var (nconc (nth 2 poss) (nth 3 poss)))
-	   (while var
-	     ;; call look command by each candidate put out by ispell.
-	     (setq ret (skk-nunion ret (cons (car var) (skk-look-1 (car var))))
-		   var (cdr var)))
-	   (delete word (skk-nunion (skk-look-1 word) ret))))))
+    (cond
+     ((eq poss 'error)
+      (skk-message "ispell process でエラーが発生しました。"
+		   "error in ispell process")
+      (sit-for 1)
+      (message "")
+      nil)
+     ((or (eq poss t)
+	  ;; root word に対して skk-look-1 かけちゃおうか？
+	  ;; でもちっとも補完ぢゃなくなっちまいますね... (^^;;。
+	  (stringp poss)
+	  (null (or (nth 2 poss) (nth 3 poss))))
+      (skk-look-1 word))
+     (t
+      (setq var (nconc (nth 2 poss) (nth 3 poss)))
+      (dolist (key var)
+	;; call look command by each candidate put out by ispell.
+	(setq ret (skk-nunion ret (cons key (skk-look-1 key)))))
+      (delete word (skk-nunion (skk-look-1 word) ret))))))
 
 (require 'product)
 (product-provide (provide 'skk-look) (require 'skk-version))
