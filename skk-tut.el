@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-tut.el,v 1.5 1999/09/16 14:19:44 minakaji Exp $
+;; Version: $Id: skk-tut.el,v 1.6 1999/09/16 21:26:36 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/09/16 14:19:44 $
+;; Last Modified: $Date: 1999/09/16 21:26:36 $
 
 ;; This file is part of SKK.
 
@@ -52,7 +52,7 @@
    ((and skk-package-data-directory
 	 (file-exists-p (expand-file-name "SKK.tut" skk-package-data-directory)) )
     (expand-file-name "SKK.tut" skk-package-data-directory) )
-   (t (expand-file-name "skk/SKK.tut" data-directory)) )
+   (t "/usr/local/share/skk/SKK.tut") )
   "*SKK チュートリアルのファイル名。
 The English version is SKK.tut.E."
   :type 'file
@@ -324,8 +324,8 @@ The English version is SKK.tut.E."
 				   ("zo" nil ("ゾ" . "ぞ")) ("zu" nil ("ズ" . "ず"))
 				   ("zya" nil ("ジャ" . "じゃ")) ("zye" nil ("ジェ" . "じぇ"))
 				   ("zyi" nil ("ジィ" . "じぃ")) ("zyo" nil ("ジョ" . "じょ"))
-				   ("zyu" nil ("ジュ" . "じゅ")) ("," nil skk-current-kuten)
-				   ("." nil skk-current-touten) ("-" nil "ー")
+				   ("zyu" nil ("ジュ" . "じゅ")) ("." nil skk-current-kuten)
+				   ("," nil skk-current-touten) ("-" nil "ー")
 				   (":" nil "：") (";" nil "；") ("?" nil "？")
 				   ("[" nil "「") ("]" nil "」") ("l" nil skk-latin-mode)
 				   ("q" nil skk-toggle-kana) ("L" nil skk-jisx0208-latin-mode)
