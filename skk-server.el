@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.28 2001/11/27 14:53:07 czkmt Exp $
+;; Version: $Id: skk-server.el,v 1.29 2001/11/27 14:57:29 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/27 14:53:07 $
+;; Last Modified: $Date: 2001/11/27 14:57:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -48,35 +48,34 @@
   (cond
    ((interactive-p)
     (message "%s" (skk-server-version)))
-   (t
-    (unless (or skk-server-host
-		skk-servers-list)
-      (skk-error "Lack of host information of SKK server"
-		 "SKK サーバーのホスト情報がありません"))
-    (when (skk-server-live-p (skk-open-server))
-      (let (v)
-	(save-match-data
-	  (with-current-buffer skkserv-working-buffer
-	    (erase-buffer)
-	    ;; サーバーバージョンを得る。
-	    (process-send-string skkserv-process "2")
-	    (while (eq (buffer-size) 0)
-	      (accept-process-output))
-	    (setq v (buffer-string))
-	    (erase-buffer)
-	    ;; ホスト名を得る。
-	    (process-send-string skkserv-process "3")
-	    (while (eq (buffer-size) 0)
-	      (accept-process-output))
-	    (goto-char (point-min))
-	    (format (concat "SKK SERVER version %s"
-			    (if skk-japanese-message-and-error
-				"(ホスト名 %s)"
-			      "running on HOST %s"))
-		    v
-		    (prog1
-			(buffer-string)
-		      (erase-buffer))))))))))
+   ((not (or skk-server-host
+	     skk-servers-list))
+    (skk-error "Lack of host information of SKK server"
+	       "SKK サーバーのホスト情報がありません"))
+   ((skk-server-live-p (skk-open-server))
+    (let (v)
+      (save-match-data
+	(with-current-buffer skkserv-working-buffer
+	  (erase-buffer)
+	  ;; サーバーバージョンを得る。
+	  (process-send-string skkserv-process "2")
+	  (while (eq (buffer-size) 0)
+	    (accept-process-output))
+	  (setq v (buffer-string))
+	  (erase-buffer)
+	  ;; ホスト名を得る。
+	  (process-send-string skkserv-process "3")
+	  (while (eq (buffer-size) 0)
+	    (accept-process-output))
+	  (goto-char (point-min))
+	  (format (concat "SKK SERVER version %s"
+			  (if skk-japanese-message-and-error
+			      "(ホスト名 %s)"
+			    "running on HOST %s"))
+		  v
+		  (prog1
+		      (buffer-string)
+		    (erase-buffer)))))))))
 
 ;;;###autoload
 (defun skk-search-server-1 (file limit)
