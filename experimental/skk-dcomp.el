@@ -1,11 +1,11 @@
 ;;; skk-dcomp.el --- SKK dynamic completion
-;; Copyright (C) 1999 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.6 2000/10/30 22:18:14 minakaji Exp $
+;; Version: $Id: skk-dcomp.el,v 1.7 2000/11/26 10:33:27 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/10/30 22:18:14 $
+;; Last Modified: $Date: 2000/11/26 10:33:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -34,19 +34,19 @@
 
 (defgroup skk-dcomp nil "SKK dynamic completion related customization."
   :prefix "skk-dcomp-"
-  :group 'skk )
+  :group 'skk)
 
 (defface skk-dcomp-face
   '((((class color)) (:foreground "DarkKhaki"))
     (((class grayscale) (background light)) (:foreground "DimGray" :italic t))
-    (((class grayscale) (background dark)) (:foreground "LightGray" :italic t)) )
+    (((class grayscale) (background dark)) (:foreground "LightGray" :italic t)))
   "*Face used to highlight region dynamically completed."
-  :group 'skk-faces )
+  :group 'skk-faces)
 
 (defcustom skk-dcomp-face-priority 700
   "*Overlay/extent priority of `skk-dcomp-face'."
   :type 'integer
-  :group 'skk-dcomp )
+  :group 'skk-dcomp)
 
 (skk-deflocalvar skk-dcomp-start-point nil)
 (skk-deflocalvar skk-dcomp-extent nil)
@@ -55,23 +55,23 @@
 
 (defun skk-dcomp-face-on (start end)
   (skk-face-on skk-dcomp-extent start end skk-dcomp-face
-	       skk-dcomp-face-priority ))
+	       skk-dcomp-face-priority))
 
 (defun skk-dcomp-face-off ()
-  (skk-detach-extent skk-dcomp-extent) )
+  (skk-detach-extent skk-dcomp-extent))
 
 ;; main dynamic completion engine.
 (defadvice skk-kana-input (around skk-dcomp-ad activate)
   (if (not skk-henkan-on)
       ad-do-it
     (if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
-	    (not skk-completion-stack) )
+	    (not skk-completion-stack))
 	(setq skk-dcomp-start-point nil)
       (when skk-dcomp-start-point
 	(skk-dcomp-face-off)
 	(condition-case nil
 	    (delete-region skk-dcomp-start-point (point))
-	  (error) )))
+	  (error))))
     ad-do-it
     (if (and (not (skk-get-prefix skk-current-rule-tree)) (not skk-okurigana))
 	(progn
@@ -80,13 +80,13 @@
 	      (skk-completion 'first)
 	    (error
 	     (setq skk-completion-stack nil)
-	     (message nil) ))
-	  (skk-dcomp-face-on skk-dcomp-start-point (point)) ))))
+	     (message nil)))
+	  (skk-dcomp-face-on skk-dcomp-start-point (point))))))
 
 (defadvice skk-kakutei (after skk-dcomp-ad activate)
   (skk-dcomp-face-off)
   (setq skk-dcomp-start-point nil
-	skk-completion-stack nil ))
+	skk-completion-stack nil))
 
 (require 'product)
 (product-provide (provide 'skk-dcomp) (require 'skk-version))
