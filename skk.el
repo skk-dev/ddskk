@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.81 2000/12/12 21:14:51 minakaji Exp $
+;; Version: $Id: skk.el,v 1.82 2000/12/13 03:22:02 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/12 21:14:51 $
+;; Last Modified: $Date: 2000/12/13 03:22:02 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -420,11 +420,11 @@ dependent."
                        ((> (prefix-numeric-value arg) 0) t)))
   (if (not skk-mode)
       ;; exit skk-mode
-      (skk-exit)
+      (skk-mode-exit)
     ;; enter into skk-mode.
     (if (not skk-mode-invoked)
         ;; enter into skk-mode for the first time in this session.
-	(skk-invoke))
+	(skk-mode-invoke))
     ;; 以下は skk-mode に入るたびに毎度コールされるコード。
     (unless (and (skk-local-variable-p 'skk-jisyo (current-buffer))
 		 (equal skk-jisyo "~/skk-tut-jisyo"))
@@ -501,7 +501,7 @@ dependent."
   (and skk-use-look (require 'skk-look))
   (and skk-use-jisx0201-input-method (require 'skk-jisx0201)))
 
-(defun skk-exit ()
+(defun skk-mode-exit ()
   (let ((skk-mode t)) (skk-kakutei))
   (skk-mode-off)
   (remove-hook 'pre-command-hook 'skk-pre-command 'local)
@@ -509,7 +509,7 @@ dependent."
   (skk-update-modeline)
   (static-if (eq skk-emacs-type 'xemacs) (easy-menu-remove skk-menu)))
 
-(defun skk-invoke ()
+(defun skk-mode-invoke ()
   (static-if (and (eq skk-emacs-type 'xemacs) (boundp 'preloaded-file-list)
 		  (member "skk-leim" preloaded-file-list))
       ;; require dummy file.
