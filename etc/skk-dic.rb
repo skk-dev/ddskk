@@ -30,9 +30,7 @@ end
 
 jisyo.close
 
-while line = infile.gets
-  el.puts line
-end
+el.puts infile.gets(nil)
 
 infile.close
 el.close
