@@ -13,6 +13,7 @@
 	Bug fixed.
 	(skk-w3m-working-buffer): Removed.
 	(skk-w3m-search): Do not set to `skk-w3m-working-buffer'.
+	(skk-w3m-get-candidates-from-goo-exceed-eiwa): Bug fixed.
 
 2001-04-13  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -3260,8 +3261,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.276 2001/04/13 23:32:52 minakaji Exp $
-Last Modified: $Date: 2001/04/13 23:32:52 $
+Version: $Id: ChangeLog,v 1.277 2001/04/14 09:47:26 minakaji Exp $
+Last Modified: $Date: 2001/04/14 09:47:26 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

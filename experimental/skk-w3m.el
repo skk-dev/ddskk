@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.6 2001/04/13 23:32:52 minakaji Exp $
+;; Version: $Id: skk-w3m.el,v 1.7 2001/04/14 09:47:27 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2001/04/13 23:32:52 $
+;; Last Modified: $Date: 2001/04/14 09:47:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -79,7 +79,7 @@
   '(("goo-daijirin"
      "http://dictionary.goo.ne.jp/cgi-bin/dict_search.cgi?MT=%s&sw=2" euc-japan
      skk-w3m-get-candidates-from-goo-daijirin
-     (or 
+     (or
       ;; cannot search a key which contains okuri prefix.
       skk-okuri-char
       ;; cannot search by Web engine a string which containing SKK special `#' character.
@@ -147,128 +147,182 @@ cdr は URL (検索文字列を %s で表わす),
 	(let (temp v)
 	  (while (re-search-forward header1 nil t nil)
 	    (setq temp (match-string-no-properties 1))
-	    (if spllit
+	    (if split
 		(setq v (nconc (split-string temp split) v))
 	      (setq v (cons temp v))))
 	  (nreverse v)))))
 
 (defun skk-w3m-get-candidates-from-goo-daijirin (key)
-  ;; 15:■［こうこう］の大辞林第二版からの検索結果　 39件                              
-  ;; 16:*                                                                              
-  ;; 17:                                                                               
-  ;; 18:  1   新規で開く  こうこう【口腔】                                             
-  ;; 19:                                                                               
-  ;; 20:  2   新規で開く  こうこう【工高】                                             
+  ;; 15:■［こうこう］の大辞林第二版からの検索結果　 39件
+  ;; 16:*
+  ;; 17:
+  ;; 18:  1   新規で開く  こうこう【口腔】
+  ;; 19:
+  ;; 20:  2   新規で開く  こうこう【工高】
   ;; ...
-  ;; 78:  31  新規で開く  こうこう【皓皓・皎皎】                                       
+  ;; 78:  31  新規で開く  こうこう【皓皓・皎皎】
   ;; ...
-  ;; 97:*                                                                              
-  ;; 98:■［こうこう］の大辞林第二版からの検索結果　 39件                              
+  ;; 97:*
+  ;; 98:■［こうこう］の大辞林第二版からの検索結果　 39件
   (skk-w3m-get-candidates
    (concat "■\\［" (regexp-quote key) "\\］の大辞林第二版からの検索結果　 [0-9]+件")
    (concat "[0-9]+ +新規で開く +" (regexp-quote key) "【\\([^【】]+\\)】 +$")
    "・"))
 
-(defun skk-w3m-get-candidates-from-goo-exceed-waei (key)
-  ;; not yet.
-  ;; 15:■［ねっしん］のEXCEED和英辞典からの検索結果　                                 
-  ;; 16:*                                                                              
-  ;; 17:                                                                               
-  ;; 18:ねっしん                                                                       
-  ;; 19:[clear] 熱心                                                                   
-  ;; 20:[clear] zeal；　ardor；　eagerness；　enthusiasm．　〜な　                     
-  ;; 21:        eager；　ardent；　keen．　〜に　eagerly；　                           
-  ;; 22:        earnestly；　intently．　                                              
-  ;; 23:                                                                               
-  ;; 24:*                                                                              
-  ;; 25:■［ねっしん］のEXCEED和英辞典からの検索結果　                                 
-  ;;(skk-w3m-get-candidates
-   ;;(concat "■\\［" (regexp-quote key) "\\］のEXCEED和英辞典からの検索結果")
-   ;;(concat "[0-9]+ +新規で開く +" (regexp-quote key) "【\\([^【】]+\\)】 +$")))
-  )
+;; (defun skk-w3m-get-candidates-from-goo-exceed-waei (key)
+;;   ;; 15:■［ねっしん］のEXCEED和英辞典からの検索結果　
+;;   ;; 16:*
+;;   ;; 17:
+;;   ;; 18:ねっしん
+;;   ;; 19:[clear] 熱心
+;;   ;; 20:[clear] zeal；　ardor；　eagerness；　enthusiasm．　〜な　
+;;   ;; 21:        eager；　ardent；　keen．　〜に　eagerly；　
+;;   ;; 22:        earnestly；　intently．　
+;;   ;; 23:
+;;   ;; 24:*
+;;   ;; 25:■［ねっしん］のEXCEED和英辞典からの検索結果　
+;;   (let (temp v)
+;;     (save-match-data
+;;       (if (not (re-search-forward
+;; 		(concat "■\\［" (regexp-quote key) "\\］のEXCEED和英辞典からの検索結果")
+;; 		nil t nil))
+;; 	  nil
+;; 	(while (re-search-forward "\\[clear\\] [a-z]+\\.　\\([^ a-zA-Z][^．]+\\)．" nil t nil)
+;; 	  (setq temp (match-string-no-properties 1))
+;; 	  (setq temp (skk-w3m-filter-string
+;; 		      ;; [[米話]]
+;; 		      temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)"
+;; 			     "\\[\\[[^a-zA-Z]+\\]\\]")))
+;; 	  (while (string-match "\\([^，；]+\\)［\\([^，；]+\\)］\\([^，；]+\\)*" temp)
+;; 	    (setq temp (concat (substring temp 0 (match-beginning 0))
+;; 			       (match-string-no-properties 1 temp)
+;; 			       (match-string-no-properties 3 temp)
+;; 			       "，"
+;; 			       (match-string-no-properties 2 temp)
+;; 			       (match-string-no-properties 3 temp)
+;; 			       (substring temp (match-end 0)))))
+;;
+;; 	  (setq v (nconc v (split-string temp "[，；]"))))
+;; 	v))))
 
 (defun skk-w3m-get-candidates-from-goo-exceed-eiwa (key)
   ;;
-  ;; 14:■［collaborate］のEXCEED英和辞典からの検索結果　                                                
-  ;; 15:*                                                                                                
-  ;; 16:                                                                                                 
-  ;; 17:col・lab・o・rate　 　                                                                           
-  ;; 18:[clear] ●●●●●●●●●●●●　                                                               
-  ;; 19:[clear] vi.　共に働く；　共同研究する　(with, on, in)；　                                        
-  ;; 20:        敵側［占領軍］に協力する．　                                                             
-  ;; 21:[clear] collaboration　 　                                                                       
-  ;; 22:[clear] n.　collaborationism　n.　collaborationist　n.　（                                       
-  ;; 23:        敵側への）協力者．　                                                                     
-  ;; 24:[clear] collaborative　                                                                          
-  ;; 25:[clear] ●●●●●●●●●●●●●●　                                                           
-  ;; 26:[clear] a.　共同制作の．　                                                                       
-  ;; 27:[clear] collaborator　 　                                                                        
-  ;; 28:[clear] n.　                                                                                     
-  ;; 29:                                                                                                 
-  ;; 30:*                                                                                                
-  ;; 31:■［collaborate］のEXCEED英和辞典からの検索結果　                                                
+  ;; con・tem・po・ra・ry
+  ;; [clear] ●●●●●●●●●●●●●●
+  ;; [clear] a., n.　同時代の（人，雑誌）　(with)；　同年齢の（
+  ;; 人）；　現代の（人）．　
   ;;
-  ;; 15:■［elaborate］のEXCEED英和辞典からの検索結果　                                
-  ;; 16:*                                                                              
-  ;; 17:                                                                               
-  ;; 18:e・lab・o・rate　 　                                                           
-  ;; 19:[clear] ●●●●●●●●●●　                                                 
-  ;; 20:[clear] a.　念入りな，　綿密［精巧］な，　凝った．　                           
-  ;; 21:        −　                                                                   
-  ;; 22:[clear] ●●●●●●●　                                                       
-  ;; 23:[clear] vt.　苦心して作る［作り出す］，　推敲（すいこう）                      
-  ;; 24:        ［敷延（ふえん）］する．　                                             
-  ;; 25:[clear] elaborately　 　                                                       
-  ;; 26:[clear] ad.　念入りに，　綿密に．　                                            
-  ;; 27:[clear] elaborateness　                                                        
-  ;; 28:[clear] n.　                                                                   
-  ;; 29:[clear] elaboration　 　                                                       
-  ;; 30:[clear] n.　綿密な仕上げ；　推敲；　力作；　追加した詳細．                     
-  ;; 31:        　                                                                     
-  ;; 32:[clear] elaborative　                                                          
-  ;; 33:[clear] a.　入念な．　                                                         
-  ;; 34:                                                                               
-  ;; 35:*                                                                              
-  ;; 36:■［elaborate］のEXCEED英和辞典からの検索結果　                                
-  (let (temp v)
+  ;; *
+  ;; ■［contemporary］のEXCEED英和辞典からの検索結果
+  ;;
+  ;; 14:■［collaborate］のEXCEED英和辞典からの検索結果　
+  ;; 15:*
+  ;; 16:
+  ;; 17:col・lab・o・rate　 　
+  ;; 18:[clear] ●●●●●●●●●●●●　
+  ;; 19:[clear] vi.　共に働く；　共同研究する　(with, on, in)；　
+  ;; 20:        敵側［占領軍］に協力する．　
+  ;; 21:[clear] collaboration　 　
+  ;; 22:[clear] n.　collaborationism　n.　collaborationist　n.　（
+  ;; 23:        敵側への）協力者．　
+  ;; 24:[clear] collaborative　
+  ;; 25:[clear] ●●●●●●●●●●●●●●　
+  ;; 26:[clear] a.　共同制作の．　
+  ;; 27:[clear] collaborator　 　
+  ;; 28:[clear] n.　
+  ;; 29:
+  ;; 30:*
+  ;; 31:■［collaborate］のEXCEED英和辞典からの検索結果　
+  ;;
+  ;; こんなのもあるよ...↓ (;_;) (未対応)
+  ;; ■［very］のEXCEED英和辞典からの検索結果　 2件
+  ;; *
+  ;;
+  ;; 1  新規で開く  very
+  ;;
+  ;; 2  新規で開く  Very light
+  ;; 
+  ;; *
+  ;; ■［very］のEXCEED英和辞典からの検索結果　 2件
+  ;;
+  ;; ■［contemporary］のEXCEED英和辞典からの検索結果
+  ;; *
+  (let (temp temp1 temp2 temp3 tail v)
     (save-match-data
       (if (not (re-search-forward
-		(concat "\\［" (regexp-quote key) "\\］のEXCEED英和辞典からの検索結果")
+		(concat "■\\［" (regexp-quote key) "\\］のEXCEED英和辞典からの検索結果")
 		nil t nil))
 	  nil
-	(while (re-search-forward "\\[clear\\] [a-z]+\\.　\\([^ a-zA-Z][^．]+\\)．" nil t nil)
-	  (setq temp (match-string-no-properties 1))
+	(while (re-search-forward
+		"\\[clear\\] [a-z]+\\.\\(, [a-z]+\\.\\)*　\\([^ a-zA-Z][^．]+\\)．"
+		nil t nil)
+	  (setq temp (match-string-no-properties 2))
 	  (setq temp (skk-w3m-filter-string
-		      temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)")))
-	  (while (string-match "\\([^，；]+\\)［\\([^，；]+\\)］\\([^，；]+\\)*" temp)
+		      ;; `捺染（なつせん）工', `(on, in)', `【経営】'
+		      temp '("\n" "[0-9]+: +" "[　 ]+" "（[ぁ-ん]+）" "([, a-z]+)"
+			     "…の" "【[^【】]+】")))
+	  (while (string-match
+		  ;; ((...)) は意味を表わすようだ。
+		  ;; e.x. インジケータ　((機器の作動状態を表示する機能))
+		  ;; 括弧内をあえてフィルタリングしないで出力する。
+		  "\\([^，；]+\\)\\(［\\|((\\)\\([^，；]+\\)\\(］\\|))\\)\\([^，；]+\\)*"
+		  temp)
 	    (setq temp (concat (substring temp 0 (match-beginning 0))
 			       (match-string-no-properties 1 temp)
-			       (match-string-no-properties 3 temp)
+			       (match-string-no-properties 5 temp)
 			       "，"
-			       (match-string-no-properties 2 temp)
 			       (match-string-no-properties 3 temp)
+			       (match-string-no-properties 5 temp)
 			       (substring temp (match-end 0)))))
+	  ;; 当惑（の原因） → 当惑，当惑の原因
+	  ;; 同時代の（人，雑誌）→  同時代の，同時代の人，同時代の雑誌
+	  (while (string-match "\\([^，；]+\\)（\\([^；]+\\)）\\([^，；]+\\)*" temp)
+	    (setq temp1 (match-string-no-properties 1 temp)
+		  temp2 (match-string-no-properties 2 temp)
+		  temp3 (match-string-no-properties 3 temp)
+		  tail (substring temp (match-end 0)))
+	    (setq temp (concat (substring temp 0 (match-beginning 0))
+			       temp1 "，"
+			       (mapconcat 'identity
+					  (mapcar
+					   (function (lambda (e) (concat temp1 e temp3)))
+					   (split-string temp2 "，"))
+					  "，")
+			       tail)))
+	  ;; （問題を）紛糾させる → 紛糾させる，問題を紛糾させる
+	  (while (string-match "（\\([^；]+\\)）\\([^，；]+\\)" temp)
+	    (setq temp1 (match-string-no-properties 1 temp)
+		  temp2 (match-string-no-properties 2 temp)
+		  tail (substring temp (match-end 0)))
+	    (setq temp (concat (substring temp 0 (match-beginning 0))
+			       temp2 "，"
+			       (mapconcat 'identity
+					  (mapcar
+					   (function (lambda (e) (concat e temp2)))
+					   (split-string temp1 "，"))
+					  "，")
+			       tail)))
 	  (setq v (nconc v (split-string temp "[，；]"))))
 	v))))
 
 (defun skk-w3m-get-candidates-from-goo-daily-shingo (key)
   ;; not yet.
-  ;; 15:■［SPA］のデイリー新語辞典からの検索結果　                                    
-  ;; 16:*                                                                              
-  ;; 17:                                                                               
-  ;; 18:SPA                                                                            
-  ;; 19:                                                                               
-  ;; 20:  ［speciality store retailer of private label apparel］                       
-  ;; 21:  自社ブランドの衣料品を売る直営店のこと。また，そのような事業形態。衣料品の企 
-  ;; 22:  画・開発から製造・流通・販売に至るまでを一括して取り扱い，顧客のニーズに効率 
-  ;; 23:  的に対応する。                                                               
-  ;; 24:  →プライベート-ブランド                                                      
-  ;; 25:  〔独自ブランド衣料の専門店販売業者の略。アメリカの衣料小売店による造語が起源 
-  ;; 26:  〕                                                                           
-  ;; 27:                                                                               
-  ;; 28:                                                                               
-  ;; 29:*                                                                              
-  ;; 30:■［SPA］のデイリー新語辞典からの検索結果　                                    
+  ;; 15:■［SPA］のデイリー新語辞典からの検索結果　
+  ;; 16:*
+  ;; 17:
+  ;; 18:SPA
+  ;; 19:
+  ;; 20:  ［speciality store retailer of private label apparel］
+  ;; 21:  自社ブランドの衣料品を売る直営店のこと。また，そのような事業形態。衣料品の企
+  ;; 22:  画・開発から製造・流通・販売に至るまでを一括して取り扱い，顧客のニーズに効率
+  ;; 23:  的に対応する。
+  ;; 24:  →プライベート-ブランド
+  ;; 25:  〔独自ブランド衣料の専門店販売業者の略。アメリカの衣料小売店による造語が起源
+  ;; 26:  〕
+  ;; 27:
+  ;; 28:
+  ;; 29:*
+  ;; 30:■［SPA］のデイリー新語辞典からの検索結果　
   )
 
 (require 'product)
