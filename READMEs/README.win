@@ -2,8 +2,8 @@
 
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2001/02/03 00:22:59 $
-$Id: README.win,v 1.12 2001/02/03 00:22:59 minakaji Exp $
+$Date: 2001/11/18 16:11:34 $
+$Id: README.win,v 1.13 2001/11/18 16:11:34 akiho Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
@@ -29,7 +29,7 @@ APELをフリーのtar.exeなどを使って展開する。以下のコマンドを実行。
 
   C:\temp> tar xzvf apel-9_22.tar.gz
 
-tar.exeは `ftp://ftp.etl.go.jp/pub/mule/Windows/tools/' などから入手できる。
+tar.exeは `ftp://ftp.m17n.org/pub/mule/Windows/tools/' などから入手できる。
 
 *** APEL の byte-compile
 
