@@ -3,6 +3,9 @@
 	* leim-list.el.in:
 	Do nothing when `noninteractive' is non-nil.
 
+	* skk-e21.el
+	(skk-icon): Don't bind `load-path'.
+
 2002-01-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* READMEs/Contributors:
@@ -3361,8 +3364,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.632 2002/01/17 10:44:29 czkmt Exp $
-Last Modified: $Date: 2002/01/17 10:44:29 $
+Version: $Id: ChangeLog,v 1.633 2002/01/17 12:29:17 czkmt Exp $
+Last Modified: $Date: 2002/01/17 12:29:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
