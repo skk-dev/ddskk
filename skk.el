@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.149 2001/10/13 04:50:49 czkmt Exp $
+;; Version: $Id: skk.el,v 1.150 2001/10/13 10:23:25 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 04:50:49 $
+;; Last Modified: $Date: 2001/10/13 10:23:25 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -3750,6 +3750,16 @@ If you want to restore the dictionary from the disc, try
 	  (skk-katakana-region (point-min) (point-max) 'vcontract)
 	  (list (buffer-substring-no-properties
 		 (point-min) (point-max))))))))
+
+(defun skk-search-sagyo-henkaku ()
+  (when (member skk-henkan-okurigana
+		'("さ" "し" "す" "せ"))
+    (let ((skk-henkan-key (substring
+			   skk-henkan-key
+			   0 (1- (skk-str-length skk-henkan-key))))
+	  skk-henkan-okurigana
+	  (skk-current-search-prog-list skk-search-prog-list))
+      (skk-search))))
 
 (defun skk-search-and-replace (start end regexp func)
   (let (matched replace)
