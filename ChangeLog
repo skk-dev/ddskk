@@ -1,3 +1,9 @@
+2001-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK
+	(SKK_MOULES): For Emacsen without face support. Don't install ccc
+	and skk-cursor.
+
 2001-12-15  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* skk.texi (SKK-VERSION): Updated to 11.6.0.
@@ -3126,8 +3132,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.593 2001/12/15 14:19:45 akiho Exp $
-Last Modified: $Date: 2001/12/15 14:19:45 $
+Version: $Id: ChangeLog,v 1.594 2001/12/15 17:35:30 czkmt Exp $
+Last Modified: $Date: 2001/12/15 17:35:30 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
