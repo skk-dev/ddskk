@@ -1,3 +1,8 @@
+2002-06-10  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
+
+	* skk-annotation.el: Update comments.
+	(skk-annotation-setup): Fix.
+
 2002-06-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el:
@@ -3880,8 +3885,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.689 2002/06/02 00:31:48 czkmt Exp $
-Last Modified: $Date: 2002/06/02 00:31:48 $
+Version: $Id: ChangeLog,v 1.690 2002/06/10 00:22:53 obata Exp $
+Last Modified: $Date: 2002/06/10 00:22:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

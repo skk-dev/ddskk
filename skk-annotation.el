@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.20 2002/06/02 00:31:38 czkmt Exp $
+;; Version: $Id: skk-annotation.el,v 1.21 2002/06/10 00:24:47 obata Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2002/06/02 00:31:38 $
+;; Last Modified: $Date: 2002/06/10 00:24:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -84,8 +84,6 @@
 ;; ション」と呼び、これは `;' の直後に `*' の文字を伴ないません。
 ;; <例>
 ;;    「いぜん /以前;previous/依然;still/」
-;;
-;; システムアノテーションが装備された辞書は今のところありません。
 ;;
 ;; ユーザアノテーションとシステムアノテーションを区別することで、ユー
 ;; ザアノテーションだけを表示したり、あるいはその逆を行なうことが可能
@@ -236,9 +234,8 @@
 	     (skk-get-last-henkan-datum 'okuri-char)
 	     (skk-get-last-henkan-datum 'henkan-list)))
     (setq skk-henkan-key
-	  (read-from-minibuffer
-	   "Midasi: " nil))
-    (unless skk-henkan-key
+	  (read-from-minibuffer "Midasi: "))
+    (when (string= skk-henkan-key "")
       (skk-error "アノテーションする単語がありません"
 		 "No word to be annotated"))
     (setq skk-annotation-annotated-word
