@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.1 1999/08/29 06:35:20 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.2 1999/08/29 13:28:01 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/29 06:35:20 $
+;; Last Modified: $Date: 1999/08/29 13:28:01 $
 
 ;; This file is part of SKK.
 
@@ -560,6 +560,5 @@ car 部分は、例えば、見出し語が \"平成#1年\" のとき、`#' 
 
 (provide 'skk-num)
 ;;; Local Variables:
-;;; eval: (put 'skk-deflocalvar 'lisp-indent-hook 'defun)
 ;;; End:
 ;;; skk-num.el ends here
