@@ -1,14 +1,28 @@
 2004-01-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-macs.el (skk-get-current-candidate-1): Workaround for
-	XEmacs. Refer to the local value of `skk-henkan-count' in
-	`skk-isearch-current-buffer'.
+	* skk-macs.el (skk-get-current-candidate-1): Call
+	`skk-henkan-count'.
 
-	* skk.el (skk-kakutei): Workaround for XEmacs. Reset the local
-	value of `skk-henkan-count' in `skk-isearch-current-buffer'.
+	* skk.el (skk-henkan-count):
+	(skk-set-henkan-count):
 
-	(skk-kakutei): Workaround for XEmacs. Reset the local
-	value of `skk-henkan-count' in `skk-isearch-current-buffer'.
+	New functions, workaround for XEmacs isearch.
+
+	(skk-henkan-1):
+	(skk-henkan-show-candidates):
+	(skk-henkan-in-minibuff):
+	(skk-previous-candidate):
+	(skk-start-henkan):
+	(skk-remove-common):
+	(skk-process-prefix-or-suffix):
+	(skk-set-okurigana):
+	(skk-kakutei-initialize):
+	(skk-undo-kakutei):
+	(skk-set-henkan-point):
+	(abort-recursive-edit):
+
+	Call `skk-henkan-count' and/or `skk-set-henkan-count'.
+
 
 2004-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -4393,8 +4407,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.775 2004/01/26 16:26:58 czkmt Exp $
-Last Modified: $Date: 2004/01/26 16:26:58 $
+Version: $Id: ChangeLog,v 1.776 2004/01/26 17:21:54 czkmt Exp $
+Last Modified: $Date: 2004/01/26 17:21:54 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
