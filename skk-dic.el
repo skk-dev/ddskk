@@ -3363,6 +3363,7 @@ Small dictionary for SKK.")
       (with-current-buffer buf
 	(unless (boundp 'skk-small-dic)
 	  (load "skk-dic" t t))
+	(setq buffer-read-only nil)
 	(insert skk-small-dic)
 	(makunbound 'skk-small-dic)
 	(skk-setup-jisyo-buffer)
