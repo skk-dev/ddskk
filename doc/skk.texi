@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.117 2003/07/19 09:55:02 minakaji Exp $
+@c  Version: $Id: skk.texi,v 1.118 2003/07/19 10:06:07 minakaji Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2003/07/19 09:55:02 $
+@c  Last Modified: $Date: 2003/07/19 10:06:07 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2003/07/19 09:55:02 $
+@set UPDATED $Date: 2003/07/19 10:06:07 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3512,9 +3512,10 @@ Shall I register this as okuri-ari entry: ありがs /有賀/ ? (y or n)
 @noindent
 と変換されます。何故なら @w{(@samp{ふr})} の関連語を探す際、
 @code{skk-study-search-times} @footnote{ディフォルト値は 5 です。} に
-指定された数字分だけ以前に確定した語の中に関連語がないか探すのです。で
-すのでこの場合でも 2 つ前に確定した @samp{雨} @w{(@samp{あめ})} を関連
-語として、@w{(@samp{ふr})} の値を決めようとするのです。
+指定された回数分だけ遡って、以前に確定した語の中に関連語がないか探すの
+です。従いこの場合だと、2 つ前の確定情報を探した際に @samp{雨}
+@w{(@samp{あめ})} 見つけ、これを関連語として、@w{(@samp{ふr})} の値を
+決めようとするのです。
 
 @file{skk-study.el} に関するその他のオプションを説明します。
 
