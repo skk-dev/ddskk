@@ -8,6 +8,13 @@
 
 	(skk-*-henkan-2): New function.
 
+	* skk-jisx0201.el
+	(skk-jisx0201-region): Call `skk-*-henkan-2'.
+
+	* skk-abbrev.el
+	* skk-kakasi.el:
+	More specific.
+
 2001-10-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el
@@ -2486,8 +2493,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.489 2001/10/19 11:36:14 czkmt Exp $
-Last Modified: $Date: 2001/10/19 11:36:14 $
+Version: $Id: ChangeLog,v 1.490 2001/10/19 12:45:54 czkmt Exp $
+Last Modified: $Date: 2001/10/19 12:45:54 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
