@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.68 2001/10/22 13:31:42 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.69 2001/10/23 12:59:08 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/22 13:31:42 $
+;; Last Modified: $Date: 2001/10/23 12:59:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1539,7 +1539,7 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 	    start end 'all-candidates))))
        skk-use-kakasi]))
     ("Convert Region and Replace"
-     ["Ascii" skk-ascii-region skk-use-kakasi]
+     ["Ascii" skk-latin-region skk-use-kakasi]
      ("Gyakubiki"
       ["to Hiragana" skk-gyakubiki-region skk-use-kakasi]
       ["to Hiragana, All Candidates"
@@ -2744,8 +2744,9 @@ This map should be derived from isearch-mode-map.")
 
 ;;; SKK-VIPER.EL related internal variables and constants.
 (defvar skk-viper-saved-cursor-color
-  (if (featurep 'viper)
-      (symbol-value 'viper-insert-state-cursor-color)))
+  (when (and (featurep 'viper)
+	     (boundp 'viper-insert-state-cursor-color))
+    (symbol-value 'viper-insert-state-cursor-color)))
 (make-variable-buffer-local 'viper-insert-state-cursor-color)
 
 (defconst skk-viper-use-vip-prefix
