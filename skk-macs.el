@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.59 2001/10/14 03:51:28 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.60 2001/10/20 02:34:10 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/14 03:51:28 $
+;; Last Modified: $Date: 2001/10/20 02:34:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -321,7 +321,8 @@ the return value (nil if RESULT is omitted)."
 
 (defsubst skk-substring (str pos1 &optional pos2)
   ;; multibyte 文字を 1 と数えて substring する。
-  (or pos2 (setq pos2 (skk-str-length str)))
+  (unless pos2
+    (setq pos2 (skk-str-length str)))
   (static-cond
    ((eq skk-emacs-type 'mule2)
     (when (< pos1 0)
