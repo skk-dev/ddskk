@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-look.el,v 1.1 1999/08/19 12:31:35 minakaji Exp $
+;; Version: $Id: skk-look.el,v 1.2 1999/08/19 12:33:48 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 1999/08/19 12:31:35 $
+;; Last Modified: $Date: 1999/08/19 12:33:48 $
 
 ;; This file is not part of SKK yet.
 
@@ -207,7 +207,7 @@ skk-look-recursive-search が non-nil であるときのみ有効。"
 	  (set-buffer (get-buffer-create skk-look-working-buffer))
 	  (erase-buffer)
 	  (setq args (list args))
-	  (and skk-look-dictionary (nconc args skk-look-dictionary))
+	  (and skk-look-dictionary (nconc args (list skk-look-dictionary)))
 	  (and skk-look-dictionary-order (setq opt "d"))
 	  (and skk-look-ignore-case (setq opt (concat "f" opt)))
 	  (and skk-look-use-alternate-dictionary
