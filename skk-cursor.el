@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.22 2001/10/11 15:10:54 czkmt Exp $
+;; Version: $Id: skk-cursor.el,v 1.23 2001/10/31 13:06:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/11 15:10:54 $
+;; Last Modified: $Date: 2001/10/31 13:06:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -86,8 +86,7 @@
 
 ;; advices.
 (skk-defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
-  (unless (or skk-henkan-on
-	      skk-henkan-active)
+  (unless skk-henkan-mode
     (skk-cursor-set skk-cursor-default-color)))
 
 ;; Hooks

@@ -296,11 +296,11 @@ X $B>e$G(B xmodmap $B$,<B9T2DG=$J>l9g$@$1M-8z!#F0:n$,2~A1$5$l$kBe$o$j$K!"B>$N
 (defun skk-kanagaki-midashi-henkan (&optional arg)
   "$B@\F,<-$^$?$O@\Hx<-JQ49$r$9$k!#(B"
   (interactive "*p")
-  (cond (skk-henkan-active
+  (cond ((eq skk-henkan-mode 'active)
 	 (skk-kakutei)
 	 (skk-set-henkan-point-subr)
 	 (insert-and-inherit ?>))
-	(skk-henkan-on
+	((eq skk-henkan-mode 'on)
 	 ;; $B@\F,8l$N=hM}(B
 	 (skk-kana-cleanup 'force)
 	 (insert-and-inherit ?>)

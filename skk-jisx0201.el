@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.34 2001/10/21 05:34:16 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.35 2001/10/31 13:06:22 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/10/21 05:34:16 $
+;; Last Modified: $Date: 2001/10/31 13:06:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -292,11 +292,11 @@
 		     (not (skk-get-prefix skk-current-rule-tree))
 		     (not (skk-select-branch
 			   skk-current-rule-tree ch))))
-	    (and skk-henkan-on
+	    (and skk-henkan-mode
 		 (memq ch skk-special-midashi-char-list)))
 	ad-do-it)
        ;;
-       ((and skk-henkan-on
+       ((and skk-henkan-mode
 	     (eq ch skk-start-henkan-char))
 	(skk-kana-cleanup 'force)
 	(unless (or skk-okurigana
@@ -341,8 +341,7 @@
   "半角カナモードとローマ字モードを切り替える。"
   (interactive "P")
   (cond
-   ((and skk-henkan-on
-	 (not skk-henkan-active))
+   ((eq skk-henkan-mode 'on)
     (skk-jisx0201-henkan arg))
    (skk-jisx0201-roman
     (setq skk-rule-tree skk-jisx0201-base-rule-tree
@@ -375,8 +374,7 @@
 (defun skk-toggle-katakana (arg)
   (interactive "P")
   (cond
-   ((and skk-henkan-on
-	 (not skk-henkan-active))
+   ((eq skk-henkan-mode 'on)
     (skk-jisx0201-henkan arg))
    (skk-jisx0201-mode
     (setq skk-jisx0201-mode nil)

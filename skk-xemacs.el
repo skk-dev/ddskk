@@ -222,12 +222,12 @@
 		 'local)))
   (cond ((not skk-mode)
 	 ad-do-it)
-	((not skk-henkan-on)
+	((not skk-henkan-mode)
 	 (cond ((skk-get-prefix skk-current-rule-tree)
 		(skk-erase-prefix 'clean))
 	       (t
 		ad-do-it)))
-	(skk-henkan-active
+	((eq skk-henkan-mode 'active)
 	 (setq skk-henkan-count 0)
 	 (if (and skk-delete-okuri-when-quit
 		  skk-henkan-okurigana)

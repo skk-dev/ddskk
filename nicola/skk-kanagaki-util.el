@@ -236,8 +236,7 @@
   (interactive "*p")
   ;; skk-dcomp 利用時の際の使い勝手をよくする。
   (when (and (featurep 'skk-dcomp)
-	     skk-henkan-on
-	     (not skk-henkan-active)
+	     (eq skk-henkan-mode 'on)
 	     (markerp skk-dcomp-end-point)
 	     (marker-position skk-dcomp-end-point))
     (delete-region
@@ -247,13 +246,13 @@
        (point))))
   ;;
   (cond
-   (skk-henkan-active
+   ((eq skk-henkan-mode 'active)
     (call-interactively 'keyboard-quit))
-   ((and skk-henkan-on
-	 (= (point) (marker-position 
+   ((and (eq skk-henkan-mode 'on)
+	 (= (point) (marker-position
 		     skk-henkan-start-point)))
     (skk-kakutei arg))
-   (skk-henkan-on
+   ((eq skk-henkan-mode 'on)
     (forward-char -1)
     (delete-char 1))
    ((and skk-isearch-switch
@@ -281,8 +280,7 @@
      (if (fboundp 'minibuffer-keyboard-quit)
 	 'minibuffer-keyboard-quit
        'abort-recursive-edit)))
-   ((or skk-henkan-on
-	skk-henkan-active)
+   (skk-henkan-mode
     (call-interactively 'keyboard-quit))
    (t
     nil)))

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.19 2001/10/13 01:44:55 czkmt Exp $
+;; Version: $Id: skk-kcode.el,v 1.20 2001/10/31 13:06:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 01:44:55 $
+;; Last Modified: $Date: 2001/10/31 13:06:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -82,7 +82,7 @@
     (insert (if (> n1 160)
 		(skk-make-string n1 n2)
 	      (skk-input-by-code-or-menu-0 n1 n2)))
-    (when skk-henkan-active
+    (when (eq skk-henkan-mode 'active)
       (skk-kakutei))))
 
 (defun skk-char-to-hex (char &optional jischar)

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.169 2001/10/29 11:41:37 czkmt Exp $
+;; Version: $Id: skk.el,v 1.170 2001/10/31 13:06:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/29 11:41:37 $
+;; Last Modified: $Date: 2001/10/31 13:06:22 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -827,7 +827,7 @@ dependent."
 それ以外のモードでは、オリジナルのキー割り付けのコマンドをエミュレートする。"
   (interactive "P")
   (skk-with-point-move
-   (if (and skk-henkan-on (not skk-henkan-active))
+   (if (eq skk-henkan-mode 'on)
        (progn
 	 (setq this-command 'skk-comp-do)
 	 (skk-comp-do (not (eq last-command 'skk-comp-do))))
@@ -850,10 +850,9 @@ dependent."
 (defun skk-abbrev-mode (arg)
   "ascii 文字をキーにした変換を行うための入力モード。"
   (interactive "*P")
-  (cond (skk-henkan-active
+  (cond ((eq skk-henkan-mode 'active)
 	 (skk-kakutei))
-	;;((and skk-henkan-on (not skk-henkan-active))
-	(skk-henkan-on
+	((eq skk-henkan-mode 'on)
 	 (skk-error "既に▽モードに入っています" "Already in ▽ mode")))
   (skk-set-henkan-point-subr)
   (skk-abbrev-mode-on)
@@ -865,8 +864,7 @@ dependent."
 て、ひらがなとカタカナを入れ替える。"
   (interactive "P")
   (cond
-   ((and skk-henkan-on
-	 (not skk-henkan-active))
+   ((eq skk-henkan-mode 'on)
     (let (char)
       (skk-set-marker skk-henkan-end-point (point))
       (skk-save-point
@@ -942,7 +940,8 @@ dependent."
   (interactive "*p")
   (skk-with-point-move
    (let ((ch last-command-char))
-     (cond ((and skk-henkan-on (memq ch skk-special-midashi-char-list))
+     (cond ((and skk-henkan-mode
+		 (memq ch skk-special-midashi-char-list))
 	    ;; 接頭辞・接尾辞の処理。
 	    (skk-process-prefix-or-suffix arg))
 	   (;; start writing a midasi key.
@@ -954,10 +953,11 @@ dependent."
 	    ;; skk-set-henkan-point -> skk-kana-input.
 	    (skk-set-henkan-point arg))
 	   ;; start conversion.
-	   ((and skk-henkan-on (eq ch skk-start-henkan-char))
+	   ((and skk-henkan-mode
+		 (eq ch skk-start-henkan-char))
 	    (skk-start-henkan arg))
 	   ;; just imput Kana.
-	   ((or skk-henkan-active (not skk-henkan-on))
+	   ((not (eq skk-henkan-mode 'on))
 	    (skk-kana-input arg))
 	   ;; for completion.
 	   ;; コンプリーション関連の関数は skk-rom-kana-base-rule-list の中に押
@@ -972,10 +972,10 @@ dependent."
 	   ;; ールがハードコーディングされるのはまずいかも (skk-comp は使っても
 	   ;; skk-current-kuten/skk-current-touten は使わない、という人がいるか
 	   ;; も)。
-	   ((and skk-henkan-on (not skk-henkan-active)
+	   ((and (eq skk-henkan-mode 'on)
 		 (eq ch skk-try-completion-char))
 	    (skk-comp (not (eq last-command 'skk-comp-do))))
-	   ((and skk-henkan-on (not skk-henkan-active)
+	   ((and (eq skk-henkan-mode 'on)
 		 (memq ch (list skk-next-completion-char
 				skk-previous-completion-char))
 		 (eq last-command 'skk-comp-do))
@@ -993,12 +993,12 @@ dependent."
   ;; にし、なおかつ、このコマンドが文字キーでない入力により呼ばれたときにも接
   ;; 尾辞・ 接頭辞入力ができるようにする。
   (interactive "*p")
-  (cond (skk-henkan-active
+  (cond ((eq skk-henkan-mode 'active)
 	 ;; 接尾辞のための処理。
 	 (skk-kakutei)
 	 (skk-set-henkan-point-subr)
 	 (insert-and-inherit ?>))
-	(skk-henkan-on
+	((eq skk-henkan-mode 'on)
 	 ;; 接頭語の処理
 	 (skk-kana-cleanup 'force)
 	 (insert-and-inherit ?>)
@@ -1098,7 +1098,7 @@ dependent."
 	  (cond
 	   ((skk-get-branch-list next)
 	    ;; NEXT have at least one branch
-	    (when (and skk-henkan-active
+	    (when (and (eq skk-henkan-mode 'active)
 		       skk-kakutei-early
 		       (not skk-process-okuri-early))
 	      (skk-kakutei)
@@ -1152,12 +1152,12 @@ dependent."
 		(setq skk-prefix (skk-get-prefix skk-current-rule-tree))
 		(skk-insert-prefix skk-prefix))
 	    ;;(skk-kana-cleanup 'force)
-	    (when skk-henkan-active
+	    (when (eq skk-henkan-mode 'active)
 	      (skk-kakutei))
 	    (setq skk-prefix "")
 	    (unless (or queue
 			(and (not (eq this-command 'skk-insert))
-			     skk-henkan-on))
+			     skk-henkan-mode))
 	      (skk-emulate-original-map (skk-make-raw-arg arg)))))
 	 (t
 	  ;;(skk-cancel-undo-boundary)
@@ -1179,7 +1179,7 @@ dependent."
 		   (count0 arg)
 		   (count1 arg)
 		   (inserted 0))
-	      (when (and skk-henkan-active
+	      (when (and (eq skk-henkan-mode 'active)
 			 skk-kakutei-early
 			 (not skk-process-okuri-early))
 		(skk-kakutei))
@@ -1297,8 +1297,7 @@ dependent."
   ;; STR を挿入する。必要であれば self-insert-after-hook をコ
   ;; ールする。overwrite-mode であれば、適切に上書きを行う。
   (insert-and-inherit str)
-  (if (and skk-henkan-on
-	   (not skk-henkan-active))
+  (if (eq skk-henkan-mode 'on)
       ;;
       (when (and skk-auto-start-henkan
 		 (not skk-okurigana))
@@ -1314,7 +1313,7 @@ dependent."
   ;; SKK 9.6 ではこのタイミングで fill が行われていたが、SKK 10 では行われてい
   ;; なかった。
   (when (and skk-j-mode
-	     (not skk-henkan-on))
+	     (not skk-henkan-mode))
     (skk-do-auto-fill)))
 
 (defun skk-ovwrt-len (len)
@@ -1483,7 +1482,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   (skk-with-point-move
    (let ((count (prefix-numeric-value arg)))
      (cond
-      (skk-henkan-active
+      ((eq skk-henkan-mode 'active)
        (if (and (not skk-delete-implies-kakutei)
 		(= skk-henkan-end-point (point)))
 	   (skk-previous-candidate)
@@ -1505,13 +1504,13 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	   (setq skk-prefix ""))
 	 (when (>= skk-henkan-end-point (point))
 	   (skk-kakutei))))
-      ((and skk-henkan-on
+      ((and skk-henkan-mode
 	    (>= skk-henkan-start-point (point)))
        (setq skk-henkan-count 0)
        (skk-kakutei))
       ;; 入力中の見出し語に対しては delete-backward-char で
       ;; 必ず全角文字 1文字分 backward 方向に戻った方が良い。
-      ((and skk-henkan-on
+      ((and skk-henkan-mode
 	    overwrite-mode)
        (backward-char count)
        (delete-char count arg))
@@ -1533,7 +1532,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	(setq mark (skk-save-point
 		    (forward-char 1)
 		    (point-marker))))
-      (unless skk-henkan-active
+      (unless (eq skk-henkan-mode 'active)
 	(skk-change-marker)
 	(setq skk-current-search-prog-list skk-search-prog-list))
       ;; skk-henkan-1 の中からコールされる skk-henkan-show-candidate から throw
@@ -1988,7 +1987,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   (interactive "*p")
   (skk-with-point-move
    (cond
-    ((not skk-henkan-active)
+    ((not (eq skk-henkan-mode 'active))
      (if (not (eq last-command 'skk-kakutei-henkan))
 	 (when (and last-command-char
 		    (characterp last-command-char))
@@ -2054,9 +2053,9 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   (interactive "*P")
   (cond ((skk-get-prefix skk-current-rule-tree)
 	 (skk-kana-cleanup 'force))
-	(skk-henkan-active
+	((eq skk-henkan-mode 'active)
 	 (skk-previous-candidate))
-	(skk-henkan-on
+	((eq skk-henkan-mode 'on)
 	 (if (= (point)
 		(marker-position skk-henkan-start-point))
 	     (skk-kakutei arg)
@@ -2104,9 +2103,9 @@ WORD で確定する。"
   (interactive)
   (let ((inhibit-quit t)
 	converted kakutei-word)
-    (when skk-henkan-on
+    (when skk-henkan-mode
       (cond
-       (skk-henkan-active
+       ((eq skk-henkan-mode 'active)
 	(setq kakutei-word
 	      ;; 確定辞書の語で確定したときは、辞書にその語を書き込む必要もな
 	      ;; いし、更新する必要もないと思っていたが、補完を行なうときは、
@@ -2206,13 +2205,12 @@ WORD で確定する。"
 	   )))
   (setq skk-abbrev-mode nil
 	skk-exit-show-candidates nil
-	skk-henkan-active nil
 	skk-henkan-count -1
 	skk-henkan-in-minibuff-flag nil
 	skk-henkan-key nil
 	skk-henkan-list nil
 	skk-henkan-okurigana nil
-	skk-henkan-on nil
+	skk-henkan-mode nil
 	skk-kakutei-flag nil
 	skk-okuri-char nil
 	skk-okuri-index-min -1
@@ -2229,7 +2227,7 @@ WORD で確定する。"
    (cond ((eq last-command 'skk-undo-kakutei)
 	  (skk-error "確定アンドゥは連続使用できません"
 		     "Cannot undo kakutei repeatedly"))
-	 (skk-henkan-active
+	 ((eq skk-henkan-mode 'active)
 	  (skk-error "▼モードでは確定アンドゥできません"
 		     "Cannot undo kakutei in ▼ mode"))
 	 ( ; skk-henkan-key may be nil or "".
@@ -2244,8 +2242,7 @@ WORD で確定する。"
 			      'henkan-okurigana))
 		     skk-henkan-end-point)
 		skk-henkan-end-point)))
-	 (setq skk-henkan-active t
-	       skk-henkan-on t
+	 (setq skk-henkan-mode 'active
 	       skk-current-search-prog-list
 	       (if (eq (car (car skk-search-prog-list))
 		       'skk-search-kakutei-jisyo-file)
@@ -2299,12 +2296,12 @@ WORD で確定する。"
 	 (sokuon (if (string= skk-prefix (char-to-string last-char))
 		     (/= last-char ?o)
 		   nil))
-	 (henkan-active skk-henkan-active))
+	 (henkan-active (eq skk-henkan-mode 'active)))
     (cond
-     ((or (not skk-henkan-on) skk-henkan-active)
+     ((not (eq skk-henkan-mode 'on))
       (if normal
 	  (skk-set-henkan-point-subr)
-	(when skk-henkan-on
+	(when skk-henkan-mode
 	  (skk-set-henkan-point-subr))
 	(if henkan-active
 	    (skk-emulate-original-map arg)
@@ -2406,7 +2403,7 @@ WORD で確定する。"
   (interactive "*p")
   (skk-with-point-move
    (cancel-undo-boundary)
-   (if skk-henkan-active
+   (if (eq skk-henkan-mode 'active)
        (progn
 	 (setq skk-henkan-count (1+ skk-henkan-count))
 	 (skk-henkan))
@@ -2454,7 +2451,7 @@ WORD で確定する。"
 	 (setq skk-henkan-count 0)
 	 (skk-henkan)
 	 (when (and skk-abbrev-mode
-		    skk-henkan-active)
+		    (eq skk-henkan-mode 'active))
 	   ;; こうしておかないと変換後、次に入力される文字もまた
 	   ;; SKK abbrev-mode 入力になってしまう。
 	   (skk-j-mode-on skk-katakana)
@@ -2558,12 +2555,17 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
 (defun skk-what-char-type ()
   ;; 現在のポイントにある文字がどんな種類かを判別する。
   (save-match-data
-    (cond ((looking-at "[ぁ-ん]") 'hiragana)
-	  ((looking-at "[ァ-ン]") 'katakana)
+    (cond ((looking-at "[ぁ-ん]")
+	   'hiragana)
+	  ((looking-at "[ァ-ン]")
+	   'katakana)
 	  ;; "ー" を除外している ("ー" は "〇" と "―" の間に入っている)。
-	  ((looking-at "[　-〇―-ｚ]") 'jisx0208-latin)
-	  ((looking-at "[ -~]") 'ascii)
-	  (t 'unknown))))
+	  ((looking-at "[　-〇―-ｚ]")
+	   'jisx0208-latin)
+	  ((looking-at "[ -~]")
+	   'ascii)
+	  (t
+	   'unknown))))
 
 (defun skk-set-henkan-point-subr (&optional arg)
   "かなを入力した後で、ポイントに変換開始のマーク \(▽\) を付ける。
@@ -2572,7 +2574,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   (skk-with-point-move
    (unless skk-undo-kakutei-word-only
        (cancel-undo-boundary))
-   (if skk-henkan-on
+   (if skk-henkan-mode
        (skk-kakutei)
      (skk-kana-cleanup));; XXX
    (when skk-undo-kakutei-word-only
@@ -2585,12 +2587,12 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
      (insert-and-inherit "▽")
      (skk-set-marker skk-kana-start-point (point))
      (skk-insert-prefix))
-   (setq skk-henkan-on t)
+   (setq skk-henkan-mode 'on)
    (skk-set-marker skk-henkan-start-point (point)))
    nil)
 
 (defun skk-change-marker ()
-  ;; "▽"を"▼"に変える。skk-henkan-active フラグを t にする。
+  ;; "▽"を"▼"に変える。`skk-henkan-mode' を active にする。
   (skk-save-point
    (goto-char (- skk-henkan-start-point skk-kanji-len))
    (unless (looking-at "▽")
@@ -2601,10 +2603,10 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
    (let ((buffer-undo-list t))
      (insert-and-inherit "▼")
      (delete-char 1))
-   (setq skk-henkan-active t)))
+   (setq skk-henkan-mode 'active)))
 
 (defun skk-change-marker-to-white ()
-  ;; "▼"を"▽"に変える。skk-henkan-active フラグを nil にする。
+  ;; "▼"を"▽"に変える。`skk-henkan-mode' を on にする。
   (skk-save-point
    (goto-char (- skk-henkan-start-point skk-kanji-len))
    (cancel-undo-boundary)
@@ -2615,8 +2617,9 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
      (goto-char skk-henkan-start-point)
      (insert-and-inherit "▽")
      (skk-set-marker skk-henkan-start-point (point))
-     (skk-message "▼がありません" "It seems that you have deleted ▼"))
-   (setq skk-henkan-active nil)))
+     (skk-message "▼がありません"
+		  "It seems that you have deleted ▼"))
+   (setq skk-henkan-mode 'on)))
 
 (defun skk-delete-henkan-markers (&optional nomesg)
   ;; 変換時にカレントバッファに表われる `▽', `▼' マークを消す。
@@ -2625,7 +2628,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
       (skk-save-point
        (goto-char (- skk-henkan-start-point skk-kanji-len))
        (cond
-	(skk-henkan-active
+	((eq skk-henkan-mode 'active)
 	 (when skk-use-face
 	   (skk-henkan-face-off))
 	 (if (looking-at "▼")
@@ -2659,7 +2662,7 @@ C-u ARG で ARG を与えると、その文字分だけ戻って同じ動作を行なう。"
   "▼モードで現在の候補を辞書バッファから消去する。"
   (interactive "*P")
   (skk-with-point-move
-   (when (and skk-henkan-active
+   (when (and (eq skk-henkan-mode 'active)
 	      (not (string= skk-henkan-key ""))
 	      (yes-or-no-p
 	       (format
@@ -3864,9 +3867,9 @@ If you want to restore the dictionary from the disc, try
 (defun skk-*-henkan-2 (func &optional arg)
   (skk-with-point-move
    (cond
-    (skk-henkan-active
+    ((eq skk-henkan-mode 'active)
      nil)
-    (skk-henkan-on
+    ((eq skk-henkan-mode 'on)
      (skk-set-marker skk-henkan-end-point (point))
      (apply 'skk-*-henkan-1
 	    func
@@ -4134,12 +4137,13 @@ If you want to restore the dictionary from the disc, try
    ((not skk-mode)
     ad-do-it)
    ;; ■ mode (Kakutei input mode).
-   ((not skk-henkan-on)
+   ((not skk-henkan-mode)
     (cond ((skk-get-prefix skk-current-rule-tree)
 	   (skk-erase-prefix 'clean))
-	  (t ad-do-it)))
+	  (t
+	   ad-do-it)))
    ;; ▼ mode (Conversion mode).
-   (skk-henkan-active
+   ((eq skk-henkan-mode 'active)
     (setq skk-henkan-count 0)
     (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
 	(let ((count (/ (length skk-henkan-okurigana) skk-kanji-len)))
@@ -4164,11 +4168,12 @@ If you want to restore the dictionary from the disc, try
    '(lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
   (cond ((not skk-mode)
 	 ad-do-it)
-	((not skk-henkan-on)
+	((not skk-henkan-mode)
 	 (cond ((skk-get-prefix skk-current-rule-tree)
 		(skk-erase-prefix 'clean))
-	       (t ad-do-it)))
-	(skk-henkan-active
+	       (t
+		ad-do-it)))
+	((eq skk-henkan-mode 'active)
 	 (setq skk-henkan-count 0)
 	 (if (and skk-delete-okuri-when-quit
 		  skk-henkan-okurigana)
@@ -4191,12 +4196,14 @@ If you want to restore the dictionary from the disc, try
 	       skk-jisx0201-mode
 	       skk-abbrev-mode))
       ad-do-it
-    (let (
-	  ;;(arg (ad-get-arg 0))
-	  ;; skk-kakutei を実行すると skk-henkan-on の値が無条件に nil になる
-	  ;; ので、保存しておく必要がある。
-	  (no-newline (and skk-egg-like-newline skk-henkan-on))
-	  (auto-fill-function (and (interactive-p) auto-fill-function)))
+    (let (;;(arg (ad-get-arg 0))
+	  ;; `skk-kakutei' を実行すると `skk-henkan-mode' の値が
+	  ;; 無条件に nil になるので、保存しておく必要がある。
+	  (no-newline (and skk-egg-like-newline
+			   skk-henkan-mode))
+	  (auto-fill-function (if (interactive-p)
+				  auto-fill-function
+				nil)))
       ;; fill されても nil が帰ってくる :-<
       ;;(if (skk-kakutei)
       ;;    (setq arg (1- arg)))
@@ -4219,9 +4226,13 @@ If you want to restore the dictionary from the disc, try
 	       skk-jisx0201-mode
 	       skk-abbrev-mode))
       ad-do-it
-    (let ((no-newline (and skk-egg-like-newline skk-henkan-on))
-	  (auto-fill-function (and (interactive-p) auto-fill-function)))
-      (and skk-mode (skk-kakutei))
+    (let ((no-newline (and skk-egg-like-newline
+			   skk-henkan-mode))
+	  (auto-fill-function (if (interactive-p)
+				  auto-fill-function
+				nil)))
+      (when skk-mode
+	(skk-kakutei))
       (undo-boundary)
       (unless no-newline
 	ad-do-it))))
@@ -4237,8 +4248,10 @@ If you want to restore the dictionary from the disc, try
 	       skk-jisx0201-mode
 	       skk-abbrev-mode))
       ad-do-it
-    (let ((no-newline (and skk-egg-like-newline skk-henkan-on)))
-      (and skk-mode (skk-kakutei))
+    (let ((no-newline (and skk-egg-like-newline
+			   skk-henkan-mode)))
+      (when skk-mode
+	(skk-kakutei))
       (unless no-newline
 	ad-do-it))))
 
@@ -4257,7 +4270,7 @@ If you want to restore the dictionary from the disc, try
   "SKK の▼モードだったら、確定してからバッファをキルする。"
   (interactive "bKill buffer: ") ; subr command with arg.
   (when (and skk-mode
-	     skk-henkan-on
+	     skk-henkan-mode
 	     (interactive-p))
     (skk-kakutei)))
 
@@ -4265,8 +4278,7 @@ If you want to restore the dictionary from the disc, try
   (run-hooks 'skk-before-kill-emacs-hook))
 
 (defadvice comint-send-input (around skk-ad activate compile)
-  (cond ((or skk-henkan-on
-	     skk-henkan-active)
+  (cond (skk-henkan-mode
 	 (skk-kakutei)
 	 (unless skk-egg-like-newline
 	   ad-do-it))

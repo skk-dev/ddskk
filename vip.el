@@ -4,7 +4,7 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 2001/08/31 19:30:15 $
+;; Last Modified: $Date: 2001/10/31 13:06:22 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -1851,12 +1851,14 @@ STRING.  Search will be forward if FORWARD, otherwise backward."
     (if skk-mode
 	(cond ((skk-get-prefix skk-current-rule-tree)
 	       (skk-erase-prefix 'clean))
-	      (skk-henkan-active
+	      ((eq skk-henkan-mode 'active)
 	       (delete-backward-char val t)
 	       (skk-kakutei))
-	      ((and skk-henkan-on (>= skk-henkan-start-point (point)))
+	      ((and (eq skk-henkan-mode 'on)
+		    (>= skk-henkan-start-point (point)))
 	       (skk-kakutei))
-	      (t (delete-backward-char val t)))
+	      (t
+	       (delete-backward-char val t)))
       (delete-backward-char val t))))
 
 

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.27 2001/10/18 13:11:55 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.28 2001/10/31 13:06:21 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/18 13:11:55 $
+;; Last Modified: $Date: 2001/10/31 13:06:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -41,8 +41,7 @@
 トする。"
   (interactive "*P")
   (cond
-   ((and skk-henkan-on
-	 (not skk-henkan-active))
+   ((eq skk-henkan-mode 'on)
     (skk-comp-do (not (eq last-command 'skk-comp-do)))
     (skk-start-henkan arg))
    (t

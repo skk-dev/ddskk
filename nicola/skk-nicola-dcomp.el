@@ -40,13 +40,12 @@
 (defadvice skk-nicola-self-insert-lshift (around skk-nicola-dcomp activate)
   (cond
    ((or (not skk-dcomp-activate)
-	skk-henkan-active
-	(not skk-henkan-on))
+	(eq skk-henkan-mode 'active))
     ad-do-it)
    (t
     (let (pos)
       (cond
-       ((or skk-henkan-active
+       ((or (eq skk-henkan-mode 'active)
 	    (skk-get-prefix skk-current-rule-tree)
 	    (not skk-comp-stack))
 	(skk-set-marker skk-dcomp-start-point nil)
@@ -65,8 +64,7 @@
       ;;
       (when (and (eq this-command
 		     'skk-nicola-self-insert-rshift)
-		 skk-henkan-on
-		 (not skk-henkan-active))
+		 (eq skk-henkan-mode 'on))
 	(when (and (markerp skk-dcomp-start-point)
 		   (marker-position skk-dcomp-start-point)
 		   (< (marker-position skk-dcomp-start-point)
@@ -80,9 +78,9 @@
 	  (delete-region skk-dcomp-end-point
 			 (point))))
       ;;
-      (unless (or (skk-get-prefix skk-current-rule-tree)
-		  skk-okurigana
-		  skk-henkan-active)
+      (when (and (eq skk-henkan-mode 'on)
+		 (not (skk-get-prefix skk-current-rule-tree))
+		 (not skk-okurigana))
 	(let ((pos (point)))
 	  (condition-case nil
 	      (progn

@@ -4,9 +4,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.25 2001/10/13 11:44:36 czkmt Exp $
+;; Version: $Id: skk-isearch.el,v 1.26 2001/10/31 13:06:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/13 11:44:36 $
+;; Last Modified: $Date: 2001/10/31 13:06:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -72,7 +72,7 @@
 
 (defsubst skk-isearch-conversion-active-p ()
   "Non-nil if skk conversion is active."
-  skk-henkan-on)
+  skk-henkan-mode)
 
 (defsubst skk-isearch-conversion-start ()
   "Point where conversion is start.  Includes skk marker."

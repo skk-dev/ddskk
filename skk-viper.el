@@ -5,9 +5,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.20 2001/10/21 05:32:43 czkmt Exp $
+;; Version: $Id: skk-viper.el,v 1.21 2001/10/31 13:06:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/21 05:32:43 $
+;; Last Modified: $Date: 2001/10/31 13:06:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -189,7 +189,7 @@ viper-read-string-with-history は minibuffer-setup-hook を関数ローカル
 $B確定入力モードで、かなプレフィックスの入力中ならば、かなプレフィックスを消す。"
   (let ((count (or (prefix-numeric-value (ad-get-arg 0)) 1)))
     (cond
-     (skk-henkan-active
+     ((eq skk-henkan-mode 'active)
       (if (and (not skk-delete-implies-kakutei)
 	       (= skk-henkan-end-point (point)))
 	  (skk-previous-candidate)
@@ -212,13 +212,13 @@ viper-read-string-with-history は minibuffer-setup-hook を関数ローカル
 	  (setq skk-prefix ""))
 	(when (>= skk-henkan-end-point (point))
 	  (skk-kakutei))))
-     ((and skk-henkan-on
+     ((and (eq skk-henkan-mode 'on)
 	   (>= skk-henkan-start-point (point)))
       (setq skk-henkan-count 0)
       (skk-kakutei))
      ;; $B入力中の見出し語に対しては delete-backward-char で必ず全角文字 1
      ;; 文字分 backward 方向に戻った方が良い。
-     ((and skk-henkan-on
+     ((and (eq skk-henkan-mode 'on)
 	   overwrite-mode)
       (backward-char count)
       (delete-char count))
@@ -232,7 +232,7 @@ viper-read-string-with-history は minibuffer-setup-hook を関数ローカル
  (before skk-add activate)
  ("$B▽モード、▼モードだったら確定する。"
   (when (and skk-mode
-	     skk-henkan-on)
+	     skk-henkan-mode)
     (skk-kakutei))))
 
 (skk-viper-advice-select

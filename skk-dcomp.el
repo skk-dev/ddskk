@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.13 2001/10/29 11:41:51 czkmt Exp $
+;; Version: $Id: skk-dcomp.el,v 1.14 2001/10/31 13:06:22 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/29 11:41:51 $
+;; Last Modified: $Date: 2001/10/31 13:06:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -117,7 +117,8 @@
   (skk-detach-extent skk-dcomp-extent))
 
 (defsubst skk-dcomp-marked-p ()
-  (and (markerp skk-dcomp-start-point)
+  (and (eq skk-henkan-mode 'on)
+       (markerp skk-dcomp-start-point)
        (markerp skk-dcomp-end-point)
        (marker-position skk-dcomp-start-point)
        (marker-position skk-dcomp-end-point)
@@ -136,8 +137,7 @@
 
 (defun skk-dcomp-do-completion (pos)
   (when (and skk-dcomp-activate
-	     skk-henkan-on
-	     (not skk-henkan-active)
+	     (eq skk-henkan-mode 'on)
 	     (not skk-okurigana))
     (condition-case nil
 	(progn
@@ -152,8 +152,7 @@
 
 (defun skk-dcomp-before-kakutei ()
   (when (and skk-dcomp-activate
-	     skk-henkan-on
-	     (not skk-henkan-active)
+	     (eq skk-henkan-mode 'on)
 	     (skk-dcomp-marked-p))
     (skk-dcomp-face-off)
     (skk-dcomp-delete-completion)))
@@ -167,8 +166,7 @@
 (defun skk-dcomp-after-delete-backward-char ()
   (when (and skk-mode
 	     skk-dcomp-activate
-	     skk-henkan-on
-	     (not skk-henkan-active))
+	     (eq skk-henkan-mode 'on))
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)
       (skk-dcomp-delete-completion))
@@ -179,11 +177,11 @@
 (defadvice skk-kana-input (around skk-dcomp-ad activate)
   (cond
    ((not (and skk-dcomp-activate
-	      skk-henkan-on))
+	      skk-henkan-mode))
     ad-do-it)
    (t
     (cond
-     ((or skk-henkan-active
+     ((or (eq skk-henkan-mode 'active)
 	  (skk-get-prefix skk-current-rule-tree)
 	  (not skk-comp-stack))
       (skk-set-marker skk-dcomp-start-point nil)
@@ -200,7 +198,7 @@
 (defadvice skk-set-henkan-point-subr (around skk-dcomp-ad activate)
   (cond
    (skk-dcomp-activate
-    (let ((henkan-on skk-henkan-on))
+    (let ((henkan-on skk-henkan-mode))
       ad-do-it
       (unless henkan-on
 	(skk-dcomp-do-completion (point)))))
@@ -222,7 +220,7 @@
   (skk-dcomp-cleanup-buffer))
 
 (defadvice skk-process-prefix-or-suffix (before skk-dcomp-ad activate)
-  (when skk-henkan-on
+  (when skk-henkan-mode
     (skk-dcomp-cleanup-buffer)))
 
 (defadvice skk-comp (around skk-dcomp-ad activate)

@@ -464,8 +464,7 @@ keycode 131 = underscore\n"))
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)
 		     (marker-position skk-nicola-okuri-flag)))
-	    (or (not skk-henkan-on)
-		skk-henkan-active))
+	    (not (eq skk-henkan-mode 'on)))
     (setq skk-nicola-okuri-flag nil))
   ;;
   (cond
@@ -544,7 +543,8 @@ keycode 131 = underscore\n"))
 		 (call-interactively 'self-insert-command t))
 	       (let ((last-command-char char))
 		 (call-interactively 'self-insert-command
-				     t))))))))
+				     t)))))))
+  nil)
 
 ;;;###autoload
 (defun skk-nicola-insert (&optional arg)
@@ -558,8 +558,7 @@ keycode 131 = underscore\n"))
     (setq time1 (skk-nicola-format-time
 		 (current-time)))
     ;;
-    (unless (and skk-henkan-on
-		 (not skk-henkan-active))
+    (unless (eq skk-henkan-mode 'on)
       (setq skk-nicola-okuri-flag nil))
     ;;
     (cond
@@ -725,8 +724,7 @@ keycode 131 = underscore\n"))
 	 (skk-nicola-self-insert-rshift
 	  ;; [右 右]
 	  (let ((last-command-char ?\ ))
-	    (cond ((or skk-henkan-on
-		       skk-henkan-active)
+	    (cond (skk-henkan-mode
 		   ;;
 		   (skk-kanagaki-insert arg)
 		   (unless (>= skk-nicola-interval
@@ -741,10 +739,7 @@ keycode 131 = underscore\n"))
 		      (1+ arg)))))))
 	 (skk-nicola-self-insert-lshift
 	  ;; [左 右]
-	  (if (and skk-j-mode
-		   (not skk-katakana))
-	      (skk-latin-mode 1)
-	    (skk-toggle-kana 1)))
+	  (skk-nicola-double-shift))
 	 (t
 	  ;; [文字 右]
 	  (skk-nicola-insert-kana char
@@ -764,10 +759,7 @@ keycode 131 = underscore\n"))
 		   (skk-nicola-lshift-function 1)))))
 	 (skk-nicola-self-insert-rshift
 	  ;; [右 左]
-	  (if (and skk-j-mode
-		   (not skk-katakana))
-	      (skk-latin-mode 1)
-	    (skk-toggle-kana 1)))
+	  (skk-nicola-double-shift))
 	 (t
 	  ;; [文字 左]
 	  (skk-nicola-insert-kana char
@@ -793,8 +785,7 @@ keycode 131 = underscore\n"))
 		    skk-nicola-set-henkan-point-chars))
 	 ;; [fj]
 	 (cond
-	  ((or (not skk-henkan-on)
-	       skk-henkan-active)
+	  ((not (eq skk-henkan-mode 'on))
 	   (skk-set-henkan-point-subr 1))
 	  ((memq skk-kanagaki-keyboard-type
 		 '(106-jis))
@@ -808,12 +799,12 @@ keycode 131 = underscore\n"))
 		    skk-nicola-prefix-suffix-abbrev-chars))
 	 ;; [gh] suffix の 入力
 	 (cond
-	  (skk-henkan-active
+	  ((eq skk-henkan-mode 'active)
 	   ;; 接尾語の処理
 	   (skk-kakutei)
 	   (skk-set-henkan-point-subr)
 	   (insert-and-inherit ?>))
-	  (skk-henkan-on
+	  ((eq skk-henkan-mode 'on)
 	   ;; 接頭語の処理
 	   (skk-kana-cleanup 'force)
 	   (insert-and-inherit ?>)
@@ -842,8 +833,7 @@ keycode 131 = underscore\n"))
 		     skk-nicola-plain-rule
 		     arg)))
 	   (when (and skk-isearch-switch
-		      (not (or skk-henkan-on
-			       skk-henkan-active)))
+		      (not skk-henkan-mode))
 	     (setq isearch-cmds
 		   (cons
 		    (nconc
@@ -859,6 +849,15 @@ keycode 131 = underscore\n"))
 	   (skk-nicola-insert-kana
 	    next
 	    skk-nicola-plain-rule))))))))
+
+(defun skk-nicola-double-shift ()
+  (cond
+   ((and skk-j-mode
+	 (not skk-katakana))
+    (skk-latin-mode 1))
+   (t
+    (skk-toggle-kana 1)))
+  nil)
 
 (defun skk-nicola-maybe-double-p (first next)
   (let ((command (cond
@@ -931,7 +930,7 @@ keycode 131 = underscore\n"))
     ;;
     (cond (skk-nicola-okuri-flag
 	   (skk-nicola-process-okuri))
-	  (skk-henkan-active
+	  ((eq skk-henkan-mode 'active)
 	   (skk-kakutei)))
     ;; 何かに使うことがあるかもしれないので、
     ;; STR を返しておく。
@@ -965,8 +964,7 @@ keycode 131 = underscore\n"))
   ;; `*' を挿入することで送りあり変換の待ち
   ;; 状態であることを明示する。
   (interactive)
-  (when (and skk-henkan-on
-	     (not skk-henkan-active))
+  (when (eq skk-henkan-mode 'on)
     ;; ▽モードのときだけ機能する。
     (let ((pt (point)))
       (unless (and (string= "*"
@@ -981,16 +979,15 @@ keycode 131 = underscore\n"))
 (defun skk-nicola-space-function (&optional arg)
   (let ((last-command-char ?\ ))
     (cond
-     (skk-henkan-active
+     ((eq skk-henkan-mode 'active)
       (call-interactively 'skk-insert))
-     (skk-henkan-on
+     ((eq skk-henkan-mode 'on)
       (skk-kanagaki-insert arg))
      (t
       (self-insert-command arg)))))
 
 (defun skk-nicola-lshift-function (&optional arg)
-  (cond ((or skk-henkan-active
-	     skk-henkan-on)
+  (cond (skk-henkan-mode
 	 ;; 確定に使う。
 	 (skk-kakutei))
 	(skk-nicola-use-lshift-as-space
@@ -1013,16 +1010,14 @@ keycode 131 = underscore\n"))
 		 (<= (point)
 		     (marker-position
 		      skk-nicola-okuri-flag)))
-	    (or (not skk-henkan-on)
-		skk-henkan-active))
+	    (not (eq skk-henkan-mode 'on)))
     (setq skk-nicola-okuri-flag nil)))
 
 (defadvice skk-kakutei (before skk-nicola-update-flag
 			       activate)
   ;;
   (when (and skk-j-mode
-	     skk-henkan-on
-	     (not skk-henkan-active)
+	     (eq skk-henkan-mode 'on)
 	     (markerp skk-nicola-okuri-flag))
     ;; 確定するときは送り開始の標識を消す。
     (skk-save-point
@@ -1038,8 +1033,7 @@ keycode 131 = underscore\n"))
 		 (<= (point)
 		     (marker-position
 		      skk-nicola-okuri-flag)))
-	    (or (not skk-henkan-on)
-		skk-henkan-active))
+	    (not (eq skk-henkan-mode 'on)))
     (setq skk-nicola-okuri-flag nil)))
 
 (defadvice skk-insert (around skk-nicola-workaround activate)
@@ -1057,11 +1051,10 @@ keycode 131 = underscore\n"))
 		   (car cell1))
 	       (eq last-command-char
 		   (car cell2)))
-	   (or skk-henkan-on
-	       skk-henkan-active))
+	   skk-henkan-mode)
       ;; なぜかこける。原因解明中。
       (cond
-       ((not skk-henkan-active)
+       ((not (eq skk-henkan-mode 'active))
 	(setq marker skk-henkan-start-point)
 	(skk-kakutei)
 	ad-do-it

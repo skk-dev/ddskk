@@ -99,7 +99,7 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
   (setq skk-hint-inhibit-kakutei nil))
 
 (defadvice skk-insert (around skk-hint-ad activate)
-  (cond ((and skk-henkan-on
+  (cond ((and skk-henkan-mode
 	      (eq last-command-char skk-hint-start-char)
 	      (not skk-hint-state))
 	 (skk-with-point-move
@@ -148,7 +148,7 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
   (setq skk-hint-inhibit-kakutei nil))
 
 (defadvice skk-previous-candidate (before skk-hint-ad activate)
-  (when (and skk-henkan-active
+  (when (and (eq skk-henkan-mode 'active)
 	     (not (string= skk-henkan-key ""))
 	     (= skk-henkan-count 0))
     (setq skk-hint-henkan-hint nil
