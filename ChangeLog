@@ -1,3 +1,8 @@
+2001-11-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el
+	(skk-setup-keymap): Use conditions a little better.
+
 2001-11-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-jisyo-edit-mode.el:
@@ -2830,8 +2835,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.544 2001/11/21 14:45:03 czkmt Exp $
-Last Modified: $Date: 2001/11/21 14:45:03 $
+Version: $Id: ChangeLog,v 1.545 2001/11/23 09:11:17 czkmt Exp $
+Last Modified: $Date: 2001/11/23 09:11:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
