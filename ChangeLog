@@ -2,6 +2,9 @@
 
 	* skk-isearch.el (skk-isearch-setup): Remember the current buffer.
 
+	* skk-tut.el (skktut-init-variables-alist): Set `skk-rule-tree'
+	for skk-nicola.
+
 	* skk-vars.el: Modify group dependencies for skk-tut.
 	(skk-isearch-cyrrent-buffer): New variable.
 
@@ -2564,8 +2567,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.183 2000/11/27 17:23:25 czkmt Exp $
-Last Modified: $Date: 2000/11/27 17:23:25 $
+Version: $Id: ChangeLog,v 1.184 2000/11/27 17:46:23 czkmt Exp $
+Last Modified: $Date: 2000/11/27 17:46:23 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.23 2000/11/25 19:56:38 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.24 2000/11/27 17:46:24 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/25 19:56:38 $
+;; Last Modified: $Date: 2000/11/27 17:46:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -287,7 +287,15 @@
     (skk-mode-invoked . t)
     (skk-rule-tree
      .
-     (skk-compile-rule-list skk-rom-kana-base-rule-list skk-rom-kana-rule-list)))
+     (if (and skk-use-kana-keyboard
+	     (memq skk-kanagaki-keyboard-type
+		   '(oasys
+		     nicola-jis nicola-us nicola-dvorak
+		     omelet-jis omelet-us omelet-dvorak))
+	     (eq skk-kanagaki-state 'kana)
+	     skktut-nicola-tut-file)
+	 skk-kanagaki-rule-tree
+       (skk-compile-rule-list skk-rom-kana-base-rule-list skk-rom-kana-rule-list))))
   "skk.el のユーザー変数のリスト。")
 
 (defvar skktut-nicola-tut-file
