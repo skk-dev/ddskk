@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.18 2000/12/01 09:15:48 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.19 2000/12/04 04:05:19 minakaji Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/12/01 09:15:48 $
+;; Last Modified: $Date: 2000/12/04 04:05:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1057,7 +1057,15 @@ skk-rom-kana-base-rule-list と skk-rom-kana-rule-list の要素を全て検索
   :group 'skk-hooks-and-functions)
 
 (defcustom skk-okuri-char-alist nil
-  "*$Bある送り仮名を別の送り仮名に変換するルールを記述するエーリスト。"
+  "*ある送り仮名 prefix を別の送り仮名 prefix に変換するルールを記述するエーリスト。
+car に「実際のキー入力によるかな prefix 文字列」、cdr に「SKK の辞書が予
+想しているかな prefix 文字列」を持つ cons cell のリスト。
+
+例えば、か行の送り仮名入力に \"c\" の prefix を使うのであれば、
+
+  \(setq skk-okuri-char-alist '\(\(\"c\" . \"k\"\)\)
+
+のように書く。"
   :type '(repeat (cons string string))
   :group 'skk-okurigana)
 
