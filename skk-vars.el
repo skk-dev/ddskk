@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.109 2002/11/03 05:35:28 minakaji Exp $
+;; Version: $Id: skk-vars.el,v 1.110 2002/11/09 03:19:51 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/11/03 05:35:28 $
+;; Last Modified: $Date: 2002/11/09 03:19:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1240,6 +1240,14 @@ highlight, underline, bold, italic, bold-italic $B$NB>!"?7$?$K(B face $B$r:n
 (defcustom skk-kakutei-history-limit 100
   "$BJQ?t(B `skk-kakutei-history' $B$NCM(B ($BO"A[%j%9%H(B) $B$ND9$5$N>e8B!#(B"
   :type 'integer
+  :group 'skk-misc
+  :group 'skk-comp)
+
+(defcustom skk-comp-circulate nil
+  "*$B8+=P$78l$NJd40$r9T$&:]$N8uJd$NI=<(=g$r@)8f$9$k!#(Bnon-nil $B$G$"$l$P!"(B
+$B:G8e$N8+=P$78l$,I=<($5$l$?>uBV$G$5$i$KJd40$r9T$&$HF~NOJ8;zNs$KLa$k!#(B
+nil $B$G$"$l$P!":G8e$N8+=P$78l$,I=<($5$l$?>uBV$GDd;_$9$k!#(B"
+  :type 'boolean
   :group 'skk-misc
   :group 'skk-comp)
 
@@ -2620,6 +2628,9 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 
 (skk-deflocalvar skk-comp-kakutei-midasi-list nil
   "$B3NDjMzNr$+$iF@$i$l$?8+=P$78l$N%j%9%H!#(B")
+
+(skk-deflocalvar skk-comp-search-done nil
+  "$B8+=P$78l$NJd40MQ$N8D?M<-=q8!:w$,=*N;$7$?$3$H$r<($9!#(B")
 
 ;;; -- SKK-CURSOR.EL related internal variables
 

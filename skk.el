@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.254 2002/09/11 11:20:21 czkmt Exp $
+;; Version: $Id: skk.el,v 1.255 2002/11/09 03:19:51 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/09/11 11:20:21 $
+;; Last Modified: $Date: 2002/11/09 03:19:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4374,6 +4374,25 @@ SKK 辞書の候補として正しい形に整形する。"
 	     (file-readable-p skk-large-jisyo))
     (skk-get-jisyo-buffer skk-large-jisyo 'nomsg)))
 
+(defun skk-toggle-isearch-mode (&optional arg)
+  "skk-isearch を利用するかどうかをトグルで変更する。
+変数 `skk-isearch-mode-enable' の値を nil/t トグルで変更する。
+変数 `migemo-isearch-enable-p' が bound されていれば、
+`skk-isearch-mode-enable' の値と逆の値をセットする。"
+  (interactive)
+  (setq skk-isearch-mode-enable
+	(cond ((null arg)
+	       (not skk-isearch-mode-enable))
+	      ((> (prefix-numeric-value arg) 0)
+	       t)))
+  (when (boundp 'migemo-isearch-enable-p)
+    (if skk-isearch-mode-enable
+	(setq migemo-isearch-enable-p nil)
+      (setq migemo-isearch-enable-p t)))
+  (if skk-isearch-mode-enable
+      (message "SKK isearch is enabled")
+    (message "SKK isearch is disabled")))
+
 ;;;###autoload
 (add-hook 'after-init-hook
 	  #'(lambda ()
@@ -4411,10 +4430,14 @@ SKK 辞書の候補として正しい形に整形する。"
       (skk-previous-candidate)))
    ;; ▽ mode (Midashi input mode).
    (t
-    (skk-erase-prefix 'clean)
-    (when (> (point) skk-henkan-start-point)
-      (delete-region (point) skk-henkan-start-point))
-    (skk-kakutei))))
+    (if (eq last-command 'skk-comp-do)
+	(progn
+	  (delete-region skk-henkan-start-point (point))
+	  (insert skk-comp-key))
+      (skk-erase-prefix 'clean)
+      (when (> (point) skk-henkan-start-point)
+	(delete-region (point) skk-henkan-start-point))
+      (skk-kakutei)))))
 
 (skk-defadvice abort-recursive-edit (around skk-ad activate)
   "▼モードであれば、候補の表示をやめて▽モードに戻す (見出し語は残す)。

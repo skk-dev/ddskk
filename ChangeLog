@@ -1,3 +1,22 @@
+2002-11-09  Akihiro Motoki  <amotoki@dd.iij4u.or.jp>
+
+	* skk-comp.el (skk-comp-do): Keyword completion shows a candidate
+	circularly. (After showing the last candidate, back to the first.)
+	(skk-comp-previous): Ditto.
+
+	* skk.el (keyboard-quit): While keyword completion in Midashi
+	input mode, C-g terminates the completion and redisplay the
+	original Midashi input.
+
+	* skk-vars.el (skk-comp-circulate): New user variable.
+	(skk-comp-search-done): New buffer local variable.
+
+2002-11-09  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* skk-setup.el.in (isearch-mode-end-hook): Check if
+	`skk-isearch-mode-enable' is non-nil before invoking
+	`skk-isearch-mode-cleanup'
+
 2002-11-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-isearch-mode-enable): New user variable.
@@ -4049,8 +4068,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.714 2002/11/03 05:35:28 minakaji Exp $
-Last Modified: $Date: 2002/11/03 05:35:28 $
+Version: $Id: ChangeLog,v 1.715 2002/11/09 03:19:52 minakaji Exp $
+Last Modified: $Date: 2002/11/09 03:19:52 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.38 2002/07/27 06:24:27 czkmt Exp $
+;; Version: $Id: skk-comp.el,v 1.39 2002/11/09 03:19:52 minakaji Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/07/27 06:24:27 $
+;; Last Modified: $Date: 2002/11/09 03:19:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -65,20 +65,27 @@
 	c-word)
     (skk-kana-cleanup 'force)
     (when first
-      (setq skk-comp-stack nil
+      (setq skk-comp-search-done nil
+	    skk-comp-stack nil
 	    skk-comp-depth 0))
     (when first
       (setq skk-comp-key (buffer-substring-no-properties
 			  skk-henkan-start-point (point))))
     (cond
-     ((> skk-comp-depth 0)
-      ;; (過去に探索済みの読みをアクセス中)
-      (setq skk-comp-depth (1- skk-comp-depth)
-	    c-word (nth skk-comp-depth skk-comp-stack)))
+     ;; (過去に探索済みの読みをアクセス中)
+     (skk-comp-search-done
+      (if (= skk-comp-depth 0)
+	  ;; circulate ならば c-word = skk-comp-key なので c-word = nil
+	  ;; non-circulate ならば これ以上候補がないので c-word = nil
+	  (if skk-comp-circulate
+	      (setq skk-comp-depth (length skk-comp-stack)))
+	(setq skk-comp-depth (1- skk-comp-depth))
+	(setq c-word (nth skk-comp-depth skk-comp-stack))))
      ;; (新規の読みを辞書バッファから探索)
      ;; skk-comp-key はバッファローカル値なので、辞書バッファに移る前に
      ;; 一時変数に移し変えておく。
-     ((setq c-word
+     (t
+      (setq c-word
 	    (or (let ((word (skk-comp-do-1 skk-comp-key first)))
 		  (while (member word skk-comp-stack)
 		    (setq word (skk-comp-do-1 skk-comp-key first)))
@@ -87,14 +94,22 @@
 		(when (and skk-abbrev-mode
 			   skk-use-look)
 		  (skk-look-completion))))
-      ;; 新規に見つけたときだけ push する。
-      (push c-word skk-comp-stack)))
+      (if c-word
+	  ;; 新規に見つけたときだけ push する。
+	  (push c-word skk-comp-stack)
+	(setq skk-comp-search-done t)
+	(if skk-comp-circulate
+	    (setq skk-comp-depth (length skk-comp-stack))))))
     ;; 辞書バッファの外。
     (cond
      (c-word
       (delete-region skk-henkan-start-point (point))
       (insert c-word))
      (t
+      ;; When skk-comp-circulate, return to the keyword.
+      (when skk-comp-circulate
+	(delete-region skk-henkan-start-point (point))
+	(insert skk-comp-key))
       (unless silent
 	(ding)
 	(cond
@@ -156,16 +171,23 @@
   ;; skk-abbrev-comma, skk-insert-comma のサブルーチン。
   ;; 直前に補完を行った見出しを挿入する。
   (let ((inhibit-quit t)
-	(c-word
-	 (progn
-	   (setq skk-comp-depth (1+ skk-comp-depth))
-	   (nth skk-comp-depth skk-comp-stack))))
+	(stack-length (length skk-comp-stack))
+	c-word)
+    (if (and skk-comp-circulate (= skk-comp-depth stack-length))
+	(setq skk-comp-depth 0)
+      (setq skk-comp-depth (1+ skk-comp-depth)))
+    (setq c-word (nth skk-comp-depth skk-comp-stack))
     (cond
      (c-word
       (delete-region skk-henkan-start-point (point))
       (insert c-word))
      (t
-      (setq skk-comp-depth (1- skk-comp-depth))
+      (if (null skk-comp-circulate)
+	  ;; non-circulate ならば skk-comp-depth が範囲外なので 1 戻す
+	  (setq skk-comp-depth (1- skk-comp-depth))
+	(delete-region skk-henkan-start-point (point))
+	(insert skk-comp-key))
+      ;;(setq skk-comp-depth (1- skk-comp-depth))
       (ding)
       (skk-message "\"%s\"で補完すべき見出し語は他にありません"
 		   "No more previous completions for \"%s\""
