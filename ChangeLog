@@ -1,4 +1,4 @@
-2001-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2001-08-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK-MK-collect-autoload-functions): Don't look at a
 	newline.
@@ -3715,8 +3715,8 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 
-Version: $Id: ChangeLog,v 1.326 2001/08/25 14:35:56 czkmt Exp $
-Last Modified: $Date: 2001/08/25 14:35:56 $
+Version: $Id: ChangeLog,v 1.327 2001/08/25 14:37:47 czkmt Exp $
+Last Modified: $Date: 2001/08/25 14:37:47 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
