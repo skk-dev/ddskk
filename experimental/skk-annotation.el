@@ -3,10 +3,10 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.5 2000/11/06 10:44:55 minakaji Exp $
+;; Version: $Id: skk-annotation.el,v 1.6 2000/11/06 11:43:57 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2000/11/06 10:44:55 $
+;; Last Modified: $Date: 2000/11/06 11:43:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -420,14 +420,15 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	     (or quiet
 		 (message "Quoted"))))))))
 
+;;;###autoload
 (defun skk-annotation-update-jisyo-format ()
   (interactive)
   (skk-setup-jisyo-buffer)
   (let ((min skk-okuri-ari-min) (max skk-okuri-ari-max))
-    (skk-update-jisyo-format-1 min max)
+    (skk-annotation-update-jisyo-format-1 min max)
     (setq min skk-okuri-nasi-min
 	  max (point-max))
-    (skk-update-jisyo-format-1 min max)))
+    (skk-annotation-update-jisyo-format-1 min max)))
 
 (defun skk-annotation-update-jisyo-format-1 (min max)
   (let (candidate)
