@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.131 2001/10/06 06:28:55 czkmt Exp $
+;; Version: $Id: skk.el,v 1.132 2001/10/07 01:15:21 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/10/06 06:28:55 $
+;; Last Modified: $Date: 2001/10/07 01:15:21 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -1796,9 +1796,9 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		      0)))
 	      ;; skk-henkan まで一気に throw する。
 	      (throw 'unread nil)))))) ; end of while loop
-     (if (consp new-one)
-	 (cdr new-one)
-       new-one))))
+     ;;
+     (or (cdr-safe new-one)
+	 new-one))))
 
 (defun skk-henkan-show-candidate-subr (keys candidates)
   ;; key と candidates を組み合わせて 7 つの候補群 (候補数が 7 に満たなかっ
@@ -2070,7 +2070,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	(skk-henkan-active
 	 (skk-previous-candidate))
 	(skk-henkan-on
-	 (if (= (point) (marker-position skk-henkan-start-point))
+	 (if (= (point)
+		(marker-position skk-henkan-start-point))
 	     (skk-kakutei arg)
 	   (forward-char -1)
 	   (delete-char 1)))
@@ -2086,17 +2087,22 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       (if (string-match ";" word)
 	  (setq annotation (substring word (match-end 0))
 		word (substring word 0 (match-beginning 0))))
-      (setq word (if (skk-lisp-prog-p word) (skk-eval-string word) word))
-      (and skk-use-face (skk-henkan-face-off))
+      (setq word (if (skk-lisp-prog-p word)
+		     (skk-eval-string word)
+		   word))
+      (if skk-use-face
+	  (skk-henkan-face-off))
       (delete-region skk-henkan-start-point skk-henkan-end-point)
       (goto-char skk-henkan-start-point)
       (insert-and-inherit word)
       (skk-set-marker skk-henkan-end-point (point))
-      (and skk-use-face (skk-henkan-face-on))
-      (if (and skk-show-annotation annotation)
+      (if skk-use-face
+	  (skk-henkan-face-on))
+      (if (and skk-show-annotation
+	       annotation)
 	  (skk-annotation-show annotation))
-      (and skk-insert-new-word-function
-	   (funcall skk-insert-new-word-function)))))
+      (if skk-insert-new-word-function
+	  (funcall skk-insert-new-word-function)))))
 
 (defun skk-kakutei (&optional word)
   "現在表示されている語で確定し、辞書の更新を行う。
@@ -3090,15 +3096,13 @@ If you want to restore the dictionary from the disc, try
     (let ((okurigana (or skk-henkan-okurigana
 			 skk-okuri-char))
 	  (midasi (if skk-use-numeric-conversion
-		      (skk-num-compute-henkan-key
-		       skk-henkan-key)
+		      (skk-num-compute-henkan-key skk-henkan-key)
 		    skk-henkan-key))
 	  (henkan-buffer (current-buffer))
 	  words-list)
       (with-current-buffer buf
 	(setq skk-henkan-key midasi
-	      words-list (skk-search-jisyo okurigana
-					   limit))
+	      words-list (skk-search-jisyo okurigana limit))
 	(skk-select-words-from-list words-list
 				    henkan-buffer
 				    midasi
