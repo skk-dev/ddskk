@@ -211,6 +211,10 @@ keycode 131 = underscore\n"))
 	  (setq skk-nicola-lshift-key "_"
 		skk-nicola-rshift-key " ")))))))
 
+;; Shut up compiler.
+(defvar skktut-j-mode-map)
+(defvar skktut-latin-mode-map)
+
 ;; Hooks.
 
 (add-hook 'skk-mode-hook 'skk-nicola-setup)
@@ -232,8 +236,6 @@ keycode 131 = underscore\n"))
 	    (let (skk-mode skk-j-mode)
 	      (key-binding skk-nicola-lshift-key)))))
     ;;
-    (make-local-variable 'skk-hiragana-mode-string)
-    (make-local-variable 'skk-katakana-mode-string)
     (case skk-kanagaki-state
       (kana
        (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
@@ -715,8 +717,6 @@ keycode 131 = underscore\n"))
   (setq skk-nicola-okuri-flag nil)
   ad-do-it
   ;; モード行の表示の調節。
-  (make-local-variable 'skk-hiragana-mode-string)
-  (make-local-variable 'skk-katakana-mode-string)
   (case skk-kanagaki-state
     (kana
      (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
@@ -724,11 +724,18 @@ keycode 131 = underscore\n"))
     (rom
      (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
 	   skk-katakana-mode-string skk-nicola-katakana-rom-string)))
-  (when skk-j-mode
-    (cond (skk-katakana
-	   (setq skk-input-mode-string skk-katakana-mode-string))
-	  (t
-	   (setq skk-input-mode-string skk-hiragana-mode-string))))
+  (let ((list (buffer-list))
+	buf)
+    (while list
+      (when (buffer-live-p (setq buf (car list)))
+	(with-current-buffer buf
+	  (when skk-j-mode
+	    (setq skk-input-mode-string
+		  (cond (skk-katakana
+			 skk-katakana-mode-string)
+			(t
+			 skk-hiragana-mode-string))))))
+      (setq list (cdr list))))
   (force-mode-line-update t))
 
 (defadvice skk-kanagaki-start-henkn-okuriari (before skk-nicola-ad activate

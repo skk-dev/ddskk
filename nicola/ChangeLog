@@ -1,3 +1,11 @@
+2000-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el (skk-kanagaki-state): This shouldn't be a local
+	varaible.
+
+	* skk-nicola.el (skk-kanagaki-toggle-rom-kana): Update all
+	buffers.
+
 2000-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-util.el (skk-kanagaki-bs): Rename from
