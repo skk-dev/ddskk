@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.41 2003/07/12 11:22:33 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.42 2003/07/13 09:59:29 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/12 11:22:33 $
+;; Last Modified: $Date: 2003/07/13 09:59:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -75,10 +75,11 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
-  (require 'ring)
-  (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'cl))
+
+(require 'skk-macs)
+(require 'skk-vars)
+(require 'ring)
 
 ;;;; inline functions.
 (defsubst skk-study-get-last-henkan-data (index)
@@ -87,25 +88,24 @@
 
 ;;;###autoload
 (defun skk-study-search (henkan-buffer midasi okurigana entry)
+  "学習データを参照して ENTRY を加工し、関連性のある語の優先順位を上げて返す。"
   (or skk-study-data-ring
       (setq skk-study-data-ring (make-ring skk-study-search-times)))
-  (if (or (null entry)
-	  ;; list of single element.
-	  (null (cdr entry)))
-      nil
+  (when (and entry (cdr entry))
+    (or skk-study-alist (skk-study-read))
     (with-current-buffer henkan-buffer
-      (if (or skk-study-alist (skk-study-read))
-	  ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
-	  ;;  ("なk" . ((("こども" . "子供") . ("泣")))))
-
-	  (let ((target-alist
-		 (cdr (assoc midasi
-			     (cdr (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
-					       'okuri-ari)
-					      (t 'okuri-nasi))
-					skk-study-alist))))))
-	    (if target-alist
-		(setq entry (skk-study-search-1 target-alist midasi okurigana entry)))))))
+      ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
+      ;;  ("なk" . ((("こども" . "子供") . ("泣")))))
+      (let ((target-alist
+	     (cdr
+	      (assoc
+	       midasi
+	       (cdr (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
+				 'okuri-ari)
+				(t 'okuri-nasi))
+			  skk-study-alist))))))
+	(when target-alist
+	  (setq entry (skk-study-search-1 target-alist midasi okurigana entry))))))
   entry)
 
 (defun skk-study-search-1 (target-alist midasi okurigana entry)
@@ -127,56 +127,63 @@
 
 ;;;###autoload
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
+  "MIDASI と WORD について `skk-study-data-ring' の最初の関連語を関連付けて学習する。"
   (or skk-study-data-ring
       (setq skk-study-data-ring (make-ring skk-study-search-times)))
   (let ((inhibit-quit t)
 	last-data diff grandpa papa baby)
     (with-current-buffer henkan-buffer
-      (when (and (or skk-study-first-candidate
-		     (not (string= word (car skk-henkan-list))))
-		 (eq (skk-get-last-henkan-datum 'henkan-buffer) henkan-buffer)
-		 (or (not skk-study-max-distance)
-		     (and (setq diff
-				(- (point)
-				   (skk-get-last-henkan-datum 'henkan-point)))
-			  (> diff 0)
-			  (> skk-study-max-distance diff))))
-	(when (and (or skk-study-alist (skk-study-read))
-		   midasi word
-		   (setq last-data (if (not (ring-empty-p skk-study-data-ring))
-				       (ring-ref skk-study-data-ring 0)))
-		   (not (or (string= midasi "") (string= word "")
-			    (and (string= midasi (car last-data))
-				 (string= word (cdr last-data))))))
-	  (setq grandpa (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
-				     'okuri-ari)
-				    (t 'okuri-nasi))
-			      skk-study-alist)
-		;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
-		papa (assoc midasi (cdr grandpa)))
-	  (cond (
-		 ;; car に見出し語を持つ cell がない
-		 (not (or papa purge))
-		 (setcdr grandpa
-			 (nconc
-			  (list (cons midasi (list (cons last-data (list word)))))
-			  (cdr grandpa))))
-		;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) を
-		;; キーにした cell がない。
-		((not (or
-		       ;; (("ふく" . "服") . ("着"))
-		       (setq baby (assoc last-data (cdr papa)))
-		       purge))
-		 (setcdr papa (cons (cons last-data (list word)) (cdr papa))))
-		;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけ
-		;; アップデートする。
-		((not purge)
-		 ;; ring データの方がもっと効率的か？  でもここの部分のデータのアップデート
-		 ;; が効率良くできない。
-		 (setcdr baby (cons word (delete word (cdr baby))))
-		 (if (> (1- (length (cdr baby))) skk-study-associates-number)
-		     (skk-study-chomp (cdr baby) (1- skk-study-associates-number))))
-		(t (setcdr grandpa (delq baby (cdr grandpa))))))))))
+      (when (and
+	     ;; 第一候補で確定したかどうか
+	     (or skk-study-first-candidate
+		 (not (string= word (car skk-henkan-list))))
+	     ;; 変換バッファが変わっていないかどうか
+	     (eq (skk-get-last-henkan-datum 'henkan-buffer) henkan-buffer)
+	     (or (not skk-study-max-distance)
+		 (and (setq diff
+			    (- (point)
+			       (skk-get-last-henkan-datum 'henkan-point)))
+		      ;; 直前の変換よりポイントが前へ移動していないかどうか
+		      (> diff 0)
+		      ;; skk-study-max-distance を超えて直前の変換とポイン
+		      ;; トが離れていないかどうか。
+		      (> skk-study-max-distance diff)))
+	     midasi word
+	     (setq last-data (if (not (ring-empty-p skk-study-data-ring))
+				 (ring-ref skk-study-data-ring 0)))
+	     (not (or (string= midasi "") (string= word "")
+		      (and (string= midasi (car last-data))
+			   (string= word (cdr last-data))))))
+	(or skk-study-alist (skk-study-read))
+	(setq grandpa (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
+				   'okuri-ari)
+				  (t 'okuri-nasi))
+			    skk-study-alist)
+	      ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
+	      papa (assoc midasi (cdr grandpa)))
+	(cond (
+	       ;; car に見出し語を持つ cell がない
+	       (not (or papa purge))
+	       (setcdr grandpa
+		       (nconc
+			(list (cons midasi (list (cons last-data (list word)))))
+			(cdr grandpa))))
+	      ;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) を
+	      ;; キーにした cell がない。
+	      ((not (or
+		     ;; (("ふく" . "服") . ("着"))
+		     (setq baby (assoc last-data (cdr papa)))
+		     purge))
+	       (setcdr papa (cons (cons last-data (list word)) (cdr papa))))
+	      ;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけ
+	      ;; アップデートする。
+	      ((not purge)
+	       ;; ring データの方がもっと効率的か？  でもここの部分のデータのアップデート
+	       ;; が効率良くできない。
+	       (setcdr baby (cons word (delete word (cdr baby))))
+	       (if (> (1- (length (cdr baby))) skk-study-associates-number)
+		   (skk-study-chomp (cdr baby) (1- skk-study-associates-number))))
+	      (t (setcdr grandpa (delq baby (cdr grandpa)))))))))
 
 ;;;###autoload
 (defun skk-study-save (&optional nomsg)

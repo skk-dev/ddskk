@@ -1,3 +1,11 @@
+2003-07-13  NAKAJIMA Mikio  <minakaji@namazu.org>
+
+	* skk-study.el (skk-study-read): Require skk-macs.el, skk-vars.el
+	and ring.el outside `eval-when-compile'.
+	(skk-study-search): Use `when' instead of `if', simplified
+	slightly and add doc string.
+	(skk-study-update): Simplified slightly and add doc string.
+
 2003-07-12  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* skk-study.el:	Move all variables and constants to skk-vars.el.
@@ -4302,8 +4310,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.757 2003/07/12 11:22:33 minakaji Exp $
-Last Modified: $Date: 2003/07/12 11:22:33 $
+Version: $Id: ChangeLog,v 1.758 2003/07/13 09:59:29 minakaji Exp $
+Last Modified: $Date: 2003/07/13 09:59:29 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
