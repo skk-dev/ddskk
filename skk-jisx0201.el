@@ -3,10 +3,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.18 2001/09/07 11:31:07 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.19 2001/09/07 20:37:03 czkmt Exp $
 ;; Keywords: japanese
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/09/07 11:31:07 $
+;; Last Modified: $Date: 2001/09/07 20:37:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -416,12 +416,10 @@
     (cond
      (skk-jisx0201-mode
       (setq skk-jisx0201-mode nil)
-      (skk-j-mode-on 'katakana)
-      (kill-local-variable 'skk-rule-tree)
-      (skk-update-modeline 'katakana))
+      (skk-j-mode-on)
+      (kill-local-variable 'skk-rule-tree))
      (t
-      (skk-jisx0201-mode-on)
-      (skk-update-modeline 'jisx0201))))
+      (skk-jisx0201-mode-on))))
   (when skk-use-color-cursor
     (static-cond
      ((eq skk-emacs-type 'xemacs)
