@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.7 2001/08/31 19:30:14 czkmt Exp $
+;; Version: $Id: skk-auto.el,v 1.8 2001/10/13 13:58:35 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2001/10/13 13:58:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -32,22 +32,24 @@
 (eval-when-compile (require 'skk-macs) (require 'skk-vars))
 
 ;;;###autoload
-(defun skk-okuri-search ()
-  ;; skk-auto-okuri-process が non-nil ならば "Uresii" のように送り仮名も含め
-  ;; てタイプしても送りありの "嬉しい" を探し出す。
-  (if (and skk-auto-okuri-process
-	   (not (or skk-abbrev-mode skk-process-okuri-early
-		    skk-henkan-okurigana))
-	   ;; we don't do auto-okuri-process if henkan key contains numerals.
-	   (not (skk-numeric-p))
-	   (> (length skk-henkan-key) skk-kanji-len))
-      (let (l)
-	(setq skk-okuri-index-min (length skk-henkan-list)
-	      l (funcall skk-okuri-search-function)
-	      skk-okuri-index-max (+ skk-okuri-index-min (length l)))
-	(if (not skk-katakana)
-	    l
-	  (mapcar (function (lambda (e) (skk-hiragana-to-katakana e))) l)))))
+(defun skk-okuri-search-1 ()
+  (when (and (not (or skk-abbrev-mode
+		      skk-process-okuri-early
+		      skk-henkan-okurigana))
+	     ;; we don't do auto-okuri-process
+	     ;; if henkan key contains numerals.
+	     (not (skk-numeric-p))
+	     (> (length skk-henkan-key) skk-kanji-len))
+    (let (l)
+      (setq skk-okuri-index-min (length skk-henkan-list)
+	    l (funcall skk-okuri-search-function)
+	    skk-okuri-index-max (+ skk-okuri-index-min (length l)))
+      (if (not skk-katakana)
+	  l
+	(mapcar (function
+		 (lambda (e)
+		   (skk-hiragana-to-katakana e)))
+		l)))))
 
 (defun skk-okuri-search-subr-original ()
   ;; skk-okuri-search のサブルーチン。見つけたエントリのリストを返す。
@@ -68,9 +70,8 @@
 		key2 (concat key (buffer-substring-no-properties
 				  p (- (search-forward " ") 2)))
 		len2 (length key2))
-	  (if (not (and (<= len2 len)
-			(string= key2 (substring henkan-key 0 len2))))
-	      nil
+	  (when (and (<= len2 len)
+			(string= key2 (substring henkan-key 0 len2)))
 	    (let ((cont t))
 	      (skk-save-point
 	       (end-of-line)
@@ -82,9 +83,8 @@
 			      (1- (search-forward "/")))
 		      key3 (concat key2 okuri3)
 		      len3 (length key3))
-		(if (not (and (<= len3 len)
-			      (string= key3 (substring henkan-key 0 len3))))
-		    nil
+		(when (and (<= len3 len)
+			   (string= key3 (substring henkan-key 0 len3)))
 		  ;; finally found a candidate!
 		  (let ((okuri
 			 (concat okuri3 (substring henkan-key len3 len)))
@@ -100,41 +100,44 @@
 		      ;;   かんz /感/[じ/感/]/
 		      ;;   かんj /感/[じ/感/]/
 		      ;; など。
-		      (if (null (rassoc cand key-cand-alist))
-			  (setq key-cand-alist (cons (cons key3 cand)
-						     key-cand-alist))))
+		      (unless (rassoc cand key-cand-alist)
+			(setq key-cand-alist (cons (cons key3 cand)
+						   key-cand-alist))))
 		    ;; it is not necessary to seach for "\[" on this line
 		    ;; any more
 		    (setq cont nil)))))))
 	;; key3 の長いもの順にソートして返す。
 	(mapcar (function
-		 (lambda (x) (cdr x)))
+		 (lambda (x)
+		   (cdr x)))
 		(sort (nreverse key-cand-alist)
-		      (function (lambda (x y)
-				  (string< (car y) (car x))))))))))
+		      (function
+		       (lambda (x y)
+			 (string< (car y) (car x))))))))))
 
 ;;;###autoload
 (defun skk-adjust-search-prog-list-for-auto-okuri ()
-  ;; skk-auto-okuri-process が nil であれば、skk-search-prog-list から
-  ;; '(skk-okuri-search) を消し、non-nil であれば加える。
+  ;; `skk-auto-okuri-process' が non-nil であれば
+  ;; `skk-search-prog-list' に `skk-okuri-search' を加える。
   ;;
-  ;; '(skk-okuri-search) を加える位置については、skk-jisyo の後が最良かどうか
-  ;; は分らないので、オプションで変更できるようにすべきだが...。
-  (if (not skk-auto-okuri-process)
-      (setq skk-search-prog-list
-	    (delete '(skk-okuri-search) skk-search-prog-list))
-    (if (null (member '(skk-okuri-search) skk-search-prog-list))
-	(let ((pl skk-search-prog-list)
-	      (n 0) dic mark)
-	  (while pl
-	    (setq dic (car pl))
-	    (if (memq (nth 1 dic) '(skk-jisyo skk-rdbms-private-jisyo-table))
-		(setq mark n
-		      pl nil)
-	      (setq pl (cdr pl)
-		    n (1+ n))))
-	  (skk-splice-in skk-search-prog-list (1+ mark)
-			 '((skk-okuri-search)))))))
+  ;; `skk-okuri-search' を加える位置については、skk-jisyo の
+  ;; 後が最良かどうかは分らないので、オプションで変更できる
+  ;; ようにすべきだが...。
+  (unless (null (member '(skk-okuri-search)
+			(default-value 'skk-search-prog-list)))
+    (let ((pl (default-value 'skk-search-prog-list))
+	  (n 0) dic mark)
+      (while pl
+	(setq dic (car pl))
+	(if (memq (nth 1 dic)
+		  '(skk-jisyo skk-rdbms-private-jisyo-table))
+	    (setq mark n
+		  pl nil)
+	  (setq pl (cdr pl)
+		n (1+ n))))
+      (skk-splice-in (default-value 'skk-search-prog-list)
+		     (1+ mark)
+		     '((skk-okuri-search))))))
 
 ;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-auto-okuri)
 
