@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.51 2000/11/11 23:39:14 minakaji Exp $
+;; Version: $Id: skk.el,v 1.52 2000/11/12 10:46:20 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/11 23:39:14 $
+;; Last Modified: $Date: 2000/11/12 10:46:20 $
 
 ;; Daredevil SKK is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -557,6 +557,7 @@ dependent."
 	(char-to-string skk-backward-and-set-henkan-point-char)
 	'skk-backward-and-set-henkan-point))
     (skk-setup-delete-backward-char)
+    (skk-setup-undo)
     ;; XEmacs doesn't have minibuffer-local-ns-map
     (and (boundp 'minibuffer-local-ns-map)
 	 (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei))
@@ -653,6 +654,21 @@ dependent."
       (while keys
 	(define-key skk-abbrev-mode-map (car keys) 'skk-delete-backward-char)
 	(define-key skk-j-mode-map (car keys) 'skk-delete-backward-char)
+	(setq keys (cdr keys))))))
+
+(defun skk-setup-undo ()
+  (let ((commands '(undo advertised-undo))
+	(map (if (and (boundp 'overriding-local-map)
+		      (keymapp 'overriding-local-map))
+		 overriding-local-map
+	       (current-global-map)))
+	keys)
+    (while commands
+      (setq keys (where-is-internal (car commands) map)
+	    commands (cdr commands))
+      (while keys
+	(define-key skk-abbrev-mode-map (car keys) 'skk-undo)
+	(define-key skk-j-mode-map (car keys) 'skk-undo)
 	(setq keys (cdr keys))))))
 
 (defun skk-setup-init-file ()
@@ -1556,7 +1572,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 			(char (event-to-character event))
 			(key (static-cond
 			      ((eq skk-emacs-type 'xemacs)
-			       (event-key event))
+			       event)
 			      (t
 			       (let ((keys (recent-keys)))
 				 (vector (aref keys (1- (length keys))))))))
@@ -1592,13 +1608,17 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 				(setq skk-henkan-count (+ last-showed-index n)
 				      loop nil))))
 			   ((or (eq char skk-previous-candidate-char) ; ?x
-				(member (key-description key)
-					(mapcar
-					 (function
-					  (lambda (key)
-					    (key-description key)))
-					 (where-is-internal 'skk-previous-candidate
-							    skk-j-mode-map))))
+				(member
+				 (key-description key)
+				 (mapcar
+				  (function
+				   (lambda (key)
+				     (key-description key)))
+				  (append
+				   (where-is-internal 'skk-previous-candidate
+						      skk-j-mode-map)
+				   (where-is-internal 'skk-undo
+						      skk-j-mode-map)))))
 			    (if (= loop 0)
 				;; skk-henkan-show-candidates を呼ぶ前の状態に戻
 				;; す。
@@ -1904,6 +1924,18 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	       (backward-char 1))
 	   (goto-char (point-max)))
 	 (and skk-abbrev-mode (= skk-henkan-count -1) (skk-abbrev-mode-on)))))))
+
+(defun skk-undo (&optional arg)
+  (interactive "*P")
+  (cond (skk-henkan-active
+	 (skk-previous-candidate))
+	(skk-henkan-on
+	 (if (= (point) (marker-position skk-henkan-start-point))
+	     (skk-kakutei arg)
+	   (forward-char -1)
+	   (delete-char 1)))
+	(t
+	 (skk-emulate-original-map arg))))
 
 (defun skk-insert-new-word (word)
   ;; 見出し語を消し、その場所へ変換結果の文字列を挿入する。
