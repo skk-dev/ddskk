@@ -4,10 +4,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.46 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.47 2002/01/18 14:03:15 czkmt Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2002/01/18 14:03:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -68,13 +68,7 @@
   (require 'skk-vars)
   (require 'static))
 
-(static-cond
- ((eq skk-emacs-type 'mule2)
-  (eval-and-compile
-    (defvar fence-mode-map (make-keymap))
-    (require 'jisx0201)))
- (t
-  (require 'japan-util)))
+(require 'japan-util)
 
 ;; 諸般の事情により skk-vars.el に入れるべきでない変数
 (defvar skk-jisx0201-base-rule-list
@@ -367,17 +361,11 @@
 
 (defun skk-jisx0201-zenkaku (str)
   "STR のJIS X 0201 カナに属する文字を対応する JIS X 0208 の文字で置き換える。"
-  (skk-jisx0201-string-conversion str 'skk-jisx0201-zenkaku-region))
+  (skk-jisx0201-string-conversion str #'skk-jisx0201-zenkaku-region))
 
 (defun skk-jisx0201-hankaku (str)
   "STR のJIS X 0208 に属する文字を対応する JIS X 0201 カナの文字で置き換える。"
-  (skk-jisx0201-string-conversion
-   str
-   (static-cond
-    ((eq skk-emacs-type 'mule2)
-     'hankaku-katakana-region)
-    (t
-     'japanese-hankaku-region))))
+  (skk-jisx0201-string-conversion str #'japanese-hankaku-region))
 
 ;;;###autoload
 (defun skk-toggle-katakana (arg)
@@ -393,12 +381,7 @@
     (skk-jisx0201-mode-on))))
 
 (defun skk-jisx0201-zenkaku-region (start end)
-  (static-cond
-   ((eq skk-emacs-type 'mule2)
-    (zenkaku-katakana-region start end))
-   (t
-    (japanese-zenkaku-region start end
-			     'katakana-only))))
+  (japanese-zenkaku-region start end #'katakana-only))
 
 (defun skk-jisx0201-henkan (arg)
   "▽モードであれば、領域のひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
@@ -406,7 +389,7 @@
 その他のモードでは、オリジナルのキー割り付けでバインドされているコマンドを実行
 する。"
   (interactive "*P")
-  (skk-*-henkan-2 'skk-jisx0201-region))
+  (skk-*-henkan-2 #'skk-jisx0201-region))
 
 (defun skk-jisx0201-region (start end)
   "領域のひらがな/カタカナを ﾊﾝｶｸｶﾀｶﾅ に変換する。
@@ -422,18 +405,18 @@
   (skk-search-and-replace
    start end
    "[ぁ-ん。、・ー゛゜]+"
-   (lambda (matched)
-     (save-match-data
-       (skk-jisx0201-hankaku matched)))))
+   #'(lambda (matched)
+       (save-match-data
+	 (skk-jisx0201-hankaku matched)))))
 
 ;;;###autoload
 (defun skk-katakana-to-jisx0201-region (start end)
   (skk-search-and-replace
    start end
    "[ァ-ヴ。、・ー゛゜]+"
-   (lambda (matched)
-     (save-match-data
-       (skk-jisx0201-hankaku matched)))))
+   #'(lambda (matched)
+       (save-match-data
+	 (skk-jisx0201-hankaku matched)))))
 
 (require 'product)
 (product-provide
