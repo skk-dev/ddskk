@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-num.el,v 1.9 2000/09/11 10:42:25 czkmt Exp $
+;; Version: $Id: skk-num.el,v 1.10 2000/09/13 10:00:47 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/09/11 10:42:25 $
+;; Last Modified: $Date: 2000/09/13 10:00:47 $
 
 ;; This file is part of SKK.
 
@@ -529,6 +529,7 @@ integer `1' を代入する。
 	      skk-use-numeric-conversion)
 	  (skk-update-jisyo word purge)))))
 
+;;;###autoload
 (defun skk-num (str)
   ;; 数字を skk-number-style の値に従い変換する。
   ;; skk-current-date のサブルーチン。
