@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.194 2001/11/19 15:54:02 czkmt Exp $
+;; Version: $Id: skk.el,v 1.195 2001/11/21 14:44:25 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/19 15:54:02 $
+;; Last Modified: $Date: 2001/11/21 14:44:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -920,7 +920,7 @@ dependent."
 	   ((and skk-henkan-mode
 		 (eq ch skk-start-henkan-char))
 	    (skk-start-henkan arg))
-	   ;; just imput Kana.
+	   ;; just input kana.
 	   ((not (eq skk-henkan-mode 'on))
 	    (skk-kana-input arg))
 	   ;; for completion.
@@ -3736,6 +3736,7 @@ If you want to restore the dictionary from the disc, try
 			   skk-henkan-key
 			   0 (1- (skk-str-length skk-henkan-key))))
 	  skk-henkan-okurigana
+	  skk-okuri-char
 	  skk-auto-okuri-process
 	  words)
       (ignore-errors
