@@ -735,6 +735,36 @@ keycode 131 = underscore\n"))
 	    (or (not skk-henkan-on) skk-henkan-active))
     (setq skk-nicola-okuri-flag nil)))
 
+(defadvice skk-nicola-self-insert-lshift (around skk-nicola-ad-for-dcomp
+						 activate compile)
+  (when (featurep 'skk-dcomp)
+    (if (not skk-henkan-on)
+	ad-do-it
+      (let (pos)
+	(if (or skk-henkan-active (skk-get-prefix skk-current-rule-tree)
+		(not skk-completion-stack))
+	    (skk-set-marker skk-dcomp-start-point nil)
+	  (when (marker-position skk-dcomp-start-point)
+	    (skk-dcomp-face-off)
+	    (or (equal skk-dcomp-toggle-key (this-command-keys))
+		(condition-case nil
+		    (delete-region skk-dcomp-start-point skk-dcomp-end-point)
+		  (error)))))
+	ad-do-it
+	(if (and (not (skk-get-prefix skk-current-rule-tree))
+		 (not skk-okurigana))
+	    (progn
+	      (setq pos (point))
+	      (condition-case nil
+		  (skk-completion 'first 'silent)
+		(error
+		 (setq skk-completion-stack nil)
+		 (message nil)))
+	      (skk-set-marker skk-dcomp-start-point pos)
+	      (skk-set-marker skk-dcomp-end-point (point))
+	      (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
+	      (goto-char skk-dcomp-start-point)))))))
+
 (static-unless (memq skk-emacs-type '(nemacs mule1))
   ;;
   (defadvice skk-isearch-setup-keymap (before skk-nicola-ad activate compile)
