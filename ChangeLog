@@ -1,5 +1,9 @@
 2001-09-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk.el (skk-define-menu-bar-map): Fix menu commands.
+
+2001-09-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-e21.el (skk-e21-prepare-modeline-properties): Do nothing on
 	tty.
 
@@ -1702,8 +1706,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.342 2001/09/01 17:10:53 czkmt Exp $
-Last Modified: $Date: 2001/09/01 17:10:53 $
+Version: $Id: ChangeLog,v 1.343 2001/09/02 06:46:18 czkmt Exp $
+Last Modified: $Date: 2001/09/02 06:46:18 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
