@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.70 2001/07/05 21:33:45 minakaji Exp $
-;; Last Modified: $Date: 2001/07/05 21:33:45 $
+;; Version: $Id: SKK-MK,v 1.71 2001/08/18 21:40:01 czkmt Exp $
+;; Last Modified: $Date: 2001/08/18 21:40:01 $
 
 ;; Commentary
 ;;
@@ -357,6 +357,7 @@
 
 (defun SKK-MK-server-installed-p (&optional server ps conf)
   (or
+   ;; process
    (and
     (or ps (setq ps (exec-installed-p "ps")))
     (with-temp-buffer
@@ -373,12 +374,20 @@
 	     (re-search-forward
 	      (or (and server (file-name-nondirectory server)) "skkserv")
 	      nil t)))))
+   ;; inetd
    (and
     (file-readable-p (or conf (setq conf "/etc/inetd.conf")))
     (with-temp-buffer
       (insert-file-contents conf)
       (goto-char (point-min))
-      (re-search-forward "^skkserv" nil t)))))
+      (re-search-forward "^skkserv" nil t)))
+   ;; xinetd
+   (or
+    (and conf (file-exists-p conf))
+    (file-exists-p "/etc/xinetd.d/dbskkd")
+    (file-exists-p "/etc/xinetd.d/dbskkd-cdb")
+    (file-exists-p "/etc/xinetd.d/skkserv")
+    (file-exists-p "/etc/xinetd.d/skksearch"))))
 
 (defvar SKK_SET_JISYO
   (let* ((set_jisyo (or (getenv "set_jisyo") (getenv "SET_JISYO")))
