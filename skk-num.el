@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.36 2002/04/04 22:03:35 minakaji Exp $
+;; Version: $Id: skk-num.el,v 1.37 2002/04/05 02:53:40 obata Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/04/04 22:03:35 $
+;; Last Modified: $Date: 2002/04/05 02:53:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -456,9 +456,9 @@ TYPE は下記の通り。
 (defun skk-num-henkan-key ()
   "適切な変換キーを返す。
 type4 の数値再変換が行なわれたときは、数値自身を返し、それ以外の数値変換
-では、`skk-henkan-key' を返す。"
+では、`skk-henkan-key' の数値を \"#\" で置き換えたキーを返す。"
   (or skk-num-recompute-key
-      skk-henkan-key))
+      (skk-num-compute-henkan-key skk-henkan-key)))
 
 ;;;###autoload
 (defun skk-num-update-jisyo (noconvword word &optional purge)
