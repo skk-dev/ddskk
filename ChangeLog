@@ -1,3 +1,8 @@
+2000-11-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-henkan-show-candidate-subr): Use `string-with', not
+	`string-bytes' {mm.el is broken}.
+
 2000-11-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* etc/NICOLA-SKK.tut: New file.
@@ -2497,8 +2502,8 @@
 	
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
-Version: $Id: ChangeLog,v 1.171 2000/11/24 15:39:46 czkmt Exp $
-Last Modified: $Date: 2000/11/24 15:39:46 $
+Version: $Id: ChangeLog,v 1.172 2000/11/25 06:11:03 czkmt Exp $
+Last Modified: $Date: 2000/11/25 06:11:03 $
 	
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
