@@ -35,6 +35,10 @@
 	(skk-mode-off): For FSF Emacs. Call
 	`set-cursor-color-buffer-local'.
 
+	(ignore-errors)
+	(dolist)
+	(dotimes): Put property `defmacro-maybe'.
+
 2001-12-02  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* Daredevil SKK 11.5.2 released.
@@ -3067,8 +3071,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.582 2001/12/02 10:37:51 czkmt Exp $
-Last Modified: $Date: 2001/12/02 10:37:51 $
+Version: $Id: ChangeLog,v 1.583 2001/12/02 11:06:39 czkmt Exp $
+Last Modified: $Date: 2001/12/02 11:06:39 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
