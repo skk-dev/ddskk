@@ -4,9 +4,9 @@
 
 ;; Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 ;; Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-macs.el,v 1.7 2000/11/14 13:10:47 czkmt Exp $
+;; Version: $Id: skk-macs.el,v 1.8 2000/11/15 09:39:16 czkmt Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2000/11/14 13:10:47 $
+;; Last Modified: $Date: 2000/11/15 09:39:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -193,6 +193,15 @@
    (t
     ;; Emacs 19 or later.
     (` (sit-for (, seconds) nil (, nodisplay))))))
+
+(defmacro skk-update-modeline-with-extent (extent)
+  (`
+   (let* ((orig (rassq 'skk-input-mode-string modeline-format))
+	  (former (or (nreverse (cdr (memq orig (reverse modeline-format))))
+		      '("")))
+	  (latter (cdr (memq orig modeline-format)))
+	  (new (cons (, extent) 'skk-input-mode-string)))
+     (setq modeline-format (nconc former (list new) latter)))))
 
 ;;(defun-maybe mapvector (function sequence)
 ;;  "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
@@ -465,8 +474,7 @@
   ;; initialize
   (setq skk-input-mode-string skk-hiragana-mode-string)
   (static-when (eq skk-emacs-type 'xemacs)
-    (let ((cons (rassq 'skk-input-mode-string mode-line-format)))
-      (and cons (setcar cons skk-xmas-hiragana-extent))))
+    (skk-update-modeline-with-extent skk-xmas-hiragana-extent))
   (static-when (memq skk-emacs-type '(nemacs mule1))
     (use-local-map skk-current-local-map)
     (setq skk-current-local-map nil))
@@ -484,18 +492,16 @@
   (setq skk-input-mode-string (if skk-katakana skk-katakana-mode-string
 				skk-hiragana-mode-string))
   (static-when (eq skk-emacs-type 'xemacs)
-    (let ((cons (rassq 'skk-input-mode-string mode-line-format)))
-      (and cons
-	   (setcar cons
-		   (if skk-katakana
-		       skk-xmas-katakana-extent
-		     skk-xmas-hiragana-extent)))))
-  (static-if (memq skk-emacs-type '(nemacs mule1))
-      (use-local-map
-       (skk-e18-make-local-map skk-j-mode-map
-			       (if (skk-in-minibuffer-p)
-				   minibuffer-local-map
-				 skk-current-local-map))))
+    (skk-update-modeline-with-extent
+     (if skk-katakana
+	 skk-xmas-katakana-extent
+       skk-xmas-hiragana-extent)))
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (use-local-map
+     (skk-e18-make-local-map skk-j-mode-map
+			     (if (skk-in-minibuffer-p)
+				 minibuffer-local-map
+			       skk-current-local-map))))
   (force-mode-line-update))
 
 (defsubst skk-latin-mode-on ()
@@ -508,14 +514,13 @@
         skk-katakana nil
         skk-input-mode-string skk-latin-mode-string)
   (static-when (eq skk-emacs-type 'xemacs)
-    (let ((cons (rassq 'skk-input-mode-string mode-line-format)))
-      (and cons (setcar cons skk-xmas-latin-extent))))
-  (static-if (memq skk-emacs-type '(nemacs mule1))
-      (use-local-map
-       (skk-e18-make-local-map skk-latin-mode-map
-			       (if (skk-in-minibuffer-p)
-				   minibuffer-local-map
-				 skk-current-local-map))))
+    (skk-update-modeline-with-extent skk-xmas-latin-extent))
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (use-local-map
+     (skk-e18-make-local-map skk-latin-mode-map
+			     (if (skk-in-minibuffer-p)
+				 minibuffer-local-map
+			       skk-current-local-map))))
   (force-mode-line-update))
 
 (defsubst skk-jisx0208-latin-mode-on ()
@@ -528,14 +533,13 @@
         skk-katakana nil
         skk-input-mode-string skk-jisx0208-latin-mode-string)
   (static-when (eq skk-emacs-type 'xemacs)
-    (let ((cons (rassq 'skk-input-mode-string mode-line-format)))
-      (and cons (setcar cons skk-xmas-jisx0208-latin-extent))))
-  (static-if (memq skk-emacs-type '(nemacs mule1))
-      (use-local-map
-       (skk-e18-make-local-map skk-jisx0208-latin-mode-map
-			       (if (skk-in-minibuffer-p)
-				   minibuffer-local-map
-				 skk-current-local-map))))
+    (skk-update-modeline-with-extent skk-xmas-jisx0208-latin-extent))
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (use-local-map
+     (skk-e18-make-local-map skk-jisx0208-latin-mode-map
+			     (if (skk-in-minibuffer-p)
+				 minibuffer-local-map
+			       skk-current-local-map))))
   (force-mode-line-update))
 
 (defsubst skk-abbrev-mode-on ()
@@ -554,14 +558,13 @@
         ;;skk-katakana nil
         skk-input-mode-string skk-abbrev-mode-string)
   (static-when (eq skk-emacs-type 'xemacs)
-    (let ((cons (rassq 'skk-input-mode-string mode-line-format)))
-      (and cons (setcar cons skk-xmas-abbrev-extent))))
-  (static-if (memq skk-emacs-type '(nemacs mule1))
-      (use-local-map
-       (skk-e18-make-local-map skk-abbrev-mode-map
-			       (if (skk-in-minibuffer-p)
-				   minibuffer-local-map
-				 skk-current-local-map))))
+    (skk-update-modeline-with-extent skk-xmas-abbrev-extent))
+  (static-when (memq skk-emacs-type '(nemacs mule1))
+    (use-local-map
+     (skk-e18-make-local-map skk-abbrev-mode-map
+			     (if (skk-in-minibuffer-p)
+				 minibuffer-local-map
+			       skk-current-local-map))))
   (force-mode-line-update))
 
 (defsubst skk-in-minibuffer-p ()
@@ -678,7 +681,6 @@
     string))
 
 ;;; This function is not complete, but enough for our purpose.
-
 (defsubst skk-local-variable-p (variable &optional buffer)
   "Non-nil if VARIABLE has a local binding in buffer BUFFER.
 BUFFER defaults to the current buffer."
