@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.200 2001/11/24 22:59:11 minakaji Exp $
+;; Version: $Id: skk.el,v 1.201 2001/11/25 00:55:12 czkmt Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2001/11/24 22:59:11 $
+;; Last Modified: $Date: 2001/11/25 00:55:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -828,7 +828,8 @@ dependent."
 	 (skk-kakutei))
 	((eq skk-henkan-mode 'on)
 	 (skk-error "既に▽モードに入っています" "Already in ▽ mode")))
-  (skk-set-henkan-point-subr)
+  (let (skk-dcomp-activate)
+    (skk-set-henkan-point-subr))
   (skk-abbrev-mode-on)
   nil)
 
