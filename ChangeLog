@@ -1,3 +1,11 @@
+2005-05-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Patch by Masao Takaku <masao@nii.ac.jp>
+
+	* skk.el (skk-search-jisyo): Exit binary search if
+	`beginning-of-line' moves point to the search min, which means
+	only one line is left for the search.
+
 2005-02-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-set-henkan-point): In mistypes described on
@@ -4853,8 +4861,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.842 2005/02/27 23:46:55 skk-cvs Exp $
-Last Modified: $Date: 2005/02/27 23:46:55 $
+Version: $Id: ChangeLog,v 1.843 2005/05/19 14:46:57 skk-cvs Exp $
+Last Modified: $Date: 2005/05/19 14:46:57 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
