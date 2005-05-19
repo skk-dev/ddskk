@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.289 2005/02/27 23:43:50 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.290 2005/05/19 14:46:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/02/27 23:43:50 $
+;; Last Modified: $Date: 2005/05/19 14:46:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3411,18 +3411,20 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 	  (goto-char (+ min (/ size 2)))
 	  (beginning-of-line)
 	  (setq p (point))
-	  ;; $BAw$j$"$j$J$i5U=g$KHf3S$r9T$J$&!#(B
-	  (let ((p-is-further
-		 (if okurigana
-		     (string< (buffer-substring-no-properties
-			       p (1- (search-forward  " ")))
-			      skk-henkan-key)
-		   (string< skk-henkan-key
-			    (buffer-substring-no-properties
-			     p (1- (search-forward " ")))))))
-	    (if p-is-further
-		(setq max p)
-	      (setq min p)))))
+	  (if (= p min)
+	      (setq max min)	; return
+	    (let ((p-is-further
+		   ;; $BAw$j$"$j$J$i5U=g$KHf3S$r9T$J$&!#(B
+		   (if okurigana
+		       (string< (buffer-substring-no-properties
+				 p (1- (search-forward  " ")))
+				skk-henkan-key)
+		     (string< skk-henkan-key
+			      (buffer-substring-no-properties
+			       p (1- (search-forward " ")))))))
+	      (if p-is-further
+		  (setq max p)
+		(setq min p))))))
       (goto-char min)
       ;; key $B$,8!:w3+;OCOE@$K$"$C$?>l9g$G$b8!:w2DG=$J$h$&$K0lJ8;zLa$k!#(Bkey $B$,(B
       ;; $B$=$N@hF,ItJ,$K(B "\n" $B$r4^$s$G$$$k$3$H$KCm0U!#(B
