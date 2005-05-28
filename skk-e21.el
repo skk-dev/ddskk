@@ -113,7 +113,9 @@
 			 #'skk-e21-modeline-menu)
 		       map)
 	  'help-echo
-	  "mouse-1, mouse-3: SKK メニュー")))
+	  "mouse-1, mouse-3: SKK メニュー"
+	  'mouse-face
+	  'highlight)))
 
 (defvar skk-e21-property-alist
   (when window-system
