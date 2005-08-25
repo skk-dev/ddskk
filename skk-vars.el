@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.119 2004/04/04 14:54:01 czkmt Exp $
+;; Version: $Id: skk-vars.el,v 1.120 2005/08/25 02:33:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/04/04 14:54:01 $
+;; Last Modified: $Date: 2005/08/25 02:33:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2052,7 +2052,8 @@ nil であれば、/usr/dict/words を使用する。"
   "*Non-nil であれば、その値を port number として skkserv と TCP 接続する。
 /etc/services を直接書き換える権限がないユーザーのための変数。
 Windows ではディフォルト値として 1178 が設定される。"
-  :type '(choice integer (const nil)))
+  :type '(choice integer (const nil))
+  :group 'skk-server)
 
 ;;(defvar skk-server-debug nil
 ;;  "*Non-nil であれば、辞書サーバープログラムをディバッグモードで起動する。
