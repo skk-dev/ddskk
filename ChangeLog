@@ -1,3 +1,13 @@
+2005-08-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Masatake YAMATO <jet@gyve.org>
+
+	* skk-e21.el (skk-e21-circulate-modes): New function.
+	(skk-e21-modeline-property): Mouse-1 calls it and switch modes in
+	order.
+
+	* skk-vars.el (skk-server-portnum): Missing group parameter. Fix.
+
 2005-05-25  Masatake YAMATO  <jet@gyve.org>
 
 	* skk-e21.el (skk-e21-modeline-property): Added mouse-face
@@ -4866,8 +4876,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.844 2005/05/28 01:57:35 skk-cvs Exp $
-Last Modified: $Date: 2005/05/28 01:57:35 $
+Version: $Id: ChangeLog,v 1.845 2005/08/25 02:33:45 skk-cvs Exp $
+Last Modified: $Date: 2005/08/25 02:33:45 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
