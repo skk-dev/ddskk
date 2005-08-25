@@ -1,3 +1,8 @@
+2005-08-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* TODO.ja: Description of the `undo failure bug' under
+	skk-undo-kakutei-word-only.
+
 2004-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* CVS_on_Windows.ja: Modify the cygwin site URL.
