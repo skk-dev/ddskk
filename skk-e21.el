@@ -110,10 +110,10 @@
 		       (define-key map [mode-line mouse-3]
 			 #'skk-e21-modeline-menu)
 		       (define-key map [mode-line mouse-1]
-			 #'skk-e21-modeline-menu)
+			 #'skk-e21-circulate-modes)
 		       map)
 	  'help-echo
-	  "mouse-1, mouse-3: SKK メニュー"
+	  "mouse-1: モード切替(循環), mouse-3: SKK メニュー"
 	  'mouse-face
 	  'highlight)))
 
@@ -161,6 +161,22 @@
   (let ((easy-menu-converted-items-table
 	 (make-hash-table :test 'equal)))
     (popup-menu skk-e21-modeline-menu-items)))
+
+(defun skk-e21-circulate-modes (&optional arg)
+  (interactive "P")
+  (cond
+   (skk-henkan-mode
+    nil)
+   ((not skk-mode)
+    (skk-mode arg))
+   (skk-j-mode
+    (if skk-katakana
+	(skk-jisx0208-latin-mode arg)
+      (skk-toggle-kana arg)))
+   (skk-jisx0208-latin-mode
+    (skk-latin-mode arg))
+   (skk-latin-mode
+    (skk-j-mode-on))))
 
 (defun skk-e21-info ()
   (interactive)
