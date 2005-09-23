@@ -1,3 +1,7 @@
+2005-09-23  KOIE Hidetaka  <hide@koie.org>
+
+	* dot.skk: Describe how to auto-save private jisyo with timer.
+
 2004-03-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.xpm: Make the background transparent.

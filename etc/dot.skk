@@ -151,6 +151,19 @@
 ;; 複数の Emacsen を起動して個人辞書を共有する
 (setq skk-share-private-jisyo t)
 
+;; 10 分放置すると 個人辞書が自動的に保存される設定
+(defvar skk-auto-save-jisyo-interval 600)
+(defun skk-auto-save-jisyo ()
+  (skk-save-jisyo)
+  ;; skk-bayesian.el を使っていなければ以下の 2 行はコメントアウト
+  (skk-bayesian-save-history)
+  (skk-bayesian-corpus-save)
+  )
+(run-with-idle-timer skk-auto-save-jisyo-interval
+		     skk-auto-save-jisyo-interval
+		     'skk-auto-save-jisyo)
+;; (cancel-function-timers 'skk-auto-save-jisyo)
+
 ;; かなモードの入力で (モード変更を行なわずに) 長音(ー)を
 ;; ASCII 数字の直後では `-' に、全角数字の直後では `−' にしたい。
 (setq skk-rom-kana-rule-list
@@ -159,9 +172,9 @@
 (defun skk-hyphen (arg)
   (let ((c (char-before (point))))
     (cond ((null c) "ー")
-          ((and (<= ?0 c) (>= ?9 c)) "-")
-          ((and (<= ?０ c) (>= ?９ c)) "−")
-          (t "ー"))))
+	  ((and (<= ?0 c) (>= ?9 c)) "-")
+	  ((and (<= ?０ c) (>= ?９ c)) "−")
+	  (t "ー"))))
 
 ;; Tips といえるものではないが、`lisp-interaction-mode' において "C-j"
 ;; (`eval-print-last-sexp') を利用する人にとっては、英数モードにおいて
