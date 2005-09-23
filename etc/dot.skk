@@ -142,20 +142,36 @@
 ;;     (skk-look)
 ;;     (skk-okuri-search)
 ;;     ;; 4. 以下に直接検索したい辞書を検索順に列挙する
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.L" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.JIS2" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.assoc" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.edict" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.geo" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.hukugougo" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.jinmei" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.law" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.okinawa" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.propernoun" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.pubdic+" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.station" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.zipcode" 10000)
-;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.office.zipcode" 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.L" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.JIS2" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.JIS3_4" . euc-jisx0213) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.assoc" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.edict" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.geo" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.hukugougo" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.jinmei" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.law" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.okinawa" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.propernoun" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.pubdic+" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.station" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.zipcode" . euc-jp) 10000)
+;;     (skk-search-jisyo-file
+;;      '("/usr/share/skk/SKK-JISYO.office.zipcode" . euc-jp) 10000)
 ;;     ;; 5. その他の検索手段を検索順に列挙する
 ;;     (skk-lookup-search)
 ;;     (skk-search-server skk-aux-large-jisyo 10000)
