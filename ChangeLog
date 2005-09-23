@@ -1,3 +1,8 @@
+2005-09-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-lookup-option-alist): Add rule for LIFE SCIENCE
+	DICTIONARY (lsd).
+
 2005-08-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Masatake YAMATO <jet@gyve.org>
@@ -4876,8 +4881,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.845 2005/08/25 02:33:45 skk-cvs Exp $
-Last Modified: $Date: 2005/08/25 02:33:45 $
+Version: $Id: ChangeLog,v 1.846 2005/09/23 08:54:49 skk-cvs Exp $
+Last Modified: $Date: 2005/09/23 08:54:49 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
