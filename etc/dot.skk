@@ -138,9 +138,9 @@
 ;;     ;; 2. SKK-JISYO.S を元にした個人辞書の補助辞書
 ;;     (skk-search-small-dic)
 ;;     ;; 3. list の前方に置くべき機能
-;;     (skk-okuri-search)
 ;;     (skk-abbrev-search)
 ;;     (skk-look)
+;;     (skk-okuri-search)
 ;;     ;; 4. 以下に直接検索したい辞書を検索順に列挙する
 ;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.L" 10000)
 ;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.JIS2" 10000)
