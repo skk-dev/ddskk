@@ -1,3 +1,8 @@
+2005-09-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.skk: Describe how to thoroughly control
+	`skk-search-prog-list'.
+
 2005-09-23  KOIE Hidetaka  <hide@koie.org>
 
 	* dot.skk: Describe how to auto-save private jisyo with timer.
