@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.120 2005/08/25 02:33:07 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.121 2005/09/23 08:54:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/08/25 02:33:07 $
+;; Last Modified: $Date: 2005/09/23 08:54:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2967,7 +2967,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; what's this?
     ;; `$B!!$"$+(B <scud$B#2(B>',
     ;; `$B!!!V$"$+!W(B <rust>'
-    ("PLUS" exact exact prefix t ("^$B!!(B\\(.+\\) <[a-z$B#0(B-$B#9(B]+>$" . 1) nil nil))
+    ("PLUS" exact exact prefix t ("^$B!!(B\\(.+\\) <[a-z$B#0(B-$B#9(B]+>$" . 1) nil nil)
+    ("lsd" exact exact prefix t ("^\\([^$B!L!M(B]+\\)$B!L(B.+$B!M(B$" . 1) nil nil))
   "*$B<-=qKh$N8!:w!"J8;z@Z$j=P$7%*%W%7%g%s!#(B
 $B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
 
