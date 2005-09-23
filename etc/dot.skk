@@ -130,6 +130,44 @@
 ;;       (skk-nunion skk-search-prog-list
 ;;		     '((skk-search-sagyo-henkaku))))
 
+;; 辞書検索に関する高度な設定 --
+;; ユーザオプションに頼らず検索方法と検索順を自分で制御する方法
+;; (setq skk-search-prog-list
+;;   '(;; 1. 個人辞書
+;;     (skk-search-jisyo-file skk-jisyo 0 t)
+;;     ;; 2. SKK-JISYO.S を元にした個人辞書の補助辞書
+;;     (skk-search-small-dic)
+;;     ;; 3. list の前方に置くべき機能
+;;     (skk-okuri-search)
+;;     (skk-abbrev-search)
+;;     (skk-look)
+;;     ;; 4. 以下に直接検索したい辞書を検索順に列挙する
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.L" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.JIS2" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.assoc" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.edict" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.geo" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.hukugougo" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.jinmei" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.law" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.okinawa" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.propernoun" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.pubdic+" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.station" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.zipcode" 10000)
+;;     (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.office.zipcode" 10000)
+;;     ;; 5. その他の検索手段を検索順に列挙する
+;;     (skk-lookup-search)
+;;     (skk-search-server skk-aux-large-jisyo 10000)
+;;     (skk-search-katakana t)
+;;     ;; 注) 4 → 5 は好みにより 5 → 4 の順にすることもできる
+;;     ;; 6. list の後方に置くべき機能
+;;     (skk-search-sagyo-henkaku nil t)
+;;     ))
+;; 注) skk-search-prog-list は厳密な意味でのユーザオプションではないので
+;; 直接設定することはお勧めしません．自分が何をしようとしているか理解して
+;; いる場合のみ設定してください．
+
 ;; @@ かな入力関連の設定
 
 ;; 半角カナ入力メソッドを使う
@@ -156,8 +194,8 @@
 (defun skk-auto-save-jisyo ()
   (skk-save-jisyo)
   ;; skk-bayesian.el を使っていなければ以下の 2 行はコメントアウト
-  (skk-bayesian-save-history)
-  (skk-bayesian-corpus-save)
+  ;; (skk-bayesian-save-history)
+  ;; (skk-bayesian-corpus-save)
   )
 (run-with-idle-timer skk-auto-save-jisyo-interval
 		     skk-auto-save-jisyo-interval
