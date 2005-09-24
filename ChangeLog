@@ -1,3 +1,8 @@
+2005-09-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-preload): Preload all dictionaries specified in
+	`skk-search-prog-list'.
+
 2005-09-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-lookup-option-alist): Add rule for LIFE SCIENCE
@@ -4881,8 +4886,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.846 2005/09/23 08:54:49 skk-cvs Exp $
-Last Modified: $Date: 2005/09/23 08:54:49 $
+Version: $Id: ChangeLog,v 1.847 2005/09/24 06:35:05 skk-cvs Exp $
+Last Modified: $Date: 2005/09/24 06:35:05 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
