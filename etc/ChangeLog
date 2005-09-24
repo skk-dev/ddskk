@@ -1,3 +1,9 @@
+2005-09-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.skk (skk-jisyo-code): New customization.
+	(skk-search-katakana): Describe how to get jisx0201 kana
+	cantidates.
+
 2005-09-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.skk: Describe how to thoroughly control
