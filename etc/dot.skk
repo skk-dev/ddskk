@@ -45,6 +45,10 @@
 ;;   (skk-make-face 'DimGray/PeachPuff1)
 ;;   (setq skk-henkan-face 'DimGray/PeachPuff1))
 
+;; 変換候補一覧と注釈 (annotation) を GUI で表示する
+(setq skk-show-tooltip t)
+;; 注) 今のところ FSF Emacs 21 以上しか対応していません
+
 ;; @@ 基本的なユーザ・インターフェース
 
 ;; Enter キーを押したときには確定する
@@ -120,10 +124,15 @@
 ;; 送りあり変換を送りなし変換と同じ操作でできるようにする
 ;; (setq skk-auto-okuri-process t)
 
-;; カタカナ語を変換候補に加える
+;; カタカナ語を変換候補に加える。1、2 を好みで選んでください
+;; 例 1) 単純にカタカナに変換したものを加える
 ;; (setq skk-search-prog-list
 ;;       (skk-nunion skk-search-prog-list
 ;;		     '((skk-search-katakana))))
+;; 例 2) 全角カタカナの候補と半角カタカナの候補を共に加える
+;; (setq skk-search-prog-list
+;;       (skk-nunion skk-search-prog-list
+;;		     '((skk-search-katakana t))))
 
 ;; サ行変格活用の動詞も送りあり変換出来るようにする
 ;; (setq skk-search-prog-list
@@ -178,11 +187,11 @@
 ;;     (skk-search-katakana t)
 ;;     ;; 注) 4 → 5 は好みにより 5 → 4 の順にすることもできる
 ;;     ;; 6. list の後方に置くべき機能
-;;     (skk-search-sagyo-henkaku nil t)
+;;     (skk-search-sagyo-henkaku)
 ;;     ))
 ;; 注) skk-search-prog-list は厳密な意味でのユーザオプションではないので
-;; 直接設定することはお勧めしません．自分が何をしようとしているか理解して
-;; いる場合のみ設定してください．
+;; 直接設定することはお勧めしません。自分が何をしようとしているか理解して
+;; いる場合のみ設定してください。
 
 ;; @@ かな入力関連の設定
 
@@ -200,12 +209,12 @@
 ;;   ;; OASYS 風の後退・取消キーを使う
 ;;   (setq skk-nicola-use-koyubi-functions t))
 
-;; @@ その他いろいろ
+;; @@ 個人辞書に関する設定
 
 ;; 複数の Emacsen を起動して個人辞書を共有する
 (setq skk-share-private-jisyo t)
 
-;; 10 分放置すると 個人辞書が自動的に保存される設定
+;; 10 分放置すると個人辞書が自動的に保存される設定
 (defvar skk-auto-save-jisyo-interval 600)
 (defun skk-auto-save-jisyo ()
   (skk-save-jisyo)
@@ -217,6 +226,33 @@
 		     skk-auto-save-jisyo-interval
 		     'skk-auto-save-jisyo)
 ;; (cancel-function-timers 'skk-auto-save-jisyo)
+
+;; 個人辞書の文字コードを指定する
+;; (setq skk-jisyo-code 'utf-8)
+;; 注) この設定は気をつけないと辞書の検索ができなくなりますので十分理
+;; 解してから行ってください。 skk-jisyo-code は個人辞書の読み書きの他、
+;; L 辞書などの読み込みコードも決めている影響力の強い変数です。この設
+;; 定をした場合は，まず個人辞書を上記のコードに変換しなければいけませ
+;; ん。その上で，さらに以下のいずれかの対処をする必要があります．
+;;
+;; 方針 1) Emacs のバッファに読み込む辞書を全て skk-jisyo-code と同じ
+;;         文字コードに変換する
+;; 方針 2) skk-search-prog-list の要素を全て文字コード指定に書き直す。
+;;         例えば
+;;
+;; (setq skk-search-prog-list
+;;   '((skk-search-jisyo-file skk-jisyo 0 t)
+;;     [...]
+;;     (skk-search-jisyo-file (cons skk-large-jisyo 'euc-jp) 10000)
+;;     [...]
+;;     ))
+;;
+;; なお、サーバとの通信の際の文字コードなどは気にする必要はありません。
+;;
+;; このことに関しては上記「辞書検索に関する高度な設定」の部分も参照す
+;; ることをお勧めします。
+
+;; @@ その他いろいろ
 
 ;; かなモードの入力で (モード変更を行なわずに) 長音(ー)を
 ;; ASCII 数字の直後では `-' に、全角数字の直後では `−' にしたい。
