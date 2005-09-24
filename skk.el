@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.290 2005/05/19 14:46:49 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.291 2005/09/24 06:34:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/05/19 14:46:49 $
+;; Last Modified: $Date: 2005/09/24 06:34:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4452,9 +4452,24 @@ SKK 辞書の候補として正しい形に整形する。"
 あらかじめ SKK を呼んでおくことで、 SKK の初回起動を速くする。"
   (with-temp-buffer
     (skk-mode 1))
-  (when (and (stringp skk-large-jisyo)
-	     (file-readable-p skk-large-jisyo))
-    (skk-get-jisyo-buffer skk-large-jisyo 'nomsg)))
+  (dolist (item skk-search-prog-list)
+    (when (eq (car item) 'skk-search-jisyo-file)
+      (catch 'tag
+	(let ((jisyo (cadr item)))
+	  (cond
+	   ((eq jisyo 'skk-jisyo)
+	    (throw 'tag nil))
+	   ((symbolp jisyo)
+	    (setq jisyo (symbol-value jisyo))
+	    (unless (file-readable-p jisyo)
+	      (throw 'tag nil)))
+	   ((and (listp jisyo)
+		 (memq (car jisyo) '(cons quote)))
+	    (setq jisyo (ignore-errors (eval jisyo)))
+	    (unless (and (consp jisyo)
+			 (file-readable-p (car jisyo)))
+	      (throw 'tag nil))))
+	  (skk-get-jisyo-buffer jisyo 'nomsg))))))
 
 (defun skk-toggle-isearch-mode (&optional arg)
   "skk-isearch を利用するかどうかをトグルで変更する。
