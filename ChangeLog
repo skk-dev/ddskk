@@ -1,4 +1,4 @@
-2005-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2005-09-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK:
 	* skk-jisx0213.el:
@@ -4898,8 +4898,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.848 2005/09/25 17:03:44 skk-cvs Exp $
-Last Modified: $Date: 2005/09/25 17:03:44 $
+Version: $Id: ChangeLog,v 1.849 2005/09/25 17:11:06 skk-cvs Exp $
+Last Modified: $Date: 2005/09/25 17:11:06 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
