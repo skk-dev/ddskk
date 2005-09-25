@@ -1,3 +1,15 @@
+2005-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK:
+	* skk-jisx0213.el:
+
+	Do not require jisx0213 unless jisx0213 coding systems are not
+	present.  This is a modification for the unicode branch of Emacs.
+
+	* skk-vars.el (skk-kcode-charset-list): Under Emacs 21 or greater,
+	do not call `charset-list'.  Refer to variable `charset-list'
+	instead.
+
 2005-09-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-preload): Preload all dictionaries specified in
@@ -204,7 +216,7 @@
 	* skk-macs.el (skk-replace-regexp-in-string): New function.
 
 	* skk-isearch.el (isearch-repeat): Don't call
-	`replace-regexp'. Call `skk-replace-regexp-in-string' instead.
+	`replace-regexp'.  Call `skk-replace-regexp-in-string' instead.
 
 2004-11-26  Masatake YAMATO  <jet@gyve.org>
 
@@ -1847,7 +1859,7 @@
 	(skk-cursor-default-color): New function.
 
 	* skk-macs.el
-	(skk-mode-off): For FSF Emacs. Call
+	(skk-mode-off): For FSF Emacs.  Call
 	`set-cursor-color-buffer-local'.
 
 	(ignore-errors)
@@ -1967,7 +1979,7 @@
 	is open.
 
 	* skk.el
-	(skk-mode): For XEmacs only. Call `easy-menu-add' here.
+	(skk-mode): For XEmacs only.  Call `easy-menu-add' here.
 
 2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -2692,7 +2704,7 @@
 
 	(skk-jisx0208-to-ascii): Use `if' instead of `and'.
 
-	(skk-compute-henkan-lists): Thought this `catch' is useless. Call
+	(skk-compute-henkan-lists): Thought this `catch' is useless.  Call
 	`skk-compute-henkan-lists-sub-adjust-okuri'.
 
 	(skk-compute-henkan-lists-sub-adjust-okuri): New function.
@@ -4886,8 +4898,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.847 2005/09/24 06:35:05 skk-cvs Exp $
-Last Modified: $Date: 2005/09/24 06:35:05 $
+Version: $Id: ChangeLog,v 1.848 2005/09/25 17:03:44 skk-cvs Exp $
+Last Modified: $Date: 2005/09/25 17:03:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
