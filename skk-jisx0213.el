@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0213.el,v 1.9 2001/12/16 05:03:10 czkmt Exp $
+;; Version: $Id: skk-jisx0213.el,v 1.10 2005/09/25 17:03:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 30, 2000.
-;; Last Modified: $Date: 2001/12/16 05:03:10 $
+;; Last Modified: $Date: 2005/09/25 17:03:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,7 +33,8 @@
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars))
-(require 'jisx0213)
+(unless (find-coding-system 'euc-jisx0213)
+  (require 'jisx0213))
 ;;(require 'un-define)
 
 ;;;###autoload
