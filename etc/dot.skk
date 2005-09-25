@@ -45,7 +45,7 @@
 ;;   (skk-make-face 'DimGray/PeachPuff1)
 ;;   (setq skk-henkan-face 'DimGray/PeachPuff1))
 
-;; 変換候補一覧と注釈 (annotation) を GUI で表示する
+;; 変換候補一覧と注釈 (annotation) を GUI ぽく表示する
 (setq skk-show-tooltip t)
 ;; 注) 今のところ FSF Emacs 21 以上しか対応していません
 
