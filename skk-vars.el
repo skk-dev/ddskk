@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.121 2005/09/23 08:54:38 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.122 2005/09/25 17:03:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/09/23 08:54:38 $
+;; Last Modified: $Date: 2005/09/25 17:03:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2754,7 +2754,10 @@ This map should be derived from isearch-mode-map.")
 (defconst skk-kcode-charset-list
   (mapcar #'(lambda (x)
 	      (list (symbol-name x)))
-	  (charset-list)))
+	  (static-if
+	      (memq skk-emacs-type '(mule5))
+	      charset-list
+	    (charset-list))))
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
 
 ;;; SKK-LOOK.EL related internal constant and variable.
