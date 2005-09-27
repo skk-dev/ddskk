@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.122 2005/09/25 17:03:37 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.123 2005/09/27 03:33:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/09/25 17:03:37 $
+;; Last Modified: $Date: 2005/09/27 03:33:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1703,7 +1703,8 @@ cdr は対応する任意の形式。"
 
 (defcustom skk-default-current-date-function
   #'(lambda (date-information format gengo and-time)
-      (skk-default-current-date date-information nil 0 gengo 0 0 0 and-time))
+      (skk-default-current-date date-information nil skk-number-style
+				gengo 0 0 0 and-time))
   "*`skk-current-date' でコールされるディフォルトの関数。
 時間情報を引数に取り加工した文字列を出力する。
 
