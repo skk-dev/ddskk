@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.29 2002/10/26 09:37:27 minakaji Exp $
+;; Version: $Id: skk-kcode.el,v 1.30 2005/09/27 03:05:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/10/26 09:37:27 $
+;; Last Modified: $Date: 2005/09/27 03:05:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -213,7 +213,7 @@
 		   (cond
 		    (ch
 		     ch)
-		    ((eq char ?x)
+		    ((eq char skk-previous-candidate-char)
 		     (when (< (setq n (- n-org 2)) skk-code-n1-min)
 		       (setq n skk-code-n1-max))
 		     nil)
@@ -300,7 +300,7 @@
 		   (cond
 		    (ch
 		     ch)
-		    ((eq char ?x)
+		    ((eq char skk-previous-candidate-char)
 		     (when (< (setq n2 (- n2 31)) skk-code-n2-min)
 		       (setq n2 (+ n2 94)
 			     n1 (skk-previous-n1-code n1)))
