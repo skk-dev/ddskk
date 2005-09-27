@@ -1,3 +1,10 @@
+2005-09-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kcode.el (skk-input-by-code-or-menu-jump):
+	(skk-input-by-code-or-menu-1):
+
+	Use `skk-previous-candidate-char' instead of ?x.
+
 2005-09-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK:
@@ -4898,8 +4905,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.849 2005/09/25 17:11:06 skk-cvs Exp $
-Last Modified: $Date: 2005/09/25 17:11:06 $
+Version: $Id: ChangeLog,v 1.850 2005/09/27 03:05:41 skk-cvs Exp $
+Last Modified: $Date: 2005/09/27 03:05:41 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
