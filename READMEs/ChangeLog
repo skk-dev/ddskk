@@ -2,6 +2,8 @@
 
 	* COPYING: Install the latest one.
 
+	* CVS_digest.ja: Update.
+
 	* TODO.ja: Add description about candidate display method,
 	especially within the current window.
 
