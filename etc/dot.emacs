@@ -8,9 +8,6 @@
 
 ;; @@ 基本の設定
 
-;; Mule 2.3 (Emacs 19) を使っている場合は必要
-;; (require 'skk-setup)
-
 ;; カタカナ/ひらがな キーで SKK を起動する
 (global-set-key [hiragana-katakana] 'skk-mode)
 
@@ -66,5 +63,12 @@
 		  mail-setup-hook
 		  message-setup-hook))
     (add-hook hook function)))
+
+;; Emacs 起動時に SKK を前もってロードする
+(setq skk-preload t)
+;; 注) skk.el をロードするだけなら (require 'skk) でもよい。上記設定の
+;; 場合は、skk-search-prog-list に指定された辞書もこの時点で読み込んで
+;; 準備する。Emacs の起動は遅くなるが，SKK を使い始めるときのレスポンス
+;; が軽快になる。
 
 ;;; dot.emacs ends here
