@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2005/10/01 18:21:22 $
-	     $Id: CVS_digest.ja,v 1.2 2005/10/01 18:21:22 skk-cvs Exp $
+             $Date: 2005/10/01 18:39:29 $
+	     $Id: CVS_digest.ja,v 1.3 2005/10/01 18:39:29 skk-cvs Exp $
 
 [CVS ダイジェスト]
 
@@ -68,8 +68,7 @@ http://www.itojun.org/hack/cvs/tut-kernel.html
 ** Login
 
 まず、guest アカウントで openlab.ring.gr.jp の cvs server にログインし
-ます (openlab.ring.gr.jp の cvs server 用に個人のアカウントを持ってらっ
-しゃる方は、それを使いましょう)。
+ます。
 
      $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot login
 
@@ -126,13 +125,13 @@ repositry 上に存在しないディレクトリを working copy から消し去ります。
 
 * $B手元のソースを変更して cvs server にあるソースに変更を反映する (commit, tag)
 
-** cvs account の発行
+** cvs での開発参加
 
 openlab.jp に SSH2 公開鍵 (OpenSSH) を登録することで開発に参加できるよ
 うになります。 
 
-まず SSH2 公開鍵 (OpenSSH) を skk-owner@ring.gr.jp に送付してください
-(GPG による署名付きが望ましい)。登録完了の通知をお送りします。
+まず SSH2 公開鍵 (OpenSSH) を skk-owner@ring.gr.jp 宛てに送付してくだ
+さい (GPG による署名付きが望ましい)。登録完了の通知をお送りします。
 
 OpenSSH でない、本家商用の SSH2 については、動作確認は取っていませんが、
 当方で OpenSSH 形式に鍵を変換することで、商用 SSH2 client→openlab.jp
