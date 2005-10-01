@@ -1,6 +1,10 @@
+2005-10-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.emacs (skk-preload): New description.
+
 2005-09-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* dot.skk (skk-jisyo-code): New customization.
+	* dot.skk (skk-jisyo-code): New description.
 	(skk-search-katakana): Describe how to get jisx0201 kana
 	candidates.
 
