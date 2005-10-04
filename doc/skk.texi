@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.140 2005/02/12 10:53:12 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.141 2005/10/04 20:34:55 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2005/02/12 10:53:12 $
+@c  Last Modified: $Date: 2005/10/04 20:34:55 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2005/02/12 10:53:12 $
+@set UPDATED $Date: 2005/10/04 20:34:55 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -173,7 +173,7 @@ DDSKK $B$N<g$JFCD'$O!"<!$NDL$j$G$9!#(B
 $B=q%5!<%P$,%@%&%s$7$F$$$F$b;HMQ$G$-$k!#(B
 @item $B<-=q%5!<%P$r;H$&$3$H$G!"(BEmacs $B$N(B DDSKK $B;HMQ%a%b%j$r:o8:2DG=!#(B
 @item $B%G%#%9%/MFNL$K1~$8$FA*$Y$k<-=q!#(B
-@item Emacs $B$N%*%j%8%J%k$HF1MM$NA`:n$G9T$($kF|K\8l%$%s%/%j%a%s%?%k%5!<%A!#(B
+@item Emacs $B$N%*%j%8%J%k$HF1MM$NA`:n$G9T$($kF|K\8l%$%s%/%j%a%s%?%k!&%5!<%A!#(B
 @item Emacs Lisp $B$G=q$+$l$?%W%m%0%i%`$rJQ498uJd$K$G$-$k!#(B
 @item $B8D?M$N@_Dj$K$h$j!"%m!<%^;zF~NO$NBe$o$j$K(B T-Code$B!"(BTUT-code $B$K$h$kF~(B
 $BNO$b2DG=!#(B
@@ -478,8 +478,8 @@ DDSKK 11 $B0J9_!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#$"$J$?$N(B @file{.emacs} $B%U%
 @end lisp
 
 @noindent
-$B>e5-$N@_Dj$G$O!"(BDDSKK $B$,5/F0$5$l$F$$$k$H$-$N$_!"IUB0$N%$%s%/%j%a%s%?%k%5!<(B
-$B%A$r;HMQ$7$^$9!#>o$KIUB0$N%$%s%/%j%a%s%?%k%5!<%A$r;HMQ$7$?$+$C$?$i>e5-$N(B
+$B>e5-$N@_Dj$G$O!"(BDDSKK $B$,5/F0$5$l$F$$$k$H$-$N$_!"IUB0$N%$%s%/%j%a%s%?%k!&%5!<(B
+$B%A$r;HMQ$7$^$9!#>o$KIUB0$N%$%s%/%j%a%s%?%k!&%5!<%A$r;HMQ$7$?$+$C$?$i>e5-$N(B
  @code{isearch-mode-hook}$B!"(B @code{isearch-mode-end-hook} $B$N@_Dj$r2<5-$N(B
 $B@_Dj$KJQ99$7$^$9!#(B
 
@@ -839,7 +839,7 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k(B 4 $B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"
 $BFCM-$N%^!<%/$OI=<($5$l$^$;$s!#(B
 
 @cindex $B%m!<%^;zF~NO(B
-$B$+$J%b!<%I!"%+%J%b!<%I$G!"$+$D(B $B"#%b!<%I$G$"$k>l9g!"%G%#%U%)%k%H$NF~NOJ}K!(B
+$B$+$J%b!<%I!"%+%J%b!<%I$G!"$+$D(B $B"#%b!<%I$G$"$k>l9g!"%G%U%)%k%H$NF~NOJ}K!(B
 $B$O$$$o$f$k%m!<%^;zF~NO$G$9!#71Na<0!"%X%\%s<0$N$I$A$i$K$h$C$F$bF~NO$9$k$3(B
 $B$H$,$G$-$^$9!#<g$JCm0UE@$r0J2<$K@bL@$7$^$9!#(B
 
@@ -1674,7 +1674,7 @@ SKK abbrev mode $B$N5!G=$rDs6!$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 @item skk-isearch.el
 @cindex @file{skk-isearch.el}
 
-DDSKK $B$rJ;MQ$7$?%$%s%/%j%a%s%?%k%5!<%A5!G=$rDs6!$9$k%U%!%$%k!#(B
+DDSKK $B$rJ;MQ$7$?%$%s%/%j%a%s%?%k!&%5!<%A5!G=$rDs6!$9$k%U%!%$%k!#(B
 
 @xref{I-search$B4XO"(B}.
 
@@ -2875,7 +2875,7 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 @kindex M-@key{SPC}
 
 $BA0@a$G8+=P$78l$NJd40$K$D$$$F=R$Y$^$7$?!#K\@a$G$O!"8+=P$78l$NJd40F0:n$r9T(B
-$B$J$C$?8e!"(B@key{SPC} $B$rF~NO$7!""'%b!<%I$KF~$k$^$G$NF0:n$r0l2s$NA`:n$G9T(B
+$B$C$?8e!"(B@key{SPC} $B$rF~NO$7!""'%b!<%I$KF~$k$^$G$NF0:n$r0l2s$NA`:n$G9T(B
 $B$&J}K!$K$D$$$F@bL@$7$^$9!#(B
 
 $B$d$jJ}$O4JC1!#(B@key{TAB}$B!&(B@key{SPC}$B$HBG80$7$F$$$?$H$3$m$r!"(B
@@ -3404,7 +3404,7 @@ Shall I register this as okuri-ari entry: $B$"$j$,(Bs /$BM-2l(B/ ? (y or n)
 @end group
 @end example
 
-$BAw$j2>L>$,J,$i$J$$$^$^JQ49$7$F$$$k$?$a!"8D?M<-=q$,Aw$j2>L>$KBP1~$7$?7A$K(B
+$BAw$j2>L>$,J,$+$i$J$$$^$^JQ49$7$F$$$k$?$a!"8D?M<-=q$,Aw$j2>L>$KBP1~$7$?7A$K(B
 $B@.D9$7$^$;$s!#$D$^$j(B @samp{$B$&$4(Bk /$BF0(B/} $B$N$h$&$J7ABV$N$^$^$H$J$j$^$9!#$?(B
 $B$@$7!"(B
 
@@ -3505,7 +3505,7 @@ Shall I register this as okuri-ari entry: $B$"$j$,(Bs /$BM-2l(B/ ? (y or n)
 
 @noindent
 $B$HJQ49$5$l$^$9!#2?8N$J$i(B @w{(@samp{$B$U(Br})} $B$N4XO"8l$rC5$9:]!"(B
-@code{skk-study-search-times} @footnote{$B%G%#%U%)%k%HCM$O(B 5 $B$G$9!#(B} $B$K(B
+@code{skk-study-search-times} @footnote{$B%G%U%)%k%HCM$O(B 5 $B$G$9!#(B} $B$K(B
 $B;XDj$5$l$?2s?tJ,$@$1AL$C$F!"0JA0$K3NDj$7$?8l$NCf$K4XO"8l$,$J$$$+C5$9$N(B
 $B$G$9!#=>$$$3$N>l9g$@$H!"(B2 $B$DA0$N3NDj>pJs$rC5$7$?:]$K(B @samp{$B1+(B}
 @w{(@samp{$B$"$a(B})} $B8+$D$1!"$3$l$r4XO"8l$H$7$F!"(B@w{(@samp{$B$U(Br})} $B$NCM$r(B
@@ -3515,7 +3515,7 @@ Shall I register this as okuri-ari entry: $B$"$j$,(Bs /$BM-2l(B/ ? (y or n)
 
 @code{skk-study-max-distance} $B$O!"(Binteger $B$r;XDj$7!"D>A0$K3NDj$7$?%]%$(B
 $B%s%H$H:#2s$NJQ49%]%$%s%H$,$3$N5wN%0J>eN%$l$F$$$k$H3X=,%G!<%?$rC_@Q$7$J(B
-$B$$$h$&$K$7$^$9!#$3$NJQ?t$N%G%#%U%)%k%HCM$O(B 30 $B$G$9!#$3$NJQ?t$O!"I,$:$7(B
+$B$$$h$&$K$7$^$9!#$3$NJQ?t$N%G%U%)%k%HCM$O(B 30 $B$G$9!#$3$NJQ?t$O!"I,$:$7(B
 $B$bJ8>O$,%P%C%U%!$N(B @code{point-min} $B$+$i(B @code{point-max} $B$XN.$l$k$h$&(B
 $B$K=q$+$l$k$b$N$G$O$J$/!"%]%$%s%H$rA0$KLa$7$?$j8e$X0\F0$7$?$j$7$F=q$+$l(B
 $B$k$3$H$rA[Dj$7$F$$$^$9!#$3$NJQ?t$K(B integer $B$r@_Dj$9$k$H!"D>A0$NJQ49$h(B
@@ -3532,7 +3532,7 @@ Shall I register this as okuri-ari entry: $B$"$j$,(Bs /$BM-2l(B/ ? (y or n)
 $B$3$NJQ?t$r(B @code{nil} $B$K$9$k$H8z2L$,$"$k$+$b$7$l$^$;$s!#(B
 
 @code{skk-study-file} $B$H(B @code{skk-study-backup-file} $B$O(B $B3X=,7k2L$rJ](B
-$BB8$9$k%U%!%$%k$H$=$N%P%C%/%"%C%W%U%!%$%k$G$9!#%G%#%U%)%k%HCM$O(B
+$BB8$9$k%U%!%$%k$H$=$N%P%C%/%"%C%W%U%!%$%k$G$9!#%G%U%)%k%HCM$O(B
 @file{~/.skk-study} $B$H(B @file{~/.skk-study.BAK} $B$G$9!#(B
 
 @code{skk-study-sort-saving} $B$H(B @code{skk-study-check-alist-format} $B$O(B
@@ -6702,7 +6702,7 @@ SKK $B%b!<%I$GA43QJ8;z$rF~NO$7$?>l9g$K!"(B@key{BS}$B$GA43QJ8;z$r>C$9$3$H$,$G$
 
 $B$3$NJQ?t$r(B @code{nil} $B$K@_Dj$9$k$H!"(BSKK $B%5!<%P$H@\B3$G$-$J$$>l9g$K!"(B
 SKK $B%5!<%P%W%m%0%i%`$r(B @code{call-process} $B$7$FN)$A>e$2$h$&$H;n$_$^$9(B
-($B%G%#%U%)%k%HCM$O(B @code{t} $B$G$9(B)$B!#(Binetd $B7PM3$GN)$A>e$2$i$l$kB?$/$N(B SKK
+($B%G%U%)%k%HCM$O(B @code{t} $B$G$9(B)$B!#(Binetd $B7PM3$GN)$A>e$2$i$l$kB?$/$N(B SKK
 $B%5!<%P$O!"(B@code{call-process} $B$GN)$A>e$2$k$3$H$,$G$-$^$;$s$,!"(B
 @file{skkserv} $B$N$h$&$KN)$A>e$2$k$3$H$,$G$-$k%5!<%P$rMxMQ$7$F$$$k>l9g(B
 $B$K$O!"$3$NJQ?t$r(B @code{nil} $B$K@_Dj$9$k$N$,NI$$$+$b$7$l$^$;$s!#(B
@@ -7312,7 +7312,7 @@ APEL 10.6 $B$K$D$$$F$O!"(B
 
 @item $B?7$7$$%f!<%6JQ?t(B @code{skk-isearch-mode-enable}
 
-$B$3$NJQ?t$r(B @code{nil} $B$K@_Dj$9$k$3$H$K$h$j!"%$%s%/%j%a%s%?%k%5!<%A$G(B
+$B$3$NJQ?t$r(B @code{nil} $B$K@_Dj$9$k$3$H$K$h$j!"%$%s%/%j%a%s%?%k!&%5!<%A$G(B
 skk-isearch $B$rMxMQ$7$J$$$h$&$K$9$k$3$H$,2DG=$K$J$j$^$7$?!#(Bmigemo $B$rMx(B
 $BMQ$7$?$$>l9g$J$I$K$O(B @code{nil} $B$K@_Dj$9$k$HNI$$$G$7$g$&!#(B
 
@@ -8746,7 +8746,7 @@ tex$B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B
 
 $BA0<T$OI8=`E*$J%-!<F~NO$rDj$a$F$$$^$9!#8e<T$O!"9%$_$K:81&$5$l$k$b$N$rDj(B
 $B5A$7$F$$$^$9!#$$$:$l$b%f!<%6!<JQ?t$G$9$,!"8e<T$O%j%9%HA`:n$rMF0W$K$9$k(B
-$B$?$a$K%G%#%U%)%k%H$NMWAG?t$r>/$J$/$7$F$$$^$9!#8e<T$N@_Dj$OA0<T$N$b$N$r(B
+$B$?$a$K%G%U%)%k%H$NMWAG?t$r>/$J$/$7$F$$$^$9!#8e<T$N@_Dj$OA0<T$N$b$N$r(B
 $B>e=q$-$7$^$9!#(B
 
 @node Q.3-5 $B8!:w$9$k<-=q$rA}$d$7$?$$$N$G$9$,!#(B, Q.3-6 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B, Q.3-4 skk-input-vector $B$H(B skk-roma-kana-a $B$,8+Ev$?$j$^$;$s$,!#(B, Customization
@@ -9285,7 +9285,7 @@ Lookup $B$,07$($k<-=q$O$[$H$s$I;H$($^$9!#(BLookup $B$,%$%s%9%H!<%k$5$l$F$$$k
 
 $B%$%s%9%H!<%k$GCm0U$9$Y$-$O!"(B@code{make} $B$G8F$S=P$5$l$k(B Emacs $B$O(B
 @samp{-q -no-site-file} $B%U%i%0IU$-$G8F$P$l$k$N$G!"(B@file{~/.emacs} $B$d(B
-@file{site-start.el} $B$J$I$OFI$_9~$^$l$J$$$3$H$G$9!#%G%#%U%)%k%H$G(B
+@file{site-start.el} $B$J$I$OFI$_9~$^$l$J$$$3$H$G$9!#%G%U%)%k%H$G(B
 @code{load-path} $B$NDL$C$F$$$k%G%#%l%/%H%j$K(B lookup $B$r%$%s%9%H!<%k$9$k$+!"(B
 @file{SKK-CFG} $B$NCf$G(B @var{VERSION_SPECIFIC_LISPDIR} $B$J$I$K%G%#%l%/%H%j(B
 $B$rL@<($9$k$3$H$G2r7h$G$-$^$9!#(B

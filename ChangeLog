@@ -10,6 +10,10 @@
 	(skk-henkan-show-candidate-subr): Call `skk-inline-show'.
 	(skk-henkan): call `skk-inline-hide'.
 
+2005-10-02  Kitamoto Tsuyoshi  <fmv5200na8x@yahoo.co.jp>
+
+	* doc/skk.texi: Patch for unification of terminology.
+
 2005-09-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kcode.el (skk-input-by-code-or-menu-jump):
@@ -4921,8 +4925,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.852 2005/10/04 20:24:02 skk-cvs Exp $
-Last Modified: $Date: 2005/10/04 20:24:02 $
+Version: $Id: ChangeLog,v 1.853 2005/10/04 20:34:55 skk-cvs Exp $
+Last Modified: $Date: 2005/10/04 20:34:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
