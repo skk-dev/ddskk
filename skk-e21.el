@@ -320,6 +320,21 @@ Analogous to mouse-position."
     (when (and ox oy)
       (set-mouse-position oframe ox oy))))
 
+(defvar skk-inline-overlay nil)
+(defun skk-inline-show (string face)
+  (skk-inline-hide)
+  (unless (skk-in-minibuffer-p)
+    (setq skk-inline-overlay (make-overlay (point) (point)))
+    (overlay-put skk-inline-overlay 
+		 'after-string (propertize string
+					   'face face))))
+
+(defun skk-inline-hide ()
+  (when skk-inline-overlay
+    (delete-overlay skk-inline-overlay)
+    (setq skk-inline-overlay nil)))
+
+
 (require 'product)
 (product-provide
     (provide 'skk-e21)

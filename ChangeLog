@@ -1,3 +1,15 @@
+2005-10-05  Masatake YAMATO  <jet@gyve.org>
+
+	* skk-e21.el (skk-inline-show): New function.
+	(skk-inline-hide): New function.
+	(skk-inline-overlay): New variable.
+
+	* skk-vars.el (skk-show-inline): New option.
+
+	* skk.el (skk-henkan-in-minibuff): Call `skk-inline-show'.
+	(skk-henkan-show-candidate-subr): Call `skk-inline-show'.
+	(skk-henkan): call `skk-inline-hide'.
+
 2005-09-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kcode.el (skk-input-by-code-or-menu-jump):
@@ -4909,8 +4921,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.851 2005/09/27 03:33:54 skk-cvs Exp $
-Last Modified: $Date: 2005/09/27 03:33:54 $
+Version: $Id: ChangeLog,v 1.852 2005/10/04 20:24:02 skk-cvs Exp $
+Last Modified: $Date: 2005/10/04 20:24:02 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
