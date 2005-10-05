@@ -1,3 +1,8 @@
+2005-10-05  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* dot.skk: Add an example which determine `skk-kutouten-type'
+	dynamically.
+
 2005-10-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.emacs (skk-preload): New description.
