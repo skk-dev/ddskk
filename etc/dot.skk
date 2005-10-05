@@ -66,6 +66,16 @@
 ;; 句読点に ．， を使う
 ;; (setq skk-kutouten-type 'en)
 
+;; 句読点を動的に決定する
+;; (add-hook 'skk-mode-hook
+;;           (lambda ()
+;;             (save-excursion
+;;               (goto-char 0)
+;;               (make-local-variable 'skk-kutouten-type)
+;;               (if (re-search-forward "．" 10000 t)
+;;                   (setq skk-kutouten-type 'en)
+;;                 (setq skk-kutouten-type 'jp)))))
+
 ;; 動的な補完を使う
 ;; (setq skk-dcomp-activate t)
 
