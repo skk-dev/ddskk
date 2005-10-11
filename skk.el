@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.293 2005/10/11 05:48:41 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.294 2005/10/11 06:08:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/10/11 05:48:41 $
+;; Last Modified: $Date: 2005/10/11 06:08:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -869,8 +869,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	     ((eq char 'katakana) #'skk-hiragana-region)
 	     ((eq char 'jisx0208-latin) #'skk-latin-region)
 	     ((eq char 'ascii) #'skk-jisx0208-latin-region))
-       ;; #'skk-katakana-region $B$N0z?t(B VCONTRACT $B$rM?$($k!#(B
-       (eq char 'hiragana))))
+       ;; `skk-katakana-region' $B$N0z?t(B VCONTRACT $B$^$?$O(B
+       ;; `skk-hiragana-region' $B$N0z?t(B VEXPAND $B$rM?$($k!#(B
+       (memq char '(hiragana katakana)))))
    ((and (skk-in-minibuffer-p)
 	 (not skk-j-mode))
     ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
@@ -2808,7 +2809,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
   (save-match-data
     (cond ((looking-at "[$B$!(B-$B$s(B]")
 	   'hiragana)
-	  ((looking-at "[$B%!(B-$B%s(B]")
+	  ((looking-at "[$B%!(B-$B%v!3!4(B]")
 	   'katakana)
 	  ;; "$B!<(B" $B$r=|30$7$F$$$k(B ("$B!<(B" $B$O(B "$B!;(B" $B$H(B "$B!=(B" $B$N4V$KF~$C$F$$$k(B)$B!#(B
 	  ((looking-at "[$B!!(B-$B!;!=(B-$B#z(B]")
