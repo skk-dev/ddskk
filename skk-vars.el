@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.124 2005/10/04 20:24:02 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.125 2005/10/11 05:48:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/10/04 20:24:02 $
+;; Last Modified: $Date: 2005/10/11 05:48:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1472,7 +1472,11 @@ priority が高いので、優先して表示される。"
   :type 'integer
   :group 'skk-decoration)
 
-(defcustom skk-kuten-touten-alist '((jp . ("。" . "、")) (en . ("．" . "，")))
+(defcustom skk-kuten-touten-alist
+  '((jp . ("。" . "、"))
+    (en . ("．" . "，"))
+    (jp-en . ("。" . "，"))
+    (en-jp . ("．" . "、")))
   "*句点と読点の連想リスト。
 各要素の形式は、
 
@@ -1486,9 +1490,31 @@ priority が高いので、優先して表示される。"
   :group 'skk-keybinds)
 
 (defcustom skk-kutouten-type 'jp
-  "*標準の句読点のタイプ。`jp' もしくは `en' というシンボル。
-バッファローカル値。"
-  :type '(choice (const jp) (const en))
+  "*標準の句読点のタイプ。
+この変数の値に指定できるシンボルと句読点の組との対応は以下の通り。
+
+      `jp': 「。」「、」
+      `en': 「．」「，」
+   `jp-en': 「。」「，」
+   `en-jp': 「．」「、」
+
+この変数にはコンス・セルを指定することも可能。その場合は
+
+ (句点を示す文字列 . 読点を示す文字列)
+
+のように指定する。
+
+この変数は `skk-use-kana-keyboard' が non-nil ならば無効である。
+
+この変数は `setq' するとバッファローカル化されるため、グローバルに
+値を設定したい場合は `setq-default' を用いることが推奨される。"
+  :type '(choice (const jp)
+		 (const en)
+		 (const jp-en)
+		 (const en-jp)
+		 (cons
+		  (string :tag "句点")
+		  (string :tag "読点")))
   :group 'skk-keybinds)
 (make-variable-buffer-local 'skk-kutouten-type)
 
