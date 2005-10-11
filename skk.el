@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.292 2005/10/04 20:24:02 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.293 2005/10/11 05:48:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/10/04 20:24:02 $
+;; Last Modified: $Date: 2005/10/11 05:48:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1422,9 +1422,15 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 (defun skk-toggle-kutouten ()
   "句読点の種類をトグルで変更する。"
   (interactive)
-  (setq skk-kutouten-type (if (eq skk-kutouten-type 'jp)
-			      'en
-			    'jp))
+  (setq skk-kutouten-type
+	(cond ((eq skk-kutouten-type 'jp)
+	       'en)
+	      ((eq skk-kutouten-type 'en)
+	       'jp-en)
+	      ((eq skk-kutouten-type 'jp-en)
+	       'en-jp)
+	      (t
+	       'jp)))
   (when (interactive-p)
     (skk-message "句点: `%s'  読点: `%s'"
 		 "Kuten: `%s'  Touten: `%s'"
@@ -1433,11 +1439,15 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 
 (defun skk-current-kuten (arg)
   ;; just ignore arg.
-  (car (cdr (assq skk-kutouten-type skk-kuten-touten-alist))))
+  (if (symbolp skk-kutouten-type)
+      (car (cdr (assq skk-kutouten-type skk-kuten-touten-alist)))
+    (car skk-kutouten-type)))
 
 (defun skk-current-touten (arg)
   ;; just ignore arg.
-  (cdr (cdr (assq skk-kutouten-type skk-kuten-touten-alist))))
+  (if (symbolp skk-kutouten-type)
+      (cdr (cdr (assq skk-kutouten-type skk-kuten-touten-alist)))
+    (cdr skk-kutouten-type)))
 
 (defun skk-abbrev-period (arg)
   "SKK abbrev モードで見出しの補完中であれば、次の候補を表示する。
