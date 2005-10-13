@@ -64,7 +64,7 @@
 ;; (setq skk-undo-kakutei-word-only t)
 
 ;; 句読点に ．， を使う
-;; (setq skk-kutouten-type 'en)
+;; (setq-default skk-kutouten-type 'en)
 
 ;; 句読点を動的に決定する
 ;; (add-hook 'skk-mode-hook
