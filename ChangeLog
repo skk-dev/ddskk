@@ -1,3 +1,8 @@
+2005-10-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-henkan-in-minibuff): Modify prompt in
+	skk-show-inline, "[↓辞書登録]" -> "Echo area を見て!".
+
 2005-10-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-kuten-touten-alist): Accept new pairs jp-en and
@@ -4942,8 +4947,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.856 2005/10/11 06:09:07 skk-cvs Exp $
-Last Modified: $Date: 2005/10/11 06:09:07 $
+Version: $Id: ChangeLog,v 1.857 2005/10/19 22:48:35 skk-cvs Exp $
+Last Modified: $Date: 2005/10/19 22:48:35 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
