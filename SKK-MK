@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.127 2005/09/25 17:03:14 skk-cvs Exp $
-;; Last Modified: $Date: 2005/09/25 17:03:14 $
+;; Version: $Id: SKK-MK,v 1.128 2005/10/30 15:20:40 skk-cvs Exp $
+;; Last Modified: $Date: 2005/10/30 15:20:40 $
 
 ;;; Commentary:
 
@@ -491,11 +491,20 @@ This version of SKK requires MULE features"))
       (write-region (point-min) (point-max) "skk-setup.el"))))
 
 (defun SKK-MK-server-installed-p ()
-  (require 'skk-server (expand-file-name "skk-server.el"))
-  (let ((skk-server-inhibit-startup-server t))
-    (prog1
-	(skk-server-live-p (skk-open-server))
-      (skk-disconnect-server))))
+  (if (and (not (featurep 'xemacs))
+	       (eq system-type 'gnu/linux)
+	       (string-lessp emacs-version "22"))
+      ;; Do not call `open-network-stream' for Emacs 21.4 or earlier,
+      ;; under GNU/Linux, due to a serious problem where Emacs with a
+      ;; new shell process causes SIGPOLL in batch mode. To return
+      ;; `nil' here is just a workaound, without really checking the
+      ;; server state.
+      nil
+    (require 'skk-server (expand-file-name "skk-server.el"))
+    (let ((skk-server-inhibit-startup-server t))
+      (prog1
+	  (skk-server-live-p (skk-open-server))
+	(skk-disconnect-server)))))
 
 (defvar SKK_SET_JISYO
   (let* ((set_jisyo (or (getenv "set_jisyo")

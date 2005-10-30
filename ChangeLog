@@ -1,3 +1,11 @@
+2005-10-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-server-installed-p): Workaround for a problem in
+	Emacs 21.4 or earlier, under GNU/Linux, where Emacs with a new
+	shell process causes SIGPOLL in batch mode just after it calls
+	`open-network-stream'.  Do not check the server state in this
+	case.
+
 2005-10-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-henkan-in-minibuff): Modify prompt in
@@ -4707,7 +4715,7 @@
 
 	* doc/skk.texi: Ditto.
 
-	* skk-setup.el/in: Make sure dired/auto-autoloads.el exists.
+	* skk-setup.el.in: Make sure dired/auto-autoloads.el exists.
 
 	* skk.el (skk-remove-redundant-okurgana): Make sure str2 is
 	non-nil.
@@ -4947,8 +4955,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.857 2005/10/19 22:48:35 skk-cvs Exp $
-Last Modified: $Date: 2005/10/19 22:48:35 $
+Version: $Id: ChangeLog,v 1.858 2005/10/30 15:20:40 skk-cvs Exp $
+Last Modified: $Date: 2005/10/30 15:20:40 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
