@@ -1,3 +1,7 @@
+2005-10-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-server-installed-p): Do not signal error.
+
 2005-10-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK-MK-server-installed-p): Workaround for a problem in
@@ -4955,8 +4959,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.858 2005/10/30 15:20:40 skk-cvs Exp $
-Last Modified: $Date: 2005/10/30 15:20:40 $
+Version: $Id: ChangeLog,v 1.859 2005/10/31 12:39:56 skk-cvs Exp $
+Last Modified: $Date: 2005/10/31 12:39:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
