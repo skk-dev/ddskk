@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.128 2005/10/30 15:20:40 skk-cvs Exp $
-;; Last Modified: $Date: 2005/10/30 15:20:40 $
+;; Version: $Id: SKK-MK,v 1.129 2005/10/31 04:35:56 skk-cvs Exp $
+;; Last Modified: $Date: 2005/10/31 04:35:56 $
 
 ;;; Commentary:
 
@@ -497,7 +497,7 @@ This version of SKK requires MULE features"))
       ;; Do not call `open-network-stream' for Emacs 21.4 or earlier,
       ;; under GNU/Linux, due to a serious problem where Emacs with a
       ;; new shell process causes SIGPOLL in batch mode. To return
-      ;; `nil' here is just a workaound, without really checking the
+      ;; `nil' here is just a workaround, without really checking the
       ;; server state.
       nil
     (require 'skk-server (expand-file-name "skk-server.el"))
