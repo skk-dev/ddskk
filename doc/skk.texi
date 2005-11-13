@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.141 2005/10/04 20:34:55 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.142 2005/11/13 04:28:03 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2005/10/04 20:34:55 $
+@c  Last Modified: $Date: 2005/11/13 04:28:03 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2005/10/04 20:34:55 $
+@set UPDATED $Date: 2005/11/13 04:28:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -163,20 +163,19 @@ DDSKK 12 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 DDSKK $B$N<g$JFCD'$O!"<!$NDL$j$G$9!#(B
 
 @itemize @bullet
-@item $B%m!<%^;zF~NO$K$h$k!"J8K!E*CN<1$rMQ$$$J$$9bB.JQ492DG=$JF|K\8lF~NO(B/
-$BJQ49!#(B
+@item $BB?:L$JF~NOJ}<0%5%]!<%H!#%m!<%^(B/$B$+$J(B $BN>BP1~$N$+$JF~NO$N$[$,!"(BT-Code$B!"(B
+TUT-code $B$K$h$kF~NO$b2DG=!#(B
+@item $BJ8K!E*CN<1$rMQ$$$J$$9bB.$J!V$+$J(B $B"*(B $B4A;z!WJQ49!#(B
 @item $B<-=q$KEPO?$5$l$F$$$J$$C18l$NEPO?$,4JC1!#(B
 @item $B8D?M<-=q$X$NC18l$N<+F0EPO?$K$h$kJQ49$N9b%R%C%H!#(B
 @item $B%^%$%J!<%b!<%I$H$7$F<BAu$5$l$F$$$k$N$G!"%a%8%c!<%b!<%I$K$[$H$s$I1F(B
 $B6A$rM?$($J$$!#$D$^$j!"(BEmacs $B$H$N?FOB@-$,9b$$!#(B
-@item DDSKK $BK\BN(B(Emacs Lisp) $B$H<-=q$N$_$GF0:n(B($B%5!<%P$OI,?\$G$O$J$$(B)$B!#<-(B
+@item DDSKK $BK\BN(B (Emacs Lisp) $B$H<-=q$N$_$GF0:n(B($B%5!<%P$OI,?\$G$O$J$$(B)$B!#<-(B
 $B=q%5!<%P$,%@%&%s$7$F$$$F$b;HMQ$G$-$k!#(B
-@item $B<-=q%5!<%P$r;H$&$3$H$G!"(BEmacs $B$N(B DDSKK $B;HMQ%a%b%j$r:o8:2DG=!#(B
+@item $B<-=q%5!<%P$r;H$&$3$H$G!";HMQ%a%b%j$r:o8:2DG=!#(B
 @item $B%G%#%9%/MFNL$K1~$8$FA*$Y$k<-=q!#(B
 @item Emacs $B$N%*%j%8%J%k$HF1MM$NA`:n$G9T$($kF|K\8l%$%s%/%j%a%s%?%k!&%5!<%A!#(B
 @item Emacs Lisp $B$G=q$+$l$?%W%m%0%i%`$rJQ498uJd$K$G$-$k!#(B
-@item $B8D?M$N@_Dj$K$h$j!"%m!<%^;zF~NO$NBe$o$j$K(B T-Code$B!"(BTUT-code $B$K$h$kF~(B
-$BNO$b2DG=!#(B
 @end itemize
 
 SKK $B$NL>$NA0$KIU$$$F$$$k(B @samp{Daredevil} $B$,5$$K$J$kA!:Y$JJ}$O(B
@@ -404,8 +403,10 @@ DDSKK 11 $B0J9_!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#$"$J$?$N(B @file{.emacs} $B%U%
 @end lisp
 
 @noindent
-$B$H=q$/$@$1$G(B DDSKK $B$rMxMQ$9$k$3$H$,2DG=$K$J$j$^$9!#<B$O(B Emacs 20$B!"(BEmacs
-21 $B$^$?$O(B XEmacs $B$G$O!">e5-$N@_Dj$r=q$/I,MW$9$i$"$j$^$;$s!#<+F0E*$K$3$N(B
+$B$H=q$/$@$1$G(B DDSKK $B$rMxMQ$9$k$3$H$,2DG=$K$J$j$^$9!#(B
+
+$B<B$O(B Emacs 20$B!"(BEmacs 21 $B$^$?$O(B XEmacs $B$G!"(BDDSKK $B$rI8=`$N%$%s%9%H!<%k@h$K(B
+$B%$%s%9%H!<%k$7$?>l9g$O!$>e5-$N@_Dj$r=q$/I,MW$9$i$"$j$^$;$s!#<+F0E*$K$3$N(B
 $B%U%!%$%k$,FI$_9~$^$l!"@_Dj$5$l$^$9!#(B
 
 $B$b$7!"$3$N<+F0@_Dj$K$h$i$:!"<jF0$G@_Dj$r$7$?$$>l9g$O!"0J2<$N@bL@$r;2>H$7(B
