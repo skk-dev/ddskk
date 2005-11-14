@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2005/11/14 10:01:54 $
-	     $Id: INSTALL,v 1.28 2005/11/14 10:01:54 skk-cvs Exp $
+             $Date: 2005/11/14 17:42:22 $
+	     $Id: INSTALL,v 1.29 2005/11/14 17:42:22 skk-cvs Exp $
 
 * APEL
 
@@ -16,6 +16,7 @@ the latest release).  APEL is available at:
     ftp://ftp.jpl.org/pub/elisp/apel/
 
 or
+
     http://openlab.ring.gr.jp/skk/apel/
 
 * Get dictionaries and copy them to ./dic subdirectory.
