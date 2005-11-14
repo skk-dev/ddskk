@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.296 2005/10/27 10:56:28 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.297 2005/11/14 08:44:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/10/27 10:56:28 $
+;; Last Modified: $Date: 2005/11/14 08:44:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3992,6 +3992,32 @@ SKK 辞書の候補として正しい形に整形する。"
 	  (skk-katakana-to-jisx0201-region (point-min) (point-max))
 	  (setq words (nconc words (list (buffer-string))))))
       words)))
+
+(defun skk-search-romaji (&optional arg)
+  (when (and (not skk-henkan-okurigana)
+	     (exec-installed-p "kakasi"))
+    (let ((key skk-henkan-key)
+	  char)
+      (with-temp-buffer
+	(insert key)
+	;; 接頭辞・接尾辞の入力だったら ">" を消しておく。
+	(goto-char (1- (point)))
+	(when (looking-at ">")
+	  (delete-char 1))
+	(goto-char (point-min))
+	(when (looking-at ">")
+	  (delete-char 1))
+	;;
+	(while (and
+		(not (eobp))
+		(or
+		 ;; "ー" では文字種別が判別できないので、ポイントを進める。
+		 (looking-at "ー")
+		 (eq 'unknown (setq char (skk-what-char-type)))))
+	  (forward-char 1))
+	(when (eq char 'hiragana)
+	  (skk-romaji-region (point-min) (point-max))
+	  (list (buffer-string)))))))
 
 (defun skk-search-all-progs (key)
   (let ((skk-henkan-key key)
