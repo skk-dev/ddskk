@@ -1,12 +1,12 @@
 -*- outline -*-
 
-             $Date: 2003/07/05 08:24:01 $
-	     $Id: INSTALL,v 1.27 2003/07/05 08:24:01 minakaji Exp $
+             $Date: 2005/11/14 10:01:54 $
+	     $Id: INSTALL,v 1.28 2005/11/14 10:01:54 skk-cvs Exp $
 
 * APEL
 
 APEL (A Portable Emacs Library) is required to install SKK.  Make sure
-you have APEL 10.6 or later (It is highly recommened that you install
+you have APEL 10.6 or later (it is highly recommened that you install
 the latest release).  APEL is available at:
 
     http://cvs.m17n.org/elisp/APEL
@@ -20,22 +20,22 @@ or
 
 * Get dictionaries and copy them to ./dic subdirectory.
 
-If you do not have SKK dictionaries, get them from
+If you do not have SKK dictionaries, get one or more from
 
-  http://openlab.ring.gr.jp/skk/dic-ja.html
+  http://openlab.ring.gr.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
 
-and copy them ./dic subdirectory.  You don't have to get all size of
-dictionaries.  Maybe you want one of them.
+and copy them to ./dic subdirectory.  You don't have to get every size
+of dictionaries.  Maybe you want one of L, ML, M and S dictionaries.
 
 * Edit SKK-CFG.
 
-Edit SKK-CFG as you like.  Default value to be defined in SKK-MK is
-described and commented.  If you use one of the variable, comment out
-it, and specify your value.  Maybe you need not to edit Makefile at
-all.  All customization can be done in SKK-CFG.
+Edit SKK-CFG as you like.  Examples are described in SKK-CFG but
+commented out.  If you want to set some or all of these variables,
+uncomment them and specify the values.  Maybe you need not to edit
+Makefile at all.  All customization can be done in SKK-CFG.
 
-Or you can specify configuration of installation in the command line
-instead of editing SKK-CFG (See next section).
+Instead of editing SKK-CFG, you can also specify configuration of
+installation with command line arguments for `make'.
 
 * Run make
 
@@ -55,8 +55,7 @@ locally,
 
 then all Emacs lisp programs will be installed into
 `~/share/emacs/site-lisp/skk'.  You can examine SKK-CFG to know what
-variables will effect install configuration.  All of those values
-described in SKK-CFG (but commented out) are default.
+variables will take effect on installation configurations.
 
 * Detect directories to be install
 
@@ -71,7 +70,6 @@ or
 
 for XEmacs package install.  As to package install, see section
 `package install' below.
-
 
 * make install
 

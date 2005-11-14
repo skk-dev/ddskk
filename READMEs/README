@@ -1,19 +1,22 @@
 -*- text -*-
-             $Date: 2001/07/22 21:44:31 $
-	     $Id: README,v 1.7 2001/07/22 21:44:31 minakaji Exp $
+             $Date: 2005/11/14 10:01:54 $
+	     $Id: README,v 1.8 2005/11/14 10:01:54 skk-cvs Exp $
 
 Daredevil SKK is a version of SKK (Simple Kana to Kanji
-conversion program, an input method of Japanese) that has been
-maintained by the SKK developing team at
-http://openlab.ring.gr.jp/skk.
+conversion program, an input method of Japanese) maintained by the SKK
+development team at
+
+http://openlab.ring.gr.jp/skk
 
 It consists of a simple core and many optional programs which provide
-extensive features, however, our target is to more simplify core, and
-more expand its optional features.
+extensive features.  Though it has been well developed, our target is
+more simplified core, and much more optional features.
 
-If you want to join developing Daredevil SKK, you can access its
-sources via a cvs server on the Ring Server Openlab.  See
-CVS_digest to learn briefly how to access the cvs server.
+If you want to join development of Daredevil SKK, you can access its
+sources via a cvs server on the Ring Server Openlab.  To learn briefly
+how to access the cvs server, see
+
+http://openlab.ring.gr.jp/skk/cvs.html
 
 If you want to join the SKK Openlab Mailing list, see a description
 below.
