@@ -1,3 +1,12 @@
+2005-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-search): When skk-use-numeric-conversion is non-nil,
+	also do non-numeric conversion.
+	(skk-update-jisyo-original): Don't call
+	`skk-num-compute-henkan-key' if WORD does not contain numeric
+	characters.
+	(skk-search-upcase): New function.
+
 2005-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-search-romaji): New function.
@@ -4967,8 +4976,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.861 2005/11/14 08:44:52 skk-cvs Exp $
-Last Modified: $Date: 2005/11/14 08:44:52 $
+Version: $Id: ChangeLog,v 1.862 2005/11/19 08:56:10 skk-cvs Exp $
+Last Modified: $Date: 2005/11/19 08:56:10 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
