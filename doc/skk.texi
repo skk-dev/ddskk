@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.142 2005/11/13 04:28:03 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.143 2005/11/19 20:12:23 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2005/11/13 04:28:03 $
+@c  Last Modified: $Date: 2005/11/19 20:12:23 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2005/11/13 04:28:03 $
+@set UPDATED $Date: 2005/11/19 20:12:23 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -204,8 +204,8 @@ Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 12 $B$O(B APEL 10.6 $B$G$NF0:n$r3NG'
 $B$G$-$k$@$1?7$7$$%P!<%8%g%s$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
 
 @display
-@url{ftp://ftp.jpl.org/pub/elisp/apel/}
 @url{ftp://ftp.m17n.org/pub/mule/apel/}
+@url{ftp://ftp.jpl.org/pub/elisp/apel/}
 @end display
 
 @noindent
@@ -227,11 +227,22 @@ DDSKK $B$N%$%s%9%H!<%k$r$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
 APEL $B$r%$%s%9%H!<%k$7$?$i!"(B DDSKK $B$r%$%s%9%H!<%k$7$^$7$g$&!#$3$3$G$O!"(B
 UNIX $B>e$G(B @code{make} $B%3%^%s%I$,MQ0U$5$l$F$$$k>l9g$rA[Dj$7$F$$$^$9(B
 @footnote{Windows $B4D6-$G$O!"(B@code{makeit.bat} $B$r;HMQ$9$k$3$H$K$h$j!"F1(B
-$BMM$NA`:n$G%$%s%9%H!<%k$G$-$^$9!#(B @file{READMEs/README.win} $B%U%!(B
-$B%$%k$r;2>H$7$F2<$5$$!#(Bcygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B
-@code{make} $B%3%^%s%I$,;HMQ$G$-$k$N$G!"$3$3$N@bL@$,$=$N$^$^Ev$F$O$^$j$^(B
-$B$9!#$^$?!"(BMac OS $B4D6-$NJ}$O!"(B@file{READMEs/README.Mac} $B%U%!%$(B
-$B%k$r;2>H$7$F2<$5$$!#(B}$B!#(B
+$BMM$NA`:n$G%$%s%9%H!<%k$G$-$^$9!#(B $B<!$N;qNA$r;2>H$7$F$/$@$5$$!#(B
+
+@display
+@url{http://openlab.jp/skk/skk/main/READMEs/README.w32.ja}
+@end display
+
+cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @code{make} $B%3%^%s%I$,;HMQ$G$-$k(B
+$B$N$G!"$3$3$N@bL@$,$=$N$^$^Ev$F$O$^$j$^$9!#(B
+
+$B$^$?!"(BMac OS $B4D6-$NJ}$O0J2<$N;qNA$r;2>H$7$F$/$@$5$$!#(B
+
+@display
+@url{http://openlab.jp/skk/skk/main/READMEs/README.MacOSX.ja}
+@url{http://openlab.jp/skk/skk/main/READMEs/README.Mac.ja}
+@end display
+}$B!#(B
 
 $B$^$:!"(B@code{tar} $B$H(B @code{gzip} $B%3%^%s%I$r;HMQ$7$F!"(B DDSKK $B$r=q8K(B
 (@file{ddskk-VERSION.tar.gz}) $B$+$i<h$j=P$7$^$9!#(B
@@ -310,10 +321,13 @@ XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$9$k>l9g$O!"(B
 @comment  node-name,  next,  previous,  up
 @section $B<-=q$NF~<j(B
 
-DDSKK $B$r;HMQ$9$k$K$O!"<-=q$,I,MW$G$9!#(BDDSKK $BK\BN(B (elisp) $B$K$O(B S $B<-=q$,ImB0$7(B
-$B$^$9!#$=$l0J30$N<-=q$O!"I,MW$K1~$8JLESF~<j$7$F2<$5$$!#(B
-CVS (@w{@pxref{CVS$B$K$h$k(BDDSKK$B$N<hF@(B}})$B$b$7$/$O!"(B
-WWW (@url{http://openlab.ring.gr.jp/skk/dic.html}) $B$+$iF~<j$G$-$^$9!#(B
+DDSKK $B$r;HMQ$9$k$K$O!"<-=q$,I,MW$G$9!#(BDDSKK $BK\BN(B (elisp) $B$K$O(B S $B<-=q$,Im(B
+$BB0$7$^$9!#$=$l0J30$N<-=q$O!"I,MW$K1~$8JLESF~<j$7$F2<$5$$!#(B
+
+@table @asis
+@item SKK $B3F<-=q$N2r@b$H%@%&%s%m!<%I(B
+ @url{http://openlab.ring.gr.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1}
+@end table
 
 $BMQ0U$5$l$F$$$k<-=q$O!"=>Mh$+$i$N(B
 
@@ -340,12 +354,13 @@ WWW (@url{http://openlab.ring.gr.jp/skk/dic.html}) $B$+$iF~<j$G$-$^$9!#(B
 @end itemize
 
 @noindent
-$B$J$I$,MQ0U$5$l$F$$$^$9(B@footnote{$B0lIt$N<-=q$NCx:n8"$O(B GNU GPL 2 $B$H$O0[$J(B
-$B$k$b$N$,$"$j$^$9$N$G$4Cm0U2<$5$$!#<-=q%G%#%l%/%H%j$N(B
-@file{READMEs/committers.txt} $B$r;2>H$7$F2<$5$$(B}$B!#(B
+$B$J$I$,$"$j$^$9(B@footnote{$B0lIt$N<-=q$NCx:n8"$O(B GNU GPL 2 $B$H$O0[$J$k$b$N$,(B
+$B$"$j$^$9$N$G$4Cm0U2<$5$$!#>\:Y$O0J2<$N;qNA$r;2>H$7$F2<$5$$!#(B
 
-$B$=$NB>$N<-=q!"$"$k$$$O$=$l$>$l$N<-=q$N>\:Y$K$D$$$F$O(B
-@url{http://openlab.ring.gr.jp/skk/dic.html} $B$r$4;2>H2<$5$$!#(B
+@display
+@url{http://openlab.jp/skk/skk/dic/READMEs/committers.txt}
+@end display
+}$B!#(B
 
 @node $B<-=q%5!<%P$NF~<j(B,  , $B<-=q$NF~<j(B, $B%$%s%9%H!<%k(B
 @comment  node-name,  next,  previous,  up
@@ -357,39 +372,13 @@ WWW (@url{http://openlab.ring.gr.jp/skk/dic.html}) $B$+$iF~<j$G$-$^$9!#(B
 $B$"$j$^$9!#(B
 
 DDSKK $B$N%/%i%$%"%s%HB&$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<(B
-$B5-$N<-=q%5!<%P$N$$$:$l$G$bF0:n2DG=$G$9!#%=!<%9!"(Bbinary $B$NF~<j!"%$%s%9%H!<(B
-$B%k$K$D$$$F$O$=$l$>$l$N(B Web site $B$r$4;2>H2<$5$$!#(B
+$B5-$N<-=q%5!<%P$N$$$:$l$G$bF0:n2DG=$G$9!#%=!<%9$d%P%$%J%j$NF~<j!"%$%s%9%H!<(B
+$B%k$K$D$$$F$O$=$l$>$l$N%&%'%V%5%$%H$r$4;2>H2<$5$$!#(B
 
 @table @asis
-@item dbskkd-cdb
-Daniel J. Bernstein $B;a$N3+H/$7$?8GDj%G!<%?%Y!<%9MQ%i%$%V%i%j(B cdb $B$r;H$$!"(B
-inetd $B$+$i(B tcp_wrapper $B$J$I$r7PM3$75/F0$5$;$k$3$H$G%;%-%e%j%F%#$r8~>e$5(B
-$B$;$?<-=q%5!<%P$G$9!#(B
-@url{http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html} $B$+$iF~<j$7(B
-$B$F2<$5$$!#(B@xref{dbskkd-cdb}.
-
-@item rskkserv
-Ruby $B$GF0$-$^$9!#J#?t<-=q8!:w$d(B EPWING $B<-=q8!:w$KBP1~$7$F$$$^$9!#(B
-@url{http://www.ruby-lang.org/en/raa-list.rhtml?name=rskkserv} $B$r$4;2>H(B
-$B2<$5$$!#(B
-
-@item wceSKKSERV
-Windows (CE|9x|NT|2K|XP) $BMQ!#J#?t<-=q8!:w$,2DG=$G$9!#(B
-@url{http://megadriver.yi.org/~fumi/wceskkserv/} $B$r$4;2>H2<$5$$!#(B
-
-@item wskkserv
-Windows $BMQ(B SKK $B%5!<%P$NApJ,$1!#(B
-@url{http://www.tatari-sakamoto.jp/~tatari/wskkserv.jis.html} $B$r$4;2>H2<(B
-$B$5$$!#(B
-
-@item fskkserv
-Objective Caml $B$H$$$&8@8l$G=q$+$l$F$$$k$=$&$G$9!#(B
-@url{http://deisui.org/~ueno/caml/fskkserv/} $B$r$4;2>H2<$5$$!#(B
-
+@item SKK $B%5!<%P$N@bL@$H%j%s%/(B
+@url{http://openlab.ring.gr.jp/skk/skkserv-ja.html}
 @end table
-
-SKK $B%5!<%P$K$D$$$F$N:G?7>pJs$K$D$$$F$O(B
-@url{http://openlab.ring.gr.jp/skk/skkserv-ja.html} $B$r$4Mw2<$5$$!#(B
 
 @node $B$O$8$a$N@_Dj(B, $B4pK\E*$J;H$$J}(B, $B%$%s%9%H!<%k(B, Top
 @comment  node-name,  next,  previous,  up
@@ -6736,428 +6725,13 @@ SKK $B%5!<%P%W%m%0%i%`$r(B @code{call-process} $B$7$FN)$A>e$2$h$&$H;n$_$^$9(
 @comment  node-name,  next,  previous,  up
 @chapter $B<-=q%D!<%k(B
 
-SKK $B<-=q$K4X$9$k%D!<%k$K$O!"(BPerl, C $B$N3F8@8l$K$h$j=q$+$l$?$b$N$,$"$j$^$9!#(B
-$BF~<j$O!"(BWWW @url{http://openlab.ring.gr.jp/skk/skk/tools/} $B$b$7$/$O(B CVS
-$B$+$i$G$-$^$9!#(B@w{@xref{CVS$B$K$h$kF~<jJ}K!(B}.}
-
-@menu
-* C$B$K$h$k%D!<%k(B::               
-* Perl$B$K$h$k%D!<%k(B::            
-@end menu
-
-@node C$B$K$h$k%D!<%k(B, Perl$B$K$h$k%D!<%k(B, $B<-=q%D!<%k(B, $B<-=q%D!<%k(B
-@comment  node-name,  next,  previous,  up
-@section C$B$K$h$k%D!<%k(B
-
-C$B$K$h$k<-=q%D!<%k$O!"(B@url{http://openlab.ring.gr.jp/skk/tools-ja.html}
-$B$+$iF~<j$9$k$3$H$,$G$-$^$9!#(BWindows $BMQ$N%P%$%J%j$bF1(B page $B$+$i%@%&%s%m!<(B
-$B%I2DG=$G$9!#(B
-
-@menu
-* $B%W%m%0%i%`:n@.J}K!(B::          
-* skkdic-expr::                 $B<-=q$N2C=|(B
-* skkdic-sort::                 $B<-=q$N%=!<%H(B
-* skkdic-count::                $B<-=q8uJd$N?t$(>e$2(B
-* skkdic-expr2::                @code{skkdic-expr} $B$N2~NIHG(B
-@end menu
-
-@node $B%W%m%0%i%`:n@.J}K!(B, skkdic-expr, C$B$K$h$k%D!<%k(B, C$B$K$h$k%D!<%k(B
-@comment  node-name,  next,  previous,  up
-@subsection $B%W%m%0%i%`:n@.J}K!(B
-
-@code{configure} $B%9%/%j%W%H$,IUB0$9$k$N$G!"$=$l$r<B9T$7$^$9!#$=$N8e(B
-@code{make} $B$r<B9T$7$^$9!#(B
-@c Texinfo $B$N(B manual $B$r8+$k$H%U%!%$%k$O(B @file{} $B$r;H$&$,!"(Bmake $B$J$I%3(B
-@c $B%^%s%IL>$K$O(B @code{} $B$r;H$&$H$"$j$^$9!#<B:]<B9T$9$k$3$H$rA[Dj$7$?J8(B
-@c $BL.$G$O(B @code{} $B$r;H$&$Y$7!"$H$$$&$3$H$K$J$k$s$G$9$+$M(B...$B!#$3$l$r??(B
-@c $BLLL\$K5$$K$9$k$H7k9=LLE]!#(B
-
-@example
-% ./configure
-% make
-@end example
-
-$B$3$3$G!":n@.$K4X$7$F$$$/$D$+Cm0U$9$Y$-$3$H$,$"$j$^$9!#(B
+SKK $B<-=q$K4X$9$k%D!<%k$K$O!"(BPerl, C $B$N3F8@8l$K$h$j=q$+$l$F$$$^$7$?$,!"(B
+Perl $B$K$h$k%D!<%k$O8=:_==J,%a%s%F%J%s%9$5$l$F$$$^$;$s!#8=:_$O(B C, ruby $B$N(B
+$B%W%m%0%i%`$,3+H/!&%a%s%F%J%s%9$5$l$F$$$^$9!#(B
 
 @table @asis
-@item ndbm
-
-@code{skkdic-expr} $B$r:n@.$9$k$K$O(B @code{ndbm} $B$N5!G=$,I,MW$G$9!#%7%9%F%`(B
-$B$K$=$l$,$J$$>l9g$O!"(BBerkeley DB $B$b$7$/$O(B @code{gdbm} $B$r%$%s%9%H!<%k$9$k(B
-$B$3$H$GBeMQ$9$k$3$H$,$G$-$^$9!#(B
-
-@item TMPDIR
-
-@code{skkdic-expr} $B$r<B9T$9$k$H$-!":n6HMQ$N%U%!%$%k$H$7$F<-=q$N(B 2 $BG\Dx(B
-$BEY$NBg$-$5$N%U%!%$%k$r:n@.$7$^$9!#$3$N%U%!%$%k$,:n@.$5$l$k%G%#%l%/%H%j(B
-$B$O<B9T;~$K;XDj$G$-$^$9!#$b$7;XDj$7$J$1$l$P!"(B@code{skkdic-expr} $B$N:n@.(B
-$B;~$K(B @code{TMPDIR} $B$K;XDj$5$l$?%G%#%l%/%H%j$,;HMQ$5$l$^$9!#$3$l$OI8=`(B
-$B$G$O(B @file{/tmp} $B$K$J$C$F$$$^$9$,!"(B@file{/tmp} $B$NMFNL$,>.$5$$$J$I$N;v(B
-$B>p$,$"$k>l9g$O(B
-
-@example
--DTMPDIR=\".\"
-@end example
-
-@noindent
-$B$N$h$&$J5-=R$r(B @code{CFLAGS} $B$KDI2C$7$F:n@.$7$^$9!#<B:]$K$O!"Nc$($P0J(B
-$B2<$N$h$&$K$7$F:n@.$7$^$9!#(B
-
-@example
-% CFLAGS="-O2 -DTMPDIR=\".\"" ./configure
-% make
-@end example
-@end table
-
-@node skkdic-expr, skkdic-sort, $B%W%m%0%i%`:n@.J}K!(B, C$B$K$h$k%D!<%k(B
-@comment  node-name,  next,  previous,  up
-@subsection skkdic-expr
-@cindex @file{skkdic-sort}
-@cindex @file{skkdic-expr}
-
-$BJ#?t$N(B SKK $B<-=q$r7k9g$7$?$j!"B>$N<-=q$H$N:9J,$r$H$k$N$K;H$$$^$9!#C"$7!"(B
-@code{skkdic-expr} $B$O<-=q$r@5$7$$=g$K%=!<%H$;$:!"$^$?!"(B
-@w{@samp{;; okuri-ari entries.}} $B$H(B @w{@samp{;; okuri-nasi entries.}} $B$N(B
-$B%?%0$bIU$1$F$/$l$^$;$s!#(B@code{skkdic-expr} $B$K$h$C$F@8@.$7$?<-=q$OI,$:(B
-@code{skkdic-sort} $B$K$h$k;v8e=hM}$,I,MW$G$9!#(B@xref{skkdic-sort}.
-
-$BNc$($P!"<!$N$h$&$K$7$^$9!#(B
-
-@example
-% skkdic-expr @var{jisyo1} + @var{jisyo2} - @var{jisyo3} > @var{result}
-@end example
-
-@noindent
-$B>e5-$NNc$G$O!"(B@var{jisyo1} $B$H(B @var{jisyo2} $B$K$"$k(B @var{jisyo1} $B$H=EJ#$7(B
-$B$J$$8uJd$r2C$(!"$=$N8e!"(B@var{jisyo3} $B$HF1$88uJd$,$"$l$P:o=|$7$^$9!#(B
-
-$B$^$?!"<!$N0z?t$,;HMQ$G$-$^$9!#$3$l$i$O0z?t$N<-=q$NA0$K;XDj$7$^$9!#(B
-
-@table @var
-@item -d
-
-$B:n6HMQ%G%#%l%/%H%j!#(B
-
-@item -o
-
-$B=PNO%U%!%$%k!#(B
-@end table
-
-$B0J2<$K$=$NB>$N;HMQNc$r$"$2$^$9!#(B
-
-@enumerate
-@item
-$BJ#?t$N<-=q$r(B@code{cat}$B$G$D$J$$$@$b$N$r@0M}$9$k!#(B
-
-@example
-% skkdic-expr @var{olddict1} > @var{newdict1}
-@end example
-
-@noindent
-$B$3$N$h$&$K;HMQ$9$k$H!"=EJ#$9$k8uJd$r:o=|$7$?$j!"F1$88+=P$78l$,JL!9$N9T$K(B
-$BJ#?tB8:_$7$F$$$F$b0l9T$N%(%s%H%j$K$^$H$a$^$9!#Nc$($P!"(B
-
-@example
-$B$8$7$g(B /$B<-=q(B/
-$B$8$7$g(B /$B<%=q(B/
-$B$8$7$g(B /$B;z=q(B/
-@end example
-
-@noindent
-$B$N$h$&$J<-=q$r(B
-
-@example
-$B$8$7$g(B /$B<-=q(B/$B<%=q(B/$B;z=q(B/
-@end example
-
-@noindent
-$B$H!"0l9T$K$^$H$a$k$3$H$,$G$-$^$9!#8uJd$,=PNO$5$l$k:]$NM%@h=g0L$OJB$S=g$K(B
-$B$J$j$^$9!#(B
-
-@item
-$B8D?M<-=q$H(B L $B<-=q$H$N:9J,$r<h$j=P$9!#(B
-
-@example
-% skkdic-expr ~/.skk-jisyo - SKK-JISYO.L > @var{private}
-@end example
-
-@noindent
-$B$3$N:9J,$r>-Mh$N(B SKK $B<-=q$KH?1G$5$;$kJ}K!$K$D$$$F$O(B
-@w{@ref{SKK$B<-=q$K$D$$$F(B}} $B$r;2>H$7$F$/$@$5$$!#(B
-
-@item
-2 $B$D$N<-=q$N6&DLItJ,$r<h$j=P$9!#(B
-
-@example
-@group
-% skkdic-expr @var{jisyo-a} - @var{jisyo-b} > @var{jisyo-tmp}
-% skkdic-expr @var{jisyo-a} - @var{jisyo-tmp} > @var{jisyo-common}
-@end group
-@end example
-@end enumerate
-
-@node skkdic-sort, skkdic-count, skkdic-expr, C$B$K$h$k%D!<%k(B
-@comment  node-name,  next,  previous,  up
-@subsection skkdic-sort
-@cindex @file{skkdic-sort}
-@cindex @file{skkdic-expr}
-
-$B%=!<%H$5$l$F$$$J$$<-=q$rDL>o$N(B SKK $B<-=q$N7A<0$K%=!<%H$7!"(B@*
-@w{@samp{;; okuri-ari entries.}} $B$H(B @w{@samp{;; okuri-nasi entries.}} $B$N(B
-$B3F9T$rE,@Z$J0LCV$KA^F~$7$^$9!#F~NO$OI8=`F~NO$N$_!"=PNO$OI8=`=PNO$N$_$,;X(B
-$BDj$G$-$^$9!#(B@code{skkdic-expr} $B$O%=!<%H$b$7$^$;$s$7!"(B@w{@samp{;; okuri-ari entries.}}
-$B$H(B @w{@samp{;; okuri-nasi entries.}} $B$N%?%0$b=PNO$7$F$/$l$^$;$s$N$G!"(B
-@code{skkdic-expr} $B$K$h$C$F@8@.$7$?<-=q$OI,$:;v8e$K(B @code{skkdic-sort}
-$B$r$+$1$kI,MW$,$"$j$^$9(B @footnote{$B0l;~E*$K;HMQ$9$k(B swap $B$r>.$5$/$9$k$?$a(B
-$B$K$"$($F(B @code{skkdic-expr} $B$H$OJL$N%W%m%0%i%`$H$7$F$"$j$^$9!#(B
-@xref{skkdic-expr}.}
-
-@example
-% skkdic-expr @var{jisyo-a} + @var{jisyo-b} | skkdic-sort > @var{newdict}
-@end example
-
-@node skkdic-count, skkdic-expr2, skkdic-sort, C$B$K$h$k%D!<%k(B
-@comment  node-name,  next,  previous,  up
-@subsection skkdic-count
-@cindex skkdic-count
-
-SKK $B<-=q$NCf$N8uJd?t$r?t$($^$9!#(B@samp{[} $B$H(B@samp{]} $B$G0O$^$l$?Aw$j2>L>Kh(B
-$B$N%V%m%C%/$b0l$D$N8uJd$H$7$F?t$($^$9!#(B
-
-@node skkdic-expr2,  , skkdic-count, C$B$K$h$k%D!<%k(B
-@comment  node-name,  next,  previous,  up
-@subsection skkdic-expr2
-@cindex skkdic-expr2
-
-@code{skkdic-expr2} $B$O!"(BSKK $B<-=q$N%f!<%F%#%j%F%#$G$9!#I8=`$N(B SKK $B<-=q(B
-$B%D!<%k$HF1Ey$N5!G=$r;}$A!"$h$j9bB.$K<B9T$5$l$^$9!#(B
-
-$B$^$?!"<-=q$N%"%N%F!<%7%g%s$KBP1~$7$F$*$j!"%"%N%F!<%7%g%s$,IU$1$i$l$F$$(B
-$B$F$b<-=q$N2C=|$r@5$7$/9T$&$3$H$,$G$-!"J#?t$N%"%N%F!<%7%g%s$r(B 1 $B$D$K%^!<(B
-$B%8$9$k$3$H$b$G$-$^$9!#(B@xref{$B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B)}.
-
-$B99$K(B @code{skkdic-expr2} $B$O%=!<%H$5$l$?7k2L$r=PNO$7$^$9!#(B
-$B=hM}7k2L$K$D$$$F(B @code{skkdic-sort} $B$r;H$&I,MW$O$"$j$^$;$s!#(B
-
-@menu
-* $B%3%s%Q%$%k(B&$B%$%s%9%H!<%k(B::     
-* $B%W%m%0%i%`$N@bL@(B::            
-@end menu
-
-@node  $B%3%s%Q%$%k(B&$B%$%s%9%H!<%k(B, $B%W%m%0%i%`$N@bL@(B, skkdic-expr2, skkdic-expr2
-@comment  node-name,  next,  previous,  up
-@subsubsection $B%3%s%Q%$%k(B&$B%$%s%9%H!<%k(B
-
-@code{skkdic-expr2} $B$O(B GLIB-2.0 $B$r;H$$$^$9$N$G!"$"$i$+$8$a%$%s%9%H!<%k(B
-$B$5$l$F$$$kI,MW$,$"$j$^$9!#$^$?!"(B@code{pkg-config} $B$,(B GLIB-2.0 $B$r@5$7$/(B
-$B8+IU$1$i$l$k;v$,A0Ds$G$9!#$&$^$/$$$+$J$$>l9g$O(B @code{PKG_CONFIG_PATH}
-$B$N@_Dj$r8+D>$7$F$/$@$5$$!#(B GLIB-2.0 $B$,8+IU$+$i$J$$>l9g$O(B
-@code{skkdic-expr2} $B$O%3%s%Q%$%k$5$l$^$;$s!#(B
-
-$B$=$NB>$N6qBNE*$J%3%s%Q%$%kJ}K!$O!"I8=`$N(B SKK $B<-=q%D!<%k$HF1$8$G$9!#(B
-GLIB-2.0 $B$,8+IU$+$C$F$$$k>l9g$O!"(B
-
-@example
-$ ./configure; make
-@end example
-
-@noindent
-$B$G!"(BSKK $B<-=q%D!<%k$H0l=o$K!"<+F0E*$K:n$i$l$^$9!#(B
-
-@node  $B%W%m%0%i%`$N@bL@(B,  , $B%3%s%Q%$%k(B&$B%$%s%9%H!<%k(B, skkdic-expr2
-@comment  node-name,  next,  previous,  up
-@subsubsection $B%W%m%0%i%`$N@bL@(B
-
-@code{skkdic-epxr2} $B$O!"J#?t$N(B SKK $B<-=q$r%^!<%8$7$?$j!":9J,$r$H$C$?$j!"(B
-$B6&DL$9$k8l$rH4$-=P$9;v$,$G$-$^$9!#(B@code{skkdic-expr2} $B$O%=!<%H$5$l$?7k(B
-$B2L$r=PNO$7$^$9!#(B@code{skkdic-sort} $B$r;H$&I,MW$O$"$j$^$;$s!#(B
-
-@code{skkdic-expr2} $B$N%3%^%s%I%i%$%s$N=q<0$O2<5-$NDL$j$G$9!#(B
-
-@display
-skkdic-expr2 [-o $B=PNO%U%!%$%k(B] $B<-=q%U%!%$%k(B [[+-^] $B<-=q%U%!%$%k(B]...
-@end display
-
-@samp{-o $B=PNO%U%!%$%k(B} $B$r;XDj$9$k$H!":n6H7k2L$rI8=`=PNO$K=P$9Be$o$j$K!"(B
-$B;XDj$5$l$?%U%!%$%k$K=q$-9~$_$^$9!#(B
-
-$B$^$?!"(B@code{skkdic-expr2} $B$G;H$&$3$H$N$G$-$k1i;;;R$O2<5-$NDL$j$G$9!#(B
-
-@table @samp
-@item +
-$BB3$/<-=q%U%!%$%k$NFbMF$r!"$3$l$^$G$N7k2L$K%^!<%8$7$^$9!#(B
-
-@item -
-$BB3$/<-=q%U%!%$%k$NFbMF$r!"$3$l$^$G$N7k2L$+$i0z$-$^$9!#(B
-
-@item ^
-$BB3$/<-=q%U%!%$%k$NFbMF$H!"$3$l$^$G$N7k2L$H$N6&DL=89g$r5a$a$^$9!#(B
-@samp{&}$B$G$O$J$/(B@samp{^}$B$G$"$k;v$KCm0U!#(B@samp{^} $B$rA*$s$@M}M3$O!"(Bcap
-$B$K>/$7$O;w$F$k$+$i$G$9!#(B
-@end table
-
-$B8=;~E@$G$O!"%f!<%6!<<-=q$K4^$^$l$k!"Aw$j2>L>$r4^$s$@%G!<%?(B(@samp{[]}$B$G(B
-$B3g$i$l$?$b$N(B)$B$O:o=|$5$l$^$9!#(B@code{skkdic-expr} $B$N%G%U%)%k%H$G$N5sF0(B
-(@samp{-O} $B$r;XDj$7$J$$(B)$B$HF1$8$G$9!#(B
-
-$BFs$D$N<-=q$r%^!<%8$9$k:]$K!"F1$88l$K0c$&%"%N%F!<%7%g%s$,IU$1$i$l$F$$$?(B
-$B>l9g$O!"Fs$D$N%"%N%F!<%7%g%s(B $B$r(B@samp{,} $B$G$D$J$$$G3JG<$7$^$9!#(B
-@xref{$B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B)}.
-
-$BNc(B1: @var{jisyo1} $B$H(B @var{jisyo2} $B$r%^!<%8$7$F!"(B@var{jisyo3} $B$NFbMF$r(B
-$B0z$$$F$+$i(B @var{newjisyo} $B$K3JG<(B
-@noindent
-
-@example
-$ skkdic-expr2 @var{jisyo1} + @var{jisyo2} - @var{jisyo3} > @var{newjisyo}
-@end example
-
-$BNc(B2: $B<+J,$N%f!<%6!<<-=q$K4^$^$l$k?75,EPO?8l(B (L$B<-=q$K4^$^$l$J$$8l(B) $B$N$&(B
-$B$A!"(Bwrong $B<-=q$KEPO?$5$l$?8uJd$r=PNO$9$k!#(B
-@noindent
-
-@example
-$ skkdic-expr2 ~/.skk-jisyo - SKK-JISYO.L ^ SKK-JISYO.wrong
-@end example
-
-@node Perl$B$K$h$k%D!<%k(B,  , C$B$K$h$k%D!<%k(B, $B<-=q%D!<%k(B
-@comment  node-name,  next,  previous,  up
-@section Perl$B$K$h$k%D!<%k(B
-@cindex adddummy
-@cindex codeconv.pl
-@cindex jis2sjis
-@cindex jis2ujis
-@cindex kana2roma
-@cindex kana2roma.pl
-@cindex list2skk
-@cindex pubdic2list
-@cindex removedummy
-@cindex roma2kana
-@cindex roma2kana.pl
-@cindex sjis2jis
-@cindex skk2list
-@cindex skkconv
-@cindex sub
-@cindex ujis2jis
-
-$B$3$l$O!"<-=q$r7k9g$7$?$j!"(Bpubdic $B<-=q$r(B SKK $B<-=q$N7A<0$KJQ49$7$?$j$9$k$?(B
-$B$a$N%D!<%k72$G$9!#(B
-
-SKK $B<-=q$O8+=P$78l$KBP1~$9$kJ#?t$N8uJd$,(B @samp{/} $B$G6h@Z$i$l$?9=B$$r$7$F(B
-$B$$$^$9$,!"$3$N%D!<%k$G$OFI$_$H8uJd$,(B 1 $BBP(B 1 $B$KBP1~$7$?7A<0(B
-@footnote{$B$3$l$r(B @samp{$B%j%9%H7A<0(B} $B$H8F$S$^$9!#(B}$B$N%U%!%$%k$rCf4V7A<0$H$7(B
-$B$F<h$j07$$$^$9!#(B
-
-Perl $B$K$h$k%D!<%k$K$O0J2<$N%W%m%0%i%`$,$"$j$^$9!#(B
-
-@table @file
-@item skk2list
-
-SKK $B<-=q$r%j%9%H7A<0$KJQ49$9$k!#(B
-
-@item pubdic2list
-
-pubdic $B<-=q$NL>;l%(%s%H%j$r%j%9%H7A<0$KJQ49$9$k!#(B
-
-@item list2skk
-
-$B%j%9%H7A<0$r(B SKK $B<-=q$KJQ49$9$k!#(B
-
-@item adddummy
-
-SKK $B<-=q%=!<%H$N$?$a$K%@%_!<J8;z$r2C$($k!#(B
-
-@item removedummy
-
-$B2C$($?%@%_!<<-=q$r<h$j=|$/!#(B
-
-@item sub
-
-2 $B$D$N%j%9%H7A<0$N<-=q$N:9J,$r7W;;$9$k!#(B
-
-@item skkconv
-
-$B4A;z8!:w%3%^%s%I!#(B
-@end table
-
-$BNc$($P!"4{B8$N(B SKK $B<-=q$H(B pubdic $B<-=q$r7k9g$7$F?7$7$$(B SKK $B<-=q$r:n@.$9$k(B
-$B$K$O<!$N$h$&$K$7$^$9!#(B
-
-@example
-@group
-% (skk2list skk-jisyo ; pubdic2list kihon.u) \@r{; $B%j%9%H7A<0$rO"7k(B}
-      | adddummy \@r{; $B%@%_!<J8;zDI2C(B}
-      | sort -u \@r{; $B%=!<%H(B}
-      | removedummy \@r{; $B%@%_!<J8;z:o=|(B}
-      | list2skk \@r{; SKK$B<-=q$KJQ49(B}
-      > skk-jisyo.new
-@end group
-@end example
-
-$B$3$l$i$N%D!<%k$G$OJ8;z%3!<%I$,(B EUC-JP $B$N<-=q$N$_<h$j07$$2DG=$G$9!#$=$l0J(B
-$B30$NJ8;z%3!<%I$N<-=q$r;H$&$H$-$O8e=R$N(B @code{jis2ujis} $B$J$I$N%3%^%s%I$r(B
-$BAH$_9g$o$;$^$9!#(B
-
-2 $B$D$N%j%9%H7A<0$N<-=q$N:9J,$r7W;;$9$k$K$O!"(B
-
-@example
-% sub $B5l%j%9%H(B $B?7%j%9%H(B
-@end example
-
-@noindent
-$B$H$7$^$9!#$?$@$7Hf3S$9$kFs$D$N%U%!%$%k$O$"$i$+$8$a%=!<%H$5$l$F$$$kI,MW$,(B
-$B$"$j$^$9!#(B
-
-@code{skkconv} $B$O<-=q%5!<%P$r;HMQ$7$F%3%^%s%I%i%$%s$G$+$J4A;zJQ49$9$k$?(B
-$B$a$N%3%^%s%I$G$9!#Nc$($P(B @samp{$B$+$s$8(B} $B$H$$$&FI$_$r$b$D4A;z$O0J2<$N$h$&(B
-$B$K8!:w$7$^$9!#(B
-
-@example
-@group
-% skkconv kanji
-$B4A;z(B
-$B44;v(B
-$B46$8(B
-......
-%
-@end group
-@end example
-
-$B$3$NB>$K0J2<$N(B Perl $B%i%$%V%i%j$H%3%^%s%I$,$"$j$^$9!#(B
-
-@table @file
-@item codeconv.pl
-
-JIS, EUC-JP, SJIS $BAj8_JQ49%i%$%V%i%j!#(B
-
-@item roma2kana.pl
-
-$B%m!<%^;z(B @expansion{} $BJ?2>L>JQ49%i%$%V%i%j!#(B
-
-@item kana2roma.pl
-
-$BJ?2>L>(B @expansion{} $B%m!<%^;zJQ49%i%$%V%i%j!#(B
-
-@item jis2sjis
-
-JIS @expansion{} SJIS $BJQ49%3%^%s%I!#(B
-
-@item sjis2jis
-
-SJIS @expansion{} JIS $BJQ49%3%^%s%I!#(B
-
-@item jis2ujis
-
-JIS @expansion{} EUC-JP $BJQ49%3%^%s%I!#(B
-
-@item ujis2jis
-EUC-JP @expansion{} JIS $BJQ49%3%^%s%I!#(B
-
-@item roma2kana
-$B%m!<%^;z(B @expansion{} $B$+$J(B (EUC-JP) $BJQ49%3%^%s%I!#(B
-
-@item kana2roma
-$B$+$J(B (EUC-JP) @expansion{} $B%m!<%^;zJQ49%3%^%s%I!#(B
+@item $B<-=q%a%s%F%J%s%9%D!<%k(B
+@url{http://openlab.ring.gr.jp/skk/wiki/wiki.cgi?page=%BC%AD%BD%F1%A5%E1%A5%F3%A5%C6%A5%CA%A5%F3%A5%B9%A5%C4%A1%BC%A5%EB}
 @end table
 
 @node $B5l%P!<%8%g%s$+$i$NJQ99E@(B, $B3HD%%"%$%G%#%"(B, $B<-=q%D!<%k(B, Top
@@ -7394,7 +6968,7 @@ Emacs 21 $B$H(B XEmacs $B$K$*$$$F!"%b!<%I9T$K%"%$%3%s$r@_CV$7$^$7$?!#(B
 
 $B$3$l0J30$K$bMWK>!"3HD%$N6qBNE*%"%$%G%#%"$,$"$l$P!"(B
 @email{skk@@ring.gr.jp} $B$KO"Mm$$$?$@$1$k$3$H$r4|BT$7$^$9!#(B
-@w{@xref{SKK Openlab $B%a!<%j%s%0%j%9%H(B}.}
+@w{@xref{SKK$B%a!<%j%s%0%j%9%H(B}.}
 
 @itemize @bullet
 @item
@@ -7444,6 +7018,7 @@ Shimbun $B%i%$%V%i%j$,(B luna $B$rMxMQ$7$F$$$^$9!#(BDDSKK $B$O(B Emacs $B
 @item
 Canna $B$d(B Wnn $B$N%5!<%P$H@\B3$7$F8!:w$,2DG=$K$J$k$h$&$K$9$k(B
 @footnote{Tamago 4 $B$G$O!"(BEmacs Lisp $B%Y!<%9$G%5!<%P$H@\B3$G$-$k!#(B
+
 @url{http://www.m17n.org/tamago/}}$B!#(B
 
 @item
@@ -7458,18 +7033,9 @@ Canna $B$d(B Wnn $B$N%5!<%P$H@\B3$7$F8!:w$,2DG=$K$J$k$h$&$K$9$k(B
 @comment  node-name,  next,  previous,  up
 @chapter SKK$B%a!<%j%s%0%j%9%H(B
 
-@menu
-* SKK Openlab $B%a!<%j%s%0%j%9%H(B::  @c * $B%f!<%6!<%a!<%j%s%0%j%9%H(B::
-@end menu
-
-@node SKK Openlab $B%a!<%j%s%0%j%9%H(B,  , SKK$B%a!<%j%s%0%j%9%H(B, SKK$B%a!<%j%s%0%j%9%H(B
-@comment  node-name,  next,  previous,  up
-@section SKK Openlab $B%a!<%j%s%0%j%9%H(B
-@cindex $B%a!<%j%s%0%j%9%H(B
-
 SKK Openlab $B%a!<%j%s%0%j%9%H$O!"E}0l$5$l$?0l$D$N(B ML $B$G$9!#MxMQ<TMQ!"3+H/(B
-$B<TMQ$J$I$HJ,$+$l$F$$$J$$B>!"(BSKK $B<-=q$d(B SKK $B<-=q%D!<%k$J$I4XO"$9$k(B
-product $B$N3+H/>pJs$b$3$3$G5DO@$5$l$^$9!#(B
+$B<TMQ$J$I$HJ,$+$l$F$$$J$$B>!"(BSKK $B<-=q!"(BDDSKK $B$N3+H/5DO@$,Cf?4$G$9$,!"(B SKK
+$B%5!<%P$d%U%m%s%H%(%s%I!"(B SKK $B<-=q%D!<%k$NOCBj$J$I$b5DO@$NHO0O$KF~$j$^$9!#(B
 
 @table @asis
 @item $B%a!<%j%s%0%j%9%H$K;22C$9$k>l9g(B
@@ -7491,512 +7057,62 @@ subscribe $B$7$F2<$5$$!#(B
 
 @item $B5-;v$NEj9F(B
 
-@email{skk@@ring.gr.jp} $B$XAw$j$^$9!#%a!<%j%s%0%j%9%H$KEPO?$5$l$F$$$k?MA40w$K(B
-$B%a!<%k$,G[?.$5$l$^$9!#(B
-@end table
+@email{skk@@ring.gr.jp} $B$XAw$j$^$9!#%a!<%j%s%0%j%9%H$KEPO?$5$l$F$$$k?MA4(B
+$B0w$K%a!<%k$,G[?.$5$l$^$9!#(B
 
-$B%K%e!<%9%5!<%P$K@\B3$7$F%a!<%j%s%0%j%9%H$N5-;v$rFI$`$3$H$,$G$-$^$9!#(BNNTP
-$B%/%i%$%"%s%H$G(B @samp{news.ring.gr.jp} $B$K@\B3$7$^$9!#%K%e!<%9%0%k!<%WL>$O!"(B
-@samp{ring.openlab.skk} $B$G$9!#(B
+@item $B2a5n%m%0$N1\Mw(B
+
+@url{http://mail.ring.gr.jp/skk}
+@url{news://news.ring.gr.jp/ring.openlab.skk}
+@end table
 
 @node DDSKK$B$NF~<jJ}K!(B, SKK$B4XO"%=%U%H%&%'%"(B, SKK$B%a!<%j%s%0%j%9%H(B, Top
 @comment  node-name,  next,  previous,  up
 @chapter DDSKK$B$NF~<jJ}K!(B
 
-@menu
-* WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B::   
-* FTP$B$rMxMQ$7$FF~<j$9$kJ}K!(B::   
-* CVS$B$K$h$kF~<jJ}K!(B::           
-@end menu
-
-@node WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B, FTP$B$rMxMQ$7$FF~<j$9$kJ}K!(B, DDSKK$B$NF~<jJ}K!(B, DDSKK$B$NF~<jJ}K!(B
-@comment  node-name,  next,  previous,  up
-@section WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B
-
-SKK Openlab $B$N%[!<%`%Z!<%8$G$O!"(BDDSKK $B$N:G?7HG$rG[I[$9$k$?$a$N%Z!<%8$r@_$1(B
-$B$F$$$^$9!#(B
+SKK Openlab $B$N%[!<%`%Z!<%8$G$O!"(BDDSKK $B$N:G?7HG$rG[I[$9$k$?$a$N%Z!<%8$r@_(B
+$B$1$F$$$^$9!#(B
 
 @table @asis
-@item $BF|K\8lHG(BURL
+@item $BF|K\8l(B URL
 
 @url{http://openlab.ring.gr.jp/skk/main-ja.html}
 
-@item $B1Q8lHG(BURL
+@item $B1Q8l(B URL
 
 @url{http://openlab.ring.gr.jp/skk/main.html}
-
 @end table
-
-$B$^$?!"(B@url{http://www.ring.gr.jp/archives/text/elisp/skk/} $B$K(B mirror
-$B$5$l$F$$$^$9!#(B
-
-@node FTP$B$rMxMQ$7$FF~<j$9$kJ}K!(B, CVS$B$K$h$kF~<jJ}K!(B, WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B, DDSKK$B$NF~<jJ}K!(B
-@comment  node-name,  next,  previous,  up
-@section FTP$B$rMxMQ$7$FF~<j$9$kJ}K!(B
-
-@url{ftp://ftp.ring.gr.jp/pub/text/elisp/skk/} $B$+$iF~<j$G$-$^$9!#(B
-
-@node CVS$B$K$h$kF~<jJ}K!(B,  , FTP$B$rMxMQ$7$FF~<j$9$kJ}K!(B, DDSKK$B$NF~<jJ}K!(B
-@comment  node-name,  next,  previous,  up
-@section CVS$B$K$h$kF~<jJ}K!(B
 
 DDSKK $B$N3+H/$O!"(B@uref{http://openlab.ring.gr.jp, Ring Server Open
 Laboratory} $B$K;22C$9$k7A$G9T$o$l$F$$$^$9!#$=$7$F$=$N3+H/$K$O(B CVS $B$,MQ$$(B
-$B$i$l$F$$$^$9!#(B
+$B$i$l$F$$$^$9!#(BCVS $B$NMxMQ$N$7$+$?$H3+H/$NJ}K!$K$D$$$F$O0J2<$r;2>H$7$F$/$@(B
+$B$5$$!#(B
 
-CVS $B$rMxMQ$9$l$P!"(BSKK Openlab $B$N%[!<%`%Z!<%8$K$F8x3+$5$l$F$$$k$b$N$h$j$b(B
-$B?7$7$$3+H/HG$N(B DDSKK $B$rF~<j$G$-$^$9!#$3$3$G$O$^$:!"(BCVS $B$NF~<j$H%$%s%9%H!<(B
-$B%k$K$D$$$F@bL@$7!"<!$K(B CVS $B$r;H$C$F(B DDSKK $B$r<hF@$9$kJ}K!$r=R$Y$^$9!#(B
+@table @asis
+@item $BF|K\8l(B URL
 
-@menu
-* CVS$B$NF~<j@h(B::                 
-* CVS$B$K$h$k(BDDSKK$B$N<hF@(B::        
-@end menu
+@url{http://openlab.ring.gr.jp/skk/cvs-ja.html}
 
-@node CVS$B$NF~<j@h(B, CVS$B$K$h$k(BDDSKK$B$N<hF@(B, CVS$B$K$h$kF~<jJ}K!(B, CVS$B$K$h$kF~<jJ}K!(B
-@comment  node-name,  next,  previous,  up
-@subsection CVS$B$NF~<j@h(B
+@item $B1Q8l(B URL
 
-CVS $B$O(B $B0J2<$N%5%$%H$GG[I[$5$l$F$$$^$9!#(B
-
-@display
-@url{ftp://ftp.cvshome.org/pub/}
-@end display
-
-$B$^$?!">/$799?7$,CY$l5$L#$N$h$&$G$9$,!"(B GNU $B$N%_%i!<%5%$%H$+$i$bF~<j$G$-(B
-$B$^$9!#%^%9%?!<%5%$%H$O(B
-
-@display
-@url{ftp://ftp.gnu.org/gnu/non-gnu/cvs/}
-@end display
-
-$B$G$9$,!"F|K\$+$iF~<j$9$k>l9g$O(B
-
-@display
-@url{ftp://ftp.ring.gr.jp/pub/GNU/non-gnu/cvs/}
-@url{ftp://ftp.win.ne.jp/pub/GNU/non-gnu/cvs/}
-@url{ftp://ftp.iij.ad.jp/pub/GNU/non-gnu/cvs/}
-@url{ftp://ftp.tokyonet.ad.jp/pub/GNU/non-gnu/cvs/}
-@end display
-
-@noindent
-$BEy$NF|K\$N%5%$%H$rMxMQ$7$^$9!#>e5-$O0BDj$7$?@5<0%j%j!<%9HG$G$9$,!":G?7$N(B
-$B3+H/HG$rMxMQ$7$?$$?M$O(B
-
-@display
-@url{http://www.cvshome.org/dev/source.html}
-@end display
-
-@noindent
-$B$r$4Mw$/$@$5$$!#(B
-
-@c  $B$^$?!"(BWindows $B$N(B binary $B$,M_$7$$J}$O!"(B
-@c
-@c  @url{ftp://ftp.cvshome.org/pub/cvs-1.10/windows/cvs-1.10-win.zip}
-@c
-@c  $B$K@5<0HG(B cvs-1.10 $B$N%P%$%J%j!<$,!"(B
-@c
-@c  @url{ftp://ftp.cvshome.org/pub/cvs-1.10.5/windows/cvs.exe}
-@c
-@c  $B$K3+H/HG(B cvs-1.10.5 $B$N%P%$%J%j!<$,CV$+$l$F$$$^$9!#$^$?!"(BMac $BMQ(B CVS $B$O(B
-@c
-@c  @url{http://www.maccvs.org/}
-@c
-@c  $B$+$iF~<j2DG=$G$9!#(B
-@c
-CVS $B$K4X$9$k>pJs$O(B
-
-@display
-@url{http://www.loria.fr/~molli/cvs-index.html}
-@url{http://www.cvshome.org/}
-@url{http://www.race.u-tokyo.ac.jp/~moro/cvs/}
-@url{http://www.itojun.org/hack/cvs/tut-kernel.html}
-@url{http://www-vox.dj.kit.ac.jp/nishi/cvs/}
-@url{http://duff.kuicr.kyoto-u.ac.jp/~okuji/gnujdoc.html}
-@end display
-
-@noindent
-$B$J$I$+$iF@$i$l$^$9!#(B
-
-@node CVS$B$K$h$k(BDDSKK$B$N<hF@(B,  , CVS$B$NF~<j@h(B, CVS$B$K$h$kF~<jJ}K!(B
-@comment  node-name,  next,  previous,  up
-@subsection CVS$B$K$h$k(BDDSKK$B$N<hF@(B
-
-@code{cvs} $B%3%^%s%I$G(B DDSKK $B$r<hF@$9$k>l9g!"!V%m%0%$%s!W$H!V%A%'%C%/%"%&(B
-$B%H!W$N(B 2 $B$D$NA`:n$,I,MW$K$J$j$^$9!#(B
-
-$B$^$:(B guest $B%"%+%&%s%H$G(B openlab.ring.gr.jp $B$N(B CVS server $B$K!V%m%0%$%s!W(B
-$B$7$^$9!#(B
-
-@example
-$ cvs -d :pserver:guest@@openlab.ring.gr.jp:/circus/cvsroot login
-@end example
-
-@noindent
-$B%W%m%s%W%H$,=P$k$N$G!"%Q%9%o!<%I$K(B @samp{guest} $B$rF~$l!"(B@key{CR} $B$7$^$9!#(B
-
-@example
-CVS password: guest (CR)
-@end example
-
-@noindent
-@file{~/.cvspass} $B$H$$$&%U%!%$%k$K(B password $B$,5-O?$5$l!"<!$+$i$OL@<(E*$J(B
-$B%m%0%$%s(B $B$OITMW$K$J$j$^$9!#(B
-
-$B<!$K!V%A%'%C%/%"%&%H!W(B $B$7$F(B CVS server $B$+$i%=!<%9$r$b$i$C$F$-$^$9(B ($B$3$N(B
-$B%U%!%$%k$r%o!<%-%s%0%3%T!<$H$$$$$^$9(B)$B!#(B
-
-@example
-$ cvs -d :pserver:guest@@openlab.ring.gr.jp:/circus/cvsroot checkout skk/main
-@end example
-
-@noindent
-$B$3$l$G(B @file{skk/main} $B$H$$$&%G%#%l%/%H%j$K%o!<%-%s%0%3%T!<$,:n$i$l$^$9!#(B
-
-$BF1MM$NA`:n$G!"(B@file{skk/main} $B$r(B @file{skk/tools} $B$KJQ99$9$k$H(B
-
-@example
-$ cvs -d :pserver:guest@@openlab.ring.gr.jp:/circus/cvsroot checkout skk/tools
-@end example
-
-@noindent
-$B<-=q%D!<%k$,!"(B@file{skk/dic} $B$H$9$k$H<-=q$N%o!<%-%s%0%3%T!<$,:n$i$l$^$9!#(B
+@url{http://openlab.ring.gr.jp/skk/cvs.html}
+@end table
 
 @node SKK$B4XO"%=%U%H%&%'%"(B, $B:G?7>pJs$J$I(B, DDSKK$B$NF~<jJ}K!(B, Top
 @comment  node-name,  next,  previous,  up
 @chapter SKK$B4XO"%=%U%H%&%'%"(B
-@cindex kakasi
-@cindex skkfep
-@cindex skkinput
 
-@menu
-* dbskkd-cdb::                  
-* skkinput::                    X$B>e$N(BSKK$BF~NO%W%m%0%i%`(B
-* SKKIME::                      skkinput for Microsoft Windows
-* skkfep$BFbB"(Bjvim::              
-* KAKASI::                      $B5U0z%W%m%0%i%`(B
-* skkfep::                      SKK$B%/%m!<%s(BFEP
-* SKK on Jed::                  Jed$B$GF0$/(BSKK
-@end menu
-
-@node dbskkd-cdb, skkinput, SKK$B4XO"%=%U%H%&%'%"(B, SKK$B4XO"%=%U%H%&%'%"(B
-@comment  node-name,  next,  previous,  up
-@section dbskkd-cdb
-@cindex dbskkd-cdb
-@cindex cdb
-
-$BK\@a$O!"(Bdbskkd-cdb $B$N3+H/<T$G$"$kNOIp7r<!;a$K$h$j=q$+$l$?$b$N$r85$K<c43(B
-$BJQ99$7$F$$$^$9!#(B
+SKK $B4XO"%=%U%H%&%'%"$K4X$7$F$O!"0J2<$N(B URL $B$K%j%s%/$r$^$H$a$F$"$j$^$9$N(B
+$B$G;2>H$7$F$/$@$5$$!#(B
 
 @table @asis
-@item $B@5<0L>>N(B
-dbskkd-cdb
 
-@item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
+@item SKK $B4XO"%j%s%/(B
+@url{http://openlab.ring.gr.jp/skk/links-ja.html}
 
-SKK $BMQ$N%7%9%F%`<-=q%5!<%P!#(B
-
-@item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
-
-Linux, FreeBSD, Solaris 2.6 $B>e$G$NF0:n$r3NG'$7$F$$$k!#8=>u$G$O!";HMQ$9$k(B
-SKK $B6&M-<-=q$HHf$Y!"(Bcdb $B7A<0$N<-=q$N%5%$%:$O(B 2 $BG\<e$K$J$k!#%;%-%e%j%F%#(B
-$B8~>e$N$?$a!"(B@code{inetd} $B$+$i(B @code{tcp_wrapper} $B$J$I$r7PM3$7$F5/F0$9$k(B
-$B$3$H$rA0Ds$H$9$k!#(BDaniel J. Bernstein $B;a$N3+H/$7$?F1MM$N%=%U%H%&%'%"(B
-ucspi-tcp $B$N;HMQ$r?d>)$9$k!#9bB.2=$N$?$a!"(BDaniel J. Bernstein $B;a$N3+H/$7(B
-$B$?8GDj%G!<%?%Y!<%9MQ%i%$%V%i%j(B cdb $B$r;H$C$F$$$k$N$G(B cdb $B$N%$%s%9%H!<%k$,(B
-$BI,MW!#(B
-
-@item $B:G?7%P!<%8%g%s!"(Brelease $B$NF|IU(B
-
-1.01, 1999 $BG/(B 9 $B7n(B 28 $BF|(B
-
-@item $B3+H/<T(B
-
-$BNOIp(B $B7r<!(B @w{@email{kenji.rikitake@@acm.org}}
-
-@item $BG[I[>r7o(B
-
-GNU GPL (General Public License) $B$K=`5r!#(B
-
-@item $BF~<jJ}K!(B
-
-$B0l<!G[I[@h$O(B
-
-@display
-@url{http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html}
-@end display
-
-@noindent
-$B$+$i;2>H$G$-$k!#(B
-
-@item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
-
-@w{@samp{kenji-dbskkd-cdb@@k2r.org}}
-
-@item $B$=$NB>(B
-
-$B$5$^$6$^$J(B UNIX $B7O(B OS $B$N>e$G$NF0:n%l%]!<%H$r4uK>$7$F$$$^$9!#(B
+@item SKK $B<-=q(B Wiki $B$K$*$1$k%j%s%/=8(B
+@url{http://openlab.jp/skk/wiki/wiki.cgi?page=%A5%EA%A5%F3%A5%AF%BD%B8}
 @end table
-
-@node skkinput, SKKIME, dbskkd-cdb, SKK$B4XO"%=%U%H%&%'%"(B
-@comment  node-name,  next,  previous,  up
-@section skkinput
-@cindex @file{skkinput}
-
-@table @asis
-@item $B@5<0L>>N(B
-
-skkinput
-
-@item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
-
-skkinput $B$O!"(Bkinput protocol/kinput2 protocol/Ximp Protocol/X Input
-Method(X11R6$BI8=`(B)$B$rMQ$$$?(B X Window System $B>e$GF0:n$9$kF|K\8lF~NO$N$?$a$N(B
-$B%"%W%j%1!<%7%g%s$G$9!#(B
-
-@item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
-
-UNIX + X11R6
-
-@item $B:G?7%P!<%8%g%s(B, release $B$NF|IU(B
-
-@display
-skkinput 2 $B!D(B 2.06.3 ($B0BDjHG(B)
-skkinput 3 $B!D(B 3.0.6
-@end display
-
-@item $B3+H/<T(B
-
-$B:eK\(B $B?r(B (@w{@samp{sakamoto@@yajima.kuis.kyoto-u.ac.jp}},
-@*@w{@samp{PXG01715@@nifty.ne.jp}})
-
-Fumitoshi UKAI (@w{@email{ukai@@debian.or.jp}})
-
-@item $BG[I[>r7o(B
-
-GNU GPL
-
-@item $BF~<jJ}K!(B
-
-@smallexample
-@w{@url{http://sourceforge.jp/projects/skkinput2/}}
-@w{@url{http://sourceforge.jp/projects/skkinput3/}}
-@end smallexample
-
-@noindent
-$B$+$iF~<j$G$-$^$9!#(B
-
-@item bug report$B!"<ALd$N$?$a$N%"%I%l%9(B
-
-@email{PXG01715@@nifty.ne.jp} $B$b$7$/$O(B
-@w{@email{sakamoto@@yajima.kuis.kyoto-u.ac.jp}} $B$^$G8f4j$$CW$7$^$9!#(B
-
-@end table
-
-@node SKKIME, skkfep$BFbB"(Bjvim, skkinput, SKK$B4XO"%=%U%H%&%'%"(B
-@comment  node-name,  next,  previous,  up
-@section SKKIME
-@cindex SKKIME
-
-Windows 95, 98, NT, 2000, XP $B$GF0$/(B SKK like $B$J(B Input Method $B$G$9!#(B
-
-@table @asis
-@item  $B3+H/<T(B
-skkinput $B$HF1$8$/(B $B:eK\?r;a(B
-
-@item $BF~<j@h(B
-
-@w{@url{http://www.tatari-sakamoto.jp/~tatari/skkime.jis.html}}
-@end table
-
-@node skkfep$BFbB"(Bjvim, KAKASI, SKKIME, SKK$B4XO"%=%U%H%&%'%"(B
-@comment  node-name,  next,  previous,  up
-@section skkfep$BFbB"(Bjvim
-@cindex skkfep
-@cindex jvim
-
-$BK\@a$O!"(Bskkfep $BFbB"(B jvim $B$N3+H/<T$G$"$kLZ861Q?M;a$K$h$j=q$+$l$^$7$?!#(B
-
-@table @asis
-@item $B@5<0L>>N(B
-
-skkfep $BFbB"(B jvim
-
-@item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
-
-jvim (vi $B%/%m!<%s$N%(%G%#%?(B vim $B$rF|K\8l2=$7$?$b$N(B) $B$K(B skkfep $B$rAH$_9~$s(B
-$B$@$b$N$G$9!#(Bvi $B7O$N%(%G%#%?$G(B SKK $BIw$NF|K\8lF~NO$,$G$-$^$9!#(B
-
-@item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
-
-UNIX, Windows 95/98/NT, DOS
-
-@item $B:G?7%P!<%8%g%s!"(Brelease $B$NF|IU(B
-
-jvim, skkfep, ari $B$=$l$>$l$KBP$9$k%Q%C%A$H$7$FDs6!$7$F$$$^$9!#(B
-@w{jvim3.0-j1.7-skk1.2.8.patch} 1999/8/30,
-@w{skkfep0.86c-kh1.2.6.patch}, 1999/9/28,
-@w{ari1.00a-kh1.2.1.patch} 1999/1/29
-
-@item $B3+H/<T(B
-$BLZ86(B $B1Q?M(B
-
-@item $BG[I[>r7o(B
-
-skkfep, jvim, ari $B$=$l$>$l$KBP$9$k%Q%C%A$H$7$FDs6!$7$F$$$k$N$G!"$=$l$>$l(B
-$B$NG[I[>r7o$K=>$$$^$9!#(B
-
-@item $BF~<jJ}K!(B
-
-@w{@url{http://hiroshima.cool.ne.jp/deton/jvim-skk/}}
-
-@item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
-
-@w{@samp{deton@@m1.interq.or.jp}}
-@end table
-
-@node KAKASI, skkfep, skkfep$BFbB"(Bjvim, SKK$B4XO"%=%U%H%&%'%"(B
-@comment  node-name,  next,  previous,  up
-@section KAKASI
-@cindex Kanji Kana Simple Inverter
-
-KAKASI $B$H$O!"9b66M5?.;a(B @w{@email{takahasi@@tiny.or.jp}} $B$K$h$k!V4A;z$+(B
-$B$J$^$8$jJ8$r$R$i$,$JJ8$d%m!<%^;zJ8$KJQ49$9$k$3$H$rL\E*$H$7$F:n@.$7$?%W%m(B
-$B%0%i%`$H<-=q$NAm>N!W$G$9!#(B
-
-KAKASI$B$O!"(BKanji Kana Simple Inverter $B$K$A$J$s$G!"$^$?(B SKK $B$N5U8@MU$H$7$F(B
-$BL>IU$1$i$l$^$7$?!#(BKAKASI $B$O8=:_!"(BNamazu $B$N%5%$%H(B
-
-@display
-@url{http://www.namazu.org/}
-@end display
-
-@noindent
-$B$K$F3+H/$,7QB3$5$l$F$$$^$9!#(B
-
-@table @asis
-@item $BF~<jJ}K!(B
-
-@w{@url{http://kakasi.namazu.org/}}
-@end table
-
-@node skkfep, SKK on Jed, KAKASI, SKK$B4XO"%=%U%H%&%'%"(B
-@comment  node-name,  next,  previous,  up
-@section skkfep
-@cindex skkfep
-
-skkfep $B$O!"0KF#>4B'!"EOJU2m=S!"6b;RM5$N3F;a$K$h$k!"(BSKK $B$H;w$?F~NOJ}<0$N(B
-$B4A;zF~NO%U%m%s%H%(%s%I%W%m%;%C%5$G$9!#(B
-
-$B8=:_%5%]!<%H$5$l$F$$$k(B OS $B$O!"0J2<$NDL$j$G$9!#(B
-@display
-SunOS 4.x, AIX3.x, Linux, 386BSD, AIX/ESA, DOMAIN-IX SR9.x, HP-UX 8.x,
-SEIUX 3.x, EWS-UX/V Rel4.0, NEWS-OS 4.x, NEWS-OS 3.3
-@end display
-
-@node SKK on Jed,  , skkfep, SKK$B4XO"%=%U%H%&%'%"(B
-@comment  node-name,  next,  previous,  up
-@section SKK on Jed
-@cindex Jed
-@cindex S-Lang
-
-$BK\@a$O!"(BSKK on Jed$B$N3+H/<T$G$"$kK-J!?F?.;a$K$h$j=q$+$l$^$7$?!#(B
-
-@table @asis
-@item $B@5<0L>>N(B
-SKK on Jed
-
-@item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
-Jed (Emacs $B7O$N7Z$$%(%G%#%?!#(BC $B8@8lIw$N3HD%8@8l(B S-Lang $B$r;}$D(B) $B$K0\?"$5(B
-$B$l$?(B SKK $B$G$9!#(B
-
-@item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
-$BF|K\8lHG(B Jed $B$,F0$$$F$$$l$P$=$N>e$GF0$-$^$9!#8=:_!"B?$/$N(B UNIX$B!"(BMSDOS$B!"(B
-Win95/NT$B!"(BOS2 $B>e$GF|K\8lHG(B Jed $B$OF0$$$F$$$^$9!#(B
-
-@item $B:G?7%P!<%8%g%s!"(Brelease $B$NF|IU(B
-version 0.1.1 (1996 $BG/(B 12 $B7n(B 15 $BF|(B)
-
-@item $B3+H/<T(B
-$BK-J!(B $B?F?.(B
-
-@item $BG[I[>r7o(B
-SKK $B$HF1$8$G$9!#(B
-
-@item $BF~<jJ}K!(B
-
-@table @asis
-@item $B%a!<%k$K$h$kF~<jJ}K!(B
-@email{unbound@@papaya.juice.or.jp} $B$K%a!<%k$GO"Mm$7$F2<$5$$!#(B
-
-@item WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B
-WWW $B%/%i%$%"%s%H$rMxMQ$7$F(B
-
-@w{@url{http://www.juice.or.jp/~toyofuku/jed.html}}
-
-$B$+$iF~<j$G$-$^$9!#(B
-@end table
-
-@item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
-@w{@email{unbound@@papaya.juice.or.jp}}
-
-@item $B$=$NB>(B
-$B$^$@$$$/$D$+L$<BAu5!G=$,$"$j$^$9$,(B SKK $B$NA45!G=<BAu$rL\;X$7$F$$$^$9!#(B
-@end table
-
-@c @node SKK95,  , SKKIME, SKK$B4XO"%=%U%H%&%'%"(B
-@c @comment  node-name,  next,  previous,  up
-@c @section SKK95
-@c @cindex SKK95
-@c
-@c @c @table @asis
-@c @c @item $B@5<0L>>N(B
-@c @c @item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
-@c @c @item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
-@c @c @item $B:G?7%P!<%8%g%s!"(Brelease $B$NF|IU(B
-@c @c @item $B3+H/<T(B
-@c @c @item $BG[I[>r7o(B
-@c @c @item $BF~<jJ}K!(B
-@c @c @item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
-@c @c @item $B$=$NB>(B
-@c @c @end table
-@c
-@c $BK\@a$O!"5~Bg%^%$%3%s%/%i%V@n:j?J0lO:;a$K$h$C$F=q$+$l$^$7$?!#(B
-@c
-@c @table @asis
-@c @item $B@5<0L>>N(B
-@c SKK95
-@c
-@c @item $B$I$N$h$&$J%=%U%H%&%'%"$+(B
-@c Windows95, WindowsNT, Windows98 $B>e$G(B SKK $B%i%$%/$J$+$J4A;zF~NO$r<B8=$9$k(B
-@c IME$B!#(B
-@c
-@c @item $B;HMQ$9$k$?$a$KMW5a$5$l$k4D6-(B
-@c $B>e5-$N(B OS ($B$b$A$m$sF|K\8lHG(B)$B!#(B
-@c
-@c @item $B:G?7%P!<%8%g%s!"(Brelease $B$NF|IU(B
-@c $B:G?7%P!<%8%g%s(B $B&A(B13$B!#(B1999 $BG/(B 6 $B7n(B 9 $BF|!#(B
-@c
-@c @item $B3+H/<T(B
-@c $B5~Bg%^%$%3%s%/%i%V(B
-@c
-@c @item $BG[I[>r7o(B
-@c SKK95 $B$O%U%j!<%&%'%"$G$9!#>&6HL\E*0J30$NL\E*$N$?$a$J$i$P<+M3$K%3%T!<$7$F(B
-@c $B$$$?$@$$$F9=$$$^$;$s!#(BSKK95 $B$r;HMQ$7$?$3$H$K$h$k$$$+$J$kHo32$KBP$7$F$b!"(B
-@c SKK95 $B$N:n<T$O@UG$$rIi$$$^$;$s!#(B
-@c
-@c @item $BF~<jJ}K!(B
-@c $B2<5-$N%&%'%C%V%Z!<%8$+$iF~<j$7$F2<$5$$!#(B
-@c
-@c @w{@url{http://www.kmc.gr.jp/proj/skk95/}}
-@c
-@c @item bug report,$B<ALd$N$?$a$N%"%I%l%9(B
-@c @w{@email{skk95-bugs@@kmc.kyoto-u.ac.jp}}
-@c
-@c @item $B$=$NB>(B
-@c 1999 $BG/(B 9 $B7n8=:_!"(BSKK95 $B$O&A%P!<%8%g%s$G$"$j!"F0:n$,0BDj$7$F$$$J$$$H$3$m(B
-@c $B$b$"$j$^$9!#(BWindowsNT $B$G$OHf3SE*0BDj$7$FF0:n$9$k$h$&$G$9!#(B
-@c @end table
 
 @node $B:G?7>pJs$J$I(B, SKK$B$NNr;K(B, SKK$B4XO"%=%U%H%&%'%"(B, Top
 @comment  node-name,  next,  previous,  up
@@ -8026,9 +7142,12 @@ SKK Openlab $B$G$O!"3+H/<T!"J8>O$N@0Hw$K$46(NO$$$?$@$1$kJ}!"%F%9%?!<!"$h$m(B
 @w{@xref{SKK Openlab $B%a!<%j%s%0%j%9%H(B}.}
 
 $B$^$?!"(BSKK $B$N3+H/$O!"(B CVS $B$K$h$C$F$J$5$l$F$$$^$9!#(BCVS $B$r;H$C$F:G?7$N(B SKK
-$B$r<hF@$9$k>l9g!"(BCVS account $B$r<hF@$7$F3+H/$K;22C$5$l$k>l9g$O!"IUB0$N(B
-@c XXX
-@file{READMEs/CVS_digest} $B%U%!%$%k$r;2>H$7$F2<$5$$!#(B
+$B$r<hF@$9$k>l9g!"(BCVS account $B$r<hF@$7$F3+H/$K;22C$5$l$k>l9g$O!"0J2<$r;2>H(B
+$B$7$F$/$@$5$$!#(B
+
+@display
+@url{http://openlab.ring.gr.jp/skk/cvs-ja.html}
+@end display
 
 @node $B<U<-(B, SKK$B<-=q$K$D$$$F(B, $B:G?7>pJs(B, $B:G?7>pJs$J$I(B
 @comment  node-name,  next,  previous,  up
@@ -8186,137 +7305,21 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @comment      node-name, next,       previous, up
 @chapter SKK$B$NNr;K(B
 
-@display
-1987$BG/(B 7$B7n:"(B                       1987$BG/(B 6$B7n(B12$BF|(B
+SKK $B$N@.$jN)$A$HNr;K$K4X$7$F$O0J2<$N(B URL $B$r;2>H$7$F$/$@$5$$!%(B
 
- $B:4F#2mI';a$,(B SKK $B$N3+H/$K(B          Nemacs 1.1 (Emacs 18.47)
- $BCe<j(B
+@table @asis
+@item SKK $B$NCB@8HkOC(B
 
-1988$BG/(B 4$B7n(B22$BF|(B                     1988$BG/(B 6$B7n(B15$BF|(B
+@url{http://openlab.ring.gr.jp/skk/born-ja.html}
 
- SKK 1.13 $B%j%j!<%9(B                  Nemacs 2.1
+@item ``SKK = I''
 
-1989$BG/(B 4$B7n(B15$BF|(B                     1989$BG/(B 6$B7n(B14$BF|(B
+@url{http://openlab.ring.gr.jp/skk/SKK.html}
 
- SKK 2.25                           Nemacs 3.1
+@item SKK $B$NNr;K(B ($BIU(B Emacs $B$NNr;K$N0lIt(B)
 
-1990$BG/(B 4$B7n:"(B
-
- $BElKLBg3X$K$*$$$F(B SKK $B%a!<%j(B
- $B%s%0%j%9%H3+@_(B
-
-1990$BG/(B 4$B7n(B29$BF|(B                     1990$BG/(B 6$B7n(B 6$BF|(B
-
- SKK 3.47                           Nemacs 3.3.2 (Emacs 18.55)
-                                    SKK 2.25 $B$r<}O?(B
-                                    ($B@$4V$G$O(B 3.47 $B$H8@$o$l$F$$$k(B
-1991$BG/(B 4$B7n:"(B                         $B$,!"4N?4$N(B Nemacs $B$rE83+$9$k(B
-                                     $B$H(B 2.25 $B$7$+8+Ev$?$i$J$$(B)
- $B;(;o!V(Bbit$B!W$,(B 1991$BG/(B4$B7n9f$K(B
- $B:4F#;a$N(B SKK $B$K4X$9$k5-;v$r(B
- $B7G:\(B
-
-1991$BG/(B 5$B7n(B 9$BF|(B                     1991$BG/(B12$B7n(B12$BF|(B (?)
-
- SKK 4.33                           Demacs 1.2.0 (Emacs 18.55)
-
-1992$BG/(B 5$B7n(B 9$BF|(B                     1992$BG/(B 3$B7n(B 4$BF|(B
-
- SKK 5.30                           Mule 0.9.0 Beta
- $B$3$N$3$m$+$i(B Mule $BBP1~$,(B
- $B?J$a$i$l$k(B
-
-1993$BG/(B 4$B7n(B 24$BF|(B
-                                   1994$BG/(B 2$B7n(B 8$BF|(B
- SKK 6.32
-                                    Mule 1.1 (Emacs 18.59)
-1994$BG/(B 6$B7n(B 7$BF|(B
-                                   1994$BG/(B 8$B7n(B 6$BF|(B
- SKK 7.18
-                                    Mule 2.0 (Emacs 19.25)
-                                    Emacs 19 $B$K$J$j(B GUI $B$,?J2=(B
-1995$BG/(B 5$B7n(B17$BF|(B
-                                   1995$BG/(B 7$B7n(B24$BF|(B
- SKK 8.6
- Emacs 19 $B$KBP1~$7$?(B                Mule 2.3 (Emacs 19.28)
- i-search $B5!G=$rEk:\(B
-
- $B:4F#;a$H$H$b$K(B                    1996$BG/(B 8$B7n(B (?)
- $B3+H/$N>l$,5~Bg$K0\F0(B
-                                    Mule 2.3 (Emacs 19.34) $BHs8x<0HG(B
-
-                                    $B$3$N$3$m(B FSF, XEmacs $B$H$b(B
-                                    Mule $B$NE}9g$,9T$o$l$?(B
-
-1997$BG/(B 2$B7n(B 7$BF|(B                     1997$BG/(B 2$B7n(B 9$BF|(B
-
- SKK 9.6                            XEmacs 20.0
- face $B$rMxMQ$7$?%+%i%U%k$J(BUI
- $B$O(B SKK $B$N%$%a!<%8$rJQ$($?(B
-
-1997$BG/(B 2$B7n:"(B
-
- SKK 10 $B$N3+H/$,;O$^$k(B             1997$BG/(B 9$B7n(B14$BF|(B
- $B$$$o$f$k!VHs8x<0!W;~Be(B
-                                    Emacs 20.1 (MULE 3.0)
- Mule, Emacs, XEmacs $B$J$I(B           SKK 9.6 $B$,$=$N$^$^$G$OF0$+$J$+$C(B
- $BB?MM$J4D6-$GF0:n$9$k$3$H(B           $B$?(B
- $B$,5a$a$i$l$k$h$&$K$J$k(B
-                                   1998$BG/(B 2$B7n(B23$BF|(B
-1998$BG/(B 3$B7n(B 1$BF|(B
-                                    XEmacs 20.4
- SKK 10.39                          SKK 10.38 $B$rF1:-(B
-
-                                    Mule $B$r%5%]!<%H$7$?(B XEmacs $B$K(B
-                                    $B%f!<%6$,N.$l;O$a$k(B
-1998$BG/(B 7$B7n(B27$BF|(B
-                                   1998$BG/(B 8$B7n(B19$BF|(B
- SKK 10.44.8
-                                    Emacs 20.3 (MULE 4.0)
-                                    $B$3$N%P!<%8%g%s$K$*$1$kJQ99$O(B
-                                    SKK $B$K$H$C$F=EBg$G!"0lIt$G$O:.(B
-1998$BG/(B 10$B7n:"(B                       $BMp$,$_$i$l$?(B
-
- APEL $B$,:NMQ$5$l$k(B                 1999$BG/(B 3$B7n(B25$BF|(B
- $B$3$N:"$+$i(B XEmacs $B$G$N(B
- $BF0:n$,0BDj$7;O$a$k(B                 XEmacs 21.0.67
-
-                                   1999$BG/(B 7$B7n(B12$BF|(B
-1999$BG/(B10$B7n(B23$BF|(B
-                                    Emacs 20.4 (MULE 4.0)
- SKK 10.56                          20.3 $B$+$i(B 1, 2$B=54V$NM=Dj$,(B
-                                    1 $BG/6a$/$+$+$C$F$d$C$H0BDj(B
-1999$BG/(B11$B7n:"(B
-
- SKK $B%*!<%W%s%i%\3+@_(B
- Daredevil SKK $B$N3+H/$r3+;O(B
- $BK\2H$H$OJL$NF;$rJb$_;O$a$k(B
-                                   2000$BG/(B 6$B7n(B14$BF|(B
-2000$BG/(B10$B7n(B30$BF|(B
-                                    Emacs 20.7 (MULE 4.0)
- SKK 10.62a
- SKK 10 $B$N3+H/$,E`7k$5$l!"(B
- Daredevil SKK $B$,3+H/$N44$K(B
-
-2000$BG/(B11$B7n:"(B
-
- $B5~Bg$G$N3+H/=*N;$,@k8@$5$l$k(B
-
-2001$BG/(B 1$B7n(B 2$BF|(B
-                                   2001$BG/(B 3$B7n(B21$BF|(B
- Daredevil SKK 11.4
-                                    XEmacs 21.2.46
-
-                                   2001$BG/(B10$B7n(B20$BF|(B
-2001$BG/(B12$B7n(B 2$BF|(B
-                                    Emacs 21.1 (MULE 5.0)
- Daredevil SKK 11.5.2
-
-2001$BG/(B12$B7n(B16$BF|(B                     2001$BG/(B12$B7n(B17$BF|(B
-
- Daredevil SKK 11.6.0               XEmacs 21.4.6
-
-@end display
+@url{http://openlab.ring.gr.jp/skk/history-ja.html}
+@end table
 
 @node $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ), $B;v9`:w0z(B, SKK$B$NNr;K(B, Top
 @comment      node-name, next,       previous, up
