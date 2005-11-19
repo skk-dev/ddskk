@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.297 2005/11/14 08:44:45 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.298 2005/11/19 08:56:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/14 08:44:45 $
+;; Last Modified: $Date: 2005/11/19 08:56:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3356,9 +3356,15 @@ If you want to restore the dictionary from the disc, try
   "検索を行う。
 `skk-current-search-prog-list' の要素になっているプログラムを評価して、
 `skk-henkan-key' をキーにして検索を行う。"
-  (let (l)
+  (let (l prog)
     (while (and (null l) skk-current-search-prog-list)
-      (setq l (eval (car skk-current-search-prog-list))
+      (setq prog (car skk-current-search-prog-list))
+      (setq l (if (and skk-use-numeric-conversion
+		       (string-match "[0-9]" skk-henkan-key))
+		  (skk-nunion (eval prog)
+			      (let (skk-use-numeric-conversion)
+				(eval prog)))
+		(eval prog))
 	    skk-current-search-prog-list (cdr skk-current-search-prog-list)))
     l))
 
@@ -3678,7 +3684,8 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
   ;; る。
   ;;
   (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
-	(midasi (if skk-use-numeric-conversion
+	(midasi (if (and (skk-numeric-p)
+			 (string-match "#[0-9]" word))
 		    (skk-num-compute-henkan-key
 		     skk-henkan-key)
 		  skk-henkan-key))
@@ -4018,6 +4025,11 @@ SKK 辞書の候補として正しい形に整形する。"
 	(when (eq char 'hiragana)
 	  (skk-romaji-region (point-min) (point-max))
 	  (list (buffer-string)))))))
+
+(defun skk-search-upcase (&optional arg)
+  (if skk-abbrev-mode
+      (list (upcase skk-henkan-key))
+    nil))
 
 (defun skk-search-all-progs (key)
   (let ((skk-henkan-key key)
