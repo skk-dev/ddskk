@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.298 2005/11/19 08:56:02 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.299 2005/11/19 10:04:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/19 08:56:02 $
+;; Last Modified: $Date: 2005/11/19 10:04:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4001,6 +4001,7 @@ SKK 辞書の候補として正しい形に整形する。"
       words)))
 
 (defun skk-search-romaji (&optional arg)
+  "変換キーをローマ字に変換した候補を返す。"
   (when (and (not skk-henkan-okurigana)
 	     (exec-installed-p "kakasi"))
     (let ((key skk-henkan-key)
@@ -4027,6 +4028,8 @@ SKK 辞書の候補として正しい形に整形する。"
 	  (list (buffer-string)))))))
 
 (defun skk-search-upcase (&optional arg)
+  "変換キーの ascii 小文字を大文字に変換した候補を返す。
+この関数は skk-abbrev-mode 専用。"
   (if skk-abbrev-mode
       (list (upcase skk-henkan-key))
     nil))
