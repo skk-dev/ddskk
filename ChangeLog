@@ -1,5 +1,7 @@
 2005-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* doc/skk.texi: Update for 日付入力.
+
 	* skk-gadget.el (skk-current-date): The 3rd argument for
 	PP-FUNCTION should be (not skk-date-ad), not skk-date-ad.
 
@@ -4985,8 +4987,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.865 2005/11/27 15:35:16 skk-cvs Exp $
-Last Modified: $Date: 2005/11/27 15:35:16 $
+Version: $Id: ChangeLog,v 1.866 2005/11/27 17:24:59 skk-cvs Exp $
+Last Modified: $Date: 2005/11/27 17:24:59 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

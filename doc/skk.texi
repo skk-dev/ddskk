@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.143 2005/11/19 20:12:23 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.144 2005/11/27 17:24:14 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2005/11/19 20:12:23 $
+@c  Last Modified: $Date: 2005/11/27 17:24:14 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2005/11/19 20:12:23 $
+@set UPDATED $Date: 2005/11/27 17:24:14 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4036,6 +4036,10 @@ is /インクリメンタル・サーチ/
 @item 2
 
 漢数字。@samp{一九九六年七月二一日(日)} のようになります。
+
+@item 3
+
+漢数字。@samp{千九百九十六年七月二十一日(日)} のようになります。
 @end table
 
 上記の @samp{1996年}、@samp{１９９６年}、@samp{一九九六年} の部分は、変
