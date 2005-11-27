@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.299 2005/11/19 10:04:17 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.300 2005/11/27 08:11:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/19 10:04:17 $
+;; Last Modified: $Date: 2005/11/27 08:11:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2277,7 +2277,7 @@ WORD で確定する。"
 	  ;; 接尾辞・接頭辞に関する処理
 	  (cond
 	   ((and skk-after-prefix
-		 (not (string-match "^[^\000-\177].+>$" skk-henkan-key)))
+		 (not (string-match "^[^\000-\177]+>$" skk-henkan-key)))
 	    ;; このバッファにおいて、接頭辞に続く入力が進行中。
 	    (let* ((history (cdr skk-kakutei-history))
 		   (list1 (car skk-kakutei-history)) ; (りよう 利用)
@@ -2289,7 +2289,7 @@ WORD で確定する。"
 				(setq history (cdr history))))))
 		   skk-henkan-key comb-word)
 	      (when (and (stringp (nth 1 list2))
-			 (string-match "^[^\000-\177].+>$" (car list2))
+			 (string-match "^[^\000-\177]+>$" (car list2))
 			 (skk-save-point
 			  (ignore-errors
 			    (goto-char (- skk-henkan-start-point
@@ -3360,7 +3360,16 @@ If you want to restore the dictionary from the disc, try
     (while (and (null l) skk-current-search-prog-list)
       (setq prog (car skk-current-search-prog-list))
       (setq l (if (and skk-use-numeric-conversion
-		       (string-match "[0-9]" skk-henkan-key))
+		       (string-match "[0-9]" skk-henkan-key)
+		       (not (memq (car prog)
+				  '(skk-abbrev-search
+				    skk-look
+				    skk-lookup-search
+				    skk-search-upcase
+				    skk-tankan-search))))
+		  ;; -- 12.2.1 からの変更 --
+		  ;; 数値変換時に、非数値変換も同時に検索して候補に
+		  ;; 含める。
 		  (skk-nunion (eval prog)
 			      (let (skk-use-numeric-conversion)
 				(eval prog)))

@@ -1,3 +1,9 @@
+2005-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-kakutei): Regexp fix for prefix conversion keys.
+	(skk-search): When skk-use-numeric-conversion is non-nil, do not
+	do duplicate search for `skk-look', etc.
+
 2005-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-search): When skk-use-numeric-conversion is non-nil,
@@ -4976,8 +4982,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.862 2005/11/19 08:56:10 skk-cvs Exp $
-Last Modified: $Date: 2005/11/19 08:56:10 $
+Version: $Id: ChangeLog,v 1.863 2005/11/27 08:11:06 skk-cvs Exp $
+Last Modified: $Date: 2005/11/27 08:11:06 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
