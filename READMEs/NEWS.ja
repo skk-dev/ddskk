@@ -17,6 +17,13 @@ skk-use-numeric-conversion を有効にしている場合でも
 
 ただし、単語登録モードに入ると数値変換の候補として扱われます。
 
+** インラインの候補一覧表示
+
+変数 `skk-show-inline' を non-nil に設定することで、候補一覧を変換位置
+の近傍に表示できます。この機能は window system に依存しないため
+terminal でも利用できます。これは現在 GNU Emacs 21 以降のみ対応してい
+る機能です。
+
 ** ツールティップを利用した候補一覧・注釈表示
 
 変数 `skk-show-tooltip' を non-nil に設定することで、window-system 下
