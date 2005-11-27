@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.31 2002/01/24 15:01:33 czkmt Exp $
+;; Version: $Id: skk-gadget.el,v 1.32 2005/11/27 15:34:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2002/01/24 15:01:33 $
+;; Last Modified: $Date: 2005/11/27 15:34:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -70,7 +70,7 @@ AND-TIME \(boolean\) を指定すると時刻も返す。
   (unless pp-function
     (setq pp-function skk-default-current-date-function))
   (funcall pp-function
-	   (skk-current-date-1) format skk-date-ad and-time))
+	   (skk-current-date-1) format (not skk-date-ad) and-time))
 
 (defun skk-current-date-1 (&optional specified-time)
   "`current-time-string' の出力を加工し、日付・時刻情報をリストにして返す。
