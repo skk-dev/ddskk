@@ -177,10 +177,15 @@
 	      (delete-char -1)
 	      (skk-insert-str char2))
 	  (setq str isearch-string)
-	  (while (string= str (caar isearch-cmds))
+	  (while (string= str (if (vectorp (car isearch-cmds))
+				  (aref (car isearch-cmds) 0)
+				(caar isearch-cmds)))
 	    (with-current-buffer skk-isearch-current-buffer
 	      (skk-isearch-delete-char arg)))
-	  (setq isearch-string (concat (caar isearch-cmds) char2)
+	  (setq isearch-string (concat (if (vectorp (car isearch-cmds))
+					   (aref (car isearch-cmds) 0)
+					 (caar isearch-cmds))
+				       char2)
 		isearch-message (concat
 				 (skk-isearch-mode-string)
 				 (mapconcat

@@ -796,12 +796,21 @@
 		      (not skk-henkan-mode))
 	     (setq isearch-cmds
 		   (cons
-		    (nconc
-		     (list (concat (caar isearch-cmds)
-				   str)
-			   (concat (cadar isearch-cmds)
-				   str))
-		     (cddar isearch-cmds))
+		    (cond
+		     ((vectorp (car isearch-cmds))
+		      (let ((cmds (copy-sequence (car isearch-cmds))))
+			(aset cmds 0 (concat (aref (car isearch-cmds) 0)
+					     str))
+			(aset cmds 1 (concat (aref (car isearch-cmds) 1)
+					     str))
+			cmds))
+		     (t
+		      (nconc
+		       (list (concat (caar isearch-cmds)
+				     str)
+			     (concat (cadar isearch-cmds)
+				     str))
+		       (cddar isearch-cmds))))
 		    isearch-cmds))))
 	 (unless (and (< 1 skk-nicola-interval)
 		      (eq next char))
