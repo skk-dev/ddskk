@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2005/11/28 03:41:37 $
-	     $Id: TODO.ja,v 1.11 2005/11/28 03:41:37 skk-cvs Exp $
+             $Date: 2005/11/28 03:43:51 $
+	     $Id: TODO.ja,v 1.12 2005/11/28 03:43:51 skk-cvs Exp $
 
 
 * 近い内に解決すべき TODO
@@ -27,15 +27,15 @@
 skk-dcomp.el による動的補完は便利だが、現在 skk-abbrev-mode での英数字
 入力変換時に無効となっている。これを有効にできるようにしたい。
 
-実装はは難しくはないと思われる。
+実装は難しくはないと思われる。
 
 skk-dcomp は基本的に defadvice によって、既存の関数の挙動を操作する
 ことで動的補完を実現している。
 
-skk-abbrev-mode では各文字キーは Emacs 標準の self-insert-command
-を呼びますので、これに defadvice してもよければ dcomp を有効にでき
-ると思われる。それがまずければ、skk-abbrev-mode の文字キーに独自のコマ
-ンドを割り当ててもよい。
+skk-abbrev-mode では各文字キーは Emacs 標準の self-insert-command を呼
+ぶので、これに defadvice してもよければ dcomp を有効にできると思われる。
+それがまずければ、skk-abbrev-mode の文字キーに独自のコマンドを割り当て
+てもよい。
 
 問題があるとすると、skk-use-look、 skk-look-recursive-search、
 skk-look-use-ispell といったオプションが有効だった場合。この場合は、補
