@@ -329,7 +329,7 @@
 
 2004-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-isearch.el (skk-isearch-delete-char): Workaound for
+	* skk-isearch.el (skk-isearch-delete-char): Workaround for
 	modification in Emacs 21.3.50 which uses a vector, instead of a
 	list, for each element of `isearch-cmds'.
 
@@ -4987,8 +4987,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.866 2005/11/27 17:24:59 skk-cvs Exp $
-Last Modified: $Date: 2005/11/27 17:24:59 $
+Version: $Id: ChangeLog,v 1.867 2005/11/28 03:16:08 skk-cvs Exp $
+Last Modified: $Date: 2005/11/28 03:16:08 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
