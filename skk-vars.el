@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.128 2005/11/30 09:53:22 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.129 2005/11/30 12:47:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 09:53:22 $
+;; Last Modified: $Date: 2005/11/30 12:47:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2187,7 +2187,10 @@ Mule-UCS がインストールされていないときはこの値は動作に影響しない。"
     ))
 
 (put 'annotation 'char-table-extra-slots 0)
-(defvar skk-tankan-annotation-table (make-char-table 'annotation nil))
+(defvar skk-tankan-annotation-table
+  (make-char-table (static-if (eq skk-emacs-type 'xemacs)
+		       'generic
+		     'annotation)))
 
 ;;; SKK-TUT.EL related.
 (defcustom skk-tut-file
