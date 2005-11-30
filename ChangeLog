@@ -21,6 +21,12 @@
 	Do not use `mapcar' where its return value is not referenced.
 	Use `dolist' instead.
 
+	(skk-tankan-get-char-annotation):
+	(skk-tankan-set-char-annotaion):
+
+	Under XEmacs, call `get-char-table' or `put-char-table' instead of
+	`aref' or `aset'.
+
 	* skk-tut.el (skktut-get-question-page): When
 	skktut-question-count exceeds skktut-question-numbers, simply call
 	`skktut-end-tutorial', i.e. no need to depend on SKK.tut for
@@ -32,10 +38,15 @@
 	(skk-tankan-get-char-data-functions):
 	(skk-tankan-annotation-table):
 
+	New variables from skk-tankan.el.
+
 	* skk.el (skk-abbrev-insert): New command.  Merely call
 	`self-insert-command'.
 	(skk-define-abbrev-mode-map): Define self insertion keys to call
 	`skk-abbrev-insert'.
+
+	(skk-henkan): Call `skk-inline-hide' only under FSF Emacs 21 or
+	greater.
 
 2005-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -5026,8 +5037,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.874 2005/11/30 10:34:51 skk-cvs Exp $
-Last Modified: $Date: 2005/11/30 10:34:51 $
+Version: $Id: ChangeLog,v 1.875 2005/11/30 13:10:48 skk-cvs Exp $
+Last Modified: $Date: 2005/11/30 13:10:48 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
