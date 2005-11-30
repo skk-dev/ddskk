@@ -29,6 +29,8 @@
 
 	(skk-tankan-search): Autoload.
 
+	Use `product-provide'.
+
 	* skk-tut.el (skktut-get-question-page): When
 	skktut-question-count exceeds skktut-question-numbers, simply call
 	`skktut-end-tutorial', i.e. no need to depend on SKK.tut for
@@ -5039,8 +5041,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.876 2005/11/30 14:25:04 skk-cvs Exp $
-Last Modified: $Date: 2005/11/30 14:25:04 $
+Version: $Id: ChangeLog,v 1.877 2005/11/30 15:01:29 skk-cvs Exp $
+Last Modified: $Date: 2005/11/30 15:01:29 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
