@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.35 2005/02/26 04:36:43 skk-cvs Exp $
+;; Version: $Id: skk-server.el,v 1.36 2005/11/30 10:34:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/02/26 04:36:43 $
+;; Last Modified: $Date: 2005/11/30 10:34:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -285,8 +285,14 @@ non-nil であれば、加える。"
   "サーバーを切り離す。"
   (when (and skk-server-host
 	     (skk-server-live-p))
-    (process-send-string skkserv-process "0") ; disconnect server
-    (accept-process-output skkserv-process)))
+    ;; disconnect server
+    (process-send-string skkserv-process "0")
+    ;; Workaround is needed for NTEmacs. It cannot receive output from
+    ;; a server at least in noninteractive mode.
+    (unless (and (eq system-type 'windows-nt)
+		 (not (featurep 'meadow))
+		 noninteractive)
+      (accept-process-output skkserv-process))))
 
 ;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-server-search)
 (add-hook 'skk-before-kill-emacs-hook 'skk-disconnect-server)
