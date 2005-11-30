@@ -11,6 +11,8 @@
 	completion in skk-abbrev-mode.
 	(skk-abbrev-insert): Advice for function.  Do completion.
 
+	* skk-tankan.el: From experimental to the top directory.
+
 	* skk-vars.el (skk-look-use-ispell): Default to nil.
 
 	* skk.el (skk-abbrev-insert): New command.  Merely call
@@ -5007,8 +5009,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.869 2005/11/30 08:33:35 skk-cvs Exp $
-Last Modified: $Date: 2005/11/30 08:33:35 $
+Version: $Id: ChangeLog,v 1.870 2005/11/30 09:24:12 skk-cvs Exp $
+Last Modified: $Date: 2005/11/30 09:24:12 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
