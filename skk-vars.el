@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.126 2005/10/27 10:56:28 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.127 2005/11/30 03:11:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/10/27 10:56:28 $
+;; Last Modified: $Date: 2005/11/30 03:11:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2005,8 +2005,7 @@ nil であれば、/usr/dict/words を使用する。"
   :type 'boolean
   :group 'skk-look)
 
-(defcustom skk-look-use-ispell (and (exec-installed-p "ispell")
-				    (module-installed-p 'ispell))
+(defcustom skk-look-use-ispell nil
   "*Non-nil であれば、look による検索の際、ispell を併用する。"
   :type 'boolean
   :group 'skk-look)
