@@ -52,6 +52,9 @@
 	(skk-henkan): Call `skk-inline-hide' only under FSF Emacs 21 or
 	greater.
 
+	(skk-search): Bind `skk-use-numeric-conversion' to nil for
+	`skk-look', etc.
+
 2005-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Update for 日付入力.
@@ -5041,8 +5044,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.877 2005/11/30 15:01:29 skk-cvs Exp $
-Last Modified: $Date: 2005/11/30 15:01:29 $
+Version: $Id: ChangeLog,v 1.878 2005/11/30 23:12:51 skk-cvs Exp $
+Last Modified: $Date: 2005/11/30 23:12:51 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
