@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.57 2003/03/29 05:23:43 czkmt Exp $
+;; Version: $Id: skk-tut.el,v 1.58 2005/11/30 10:09:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/03/29 05:23:43 $
+;; Last Modified: $Date: 2005/11/30 10:09:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -921,35 +921,41 @@ tutorial /チュートリアル/
 (defun skktut-get-question-page (page)
   (save-excursion
     (save-match-data
-      (set-buffer skktut-working-buffer)
-      (let (pos str)
-	(goto-char (point-min))
-	(search-forward "--\n" nil t page)
-	(when (looking-at ";") ; lisp program exists.
-	  (forward-char 3)
-	  (setq pos (point))
-	  (end-of-line)
-	  (skk-save-point
-	   (eval-region pos (point) nil))
-	  (forward-char 1))
-	(unless skktut-tutorial-end
-	  (setq pos (point))
-	  (search-forward "\n>>")
-	  (end-of-line)
-	  (setq str (buffer-substring pos (point)))
-	  (set-buffer skktut-question-buffer)
-	  (skktut-erase-buffer)
-	  (let (buffer-read-only)
-	    (insert str)
-	    (setq mode-line-buffer-identification
-		  (concat "ＳＫＫチュートリアル: ［問 "
-			  (number-to-string page)
-			  "］ （残り "
-			  (number-to-string
-			   (- skktut-question-numbers page))
-			  "問）"))
-	    (set-buffer-modified-p nil)
-	    (force-mode-line-update 'all)))))))
+      (if (>= skktut-question-count
+	      (1+ skktut-question-numbers))
+	  ;; No more need to search for S expressions in the working buffer.
+	  ;; It's time to finish.
+	  (skktut-end-tutorial)
+	;; Tutorial continues.
+	(set-buffer skktut-working-buffer)
+	(let (pos str)
+	  (goto-char (point-min))
+	  (search-forward "--\n" nil t page)
+	  (when (looking-at ";") ; lisp program exists.
+	    (forward-char 3)
+	    (setq pos (point))
+	    (end-of-line)
+	    (skk-save-point
+	     (eval-region pos (point) nil))
+	    (forward-char 1))
+	  (unless skktut-tutorial-end
+	    (setq pos (point))
+	    (search-forward "\n>>")
+	    (end-of-line)
+	    (setq str (buffer-substring pos (point)))
+	    (set-buffer skktut-question-buffer)
+	    (skktut-erase-buffer)
+	    (let (buffer-read-only)
+	      (insert str)
+	      (setq mode-line-buffer-identification
+		    (concat "ＳＫＫチュートリアル: ［問 "
+			    (number-to-string page)
+			    "］ （残り "
+			    (number-to-string
+			     (- skktut-question-numbers page))
+			    "問）"))
+	      (set-buffer-modified-p nil)
+	      (force-mode-line-update 'all))))))))
 
 ;; The following two functions are tricky, since they are executed by
 ;; `eval-region' in skktut-working-buffer.
