@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.2 2005/11/30 10:00:25 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.3 2005/11/30 12:46:40 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/11/30 10:00:25 $
+;; Last Modified: $Date: 2005/11/30 12:46:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1428,11 +1428,20 @@
 
 ;;; get/set char's annotation
 (defun skk-tankan-get-char-annotation (char)
-  (and skk-tankan-annotation-table
-       (aref skk-tankan-annotation-table char)))
+  (if skk-tankan-annotation-table
+      (static-cond
+       ((eq skk-emacs-type 'xemacs)
+	(get-char-table char skk-tankan-annotation-table))
+       (t
+	(aref skk-tankan-annotation-table char)))
+    nil))
 
 (defun skk-tankan-set-char-annotaion (char annotation)
-  (aset skk-tankan-annotation-table char annotation))
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    (put-char-table char annotation skk-tankan-annotation-table))
+   (t
+    (aset skk-tankan-annotation-table char annotation))))
 
 ;;; get stroke for radical part
 (defun skk-tankan-stroke-for-radical (radical dat)
