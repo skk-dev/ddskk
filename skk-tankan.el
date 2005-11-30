@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.1 2005/11/30 09:22:27 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.2 2005/11/30 10:00:25 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/11/30 09:22:27 $
+;; Last Modified: $Date: 2005/11/30 10:00:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -48,8 +48,9 @@
 ;; ;; 単漢字入力は学習対象からはずす
 ;; (setq skk-search-excluding-word-pattern-function
 ;;       (lambda (kakutei-word)
-;;         (string-match (format "%c$" (regexp-quote skk-tankan-search-key))
-;;                       skk-henkan-key)))
+;;        (string-match (format "%c$" (regexp-quote (char-to-string
+;;						   skk-tankan-search-key)))
+;;                      skk-henkan-key)))
 ;; ;; 検索先の指定
 ;; ;; skk-search-prog-list に指定できる要素 (function . args) に対して
 ;; ;; (skk-tankan-search 'function . args) を指定する
@@ -64,22 +65,10 @@
 ;; ;; (setq skk-tankan-annotation-table nil)
 
 ;;; Code:
-(require 'skk)
 
-(defvar skk-tankan-search-key ?@)
-
-;;; 文字集合の文字に対して (部首 部首内画数 総画数) を返す関数の alist
-;; 補助漢字等にも一応対応可能なように変数にしてある
-(defvar skk-tankan-get-char-data-functions
-  '((japanese-jisx0208 . skk-tankan-get-char-data-0213-1)
-    (japanese-jisx0213-1 . skk-tankan-get-char-data-0213-1)
-    (japanese-jisx0213-2 . skk-tankan-get-char-data-0213-2)
-    ))
-
-;; emacs19 には char-table がなかったと思うので
-;; skk-tankan-(get|set)-char-annotation と合わせて適当に書き換えて下さい
-(put 'annotation 'char-table-extra-slots 0)
-(defvar skk-tankan-annotation-table (make-char-table 'annotation nil))
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars))
 
 ;;; 部首番号を部首を表す文字列に変換するための配列
 (defconst skk-tankan-radical-vector
@@ -109,13 +98,16 @@
       (setq i (1+ i)))
     ;; modify char if japanese-jisx0213-1 is available
     (when (charsetp 'japanese-jisx0213-1)
-      (mapcar (lambda (cell)
-		(aset v (car cell)
-		      (char-to-string
-		       (make-char 'japanese-jisx0213-1
-				  (+ 32 (nth 1 cell)) (+ 32 (nth 2 cell))))))
-	      '((002 14 4) (104 88 44) (114 89 36) (162 92 51)
-		(201 94 81) (203 94 82))))
+      (dolist (cell '((002 14 4)
+		      (104 88 44)
+		      (114 89 36)
+		      (162 92 51)
+		      (201 94 81)
+		      (203 94 82)))
+	(aset v (car cell)
+	      (char-to-string
+	       (make-char 'japanese-jisx0213-1
+			  (+ 32 (nth 1 cell)) (+ 32 (nth 2 cell)))))))
     v))
 
 ;;; 部首に対応する部分の画数を表す配列
@@ -2204,8 +2196,8 @@
 (?熙 "90追加")
 
 )))
-    (mapcar (lambda (x) (skk-tankan-set-char-annotaion (car x) (nth 1 x)))
-            l)))
+    (dolist (x l)
+      (skk-tankan-set-char-annotaion (car x) (nth 1 x)))))
 
 ;;; annotation data for japanese-jisx0213-1
 (when (and skk-tankan-annotation-table
@@ -2884,11 +2876,12 @@
 (94 94 "2003追加")
 
 )))
-    (mapcar (lambda (x) (skk-tankan-set-char-annotaion
-                         (make-char 'japanese-jisx0213-1
-				    (+ 32 (car x)) (+ 32 (nth 1 x)))
-                         (nth 2 x)))
-            l)))
+    (dolist (x l)
+      (skk-tankan-set-char-annotaion
+       (make-char 'japanese-jisx0213-1
+		  (+ 32 (car x))
+		  (+ 32 (nth 1 x)))
+		  (nth 2 x)))))
 
 (provide 'skk-tankan)
 ;;; skk-tankan.el ends here
