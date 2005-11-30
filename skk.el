@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.301 2005/11/30 03:12:31 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.302 2005/11/30 13:10:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 03:12:31 $
+;; Last Modified: $Date: 2005/11/30 13:10:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1589,8 +1589,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
 	  (skk-insert-new-word new-word)))
-      (skk-inline-hide)
-
+      (static-when (eq skk-emacs-type 'mule5)
+	(skk-inline-hide))
       ;;
       (when (and new-word
 		 (string= new-word prototype)
