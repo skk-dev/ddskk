@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.131 2005/10/31 12:39:56 skk-cvs Exp $
-;; Last Modified: $Date: 2005/10/31 12:39:56 $
+;; Version: $Id: SKK-MK,v 1.132 2005/11/30 09:58:12 skk-cvs Exp $
+;; Last Modified: $Date: 2005/11/30 09:58:12 $
 
 ;;; Commentary:
 
@@ -284,6 +284,7 @@ This version of SKK requires MULE features"))
 		    skk-num
 		    skk-obsolete
 		    skk-server
+		    skk-tankan
 		    skk-tut
 		    skk-vars
 		    skk-version
