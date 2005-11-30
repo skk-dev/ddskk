@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.94 2004/11/28 09:06:22 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.95 2005/11/30 11:36:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2004/11/28 09:06:22 $
+;; Last Modified: $Date: 2005/11/30 11:36:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -373,7 +373,6 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
    (t
     string)))
 
-;;; This function is not complete, but enough for our purpose.
 (defsubst skk-local-variable-p (variable &optional buffer afterset)
   "Non-nil if VARIABLE has a local binding in buffer BUFFER.
 BUFFER defaults to the current buffer."
