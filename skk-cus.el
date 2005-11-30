@@ -40,6 +40,11 @@
 ;;;###autoload
 (defvar skk-custom-alist nil)
 (defvar skk-custom-buffer-original nil)
+(defvar skk-custom-map
+  (let ((map (make-keymap)))
+    (set-keymap-parent map widget-keymap)
+    (define-key map [mouse-1] 'widget-move-and-invoke)
+    map))
 
 (defconst skk-cus-params-visual
   '((skk-use-face
@@ -103,7 +108,7 @@
   (kill-all-local-variables)
   (setq major-mode 'skk-custom-mode
 	mode-name "SKK の設定")
-  (use-local-map widget-keymap)
+  (use-local-map skk-custom-map)
   (run-hooks 'skk-custom-mode-hook))
 
 (defun skk-cus-info (params)
@@ -233,7 +238,7 @@
 				:format "%t:\n%h%v"
 				:doc ""
 				,@misc))))
-    (use-local-map widget-keymap)
+    (use-local-map skk-custom-map)
     (local-set-key "q" 'bury-buffer)
     (widget-setup)
     (goto-char (point-min))))
