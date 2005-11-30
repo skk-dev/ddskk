@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.300 2005/11/27 08:11:06 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.301 2005/11/30 03:12:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/27 08:11:06 $
+;; Last Modified: $Date: 2005/11/30 03:12:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -435,6 +435,10 @@ dependent."
     (set-modified-alist
      'minor-mode-map-alist
      (list (cons 'skk-abbrev-mode skk-abbrev-mode-map)))
+    (let ((i 32))
+      (while (< i 127)
+	(define-key skk-abbrev-mode-map (char-to-string i) 'skk-abbrev-insert)
+	(setq i (1+ i))))
     (define-key skk-abbrev-mode-map "," 'skk-abbrev-comma)
     (define-key skk-abbrev-mode-map "." 'skk-abbrev-period)
     (define-key skk-abbrev-mode-map "\C-q" 'skk-toggle-characters)
@@ -1449,6 +1453,10 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
   (if (symbolp skk-kutouten-type)
       (cdr (cdr (assq skk-kutouten-type skk-kuten-touten-alist)))
     (cdr skk-kutouten-type)))
+
+(defun skk-abbrev-insert (arg)
+  (interactive "*p")
+  (self-insert-command arg))
 
 (defun skk-abbrev-period (arg)
   "SKK abbrev モードで見出しの補完中であれば、次の候補を表示する。
