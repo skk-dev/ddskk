@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.302 2005/11/30 13:10:42 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.303 2005/11/30 23:12:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 13:10:42 $
+;; Last Modified: $Date: 2005/11/30 23:12:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3381,8 +3381,9 @@ If you want to restore the dictionary from the disc, try
 		  (skk-nunion (eval prog)
 			      (let (skk-use-numeric-conversion)
 				(eval prog)))
-		(eval prog))
-	    skk-current-search-prog-list (cdr skk-current-search-prog-list)))
+		(let (skk-use-numeric-conversion)
+		  (eval prog))))
+      (setq skk-current-search-prog-list (cdr skk-current-search-prog-list)))
     l))
 
 (defun skk-search-jisyo-file (file limit &optional nomsg)
