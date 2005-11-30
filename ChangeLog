@@ -13,6 +13,9 @@
 	completion in skk-abbrev-mode.
 	(skk-abbrev-insert): Advice for function.  Do completion.
 
+	* skk-server.el (skk-disconnect-server): When Emacs is NTEmacs and
+	in noninteractive mode, do not call `accept-process-output'.
+
 	* skk-tankan.el: From experimental to the top directory.
 
 	Do not use `mapcar' where its return value is not referenced.
@@ -28,7 +31,6 @@
 	(skk-tankan-search-key):
 	(skk-tankan-get-char-data-functions):
 	(skk-tankan-annotation-table):
-
 
 	* skk.el (skk-abbrev-insert): New command.  Merely call
 	`self-insert-command'.
@@ -5024,8 +5026,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.873 2005/11/30 10:11:07 skk-cvs Exp $
-Last Modified: $Date: 2005/11/30 10:11:07 $
+Version: $Id: ChangeLog,v 1.874 2005/11/30 10:34:51 skk-cvs Exp $
+Last Modified: $Date: 2005/11/30 10:34:51 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
