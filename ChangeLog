@@ -1,5 +1,7 @@
 2005-11-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* SKK-MK (SKK_MODULES): New module skk-tankan.
+
 	* skk-cus.el (skk-custom-map): New variable.
 
 	(skk-custom-mode):
@@ -13,7 +15,15 @@
 
 	* skk-tankan.el: From experimental to the top directory.
 
+	Do not use `mapcar' where its return value is not referenced.
+	Use `dolist' instead.
+
 	* skk-vars.el (skk-look-use-ispell): Default to nil.
+
+	(skk-tankan-search-key):
+	(skk-tankan-get-char-data-functions):
+	(skk-tankan-annotation-table):
+
 
 	* skk.el (skk-abbrev-insert): New command.  Merely call
 	`self-insert-command'.
@@ -5009,8 +5019,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.870 2005/11/30 09:24:12 skk-cvs Exp $
-Last Modified: $Date: 2005/11/30 09:24:12 $
+Version: $Id: ChangeLog,v 1.871 2005/11/30 10:00:34 skk-cvs Exp $
+Last Modified: $Date: 2005/11/30 10:00:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
