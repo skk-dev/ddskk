@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.127 2005/11/30 03:11:51 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.128 2005/11/30 09:53:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 03:11:51 $
+;; Last Modified: $Date: 2005/11/30 09:53:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2170,6 +2170,24 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
 Mule-UCS がインストールされていないときはこの値は動作に影響しない。"
   :type 'boolean
   :group 'skk-misc)
+
+;;; skk-tankan.el related.
+
+(defcustom skk-tankan-search-key ?@
+  "*単漢字変換を行うキーキャラクタ。"
+  :type 'character
+  :group 'skk-keybinds)
+
+;;; 文字集合の文字に対して (部首 部首内画数 総画数) を返す関数の alist
+;; 補助漢字等にも一応対応可能なように変数にしてある
+(defvar skk-tankan-get-char-data-functions
+  '((japanese-jisx0208 . skk-tankan-get-char-data-0213-1)
+    (japanese-jisx0213-1 . skk-tankan-get-char-data-0213-1)
+    (japanese-jisx0213-2 . skk-tankan-get-char-data-0213-2)
+    ))
+
+(put 'annotation 'char-table-extra-slots 0)
+(defvar skk-tankan-annotation-table (make-char-table 'annotation nil))
 
 ;;; SKK-TUT.EL related.
 (defcustom skk-tut-file
