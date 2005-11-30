@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.3 2005/11/30 12:46:40 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.4 2005/11/30 14:24:52 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/11/30 12:46:40 $
+;; Last Modified: $Date: 2005/11/30 14:24:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -36,8 +36,15 @@
 ;;
 ;; .skk には次の様なことを書いておきます。
 ;;
-;; (require 'skk-tankan)
-;; (setq skk-tankan-search-key ?@) ;; 単漢字検索のキーを @ にする(デフォルト)
+;; ;; 検索先の指定
+;; ;; skk-search-prog-list に指定できる要素 (function . args) に対して
+;; ;; (skk-tankan-search 'function . args) を指定する
+;; (add-to-list 'skk-search-prog-list
+;;              '(skk-tankan-search 'skk-search-jisyo-file
+;;                                  skk-large-jisyo 10000))
+;;
+;; ;; 単漢字検索のキーを @ にする(デフォルト)
+;; (setq skk-tankan-search-key ?@)
 ;;
 ;; ;; @ を入力できるようにする
 ;; (setq skk-rom-kana-rule-list
@@ -51,12 +58,6 @@
 ;;        (string-match (format "%c$" (regexp-quote (char-to-string
 ;;						   skk-tankan-search-key)))
 ;;                      skk-henkan-key)))
-;; ;; 検索先の指定
-;; ;; skk-search-prog-list に指定できる要素 (function . args) に対して
-;; ;; (skk-tankan-search 'function . args) を指定する
-;; (add-to-list 'skk-search-prog-list
-;;              '(skk-tankan-search 'skk-search-jisyo-file
-;;                                  skk-large-jisyo 10000))
 ;;
 ;; ;; 文字 CHAR の ANNOTATION (文字列)を変更したい場合
 ;; ;; (skk-tankan-set-char-annotation CHAR ANNOTATION)
@@ -1492,6 +1493,7 @@
     (and tmp
 	 (+ (* 94 tmp) (- (nth 2 l) ?!)))))
 
+;;;###autoload
 (defun skk-tankan-search (func &rest args)
   (when (string-match (format "%s$" (regexp-quote
 				     (char-to-string skk-tankan-search-key)))
