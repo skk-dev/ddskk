@@ -1,5 +1,12 @@
 2005-11-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-cus.el (skk-custom-map): New variable.
+
+	(skk-custom-mode):
+	(skk-customize):
+
+	Use `skk-custom-map' as local keymap.
+
 	* skk-dcomp.el (skk-dcomp-after-delete-backward-char): Also do
 	completion in skk-abbrev-mode.
 	(skk-abbrev-insert): Advice for function.  Do completion.
@@ -5000,8 +5007,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.868 2005/11/30 03:12:38 skk-cvs Exp $
-Last Modified: $Date: 2005/11/30 03:12:38 $
+Version: $Id: ChangeLog,v 1.869 2005/11/30 08:33:35 skk-cvs Exp $
+Last Modified: $Date: 2005/11/30 08:33:35 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
