@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2005/11/30 02:04:40 $
-	     $Id: TODO.ja,v 1.13 2005/11/30 02:04:40 skk-cvs Exp $
+             $Date: 2005/11/30 03:12:39 $
+	     $Id: TODO.ja,v 1.14 2005/11/30 03:12:39 skk-cvs Exp $
 
 
 * $B6a$$Fb$K2r7h$9$Y$-(B TODO
@@ -36,14 +36,6 @@ skk-abbrev-mode $B$G$O3FJ8;z%-!<$O(B Emacs $BI8=`$N(B self-insert-command $
 $B$V$N$G!"$3$l$K(B defadvice $B$7$F$b$h$1$l$P(B dcomp $B$rM-8z$K$G$-$k$H;W$o$l$k!#(B
 $B$=$l$,$^$:$1$l$P!"(Bskk-abbrev-mode $B$NJ8;z%-!<$KFH<+$N%3%^%s%I$r3d$jEv$F(B
 $B$F$b$h$$!#(B
-
-$BLdBj$,$"$k$H$9$k$H!"(Bskk-use-look$B!"(B skk-look-recursive-search$B!"(B
-skk-look-use-ispell $B$H$$$C$?%*%W%7%g%s$,M-8z$@$C$?>l9g!#$3$N>l9g$O!"Jd(B
-$B408uJd$,B?$/$J$j$9$.$FB.EYE*$JLdBj$r@8$8$k2DG=@-$,$"$k!#<BMQE*$K$O(B
-skk-use-look $B$r(B t $B$K!"(B skk-look-recursive-search $B$H(B
-skk-look-use-ispell $B$r(B nil $B$KB+G{$7$F!"8D?M<-=q$H(B /usr/dict/words $B$rJd(B
-$B40BP>]$H$9$k$N$,2wE,$+$b$7$l$J$$!#(B
-
 
 * Hint from MSIME
 

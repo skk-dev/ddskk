@@ -1,3 +1,16 @@
+2005-11-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-dcomp.el (skk-dcomp-after-delete-backward-char): Also do
+	completion in skk-abbrev-mode.
+	(skk-abbrev-insert): Advice for function.  Do completion.
+
+	* skk-vars.el (skk-look-use-ispell): Default to nil.
+
+	* skk.el (skk-abbrev-insert): New command.  Merely call
+	`self-insert-command'.
+	(skk-define-abbrev-mode-map): Define self insertion keys to call
+	`skk-abbrev-insert'.
+
 2005-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Update for 日付入力.
@@ -4987,8 +5000,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.867 2005/11/28 03:16:08 skk-cvs Exp $
-Last Modified: $Date: 2005/11/28 03:16:08 $
+Version: $Id: ChangeLog,v 1.868 2005/11/30 03:12:38 skk-cvs Exp $
+Last Modified: $Date: 2005/11/30 03:12:38 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
