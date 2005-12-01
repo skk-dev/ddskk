@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.28 2005/11/30 03:11:31 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.29 2005/12/01 14:40:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 03:11:31 $
+;; Last Modified: $Date: 2005/12/01 14:40:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -140,6 +140,9 @@
 
 (defun skk-dcomp-do-completion (pos)
   (when (and skk-dcomp-activate
+	     (if (eq skk-dcomp-activate 'eolp)
+		 (eolp)
+	       t)
 	     (eq skk-henkan-mode 'on)
 	     (not skk-okurigana)
 	     (not (eq (marker-position skk-henkan-start-point) (point))))
