@@ -1,3 +1,16 @@
+2005-12-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-comp.el (skk-comp-do): When skk-use-look and
+	skk-look-ignore-case is both non-nil, downcase skk-comp-key.
+
+	* skk-cus.el (skk-cus-params-henkan): Use radio button instead of
+	choice menu.
+
+	* skk-dcomp.el (skk-dcomp-do-completion): If skk-dcomp-activate
+	is eolp, do completion only when point is at the end of line.
+
+	* skk-vars.el (skk-dcomp-activate): Accept value eolp.
+
 2005-11-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK_MODULES): New module skk-tankan.
@@ -5044,8 +5057,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.878 2005/11/30 23:12:51 skk-cvs Exp $
-Last Modified: $Date: 2005/11/30 23:12:51 $
+Version: $Id: ChangeLog,v 1.879 2005/12/01 14:40:46 skk-cvs Exp $
+Last Modified: $Date: 2005/12/01 14:40:46 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
