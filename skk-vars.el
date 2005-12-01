@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.129 2005/11/30 12:47:25 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.130 2005/12/01 14:40:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 12:47:25 $
+;; Last Modified: $Date: 2005/12/01 14:40:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3302,7 +3302,9 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 
 (defcustom skk-dcomp-activate nil
   "*Non-nil であれば見出し語のダイナミックコンプリーションの機能を有効にする。"
-  :type 'boolean
+  :type '(radio (const :tag "always on" t)
+		(const :tag "only at the end of a line" eolp)
+		(const :tag "off" nil))
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-face-priority 700
@@ -3328,7 +3330,7 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 入力があったときは自動コンプリーションされた見出し語を消さない。"
   :type '(choice (repeat string) (const nil))
   :group 'skk-dcomp
-  :group 'skk-filenames)
+  :group 'skk-keybinds)
 
 ;;; internal variables and constants.
 (skk-deflocalvar skk-dcomp-start-point nil)
