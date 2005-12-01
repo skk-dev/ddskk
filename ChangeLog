@@ -1,7 +1,8 @@
 2005-12-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el (skk-comp-do): When skk-use-look and
-	skk-look-ignore-case are both non-nil, downcase skk-comp-key.
+	skk-look-ignore-case are both non-nil, downcase skk-comp-key and
+	midashi.
 
 	* skk-cus.el (skk-cus-params-henkan): Use radio button instead of
 	choice menu.
@@ -5057,8 +5058,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.880 2005/12/01 14:57:41 skk-cvs Exp $
-Last Modified: $Date: 2005/12/01 14:57:41 $
+Version: $Id: ChangeLog,v 1.881 2005/12/01 23:05:58 skk-cvs Exp $
+Last Modified: $Date: 2005/12/01 23:05:58 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
