@@ -58,7 +58,8 @@
 
 (defconst skk-cus-params-ui
   '((skk-egg-like-newline
-     (const :tag "Return [Enter] キーで確定する" t) "")
+     (const :tag "▼モードでの Return [Enter] キーは確定のみで改行はしない" t)
+     "")
     (skk-kakutei-early
      (const :tag "明示的な確定を省略可能にする" t) "")
     (skk-delete-implies-kakutei
@@ -74,10 +75,10 @@
     (skk-henkan-strict-okuri-precedence
      (const :tag "送り仮名が厳密に正しい候補を優先して表示する" t) "")
     (skk-check-okurigana-on-touroku
-     (choice :tag "辞書登録時の余計な送り仮名の自動処理は？"
-	     (const :tag "Auto" auto)
-	     (const :tag "Query" ask)
-	     (const :tag "Do Nothing" nil))
+     (radio :tag "辞書登録時の余計な送り仮名の自動処理は？"
+	     (const :tag "自動処理する" auto)
+	     (const :tag "ユーザの指示による" ask)
+	     (const :tag "自動処理しない" nil))
      "")))
 
 (defconst skk-cus-params-search
@@ -98,7 +99,7 @@
     (skk-show-icon
      (const :tag "SKK のアイコンを表示する" t) "")
     (skk-preload
-     (const :tag "SKK の初回起動を高速にする" t) "")))
+     (const :tag "SKK をあらかじめロードして初回起動を高速にする" t) "")))
 
 (defun skk-cus-set ()
   (dolist (param skk-custom-alist)
