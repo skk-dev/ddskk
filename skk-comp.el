@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.43 2005/12/02 07:58:38 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.44 2005/12/02 21:12:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/02 07:58:38 $
+;; Last Modified: $Date: 2005/12/02 21:12:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -141,19 +141,20 @@
    (t
     (let ((buffers (list (skk-get-jisyo-buffer skk-jisyo 'nomsg)
 			 (skk-dic-setup-buffer)))
+	  (abbrev skk-abbrev-mode)
 	  word)
       (when first
 	(skk-loop-for-buffers buffers
 	  (goto-char skk-okuri-nasi-min)))
       (catch 'word
 	(skk-loop-for-buffers buffers
-	  (setq word (skk-comp-search-current-buffer key))
+	  (setq word (skk-comp-search-current-buffer key abbrev))
 	  (if word
 	      (throw 'word word)
 	    nil)))))))
 
 ;;;###autoload
-(defun skk-comp-search-current-buffer (key)
+(defun skk-comp-search-current-buffer (key &optional abbrev)
   (let (c-word)
     (save-match-data
       ;; `case-fold-search' は、辞書バッファでは常に nil。
@@ -172,7 +173,11 @@
 			 ;; 見出し語に空白は含まれない。
 			 ;; " /" をサーチする必要はない。
 			 (point)
-			 (1- (search-forward " ")))))))
+			 (1- (search-forward " "))))))
+	(when (and abbrev
+		   (string-match "\\Ca" c-word))
+	  ;; abbrev モードで「3ねん」などの補完はしない
+	  (setq c-word nil)))
       c-word)))
 
 ;;;###autoload
