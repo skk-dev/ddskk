@@ -17,7 +17,7 @@
 	* skk-vars.el (skk-look-use-alternate-dictionary): Abolish
 	variable.
 	(skk-look-dictionary): Give default value properly since look
-	command changes behavior when dicionary file name is not passed,
+	command changes behavior when dictionary file name is not passed,
 	in which case 2 user options `skk-look-ignore-case' and
 	`skk-look-dictionary-order' doesn't function.
 
@@ -5081,8 +5081,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.888 2005/12/02 21:12:13 skk-cvs Exp $
-Last Modified: $Date: 2005/12/02 21:12:13 $
+Version: $Id: ChangeLog,v 1.889 2005/12/02 21:16:15 skk-cvs Exp $
+Last Modified: $Date: 2005/12/02 21:16:15 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
