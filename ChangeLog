@@ -10,6 +10,12 @@
 	In skk-abbrev-mode, do not pick up words containing non-ascii
 	characters.
 
+	* skk-dcomp.el (skk-dcomp-do-completion): Value of
+	skk-dcomp-activate is now used as a test to decide whether to do
+	completion or not.  If its value is a function, funcall it.  If it
+	is a list, eval it.  Otherwise if it is non-nil, always do
+	completion.
+
 	* skk-look.el (skk-look-1): Don't use user option
 	`skk-look-use-alternate-dictionary' since "-a" option is not
 	accepted by look command except for GNU/Linux.
@@ -5081,8 +5087,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.889 2005/12/02 21:16:15 skk-cvs Exp $
-Last Modified: $Date: 2005/12/02 21:16:15 $
+Version: $Id: ChangeLog,v 1.890 2005/12/02 21:35:11 skk-cvs Exp $
+Last Modified: $Date: 2005/12/02 21:35:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
