@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.134 2005/12/02 21:38:23 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.133 2005/12/02 21:37:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/02 21:38:23 $
+;; Last Modified: $Date: 2005/12/02 21:37:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3310,7 +3310,7 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 
 (defcustom skk-dcomp-activate nil
   "*Non-nil であれば見出し語のダイナミックコンプリーションの機能を有効にする。
-この変数の値が `eolp' だった場合、ポイントが行末にある時だけ補完する。"
+この変数の値が `eolp' だった場合、ポイントが行末の場合のみ補完する。"
   :type '(radio (const :tag "always on" t)
 		(const :tag "only at the end of a line" eolp)
 		(const :tag "off" nil))
