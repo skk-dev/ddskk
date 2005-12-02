@@ -4,6 +4,12 @@
 	as skk-use-look and skk-look-ignore-case before calling
 	`downcase'.
 
+	(skk-comp-do-1):
+	(skk-comp-search-current-buffer):
+
+	In skk-abbrev-mode, do not pick up words containing non-ascii
+	characters.
+
 	* skk-look.el (skk-look-1): Don't use user option
 	`skk-look-use-alternate-dictionary' since "-a" option is not
 	accepted by look command except for GNU/Linux.
@@ -5075,8 +5081,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.887 2005/12/02 08:08:44 skk-cvs Exp $
-Last Modified: $Date: 2005/12/02 08:08:44 $
+Version: $Id: ChangeLog,v 1.888 2005/12/02 21:12:13 skk-cvs Exp $
+Last Modified: $Date: 2005/12/02 21:12:13 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
