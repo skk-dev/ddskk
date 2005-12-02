@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.27 2003/07/19 10:12:37 minakaji Exp $
+;; Version: $Id: skk-look.el,v 1.28 2005/12/02 07:14:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2003/07/19 10:12:37 $
+;; Last Modified: $Date: 2005/12/02 07:14:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -195,8 +195,6 @@
 	(setq opt "d"))
       (when skk-look-ignore-case
 	(setq opt (concat "f" opt)))
-      (when skk-look-use-alternate-dictionary
-	(setq opt (concat "a" opt)))
       (when opt
 	(setq args (cons (concat "-" opt) args)))
       (when skk-look-termination-character
