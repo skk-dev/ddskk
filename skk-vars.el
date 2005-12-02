@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.130 2005/12/01 14:40:40 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.131 2005/12/02 07:15:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/01 14:40:40 $
+;; Last Modified: $Date: 2005/12/02 07:15:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1969,13 +1969,6 @@ look コマンドにオプション \"-f\" を渡す。"
   "*Non-nil であれば、辞書順にソートされた検索ファイルを使用する。
 look コマンドにオプション \"-d\" を渡す。"
   :type 'boolean
-  :group 'skk-look)
-
-(defcustom skk-look-use-alternate-dictionary nil
-  "*Non-nil であれば、/usr/dict/web2 を使い検索を行う。
-ディフォルトの辞書は、/usr/dict/words。
-look コマンドにオプション \"-a\" を渡す。"
-  :type '(choice file (const nil))
   :group 'skk-look)
 
 (defcustom skk-look-termination-character nil
