@@ -32,7 +32,7 @@
 
 	* skk-tankan.el: From experimental to the top directory.
 
-	Do not use `mapcar' where its return value is not referenced.
+	Do not use `mapcar' where its return value is not referred to.
 	Use `dolist' instead.
 
 	(skk-tankan-get-char-annotation):
@@ -5058,8 +5058,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.881 2005/12/01 23:05:58 skk-cvs Exp $
-Last Modified: $Date: 2005/12/01 23:05:58 $
+Version: $Id: ChangeLog,v 1.882 2005/12/02 06:50:51 skk-cvs Exp $
+Last Modified: $Date: 2005/12/02 06:50:51 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
