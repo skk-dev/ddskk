@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.131 2005/12/02 07:15:04 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.132 2005/12/02 07:58:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/02 07:15:04 $
+;; Last Modified: $Date: 2005/12/02 07:58:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1959,6 +1959,28 @@ nil なら KAKASI コマンドは標準の辞書を参照する。"
   :group 'skk-filenames
   :group 'skk-look)
 
+(defcustom skk-look-dictionary
+  (cond ((file-exists-p "/usr/share/dict/words")
+	 "/usr/share/dict/words")
+	((file-exists-p "/usr/dict/words")
+	 "/usr/dict/words")
+	((file-exists-p "/usr/share/lib/dict/words")
+	 "/usr/share/lib/dict/words")
+	(t
+	 nil))
+  "*look コマンドが検索する辞書ファイル。
+nil の場合は look コマンドに辞書ファイル名を渡さずに実行する。
+ただし、 look コマンドは辞書ファイル名を渡す場合と渡さない場合とで
+挙動が異なるため、ユーザは注意する必要がある。
+
+look コマンドは一般的に、辞書ファイル名を渡した場合は -d, -f のオプ
+ションの有無をチェックするが、辞書ファイル名を渡さない場合は強制的に
+-d と -f が有効になる。従って、2 つのユーザオプション
+`skk-look-ignore-case' と `skk-look-dictionary-order' は効力を失う。"
+  :type 'file
+  :group 'skk-filenames
+  :group 'skk-look)
+
 (defcustom skk-look-ignore-case t
   "*Non-nil であれば、大文字・小文字を区別しないで検索を行う。
 look コマンドにオプション \"-f\" を渡す。"
@@ -1976,13 +1998,6 @@ look コマンドにオプション \"-d\" を渡す。"
 look コマンドにオプション \"-t\" とその文字列を渡す。
 nil であればこのオプションは使用されない。"
   :type '(choice string (const nil))
-  :group 'skk-look)
-
-(defcustom skk-look-dictionary nil
-  "*look コマンドが検索する辞書ファイル。
-nil であれば、/usr/dict/words を使用する。"
-  :type '(choice file (const nil))
-  :group 'skk-filenames
   :group 'skk-look)
 
 (defcustom skk-look-recursive-search nil "\
