@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.132 2005/11/30 09:58:12 skk-cvs Exp $
-;; Last Modified: $Date: 2005/11/30 09:58:12 $
+;; Version: $Id: SKK-MK,v 1.133 2005/12/03 16:15:25 skk-cvs Exp $
+;; Last Modified: $Date: 2005/12/03 16:15:25 $
 
 ;;; Commentary:
 
@@ -259,7 +259,8 @@ This version of SKK requires MULE features"))
 (defvar SKK_MODULES
   ;; こんなもんコマンドラインで指定する人いないよね？
   (or (getenv "SKK_MODULES")
-      (let ((list '(queue-m
+      (let ((list '(context-skk
+		    queue-m
 		    skk-abbrev
 		    skk-annotation
 		    skk-auto
