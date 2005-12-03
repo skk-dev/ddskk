@@ -1,3 +1,7 @@
+2005-12-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Add context-skk.
+
 2005-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el (skk-comp-do): Check for skk-abbrev-mode as well
@@ -5087,8 +5091,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.890 2005/12/02 21:35:11 skk-cvs Exp $
-Last Modified: $Date: 2005/12/02 21:35:11 $
+Version: $Id: ChangeLog,v 1.891 2005/12/03 16:15:30 skk-cvs Exp $
+Last Modified: $Date: 2005/12/03 16:15:30 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
