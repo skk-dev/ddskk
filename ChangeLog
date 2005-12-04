@@ -12,6 +12,11 @@
 	(skk-kana-input): Do not do completion if last-command-char
 	belongs to skk-set-henkan-point-key.
 
+	(skk-dcomp-marked-p):
+	(skk-dcomp-before-kakutei):
+
+	Autoload.
+
 	* skk-hint.el: From experimental to the top directory.
 
 	(skk-insert): Clean up dcomp string and inihibit further dynamic
@@ -5122,8 +5127,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.896 2005/12/04 06:38:54 skk-cvs Exp $
-Last Modified: $Date: 2005/12/04 06:38:54 $
+Version: $Id: ChangeLog,v 1.897 2005/12/04 07:57:03 skk-cvs Exp $
+Last Modified: $Date: 2005/12/04 07:57:03 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
