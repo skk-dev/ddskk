@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.30 2005/12/02 21:35:00 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.31 2005/12/04 04:59:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/02 21:35:00 $
+;; Last Modified: $Date: 2005/12/04 04:59:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -144,6 +144,9 @@
 		    (funcall skk-dcomp-activate))
 		   ((listp skk-dcomp-activate)
 		    (eval skk-dcomp-activate))
+		   ((and (boundp 'skk-hint-inhibit-dcomp)
+			 (symbol-value 'skk-hint-inhibit-dcomp))
+		    nil)
 		   (t
 		    t))
 	     (eq skk-henkan-mode 'on)
@@ -190,6 +193,8 @@
 (defadvice skk-kana-input (around skk-dcomp-ad activate)
   (cond
    ((not (and skk-dcomp-activate
+	      (and (boundp 'skk-hint-inhibit-dcomp)
+		   (not (symbol-value 'skk-hint-inhibit-dcomp)))
 	      skk-henkan-mode))
     ad-do-it)
    (t
