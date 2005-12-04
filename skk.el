@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.303 2005/11/30 23:12:42 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.304 2005/12/04 07:56:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 23:12:42 $
+;; Last Modified: $Date: 2005/12/04 07:56:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2644,6 +2644,11 @@ WORD で確定する。"
 	   (skk-kana-input arg)
 	   (skk-set-char-before-as-okurigana))
 	  (t
+	   (when (and skk-dcomp-activate
+		      (skk-dcomp-marked-p))
+	     ;; 新しい marker を set する前に  skk-dcomp の marker をクリア
+	     ;; しておく。
+	     (skk-dcomp-before-kakutei))
 	   (skk-set-marker skk-okurigana-start-point (point))
 	   (insert-and-inherit "*")
 	   (skk-set-marker skk-kana-start-point (point))
