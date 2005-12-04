@@ -1,5 +1,8 @@
 2005-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-comp.el (skk-comp-search-current-buffer): In
+	skk-abbrev-mode, check c-word only when it is set.
+
 	* skk-dcomp.el (skk-dcomp-do-completion):
 	(skk-dcomp-after-delete-backward-char):
 	(skk-kana-input):
@@ -5116,8 +5119,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.894 2005/12/04 05:24:13 skk-cvs Exp $
-Last Modified: $Date: 2005/12/04 05:24:13 $
+Version: $Id: ChangeLog,v 1.895 2005/12/04 06:29:21 skk-cvs Exp $
+Last Modified: $Date: 2005/12/04 06:29:21 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
