@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.32 2005/12/04 05:14:14 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.33 2005/12/04 06:38:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/04 05:14:14 $
+;; Last Modified: $Date: 2005/12/04 06:38:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -210,6 +210,9 @@
 	(skk-dcomp-delete-completion))))
     ad-do-it
     (when (and skk-j-mode
+	       ;; 送りあり変換が始まったら補完しない
+	       (and (not skk-use-kana-keyboard)
+		    (not (memq last-command-char skk-set-henkan-point-key)))
 	       (not (skk-get-prefix skk-current-rule-tree)))
       (skk-dcomp-do-completion (point))))))
 
