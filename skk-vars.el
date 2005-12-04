@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.135 2005/12/04 05:13:49 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.136 2005/12/04 05:16:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/04 05:13:49 $
+;; Last Modified: $Date: 2005/12/04 05:16:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1893,6 +1893,7 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
 (skk-deflocalvar skk-hint-okuri-char nil)
 (skk-deflocalvar skk-hint-state nil)
 (skk-deflocalvar skk-hint-inhibit-kakutei nil)
+(skk-deflocalvar skk-hint-inhibit-dcomp nil)
 
 ;;; SKK-JISX0201.EL related.
 (defcustom skk-jisx0201-mode-string " jisx0201"
