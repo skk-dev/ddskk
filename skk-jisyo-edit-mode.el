@@ -44,13 +44,13 @@
 (unless skk-jisyo-edit-map
   (setq skk-jisyo-edit-map (make-sparse-keymap 'skk-jisyo-edit-map)))
 
-(defvar skk-jisyo-edit-font-lock-keywords
- '(("^\\(;; okuri-ari entries\\.\\)$" 1 font-lock-keyword-face)
-   ("^\\(;; okuri-nasi entries\\.\\)$" 1 font-lock-keyword-face)
-   ("^\\(;.+\\)$" 1 font-lock-comment-face)
-   ("\\(\\[[^]]*/\\]\\)" 1 font-lock-constant-face)
+(defconst skk-jisyo-edit-font-lock-keywords
+ '(("\\(\\[[^]]*/\\]\\)" 1 font-lock-constant-face)
    ("^\\([^; ]+ \\)/" 1 font-lock-function-name-face)
-   ("^[^;].+\\(;[^/\n]*\\)/" 1 font-lock-type-face t)
+   ("/[^;]+\\(;[^/\n]*\\)/" 1 font-lock-type-face t)
+   ("^\\(;.+\\)$" 1 font-lock-comment-face t)
+   ("^\\(;; okuri-ari entries\\.\\)$" 1 font-lock-keyword-face t)
+   ("^\\(;; okuri-nasi entries\\.\\)$" 1 font-lock-keyword-face t)
    ("/\\([^/\n]+\\)$" 1 highlight)
    ("\\(/\\)" 1 font-lock-warning-face))
  "Additional expressions to highlight in SKK JISYO edit mode.")
