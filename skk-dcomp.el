@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.33 2005/12/04 06:38:50 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.34 2005/12/04 07:55:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/04 06:38:50 $
+;; Last Modified: $Date: 2005/12/04 07:55:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -119,17 +119,18 @@
 (defsubst skk-dcomp-face-off ()
   (skk-detach-extent skk-dcomp-extent))
 
-(defsubst skk-dcomp-marked-p ()
+(defsubst skk-dcomp-delete-completion ()
+  (ignore-errors
+    (delete-region skk-dcomp-start-point skk-dcomp-end-point)))
+
+;;;###autoload
+(defun skk-dcomp-marked-p ()
   (and (eq skk-henkan-mode 'on)
        (markerp skk-dcomp-start-point)
        (markerp skk-dcomp-end-point)
        (marker-position skk-dcomp-start-point)
        (marker-position skk-dcomp-end-point)
        (< skk-dcomp-start-point skk-dcomp-end-point)))
-
-(defsubst skk-dcomp-delete-completion ()
-  (ignore-errors
-    (delete-region skk-dcomp-start-point skk-dcomp-end-point)))
 
 (defun skk-dcomp-cleanup-buffer ()
   (when (and skk-dcomp-activate
@@ -162,6 +163,7 @@
        (setq skk-comp-stack nil)
        (message nil)))))
 
+;;;###autoload
 (defun skk-dcomp-before-kakutei ()
   (when (and skk-dcomp-activate
 	     (eq skk-henkan-mode 'on)
@@ -210,9 +212,9 @@
 	(skk-dcomp-delete-completion))))
     ad-do-it
     (when (and skk-j-mode
-	       ;; 送りあり変換が始まったら補完しない
-	       (and (not skk-use-kana-keyboard)
-		    (not (memq last-command-char skk-set-henkan-point-key)))
+	       (or skk-use-kana-keyboard
+		   ;; 送りあり変換が始まったら補完しない
+		   (not (memq last-command-char skk-set-henkan-point-key)))
 	       (not (skk-get-prefix skk-current-rule-tree)))
       (skk-dcomp-do-completion (point))))))
 
