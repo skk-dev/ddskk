@@ -58,6 +58,7 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
 (skk-deflocalvar skk-hint-okuri-char nil)
 (skk-deflocalvar skk-hint-state nil)
 (skk-deflocalvar skk-hint-inhibit-kakutei nil)
+(skk-deflocalvar skk-hint-inhibit-dcomp nil)
 
 (defadvice skk-search (around skk-hint-ad activate)
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
@@ -107,6 +108,9 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
 	      (eq last-command-char skk-hint-start-char)
 	      (not skk-hint-state))
 	 (skk-with-point-move
+	  (when (featurep 'skk-dcomp)
+	    (skk-dcomp-before-kakutei))
+	  (setq skk-hint-inhibit-dcomp t)
 	  (skk-set-marker skk-hint-start-point (point))
 	  (setq skk-hint-state 'kana
 		skk-hint-inhibit-kakutei t)))
@@ -165,7 +169,9 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char のリスト。")
 
 (defadvice skk-kakutei-initialize (after skk-hint-ad activate)
   (setq skk-hint-henkan-hint nil
+	skk-hint-start-point nil
 	skk-hint-state nil
+	skk-hint-inhibit-dcomp nil
 	skk-hint-inhibit-kakutei nil))
 
 (defadvice skk-delete-backward-char (before skk-hint-ad activate)
