@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.136 2005/12/04 05:16:33 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.137 2005/12/04 05:25:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/04 05:16:33 $
+;; Last Modified: $Date: 2005/12/04 05:25:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -163,7 +163,7 @@
   :prefix "skk-"
   :group 'skk-custom-by-filename)
 
-(defgroup skk-gadget nil "SKK hint related customization.."
+(defgroup skk-hint nil "SKK hint related customization.."
   :prefix "skk-"
   :group 'skk-custom-by-filename)
 
@@ -1882,6 +1882,7 @@ regexp isearch $B$N:]!"$3$N@55,I=8=$K%^%C%A$9$kJ8;z$,8!:wJ8;zNs$N4V$K4^$^$l$F$$
 (defcustom skk-hint-start-char ?\73 ; ;
   "*$B%R%s%HJQ49$r3+;O$9$k%-!<%-%c%i%/%?(B"
   :type 'character
+  :group 'skk-hint
   :group 'skk-keybinds)
 
 (skk-deflocalvar skk-hint-henkan-hint nil
