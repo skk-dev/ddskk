@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.44 2005/12/02 21:12:09 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.45 2005/12/04 06:29:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/02 21:12:09 $
+;; Last Modified: $Date: 2005/12/04 06:29:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -173,11 +173,11 @@
 			 ;; 見出し語に空白は含まれない。
 			 ;; " /" をサーチする必要はない。
 			 (point)
-			 (1- (search-forward " "))))))
-	(when (and abbrev
-		   (string-match "\\Ca" c-word))
-	  ;; abbrev モードで「3ねん」などの補完はしない
-	  (setq c-word nil)))
+			 (1- (search-forward " ")))))
+	  (when (and abbrev
+		     (string-match "\\Ca" c-word))
+	    ;; abbrev モードで「3ねん」などの補完はしない
+	    (setq c-word nil))))
       c-word)))
 
 ;;;###autoload
