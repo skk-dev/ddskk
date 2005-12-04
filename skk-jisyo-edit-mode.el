@@ -44,7 +44,7 @@
 (unless skk-jisyo-edit-map
   (setq skk-jisyo-edit-map (make-sparse-keymap 'skk-jisyo-edit-map)))
 
-(defconst skk-jisyo-edit-font-lock-keywords
+(defvar skk-jisyo-edit-font-lock-keywords
  '(("\\(\\[[^]]*/\\]\\)" 1 font-lock-constant-face)
    ("^\\([^; ]+ \\)/" 1 font-lock-function-name-face)
    ("/[^;]+\\(;[^/\n]*\\)/" 1 font-lock-type-face t)
