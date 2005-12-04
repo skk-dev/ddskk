@@ -9,6 +9,9 @@
 
 	Do not modify markers if skk-hint-inhibit-dcomp is non-nil.
 
+	(skk-kana-input): Do not do completion if last-command-char
+	belongs to skk-set-henkan-point-key.
+
 	* skk-hint.el: From experimental to the top directory.
 
 	(skk-insert): Clean up dcomp string and inihibit further dynamic
@@ -5119,8 +5122,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.895 2005/12/04 06:29:21 skk-cvs Exp $
-Last Modified: $Date: 2005/12/04 06:29:21 $
+Version: $Id: ChangeLog,v 1.896 2005/12/04 06:38:54 skk-cvs Exp $
+Last Modified: $Date: 2005/12/04 06:38:54 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
