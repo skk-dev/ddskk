@@ -1,6 +1,27 @@
 2005-12-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-dcomp.el (skk-dcomp-do-completion):
+	(skk-dcomp-after-delete-backward-char):
+	(skk-kana-input):
+
+	Do not modify markers if skk-hint-inhibit-dcomp is non-nil.
+
 	* skk-hint.el: From experimental to the top directory.
+
+	(skk-insert): Clean up dcomp string and inihibit further dynamic
+	completion before setting skk-hint-start-point.
+
+	* skk-vars.el (skk-hint-start-char):
+	(skk-hint-henkan-hint):
+	(skk-hint-start-point):
+	(skk-hint-end-point):
+	(skk-hint-okuri-char):
+	(skk-hint-state):
+	(skk-hint-inhibit-kakutei):
+
+	Variables from skk-hint.el.
+
+	(skk-hint-inhibit-dcomp): New variable.
 
 2005-12-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -5095,8 +5116,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.892 2005/12/04 04:59:46 skk-cvs Exp $
-Last Modified: $Date: 2005/12/04 04:59:46 $
+Version: $Id: ChangeLog,v 1.893 2005/12/04 05:14:42 skk-cvs Exp $
+Last Modified: $Date: 2005/12/04 05:14:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
