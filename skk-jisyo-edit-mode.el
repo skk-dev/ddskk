@@ -47,7 +47,7 @@
 (defvar skk-jisyo-edit-font-lock-keywords
  '(("\\(\\[[^]]*/\\]\\)" 1 font-lock-constant-face)
    ("^\\([^; ]+ \\)/" 1 font-lock-function-name-face)
-   ("/[^;]+\\(;[^/\n]*\\)/" 1 font-lock-type-face t)
+   ("/[^;\n]+\\(;[^/\n]*\\)" 1 font-lock-type-face t)
    ("^\\(;.+\\)$" 1 font-lock-comment-face t)
    ("^\\(;; okuri-ari entries\\.\\)$" 1 font-lock-keyword-face t)
    ("^\\(;; okuri-nasi entries\\.\\)$" 1 font-lock-keyword-face t)
