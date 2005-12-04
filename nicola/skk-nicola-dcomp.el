@@ -41,6 +41,7 @@
 (defadvice skk-nicola-self-insert-lshift (around skk-nicola-dcomp activate)
   (cond
    ((or (not skk-dcomp-activate)
+	skk-hint-inhibit-dcomp
 	(eq skk-henkan-mode 'active))
     ad-do-it)
    (t
