@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.133 2005/12/02 21:37:32 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.135 2005/12/04 05:13:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/02 21:37:32 $
+;; Last Modified: $Date: 2005/12/04 05:13:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -160,6 +160,10 @@
   :group 'skk-custom-by-filename)
 
 (defgroup skk-gadget nil "SKK gadget related customization."
+  :prefix "skk-"
+  :group 'skk-custom-by-filename)
+
+(defgroup skk-gadget nil "SKK hint related customization.."
   :prefix "skk-"
   :group 'skk-custom-by-filename)
 
@@ -1873,6 +1877,23 @@ regexp isearch $B$N:]!"$3$N@55,I=8=$K%^%C%A$9$kJ8;z$,8!:wJ8;zNs$N4V$K4^$^$l$F$$
   :type 'regexp
   :group 'skk-isearch)
 
+;;; skk-hint.el related.
+
+(defcustom skk-hint-start-char ?\73 ; ;
+  "*$B%R%s%HJQ49$r3+;O$9$k%-!<%-%c%i%/%?(B"
+  :type 'character
+  :group 'skk-keybinds)
+
+(skk-deflocalvar skk-hint-henkan-hint nil
+  "$B%R%s%HIU$-JQ49;~$N%R%s%HItJ,!#(B
+skk-henkan-key, skk-henkan-okurigana, skk-okuri-char $B$N%j%9%H!#(B")
+
+(skk-deflocalvar skk-hint-start-point nil)
+(skk-deflocalvar skk-hint-end-point nil)
+(skk-deflocalvar skk-hint-okuri-char nil)
+(skk-deflocalvar skk-hint-state nil)
+(skk-deflocalvar skk-hint-inhibit-kakutei nil)
+
 ;;; SKK-JISX0201.EL related.
 (defcustom skk-jisx0201-mode-string " jisx0201"
   "*SKK $B$,(B JISX0201 $B%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
@@ -3310,7 +3331,7 @@ skk-annotation-save-and-quit $B$r8F$V$H$3$N(B window configuration
 
 (defcustom skk-dcomp-activate nil
   "*Non-nil $B$G$"$l$P8+=P$78l$N%@%$%J%_%C%/%3%s%W%j!<%7%g%s$N5!G=$rM-8z$K$9$k!#(B
-$B$3$NJQ?t$NCM$,(B `eolp' $B$@$C$?>l9g!"%]%$%s%H$,9TKv$N>l9g$N$_Jd40$9$k!#(B"
+$B$3$NJQ?t$NCM$,(B `eolp' $B$@$C$?>l9g!"%]%$%s%H$,9TKv$K$"$k;~$@$1Jd40$9$k!#(B"
   :type '(radio (const :tag "always on" t)
 		(const :tag "only at the end of a line" eolp)
 		(const :tag "off" nil))
