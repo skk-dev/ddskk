@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.137 2005/12/04 05:25:02 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.138 2005/12/09 10:06:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/04 05:25:02 $
+;; Last Modified: $Date: 2005/12/09 10:06:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1389,8 +1389,9 @@ nil であれば、1 行に複数の候補があっても 1 候補として数える。
   :group 'skk-keybinds)
 
 (defcustom skk-search-excluding-word-pattern-function nil
-  "*個人辞書に取り込まない文字列のパターンを検索する関数を指定する。
-確定した文字列を引数に渡して `funcall' される。
+  "*個人辞書に取り込まない文字列のパターンを検索する条件を指定する。
+この変数の値には引数 1 個の関数、ないしは関数のリストを代入する。これら
+の関数は、確定した文字列を引数に渡して `funcall' される。
 
 SKK では変換、確定を行った文字列は全て個人辞書に取り込まれるが、この
 変数で指定された関数が non-nil を返すとその文字列は個人辞書に取り込ま
@@ -1422,7 +1423,8 @@ SKK では変換、確定を行った文字列は全て個人辞書に取り込まれるが、この
 くない、など、個人辞書が必要以上に膨れるのを抑える目的に使用できる。
 
 なお、個人辞書に取り込まない見出し語については補完が効かないので注意すること。"
-  :type 'function
+  :type '(choice function
+		 (repeat function))
   :group 'skk-hooks-and-functions)
 
 (defcustom skk-update-jisyo-function 'skk-update-jisyo-original
