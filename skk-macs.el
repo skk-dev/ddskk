@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.95 2005/11/30 11:36:21 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.96 2005/12/09 10:27:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 11:36:21 $
+;; Last Modified: $Date: 2005/12/09 10:27:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -273,15 +273,6 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 ;;The result is a vector of the same length as SEQUENCE.
 ;;SEQUENCE may be a list, a vector or a string."
 ;;  (vconcat (mapcar function sequence) nil))
-
-;;(defun-maybe mapc (function sequence)
-;;  "Apply FUNCTION to each element of SEQUENCE.
-;;SEQUENCE may be a list, a vector, a bit vector, or a string.
-;;-- NOT emulated enough, just discard newly constructed list made by mapcar --
-;;This function is like `mapcar' but does not accumulate the results,
-;;which is more efficient if you do not use the results."
-;;  (mapcar function sequence)
-;;  sequence)
 
 ;;;; INLINE FUNCTIONS.
 ;;; version dependent
