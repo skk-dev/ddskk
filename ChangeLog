@@ -1,3 +1,15 @@
+2005-12-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-tankan.el: Comments update.
+
+	* skk-vars.el (skk-search-excluding-word-pattern-function): Allow
+	a list of functions as its value.
+
+	* skk.el (skk-kakutei): If `skk-update-jisyo-p' returns non-nil,
+	update the private jisyo.
+	(skk-update-jisyo-p): New function.  Decide whether the entered
+	word should be included in the private jisyo or not.
+
 2005-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el (skk-comp-search-current-buffer): In
@@ -5133,8 +5145,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.899 2005/12/04 16:12:35 skk-cvs Exp $
-Last Modified: $Date: 2005/12/04 16:12:35 $
+Version: $Id: ChangeLog,v 1.900 2005/12/09 10:06:18 skk-cvs Exp $
+Last Modified: $Date: 2005/12/09 10:06:18 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
