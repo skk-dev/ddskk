@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.5 2005/11/30 15:00:46 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.6 2005/12/09 10:05:49 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/11/30 15:00:46 $
+;; Last Modified: $Date: 2005/12/09 10:05:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -55,7 +55,7 @@
 ;; ;; 単漢字入力は学習対象からはずす
 ;; (setq skk-search-excluding-word-pattern-function
 ;;       (lambda (kakutei-word)
-;;        (string-match (format "%c$" (regexp-quote (char-to-string
+;;        (string-match (format "%s$" (regexp-quote (char-to-string
 ;;						   skk-tankan-search-key)))
 ;;                      skk-henkan-key)))
 ;;
