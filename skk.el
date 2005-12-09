@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.304 2005/12/04 07:56:53 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.305 2005/12/09 10:05:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/04 07:56:53 $
+;; Last Modified: $Date: 2005/12/09 10:05:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2274,13 +2274,8 @@ WORD で確定する。"
 	      ;; 間を無駄にしても、個人辞書に確定辞書のエントリを書き込んで更
 	      ;; 新もしておく。
 	      (or word (skk-get-current-candidate 'noconv)))
-	(when (or (and (not skk-search-excluding-word-pattern-function)
-		       kakutei-word)
-		  (and kakutei-word
-		       skk-search-excluding-word-pattern-function
-		       (not (funcall
-			     skk-search-excluding-word-pattern-function
-			     kakutei-word))))
+	(when (and kakutei-word
+		   (skk-update-jisyo-p kakutei-word))
 	  (skk-update-jisyo kakutei-word)
 	  ;; 接尾辞・接頭辞に関する処理
 	  (cond
@@ -2365,6 +2360,30 @@ WORD で確定する。"
       ;; コールされていなかったら、コールする。
       (skk-mode 1)))
   nil)
+
+(defun skk-update-jisyo-p (word)
+  "WORD が個人辞書に登録されるべきか否かを判定する。
+変数 `skk-search-excluding-word-pattern-function' が関数であれば、その関数を
+WORD を引数にして呼ぶ。もし non-nil を返せば `skk-update-jisyo-p' は nil を返
+す。
+`skk-search-excluding-word-pattern-function' が関数のリストであれば、それぞ
+れを WORD を引数にして呼び，そのうちのひとつでも non-nil を返せば nil を返す。"
+  (save-match-data
+    (cond ((null skk-search-excluding-word-pattern-function)
+	   t)
+	  ((functionp skk-search-excluding-word-pattern-function)
+	   (if (funcall skk-search-excluding-word-pattern-function word)
+	       nil
+	     t))
+	  (t
+	   ;; Signal error if skk-search-excluding-word-pattern-function
+	   ;; is not a list of functions.
+	   (if (catch 'no-update
+		 (dolist (func skk-search-excluding-word-pattern-function)
+		   (when (funcall func word)
+		     (throw 'no-update t))))
+	       nil
+	     t)))))
 
 (defun skk-kakutei-cleanup-buffer ()
   "確定直後のバッファの整形を行う。"
