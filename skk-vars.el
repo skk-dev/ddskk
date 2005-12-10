@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.138 2005/12/09 10:06:09 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.139 2005/12/10 03:54:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/09 10:06:09 $
+;; Last Modified: $Date: 2005/12/10 03:54:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1393,6 +1393,9 @@ nil であれば、1 行に複数の候補があっても 1 候補として数える。
 この変数の値には引数 1 個の関数、ないしは関数のリストを代入する。これら
 の関数は、確定した文字列を引数に渡して `funcall' される。
 
+基本的にこの変数はフック変数であり、その値を設定したい場合には add-hook
+で追加するか remove-hook で削除する。
+
 SKK では変換、確定を行った文字列は全て個人辞書に取り込まれるが、この
 変数で指定された関数が non-nil を返すとその文字列は個人辞書に取り込ま
 れない。
@@ -1401,30 +1404,28 @@ SKK では変換、確定を行った文字列は全て個人辞書に取り込まれるが、この
 での変換を除く) カタカナのみからなる文字列を得て確定しても、それを個人
 辞書に取り込まない。
 
-  (setq skk-search-excluding-word-pattern-function
-        (function
-         (lambda (kakutei-word)
-         ;; この関数が t を返したときは、その文字列は個人辞書に取り込まれない。
-           (save-match-data
-             (and
-              ;; 送りなし変換で、
-              (not skk-okuri-char)
-              ;; 確定語がカタカナのみから構成されていて、
-              (string-match \"^[ーァ-ン]+$\" kakutei-word)
-              ;; SKK abbrev mode 以外での変換か、
-              (or (not skk-abbrev-mode)
-                ;; 見出し語がカタカナ、ひらがな以外のとき。
-                ;; (後で▽マークを付けたときは、見出し語が英文字でも、
-                ;; skk-abbrev-modeが t になっていない)。
-                  (not (string-match \"^[^ーァ-ンぁ-ん]+$\"
-				      skk-henkan-key))))))))
+ (add-hook 'skk-search-excluding-word-pattern-function
+	   #'(lambda (kakutei-word)
+	       ;; この関数が non-nil を返したときは、その文字列は個人
+	       ;; 辞書に取り込まれない。
+	       (and
+	        ;; 送りなし変換で、
+	        (not skk-okuri-char)
+	        ;; 確定語がカタカナのみから構成されていて、
+	        (string-match \"^[ーァ-ン]+$\" kakutei-word)
+	        ;; SKK abbrev mode 以外での変換か、
+	        (or (not skk-abbrev-mode)
+		    ;; 見出し語がカタカナ、ひらがな以外のとき。
+		    ;; (後で▽マークを付けたときは、見出し語が英文字でも、
+		    ;; skk-abbrev-modeが t になっていない)。
+		    (not (string-match \"^[^ーァ-ンぁ-ん]+$\"
+                                       skk-henkan-key))))))
 
 カタカナを変換により求めたいが、個人辞書にはカタカナのみの候補を取り込みた
 くない、など、個人辞書が必要以上に膨れるのを抑える目的に使用できる。
 
 なお、個人辞書に取り込まない見出し語については補完が効かないので注意すること。"
-  :type '(choice function
-		 (repeat function))
+  :type 'hook
   :group 'skk-hooks-and-functions)
 
 (defcustom skk-update-jisyo-function 'skk-update-jisyo-original
