@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.305 2005/12/09 10:05:33 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.306 2005/12/10 03:36:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/09 10:05:33 $
+;; Last Modified: $Date: 2005/12/10 03:36:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2369,21 +2369,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 `skk-search-excluding-word-pattern-function' $B$,4X?t$N%j%9%H$G$"$l$P!"$=$l$>(B
 $B$l$r(B WORD $B$r0z?t$K$7$F8F$S!$$=$N$&$A$N$R$H$D$G$b(B non-nil $B$rJV$;$P(B nil $B$rJV$9!#(B"
   (save-match-data
-    (cond ((null skk-search-excluding-word-pattern-function)
-	   t)
-	  ((functionp skk-search-excluding-word-pattern-function)
-	   (if (funcall skk-search-excluding-word-pattern-function word)
-	       nil
-	     t))
-	  (t
-	   ;; Signal error if skk-search-excluding-word-pattern-function
-	   ;; is not a list of functions.
-	   (if (catch 'no-update
-		 (dolist (func skk-search-excluding-word-pattern-function)
-		   (when (funcall func word)
-		     (throw 'no-update t))))
-	       nil
-	     t)))))
+    (not (run-hook-with-args-until-success
+	 'skk-search-excluding-word-pattern-function word))))
 
 (defun skk-kakutei-cleanup-buffer ()
   "$B3NDjD>8e$N%P%C%U%!$N@07A$r9T$&!#(B"
