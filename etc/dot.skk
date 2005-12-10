@@ -117,14 +117,16 @@
 ;;   (setq skk-look-use-ispell nil)
 ;;   ;; `skk-abbrev-mode' で skk-look を使った検索をしたときに確定情報を
 ;;   ;; 個人辞書に記録しないようにする
-;;   (setq skk-search-excluding-word-pattern-function
-;;	   ;; KAKUTEI-WORD を引数にしてコールされるので、不要でも引数を取る
-;;	   ;; 必要あり
-;;	   (lambda (kakutei-word)
-;;	     (and skk-abbrev-mode
-;;		  (save-match-data
-;;		    ;; `skk-henkan-key' が "*" で終わるとき
-;;		    (string-match "\\*$" skk-henkan-key))))))
+;;   (add-hook 'skk-search-excluding-word-pattern-function
+;;	       ;; KAKUTEI-WORD を引数にしてコールされるので、不要でも引数を取る
+;;	       ;; 必要あり
+;;	       #'(lambda (kakutei-word)
+;;		   (and skk-abbrev-mode
+;;		        (save-match-data
+;;		          ;; `skk-henkan-key' が "*" で終わるとき、または
+;;		          ;; `skk-henkan-key' が数字のみのとき
+;;		          (or (string-match "\\*$" skk-henkan-key)
+;;			      (string-match "^[0-9]*$" skk-henkan-key)))))))
 
 ;; lookup を利用した変換を行う
 ;; (setq skk-search-prog-list

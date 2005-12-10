@@ -1,3 +1,8 @@
+2005-12-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.skk: Use `add-hook' to modify
+	skk-search-excluding-word-pattern-function.
+
 2005-10-05  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
 	* dot.skk: Add an example which determine `skk-kutouten-type'
