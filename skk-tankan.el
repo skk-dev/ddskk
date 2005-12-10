@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.6 2005/12/09 10:05:49 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.7 2005/12/10 03:53:40 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/12/09 10:05:49 $
+;; Last Modified: $Date: 2005/12/10 03:53:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,12 +52,14 @@
 ;;	         '(("@" nil "@"))))
 ;; ;; annotation として画数と部首を表示する
 ;; (setq skk-show-annotation t)
+;;
 ;; ;; 単漢字入力は学習対象からはずす
-;; (setq skk-search-excluding-word-pattern-function
-;;       (lambda (kakutei-word)
-;;        (string-match (format "%s$" (regexp-quote (char-to-string
-;;						   skk-tankan-search-key)))
-;;                      skk-henkan-key)))
+;; (setq 'skk-search-excluding-word-pattern-function
+;;       #'(lambda (kakutei-word)
+;;           (string-match (format "%s$"
+;;				   (regexp-quote
+;;				    (char-to-string skk-tankan-search-key)))
+;;			   skk-henkan-key)))
 ;;
 ;; ;; 文字 CHAR の ANNOTATION (文字列)を変更したい場合
 ;; ;; (skk-tankan-set-char-annotation CHAR ANNOTATION)
