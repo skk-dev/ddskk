@@ -1,3 +1,14 @@
+2005-12-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-tankan.el: Modify comments. Use `add-hook' to modify
+	skk-search-excluding-word-pattern-function.
+
+	* skk-vars.el (skk-search-excluding-word-pattern-function):
+	Customize as a hook variable.
+
+	* skk.el (skk-update-jisyo-p): Use
+	`run-hook-with-args-until-success'.
+
 2005-12-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-tankan.el: Comments update.
@@ -5145,8 +5156,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.900 2005/12/09 10:06:18 skk-cvs Exp $
-Last Modified: $Date: 2005/12/09 10:06:18 $
+Version: $Id: ChangeLog,v 1.901 2005/12/10 03:54:17 skk-cvs Exp $
+Last Modified: $Date: 2005/12/10 03:54:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
