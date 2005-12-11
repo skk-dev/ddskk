@@ -41,6 +41,15 @@
 
 	(skktut-setup-jisyo-buffer): Do not set buffer-file-name.
 
+	(skktut-before-move-to-other-frame): Temporarily abolish function.
+	(other-frame): Temporarily abolish advice.
+
+	(skk-tutorial):
+	(skk-tutorial-quit):
+
+	Temporarily remove `skktut-before-move-to-other-frame' call in
+	before-make-frame-hook.
+
 	* skk.el: Use `kill-emacs-hook' instead of
 	`skk-before-kill-emacs-hook'.
 
@@ -5216,8 +5225,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.913 2005/12/11 07:28:35 skk-cvs Exp $
-Last Modified: $Date: 2005/12/11 07:28:35 $
+Version: $Id: ChangeLog,v 1.914 2005/12/11 07:50:51 skk-cvs Exp $
+Last Modified: $Date: 2005/12/11 07:50:51 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
