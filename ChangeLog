@@ -14,6 +14,8 @@
 	(skk-toolip-show-at-point): Emacs 22.0.50 only.  Move mouse
 	pointer slightly up to avoid tooltip partly off the screen.
 
+	(tooltip-hide): Advice.  Call `update-buffer-local-frame-params'.
+
 	* skk-server.el: Use `kill-emacs-hook' instead of
 	`skk-before-kill-emacs-hook'.
 
@@ -5214,8 +5216,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.912 2005/12/11 07:26:57 skk-cvs Exp $
-Last Modified: $Date: 2005/12/11 07:26:57 $
+Version: $Id: ChangeLog,v 1.913 2005/12/11 07:28:35 skk-cvs Exp $
+Last Modified: $Date: 2005/12/11 07:28:35 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
