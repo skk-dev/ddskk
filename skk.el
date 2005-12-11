@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.310 2005/12/11 11:35:47 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.311 2005/12/11 16:08:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/11 11:35:47 $
+;; Last Modified: $Date: 2005/12/11 16:08:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1582,7 +1582,11 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	(cond
 	 ((setq prototype (skk-henkan-1))
 	  (setq new-word prototype))
-	 ((setq prototype (skk-henkan-in-minibuff))
+	 ((setq prototype (let ((skk-henkan-in-minibuff-nest-level
+				 (if (numberp skk-henkan-in-minibuff-nest-level)
+				     (1+ skk-henkan-in-minibuff-nest-level)
+				   0)))
+			    (skk-henkan-in-minibuff)))
 	  (setq new-word (skk-quote-semicolon prototype))))
 	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
@@ -2018,7 +2022,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
   "$B<-=qEPO?%b!<%I$KF~$j!"EPO?$7$?C18l$NJ8;zNs$rJV$9!#(B"
   (static-when (eq skk-emacs-type 'mule5)
     (when skk-show-inline
-      (skk-inline-show "Echo area $B$r8+$F(B!" 'font-lock-warning-face)))
+      (skk-inline-show "$B"-<-=qEPO?Cf"-(B" 'font-lock-warning-face)))
   (save-match-data
     (let ((enable-recursive-minibuffers t)
 	  ;; XEmacs $B$G$O<!$NJQ?t$,:F5"E*%_%K%P%C%U%!$N2DH]$K1F6A$9$k!#(B
@@ -2033,7 +2037,9 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
       (condition-case nil
 	  (setq new-one
 		(read-from-minibuffer
-		 (format "[$B<-=qEPO?(B] %s "
+		 (format "%s$B<-=qEPO?(B%s %s "
+			 (make-string (1+ skk-henkan-in-minibuff-nest-level) ?[)
+			 (make-string (1+ skk-henkan-in-minibuff-nest-level) ?])
 			 (or (and (skk-numeric-p)
 				  (skk-num-henkan-key))
 			     (if skk-okuri-char
