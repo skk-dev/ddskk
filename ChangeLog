@@ -1,5 +1,10 @@
 2005-12-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* experimental/bayesian/skk-bayesian.el:
+	* experimental/skk-exserv.el:
+
+	Use `kill-emacs-hook' instead of `skk-before-kill-emacs-hook'.
+
 	* ccc.el: Describe why we need to give interactive specs to
 	advices to interactive subrs.  This is againt our will.
 
@@ -5201,8 +5206,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.908 2005/12/11 06:18:03 skk-cvs Exp $
-Last Modified: $Date: 2005/12/11 06:18:03 $
+Version: $Id: ChangeLog,v 1.909 2005/12/11 06:19:14 skk-cvs Exp $
+Last Modified: $Date: 2005/12/11 06:19:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
