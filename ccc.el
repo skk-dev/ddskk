@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.23 2004/03/04 11:20:09 czkmt Exp $
+;; Version: $Id: ccc.el,v 1.24 2005/12/11 04:27:38 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2004/03/04 11:20:09 $
+;; Last Modified: $Date: 2005/12/11 04:27:38 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -76,53 +76,6 @@
 
 (defvar buffer-local-background-color nil)
 (make-variable-buffer-local 'buffer-local-background-color)
-
-;; Macros.
-(defmacro ccc-defadvice (function &rest everything-else)
-  (let ((origfunc (and (fboundp function)
-		       (if (ad-is-advised function)
-			   (ad-get-orig-definition function)
-			 (symbol-function function))))
-	interactive)
-    (unless
-	(or (not origfunc)
-	    (not (subrp origfunc))
-	    (memq function ; XXX possibilly Emacs version dependent
-		  ;; built-in commands which do not have interactive specs.
-		  '(abort-recursive-edit
-		    bury-buffer
-		    delete-frame
-		    delete-window
-		    exit-minibuffer)))
-      ;; check if advice definition has a interactive call or not.
-      (setq interactive
-	    (cond
-	     ((and (stringp (nth 1 everything-else)) ; have document
-		   (eq 'interactive (car-safe (nth 2 everything-else))))
-	      (nth 2 everything-else))
-	     ((eq 'interactive (car-safe (nth 1 everything-else)))
-	      (nth 1 everything-else))))
-      (cond
-       ((and (commandp origfunc)
-	     (not interactive))
-	(message
-		 "\
-*** WARNING: Adding advice to subr %s\
- without mirroring its interactive spec ***"
-		 function))
-       ((and (not (commandp origfunc))
-	     interactive)
-	(setq everything-else (delq interactive everything-else))
-	(message
-	 "\
-*** WARNING: Deleted interactive call from %s advice\
- as %s is not a subr command ***"
-	 function function))))
-    (` (defadvice (, function) (,@ everything-else)))))
-
-;;;###autoload
-(put 'ccc-defadvice 'lisp-indent-function 'defun)
-(def-edebug-spec ccc-defadvice defadvice)
 
 ;; Functions.
 (defsubst ccc-read-color (prompt)
@@ -235,41 +188,26 @@
     (setq buffer-local-background-color nil)))
 
 ;; Advices.
-(let ((funcs '(;; cover to original Emacs functions.
-	       ;; subr, but no argument.
+(let ((funcs '(;; Cover original Emacs functions.
 	       bury-buffer
 	       delete-frame
 	       delete-window
 
 	       overwrite-mode
-	       ;; subr, but non-command.
+
 	       pop-to-buffer
 	       select-window
 
-	       ;; subrs possibly with interactive specs.
-	       (execute-extended-command . "P")
-	       (kill-buffer . "bKill buffer: ")
-	       (other-window . "p")
-	       (select-frame . "e")
-	       (switch-to-buffer . "BSwitch to buffer: ")))
-      func)
-  (while (setq func (car funcs))
-    (if (consp func)
-	;; command that has an interactive spec.
-	(eval
-	 (`
-	  (ccc-defadvice (, (intern (symbol-name (car func)))) (after ccc-ad
-								      activate)
-	    "Update frame parameters if `buffer-local-*-color's are given."
-	    (interactive (, (cdr func)))
-	    (update-buffer-local-frame-params))))
-      ;; non-command or command that has not an interactive spec.
+	       execute-extended-command
+	       kill-buffer
+	       other-window
+	       select-frame
+	       switch-to-buffer)))
+  (dolist (func funcs)
       (eval
-       (`
-	(ccc-defadvice (, (intern (symbol-name func))) (after ccc-ad activate)
+       `(defadvice ,(intern (symbol-name func)) (after ccc-ad activate)
 	  "Update frame parameters if `buffer-local-*-color's are given."
 	  (update-buffer-local-frame-params)))))
-    (setq funcs (cdr funcs))))
 
 (defadvice modify-frame-parameters (after ccc-ad activate)
   (when (and (assq 'cursor-color (ad-get-arg 1))
