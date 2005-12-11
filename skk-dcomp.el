@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.34 2005/12/04 07:55:58 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.35 2005/12/11 04:50:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/04 07:55:58 $
+;; Last Modified: $Date: 2005/12/11 04:50:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -248,7 +248,7 @@
   ad-do-it
   (skk-dcomp-after-kakutei))
 
-(skk-defadvice keyboard-quit (around skk-dcomp-ad activate)
+(defadvice keyboard-quit (around skk-dcomp-ad activate)
   (skk-dcomp-before-kakutei)
   ad-do-it
   (skk-dcomp-after-kakutei))
