@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.20 2005/02/22 06:34:16 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.21 2005/12/11 06:16:46 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/02/22 06:34:16 $
+;; Last Modified: $Date: 2005/12/11 06:16:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -462,7 +462,7 @@
 
 (add-to-list 'skk-search-end-function 'skk-bayesian-search)
 (add-to-list 'skk-update-end-function 'skk-bayesian-update)
-(add-hook 'skk-before-kill-emacs-hook 
+(add-hook 'kill-emacs-hook 
           (function (lambda ()
                       (skk-bayesian-save-history)
                       (skk-bayesian-corpus-save)

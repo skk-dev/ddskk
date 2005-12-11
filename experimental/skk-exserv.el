@@ -6,9 +6,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-exserv.el,v 1.5 2001/12/16 05:03:11 czkmt Exp $
+;; Version: $Id: skk-exserv.el,v 1.6 2005/12/11 06:16:46 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2001/12/16 05:03:11 $
+;; Last Modified: $Date: 2005/12/11 06:16:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -221,7 +221,7 @@ candidates that are delimited by slash.")
 	(remove-alist 'skk-search-prog-list 'skk-exserv-search))))
 
 ;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-server-search)
-(add-hook 'skk-before-kill-emacs-hook
+(add-hook 'kill-emacs-hook
 	  (function (lambda () (disconnect-server (car skk-exserv-list)))))
 
 (run-hooks 'skk-exserv-load-hook)
