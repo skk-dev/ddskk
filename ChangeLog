@@ -1,3 +1,44 @@
+2005-12-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-server.el: Use `kill-emacs-hook' instead of
+	`skk-before-kill-emacs-hook'.
+
+	* skk-study.el: Use `kill-emacs-hook' instead of
+	`skk-before-kill-emacs-hook'.
+
+	* skk-tut.el (skktut-adviced-alist): Do not check for
+	`kill-buffer' and `save-buffers-kill-emacs'.
+
+	(kill-buffer):
+	(save-buffers-kill-emacs):
+
+	Abolish advices.  Use kill-buffer-hook and kill-emacs-hook instead.
+
+	(other-frame): `defadvice' instead of `skk-defadvice'.
+
+	(skktut-init-variables-alist): Use `skk-search-jisyo-buf' instead
+	of `skk-search-jisyo-file'.
+
+	(skk-get-jisyo-buffer): Advice.  Return skktut-jisyo-buffer in SKK
+	tutorial.
+
+	(skktut-setup-jisyo-buffer): Do not set buffer-file-name.
+
+	* skk.el: Use `kill-emacs-hook' instead of
+	`skk-before-kill-emacs-hook'.
+
+	(newline):
+	(newline-and-indent):
+	(undo):
+
+	`defadvice' instead of `skk-defadvice'.
+
+	(kill-buffer):
+
+	Abolish advice.  Use kill-buffer-hook instead.
+
+	Use these hooks.
+
 2005-12-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-tankan.el: Modify comments.  Use `add-hook' to modify
@@ -5156,8 +5197,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.902 2005/12/10 06:49:38 skk-cvs Exp $
-Last Modified: $Date: 2005/12/10 06:49:38 $
+Version: $Id: ChangeLog,v 1.903 2005/12/11 03:59:56 skk-cvs Exp $
+Last Modified: $Date: 2005/12/11 03:59:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
