@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.308 2005/12/11 06:18:03 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.309 2005/12/11 06:42:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/11 06:18:03 $
+;; Last Modified: $Date: 2005/12/11 06:42:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -216,9 +216,7 @@ dependent."
 	   (t
 	    "Emacs"))))
     (let ((buff (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
-      (ad-disable-advice 'save-buffers-kill-emacs 'before 'skk-ad)
-      (ad-activate 'save-buffers-kill-emacs)
-      (remove-hook 'kill-emacs-hook 'skk-save-jisyo) ; fail safe.
+      (remove-hook 'kill-emacs-hook 'skk-save-jisyo)
       (when buff
 	(set-buffer buff)
 	(set-buffer-modified-p nil)
