@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.306 2005/12/10 03:36:45 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.307 2005/12/11 03:59:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/10 03:36:45 $
+;; Last Modified: $Date: 2005/12/11 03:59:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -218,7 +218,7 @@ dependent."
     (let ((buff (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
       (ad-disable-advice 'save-buffers-kill-emacs 'before 'skk-ad)
       (ad-activate 'save-buffers-kill-emacs)
-      (remove-hook 'skk-before-kill-emacs-hook 'skk-save-jisyo) ; fail safe.
+      (remove-hook 'kill-emacs-hook 'skk-save-jisyo) ; fail safe.
       (when buff
 	(set-buffer buff)
 	(set-buffer-modified-p nil)
@@ -4523,9 +4523,9 @@ SKK 辞書の候補として正しい形に整形する。"
     (setq args (cdr args))))
 
 (add-hook 'edit-picture-hook #'skk-misc-for-picture 'append)
-(add-hook 'skk-before-kill-emacs-hook #'skk-record-jisyo-data)
+(add-hook 'kill-emacs-hook #'skk-record-jisyo-data)
 ;; add 'skk-save-jisyo only to remove easily.
-(add-hook 'skk-before-kill-emacs-hook #'skk-save-jisyo)
+(add-hook 'kill-emacs-hook #'skk-save-jisyo)
 (add-hook 'minibuffer-exit-hook
 	  #'(lambda ()
 	      (remove-hook 'pre-command-hook 'skk-pre-command 'local)
@@ -4577,17 +4577,6 @@ SKK 辞書の候補として正しい形に整形する。"
   (if skk-isearch-mode-enable
       (message "SKK isearch is enabled")
     (message "SKK isearch is disabled")))
-
-;;;###autoload
-(add-hook 'after-init-hook
-	  #'(lambda ()
-	      (when (symbol-value 'init-file-user)
-		(when (and (boundp 'skk-custom-file)
-			   (load skk-custom-file t)
-			   (cdr (assq 'skk-preload skk-custom-alist)))
-		  (setq skk-preload t))
-		(when skk-preload
-		  (skk-preload)))))
 
 ;;; cover to original functions.
 (skk-defadvice keyboard-quit (around skk-ad activate)
@@ -4655,9 +4644,8 @@ SKK 辞書の候補として正しい形に整形する。"
 	   (delete-region (point) skk-henkan-start-point))
 	 (skk-kakutei))))
 
-(skk-defadvice newline (around skk-ad activate)
+(defadvice newline (around skk-ad activate)
   "`skk-egg-like-newline' だったら、変換中は確定のみ行い、改行しない。"
-  (interactive "*P")
   (if (not (or skk-j-mode
 	       skk-jisx0201-mode
 	       skk-abbrev-mode))
@@ -4686,7 +4674,7 @@ SKK 辞書の候補として正しい形に整形する。"
       (unless no-newline
 	ad-do-it))))
 
-(skk-defadvice newline-and-indent (around skk-ad activate)
+(defadvice newline-and-indent (around skk-ad activate)
   "`skk-egg-like-newline' だったら、変換中は確定のみ行い、改行しない。"
   (if (not (or skk-j-mode
 	       skk-jisx0201-mode
@@ -4727,18 +4715,10 @@ SKK 辞書の候補として正しい形に整形する。"
   (when skk-mode
     (skk-kill-local-variables)))
 
-(skk-defadvice undo (before skk-ad activate)
+(defadvice undo (before skk-ad activate)
   "SKK モードが on なら `skk-self-insert-non-undo-count' を初期化する。"
   (when skk-mode
     (setq skk-self-insert-non-undo-count 0)))
-
-(skk-defadvice kill-buffer (before skk-ad activate)
-  "SKK の▼モードだったら、確定してからバッファをキルする。"
-  (interactive "bKill buffer: ") ; subr command with arg.
-  (when (and skk-mode
-	     skk-henkan-mode
-	     (interactive-p))
-    (skk-kakutei)))
 
 (defadvice next-line (before skk-ad activate)
   (when (eq skk-henkan-mode 'active)
@@ -4748,9 +4728,6 @@ SKK 辞書の候補として正しい形に整形する。"
   (when (eq skk-henkan-mode 'active)
     (skk-kakutei)))
 
-(skk-defadvice save-buffers-kill-emacs (before skk-ad activate)
-  (run-hooks 'skk-before-kill-emacs-hook))
-
 (defadvice comint-send-input (around skk-ad activate compile)
   (cond (skk-henkan-mode
 	 (skk-kakutei)
@@ -4758,6 +4735,29 @@ SKK 辞書の候補として正しい形に整形する。"
 	   ad-do-it))
 	(t
 	 ad-do-it)))
+
+(defadvice save-buffers-kill-emacs (before skk-ad activate)
+  (run-hooks 'skk-before-kill-emacs-hook))
+
+;; hooks.
+
+;;;###autoload
+(add-hook 'after-init-hook
+	  #'(lambda ()
+	      (when (symbol-value 'init-file-user)
+		(when (and (boundp 'skk-custom-file)
+			   (load skk-custom-file t)
+			   (cdr (assq 'skk-preload skk-custom-alist)))
+		  (setq skk-preload t))
+		(when skk-preload
+		  (skk-preload)))))
+
+(add-hook 'kill-buffer-hook
+	  ;; SKK の▼モードだったら、確定してからバッファをキルする。
+	  #'(lambda ()
+	      (when (and skk-mode
+			 skk-henkan-mode)
+		(skk-kakutei))))
 
 (run-hooks 'skk-load-hook)
 
