@@ -1,5 +1,8 @@
 2005-12-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* ccc.el: Descibe why we need to give interactive specs to
+	advices to interactive subrs.  This is againt our will.
+
 	* skk-server.el: Use `kill-emacs-hook' instead of
 	`skk-before-kill-emacs-hook'.
 
@@ -5197,8 +5200,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.905 2005/12/11 04:51:20 skk-cvs Exp $
-Last Modified: $Date: 2005/12/11 04:51:20 $
+Version: $Id: ChangeLog,v 1.906 2005/12/11 05:51:57 skk-cvs Exp $
+Last Modified: $Date: 2005/12/11 05:51:57 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

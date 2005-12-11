@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.25 2005/12/11 04:50:59 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.26 2005/12/11 05:51:57 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2005/12/11 04:50:59 $
+;; Last Modified: $Date: 2005/12/11 05:51:57 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -79,6 +79,13 @@
 
 ;; Macros.
 (defmacro ccc-defadvice (function &rest everything-else)
+  ;;  Basically, advice to an interactive subr doesn't need interactive
+  ;; forms specified if there is no `ad-get-arg' or `ad-set-arg'.  But
+  ;; problem occurs when interactive subrs are called in keyboard macros,
+  ;; where `interactive-p' always returns nil.
+  ;;  Giving interactive forms to an advice should be avoided if possible,
+  ;; since this can override the user's own advice for modifying interactive
+  ;; specs.
   (let ((origfunc (and (fboundp function)
 		       (if (ad-is-advised function)
 			   (ad-get-orig-definition function)
