@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.60 2005/12/11 07:26:07 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.61 2005/12/11 07:50:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/11 07:26:07 $
+;; Last Modified: $Date: 2005/12/11 07:50:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -57,7 +57,6 @@
     (skk-insert . before)
     (skk-kakutei . before)
     (skk-mode . before)
-    (other-frame . before)
     (skk-create-file . around)
     (skk-save-jisyo-original . around)
     (skk-get-jisyo-buffer . around)
@@ -80,7 +79,6 @@
     (skk-byte-compile-init-file . nil)
     (skk-comp-load-hook . nil)
     (skk-compare-jisyo-size-when-saving . nil)
-    ;;(skk-convert-okurigana-into-katakana . nil)
     (skk-count-jisyo-candidates-function
      . 'skk-count-jisyo-candidates-original)
     (skk-count-private-jisyo-candidates-exactly . nil)
@@ -439,9 +437,6 @@
 	(t
 	 ad-do-it)))
 
-(defadvice other-frame (before skktut-ad disable)
-  (skktut-before-move-to-other-frame))
-
 ;; hooks
 (add-hook 'kill-buffer-hook
 	  #'(lambda ()
@@ -504,7 +499,6 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
     (skktut-setup-answer-buffer)
     (skktut-enable-advice)
     (skktut-enable-tutmap)
-    (add-hook 'before-make-frame-hook 'skktut-before-move-to-other-frame)
     (add-hook 'minibuffer-setup-hook 'skktut-localize-and-init-variables)
     (skktut-make-windows))
   (skktut-setup-delete-backward-char))
@@ -537,8 +531,6 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
 	    skktut-tutorial-end nil)
       (remove-hook 'minibuffer-setup-hook
 		   'skktut-localize-and-init-variables)
-      (remove-hook 'before-make-frame-hook
-		   'skktut-before-move-to-other-frame)
       (skktut-disable-tutmap)
       (skktut-disable-advice)
       (with-current-buffer skktut-jisyo-buffer
@@ -826,13 +818,6 @@ tutorial /チュートリアル/
 	buffer-read-only)
     (set-text-properties (point-min) (point-max) nil)
     (erase-buffer)))
-
-(defun skktut-before-move-to-other-frame ()
-  (if (skktut-yes-or-no-p "Tutorial を終了します。よろしいですね？ "
-			  "Quit tutorial?")
-      (skk-tutorial-quit 'now)
-    (skktut-error "Tutorial を終了せずに他のフレームに移ることはできません。"
-		  "Quit tutorial or you cannot move to other frame")))
 
 (defun skktut-colored ()
   ;; face を Text Property にしておくとテキストをコピーしたときに一緒にコピーで
