@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.36 2005/11/30 10:34:40 skk-cvs Exp $
+;; Version: $Id: skk-server.el,v 1.37 2005/12/11 03:58:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 10:34:40 $
+;; Last Modified: $Date: 2005/12/11 03:58:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -295,7 +295,7 @@ non-nil であれば、加える。"
       (accept-process-output skkserv-process))))
 
 ;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-server-search)
-(add-hook 'skk-before-kill-emacs-hook 'skk-disconnect-server)
+(add-hook 'kill-emacs-hook 'skk-disconnect-server)
 
 (run-hooks 'skk-server-load-hook)
 

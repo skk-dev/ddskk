@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.49 2003/07/19 00:56:38 minakaji Exp $
+;; Version: $Id: skk-study.el,v 1.50 2005/12/11 03:58:13 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2003/07/19 00:56:38 $
+;; Last Modified: $Date: 2005/12/11 03:58:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -396,7 +396,7 @@
 	(lo1 (nth 1 time1)))
     (or (< hi0 hi1) (and (= hi0 hi1) (< lo0 lo1)))))
 
-(add-hook 'skk-before-kill-emacs-hook 'skk-study-save)
+(add-hook 'kill-emacs-hook 'skk-study-save)
 
 (require 'product)
 (product-provide (provide 'skk-study) (require 'skk-version))
