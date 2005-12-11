@@ -278,10 +278,11 @@ Analogous to mouse-position."
 				(marker-position
 				 skk-henkan-start-point))
 			      (point))       ; stop pos
-			  (cons (window-width) (window-height)); stop XY: none
-			  (1- (window-width))       ; width
+			  (cons (window-width w)
+				(window-height w)); stop XY: none
+			  (1- (window-width w))       ; width
 			  (cons (window-hscroll w) 0)     ; 0 may not be right?
-			  (selected-window))))
+			  w)))
     ;; compute-motion returns (pos HPOS VPOS prevhpos contin)
     ;; we want:               (frame hpos . vpos)
     (cons (selected-frame)
@@ -293,7 +294,14 @@ Analogous to mouse-position."
   (let* ((P (skk-e21-mouse-position))
 	 (frame (car P))
 	 (x (cadr P))
-	 (y (cddr P))
+	 (y (if (and (string-lessp "22" emacs-version)
+		     (or skk-isearch-switch
+			 (window-minibuffer-p (selected-window))))
+		;; Workaround for Emacs 22.0.50 cvs.  Tooltip position
+		;; was changed.
+		(- (cddr P) 3)
+	      ;; Emacs 21 shows tooltip just above the mouse pointer.
+	      (cddr P)))
 	 (oP (mouse-position))
 	 (oframe (car oP))
 	 (ox     (cadr oP))
@@ -334,6 +342,10 @@ Analogous to mouse-position."
     (delete-overlay skk-inline-overlay)
     (setq skk-inline-overlay nil)))
 
+;; advices.
+
+(defadvice tooltip-hide (after ccc-ad activate)
+  (update-buffer-local-frame-params))
 
 (require 'product)
 (product-provide
