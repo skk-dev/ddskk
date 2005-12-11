@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.140 2005/12/11 11:35:47 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.141 2005/12/11 16:09:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/11 11:35:47 $
+;; Last Modified: $Date: 2005/12/11 16:09:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1567,6 +1567,8 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
   "*全角モードのキーマップ。")
 (defvar skk-abbrev-mode-map nil
   "*SKK abbrev モードのキーマップ。")
+
+(defvar skk-henkan-in-minibuff-nest-level nil)
 
 (defvar skk-menu-items
   ;; SKK メニューの定義。

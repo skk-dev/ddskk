@@ -1,3 +1,18 @@
+2005-12-11  Masatake YAMATO  <jet@gyve.org>
+
+	* skk-vars.el (skk-henkan-in-minibuff-nest-level): New variable.
+
+	* skk.el (skk-henkan): Bind `skk-henkan-in-minibuff-nest-level'.
+	If it is not bount to a number i.e. SKK is yet to enter henkan in
+	minibuff mode, bind it to 0, otherwise increment it.
+
+	(skk-henkan-in-minibuff): When skk-show-inline is non-nil, modify
+	the inline prompt to "↓辞書登録中↓".
+	Create prompt so that it have `skk-henkan-in-minibuff-nest-level
+	+ 1' numbers of pairs of parens, i.e. number of pairs of parens
+	shows the recursive depth of the word registration mode in
+	progress.
+
 2005-01-23  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 
 	Modified on 2005-12-11 by Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
@@ -5252,8 +5267,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.915 2005/12/11 11:35:47 skk-cvs Exp $
-Last Modified: $Date: 2005/12/11 11:35:47 $
+Version: $Id: ChangeLog,v 1.916 2005/12/11 16:09:01 skk-cvs Exp $
+Last Modified: $Date: 2005/12/11 16:09:01 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
