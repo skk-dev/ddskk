@@ -46,7 +46,8 @@
 
 	Abolish advices.  Use kill-buffer-hook and kill-emacs-hook instead.
 
-	Use these hooks.
+	(skk-kill-emacs-without-saving-jisyo): Don't care for advice to
+	`save-buffers-kill-emacs'.
 
 2005-12-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -5206,8 +5207,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.909 2005/12/11 06:19:14 skk-cvs Exp $
-Last Modified: $Date: 2005/12/11 06:19:14 $
+Version: $Id: ChangeLog,v 1.910 2005/12/11 06:42:32 skk-cvs Exp $
+Last Modified: $Date: 2005/12/11 06:42:32 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
