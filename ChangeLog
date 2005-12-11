@@ -74,8 +74,6 @@
 
 	Abolish advices.  Use kill-buffer-hook and kill-emacs-hook instead.
 
-	(other-frame): `defadvice' instead of `skk-defadvice'.
-
 	(skktut-init-variables-alist): Use `skk-search-jisyo-buf' instead
 	of `skk-search-jisyo-file'.  Bind `skk-show-tooltip' and
 	`skk-show-inline' to nil.
@@ -5269,8 +5267,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.917 2005/12/11 16:15:14 skk-cvs Exp $
-Last Modified: $Date: 2005/12/11 16:15:14 $
+Version: $Id: ChangeLog,v 1.918 2005/12/11 17:09:17 skk-cvs Exp $
+Last Modified: $Date: 2005/12/11 17:09:17 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
