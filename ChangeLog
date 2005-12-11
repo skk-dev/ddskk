@@ -1,3 +1,30 @@
+2005-01-23  MITA Yuusuke  <clefs@mail.goo.ne.jp>
+
+	Modified on 2005-12-11 by Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-display-p):
+	(skk-annotation-toggle-display-p):
+
+	New functions.
+
+	(skk-annotation-show-1): When `skk-annotation-display-p' returns
+	nil for minibuf and SKK is in minibuffer, do not show notes.
+
+	* skk-cus.el (skk-cus-params-visual): Modify custom type for
+	skk-show-annotation.
+
+	* skk-vars.el (skk-show-annotation): Modify custom type.
+	Accept (not list) (not minibuf) or (not list minibuf).
+
+	(skk-annotation-toggle-display-char): New variable.
+
+	* skk.el (skk-henkan-show-candidates): If the last event is
+	skk-annotation-toggle-display-char, call
+	`skk-annotation-toggle-display-p'.
+
+	(skk-henkan-show-candidate-subr): When `skk-annotation-display-p'
+	returns nil for list, turn off notes.
+
 2005-12-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* experimental/bayesian/skk-bayesian.el:
@@ -5225,8 +5252,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.914 2005/12/11 07:50:51 skk-cvs Exp $
-Last Modified: $Date: 2005/12/11 07:50:51 $
+Version: $Id: ChangeLog,v 1.915 2005/12/11 11:35:47 skk-cvs Exp $
+Last Modified: $Date: 2005/12/11 11:35:47 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

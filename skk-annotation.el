@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.25 2004/12/23 03:53:33 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.26 2005/12/11 11:35:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2004/12/23 03:53:33 $
+;; Last Modified: $Date: 2005/12/11 11:35:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -189,6 +189,10 @@
    ((and skk-annotation-show-as-message
 	 (not (skk-in-minibuffer-p)))
     (skk-annotation-show-as-message annotation))
+   ((and (not (skk-annotation-display-p 'minibuf))
+	 (skk-in-minibuffer-p))
+    ;; do nothing
+    nil)
    (t
     (skk-annotation-show-buffer annotation))))
 
@@ -372,6 +376,42 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	 (goto-char beg)
 	 (when (re-search-forward ";[^/]*" end t)
 	   (delete-region (match-beginning 0) (match-end 0))))))))
+
+;;;###autoload
+(defun skk-annotation-display-p (test)
+  (cond ((eq skk-show-annotation nil)
+	 nil)
+	((and (listp skk-show-annotation)
+	      (eq (car skk-show-annotation) 'not)
+	      ;; (not ...)
+	      (memq test skk-show-annotation))
+	 ;; (not list), (not minibuf) or (not list minibuf)
+	 nil)
+	(t
+	 ;; non-nil
+	 t)))
+
+;;;###autoload
+(defun skk-annotation-toggle-display-p ()
+  (interactive)
+  (cond ((eq skk-show-annotation nil)
+	 ;; do nothing
+	 nil)
+	((and (listp skk-show-annotation)
+	      (eq (car skk-show-annotation) 'not))
+	 ;; (not ...)
+	 (cond ((memq 'list skk-show-annotation)
+		(if (eq (length skk-show-annotation) 2)
+		    ;; (not list) -> t  i.e. turn on
+		    (setq skk-show-annotation t)
+		  ;; (not list minibuf) -> (not minibuf)
+		  (setq skk-show-annotation '(not minibuf))))
+	       (t
+		;; (not minibuf) -> (not list minibuf)  i.e. turn off
+		(setq skk-show-annotation '(not list minibuf)))))
+	(t
+	 ;; non-nil -> (not list)  i.e. turn off
+	 (setq skk-show-annotation '(not list)))))
 
 (defun skk-annotation-last-word-1 (function)
   ;; funcall FUNCTION with BEG and END where BEG and END are markers.

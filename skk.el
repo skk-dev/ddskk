@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.309 2005/12/11 06:42:28 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.310 2005/12/11 11:35:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/11 06:42:28 $
+;; Last Modified: $Date: 2005/12/11 11:35:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1863,6 +1863,8 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 		      (t
 		       ;; $B0l$DA0$N8uJd72$r%(%3!<%(%j%"$KI=<($9$k!#(B
 		       (setq reverse t))))
+		    ((eq char skk-annotation-toggle-display-char)
+		     (skk-annotation-toggle-display-p))
 		    ((skk-key-binding-member
 		      key
 		      '(keyboard-quit
@@ -1903,15 +1905,22 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	    (while (> max-candidates count)
 	      (setq e (nth count candidates))
 	      (if e
-		  (setq v (cons (progn
-				  (when (and (skk-numeric-p) (consp e))
-				    (setq e (cdr e)))
-				  (cond
-				   ((not (skk-lisp-prog-p e))
-				    e)
-				   ((skk-eval-string e))
-				   (t e)))
-				v)
+		  (setq v (cons
+			   (progn
+			     (when (and (not (skk-annotation-display-p 'list))
+					(string-match ";" e))
+					;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
+			       (setq e (concat
+					(substring e 0 (match-beginning 0))
+					";")))
+			     (when (and (skk-numeric-p) (consp e))
+			       (setq e (cdr e)))
+			     (cond
+			      ((not (skk-lisp-prog-p e))
+			       e)
+			      ((skk-eval-string e))
+			      (t e)))
+			   v)
 			count (1+ count))
 		(setq count max-candidates)))
 	    (nreverse v)))

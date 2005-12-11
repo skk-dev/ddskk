@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.139 2005/12/10 03:54:00 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.140 2005/12/11 11:35:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/10 03:54:00 $
+;; Last Modified: $Date: 2005/12/11 11:35:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3272,14 +3272,24 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 (defvar skk-lookup-module-list nil)
 (defvar skk-lookup-prefix-and-kana-map nil)
 
-;; SKK-ANNORTATION related variables.
+;; SKK-ANNOTATION related variables.
 (defcustom skk-show-annotation nil
   "*Non-nil $B$G$"$l$P!"Cp<a$rI=<($9$k!#(B
 $B<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$rJQ49$N:]!"Cm5-$H$7$F(B\
 $B%(%3!<%(%j%"!"$^$?$OJL(B Window $B$KI=<($9$k!#(B"
-  :type 'boolean
+  :type '(radio (const :tag "$B>o$KI=<((B" t)
+		(const :tag "$B8uJd0lMw$G$OHsI=<((B" (not list))
+		(const :tag "$B%_%K%P%C%U%!$G$OHsI=<((B" (not minibuf))
+		(const :tag "$B8uJd0lMw$H%_%K%P%C%U%!$G$OHsI=<((B"
+		       (not list minibuf))
+		(const :tag "$BHsI=<((B" nil))
   :group 'skk-annotation
   :group 'skk-misc)
+
+(defcustom skk-annotation-toggle-display-char ?^
+  "*$B%(%3!<%(%j%"$G8uJdI=<(Cf$K%"%N%F!<%7%g%sI=<($r@Z$jBX$($k%-!<%-%c%i%/%?!#(B"
+  :type 'character
+  :group 'skk-keybinds)
 
 (defcustom skk-annotation-function nil
   "*annotation $B$rI=<($9$k$+$I$&$+$N%A%'%C%/;~$K%3!<%k$5$l$k4X?t!#(B

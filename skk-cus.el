@@ -54,7 +54,14 @@
     (skk-japanese-message-and-error
      (const :tag "メッセージは日本語で通知する" t) "")
     (skk-show-annotation
-     (const :tag "変換時に註釈を表示する" t) "")))
+     (radio :tag "変換時に註釈を表示する？"
+	    (const :tag "常に表示" t)
+	    (const :tag "候補一覧では非表示" (not list))
+	    (const :tag "ミニバッファでは非表示" (not minibuf))
+	    (const :tag "候補一覧とミニバッファでは非表示"
+		   (not list minibuf))
+	    (const :tag "非表示" nil))
+     "")))
 
 (defconst skk-cus-params-ui
   '((skk-egg-like-newline
