@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.58 2005/11/30 10:09:15 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.59 2005/12/11 03:41:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/30 10:09:15 $
+;; Last Modified: $Date: 2005/12/11 03:41:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -57,19 +57,17 @@
     (skk-insert . before)
     (skk-kakutei . before)
     (skk-mode . before)
-    (kill-buffer . around)
     (other-frame . before)
-    (save-buffers-kill-emacs . around)
     (skk-create-file . around)
     (skk-save-jisyo-original . around)
-    ;;(select-frame . before)
+    (skk-get-jisyo-buffer . around)
    )
   "SKK チュートリアルで advice が付けられる関数と advice class のエーリスト。")
 
 (defvar skktut-question-numbers nil "SKK チュートリアルの問題数。")
 
 (defconst skktut-tut-jisyo "~/skk-tut-jisyo"
-  "SKK チュートリアル用のダミー辞書。")
+  "SKK チュートリアル用の辞書。")
 
 (defconst skktut-init-variables-alist
   '((skk-cursor-abbrev-color . "royalblue")
@@ -275,7 +273,8 @@
     (skk-rom-kana-rule-list . '(("hh" "h" ("ッ" . "っ"))))
     (skk-save-jisyo-function . 'skk-save-jisyo-original)
     (skk-search-excluding-word-pattern-function . nil)
-    (skk-search-prog-list . '((skk-search-jisyo-file skktut-tut-jisyo 0 t)))
+    (skk-search-prog-list . '((skk-search-jisyo-buf
+			       (get-buffer skktut-jisyo-buffer) 0)))
     (skk-set-henkan-point-key
      . '(?A ?B ?C ?D ?E ?F ?G ?H ?I ?J ?K ?M ?N ?O ?P ?R ?S ?T ?U ?V ?W ?Y ?Z))
     (skk-share-private-jisyo . nil)
@@ -432,46 +431,36 @@
     (skktut-error "このキーはまだ使えません"
 		  "Cannot use this key yet")))
 
-(skk-defadvice kill-buffer (around skktut-ad disable)
-  "SKK チュートリアル用アドバイス付。"
-  (interactive "bKill buffer: ") ; subr command with arg.
-  (cond
-   ((not (and (interactive-p)
-	      (member (ad-get-arg 0)
-		      (list skktut-working-buffer
-			    skktut-question-buffer
-			    skktut-answer-buffer
-			    skktut-jisyo-buffer))))
-    ad-do-it)
-   ((skktut-yes-or-no-p "チュートリアルをやめますか? "
-			"Quit tutorial? ")
-    (skk-tutorial-quit 'now)
-    ;; already killed.
-    ;;ad-do-it
-    )))
+(defadvice skk-get-jisyo-buffer (around skktut-ad disable)
+  (cond ((string= skk-jisyo skktut-tut-jisyo)
+	 (setq ad-return-value (get-buffer skktut-jisyo-buffer)))
+	(t
+	 ad-do-it)))
 
-(skk-defadvice other-frame (before skktut-ad disable)
-  "SKK チュートリアル用アドバイス付。"
+(defadvice other-frame (before skktut-ad disable)
   (skktut-before-move-to-other-frame))
 
-;;(defadvice select-frame (before skktut-ad disable)
-;;(defadvice select-frame (before skktut-ad activate)
-;;  "SKK チュートリアル用アドバイス付。"
-;;  (skktut-before-move-to-other-frame))
+;; hooks
+(add-hook 'kill-buffer-hook
+	  #'(lambda ()
+	      (when (and (interactive-p)
+			 (member (buffer-name (current-buffer))
+				 (list skktut-working-buffer
+				       skktut-question-buffer
+				       skktut-answer-buffer
+				       skktut-jisyo-buffer)))
+		(skk-tutorial-quit 'now))))
 
-(skk-defadvice save-buffers-kill-emacs (around skktut-ad disable)
-  "SKK チュートリアル用アドバイス付。"
-  (when (skktut-yes-or-no-p
-	 "Tutorial も Emacs も終了します。よろしいですね？ "
-	 "Quit tutorial and kill emacs? ")
-    (skk-tutorial-quit 'now)
-    ad-do-it))
+(add-hook 'kill-emacs-hook
+	  #'(lambda ()
+	      (when (buffer-live-p (get-buffer skktut-jisyo-buffer))
+		(skk-tutorial-quit 'now))))
 
 ;; interactive commands. prefix should be `skk-tutorial'.
 ;;;###autoload
 (defun skk-tutorial (&optional query-language)
-  "SKK チュートリアルを起動する。
-\\[universal-argument] \\[skk-tutorial] すると、チュートリアルファイルの選択が可能。"
+  "Start SKK tutorial.
+You can select English version by \\[universal-argument] \\[skk-tutorial]."
   (interactive "P")
   ;;
   (unless skk-mode-invoked
@@ -519,10 +508,9 @@
   (skktut-setup-delete-backward-char))
 
 (defun skk-tutorial-again (&optional now)
-  "SKK チュートリアルを最初からやり直す。
-\\[universal-argument] \\[skk-tutorial-again] すると、yes-or-no-p で尋ねられることなく直ちにやり
-直す。"
- (interactive "P")
+  "ユーザの同意があれば SKK チュートリアルを最初からやり直す。
+\\[universal-argument] \\[skk-tutorial-again] すると直ちにやり直す。"
+  (interactive "P")
   (when (or now
 	    (skktut-yes-or-no-p
 	     "最初から Tutorial をやり直します。よろしいですね？ "
@@ -531,9 +519,8 @@
     (skk-tutorial)))
 
 (defun skk-tutorial-quit (&optional now)
-  "SKK チュートリアルをやめる。
-\\[universal-argument] \\[skk-tutorial-quit] すると、yes-or-no-p で尋ねられることなく直ちにやめ
-る。"
+  "ユーザの同意がある場合 SKK チュートリアルをやめる。
+\\[universal-argument] \\[skk-tutorial-quit] すると直ちにやめる。"
   (interactive "P")
   (when (or now
 	    (skktut-yes-or-no-p
@@ -704,8 +691,7 @@
   (with-current-buffer (get-buffer-create skktut-jisyo-buffer)
     (buffer-disable-undo (current-buffer))
     (skktut-localize-and-init-variables)
-    (setq case-fold-search nil
-	  buffer-file-name (expand-file-name skktut-tut-jisyo))
+    (setq case-fold-search nil)
     (insert "\
 ;; okuri-ari entries.
 ほっs /欲/
@@ -1036,9 +1022,7 @@ with empty body and subject.
 	  (skktut-message "<return> キーを押してください"
 			  "Hit <return> key")
 	  (if (and char (eq ?\C-m char))
-	      (setq skktut-tutorial-end t)
-	    ;;(skk-unread-event event)
-	    ))))))
+	      (setq skktut-tutorial-end t)))))))
 
 (defun skktut-setup-delete-backward-char ()
   (let ((commands '(backward-delete-char-untabify
