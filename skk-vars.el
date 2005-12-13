@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.144 2005/12/13 13:27:06 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.145 2005/12/13 23:25:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/13 13:27:06 $
+;; Last Modified: $Date: 2005/12/13 23:25:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -725,7 +725,8 @@ left であれば左端に表示する。
 `skk-search-prog-list' の要素と同じ書式で表され、同リストの要素と関数名および
 すべての引数が一致した場合のみ一致と判断される。
 
-一致の評価は、 1 は関数 `eq' によ て、 2 は`equal' によって行われる。
+一致の評価は、 1 は関数 `eq' によって、 2 はリストに対して `equal' によって
+行われる。
 
  (設定例)
 
