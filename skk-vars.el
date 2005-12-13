@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.142 2005/12/13 12:05:20 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.143 2005/12/13 12:07:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/13 12:05:20 $
+;; Last Modified: $Date: 2005/12/13 12:07:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -735,7 +735,8 @@ left であれば左端に表示する。
 	 (skk-search-jisyo-file \"/usr/share/skk/SKK-JISYO.jinmei\" 10000)))
 "
   :type '(repeat (radio (symbol :tag "関数名のみで指定")
-			(list :tag "関数名と引数のリスト"))))
+			(list :tag "関数名と引数のリスト")))
+  :group 'skk-num)
 
 (defcustom skk-rom-kana-base-rule-list
   '(("a" nil ("ア" . "あ"))

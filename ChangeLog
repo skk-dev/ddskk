@@ -1,3 +1,11 @@
+2005-12-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-non-numeric-program-list): New variable.
+
+	* skk.el (skk-numeric-program-p): New function.
+	(skk-search): Do not do numeric search if `skk-numeric-program-p'
+	returns nil for prog.
+
 2005-12-11  Masatake YAMATO  <jet@gyve.org>
 
 	* skk-vars.el (skk-henkan-in-minibuff-nest-level): New variable.
@@ -5267,8 +5275,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.918 2005/12/11 17:09:17 skk-cvs Exp $
-Last Modified: $Date: 2005/12/11 17:09:17 $
+Version: $Id: ChangeLog,v 1.919 2005/12/13 12:05:53 skk-cvs Exp $
+Last Modified: $Date: 2005/12/13 12:05:53 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
