@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.141 2005/12/11 16:09:01 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.142 2005/12/13 12:05:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/11 16:09:01 $
+;; Last Modified: $Date: 2005/12/13 12:05:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -711,6 +711,31 @@ left であれば左端に表示する。
   "*Non-nil であれば、数値変換を行う。"
   :type 'boolean
   :group 'skk-num)
+
+(defcustom skk-non-numeric-program-list nil
+  "*数値変換に使わない辞書検索プログラムのリスト。
+`skk-use-numeric-conversion' が non-nil の場合のみ有効。リストの要素としては、
+
+1. プログラムの関数名をを表すシンボル
+2. プログラムを引数の値まで指定した形のリスト
+
+のいずれでも指定できる。
+
+前者では、関数名の一致した全プログラムが一致と判断される。後者は
+`skk-search-prog-list' の要素と同じ書式で表され、同リストの要素と関数名および
+すべての引数が一致した場合のみ一致と判断される。
+
+一致の評価は、 1 は関数 `eq' によ て、 2 は`equal' によって行われる。
+
+ (設定例)
+
+ (setq skk-non-numeric-program-list
+       '(skk-look
+	 skk-tankan-search
+	 (skk-search-jisyo-file \"/usr/share/skk/SKK-JISYO.jinmei\" 10000)))
+"
+  :type '(repeat (radio (symbol :tag "関数名のみで指定")
+			(list :tag "関数名と引数のリスト"))))
 
 (defcustom skk-rom-kana-base-rule-list
   '(("a" nil ("ア" . "あ"))
