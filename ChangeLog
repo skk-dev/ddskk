@@ -1,5 +1,17 @@
 2005-12-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skk-annotation-show-1): When
+	skk-annotation-propertize-function is a function, call it and
+	modify ANNOTATION.
+
+	* skk-vars.el (skk-annotation-propertize-function): New variable.
+
+	* skk.el (skk-henkan-show-candidate-subr): When candidate contains
+	a note and skk-annotation-propertize-function is a function, call
+	it and modity the note.
+
+2005-12-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-vars.el (skk-non-numeric-program-list): New variable.
 
 	* skk.el (skk-numeric-program-p): New function.
@@ -5275,8 +5287,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.919 2005/12/13 12:05:53 skk-cvs Exp $
-Last Modified: $Date: 2005/12/13 12:05:53 $
+Version: $Id: ChangeLog,v 1.920 2005/12/13 15:24:19 skk-cvs Exp $
+Last Modified: $Date: 2005/12/13 15:24:19 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
