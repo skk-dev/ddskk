@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.312 2005/12/13 12:05:42 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.313 2005/12/13 13:27:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/13 12:05:42 $
+;; Last Modified: $Date: 2005/12/13 13:27:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1905,18 +1905,28 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	 (workinglst
 	  ;; CANDIDATES $B$N@hF,$N(B 7 $B$D$N$_$N%j%9%H!#(B
-	  (let ((count 0) e v)
+	  (let ((count 0) e note v)
 	    (while (> max-candidates count)
 	      (setq e (nth count candidates))
 	      (if e
 		  (setq v (cons
 			   (progn
-			     (when (and (not (skk-annotation-display-p 'list))
-					(string-match ";" e))
-					;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
+			     (when (string-match ";" e)
+			       (setq note
+				     (if (skk-annotation-display-p 'list)
+					 (substring e (match-beginning 0))
+				       ;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
+				       ";"))
+			       (when (functionp
+				      skk-annotation-propertize-function)
+				 (save-match-data
+				   (setq note
+					 (funcall
+					  skk-annotation-propertize-function
+					  note))))
 			       (setq e (concat
 					(substring e 0 (match-beginning 0))
-					";")))
+					note)))
 			     (when (and (skk-numeric-p) (consp e))
 			       (setq e (cdr e)))
 			     (cond
