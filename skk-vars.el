@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.143 2005/12/13 12:07:00 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.144 2005/12/13 13:27:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/13 12:07:00 $
+;; Last Modified: $Date: 2005/12/13 13:27:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3323,6 +3323,38 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   "*annotation $B$rI=<($9$k$+$I$&$+$N%A%'%C%/;~$K%3!<%k$5$l$k4X?t!#(B
 non-nil $B$rJV$9$H(B annotation $B$rI=<($9$k!#(Bannotation $B$NBP>]$H$9$kJ8;zNs(B
 $B$r0z?t$K$7$F(B funcall $B$5$l$k!#(B"
+  :type 'function
+  :group 'skk-annotation
+  :group 'skk-hooks-and-functions)
+
+(defcustom skk-annotation-propertize-function nil
+  "*$BCm<a$NI=<($rAu>~$9$k$?$a$N4X?t$r;XDj$9$kJQ?t!#(B
+
+$B$3$N4X?t$O0J2<$N>r7o$rK~$?$9I,MW$,$"$k!#(B
+
+1. $B0z?t$r$R$H$D<h$k$3$H!#(B
+2. $B0z?t$rJ8;zNs$H$7$F07$&$3$H!#(B
+3. $BI,$:JV$jCM$H$7$FJ8;zNs$rJV$9$3$H!#(B
+
+$B$3$N4X?t$O0J2<$N>l9g$K8F$P$l$k!#(B
+
+o $BCm<a$rI=<($9$k$H$-!"(B
+
+$B$3$N>l9g$O!"Cm<a$,0z?t$KM?$($i$l$k!#(B
+
+o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
+
+$B$3$N>l9g$O!"Cm<a$NJ8;zNs$N@hF,$K(B \";\" $B$rIU2C$7$?J8;zNs$,0z?t$KM?$($i$l$k!#(B
+
+ ($B@_DjNc(B)
+
+ (setq skk-annotation-propertize-function
+       (lambda (note)
+	 (if (string-match \"^;\" note)
+	     (propertize note 'face 'shadow)
+	   (propertize note 'face 'tooltip))))
+
+"
   :type 'function
   :group 'skk-annotation
   :group 'skk-hooks-and-functions)
