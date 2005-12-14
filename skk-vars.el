@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.146 2005/12/14 06:36:49 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.147 2005/12/14 06:44:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 06:36:49 $
+;; Last Modified: $Date: 2005/12/14 06:44:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -712,7 +712,7 @@ left であれば左端に表示する。
   :type 'boolean
   :group 'skk-num)
 
-(defcustom skk-non-numeric-program-list nil
+(defcustom skk-non-numeric-prog-list nil
   "*数値変換に使わない辞書検索プログラムのリスト。
 `skk-use-numeric-conversion' が non-nil の場合のみ有効。リストの要素としては、
 
@@ -730,7 +730,7 @@ left であれば左端に表示する。
 
  (設定例)
 
- (setq skk-non-numeric-program-list
+ (setq skk-non-numeric-prog-list
        '(skk-look
 	 skk-tankan-search
 	 (skk-search-jisyo-file \"/usr/share/skk/SKK-JISYO.jinmei\" 10000)))
