@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.314 2005/12/14 06:37:13 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.315 2005/12/14 06:44:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 06:37:13 $
+;; Last Modified: $Date: 2005/12/14 06:44:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3459,10 +3459,10 @@ If you want to restore the dictionary from the disc, try
 
 (defun skk-numeric-program-p (program)
   "辞書検索プログラム PROGRAM が数値変換有効かどうか判定する。
-もしプログラムが `skk-non-numeric-program-list' に指定されていたら
+もしプログラムが `skk-non-numeric-prog-list' に指定されていたら
 nil を返す。さもなければ non-nil を返す。"
-  (not (or (memq (car program) skk-non-numeric-program-list)
-	   (member program skk-non-numeric-program-list))))
+  (not (or (memq (car program) skk-non-numeric-prog-list)
+	   (member program skk-non-numeric-prog-list))))
 
 (defun skk-search-jisyo-file (file limit &optional nomsg)
   "SKK 辞書フォーマットの FILE で `skk-henkan-key' をキーにして検索を行う。
