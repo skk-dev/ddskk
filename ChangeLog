@@ -50,9 +50,8 @@
 	(skk-henkan-in-minibuff): When skk-show-inline is non-nil, modify
 	the inline prompt to "↓辞書登録中↓".
 	Create prompt so that it have `skk-henkan-in-minibuff-nest-level
-	+ 1' numbers of pairs of parens, i.e. number of pairs of parens
-	shows the recursive depth of the word registration mode in
-	progress.
+	+ 1' pairs of parens, i.e. number of pairs of parens shows the
+	recursive depth of the word registration mode in progress.
 
 2005-01-23  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 
@@ -5308,8 +5307,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.922 2005/12/14 06:40:24 skk-cvs Exp $
-Last Modified: $Date: 2005/12/14 06:40:24 $
+Version: $Id: ChangeLog,v 1.923 2005/12/14 06:40:57 skk-cvs Exp $
+Last Modified: $Date: 2005/12/14 06:40:57 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
