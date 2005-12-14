@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.145 2005/12/13 23:25:12 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.146 2005/12/14 06:36:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/13 23:25:12 $
+;; Last Modified: $Date: 2005/12/14 06:36:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3328,32 +3328,58 @@ non-nil $B$rJV$9$H(B annotation $B$rI=<($9$k!#(Bannotation $B$NBP>]$H$9$kJ8
   :group 'skk-annotation
   :group 'skk-hooks-and-functions)
 
-(defcustom skk-annotation-propertize-function nil
-  "*$BCm<a$NI=<($rAu>~$9$k$?$a$N4X?t$r;XDj$9$kJQ?t!#(B
+(defcustom skk-treat-candidate-appearance-function nil
+  "*$B8uJd$NI=<($rAu>~$9$k$?$a$N4X?t$r;XDj$9$kJQ?t!#(B
+$B%f!<%6$O8uJd$H$J$k$Y$-J8;zNs$KBP$7!"$=$NCm<a$b4^$a$F$[$\G$0U$N2C9)$r;\$9$3$H$,(B
+$B$G$-$k!#$3$N4X?t$O0J2<$N>r7o$rK~$?$9I,MW$,$"$k!#(B
 
-$B$3$N4X?t$O0J2<$N>r7o$rK~$?$9I,MW$,$"$k!#(B
+1. $B0z?t$r(B 2 $B$D<h$k$3$H!#(B
+2. $BBh(B 1 $B0z?t$OJ8;zNs$H$7$F07$&$3$H!#$3$l$O2C9)A0$NJ8;zNs$KAjEv$9$k!#(B
+3. $BBh(B 2 $B0z?t$,(B nil $B$N;~$ODL>o$NJQ49;~!"(Bnon-nil $B$N;~$O8uJd0lMwI=<(;~$rI=$9$b$N(B
+   $B$H$7$F07$&$3$H!#(B
+4. $BJV$jCM$O0J2<$N$$$:$l$+$H$9$k$3$H!#(B
 
-1. $B0z?t$r$R$H$D<h$k$3$H!#(B
-2. $B0z?t$rJ8;zNs$H$7$F07$&$3$H!#(B
-3. $BI,$:JV$jCM$H$7$FJ8;zNs$rJV$9$3$H!#(B
+ a. $BJ8;zNs(B
+
+    $B$3$N>l9g!"$3$NJ8;zNs$O8uJd$HCm<a$rN>J}4^$_!"$&$k$b$N$H$7$F=hM}$5$l$k!#(B
+
+ b. cons cell ($B8uJd(B . $BCm<a(B)
+
+    $B$3$N>l9g!"8uJd$O$b$&Cm<a$r4^$^$J$$$b$N$H$7$F=hM}$5$l$k!#Cm<a$K$D$$$F$O(B
+    $B@hF,$,(B \";\" $B$+$I$&$+$rD4$Y$?>e$G=hM}$5$l$k!#(B
+
+ c. cons cell ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
+
+    $B$3$N>l9g!"8uJd$O$b$&Cm<a$r4^$^$J$$$b$N$H$7$F=hM}$5$l$k!#%;%Q%l!<%?$ODL>o$N(B
+    \";\" $B$NBe$o$j$KMxMQ$5$l$k!#Cm<a$O$b$&%;%Q%l!<%?$r4^$^$J$$$b$N$H$7$F=hM}$5(B
+    $B$l$k!#(B
 
 $B$3$N4X?t$O0J2<$N>l9g$K8F$P$l$k!#(B
 
-o $BCm<a$rI=<($9$k$H$-!"(B
+o $BDL>o$NJQ49Cf$KCm<a$rI=<($9$k$H$-!"(B
 
-$B$3$N>l9g$O!"Cm<a$,0z?t$KM?$($i$l$k!#(B
+  $B$3$N>l9g$O!"Cm<a$,0z?t$KM?$($i$l$k!#(B
 
 o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
 
-$B$3$N>l9g$O!"Cm<a$NJ8;zNs$N@hF,$K(B \";\" $B$rIU2C$7$?J8;zNs$,0z?t$KM?$($i$l$k!#(B
+  $B$3$N>l9g$O!"Cm<a$NJ8;zNs$N@hF,$K(B \";\" $B$rIU2C$7$?J8;zNs$,0z?t$KM?$($i$l$k!#(B
 
  ($B@_DjNc(B)
 
- (setq skk-annotation-propertize-function
-       (lambda (note)
-	 (if (string-match \"^;\" note)
-	     (propertize note 'face 'shadow)
-	   (propertize note 'face 'tooltip))))
+ (setq skk-candidate-propertize-function
+       (lambda (candidate listp)
+	 (cond
+	  ((string-match \";\" candidate)
+	   (put-text-property 0 (match-beginning 0)
+			      'face (if listp 'tooltip 'underline)
+			      candidate)
+	   (put-text-property (match-beginning 0)
+			      (length candidate) 'face 'shadow candidate))
+	  (t
+	   (put-text-property 0 (length candidate)
+			      'face (if listp 'tooltip 'underline)
+			      candidate)))
+	  candidate))
 
 "
   :type 'function
