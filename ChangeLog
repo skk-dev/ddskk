@@ -4883,7 +4883,7 @@
 
 	* skk-tut.el (skk-tutorial): Work around for Emacs 18.
 
-	* skk-xemacs.el: (minibuffer-keyboard-quit@arond@skk-xemacs-ad):
+	* skk-xemacs.el (minibuffer-keyboard-quit@arond@skk-xemacs-ad):
 	From skk.el.
 
 	* skk.el: Modify preface.
@@ -5308,8 +5308,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.921 2005/12/14 06:37:17 skk-cvs Exp $
-Last Modified: $Date: 2005/12/14 06:37:17 $
+Version: $Id: ChangeLog,v 1.922 2005/12/14 06:40:24 skk-cvs Exp $
+Last Modified: $Date: 2005/12/14 06:40:24 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
