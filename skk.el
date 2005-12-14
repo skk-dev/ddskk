@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.316 2005/12/14 09:40:50 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.317 2005/12/14 13:19:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 09:40:50 $
+;; Last Modified: $Date: 2005/12/14 13:19:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4347,6 +4347,7 @@ SKK 辞書の候補として正しい形に整形する。"
   (when (and face
 	     (marker-position skk-henkan-start-point)
 	     (marker-position skk-henkan-end-point))
+    (setq skk-henkan-overlay nil)
     (skk-face-on skk-henkan-overlay
 		 skk-henkan-start-point skk-henkan-end-point
 		 face skk-henkan-overlay-priority)))

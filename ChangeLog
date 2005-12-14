@@ -23,7 +23,7 @@
 	`skk-henkan-face-on'.
 
 	(skk-henka-face-on): Accept optional argument FACE.  Use it if set
-	instead of skk-henkan-face.
+	instead of skk-henkan-face.  Always clear skk-henkan-overlay.
 
 	(skk-numeric-program-p): Modify skk-non-numeric-program-list to
 	skk-non-numeric-prog-list.
@@ -5316,8 +5316,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.927 2005/12/14 10:58:32 skk-cvs Exp $
-Last Modified: $Date: 2005/12/14 10:58:32 $
+Version: $Id: ChangeLog,v 1.928 2005/12/14 13:19:55 skk-cvs Exp $
+Last Modified: $Date: 2005/12/14 13:19:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
