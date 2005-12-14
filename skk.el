@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.317 2005/12/14 13:19:55 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.318 2005/12/14 13:33:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 13:19:55 $
+;; Last Modified: $Date: 2005/12/14 13:33:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2296,7 +2296,7 @@ auto に設定するとユーザに確認しない。
 	      (setq word value)))
 	  (when (and (stringp note)
 		     (string-match ";" note))
-	    (setq note (match-end 0)))))
+	    (setq note (substring (match-end 0))))))
       (when (string-match ";" word)
 	(setq note (substring word (match-end 0))
 	      word (substring word 0 (match-beginning 0))))
