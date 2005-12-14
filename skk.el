@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.313 2005/12/13 13:27:17 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.314 2005/12/14 06:37:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/13 13:27:17 $
+;; Last Modified: $Date: 2005/12/14 06:37:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1908,22 +1908,51 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (let ((count 0) e note v)
 	    (while (> max-candidates count)
 	      (setq e (nth count candidates))
+	      (when (consp e)
+		(setq e (car e)))
 	      (if e
 		  (setq v (cons
 			   (progn
+			     (when (functionp
+				    skk-treat-candidate-appearance-function)
+			       (let ((value
+				      (save-match-data
+				       (funcall
+					skk-treat-candidate-appearance-function
+					e
+					'list))))
+				 (setq e
+				       (if (consp value)
+					   (apply
+					    #'concat
+					    (car value)
+					    (cond
+					     ((consp (cdr value))
+					      (if (skk-annotation-display-p
+						   'list)
+						  (list (cadr value)
+							(cddr value))
+						(list (cadr value))))
+					     ((string-match "^;" (cdr value))
+					       (if (skk-annotation-display-p
+						   'list)
+						   (cdr value)
+						 (list (substring (cdr value)
+								  0 1))))
+					     (t
+					      (if (skk-annotation-display-p
+						   'list)
+						  (list (cdr value))
+						(list "")))))
+					 value))))
 			     (when (string-match ";" e)
 			       (setq note
 				     (if (skk-annotation-display-p 'list)
 					 (substring e (match-beginning 0))
 				       ;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
-				       ";"))
-			       (when (functionp
-				      skk-annotation-propertize-function)
-				 (save-match-data
-				   (setq note
-					 (funcall
-					  skk-annotation-propertize-function
-					  note))))
+				       (substring e
+						  (match-beginning 0)
+						  (match-end 0))))
 			       (setq e (concat
 					(substring e 0 (match-beginning 0))
 					note)))
@@ -2254,6 +2283,19 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
   ;; skk-henkan-key $B$K2?8N$+(B Overlay $B$,$+$+$C$F$7$^$&!#(B
   (save-match-data
     (let (note)
+      (when (functionp skk-treat-candidate-appearance-function)
+	(save-match-data
+	  (let ((value (funcall skk-treat-candidate-appearance-function
+				word nil)))
+	    (if (consp value)
+		(setq word (car value)
+		      note (if (consp (cdr value))
+			       (cddr value)
+			     (cdr value)))
+	      (setq word value)))
+	  (when (and (stringp note)
+		     (string-match ";" note))
+	    (setq note (match-end 0)))))
       (when (string-match ";" word)
 	(setq note (substring word (match-end 0))
 	      word (substring word 0 (match-beginning 0))))
@@ -2270,7 +2312,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
       (insert-and-inherit word)
       (skk-set-marker skk-henkan-end-point (point))
       (when skk-use-face
-	(skk-henkan-face-on))
+	(skk-henkan-face-on (get-text-property 0 'face word)))
       (when (and skk-show-annotation
 		 note)
 	(skk-annotation-show note))
@@ -4290,7 +4332,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 ;;   (and (> nth -1) (setcdr (nthcdr nth list) nil))
 ;;   list)
 
-(defun skk-henkan-face-on ()
+(defun skk-henkan-face-on (&optional face)
   "SKK $B$N(B face $BB0@-$r(B ON $B$K$9$k!#(B
 `skk-use-face' $B$,(B non-nil $B$N>l9g!"(B`skk-henkan-start-point' $B$H(B
 `skk-henkan-end-point' $B$N4V$N(B face $BB0@-$r(B `skk-henkan-face' $B$NCM$KJQ99$9$k!#(B"
@@ -4299,12 +4341,14 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
   ;; Overlays $B$O!"%F%-%9%H$N0lIt$G$O$J$$$N$G!"%P%C%U%!$+$iJ8;z$r@Z$j=P$7$F$b%3(B
   ;; $B%T!<$NBP>]$K$J$i$J$$$7!"%"%s%I%%;~$bL5;k$5$l$k$N$G!"JQ49$5$l$?8uJd$NI=<((B
   ;; $B$r0l;~E*$KJQ99$9$k$K$O(B Text Properties $B$h$j$b9%ET9g$G$"$k!#(B
-  (when (and skk-henkan-face
+  (unless face
+    (setq face skk-henkan-face))
+  (when (and face
 	     (marker-position skk-henkan-start-point)
 	     (marker-position skk-henkan-end-point))
     (skk-face-on skk-henkan-overlay
 		 skk-henkan-start-point skk-henkan-end-point
-		 skk-henkan-face skk-henkan-overlay-priority)))
+		 face skk-henkan-overlay-priority)))
 
 (defun skk-henkan-face-off ()
   "SKK $B$N(B face $BB0@-$r(B OFF $B$K$9$k!#(B
