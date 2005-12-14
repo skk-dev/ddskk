@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.148 2005/12/14 07:17:50 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.149 2005/12/14 09:02:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 07:17:50 $
+;; Last Modified: $Date: 2005/12/14 09:02:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3367,17 +3367,17 @@ o 候補一覧を表示するとき (候補の文字列の後ろに注釈が付加される)
  (設定例)
 
  (setq skk-treat-candidate-appearance-function
-       (lambda (candidate listp)
+       (lambda (candidate listing-p)
 	 (cond
 	  ((string-match \";\" candidate)
 	   (put-text-property 0 (match-beginning 0)
-			      'face (if listp 'tooltip 'underline)
+			      'face (if listing-p 'tooltip 'underline)
 			      candidate)
 	   (put-text-property (match-beginning 0)
 			      (length candidate) 'face 'shadow candidate))
 	  (t
 	   (put-text-property 0 (length candidate)
-			      'face (if listp 'tooltip 'underline)
+			      'face (if listing-p 'tooltip 'underline)
 			      candidate)))
 	  candidate))
 
