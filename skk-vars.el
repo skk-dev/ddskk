@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.147 2005/12/14 06:44:37 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.148 2005/12/14 07:17:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 06:44:37 $
+;; Last Modified: $Date: 2005/12/14 07:17:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3341,7 +3341,7 @@ non-nil $B$rJV$9$H(B annotation $B$rI=<($9$k!#(Bannotation $B$NBP>]$H$9$kJ8
 
  a. $BJ8;zNs(B
 
-    $B$3$N>l9g!"$3$NJ8;zNs$O8uJd$HCm<a$rN>J}4^$_!"$&$k$b$N$H$7$F=hM}$5$l$k!#(B
+    $B$3$N>l9g!"$3$NJ8;zNs$O8uJd$HCm<a$rN>J}4^$_$&$k$b$N$H$7$F=hM}$5$l$k!#(B
 
  b. cons cell ($B8uJd(B . $BCm<a(B)
 
@@ -3366,7 +3366,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
 
  ($B@_DjNc(B)
 
- (setq skk-candidate-propertize-function
+ (setq skk-treat-candidate-appearance-function
        (lambda (candidate listp)
 	 (cond
 	  ((string-match \";\" candidate)
