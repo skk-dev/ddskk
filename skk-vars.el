@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.149 2005/12/14 09:02:45 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.150 2005/12/14 09:40:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 09:02:45 $
+;; Last Modified: $Date: 2005/12/14 09:40:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1218,6 +1218,15 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 (defcustom skk-henkan-show-candidates-rows 1
   "*$BJQ498uJd72$NI=<(9T?t!#(B"
   :type 'integer
+  :group 'skk-misc)
+
+(defcustom skk-show-candidates-always-pop-to-buffer nil
+  "*$BJQ498uJd0lMw$NI=<(0LCV$r@)8f$9$k!#(B
+$B$3$NJQ?t$,(B nil $B$N>l9g$O!"%(%3!<%(%j%"$rMxMQ$7$F8uJd0lMw$rI=<($9$k$,!"8uJd0lMw(B
+$B$NJ8;zNs$ND9$5$,%U%l!<%`$N2#I}$K<}$^$i$J$$>l9g$N$_!"(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=$7(B
+$B$F(B 1 $B$D$N@lMQ%&%#%s%I%&$r3+$/!#$3$l$,(B non-nil $B$@$C$?>l9g$O8uJd0lMw$ND9$5$K4X$o(B
+$B$i$:>o$K(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=$7$F@lMQ%&%#%s%I%&$r3+$/!#(B"
+  :type 'boolean
   :group 'skk-misc)
 
 ;; should use defface?  however, can I use defface for highlight?
