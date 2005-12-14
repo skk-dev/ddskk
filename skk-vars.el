@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.150 2005/12/14 09:40:45 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.151 2005/12/14 12:23:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 09:40:45 $
+;; Last Modified: $Date: 2005/12/14 12:23:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3365,13 +3365,14 @@ non-nil $B$rJV$9$H(B annotation $B$rI=<($9$k!#(Bannotation $B$NBP>]$H$9$kJ8
 
 $B$3$N4X?t$O0J2<$N>l9g$K8F$P$l$k!#(B
 
-o $BDL>o$NJQ49Cf$KCm<a$rI=<($9$k$H$-!"(B
+o $BDL>o$NJQ49F0:n$NETEY(B
 
-  $B$3$N>l9g$O!"Cm<a$,0z?t$KM?$($i$l$k!#(B
+  $B$3$N>l9g$O!"8uJd$,%P%C%U%!$K!"Cm<a$O%(%3!<%(%j%"$J$I(B ($B%f!<%6$N@_Dj$K$h$C$F(B
+  $B0[$J$k>l=j(B) $B$KI=<($5$l$k!#%;%Q%l!<%?$OI=<($K;HMQ$5$l$J$$!#(B
 
 o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
 
-  $B$3$N>l9g$O!"Cm<a$NJ8;zNs$N@hF,$K(B \";\" $B$rIU2C$7$?J8;zNs$,0z?t$KM?$($i$l$k!#(B
+  $B$3$N>l9g$O!"8uJd!"%;%Q%l!<%?!"Cm<a$N3FJ8;zNs$,I=<($KMxMQ$5$l$k!#(B
 
  ($B@_DjNc(B)
 
