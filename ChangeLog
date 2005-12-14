@@ -6,6 +6,9 @@
 	from skk-annotation-propertize-function.  Update doc string
 	according to new specifications.
 
+	(skk-non-numeric-prog-list): rename from
+	skk-non-numeric-program-list.
+
 	* skk.el (skk-henkan-show-candidate-subr): If candidate e is a
 	cons cell, set e to the car of e.  Call
 	skk-treat-candidate-appearance-function before treating
@@ -18,6 +21,9 @@
 
 	(skk-henka-face-on): Accept optional argment FACE.  Use it if set
 	instead of skk-henkan-face.
+
+	(skk-numeric-program-p): Modify skk-non-numeric-program-list to
+	skk-non-numeric-prog-list.
 
 2005-12-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -5307,8 +5313,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.923 2005/12/14 06:40:57 skk-cvs Exp $
-Last Modified: $Date: 2005/12/14 06:40:57 $
+Version: $Id: ChangeLog,v 1.924 2005/12/14 06:44:56 skk-cvs Exp $
+Last Modified: $Date: 2005/12/14 06:44:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
