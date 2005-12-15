@@ -1,5 +1,21 @@
 2005-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk.el (skk-henkan-show-candidate-subr): When
+	skk-treat-candidate-appearance-function is called and user returns
+	note without separator string, add ";".
+
+2005-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-tooltip-show-1): New function.
+	(skk-tooltip-show): Call it.  Temporarily do not call
+	`tooltip-hide' here.
+
+	* skk-vars.el (skk-tooltip-parameters): New variable.
+
+	* skk.el (skk-kakutei): Temporarily call `tooltip-hide' here.
+
+2005-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* experimental/bayesian/skk-bayesian.el (skk-bayesian-update): In
 	the current henkan buffer, before calculating how many characters
 	the point should move backward, strip note from WORD to avoid
@@ -130,7 +146,7 @@
 	* skk-e21.el (skk-e21-mouse-position): Pass `w' to `window-width',
 	`windows-height', `window-hscroll' and `compute-motion'.
 
-	(skk-toolip-show-at-point): Emacs 22.0.50 only.  Move mouse
+	(skk-tooltip-show-at-point): Emacs 22.0.50 only.  Move mouse
 	pointer slightly up to avoid tooltip partly off the screen.
 
 	(tooltip-hide): Advice.  Call `update-buffer-local-frame-params'.
@@ -5342,8 +5358,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.933 2005/12/15 08:53:06 skk-cvs Exp $
-Last Modified: $Date: 2005/12/15 08:53:06 $
+Version: $Id: ChangeLog,v 1.934 2005/12/15 22:48:50 skk-cvs Exp $
+Last Modified: $Date: 2005/12/15 22:48:50 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
