@@ -333,9 +333,11 @@ Analogous to mouse-position."
   (skk-inline-hide)
   (unless (skk-in-minibuffer-p)
     (setq skk-inline-overlay (make-overlay (point) (point)))
-    (overlay-put skk-inline-overlay 
-		 'after-string (propertize string
-					   'face face))))
+    (overlay-put skk-inline-overlay
+		 'after-string
+		 (apply #'propertize string (if face
+						`(face ,face)
+					      nil)))))
 
 (defun skk-inline-hide ()
   (when skk-inline-overlay
