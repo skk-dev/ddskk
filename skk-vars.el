@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.151 2005/12/14 12:23:40 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.152 2005/12/15 08:45:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 12:23:40 $
+;; Last Modified: $Date: 2005/12/15 08:45:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1348,6 +1348,14 @@ nil であれば、英語で表示する。"
   "*Non-nil であれば、インライン で候補などを表示する。
 この機能は現在のところ Emacs 21 専用。"
   :type 'boolean
+  :group 'skk-decoration)
+
+(defcustom skk-inline-show-face 'underline
+  "*インラインで候補を表示する際のフェイスを指定する変数。
+候補文字列のフェイス属性をそのまま使いたい場合は nil に設定する。"
+  :type '(radio (face :tag "フェイスを指定")
+		(const :tag "候補文字列のフェイス属性をそのまま使用"))
+  :group 'skk-faces
   :group 'skk-decoration)
 
 (defcustom skk-tooltip-hide-delay 1000
