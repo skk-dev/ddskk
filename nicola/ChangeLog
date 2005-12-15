@@ -1,3 +1,9 @@
+2005-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-util.el (skk-kanagaki-dakuten): When Emacs is in
+	skk-isearch and SKK enters minibuffer touroku mode, do not
+	set buffer to skk-isearch-working-buffer.
+
 2005-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola-dcomp.el (skk-nicola-self-insert-lshift): Do not do

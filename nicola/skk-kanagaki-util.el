@@ -153,7 +153,8 @@
 	char1 char2 str)
     (ignore-errors
       (setq char1 (cond
-		   (skk-isearch-switch
+		   ((and skk-isearch-switch
+			 (not (skk-in-minibuffer-p)))
 		    (if henkan-on
 			(with-current-buffer skk-isearch-working-buffer
 			  (skk-save-point
@@ -171,7 +172,8 @@
     (cond
      ((setq char2 (nth (if handakuten 2 1) (assoc char1 list)))
       (cond
-       (skk-isearch-switch
+       ((and skk-isearch-switch
+	     (not (skk-in-minibuffer-p)))
 	(if henkan-on
 	    (with-current-buffer skk-isearch-working-buffer
 	      (delete-char -1)
