@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.319 2005/12/14 13:34:07 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.320 2005/12/15 05:00:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/14 13:34:07 $
+;; Last Modified: $Date: 2005/12/15 05:00:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1908,8 +1908,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (let ((count 0) e note v)
 	    (while (> max-candidates count)
 	      (setq e (nth count candidates))
-	      (when (consp e)
-		(setq e (car e)))
+	      (when (and (skk-numeric-p) (consp e))
+		(setq e (cdr e)))
 	      (if e
 		  (setq v (cons
 			   (progn
@@ -1921,38 +1921,42 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 					skk-treat-candidate-appearance-function
 					e
 					'list))))
-				 (setq e
-				       (if (consp value)
-					   (apply
-					    #'concat
-					    (car value)
-					    (cond
-					     ((consp (cdr value))
-					      (if (skk-annotation-display-p
-						   'list)
-						  (list (cadr value)
-							(cddr value))
-						(list (cadr value))))
-					     ((string-match "^;" (cdr value))
-					       (if (skk-annotation-display-p
-						   'list)
-						   (cdr value)
-						 (list (substring (cdr value)
-								  0 1))))
-					     (t
-					      (if (skk-annotation-display-p
-						   'list)
-						  (list (cdr value))
-						(list "")))))
-					 value))))
-			     (when (string-match ";" e)
+				 (cond
+				  ((consp value)
+				   (setq e (car value)
+					 note (cond
+					       ((not skk-show-annotation)
+						"")
+					       ((consp (cdr value))
+						(if (skk-annotation-display-p
+						     'list)
+						    (concat (cadr value)
+							    (cddr value))
+						  (cadr value)))
+					       ((string-match "^;" (cdr value))
+						(if (skk-annotation-display-p
+						     'list)
+						    (cdr value)
+						  (substring (cdr value) 0 1)))
+					       (t
+						(cdr value)))))
+				  (t
+				   (setq e value)))
+				 (when (stringp note)
+				   (setq e (concat e note)))))
+			     (when (and (not (stringp note))
+					(string-match ";" e))
 			       (setq note
-				     (if (skk-annotation-display-p 'list)
-					 (substring e (match-beginning 0))
+				     (cond
+				      ((not skk-show-annotation)
+				       "")
+				      ((skk-annotation-display-p 'list)
+				       (substring e (match-beginning 0)))
+				      (t
 				       ;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
 				       (substring e
 						  (match-beginning 0)
-						  (match-end 0))))
+						  (match-end 0)))))
 			       (setq e (concat
 					(substring e 0 (match-beginning 0))
 					note)))
@@ -2283,21 +2287,30 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
   ;; Emacs 19.28 $B$@$H(B Overlay $B$r>C$7$F$*$+$J$$$H!"<!$K(B insert $B$5$l$k(B
   ;; skk-henkan-key $B$K2?8N$+(B Overlay $B$,$+$+$C$F$7$^$&!#(B
   (save-match-data
-    (let (note)
+    (let (note face)
       (when (functionp skk-treat-candidate-appearance-function)
 	(save-match-data
 	  (let ((value (funcall skk-treat-candidate-appearance-function
 				word nil)))
 	    (if (consp value)
 		(setq word (car value)
-		      note (if (consp (cdr value))
-			       (cddr value)
-			     (cdr value)))
-	      (setq word value)))
-	  (when (and (stringp note)
-		     (string-match ";" note))
-	    (setq note (substring note (match-end 0))))))
-      (when (string-match ";" word)
+		      note (cond
+			    ((consp (cdr value))
+			     ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
+			     ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
+			     (cddr value))
+			    ((string-match "^;" (cdr value))
+			     ;; ($B8uJd(B . $BCm<a(B)
+			     ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G$$$k(B
+			     (substring (cdr value) (match-end 0)))
+			    (t
+			     ;; ($B8uJd(B . $BCm<a(B)
+			     ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F$$$k$b$N$H(B
+			     ;; $BH=CG$9$k(B
+			     (cdr value))))
+	      (setq word value)))))
+      (when (and (not (stringp note))
+		 (string-match ";" word))
 	(setq note (substring word (match-end 0))
 	      word (substring word 0 (match-beginning 0))))
       (when (skk-lisp-prog-p word)
@@ -2310,15 +2323,34 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	(skk-henkan-face-off))
       (delete-region skk-henkan-start-point skk-henkan-end-point)
       (goto-char skk-henkan-start-point)
+      (setq face (get-text-property 0 'face word))
+      (set-text-properties 0 (length word) nil word)
       (insert-and-inherit word)
       (skk-set-marker skk-henkan-end-point (point))
       (when skk-use-face
-	(skk-henkan-face-on (get-text-property 0 'face word)))
+	(skk-henkan-face-on face))
       (when (and skk-show-annotation
 		 note)
 	(skk-annotation-show note))
       (when skk-insert-new-word-function
 	(funcall skk-insert-new-word-function)))))
+
+(defun skk-treat-strip-note-from-word (word)
+  "$BJQ498uJdJ8;zNs(B WORD $B$r8uJd$=$N$b$N$HCm<a$KJ,3d$9$k!#(B
+$B8uJd$=$N$b$N$HCm<a$H$N(B cons cell $B$rJV$9!#8uJd$=$N$b$N$HCm<a$H$N%;%Q%l!<%?$O(B
+\";\"$B$G$"$kI,MW$,$"$k!#J,3d$N%k!<%k$O0J2<$N$h$&$K$J$C$F$$$k!#(B
+
+\"word\" --> (\"word\" . nil)
+\"word;\" --> (\"word\" . \"\")
+\"word;note\" --> (\"word\" . \"note\")
+"
+  (save-match-data
+    (let (cand note)
+      (if (string-match ";" word)
+	  (setq cand (substring word 0 (match-beginning 0))
+		note (substring word (match-end 0)))
+	(setq cand word))
+      (cons cand note))))
 
 (defun skk-kakutei (&optional word)
   "$B8=:_I=<($5$l$F$$$k8l$G3NDj$7!"<-=q$N99?7$r9T$&!#(B
