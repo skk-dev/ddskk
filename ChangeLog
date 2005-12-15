@@ -1,5 +1,10 @@
 2005-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* experimental/bayesian/skk-bayesian.el (skk-bayesian-update): In
+	the current henkan buffer, before calculating how many characters
+	the point should move backward, strip note from WORD to avoid
+	moving too many characters backward.
+
 	* skk.el (skk-henkan-show-candidate-subr): If candidate e is a
 	cons cell, set e to the cdr of e instead of the car of it.
 	When skk-treat-candidate-appearance-function is called and note is
@@ -5330,8 +5335,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.930 2005/12/15 07:06:33 skk-cvs Exp $
-Last Modified: $Date: 2005/12/15 07:06:33 $
+Version: $Id: ChangeLog,v 1.931 2005/12/15 08:26:19 skk-cvs Exp $
+Last Modified: $Date: 2005/12/15 08:26:19 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
