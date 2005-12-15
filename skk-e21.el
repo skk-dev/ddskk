@@ -323,7 +323,6 @@ Analogous to mouse-position."
 	       0)))
        ;; skk-henkan まで一気に throw する。
        (throw 'unread nil)))
-    (tooltip-hide)
     (when (and ox oy)
       (set-mouse-position oframe ox oy))))
 
