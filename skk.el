@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.322 2005/12/15 08:45:17 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.323 2005/12/15 08:52:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/15 08:45:17 $
+;; Last Modified: $Date: 2005/12/15 08:52:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2016,50 +2016,52 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (skk-inline-show str skk-inline-show-face))
 	(when (and window-system skk-show-tooltip)
 	  (skk-tooltip-show-at-point tooltip-str)))
-      (if (and (not skk-show-candidates-always-pop-to-buffer)
-	       (> (frame-width) (skk-multiple-line-string-width str)))
-	  (skk-multiple-line-message "%s" str)
-	(let ((buff (get-buffer-create "*$B8uJd(B*"))
-	      (case-fold-search t))
-	  (with-current-buffer buff
-	    (erase-buffer)
-	    (insert str)
-	    (goto-char (point-min))
-	    ;; 1 $B8uJd$K(B 1 $B9T$r$o$j$"$F$k!#(B
-	    (forward-char 2)
-	    (while (re-search-forward
-		    (concat "  "
-			    (mapconcat 'identity keys ":\\|  ") ":\\|"
-			    "  \\[$B;D$j(B [0-9]+\\(\\++\\)?\\]") nil t)
-	      (goto-char (match-beginning 0))
-	      (delete-char 2)
-	      (insert "\n"))
-	    (goto-char (point-min))
-	    (while (and (move-to-column (- (frame-width) 2))
-			(not (eobp))
-			(>= (frame-width) (current-column)))
-	      (when (not (eolp))
-		(backward-char 1)
-		(insert "\n  "))
-	      (forward-line 1))
-	    (goto-char (point-min)))
-	  (let ((minibuf-p (skk-in-minibuffer-p))
-		(window (get-buffer-window
-			 (skk-minibuffer-origin))))
-	    (when minibuf-p
-	      (if window
-		  (select-window window)
-		(other-window 1)))
-	    (unless (eq (next-window) (selected-window))
-	      ;; *$B8uJd(B* $B%P%C%U%!$r8+0W$/$9$k!#(B
-	      ;; (save-window-excursion $B$NCf$J$N$GBg>fIW$J$O$:(B)
-	      (delete-other-windows))
-	    (save-selected-window
-	      (pop-to-buffer buff)
-	      (unless (pos-visible-in-window-p)
-		(recenter '(1))))
-	    (when minibuf-p
-	      (select-window (minibuffer-window)))))))
+      (unless (and skk-show-inline
+		   (eq skk-emacs-type 'mule5))
+	(if (and (not skk-show-candidates-always-pop-to-buffer)
+		 (> (frame-width) (skk-multiple-line-string-width str)))
+	    (skk-multiple-line-message "%s" str)
+	  (let ((buff (get-buffer-create "*$B8uJd(B*"))
+		(case-fold-search t))
+	    (with-current-buffer buff
+	      (erase-buffer)
+	      (insert str)
+	      (goto-char (point-min))
+	      ;; 1 $B8uJd$K(B 1 $B9T$r$o$j$"$F$k!#(B
+	      (forward-char 2)
+	      (while (re-search-forward
+		      (concat "  "
+			      (mapconcat 'identity keys ":\\|  ") ":\\|"
+			      "  \\[$B;D$j(B [0-9]+\\(\\++\\)?\\]") nil t)
+		(goto-char (match-beginning 0))
+		(delete-char 2)
+		(insert "\n"))
+	      (goto-char (point-min))
+	      (while (and (move-to-column (- (frame-width) 2))
+			  (not (eobp))
+			  (>= (frame-width) (current-column)))
+		(when (not (eolp))
+		  (backward-char 1)
+		  (insert "\n  "))
+		(forward-line 1))
+	      (goto-char (point-min)))
+	    (let ((minibuf-p (skk-in-minibuffer-p))
+		  (window (get-buffer-window
+			   (skk-minibuffer-origin))))
+	      (when minibuf-p
+		(if window
+		    (select-window window)
+		  (other-window 1)))
+	      (unless (eq (next-window) (selected-window))
+		;; *$B8uJd(B* $B%P%C%U%!$r8+0W$/$9$k!#(B
+		;; (save-window-excursion $B$NCf$J$N$GBg>fIW$J$O$:(B)
+		(delete-other-windows))
+	      (save-selected-window
+		(pop-to-buffer buff)
+		(unless (pos-visible-in-window-p)
+		  (recenter '(1))))
+	      (when minibuf-p
+		(select-window (minibuffer-window))))))))
     ;; $BI=<($9$k8uJd?t$rJV$9!#(B
     n))
 
