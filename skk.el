@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.323 2005/12/15 08:52:56 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.324 2005/12/15 17:10:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/15 08:52:56 $
+;; Last Modified: $Date: 2005/12/15 17:10:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2441,6 +2441,9 @@ WORD で確定する。"
 	  (skk-update-kakutei-history
 	   (buffer-substring-no-properties
 	    skk-henkan-start-point (point))))))
+      (static-when (eq skk-emacs-type 'mule5)
+	(when (and window-system skk-show-tooltip)
+	  (tooltip-hide)))
       (when skk-mode
 	(skk-kakutei-cleanup-buffer)
 	;; KAKUTEI-WORD などの情報が必要であれば、skk-last-henkan-data
