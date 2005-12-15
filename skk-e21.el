@@ -307,8 +307,7 @@ Analogous to mouse-position."
 	 (ox     (cadr oP))
 	 (oy     (cddr oP)))
     (set-mouse-position frame x y)
-    (let ((tooltip-hide-delay skk-tooltip-hide-delay))
-      (tooltip-show text))
+    (skk-tooltip-show-1 text skk-tooltip-parameters)
     (condition-case nil
 	(sit-for skk-tooltip-hide-delay)
       (quit
@@ -327,6 +326,39 @@ Analogous to mouse-position."
     (tooltip-hide)
     (when (and ox oy)
       (set-mouse-position oframe ox oy))))
+
+(defun skk-tooltip-show-1 (text skk-params)
+  (condition-case error
+      (let ((params (copy-sequence tooltip-frame-parameters))
+	    fg bg)
+	(if skk-params
+	    ;; ユーザが独自に tooltip 表示設定する
+	    (dolist (cell skk-params)
+	      (setq params (tooltip-set-param params
+					      (car cell)
+					      (cdr cell))))
+	  ;; tooltip のデフォルトの設定をする
+	  (setq fg (face-attribute 'tooltip :foreground))
+	  (setq bg (face-attribute 'tooltip :background))
+	  (when (stringp fg)
+	    (setq params (tooltip-set-param params 'foreground-color fg))
+	    (setq params (tooltip-set-param params 'border-color fg)))
+	  (when (stringp bg)
+	    (setq params (tooltip-set-param params 'background-color bg))))
+	(unless (ignore-errors
+		  (or (get-text-property 0 'face text)
+		      (get-text-property 2 'face text)))
+	  (setq text (propertize text 'face 'tooltip)))
+	(x-show-tip text
+		    (selected-frame)
+		    params
+		    skk-tooltip-hide-delay
+		    tooltip-x-offset
+		    tooltip-y-offset))
+    (error
+     (message "Error while displaying tooltip: %s" error)
+     (sit-for 1)
+     (message "%s" text))))
 
 (defvar skk-inline-overlay nil)
 (defun skk-inline-show (string face)
