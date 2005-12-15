@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.152 2005/12/15 08:45:31 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.153 2005/12/15 16:34:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/15 08:45:31 $
+;; Last Modified: $Date: 2005/12/15 16:34:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1362,6 +1362,18 @@ nil であれば、英語で表示する。"
   "*tooltip を使って候補など表示する場合に、表示する時間 (秒)。
 この時間が経過すると自動的に tooltip は消える。"
   :type 'integer
+  :group 'skk-decoration)
+
+(defcustom skk-tooltip-parameters nil
+  "*tooltip を使う場合の SKK 独自の tooltip フレームパラメータ設定。
+
+ (設定例)
+
+ (setq skk-tooltip-parameters
+       '((background-color . \"alice blue\")
+	 (border-color . \"royal blue\")))
+"
+  :type '(repeat cons)
   :group 'skk-decoration)
 
 (defcustom skk-set-henkan-point-key
