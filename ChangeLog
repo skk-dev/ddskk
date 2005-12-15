@@ -5,10 +5,17 @@
 	the point should move backward, strip note from WORD to avoid
 	moving too many characters backward.
 
+	* skk-e21.el (skk-inline-show): If FACE is nil, do not set face
+	property of STRING.
+
+	* skk-vars.el (skk-inline-show-face): New variable.
+
 	* skk.el (skk-henkan-show-candidate-subr): If candidate e is a
 	cons cell, set e to the cdr of e instead of the car of it.
 	When skk-treat-candidate-appearance-function is called and note is
-	set, do not check e for ";" again.
+	set, do not check e for ";" again.  Pass skk-inline-show-face to
+	`skk-inline-show' as the second argument.
+
 
 	(skk-insert-new-word): Get face property of WORD and erase the
 	face property from it before insertion.
@@ -5335,8 +5342,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.931 2005/12/15 08:26:19 skk-cvs Exp $
-Last Modified: $Date: 2005/12/15 08:26:19 $
+Version: $Id: ChangeLog,v 1.932 2005/12/15 08:45:48 skk-cvs Exp $
+Last Modified: $Date: 2005/12/15 08:45:48 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
