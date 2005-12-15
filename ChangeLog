@@ -1,3 +1,17 @@
+2005-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-henkan-show-candidate-subr): If candidate e is a
+	cons cell, set e to the cdr of e instead of the car of it.
+	When skk-treat-candidate-appearance-function is called and note is
+	set, do not check e for ";" again.
+
+	(skk-isnert-new-word): Get face property of WORD and erase the
+	face property from it before inserting.
+	When skk-treat-candidate-appearance-function is called and note is
+	set, do not check e for ";" again.
+
+	(skk-treat-strip-note-from-word): New function.
+
 2005-12-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-show-1): Undo the last change.
@@ -5316,8 +5330,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.928 2005/12/14 13:19:55 skk-cvs Exp $
-Last Modified: $Date: 2005/12/14 13:19:55 $
+Version: $Id: ChangeLog,v 1.929 2005/12/15 05:00:25 skk-cvs Exp $
+Last Modified: $Date: 2005/12/15 05:00:25 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
