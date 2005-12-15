@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.21 2005/12/11 06:16:46 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.22 2005/12/15 08:26:10 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/12/11 06:16:46 $
+;; Last Modified: $Date: 2005/12/15 08:26:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -324,7 +324,14 @@
            (point-marker)
          (save-excursion
            (message (prin1-to-string (point-marker)))
-           (forward-char (- 0 (length okurigana) (length word)))
+           (forward-char
+	    (- 0
+	       (length okurigana)
+	       ;; word が注釈を含んでいる際、バッファに挿入される文字列の
+	       ;; 長さよりも長くなってしまうので、point の位置によっては
+	       ;; beginning-of-buffer のエラーとなる。ここで注釈を切り捨てた
+	       ;; word の長さを取得しておけばその問題はない。
+	       (length (car (skk-treat-strip-note-from-word word)))))
            (point-marker))))
      skk-bayesian-last-context)))
 
