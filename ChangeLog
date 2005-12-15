@@ -14,8 +14,8 @@
 	cons cell, set e to the cdr of e instead of the car of it.
 	When skk-treat-candidate-appearance-function is called and note is
 	set, do not check e for ";" again.  Pass skk-inline-show-face to
-	`skk-inline-show' as the second argument.
-
+	`skk-inline-show' as the second argument.  Do not display the
+	classic candidate list if skk-show-inline is non-nil.
 
 	(skk-insert-new-word): Get face property of WORD and erase the
 	face property from it before insertion.
@@ -5342,8 +5342,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.932 2005/12/15 08:45:48 skk-cvs Exp $
-Last Modified: $Date: 2005/12/15 08:45:48 $
+Version: $Id: ChangeLog,v 1.933 2005/12/15 08:53:06 skk-cvs Exp $
+Last Modified: $Date: 2005/12/15 08:53:06 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
