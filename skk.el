@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.326 2005/12/16 02:52:06 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.327 2005/12/16 10:45:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/16 02:52:06 $
+;; Last Modified: $Date: 2005/12/16 10:45:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1586,6 +1586,8 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 				 (if (numberp skk-henkan-in-minibuff-nest-level)
 				     (1+ skk-henkan-in-minibuff-nest-level)
 				   0)))
+			    (add-hook 'minibuffer-exit-hook
+				      #'skk-exit-henkan-in-minibuff)
 			    (skk-henkan-in-minibuff)))
 	  (setq new-word (skk-quote-semicolon prototype))))
 	(setq kakutei-henkan skk-kakutei-flag)
@@ -1612,6 +1614,12 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
       ;;
       (when kakutei-henkan
 	(skk-kakutei new-word)))))
+
+(defun skk-exit-henkan-in-minibuff ()
+  (when (numberp skk-henkan-in-minibuff-nest-level)
+    (with-current-buffer (skk-minibuffer-origin)
+      (setq skk-henkan-in-minibuff-nest-level
+	    (1- skk-henkan-in-minibuff-nest-level)))))
 
 (defun skk-henkan-1 ()
   "`skk-henkan' $B$N%5%V%k!<%A%s!#(B"
@@ -2072,6 +2080,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 (defun skk-henkan-in-minibuff ()
   "$B<-=qEPO?%b!<%I$KF~$j!"EPO?$7$?C18l$NJ8;zNs$rJV$9!#(B"
   (static-when (eq skk-emacs-type 'mule5)
+    (when skk-show-tooltip
+      (tooltip-hide))
     (when skk-show-inline
       (skk-inline-show "$B"-<-=qEPO?Cf"-(B" 'font-lock-warning-face)))
   (save-match-data
