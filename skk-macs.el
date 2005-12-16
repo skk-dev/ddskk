@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.96 2005/12/09 10:27:08 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.97 2005/12/16 02:51:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/09 10:27:08 $
+;; Last Modified: $Date: 2005/12/16 02:51:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -727,17 +727,27 @@ BUFFER defaults to the current buffer."
 	 (skk-ascii-char-p (aref string 1))
 	 (eq (aref string (1- l)) ?\)))))
 
-(defsubst skk-eval-string (string)
+(defun skk-eval-string (string)
   "Eval STRING as a lisp program and return the result."
-  (let (func)
-    ;; (^_^;) のような文字列に対し、read-from-string を呼ぶと
-    ;; エラーになるので、ignore-errors で囲む。
-    (ignore-errors
-      (setq func (car (read-from-string string)))
-      (when (and (listp func)
-		 (functionp (car func)))
-	(setq string (eval func))))
-    string))
+  (cond ((string-match ";" string)
+	 (concat (skk-eval-string (substring string 0 (match-beginning 0)))
+		 (substring string (match-beginning 0) (match-end 0))
+		 (skk-eval-string (substring string (match-end 0)))))
+	((skk-lisp-prog-p string)
+	 (let (func face)
+	   ;; (^_^;) のような文字列に対し、read-from-string を呼ぶと
+	   ;; エラーになるので、ignore-errors で囲む。
+	   (ignore-errors
+	     (setq func (car (read-from-string string)))
+	     (when (and (listp func)
+			(functionp (car func)))
+	       (setq face (get-text-property 0 'face string))
+	       (setq string (if face
+				(propertize (eval func) 'face face)
+			      (eval func)))))
+	   string))
+	(t
+	 string)))
 
 ;;;; from dabbrev.el.  Welcome!
 ;; 判定間違いを犯す場合あり。要改良。
