@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.325 2005/12/15 22:48:45 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.326 2005/12/16 02:52:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/15 22:48:45 $
+;; Last Modified: $Date: 2005/12/16 02:52:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1923,7 +1923,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 					'list))))
 				 (cond
 				  ((consp value)
-				   (setq e (car value)
+				   (setq e (skk-eval-string (car value))
 					 note (cond
 					       ((not skk-show-annotation)
 						"")
@@ -1931,17 +1931,24 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 						(if (skk-annotation-display-p
 						     'list)
 						    (concat (cadr value)
-							    (cddr value))
+							    (skk-eval-string
+							     (cddr value)))
 						  (cadr value)))
 					       ((string-match "^;" (cdr value))
 						(if (skk-annotation-display-p
 						     'list)
-						    (cdr value)
+						    (concat (substring
+							     (cdr value) 0 1)
+							    (skk-eval-string
+							     (substring
+							      (cdr value) 1)))
 						  (substring (cdr value) 0 1)))
 					       (t
 						(if (skk-annotation-display-p
 						     'list)
-						    (concat ";" (cdr value))
+						    (concat ";"
+							    (skk-eval-string
+							     (cdr value)))
 						  ";")))))
 				  (t
 				   (setq e value
@@ -1964,13 +1971,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 			       (setq e (concat
 					(substring e 0 (match-beginning 0))
 					note)))
-			     (when (and (skk-numeric-p) (consp e))
-			       (setq e (cdr e)))
-			     (cond
-			      ((not (skk-lisp-prog-p e))
-			       e)
-			      ((skk-eval-string e))
-			      (t e)))
+			     (skk-eval-string e))
 			   v)
 			count (1+ count))
 		(setq count max-candidates)))
