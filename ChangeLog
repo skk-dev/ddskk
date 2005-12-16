@@ -1,3 +1,19 @@
+2005-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-1): Call
+	`skk-eval-string' for ANNOTATION.
+
+	* skk-macs.el (skk-eval-string): No longer inline function.  If
+	STRING contains note, split it into candidate and note, eval each
+	of them and concatenate again.  Always check for
+	`skk-lisp-prog-p'.  Preserve face property of STRING.
+
+	* skk.el (skk-henkan-show-candidate-subr): When
+	skk-treat-candidate-appearance-function is called and user returns
+	a cons cell of candidate and note, call `skk-eval-string' for each
+	of them.  Do not check e for consp twice.  Do not check for
+	`skk-lisp-prog-p' here, just call `skk-eval-string'.
+
 2005-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-henkan-show-candidate-subr): When
@@ -5358,8 +5374,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.934 2005/12/15 22:48:50 skk-cvs Exp $
-Last Modified: $Date: 2005/12/15 22:48:50 $
+Version: $Id: ChangeLog,v 1.935 2005/12/16 02:52:14 skk-cvs Exp $
+Last Modified: $Date: 2005/12/16 02:52:14 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
