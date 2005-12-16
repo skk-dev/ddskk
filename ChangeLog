@@ -1,5 +1,16 @@
 2005-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-vars.el (skk-henkan-in-minibuff-nest-level): Declare as a
+	buffer local variable.
+
+	* skk.el (skk-exit-henkan-in-minibuff): New function.
+	(skk-henkan): Call it from minibuffer-exit-hook to decrement
+	skk-henkan-in-minibuff-nest-level.
+	(skk-henkan-in-minibuff): When skk-show-tooltip is non-nil, call
+	`tooltip-hide'.
+
+2005-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-annotation.el (skk-annotation-show-1): Call
 	`skk-eval-string' for ANNOTATION.
 
@@ -5374,8 +5385,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.935 2005/12/16 02:52:14 skk-cvs Exp $
-Last Modified: $Date: 2005/12/16 02:52:14 $
+Version: $Id: ChangeLog,v 1.936 2005/12/16 10:45:55 skk-cvs Exp $
+Last Modified: $Date: 2005/12/16 10:45:55 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
