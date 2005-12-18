@@ -1,3 +1,14 @@
+2005-12-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el: Add comments.
+
+	(skk-henkan-candidate-list):
+	(skk-henkan-show-candidates-buffer):
+
+	New functions.
+
+	(skk-henkan-show-candidate-subr): Call them.
+
 2005-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-henkan-in-minibuff-nest-level): Declare as a
@@ -5385,8 +5396,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.936 2005/12/16 10:45:55 skk-cvs Exp $
-Last Modified: $Date: 2005/12/16 10:45:55 $
+Version: $Id: ChangeLog,v 1.937 2005/12/18 12:15:26 skk-cvs Exp $
+Last Modified: $Date: 2005/12/18 12:15:26 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
