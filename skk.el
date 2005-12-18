@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.327 2005/12/16 10:45:45 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.328 2005/12/18 12:15:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/16 10:45:45 $
+;; Last Modified: $Date: 2005/12/18 12:15:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1911,84 +1911,12 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
 $BK~$?$J$+$C$?$i$=$3$GBG$A@Z$k(B) $B$NJ8;zNs$r:n$j!"%(%3!<%(%j%"$KI=<($9$k!#(B"
   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
-	 (workinglst
-	  ;; CANDIDATES $B$N@hF,$N(B 7 $B$D$N$_$N%j%9%H!#(B
-	  (let ((count 0) e note v)
-	    (while (> max-candidates count)
-	      (setq e (nth count candidates))
-	      (when (and (skk-numeric-p) (consp e))
-		(setq e (cdr e)))
-	      (if e
-		  (setq v (cons
-			   (progn
-			     (when (functionp
-				    skk-treat-candidate-appearance-function)
-			       (let ((value
-				      (save-match-data
-				       (funcall
-					skk-treat-candidate-appearance-function
-					e
-					'list))))
-				 (cond
-				  ((consp value)
-				   (setq e (skk-eval-string (car value))
-					 note (cond
-					       ((not skk-show-annotation)
-						"")
-					       ((consp (cdr value))
-						(if (skk-annotation-display-p
-						     'list)
-						    (concat (cadr value)
-							    (skk-eval-string
-							     (cddr value)))
-						  (cadr value)))
-					       ((string-match "^;" (cdr value))
-						(if (skk-annotation-display-p
-						     'list)
-						    (concat (substring
-							     (cdr value) 0 1)
-							    (skk-eval-string
-							     (substring
-							      (cdr value) 1)))
-						  (substring (cdr value) 0 1)))
-					       (t
-						(if (skk-annotation-display-p
-						     'list)
-						    (concat ";"
-							    (skk-eval-string
-							     (cdr value)))
-						  ";")))))
-				  (t
-				   (setq e value
-					 note nil)))
-				 (when (stringp note)
-				   (setq e (concat e note)))))
-			     (when (and (not (stringp note))
-					(string-match ";" e))
-			       (setq note
-				     (cond
-				      ((not skk-show-annotation)
-				       "")
-				      ((skk-annotation-display-p 'list)
-				       (substring e (match-beginning 0)))
-				      (t
-				       ;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
-				       (substring e
-						  (match-beginning 0)
-						  (match-end 0)))))
-			       (setq e (concat
-					(substring e 0 (match-beginning 0))
-					note)))
-			     (skk-eval-string e))
-			   v)
-			count (1+ count))
-		(setq count max-candidates)))
-	    (nreverse v)))
-	 (n 0)
-	 (str "") cand message-log-max
+	 (workinglst (skk-henkan-candidate-list candidates max-candidates))
 	 (workinglst-ptr workinglst)
 	 (keys-ptr keys)
-	 tooltip-str)
+	 (n 0)
+	 (str "")
+	 tooltip-str cand message-log-max)
     (when (car workinglst)
       ;;(setq workinglst (skk-truncate-message workinglst))
       (while workinglst-ptr
@@ -2030,52 +1958,147 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (skk-tooltip-show-at-point tooltip-str)))
       (unless (and skk-show-inline
 		   (eq skk-emacs-type 'mule5))
+	;; skk-show-inline $B$N$H$-$O(B classic $B$J8uJd0lMw$OMW$i$J$$!#(B
+	;; skk-show-tooltip $B$N$H$-$OG0$N$?$aI=<($7$F$*$/!#(B
 	(if (and (not skk-show-candidates-always-pop-to-buffer)
 		 (> (frame-width) (skk-multiple-line-string-width str)))
+	    ;; $B%(%3!<%(%j%"$r;H$&!#(B
 	    (skk-multiple-line-message "%s" str)
-	  (let ((buff (get-buffer-create "*$B8uJd(B*"))
-		(case-fold-search t))
-	    (with-current-buffer buff
-	      (erase-buffer)
-	      (insert str)
-	      (goto-char (point-min))
-	      ;; 1 $B8uJd$K(B 1 $B9T$r$o$j$"$F$k!#(B
-	      (forward-char 2)
-	      (while (re-search-forward
-		      (concat "  "
-			      (mapconcat 'identity keys ":\\|  ") ":\\|"
-			      "  \\[$B;D$j(B [0-9]+\\(\\++\\)?\\]") nil t)
-		(goto-char (match-beginning 0))
-		(delete-char 2)
-		(insert "\n"))
-	      (goto-char (point-min))
-	      (while (and (move-to-column (- (frame-width) 2))
-			  (not (eobp))
-			  (>= (frame-width) (current-column)))
-		(when (not (eolp))
-		  (backward-char 1)
-		  (insert "\n  "))
-		(forward-line 1))
-	      (goto-char (point-min)))
-	    (let ((minibuf-p (skk-in-minibuffer-p))
-		  (window (get-buffer-window
-			   (skk-minibuffer-origin))))
-	      (when minibuf-p
-		(if window
-		    (select-window window)
-		  (other-window 1)))
-	      (unless (eq (next-window) (selected-window))
-		;; *$B8uJd(B* $B%P%C%U%!$r8+0W$/$9$k!#(B
-		;; (save-window-excursion $B$NCf$J$N$GBg>fIW$J$O$:(B)
-		(delete-other-windows))
-	      (save-selected-window
-		(pop-to-buffer buff)
-		(unless (pos-visible-in-window-p)
-		  (recenter '(1))))
-	      (when minibuf-p
-		(select-window (minibuffer-window))))))))
+	  ;; $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&!#(B
+	  (skk-henkan-show-candidates-buffer str keys))))
     ;; $BI=<($9$k8uJd?t$rJV$9!#(B
     n))
+
+(defun skk-henkan-candidate-list (candidates max)
+  ;; CANDIDATES $B$N@hF,$N(B max $B8D$N$_$N%j%9%H$rJV$9!#(B
+  (let ((count 0) e note v)
+    (while (> max count)
+      (setq e (nth count candidates))
+      (when (and (skk-numeric-p) (consp e))
+	(setq e (cdr e)))
+      (cond
+       (e
+	;; $B$^$@8uJd$,;D$C$F$$$k>l9g(B
+	(when (functionp skk-treat-candidate-appearance-function)
+	  ;; skk-treat-candidate-appearance-function $B$K$h$C$F%f!<%6$O(B
+	  ;; $BG$0U$K8uJdJ8;zNs$HCm<aJ8;zNs$r2C9)!&=$>~$9$k$3$H$,$G$-$k!#(B
+	  ;; $B%f!<%6$,JV$9CM$O(B cons cell $B$^$?$OJ8;zNs$H$J$k!#(B
+	  (let ((value (save-match-data
+			 ;; $B8uJd0lMwI=<($N:]$O(B
+			 ;; skk-treat-candidate-appearance-function $B$N(B
+			 ;; $BBh(B 2 $B0z?t$r(B non-nil $B$H$9$k!#(B
+			 (funcall skk-treat-candidate-appearance-function
+				  e 'list))))
+	    (cond
+	     ((consp value)
+	      ;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
+	      (setq e (skk-eval-string (car value))
+		    note (cond ((not skk-show-annotation)
+				;; $BCm<a4XO"$NI=<($O0l@Z$7$J$$(B
+				"")
+			       ((consp (cdr value))
+				;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
+				;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
+				(if (skk-annotation-display-p 'list)
+				    (concat (cadr value)
+					    (skk-eval-string
+					     (cddr value)))
+				  (cadr value)))
+			       ((string-match "^;" (cdr value))
+				;; ($B8uJd(B . $BCm<a(B)
+				;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G$$$k(B
+				(if (skk-annotation-display-p 'list)
+				    (concat (substring
+					     (cdr value) 0 1)
+					    (skk-eval-string
+					     (substring
+					      (cdr value) 1)))
+				  (substring (cdr value) 0 1)))
+			       (t
+				;; ($B8uJd(B . $BCm<a(B)
+				;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F$$$k$b$N$H(B
+				;; $BH=CG$9$k(B
+				(if (skk-annotation-display-p 'list)
+				    (concat ";"
+					    (skk-eval-string
+					     (cdr value)))
+				  ";")))))
+	     (t
+	      ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
+	      (setq e value
+		    note nil)))
+	    ;; $B8uJd0lMwI=<($G$O8uJd$HCm<a$r0l3g$7$FI=<($9$k$N$G(B
+	    ;; $B$3$3$G7k9g$7$F$*$/!#(B
+	    (when (stringp note)
+	      (setq e (concat e note)))))
+	;; $B%f!<%6$,Cm<aI=<($r2C9):Q$_$N>l9g$O$b$&Cm<a$N=hM}$O$7$J$$!#(B
+	(when (and (not (stringp note))
+		   (string-match ";" e))
+	  ;; $B%f!<%6$,K>$`Cm<a$NI=<(7A<0$K1h$C$FCm<a$r2C9)$9$k!#(B
+	  (setq note (cond ((not skk-show-annotation)
+			    ;; $B!VI=<($7$J$$!W(B
+			    "")
+			   ((skk-annotation-display-p 'list)
+			    ;; $B!VI=<($9$k!W(B
+			    (substring e (match-beginning 0)))
+			   (t
+			    ;; $B!V8uJd0lMw$G$OI=<($7$J$$!W(B
+			    ;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
+			    (substring e (match-beginning 0) (match-end 0)))))
+	  (setq e (concat (substring e 0 (match-beginning 0))
+			  note)))
+	;; $BA4$F$N2C9)=hM}=*$o$j!#JQ?t$K%;%C%H$9$k!#(B
+	(setq v     (cons (skk-eval-string e) v)
+	      count (1+ count)))
+       (t
+	;; $B8uJd$,?T$-$?>l9g(B
+	(setq count max))))
+    ;; $B8uJd$r=P8==g$K%=!<%H$7D>$7$FJV$9!#(B
+    (nreverse v)))
+
+(defun skk-henkan-show-candidates-buffer (str keys)
+  ;; $B%(%3!<%(%j%"$NBe$o$j$K%P%C%U%!$r(B pop up $B$7$F8uJd0lMw$rI=<($9$k!#(B
+  (let ((buff (get-buffer-create "*$B8uJd(B*"))
+	(case-fold-search t))
+    (with-current-buffer buff
+      (erase-buffer)
+      (insert str)
+      (goto-char (point-min))
+      ;; 1 $B8uJd$K(B 1 $B9T$r$o$j$"$F$k!#(B
+      (forward-char 2)
+      (while (re-search-forward
+	      (concat "  "
+		      (mapconcat 'identity keys ":\\|  ") ":\\|"
+		      "  \\[$B;D$j(B [0-9]+\\(\\++\\)?\\]") nil t)
+	(goto-char (match-beginning 0))
+	(delete-char 2)
+	(insert "\n"))
+      (goto-char (point-min))
+      (while (and (move-to-column (- (frame-width) 2))
+		  (not (eobp))
+		  (>= (frame-width) (current-column)))
+	(when (not (eolp))
+	  (backward-char 1)
+	  (insert "\n  "))
+	(forward-line 1))
+      (goto-char (point-min)))
+    (let ((minibuf-p (skk-in-minibuffer-p))
+	  (window (get-buffer-window
+		   (skk-minibuffer-origin))))
+      (when minibuf-p
+	(if window
+	    (select-window window)
+	  (other-window 1)))
+      (unless (eq (next-window) (selected-window))
+	;; *$B8uJd(B* $B%P%C%U%!$r8+0W$/$9$k!#(B
+	;; (save-window-excursion $B$NCf$J$N$GBg>fIW$J$O$:(B)
+	(delete-other-windows))
+      (save-selected-window
+	(pop-to-buffer buff)
+	(unless (pos-visible-in-window-p)
+	  (recenter '(1))))
+      (when minibuf-p
+	(select-window (minibuffer-window))))))
 
 (defun skk-henkan-in-minibuff ()
   "$B<-=qEPO?%b!<%I$KF~$j!"EPO?$7$?C18l$NJ8;zNs$rJV$9!#(B"
@@ -2306,10 +2329,14 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
   (save-match-data
     (let (note face)
       (when (functionp skk-treat-candidate-appearance-function)
+	;; skk-treat-candidate-appearance-function $B$K$h$C$F%f!<%6$OG$0U$K8uJd(B
+	;; $BJ8;zNs$HCm<aJ8;zNs$r2C9)!&=$>~$9$k$3$H$,$G$-$k!#(B
+	;; $B%f!<%6$,JV$9CM$O(B cons cell $B$^$?$OJ8;zNs$H$J$k!#(B
 	(save-match-data
 	  (let ((value (funcall skk-treat-candidate-appearance-function
 				word nil)))
 	    (if (consp value)
+		;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
 		(setq word (car value)
 		      note (cond
 			    ((consp (cdr value))
@@ -2325,21 +2352,24 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 			     ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F$$$k$b$N$H(B
 			     ;; $BH=CG$9$k(B
 			     (cdr value))))
+	      ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
 	      (setq word value)))))
+      ;; $B%f!<%6$N0U?^$K$h$C$FCm<a$,4{$K@_Dj$5$l4{$K@_Dj$5$l$F$$$k>l9g$O(B
+      ;; SKK $B$NJ}$G$OBP=h$7$J$$!#(B
       (when (and (not (stringp note))
 		 (string-match ";" word))
 	(setq note (substring word (match-end 0))
 	      word (substring word 0 (match-beginning 0))))
-      (when (skk-lisp-prog-p word)
-	(let ((res (skk-eval-string word)))
-	  (if (consp res)
-	      (setq word (car res)
-		    note (cdr res))
-	    (setq word res))))
+      ;; word $B$NJ}$,(B S $B<0$NJ8;zNs$@$C$?$i!"$=$l$rI>2A$7$?J8;zNs$rJV$9!#(B
+      ;; note $B$NJ}$b(B S $B<0$N>l9g$,$"$j$&$k$,!"$=$l$NI>2A$O(B skk-annotation
+      ;; $B$,$d$C$F$/$l$k!#(B
+      (setq word (skk-eval-string word))
       (when skk-use-face
 	(skk-henkan-face-off))
       (delete-region skk-henkan-start-point skk-henkan-end-point)
       (goto-char skk-henkan-start-point)
+      ;; word $B$rA^F~$9$kA0$K$=$N(B face $BB0@-$r=|5n$9$k!#$?$@$7!$=|5n$9$kA0$K(B
+      ;; face $BB0@-$rJQ?t$KB`Hr$9$k!#$3$N(B face $BB0@-$O<!$N8uJdI=<($K;HMQ$5$l$k!#(B
       (setq face (get-text-property 0 'face word))
       (set-text-properties 0 (length word) nil word)
       (insert-and-inherit word)
