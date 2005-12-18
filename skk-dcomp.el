@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.36 2005/12/18 12:35:31 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.37 2005/12/18 14:41:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/18 12:35:31 $
+;; Last Modified: $Date: 2005/12/18 14:41:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -275,6 +275,19 @@
     (skk-set-marker skk-dcomp-end-point nil))
    (t
     ad-do-it)))
+
+(defadvice skk-comp-start-henkan (around skk-dcomp-ad activate)
+   (cond ((and (eq skk-henkan-mode 'on)
+	       skk-dcomp-activate
+	       (skk-dcomp-marked-p))
+	  (goto-char skk-dcomp-end-point)
+	  (setq this-command 'skk-comp-do)
+	  (skk-dcomp-face-off)
+	  (skk-set-marker skk-dcomp-start-point nil)
+	  (skk-set-marker skk-dcomp-end-point nil)
+	  (skk-start-henkan (ad-get-arg 0)))
+	 (t
+	  ad-do-it)))
 
 (defadvice skk-delete-backward-char (after skk-dcomp-ad activate)
   (skk-dcomp-after-delete-backward-char))
