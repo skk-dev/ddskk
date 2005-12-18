@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.328 2005/12/18 12:15:21 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.329 2005/12/18 12:41:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/18 12:15:21 $
+;; Last Modified: $Date: 2005/12/18 12:41:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1993,39 +1993,35 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	     ((consp value)
 	      ;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
 	      (setq e (skk-eval-string (car value))
-		    note (cond ((not skk-show-annotation)
-				;; $BCm<a4XO"$NI=<($O0l@Z$7$J$$(B
-				"")
-			       ((consp (cdr value))
-				;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
-				;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
-				(if (skk-annotation-display-p 'list)
-				    (concat (cadr value)
-					    (skk-eval-string
-					     (cddr value)))
-				  (cadr value)))
-			       ((string-match "^;" (cdr value))
-				;; ($B8uJd(B . $BCm<a(B)
-				;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G$$$k(B
-				(if (skk-annotation-display-p 'list)
-				    (concat (substring
-					     (cdr value) 0 1)
-					    (skk-eval-string
-					     (substring
-					      (cdr value) 1)))
-				  (substring (cdr value) 0 1)))
-			       (t
-				;; ($B8uJd(B . $BCm<a(B)
-				;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F$$$k$b$N$H(B
-				;; $BH=CG$9$k(B
-				(if (skk-annotation-display-p 'list)
-				    (concat ";"
-					    (skk-eval-string
-					     (cdr value)))
-				  ";")))))
+		    note (cond
+			  ((not skk-show-annotation)
+			   ;; $BCm<a4XO"$NI=<($O0l@Z$7$J$$(B
+			   "")
+			  ((consp (cdr value))
+			   ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
+			   ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
+			   (if (skk-annotation-display-p 'list)
+			       (concat (cadr value)
+				       (skk-eval-string (cddr value)))
+			     (cadr value)))
+			  ((string-match "^;" (cdr value))
+			   ;; ($B8uJd(B . $BCm<a(B)
+			   ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G$$$k(B
+			   (if (skk-annotation-display-p 'list)
+			       (concat (substring (cdr value) 0 1)
+				       (skk-eval-string
+					(substring (cdr value) 1)))
+			     (substring (cdr value) 0 1)))
+			  (t
+			   ;; ($B8uJd(B . $BCm<a(B)
+			   ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F$$$k$b$N$H(B
+			   ;; $BH=CG$9$k(B
+			   (if (skk-annotation-display-p 'list)
+			       (concat ";" (skk-eval-string (cdr value)))
+			     ";")))))
 	     (t
 	      ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
-	      (setq e value
+	      (setq e    value
 		    note nil)))
 	    ;; $B8uJd0lMwI=<($G$O8uJd$HCm<a$r0l3g$7$FI=<($9$k$N$G(B
 	    ;; $B$3$3$G7k9g$7$F$*$/!#(B
@@ -2068,7 +2064,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
       (forward-char 2)
       (while (re-search-forward
 	      (concat "  "
-		      (mapconcat 'identity keys ":\\|  ") ":\\|"
+		      (mapconcat 'identity keys ":\\|  ")
+		      ":\\|"
 		      "  \\[$B;D$j(B [0-9]+\\(\\++\\)?\\]") nil t)
 	(goto-char (match-beginning 0))
 	(delete-char 2)
@@ -2077,7 +2074,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
       (while (and (move-to-column (- (frame-width) 2))
 		  (not (eobp))
 		  (>= (frame-width) (current-column)))
-	(when (not (eolp))
+	(unless (eolp)
 	  (backward-char 1)
 	  (insert "\n  "))
 	(forward-line 1))
@@ -2091,7 +2088,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (other-window 1)))
       (unless (eq (next-window) (selected-window))
 	;; *$B8uJd(B* $B%P%C%U%!$r8+0W$/$9$k!#(B
-	;; (save-window-excursion $B$NCf$J$N$GBg>fIW$J$O$:(B)
+	;; `save-window-excursion' $B$NCf$J$N$GBg>fIW$J$O$:!#(B
 	(delete-other-windows))
       (save-selected-window
 	(pop-to-buffer buff)
