@@ -3,6 +3,8 @@
 	* skk-dcomp.el (skk-dcomp-activate-p): New function.
 	(skk-dcomp-do-completion): Call it.
 
+	(skk-comp-start-henkan): Advice.
+
 	* skk.el: Add comments.
 
 	(skk-henkan-candidate-list):
@@ -5399,8 +5401,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.938 2005/12/18 12:35:43 skk-cvs Exp $
-Last Modified: $Date: 2005/12/18 12:35:43 $
+Version: $Id: ChangeLog,v 1.939 2005/12/18 14:41:42 skk-cvs Exp $
+Last Modified: $Date: 2005/12/18 14:41:42 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
