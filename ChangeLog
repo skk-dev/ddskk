@@ -1,5 +1,8 @@
 2005-12-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-dcomp.el (skk-dcomp-activate-p): New function.
+	(skk-dcomp-do-completion): Call it.
+
 	* skk.el: Add comments.
 
 	(skk-henkan-candidate-list):
@@ -5396,8 +5399,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.937 2005/12/18 12:15:26 skk-cvs Exp $
-Last Modified: $Date: 2005/12/18 12:15:26 $
+Version: $Id: ChangeLog,v 1.938 2005/12/18 12:35:43 skk-cvs Exp $
+Last Modified: $Date: 2005/12/18 12:35:43 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
