@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.35 2005/12/11 04:50:59 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.36 2005/12/18 12:35:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/11 04:50:59 $
+;; Last Modified: $Date: 2005/12/18 12:35:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -139,19 +139,22 @@
     (delete-region skk-dcomp-end-point (point))
     (skk-set-marker skk-dcomp-end-point (point))))
 
+(defun skk-dcomp-activate-p ()
+  (and skk-dcomp-activate
+       (cond ((functionp skk-dcomp-activate)
+	      (funcall skk-dcomp-activate))
+	     ((listp skk-dcomp-activate)
+	      (eval skk-dcomp-activate))
+	     (skk-hint-inhibit-dcomp
+	      nil)
+	     (t
+	      t))))
+
 (defun skk-dcomp-do-completion (pos)
-  (when (and skk-dcomp-activate
-	     (cond ((functionp skk-dcomp-activate)
-		    (funcall skk-dcomp-activate))
-		   ((listp skk-dcomp-activate)
-		    (eval skk-dcomp-activate))
-		   (skk-hint-inhibit-dcomp
-		    nil)
-		   (t
-		    t))
-	     (eq skk-henkan-mode 'on)
+  (when (and (eq skk-henkan-mode 'on)
 	     (not skk-okurigana)
-	     (not (eq (marker-position skk-henkan-start-point) (point))))
+	     (not (eq (marker-position skk-henkan-start-point) (point)))
+	     (skk-dcomp-activate-p))
     (condition-case nil
 	(progn
 	  (skk-comp-do 'first 'silent)
