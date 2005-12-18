@@ -54,14 +54,12 @@
 	(skk-set-marker skk-dcomp-end-point nil))
        ((skk-dcomp-marked-p)
 	(skk-dcomp-face-off)
-	(unless (member (this-command-keys)
-			skk-dcomp-keep-completion-keys)
+	(unless (member (this-command-keys) skk-dcomp-keep-completion-keys)
 	  ;;
 	  (if (eq this-command 'skk-nicola-self-insert-rshift)
 	      (setq pos (point))
 	    (ignore-errors
-	      (delete-region skk-dcomp-start-point
-			     skk-dcomp-end-point))))))
+	      (delete-region skk-dcomp-start-point skk-dcomp-end-point))))))
       ad-do-it
       ;;
       (when (and (eq this-command 'skk-nicola-self-insert-rshift)
@@ -69,33 +67,14 @@
 	(when (and (markerp skk-dcomp-start-point)
 		   (marker-position skk-dcomp-start-point)
 		   pos
-		   (< (marker-position skk-dcomp-start-point)
-		      pos))
+		   (< (marker-position skk-dcomp-start-point) pos))
 	  (delete-region skk-dcomp-start-point pos))
 	(when (and (markerp skk-dcomp-end-point)
 		   (marker-position skk-dcomp-end-point)
-		   (< (point)
-		      (marker-position skk-dcomp-end-point)))
-	  (delete-region skk-dcomp-end-point
-			 (point))))
+		   (< (point) (marker-position skk-dcomp-end-point)))
+	  (delete-region skk-dcomp-end-point (point))))
       ;;
-      (when (and (eq skk-henkan-mode 'on)
-		 (not (skk-get-prefix skk-current-rule-tree))
-		 (not skk-okurigana))
-	(let ((pos (point)))
-	  (condition-case nil
-	      (progn
-		(skk-comp-do 'first 'silent)
-		(skk-set-marker skk-dcomp-start-point
-				pos)
-		(skk-set-marker skk-dcomp-end-point
-				(point))
-		(skk-dcomp-face-on skk-dcomp-start-point
-				   skk-dcomp-end-point)
-		(goto-char skk-dcomp-start-point))
-	    (error
-	     (setq skk-comp-stack nil)
-	     (message nil)))))))))
+      (skk-dcomp-do-completion (point))))))
 
 (require 'product)
 (product-provide
