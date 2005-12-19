@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.144 2005/11/27 17:24:14 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.145 2005/12/19 14:28:11 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2005/11/27 17:24:14 $
+@c  Last Modified: $Date: 2005/12/19 14:28:11 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2005/11/27 17:24:14 $
+@set UPDATED $Date: 2005/12/19 14:28:11 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1680,7 +1680,6 @@ SKK 辞書を編集するためのメジャーモードを提供するプログラムを集めたファイ
 KAKASI インターフェイスプログラムを集めたファイル。
 
 @xref{領域一括変換}.
-@xref{KAKASI}.
 
 @item skk-kcode.el
 @cindex @file{skk-kcode.el}
@@ -4454,7 +4453,6 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/@dots{}/
 @cindex 逆引き
 以下に紹介するコマンドについては、外部プログラム KAKASI に依存しています。
 KAKASI がインストールされていなければ使用することができません。
-@w{@xref{KAKASI}.}
 
 @table @asis
 @item @kbd{M-x skk-gyakubiki-region}
@@ -7143,7 +7141,7 @@ DDSKK についての最新情報は、
 
 SKK Openlab では、開発者、文章の整備にご協力いただける方、テスター、よろ
 ずものを言う人などなど、常に募集しています。
-@w{@xref{SKK Openlab メーリングリスト}.}
+@w{@xref{SKKメーリングリスト}.}
 
 また、SKK の開発は、 CVS によってなされています。CVS を使って最新の SKK
 を取得する場合、CVS account を取得して開発に参加される場合は、以下を参照

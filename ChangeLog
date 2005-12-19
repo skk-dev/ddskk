@@ -1,3 +1,7 @@
+2005-12-19  TAKAHASHI Kaoru  <kaoru@kaisei.org>
+
+	* doc/skk.texi: Fix @xref{} nodename.
+
 2005-12-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-dcomp.el (skk-dcomp-activate-p): New function.
@@ -5401,8 +5405,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.939 2005/12/18 14:41:42 skk-cvs Exp $
-Last Modified: $Date: 2005/12/18 14:41:42 $
+Version: $Id: ChangeLog,v 1.940 2005/12/19 14:28:11 skk-cvs Exp $
+Last Modified: $Date: 2005/12/19 14:28:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
