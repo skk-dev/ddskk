@@ -9,6 +9,9 @@
 	skk-look-ignore-case as boolean.  Check if it is t, nil,
 	conversion, completion or sth.
 
+	* skk-e21.el (skk-tooltip-show-at-point): Take optional argument
+	LISTING.
+
 	* skk-look.el (skk-look): Do nothing when skk-look is nil or
 	completion. Disable skk-look-ignore-case if its value is nil or
 	conversion.
@@ -21,6 +24,9 @@
 	Accept optional argument IGNORE-CASE.
 
 	* skk-vars.el: Update doc strings.
+
+	* skk.el (skk-henkan-show-candidate-subr): Call
+	`skk-tooltip-show-at-point' with its 2nd arg LISTING non-nil.
 
 2005-12-19  TAKAHASHI Kaoru  <kaoru@kaisei.org>
 
@@ -5429,8 +5435,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.944 2005/12/20 11:32:09 skk-cvs Exp $
-Last Modified: $Date: 2005/12/20 11:32:09 $
+Version: $Id: ChangeLog,v 1.945 2005/12/20 13:30:44 skk-cvs Exp $
+Last Modified: $Date: 2005/12/20 13:30:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
