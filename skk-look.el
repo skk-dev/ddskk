@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.28 2005/12/02 07:14:35 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.29 2005/12/20 11:16:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/02 07:14:35 $
+;; Last Modified: $Date: 2005/12/20 11:16:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -154,15 +154,16 @@
   ;; UNIX look コマンドを利用した変換を行なう。
   ;; SKK abbrev モードにて、英文字 + アスタリスクで uncompleted spelling を指定
   ;; する。
-  (when (and skk-use-look
+  (when (and (not (memq skk-use-look '(nil completion)))
 	     skk-abbrev-mode
 	     (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
 		 ?*))
     (let* ((args (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
-	   (v (if (and skk-look-use-ispell
+	   (ignore-case (not (memq skk-look-ignore-case '(nil completion))))
+	   (v (if (and (not (memq skk-look-use-ispell '(nil completion)))
 		       (> (length args) 0))
-		  (skk-look-ispell args)
-		(skk-look-1 args)))
+		  (skk-look-ispell args ignore-case)
+		(skk-look-1 args ignore-case)))
 	   skk-henkan-key
 	   skk-use-look
 	   v2 v3)
@@ -183,7 +184,7 @@
 			 v2)))))
 	v2)))))
 
-(defun skk-look-1 (args)
+(defun skk-look-1 (args &optional ignore-case)
   ;; core search engine
   (with-temp-buffer
     (let ((word args)
@@ -193,7 +194,7 @@
 	(nconc args (list skk-look-dictionary)))
       (when skk-look-dictionary-order
 	(setq opt "d"))
-      (when skk-look-ignore-case
+      (when ignore-case
 	(setq opt (concat "f" opt)))
       (when opt
 	(setq args (cons (concat "-" opt) args)))
@@ -209,14 +210,15 @@
 ;;;###autoload
 (defun skk-look-completion ()
   (unless skk-look-completion-words
-    (let ((stacked skk-comp-stack)) ; 他の機能による補完候補。
+    (let ((stacked skk-comp-stack) ; 他の機能による補完候補。
+	  (ignore-case (not (memq skk-look-ignore-case '(nil conversion)))))
       ;; look は複数の候補を吐くので、一旦貯めておいて、
       ;; 一つずつ complete する。
       (setq skk-look-completion-words
-	    (if (and skk-look-use-ispell
+	    (if (and (not (memq skk-look-use-ispell '(nil conversion)))
 		     (> (length skk-comp-key) 0))
-		(skk-look-ispell skk-comp-key)
-	      (skk-look-1 skk-comp-key)))
+		(skk-look-ispell skk-comp-key ignore-case)
+	      (skk-look-1 skk-comp-key ignore-case)))
       (dolist (word stacked)
 	(setq skk-look-completion-words
 	      (delete word skk-look-completion-words)))
@@ -229,9 +231,8 @@
   (unless (eq last-command 'skk-comp-do)
     (setq skk-look-completion-words nil)))
 
-
 ;;;###autoload
-(defun skk-look-ispell (word)
+(defun skk-look-ispell (word &optional ignore-case)
   (require 'ispell)
   (ispell-accept-buffer-local-defs)
   (message "")
@@ -270,13 +271,13 @@
 	  ;; でもちっとも補完ぢゃなくなっちまいますね... (^^;;。
 	  (stringp poss)
 	  (null (or (nth 2 poss) (nth 3 poss))))
-      (skk-look-1 word))
+      (skk-look-1 word ignore-case))
      (t
       (setq var (nconc (nth 2 poss) (nth 3 poss)))
       (dolist (key var)
 	;; call look command by each candidate put out by ispell.
-	(setq ret (skk-nunion ret (cons key (skk-look-1 key)))))
-      (delete word (skk-nunion (skk-look-1 word) ret))))))
+	(setq ret (skk-nunion ret (cons key (skk-look-1 key ignore-case)))))
+      (delete word (skk-nunion (skk-look-1 word ignore-case) ret))))))
 
 (require 'product)
 (product-provide
