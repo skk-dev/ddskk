@@ -289,7 +289,7 @@ Analogous to mouse-position."
 	  (cons (+ (car edges)       (car (cdr list)))
 		(+ (car (cdr edges)) (car (cdr (cdr list))))))))
 
-(defun skk-tooltip-show-at-point (text)
+(defun skk-tooltip-show-at-point (text &optional listing)
   (require 'tooltip)
   (let* ((P (skk-e21-mouse-position))
 	 (frame (car P))
@@ -321,10 +321,11 @@ Analogous to mouse-position."
 		     'skk-previous-candidate
 		     skk-j-mode-map))
 	       0)))
-       ;; skk-henkan まで一気に throw する。
-       (throw 'unread nil)))
+       (when listing
+	 ;; skk-henkan まで一気に throw する。
+	 (throw 'unread nil)))
     (when (and ox oy)
-      (set-mouse-position oframe ox oy))))
+      (set-mouse-position oframe ox oy)))))
 
 (defun skk-tooltip-show-1 (text skk-params)
   (condition-case error
