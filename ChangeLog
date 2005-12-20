@@ -20,6 +20,8 @@
 
 	Accept optional argument IGNORE-CASE.
 
+	* skk-vars.el: Update doc strings.
+
 2005-12-19  TAKAHASHI Kaoru  <kaoru@kaisei.org>
 
 	* doc/skk.texi: Fix @xref{} nodename.
@@ -30,8 +32,6 @@
 	(skk-dcomp-do-completion): Call it.
 
 	(skk-comp-start-henkan): Advice.
-
-	* skk-vars.el: Update doc strings.
 
 	* skk.el: Add comments.
 
@@ -5429,8 +5429,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.943 2005/12/20 11:31:46 skk-cvs Exp $
-Last Modified: $Date: 2005/12/20 11:31:46 $
+Version: $Id: ChangeLog,v 1.944 2005/12/20 11:32:09 skk-cvs Exp $
+Last Modified: $Date: 2005/12/20 11:32:09 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
