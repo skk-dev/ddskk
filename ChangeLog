@@ -31,6 +31,8 @@
 
 	(skk-comp-start-henkan): Advice.
 
+	* skk-vars.el: Update doc strings.
+
 	* skk.el: Add comments.
 
 	(skk-henkan-candidate-list):
@@ -5427,8 +5429,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.942 2005/12/20 11:21:56 skk-cvs Exp $
-Last Modified: $Date: 2005/12/20 11:21:56 $
+Version: $Id: ChangeLog,v 1.943 2005/12/20 11:31:46 skk-cvs Exp $
+Last Modified: $Date: 2005/12/20 11:31:46 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp

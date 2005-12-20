@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.154 2005/12/16 10:45:25 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.155 2005/12/20 11:31:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/16 10:45:25 $
+;; Last Modified: $Date: 2005/12/20 11:31:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1507,7 +1507,12 @@ SKK では変換、確定を行った文字列は全て個人辞書に取り込まれるが、この
   :group 'skk-hooks-and-functions)
 
 (defcustom skk-use-look nil
-  "*Non-nil であれば、UNIX look コマンドを利用した補完・変換を行う。
+  "*UNIX look コマンドを利用した補完・変換を行うかどうかを指定する。
+t ならば、補完時と英数字変換時に look を使用する。
+`completion' ならば、補完時だけ look を使用する。
+`conversion' ならば、英数字変換時だけ look を使用する。
+nil ならば、look を使用しない。
+
 SKK abbrev モードで補完を行うと、個人辞書を検索し尽した後で、UNIX look コマン
 ドによる英単語補完を行う。例えば、
 
@@ -1523,7 +1528,10 @@ SKK abbrev モードで、「英文字 + アスタリスク」にて変換を行うと、look
 この状態で確定すると、`abstra*' を見出し語、`abstract' を候補とするエントリ
 が個人辞書に追加される。`skk-search-excluding-word-pattern-function' によ
 り、確定してもこのようなエントリを追加しないように設定することができる。"
-  :type 'boolean
+  :type '(choice (const :tag "補完時と英数字変換時に有効" t)
+		 (const :tag "補完時だけ有効" completion)
+		 (const :tag "英数字変換時だけ有効" completion)
+		 (const :tag "無効" nil))
   :group 'skk-look)
 
 (defcustom skk-henkan-overlay-priority 600
@@ -2066,9 +2074,16 @@ look コマンドは一般的に、辞書ファイル名を渡した場合は -d, -f のオプ
   :group 'skk-look)
 
 (defcustom skk-look-ignore-case t
-  "*Non-nil であれば、大文字・小文字を区別しないで検索を行う。
-look コマンドにオプション \"-f\" を渡す。"
-  :type 'boolean
+  "*大文字・小文字を区別しないで検索を行うかどうかを指定する。
+有効ならば look コマンドにオプション \"-f\" を渡す。
+t ならば、補完時と英数字変換時に大文字・小文字を区別しない。
+`completion' ならば、補完時は大文字・小文字を区別しない。
+`conversion' ならば、英数字変換時は大文字・小文字を区別しない。
+nil ならば、常に大文字・小文字を区別する。"
+  :type '(choice (const :tag "補完時と英数字変換時に有効" t)
+		 (const :tag "補完時だけ有効" completion)
+		 (const :tag "英数字変換時だけ有効" completion)
+		 (const :tag "無効" nil))
   :group 'skk-look)
 
 (defcustom skk-look-dictionary-order t
@@ -2098,8 +2113,15 @@ nil であればこのオプションは使用されない。"
   :group 'skk-look)
 
 (defcustom skk-look-use-ispell nil
-  "*Non-nil であれば、look による検索の際、ispell を併用する。"
-  :type 'boolean
+  "*look による検索の際、ispell を併用するかどうかを指定する。
+t ならば、補完時と英数字変換時に ispell を併用する。
+`completion' ならば、補完時だけ ispell を併用する。
+`conversion' ならば、英数字変換時だけ ispell を併用する。
+nil ならば、ispell を使用しない。"
+  :type '(choice (const :tag "補完時と英数字変換時に有効" t)
+		 (const :tag "補完時だけ有効" completion)
+		 (const :tag "英数字変換時だけ有効" conversion)
+		 (const :tag "無効" nil))
   :group 'skk-look)
 
 ;;; SKK-NUM.EL related.
