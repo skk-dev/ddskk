@@ -1,4 +1,9 @@
-2005-12-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2005-12-20  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-macs.el (skk-lisp-prog-p): Call `read-from-string' for
+	STRING and validate the length of the returned expression.
+
+2005-12-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el (skk-comp-do): No longer treat skk-use-look and
 	skk-look-ignore-case as boolean.  Check if it is t, nil,
@@ -5422,8 +5427,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.941 2005/12/20 11:16:19 skk-cvs Exp $
-Last Modified: $Date: 2005/12/20 11:16:19 $
+Version: $Id: ChangeLog,v 1.942 2005/12/20 11:21:56 skk-cvs Exp $
+Last Modified: $Date: 2005/12/20 11:21:56 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
