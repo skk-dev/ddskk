@@ -1,3 +1,25 @@
+2005-12-22  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-share-private-jisyo, skk-jisyo-save-count):
+	Update doc string.
+	(skk-share-private-jisyo-internal, skk-jisyo-save-count-internal):
+	New internal variables.
+
+	* skk.el (skk-restart): Call `skk-save-jisyo' first.
+	Re-initialize SKK related variables, except for `skk-init-file',
+	which has `standard-value' property.  Disconnect server.
+	(skk-adjust-user-option): Copy `skk-jisyo-save-count' to
+	`skk-jisyo-save-count-internal', `skk-share-private-jisyo' to
+	`skk-share-private-jisyo-internal'.
+	(skk-save-jisyo-original): Use `skk-share-private-jisyo-internal'
+	instead of `skk-share-private-jisyo'.
+	(skk-update-shared-jisyo): Use length of `skk-jisyo-update-vector'
+	instead of `skk-jisyo-save-count'.
+	(skk-update-jisyo-original): Use
+	`skk-share-private-jisyo-internal' instead of
+	'skk-share-private-jisyo'.  Use `skk-jisyo-save-count-internal'
+	but don't affect users who don't share private jisyo.
+
 2005-12-20  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-macs.el (skk-lisp-prog-p): Call `read-from-string' for
@@ -5435,8 +5457,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.945 2005/12/20 13:30:44 skk-cvs Exp $
-Last Modified: $Date: 2005/12/20 13:30:44 $
+Version: $Id: ChangeLog,v 1.946 2005/12/21 22:21:44 skk-cvs Exp $
+Last Modified: $Date: 2005/12/21 22:21:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
