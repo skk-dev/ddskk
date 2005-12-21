@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2005/12/20 16:05:13 $
-	     $Id: TODO.ja,v 1.18 2005/12/20 16:05:13 skk-cvs Exp $
+             $Date: 2005/12/21 05:23:13 $
+	     $Id: TODO.ja,v 1.19 2005/12/21 05:23:13 skk-cvs Exp $
 
 
 * $B6a$$Fb$K2r7h$9$Y$-(B TODO
@@ -23,8 +23,11 @@
 
 *** $BJ#9g8l$NF~NO;Y1g(B
 
+[http://mail.ring.gr.jp/skk/200512/msg00012.html]
+
 *** skk-undo-kakutei-word-only $B$N<BAu$N6/2=(B
 
+$B2<$N%P%0>pJs$r;2>H!#(B
 
 * Hint from MSIME
 
@@ -99,6 +102,8 @@ tooltip $B$N$h$&$K(B GUI $B$K0MB8$9$k$3$H$J$/F1Ey$N;HMQ46$rF@$i$l$kE@$K$*$$(
 
 ** $B8D?M<-=q$KEPO?$9$kFbMF$r;vA0$K2C9)=$@5$G$-$k$h$&$K$9$k(B
 
+[http://mail.ring.gr.jp/skk/200512/msg00034.html]
+
 skk-update-jisyo-function $B$r@_Dj$9$l$P8=>u$G$b$G$-$J$/$O$J$$$,!"$=$l$G(B
 $B$OBg6D$G$"$j!"3NDj$5$l$?8uJd$r<-=qEPO?D>A0$K2C9)$9$k5!G=$KFC2=$7$?$7$/(B
 $B$_$,$"$l$P$h$$!#$H$/$K!V(B...$B$J%"%N%F!<%7%g%s$N$H$-$O(B...$B$9$k!W$H$$$C$?>r(B
@@ -114,6 +119,8 @@ SKK $B$+$i$b8F$S=P$;$k%W%m%0%i%`$rMQ0U$9$k$+$7$F%W%m%0%i%`JQ495!G=$r6&M-(B
 ** $B!V$3$N<-=q$+$i$O3X=,$7$J$$!W@_Dj$,$G$-$k$H$h$$(B
 
 ** $B!V3hMQ!W$N>pJs$rMxMQ$7$?Aw$j$"$jJQ49(B
+
+[http://mail.ring.gr.jp/skk/200511/msg00006.html]
 
 $B%f!<%6$,!V5c$/!W$J$I$NJQ49$r$7$?>l9g!"(B skk-henkan-okuri-strictly $B$J$$(B
 $B$7$O(B skk-henkan-strict-okuri-precedence $B$N4D6-2<$G$OAw$j2>L>!V$/!W$,<!(B
@@ -212,6 +219,8 @@ free software $B$G$"$k$3$H$rG'<1$7$F$b$i$&$3$H!"$J$I$,L\E*!#(B
 * $BJs9p$5$l$?!"$^$?$O3NG'$5$l$F$$$k%P%0(B ($BL$=$@5(B)
 
 ** skk-undo-kakutei-word-only $B2<$G$N(B undo $B>pJs$NAS<:(B
+
+[http://mail.ring.gr.jp/skk/200503/msg00011.html]
 
 $B3^86!w6eBg$5$s$h$j$N$4Js9p(B
 
