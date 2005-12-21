@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.155 2005/12/20 11:31:46 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.156 2005/12/21 22:19:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/20 11:31:46 $
+;; Last Modified: $Date: 2005/12/21 22:19:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1388,15 +1388,22 @@ nil であれば、英語で表示する。"
   :group 'skk-filenames)
 
 (defcustom skk-share-private-jisyo nil "\
-*Non-nil であれば、複数の SKK による個人辞書の共有を考慮して辞書を更新する。"
+*Non-nil であれば、複数の SKK による個人辞書の共有を考慮して辞書を更新する。
+SKK 起動後に変更した場合は \\[skk-restart] で反映させる事。"
   :type 'boolean
   :group 'skk-dictionary)
 
+(defvar skk-share-private-jisyo-internal nil)
+
 (defcustom skk-jisyo-save-count 50
   "*数値であれば、その回数辞書が更新されたときに辞書を自動的にセーブする。
-nil であれば、辞書のオートセーブを行わない。"
+nil であれば、辞書のオートセーブを行わない。
+SKK 起動後で、`skk-share-private-jisyo' な時にこの値を変更した場合は
+\\[skk-restart] で反映させる事。"
   :type '(choice integer (const nil))
   :group 'skk-dictionary)
+
+(defvar skk-jisyo-save-count-internal nil)
 
 (defcustom skk-byte-compile-init-file nil
   "*Non-nil であれば、skk-mode 起動時に skk-init-file をバイトコンパイルする。
@@ -2755,7 +2762,7 @@ skk-jisyo のバッファでは辞書の更新の必要があるためにマーカーが代入される。
 (skk-deflocalvar skk-henkan-list nil
   "変換結果の候補のリスト。
 例えば、\"▽な*く\" という変換すれば、`skk-henkan-list' は
-(\"鳴\" \"泣\" \"無\" \"亡\") のようになる。")
+\(\"鳴\" \"泣\" \"無\" \"亡\") のようになる。")
 
 (skk-deflocalvar skk-henkan-count -1
   "`skk-henkan-list' のリストのインデクスで現在の候補を差すもの。")

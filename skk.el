@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.330 2005/12/20 13:30:35 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.331 2005/12/21 22:19:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/20 13:30:35 $
+;; Last Modified: $Date: 2005/12/21 22:19:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -226,12 +226,24 @@ dependent."
 (defun skk-restart ()
   "`skk-init-file' $B$N:F%m!<%I5Z$S3F<o:F@_Dj$N8e(B SKK $B%b!<%I$r5/F0$9$k!#(B"
   (interactive)
+  (skk-save-jisyo)
+  (setq skk-jisyo-update-vector nil)	; not necessary
   (kill-local-variable 'skk-rule-tree)
   (setq skk-rule-tree nil)
-  (setq skk-rom-kana-rule-list
-	(eval (car (get 'skk-rom-kana-rule-list 'standard-value))))
+  (mapatoms #'(lambda (sym)
+                ;; skk-init-file $B0J30$N(B defcustom $B$G@k8@$5$l$?JQ?t$r:F=i4|2=!#(B
+                ;; $BB>$K$b=|30$9$Y$-JQ?t$,$J$$$+MW8!F$!#(B
+                (when (and (string-match "^skk-" (symbol-name sym))
+                           (not (eq sym 'skk-init-file))
+                           (static-if (eq skk-emacs-type 'mule4)
+                               (widget-plist-member (symbol-plist sym) 'standard-value)
+                             (plist-member (symbol-plist sym) 'standard-value)))
+                  (set sym
+                       (eval (car (get sym 'standard-value)))))))
   (let (skk-mode-invoked)
-    (skk-mode 1)))
+    (skk-mode 1))
+  (when (featurep 'skk-server)
+    (skk-disconnect-server)))
 
 (defun skk-require-module ()
   (when skk-use-viper
@@ -811,7 +823,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (unless skk-jisyo-save-count
     ;; $B8=:_$N<BAu$G$O!"8D?M<-=q$N%*!<%H%;!<%VL5$7$G$O8D?M<-=q$N6&M-$O$G$-$J$$(B
     ;; $B$3$H$K$J$C$F$$$k!#(B
-    (setq skk-share-private-jisyo nil)))
+    (setq skk-share-private-jisyo nil))
+  (setq skk-jisyo-save-count-internal skk-jisyo-save-count
+	skk-share-private-jisyo-internal skk-share-private-jisyo))
 
 (defun skk-try-completion (arg)
   "$B"&%b!<%I$G8+=P$78l$NJd40$r9T$&!#(B
@@ -2875,7 +2889,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 (defun skk-auto-start-henkan (str)
   "$B$"$k>r7o2<$K$*$$$F!"<+F0E*$KJQ49$r3+;O$9$k!#(B
 `skk-auto-start-henkan-keyword-list' $B$NMWAG$NJ8;zNs$rA^F~$7$?$H$-$K<+F0E*$K(B
-($B%9%Z!<%9$rBG80$7$J$/$H$b(B) $BJQ49$r3+;O$9$k!#%(!<!_%$%=%U%H<R$N(B MSDOS $BMQ(B $B$N(B
+\($B%9%Z!<%9$rBG80$7$J$/$H$b(B) $BJQ49$r3+;O$9$k!#%(!<!_%$%=%U%H<R$N(B MSDOS $BMQ(B $B$N(B
  FEP$B!"(BWX2+ $BIw!#(B"
   (when (member str skk-auto-start-henkan-keyword-list)
     (skk-save-point
@@ -3145,7 +3159,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	  (sit-for 1))
       ;;
       (with-current-buffer jisyo-buffer
-	(when skk-share-private-jisyo
+	(when skk-share-private-jisyo-internal
 	  (lock-buffer skk-jisyo)
 	  (when (skk-jisyo-is-shared-p)
 	    (skk-update-shared-jisyo)))
@@ -3158,7 +3172,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	  (skk-check-size-and-do-save-jisyo tempo-file)
 	  ;; $B<-=q$N%;!<%V$K@.8y$7$F=i$a$F(B modified $B%U%i%C%0$r(B nil $B$K$9$k!#(B
 	  (cond
-	   (skk-share-private-jisyo
+	   (skk-share-private-jisyo-internal
 	    (skk-init-shared-jisyo)
 	    ;; `set-buffer-modified-p' $B$OITMW$J(B lock $B$r2r=|$9$k!#$?$@$7!"(B
 	    ;; $B%P%C%U%!$H%U%!%$%kL>$,4XO"IU$1$i$l$F$$$kI,MW$,$"$k!#(B
@@ -3195,8 +3209,10 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
   (insert-file-contents skk-jisyo)
   (skk-setup-jisyo-buffer)
   ;; skk-jisyo-update-vector $B$K$7$?$,$C$F%P%C%U%!$r99?7$9$k!#(B
-  (let ((index 0) list skk-henkan-key)
-    (while (and (< index skk-jisyo-save-count)
+  (let ((index 0)
+	(len (length skk-jisyo-update-vector))
+	list skk-henkan-key)
+    (while (and (< index len)
 		(setq list (aref skk-jisyo-update-vector index)))
       ;; skk-update-jisyo-1, skk-search-jisyo
       ;; $B$G;2>H$5$l$k(B skk-henkan-key $B$r%;%C%H$9$k(B
@@ -3897,16 +3913,19 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 			      purge)
 	  ;; $BJ#?t$N(B emacs $B$G(B SKK $B$,5/F0$5$l$F$$$k$H$-$K8D?M<-=q$r@09gE*$K(B
 	  ;; $B99?7$9$k$?$a$K3NDj$NF0:n$r5-O?$9$k!#(B
-	  (when skk-share-private-jisyo
+	  (when skk-share-private-jisyo-internal
 	    (aset skk-jisyo-update-vector skk-update-jisyo-count
 		  (list midasi okurigana word purge)))
 	  (dolist (function skk-update-end-function)
 	    (funcall function henkan-buffer midasi okurigana word purge))
 	  (setq skk-update-jisyo-count (1+ skk-update-jisyo-count))
-	  (when (and skk-jisyo-save-count
-		     (= skk-jisyo-save-count skk-update-jisyo-count))
-	    ;; auto save.
-	    (skk-save-jisyo 'quiet)))))))
+	  (let ((save-count (if skk-share-private-jisyo-internal
+				skk-jisyo-save-count-internal
+			      skk-jisyo-save-count)))
+	    (when (and save-count
+		       (<= save-count skk-update-jisyo-count))
+	      ;; auto save.
+	      (skk-save-jisyo 'quiet))))))))
 
 (defun skk-update-jisyo-1 (okurigana word old-words-list purge)
   "$B8D?M<-=q$K?7$7$$%(%s%H%j$rA^F~$9$k!#(B
