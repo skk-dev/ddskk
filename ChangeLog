@@ -11,6 +11,8 @@
 	(skk-get-current-candidate): Validate if
 	`skk-get-current-candidate-1' returns a cons cell before calling
 	`car' or `cdr' for it.
+	(skk-henkan-candidate-list): Set note to nil at the beginning of
+	every step of the loop.
 
 2005-12-23  Masatake YAMATO  <jet@gyve.org>
 
@@ -5480,8 +5482,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.951 2005/12/23 19:46:34 skk-cvs Exp $
-Last Modified: $Date: 2005/12/23 19:46:34 $
+Version: $Id: ChangeLog,v 1.952 2005/12/23 21:54:11 skk-cvs Exp $
+Last Modified: $Date: 2005/12/23 21:54:11 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
