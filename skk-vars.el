@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.157 2005/12/23 18:06:41 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.158 2005/12/23 18:14:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/23 18:06:41 $
+;; Last Modified: $Date: 2005/12/23 18:14:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,8 +52,8 @@
 	   (make-variable-buffer-local ',var))
       `(progn
 	 (defvar ,var ,default-value
-	   ,(format "%s\nAutomatically becomes buffer-local\
- when set in any fashion."
+	   ,(format "%s
+Automatically becomes buffer-local when set in any fashion."
 		    (or documentation
 			"Not documented as a variable.")))
 	   (make-variable-buffer-local ',var)))))
