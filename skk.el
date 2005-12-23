@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.331 2005/12/21 22:19:39 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.332 2005/12/23 13:10:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/21 22:19:39 $
+;; Last Modified: $Date: 2005/12/23 13:10:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2804,9 +2804,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (setq skk-okuri-char nil
 		 skk-okurigana nil
 		 last-command-char last-char
-		 normal nil
-		 skk-dcomp-activate nil)
-	   (skk-kana-input arg)
+		 normal nil)
+	   (let ((skk-dcomp-activate nil))
+	     (skk-kana-input arg))
 	   (skk-set-char-before-as-okurigana))
 	  (t
 	   (when (and skk-dcomp-activate
