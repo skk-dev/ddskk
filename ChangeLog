@@ -1,3 +1,8 @@
+2005-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-set-henkan-point): Fix for 2005-02-27 commitment.
+	Bind skk-dcomp-activate.  Not set.
+
 2005-12-23  Masatake YAMATO  <jet@gyve.org>
 
 	* context-skk.el: Rewrite.
@@ -44,7 +49,7 @@
 	LISTING.
 
 	* skk-look.el (skk-look): Do nothing when skk-look is nil or
-	completion. Disable skk-look-ignore-case if its value is nil or
+	completion.  Disable skk-look-ignore-case if its value is nil or
 	conversion.
 	(skk-look-completion): Disable skk-look-ignore-case if its value
 	is nil or conversion.
@@ -5466,8 +5471,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.947 2005/12/23 12:02:08 skk-cvs Exp $
-Last Modified: $Date: 2005/12/23 12:02:08 $
+Version: $Id: ChangeLog,v 1.948 2005/12/23 13:10:52 skk-cvs Exp $
+Last Modified: $Date: 2005/12/23 13:10:52 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
