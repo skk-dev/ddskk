@@ -1,8 +1,12 @@
-;;; dot.skk --- init file for SKK  -*- emacs-lisp -*-
+;;; dot.skk --- examples for SKK init file  -*- emacs-lisp -*-
 
 ;;; Commentary:
 
-;; 以下は ~/.skk の設定例です。
+;; 以下は ~/.skk の設定例集です。
+
+;; (注意)
+;; このファイルは ~/.skk に直接コピーして使用するように意図されたものでは
+;; ありません。必要な設定例のみコピーして使用してください。
 
 ;;; Code:
 
