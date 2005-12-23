@@ -5,6 +5,8 @@
 	skk-treat-candidate-appearance-function, skk-dcomp-activate,
 	skk-use-numeric-conversion and skk-non-numeric-prog-list.
 
+	* skk-dic.rb: Remove spaces before argument parentheses.
+
 2005-12-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.skk: Use `add-hook' to modify
