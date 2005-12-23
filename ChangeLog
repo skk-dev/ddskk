@@ -1,3 +1,12 @@
+2005-12-23  Masatake YAMATO  <jet@gyve.org>
+
+	* context-skk.el: Rewrite.
+
+	Use custom for customising context-skk.el.
+	Introduce on-the-fly skk customising framework.
+	Delte `lisp-interaction-mode' from `context-skk-programming-mode'.
+	*scratch* is not for emacs lisp programming.
+
 2005-12-22  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-share-private-jisyo, skk-jisyo-save-count):
@@ -5457,8 +5466,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.946 2005/12/21 22:21:44 skk-cvs Exp $
-Last Modified: $Date: 2005/12/21 22:21:44 $
+Version: $Id: ChangeLog,v 1.947 2005/12/23 12:02:08 skk-cvs Exp $
+Last Modified: $Date: 2005/12/23 12:02:08 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
