@@ -1,7 +1,14 @@
 2005-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-vars.el (skk-deflocalvar): Use the new style backquote.  Do
+	not describe "buffer local" in doc string for FSF Emacs 22 and
+	XEmacs.
+
 	* skk.el (skk-set-henkan-point): Fix for 2005-02-27 commitment.
 	Bind skk-dcomp-activate.  Not set.
+	(skk-get-current-candidate): Validate if
+	`skk-get-current-candidate-1' returns a cons cell before calling
+	`car' or `cdr' for it.
 
 2005-12-23  Masatake YAMATO  <jet@gyve.org>
 
@@ -5471,8 +5478,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.948 2005/12/23 13:10:52 skk-cvs Exp $
-Last Modified: $Date: 2005/12/23 13:10:52 $
+Version: $Id: ChangeLog,v 1.949 2005/12/23 18:06:46 skk-cvs Exp $
+Last Modified: $Date: 2005/12/23 18:06:46 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
