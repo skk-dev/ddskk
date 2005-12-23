@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.333 2005/12/23 18:06:28 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.334 2005/12/23 21:54:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/23 18:06:28 $
+;; Last Modified: $Date: 2005/12/23 21:54:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1990,6 +1990,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
   (let ((count 0) e note v)
     (while (> max count)
       (setq e (nth count candidates))
+      (setq note nil)
       (when (and (skk-numeric-p) (consp e))
 	(setq e (cdr e)))
       (cond
