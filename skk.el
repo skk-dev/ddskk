@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.332 2005/12/23 13:10:46 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.333 2005/12/23 18:06:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/23 13:10:46 $
+;; Last Modified: $Date: 2005/12/23 18:06:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1673,12 +1673,14 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
     new-word))
 
 (defun skk-get-current-candidate (&optional noconv)
-  (cond ((not (skk-numeric-p))
-	 (skk-get-current-candidate-1))
-	(noconv
-	 (car (skk-get-current-candidate-1)))
-	(t
-	 (cdr (skk-get-current-candidate-1)))))
+  (let ((candidate (skk-get-current-candidate-1)))
+    (cond ((not (and (skk-numeric-p)
+		     (consp candidate)))
+	   candidate)
+	  (noconv
+	   (car candidate))
+	  (t
+	   (cdr candidate)))))
 
 (defun skk-henkan-list-filter ()
   (when (skk-numeric-p)
