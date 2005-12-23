@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.156 2005/12/21 22:19:39 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.157 2005/12/23 18:06:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/21 22:19:39 $
+;; Last Modified: $Date: 2005/12/23 18:06:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -42,12 +42,21 @@
   (defalias-maybe 'frame-property 'ignore)
   (defalias-maybe 'locate-data-file 'ignore)
 
+  (require 'static)
+
   (defmacro skk-deflocalvar (var default-value &optional documentation)
-    (` (progn
-	 (defvar (, var) (, default-value)
-	   (, (format "%s\n\(buffer local\)" documentation)))
-	 (make-variable-buffer-local '(, var)))))
-  (require 'static))
+    (if (or (featurep 'xemacs)
+	    (>= emacs-major-version 22))
+	`(progn
+	   (defvar ,var ,default-value ,documentation)
+	   (make-variable-buffer-local ',var))
+      `(progn
+	 (defvar ,var ,default-value
+	   ,(format "%s\nAutomatically becomes buffer-local\
+ when set in any fashion."
+		    (or documentation
+			"Not documented as a variable.")))
+	   (make-variable-buffer-local ',var)))))
 
 (eval-and-compile
   (defconst skk-emacs-type
