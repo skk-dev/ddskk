@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.98 2005/12/20 11:21:52 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.99 2005/12/23 19:43:44 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/20 11:21:52 $
+;; Last Modified: $Date: 2005/12/23 19:43:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -205,16 +205,6 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	(list 'if (list 'not marker)
 	      (list 'setq marker (list 'make-marker)))
 	(list 'set-marker marker position buffer)))
-
-;; From viper-util.el.  Welcome!
-;;;###autoload
-(put 'skk-deflocalvar 'lisp-indent-function 'defun)
-(defmacro skk-deflocalvar (symbol initvalue &optional docstring)
-  "SYMBOL について INITVALUE を値に持つ変数として宣言し、バッファローカル値にする。"
-  `(progn
-     (defvar ,symbol ,initvalue
-       ,(format "%s\n\(buffer local\)" docstring))
-     (make-variable-buffer-local ',symbol)))
 
 (defmacro skk-with-point-move (&rest form)
   "ポイントを移動するがフックを実行してほしくない場合に使う。"

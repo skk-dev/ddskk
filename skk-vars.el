@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.158 2005/12/23 18:14:03 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.159 2005/12/23 19:43:44 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/23 18:14:03 $
+;; Last Modified: $Date: 2005/12/23 19:43:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,30 +33,13 @@
 (require 'path-util) ; for exec-installed-p.
 
 (eval-when-compile
-
   ;; shut down compiler warnings.
   (defvar word-across-newline)
   (defvar emacs-beta-version)
   (defvar mule-version)
-
   (defalias-maybe 'frame-property 'ignore)
   (defalias-maybe 'locate-data-file 'ignore)
-
-  (require 'static)
-
-  (defmacro skk-deflocalvar (var default-value &optional documentation)
-    (if (or (featurep 'xemacs)
-	    (>= emacs-major-version 22))
-	`(progn
-	   (defvar ,var ,default-value ,documentation)
-	   (make-variable-buffer-local ',var))
-      `(progn
-	 (defvar ,var ,default-value
-	   ,(format "%s
-Automatically becomes buffer-local when set in any fashion."
-		    (or documentation
-			"Not documented as a variable.")))
-	   (make-variable-buffer-local ',var)))))
+  (require 'static))
 
 (eval-and-compile
   (defconst skk-emacs-type
@@ -69,6 +52,22 @@ Automatically becomes buffer-local when set in any fashion."
       'mule4)))
   ;;
   (require 'poe))
+
+;;;###autoload
+(put 'skk-deflocalvar 'lisp-indent-function 'defun)
+(defmacro skk-deflocalvar (symbol initvalue &optional docstring)
+  (if (or (featurep 'xemacs)
+	  (>= emacs-major-version 22))
+      `(progn
+	 (defvar ,symbol ,initvalue ,docstring)
+	 (make-variable-buffer-local ',symbol))
+    `(progn
+       (defvar ,symbol ,initvalue
+	 ,(format "%s
+Automatically becomes buffer-local when set in any fashion."
+		  (or docstring
+		      "Not documented as a variable.")))
+       (make-variable-buffer-local ',symbol))))
 
 (defconst skk-ml-address "skk@ring.gr.jp")
 (defconst skk-ml-command-address "skk-subscribe@ring.gr.jp")

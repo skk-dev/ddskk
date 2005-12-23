@@ -1,5 +1,7 @@
 2005-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-macs.el (skk-deflocalvar): Remove duplicate.
+
 	* skk-vars.el (skk-deflocalvar): Use the new style backquote.  Do
 	not describe "buffer local" in doc string for FSF Emacs 22 and
 	XEmacs.
@@ -5478,8 +5480,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.949 2005/12/23 18:06:46 skk-cvs Exp $
-Last Modified: $Date: 2005/12/23 18:06:46 $
+Version: $Id: ChangeLog,v 1.950 2005/12/23 19:43:44 skk-cvs Exp $
+Last Modified: $Date: 2005/12/23 19:43:44 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
