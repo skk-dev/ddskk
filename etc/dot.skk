@@ -49,6 +49,44 @@
 (setq skk-show-tooltip t)
 ;; 注) 今のところ FSF Emacs 21 以上しか対応していません
 
+(when skk-show-tooltip
+  ;; tooltip のルックスを指定する。デフォルトでは Emacs 標準のルックスに
+  ;; なります。
+  (setq skk-tooltip-parameters
+	'((background-color . "alice blue")
+	  (border-color . "royal blue"))))
+
+;; インライン候補表示を使用する
+(setq skk-show-inline t)
+
+(when skk-show-inline
+  ;; 変数 skk-treat-candidate-appearance-function を利用して自前で候補に
+  ;; 色を付ける場合はこの変数を nil に設定する。
+  (setq skk-inline-show-face nil))
+
+;; 候補表示のルックスに関する高度な設定
+(setq skk-treat-candidate-appearance-function
+      #'(lambda (candidate listing-p)
+	  (let* ((value (skk-treat-strip-note-from-word candidate))
+		 (cand (car value))
+		 (note (cdr value))
+		 (sep (if note
+			  (propertize (if (skk-annotation-display-p 'list)
+					  " ≒ "
+					" !")
+				      'face 'skk-e21-latin-face)
+			nil)))
+	    (cond (note
+		   (put-text-property 0 (length cand)
+				      'face 'skk-e21-jisx0201-face cand)
+		   (put-text-property 0 (length note)
+				      'face 'skk-e21-katakana-face note)
+		   (cons cand (cons sep note)))
+		  (t
+		   (put-text-property 0 (length cand)
+				      'face 'skk-e21-hiragana-face cand)
+		   cand)))))
+
 ;; @@ 基本的なユーザ・インターフェース
 
 ;; Enter キーを押したときには確定する
@@ -72,12 +110,33 @@
 ;;             (save-excursion
 ;;               (goto-char 0)
 ;;               (make-local-variable 'skk-kutouten-type)
-;;               (if (re-search-forward "．" 10000 t)
+;;               (if (re-search-forward "。" 10000 t)
 ;;                   (setq skk-kutouten-type 'en)
 ;;                 (setq skk-kutouten-type 'jp)))))
 
 ;; 動的な補完を使う
 ;; (setq skk-dcomp-activate t)
+
+;; 動的補完の可否を判定するより高度な設定例
+(setq skk-dcomp-activate
+      '(and
+	;; -nw では動的補完をしない。
+	window-system
+	;; 基本的に行末のときのみ補完する。ただし行末でなくても現在のポイント
+	;; から行末までの文字が空白のみだったら補完する。
+	(or (eolp)
+	    (string-match "^[ \t]+$"
+			  (buffer-substring (point) (point-at-eol))))
+	;; 以上の条件に加え、
+	;; o 通常のかなモードとカナモード (英数変換モード以外) では補完する。
+	;; o 英数補完モードでは、入力中の見出し語がアルファベットまたは数字の
+	;;   のみ補完する。
+	;; 後者の条件は look での補完のとき役に立つ。
+	(or (not skk-abbrev-mode)
+	    (let ((point (point)))
+	      (save-excursion
+		(goto-char skk-henkan-start-point)
+		(not (re-search-forward "[^a-z0-9A-Z]" point t)))))))
 
 ;; viper と組み合わせて使う
 ;; (setq skk-use-viper t)
@@ -127,6 +186,16 @@
 ;;		          ;; `skk-henkan-key' が数字のみのとき
 ;;		          (or (string-match "\\*$" skk-henkan-key)
 ;;			      (string-match "^[0-9]*$" skk-henkan-key)))))))
+
+;; 数値変換機能を使う
+(setq skk-use-numeric-conversion t)
+
+(when skk-use-numeric-conversion
+  ;; 数値変換の検索から除外する辞書検索プログラムを指定する
+  (setq skk-non-numeric-prog-list
+	'(skk-look
+	  skk-tankan-search
+	  (skk-search-jisyo-file \"/usr/share/skk/SKK-JISYO.jinmei\" 10000))))
 
 ;; lookup を利用した変換を行う
 ;; (setq skk-search-prog-list
@@ -244,8 +313,8 @@
 ;; 注) この設定は気をつけないと辞書の検索ができなくなりますので十分理
 ;; 解してから行ってください。 skk-jisyo-code は個人辞書の読み書きの他、
 ;; L 辞書などの読み込みコードも決めている影響力の強い変数です。この設
-;; 定をした場合は，まず個人辞書を上記のコードに変換しなければいけませ
-;; ん。その上で，さらに以下のいずれかの対処をする必要があります．
+;; 定をした場合は、まず個人辞書を上記のコードに変換しなければいけませ
+;; ん。その上で、さらに以下のいずれかの対処をする必要があります。
 ;;
 ;; 方針 1) Emacs のバッファに読み込む辞書を全て skk-jisyo-code と同じ
 ;;         文字コードに変換する
