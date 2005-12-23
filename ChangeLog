@@ -59,7 +59,7 @@
 
 	* skk-look.el (skk-look): Do nothing when skk-look is nil or
 	completion.  Disable skk-look-ignore-case if its value is nil or
-	conversion.
+	completion.
 	(skk-look-completion): Disable skk-look-ignore-case if its value
 	is nil or conversion.
 
@@ -5480,8 +5480,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.950 2005/12/23 19:43:44 skk-cvs Exp $
-Last Modified: $Date: 2005/12/23 19:43:44 $
+Version: $Id: ChangeLog,v 1.951 2005/12/23 19:46:34 skk-cvs Exp $
+Last Modified: $Date: 2005/12/23 19:46:34 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
