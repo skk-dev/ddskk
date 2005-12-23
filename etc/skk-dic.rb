@@ -16,10 +16,10 @@ while line = infile.gets
 end
 
 while line = jisyo.gets
-  if line.index (/^;; okuri-(ari|nasi) entries\.$/)
+  if line.index(/^;; okuri-(ari|nasi) entries\.$/)
     el.puts line
   else
-    unless line.index (/^;/)
+    unless line.index(/^;/)
       line.gsub(/\\/, "\134\134\134\134")
       line.gsub(/\"/, "\134\134\42")
       el.puts Kconv.tojis(line)
