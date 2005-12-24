@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.160 2005/12/24 22:27:40 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.161 2005/12/24 22:33:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/24 22:27:40 $
+;; Last Modified: $Date: 2005/12/24 22:33:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2549,6 +2549,8 @@ Non-nil であれば、`skk-isearch-message' 関数をコールする。")
 (defvar skk-indicator-alist nil)
 
 (defvar skk-buffer-undo-list nil)
+
+(defvar skk-inline-overlay nil)
 
 ;; ---- buffer local variables
 
