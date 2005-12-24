@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.334 2005/12/23 21:54:07 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.335 2005/12/24 22:45:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/23 21:54:07 $
+;; Last Modified: $Date: 2005/12/24 22:45:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -53,6 +53,7 @@
   (defvar enable-character-translation)
   (defvar epoch::version)
   (defvar message-log-max)
+  (defvar migemo-isearch-enable-p)
   (defvar minibuffer-local-ns-map)
   (defvar self-insert-after-hook)
   (defvar skk-rdbms-private-jisyo-table)
@@ -85,6 +86,7 @@
    ((eq skk-emacs-type 'xemacs)
     (require 'skk-xemacs)))
   ;; Shut up, compiler.
+  (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
 
@@ -276,7 +278,7 @@ dependent."
 	       'local)
   (skk-update-modeline)
   (static-when (eq skk-emacs-type 'xemacs)
-    (easy-menu-remove skk-menu)))
+    (delete-menu-item (list (car skk-menu)))))
 
 (defun skk-mode-invoke ()
   (skk-compile-init-file-maybe)
@@ -1596,19 +1598,23 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	(cond
 	 ((setq prototype (skk-henkan-1))
 	  (setq new-word prototype))
-	 ((setq prototype (let ((skk-henkan-in-minibuff-nest-level
-				 (if (numberp skk-henkan-in-minibuff-nest-level)
-				     (1+ skk-henkan-in-minibuff-nest-level)
-				   0)))
-			    (add-hook 'minibuffer-exit-hook
-				      #'skk-exit-henkan-in-minibuff)
+	 ((setq prototype (progn
+			    (save-excursion
+			      (when (skk-in-minibuffer-p)
+				(set-buffer (skk-minibuffer-origin)))
+			      (setq skk-henkan-in-minibuff-nest-level
+				    (if (numberp
+					 skk-henkan-in-minibuff-nest-level)
+					(1+ skk-henkan-in-minibuff-nest-level)
+				      0)))
+			    (unless (skk-in-minibuffer-p)
+			      (setq skk-minibuffer-origin (current-buffer)))
 			    (skk-henkan-in-minibuff)))
 	  (setq new-word (skk-quote-semicolon prototype))))
 	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
 	  (skk-insert-new-word new-word)))
-      (static-when (eq skk-emacs-type 'mule5)
-	(skk-inline-hide))
+      (skk-inline-hide)
       ;;
       (when (and new-word
 		 (string= new-word prototype)
@@ -1630,10 +1636,21 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	(skk-kakutei new-word)))))
 
 (defun skk-exit-henkan-in-minibuff ()
-  (when (numberp skk-henkan-in-minibuff-nest-level)
     (with-current-buffer (skk-minibuffer-origin)
-      (setq skk-henkan-in-minibuff-nest-level
-	    (1- skk-henkan-in-minibuff-nest-level)))))
+	(setq skk-henkan-in-minibuff-nest-level
+	      (cond
+	       ((numberp skk-henkan-in-minibuff-nest-level)
+		(cond ((and skk-minibuffer-origin
+			    (= (minibuffer-depth) 2))
+		       0)
+		      ((< 0 skk-henkan-in-minibuff-nest-level)
+		       (1- skk-henkan-in-minibuff-nest-level))
+		      (t
+		       nil)))
+	       (t
+		nil))))
+    (when (= (minibuffer-depth) 1)
+      (setq skk-minibuffer-origin nil)))
 
 (defun skk-henkan-1 ()
   "`skk-henkan' $B$N%5%V%k!<%A%s!#(B"
@@ -1967,13 +1984,12 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 					 (length skk-current-search-prog-list)
 					 ?+)))
 	    n (length workinglst))
+      (when skk-show-inline
+	(skk-inline-show str skk-inline-show-face))
       (static-when (eq skk-emacs-type 'mule5)
-	(when skk-show-inline
-	  (skk-inline-show str skk-inline-show-face))
 	(when (and window-system skk-show-tooltip)
 	  (skk-tooltip-show-at-point tooltip-str 'listing)))
-      (unless (and skk-show-inline
-		   (eq skk-emacs-type 'mule5))
+      (unless skk-show-inline
 	;; skk-show-inline $B$N$H$-$O(B classic $B$J8uJd0lMw$OMW$i$J$$!#(B
 	;; skk-show-tooltip $B$N$H$-$OG0$N$?$aI=<($7$F$*$/!#(B
 	(if (and (not skk-show-candidates-always-pop-to-buffer)
@@ -2118,11 +2134,16 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
   "$B<-=qEPO?%b!<%I$KF~$j!"EPO?$7$?C18l$NJ8;zNs$rJV$9!#(B"
   (static-when (eq skk-emacs-type 'mule5)
     (when skk-show-tooltip
-      (tooltip-hide))
-    (when skk-show-inline
-      (skk-inline-show "$B"-<-=qEPO?Cf"-(B" 'font-lock-warning-face)))
+      (tooltip-hide)))
+  (when skk-show-inline
+    (skk-inline-show "$B"-<-=qEPO?Cf"-(B"
+		     (if (featurep 'font-lock)
+			 'font-lock-warning-face
+		       'bold)))
   (save-match-data
     (let ((enable-recursive-minibuffers t)
+	  (nest-level (with-current-buffer (skk-minibuffer-origin)
+			skk-henkan-in-minibuff-nest-level))
 	  ;; XEmacs $B$G$O<!$NJQ?t$,:F5"E*%_%K%P%C%U%!$N2DH]$K1F6A$9$k!#(B
 	  minibuffer-max-depth
 	  ;; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k!#(B
@@ -2136,8 +2157,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (setq new-one
 		(read-from-minibuffer
 		 (format "%s$B<-=qEPO?(B%s %s "
-			 (make-string (1+ skk-henkan-in-minibuff-nest-level) ?[)
-			 (make-string (1+ skk-henkan-in-minibuff-nest-level) ?])
+			 (make-string (1+ nest-level) ?[)
+			 (make-string (1+ nest-level) ?])
 			 (or (and (skk-numeric-p)
 				  (skk-num-henkan-key))
 			     (if skk-okuri-char
@@ -4704,7 +4725,8 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	      (skk-remove-minibuffer-setup-hook
 	       'skk-j-mode-on 'skk-setup-minibuffer
 	       #'(lambda ()
-		   (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
+		   (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+	      (skk-exit-henkan-in-minibuff)))
 
 ;;;###autoload
 (defun skk-preload ()
@@ -4749,6 +4771,21 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
   (if skk-isearch-mode-enable
       (message "SKK isearch is enabled")
     (message "SKK isearch is disabled")))
+
+(defun skk-inline-show (string face)
+  (skk-inline-hide)
+  (unless (skk-in-minibuffer-p)
+    (setq skk-inline-overlay (make-overlay (point) (point)))
+    (overlay-put skk-inline-overlay
+		 'after-string
+		 (apply #'propertize string (if face
+						`(face ,face)
+					      nil)))))
+
+(defun skk-inline-hide ()
+  (when skk-inline-overlay
+    (delete-overlay skk-inline-overlay)
+    (setq skk-inline-overlay nil)))
 
 ;;; cover to original functions.
 (skk-defadvice keyboard-quit (around skk-ad activate)
