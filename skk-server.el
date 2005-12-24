@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.37 2005/12/11 03:58:13 skk-cvs Exp $
+;; Version: $Id: skk-server.el,v 1.38 2005/12/24 22:27:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/11 03:58:13 $
+;; Last Modified: $Date: 2005/12/24 22:27:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -281,6 +281,7 @@ non-nil であれば、加える。"
 	    (list
 	     '(skk-search-server skk-aux-large-jisyo 10000))))))
 
+;;;###autoload
 (defun skk-disconnect-server ()
   "サーバーを切り離す。"
   (when (and skk-server-host
