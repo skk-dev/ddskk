@@ -1,3 +1,46 @@
+2005-12-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK: Temporarily do not install context-skk.el if
+	`define-minor-mode' is not available.
+
+	* skk-e21.el: Move inline candidate display method to skk.el and
+	skk-vars.el.
+
+	* skk-macs.el (skk-minibuffer-origin): Return value of
+	skk-minibuffer-origin if it is set.
+
+	* skk-server.el (skk-disconnect-server): Autoload.
+
+	* skk-vars.el (skk-minibuffer-origin): New variable.
+	(skk-inline-overlay): From skk-e21.el.
+
+	* skk-xemacs.el (minibuffer-keyboard-quit): Call
+	`skk-exit-henkan-in-minibuff'.
+
+	* skk.el: Autoload `skk-jisx0213-henkan-list-filter'.
+	Do not show compile time warning for migemo-isearch-enable-p.
+	(skk-mode-exit): XEmacs only.  Call `delete-menu-item' instead of
+	`easy-menu-remove'.
+	(skk-henkan): Set skk-minibuffer-origin before entering
+	minibuffer.  Set skk-henkan-in-minibuff-nest-level in buffer
+	returned by `skk-minibuffer-origin'.  Call `skk-inline-hide' even
+	if Emacs is not FSF Emacs 21 or greater.
+	(skk-exit-henkan-in-minibuff): Avoid too much decrement of
+	skk-henkan-in-minibuff-nest-level [imcomplete].  Set
+	skk-minibuffer-origin to nil when minibuffer edit is totally over.
+	(minibuffer-exit-hook): Call `skk-exit-henkan-in-minibuff'.
+
+	(skk-henkan-show-candidate-subr):
+	(skk-henkan-in-minibuff):
+
+	Call `skk-inline-show' even if Emacs is not FSF Emacs 21 or
+	greater.
+
+	(skk-inline-show):
+	(skk-inline-hide):
+
+	From skk-e21.el.
+
 2005-12-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-dcomp.el (skk-abbrev-comma):
@@ -5489,8 +5532,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.953 2005/12/24 06:34:23 skk-cvs Exp $
-Last Modified: $Date: 2005/12/24 06:34:23 $
+Version: $Id: ChangeLog,v 1.954 2005/12/24 22:46:01 skk-cvs Exp $
+Last Modified: $Date: 2005/12/24 22:46:01 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
