@@ -1,3 +1,10 @@
+2005-12-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-dcomp.el (skk-abbrev-comma):
+	(skk-abbrev-period):
+
+	Advices.
+
 2005-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el (skk-deflocalvar): Remove duplicate.
@@ -5482,8 +5489,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.952 2005/12/23 21:54:11 skk-cvs Exp $
-Last Modified: $Date: 2005/12/23 21:54:11 $
+Version: $Id: ChangeLog,v 1.953 2005/12/24 06:34:23 skk-cvs Exp $
+Last Modified: $Date: 2005/12/24 06:34:23 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
