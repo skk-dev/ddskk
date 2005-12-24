@@ -237,6 +237,7 @@
    #'(lambda ()
        (add-hook 'pre-command-hook 'skk-pre-command nil
 		 'local)))
+  (skk-exit-henkan-in-minibuff)
   (cond ((not skk-mode)
 	 ad-do-it)
 	((not skk-henkan-mode)
