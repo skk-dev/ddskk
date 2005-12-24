@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.37 2005/12/18 14:41:36 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.38 2005/12/24 06:34:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/18 14:41:36 $
+;; Last Modified: $Date: 2005/12/24 06:34:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -235,6 +235,36 @@
 (defadvice skk-abbrev-insert (around skk-dcomp-ad activate)
   (cond
    (skk-dcomp-activate
+    (when (skk-dcomp-marked-p)
+      (skk-dcomp-face-off)
+      (skk-dcomp-delete-completion))
+    ad-do-it
+    (when skk-use-look
+      (setq skk-look-completion-words nil))
+    (unless (memq last-command-char '(?*))
+      (skk-dcomp-do-completion (point))))
+   (t
+    ad-do-it)))
+
+(defadvice skk-abbrev-comma (around skk-dcomp-ad activate)
+  (cond
+   ((and skk-dcomp-activate
+	 (not (eq last-command 'skk-comp-do)))
+    (when (skk-dcomp-marked-p)
+      (skk-dcomp-face-off)
+      (skk-dcomp-delete-completion))
+    ad-do-it
+    (when skk-use-look
+      (setq skk-look-completion-words nil))
+    (unless (memq last-command-char '(?*))
+      (skk-dcomp-do-completion (point))))
+   (t
+    ad-do-it)))
+
+(defadvice skk-abbrev-period (around skk-dcomp-ad activate)
+  (cond
+   ((and skk-dcomp-activate
+	 (not (eq last-command 'skk-comp-do)))
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)
       (skk-dcomp-delete-completion))
