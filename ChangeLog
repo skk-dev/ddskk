@@ -26,7 +26,7 @@
 	returned by `skk-minibuffer-origin'.  Call `skk-inline-hide' even
 	if Emacs is not FSF Emacs 21 or greater.
 	(skk-exit-henkan-in-minibuff): Avoid too much decrement of
-	skk-henkan-in-minibuff-nest-level [imcomplete].  Set
+	skk-henkan-in-minibuff-nest-level [incomplete].  Set
 	skk-minibuffer-origin to nil when minibuffer edit is totally over.
 	(minibuffer-exit-hook): Call `skk-exit-henkan-in-minibuff'.
 
@@ -5532,8 +5532,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.954 2005/12/24 22:46:01 skk-cvs Exp $
-Last Modified: $Date: 2005/12/24 22:46:01 $
+Version: $Id: ChangeLog,v 1.955 2005/12/24 22:47:25 skk-cvs Exp $
+Last Modified: $Date: 2005/12/24 22:47:25 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
