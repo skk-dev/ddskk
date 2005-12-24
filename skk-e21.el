@@ -360,22 +360,6 @@ Analogous to mouse-position."
      (sit-for 1)
      (message "%s" text))))
 
-(defvar skk-inline-overlay nil)
-(defun skk-inline-show (string face)
-  (skk-inline-hide)
-  (unless (skk-in-minibuffer-p)
-    (setq skk-inline-overlay (make-overlay (point) (point)))
-    (overlay-put skk-inline-overlay
-		 'after-string
-		 (apply #'propertize string (if face
-						`(face ,face)
-					      nil)))))
-
-(defun skk-inline-hide ()
-  (when skk-inline-overlay
-    (delete-overlay skk-inline-overlay)
-    (setq skk-inline-overlay nil)))
-
 ;; advices.
 
 (defadvice tooltip-hide (after ccc-ad activate)
