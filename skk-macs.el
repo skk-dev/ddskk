@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.99 2005/12/23 19:43:44 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.100 2005/12/24 22:28:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/23 19:43:44 $
+;; Last Modified: $Date: 2005/12/24 22:28:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -258,14 +258,77 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	 (set-buffer buf)
 	 ,@body))))
 
-;;(defun-maybe mapvector (function sequence)
-;; "Apply FUNCTION to each element of SEQUENCE, making a vector of the results.
-;;The result is a vector of the same length as SEQUENCE.
-;;SEQUENCE may be a list, a vector or a string."
-;;  (vconcat (mapcar function sequence) nil))
+;;; functions.
+;; version dependent
+(defun-maybe propertize (string &rest properties)
+  "Return a copy of STRING with text properties added.
+First argument is the string to copy.
+Remaining arguments form a sequence of PROPERTY VALUE pairs for text
+properties to add to the result."
+  (let ((str (copy-sequence string)))
+    (add-text-properties 0 (length str)
+			 properties
+			 str)
+    str))
 
-;;;; INLINE FUNCTIONS.
-;;; version dependent
+(defun-maybe replace-regexp-in-string (regexp rep string &optional
+					      fixedcase literal subexp start)
+  "Replace all matches for REGEXP with REP in STRING.
+
+Return a new string containing the replacements.
+
+Optional arguments FIXEDCASE, LITERAL and SUBEXP are like the
+arguments with the same names of function `replace-match'.  If START
+is non-nil, start replacements at that index in STRING.
+
+REP is either a string used as the NEWTEXT arg of `replace-match' or a
+function.  If it is a function, it is called with the actual text of each
+match, and its value is used as the replacement text.  When REP is called,
+the match-data are the result of matching REGEXP against a substring
+of STRING.
+
+To replace only the first match (if any), make REGEXP match up to \\'
+and replace a sub-expression, e.g.
+  (replace-regexp-in-string \"\\\\(foo\\\\).*\\\\'\" \"bar\" \" foo foo\" nil nil 1)
+    => \" bar foo\"
+"
+
+  ;; To avoid excessive consing from multiple matches in long strings,
+  ;; don't just call `replace-match' continually.  Walk down the
+  ;; string looking for matches of REGEXP and building up a (reversed)
+  ;; list MATCHES.  This comprises segments of STRING which weren't
+  ;; matched interspersed with replacements for segments that were.
+  ;; [For a `large' number of replacements it's more efficient to
+  ;; operate in a temporary buffer; we can't tell from the function's
+  ;; args whether to choose the buffer-based implementation, though it
+  ;; might be reasonable to do so for long enough STRING.]
+  (let ((l (length string))
+	(start (or start 0))
+	matches str mb me)
+    (save-match-data
+      (while (and (< start l) (string-match regexp string start))
+	(setq mb (match-beginning 0)
+	      me (match-end 0))
+	;; If we matched the empty string, make sure we advance by one char
+	(when (= me mb) (setq me (min l (1+ mb))))
+	;; Generate a replacement for the matched substring.
+	;; Operate only on the substring to minimize string consing.
+	;; Set up match data for the substring for replacement;
+	;; presumably this is likely to be faster than munging the
+	;; match data directly in Lisp.
+	(string-match regexp (setq str (substring string mb me)))
+	(setq matches
+	      (cons (replace-match (if (stringp rep)
+				       rep
+				     (funcall rep (match-string 0 str)))
+				   fixedcase literal str subexp)
+		    (cons (substring string start mb)       ; unmatched prefix
+			  matches)))
+	(setq start me))
+      ;; Reconstruct a string from the pieces.
+      (setq matches (cons (substring string start l) matches)) ; leftover
+      (apply #'concat (nreverse matches)))))
+
 (defsubst skk-sit-for (seconds &optional nodisplay)
   "`sit-for' の Emacsen による違いを吸収する。"
   (static-cond
@@ -744,7 +807,8 @@ BUFFER defaults to the current buffer."
 ;;;; from dabbrev.el.  Welcome!
 ;; 判定間違いを犯す場合あり。要改良。
 (defsubst skk-minibuffer-origin ()
-  (nth 1 (buffer-list)))
+  (or skk-minibuffer-origin
+      (nth 1 (buffer-list))))
 
 (defun skk-quote-char-1 (word alist)
   (mapconcat
