@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.336 2005/12/25 05:02:55 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.337 2005/12/25 10:43:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/25 05:02:55 $
+;; Last Modified: $Date: 2005/12/25 10:43:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1602,8 +1602,6 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 			    (unless (numberp skk-henkan-in-minibuff-nest-level)
 			      (setq skk-henkan-in-minibuff-nest-level
 				    (minibuffer-depth)))
-			    (unless (skk-in-minibuffer-p)
-			      (setq skk-minibuffer-origin (current-buffer)))
 			    (skk-henkan-in-minibuff)))
 	  (setq new-word (skk-quote-semicolon prototype))))
 	(setq kakutei-henkan skk-kakutei-flag)
@@ -1633,9 +1631,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 (defun skk-exit-henkan-in-minibuff ()
   (when (and (numberp skk-henkan-in-minibuff-nest-level)
 	     (= (1- (minibuffer-depth)) skk-henkan-in-minibuff-nest-level))
-    (setq skk-henkan-in-minibuff-nest-level nil))
-  (when (= (minibuffer-depth) 1)
-    (setq skk-minibuffer-origin nil)))
+    (setq skk-henkan-in-minibuff-nest-level nil)))
 
 (defun skk-henkan-1 ()
   "`skk-henkan' のサブルーチン。"
