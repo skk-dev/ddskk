@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.147 2005/12/25 07:55:54 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.148 2005/12/25 07:56:55 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2005/12/25 07:55:54 $
+@c  Last Modified: $Date: 2005/12/25 07:56:55 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2005/12/25 07:55:54 $
+@set UPDATED $Date: 2005/12/25 07:56:55 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4954,7 +4954,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @comment  node-name,  next,  previous,  up
 @section $B<-=q4XO"(B
 
-$BK\>O$G$O!"<-=q$N7A<0!"@_DjJ}K!!"$=$NB><-=q$K$^$D$o$kF0:n$d@_Dj$r@bL@$7$^(B
+$BK\@a$G$O!"<-=q$N7A<0!"@_DjJ}K!!"$=$NB><-=q$K$^$D$o$kF0:n$d@_Dj$r@bL@$7$^(B
 $B$9!#(B
 
 @menu

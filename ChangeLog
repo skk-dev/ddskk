@@ -1,5 +1,7 @@
 2005-12-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* doc/skk.texi: Update news section.
+
 	* skk-vars.el (skk-henkan-in-minibuff-nest-level): Declare as a
 	global variable.
 	(skk-deflocalvar): Do not pass docstring to `defvar' if it is nil.
