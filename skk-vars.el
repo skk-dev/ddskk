@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.162 2005/12/25 05:02:34 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.163 2005/12/25 10:43:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/25 05:02:34 $
+;; Last Modified: $Date: 2005/12/25 10:43:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2538,8 +2538,6 @@ Non-nil であれば、`skk-isearch-message' 関数をコールする。")
   "入力モードを表わすシンボル。
 有効な値は、`hiragana', `katakana', `abbrev', `latin', `jisx0208-latin'
 もしくは nil のいずれか。")
-
-(defvar skk-minibuffer-origin nil)
 
 (defvar skk-menu nil)
 
