@@ -7,8 +7,9 @@
 	* skk.el (skk-henkan): At the first entry into minibuffer
 	registration, set skk-henkan-in-minibuff-nest-level to
 	`minibuffer-depth'.
-	(skk-henkan-in-minibuff): Create "1 + `minibuffer-depth' -
-	skk-henkan-in-minibuff-nest-level" pairs of parens.
+	(skk-henkan-in-minibuff): Create
+	"`minibuffer-depth' - skk-henkan-in-minibuff-nest-level" pairs of
+	parens.
 	(skk-exit-henkan-in-minibuff): When exiting minibuffer
 	registration, set skk-henkan-in-minibuff-nest-level to nil.
 
@@ -5546,8 +5547,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.956 2005/12/25 05:03:05 skk-cvs Exp $
-Last Modified: $Date: 2005/12/25 05:03:05 $
+Version: $Id: ChangeLog,v 1.957 2005/12/25 05:06:32 skk-cvs Exp $
+Last Modified: $Date: 2005/12/25 05:06:32 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
