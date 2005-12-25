@@ -28,6 +28,11 @@
 	* skk-macs.el (skk-minibuffer-origin): Return value of
 	skk-minibuffer-origin if it is set.
 
+	(propertize):
+	(replace-regexp-in-string):
+
+	defun-maybe.
+
 	* skk-server.el (skk-disconnect-server): Autoload.
 
 	* skk-vars.el (skk-minibuffer-origin): New variable.
