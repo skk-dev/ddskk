@@ -6,10 +6,12 @@
 	`replace-regexp-in-string'.
 
 	* skk-macs.el (skk-replace-regexp-in-string): Abolish.
+	(skk-minibuffer-origin): Undo the last change.
 
 	* skk-vars.el (skk-henkan-in-minibuff-nest-level): Declare as a
 	global variable.
 	(skk-deflocalvar): Do not pass docstring to `defvar' if it is nil.
+	(skk-minibuffer-origin): Abolish variable.
 
 	* skk-version.el (skk-version): Pre-release version 13.0.90.
 
@@ -18,9 +20,10 @@
 	`minibuffer-depth' - 1.
 	(skk-henkan-in-minibuff): Create
 	"`minibuffer-depth' - skk-henkan-in-minibuff-nest-level" pairs of
-	parens.
+	parens.  Do not set skk-minibuffer-origin.
 	(skk-exit-henkan-in-minibuff): When exiting minibuffer
-	registration, set skk-henkan-in-minibuff-nest-level to nil.
+	registration, set skk-henkan-in-minibuff-nest-level to nil.  Do
+	not set skk-minibuffer-origin.
 
 2005-12-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
