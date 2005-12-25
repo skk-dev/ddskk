@@ -2,6 +2,11 @@
 
 	* doc/skk.texi: Update news chapter.
 
+	* skk-isearch.el (isearch-repeat): Call
+	`replace-regexp-in-string'.
+
+	* skk-macs.el (skk-replace-regexp-in-string): Abolish.
+
 	* skk-vars.el (skk-henkan-in-minibuff-nest-level): Declare as a
 	global variable.
 	(skk-deflocalvar): Do not pass docstring to `defvar' if it is nil.
