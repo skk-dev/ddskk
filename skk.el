@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.335 2005/12/24 22:45:53 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.336 2005/12/25 05:02:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/24 22:45:53 $
+;; Last Modified: $Date: 2005/12/25 05:02:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1599,14 +1599,9 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	 ((setq prototype (skk-henkan-1))
 	  (setq new-word prototype))
 	 ((setq prototype (progn
-			    (save-excursion
-			      (when (skk-in-minibuffer-p)
-				(set-buffer (skk-minibuffer-origin)))
+			    (unless (numberp skk-henkan-in-minibuff-nest-level)
 			      (setq skk-henkan-in-minibuff-nest-level
-				    (if (numberp
-					 skk-henkan-in-minibuff-nest-level)
-					(1+ skk-henkan-in-minibuff-nest-level)
-				      0)))
+				    (minibuffer-depth)))
 			    (unless (skk-in-minibuffer-p)
 			      (setq skk-minibuffer-origin (current-buffer)))
 			    (skk-henkan-in-minibuff)))
@@ -1636,21 +1631,11 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	(skk-kakutei new-word)))))
 
 (defun skk-exit-henkan-in-minibuff ()
-    (with-current-buffer (skk-minibuffer-origin)
-	(setq skk-henkan-in-minibuff-nest-level
-	      (cond
-	       ((numberp skk-henkan-in-minibuff-nest-level)
-		(cond ((and skk-minibuffer-origin
-			    (= (minibuffer-depth) 2))
-		       0)
-		      ((< 0 skk-henkan-in-minibuff-nest-level)
-		       (1- skk-henkan-in-minibuff-nest-level))
-		      (t
-		       nil)))
-	       (t
-		nil))))
-    (when (= (minibuffer-depth) 1)
-      (setq skk-minibuffer-origin nil)))
+  (when (and (numberp skk-henkan-in-minibuff-nest-level)
+	     (= (1- (minibuffer-depth)) skk-henkan-in-minibuff-nest-level))
+    (setq skk-henkan-in-minibuff-nest-level nil))
+  (when (= (minibuffer-depth) 1)
+    (setq skk-minibuffer-origin nil)))
 
 (defun skk-henkan-1 ()
   "`skk-henkan' $B$N%5%V%k!<%A%s!#(B"
@@ -2142,8 +2127,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 		       'bold)))
   (save-match-data
     (let ((enable-recursive-minibuffers t)
-	  (nest-level (with-current-buffer (skk-minibuffer-origin)
-			skk-henkan-in-minibuff-nest-level))
+	  (depth (- (1+ (minibuffer-depth)) skk-henkan-in-minibuff-nest-level))
 	  ;; XEmacs $B$G$O<!$NJQ?t$,:F5"E*%_%K%P%C%U%!$N2DH]$K1F6A$9$k!#(B
 	  minibuffer-max-depth
 	  ;; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k!#(B
@@ -2157,8 +2141,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (setq new-one
 		(read-from-minibuffer
 		 (format "%s$B<-=qEPO?(B%s %s "
-			 (make-string (1+ nest-level) ?[)
-			 (make-string (1+ nest-level) ?])
+			 (make-string depth ?[)
+			 (make-string depth ?])
 			 (or (and (skk-numeric-p)
 				  (skk-num-henkan-key))
 			     (if skk-okuri-char
