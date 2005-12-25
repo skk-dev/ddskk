@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.101 2005/12/25 08:09:13 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.102 2005/12/25 10:43:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/25 08:09:13 $
+;; Last Modified: $Date: 2005/12/25 10:43:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -796,8 +796,7 @@ BUFFER defaults to the current buffer."
 ;;;; from dabbrev.el.  Welcome!
 ;; 判定間違いを犯す場合あり。要改良。
 (defsubst skk-minibuffer-origin ()
-  (or skk-minibuffer-origin
-      (nth 1 (buffer-list))))
+  (nth 1 (buffer-list)))
 
 (defun skk-quote-char-1 (word alist)
   (mapconcat
