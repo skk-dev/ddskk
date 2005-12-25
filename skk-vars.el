@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.161 2005/12/24 22:33:28 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.162 2005/12/25 05:02:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/24 22:33:28 $
+;; Last Modified: $Date: 2005/12/25 05:02:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -58,9 +58,13 @@
 (defmacro skk-deflocalvar (symbol initvalue &optional docstring)
   (if (or (featurep 'xemacs)
 	  (>= emacs-major-version 22))
-      `(progn
-	 (defvar ,symbol ,initvalue ,docstring)
-	 (make-variable-buffer-local ',symbol))
+      (if docstring
+	  `(progn
+	     (defvar ,symbol ,initvalue ,docstring)
+	     (make-variable-buffer-local ',symbol))
+	`(progn
+	   (defvar ,symbol ,initvalue)
+	   (make-variable-buffer-local ',symbol)))
     `(progn
        (defvar ,symbol ,initvalue
 	 ,(format "%s
@@ -1647,7 +1651,7 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 (defvar skk-abbrev-mode-map nil
   "*SKK abbrev モードのキーマップ。")
 
-(skk-deflocalvar skk-henkan-in-minibuff-nest-level nil)
+(defvar skk-henkan-in-minibuff-nest-level nil)
 
 (defvar skk-menu-items
   ;; SKK メニューの定義。
