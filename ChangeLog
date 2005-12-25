@@ -1,5 +1,19 @@
 2005-12-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-vars.el (skk-henkan-in-minibuff-nest-level): Declare as a
+	global variable.
+	(skk-deflocalvar): Do not pass docstring to `defvar' if it is nil.
+
+	* skk.el (skk-henkan): At the first entry into minibuffer
+	registration, set skk-henkan-in-minibuff-nest-level to
+	`minibuffer-depth'.
+	(skk-henkan-in-minibuff): Create "1 + `minibuffer-depth' -
+	skk-henkan-in-minibuff-nest-level" pairs of parens.
+	(skk-exit-henkan-in-minibuff): When exiting minibuffer
+	registration, set skk-henkan-in-minibuff-nest-level to nil.
+
+2005-12-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* SKK-MK: Temporarily do not install context-skk.el if
 	`define-minor-mode' is not available.
 
@@ -5532,8 +5546,8 @@
 
 
 
-Version: $Id: ChangeLog,v 1.955 2005/12/24 22:47:25 skk-cvs Exp $
-Last Modified: $Date: 2005/12/24 22:47:25 $
+Version: $Id: ChangeLog,v 1.956 2005/12/25 05:03:05 skk-cvs Exp $
+Last Modified: $Date: 2005/12/25 05:03:05 $
 
 Local Variables:
 buffer-file-coding-system: iso-2022-jp
