@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.145 2005/12/19 14:28:11 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.146 2005/12/25 07:02:29 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2005/12/19 14:28:11 $
+@c  Last Modified: $Date: 2005/12/25 07:02:29 $
 @c
 @set EDITION 1.11
 @set SKK-VERSION 12.2.0
-@set UPDATED $Date: 2005/12/19 14:28:11 $
+@set UPDATED $Date: 2005/12/25 07:02:29 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -152,8 +152,12 @@ DDSKK 12 が動作を保証する Emacsen のバージョンは下記の通りです。
 @itemize @minus
 @item Emacs 20.4 以降 (Meadow 1.10 以降 を含む)
 @item Emacs 21.1 以降
-@item Mule 機能付きでコンパイルされた XEmacs 21.1 以降
+@item Mule 機能付きでコンパイルされた XEmacs 21.4.18 以降
 @end itemize
+
+ただし、XEmacs 本体と別配布のパッケージ群は最新版が要求されます。少なく
+とも xemacs-base パッケージは最新でなければなりません。また、fsf-compat
+パッケージをインストールすることを推奨します。
 
 元来、SKK は、Simple Kana to Kanji conversion program にちなんで名付けら
 れました。また、その名は Combinatory Logic での有名な等式 @samp{SKK = I}

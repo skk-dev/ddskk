@@ -4,6 +4,8 @@
 	global variable.
 	(skk-deflocalvar): Do not pass docstring to `defvar' if it is nil.
 
+	* skk-version.el (skk-version): Pre-release version 13.0.90.
+
 	* skk.el (skk-henkan): At the first entry into minibuffer
 	registration, set skk-henkan-in-minibuff-nest-level to
 	`minibuffer-depth' - 1.
