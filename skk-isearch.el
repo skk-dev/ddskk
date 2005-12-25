@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.44 2005/02/26 08:37:08 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.45 2005/12/25 08:09:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/02/26 08:37:08 $
+;; Last Modified: $Date: 2005/12/25 08:09:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -656,8 +656,8 @@ If the current mode is different from previous, remove it first."
 			 skk-isearch-whitespace-regexp
 			 ""))))
 	(when (string-match regexp isearch-message)
-	  (setq isearch-message (skk-replace-regexp-in-string regexp ""
-							      isearch-message))
+	  (setq isearch-message (replace-regexp-in-string regexp ""
+							  isearch-message))
 	  (setq isearch-cmds (cdr isearch-cmds))
 	  (isearch-push-state)
 	  (isearch-update))))))
