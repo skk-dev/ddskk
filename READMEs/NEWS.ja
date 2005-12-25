@@ -2,6 +2,12 @@
 
 * 12.2.1
 
+** 変換候補・注釈表示の修飾・加工機能
+
+変数 skk-treat-candidate-appearance-function を設定することにより、注
+釈も含めた変換候補の表示のカスタマイズが可能になりました．この設定例は
+etc/dot.skk などで紹介していく予定です。
+
 ** 数値変換有効時に非数値変換も同時に行うように変更
 
 今まで、skk-use-numeric-conversion が non-nil だと数値変換のみ行い、非
@@ -21,8 +27,8 @@ skk-use-numeric-conversion を有効にしている場合でも
 
 変数 `skk-show-inline' を non-nil に設定することで、候補一覧を変換位置
 の近傍に表示できます。この機能は window system に依存しないため
-terminal でも利用できます。これは現在 GNU Emacs 21 以降のみ対応してい
-る機能です。
+terminal でも利用できます。この機能は Emacs 20, XEmacs でも利用できま
+すが、face 表示に対応しているのは GNU Emacs 21 以降のみです。
 
 ** ツールティップを利用した候補一覧・注釈表示
 
