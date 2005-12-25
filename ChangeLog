@@ -1,6 +1,6 @@
 2005-12-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi: Update news section.
+	* doc/skk.texi: Update news chapter.
 
 	* skk-vars.el (skk-henkan-in-minibuff-nest-level): Declare as a
 	global variable.
