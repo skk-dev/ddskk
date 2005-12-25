@@ -6,7 +6,7 @@
 
 	* skk.el (skk-henkan): At the first entry into minibuffer
 	registration, set skk-henkan-in-minibuff-nest-level to
-	`minibuffer-depth'.
+	`minibuffer-depth' - 1.
 	(skk-henkan-in-minibuff): Create
 	"`minibuffer-depth' - skk-henkan-in-minibuff-nest-level" pairs of
 	parens.
