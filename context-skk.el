@@ -218,12 +218,12 @@
 
 (defun context-skk-in-read-only-area-p ()
   (or 
-   (and (car (get-char-property-and-overlay (point) 'read-only))
-	(car (get-char-property-and-overlay (point) 'front-sticky)))
+   (and (car (get-char-property (point) 'read-only))
+	(car (get-char-property (point) 'front-sticky)))
    (and 
     (< (point-min) (point))
-    (car (get-char-property-and-overlay (1- (point)) 'read-only))
-    (not (car (get-char-property-and-overlay (1- (point)) 'rear-nonsticky))))))
+    (car (get-char-property (1- (point)) 'read-only))
+    (not (car (get-char-property (1- (point)) 'rear-nonsticky))))))
 
 ;;
 ;; 通常日本語入力を必要としないプログラミングのモードにいるかどうか
@@ -255,7 +255,7 @@
       (context-skk-on-vowel-key-reserved-p 'local-map)))
 
 (defun context-skk-on-vowel-key-reserved-p (map-symbol)
-  (let ((map (car (get-char-property-and-overlay (point) map-symbol))))
+  (let ((map (car (get-char-property (point) map-symbol))))
     (when map
       ;; "あいうえお"を入力することを想定してチェックする。
       (or (lookup-key map "a")
