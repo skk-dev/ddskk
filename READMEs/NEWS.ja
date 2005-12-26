@@ -2,6 +2,14 @@
 
 * 13.1
 
+** 新しく正式サポートされたプログラム
+
+*** context-skk.el
+
+*** skk-hint.el
+
+*** skk-tankan.el
+
 ** 変換候補・注釈表示の修飾・加工機能
 
 変数 skk-treat-candidate-appearance-function を設定することにより、注

@@ -3,6 +3,13 @@
 	* Makefile (VERSION): 13.0.90.
 	(CP): Abolish.
 
+	* doc/skk.texi: Remove antique questions.
+
+	* skk-e21.el (skk-tooltip-show-at-point): Refer to
+	emacs-major-version instead of emacs-version.  Do not use
+	`sit-for'.  Use `next-command-event' and `skk-unread-event'
+	instead with inhibit-quit bound to t.
+
 2005-12-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Update news chapter.
