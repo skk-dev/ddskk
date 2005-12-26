@@ -294,7 +294,7 @@ Analogous to mouse-position."
   (let* ((P (skk-e21-mouse-position))
 	 (frame (car P))
 	 (x (cadr P))
-	 (y (if (and (string-lessp "22" emacs-version)
+	 (y (if (and (>= emacs-major-version 22)
 		     (or skk-isearch-switch
 			 (window-minibuffer-p (selected-window))))
 		;; Workaround for Emacs 22.0.50 cvs.  Tooltip position
@@ -304,28 +304,36 @@ Analogous to mouse-position."
 	      (cddr P)))
 	 (oP (mouse-position))
 	 (oframe (car oP))
-	 (ox     (cadr oP))
-	 (oy     (cddr oP)))
+	 (ox (cadr oP))
+	 (oy (cddr oP))
+	 (inhibit-quit t)
+	 event)
     (set-mouse-position frame x y)
     (skk-tooltip-show-1 text skk-tooltip-parameters)
-    (condition-case nil
-	(sit-for skk-tooltip-hide-delay)
-      (quit
-       (tooltip-hide)
-       (when (and ox oy)
-	 (set-mouse-position oframe ox oy))
-       (skk-set-henkan-count 0)
-       (skk-unread-event
-	(character-to-event
-	 (aref (car (where-is-internal
-		     'skk-previous-candidate
-		     skk-j-mode-map))
-	       0)))
-       (when listing
+    (setq event (next-command-event))
+    (cond
+     ((skk-key-binding-member (skk-event-key event)
+			      '(keyboard-quit
+				skk-kanagaki-bs
+				skk-kanagaki-esc)
+			      skk-j-mode-map)
+      (tooltip-hide)
+      (when (and ox oy)
+	(set-mouse-position oframe ox oy))
+      (skk-set-henkan-count 0)
+      (skk-unread-event
+       (character-to-event
+	(aref (car (where-is-internal
+		    'skk-previous-candidate
+		    skk-j-mode-map))
+	      0)))
+      (when listing
 	 ;; skk-henkan まで一気に throw する。
-	 (throw 'unread nil)))
-    (when (and ox oy)
-      (set-mouse-position oframe ox oy)))))
+	(throw 'unread nil)))
+     (t
+      (when (and ox oy)
+	(set-mouse-position oframe ox oy))
+      (skk-unread-event event)))))
 
 (defun skk-tooltip-show-1 (text skk-params)
   (condition-case error
