@@ -333,6 +333,7 @@ Analogous to mouse-position."
      (t
       (when (and ox oy)
 	(set-mouse-position oframe ox oy))
+      (tooltip-hide)
       (skk-unread-event event)))))
 
 (defun skk-tooltip-show-1 (text skk-params)
