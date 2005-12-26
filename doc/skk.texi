@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.148 2005/12/25 07:56:55 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.149 2005/12/26 07:51:48 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2005/12/25 07:56:55 $
+@c  Last Modified: $Date: 2005/12/26 07:51:48 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2005/12/25 07:56:55 $
+@set UPDATED $Date: 2005/12/26 07:51:48 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -147,11 +147,12 @@ Daredevil SKK ($B0J2<(B @samp{DDSKK} $B$H$$$$$^$9(B@footnote{$BC"$7!"(B@sa
 $B%9%F%`$G$9!#(BGNU General Public License $B$K=>$C$?%U%j!<!&%=%U%H%&%'%"$H$7(B
 $B$FG[I[$5$l$^$9!#(B
 
-DDSKK 13 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
+DDSKK 13.1 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 
 @itemize @minus
 @item Emacs 20.7 $B0J9_(B
 @item Emacs 21.1 $B0J9_(B
+@item Emacs 22.1
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.4.18 $B0J9_(B
 @end itemize
 
@@ -204,7 +205,7 @@ SKK $B$NL>$NA0$KIU$$$F$$$k(B @samp{Daredevil} $B$,5$$K$J$kA!:Y$JJ}$O(B
 @cindex APEL
 
 DDSKK 13 $B$O<o!9$N(B Emacsen $B$G$NF0:n$r2DG=$H$9$k$?$a(B APEL (A Portable
-Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 13 $B$O(B APEL 10.6 $B$G$NF0:n$r3NG'$7$F$$(B
+Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 13.1 $B$O(B APEL 10.6 $B$G$NF0:n$r3NG'$7$F$$(B
 $B$^$9$,!"(B APEL $B$O(B Emacs/XEmacs $B$N%P!<%8%g%s%"%C%W$K9g$o$;$FF|?J7nJb$J$N$G!"(B
 $B$G$-$k$@$1?7$7$$%P!<%8%g%s$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
 
@@ -7220,7 +7221,6 @@ SKK $B$N@.$jN)$A$HNr;K$K4X$7$F$O0J2<$N(B URL $B$r;2>H$7$F$/$@$5$$!#(B
 * Customization::               SKK $B$N4pK\@_Dj$+$i$*9%$_$N%+%9%?%^%$%:$^$G!#(B
 * Dictionaries::                SKK $B<-=q4XO"!#(B
 * Miscellaneous::               SKK $B$N3hMQK!$=$NB>!#(B
-* Forgotten Antique Questions(FAQ)::  $B2=@PE*<ALd=8!#(B
 @end menu
 
 @node Introduction, Installation, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ), $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
@@ -7287,12 +7287,12 @@ SKK Openlab $B$G3+H/!"%j%j!<%9$5$l$k(B SKK $B$O!"5~Bg$N:4F#@h@8$,Cf?4$K$J$C(
 @comment  node-name,  next,  previous,  up
 @unnumberedsubsec Q.1-4 DDSKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?
 
-DDSKK 13 $B$K4X$7$F$O(B
+DDSKK 13.1 $B$K4X$7$F$O(B
 
 @itemize @minus
 @item Emacs 20.7 $B0J9_(B
 @item Emacs 21.1 $B0J9_(B
-@item Emacs 22.1 $B0J9_(B
+@item Emacs 22.1
 @item MULE $B5!G=IU$-$G:n@.$5$l$?(B XEmacs 21.4.18 $B0J9_(B
 @end itemize
 
@@ -8030,7 +8030,7 @@ edict $B$r<+J,$G2C9)$7$F>e5-$HF1Ey$N$b$N$r:n@.$9$k$3$H$b$G$-$^$9!#(Bedict $B$
 $B$r$4Mw2<$5$$!#(B@file{SKK-JISYO.edict} $B$N%X%C%@!<ItJ,$K$b$=$N%@%$%8%'%9%H(B
 $B$,5-:\$5$l$F$$$^$9!#(B
 
-@node Miscellaneous, Forgotten Antique Questions(FAQ), Dictionaries, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
+@node Miscellaneous, , Dictionaries, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @comment  node-name,  next,  previous,  up
 @section SKK $B$N3hMQK!$=$NB>(B
 
@@ -8198,31 +8198,6 @@ epwutil $B$G(B @code{squeeze} $B$7$?<-=q%G!<%?$N%5%$%:$O(B 45MB $B<e$G$9!#
 
 Emacs $B>e0J30$G$b(B SKK $B$_$?$$$JA`:n@-$r<B8=$9$k%=%U%H%&%'%"$,$"$j$^$9!#(B
 @ref{SKK$B4XO"%=%U%H%&%'%"(B} $B$r$4Mw$K$J$C$F$/$@$5$$!#(B
-
-@node Forgotten Antique Questions(FAQ),  , Miscellaneous, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
-@comment  node-name,  next,  previous,  up
-@section $B2=@PE*<ALd=8(B
-
-@menu
-* Q.6-1 SKK $B$O(B Nemacs $B$G;H$($^$9$+(B?::  
-* Q.6-2 SKK $B$O(B Demacs $B$G;H$($^$9$+(B?::  
-@end menu
-
-@node Q.6-1 SKK $B$O(B Nemacs $B$G;H$($^$9$+(B?, Q.6-2 SKK $B$O(B Demacs $B$G;H$($^$9$+(B?, Forgotten Antique Questions(FAQ), Forgotten Antique Questions(FAQ)
-@comment  node-name,  next,  previous,  up
-@unnumberedsubsec Q.6-1 SKK $B$O(B Nemacs $B$G;H$($^$9$+(B?
-@cindex Daredevil
-@cindex Nemacs
-
-$B;H$($^$;$s!#(B;-)
-
-@node Q.6-2 SKK $B$O(B Demacs $B$G;H$($^$9$+(B?,  , Q.6-1 SKK $B$O(B Nemacs $B$G;H$($^$9$+(B?, Forgotten Antique Questions(FAQ)
-@comment  node-name,  next,  previous,  up
-@unnumberedsubsec Q.6-2 SKK $B$O(B Demacs $B$G;H$($^$9$+(B?
-@cindex Daredevil
-@cindex Demacs
-
-$B;H$($^$;$s!"$F$P!#(B;-P
 
 @node $B;v9`:w0z(B, $BJQ?t:w0z(B, $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ), Top
 @comment      node-name, next,       previous, up
