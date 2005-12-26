@@ -669,7 +669,7 @@
 	* skk-jisx0213.el:
 
 	Do not require jisx0213 unless jisx0213 capable coding systems are
-	not present.  This is a modification for the unicode branch of
+	present.  This is a modification for the unicode branch of
 	Emacs.
 
 	* skk-vars.el (skk-kcode-charset-list): Under Emacs 21 or greater,
