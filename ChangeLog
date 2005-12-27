@@ -1,5 +1,11 @@
 2005-12-27  Masatake YAMATO  <jet@gyve.org>
 
+	* context-skk.el (context-skk-on-vowel-key-reserved-p)
+	(context-skk-in-read-only-area-p): Don't call `car' 
+	on a return value from `get-char-property'.
+
+2005-12-27  Masatake YAMATO  <jet@gyve.org>
+
 	* context-skk.el (context-skk-on-vowel-key-reserved-p): Use
 	`get-char-property' instead of `get-char-property-and-overlay'.
 	(context-skk-in-read-only-area-p): Ditto.
