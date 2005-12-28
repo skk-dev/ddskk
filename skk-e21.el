@@ -294,14 +294,7 @@ Analogous to mouse-position."
   (let* ((P (skk-e21-mouse-position))
 	 (frame (car P))
 	 (x (cadr P))
-	 (y (if (and (>= emacs-major-version 22)
-		     (or skk-isearch-switch
-			 (window-minibuffer-p (selected-window))))
-		;; Workaround for Emacs 22.0.50 cvs.  Tooltip position
-		;; was changed.
-		(- (cddr P) 3)
-	      ;; Emacs 21 shows tooltip just above the mouse pointer.
-	      (cddr P)))
+	 (y (cddr P))
 	 (oP (mouse-position))
 	 (oframe (car oP))
 	 (ox (cadr oP))
