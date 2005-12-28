@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.29 2005/12/16 02:51:21 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.30 2005/12/28 13:53:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2005/12/16 02:51:21 $
+;; Last Modified: $Date: 2005/12/28 13:53:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -259,7 +259,9 @@
 			;; 送りあり変換を指定すると
 			;; skk-henkan-okurigana の指定に困る。
 			skk-henkan-okurigana ""))
-		(list (skk-henkan-in-minibuff))))
+		(list (prog1
+			  (skk-henkan-in-minibuff)
+			(setq skk-kakutei-flag nil)))))
     (skk-kakutei)))
 
 ;;;###autoload
