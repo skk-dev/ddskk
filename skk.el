@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.337 2005/12/25 10:43:00 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.338 2005/12/28 13:53:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/25 10:43:00 $
+;; Last Modified: $Date: 2005/12/28 13:53:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1598,11 +1598,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	(cond
 	 ((setq prototype (skk-henkan-1))
 	  (setq new-word prototype))
-	 ((setq prototype (progn
-			    (unless (numberp skk-henkan-in-minibuff-nest-level)
-			      (setq skk-henkan-in-minibuff-nest-level
-				    (minibuffer-depth)))
-			    (skk-henkan-in-minibuff)))
+	 ((setq prototype (skk-henkan-in-minibuff))
 	  (setq new-word (skk-quote-semicolon prototype))))
 	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
@@ -2113,6 +2109,9 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 
 (defun skk-henkan-in-minibuff ()
   "$B<-=qEPO?%b!<%I$KF~$j!"EPO?$7$?C18l$NJ8;zNs$rJV$9!#(B"
+  (unless (numberp skk-henkan-in-minibuff-nest-level)
+    (setq skk-henkan-in-minibuff-nest-level
+	  (minibuffer-depth)))
   (static-when (eq skk-emacs-type 'mule5)
     (when skk-show-tooltip
       (tooltip-hide)))
