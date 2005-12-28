@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.338 2005/12/28 13:53:52 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.339 2005/12/28 14:56:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/28 13:53:52 $
+;; Last Modified: $Date: 2005/12/28 14:56:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2341,49 +2341,64 @@ auto に設定するとユーザに確認しない。
   ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert される
   ;; skk-henkan-key に何故か Overlay がかかってしまう。
   (save-match-data
-    (let (note face)
-      (when (functionp skk-treat-candidate-appearance-function)
-	;; skk-treat-candidate-appearance-function によってユーザは任意に候補
-	;; 文字列と注釈文字列を加工・修飾することができる。
-	;; ユーザが返す値は cons cell または文字列となる。
-	(save-match-data
-	  (let ((value (funcall skk-treat-candidate-appearance-function
-				word nil)))
-	    (if (consp value)
-		;; 返り値が cons cell だった場合
-		(setq word (car value)
-		      note (cond
-			    ((consp (cdr value))
-			     ;; (候補 . (セパレータ . 注釈))
-			     ;; 注釈は既にセパレータ抜き
-			     (cddr value))
-			    ((string-match "^;" (cdr value))
-			     ;; (候補 . 注釈)
-			     ;; 注釈はまだセパレータを含んでいる
-			     (substring (cdr value) (match-end 0)))
-			    (t
-			     ;; (候補 . 注釈)
-			     ;; 注釈は既にセパレータを除去しているものと
-			     ;; 判断する
-			     (cdr value))))
-	      ;; 返り値が文字列だった場合
-	      (setq word value)))))
-      ;; ユーザの意図によって注釈が既に設定され既に設定されている場合は
-      ;; SKK の方では対処しない。
-      (when (and (not (stringp note))
-		 (string-match ";" word))
-	(setq note (substring word (match-end 0))
-	      word (substring word 0 (match-beginning 0))))
-      ;; word の方が S 式の文字列だったら、それを評価した文字列を返す。
-      ;; note の方も S 式の場合がありうるが、それの評価は skk-annotation
-      ;; がやってくれる。
-      (setq word (skk-eval-string word))
+    (let (note face next-word)
+      (while (setq next-word
+		   (catch 'next-word
+		     (when (stringp next-word)
+		       (setq word next-word))
+		     (setq note nil)
+		     ;; `skk-ignore-dic-word' により現在の word が skip され、
+		     ;; 新しい語が返ってきた場合、ループして処理をやり直す。
+		     (when (functionp skk-treat-candidate-appearance-function)
+		       ;; skk-treat-candidate-appearance-function によって
+		       ;; ユーザは任意に候補文字列と注釈文字列を加工・修飾
+		       ;; することができる。
+		       ;; ユーザが返す値は cons cell または文字列となる。
+		       (save-match-data
+			 (let ((value (funcall
+				       skk-treat-candidate-appearance-function
+				       word nil)))
+			   (if (consp value)
+			       ;; 返り値が cons cell だった場合
+			       (setq word (car value)
+				     note (cond
+					   ((consp (cdr value))
+					    ;; (候補 . (セパレータ . 注釈))
+					    ;; 注釈は既にセパレータ抜き
+					    (cddr value))
+					   ((string-match "^;" (cdr value))
+					    ;; (候補 . 注釈)
+					    ;; 注釈はまだセパレータを含んでいる
+					    (substring (cdr value)
+						       (match-end 0)))
+					   (t
+					    ;; (候補 . 注釈)
+					    ;; 注釈は既にセパレータを除去して
+					    ;; いるものと判断する
+					    (cdr value))))
+			     ;; 返り値が文字列だった場合
+			     (setq word value)))))
+		     ;; ユーザの意図によって注釈が既に設定され既に設定されて
+		     ;; いる場合はSKK の方では対処しない。
+		     (when (and (not (stringp note))
+				(string-match ";" word))
+		       (setq note (substring word (match-end 0))
+			     word (substring word 0 (match-beginning 0))))
+		     ;; word の方が S 式の文字列だったら、それを評価した
+		     ;; 文字列を返す。
+		     ;; note の方も S 式の場合がありうるが、それの評価は
+		     ;; skk-annotation がやってくれる。
+		     (setq word (skk-eval-string word))
+		     nil))
+		   nil)
       (when skk-use-face
 	(skk-henkan-face-off))
-      (delete-region skk-henkan-start-point skk-henkan-end-point)
+      (delete-region skk-henkan-start-point (or skk-henkan-end-point
+						(point)))
       (goto-char skk-henkan-start-point)
       ;; word を挿入する前にその face 属性を除去する。ただし，除去する前に
-      ;; face 属性を変数に退避する。この face 属性は次の候補表示に使用される。
+      ;; face 属性を変数に退避する。この face 属性は次の候補表示に使用され
+      ;; る。
       (setq face (get-text-property 0 'face word))
       (set-text-properties 0 (length word) nil word)
       (insert-and-inherit word)
