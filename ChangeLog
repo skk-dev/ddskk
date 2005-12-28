@@ -1,7 +1,7 @@
 2005-12-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-setup): Set skk-kakutei-flag
-	to t after `skk-henkan-in-minibuff'.
+	to nil after `skk-henkan-in-minibuff'.
 
 	* skk-gadget.el (skk-ignore-dic-word): Do not return new-word.
 	Instead, throw new-word to `skk-insert-new-word'.
