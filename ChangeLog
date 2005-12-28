@@ -1,5 +1,20 @@
 2005-12-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skk-annotation-setup): Set skk-kakutei-flag
+	to t after `skk-henkan-in-minibuff'.
+
+	* skk-gadget.el (skk-ignore-dic-word): Do not return new-word.
+	Instead, throw new-word to `skk-insert-new-word'.
+
+	* skk.el (skk-henkan): Do not set
+	skk-henkan-in-minibuff-nest-level here.
+	(skk-henkan-in-minibuff): Set skk-henkan-in-minibuff-nest-level
+	here.
+	(skk-insert-new-word): If `skk-ignore-dic-word' skips current word
+	and throws the next word, do everything from the beginning.
+
+2005-12-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-e21.el (skk-e21-mouse-position): Undo previous workaround
 	for Emacs 22.  Use (cddr P) for position y.
 
