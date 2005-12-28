@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.32 2005/11/27 15:34:43 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.33 2005/12/28 14:55:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/11/27 15:34:43 $
+;; Last Modified: $Date: 2005/12/28 14:55:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -427,10 +427,7 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
 	  (setq skk-insert-new-word-function
 		'skk-henkan-face-off-and-remove-itself))))
     ;;
-    (if (string-match ";" new-word)
-	(cons (substring new-word 0 (match-beginning 0))
-	      (substring new-word (match-end 0)))
-      new-word)))
+    (throw 'next-word new-word)))
 
 ;;;###autoload
 (defun skk-henkan-face-off-and-remove-itself ()
