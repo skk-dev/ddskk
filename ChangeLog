@@ -14,6 +14,7 @@
 	(skk-insert-new-word): If `skk-ignore-dic-word' skips current word
 	and throws the next word, do everything from the beginning.
 	If `skk-ignore-dic-word' throws `none', do nothing.
+	When skk-kakutei-flag is on, call `skk-kakutei'.
 
 2005-12-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
