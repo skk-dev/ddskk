@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.340 2005/12/28 15:29:48 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.341 2005/12/28 23:34:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/28 15:29:48 $
+;; Last Modified: $Date: 2005/12/28 23:34:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2411,7 +2411,10 @@ auto に設定するとユーザに確認しない。
 		   note)
 	  (skk-annotation-show note))
 	(when skk-insert-new-word-function
-	  (funcall skk-insert-new-word-function))))))
+	  (funcall skk-insert-new-word-function))
+	(when skk-kakutei-flag
+	  ;; `skk-ignore-dic-word' 内で辞書登録モードに入った場合。
+	  (skk-kakutei))))))
 
 (defun skk-treat-strip-note-from-word (word)
   "変換候補文字列 WORD を候補そのものと注釈に分割する。
