@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.163 2005/12/25 10:43:12 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.164 2005/12/29 06:44:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/25 10:43:12 $
+;; Last Modified: $Date: 2005/12/29 06:44:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1405,8 +1405,6 @@ SKK 起動後に変更した場合は \\[skk-restart] で反映させる事。"
   :type 'boolean
   :group 'skk-dictionary)
 
-(defvar skk-share-private-jisyo-internal nil)
-
 (defcustom skk-jisyo-save-count 50
   "*数値であれば、その回数辞書が更新されたときに辞書を自動的にセーブする。
 nil であれば、辞書のオートセーブを行わない。
@@ -1414,8 +1412,6 @@ SKK 起動後で、`skk-share-private-jisyo' な時にこの値を変更した場合は
 \\[skk-restart] で反映させる事。"
   :type '(choice integer (const nil))
   :group 'skk-dictionary)
-
-(defvar skk-jisyo-save-count-internal nil)
 
 (defcustom skk-byte-compile-init-file nil
   "*Non-nil であれば、skk-mode 起動時に skk-init-file をバイトコンパイルする。

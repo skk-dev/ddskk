@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.102 2005/12/25 10:43:22 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.103 2005/12/29 06:44:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/25 10:43:22 $
+;; Last Modified: $Date: 2005/12/29 06:44:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -586,6 +586,9 @@ BUFFER defaults to the current buffer."
   (and (setq file (expand-file-name file))
        (file-exists-p file)
        (file-writable-p file)))
+
+(defsubst skk-share-private-jisyo-p ()
+  (vectorp skk-jisyo-update-vector))
 
 (defsubst skk-lower-case-p (char)
   "CHAR が小文字のアルファベットであれば、t を返す。"

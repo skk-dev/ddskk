@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.341 2005/12/28 23:34:18 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.342 2005/12/29 06:44:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/28 23:34:18 $
+;; Last Modified: $Date: 2005/12/29 06:44:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -229,7 +229,7 @@ dependent."
   "`skk-init-file' $B$N:F%m!<%I5Z$S3F<o:F@_Dj$N8e(B SKK $B%b!<%I$r5/F0$9$k!#(B"
   (interactive)
   (skk-save-jisyo)
-  (setq skk-jisyo-update-vector nil)	; not necessary
+  (setq skk-jisyo-update-vector nil)
   (kill-local-variable 'skk-rule-tree)
   (setq skk-rule-tree nil)
   (mapatoms #'(lambda (sym)
@@ -825,9 +825,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (unless skk-jisyo-save-count
     ;; $B8=:_$N<BAu$G$O!"8D?M<-=q$N%*!<%H%;!<%VL5$7$G$O8D?M<-=q$N6&M-$O$G$-$J$$(B
     ;; $B$3$H$K$J$C$F$$$k!#(B
-    (setq skk-share-private-jisyo nil))
-  (setq skk-jisyo-save-count-internal skk-jisyo-save-count
-	skk-share-private-jisyo-internal skk-share-private-jisyo))
+    (setq skk-share-private-jisyo nil)))
 
 (defun skk-try-completion (arg)
   "$B"&%b!<%I$G8+=P$78l$NJd40$r9T$&!#(B
@@ -3182,7 +3180,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	  (sit-for 1))
       ;;
       (with-current-buffer jisyo-buffer
-	(when skk-share-private-jisyo-internal
+	(when (skk-share-private-jisyo-p)
 	  (lock-buffer skk-jisyo)
 	  (when (skk-jisyo-is-shared-p)
 	    (skk-update-shared-jisyo)))
@@ -3195,7 +3193,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	  (skk-check-size-and-do-save-jisyo tempo-file)
 	  ;; $B<-=q$N%;!<%V$K@.8y$7$F=i$a$F(B modified $B%U%i%C%0$r(B nil $B$K$9$k!#(B
 	  (cond
-	   (skk-share-private-jisyo-internal
+	   ((skk-share-private-jisyo-p)
 	    (skk-init-shared-jisyo)
 	    ;; `set-buffer-modified-p' $B$OITMW$J(B lock $B$r2r=|$9$k!#$?$@$7!"(B
 	    ;; $B%P%C%U%!$H%U%!%$%kL>$,4XO"IU$1$i$l$F$$$kI,MW$,$"$k!#(B
@@ -3936,14 +3934,14 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 			      purge)
 	  ;; $BJ#?t$N(B emacs $B$G(B SKK $B$,5/F0$5$l$F$$$k$H$-$K8D?M<-=q$r@09gE*$K(B
 	  ;; $B99?7$9$k$?$a$K3NDj$NF0:n$r5-O?$9$k!#(B
-	  (when skk-share-private-jisyo-internal
+	  (when (skk-share-private-jisyo-p)
 	    (aset skk-jisyo-update-vector skk-update-jisyo-count
 		  (list midasi okurigana word purge)))
 	  (dolist (function skk-update-end-function)
 	    (funcall function henkan-buffer midasi okurigana word purge))
 	  (setq skk-update-jisyo-count (1+ skk-update-jisyo-count))
-	  (let ((save-count (if skk-share-private-jisyo-internal
-				skk-jisyo-save-count-internal
+	  (let ((save-count (if (skk-share-private-jisyo-p)
+				(length skk-jisyo-update-vector)
 			      skk-jisyo-save-count)))
 	    (when (and save-count
 		       (<= save-count skk-update-jisyo-count))
