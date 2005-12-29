@@ -1,3 +1,14 @@
+2005-12-29  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-share-private-jisyo-internal)
+	(skk-jisyo-save-count-internal): Abolish variables.
+
+	* skk-macs.el (skk-share-private-jisyo-p): New inline function.
+
+	* skk.el (skk-adjust-user-option): Undo the last change.
+	(skk-save-jisyo-original, skk-update-jisyo-original): Use
+	`skk-share-private-jisyo-p'.
+
 2005-12-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-setup): Set skk-kakutei-flag
