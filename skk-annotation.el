@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.34 2006/01/04 12:28:00 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.35 2006/01/04 12:51:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/01/04 12:28:00 $
+;; Last Modified: $Date: 2006/01/04 12:51:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -203,10 +203,22 @@
 	 (list (list copy-command browse-command))
 	 event command)
     (while (and list
-		(progn
-		  (setq event (next-command-event)
-			command (key-binding (skk-event-key event)))
-		  (memq command list)))
+		(condition-case nil
+		    (progn
+		      (setq event (next-command-event)
+			    command (key-binding (skk-event-key event)))
+		      ;; Value of the following expression is important.
+		      (memq command list))
+		  (quit
+		   (skk-set-henkan-count 0)
+		   (skk-unread-event
+		    (character-to-event
+		     (aref (car (where-is-internal
+				 'skk-previous-candidate
+				 skk-j-mode-map))
+			   0)))
+		   ;; skk-henkan まで一気に throw する
+		   (throw 'unread nil))))
       (cond ((and (eq command copy-command)
 		  (memq copy-command list))
 	     (setq list (delq copy-command list))
