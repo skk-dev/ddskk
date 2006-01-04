@@ -3,6 +3,8 @@
 	* skk-annotation.el (skk-annotation-show-1): Allow user browse and
 	copy simultaneously.  Handle quit signal.
 
+	* skk-dcomp.el (skk-dcomp-activate-p): Use `save-match-data'.
+
 2006-12-29  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-server-completion.el
