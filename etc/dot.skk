@@ -58,7 +58,20 @@
   ;; なります。
   (setq skk-tooltip-parameters
 	'((background-color . "alice blue")
-	  (border-color . "royal blue"))))
+	  (border-color . "royal blue")))
+
+  ;; tooltip 表示の際のマウスポインタを変更して遊んでみる
+  ;; 注) この設定は X Window System でないと利用できません。
+  (defadvice skk-tooltip-show-at-point (around set-pointer activate)
+    (let ((shape x-pointer-shape))
+      (require 'avoid)
+      (mouse-avoidance-set-pointer-shape (if (ad-get-arg 1)
+					     x-pointer-pencil
+					   x-pointer-hand1))
+      (unwind-protect
+	  ad-do-it
+	(mouse-avoidance-set-pointer-shape shape))))
+  )
 
 ;; インライン候補表示を使用する
 (setq skk-show-inline t)
@@ -69,6 +82,13 @@
   (setq skk-inline-show-face nil))
 
 ;; 候補表示のルックスに関する高度な設定
+;;
+;; 注1) skk-e21-*-face は FSF Emacs 21 以上のみで存在する face です。それ
+;; 以外の Emacsen では別の存在する face に置き換えてください。
+;;
+;; 注2) 候補の個人辞書への登録においても、`skk-update-jisyo-function' を
+;; 設定することで同様のカスタマイズができます。「個人辞書に関する設定」の
+;; 例をご覧ください。
 (setq skk-treat-candidate-appearance-function
       #'(lambda (candidate listing-p)
 	  (let* ((value (skk-treat-strip-note-from-word candidate))
@@ -336,6 +356,26 @@
 ;;
 ;; このことに関しては上記「辞書検索に関する高度な設定」の部分も参照す
 ;; ることをお勧めします。
+
+;; 個人辞書の更新方法に関する設定
+;;
+;; 以下は注釈が長すぎる場合に個人辞書から注釈を除外して候補を登録する
+;; 設定例です。この他にも色々なカスタマイズが考えられます。
+(setq skk-update-jisyo-function
+      #'(lambda (word &optional purge)
+	  (if purge
+	      (skk-update-jisyo-original word purge)
+	    (let* ((pair (skk-treat-strip-note-from-word word))
+		   (cand (car pair))
+		   (note (cdr pair)))
+	      (when (and (stringp note)
+			 (> (length note) 8))
+		;; 注釈が 8 文字より長かったら注釈を消して登録する
+		(setq note nil))
+	      (setq word (if (stringp note)
+			     (concat cand ";" note)
+			   cand))
+	      (skk-update-jisyo-original word)))))
 
 ;; @@ その他いろいろ
 
