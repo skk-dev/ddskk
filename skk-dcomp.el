@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.39 2006/01/04 10:10:45 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.40 2006/01/04 14:35:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:45 $
+;; Last Modified: $Date: 2006/01/04 14:35:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -142,9 +142,11 @@
 (defun skk-dcomp-activate-p ()
   (and skk-dcomp-activate
        (cond ((functionp skk-dcomp-activate)
-	      (funcall skk-dcomp-activate))
+	      (save-match-data
+		(funcall skk-dcomp-activate)))
 	     ((listp skk-dcomp-activate)
-	      (eval skk-dcomp-activate))
+	      (save-match-data
+		(eval skk-dcomp-activate)))
 	     (skk-hint-inhibit-dcomp
 	      nil)
 	     (t
