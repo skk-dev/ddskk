@@ -1,4 +1,14 @@
-2006-01-04  Fumihiko MACHIDA  <machida@users.sourceforge.jp>
+2006-01-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-1): Allow user browse and
+	copy simultaneously.
+
+2006-12-29  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-server-completion.el
+	(skk-server-completion-search-recursive): Optimize using `nconc'.
+
+2005-12-29  Fumihiko MACHIDA  <machida@users.sourceforge.jp>
 
 	* SKK-MK (SKK_MODULES): Add skk-server-completion.
 
