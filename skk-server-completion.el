@@ -17,6 +17,49 @@
 ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 ;; 02111-1307, USA
 
+;;; Commentary:
+
+;; Server completion に対応した辞書サーバを用い見出し語から始まる全ての
+;; 語句の検索を行ないます。
+
+;; このプログラムは以下の 2 つの機能を提供します。
+;;
+;; * skk-look の日本語版。読みの最後に `~' を付けて変換すると、その読みか
+;;   ら始まる全ての候補を表示します。
+;;
+;; 例：
+;;
+;; ▽まちだ~
+;; ==> "まちだ" "町田" "まちだえき" "町田駅" "まちだおだきゅう" "町田小田急" ..
+;;
+;; * skk-comp で、server completion を使用
+;;
+;; 例：
+;;
+;; ▽まちだ-!- で Tab を押すと、▽まちだえき → ▽まちだおだきゅう ……
+;; となります。
+
+;; [設定方法]
+;;
+;; .skk に、以下を追加します。
+;;
+;; (require 'skk-server-completion)
+;; (add-to-list 'skk-search-prog-list
+;;	     '(skk-server-completion-search) t)
+;;
+;; また、`~' を付けた変換結果を個人辞書に学習してしまうのをやめるためには
+;; 以下を追加してください。
+;;
+;; (add-hook skk-search-excluding-word-pattern-function
+;;	  #'(lambda (kakutei-word)
+;;	      (string-match (format "%s$"
+;;				    (regexp-quote
+;;				     (char-to-string
+;;				      skk-server-completion-search-key)))
+;;			    skk-henkan-key)))
+
+;;; Code:
+
 (require 'skk)
 (require 'skk-comp)
 
