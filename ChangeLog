@@ -1,3 +1,8 @@
+2006-01-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-develo.el: Use before-init-hook for setting
+	lisp-font-lock-keywords-2.
+
 2006-01-04  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-insert): Don't call `skk-process-prefix-or-suffix'
