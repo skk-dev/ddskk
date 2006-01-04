@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.343 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.344 2006/01/04 17:46:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2006/01/04 17:46:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -233,15 +233,15 @@ dependent."
   (kill-local-variable 'skk-rule-tree)
   (setq skk-rule-tree nil)
   (mapatoms #'(lambda (sym)
-                ;; skk-init-file $B0J30$N(B defcustom $B$G@k8@$5$l$?JQ?t$r:F=i4|2=!#(B
-                ;; $BB>$K$b=|30$9$Y$-JQ?t$,$J$$$+MW8!F$!#(B
-                (when (and (string-match "^skk-" (symbol-name sym))
-                           (not (eq sym 'skk-init-file))
-                           (static-if (eq skk-emacs-type 'mule4)
-                               (widget-plist-member (symbol-plist sym) 'standard-value)
-                             (plist-member (symbol-plist sym) 'standard-value)))
-                  (set sym
-                       (eval (car (get sym 'standard-value)))))))
+		;; skk-init-file $B0J30$N(B defcustom $B$G@k8@$5$l$?JQ?t$r:F=i4|2=!#(B
+		;; $BB>$K$b=|30$9$Y$-JQ?t$,$J$$$+MW8!F$!#(B
+		(when (and (string-match "^skk-" (symbol-name sym))
+			   (not (eq sym 'skk-init-file))
+			   (static-if (eq skk-emacs-type 'mule4)
+			       (widget-plist-member (symbol-plist sym) 'standard-value)
+			     (plist-member (symbol-plist sym) 'standard-value)))
+		  (set-default sym
+			       (eval (car (get sym 'standard-value)))))))
   (let (skk-mode-invoked)
     (skk-mode 1))
   (when (featurep 'skk-server)
@@ -939,8 +939,13 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
    (let ((ch last-command-char))
      (cond ((and skk-henkan-mode
 		 (memq ch skk-special-midashi-char-list))
-	    ;; $B@\F,<-!&@\Hx<-$N=hM}!#(B
-	    (skk-process-prefix-or-suffix arg))
+	    (if (= skk-henkan-start-point (point))
+		;; `$B"&(B' $B$KB3$/(B `>' $B$G$OJQ49=hM}$r3+;O$7$J$$(B
+		(progn
+		  (setq last-command-char ?>)
+		  (skk-kana-input arg))
+	      ;; $B@\F,<-!&@\Hx<-$N=hM}!#(B
+	      (skk-process-prefix-or-suffix arg)))
 	   (;; start writing a midasi key.
 	    (and (memq ch skk-set-henkan-point-key)
 		 (or skk-okurigana
