@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.37 2006/01/04 12:57:47 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.38 2006/01/04 18:44:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/01/04 12:57:47 $
+;; Last Modified: $Date: 2006/01/04 18:44:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -162,7 +162,7 @@
 (defsubst skk-annotation-insert (annotation)
   (with-current-buffer (get-buffer-create skk-annotation-buffer)
     (skk-annotation-erase-buffer)
-    (insert (skk-eval-string annotation))))
+    (insert annotation)))
 
 (defsubst skk-annotation-get (annotation)
   (or (string= annotation "")
@@ -274,7 +274,7 @@
 	0))))))
 
 (defun skk-annotation-show-as-message (annotation)
-  (message "%s" (skk-eval-string annotation)))
+  (message "%s" annotation))
 
 (defun skk-annotation-setup ()
   (if (skk-get-last-henkan-datum 'henkan-list)
