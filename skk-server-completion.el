@@ -126,16 +126,11 @@
 
 (defun skk-server-completion-search-recursive  (midasi-list)
   "`midasi-list' の見出しを再変換する"
-  (let (result-list)
-    (dolist (midasi midasi-list)
-      (let ((skk-henkan-key midasi))
-	(setq result-list
-	      (let ((kouho-list (cons skk-henkan-key (skk-search-server-1 nil nil))))
-		(if result-list
-		    (append result-list kouho-list)
-		  kouho-list)))))
+  (let (result-list kouho-list)
+    (dolist (skk-henkan-key midasi-list)
+      (setq kouho-list (cons skk-henkan-key (skk-search-server-1 nil nil))
+	    result-list (nconc result-list kouho-list)))
     result-list))
-
 
 ;; elisp 的には変数を使わずに、バッファを用意した方がよい？
 (defvar skk-server-completion-advice-skk-comp-do-1-first t)
