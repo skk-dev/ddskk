@@ -1,5 +1,7 @@
 2006-01-04  Fumihiko MACHIDA  <machida@users.sourceforge.jp>
 
+	* SKK-MK (SKK_MODULES): Add skk-server-completion.
+
 	* skk-server-completion.el: New file.
 
 2006-01-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>

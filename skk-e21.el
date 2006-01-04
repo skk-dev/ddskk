@@ -2,7 +2,6 @@
 
 ;; Copyright (C) 1999-2005 SKK Development Team <skk@ring.gr.jp>
 
-;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Keywords: japanese, mule, input method
 
