@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.33 2006/01/04 10:48:56 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.34 2006/01/04 12:28:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/01/04 10:48:56 $
+;; Last Modified: $Date: 2006/01/04 12:28:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -198,18 +198,33 @@
     (skk-annotation-show-buffer annotation)))
   ;; 注釈の表示はここまでだが、ここでユーザが注釈の内容をコピーしたり
   ;; して利用できるようにする。
-  (let* ((event (next-command-event))
-	 (command (key-binding (skk-event-key event))))
-    (cond ((eq command (key-binding skk-annotation-copy-key))
-	   (kill-new (substring-no-properties annotation))
-	   (skk-message "現在の注釈をコピーしました"
-			"Copying the current note...done"))
-	  ((eq command (key-binding skk-annotation-browse-key))
-	   (browse-url annotation)
-	   (skk-message "現在の注釈を URL としてブラウズしています..."
-			"Browsing the current note as URL..."))
-	  (t
-	   (skk-unread-event event)))))
+  (let* ((copy-command (key-binding skk-annotation-copy-key))
+	 (browse-command (key-binding skk-annotation-browse-key))
+	 (list (list copy-command browse-command))
+	 event command)
+    (while (and list
+		(progn
+		  (setq event (next-command-event)
+			command (key-binding (skk-event-key event)))
+		  (memq command list)))
+      (cond ((and (eq command copy-command)
+		  (memq copy-command list))
+	     (setq list (delq copy-command list))
+	     (kill-new (substring-no-properties annotation))
+	     (skk-message "現在の注釈をコピーしました"
+			  "Copying the current note...done")
+	     (setq event nil))
+	    ((and (eq command browse-command)
+		  (memq browse-command list))
+	     (setq list (delq browse-command list))
+	     (browse-url annotation)
+	     (skk-message "現在の注釈を URL としてブラウズしています..."
+			  "Browsing the current note as URL...")
+	     (setq event nil))
+	    (t
+	     (setq list nil))))
+    (when event
+      (skk-unread-event event))))
 
 (defun skk-annotation-show-buffer (annotation)
   (condition-case nil
