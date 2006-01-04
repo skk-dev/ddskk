@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.26 2005/12/11 05:51:57 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.27 2006/01/04 10:10:45 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2005/12/11 05:51:57 $
+;; Last Modified: $Date: 2006/01/04 10:10:45 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -22,8 +22,8 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs, see the file COPYING.  If not, write to the
-;; Free Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
-;; MA 02111-1307, USA.
+;; Free Software Foundation Inc., 51 Franklin St, Fifth Floor, Boston,
+;; MA 02110-1301, USA.
 
 ;;; Commentary:
 

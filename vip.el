@@ -4,7 +4,7 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 2001/10/31 13:06:22 $
+;; Last Modified: $Date: 2006/01/04 10:10:46 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 
@@ -22,8 +22,8 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
 

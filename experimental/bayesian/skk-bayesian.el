@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.22 2005/12/15 08:26:10 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.23 2006/01/04 10:10:46 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2005/12/15 08:26:10 $
+;; Last Modified: $Date: 2006/01/04 10:10:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -21,8 +21,8 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
 ;;

@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.26 2003/03/30 02:12:32 minakaji Exp $
+;; Version: $Id: skk-lookup.el,v 1.27 2006/01/04 10:10:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2003/03/30 02:12:32 $
+;; Last Modified: $Date: 2006/01/04 10:10:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -23,8 +23,8 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary
 

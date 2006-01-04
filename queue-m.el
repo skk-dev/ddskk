@@ -1,4 +1,4 @@
-;;;; $Id: queue-m.el,v 1.2 2001/08/31 19:30:14 czkmt Exp $
+;;;; $Id: queue-m.el,v 1.3 2006/01/04 10:10:45 skk-cvs Exp $
 ;;;; This file implements a simple FIFO queue using macros.
 
 ;; Copyright (C) 1991-1995 Free Software Foundation
@@ -6,7 +6,7 @@
 ;; Author: Inge Wallin <inge@lysator.liu.se>
 ;; Maintainer: elib-maintainers@lysator.liu.se
 ;; Created: before 12 May 1991
-;; Last Modified: $Date: 2001/08/31 19:30:14 $
+;; Last Modified: $Date: 2006/01/04 10:10:45 $
 ;; Keywords: extensions, lisp
 
 ;;;;
@@ -24,8 +24,8 @@
 ;;;;
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with GNU Elib; see the file COPYING.  If not, write to
-;;;; the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;;;; Boston, MA 02111-1307, USA
+;;;; the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+;;;; Boston, MA 02110-1301, USA
 ;;;;
 ;;;; Author: Inge Wallin
 ;;;;

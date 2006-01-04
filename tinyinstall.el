@@ -6,8 +6,8 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.10 2002/01/18 14:05:03 czkmt Exp $
-;; Last Modified: $Date: 2002/01/18 14:05:03 $
+;; Version: $Id: tinyinstall.el,v 1.11 2006/01/04 10:10:46 skk-cvs Exp $
+;; Last Modified: $Date: 2006/01/04 10:10:46 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -21,8 +21,8 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
 

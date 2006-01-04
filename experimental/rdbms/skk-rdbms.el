@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@namazu.org>
-;; Version: $Id: skk-rdbms.el,v 1.8 2003/07/06 08:49:11 minakaji Exp $
+;; Version: $Id: skk-rdbms.el,v 1.9 2006/01/04 10:10:46 skk-cvs Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2003/07/06 08:49:11 $
+;; Last Modified: $Date: 2006/01/04 10:10:46 $
 
 ;; This file is not part of Daredevil SKK yet.
 
@@ -21,8 +21,8 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
 

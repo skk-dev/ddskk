@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.3 2002/01/13 20:39:38 obata Exp $
+;; Version: $Id: skk-azik.el,v 1.4 2006/01/04 10:10:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2002/01/13 20:39:38 $
+;; Last Modified: $Date: 2006/01/04 10:10:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -23,8 +23,8 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
 ;; 拡張ローマ字入力 "AZIK" を SKK で使うための設定です。
