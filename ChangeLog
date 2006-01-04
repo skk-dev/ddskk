@@ -1,3 +1,15 @@
+2006-01-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-1): While showing
+	a note, allow users to make use of it.  If skk-annotation-copy-key
+	is typed, save it to kill ring.  If skk-annotation-browse-key is
+	typed, browse it as URL.
+
+	* skk-vars.el (skk-annotation-copy-key):
+	(skk-annotation-browse-key):
+
+	New variables.
+
 2005-12-29  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-share-private-jisyo-internal)
