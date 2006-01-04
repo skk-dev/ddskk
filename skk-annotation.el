@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.36 2006/01/04 12:53:41 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.37 2006/01/04 12:57:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/01/04 12:53:41 $
+;; Last Modified: $Date: 2006/01/04 12:57:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -219,15 +219,13 @@
 			   0)))
 		   ;; skk-henkan まで一気に throw する
 		   (throw 'unread nil))))
-      (cond ((and (eq command copy-command)
-		  (memq copy-command list))
+      (cond ((eq command copy-command)
 	     (setq list (delq copy-command list))
 	     (kill-new (substring-no-properties annotation))
 	     (skk-message "現在の注釈をコピーしました"
 			  "Copying the current note...done")
 	     (setq event nil))
-	    ((and (eq command browse-command)
-		  (memq browse-command list))
+	    ((eq command browse-command)
 	     (setq list (delq browse-command list))
 	     (browse-url annotation)
 	     (skk-message "現在の注釈を URL としてブラウズしています..."
