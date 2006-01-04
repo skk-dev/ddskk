@@ -1,3 +1,7 @@
+2006-01-04  Fumihiko MACHIDA  <machida@users.sourceforge.jp>
+
+	* skk-server-completion.el: New file.
+
 2006-01-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-show-1): While showing
