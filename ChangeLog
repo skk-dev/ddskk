@@ -5,6 +5,10 @@
 
 	(skk-restart): Use `set-default' to re-initialize variables.
 
+	* skk-annotation.el (skk-annotation-insert)
+	(skk-annotation-show-as-message): Don't call `skk-eval-string'
+	here.
+
 2006-01-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-show-1): Allow user browse and
