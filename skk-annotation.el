@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.35 2006/01/04 12:51:20 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.36 2006/01/04 12:53:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/01/04 12:51:20 $
+;; Last Modified: $Date: 2006/01/04 12:53:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -207,7 +207,7 @@
 		    (progn
 		      (setq event (next-command-event)
 			    command (key-binding (skk-event-key event)))
-		      ;; Value of the following expression is important.
+		      ;; Return value of the following expression is important.
 		      (memq command list))
 		  (quit
 		   (skk-set-henkan-count 0)

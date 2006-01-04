@@ -1,7 +1,7 @@
 2006-01-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-show-1): Allow user browse and
-	copy simultaneously.
+	copy simultaneously.  Handle quit signal.
 
 2006-12-29  Eiji Obata  <e-obata@zero.ad.jp>
 
