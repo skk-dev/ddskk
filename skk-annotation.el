@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.30 2005/12/28 13:53:35 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.31 2006/01/04 09:30:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2005/12/28 13:53:35 $
+;; Last Modified: $Date: 2006/01/04 09:30:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -178,7 +178,7 @@
   (unless skk-kakutei-flag
     (when (or (not skk-annotation-function)
 	      (funcall skk-annotation-function annotation))
-    (skk-annotation-show-1 (skk-annotation-get annotation)))))
+      (skk-annotation-show-1 (skk-annotation-get annotation)))))
 
 (defun skk-annotation-show-1 (annotation)
   (setq annotation (skk-eval-string annotation))
@@ -195,7 +195,19 @@
     ;; do nothing
     nil)
    (t
-    (skk-annotation-show-buffer annotation))))
+    (skk-annotation-show-buffer annotation)))
+  (let* ((event (next-command-event))
+	 (command (key-binding (skk-event-key event))))
+    (cond ((eq command (key-binding skk-annotation-copy-key))
+	   (kill-new (substring-no-properties annotation))
+	   (skk-message "現在の注釈をコピーしました"
+			"Copying the current note...done"))
+	  ((eq command (key-binding skk-annotation-browse-key))
+	   (browse-url annotation)
+	   (skk-message "現在の注釈を URL としてブラウズしています..."
+			"Browsing the current note as URL..."))
+	  (t
+	   (skk-unread-event event)))))
 
 (defun skk-annotation-show-buffer (annotation)
   (condition-case nil
