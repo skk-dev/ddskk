@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.32 2006/01/04 10:10:45 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.33 2006/01/04 10:48:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/01/04 10:10:45 $
+;; Last Modified: $Date: 2006/01/04 10:48:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -196,6 +196,8 @@
     nil)
    (t
     (skk-annotation-show-buffer annotation)))
+  ;; 注釈の表示はここまでだが、ここでユーザが注釈の内容をコピーしたり
+  ;; して利用できるようにする。
   (let* ((event (next-command-event))
 	 (command (key-binding (skk-event-key event))))
     (cond ((eq command (key-binding skk-annotation-copy-key))
