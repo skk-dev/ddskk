@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.22 2006/01/04 10:10:45 skk-cvs Exp $
+;; Version: $Id: skk-develop.el,v 1.23 2006/01/04 23:54:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:45 $
+;; Last Modified: $Date: 2006/01/04 23:54:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -99,25 +99,28 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
        base))))
 
 ;;;###autoload
-(eval-after-load "font-lock"
-  '(setq lisp-font-lock-keywords-2
-	 (nconc
-	  (list
-	   (list
-	    (concat "(\\(skk-def\\("
-		    ;; Function declarations.
-		    "\\(un-cond\\|subst-cond\\|advice\\)\\|"
-		    ;; Variable declarations.
-		    "\\(var\\|localvar\\)"
-		    "\\)\\)\\>"
-		    ;; Any whitespace and defined object.
-		    "[ \t'\(]*"
-		    "\\(\\sw+\\)?")
-	    '(1 font-lock-keyword-face)
-	    '(5 (cond ((match-beginning 3) font-lock-function-name-face)
-		      ((match-beginning 5) font-lock-variable-name-face))
-		nil t)))
-	  lisp-font-lock-keywords-2)))
+(add-hook
+ 'before-init-hook
+ #'(lambda ()
+     (eval-after-load "font-lock"
+       '(setq lisp-font-lock-keywords-2
+	      (nconc
+	       (list
+		(list
+		 (concat "(\\(\\(skk-\\)?def\\("
+			 ;; Function declarations.
+			 "\\(un-cond\\|subst-cond\\|advice\\)\\|"
+			 ;; Variable declarations.
+			 "\\(var\\|localvar\\|un-maybe\\|macro-maybe\\)"
+			 "\\)\\)\\>"
+			 ;; Any whitespace and defined object.
+			 "[ \t'\(]*"
+			 "\\(\\sw+\\)?")
+		 '(1 font-lock-keyword-face)
+		 '(5 (cond ((match-beginning 3) font-lock-function-name-face)
+			   ((match-beginning 5) font-lock-variable-name-face))
+		     nil t)))
+	       lisp-font-lock-keywords-2)))))
 
 (require 'product)
 (product-provide
