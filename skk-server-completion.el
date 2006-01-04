@@ -50,7 +50,7 @@
 ;; また、`~' を付けた変換結果を個人辞書に学習してしまうのをやめるためには
 ;; 以下を追加してください。
 ;;
-;; (add-hook skk-search-excluding-word-pattern-function
+;; (add-hook 'skk-search-excluding-word-pattern-function
 ;;	  #'(lambda (kakutei-word)
 ;;	      (string-match (format "%s$"
 ;;				    (regexp-quote
