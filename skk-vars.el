@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.164 2005/12/29 06:44:16 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.165 2006/01/04 09:30:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2005/12/29 06:44:16 $
+;; Last Modified: $Date: 2006/01/04 09:30:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3384,8 +3384,24 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   :group 'skk-misc)
 
 (defcustom skk-annotation-toggle-display-char ?^
-  "*$B%(%3!<%(%j%"$G8uJdI=<(Cf$K%"%N%F!<%7%g%sI=<($r@Z$jBX$($k%-!<%-%c%i%/%?!#(B"
+  "*$B8uJd0lMw$rI=<(Cf$K%"%N%F!<%7%g%sI=<($r@Z$jBX$($k%-!<%-%c%i%/%?!#(B"
   :type 'character
+  :group 'skk-keybinds)
+
+(defcustom skk-annotation-copy-key "\C-w"
+  "*$BCm<a$r%3%T!<$9$k%-!<!#(B
+$B$3$N%-!<$r%?%$%W$9$k$H8=:_I=<(Cf$NCm<a$r(B kill ring $B$KJ]B8$9$k!#(B
+$BJ]B8$7$?FbMF$r(B Emacs $B0J30$N%"%W%j%1!<%7%g%s$GMxMQ$7$?$$>l9g$O(B
+$BJQ?t(B `interprogram-cut-function' $B$r@_Dj$9$k!#(B"
+  :type 'sexp
+  :group 'skk-keybinds)
+
+(defcustom skk-annotation-browse-key "\C-o"
+  "*$BCm<a$r(B URL $B$H8+Pv$7$F%V%i%&%:$9$k%-!<!#(B
+$B$3$N%-!<$r%?%$%W$9$k$H8=:_I=<(Cf$NCm<a$r4X?t(B `browse-url' $B$KEO$9!#(B
+$B$3$N5!G=$rM-8z$K$9$k$?$a$K$OJQ?t(B `browse-url-browser-function' $B$rE,@Z$K(B
+$B@_Dj$9$k!#(B"
+  :type 'sexp
   :group 'skk-keybinds)
 
 (defcustom skk-annotation-function nil
