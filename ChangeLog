@@ -1,7 +1,8 @@
 2006-01-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-develop.el: Use before-init-hook for setting
-	lisp-font-lock-keywords-2.
+	lisp-font-lock-keywords-2.  Separate patterns of func
+	declarations, var declarations and other declarations.
 
 	* skk-macs.el (substring-no-properties): Define for XEmacs and FSF
 	Emacs 21 or older.

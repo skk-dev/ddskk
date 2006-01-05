@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.23 2006/01/04 23:54:12 skk-cvs Exp $
+;; Version: $Id: skk-develop.el,v 1.24 2006/01/05 16:56:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 23:54:12 $
+;; Last Modified: $Date: 2006/01/05 16:56:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -109,9 +109,11 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 		(list
 		 (concat "(\\(\\(skk-\\)?def\\("
 			 ;; Function declarations.
-			 "\\(un-cond\\|subst-cond\\|advice\\)\\|"
+			 "\\(un-cond\\|subst-cond\\|un-maybe\\)\\|"
 			 ;; Variable declarations.
-			 "\\(var\\|localvar\\|un-maybe\\|macro-maybe\\)"
+			 "\\(var\\|localvar\\)"
+			 ;; Declarations of other forms.
+			 "\\(advice\\|macro-maybe\\)"
 			 "\\)\\)\\>"
 			 ;; Any whitespace and defined object.
 			 "[ \t'\(]*"
