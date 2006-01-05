@@ -1,20 +1,49 @@
 -*- outline -*-
 
+SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
+ファイルでは、現在 SKK Openlab にて開発しているプログラム・辞書の著者
+のうち、現在その貢献内容を把握している人々について、主な業績をリスト
+し、感謝の意を表します。遺漏については判り次第補っていきます。
+(ある程度年代を考慮した順になっていますが、詳細は分からないので不正確
+です。原作者以外は基本的に順不同。)
+
 * Masahiko Sato
 
 ** 原作者
 
 *** skk.el
 
+*** skk-auto.el (from skk.el, 送り仮名自動処理)
+
+*** skk-comp.el (from skk.el, 補完機能)
+
+*** skk-comp.el (from skk.el, 補完機能)
+
+*** skk-gadget.el (from skk.el, elisp 実行変換機能)
+
+*** skk-kcode.el (from skk.el, 漢字のコード入力)
+
+*** skk-num.el (from skk.el, 数値を取り扱うプログラム)
+
+*** skk-server.el (from skk.el, SKK サーバと通信するプログラム)
+
 *** skk-tut.el, SKK.tut (SKK のチュートリアル)
 
+*** skk-viper.el (vi エミュレーション vip, viper との協調)
+
 *** vip.el (vi エミュレーションのひとつ)
+
+** SKK 辞書開発
 
 * Yukiyoshi Kameyama
 
 ** 初期の SKK 開発
 
-*** skkserv (SKK 辞書サーバ)
+** SKK 辞書開発
+
+** SKK サーバ開発
+
+*** skkserv
 
 * Enami Tsugutomo
 
@@ -102,7 +131,7 @@
 
 *** skk-leim.el (SKK の LEIM 機構への対応)
 
-*** skk-viper.el (VI エミュレーション Viper との協調)
+*** skk-viper.el (vi エミュレーション vip, viper との協調)
 
 * Masatake YAMATO
 
