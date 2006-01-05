@@ -186,7 +186,7 @@
 
 ** elisp におけるアイデアと拡張
 
-*** skk-jisx0201.el (半角かな入力)
+*** skk-jisx0201.el (半角カナ入力)
 
 *** skk-jisyo-edit-mode.el (辞書編集用メジャーモード)
 
