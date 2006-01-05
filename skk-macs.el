@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.104 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.105 2006/01/05 16:05:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2006/01/05 16:05:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -328,6 +328,30 @@ and replace a sub-expression, e.g.
       ;; Reconstruct a string from the pieces.
       (setq matches (cons (substring string start l) matches)) ; leftover
       (apply #'concat (nreverse matches)))))
+
+(defun-maybe substring-no-properties (string &optional from to)
+  "Return a substring of string, without text properties.
+It starts at index from and ending before to.
+to may be nil or omitted; then the substring runs to the end of string.
+If from is nil or omitted, the substring starts at the beginning of string.
+If from or to is negative, it counts from the end.
+
+With one argument, just copy string without its properties."
+  (let ((substr (copy-sequence (substring string (or from 0) to))))
+    (set-text-properties 0 (length substr) nil substr)
+    substr))
+
+(static-unless (featurep 'xemacs)
+  (fmakunbound 'next-command-event))
+
+(defun-maybe next-command-event (&optional event prompt)
+  "Read an event object from the input stream.
+If EVENT is non-nil, it should be an event object and will be filled
+in and returned; otherwise a new event object will be created and
+returned.
+If PROMPT is non-nil, it should be a string and will be displayed in
+the echo area while this function is waiting for an event."
+  (read-event prompt))
 
 (defsubst skk-sit-for (seconds &optional nodisplay)
   "`sit-for' の Emacsen による違いを吸収する。"
