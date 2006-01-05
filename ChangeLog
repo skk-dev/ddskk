@@ -21,7 +21,7 @@
 
 	* skk-dcomp.el (skk-dcomp-activate-p): Use `save-match-data'.
 
-2006-12-29  Eiji Obata  <e-obata@zero.ad.jp>
+2005-12-29  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-server-completion.el
 	(skk-server-completion-search-recursive): Optimize using `nconc'.
