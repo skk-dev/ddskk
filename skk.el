@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.345 2006/01/05 13:10:20 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.346 2006/01/05 16:34:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/05 13:10:20 $
+;; Last Modified: $Date: 2006/01/05 16:34:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2353,7 +2353,13 @@ auto に設定するとユーザに確認しない。
 		      (setq note nil)
 		      ;; `skk-ignore-dic-word' により現在の word が skip され、
 		      ;; 新しい語が返ってきた場合、ループして処理をやり直す。
-		      (when (functionp skk-treat-candidate-appearance-function)
+
+		      ;; 候補一覧で選択された候補を挿入する際は、
+		      ;; skk-kakutei-flag が t になっている。この場合は装飾
+		      ;; してもしかたない。
+		      (when (and (not skk-kakutei-flag)
+				 (functionp
+				  skk-treat-candidate-appearance-function))
 			;; skk-treat-candidate-appearance-function によって
 			;; ユーザは任意に候補文字列と注釈文字列を加工・修飾
 			;; することができる。
