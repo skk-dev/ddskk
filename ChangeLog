@@ -3,6 +3,10 @@
 	* skk-develop.el: Use before-init-hook for setting
 	lisp-font-lock-keywords-2.
 
+	* skk-macs.el (substring-no-properties): Define for XEmacs.
+	(next-command-event): Do not use definition in APEL 10.6.
+	Redefine for FSF Emacs.
+
 	* skk-vars.el (skk-learn-combined-word): New user option, default
 	to nil.
 
