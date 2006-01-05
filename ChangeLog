@@ -13,6 +13,9 @@
 	* skk.el (skk-kakutei): Do not learn combind word if
 	skk-learn-combined-word is nil.  Before combining prefix and word,
 	strip note from word.
+	(skk-insert-new-word): Do not call
+	`skk-treat-candidate-appearance-function' when skk-kakutei-flag is
+	on.
 
 2006-01-04  Eiji Obata  <e-obata@zero.ad.jp>
 
