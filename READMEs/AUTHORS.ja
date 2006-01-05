@@ -6,21 +6,21 @@
 
 *** skk.el
 
-*** skk-tut.el, SKK.tut
+*** skk-tut.el, SKK.tut (SKK のチュートリアル)
 
-*** vip.el
+*** vip.el (vi エミュレーションのひとつ)
 
 * Yukiyoshi Kameyama
 
-** 初期からの SKK 開発
+** 初期の SKK 開発
 
-*** skkserv
+*** skkserv (SKK 辞書サーバ)
 
 * Enami Tsugutomo
 
 ** 主に Openlab 以前の SKK の開発
 
-*** skk-isearch.el
+*** skk-isearch.el (Emacs 19 以降に対応した日本語インクリメンタルサーチ)
 
 ** 意味辞書 (アノテーションの原案) の発案
 
@@ -40,51 +40,53 @@
 
 *** アノテーションの導入
 
+*** 辞書登録・削除希望単語入力フォームの開発
+
 *** 新しい SKK 辞書の追加
 
-**** SKK-JISYO.addoc
+**** SKK-JISYO.assoc (見出し語と候補との間に一定の連想関係があるエントリ集)
 
-**** SKK-JISYO.mazegaki
+**** SKK-JISYO.mazegaki (かな漢字混じりの見出し語を検索する辞書)
 
 *** 各種辞書・データの SKK 形式への変換
 
-**** SKK-JISYO.JIS3_4
+**** SKK-JISYO.JIS3_4 (JIS 第三、第四水準の文字のみを収録した辞書)
 
-**** SKK-JISYO.edict
+**** SKK-JISYO.edict (「和英辞典」edict を「英和辞典」に加工した辞書)
 
-**** SKK-JISYO.itaiji
+**** SKK-JISYO.itaiji (異体字の辞書)
 
-**** SKK-JISYO.jinmei
+**** SKK-JISYO.jinmei (gerodic に基づく人名辞書)
 
-**** SKK-JISYO.law
+**** SKK-JISYO.law (法律用語辞書)
 
-**** SKK-JISYO.okinawa
+**** SKK-JISYO.okinawa (沖縄辞書プロジェクトの成果を基にした辞書)
 
-**** SKK-JISYO.pubdic
+**** SKK-JISYO.pubdic (pubdic を SKK 形式に変換した辞書)
 
 ** elisp におけるアイデアと拡張
 
 *** APEL の導入と APEL 本体への貢献
 
-*** skk-abbrev.el
+*** skk-abbrev.el (Emacs の abbrev を利用した補完と変換)
 
-*** skk-annotation.el
+*** skk-annotation.el (注釈の作製と表示機能)
 
-*** skk-dcomp.el
+*** skk-dcomp.el (動的補完機能)
 
-*** skk-kakasi.el
+*** skk-kakasi.el (SKK からの KAKASI 利用)
 
-*** skk-look.el
+*** skk-look.el (look コマンドを用いた英単語などの補完と検索)
 
-*** skk-lookup.el
+*** skk-lookup.el (辞書検索ツール Lookup を介した検索)
 
-*** skk-rdbms.el
+*** skk-rdbms.el (PostgreSQL のデータベース機能を利用した変換)
 
-*** skk-setup.el
+*** skk-setup.el (SKK の自動設定)
 
-*** skk-study.el
+*** skk-study.el (学習機構)
 
-*** skk-w3m.el
+*** skk-w3m.el (w3m を利用した web 検索エンジンによる検索)
 
 ** ドキュメント執筆・整備
 
@@ -94,25 +96,23 @@
 
 *** 新しいかな入力ルーチン
 
-*** skksearch (辞書サーバ)
-
 * Murata Shuuichirou
 
 ** 主に SKK 10 の開発
 
-*** skk-leim.el
+*** skk-leim.el (SKK の LEIM 機構への対応)
 
-*** skk-viper.el
+*** skk-viper.el (VI エミュレーション Viper との協調)
 
 * Masatake YAMATO
 
-** elisp 開発におけるアイデアとコード
+** elisp におけるアイデアと拡張
 
-*** ccc.el
+*** ccc.el (Emacs 用カーソル色制御機構)
 
-*** skk-cursor.el
+*** skk-cursor.el (SKK 用カーソル色制御プログラム)
 
-*** context-skk.el
+*** context-skk.el (文脈に応じた SKK の自動制御プログラム)
 
 *** tooltip による候補一覧表示
 
@@ -126,7 +126,7 @@
 
 *** 新しい SKK 辞書の追加
 
-**** SKK-JISYO.geo
+**** SKK-JISYO.geo (地名辞書)
 
 *** SKK-JISYO.S の開発と維持
 
@@ -140,17 +140,17 @@
 
 *** 新しい SKK 辞書の追加
 
-**** SKK-JISYO.hukugougo
+**** SKK-JISYO.hukugougo (使用頻度が低い複合語の辞書)
 
-**** SKK-JISYO.notes
+**** SKK-JISYO.notes (品詞・活用情報のための辞書)
 
-**** SKK-JISYO.propernoun
+**** SKK-JISYO.propernoun (固有名詞の辞書)
 
-**** SKK-JISYO.station
+**** SKK-JISYO.station (鉄道の駅名および路線名の辞書)
 
 *** 各種辞書・データの SKK 形式への変換
 
-**** SKK-JISYO.fullname
+**** SKK-JISYO.fullname (人名録辞書)
 
 *** SKK 辞書ツールの開発と維持
 
@@ -158,20 +158,74 @@
 
 ** SKK フロントエンドからの SKK 辞書利用法に関する提言
 
-* Tsukamoto Tetsuo
+* Tsuyoshi AKIHO
 
-*** 新しい SKK 辞書の追加
+** ドキュメント執筆・整備、とくに skk/texi
 
-**** SKK-JISYO.zipcode
+** elisp におけるメンテナンス
 
-**** SKK-JISYO.office.zipcode
+* Eiji Obata
 
 ** elisp におけるアイデアと拡張
 
-*** skk-jisx0201.el
+*** skk-dinsert.el (動的入力)
 
-*** skk-jisyo-edit-mode.el
+* Itsushi Minoura
 
-*** かな入力サポートの Openlab CVS へのインポート
+** elisp におけるアイデアと拡張
+
+*** NICOLA-SKK (SKK に対する親指シフト入力インターフェース)
+
+* Tetsuo Tsukamoto
+
+*** 新しい SKK 辞書の追加
+
+**** SKK-JISYO.zipcode (郵便番号辞書)
+
+**** SKK-JISYO.office.zipcode (郵便番号辞書の事業所版)
+
+** elisp におけるアイデアと拡張
+
+*** skk-jisx0201.el (半角かな入力)
+
+*** skk-jisyo-edit-mode.el (辞書編集用メジャーモード)
+
+*** かな配列サポートの Openlab CVS へのインポート (NICOLA-DDSKK)
 
 ** ドキュメント執筆・整備
+
+* GUNJI Takao
+
+** elisp におけるアイデアと拡張
+
+*** skk-tutcode.el (TUT-code 入力への対応)
+
+* Yoshiki Hayashi
+
+** elisp におけるアイデアと拡張
+
+*** skk-hint.el (ヒントの入力による候補絞り込み)
+
+* ONODA Arata
+
+** elisp におけるアイデアと拡張
+
+*** skk-azik.el (拡張ローマ字入力 "AZIK" 対応)
+
+* YAGI Tatsuya
+
+** elisp におけるアイデアと拡張
+
+*** skk-tankan.el (単漢字変換)
+
+* Kenichi Kurihara
+
+** elisp におけるアイデアと拡張
+
+*** skk-bayesian.el, bskk (進化した学習機能)
+
+* Fumihiko MACHIDA
+
+** elisp におけるアイデアと拡張
+
+*** skk-server-completion.el (サーバ補完機能)
