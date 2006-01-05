@@ -1,17 +1,177 @@
--*- text -*-
+-*- outline -*-
 
-o 原作者; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
+* Masahiko Sato
 
-o SKK-9.6 の主な開発者;
-  Kiyotaka Sakai <ksakai@netwk.ntt-at.co.jp>
-  NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+** 原作者
 
-o SKK-10.x (legacy branch) の主な開発者;
-  Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
-  NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-  Murata Shuuichirou <mrt@notwork.org>
-  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+*** skk.el
 
-o Daredevil SKK-11.x (forked from SKK 10.56) の主な開発者;
-  NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
+*** skk-tut.el, SKK.tut
+
+*** vip.el
+
+* Yukiyoshi Kameyama
+
+** 初期からの SKK 開発
+
+*** skkserv
+
+* Enami Tsugutomo
+
+** 主に Openlab 以前の SKK の開発
+
+*** skk-isearch.el
+
+** 意味辞書 (アノテーションの原案) の発案
+
+* Kiyotaka Sakai
+
+** 主に SKK 9.6 の開発
+
+* NAKAJIMA Mikio
+
+** SKK Openlab 以前からの SKK 開発
+
+** Daredevil SKK と SKK Openlab 旗揚げ，全般の調整と維持
+
+** SKK 辞書の拡張，維持
+
+*** 真鵺道を利用した校正の導入
+
+*** アノテーションの導入
+
+*** 新しい SKK 辞書の追加
+
+**** SKK-JISYO.addoc
+
+**** SKK-JISYO.mazegaki
+
+*** 各種辞書・データの SKK 形式への変換
+
+**** SKK-JISYO.JIS3_4
+
+**** SKK-JISYO.edict
+
+**** SKK-JISYO.itaiji
+
+**** SKK-JISYO.jinmei
+
+**** SKK-JISYO.law
+
+**** SKK-JISYO.okinawa
+
+**** SKK-JISYO.pubdic
+
+** elisp におけるアイデアと拡張
+
+*** APEL の導入と APEL 本体への貢献
+
+*** skk-abbrev.el
+
+*** skk-annotation.el
+
+*** skk-dcomp.el
+
+*** skk-kakasi.el
+
+*** skk-look.el
+
+*** skk-lookup.el
+
+*** skk-rdbms.el
+
+*** skk-setup.el
+
+*** skk-study.el
+
+*** skk-w3m.el
+
+** ドキュメント執筆・整備
+
+* Hideki Sakurada
+
+** 主に SKK 10 の開発
+
+*** 新しいかな入力ルーチン
+
+*** skksearch (辞書サーバ)
+
+* Murata Shuuichirou
+
+** 主に SKK 10 の開発
+
+*** skk-leim.el
+
+*** skk-viper.el
+
+* Masatake YAMATO
+
+** elisp 開発におけるアイデアとコード
+
+*** ccc.el
+
+*** skk-cursor.el
+
+*** context-skk.el
+
+*** tooltip による候補一覧表示
+
+*** inline 候補一覧表示
+
+* IIDA Yosiaki
+
+** SKK 辞書の開発
+
+*** 多数の新規エントリ追加
+
+*** 新しい SKK 辞書の追加
+
+**** SKK-JISYO.geo
+
+*** SKK-JISYO.S の開発と維持
+
+* MITA Yuusuke
+
+** SKK 辞書の拡張、維持
+
+*** SKK 辞書 Wiki の主要執筆者
+
+*** 多数の新規エントリ追加
+
+*** 新しい SKK 辞書の追加
+
+**** SKK-JISYO.hukugougo
+
+**** SKK-JISYO.notes
+
+**** SKK-JISYO.propernoun
+
+**** SKK-JISYO.station
+
+*** 各種辞書・データの SKK 形式への変換
+
+**** SKK-JISYO.fullname
+
+*** SKK 辞書ツールの開発と維持
+
+**** ruby による SKK 辞書の加工・編纂ツール
+
+** SKK フロントエンドからの SKK 辞書利用法に関する提言
+
+* Tsukamoto Tetsuo
+
+*** 新しい SKK 辞書の追加
+
+**** SKK-JISYO.zipcode
+
+**** SKK-JISYO.office.zipcode
+
+** elisp におけるアイデアと拡張
+
+*** skk-jisx0201.el
+
+*** skk-jisyo-edit-mode.el
+
+*** かな入力サポートの Openlab CVS へのインポート
+
+** ドキュメント執筆・整備
