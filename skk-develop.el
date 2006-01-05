@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.24 2006/01/05 16:56:27 skk-cvs Exp $
+;; Version: $Id: skk-develop.el,v 1.25 2006/01/05 18:28:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/05 16:56:27 $
+;; Last Modified: $Date: 2006/01/05 18:28:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -108,18 +108,17 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 	       (list
 		(list
 		 (concat "(\\(\\(skk-\\)?def\\("
-			 ;; Function declarations.
-			 "\\(un-cond\\|subst-cond\\|un-maybe\\)\\|"
-			 ;; Variable declarations.
+			 ;; Function type declarations.
+			 "\\(un-cond\\|subst-cond\\|advice\\|"
+			 "macro-maybe\\|alias-maybe\\|un-maybe\\)\\|"
+			 ;; Variable type declarations.
 			 "\\(var\\|localvar\\)"
-			 ;; Declarations of other forms.
-			 "\\(advice\\|macro-maybe\\)"
 			 "\\)\\)\\>"
 			 ;; Any whitespace and defined object.
 			 "[ \t'\(]*"
 			 "\\(\\sw+\\)?")
 		 '(1 font-lock-keyword-face)
-		 '(5 (cond ((match-beginning 3) font-lock-function-name-face)
+		 '(6 (cond ((match-beginning 4) font-lock-function-name-face)
 			   ((match-beginning 5) font-lock-variable-name-face))
 		     nil t)))
 	       lisp-font-lock-keywords-2)))))
