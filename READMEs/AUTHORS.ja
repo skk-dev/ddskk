@@ -21,8 +21,6 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 *** skk-comp.el (from skk.el, 補完機能)
 
-*** skk-comp.el (from skk.el, 補完機能)
-
 *** skk-gadget.el (from skk.el, elisp 実行変換機能)
 
 *** skk-kcode.el (from skk.el, 漢字のコード入力)
