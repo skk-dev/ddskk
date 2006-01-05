@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.166 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.167 2006/01/05 13:10:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2006/01/05 13:10:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -245,6 +245,13 @@ Automatically becomes buffer-local when set in any fashion."
   ;;  "*List of characters for entering prefixes and suffixes."
   :type '(repeat character)
   :group 'skk-keybinds)
+
+(defcustom skk-learn-combined-word nil
+  "*接頭辞、接尾辞の入力の結果を自動的に学習するかどうかを設定する。
+Non-nil ならば、接頭辞または接尾辞入力の際、接頭辞または接尾辞と結合した
+語を自動的に学習する。"
+  :type 'boolean
+   :group 'skk-misc)
 
 (defcustom skk-mode-hook nil
   "*SKK を起動したときのフック。
