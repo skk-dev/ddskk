@@ -3,6 +3,13 @@
 	* skk-develop.el: Use before-init-hook for setting
 	lisp-font-lock-keywords-2.
 
+	* skk-vars.el (skk-learn-combined-word): New user option, default
+	to nil.
+
+	* skk.el (skk-kakutei): Do not learn combind word if
+	skk-learn-combined-word is nil.  Before combining prefix and word,
+	strip note from word.
+
 2006-01-04  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-insert): Don't call `skk-process-prefix-or-suffix'
