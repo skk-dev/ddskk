@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.344 2006/01/04 17:46:39 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.345 2006/01/05 13:10:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 17:46:39 $
+;; Last Modified: $Date: 2006/01/05 13:10:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2461,6 +2461,9 @@ WORD で確定する。"
 	  (skk-update-jisyo kakutei-word)
 	  ;; 接尾辞・接頭辞に関する処理
 	  (cond
+	   ((not skk-learn-combined-word)
+	    ;; ユーザが希望しない限り何の処理もしない。
+	    (setq skk-after-prefix nil))
 	   ((and skk-after-prefix
 		 (not (string-match "^[^\000-\177]+>$" skk-henkan-key)))
 	    ;; このバッファにおいて、接頭辞に続く入力が進行中。
@@ -2472,20 +2475,22 @@ WORD で確定する。"
 				  ;; 同じバッファだったら
 				  (throw 'list (car history))
 				(setq history (cdr history))))))
+		   (list1-word (car (skk-treat-strip-note-from-word
+				     (nth 1 list1))))
 		   skk-henkan-key comb-word)
 	      (when (and (stringp (nth 1 list2))
 			 (string-match "^[^\000-\177]+>$" (car list2))
 			 (skk-save-point
 			  (ignore-errors
 			    (goto-char (- skk-henkan-start-point
-					  (length (nth 1 list1))))
+					  (length list1-word)))
 			    (looking-at (nth 1 list2)))))
 		(setq skk-henkan-key
 		      (concat (substring (car list2)
 					 0
 					 (1- (length (car list2))))
 			      (car list1)) ; さいりよう
-		      comb-word (concat (nth 1 list2) (nth 1 list1))) ; 再利用
+		      comb-word (concat (nth 1 list2) list1-word)) ; 再利用
 		(skk-update-jisyo comb-word))
 	      (setq skk-after-prefix nil)))
 	   ((and (stringp (caar skk-kakutei-history))
