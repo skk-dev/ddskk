@@ -14,7 +14,7 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 * Masahiko Sato
 
-** 原作者
+** 原作者であり、以下のプログラムの著作者
 
 *** skk.el
 
@@ -96,7 +96,7 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 **** SKK-JISYO.pubdic (pubdic を SKK 形式に変換した辞書)
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** APEL の導入と APEL 本体への貢献
 
@@ -151,7 +151,7 @@ skk-server.el, skk-kcode.el, ccc.el
 
 ** 主に SKK 10 以降の開発
 
-** elisp アイデア・拡張
+** elisp 著作・アイデア
 
 *** skk-leim.el (SKK の LEIM 機構への対応)
 
@@ -164,7 +164,7 @@ skk-num.el, skk-isearch.el
 
 * Masatake YAMATO
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** ccc.el (Emacs 用カーソル色制御機構)
 
@@ -226,7 +226,7 @@ skk-num.el, skk-isearch.el
 
 **** ruby による SKK 辞書の加工・編纂ツール
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** 以下のプログラムを改変
 
@@ -238,7 +238,7 @@ skk-num.el, skk-isearch.el
 
 ** ドキュメント執筆・整備、とくに skk.texi を中心として
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** 以下のプログラムを改変
 
@@ -263,7 +263,9 @@ skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 
 * Eiji Obata
 
-** elisp におけるアイデアと拡張
+** SKK 辞書の拡張、維持
+
+** elisp 著作・アイデア
 
 *** skk-dinsert.el (動的入力)
 
@@ -276,11 +278,13 @@ skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el
 
 * Itsushi Minoura
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** NICOLA-SKK (SKK に対する親指シフト入力インターフェース)
 
 * Tetsuo Tsukamoto
+
+** SKK 辞書の拡張、維持
 
 *** 各種辞書・データの SKK 形式への変換
 
@@ -288,7 +292,7 @@ skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el
 
 **** SKK-JISYO.office.zipcode (郵便番号辞書の事業所版)
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** skk-jisx0201.el (半角カナ入力)
 
@@ -300,7 +304,7 @@ skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el
 
 * FURUE Hideyuki
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** 確定情報のみのアンドゥ機能
 
@@ -311,13 +315,13 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 * GUNJI Takao
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** skk-tutcode.el (TUT-code 入力への対応)
 
 * Yoshiki Hayashi
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** skk-hint.el (ヒントの入力による候補絞り込み)
 
@@ -327,13 +331,13 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 * ONODA Arata
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** skk-azik.el (拡張ローマ字入力 "AZIK" 対応)
 
 * YAGI Tatsuya
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** skk-tankan.el (単漢字変換)
 
@@ -349,7 +353,7 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 * Kenichi Kurihara
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** skk-bayesian.el, bskk (進化した学習機能)
 
@@ -359,6 +363,6 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 * Fumihiko MACHIDA
 
-** elisp におけるアイデアと拡張
+** elisp 著作・アイデア
 
 *** skk-server-completion.el (サーバ補完機能)
