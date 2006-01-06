@@ -1,5 +1,8 @@
 2006-01-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk.el (skk-kakutei): When combining word, always strip note
+	from all words.
+
 	* skk-vars.el (skk-look-dictionary):
 	(skk-look-ignore-case):
 	(skk-look-dictionary-order):
