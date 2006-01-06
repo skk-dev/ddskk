@@ -16,6 +16,7 @@
 	(skk-look-ispell):
 
 	Abolish 2nd arg ignore-case. Instead, take new 2nd arg situation.
+	Simplify.
 
 	(skk-look): Pass `conversion' as the 2nd arg for them.
 	(skk-look-completion): Pass `completion' as the 2nd arg for them.
