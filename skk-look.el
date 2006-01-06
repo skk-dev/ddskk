@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.31 2006/01/06 05:22:49 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.32 2006/01/06 08:05:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/06 05:22:49 $
+;; Last Modified: $Date: 2006/01/06 08:05:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -191,17 +191,11 @@
 			       skk-look-completion-arguments)
 			      (t
 			       "%s")))
-	 args preargs postargs)
-    (if (string= format-string "%s")
-	(setq args (list word))
-      (save-match-data
-	(when (string-match "%s" format-string)
-	  (setq preargs (substring format-string 0 (match-beginning 0))
-		postargs (substring format-string (match-end 0))
-		args (append
-		      (delete "" (split-string preargs " "))
-		      (list word)
-		      (delete "" (split-string postargs " ")))))))
+	 args)
+    (setq args
+	  (if (string= format-string "%s")
+	      (list word)
+	    (delete "" (split-string (format format-string word) " "))))
     (with-temp-buffer
       (when (and (= 0 (apply #'call-process skk-look-command nil t nil args))
 		 (> (buffer-size) 0))
