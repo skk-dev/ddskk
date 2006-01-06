@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.346 2006/01/05 16:34:15 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.347 2006/01/06 10:20:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/05 16:34:15 $
+;; Last Modified: $Date: 2006/01/06 10:20:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2483,20 +2483,22 @@ WORD で確定する。"
 				(setq history (cdr history))))))
 		   (list1-word (car (skk-treat-strip-note-from-word
 				     (nth 1 list1))))
+		   (list2-word (car (skk-treat-strip-note-from-word
+				     (nth 1 list2))))
 		   skk-henkan-key comb-word)
-	      (when (and (stringp (nth 1 list2))
+	      (when (and (stringp list2-word)
 			 (string-match "^[^\000-\177]+>$" (car list2))
 			 (skk-save-point
 			  (ignore-errors
 			    (goto-char (- skk-henkan-start-point
 					  (length list1-word)))
-			    (looking-at (nth 1 list2)))))
+			    (looking-at list2-word))))
 		(setq skk-henkan-key
 		      (concat (substring (car list2)
 					 0
 					 (1- (length (car list2))))
 			      (car list1)) ; さいりよう
-		      comb-word (concat (nth 1 list2) list1-word)) ; 再利用
+		      comb-word (concat list2-word list1-word)) ; 再利用
 		(skk-update-jisyo comb-word))
 	      (setq skk-after-prefix nil)))
 	   ((and (stringp (caar skk-kakutei-history))
@@ -2511,12 +2513,16 @@ WORD で確定する。"
 				  ;; 同じバッファだったら
 				  (throw 'list (car history))
 				(setq history (cdr history))))))
+		   (list1-word (car (skk-treat-strip-note-from-word
+				     (nth 1 list1))))
+		   (list2-word (car (skk-treat-strip-note-from-word
+				     (nth 1 list2))))
 		   skk-henkan-key comb-word)
-	      (when (stringp (nth 1 list2))
+	      (when (stringp list2-word)
 		(setq skk-henkan-key
 		      (concat (car list2)
 			      (substring (car list1) 1)) ; かんどうてき
-		      comb-word (concat (nth 1 list2) (nth 1 list1))) ; 感動的
+		      comb-word (concat list2-word list1-word)) ; 感動的
 		(skk-update-jisyo comb-word)))))
 	  ;;
 	  (when (skk-numeric-p)
