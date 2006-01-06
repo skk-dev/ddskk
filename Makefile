@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.58 2005/12/26 08:37:14 skk-cvs Exp $
-# Last Modified: $Date: 2005/12/26 08:37:14 $
+# Version: $Id: Makefile,v 1.59 2006/01/06 13:03:52 skk-cvs Exp $
+# Last Modified: $Date: 2006/01/06 13:03:52 $
 
 
 VERSION = 13.0.90
@@ -19,7 +19,7 @@ SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = tar
 XEMACS	  = xemacs
 RUBY      = ruby
-SKK_DEFAULT_JISYO = ../dic/SKK-JISYO.S
+SKK_DEFAULT_JISYO =
 set_jisyo =
 
 elc:
@@ -62,10 +62,10 @@ TAGS:
 	$(ETAGS) `find . -name '*.el'`
 clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
-	auto-autoloads.el custom-load.el \
+	auto-autoloads.el custom-load.el skk-dic.el \
 	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
-tar: clean rb-skk-dic
+tar: clean
 	cd .. ;\
 	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot ddskk$(VERSION).tar.gz ddskk$(VERSION).tar.bz2 ddskk-$(VERSION).tar.gz ddskk-$(VERSION).tar.bz2 ;\
 	$(RM) ddskk-$(VERSION) ;\
@@ -79,7 +79,7 @@ tar: clean rb-skk-dic
 	$(MD5) ddskk-$(VERSION).tar.gz >ddskk-$(VERSION).tar.gz.md5
 	$(RM) skk-dic.el
 
-snapshot: clean rb-skk-dic
+snapshot: clean
 	cd .. ;\
 	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot $(SNAPBASE).tar.gz $(SNAPBASE).tar.bz2 ;\
 	$(RM) $(SNAPBASE) ;\
