@@ -1,6 +1,19 @@
 2006-01-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk.el (skk-kakutei): When combining word, always strip note
+	* Makefile: Don't set SKK_DEFAULT_JISYO.
+
+	(tar):
+	(snapshot):
+
+	No longer depend on rb-skk-dic.
+
+	(clean): Remove skk-dic.el.
+
+	* SKK-MK (SKK_DEFAULT_JISYO): Default to nil.
+	(SKK-MK-skk-dic): If user does not specify SKK_DEFAULT_JISYO, just
+	copy skk-dic.el.in to skk-dic.el.
+
+	* skk.el (skk-kakutei): When combining words, always strip notes
 	from all words.
 
 	* skk-vars.el (skk-look-dictionary):
@@ -14,6 +27,8 @@
 	(skk-look-completion-arguments):
 
 	New variables.
+
+	(skk-search-prog-list): Remove `skk-search-small-dic'.
 
 	* skk-look.el (skk-look-1):
 	(skk-look-ispell):

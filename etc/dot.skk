@@ -258,13 +258,11 @@
 ;; (setq skk-search-prog-list
 ;;   '(;; 1. 個人辞書
 ;;     (skk-search-jisyo-file skk-jisyo 0 t)
-;;     ;; 2. SKK-JISYO.S を元にした個人辞書の補助辞書
-;;     (skk-search-small-dic)
-;;     ;; 3. list の前方に置くべき機能
+;;     ;; 2. list の前方に置くべき機能
 ;;     (skk-abbrev-search)
 ;;     (skk-look)
 ;;     (skk-okuri-search)
-;;     ;; 4. 以下に直接検索したい辞書を検索順に列挙する
+;;     ;; 3. 以下に直接検索したい辞書を検索順に列挙する
 ;;     (skk-search-jisyo-file
 ;;      '("/usr/share/skk/SKK-JISYO.L" . euc-jp) 10000)
 ;;     (skk-search-jisyo-file
@@ -295,12 +293,12 @@
 ;;      '("/usr/share/skk/SKK-JISYO.zipcode" . euc-jp) 10000)
 ;;     (skk-search-jisyo-file
 ;;      '("/usr/share/skk/SKK-JISYO.office.zipcode" . euc-jp) 10000)
-;;     ;; 5. その他の検索手段を検索順に列挙する
+;;     ;; 4. その他の検索手段を検索順に列挙する
 ;;     (skk-lookup-search)
 ;;     (skk-search-server skk-aux-large-jisyo 10000)
 ;;     (skk-search-katakana t)
-;;     ;; 注) 4 → 5 は好みにより 5 → 4 の順にすることもできる
-;;     ;; 6. list の後方に置くべき機能
+;;     ;; 注) 3 → 4 は好みにより 4 → 3 の順にすることもできる
+;;     ;; 5. list の後方に置くべき機能
 ;;     (skk-search-sagyo-henkaku)
 ;;     ))
 ;; 注) skk-search-prog-list は厳密な意味でのユーザオプションではないので
