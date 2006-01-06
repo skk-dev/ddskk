@@ -15,7 +15,7 @@
 	* skk-look.el (skk-look-1):
 	(skk-look-ispell):
 
-	Abolish 2nd arg ignore-case. Instead, take new 2nd arg situation.
+	Abolish 2nd arg ignore-case.  Instead, take new 2nd arg situation.
 	Simplify.
 
 	(skk-look): Pass `conversion' as the 2nd arg for them.
