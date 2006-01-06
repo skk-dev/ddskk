@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.168 2006/01/06 05:22:31 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.169 2006/01/06 13:11:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/06 05:22:31 $
+;; Last Modified: $Date: 2006/01/06 13:11:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -376,7 +376,6 @@ SKK サーバーが active でなければ、指定された辞書をバッファに読み込む。
   '((skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
     (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
     (skk-search-jisyo-file skk-jisyo 0 t)
-    (skk-search-small-dic)
     (skk-okuri-search)
     (skk-search-jisyo-file skk-large-jisyo 10000)
     (skk-search-server skk-aux-large-jisyo 10000))
