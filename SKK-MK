@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.135 2006/01/04 11:11:16 skk-cvs Exp $
-;; Last Modified: $Date: 2006/01/04 11:11:16 $
+;; Version: $Id: SKK-MK,v 1.136 2006/01/06 13:08:11 skk-cvs Exp $
+;; Last Modified: $Date: 2006/01/06 13:08:11 $
 
 ;;; Commentary:
 
@@ -254,7 +254,7 @@ This version of SKK requires MULE features"))
 
 (defvar SKK_DEFAULT_JISYO
   (or (getenv "SKK_DEFAULT_JISYO")
-      "SKK-JISYO.S"))
+      nil))
 
 (defvar SKK_MODULES
   ;; こんなもんコマンドラインで指定する人いないよね？
@@ -1051,21 +1051,33 @@ SKK tutorials:
 (defun SKK-MK-skk-dic ()
   (require 'poem)
   (let* ((buf (get-buffer-create " *SKK-JISYO.S*"))
-	 (jisyo0 (expand-file-name SKK_DEFAULT_JISYO))
-	 (jisyo1 (expand-file-name SKK_DEFAULT_JISYO "dic"))
-	 (jisyo2 (expand-file-name "SKK-JISYO.S" "dic"))
-	 (jisyo3 (expand-file-name "SKK-JISYO.S" "../dic"))
+	 (jisyo0 (and SKK_DEFAULT_JISYO
+		      (expand-file-name SKK_DEFAULT_JISYO)))
+	 (jisyo1 (and SKK_DEFAULT_JISYO
+		      (expand-file-name SKK_DEFAULT_JISYO "dic")))
+	 (jisyo2 (and SKK_DEFAULT_JISYO
+		      (expand-file-name "SKK-JISYO.S" "dic")))
+	 (jisyo3 (and
+		  (expand-file-name "SKK-JISYO.S" "../dic")))
 	 (jisyo (cond
-		 ((file-readable-p jisyo0)
+		 ((not SKK_DEFAULT_JISYO)
+		  nil)
+		 ((and (file-readable-p jisyo0)
+		       (not (file-directory-p jisyo0)))
 		  jisyo0)
-		 ((file-readable-p jisyo1)
+		 ((and (file-readable-p jisyo1)
+		       (not (file-directory-p jisyo1)))
 		  jisyo1)
-		 ((file-readable-p jisyo2)
+		 ((and (file-readable-p jisyo2)
+		       (not (file-directory-p jisyo2)))
 		  jisyo2)
-		 ((file-readable-p jisyo3)
+		 ((and (file-readable-p jisyo3)
+		       (not (file-directory-p jisyo3)))
 		  jisyo3)))
 	 (skk-dic (expand-file-name "skk-dic.el")))
     (cond
+     ((not jisyo)
+      (copy-file "skk-dic.el.in" "skk-dic.el" t t))
      ((and (file-exists-p skk-dic)
 	   (file-newer-than-file-p
 	    skk-dic
@@ -1074,7 +1086,7 @@ SKK tutorials:
 "
 		     skk-dic))
       nil)
-     (jisyo
+     (t
       (princ (format "Processing %s...
 "
 		     jisyo))
@@ -1103,8 +1115,6 @@ SKK tutorials:
 	(write-region-as-coding-system
 	 'iso-2022-jp
 	 (point-min) (point-max)
-	 (expand-file-name "skk-dic.el"))))
-     (t
-      (copy-file "skk-dic.el.in" "skk-dic.el" t t)))))
+	 (expand-file-name "skk-dic.el")))))))
 
 ;;; SKK-MK ends here
