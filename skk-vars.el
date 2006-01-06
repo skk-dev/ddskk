@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.167 2006/01/05 13:10:10 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.168 2006/01/06 05:22:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/05 13:10:10 $
+;; Last Modified: $Date: 2006/01/06 05:22:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2073,63 +2073,69 @@ nil なら KAKASI コマンドは標準の辞書を参照する。"
   :group 'skk-filenames
   :group 'skk-look)
 
-(defcustom skk-look-dictionary
-  (cond ((file-exists-p "/usr/share/dict/words")
-	 "/usr/share/dict/words")
-	((file-exists-p "/usr/dict/words")
-	 "/usr/dict/words")
-	((file-exists-p "/usr/share/lib/dict/words")
-	 "/usr/share/lib/dict/words")
-	(t
-	 nil))
-  "*look コマンドが検索する辞書ファイル。
-nil の場合は look コマンドに辞書ファイル名を渡さずに実行する。
-ただし、 look コマンドは辞書ファイル名を渡す場合と渡さない場合とで
-挙動が異なるため、ユーザは注意する必要がある。
+(defcustom skk-look-conversion-arguments
+  (concat "-df %s "
+	  (cond ((file-exists-p "/usr/share/dict/words")
+		 "/usr/share/dict/words")
+		((file-exists-p "/usr/share/lib/dict/words")
+		 "/usr/share/lib/dict/words")
+		((file-exists-p "/usr/dict/words")
+		 "/usr/dict/words")
+		(t
+		 "")))
+  "*look コマンドが英数「変換」時に呼び出される際に渡す引数を指定する変数。
+一般に look コマンドは以下の形式で呼び出される。
 
-look コマンドは一般的に、辞書ファイル名を渡した場合は -d, -f のオプ
-ションの有無をチェックするが、辞書ファイル名を渡さない場合は強制的に
--d と -f が有効になる。従って、2 つのユーザオプション
-`skk-look-ignore-case' と `skk-look-dictionary-order' は効力を失う。"
-  :type 'file
-  :group 'skk-filenames
+     look [-df] [-t termchar] string [file]
+
+それぞれの意味については \\[man] look を参照されたい。
+この変数には、上記のような全引数のうち string を %s に置換したものを指定する。
+
+注意事項として、look コマンドに渡す引数 -d と -f に関しては、 file が 同じ
+引数で sort されている必要がある。例えば look -df で検索するときは sort -df
+で、 look -d で検索するときは sort -d で sort されている必要がある。このこと
+に関しては \\[man] sort も参照されたい。
+
+もうひとつの注意点として、 look の最後の引数として file を渡さないと (省略する
+と) 強制的に引数 -d と -f の機能が有効になる。もし look を思い通り制御したけれ
+ば適切な file を指定するべきである。
+
+ (設定例)
+
+ (setq skk-look-conversion-arguments \"-df %s /usr/share/dict/words\")
+"
+  :type 'string
   :group 'skk-look)
 
-(defcustom skk-look-ignore-case t
-  "*大文字・小文字を区別しないで検索を行うかどうかを指定する。
-有効ならば look コマンドにオプション \"-f\" を渡す。
-t ならば、補完時と英数字変換時に大文字・小文字を区別しない。
-`completion' ならば、補完時は大文字・小文字を区別しない。
-`conversion' ならば、英数字変換時は大文字・小文字を区別しない。
-nil ならば、常に大文字・小文字を区別する。"
-  :type '(choice (const :tag "補完時と英数字変換時に有効" t)
-		 (const :tag "補完時だけ有効" completion)
-		 (const :tag "英数字変換時だけ有効" completion)
-		 (const :tag "無効" nil))
+(defcustom skk-look-completion-arguments
+  (concat "-df %s "
+	  (cond ((file-exists-p "/usr/share/dict/words")
+		 "/usr/share/dict/words")
+		((file-exists-p "/usr/share/lib/dict/words")
+		 "/usr/share/lib/dict/words")
+		((file-exists-p "/usr/dict/words")
+		 "/usr/dict/words")
+		(t
+		 "")))
+  "*look コマンドが英数「補完」時に呼び出される際に渡す引数を指定する変数。
+look コマンドに関しては変数 `skk-look-conversion-arguments' のドキュメント、
+および \\[man] look を参照されたい。
+
+ (設定例)
+
+ (setq skk-look-completion-arguments \"-d %s /usr/share/dict/words.case\")
+"
+  :type 'string
   :group 'skk-look)
 
-(defcustom skk-look-dictionary-order t
-  "*Non-nil であれば、辞書順にソートされた検索ファイルを使用する。
-look コマンドにオプション \"-d\" を渡す。"
-  :type 'boolean
-  :group 'skk-look)
-
-(defcustom skk-look-termination-character nil
-  "*UNIX look コマンドオプションの終端文字列。
-look コマンドにオプション \"-t\" とその文字列を渡す。
-nil であればこのオプションは使用されない。"
-  :type '(choice string (const nil))
-  :group 'skk-look)
-
-(defcustom skk-look-recursive-search nil "\
-*Non-nil であれば、look コマンドが見つけた英単語を変換キーにし、再検索を行う。
+(defcustom skk-look-recursive-search nil
+  "*Non-nil ならば look コマンドが見つけた英単語を変換キーにして再検索を行う。
 再検索の結果、候補が見つからなければ、元の英単語自身を候補として出力する。"
   :type 'boolean
   :group 'skk-look)
 
 (defcustom skk-look-expanded-word-only t
-  "\
-*Non-nil ならば look の出力に対する再検索が成功した候補のみを表示する。
+  "*Non-nil ならば look の出力に対する再検索が成功した候補のみを表示する。
 `skk-look-recursive-search' が non-nil であるときのみ有効。"
   :type 'boolean
   :group 'skk-look)
