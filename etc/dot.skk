@@ -212,13 +212,13 @@
   (add-hook 'skk-search-excluding-word-pattern-function
 	    ;; KAKUTEI-WORD を引数にしてコールされるので、不要でも引数を取る
 	    ;; 必要あり
-       #'(lambda (kakutei-word)
-	   (and skk-abbrev-mode
-		(save-match-data
-		  ;; `skk-henkan-key' が "*" で終わるとき、または
-		  ;; `skk-henkan-key' が数字のみのとき
-		  (or (string-match "\\*$" skk-henkan-key)
-		      (string-match "^[0-9]*$" skk-henkan-key)))))))
+	    #'(lambda (kakutei-word)
+		(and skk-abbrev-mode
+		     (save-match-data
+		       ;; `skk-henkan-key' が "*" で終わるとき、または
+		       ;; `skk-henkan-key' が数字のみのとき
+		       (or (string-match "\\*$" skk-henkan-key)
+			   (string-match "^[0-9]*$" skk-henkan-key)))))))
 
 ;; 数値変換機能を使う
 (setq skk-use-numeric-conversion t)
