@@ -190,25 +190,35 @@
 ;; @@ 検索に関連した設定
 
 ;; look コマンドを使った検索をする
-;; (setq skk-use-look t)
+(setq skk-use-look t)
 
-;; (when skk-use-look
-;;   ;; look が見つけた語を見出し語として検索する
-;;   (setq skk-look-recursive-search t)
-;;   ;; ispell を look と一緒に使うのはやめる
-;;   (setq skk-look-use-ispell nil)
-;;   ;; `skk-abbrev-mode' で skk-look を使った検索をしたときに確定情報を
-;;   ;; 個人辞書に記録しないようにする
-;;   (add-hook 'skk-search-excluding-word-pattern-function
-;;	       ;; KAKUTEI-WORD を引数にしてコールされるので、不要でも引数を取る
-;;	       ;; 必要あり
-;;	       #'(lambda (kakutei-word)
-;;		   (and skk-abbrev-mode
-;;		        (save-match-data
-;;		          ;; `skk-henkan-key' が "*" で終わるとき、または
-;;		          ;; `skk-henkan-key' が数字のみのとき
-;;		          (or (string-match "\\*$" skk-henkan-key)
-;;			      (string-match "^[0-9]*$" skk-henkan-key)))))))
+(when skk-use-look
+  ;; look が見つけた語を見出し語として検索する
+  (setq skk-look-recursive-search t)
+  ;; ispell を look と一緒に使うのはやめる
+  (setq skk-look-use-ispell nil)
+  ;; look に渡すコマンドラインオプションの設定。補完時と検索時それぞれに
+  ;; ついて設定できる。以下の例では、補完時は case を見て、検索時には
+  ;; case を無視する。ただし look で case を見るときは、それ専用の辞書を
+  ;; sort コマンドで作る必要がある。(look の引数 -d, -f は sort の引数
+  ;; -d, -f と一致させておく必要がある) 例えば、以下の words.case という
+  ;; ファイルは
+  ;; % sort -d words > words.case
+  ;; などとして作製する。
+  (setq skk-look-completion-arguments "-d %s /usr/share/dict/words.case")
+  (setq skk-look-conversion-arguments "-df %s /usr/share/dict/words")
+  ;; `skk-abbrev-mode' で skk-look を使った検索をしたときに確定情報を
+  ;; 個人辞書に記録しないようにする
+  (add-hook 'skk-search-excluding-word-pattern-function
+	    ;; KAKUTEI-WORD を引数にしてコールされるので、不要でも引数を取る
+	    ;; 必要あり
+       #'(lambda (kakutei-word)
+	   (and skk-abbrev-mode
+		(save-match-data
+		  ;; `skk-henkan-key' が "*" で終わるとき、または
+		  ;; `skk-henkan-key' が数字のみのとき
+		  (or (string-match "\\*$" skk-henkan-key)
+		      (string-match "^[0-9]*$" skk-henkan-key)))))))
 
 ;; 数値変換機能を使う
 (setq skk-use-numeric-conversion t)
