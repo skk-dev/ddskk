@@ -100,11 +100,17 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 *** APEL の導入と APEL 本体への貢献
 
+*** SKK-MK (インストールスクリプト)
+
 *** skk-abbrev.el (Emacs の abbrev を利用した補完と変換)
 
 *** skk-annotation.el (注釈の作製と表示機能)
 
 *** skk-dcomp.el (動的補完機能)
+
+*** skk-develop.el (SKK 開発補助機能)
+
+*** skk-jisx0213.el (JISX0213 文字コード関連プログラム)
 
 *** skk-kakasi.el (SKK からの KAKASI 利用)
 
@@ -112,13 +118,26 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 *** skk-lookup.el (辞書検索ツール Lookup を介した検索)
 
+*** skk-mkmgk.el (混ぜ書き辞書作製)
+
+*** skk-obsolete.el (廃止・名前変更変数関数のチェック)
+
 *** skk-rdbms.el (PostgreSQL のデータベース機能を利用した変換)
 
-*** skk-setup.el (SKK の自動設定)
+*** skk-setup.el.in (SKK の自動設定)
 
 *** skk-study.el (学習機構)
 
+*** skk-version.el (SKK バージョン情報)
+
 *** skk-w3m.el (w3m を利用した web 検索エンジンによる検索)
+
+*** 以下のプログラムへの改変
+
+**** skk.el, skk-bayesian.el, skk-macs.el, skk-vars.el, skk-hint.el,
+skk-dic.el.in, skk-num.el, skk-viper.el, skk-auto.el, skk-tut.el,
+skk-jisx0201.el, skk-gadget.el, skk-tutcode.el, skk-cursor.el,
+skk-server.el, skk-kcode.el, ccc.el
 
 ** ドキュメント執筆・整備
 
@@ -130,11 +149,18 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 * Murata Shuuichirou
 
-** 主に SKK 10 の開発
+** 主に SKK 10 以降の開発
+
+** elisp アイデア・拡張
 
 *** skk-leim.el (SKK の LEIM 機構への対応)
 
 *** skk-viper.el (vi エミュレーション vip, viper との協調)
+
+*** 以下のプログラムの改変
+
+**** skk.el, skk-macs.el, skk-study.el, skk-obsolete.el, skk-kcode.el,
+skk-num.el, skk-isearch.el
 
 * Masatake YAMATO
 
@@ -150,6 +176,10 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 *** inline 候補一覧表示
 
+*** 以下のプログラムの改変
+
+**** skk.el, ekk-e21.el, skk-vars.el, skk-xemacs.el
+
 * IIDA Yosiaki
 
 ** SKK 辞書の拡張、維持
@@ -161,6 +191,14 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 **** SKK-JISYO.geo (地名辞書)
 
 *** SKK-JISYO.S の開発と維持
+
+** elisp メンテナンス
+
+*** 以下のプログラムを改変
+
+**** skk-tut.el, skk-kcode.el
+
+** ドキュメント整備
 
 * MITA Yuusuke
 
@@ -188,27 +226,53 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 **** ruby による SKK 辞書の加工・編纂ツール
 
-** SKK フロントエンドからの SKK 辞書利用法に関する提言
+** elisp におけるアイデアと拡張
+
+*** 以下のプログラムを改変
+
+**** skk.el, skk-annotation.el
+
+*** SKK フロントエンドからの SKK 辞書利用法に関する提言 (see ML archives)
 
 * Tsuyoshi AKIHO
 
-** ドキュメント執筆・整備、とくに skk/texi
+** ドキュメント執筆・整備、とくに skk.texi を中心として
 
-** elisp におけるメンテナンス
+** elisp におけるアイデアと拡張
+
+*** 以下のプログラムを改変
+
+**** skk.el, skk-exsearch.el, skk-vars.el, skk-annotation.el, skk-tut.el,
+skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 
 * Yuh Ohmura
 
 ** インストール環境の整備
 
+*** make1.bat
+
 *** makeit.bat
 
 ** ドキュメント整備
+
+** elisp メンテナンス
+
+*** 以下のプログラムを改変
+
+**** skk.el
 
 * Eiji Obata
 
 ** elisp におけるアイデアと拡張
 
 *** skk-dinsert.el (動的入力)
+
+*** 以下のプログラムを改変
+
+**** skk.el, skk-annotation.el, skk-server-completion.el, skk-vars.el,
+skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el
+
+** ドキュメント整備
 
 * Itsushi Minoura
 
@@ -240,6 +304,11 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 *** 確定情報のみのアンドゥ機能
 
+*** 以下のプログラムを改変
+
+**** skk.el, skk-vars.el, skk-macs.el, skk-comp.el, skk-kakasi.el, skk-num.el,
+skk-kcode.el, skk-isearch.el, skk-cursor.el, 
+
 * GUNJI Takao
 
 ** elisp におけるアイデアと拡張
@@ -251,6 +320,10 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 ** elisp におけるアイデアと拡張
 
 *** skk-hint.el (ヒントの入力による候補絞り込み)
+
+*** 以下のプログラムを改変
+
+**** skk-vars.el
 
 * ONODA Arata
 
@@ -279,6 +352,10 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 ** elisp におけるアイデアと拡張
 
 *** skk-bayesian.el, bskk (進化した学習機能)
+
+*** 以下のプログラムを改変
+
+**** skk-kaksi.el, skk-viper.el
 
 * Fumihiko MACHIDA
 
