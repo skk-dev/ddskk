@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.30 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.31 2006/01/06 05:22:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2006/01/06 05:22:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -158,12 +158,11 @@
 	     skk-abbrev-mode
 	     (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
 		 ?*))
-    (let* ((args (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
-	   (ignore-case (not (memq skk-look-ignore-case '(nil completion))))
+    (let* ((substr (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
 	   (v (if (and (not (memq skk-look-use-ispell '(nil completion)))
-		       (> (length args) 0))
-		  (skk-look-ispell args ignore-case)
-		(skk-look-1 args ignore-case)))
+		       (> (length substr) 0))
+		  (skk-look-ispell substr 'conversion)
+		(skk-look-1 substr 'conversion)))
 	   skk-henkan-key
 	   skk-use-look
 	   v2 v3)
@@ -184,24 +183,27 @@
 			 v2)))))
 	v2)))))
 
-(defun skk-look-1 (args &optional ignore-case)
+(defun skk-look-1 (word situation)
   ;; core search engine
-  (with-temp-buffer
-    (let ((word args)
-	  opt)
-      (setq args (list args))
-      (when skk-look-dictionary
-	(nconc args (list skk-look-dictionary)))
-      (when skk-look-dictionary-order
-	(setq opt "d"))
-      (when ignore-case
-	(setq opt (concat "f" opt)))
-      (when opt
-	(setq args (cons (concat "-" opt) args)))
-      (when skk-look-termination-character
-	(setq args
-	      (cons (list "-t" skk-look-termination-character) args)))
-      (when (and (= 0 (apply 'call-process skk-look-command nil t nil args))
+  (let* ((format-string (cond ((eq situation 'conversion)
+			       skk-look-conversion-arguments)
+			      ((eq situation 'completion)
+			       skk-look-completion-arguments)
+			      (t
+			       "%s")))
+	 args preargs postargs)
+    (if (string= format-string "%s")
+	(setq args (list word))
+      (save-match-data
+	(when (string-match "%s" format-string)
+	  (setq preargs (substring format-string 0 (match-beginning 0))
+		postargs (substring format-string (match-end 0))
+		args (append
+		      (delete "" (split-string preargs " "))
+		      (list word)
+		      (delete "" (split-string postargs " ")))))))
+    (with-temp-buffer
+      (when (and (= 0 (apply #'call-process skk-look-command nil t nil args))
 		 (> (buffer-size) 0))
 	(delete word (split-string (buffer-substring-no-properties
 				    (point-min) (1- (point-max)))
@@ -210,15 +212,14 @@
 ;;;###autoload
 (defun skk-look-completion ()
   (unless skk-look-completion-words
-    (let ((stacked skk-comp-stack) ; 他の機能による補完候補。
-	  (ignore-case (not (memq skk-look-ignore-case '(nil conversion)))))
+    (let ((stacked skk-comp-stack)) ; 他の機能による補完候補。
       ;; look は複数の候補を吐くので、一旦貯めておいて、
       ;; 一つずつ complete する。
       (setq skk-look-completion-words
 	    (if (and (not (memq skk-look-use-ispell '(nil conversion)))
 		     (> (length skk-comp-key) 0))
-		(skk-look-ispell skk-comp-key ignore-case)
-	      (skk-look-1 skk-comp-key ignore-case)))
+		(skk-look-ispell skk-comp-key 'completion)
+	      (skk-look-1 skk-comp-key 'completion)))
       (dolist (word stacked)
 	(setq skk-look-completion-words
 	      (delete word skk-look-completion-words)))
@@ -232,7 +233,7 @@
     (setq skk-look-completion-words nil)))
 
 ;;;###autoload
-(defun skk-look-ispell (word &optional ignore-case)
+(defun skk-look-ispell (word &optional situation)
   (require 'ispell)
   (ispell-accept-buffer-local-defs)
   (message "")
@@ -271,13 +272,13 @@
 	  ;; でもちっとも補完ぢゃなくなっちまいますね... (^^;;。
 	  (stringp poss)
 	  (null (or (nth 2 poss) (nth 3 poss))))
-      (skk-look-1 word ignore-case))
+      (skk-look-1 word situation))
      (t
       (setq var (nconc (nth 2 poss) (nth 3 poss)))
       (dolist (key var)
 	;; call look command by each candidate put out by ispell.
-	(setq ret (skk-nunion ret (cons key (skk-look-1 key ignore-case)))))
-      (delete word (skk-nunion (skk-look-1 word ignore-case) ret))))))
+	(setq ret (skk-nunion ret (cons key (skk-look-1 key situation)))))
+      (delete word (skk-nunion (skk-look-1 word situation) ret))))))
 
 (require 'product)
 (product-provide
