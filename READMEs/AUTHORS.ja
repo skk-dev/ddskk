@@ -166,6 +166,14 @@ skk-server.el, skk-kcode.el, ccc.el
 **** skk.el, skk-macs.el, skk-study.el, skk-obsolete.el, skk-kcode.el,
 skk-num.el, skk-isearch.el
 
+* Shuhei KOBAYASHI
+
+** elisp 著作・アイデア
+
+*** 以下のプログラムへの改変
+
+**** skk.el, skk-num.el, skk-look.el
+
 * Masatake YAMATO
 
 ** elisp 著作・アイデア
