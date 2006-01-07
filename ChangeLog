@@ -1,3 +1,26 @@
+2006-01-07  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-comp-use-prefix, skk-completion-prog-list): New
+	variables.
+	(skk-comp-prefix, skk-current-completion-prog-list)
+	(skk-comp-first): New internal variables.
+
+	* skk-comp.el (skk-comp-get-candidate)
+	(skk-comp-prefix-unnecessary-p): New functions.
+	(skk-comp-do): Use them.
+	Now, completion programs can be controlled by
+	`skk-completion-prog-list'.
+
+	(skk-comp-previous): Modify message.
+	(skk-comp-do-1): Abolish.
+	(skk-comp-from-jisyo): New function.
+	(skk-comp-by-history): Update for new spec.
+	(skk-comp-get-all-candidates): New function. For test use.
+
+	* skk-look.el (skk-look-completion): Update for new spec.  Add
+	optional arguments.
+	(skk-try-completion@before@skk-look-ad): Abolish.
+
 2006-01-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile: Don't set SKK_DEFAULT_JISYO.
