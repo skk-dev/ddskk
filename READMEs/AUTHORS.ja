@@ -147,6 +147,10 @@ skk-server.el, skk-kcode.el, ccc.el
 
 *** 新しいかな入力ルーチン
 
+*** 以下のプログラムへの改変
+
+**** skk.el, skk-kcode.el, skk-num.el, skk-isearch.el
+
 * Murata Shuuichirou
 
 ** 主に SKK 10 以降の開発
@@ -157,7 +161,7 @@ skk-server.el, skk-kcode.el, ccc.el
 
 *** skk-viper.el (vi エミュレーション vip, viper との協調)
 
-*** 以下のプログラムの改変
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-macs.el, skk-study.el, skk-obsolete.el, skk-kcode.el,
 skk-num.el, skk-isearch.el
@@ -176,7 +180,7 @@ skk-num.el, skk-isearch.el
 
 *** inline 候補一覧表示
 
-*** 以下のプログラムの改変
+*** 以下のプログラムへの改変
 
 **** skk.el, ekk-e21.el, skk-vars.el, skk-xemacs.el
 
@@ -194,7 +198,7 @@ skk-num.el, skk-isearch.el
 
 ** elisp メンテナンス
 
-*** 以下のプログラムを改変
+*** 以下のプログラムへの改変
 
 **** skk-tut.el, skk-kcode.el
 
@@ -207,6 +211,8 @@ skk-num.el, skk-isearch.el
 *** SKK 辞書 Wiki の主要執筆者
 
 *** 多数の新規エントリ追加
+
+*** SKK-JISYO.geo 全面改訂
 
 *** 新しい SKK 辞書の追加
 
@@ -228,7 +234,7 @@ skk-num.el, skk-isearch.el
 
 ** elisp 著作・アイデア
 
-*** 以下のプログラムを改変
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-annotation.el
 
@@ -240,7 +246,7 @@ skk-num.el, skk-isearch.el
 
 ** elisp 著作・アイデア
 
-*** 以下のプログラムを改変
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-exsearch.el, skk-vars.el, skk-annotation.el, skk-tut.el,
 skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
@@ -257,7 +263,7 @@ skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 
 ** elisp メンテナンス
 
-*** 以下のプログラムを改変
+*** 以下のプログラムへの改変
 
 **** skk.el
 
@@ -265,11 +271,13 @@ skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 
 ** SKK 辞書の拡張、維持
 
+*** 多数の新規エントリ追加
+
 ** elisp 著作・アイデア
 
 *** skk-dinsert.el (動的入力)
 
-*** 以下のプログラムを改変
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-annotation.el, skk-server-completion.el, skk-vars.el,
 skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el
@@ -280,7 +288,7 @@ skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el
 
 ** elisp 著作・アイデア
 
-*** NICOLA-SKK (SKK に対する親指シフト入力インターフェース)
+*** skk-nicola.el (NICOLA-SKK, SKK に対する親指シフト入力インターフェース)
 
 * Tetsuo Tsukamoto
 
@@ -298,7 +306,15 @@ skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el
 
 *** skk-jisyo-edit-mode.el (辞書編集用メジャーモード)
 
-*** かな配列サポートの Openlab CVS へのインポート (NICOLA-DDSKK)
+*** skk-kanagaki.el (かな配列キーボードサポート)
+
+*** 以下のプログラムへの改変
+
+**** skk.el, ccc.el, skk-annotation.el, skk-comp.el, skk-cursor.el,
+skk-dcomp.el, skk-develop.el, skk-e21.el, skk-gadget.el,
+skk-isearch.el, skk-kcode.el, skk-leim.el, skk-look.el, skk-macs.el,
+skk-num.el, skk-server.el, skk-tut.el, skk-vars.el, skk-xemacs.el,
+skk-nicola.el
 
 ** ドキュメント執筆・整備
 
@@ -308,7 +324,7 @@ skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el
 
 *** 確定情報のみのアンドゥ機能
 
-*** 以下のプログラムを改変
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-vars.el, skk-macs.el, skk-comp.el, skk-kakasi.el, skk-num.el,
 skk-kcode.el, skk-isearch.el, skk-cursor.el, 
@@ -325,7 +341,7 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 *** skk-hint.el (ヒントの入力による候補絞り込み)
 
-*** 以下のプログラムを改変
+*** 以下のプログラムへの改変
 
 **** skk-vars.el
 
@@ -357,7 +373,7 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 *** skk-bayesian.el, bskk (進化した学習機能)
 
-*** 以下のプログラムを改変
+*** 以下のプログラムへの改変
 
 **** skk-kaksi.el, skk-viper.el
 
