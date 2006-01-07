@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.32 2006/01/06 08:05:39 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.33 2006/01/07 22:07:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/06 08:05:39 $
+;; Last Modified: $Date: 2006/01/07 22:07:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -204,27 +204,34 @@
 				   "\n"))))))
 
 ;;;###autoload
-(defun skk-look-completion ()
-  (unless skk-look-completion-words
-    (let ((stacked skk-comp-stack)) ; 他の機能による補完候補。
-      ;; look は複数の候補を吐くので、一旦貯めておいて、
-      ;; 一つずつ complete する。
-      (setq skk-look-completion-words
-	    (if (and (not (memq skk-look-use-ispell '(nil conversion)))
-		     (> (length skk-comp-key) 0))
-		(skk-look-ispell skk-comp-key 'completion)
-	      (skk-look-1 skk-comp-key 'completion)))
-      (dolist (word stacked)
+(defun skk-look-completion (&optional completion-arguments not-abbrev-only)
+  ;; skk-comp-prefix は使えない
+  "look コマンドを利用して補完候補を得る。
+COMPLETION-ARGUMENTS は `skk-look-completion-arguments' を
+一時的に置き換えたい時に指定する。
+デフォルトでは SKK abbrev モードのみで有効な機能だが、
+NOT-ABBREV-ONLY を指定する事で常に有効となる。
+`skk-look-use-ispell' を一時的に変更したい場合には
+`let' により束縛して使う事。"
+  (let ((look-args (or completion-arguments
+		       skk-look-completion-arguments))
+	(key skk-comp-key))
+    (when (and (or not-abbrev-only
+		   skk-abbrev-mode)
+	       (not (memq skk-use-look '(nil conversion))))
+      (when skk-comp-first
+	;; look は複数の候補を吐くので、一旦貯めておいて、
+	;; 一つずつ complete する。
+	(save-match-data
+	  (when (string-match "-d?a?f" look-args)
+	    (setq key (downcase key))))
 	(setq skk-look-completion-words
-	      (delete word skk-look-completion-words)))
-      ;;skk-look-completion-words の各要素は、実際に補完を行なった段階で
-      ;; `skk-completion' により skk-comp-stack に入れられる。
-      ))
-  (pop skk-look-completion-words))
+	      (if (and (not (memq skk-look-use-ispell '(nil conversion)))
+		       (> (length key) 0))
+		  (skk-look-ispell key 'completion)
+		(skk-look-1 key 'completion))))
+      (pop skk-look-completion-words))))
 
-(defadvice skk-try-completion (before skk-look-ad activate)
-  (unless (eq last-command 'skk-comp-do)
-    (setq skk-look-completion-words nil)))
 
 ;;;###autoload
 (defun skk-look-ispell (word &optional situation)

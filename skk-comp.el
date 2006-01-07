@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.48 2006/01/06 05:23:06 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.49 2006/01/07 22:07:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/06 05:23:06 $
+;; Last Modified: $Date: 2006/01/07 22:07:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -63,19 +63,17 @@
 	;; buffer-local 値を壊す恐れあり。
 	skk-num-list
 	c-word)
-    (skk-kana-cleanup 'force)
     (when first
       (setq skk-comp-search-done nil
 	    skk-comp-stack nil
-	    skk-comp-depth 0))
+	    skk-comp-depth 0
+	    skk-comp-prefix skk-prefix)
+      (when (skk-comp-prefix-unnecessary-p skk-comp-prefix)
+	(setq skk-comp-prefix "")))
+    (skk-kana-cleanup 'force)
     (when first
       (setq skk-comp-key (buffer-substring-no-properties
 			  skk-henkan-start-point (point))))
-    (when (and (not (memq skk-use-look '(nil conversion)))
-	       skk-abbrev-mode
-	       ;; look が case を無視する場合
-	       (string-match "-d?a?f" skk-look-completion-arguments))
-      (setq skk-comp-key (downcase skk-comp-key)))
     (cond
      ;; (過去に探索済みの読みをアクセス中)
      (skk-comp-search-done
@@ -91,14 +89,10 @@
      ;; 一時変数に移し変えておく。
      (t
       (setq c-word
-	    (or (let ((word (skk-comp-do-1 skk-comp-key first)))
-		  (while (member word skk-comp-stack)
-		    (setq word (skk-comp-do-1 skk-comp-key first)))
-		  word)
-		;;
-		(when (and skk-abbrev-mode
-			   (not (memq skk-use-look '(nil conversion))))
-		  (skk-look-completion))))
+	    (let ((word (skk-comp-get-candidate first)))
+	      (while (member word skk-comp-stack)
+		(setq word (skk-comp-get-candidate)))
+	      word))
       (if c-word
 	  ;; 新規に見つけたときだけ push する。
 	  (push c-word skk-comp-stack)
@@ -112,48 +106,85 @@
       (insert c-word))
      (t
       ;; When skk-comp-circulate, return to the keyword.
-      (when (or skk-comp-circulate
-		(and (not (memq skk-use-look '(nil conversion)))
-		     skk-abbrev-mode
-		     ;; look が case を無視する場合
-		     (string-match "-d?a?f" skk-look-completion-arguments)))
+      (when skk-comp-circulate
 	(delete-region skk-henkan-start-point (point))
 	(insert skk-comp-key))
       (unless silent
 	(ding)
 	(cond
-	 ((string= skk-comp-key "")
+	 ((and (string= skk-comp-key "")
+	       (or (not skk-comp-use-prefix)
+		   (string= skk-comp-prefix "")))
 	  (skk-message "これ以上の履歴はありません"
 		       "No more words in history"))
 	 (t
 	  (if skk-japanese-message-and-error
 	      (message "\"%s\" で補完すべき見出し語は%sありません"
-		       skk-comp-key
+		       (if skk-comp-use-prefix
+			   (concat skk-comp-key skk-comp-prefix)
+			 skk-comp-key)
 		       (if first "" "他に"))
 	    (message "No %scompletions for \"%s\""
 		     (if first "" "more ")
-		     skk-comp-key)))))))))
+		     (if skk-comp-use-prefix
+			 (concat skk-comp-key skk-comp-prefix)
+		       skk-comp-key))))))))))
+
+(defun skk-comp-get-candidate (&optional first)
+  (when first
+    (setq skk-comp-first t
+	  skk-current-completion-prog-list skk-completion-prog-list))
+  (let (cand prog)
+    (while (and (null cand)
+		skk-current-completion-prog-list)
+      (setq prog (car skk-current-completion-prog-list))
+      (setq cand (eval prog)
+	    skk-comp-first nil)
+      (unless cand
+	(setq skk-current-completion-prog-list
+	      (cdr skk-current-completion-prog-list))
+	(setq skk-comp-first t)))
+    cand))
+
+;; for test or backend use
+(defun skk-comp-get-all-candidates (key prefix prog-list)
+  (let ((skk-comp-key key)
+	(skk-comp-prefix prefix)
+	(skk-completion-prog-list prog-list)
+	skk-current-completion-prog-list
+	skk-comp-first
+	ret)
+    (setq ret (list (skk-comp-get-candidate 'first)))
+    (while skk-current-completion-prog-list
+      (setq ret (cons (skk-comp-get-candidate)
+		      ret)))
+    (nreverse (cdr ret))))
+
+(defun skk-comp-prefix-unnecessary-p (prefix)
+  ;; skk-kana-input-search-function は多分考慮しなくていいと思うが確信は無い
+  (let ((tree skk-rule-tree))
+    (dolist (c (string-to-char-list prefix))
+      (setq tree (skk-select-branch tree c)))
+    (skk-get-kana tree)))
 
 ;;;###autoload
-(defun skk-comp-do-1 (key first)
-  ;; skk-comp-1 のサブルーチン。
-  (cond
-   ((string= key "")
-    (skk-comp-by-history))
-   (t
-    (let ((buffers (list (skk-get-jisyo-buffer skk-jisyo 'nomsg)
-			 (skk-dic-setup-buffer)))
-	  (abbrev skk-abbrev-mode)
-	  word)
+(defun skk-comp-from-jisyo (file)
+  ;; skk-comp-prefix は使わない版
+  "SKK 辞書フォーマットの FILE から補完候補を得る。"
+  (let ((buffer (skk-get-jisyo-buffer file 'nomsg))
+	(abbrev skk-abbrev-mode)
+	(key skk-comp-key)
+	(first skk-comp-first)
+	word)
+    (with-current-buffer buffer
       (when first
-	(skk-loop-for-buffers buffers
-	  (goto-char skk-okuri-nasi-min)))
-      (catch 'word
-	(skk-loop-for-buffers buffers
-	  (setq word (skk-comp-search-current-buffer key abbrev))
-	  (if word
-	      (throw 'word word)
-	    nil)))))))
+	(goto-char skk-okuri-nasi-min))
+      ;; 従来の挙動に合わせておくが、確定履歴だけでなく
+      ;; 個人辞書も使えたほうがいいのかどうか
+      (unless (string= key "")
+	;; 中身をごっそり取り込もうかと思ったけど
+	;; とりあえず利用することに
+	(skk-comp-search-current-buffer key abbrev)))))
 
 ;;;###autoload
 (defun skk-comp-search-current-buffer (key &optional abbrev)
@@ -207,7 +238,9 @@
       (ding)
       (skk-message "\"%s\"で補完すべき見出し語は他にありません"
 		   "No more previous completions for \"%s\""
-		   skk-comp-key)))))
+		   (if skk-comp-use-prefix
+		       (concat skk-comp-key skk-comp-prefix)
+		     skk-comp-key))))))
 
 ;;;###autoload
 (defun skk-comp-previous/next (ch)
@@ -219,16 +252,20 @@
 
 ;;;###autoload
 (defun skk-comp-by-history ()
-  (unless skk-comp-stack
-    (let (list
-	  el)
-      (dolist (cell skk-kakutei-history)
-	(setq el (car cell))
-	(unless (member el list)
-	  (push el list)))
-      (setq skk-comp-kakutei-midasi-list
-	    (nreverse list))))
-  (pop skk-comp-kakutei-midasi-list))
+  ;; skk-comp-prefix を考慮
+  (when (and (string= skk-comp-key "")
+	     (or (not skk-comp-use-prefix)
+		 (string= skk-comp-prefix "")))
+    (when skk-comp-first
+      (let (list
+	    el)
+	(dolist (cell skk-kakutei-history)
+	  (setq el (car cell))
+	  (unless (member el list)
+	    (push el list)))
+	(setq skk-comp-kakutei-midasi-list
+	      (nreverse list))))
+    (pop skk-comp-kakutei-midasi-list)))
 
 (defalias 'skk-previous-completion 'skk-comp-previous)
 (defalias 'skk-start-henkan-with-completion 'skk-comp-start-henkan)

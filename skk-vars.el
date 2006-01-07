@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.169 2006/01/06 13:11:17 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.170 2006/01/07 22:07:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/06 13:11:17 $
+;; Last Modified: $Date: 2006/01/07 22:07:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1315,6 +1315,29 @@ highlight, underline, bold, italic, bold-italic $B$NB>!"?7$?$K(B face $B$r:n
 $B:G8e$N8+=P$78l$,I=<($5$l$?>uBV$G$5$i$KJd40$r9T$&$HF~NOJ8;zNs$KLa$k!#(B
 nil $B$G$"$l$P!":G8e$N8+=P$78l$,I=<($5$l$?>uBV$GDd;_$9$k!#(B"
   :type 'boolean
+  :group 'skk-misc
+  :group 'skk-comp)
+
+(defcustom skk-comp-use-prefix nil
+  "*$B8+=P$78l$NJd40$r9T$&:]$K%W%l%U%#%/%9(B(`skk-prefix')$B$b;H$&$+!#(B
+$BNc$($P!"(B\"$B"&$"(Bk\" $B$H$"$k>uBV$GJd40$r$7$?;~$K!"(Bnon-nil $B$G$"$l$P(B
+\"$B$"$5(B\" $B$OBP>]$H$J$i$:!"(B\"$B$"$+(B\", \"$B$"$-(B\" $B$J$I$K9J$i$l$k!#(B
+$B$7$+$7<B:]$K$OJd404X?t$bBP1~$7$F$$$kI,MW$,$"$k!#(B
+
+2006/01/08$B8=:_!"Jd408uJd$,8+$D$+$i$J$+$C$?;~$O(B
+$B%W%l%U%#%/%9ItJ,$@$1JQ99$7$F$b(B C-u TAB $B$7$J$$$HH?1G$5$l$^$;$s!#(B"
+  :type 'boolean
+  :group 'skk-misc
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list
+  '((skk-comp-by-history)
+    (skk-comp-from-jisyo skk-jisyo)
+    (skk-look-completion))
+  "*$BJd404X?t$N%j%9%H!#(B
+$B%j%9%H$NMWAG$O!"(B`skk-comp-first' $B$,(B t $B$G$"$k;~$K(B
+$B?75,Jd408uJd72$N@8@.$r3+;O$7!"(B1$B2s$NI>2A$K$D$-(B 1$B$D$N8uJd$rJV$9(B S $B<0!#(B"
+  :type '(repeat (sexp))
   :group 'skk-misc
   :group 'skk-comp)
 
@@ -2843,6 +2866,18 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 ;; $B<-=qEPO?;~%_%K%P%C%U%!$GJd40$7$?>l9g!"85$N%P%C%U%!$KLa$C$?$H$-$K(B
 ;; skk-comp-key $B$NCM$,GK2u$5$l$F$$$J$$J}$,%Y%?!<!#(B
 
+(skk-deflocalvar skk-comp-prefix ""
+  "$BJd40;~$N(B skk-prefix")
+
+;; buffer local $B$JI,MW$OL5$$$+$b(B?
+(skk-deflocalvar skk-current-completion-prog-list nil
+  "`skk-completion-prog-list' $B$N8=:_$NCM$rJ]B8$9$k%j%9%H!#(B
+$B:G=i$NJd40;~$O(B `skk-completion-prog-list' $B$NA4$F$NCM$rJ];}$7!"(B
+car $B$K$"$kJd404X?t$,(B nil $B$rJV$9$4$H$K(B 1$B$D$E$DC;$/$J$C$F$f$/!#(B")
+
+(skk-deflocalvar skk-comp-first nil
+  "$BJd404X?t$K?7$7$$8uJd72$r@8@.$9$k$h$&DLCN$9$k!#(B")
+
 (skk-deflocalvar skk-comp-stack nil
   "$BJd40$7$?8l$rJ]B8$7$F$*$/%9%?%C%/!#(B")
 
@@ -2853,7 +2888,7 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
   "$B3NDjMzNr$+$iF@$i$l$?8+=P$78l$N%j%9%H!#(B")
 
 (skk-deflocalvar skk-comp-search-done nil
-  "$B8+=P$78l$NJd40MQ$N8D?M<-=q8!:w$,=*N;$7$?$3$H$r<($9!#(B")
+  "$B8+=P$78l$NJd40MQ$N8uJd8!:w$,=*N;$7$?$3$H$r<($9!#(B")
 
 ;;; -- SKK-CURSOR.EL related internal variables
 
