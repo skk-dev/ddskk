@@ -55,7 +55,7 @@
 ;;	      (string-match (format "%s$"
 ;;				    (regexp-quote
 ;;				     (char-to-string
-;;				      skk-server-completion-search-key)))
+;;				      skk-server-completion-search-char)))
 ;;			    skk-henkan-key)))
 
 ;;; Code:
@@ -63,8 +63,8 @@
 (require 'skk)
 (require 'skk-comp)
 
-(defvar skk-server-completion-search-key ?~)
 
+;;;###autoload
 (defun skk-server-completion-search ()
   "SKK サーバーを使用して `skk-henkan-key' をキーにしたサーバコンプリーション検索を行う。
 さらに得られた候補を `skk-search-server-1' を利用し変換する。
@@ -79,7 +79,7 @@
   "`skk-server-completion-search' のサブルーチン。
 サーバーコンプリージョン検索を行なった後その見出しで再度検索を行なう。"
   (when (string-match (format "%s$" (regexp-quote
-				     (char-to-string skk-server-completion-search-key)))
+				     (char-to-string skk-server-completion-search-char)))
 		      skk-henkan-key)
     (let* ((skk-henkan-key (substring skk-henkan-key 0 (match-beginning 0)))
 	   (key
@@ -132,28 +132,17 @@
 	    result-list (nconc result-list kouho-list)))
     result-list))
 
-;; elisp 的には変数を使わずに、バッファを用意した方がよい？
-(defvar skk-server-completion-advice-skk-comp-do-1-first t)
-(defvar skk-server-completion-advice-skk-comp-do-1-miasi-list nil)
-
-(defadvice skk-comp-do-1 (after skk-server-completion-advice-skk-comp-do-1 activate compile)
-  (when first
-    ;; 最初の問合せのとき初期化する
-    ;; ここでサーバから取得しないのは、遅くなるのが嫌だから
-    (setq skk-server-completion-advice-skk-comp-do-1-first t))
-  ;; ユーザ辞書が全て無くなった時に初めて問い合わせる
-  (unless ad-return-value
-    (when skk-server-completion-advice-skk-comp-do-1-first
-      (setq skk-server-completion-advice-skk-comp-do-1-first nil)
-      (setq skk-server-completion-advice-skk-comp-do-1-miasi-list
-	    (let ((midasi-list (skk-server-completion-search-midasi key)))
-	      (if (string= (car midasi-list) key)
-		  (cdr midasi-list)
-		midasi-list))))
-    ;; 見出しリストの頭を返す
-    (setq ad-return-value (car skk-server-completion-advice-skk-comp-do-1-miasi-list))
-    (setq skk-server-completion-advice-skk-comp-do-1-miasi-list
-	  (cdr skk-server-completion-advice-skk-comp-do-1-miasi-list))))
+;;;###autoload
+(defun skk-comp-by-server-completion ()
+  ;; skk-comp-prefix は使えない
+  ;; 今のところ非数値変換のみ
+  (when skk-comp-first
+    (setq skk-server-completion-words
+	  (skk-server-completion-search-midasi skk-comp-key))
+    (when (string= skk-comp-key
+		   (car skk-server-completion-words))
+      (pop skk-server-completion-words)))
+  (pop skk-server-completion-words))
 
 (provide 'skk-server-completion)
 

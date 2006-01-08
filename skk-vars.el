@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.170 2006/01/07 22:07:53 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.171 2006/01/08 08:48:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/07 22:07:53 $
+;; Last Modified: $Date: 2006/01/08 08:48:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1340,6 +1340,13 @@ nil であれば、最後の見出し語が表示された状態で停止する。"
   :type '(repeat (sexp))
   :group 'skk-misc
   :group 'skk-comp)
+
+;;; SKK-SERVER-COMPLETION.EL related.
+(defcustom skk-server-completion-search-char ?~
+  "*server completion を利用した変換を行うキーキャラクタ。"
+  :type 'character
+  :group 'skk-keybinds)
+
 
 (defcustom skk-use-color-cursor (and window-system
 				     (fboundp 'x-display-color-p)
@@ -2889,6 +2896,10 @@ car にある補完関数が nil を返すごとに 1つづつ短くなってゆく。"
 
 (skk-deflocalvar skk-comp-search-done nil
   "見出し語の補完用の候補検索が終了したことを示す。")
+
+;;; -- SKK-SERVER-COMPLETION.EL related internal variables
+(skk-deflocalvar skk-server-completion-words nil
+  "server completion により得られた見出し語のリスト。")
 
 ;;; -- SKK-CURSOR.EL related internal variables
 
