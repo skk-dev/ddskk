@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.35 2006/01/08 19:49:47 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.36 2006/01/08 21:40:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/08 19:49:47 $
+;; Last Modified: $Date: 2006/01/08 21:40:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -224,13 +224,14 @@ NOT-ABBREV-ONLY を指定する事で常に有効となる。
 	(key skk-comp-key))
     (when (and (or not-abbrev-only
 		   skk-abbrev-mode)
-	       (not (memq skk-use-look '(nil conversion))))
+	       (not (memq skk-use-look '(nil conversion)))
+	       (not (string= key "")))
       (when skk-comp-first
-	;; look は複数の候補を吐くので、一旦貯めておいて、
-	;; 一つずつ complete する。
 	(save-match-data
 	  (when (string-match "-d?a?f" skk-look-completion-arguments)
 	    (setq key (downcase key))))
+	;; look は複数の候補を吐くので、一旦貯めておいて、
+	;; 一つずつ complete する。
 	(setq skk-look-completion-words
 	      (if (and (not (memq skk-look-use-ispell '(nil conversion)))
 		       (> (length key) 0))
