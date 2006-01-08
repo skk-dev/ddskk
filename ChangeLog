@@ -1,3 +1,7 @@
+2006-01-08  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-look.el (skk-look-completion): Bug fixed.
+
 2006-01-07  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-comp-use-prefix, skk-completion-prog-list): New
@@ -15,7 +19,7 @@
 	(skk-comp-do-1): Abolish.
 	(skk-comp-from-jisyo): New function.
 	(skk-comp-by-history): Update for new spec.
-	(skk-comp-get-all-candidates): New function. For test use.
+	(skk-comp-get-all-candidates): New function.  For test use.
 
 	* skk-look.el (skk-look-completion): Update for new spec.  Add
 	optional arguments.
