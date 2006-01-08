@@ -124,7 +124,7 @@
       kana-list))
     ))
 
-(defun skk-server-completion-search-recursive  (midasi-list)
+(defun skk-server-completion-search-recursive (midasi-list)
   "`midasi-list' の見出しを再変換する"
   (let (result-list kouho-list)
     (dolist (skk-henkan-key midasi-list)
