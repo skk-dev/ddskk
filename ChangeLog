@@ -1,5 +1,17 @@
 2006-01-08  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk-vars.el (skk-server-completion-search-char): Variable from
+	skk-server-completion.el.  Rename -key to -char.
+	(skk-server-completion-words): New internal variable.
+
+	* skk-server-completion.el
+	(skk-comp-do-1@after@skk-server-completion-advice-skk-comp-do-1):
+	Abolish.
+	(skk-comp-by-server-completion): New function.
+	(skk-server-completion-search-1): Use
+	`skk-server-completion-search-char' instead of
+	`skk-server-completion-search-key'.
+
 	* skk-look.el (skk-look-completion): Bug fixed.
 
 2006-01-07  Eiji Obata  <e-obata@zero.ad.jp>
