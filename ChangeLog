@@ -1,3 +1,8 @@
+2006-01-08  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-look.el (skk-look-completion): When `skk-comp-key' is "", do
+	nothing.
+
 2006-01-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-look.el (skk-look-1): Accept null word.
