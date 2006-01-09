@@ -1,4 +1,4 @@
-;;; skk-server-completion.el --- server completion ¤Î¥¯¥é¥¤¥¢¥ó¥È
+;;; skk-server-completion.el --- server completion $B$N%/%i%$%"%s%H(B
 ;;
 ;; Copyright (C) 2005 Fumihiko MACHIDA <machida@users.sourceforge.jp>
 
@@ -19,36 +19,36 @@
 
 ;;; Commentary:
 
-;; Server completion ¤ËÂÐ±þ¤·¤¿¼­½ñ¥µ¡¼¥Ð¤òÍÑ¤¤¸«½Ð¤·¸ì¤«¤é»Ï¤Þ¤ëÁ´¤Æ¤Î
-;; ¸ì¶ç¤Î¸¡º÷¤ò¹Ô¤Ê¤¤¤Þ¤¹¡£
+;; Server completion $B$KBP1~$7$?<-=q%5!<%P$rMQ$$8+=P$78l$+$i;O$^$kA4$F$N(B
+;; $B8l6g$N8!:w$r9T$J$$$^$9!#(B
 
-;; ¤³¤Î¥×¥í¥°¥é¥à¤Ï°Ê²¼¤Î 2 ¤Ä¤Îµ¡Ç½¤òÄó¶¡¤·¤Þ¤¹¡£
+;; $B$3$N%W%m%0%i%`$O0J2<$N(B 2 $B$D$N5!G=$rDs6!$7$^$9!#(B
 ;;
-;; * skk-look ¤ÎÆüËÜ¸ìÈÇ¡£ÆÉ¤ß¤ÎºÇ¸å¤Ë `~' ¤òÉÕ¤±¤ÆÊÑ´¹¤¹¤ë¤È¡¢¤½¤ÎÆÉ¤ß¤«
-;;   ¤é»Ï¤Þ¤ëÁ´¤Æ¤Î¸õÊä¤òÉ½¼¨¤·¤Þ¤¹¡£
+;; * skk-look $B$NF|K\8lHG!#FI$_$N:G8e$K(B `~' $B$rIU$1$FJQ49$9$k$H!"$=$NFI$_$+(B
+;;   $B$i;O$^$kA4$F$N8uJd$rI=<($7$^$9!#(B
 ;;
-;; Îã¡§
+;; $BNc!'(B
 ;;
-;; ¢¦¤Þ¤Á¤À~
-;; ==> "¤Þ¤Á¤À" "Ä®ÅÄ" "¤Þ¤Á¤À¤¨¤­" "Ä®ÅÄ±Ø" "¤Þ¤Á¤À¤ª¤À¤­¤å¤¦" "Ä®ÅÄ¾®ÅÄµÞ" ..
+;; $B"&$^$A$@(B~
+;; ==> "$B$^$A$@(B" "$BD.ED(B" "$B$^$A$@$($-(B" "$BD.ED1X(B" "$B$^$A$@$*$@$-$e$&(B" "$BD.ED>.ED5^(B" ..
 ;;
-;; * skk-comp ¤Ç¡¢server completion ¤ò»ÈÍÑ
+;; * skk-comp $B$G!"(Bserver completion $B$r;HMQ(B
 ;;
-;; Îã¡§
+;; $BNc!'(B
 ;;
-;; ¢¦¤Þ¤Á¤À-!- ¤Ç Tab ¤ò²¡¤¹¤È¡¢¢¦¤Þ¤Á¤À¤¨¤­ ¢ª ¢¦¤Þ¤Á¤À¤ª¤À¤­¤å¤¦ ¡Ä¡Ä
-;; ¤È¤Ê¤ê¤Þ¤¹¡£
+;; $B"&$^$A$@(B-!- $B$G(B Tab $B$r2!$9$H!""&$^$A$@$($-(B $B"*(B $B"&$^$A$@$*$@$-$e$&(B $B!D!D(B
+;; $B$H$J$j$^$9!#(B
 
-;; [ÀßÄêÊýË¡]
+;; [$B@_DjJ}K!(B]
 ;;
-;; .skk ¤Ë¡¢°Ê²¼¤òÄÉ²Ã¤·¤Þ¤¹¡£
+;; .skk $B$K!"0J2<$rDI2C$7$^$9!#(B
 ;;
 ;; (require 'skk-server-completion)
 ;; (add-to-list 'skk-search-prog-list
 ;;	     '(skk-server-completion-search) t)
 ;;
-;; ¤Þ¤¿¡¢`~' ¤òÉÕ¤±¤¿ÊÑ´¹·ë²Ì¤ò¸Ä¿Í¼­½ñ¤Ë³Ø½¬¤·¤Æ¤·¤Þ¤¦¤Î¤ò¤ä¤á¤ë¤¿¤á¤Ë¤Ï
-;; °Ê²¼¤òÄÉ²Ã¤·¤Æ¤¯¤À¤µ¤¤¡£
+;; $B$^$?!"(B`~' $B$rIU$1$?JQ497k2L$r8D?M<-=q$K3X=,$7$F$7$^$&$N$r$d$a$k$?$a$K$O(B
+;; $B0J2<$rDI2C$7$F$/$@$5$$!#(B
 ;;
 ;; (add-hook 'skk-search-excluding-word-pattern-function
 ;;	  #'(lambda (kakutei-word)
@@ -66,8 +66,8 @@
 
 ;;;###autoload
 (defun skk-server-completion-search ()
-  "¥µ¡¼¥Ð¡¼¥³¥ó¥×¥ê¡¼¥·¥ç¥ó¤ò¹Ô¤¤¡¢ÆÀ¤é¤ì¤¿³Æ¸«½Ð¤·¤Ç¤µ¤é¤Ë¸¡º÷¤¹¤ë¡£
-Á÷¤êÍ­¤êÊÑ´¹¤Ë¤ÏÈóÂÐ±þ¡£"
+  "$B%5!<%P!<%3%s%W%j!<%7%g%s$r9T$$!"F@$i$l$?3F8+=P$7$G$5$i$K8!:w$9$k!#(B
+$BAw$jM-$jJQ49$K$OHsBP1~!#(B"
   (when (and (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
 		 skk-server-completion-search-char)
 	     (not (or skk-henkan-okurigana
@@ -81,7 +81,7 @@
       (skk-server-completion-search-recursive midasi-list))))
 
 (defun skk-server-completion-search-midasi (key)
-  "server completion ¤òÍøÍÑ¤·¤Æ¡¢key ¤«¤é»Ï¤Þ¤ë¤¹¤Ù¤Æ¤Î¸«½Ð¤·¸ì¤Î¥ê¥¹¥È¤òÊÖµÑ¤¹¤ë¡£"
+  "server completion $B$rMxMQ$7$F!"(Bkey $B$+$i;O$^$k$9$Y$F$N8+=P$78l$N%j%9%H$rJV5Q$9$k!#(B"
   (when (skk-server-live-p (skk-open-server))
     (with-current-buffer skkserv-working-buffer
       (let ((cont t)
@@ -103,7 +103,7 @@
 	      (setq cont nil))))
 	(goto-char (point-min))
 	(when skk-server-report-response
-	  (skk-message "%d ²ó SKK ¥µ¡¼¥Ð¡¼¤Î±þÅúÂÔ¤Á¤ò¤·¤Þ¤·¤¿"
+	  (skk-message "%d $B2s(B SKK $B%5!<%P!<$N1~EzBT$A$r$7$^$7$?(B"
 		       "Waited for server response %d times"
 		       count))
 	(when (eq (following-char) ?1)	;?1
@@ -111,7 +111,7 @@
 	  (car (skk-compute-henkan-lists nil)))))))
 
 (defun skk-server-completion-search-recursive (midasi-list)
-  "`midasi-list' ¤Î¸«½Ð¤·¤òºÆÊÑ´¹¤¹¤ë"
+  "`midasi-list' $B$N8+=P$7$r:FJQ49$9$k(B"
   (let (result-list kouho-list)
     (dolist (skk-henkan-key midasi-list)
       (setq kouho-list (cons skk-henkan-key (skk-search-server-1 nil nil))
@@ -120,8 +120,8 @@
 
 ;;;###autoload
 (defun skk-comp-by-server-completion ()
-  ;; skk-comp-prefix ¤Ï»È¤¨¤Ê¤¤
-  ;; º£¤Î¤È¤³¤íÈó¿ôÃÍÊÑ´¹¤Î¤ß
+  ;; skk-comp-prefix $B$O;H$($J$$(B
+  ;; $B:#$N$H$3$mHs?tCMJQ49$N$_(B
   (when skk-comp-first
     (setq skk-server-completion-words
 	  (skk-server-completion-search-midasi skk-comp-key))
