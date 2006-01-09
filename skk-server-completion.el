@@ -69,14 +69,14 @@
   "サーバーコンプリーションを行い、得られた各見出しでさらに検索する。
 送り有り変換には非対応。"
   (when (and (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
-                 skk-server-completion-search-char)
-             (not (or skk-henkan-okurigana
-                      skk-okuri-char)))
+		 skk-server-completion-search-char)
+	     (not (or skk-henkan-okurigana
+		      skk-okuri-char)))
     (let ((key (substring skk-henkan-key
-                          0 (1- (length skk-henkan-key))))
-          midasi-list)
+			  0 (1- (length skk-henkan-key))))
+	  midasi-list)
       (when skk-use-numeric-conversion
-        (setq key (skk-num-compute-henkan-key key)))
+	(setq key (skk-num-compute-henkan-key key)))
       (setq midasi-list (skk-server-completion-search-midasi key))
       (skk-server-completion-search-recursive midasi-list))))
 
