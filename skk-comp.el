@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.49 2006/01/07 22:07:53 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.50 2006/01/09 16:02:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/07 22:07:53 $
+;; Last Modified: $Date: 2006/01/09 16:02:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -147,6 +147,7 @@
     cand))
 
 ;; for test or backend use
+;;;###autoload
 (defun skk-comp-get-all-candidates (key prefix prog-list)
   (let ((skk-comp-key key)
 	(skk-comp-prefix prefix)
