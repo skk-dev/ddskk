@@ -1,3 +1,10 @@
+2006-01-09  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-server-completion.el (skk-server-completion-search): Merge
+	`skk-server-completion-search-1' and simplify.
+	(skk-server-completion-search-1): Abolish.
+	(skk-server-completion-search-midasi): Simplify.
+
 2006-01-08  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-look.el (skk-look-completion): When `skk-comp-key' is "", do
