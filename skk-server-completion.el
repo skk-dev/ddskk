@@ -66,63 +66,51 @@
 
 ;;;###autoload
 (defun skk-server-completion-search ()
-  "SKK サーバーを使用して `skk-henkan-key' をキーにしたサーバコンプリーション検索を行う。
-さらに得られた候補を `skk-search-server-1' を利用し変換する。
-送り仮名がある場合は nil を返す。"
-  (if (and (or skk-server-host
-	       skk-servers-list)
-	   (not (or skk-henkan-okurigana
-		    skk-okuri-char)))
-      (skk-server-completion-search-1)))
-
-(defun skk-server-completion-search-1 ()
-  "`skk-server-completion-search' のサブルーチン。
-サーバーコンプリージョン検索を行なった後その見出しで再度検索を行なう。"
-  (when (string-match (format "%s$" (regexp-quote
-				     (char-to-string skk-server-completion-search-char)))
-		      skk-henkan-key)
-    (let* ((skk-henkan-key (substring skk-henkan-key 0 (match-beginning 0)))
-	   (key
-	    (if skk-use-numeric-conversion
-		(skk-num-compute-henkan-key skk-henkan-key)
-	      skk-henkan-key))
-	   (midasi-list (skk-server-completion-search-midasi key))
-	   (result-list))
-      (skk-server-completion-search-recursive midasi-list))))
+  "サーバーコンプリーションを行い、得られた各見出しでさらに検索する。
+送り有り変換には非対応。"
+  (save-match-data
+    (when (and (string-match (format "%s$" (regexp-quote
+					    (char-to-string
+					     skk-server-completion-search-char)))
+			     skk-henkan-key)
+	       (not (or skk-henkan-okurigana
+			skk-okuri-char)))
+      (let ((key (substring skk-henkan-key 0 (match-beginning 0)))
+	    midasi-list)
+	(when skk-use-numeric-conversion
+	  (setq key (skk-num-compute-henkan-key key)))
+	(setq midasi-list (skk-server-completion-search-midasi key))
+	(skk-server-completion-search-recursive midasi-list)))))
 
 (defun skk-server-completion-search-midasi (key)
   "server completion を利用して、key から始まるすべての見出し語のリストを返却する。"
-  (let (alst kana-list)
-    (cond
-     ((skk-server-live-p (skk-open-server))
-      (with-current-buffer skkserv-working-buffer
-	(let ((cont t)
-	      (count 0)
-	      l)
-	  (erase-buffer)
-	  (process-send-string skkserv-process (concat "4" key " "))
-	  (while (and cont (skk-server-live-p))
-	    (accept-process-output)
-	    (setq count (1+ count))
-	    (when (> (buffer-size) 0)
-	      (if (eq (char-after 1) ?1) ;?1
-		  ;; found key successfully, so check if a whole line
-		  ;; is received.
-		  (when (eq (char-after (1- (point-max)))
-			    ?\n)	;?\n
-		    (setq cont nil))
-		;; not found or error, so exit
-		(setq cont nil))))
-	  (goto-char (point-min))
-	  (when skk-server-report-response
-	    (skk-message "%d 回 SKK サーバーの応答待ちをしました"
-			 "Waited for server response %d times"
-			 count))
-	  (when (eq (following-char) ?1) ;?1
-	    (forward-char 2)
-	    (setq kana-list (car (skk-compute-henkan-lists nil))))))
-      kana-list))
-    ))
+  (when (skk-server-live-p (skk-open-server))
+    (with-current-buffer skkserv-working-buffer
+      (let ((cont t)
+	    (count 0)
+	    l)
+	(erase-buffer)
+	(process-send-string skkserv-process (concat "4" key " "))
+	(while (and cont (skk-server-live-p))
+	  (accept-process-output)
+	  (setq count (1+ count))
+	  (when (> (buffer-size) 0)
+	    (if (eq (char-after 1) ?1)	;?1
+		;; found key successfully, so check if a whole line
+		;; is received.
+		(when (eq (char-after (1- (point-max)))
+			  ?\n)		;?\n
+		  (setq cont nil))
+	      ;; not found or error, so exit
+	      (setq cont nil))))
+	(goto-char (point-min))
+	(when skk-server-report-response
+	  (skk-message "%d 回 SKK サーバーの応答待ちをしました"
+		       "Waited for server response %d times"
+		       count))
+	(when (eq (following-char) ?1)	;?1
+	  (forward-char 2)
+	  (car (skk-compute-henkan-lists nil)))))))
 
 (defun skk-server-completion-search-recursive (midasi-list)
   "`midasi-list' の見出しを再変換する"
