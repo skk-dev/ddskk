@@ -1,5 +1,7 @@
 2006-01-09  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk-comp.el (skk-comp-get-all-candidates): Autoload.
+
 	* skk-server-completion.el (skk-server-completion-search): Merge
 	`skk-server-completion-search-1' and simplify.
 	(skk-server-completion-search-1): Abolish.
