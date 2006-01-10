@@ -3,8 +3,24 @@
 ;; Copyright (C) 2003 IRIE Tetsuya <irie@t.email.ne.jp>
 
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
-;; Version: $Id: skk-act.el,v 1.1 2006/01/10 15:32:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
+
+;; This file is part of Daredevil SKK.
+
+;; Daredevil SKK is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 2, or
+;; (at your option) any later version.
+
+;; Daredevil SKK is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with Daredevil SKK, see the file COPYING.  If not, write to
+;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
 ;;
@@ -55,8 +71,10 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'cl)
-		   (require 'skk-vars))
+(eval-when-compile
+  (require 'skk-macs)
+  (require 'skk-vars)
+  (require 'alist))
 
 (defvar skk-act-load-hook nil
   "*Skk-act を load した後に実行される hook.")

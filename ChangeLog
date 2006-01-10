@@ -1,3 +1,11 @@
+2006-01-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-act.el: New file.
+
+	* skk-azik.el: From experimental.
+
+	* SKK-MK (SKK_MODULES): Add skk-act and skk-azik.
+
 2006-01-09  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-comp.el (skk-comp-get-all-candidates): Autoload.

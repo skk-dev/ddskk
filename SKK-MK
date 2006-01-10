@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.136 2006/01/06 13:08:11 skk-cvs Exp $
-;; Last Modified: $Date: 2006/01/06 13:08:11 $
+;; Version: $Id: SKK-MK,v 1.137 2006/01/10 15:32:06 skk-cvs Exp $
+;; Last Modified: $Date: 2006/01/10 15:32:06 $
 
 ;;; Commentary:
 
@@ -262,9 +262,11 @@ This version of SKK requires MULE features"))
       (let ((list '(context-skk
 		    queue-m
 		    skk-abbrev
+		    skk-act
 		    skk-annotation
 		    skk-auto
 		    skk-autoloads
+		    skk-azik
 		    skk-comp
 ;		    skk-cursor
 		    skk-cus
