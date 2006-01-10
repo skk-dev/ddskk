@@ -1,3 +1,11 @@
+2006-01-11  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-look.el (skk-look): Add optional arguments
+	CONVERSION-ARGUMENTS, NOT-ABBREV-ONLY, EXPAND-NULL.  Add
+	doc-string.
+	(skk-look-completion): Add optional argument EXPAND-NULL.
+	Update doc-string.  Don't downcase key.
+
 2006-01-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-act.el: New file.
@@ -60,7 +68,7 @@
 	(skk-comp-get-all-candidates): New function.  For test use.
 
 	* skk-look.el (skk-look-completion): Update for new spec.  Add
-	optional arguments.
+	optional arguments COMPLETION-ARGUMENTS, NOT-ABBREV-ONLY.
 	(skk-try-completion@before@skk-look-ad): Abolish.
 
 2006-01-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
