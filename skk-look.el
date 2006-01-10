@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.36 2006/01/08 21:40:24 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.37 2006/01/10 18:09:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/08 21:40:24 $
+;; Last Modified: $Date: 2006/01/10 18:09:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -150,15 +150,29 @@
 
 ;; program
 ;;;###autoload
-(defun skk-look ()
-  ;; UNIX look コマンドを利用した変換を行なう。
-  ;; SKK abbrev モードにて、英文字 + アスタリスクで uncompleted spelling を指定
-  ;; する。
+(defun skk-look (&optional conversion-arguments not-abbrev-only expand-null)
+  "UNIX look コマンドを利用した変換を行なう。
+SKK abbrev モードにて、英文字 + アスタリスクで uncompleted spelling を指定する。
+詳しくは skk-look.el ファイルのコメントや Info を参照の事。
+CONVERSION-ARGUMENTS は `skk-look-conversion-arguments' を
+一時的に置き換えたい時に指定する。
+デフォルトでは SKK abbrev モードのみで有効な機能だが、
+NOT-ABBREV-ONLY を指定する事で常に有効となる。
+EXPAND-NULL を指定すると、入力が \"*\" のみの時は
+words ファイルにある全ての見出しが対象となる。
+`skk-look-recursive-search', `skk-look-expanded-word-only',
+`skk-look-use-ispell' を一時的に変更したい場合には
+`let' により束縛して使う事。"
   (when (and (not (memq skk-use-look '(nil completion)))
-	     skk-abbrev-mode
+	     (or not-abbrev-only
+		 skk-abbrev-mode)
+	     (or expand-null
+		 (not (string= skk-henkan-key "*")))
 	     (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
 		 ?*))
-    (let* ((substr (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
+    (let* ((skk-look-conversion-arguments (or conversion-arguments
+					      skk-look-conversion-arguments))
+	   (substr (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
 	   (v (if (and (not (memq skk-look-use-ispell '(nil completion)))
 		       (> (length substr) 0))
 		  (skk-look-ispell substr 'conversion)
@@ -210,33 +224,32 @@
 				   "\n"))))))
 
 ;;;###autoload
-(defun skk-look-completion (&optional completion-arguments not-abbrev-only)
+(defun skk-look-completion (&optional completion-arguments not-abbrev-only expand-null)
   ;; skk-comp-prefix は使えない
   "look コマンドを利用して補完候補を得る。
 COMPLETION-ARGUMENTS は `skk-look-completion-arguments' を
 一時的に置き換えたい時に指定する。
 デフォルトでは SKK abbrev モードのみで有効な機能だが、
 NOT-ABBREV-ONLY を指定する事で常に有効となる。
+EXPAND-NULL を指定すると、入力が空である時に
+words ファイルにある全ての見出しを返す。
 `skk-look-use-ispell' を一時的に変更したい場合には
 `let' により束縛して使う事。"
-  (let ((skk-look-completion-arguments (or completion-arguments
-					   skk-look-completion-arguments))
-	(key skk-comp-key))
-    (when (and (or not-abbrev-only
-		   skk-abbrev-mode)
-	       (not (memq skk-use-look '(nil conversion)))
-	       (not (string= key "")))
+  (when (and (not (memq skk-use-look '(nil conversion)))
+	     (or not-abbrev-only
+		 skk-abbrev-mode)
+	     (or expand-null
+		 (not (string= skk-comp-key ""))))
+    (let ((skk-look-completion-arguments (or completion-arguments
+					     skk-look-completion-arguments)))
       (when skk-comp-first
-	(save-match-data
-	  (when (string-match "-d?a?f" skk-look-completion-arguments)
-	    (setq key (downcase key))))
 	;; look は複数の候補を吐くので、一旦貯めておいて、
 	;; 一つずつ complete する。
 	(setq skk-look-completion-words
 	      (if (and (not (memq skk-look-use-ispell '(nil conversion)))
-		       (> (length key) 0))
-		  (skk-look-ispell key 'completion)
-		(skk-look-1 key 'completion))))
+		       (> (length skk-comp-key) 0))
+		  (skk-look-ispell skk-comp-key 'completion)
+		(skk-look-1 skk-comp-key 'completion))))
       (pop skk-look-completion-words))))
 
 
