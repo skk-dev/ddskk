@@ -112,6 +112,9 @@
 
 (defun skk-server-completion-search-recursive (midasi-list)
   "`midasi-list' の見出しを再変換する"
+  ;; 見出しに対応したエントリがサーバに存在する事を前提としている。
+  ;; 不整合があってもエラーにはならないが、見出しだけが表示される事になるので
+  ;; 検索対象辞書から直接補完候補を生成していないサーバでは運用に気をつける事。
   (let (result-list kouho-list)
     (dolist (skk-henkan-key midasi-list)
       (setq kouho-list (cons skk-henkan-key (skk-search-server-1 nil nil))
