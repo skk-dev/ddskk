@@ -1,4 +1,4 @@
-2006-01-11  Eiji Obata  <e-obata@zero.ad.jp>
+2006-01-10  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-look.el (skk-look): Add optional arguments
 	CONVERSION-ARGUMENTS, NOT-ABBREV-ONLY, EXPAND-NULL.  Add
