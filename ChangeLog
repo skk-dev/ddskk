@@ -6,9 +6,11 @@
 	(skk-look-completion): Add optional argument EXPAND-NULL.
 	Update doc-string.  Don't downcase key.
 
-2006-01-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2006-01-10  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-act.el: New file.
+
+2006-01-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-azik.el: From experimental.
 
