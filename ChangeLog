@@ -1,3 +1,10 @@
+2006-01-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-show-candidates-toggle-display-place-char):
+	Rename from skk-show-candidates-toggle-display-char.
+
+	* skk.el (skk-henkan-show-candidates): Modify for it.
+
 2006-01-11  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-search-progs): Rename from `skk-search-all-progs'.
