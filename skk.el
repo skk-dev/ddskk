@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.349 2006/01/11 15:42:18 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.350 2006/01/11 20:10:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/11 15:42:18 $
+;; Last Modified: $Date: 2006/01/11 20:10:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4277,19 +4277,31 @@ SKK 辞書の候補として正しい形に整形する。"
       (list (upcase skk-henkan-key))
     nil))
 
-(defun skk-search-all-progs (key)
-  (let ((skk-henkan-key key)
-	(skk-henkan-okurigana nil)
-	(skk-okuri-char nil)
-	(skk-auto-okuri-process nil)
-	words)
+(defun skk-search-progs (key &optional prog-list remove-note)
+  ;; prog-list が省略された時は skk-search-prog-list の全てが対象
+  ;; もし引数をさらに追加するような事があれば
+  ;;   okuri-nasi	送り有りのチェックをパス
+  ;;   allow-duplicate	skk-nunion でなく nconc を使う
+  ;; あたりか
+  (save-match-data
+    (let ((skk-henkan-key key)
+	  skk-henkan-okurigana
+	  skk-okuri-char
+	  skk-auto-okuri-process
+	  words)
+      ;; 混ぜ書きな人って送り有り変換するのかな	 \cj のほうがいい?
+      (when (string-match "[ぁ-ん][a-z]$" key)
+	(setq skk-henkan-okurigana ""
+	      skk-okuri-char (substring key (1- (length key)))))
       (ignore-errors
-	(dolist (form skk-search-prog-list)
+	(dolist (form (or prog-list
+			  skk-search-prog-list))
 	  (dolist (word (eval form))
-	    (when (string-match ";" word)
+	    (when (and remove-note
+		       (string-match ";" word))
 	      (setq word (substring word 0 (match-beginning 0))))
 	    (setq words (skk-nunion words (list word))))))
-      words))
+      words)))
 
 (defun skk-search-sagyo-henkaku (&optional okuri-list anything)
   "見出し語をサ行変格活用の動詞とみなして、送りあり候補を検索する。"
@@ -4298,7 +4310,7 @@ SKK 辞書の候補として正しい形に整形する。"
   (when (and skk-henkan-okurigana
 	     (or (member skk-henkan-okurigana okuri-list)
 		 anything))
-    (skk-search-all-progs (substring skk-henkan-key
+    (skk-search-progs (substring skk-henkan-key
 				     0
 				     (1- (length skk-henkan-key))))))
 
@@ -4312,8 +4324,8 @@ SKK 辞書の候補として正しい形に整形する。"
       (while (< i len)
 	(setq key (substring skk-henkan-key 0 i)
 	      suf-key (substring skk-henkan-key i))
-	(setq words (skk-search-all-progs key)
-	      suffixes (skk-search-all-progs (concat ">" suf-key)))
+	(setq words (skk-search-progs key)
+	      suffixes (skk-search-progs (concat ">" suf-key)))
 	(when (and words suffixes)
 	  (dolist (word words)
 	    (dolist (suffix suffixes)
