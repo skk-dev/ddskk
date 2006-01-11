@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.348 2006/01/11 07:39:18 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.349 2006/01/11 15:42:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/11 07:39:18 $
+;; Last Modified: $Date: 2006/01/11 15:42:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3921,14 +3921,16 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
   ;; に変換したものを (j-okuri-ari-min 改め) skk-okuri-ari-min の位置に挿入す
   ;; る。
   ;;
-  (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
-	(midasi (if (and (skk-numeric-p)
-			 (string-match "#[0-9]" word))
-		    (skk-num-compute-henkan-key
-		     skk-henkan-key)
-		  skk-henkan-key))
-	(henkan-buffer (and skk-update-end-function
-			    (current-buffer))))
+  (let* ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
+	 (cand (car (skk-treat-strip-note-from-word word)))
+	 (midasi (if (and (skk-numeric-p)
+			  (or (string-match "#[0-9]" cand)
+			      (skk-lisp-prog-p cand)))
+		     (skk-num-compute-henkan-key
+		      skk-henkan-key)
+		   skk-henkan-key))
+	 (henkan-buffer (and skk-update-end-function
+			     (current-buffer))))
     ;; 入力履歴を更新する。
     ;; 送りあり入力は省略し、送りなし入力のみ履歴をとる。
     (unless skk-henkan-okurigana
