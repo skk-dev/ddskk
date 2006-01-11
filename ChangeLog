@@ -1,5 +1,14 @@
 2006-01-11  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk.el (skk-search-progs): Rename from `skk-search-all-progs'.
+	Add optional arguments PROG-LIST, REMOVE-NOTE.
+	(skk-search-sagyo-henkaku, skk-search-with-suffix): Update.
+
+	* skk-vars.el (skk-completion-search-char): New variable.
+
+	* skk-comp.el (skk-completion-search): New function.
+	(skk-comp-by-history): Add doc-string.
+
 	* skk.el (skk-update-jisyo-original): When `skk-numeric-p' and
 	`skk-lisp-prog-p' return non-nil, treat candidate as numeric
 	entry.
