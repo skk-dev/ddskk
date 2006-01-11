@@ -391,3 +391,9 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 ** elisp 著作・アイデア
 
 *** skk-server-completion.el (サーバ補完機能)
+
+* IRIE Tetsuya
+
+** elisp 著作・アイデア
+
+*** skk-act.el (Dvorak 配列用拡張ローマ字入力 "ACT" 対応)
