@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.172 2006/01/11 07:39:04 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.173 2006/01/11 20:12:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/11 07:39:04 $
+;; Last Modified: $Date: 2006/01/11 20:12:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1345,6 +1345,11 @@ nil であれば、最後の見出し語が表示された状態で停止する。"
   :type '(repeat (sexp))
   :group 'skk-misc
   :group 'skk-comp)
+
+(defcustom skk-completion-search-char ?~
+  "*`skk-completion-search' を利用する変換を指定するキーキャラクタ。"
+  :type 'character
+  :group 'skk-keybinds)
 
 ;;; SKK-SERVER-COMPLETION.EL related.
 (defcustom skk-server-completion-search-char ?~

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.50 2006/01/09 16:02:39 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.51 2006/01/11 20:12:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/09 16:02:39 $
+;; Last Modified: $Date: 2006/01/11 20:12:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -254,6 +254,9 @@
 ;;;###autoload
 (defun skk-comp-by-history ()
   ;; skk-comp-prefix を考慮
+  "入力が空の時に履歴から補完する。
+対象は現在の Emacs のセッションにおいて行なった送り無し変換のうち、
+`skk-kakutei-history-limit' で指定される最近のものである。"
   (when (and (string= skk-comp-key "")
 	     (or (not skk-comp-use-prefix)
 		 (string= skk-comp-prefix "")))
@@ -267,6 +270,31 @@
 	(setq skk-comp-kakutei-midasi-list
 	      (nreverse list))))
     (pop skk-comp-kakutei-midasi-list)))
+
+;;;###autoload
+(defun skk-completion-search (comp-prog-list &optional search-prog-list without-midasi)
+  "変換キーで補完を行い、得られた各見出しでさらに検索する。
+COMP-PROG-LIST は `skk-completion-prog-list' と同じ形式で、
+これに含まれる補完関数によって、まず変換キーから見出しのリストを得る。
+SEARCH-PROG-LIST は `skk-search-prog-list' と同じ形式で、
+補完関数によって得た見出しをこれに含まれる検索関数により変換候補を得る。
+デフォルトでは、補完によって得られた見出しと対応する候補はセットであるが、
+WITHOUT-MIDASI を指定すると見出しは省かれる。"
+  (when (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
+	    skk-completion-search-char)
+    (let* ((key (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
+	   (midasi-list (skk-comp-get-all-candidates key "" comp-prog-list))
+	   tmp words)
+      (dolist (midasi midasi-list)
+	(setq tmp (skk-search-progs midasi
+				    (or search-prog-list
+					skk-search-prog-list)))
+	(when tmp	; 補完対象と検索対象は独立なので存在しない事も
+	  (unless without-midasi
+	    (setq words (nconc words (list midasi))))
+	  ;; SKK 本体で skk-nunion してるのでここでは高速性重視
+	  (setq words (nconc words tmp))))
+      words)))
 
 (defalias 'skk-previous-completion 'skk-comp-previous)
 (defalias 'skk-start-henkan-with-completion 'skk-comp-start-henkan)
