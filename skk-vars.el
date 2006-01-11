@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.171 2006/01/08 08:48:05 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.172 2006/01/11 07:39:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/08 08:48:05 $
+;; Last Modified: $Date: 2006/01/11 07:39:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -430,6 +430,11 @@ nil であれば、変換に関する記録を取らない。"
 
 (defcustom skk-previous-candidate-char ?x
   "*skk-previous-candidate を割当てたキーキャラクタ。"
+  :type 'character
+  :group 'skk-keybinds)
+
+(defcustom skk-show-candidates-toggle-display-char ?\C-f
+  "*候補表示一覧の位置をエコーエリアとバッファとで切り替えるキーキャラクタ。"
   :type 'character
   :group 'skk-keybinds)
 
