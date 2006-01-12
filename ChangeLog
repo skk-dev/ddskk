@@ -1,3 +1,12 @@
+2006-01-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Eiji Obata <e-obata@zero.ad.jp>
+
+	* skk-develop.el: More highlighting (e.g. `skk-save-point',
+	`skk-with-point-move', etc).  Put `doc-string-elt' for
+	`skk-deflocalvar', `skk-defadvice', `defun-maybe',
+	`defmacro-maybe' and `defalias-maybe'.
+
 2006-01-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-show-candidates-toggle-display-place-char):
