@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.25 2006/01/05 18:28:27 skk-cvs Exp $
+;; Version: $Id: skk-develop.el,v 1.26 2006/01/12 02:35:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/05 18:28:27 $
+;; Last Modified: $Date: 2006/01/12 02:35:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -121,7 +121,25 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 		 '(6 (cond ((match-beginning 4) font-lock-function-name-face)
 			   ((match-beginning 5) font-lock-variable-name-face))
 		     nil t)))
-	       lisp-font-lock-keywords-2)))))
+	       (list
+		(list
+		 (concat "("
+			 (regexp-opt
+			  '("skk-save-point" "skk-with-point-move" "skk-loop-for-buffers"
+			    "static-if" "static-when" "static-unless" "static-cond")
+			  t)
+			 "\\>")
+		 '(1 font-lock-keyword-face)))
+	       (list
+		(list
+		 "(\\(skk-error\\)\\>"
+		 '(1 font-lock-warning-face)))
+	       lisp-font-lock-keywords-2)))
+     (put 'skk-deflocalvar 'doc-string-elt 3)
+     (put 'skk-defadvice 'doc-string-elt 3)
+     (put 'defun-maybe 'doc-string-elt 3)
+     (put 'defmacro-maybe 'doc-string-elt 3)
+     (put 'defalias-maybe 'doc-string-elt 3)))
 
 (require 'product)
 (product-provide
