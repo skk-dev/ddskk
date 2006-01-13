@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.51 2006/01/11 20:12:04 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.52 2006/01/13 09:26:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/11 20:12:04 $
+;; Last Modified: $Date: 2006/01/13 09:26:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -283,6 +283,7 @@ WITHOUT-MIDASI を指定すると見出しは省かれる。"
   (when (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
 	    skk-completion-search-char)
     (let* ((key (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
+	   (skk-comp-use-prefix nil)
 	   (midasi-list (skk-comp-get-all-candidates key "" comp-prog-list))
 	   tmp words)
       (dolist (midasi midasi-list)
