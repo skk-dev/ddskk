@@ -4,9 +4,9 @@
 
 ;; Author: Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dinsert.el,v 1.6 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-dinsert.el,v 1.7 2006/01/13 22:44:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2006/01/13 22:44:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -94,6 +94,7 @@ Q (skk-set-henkan-point-subr) の入力によって▽モードに入ると、直後の
 
  (INPUT-STATE NEXT-STATE RULE-ALIST)
 
+INPUT-STATE, NEXT-STATE の意味は `skk-rom-kana-base-rule-list' と同じであり、
 SKK は INPUT-STATE を検出すると、RULE-ALIST に基づいてバッファに文字を挿入し、
 続いて NEXT-STATE に状態を移したうえで、入力待ち状態となる。
 
@@ -160,8 +161,8 @@ VAL には、以下の 3つの形式を指定できる。
 が用いられ、これは上の 3つの形式の何れかである必要がある。
 
 `skk-rom-kana-rule-list' とは異なり、アトムでない要素は指定できない。このため
-\(\"カナ\" . \"かな\") とは指定できない。かなモード、カナモードによって条件分けし
-い場合には、変数 `skk-hiragana', `skk-katakana' によって調べる事ができる。
+\(\"カナ\" . \"かな\") とは指定できない。かなモード、カナモードによって条件分け
+したい場合には、変数 `skk-hiragana', `skk-katakana' によって調べる事ができる。
   note: `skk-hiragana' は `skk-dinsert' の中においてのみ有効なローカル変数である。")
 
 
