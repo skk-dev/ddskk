@@ -4,9 +4,9 @@
 
 ;; Author: Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dinsert.el,v 1.7 2006/01/13 22:44:21 skk-cvs Exp $
+;; Version: $Id: skk-dinsert.el,v 1.8 2006/01/13 23:14:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/13 22:44:21 $
+;; Last Modified: $Date: 2006/01/13 23:14:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -177,11 +177,11 @@ VAL には、以下の 3つの形式を指定できる。
 				nil))))
 
 (defun skk-dinsert (arg idx)
-  (let* ((rule-alist (nth 2 (nth idx skk-dinsert-rule-list)))
-	 ;; VAL に ("カナ" . "かな") の形式が書けないので
-	 ;; せめて変数を提供してみる
-	 (skk-hiragana (and (not skk-katakana) skk-j-mode))
-	 val cur-rule cnd)
+  (let ((rule-alist (nth 2 (nth idx skk-dinsert-rule-list)))
+	;; VAL に ("カナ" . "かな") の形式が書けないので
+	;; せめて変数を提供してみる
+	(skk-hiragana (and (not skk-katakana) skk-j-mode))
+	val cnd)
     (if (or (not skk-dinsert-mode)
 	    (and skk-henkan-mode
 		 (= skk-henkan-start-point skk-kana-start-point))
