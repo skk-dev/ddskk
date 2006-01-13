@@ -1,5 +1,7 @@
 2006-01-13  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk-act.el, skk-azik.el: Modification for `skk-restart'.
+
 	* skk-comp.el (skk-completion-search): Bind `skk-comp-use-prefix'
 	to nil.
 
