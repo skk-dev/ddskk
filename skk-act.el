@@ -84,13 +84,13 @@
 
 ;; " : は ' ; として変換させる
 (setq skk-downcase-alist
-      (nconc
+      (append
        skk-downcase-alist
        '((?\" . ?\') (?: . ?\;))))
 
 ;; '「っ」 ;「あん」 Q「おん」 X「いん」 を変換ポイントに加える
 (setq skk-set-henkan-point-key
-      (nconc skk-set-henkan-point-key '(?\" ?: ?Q ?X)))
+      (append skk-set-henkan-point-key '(?\" ?: ?Q ?X)))
 
 ;; `skk-previous-candidate' を x から TAB に変更する
 ;; FIXME: これをやるには skk.el の `skk-previous-candidate' の変更が必要
@@ -101,6 +101,8 @@
 (setq skk-delete-implies-kakutei nil)
 
 ;; skk-rom-kana-base-rule-list から変換規則を削除する
+(setq skk-rom-kana-base-rule-list	; for skk-restart
+      (copy-sequence skk-rom-kana-base-rule-list))
 (let ((del-list
        '("bb" "cc" "dd" "ff" "gg" "jj" "kk" "pp" "rr" "ss" "tt" "vv"
 	 "ww" "xx" "yy" "zz"
@@ -138,6 +140,8 @@
 	  (del-alist str skk-rom-kana-base-rule-list))))
 
 ;; skk-rom-kana-rule-list から変換規則を削除する
+(setq skk-rom-kana-rule-list		; for skk-restart
+      (copy-sequence skk-rom-kana-rule-list))
 (let ((del-list '("hh" "mm")))
   (dolist (str del-list)
     (setq skk-rom-kana-rule-list

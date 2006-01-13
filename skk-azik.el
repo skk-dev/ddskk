@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.1 2006/01/10 15:32:06 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.2 2006/01/13 19:09:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2006/01/10 15:32:06 $
+;; Last Modified: $Date: 2006/01/13 19:09:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -133,6 +133,8 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 (setq skk-set-henkan-point-key
       (append '(?Q ?X) skk-set-henkan-point-key))
 
+(setq skk-rom-kana-base-rule-list	; for skk-restart
+      (copy-sequence skk-rom-kana-base-rule-list))
 (let ((skk-del-list-for-azik
        '("cha" "che" "chi" "cho" "chu"
          "dha" "dhe" "dhi" "dho" "dhu"
