@@ -1,3 +1,8 @@
+2006-01-13  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-comp.el (skk-completion-search): Bind `skk-comp-use-prefix'
+	to nil.
+
 2006-01-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Eiji Obata <e-obata@zero.ad.jp>
