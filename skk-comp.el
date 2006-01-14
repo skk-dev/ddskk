@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.52 2006/01/13 09:26:59 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.53 2006/01/14 08:17:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/13 09:26:59 $
+;; Last Modified: $Date: 2006/01/14 08:17:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -62,18 +62,38 @@
 	;; skk-num が require されてないと
 	;; buffer-local 値を壊す恐れあり。
 	skk-num-list
+        tmp-key data
 	c-word)
     (when first
       (setq skk-comp-search-done nil
 	    skk-comp-stack nil
 	    skk-comp-depth 0
 	    skk-comp-prefix skk-prefix)
-      (when (skk-comp-prefix-unnecessary-p skk-comp-prefix)
-	(setq skk-comp-prefix "")))
-    (skk-kana-cleanup 'force)
-    (when first
-      (setq skk-comp-key (buffer-substring-no-properties
-			  skk-henkan-start-point (point))))
+      ;;  key  \ use-prefix    nil	  kakutei-first	  non-nil	 # data
+      ;; "かk"		     "か"  , ""	   "か"	 , "k"	  "か", "k"	 #    t
+      ;; "かn"		     "かん", ""	   "かん", ""	  "か", "n"	 # non-t
+      (setq tmp-key (buffer-substring-no-properties
+		     skk-henkan-start-point (point)))
+      ;; skk-kana-cleanup() を呼ぶ前の key を取得
+      (unless skk-abbrev-mode
+	(save-match-data
+	  (if (string-match "^\\([^a-z]*\\)[a-z]*$" tmp-key)
+	      (setq skk-comp-key (match-string 1 tmp-key))
+	    ;; 既にバッファに入力してあった文字を Q などで強引に使った為に
+	    ;; マッチしない場合など。履歴補完にしてしまおう。
+	    (setq skk-comp-key ""))))
+      ;; prefix に対応する「かな」etc. があれば non-t
+      ;; 副作用を伴なうルールが指定されているかもしれないので、
+      ;; データがあるかどうかのチェックのみに使う。
+      (setq data
+	    (skk-kana-cleanup 'force))
+      (when (or skk-abbrev-mode
+		(memq skk-comp-use-prefix '(nil kakutei-first)))
+	(setq skk-comp-key (buffer-substring-no-properties
+			    skk-henkan-start-point (point)))
+	(unless (and skk-comp-use-prefix
+		     (eq data t))
+	  (setq skk-comp-prefix ""))))
     (cond
      ;; (過去に探索済みの読みをアクセス中)
      (skk-comp-search-done
@@ -84,9 +104,7 @@
 	      (setq skk-comp-depth (length skk-comp-stack)))
 	(setq skk-comp-depth (1- skk-comp-depth))
 	(setq c-word (nth skk-comp-depth skk-comp-stack))))
-     ;; (新規の読みを辞書バッファから探索)
-     ;; skk-comp-key はバッファローカル値なので、辞書バッファに移る前に
-     ;; 一時変数に移し変えておく。
+     ;; (新規の読みを探索)
      (t
       (setq c-word
 	    (let ((word (skk-comp-get-candidate first)))
@@ -99,7 +117,6 @@
 	(setq skk-comp-search-done t)
 	(if skk-comp-circulate
 	    (setq skk-comp-depth (length skk-comp-stack))))))
-    ;; 辞書バッファの外。
     (cond
      (c-word
       (delete-region skk-henkan-start-point (point))
@@ -160,13 +177,6 @@
       (setq ret (cons (skk-comp-get-candidate)
 		      ret)))
     (nreverse (cdr ret))))
-
-(defun skk-comp-prefix-unnecessary-p (prefix)
-  ;; skk-kana-input-search-function は多分考慮しなくていいと思うが確信は無い
-  (let ((tree skk-rule-tree))
-    (dolist (c (string-to-char-list prefix))
-      (setq tree (skk-select-branch tree c)))
-    (skk-get-kana tree)))
 
 ;;;###autoload
 (defun skk-comp-from-jisyo (file)

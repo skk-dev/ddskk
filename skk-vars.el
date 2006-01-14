@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.174 2006/01/11 23:25:03 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.175 2006/01/14 08:17:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/11 23:25:03 $
+;; Last Modified: $Date: 2006/01/14 08:17:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1329,9 +1329,16 @@ nil であれば、最後の見出し語が表示された状態で停止する。"
 \"あさ\" は対象とならず、\"あか\", \"あき\" などに絞られる。
 しかし実際には補完関数も対応している必要がある。
 
+kakutei-first を選んだ時は、\"しんりn\" を補完すると、
+\"n\" は前もって \"ん\" に確定されてから補完候補を検索するので、
+\"しんりん\" 自体は候補として提示されない事に注意。
+
+
 2006/01/08現在、補完候補が見つからなかった時は
 プレフィクス部分だけ変更しても C-u TAB しないと反映されません。"
-  :type 'boolean
+  :type '(choice (const nil)
+		 (const t)
+		 (const kakutei-first))
   :group 'skk-misc
   :group 'skk-comp)
 

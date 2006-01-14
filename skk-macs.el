@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.105 2006/01/05 16:05:52 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.106 2006/01/14 08:17:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/05 16:05:52 $
+;; Last Modified: $Date: 2006/01/14 08:17:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -599,7 +599,9 @@ BUFFER defaults to the current buffer."
       (when (stringp kana)
 	(skk-insert-str kana))
       (skk-set-marker skk-kana-start-point nil)
-      t)))
+      (if data	   ; skk-prefix に対応するデータがあったならそれを返す
+	  data
+	t))))
 
 (defsubst skk-numeric-p ()
   (and skk-use-numeric-conversion
