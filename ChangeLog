@@ -1,3 +1,13 @@
+2006-01-14  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-comp-use-prefix): Accept value `kakutei-first'.
+
+	* skk-macs.el (skk-kana-cleanup): Return data.
+
+	* skk-comp.el (skk-comp-do): When `skk-comp-use-prefix' is not
+	`kakutei-first' and non-nil, keep original key and prefix.
+	(skk-comp-prefix-unnecessary-p): Abolish.
+
 2006-01-13  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-act.el, skk-azik.el: Modification for `skk-restart'.
