@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.53 2006/01/14 08:17:00 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.54 2006/01/15 08:43:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/14 08:17:00 $
+;; Last Modified: $Date: 2006/01/15 08:43:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -75,13 +75,15 @@
       (setq tmp-key (buffer-substring-no-properties
 		     skk-henkan-start-point (point)))
       ;; skk-kana-cleanup() を呼ぶ前の key を取得
-      (unless skk-abbrev-mode
+      (unless (or skk-abbrev-mode
+		  (memq skk-comp-use-prefix '(nil kakutei-first)))
 	(save-match-data
 	  (if (string-match "^\\([^a-z]*\\)[a-z]*$" tmp-key)
 	      (setq skk-comp-key (match-string 1 tmp-key))
-	    ;; 既にバッファに入力してあった文字を Q などで強引に使った為に
-	    ;; マッチしない場合など。履歴補完にしてしまおう。
-	    (setq skk-comp-key ""))))
+	    ;; 送り無しで見出しにアルファベットを含むような変則的な候補は、
+	    ;; skk-echo も考えるとまともな対処が面倒なので、
+	    ;; 害が無い範囲で適当に処理。 nil か kakutei-first を使ってもらう。
+	    (setq skk-comp-key tmp-key))))
       ;; prefix に対応する「かな」etc. があれば non-t
       ;; 副作用を伴なうルールが指定されているかもしれないので、
       ;; データがあるかどうかのチェックのみに使う。
