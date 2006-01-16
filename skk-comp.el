@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.54 2006/01/15 08:43:57 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.55 2006/01/16 10:23:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/15 08:43:57 $
+;; Last Modified: $Date: 2006/01/16 10:23:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -173,12 +173,12 @@
 	(skk-completion-prog-list prog-list)
 	skk-current-completion-prog-list
 	skk-comp-first
-	ret)
+	cand ret)
     (setq ret (list (skk-comp-get-candidate 'first)))
-    (while skk-current-completion-prog-list
-      (setq ret (cons (skk-comp-get-candidate)
-		      ret)))
-    (nreverse (cdr ret))))
+    (while (setq cand (skk-comp-get-candidate))
+      (unless (member cand ret)
+	(setq ret (cons cand ret))))
+    (nreverse ret)))
 
 ;;;###autoload
 (defun skk-comp-from-jisyo (file)
