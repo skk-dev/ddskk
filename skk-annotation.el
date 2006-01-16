@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.38 2006/01/04 18:44:50 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.39 2006/01/16 10:17:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/01/04 18:44:50 $
+;; Last Modified: $Date: 2006/01/16 10:17:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -277,30 +277,41 @@
   (message "%s" annotation))
 
 (defun skk-annotation-setup ()
-  (if (skk-get-last-henkan-datum 'henkan-list)
-      (setq skk-annotation-annotated-word
-	    (list
-	     (skk-get-last-henkan-datum 'henkan-key)
-	     (skk-get-last-henkan-datum 'okuri-char)
-	     (skk-get-last-henkan-datum 'henkan-list)))
-    (setq skk-henkan-key
-	  (read-from-minibuffer "Midasi: "))
-    (when (string= skk-henkan-key "")
-      (skk-error "$B%"%N%F!<%7%g%s$9$kC18l$,$"$j$^$;$s(B"
-		 "No word to be annotated"))
-    (setq skk-annotation-annotated-word
+  (let ((skk-henkan-key (skk-get-last-henkan-datum 'henkan-key))
+	(skk-okuri-char (skk-get-last-henkan-datum 'okuri-char))
+	(cand (car (skk-get-last-henkan-datum 'henkan-list)))
+	word)
+    (unless cand
+      (setq skk-henkan-key
+	    (read-from-minibuffer "Midasi: "))
+      (when (string= skk-henkan-key "")
+	(skk-error "$B%"%N%F!<%7%g%s$9$kC18l$,$"$j$^$;$s(B"
+		   "No word to be annotated"))
+      (when (string-match "\\cj\\([a-z]+\\)$"
+			  skk-henkan-key)
+	(setq skk-okuri-char (match-string 1 skk-henkan-key)
+	      ;; $BAw$j$"$jJQ49$r;XDj$9$k$H(B
+	      ;; skk-henkan-okurigana $B$N;XDj$K:$$k!#(B
+	      skk-henkan-okurigana ""))
+      (setq cand
+	    (prog1
+		(skk-henkan-in-minibuff)
+	      (setq skk-kakutei-flag nil))))
+    ;; $B$3$N;~E@$G$O(B skk-num-list $B$O4{$K(B nil
+    ;; $B%_%K%P%C%U%!$+$iBP>]$r;XDj$7$?>l9g$K$O(B consp $B$K$J$i$J$$(B
+    (when (consp cand)
+      (setq cand (car cand)))
+    (setq word (car (skk-treat-strip-note-from-word cand)))
+    (when (and (string-match "[0-9]" skk-henkan-key)
+	       (or (string-match "#[0-9]" word)
+		   (skk-lisp-prog-p word)))
+      (setq skk-henkan-key
+	    (skk-num-compute-henkan-key skk-henkan-key)))
+    (setq skk-annotation-target-data
 	  (list skk-henkan-key
-		(when (string-match "^[^a-zA-Z]+\\([a-z]+\\)$"
-				    skk-henkan-key)
-		  (setq skk-okuri-char
-			(substring skk-henkan-key
-				   (match-beginning 1))
-			;; $BAw$j$"$jJQ49$r;XDj$9$k$H(B
-			;; skk-henkan-okurigana $B$N;XDj$K:$$k!#(B
-			skk-henkan-okurigana ""))
-		(list (prog1
-			  (skk-henkan-in-minibuff)
-			(setq skk-kakutei-flag nil)))))
+		skk-okuri-char
+		cand))
+    ;; $B0U?^$rM}2r$7$F$J$$$,!"(Bskk-kakutei-initialize $B$N$[$&$,E,@Z$J5$$b(B
     (skk-kakutei)))
 
 ;;;###autoload
@@ -318,13 +329,13 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		   (static-if (eq skk-emacs-type 'xemacs)
 		       '(start-closed t end-open t)
 		     '(front-sticky t rear-nonsticky t))))
-	   (wholestring (car (nth 2 skk-annotation-annotated-word)))
+	   (wholestring (nth 2 skk-annotation-target-data))
 	   (realword (if (and wholestring
-			      (string-match ";\\**" wholestring))
+			      (string-match ";\\*?" wholestring))
 			 (substring wholestring 0 (match-beginning 0))
 		       wholestring))
 	   (annotation (if (and realword
-				(string-match ";\\**" wholestring))
+				(string-match ";\\*?" wholestring))
 			   (substring wholestring (match-end 0))
 			 nil)))
       (setq skk-annotation-original-window-configuration
@@ -366,7 +377,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
     (save-match-data
       (with-current-buffer (get-buffer-create skk-annotation-buffer)
 	(goto-char (point-min))
-	(when (looking-at "^[\t ]*;")
+	(when (looking-at ";; Add a note to word") ; $BCfESH>C<(B
 	  (forward-line 1)
 	  (beginning-of-line))
 	(setq annotation (buffer-substring-no-properties
@@ -378,14 +389,31 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(when (string= annotation "")
 	  (setq annotation nil))
 	(setq annotation (skk-quote-char annotation))))
-    (when annotation
-      (skk-annotation-last-word-1
-       (lambda (beg end)
-	 (goto-char beg)
-	 (when (re-search-forward ";[^/]*" end t)
-	   (delete-region (match-beginning 0) (match-end 0)))
-	 (goto-char end)
-	 (insert ";*" annotation))))
+    (if annotation
+	(skk-annotation-last-word-1
+	 (lambda (beg end)
+	   (goto-char beg)
+	   (when (re-search-forward ";[^/]*" end t)
+	     (delete-region (match-beginning 0) (match-end 0)))
+	   (goto-char end)
+	   (insert ";*" annotation)))
+      ;; $B:o=|$7$?;~(B
+      (let ((old-annotation
+	     (cdr (skk-treat-strip-note-from-word
+		   (nth 2 skk-annotation-target-data)))))
+	(when (and old-annotation
+		   (yes-or-no-p
+		    (format (if skk-japanese-message-and-error
+				"$B4{B8$N%"%N%F!<%7%g%s(B `%s' $B$r:o=|$7$^$9$+!)(B "
+			      "Delete old annotation `%s' ? ")
+			    (skk-annotation-get old-annotation))))
+	  (skk-annotation-last-word-1
+	   (lambda (beg end)
+	     (goto-char beg)
+	     (when (re-search-forward ";[^/]*" end t)
+	       (delete-region (match-beginning 0) (match-end 0))))))))
+    (skk-annotation-erase-buffer)
+    (kill-buffer (current-buffer))
     (set-window-configuration
      skk-annotation-original-window-configuration)
     (when annotation
@@ -412,7 +440,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	   (format (if skk-japanese-message-and-error
 		       "%s $B$K$D$$$F$N%"%N%F!<%7%g%s$r:o=|$7$^$9$+!)(B "
 		     "Really delete annotation for %s? ")
-		   (car (nth 2 skk-annotation-annotated-word))))
+		   (nth 2 skk-annotation-target-data)))
       (skk-annotation-last-word-1
        (lambda (beg end)
 	 (goto-char beg)
@@ -459,7 +487,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   ;; funcall FUNCTION with BEG and END where BEG and END are markers.
   (let ((inhibit-quit t)
 	(jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
-	(word (car (nth 2 skk-annotation-annotated-word)))
+	(word (nth 2 skk-annotation-target-data))
 	(beg (make-marker))
 	(end (make-marker))
 	(eol (make-marker))
@@ -467,14 +495,14 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
     (when (buffer-live-p jisyo-buffer)
       (save-match-data
 	(with-current-buffer jisyo-buffer
-	  (goto-char (if (nth 1 skk-annotation-annotated-word)
+	  (goto-char (if (nth 1 skk-annotation-target-data)
 			 skk-okuri-ari-min
 		       skk-okuri-nasi-min))
 	  (when (re-search-forward
 		    (concat "^\\("
-			    (regexp-quote (car skk-annotation-annotated-word))
+			    (regexp-quote (car skk-annotation-target-data))
 			    "\\) /")
-		    (if (nth 1 skk-annotation-annotated-word)
+		    (if (nth 1 skk-annotation-target-data)
 			skk-okuri-ari-max nil)
 		    t nil)
 	    (goto-char (match-beginning 1))
@@ -487,7 +515,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	      (set-marker beg (match-beginning 1))
 	      (set-marker end (or (match-end 2) (match-end 1)))
 	      (funcall function beg end)
-	      (when (nth 1 skk-annotation-annotated-word)
+	      (when (nth 1 skk-annotation-target-data)
 		(goto-char end)
 		;; skip other candidates that has not a okuirigana.
 		(search-forward "/[" eol t nil)

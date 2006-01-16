@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.175 2006/01/14 08:17:00 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.176 2006/01/16 10:17:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/14 08:17:00 $
+;; Last Modified: $Date: 2006/01/16 10:17:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3059,7 +3059,7 @@ This map should be derived from isearch-mode-map.")
 (skk-deflocalvar skk-num-list nil
   "skk-henkan-key の中に含まれる数字を表す文字列のリスト。
 例えば、\"▽へいせい7ねん10がつ\" の変換を行うとき、skk-henkan-key は
-\"へいせい7ねん10がつ\" であり、skk-num-list は (\"7\" \"10\"となる。
+\"へいせい7ねん10がつ\" であり、skk-num-list は (\"7\" \"10\") となる。
 \(buffer local)")
 
 (defvar skk-num-recompute-key nil
@@ -3572,8 +3572,8 @@ o 候補一覧を表示するとき (候補の文字列の後ろに注釈が付加される)
 skk-annotation-save-and-quit を呼ぶとこの window configuration
 を使って SKK annotation mode に入る前の window 状態に戻す。")
 
-(defvar skk-annotation-annotated-word nil
-  "annotation を付けられる単語。")
+(defvar skk-annotation-target-data nil
+  "annotation を付けられる候補に関するデータ。")
 
 ;; buffer local variables.
 (skk-deflocalvar skk-annotation-mode nil
