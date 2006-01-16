@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.351 2006/01/11 23:26:08 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.352 2006/01/16 15:23:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/11 23:26:08 $
+;; Last Modified: $Date: 2006/01/16 15:23:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1583,6 +1583,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
   (let (mark
 	prototype
 	new-word
+	note
 	kakutei-henkan)
     (if (string= skk-henkan-key "")
 	(skk-kakutei)
@@ -1605,7 +1606,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	  (setq new-word (skk-quote-semicolon prototype))))
 	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
-	  (skk-insert-new-word new-word)))
+	  (setq note (cdr (skk-insert-new-word new-word)))))
       (skk-inline-hide)
       ;;
       (when (and new-word
@@ -1623,6 +1624,11 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	    (skk-set-marker mark nil)
 	    (backward-char 1))
 	(goto-char (point-max)))
+      ;;
+      (when (and skk-show-annotation
+		 note
+		 (not kakutei-henkan))
+	(skk-annotation-show note))
       ;;
       (when kakutei-henkan
 	(skk-kakutei new-word)))))
@@ -2284,7 +2290,8 @@ auto に設定するとユーザに確認しない。
      (let ((mark (unless (eobp)
 		   (skk-save-point
 		    (forward-char 1)
-		    (point-marker)))))
+		    (point-marker))))
+	   note)
        (skk-save-point
 	(cond
 	 ((= (skk-henkan-count) 0)
@@ -2315,13 +2322,20 @@ auto に設定するとユーザに確認しない。
 	  (skk-change-marker-to-white))
 	 (t
 	  (skk-set-henkan-count (1- (skk-henkan-count)))
-	  (skk-insert-new-word (skk-get-current-candidate)))))
+	  (setq note (cdr (skk-insert-new-word
+			   (skk-get-current-candidate)))))))
+       ;;
        (if mark
 	   (progn
 	     (goto-char mark)
 	     (skk-set-marker mark nil)
 	     (backward-char 1))
 	 (goto-char (point-max)))
+       ;;
+       (when (and skk-show-annotation
+		  note)
+	 (skk-annotation-show note))
+       ;;
        (when (and skk-abbrev-mode
 		  (= (skk-henkan-count) -1))
 	 (skk-abbrev-mode-on)))))))
@@ -2419,14 +2433,12 @@ auto に設定するとユーザに確認しない。
 	(skk-set-marker skk-henkan-end-point (point))
 	(when skk-use-face
 	  (skk-henkan-face-on face))
-	(when (and skk-show-annotation
-		   note)
-	  (skk-annotation-show note))
 	(when skk-insert-new-word-function
 	  (funcall skk-insert-new-word-function))
 	(when skk-kakutei-flag
 	  ;; `skk-ignore-dic-word' 内で辞書登録モードに入った場合。
-	  (skk-kakutei))))))
+	  (skk-kakutei))
+	(cons word note)))))
 
 (defun skk-treat-strip-note-from-word (word)
   "変換候補文字列 WORD を候補そのものと注釈に分割する。
