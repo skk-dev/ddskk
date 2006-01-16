@@ -1,3 +1,16 @@
+2006-01-16  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-annotation-target-data): Rename from
+	`skk-annotation-annotated-word'.  Now, it's 3rd element is
+	candidate, not copy of skk-henkan-list.
+
+	* skk-annotation.el (skk-annotation-remove)
+	(skk-annotation-last-word-1): Update.
+	(skk-annotation-setup): Handle numeric candidate correctly.
+	(skk-annotation-add): Don't remove too mush `*'.
+	(skk-annotation-save-and-quit): Allow annotation which start with
+	`;'.  When new annotation is null, remove old annotation.
+
 2006-01-15  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-comp.el (skk-comp-do): Even if input pattern is irregular,
