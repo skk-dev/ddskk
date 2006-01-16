@@ -1,5 +1,7 @@
 2006-01-16  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk-comp.el (skk-comp-get-all-candidates): Remove duplicate.
+
 	* skk-vars.el (skk-annotation-target-data): Rename from
 	`skk-annotation-annotated-word'.  Now, it's 3rd element is
 	candidate, not copy of skk-henkan-list.
