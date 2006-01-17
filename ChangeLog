@@ -1,3 +1,11 @@
+2006-01-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-1): Never throw.  Just ignore
+	quit signal.
+
+	* skk.el (skk-insert-new-word): Don't show the note here.
+	(skk-henkan, skk-previous-candidate): Show the note there.
+
 2006-01-16  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-comp.el (skk-comp-get-all-candidates): Remove duplicate.
