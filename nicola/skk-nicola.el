@@ -893,6 +893,7 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
       (if (symbolp str)
 	  (setq fun str
 		str nil)
+	(skk-cancel-undo-boundary)
 	(skk-insert-str
 	 (setq str (make-string arg (string-to-char str))))))
     ;;
