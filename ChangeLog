@@ -1,3 +1,7 @@
+2006-01-23  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-comp.el (skk-comp-get-all-candidates): Bug fixed.
+
 2006-01-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-1): Never throw.  Just ignore
