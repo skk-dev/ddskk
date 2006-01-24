@@ -59,6 +59,8 @@
      'font-lock-defaults
      '(skk-jisyo-edit-font-lock-keywords))
 
+(defvar skk-jisyo-edit-original-window-configuration nil)
+
 ;;;###autoload
 (defun skk-jisyo-edit-mode ()
   "Major mode for editing SKK JISYO."
@@ -90,6 +92,50 @@
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
 				. skk-jisyo-edit-mode))
+
+(defun skk-edit-private-jisyo ()
+  (interactive)
+  (when (skk-y-or-n-p "辞書をセーブしますか？ " "Save jisyo? ")
+    (skk-save-jisyo))
+  (message nil)
+  (setq skk-jisyo-edit-original-window-configuration
+        (current-window-configuration))
+  (find-file skk-jisyo)
+  (unless (eq major-mode 'skk-jisyo-edit-mode)
+    (skk-jisyo-edit-mode))
+  (make-local-hook 'kill-buffer-hook)
+  ;; 編集中に再度実行しても、
+  ;; ↓ のようになるから skk-update-jisyo-function は復元される。
+  ;; '((lambda nil
+  ;;     (setq skk-update-jisyo-function #'ignore))
+  ;;   (lambda nil
+  ;;     (setq skk-update-jisyo-function #'skk-update-jisyo-original))
+  ;;   t)
+  (add-hook 'kill-buffer-hook
+            `(lambda ()
+               (setq skk-update-jisyo-function
+                     #',skk-update-jisyo-function))
+            nil t)
+  (setq skk-update-jisyo-function #'ignore)
+  (local-set-key "\C-c\C-c"
+                 #'(lambda ()
+                     (interactive)
+                     (when (skk-y-or-n-p "編集を終了しますか？ " "Finish editing jisyo? ")
+                       (save-buffer)
+                       (kill-buffer (current-buffer))
+                       (skk-reread-private-jisyo t)
+                       (set-window-configuration
+                        skk-jisyo-edit-original-window-configuration))
+                     (message nil)))
+  (local-set-key "\C-c\C-k"
+                 #'(lambda ()
+                     (interactive)
+                     (when (skk-y-or-n-p "編集を中止しますか？ " "Abort editing jisyo? ")
+                       (set-buffer-modified-p nil)
+                       (kill-buffer (current-buffer))
+                       (set-window-configuration
+                        skk-jisyo-edit-original-window-configuration))
+                     (message nil))))
 
 (require 'product)
 (product-provide
