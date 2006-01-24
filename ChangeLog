@@ -1,3 +1,9 @@
+2006-01-24  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-jisyo-edit-mode.el
+	(skk-jisyo-edit-original-window-configuration): New variable.
+	(skk-edit-private-jisyo): New command.
+
 2006-01-23  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-comp.el (skk-comp-get-all-candidates): Bug fixed.
