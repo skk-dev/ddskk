@@ -93,6 +93,7 @@
 (add-to-list 'auto-mode-alist '("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
 				. skk-jisyo-edit-mode))
 
+;;;###autoload
 (defun skk-edit-private-jisyo ()
   (interactive)
   (when (skk-y-or-n-p "辞書をセーブしますか？ " "Save jisyo? ")
