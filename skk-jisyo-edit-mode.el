@@ -104,7 +104,9 @@
   (find-file skk-jisyo)
   (unless (eq major-mode 'skk-jisyo-edit-mode)
     (skk-jisyo-edit-mode))
-  (make-local-hook 'kill-buffer-hook)
+  (static-when (or (featurep 'xemacs)
+		   (< emacs-major-version 21))
+    (make-local-hook 'kill-buffer-hook))
   ;; 編集中に再度実行しても、
   ;; ↓ のようになるから skk-update-jisyo-function は復元される。
   ;; '((lambda nil
