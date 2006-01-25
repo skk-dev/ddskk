@@ -85,8 +85,7 @@
   (when (skk-server-live-p (skk-open-server))
     (with-current-buffer skkserv-working-buffer
       (let ((cont t)
-	    (count 0)
-	    l)
+	    (count 0))
 	(erase-buffer)
 	(process-send-string skkserv-process (concat "4" key " "))
 	(while (and cont (skk-server-live-p))
