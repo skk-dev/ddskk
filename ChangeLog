@@ -1,3 +1,10 @@
+2006-01-26  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-jisyo-edit-mode.el
+	(skk-henkan-in-minibuff@before@notify-no-effect)
+	(skk-purge-from-jisyo@around@notify-no-effect): New advices.
+	(skk-edit-private-jisyo): Use them.
+
 2006-01-24  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-jisyo-edit-mode.el
