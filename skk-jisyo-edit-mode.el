@@ -117,13 +117,22 @@
   (add-hook 'kill-buffer-hook
             `(lambda ()
                (setq skk-update-jisyo-function
-                     #',skk-update-jisyo-function))
+                     #',skk-update-jisyo-function)
+	       (ad-disable-advice 'skk-henkan-in-minibuff 'before 'notify-no-effect)
+	       (ad-disable-advice 'skk-purge-from-jisyo 'around 'notify-no-effect)
+	       (ad-activate 'skk-henkan-in-minibuff)
+	       (ad-activate 'skk-purge-from-jisyo))
             nil t)
   (setq skk-update-jisyo-function #'ignore)
+  (ad-enable-advice 'skk-henkan-in-minibuff 'before 'notify-no-effect)
+  (ad-enable-advice 'skk-purge-from-jisyo 'around 'notify-no-effect)
+  (ad-activate 'skk-henkan-in-minibuff)
+  (ad-activate 'skk-purge-from-jisyo)
   (local-set-key "\C-c\C-c"
                  #'(lambda ()
                      (interactive)
-                     (when (skk-y-or-n-p "編集を終了しますか？ " "Finish editing jisyo? ")
+                     (when (skk-y-or-n-p "編集を終了しますか？ "
+					 "Finish editing jisyo? ")
                        (save-buffer)
                        (kill-buffer (current-buffer))
                        (skk-reread-private-jisyo t)
@@ -133,12 +142,27 @@
   (local-set-key "\C-c\C-k"
                  #'(lambda ()
                      (interactive)
-                     (when (skk-y-or-n-p "編集を中止しますか？ " "Abort editing jisyo? ")
+                     (when (skk-y-or-n-p "編集を中止しますか？ "
+					 "Abort editing jisyo? ")
                        (set-buffer-modified-p nil)
                        (kill-buffer (current-buffer))
                        (set-window-configuration
                         skk-jisyo-edit-original-window-configuration))
                      (message nil))))
+
+(defadvice skk-henkan-in-minibuff (before notify-no-effect disable)
+  (ding)
+  (skk-message "個人辞書の編集中です。登録は反映されません。"
+	       "You are editing private jisyo.  This registration has no effect.")
+  (sit-for 1.5))
+
+(defadvice skk-purge-from-jisyo (around notify-no-effect disable)
+  (if (eq skk-henkan-mode 'active)
+      (progn
+	(ding)
+	(skk-message "個人辞書の編集中です。削除できません。"
+		     "You are editing private jisyo.  Can't purge."))
+    ad-do-it))
 
 (require 'product)
 (product-provide
