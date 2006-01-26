@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.352 2006/01/16 15:23:54 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.353 2006/01/26 20:26:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/16 15:23:54 $
+;; Last Modified: $Date: 2006/01/26 20:26:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3603,9 +3603,9 @@ If you want to restore the dictionary from the disc, try
 		  ;; -- 12.2.1 からの変更 --
 		  ;; 数値変換時に、非数値変換も同時に検索して候補に
 		  ;; 含める。
-		  (skk-nunion (eval prog)
-			      (let (skk-use-numeric-conversion)
-				(eval prog)))
+		  (skk-nunion (let (skk-use-numeric-conversion)
+				(eval prog))
+			      (eval prog))
 		(let (skk-use-numeric-conversion)
 		  (eval prog))))
       (setq skk-current-search-prog-list (cdr skk-current-search-prog-list)))
