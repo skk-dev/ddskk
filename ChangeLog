@@ -37,7 +37,7 @@
 	* skk-annotation.el (skk-annotation-remove)
 	(skk-annotation-last-word-1): Update.
 	(skk-annotation-setup): Handle numeric candidate correctly.
-	(skk-annotation-add): Don't remove too mush `*'.
+	(skk-annotation-add): Don't remove too much `*'.
 	(skk-annotation-save-and-quit): Allow annotation which start with
 	`;'.  When new annotation is null, remove old annotation.
 
