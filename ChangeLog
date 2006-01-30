@@ -1,3 +1,10 @@
+2006-01-30  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-show-num-type-info): New user option.
+
+	* skk.el (skk-show-num-type-info): New function.
+	(skk-henkan-in-minibuff): Use it.
+
 2006-01-26  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-search): Change order of numeric and non-numeric
