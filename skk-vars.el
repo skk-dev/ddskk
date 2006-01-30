@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.176 2006/01/16 10:17:18 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.177 2006/01/30 17:46:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/16 10:17:18 $
+;; Last Modified: $Date: 2006/01/30 17:46:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -760,6 +760,11 @@ left であれば左端に表示する。
 "
   :type '(repeat (radio (symbol :tag "関数名のみで指定")
 			(list :tag "関数名と引数のリスト")))
+  :group 'skk-num)
+
+(defcustom skk-show-num-type-info t
+  "*Non-nil ならば、数値変換エントリの辞書登録時に変換タイプの案内を表示する。"
+  :type 'boolean
   :group 'skk-num)
 
 (defcustom skk-rom-kana-base-rule-list

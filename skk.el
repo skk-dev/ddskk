@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.353 2006/01/26 20:26:14 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.354 2006/01/30 17:46:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/26 20:26:14 $
+;; Last Modified: $Date: 2006/01/30 17:46:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2144,22 +2144,24 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
        'minibuffer-setup-hook
        #'(lambda ()
 	   (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
-      (condition-case nil
-	  (setq new-one
-		(read-from-minibuffer
-		 (format "%s$B<-=qEPO?(B%s %s "
-			 (make-string depth ?[)
-			 (make-string depth ?])
-			 (or (and (skk-numeric-p)
-				  (skk-num-henkan-key))
-			     (if skk-okuri-char
-				 (skk-compute-henkan-key2)
-			       skk-henkan-key)))
-		 (when (and (not skk-okuri-char)
-			    skk-read-from-minibuffer-function)
-		   (funcall skk-read-from-minibuffer-function))))
-	(quit
-	 (setq new-one "")))
+      (save-window-excursion
+	(skk-show-num-type-info)
+	(condition-case nil
+	    (setq new-one
+		  (read-from-minibuffer
+		   (format "%s$B<-=qEPO?(B%s %s "
+			   (make-string depth ?[)
+					(make-string depth ?])
+			   (or (and (skk-numeric-p)
+				    (skk-num-henkan-key))
+			       (if skk-okuri-char
+				   (skk-compute-henkan-key2)
+				 skk-henkan-key)))
+		   (when (and (not skk-okuri-char)
+			      skk-read-from-minibuffer-function)
+		     (funcall skk-read-from-minibuffer-function))))
+	  (quit
+	   (setq new-one ""))))
       (when (and skk-check-okurigana-on-touroku
 		 ;; $BAw$j$"$jJQ49$G$b(B skk-okuri-char $B$@$1$@$HH=CG$G$-$J$$!#(B
 		 skk-henkan-okurigana new-one)
@@ -2261,6 +2263,39 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 		      (1- len)))))))
   ;;
   word)
+
+(defun skk-show-num-type-info ()
+  "$B?tCMJQ49%(%s%H%j$N<-=qEPO?;~$KJQ49%?%$%W$N0FFb$rI=<($9$k!#(B"
+  (when (and skk-show-num-type-info
+	     skk-use-numeric-conversion
+	     (string-match "[0-9]" skk-henkan-key))
+    (let ((buff (get-buffer-create " *$B?tCMJQ49%?%$%W(B*")))
+      (with-current-buffer buff
+	(erase-buffer)
+	(insert "\
+#0 $BL5JQ49(B                 e.g. 12
+#1 $BA43Q?t;z(B               e.g. $B#1#2(B
+#2 $B4A?t;z$G0L<h$j$J$7(B     e.g. $B8^8^!;!;(B
+#3 $B4A?t;z$G0L<h$j$"$j(B     e.g. $B8^@i8^I4(B
+#4 $B?tCM:FJQ49(B
+#5 $B6b3[I=5-(B               e.g. $B0mot6eI46e=&8`(B
+#9 $B>-4}MQ(B"))
+      ;; skk-henkan-show-candidates-buffer $B$+$i$R$C$Q$C$F$-$?%3!<%I(B
+      (let ((minibuf-p (skk-in-minibuffer-p))
+	    (window (get-buffer-window
+		     (skk-minibuffer-origin))))
+	(when minibuf-p
+	  (if window
+	      (select-window window)
+	    (other-window 1)))
+	(unless (eq (next-window) (selected-window))
+	  (delete-other-windows))
+	(save-selected-window
+	  (pop-to-buffer buff)
+	  (unless (pos-visible-in-window-p)
+	    (recenter '(1))))
+	(when minibuf-p
+	  (select-window (minibuffer-window)))))))
 
 (defun skk-previous-candidate (&optional arg)
   "$B"'%b!<%I$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
