@@ -1,3 +1,11 @@
+2006-02-01  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-annotation.el (skk-annotation-get): Use `defun' instead of
+	`defsubst'.  Handle empty string properly.
+
+	* skk.el (skk-henkan-candidate-list): Use `skk-annotation-get'.
+	Eval candidate and note only once.
+
 2006-01-30  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-show-num-type-info): New user option.
