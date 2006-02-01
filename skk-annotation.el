@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.40 2006/01/16 15:23:38 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.41 2006/02/01 11:29:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/01/16 15:23:38 $
+;; Last Modified: $Date: 2006/02/01 11:29:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -164,15 +164,15 @@
     (skk-annotation-erase-buffer)
     (insert annotation)))
 
-(defsubst skk-annotation-get (annotation)
-  (or (string= annotation "")
-      (if (eq (aref annotation 0) ?*)
-	  (substring annotation 1)
-	annotation)))
-
-;; advices.
-
 ;; functions.
+;;;###autoload
+(defun skk-annotation-get (annotation)
+  (if (string= annotation "")
+      ""
+    (if (eq (aref annotation 0) ?*)
+	(substring annotation 1)
+      annotation)))
+
 ;;;###autoload
 (defun skk-annotation-show (annotation)
   (unless skk-kakutei-flag
