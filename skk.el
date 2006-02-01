@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.354 2006/01/30 17:46:02 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.355 2006/02/01 14:19:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/30 17:46:02 $
+;; Last Modified: $Date: 2006/02/01 14:19:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1992,10 +1992,11 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 
 (defun skk-henkan-candidate-list (candidates max)
   ;; CANDIDATES $B$N@hF,$N(B max $B8D$N$_$N%j%9%H$rJV$9!#(B
-  (let ((count 0) e note v)
+  (let ((count 0) e sep note v)
     (while (> max count)
       (setq e (nth count candidates))
-      (setq note nil)
+      (setq sep  nil
+	    note nil)
       (when (and (skk-numeric-p) (consp e))
 	(setq e (cdr e)))
       (cond
@@ -2014,59 +2015,57 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	    (cond
 	     ((consp value)
 	      ;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
-	      (setq e (skk-eval-string (car value))
-		    note (cond
-			  ((not skk-show-annotation)
-			   ;; $BCm<a4XO"$NI=<($O0l@Z$7$J$$(B
-			   "")
-			  ((consp (cdr value))
-			   ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
-			   ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
-			   (if (skk-annotation-display-p 'list)
-			       (concat (cadr value)
-				       (skk-eval-string (cddr value)))
-			     (cadr value)))
-			  ((string-match "^;" (cdr value))
-			   ;; ($B8uJd(B . $BCm<a(B)
-			   ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G$$$k(B
-			   (if (skk-annotation-display-p 'list)
-			       (concat (substring (cdr value) 0 1)
-				       (skk-eval-string
-					(substring (cdr value) 1)))
-			     (substring (cdr value) 0 1)))
-			  (t
-			   ;; ($B8uJd(B . $BCm<a(B)
-			   ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F$$$k$b$N$H(B
-			   ;; $BH=CG$9$k(B
-			   (if (skk-annotation-display-p 'list)
-			       (concat ";" (skk-eval-string (cdr value)))
-			     ";")))))
+	      (setq e (car value))
+	      (cond
+	       ((consp (cdr value))
+		;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
+		;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
+		(setq sep  (cadr value)
+		      note (cddr value)))
+	       ((string-match "^;" (cdr value))
+		;; ($B8uJd(B . $BCm<a(B)
+		;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G$$$k(B
+		(setq sep  (substring (cdr value) 0 1)
+		      note (substring (cdr value) 1)))
+	       (t
+		;; ($B8uJd(B . $BCm<a(B)
+		;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F$$$k$b$N$H(B
+		;; $BH=CG$9$k(B
+		(setq sep  ";"
+		      note (cdr value)))))
 	     (t
 	      ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
 	      (setq e    value
-		    note nil)))
-	    ;; $B8uJd0lMwI=<($G$O8uJd$HCm<a$r0l3g$7$FI=<($9$k$N$G(B
-	    ;; $B$3$3$G7k9g$7$F$*$/!#(B
-	    (when (stringp note)
-	      (setq e (concat e note)))))
+		    note nil)))))
 	;; $B%f!<%6$,Cm<aI=<($r2C9):Q$_$N>l9g$O$b$&Cm<a$N=hM}$O$7$J$$!#(B
 	(when (and (not (stringp note))
 		   (string-match ";" e))
-	  ;; $B%f!<%6$,K>$`Cm<a$NI=<(7A<0$K1h$C$FCm<a$r2C9)$9$k!#(B
-	  (setq note (cond ((not skk-show-annotation)
-			    ;; $B!VI=<($7$J$$!W(B
-			    "")
-			   ((skk-annotation-display-p 'list)
-			    ;; $B!VI=<($9$k!W(B
-			    (substring e (match-beginning 0)))
-			   (t
-			    ;; $B!V8uJd0lMw$G$OI=<($7$J$$!W(B
-			    ;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
-			    (substring e (match-beginning 0) (match-end 0)))))
-	  (setq e (concat (substring e 0 (match-beginning 0))
-			  note)))
+	  (setq sep  (substring e (match-beginning 0) (match-end 0))
+		note (substring e (match-end 0))
+		e    (substring e 0 (match-beginning 0))))
+	;; $B%f!<%6$,K>$`Cm<a$NI=<(7A<0$K1h$C$FCm<a$r2C9)$9$k!#(B
+	(cond ((not skk-show-annotation)
+	       ;; $B!VI=<($7$J$$!W(B
+	       (setq sep  ""
+		     note ""))
+	      ((skk-annotation-display-p 'list)
+	       ;; $B!VI=<($9$k!W(B
+	       ;; $B$=$N$^$^(B
+	       )
+	      (t
+	       ;; $B!V8uJd0lMw$G$OI=<($7$J$$!W(B
+	       ;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
+	       (setq note "")))
+	;; $B8uJd0lMwI=<($G$O8uJd$HCm<a$r0l3g$7$FI=<($9$k$N$G(B
+	;; $B$3$3$G7k9g$7$F$*$/!#(B
+	(setq e (concat (skk-eval-string e)
+			sep
+			(if note
+			    (skk-eval-string
+			     (skk-annotation-get note))
+			  "")))
 	;; $BA4$F$N2C9)=hM}=*$o$j!#JQ?t$K%;%C%H$9$k!#(B
-	(setq v     (cons (skk-eval-string e) v)
+	(setq v     (cons e v)
 	      count (1+ count)))
        (t
 	;; $B8uJd$,?T$-$?>l9g(B
