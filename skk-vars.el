@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.177 2006/01/30 17:46:02 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.178 2006/02/03 20:54:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/30 17:46:02 $
+;; Last Modified: $Date: 2006/02/03 20:54:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3487,7 +3487,10 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 (defcustom skk-annotation-function nil
   "*annotation $B$rI=<($9$k$+$I$&$+$N%A%'%C%/;~$K%3!<%k$5$l$k4X?t!#(B
 non-nil $B$rJV$9$H(B annotation $B$rI=<($9$k!#(Bannotation $B$NBP>]$H$9$kJ8;zNs(B
-$B$r0z?t$K$7$F(B funcall $B$5$l$k!#(B"
+$B$r0z?t$K$7$F(B funcall $B$5$l$k!#(B
+
+$B8uJd0lMw;~$K$O8F$P$l$J$$!#(B
+`skk-treat-candidate-appearance-function' $B$GF1$8;v$O<B8=$G$-$k!#(B"
   :type 'function
   :group 'skk-annotation
   :group 'skk-hooks-and-functions)
