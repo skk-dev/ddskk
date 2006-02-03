@@ -1,3 +1,7 @@
+2006-02-03  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-annotation-function): Update doc string.
+
 2006-02-01  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-annotation.el (skk-annotation-get): Use `defun' instead of
