@@ -1,3 +1,13 @@
+2006-02-04  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-comp-prefix-regexp-alist)
+	(skk-comp-kana-list-filter-function): New variables.
+
+	* skk-comp.el (skk-comp-get-regexp, skk-comp-collect-kana)
+	(skk-comp-arrange-kana-list): New functions.
+	(skk-comp-re-search-current-buffer): New function.
+	(skk-comp-from-jisyo): Use it.
+
 2006-02-03  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-annotation-function): Update doc string.
