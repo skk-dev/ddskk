@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.56 2006/01/23 14:56:47 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.57 2006/02/04 05:15:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/23 14:56:47 $
+;; Last Modified: $Date: 2006/02/04 05:15:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -182,24 +182,85 @@
 	  (setq ret (cons cand ret)))))
     (nreverse ret)))
 
+(defun skk-comp-get-regexp (prefix)
+  ;; プレフィクスに対応する正規表現を返す。
+  ;; 一度生成した正規表現は skk-comp-prefix-regexp-alist に保存しておく。
+  (or (cdr (assoc prefix skk-comp-prefix-regexp-alist))
+      (let ((regexp
+	     (if (string= prefix "")
+		 ""
+	       (let ((tree skk-rule-tree)
+		     kana-list)
+		 (dolist (c (string-to-char-list prefix))
+		   (setq tree (skk-select-branch tree c)))
+		 (setq kana-list
+		       (skk-comp-arrange-kana-list
+			(skk-comp-collect-kana tree)
+			prefix))
+		 (condition-case nil
+		     (regexp-opt kana-list 'with-paren)
+		   (error
+		    (if kana-list
+			(concat "\\("
+				(mapconcat #'regexp-quote kana-list "\\|")
+				"\\)")
+		      "")))))))
+	(add-to-list 'skk-comp-prefix-regexp-alist (cons prefix regexp))
+	regexp)))
+
+(defun skk-comp-collect-kana (tree)
+  ;; skk-rule-tree の部分木に属する "かな" を集める
+  (let ((data (skk-get-kana tree))
+	(branches (skk-get-branch-list tree))
+	kana kana-list)
+    (when data
+      (setq kana (if (consp data)
+		     (cdr data)
+		   data))
+      (when (stringp kana)
+	(setq kana-list (list kana))))
+    (nconc kana-list (apply #'nconc
+			    (mapcar #'skk-comp-collect-kana
+				    branches)))))
+
+(defun skk-comp-arrange-kana-list (kana-list prefix)
+  ;; skk-comp-collect-kana から得た "かな" のリストを元に
+  ;; プレフィクスに対応した調整をする
+  (let (short-list long-list tmp)
+    (dolist (kana kana-list)
+      (if (= (length kana) 1)
+	  (add-to-list 'short-list kana)
+	(add-to-list 'long-list kana)))
+    ;; "に" がある時に "にゃ" とかはいらない
+    (dolist (s-kana short-list)
+      (dolist (l-kana long-list)
+	(when (string= s-kana
+		       (substring l-kana 0 1))
+	  (setq long-list (delete l-kana long-list)))))
+    (setq tmp (nconc short-list long-list))
+    (if skk-comp-kana-list-filter-function
+	(funcall skk-comp-kana-list-filter-function tmp prefix)
+      tmp)))
+
 ;;;###autoload
 (defun skk-comp-from-jisyo (file)
-  ;; skk-comp-prefix は使わない版
+  ;; skk-comp-prefix を使える
   "SKK 辞書フォーマットの FILE から補完候補を得る。"
   (let ((buffer (skk-get-jisyo-buffer file 'nomsg))
 	(abbrev skk-abbrev-mode)
 	(key skk-comp-key)
+	(prefix skk-comp-prefix)
 	(first skk-comp-first)
-	word)
+	(use-prefix skk-comp-use-prefix))
     (with-current-buffer buffer
       (when first
 	(goto-char skk-okuri-nasi-min))
-      ;; 従来の挙動に合わせておくが、確定履歴だけでなく
-      ;; 個人辞書も使えたほうがいいのかどうか
-      (unless (string= key "")
-	;; 中身をごっそり取り込もうかと思ったけど
-	;; とりあえず利用することに
-	(skk-comp-search-current-buffer key abbrev)))))
+      (if use-prefix
+	  (unless (and (string= key "")
+		       (string= prefix ""))
+	    (skk-comp-re-search-current-buffer key prefix abbrev))
+	(unless (string= key "")
+	  (skk-comp-search-current-buffer key abbrev))))))
 
 ;;;###autoload
 (defun skk-comp-search-current-buffer (key &optional abbrev)
@@ -221,6 +282,39 @@
 			 ;; 見出し語に空白は含まれない。
 			 ;; " /" をサーチする必要はない。
 			 (point)
+			 (1- (search-forward " ")))))
+	  (when (and abbrev
+		     (string-match "\\Ca" c-word))
+	    ;; abbrev モードで「3ねん」などの補完はしない
+	    (setq c-word nil))))
+      c-word)))
+
+(defun skk-comp-re-search-current-buffer (key prefix &optional abbrev)
+  ;; 問題のあるケースがあるかもしれないので
+  ;; skk-comp-search-current-buffer との一本化はとりあえず保留
+  (let (c-word regexp-key)
+    (setq regexp-key (concat (regexp-quote
+			      (if skk-use-numeric-conversion
+				  (skk-num-compute-henkan-key key)
+				key))
+			     (skk-comp-get-regexp prefix)))
+    (save-match-data
+      ;; `case-fold-search' は、辞書バッファでは常に nil。
+      (while (and (not c-word)
+		  (re-search-forward
+		   (concat "\n" regexp-key)
+		   nil t))
+	(unless (eq (following-char)
+		    ?\040)		;SPC
+	  (setq c-word
+		(concat key
+			(buffer-substring-no-properties
+			 (progn
+			   (beginning-of-line)
+			   (search-forward (if skk-use-numeric-conversion
+					       (skk-num-compute-henkan-key key)
+					     key))
+			   (point))
 			 (1- (search-forward " ")))))
 	  (when (and abbrev
 		     (string-match "\\Ca" c-word))

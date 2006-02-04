@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.178 2006/02/03 20:54:32 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.179 2006/02/04 05:15:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/03 20:54:32 $
+;; Last Modified: $Date: 2006/02/04 05:15:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1347,6 +1347,45 @@ kakutei-first を選んだ時は、\"しんりn\" を補完すると、
   :group 'skk-misc
   :group 'skk-comp)
 
+(defcustom skk-comp-prefix-regexp-alist nil
+  "*プレフィクスを利用した補完時に使う、プレフィクスと正規表現の連想リスト。
+この変数は `skk-rule-tree' を利用して自動で要素が追加されるが、
+それが期待するものでない場合には予め必要なものだけ設定しておく事。"
+  :type '(repeat (cons string regexp))
+  :group 'skk-comp)
+
+(defcustom skk-comp-kana-list-filter-function
+  #'(lambda (kana-list prefix)
+      ;; "t" 以外で "っ" を補完しない
+      (unless (string= prefix "t")
+	(setq kana-list (delete "っ" kana-list)))
+      ;; "m" で "ん" を補完しない
+      (when (string= prefix "m")
+	(setq kana-list (delete "ん" kana-list)))
+      ;; "w" で "う" を補完しない
+      (when (string= prefix "w")
+	(setq kana-list (delete "う" kana-list)))
+      ;; "x" で "か", "け" を補完しない
+      ;; in skk-rom-kana-base-rule-list, "xka"→"か", "xke"→"け"
+      (when (string= prefix "x")
+	(setq kana-list (delete "か" kana-list))
+	(setq kana-list (delete "け" kana-list)))
+      ;; いちおうカナモードを考えて
+      (when (string= prefix "v")
+	(add-to-list 'kana-list "ヴ"))
+      ;; 平仮名・片仮名のみ (記号類は不要)
+      (save-match-data
+	(delq nil
+	      (mapcar #'(lambda (kana)
+			  (when (string-match "\\(\\cH\\|\\cK\\)" kana)
+			    kana))
+		      kana-list))))
+  "*`skk-comp-prefix-regexp-alist' に自動で要素を追加する際に利用される関数。
+`skk-rule-tree' からプレフィクスに対応する \"かな\" を集めた後、
+この関数によって調整を行う。"
+  :type '(choice function (const nil))
+  :group 'skk-comp)
+
 (defcustom skk-completion-prog-list
   '((skk-comp-by-history)
     (skk-comp-from-jisyo skk-jisyo)
@@ -1355,7 +1394,6 @@ kakutei-first を選んだ時は、\"しんりn\" を補完すると、
 リストの要素は、`skk-comp-first' が t である時に
 新規補完候補群の生成を開始し、1回の評価につき 1つの候補を返す S 式。"
   :type '(repeat (sexp))
-  :group 'skk-misc
   :group 'skk-comp)
 
 (defcustom skk-completion-search-char ?~
