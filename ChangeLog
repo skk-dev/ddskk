@@ -1,3 +1,8 @@
+2006-02-05  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-num.el (skk-num-compute-henkan-key): Remove "," only when
+	surrounded by number.
+
 2006-02-04  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-comp-prefix-regexp-alist)
