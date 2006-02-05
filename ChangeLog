@@ -1,5 +1,7 @@
 2006-02-05  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk-comp.el (skk-comp-re-search-current-buffer): Bug fixed.
+
 	* skk-num.el (skk-num-compute-henkan-key): Remove "," only when
 	surrounded by number.
 
