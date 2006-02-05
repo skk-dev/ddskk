@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.57 2006/02/04 05:15:27 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.58 2006/02/05 17:03:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/04 05:15:27 $
+;; Last Modified: $Date: 2006/02/05 17:03:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -304,17 +304,16 @@
 		  (re-search-forward
 		   (concat "\n" regexp-key)
 		   nil t))
+	(beginning-of-line)
+	(search-forward (if skk-use-numeric-conversion
+			    (skk-num-compute-henkan-key key)
+			  key))
 	(unless (eq (following-char)
 		    ?\040)		;SPC
 	  (setq c-word
 		(concat key
 			(buffer-substring-no-properties
-			 (progn
-			   (beginning-of-line)
-			   (search-forward (if skk-use-numeric-conversion
-					       (skk-num-compute-henkan-key key)
-					     key))
-			   (point))
+			 (point)
 			 (1- (search-forward " ")))))
 	  (when (and abbrev
 		     (string-match "\\Ca" c-word))
