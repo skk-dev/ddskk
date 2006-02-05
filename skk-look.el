@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.37 2006/01/10 18:09:27 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.38 2006/02/05 18:40:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/10 18:09:27 $
+;; Last Modified: $Date: 2006/02/05 18:40:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -235,23 +235,34 @@ EXPAND-NULL を指定すると、入力が空である時に
 words ファイルにある全ての見出しを返す。
 `skk-look-use-ispell' を一時的に変更したい場合には
 `let' により束縛して使う事。"
-  (when (and (not (memq skk-use-look '(nil conversion)))
-	     (or not-abbrev-only
-		 skk-abbrev-mode)
-	     (or expand-null
-		 (not (string= skk-comp-key ""))))
-    (let ((skk-look-completion-arguments (or completion-arguments
-					     skk-look-completion-arguments)))
-      (when skk-comp-first
-	;; look は複数の候補を吐くので、一旦貯めておいて、
-	;; 一つずつ complete する。
-	(setq skk-look-completion-words
-	      (if (and (not (memq skk-look-use-ispell '(nil conversion)))
-		       (> (length skk-comp-key) 0))
-		  (skk-look-ispell skk-comp-key 'completion)
-		(skk-look-1 skk-comp-key 'completion))))
-      (pop skk-look-completion-words))))
-
+  (let* ((conv-key (and skk-use-numeric-conversion
+			(skk-num-compute-henkan-key skk-comp-key)))
+	 (num-comp (and conv-key
+			(not (string= conv-key
+				      skk-comp-key))))
+	 (comp-key (or conv-key skk-comp-key))
+	 word)
+    (when (and (not (memq skk-use-look '(nil conversion)))
+	       (or not-abbrev-only
+		   skk-abbrev-mode)
+	       (or expand-null
+		   (not (string= comp-key ""))))
+      (let ((skk-look-completion-arguments (or completion-arguments
+					       skk-look-completion-arguments)))
+	(when skk-comp-first
+	  ;; look は複数の候補を吐くので、一旦貯めておいて、
+	  ;; 一つずつ complete する。
+	  (setq skk-look-completion-words
+		(if (and (not (memq skk-look-use-ispell '(nil conversion)))
+			 (> (length comp-key) 0))
+		    (skk-look-ispell comp-key 'completion)
+		  (skk-look-1 comp-key 'completion))))
+	(setq word (pop skk-look-completion-words))
+	(when word
+	  (if num-comp
+	      (concat skk-comp-key
+		      (substring word (length comp-key)))
+	    word))))))
 
 ;;;###autoload
 (defun skk-look-ispell (word &optional situation)
