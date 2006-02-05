@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.58 2006/02/05 17:03:48 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.59 2006/02/05 19:22:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/05 17:03:48 $
+;; Last Modified: $Date: 2006/02/05 19:22:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -377,6 +377,24 @@
 	(setq skk-comp-kakutei-midasi-list
 	      (nreverse list))))
     (pop skk-comp-kakutei-midasi-list)))
+
+(defun skk-comp-restrict-by-prefix (comp-prog)
+  "補完プログラムにより得られた候補を `skk-comp-prefix' で絞り込む。
+
+  (skk-comp-restrict-by-prefix '(skk-comp-by-server-completion))
+のようなものを `skk-completion-prog-list' に指定する。"
+  (save-match-data
+    (let ((regexp-key (concat "^"
+			      (regexp-quote skk-comp-key)
+			      (skk-comp-get-regexp skk-comp-prefix)))
+	  cand)
+      (setq cand (eval comp-prog))
+      (when skk-comp-use-prefix
+	(while (and cand
+		    (not (string-match regexp-key cand)))
+	  (let (skk-comp-first)
+	    (setq cand (eval comp-prog)))))
+      cand)))
 
 ;;;###autoload
 (defun skk-completion-search (comp-prog-list &optional search-prog-list without-midasi)
