@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.38 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.39 2006/02/05 14:01:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2006/02/05 14:01:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -54,16 +54,16 @@
 		  "[0-9]+")))
     ;;(setq skk-noconv-henkan-key key)
     (save-match-data
-      ;; 位取りの "," を除去する。
-      (while (string-match "," key)
-	(setq key (concat (substring key 0 (match-beginning 0))
-			  (substring key (match-end 0)))))
       ;; 全角数字を ascii 数字に変換する。
       (while (string-match "[０-９]" key)
 	(let ((zen-num (match-string 0 key)))
 	  (setq key (concat (substring key 0 (match-beginning 0))
 			    (skk-jisx0208-to-ascii zen-num)
 			    (substring key (match-end 0))))))
+      ;; 位取りの "," を除去する。
+      (while (string-match "[0-9]\\(,\\)[0-9]" key)
+	(setq key (concat (substring key 0 (match-beginning 1))
+			  (substring key (match-end 1)))))
       ;; 重複を避ける。
       (when (string-match numexp key)
 	(setq skk-num-list nil))
