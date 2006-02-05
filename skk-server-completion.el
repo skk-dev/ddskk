@@ -123,14 +123,25 @@
 ;;;###autoload
 (defun skk-comp-by-server-completion ()
   ;; skk-comp-prefix は使えない
-  ;; 今のところ非数値変換のみ
-  (when skk-comp-first
-    (setq skk-server-completion-words
-	  (skk-server-completion-search-midasi skk-comp-key))
-    (when (string= skk-comp-key
-		   (car skk-server-completion-words))
-      (pop skk-server-completion-words)))
-  (pop skk-server-completion-words))
+  (let* ((conv-key (and skk-use-numeric-conversion
+			(skk-num-compute-henkan-key skk-comp-key)))
+	 (num-comp (and conv-key
+			(not (string= conv-key
+				      skk-comp-key))))
+	 (comp-key (or conv-key skk-comp-key))
+	 word)
+    (when skk-comp-first
+      (setq skk-server-completion-words
+	    (skk-server-completion-search-midasi comp-key))
+      (when (string= comp-key
+		     (car skk-server-completion-words))
+	(pop skk-server-completion-words)))
+    (setq word (pop skk-server-completion-words))
+    (when word
+      (if num-comp
+	  (concat skk-comp-key
+		  (substring word (length comp-key)))
+	word))))
 
 (provide 'skk-server-completion)
 
