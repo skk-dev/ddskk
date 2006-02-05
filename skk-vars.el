@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.179 2006/02/04 05:15:27 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.180 2006/02/05 19:54:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/04 05:15:27 $
+;; Last Modified: $Date: 2006/02/05 19:54:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1332,7 +1332,7 @@ nil $B$G$"$l$P!":G8e$N8+=P$78l$,I=<($5$l$?>uBV$GDd;_$9$k!#(B"
   "*$B8+=P$78l$NJd40$r9T$&:]$K%W%l%U%#%/%9(B(`skk-prefix')$B$b;H$&$+!#(B
 $BNc$($P!"(B\"$B"&$"(Bk\" $B$H$"$k>uBV$GJd40$r$7$?;~$K!"(Bnon-nil $B$G$"$l$P(B
 \"$B$"$5(B\" $B$OBP>]$H$J$i$:!"(B\"$B$"$+(B\", \"$B$"$-(B\" $B$J$I$K9J$i$l$k!#(B
-$B$7$+$7<B:]$K$OJd404X?t$bBP1~$7$F$$$kI,MW$,$"$k!#(B
+$B$7$+$7<B:]$K$OJd40%W%m%0%i%`$bBP1~$7$F$$$kI,MW$,$"$k!#(B
 
 kakutei-first $B$rA*$s$@;~$O!"(B\"$B$7$s$j(Bn\" $B$rJd40$9$k$H!"(B
 \"n\" $B$OA0$b$C$F(B \"$B$s(B\" $B$K3NDj$5$l$F$+$iJd408uJd$r8!:w$9$k$N$G!"(B
@@ -1390,7 +1390,7 @@ kakutei-first $B$rA*$s$@;~$O!"(B\"$B$7$s$j(Bn\" $B$rJd40$9$k$H!"(B
   '((skk-comp-by-history)
     (skk-comp-from-jisyo skk-jisyo)
     (skk-look-completion))
-  "*$BJd404X?t$N%j%9%H!#(B
+  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
 $B%j%9%H$NMWAG$O!"(B`skk-comp-first' $B$,(B t $B$G$"$k;~$K(B
 $B?75,Jd408uJd72$N@8@.$r3+;O$7!"(B1$B2s$NI>2A$K$D$-(B 1$B$D$N8uJd$rJV$9(B S $B<0!#(B"
   :type '(repeat (sexp))
@@ -2940,10 +2940,10 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 (skk-deflocalvar skk-current-completion-prog-list nil
   "`skk-completion-prog-list' $B$N8=:_$NCM$rJ]B8$9$k%j%9%H!#(B
 $B:G=i$NJd40;~$O(B `skk-completion-prog-list' $B$NA4$F$NCM$rJ];}$7!"(B
-car $B$K$"$kJd404X?t$,(B nil $B$rJV$9$4$H$K(B 1$B$D$E$DC;$/$J$C$F$f$/!#(B")
+car $B$K$"$kJd40%W%m%0%i%`$,(B nil $B$rJV$9$4$H$K(B 1$B$D$E$DC;$/$J$C$F$f$/!#(B")
 
 (skk-deflocalvar skk-comp-first nil
-  "$BJd404X?t$K?7$7$$8uJd72$r@8@.$9$k$h$&DLCN$9$k!#(B")
+  "$BJd40%W%m%0%i%`$K?7$7$$8uJd72$r@8@.$9$k$h$&DLCN$9$k!#(B")
 
 (skk-deflocalvar skk-comp-stack nil
   "$BJd40$7$?8l$rJ]B8$7$F$*$/%9%?%C%/!#(B")
