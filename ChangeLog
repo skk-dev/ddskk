@@ -1,5 +1,13 @@
 2006-02-05  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk-comp.el (skk-comp-restrict-by-prefix): New function.
+
+	* skk-look.el (skk-look-completion): Consider
+	`skk-use-numeric-conversion'.
+
+	* skk-server-completion.el (skk-comp-by-server-completion):
+	Ditto.
+
 	* skk-comp.el (skk-comp-re-search-current-buffer): Bug fixed.
 
 	* skk-num.el (skk-num-compute-henkan-key): Remove "," only when
