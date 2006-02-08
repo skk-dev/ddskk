@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.39 2006/02/05 14:01:14 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.40 2006/02/08 23:53:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/05 14:01:14 $
+;; Last Modified: $Date: 2006/02/08 23:53:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -50,7 +50,7 @@
 と変換し、`skk-num-list' に (\"7\" \"12\") というリストを代入する。
 辞書の見出し語の検索に使用する。"
   (let ((numexp (if skk-num-convert-float
-		    "[.0-9]+"
+		    "[0-9]+\\(\\.[0-9]+\\)?"
 		  "[0-9]+")))
     ;;(setq skk-noconv-henkan-key key)
     (save-match-data
@@ -120,6 +120,7 @@
   (unless (or (not key)
 	      (consp key))
     (let ((numexp (if skk-num-convert-float
+		      ;; "." を含める意図は?
 		      "#[.0-9]+" "#[0-9]+"))
 	  (n 0)
 	  (workkey key)
