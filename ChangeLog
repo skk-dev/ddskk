@@ -1,3 +1,10 @@
+2006-02-09  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-server-completion.el (skk-server-completion-search): Merge
+	with `skk-server-completion-search-recursive'.  Consider
+	`skk-use-numeric-conversion'.
+	(skk-server-completion-search-recursive): Abolish.
+
 2006-02-08  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-num.el (skk-num-compute-henkan-key): Don't convert "." which
