@@ -72,13 +72,30 @@
 		 skk-server-completion-search-char)
 	     (not (or skk-henkan-okurigana
 		      skk-okuri-char)))
-    (let ((key (substring skk-henkan-key
-			  0 (1- (length skk-henkan-key))))
-	  midasi-list)
-      (when skk-use-numeric-conversion
-	(setq key (skk-num-compute-henkan-key key)))
+    ;; skk-search では見出しが数字を含む時のみ
+    ;; skk-use-numeric-conversion が t な呼出しをするが、
+    ;; 一応それに依存しないようにしている。
+    (let* ((henkan-key (substring skk-henkan-key
+				  0 (1- (length skk-henkan-key))))
+	   (conv-key (and skk-use-numeric-conversion
+			  (skk-num-compute-henkan-key henkan-key)))
+	   (num-conv (and conv-key
+			  (not (string= conv-key henkan-key))))
+	   (key (or conv-key henkan-key))
+	   midasi-list result-list kouho-list)
       (setq midasi-list (skk-server-completion-search-midasi key))
-      (skk-server-completion-search-recursive midasi-list))))
+      (dolist (skk-henkan-key midasi-list)
+	;; 見出しに対応したエントリがサーバに存在する事を前提としている。
+	;; 不整合があってもエラーにはならないが、見出しだけが表示される事になるので
+	;; 検索対象辞書から直接補完候補を生成していないサーバでは運用に気をつける事。
+	(setq kouho-list (cons (if num-conv
+				   (concat henkan-key
+					   (substring skk-henkan-key
+						      (length key)))
+				 skk-henkan-key)
+			       (skk-search-server-1 nil nil))
+	      result-list (nconc result-list kouho-list)))
+      result-list)))
 
 (defun skk-server-completion-search-midasi (key)
   "server completion を利用して、key から始まるすべての見出し語のリストを返却する。"
@@ -108,17 +125,6 @@
 	(when (eq (following-char) ?1)	;?1
 	  (forward-char 2)
 	  (car (skk-compute-henkan-lists nil)))))))
-
-(defun skk-server-completion-search-recursive (midasi-list)
-  "`midasi-list' の見出しを再変換する"
-  ;; 見出しに対応したエントリがサーバに存在する事を前提としている。
-  ;; 不整合があってもエラーにはならないが、見出しだけが表示される事になるので
-  ;; 検索対象辞書から直接補完候補を生成していないサーバでは運用に気をつける事。
-  (let (result-list kouho-list)
-    (dolist (skk-henkan-key midasi-list)
-      (setq kouho-list (cons skk-henkan-key (skk-search-server-1 nil nil))
-	    result-list (nconc result-list kouho-list)))
-    result-list))
 
 ;;;###autoload
 (defun skk-comp-by-server-completion ()
