@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.180 2006/02/05 19:54:42 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.181 2006/02/10 10:57:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/05 19:54:42 $
+;; Last Modified: $Date: 2006/02/10 10:57:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -361,14 +361,12 @@ Non-nil $B$G!"$+$D(B `skk-search-prog-list' $B$NMWAG$NCf$K$3$NJQ?t$,;HMQ$5$l$
   :group 'skk-filenames)
 
 (defcustom skk-aux-large-jisyo nil
-  "*SKK $B%5!<%P!<$G:G8e$K8!:w$9$k<-=q!#(B
+  "*SKK $B%5!<%P!<$,;H$($J$$;~$K!"Be$o$j$K8!:w$9$k<-=q!#(B
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
-Non-nil $B$G!"$+$D(B `skk-search-prog-list' $B$NMWAG$NCf$K$3$NJQ?t$,;HMQ$5$l$F(B
-$B$$$l$P!"(BSKK $B%5!<%P!<$r;H$$8!:w$r9T$&!#(B
-SKK $B%5!<%P!<$,(B active $B$G$J$1$l$P!";XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$`!#(B
+SKK $B%5!<%P!<$,(B active $B$G$J$1$l$P!";XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"(B
+$B8!:w$r9T$&!#(B
 `skk-search-prog-list' $B$NCM$r@_Dj$9$k$3$H$K$h$j!"8!:wBP>]$N<-=q$NJQ99!"(B
-$B8!:w$N=g=x$NJQ99$,2DG=!#(B
-$B$3$NCM$r@_Dj$9$k$3$H$K$h$j!"(Bskk-server.el $B$,(B autoload $B$5$l$k!#(B"
+$B8!:w$N=g=x$NJQ99$,2DG=!#(B"
   :type '(choice file (const nil))
   :group 'skk-filenames)
 
