@@ -2,8 +2,8 @@
 
 	* skk.el (skk-search-with-suffix): Remove note.
 
-	* skk-vars.el (skk-aux-large-jisyo, skk-search-prog-list): Modify
-	docstrings.
+	* skk-vars.el (skk-aux-large-jisyo, skk-search-prog-list)
+	(skk-server-prog, skk-server-jisyo): Modify docstrings.
 
 2006-02-09  Eiji Obata  <e-obata@zero.ad.jp>
 
