@@ -1,5 +1,7 @@
 2006-02-10  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk.el (skk-search-with-suffix): Remove note.
+
 	* skk-vars.el (skk-aux-large-jisyo, skk-search-prog-list): Modify
 	docstrings.
 
