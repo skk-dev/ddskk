@@ -1,6 +1,7 @@
 2006-02-10  Eiji Obata  <e-obata@zero.ad.jp>
 
-	* skk-vars.el (skk-aux-large-jisyo): Modify docstring.
+	* skk-vars.el (skk-aux-large-jisyo, skk-search-prog-list): Modify
+	docstrings.
 
 2006-02-09  Eiji Obata  <e-obata@zero.ad.jp>
 
