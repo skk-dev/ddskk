@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.182 2006/02/10 11:46:00 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.183 2006/02/10 17:35:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/10 11:46:00 $
+;; Last Modified: $Date: 2006/02/10 17:35:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2302,14 +2302,22 @@ nil ならば、ispell を使用しない。"
   :group 'skk-server)
 
 (defcustom skk-server-prog (getenv "SKKSERV")
-  "*SKK 辞書サーバープログラム名。フルパスで書く。"
+  "*SKK 辞書サーバープログラム名。
+フルパスで書く。
+`skk-server-inhibit-startup-server' が nil の時に参照され、
+このプログラムが SKK より起動される。"
   :type '(choice (file :tag "File Name of the Program")
 		 (const nil))
   :group 'skk-filenames
   :group 'skk-server)
 
 (defcustom skk-server-jisyo (getenv "SKK_JISYO")
-  "*SKK 辞書サーバープログラムに渡す辞書名。フルパスで書く。"
+  "*SKK 辞書サーバープログラムに渡す辞書名。
+フルパスで書く。
+`skk-server-inhibit-startup-server' が nil の時に参照される。
+辞書の指定法はサーバにより異なるので注意。
+  % skkserv jisyo
+の形式の時のみ利用できるオプションである。"
   :type '(choice (file :tag "File Name of the Dictionary")
 		 (const nil))
   :group 'skk-filenames
