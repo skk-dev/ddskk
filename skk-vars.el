@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.181 2006/02/10 10:57:58 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.182 2006/02/10 11:46:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/10 10:57:58 $
+;; Last Modified: $Date: 2006/02/10 11:46:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -380,7 +380,13 @@ SKK サーバーが active でなければ、指定された辞書をバッファに読み込み、
   "*$B検索関数、検索対象の辞書を決定するためのリスト。
 変換した候補を返す S 式をリストの形に表記したもの。
 `skk-search' 関数が `skk-search-prog-list' の car から後方向へ順番に S 式の
-評価を行い変換を行う。"
+評価を行い変換を行う。
+
+必要に応じて
+  (skk-okuri-search)
+  (skk-look)
+  (skk-search-server skk-aux-large-jisyo 10000)
+これらのプログラムが SKK により追加される。"
   :type '(repeat
 	  (list (function :tag "Search funcition")
 		(choice :tag "Dictionary" file (const nil))
