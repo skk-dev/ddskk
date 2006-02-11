@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.23 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.24 2006/02/11 14:16:30 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2006/02/11 14:16:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -268,13 +268,9 @@
   (if (= 1 (length entry))
       entry
     (let ((context (skk-bayesian-make-context henkan-buffer))
-          entry-str
+          ;; 末尾の "/" は多分不要だが
+          entry-str (concat (mapconcat #'identity entry "/") "/")
           sorted-entry)
-      ;; make entry-str
-      (let ((e entry))
-        (while e
-          (setq entry-str (concat entry-str (car e) "/"))
-          (setq e (cdr e))))
       ;; send context to skk-bayesian-process
       (setq sorted-entry
             (skk-bayesian-read-process-output
@@ -323,7 +319,7 @@
        (if skk-undo-kakutei-word-only
            (point-marker)
          (save-excursion
-           (message (prin1-to-string (point-marker)))
+           (skk-bayesian-debug-message (prin1-to-string (point-marker)))
            (forward-char
 	    (- 0
 	       (length okurigana)
