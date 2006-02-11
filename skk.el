@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.356 2006/02/10 13:50:03 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.357 2006/02/11 08:59:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/10 13:50:03 $
+;; Last Modified: $Date: 2006/02/11 08:59:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2440,7 +2440,7 @@ auto に設定するとユーザに確認しない。
 					     (cdr value))))
 			      ;; 返り値が文字列だった場合
 			      (setq word value)))))
-		      ;; ユーザの意図によって注釈が既に設定され既に設定されて
+		      ;; ユーザの意図によって注釈が既に設定されて
 		      ;; いる場合はSKK の方では対処しない。
 		      (when (and (not (stringp note))
 				 (string-match ";" word))
