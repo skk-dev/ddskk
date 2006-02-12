@@ -1,3 +1,8 @@
+2006-02-12  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* context-skk.el (context-skk-mode): Change autoload cookie for
+	XEmacs.
+
 2006-02-11  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* experimental/bayesian/skk-bayesian.el (skk-bayesian-search): Use
