@@ -147,7 +147,8 @@
 ;;
 ;; Minor mode definition
 ;;
-;;;###autoload
+;; Change autoload cookie for XEmacs.
+;;;###autoload (autoload 'context-skk-mode "context-skk" "文脈に応じて自動的にskkの入力モードをlatinに切り換えるマイナーモード。" t)
 (define-minor-mode context-skk-mode
   "文脈に応じて自動的にskkの入力モードをlatinに切り換えるマイナーモード。"
   t 
