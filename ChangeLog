@@ -1,5 +1,7 @@
 2006-02-13  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk.el (skk-restart): Arrange order.
+
 	* skk-vars.el: Modify docstrings.
 	* skk.el: Ditto.
 
