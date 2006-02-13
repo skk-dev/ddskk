@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.360 2006/02/13 14:16:26 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.361 2006/02/13 20:37:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/13 14:16:26 $
+;; Last Modified: $Date: 2006/02/13 20:37:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -232,6 +232,8 @@ dependent."
   (interactive)
   (skk-save-jisyo)
   (setq skk-jisyo-update-vector nil)
+  (when (featurep 'skk-server)
+    (skk-disconnect-server))
   (kill-local-variable 'skk-rule-tree)
   (setq skk-rule-tree nil)
   ;; skk-rom-kana-base-rule-list の中の skk-kakutei-key が
@@ -248,8 +250,6 @@ dependent."
 			     (plist-member (symbol-plist sym) 'standard-value)))
 		  (set-default sym
 			       (eval (car (get sym 'standard-value)))))))
-  (when (featurep 'skk-server)
-    (skk-disconnect-server))
   (let (skk-mode-invoked)
     (skk-mode 1)))
 
