@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.357 2006/02/11 08:59:47 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.358 2006/02/13 02:40:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/11 08:59:47 $
+;; Last Modified: $Date: 2006/02/13 02:40:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3658,7 +3658,14 @@ nil $B$rJV$9!#$5$b$J$1$l$P(B non-nil $B$rJV$9!#(B"
 LIMIT $B$,(B 0 $B$G$"$l$P!"%j%K%"%5!<%A$N$_$r9T$&!#(B
 $B<-=q$,%=!<%H$5$l$F$$$J$$$N$G$"$l$P!"(BLIMIT $B$r(B 0 $B$9$kI,MW$,$"$k!#(B
 $B%*%W%7%g%s0z?t$N(B NOMSG $B$,(B non-nil $B$G$"$l$P(B `skk-get-jisyo-buffer' $B$N(B
-$B%a%C%;!<%8$r=PNO$7$J$$$h$&$K$9$k!#(B"
+$B%a%C%;!<%8$r=PNO$7$J$$$h$&$K$9$k!#(B
+
+FILE $B$K$O<-=q%U%!%$%k$@$1$G$J$/!"(B
+  ($B<-=q%U%!%$%k(B . $B%3!<%G%#%s%0%7%9%F%`(B)
+$B$N%Z%"$b<u$1$D$1$k!#%3!<%G%#%s%0%7%9%F%`$O(B `skk-jisyo-code' $B$H(B
+$BF1MM$K;XDj$9$k!#(B
+$B"((B $B8D?M<-=q$N%3!<%G%#%s%0%7%9%F%`$K$D$$$F$O!"$3$N7A<0$G;XDj$9$k;v$O$G$-$J$$!#(B
+   $BI,$:!"JQ?t(B `skk-jisyo-code' $B$K$h$C$F;XDj$9$k$3$H!#(B"
   (skk-search-jisyo-buf (skk-get-jisyo-buffer file nomsg)
 			limit))
 
@@ -3909,7 +3916,11 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 (defun skk-search-kakutei-jisyo-file (file limit &optional nomsg)
   "$B<-=q%U%!%$%k$rC5$7!"8uJd$r%j%9%H$GJV$9!#(B
 $B8uJd$r8+$D$1$?>l9g$O!"Bg0hJQ?t(B `skk-kakutei-flag' $B$K(B non-nil $B$rBeF~$9$k!#(B
-$B8uJd$,8+$D$+$i$J$+$C$?>l9g$O!"(Bnil $B$rJV$9!#(B"
+$B8uJd$,8+$D$+$i$J$+$C$?>l9g$O!"(Bnil $B$rJV$9!#(B
+$B0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H!#(B
+
+$BMxMQ$9$k>l9g$O(B `skk-search-prog-list' $B$N(B `caar' $B$O(B
+skk-search-kakutei-jisyo-file $B$H$J$C$F$$$k$Y$-$G$"$k!#(B"
   (setq skk-kakutei-flag (skk-search-jisyo-file file limit nomsg)))
 
 (defun skk-update-jisyo (word &optional purge)
