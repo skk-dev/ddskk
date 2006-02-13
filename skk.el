@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.358 2006/02/13 02:40:30 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.359 2006/02/13 13:56:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/13 02:40:30 $
+;; Last Modified: $Date: 2006/02/13 13:56:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -226,12 +226,17 @@ dependent."
       (save-buffers-kill-emacs query))))
 
 (defun skk-restart ()
-  "`skk-init-file' $B$N:F%m!<%I5Z$S3F<o:F@_Dj$N8e(B SKK $B%b!<%I$r5/F0$9$k!#(B"
+  "`skk-init-file' $B$N:F%m!<%I5Z$S3F<o:F@_Dj$N8e(B SKK $B%b!<%I$r5/F0$9$k!#(B
+$B0lC63F<o%f!<%6JQ?t$r=i4|2=$9$k$N$G!"(B.emacs $B$G(B SKK $B$N@_Dj$r$7$F$$$k>l9g$O(B
+$B;H$&$Y$-$G$J$$!#(B"
   (interactive)
   (skk-save-jisyo)
   (setq skk-jisyo-update-vector nil)
   (kill-local-variable 'skk-rule-tree)
   (setq skk-rule-tree nil)
+  ;; skk-rom-kana-base-rule-list $B$NCf$N(B skk-kakutei-key $B$,(B
+  ;; $BI>2A8e$N$GCV$-49$($i$l$F$$$?$j!"B>$K$b8+Mn$7$O$"$j$=$&!#(B
+  ;; $B$$$C$=(B unload-feature $B$H$+$7$?$[$&$,$$$$$N$+$b$7$l$J$$!#(B
   (mapatoms #'(lambda (sym)
 		;; skk-init-file $B0J30$N(B defcustom $B$G@k8@$5$l$?JQ?t$r:F=i4|2=!#(B
 		;; $BB>$K$b=|30$9$Y$-JQ?t$,$J$$$+MW8!F$!#(B
@@ -242,10 +247,10 @@ dependent."
 			     (plist-member (symbol-plist sym) 'standard-value)))
 		  (set-default sym
 			       (eval (car (get sym 'standard-value)))))))
-  (let (skk-mode-invoked)
-    (skk-mode 1))
   (when (featurep 'skk-server)
-    (skk-disconnect-server)))
+    (skk-disconnect-server))
+  (let (skk-mode-invoked)
+    (skk-mode 1)))
 
 (defun skk-require-module ()
   (when skk-use-viper
@@ -3920,7 +3925,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 $B0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H!#(B
 
 $BMxMQ$9$k>l9g$O(B `skk-search-prog-list' $B$N(B `caar' $B$O(B
-skk-search-kakutei-jisyo-file $B$H$J$C$F$$$k$Y$-$G$"$k!#(B"
+`skk-search-kakutei-jisyo-file' $B$H$J$C$F$$$k$Y$-$G$"$k!#(B"
   (setq skk-kakutei-flag (skk-search-jisyo-file file limit nomsg)))
 
 (defun skk-update-jisyo (word &optional purge)

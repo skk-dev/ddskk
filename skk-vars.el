@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.184 2006/02/13 02:16:11 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.185 2006/02/13 13:56:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/13 02:16:11 $
+;; Last Modified: $Date: 2006/02/13 13:56:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -234,7 +234,8 @@ Automatically becomes buffer-local when set in any fashion."
 
 (defcustom skk-init-file (convert-standard-filename "~/.skk")
   "*SKK $B$N=i4|@_Dj%U%!%$%kL>!#(B
-$B$3$N%U%!%$%k$NBe$o$j$K(B ~/.emacs $B$G@_Dj$9$k$3$H$b2DG=!#(B"
+$B$3$N%U%!%$%k$NBe$o$j$K(B ~/.emacs $B$G@_Dj$9$k$3$H$b2DG=$@$,!"(B
+$B$=$N>l9g(B `skk-restart' $B$O;H$$$b$N$K$J$i$J$$!#(B"
   ;;"*Name of the SKK initialization file.
   ;;From skk.el 9.x on all customization may be done in ~/.emacs."
   :type '(choice file (const nil))
@@ -1984,7 +1985,8 @@ nil $B$G$"$l$P!"859fI=<($9$k!#(B"
 ;;; SKK-ISEARCH.EL related.
 (defcustom skk-isearch-mode-enable t
   "*Non-nil $B$G$"$l$P!"%$%s%/%j%a%s%?%k%5!<%A$G(B skk-isearch $B$rMxMQ$9$k!#(B
-migemo $B$rMxMQ$7$?$$>l9g$J$I$K$O(B nil $B$K@_Dj$9$k!#(B"
+migemo $B$rMxMQ$7$?$$>l9g$J$I$K$O(B nil $B$K@_Dj$9$k!#(B
+$BJ;MQ$9$k$N$G$"$l$P(B `skk-isearch-start-mode' $B$r(B `latin' $B$K$9$k$N$,NI$$!#(B"
   :type 'boolean
   :group 'skk-isearch)
 
@@ -2617,8 +2619,8 @@ The English version is SKK.tut.E."
 
 (defvar skk-rule-tree nil
   "$B%m!<%^;z(B -> $B$+$JJQ49$N>uBVA+0\5,B'$rI=$9%D%j!<$N=i4|>uBV!#(B
-$B:G=i$K(B skk-mode $B$r5/F0$7$?$H$-$K(B skk-rom-kana-base-rule-list $B$H(B
-skk-rom-kana-rule-list $B$+$iLZ$N7A$K%3%s%Q%$%k$5$l$k!#(B
+$B:G=i$K(B skk-mode $B$r5/F0$7$?$H$-$K(B `skk-rom-kana-base-rule-list' $B$H(B
+`skk-rom-kana-rule-list' $B$+$iLZ$N7A$K%3%s%Q%$%k$5$l$k!#(B
 \\[skk-restart] $B$K$h$C$F$b:F%3%s%Q%$%k$5$l$k!#(B")
 
 (defvar skk-insert-new-word-function nil
@@ -3225,7 +3227,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; "$B!{8W$N0R$r<Z$k8Q(B"
     ("KOUJIEN" exact exact prefix t
      ("^\\([^$B!Z![(B]+\\)$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\([^$B!Z![(B]+\\)$B![(B$\\|\
-$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|\
+\$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|\
 ^$B!{(B\\(.+\\)$" .
       (cond ((match-beginning 2) '(1 2))
 	    ((match-beginning 3) 3)
@@ -3238,8 +3240,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;; `$B$G$s$7!>%V%C%/!ZEE;R!=![(B'
     ("KOJIEN" exact exact prefix t
      ("^\\([^$B!Z![(B]+\\)$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\([^$B!Z![(B]+\\)$B![(B$\\|\
-$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|\
-$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|\
+\$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|\
+\$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|\
 ^[$B!<$!(B-$B$s(B]+$B!>(B\\([$B!<%!(B-$B%s(B]+\\)$B!Z(B\\([^$B!Z![(B]+\\)$B!=![(B$\\|\
 ^$B!{(B\\(.+\\)$" .
       (cond ((match-beginning 2) '(1 2))
