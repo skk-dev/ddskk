@@ -404,7 +404,7 @@
 2005-12-27  Masatake YAMATO  <jet@gyve.org>
 
 	* context-skk.el (context-skk-on-vowel-key-reserved-p)
-	(context-skk-in-read-only-area-p): Don't call `car' 
+	(context-skk-in-read-only-area-p): Don't call `car'
 	on a return value from `get-char-property'.
 
 2005-12-27  Masatake YAMATO  <jet@gyve.org>
@@ -1168,7 +1168,7 @@
 2005-02-21  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/skk-bayesian.el (skk-bayesian-update): Bug fixed; when skk-undo-kakutei-word-only is non-nil.
-	(skk-bayesian-add-to-history): Ditto. 
+	(skk-bayesian-add-to-history): Ditto.
 
 2005-02-18  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
@@ -1226,7 +1226,7 @@
 
 2004-12-26  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
-	* experimental/bayesian/skk-bayesian.el 
+	* experimental/bayesian/skk-bayesian.el
 	(skk-bayesian-make-pending-data-alist): Bug fixed.
 	(skk-bayesian-get-pending-data-alist): Raise error if the key is invalid.
 	(skk-bayesian-update): Bug fixed.
@@ -1245,7 +1245,7 @@
 
 2004-12-20  KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
 
-	* experimental/bayesian/skk-bayesian.el 
+	* experimental/bayesian/skk-bayesian.el
 	(skk-bayesian-make-pending-data-alist): New.
 	(skk-bayesian-get-pending-data-alist): Ditto.
 
@@ -1575,7 +1575,7 @@
 2004-02-21  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/bayesian/skk-bayesian.el
-	(skk-bayesian-restart-process):	Bug fixed.
+	(skk-bayesian-restart-process): Bug fixed.
 
 2004-02-21  Kenichi Kurihara <kenichi_kurihara@nifty.com>
 
@@ -1689,7 +1689,7 @@
 
 2003-07-12  NAKAJIMA Mikio  <minakaji@namazu.org>
 
-	* skk-study.el:	Move all variables and constants to skk-vars.el.
+	* skk-study.el: Move all variables and constants to skk-vars.el.
 	(skk-study-update): Check if `skk-study-max-distance' is nil or
 	not.
 	Check if `skk-study-first-candidate' is nil or not.
@@ -1758,7 +1758,7 @@
 	a typo.
 	(context-skk-in-mew-draft-attachments-region-p): New function.
 	(context-skk-insert): Invoke (key-binding (this-command-keys))
-	instead	of self-insert-command.
+	instead of self-insert-command.
 	(context-skk-context-check-hook):
 	context-skk-in-mew-draft-attachments-region-p is added.
 
@@ -2190,7 +2190,7 @@
 	* skk.el:
 	(skk-kakutei-cleanup-buffer):
 	Fix bug that kakutei in ▽ mode inserts junk characters to the
-	current	bufffer when `skk-undo-kakutei-word-only' is t.
+	current bufffer when `skk-undo-kakutei-word-only' is t.
 
 	(skk-set-henkan-point-subr):
 	(skk-change-marker-to-white):
@@ -2203,7 +2203,7 @@
 
 	* skk.el:
 	(skk-kakutei-cleanup-buffer):
-	Fix bug that `skk-undo-kakutei'	does not treat the last okuri-ari
+	Fix bug that `skk-undo-kakutei' does not treat the last okuri-ari
 	kakutei correctly when `skk-undo-kakutei-word-only' is t.
 
 2002-03-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
