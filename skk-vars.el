@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.183 2006/02/10 17:35:47 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.184 2006/02/13 02:16:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/10 17:35:47 $
+;; Last Modified: $Date: 2006/02/13 02:16:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -313,14 +313,18 @@ skk-kakutei-initialize $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!":G8e$N3N
   :group 'skk-hooks-and-functions)
 
 (defcustom skk-kakutei-jisyo nil
-  "*$B:G=i$K8!:w$9$k<-=q!#(B
-Non-nil $B$G!"$+$D(B `skk-search-prog-list' $B$NMWAG$NCf$K$3$NJQ?t$,;HMQ$5$l$F(B
-$B$$$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
+  ;; $B%=!<%H$5$l$F$$$kI,MW$,$"$k$+$I$&$+$O@_Dj<!Bh$@$,!"$=$3$^$G@bL@$9$k$N$OLLE](B
+  ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B ($B$=$N$h$&$J@_Dj$N$7$+$?$ONI$/$J$$(B?)
+  "*$B!V3NDjJQ49!W$G8!:w$9$k<-=q!#(B
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
+Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
 $B3F8+=P$78l$N:G=i$N%(%s%H%j$7$+8!:w$7$J$$(B ($BJ#?t$N%(%s%H%j$,$"$C$F$b(B 2 $BHVL\0J9_$N(B
 $B%(%s%H%j$OL5;k$5$l$k(B)$B!#(B
-`skk-search-prog-list' $B$NCM$r@_Dj$9$k$3$H$K$h$j!"8!:wBP>]$N<-=q$NJQ99!"8!:w$N(B
-$B=g=x$NJQ99$,2DG=!#(B"
+
+`skk-search-kakutei-jisyo-file' $B$N0z?t$H$7$F;HMQ$5$l$k!#(B
+$B3NDjJQ495!G=$rMxMQ$9$k>l9g$K$O!"(B
+  (skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
+$B$N$h$&$JMWAG$r(B `skk-search-prog-list' $B$N:G=i$KG[CV$9$k;v!#(B"
   ;;  "*The first dictionary to be searched.
   ;;If non-nil, and this variable is used as a component of
   ;;`skk-search-prog-list', the indicated dictionary is read into a
@@ -334,12 +338,17 @@ Non-nil $B$G!"$+$D(B `skk-search-prog-list' $B$NMWAG$NCf$K$3$NJQ?t$,;HMQ$5$l$
   :group 'skk-filenames)
 
 (defcustom skk-initial-search-jisyo nil
+  ;; $B%=!<%H$5$l$F$$$kI,MW$,$"$k$+$I$&$+$O@_Dj<!Bh$@$,!"$=$3$^$G@bL@$9$k$N$OLLE](B
+  ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B
   "*$B%f!<%6!<<-=q$N8!:w$NA0$K8!:w$9$k<-=q!#(B
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
-Non-nil $B$G!"$+$D(B `skk-search-prog-list' $B$NMWAG$NCf$K$3$NJQ?t$,;HMQ$5$l$F(B
-$B$$$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
-`skk-search-prog-list' $B$NCM$r@_Dj$9$k$3$H$K$h$j!"8!:wBP>]$N<-=q$NJQ99!"8!:w$N(B
-$B=g=x$NJQ99$,2DG=!#(B"
+Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
+
+`skk-search-prog-list' $B$K$*$$$F!"(B
+  (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
+$B$N$h$&$JMWAG$,(B
+  (skk-search-jisyo-file skk-jisyo 0 t)
+$B$h$j@h$KG[CV$5$l$F$$$k;v$K$h$j$=$N0UL#$r@.$7$F$$$k!#(B"
   ;;  "*This dictionary is searched before the user's personal dictionary.
   ;;The keys must be sorted.
   ;;If non-nil, and this variable is used as a component of
@@ -351,22 +360,19 @@ Non-nil $B$G!"$+$D(B `skk-search-prog-list' $B$NMWAG$NCf$K$3$NJQ?t$,;HMQ$5$l$
   :group 'skk-filenames)
 
 (defcustom skk-large-jisyo nil
+  ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B
   "*$B%f!<%6!<<-=q$N8!:w$N8e$K8!:w$9$k<-=q!#(B
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
-Non-nil $B$G!"$+$D(B `skk-search-prog-list' $B$NMWAG$NCf$K$3$NJQ?t$,;HMQ$5$l$F(B
-$B$$$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
-`skk-search-prog-list' $B$NCM$r@_Dj$9$k$3$H$K$h$j!"8!:wBP>]$N<-=q$NJQ99!"8!:w$N(B
-$B=g=x$NJQ99$,2DG=!#(B"
+Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
   :type '(choice file (const nil))
   :group 'skk-filenames)
 
 (defcustom skk-aux-large-jisyo nil
+  ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B
   "*SKK $B%5!<%P!<$,;H$($J$$;~$K!"Be$o$j$K8!:w$9$k<-=q!#(B
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
-SKK $B%5!<%P!<$,(B active $B$G$J$1$l$P!";XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"(B
-$B8!:w$r9T$&!#(B
-`skk-search-prog-list' $B$NCM$r@_Dj$9$k$3$H$K$h$j!"8!:wBP>]$N<-=q$NJQ99!"(B
-$B8!:w$N=g=x$NJQ99$,2DG=!#(B"
+Non-nil $B$G$"$l$P!"(BSKK $B%5!<%P!<$,(B active $B$G$J$$;~$K!"(B
+$B;XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
   :type '(choice file (const nil))
   :group 'skk-filenames)
 
@@ -407,9 +413,11 @@ SKK $B%5!<%P!<$,(B active $B$G$J$1$l$P!";XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"
   :group 'skk-filenames)
 
 (defcustom skk-jisyo-code nil
-  "*Non-nil $B$G$"$l$P!"$=$NCM$G<-=q%P%C%U%!$N4A;z%3!<%I$r@_Dj$9$k!#(B
-Mule $B$G$O!"(B*euc-japan*, *sjis*, *junet*$B!#(B
-$B$^$?!"(B\"euc\", \"ujis\", \"sjis\", \"jis\" $B$J$I$NJ8;zNs$K$h$C$F$b;XDj$,2DG=!#(B"
+  ;; $B8=:_$N<BAu$K$Y$C$?$j$J@bL@$ONI$/$J$$$+$b(B
+  "*$B<-=q%P%C%U%!$N%3!<%G%#%s%0%7%9%F%`!#(B
+$B%7%s%\%k$NB>!"J8;zNs(B \"euc\", \"ujis\", \"sjis\", \"jis\" $B$r;XDj2DG=!#(B
+nil $B$O(B \"euc\" $B$HF1$807$$$K$J$k!#(B
+$B8D?M<-=q$O$3$N%3!<%G%#%s%0%7%9%F%`$GJ]B8$5$l$k!#(B"
   :type '(choice symbol string)
   :group 'skk-dictionary)
 
@@ -743,7 +751,7 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
   "*$B?tCMJQ49$K;H$o$J$$<-=q8!:w%W%m%0%i%`$N%j%9%H!#(B
 `skk-use-numeric-conversion' $B$,(B non-nil $B$N>l9g$N$_M-8z!#%j%9%H$NMWAG$H$7$F$O!"(B
 
-1. $B%W%m%0%i%`$N4X?tL>$r$rI=$9%7%s%\%k(B
+1. $B%W%m%0%i%`$N4X?tL>$rI=$9%7%s%\%k(B
 2. $B%W%m%0%i%`$r0z?t$NCM$^$G;XDj$7$?7A$N%j%9%H(B
 
 $B$N$$$:$l$G$b;XDj$G$-$k!#(B
