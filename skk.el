@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.359 2006/02/13 13:56:42 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.360 2006/02/13 14:16:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/13 13:56:42 $
+;; Last Modified: $Date: 2006/02/13 14:16:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -237,6 +237,7 @@ dependent."
   ;; skk-rom-kana-base-rule-list の中の skk-kakutei-key が
   ;; 評価後ので置き換えられていたり、他にも見落しはありそう。
   ;; いっそ unload-feature とかしたほうがいいのかもしれない。
+  ;; skk-kakutei-key に関しては minibuffer-local-map などの処理も。
   (mapatoms #'(lambda (sym)
 		;; skk-init-file 以外の defcustom で宣言された変数を再初期化。
 		;; 他にも除外すべき変数がないか要検討。
