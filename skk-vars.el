@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.185 2006/02/13 13:56:42 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.186 2006/02/14 23:33:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/13 13:56:42 $
+;; Last Modified: $Date: 2006/02/14 23:33:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -625,8 +625,14 @@ nil であれば、例えば
 
 (defcustom skk-delete-implies-kakutei t
   "*Non-nil であれば、▼モードで BS を押すと、前の一文字を削除し確定する。
-nil であれば、一つ前の候補を表示する。"
-  :type 'boolean
+nil であれば、一つ前の候補を表示する。
+
+`dont-update' を指定すると、個人辞書を更新しない。
+
+候補一覧表示時は non-nil であっても前候補(群)の表示になる。"
+  :type '(choice (const t)
+		 (const dont-update)
+		 (const nil))
   :group 'skk-keybinds)
 
 (defcustom skk-allow-spaces-newlines-and-tabs t
