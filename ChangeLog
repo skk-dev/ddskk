@@ -1,3 +1,15 @@
+2006-02-14  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-delete-implies-kakutei): Accept value
+	`dont-update'.
+
+	* skk.el (skk-delete-backward-char): If
+	`skk-delete-implies-kakutei' is `dont-update', bind
+	`skk-update-jisyo-function' to `ignore'.
+	* skk-isearch.el (skk-isearch-delete-char): Ditto.
+	* skk-viper.el (viper-del-backward-char-in-insert)
+	(vip-del-backward-char-in-insert): Ditto.
+
 2006-02-13  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-restart): Arrange order.
