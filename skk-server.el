@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.39 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-server.el,v 1.40 2006/02/17 11:44:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2006/02/17 11:44:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -136,8 +136,7 @@ When called interactively, print version information."
 (defun skk-open-server ()
   "SKK サーバーと接続する。サーバープロセスを返す。"
   (unless (skk-server-live-p)
-    (setq skkserv-process (or (skk-open-network-stream)
-			      (skk-open-server-1)))
+    (setq skkserv-process (skk-open-server-1))
     (when (skk-server-live-p)
       (let ((code (cdr (assoc "euc" skk-coding-system-alist))))
 	(set-process-coding-system skkserv-process code code))))
@@ -145,120 +144,131 @@ When called interactively, print version information."
 
 (defun skk-open-server-1 ()
   "`skk-open-server' のサブルーチン。
-skkserv サービスをオープンできたら process を返す。
-skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を参照する。"
-  (let (process)
-    (unless skk-server-inhibit-startup-server
-      (unless skk-servers-list
-	;; Emacs 起動後に環境変数を設定した場合。
-	(unless skk-server-host
-	  (setq skk-server-host (getenv "SKKSERVER")))
-	(unless skk-server-prog
-	  (setq skk-server-prog (getenv "SKKSERV")))
-	(unless skk-server-jisyo
-	  (setq skk-server-jisyo (getenv "SKK_JISYO")))
-	(if skk-server-host
-	    (setq skk-servers-list (list (list skk-server-host
-					       skk-server-prog
-					       skk-server-jisyo
-					       skk-server-portnum)))
-	  (setq skk-server-prog nil)))
-      (while (and (not (skk-server-live-p process))
-		  skk-servers-list)
-	(let ((elt (car skk-servers-list))
-	      arg)
-	  (setq skk-server-host (car elt)
-		skk-server-prog (nth 1 elt)
-		skk-server-jisyo (nth 2 elt)
-		skk-server-portnum (nth 3 elt)
-		skk-servers-list (cdr skk-servers-list))
-	  ;; skkserv の起動オプションは下記の通り。
-	  ;;     skkserv [-d] [-p NNNN] [JISHO]
-	  ;;     `-d'     ディバッグ・モード
-	  ;;     `-p NNNN'     通信用のポート番号としてNNNNを使う.
-	  ;;     `~/JISYO'     ~/JISYOを辞書として利用.
-	  (if skk-server-jisyo
-	      (setq arg (list skk-server-jisyo))
-	    ;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を
-	    ;; 参照する。
-	    )
-	  ;;(if skk-server-debug
-	  ;;    (setq arg (cons "-d" arg)))
-	  ;;(when (and skk-server-portnum
-	  ;;           (not (= skk-server-portnum 1178)))
-	  (when skk-server-portnum
-	    (setq arg (nconc (list "-p" (number-to-string skk-server-portnum))
-			     arg)))
-	  (when (and skk-server-host (not (skk-open-network-stream))
-		     skk-server-prog)
-	    (setq process (skk-startup-server arg))))))
-    (prog1
-	process
-      (unless (skk-server-live-p process)
-	;; reset SKK-SERVER-HOST so as not to use server in this session
-	(setq skk-server-host nil
-	      skk-server-prog nil
-	      skk-servers-list nil)))))
+skkserv サービスをオープンできたら process を返す。"
+  (let* ((host (or skk-server-host (getenv "SKKSERVER")))
+	 (prog (or skk-server-prog (getenv "SKKSERV")))
+	 (jisyo (or skk-server-jisyo (getenv "SKK_JISYO")))
+	 (port skk-server-portnum)
+	 ;; skk-server-host の情報を skk-servers-list に反映する
+	 (list (cond ((null skk-servers-list)
+		      (if host
+			  (list (list host prog jisyo port))
+			(setq skk-server-prog nil)))
+		     ((and host
+			   (not (assoc host skk-servers-list)))
+		      ;; skk-servers-list に host が入っていない場合
+		      (cons (list host prog jisyo port) skk-servers-list))
+		     (t
+		      skk-servers-list)))
+	 elt
+	 process)
+    ;;
+    (while (and (not (skk-server-live-p process))
+		list)
+      ;; サービスが利用可能でないホストの情報は skk-servers-list から消す
+      (setq skk-servers-list list
+	    elt (car list)
+	    process (or (skk-open-network-stream (car elt) (nth 3 elt))
+			;; サービスが利用可能でない場合はサービスを起動
+			;; できるかどうか試みる
+			(if (not skk-server-inhibit-startup-server)
+			    (apply #'skk-startup-server elt)
+			  nil))
+	    list (cdr list)))
+    ;;
+    (unless (skk-server-live-p process)
+      ;; clear skk-server-host to disable server search in this session
+      (setq skk-server-host nil
+	    skk-server-prog nil
+	    skk-servers-list nil))
+    ;; 環境変数 SKKSERVER を clear して再度の問い合わせを防ぐ。
+    (setenv "SKKSERVER" nil t)
+    ;;
+    process))
 
-(defun skk-open-network-stream ()
-  "`skk-server-host' における skkserv サービスの TCP 接続をオープンする。
+(defun skk-open-network-stream (&optional host port)
+  "HOST に指定されたホストにおける skkserv サービスの TCP 接続をオープンする。
+HOST が nil ならば `skk-server-host' を参照する。
 プロセスを返す。"
   (ignore-errors
     (let ((process
 	   (open-network-stream "skkservd"
 				skkserv-working-buffer
-				skk-server-host
-				(or skk-server-portnum
-				    "skkserv"))))
+				(or host skk-server-host)
+				(or port "skkserv"))))
       (static-cond
-       ((string-lessp "22.0" emacs-version)
+       ((and (not (featurep 'xemacs))
+	     (string-lessp "22.0" emacs-version))
 	(set-process-query-on-exit-flag process nil))
        (t
 	(process-kill-without-query process)))
       process)))
 
-(defun skk-startup-server (arg)
-  "直接 skkserv を起動する。起動できたら t を返す。"
-  (let (
-	;;(msgbuff (get-buffer-create " *skkserv-msg*"))
-	(count 7)
-	process)
-    (while (> count 0)
-      (skk-message
-       "%s の SKK サーバーが起動していません。起動します%s"
-       "SKK SERVER on %s is not active, I will activate it%s"
-       skk-server-host (make-string count ?.))
-      (if (or (string= skk-server-host (system-name))
-	      (string= skk-server-host "localhost"))
-	  ;; server host is local machine
-	  (apply 'call-process skk-server-prog nil
-		 ;;msgbuff
-		 0 nil arg)
-	(apply 'call-process
-	       skk-server-remote-shell-program nil
-	       ;; 0 にしてサブプロセスの終了を待ってはいけない理由がある？
-	       ;; なければ msgbuf にエラー出力を取った方が建設的では？  またそ
-	       ;; の場合はこの while ループ自身がいらない？
-	       ;; msgbuff
-	       0 nil skk-server-host skk-server-prog arg))
-      (sit-for 3)
-      (if (and (setq process (skk-open-network-stream))
-	       (skk-server-live-p process))
-	  (setq count 0)
-	(setq count (1- count))))
-    (if (skk-server-live-p process)
-	(progn
-	  (skk-message "ホスト %s の SKK サーバーが起動しました"
-		       "SKK SERVER on %s is active now"
-		       skk-server-host)
-	  (sit-for 1)
+(defun skk-startup-server (host prog jisyo port)
+  "HOST の skkserv を直接起動する。
+起動後そのサービスに接続を試みる。接続できた場合はプロセスを返す。"
+  (when (and host prog)
+    (let (;;(msgbuff (get-buffer-create " *skkserv-msg*"))
+	  (count 7)
+	  arg
 	  process)
-      (skk-message "%s の SKK サーバーを起動することができませんでした"
-		   "Could not activate SKK SERVER on %s"
-		   skk-server-host)
-      (sit-for 1)
-      (ding)
-      nil)))
+      ;; skkserv に与える引数を設定する。
+
+      ;; skkserv の起動オプションは下記の通り。
+      ;;     skkserv [-d] [-p NNNN] [JISHO]
+      ;;     `-d'     ディバッグ・モード
+      ;;     `-p NNNN'     通信用のポート番号としてNNNNを使う.
+      ;;     `~/JISYO'     ~/JISYOを辞書として利用.
+      (when jisyo
+	;; skkserv は引数に辞書が指定されていなければ、DEFAULT_JISYO を
+	;; 参照する。
+	(setq arg (list jisyo)))
+      ;;(if skk-server-debug
+      ;;    (setq arg (cons "-d" arg)))
+      (when port
+	(setq arg (nconc (list "-p" (number-to-string port)) arg)))
+
+      ;; skkserv の起動トライアルを繰り返す...?
+      (while (> count 0)
+	(skk-message
+	 "%s の SKK サーバーが起動していません。起動します%s"
+	 "SKK SERVER on %s is not active, I will activate it%s"
+	 host (make-string count ?.))
+	(if (or (string= host (system-name))
+		(string= host "localhost"))
+	    ;; server host is local machine
+	    (apply 'call-process prog nil
+		   ;;msgbuff
+		   0 nil arg)
+	  (apply 'call-process
+		 skk-server-remote-shell-program nil
+		 ;; 0 にしてサブプロセスの終了を待ってはいけない理由がある？
+		 ;; なければ msgbuf にエラー出力を取った方が建設的では？  また
+		 ;; その場合はこの while ループ自身がいらない？
+		 ;; msgbuff
+	       0 nil host prog arg))
+	(sleep-for 3)
+	(if (and (setq process (skk-open-network-stream host port))
+		 (skk-server-live-p process))
+	    (setq count 0)
+	  (setq count (1- count))))
+
+      ;;
+      (cond
+       ((skk-server-live-p process)
+	(skk-message "ホスト %s の SKK サーバーが起動しました"
+		     "SKK SERVER on %s is active now"
+		     skk-server-host)
+	(sit-for 1)
+	;; process を返り値とする
+	process)
+       (t
+	(skk-message "%s の SKK サーバーを起動することができませんでした"
+		     "Could not activate SKK SERVER on %s"
+		     skk-server-host)
+	(sit-for 1)
+	(ding)
+	nil)))))
 
 ;;;###autoload
 (defun skk-adjust-search-prog-list-for-server-search (&optional non-del)
