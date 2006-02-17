@@ -1,3 +1,17 @@
+2006-02-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-server.el (skk-open-server, skk-open-server-1): Don't call
+	`skk-open-network-stream' for the same host twice.  First add
+	information for skk-server-host or environment variable SKKSERVER
+	to skk-servers-list.  After that try to open the connection
+	according to skk-servers-list.  After that unsetenv SKKSERVER
+	i.e. won't connect to SKKSERVER again.  Fix the bad conditional
+	statement by skk-server-inhibit-startup-server.
+	(skk-open-network-stream): Take optional arguments HOST and PORT.
+	(skk-startup-server): Take arguments HOST, PROG, JISYO and PORT.
+	Use `sleep-for' instead of `sit-for' for actually waiting for the
+	invoked service.
+
 2006-02-14  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-delete-implies-kakutei): Accept value
