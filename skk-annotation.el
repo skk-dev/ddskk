@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.41 2006/02/01 11:29:27 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.42 2006/02/20 10:11:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/02/01 11:29:27 $
+;; Last Modified: $Date: 2006/02/20 10:11:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -201,7 +201,7 @@
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
-	 event command)
+	 event command url)
     (while (and list
 		(condition-case nil
 		    (progn
@@ -219,9 +219,20 @@
 	     (setq event nil))
 	    ((eq command browse-command)
 	     (setq list (delq browse-command list))
-	     (browse-url annotation)
-	     (skk-message "現在の注釈を URL としてブラウズしています..."
-			  "Browsing the current note as URL...")
+	     (with-temp-buffer
+	       (insert annotation)
+	       (goto-char (point-min))
+	       (setq url (thing-at-point 'url))
+	       (while (not (or url (eobp)))
+		 (forward-char 1)
+		 (setq url (thing-at-point 'url))))
+	     (cond (url
+		    (browse-url url)
+		    (skk-message "注釈内の URL をブラウズしています..."
+				 "Browsing URL in the current note..."))
+		   (t
+		    (skk-message "注釈内に URL が見つかりません"
+				 "No URL found in the current note")))
 	     (setq event nil))
 	    (t
 	     (setq list nil))))
