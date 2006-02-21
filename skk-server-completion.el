@@ -77,10 +77,11 @@
     ;; 一応それに依存しないようにしている。
     (let* ((henkan-key (substring skk-henkan-key
 				  0 (1- (length skk-henkan-key))))
-	   (conv-key (and skk-use-numeric-conversion
+	   (numericp (and skk-use-numeric-conversion
+			  (save-match-data
+			    (string-match "[0-9０-９]" henkan-key))))
+	   (conv-key (and numericp
 			  (skk-num-compute-henkan-key henkan-key)))
-	   (num-conv (and conv-key
-			  (not (string= conv-key henkan-key))))
 	   (key (or conv-key henkan-key))
 	   midasi-list result-list kouho-list)
       (setq midasi-list (skk-server-completion-search-midasi key))
@@ -88,7 +89,7 @@
 	;; 見出しに対応したエントリがサーバに存在する事を前提としている。
 	;; 不整合があってもエラーにはならないが、見出しだけが表示される事になるので
 	;; 検索対象辞書から直接補完候補を生成していないサーバでは運用に気をつける事。
-	(setq kouho-list (cons (if num-conv
+	(setq kouho-list (cons (if numericp
 				   (concat henkan-key
 					   (substring skk-henkan-key
 						      (length key)))
@@ -128,12 +129,15 @@
 
 ;;;###autoload
 (defun skk-comp-by-server-completion ()
-  ;; skk-comp-prefix は使えない
-  (let* ((conv-key (and skk-use-numeric-conversion
+  ;; skk-comp-prefix は使わないので、
+  ;; 必要なら skk-comp-restrict-by-prefix() を併用する。
+  "Server completion に対応した SKK サーバを利用する補完プログラム。
+`skk-completion-prog-list' の要素に指定して使う。"
+  (let* ((numericp (and skk-use-numeric-conversion
+			(save-match-data
+			  (string-match "[0-9０-９]" skk-comp-key))))
+	 (conv-key (and numericp
 			(skk-num-compute-henkan-key skk-comp-key)))
-	 (num-comp (and conv-key
-			(not (string= conv-key
-				      skk-comp-key))))
 	 (comp-key (or conv-key skk-comp-key))
 	 word)
     (when skk-comp-first
@@ -144,7 +148,7 @@
 	(pop skk-server-completion-words)))
     (setq word (pop skk-server-completion-words))
     (when word
-      (if num-comp
+      (if numericp
 	  (concat skk-comp-key
 		  (substring word (length comp-key)))
 	word))))
