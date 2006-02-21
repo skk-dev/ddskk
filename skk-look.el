@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.38 2006/02/05 18:40:01 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.39 2006/02/21 15:09:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/05 18:40:01 $
+;; Last Modified: $Date: 2006/02/21 15:09:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -225,7 +225,8 @@ words ファイルにある全ての見出しが対象となる。
 
 ;;;###autoload
 (defun skk-look-completion (&optional completion-arguments not-abbrev-only expand-null)
-  ;; skk-comp-prefix は使えない
+  ;; skk-comp-prefix は使わないので、
+  ;; 必要なら skk-comp-restrict-by-prefix() を併用する。
   "look コマンドを利用して補完候補を得る。
 COMPLETION-ARGUMENTS は `skk-look-completion-arguments' を
 一時的に置き換えたい時に指定する。
@@ -235,11 +236,11 @@ EXPAND-NULL を指定すると、入力が空である時に
 words ファイルにある全ての見出しを返す。
 `skk-look-use-ispell' を一時的に変更したい場合には
 `let' により束縛して使う事。"
-  (let* ((conv-key (and skk-use-numeric-conversion
+  (let* ((numericp (and skk-use-numeric-conversion
+			(save-match-data
+			  (string-match "[0-9０-９]" skk-comp-key))))
+	 (conv-key (and numericp
 			(skk-num-compute-henkan-key skk-comp-key)))
-	 (num-comp (and conv-key
-			(not (string= conv-key
-				      skk-comp-key))))
 	 (comp-key (or conv-key skk-comp-key))
 	 word)
     (when (and (not (memq skk-use-look '(nil conversion)))
@@ -259,7 +260,7 @@ words ファイルにある全ての見出しを返す。
 		  (skk-look-1 comp-key 'completion))))
 	(setq word (pop skk-look-completion-words))
 	(when word
-	  (if num-comp
+	  (if numericp
 	      (concat skk-comp-key
 		      (substring word (length comp-key)))
 	    word))))))
