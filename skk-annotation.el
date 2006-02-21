@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.42 2006/02/20 10:11:24 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.43 2006/02/21 09:31:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/02/20 10:11:24 $
+;; Last Modified: $Date: 2006/02/21 09:31:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -182,6 +182,12 @@
 
 (defun skk-annotation-show-1 (annotation)
   (setq annotation (skk-eval-string annotation))
+  (skk-annotation-show-2 annotation)
+  ;; 注釈の表示はここまでだが、ここでユーザが注釈の内容をコピーしたり
+  ;; して利用できるようにする。
+  (skk-annotation-wait-for-input annotation))
+
+(defun skk-annotation-show-2 (annotation)
   (cond
    ((and (eval-when-compile (eq skk-emacs-type 'mule5))
 	 window-system
@@ -195,13 +201,14 @@
     ;; do nothing
     nil)
    (t
-    (skk-annotation-show-buffer annotation)))
-  ;; 注釈の表示はここまでだが、ここでユーザが注釈の内容をコピーしたり
-  ;; して利用できるようにする。
+    (skk-annotation-show-buffer annotation))))
+
+(defun skk-annotation-wait-for-input (annotation)
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
-	 event command url)
+	 (notes (reverse (split-string annotation ";")))
+	 event command urls)
     (while (and list
 		(condition-case nil
 		    (progn
@@ -216,28 +223,36 @@
 	     (kill-new (substring-no-properties annotation))
 	     (skk-message "現在の注釈をコピーしました"
 			  "Copying the current note...done")
-	     (setq event nil))
+	     (setq event nil)
+	     (skk-annotation-show-2 annotation))
 	    ((eq command browse-command)
 	     (setq list (delq browse-command list))
-	     (with-temp-buffer
-	       (insert annotation)
-	       (goto-char (point-min))
-	       (setq url (thing-at-point 'url))
-	       (while (not (or url (eobp)))
-		 (forward-char 1)
-		 (setq url (thing-at-point 'url))))
-	     (cond (url
-		    (browse-url url)
-		    (skk-message "注釈内の URL をブラウズしています..."
-				 "Browsing URL in the current note..."))
+	     (setq urls (delq nil (mapcar #'skk-annotation-find-url notes)))
+	     (cond (urls
+		    (dolist (url urls)
+		      (browse-url url))
+		      (skk-message "注釈内のサイトをブラウズしています..."
+				   "Browsing sites in the current notes..."))
 		   (t
-		    (skk-message "注釈内に URL が見つかりません"
-				 "No URL found in the current note")))
-	     (setq event nil))
+		    (skk-message "注釈内にサイトが見つかりません"
+				 "No sites found in the current notes")))
+	     (setq event nil)
+	     (skk-annotation-show-2 annotation))
 	    (t
 	     (setq list nil))))
     (when event
       (skk-unread-event event))))
+
+(defun skk-annotation-find-url (string)
+  (let (url)
+    (with-temp-buffer
+      (insert string)
+      (goto-char (point-max))
+      (setq url (thing-at-point 'url))
+      (while (not (or url (bobp)))
+	(backward-char 1)
+	(setq url (thing-at-point 'url)))
+      url)))
 
 (defun skk-annotation-show-buffer (annotation)
   (condition-case nil
