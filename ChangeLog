@@ -1,3 +1,12 @@
+2006-02-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-2): New function.
+	(skk-annotation-wait-for-input, skk-annotation-find-url): New
+	functions.  Browse sites in the current notes using URLs
+	that `thing-at-point' finds.
+	(skk-annotation-show-1): Call `skk-annotation-show-2' and
+	`skk-annotation-wait-for-input'.
+
 2006-02-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-show-1): Also browse URL
