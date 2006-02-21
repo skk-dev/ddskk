@@ -1,3 +1,12 @@
+2006-02-21  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk.el (skk-search-kakutei-jisyo-file): Modify docstring.
+
+	* skk-look.el (skk-look-completion): More readable.
+
+	* skk-server-completion.el (skk-server-completion-search)
+	(skk-comp-by-server-completion): Ditto.
+
 2006-02-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-show-2): New function.
