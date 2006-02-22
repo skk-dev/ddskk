@@ -1,3 +1,9 @@
+2006-02-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-1): split ANNOTATION
+	before `skk-eval-string' is called.
+	(skk-annotation-wait-for-input): Take 2nd argument NOTES.
+
 2006-02-21  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-search-kakutei-jisyo-file): Modify docstring.
