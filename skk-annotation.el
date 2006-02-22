@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.44 2006/02/22 11:00:50 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.45 2006/02/22 17:31:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/02/22 11:00:50 $
+;; Last Modified: $Date: 2006/02/22 17:31:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -181,11 +181,12 @@
       (skk-annotation-show-1 (skk-annotation-get annotation)))))
 
 (defun skk-annotation-show-1 (annotation)
-  (setq annotation (skk-eval-string annotation))
-  (skk-annotation-show-2 annotation)
-  ;; 注釈の表示はここまでだが、ここでユーザが注釈の内容をコピーしたり
-  ;; して利用できるようにする。
-  (skk-annotation-wait-for-input annotation))
+  (let ((notes (mapcar #'skk-eval-string (split-string annotation ";"))))
+    (setq annotation (mapconcat #'identity notes ";"))
+    (skk-annotation-show-2 annotation)
+    ;; 注釈の表示はここまでだが、ここでユーザが注釈の内容をコピーしたり
+    ;; して利用できるようにする。
+    (skk-annotation-wait-for-input annotation notes)))
 
 (defun skk-annotation-show-2 (annotation)
   (cond
@@ -203,11 +204,10 @@
    (t
     (skk-annotation-show-buffer annotation))))
 
-(defun skk-annotation-wait-for-input (annotation)
+(defun skk-annotation-wait-for-input (annotation notes)
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
-	 (notes (reverse (split-string annotation ";")))
 	 event command urls)
     (while (and list
 		(condition-case nil
