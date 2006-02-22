@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.43 2006/02/21 09:31:08 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.44 2006/02/22 11:00:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/02/21 09:31:08 $
+;; Last Modified: $Date: 2006/02/22 11:00:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -231,8 +231,8 @@
 	     (cond (urls
 		    (dolist (url urls)
 		      (browse-url url))
-		      (skk-message "注釈内のサイトをブラウズしています..."
-				   "Browsing sites in the current notes..."))
+		    (skk-message "注釈内のサイトをブラウズしています..."
+				 "Browsing sites in the current notes..."))
 		   (t
 		    (skk-message "注釈内にサイトが見つかりません"
 				 "No sites found in the current notes")))
