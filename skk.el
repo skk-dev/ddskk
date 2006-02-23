@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.363 2006/02/21 15:17:01 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.364 2006/02/23 13:43:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/21 15:17:01 $
+;; Last Modified: $Date: 2006/02/23 13:43:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4951,10 +4951,14 @@ SKK 辞書の候補として正しい形に整形する。"
 	       (delete-backward-char count))
 	   (skk-previous-candidate)))
 	(t
-	 (skk-erase-prefix 'clean)
-	 (when (> (point) skk-henkan-start-point)
-	   (delete-region (point) skk-henkan-start-point))
-	 (skk-kakutei))))
+	 (if (eq last-command 'skk-comp-do)
+	     (progn
+	       (delete-region skk-henkan-start-point (point))
+	       (insert skk-comp-key))
+	   (skk-erase-prefix 'clean)
+	   (when (> (point) skk-henkan-start-point)
+	     (delete-region (point) skk-henkan-start-point))
+	   (skk-kakutei)))))
 
 (defadvice newline (around skk-ad activate)
   "`skk-egg-like-newline' だったら、変換中は確定のみ行い、改行しない。"
