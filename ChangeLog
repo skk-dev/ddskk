@@ -2002,6 +2002,8 @@
 	`skk-isearch-mode-enable' is non-nil before invoking
 	`skk-isearch-mode-cleanup'
 
+	* skk.el (skk-toggle-isearch-mode): New command.
+
 2002-11-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-isearch-mode-enable): New user variable.
