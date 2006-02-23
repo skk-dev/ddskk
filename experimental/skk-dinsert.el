@@ -4,9 +4,9 @@
 
 ;; Author: Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dinsert.el,v 1.8 2006/01/13 23:14:57 skk-cvs Exp $
+;; Version: $Id: skk-dinsert.el,v 1.9 2006/02/23 16:38:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/13 23:14:57 $
+;; Last Modified: $Date: 2006/02/23 16:38:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -51,15 +51,15 @@
 ;;   (when (locate-library "skk-dinsert")
 ;;     (require 'skk-dinsert)
 ;;     (setq skk-rom-kana-rule-list
-;;           (nconc skk-rom-kana-rule-list
-;;                  (let ((count -1))
-;;                    (mapcar #'(lambda (r)
-;;                                (setq count (1+ count))
-;;                                (list (car r)
-;;                                      (cadr r)
-;;                                      `(lambda (arg)
-;;                                         (skk-dinsert arg ,count))))
-;;                            skk-dinsert-rule-list)))))
+;;           (append skk-rom-kana-rule-list
+;;                   (let ((count -1))
+;;                     (mapcar #'(lambda (r)
+;;                                 (setq count (1+ count))
+;;                                 (list (car r)
+;;                                       (cadr r)
+;;                                       `(lambda (arg)
+;;                                          (skk-dinsert arg ,count))))
+;;                             skk-dinsert-rule-list)))))
 ;;
 ;; さらに、このファイルを load-path の通ったディレクトリに置いて下さい。
 ;;
