@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.45 2006/02/22 17:31:42 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.46 2006/02/24 02:45:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/02/22 17:31:42 $
+;; Last Modified: $Date: 2006/02/24 02:45:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -182,7 +182,7 @@
 
 (defun skk-annotation-show-1 (annotation)
   (let ((notes (mapcar #'skk-eval-string (split-string annotation ";"))))
-    (setq annotation (mapconcat #'identity notes ";"))
+    (setq annotation (skk-eval-string annotation))
     (skk-annotation-show-2 annotation)
     ;; 注釈の表示はここまでだが、ここでユーザが注釈の内容をコピーしたり
     ;; して利用できるようにする。
