@@ -1,3 +1,8 @@
+2006-02-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-1): Also call
+	`skk-eval-string' for updating ANNOTATION.
+
 2006-02-23  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (abort-recursive-edit): While completing key in
