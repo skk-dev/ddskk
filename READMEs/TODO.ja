@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2006/01/12 01:59:11 $
-	     $Id: TODO.ja,v 1.23 2006/01/12 01:59:11 skk-cvs Exp $
+             $Date: 2006/03/07 11:24:52 $
+	     $Id: TODO.ja,v 1.24 2006/03/07 11:24:52 skk-cvs Exp $
 
 
 * 近い内に解決すべき TODO
@@ -219,9 +219,64 @@ free software であることを認識してもらうこと、などが目的。
 
 * 報告された、または確認されているバグ (未修正)
 
+** skk-henkan-show-candidates の数値変換有効時のバグ
+
+http://mail.ring.gr.jp/skk/200602/msg00030.html
+
+小畑さんからのご報告
+
+> すっきりした対処法が分からなかったので ML に投げます。
+> 
+> 手元の環境で、/1 のように変換すると候補一覧表示状態でループになって
+> しまいました。
+> skk-search() や skk-henkan-list-filter() した結果として、その回での
+> 表示対象 henkan-list が nil になると問題があるようです。
+> 
+> 一応再現用のコードをつけておきます。
+> 
+> ;; emacs -q として
+> 
+> (progn
+> 
+> (setq skk-init-file "")
+> 
+> ;(setq skk-show-annotation t)
+> (setq skk-update-jisyo-function #'ignore)
+> 
+> (defun from-private ()
+>   (skk-num-compute-henkan-key skk-henkan-key)
+>   (if skk-use-numeric-conversion
+>       (list "#4" "#2" "#5" "#1")
+>     (list "一")))
+> 
+> (defun from-server ()
+>   (if skk-use-numeric-conversion
+>       (list "#1" "#3" "#2" "＃;number" "#0" "#4" "#5" "#9")
+>     (list "１" "一" "壱;「一」の大字" "弌;「一」の異体字" "壹;「壱」の旧字" "ワン" "one")))
+> 
+> (defun from-eb ()
+>   (unless skk-use-numeric-conversion
+>     ;; from かなり古い通信用語の基礎知識
+>     (list "Ｑ")))
+> 
+> (setq skk-search-prog-list
+>       '((from-private)
+> 	(from-server)
+> 	(from-eb)))
+> 
+> )
+> 
+> ;; skk-search-server が追加されるので、
+> ;; SKK 起動後に再度 skk-search-prog-list を設定しなおす
+
+ものの見事に無限ループしている。確かに簡単に解決するのは難しいか。
+henkan-list が nil のとき skk-henkan-list-filter() を呼ばないようにし
+ただけだと、候補数が 7 ヶより少なくなってしまう。
+
+
 ** skk-undo-kakutei-word-only 下での undo 情報の喪失
 
-[http://mail.ring.gr.jp/skk/200503/msg00011.html]
+http://mail.ring.gr.jp/skk/200503/msg00011.html
 
 笠原＠九大さんよりのご報告
 
