@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.364 2006/02/23 13:43:42 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.365 2006/03/08 16:56:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/23 13:43:42 $
+;; Last Modified: $Date: 2006/03/08 16:56:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1771,15 +1771,13 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	    skk-henkan-show-candidates-keys))
 	  key-num-alist	; 候補選択用の連想リスト
 	  (key-num-alist1 ; key-num-alist を組み立てるための作業用連想リスト。
-	   (let ((count (1- (length skk-henkan-show-candidates-keys))))
-	     (mapcar
-	      #'(lambda (key)
-		  (prog1
-		      (cons key count)
-		    (setq count (1- count))))
-	      ;; 逆さまにしておいて、表示する候補の数が少なかったら先
-	      ;; 頭から幾つか削る。
-	      (reverse skk-henkan-show-candidates-keys))))
+	   ;; 逆さまにしておいて、表示する候補の数が少なかったら先
+	   ;; 頭から幾つか削る。
+	   (let (alist)
+	     (dotimes (i max-candidates alist)
+	       (push (cons (nth i skk-henkan-show-candidates-keys)
+			   i)
+		     alist))))
 	  (loop 0)
 	  inhibit-quit
 	  (echo-keystrokes 0)
