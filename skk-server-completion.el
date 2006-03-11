@@ -43,20 +43,19 @@
 ;;
 ;; .skk に、以下を追加します。
 ;;
-;; (require 'skk-server-completion)
 ;; (add-to-list 'skk-search-prog-list
 ;;	     '(skk-server-completion-search) t)
+;;
+;; (add-to-list 'skk-completion-prog-list
+;;	     '(skk-comp-by-server-completion) t)
 ;;
 ;; また、`~' を付けた変換結果を個人辞書に学習してしまうのをやめるためには
 ;; 以下を追加してください。
 ;;
 ;; (add-hook 'skk-search-excluding-word-pattern-function
-;;	  #'(lambda (kakutei-word)
-;;	      (string-match (format "%s$"
-;;				    (regexp-quote
-;;				     (char-to-string
-;;				      skk-server-completion-search-char)))
-;;			    skk-henkan-key)))
+;; 	  #'(lambda (kakutei-word)
+;; 	      (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
+;; 		  skk-server-completion-search-char)))
 
 ;;; Code:
 
