@@ -1,3 +1,7 @@
+2006-03-11  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-server-completion.el: Modify comments.
+
 2006-03-08  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-henkan-show-candidates): Bugfix related to
