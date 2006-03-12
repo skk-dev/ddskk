@@ -1,3 +1,11 @@
+2006-03-12  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk.el (skk-henkan-candidate-list): Don't call
+	`skk-annotation-get' when `skk-show-annotation' is nil.
+
+	(skk-compile-rule-list): Don't modify rule-list.
+	Use `dolist'.
+
 2006-03-11  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-server-completion.el: Modify comments.
