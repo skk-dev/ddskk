@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.367 2006/03/12 18:26:04 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.368 2006/03/12 18:36:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/03/12 18:26:04 $
+;; Last Modified: $Date: 2006/03/12 18:36:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1283,17 +1283,13 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 ;; <char>         := <英小文字>
 ;; <nextstate>    := <英小文字文字列> | nil
 ;;;###autoload
-(defun skk-compile-rule-list (&rest l)
+(defun skk-compile-rule-list (&rest rule-lists)
   "rule list を木の形にコンパイルする。"
   (let ((tree (skk-make-rule-tree nil "" nil nil nil))
-	rule key ll)
-    (while l
-      (setq ll (car l)
-	    l (cdr l))
-      (while ll
-	(setq rule (car ll)
-	      key (car rule)
-	      ll (cdr ll))
+	rule key)
+    (dolist (rule-list rule-lists)
+      (dolist (rule rule-list)
+	(setq key (car rule))
 	(ignore-errors
 	  (when (symbolp key)
 	    (setq key (eval key))
