@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.366 2006/03/12 18:02:44 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.367 2006/03/12 18:26:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/03/12 18:02:44 $
+;; Last Modified: $Date: 2006/03/12 18:26:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1298,7 +1298,7 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	  (when (symbolp key)
 	    (setq key (eval key))
 	    (when (stringp key)
-	      (setcar rule key)))
+	      (setq rule (cons key (cdr rule)))))
 	  (unless (or (not (stringp key))
 		      (string-match "\\w" key)
 		      (eq (key-binding key)
