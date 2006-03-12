@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.365 2006/03/08 16:56:50 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.366 2006/03/12 18:02:44 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/03/08 16:56:50 $
+;; Last Modified: $Date: 2006/03/12 18:02:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2053,8 +2053,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	;; $B%f!<%6$,K>$`Cm<a$NI=<(7A<0$K1h$C$FCm<a$r2C9)$9$k!#(B
 	(cond ((not skk-show-annotation)
 	       ;; $B!VI=<($7$J$$!W(B
-	       (setq sep  ""
-		     note ""))
+	       (setq sep  nil
+		     note nil))
 	      ((skk-annotation-display-p 'list)
 	       ;; $B!VI=<($9$k!W(B
 	       ;; $B$=$N$^$^(B
@@ -2062,15 +2062,14 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	      (t
 	       ;; $B!V8uJd0lMw$G$OI=<($7$J$$!W(B
 	       ;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
-	       (setq note "")))
+	       (setq note nil)))
 	;; $B8uJd0lMwI=<($G$O8uJd$HCm<a$r0l3g$7$FI=<($9$k$N$G(B
 	;; $B$3$3$G7k9g$7$F$*$/!#(B
 	(setq e (concat (skk-eval-string e)
 			sep
 			(if note
 			    (skk-eval-string
-			     (skk-annotation-get note))
-			  "")))
+			     (skk-annotation-get note)))))
 	;; $BA4$F$N2C9)=hM}=*$o$j!#JQ?t$K%;%C%H$9$k!#(B
 	(setq v     (cons e v)
 	      count (1+ count)))
