@@ -1,3 +1,9 @@
+2006-05-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-henkan-show-candidate-subr): When skk-show-inline is
+	non-nil and the pointer is in minibuffer, show the classic
+	candidate list.
+
 2006-03-12  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-henkan-candidate-list): Don't call
