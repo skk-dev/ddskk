@@ -62,8 +62,9 @@
 ;;;Code
 
 (eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-macs))
+
+(require 'skk-vars)
 
 ;; is this necessary?
 (require 'skk-comp)
