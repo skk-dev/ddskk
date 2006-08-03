@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.107 2006/01/14 15:34:50 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.108 2006/08/03 07:42:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/14 15:34:50 $
+;; Last Modified: $Date: 2006/08/03 07:42:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -357,9 +357,11 @@ the echo area while this function is waiting for an event."
   "`sit-for' の Emacsen による違いを吸収する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
-    (sit-for seconds  nodisplay))
+    (sit-for seconds nodisplay))
+   ((< emacs-major-version 22)
+    (sit-for seconds nil nodisplay))
    (t
-    (sit-for seconds nil nodisplay))))
+    (sit-for seconds nodisplay))))
 
 (defsubst skk-ding (&optional arg sound device)
   "`ding' の Emacsen による違いを吸収する。"
