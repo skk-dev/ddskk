@@ -1,3 +1,8 @@
+2006-08-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el (skk-sit-for): 2nd arg of `sit-for' is MILLISECONDS
+	under Emacs 21.4 or earlier, but it is NODISP under Emacs 22.  Fix.
+
 2006-07-17  Yoichi NAKAYAMA  <yoichi@geiin.org>
 
 	* skk-hint.el: Move (require 'skk-vars) to top level.
