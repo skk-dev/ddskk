@@ -6,8 +6,8 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.11 2006/01/04 10:10:46 skk-cvs Exp $
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Version: $Id: tinyinstall.el,v 1.12 2006/08/07 15:27:12 skk-cvs Exp $
+;; Last Modified: $Date: 2006/08/07 15:27:12 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -50,7 +50,7 @@ subdirectory under load-path.")
     (setq elisp-prefix install-elisp-prefix))
   (or
    (catch 'tag
-     (let ((rest default-load-path)
+     (let ((rest (delq nil (copy-sequence default-load-path)))
 	   (pat (concat "^"
 			(expand-file-name (concat ".*/" elisp-prefix) prefix)
 			"/?$")))
