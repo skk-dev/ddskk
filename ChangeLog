@@ -1,7 +1,7 @@
 2006-08-07  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* tinyinstall.el (install-detect-elisp-directory): Sync with
-	install.el in APEL CVS head.
+	install.el in APEL CVS head.  Ignore nils in default-load-path.
 
 2006-08-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
