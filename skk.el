@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.370 2006/05/31 04:52:09 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.371 2006/09/12 12:47:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/05/31 04:52:09 $
+;; Last Modified: $Date: 2006/09/12 12:47:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3531,7 +3531,7 @@ If you want to restore the dictionary from the disc, try
 		 (skk-save-point
 		  (re-search-forward "^;; okuri-nasi entries.$" nil t nil)))
 	  (skk-error "このファイルは SKK 辞書ではありません"
-		     "This file is not a SKK dictionary"))
+		     "This file is not an SKK dictionary"))
 	(beginning-of-line)
 	(while (looking-at ";")
 	  (forward-line 1)
