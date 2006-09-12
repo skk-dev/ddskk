@@ -1,3 +1,7 @@
+2006-09-11  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* skk.el (skk-count-jisyo-candidates-original): Typo.
+
 2006-08-07  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* tinyinstall.el (install-detect-elisp-directory): Sync with
