@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.24 2006/02/11 14:16:30 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.25 2006/10/10 02:58:41 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2006/02/11 14:16:30 $
+;; Last Modified: $Date: 2006/10/10 02:58:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -269,7 +269,7 @@
       entry
     (let ((context (skk-bayesian-make-context henkan-buffer))
           ;; 末尾の "/" は多分不要だが
-          entry-str (concat (mapconcat #'identity entry "/") "/")
+          (entry-str (concat (mapconcat #'identity entry "/") "/"))
           sorted-entry)
       ;; send context to skk-bayesian-process
       (setq sorted-entry
