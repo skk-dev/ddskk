@@ -1,3 +1,10 @@
+2006-10-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by IRIE Tetsuya <irie@t.email.ne.jp>.
+
+	* skk-tankan.el: Modify comments, i.e. use `add-hook' for
+	skk-search-excluding-word-pattern-function.
+
 2006-10-10  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
 
 	* experimental/bayesian/bskk (serve): Bug fixed.
