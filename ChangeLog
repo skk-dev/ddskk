@@ -1,3 +1,9 @@
+2006-10-10  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/bskk (serve): Bug fixed.
+
+	* experimental/bayesian/skk-bayesian.el (skk-bayesian-search): Bug fixed.
+
 2006-09-11  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* skk.el (skk-count-jisyo-candidates-original): Typo.
