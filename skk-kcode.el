@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.31 2006/01/04 10:10:45 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.32 2006/11/18 07:27:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:45 $
+;; Last Modified: $Date: 2006/11/18 07:27:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -258,7 +258,7 @@
       (let ((n1-org n1) (n2-org n2) (i 0)
 	    (chars (list (skk-make-string n1 n2))))
 	;; 16 == (length skk-input-by-code-menu-keys2)
-	(while (< i 16)
+	(while (< i (1- 16))
 	  (nconc chars (list
 			(progn
 			  (setq n2 (skk-next-n2-code n2))
