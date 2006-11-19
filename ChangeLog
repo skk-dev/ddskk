@@ -1,3 +1,14 @@
+2006-11-19  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk.el (skk-henkan-show-candidate-subr): Fixed disposition when
+	`skk-show-tooltip' and `skk-henkan-show-candidates-rows' > 1.
+	(skk-henkan-show-candidates-buffer): Enlarge candidates-buffer if
+	needed.
+	(skk-henkan-show-candidates): Replace ?\040 with
+	`skk-start-henkan-char', ?x with `skk-previous-candidate-char'.
+	(skk-henkan-in-minibuff): Redisplay note after exiting from
+	registration mode.
+
 2006-11-18  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-kcode.el (skk-input-by-code-or-menu-1): Bug fixed.
