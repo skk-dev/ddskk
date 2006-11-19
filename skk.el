@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.373 2006/11/19 06:40:48 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.374 2006/11/19 07:05:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/11/19 06:40:48 $
+;; Last Modified: $Date: 2006/11/19 07:05:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1757,7 +1757,9 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	  (candidate-keys ; 表示用のキーリスト
 	   (mapcar
 	    #'(lambda (c)
-		(when (memq c '(?\C-g ?\040 ?x)) ; ?\040 is SPC.
+		(when (memq c '(?\C-g
+				skk-start-henkan-char	      ; SPC
+				skk-previous-candidate-char)) ; ?x
 		  (skk-error "`%s' に無効なキーが指定されています"
 			     "Illegal key in `%s'"
 			     "skk-henkan-show-candidates-keys"))
@@ -1844,7 +1846,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 		     (setq new-one (nth num henkan-list)
 			   skk-kakutei-flag t
 			   loop nil))
-		    ((or (eq char ?\040) ; SPC
+		    ((or (eq char skk-start-henkan-char) ; SPC
 			 (skk-key-binding-member
 			  key
 			  '(skk-nicola-self-insert-rshift)
