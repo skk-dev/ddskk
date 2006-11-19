@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.371 2006/09/12 12:47:35 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.372 2006/11/19 06:25:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/09/12 12:47:35 $
+;; Last Modified: $Date: 2006/11/19 06:25:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1935,45 +1935,35 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 $BK~$?$J$+$C$?$i$=$3$GBG$A@Z$k(B) $B$NJ8;zNs$r:n$j!"%(%3!<%(%j%"$KI=<($9$k!#(B"
   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	 (workinglst (skk-henkan-candidate-list candidates max-candidates))
-	 (workinglst-ptr workinglst)
-	 (keys-ptr keys)
-	 (n 0)
-	 (str "")
-	 tooltip-str cand message-log-max)
-    (when (car workinglst)
-      ;;(setq workinglst (skk-truncate-message workinglst))
-      (while workinglst-ptr
-	(setq n 1
-	      ;; $B:G=i$N8uJd$NA0$K6uGr$r$/$C$D$1$J$$$h$&$K:G=i$N8uJd$@$1@h$K<h$j(B
-	      ;; $B=P$9!#(B
-	      str (concat str (car keys-ptr) ":"
-			  (if (consp (car workinglst-ptr))
-			      (cdr (car workinglst-ptr))
-			    (car workinglst-ptr))))
-	(setq tooltip-str (concat str "\n"))
-	;; $B;D$j$N(B 6 $B$D$r<h$j=P$9!#8uJd$H8uJd$N4V$r6uGr$G$D$J$0!#(B
-	(while (and (< n 7) (setq cand (nth n workinglst-ptr)))
-	  (setq cand (if (consp cand) (cdr cand) cand)
-		str (concat str "  " (nth n keys-ptr) ":" cand)
-		tooltip-str (concat tooltip-str (nth n keys-ptr) ":" cand "\n")
-		n (1+ n)))
-	(if (setq workinglst-ptr (nthcdr 7 workinglst-ptr))
-	    (setq str (concat str "\n")
-		  keys-ptr (nthcdr 7 keys-ptr))))
-      (setq str (concat str (format "  [$B;D$j(B %d%s]"
-				    (- (length candidates)
-				       (length workinglst))
-				    (make-string
-				     (length skk-current-search-prog-list)
-				     ?+)))
+	 str tooltip-str
+	 message-log-max)
+    (when workinglst
+      (dotimes (i (length workinglst))
+	(let ((cand (if (consp (nth i workinglst))
+			(cdr (nth i workinglst))
+		      (nth i workinglst)))
+	      (key (concat (nth i keys) ":")))
+	  (when (and (= (% i 7) 0)	; $B3FNs$N:G=i$N8uJd(B
+		     (not (= i 0)))
+	    (setq str (concat str "\n")))
+	  (setq str (concat str
+			    (if (= (% i 7) 0) "" "  ")
+			    key cand)
+		tooltip-str (concat tooltip-str key cand "\n"))))
+      (setq str (concat str
+			(format "  [$B;D$j(B %d%s]"
+				(- (length candidates)
+				   (length workinglst))
+				(make-string
+				 (length skk-current-search-prog-list)
+				 ?+)))
 	    tooltip-str (concat tooltip-str
 				(format "[$B;D$j(B %d%s]"
 					(- (length candidates)
 					   (length workinglst))
 					(make-string
 					 (length skk-current-search-prog-list)
-					 ?+)))
-	    n (length workinglst))
+					 ?+))))
       (when skk-show-inline
 	(skk-inline-show str skk-inline-show-face))
       (static-when (eq skk-emacs-type 'mule5)
@@ -1983,6 +1973,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 		   (not (skk-in-minibuffer-p)))
 	;; skk-show-inline $B$N$H$-$O(B classic $B$J8uJd0lMw$OMW$i$J$$!#(B
 	;; skk-show-tooltip $B$N$H$-$OG0$N$?$aI=<($7$F$*$/!#(B
+	;; $B",(B next-command-event() $B$N$?$a!"<B<AE*$K$ON>N)$G$-$F$$$J$$!#(B
 	(if (and (not skk-show-candidates-always-pop-to-buffer)
 		 (> (frame-width) (skk-multiple-line-string-width str)))
 	    ;; $B%(%3!<%(%j%"$r;H$&!#(B
@@ -1990,7 +1981,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  ;; $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&!#(B
 	  (skk-henkan-show-candidates-buffer str keys))))
     ;; $BI=<($9$k8uJd?t$rJV$9!#(B
-    n))
+    (length workinglst)))
 
 (defun skk-henkan-candidate-list (candidates max)
   ;; CANDIDATES $B$N@hF,$N(B max $B8D$N$_$N%j%9%H$rJV$9!#(B
