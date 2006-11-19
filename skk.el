@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.374 2006/11/19 07:05:17 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.375 2006/11/19 08:22:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/11/19 07:05:17 $
+;; Last Modified: $Date: 2006/11/19 08:22:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2135,7 +2135,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  ;; XEmacs $B$G$O<!$NJQ?t$,:F5"E*%_%K%P%C%U%!$N2DH]$K1F6A$9$k!#(B
 	  minibuffer-max-depth
 	  ;; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k!#(B
-	  skk-isearch-message orglen new-one)
+	  skk-isearch-message orglen new-one note)
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
       (add-hook
        'minibuffer-setup-hook
@@ -2147,8 +2147,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	    (setq new-one
 		  (read-from-minibuffer
 		   (format "%s$B<-=qEPO?(B%s %s "
-			   (make-string depth ?[)
-					(make-string depth ?])
+			   (make-string depth ?\[)
+			   (make-string depth ?\])
 			   (or (and (skk-numeric-p)
 				    (skk-num-henkan-key))
 			       (if skk-okuri-char
@@ -2174,20 +2174,26 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	      (skk-henkan))
 	  ;; skk-henkan-show-candidates $B$KF~$kA0$K8uJd$,?T$-$?>l9g(B
 	  (skk-set-henkan-count (1- (skk-henkan-count)))
-	  (when (= (skk-henkan-count) -1)
-	    ;; $BAw$j$"$j$NJQ49$G<-=qEPO?$KF~$j!"6uJ8;z$rEPO?$7$?8e!"$=$N(B
-	    ;; $B$^$^:FEYAw$j$J$7$H$7$FJQ49$7$?>l9g$O(B
-	    ;; skk-henkan-okurigana, skk-okuri-char $B$NCM$r(B nil $B$K$7$J$1(B
-	    ;; $B$l$P!"$=$l$>$l$NCM$K8E$$Aw$j2>L>$,F~$C$?$^$^$G8!:w$K<:GT(B
-	    ;; $B$9$k!#(B
-	    (setq skk-henkan-okurigana nil
-		  skk-okurigana nil
-		  skk-okuri-char nil)
-	    (skk-change-marker-to-white)
-	    ;; skk-henkan-count $B$,(B -1 $B$G$J$1$l$P!"%+%l%s%H%P%C%U%!$G$O:G8e$N(B
-	    ;; $B8uJd$rI=<($7$?$^$^$J$N$G(B ($BI=<(4XO"$G$O2?$b$7$J$/$F$b!"$b$&4{(B
-	    ;; $B$KK>$_$N>uBV$K$J$C$F$$$k(B) $B2?$b$7$J$$!#(B
-	    )))
+	  (if (= (skk-henkan-count) -1)
+	      ;; $BAw$j$"$j$NJQ49$G<-=qEPO?$KF~$j!"6uJ8;z$rEPO?$7$?8e!"$=$N(B
+	      ;; $B$^$^:FEYAw$j$J$7$H$7$FJQ49$7$?>l9g$O(B
+	      ;; skk-henkan-okurigana, skk-okuri-char $B$NCM$r(B nil $B$K$7$J$1(B
+	      ;; $B$l$P!"$=$l$>$l$NCM$K8E$$Aw$j2>L>$,F~$C$?$^$^$G8!:w$K<:GT(B
+	      ;; $B$9$k!#(B
+	      (progn
+		(setq skk-henkan-okurigana nil
+		      skk-okurigana nil
+		      skk-okuri-char nil)
+		(skk-change-marker-to-white))
+	    ;; $B<-=qEPO?$KF~$kD>A0$N8uJd$KCm<a$,$"$k2DG=@-$r9M$(!":FI=<($9$k!#(B
+	    ;;   skk-insert-new-word(), skk-henkan-candidate-list() $BFb$N(B
+	    ;;   $BCm<a2C9)=hM}$rFHN)$7$?4X?t$K$7$F!"(B
+	    ;;   $B$=$l$rMxMQ$9$k$h$&$K$7$?$[$&$,NI$5$=$&!#(B
+	    (setq note (cdr (skk-insert-new-word
+			     (skk-get-current-candidate))))
+	    (when (and skk-show-annotation
+		       note)
+	      (skk-annotation-show note)))))
        (t
 	(when (string-match "[ $B!!(B]+$" new-one)
 	  (setq new-one (substring new-one 0 (match-beginning 0))))
