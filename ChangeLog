@@ -1,3 +1,7 @@
+2006-12-10  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-kakasi.el: Require `skk-vars' at toplevel.
+
 2006-11-19  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-henkan-show-candidate-subr): Fixed disposition when
