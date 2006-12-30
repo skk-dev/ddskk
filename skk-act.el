@@ -57,17 +57,12 @@
 ;;            non-nil に設定して skk を起動して下さい．(skk-act をロー
 ;;            ドしたときの値が有効になります)
 ;;
-;;        6 - "x" は "いん" に割当てられているので，▼モードで前候補を
-;;            表示するのには使えません．したがって BS が使えるように
-;;            `skk-delete-implies-kakutei' を nil にしています．
-;;
 ;;   キー割当て変更点
 ;;                                  SKK標準     ACT
 ;;	`skk-toggle-kana'              q         \
 ;;	`skk-set-henkan-point-subr'    Q         |
 ;;	`skk-input-by-code-or-menu'    \     割当てなし
-;;	`skk-purge-from-jisyo'         x     割当てなし
-;;	前候補表示                     x         BS
+;;	`skk-purge-from-jisyo'         X     割当てなし
 
 ;;; Code:
 
@@ -91,14 +86,6 @@
 ;; '「っ」 ;「あん」 Q「おん」 X「いん」 を変換ポイントに加える
 (setq skk-set-henkan-point-key
       (append skk-set-henkan-point-key '(?\" ?: ?Q ?X)))
-
-;; `skk-previous-candidate' を x から TAB に変更する
-;; FIXME: これをやるには skk.el の `skk-previous-candidate' の変更が必要
-;;(setq skk-previous-candidate-char ?\t)
-
-;; ▼モードで BS を押したときには確定しないで前候補を表示する
-;; x は「いん」に割り当てられてて使えないので
-(setq skk-delete-implies-kakutei nil)
 
 ;; skk-rom-kana-base-rule-list から変換規則を削除する
 (setq skk-rom-kana-base-rule-list	; for skk-restart
