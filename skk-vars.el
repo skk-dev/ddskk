@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.186 2006/02/14 23:33:23 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.187 2007/02/02 14:12:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/14 23:33:23 $
+;; Last Modified: $Date: 2007/02/02 14:12:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -645,9 +645,8 @@ nil であれば、一つ前の候補を表示する。
 
 この値が nil であれば、最初のスペースで見出し語を切り詰めてしまい、以降のスペー
 ス、タブ、改行は無視される。
-この値は、`skk-start-henkan', `skk-latin-henkan', `skk-katakana-henkan',
-`skk-hiragana-henkan', `skk-jisx0208-latin-henkan' 及び
-`skk-backward-and-set-henkan-point' の動作に影響する。"
+この値は、`skk-toggle-characters' 及び `skk-backward-and-set-henkan-point' の動
+作に影響する。"
   :type 'boolean
   :group 'skk-misc)
 
