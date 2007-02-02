@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.15 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-obsolete.el,v 1.16 2007/02/02 14:12:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2007/02/02 14:12:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -44,7 +44,9 @@
 (define-obsolete-function-alias 'skk-zenkaku-region
   'skk-jisx0208-latin-region)
 (define-obsolete-function-alias 'skk-zenkaku-henkan
-  'skk-jisx0208-latin-henkan)
+  'skk-toggle-characters)
+(define-obsolete-function-alias 'skk-jisx0208-latin-henkan
+  'skk-toggle-characters)
 (define-obsolete-function-alias 'skk-ascii-mode-on
   'skk-latin-mode-on)
 (define-obsolete-function-alias 'skk-ascii-mode
@@ -52,7 +54,9 @@
 (define-obsolete-function-alias 'skk-ascii-region
   'skk-latin-region)
 (define-obsolete-function-alias 'skk-ascii-henkan
-  'skk-latin-henkan)
+  'skk-toggle-characters)
+(define-obsolete-function-alias 'skk-latin-henkan
+  'skk-toggle-characters)
 (define-obsolete-function-alias 'skk-convert-ad-to-gengo
   'skk-ad-to-gengo)
 (define-obsolete-function-alias 'skk-convert-gengo-to-ad
