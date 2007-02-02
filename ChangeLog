@@ -1,3 +1,13 @@
+2007-02-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-obsolete.el: Update for abolished functions
+	`skk-jisx0208-latin-henkan' and `skk-latin-henkan'.
+	* skk-vars.el (skk-allow-spaces-newlines-and-tabs): Docstring
+	update.
+	* skk.el (skk-define-jisx0208-latin-mode-map): Define C-q to call
+	`skk-toggle-characters' instead of abolished function
+	`skk-latin-henkan'.
+
 2006-12-29  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-act.el: Fixed comment.
@@ -1955,11 +1965,11 @@
 	`skk-*-henkan-2'. Include function `skk-*-henkan-1'.
 
 	(skk-toggle-chracters): Call `skk-henkan-skk-region-by-func'
-	instead of `skk-katakana-henkan', `skk-hiragana-region',
+	instead of `skk-katakana-henkan', `skk-hiragana-henkan',
 	`skk-latin-henkan' or `skk-jisx0208-latin-henkan'.
 
 	(skk-katakana-henkan):
-	(skk-hiragana-region):
+	(skk-hiragana-henkan):
 	(skk-latin-henkan):
 	(skk-jisx0208-latin-henkan):
 	(skk-*-henkan-1):
