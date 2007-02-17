@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.150 2007/02/17 18:55:45 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.151 2007/02/17 19:41:26 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/02/17 18:55:45 $
+@c  Last Modified: $Date: 2007/02/17 19:41:26 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/02/17 18:55:45 $
+@set UPDATED $Date: 2007/02/17 19:41:26 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1531,14 +1531,14 @@ English [RET]} を実行します。
 チュートリアルファイルが、標準の場所にない場合は、 @file{.emacs} で
 
 @lisp
-  (setq skk-tut-file "a:/user/local/share/skk/SKK.tut")
+  (setq skk-tut-file "/usr/local/share/skk/SKK.tut")
 @end lisp
 
 @noindent
 と書くことにより、指定したチュートリアルファイルを使用させることが
 できます。英語のチュートリアルファイルは、 @samp{skk-tut-file} に @file{.E}
 が付いたファイル名です。この場合であれば、
-@file{a:/user/local/share/skk/SKK.tut.E} になります。
+@file{/usr/local/share/skk/SKK.tut.E} になります。
 
 
 @node 便利な応用機能, 辞書ツール, 基本的な使い方, Top
