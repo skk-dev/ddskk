@@ -3,7 +3,7 @@
 	Suggested by Kitamoto Tsuyoshi.
 
 	* doc/skk.texi: Modify example for skk-tut-file.
-	Accurately describe "X Window System".
+	Accurately write the term "X Window System".
 
 2007-02-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
