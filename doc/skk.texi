@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.149 2005/12/26 07:51:48 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.150 2007/02/17 18:55:45 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2005/12/26 07:51:48 $
+@c  Last Modified: $Date: 2007/02/17 18:55:45 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2005/12/26 07:51:48 $
+@set UPDATED $Date: 2007/02/17 18:55:45 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4128,7 +4128,7 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/@dots{}/
 @file{skk-gadget.el}
 @footnote{@samp{gadget}は「上手く工夫した道具」の意味。「色々飛び出す気
 のきいたおもちゃ箱」というような意味で名付けられています。
-因みに、X Windowで使用される @samp{Widget} という言葉は、 @samp{window}
+因みに、X Window System で使用される @samp{Widget} という言葉は、 @samp{window}
 + @samp{gadget} から作られた造語のようです。}には、西暦/元号変換プログラ
 ムや、簡単な計算プログラムなど、実行変換用のプログラムが集められています。
 ここではその中の 1 つを取り上げて説明します。
