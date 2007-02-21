@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.151 2007/02/17 19:41:26 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.152 2007/02/21 15:02:18 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/02/17 19:41:26 $
+@c  Last Modified: $Date: 2007/02/21 15:02:18 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/02/17 19:41:26 $
+@set UPDATED $Date: 2007/02/21 15:02:18 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -401,7 +401,7 @@ DDSKK 11 $B0J9_!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#$"$J$?$N(B @file{.emacs} $B%U%
 $B$H=q$/$@$1$G(B DDSKK $B$rMxMQ$9$k$3$H$,2DG=$K$J$j$^$9!#(B
 
 $B<B$O(B Emacs 20$B!"(BEmacs 21 $B$^$?$O(B XEmacs $B$G!"(BDDSKK $B$rI8=`$N%$%s%9%H!<%k@h$K(B
-$B%$%s%9%H!<%k$7$?>l9g$O!$>e5-$N@_Dj$r=q$/I,MW$9$i$"$j$^$;$s!#<+F0E*$K$3$N(B
+$B%$%s%9%H!<%k$7$?>l9g$O!">e5-$N@_Dj$r=q$/I,MW$9$i$"$j$^$;$s!#<+F0E*$K$3$N(B
 $B%U%!%$%k$,FI$_9~$^$l!"@_Dj$5$l$^$9!#(B
 
 $B$b$7!"$3$N<+F0@_Dj$K$h$i$:!"<jF0$G@_Dj$r$7$?$$>l9g$O!"0J2<$N@bL@$r;2>H$7(B
@@ -6809,7 +6809,7 @@ XEmacs 21.4.18 $B0J9_$r%5%]!<%H$7$^$9!#(B
 @vindex skk-use-numeric-conversion
 $B:#$^$G!"(B @code{skk-use-numeric-conversion} $B$,(B non-nil $B$@$H?tCMJQ49$N$_9T(B
 $B$$!"Hs?tCMJQ49$OL58z$K$9$k$h$&$K$J$C$F$$$^$7$?$,!"GSB>E*$G$"$kI,MW$O$J$$(B
-$B$H9M$($i$l$?$N$G!$>o$KHs?tCMJQ49$O9T$&$h$&$K$7$^$7$?!#$3$l$K$h$j!"(B
+$B$H9M$($i$l$?$N$G!">o$KHs?tCMJQ49$O9T$&$h$&$K$7$^$7$?!#$3$l$K$h$j!"(B
 @code{skk-use-numeric-conversion} $B$rM-8z$K$7$F$$$k>l9g$G$b(B
 
 @example
