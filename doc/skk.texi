@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.152 2007/02/21 15:02:18 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.153 2007/02/22 13:16:14 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/02/21 15:02:18 $
+@c  Last Modified: $Date: 2007/02/22 13:16:14 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/02/21 15:02:18 $
+@set UPDATED $Date: 2007/02/22 13:16:14 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -895,7 +895,7 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k(B 4 $B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"
 
 $B<-=qJQ49$NBP>]$H$7$?$$J8;zNs$K$D$$$F!"@hF,$NJ8;z$rBgJ8;z$GF~NO$7K:$l$?>l(B
 $B9g$O!"$=$N0LCV$^$G%]%$%s%H(B@footnote{@xref{Point, ,$B%]%$%s%H(B, emacs, GNU Emacs Manual}.}
-$B$rLa$7(B@kbd{Q}$B$r%?%$%W$9$k$3$H$G!""&%b!<%I$KF~$k$3$H$,$G$-$^$9!#Nc$($P!"(B
+$B$rLa$7(B @kbd{Q} $B$r%?%$%W$9$k$3$H$G!""&%b!<%I$KF~$k$3$H$,$G$-$^$9!#Nc$($P!"(B
 $B2<5-$N$h$&$KA`:n$7$^$9(B (@point{} $B$NCOE@$K%+!<%=%k$,$"$j$^$9(B)$B!#(B
 
 @example
