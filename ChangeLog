@@ -10,6 +10,8 @@
 	* skk.el (skk-henkan): When WORD has no note and
 	`skk-annotation-show-wikipedia' is set, use Wikipedia for
 	annotation.
+	(skk-search-upcase): If optional arg INITIAL is non-nil, only
+	upcase initials.
 
 2007-02-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
