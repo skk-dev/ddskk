@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.46 2006/02/24 02:45:28 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.47 2007/03/04 14:35:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2006/02/24 02:45:28 $
+;; Last Modified: $Date: 2007/03/04 14:35:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -592,6 +592,61 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		     (char-to-string c))))
 		(append candidate nil) "")
 	       "\")")))))
+
+;;;###autoload
+(defun skk-annotation-wikipedia (word)
+  "Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$+$i%"%N%F!<%7%g%s$r<hF@$9$k!#(B"
+  (let ((cache-buffer (format " *skk wikipedia %s *" word))
+	(html2text-remove-tag-list
+	 '("a" "p" "img" "dir" "head" "div" "br" "font"))
+	buffer html note)
+    (if (get-buffer cache-buffer)
+	(with-current-buffer cache-buffer
+	  (setq note (buffer-string)))
+      ;; $B%-%c%C%7%e$,$J$$>l9g(B
+      (setq buffer (and (skk-sit-for
+			 skk-annotation-wikipedia-wait-before-retrieval t)
+			(url-http (url-generic-parse-url
+				   (format "http://ja.wikipedia.org/wiki/%s"
+					   (url-hexify-string word)))
+				  #'skk-annotation-wikipedia-retrieved ())))
+      (when (catch 'retrieved
+	      (progn
+		(skk-sit-for 100 t)
+		nil))
+	(when (buffer-live-p buffer)
+	  (with-current-buffer buffer
+	    (goto-char (point-min))
+	    (search-forward "<!-- start content -->" nil t)
+	    (if (looking-at ".*<div class=\"noarticletext\">")
+		;;
+		nil
+	      (search-forward "<p>" nil t)
+	      (forward-char -3)
+	      (delete-region (point-min) (point))
+	      (goto-char (point-min))
+	      (search-forward "</p>" nil t)
+	      (delete-region (point) (point-max))
+	      (setq html (buffer-string))))
+	  (kill-buffer buffer)
+	  (when html
+	    (with-current-buffer (get-buffer-create cache-buffer)
+	      (insert (decode-coding-string html 'utf-8))
+	      (html2text)
+	      (fill-paragraph nil)
+	      (setq note (buffer-string)))))))
+    ;;
+    (cond ((stringp note)
+	   (if (equal note "")
+	       nil
+	     note))
+	  (t
+	   nil))))
+
+(defun skk-annotation-wikipedia-retrieved (&rest args)
+  (ignore-errors
+    (throw 'retrieved t)))
+
 
 (require 'product)
 (product-provide
