@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.51 2007/03/04 16:56:11 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.52 2007/03/04 18:00:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/04 16:56:11 $
+;; Last Modified: $Date: 2007/03/04 18:00:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -599,7 +599,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (let ((cache-buffer (format " *skk wikipedia %s *" word))
 	(html2text-remove-tag-list
 	 '("a" "p" "img" "dir" "head" "div" "br" "font" "span"))
-	buffer html note aimai point)
+	buffer html note aimai nop point)
     (if (get-buffer cache-buffer)
 	(with-current-buffer cache-buffer
 	  (setq note (buffer-string)))
@@ -626,28 +626,42 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	    (if (looking-at ".*<div class=\"noarticletext\">")
 		;;
 		nil
-	      (search-forward "<p><b>" nil t)
-	      (forward-char -6)
-	      (delete-region (point-min) (point))
-	      (goto-char (point-min))
-	      (re-search-forward (if aimai "</\\(u\\|o\\)l>" "</p>") nil t)
-	      (delete-region (point) (point-max))
-	      (setq html (buffer-string))))
+	      (setq point (point))
+	      (when (or (when (search-forward "<p><b>" nil t)
+			  (forward-char -6)
+			  t)
+			(when (progn
+				(goto-char point)
+				(re-search-forward "<\\(u\\|o\\)l>" nil t))
+			  (forward-char -4)
+			  (setq nop t)))
+		(delete-region (point-min) (point))
+		(goto-char (point-min))
+		(re-search-forward (if (or aimai nop)
+				       "</\\(u\\|o\\)l>"
+				     "</p>")
+				   nil t)
+		(delete-region (point) (point-max))
+		(setq html (buffer-string)))))
 	  (kill-buffer buffer)
 	  (when html
 	    (with-current-buffer (get-buffer-create cache-buffer)
 	      (insert (decode-coding-string html 'utf-8))
 	      (html2text)
-	      (cond (aimai
+	      (cond ((or aimai nop)
 		     (goto-char (point-min))
 		     (while (not (eobp))
 		       (beginning-of-line)
 		       (setq point (point))
 		       (forward-line 1)
 		       (fill-region point (point)))
-		     (insert "\n($B[#Kf$52sHr$N%Z!<%8(B)"))
+		     (when aimai
+		       (insert "\n($B[#Kf$52sHr$N%Z!<%8(B)")))
 		    (t
 		     (fill-paragraph nil)))
+	      (when (and (not (equal (buffer-string) ""))
+			 (not (get-text-property 1 'face)))
+		(put-text-property 1 2 'face 'default))
 	      (setq note (buffer-string)))))))
     ;;
     (cond ((stringp note)
