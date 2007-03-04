@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.376 2007/02/02 14:20:08 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.377 2007/03/04 14:35:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/02/02 14:20:08 $
+;; Last Modified: $Date: 2007/03/04 14:35:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1629,9 +1629,51 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	(goto-char (point-max)))
       ;;
       (when (and skk-show-annotation
-		 note
 		 (not kakutei-henkan))
-	(skk-annotation-show note))
+	(when (and (not note)
+		   skk-annotation-show-wikipedia)
+	  (save-match-data
+	    (let* ((dummy
+		    (if (eq skk-annotation-show-wikipedia 'url)
+			(concat "d;"
+				(skk-quote-char
+				 (format "http://ja.wikipedia.org/wiki/%s"
+					 (url-hexify-string new-word))))
+		      nil))
+		   (value (if dummy
+			      (funcall
+			       skk-treat-candidate-appearance-function
+			       dummy nil)
+			    nil)))
+	      (setq note
+		    (cond ((consp value)
+			   (cond
+			    ((consp (cdr value))
+			     ;; (候補 . (セパレータ . 注釈))
+			     ;; 注釈は既にセパレータ抜き
+			     (cddr value))
+			    ((string-match "^;" (cdr value))
+			     ;; (候補 . 注釈)
+			     ;; 注釈はまだセパレータを含んで
+			     ;; いる
+			     (substring (cdr value)
+					(match-end 0)))
+			    (t
+			     ;; (候補 . 注釈)
+			     ;; 注釈は既にセパレータを除去して
+			     ;; いるものと判断する
+			     (cdr value))))
+			  ((or
+			    (and
+			     (integerp skk-annotation-show-wikipedia)
+			     (<= skk-annotation-show-wikipedia
+				 (length new-word)))
+			    (eq skk-annotation-show-wikipedia t))
+			   (skk-annotation-wikipedia new-word))
+			  (t
+			   nil))))))
+	(when note
+	  (skk-annotation-show note)))
       ;;
       (when kakutei-henkan
 	(skk-kakutei new-word)))))
