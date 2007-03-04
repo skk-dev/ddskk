@@ -1,3 +1,16 @@
+2007-03-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia)
+	(skk-annotation-wikipedia-retrieved): New functions.
+
+	* skk-vars.el (skk-annotation-show-wikipedia)
+	(skk-annotation-wikipedia-wait-before-retrieval): New user
+	options.
+
+	* skk.el (skk-henkan): When WORD has no note and
+	`skk-annotation-show-wikipedia' is set, use Wikipedia for
+	annotation.
+
 2007-02-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Kitamoto Tsuyoshi.
