@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.53 2007/03/04 18:15:03 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.54 2007/03/07 10:39:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/04 18:15:03 $
+;; Last Modified: $Date: 2007/03/07 10:39:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -676,6 +676,53 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (ignore-errors
     (throw 'retrieved t)))
 
+;;;###autoload
+(defun skk-annotation-treat-wikipedia (word)
+  "WORD $B$,A^F~$5$l$k$H$-$KI=<($5$l$k$Y$-Cm<a$r@8@.$9$k!#(B"
+  (save-match-data
+    (let* ((dummy
+	    (if (eq skk-annotation-show-wikipedia 'url)
+		;; $B$3$N$H$-$O(B URL $B$rCm<a$H$9$k!#(B
+		(concat "d;"
+			(skk-quote-char
+			 (format "http://ja.wikipedia.org/wiki/%s"
+				 (url-hexify-string word))))
+	      nil))
+	   (value (if dummy
+		      (funcall
+		       skk-treat-candidate-appearance-function
+		       dummy nil)
+		    nil)))
+      ;;
+      (cond ((consp value)
+	     (cond
+	      ((consp (cdr value))
+	       ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
+	       ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
+	       (cddr value))
+	      ((string-match "^;" (cdr value))
+	       ;; ($B8uJd(B . $BCm<a(B)
+	       ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G(B
+	       ;; $B$$$k(B
+	       (substring (cdr value)
+			  (match-end 0)))
+	      (t
+	       ;; ($B8uJd(B . $BCm<a(B)
+	       ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F(B
+	       ;; $B$$$k$b$N$HH=CG$9$k(B
+	       (cdr value))))
+	    ((stringp value)
+	     ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
+	     (if (string-match ";" value)
+		 (substring e (match-end 0))
+	       nil))
+	    ((or
+	      (and
+	       (integerp skk-annotation-show-wikipedia)
+	       (<= skk-annotation-show-wikipedia
+		   (length word)))
+	      (eq skk-annotation-show-wikipedia t))
+	     (skk-annotation-wikipedia word))))))
 
 (require 'product)
 (product-provide

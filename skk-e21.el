@@ -300,6 +300,10 @@ Analogous to mouse-position."
 	 (oy (cddr oP))
 	 (inhibit-quit t)
 	 event)
+    ;; Elscreen 使用時は Y 座標がずれる。とりあえず workaround。
+    (when (featurep 'elscreen)
+      (setq y (1+ y)))
+    ;;
     (set-mouse-position frame x y)
     (skk-tooltip-show-1 text skk-tooltip-parameters)
     (setq event (next-command-event))

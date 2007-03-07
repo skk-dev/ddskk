@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.378 2007/03/04 16:22:16 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.379 2007/03/07 10:39:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/04 16:22:16 $
+;; Last Modified: $Date: 2007/03/07 10:39:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1632,46 +1632,8 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 		 (not kakutei-henkan))
 	(when (and (not note)
 		   skk-annotation-show-wikipedia)
-	  (save-match-data
-	    (let* ((dummy
-		    (if (eq skk-annotation-show-wikipedia 'url)
-			(concat "d;"
-				(skk-quote-char
-				 (format "http://ja.wikipedia.org/wiki/%s"
-					 (url-hexify-string new-word))))
-		      nil))
-		   (value (if dummy
-			      (funcall
-			       skk-treat-candidate-appearance-function
-			       dummy nil)
-			    nil)))
-	      (setq note
-		    (cond ((consp value)
-			   (cond
-			    ((consp (cdr value))
-			     ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
-			     ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
-			     (cddr value))
-			    ((string-match "^;" (cdr value))
-			     ;; ($B8uJd(B . $BCm<a(B)
-			     ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G(B
-			     ;; $B$$$k(B
-			     (substring (cdr value)
-					(match-end 0)))
-			    (t
-			     ;; ($B8uJd(B . $BCm<a(B)
-			     ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F(B
-			     ;; $B$$$k$b$N$HH=CG$9$k(B
-			     (cdr value))))
-			  ((or
-			    (and
-			     (integerp skk-annotation-show-wikipedia)
-			     (<= skk-annotation-show-wikipedia
-				 (length new-word)))
-			    (eq skk-annotation-show-wikipedia t))
-			   (skk-annotation-wikipedia new-word))
-			  (t
-			   nil))))))
+	  ;; Wikipedia $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
+	  (setq note (skk-annotation-treat-wikipedia new-word)))
 	(when note
 	  (skk-annotation-show note)))
       ;;
@@ -2177,7 +2139,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  ;; XEmacs $B$G$O<!$NJQ?t$,:F5"E*%_%K%P%C%U%!$N2DH]$K1F6A$9$k!#(B
 	  minibuffer-max-depth
 	  ;; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k!#(B
-	  skk-isearch-message orglen new-one note)
+	  skk-isearch-message orglen new-one pair)
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
       (add-hook
        'minibuffer-setup-hook
@@ -2231,11 +2193,16 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	    ;;   skk-insert-new-word(), skk-henkan-candidate-list() $BFb$N(B
 	    ;;   $BCm<a2C9)=hM}$rFHN)$7$?4X?t$K$7$F!"(B
 	    ;;   $B$=$l$rMxMQ$9$k$h$&$K$7$?$[$&$,NI$5$=$&!#(B
-	    (setq note (cdr (skk-insert-new-word
-			     (skk-get-current-candidate))))
-	    (when (and skk-show-annotation
-		       note)
-	      (skk-annotation-show note)))))
+	    (setq pair (skk-insert-new-word (skk-get-current-candidate)))
+	    ;;
+	    (when skk-show-annotation
+	      (when (and (car-safe pair)
+			 (not (cdr-safe pair))
+			 skk-annotation-show-wikipedia)
+		;; Wikipedia $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
+		(setcdr pair (skk-annotation-treat-wikipedia (car pair))))
+	      (when (cdr pair)
+		(skk-annotation-show (cdr pair)))))))
        (t
 	(when (string-match "[ $B!!(B]+$" new-one)
 	  (setq new-one (substring new-one 0 (match-beginning 0))))
@@ -2371,7 +2338,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 		   (skk-save-point
 		    (forward-char 1)
 		    (point-marker))))
-	   note)
+	   pair)
        (skk-save-point
 	(cond
 	 ((= (skk-henkan-count) 0)
@@ -2402,8 +2369,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	  (skk-change-marker-to-white))
 	 (t
 	  (skk-set-henkan-count (1- (skk-henkan-count)))
-	  (setq note (cdr (skk-insert-new-word
-			   (skk-get-current-candidate)))))))
+	  (setq pair (skk-insert-new-word (skk-get-current-candidate))))))
        ;;
        (if mark
 	   (progn
@@ -2412,9 +2378,14 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	     (backward-char 1))
 	 (goto-char (point-max)))
        ;;
-       (when (and skk-show-annotation
-		  note)
-	 (skk-annotation-show note))
+       (when skk-show-annotation
+	 (when (and (car-safe pair)
+		    (not (cdr-safe pair))
+		    skk-annotation-show-wikipedia)
+	   ;; Wikipedia $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
+	   (setcdr pair (skk-annotation-treat-wikipedia (car pair))))
+	 (when (cdr pair)
+	   (skk-annotation-show (cdr pair))))
        ;;
        (when (and skk-abbrev-mode
 		  (= (skk-henkan-count) -1))

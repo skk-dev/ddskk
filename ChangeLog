@@ -1,3 +1,17 @@
+2007-03-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-treat-wikipedia): New
+	function.
+
+	* skk-e21.el (skk-tooltip-show-at-point): When elscreen is loaded,
+	move mouse pointer 1 more position downward.
+
+	* skk.el (skk-henkan):
+	(skk-henkan-in-minibuff):
+	(skk-previous-candidate):
+
+	Call `skk-annotation-treat-wikipedia'.
+
 2007-03-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia)
