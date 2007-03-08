@@ -3,6 +3,9 @@
 	* skk-annotation.el (skk-annotation-wikipedia): Decode data before
 	searching.
 
+	* skk-e21.el (skk-tooltip-show-at-point): When elscreen is loaded,
+	also check variable elscreen-display-tab.
+
 2007-03-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-treat-wikipedia): New
