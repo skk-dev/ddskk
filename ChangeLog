@@ -1,3 +1,8 @@
+2007-03-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia): Decode data before
+	searching.
+
 2007-03-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-treat-wikipedia): New
