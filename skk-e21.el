@@ -301,7 +301,8 @@ Analogous to mouse-position."
 	 (inhibit-quit t)
 	 event)
     ;; Elscreen 使用時は Y 座標がずれる。とりあえず workaround。
-    (when (featurep 'elscreen)
+    (when (and (featurep 'elscreen)
+	       (symbol-value 'elscreen-display-tab))
       (setq y (1+ y)))
     ;;
     (set-mouse-position frame x y)
