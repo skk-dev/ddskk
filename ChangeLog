@@ -7,6 +7,7 @@
 	Accept optional arg WORD.
 
 	(skk-annotation-wikipedia-cache): New function.
+	(skk-annotation-wikipedia): Modify regexp.
 
 	* skk-vars.el (skk-annotation-show-wikipedia):
 	(skk-annotation-wikipedia-wait-before-retrieval):
