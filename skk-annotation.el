@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.55 2007/03/08 21:23:33 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.56 2007/03/09 03:54:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/08 21:23:33 $
+;; Last Modified: $Date: 2007/03/09 03:54:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -708,9 +708,10 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	   (value (if string
 		      ;; $B$^$@!VCm<a$NAu>~!W$r<u$1$F$$$J$$$N$G!"$3$3$G(B
 		      ;; $BE,MQ$9$k!#(B
-		      (funcall
-		       skk-treat-candidate-appearance-function
-		       string nil)
+		      (if (functionp skk-treat-candidate-appearance-function)
+			  (funcall skk-treat-candidate-appearance-function
+				   string nil)
+			string)
 		    nil)))
       ;;
       (cond ((consp value)
@@ -735,7 +736,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	    ((stringp value)
 	     ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
 	     (if (string-match ";" value)
-		 (substring e (match-end 0))
+		 (substring value (match-end 0))
 	       nil))
 	    ((or (and (integerp skk-annotation-show-wikipedia)
 		      (<= skk-annotation-show-wikipedia
