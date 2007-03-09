@@ -1,7 +1,13 @@
+2007-03-08  KOIE Hidetaka  <hide@koie.org>
+
+	* skk-annotation.el (skk-annotation-treat-wikipedia): Fix for
+	local variable name.
+
 2007-03-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia): Decode data before
-	searching.
+	searching.  Check if value of
+	skk-treat-candidate-appearance-function is a function.
 
 	* skk-e21.el (skk-tooltip-show-at-point): When elscreen is loaded,
 	also check variable elscreen-display-tab.
