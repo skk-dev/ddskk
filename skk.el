@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.379 2007/03/07 10:39:27 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.380 2007/03/09 22:31:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/07 10:39:27 $
+;; Last Modified: $Date: 2007/03/09 22:31:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1586,7 +1586,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
   (let (mark
 	prototype
 	new-word
-	note
+	pair
 	kakutei-henkan)
     (if (string= skk-henkan-key "")
 	(skk-kakutei)
@@ -1609,7 +1609,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	  (setq new-word (skk-quote-semicolon prototype))))
 	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
-	  (setq note (cdr (skk-insert-new-word new-word)))))
+	  (setq pair (skk-insert-new-word new-word))))
       (skk-inline-hide)
       ;;
       (when (and new-word
@@ -1630,12 +1630,13 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
       ;;
       (when (and skk-show-annotation
 		 (not kakutei-henkan))
-	(when (and (not note)
-		   skk-annotation-show-wikipedia)
-	  ;; Wikipedia $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
-	  (setq note (skk-annotation-treat-wikipedia new-word)))
-	(when note
-	  (skk-annotation-show note)))
+	(when (and (car-safe pair)
+		   (not (cdr-safe pair)))
+	  ;; Wikipedia $B$N(B URL $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
+	  (setcdr pair (or (skk-annotation-wikipedia-cache (car pair))
+			   (when skk-annotation-show-wikipedia-url
+			     (skk-annotation-treat-wikipedia (car pair))))))
+	(skk-annotation-show (or (cdr pair) "") (car pair)))
       ;;
       (when kakutei-henkan
 	(skk-kakutei new-word)))))
@@ -2197,12 +2198,13 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	    ;;
 	    (when skk-show-annotation
 	      (when (and (car-safe pair)
-			 (not (cdr-safe pair))
-			 skk-annotation-show-wikipedia)
+			 (not (cdr-safe pair)))
 		;; Wikipedia $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
-		(setcdr pair (skk-annotation-treat-wikipedia (car pair))))
-	      (when (cdr pair)
-		(skk-annotation-show (cdr pair)))))))
+		(setcdr pair (or (skk-annotation-wikipedia-cache (car pair))
+				 (when skk-annotation-show-wikipedia-url
+				   (skk-annotation-treat-wikipedia
+				    (car pair))))))
+	      (skk-annotation-show (or (cdr pair) "") (car pair))))))
        (t
 	(when (string-match "[ $B!!(B]+$" new-one)
 	  (setq new-one (substring new-one 0 (match-beginning 0))))
@@ -2380,12 +2382,12 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
        ;;
        (when skk-show-annotation
 	 (when (and (car-safe pair)
-		    (not (cdr-safe pair))
-		    skk-annotation-show-wikipedia)
+		    (not (cdr-safe pair)))
 	   ;; Wikipedia $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
-	   (setcdr pair (skk-annotation-treat-wikipedia (car pair))))
-	 (when (cdr pair)
-	   (skk-annotation-show (cdr pair))))
+	   (setcdr pair (or (skk-annotation-wikipedia-cache (car pair))
+			    (when skk-annotation-show-wikipedia-url
+			      (skk-annotation-treat-wikipedia (car pair))))))
+	 (skk-annotation-show (or (cdr pair) "") (car pair)))
        ;;
        (when (and skk-abbrev-mode
 		  (= (skk-henkan-count) -1))

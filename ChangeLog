@@ -1,3 +1,32 @@
+2007-03-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show):
+	(skk-annotation-show-1):
+	(skk-annotation-wait-for-input):
+
+	Accept optional arg WORD.
+
+	(skk-annotation-wikipedia-cache): New function.
+
+	* skk-vars.el (skk-annotation-show-wikipedia):
+	(skk-annotation-wikipedia-wait-before-retrieval):
+
+	Abolish variables.
+
+	(skk-annotation-show-wikipedia-url): New variable.
+
+	* skk.el (skk-henkan):
+	(skk-henkan-in-minibuff):
+	(skk-previous-candidate):
+
+	Use wikipedia cache.
+
+2007-03-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by KOIE Hidetaka <hide@koie.org>.
+
+	* skk-vars.el (skk-annotation-wikipedia-key): New variable.
+
 2007-03-08  KOIE Hidetaka  <hide@koie.org>
 
 	* skk-annotation.el (skk-annotation-treat-wikipedia): Fix for

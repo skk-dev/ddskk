@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.56 2007/03/09 03:54:28 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.57 2007/03/09 22:31:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/09 03:54:28 $
+;; Last Modified: $Date: 2007/03/09 22:31:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -174,19 +174,20 @@
       annotation)))
 
 ;;;###autoload
-(defun skk-annotation-show (annotation)
+(defun skk-annotation-show (annotation &optional word)
   (unless skk-kakutei-flag
     (when (or (not skk-annotation-function)
 	      (funcall skk-annotation-function annotation))
-      (skk-annotation-show-1 (skk-annotation-get annotation)))))
+      (skk-annotation-show-1 (skk-annotation-get annotation) word))))
 
-(defun skk-annotation-show-1 (annotation)
+(defun skk-annotation-show-1 (annotation &optional word)
   (let ((notes (mapcar #'skk-eval-string (split-string annotation ";"))))
     (setq annotation (skk-eval-string annotation))
-    (skk-annotation-show-2 annotation)
+    (unless (string= annotation "")
+      (skk-annotation-show-2 annotation))
     ;; $BCm<a$NI=<($O$3$3$^$G$@$,!"$3$3$G%f!<%6$,Cm<a$NFbMF$r%3%T!<$7$?$j(B
     ;; $B$7$FMxMQ$G$-$k$h$&$K$9$k!#(B
-    (skk-annotation-wait-for-input annotation notes)))
+    (skk-annotation-wait-for-input annotation notes word)))
 
 (defun skk-annotation-show-2 (annotation)
   (cond
@@ -204,40 +205,56 @@
    (t
     (skk-annotation-show-buffer annotation))))
 
-(defun skk-annotation-wait-for-input (annotation notes)
+(defun skk-annotation-wait-for-input (annotation notes &optional word)
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
-	 event command urls)
+	 event key command urls note)
     (while (and list
 		(condition-case nil
 		    (progn
 		      (setq event (next-command-event)
-			    command (key-binding (skk-event-key event)))
+			    key (skk-event-key event)
+			    command (key-binding key))
 		      ;; Return value of the following expression is important.
-		      (memq command list))
+		      (or (memq command list)
+			  (equal (key-description key)
+				 (key-description
+				  skk-annotation-wikipedia-key))))
 		  (quit
 		   nil)))
       (cond ((eq command copy-command)
 	     (setq list (delq copy-command list))
-	     (kill-new (substring-no-properties annotation))
-	     (skk-message "$B8=:_$NCm<a$r%3%T!<$7$^$7$?(B"
-			  "Copying the current note...done")
-	     (setq event nil)
-	     (skk-annotation-show-2 annotation))
+	     (unless (equal annotation "")
+	       (kill-new (substring-no-properties annotation))
+	       (skk-message "$B8=:_$NCm<a$r%3%T!<$7$^$7$?(B"
+			    "Copying the current note...done")
+	       (setq event nil)
+	       (skk-annotation-show-2 annotation)))
 	    ((eq command browse-command)
 	     (setq list (delq browse-command list))
 	     (setq urls (delq nil (mapcar #'skk-annotation-find-url notes)))
-	     (cond (urls
-		    (dolist (url urls)
-		      (browse-url url))
-		    (skk-message "$BCm<aFb$N%5%$%H$r%V%i%&%:$7$F$$$^$9(B..."
-				 "Browsing sites in the current notes..."))
-		   (t
-		    (skk-message "$BCm<aFb$K%5%$%H$,8+$D$+$j$^$;$s(B"
-				 "No sites found in the current notes")))
+	     (unless (equal annotation "")
+	       (cond (urls
+		      (dolist (url urls)
+			(browse-url url))
+		      (skk-message "$BCm<aFb$N%5%$%H$r%V%i%&%:$7$F$$$^$9(B..."
+				   "Browsing sites in the current notes..."))
+		     (t
+		      (skk-message "$BCm<aFb$K%5%$%H$,8+$D$+$j$^$;$s(B"
+				   "No sites found in the current notes")))
+	       (setq event nil)
+	       (skk-annotation-show-2 annotation)))
+	    ((equal (key-description key)
+		    (key-description skk-annotation-wikipedia-key))
 	     (setq event nil)
-	     (skk-annotation-show-2 annotation))
+	     (when word
+	       (let ((skk-annotation-show-wikipedia-url nil))
+		 (setq note (skk-annotation-treat-wikipedia word))))
+	     (when (null note)
+	       (setq note annotation))
+	     (unless (equal note "")
+	       (skk-annotation-show-2 (or note annotation))))
 	    (t
 	     (setq list nil))))
     (when event
@@ -604,13 +621,13 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(with-current-buffer cache-buffer
 	  (setq note (buffer-string)))
       ;; $B%-%c%C%7%e$,$J$$>l9g(B
-      (setq buffer (and (skk-sit-for
-			 skk-annotation-wikipedia-wait-before-retrieval t)
-			(url-http (url-generic-parse-url
-				   (format "http://ja.wikipedia.org/wiki/%s"
-					   (url-hexify-string
-					    (upcase-initials word))))
-				  #'skk-annotation-wikipedia-retrieved ())))
+      (setq buffer (url-http (url-generic-parse-url
+			      (format
+			       "http://ja.wikipedia.org/wiki/%s"
+			       (url-hexify-string
+				(upcase-initials word))))
+			     #'skk-annotation-wikipedia-retrieved
+			     ()))
       (when (catch 'retrieved
 	      (progn
 		(skk-sit-for 100 t)
@@ -632,7 +649,9 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	      (if (save-excursion
 		    (search-forward "<div class=\"noarticletext\">" nil t))
 		  ;;
-		  (setq html "")
+		  (progn
+		    (erase-buffer)
+		    (setq html ""))
 		(setq point (point))
 		(when (or (when (re-search-forward
 				 "<p>\\(<br />\n\\|.\\)?<b>" nil t)
@@ -698,7 +717,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 $B@8@.$7$?Cm<a$rJV$9!#(B"
   (save-match-data
     (let* ((string
-	    (if (eq skk-annotation-show-wikipedia 'url)
+	    (if skk-annotation-show-wikipedia-url
 		;; $B$3$N$H$-$O(B URL $B$rCm<a$H$9$k!#(B
 		(concat "$B%@%_!<(B;"
 			(skk-quote-char
@@ -738,12 +757,20 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	     (if (string-match ";" value)
 		 (substring value (match-end 0))
 	       nil))
-	    ((or (and (integerp skk-annotation-show-wikipedia)
-		      (<= skk-annotation-show-wikipedia
-			  (length word)))
-		 (eq skk-annotation-show-wikipedia t))
+	    (t
 	     ;; Wikipedia $B$NFbMF$NI=<($,MW5a$5$l$?>l9g!#(B
 	     (skk-annotation-wikipedia word))))))
+
+;;;###autoload
+(defun skk-annotation-wikipedia-cache (word)
+  (let* ((cache-buffer (format " *skk wikipedia %s *" word))
+	 (string (if (get-buffer cache-buffer)
+		     (with-current-buffer (get-buffer cache-buffer)
+		       (buffer-string))
+		   "")))
+    (if (string= string "")
+	nil
+      string)))
 
 (require 'product)
 (product-provide

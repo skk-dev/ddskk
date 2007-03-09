@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.188 2007/03/04 14:35:46 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.189 2007/03/09 22:31:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/04 14:35:46 $
+;; Last Modified: $Date: 2007/03/09 22:31:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3631,28 +3631,20 @@ o 候補一覧を表示するとき (候補の文字列の後ろに注釈が付加される)
   :group 'skk-annotation
   :group 'skk-hooks-and-functions)
 
-(defcustom skk-annotation-show-wikipedia nil
-  "*アノテーションの表示に Wikipedia を利用するかどうか決めるオプション。
+(defcustom skk-annotation-show-wikipedia-url nil
+  "*アノテーションに Wikipedia の URL を利用するかどうか決めるオプション。
 SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
-この値が `url' ならば、候補の文字列について記述している Wikipedia の URL を
-注釈として表示する。このとき C-o をタイプすることでこの URL をブラウザで表示
-できる。
-この値が正の整数であり、かつ候補の文字数がその数字と同じもしくはそれ以上だった
-場合、 Wikipedia の候補に関する記述をバックグラウンドでダウンロードしようと試み
-る。Wikipedia に記述があった場合はそこから抽出してアノテーションとする。
-この値が t ならば、値が 1 のときと同じ挙動をする。"
-  :type '(choice (const url)
-		 (const t)
-		 integer)
+この値が non-nil ならば、候補の文字列について記述している Wikipedia の URL を
+注釈として表示する。このとき skk-annotation-browse-key (C-o) をタイプすることで
+この URL をブラウザで表示できる。"
+  :type 'boolean
   :group 'skk-annotation
   :group 'skk-misc)
 
-(defcustom skk-annotation-wikipedia-wait-before-retrieval 1.5
-  "*アノテーションの表示に Wikipedia を利用するまでの待ち時間。
-変数 `skk-annotation-show-wikipedia' が Wikipedia のコンテンツをダウンロード
-する設定になっている場合でも、この時間内に次候補に移るか確定された場合はダウン
-ロードをキャンセルする。"
-  :type 'number
+(defcustom skk-annotation-wikipedia-key "\C-i"
+  "*アノテーションとして Wikipedia の内容を表示するキー。
+オプション skk-show-annotation が non-nil のときだけ有効。"
+  :type 'key
   :group 'skk-annotation
   :group 'skk-misc)
 
