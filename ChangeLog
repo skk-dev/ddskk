@@ -1,8 +1,8 @@
 2007-03-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-setup-keymap): Workaround for Emacs key translation.
-	If TAB is assigned as the completion key, assign the same key
-	definition to <tab>.
+	If TAB is assigned as the completion key, assign
+	`skk-try-completion' to <tab>.
 
 2007-03-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
