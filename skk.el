@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.380 2007/03/09 22:31:30 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.381 2007/03/12 02:56:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/09 22:31:30 $
+;; Last Modified: $Date: 2007/03/12 02:56:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -329,11 +329,18 @@ dependent."
     (skk-define-j-mode-map)
     (unless (eq (lookup-key skk-j-mode-map
 			    (char-to-string skk-try-completion-char))
-		  'skk-insert)
+		'skk-insert)
       (when (vectorp skk-kakutei-key)
 	(define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei))
       (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
 	'skk-insert)
+      ;; Workaround for key translation.
+      (when (eq (char-int skk-try-completion-char) 9)
+	;; tab キーは <tab> の定義が無ければ TAB の定義が割り当てられる。
+	;; Org-mode などは <tab> を定義するので，SKK の方でも <tab> を定義
+	;; する必要がある。
+	(define-key skk-j-mode-map [(tab)] 'skk-insert))
+      ;;
       (unless (featurep 'skk-kanagaki)
 	(define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
 	  'skk-previous-candidate))
