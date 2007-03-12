@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.382 2007/03/12 03:06:14 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.383 2007/03/12 03:19:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/12 03:06:14 $
+;; Last Modified: $Date: 2007/03/12 03:19:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -339,7 +339,11 @@ dependent."
 	;; tab キーは <tab> の定義が無ければ TAB の定義が割り当てられる。
 	;; Org-mode などは <tab> を定義するので，SKK の方でも <tab> を定義
 	;; する必要がある。
-	(define-key skk-j-mode-map [(tab)] 'skk-try-completion))
+	(define-key skk-j-mode-map [(tab)]
+	  #'(lambda (&optional arg)
+	      (interactive "p")
+	      (let ((last-command-char skk-try-completion-char))
+		(call-interactively #'skk-insert)))))
       ;;
       (unless (featurep 'skk-kanagaki)
 	(define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
