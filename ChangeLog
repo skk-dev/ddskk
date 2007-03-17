@@ -1,3 +1,11 @@
+2007-03-17  Masatake YAMATO  <jet@gyve.org>
+
+	* skk.el (skk-wrap-newline-command): New macro.
+	Don't do defadvice `commint-send-input' directly.
+	Use `skk-wrap-newline-command' to do defadvice instead.
+	Wrap `ielm-return' and `rcirc-send-input' with
+	`skk-wrap-newline-command'.
+
 2007-03-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-setup-keymap): Workaround for Emacs key translation.
