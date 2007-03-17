@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.383 2007/03/12 03:19:31 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.384 2007/03/17 20:22:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/12 03:19:31 $
+;; Last Modified: $Date: 2007/03/17 20:22:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5067,13 +5067,22 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
   (when (eq skk-henkan-mode 'active)
     (skk-kakutei)))
 
-(defadvice comint-send-input (around skk-ad activate compile)
-  (cond (skk-henkan-mode
-	 (skk-kakutei)
-	 (unless skk-egg-like-newline
-	   ad-do-it))
-	(t
-	 ad-do-it)))
+(defmacro skk-wrap-newline-command (cmd)
+  "[return]キーに割当てられているだろうコマンド(CMD)をラップして、skkの動作と整合させる。
+ [return]キーにコマンドを割当てているメージャモードでskkを使うと、skkが`skk-kakutei'
+を呼び出す機会がないため、変換を確定できず'▼'がバッファに残ってしまうという問題がある。
+
+本マクロを用いると、変換を確定してからCMD本体を実行するようにCMDをラップする。"
+  `(defadvice ,cmd (around skk-ad activate compile)
+     (cond (skk-henkan-mode
+	    (skk-kakutei)
+	    (unless skk-egg-like-newline
+	      ad-do-it))
+	   (t
+	    ad-do-it))))
+(skk-wrap-newline-command comint-send-input)
+(skk-wrap-newline-command ielm-return)
+(skk-wrap-newline-command rcirc-send-input)
 
 ;; hooks.
 
