@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.384 2007/03/17 20:22:35 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.385 2007/03/17 20:28:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/17 20:22:35 $
+;; Last Modified: $Date: 2007/03/17 20:28:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5068,11 +5068,11 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     (skk-kakutei)))
 
 (defmacro skk-wrap-newline-command (cmd)
-  "[return]キーに割当てられているだろうコマンド(CMD)をラップして、skkの動作と整合させる。
- [return]キーにコマンドを割当てているメージャモードでskkを使うと、skkが`skk-kakutei'
-を呼び出す機会がないため、変換を確定できず'▼'がバッファに残ってしまうという問題がある。
+  "[return]$B%-!<$K3dEv$F$i$l$F$$$k$@$m$&%3%^%s%I(B(CMD)$B$r%i%C%W$7$F!"(Bskk$B$NF0:n$H@09g$5$;$k!#(B
+ [return]$B%-!<$K%3%^%s%I$r3dEv$F$F$$$k%a!<%8%c%b!<%I$G(Bskk$B$r;H$&$H!"(Bskk$B$,(B`skk-kakutei'
+$B$r8F$S=P$95!2q$,$J$$$?$a!"JQ49$r3NDj$G$-$:(B'$B"'(B'$B$,%P%C%U%!$K;D$C$F$7$^$&$H$$$&LdBj$,$"$k!#(B
 
-本マクロを用いると、変換を確定してからCMD本体を実行するようにCMDをラップする。"
+$BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(BCMD$BK\BN$r<B9T$9$k$h$&$K(BCMD$B$r%i%C%W$9$k!#(B"
   `(defadvice ,cmd (around skk-ad activate compile)
      (cond (skk-henkan-mode
 	    (skk-kakutei)
