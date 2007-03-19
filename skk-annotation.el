@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.62 2007/03/19 22:15:30 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.63 2007/03/19 22:24:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/19 22:15:30 $
+;; Last Modified: $Date: 2007/03/19 22:24:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -666,7 +666,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		      (setq html ""))
 		  (setq point nil)
 		  (while (re-search-forward "<span class=\"mw-headline\">\
-\\($BL>(B\\|$BF0(B\\|$B7AMFF0(B?\\|$BI{(B\\)$B;l(B.*</span>" nil t)
+\\(\\($BL>(B\\|$BF0(B\\|$B7AMFF0(B?\\|$BI{(B\\)$B;l(B.*\\|$B4A;z:.$8$jI=5-(B\\)</span>" nil t)
 		    (setq nop t)
 		    (save-match-data
 		      (when (looking-at "</h3>")
