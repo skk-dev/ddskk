@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.61 2007/03/19 14:17:15 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.62 2007/03/19 22:15:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/19 14:17:15 $
+;; Last Modified: $Date: 2007/03/19 22:15:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -665,7 +665,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		      (erase-buffer)
 		      (setq html ""))
 		  (setq point nil)
-		  (while (re-search-forward "<span class=\"mw-headline\">\\($BL>(B\\|$BF0(B\\|$B7AMFF0(B?\\|$BI{(B\\)$B;l(B.*</span>" nil t)
+		  (while (re-search-forward "<span class=\"mw-headline\">\
+\\($BL>(B\\|$BF0(B\\|$B7AMFF0(B?\\|$BI{(B\\)$B;l(B.*</span>" nil t)
 		    (setq nop t)
 		    (save-match-data
 		      (when (looking-at "</h3>")
@@ -746,7 +747,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		    (put-text-property 1 2 'face 'default))
 		  (setq note (buffer-string)))))))
       ;;
-      (when (and (get-buffer cache-buffer)
+      (when (and (not last)
+		 (get-buffer cache-buffer)
 		 (string= "" (with-current-buffer cache-buffer
 			       (buffer-string))))
 	(kill-buffer cache-buffer)))
