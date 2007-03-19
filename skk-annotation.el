@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.59 2007/03/09 23:39:44 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.60 2007/03/19 11:29:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/09 23:39:44 $
+;; Last Modified: $Date: 2007/03/19 11:29:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -612,11 +612,27 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 
 ;;;###autoload
 (defun skk-annotation-wikipedia (word)
-  "Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$+$i%"%N%F!<%7%g%s$r<hF@$9$k!#(B"
+  (let ((sources skk-annotation-wikipedia-sources)
+	(first t)
+	(note nil))
+    (while (and (not note)
+		sources)
+      (setq note (skk-annotation-wikipedia-1 word
+					     (car sources)
+					     (= 1 (length sources))))
+      (unless first
+	(skk-unread-event skk-annotation-wikipedia-key))
+      (setq first nil
+	    sources (cdr sources)))
+    note))
+
+(defun skk-annotation-wikipedia-1 (word source last)
+  "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$+$i%"%N%F!<%7%g%s$r<hF@$9$k!#(B"
   (let ((cache-buffer (format " *skk wikipedia %s *" word))
 	(html2text-remove-tag-list
 	 '("a" "p" "img" "dir" "head" "div" "br" "font" "span" "sup"
-	   "table" "tr" "td" "h2"))
+	   "table" "tr" "td" "h2" "h3"))
+	(sources skk-annotation-wikipedia-sources)
 	buffer html note aimai continue nop point)
     (if (get-buffer cache-buffer)
 	(with-current-buffer cache-buffer
@@ -624,7 +640,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
       ;; $B%-%c%C%7%e$,$J$$>l9g(B
       (setq buffer (url-http (url-generic-parse-url
 			      (format
-			       "http://ja.wikipedia.org/wiki/%s"
+			       "http://ja.%s.org/wiki/%s"
+			       source
 			       (url-hexify-string
 				(upcase-initials word))))
 			     #'skk-annotation-wikipedia-retrieved
@@ -635,77 +652,109 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		t))
 	(when (buffer-live-p buffer)
 	  (with-current-buffer buffer
-		(setq html (buffer-string)))
+	    (setq html (buffer-string)))
 	  (kill-buffer buffer)
 	  (when html
 	    (with-current-buffer (get-buffer-create cache-buffer)
 	      (insert (decode-coding-string html 'utf-8))
 	      ;;
-	      (goto-char (point-min))
-	      (setq aimai
-		    (save-excursion
-		      (search-forward "<a href=\"/wiki/Wikipedia:\
-%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF\"" nil t)))
-	      (search-forward "<!-- start content -->" nil t)
-	      (if (save-excursion
-		    (search-forward "<div class=\"noarticletext\">" nil t))
-		  ;;
-		  (progn
-		    (erase-buffer)
-		    (setq html ""))
-		(setq point (point))
-		(when (or (when (re-search-forward
-				 "<p>\\(<br />\n\\|[^\n]*\\)?\
-<b>[^\n]+</b>[^\n]+</p>"
-				 nil t)
-			    (goto-char (match-beginning 0))
-			    (if (and (save-excursion
-				       (re-search-forward "</p>" nil t))
-				     (string-match "$B!#(B\\|$B!%(B"
-						(buffer-substring
-						 (point) (match-beginning 0))))
-				t
-			      (setq point (point)
-				    continue t)
-			      nil))
-			  (when (progn
-				  (goto-char point)
-				  (re-search-forward "<\\(u\\|o\\)l>" nil t))
-			    (goto-char (if continue
-					   point
-					 (match-beginning 0)))
-			    (setq nop t)))
-		  (delete-region (point-min) (point))
-		  (goto-char (point-min))
-		  (re-search-forward (if (or aimai nop)
-					 "</\\(u\\|o\\)l>"
-				       "</p>")
-				     nil t)
+	      (cond
+	       ((eq source 'wiktionary)
+		(goto-char (point-min))
+		(search-forward "<!-- start content -->" nil t)
+		(if (save-excursion
+		      (search-forward "<div class=\"noarticletext\">" nil t))
+		    ;;
+		    (progn
+		      (erase-buffer)
+		      (setq html ""))
+		  (setq point nil)
+		  (while (re-search-forward "<span class=\"mw-headline\">\\($BL>(B\\|$BF0(B\\|$B7AMFF0(B?\\|$BI{(B\\)$B;l(B.*</span>" nil t)
+		    (setq nop t)
+		    (save-match-data
+		      (when (looking-at "</h3>")
+			(delete-region (match-beginning 0) (match-end 0))))
+		    (goto-char (match-beginning 0))
+		    (delete-region (or point (point-min)) (point))
+		    (re-search-forward "</\\(u\\|o\\)l>" nil t)
+		    (insert "<p>")
+		    (setq point (point)))
 		  (delete-region (point) (point-max))))
+	       ((eq source 'wikipedia)
+		(goto-char (point-min))
+		(setq aimai
+		      (save-excursion
+			(search-forward "<a href=\"/wiki/Wikipedia:\
+%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF\"" nil t)))
+		(search-forward "<!-- start content -->" nil t)
+		(if (save-excursion
+		      (search-forward "<div class=\"noarticletext\">" nil t))
+		    ;;
+		    (progn
+		      (erase-buffer)
+		      (setq html ""))
+		  (setq point (point))
+		  (when (or (when (re-search-forward
+				   "<p>\\(<br />\n\\|[^\n]*\\)?\
+<b>[^\n]+</b>[^\n]+</p>"
+				   nil t)
+			      (goto-char (match-beginning 0))
+			      (if (and (save-excursion
+					 (re-search-forward "</p>" nil t))
+				       (string-match "$B!#(B\\|$B!%(B"
+						     (buffer-substring
+						      (point)
+						      (match-beginning 0))))
+				  t
+				(setq point (point)
+				      continue t)
+				nil))
+			    (when (progn
+				    (goto-char point)
+				    (re-search-forward "<\\(u\\|o\\)l>" nil t))
+			      (goto-char (if continue
+					     point
+					   (match-beginning 0)))
+			      (setq nop t)))
+		    (delete-region (point-min) (point))
+		    (goto-char (point-min))
+		    (re-search-forward (if (or aimai nop)
+					   "</\\(u\\|o\\)l>"
+					 "</p>")
+				       nil t)
+		    (delete-region (point) (point-max))))))
 	      ;;
 	      (unless (equal html "")
 		(html2text)
 		(goto-char (point-min))
 		(while (looking-at "^[ \t]*$")
 		  (kill-line 1))
-		(cond ((or aimai nop)
-		       (while (not (eobp))
-			 (beginning-of-line)
-			 (setq point (point))
-			 (forward-line 1)
-			 (fill-region point (point)))
-		       (when aimai
-			 (insert "\n($B[#Kf$52sHr$N%Z!<%8(B)")))
-		      (t
-		       (fill-paragraph nil)))
-		(when (and (not (equal (buffer-string) ""))
-			   (not (get-text-property 1 'face)))
-		  (put-text-property 1 2 'face 'default))
-		(setq note (buffer-string))))))))
+		  (cond ((or aimai nop)
+			 (while (not (eobp))
+			   (beginning-of-line)
+			   (setq point (point))
+			   (forward-line 1)
+			   (fill-region point (point)))
+			 (when aimai
+			   (insert "\n($B[#Kf$52sHr$N%Z!<%8(B)")))
+			(t
+			 (fill-paragraph nil)))
+		  ;;
+		  (goto-char (point-max))
+		  (while (and (looking-at "^$")
+			      (not (string= "" (buffer-string))))
+		    (delete-char -1))
+		  ;;
+		  (when (and (not (equal (buffer-string) ""))
+			     (not (get-text-property 1 'face)))
+		    (put-text-property 1 2 'face 'default))
+		  (setq note (buffer-string))))))))
     ;;
     (cond ((stringp note)
 	   (if (equal note "")
-	       nil
+	       (unless last
+		 (kill-buffer cache-buffer)
+		 nil)
 	     note))
 	  (t
 	   nil))))

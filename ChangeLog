@@ -1,3 +1,11 @@
+2007-03-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia): Also refer to
+	Wiktionary.
+	(skk-annotation-wikipedia-1): New function.
+
+	* skk-vars.el (skk-annotation-wikipedia-sources): New user option.
+
 2007-03-17  Masatake YAMATO  <jet@gyve.org>
 
 	* skk.el (skk-wrap-newline-command): New macro.

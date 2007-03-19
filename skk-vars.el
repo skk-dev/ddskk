@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.189 2007/03/09 22:31:30 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.190 2007/03/19 11:29:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/09 22:31:30 $
+;; Last Modified: $Date: 2007/03/19 11:29:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3638,6 +3638,14 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
 注釈として表示する。このとき skk-annotation-browse-key (C-o) をタイプすることで
 この URL をブラウザで表示できる。"
   :type 'boolean
+  :group 'skk-annotation
+  :group 'skk-misc)
+
+(defcustom skk-annotation-wikipedia-sources '(wikipedia wiktionary)
+  "*アノテーションに使う Wikimedia のソースを指定するオプション。
+標準ではまず Wikipedia を参照し、Wikipedia の記述が無ければ Wiktionary を
+参照する。"
+  :type 'list
   :group 'skk-annotation
   :group 'skk-misc)
 
