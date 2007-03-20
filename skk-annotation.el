@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.63 2007/03/19 22:24:45 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.64 2007/03/20 05:42:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/19 22:24:45 $
+;; Last Modified: $Date: 2007/03/20 05:42:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -613,13 +613,20 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 ;;;###autoload
 (defun skk-annotation-wikipedia (word)
   (let ((sources skk-annotation-wikipedia-sources)
+	(string "")
 	(note nil))
     (while (and (not note)
 		sources)
       (setq note (skk-annotation-wikipedia-1 word
 					     (car sources)
 					     (= 1 (length sources))))
+      (setq string (format (if (string= "" string)
+			       "%s%s"
+			     "%s/%s")
+			     string (car sources)))
       (setq sources (cdr sources)))
+    (unless note
+      (message "%s $B$K9`L\$,$"$j$^$;$s(B" string))
     note))
 
 (defun skk-annotation-wikipedia-1 (word source last)
@@ -627,7 +634,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (let ((cache-buffer (format " *skk wikipedia %s *" word))
 	(html2text-remove-tag-list
 	 '("a" "p" "img" "dir" "head" "div" "br" "font" "span" "sup"
-	   "table" "tr" "td" "h2" "h3"))
+	   "table" "tr" "td" "h2" "h3" "h4"))
 	(sources skk-annotation-wikipedia-sources)
 	buffer html note aimai continue nop point)
     (if (get-buffer cache-buffer)
@@ -658,6 +665,15 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	       ((eq source 'wiktionary)
 		(goto-char (point-min))
 		(search-forward "<!-- start content -->" nil t)
+		(save-excursion
+		  (when (and
+			 (re-search-forward
+			  "<h2>.*<span class=\"mw-headline\">$BF|K\8l(B</span></h2>"
+			  nil t)
+			 (re-search-forward
+			  "<h2>.*<span class=\"mw-headline\">.+$B8l(B</span></h2>"
+			  nil t))
+		    (delete-region (match-beginning 0) (point-max))))
 		(if (save-excursion
 		      (search-forward "<div class=\"noarticletext\">" nil t))
 		    ;;
@@ -666,17 +682,30 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		      (setq html ""))
 		  (setq point nil)
 		  (while (re-search-forward "<span class=\"mw-headline\">\
-\\(\\($BL>(B\\|$BF0(B\\|$B7AMFF0(B?\\|$BI{(B\\)$B;l(B.*\\|$B4A;z:.$8$jI=5-(B\\)</span>" nil t)
+\\(\\($BL>(B\\|$BF0(B\\|$B7AMFF0(B?\\|$BI{(B\\)$B;l(B.*\\|$B4A;z:.$8$jI=5-(B\\|$B0U5A(B\\)</span>" nil t)
 		    (setq nop t)
 		    (save-match-data
 		      (when (looking-at "</h3>")
 			(delete-region (match-beginning 0) (match-end 0))))
 		    (goto-char (match-beginning 0))
 		    (delete-region (or point (point-min)) (point))
-		    (re-search-forward "</\\(u\\|o\\)l>" nil t)
-		    (insert "<p>")
-		    (setq point (point)))
-		  (delete-region (point) (point-max))))
+		    (unless (null point)
+		      (insert "\n"))
+		    (save-match-data
+		      (or (re-search-forward "</\\(u\\|o\\)l>" nil t)
+			  (search-forward "</dl>" nil t))
+		      ;;		    (insert "<p>")
+		      (setq point (point))))
+		  (when point
+		    (delete-region point (point-max)))
+		  (save-excursion
+		    (goto-char (point-min))
+		    (save-match-data
+		      (while (re-search-forward
+			      "<span.*>\\[<a.+>$BJT=8(B</a>\\]</span>"
+			      nil t)
+			(replace-match "")))))
+		)
 	       ((eq source 'wikipedia)
 		(goto-char (point-min))
 		(setq aimai
@@ -824,6 +853,17 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
     (if (string= string "")
 	nil
       string)))
+
+;;;###autoload
+(defun skk-annotation-wikipedia-region (start end)
+  (interactive "r")
+  (let ((word (buffer-substring-no-properties start end))
+	note)
+    (when (> (length word) 0)
+      (setq note (or (skk-annotation-wikipedia-cache word)
+		     (skk-annotation-wikipedia word)))
+      (when note
+	(skk-annotation-show note)))))
 
 (require 'product)
 (product-provide

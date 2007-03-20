@@ -1,3 +1,9 @@
+2007-03-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-1): Fix patterns for
+	wiktionary.
+	(skk-annotation-wikipedia-region): New command.
+
 2007-03-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia): Also refer to

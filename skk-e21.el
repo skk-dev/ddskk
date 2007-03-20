@@ -318,15 +318,18 @@ Analogous to mouse-position."
       (when (and ox oy)
 	(set-mouse-position oframe ox oy))
       (skk-set-henkan-count 0)
-      (skk-unread-event
-       (character-to-event
-	(aref (car (where-is-internal
-		    'skk-previous-candidate
-		    skk-j-mode-map))
-	      0)))
-      (when listing
-	 ;; skk-henkan まで一気に throw する。
-	(throw 'unread nil)))
+      (cond ((eq skk-henkan-mode 'active)
+	     (skk-unread-event
+	      (character-to-event
+	       (aref (car (where-is-internal
+			   'skk-previous-candidate
+			   skk-j-mode-map))
+		     0)))
+	     (when listing
+	       ;; skk-henkan まで一気に throw する。
+	       (throw 'unread nil)))
+	    (t
+	     (skk-unread-event event))))
      (t
       (when (and ox oy)
 	(set-mouse-position oframe ox oy))
