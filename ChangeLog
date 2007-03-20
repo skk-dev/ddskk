@@ -4,6 +4,9 @@
 	wiktionary.
 	(skk-annotation-wikipedia-region): New command.
 
+	* skk-e21.el (skk-tooltip-show-at-point): Modify so that it also
+	works when skk-henkan-mode is not active.
+
 2007-03-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia): Also refer to
