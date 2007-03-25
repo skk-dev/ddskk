@@ -6,8 +6,8 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.13 2007/03/25 20:41:49 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/25 20:41:49 $
+;; Version: $Id: tinyinstall.el,v 1.14 2007/03/25 23:33:59 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/25 23:33:59 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -37,7 +37,7 @@
 (setq install-prefix
   (cond ((featurep 'xemacs)		; running-xemacs
 	 (expand-file-name "../../.." exec-directory))
-	((memq system-type '(ms-dos windows-nt))
+	((memq system-type '(windows-nt))
 	 (expand-file-name ".." exec-directory))
 	(t
 	 (expand-file-name "../../../.." data-directory))))

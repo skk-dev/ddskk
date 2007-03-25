@@ -1,3 +1,11 @@
+2007-03-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* NICOLA-DDSKK-CFG: Call `install-get-default-package-directory'
+	for setting PACKAGEDIR.
+
+	* NICOLA-DDSKK-MK (compile-nicola-ddskk-package): Call
+	`install-update-package-files'.
+
 2006-01-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-nicola-insert-kana): Call
