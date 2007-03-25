@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.108 2006/08/03 07:42:34 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.109 2007/03/25 20:41:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/08/03 07:42:34 $
+;; Last Modified: $Date: 2007/03/25 20:41:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -464,10 +464,14 @@ BUFFER defaults to the current buffer."
   "イベント EVENT を発生した入力の情報を取得する。"
   (static-cond
    ((eq skk-emacs-type 'xemacs)
-    (let ((tmp (event-key event)))
-      (if (symbolp tmp)
-	  (vector tmp)
-	event)))
+;    (let ((tmp (event-key event)))
+;      (if (symbolp tmp)
+;	  (vector tmp)
+;	event)))
+    (let ((char (event-to-character event)))
+      (if (characterp char)
+	  char
+	(event-key event))))
    (t
     (let ((char (event-to-character event))
 	  keys)

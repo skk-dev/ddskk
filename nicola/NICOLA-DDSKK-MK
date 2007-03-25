@@ -65,12 +65,14 @@ LISPDIR=%s\n" PREFIX LISPDIR))))
 (defun compile-nicola-ddskk-package ()
   (config-nicola-ddskk-package)
 
-  (setq autoload-package-name "nicola-ddskk")
-  (add-to-list 'command-line-args-left ".")
-  (batch-update-directory)
+;  (setq autoload-package-name "nicola-ddskk")
+;  (add-to-list 'command-line-args-left ".")
+;  (batch-update-directory)
 
-  (add-to-list 'command-line-args-left ".")
-  (Custom-make-dependencies)
+;  (add-to-list 'command-line-args-left ".")
+;  (Custom-make-dependencies)
+
+  (install-update-package-files "nicola-ddskk" ".")
 
   (require 'nicola-ddskk-autoloads "./auto-autoloads.el")
   (require 'pcustom)

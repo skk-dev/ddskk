@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.137 2006/01/10 15:32:06 skk-cvs Exp $
-;; Last Modified: $Date: 2006/01/10 15:32:06 $
+;; Version: $Id: SKK-MK,v 1.138 2007/03/25 20:41:49 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/25 20:41:49 $
 
 ;;; Commentary:
 
@@ -28,9 +28,6 @@
 
 ;;; Code:
 
-;; tinyinstall.el is independent of APEL.
-(require 'tinyinstall (expand-file-name "./tinyinstall"))
-
 (when (string-lessp emacs-version "19")
   (error "%s" "\
 Emacs 18 or older is not supported by this version of SKK.
@@ -47,171 +44,81 @@ This version of SKK requires MULE features"))
 
 (set-language-environment "Japanese")
 
+;; Variables.
+
+(defvar EMU_PREFIX nil)
+
+(defvar PREFIX nil)
+
+(defvar LISPDIR nil)
+
+(defvar VERSION_SPECIFIC_LISPDIR nil)
+
+(defvar APEL_SPECIFIC_LISPDIR nil)
+
+(defvar ADDITIONAL_LISPDIR nil)
+
+;; load user custom file.
+(load (expand-file-name "./SKK-CFG") t nil nil)
+
+;; tinyinstall.el is independent of APEL.
+(require 'tinyinstall (expand-file-name "./tinyinstall"))
+
 ;;;; User variables to control SKK-MK.
 (defvar SKK-MK-debugging nil "*Non-nil means making verbose output.")
 
 ;;;; Load configuration file.
-;; load user custom file if exists.
-(load (expand-file-name "./SKK-CFG") t nil nil)
 
 ;;;; load-path related.
-;; `install-prefix' is defined in tinyinstall.el.
-;; Maybe it is `/usr/local', if you use UNIX.
-(defvar EMU_PREFIX
-  (or (getenv "EMU_PREFIX")
-      (if (or (featurep 'xemacs)
-	      (fboundp 'normal-top-level-add-subdirs-to-load-path))
-	  "emu"
-	"")))
-
-(defvar PREFIX (or (getenv "PREFIX")
-		   install-prefix))
-
-(defvar LISPDIR
-  (let ((dir (expand-file-name
-	      (or (getenv "LISPDIR")
-		  (cond ((eq system-type 'windows-nt)
-			 (expand-file-name "site-lisp" PREFIX))
-			((eq system-type 'ms-dos)
-			 (expand-file-name "site-lis" PREFIX))
-			(t
-			 (install-detect-elisp-directory PREFIX)))))))
-    (if (file-exists-p dir)
-	(progn
-	  ;; default-load-path takes effect for detecting directory.
-	  (setq default-load-path (tinyinstall-add-load-path
-				   dir
-				   default-load-path))
-	  dir)
-      nil)))
-
-(defvar VERSION_SPECIFIC_LISPDIR
-  (let ((dir
-	 (expand-file-name
-	  (or (getenv "VERSION_SPECIFIC_LISPDIR")
-	      (cond ((eq system-type 'windows-nt)
-		     (expand-file-name "site-lisp" PREFIX))
-		    (t
-		     (install-detect-elisp-directory
-		      PREFIX nil 'version-specific)))))))
-    (if (file-exists-p dir)
-	dir
-      nil)))
-
-(defvar APEL_SPECIFIC_LISPDIR
-  (let ((dir (getenv "APEL_SPECIFIC_LISPDIR")))
-    (if (and dir
-	     (file-exists-p dir))
-	(expand-file-name dir)
-      nil)))
-
-(defvar ADDITIONAL_LISPDIR nil)
-
-;; in case of defining these variables in SKK-CFG.
-(when APEL_SPECIFIC_LISPDIR
-  (setq APEL_SPECIFIC_LISPDIR
-	(expand-file-name APEL_SPECIFIC_LISPDIR)))
-
-(when LISPDIR
-  (setq LISPDIR (expand-file-name LISPDIR)))
-
-(when VERSION_SPECIFIC_LISPDIR
-  (setq VERSION_SPECIFIC_LISPDIR
-	(expand-file-name VERSION_SPECIFIC_LISPDIR)))
-
-;; searching APEL installed directory...
-(when (and LISPDIR
-	   (file-exists-p LISPDIR))
-  (setq load-path (tinyinstall-add-load-path
-		   LISPDIR load-path)))
-
-(let* ((emutmp)
-       (apeldir
-	(cond
-	 ((and APEL_SPECIFIC_LISPDIR
-	       (file-exists-p APEL_SPECIFIC_LISPDIR))
-	  APEL_SPECIFIC_LISPDIR)
-	 ((file-exists-p (expand-file-name "apel" LISPDIR))
-	  (expand-file-name "apel" LISPDIR))
-	 ;; Unix
-	 ((file-exists-p (expand-file-name "../../site-lisp/apel"
-					   data-directory))
-	  (expand-file-name "../../site-lisp/apel"
-			    data-directory))
-	 ;; Mule for Windows.
-	 ((and
-	   ;; Following two lines identifies Mule for Windows and NTEmacs.
-	   (file-exists-p (expand-file-name "../site-lisp/apel"
-					    exec-directory)))
-	  (expand-file-name "../site-lisp/apel"
-			    exec-directory))))
-       (emudir
-	(cond
-	 ((and
-	   VERSION_SPECIFIC_LISPDIR
-	   (setq emutmp (expand-file-name
-			 EMU_PREFIX VERSION_SPECIFIC_LISPDIR))
-	   (or
-	    (and
-	     (file-exists-p emutmp)
-	     (not (string= emutmp VERSION_SPECIFIC_LISPDIR))
-	     (file-exists-p (expand-file-name "emu.el" emutmp)))
-	    (and
-	     (string= EMU_PREFIX "")
-	     ;; try again with not standard emu directory.
-	     (setq emutmp (expand-file-name "emu"
-					    VERSION_SPECIFIC_LISPDIR))
-	     (not (string= emutmp VERSION_SPECIFIC_LISPDIR))
-	     (file-exists-p emutmp)
-	     (file-exists-p (expand-file-name "emu.el" emutmp)))))
-	  ;;
-	  emutmp)
-	 ;;
-	 ((and
-	   apeldir
-	   (setq emutmp (expand-file-name
-			 (concat "../" EMU_PREFIX)
-			 apeldir))
-	   (or
-	    (and (file-exists-p emutmp)
-		 (not (string= emutmp VERSION_SPECIFIC_LISPDIR))
-		 (file-exists-p (expand-file-name "emu.el" emutmp)))
-	    (and
-	     (string= EMU_PREFIX "")
-	     ;; try again with not standard emu directory.
-	     (setq emutmp (expand-file-name "../emu" apeldir))
-	     (not (string= emutmp VERSION_SPECIFIC_LISPDIR))
-	     (file-exists-p emutmp)
-	     (file-exists-p (expand-file-name "emu.el" emutmp)))))
-	  ;;
-	  emutmp))))
-
-  (when emudir
-    (setq load-path (tinyinstall-add-load-path emudir load-path)))
-  (when apeldir
-    (setq load-path (tinyinstall-add-load-path apeldir load-path))))
 
 (setq load-path (cons (expand-file-name ".") load-path))
 
-(when (and VERSION_SPECIFIC_LISPDIR
-	   (file-exists-p VERSION_SPECIFIC_LISPDIR))
-  (setq load-path (tinyinstall-add-load-path
-		   (expand-file-name VERSION_SPECIFIC_LISPDIR)
-		   load-path)))
+;; Variable `install-prefix' is set in tinyinstall.el.
+;; It might be sth like `/usr/local' under UNIX-like operating systems.
+(unless PREFIX
+  (setq PREFIX install-prefix))
 
-(when (and ADDITIONAL_LISPDIR
-	   (file-exists-p ADDITIONAL_LISPDIR))
-  (setq load-path (tinyinstall-add-load-path
-		   (expand-file-name ADDITIONAL_LISPDIR)
-		   load-path)))
+(when (stringp APEL_SPECIFIC_LISPDIR)
+  (setq APEL_SPECIFIC_LISPDIR (expand-file-name APEL_SPECIFIC_LISPDIR))
+  (when (file-directory-p APEL_SPECIFIC_LISPDIR)
+    (add-to-list 'load-path APEL_SPECIFIC_LISPDIR)))
+
+(unless LISPDIR
+  (setq LISPDIR
+	(cond ((eq system-type 'windows-nt)
+	       (expand-file-name "site-lisp" PREFIX))
+	      (t
+	       (install-detect-elisp-directory PREFIX)))))
+
+(when (stringp LISPDIR)
+  (setq LISPDIR (expand-file-name LISPDIR))
+  (when (file-directory-p LISPDIR)
+    (add-to-list 'load-path LISPDIR)))
+
+(unless VERSION_SPECIFIC_LISPDIR
+  (setq VERSION_SPECIFIC_LISPDIR
+	(cond ((eq system-type 'windows-nt)
+	       (expand-file-name "site-lisp" PREFIX))
+	      (t
+	       (install-detect-elisp-directory
+		PREFIX nil 'version-specific)))))
+
+(when (stringp VERSION_SPECIFIC_LISPDIR)
+  (setq VERSION_SPECIFIC_LISPDIR (expand-file-name VERSION_SPECIFIC_LISPDIR))
+  (when (file-directory-p VERSION_SPECIFIC_LISPDIR)
+    (add-to-list 'load-path VERSION_SPECIFIC_LISPDIR)))
+
+(when (stringp ADDITIONAL_LISPDIR)
+  (setq ADDITIONAL_LISPDIR (expand-file-name ADDITIONAL_LISPDIR))
+  (when (file-directory-p ADDITIONAL_LISPDIR)
+    (add-to-list 'load-path VERSION_SPECIFIC_LISPDIR)))
 
 (when SKK-MK-debugging
   (princ (format "APEL_SPECIFIC_LISPDIR=%s\n" APEL_SPECIFIC_LISPDIR))
   (princ (format "load-path=%s\n" load-path)))
 
-;; After seaching APEL installed dirctory, require full set install.el.
+;; After determining APEL installed dirctory.
 (require 'poem)
-(require 'install)
 
 (condition-case nil
     (require 'product)
@@ -274,6 +181,7 @@ This version of SKK requires MULE features"))
 		    skk-develop
 		    skk-dic
 		    skk-gadget
+		    skk-hint
 		    skk-isearch
 		    skk-jisx0201
 ;                   skk-jisx0213
@@ -299,7 +207,6 @@ This version of SKK requires MULE features"))
 		    skk-correct
 		    skk-exsearch
 		    skk-exserv
-		    skk-hint
 		    skk-rdbms
 		    skk-study
 		    skk-tutcdef
@@ -421,34 +328,17 @@ This version of SKK requires MULE features"))
 	nil))))
 
 ;; PACKAGE INSTALL RELATED VARIABLE.
-(defvar PACKAGEDIR
-  (or (getenv "PACKAGEDIR")
-      (if (boundp 'early-packages)
-	  (let ((dirs
-		 (append (if early-package-load-path early-packages)
-			 (if late-package-load-path late-packages)
-			 (if last-package-load-path last-packages)))
-		dir)
-	    (while (not (file-exists-p (setq dir (car dirs))))
-	      (setq dirs (cdr dirs)))
-	    dir)
-	nil)))
+(defvar PACKAGEDIR (install-get-default-package-directory))
 
-(defvar PACKAGE_INFODIR
-  (or (getenv "PACKAGE_INFODIR")
-      (expand-file-name "info" PACKAGEDIR)))
+(defvar PACKAGE_INFODIR (expand-file-name "info" PACKAGEDIR))
 
-(defvar PACKAGE_DATADIR
-  (or (getenv "PACKAGE_DATADIR")
-      (expand-file-name
-       SKK_PREFIX
-       (expand-file-name "etc" PACKAGEDIR))))
+(defvar PACKAGE_DATADIR (expand-file-name
+			 SKK_PREFIX
+			 (expand-file-name "etc" PACKAGEDIR)))
 
-(defvar PACKAGE_LISPDIR
-  (or (getenv "PACKAGE_LISPDIR")
-      (expand-file-name
-       SKK_PREFIX
-       (expand-file-name "lisp" PACKAGEDIR))))
+(defvar PACKAGE_LISPDIR (expand-file-name
+			 SKK_PREFIX
+			 (expand-file-name "lisp" PACKAGEDIR)))
 
 (when SKK-MK-debugging
   (princ (format "SKK_MODULES=%s\n" SKK_MODULES)))
@@ -761,8 +651,7 @@ This version of SKK requires MULE features"))
 
 (defun SKK-MK-install-package ()
   (unless (featurep 'xemacs)
-    (error "%s"
-	   "This directcive is only for XEmacs."))
+    (error "%s" "This directcive is only for XEmacs."))
   (let ((dics SKK_DICTIONARIES)
 	delete-target exist spec)
     ;; make target directories.
@@ -1003,9 +892,9 @@ SKK tutorials:
 ;; General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 59 Temple Place - Suite 330,
-;; Boston, MA 02111-1307, USA.
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the
+;; Free Software Foundation Inc., 51 Franklin St, Fifth Floor, Boston,
+;; MA 02110-1301, USA.
 
 ;;; Code:\n\n")
       (require 'autoload)
@@ -1039,7 +928,11 @@ SKK tutorials:
       (let ((generated-autoload-file
 	     (expand-file-name "auto-autoloads.el")))
 	(setq buffer-file-name generated-autoload-file)
-	(fixup-autoload-buffer "skk-autoloads")
+	(if (fboundp 'autoload-featurep-protect-autoloads)
+	    ;; XEmacs 21.5
+	    (autoload-featurep-protect-autoloads "skk-autoloads")
+	  ;; XEmacs 21.4
+	  (fixup-autoload-buffer "skk-autoloads"))
 	(goto-char (point-max))
 	(unless (bolp)
 	  (insert "\n"))

@@ -78,18 +78,6 @@
 (setq NICOLA-DDSKK_DIR (expand-file-name NICOLA-DDSKK_PREFIX
 					 VERSION_SPECIFIC_LISPDIR))
 
-(defvar PACKAGEDIR
-  (if (boundp 'early-packages)
-      (let ((dirs (append (if early-package-load-path
-			      early-packages)
-			  (if late-package-load-path
-			      late-packages)
-			  (if last-package-load-path
-			      last-packages)))
-	    dir)
-	(while (not (file-exists-p
-		     (setq dir (car dirs))))
-	  (setq dirs (cdr dirs)))
-	dir)))
+(defvar PACKAGEDIR (install-get-default-package-directory))
 
 ;;; NICOLA-DDSKK-CFG ends here

@@ -6,8 +6,8 @@
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Created: 1996/08/18
 ;; Keywords: install, byte-compile, directory detection
-;; Version: $Id: tinyinstall.el,v 1.12 2006/08/07 15:27:12 skk-cvs Exp $
-;; Last Modified: $Date: 2006/08/07 15:27:12 $
+;; Version: $Id: tinyinstall.el,v 1.13 2007/03/25 20:41:49 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/25 20:41:49 $
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -26,62 +26,21 @@
 
 ;;; Code:
 
-(defvar install-prefix
+(when (and (stringp VERSION_SPECIFIC_LISPDIR)
+	   (stringp EMU_PREFIX))
+  (let ((dir (expand-file-name EMU_PREFIX VERSION_SPECIFIC_LISPDIR)))
+    (when (file-directory-p dir)
+      (add-to-list 'load-path dir))))
+
+(require 'install)
+
+(setq install-prefix
   (cond ((featurep 'xemacs)		; running-xemacs
 	 (expand-file-name "../../.." exec-directory))
 	((memq system-type '(ms-dos windows-nt))
 	 (expand-file-name ".." exec-directory))
 	(t
 	 (expand-file-name "../../../.." data-directory))))
-
-(defvar install-elisp-prefix "site-lisp")
-
-;; from path-util.el
-(defvar default-load-path load-path
-  "*Base of `load-path'.
-It is used as default value of target path to search file or
-subdirectory under load-path.")
-
-(defun install-detect-elisp-directory (&optional prefix elisp-prefix
-						 allow-version-specific)
-  (unless prefix
-    (setq prefix install-prefix))
-  (unless elisp-prefix
-    (setq elisp-prefix install-elisp-prefix))
-  (or
-   (catch 'tag
-     (let ((rest (delq nil (copy-sequence default-load-path)))
-	   (pat (concat "^"
-			(expand-file-name (concat ".*/" elisp-prefix) prefix)
-			"/?$")))
-       (while rest
-	 (when (and (string-match pat (car rest))
-		    (or allow-version-specific
-			(not (string-match (format "/%d\\.%d"
-						   emacs-major-version
-						   emacs-minor-version)
-					   (car rest)))))
-	   (throw 'tag (car rest)))
-	 (setq rest (cdr rest)))))
-   (expand-file-name (concat
-		      (if (not (featurep 'xemacs))
-			  "share/"
-			"lib/")
-		      (cond ((featurep 'xemacs)
-			     ;; running-xemacs
-			     "xemacs/")
-			    (t
-			     "emacs/"))
-		      elisp-prefix)
-		     prefix)))
-
-(defun tinyinstall-add-load-path (directory path)
-  (setq directory (expand-file-name directory))
-  (if (and (file-exists-p directory)
-	   (null (member directory path)))
-      (cons directory path)
-    ;; original path
-    path))
 
 (provide 'tinyinstall)
 

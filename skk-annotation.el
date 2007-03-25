@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.64 2007/03/20 05:42:27 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.65 2007/03/25 20:41:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/20 05:42:27 $
+;; Last Modified: $Date: 2007/03/25 20:41:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -612,9 +612,11 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 
 ;;;###autoload
 (defun skk-annotation-wikipedia (word)
+  "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$+$i%"%N%F!<%7%g%s$r<hF@$9$k!#(B"
   (let ((sources skk-annotation-wikipedia-sources)
 	(string "")
 	(note nil))
+    ;; sources $B$K;XDj$5$l$?=gHV$K;2>H$9$k(B
     (while (and (not note)
 		sources)
       (setq note (skk-annotation-wikipedia-1 word
@@ -630,8 +632,11 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
     note))
 
 (defun skk-annotation-wikipedia-1 (word source last)
-  "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$+$i%"%N%F!<%7%g%s$r<hF@$9$k!#(B"
+  "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$r<B:]$K%@%&%s%m!<%I$7$FD4$Y$k!#(B
+$B3:Ev%Z!<%8(B (html) $B$r%@%&%s%m!<%I$9$k5!G=$O(B Emacs $B$KIUB0$N(B URL $B%Q%C%1!<%8$K0M(B
+$B$k!#E,@Z$J(B URL $B$r@8@.$9$k$?$a$K$O!"(B"
   (let ((cache-buffer (format " *skk wikipedia %s *" word))
+	;; html2text $B$,@5$7$/07$($J$$(B tag $B$O0J2<$N%j%9%H$K;XDj$9$k(B
 	(html2text-remove-tag-list
 	 '("a" "p" "img" "dir" "head" "div" "br" "font" "span" "sup"
 	   "table" "tr" "td" "h2" "h3" "h4"))
@@ -641,14 +646,12 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(with-current-buffer cache-buffer
 	  (setq note (buffer-string)))
       ;; $B%-%c%C%7%e$,$J$$>l9g(B
-      (setq buffer (url-http (url-generic-parse-url
-			      (format
-			       "http://ja.%s.org/wiki/%s"
-			       source
-			       (url-hexify-string
-				(upcase-initials word))))
-			     #'skk-annotation-wikipedia-retrieved
-			     ()))
+      (setq buffer (url-retrieve (format "http://ja.%s.org/wiki/%s"
+					 source
+					 (url-hexify-string
+					  (upcase-initials word)))
+				 #'skk-annotation-wikipedia-retrieved
+				 ()))
       (when (catch 'retrieved
 	      (progn
 		(skk-sit-for 100 t)
@@ -704,8 +707,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		      (while (re-search-forward
 			      "<span.*>\\[<a.+>$BJT=8(B</a>\\]</span>"
 			      nil t)
-			(replace-match "")))))
-		)
+			(replace-match ""))))))
 	       ((eq source 'wikipedia)
 		(goto-char (point-min))
 		(setq aimai
