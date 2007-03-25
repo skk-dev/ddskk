@@ -8,6 +8,8 @@
 	* skk-macs.el (skk-event-key): Under XEmacs, when there exists a
 	character that is relevant to EVENT, return the character.
 
+	* skk-tankan.el: Convert coding system (euc-jp -> iso-2022-jp).
+
 	* tinyinstall.el: Remove codes, except one for setting
 	install-prefix.
 
