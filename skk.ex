@@ -11,6 +11,7 @@ dic/SKK-JISYO.E2J
 dic/SKK-JISYO.pubdic+
 dic/SKK-JISYO.L
 dic/SKK-JISYO.M
+dic/SKK-JISYO.ML
 dic/SKK-JISYO.S
 dic/edict.doc
 jisyo-tools
