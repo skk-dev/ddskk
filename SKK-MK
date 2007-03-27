@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.143 2007/03/27 16:37:12 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/27 16:37:12 $
+;; Version: $Id: SKK-MK,v 1.145 2007/03/27 17:01:15 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/27 17:01:15 $
 
 ;;; Commentary:
 
@@ -144,12 +144,12 @@ This version of SKK requires MULE features"))
     (require 'product)
   (error
    (error "%s"
-	  "This version of Daredevil SKK requires APEL/10.6 or later")))
+	  "This version of Daredevil SKK requires APEL/10.7 or later")))
 
 (unless (product-version>= 'apel-ver
-			   '(10 6))
+			   '(10 7))
  (error "%s"
-	"This version of Daredevil SKK requires APEL/10.6 or later"))
+	"This version of Daredevil SKK requires APEL/10.7 or later"))
 
 ;; constants.
 (defconst SKK-MK-texinfo-coding-system 'iso-2022-jp)
