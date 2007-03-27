@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.140 2007/03/27 13:32:10 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/27 13:32:10 $
+;; Version: $Id: SKK-MK,v 1.141 2007/03/27 15:14:16 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/27 15:14:16 $
 
 ;;; Commentary:
 
@@ -70,12 +70,15 @@ This version of SKK requires MULE features"))
 (require 'install)
 
 (setq install-prefix
-  (cond ((featurep 'xemacs)		; running-xemacs
-	 (expand-file-name "../../.." exec-directory))
-	((memq system-type '(windows-nt))
+  (cond	((memq system-type '(windows-nt))
 	 ;; Meadow と NTEmacs に対して APEL が標準で設定する
 	 ;; install-prefix が不自然なので、ここで修正する。
 	 (expand-file-name ".." exec-directory))
+	((boundp 'carbon-emacs-package-version)
+	 ;; Carbon Emacs
+	 (expand-file-name ".." data-directory))
+	((featurep 'xemacs)		; running-xemacs
+	 (expand-file-name "../../.." exec-directory))
 	(t
 	 (expand-file-name "../../../.." data-directory))))
 
@@ -298,9 +301,14 @@ This version of SKK requires MULE features"))
 (defvar SKK_SET_JISYO (not (SKK-MK-server-installed-p)))
 
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
-(defvar SKK_DATADIR (expand-file-name
-		     SKK_PREFIX
-		     (expand-file-name "share" PREFIX)))
+(defvar SKK_DATADIR
+  (let ((subdir (cond ((or (memq system-type '(windows-nt))
+			   (boundp 'carbon-emacs-package-version))
+		       ;; Meadow, NTEmacs, Carbon Emacs
+		       "etc")
+		      (t
+		       "share"))))
+    (expand-file-name SKK_PREFIX (expand-file-name subdir PREFIX))))
 
 (defvar SKK_INFODIR
   (cond

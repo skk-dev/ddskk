@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.23 2007/03/27 13:29:42 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/27 13:29:42 $
+;; Version: $Id: SKK-CFG,v 1.24 2007/03/27 15:14:16 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/27 15:14:16 $
 
 ;;; Commentary:
 
@@ -28,10 +28,10 @@
 ;;
 ;; としてください。
 
-;; なお、Emacs の実行形式ファイル名だけはこのファイルでは設定できず，コマンドラ
+;; なお、Emacs の実行形式ファイル名だけはこのファイルでは設定できず、コマンドラ
 ;; インから指定する必要があります。
 
-;; (例)% make install EMACS=c:/Meadow/bin/meadow.exe
+;; (例)% make install EMACS=c:/meadow/bin/Meadow.exe
 ;;
 ;; (例)% make install-pacakge XEMACS=/usr/bin/xemacs
 
@@ -110,14 +110,14 @@
 ;; (setq SKK_INFODIR "/usr/local/info")
 ;; (setq SKK_LISPDIR "/usr/local/share/emacs/site-lisp/skk")
 
-;;; Meadow 1.14 用の設定例:
-;; (setq APEL_DIR "c:/Meadow/site-lisp/apel")
-;; (setq EMU_DIR "c:/Meadow/1.14/site-lisp/emu")
-;; (setq LISPDIR "c:/Meadow/site-lisp")
-;; (setq VERSION_SPECIFIC_LISPDIR "c:/Meadow/1.14/site-lisp")
-;; (setq SKK_DATADIR "c:/Meadow/1.14/etc")
-;; (setq SKK_INFODIR "c:/Meadow/1.14/info")
-;; (setq SKK_LISPDIR "c:/Meadow/site-lisp/skk")
+;;; Meadow 3.00 用の設定例:
+;; (setq APEL_DIR "c:/meadow/site-lisp/apel")
+;; (setq EMU_DIR "c:/meadow/site-lisp/emu")
+;; ;; (setq LISPDIR "c:/Meadow/site-lisp")
+;; ;; (setq VERSION_SPECIFIC_LISPDIR "c:/meadow/site-lisp")
+;; (setq SKK_DATADIR "c:/meadow/etc/skk")
+;; (setq SKK_INFODIR "c:/meadow/info")
+;; (setq SKK_LISPDIR "c:/meadow/site-lisp/skk")
 ;; (setq SKK_SET_JISYO t)
 
 ;;; XEmacs 21 用の設定例:
