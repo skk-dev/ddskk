@@ -1,10 +1,18 @@
 2007-03-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* etc/NICOLA-SKK.tut:
+	* etc/SKK.tut:
+	* etc/SKK.tut.E:
+
+	Use `skktut-user-name' instead of `user-full-name'.
+
 	* SKK-CFG: Update comments and examples.
 
 	* SKK-MK: Set APEL_DIR and EMU_DIR instead of
 	APEL_SPECIFIC_LISPDIR and EMU_PREFIX.  No longer support
 	customization with enviromental variables.
+
+	* skk-tut.el (skktut-user-name): New function.
 
 	* tinyinstall.el: No longer in repository.
 

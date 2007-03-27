@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.62 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.63 2007/03/27 16:37:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2007/03/27 16:37:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1033,6 +1033,21 @@ with empty body and subject.
 	  key 'skk-delete-backward-char)
 	(define-key skktut-j-mode-map
 	  key 'skk-delete-backward-char)))))
+
+(defun skktut-user-name ()
+  (let ((name (user-full-name)))
+    (if (not (or (string= name "")
+		 ;; non-ASCII characters
+		 (save-match-data
+		   (string-match "[^\000-\177]" name))))
+	name
+      (setq name (user-login-name))
+      (if (not (or (string= name "")
+		   ;; non-ASCII characters
+		   (save-match-data
+		     (string-match "[^\000-\177]" name))))
+	  name
+	"nanasi"))))
 
 (require 'product)
 (product-provide

@@ -5,10 +5,10 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;;      Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
-;; Version: $Id: NICOLA-SKK.tut,v 1.10 2002/03/01 02:20:31 iida Exp $
+;; Version: $Id: NICOLA-SKK.tut,v 1.11 2007/03/27 16:37:12 skk-cvs Exp $
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Keywords: japanese, help
-;; Last Modified: $Date: 2002/03/01 02:20:31 $
+;; Last Modified: $Date: 2007/03/27 16:37:12 $
 
 ;; This is the tutorial text for Daredevil SKK version 11.1 and later
 ;; versions.
@@ -44,7 +44,7 @@ NICOLA SKK $B$O(B NICOLA $B$+$JF~NO(B ($B?F;X%7%U%H$+$JF~NO(B) $B$r;H$C$?
 
 $B$G$O:G=i$NLdBj$G$9!#(B
 
->> (concat "My name is " (user-full-name) ".")
+>> (concat "My name is " (skktut-user-name) ".")
 
 ----
 == SKK $B$N5/F0!"!V$+$J%b!<%I!W(B ==

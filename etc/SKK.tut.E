@@ -6,9 +6,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut.E,v 1.11 2002/05/27 14:12:57 obata Exp $
+;; Version: $Id: SKK.tut.E,v 1.12 2007/03/27 16:37:12 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2002/05/27 14:12:57 $
+;; Last Modified: $Date: 2007/03/27 16:37:12 $
 ;;
 ;; This is the tutorial text for Daredevil SKK version 11.1 and and later
 ;; versions.
@@ -44,7 +44,7 @@ buffers will be updated and you will proceed to the next problem.
 Type 『C-x q』(Quit) if you wish to quit the tutorial.  Type 『C-x s』
 (Skip) if you wish to skip the problem.
 
->> (concat "My name is " (user-full-name) ".")
+>> (concat "My name is " (skktut-user-name) ".")
 ----
 == Invoking SKK, かな mode ==
 
