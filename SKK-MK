@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.138 2007/03/25 20:41:49 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/25 20:41:49 $
+;; Version: $Id: SKK-MK,v 1.139 2007/03/27 13:29:42 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/27 13:29:42 $
 
 ;;; Commentary:
 
@@ -46,7 +46,9 @@ This version of SKK requires MULE features"))
 
 ;; Variables.
 
-(defvar EMU_PREFIX nil)
+(defvar APEL_DIR nil)
+
+(defvar EMU_DIR nil)
 
 (defvar PREFIX nil)
 
@@ -54,20 +56,29 @@ This version of SKK requires MULE features"))
 
 (defvar VERSION_SPECIFIC_LISPDIR nil)
 
-(defvar APEL_SPECIFIC_LISPDIR nil)
-
 (defvar ADDITIONAL_LISPDIR nil)
 
 ;; load user custom file.
 (load (expand-file-name "./SKK-CFG") t nil nil)
 
-;; tinyinstall.el is independent of APEL.
-(require 'tinyinstall (expand-file-name "./tinyinstall"))
+;; install.el を読み込む前に EMU_DIR へのパスを保証する
+(when (stringp EMU_DIR)
+  (let ((dir (expand-file-name EMU_DIR)))
+    (when (file-directory-p dir)
+      (add-to-list 'load-path dir))))
+
+(require 'install)
+
+(setq install-prefix
+  (cond ((featurep 'xemacs)		; running-xemacs
+	 (expand-file-name "../../.." exec-directory))
+	((memq system-type '(windows-nt))
+	 (expand-file-name ".." exec-directory))
+	(t
+	 (expand-file-name "../../../.." data-directory))))
 
 ;;;; User variables to control SKK-MK.
 (defvar SKK-MK-debugging nil "*Non-nil means making verbose output.")
-
-;;;; Load configuration file.
 
 ;;;; load-path related.
 
@@ -78,10 +89,10 @@ This version of SKK requires MULE features"))
 (unless PREFIX
   (setq PREFIX install-prefix))
 
-(when (stringp APEL_SPECIFIC_LISPDIR)
-  (setq APEL_SPECIFIC_LISPDIR (expand-file-name APEL_SPECIFIC_LISPDIR))
-  (when (file-directory-p APEL_SPECIFIC_LISPDIR)
-    (add-to-list 'load-path APEL_SPECIFIC_LISPDIR)))
+(when (stringp APEL_DIR)
+  (setq APEL_DIR (expand-file-name APEL_DIR))
+  (when (file-directory-p APEL_DIR)
+    (add-to-list 'load-path APEL_DIR)))
 
 (unless LISPDIR
   (setq LISPDIR
@@ -114,7 +125,7 @@ This version of SKK requires MULE features"))
     (add-to-list 'load-path VERSION_SPECIFIC_LISPDIR)))
 
 (when SKK-MK-debugging
-  (princ (format "APEL_SPECIFIC_LISPDIR=%s\n" APEL_SPECIFIC_LISPDIR))
+  (princ (format "APEL_DIR=%s\n" APEL_DIR))
   (princ (format "load-path=%s\n" load-path)))
 
 ;; After determining APEL installed dirctory.
@@ -135,147 +146,123 @@ This version of SKK requires MULE features"))
 (defconst SKK-MK-texinfo-coding-system 'iso-2022-jp)
 
 ;; GENERIC VARIABLE.
-(defvar DOCDIR (or (getenv "DOCDIR")
-		   "./doc"))
-(defvar ETCDIR (or (getenv "ETCDIR")
-		   "./etc"))
-(defvar DICDIR (or (getenv "DICDIR")
-		   "./dic"))
-(defvar SKK_PREFIX (or (getenv "SKK_PREFIX")
-		       "skk"))
-(defvar SKK_INFO (or (getenv "SKK_INFO")
-		     "skk.info"))
-(defvar SKK_TEXIS (or (getenv "SKK_TEXIS")
-		      '("skk.texi")))
-(defvar SKK_TUTORIALS (or (getenv "SKK_TUTORIALS")
-			  '("SKK.tut"
-			    "SKK.tut.E"
-			    "NICOLA-SKK.tut"
-			    "skk.xpm")))
+(defvar DOCDIR "./doc")
+(defvar ETCDIR "./etc")
+(defvar DICDIR "./dic")
+(defvar SKK_PREFIX "skk")
+(defvar SKK_INFO "skk.info")
+(defvar SKK_TEXIS '("skk.texi"))
+(defvar SKK_TUTORIALS '("SKK.tut" "SKK.tut.E" "NICOLA-SKK.tut" "skk.xpm"))
 (defvar SKK_DICTIONARIES
-  (or (getenv "SKK_DICTIONARIES")
-      '("SKK-JISYO.L" "SKK-JISYO.ML" "SKK-JISYO.M" "SKK-JISYO.S"
-	"SKK-JISYO.JIS2" "SKK-JISYO.JIS3_4"
-	"SKK-JISYO.pubdic+" "SKK-JISYO.edict"
-	"SKK-JISYO.office.zipcode" "SKK-JISYO.zipcode")))
+  '("SKK-JISYO.L" "SKK-JISYO.ML" "SKK-JISYO.M" "SKK-JISYO.S"
+    "SKK-JISYO.JIS2" "SKK-JISYO.JIS3_4"
+    "SKK-JISYO.pubdic+" "SKK-JISYO.edict"
+    "SKK-JISYO.office.zipcode" "SKK-JISYO.zipcode"))
 
-(defvar SKK_DEFAULT_JISYO
-  (or (getenv "SKK_DEFAULT_JISYO")
-      nil))
+(defvar SKK_DEFAULT_JISYO nil)
 
 (defvar SKK_MODULES
   ;; こんなもんコマンドラインで指定する人いないよね？
-  (or (getenv "SKK_MODULES")
-      (let ((list '(context-skk
-		    queue-m
-		    skk-abbrev
-		    skk-act
-		    skk-annotation
-		    skk-auto
-		    skk-autoloads
-		    skk-azik
-		    skk-comp
-;		    skk-cursor
-		    skk-cus
-		    skk-dcomp
-		    skk-develop
-		    skk-dic
-		    skk-gadget
-		    skk-hint
-		    skk-isearch
-		    skk-jisx0201
-;                   skk-jisx0213
-		    skk-jisyo-edit-mode
-		    skk-kakasi
-		    skk-kcode
-		    skk-leim
-		    skk-look
-;                   skk-lookup
-		    skk-macs
-		    skk-num
-		    skk-obsolete
-		    skk-server-completion
-		    skk-server
-		    skk-tankan
-		    skk-tut
-		    skk-vars
-		    skk-version
-		    skk
+  (let ((list '(context-skk
+		queue-m
+		skk-abbrev
+		skk-act
+		skk-annotation
+		skk-auto
+		skk-autoloads
+		skk-azik
+		skk-comp
+		;; skk-cursor
+		skk-cus
+		skk-dcomp
+		skk-develop
+		skk-dic
+		skk-gadget
+		skk-hint
+		skk-isearch
+		skk-jisx0201
+		;; skk-jisx0213
+		skk-jisyo-edit-mode
+		skk-kakasi
+		skk-kcode
+		skk-leim
+		skk-look
+		;; skk-lookup
+		skk-macs
+		skk-num
+		skk-obsolete
+		skk-server-completion
+		skk-server
+		skk-tankan
+		skk-tut
+		skk-vars
+		skk-version
+		skk
+		;; EXPERIMENTAL
+		skk-bayesian
+		skk-correct
+		skk-exsearch
+		skk-exserv
+		skk-rdbms
+		skk-study
+		skk-tutcdef
+		skk-tutcode
+		skk-w3m
+		skk-azik
+		;; VIP 3.7
+		;; vip
+		)))
+    (cond
+     ((featurep 'xemacs)
+      ;; XEmacs
+      (when (or (featurep 'gdbm)
+		(featurep 'dbm)
+		(featurep 'berkdb)
+		(featurep 'berkeley-db))
+	(add-to-list 'list 'skk-dbm))
+      (add-to-list 'list 'skk-xemacs))
+     (t
+      ;; FSFmacs
+      (unless (fboundp 'define-minor-mode)
+	(setq list (delq 'context-skk list)))
+      (when (featurep 'faces)
+	(add-to-list 'list 'ccc))
+      (when (string< "5.0" mule-version)
+	(add-to-list 'list 'skk-e21))))
+    ;; skk-jisx0213.el
+    (when (or (find-coding-system 'euc-jisx0213)
+	      (condition-case nil
+		  (and (require 'jisx0213)
+		       (require 'un-define))
+		(error)))
+      (add-to-list 'list 'skk-jisx0213))
+    ;; skk-lookup.el
+    (when (condition-case nil
+	      ;; you might have to add lookup installed directory
+	      ;; to `load-path'.
+	      (let ((lookup-byte-compile t))
+		(require 'lookup))
+	    (error))
+      (add-to-list 'list 'skk-lookup))
+    ;; skk-w3m.el
+    ;;(when (condition-case nil
+    ;;          (require 'w3m-search)
+    ;;        (error))
+    ;;  (add-to-list 'list 'skk-w3m))
+    ;; skk-viper.el
+    (when (condition-case nil
+	      (require 'viper)
+	    (error))
+      (add-to-list 'list 'skk-viper))
+    ;; skk-cursor.el
+    (when (or (featurep 'xemacs)
+	      (featurep 'faces))
+      (add-to-list 'list 'skk-cursor))
+    ;;
+    list))
 
-		    ;; EXPERIMENTAL
-		    skk-bayesian
-		    skk-correct
-		    skk-exsearch
-		    skk-exserv
-		    skk-rdbms
-		    skk-study
-		    skk-tutcdef
-		    skk-tutcode
-		    skk-w3m
-		    skk-azik
-		    ;; VIP 3.7
-		    ;; vip
-		    )))
-	;; バイトコンパイル時に X window が initialize されていないというエラー
-	;; になる (;_;)。
-	;; yatex みたいに Window を開いてバイトコンパイルするようにも
-	;; できるけど、no-window の make コマンドを別に作らなきゃなら
-	;; ないし、面倒だな...。
-	;;(if (if (featurep 'xemacs)
-	;;        (eq (device-class (selected-device)) 'color)
-	;;      (x-display-color-p))
-	;;    (setq list (nconc list (list 'skk-cursor))))
-	(cond
-	 ((featurep 'xemacs)
-	  ;; XEmacs
-	  (when	(or (featurep 'gdbm)
-		    (featurep 'dbm)
-		    (featurep 'berkdb)
-		    (featurep 'berkeley-db))
-	    (add-to-list 'list 'skk-dbm))
-	  (add-to-list 'list 'skk-xemacs))
-	 (t
-	  ;; FSFmacs
-	  (unless (fboundp 'define-minor-mode)
-	    (setq list (delq 'context-skk list)))
-	  (when (featurep 'faces)
-	    (add-to-list 'list 'ccc))
-	  (when (string< "5.0" mule-version)
-	    (add-to-list 'list 'skk-e21))))
-	;; skk-jisx0213.el
-	(when (or (find-coding-system 'euc-jisx0213)
-		  (condition-case nil
-		      (and (require 'jisx0213)
-			   (require 'un-define))
-		    (error)))
-	  (add-to-list 'list 'skk-jisx0213))
-	;; skk-lookup.el
-	(when (condition-case nil
-		  ;; you might have to add lookup installed directory
-		  ;; to `load-path'.
-		  (let ((lookup-byte-compile t))
-		    (require 'lookup))
-		(error))
-	  (add-to-list 'list 'skk-lookup))
-	;; skk-w3m.el
-	;;(when (condition-case nil
-	;;          (require 'w3m-search)
-	;;        (error))
-	;;  (add-to-list 'list 'skk-w3m))
-	;; skk-viper.el
-	(when (condition-case nil
-		  (require 'viper)
-		(error))
-	  (add-to-list 'list 'skk-viper))
-	;; skk-cursor.el
-	(when (or (featurep 'xemacs)
-		  (featurep 'faces))
-	  (add-to-list 'list 'skk-cursor))
-	;;
-	list)))
-
-;; 消さなくともインストール上は問題がないが、what-where インストールされない
-;; プログラムが表示されるのを防ぐため、トップディレクトリにないプログラムは
+;; 消さなくともインストール上は問題がないが、what-where にてインストールされな
+;; いプログラムが表示されるのを防ぐため、トップディレクトリにないプログラムは
 ;; 消しておく。
 (let ((modules SKK_MODULES))
   (while modules
@@ -287,45 +274,68 @@ This version of SKK requires MULE features"))
       (setq SKK_MODULES (delq (car modules) SKK_MODULES)))
     (setq modules (cdr modules))))
 
+(defun SKK-MK-server-installed-p ()
+  (if (and (not (featurep 'xemacs))
+	   (eq system-type 'gnu/linux)
+	   (string-lessp emacs-version "22"))
+      ;; Do not call `open-network-stream' for Emacs 21.4 or earlier,
+      ;; under GNU/Linux, due to a serious problem where Emacs with a
+      ;; new shell process causes SIGPOLL in batch mode.  To return
+      ;; `nil' here is just a workaround, without really checking the
+      ;; server state.
+      nil
+    ;; Check whether we can talk to the server.
+    (require 'skk-server (expand-file-name "skk-server.el"))
+    (let ((skk-server-inhibit-startup-server t))
+      (condition-case nil
+	  (prog1
+	      (skk-server-live-p (skk-open-server))
+	    (skk-disconnect-server))
+	(error)))))
+
+(defvar SKK_SET_JISYO (not (SKK-MK-server-installed-p)))
+
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
-(defvar SKK_DATADIR
-  (or (getenv "SKK_DATADIR")
-      (expand-file-name SKK_PREFIX
-			(expand-file-name "share" PREFIX))))
+(defvar SKK_DATADIR (expand-file-name
+		     SKK_PREFIX
+		     (expand-file-name "share" PREFIX)))
 
 (defvar SKK_INFODIR
-  (or (getenv "SKK_INFODIR")
-      ;;
-      (cond
-       ((file-directory-p
-	 (expand-file-name "info" (expand-file-name "share" PREFIX)))
-	(expand-file-name "info" (expand-file-name "share" PREFIX)))
-       ;;
-       ((file-directory-p (expand-file-name "info" PREFIX))
-	(expand-file-name "info" PREFIX))
-       (t
-	(let ((list Info-default-directory-list)
-	      dir)
-	  (while (and (not dir)
-		      list)
-	    (when (file-directory-p (car list))
-	      (setq dir (car list)))
-	    (setq list (cdr list)))
-	  dir)))
-      ;;
-      (expand-file-name "info" PREFIX)))
+  (cond
+   ((file-directory-p
+     (expand-file-name "info" (expand-file-name "share" PREFIX)))
+    (expand-file-name "info" (expand-file-name "share" PREFIX)))
+   ;;
+   ((file-directory-p (expand-file-name "info" PREFIX))
+    (expand-file-name "info" PREFIX))
+   (t
+    (let ((list Info-default-directory-list)
+	  dir)
+      (while (and (not dir)
+		  list)
+	(when (file-directory-p (car list))
+	  (setq dir (car list)))
+	(setq list (cdr list)))
+      dir)))
+  ;;
+  (expand-file-name "info" PREFIX))
 
 (defvar SKK_LISPDIR
-  (or (getenv "SKK_LISPDIR")
-      (cond
-       (VERSION_SPECIFIC_LISPDIR
-	(expand-file-name SKK_PREFIX VERSION_SPECIFIC_LISPDIR))
-       (PREFIX
-	(expand-file-name SKK_PREFIX
-			  (install-detect-elisp-directory
-			   PREFIX)))
-       (t
-	nil))))
+  (cond
+   (VERSION_SPECIFIC_LISPDIR
+    (expand-file-name SKK_PREFIX VERSION_SPECIFIC_LISPDIR))
+   (PREFIX
+    (expand-file-name SKK_PREFIX
+		      (install-detect-elisp-directory
+		       PREFIX)))
+   (t
+    nil)))
+
+(defconst SKK_DAREDEVIL_NOT_USE '(skk-vip
+				  skk-foreword
+				  stack-m
+				  skk-cursor2
+				  skk-cursor3))
 
 ;; PACKAGE INSTALL RELATED VARIABLE.
 (defvar PACKAGEDIR (install-get-default-package-directory))
@@ -342,12 +352,6 @@ This version of SKK requires MULE features"))
 
 (when SKK-MK-debugging
   (princ (format "SKK_MODULES=%s\n" SKK_MODULES)))
-
-(defconst SKK_DAREDEVIL_NOT_USE '(skk-vip
-				  skk-foreword
-				  stack-m
-				  skk-cursor2
-				  skk-cursor3))
 
 ;; This code is for skk-jisx0201.el.
 (when (fboundp 'make-translation-table) ;; FSF Emacs 20.3 or later
@@ -386,44 +390,6 @@ This version of SKK requires MULE features"))
 	    (delete-char 1)))
 	(setq spec (nthcdr 2 spec)))
       (write-region (point-min) (point-max) "skk-setup.el"))))
-
-(defun SKK-MK-server-installed-p ()
-  (if (and (not (featurep 'xemacs))
-	   (eq system-type 'gnu/linux)
-	   (string-lessp emacs-version "22"))
-      ;; Do not call `open-network-stream' for Emacs 21.4 or earlier,
-      ;; under GNU/Linux, due to a serious problem where Emacs with a
-      ;; new shell process causes SIGPOLL in batch mode.  To return
-      ;; `nil' here is just a workaround, without really checking the
-      ;; server state.
-      nil
-    ;; Check whether we can talk to the server.
-    (require 'skk-server (expand-file-name "skk-server.el"))
-    (let ((skk-server-inhibit-startup-server t))
-      (condition-case nil
-	  (prog1
-	      (skk-server-live-p (skk-open-server))
-	    (skk-disconnect-server))
-	(error)))))
-
-(defvar SKK_SET_JISYO
-  (let* ((set_jisyo (or (getenv "set_jisyo")
-			(getenv "SET_JISYO")))
-	 (flag
-	  (cond ((not (stringp set_jisyo))
-		 'fuzzy)
-		((member (downcase set_jisyo)
-			 '("yes" "1" "t" "y"))
-		 t)
-		((member (downcase set_jisyo)
-			 '("no" "0" "-1" "nil" "n"))
-		 nil)
-		(t
-		 'fuzzy))))
-    ;;
-    (if (eq flag 'fuzzy)
-	(not (SKK-MK-server-installed-p))
-      flag)))
 
 (defun SKK-MK-compile ()
   (let (enable-local-eval)

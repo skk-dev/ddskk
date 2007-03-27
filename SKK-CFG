@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.22 2002/01/18 14:02:19 czkmt Exp $
-;; Last Modified: $Date: 2002/01/18 14:02:19 $
+;; Version: $Id: SKK-CFG,v 1.23 2007/03/27 13:29:42 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/27 13:29:42 $
 
 ;;; Commentary:
 
@@ -16,12 +16,6 @@
 ;; SKK のインストーラは、標準的な環境では make install (XEmacs の場合は make
 ;; install-package) とするだけでインストールできるようにつくられていますが、も
 ;; しあなたの環境でうまくいかないときは、以下の設定を変更してみて下さい。
-
-;; なお、これらはコマンドラインから指定することもできます。
-;;
-;; (例)% make install SKK_LISPDIR=~/site-lisp/skk
-;;
-;; ただしコマンドラインよりこのファイルの設定が優先されます。
 
 ;; また、インストーラが SKK のファイル達をどこにインストールしようとしているか
 ;; 知りたい場合は、
@@ -34,31 +28,34 @@
 ;;
 ;; としてください。
 
+;; なお、Emacs の実行形式ファイル名だけはこのファイルでは設定できず，コマンドラ
+;; インから指定する必要があります。
+
+;; (例)% make install EMACS=c:/Meadow/bin/meadow.exe
+;;
+;; (例)% make install-pacakge XEMACS=/usr/bin/xemacs
+
 ;;; Explanation:
 
 ;; SKK-MK-debugging:
 ;;
 
-;; APEL_SPECIFIC_LISPDIR:
+;; APEL_DIR:
 ;;   APEL がインストールされているディレクトリ。
-;;   APEL が APEL の提供する標準のインストール方法によりインストールされている
-;;   場合は、指定の必要がない。
-;;   このディレクトリが指定されると SKK_MODULES のコンパイルの際に load-path
-;;   が通される。
+;;   APEL を標準的でないパスにインストールした場合指定する必要がある。
+
+;; EMU_DIR:
+;;   APEL の emu モジュールがインストールされているディレクトリ。
+;;   APEL を標準的でないパスにインストールした場合指定する必要がある。
 
 ;; PREFIX:
-;;   全てのファイルがインストールされるディレクトリの root directory。
+;;   全てのファイルがインストールされるディレクトリの root ディレクトリ。
+;;   この変数に値を設定しなかった場合は、Emacs がインストールされているパス
+;;   から自動的に設定される。
 
 ;; LISPDIR:
-;;   SKK_MODULES がインストールされるディレクトリの root directory。
-
-;; VERSION_SPECIFIC_LISPDIR:
-;;   Emacs の version specific な Lisp program がインストールされているディレク
-;;   トリ。このディレクトリが指定されると SKK_MODULES のコンパイルの際に
-;;   load-path が通される。APEL が APEL の提供する標準のインストール方法により
-;;   インストールされている場合は、指定の必要がない。
-
 ;; ADDITIONAL_LISPDIR:
+;;   追加で load-path を設定したいディレクトリを指定する。
 ;;   例えば skk-lookup.el をインストールする際は、インストール時に lookup.el を
 ;;   require するので、lookup がインストールされているディレクトリがディフォル
 ;;   トで (emacs が -q オプション付きで起動されたとき) load-path に加えられてい
@@ -68,48 +65,62 @@
 ;;   (setq ADDITIONAL_LISPDIR "/usr/local/lib/xemacs/site-lisp/lookup")
 ;;
 
-;; EMU_PREFIX:
-;;   APEL の emu モジュールがインストールされているサブディレクトリの名前。APEL
-;;   をインストールするときに決定される値と同じ値を返す必要があるので、不用意に
-;;   いじらないこと。
+;; VERSION_SPECIFIC_LISPDIR:
+;;   Emacs の version specific な Lisp program がインストールされているディレク
+;;   トリ。このディレクトリが指定されると SKK_MODULES のコンパイルの際に
+;;   load-path が通され、また SKK は標準ではこのディレクトリ以下にインストール
+;;   される。
 
 ;; SKK_DATADIR:
-;;   チュートリアルのインストール先。
+;;   チュートリアルなどのインストール先。
+;;   この変数に値を設定しなかった場合は、PREFIX の値から環境に応じて自動的に
+;;   設定される。
+;;   XEmacs で make install-package するときは使用されない。
 
 ;; SKK_INFODIR:
-;;   インフォのインストール先。
+;;   skk.info (ヘルプ) のインストール先。
+;;   この変数に値を設定しなかった場合は、PREFIX の値から環境に応じて自動的に
+;;   設定される。
+;;   XEmacs で make install-package するときは使用されない。
 
 ;; SKK_LISPDIR:
 ;;   SKK の Emacs Lisp のインストール先。
+;;   この変数に値を設定しなかった場合は、VERSION_SPECIFIC_LISPDIR 以下の
+;;   "skk" というサブディレクトリが選択される。
+;;   XEmacs で make install-package するときは使用されない。
 
 ;; PACKAGEDIR:
-;;   XEmacs で make install-package するときだけ関係する。
+;;   XEmacs で make install-package するときのインストール先。
 
+;; SKK_SET_JISYO:
+;;   skk-large-jisyo の値を自動設定するかどうか決める。
+;;   t など non-nil なら自動設定する。nil ならしない。
+;;   この変数に値を設定しなかった場合は、SKK サーバが利用できない場合に
+;;   限って skk-large-jisyo の値が自動設定される。
 
 ;;; Example:
 ;; (setq SKK-MK-debugging nil)
 
 ;;; GNU Emacs 20 用の設定例:
-;; (setq APEL_SPECIFIC_LISPDIR "/usr/local/share/emacs/site-lisp/apel")
+;; (setq APEL_DIR "/usr/local/share/emacs/site-lisp/apel")
+;; (setq EMU_DIR "/usr/local/share/emacs/20.7/site-lisp/emu")
 ;; (setq LISPDIR "/usr/local/share/emacs/site-lisp")
 ;; (setq VERSION_SPECIFIC_LISPDIR "/usr/local/share/emacs/20.7/site-lisp")
-;; (setq EMU_PREFIX "emu")
 ;; (setq SKK_DATADIR "/usr/local/share/skk")
 ;; (setq SKK_INFODIR "/usr/local/info")
 ;; (setq SKK_LISPDIR "/usr/local/share/emacs/site-lisp/skk")
 
-
 ;;; Meadow 1.14 用の設定例:
-;; (setq APEL_SPECIFIC_LISPDIR "c:/Meadow/site-lisp/apel")
+;; (setq APEL_DIR "c:/Meadow/site-lisp/apel")
+;; (setq EMU_DIR "c:/Meadow/1.14/site-lisp/emu")
 ;; (setq LISPDIR "c:/Meadow/site-lisp")
 ;; (setq VERSION_SPECIFIC_LISPDIR "c:/Meadow/1.14/site-lisp")
-;; (setq EMU_PREFIX "emu")
 ;; (setq SKK_DATADIR "c:/Meadow/1.14/etc")
 ;; (setq SKK_INFODIR "c:/Meadow/1.14/info")
 ;; (setq SKK_LISPDIR "c:/Meadow/site-lisp/skk")
-
+;; (setq SKK_SET_JISYO t)
 
 ;;; XEmacs 21 用の設定例:
-;; (setq PACKAGEDIR "/usr/local/lib/xemacs/site-packages")
+;; (setq PACKAGEDIR "/usr/share/xemacs/site-packages")
 
 ;;; SKK-CFG ends here
