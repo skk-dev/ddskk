@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.139 2007/03/27 13:29:42 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/27 13:29:42 $
+;; Version: $Id: SKK-MK,v 1.140 2007/03/27 13:32:10 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/27 13:32:10 $
 
 ;;; Commentary:
 
@@ -73,6 +73,8 @@ This version of SKK requires MULE features"))
   (cond ((featurep 'xemacs)		; running-xemacs
 	 (expand-file-name "../../.." exec-directory))
 	((memq system-type '(windows-nt))
+	 ;; Meadow と NTEmacs に対して APEL が標準で設定する
+	 ;; install-prefix が不自然なので、ここで修正する。
 	 (expand-file-name ".." exec-directory))
 	(t
 	 (expand-file-name "../../../.." data-directory))))
