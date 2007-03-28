@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.146 2007/03/28 14:32:54 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/28 14:32:54 $
+;; Version: $Id: SKK-MK,v 1.147 2007/03/28 14:42:58 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/28 14:42:58 $
 
 ;;; Commentary:
 
@@ -78,7 +78,7 @@ This version of SKK requires MULE features"))
 	 ;; Carbon Emacs はまた独自のファイルツリーになっている
 	 (let ((dir (file-name-directory
 		     (expand-file-name ".." data-directory)))
-	   (if (string-match "/Resources/$" dir)
+	   (if (string-match "/Emacs\\.app/Contents/Resources/?$" dir)
 	       dir
 	     (expand-file-name "../../.." dir)))))
 	((featurep 'xemacs)		; running-xemacs
