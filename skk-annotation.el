@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.67 2007/03/28 10:07:17 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.68 2007/03/28 15:19:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/28 10:07:17 $
+;; Last Modified: $Date: 2007/03/28 15:19:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -161,9 +161,11 @@
 
 ;;; Code:
 
-(eval-when-compile
+(eval-and-compile
   (require 'skk-macs)
-  (require 'skk-vars)
+  (require 'skk-vars))
+
+(eval-when-compile
   (require 'static))
 
 (unless skk-annotation-mode-map
