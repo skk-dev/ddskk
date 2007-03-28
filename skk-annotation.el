@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.65 2007/03/25 20:41:49 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.66 2007/03/28 10:06:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/25 20:41:49 $
+;; Last Modified: $Date: 2007/03/28 10:06:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -126,6 +126,38 @@
 ;;
 ;; Viper $BBP:v$O$^$@9T$J$C$F$$$^$;$s!#(B~/.viper $B$K<!$N$h$&$K=q$$$F2<$5$$!#(B
 ;; (viper-harness-minor-mode "skk-annotation")
+;;
+;; <Wikipedia $B%"%N%F!<%7%g%s(B>
+;;
+;; $B"'%b!<%I$K$F(B C-i $B$r%?%$%W$9$k$H!"I=<(Cf$N8uJd$r(B Wikipedia/Wiktionary
+;; $B$N9`L\$+$iC5$7!$8+$D$+$C$?>l9g$O!"FbMF$NH4?h$r%"%N%F!<%7%g%s$H$7$FI=<((B
+;; $B$7$^$9!#$3$N5!G=$O(B Emacs 22 $B$G%F%9%H$5$l$F$$$^$9!#(BEmacs 20 $B$H(B XEmacs $B$G(B
+;; $B$OF0:n$7$^$;$s!#(BEmacs 21 $B$G$O0J2<$N%Q%C%1!<%8$J$I$rDI2C$9$k$3$H$GF0:n$9(B
+;; $B$k2DG=@-$,$"$j$^$9$,!"==J,%F%9%H$5$l$F$$$^$;$s!#(B
+;;
+;; 1. html2text.el
+;;
+;;    $B$3$l$OHf3SE*:G6a$N(B gnus $B$K4^$^$l$F$$$^$9!#Nc$($P(B
+;;
+;;    http://www.ring.gr.jp/archives/elisp/gnus/gnus-5.10.8.tar.gz
+;;
+;;    $B$r<hF@$7$F%$%s%9%H!<%k$7$^$9!#(B
+;;
+;; 2. URL $B%Q%C%1!<%8(B
+;;
+;;    $B$3$l$O(B Emacs/W3 $B$K4^$^$l$F$$$?$b$N$N3HD%$G$9!#Nc$($P(B
+;;
+;;    http://ftp.debian.org/debian/pool/main/w/w3-url-e21/
+;;
+;;    $B$J$I$+$i:G?7(B *.orig.tar.gz $B$r<hF@$7$F%$%s%9%H!<%k$7$^$9!#(B
+;;
+;; 3. Mule-UCS
+;;
+;;    UTF-8 $B$N<h$j07$$$KI,MW$H$J$j$^$9!#(B
+;;
+;;    http://tats.haun.org/mule-ucs/
+;;
+;;   $B$J$I$N>pJs$r;29M$K%$%s%9%H!<%k$7$^$9!#(B
 
 ;;; Code:
 
@@ -172,6 +204,16 @@
     (if (eq (aref annotation 0) ?*)
 	(substring annotation 1)
       annotation)))
+
+;;;###autoload
+(defun skk-annotation-find-and-show (pair)
+  (when (and (car-safe pair)
+	     (not (cdr-safe pair)))
+    ;; Wikipedia $B$N(B URL $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
+    (setcdr pair (or (skk-annotation-wikipedia-cache (car pair))
+		     (when skk-annotation-show-wikipedia-url
+		       (skk-annotation-treat-wikipedia (car pair))))))
+  (skk-annotation-show (or (cdr pair) "") (car pair)))
 
 ;;;###autoload
 (defun skk-annotation-show (annotation &optional word)
@@ -635,6 +677,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$r<B:]$K%@%&%s%m!<%I$7$FD4$Y$k!#(B
 $B3:Ev%Z!<%8(B (html) $B$r%@%&%s%m!<%I$9$k5!G=$O(B Emacs $B$KIUB0$N(B URL $B%Q%C%1!<%8$K0M(B
 $B$k!#E,@Z$J(B URL $B$r@8@.$9$k$?$a$K$O!"(B"
+  (require 'html2text)
+  (require 'url)
   (let ((cache-buffer (format " *skk wikipedia %s *" word))
 	;; html2text $B$,@5$7$/07$($J$$(B tag $B$O0J2<$N%j%9%H$K;XDj$9$k(B
 	(html2text-remove-tag-list
@@ -646,10 +690,10 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(with-current-buffer cache-buffer
 	  (setq note (buffer-string)))
       ;; $B%-%c%C%7%e$,$J$$>l9g(B
-      (setq buffer (url-retrieve (format "http://ja.%s.org/wiki/%s"
-					 source
-					 (url-hexify-string
-					  (upcase-initials word)))
+      (setq buffer (url-retrieve (skk-annotation-generate-url
+				  "http://ja.%s.org/wiki/%s"
+				  source
+				  (upcase-initials word))
 				 #'skk-annotation-wikipedia-retrieved
 				 ()))
       (when (catch 'retrieved
@@ -805,8 +849,9 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		;; $B$3$N$H$-$O(B URL $B$rCm<a$H$9$k!#(B
 		(concat "$B%@%_!<(B;"
 			(skk-quote-char
-			 (format "http://ja.wikipedia.org/wiki/%s"
-				 (url-hexify-string word))))
+			 (skk-annotation-generate-url
+			  "http://ja.wikipedia.org/wiki/%s"
+			  word)))
 	      nil))
 	   (value (if string
 		      ;; $B$^$@!VCm<a$NAu>~!W$r<u$1$F$$$J$$$N$G!"$3$3$G(B
@@ -866,6 +911,43 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		     (skk-annotation-wikipedia word)))
       (when note
 	(skk-annotation-show note)))))
+
+(defun skk-annotation-generate-url (format-string &rest args)
+  (require 'url-util)
+  (if (skk-annotation-url-package-available-p)
+      (apply #'format format-string
+	     (mapcar #'(lambda (element)
+			 (if (stringp element)
+			     (url-hexify-string element)
+			   element))
+		     args))
+    (error "%s" "URL $B%Q%C%1!<%8$,MxMQ$G$-$^$;$s(B")))
+
+(defun skk-annotation-url-package-available-p ()
+  (when (eq skk-annotation-url-package-available-p 'untested)
+    ;; Emacs 22 $B0J9_0J30$G(B URL $B%Q%C%1!<%8$r%F%9%H$9$k(B
+    (if (ignore-errors
+	  (url-hexify-string "$B%F%9%H(B"))
+	(setq skk-annotation-url-package-available-p t)
+      ;; $B5l$$(B URL $B%Q%C%1!<%8$X$NBP:v(B
+      (defadvice url-hexify-string (around multibyte-char activate)
+	(setq ad-return-value
+	      (mapconcat (lambda (byte)
+			   (if (memq byte url-unreserved-chars)
+			       (char-to-string byte)
+			     (format "%%%02x" byte)))
+			 (if (multibyte-string-p (ad-get-arg 0))
+			     (encode-coding-string (ad-get-arg 0) 'utf-8)
+			   (ad-get-arg 0))
+			 "")))
+      ;; $B:F%F%9%H(B
+      (setq skk-annotation-url-package-available-p
+	    (if (ignore-errors
+		  (url-hexify-string "$B%F%9%H(B"))
+		t
+	      nil))))
+  ;;
+  skk-annotation-url-package-available-p)
 
 (require 'product)
 (product-provide

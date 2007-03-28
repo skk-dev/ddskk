@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.190 2007/03/19 11:29:23 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.191 2007/03/28 10:06:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/19 11:29:23 $
+;; Last Modified: $Date: 2007/03/28 10:06:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3672,6 +3672,12 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 
 (defvar skk-annotation-target-data nil
   "annotation を付けられる候補に関するデータ。")
+
+(defvar skk-annotation-url-package-available-p
+  (if (and (not (featurep 'xemacs))
+	   (>= emacs-major-version 22))
+      t
+    'untested))
 
 ;; buffer local variables.
 (skk-deflocalvar skk-annotation-mode nil

@@ -1,3 +1,20 @@
+2007-03-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-generate-url):
+	(skk-annotation-url-package-available-p):
+	(skk-annotation-find-and-show):
+
+	New functions.
+
+	* skk-vars.el (skk-annotation-url-package-available-p): New
+	variable.
+
+	* skk.el (skk-henkan):
+	(skk-henkan-in-minibuff):
+	(skk-previous-candidate):
+
+	Call `skk-annotation-find-and-show'.
+
 2007-03-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* etc/NICOLA-SKK.tut:

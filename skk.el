@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.385 2007/03/17 20:28:45 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.386 2007/03/28 10:06:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/17 20:28:45 $
+;; Last Modified: $Date: 2007/03/28 10:06:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1641,13 +1641,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
       ;;
       (when (and skk-show-annotation
 		 (not kakutei-henkan))
-	(when (and (car-safe pair)
-		   (not (cdr-safe pair)))
-	  ;; Wikipedia $B$N(B URL $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
-	  (setcdr pair (or (skk-annotation-wikipedia-cache (car pair))
-			   (when skk-annotation-show-wikipedia-url
-			     (skk-annotation-treat-wikipedia (car pair))))))
-	(skk-annotation-show (or (cdr pair) "") (car pair)))
+	(skk-annotation-find-and-show pair))
       ;;
       (when kakutei-henkan
 	(skk-kakutei new-word)))))
@@ -2208,14 +2202,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	    (setq pair (skk-insert-new-word (skk-get-current-candidate)))
 	    ;;
 	    (when skk-show-annotation
-	      (when (and (car-safe pair)
-			 (not (cdr-safe pair)))
-		;; Wikipedia $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
-		(setcdr pair (or (skk-annotation-wikipedia-cache (car pair))
-				 (when skk-annotation-show-wikipedia-url
-				   (skk-annotation-treat-wikipedia
-				    (car pair))))))
-	      (skk-annotation-show (or (cdr pair) "") (car pair))))))
+	      (skk-annotation-find-and-show pair)))))
        (t
 	(when (string-match "[ $B!!(B]+$" new-one)
 	  (setq new-one (substring new-one 0 (match-beginning 0))))
@@ -2392,13 +2379,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	 (goto-char (point-max)))
        ;;
        (when skk-show-annotation
-	 (when (and (car-safe pair)
-		    (not (cdr-safe pair)))
-	   ;; Wikipedia $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
-	   (setcdr pair (or (skk-annotation-wikipedia-cache (car pair))
-			    (when skk-annotation-show-wikipedia-url
-			      (skk-annotation-treat-wikipedia (car pair))))))
-	 (skk-annotation-show (or (cdr pair) "") (car pair)))
+	 (skk-annotation-find-and-show pair))
        ;;
        (when (and skk-abbrev-mode
 		  (= (skk-henkan-count) -1))
