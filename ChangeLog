@@ -1,5 +1,9 @@
 2007-03-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-version.el (skk-version): Bump to 13.0.91.
+
+2007-03-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-annotation.el (skk-annotation-generate-url):
 	(skk-annotation-url-package-available-p):
 	(skk-annotation-find-and-show):
