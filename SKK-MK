@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.148 2007/03/28 14:44:02 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/28 14:44:02 $
+;; Version: $Id: SKK-MK,v 1.149 2007/03/28 14:46:34 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/28 14:46:34 $
 
 ;;; Commentary:
 
@@ -76,8 +76,7 @@ This version of SKK requires MULE features"))
 	 (expand-file-name ".." exec-directory))
 	((boundp 'mac-carbon-version-string)
 	 ;; Carbon Emacs はまた独自のファイルツリーになっている
-	 (let ((dir (file-name-directory
-		     (expand-file-name ".." data-directory))))
+	 (let ((dir (expand-file-name ".." data-directory)))
 	   (if (string-match "/Emacs\\.app/Contents/Resources/?$" dir)
 	       dir
 	     (expand-file-name "../../.." dir))))
