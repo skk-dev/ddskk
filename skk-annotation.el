@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.68 2007/03/28 15:19:08 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.69 2007/03/29 07:58:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/28 15:19:08 $
+;; Last Modified: $Date: 2007/03/29 07:58:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -225,29 +225,36 @@
       (skk-annotation-show-1 (skk-annotation-get annotation) word))))
 
 (defun skk-annotation-show-1 (annotation &optional word)
-  (let ((notes (mapcar #'skk-eval-string (split-string annotation ";"))))
+  (let ((notes (mapcar #'skk-eval-string (split-string annotation ";")))
+	(inhibit-wait skk-isearch-switch))
     (setq annotation (skk-eval-string annotation))
     (unless (string= annotation "")
-      (skk-annotation-show-2 annotation))
+      (setq inhibit-wait (skk-annotation-show-2 annotation)))
     ;; 注釈の表示はここまでだが、ここでユーザが注釈の内容をコピーしたり
     ;; して利用できるようにする。
-    (skk-annotation-wait-for-input annotation notes word)))
+    (unless inhibit-wait
+      (skk-annotation-wait-for-input annotation notes word))))
 
 (defun skk-annotation-show-2 (annotation)
-  (cond
-   ((and (eval-when-compile (eq skk-emacs-type 'mule5))
-	 window-system
-	 skk-show-tooltip)
-    (skk-tooltip-show-at-point annotation))
-   ((and skk-annotation-show-as-message
-	 (not (skk-in-minibuffer-p)))
-    (skk-annotation-show-as-message annotation))
-   ((and (not (skk-annotation-display-p 'minibuf))
-	 (skk-in-minibuffer-p))
-    ;; do nothing
-    nil)
-   (t
-    (skk-annotation-show-buffer annotation))))
+  (let (inhibit-wait)
+    (cond (skk-isearch-switch
+	   ;; do nothing
+	   (setq inhibit-wait t))
+	  ((and (not (skk-annotation-display-p 'minibuf))
+		(skk-in-minibuffer-p))
+	   ;; do nothing
+	   (setq inhibit-wait t))
+	  ((and (eval-when-compile (eq skk-emacs-type 'mule5))
+		window-system
+		skk-show-tooltip)
+	   (skk-tooltip-show-at-point annotation))
+	  ((and skk-annotation-show-as-message
+		(not (or skk-isearch-switch
+			 (skk-in-minibuffer-p))))
+	   (skk-annotation-show-as-message annotation))
+	  (t
+	   (skk-annotation-show-buffer annotation)))
+    inhibit-wait))
 
 (defun skk-annotation-wait-for-input (annotation notes &optional word)
   (let* ((copy-command (key-binding skk-annotation-copy-key))

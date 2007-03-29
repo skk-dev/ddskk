@@ -1,13 +1,13 @@
-;;; skk-jisx0201.el --- SKK 用 JIS X 0201 カナ (と ローマ) 文字入力プログラム
+;;; skk-jisx0201.el --- JIS X 0201 ｶﾅ, Roman -*- coding: iso-2022-7bit -*-
 
 ;; Copyright (C) 1999, 2000, 2001 Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.51 2006/01/04 10:10:45 skk-cvs Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.52 2007/03/29 07:58:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2006/01/04 10:10:45 $
+;; Last Modified: $Date: 2007/03/29 07:58:20 $
 
 ;; This file is part of Daredevil SKK.
 

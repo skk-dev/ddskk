@@ -302,6 +302,8 @@ Analogous to mouse-position."
 	 event)
     ;; Elscreen 使用時は Y 座標がずれる。とりあえず workaround。
     (when (and (featurep 'elscreen)
+	       (not (or skk-isearch-switch
+			(skk-in-minibuffer-p)))
 	       (symbol-value 'elscreen-display-tab))
       (setq y (1+ y)))
     ;;

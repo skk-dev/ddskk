@@ -1,6 +1,23 @@
+2007-03-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-1):
+	(skk-annotation-show-2):
+
+	Inhibit `skk-annotation-wait-for-input' when
+	`skk-annotation-display-p' fails for minibuf or skk-isearch-switch
+	is on.
+
+	* skk-e21.el (skk-tooltip-show-at-point): Disable the Elscreen
+	workaround in minibuffer.
+
+	* skk-vars.el (skk-jisx0201-mode-string): Modify the default
+	value.
+
 2007-03-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version.el (skk-version): Bump to 13.0.91.
+
+	* SKK-MK: Fix installation paths for Carbon Emacs.
 
 	* skk-annotation.el: Load skk-macs.el and skk-vars.el within
 	'eval-and-compile'.

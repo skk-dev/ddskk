@@ -1,12 +1,12 @@
-;;; skk-vars.el --- common vars and consts in SKK -*- coding: iso-2022-jp-2 -*-
+;;; skk-vars.el --- common vars and consts in SKK -*- coding: iso-2022-7bit -*-
 
 ;; Copyright (C) 1999-2005 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.191 2007/03/28 10:06:11 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.192 2007/03/29 07:58:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/28 10:06:11 $
+;; Last Modified: $Date: 2007/03/29 07:58:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1915,7 +1915,7 @@ cdr $B$O859fI=5-$N(B string $B$+$i$J$k%j%9%H!#(B"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M.ANdrz")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Ad(Brz")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
@@ -2096,7 +2096,7 @@ skk-henkan-key, skk-henkan-okurigana, skk-okuri-char $B$N%j%9%H!#(B")
 (skk-deflocalvar skk-hint-inhibit-dcomp nil)
 
 ;;; SKK-JISX0201.EL related.
-(defcustom skk-jisx0201-mode-string " jisx0201"
+(defcustom skk-jisx0201-mode-string "(I6@6E(B"
   "*SKK $B$,(B JISX0201 $B%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-hooks-and-functions
