@@ -1,3 +1,8 @@
+2007-03-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* NICOLA-DDSKK-CFG: Modify default values for install-prefix,
+	LISPDIR and VERSION_SPECIFIC_LISPDIR.
+
 2007-03-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* NICOLA-DDSKK-CFG: Call `install-get-default-package-directory'
