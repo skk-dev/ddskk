@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.26 2007/03/30 11:04:43 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/30 11:04:43 $
+;; Version: $Id: SKK-CFG,v 1.27 2007/03/30 11:10:31 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/30 11:10:31 $
 
 ;;; Commentary:
 
@@ -27,6 +27,10 @@
 ;; (例)% make what-where-package
 ;;
 ;; としてください。
+
+;; make what-where が示す場所が不適切な場合、このファイルでインストール先を設定
+;; した後、再度 make what-where を実行してください。設定が反映されているかどう
+;; か確認できます。確認できたら make install を実行してください。
 
 ;; なお、Emacs の実行形式ファイル名だけはこのファイルでは設定できず、特に指定
 ;; したい場合はコマンドラインから指定する必要があります。
