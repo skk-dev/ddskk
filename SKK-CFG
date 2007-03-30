@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.25 2007/03/27 16:56:38 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/27 16:56:38 $
+;; Version: $Id: SKK-CFG,v 1.26 2007/03/30 11:04:43 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/30 11:04:43 $
 
 ;;; Commentary:
 
@@ -31,9 +31,14 @@
 ;; なお、Emacs の実行形式ファイル名だけはこのファイルでは設定できず、特に指定
 ;; したい場合はコマンドラインから指定する必要があります。
 ;;
-;; (例)% make install EMACS=c:/meadow/bin/Meadow.exe
+;; (例 1)% make install EMACS=c:/meadow/bin/Meadow.exe
 ;;
-;; (例)% make install-pacakge XEMACS=/usr/bin/xemacs
+;; (例 2)% make install EMACS=/Applications/Emacs.app/Contents/MacOS/Emacs
+;;
+;; (例 3)% make install-pacakge XEMACS=/usr/bin/xemacs
+
+;; 非 UNIX 的な Emacs 環境ではとくにインストール先が適切に決定されないことが
+;; ありえますので、このファイルを活用して設定してください。
 
 ;;; Explanation:
 
@@ -101,26 +106,38 @@
 ;;; Example:
 ;; (setq SKK-MK-debugging nil)
 
-;;; GNU Emacs 20 用の設定例:
+;;; GNU Emacs 20 の設定例:
 ;; (setq APEL_DIR "/usr/local/share/emacs/site-lisp/apel")
 ;; (setq EMU_DIR "/usr/local/share/emacs/20.7/site-lisp/emu")
-;; (setq LISPDIR "/usr/local/share/emacs/site-lisp")
-;; (setq VERSION_SPECIFIC_LISPDIR "/usr/local/share/emacs/20.7/site-lisp")
 ;; (setq SKK_DATADIR "/usr/local/share/skk")
 ;; (setq SKK_INFODIR "/usr/local/info")
 ;; (setq SKK_LISPDIR "/usr/local/share/emacs/site-lisp/skk")
 
-;;; Meadow 3.00 用の設定例:
+;;; XEmacs 21 の設定例:
+;; (setq PACKAGEDIR "/usr/share/xemacs/site-packages")
+
+;;; Meadow 3.00 の設定例:
 ;; (setq APEL_DIR "c:/meadow/site-lisp/apel")
 ;; (setq EMU_DIR "c:/meadow/site-lisp/emu")
-;; ;; (setq LISPDIR "c:/Meadow/site-lisp")
-;; ;; (setq VERSION_SPECIFIC_LISPDIR "c:/meadow/site-lisp")
 ;; (setq SKK_DATADIR "c:/meadow/etc/skk")
 ;; (setq SKK_INFODIR "c:/meadow/info")
 ;; (setq SKK_LISPDIR "c:/meadow/site-lisp/skk")
 ;; (setq SKK_SET_JISYO t)
 
-;;; XEmacs 21 用の設定例:
-;; (setq PACKAGEDIR "/usr/share/xemacs/site-packages")
+;;; NTEmacs の設定例:
+;; (setq APEL_DIR "c:/emacs/site-lisp/apel")
+;; (setq EMU_DIR "c:/emacs/22.0.96/site-lisp/emu")
+;; (setq SKK_DATADIR "c:/emacs/22.0.96/etc/skk")
+;; (setq SKK_INFODIR "c:/emacs/22.0.96/info")
+;; (setq SKK_LISPDIR "c:/emacs/22.0.96/site-lisp/skk")
+;; (setq SKK_SET_JISYO t)
+
+;;; Carbon Emacs の設定例:
+;; (setq APEL_DIR "/Applications/Emacs.app/Contents/Resources/site-lisp/apel")
+;; (setq EMU_DIR "/Applications/Emacs.app/Contents/Resources/site-lisp/emu")
+;; (setq SKK_DATADIR "/Applications/Emacs.app/Contents/Resources/etc/skk")
+;; (setq SKK_INFODIR "/Applications/Emacs.app/Contents/Resources/info")
+;; (setq SKK_LISPDIR "/Applications/Emacs.app/Contents/Resources/site-lisp/skk")
+;; (setq SKK_SET_JISYO t)
 
 ;;; SKK-CFG ends here
