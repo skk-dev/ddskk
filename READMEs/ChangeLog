@@ -1,3 +1,11 @@
+2007-03-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* INSTALL:
+	* README.MacOSX.ja:
+	* README.w32.ja:
+
+	Update for APEL requirement (10.7 or later) and other glitches.
+
 2006-01-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* AUTHORS.ja: Rewrite.

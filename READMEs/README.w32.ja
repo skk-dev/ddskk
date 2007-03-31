@@ -2,8 +2,8 @@
 
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2007/03/31 16:39:19 $
-$Id: README.w32.ja,v 1.5 2007/03/31 16:39:19 skk-cvs Exp $
+$Date: 2007/03/31 16:55:51 $
+$Id: README.w32.ja,v 1.6 2007/03/31 16:55:51 skk-cvs Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
@@ -231,7 +231,7 @@ Windows 上で動作する skkserv です。
 
 ** cygwin を利用してソースからコンパイルして利用する
 
-cygwin が使用できる環境では skkserve を直接コンパイルして使用すること
+cygwin が使用できる環境では skkserv を直接コンパイルして使用すること
 ができます。skkserv は
 
      http://openlab.ring.gr.jp/skk/skk/skkserv/
