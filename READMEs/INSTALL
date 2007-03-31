@@ -1,7 +1,7 @@
 -*- outline -*-
 
-             $Date: 2007/03/31 13:25:45 $
-	     $Id: INSTALL,v 1.30 2007/03/31 13:25:45 skk-cvs Exp $
+             $Date: 2007/03/31 16:42:32 $
+	     $Id: INSTALL,v 1.31 2007/03/31 16:42:32 skk-cvs Exp $
 
 * System-dependent configurations
 
@@ -26,16 +26,14 @@ you have APEL 10.7 or later installed.  It is highly recommended that
 you install the latest release.  APEL is available at:
 
     http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/
-
 or
-
     ftp://ftp.jpl.org/pub/elisp/apel/
 
 ** Get SKK dictionaries and copy them to ./dic subdirectory.
 
 If you do not have SKK dictionaries, get one or more from
 
-  http://openlab.ring.gr.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
+    http://openlab.ring.gr.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
 
 You should get at least one of "基本辞書" (i.e. basic dictionaries).
 If unsure, we recommend SKK-JISYO.L.  All other dicitionaries are
@@ -58,7 +56,7 @@ command name is described below.
 
 ** Installation for GNU Emacs
 
-You can find out installation paths before actual installation with
+Before actual installation, you can find out installation paths with
 
     % make what-where
 
@@ -70,9 +68,7 @@ the following.
 If installation paths seem all right, proceed to installation with
 
     % make install
-
 or
-
     % make install EMACS=/usr/bin/emacs-21.4
 
 ** Installation for XEmacs
@@ -84,14 +80,12 @@ You can find out installation paths before actual installation with
 If your editor is not just named xemacs, you can specify the name as
 the following.
 
-    % make what-where XEMACS=/usr/bin/xemacs-21.4.20
+    % make what-where-package XEMACS=/usr/bin/xemacs-21.4.20
 
 If installation paths seem all right, proceed to installation with
 
     % make install-package
-
 or
-
     % make install-package XEMACS=/usr/bin/xemacs-21.4.20
 
 * Post-installation

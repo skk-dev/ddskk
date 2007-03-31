@@ -2,101 +2,188 @@
 
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2003/07/05 08:24:01 $
-$Id: README.w32.ja,v 1.4 2003/07/05 08:24:01 minakaji Exp $
+$Date: 2007/03/31 16:39:19 $
+$Id: README.w32.ja,v 1.5 2007/03/31 16:39:19 skk-cvs Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
-同梱の INSTALL および README にも目を通しておいて下さい。
+同梱の INSTALL および README も必ずご覧下さい。
 
 * Meadow/NTEmacs
 
+以下は Meadow 2.10 を例に解説します。他の環境についても十分参考になる
+よう記述します。Meadow は
+
+     c:/meadow
+
+にインストールされていると仮定します。
+
+** gzip, make, tar などの準備
+
+APEL, SKK のインストールに使うのは gzip, make, tar の各プログラムです。
+これらを入手する手段は例えば
+
+     http://sourceforge.net/projects/unxutils
+
+などがあります。UnxUtils.zip をダウンロード・展開して、例えば
+c:/UnxUtils に置いたとします。~/.emacs に以下のように設定します。
+
+(setenv "PATH"
+	(format "%s;%s;%s"
+		"c:\\UnxUtils\\bin"
+		"c:\\UnxUtils\\usr\\local\\wbin"
+		(or (getenv "$PATH") "")))
+(setenv "SHELL"  "sh.exe")
+
+これで shell モード (M-x shell) が使えるようになります。
+コマンドへのパスを確認する場合は、shell モードで
+
+     % type make
+
+などを実行します。
+
+なお、cygwin を導入している環境では上記設定ではなく、cygwin の設定をし
+て下さい。
+
 ** APEL のインストール
 
-まず APELをインストールする。Daredevil SKK では、APEL 10.6 以降での動作
-が確認されているが、APEL は Emacs/XEmacs のバージョンアップに合わせて
-日進月歩なので、できるだけ新しいバージョンをインストールすることをお勧
-めする。
+まず APELをインストールします。Daredevil SKK では、APEL 10.7 以降での動
+作が確認されていますが、APEL は Emacs/XEmacs のバージョンアップに合わせ
+て日進月歩なので、できるだけ新しいバージョンをインストールすることをお
+勧めします。
 
-*** APEL の get
+*** APEL の取得
 
-APEL は、`ftp://ftp.jpl.org/pub/elisp/apel/' もしくは
-`ftp://ftp.m17n.org/pub/mule/apel/' から入手できる。
+APEL は、
+
+     http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/
+
+     ftp://ftp.jpl.org/pub/elisp/apel/
+
+などから入手できます。
 
 *** APEL の展開(解凍)
 
-APELをフリーのtar.exeなどを使って展開する。以下のコマンドを実行。
+APEL を tar.exe などを使って展開します。shell モードで以下のコマンドを
+実行します。apel のアーカイブを c:/tmp に置いたと仮定すると
 
-  C:\temp> tar xzvf apel-9_22.tar.gz
+     % cd c:/tmp
+     % gunzip apel-10.7.tar.gz
+     % tar xvf apel-10.7.tar
+     % cd apel-10.7
 
-tar.exeは `ftp://ftp.m17n.org/pub/mule/Windows/tools/' などから入手できる。
+*** APEL の インストール設定
 
-*** APEL の byte-compile
+つづいて APEL-CFG というファイルを設定します。具体的には次の 2 行をファ
+イルの末尾に追加します。
 
-Emacs が `c:\usr\Meadow\1.10\bin\meadow95.exe' のとき、APEL を展開した
-ディレクトリに CD によって移動し、以下のコマンドを実行する。
+(setq APEL_DIR "c:/meadow/site-lisp/apel")
+(setq EMU_DIR "c:/meadow/site-lisp/emu")
 
-  C:\temp\skk-11> c:\usr\meadow\1.10\bin\meadow95 -q -batch -no-site-file -l APEL-MK -f install-apel NONE (LISPDIR) (EMUDIR)
+(これを設定しないと思わぬ場所にインストールされることがあります。)
 
-ただし、上の (LISPDIR) には apel モジュール (APEL の内、Emacs のバージョ
-ンに依存しないライブラリ) のインストール先、(EMUDIR) は同様に emu モ
-ジュール (APEL の内、Emacs のバージョンに依存するもの) のインストール
-先を指定する。
+*** APEL の インストール
 
-例えば (LISPDIR) に \usr\meadow\site-lisp と指定とすれば、apel モジュー
-ルは \usr\meadow\site-lisp\apel にインストールされる。
+つづいて shell モードで次を実行します。
 
-同様に (EMUDIR) に \usr\meadow\1.10\site-lisp\ と指定すれば emu モジュー
-ルは \usr\meadow\1.10\site-lisp\emu にインストールされる。
+     % make install EMACS=c:/meadow/bin/Meadow.exe
 
-コマンドラインにコマンド全てを入力しきらない場合は、上記の内容を書いた
-make.bat を作成し、
-
-  C:temp\apel> make.bat
-
-とする。
-
+shell の出力を見て、指定通りの場所にインストールされたことを確認してく
+ださい。
 
 *** load-path への追加
 
-\usr\meadow\site-lisp\subdir.el を編集し、emu, apel を load-path に追加する。
+c:/meadow/site-lisp 以下のサブディレクトリには Emacs が自動的に
+load-path を設定するようになっています。なのでユーザはなにもする必要が
+ありません。
 
 ** SKKのインストール
 
-*** SKK の展開(解凍)
+*** gzip, make, tar コマンドを使う場合
 
-SKK ディストリビューションを上記の tar.exe を用いて展開する。
+**** SKK の展開(解凍)
 
-*** MAKEIT.BAT の編集
+SKK ディストリビューションを上記の tar.exe を用いて展開します。
 
-MAKEIT.BAT を自分の環境に合わせて編集する。
-EMACSは御自分のEmacsのフルパスを指定する。上の例では、
-EMACS=c:\usr\meadow\1.10\bin\meadow95.exe。
-PREFIXには info マニュアルのあるディレクトリのすぐ上のディレクトリ
-c:\usr\meadow\1.10 などを指定する。
-またLISPDIRはインストール先のディレクトリを指定する。例えば
-LISPDIR=c:\usr\meadow\site-lisp とすれば、c:\usr\meadow\site-lisp\skk
-にインストールされる。
+     % cd c:/tmp
+     % gunzip ddskk-13.1.tar.gz
+     % tar xvf ddskk-13.1.tar
+     % cd ddskk-13.1
 
-なお、デフォルトでは、SKK-JISYO, skk-tut 等は %PREFIX%\share 以下にイ
-ンストールされる。
+**** SKK 辞書の取得
 
-*** MAKEIT.BAT の実行
+以下をダウンロードします。
+
+     http://openlab.jp/skk/dic/SKK-JISYO.L.gz
+
+これを gunzip で展開し、ddskk のソースの dic というディレクトリに置き
+ます。
+
+**** SKK の インストール設定
+
+まず、shell モードで以下を実行します。
+
+     % make what-where EMACS=c:/meadow/bin/Meadow.exe
+
+各種ファイルのインストール先が出力されます。これを見て問題なければ、そ
+のままインストールに進みます。もし問題があれば、SKK-CFG というファイル
+を編集して設定します。このファイルには
+
+;;; Meadow 2.10 または 3.00-dev の設定例:
+
+というのを特に設けていますので、これを雛形に編集してください。
+
+**** SKK の インストール
+
+shell モードで以下を実行します。
+
+     % make install EMACS=c:/meadow/bin/Meadow.exe
+
+*** makeit.bat を使う場合
+
+Daredevil SKK には make コマンドの代わりに使える bat ファイルを収録し
+ています。makeit.bat というファイルがそれです。
+
+**** SKK 本体、辞書の取得と展開
+
+適当な方法で展開します。SKK-JISYO.L を本体を展開した dic というサブディ
+レクトリに置きます。
+
+**** MAKEIT.BAT の編集
+
+MAKEIT.BAT を自分の環境に合わせて編集します。
+EMACS は御自分の Emacs のフルパスを指定します。上の例では、
+
+EMACS=c:\meadow\bin\Meadow.exe
+
+その他の設定は、SKK-CFG で行います。この点は make コマンドを使う場合と
+同様です。
+
+**** MAKEIT.BAT の実行
 
 MAKEIT.BAT を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
 リ割り当てが自動になると、環境変数が設定できないので、適当な値(2048と
-か)を入れておく必要がある。
+か)を入れておく必要があります。
 
-DOSPROMPT で MAKEIT.BAT のあるディレクトリに移動し、
-C:\temp\skk\main> makeit install
-によりインストールが実行される。
-なお、DEFAULT_MAKE_ARG に install と記述しておくことで、
-次回からは MAKEIT.BAT をダブルクリックするだけでインストール
-が可能となる。
+Windows のコマンドプロンプトで MAKEIT.BAT のあるディレクトリに移動しま
+す。
+     > c:
+     c:\> cd tmp
+     c:\tmp> cd ddskk-13.1
+     C:\tmp\ddskk\main> makeit what-where
 
-適宜指定が終った makeit.bat は下のいずれかのファイルとして
-コピーしておくとそちらを優先して実行される。(アップグレード
-の際に makeit.bat を再編集する必要がない.) 優先順に:
+でインストール先が確認できます。
+
+     C:\tmp\ddskk\main> makeit what-where
+
+によりインストールが実行されます。
+
+なお、DEFAULT_MAKE_ARG に install と記述しておくことで、次回からは
+MAKEIT.BAT をダブルクリックするだけでインストールが可能となります。
+
+適宜指定が終った makeit.bat は下のいずれかのファイルとしてコピーしてお
+くとそちらを優先して実行されます。(アップグレードの際に makeit.bat を
+再編集する必要がなくなります) 優先順に:
 
   1-1. %HOME%\.elispmk.skk.bat
   1-2. %HOME%\elisp\elispmk.skk.bat
@@ -114,70 +201,78 @@ C:\temp\skk\main> makeit install
 
 *** load-path への追加
 
-\usr\meadow\site-lisp\subdir.el を編集し、skk を load-path に追加する。
+APEL の時と同様、ふつうは load-path の設定は自動で、ユーザがする必要は
+ありません。
 
 *** .emacs への追加
 
-.emacs に次の内容を追加する。
+最初に起動をテストする際は、~/.emacs への設定はなにも必要ありません。
+C-x C-j または M-x skk-mode で起動し、入力できることを確認します。
 
-(require 'skk-setup)
-
-** cygwin32
-
-cygwin32 がインストールされていて、Makefile でインストールする場合は
-SKK-CFG にインストール先のディレクトリを指定する必要がある。
-
-* Windows 上で動くサーバについて
+* Windows 上で動く SKK サーバ
 
 Windows で利用できる SKK 辞書サーバには次のようなものがあります。
 
-** wskkserve
+** wskkserv
 
-Windows 上で動作する skkserve です。
-http://member.nifty.ne.jp/Tatari_SAKAMOTO/wskkserv.htm から入手できま
-す。
+Windows 上で動作する skkserv です。
+
+     http://www.tatari-sakamoto.jp/~tatari/wskkserv.jis.html
+
+から入手できます。
+
+** wceSKKSERV
+
+複数辞書検索が可能な Windows 系 OS 用の skk サーバです。
+
+     http://megadriver.yi.org/~fumi/wceskkserv/
+
+から入手できます。
 
 ** cygwin を利用してソースからコンパイルして利用する
 
 cygwin が使用できる環境では skkserve を直接コンパイルして使用すること
 ができます。skkserv は
-ftp://skk.kuis.kyoto-u.ac.jp:/pub/skk/9.6/plain/skkserv から入手できま
-す。
+
+     http://openlab.ring.gr.jp/skk/skk/skkserv/
+
+から入手できます。
 
 また、cygwin で GNU inetutils をインストールしている場合
-(http://sources.redhat.com/cygwin/から入手できる setup.exe を利用する
-とディフォルトでインストールされます)、dbskkd を利用することもできます。
+dbskkd を利用することもできます。
+
+     http://www.cygwin.com
+
+から入手できる setup.exe を利用するとインストールできます。
 なお、inetutils の設定については、
-/usr/doc/Cygwin/inetutils-1.3.2.README を参照して下さい。また、dbskkd
-は http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html から入手で
-きます。
 
-** script 言語で実装されたサーバ
+     /usr/doc/Cygwin/inetutils-1.3.2.README
 
-perl, ruby が使用できるならば、pskkserve や rskkserve が使用できます。
+を参照して下さい。また、dbskkd は
 
-pskkserv は
-ftp://skk.kuis.kyoto-u.ac.jp:/pub/skk/9.6/plain/contrib/pskkserv か
-ら、rskkserve は
-http://www.ruby-lang.org/en/raa-list.rhtml?name=rskkserv から入手でき
-ます。
+     http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html
 
-* SKK on Windows
+から入手できます。
+
+** スクリプト言語で実装されたサーバ
+
+ruby が使用できるならば、 rskkserv が使用できます。
+rskkserv は
+
+     http://sourceforge.jp/projects/rskkserv/
+
+から入手できます。
+
+* Windows 上で動く SKK 実装
 
 Windows 上で動作する SKK ライクの IME があります。
 
-** SKKIME98/SKKIME2000 (Windows 98/NT4/2000)
+** skkime
 
-設定がある程度 elisp でできるようになっていることと、
-SKK と共通の辞書が使用できます。
+設定がある程度 elisp でできるようになっていることと、SKK と共通の辞書
+が使用できます。
 
-  http://member.nifty.ne.jp/Tatari_SAKAMOTO/index.htm
+     http://www.tatari-sakamoto.jp/~tatari/skkime.jis.html
 
-** SKK95 (Windows 95/98/NT)
-
-アルファステータスです。現在開発が中断しています。
-辞書は SKK と独立で、設定にも難があります。
-
-  http://www.kmc.kyoto-u.ac.jp/proj/skk95/
 
 [End of README.win]
