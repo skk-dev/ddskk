@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.149 2007/03/28 14:46:34 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/28 14:46:34 $
+;; Version: $Id: SKK-MK,v 1.150 2007/03/31 13:25:44 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/31 13:25:44 $
 
 ;;; Commentary:
 
@@ -72,7 +72,7 @@ This version of SKK requires MULE features"))
 (setq install-prefix
   (cond	((memq system-type '(windows-nt))
 	 ;; Meadow と NTEmacs に対して APEL が標準で設定する
-	 ;; install-prefix が不自然なので、ここで修正する。
+	 ;; install-prefix は不自然なので、ここで修正する。
 	 (expand-file-name ".." exec-directory))
 	((boundp 'mac-carbon-version-string)
 	 ;; Carbon Emacs はまた独自のファイルツリーになっている
@@ -80,7 +80,8 @@ This version of SKK requires MULE features"))
 	   (if (string-match "/Emacs\\.app/Contents/Resources/?$" dir)
 	       dir
 	     (expand-file-name "../../.." dir))))
-	((featurep 'xemacs)		; running-xemacs
+	((featurep 'xemacs)
+	 ;; running-xemacs
 	 (expand-file-name "../../.." exec-directory))
 	(t
 	 (expand-file-name "../../../.." data-directory))))
@@ -92,8 +93,9 @@ This version of SKK requires MULE features"))
 
 (setq load-path (cons (expand-file-name ".") load-path))
 
-;; Variable `install-prefix' is set in tinyinstall.el.
-;; It might be sth like `/usr/local' under UNIX-like operating systems.
+;; 変数 install-prefix は install.el で定義されている。
+;; UNIX 的環境ではこれは "/usr/local" のような値となる。
+;; 非 UNIX 的環境のために上記で install-prefix を再設定している。
 (unless PREFIX
   (setq PREFIX install-prefix))
 

@@ -1,101 +1,133 @@
 -*- outline -*-
 
-             $Date: 2005/11/14 17:42:22 $
-	     $Id: INSTALL,v 1.29 2005/11/14 17:42:22 skk-cvs Exp $
+             $Date: 2007/03/31 13:25:45 $
+	     $Id: INSTALL,v 1.30 2007/03/31 13:25:45 skk-cvs Exp $
 
-* APEL
+* System-dependent configurations
+
+If you are a user of Emacs on Apple MacOS (X) or Microsoft Windows,
+also see one of the following files, which may be found in this
+directory.
+
+** README.Mac.ja
+
+** README.MacOSX.ja
+
+** README.VIP.ja
+
+** README.w32.ja
+
+* Pre-installation
+
+** APEL
 
 APEL (A Portable Emacs Library) is required to install SKK.  Make sure
-you have APEL 10.6 or later (it is highly recommened that you install
-the latest release).  APEL is available at:
+you have APEL 10.7 or later installed.  It is highly recommended that
+you install the latest release.  APEL is available at:
 
-    http://cvs.m17n.org/elisp/APEL
-
-    ftp://ftp.m17n.org/pub/mule/apel/
-
-    ftp://ftp.jpl.org/pub/elisp/apel/
+    http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/
 
 or
 
-    http://openlab.ring.gr.jp/skk/apel/
+    ftp://ftp.jpl.org/pub/elisp/apel/
 
-* Get dictionaries and copy them to ./dic subdirectory.
+** Get SKK dictionaries and copy them to ./dic subdirectory.
 
 If you do not have SKK dictionaries, get one or more from
 
   http://openlab.ring.gr.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
 
-and copy them to ./dic subdirectory.  You don't have to get every size
-of dictionaries.  Maybe you want one of L, ML, M and S dictionaries.
+You should get at least one of "基本辞書" (i.e. basic dictionaries).
+If unsure, we recommend SKK-JISYO.L.  All other dicitionaries are
+optional.
 
-* Edit SKK-CFG.
+Unpack and Copy the downloaded dictionaries to ./dic subdirectory.
+They will be installed with `make install' or `make install-package',
+which is described below.
 
-Edit SKK-CFG as you like.  Examples are described in SKK-CFG but
-commented out.  If you want to set some or all of these variables,
+** Edit SKK-CFG.
+
+Edit SKK-CFG for your installation.  Examples are found in SKK-CFG but
+commented out.  If you need to set some or all of these variables,
 uncomment them and specify the values.  Maybe you need not to edit
-Makefile at all.  All customization can be done in SKK-CFG.
+Makefile at all.  All customizations can be done in SKK-CFG except for
+Emacs or XEmacs command name.  The way how to specify Emacs or XEmacs
+command name is described below.
 
-Instead of editing SKK-CFG, you can also specify configuration of
-installation with command line arguments for `make'.
+* Installation
 
-* Run make
+** Installation for GNU Emacs
 
-Run
-
-    % make
-
-You can specify Emacs command name in the command line. For examples,
-
-    % make EMACS=/usr/bin/emacs
-
-Also, in the command line you can specify any variables of capital
-letters defined in SKK-MK.  For examples, if you want to install SKK
-locally,
-
-    % make PREFIX=~/
-
-then all Emacs lisp programs will be installed into
-`~/share/emacs/site-lisp/skk'.  You can examine SKK-CFG to know what
-variables will take effect on installation configurations.
-
-* Detect directories to be install
-
-If you want to know target directories to install without actual
-installation, run
+You can find out installation paths before actual installation with
 
     % make what-where
 
+If your editor is not just named emacs, you can specify the name as
+the following.
+
+    % make what-where EMACS=/usr/bin/emacs-21.4
+
+If installation paths seem all right, proceed to installation with
+
+    % make install
+
 or
+
+    % make install EMACS=/usr/bin/emacs-21.4
+
+** Installation for XEmacs
+
+You can find out installation paths before actual installation with
 
     % make what-where-package
 
-for XEmacs package install.  As to package install, see section
-`package install' below.
+If your editor is not just named xemacs, you can specify the name as
+the following.
 
-* make install
+    % make what-where XEMACS=/usr/bin/xemacs-21.4.20
 
-Run `make install' (You may have to be superuser).  You can specify
-Emacs command name in the command line, like
-
-    % make install EMACS=/usr/bin/emacs
-
-* package install
-
-If you want install SKK as a XEmacs package, run
+If installation paths seem all right, proceed to installation with
 
     % make install-package
 
-* Obsolete check
+or
 
-Many variables/functions names have been changed.  You are strongly
-recommended to load skk-obsolete.el and
+    % make install-package XEMACS=/usr/bin/xemacs-21.4.20
+
+* Post-installation
+
+** Obsolete check
+
+Many variables and functions have been renamed since the previous
+major release.  You are strongly recommended to check old user
+settings. This will be done with loading skk-obsolete.el and executing
 
     M-x skk-obsolete-check-all-files.
 
-* Easy setup
+** Easy setup
 
-You can easily setup SKK.  Put the following form in your .emacs.
+If you just intend to test the program, no prior setting is required.
+Just call SKK with typing C-x C-j or M-x skk-mode.
 
-   (require 'skk-setup)
+If you are a novice SKK user, you can learn SKK basics with M-x
+skk-tutorial.  Follow the instructions.  If you prefer the English
+tutorial, type C-u M-x skk-tutorial and select "English".
+
+As you learn the usage of SKK, you might want to know more about its
+customization.  As a start point we recommend the SKK manual.  You
+can find the SKK manual with M-x info and looking for the following
+line.
+
+    * SKK: (skk).           Simple Kana to Kanji conversion program.
+
+You can also read the SKK manual on the web.
+
+    http://openlab.ring.gr.jp/skk/skk-manual/skk-manual-ja.html
+
+Since the web manual is for the latest Daredevil SKK, it might not be
+compatible with the version you installed.
+
+If you are looking for example elisp codes for customization, see files
+etc/dot.emacs and etc/dot.skk, which are included in this distribution.  
 
 [End of INSTALL]
