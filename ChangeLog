@@ -2,6 +2,10 @@
 
 	* doc/skk.texi: Update for required APEL version.
 
+	* skk-annotation.el (skk-annotation-wait-for-input): Store
+	wikipedia annotation in local variable ANNOTATION for the
+	following events.
+
 	* skk.el: Add comments for APEL and `make-temp-file'.
 	(widget-field-activate): Advise with`skk-wrap-newline-command'.
 
