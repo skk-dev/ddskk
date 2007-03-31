@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.153 2007/02/22 13:16:14 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.154 2007/03/31 17:35:39 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/02/22 13:16:14 $
+@c  Last Modified: $Date: 2007/03/31 17:35:39 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/02/22 13:16:14 $
+@set UPDATED $Date: 2007/03/31 17:35:39 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -82,7 +82,7 @@ by the author.
 @c The following two commands start the copyright page.
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{}1991-2004 @w{Masahiko Sato}(佐藤雅彦), @*
+Copyright @copyright{}1991-2007 @w{Masahiko Sato}(佐藤雅彦), @*
 @w{Yukiyoshi Kameyama}(亀山幸義), @w{NAKAJIMA Mikio}(中島幹夫),
 @w{Tsukamoto Tetsuo}(塚本徹雄) and @w{Tsuyoshi AKIHO} (秋保強).
 Revised by @w{Kiyotaka Sakai}(酒井清隆) and @w{Satoshi Harauchi}(原内聡).
@@ -205,12 +205,12 @@ SKK の名の前に付いている @samp{Daredevil} が気になる繊細な方は
 @cindex APEL
 
 DDSKK 13 は種々の Emacsen での動作を可能とするため APEL (A Portable
-Emacs Library) を使用します。DDSKK 13.1 は APEL 10.6 での動作を確認してい
+Emacs Library) を使用します。DDSKK 13.1 は APEL 10.7 での動作を確認してい
 ますが、 APEL は Emacs/XEmacs のバージョンアップに合わせて日進月歩なので、
 できるだけ新しいバージョンをインストールすることをお勧めします。
 
 @display
-@url{ftp://ftp.m17n.org/pub/mule/apel/}
+@url{http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/}
 @url{ftp://ftp.jpl.org/pub/elisp/apel/}
 @end display
 

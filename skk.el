@@ -1,13 +1,13 @@
 ;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program)
 
 ;; Copyright (C) 1988-1997 Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Copyright (C) 1999-2005 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2007 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.387 2007/03/31 06:44:38 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.388 2007/03/31 17:35:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/31 06:44:38 $
+;; Last Modified: $Date: 2007/03/31 17:35:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -59,7 +59,11 @@
   (defvar skk-rdbms-private-jisyo-table)
   (defvar this-command-char))
 
-;; APEL 10.6 or higher is required.
+;; Daredevil SKK 13.1 $B$O(B APEL 10.7 $B$rMW5a$9$k!#(B
+;; APEL 10.7 $B$O<g$K(B install.el $B$N5!G=$N$?$a$KMW5a$5$l$F$$$k!#(B
+;; APEL 10.6 $B$O%;%-%e%j%F%#>e$N=EBg$J7g4Y$KBP1~$7$F$$$k$?$a!"I,?\$G$"$k!#(B
+;; make-temp-file() $B$N7g4Y$K$D$$$F$O4X?t(B skk-save-jisyo-original() $B$N%3%a(B
+;; $B%s%H$r;2>H!#(B
 (eval-when-compile
   (require 'static))
 (require 'poe)
@@ -3250,9 +3254,8 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
   (funcall skk-save-jisyo-function quiet))
 
 (defun skk-save-jisyo-original (&optional quiet)
-  ;;"SKK $B$N<-=q%P%C%U%!$r%;!<%V$9$k!#(B
-  ;;$B%*%W%7%g%J%k0z?t$N(B QUIET $B$,(B non-nil $B$G$"$l$P!"<-=q%;!<%V;~$N%a%C%;!<%8$r(B
-  ;;$B=P$5$J$$!#(B"
+  "SKK $B$N<-=q%P%C%U%!$r%;!<%V$9$k!#(B
+$B%*%W%7%g%s0z?t(B QUIET $B$,(B non-nil $B$G$"$l$P!"<-=q%;!<%V;~$N%a%C%;!<%8$r=P$5$J$$!#(B"
   (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
     (if (not (and jisyo-buffer
 		  (buffer-modified-p jisyo-buffer)))
@@ -3267,6 +3270,13 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	  (when (skk-jisyo-is-shared-p)
 	    (skk-update-shared-jisyo)))
 	(let ((inhibit-quit t)
+	      ;; ($BCm(B) Emacs 21.1 $B$+$i(B 21.4 $B$^$G$N%P!<%8%g%s$O(B make-temp-file()
+	      ;; $B$NDj5A$r;}$D$,!"%U%!%$%k$,B>$N%f!<%6$+$iJ]8n$5$l$J$$7g4Y$,$"(B
+	      ;; $B$k!#$3$l$O(B Emacs 22 $B$G=$@5$5$l$F$$$k$,!"$=$l0JA0$N%P!<%8%g%s$N(B
+	      ;; $B$?$a$NBP:v$,(B APEL 10.6 $B$K$*$$$F40N;$7$F$*$j!"(BDDSKK $B$O$=$l$K0M(B
+	      ;; $BB8$7$F$$$k!#>\$7$/$O(B Emacs 22 $B$N(B files.el $B$K$*$1$k(B
+	      ;; make-temp-file() $B<BAu(B, poe.el $B$N(B make-temp-file() $B<BAu$H%3%a%s(B
+	      ;; $B%H$J$I$r;2>H!#(B
 	      (tempo-file (make-temp-file "skk")))
 	  (unless quiet
 	    (skk-message "SKK $B<-=q$rJ]B8$7$F$$$^$9(B..."

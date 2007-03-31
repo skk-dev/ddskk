@@ -1,7 +1,9 @@
 2007-03-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk.el (widget-field-activate): Advise with
-	`skk-wrap-newline-command'.
+	* doc/skk.texi: Update for required APEL version.
+
+	* skk.el: Add comments for APEL and `make-temp-file'.
+	(widget-field-activate): Advise with`skk-wrap-newline-command'.
 
 2007-03-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

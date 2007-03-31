@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.27 2007/03/30 11:10:31 skk-cvs Exp $
-;; Last Modified: $Date: 2007/03/30 11:10:31 $
+;; Version: $Id: SKK-CFG,v 1.28 2007/03/31 17:35:39 skk-cvs Exp $
+;; Last Modified: $Date: 2007/03/31 17:35:39 $
 
 ;;; Commentary:
 
@@ -120,7 +120,7 @@
 ;;; XEmacs 21 の設定例:
 ;; (setq PACKAGEDIR "/usr/share/xemacs/site-packages")
 
-;;; Meadow 3.00 の設定例:
+;;; Meadow 2.10 または 3.00-dev の設定例:
 ;; (setq APEL_DIR "c:/meadow/site-lisp/apel")
 ;; (setq EMU_DIR "c:/meadow/site-lisp/emu")
 ;; (setq SKK_DATADIR "c:/meadow/etc/skk")
