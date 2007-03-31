@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.386 2007/03/28 10:06:11 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.387 2007/03/31 06:44:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/28 10:06:11 $
+;; Last Modified: $Date: 2007/03/31 06:44:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5064,6 +5064,7 @@ SKK 辞書の候補として正しい形に整形する。"
 (skk-wrap-newline-command comint-send-input)
 (skk-wrap-newline-command ielm-return)
 (skk-wrap-newline-command rcirc-send-input)
+(skk-wrap-newline-command widget-field-activate)
 
 ;; hooks.
 
