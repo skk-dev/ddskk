@@ -1,3 +1,16 @@
+2007-04-01  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* makeit.bat: Typo.
+
+2007-04-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-modeline-menu): New variable.
+	(skk-e21-prepare-menu): New function.
+	(skk-e21-modeline-menu): Pop up skk-e21-modeline-menu instead of
+	skk-e21-modeline-menu-items.
+
+	* skk.el (skk-mode-invoke): Call `skk-e21-prepare-menu'.
+
 2007-03-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Update for required APEL version.
@@ -192,7 +205,7 @@
 
 2007-02-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	Suggested by Kitamoto Tsuyoshi.
+	Suggested by Kitamoto Tsuyoshi <lisp_interaction@yahoo.co.jp>.
 
 	* doc/skk.texi: Modify example for skk-tut-file.
 	Accurately write the term "X Window System".
