@@ -327,7 +327,12 @@
 	(balloon-help-set-frame-properties)
 	(skk-xemacs-balloon-help-resize-help-frame listing)
 	(balloon-help-move-help-frame)
-	(balloon-help-expose-help-frame)))))
+	(balloon-help-expose-help-frame)))
+    ;; Is this right?
+    (setq balloon-help-timeout-id
+	  (add-timeout (/ balloon-help-timeout 1000.0)
+		       #'balloon-help-display-help
+		       nil))))
 
 (defun skk-xemacs-balloon-help-resize-help-frame (&optional listing)
   ;; 縦の長さが合わないので、合わせる。
