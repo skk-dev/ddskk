@@ -1,3 +1,31 @@
+2007-04-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el: Wikipedia support for XEmacs.
+	(skk-annotation-generate-url): url-util.el is mandatory.
+	(skk-annotation-wikipedia-1): Use `get-buffer' instead of
+	'buffer-live-p'.
+	(skk-annotation-url-package-available-p): Properly advise XEmacs
+	or Emacs 21.
+
+	* skk-e21.el (skk-tooltip-show-at-point): When `mouse-position'
+	does not return a valid position, find position with
+	`mouse-avoidance-point-position'.
+	(skk-tooltip-hide): New alias to `tooltip-hide'.
+
+	* skk-xemacs.el (multibyte-string-p): New alias to `string-p'.
+	(current-pixel-row): New maybe-alias to `ignore'.
+	(skk-tooltip-hide): New alias to `balloon-help-undisplay-help'.
+	(skk-tooltip-show-at-point): New function definition for XEmacs.
+	(skk-xemacs-balloon-help-resize-help-frame): New function.
+
+	* skk.el (skk-henkan-show-candidate-subr): Avoid using multiple
+	methods for candidate display.
+
+	(skk-add-skk-pre-command):
+	(skk-remove-skk-pre-command):
+
+	New functions, used by many functions.
+
 2007-04-01  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* makeit.bat: Typo.

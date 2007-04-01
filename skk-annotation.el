@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.70 2007/03/31 18:34:09 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.71 2007/04/01 13:52:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/03/31 18:34:09 $
+;; Last Modified: $Date: 2007/04/01 13:52:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -131,9 +131,10 @@
 ;;
 ;; $B"'%b!<%I$K$F(B C-i $B$r%?%$%W$9$k$H!"I=<(Cf$N8uJd$r(B Wikipedia/Wiktionary
 ;; $B$N9`L\$+$iC5$7!$8+$D$+$C$?>l9g$O!"FbMF$NH4?h$r%"%N%F!<%7%g%s$H$7$FI=<((B
-;; $B$7$^$9!#$3$N5!G=$O(B Emacs 22 $B$G%F%9%H$5$l$F$$$^$9!#(BEmacs 20 $B$H(B XEmacs $B$G(B
-;; $B$OF0:n$7$^$;$s!#(BEmacs 21 $B$G$O0J2<$N%Q%C%1!<%8$J$I$rDI2C$9$k$3$H$GF0:n$9(B
-;; $B$k2DG=@-$,$"$j$^$9$,!"==J,%F%9%H$5$l$F$$$^$;$s!#(B
+;; $B$7$^$9!#$3$N5!G=$O(B Emacs 22 $B$G%F%9%H$5$l$F$$$^$9!#(BXEmacs 21.5 $B$G$O0J2<(B
+;; $B$N(B 1 $B$H(B 2 $B$rF3F~$9$kI,MW$,$"$j$^$9!#(BXEmacs 21.4 $B$G$O99$K(B 3 $B$bI,MW$G$9!#(B
+;; Emacs 21.4 $B$G$b(B 1, 2, 3 $B$,I,MW$H$J$j$^$9!#(BEmacs 20.7 $B$G$NF0:n$O%5%]!<%H(B
+;; $B$7$^$;$s!#(B
 ;;
 ;; 1. html2text.el
 ;;
@@ -143,6 +144,8 @@
 ;;
 ;;    $B$r<hF@$7$F%$%s%9%H!<%k$7$^$9!#(B
 ;;
+;;    XEmacs $B$N>l9g$O:G?7$N(B xemacs-sumo $B$,F~$C$F$$$l$PMW$j$^$;$s!#(B
+;;
 ;; 2. URL $B%Q%C%1!<%8(B
 ;;
 ;;    $B$3$l$O(B Emacs/W3 $B$K4^$^$l$F$$$?$b$N$N3HD%$G$9!#Nc$($P(B
@@ -150,6 +153,9 @@
 ;;    http://ftp.debian.org/debian/pool/main/w/w3-url-e21/
 ;;
 ;;    $B$J$I$+$i:G?7(B *.orig.tar.gz $B$r<hF@$7$F%$%s%9%H!<%k$7$^$9!#(B
+;;
+;;    XEmacs $B$N>l9g!"(B xemacs-sumo $BCf$N(B w3 $B$K4^$^$l$k(B url.el $B$,FI$_9~$^$l$F$7$^(B
+;;    $B$&$H@5$7$/5!G=$7$J$$$N$G!"Cm0U$7$F$/$@$5$$!#(B
 ;;
 ;; 3. Mule-UCS
 ;;
@@ -167,6 +173,9 @@
 
 (eval-when-compile
   (require 'static))
+
+(static-when (eq skk-emacs-type 'xemacs)
+  (require 'skk-xemacs))
 
 (unless skk-annotation-mode-map
   (let ((map (make-sparse-keymap)))
@@ -244,9 +253,7 @@
 		(skk-in-minibuffer-p))
 	   ;; do nothing
 	   (setq inhibit-wait t))
-	  ((and (eval-when-compile (eq skk-emacs-type 'mule5))
-		window-system
-		skk-show-tooltip)
+	  ((and window-system skk-show-tooltip)
 	   (skk-tooltip-show-at-point annotation))
 	  ((and skk-annotation-show-as-message
 		(not (or skk-isearch-switch
@@ -713,7 +720,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	      (progn
 		(skk-sit-for 100 t)
 		t))
-	(when (buffer-live-p buffer)
+	(when (get-buffer buffer)
 	  (with-current-buffer buffer
 	    (setq html (buffer-string)))
 	  (kill-buffer buffer)
@@ -926,7 +933,10 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(skk-annotation-show note)))))
 
 (defun skk-annotation-generate-url (format-string &rest args)
-  (require 'url-util)
+  (condition-case nil
+      (require 'url-util)
+    (error
+     (error "%s" "$B?7$7$$(B URL $B%Q%C%1!<%8$,I,MW$G$9(B")))
   (if (skk-annotation-url-package-available-p)
       (apply #'format format-string
 	     (mapcar #'(lambda (element)
@@ -939,10 +949,12 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 (defun skk-annotation-url-package-available-p ()
   (when (eq skk-annotation-url-package-available-p 'untested)
     ;; Emacs 22 $B0J9_0J30$G(B URL $B%Q%C%1!<%8$r%F%9%H$9$k(B
-    (if (ignore-errors
-	  (url-hexify-string "$B%F%9%H(B"))
-	(setq skk-annotation-url-package-available-p t)
-      ;; $B5l$$(B URL $B%Q%C%1!<%8$X$NBP:v(B
+    (cond
+     ((eq skk-emacs-type 'mule4)
+      ;; Emacs 20.7 $B$G$O%5%]!<%H$7$J$$(B
+      (setq skk-annotation-url-package-available-p nil))
+     (t
+      ;; Emacs 21 $B$H(B XEmacs
       (defadvice url-hexify-string (around multibyte-char activate)
 	(setq ad-return-value
 	      (mapconcat (lambda (byte)
@@ -953,12 +965,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			     (encode-coding-string (ad-get-arg 0) 'utf-8)
 			   (ad-get-arg 0))
 			 "")))
-      ;; $B:F%F%9%H(B
-      (setq skk-annotation-url-package-available-p
-	    (if (ignore-errors
-		  (url-hexify-string "$B%F%9%H(B"))
-		t
-	      nil))))
+      ;; $B%F%9%H(B
+      (setq skk-annotation-url-package-available-p t))))
   ;;
   skk-annotation-url-package-available-p)
 

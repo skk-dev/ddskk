@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.389 2007/04/01 04:26:18 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.390 2007/04/01 13:52:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/01 04:26:18 $
+;; Last Modified: $Date: 2007/04/01 13:52:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -183,7 +183,7 @@ dependent."
     ;; To terminate kana input.
     (static-unless (memq skk-emacs-type '(mule5))
       (make-local-hook 'pre-command-hook))
-    (add-hook 'pre-command-hook 'skk-pre-command nil 'local)
+    (skk-add-skk-pre-command)
     (static-unless (memq skk-emacs-type '(mule5))
       (make-local-hook 'post-command-hook))
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
@@ -278,9 +278,7 @@ dependent."
   (let ((skk-mode t))
     (skk-kakutei))
   (skk-mode-off)
-  (remove-hook 'pre-command-hook
-	       'skk-pre-command
-	       'local)
+  (skk-remove-skk-pre-command)
   (remove-hook 'post-command-hook
 	       'skk-after-point-move
 	       'local)
@@ -1975,22 +1973,23 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 					(make-string
 					 (length skk-current-search-prog-list)
 					 ?+))))
-      (when skk-show-inline
+      (cond
+       ((and skk-show-inline
+	     (not skk-isearch-switch)
+	     (not (skk-in-minibuffer-p)))
+	;; $B8=:_$N%P%C%U%!$NCf$KI=<($9$k(B ($B%$%s%i%$%sI=<((B)
 	(skk-inline-show str skk-inline-show-face))
-      (static-when (eq skk-emacs-type 'mule5)
-	(when (and window-system skk-show-tooltip)
-	  (skk-tooltip-show-at-point tooltip-str 'listing)))
-      (unless (and skk-show-inline
-		   (not (skk-in-minibuffer-p)))
-	;; skk-show-inline $B$N$H$-$O(B classic $B$J8uJd0lMw$OMW$i$J$$!#(B
-	;; skk-show-tooltip $B$N$H$-$OG0$N$?$aI=<($7$F$*$/!#(B
-	;; $B",(B next-command-event() $B$N$?$a!"<B<AE*$K$ON>N)$G$-$F$$$J$$!#(B
-	(if (and (not skk-show-candidates-always-pop-to-buffer)
-		 (> (frame-width) (skk-multiple-line-string-width str)))
-	    ;; $B%(%3!<%(%j%"$r;H$&!#(B
-	    (skk-multiple-line-message "%s" str)
-	  ;; $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&!#(B
-	  (skk-henkan-show-candidates-buffer str keys))))
+       ((and window-system
+	     skk-show-tooltip)
+	;; tooptip $B$GI=<($9$k(B
+	(skk-tooltip-show-at-point tooltip-str 'listing))
+       ((and (not skk-show-candidates-always-pop-to-buffer)
+	     (> (frame-width) (skk-multiple-line-string-width str)))
+	;; $B%(%3!<%(%j%"$r;H$&(B
+	(skk-multiple-line-message "%s" str))
+       (t
+	;; $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&(B
+	(skk-henkan-show-candidates-buffer str keys))))
     ;; $BI=<($9$k8uJd?t$rJV$9!#(B
     (length workinglst)))
 
@@ -2130,9 +2129,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
   (unless (numberp skk-henkan-in-minibuff-nest-level)
     (setq skk-henkan-in-minibuff-nest-level
 	  (minibuffer-depth)))
-  (static-when (eq skk-emacs-type 'mule5)
-    (when skk-show-tooltip
-      (tooltip-hide)))
+  (when (and window-system skk-show-tooltip)
+    (skk-tooltip-hide))
   (when skk-show-inline
     (skk-inline-show "$B"-<-=qEPO?Cf"-(B"
 		     (if (featurep 'font-lock)
@@ -2146,10 +2144,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  ;; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k!#(B
 	  skk-isearch-message orglen new-one pair)
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
-      (add-hook
-       'minibuffer-setup-hook
-       #'(lambda ()
-	   (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+      (add-hook 'minibuffer-setup-hook 'skk-add-skk-pre-command)
       (save-window-excursion
 	(skk-show-num-type-info)
 	(condition-case nil
@@ -2598,9 +2593,8 @@ WORD $B$G3NDj$9$k!#(B"
 	  (skk-update-kakutei-history
 	   (buffer-substring-no-properties
 	    skk-henkan-start-point (point))))))
-      (static-when (eq skk-emacs-type 'mule5)
-	(when (and window-system skk-show-tooltip)
-	  (tooltip-hide)))
+      (when (and window-system skk-show-tooltip)
+	(skk-tooltip-hide))
       (when skk-mode
 	(skk-kakutei-cleanup-buffer)
 	;; KAKUTEI-WORD $B$J$I$N>pJs$,I,MW$G$"$l$P!"(Bskk-last-henkan-data
@@ -4827,17 +4821,21 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     (remove-hook 'minibuffer-setup-hook (car args))
     (setq args (cdr args))))
 
+(defun skk-add-skk-pre-command ()
+  (add-hook 'pre-command-hook 'skk-pre-command nil 'local))
+
+(defun skk-remove-skk-pre-command ()
+  (remove-hook 'pre-command-hook 'skk-pre-command 'local))
+
 (add-hook 'edit-picture-hook #'skk-misc-for-picture 'append)
 (add-hook 'kill-emacs-hook #'skk-record-jisyo-data)
 ;; add 'skk-save-jisyo only to remove easily.
 (add-hook 'kill-emacs-hook #'skk-save-jisyo)
 (add-hook 'minibuffer-exit-hook
 	  #'(lambda ()
-	      (remove-hook 'pre-command-hook 'skk-pre-command 'local)
+	      (skk-remove-skk-pre-command)
 	      (skk-remove-minibuffer-setup-hook
-	       'skk-j-mode-on 'skk-setup-minibuffer
-	       #'(lambda ()
-		   (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+	       'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
 	      (skk-exit-henkan-in-minibuff)))
 
 ;;;###autoload
@@ -4940,8 +4938,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 $B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B abort-recursive-edit $B$HF1$8F0:n$r$9$k!#(B"
   ;; subr command but no arg.
   (skk-remove-minibuffer-setup-hook
-   'skk-j-mode-on 'skk-setup-minibuffer
-   #'(lambda () (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+   'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
   (cond ((not skk-mode)
 	 ad-do-it)
 	((not skk-henkan-mode)
@@ -5020,9 +5017,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
   ;; subr command but no arg.
   "`skk-egg-like-newline' $B$@$C$?$i!"JQ49Cf$O3NDj$N$_9T$&!#(B"
   (skk-remove-minibuffer-setup-hook
-   'skk-j-mode-on 'skk-setup-minibuffer
-   #'(lambda ()
-       (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))
+   'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
   (if (not (or skk-j-mode
 	       skk-jisx0201-mode
 	       skk-abbrev-mode))

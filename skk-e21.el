@@ -27,6 +27,7 @@
 ;;; Code:
 
 (eval-when-compile
+  (require 'avoid)
   (require 'cl)
   (require 'static)
   (require 'tooltip))
@@ -305,17 +306,21 @@ Analogous to mouse-position."
 		(+ (car (cdr edges)) (car (cdr (cdr list))))))))
 
 (defun skk-tooltip-show-at-point (text &optional listing)
+  (require 'avoid)
   (require 'tooltip)
   (let* ((P (skk-e21-mouse-position))
 	 (frame (car P))
 	 (x (cadr P))
 	 (y (cddr P))
 	 (oP (mouse-position))
-	 (oframe (car oP))
-	 (ox (cadr oP))
-	 (oy (cddr oP))
+	 oframe ox oy
 	 (inhibit-quit t)
 	 event)
+    (unless (cadr oP)
+      (setq oP (mouse-avoidance-point-position)))
+    (setq oframe (car oP)
+	  ox     (cadr oP)
+	  oy     (cddr oP))
     ;; Elscreen 使用時は Y 座標がずれる。とりあえず workaround。
     (when (and (featurep 'elscreen)
 	       (not (or skk-isearch-switch
@@ -386,6 +391,8 @@ Analogous to mouse-position."
      (message "Error while displaying tooltip: %s" error)
      (sit-for 1)
      (message "%s" text))))
+
+(defalias 'skk-tooltip-hide 'tooltip-hide)
 
 ;; advices.
 

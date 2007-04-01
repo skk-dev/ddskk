@@ -28,9 +28,12 @@
 ;;; Code:
 
 (eval-when-compile
+  (require 'avoid)
   (require 'static))
 
 (eval-and-compile
+  (require 'balloon-help)
+  (require 'poe)
   (require 'skk-macs))
 
 ;;;###autoload (unless (noninteractive) (require 'skk-setup))
@@ -219,6 +222,140 @@
 				     (skk-remove-duplicates keys)
 				   keys))
       nil)))
+
+(defun skk-xemacs-mouse-position (pos)
+  "Returns (WINDOW X . Y) of current point - analogous to mouse-position"
+  (let* ((beg (window-start))
+	 (col (save-excursion
+		(goto-char pos)
+		(current-column)))
+	 (row))
+    (setq row (count-lines beg pos))
+    (cons (selected-window) (cons col row))))
+
+
+(defalias-maybe 'multibyte-string-p 'string-p)
+
+;; XEmacs 21.4
+(defalias-maybe 'current-pixel-row 'ignore)
+
+(defalias 'skk-tooltip-hide 'balloon-help-undisplay-help)
+
+(defun skk-tooltip-show-at-point (text &optional listing)
+  (require 'avoid)
+  (let* ((pos (or (ignore-errors
+		  (marker-position
+		   skk-henkan-start-point))
+		(point)))
+	 (P (cdr (skk-xemacs-mouse-position pos)))
+	 (window (selected-window))
+	 (fontsize (cdr (assq 'PIXEL_SIZE
+			      (font-properties (face-font 'default)))))
+	 (x (or (current-pixel-column window pos)
+		(+ (car P) (/ (or fontsize 0) 2))))
+	 (y (or (current-pixel-row window pos)
+		(+ (cdr P) (or fontsize 0))))
+	 (oP (cdr (mouse-position)))
+	 (inhibit-quit t)
+	 event)
+    (unless (car oP)
+      (setq oP (cdr (mouse-avoidance-point-position))))
+    (setq balloon-help-help-object-x
+	  (+ x (cdr (assq 'left (frame-parameters (selected-frame)))))
+	  balloon-help-help-object-y
+	  (+ y (cdr (assq 'top (frame-parameters (selected-frame))))))
+    ;;
+    (mouse-avoidance-set-mouse-position P)
+    (let ((balloon-help-font (face-font 'default)))
+      (skk-tooltip-show-1 text))
+    (setq event (next-command-event))
+    (cond
+     ((skk-key-binding-member (skk-event-key event)
+			      '(keyboard-quit
+				skk-kanagaki-bs
+				skk-kanagaki-esc)
+			      skk-j-mode-map)
+      (balloon-help-go-away)
+      (mouse-avoidance-set-mouse-position oP)
+      (skk-set-henkan-count 0)
+      (cond ((eq skk-henkan-mode 'active)
+	     (skk-unread-event
+	      (character-to-event
+	       (aref (car (where-is-internal
+			   'skk-previous-candidate
+			   skk-j-mode-map))
+		     0)))
+	     (when listing
+	       ;; skk-henkan まで一気に throw する。
+	       (throw 'unread nil)))
+	    (t
+	     (skk-unread-event event))))
+     (t
+      (skk-tooltip-hide)
+      (mouse-avoidance-set-mouse-position oP)
+      ;; I don't know what magic it is...
+      (sit-for 0.01)
+      ;;
+      (skk-unread-event event)))))
+
+(defun skk-tooltip-show-1 (help)
+  (setq balloon-help-timeout-id nil)
+  (when (and (device-on-window-system-p)
+	     (stringp help))
+    (save-excursion
+      (when (or (not (frame-live-p balloon-help-frame))
+		(not (eq (selected-device)
+			 (frame-device balloon-help-frame))))
+	(setq balloon-help-frame (balloon-help-make-help-frame)))
+      (set-buffer balloon-help-buffer)
+      (erase-buffer)
+      (insert help)
+      (if (not (bolp))
+	  (insert ?\n))
+      (indent-rigidly (point-min) (point-max) 1)
+      (balloon-help-set-frame-properties)
+      (skk-xemacs-balloon-help-resize-help-frame)
+      (balloon-help-move-help-frame)
+      (balloon-help-expose-help-frame))))
+
+(defun skk-xemacs-balloon-help-resize-help-frame ()
+  ;; 縦の長さが合わないので、合わせる。
+  (save-excursion
+    (set-buffer balloon-help-buffer)
+    (let* ((longest 0)
+	   (lines 0)
+	   (done nil)
+	   (inst (vector 'string ':data nil))
+	   (window (frame-selected-window balloon-help-frame))
+	   (font-width (font-width (face-font 'default) balloon-help-frame))
+	   start width
+	   (window-min-height 1)
+	   (window-min-width 1))
+      (goto-char (point-min))
+      (while (not done)
+	(setq start (point))
+	(end-of-line)
+	(aset inst 2 (buffer-substring start (point)))
+	(setq longest (max longest (glyph-width (make-glyph inst) window))
+	      done (not (= 0 (forward-line))))
+	(and (not done) (setq lines (1+ lines))))
+      (setq width (/ longest font-width)
+	    width (if (> longest (* width font-width)) (1+ width) width))
+      ;; Increase width and lines...
+      (setq width (1+ width))
+      (save-match-data
+	(let ((string (format "%s" (if (> lines 2)
+				       (1+ (* lines 1.15))
+				     (* lines 1.5))))
+	      decimal)
+	  (when (string-match "\\." string)
+	    (setq lines (string-to-int (substring string 0 (match-beginning 0)))
+		  decimal (string-to-int (substring string (+ 1 (match-beginning 0))
+				    (+ 2 (match-beginning 0)))))
+	    (when (> decimal 4)
+	      (setq lines (1+ lines))))))
+      ;;
+      (set-frame-size balloon-help-frame (+ 0 width) lines))))
 
 ;; Hooks.
 
