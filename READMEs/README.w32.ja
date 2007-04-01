@@ -2,8 +2,8 @@
 
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2007/03/31 16:55:51 $
-$Id: README.w32.ja,v 1.6 2007/03/31 16:55:51 skk-cvs Exp $
+$Date: 2007/04/01 15:55:28 $
+$Id: README.w32.ja,v 1.7 2007/04/01 15:55:28 skk-cvs Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
@@ -174,7 +174,7 @@ Windows のコマンドプロンプトで MAKEIT.BAT のあるディレクトリに移動しま
 
 でインストール先が確認できます。
 
-     C:\tmp\ddskk\main> makeit what-where
+     C:\tmp\ddskk\main> makeit install
 
 によりインストールが実行されます。
 
