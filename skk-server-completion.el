@@ -63,9 +63,6 @@
 (require 'skk-comp)
 (require 'skk-server)
 
-(eval-when-compile
-  (require 'cl))
-
 ;;;###autoload
 (defun skk-server-completion-search ()
   "サーバーコンプリーションを行い、得られた各見出しでさらに検索する。
