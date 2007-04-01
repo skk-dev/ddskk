@@ -125,7 +125,22 @@
 				  nil
 				locale-coding-system))
 
+(defvar skk-e21-modeline-menu nil)
+
 ;; Functions.
+
+;;;###autoload
+(defun skk-e21-prepare-menu ()
+  (unless skk-e21-modeline-menu
+    (setq skk-e21-modeline-menu
+	  (easy-menu-create-menu (car skk-e21-modeline-menu-items)
+				 (cdr skk-e21-modeline-menu-items))))
+  (when skk-show-japanese-menu
+    (skk-e21-menu-replace skk-e21-modeline-menu)
+    (dolist (map (list skk-j-mode-map skk-latin-mode-map
+		       skk-jisx0208-latin-mode-map skk-abbrev-mode-map))
+      (skk-e21-menu-replace (or (assq 'skk (assq 'menu-bar map))
+				(assq 'SKK (assq 'menu-bar map)))))))
 
 (defun skk-e21-modeline-menu ()
   (interactive)
@@ -159,7 +174,7 @@
   ;;
   (let ((easy-menu-converted-items-table
 	 (make-hash-table :test 'equal)))
-    (popup-menu skk-e21-modeline-menu-items)))
+    (popup-menu skk-e21-modeline-menu)))
 
 (defun skk-e21-circulate-modes (&optional arg)
   (interactive "P")
@@ -249,14 +264,15 @@
 
 (defun skk-e21-menu-replace (list)
   (let (cons)
-    (while list
+    (while (and list (listp list))
       (cond
-       ((listp (car list))
+       ((and (car-safe list)
+	     (listp (car list)))
 	(skk-e21-menu-replace (car list)))
-       ((and (stringp (car list))
+       ((and (stringp (car-safe list))
 	     (setq cons (assoc (car list) skk-e21-menu-resource-ja)))
 	(setcar list (skk-e21-encode-string (cdr cons))))
-       ((and (vectorp (car list))
+       ((and (vectorp (car-safe list))
 	     (setq cons (assoc (aref (car list) 0) skk-e21-menu-resource-ja)))
 	(aset (car list) 0 (skk-e21-encode-string (cdr cons)))))
       (setq list (cdr list)))))

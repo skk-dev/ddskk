@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.388 2007/03/31 17:35:39 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.389 2007/04/01 04:26:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/03/31 17:35:39 $
+;; Last Modified: $Date: 2007/04/01 04:26:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -305,12 +305,7 @@ dependent."
     ;; 仮名入力を行う場合の初期設定。
     (skk-kanagaki-initialize))
   (static-when (eq skk-emacs-type 'mule5)
-    (when skk-show-japanese-menu
-      (skk-e21-menu-replace skk-e21-modeline-menu-items)
-      (dolist (map (list skk-j-mode-map skk-latin-mode-map
-			 skk-jisx0208-latin-mode-map skk-abbrev-mode-map))
-	(skk-e21-menu-replace (or (assq 'skk (assq 'menu-bar map))
-				  (assq 'SKK (assq 'menu-bar map)))))))
+    (skk-e21-prepare-menu))
   (skk-setup-delete-selection-mode)
   (setq skk-mode-invoked t))
 
