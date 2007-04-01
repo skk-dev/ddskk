@@ -1,6 +1,6 @@
 ;;; skk-e21.el --- GNU Emacs 21 support for SKK
 
-;; Copyright (C) 1999-2005 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2007 SKK Development Team <skk@ring.gr.jp>
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Keywords: japanese, mule, input method

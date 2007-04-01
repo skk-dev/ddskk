@@ -1,12 +1,12 @@
 ;;; skk-vars.el --- common vars and consts in SKK -*- coding: iso-2022-7bit -*-
 
-;; Copyright (C) 1999-2005 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2007  SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.194 2007/04/01 16:33:08 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.195 2007/04/01 17:53:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/01 16:33:08 $
+;; Last Modified: $Date: 2007/04/01 17:53:11 $
 
 ;; This file is part of Daredevil SKK.
 
