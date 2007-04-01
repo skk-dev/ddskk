@@ -21,6 +21,9 @@
 	(skk-tooltip-show-at-point): New function definition for XEmacs.
 	(skk-xemacs-balloon-help-resize-help-frame): New function.
 
+	(minibuffer-setup-hook): Remove `skk-add-skk-pre-command' from
+	minibuffer-setup-hook.
+
 	* skk.el (skk-henkan-show-candidate-subr): Avoid using multiple
 	methods for candidate display.
 

@@ -267,7 +267,7 @@
     ;;
     (mouse-avoidance-set-mouse-position P)
     (let ((balloon-help-font (face-font 'default)))
-      (skk-tooltip-show-1 text))
+      (skk-tooltip-show-1 text listing))
     (setq event (next-command-event))
     (cond
      ((skk-key-binding-member (skk-event-key event)
@@ -298,7 +298,7 @@
       ;;
       (skk-unread-event event)))))
 
-(defun skk-tooltip-show-1 (help)
+(defun skk-tooltip-show-1 (help &optional listing)
   (let ((balloon-help-frame-name
 	 (cdr (assq 'name skk-tooltip-parameters)))
 	(balloon-help-foreground
@@ -325,11 +325,11 @@
 	    (insert ?\n))
 	(indent-rigidly (point-min) (point-max) 1)
 	(balloon-help-set-frame-properties)
-	(skk-xemacs-balloon-help-resize-help-frame)
+	(skk-xemacs-balloon-help-resize-help-frame listing)
 	(balloon-help-move-help-frame)
 	(balloon-help-expose-help-frame)))))
 
-(defun skk-xemacs-balloon-help-resize-help-frame ()
+(defun skk-xemacs-balloon-help-resize-help-frame (&optional listing)
   ;; 縦の長さが合わないので、合わせる。
   (save-excursion
     (set-buffer balloon-help-buffer)
@@ -354,24 +354,10 @@
 	    width (if (> longest (* width font-width)) (1+ width) width))
       ;; Increase width and lines...
       (setq width (1+ width))
-      (save-match-data
-	(let ((string (format "%s" (cond ((> lines 2)
-					  (1+ (* lines 1.15)))
-					 ((= 2 lines)
-					  (float (1+ lines)))
-					 (t
-					  (float 1)))))
-	      decimal)
-	  (when (string-match "\\." string)
-	    (setq lines (string-to-int (substring string
-						  0
-						  (match-beginning 0)))
-		  decimal (string-to-int
-			   (substring string
-				      (+ 1 (match-beginning 0))
-				      (+ 2 (match-beginning 0)))))
-	    (when (> decimal 4)
-	      (setq lines (1+ lines))))))
+      (setq lines (if (or listing
+			  (= lines 1))
+		      lines
+		    (1+ lines)))
       ;;
       (set-frame-size balloon-help-frame (+ 0 width) lines))))
 
@@ -388,10 +374,7 @@
   ;; XEmacs has `minibuffer-keyboard-quit'
   ;; that has nothing to do with delsel.
   (skk-remove-minibuffer-setup-hook
-   #'skk-j-mode-on #'skk-setup-minibuffer
-   #'(lambda ()
-       (add-hook 'pre-command-hook 'skk-pre-command nil
-		 'local)))
+   'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
   (skk-exit-henkan-in-minibuff)
   (cond ((not skk-mode)
 	 ad-do-it)
