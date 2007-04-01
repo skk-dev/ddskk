@@ -349,9 +349,13 @@
 				     (* lines 1.0))))
 	      decimal)
 	  (when (string-match "\\." string)
-	    (setq lines (string-to-int (substring string 0 (match-beginning 0)))
-		  decimal (string-to-int (substring string (+ 1 (match-beginning 0))
-				    (+ 2 (match-beginning 0)))))
+	    (setq lines (string-to-int (substring string
+						  0
+						  (match-beginning 0)))
+		  decimal (string-to-int
+			   (substring string
+				      (+ 1 (match-beginning 0))
+				      (+ 2 (match-beginning 0)))))
 	    (when (> decimal 4)
 	      (setq lines (1+ lines))))))
       ;;
