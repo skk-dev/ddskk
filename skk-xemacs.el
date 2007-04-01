@@ -344,9 +344,12 @@
       ;; Increase width and lines...
       (setq width (1+ width))
       (save-match-data
-	(let ((string (format "%s" (if (> lines 2)
-				       (1+ (* lines 1.15))
-				     (* lines 1.0))))
+	(let ((string (format "%s" (cond ((> lines 2)
+					  (1+ (* lines 1.15)))
+					 ((= 2 lines)
+					  (float (1+ lines)))
+					 (t
+					  (float 1)))))
 	      decimal)
 	  (when (string-match "\\." string)
 	    (setq lines (string-to-int (substring string
