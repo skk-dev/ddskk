@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.32 2006/02/14 23:33:23 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.33 2007/04/01 05:31:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/14 23:33:23 $
+;; Last Modified: $Date: 2007/04/01 05:31:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -56,8 +56,10 @@
 
 (setq skk-use-viper t)
 (save-match-data
-  (unless (string-match (if (fboundp 'sentence-end) (sentence-end) sentence-end)
-                        "。？！．")
+  (unless (string-match (static-if (fboundp 'sentence-end)
+			    (sentence-end)
+			  sentence-end)
+			"。？！．")
     (setq sentence-end (concat "[。？！．]\\|" sentence-end))))
 
 ;;; cursor color support.

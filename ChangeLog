@@ -4,10 +4,20 @@
 
 2007-04-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-comp.el: Require cl at compile time.
+
+
 	* skk-e21.el (skk-e21-modeline-menu): New variable.
 	(skk-e21-prepare-menu): New function.
 	(skk-e21-modeline-menu): Pop up skk-e21-modeline-menu instead of
 	skk-e21-modeline-menu-items.
+
+	* skk-server-completion.el: Require cl at compile time.
+	Require skk-server.
+
+	* skk-vars.el (skk-show-japanese-menu): Set the default value.
+
+	* skk-viper.el: Check function `sentence-end' at compile time.
 
 	* skk.el (skk-mode-invoke): Call `skk-e21-prepare-menu'.
 

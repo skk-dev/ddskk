@@ -61,7 +61,10 @@
 
 (require 'skk)
 (require 'skk-comp)
+(require 'skk-server)
 
+(eval-when-compile
+  (require 'cl))
 
 ;;;###autoload
 (defun skk-server-completion-search ()
