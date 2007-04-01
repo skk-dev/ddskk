@@ -12,6 +12,9 @@
 	`mouse-avoidance-point-position'.
 	(skk-tooltip-hide): New alias to `tooltip-hide'.
 
+	* skk-vars.el (skk-tooltip-parameters): Update comment for
+	XEmacs.
+
 	* skk-xemacs.el (multibyte-string-p): New alias to `string-p'.
 	(current-pixel-row): New maybe-alias to `ignore'.
 	(skk-tooltip-hide): New alias to `balloon-help-undisplay-help'.

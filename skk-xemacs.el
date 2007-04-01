@@ -299,24 +299,35 @@
       (skk-unread-event event)))))
 
 (defun skk-tooltip-show-1 (help)
-  (setq balloon-help-timeout-id nil)
-  (when (and (device-on-window-system-p)
-	     (stringp help))
-    (save-excursion
-      (when (or (not (frame-live-p balloon-help-frame))
-		(not (eq (selected-device)
-			 (frame-device balloon-help-frame))))
-	(setq balloon-help-frame (balloon-help-make-help-frame)))
-      (set-buffer balloon-help-buffer)
-      (erase-buffer)
-      (insert help)
-      (if (not (bolp))
-	  (insert ?\n))
-      (indent-rigidly (point-min) (point-max) 1)
-      (balloon-help-set-frame-properties)
-      (skk-xemacs-balloon-help-resize-help-frame)
-      (balloon-help-move-help-frame)
-      (balloon-help-expose-help-frame))))
+  (let ((balloon-help-frame-name
+	 (cdr (assq 'name skk-tooltip-parameters)))
+	(balloon-help-foreground
+	 (cdr (assq 'foreground-color skk-tooltip-parameters)))
+	(balloon-help-background
+	 (cdr (assq 'background-color skk-tooltip-parameters)))
+	(balloon-help-border-color
+	 (cdr (assq 'border-color skk-tooltip-parameters)))
+	(balloon-help-border-with
+	 (cdr (assq 'border-with skk-tooltip-parameters)))
+	(balloon-help-timeout skk-tooltip-hide-delay))
+    (setq balloon-help-timeout-id nil)
+    (when (and (device-on-window-system-p)
+	       (stringp help))
+      (save-excursion
+	(when (or (not (frame-live-p balloon-help-frame))
+		  (not (eq (selected-device)
+			   (frame-device balloon-help-frame))))
+	  (setq balloon-help-frame (balloon-help-make-help-frame)))
+	(set-buffer balloon-help-buffer)
+	(erase-buffer)
+	(insert help)
+	(if (not (bolp))
+	    (insert ?\n))
+	(indent-rigidly (point-min) (point-max) 1)
+	(balloon-help-set-frame-properties)
+	(skk-xemacs-balloon-help-resize-help-frame)
+	(balloon-help-move-help-frame)
+	(balloon-help-expose-help-frame)))))
 
 (defun skk-xemacs-balloon-help-resize-help-frame ()
   ;; 縦の長さが合わないので、合わせる。

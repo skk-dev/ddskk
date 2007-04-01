@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.193 2007/04/01 05:31:29 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.194 2007/04/01 16:33:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/01 05:31:29 $
+;; Last Modified: $Date: 2007/04/01 16:33:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1496,9 +1496,17 @@ nil であれば、英語で表示する。"
  (設定例)
 
  (setq skk-tooltip-parameters
-       '((background-color . \"alice blue\")
-	 (border-color . \"royal blue\")))
+       '((foreground-color . \"navy blue\")
+	 (background-color . \"alice blue\")
+	 (border-color . \"royal blue\")
+	 (border-with . 1)
+	 (name . \"SKK tooltip\")))
 "
+  ;; name
+  ;; foreground-color
+  ;; background-color
+  ;; border-color
+  ;; border-width
   :type '(repeat cons)
   :group 'skk-decoration)
 
