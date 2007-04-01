@@ -5,8 +5,8 @@ rem ---  1999/07/07, Masaki YATSU mailto:yatsu@aurora.dti.ne.jp
 rem ---              cmail ML member
 rem ---  modified 1999/12/01, Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem ---  modified 2000/12/26, Takeshi Morishima mailto:tm@interaccess.com
-rem ---  date $Date: 2001/01/24 06:11:37 $
-rem ---  version $Id: makeit.bat,v 1.2 2001/01/24 06:11:37 yutopia Exp $
+rem ---  date $Date: 2007/04/01 04:26:48 $
+rem ---  version $Id: makeit.bat,v 1.3 2007/04/01 04:26:48 skk-cvs Exp $
 
 set ELISPMK_APP=skk
 
@@ -140,7 +140,7 @@ if exist %ELISPMK% goto execelmkb
 
 echo ----
 echo INFORMATIVE: No pre-configured batch (e.g. ~/.elispmk.bat
-echo INVORMATIVE: or ~/.elispmk.%ELISPMK_APP%.bat) found.
+echo INFORMATIVE: or ~/.elispmk.%ELISPMK_APP%.bat) found.
 echo INFORMATIVE: You may create one for your convenience.
 echo INFORMATIVE: See comments in makeit.bat.
 echo ----
