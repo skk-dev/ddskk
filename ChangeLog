@@ -1,3 +1,8 @@
+2007-04-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-xemacs.el (multibyte-string-p): Typo.
+	(skk-tooltip-show-1): Bind parameters fail-safe.
+
 2007-04-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el: Wikipedia support for XEmacs.

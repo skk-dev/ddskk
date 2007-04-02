@@ -234,7 +234,7 @@
     (cons (selected-window) (cons col row))))
 
 
-(defalias-maybe 'multibyte-string-p 'string-p)
+(defalias-maybe 'multibyte-string-p 'stringp)
 
 ;; XEmacs 21.4
 (defalias-maybe 'current-pixel-row 'ignore)
@@ -300,15 +300,20 @@
 
 (defun skk-tooltip-show-1 (help &optional listing)
   (let ((balloon-help-frame-name
-	 (cdr (assq 'name skk-tooltip-parameters)))
+	 (or (cdr (assq 'name skk-tooltip-parameters))
+	     balloon-help-frame-name))
 	(balloon-help-foreground
-	 (cdr (assq 'foreground-color skk-tooltip-parameters)))
+	 (or (cdr (assq 'foreground-color skk-tooltip-parameters))
+	     balloon-help-foreground))
 	(balloon-help-background
-	 (cdr (assq 'background-color skk-tooltip-parameters)))
+	 (or (cdr (assq 'background-color skk-tooltip-parameters))
+	     balloon-help-background))
 	(balloon-help-border-color
-	 (cdr (assq 'border-color skk-tooltip-parameters)))
-	(balloon-help-border-with
-	 (cdr (assq 'border-with skk-tooltip-parameters)))
+	 (or (cdr (assq 'border-color skk-tooltip-parameters))
+	     balloon-help-border-color))
+	(balloon-help-border-width
+	 (or (cdr (assq 'border-with skk-tooltip-parameters))
+	     balloon-help-border-width))
 	(balloon-help-timeout skk-tooltip-hide-delay))
     (setq balloon-help-timeout-id nil)
     (when (and (device-on-window-system-p)
