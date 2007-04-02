@@ -25,7 +25,7 @@
 	* skk-vars.el (skk-tooltip-parameters): Update comment for
 	XEmacs.
 
-	* skk-xemacs.el (multibyte-string-p): New alias to `string-p'.
+	* skk-xemacs.el (multibyte-string-p): New alias to `stringp'.
 	(current-pixel-row): New maybe-alias to `ignore'.
 	(skk-tooltip-hide): New alias to `balloon-help-undisplay-help'.
 	(skk-tooltip-show-at-point): New function definition for XEmacs.
