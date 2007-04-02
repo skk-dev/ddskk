@@ -6,7 +6,7 @@
 	(skk-tooltip-show-at-point):
 	(skk-xemacs-balloon-help-resize-help-frame):
 
-	Adjust position of tooltip frame.
+	Adjust size and position of tooltip frame.
 
 2007-04-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
