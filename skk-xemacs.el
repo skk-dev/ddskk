@@ -158,12 +158,10 @@
 	(let ((map (make-sparse-keymap)))
 	  (define-key map
 	    [button3]
-	    (eval '(make-modeline-command-wrapper
-		    'skk-xemacs-modeline-menu)))
+	    (eval '(make-modeline-command-wrapper 'skk-xemacs-modeline-menu)))
 	  (define-key map
 	    [button1]
-	    (eval '(make-modeline-command-wrapper
-		    'skk-xemacs-modeline-menu)))
+	    (eval '(make-modeline-command-wrapper 'skk-xemacs-modeline-menu)))
 	  map)))
     (dolist (mode '(hiragana
 		    katakana
@@ -175,13 +173,11 @@
       (setq extent (cdr (assq mode skk-xemacs-extent-alist)))
       (when window-system
 	(set-extent-keymap extent skk-xemacs-modeline-map)
-	(set-extent-property
-	 extent
-	 'help-echo
-	 "button1 or button3 shows SKK menu"))
+	(set-extent-property extent
+			     'help-echo
+			     "button1 or button3 shows SKK menu"))
       ;;
-      (setq face (intern (format "skk-xemacs-%s-face"
-				 mode)))
+      (setq face (intern (format "skk-xemacs-%s-face" mode)))
       (unless (find-face face)
 	(make-face face)
 	(set-face-parent face 'modeline nil '(default))
@@ -243,18 +239,22 @@
 
 (defun skk-tooltip-show-at-point (text &optional listing)
   (require 'avoid)
-  (let* ((pos (or (ignore-errors
-		  (marker-position
-		   skk-henkan-start-point))
-		(point)))
+  (let* ((pos (or (and (eq skk-henkan-mode 'active)
+		       (ignore-errors
+			 (marker-position
+			  skk-henkan-start-point)))
+		  (point)))
 	 (P (cdr (skk-xemacs-mouse-position pos)))
 	 (window (selected-window))
-	 (fontsize (cdr (assq 'PIXEL_SIZE
-			      (font-properties (face-font 'default)))))
-	 (x (or (current-pixel-column window pos)
-		(+ (car P) (/ (or fontsize 0) 2))))
-	 (y (or (current-pixel-row window pos)
-		(+ (cdr P) (or fontsize 0))))
+	 (fontsize (or (cdr (assq 'PIXEL_SIZE
+				  (font-properties (face-font 'default))))
+		       0))
+	 (x (+ (* 1 (/ (1+ fontsize) 2))
+	       (or (current-pixel-column window pos)
+		   (+ (car P) (/ (1+ fontsize) 2)))))
+	 (y (+ (* 8 (/ (1+ fontsize) 2))
+	       (or (current-pixel-row window pos)
+		   (+ (cdr P) fontsize))))
 	 (oP (cdr (mouse-position)))
 	 (inhibit-quit t)
 	 event)
@@ -364,10 +364,12 @@
 	    width (if (> longest (* width font-width)) (1+ width) width))
       ;; Increase width and lines...
       (setq width (1+ width))
-      (setq lines (if (or listing
-			  (= lines 1))
-		      lines
-		    (1+ lines)))
+      (setq lines (cond ((= lines 1)
+			 lines)
+			((or listing (= lines 2))
+			 (+ 1 lines))
+			(t
+			 (+ lines (/ lines 3)))))
       ;;
       (set-frame-size balloon-help-frame (+ 0 width) lines))))
 

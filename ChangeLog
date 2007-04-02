@@ -3,6 +3,11 @@
 	* skk-xemacs.el (multibyte-string-p): Typo.
 	(skk-tooltip-show-1): Bind parameters fail-safe.
 
+	(skk-tooltip-show-at-point):
+	(skk-xemacs-balloon-help-resize-help-frame):
+
+	Adjust position of tooltip frame.
+
 2007-04-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el: Wikipedia support for XEmacs.
