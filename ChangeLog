@@ -22,6 +22,7 @@
 	(skk-tooltip-show-1): When skk-tooltip-mouse-behavior is follow,
 	refer to skk-tooltip-x-offset and skk-tooltip-y-offset instead of
 	default offset variables.  Clear existing messages.
+	Use `mouse-avoidance-set-mouse-position'.
 
 	* skk-vars.el (skk-tooltip-mouse-behavior):
 	(skk-tooltip-x-offset):

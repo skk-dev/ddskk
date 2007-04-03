@@ -36,6 +36,7 @@
 (eval-and-compile
   (autoload 'mouse-avoidance-banish-destination "avoid")
   (autoload 'mouse-avoidance-point-position "avoid")
+  (autoload 'mouse-avoidance-set-mouse-position "avoid")
   (autoload 'Info-goto-node "info")
   (autoload 'browse-url "browse-url"))
 
@@ -294,7 +295,7 @@ Analogous to mouse-position."
 			  ;; latter has changed since the last redisplay
 			  '(0 . 0)       ; start XY
 			  (or (ignore-errors
-				(marker-position skk-henkan-end-point))
+				(marker-position skk-henkan-start-point))
 			      (point))       ; stop pos
 			  (cons (window-width w)
 				(window-height w)); stop XY: none
@@ -330,29 +331,29 @@ Analogous to mouse-position."
   (when (eq emacs-major-version 21)
     (setq skk-tooltip-mouse-behavior 'follow))
   ;;
-  (let* ((P (skk-e21-mouse-position))
-	 (frame (car P))
-	 (x (cadr P))
-	 (y (cddr P))
-	 (oP (mouse-position))
-	 oframe ox oy
+  (let* ((P (cdr (skk-e21-mouse-position)))
+	 (x (car P))
+	 (y (cdr P))
+	 (oP (cdr (mouse-position)))
 	 event
 	 parameters
 	 (avoid-destination (if (memq skk-tooltip-mouse-behavior
 				      '(avoid avoid-maybe banish))
 				(mouse-avoidance-banish-destination)
 			       nil))
-	 edges tip-destination fontsize left top tooltip-size
-	 text-width text-height screen-width screen-height
+	 edges
+	 tip-destination
+	 fontsize
+	 left top
+	 tooltip-size
+	 text-width text-height
+	 screen-width screen-height
 	 (inhibit-quit t)
 	 (tooltip-use-echo-area nil))
     ;;
-    (when (null (cadr oP))
+    (when (null (car P))
       (unless (memq skk-tooltip-mouse-behavior '(avoid-maybe banish nil))
-	(setq oP (mouse-avoidance-point-position))))
-    (setq oframe (car oP)
-	  ox     (cadr oP)
-	  oy     (cddr oP))
+	(setq oP (cdr (mouse-avoidance-point-position)))))
     ;; Elscreen 使用時は Y 座標がずれる。とりあえず workaround。
     (when (and (featurep 'elscreen)
 	       (not (or skk-isearch-switch
@@ -361,7 +362,7 @@ Analogous to mouse-position."
       (setq y (1+ y)))
     ;;
     (when (eq skk-tooltip-mouse-behavior 'follow)
-      (set-mouse-position frame x y))
+      (set-mouse-position (selected-frame) x y))
     ;;
     (when (or (and (memq skk-tooltip-mouse-behavior '(avoid banish))
 		   (not (equal (mouse-position) avoid-destination)))
@@ -454,8 +455,8 @@ Analogous to mouse-position."
 			      skk-j-mode-map)
       (tooltip-hide)
       (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
-		 ox oy)
-	(set-mouse-position oframe ox oy))
+		 (car oP))
+	(mouse-avoidance-set-mouse-position oP))
       (skk-set-henkan-count 0)
       (cond ((eq skk-henkan-mode 'active)
 	     (skk-unread-event
@@ -471,8 +472,8 @@ Analogous to mouse-position."
 	     (skk-unread-event event))))
      (t
       (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
-		 ox oy)
-	(set-mouse-position oframe ox oy))
+		 (car oP))
+	(mouse-avoidance-set-mouse-position oP))
       (tooltip-hide)
       (skk-unread-event event)))))
 
