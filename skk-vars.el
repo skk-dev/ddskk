@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.195 2007/04/01 17:53:11 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.196 2007/04/03 11:08:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/01 17:53:11 $
+;; Last Modified: $Date: 2007/04/03 11:08:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -221,6 +221,10 @@ Automatically becomes buffer-local when set in any fashion."
 
 (defgroup skk-study nil "SKK study related customization."
   :prefix "skk-study-"
+  :group 'skk)
+
+(defgroup skk-tooltip nil "SKK tooltip related customization."
+  :prefix "skk-tooltip-"
   :group 'skk)
 
 ;;(defgroup skk-viper nil "SKK/Viper related customization."
@@ -1508,7 +1512,47 @@ nil であれば、英語で表示する。"
   ;; border-color
   ;; border-width
   :type '(repeat cons)
-  :group 'skk-decoration)
+  :group 'skk-toopltip)
+
+(defcustom skk-tooltip-mouse-behavior
+  (cond ((featurep 'xemacs)
+	 'follow)
+	((<= emacs-major-version 21)
+	 'follow)
+	(t
+	 ;; FSF Emacs 22 以上
+	 'banish))
+  "*Tooltip を表示する場合の、マウスポインタの挙動。
+`follow' ならば  tip の位置に移動する。
+`avoid' ならば、ウインドウの端に退避する。
+`avoid-maybe' ならば、ウインドウ上にあるマウスポインタのみ退避する。
+`bash' ならば、ウインドウの端に退避したまま帰ってこない。
+`nil' ならば、退避しない。この場合、tip のテキストとマウスポインタが
+重なったり、うまく tip が表示できなかったりするので注意。"
+  :type '(radio (const :tag "Tip に従う" follow)
+		(const :tag "ウインドウの端に逃げる" avoid)
+		(const :tag "逃げたほうがよさそうなときだけ逃げる" avoid-maybe)
+		(const :tag "逃げたまま帰らない" banish)
+		(const :tag "居座る" nil))
+  :group 'skk-tooltip)
+
+(defcustom skk-tooltip-x-offset
+  (if (featurep 'xemacs)
+      0
+    (/ (1+ (frame-char-height)) 2))
+  "*Tooltip の位置を右にずらすピクセル数。
+負の整数を指定すると左にずれる。"
+  :type 'integer
+  :group 'skk-tooltip)
+
+(defcustom skk-tooltip-y-offset
+  (if (featurep 'xemacs)
+      0
+    (frame-char-height))
+  "*Tooltip の位置を下にずらすピクセル数。
+負の整数を指定すると上にずれる。"
+  :type 'integer
+  :group 'skk-tooltip)
 
 (defcustom skk-set-henkan-point-key
   '(?A ?B ?C ?D ?E ?F ?G ?H ?I ?J ?K ?M ?N ?O ?P ?R ?S ?T ?U ?V ?W ?Y ?Z)

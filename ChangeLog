@@ -1,5 +1,25 @@
 2007-04-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-e21.el (skk-tooltip-size): New function.
+	(skk-tooltip-show-at-point): Implement mouse pointer-indepent
+	decision of tooltip frame position.
+	(skk-tooltip-show-1): When skk-tooltip-mouse-behavior is follow,
+	refer to skk-tooltip-x-offset and skk-tooltip-y-offset instead of
+	default offset variables.
+
+	* skk-vars.el (skk-tooltip-mouse-behavior):
+	(skk-tooltip-x-offset):
+	(skk-tooltip-y-offset):
+
+	New variables.
+
+	* skk-xemacs.el (skk-tooltip-show-at-point):
+	(skk-xemacs-balloon-help-resize-help-frame):
+
+	Adjust size and position of tooltip frame.
+
+2007-04-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-xemacs.el (multibyte-string-p): Typo.
 	(skk-tooltip-show-1): Bind parameters fail-safe.
 

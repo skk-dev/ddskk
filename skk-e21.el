@@ -27,12 +27,15 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'avoid)
   (require 'cl)
   (require 'static)
-  (require 'tooltip))
+  (require 'tooltip)
+
+  (defvar tool-bar-border))
 
 (eval-and-compile
+  (autoload 'mouse-avoidance-banish-destination "avoid")
+  (autoload 'mouse-avoidance-point-position "avoid")
   (autoload 'Info-goto-node "info")
   (autoload 'browse-url "browse-url"))
 
@@ -291,8 +294,7 @@ Analogous to mouse-position."
 			  ;; latter has changed since the last redisplay
 			  '(0 . 0)       ; start XY
 			  (or (ignore-errors
-				(marker-position
-				 skk-henkan-start-point))
+				(marker-position skk-henkan-end-point))
 			      (point))       ; stop pos
 			  (cons (window-width w)
 				(window-height w)); stop XY: none
@@ -305,19 +307,49 @@ Analogous to mouse-position."
 	  (cons (+ (car edges)       (car (cdr list)))
 		(+ (car (cdr edges)) (car (cdr (cdr list))))))))
 
+(defun skk-tooltip-size (text)
+  (let ((lines 0)
+	(columns 0)
+	(current-column nil))
+  (with-temp-buffer
+    (insert text)
+    (goto-char (point-min))
+    (while (not (eobp))
+      (setq lines (1+ lines))
+      (end-of-line)
+      (setq current-column (current-column))
+      (when (> current-column columns)
+	(setq columns current-column))
+      (forward-line 1))
+    ;; (x . y)
+    (cons columns lines))))
+
 (defun skk-tooltip-show-at-point (text &optional listing)
-  (require 'avoid)
   (require 'tooltip)
+  ;; Emacs 21 では、マウスポインタ非依存の位置決定ができない (と思われる)
+  (when (eq emacs-major-version 21)
+    (setq skk-tooltip-mouse-behavior 'follow))
+  ;;
   (let* ((P (skk-e21-mouse-position))
 	 (frame (car P))
 	 (x (cadr P))
 	 (y (cddr P))
 	 (oP (mouse-position))
 	 oframe ox oy
+	 event
+	 parameters
+	 (avoid-destination (if (memq skk-tooltip-mouse-behavior
+				      '(avoid avoid-maybe banish))
+				(mouse-avoidance-banish-destination)
+			       nil))
+	 edges tip-destination fontsize left top tooltip-size
+	 text-width text-height screen-width screen-height
 	 (inhibit-quit t)
-	 event)
-    (unless (cadr oP)
-      (setq oP (mouse-avoidance-point-position)))
+	 (tooltip-use-echo-area nil))
+    ;;
+    (when (null (cadr oP))
+      (unless (memq skk-tooltip-mouse-behavior '(avoid-maybe banish nil))
+	(setq oP (mouse-avoidance-point-position))))
     (setq oframe (car oP)
 	  ox     (cadr oP)
 	  oy     (cddr oP))
@@ -328,8 +360,82 @@ Analogous to mouse-position."
 	       (symbol-value 'elscreen-display-tab))
       (setq y (1+ y)))
     ;;
-    (set-mouse-position frame x y)
-    (skk-tooltip-show-1 text skk-tooltip-parameters)
+    (when (eq skk-tooltip-mouse-behavior 'follow)
+      (set-mouse-position frame x y))
+    ;;
+    (when (or (and (memq skk-tooltip-mouse-behavior '(avoid banish))
+		   (not (equal (mouse-position) avoid-destination)))
+	      (and (eq skk-tooltip-mouse-behavior 'avoid-maybe)
+		   (cadr (mouse-position))
+		   (not (equal (mouse-position) avoid-destination))))
+      (set-mouse-position (selected-frame)
+			  (car avoid-destination)
+			  (cdr avoid-destination)))
+    ;;
+    (unless (eq skk-tooltip-mouse-behavior 'follow)
+      ;; マウスポインタに依存せず tooptip の位置を決定する。
+      (setq edges (window-inside-pixel-edges (selected-window))
+	    tip-destination (posn-x-y (posn-at-point (point)))
+	    fontsize (frame-char-height)
+	    ;; x
+	    left (+ (car tip-destination)
+		    (nth 0 edges)
+		    (frame-parameter (selected-frame) 'left)
+		    skk-tooltip-x-offset)
+	    ;; y
+	    top  (+ (if (boundp 'tool-bar-images-pixel-height)
+			tool-bar-images-pixel-height
+		      0)
+		    (if (boundp 'tool-bar-button-margin)
+			(* 2 tool-bar-button-margin)
+		      0)
+		    (if (boundp 'tool-bar-button-relief)
+			(* 2 tool-bar-button-relief)
+		      0)
+		    (if (boundp 'tool-bar-border)
+			(cond ((integerp tool-bar-border)
+			       tool-bar-border)
+			      ((symbolp tool-bar-border)
+			       (frame-parameter (selected-frame)
+						tool-bar-border))
+			      (t
+			       0))
+		      0)
+		    (if menu-bar-mode
+			(* 1 fontsize)
+		      0)
+		    ;; magic
+		    (* 2 fontsize)
+		    ;;
+		    (cdr tip-destination)
+		    (nth 1 edges)
+		    (frame-parameter (selected-frame) 'top)
+		    skk-tooltip-y-offset)
+	    tooltip-size (skk-tooltip-size text)
+	    text-width (* (/ (1+ fontsize) 2) (+ 2 (car tooltip-size)))
+	    text-height (* fontsize (+ 1 (cdr tooltip-size)))
+	    screen-width (display-pixel-width)
+	    screen-height (display-pixel-height))
+      ;;
+      (when (> (+ left text-width) screen-width)
+	;; 右に寄りすぎて欠けてしまわないように
+	(setq left (- left (- (+ left text-width) screen-width))))
+      (when (> (+ top text-height) screen-height)
+	;; 下に寄りすぎて欠けてしまわないように
+	(setq top (- top
+		     (- (+ top text-height) screen-height)
+		     ;; 十分上げないとテキストと重なるので、
+		     ;; いっそテキストの上にしてみる
+		     (- screen-height top)
+		     fontsize))))
+    ;;
+    (setq parameters (if (eq skk-tooltip-mouse-behavior 'follow)
+			 skk-tooltip-parameters
+		       (append skk-tooltip-parameters
+			       (list (cons 'top top)
+				     (cons 'left left)))))
+    ;;
+    (skk-tooltip-show-1 text parameters)
     (setq event (next-command-event))
     (cond
      ((skk-key-binding-member (skk-event-key event)
@@ -338,7 +444,8 @@ Analogous to mouse-position."
 				skk-kanagaki-esc)
 			      skk-j-mode-map)
       (tooltip-hide)
-      (when (and ox oy)
+      (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
+		 ox oy)
 	(set-mouse-position oframe ox oy))
       (skk-set-henkan-count 0)
       (cond ((eq skk-henkan-mode 'active)
@@ -354,7 +461,8 @@ Analogous to mouse-position."
 	    (t
 	     (skk-unread-event event))))
      (t
-      (when (and ox oy)
+      (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
+		 ox oy)
 	(set-mouse-position oframe ox oy))
       (tooltip-hide)
       (skk-unread-event event)))))
@@ -385,8 +493,12 @@ Analogous to mouse-position."
 		    (selected-frame)
 		    params
 		    skk-tooltip-hide-delay
-		    tooltip-x-offset
-		    tooltip-y-offset))
+		    (if (eq skk-tooltip-mouse-behavior 'follow)
+			skk-tooltip-x-offset
+		      tooltip-x-offset)
+		    (if (eq skk-tooltip-mouse-behavior 'follow)
+			skk-tooltip-y-offset
+		      tooltip-y-offset)))
     (error
      (message "Error while displaying tooltip: %s" error)
      (sit-for 1)

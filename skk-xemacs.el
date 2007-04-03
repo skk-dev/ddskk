@@ -249,10 +249,12 @@
 	 (fontsize (or (cdr (assq 'PIXEL_SIZE
 				  (font-properties (face-font 'default))))
 		       0))
-	 (x (+ (* 1 (/ (1+ fontsize) 2))
+	 (x (+ (* 0 (/ (1+ fontsize) 2))
 	       (or (current-pixel-column window pos)
 		   (+ (car P) (/ (1+ fontsize) 2)))))
-	 (y (+ (* 8 (/ (1+ fontsize) 2))
+	 (y (+ (if listing
+		   0
+		 (* 7 (/ (1+ fontsize) 2)))
 	       (or (current-pixel-row window pos)
 		   (+ (cdr P) fontsize))))
 	 (oP (cdr (mouse-position)))
