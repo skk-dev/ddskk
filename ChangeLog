@@ -1,5 +1,8 @@
 2007-04-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skk-annotation-url-package-available-p): Also
+	support Emacs 20.7 with unofficial MULE 4.1 patch.
+
 	* skk-e21.el (skk-tooltip-size): New function.
 	(skk-tooltip-show-at-point): Implement mouse pointer-indepent
 	decision of tooltip frame position.

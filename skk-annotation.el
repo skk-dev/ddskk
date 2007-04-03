@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.72 2007/04/01 17:53:11 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.73 2007/04/03 13:08:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/01 17:53:11 $
+;; Last Modified: $Date: 2007/04/03 13:08:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -135,7 +135,8 @@
 ;; $B$7$^$9!#$3$N5!G=$O(B Emacs 22 $B$G%F%9%H$5$l$F$$$^$9!#(BXEmacs 21.5 $B$G$O0J2<(B
 ;; $B$N(B 1 $B$H(B 2 $B$rF3F~$9$kI,MW$,$"$j$^$9!#(BXEmacs 21.4 $B$G$O99$K(B 3 $B$bI,MW$G$9!#(B
 ;; Emacs 21.4 $B$G$b(B 1, 2, 3 $B$,I,MW$H$J$j$^$9!#(BEmacs 20.7 $B$G$NF0:n$O%5%]!<%H(B
-;; $B$7$^$;$s!#(B
+;; $B$7$^$;$s$,!"(BMULE 4.1 $B%Q%C%A$rEv$F$F$$$l$P(B Emacs 21 $B$HF1MM$KF0:n$9$k2DG=(B
+;; $B@-$,$"$j$^$9!#(B
 ;;
 ;; 1. html2text.el
 ;;
@@ -951,8 +952,9 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (when (eq skk-annotation-url-package-available-p 'untested)
     ;; Emacs 22 $B0J9_0J30$G(B URL $B%Q%C%1!<%8$r%F%9%H$9$k(B
     (cond
-     ((eq skk-emacs-type 'mule4)
-      ;; Emacs 20.7 $B$G$O%5%]!<%H$7$J$$(B
+     ((and (eq skk-emacs-type 'mule4)
+	   (string-lessp mule-version "4.1"))
+      ;; Emacs 20.7 (MULE 4.0) $B$G$O%5%]!<%H$7$J$$(B
       (setq skk-annotation-url-package-available-p nil))
      (t
       ;; Emacs 21 $B$H(B XEmacs
