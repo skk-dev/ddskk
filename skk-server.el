@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.40 2006/02/17 11:44:50 skk-cvs Exp $
+;; Version: $Id: skk-server.el,v 1.41 2007/04/03 15:53:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/17 11:44:50 $
+;; Last Modified: $Date: 2007/04/03 15:53:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -101,6 +101,15 @@ When called interactively, print version information."
 	  (process-send-string skkserv-process (concat "1" key " "))
 	  (while (and cont (skk-server-live-p))
 	    (accept-process-output)
+	    ;; XXX workaround
+	    ;; dbskkd-cdb や skksearch などの SKK サーバーを使って変換する
+	    ;; 際に、2 秒ほど待たされることがある。どうやら応答待ちのループ
+	    ;; が負担になっているようで、多いときには数百〜最大で数十万回の
+	    ;; 応答待ちになることがある。skk-server-report-response を t に
+	    ;; しておくとこの現象が確認できる。
+	    ;; 以下の対策でほぼ回避できる模様。
+	    (sit-for 0.01)
+	    ;;
 	    (setq count (1+ count))
 	    (when (> (buffer-size) 0)
 	      (if (eq (char-after 1) ?1) ;?1

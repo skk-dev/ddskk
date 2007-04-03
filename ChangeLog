@@ -1,3 +1,10 @@
+2007-04-03  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* skk-server.el (skk-server-1): Workaround for a problem where
+	Emacs tries to accept replies from SKK server too fast and too
+	often.  Just call `sit-for' with 10 milliseconds interval after
+	`accept-process-output' to avoid the problem.
+
 2007-04-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-url-package-available-p): Also
