@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.73 2007/04/03 13:08:29 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.74 2007/04/03 15:21:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/03 13:08:29 $
+;; Last Modified: $Date: 2007/04/03 15:21:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -220,6 +220,11 @@
 
 ;;;###autoload
 (defun skk-annotation-find-and-show (pair)
+  ;; $B%_%K%P%C%U%!$K$$$k$H$-M>7W$J%a%C%;!<%8$r%/%j%"$9$k(B
+  (when (or skk-isearch-switch
+	    (skk-in-minibuffer-p))
+    (message nil))
+  ;;
   (when (and (car-safe pair)
 	     (not (cdr-safe pair)))
     ;; Wikipedia $B$N(B URL $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
@@ -548,6 +553,11 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 
 ;;;###autoload
 (defun skk-annotation-display-p (test)
+  ;; $B%_%K%P%C%U%!$K$$$k$H$-M>7W$J%a%C%;!<%8$r%/%j%"$9$k(B
+  (when (or skk-isearch-switch
+	    (skk-in-minibuffer-p))
+    (message nil))
+  ;;
   (cond ((eq skk-show-annotation nil)
 	 nil)
 	((and (listp skk-show-annotation)
@@ -926,6 +936,11 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 ;;;###autoload
 (defun skk-annotation-wikipedia-region (start end)
   (interactive "r")
+  ;; $B%_%K%P%C%U%!$K$$$k$H$-M>7W$J%a%C%;!<%8$r%/%j%"$9$k(B
+  (when (or skk-isearch-switch
+	    (skk-in-minibuffer-p))
+    (message nil))
+  ;;
   (let ((word (buffer-substring-no-properties start end))
 	note)
     (when (> (length word) 0)

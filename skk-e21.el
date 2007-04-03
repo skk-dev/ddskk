@@ -498,6 +498,11 @@ Analogous to mouse-position."
 		  (or (get-text-property 0 'face text)
 		      (get-text-property 2 'face text)))
 	  (setq text (propertize text 'face 'tooltip)))
+	;; ミニバッファにいるとき余計なメッセージをクリアする
+	(when (or skk-isearch-switch
+		  (skk-in-minibuffer-p))
+	  (message nil))
+	;;
 	(x-show-tip text
 		    (selected-frame)
 		    params

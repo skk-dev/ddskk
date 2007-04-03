@@ -3,12 +3,18 @@
 	* skk-annotation.el (skk-annotation-url-package-available-p): Also
 	support Emacs 20.7 with unofficial MULE 4.1 patch.
 
+	(skk-annotation-find-and-show):
+	(skk-annotation-display-p):
+	(skk-annotation-wikipedia-region):
+
+	Clear existing messages.
+
 	* skk-e21.el (skk-tooltip-size): New function.
 	(skk-tooltip-show-at-point): Implement mouse pointer-indepent
 	decision of tooltip frame position.
 	(skk-tooltip-show-1): When skk-tooltip-mouse-behavior is follow,
 	refer to skk-tooltip-x-offset and skk-tooltip-y-offset instead of
-	default offset variables.
+	default offset variables.  Clear existing messages.
 
 	* skk-vars.el (skk-tooltip-mouse-behavior):
 	(skk-tooltip-x-offset):
