@@ -1,4 +1,4 @@
-2007-04-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2007-04-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-url-package-available-p): Also
 	support Emacs 20.7 with unofficial MULE 4.1 patch.
