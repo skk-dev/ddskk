@@ -332,8 +332,6 @@ Analogous to mouse-position."
     (setq skk-tooltip-mouse-behavior 'follow))
   ;;
   (let* ((P (cdr (skk-e21-mouse-position)))
-	 (x (car P))
-	 (y (cdr P))
 	 (oP (cdr (mouse-position)))
 	 event
 	 parameters
@@ -362,7 +360,7 @@ Analogous to mouse-position."
       (setq y (1+ y)))
     ;;
     (when (eq skk-tooltip-mouse-behavior 'follow)
-      (set-mouse-position (selected-frame) x y))
+      (mouse-avoidance-set-mouse-position P))
     ;;
     (when (or (and (memq skk-tooltip-mouse-behavior '(avoid banish))
 		   (not (equal (mouse-position) avoid-destination)))
