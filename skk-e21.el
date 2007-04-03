@@ -370,7 +370,10 @@ Analogous to mouse-position."
 		   (not (equal (mouse-position) avoid-destination))))
       (set-mouse-position (selected-frame)
 			  (car avoid-destination)
-			  (cdr avoid-destination)))
+			  ;; XXX pending
+			  ;; マウスポインタはどこへいくべきか
+			  ;; (cdr avoid-destination)
+			  0))
     ;;
     (unless (eq skk-tooltip-mouse-behavior 'follow)
       ;; マウスポインタに依存せず tooptip の位置を決定する。
@@ -404,8 +407,14 @@ Analogous to mouse-position."
 		    (if menu-bar-mode
 			(* 1 fontsize)
 		      0)
+		    (if (and (featurep 'elscreen)
+			     (not (or skk-isearch-switch
+				      (skk-in-minibuffer-p)))
+			     (symbol-value 'elscreen-display-tab))
+			(* 1 fontsize)
+		      0)
 		    ;; magic
-		    (* 2 fontsize)
+		    (* 1 fontsize)
 		    ;;
 		    (cdr tip-destination)
 		    (nth 1 edges)
