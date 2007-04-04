@@ -357,7 +357,7 @@ Analogous to mouse-position."
 	       (not (or skk-isearch-switch
 			(skk-in-minibuffer-p)))
 	       (symbol-value 'elscreen-display-tab))
-      (setq y (1+ y)))
+      (setcdr P (1+ (cdr P))))
     ;;
     (when (eq skk-tooltip-mouse-behavior 'follow)
       (mouse-avoidance-set-mouse-position P))
