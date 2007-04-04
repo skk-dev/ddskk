@@ -2,6 +2,13 @@
 
 	* skk-annotations.el (skk-annotation-wikipedia-1): Regexp fix.
 	Remove tables and bigs.  Remove "A > B > C"-like hierarchy.
+	Modify the cache buffer name.
+	(skk-annotation-wikipedia-cache): Return pair of cached annotation
+	and the cache buffer name.
+	(skk-annotation-wait-for-input): Also browse wikipedia/wiktionary
+	URLs.
+	(skk-annotation-find-url): Discard URL that does not contain a
+	domain name.
 
 2007-04-03  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 

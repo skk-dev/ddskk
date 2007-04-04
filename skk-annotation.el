@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.76 2007/04/04 07:56:30 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.77 2007/04/04 17:46:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/04 07:56:30 $
+;; Last Modified: $Date: 2007/04/04 17:46:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -228,7 +228,7 @@
   (when (and (car-safe pair)
 	     (not (cdr-safe pair)))
     ;; Wikipedia $B$N(B URL $BMxMQ$N>l9g$O$3$3$GCm<a$r@_Dj$9$k!#(B
-    (setcdr pair (or (skk-annotation-wikipedia-cache (car pair))
+    (setcdr pair (or (car (skk-annotation-wikipedia-cache (car pair)))
 		     (when skk-annotation-show-wikipedia-url
 		       (skk-annotation-treat-wikipedia (car pair))))))
   (skk-annotation-show (or (cdr pair) "") (car pair)))
@@ -274,7 +274,7 @@
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
-	 event key command urls note)
+	 event key command urls note cache)
     (while (and list
 		(condition-case nil
 		    (progn
@@ -299,15 +299,33 @@
 	    ((eq command browse-command)
 	     (setq list (delq browse-command list))
 	     (setq urls (delq nil (mapcar #'skk-annotation-find-url notes)))
+	     (when word
+	       (cond ((setq cache (skk-annotation-wikipedia-cache word))
+		      (setq urls
+			    (cons (apply
+				   #'skk-annotation-generate-url
+				   "http://ja.%s.org/wiki/%s"
+				   ;; split-string $B$NHs8_49@-$KG[N8(B
+				   (condition-case nil
+				       (cdr (split-string (cdr cache) " " t))
+				     (error
+				      (cdr (split-string (cdr cache) " ")))))
+				  urls)))
+		     (skk-annotation-show-wikipedia-url
+		      (add-to-list 'urls
+				   (skk-annotation-generate-url
+				    "http://ja.wikipedia.org/wiki/%s"
+				    word)))))
 	     (unless (equal annotation "")
-	       (cond (urls
-		      (dolist (url urls)
-			(browse-url url))
-		      (skk-message "$BCm<aFb$N%5%$%H$r%V%i%&%:$7$F$$$^$9(B..."
-				   "Browsing sites in the current notes..."))
-		     (t
-		      (skk-message "$BCm<aFb$K%5%$%H$,8+$D$+$j$^$;$s(B"
-				   "No sites found in the current notes")))
+	       (cond
+		(urls
+		 (dolist (url urls)
+		   (browse-url url))
+		 (skk-message "$BCm<a$N$?$a$N%5%$%H$r%V%i%&%:$7$F$$$^$9(B..."
+			      "Browsing web sites for the current notes..."))
+		(t
+		 (skk-message "$BCm<a$N$?$a$N%5%$%H$,8+$D$+$j$^$;$s(B"
+			      "No web sites found for the current notes")))
 	       (setq event nil)
 	       (skk-annotation-show-2 annotation)))
 	    ((equal (key-description key)
@@ -318,11 +336,11 @@
 		 (setq note (skk-annotation-treat-wikipedia word))))
 	     (cond ((null note)
 		    (setq note annotation))
-		   ((equal annotation "")
-		    (setq annotation note))
+;		   ((equal annotation "")
 		   (t
-		    nil))
+		    (setq annotation note)))
 	     (unless (equal note "")
+	       (add-to-list 'list browse-command)
 	       (skk-annotation-show-2 (or note annotation))))
 	    (t
 	     (setq list nil))))
@@ -334,11 +352,18 @@
     (with-temp-buffer
       (insert string)
       (goto-char (point-max))
-      (setq url (thing-at-point 'url))
-      (while (not (or url (bobp)))
-	(backward-char 1)
-	(setq url (thing-at-point 'url)))
-      url)))
+      (save-match-data
+	(while (and (not url)
+		    (re-search-forward "\\." nil t))
+	  (backward-char 1)
+	  (setq url (thing-at-point 'url))
+	  ;; http://foo $B$N$h$&$J(B URL $B$r@8@.$7$F$7$^$&$N$GBP:v(B
+	  (when (and url
+		     (not (string-match "\\." url)))
+	    (setq url nil))
+	  (unless url
+	    (forward-char 1)))))
+    url))
 
 (defun skk-annotation-show-buffer (annotation)
   (condition-case nil
@@ -711,7 +736,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 $B$k!#E,@Z$J(B URL $B$r@8@.$9$k$?$a$K$O!"(B"
   (require 'html2text)
   (require 'url)
-  (let ((cache-buffer (format " *skk wikipedia %s *" word))
+  (let ((cache-buffer (format " *skk %s %s" source word))
 	;; html2text $B$,@5$7$/07$($J$$(B tag $B$O0J2<$N%j%9%H$K;XDj$9$k(B
 	(html2text-remove-tag-list
 	 '("a" "p" "img" "dir" "head" "div" "br" "font" "span" "sup"
@@ -981,14 +1006,17 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 
 ;;;###autoload
 (defun skk-annotation-wikipedia-cache (word)
-  (let* ((cache-buffer (format " *skk wikipedia %s *" word))
-	 (string (if (get-buffer cache-buffer)
+  (let ((sources skk-annotation-wikipedia-sources))
+    (catch 'found
+      (while sources
+	(let* ((cache-buffer (format " *skk %s %s" (pop sources) word))
+	       (string (if (get-buffer cache-buffer)
 		     (with-current-buffer (get-buffer cache-buffer)
 		       (buffer-string))
-		   "")))
-    (if (string= string "")
-	nil
-      string)))
+		     "")))
+	  (if (string= string "")
+	      nil
+	    (throw 'found (cons string cache-buffer))))))))
 
 ;;;###autoload
 (defun skk-annotation-wikipedia-region (start end)
@@ -1001,10 +1029,10 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (let ((word (buffer-substring-no-properties start end))
 	note)
     (when (> (length word) 0)
-      (setq note (or (skk-annotation-wikipedia-cache word)
+      (setq note (or (car (skk-annotation-wikipedia-cache word))
 		     (skk-annotation-wikipedia word)))
       (when note
-	(skk-annotation-show note)))))
+	(skk-annotation-show note word)))))
 
 (defun skk-annotation-generate-url (format-string &rest args)
   (condition-case nil
