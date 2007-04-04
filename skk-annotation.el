@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.75 2007/04/04 03:25:54 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.76 2007/04/04 07:56:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/04 03:25:54 $
+;; Last Modified: $Date: 2007/04/04 07:56:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -799,27 +799,63 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		    (progn
 		      (erase-buffer)
 		      (setq html ""))
-		  (setq point (point))
+		  (delete-region (point-min) (point))
 		  (goto-char (point-min))
 		  ;; <div> $B$r=|5n$9$k(B
-		  (while (re-search-forward "<div class=\"\\(magnify\\)\".*>" nil t)
+		  (while (re-search-forward
+			  "<div class=\"\\(magnify\\)\".*>" nil t)
 		    (setq point2 (match-beginning 0))
 		    (search-forward "</div>" nil t)
 		    (delete-region point2 (point))
-		    (goto-char (point-min)))
+		    (goto-char point2))
 		  ;; <big> $B$r=|5n$9$k(B
+		  (goto-char (point-min))
 		  (while (re-search-forward "<p><big>.+</big></p>" nil t)
-		    (replace-match "")
-		    (goto-char (point-min)))
+		    (goto-char (match-beginning 0))
+		    (replace-match ""))
+		  ;; <br /> $B$r=|5n$9$k(B
+		  (goto-char (point-min))
+		  (while (re-search-forward
+			  "<p>.+<br />$" nil t)
+		    (goto-char (match-beginning 0))
+		    (save-excursion
+		      (when (re-search-forward "<br />$" nil t)
+			(replace-match ""))))
 		  ;; ? $B$r=|5n$9$k(B
-		  (while (re-search-forward "<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
-		    (replace-match "")
-		    (goto-char (point-min)))
+		  (goto-char (point-min))
+		  (while (re-search-forward
+			  "<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
+		    (goto-char (match-beginning 0))
+		    (replace-match ""))
+		  ;; <table> $B$r=|5n(B
+		  (goto-char (point-min))
+		  (save-match-data
+		    (while (re-search-forward "<table.*>" nil t)
+		      (setq point2 (match-beginning 0))
+		      (cond
+		       ((not (search-forward "</table>" nil t))
+			(delete-region point2 (point-max))
+			(goto-char (point-min)))
+		       (t
+			(setq pt2 (match-end 0))
+			(goto-char (1+ point2))
+			(cond
+			 ((not (re-search-forward "<table.*>" nil t))
+			  (delete-region point2 pt2))
+			 (t
+			  (setq pt1 (match-beginning 0))
+			  (cond
+			   ((< pt2 pt1)
+			    (delete-region point2 pt2)
+			    (setq point2 nil)
+			    (goto-char (point-min)))
+			   (t
+			    (goto-char (match-beginning 0))))))))))
 		  ;;
-		  (goto-char point)
+		  (goto-char (point-min))
 		  (when (or (when (re-search-forward
 				   "<p>\\(<br />\n\\|[^\n]*\\)?\
-<b>[^\n]+</b>[^\n]+</p>"
+<b>[^\n]+</b>[^\n]+"
 				   nil t)
 			      (goto-char (match-beginning 0))
 			      (if (and (save-excursion
@@ -833,7 +869,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 				      continue t)
 				nil))
 			    (when (progn
-				    (goto-char point)
+				    (goto-char (point-min))
 				    (re-search-forward "<\\(u\\|o\\)l>" nil t))
 			      (goto-char (if continue
 					     point
@@ -846,30 +882,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 					 "</p>")
 				       nil t)
 		    (delete-region (point) (point-max))
-		    ;; <table> $B$r=|5n(B
-		    (goto-char (point-min))
-		    (save-match-data
-		      (while (re-search-forward "<table.*>" nil t)
-			(setq point2 (match-beginning 0))
-			(cond
-			 ((not (search-forward "</table>" nil t))
-			  (delete-region point2 (point-max))
-			  (goto-char (point-min)))
-			 (t
-			  (setq pt2 (match-end 0))
-			  (goto-char (1+ point2))
-			  (cond
-			   ((not (re-search-forward "<table.*>" nil t))
-			    (delete-region point2 pt2))
-			   (t
-			    (setq pt1 (match-beginning 0))
-			    (cond
-			     ((< pt2 pt1)
-			      (delete-region point2 pt2)
-			      (setq point2 nil)
-			      (goto-char (point-min)))
-			     (t
-			      (goto-char (match-beginning 0))))))))))))))
+		    ;;
+		    ))))
 	      ;;
 	      (unless (equal html "")
 		(html2text)
