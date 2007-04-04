@@ -10,6 +10,8 @@
 	(skk-annotation-find-url): Discard URL that does not contain a
 	domain name.
 
+	(skk-annotation-wikipedia-normalize-word): New function.
+
 2007-04-03  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* skk-server.el (skk-server-1): Workaround for a problem where

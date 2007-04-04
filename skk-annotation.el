@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.79 2007/04/04 17:51:20 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.80 2007/04/04 18:53:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/04 17:51:20 $
+;; Last Modified: $Date: 2007/04/04 18:53:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -737,6 +737,9 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 $B$k!#E,@Z$J(B URL $B$r@8@.$9$k$?$a$K$O!"(B"
   (require 'html2text)
   (require 'url)
+  ;;
+  (setq word (skk-annotation-wikipedia-normalize-word word))
+  ;;
   (let ((cache-buffer (format " *skk %s %s" source word))
 	;; html2text $B$,@5$7$/07$($J$$(B tag $B$O0J2<$N%j%9%H$K;XDj$9$k(B
 	(html2text-remove-tag-list
@@ -750,8 +753,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
       ;; $B%-%c%C%7%e$,$J$$>l9g(B
       (setq buffer (url-retrieve (skk-annotation-generate-url
 				  "http://ja.%s.org/wiki/%s"
-				  source
-				  (upcase-initials word))
+				  source word)
 				 #'skk-annotation-wikipedia-retrieved
 				 ()))
       (when (catch 'retrieved
@@ -770,22 +772,24 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	       ;; Wiktionary
 	       ((eq source 'wiktionary)
 		(goto-char (point-min))
-		(search-forward "<!-- start content -->" nil t)
-		(save-excursion
-		  (when (and
-			 (re-search-forward
-			  "<h2>.*<span class=\"mw-headline\">$BF|K\8l(B</span></h2>"
-			  nil t)
-			 (re-search-forward
-			  "<h2>.*<span class=\"mw-headline\">.+$B8l(B</span></h2>"
-			  nil t))
-		    (delete-region (match-beginning 0) (point-max))))
 		(if (save-excursion
-		      (search-forward "<div class=\"noarticletext\">" nil t))
+		      (re-search-forward "\
+\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
+					 nil t))
 		    ;; $B9`L\$,$J$$>l9g(B
 		    (progn
 		      (erase-buffer)
 		      (setq html ""))
+		  (search-forward "<!-- start content -->" nil t)
+		  (save-excursion
+		    (when (and
+			   (re-search-forward "\
+<h2>.*<span class=\"mw-headline\">$BF|K\8l(B</span></h2>"
+					      nil t)
+			   (re-search-forward "\
+<h2>.*<span class=\"mw-headline\">.+$B8l(B</span></h2>"
+					      nil t))
+		      (delete-region (match-beginning 0) (point-max))))
 		  (setq point nil)
 		  (while (re-search-forward "<span class=\"mw-headline\">\
 \\(\\($BL>(B\\|$BF0(B\\|$B7AMFF0(B?\\|$BI{(B\\)$B;l(B.*\\|$B4A;z:.$8$jI=5-(B\\|$B0U5A(B\\)</span>" nil t)
@@ -814,17 +818,19 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	       ;; Wikipedia
 	       ((eq source 'wikipedia)
 		(goto-char (point-min))
-		(setq aimai
-		      (save-excursion
-			(search-forward "<a href=\"/wiki/Wikipedia:\
-%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF\"" nil t)))
-		(search-forward "<!-- start content -->" nil t)
 		(if (save-excursion
-		      (search-forward "<div class=\"noarticletext\">" nil t))
+		      (re-search-forward "\
+\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
+					 nil t))
 		    ;; $B9`L\$,$J$$>l9g(B
 		    (progn
 		      (erase-buffer)
 		      (setq html ""))
+		  (setq aimai
+			(save-excursion
+			  (search-forward "<a href=\"/wiki/Wikipedia:\
+%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF\"" nil t)))
+		  (search-forward "<!-- start content -->" nil t)
 		  (delete-region (point-min) (point))
 		  (goto-char (point-min))
 		  ;; <div> $B$r=|5n$9$k(B
@@ -935,13 +941,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (when (and (not (equal (buffer-string) ""))
 			     (not (get-text-property 1 'face)))
 		    (put-text-property 1 2 'face 'default))
-		  (setq note (buffer-string)))))))
-      ;;
-      (when (and (not last)
-		 (get-buffer cache-buffer)
-		 (string= "" (with-current-buffer cache-buffer
-			       (buffer-string))))
-	(kill-buffer cache-buffer)))
+		  (setq note (buffer-string))))))))
     ;;
     (cond ((stringp note)
 	   (if (equal note "")
@@ -1007,6 +1007,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 
 ;;;###autoload
 (defun skk-annotation-wikipedia-cache (word)
+  (setq word (skk-annotation-wikipedia-normalize-word word))
   (let ((sources skk-annotation-wikipedia-sources))
     (catch 'found
       (while sources
@@ -1048,6 +1049,10 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			   element))
 		     args))
     (error "%s" "URL $B%Q%C%1!<%8$,MxMQ$G$-$^$;$s(B")))
+
+(defun skk-annotation-wikipedia-normalize-word (word)
+  ;; $B%9%Z!<%9$O(B %20 $B$G$O$J$/!"%"%s%@!<%9%3%"$KJQ49$9$k(B
+  (replace-regexp-in-string " " "_" (upcase-initials word)))
 
 (defun skk-annotation-url-package-available-p ()
   (when (eq skk-annotation-url-package-available-p 'untested)
