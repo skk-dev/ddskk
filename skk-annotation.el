@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.78 2007/04/04 17:48:12 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.79 2007/04/04 17:51:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/04 17:48:12 $
+;; Last Modified: $Date: 2007/04/04 17:51:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -163,7 +163,7 @@
 ;;
 ;;    UTF-8 の取り扱いに必要となります。
 ;;
-;;    http://tats.haun.org/mule-ucs/
+;;    http://www.meadowy.org/~shirai/
 ;;
 ;;    などの情報を参考にインストールします。
 
