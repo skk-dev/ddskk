@@ -1,3 +1,8 @@
+2007-04-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotations.el (skk-annotation-wikipedia-1): Regexp fix.
+	Remove tables and bigsq.  Remove hierarchy.
+
 2007-04-03  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* skk-server.el (skk-server-1): Workaround for a problem where
