@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.47 2006/02/14 23:33:23 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.48 2007/04/05 04:49:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/14 23:33:23 $
+;; Last Modified: $Date: 2007/04/05 04:49:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -448,7 +448,7 @@ If the conversion is in progress and no string is fixed, just return nil."
   (if isearch-regexp
       (do ((prev (skk-isearch-last-char isearch-string) (car chars))
 	   (result "" (concat result (char-to-string (car chars))))
-	   (chars (string-to-char-list string) (cdr chars)))
+	   (chars (string-to-list string) (cdr chars)))
 	  ((null chars) result)
 	(when (and (skk-isearch-breakable-p prev)
 		   (skk-isearch-breakable-p (car chars)))

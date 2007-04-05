@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-mkmgk.el,v 1.13 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-mkmgk.el,v 1.14 2007/04/05 04:49:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2007/04/05 04:49:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -165,7 +165,7 @@
 	(if (null candidates0)
 	    nil
 	  ;; ひらがな見出しを分解
-	  (setq header-list (string-to-char-list header0))
+	  (setq header-list (string-to-list header0))
 	  (save-excursion ; have to restore point after searching
 	    (set-buffer reference)
 	    (let ((max (point-max)) (min (point-min))

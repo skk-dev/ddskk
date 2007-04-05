@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.390 2007/04/01 13:52:39 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.391 2007/04/05 04:49:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/01 13:52:39 $
+;; Last Modified: $Date: 2007/04/05 04:49:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1125,8 +1125,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   (t
 	    ;; NEXT does not have any branch (i.e. NEXT is a leaf)
 	    (setq data (skk-get-kana next)
-		  queue (nconc (string-to-char-list
-				(skk-get-nextstate next))
+		  queue (nconc (string-to-list (skk-get-nextstate next))
 			       (cdr queue))
 		  skk-current-rule-tree nil))))
 	 (t
@@ -1136,7 +1135,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	     (d
 	      ;; SKK-CURRENT-RULE-TREE have a roma->kana rule
 	      (setq data d
-		    queue (nconc (string-to-char-list
+		    queue (nconc (string-to-list
 				  (skk-get-nextstate
 				   skk-current-rule-tree))
 				 queue)
@@ -1148,7 +1147,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		(cond
 		 (dd
 		  (setq data (car dd)
-			queue (nconc (string-to-char-list (cdr dd))
+			queue (nconc (string-to-list (cdr dd))
 				     (cdr queue))
 			skk-current-rule-tree nil))
 		 ((eq skk-current-rule-tree skk-rule-tree)
@@ -1243,7 +1242,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 (defun skk-add-rule (tree rule)
   (let* ((prefix (nth 0 rule))
 	 (l (length prefix))
-	 (result (skk-search-tree tree (string-to-char-list prefix)))
+	 (result (skk-search-tree tree (string-to-list prefix)))
 	 (rest (car result))
 	 (addpoint (cdr result)))
     (while rest
@@ -1262,7 +1261,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 (defun skk-delete-rule (tree string)
   "$BF~NO(B STRING $B$KBP$9$k%k!<%k$r%k!<%kLZ(B TREE $B$+$i:o=|$9$k!#(B"
   (catch 'return
-    (let ((char-list (string-to-char-list string))
+    (let ((char-list (string-to-list string))
 	  (cutpoint tree)
 	  ;; TREE $B$N:,$+$i=P$k;^$,(B1$BK\$7$+$J$$>l9g(B
 	  ;; $B$N$?$a$K0l1~=i4|2=$7$F$*$/(B

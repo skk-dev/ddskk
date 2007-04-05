@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.61 2007/04/01 07:33:48 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.62 2007/04/05 04:49:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/01 07:33:48 $
+;; Last Modified: $Date: 2007/04/05 04:49:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -191,7 +191,7 @@
 		 ""
 	       (let ((tree skk-rule-tree)
 		     kana-list)
-		 (dolist (c (string-to-char-list prefix))
+		 (dolist (c (string-to-list prefix))
 		   (setq tree (skk-select-branch tree c)))
 		 (setq kana-list
 		       (skk-comp-arrange-kana-list
