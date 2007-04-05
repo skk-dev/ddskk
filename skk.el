@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.391 2007/04/05 04:49:12 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.392 2007/04/05 04:51:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/05 04:49:12 $
+;; Last Modified: $Date: 2007/04/05 04:51:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1136,8 +1136,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	      ;; SKK-CURRENT-RULE-TREE have a roma->kana rule
 	      (setq data d
 		    queue (nconc (string-to-list
-				  (skk-get-nextstate
-				   skk-current-rule-tree))
+				  (skk-get-nextstate skk-current-rule-tree))
 				 queue)
 		    skk-current-rule-tree nil))
 	     (t
