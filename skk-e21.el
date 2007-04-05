@@ -228,11 +228,7 @@
   ;;
   (when window-system
     (let (face)
-      (dolist (mode '(hiragana
-		      katakana
-		      jisx0208-latin
-		      jisx0201
-		      abbrev))
+      (dolist (mode '(hiragana katakana jisx0208-latin jisx0201 abbrev))
 	(setq face (intern (format "skk-e21-%s-face" mode)))
 	(unless (facep face)
 	  (make-face face)
@@ -240,8 +236,7 @@
 	    (set-face-foreground face
 				 (symbol-value
 				  (intern
-				   (format "skk-cursor-%s-color"
-					   mode))))))
+				   (format "skk-cursor-%s-color" mode))))))
 	(push (cons mode (append skk-e21-modeline-property
 				 (list 'face face)))
 	       skk-e21-property-alist)))))
@@ -250,8 +245,7 @@
   (let ((keys
 	 (or (do ((spec (nth 4 skk-rule-tree) (cdr spec))
 		  (list nil (car spec))
-		  (str nil (when (eq (nth 3 list)
-				     func)
+		  (str nil (when (eq (nth 3 list) func)
 			     (nth 1 list))))
 		 ((or str (null spec))
 		  (if (stringp str)
@@ -283,8 +277,9 @@
       (setq list (cdr list)))))
 
 (defun skk-e21-mouse-position ()
-  "Return the position of point as (FRAME X . Y).
-Analogous to mouse-position."
+  "ポイントの位置を (FRAME X . Y) の形で返す。
+これは `mouse-avoidance-point-position' とほぼ同じだが、SKK ▼モードのときは
+▼のポイントを返す。"
   (let* ((w (if skk-isearch-switch
 		(minibuffer-window)
 	      (selected-window)))
@@ -294,9 +289,10 @@ Analogous to mouse-position."
 			  ;; window-start can be < point-min if the
 			  ;; latter has changed since the last redisplay
 			  '(0 . 0)       ; start XY
-			  (or (ignore-errors
+			  (if (eq skk-henkan-mode 'active)
+			      (ignore-errors
 				(marker-position skk-henkan-start-point))
-			      (point))       ; stop pos
+			    (point))       ; stop pos
 			  (cons (window-width w)
 				(window-height w)); stop XY: none
 			  (1- (window-width w))       ; width
@@ -379,12 +375,14 @@ Analogous to mouse-position."
       (setq edges (window-inside-pixel-edges (selected-window))
 	    tip-destination (posn-x-y (posn-at-point (point)))
 	    fontsize (frame-char-height)
-	    ;; x
+	    ;; x 座標 (左からの)
 	    left (+ (car tip-destination)
 		    (nth 0 edges)
 		    (frame-parameter (selected-frame) 'left)
 		    skk-tooltip-x-offset)
-	    ;; y
+	    ;; y 座標 (上からの)
+	    ;; 正しいか分からないが、ツールバーとメニューバーの分も計算する
+	    ;; (ただしウィンドウデコレータなどの扱いは関知できない？)
 	    top  (+ (if (boundp 'tool-bar-images-pixel-height)
 			tool-bar-images-pixel-height
 		      0)
@@ -459,9 +457,8 @@ Analogous to mouse-position."
       (cond ((eq skk-henkan-mode 'active)
 	     (skk-unread-event
 	      (character-to-event
-	       (aref (car (where-is-internal
-			   'skk-previous-candidate
-			   skk-j-mode-map))
+	       (aref (car (where-is-internal 'skk-previous-candidate
+					     skk-j-mode-map))
 		     0)))
 	     (when listing
 	       ;; skk-henkan まで一気に throw する。
@@ -502,13 +499,12 @@ Analogous to mouse-position."
 		  (skk-in-minibuffer-p))
 	  (message nil))
 	;;
-	(x-show-tip text
-		    (selected-frame)
-		    params
-		    skk-tooltip-hide-delay
+	(x-show-tip text (selected-frame) params skk-tooltip-hide-delay
+		    ;;
 		    (if (eq skk-tooltip-mouse-behavior 'follow)
 			skk-tooltip-x-offset
 		      tooltip-x-offset)
+		    ;;
 		    (if (eq skk-tooltip-mouse-behavior 'follow)
 			skk-tooltip-y-offset
 		      tooltip-y-offset)))
