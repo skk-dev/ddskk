@@ -1,5 +1,8 @@
 2007-04-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotations.el (skk-annotation-find-url): Intended
+	`point-min', not `point-max'.
+
 	* skk-comp.el (skk-comp-get-regexp):
 	* skk-isearch.el (skk-isearch-search-string-regexp):
 	* skk.el (skk-kana-input):

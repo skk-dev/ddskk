@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.80 2007/04/04 18:53:51 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.81 2007/04/05 10:15:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/04 18:53:51 $
+;; Last Modified: $Date: 2007/04/05 10:15:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -352,7 +352,7 @@
   (let (url)
     (with-temp-buffer
       (insert string)
-      (goto-char (point-max))
+      (goto-char (point-min))
       (save-match-data
 	(while (and (not url)
 		    (re-search-forward "\\." nil t))
