@@ -304,22 +304,31 @@
 	  (cons (+ (car edges)       (car (cdr list)))
 		(+ (car (cdr edges)) (car (cdr (cdr list))))))))
 
-(defun skk-tooltip-size (text)
+(defun skk-tooltip-resize-text (text)
   (let ((lines 0)
 	(columns 0)
 	(current-column nil))
     (with-temp-buffer
+      (set-buffer-multibyte t)
       (insert text)
       (goto-char (point-min))
       (while (not (eobp))
 	(setq lines (1+ lines))
-	(end-of-line)
-	(setq current-column (current-column))
-	(when (> current-column columns)
-	  (setq columns current-column))
-	(forward-line 1)))
-    ;; (x . y)
-    (cons columns lines)))
+	(cond ((= lines 35)
+	       ;; 長すぎる
+	       (beginning-of-line)
+	       (insert "(長すぎるので省略されました)")
+	       (delete-region (point) (point-max))
+	       (goto-char (point-max))
+	       (setq text (buffer-string)))
+	      (t
+	       (end-of-line)
+	       (setq current-column (current-column))
+	       (when (> current-column columns)
+		 (setq columns current-column))
+	       (forward-line 1)))))
+    ;; (text . (x . y))
+    (cons text (cons columns lines))))
 
 (defun skk-tooltip-show-at-point (text &optional listing)
   (require 'tooltip)
@@ -339,7 +348,7 @@
 	 tip-destination
 	 fontsize
 	 left top
-	 tooltip-size
+	 tooltip-info tooltip-size
 	 text-width text-height
 	 screen-width screen-height
 	 (inhibit-quit t)
@@ -417,7 +426,9 @@
 		    (nth 1 edges)
 		    (frame-parameter (selected-frame) 'top)
 		    skk-tooltip-y-offset)
-	    tooltip-size (skk-tooltip-size text)
+	    tooltip-info (skk-tooltip-resize-text text)
+	    text (car tooltip-info)
+	    tooltip-size (cdr tooltip-info)
 	    text-width (* (/ (1+ fontsize) 2) (+ 2 (car tooltip-size)))
 	    text-height (* fontsize (+ 1 (cdr tooltip-size)))
 	    screen-width (display-pixel-width)
