@@ -1,3 +1,20 @@
+2007-04-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-1): Support for
+	en.wiktionary.org and en.wikipedia.org.
+	(skk-annotation-wikipedia-cache): If cache for Upcased WORD is not
+	found, lookup cache for WORD itself (un-upcased).
+	(skk-annotation-wikipedia-region): If region is not active, pick
+	up word at point.
+	(skk-annotation-wikipedia-normalize-word): Don't upcase for
+	wiktionary.
+
+	* skk-vars.el (skk-tooltip-mouse-behavior): Defaults to `banish'
+	under XEmacs.
+
+	* skk-xemacs.el (skk-tooltip-show-at-point): Add missing support
+	for skk-tooltip-*-offset and skk-tooltip-mouse-behavior.
+
 2007-04-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotations.el (skk-annotation-find-url): Intended

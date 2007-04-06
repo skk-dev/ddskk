@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.196 2007/04/03 11:08:36 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.197 2007/04/06 13:34:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/03 11:08:36 $
+;; Last Modified: $Date: 2007/04/06 13:34:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1468,12 +1468,6 @@ nil であれば、英語で表示する。"
   :type 'boolean
   :group 'skk-decoration)
 
-(defcustom skk-show-tooltip nil
-  "*Non-nil であれば、エコーエリアの代わりに tooltip で候補などを表示する。
-この機能は現在のところ Emacs 21 専用。"
-  :type 'boolean
-  :group 'skk-decoration)
-
 (defcustom skk-show-inline nil
   "*Non-nil であれば、インライン で候補などを表示する。
 この機能は現在のところ Emacs 21 専用。"
@@ -1486,6 +1480,14 @@ nil であれば、英語で表示する。"
   :type '(radio (face :tag "フェイスを指定")
 		(const :tag "候補文字列のフェイス属性をそのまま使用"))
   :group 'skk-faces
+  :group 'skk-decoration)
+
+(defcustom skk-show-tooltip nil
+  "*Non-nil であれば、エコーエリアの代わりに tooltip で候補などを表示する。
+この機能は GNU Emacs 21, 22 と XEmacs 21.5 以上で動作する。
+GNU Emacs 20.7 では機能せず、指定するとエラーになる。
+XEmacs 21.4 ではエラーにならないかもしれないが、極めて不完全な動作しかしない。"
+  :type 'boolean
   :group 'skk-decoration)
 
 (defcustom skk-tooltip-hide-delay 1000
@@ -1503,8 +1505,7 @@ nil であれば、英語で表示する。"
        '((foreground-color . \"navy blue\")
 	 (background-color . \"alice blue\")
 	 (border-color . \"royal blue\")
-	 (border-with . 1)
-	 (name . \"SKK tooltip\")))
+	 (border-with . 1)))
 "
   ;; name
   ;; foreground-color
@@ -1516,7 +1517,7 @@ nil であれば、英語で表示する。"
 
 (defcustom skk-tooltip-mouse-behavior
   (cond ((featurep 'xemacs)
-	 'follow)
+	 'banish)
 	((<= emacs-major-version 21)
 	 'follow)
 	(t
@@ -1528,7 +1529,10 @@ nil であれば、英語で表示する。"
 `avoid-maybe' ならば、ウインドウ上にあるマウスポインタのみ退避する。
 `bash' ならば、ウインドウの端に退避したまま帰ってこない。
 `nil' ならば、退避しない。この場合、tip のテキストとマウスポインタが
-重なったり、うまく tip が表示できなかったりするので注意。"
+重なったり、うまく tip が表示できなかったりするので注意。
+
+この機能は GNU Emacs 22 以上か XEmacs 21.5 以上で動作する。
+GNU Emacs 21 では強制的に `follow' となる。"
   :type '(radio (const :tag "Tip に従う" follow)
 		(const :tag "ウインドウの端に逃げる" avoid)
 		(const :tag "逃げたほうがよさそうなときだけ逃げる" avoid-maybe)
@@ -3698,7 +3702,10 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
   :group 'skk-annotation
   :group 'skk-misc)
 
-(defcustom skk-annotation-wikipedia-sources '(wikipedia wiktionary)
+(defcustom skk-annotation-wikipedia-sources '(ja.wikipedia
+					      ja.wiktionary
+					      en.wikipedia
+					      en.wiktionary)
   "*アノテーションに使う Wikimedia のソースを指定するオプション。
 標準ではまず Wikipedia を参照し、Wikipedia の記述が無ければ Wiktionary を
 参照する。"

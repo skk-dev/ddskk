@@ -245,6 +245,10 @@
 			  skk-henkan-start-point)))
 		  (point)))
 	 (P (cdr (skk-xemacs-mouse-position pos)))
+	 (avoid-destination (if (memq skk-tooltip-mouse-behavior
+				      '(avoid avoid-maybe banish))
+				(mouse-avoidance-banish-destination)
+			       nil))
 	 (window (selected-window))
 	 (fontsize (or (cdr (assq 'PIXEL_SIZE
 				  (font-properties (face-font 'default))))
@@ -260,16 +264,30 @@
 	 (oP (cdr (mouse-position)))
 	 (inhibit-quit t)
 	 event)
-    (unless (car oP)
-      (setq oP (cdr (mouse-avoidance-point-position))))
-    (setq balloon-help-help-object-x
-	  (+ x (cdr (assq 'left (frame-parameters (selected-frame)))))
-	  balloon-help-help-object-y
-	  (+ y (cdr (assq 'top (frame-parameters (selected-frame))))))
+    (when (null (car P))
+      (unless (memq skk-tooltip-mouse-behavior '(avoid-maybe banish nil))
+	(setq oP (cdr (mouse-avoidance-point-position)))))
     ;;
-    (mouse-avoidance-set-mouse-position P)
-    (let ((balloon-help-font (face-font 'default)))
-      (skk-tooltip-show-1 text listing))
+    (setq balloon-help-help-object-x
+	  (+ x
+	     (cdr (assq 'left (frame-parameters (selected-frame))))
+	     skk-tooltip-x-offset)
+	  balloon-help-help-object-y
+	  (+ y
+	     (cdr (assq 'top (frame-parameters (selected-frame))))
+	     skk-tooltip-y-offset))
+    ;;
+    (when (eq skk-tooltip-mouse-behavior 'follow)
+      (mouse-avoidance-set-mouse-position P))
+    ;;
+    (when (or (and (memq skk-tooltip-mouse-behavior '(avoid banish))
+		   (not (equal (mouse-position) avoid-destination)))
+	      (and (eq skk-tooltip-mouse-behavior 'avoid-maybe)
+		   (cadr (mouse-position))
+		   (not (equal (mouse-position) avoid-destination))))
+      (mouse-avoidance-banish-mouse))
+    ;;
+    (skk-tooltip-show-1 text listing)
     (setq event (next-command-event))
     (cond
      ((skk-key-binding-member (skk-event-key event)
@@ -277,8 +295,10 @@
 				skk-kanagaki-bs
 				skk-kanagaki-esc)
 			      skk-j-mode-map)
-      (balloon-help-go-away)
-      (mouse-avoidance-set-mouse-position oP)
+      (skk-tooltip-hide)
+      (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
+		 (car oP))
+	(mouse-avoidance-set-mouse-position oP))
       (skk-set-henkan-count 0)
       (cond ((eq skk-henkan-mode 'active)
 	     (skk-unread-event
@@ -294,7 +314,9 @@
 	     (skk-unread-event event))))
      (t
       (skk-tooltip-hide)
-      (mouse-avoidance-set-mouse-position oP)
+      (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
+		 (car oP))
+	(mouse-avoidance-set-mouse-position oP))
       ;; I don't know what magic it is...
       (sit-for 0.01)
       ;;
@@ -316,7 +338,8 @@
 	(balloon-help-border-width
 	 (or (cdr (assq 'border-with skk-tooltip-parameters))
 	     balloon-help-border-width))
-	(balloon-help-timeout skk-tooltip-hide-delay))
+	(balloon-help-timeout skk-tooltip-hide-delay)
+	(balloon-help-font (face-font 'default)))
     (setq balloon-help-timeout-id nil)
     (when (and (device-on-window-system-p)
 	       (stringp help))
