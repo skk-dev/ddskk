@@ -1,13 +1,20 @@
 2007-04-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Support for
-	en.wiktionary.org and en.wikipedia.org.
+	en.wiktionary.org and en.wikipedia.org.  Use process buffer as
+	cache buffer.
 	(skk-annotation-wikipedia-cache): If cache for Upcased WORD is not
 	found, lookup cache for WORD itself (un-upcased).
 	(skk-annotation-wikipedia-region): If region is not active, pick
 	up word at point.
 	(skk-annotation-wikipedia-normalize-word): Don't upcase for
 	wiktionary.
+	(skk-annotation-insert): Go to the beginning of buffer after
+	inserting text.
+
+	* skk-e21.el (skk-tooltip-size): Abolish.
+	(skk-tooltip-resize-text): New function.  Resize text when it is
+	too large.
 
 	* skk-vars.el (skk-tooltip-mouse-behavior): Defaults to `banish'
 	under XEmacs.
