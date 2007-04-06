@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.85 2007/04/06 18:02:00 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.86 2007/04/06 23:04:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/06 18:02:00 $
+;; Last Modified: $Date: 2007/04/06 23:04:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -146,13 +146,14 @@
 ;;
 ;;    に含まれるバージョンではエラーを発生する可能性があります。
 ;;
-;;    もし Wikipedia/Wiktionary 検索の際にエラーが出るようだったら、
+;;    もし Wikipedia/Wiktionary 検索の際にエラーが出るようでしたら、
 ;;    html2text.el だけ開発版 No Gnus (ngnus) v0.6 以上のものに差し替える
 ;;    必要があります。
 ;;
 ;;    http://www.ring.gr.jp/archives/elisp/gnus/snapshots/
 ;;
-;;    または CVS より最新版をインストールしてください。
+;;    または CVS より最新版をインストールしてください。また、Emacs 22.1 に
+;;    付属する Gnus 5.11 ではこの問題は修正されています。
 ;;
 ;; 2. URL パッケージ
 ;;
