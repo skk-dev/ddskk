@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.82 2007/04/06 13:34:16 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.83 2007/04/06 13:42:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/06 13:34:16 $
+;; Last Modified: $Date: 2007/04/06 13:42:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -914,7 +914,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\|Preposition\\|Contraction\\|Determiner\\|Demonstrative determiner\
 \\|Interrogative determiner\\|Pronoun\\|Pronominal possessive adjective\
 \\|Interrogative pronoun\\|Relative pronoun\\|Auxiliary verb\\( form\\)?\
-\\|Indefinite article\\|Abbreviation\\)\
+\\|Indefinite article\\|Abbreviation\\|Initialism\\)\
 \\(</a>\\)?\
 </span>"
 					    nil t)
