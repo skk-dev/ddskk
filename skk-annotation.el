@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.84 2007/04/06 14:37:28 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.85 2007/04/06 18:02:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/06 14:37:28 $
+;; Last Modified: $Date: 2007/04/06 18:02:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -140,19 +140,19 @@
 ;;
 ;; 1. html2text.el
 ;;
-;;    $B$3$l$OHf3SE*:G6a$N(B gnus $B$K4^$^$l$F$$$^$9!#Nc$($P(B
+;;    $B$3$l$OHf3SE*:G6a$N(B gnus $B$K4^$^$l$F$$$^$9!#$7$+$7(B
 ;;
 ;;    http://www.ring.gr.jp/archives/elisp/gnus/gnus-5.10.8.tar.gz
 ;;
-;;    $B$r<hF@$7$F%$%s%9%H!<%k$7$^$9!#(B
-;;
-;;    XEmacs $B$N>l9g$O:G?7$N(B xemacs-sumo $B$,F~$C$F$$$l$PMW$j$^$;$s!#(B
+;;    $B$K4^$^$l$k%P!<%8%g%s$G$O%(%i!<$rH/@8$9$k2DG=@-$,$"$j$^$9!#(B
 ;;
 ;;    $B$b$7(B Wikipedia/Wiktionary $B8!:w$N:]$K%(%i!<$,=P$k$h$&$@$C$?$i!"(B
-;;    html2text.el $B$@$13+H/HG(B No Gnus (ngnus) $B$N:G?7HG$KIUB0$9$k%P!<%8%g%s$K(B
-;;    $B:9$7BX$($F$_$F$/$@$5$$!#(B
+;;    html2text.el $B$@$13+H/HG(B No Gnus (ngnus) v0.6 $B0J>e$N$b$N$K:9$7BX$($k(B
+;;    $BI,MW$,$"$j$^$9!#(B
 ;;
-;;    http://ring.k-opti.com/archives/elisp/gnus/
+;;    http://www.ring.gr.jp/archives/elisp/gnus/snapshots/
+;;
+;;    $B$^$?$O(B CVS $B$h$j:G?7HG$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
 ;;
 ;; 2. URL $B%Q%C%1!<%8(B
 ;;
@@ -214,7 +214,8 @@
 (defsubst skk-annotation-insert (annotation)
   (with-current-buffer (get-buffer-create skk-annotation-buffer)
     (skk-annotation-erase-buffer)
-    (insert annotation)))
+    (insert annotation)
+    (goto-char (point-min))))
 
 ;; functions.
 ;;;###autoload
@@ -753,7 +754,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	 '("a" "p" "img" "dir" "head" "div" "br" "font" "span" "sup"
 	   "table" "tr" "td" "h2" "h3" "h4" "small"))
 	(sources skk-annotation-wikipedia-sources)
-	buffer html note aimai continue nop point point2 pt1 pt2)
+	buffer note aimai continue nop point point2 pt1 pt2)
     (if (get-buffer cache-buffer)
 	(with-current-buffer cache-buffer
 	  (setq note (buffer-string)))
@@ -769,11 +770,12 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		t))
 	(when (get-buffer buffer)
 	  (with-current-buffer buffer
-	    (setq html (buffer-string)))
-	  (kill-buffer buffer)
-	  (when html
-	    (with-current-buffer (get-buffer-create cache-buffer)
-	      (insert (decode-coding-string html 'utf-8))
+	    (set-buffer-multibyte t)
+	    (decode-coding-region (point-min) (point-max) 'utf-8)
+	    (when (> (buffer-size) 0)
+	      (when (get-buffer cache-buffer)
+		(kill-buffer buffer))
+	      (rename-buffer cache-buffer)
 	      ;; $BMW$i$J$$ItJ,$r>C$9(B
 	      (cond
 	       ;; ja.wiktionary
@@ -784,9 +786,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
 					 nil t))
 		    ;; $B9`L\$,$J$$>l9g(B
-		    (progn
-		      (erase-buffer)
-		      (setq html ""))
+		    (erase-buffer)
 		  (search-forward "<!-- start content -->" nil t)
 		  (delete-region (point-min) (point))
 		  ;;
@@ -865,9 +865,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
 					 nil t))
 		    ;; $B9`L\$,$J$$>l9g(B
-		    (progn
-		      (erase-buffer)
-		      (setq html ""))
+		    (erase-buffer)
 		  (search-forward "<!-- start content -->" nil t)
 		  (delete-region (point-min) (point))
 		  ;;
@@ -975,9 +973,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
 					 nil t))
 		    ;; $B9`L\$,$J$$>l9g(B
-		    (progn
-		      (erase-buffer)
-		      (setq html ""))
+		    (erase-buffer)
 		  (setq aimai
 			(save-excursion
 			  (search-forward "<a href=\"/wiki/Wikipedia:\
@@ -1088,9 +1084,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
 					 nil t))
 		    ;; $B9`L\$,$J$$>l9g(B
-		    (progn
-		      (erase-buffer)
-		      (setq html ""))
+		    (erase-buffer)
 		  (setq aimai
 			(save-excursion
 			  (search-forward "<a href=\"/wiki/Wikipedia:\
@@ -1195,7 +1189,7 @@ Disambiguation\"" nil t)))
 				       nil t)
 		    (delete-region (point) (point-max))))))
 	      ;;
-	      (unless (equal html "")
+	      (when (> (buffer-size) 0)
 		(html2text)
 		(goto-char (point-min))
 		(cond
@@ -1221,13 +1215,6 @@ Disambiguation\"" nil t)))
 			   (fill-region point (point))))
 			(t
 			 (fill-paragraph nil)))))
-		;;
-		(when (> (count-lines (point-min) (point-max)) 30)
-		  ;; $BD9$9$.$k(B
-		  (goto-line 30)
-		  (beginning-of-line)
-		  (insert "($BD9$9$.$k$N$G>JN,$5$l$^$7$?(B)")
-		  (delete-region (point) (point-max)))
 		;;
 		(when aimai
 		  (insert (if (eq source 'en.wikipedia)
