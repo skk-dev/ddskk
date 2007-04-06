@@ -15,7 +15,8 @@
 	en.wiktionary.
 
 	* skk-xemacs.el (skk-tooltip-show-at-point): Add missing support
-	for skk-tooltip-*-offset and skk-tooltip-mouse-behavior.
+	for skk-tooltip-x-offset, skk-tooltip-y-offset and
+	skk-tooltip-mouse-behavior.
 
 2007-04-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
