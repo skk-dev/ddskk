@@ -21,7 +21,7 @@
 	* skk-e21.el: Suppress warnings for Emacs 21.
 
 	* skk-vars.el: Whole review and update for custom groups and
-	custom types.
+	widget types.
 
 	(skk-smart-find-file-path):
 	(skk-smart-find-ignored-file-regexp):
