@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.93 2007/04/07 12:33:28 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.94 2007/04/07 12:40:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/07 12:33:28 $
+;; Last Modified: $Date: 2007/04/07 12:40:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -812,13 +812,15 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (delete-region (point-min) (point))
 		  ;;
 		  (goto-char (point-min))
-		  (when (re-search-forward "\
-<h2>.*<span class=\"mw-headline\">$BF|K\8l(B</span></h2>"
-					   nil t)
+		  (when (re-search-forward
+			 "<h2>.*<span class=\"mw-headline\">\
+\\(<a href=.+>\\)?$BF|K\8l(B\\(</a>\\)?\</span></h2>"
+			 nil t)
 		    (delete-region (point-min) (match-beginning 0))
-		    (when (re-search-forward "\
-<h2>.*<span class=\"mw-headline\">.+$B8l(B</span></h2>"
-					     nil t)
+		    (when (re-search-forward
+			   "<h2>.*<span class=\"mw-headline\">\
+\\(<a href=.+>\\)?.+$B8l(B\\(</a>\\)</span></h2>"
+			   nil t)
 		      (delete-region (match-beginning 0) (point-max))))
 		  ;; <div> $B$r=|5n$9$k(B
 		  (goto-char (point-min))
@@ -885,13 +887,13 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (delete-region (point-min) (point))
 		  ;;
 		  (goto-char (point-min))
-		  (when (re-search-forward "\
-<h2>.*<span class=\"mw-headline\">\
+		  (when (re-search-forward
+			 "<h2>.*<span class=\"mw-headline\">\
 \\(<a href=.+>\\)?\
 \\(English\\|Translingual\\)\
 \\(</a>\\)?\
 </span></h2>"
-					   nil t)
+			 nil t)
 		    (delete-region (point-min) (match-beginning 0))
 		    (when (re-search-forward
 			   ;; XXX $B$^$@IT40A4(B
@@ -907,7 +909,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\|Swedish\\|Torres Strait Creole\\|Turkish\\|Tz'utujil\\)\
 \\(</a>\\)?\
 </span></h2>"
-					     nil t)
+			   nil t)
 		      (delete-region (match-beginning 0) (point-max))))
 		  ;; <div> $B$r=|5n$9$k(B
 		  (goto-char (point-min))
