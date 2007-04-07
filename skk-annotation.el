@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.91 2007/04/07 12:11:56 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.92 2007/04/07 12:23:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/07 12:11:56 $
+;; Last Modified: $Date: 2007/04/07 12:23:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -886,7 +886,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  ;;
 		  (goto-char (point-min))
 		  (when (re-search-forward "\
-<h2>.*<span class=\"mw-headline\">English</span></h2>"
+<h2>.*<span class=\"mw-headline\">\\(English\\|Translingual\\)</span></h2>"
 					   nil t)
 		    (delete-region (point-min) (match-beginning 0))
 		    (when (re-search-forward
@@ -927,7 +927,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\|Preposition\\|Contraction\\|Determiner\\|Demonstrative determiner\
 \\|Interrogative determiner\\|Pronoun\\|Pronominal possessive adjective\
 \\|Interrogative pronoun\\|Relative pronoun\\|Auxiliary verb\\( form\\)?\
-\\|Indefinite article\\|Abbreviation\\|Initialism\\|Acronym\\)\
+\\|Indefinite article\\|Abbreviation\\|Initialism\\|Acronym\\|Symbol\\)\
 \\(</a>\\)?\
 </span>"
 					    nil t)
