@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.393 2007/04/07 10:46:26 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.394 2007/04/07 12:24:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/07 10:46:26 $
+;; Last Modified: $Date: 2007/04/07 12:24:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -338,15 +338,12 @@ dependent."
       (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
 	'skk-insert)
       ;; Workaround for key translation.
-      (when (eq (char-int skk-try-completion-char) 9)
-	;; tab $B%-!<$O(B <tab> $B$NDj5A$,L5$1$l$P(B TAB $B$NDj5A$,3d$jEv$F$i$l$k!#(B
-	;; Org-mode $B$J$I$O(B <tab> $B$rDj5A$9$k$N$G!$(BSKK $B$NJ}$G$b(B <tab> $B$rDj5A(B
-	;; $B$9$kI,MW$,$"$k!#(B
-	(define-key skk-j-mode-map [(tab)]
-	  #'(lambda (&optional arg)
-	      (interactive "p")
-	      (let ((last-command-char skk-try-completion-char))
-		(call-interactively #'skk-insert)))))
+      (static-unless (featurep 'xemacs)
+	(when (eq (char-int skk-try-completion-char) 9)
+	  ;; tab $B%-!<$O(B <tab> $B$NDj5A$,L5$1$l$P(B TAB $B$NDj5A$,3d$jEv$F$i$l$k!#(B
+	  ;; Org-mode $B$J$I$O(B <tab> $B$rDj5A$9$k$N$G!$(BSKK $B$NJ}$G$b(B <tab> $B$rDj5A(B
+	  ;; $B$9$kI,MW$,$"$k!#(B
+	  (define-key skk-j-mode-map [(tab)] 'skk-completion-wrapper)))
       ;;
       (unless (featurep 'skk-kanagaki)
 	(define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
@@ -854,6 +851,12 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
        (skk-comp (or arg
 		     (not (eq last-command 'skk-comp-do))))
      (skk-emulate-original-map arg))))
+
+(defun skk-completion-wrapper (&optional arg)
+  "Character $B$G$J$$%-!<$KJd40$r3d$jEv$F$k$?$a$N%3%^%s%I!#(B"
+  (interactive "p")
+  (let ((last-command-char skk-try-completion-char))
+    (call-interactively #'skk-insert)))
 
 (defun skk-latin-mode (arg)
   "SKK $B$N%b!<%I$r(B latin (ascii) $B%b!<%I$KJQ99$9$k!#(B"
