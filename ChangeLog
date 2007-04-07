@@ -7,7 +7,7 @@
 	(skk-annotation-wikipedia): For Wiktionary, downcase WORD when
 	needed.
 	(skk-annotation-wikipedia-1): Support for Translingual Symbols
-	such as Greek alphabets.
+	such as Greek alphabet.
 
 	* skk-comp.el (skk-comp-smart-find):
 	(skk-smart-find):
