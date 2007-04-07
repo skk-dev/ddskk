@@ -31,7 +31,11 @@
   (require 'static)
   (require 'tooltip)
 
-  (defvar tool-bar-border))
+  (defvar tool-bar-border)
+
+  (when (= emacs-major-version 21)
+    (defalias 'window-inside-pixel-edges 'ignore)
+    (defalias 'posn-at-point 'ignore)))
 
 (eval-and-compile
   (autoload 'mouse-avoidance-banish-destination "avoid")

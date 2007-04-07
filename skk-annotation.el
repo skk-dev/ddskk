@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.88 2007/04/07 04:36:58 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.89 2007/04/07 10:46:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/07 04:36:58 $
+;; Last Modified: $Date: 2007/04/07 10:46:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -178,11 +178,20 @@
 
 (eval-and-compile
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+
+  (autoload 'html2text "html2text")
+  (autoload 'url-hexify-string "url-util")
+  (autoload 'url-retrieve "url"))
 
 (eval-when-compile
   (require 'static)
-  (defvar mule-version))
+
+  (defvar mule-version)
+
+  (when (and (string-match "^GNU" (emacs-version))
+	     (= emacs-major-version 20))
+    (defalias 'skk-tooltip-show-at-point 'ignore)))
 
 (static-when (eq skk-emacs-type 'xemacs)
   (require 'skk-xemacs))
@@ -315,10 +324,12 @@
 				   #'skk-annotation-generate-url
 				   "http://%s.org/wiki/%s"
 				   ;; split-string の非互換性に配慮
-				   (condition-case nil
-				       (cdr (split-string (cdr cache) " " t))
-				     (error
-				      (cdr (split-string (cdr cache) " ")))))
+				   (static-if (and (string-match
+						    "^GNU"
+						    (emacs-version))
+						   (<= emacs-major-version 21))
+				       (cdr (split-string (cdr cache) " "))
+				     (cdr (split-string (cdr cache) " " t))))
 				  urls)))
 		     (skk-annotation-show-wikipedia-url
 		      (add-to-list 'urls

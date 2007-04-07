@@ -1,5 +1,26 @@
 2007-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skk-annotation-wait-for-input): Suppress
+	warning caused by `split-string' incompatibility.
+
+	* skk-comp.el (skk-comp-smart-find):
+	(skk-smart-find):
+	(skk-search-smart-find):
+
+	New functions.
+
+	* skk-e21.el: Suppress warnings for Emacs 21.
+
+	* skk-vars.el (skk-smart-find-file-path):
+	(skk-smart-find-ignored-file-regexp):
+	(skk-comp-smart-find-files):
+
+	New variables.
+
+	* skk.el (skk-search-identity): New function.
+
+2007-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-annotation.el (skk-annotation-wikipedia-1): Code cleanups.
 	Remove unnecessary variables and procedures.
 	Add "Acronym" as a Category.

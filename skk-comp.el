@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.62 2007/04/05 04:49:12 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.63 2007/04/07 10:46:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/05 04:49:12 $
+;; Last Modified: $Date: 2007/04/07 10:46:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -35,7 +35,15 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+
+  (defvar smart-find-file-path)
+
+  (condition-case nil
+      (let ((dont-bind-my-keys t))
+	(load "smart-find"))
+    (error
+     (defalias 'smart-find-file-all 'ignore))))
 
 ;;;###autoload
 (defun skk-comp-start-henkan (arg)
@@ -62,7 +70,7 @@
 	;; skk-num が require されてないと
 	;; buffer-local 値を壊す恐れあり。
 	skk-num-list
-        tmp-key data
+	tmp-key data
 	c-word)
     (when first
       (setq skk-comp-search-done nil
@@ -377,6 +385,54 @@
 	(setq skk-comp-kakutei-midasi-list
 	      (nreverse list))))
     (pop skk-comp-kakutei-midasi-list)))
+
+(defun skk-comp-smart-find (&optional path)
+  "`smart-find' が見つけたファイル名で補完する"
+  (let ((abbrev skk-abbrev-mode)
+	(key skk-comp-key)
+	(first skk-comp-first)
+	results)
+    (when (and abbrev first)
+      (setq skk-comp-smart-find-files (skk-smart-find key path)))
+    (if skk-comp-smart-find-files
+	(pop skk-comp-smart-find-files)
+      nil)))
+
+(defun skk-search-smart-find (&optional path not-abbrev-only)
+  "`smart-find'を利用した変換を行なう。
+SKK abbrev モードにて、英文字 + skk-completion-search-char (~)で
+未完スペルを指定して変換すると、補完候補が変換候補として出現する。
+この機能は `skk-look' に似せてある。
+デフォルトでは SKK abbrev モードのみで有効な機能だが、
+NOT-ABBREV-ONLY を指定する事で常に有効となる。"
+  (when (and (or not-abbrev-only
+		 skk-abbrev-mode))
+    (skk-completion-search '((skk-comp-smart-find path))
+			   '((skk-search-identity))
+			   'without-midasi)))
+
+(defun skk-smart-find (key &optional path)
+  ;; smart-find は provide されていない
+  (let ((dont-bind-my-keys t))
+    (load-library "smart-find"))
+  (message "")
+  ;;
+  (unless path
+    (setq path skk-smart-find-file-path))
+  (setq skk-comp-smart-find-files nil)
+  ;;
+  (let ((smart-find-file-path (or path smart-find-file-path))
+	results files)
+    (unless (string= key "")
+      (setq results (smart-find-file-all key))
+      (while results
+	(if (string-match skk-smart-find-ignored-file-regexp
+			  (car results))
+	    (setq results (cdr results))
+	  (setq files (cons (pop results) files)))))
+    (when files
+      (setq files
+	    (sort files #'string-lessp)))))
 
 (defun skk-comp-restrict-by-prefix (comp-prog)
   "補完プログラムにより得られた候補を `skk-comp-prefix' で絞り込む。

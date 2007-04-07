@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.392 2007/04/05 04:51:59 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.393 2007/04/07 10:46:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/05 04:51:59 $
+;; Last Modified: $Date: 2007/04/07 10:46:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -93,6 +93,12 @@
   (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
+
+(eval-when-compile
+  (when (and (string-match "^GNU" (emacs-version))
+	     (= emacs-major-version 20))
+    (defalias 'skk-tooltip-show-at-point 'ignore)
+    (defalias 'skk-tooltip-hide 'ignore)))
 
 ;; aliases.
 (defalias 'skk-toggle-kana 'skk-toggle-characters)
@@ -4344,6 +4350,13 @@ SKK 辞書の候補として正しい形に整形する。"
 		(upcase-initials skk-henkan-key)
 	      (upcase skk-henkan-key)))
     nil))
+
+(defun skk-search-identity (&rest args)
+  "変換キーをそのまま候補として返す。
+この関数は送りなし変換専用。"
+  (if skk-henkan-okurigana
+      nil
+    (list (identity skk-henkan-key))))
 
 (defun skk-search-progs (key &optional prog-list remove-note)
   ;; prog-list が省略された時は skk-search-prog-list の全てが対象

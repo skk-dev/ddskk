@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.198 2007/04/07 04:02:51 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.199 2007/04/07 10:46:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/07 04:02:51 $
+;; Last Modified: $Date: 2007/04/07 10:46:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1422,6 +1422,20 @@ kakutei-first $B$rA*$s$@;~$O!"(B\"$B$7$s$j(Bn\" $B$rJd40$9$k$H!"(B
   "*`skk-completion-search' $B$rMxMQ$9$kJQ49$r;XDj$9$k%-!<%-%c%i%/%?!#(B"
   :type 'character
   :group 'skk-keybinds)
+
+(defcustom skk-smart-find-file-path load-path
+  "*`smart-find' $B$K%U%!%$%kL>$rC5:w$5$;$k%Q%9!#(B
+$B$3$NCM$,;XDj$5$l$J$1$l$P!"(B`smart-find-file-path' $B$NCM$,Be$o$j$K;HMQ$5$l$k!#(B"
+  :type '(repeat (directory))
+  :group 'skk-comp
+  :group 'skk-custom-by-filename)
+
+(defcustom skk-smart-find-ignored-file-regexp "\
+\\(\\.\\(elc\\|o\\(rig\\|ld\\)?\\|diff\\)\\|,v\\|~\\|/\\)$"
+  "*`smart-find' $B$KL5;k$5$l$k%U%!%$%kL>$r;XDj$9$k@55,I=8=!#(B"
+  :type 'regexp
+  :group 'skk-comp
+  :group 'skk-misc)
 
 ;;; SKK-SERVER-COMPLETION.EL related.
 (defcustom skk-server-completion-search-char ?~
@@ -3045,6 +3059,9 @@ car $B$K$"$kJd40%W%m%0%i%`$,(B nil $B$rJV$9$4$H$K(B 1$B$D$E$DC;$/$J$C$F$f$/
 
 (skk-deflocalvar skk-comp-search-done nil
   "$B8+=P$78l$NJd40MQ$N8uJd8!:w$,=*N;$7$?$3$H$r<($9!#(B")
+
+(defvar skk-comp-smart-find-files nil
+  "`smart-find' $B$,JV$7$?%U%!%$%kL>%j%9%H$r3JG<$9$k!#(B")
 
 ;;; -- SKK-SERVER-COMPLETION.EL related internal variables
 (skk-deflocalvar skk-server-completion-words nil
