@@ -2,6 +2,7 @@
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Code cleanups.
 	Remove unnecessary variables and procedures.
+	Add "Acronym" as a Category.
 
 	* skk-vars.el (skk-annotation-wikipedia-sources):
 	(skk-annotation-wikipedia-key):
