@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.89 2007/04/07 10:46:25 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.90 2007/04/07 11:02:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/07 10:46:25 $
+;; Last Modified: $Date: 2007/04/07 11:02:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -734,19 +734,27 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 (defun skk-annotation-wikipedia (word)
   "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$+$i%"%N%F!<%7%g%s$r<hF@$9$k!#(B"
   (let ((sources skk-annotation-wikipedia-sources)
+	source
 	(string "")
 	(note nil))
     ;; sources $B$K;XDj$5$l$?=gHV$K;2>H$9$k(B
     (save-match-data
       (while (and (not note)
 		  sources)
-	(setq note (skk-annotation-wikipedia-1 word
-					       (car sources)
+	(setq source (car sources))
+	(setq note (skk-annotation-wikipedia-1 word source
 					       (= 1 (length sources))))
+	(when (and (null note)
+		   (memq source '(en.wiktionary ja.wiktionary))
+		   (skk-ascii-char-p (aref word 0))
+		   (not (skk-lower-case-p (aref word 0))))
+	  ;; Wiktionary $B$O(B downcase $B$,4pK\(B (Wikipedia $B$O(B initial $B$,(B upcase)
+	  (setq note (skk-annotation-wikipedia-1 (downcase word) source
+						 (= 1 (length sources)))))
 	(setq string (format (if (string= "" string)
 				 "%s%s"
 			       "%s/%s")
-			     string (car sources)))
+			     string source))
 	(setq sources (cdr sources)))
       (unless note
 	(message "%s $B$K9`L\$,$"$j$^$;$s(B" string))

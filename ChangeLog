@@ -2,6 +2,8 @@
 
 	* skk-annotation.el (skk-annotation-wait-for-input): Suppress
 	warning caused by `split-string' incompatibility.
+	(skk-annotation-wikipedia): For Wiktionary, downcase WORD when
+	needed.
 
 	* skk-comp.el (skk-comp-smart-find):
 	(skk-smart-find):
