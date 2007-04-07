@@ -6,6 +6,8 @@
 	warning caused by `split-string' incompatibility.
 	(skk-annotation-wikipedia): For Wiktionary, downcase WORD when
 	needed.
+	(skk-annotation-wikipedia-1): Support for Translingual Symbols
+	such as Greek alphabets.
 
 	* skk-comp.el (skk-comp-smart-find):
 	(skk-smart-find):
@@ -22,6 +24,8 @@
 	New variables.
 
 	* skk.el (skk-search-identity): New function.
+	(skk-completion-wrapper): Rename from anonymous function assigned
+	to [tab].
 
 2007-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
