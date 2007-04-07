@@ -1,5 +1,7 @@
 2007-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* SKK-MK (SKK_DICTIONARIES): Add dictionaries.
+
 	* skk-annotation.el (skk-annotation-wait-for-input): Suppress
 	warning caused by `split-string' incompatibility.
 	(skk-annotation-wikipedia): For Wiktionary, downcase WORD when
