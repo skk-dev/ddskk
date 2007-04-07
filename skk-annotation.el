@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.86 2007/04/06 23:04:06 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.87 2007/04/07 00:55:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/06 23:04:06 $
+;; Last Modified: $Date: 2007/04/07 00:55:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -726,19 +726,20 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(string "")
 	(note nil))
     ;; sources $B$K;XDj$5$l$?=gHV$K;2>H$9$k(B
-    (while (and (not note)
-		sources)
-      (setq note (skk-annotation-wikipedia-1 word
-					     (car sources)
-					     (= 1 (length sources))))
-      (setq string (format (if (string= "" string)
-			       "%s%s"
-			     "%s/%s")
+    (save-match-data
+      (while (and (not note)
+		  sources)
+	(setq note (skk-annotation-wikipedia-1 word
+					       (car sources)
+					       (= 1 (length sources))))
+	(setq string (format (if (string= "" string)
+				 "%s%s"
+			       "%s/%s")
 			     string (car sources)))
-      (setq sources (cdr sources)))
-    (unless note
-      (message "%s $B$K9`L\$,$"$j$^$;$s(B" string))
-    note))
+	(setq sources (cdr sources)))
+      (unless note
+	(message "%s $B$K9`L\$,$"$j$^$;$s(B" string))
+      note)))
 
 (defun skk-annotation-wikipedia-1 (word source last)
   "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$r<B:]$K%@%&%s%m!<%I$7$FD4$Y$k!#(B
@@ -755,7 +756,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	 '("a" "p" "img" "dir" "head" "div" "br" "font" "span" "sup"
 	   "table" "tr" "td" "h2" "h3" "h4" "small"))
 	(sources skk-annotation-wikipedia-sources)
-	buffer note aimai continue nop point point2 pt1 pt2)
+	buffer note aimai continue nop point pt1 pt2)
     (if (get-buffer cache-buffer)
 	(with-current-buffer cache-buffer
 	  (setq note (buffer-string)))
@@ -804,11 +805,11 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  "<div class=\"\\(infl-table\\)\".*>" nil t)
-		    (setq point2 (match-beginning 0))
-		    (goto-char point2)
+		    (setq point (match-beginning 0))
+		    (goto-char point)
 		    (search-forward "</div>" nil t)
-		    (delete-region point2 (point))
-		    (goto-char point2))
+		    (delete-region point (point))
+		    (goto-char point))
 		  ;;
 		  (setq point nil)
 		  (goto-char (point-min))
@@ -826,38 +827,31 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			(delete-region (match-beginning 0) (match-end 0))))
 		    (goto-char (match-beginning 0))
 		    (delete-region (or point (point-min)) (point))
-		    (unless (null point)
-		      (insert "\n"))
-		    (save-match-data
-		      (or (re-search-forward "</ol>" nil t)
-			  (search-forward "</dl>" nil t))
-		      ;;		    (insert "<p>")
-		      (setq point (point))))
+		    (or (search-forward "</ol>" nil t)
+			(search-forward "</dl>" nil t))
+		    (setq point (point)))
+		  ;;
 		  (when point
 		    (delete-region point (point-max)))
 		  ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
-		  (save-excursion
-		    (goto-char (point-min))
-		    (save-match-data
-		      (while (search-forward "<ul>" nil t)
-			(setq point2 (point))
-			(search-forward "</ul>" nil t)
-			(delete-region point2 (point)))))
-		  (save-excursion
-		    (goto-char (point-min))
-		    (save-match-data
-		      (while (search-forward "<dl>" nil t)
-			(setq point2 (point))
-			(search-forward "</dl>" nil t)
-			(delete-region point2 (point)))))
+		  (setq point nil)
+		  (goto-char (point-min))
+		  (while (search-forward "<ul>" nil t)
+		    (setq point (point))
+		    (search-forward "</ul>" nil t)
+		    (delete-region point (point)))
+		  (setq point nil)
+		  (goto-char (point-min))
+		  (while (search-forward "<dl>" nil t)
+		    (setq point (point))
+		    (search-forward "</dl>" nil t)
+		    (delete-region point (point)))
 		  ;;
-		  (save-excursion
-		    (goto-char (point-min))
-		    (save-match-data
-		      (while (re-search-forward
-			      "<span.*>\\[<a.+>$BJT=8(B</a>\\]</span>"
-			      nil t)
-			(replace-match ""))))))
+		  (goto-char (point-min))
+		  (while (re-search-forward
+			  "<span.*>\\[<a.+>$BJT=8(B</a>\\]</span>"
+			  nil t)
+		    (replace-match ""))))
 	       ;; en.wiktionary
 	       ((eq source 'en.wiktionary)
 		(goto-char (point-min))
@@ -895,11 +889,11 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  "<div class=\"\\(infl-table\\)\".*>" nil t)
-		    (setq point2 (match-beginning 0))
-		    (goto-char point2)
+		    (setq point (match-beginning 0))
+		    (goto-char point)
 		    (search-forward "</div>" nil t)
-		    (delete-region point2 (point))
-		    (goto-char point2))
+		    (delete-region point (point))
+		    (goto-char point))
 		  ;;
 		  (setq point nil)
 		  (goto-char (point-min))
@@ -923,49 +917,40 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			(delete-region (match-beginning 0) (match-end 0))))
 		    (goto-char (match-beginning 0))
 		    (delete-region (or point (point-min)) (point))
-		    (unless (null point)
-		      (insert "\n"))
-		    (save-match-data
-		      (or (re-search-forward "</ol>" nil t)
-			  (search-forward "</dl>" nil t))
-		      ;;		    (insert "<p>")
-		      (setq point (point))))
+		    (or (search-forward "</ol>" nil t)
+			(search-forward "</dl>" nil t))
+		    (setq point (point)))
+		  ;;
 		  (when point
 		    (delete-region point (point-max)))
 		  ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
-		  (save-excursion
-		    (goto-char (point-min))
-		    (save-match-data
-		      (while (search-forward "<ul>" nil t)
-			(setq point2 (point))
-			(search-forward "</ul>" nil t)
-			(delete-region point2 (point)))))
-		  (save-excursion
-		    (goto-char (point-min))
-		    (save-match-data
-		      (while (search-forward "<dl>" nil t)
-			(setq point2 (point))
-			(search-forward "</dl>" nil t)
-			(delete-region point2 (point)))))
+		  (setq point nil)
+		  (goto-char (point-min))
+		  (while (search-forward "<ul>" nil t)
+		    (setq point (point))
+		    (search-forward "</ul>" nil t)
+		    (delete-region point (point)))
+		  (setq point nil)
+		  (goto-char (point-min))
+		  (while (search-forward "<dl>" nil t)
+		    (setq point (point))
+		    (search-forward "</dl>" nil t)
+		    (delete-region point (point)))
 		  ;; $BM>7W$J(B <table> $B$r=|$/(B
-		  (save-excursion
-		    (goto-char (point-min))
-		    (save-match-data
-		      (while (re-search-forward "\
+		  (setq point nil)
+		  (goto-char (point-min))
+		  (while (re-search-forward "\
 <table .*class=\"infl-table\".*>"
-						nil t)
-			(setq point2 (point))
-			(search-forward "</table>" nil t)
-			(delete-region point2 (point)))))
+					    nil t)
+		    (setq point (point))
+		    (search-forward "</table>" nil t)
+		    (delete-region point (point)))
 		  ;;
-		  (save-excursion
-		    (goto-char (point-min))
-		    (save-match-data
-		      (while (re-search-forward
-			      "<span.*>\\[<a.+>edit</a>\\]</span>"
-			      nil t)
-			(replace-match ""))))
-		  ))
+		  (goto-char (point-min))
+		    (while (re-search-forward
+			    "<span.*>\\[<a.+>edit</a>\\]</span>"
+			    nil t)
+		      (replace-match ""))))
 	       ;; ja.wikipedia
 	       ((eq source 'ja.wikipedia)
 		(goto-char (point-min))
@@ -982,71 +967,66 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (search-forward "<!-- start content -->" nil t)
 		  (delete-region (point-min) (point))
 		  ;; <div> $B$r=|5n$9$k(B
+		  (setq point nil)
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  "<div class=\"\\(magnify\\)\".*>" nil t)
-		    (setq point2 (match-beginning 0))
-		    (goto-char point2)
+		    (setq point (match-beginning 0))
+		    (goto-char point)
 		    (search-forward "</div>" nil t)
-		    (delete-region point2 (point))
-		    (goto-char point2))
+		    (delete-region point (point))
+		    (goto-char point))
 		  ;; <span> $B$r=|5n$9$k(B
+		  (setq point nil)
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  "<span class=\"\\(.+audiolink.+\\)\".*>" nil t)
-		    (setq point2 (match-beginning 0))
-		    (goto-char point2)
+		    (setq point (match-beginning 0))
+		    (goto-char point)
 		    (search-forward "</span>" nil t)
-		    (delete-region point2 (point))
-		    (goto-char point2))
+		    (delete-region point (point))
+		    (goto-char point))
 		  ;; <big> $B$r=|5n$9$k(B
 		  (goto-char (point-min))
 		  (while (re-search-forward "<p><big>.+</big></p>" nil t)
-		    (goto-char (match-beginning 0))
 		    (replace-match ""))
 		  ;; &#160; $B$r=hM}(B
 		  (goto-char (point-min))
 		  (while (re-search-forward "&#160;" nil t)
-		    (goto-char (match-beginning 0))
 		    (replace-match " "))
 		  ;; <br /> $B$r=|5n$9$k(B
 		  (goto-char (point-min))
-		  (while (re-search-forward
-			  "<p>.+<br />$" nil t)
-		    (goto-char (match-beginning 0))
-		    (save-excursion
-		      (when (re-search-forward "<br />$" nil t)
-			(replace-match ""))))
+		  (while (re-search-forward "<p>.+\\(<br />\\)$" nil t)
+		    (replace-match "" nil nil nil 1))
 		  ;; xxx > xxx > xxx ... $B$r=|5n$9$k(B
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  "<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
-		    (goto-char (match-beginning 0))
 		    (replace-match ""))
 		  ;; <table> $B$r=|5n(B
+		  (setq point nil)
 		  (goto-char (point-min))
-		  (save-match-data
-		    (while (re-search-forward "<table.*>" nil t)
-		      (setq point2 (match-beginning 0))
+		  (while (re-search-forward "<table.*>" nil t)
+		    (setq point (match-beginning 0))
+		    (cond
+		     ((not (search-forward "</table>" nil t))
+		      (delete-region point (point-max))
+		      (goto-char (point-min)))
+		     (t
+		      (setq pt2 (match-end 0))
+		      (goto-char (1+ point))
 		      (cond
-		       ((not (search-forward "</table>" nil t))
-			(delete-region point2 (point-max))
-			(goto-char (point-min)))
+		       ((not (re-search-forward "<table.*>" nil t))
+			(delete-region point pt2))
 		       (t
-			(setq pt2 (match-end 0))
-			(goto-char (1+ point2))
+			(setq pt1 (match-beginning 0))
 			(cond
-			 ((not (re-search-forward "<table.*>" nil t))
-			  (delete-region point2 pt2))
+			 ((< pt2 pt1)
+			  (delete-region point pt2)
+			  (setq point nil)
+			  (goto-char (point-min)))
 			 (t
-			  (setq pt1 (match-beginning 0))
-			  (cond
-			   ((< pt2 pt1)
-			    (delete-region point2 pt2)
-			    (setq point2 nil)
-			    (goto-char (point-min)))
-			   (t
-			    (goto-char (match-beginning 0))))))))))
+			  (goto-char (match-beginning 0)))))))))
 		  ;;
 		  (goto-char (point-min))
 		  (when (or (when (re-search-forward
@@ -1093,71 +1073,66 @@ Disambiguation\"" nil t)))
 		  (search-forward "<!-- start content -->" nil t)
 		  (delete-region (point-min) (point))
 		  ;; <div> $B$r=|5n$9$k(B
+		  (setq point nil)
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  "<div class=\"\\(magnify\\)\".*>" nil t)
-		    (setq point2 (match-beginning 0))
-		    (goto-char point2)
+		    (setq point (match-beginning 0))
+		    (goto-char point)
 		    (search-forward "</div>" nil t)
-		    (delete-region point2 (point))
-		    (goto-char point2))
+		    (delete-region point (point))
+		    (goto-char point))
 		  ;; <span> $B$r=|5n$9$k(B
+		  (setq point nil)
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  "<span class=\"\\(.+audiolink.+\\)\".*>" nil t)
-		    (setq point2 (match-beginning 0))
-		    (goto-char point2)
+		    (setq point (match-beginning 0))
+		    (goto-char point)
 		    (search-forward "</span>" nil t)
-		    (delete-region point2 (point))
-		    (goto-char point2))
+		    (delete-region point (point))
+		    (goto-char point))
 		  ;; <big> $B$r=|5n$9$k(B
 		  (goto-char (point-min))
 		  (while (re-search-forward "<p><big>.+</big></p>" nil t)
-		    (goto-char (match-beginning 0))
 		    (replace-match ""))
 		  ;; &#160; $B$r=hM}(B
 		  (goto-char (point-min))
 		  (while (re-search-forward "&#160;" nil t)
-		    (goto-char (match-beginning 0))
 		    (replace-match " "))
 		  ;; <br /> $B$r=|5n$9$k(B
 		  (goto-char (point-min))
-		  (while (re-search-forward
-			  "<p>.+<br />$" nil t)
-		    (goto-char (match-beginning 0))
-		    (save-excursion
-		      (when (re-search-forward "<br />$" nil t)
-			(replace-match ""))))
+		  (while (re-search-forward "<p>.+\\(<br />\\)$" nil t)
+		    (replace-match "" nil nil nil 1))
 		  ;; xxx > xxx > xxx ... $B$r=|5n$9$k(B
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  "<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
-		    (goto-char (match-beginning 0))
 		    (replace-match ""))
 		  ;; <table> $B$r=|5n(B
+		  (setq point nil)
 		  (goto-char (point-min))
-		  (save-match-data
-		    (while (re-search-forward "<table.*>" nil t)
-		      (setq point2 (match-beginning 0))
+		  (while (re-search-forward "<table.*>" nil t)
+		    (setq point (match-beginning 0))
+		    (cond
+		     ((not (search-forward "</table>" nil t))
+		      (delete-region point (point-max))
+		      (goto-char (point-min)))
+		     (t
+		      (setq pt2 (match-end 0))
+		      (goto-char (1+ point))
 		      (cond
-		       ((not (search-forward "</table>" nil t))
-			(delete-region point2 (point-max))
-			(goto-char (point-min)))
+		       ((not (re-search-forward "<table.*>" nil t))
+			(delete-region point pt2))
 		       (t
-			(setq pt2 (match-end 0))
-			(goto-char (1+ point2))
+			(setq pt1 (match-beginning 0))
 			(cond
-			 ((not (re-search-forward "<table.*>" nil t))
-			  (delete-region point2 pt2))
+			 ((< pt2 pt1)
+			  (delete-region point pt2)
+			  (setq point nil)
+			  (goto-char (point-min)))
 			 (t
-			  (setq pt1 (match-beginning 0))
-			  (cond
-			   ((< pt2 pt1)
-			    (delete-region point2 pt2)
-			    (setq point2 nil)
-			    (goto-char (point-min)))
-			   (t
-			    (goto-char (match-beginning 0))))))))))
+			  (goto-char (match-beginning 0)))))))))
 		  ;;
 		  (goto-char (point-min))
 		  (when (or (when (re-search-forward
@@ -1190,6 +1165,7 @@ Disambiguation\"" nil t)))
 				       nil t)
 		    (delete-region (point) (point-max))))))
 	      ;;
+	      (setq point nil)
 	      (when (> (buffer-size) 0)
 		(html2text)
 		(goto-char (point-min))
