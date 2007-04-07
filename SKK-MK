@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.151 2007/04/01 17:55:47 skk-cvs Exp $
-;; Last Modified: $Date: 2007/04/01 17:55:47 $
+;; Version: $Id: SKK-MK,v 1.152 2007/04/07 11:58:37 skk-cvs Exp $
+;; Last Modified: $Date: 2007/04/07 11:58:37 $
 
 ;;; Commentary:
 
@@ -168,9 +168,13 @@ This version of SKK requires MULE features"))
 (defvar SKK_TEXIS '("skk.texi"))
 (defvar SKK_TUTORIALS '("SKK.tut" "SKK.tut.E" "NICOLA-SKK.tut" "skk.xpm"))
 (defvar SKK_DICTIONARIES
-  '("SKK-JISYO.L" "SKK-JISYO.ML" "SKK-JISYO.M" "SKK-JISYO.S"
-    "SKK-JISYO.JIS2" "SKK-JISYO.JIS3_4"
-    "SKK-JISYO.pubdic+" "SKK-JISYO.edict"
+  '("SKK-JISYO.L" "SKK-JISYO.ML" "SKK-JISYO.M" "SKK-JISYO.S" "SKK-JISYO.JIS2"
+    "SKK-JISYO.JIS3_4" "SKK-JISYO.pubdic+" "SKK-JISYO.edict"
+    "SKK-JISYO.okinawa" "SKK-JISYO.geo" "SKK-JISYO.jinmei" "SKK-JISYO.law"
+    "SKK-JISYO.mazegaki" "SKK-JISYO.assoc" "SKK-JISYO.itaiji"
+    "SKK-JISYO.itaiji.JIS3_4" "SKK-JISYO.china_taiwan"
+    "SKK-JISYO.propernoun" "SKK-JISYO.station" "SKK-JISYO.requested"
+    "SKK-JISYO.fullname" "SKK-JISYO.JIS2004"
     "SKK-JISYO.office.zipcode" "SKK-JISYO.zipcode"))
 
 (defvar SKK_DEFAULT_JISYO nil)
