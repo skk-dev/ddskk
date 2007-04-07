@@ -3,6 +3,12 @@
 	* skk-annotation.el (skk-annotation-wikipedia-1): Code cleanups.
 	Remove unnecessary variables and procedures.
 
+	* skk-vars.el (skk-annotation-wikipedia-sources):
+	(skk-annotation-wikipedia-key):
+	(skk-tooltip-parameters):
+
+	Fix for custom types.
+
 2007-04-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Support for

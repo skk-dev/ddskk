@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.197 2007/04/06 13:34:16 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.198 2007/04/07 04:02:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/06 13:34:16 $
+;; Last Modified: $Date: 2007/04/07 04:02:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1507,12 +1507,13 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 	 (border-color . \"royal blue\")
 	 (border-with . 1)))
 "
-  ;; name
+  ;; ;; name
   ;; foreground-color
   ;; background-color
   ;; border-color
   ;; border-width
-  :type '(repeat cons)
+  :type '(repeat (cons (symbol :tag "$B%Q%i%a!<%?L>(B")
+		       (sexp :tag "$BCM(B (S$B<0(B)")))
   :group 'skk-toopltip)
 
 (defcustom skk-tooltip-mouse-behavior
@@ -1527,7 +1528,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 `follow' $B$J$i$P(B  tip $B$N0LCV$K0\F0$9$k!#(B
 `avoid' $B$J$i$P!"%&%$%s%I%&$NC<$KB`Hr$9$k!#(B
 `avoid-maybe' $B$J$i$P!"%&%$%s%I%&>e$K$"$k%^%&%9%]%$%s%?$N$_B`Hr$9$k!#(B
-`bash' $B$J$i$P!"%&%$%s%I%&$NC<$KB`Hr$7$?$^$^5"$C$F$3$J$$!#(B
+`banish' $B$J$i$P!"%&%$%s%I%&$NC<$KB`Hr$7$?$^$^5"$C$F$3$J$$!#(B
 `nil' $B$J$i$P!"B`Hr$7$J$$!#$3$N>l9g!"(Btip $B$N%F%-%9%H$H%^%&%9%]%$%s%?$,(B
 $B=E$J$C$?$j!"$&$^$/(B tip $B$,I=<($G$-$J$+$C$?$j$9$k$N$GCm0U!#(B
 
@@ -3709,16 +3710,19 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
   "*$B%"%N%F!<%7%g%s$K;H$&(B Wikimedia $B$N%=!<%9$r;XDj$9$k%*%W%7%g%s!#(B
 $BI8=`$G$O$^$:(B Wikipedia $B$r;2>H$7!"(BWikipedia $B$N5-=R$,L5$1$l$P(B Wiktionary $B$r(B
 $B;2>H$9$k!#(B"
-  :type 'list
+  :type '(radio
+	  (repeat :tag "Wikimedia $B;qNA$rMxMQ$9$k(B\
+($B0J2<$K9`L\$H=gHV$r;XDj$7$F$/$@$5$$(B)" symbol)
+	  (const :tag "Wikimedia $B;qNA$rMxMQ$7$J$$(B" nil))
   :group 'skk-annotation
   :group 'skk-misc)
 
 (defcustom skk-annotation-wikipedia-key "\C-i"
   "*$B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$NFbMF$rI=<($9$k%-!<!#(B
 $B%*%W%7%g%s(B skk-show-annotation $B$,(B non-nil $B$N$H$-$@$1M-8z!#(B"
-  :type 'key
+  :type 'sexp
   :group 'skk-annotation
-  :group 'skk-misc)
+  :group 'skk-keybinds)
 
 ;; SKK-ANNORTATION related internal constants and variables.
 ;; constants.
