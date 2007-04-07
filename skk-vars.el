@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.200 2007/04/07 18:45:34 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.201 2007/04/07 21:20:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/07 18:45:34 $
+;; Last Modified: $Date: 2007/04/07 21:20:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -419,7 +419,8 @@ SKK $B5/F08e$KJQ99$7$?>l9g$O(B \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
 nil $B$G$"$l$P!"<-=q$N%*!<%H%;!<%V$r9T$o$J$$!#(B
 SKK $B5/F08e$G!"(B`skk-share-private-jisyo' $B$J;~$K$3$NCM$rJQ99$7$?>l9g$O(B
 \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
-  :type '(choice integer (const nil))
+  :type '(radio (integer :tag "$B@0?t(B")
+		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-private)
 
 (defcustom skk-count-private-jisyo-candidates-exactly nil
@@ -973,8 +974,14 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 $B$H$$$&(B cons cell$B!#%7%s%\%k$NItJ,$O!"(B`jp' $B$b$7$/$O(B `en' $B$H$7!"(B
 `skk-toggle-kutouten' $B$O$3$l$r%H%0%k$G@Z$j49$($k!#(B
 $B%G%#%U%)%k%H$N6gFIE@$N%?%$%W$O!"(B`skk-kutouten-type' $B$G;XDj$9$k!#(B"
-  :type '(repeat (cons (choice (const jp) (const en))
-		       (cons string string)))
+  :type '(repeat (cons (radio :tag "$BAH$N$J$^$((B"
+			      (const jp)
+			      (const en)
+			      (const jp-en)
+			      (const en-jp))
+		       (cons :tag "$B6gFIE@$NAH(B"
+			     (string :tag "$B6gE@(B" "$B!#(B")
+			     (string :tag "$BFIE@(B" "$B!"(B"))))
   :group 'skk-input)
 
 (defcustom skk-kutouten-type 'jp
@@ -996,13 +1003,13 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 
 $B$3$NJQ?t$O(B `setq' $B$9$k$H%P%C%U%!%m!<%+%k2=$5$l$k$?$a!"%0%m!<%P%k$K(B
 $BCM$r@_Dj$7$?$$>l9g$O(B `setq-default' $B$rMQ$$$k$3$H$,?d>)$5$l$k!#(B"
-  :type '(choice (const jp)
-		 (const en)
-		 (const jp-en)
-		 (const en-jp)
-		 (cons
-		  (string :tag "$B6gE@(B")
-		  (string :tag "$BFIE@(B")))
+  :type '(radio (const jp)
+		(const en)
+		(const jp-en)
+		(const en-jp)
+		(cons :tag "$BG$0U$NAH(B"
+		 (string :tag "$B6gE@(B" "$B!#(B")
+		 (string :tag "$BFIE@(B" "$B!"(B")))
   :group 'skk-input)
 (make-variable-buffer-local 'skk-kutouten-type)
 
@@ -1168,7 +1175,9 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
 
 (defcustom skk-kakutei-key "\C-j"
   "*$B4A;zJQ49$N3NDjF0:n$r9T$&%-!<!#(B"
-  :type 'sexp
+  :type `(,(if (get 'key-sequence 'widget-type)
+	       'key-sequence
+	     'sexp))
   :group 'skk-basic
   :group 'skk-kakutei)
 
@@ -1199,9 +1208,9 @@ nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
 `dont-update' $B$r;XDj$9$k$H!"8D?M<-=q$r99?7$7$J$$!#(B
 
 $B8uJd0lMwI=<(;~$O(B non-nil $B$G$"$C$F$bA08uJd(B($B72(B)$B$NI=<($K$J$k!#(B"
-  :type '(choice (const t)
-		 (const dont-update)
-		 (const nil))
+  :type '(radio	(const t)
+		(const dont-update)
+		(const nil))
   :group 'skk-kakutei)
 
 (defcustom skk-kakutei-end-function nil
@@ -1209,7 +1218,8 @@ nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
 KAKUTEI-WORD $B0z?t$rH<$J$C$F!"JQ49$r9T$C$?%P%C%U%!$G%3!<%k$5$l$k!#(B
 skk-kakutei-initialize $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!":G8e$N3NDj(B
 $B$K4X$9$k%U%i%0N`$O!"$3$N4X?t$NCf$+$i;2>H$9$k$3$H$,$G$-$k!#(B"
-  :type '(choice function (const nil))
+  :type '(radio (function :tag "$B4X?t(B")
+		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-kakutei)
 
 (defcustom skk-henkan-okuri-strictly nil
@@ -2078,7 +2088,9 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 $B$3$N%-!<$r%?%$%W$9$k$H8=:_I=<(Cf$NCm<a$r(B kill ring $B$KJ]B8$9$k!#(B
 $BJ]B8$7$?FbMF$r(B Emacs $B0J30$N%"%W%j%1!<%7%g%s$GMxMQ$7$?$$>l9g$O(B
 $BJQ?t(B `interprogram-cut-function' $B$r@_Dj$9$k!#(B"
-  :type 'sexp
+  :type `(,(if (get 'key-sequence 'widget-type)
+	       'key-sequence
+	     'sexp))
   :group 'skk-annotation)
 
 (defcustom skk-annotation-browse-key "\C-o"
@@ -2086,7 +2098,9 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 $B$3$N%-!<$r%?%$%W$9$k$H8=:_I=<(Cf$NCm<a$r4X?t(B `browse-url' $B$KEO$9!#(B
 $B$3$N5!G=$rM-8z$K$9$k$?$a$K$OJQ?t(B `browse-url-browser-function' $B$rE,@Z$K(B
 $B@_Dj$9$k!#(B"
-  :type 'sexp
+  :type `(,(if (get 'key-sequence 'widget-type)
+	       'key-sequence
+	     'sexp))
   :group 'skk-annotation)
 
 (defcustom skk-annotation-function nil
@@ -2192,7 +2206,9 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
 (defcustom skk-annotation-wikipedia-key "\C-i"
   "*$B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$NFbMF$rI=<($9$k%-!<!#(B
 $B%*%W%7%g%s(B skk-show-annotation $B$,(B non-nil $B$N$H$-$@$1M-8z!#(B"
-  :type 'sexp
+  :type `(,(if (get 'key-sequence 'widget-type)
+	       'key-sequence
+	     'sexp))
   :group 'skk-annotation)
 
 (defconst skk-annotation-buffer
@@ -2701,9 +2717,9 @@ isearch $B$r9T$&>l9g!">o$K$3$NJQ?t$G;XDj$7$?F~NO%b!<%I$,;HMQ$5$l$k(B ($B%f!<%
   ;;  "*Symbol indicates the mode to use as initial mode for skk-isearch when
   ;;skk is turned off in the current buffer."
   "*SKK $B%b!<%I$,%*%U$N%P%C%U%!$G!":G=i$K(B isearch $B$r9T$&:]$NF~NO%b!<%I!#(B"
-  :type '(choice (const :tag "Ascii search" latin)
-		 (const :tag "Hiragana search" hiragana)
-		 (const :tag "JISX0208 alphabet search" jisx0208-latin))
+  :type '(radio (const :tag "$B%"%9%-!<%b!<%I(B" latin)
+		(const :tag "$B$R$i$,$J%b!<%I(B" hiragana)
+		(const :tag "$BA43Q1Q?t%b!<%I(B" jisx0208-latin))
   :group 'skk-isearch)
 
 (defcustom skk-isearch-whitespace-regexp "\\(\\s \\|[ \t\n\r\f]\\)*"

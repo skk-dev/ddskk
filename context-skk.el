@@ -104,11 +104,13 @@
 ;;
 ;; Custom
 ;;
+;;;###autoload
 (defgroup context-skk nil
   "Context-skk minor mode related customization."
-  :group 'skk-custom-by-filename
+  :group 'skk
   :prefix "context-skk-")
 
+;;;###autoload
 (defcustom context-skk-context-check-hook
   '(context-skk-out-of-string-or-comment-in-programming-mode-p
     context-skk-on-keymap-defined-area-p
@@ -117,6 +119,7 @@
   :type 'hook
   :group 'context-skk)
 
+;;;###autoload
 (defcustom context-skk-custumize-functions 
   '(context-skk-customize-kutouten)
   "*skkによる入力開始直前に、入力のカスタマイズを行うための関数を登録する。
@@ -130,6 +133,7 @@
   :type 'hook				; hook? list of function?
   :group 'context-skk)
 
+;;;###autoload
 (defcustom context-skk-programming-mode
   '(ada-mode antlr-mode asm-mode autoconf-mode awk-mode
     c-mode objc-mode java-mode idl-mode pike-mode cperl-mode
