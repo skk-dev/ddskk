@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.63 2007/04/07 10:46:25 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.64 2007/04/07 11:16:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/07 10:46:25 $
+;; Last Modified: $Date: 2007/04/07 11:16:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -402,7 +402,6 @@
   "`smart-find'を利用した変換を行なう。
 SKK abbrev モードにて、英文字 + skk-completion-search-char (~)で
 未完スペルを指定して変換すると、補完候補が変換候補として出現する。
-この機能は `skk-look' に似せてある。
 デフォルトでは SKK abbrev モードのみで有効な機能だが、
 NOT-ABBREV-ONLY を指定する事で常に有効となる。"
   (when (and (or not-abbrev-only
