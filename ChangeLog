@@ -3,6 +3,8 @@
 	* SKK-MK: Add APEL_DIR to load-path before loading install.el.
 	(SKK_DICTIONARIES): Add dictionaries.
 
+	* context-skk.el: Modify parent group for "context-skk" group.
+
 	* skk-annotation.el (skk-annotation-wait-for-input): Suppress
 	warning caused by `split-string' incompatibility.
 	(skk-annotation-wikipedia): For Wiktionary, downcase WORD when
