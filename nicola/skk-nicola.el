@@ -59,11 +59,6 @@
   (autoload 'skk-dcomp-face-off "skk-dcomp")
   (autoload 'skk-dcomp-face-on "skk-dcomp"))
 
-(defgroup skk-nicola nil "SKK NICOLA related customization."
-  :prefix "skk-nicola-"
-  :group 'skk-custom-by-filename
-  :group 'skk-kanagaki)
-
 ;; Variables.
 
 (defcustom skk-nicola-interval 0.1 "\

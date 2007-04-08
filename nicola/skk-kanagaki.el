@@ -158,10 +158,6 @@
 (when window-system
   (require 'skk-kanagaki-menu))
 
-(defgroup skk-kanagaki nil "SKK kanagaki related customization."
-  :prefix "skk-kanagaki-"
-  :group 'skk-custom-by-filename)
-
 ;; Variables.
 
 (defcustom skk-kanagaki-keyboard-type '106-jis "\

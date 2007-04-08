@@ -3,6 +3,11 @@
 	* skk-comp.el (skk-comp-smart-find): Return nil unless
 	skk-abbrev-mode.
 
+	* skk-vars.el: Custom-related modifications to skk-init-file,
+	skk-large-jisyo, skk-aux-large-jisyo, skk-jisyo, skk-backup-jisyo,
+	skk-show-icon, skk-use-kana-keyboard, and skk-tut-file.  Define
+	groups skk-kanagaki and akk-nicola here.
+
 2007-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK: Add APEL_DIR to load-path before loading install.el.
