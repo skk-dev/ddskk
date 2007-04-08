@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.67 2007/04/08 06:28:26 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.68 2007/04/08 08:21:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/08 06:28:26 $
+;; Last Modified: $Date: 2007/04/08 08:21:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -406,7 +406,7 @@ SKK abbrev モードにて、英文字 + skk-completion-search-char (~)で
 NOT-ABBREV-ONLY を指定する事で常に有効となる。"
   (when (and (or not-abbrev-only
 		 skk-abbrev-mode))
-    (skk-completion-search '((skk-comp-smart-find path))
+    (skk-completion-search `((skk-comp-smart-find ',path))
 			   '((skk-search-identity))
 			   'without-midasi)))
 
@@ -432,6 +432,45 @@ NOT-ABBREV-ONLY を指定する事で常に有効となる。"
     (when files
       (setq files
 	    (sort files #'string-lessp)))))
+
+(defun skk-comp-lisp-symbol (&optional predicate)
+  "Lisp symbol 名で補完する。
+PREDICATE に引数 1 個の関数を指定すれば、PREDICATE を見たすシンボル
+に限って補完する。PREDICATE には `fboundp', `boundpp', `commandp'
+などが指定できる。指定しなければ関数または変数に限って補完する。"
+  (cond (skk-abbrev-mode
+	 (when skk-comp-first
+	   (let (temp)
+	     (unless predicate
+	       (setq predicate #'(lambda (symbol)
+				   (or (fboundp symbol)
+				       (boundp symbol)))))
+	     (setq temp
+		   (sort (all-completions skk-comp-key obarray predicate)
+			 #'string-lessp))
+	     (when temp
+	       ;; read-only な object などもあるのでそのまま使わない
+	       (setq skk-comp-lisp-symbols (mapcar #'copy-sequence temp)))))
+	 (if skk-comp-lisp-symbols
+	     (pop skk-comp-lisp-symbols)
+	   nil))
+	(t
+	 (setq skk-comp-lisp-symbols nil))))
+
+(defun skk-search-lisp-symbol (&optional predicate not-abbrev-only)
+  "Lisp symbol 名で補完する。
+PREDICATE に引数 1 個の関数を指定すれば、PREDICATE を見たすシンボル
+に限って補完する。PREDICATE には `fboundp', `boundpp', `commandp'
+などが指定できる。指定しなければ関数または変数に限って補完する。
+SKK abbrev モードにて、英文字 + skk-completion-search-char (~)で
+未完スペルを指定して変換すると、補完候補が変換候補として出現する。
+デフォルトでは SKK abbrev モードのみで有効な機能だが、
+NOT-ABBREV-ONLY を指定する事で常に有効となる。"
+  (when (and (or not-abbrev-only
+		 skk-abbrev-mode))
+    (skk-completion-search `((skk-comp-lisp-symbol ',predicate))
+			   '((skk-search-identity))
+			   'without-midasi)))
 
 (defun skk-comp-restrict-by-prefix (comp-prog)
   "補完プログラムにより得られた候補を `skk-comp-prefix' で絞り込む。

@@ -4,6 +4,11 @@
 	skk-abbrev-mode.  Set skk-smart-find-file-path to nil when
 	skk-abbrev-mode is nil.
 
+	(skk-comp-lisp-symbol):
+	(skk-search-lisp-symbol):
+
+	New functions.
+
 	* skk-e21.el (skk-tooltip-show-at-point): Adjest mouse position in
 	non-follow mode.
 
@@ -11,6 +16,8 @@
 	skk-large-jisyo, skk-aux-large-jisyo, skk-jisyo, skk-backup-jisyo,
 	skk-show-icon, skk-use-kana-keyboard, and skk-tut-file.  Define
 	groups skk-kanagaki and akk-nicola here.
+
+	(skk-comp-lisp-symbols): New variable.
 
 2007-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
