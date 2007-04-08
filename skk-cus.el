@@ -266,15 +266,18 @@
     (unless (assq (car param) skk-custom-alist)
       (push (cons (car param) nil) skk-custom-alist)))
   (skk-cus-set)
-  (with-temp-buffer
-    (insert "(setq skk-custom-alist '"
-	    (prin1-to-string skk-custom-alist)
-	    ")\n")
-    (write-region (point-min) (point-max) skk-custom-file))
+  (skk-cus-save-file)
   (bury-buffer)
   (unless (eq skk-custom-buffer-original (current-buffer))
     (switch-to-buffer skk-custom-buffer-original))
   (skk-adjust-user-option))
+
+(defun skk-cus-save-file ()
+  (with-temp-buffer
+    (insert "(setq skk-custom-alist '"
+	    (prin1-to-string skk-custom-alist)
+	    ")\n")
+    (write-region (point-min) (point-max) skk-custom-file)))
 
 ;;;###autoload
 (defun skk-cus-setup ()
@@ -282,6 +285,25 @@
     (when (file-readable-p file)
       (load-file file)
       (skk-cus-set))))
+
+(defun skk-cus-update ()
+  (let ((params (append skk-cus-params-visual
+			skk-cus-params-ui
+			skk-cus-params-henkan
+			skk-cus-params-search
+			skk-cus-params-input
+			skk-cus-params-misc))
+	param)
+    (setq skk-custom-alist nil)
+    (while params
+      (setq param (pop params))
+      (setq skk-custom-alist
+	    (cons (cons (car param) (symbol-value (car param)))
+		  skk-custom-alist)))
+    (skk-cus-save-file)))
+
+(defadvice custom-save-variables (after skk-cus-update activate)
+  (skk-cus-update))
 
 (require 'product)
 (product-provide

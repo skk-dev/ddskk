@@ -9,6 +9,13 @@
 
 	New functions.
 
+	* skk-cus.el (skk-cus-update):
+	(skk-cus-save-file):
+
+	New functions.
+
+	(custom-save-variables): Advise to call `skk-cus-update'.
+
 	* skk-e21.el (skk-tooltip-show-at-point): Adjust mouse position in
 	non-follow mode.
 
