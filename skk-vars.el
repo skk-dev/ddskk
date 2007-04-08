@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.203 2007/04/08 08:21:40 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.204 2007/04/08 20:48:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/08 08:21:40 $
+;; Last Modified: $Date: 2007/04/08 20:48:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -237,15 +237,15 @@ Automatically becomes buffer-local when set in any fashion."
   :prefix "skk-tut-"
   :group 'skk)
 
-(defgroup skk-viper nil "SKK/Viper $B4XO"$N@_Dj(B."
+(defgroup skk-viper nil "SKK/Viper $B4XO"$N@_Dj(B"
   :prefix "skk-viper-"
   :group 'skk)
 
-(defgroup skk-kanagaki nil "SKK kanagaki related customization."
+(defgroup skk-kanagaki nil "SKK $B$+$JF~NO$N@_Dj(B"
   :prefix "skk-kanagaki-"
   :group 'skk-input)
 
-(defgroup skk-nicola nil "SKK NICOLA related customization."
+(defgroup skk-nicola nil "SKK $B?F;X%7%U%HF~NO$N@_Dj(B"
   :prefix "skk-nicola-"
   :group 'skk-kanagaki)
 
@@ -259,35 +259,10 @@ Automatically becomes buffer-local when set in any fashion."
   :type '(file :tag "$B<-=q%U%!%$%kL>(B" "~/.skk")
   :group 'skk-basic)
 
-(defcustom skk-mode-hook nil
-  "*SKK $B$r5/F0$7$?$H$-$N%U%C%/!#(B
-$BB>$K!"(B`skk-auto-fill-mode-hook', `skk-load-hook', `skk-init-file' $B$G$b(B
-$B%+%9%?%^%$%:$,2DG=!#(B"
-  ;; "*Hook run at SKK startup.  This hook is also run
-  ;;in skk-auto-fill-mode after skk-auto-fill-mode-hook.
-  ;;skk-auto-fill-mode-hook, skk-load-hook, skk-init-file may also be used
-  ;;for customization."
-  :type 'hook
-  :group 'skk-basic)
-
-(defcustom skk-auto-fill-mode-hook nil
-  "*`skk-auto-fill-mode' $B$r5/F0$7$?$H$-$N%U%C%/!#(B
-$BB>$K!"(B`skk-mode-hook', `skk-load-hook', `skk-init-file' $B$G$b%+%9%?%^%$%:$,(B
-$B2DG=!#(B"
-  ;;  "*Hook run at startup of skk-auto-fill-mode.
-  ;;skk-mode-hook$B!"(Bskk-load-hook, skk-init-file may also be used for
-  ;;customization."
-  :type 'hook
-  :group 'skk-basic)
-
-(defcustom skk-load-hook nil
-  "*skk.el $B$r%m!<%I$7$?$H$-$N%U%C%/!#(B
-$BB>$K!"(B`skk-mode-hook', `skk-auto-fill-mode-hook', `skk-init-file' $B$G$b%+%9%?(B
-$B%^%$%:$,2DG=!#(B"
-  ;;  "*Hook run when SKK is loaded.
-  ;;skk-auto-fill-mode-hook$B!"(Bskk-mode-hook, skk-init-file may also be used
-  ;;for customization."
-  :type 'hook
+(defcustom skk-japanese-message-and-error nil
+  "*Non-nil $B$G$"$l$P!"(BSKK $B$N%a%C%;!<%8$H%(%i!<$rF|K\8l$GI=<($9$k!#(B
+nil $B$G$"$l$P!"1Q8l$GI=<($9$k!#(B"
+  :type 'boolean
   :group 'skk-basic)
 
 (defcustom skk-kakutei-jisyo nil
@@ -439,6 +414,7 @@ nil $B$N>l9g(B \"euc\" $B$HF1$807$$$K$J$k!#(B
 *Non-nil $B$G$"$l$P!"J#?t$N(B SKK $B$K$h$k8D?M<-=q$N6&M-$r9MN8$7$F<-=q$r99?7$9$k!#(B
 SKK $B5/F08e$KJQ99$7$?>l9g$O(B \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
   :type 'boolean
+  :group 'skk-basic
   :group 'skk-private)
 
 (defcustom skk-jisyo-save-count 50
@@ -523,6 +499,13 @@ HENKAN-BUFFER, MIDASI, OKURIGANA, WORD, PURGE $B$N(B 5 $B0z?t$rH<$J$C$F%3!<%k
 $B3NDj$K4X$9$k%U%i%0N`$O!"$3$N4X?t$NCf$+$i;2>H$9$k$3$H$,$G$-$k!#(B"
   :type '(list symbol)
   :group 'skk-private)
+
+(defcustom skk-learn-combined-word nil
+  "*$B@\F,<-!"@\Hx<-$NF~NO$N7k2L$r<+F0E*$K3X=,$9$k$+$I$&$+$r@_Dj$9$k!#(B
+Non-nil $B$J$i$P!"@\F,<-$^$?$O@\Hx<-F~NO$N:]!"@\F,<-$^$?$O@\Hx<-$H7k9g$7$?(B
+$B8l$r<+F0E*$K3X=,$9$k!#(B"
+  :type 'boolean
+   :group 'skk-private)
 
 (defcustom skk-rom-kana-base-rule-list
   '(("a" nil ("$B%"(B" . "$B$"(B"))
@@ -1046,6 +1029,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 $B%+!<%=%k$r0\F0$9$k!#(B
 $BA^F~$9$kJ8;zNs$O!"(B`skk-auto-paren-string-alist' $B$G;XDj$9$k!#(B"
   :type 'boolean
+  :group 'skk-basic
   :group 'skk-input)
 
 (defcustom skk-auto-paren-string-alist
@@ -1219,6 +1203,7 @@ nil $B$G$"$l$P!"Nc$($P(B
 $B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
 $B$J$i$J$$!#(B"
   :type 'boolean
+  :group 'skk-basic
   :group 'skk-kakutei)
 
 (defcustom skk-delete-implies-kakutei t
@@ -1231,6 +1216,7 @@ nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
   :type '(radio	(const t)
 		(const dont-update)
 		(const nil))
+  :group 'skk-basic
   :group 'skk-kakutei)
 
 (defcustom skk-kakutei-end-function nil
@@ -1283,6 +1269,7 @@ Emacs 19 $B0J>e$J$i$P!"2<5-$N<0$rI>2A$9$k$3$H$G!"C18lEPO?$KF~$C$?$H$-$@$1(B
 $B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
 $B$J$i$J$$!#(B"
   :type 'boolean
+  :group 'skk-basic
   :group 'skk-okurigana)
 
 (defcustom skk-henkan-strict-okuri-precedence nil
@@ -1302,6 +1289,7 @@ Emacs 19 $B0J>e$J$i$P!"2<5-$N<0$rI>2A$9$k$3$H$G!"C18lEPO?$KF~$C$?$H$-$@$1(B
 $B$J$i$J$$!#(B
 $B$^$?(B `skk-henkan-okuri-strictly' $B$,(B non-nil $B$N$H$-$O!"$3$NJQ?t$OL5;k$5$l$k!#(B"
   :type 'boolean
+  :group 'skk-basic
   :group 'skk-okurigana)
 
 (defcustom skk-process-okuri-early nil
@@ -1355,6 +1343,7 @@ nil  -- $B0l@ZAw$j2>L>$N%A%'%C%/$r$;$:!"A4BN$rC18l$H$7$FEPO?$9$k!#$3$l$O(B SKK
   :type '(radio (const :tag "$B%f!<%6$K3NG'$9$k(B" ask)
 		(const :tag "$B<+F0E*$K=hM}$9$k(B" auto)
 		(const :tag "$B%A%'%C%/$7$J$$(B"  nil))
+  :group 'skk-basic
   :group 'skk-okurigana
   :group 'skk-private)
 
@@ -1372,12 +1361,6 @@ car $B$K!V<B:]$N%-!<F~NO$K$h$k$+$J(B prefix $BJ8;zNs!W!"(Bcdr $B$K!V(BSKK 
 $B$N$h$&$K=q$/!#(B"
   :type '(repeat (cons string string))
   :group 'skk-okurigana)
-
-(defcustom skk-japanese-message-and-error nil
-  "*Non-nil $B$G$"$l$P!"(BSKK $B$N%a%C%;!<%8$H%(%i!<$rF|K\8l$GI=<($9$k!#(B
-nil $B$G$"$l$P!"1Q8l$GI=<($9$k!#(B"
-  :type 'boolean
-  :group 'skk-misc)
 
 (defcustom skk-emacs-id-file (convert-standard-filename "~/.skk-emacs-id") "\
 *`skk-jisyo-file'$B$K:G6a%"%/%;%9$7$?(B SKK $B$N(B `skk-emacs-id' $B$rJ]B8$9$k%U%!%$%k!#(B"
@@ -1434,26 +1417,52 @@ skk-init-file $B$NJ}$,?7$7$$$H$-$O!"$=$N%P%$%H%3%s%Q%$%k:Q%U%!%$%k$r>C$9!#(B"
   :group 'skk-misc
   :type 'boolean)
 
-(defcustom skk-learn-combined-word nil
-  "*$B@\F,<-!"@\Hx<-$NF~NO$N7k2L$r<+F0E*$K3X=,$9$k$+$I$&$+$r@_Dj$9$k!#(B
-Non-nil $B$J$i$P!"@\F,<-$^$?$O@\Hx<-F~NO$N:]!"@\F,<-$^$?$O@\Hx<-$H7k9g$7$?(B
-$B8l$r<+F0E*$K3X=,$9$k!#(B"
-  :type 'boolean
-   :group 'skk-misc)
-
 (defcustom skk-undo-kakutei-word-only nil
   "*Non-nil $B$G$"$l$P(B $B"&%b!<%I$H"'%b!<%I;~$N%"%s%I%%>pJs$r5-O?$7$J$$!#(B"
   :type 'boolean
   :group 'skk-misc)
 
 (defcustom skk-show-japanese-menu
-  (and (boundp 'gtk-version-string)
-       (stringp gtk-version-string)
-       (string-lessp "2.0" gtk-version-string)
+  (and window-system
+       (or (and (boundp 'gtk-version-string)
+		(stringp gtk-version-string)
+		(string-lessp "2.0" gtk-version-string))
+	   (memq system-type '(windows-nt)))
        (find-coding-system locale-coding-system)
        (equal current-language-environment "Japanese")) "\
 *Non-nil $B$G$"$l$PF|K\8l%a%K%e!<$rI=<($9$k!#(B"
   :type 'boolean
+  :group 'skk-misc)
+
+(defcustom skk-mode-hook nil
+  "*SKK $B$r5/F0$7$?$H$-$N%U%C%/!#(B
+$BB>$K!"(B`skk-auto-fill-mode-hook', `skk-load-hook', `skk-init-file' $B$G$b(B
+$B%+%9%?%^%$%:$,2DG=!#(B"
+  ;; "*Hook run at SKK startup.  This hook is also run
+  ;;in skk-auto-fill-mode after skk-auto-fill-mode-hook.
+  ;;skk-auto-fill-mode-hook, skk-load-hook, skk-init-file may also be used
+  ;;for customization."
+  :type 'hook
+  :group 'skk-misc)
+
+(defcustom skk-auto-fill-mode-hook nil
+  "*`skk-auto-fill-mode' $B$r5/F0$7$?$H$-$N%U%C%/!#(B
+$BB>$K!"(B`skk-mode-hook', `skk-load-hook', `skk-init-file' $B$G$b%+%9%?%^%$%:$,(B
+$B2DG=!#(B"
+  ;;  "*Hook run at startup of skk-auto-fill-mode.
+  ;;skk-mode-hook$B!"(Bskk-load-hook, skk-init-file may also be used for
+  ;;customization."
+  :type 'hook
+  :group 'skk-misc)
+
+(defcustom skk-load-hook nil
+  "*skk.el $B$r%m!<%I$7$?$H$-$N%U%C%/!#(B
+$BB>$K!"(B`skk-mode-hook', `skk-auto-fill-mode-hook', `skk-init-file' $B$G$b%+%9%?(B
+$B%^%$%:$,2DG=!#(B"
+  ;;  "*Hook run when SKK is loaded.
+  ;;skk-auto-fill-mode-hook$B!"(Bskk-mode-hook, skk-init-file may also be used
+  ;;for customization."
+  :type 'hook
   :group 'skk-misc)
 
 (defcustom skk-status-indicator 'left
@@ -1527,6 +1536,7 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
 			    (> emacs-major-version 20))
   "*Non-nil $B$G$"$l$P!"(BEmacs $B$N(B face $B$N5!G=$r;HMQ$7$FJQ49I=<($r9T$&!#(B"
   :type 'boolean
+  :group 'skk-basic
   :group 'skk-visual)
 
 ;; should use defface?  however, can I use defface for highlight?
@@ -2169,6 +2179,7 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 		(const :tag "$B8uJd0lMw$H%_%K%P%C%U%!$G$OHsI=<((B"
 		       (not list minibuf))
 		(const :tag "$BHsI=<((B" nil))
+  :group 'skk-basic
   :group 'skk-annotation)
 
 (defcustom skk-annotation-toggle-display-char ?^
@@ -2475,6 +2486,7 @@ car $B$K$"$kJd40%W%m%0%i%`$,(B nil $B$rJV$9$4$H$K(B 1$B$D$E$DC;$/$J$C$F$f$/
 				     (x-display-color-p))
   "*Non-nil $B$G$"$l$P!"(BSKK $B%b!<%I$NF~NO%b!<%I$K1~$8$F%+!<%=%k$K?'$rIU$1$k!#(B"
   :type 'boolean
+  :group 'skk-basic
   :group 'skk-cursor)
 
 (defcustom skk-cursor-default-color
@@ -3016,6 +3028,7 @@ SKK abbrev $B%b!<%I$G!"!V1QJ8;z(B + $B%"%9%?%j%9%/!W$K$FJQ49$r9T$&$H!"(Blook
 		(const :tag "$BJd40;~$@$1M-8z(B" completion)
 		(const :tag "$B1Q?t;zJQ49;~$@$1M-8z(B" completion)
 		(const :tag "$BL58z(B" nil))
+  :group 'skk-basic
   :group 'skk-look)
 
 (defcustom skk-look-command (exec-installed-p "look")
