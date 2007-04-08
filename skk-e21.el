@@ -440,7 +440,11 @@
       ;;
       (when (> (+ left text-width) screen-width)
 	;; 右に寄りすぎて欠けてしまわないように
-	(setq left (- left (- (+ left text-width) screen-width))))
+	(setq left (- left (- (+ left text-width
+				 ;; 少し余計に左に寄せないと avoid
+				 ;; したマウスポインタと干渉する
+				 (* 2 fontsize))
+			      screen-width))))
       (when (> (+ top text-height) screen-height)
 	;; 下に寄りすぎて欠けてしまわないように
 	(setq top (- top

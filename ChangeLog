@@ -1,7 +1,11 @@
 2007-04-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el (skk-comp-smart-find): Return nil unless
-	skk-abbrev-mode.
+	skk-abbrev-mode.  Set skk-smart-find-file-path to nil when
+	skk-abbrev-mode is nil.
+
+	* skk-e21.el (skk-tooltip-show-at-point): Adjest mouse position in
+	non-follow mode.
 
 	* skk-vars.el: Custom-related modifications to skk-init-file,
 	skk-large-jisyo, skk-aux-large-jisyo, skk-jisyo, skk-backup-jisyo,
