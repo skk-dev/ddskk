@@ -9,7 +9,7 @@
 
 	New functions.
 
-	* skk-e21.el (skk-tooltip-show-at-point): Adjest mouse position in
+	* skk-e21.el (skk-tooltip-show-at-point): Adjust mouse position in
 	non-follow mode.
 
 	* skk-vars.el: Custom-related modifications to skk-init-file,
