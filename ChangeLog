@@ -1,3 +1,8 @@
+2007-04-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-comp.el (skk-comp-smart-find): Return nil unless
+	skk-abbrev-mode.
+
 2007-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK: Add APEL_DIR to load-path before loading install.el.

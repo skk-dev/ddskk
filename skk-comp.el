@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.65 2007/04/07 18:47:12 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.66 2007/04/08 03:40:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/07 18:47:12 $
+;; Last Modified: $Date: 2007/04/08 03:40:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -391,11 +391,12 @@
   (let ((abbrev skk-abbrev-mode)
 	(key skk-comp-key)
 	(first skk-comp-first))
-    (when (and abbrev first)
-      (setq skk-comp-smart-find-files (skk-smart-find key path)))
-    (if skk-comp-smart-find-files
-	(pop skk-comp-smart-find-files)
-      nil)))
+    (when abbrev
+      (when first
+	(setq skk-comp-smart-find-files (skk-smart-find key path)))
+      (if skk-comp-smart-find-files
+	  (pop skk-comp-smart-find-files)
+	nil))))
 
 (defun skk-search-smart-find (&optional path not-abbrev-only)
   "`smart-find'を利用した変換を行なう。
