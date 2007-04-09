@@ -4,6 +4,8 @@
 	tooltip frame, so that mouse pointer will not interfere near
 	bottom of the screen.
 
+	* skk-xemacs.el (skk-tooltip-show-at-point): Likewise.
+
 2007-04-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el (skk-comp-smart-find): Return nil unless
