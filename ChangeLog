@@ -1,3 +1,9 @@
+2007-04-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-tooltip-show-at-point): More carefully place
+	tooltip frame, so that mouse pointer will not interfere near
+	bottom of the screen.
+
 2007-04-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el (skk-comp-smart-find): Return nil unless

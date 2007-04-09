@@ -452,7 +452,16 @@
 		     ;; 十分上げないとテキストと重なるので、
 		     ;; いっそテキストの上にしてみる
 		     (- screen-height top)
-		     fontsize))))
+		     fontsize))
+	;; さらに X 座標を...
+	(let ((right (+ left
+			text-width
+			skk-tooltip-x-offset))
+	      (mouse-x (+ (frame-parameter (selected-frame) 'left)
+			  (* (frame-pixel-width)))))
+	  (when (and (<= left mouse-x) (<= mouse-x right))
+	    ;; マウスポインタと被りそうなとき
+	    (setq left (- left (- right mouse-x) fontsize))))))
     ;;
     (setq parameters (if (eq skk-tooltip-mouse-behavior 'follow)
 			 skk-tooltip-parameters
