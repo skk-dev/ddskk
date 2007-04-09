@@ -237,6 +237,32 @@
 
 (defalias 'skk-tooltip-hide 'balloon-help-undisplay-help)
 
+(defun skk-tooltip-resize-text (text)
+  (let ((lines 0)
+	(columns 0)
+	(current-column nil))
+    (with-temp-buffer
+      (set-buffer-multibyte t)
+      (insert text)
+      (goto-char (point-min))
+      (while (not (eobp))
+	(setq lines (1+ lines))
+	(cond ((= lines 35)
+	       ;; 長すぎる
+	       (beginning-of-line)
+	       (insert "(長すぎるので省略されました)")
+	       (delete-region (point) (point-max))
+	       (goto-char (point-max))
+	       (setq text (buffer-string)))
+	      (t
+	       (end-of-line)
+	       (setq current-column (current-column))
+	       (when (> current-column columns)
+		 (setq columns current-column))
+	       (forward-line 1)))))
+    ;; (text . (x . y))
+    (cons text (cons columns lines))))
+
 (defun skk-tooltip-show-at-point (text &optional listing)
   (require 'avoid)
   (let* ((pos (or (and (eq skk-henkan-mode 'active)
@@ -245,6 +271,7 @@
 			  skk-henkan-start-point)))
 		  (point)))
 	 (P (cdr (skk-xemacs-mouse-position pos)))
+	 (oP (cdr (mouse-position)))
 	 (avoid-destination (if (memq skk-tooltip-mouse-behavior
 				      '(avoid avoid-maybe banish))
 				(mouse-avoidance-banish-destination)
@@ -253,29 +280,60 @@
 	 (fontsize (or (cdr (assq 'PIXEL_SIZE
 				  (font-properties (face-font 'default))))
 		       0))
-	 (x (+ (* 0 (/ (1+ fontsize) 2))
-	       (or (current-pixel-column window pos)
-		   (+ (car P) (/ (1+ fontsize) 2)))))
-	 (y (+ (if listing
-		   0
-		 (* 7 (/ (1+ fontsize) 2)))
-	       (or (current-pixel-row window pos)
-		   (+ (cdr P) fontsize))))
-	 (oP (cdr (mouse-position)))
+	 (edges (window-pixel-edges window))
+	 (left (+ (car edges)
+		  (* 0 (/ (1+ fontsize) 2))
+		  (or (current-pixel-column window pos)
+		      (+ (car P) (/ (1+ fontsize) 2)))
+		  (frame-parameter (selected-frame) 'left)))
+	 (top (+ (cadr edges)
+		 (if listing
+		     0
+		   (* 7 (/ (1+ fontsize) 2)))
+		 (or (current-pixel-row window pos)
+		     (+ (cdr P) fontsize))
+		 (frame-parameter (selected-frame) 'top)))
+	 (tooltip-info (skk-tooltip-resize-text text))
+	 (text (car tooltip-info))
+	 (tooltip-size (cdr tooltip-info))
+	 (text-width (* (/ (1+ fontsize) 2) (+ 2 (car tooltip-size))))
+	 (text-height (* fontsize (+ 1 (cdr tooltip-size))))
+	 (screen-width (display-pixel-width))
+	 (screen-height (display-pixel-height))
 	 (inhibit-quit t)
 	 event)
+    ;;
     (when (null (car P))
       (unless (memq skk-tooltip-mouse-behavior '(avoid-maybe banish nil))
 	(setq oP (cdr (mouse-avoidance-point-position)))))
     ;;
-    (setq balloon-help-help-object-x
-	  (+ x
-	     (cdr (assq 'left (frame-parameters (selected-frame))))
-	     skk-tooltip-x-offset)
-	  balloon-help-help-object-y
-	  (+ y
-	     (cdr (assq 'top (frame-parameters (selected-frame))))
-	     skk-tooltip-y-offset))
+    (when (> (+ left text-width (* 4 fontsize)) screen-width)
+      ;; 右に寄りすぎて欠けてしまわないように
+      (setq left (- left (- (+ left text-width
+			       ;; 少し余計に左に寄せないと avoid
+			       ;; したマウスポインタと干渉する
+			       (* 10 (/ (1+ fontsize) 2)))
+			    screen-width))))
+    (when (> (+ top text-height (* 3 fontsize)) screen-height)
+      ;; 下に寄りすぎて欠けてしまわないように
+      (setq top (- top
+		   (- (+ top text-height) screen-height)
+		   ;; 十分上げないとテキストと重なるので、
+		   ;; いっそテキストの上にしてみる
+		   (- screen-height top)
+		   (* 4 fontsize)))
+      ;; さらに X 座標を...
+      (let ((right (+ left
+		      text-width
+		      skk-tooltip-x-offset))
+	    (mouse-x (+ (frame-parameter (selected-frame) 'left)
+			(* (frame-pixel-width)))))
+	(when (and (<= left mouse-x) (<= mouse-x right))
+	  ;; マウスポインタと被りそうなとき
+	  (setq left (- left (- right mouse-x) (* 4 fontsize))))))
+    ;;
+    (setq balloon-help-help-object-x (+ left skk-tooltip-x-offset)
+	  balloon-help-help-object-y (+ top skk-tooltip-y-offset))
     ;;
     (when (eq skk-tooltip-mouse-behavior 'follow)
       (mouse-avoidance-set-mouse-position P))
@@ -285,7 +343,9 @@
 	      (and (eq skk-tooltip-mouse-behavior 'avoid-maybe)
 		   (cadr (mouse-position))
 		   (not (equal (mouse-position) avoid-destination))))
-      (mouse-avoidance-banish-mouse))
+      (save-window-excursion
+	(select-window (frame-rightmost-window (selected-frame) 0))
+	(mouse-avoidance-banish-mouse)))
     ;;
     (skk-tooltip-show-1 text listing)
     (setq event (next-command-event))
@@ -394,7 +454,7 @@
 			((or listing (= lines 2))
 			 (+ 1 lines))
 			(t
-			 (+ lines (/ lines 3)))))
+			 (+ 1 lines))))
       ;;
       (set-frame-size balloon-help-frame (+ 0 width) lines))))
 
