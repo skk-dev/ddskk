@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.205 2007/04/10 10:42:54 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.206 2007/04/10 15:49:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/10 10:42:54 $
+;; Last Modified: $Date: 2007/04/10 15:49:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1640,9 +1640,49 @@ o 候補一覧を表示するとき (候補の文字列の後ろに注釈が付加される)
 	  candidate))
 
 "
-  :type 'function
+  :type '(radio (const :tag "設定サンプル1" skk-treat-candidate-sample1)
+		(const :tag "設定サンプル2" skk-treat-candidate-sample2)
+		(const :tag "指定しない" nil)
+		(function :tag "任意の関数"))
   :group 'skk-annotation
   :group 'skk-visual)
+
+;; skk-treat-candidate-appearance-function のために用意する関数
+(defun skk-treat-candidate-sample1 (candidate listing-p)
+  (cond
+   ((string-match ";" candidate)
+    (put-text-property 0 (match-beginning 0)
+		       'face 'skk-tut-question-face
+		       candidate)
+    (put-text-property (match-beginning 0) (length candidate)
+		       'face 'skk-tut-hint-face
+		       candidate))
+   (t
+    (put-text-property 0 (length candidate)
+		       'face 'skk-tut-question-face
+		       candidate)))
+  candidate)
+
+(defun skk-treat-candidate-sample2 (candidate listing-p)
+  (let* ((value (skk-treat-strip-note-from-word candidate))
+	 (cand (car value))
+	 (note (cdr value))
+	 (sep (if note
+		  (propertize (if (skk-annotation-display-p 'list)
+				  " ≒ "
+				" !")
+			      'face 'skk-tut-do-it-face)
+		nil)))
+    (cond (note
+	   (put-text-property 0 (length cand)
+			      'face 'skk-tut-question-face cand)
+	   (put-text-property 0 (length note)
+			      'face 'skk-tut-hint-face note)
+	   (cons cand (cons sep note)))
+	  (t
+	   (put-text-property 0 (length cand)
+			      'face 'default cand)
+	   cand))))
 
 ;;; -- Internal constants and variables of skk.el
 (defconst skk-coding-system-alist
@@ -3826,6 +3866,7 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
 GNU Emacs 20.7 では機能せず、指定するとエラーになる。
 XEmacs 21.4 ではエラーにならないかもしれないが、極めて不完全な動作しかしない。"
   :type 'boolean
+  :group 'skk-basic
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-hide-delay 1000
@@ -3960,6 +4001,20 @@ The English version is SKK.tut.E."
   "*チュートリアル中のヒントの表示部分の face。
 現在のところ、SKK.tut.E でしか使用されていない。"
   :group 'skk-tut)
+
+;; XXX workaround
+;; face の property が一部の状況で反映されないことに対処
+(when (and (not noninteractive)
+	   window-system)
+  (let ((faces '(skk-tut-section-face
+		 skk-tut-section-face
+		 skk-tut-do-it-face
+		 skk-tut-question-face
+		 skk-tut-key-bind-face
+		 skk-tut-hint-face)))
+    (while faces
+      (set-face-foreground (car faces) (face-foreground (car faces)))
+      (setq faces (cdr faces)))))
 
 ;;; skk-viper.el related.
 (defcustom skk-use-viper nil
