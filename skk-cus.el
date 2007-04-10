@@ -129,6 +129,10 @@
 		 nil)))
 	 params)))
 
+(defun skk-customize-group-skk ()
+  (interactive)
+  (customize-group 'skk))
+
 (defun skk-customize ()
   (interactive)
   (dolist (param (append skk-cus-params-visual
