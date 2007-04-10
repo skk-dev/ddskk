@@ -37,9 +37,10 @@
 
 *XlwMenu.readManual.labelString: マニュアルを読む
 *XlwMenu.startTutorial.labelString: チュートリアル
-*XlwMenu.customizeDaredevilSKK.labelString: Daredevil SKK をカスタマイズ
+*XlwMenu.customizeSKK.labelString: SKK をカスタマイズ
+*XlwMenu.customizeSKK__Simple_.labelString: SKK をカスタマイズ
 *XlwMenu.sendABugReport.labelString: バグを報告する
 
-*XlwMenu.aboutDaredevilSKK___.labelString: Daredevil SKK について...
+*XlwMenu.aboutDaredevilSKK__.labelString: Daredevil SKK について..
 *XlwMenu.visitDaredevilSKKWebSite.labelString: Daredevil SKK のサイトへ
 

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.394 2007/04/07 12:24:10 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.395 2007/04/10 15:51:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/07 12:24:10 $
+;; Last Modified: $Date: 2007/04/10 15:51:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -94,11 +94,13 @@
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
 
-(eval-when-compile
-  (when (and (string-match "^GNU" (emacs-version))
-	     (= emacs-major-version 20))
-    (defalias 'skk-tooltip-show-at-point 'ignore)
-    (defalias 'skk-tooltip-hide 'ignore)))
+(when (or (and (string-match "^GNU" (emacs-version))
+	       (= emacs-major-version 20))
+	  (and (featurep 'xemacs)
+	       (= emacs-major-version 21)
+	       (<= emacs-minor-version 4)))
+  (defalias 'skk-tooltip-show-at-point 'ignore)
+  (defalias 'skk-tooltip-hide 'ignore))
 
 ;; aliases.
 (defalias 'skk-toggle-kana 'skk-toggle-characters)
@@ -1987,7 +1989,9 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	;; $B8=:_$N%P%C%U%!$NCf$KI=<($9$k(B ($B%$%s%i%$%sI=<((B)
 	(skk-inline-show str skk-inline-show-face))
        ((and window-system
-	     skk-show-tooltip)
+	     skk-show-tooltip
+	     (not (eq (symbol-function 'skk-tooltip-show-at-point)
+		      'ignore)))
 	;; tooptip $B$GI=<($9$k(B
 	(skk-tooltip-show-at-point tooltip-str 'listing))
        ((and (not skk-show-candidates-always-pop-to-buffer)

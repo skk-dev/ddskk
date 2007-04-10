@@ -1,9 +1,32 @@
 2007-04-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-vars.el (skk-kcode-charset):
+	* skk-cus.el (skk-customize-group-skk): New function.
+
+	* skk-e21.el:
+	* skk-xemacs.el:
+
+	Add popup menu item for `skk-customize-group-skk'.
+
+	* skk-vars.el: Explicitly call `set-face-foreground' for skk-tut
+	faces.
+
+	(skk-kcode-charset):
 	(skk-tankan-search-key):
 
 	Also list in group skk-jisx0213.
+
+	(skk-treat-candidate-appearance-function): Allow a user to select
+	sample settings.
+
+	(skk-treat-candidate-sample1):
+	(skk-treat-candidate-sample2):
+
+	New functions.
+
+	* skk.el: Under GNU Emacs 20 and XEmacs 21.4, always ignore
+	`skk-tooltip-show-at-point'.
+	(skk-henkan-show-candidate-subr): Don't call
+	`skk-tooltip-show-at-point' for GNU Emacs 20 and XEmacs 21.4.
 
 2007-04-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
