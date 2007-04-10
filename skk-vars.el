@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.204 2007/04/08 20:48:48 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.205 2007/04/10 10:42:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/08 20:48:48 $
+;; Last Modified: $Date: 2007/04/10 10:42:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2978,6 +2978,7 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 	 'japanese-jisx0208))
   "*`skk-input-by-code-or-menu' で使われる文字セット。"
   :type 'symbol
+  :group 'skk-jisx0213
   :group 'skk-kcode)
 
 (defcustom skk-kcode-load-hook nil
@@ -3802,6 +3803,7 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
 (defcustom skk-tankan-search-key ?@
   "*単漢字変換を行うキーキャラクタ。"
   :type 'character
+  :group 'skk-jisx0213
   :group 'skk-tankan)
 
 ;;; 文字集合の文字に対して (部首 部首内画数 総画数) を返す関数の alist

@@ -1,3 +1,10 @@
+2007-04-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-kcode-charset):
+	(skk-tankan-search-key):
+
+	Also list in group skk-ijsx0213.
+
 2007-04-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-tooltip-show-at-point): More carefully place
