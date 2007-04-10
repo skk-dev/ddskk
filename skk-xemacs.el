@@ -81,7 +81,8 @@
     "--"
     ["Read Manual" skk-xemacs-info t]
     ["Start Tutorial" skk-tutorial t]
-    ["Customize Daredevil SKK" skk-customize t]
+    ["Customize SKK" skk-customize-group-skk t]
+    ["Customize SKK (simple)" skk-customize t]
     ["Send a Bug Report"
      (let (skk-japanese-message-and-error)
        (skk-submit-bug-report)) t]

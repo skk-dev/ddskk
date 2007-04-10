@@ -75,12 +75,13 @@
       "--"
       ["Read Manual" skk-e21-info t]
       ["Start Tutorial" skk-tutorial t]
-      ["Customize Daredevil SKK" skk-customize t]
+      ["Customize SKK" skk-customize-group-skk t]
+      ["Customize SKK (simple)" skk-customize t]
       ["Send a Bug Report"
        (let (skk-japanese-message-and-error)
 	 (skk-submit-bug-report)) t]
       "--"
-      ["About Daredevil SKK..." skk-version t]
+      ["About Daredevil SKK.." skk-version t]
       ["Visit Daredevil Web Site" skk-e21-visit-openlab t])))
 
 (defvar skk-e21-menu-resource-ja
@@ -107,9 +108,10 @@
     ("Zenkaku alphabet" . "全角英数")
     ("Read Manual" . "マニュアルを読む")
     ("Start Tutorial" . "チュートリアル")
-    ("Customize Daredevil SKK" . "Daredevil SKK をカスタマイズ")
+    ("Customize SKK" . "SKK をカスタマイズ")
+    ("Customize SKK (simple)" . "SKK をカスタマイズ (簡易版)")
     ("Send a Bug Report" . "バグを報告する")
-    ("About Daredevil SKK..." . "Daredevil SKK について...")
+    ("About Daredevil SKK.." . "Daredevil SKK について..")
     ("Visit Daredevil Web Site" . "Daredevil SKK のサイトへ")))
 
 (defvar skk-e21-modeline-property
