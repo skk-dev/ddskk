@@ -3,7 +3,7 @@
 	* skk-vars.el (skk-kcode-charset):
 	(skk-tankan-search-key):
 
-	Also list in group skk-ijsx0213.
+	Also list in group skk-jisx0213.
 
 2007-04-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
