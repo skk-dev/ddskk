@@ -1,3 +1,19 @@
+2007-04-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el (skk-string-lessp-in-coding-system):
+	(skk-string<):
+
+	New functions.
+
+	* skk-auto.el (skk-okuri-search-subr-original):
+	* skk-macs.el (skk-string<=):
+	* skk-study.el (skk-study-save):
+	* skk.el (skk-search-jisyo):
+
+	Use `skk-string<' instead of `string<'.
+
+	* skk-hint.el (skk-hint-limit): Do not take matching of ?\;.
+
 2007-04-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cus.el (skk-customize-group-skk): New function.

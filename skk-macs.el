@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.110 2007/04/01 17:53:11 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.111 2007/04/11 07:34:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/01 17:53:11 $
+;; Last Modified: $Date: 2007/04/11 07:34:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -717,9 +717,26 @@ BUFFER defaults to the current buffer."
     (skk-cannot-be-undone
      (insert-and-inherit (or char skk-prefix)))))
 
+(defsubst skk-string-lessp-in-coding-system (str1 str2 coding-system)
+  (string< (encode-coding-string str1 coding-system)
+	   (encode-coding-string str2 coding-system)))
+
+(defsubst skk-string< (str1 str2)
+  "STR1 と STR2 とを比較する。
+内部コードが emacs-mule でないなど `stringp' の返り値が異なる Emacs に
+対して emacs-mule の encoded string に変換して比較する。
+比較の結果 str1 < str2 ならば t を返す。"
+  (static-cond
+   ((and (string-match "^GNU" (emacs-version))
+	 (string< "6.0" mule-version))
+    ;; Emacs with coding system utf-8-emacs
+    (skk-string-lessp-in-coding-system str1 str2 'emacs-mule))
+   (t
+    (string< str1 str2))))
+
 (defsubst skk-string<= (str1 str2)
   "STR1 と STR2 とを比較して、string< か string= であれば、t を返す。"
-  (or (string< str1 str2)
+  (or (skk-string< str1 str2)
       (string= str1 str2)))
 
 (defsubst skk-do-auto-fill ()

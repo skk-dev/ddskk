@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.51 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.52 2007/04/11 07:34:05 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2007/04/11 07:34:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -234,11 +234,11 @@
 	  (setq e (assq 'okuri-ari skk-study-alist))
 	  (setcdr e (sort (cdr e)
 			  (function (lambda (a b)
-				      (string< (car a) (car b))))))
+				      (skk-string< (car a) (car b))))))
 	  (setq e (assq 'okuri-nasi skk-study-alist))
 	  (setcdr e (sort (cdr e)
 			  (function (lambda (a b)
-				      (string< (car a) (car b)))))))
+				      (skk-string< (car a) (car b)))))))
 	(skk-study-prin1 skk-study-alist (current-buffer))
 	(write-region-as-coding-system
 	 (skk-find-coding-system skk-jisyo-code)

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.395 2007/04/10 15:51:27 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.396 2007/04/11 07:34:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/10 15:51:27 $
+;; Last Modified: $Date: 2007/04/11 07:34:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3752,10 +3752,10 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 	    (let ((p-is-further
 		   ;; $BAw$j$"$j$J$i5U=g$KHf3S$r9T$J$&!#(B
 		   (if okurigana
-		       (string< (buffer-substring-no-properties
+		       (skk-string< (buffer-substring-no-properties
 				 p (1- (search-forward  " ")))
 				skk-henkan-key)
-		     (string< skk-henkan-key
+		     (skk-string< skk-henkan-key
 			      (buffer-substring-no-properties
 			       p (1- (search-forward " ")))))))
 	      (if p-is-further
