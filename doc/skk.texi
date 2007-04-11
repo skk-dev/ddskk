@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.154 2007/03/31 17:35:39 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.155 2007/04/11 13:32:39 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/03/31 17:35:39 $
+@c  Last Modified: $Date: 2007/04/11 13:32:39 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/03/31 17:35:39 $
+@set UPDATED $Date: 2007/04/11 13:32:39 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -154,12 +154,16 @@ DDSKK 13.1 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 @item Emacs 21.1 $B0J9_(B
 @item Emacs 22.1
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.4.18 $B0J9_(B
+@item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.5.27 $B0J9_(B
 @end itemize
 
 @noindent
 $B$J$*!"(BXEmacs $B$K4X$7$F!"K\BN$HJLG[I[$N%Q%C%1!<%872$O:G?7HG$,MW5a$5$l$^$9!#(B
 $B>/$J$/$H$b(B xemacs-base $B%Q%C%1!<%8$O:G?7$G$J$1$l$P$J$j$^$;$s!#$^$?!"(B
 fsf-compat $B%Q%C%1!<%8$r%$%s%9%H!<%k$7$J$$$H0lIt5!G=$K@)8B$,$"$j$^$9!#(B
+
+$BA4BN$H$7$F!"8=:_$O(B XEmacs $B$h$j(B GNU Emacs $B$G$NF0:n$,$h$/%F%9%H$5$l$F$*$j!"(B
+XEmacs $B$G$N$h$jB?$/$N%F%9%H$,I,MW$G$9!#(B
 
 $B85Mh!"(BSKK $B$O!"(BSimple Kana to Kanji conversion program $B$K$A$J$s$GL>IU$1$i(B
 $B$l$^$7$?!#$^$?!"$=$NL>$O(B Combinatory Logic $B$G$NM-L>$JEy<0(B @samp{SKK = I}
@@ -390,19 +394,10 @@ DDSKK $B$N%/%i%$%"%s%HB&$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<(B
 @comment  node-name,  next,  previous,  up
 @chapter $B$O$8$a$N@_Dj(B
 
-DDSKK 11 $B0J9_!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#$"$J$?$N(B @file{.emacs} $B%U%!(B
-$B%$%k$K(B
-
-@lisp
-(require 'skk-setup)
-@end lisp
-
-@noindent
-$B$H=q$/$@$1$G(B DDSKK $B$rMxMQ$9$k$3$H$,2DG=$K$J$j$^$9!#(B
-
-$B<B$O(B Emacs 20$B!"(BEmacs 21 $B$^$?$O(B XEmacs $B$G!"(BDDSKK $B$rI8=`$N%$%s%9%H!<%k@h$K(B
-$B%$%s%9%H!<%k$7$?>l9g$O!">e5-$N@_Dj$r=q$/I,MW$9$i$"$j$^$;$s!#<+F0E*$K$3$N(B
-$B%U%!%$%k$,FI$_9~$^$l!"@_Dj$5$l$^$9!#(B
+DDSKK 11 $B0J9_!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#(BDDSKK 13 $B$G$O!"I8=`E*$J%$%s(B
+$B%9%H!<%k$N>l9g!"$J$K$b@_Dj$;$:(B Emacs $B$r5/F0$9$k$@$1$G;H$($k>uBV$K$J$C$F(B
+$B$$$^$9!#<+F0E*$K(B @file{skk-setup.el} $B$H$$$&%U%!%$%k$,FI$_9~$^$l!"@_Dj$5(B
+$B$l$^$9!#(B
 
 $B$b$7!"$3$N<+F0@_Dj$K$h$i$:!"<jF0$G@_Dj$r$7$?$$>l9g$O!"0J2<$N@bL@$r;2>H$7(B
 $B$F$/$@$5$$!#(B
@@ -6834,7 +6829,7 @@ terminal $B$G$bMxMQ$G$-$^$9!#$3$N5!G=$O(B Emacs 20, XEmacs $B$G$bMxMQ$G$-$^$9
 
 $BJQ?t(B @code{skk-show-tooltip} $B$r(B non-nil $B$K@_Dj$9$k$3$H$G!"(Bwindow-system
 $B2<$K$F8uJd0lMwI=<($HCm<aI=<($r%P%k!<%s%X%k%W$K$9$k$3$H$,$G$-$k$h$&$K$J$j(B
-$B$^$7$?!#$3$l$O8=:_(B GNU Emacs 21 $B0J9_$N$_BP1~$7$F$$$k5!G=$G$9!#(B
+$B$^$7$?!#$3$l$O8=:_(B GNU Emacs 21 $B0J9_!"(BXEmacs 21.5 $B0J9_$GF0:n$7$^$9!#(B
 @vindex skk-show-tooltip
 
 @item $B?7$7$$3X=,5!G=(B skk-bayesian.el

@@ -1,5 +1,7 @@
 2007-04-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* doc/skk.texi: Update for supported Emacsen and setup.
+
 	* skk-macs.el (skk-string-lessp-in-coding-system):
 	(skk-string<):
 
