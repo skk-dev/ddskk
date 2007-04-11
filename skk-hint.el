@@ -209,8 +209,9 @@
 	(dotimes (i length)
 	  (let (ret)
 	    (when (setq ret (skk-hint-member (aref string i) kouho))
-	      (setq result (cons ret result))
-	      (delete ret kouho))))))
+	      (unless (eq (aref string i) ?\;)
+		(setq result (cons ret result))
+		(delete ret kouho)))))))
     (nreverse result)))
 
 (require 'product)
