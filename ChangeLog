@@ -3,7 +3,8 @@
 	* skk-macs.el (skk-string-lessp-in-coding-system):
 	(skk-string<):
 
-	New functions.
+	New functions.  These provide workaround for the unicode branch of
+	Emacs.
 
 	* skk-auto.el (skk-okuri-search-subr-original):
 	* skk-macs.el (skk-string<=):
