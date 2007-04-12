@@ -1,3 +1,8 @@
+2007-04-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-1): Check for
+	"Cantonese".  Pick up "Han character".
+
 2007-04-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Update for supported Emacsen and setup.
