@@ -1,3 +1,10 @@
+2007-04-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el:
+	* skk-nicola.el:
+
+	Update custom types.
+
 2007-04-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki.el: Define custom group skk-kanagaki in

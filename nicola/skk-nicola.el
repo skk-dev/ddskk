@@ -82,7 +82,10 @@
 	  ;; (except Emacs 20.1 & 20.2)
 	  [muhenkan]))) "\
 *左親指キーとして使うキー。"
-  :type '(repeat sexp)
+  :type `(repeat
+	  ,(if (get 'key-sequence 'widget-type)
+	       'key-sequence
+	     'sexp))
   :group 'skk-nicola)
 
 (defcustom skk-nicola-rshift-keys
@@ -96,7 +99,10 @@
 		 ;; Emacs 20.3 or later
 		 [henkan])))) "\
 *右親指キーとして使うキー。"
-  :type '(repeat sexp)
+  :type `(repeat
+	  ,(if (get 'key-sequence 'widget-type)
+	       'key-sequence
+	     'sexp))
   :group 'skk-nicola)
 
 (defcustom skk-nicola-use-lshift-as-space nil "\
@@ -170,12 +176,16 @@
 
 (defcustom skk-nicola-help-key "2" "\
 * \\[help] においてヘルプを表示するキー。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-nicola)
 
 (defcustom skk-nicola-2nd-help-key "3" "\
 * \\[help] においてもうひとつのヘルプを表示するキー。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-nicola)
 
 (defcustom skk-nicola-hiragana-mode-string

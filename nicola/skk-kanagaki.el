@@ -165,83 +165,105 @@
 値は任意のシンボル。 ただし `skk-kanagaki-{シンボル名}-base-rule-list' という
 変数を用意しなければならない。何も設定しなければ日本語 106 キーボード用の設定
 を用意し、これを使用する。"
-  :type '(choice (const 106-jis)
-		 (const nicola-jis)
-		 (const nicola-us)
-		 (const nicola-dvorak)
-		 (const omelet-jis)
-		 (const omelet-us)
-		 (const omelet-dvorak)
-		 (const oasys)
-		 (symbol :tag "Another Keyboard Type"))
+  :type '(radio (const 106-jis)
+		(const nicola-jis)
+		(const nicola-us)
+		(const nicola-dvorak)
+		(const omelet-jis)
+		(const omelet-us)
+		(const omelet-dvorak)
+		(const oasys)
+		(symbol :tag "Another Keyboard Type"))
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-set-henkan-point-key [f2] "\
 *このキーを押すことで変換開始位置を設定する。
 変換開始位置の設定は仮名を入力する前におこなっても、 入力し終わった後でおこなっ
 ても構わない。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-abbrev-mode-key [f6] "\
 *このキーを押すことで abbrev モードに入る。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-katakana-mode-key [f7] "\
 *このキーを押すことでカナモードとかなモードを切りかえる。
 変換開始位置の設定後に押すことで対象文字列をカナに変換することもできる。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-latin-jisx0208-mode-key [f8] "\
 *このキーを押すことで全角英数モードに入る。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-hankaku-mode-key [f9] "\
 *このキーを押すことで半角カナモードに切りかえる。
 変換開始位置の設定後に押すことで対象文字列を半角カナに変換することもできる。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-latin-mode-key [f10] "\
 *このキーを押すことで latin モードに入る。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-toggle-rom-kana-key [f12] "\
 *このキーを押すことで ローマ字入力 ⇔ 仮名入力の切り替えができる。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-code-input-key [f5] "\
 *このキーを押すことでコード入力ができる。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-midashi-henkan-key [f3] "\
 *このキーを押すことで接頭辞または接尾辞変換をする。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-help-key "1" "\
 *\\[help] においてヘルプを表示するキー。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
-(defcustom skk-kanagaki-previous-candidate-key "\C-p" "\
-*前候補を表示するためのキー。
-XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では
-[henkan-mode]) にすれば、日本語キーボードの [前候補] キーに割り当てることがで
-きる。 同キーは、Mule2.3@19.28 では [key-35]、Mule2.3@19.34 では [numbersign]
-(なぜ ??) となるらしい。"
-  :type 'sexp
+(defcustom skk-kanagaki-previous-candidate-key "\C-p"
+  "*前候補を表示するためのキー。
+XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では [henkan-mode])
+にすれば、日本語キーボードの [前候補] キーに割り当てることができる。"
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-start-henkan-key " " "\
 *変換を開始するためのキー。"
-  :type 'sexp
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-rule-list
@@ -250,17 +272,19 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では
 $B例えば、 キー配列を独自に設定している場合などは、この変数を用いてそれに対応し
 た設定をすることができる。"
   :type '(repeat
-	  (list :tag "Rule"
-		(string :tag "1 (keyboard input)")
-		(choice :tag "2 (choose string if sokuon)"
-			string
-			(const nil))
-		(choice :tag "3 (choice)"
-			(symbol :tag "Function")
-			(string :tag "String (common)")
-			(cons :tag "Strings (katakana & hiragana)"
-			 (string :tag "3-1 (katakana string)")
-			 (string :tag "3-2 (hiragana string)")))))
+	  (list :tag "ルールリスト"
+		(radio :tag "1 (キー入力)"
+		       (string :tag "文字列")
+		       (symbol :tag "変数名"))
+		(radio :tag "2 (促音の場合「文字列」を選びます)"
+		       (string :tag "文字列")
+		       (const nil))
+		(radio :tag "3 (いずれかを選ぶ)"
+		       (symbol :tag "関数")
+		       (string :tag "文字列 (カナ/かな共通)")
+		       (cons :tag "文字列の組 (カナ . かな)"
+			     (string :tag "3-1 (カナ)")
+			     (string :tag "3-2 (かな)")))))
   :group 'skk-kanagaki)
 
 ;; Internal constants and variables.
