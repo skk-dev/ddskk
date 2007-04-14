@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.206 2007/04/10 15:49:04 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.207 2007/04/14 16:38:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/10 15:49:04 $
+;; Last Modified: $Date: 2007/04/14 16:38:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -133,13 +133,20 @@ Automatically becomes buffer-local when set in any fashion."
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-input nil "SKK $BF~NOF0:n$N@_Dj(B"
+(defgroup skk-input-basic nil "SKK $BF~NOF0:n$N4pK\@_Dj(B"
+  :prefix "skk-"
+  :group 'skk)
+
+(defgroup skk-input-enhanced nil "SKK $BF~NOF0:n$N3HD%@_Dj(B"
+  :prefix "skk-"
   :group 'skk)
 
 (defgroup skk-henkan nil "SKK $BJQ49F0:n$N@_Dj(B"
+  :prefix "skk-"
   :group 'skk)
 
 (defgroup skk-kakutei nil "SKK $BJQ498uJd3NDjF0:n$N@_Dj(B"
+  :prefix "skk-"
   :group 'skk)
 
 (defgroup skk-okurigana nil "SKK $BAw$j$,$J$N$H$j07$$(B"
@@ -241,9 +248,17 @@ Automatically becomes buffer-local when set in any fashion."
   :prefix "skk-viper-"
   :group 'skk)
 
+(defgroup skk-act nil "SKK $B$G3HD%%m!<%^;zF~NO(B ACT $B$r;H$&@_Dj(B"
+  :prefix "skk-act-"
+  :group 'skk-input-enhanced)
+
+(defgroup skk-azik nil "SKK $B$G3HD%%m!<%^;zF~NO(B AZIK $B$r;H$&@_Dj(B"
+  :prefix "skk-azik-"
+  :group 'skk-input-enhanced)
+
 (defgroup skk-kanagaki nil "SKK $B$+$JF~NO$N@_Dj(B"
   :prefix "skk-kanagaki-"
-  :group 'skk-input)
+  :group 'skk-input-enhanced)
 
 (defgroup skk-nicola nil "SKK $B?F;X%7%U%HF~NO$N@_Dj(B"
   :prefix "skk-nicola-"
@@ -822,7 +837,7 @@ OUTPUT $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
 		       (cons :tag "$BJ8;zNs$NAH(B"
 			     (string :tag "3-1 $B%+%?%+%J(B")
 			     (string :tag "3-2 $B$R$i$,$J(B")))))
-  :group 'skk-input)
+  :group 'skk-input-basic)
 
 (defcustom skk-rom-kana-rule-list
   '(;; $B%f!<%6!<$N9%$_$G@_Dj$,J,$l$=$&$JMWAG$O!"(B
@@ -902,7 +917,7 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
 		       (cons :tag "$BJ8;zNs$NAH(B"
 			     (string :tag "3-1 $B%+%?%+%J(B")
 			     (string :tag "3-2 $B$R$i$,$J(B")))))
-  :group 'skk-input)
+  :group 'skk-input-basic)
 
 (defcustom skk-kana-input-search-function
   #'(lambda ()
@@ -922,7 +937,7 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
 $B%G%#%U%)%k%H$G$O!"(B\"$B$*(B\" $B$N8e$N(B \"h\" + $B;R2;$NF~NO$r(B \"$B$*$*(B\" + $BB3$/;R(B
 $B2;=hM}MQ$N(B unfixed prefix $B$KJQ49$7$F$$$k!#(B"
   :type 'function
-  :group 'skk-input)
+  :group 'skk-input-basic)
 
 (defcustom skk-downcase-alist nil
   "*$BJQ49%-!<(B ($BBgJ8;z%m!<%^;z(B) $B$N>.J8;z$X$NJQ495,B'$rI=$o$9O"A[%j%9%H!#(B
@@ -932,7 +947,7 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
 $B%?%^%$%:$r9T$&$3$H$,$G$-$k!#$3$NO"A[%j%9%H$,6u%j%9%H$N>l9g$O!"C1$K(B
 downcase $B$5$l$k!#(B"
   :type '(repeat (cons character character))
-  :group 'skk-input)
+  :group 'skk-input-basic)
 
 (defcustom skk-jisx0208-latin-vector
   [nil  nil  nil  nil  nil  nil  nil  nil
@@ -963,13 +978,13 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
  $B$NCM$r(B \" \"$B$H$9$k$h$&$J(B `skk-jisx0208-latin-vector' $B$rD>@\=q$-!"(Bsetq $B$G(B
 $BBeF~$9$k!#(B32 $B$O!"(B?  ($BH>3Q%9%Z!<%9$N(B char type) $B$rI>2A$7$?$H$-$NCM!#(B"
   :type 'sexp
-  :group 'skk-input)
+  :group 'skk-input-basic)
 
 (defcustom skk-special-midashi-char-list '(?> ?< ??)
   "*$B@\F,<-!"@\Hx<-$NF~NO$r;XDj$9$kJ8;z$N%j%9%H!#(B"
   ;;  "*List of characters for entering prefixes and suffixes."
   :type '(repeat character)
-  :group 'skk-input)
+  :group 'skk-input-basic)
 
 (defcustom skk-kuten-touten-alist
   '((jp . ("$B!#(B" . "$B!"(B"))
@@ -992,7 +1007,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 		       (cons :tag "$B6gFIE@$NAH(B"
 			     (string :tag "$B6gE@(B" "$B!#(B")
 			     (string :tag "$BFIE@(B" "$B!"(B"))))
-  :group 'skk-input)
+  :group 'skk-input-basic)
 
 (defcustom skk-kutouten-type 'jp
   "*$BI8=`$N6gFIE@$N%?%$%W!#(B
@@ -1020,7 +1035,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 		(cons :tag "$BG$0U$NAH(B"
 		 (string :tag "$B6gE@(B" "$B!#(B")
 		 (string :tag "$BFIE@(B" "$B!"(B")))
-  :group 'skk-input)
+  :group 'skk-input-basic)
 (make-variable-buffer-local 'skk-kutouten-type)
 
 (defcustom skk-auto-insert-paren nil
@@ -1030,7 +1045,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 $BA^F~$9$kJ8;zNs$O!"(B`skk-auto-paren-string-alist' $B$G;XDj$9$k!#(B"
   :type 'boolean
   :group 'skk-basic
-  :group 'skk-input)
+  :group 'skk-input-basic)
 
 (defcustom skk-auto-paren-string-alist
   '(("$B!V(B" . "$B!W(B") ("$B!X(B" . "$B!Y(B") ("(" . ")") ("$B!J(B" . "$B!K(B")
@@ -1046,7 +1061,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 `skk-special-midashi-char-list' $B$NMWAG$K$J$C$F$$$kJ8;z$O!"(B
 `skk-auto-paren-string-alist' $B$K4^$a$F$b:o=|$5$l$k!#(B "
   :type '(repeat (cons string string))
-  :group 'skk-input)
+  :group 'skk-input-basic)
 
 (defcustom skk-start-henkan-char ?\040	; SPC
   "*$B4A;zJQ49$r3+;O$9$k%-!<%-%c%i%/%?!#(B"
@@ -1179,9 +1194,9 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
 
 (defcustom skk-kakutei-key "\C-j"
   "*$B4A;zJQ49$N3NDjF0:n$r9T$&%-!<!#(B"
-  :type `(,(if (get 'key-sequence 'widget-type)
-	       'key-sequence
-	     'sexp))
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-basic
   :group 'skk-kakutei)
 
@@ -2208,6 +2223,47 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
   "t $B$G$"$l$P!"@\F,<-F~NO8e$N>uBV$K$"$k$3$H$rI=$9!#(B
 $B@\F,<-F~NO3+;O;~$K(B t $B$K%;%C%H$5$l!"B3$/8l$N3NDj8e$K(B nil $B$K%;%C%H$5$l$k!#(B")
 
+;; skk-act.el related.
+(defcustom skk-use-act nil
+  "*Non-nil $B$G$"$l$P3HD%%m!<%^;zF~NO(B ACT $B$rMxMQ$9$k!#(B"
+  :type 'boolean
+  :group 'skk-act)
+
+(defcustom skk-act-use-normal-y nil
+  "*Non-nil $B$G$"$l$P(B \"y\" $B$r;H$C$?Y92;$NF~NO$rM-8z$K$9$k(B."
+  :type 'boolean
+  :group 'skk-act)
+
+(defcustom skk-act-load-hook nil
+  "*Skk-act $B$r(B load $B$7$?8e$K<B9T$5$l$k(B hook."
+  :type 'hook
+  :group 'skk-act)
+
+;; skk-azik.el related.
+(defcustom skk-use-azik nil
+  "*Non-nil $B$G$"$l$P3HD%%m!<%^;zF~NO(B ACT $B$rMxMQ$9$k!#(B"
+  :type 'boolean
+  :group 'skk-azik)
+
+(defcustom skk-azik-keyboard-type 'jp106
+  "*AZIK $B$G;H$&$H$-$N%-!<%\!<%I$N%?%$%W$r%7%s%\%k$G;XDj$9$k!#(B
+$B%G%U%)%k%H$O!"(B 'jp106$B!#(B
+$B;XDj$G$-$k$N$O!"(B
+    'jp106
+    'jp-pc98
+jp106 $B$*$h$S(B jp-pc98 $B0J30$,;XDj$5$l$k$H1Q8l%-!<%\!<%I$H$7$F=hM}$7$^$9!#(B
+nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!#(B"
+  :type '(radio (const :tag "$BF|K\8l(B 106 $B%-!<%\!<%I(B" jp106)
+		(const :tag "NEC PC-98 $B%-!<%\!<%I(B" jp-pc98)
+		(const :tag "$B1Q8l%-!<%\!<%I(B" us101)
+		(const :tag "$B%-!<%\!<%I0MB8=hM}$rL58z$K$9$k(B" nil))
+  :group 'skk-azik)
+
+(defcustom skk-azik-load-hook nil
+  "*skk-azik $B$r(B load $B$7$?8e$K<B9T$5$l$k(B hook"
+  :type 'hook
+  :group 'skk-azik)
+
 ;; skk-annotation.el related.
 (defcustom skk-show-annotation nil
   "*Non-nil $B$G$"$l$P!"Cp<a$rI=<($9$k!#(B
@@ -2232,9 +2288,9 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 $B$3$N%-!<$r%?%$%W$9$k$H8=:_I=<(Cf$NCm<a$r(B kill ring $B$KJ]B8$9$k!#(B
 $BJ]B8$7$?FbMF$r(B Emacs $B0J30$N%"%W%j%1!<%7%g%s$GMxMQ$7$?$$>l9g$O(B
 $BJQ?t(B `interprogram-cut-function' $B$r@_Dj$9$k!#(B"
-  :type `(,(if (get 'key-sequence 'widget-type)
-	       'key-sequence
-	     'sexp))
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-annotation)
 
 (defcustom skk-annotation-browse-key "\C-o"
@@ -2242,9 +2298,9 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 $B$3$N%-!<$r%?%$%W$9$k$H8=:_I=<(Cf$NCm<a$r4X?t(B `browse-url' $B$KEO$9!#(B
 $B$3$N5!G=$rM-8z$K$9$k$?$a$K$OJQ?t(B `browse-url-browser-function' $B$rE,@Z$K(B
 $B@_Dj$9$k!#(B"
-  :type `(,(if (get 'key-sequence 'widget-type)
-	       'key-sequence
-	     'sexp))
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-annotation)
 
 (defcustom skk-annotation-function nil
@@ -2292,9 +2348,9 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
 (defcustom skk-annotation-wikipedia-key "\C-i"
   "*$B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$NFbMF$rI=<($9$k%-!<!#(B
 $B%*%W%7%g%s(B skk-show-annotation $B$,(B non-nil $B$N$H$-$@$1M-8z!#(B"
-  :type `(,(if (get 'key-sequence 'widget-type)
-	       'key-sequence
-	     'sexp))
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-annotation)
 
 (defconst skk-annotation-buffer
