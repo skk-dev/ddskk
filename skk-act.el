@@ -71,12 +71,6 @@
   (require 'skk-vars)
   (require 'alist))
 
-(defvar skk-act-load-hook nil
-  "*Skk-act を load した後に実行される hook.")
-
-(defvar skk-act-use-normal-y nil
-  "*Non-nil であれば \"y\" を使った拗音の入力を有効にする.")
-
 ;; " : は ' ; として変換させる
 (setq skk-downcase-alist
       (append

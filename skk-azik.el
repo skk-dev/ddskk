@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.2 2006/01/13 19:09:36 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.3 2007/04/14 16:33:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2006/01/13 19:09:36 $
+;; Last Modified: $Date: 2007/04/14 16:33:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -63,18 +63,6 @@
   (require 'skk-macs)
   (require 'skk-vars)
   (require 'alist))
-
-(defvar skk-azik-keyboard-type 'jp106
-  "AZIK で使うときのキーボードのタイプをシンボルで指定する。
-デフォルトは、 'jp106。
-指定できるのは、
-    'jp106
-    'jp-pc98
-jp106 および jp-pc98 以外が指定されると英語キーボードとして処理します。
-nil が指定された場合は、キーボードのタイプの違いを吸収する割当てを行いません。")
-
-(defvar skk-azik-load-hook nil
-  "skk-azik を load した後に実行される hook")
 
 ;; キーボード依存部分。
 ;; skk-azik-keyboard-type が設定されていれば以下を実行。
