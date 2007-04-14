@@ -4,9 +4,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcode.el,v 1.12 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-tutcode.el,v 1.13 2007/04/14 16:35:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2007/04/14 16:35:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -54,25 +54,17 @@
 ;;
 ;; <INSTALL>
 ;;
-;; Put the following lines in your .emacs.
+;; Put the following lines in your .skk.
 ;;
-;; (defadvice skk-mode (before my-ad activate)
 ;;   (require 'skk-tutcdef)
-;;   (require 'skk-tutcode))
-;;
-;; (defadvice skk-auto-fill-mode (before my-ad activate)
-;;   (require 'skk-tutcdef)
-;;   (require 'skk-tutcode))
 ;;
 ;; If you would like to customize some definitions in skk-tutcdef.el,
 ;; you could do, for example;
 ;;
-;; (defadvice skk-mode (before my-ad activate)
 ;;   (require 'skk-tutcdef)
 ;;   ;; your customizations...
 ;;   (setq skk-rom-kana-rule-list
-;;         '(...)))
-;;   (require 'skk-tutcode))
+;;         '(...))
 ;;
 ;; <TODO>
 ;; - Efficient mazegaki (e.x. provided by T-code driver) support.
@@ -85,6 +77,7 @@
 ;;;###autoload
 (defgroup skk-tutcode nil "SKK/TUT-code related customization."
   :prefix "skk-tutcode-"
+  :group 'skk-input-enhanced
   :group 'skk)
 
 ;; all prefix of functions, variables and constants are
