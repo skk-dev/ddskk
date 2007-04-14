@@ -28,12 +28,11 @@
 ;; "ACT" については，以下の URL を参照して下さい．
 ;;   http://hp.vector.co.jp/authors/VA002116/azik/act_index.html
 ;;
-;; 使い方 - このファイルを load-path の通ったディレクトリに置き，
-;;          下記の設定を .skk に加えてください．
+;; 使い方 - 下記の設定を .skk に加えてください．
 ;;          その後 Emacs(Mule) を再起動すれば skk による ACT での
 ;;          入力が可能です．
 ;;
-;;          (require 'skk-act)
+;;          (setq skk-use-act t)
 ;;
 ;;
 ;;   注意 1 - ACT では "q" を "おん" の入力に使うので，"q" のもともとの

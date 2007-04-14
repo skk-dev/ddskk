@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.3 2007/04/14 16:33:14 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.4 2007/04/14 17:29:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2007/04/14 16:33:14 $
+;; Last Modified: $Date: 2007/04/14 17:29:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -31,14 +31,12 @@
 ;; "AZIK"については、以下の URL を参照して下さい。
 ;;   http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm
 ;;
-;; 使い方 - このファイルを適当なディレクトリに置き、"/hoge/hoge"
-;;          の部分をそのディレクトリに合わせて置き換えた下記の設定を
-;;          .skk に加えてください。
+;; 使い方 - 下記の設定を .skk に加えてください。
 ;;          その後 Emacs(Mule) を再起動すれば skk による AZIK での
 ;;          入力が可能です。
 ;;
+;;          (setq skk-use-azik t)
 ;;          (setq skk-azik-keyboard-type 'jp106)
-;;          (load "/hoge/hoge/skk-azik.el")
 ;;
 ;;          変数 skk-azik-keyboard-type にお使いのキーボードのタイプを
 ;;          指定して下さい。skk-azik-keyboard-type はシンボルで
