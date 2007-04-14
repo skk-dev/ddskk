@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.396 2007/04/11 07:34:05 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.397 2007/04/14 16:40:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/11 07:34:05 $
+;; Last Modified: $Date: 2007/04/14 16:40:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -307,9 +307,19 @@ dependent."
 		     "SKK の記録用ファイルを作りました"
 		     "I have created an SKK record file for you"))
   (skk-setup-auto-paren) ; necessary to call before compiling skk-rule-tree.
-  (when skk-use-kana-keyboard
-    ;; 仮名入力を行う場合の初期設定。
-    (skk-kanagaki-initialize))
+  ;; SKK 拡張入力機能の設定
+  (cond (skk-use-act
+	 ;; 拡張ローマ字入力 ACT
+	 (require 'skk-act))
+	(skk-use-azik
+	 ;; 拡張ローマ字入力 AZIK
+	 (require 'skk-azik))
+	((featurep 'skk-tutcdef)
+	 ;; TUT-code
+	 (require 'skk-tutcode))
+	(skk-use-kana-keyboard
+	 ;; 仮名入力 (日本語旧 JIS または親指シフト)
+	 (skk-kanagaki-initialize)))
   (static-when (eq skk-emacs-type 'mule5)
     (skk-e21-prepare-menu))
   (skk-setup-delete-selection-mode)

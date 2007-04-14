@@ -1,3 +1,32 @@
+2007-04-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Remove duplicate `skk-azik'.
+
+	* skk-act.el:
+	* skk-azik.el:
+
+	Move definitions of user options to skk-vars.el.
+
+	* skk-vars.el (skk-input-basic): Rename group from `skk-input'.
+	(skk-input-enhanced): New custom group.
+
+	(skk-act):
+	(skk-azik):
+
+	New groups that belong to `skk-input-enhanced'.
+
+	(skk-use-act):
+	(skk-use-azik):
+
+	New user options.
+
+	* skk.el (skk-mode-invoke): Setup skk-act, skk-azik, skk-tutcode
+	or skk-kanagaki when requested.
+
+	* tut-code/README.tut: Modify installtation instructions.
+	* tut-code/skk-tutcode.el: Set parent of group `skk-tutcode'
+	to `skk-input-enhanced'.
+
 2007-04-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Check for
