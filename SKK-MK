@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.153 2007/04/07 12:47:15 skk-cvs Exp $
-;; Last Modified: $Date: 2007/04/07 12:47:15 $
+;; Version: $Id: SKK-MK,v 1.154 2007/04/14 16:32:56 skk-cvs Exp $
+;; Last Modified: $Date: 2007/04/14 16:32:56 $
 
 ;;; Commentary:
 
@@ -226,7 +226,6 @@ This version of SKK requires MULE features"))
 		skk-tutcdef
 		skk-tutcode
 		skk-w3m
-		skk-azik
 		;; VIP 3.7
 		;; vip
 		)))
