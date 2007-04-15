@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.96 2007/04/12 14:02:28 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.97 2007/04/15 03:18:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/12 14:02:28 $
+;; Last Modified: $Date: 2007/04/15 03:18:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -181,6 +181,7 @@
   (require 'skk-vars)
 
   (autoload 'html2text "html2text")
+  (autoload 'html2text-delete-tags "html2text")
   (autoload 'url-hexify-string "url-util")
   (autoload 'url-retrieve "url"))
 
@@ -188,6 +189,8 @@
   (require 'static)
 
   (defvar mule-version)
+  (defvar html2text-remove-tag-list)
+  (defvar html2text-format-tag-list)
 
   (when (and (string-match "^GNU" (emacs-version))
 	     (= emacs-major-version 20))
@@ -760,6 +763,20 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(message "%s $B$K9`L\$,$"$j$^$;$s(B" string))
       note)))
 
+(defun skk-annotation-wikipedia-clean-sup (p1 p2 p3 p4)
+  (put-text-property p2 p3 'face 'underline)
+  (save-excursion
+    (goto-char p2)
+    (insert "^"))
+  (html2text-delete-tags p1 p2 (1+ p3) (1+ p4)))
+
+(defun skk-annotation-wikipedia-clean-sub (p1 p2 p3 p4)
+  (put-text-property p2 p3 'face 'underline)
+  (save-excursion
+    (goto-char p2)
+    (insert "_"))
+  (html2text-delete-tags p1 p2 (1+ p3) (1+ p4)))
+
 (defun skk-annotation-wikipedia-1 (word source last)
   "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$r<B:]$K%@%&%s%m!<%I$7$FD4$Y$k!#(B
 $B3:Ev%Z!<%8(B (html) $B$r%@%&%s%m!<%I$9$k5!G=$O(B Emacs $B$KIUB0$N(B URL $B%Q%C%1!<%8$K0M(B
@@ -772,8 +789,12 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (let ((cache-buffer (format " *skk %s %s" source word))
 	;; html2text $B$,@5$7$/07$($J$$(B tag $B$O0J2<$N%j%9%H$K;XDj$9$k(B
 	(html2text-remove-tag-list
-	 '("a" "p" "img" "dir" "head" "div" "br" "font" "span" "sup"
-	   "table" "tr" "td" "h2" "h3" "h4" "small"))
+	 (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "small")
+		 html2text-remove-tag-list))
+	(html2text-format-tag-list
+	 (append '(("sup" . skk-annotation-wikipedia-clean-sup)
+		   ("sub" . skk-annotation-wikipedia-clean-sub))
+		 html2text-format-tag-list))
 	buffer note aimai continue nop point pt1 pt2)
     (if (get-buffer cache-buffer)
 	(with-current-buffer cache-buffer

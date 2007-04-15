@@ -1,3 +1,13 @@
+2007-04-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-clean-sup):
+	(skk-annotation-wikipedia-clean-sub):
+
+	New functions.
+
+	(skk-annotation-wikipedia-1): Bind `html2text-format-tag-list' to
+	use functions above for tags <sup> and <sub>.
+
 2007-04-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK_MODULES): Remove duplicate `skk-azik'.
