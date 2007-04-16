@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.97 2007/04/15 03:18:39 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.98 2007/04/16 13:12:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/15 03:18:39 $
+;; Last Modified: $Date: 2007/04/16 13:12:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -295,7 +295,7 @@
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
-	 event key command urls note cache)
+	 event key command urls note cache char digit)
     (while (and list
 		(condition-case nil
 		    (progn
@@ -304,6 +304,8 @@
 			    command (key-binding key))
 		      ;; Return value of the following expression is important.
 		      (or (memq command list)
+			  (eq command 'digit-argument)
+			  (eq command 'skk-annotation-wikipedia-region)
 			  (equal (key-description key)
 				 (key-description
 				  skk-annotation-wikipedia-key))))
@@ -315,7 +317,9 @@
 	       (kill-new (substring-no-properties annotation))
 	       (skk-message "現在の注釈をコピーしました"
 			    "Copying the current note...done")
-	       (setq event nil)
+	       (setq event nil
+		     digit nil
+		     char  nil)
 	       (skk-annotation-show-2 annotation)))
 	    ((eq command browse-command)
 	     (setq list (delq browse-command list))
@@ -349,23 +353,38 @@
 		(t
 		 (skk-message "注釈のためのサイトが見つかりません"
 			      "No web sites found for the current notes")))
-	       (setq event nil)
+	       (setq event nil
+		     digit nil
+		     char  nil)
 	       (skk-annotation-show-2 annotation)))
-	    ((equal (key-description key)
-		    (key-description skk-annotation-wikipedia-key))
-	     (setq event nil)
-	     (when word
-	       (let ((skk-annotation-show-wikipedia-url nil))
-		 (setq note (skk-annotation-treat-wikipedia word))))
-	     (cond ((null note)
-		    (setq note annotation))
-;		   ((equal annotation "")
-		   (t
-		    (setq annotation note)))
-	     (unless (equal note "")
-	       (add-to-list 'list browse-command)
-	       (add-to-list 'list copy-command)
-	       (skk-annotation-show-2 (or note annotation))))
+	    ((eq command 'digit-argument)
+	     (setq char  (if (integerp event)
+			     event
+			   (get event 'ascii-character))
+		   digit (- (logand char ?\177) ?0)
+		   event nil))
+	    ((or (equal (key-description key)
+			(key-description skk-annotation-wikipedia-key))
+		 (eq command 'skk-annotation-wikipedia-region))
+	     (let ((skk-annotation-wikipedia-sources
+		    (if (and digit
+			     (> digit 1))
+			(nthcdr (1- digit) skk-annotation-wikipedia-sources)
+		      skk-annotation-wikipedia-sources)))
+	       (setq event nil
+		     digit nil
+		     char  nil)
+	       (when word
+		 (let ((skk-annotation-show-wikipedia-url nil))
+		   (setq note (skk-annotation-treat-wikipedia word))))
+	       (cond ((null note)
+		      (setq note annotation))
+		     (t
+		      (setq annotation note)))
+	       (unless (equal note "")
+		 (add-to-list 'list browse-command)
+		 (add-to-list 'list copy-command)
+		 (skk-annotation-show-2 (or note annotation)))))
 	    (t
 	     (setq list nil))))
     (when event
@@ -1350,12 +1369,13 @@ Disambiguation\"" nil t)))
 	      (throw 'found (cons string cache-buffer)))))))))
 
 ;;;###autoload
-(defun skk-annotation-wikipedia-region (&optional start end)
-  (interactive (if (static-if (featurep 'xemacs)
-		       (region-active-p)
-		     (and transient-mark-mode mark-active))
-		   (list (region-beginning) (region-end))
-		 (list 1 1)))
+(defun skk-annotation-wikipedia-region (&optional prefix-arg start end)
+  (interactive (cons (prefix-numeric-value current-prefix-arg)
+		     (if (static-if (featurep 'xemacs)
+			     (region-active-p)
+			   (and transient-mark-mode mark-active))
+			 (list (region-beginning) (region-end))
+		       (list 1 1))))
   ;; ミニバッファにいるとき余計なメッセージをクリアする
   (when (or skk-isearch-switch
 	    (skk-in-minibuffer-p))
@@ -1366,6 +1386,10 @@ Disambiguation\"" nil t)))
 		  ;; 単語を推測する
 		  (thing-at-point 'word)
 		(buffer-substring-no-properties start end)))
+	(skk-annotation-wikipedia-sources
+	 (if (> prefix-arg 1)
+	     (nthcdr (1- prefix-arg) skk-annotation-wikipedia-sources)
+	   skk-annotation-wikipedia-sources))
 	note)
     (when (and word
 	       (> (length word) 0))
