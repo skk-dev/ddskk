@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.99 2007/04/16 13:43:54 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.100 2007/04/16 14:12:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/16 13:43:54 $
+;; Last Modified: $Date: 2007/04/16 14:12:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -295,7 +295,7 @@
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
-	 event key command urls note cache char digit)
+	 event key command urls note cache char digit sources)
     (while (and list
 		(condition-case nil
 		    (progn
@@ -366,7 +366,7 @@
 	    ((or (equal (key-description key)
 			(key-description skk-annotation-wikipedia-key))
 		 (eq command 'skk-annotation-wikipedia-region))
-	     (let ((skk-annotation-wikipedia-sources
+	     (let ((sources
 		    (if (and digit
 			     (> digit 0)
 			     (<= digit
@@ -379,7 +379,7 @@
 		     char  nil)
 	       (when word
 		 (let ((skk-annotation-show-wikipedia-url nil))
-		   (setq note (skk-annotation-treat-wikipedia word))))
+		   (setq note (skk-annotation-treat-wikipedia word sources))))
 	       (cond ((null note)
 		      (setq note annotation))
 		     (t
@@ -756,9 +756,9 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	       "\")")))))
 
 ;;;###autoload
-(defun skk-annotation-wikipedia (word)
+(defun skk-annotation-wikipedia (word &optional sources)
   "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$+$i%"%N%F!<%7%g%s$r<hF@$9$k!#(B"
-  (let ((sources skk-annotation-wikipedia-sources)
+  (let ((sources (or sources skk-annotation-wikipedia-sources))
 	source
 	(string "")
 	(note nil))
@@ -1289,7 +1289,7 @@ Disambiguation\"" nil t)))
     (throw 'retrieved t)))
 
 ;;;###autoload
-(defun skk-annotation-treat-wikipedia (word)
+(defun skk-annotation-treat-wikipedia (word &optional sources)
   "WORD $B$,A^F~$5$l$k$H$-$KI=<($5$l$k$Y$-Cm<a$r@8@.$9$k!#(B
 $B@8@.$7$?Cm<a$rJV$9!#(B"
   (save-match-data
@@ -1299,7 +1299,9 @@ Disambiguation\"" nil t)))
 		(concat "$B%@%_!<(B;"
 			(skk-quote-char
 			 (skk-annotation-generate-url
-			  "http://ja.wikipedia.org/wiki/%s"
+			  "http://%s.org/wiki/%s"
+			  (or (car sources)
+			      'ja.wikipedia)
 			  word)))
 	      nil))
 	   (value (if string
@@ -1337,11 +1339,11 @@ Disambiguation\"" nil t)))
 	       nil))
 	    (t
 	     ;; Wikipedia $B$NFbMF$NI=<($,MW5a$5$l$?>l9g!#(B
-	     (skk-annotation-wikipedia word))))))
+	     (skk-annotation-wikipedia word sources))))))
 
 ;;;###autoload
-(defun skk-annotation-wikipedia-cache (word)
-  (let ((sources skk-annotation-wikipedia-sources)
+(defun skk-annotation-wikipedia-cache (word &optional sources)
+  (let ((sources (or sources skk-annotation-wikipedia-sources))
 	(word (skk-annotation-wikipedia-normalize-word word 'en.wiktionary))
 	(cword (skk-annotation-wikipedia-normalize-word word)))
     (catch 'found
@@ -1389,7 +1391,7 @@ Disambiguation\"" nil t)))
 		  ;; $BC18l$r?dB,$9$k(B
 		  (thing-at-point 'word)
 		(buffer-substring-no-properties start end)))
-	(skk-annotation-wikipedia-sources
+	(sources
 	 (if (and current-prefix-arg
 		  (> prefix-arg 0)
 		  (<= prefix-arg (length skk-annotation-wikipedia-sources)))
@@ -1398,10 +1400,9 @@ Disambiguation\"" nil t)))
 	note)
     (when (and word
 	       (> (length word) 0))
-      (setq note (or (car (skk-annotation-wikipedia-cache word))
-		     (skk-annotation-wikipedia word)))
-      (when note
-	(skk-annotation-show note word)))))
+      (setq note (or (car (skk-annotation-wikipedia-cache word sources))
+		     (skk-annotation-wikipedia word sources)))
+      (skk-annotation-show (or note "") word))))
 
 (defun skk-annotation-generate-url (format-string &rest args)
   (condition-case nil

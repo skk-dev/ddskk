@@ -4,9 +4,14 @@
 	(skk-annotation-wikipedia-region):
 
 	Allow user to use prefix argument (digit-argument) and limit
-	wikipedia/wiktionary sources.  This means
-	skk-annotation-wikipedia-sources is limited to `(1- prefix-arg)'th
-	element of itself.
+	wikipedia/wiktionary sources.  This means source is limited to
+	`(1- prefix-arg)'th element of skk-annotation-wikipedia-sources.
+
+	(skk-annotation-wikipedia-cache):
+	(skk-annotation-wikipedia):
+	(skk-annotation-treat-wikipedia):
+
+	Take optional arrument SOURCES.
 
 2007-04-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
