@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.98 2007/04/16 13:12:59 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.99 2007/04/16 13:43:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/16 13:12:59 $
+;; Last Modified: $Date: 2007/04/16 13:43:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -368,8 +368,11 @@
 		 (eq command 'skk-annotation-wikipedia-region))
 	     (let ((skk-annotation-wikipedia-sources
 		    (if (and digit
-			     (> digit 1))
-			(nthcdr (1- digit) skk-annotation-wikipedia-sources)
+			     (> digit 0)
+			     (<= digit
+				 (length skk-annotation-wikipedia-sources)))
+			(list (nth (1- digit)
+				   skk-annotation-wikipedia-sources))
 		      skk-annotation-wikipedia-sources)))
 	       (setq event nil
 		     digit nil
@@ -1387,8 +1390,10 @@ Disambiguation\"" nil t)))
 		  (thing-at-point 'word)
 		(buffer-substring-no-properties start end)))
 	(skk-annotation-wikipedia-sources
-	 (if (> prefix-arg 1)
-	     (nthcdr (1- prefix-arg) skk-annotation-wikipedia-sources)
+	 (if (and current-prefix-arg
+		  (> prefix-arg 0)
+		  (<= prefix-arg (length skk-annotation-wikipedia-sources)))
+	     (list (nth (1- prefix-arg) skk-annotation-wikipedia-sources))
 	   skk-annotation-wikipedia-sources))
 	note)
     (when (and word

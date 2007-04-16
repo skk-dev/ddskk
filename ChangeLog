@@ -5,8 +5,8 @@
 
 	Allow user to use prefix argument (digit-argument) and limit
 	wikipedia/wiktionary sources.  This means
-	skk-annotation-wikipedia-sources is bound to `(1- prefix-arg)'th
-	cdr of itself.
+	skk-annotation-wikipedia-sources is limited to `(1- prefix-arg)'th
+	element of itself.
 
 2007-04-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
