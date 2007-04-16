@@ -13,6 +13,8 @@
 
 	Take optional arrument SOURCES.
 
+	* skk-vars.el (skk-show-inline): Also add to skk-basic group.
+
 2007-04-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-clean-sup):

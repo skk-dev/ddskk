@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.207 2007/04/14 16:38:34 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.208 2007/04/16 21:37:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/14 16:38:34 $
+;; Last Modified: $Date: 2007/04/16 21:37:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1131,6 +1131,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   "*Non-nil $B$G$"$l$P!"%$%s%i%$%s(B $B$G8uJd$J$I$rI=<($9$k!#(B
 $B$3$N5!G=$O8=:_$N$H$3$m(B Emacs 21 $B@lMQ!#(B"
   :type 'boolean
+  :group 'skk-basic
   :group 'skk-henkan)
 
 (defcustom skk-inline-show-face 'underline
