@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.100 2007/04/16 14:12:25 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.101 2007/04/17 08:43:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/16 14:12:25 $
+;; Last Modified: $Date: 2007/04/17 08:43:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -255,22 +255,20 @@
   (skk-annotation-show (or (cdr pair) "") (car pair)))
 
 ;;;###autoload
-(defun skk-annotation-show (annotation &optional word)
-  (unless skk-kakutei-flag
-    (when (or (not skk-annotation-function)
-	      (funcall skk-annotation-function annotation))
-      (skk-annotation-show-1 (skk-annotation-get annotation) word))))
-
-(defun skk-annotation-show-1 (annotation &optional word)
-  (let ((notes (mapcar #'skk-eval-string (split-string annotation ";")))
-	(inhibit-wait skk-isearch-switch))
-    (setq annotation (skk-eval-string annotation))
-    (unless (string= annotation "")
-      (setq inhibit-wait (skk-annotation-show-2 annotation)))
-    ;; $BCm<a$NI=<($O$3$3$^$G$@$,!"$3$3$G%f!<%6$,Cm<a$NFbMF$r%3%T!<$7$?$j(B
-    ;; $B$7$FMxMQ$G$-$k$h$&$K$9$k!#(B
-    (unless inhibit-wait
-      (skk-annotation-wait-for-input annotation notes word))))
+(defun skk-annotation-show (annotation &optional word sources)
+  (when (and (not skk-kakutei-flag)
+	     (or (not skk-annotation-function)
+		 (funcall skk-annotation-function annotation)))
+    (setq annotation (skk-annotation-get annotation))
+    (let ((notes (mapcar #'skk-eval-string (split-string annotation ";")))
+	  (inhibit-wait skk-isearch-switch))
+      (setq annotation (skk-eval-string annotation))
+      (unless (string= annotation "")
+	(setq inhibit-wait (skk-annotation-show-2 annotation)))
+      ;; $BCm<a$NI=<($O$3$3$^$G$@$,!"$3$3$G%f!<%6$,Cm<a$NFbMF$r%3%T!<$7$?$j(B
+      ;; $B$7$FMxMQ$G$-$k$h$&$K$9$k!#(B
+      (unless inhibit-wait
+	(skk-annotation-wait-for-input annotation notes word sources)))))
 
 (defun skk-annotation-show-2 (annotation)
   (let (inhibit-wait)
@@ -291,11 +289,11 @@
 	   (skk-annotation-show-buffer annotation)))
     inhibit-wait))
 
-(defun skk-annotation-wait-for-input (annotation notes &optional word)
+(defun skk-annotation-wait-for-input (annotation notes &optional word sources)
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
-	 event key command urls note cache char digit sources)
+	 event key command urls note cache char digit)
     (while (and list
 		(condition-case nil
 		    (progn
@@ -325,7 +323,8 @@
 	     (setq list (delq browse-command list))
 	     (setq urls (delq nil (mapcar #'skk-annotation-find-url notes)))
 	     (when word
-	       (cond ((setq cache (skk-annotation-wikipedia-cache word))
+	       (cond ((setq cache
+			    (skk-annotation-wikipedia-cache word sources))
 		      (setq urls
 			    (cons (apply
 				   #'skk-annotation-generate-url
@@ -366,28 +365,28 @@
 	    ((or (equal (key-description key)
 			(key-description skk-annotation-wikipedia-key))
 		 (eq command 'skk-annotation-wikipedia-region))
-	     (let ((sources
-		    (if (and digit
-			     (> digit 0)
-			     (<= digit
-				 (length skk-annotation-wikipedia-sources)))
-			(list (nth (1- digit)
-				   skk-annotation-wikipedia-sources))
-		      skk-annotation-wikipedia-sources)))
-	       (setq event nil
-		     digit nil
-		     char  nil)
-	       (when word
-		 (let ((skk-annotation-show-wikipedia-url nil))
-		   (setq note (skk-annotation-treat-wikipedia word sources))))
-	       (cond ((null note)
-		      (setq note annotation))
-		     (t
-		      (setq annotation note)))
-	       (unless (equal note "")
-		 (add-to-list 'list browse-command)
-		 (add-to-list 'list copy-command)
-		 (skk-annotation-show-2 (or note annotation)))))
+	     (setq sources
+		   (if (and digit
+			    (> digit 0)
+			    (<= digit
+				(length skk-annotation-wikipedia-sources)))
+		       (list (nth (1- digit)
+				  skk-annotation-wikipedia-sources))
+		     skk-annotation-wikipedia-sources))
+	     (setq event nil
+		   digit nil
+		   char  nil)
+	     (when word
+	       (let ((skk-annotation-show-wikipedia-url nil))
+		 (setq note (skk-annotation-treat-wikipedia word sources))))
+	     (cond ((null note)
+		    (setq note annotation))
+		   (t
+		    (setq annotation note)))
+	     (unless (equal note "")
+	       (add-to-list 'list browse-command)
+	       (add-to-list 'list copy-command)
+	       (skk-annotation-show-2 (or note annotation))))
 	    (t
 	     (setq list nil))))
     (when event
@@ -855,13 +854,14 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  ;;
 		  (goto-char (point-min))
 		  (when (re-search-forward
+			 ;; XXX $B$^$@IT40A4(B
 			 "<h2>.*<span class=\"mw-headline\">\
-\\(<a href=.+>\\)?$BF|K\8l(B\\(</a>\\)?\</span></h2>"
+\\(<a href=.+>\\)?\\($BF|K\(B\\|$B1Q(B\\)$B8l(B\\(</a>\\)?\</span></h2>"
 			 nil t)
 		    (delete-region (point-min) (match-beginning 0))
 		    (when (re-search-forward
 			   "<h2>.*<span class=\"mw-headline\">\
-\\(<a href=.+>\\)?.+$B8l(B\\(</a>\\)</span></h2>"
+\\(<a href=.+>\\)?.+$B8l(B\\(</a>\\)?</span></h2>"
 			   nil t)
 		      (delete-region (match-beginning 0) (point-max))))
 		  ;; <div> $B$r=|5n$9$k(B
@@ -880,7 +880,10 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			  ;; XXX $B$^$@IT40A4(B
 			  "<span class=\"mw-headline\">\
 \\(<a href=.+>\\)?\
-\\(\\(\\($B8GM-(B\\|$BBe(B\\)?$BL>(B\\|\\($B=u(B\\)?$BF0(B\\|$B7AMFF0(B?\\|$BI{(B\\|$B4'(B\\)$B;l(B.*\
+\\(\
+\\(\\($B8GM-(B\\|\\($B?M>N(B\\)?$BBe(B\\)?$BL>(B\\|\\($B=u(B\\)?$BF0(B\\|$B7AMFF0(B?\\|\
+$B@\B3(B\\|$BA0CV(B\\|$BI{(B\\|$B4'(B\\)\
+$B;l(B.*\
 \\|$B4A;z:.$8$jI=5-(B\\|$B0U5A(B\\|$BN,8l(B\\)\
 \\(</a>\\)?\
 </span>"
@@ -898,18 +901,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (when point
 		    (delete-region point (point-max)))
 		  ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
-		  (setq point nil)
-		  (goto-char (point-min))
-		  (while (search-forward "<ul>" nil t)
-		    (setq point (point))
-		    (search-forward "</ul>" nil t)
-		    (delete-region point (point)))
-		  (setq point nil)
-		  (goto-char (point-min))
-		  (while (search-forward "<dl>" nil t)
-		    (setq point (point))
-		    (search-forward "</dl>" nil t)
-		    (delete-region point (point)))
+		  (skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
+		  (skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
 		  ;;
 		  (goto-char (point-min))
 		  (while (re-search-forward
@@ -993,18 +986,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (when point
 		    (delete-region point (point-max)))
 		  ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
-		  (setq point nil)
-		  (goto-char (point-min))
-		  (while (search-forward "<ul>" nil t)
-		    (setq point (point))
-		    (search-forward "</ul>" nil t)
-		    (delete-region point (point)))
-		  (setq point nil)
-		  (goto-char (point-min))
-		  (while (search-forward "<dl>" nil t)
-		    (setq point (point))
-		    (search-forward "</dl>" nil t)
-		    (delete-region point (point)))
+		  (skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
+		  (skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
 		  ;; $BM>7W$J(B <table> $B$r=|$/(B
 		  (setq point nil)
 		  (goto-char (point-min))
@@ -1073,29 +1056,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			  "<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
 		    (replace-match ""))
 		  ;; <table> $B$r=|5n(B
-		  (setq point nil)
-		  (goto-char (point-min))
-		  (while (re-search-forward "<table.*>" nil t)
-		    (setq point (match-beginning 0))
-		    (cond
-		     ((not (search-forward "</table>" nil t))
-		      (delete-region point (point-max))
-		      (goto-char (point-min)))
-		     (t
-		      (setq pt2 (match-end 0))
-		      (goto-char (1+ point))
-		      (cond
-		       ((not (re-search-forward "<table.*>" nil t))
-			(delete-region point pt2))
-		       (t
-			(setq pt1 (match-beginning 0))
-			(cond
-			 ((< pt2 pt1)
-			  (delete-region point pt2)
-			  (setq point nil)
-			  (goto-char (point-min)))
-			 (t
-			  (goto-char (match-beginning 0)))))))))
+		  (skk-annotation-wikipedia-remove-nested "<table.*>"
+							  "</table>")
 		  ;;
 		  (goto-char (point-min))
 		  (when (or (when (re-search-forward
@@ -1179,29 +1141,8 @@ Disambiguation\"" nil t)))
 			  "<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
 		    (replace-match ""))
 		  ;; <table> $B$r=|5n(B
-		  (setq point nil)
-		  (goto-char (point-min))
-		  (while (re-search-forward "<table.*>" nil t)
-		    (setq point (match-beginning 0))
-		    (cond
-		     ((not (search-forward "</table>" nil t))
-		      (delete-region point (point-max))
-		      (goto-char (point-min)))
-		     (t
-		      (setq pt2 (match-end 0))
-		      (goto-char (1+ point))
-		      (cond
-		       ((not (re-search-forward "<table.*>" nil t))
-			(delete-region point pt2))
-		       (t
-			(setq pt1 (match-beginning 0))
-			(cond
-			 ((< pt2 pt1)
-			  (delete-region point pt2)
-			  (setq point nil)
-			  (goto-char (point-min)))
-			 (t
-			  (goto-char (match-beginning 0)))))))))
+		  (skk-annotation-wikipedia-remove-nested "<table.*>"
+							  "</table>")
 		  ;;
 		  (goto-char (point-min))
 		  (when (or (when (re-search-forward
@@ -1283,6 +1224,34 @@ Disambiguation\"" nil t)))
 	     note))
 	  (t
 	   nil))))
+
+(defun skk-annotation-wikipedia-remove-nested (btag etag)
+  "<dl> <ul> <table> $B$J$I$NF~$l;R9=B$$r=|5n$9$k!#(B"
+  (let (point pt1 pt2)
+    (setq point nil)
+    (goto-char (point-min))
+    (while (re-search-forward btag nil t)
+      (setq point (match-beginning 0))
+      (cond
+       ((not (search-forward etag nil t))
+	(delete-region point (point-max))
+	(goto-char (point-min)))
+       (t
+	(setq pt2 (match-end 0))
+	(goto-char (1+ point))
+	(cond
+	 ((not (re-search-forward btag nil t))
+	  (delete-region point pt2)
+	  (goto-char (point-min)))
+	 (t
+	  (setq pt1 (match-beginning 0))
+	  (cond
+	   ((< pt2 pt1)
+	    (delete-region point pt2)
+	    (setq point nil)
+	    (goto-char (point-min)))
+	   (t
+	    (goto-char (match-beginning 0)))))))))))
 
 (defun skk-annotation-wikipedia-retrieved (&rest args)
   (ignore-errors
@@ -1402,7 +1371,7 @@ Disambiguation\"" nil t)))
 	       (> (length word) 0))
       (setq note (or (car (skk-annotation-wikipedia-cache word sources))
 		     (skk-annotation-wikipedia word sources)))
-      (skk-annotation-show (or note "") word))))
+      (skk-annotation-show (or note "") word sources))))
 
 (defun skk-annotation-generate-url (format-string &rest args)
   (condition-case nil
@@ -1420,10 +1389,19 @@ Disambiguation\"" nil t)))
 
 (defun skk-annotation-wikipedia-normalize-word (word &optional source)
   ;; $B%9%Z!<%9$O(B %20 $B$G$O$J$/!"%"%s%@!<%9%3%"$KJQ49$9$k(B
-  (replace-regexp-in-string " " "_" (if (memq source '(ja.wiktionary
-						       en.wiktionary))
-					word
-				      (upcase-initials word))))
+  (replace-regexp-in-string " "
+			    "_"
+			    (if (memq source '(ja.wiktionary en.wiktionary))
+				(if (and (> (length word) 1)
+					 (skk-ascii-char-p (aref word 0))
+					 (skk-lower-case-p (aref word 1)))
+				    ;; $BFsJ8;z$a$,(B upper case $B$J$i(B downcase
+				    (downcase word)
+				  ;; $B0lJ8;z$@$C$?$i85$N(B case
+				  ;; $BFsJ8;z$a$,(B upper case $B$J$i85$N(B case
+				  ;; $B1Q8l0J30$OL$BP1~(B
+				  word)
+			      (upcase-initials word))))
 
 (defun skk-annotation-url-package-available-p ()
   (when (eq skk-annotation-url-package-available-p 'untested)

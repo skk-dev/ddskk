@@ -1,3 +1,23 @@
+2007-04-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-show-1): Abolish function.
+	(skk-annotation-show): Include it.  Take optional argument
+	SOURCES.
+
+	(skk-annotation-wait-for-input): Take optional argument SOURCES.
+	browse wikipedia/wiktionary URL for SOURCES.
+
+	(skk-annotation-wikipedia-1): Support "英語", "前置詞" and
+	"接続詞" for ja.wiktionary.  Use
+	`skk-annotation-wikipedia-remove-nested' for removing uls, dls,
+	and tables.
+
+	(skk-annotation-wikipedia-remove-nested): New function.
+
+	(skk-annotation-wikipedia-normalize-word): Downcase WORD for
+	wiktionary if WORD doesn't seem consist of only upper case
+	characters.
+
 2007-04-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wait-for-input):
@@ -11,7 +31,7 @@
 	(skk-annotation-wikipedia):
 	(skk-annotation-treat-wikipedia):
 
-	Take optional arrument SOURCES.
+	Take optional argument SOURCES.
 
 	* skk-vars.el (skk-show-inline): Also add to skk-basic group.
 
