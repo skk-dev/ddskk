@@ -132,9 +132,15 @@
     (list
      (cons 'latin skk-e21-modeline-property))))
 
-(defvar skk-e21-coding-system (if (memq window-system '(w32 nil))
-				  nil
-				locale-coding-system))
+(defvar skk-e21-coding-system (cond
+			       ((memq window-system '(w32 nil))
+				nil)
+			       ((and (boundp 'mac-carbon-version-string)
+				     window-system
+				     (find-coding-system 'utf-8))
+				'utf-8)
+			       (t
+				locale-coding-system)))
 
 (defvar skk-e21-modeline-menu nil)
 

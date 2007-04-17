@@ -22,6 +22,15 @@
 	* skk-macs.el (skk-event-key): Under XEmacs, give 2nd, 3rd and 4th
 	args to `event-to-character' with non-nil values.
 
+	* skk-e21.el (skk-e21-coding-system): Set default value for
+	Carbon Emacs.
+
+	* skk-vars.el (skk-show-japanese-menu): Set default value for
+	Carbon Emacs.
+	(skk-tooltip-parameters): Add sample setting for customize.
+
+	* skk.el (skk-preload): Confirm `stringp' of JISYO.
+
 2007-04-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wait-for-input):

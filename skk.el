@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.397 2007/04/14 16:40:48 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.398 2007/04/17 13:40:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/14 16:40:48 $
+;; Last Modified: $Date: 2007/04/17 13:40:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4881,12 +4881,14 @@ SKK 辞書の候補として正しい形に整形する。"
 	    (throw 'tag nil))
 	   ((symbolp jisyo)
 	    (setq jisyo (symbol-value jisyo))
-	    (unless (file-readable-p jisyo)
+	    (unless (and (stringp jisyo)
+			 (file-readable-p jisyo))
 	      (throw 'tag nil)))
 	   ((and (listp jisyo)
 		 (memq (car jisyo) '(cons quote)))
 	    (setq jisyo (ignore-errors (eval jisyo)))
 	    (unless (and (consp jisyo)
+			 (stringp (car jisyo))
 			 (file-readable-p (car jisyo)))
 	      (throw 'tag nil))))
 	  (skk-get-jisyo-buffer jisyo 'nomsg))))))

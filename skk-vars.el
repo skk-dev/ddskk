@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.209 2007/04/16 21:39:56 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.210 2007/04/17 13:40:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/16 21:39:56 $
+;; Last Modified: $Date: 2007/04/17 13:40:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1442,6 +1442,7 @@ skk-init-file $B$NJ}$,?7$7$$$H$-$O!"$=$N%P%$%H%3%s%Q%$%k:Q%U%!%$%k$r>C$9!#(B"
        (or (and (boundp 'gtk-version-string)
 		(stringp gtk-version-string)
 		(string-lessp "2.0" gtk-version-string))
+	   (boundp 'mac-carbon-version-string)
 	   (memq system-type '(windows-nt)))
        (find-coding-system locale-coding-system)
        (equal current-language-environment "Japanese")) "\
@@ -3947,8 +3948,14 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
   ;; background-color
   ;; border-color
   ;; border-width
-  :type '(repeat (cons (symbol :tag "$B%Q%i%a!<%?L>(B")
-		       (sexp :tag "$BCM(B (S$B<0(B)")))
+  :type '(radio (const :tag "$B@_DjNc$r;n$9(B"
+		       ((foreground-color . "navy blue")
+			(background-color . "alice blue")
+			(border-color . "royal blue")
+			(border-with . 1)))
+		(repeat :tag "$BG$0U$N@_Dj(B"
+			(cons (symbol :tag "$B%Q%i%a!<%?L>(B")
+			      (sexp :tag "$BCM(B (S$B<0(B)"))))
   :group 'skk-toopltip)
 
 (defcustom skk-tooltip-mouse-behavior
