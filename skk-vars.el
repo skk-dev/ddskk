@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.210 2007/04/17 13:40:31 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.211 2007/04/17 13:51:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/17 13:40:31 $
+;; Last Modified: $Date: 2007/04/17 13:51:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -233,7 +233,7 @@ Automatically becomes buffer-local when set in any fashion."
   :group 'skk)
 
 (defgroup skk-tankan nil "SKK $BC14A;zJQ495!G=$N@_Dj(B"
-  :prefix "skk-tooltip-"
+  :prefix "skk-tankan-"
   :group 'skk)
 
 (defgroup skk-tooltip nil "SKK $B%D!<%k%F%#%C%WI=<($N@_Dj(B"
@@ -3956,7 +3956,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 		(repeat :tag "$BG$0U$N@_Dj(B"
 			(cons (symbol :tag "$B%Q%i%a!<%?L>(B")
 			      (sexp :tag "$BCM(B (S$B<0(B)"))))
-  :group 'skk-toopltip)
+  :group 'skk-tooltip)
 
 (defcustom skk-tooltip-mouse-behavior
   (cond ((featurep 'xemacs)
