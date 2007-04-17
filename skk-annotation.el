@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.101 2007/04/17 08:43:10 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.102 2007/04/17 10:08:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/17 08:43:10 $
+;; Last Modified: $Date: 2007/04/17 10:08:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -299,7 +299,10 @@
 		    (progn
 		      (setq event (next-command-event)
 			    key (skk-event-key event)
-			    command (key-binding key))
+			    command (key-binding
+				     (static-if (featurep 'xemacs)
+					 event
+				       key)))
 		      ;; Return value of the following expression is important.
 		      (or (memq command list)
 			  (eq command 'digit-argument)
@@ -357,9 +360,11 @@
 		     char  nil)
 	       (skk-annotation-show-2 annotation)))
 	    ((eq command 'digit-argument)
-	     (setq char  (if (integerp event)
-			     event
-			   (get event 'ascii-character))
+	     (setq char  (static-if (featurep 'xemacs)
+			     key
+			   (if (integerp event)
+			       event
+			     (get event 'ascii-character)))
 		   digit (- (logand char ?\177) ?0)
 		   event nil))
 	    ((or (equal (key-description key)

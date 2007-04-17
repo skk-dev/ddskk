@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.111 2007/04/11 07:34:05 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.112 2007/04/17 10:08:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/11 07:34:05 $
+;; Last Modified: $Date: 2007/04/17 10:08:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -468,7 +468,7 @@ BUFFER defaults to the current buffer."
 ;      (if (symbolp tmp)
 ;	  (vector tmp)
 ;	event)))
-    (let ((char (event-to-character event)))
+    (let ((char (event-to-character event t t t)))
       (if (characterp char)
 	  char
 	(event-key event))))

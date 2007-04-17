@@ -5,7 +5,8 @@
 	SOURCES.
 
 	(skk-annotation-wait-for-input): Take optional argument SOURCES.
-	browse wikipedia/wiktionary URL for SOURCES.
+	browse wikipedia/wiktionary URL for SOURCES. Workaround for XEmacs
+	event handling.
 
 	(skk-annotation-wikipedia-1): Support "英語", "前置詞" and
 	"接続詞" for ja.wiktionary.  Use
@@ -17,6 +18,9 @@
 	(skk-annotation-wikipedia-normalize-word): Downcase WORD for
 	wiktionary if WORD doesn't seem consist of only upper case
 	characters.
+
+	* skk-macs.el (skk-event-key): Under XEmacs, give 2nd, 3rd and 4th
+	args to `event-to-character' with non-nil values.
 
 2007-04-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
