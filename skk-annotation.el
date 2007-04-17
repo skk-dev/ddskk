@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.102 2007/04/17 10:08:35 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.103 2007/04/17 12:34:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/17 10:08:35 $
+;; Last Modified: $Date: 2007/04/17 12:34:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -908,6 +908,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
 		  (skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
 		  (skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
+		  (skk-annotation-wikipedia-remove-nested "<table.*>"
+							  "</table>")
 		  ;;
 		  (goto-char (point-min))
 		  (while (re-search-forward
@@ -993,6 +995,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
 		  (skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
 		  (skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
+		  (skk-annotation-wikipedia-remove-nested "<table.*>"
+							  "</table>")
 		  ;; $BM>7W$J(B <table> $B$r=|$/(B
 		  (setq point nil)
 		  (goto-char (point-min))
