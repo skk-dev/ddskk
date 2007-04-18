@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.103 2007/04/17 12:34:31 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.104 2007/04/18 20:20:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/17 12:34:31 $
+;; Last Modified: $Date: 2007/04/18 20:20:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -821,7 +821,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	 (append '(("sup" . skk-annotation-wikipedia-clean-sup)
 		   ("sub" . skk-annotation-wikipedia-clean-sub))
 		 html2text-format-tag-list))
-	buffer note aimai continue nop point pt1 pt2)
+	buffer note aimai continue nop point top pt1 pt2 btag etag)
     (if (get-buffer cache-buffer)
 	(with-current-buffer cache-buffer
 	  (setq note (buffer-string)))
@@ -861,9 +861,13 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (when (re-search-forward
 			 ;; XXX $B$^$@IT40A4(B
 			 "<h2>.*<span class=\"mw-headline\">\
-\\(<a href=.+>\\)?\\($BF|K\(B\\|$B1Q(B\\)$B8l(B\\(</a>\\)?\</span></h2>"
+\\(<a href=.+>\\)?\\($BF|K\8l(B\\|$B1Q8l(B\\)\\(</a>\\)?\</span></h2>"
 			 nil t)
+		    (save-excursion
+		      (goto-char (match-end 2))
+		      (insert ", "))
 		    (delete-region (point-min) (match-beginning 0))
+		    (setq top (point))
 		    (when (re-search-forward
 			   "<h2>.*<span class=\"mw-headline\">\
 \\(<a href=.+>\\)?.+$B8l(B\\(</a>\\)?</span></h2>"
@@ -879,7 +883,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		    (delete-region point (point))
 		    (goto-char point))
 		  ;;
-		  (setq point nil)
+		  (setq point top)
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  ;; XXX $B$^$@IT40A4(B
@@ -899,9 +903,25 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			(delete-region (match-beginning 0) (match-end 0))))
 		    (goto-char (match-beginning 0))
 		    (delete-region (or point (point-min)) (point))
-		    (or (search-forward "</ol>" nil t)
-			(search-forward "</dl>" nil t))
-		    (setq point (point)))
+		    (when (re-search-forward "<\\(ol\\|dl\\)>" nil t)
+		      (setq btag (match-string 0)
+			    etag (if (string= btag "<ol>")
+				     "</ol>"
+				   "</dl>")
+			    point nil
+			    pt1 (point)
+			    pt2 nil)
+		      (while (and (not point)
+				  (search-forward etag nil t))
+			(setq pt2 (point))
+			(goto-char pt1)
+			(if (and (search-forward btag nil t)
+				 (< (point) pt2))
+			    (progn
+			      (goto-char pt2)
+			      (setq pt1 (point)))
+			  (setq point pt2)
+			  (goto-char point)))))
 		  ;;
 		  (when point
 		    (delete-region point (point-max)))
@@ -936,7 +956,11 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\(</a>\\)?\
 </span></h2>"
 			 nil t)
+		    (save-excursion
+		      (goto-char (match-end 2))
+		      (insert ", "))
 		    (delete-region (point-min) (match-beginning 0))
+		    (setq top (point))
 		    (when (re-search-forward
 			   ;; XXX $B$^$@IT40A4(B
 			   "<h2>.*<span class=\"mw-headline\">\
@@ -963,7 +987,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		    (delete-region point (point))
 		    (goto-char point))
 		  ;;
-		  (setq point nil)
+		  (setq point top)
 		  (goto-char (point-min))
 		  (while (re-search-forward
 			  ;; XXX $B$^$@IT40A4(B
@@ -986,9 +1010,25 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			(delete-region (match-beginning 0) (match-end 0))))
 		    (goto-char (match-beginning 0))
 		    (delete-region (or point (point-min)) (point))
-		    (or (search-forward "</ol>" nil t)
-			(search-forward "</dl>" nil t))
-		    (setq point (point)))
+		    (when (re-search-forward "<\\(ol\\|dl\\)>" nil t)
+		      (setq btag (match-string 0)
+			    etag (if (string= btag "<ol>")
+				     "</ol>"
+				   "</dl>")
+			    point nil
+			    pt1 (point)
+			    pt2 nil)
+		      (while (and (not point)
+				  (search-forward etag nil t))
+			(setq pt2 (point))
+			(goto-char pt1)
+			(if (and (search-forward btag nil t)
+				 (< (point) pt2))
+			    (progn
+			      (goto-char pt2)
+			      (setq pt1 (point)))
+			  (setq point pt2)
+			  (goto-char point)))))
 		  ;;
 		  (when point
 		    (delete-region point (point-max)))

@@ -1,3 +1,8 @@
+2007-04-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-1): Support for
+	nested <ol> or <dl>.
+
 2007-04-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-show-1): Abolish function.
