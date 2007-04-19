@@ -1,3 +1,8 @@
+2007-04-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wait-for-input): Workaround
+	for XEmacs 21.4.  Explicitly call `keyboard-quit'.
+
 2007-04-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Support for
