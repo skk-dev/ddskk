@@ -1,3 +1,14 @@
+2007-04-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia): Catch
+	`skk-annotation-wikipedia-suspended'.
+
+	(skk-annotation-wikipedia-1):
+	(skk-annotation-wikipedia-retrieved):
+
+	Throw `skk-annotation-wikipedia-suspended' when user seems to have
+	started editing before retrieval is complete.
+
 2007-04-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wait-for-input): Workaround
