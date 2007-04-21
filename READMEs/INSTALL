@@ -1,9 +1,13 @@
 -*- outline -*-
 
-             $Date: 2007/03/31 16:42:32 $
-	     $Id: INSTALL,v 1.31 2007/03/31 16:42:32 skk-cvs Exp $
+             $Date: 2007/04/21 15:44:10 $
+	     $Id: INSTALL,v 1.32 2007/04/21 15:44:10 skk-cvs Exp $
 
 * System-dependent configurations
+
+For system-dependent configurations, see SKK-CFG in the top source
+directory.  It describes installation howto as well as
+system-dependent setting examples.
 
 If you are a user of Emacs on Apple MacOS (X) or Microsoft Windows,
 also see one of the following files, which may be found in this
@@ -11,11 +15,15 @@ directory.
 
 ** README.Mac.ja
 
+Describes how to install SKK for Emacs on Mac OS 8.x or 9.x.
+
 ** README.MacOSX.ja
 
-** README.VIP.ja
+Describes how to install SKK for Emacs on Mac OS X (10.x).
 
 ** README.w32.ja
+
+Describes how to install SKK for Emacs on Windows.
 
 * Pre-installation
 
