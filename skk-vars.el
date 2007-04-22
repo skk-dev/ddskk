@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.212 2007/04/22 02:38:27 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.213 2007/04/22 23:31:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:27 $
+;; Last Modified: $Date: 2007/04/22 23:31:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -384,6 +384,66 @@ Non-nil であれば、SKK サーバーが active でない時に、
   (skk-look)
   (skk-search-server skk-aux-large-jisyo 10000)
 これらのプログラムが SKK により追加される。"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-1 nil
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-1 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-2 nil
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-2 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-3 nil
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-3 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-4 nil
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-4 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-5 nil
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-5 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-6 '((skk-search-identity))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-6 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-7 '((skk-search-katakana))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-7 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-8 '((skk-search-hankaku-katakana))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-8 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-9 '((skk-search-jisx0208-romaji))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-9 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
+  :group 'skk-dictionary)
+
+(defcustom skk-search-prog-list-0 '((skk-search-romaji))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-0 SPC で使用される"
   :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 

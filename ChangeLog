@@ -12,6 +12,34 @@
 	(skk-annotation-wait-for-input): No longer wait when SKK exits
 	henkan active mode.
 
+	* skk-vars.el (skk-search-prog-list-0):
+	(skk-search-prog-list-1):
+	(skk-search-prog-list-2):
+	(skk-search-prog-list-3):
+	(skk-search-prog-list-4):
+	(skk-search-prog-list-5):
+	(skk-search-prog-list-6):
+	(skk-search-prog-list-7):
+	(skk-search-prog-list-8):
+	(skk-search-prog-list-9):
+
+	New user options.
+
+	* skk.el (skk-search-hankaku-katakana):
+	(skk-search-jisx0208-romaji):
+
+	New functions.
+
+	(skk-searc-romaji): Accept optional arg JISX0208.
+
+	(skk-insert):
+	(skk-start-henkan):
+
+	Accept optional argument PREFIX-ARG.
+
+	(skk-henkan): If digit is specified with prefix argument, use
+	skk-search-prog-list-{0-9} instead of skk-search-prog-list.
+
 2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.

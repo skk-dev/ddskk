@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.399 2007/04/22 02:38:27 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.400 2007/04/22 23:31:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:27 $
+;; Last Modified: $Date: 2007/04/22 23:31:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -964,9 +964,11 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	(kill-local-variable v)))))
 
 ;;;; kana inputting functions
-(defun skk-insert (&optional arg)
+(defun skk-insert (&optional arg prefix-arg)
   "SKK $B$NJ8;zF~NO$r9T$J$&!#(B"
   (interactive "p")
+  (unless prefix-arg
+    (setq prefix-arg current-prefix-arg))
   (barf-if-buffer-read-only)
   (skk-with-point-move
    (let ((ch last-command-char))
@@ -990,7 +992,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   ;; start conversion.
 	   ((and skk-henkan-mode
 		 (eq ch skk-start-henkan-char))
-	    (skk-start-henkan arg))
+	    (skk-start-henkan arg prefix-arg))
 	   ;; just input kana.
 	   ((not (eq skk-henkan-mode 'on))
 	    (skk-kana-input arg))
@@ -1608,7 +1610,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	 (skk-emulate-original-map arg)))))))
 
 ;;; henkan routines
-(defun skk-henkan ()
+(defun skk-henkan (&optional prefix-arg)
   "$B%+%J$r4A;zJQ49$9$k%a%$%s%k!<%A%s!#(B"
   (let (mark
 	prototype
@@ -1624,7 +1626,17 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 		    (point-marker))))
       (unless (eq skk-henkan-mode 'active)
 	(skk-change-marker)
-	(setq skk-current-search-prog-list skk-search-prog-list))
+	(setq skk-current-search-prog-list
+	      (cond
+	       ((and (integerp prefix-arg)
+		     (<= 0 prefix-arg)
+		     (<= prefix-arg 9))
+		(let ((list (symbol-value
+			     (intern (format "skk-search-prog-list-%d"
+					     prefix-arg)))))
+		  (or list skk-search-prog-list)))
+	       (t
+		skk-search-prog-list))))
       ;; skk-henkan-1 $B$NCf$+$i%3!<%k$5$l$k(B skk-henkan-show-candidate $B$+$i(B throw
       ;; $B$5$l$k!#$3$3$G%-%c%C%A$7$?>l9g$O!"(B?x $B$,%9%H%j!<%`$KLa$5$l$F$$$k$N$G!"(B
       ;; $B$3$N4X?t$r=P$F!"(Bskk-previous-candidates $B$X$f$/!#(B
@@ -2940,7 +2952,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
       (setq last-command-char last-char)
       (skk-kana-input arg))))
 
-(defun skk-start-henkan (arg)
+(defun skk-start-henkan (arg &optional prefix-arg)
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B
 $B"&%b!<%I$G!"%+%?%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$9$k$H!"8+=P$78l$rJ?2>L>$K(B
 $BJQ498e!"4A;zJQ49$r3+;O$9$k!#(B
@@ -2995,7 +3007,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 							 skk-henkan-key))))
 	 (skk-set-marker skk-henkan-end-point pos)
 	 (skk-set-henkan-count 0)
-	 (skk-henkan)
+	 (skk-henkan prefix-arg)
 	 (when (and skk-abbrev-mode
 		    (eq skk-henkan-mode 'active))
 	   ;; $B$3$&$7$F$*$+$J$$$HJQ498e!"<!$KF~NO$5$l$kJ8;z$b$^$?(B
@@ -4332,12 +4344,16 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	  (setq words (nconc words (list (buffer-string))))))
       words)))
 
-(defun skk-search-romaji (&optional arg)
+(defun skk-search-hankaku-katakana ()
+  "$B8+=P$78l$rH>3Q%+%J$K$7$F!"%j%9%H$K$7$FJV$9!#(B"
+  (cdr (skk-search-katakana t)))
+
+(defun skk-search-romaji (&optional jisx0208)
   "$BJQ49%-!<$r%m!<%^;z$KJQ49$7$?8uJd$rJV$9!#(B"
   (when (and (not skk-henkan-okurigana)
 	     (exec-installed-p "kakasi"))
     (let ((key skk-henkan-key)
-	  char)
+	  words char)
       (with-temp-buffer
 	(insert key)
 	;; $B@\F,<-!&@\Hx<-$NF~NO$@$C$?$i(B ">" $B$r>C$7$F$*$/!#(B
@@ -4357,7 +4373,15 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	  (forward-char 1))
 	(when (eq char 'hiragana)
 	  (skk-romaji-region (point-min) (point-max))
-	  (list (buffer-string)))))))
+	  (setq words (list (buffer-string))))
+	(when (and jisx0208 words)
+	  (skk-jisx0208-latin-region (point-min) (point-max))
+	  (setq words (nconc words (list (buffer-string))))))
+      words)))
+
+(defun skk-search-jisx0208-romaji ()
+  "$B8+=P$78l$rH>3Q%+%J$K$7$F!"%j%9%H$K$7$FJV$9!#(B"
+  (cdr (skk-search-romaji t)))
 
 (defun skk-search-upcase (&optional initial)
   "$BJQ49%-!<$N(B ascii $B>.J8;z$rBgJ8;z$KJQ49$7$?8uJd$rJV$9!#(B
