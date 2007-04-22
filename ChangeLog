@@ -9,6 +9,8 @@
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Just stop
 	retrieval on C-g.
+	(skk-annotation-wait-for-input): No longer wait when SKK exits
+	henkan active mode.
 
 2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
