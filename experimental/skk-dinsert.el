@@ -1,12 +1,12 @@
-;;; skk-dinsert.el --- SKK dynamic insert
+;;; skk-dinsert.el --- SKK dynamic insert -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2002 Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 ;; Author: Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dinsert.el,v 1.9 2006/02/23 16:38:50 skk-cvs Exp $
+;; Version: $Id: skk-dinsert.el,v 1.10 2007/04/22 02:38:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/02/23 16:38:50 $
+;; Last Modified: $Date: 2007/04/22 02:38:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -22,7 +22,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

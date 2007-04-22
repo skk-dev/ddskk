@@ -1,4 +1,4 @@
-;;; dot.emacs --- SKK related customization in ~/.emacs  -*- emacs-lisp -*-
+;;; dot.emacs --- SKK related customization in ~/.emacs  -*- mode: emacs-lisp; coding: iso-2022-jp -*-
 
 ;;; Commentary:
 

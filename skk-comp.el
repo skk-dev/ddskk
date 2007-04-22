@@ -1,4 +1,4 @@
-;;; skk-comp.el --- 補完のためのプログラム
+;;; skk-comp.el --- 補完のためのプログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997
 ;;               1999, 2000
@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.68 2007/04/08 08:21:40 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.69 2007/04/22 02:38:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/08 08:21:40 $
+;; Last Modified: $Date: 2007/04/22 02:38:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -24,7 +24,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

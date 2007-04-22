@@ -1,13 +1,13 @@
-;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program)
+;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program) -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988-1997 Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Copyright (C) 1999-2007 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.398 2007/04/17 13:40:31 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.399 2007/04/22 02:38:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/17 13:40:31 $
+;; Last Modified: $Date: 2007/04/22 02:38:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -23,7 +23,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

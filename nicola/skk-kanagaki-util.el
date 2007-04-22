@@ -1,4 +1,4 @@
-;;; skk-kanagaki-util.el --- SKK の仮名入力サポートのための道具箱
+;;; skk-kanagaki-util.el --- SKK の仮名入力サポートのための道具箱 -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000, 2001, 2002, 2003, 2004
 ;;   Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
@@ -20,7 +20,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

@@ -1,12 +1,12 @@
-;;; skk-dbm.el --- SKK dbm interfaces.
+;;; skk-dbm.el --- SKK dbm interfaces. -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dbm.el,v 1.7 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-dbm.el,v 1.8 2007/04/22 02:38:28 skk-cvs Exp $
 ;; Keywords: japanese, dbm, gdbm
 ;; Created: Jan. 1, 1999
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2007/04/22 02:38:28 $
 
 ;; This file is not part of Daredevil SKK yet.
 
@@ -22,7 +22,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

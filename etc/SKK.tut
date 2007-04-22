@@ -1,4 +1,4 @@
-;; SKK Japanese tutorial text
+;; SKK Japanese tutorial text -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 1988, 1992, 1996, 1998
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Copyright (C) 1999, 2000, 2001, 2002
@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut,v 1.12 2007/03/27 16:37:12 skk-cvs Exp $
+;; Version: $Id: SKK.tut,v 1.13 2007/04/22 02:38:28 skk-cvs Exp $
 ;; Keywords: japanese, help
-;; Last Modified: $Date: 2007/03/27 16:37:12 $
+;; Last Modified: $Date: 2007/04/22 02:38:28 $
 
 ;; This is the tutorial text for Daredevil SKK version 11.1 and later
 ;; versions.

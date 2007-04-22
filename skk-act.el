@@ -1,4 +1,4 @@
-;;; skk-act.el --- 拡張ローマ字入力 "ACT" を SKK で使うための設定
+;;; skk-act.el --- 拡張ローマ字入力 "ACT" を SKK で使うための設定 -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2003 IRIE Tetsuya <irie@t.email.ne.jp>
 
@@ -19,7 +19,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

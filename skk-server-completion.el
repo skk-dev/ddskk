@@ -1,4 +1,4 @@
-;;; skk-server-completion.el --- server completion のクライアント
+;;; skk-server-completion.el --- server completion のクライアント -*- coding: iso-2022-jp -*-
 ;;
 ;; Copyright (C) 2005 Fumihiko MACHIDA <machida@users.sourceforge.jp>
 
@@ -14,7 +14,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program; if not, write to the Free Software
-;; Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ;; 02110-1301, USA
 
 ;;; Commentary:

@@ -1,4 +1,4 @@
-;; skk-viper.el --- SKK related code for Viper
+;; skk-viper.el --- SKK related code for Viper -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001
 ;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.33 2007/04/01 05:31:30 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.34 2007/04/22 02:38:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/01 05:31:30 $
+;; Last Modified: $Date: 2007/04/22 02:38:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -25,7 +25,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

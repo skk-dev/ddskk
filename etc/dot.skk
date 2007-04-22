@@ -1,4 +1,4 @@
-;;; dot.skk --- examples for SKK init file  -*- emacs-lisp -*-
+;;; dot.skk --- examples for SKK init file  -*- mode: emacs-lisp; coding: iso-2022-jp -*-
 
 ;;; Commentary:
 

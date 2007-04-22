@@ -1,13 +1,13 @@
-;;; skk-isearch.el --- isearch mode for SKK
+;;; skk-isearch.el --- isearch mode for SKK -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999
 ;;   Enami Tsugutomo <enami@ba2.so-net.or.jp>
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.48 2007/04/05 04:49:12 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.49 2007/04/22 02:38:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/05 04:49:12 $
+;; Last Modified: $Date: 2007/04/22 02:38:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -23,7 +23,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

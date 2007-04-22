@@ -1,11 +1,11 @@
-;;; skk-rdbms.el --- SKK Relational Data Base Management System.
+;;; skk-rdbms.el --- SKK Relational Data Base Management System. -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 1998, 2000, 2003 NAKAJIMA Mikio <minakaji@namazu.org>
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@namazu.org>
-;; Version: $Id: skk-rdbms.el,v 1.9 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-rdbms.el,v 1.10 2007/04/22 02:38:28 skk-cvs Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2007/04/22 02:38:28 $
 
 ;; This file is not part of Daredevil SKK yet.
 
@@ -21,7 +21,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

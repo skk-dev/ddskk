@@ -1,4 +1,4 @@
-;;; skk-nicola-us.el --- SKK に NICOLA (US) 入力環境を提供
+;;; skk-nicola-us.el --- SKK に NICOLA (US) 入力環境を提供 -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1996, 1997, 1998, 1999, 2000
 ;;   Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
@@ -21,7 +21,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

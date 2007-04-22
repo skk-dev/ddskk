@@ -1,4 +1,4 @@
-;;; skk-exserv.el --- SKK サーバーのためのプログラム
+;;; skk-exserv.el --- SKK サーバーのためのプログラム -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996,
 ;;               1997, 1998, 1999, 2000
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
@@ -6,9 +6,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-exserv.el,v 1.7 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-exserv.el,v 1.8 2007/04/22 02:38:28 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2007/04/22 02:38:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -24,7 +24,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

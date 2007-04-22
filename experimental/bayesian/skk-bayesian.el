@@ -1,11 +1,11 @@
-;; skk-bayesian.el -- Bayesian estimation for SKK
+;; skk-bayesian.el -- Bayesian estimation for SKK -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 2004 Kenichi Kurihara <kenichi_kurihara@nifty.com>
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.25 2006/10/10 02:58:41 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.26 2007/04/22 02:38:28 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2006/10/10 02:58:41 $
+;; Last Modified: $Date: 2007/04/22 02:38:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -21,7 +21,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

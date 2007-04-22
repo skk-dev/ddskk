@@ -1,12 +1,12 @@
-;;; skk-study.el --- SKK 学習効果提供プログラム
+;;; skk-study.el --- SKK 学習効果提供プログラム -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 1999, 2000, 2002, 2003 NAKAJIMA Mikio <minakaji@namazu.org>
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.48 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.49 2007/04/22 02:38:28 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2007/04/22 02:38:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -22,7 +22,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

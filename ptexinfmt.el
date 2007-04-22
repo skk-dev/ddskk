@@ -24,7 +24,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+;; Free Software Foundation, Inc., 51 Franklin Streetreet, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
@@ -35,6 +35,23 @@
 ;; Support texinfmt.el 2.32 or later.
 
 ;; Modified by Yamaoka not to use APEL functions.
+
+;; Unimplemented command:
+;;  @abbr
+;;  @float, @caption, @shortcaption, @listoffloats
+;;  @deftypecv[x]
+;;  @headitem
+;;  @comma{}
+;;  @quotation (optional arguments)
+;;  @acronym (optional argument)
+;;  @dofirstparagraphindent
+;;  @indent
+;;  @verbatiminclude
+;;  @\
+;;  @definfoenclose
+;;  @deftypeivar
+;;  @deftypeop
+;;  @allowcodebreaks
 
 ;;; Code:
 
@@ -153,10 +170,10 @@ DOCSTRING will be printed if ASSERTION is nil and
 	  (insert (format " {%s}\n" str))
 	  (goto-char (point-min))
 	  (if (= (car (texinfo-multitable-widths)) (length str))
-	      nil
-	    t)))
+	      t
+	    nil)))
     ;; function definition is void
-    t))
+    nil))
 
 (ptexinfmt-broken-facility texinfo-multitable-item
   "`texinfo-multitable-item' unsupport wide-char."
@@ -186,6 +203,7 @@ DOCSTRING will be printed if ASSERTION is nil and
 (put 'setcontentsaftertitlepage 'texinfo-format 'texinfo-discard-line)
 (put 'setshortcontentsaftertitlepage 'texinfo-format 'texinfo-discard-line)
 (put 'novalidate 'texinfo-format 'texinfo-discard-line-with-args)
+(put 'frenchspacing 'texinfo-format 'texinfo-discard-line-with-args)
 
 ;; head & foot
 (put 'headings 'texinfo-format 'texinfo-discard-line-with-args)
@@ -199,6 +217,12 @@ DOCSTRING will be printed if ASSERTION is nil and
 ;; misc
 (put 'page 'texinfo-format 'texinfo-discard-line)
 (put 'hyphenation 'texinfo-format 'texinfo-discard-command-and-arg)
+
+;; @slanted{} (makeinfo 4.8 or later)
+(put 'slanted 'texinfo-format 'texinfo-format-noop)
+
+;; @sansserif{} (makeinfo 4.8 or later)
+(put 'sansserif 'texinfo-format 'texinfo-format-noop)
 
 ;; @tie{} (makeinfo 4.3 or later)
 (put 'tie 'texinfo-format 'texinfo-format-tie)
@@ -263,6 +287,9 @@ DOCSTRING will be printed if ASSERTION is nil and
 (put 'ifnotplaintext 'texinfo-format 'texinfo-discard-line)
 (put 'ifnotplaintext 'texinfo-end 'texinfo-discard-command)
 
+;; @ifnotdocbook ... @end ifnotdocbook (makeinfo 4.7 or later)
+(put 'ifnotdocbook 'texinfo-format 'texinfo-discard-line)
+(put 'ifnotdocbook 'texinfo-end 'texinfo-discard-command)
 
 ;; @ifnotinfo ... @end ifnotinfo (makeinfo 3.11 or later)
 (put 'ifnotinfo 'texinfo-format 'texinfo-format-ifnotinfo)
@@ -276,6 +303,13 @@ DOCSTRING will be printed if ASSERTION is nil and
 (ptexinfmt-defun-if-void texinfo-format-html ()
   (delete-region texinfo-command-start
 		 (progn (re-search-forward "@end html[ \t]*\n")
+			(point))))
+
+;; @docbook ... @end docbook (makeinfo 4.7 or later)
+(put 'docbook 'texinfo-format 'texinfo-format-docbook)
+(ptexinfmt-defun-if-void texinfo-format-docbook ()
+  (delete-region texinfo-command-start
+		 (progn (re-search-forward "@end docbook[ \t]*\n")
 			(point))))
 
 ;; @ifhtml ... @end ifhtml (makeinfo 3.8 or later)
@@ -292,13 +326,21 @@ DOCSTRING will be printed if ASSERTION is nil and
 		 (progn (re-search-forward "@end ifplaintext[ \t]*\n")
 			(point))))
 
+;; @ifdocbook ... @end ifdocbook (makeinfo 4.7 or later)
+(put 'ifdocbook 'texinfo-format 'texinfo-format-ifdocbook)
+(ptexinfmt-defun-if-void texinfo-format-ifdocbook ()
+  (delete-region texinfo-command-start
+		 (progn (re-search-forward "@end ifdocbook[ \t]*\n")
+			(point))))
 
 
 ;;; Marking
-;; @url, @env, @command
-(put 'url 'texinfo-format 'texinfo-format-code)
+;; @indicateurl, @url, @env, @command, 
 (put 'env 'texinfo-format 'texinfo-format-code)
 (put 'command 'texinfo-format 'texinfo-format-code)
+
+(put 'indicateurl 'texinfo-format 'texinfo-format-code)
+(put 'url 'texinfo-format 'texinfo-format-uref)	; Texinfo 4.7
 
 ;; @acronym
 (put 'acronym 'texinfo-format 'texinfo-format-var)
@@ -361,12 +403,41 @@ For example, @verb\{|@|\} results in @ and
   (delete-char 1))
 
 
+;;; @LaTeX, @registeredsymbol{}
+(put 'LaTeX 'texinfo-format 'texinfo-format-LaTeX)
+(ptexinfmt-defun-if-void texinfo-format-LaTeX ()
+  (texinfo-parse-arg-discard)
+  (insert "LaTeX"))
+
+(put 'registeredsymbol 'texinfo-format 'texinfo-format-registeredsymbol)
+(ptexinfmt-defun-if-void texinfo-format-registeredsymbol ()
+  (texinfo-parse-arg-discard)
+  (insert "(R)"))
+
 ;;; Accents and Special characters
+;; @euro{}	==>	Euro
+(put 'euro 'texinfo-format 'texinfo-format-euro)
+(ptexinfmt-defun-if-void texinfo-format-euro ()
+  (texinfo-parse-arg-discard)
+  (insert "Euro "))
+
 ;; @pounds{}	==>	#	Pounds Sterling
 (put 'pounds 'texinfo-format 'texinfo-format-pounds)
 (ptexinfmt-defun-if-void texinfo-format-pounds ()
   (texinfo-parse-arg-discard)
   (insert "#"))
+
+;; @ordf{}	==>	a	Spanish feminine
+(put 'ordf 'texinfo-format 'texinfo-format-ordf)
+(ptexinfmt-defun-if-void texinfo-format-ordf ()
+  (texinfo-parse-arg-discard)
+  (insert "a"))
+
+;; @ordm{}	==>	o	Spanish masculine
+(put 'ordm 'texinfo-format 'texinfo-format-ordm)
+(ptexinfmt-defun-if-void texinfo-format-ordm ()
+  (texinfo-parse-arg-discard)
+  (insert "o"))
 
 ;; @OE{}	==>	OE	French-OE-ligature
 (put 'OE 'texinfo-format 'texinfo-format-French-OE-ligature)
@@ -626,6 +697,14 @@ otherwise, insert URL-TITLE followed by URL in parentheses."
     (goto-char (+ (point) (cadr (insert-file-contents filename))))
     (message "Reading included file: %s...done" filename)))
 
+;; @hyphenation command discards an argument within braces
+(put 'hyphenation 'texinfo-format 'texinfo-discard-command-and-arg)
+(ptexinfmt-defun-if-void texinfo-discard-command-and-arg ()
+  "Discard both @-command and its argument in braces."
+  (goto-char texinfo-command-end)
+  (forward-list 1)
+  (setq texinfo-command-end (point))
+  (delete-region texinfo-command-start texinfo-command-end))
 
 
 ;;; @multitable ... @end multitable
@@ -878,90 +957,6 @@ This command is executed when texinfmt sees @item inside @multitable."
     (if (memq system-type '(vax-vms windows-nt ms-dos))
 	(texinfo-sort-region opoint (point))
       (shell-command-on-region opoint (point) "sort -fd" 1))))
-
-(ptexinfmt-broken-facility texinfo-format-separate-node ()
-  (with-temp-buffer
-    (insert (prin1-to-string (symbol-function 'texinfo-format-separate-node)))
-    (goto-char (point-min))
-    (not (search-forward "fill-paragraph" nil t nil))))
-
-(ptexinfmt-broken-facility texinfo-format-end-node ()
-  (with-temp-buffer
-    (insert (prin1-to-string (symbol-function 'texinfo-format-end-node)))
-    (goto-char (point-min))
-    (not (search-forward "fill-paragraph" nil t nil))))
-
-(ptexinfmt-defun-if-broken texinfo-format-separate-node ()
-  (let* (start
-         (arg (texinfo-parse-line-arg))
-         (node-name-beginning
-          (save-excursion
-            (re-search-backward
-             "^File: \\w+\\(\\w\\|\\s_\\|\\.\\|,\\)*[ \t]+Node:")
-            (match-end 0)))
-         (node-name
-          (save-excursion
-            (buffer-substring-no-properties
-             (progn (goto-char node-name-beginning) ; skip over node command
-                    (skip-chars-forward " \t")	    ; and over spaces
-                    (point))
-             (if (search-forward
-                  ","
-                  (save-excursion (end-of-line) (point)) t) ; bound search
-                 (1- (point))
-               (end-of-line) (point))))))
-    (texinfo-discard-command) ; remove or insert whitespace, as needed
-    (delete-region (save-excursion (skip-chars-backward " \t\n") (point))
-                   (point))
-    (insert (format " (%d) (*Note %s-Footnotes::)"
-                    texinfo-footnote-number node-name))
-    ;;(fill-paragraph nil)
-    (save-excursion
-      (if (re-search-forward "^@node" nil 'move)
-	  (forward-line -1))
-
-      ;; two cases: for the first footnote, we must insert a node header;
-      ;; for the second and subsequent footnotes, we need only insert
-      ;; the text of the  footnote.
-
-      (if (save-excursion
-	    (search-backward
-	     (concat node-name "-Footnotes, Up: ")
-	     node-name-beginning
-	     t))
-	  (progn		       ; already at least one footnote
-	    (setq start (point))
-	    (insert (format "\n(%d)  %s\n" texinfo-footnote-number arg))
-	    (fill-region start (point)))
-	;; else not yet a footnote
-	(insert "\n\^_\nFile: "  texinfo-format-filename
-		"  Node: " node-name "-Footnotes, Up: " node-name "\n")
-	(setq start (point))
-	(insert (format "\n(%d)  %s\n" texinfo-footnote-number arg))
-	(fill-region start (point))))))
-
-(ptexinfmt-defun-if-broken texinfo-format-end-node ()
-  (let (start
-        (arg (texinfo-parse-line-arg)))
-    (texinfo-discard-command) ; remove or insert whitespace, as needed
-    (delete-region (save-excursion (skip-chars-backward " \t\n") (point))
-                   (point))
-    (insert (format " (%d) " texinfo-footnote-number))
-    ;;(fill-paragraph nil)
-    (save-excursion
-      (if (search-forward "\n--------- Footnotes ---------\n" nil t)
-          (progn ; already have footnote, put new one before end of node
-            (if (re-search-forward "^@node" nil 'move)
-                (forward-line -1))
-            (setq start (point))
-            (insert (format "\n(%d)  %s\n" texinfo-footnote-number arg))
-            (fill-region start (point)))
-        ;; else no prior footnote
-        (if (re-search-forward "^@node" nil 'move)
-            (forward-line -1))
-        (insert "\n--------- Footnotes ---------\n")
-        (setq start (point))
-        (insert (format "\n(%d)  %s\n" texinfo-footnote-number arg))))))
 
 (provide 'ptexinfmt)
 

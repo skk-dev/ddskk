@@ -1,12 +1,12 @@
-;;; skk-macs.el --- macros and inline functions commonly used in SKK
+;;; skk-macs.el --- macros and inline functions commonly used in SKK -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1999-2007  SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.112 2007/04/17 10:08:35 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.113 2007/04/22 02:38:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/17 10:08:35 $
+;; Last Modified: $Date: 2007/04/22 02:38:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -22,7 +22,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

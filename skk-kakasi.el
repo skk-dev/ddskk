@@ -1,13 +1,13 @@
-;;; skk-kakasi.el --- KAKASI 関連プログラム
+;;; skk-kakasi.el --- KAKASI 関連プログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1996, 1998, 1999, 2000, 2001
 ;;   NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.24 2006/12/21 15:16:15 skk-cvs Exp $
+;; Version: $Id: skk-kakasi.el,v 1.25 2007/04/22 02:38:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/12/21 15:16:15 $
+;; Last Modified: $Date: 2007/04/22 02:38:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -23,7 +23,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

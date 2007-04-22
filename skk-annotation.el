@@ -1,14 +1,14 @@
-;;; skk-annotation.el --- SKK annotation 関連プログラム
+;;; skk-annotation.el --- SKK annotation 関連プログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Copyright (C) 2000-2007  SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.106 2007/04/20 14:12:06 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.107 2007/04/22 02:38:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/20 14:12:06 $
+;; Last Modified: $Date: 2007/04/22 02:38:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -24,7 +24,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
@@ -1482,7 +1482,7 @@ Disambiguation\"" nil t)))
 				(if (and (> (length word) 1)
 					 (skk-ascii-char-p (aref word 0))
 					 (skk-lower-case-p (aref word 1)))
-				    ;; 二文字めが upper case なら downcase
+				    ;; 二文字めが lower case なら downcase
 				    (downcase word)
 				  ;; 一文字だったら元の case
 				  ;; 二文字めが upper case なら元の case

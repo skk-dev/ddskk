@@ -1,13 +1,13 @@
-;;; skk-azik.el --- 拡張ローマ字入力 "AZIK" を SKK で使うための設定
+;;; skk-azik.el --- 拡張ローマ字入力 "AZIK" を SKK で使うための設定 -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2002 ONODA Arata <onoto@ma.nma.ne.jp>
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.4 2007/04/14 17:29:14 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.5 2007/04/22 02:38:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2007/04/14 17:29:14 $
+;; Last Modified: $Date: 2007/04/22 02:38:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -23,7 +23,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:

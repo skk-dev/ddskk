@@ -1,6 +1,6 @@
-;;; skk-jisyo-edit-mode.el --- major mode for editing SKK dictionaries
+;;; skk-jisyo-edit-mode.el --- major mode for editing SKK dictionaries -*- coding: euc-jp -*-
 
-;; Copyright (C) 2001 SKK Development Team
+;; Copyright (C) 2001-2007 SKK Development Team
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Keywords: japanese, mule, input method
@@ -19,7 +19,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
@@ -94,15 +94,24 @@
 				. skk-jisyo-edit-mode))
 
 ;;;###autoload
-(defun skk-edit-private-jisyo ()
-  (interactive)
+(defun skk-edit-private-jisyo (&optional coding-system)
+  (interactive "P")
+  (when coding-system
+    (setq coding-system (read-coding-system
+			 "個人辞書のコード系を指定: "
+			 (skk-find-coding-system skk-jisyo-code))))
+  (unless coding-system
+    (setq coding-system (skk-find-coding-system skk-jisyo-code)))
+  ;;
   (when (skk-y-or-n-p "辞書をセーブしますか？ "
 		      "Save jisyo? ")
     (skk-save-jisyo))
   (message nil)
   (setq skk-jisyo-edit-original-window-configuration
 	(current-window-configuration))
-  (find-file skk-jisyo)
+  ;; SKK 辞書のコードは誤判定がありうるため、注意する
+  (let ((coding-system-for-read coding-system))
+    (find-file skk-jisyo))
   (unless (eq major-mode 'skk-jisyo-edit-mode)
     (skk-jisyo-edit-mode))
   (static-when (or (featurep 'xemacs)

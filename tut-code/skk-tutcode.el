@@ -1,12 +1,12 @@
-;;; skk-tutcode.el --- assist TUT-code inputting in SKK environment
+;;; skk-tutcode.el --- assist TUT-code inputting in SKK environment -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1999, 2000, 2001 GUNJI Takao <gunji@sils.shoin.ac.jp>
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcode.el,v 1.13 2007/04/14 16:35:36 skk-cvs Exp $
+;; Version: $Id: skk-tutcode.el,v 1.14 2007/04/22 02:38:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/14 16:35:36 $
+;; Last Modified: $Date: 2007/04/22 02:38:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -22,7 +22,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with Daredevil SKK, see the file COPYING.  If not, write to
-;; the Free Software Foundation Inc., 51 Franklin St, Fifth Floor,
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
