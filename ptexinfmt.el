@@ -958,6 +958,90 @@ This command is executed when texinfmt sees @item inside @multitable."
 	(texinfo-sort-region opoint (point))
       (shell-command-on-region opoint (point) "sort -fd" 1))))
 
+(ptexinfmt-broken-facility texinfo-format-separate-node ()
+  (with-temp-buffer
+    (insert (prin1-to-string (symbol-function 'texinfo-format-separate-node)))
+    (goto-char (point-min))
+    (not (search-forward "fill-paragraph" nil t nil))))
+
+(ptexinfmt-broken-facility texinfo-format-end-node ()
+  (with-temp-buffer
+    (insert (prin1-to-string (symbol-function 'texinfo-format-end-node)))
+    (goto-char (point-min))
+    (not (search-forward "fill-paragraph" nil t nil))))
+
+(ptexinfmt-defun-if-broken texinfo-format-separate-node ()
+  (let* (start
+	 (arg (texinfo-parse-line-arg))
+	 (node-name-beginning
+	  (save-excursion
+	    (re-search-backward
+	     "^File: \\w+\\(\\w\\|\\s_\\|\\.\\|,\\)*[ \t]+Node:")
+	    (match-end 0)))
+	 (node-name
+	  (save-excursion
+	    (buffer-substring-no-properties
+	     (progn (goto-char node-name-beginning) ; skip over node command
+		    (skip-chars-forward " \t")	    ; and over spaces
+		    (point))
+	     (if (search-forward
+		  ","
+		  (save-excursion (end-of-line) (point)) t) ; bound search
+		 (1- (point))
+	       (end-of-line) (point))))))
+    (texinfo-discard-command) ; remove or insert whitespace, as needed
+    (delete-region (save-excursion (skip-chars-backward " \t\n") (point))
+		   (point))
+    (insert (format " (%d) (*Note %s-Footnotes::)"
+		    texinfo-footnote-number node-name))
+    ;;(fill-paragraph nil)
+    (save-excursion
+      (if (re-search-forward "^@node" nil 'move)
+	  (forward-line -1))
+
+      ;; two cases: for the first footnote, we must insert a node header;
+      ;; for the second and subsequent footnotes, we need only insert
+      ;; the text of the  footnote.
+
+      (if (save-excursion
+	    (search-backward
+	     (concat node-name "-Footnotes, Up: ")
+	     node-name-beginning
+	     t))
+	  (progn		       ; already at least one footnote
+	    (setq start (point))
+	    (insert (format "\n(%d)  %s\n" texinfo-footnote-number arg))
+	    (fill-region start (point)))
+	;; else not yet a footnote
+	(insert "\n\^_\nFile: "  texinfo-format-filename
+		"  Node: " node-name "-Footnotes, Up: " node-name "\n")
+	(setq start (point))
+	(insert (format "\n(%d)  %s\n" texinfo-footnote-number arg))
+	(fill-region start (point))))))
+
+(ptexinfmt-defun-if-broken texinfo-format-end-node ()
+  (let (start
+	(arg (texinfo-parse-line-arg)))
+    (texinfo-discard-command) ; remove or insert whitespace, as needed
+    (delete-region (save-excursion (skip-chars-backward " \t\n") (point))
+		   (point))
+    (insert (format " (%d) " texinfo-footnote-number))
+    ;;(fill-paragraph nil)
+    (save-excursion
+      (if (search-forward "\n--------- Footnotes ---------\n" nil t)
+	  (progn ; already have footnote, put new one before end of node
+	    (if (re-search-forward "^@node" nil 'move)
+		(forward-line -1))
+	    (setq start (point))
+	    (insert (format "\n(%d)  %s\n" texinfo-footnote-number arg))
+	    (fill-region start (point)))
+	;; else no prior footnote
+	(if (re-search-forward "^@node" nil 'move)
+	    (forward-line -1))
+	(insert "\n--------- Footnotes ---------\n")
+	(setq start (point))
+	(insert (format "\n(%d)  %s\n" texinfo-footnote-number arg))))))
+
 (provide 'ptexinfmt)
 
 ;;; ptexinfmt.el ends here
