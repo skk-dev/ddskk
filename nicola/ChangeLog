@@ -1,3 +1,10 @@
+2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
+
+	* *.el: Specify coding at the first line of each file containing
+	non-ASCII characters.
+
 2007-04-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki.el:

@@ -1,4 +1,4 @@
-;;; skk-nicola-dcomp.el --- skk-dcomp support for NICOLA-DDSKK -*- coding: iso-2022-jp -*-
+;;; skk-nicola-dcomp.el --- skk-dcomp support for NICOLA-DDSKK
 
 ;; Copyright (C) 2001 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
