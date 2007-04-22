@@ -416,9 +416,11 @@
 (defalias 'skk-nicola-self-insert-rshift 'skk-nicola-self-insert-lshift)
 
 ;;;###autoload
-(defun skk-nicola-self-insert-lshift (&optional arg)
+(defun skk-nicola-self-insert-lshift (&optional arg prefix-arg)
   "右または左シフトに割り付ける関数。"
   (interactive "p")
+  (unless prefix-arg
+    (setq prefix-arg current-prefix-arg))
   ;;
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)
@@ -429,7 +431,7 @@
   (cond
    ((and (eq skk-kanagaki-state 'kana)
 	 (not skk-jisx0201-mode))
-    (skk-nicola-insert arg))
+    (skk-nicola-insert arg prefix-arg))
    (t
     (unless last-command-char
       (setq last-command-char ?\ ))
@@ -507,7 +509,7 @@
   nil)
 
 ;;;###autoload
-(defun skk-nicola-insert (&optional arg)
+(defun skk-nicola-insert (&optional arg prefix-arg)
   "同時打鍵を認識して、NICOLA かな入力をする。"
   (interactive "*p")
   (let (time1
@@ -524,8 +526,7 @@
     (cond
      ((skk-sit-for skk-nicola-interval t)
       ;; No input in the interval.
-      (skk-nicola-insert-single this-command
-				arg))
+      (skk-nicola-insert-single this-command arg prefix-arg))
      (t
       ;; Some key's pressed.
       (setq time2 (skk-nicola-format-time (current-time)))
@@ -533,17 +534,13 @@
       (setq next-event (next-command-event)
 	    next (skk-nicola-event-to-key next-event))
       (cond
-       ((skk-nicola-maybe-double-p this-command
-				   next)
-	(skk-nicola-treat-triple this-command
-				 next
-				 time1
-				 time2
+       ((skk-nicola-maybe-double-p this-command next)
+	(skk-nicola-treat-triple this-command next
+				 time1 time2
 				 arg))
        (t
 	;; 最初の入力は単独打鍵でしかありえないと確定。
-	(skk-nicola-insert-single this-command
-				  arg)
+	(skk-nicola-insert-single this-command arg)
 	(skk-unread-event next-event)))))
     ;; 統計的価値があるかな...？
 ;    (setq skk-nicola-temp-data
@@ -649,13 +646,13 @@
       (skk-nicola-insert-double this-command next arg)
       (skk-unread-event third-event)))))))
 
-(defun skk-nicola-insert-single (command arg)
+(defun skk-nicola-insert-single (command arg &optional prefix-arg)
   "単独打鍵を処理する。"
   (let ((char last-command-char))
     (case command
       (skk-nicola-self-insert-rshift
        ;; (変換・スペース)
-       (skk-nicola-space-function arg))
+       (skk-nicola-space-function arg prefix-arg))
       (skk-nicola-self-insert-lshift
        ;; 左シフト
        (skk-nicola-lshift-function arg))
@@ -674,8 +671,7 @@
 		   (lookup-key skk-j-mode-map
 			       (char-to-string first)))
 		  (t
-		   (lookup-key skk-j-mode-map
-			       first))))
+		   (lookup-key skk-j-mode-map first))))
 	(char (if (characterp first)
 		  first
 		last-command-char))
@@ -951,14 +947,14 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
 	(skk-set-marker skk-nicola-okuri-flag pt)
 	(insert-and-inherit "*")))))
 
-(defun skk-nicola-space-function (&optional arg)
+(defun skk-nicola-space-function (&optional arg prefix-arg)
   "親指右キー単独打鍵時の挙動を決める関数。"
   (let ((last-command-char ?\ ))
     (cond
      ((eq skk-henkan-mode 'active)
       (call-interactively 'skk-insert))
      ((eq skk-henkan-mode 'on)
-      (skk-kanagaki-insert arg))
+      (skk-kanagaki-insert arg prefix-arg))
      (t
       (self-insert-command arg)))))
 

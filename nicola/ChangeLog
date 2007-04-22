@@ -1,5 +1,14 @@
 2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-kanataki.el (skk-kanagaki-insert):
+	* skk-nicola.el (skk-nicola-self-insert-lshift):
+	(skk-nicola-insert-single):
+	(skk-nicola-space-function):
+
+	Accept optional argument PREFIX-ARG.
+
+2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
 
 	* *.el: Specify coding at the first line of each file containing

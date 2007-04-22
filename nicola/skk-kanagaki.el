@@ -380,13 +380,14 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]  (XEmacs $B$G$O
       (setq-default skk-rule-tree rule))))
 
 ;;;###autoload
-(defun skk-kanagaki-insert (&optional arg)
+(defun skk-kanagaki-insert (&optional arg prefix-arg)
   "SPC $B%-!<$@$1$3$l$r(B `skk-insert' $B$NBe$o$j$K;H$&!#(B"
   (interactive "*p")
   (cond
-   ((eq arg 1)
+   ((or (integerp prefix-arg)
+	(eq arg 1))
     (let ((last-command-char ?\ ))
-      (skk-insert arg)))
+      (skk-insert arg prefix-arg)))
    (t
     ;; C-u [SPC] $B$GAw$j$"$jJQ49$r$9$k!#(B
     (when (featurep 'skk-dcomp)
