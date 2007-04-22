@@ -203,7 +203,14 @@
   "skk-latin-modeをonにした上`this-command-keys'に対する関数を呼び出し直す。"
   (message "[context-skk] 日本語入力 off")
   (skk-latin-mode t)
-  (call-interactively (key-binding (this-command-keys))))
+  (let* ((keys (this-command-keys))
+	 ;; `this-command-keys' が tab を返したときなど function-key-map や
+	 ;; key-translation-map に依存している場合はそれらの keymap を参照する
+	 (binding (or (key-binding keys)
+		      (key-binding (lookup-key function-key-map keys))
+		      (key-binding (lookup-key key-translation-map keys)))))
+    (when binding
+      (call-interactively binding))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

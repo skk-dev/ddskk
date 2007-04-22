@@ -1,6 +1,16 @@
 2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* ptexinfmt.el: Sync with emacs-w3m.
+	* ptexinfmt.el: Sync with emacs-w3m, keeping workarounds for
+	`texinfo-format-separate-node' and `texinfo-format-end-node'.
+
+	* context-skk.el (context-skk-insert): When `this-command-keys'
+	are translated via function-key-map or key-translation-map, refer
+	to the keymap.
+
+	* skk-annotation.el (skk-annotation-wikipedia-1): Just stop
+	retrieval on C-g.
+
+2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
 
