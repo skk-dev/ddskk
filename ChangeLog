@@ -5,6 +5,14 @@
 	(skk-aux-large-jisyo):
 	The 2nd arg of `locate-file' must be list of directories.  Fix.
 
+2007-04-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-tooltip-show-at-point):
+	* skk-xemacs.el (skk-tooltip-show-at-point):
+
+	In skk-isearch, refer to `minibuffer-window' instead of
+	`selected-window'.
+
 2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ptexinfmt.el: Sync with emacs-w3m, keeping workarounds for

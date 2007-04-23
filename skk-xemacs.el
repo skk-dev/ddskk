@@ -266,18 +266,24 @@
 
 (defun skk-tooltip-show-at-point (text &optional listing)
   (require 'avoid)
-  (let* ((pos (or (and (eq skk-henkan-mode 'active)
-		       (ignore-errors
-			 (marker-position
-			  skk-henkan-start-point)))
-		  (point)))
+  (let* ((pos (if skk-isearch-switch
+		  (with-current-buffer
+		      (window-buffer (minibuffer-window))
+		    (point-min))
+		(or (and (eq skk-henkan-mode 'active)
+			 (ignore-errors
+			   (marker-position
+			    skk-henkan-start-point)))
+		    (point))))
 	 (P (cdr (skk-xemacs-mouse-position pos)))
 	 (oP (cdr (mouse-position)))
 	 (avoid-destination (if (memq skk-tooltip-mouse-behavior
 				      '(avoid avoid-maybe banish))
 				(mouse-avoidance-banish-destination)
 			       nil))
-	 (window (selected-window))
+	 (window (if skk-isearch-switch
+		     (minibuffer-window)
+		   (selected-window)))
 	 (fontsize (or (cdr (assq 'PIXEL_SIZE
 				  (font-properties (face-font 'default))))
 		       0))

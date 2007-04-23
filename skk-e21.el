@@ -393,8 +393,18 @@
     ;;
     (unless (eq skk-tooltip-mouse-behavior 'follow)
       ;; マウスポインタに依存せず tooptip の位置を決定する。
-      (setq edges (window-inside-pixel-edges (selected-window))
-	    tip-destination (posn-x-y (posn-at-point (point)))
+      (setq edges (window-inside-pixel-edges
+		   (if skk-isearch-switch
+		       (minibuffer-window)
+		     (selected-window)))
+	    tip-destination (posn-x-y
+			     (if skk-isearch-switch
+				 (posn-at-point
+				  (with-current-buffer
+				      (window-buffer (minibuffer-window))
+				    (point-min))
+				  (minibuffer-window))
+			       (posn-at-point (point))))
 	    fontsize (frame-char-height)
 	    ;; x 座標 (左からの)
 	    left (+ (car tip-destination)
