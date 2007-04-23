@@ -1,3 +1,10 @@
+2007-04-23  NAKAMURA Toshikazu <nr-tkz@nifty.com>
+
+	* skk-vars.el (skk-tut-file):
+	(skk-large-jisyo):
+	(skk-aux-large-jisyo):
+	The 2nd arg of `locate-file' must be list of directories.  Fix.
+
 2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ptexinfmt.el: Sync with emacs-w3m, keeping workarounds for

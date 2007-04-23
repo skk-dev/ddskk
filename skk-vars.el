@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.213 2007/04/22 23:31:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.214 2007/04/23 11:06:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 23:31:35 $
+;; Last Modified: $Date: 2007/04/23 11:06:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -343,7 +343,8 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#
 					  (list
 					   (expand-file-name "../../.."
 							     data-directory)))
-			     (locate-file "skk/SKK-JISYO.L" data-directory)))))
+			     (locate-file "skk/SKK-JISYO.L"
+					  (list data-directory))))))
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-dictionary)
 
@@ -362,7 +363,8 @@ Non-nil $B$G$"$l$P!"(BSKK $B%5!<%P!<$,(B active $B$G$J$$;~$K!"(B
 					  (list
 					   (expand-file-name "../../.."
 							     data-directory)))
-			     (locate-file "skk/SKK-JISYO.L" data-directory)))))
+			     (locate-file "skk/SKK-JISYO.L"
+					  (list data-directory))))))
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-dictionary
   :group 'skk-server)
@@ -4069,7 +4071,7 @@ GNU Emacs 21 $B$G$O6/@)E*$K(B `follow' $B$H$J$k!#(B"
 	 (or (locate-file "skk/SKK.tut"
 			  (list (expand-file-name "../../.."
 						  data-directory)))
-	     (locate-file "skk/SKK.tut" data-directory)))
+	     (locate-file "skk/SKK.tut" (list data-directory))))
 	(t
 	 "/usr/local/share/skk/SKK.tut"))
   "*SKK $B%A%e!<%H%j%"%k$N%U%!%$%kL>!#(B
