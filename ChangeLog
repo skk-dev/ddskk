@@ -13,6 +13,17 @@
 	In skk-isearch, refer to `minibuffer-window' instead of
 	`selected-window'.
 
+	* skk-isearch.el (skk-isearch-mode-map): Under FSF Emacs, define
+	keys for digit argument conversion.
+
+	(skk-isearch-wrapper-1):
+	(skk-isearch-start-henkan):
+
+	New functions.
+
+	(digit-argument): Advise XEmacs to call
+	`skk-isearch-start-henkan'.
+
 2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ptexinfmt.el: Sync with emacs-w3m, keeping workarounds for

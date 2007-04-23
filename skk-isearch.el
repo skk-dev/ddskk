@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.49 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.50 2007/04/23 22:13:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/04/23 22:13:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -357,7 +357,30 @@ Optional argument PREFIX is appended if given."
 	(push 'toggle-input-method commands)))
     (skk-isearch-find-keys-define map commands 'skk-isearch-skk-mode))
 
-  (define-key map [?\C-x t] 'isearch-other-control-char)
+  (static-unless (featurep 'xemacs)
+    ;; XEmacs にはないコマンド
+    (define-key map [?\C-x t] 'isearch-other-control-char)
+
+    (define-key map [?\C-0] 'skk-isearch-start-henkan)
+    (define-key map [?\C-1] 'skk-isearch-start-henkan)
+    (define-key map [?\C-2] 'skk-isearch-start-henkan)
+    (define-key map [?\C-3] 'skk-isearch-start-henkan)
+    (define-key map [?\C-4] 'skk-isearch-start-henkan)
+    (define-key map [?\C-5] 'skk-isearch-start-henkan)
+    (define-key map [?\C-6] 'skk-isearch-start-henkan)
+    (define-key map [?\C-7] 'skk-isearch-start-henkan)
+    (define-key map [?\C-8] 'skk-isearch-start-henkan)
+    (define-key map [?\C-9] 'skk-isearch-start-henkan)
+    (define-key map [?\M-0] 'skk-isearch-start-henkan)
+    (define-key map [?\M-1] 'skk-isearch-start-henkan)
+    (define-key map [?\M-2] 'skk-isearch-start-henkan)
+    (define-key map [?\M-3] 'skk-isearch-start-henkan)
+    (define-key map [?\M-4] 'skk-isearch-start-henkan)
+    (define-key map [?\M-5] 'skk-isearch-start-henkan)
+    (define-key map [?\M-6] 'skk-isearch-start-henkan)
+    (define-key map [?\M-7] 'skk-isearch-start-henkan)
+    (define-key map [?\M-8] 'skk-isearch-start-henkan)
+    (define-key map [?\M-9] 'skk-isearch-start-henkan))
 
   ;; Keys for `skk-isearch-delete-char'.
   (let ((commands '(backward-delete-char-untabify
@@ -607,6 +630,9 @@ If the current mode is different from previous, remove it first."
 (defun skk-isearch-wrapper (&rest args)
   (interactive "P")
   (skk-isearch-redo-function)
+  (skk-isearch-wrapper-1))
+
+(defun skk-isearch-wrapper-1 ()
   (let ((string (skk-isearch-search-string)))
     (when string ; nil means on the way to converting to kanji.
       ;; with saving value of old binding...
@@ -634,9 +660,40 @@ If the current mode is different from previous, remove it first."
 	  (set-buffer current-buffer)
 	  (set skk-isearch-overriding-local-map local-map))))))
 
+(defun skk-isearch-start-henkan (&optional digit last-event)
+  "skk-isearch の▽モードで変換を開始する。
+このコマンドは digit-argument の 0-9 に対応するキーに割り当てられる。
+変換には skk-search-prog-list の代わりに skk-search-prog-list-{0-9}
+が参照される。"
+  (interactive)
+  (let ((digit (or digit
+		   (- (logand last-command-char ?\177) ?0)))
+	(event (next-command-event nil (skk-isearch-incomplete-message))))
+    (cond
+     ((equal event (character-to-event ?\ ))
+      ;; XEmacs では eq にはならない
+      (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
+	(when (eq skk-henkan-mode 'on)
+	  (let ((last-command-char skk-start-henkan-char))
+	    (skk-start-henkan 0 digit))))
+      (skk-isearch-mode-message)
+      (skk-isearch-wrapper-1))
+     (t
+      (static-cond
+       ((featurep 'xemacs)
+	(let ((search-nonincremental-instead nil))
+	  (isearch-exit))
+	(skk-unread-event last-event)
+	;; XXX なぜ 2 回 unread する...?
+	(skk-unread-event event)
+	(skk-unread-event event))
+       (t
+	(skk-unread-event event)
+	(isearch-other-control-char)))))))
+
 
 ;;
-;; Pieces of advice.
+;; advices.
 ;;
 
 (defadvice isearch-repeat (after skk-isearch-ad activate compile)
@@ -687,6 +744,20 @@ If the current mode is different from previous, remove it first."
 	     (skk-isearch-mode-string)
 	     (mapconcat 'isearch-text-char-description isearch-string ""))))))
 
+(static-when (featurep 'xemacs)
+  (defadvice digit-argument (around skk-isearch activate)
+    "isearch 内で digit-argument を活用できるよう調整する。"
+    (if (and skk-isearch-switch
+	     (with-current-buffer skk-isearch-working-buffer
+	       (eq skk-henkan-mode 'on)))
+	(let* ((event last-command-event)
+	       (key (and (key-press-event-p event)
+			 (event-key event)))
+	       (digit (and key (characterp key) (>= key ?0) (<= key ?9)
+			   (- key ?0))))
+	  (skk-isearch-start-henkan digit event))
+      ad-do-it)))
+
 ;;; This advice will be enabled before skk-isearch is loaded.
 ;;;###autoload
 (defconst skk-isearch-really-early-advice
@@ -734,6 +805,8 @@ If the current mode is different from previous, remove it first."
     (add-hook 'before-init-hook skk-isearch-really-early-advice))))
 
 (put 'skk-isearch-wrapper 'isearch-command t)
+(put 'skk-isearch-start-henkan 'isearch-command t)
+(put 'digit-argument 'isearch-command t)
 (put 'skk-isearch-keyboard-quit 'isearch-command t)
 (put 'skk-isearch-newline 'isearch-command t)
 (put 'skk-isearch-exit 'isearch-command t)
