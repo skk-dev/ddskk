@@ -1,3 +1,15 @@
+2007-04-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-start-henkan): Modify the 1st arg of
+	`skk-start-henkan' from 0 to 1.
+
+	* skk.el (skk-insert):
+	(skk-start-henkan):
+	(skk-henkan):
+
+	Rename the 2nd arg.  Distinguish C-u and other universal
+	arguments for skk-comp-first and skk-katakana.
+
 2007-04-23  NAKAMURA Toshikazu <nr-tkz@nifty.com>
 
 	* skk-vars.el (skk-tut-file):

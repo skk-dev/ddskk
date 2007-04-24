@@ -1,3 +1,12 @@
+2007-04-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanataki.el (skk-kanagaki-insert):
+	* skk-nicola.el (skk-nicola-self-insert-lshift):
+	(skk-nicola-insert-single):
+	(skk-nicola-space-function):
+
+	Rename optional argument.
+
 2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanataki.el (skk-kanagaki-insert):

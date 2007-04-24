@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.50 2007/04/23 22:13:03 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.51 2007/04/24 23:13:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/23 22:13:03 $
+;; Last Modified: $Date: 2007/04/24 23:13:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -675,7 +675,7 @@ If the current mode is different from previous, remove it first."
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	(when (eq skk-henkan-mode 'on)
 	  (let ((last-command-char skk-start-henkan-char))
-	    (skk-start-henkan 0 digit))))
+	    (skk-start-henkan 1 digit))))
       (skk-isearch-mode-message)
       (skk-isearch-wrapper-1))
      (t

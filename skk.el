@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.400 2007/04/22 23:31:35 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.401 2007/04/24 23:13:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 23:31:35 $
+;; Last Modified: $Date: 2007/04/24 23:13:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -964,11 +964,11 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	(kill-local-variable v)))))
 
 ;;;; kana inputting functions
-(defun skk-insert (&optional arg prefix-arg)
+(defun skk-insert (&optional arg parg)
   "SKK $B$NJ8;zF~NO$r9T$J$&!#(B"
   (interactive "p")
-  (unless prefix-arg
-    (setq prefix-arg current-prefix-arg))
+  (unless parg
+    (setq parg current-prefix-arg))
   (barf-if-buffer-read-only)
   (skk-with-point-move
    (let ((ch last-command-char))
@@ -992,7 +992,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   ;; start conversion.
 	   ((and skk-henkan-mode
 		 (eq ch skk-start-henkan-char))
-	    (skk-start-henkan arg prefix-arg))
+	    (skk-start-henkan arg parg))
 	   ;; just input kana.
 	   ((not (eq skk-henkan-mode 'on))
 	    (skk-kana-input arg))
@@ -1011,8 +1011,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   ;; $B$b(B)$B!#(B
 	   ((and (eq skk-henkan-mode 'on)
 		 (eq ch skk-try-completion-char))
-	    (skk-comp (not (and (= arg 1) ; C-u TAB $B$GJd40%-!<$r=i4|2=$9$k(B
-				(eq last-command 'skk-comp-do)))))
+	    (skk-comp (or (and parg (listp parg)) ; C-u TAB $B$GJd40%-!<$r=i4|2=(B
+			  (not (eq last-command 'skk-comp-do)))))
 	   ((and (eq skk-henkan-mode 'on)
 		 (memq ch (list skk-next-completion-char
 				skk-previous-completion-char))
@@ -1610,7 +1610,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	 (skk-emulate-original-map arg)))))))
 
 ;;; henkan routines
-(defun skk-henkan (&optional prefix-arg)
+(defun skk-henkan (&optional parg)
   "$B%+%J$r4A;zJQ49$9$k%a%$%s%k!<%A%s!#(B"
   (let (mark
 	prototype
@@ -1628,12 +1628,12 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	(skk-change-marker)
 	(setq skk-current-search-prog-list
 	      (cond
-	       ((and (integerp prefix-arg)
-		     (<= 0 prefix-arg)
-		     (<= prefix-arg 9))
+	       ((and (integerp parg)
+		     (<= 0 parg)
+		     (<= parg 9))
 		(let ((list (symbol-value
-			     (intern (format "skk-search-prog-list-%d"
-					     prefix-arg)))))
+			     (intern
+			      (format "skk-search-prog-list-%d" parg)))))
 		  (or list skk-search-prog-list)))
 	       (t
 		skk-search-prog-list))))
@@ -2952,7 +2952,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
       (setq last-command-char last-char)
       (skk-kana-input arg))))
 
-(defun skk-start-henkan (arg &optional prefix-arg)
+(defun skk-start-henkan (arg &optional parg)
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B
 $B"&%b!<%I$G!"%+%?%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$9$k$H!"8+=P$78l$rJ?2>L>$K(B
 $BJQ498e!"4A;zJQ49$r3+;O$9$k!#(B
@@ -2981,7 +2981,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	 (setq skk-henkan-key (buffer-substring-no-properties
 			       skk-henkan-start-point pos))
 	 (when (and skk-katakana
-		    (= arg 1))
+		    ;; C-u $B$r;H$C$F$$$J$$>l9g(B
+		    ;; parg $B$O(B skk-insert() $B$K$*$1$k(B current-prefix-arg
+		    (not (and parg (listp parg))))
 	   (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)))
 	 (when (and skk-okurigana
 		    (string-match "\\* *$" skk-henkan-key))
@@ -3007,7 +3009,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 							 skk-henkan-key))))
 	 (skk-set-marker skk-henkan-end-point pos)
 	 (skk-set-henkan-count 0)
-	 (skk-henkan prefix-arg)
+	 (skk-henkan parg)
 	 (when (and skk-abbrev-mode
 		    (eq skk-henkan-mode 'active))
 	   ;; $B$3$&$7$F$*$+$J$$$HJQ498e!"<!$KF~NO$5$l$kJ8;z$b$^$?(B

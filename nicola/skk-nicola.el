@@ -416,11 +416,11 @@
 (defalias 'skk-nicola-self-insert-rshift 'skk-nicola-self-insert-lshift)
 
 ;;;###autoload
-(defun skk-nicola-self-insert-lshift (&optional arg prefix-arg)
+(defun skk-nicola-self-insert-lshift (&optional arg parg)
   "右または左シフトに割り付ける関数。"
   (interactive "p")
-  (unless prefix-arg
-    (setq prefix-arg current-prefix-arg))
+  (unless parg
+    (setq parg current-prefix-arg))
   ;;
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)
@@ -431,7 +431,7 @@
   (cond
    ((and (eq skk-kanagaki-state 'kana)
 	 (not skk-jisx0201-mode))
-    (skk-nicola-insert arg prefix-arg))
+    (skk-nicola-insert arg parg))
    (t
     (unless last-command-char
       (setq last-command-char ?\ ))
@@ -509,7 +509,7 @@
   nil)
 
 ;;;###autoload
-(defun skk-nicola-insert (&optional arg prefix-arg)
+(defun skk-nicola-insert (&optional arg parg)
   "同時打鍵を認識して、NICOLA かな入力をする。"
   (interactive "*p")
   (let (time1
@@ -526,7 +526,7 @@
     (cond
      ((skk-sit-for skk-nicola-interval t)
       ;; No input in the interval.
-      (skk-nicola-insert-single this-command arg prefix-arg))
+      (skk-nicola-insert-single this-command arg parg))
      (t
       ;; Some key's pressed.
       (setq time2 (skk-nicola-format-time (current-time)))
@@ -646,13 +646,13 @@
       (skk-nicola-insert-double this-command next arg)
       (skk-unread-event third-event)))))))
 
-(defun skk-nicola-insert-single (command arg &optional prefix-arg)
+(defun skk-nicola-insert-single (command arg &optional parg)
   "単独打鍵を処理する。"
   (let ((char last-command-char))
     (case command
       (skk-nicola-self-insert-rshift
        ;; (変換・スペース)
-       (skk-nicola-space-function arg prefix-arg))
+       (skk-nicola-space-function arg parg))
       (skk-nicola-self-insert-lshift
        ;; 左シフト
        (skk-nicola-lshift-function arg))
@@ -947,14 +947,14 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
 	(skk-set-marker skk-nicola-okuri-flag pt)
 	(insert-and-inherit "*")))))
 
-(defun skk-nicola-space-function (&optional arg prefix-arg)
+(defun skk-nicola-space-function (&optional arg parg)
   "親指右キー単独打鍵時の挙動を決める関数。"
   (let ((last-command-char ?\ ))
     (cond
      ((eq skk-henkan-mode 'active)
       (call-interactively 'skk-insert))
      ((eq skk-henkan-mode 'on)
-      (skk-kanagaki-insert arg prefix-arg))
+      (skk-kanagaki-insert arg parg))
      (t
       (self-insert-command arg)))))
 
