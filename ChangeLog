@@ -12,7 +12,7 @@
 	(skk-start-henkan):
 	(skk-henkan):
 
-	Rename the 2nd arg.  Distinguish C-u and other universal
+	Rename the 2nd arg.  Distinguish C-u and other prefix
 	arguments for skk-comp-first and skk-katakana.
 
 2007-04-23  NAKAMURA Toshikazu <nr-tkz@nifty.com>
