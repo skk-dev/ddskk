@@ -1,3 +1,8 @@
+2007-04-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-search-romaji): Search romaji even when the key
+	contains non-hiragana characters.
+
 2007-04-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-isearch.el (skk-isearch-start-henkan): Modify the 1st arg of

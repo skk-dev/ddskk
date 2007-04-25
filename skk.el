@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.401 2007/04/24 23:13:37 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.402 2007/04/25 21:35:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/24 23:13:37 $
+;; Last Modified: $Date: 2007/04/25 21:35:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4355,7 +4355,7 @@ SKK 辞書の候補として正しい形に整形する。"
   (when (and (not skk-henkan-okurigana)
 	     (exec-installed-p "kakasi"))
     (let ((key skk-henkan-key)
-	  words char)
+	  words chars)
       (with-temp-buffer
 	(insert key)
 	;; 接頭辞・接尾辞の入力だったら ">" を消しておく。
@@ -4366,14 +4366,10 @@ SKK 辞書の候補として正しい形に整形する。"
 	(when (looking-at ">")
 	  (delete-char 1))
 	;;
-	(while (and
-		(not (eobp))
-		(or
-		 ;; "ー" では文字種別が判別できないので、ポイントを進める。
-		 (looking-at "ー")
-		 (eq 'unknown (setq char (skk-what-char-type)))))
+	(while (not (eobp))
+	  (add-to-list 'chars (skk-what-char-type))
 	  (forward-char 1))
-	(when (eq char 'hiragana)
+	(when (memq 'hiragana chars)
 	  (skk-romaji-region (point-min) (point-max))
 	  (setq words (list (buffer-string))))
 	(when (and jisx0208 words)
