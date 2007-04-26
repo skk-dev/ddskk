@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.214 2007/04/23 11:06:29 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.215 2007/04/26 22:17:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/23 11:06:29 $
+;; Last Modified: $Date: 2007/04/26 22:17:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2572,6 +2572,76 @@ kakutei-first を選んだ時は、\"しんりn\" を補完すると、
   "*補完プログラムのリスト。
 リストの要素は、`skk-comp-first' が t である時に
 新規補完候補群の生成を開始し、1回の評価につき 1つの候補を返す S 式。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-1 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-1 TAB で使われる。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-2 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-2 TAB で使われる。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-3 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-3 TAB で使われる。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-4 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-4 TAB で使われる。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-5 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-5 TAB で使われる。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-6 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-6 TAB で使われる。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-7 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-7 TAB で使われる。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-8 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-8 TAB で使われる。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-9 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-9 TAB で使われる。"
+  :type '(repeat (sexp))
+  :group 'skk-comp)
+
+(defcustom skk-completion-prog-list-0 nil
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-0 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 

@@ -1,3 +1,30 @@
+2007-04-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-comp.el (skk-comp-do): Modify message when
+	skk-current-completion-prog-list does not contain
+	`skk-comp-by-history'.
+	(skk-comp-get-candidate): When FIRST is integer from 0 to 9, use
+	skk-completion-prog-list-{0-9} instead of skk-completion-prog-list.
+
+	* skk-dcomp.el (skk-comp): When FIRST is integer, reset completion
+	data.
+
+	* skk-vars.el (skk-completion-prog-list-0):
+	(skk-completion-prog-list-1):
+	(skk-completion-prog-list-2):
+	(skk-completion-prog-list-3):
+	(skk-completion-prog-list-4):
+	(skk-completion-prog-list-5):
+	(skk-completion-prog-list-6):
+	(skk-completion-prog-list-7):
+	(skk-completion-prog-list-8):
+	(skk-completion-prog-list-9):
+
+	New user options.
+
+	* skk.el (skk-insert): Pass PARG as is to `skk-comp'.
+	(skk-start-henkan): If PARG is nil, set it to current-prefix-arg.
+
 2007-04-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-search-romaji): Search romaji even when the key

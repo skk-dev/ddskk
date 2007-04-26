@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.402 2007/04/25 21:35:25 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.403 2007/04/26 22:17:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/25 21:35:25 $
+;; Last Modified: $Date: 2007/04/26 22:17:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1011,7 +1011,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   ;; $B$b(B)$B!#(B
 	   ((and (eq skk-henkan-mode 'on)
 		 (eq ch skk-try-completion-char))
-	    (skk-comp (or (and parg (listp parg)) ; C-u TAB $B$GJd40%-!<$r=i4|2=(B
+	    (skk-comp (or parg ; C-u TAB $B$GJd40%-!<$r=i4|2=(B
 			  (not (eq last-command 'skk-comp-do)))))
 	   ((and (eq skk-henkan-mode 'on)
 		 (memq ch (list skk-next-completion-char
@@ -2959,6 +2959,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 $B8+=P$78l$NJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$J$$$?$1$l$P!"(BC-u SPC \(arg $B$,(B 4
 $B$K$J$k(B\) $B$H%?%$%W$9$k!#(B"
   (interactive "*p")
+  (unless parg
+    (setq parg current-prefix-arg))
   (skk-with-point-move
    (cancel-undo-boundary)
    (if (eq skk-henkan-mode 'active)

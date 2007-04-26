@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.41 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.42 2007/04/26 22:17:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/04/26 22:17:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -297,16 +297,19 @@
     (skk-dcomp-cleanup-buffer)))
 
 (defadvice skk-comp (around skk-dcomp-ad activate)
-  (cond
-   ((and skk-dcomp-activate
-	 (skk-dcomp-marked-p))
-    (goto-char skk-dcomp-end-point)
-    (setq this-command 'skk-comp-do)
-    (skk-dcomp-face-off)
-    (skk-set-marker skk-dcomp-start-point nil)
-    (skk-set-marker skk-dcomp-end-point nil))
-   (t
-    ad-do-it)))
+  (cond ((and skk-dcomp-activate
+	      (skk-dcomp-marked-p))
+	 (cond ((integerp (ad-get-arg 0))
+		(skk-dcomp-cleanup-buffer)
+		ad-do-it)
+	       (t
+		(goto-char skk-dcomp-end-point)
+		(setq this-command 'skk-comp-do)
+		(skk-dcomp-face-off)
+		(skk-set-marker skk-dcomp-start-point nil)
+		(skk-set-marker skk-dcomp-end-point nil))))
+	(t
+	 ad-do-it)))
 
 (defadvice skk-comp-start-henkan (around skk-dcomp-ad activate)
    (cond ((and (eq skk-henkan-mode 'on)

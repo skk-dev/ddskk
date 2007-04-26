@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.69 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.70 2007/04/26 22:17:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/04/26 22:17:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -140,6 +140,7 @@
 	(ding)
 	(cond
 	 ((and (string= skk-comp-key "")
+	       (assq 'skk-comp-by-history skk-current-completion-prog-list)
 	       (or (not skk-comp-use-prefix)
 		   (string= skk-comp-prefix "")))
 	  (skk-message "これ以上の履歴はありません"
@@ -160,7 +161,17 @@
 (defun skk-comp-get-candidate (&optional first)
   (when first
     (setq skk-comp-first t
-	  skk-current-completion-prog-list skk-completion-prog-list))
+	  skk-current-completion-prog-list
+	  (cond
+	   ((and (integerp first)
+		 (<= 0 first)
+		 (<= first 9))
+	    (let ((list (symbol-value
+			 (intern
+			  (format "skk-completion-prog-list-%d" first)))))
+	      (or list skk-completion-prog-list)))
+	   (t
+	    skk-completion-prog-list))))
   (let (cand prog)
     (while (and (null cand)
 		skk-current-completion-prog-list)
