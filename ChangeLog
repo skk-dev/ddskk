@@ -1,3 +1,10 @@
+2007-04-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el (skk-eval-string): Format the eval result into
+	string.
+
+	* skk.el (skk-search-function-usage): New function.
+
 2007-04-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-comp.el (skk-comp-do): Modify message when

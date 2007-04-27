@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.113 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.114 2007/04/27 07:07:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/04/27 07:07:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -837,8 +837,9 @@ BUFFER defaults to the current buffer."
 			(functionp (car func)))
 	       (setq face (get-text-property 0 'face string))
 	       (setq string (if face
-				(propertize (eval func) 'face face)
-			      (eval func)))))
+				(propertize (format "%s" (eval func))
+					    'face face)
+			      (format "%s" (eval func))))))
 	   string))
 	(t
 	 string)))

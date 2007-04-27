@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.403 2007/04/26 22:17:06 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.404 2007/04/27 07:07:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/26 22:17:06 $
+;; Last Modified: $Date: 2007/04/27 07:07:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4398,6 +4398,36 @@ SKK 辞書の候補として正しい形に整形する。"
   (if skk-henkan-okurigana
       nil
     (list (identity skk-henkan-key))))
+
+(defun skk-search-function-usage ()
+  "Emacs Lisp 関数の usage を返す。"
+  (unless skk-henkan-okurigana
+    (let* ((symbol (intern (format "%s" skk-henkan-key)))
+	   doc usage arglist result)
+      (when (fboundp symbol)
+	(setq doc (documentation symbol)
+	      usage (help-split-fundoc doc symbol)
+	      arglist (help-function-arglist symbol))
+	(cond
+	 (usage
+	  (setq result (car usage)))
+	 ((listp arglist)
+	  (setq result (format "%S" (help-make-usage symbol arglist))))
+	 ((stringp arglist)
+	  (setq result arglist))
+	 ((let ((fun symbol))
+	    (while (and (symbolp fun)
+			(setq fun (symbol-function fun))
+			(not (setq usage (help-split-fundoc
+					  (documentation fun)
+					  symbol)))))
+	    usage)
+	  (setq result (car usage)))
+	 ((or (stringp def)
+	      (vectorp def))
+	  (setq result (format "\nMacro: %s" (format-kbd-macro def)))))
+	(when result
+	  (list (format "(quote %s)" result)))))))
 
 (defun skk-search-progs (key &optional prog-list remove-note)
   ;; prog-list が省略された時は skk-search-prog-list の全てが対象
