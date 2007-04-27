@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.404 2007/04/27 07:07:25 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.405 2007/04/27 07:09:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/27 07:07:25 $
+;; Last Modified: $Date: 2007/04/27 07:09:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4403,9 +4403,10 @@ SKK 辞書の候補として正しい形に整形する。"
   "Emacs Lisp 関数の usage を返す。"
   (unless skk-henkan-okurigana
     (let* ((symbol (intern (format "%s" skk-henkan-key)))
-	   doc usage arglist result)
+	   def doc usage arglist result)
       (when (fboundp symbol)
-	(setq doc (documentation symbol)
+	(setq def (symbol-function symbol)
+	      doc (documentation symbol)
 	      usage (help-split-fundoc doc symbol)
 	      arglist (help-function-arglist symbol))
 	(cond
