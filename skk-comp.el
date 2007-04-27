@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.70 2007/04/26 22:17:05 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.71 2007/04/27 23:22:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/26 22:17:05 $
+;; Last Modified: $Date: 2007/04/27 23:22:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -409,7 +409,8 @@
 	(t
 	 (setq skk-comp-smart-find-files nil))))
 
-(defun skk-search-smart-find (&optional path not-abbrev-only)
+(defun skk-search-smart-find (&optional path not-abbrev-only
+					without-char-maybe)
   "`smart-find'$B$rMxMQ$7$?JQ49$r9T$J$&!#(B
 SKK abbrev $B%b!<%I$K$F!"1QJ8;z(B + skk-completion-search-char (~)$B$G(B
 $BL$40%9%Z%k$r;XDj$7$FJQ49$9$k$H!"Jd408uJd$,JQ498uJd$H$7$F=P8=$9$k!#(B
@@ -419,7 +420,8 @@ NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B"
 		 skk-abbrev-mode))
     (skk-completion-search `((skk-comp-smart-find ',path))
 			   '((skk-search-identity))
-			   'without-midasi)))
+			   'without-midasi
+			   without-char-maybe)))
 
 (defun skk-smart-find (key &optional path)
   ;; smart-find $B$O(B provide $B$5$l$F$$$J$$(B
@@ -457,7 +459,8 @@ PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$r8+$?$9%7%s%\
 				   (or (fboundp symbol)
 				       (boundp symbol)))))
 	     (setq temp
-		   (sort (all-completions skk-comp-key obarray predicate)
+		   (sort (let ((completion-ignore-case nil))
+			   (all-completions skk-comp-key obarray predicate))
 			 #'string-lessp))
 	     (when temp
 	       ;; read-only $B$J(B object $B$J$I$b$"$k$N$G$=$N$^$^;H$o$J$$(B
@@ -468,7 +471,8 @@ PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$r8+$?$9%7%s%\
 	(t
 	 (setq skk-comp-lisp-symbols nil))))
 
-(defun skk-search-lisp-symbol (&optional predicate not-abbrev-only)
+(defun skk-search-lisp-symbol (&optional predicate not-abbrev-only
+					 without-char-maybe)
   "Lisp symbol $BL>$GJd40$9$k!#(B
 PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$r8+$?$9%7%s%\%k(B
 $B$K8B$C$FJd40$9$k!#(BPREDICATE $B$K$O(B `fboundp', `boundpp', `commandp'
@@ -481,7 +485,8 @@ NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B"
 		 skk-abbrev-mode))
     (skk-completion-search `((skk-comp-lisp-symbol ',predicate))
 			   '((skk-search-identity))
-			   'without-midasi)))
+			   'without-midasi
+			   without-char-maybe)))
 
 (defun skk-comp-restrict-by-prefix (comp-prog)
   "$BJd40%W%m%0%i%`$K$h$jF@$i$l$?8uJd$r(B `skk-comp-prefix' $B$G9J$j9~$`!#(B
@@ -502,7 +507,8 @@ NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B"
       cand)))
 
 ;;;###autoload
-(defun skk-completion-search (comp-prog-list &optional search-prog-list without-midasi)
+(defun skk-completion-search (comp-prog-list &optional search-prog-list
+					     without-midasi without-char-maybe)
   "$BJQ49%-!<$GJd40$r9T$$!"F@$i$l$?3F8+=P$7$G$5$i$K8!:w$9$k!#(B
 COMP-PROG-LIST $B$O(B `skk-completion-prog-list' $B$HF1$87A<0$G!"(B
 $B$3$l$K4^$^$l$kJd404X?t$K$h$C$F!"$^$:JQ49%-!<$+$i8+=P$7$N%j%9%H$rF@$k!#(B
@@ -510,22 +516,28 @@ SEARCH-PROG-LIST $B$O(B `skk-search-prog-list' $B$HF1$87A<0$G!"(B
 $BJd404X?t$K$h$C$FF@$?8+=P$7$r$3$l$K4^$^$l$k8!:w4X?t$K$h$jJQ498uJd$rF@$k!#(B
 $B%G%U%)%k%H$G$O!"Jd40$K$h$C$FF@$i$l$?8+=P$7$HBP1~$9$k8uJd$O%;%C%H$G$"$k$,!"(B
 WITHOUT-MIDASI $B$r;XDj$9$k$H8+=P$7$O>J$+$l$k!#(B"
-  (when (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
-	    skk-completion-search-char)
-    (let* ((key (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
-	   (skk-comp-use-prefix nil)
-	   (midasi-list (skk-comp-get-all-candidates key "" comp-prog-list))
-	   tmp words)
-      (dolist (midasi midasi-list)
-	(setq tmp (skk-search-progs midasi
-				    (or search-prog-list
-					skk-search-prog-list)))
-	(when tmp	; $BJd40BP>]$H8!:wBP>]$OFHN)$J$N$GB8:_$7$J$$;v$b(B
-	  (unless without-midasi
-	    (setq words (nconc words (list midasi))))
-	  ;; SKK $BK\BN$G(B skk-nunion $B$7$F$k$N$G$3$3$G$O9bB.@-=E;k(B
-	  (setq words (nconc words tmp))))
-      words)))
+  (let (search-char)
+    (when (or (setq search-char
+		    (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
+			skk-completion-search-char))
+	      without-char-maybe)
+      (let* ((key (if search-char
+		      (substring skk-henkan-key
+				 0 (1- (length skk-henkan-key)))
+		    skk-henkan-key))
+	     (skk-comp-use-prefix nil)
+	     (midasi-list (skk-comp-get-all-candidates key "" comp-prog-list))
+	     tmp words)
+	(dolist (midasi midasi-list)
+	  (setq tmp (skk-search-progs midasi
+				      (or search-prog-list
+					  skk-search-prog-list)))
+	  (when tmp	; $BJd40BP>]$H8!:wBP>]$OFHN)$J$N$GB8:_$7$J$$;v$b(B
+	    (unless without-midasi
+	      (setq words (nconc words (list midasi))))
+	    ;; SKK $BK\BN$G(B skk-nunion $B$7$F$k$N$G$3$3$G$O9bB.@-=E;k(B
+	    (setq words (nconc words tmp))))
+	words))))
 
 (defalias 'skk-previous-completion 'skk-comp-previous)
 (defalias 'skk-start-henkan-with-completion 'skk-comp-start-henkan)

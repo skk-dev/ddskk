@@ -1,5 +1,14 @@
 2007-04-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-comp.el (skk-comp-lisp-symbol): Bind completion-ignore-case
+	to nil.
+
+	(skk-search-lisp-symbol):
+	(skk-search-smart-find):
+	(skk-completion-search):
+
+	Take optional argument WITHOUT-CHAR-MAYBE.
+
 	* skk-macs.el (skk-eval-string): Format the eval result into
 	string.
 
