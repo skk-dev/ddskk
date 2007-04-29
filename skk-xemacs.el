@@ -264,7 +264,7 @@
     ;; (text . (x . y))
     (cons text (cons columns lines))))
 
-(defun skk-tooltip-show-at-point (text &optional listing)
+(defun skk-tooltip-show-at-point (text &optional situation)
   (require 'avoid)
   (let* ((pos (if skk-isearch-switch
 		  (with-current-buffer
@@ -294,7 +294,7 @@
 		      (+ (car P) (/ (1+ fontsize) 2)))
 		  (frame-parameter (selected-frame) 'left)))
 	 (top (+ (cadr edges)
-		 (if listing
+		 (if (eq situation 'listing)
 		     0
 		   (* 7 (/ (1+ fontsize) 2)))
 		 (or (current-pixel-row window pos)
@@ -354,7 +354,11 @@
 	(select-window (frame-rightmost-window (selected-frame) 0))
 	(mouse-avoidance-banish-mouse)))
     ;;
-    (skk-tooltip-show-1 text listing)
+    (skk-tooltip-show-1 text (eq situation 'listing))
+    ;;
+    (when (eq situation 'annotation)
+      (skk-annotation-wikipedia-message))
+    ;;
     (setq event (next-command-event))
     (cond
      ((skk-key-binding-member (skk-event-key event)
@@ -374,7 +378,7 @@
 			   'skk-previous-candidate
 			   skk-j-mode-map))
 		     0)))
-	     (when listing
+	     (when (eq situation 'listing)
 	       ;; skk-henkan まで一気に throw する。
 	       (throw 'unread nil)))
 	    (t

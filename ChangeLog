@@ -1,3 +1,35 @@
+2007-04-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-message): New
+	function.
+	(skk-annotation-wait-for-input): Call it unless digit is set.
+
+	* skk-dcomp.el (skk-dcomp-after-delete-backward-char): Call
+	`skk-henkan-on-message'.
+
+	* skk-e21.el (skk-tooltip-show-at-point):
+	* skk-xemacs.el (skk-tooltip-show-at-point):
+
+	Rename optional 2nd argument.  Call
+	`skk-annotation-wikipedia-message' for annotation.
+
+	* skk-vars.el (skk-verbose):
+	(skk-verbose-wait):
+	(skk-henkan-on-message):
+	(skk-annotation-wikipedia-message):
+
+	New variables.
+
+	* skk.el (skk-setup-verbose-messages):
+	(skk-henkan-on-message):
+
+	New functions.
+
+	(skk-insert):
+	(skk-previous-candidate):
+
+	Call `skk-henkan-on-message'.
+
 2007-04-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Remove

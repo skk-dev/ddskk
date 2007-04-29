@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.110 2007/04/27 23:34:54 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.111 2007/04/29 01:38:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/27 23:34:54 $
+;; Last Modified: $Date: 2007/04/29 01:38:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -280,7 +280,7 @@
 	   ;; do nothing
 	   (setq inhibit-wait t))
 	  ((and window-system skk-show-tooltip)
-	   (skk-tooltip-show-at-point annotation))
+	   (skk-tooltip-show-at-point annotation 'annotation))
 	  ((and skk-annotation-show-as-message
 		(not (or skk-isearch-switch
 			 (skk-in-minibuffer-p))))
@@ -297,6 +297,9 @@
     (while (and list
 		(or (eq this-command 'skk-annotation-wikipedia-region)
 		    (eq skk-henkan-mode 'active))
+		(if digit
+		    t
+		  (skk-annotation-wikipedia-message))
 		(condition-case nil
 		    (progn
 		      (setq event (next-command-event)
@@ -403,6 +406,27 @@
 	     (setq list nil))))
     (when event
       (skk-unread-event event))))
+
+;;;###autoload
+(defun skk-annotation-wikipedia-message ()
+  (when skk-verbose
+    (unless skk-annotation-wikipedia-message
+      (let* ((key (key-description skk-annotation-wikipedia-key))
+	     (string (format "{prefix %s}" (if (equal key "TAB")
+					       "C-i"
+					     key)))
+	     (i 0)
+	     source)
+	(while (setq source (nth i skk-annotation-wikipedia-sources))
+	  (setq string (format "%s[C-%d]%s" string (1+ i) source))
+	  (setq i (1+ i)))
+	(setq skk-annotation-wikipedia-message string)))
+    (condition-case nil
+	(when (skk-sit-for skk-verbose-wait t)
+	  (message "%s" skk-annotation-wikipedia-message))
+      (quit
+       (keyboard-quit))))
+  t)
 
 (defun skk-annotation-find-url (string)
   (let (url)

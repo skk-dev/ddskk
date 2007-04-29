@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.215 2007/04/26 22:17:06 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.216 2007/04/29 01:38:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/26 22:17:06 $
+;; Last Modified: $Date: 2007/04/29 01:38:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1512,6 +1512,23 @@ skk-init-file の方が新しいときは、そのバイトコンパイル済ファイルを消す。"
   :type 'boolean
   :group 'skk-misc)
 
+(defcustom skk-verbose nil
+  "*Non-nil であればきもち多めなメッセージを表示する。"
+  :type 'boolean
+  :group 'skk-misc)
+
+(defcustom skk-verbose-wait 2.5
+  "*きもち多めなメッセージを表示するまでの待ち時間 (秒)。"
+  :type 'number
+  :group 'skk-misc)
+
+(defcustom skk-henkan-on-message nil
+  "*▽モードで表示するきもち多めなメッセージの内容。
+標準では自動設定する。"
+  :type '(radio (string :tag "内容を指定")
+		(const :tag "自動設定" nil))
+  :group 'skk-misc)
+
 (defcustom skk-mode-hook nil
   "*SKK を起動したときのフック。
 他に、`skk-auto-fill-mode-hook', `skk-load-hook', `skk-init-file' でも
@@ -2435,6 +2452,9 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 	   (>= emacs-major-version 22))
       t
     'untested))
+
+(defvar skk-annotation-wikipedia-message nil
+  "SKK Wikipedia 利用方法を示すメッセージ (自動設定)。")
 
 (skk-deflocalvar skk-annotation-mode nil
   "Non-nil であれば、annotation モードであることを示す。")

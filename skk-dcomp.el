@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.42 2007/04/26 22:17:05 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.43 2007/04/29 01:38:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/26 22:17:05 $
+;; Last Modified: $Date: 2007/04/29 01:38:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -182,6 +182,7 @@
     (skk-set-marker skk-dcomp-end-point nil)
     (setq skk-comp-stack nil)))
 
+;;;###autoload
 (defun skk-dcomp-after-delete-backward-char ()
   (when (and skk-dcomp-activate
 	     skk-mode
@@ -193,7 +194,9 @@
     (when (and skk-abbrev-mode
 	       skk-use-look)
       (setq skk-look-completion-words nil))
-    (skk-dcomp-do-completion (point))))
+    (skk-dcomp-do-completion (point)))
+  ;; dcomp との順番制御のため、ここで呼ぶ
+  (skk-henkan-on-message))
 
 ;;; advices.
 ;; main dynamic completion engine.

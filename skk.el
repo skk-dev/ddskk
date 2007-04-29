@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.405 2007/04/27 07:09:19 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.406 2007/04/29 01:38:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/27 07:09:19 $
+;; Last Modified: $Date: 2007/04/29 01:38:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -637,6 +637,35 @@ dependent."
     advertised-undo)
   'skk-undo))
 
+(defun skk-setup-verbose-messages ()
+  (unless skk-henkan-on-message
+    (let ((string "{prefix$BJQ49(B}[C-6]%s[C-7]%s[C-8]%s[C-9]%s[C-0]%s")
+	  (i 10)
+	  list val)
+      (while (> i 5)
+	(setq val (caar (symbol-value
+			 (intern
+			  (format "skk-search-prog-list-%d"
+				  (if (> i 9)
+				      (- i 10)
+				    i))))))
+	(setq list
+	      (cons (cond ((eq val 'skk-search-identity)
+			   "$BL5JQ49(B")
+			  ((eq val 'skk-search-katakana)
+			   "$B%+%?%+%J(B")
+			  ((eq val 'skk-search-hankaku-katakana)
+			   "$BH>3Q%+%J(B")
+			  ((eq val 'skk-search-jisx0208-romaji)
+			   "$BA43Q%m!<%^(B")
+			  ((eq val 'skk-search-romaji)
+			   "$B%m!<%^(B")
+			  (t
+			   "$B%f!<%6Dj5A(B"))
+		    list))
+	(setq i (1- i)))
+      (setq skk-henkan-on-message (apply 'format string list)))))
+
 (defun skk-compile-init-file-maybe ()
   "$BI,MW$J$i(B `skk-init-file' $B$r%P%$%H%3%s%Q%$%k$9$k!#(B
 `skk-byte-compile-init-file' $B$,(B non-nil $B$N>l9g$G!"(B`skk-init-file' $B$r%P%$%H%3(B
@@ -1020,7 +1049,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	    (skk-comp-previous/next ch))
 	   (t
 	   ;; just input Kana.
-	    (skk-kana-input arg))))))
+	    (skk-kana-input arg)))
+     ;; verbose message
+     (skk-henkan-on-message))))
 
 (defun skk-process-prefix-or-suffix (&optional arg)
   "$B@\F,<-$^$?$O@\Hx<-$NF~NO$r3+;O$9$k!#(B
@@ -2410,7 +2441,9 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
        ;;
        (when (and skk-abbrev-mode
 		  (= (skk-henkan-count) -1))
-	 (skk-abbrev-mode-on)))))))
+	 (skk-abbrev-mode-on)))))
+   ;; verbose message
+   (skk-henkan-on-message)))
 
 (defun skk-undo (&optional arg)
   "`undo' $B$N5!G=$r!"(BSKK $B$H$N@09g@-$r9M$($FD4@a$9$k!#(B"
@@ -2951,6 +2984,19 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (when normal
       (setq last-command-char last-char)
       (skk-kana-input arg))))
+
+;;;###autoload
+(defun skk-henkan-on-message ()
+  (condition-case nil
+      (when (and skk-verbose
+		 (eq skk-henkan-mode 'on)
+		 (< (marker-position skk-henkan-start-point) (point))
+		 (skk-sit-for skk-verbose-wait t))
+	(skk-setup-verbose-messages)
+	(message "%s" skk-henkan-on-message))
+    (quit
+     (keyboard-quit)))
+  nil)
 
 (defun skk-start-henkan (arg &optional parg)
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B

@@ -342,7 +342,7 @@
     ;; (text . (x . y))
     (cons text (cons columns lines))))
 
-(defun skk-tooltip-show-at-point (text &optional listing)
+(defun skk-tooltip-show-at-point (text &optional situation)
   (require 'tooltip)
   ;; Emacs 21 では、マウスポインタ非依存の位置決定ができない (と思われる)
   (when (eq emacs-major-version 21)
@@ -488,6 +488,10 @@
 				     (cons 'left left)))))
     ;;
     (skk-tooltip-show-1 text parameters)
+    ;;
+    (when (eq situation 'annotation)
+      (skk-annotation-wikipedia-message))
+    ;;
     (setq event (next-command-event))
     (cond
      ((skk-key-binding-member (skk-event-key event)
@@ -506,7 +510,7 @@
 	       (aref (car (where-is-internal 'skk-previous-candidate
 					     skk-j-mode-map))
 		     0)))
-	     (when listing
+	     (when (eq situation 'listing)
 	       ;; skk-henkan まで一気に throw する。
 	       (throw 'unread nil)))
 	    (t
