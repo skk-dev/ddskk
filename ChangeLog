@@ -3,6 +3,7 @@
 	* skk-annotation.el (skk-annotation-wikipedia-message): New
 	function.
 	(skk-annotation-wait-for-input): Call it unless digit is set.
+	(skk-annotation-wikipedia-1): Remove <code> tag.
 
 	* skk-dcomp.el (skk-dcomp-after-delete-backward-char): Call
 	`skk-henkan-on-message'.
