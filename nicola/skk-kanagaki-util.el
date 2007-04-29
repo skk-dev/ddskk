@@ -233,16 +233,6 @@
   ;;
   ;; というふうに考えている。
   (interactive "*p")
-  ;; skk-dcomp 利用時の際の使い勝手をよくする。
-  (when (and (featurep 'skk-dcomp)
-	     (eq skk-henkan-mode 'on)
-	     (markerp skk-dcomp-end-point)
-	     (marker-position skk-dcomp-end-point))
-    (delete-region
-     skk-dcomp-end-point
-     (if (< (point) (marker-position skk-dcomp-start-point))
-	 skk-dcomp-start-point
-       (point))))
   ;;
   (cond
    ((eq skk-henkan-mode 'active)
@@ -259,7 +249,10 @@
     (with-current-buffer skk-isearch-current-buffer
       (skk-isearch-delete-char arg)))
    (t
-    (delete-backward-char arg))))
+    (delete-backward-char arg)))
+  ;;
+  (when skk-dcomp-activate
+    (skk-dcomp-after-delete-backward-char)))
 
 ;;;###autoload
 (defun skk-kanagaki-esc (&optional arg)

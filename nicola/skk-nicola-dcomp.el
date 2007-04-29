@@ -38,7 +38,7 @@
 			 (featurep 'skk-nicola))
 		(require 'skk-nicola-dcomp))))
 
-(defadvice skk-nicola-self-insert-lshift (around skk-nicola-dcomp activate)
+(defadvice skk-nicola-self-insert-lshift-1 (around skk-nicola-dcomp activate)
   (cond
    ((or (not skk-dcomp-activate)
 	skk-hint-inhibit-dcomp

@@ -1,3 +1,11 @@
+2007-04-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-util.el (skk-kanagaki-bs): Call
+	`skk-dcomp-after-delete-backward-char'.
+	* skk-nicola.el (skk-nicola-self-insert-lshift-1): New function.
+	* skk-nicola-dcomp.el: Advise it instead of
+	`skk-nicola-self-insert-lshift'.
+
 2007-04-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanataki.el (skk-kanagaki-insert):

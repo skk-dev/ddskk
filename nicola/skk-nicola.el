@@ -421,7 +421,11 @@
   (interactive "p")
   (unless parg
     (setq parg current-prefix-arg))
-  ;;
+  (skk-nicola-self-insert-lshift-1 arg parg)
+  ;; verbose message
+  (skk-henkan-on-message))
+
+(defun skk-nicola-self-insert-lshift-1 (arg parg)
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)
 		     (marker-position skk-nicola-okuri-flag)))
