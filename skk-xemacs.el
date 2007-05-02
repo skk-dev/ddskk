@@ -357,7 +357,7 @@
     (skk-tooltip-show-1 text (eq situation 'listing))
     ;;
     (when (eq situation 'annotation)
-      (skk-annotation-wikipedia-message))
+      (skk-annotation-message 'annotation))
     ;;
     (setq event (next-command-event))
     (cond

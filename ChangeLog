@@ -1,3 +1,17 @@
+2007-05-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el: Rename `skk-annotation-wikipedia-message' to
+	`skk-annotation-message'.
+	(skk-annotation-message): Show skk-annotation-message as well as
+	skk-annotation-wikipedia-message.
+
+	* skk-e21.el (skk-tooltip-show-at-point):
+	* skk-xemacs.el (skk-tooltip-show-at-point):
+
+	Call `skk-annotation-message'.
+
+	* skk-vars.el (skk-annotation-message): New variable.
+
 2007-04-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-message): New

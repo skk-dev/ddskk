@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.114 2007/04/29 22:44:17 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.115 2007/05/02 15:44:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/04/29 22:44:17 $
+;; Last Modified: $Date: 2007/05/02 15:44:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -299,7 +299,10 @@
 		    (eq skk-henkan-mode 'active))
 		(if digit
 		    t
-		  (skk-annotation-wikipedia-message))
+		  (skk-annotation-message (if (and annotation
+						   (> (length annotation) 0))
+					      'annotation
+					    nil)))
 		(condition-case nil
 		    (progn
 		      (setq event (next-command-event)
@@ -408,7 +411,7 @@
       (skk-unread-event event))))
 
 ;;;###autoload
-(defun skk-annotation-wikipedia-message ()
+(defun skk-annotation-message (&optional situation)
   (when skk-verbose
     (unless skk-annotation-wikipedia-message
       (let* ((key (key-description skk-annotation-wikipedia-key))
@@ -421,9 +424,32 @@
 	  (setq string (format "%s[C-%d]%s" string (1+ i) source))
 	  (setq i (1+ i)))
 	(setq skk-annotation-wikipedia-message string)))
+    (unless skk-annotation-message
+      (let* ((key-copy (or (key-description skk-annotation-copy-key)
+			   "未定義"))
+	     (key-browse (or (key-description skk-annotation-browse-key)
+			     "未定義")))
+	  (setq skk-annotation-message
+		(format "{アノテーション}[%s]コピー[%s]URLブラウズ"
+			key-copy key-browse))))
     (condition-case nil
-	(when (skk-sit-for skk-verbose-wait)
-	  (message "%s" skk-annotation-wikipedia-message))
+	(cond ((eq situation 'annotation)
+	       (if (skk-sit-for skk-verbose-wait)
+		   (let ((i 0))
+		     (catch 'loop
+		       (while (< i 20)
+			 (message "%s" skk-annotation-message)
+			 (unless (skk-sit-for 5.5)
+			   (catch 'loop nil))
+			 (message "%s" skk-annotation-wikipedia-message)
+			 (unless (skk-sit-for 5.5)
+			   (catch 'loop nil))
+			 (setq i (1+ i))))
+		     (message nil))
+		 nil))
+	      (t
+	       (when (skk-sit-for skk-verbose-wait)
+		 (message "%s" skk-annotation-wikipedia-message))))
       (quit
        (keyboard-quit))))
   t)
@@ -465,7 +491,7 @@
 	  (when minibuf-p
 	    (select-window (minibuffer-window)))
 	  ;;
-	  (skk-annotation-wikipedia-message)
+	  (skk-annotation-message 'annotation)
 	  ;;
 	  (setq event (next-command-event))
 	  (when (skk-key-binding-member

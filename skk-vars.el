@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.216 2007/04/29 01:38:17 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.217 2007/05/02 15:44:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/29 01:38:17 $
+;; Last Modified: $Date: 2007/05/02 15:44:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2455,6 +2455,9 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 
 (defvar skk-annotation-wikipedia-message nil
   "SKK Wikipedia 利用方法を示すメッセージ (自動設定)。")
+
+(defvar skk-annotation-message nil
+  "SKK Annotation 利用方法を示すメッセージ (自動設定)。")
 
 (skk-deflocalvar skk-annotation-mode nil
   "Non-nil であれば、annotation モードであることを示す。")

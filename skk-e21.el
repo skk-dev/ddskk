@@ -490,7 +490,7 @@
     (skk-tooltip-show-1 text parameters)
     ;;
     (when (eq situation 'annotation)
-      (skk-annotation-wikipedia-message))
+      (skk-annotation-message situation))
     ;;
     (setq event (next-command-event))
     (cond
