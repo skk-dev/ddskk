@@ -1,3 +1,11 @@
+2007-05-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-message):
+	* skk.el (skk-henkan-on-message):
+
+	Do not show verbose message when skk-isearch is on or point is in
+	minibuffer.
+
 2007-05-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el: Rename `skk-annotation-wikipedia-message' to

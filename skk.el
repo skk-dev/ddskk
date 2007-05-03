@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.407 2007/04/29 02:24:36 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.408 2007/05/03 14:07:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/29 02:24:36 $
+;; Last Modified: $Date: 2007/05/03 14:07:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2989,6 +2989,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 (defun skk-henkan-on-message ()
   (condition-case nil
       (when (and skk-verbose
+		 (not (or skk-isearch-switch
+			  (skk-in-minibuffer-p)))
 		 (eq skk-henkan-mode 'on)
 		 (< (marker-position skk-henkan-start-point) (point))
 		 (skk-sit-for skk-verbose-wait))
