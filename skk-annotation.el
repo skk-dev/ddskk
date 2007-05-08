@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.116 2007/05/03 14:07:33 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.117 2007/05/08 14:45:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/05/03 14:07:33 $
+;; Last Modified: $Date: 2007/05/08 14:45:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1014,6 +1014,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		(skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
 		(skk-annotation-wikipedia-remove-nested "<table.*>"
 							"</table>")
+		(skk-annotation-wikipedia-remove-nested "\
+<div class=\"\\(infl-table\\|thumb.+\\)\".*>" "</div>" "<div.*>")
 		;;
 		(goto-char (point-min))
 		(while (re-search-forward
@@ -1036,7 +1038,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		(when (re-search-forward
 		       "<h2>.*<span class=\"mw-headline\">\
 \\(<a href=.+>\\)?\
-\\(English\\|Translingual\\)\
+\\(English\\|Translingual\\|Latin\\)\
 \\(</a>\\)?\
 </span></h2>"
 		       nil t)
@@ -1053,9 +1055,9 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\|Catalan\\|Crimean Tatar\\|Croatian\
 \\|Czech\\\|Danish\\|Dutch\\|Egyptian\\|Esperanto\\|Estonian\\|Faroese\
 \\|Finnish\\|French\\|German\\|Greek\\|Hungarian\\|Interlingua\\|Irish\
-\\|Italian\\|Japanese\\|Krisa\\|Latin\\|Mandarin\\|Northern Sami\
+\\|Italian\\|Japanese\\|Krisa\\|Kurdish\\|Latin\\|Mandarin\\|Northern Sami\
 \\|Norwegian\\|Novial\\|Old English\\|Polish\\|Potuguese\\|Romanian\
-\\|Scottish Gaelic\\|Serbian\\|Slovak\\|Slovene\\|Spanish\\|Swahili\
+\\|Scots\\|Scottish Gaelic\\|Serbian\\|Slovak\\|Slovene\\|Spanish\\|Swahili\
 \\|Swedish\\|Torres Strait Creole\\|Turkish\\|Tz'utujil\\)\
 \\(</a>\\)?\
 </span></h2>"
@@ -1121,6 +1123,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		(skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
 		(skk-annotation-wikipedia-remove-nested "<table.*>"
 							"</table>")
+		(skk-annotation-wikipedia-remove-nested "\
+<div class=\"\\(infl-table\\|thumb.+\\)\".*>" "</div>" "<div.*>")
 		;; Wikipedia $B$X$N0FFb$r=|$/(B
 		(goto-char (point-min))
 		(while (re-search-forward "\
@@ -1366,23 +1370,28 @@ Disambiguation\"" nil t)))
 	  (t
 	   nil))))
 
-(defun skk-annotation-wikipedia-remove-nested (btag etag)
+(defun skk-annotation-wikipedia-remove-nested (btag etag &optional ibtag)
   "<dl> <ul> <table> $B$J$I$NF~$l;R9=B$$r=|5n$9$k!#(B"
-  (let (point pt1 pt2)
+  (unless ibtag
+    (setq ibtag btag))
+  (let (point pt1 pt2 orig-btag)
     (setq point nil)
     (goto-char (point-min))
     (while (re-search-forward btag nil t)
       (setq point (match-beginning 0))
       (cond
        ((not (search-forward etag nil t))
-	(delete-region point (point-max))
+	(delete-region point (match-end 0))
 	(goto-char (point-min)))
        (t
 	(setq pt2 (match-end 0))
 	(goto-char (1+ point))
 	(cond
-	 ((not (re-search-forward btag nil t))
+	 ((not (re-search-forward ibtag nil t))
 	  (delete-region point pt2)
+	  (when orig-btag
+	    (setq btag      orig-btag
+		  orig-btag nil))
 	  (goto-char (point-min)))
 	 (t
 	  (setq pt1 (match-beginning 0))
@@ -1390,9 +1399,15 @@ Disambiguation\"" nil t)))
 	   ((< pt2 pt1)
 	    (delete-region point pt2)
 	    (setq point nil)
+	    (when orig-btag
+	      (setq btag      orig-btag
+		    orig-btag nil))
 	    (goto-char (point-min)))
 	   (t
-	    (goto-char (match-beginning 0)))))))))))
+	    (unless orig-btag
+	      (setq orig-btag btag
+		    btag      ibtag))
+	    (goto-char pt1))))))))))
 
 (defun skk-annotation-wikipedia-retrieved (&rest args)
   (cond ((or (member "deleted\n" (assq 'error (memq :error (car args))))
