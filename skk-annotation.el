@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.117 2007/05/08 14:45:26 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.118 2007/05/08 19:01:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/05/08 14:45:26 $
+;; Last Modified: $Date: 2007/05/08 19:01:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -957,15 +957,6 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\(<a href=.+>\\)?.+$B8l(B\\(</a>\\)?</span></h2>"
 			 nil t)
 		    (delete-region (match-beginning 0) (point-max))))
-		;; <div> $B$r=|5n$9$k(B
-		(goto-char (point-min))
-		(while (re-search-forward
-			"<div class=\"\\(infl-table\\)\".*>" nil t)
-		  (setq point (match-beginning 0))
-		  (goto-char point)
-		  (search-forward "</div>" nil t)
-		  (delete-region point (point))
-		  (goto-char point))
 		;;
 		(setq point top)
 		(goto-char (point-min))
@@ -1012,10 +1003,10 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
 		(skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
 		(skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
-		(skk-annotation-wikipedia-remove-nested "<table.*>"
+		(skk-annotation-wikipedia-remove-nested "<table[^<]*>"
 							"</table>")
 		(skk-annotation-wikipedia-remove-nested "\
-<div class=\"\\(infl-table\\|thumb.+\\)\".*>" "</div>" "<div.*>")
+<div class=\"\\(infl-table\\|thumb.+\\)\"[^<]*>" "</div>" "<div[^<]*>")
 		;;
 		(goto-char (point-min))
 		(while (re-search-forward
@@ -1051,11 +1042,12 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			 ;; XXX $B$^$@IT40A4(B
 			 "<h2>.*<span class=\"mw-headline\">\
 \\(<a href=.+>\\)?\
-\\(Afrikaans\\|Ainu\\|Amoy\\|Amuzgo\\|Aragonese\\|Bosnian\\|Cantonese\
+\\(Afrikaans\\|Ainu\\|Amoy\\|Amuzgo\\|Aragonese\\|Bosnian\\|Breton\\|Cantonese\
 \\|Catalan\\|Crimean Tatar\\|Croatian\
 \\|Czech\\\|Danish\\|Dutch\\|Egyptian\\|Esperanto\\|Estonian\\|Faroese\
 \\|Finnish\\|French\\|German\\|Greek\\|Hungarian\\|Interlingua\\|Irish\
-\\|Italian\\|Japanese\\|Krisa\\|Kurdish\\|Latin\\|Mandarin\\|Northern Sami\
+\\|Italian\\|Japanese\\|Korean\\|Krisa\\|Kurdish\\|Latin\\|Mandarin\
+\\|Murrinh-Patha\\|Northern Sami\
 \\|Norwegian\\|Novial\\|Old English\\|Polish\\|Potuguese\\|Romanian\
 \\|Scots\\|Scottish Gaelic\\|Serbian\\|Slovak\\|Slovene\\|Spanish\\|Swahili\
 \\|Swedish\\|Torres Strait Creole\\|Turkish\\|Tz'utujil\\)\
@@ -1063,15 +1055,6 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 </span></h2>"
 			 nil t)
 		    (delete-region (match-beginning 0) (point-max))))
-		;; <div> $B$r=|5n$9$k(B
-		(goto-char (point-min))
-		(while (re-search-forward
-			"<div class=\"\\(infl-table\\)\".*>" nil t)
-		  (setq point (match-beginning 0))
-		  (goto-char point)
-		  (search-forward "</div>" nil t)
-		  (delete-region point (point))
-		  (goto-char point))
 		;;
 		(setq point top)
 		(goto-char (point-min))
@@ -1084,6 +1067,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 \\|Conjunction\\|Interjection\\|Numeral\\|Prefix\\|Suffix\\|Particle\
 \\|Preposition\\|Contraction\\|Determiner\\|Demonstrative determiner\
 \\|Interrogative determiner\\|Pronoun\\|Pronominal possessive adjective\
+\\|Demonstrative pronoun\
 \\|Interrogative pronoun\\|Relative pronoun\\|Auxiliary verb\\( form\\)?\
 \\|Indefinite article\\|Abbreviation\\|Initialism\\|Acronym\\|Symbol\
 \\|Han character\\)\
@@ -1121,10 +1105,10 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
 		(skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
 		(skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
-		(skk-annotation-wikipedia-remove-nested "<table.*>"
+		(skk-annotation-wikipedia-remove-nested "<table[^<]*>"
 							"</table>")
 		(skk-annotation-wikipedia-remove-nested "\
-<div class=\"\\(infl-table\\|thumb.+\\)\".*>" "</div>" "<div.*>")
+<div class=\"\\(infl-table\\|thumb.+\\)\"[^<]*>" "</div>" "<div[^<]*>")
 		;; Wikipedia $B$X$N0FFb$r=|$/(B
 		(goto-char (point-min))
 		(while (re-search-forward "\
@@ -1132,15 +1116,6 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		  (setq point (match-beginning 0))
 		  (forward-line 2)
-		  (delete-region point (point)))
-		;; $BM>7W$J(B <table> $B$r=|$/(B
-		(setq point nil)
-		(goto-char (point-min))
-		(while (re-search-forward "\
-<table .*class=\"infl-table\".*>"
-					  nil t)
-		  (setq point (point))
-		  (search-forward "</table>" nil t)
 		  (delete-region point (point)))
 		;;
 		(goto-char (point-min))
@@ -1379,6 +1354,7 @@ Disambiguation\"" nil t)))
     (goto-char (point-min))
     (while (re-search-forward btag nil t)
       (setq point (match-beginning 0))
+      (goto-char point)
       (cond
        ((not (search-forward etag nil t))
 	(delete-region point (match-end 0))

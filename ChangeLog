@@ -1,7 +1,8 @@
 2007-05-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Support Latin.
-	Remove Kurdish and Scots.  Remove more <div>s.
+	Remove Kurdish, Korean, Breton, Murrinh-Patha and Scots.  Support
+	more parts of speech.  Remove more <div>s.
 	(skk-annotation-wikipedia-remove-nested): Accept optional argument
 	IBTAG.
 
