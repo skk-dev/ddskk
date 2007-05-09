@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.28 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.29 2007/05/09 09:32:49 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/05/09 09:32:49 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -36,8 +36,7 @@
 
 (eval-when-compile
   (require 'advice)
-  (require 'poe)
-  (require 'static))
+  (require 'poe))
 
 ;; Frame parameters.
 (defsubst get-apparent-cursor-color ()
@@ -77,79 +76,12 @@
 (defvar buffer-local-background-color nil)
 (make-variable-buffer-local 'buffer-local-background-color)
 
-;; Macros.
-(defmacro ccc-defadvice (function &rest everything-else)
-  ;;  Basically, advice to an interactive subr doesn't need interactive
-  ;; forms specified if there is no `ad-get-arg' or `ad-set-arg'.  But
-  ;; problem occurs when interactive subrs are called in keyboard macros,
-  ;; where `interactive-p' always returns nil.
-  ;;  Giving interactive forms to an advice should be avoided if possible,
-  ;; since this can override the user's own advice for modifying interactive
-  ;; specs.
-  (let ((origfunc (and (fboundp function)
-		       (if (ad-is-advised function)
-			   (ad-get-orig-definition function)
-			 (symbol-function function))))
-	interactive)
-    (unless
-	(or (not origfunc)
-	    (not (subrp origfunc))
-	    (memq function ; XXX possibilly Emacs version dependent
-		  ;; built-in commands which do not have interactive specs.
-		  '(abort-recursive-edit
-		    bury-buffer
-		    delete-frame
-		    delete-window
-		    exit-minibuffer)))
-      ;; check if advice definition has a interactive call or not.
-      (setq interactive
-	    (cond
-	     ((and (stringp (nth 1 everything-else)) ; have document
-		   (eq 'interactive (car-safe (nth 2 everything-else))))
-	      (nth 2 everything-else))
-	     ((eq 'interactive (car-safe (nth 1 everything-else)))
-	      (nth 1 everything-else))))
-      (cond
-       ((and (commandp origfunc)
-	     (not interactive))
-	(message
-		 "\
-*** WARNING: Adding advice to subr %s\
- without mirroring its interactive spec ***"
-		 function))
-       ((and (not (commandp origfunc))
-	     interactive)
-	(setq everything-else (delq interactive everything-else))
-	(message
-	 "\
-*** WARNING: Deleted interactive call from %s advice\
- as %s is not a subr command ***"
-	 function function))))
-    (` (defadvice (, function) (,@ everything-else)))))
-
-;;;###autoload
-(put 'ccc-defadvice 'lisp-indent-function 'defun)
-(def-edebug-spec ccc-defadvice defadvice)
-
 ;; Functions.
 (defsubst ccc-read-color (prompt)
-  (static-cond
-   ((string-lessp "20.5" emacs-version)
-    (list (facemenu-read-color prompt)))
-   (t
-    (list (let ((str (read-string prompt)))
-	    (if (equal "" str)
-		nil
-	      str))))))
+  (list (facemenu-read-color prompt)))
 
 (defsubst ccc-color-equal (a b)
-  (static-cond
-   ((featurep 'facemenu)
-    (facemenu-color-equal a b))
-   (t
-    (and (stringp a)
-	 (stringp b)
-	 (string= a b)))))
+  (facemenu-color-equal a b))
 
 ;;;###autoload
 (defun update-buffer-local-frame-params (&optional buffer)
@@ -242,42 +174,6 @@
     (setq buffer-local-background-color nil)))
 
 ;; Advices.
-(let ((funcs '(;; cover to original Emacs functions.
-	       ;; subr, but no argument.
-	       bury-buffer
-	       delete-frame
-	       delete-window
-
-	       overwrite-mode
-	       ;; subr, but non-command.
-	       pop-to-buffer
-	       select-window
-
-	       ;; subrs possibly with interactive specs.
-	       (execute-extended-command . "P")
-	       (kill-buffer . "bKill buffer: ")
-	       (other-window . "p")
-	       (select-frame . "e")
-	       (switch-to-buffer . "BSwitch to buffer: ")))
-      func)
-  (while (setq func (car funcs))
-    (if (consp func)
-	;; command that has an interactive spec.
-	(eval
-	 (`
-	  (ccc-defadvice (, (intern (symbol-name (car func)))) (after ccc-ad
-								      activate)
-	    "Update frame parameters if `buffer-local-*-color's are given."
-	    (interactive (, (cdr func)))
-	    (update-buffer-local-frame-params))))
-      ;; non-command or command that has not an interactive spec.
-      (eval
-       (`
-	(ccc-defadvice (, (intern (symbol-name func))) (after ccc-ad activate)
-	  "Update frame parameters if `buffer-local-*-color's are given."
-	  (update-buffer-local-frame-params)))))
-    (setq funcs (cdr funcs))))
-
 (defadvice modify-frame-parameters (after ccc-ad activate)
   (when (and (assq 'cursor-color (ad-get-arg 1))
 	     (null buffer-local-cursor-color))
@@ -294,12 +190,8 @@
 					   (ad-get-arg 1))))))
 
 ;; Hooks
-(add-hook 'isearch-mode-end-hook 'update-buffer-local-frame-params 'append)
-(add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params 'append)
-(add-hook 'minibuffer-exit-hook
-	  (lambda ()
-	    (update-buffer-local-frame-params (nth 1 (buffer-list))))
-	  'append)
+(add-hook 'post-command-hook 'update-buffer-local-frame-params)
+
 (add-hook 'after-make-frame-functions
 	  (lambda (new-frame)
 	    (set-frame-cursor-color new-frame frame-cursor-color)

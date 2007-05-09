@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.408 2007/05/03 14:07:33 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.409 2007/05/09 09:32:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/05/03 14:07:33 $
+;; Last Modified: $Date: 2007/05/09 09:32:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2987,18 +2987,25 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 
 ;;;###autoload
 (defun skk-henkan-on-message ()
-  (condition-case nil
-      (when (and skk-verbose
-		 (not (or skk-isearch-switch
-			  (skk-in-minibuffer-p)))
-		 (eq skk-henkan-mode 'on)
-		 (< (marker-position skk-henkan-start-point) (point))
-		 (skk-sit-for skk-verbose-wait))
-	(skk-setup-verbose-messages)
-	(message "%s" skk-henkan-on-message))
-    (quit
-     (keyboard-quit)))
-  nil)
+  (static-cond
+   ((and (string-match "^GNU" (emacs-version))
+	 (>= emacs-major-version 22))
+    ;; Works only under FSF Emacs 22 or later.
+    (condition-case nil
+	(when (and skk-verbose
+		   (not (or skk-isearch-switch
+			    (skk-in-minibuffer-p)))
+		   (eq skk-henkan-mode 'on)
+		   (< (marker-position skk-henkan-start-point) (point))
+		   (skk-sit-for skk-verbose-wait))
+	  (skk-setup-verbose-messages)
+	  (message "%s" skk-henkan-on-message))
+      (quit
+       (keyboard-quit)))
+    nil)
+   (t
+    ;; Noop for other Emacsen.
+    (setq skk-verbose nil))))
 
 (defun skk-start-henkan (arg &optional parg)
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B

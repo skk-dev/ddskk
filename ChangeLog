@@ -1,3 +1,21 @@
+2007-05-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el: Remove advices to interactive functions.  Do not use
+	isearch-mode-end-hook, minibuffer-setup-hook or
+	minibuffer-exit-hook.  Use post-command-hook instead.
+
+	(ccc-defadvice): Abolish.
+
+	(ccc-read-color):
+	(ccc-color-equal):
+
+	Support only Emacsen with facemenu.
+
+	* skk-annotation.el (skk-annotation-message):
+	* skk.el (skk-henkan-on-message):
+
+	Noop unless under FSF Emacs 22 or later.
+
 2007-05-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Support Latin.
