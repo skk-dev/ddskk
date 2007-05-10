@@ -2,7 +2,7 @@
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Recognize "Min
 	Nan".
-	(skk-annotation-message): Fix local exit codes.
+	(skk-annotation-message): Fix nonlocal exit codes.
 
 2007-05-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
