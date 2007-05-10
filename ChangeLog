@@ -1,3 +1,8 @@
+2007-05-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-1): Recognize "Min
+	Nan".
+
 2007-05-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ccc.el: Remove advices to interactive functions.  Do not use
