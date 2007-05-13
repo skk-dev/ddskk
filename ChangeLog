@@ -8,6 +8,9 @@
 	* skk.el (skk-search-function-usage): Noop unless under FSF Emacs
 	22.
 
+	* skk-annotation.el (skk-annotation-message): Unread event for
+	`skk-previous^candidate' instead of calling `keyboard-quit'.
+
 2007-05-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Recognize "Min
