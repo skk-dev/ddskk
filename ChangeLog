@@ -1,3 +1,13 @@
+2007-05-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-message):
+	* skk.el (skk-henkan-on-message):
+
+	Undo previous change.
+
+	* skk.el (skk-search-function-usage): Noop unless under FSF Emacs
+	22.
+
 2007-05-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Recognize "Min

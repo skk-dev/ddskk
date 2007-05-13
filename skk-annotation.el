@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.121 2007/05/10 19:37:28 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.122 2007/05/13 02:34:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/05/10 19:37:28 $
+;; Last Modified: $Date: 2007/05/13 02:34:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -412,55 +412,48 @@
 
 ;;;###autoload
 (defun skk-annotation-message (&optional situation)
-  (static-cond
-   ((and (string-match "^GNU" (emacs-version))
-	 (>= emacs-major-version 22))
-    ;; Works only under FSF Emacs 22 or later.
-    (when (and skk-verbose
-	       (not (or skk-isearch-switch
-			(skk-in-minibuffer-p))))
-      (unless skk-annotation-wikipedia-message
-	(let* ((key (key-description skk-annotation-wikipedia-key))
-	       (string (format "{prefix %s}" (if (equal key "TAB")
-						 "C-i"
-					       key)))
-	       (i 0)
-	       source)
-	  (while (setq source (nth i skk-annotation-wikipedia-sources))
-	    (setq string (format "%s[C-%d]%s" string (1+ i) source))
-	    (setq i (1+ i)))
-	  (setq skk-annotation-wikipedia-message string)))
-      (unless skk-annotation-message
-	(let* ((key-copy (or (key-description skk-annotation-copy-key)
-			     "未定義"))
-	       (key-browse (or (key-description skk-annotation-browse-key)
-			       "未定義")))
-	  (setq skk-annotation-message
-		(format "{アノテーション}[%s]コピー[%s]URLブラウズ"
-			key-copy key-browse))))
-      (condition-case nil
-	  (cond ((eq situation 'annotation)
-		 (if (skk-sit-for skk-verbose-wait)
-		     (let ((i 0))
-		       (catch 'loop
-			 (while (< i 20)
-			   (message "%s" skk-annotation-message)
-			   (unless (skk-sit-for 5.5)
-			     (throw 'loop nil))
-			   (message "%s" skk-annotation-wikipedia-message)
-			   (unless (skk-sit-for 5.5)
-			     (throw 'loop nil))
-			   (setq i (1+ i))))
-		       (message nil))
-		   nil))
-		(t
-		 (when (skk-sit-for skk-verbose-wait)
-		   (message "%s" skk-annotation-wikipedia-message))))
-	(quit
-	 (keyboard-quit)))))
-   (t
-    ;; Noop for other Emacsen.
-    (setq skk-verbose nil)))
+  (when (and skk-verbose
+	     (not (or skk-isearch-switch
+		      (skk-in-minibuffer-p))))
+    (unless skk-annotation-wikipedia-message
+      (let* ((key (key-description skk-annotation-wikipedia-key))
+	     (string (format "{prefix %s}" (if (equal key "TAB")
+					       "C-i"
+					     key)))
+	     (i 0)
+	     source)
+	(while (setq source (nth i skk-annotation-wikipedia-sources))
+	  (setq string (format "%s[C-%d]%s" string (1+ i) source))
+	  (setq i (1+ i)))
+	(setq skk-annotation-wikipedia-message string)))
+    (unless skk-annotation-message
+      (let* ((key-copy (or (key-description skk-annotation-copy-key)
+			   "未定義"))
+	     (key-browse (or (key-description skk-annotation-browse-key)
+			     "未定義")))
+	(setq skk-annotation-message
+	      (format "{アノテーション}[%s]コピー[%s]URLブラウズ"
+		      key-copy key-browse))))
+    (condition-case nil
+	(cond ((eq situation 'annotation)
+	       (if (skk-sit-for skk-verbose-wait)
+		   (let ((i 0))
+		     (catch 'loop
+		       (while (< i 20)
+			 (message "%s" skk-annotation-message)
+			 (unless (skk-sit-for 5.5)
+			   (throw 'loop nil))
+			 (message "%s" skk-annotation-wikipedia-message)
+			 (unless (skk-sit-for 5.5)
+			   (throw 'loop nil))
+			 (setq i (1+ i))))
+		     (message nil))
+		 nil))
+	      (t
+	       (when (skk-sit-for skk-verbose-wait)
+		 (message "%s" skk-annotation-wikipedia-message))))
+      (quit
+       (keyboard-quit))))
   ;; 常に t を返す
   t)
 
