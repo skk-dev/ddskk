@@ -1,3 +1,8 @@
+2007-05-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-message): Call
+	`keyboard-quit' unless skk-henkan-mode is active.
+
 2007-05-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-message):
