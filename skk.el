@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.410 2007/05/13 02:34:43 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.411 2007/05/21 21:14:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/05/13 02:34:43 $
+;; Last Modified: $Date: 2007/05/21 21:14:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1668,9 +1668,10 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 		  (or list skk-search-prog-list)))
 	       (t
 		skk-search-prog-list))))
-      ;; skk-henkan-1 $B$NCf$+$i%3!<%k$5$l$k(B skk-henkan-show-candidate $B$+$i(B throw
-      ;; $B$5$l$k!#$3$3$G%-%c%C%A$7$?>l9g$O!"(B?x $B$,%9%H%j!<%`$KLa$5$l$F$$$k$N$G!"(B
-      ;; $B$3$N4X?t$r=P$F!"(Bskk-previous-candidates $B$X$f$/!#(B
+      ;; skk-henkan-1 $B$NCf$+$i%3!<%k$5$l$k(B skk-henkan-show-candidates
+      ;; $B$+$i(B throw $B$5$l$k!#$3$3$G%-%c%C%A$7$?>l9g$O!"(B?x $B$,%9%H%j!<%`$K(B
+      ;; $BLa$5$l$F$$$k$N$G!"$3$N4X?t$r=P$F!"(Bskk-previous-candidate $B$X$f(B
+      ;; $B$/!#(B
       (catch 'unread
 	(cond
 	 ((setq prototype (skk-henkan-1))
@@ -2852,7 +2853,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 		      "Undo kakutei!")
 	 (skk-set-henkan-count 1)
 	 (skk-henkan))
-     ;; skk-kakutei-undo $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F$*$+$J$$(B
+     ;; skk-undo-kakutei $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F$*$+$J$$(B
      ;; $B$H<!$NF0:n$r$7$h$&$H$7$?$H$-$K%(%i!<$K$J$k!#(B
      ((error quit)
       (skk-kakutei)))))

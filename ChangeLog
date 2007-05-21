@@ -1,3 +1,8 @@
+2007-05-20  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-henkan): Fix typo in comment.
+	(skk-undo-kakutei): Ditto.
+
 2007-05-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-message): Call
