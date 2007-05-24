@@ -1,3 +1,11 @@
+2007-05-23  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-delete-okuri-mark): Accept optional argument
+	NOCLEAR.  Do not clear okurigana data if it is non-nil.
+
+	(skk-kakutei-cleanup-buffer): When skk-okurigana is set, keep
+	okurigana data.
+
 2007-05-20  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-henkan): Fix typo in comment.

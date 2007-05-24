@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.411 2007/05/21 21:14:21 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.412 2007/05/24 12:24:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/05/21 21:14:21 $
+;; Last Modified: $Date: 2007/05/24 12:24:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2697,7 +2697,10 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 (defun skk-kakutei-cleanup-buffer ()
   "$B3NDjD>8e$N%P%C%U%!$N@07A$r9T$&!#(B"
   (when skk-okurigana
-    (skk-delete-okuri-mark))
+    ;; $B3NDjJQ49$N$H$-$K$3$3$K$/$k!#(B
+    ;; $B:FJQ49$N:]$KAw$j2>L>4XO"%U%i%0$,(B clear $B$5$l$F$$$k$H$h$m$7$/$J$$$N$G(B
+    ;; `skk-delete-okuri-mark' $B$N(B NOCLEAR $B$r%;%C%H$7$F8F$V!#(B
+    (skk-delete-okuri-mark t))
   (skk-delete-henkan-markers)
   (when skk-undo-kakutei-word-only
     (cond
@@ -3256,10 +3259,10 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	 (skk-message "$B"&$,$"$j$^$;$s(B"
 		      "It seems that you have deleted $B"&(B")))))))
 
-(defun skk-delete-okuri-mark ()
+(defun skk-delete-okuri-mark (&optional noclear)
   "$BAw$j2>L>4XO"%U%i%0$r>C$9!#(B
 $BAw$j2>L>F~NOCf$K%+%l%s%H%P%C%U%!$KI=$o$l$k(B `*' $B%^!<%/$r>C$7!"(B
-$BAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B"
+NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B"
   (when (and skk-okurigana
 	     skk-okurigana-start-point
 	     (markerp skk-okurigana-start-point)
@@ -3268,9 +3271,10 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
      (when (eq ?* (char-after skk-okurigana-start-point))
        (delete-region skk-okurigana-start-point
 		      (1+ skk-okurigana-start-point))))
-    (setq skk-okurigana nil
-	  skk-okuri-char nil
-	  skk-henkan-okurigana nil)))
+    (unless noclear
+      (setq skk-okurigana nil
+	    skk-okuri-char nil
+	    skk-henkan-okurigana nil))))
 
 ;;; jisyo related functions
 (defun skk-purge-from-jisyo (&optional arg)
