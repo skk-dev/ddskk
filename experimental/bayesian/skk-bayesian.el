@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.26 2007/04/22 02:38:28 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.27 2007/06/10 10:31:24 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
+;; Last Modified: $Date: 2007/06/10 10:31:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -393,12 +393,13 @@
       ;; pending していたのを保存
       (skk-bayesian-add-to-history))
   (when (skk-bayesian-process-live-p)
-    (skk-message "skk-bayesian の履歴を保存しています..." "saving history...")
+    (skk-message "skk-bayesian の履歴を保存しています..." 
+		 "saving skk-bayesian history...")
     (if (skk-bayesian-read-process-output skk-bayesian-command-save)
         (skk-message "skk-bayesian の履歴を保存しています...完了"
-                     "saving history...done")
+                     "saving skk-bayesian history...done")
       (skk-message "skk-bayesian の履歴を保存しています...失敗"
-                   "saving history...failed"))))
+                   "saving skk-bayesian history...failed"))))
 
 (defun skk-bayesian-restart-process ()
   (if (skk-bayesian-process-live-p) (skk-bayesian-kill-process))
