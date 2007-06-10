@@ -224,11 +224,21 @@
 ;;;###autoload
 (defun skk-e21-prepare-modeline-properties ()
   (setq skk-icon
-	(let* ((dir (file-name-directory skk-tut-file))
-	       (image (find-image
-		       `((:type xpm
-				:file ,(expand-file-name "skk.xpm" dir)
-				:ascent center))))
+	(let* ((dir (file-name-directory
+		     (static-if (fboundp 'locate-file)
+			 ;; Emacs 22.1 or later
+			 (or (locate-file "skk/skk.xpm"
+					  (list (expand-file-name
+						 "../../.."
+						 data-directory)))
+			     (locate-file "skk/skk.xpm" (list data-directory)))
+		       ;; Emacs 21
+		       skk-tut-file)))
+	       (image (when dir
+			(find-image
+			 `((:type xpm
+				  :file ,(expand-file-name "skk.xpm" dir)
+				  :ascent center)))))
 	       (string "dummy"))
 	  (if (and skk-show-icon window-system image)
 	      (apply 'propertize string

@@ -18,6 +18,10 @@
 
 	Bind skk-use-color-cursor to nil.
 
+	* skk-e21.el (skk-e21-prepare-modeline-properties): Use
+	`locate-data-file' under Emacs 22.1 or later.  Do not call
+	`find-image' if SKK data director is not found.
+
 2007-06-07  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* experimental/bayesian/skk-bayesian.el
