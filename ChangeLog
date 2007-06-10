@@ -1,3 +1,23 @@
+2007-06-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-en-wiktionary-lang-regexp):
+	(skk-annotation-en-wiktionary-part-of-speech-regexp):
+
+	New variables.
+
+	* skk-annotation.el (skk-annotation-wikipedia-1): Use variables
+	above.  Remove all <div>s for wikipedia.
+
+	* skk-isearch.el (skk-isearch-turn-off-skk-mode):
+	(skk-isearch-turn-on-skk-mode):
+	(skk-isearch-skk-kakutei):
+	(skk-isearch-skk-turn-on-hiragana-mode):
+	(skk-isearch-skk-turn-on-katakana-mode):
+	(skk-isearch-skk-turn-on-jix0208-latin-mode):
+	(skk-isearch-skk-turn-on-latin-mode):
+
+	Bind skk-use-color-cursor to nil.
+
 2007-06-07  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* experimental/bayesian/skk-bayesian.el

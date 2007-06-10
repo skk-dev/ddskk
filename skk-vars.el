@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.217 2007/05/02 15:44:10 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.218 2007/06/10 10:36:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/05/02 15:44:10 $
+;; Last Modified: $Date: 2007/06/10 10:36:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2458,6 +2458,39 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 
 (defvar skk-annotation-message nil
   "SKK Annotation 利用方法を示すメッセージ (自動設定)。")
+
+;; XXX まだ不完全
+(defvar skk-annotation-en-wiktionary-lang-regexp "\
+<h2>.*<span class=\"mw-headline\">\
+\\(<a href=.+>\\)?\
+\\(Afrikaans\\|Ainu\\|Amoy\\|Amuzgo\\|Aragonese\\|Bosnian\\|Breton\\|Cantonese\
+\\|Catalan\\|Crimean Tatar\\|Croatian\
+\\|Czech\\\|Danish\\|Dutch\\|Egyptian\\|English\\|Esperanto\\|Estonian\
+\\|Faroese\\|Finnish\\|French\\|German\\|Greek\\|Hungarian\\|Interlingua\
+\\|Irish\\|Italian\\|Japanese\\|Korean\\|Krisa\\|Kurdish\\|Latin\\|Mandarin\
+\\|Min Nan\\|Murrinh-Patha\\|Northern Sami\
+\\|Norwegian\\|Novial\\|Old English\\|Polish\\|Potuguese\\|Romanian\
+\\|Scots\\|Scottish Gaelic\\|Serbian\\|Slovak\\|Slovene\\|Spanish\\|Swahili\
+\\|Swedish\\|Torres Strait Creole\\|Translingual\\|Turkish\\|Tz'utujil\\)\
+\\(</a>\\)?\
+</span></h2>"
+  "en.wiktionary において言語を表すヘッダの正規表現")
+
+(defvar skk-annotation-en-wiktionary-part-of-speech-regexp "\
+<span class=\"mw-headline\">\
+\\(<a href=.+>\\)?\
+\\(Article\\|Noun\\|Proper Noun\\|Adjective\\|Proper Adjective\
+\\|Verb\\( form\\)?\\|Intransitive verb\\|Transitive verb\\|Adverb\
+\\|Conjunction\\|Interjection\\|Numeral\\|Prefix\\|Suffix\\|Particle\
+\\|Preposition\\|Contraction\\|Determiner\\|Demonstrative determiner\
+\\|Interrogative determiner\\|Pronoun\\|Pronominal possessive adjective\
+\\|Demonstrative pronoun\
+\\|Interrogative pronoun\\|Relative pronoun\\|Auxiliary verb\\( form\\)?\
+\\|Indefinite article\\|Abbreviation\\|Initialism\\|Acronym\\|Symbol\
+\\|Han character\\)\
+\\(</a>\\)?\
+</span>"
+    "en.wiktionary において品詞を表すヘッダの正規表現")
 
 (skk-deflocalvar skk-annotation-mode nil
   "Non-nil であれば、annotation モードであることを示す。")

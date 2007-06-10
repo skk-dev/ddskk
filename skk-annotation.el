@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.124 2007/05/14 23:18:43 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.125 2007/06/10 10:36:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/05/14 23:18:43 $
+;; Last Modified: $Date: 2007/06/10 10:36:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1037,11 +1037,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		;;
 		(goto-char (point-min))
 		(when (re-search-forward
-		       "<h2>.*<span class=\"mw-headline\">\
-\\(<a href=.+>\\)?\
-\\(English\\|Translingual\\|Latin\\)\
-\\(</a>\\)?\
-</span></h2>"
+		       skk-annotation-en-wiktionary-lang-regexp
 		       nil t)
 		  (save-excursion
 		    (goto-char (match-end 2))
@@ -1049,40 +1045,14 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (delete-region (point-min) (match-beginning 0))
 		  (setq top (point))
 		  (when (re-search-forward
-			 ;; XXX $B$^$@IT40A4(B
-			 "<h2>.*<span class=\"mw-headline\">\
-\\(<a href=.+>\\)?\
-\\(Afrikaans\\|Ainu\\|Amoy\\|Amuzgo\\|Aragonese\\|Bosnian\\|Breton\\|Cantonese\
-\\|Catalan\\|Crimean Tatar\\|Croatian\
-\\|Czech\\\|Danish\\|Dutch\\|Egyptian\\|Esperanto\\|Estonian\\|Faroese\
-\\|Finnish\\|French\\|German\\|Greek\\|Hungarian\\|Interlingua\\|Irish\
-\\|Italian\\|Japanese\\|Korean\\|Krisa\\|Kurdish\\|Latin\\|Mandarin\
-\\|Min Nan\\|Murrinh-Patha\\|Northern Sami\
-\\|Norwegian\\|Novial\\|Old English\\|Polish\\|Potuguese\\|Romanian\
-\\|Scots\\|Scottish Gaelic\\|Serbian\\|Slovak\\|Slovene\\|Spanish\\|Swahili\
-\\|Swedish\\|Torres Strait Creole\\|Turkish\\|Tz'utujil\\)\
-\\(</a>\\)?\
-</span></h2>"
+			 skk-annotation-en-wiktionary-lang-regexp
 			 nil t)
 		    (delete-region (match-beginning 0) (point-max))))
 		;;
 		(setq point top)
 		(goto-char (point-min))
 		(while (re-search-forward
-			;; XXX $B$^$@IT40A4(B
-			"<span class=\"mw-headline\">\
-\\(<a href=.+>\\)?\
-\\(Article\\|Noun\\|Proper Noun\\|Adjective\\|Proper Adjective\
-\\|Verb\\( form\\)?\\|Intransitive verb\\|Transitive verb\\|Adverb\
-\\|Conjunction\\|Interjection\\|Numeral\\|Prefix\\|Suffix\\|Particle\
-\\|Preposition\\|Contraction\\|Determiner\\|Demonstrative determiner\
-\\|Interrogative determiner\\|Pronoun\\|Pronominal possessive adjective\
-\\|Demonstrative pronoun\
-\\|Interrogative pronoun\\|Relative pronoun\\|Auxiliary verb\\( form\\)?\
-\\|Indefinite article\\|Abbreviation\\|Initialism\\|Acronym\\|Symbol\
-\\|Han character\\)\
-\\(</a>\\)?\
-</span>"
+			 skk-annotation-en-wiktionary-part-of-speech-regexp
 			nil t)
 		  (setq nop t)
 		  (save-match-data
@@ -1149,15 +1119,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		(search-forward "<!-- start content -->" nil t)
 		(delete-region (point-min) (point))
 		;; <div> $B$r=|5n$9$k(B
-		(setq point nil)
-		(goto-char (point-min))
-		(while (re-search-forward
-			"<div class=\"\\(magnify\\)\".*>" nil t)
-		  (setq point (match-beginning 0))
-		  (goto-char point)
-		  (search-forward "</div>" nil t)
-		  (delete-region point (point))
-		  (goto-char point))
+		(skk-annotation-wikipedia-remove-nested "<div.+>" "</div>")
 		;; <span> $B$r=|5n$9$k(B
 		(setq point nil)
 		(goto-char (point-min))
@@ -1186,8 +1148,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 			"<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
 		  (replace-match ""))
 		;; <table> $B$r=|5n(B
-		(skk-annotation-wikipedia-remove-nested "<table.*>"
-							"</table>")
+		(skk-annotation-wikipedia-remove-nested "<table.*>" "</table>")
 		;;
 		(goto-char (point-min))
 		(when (or (when (re-search-forward
@@ -1234,15 +1195,7 @@ Disambiguation\"" nil t)))
 		(search-forward "<!-- start content -->" nil t)
 		(delete-region (point-min) (point))
 		;; <div> $B$r=|5n$9$k(B
-		(setq point nil)
-		(goto-char (point-min))
-		(while (re-search-forward
-			"<div class=\"\\(magnify\\)\".*>" nil t)
-		  (setq point (match-beginning 0))
-		  (goto-char point)
-		  (search-forward "</div>" nil t)
-		  (delete-region point (point))
-		  (goto-char point))
+		(skk-annotation-wikipedia-remove-nested "<div.+>" "</div>")
 		;; <span> $B$r=|5n$9$k(B
 		(setq point nil)
 		(goto-char (point-min))

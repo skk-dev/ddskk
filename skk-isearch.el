@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.51 2007/04/24 23:13:37 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.52 2007/06/10 10:36:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/24 23:13:37 $
+;; Last Modified: $Date: 2007/06/10 10:36:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -67,11 +67,13 @@
 ;;
 (defsubst skk-isearch-turn-off-skk-mode ()
   "Turn off skk mode."
-  (skk-mode 0))
+  (let ((skk-use-color-cursor nil))
+    (skk-mode 0)))
 
 (defsubst skk-isearch-turn-on-skk-mode ()
   "Turn on skk mode."
-  (skk-mode 1))
+  (let ((skk-use-color-cursor nil))
+    (skk-mode 1)))
 
 (defsubst skk-isearch-conversion-active-p ()
   "Non-nil if skk conversion is active."
@@ -83,7 +85,8 @@
 
 (defsubst skk-isearch-skk-kakutei ()
   "Perform kakutei."
-  (skk-kakutei))
+  (let ((skk-use-color-cursor nil))
+    (skk-kakutei)))
 
 (defsubst skk-isearch-skk-hiragana-mode-p ()
   "Non-nil if skk is hiragana input mode."
@@ -91,7 +94,8 @@
 
 (defsubst skk-isearch-skk-turn-on-hiragana-mode ()
   "Set current skk mode to hiragana input mode."
-  (skk-j-mode-on))
+  (let ((skk-use-color-cursor nil))
+    (skk-j-mode-on)))
 
 (defsubst skk-isearch-skk-katakana-mode-p ()
   "Non-nil if skk is katakana input mode."
@@ -99,7 +103,8 @@
 
 (defsubst skk-isearch-skk-turn-on-katakana-mode ()
   "Set current skk mode to katakana input mode."
-  (skk-j-mode-on 'katakana))
+  (let ((skk-use-color-cursor nil))
+    (skk-j-mode-on 'katakana)))
 
 (defsubst skk-isearch-skk-jisx0208-latin-mode-p ()
   "Non-nil if skk is jisx0208 latin (zenkaku) input mode."
@@ -111,11 +116,13 @@
 
 (defsubst skk-isearch-skk-turn-on-jix0208-latin-mode ()
   "Set current skk mode to jisx0208 latin (zenkaku) input mode."
-  (skk-jisx0208-latin-mode-on))
+  (let ((skk-use-color-cursor nil))
+    (skk-jisx0208-latin-mode-on)))
 
 (defsubst skk-isearch-skk-turn-on-latin-mode ()
   "Set current skk mode to normal latin input mode."
-  (skk-latin-mode-on))
+  (let ((skk-use-color-cursor nil))
+    (skk-latin-mode-on)))
 
 ;;;###autoload
 (defun skk-isearch-message ()
