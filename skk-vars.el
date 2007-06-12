@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.218 2007/06/10 10:36:50 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.219 2007/06/12 17:24:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/10 10:36:50 $
+;; Last Modified: $Date: 2007/06/12 17:24:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3312,7 +3312,7 @@ SKK abbrev モードで、「英文字 + アスタリスク」にて変換を行うと、look
 り、確定してもこのようなエントリを追加しないように設定することができる。"
   :type '(radio (const :tag "補完時と英数字変換時に有効" t)
 		(const :tag "補完時だけ有効" completion)
-		(const :tag "英数字変換時だけ有効" completion)
+		(const :tag "英数字変換時だけ有効" conversion)
 		(const :tag "無効" nil))
   :group 'skk-basic
   :group 'skk-look)
