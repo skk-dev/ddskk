@@ -1,3 +1,8 @@
+2007-06-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-tooltip-resize-text): Decide max lines according
+	to `display-pixel-height' and `frame-char-height'.
+
 2007-06-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-annotation-en-wiktionary-lang-regexp):

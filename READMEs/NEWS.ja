@@ -7,11 +7,17 @@
 APEL 10.7 $B$N5!G=$N$&$A%$%s%9%H!<%k4XO"$N5!G=!"$H$/$K(B XEmacs 21.5 $B$G$N(B
 $B%$%s%9%H!<%k5!G=$K0MB8$7$^$9!#(B
 
+$B$^$?!"$3$l$KH<$C$F(B tinyinstall.el $B$O%l%]%8%H%j$+$i:o=|$7$^$7$?!#F1%U%!(B
+$B%$%k$NFbMF$N$&$AI,MW$JItJ,$O(B SKK-MK $B$K0\F0$7$^$7$?!#(B
+
 APEL 10.6 $B$K4X$9$kFC5-;v9`$O(B DDSKK 12.2.0 $B$N(B NEWS $B$r;2>H$7$F$/$@$5$$!#(B
 
 ** $B%5%]!<%H$9$k(B Emacs $B$N%P!<%8%g%s$,JQ99$5$l$^$7$?!#(B
 
 *** Emacs 20.7 $B0J9_!"(BEmacs 21.1 $B0J9_!"(BEmacs 22.1
+
+$B:#2s$H$/$K!"(BEmacs 22 $B$N?75!G=$KBP1~$9$Y$/B?$/$N3HD%$,9T$o$l$^$7$?!#(B
+$B$^$?!"0lIt(B XEmacs 21.5 $B$N?75!G=$K$bBP1~$7$F$$$^$9!#(B
 
 *** XEmacs 21.4.18 $B0J9_(B, XEmacs 21.5 beta27 ($BL$3NDj(B)
 
@@ -27,6 +33,17 @@ APEL 10.6 $B$K4X$9$kFC5-;v9`$O(B DDSKK 12.2.0 $B$N(B NEWS $B$r;2>H$7$F$/$@$
 $B$J$*!"K\%P!<%8%g%s$O<!4|$N(B unicode $B2=$5$l$?(B Emacs (Emacs 23 $B0J9_(B) $B$K;C(B
 $BDjE*$KBP1~$9$k%3!<%I$r4^$_$^$9$,!"$3$l$i$OA4$/%5%]!<%H$5$l$^$;$s!#(BCVS
 $B@hC<$G$O2DG=$JHO0O$G3+H/HG(B Emacs $B$KDI?o$9$kM=Dj$G$9!#(B
+
+*** NTEmacs, Meadow, Carbon Emacs $B$G$N%$%s%9%H!<%k%Q%9$N8+D>$7(B
+
+NTEmacs, Meadow $B$O(B Emacs 18 $B$N$3$m$N$h$&$JC10l%G%#%l%/%H%j9=@.$r$H$j$^(B
+$B$9!#$3$N>u67$K(B APEL $B$N(B install.el $B$,8=>u$G$OBP1~$7$F$$$J$$$N$G!"(BSKK-MK
+$B$NJ}$G%$%s%9%H!<%k@h%G%#%l%/%H%j$r$9$Y$F3F(B Emacsen $B$N%H%C%W%G%#%l%/%H(B
+$B%j2<$KG[CV$9$k$h$&$K$7$^$7$?!#(B
+
+$B$^$?!"(BDDSKK 13.1 $B$h$j(B Mac OS X $B4D6-$G$N%$%s%9%H!<%k$K$D$$$F$b>/$7$@$1(B
+$B9MN8$7!"(BCarbon Emacs (Emacs 22 $B%Y!<%9(B) $B$N8B$i$l$?4D6-$N$_%F%9%H$7$F$$(B
+$B$^$9!#(BAquamacs $B$d(B Cocoa $BBP1~$N(B Emacs $B$K$D$$$F$OL$$@%F%9%H$7$F$$$^$;$s!#(B
 
 ** $B%$%s%9%H!<%k$N:]$N4D6-JQ?t%5%]!<%H$N0l;~Dd;_(B
 
@@ -51,6 +68,24 @@ SKK-CFG $B$,$[$\40A4$J%$%s%9%H!<%k@_Dj$r%5%]!<%H$9$k$?$a!"4D6-JQ?t(B EMACS
 $B$K$b;H$(!"$3$N>l9g$O(B skk-look $B$N$h$&$J;H$$>!<j$K$J$j$^$9!#(B
 
 *** skk-tankan.el
+
+** $B?7$7$$3X=,5!G=(B skk-bayesian.el
+
+experimental/bayesian $B$KDI2C$5$l$^$7$?!#(B
+
+** $B4pK\5!G=$N3HD%$H2~NI(B
+
+*** $B3NDj%"%s%I%%$N:]$N%+!<%=%k0LCV$N=$@5(B
+
+$BNc$($P!VK~$?!W$r!V8+$?!W$K:FJQ49$7$?$$>l9g!"(B
+
+ $BK~$?(B-!-
+
+$B$G(B s-u-kakutei $B$9$k$H(B
+
+ $B"'8+(B-!-$B$?(B
+
+$B$H$J$j%+!<%=%k0LCV(B (-!-) $B$,Aw$j2>L>$NA0$K%:%l$k8=>]$,=$@5$5$l$^$7$?!#(B
 
 ** $BJd405!G=$N3HD%$H2~NI(B
 
@@ -87,6 +122,20 @@ SKK-CFG $B$,$[$\40A4$J%$%s%9%H!<%k@_Dj$r%5%]!<%H$9$k$?$a!"4D6-JQ?t(B EMACS
 
  skk-look-conversion-arguments
  skk-look-completion-arguments
+
+*** $BJd405!G=$N4JC1$J@Z$jBX$((B
+
+skk-completion-prog-list-1,
+skk-completion-prog-list-2,
+...
+skk-completion-prog-list-9,
+skk-completion-prog-list-0
+
+$B$H$$$&JQ?t$r?7@_$7$^$7$?!#$3$l$i$O(B skk-completion-prog-list $B$HA4$/F1$8(B
+$B7A<0(B ($BJd40%W%m%0%i%`$N(B list) $B$G@_Dj$G$-$^$9!#(B
+$BNc$($P"&%b!<%I$G(B TAB $B$NBe$o$j$K(B C-6 TAB $B$HF~NO$9$k$H!"(B
+skk-completion-prog-list $B$NBe$o$j$K(B skk-completion-prog-list-6 $B$r;H$C(B
+$B$FJd40$7$^$9!#(B
 
 ** $BJQ498uJd!&Cm<aI=<($N=$>~!&2C9)5!G=(B
 
@@ -136,9 +185,19 @@ terminal $B$G$bMxMQ$G$-$^$9!#$3$N5!G=$O(B Emacs 20, XEmacs $B$G$bMxMQ$G$-$^(
 $B$^$7$?!#$3$l$O8=:_(B GNU Emacs 21 $B0J9_!"(BXEmacs 21.5 $B0J9_$KBP1~$7$F$$$^$9!#(B
 Emacs 20.7 $B$*$h$S(B XEmacs 21.4 $B$G$OF0:n$7$^$;$s!#(B
 
-** $B?7$7$$3X=,5!G=(B skk-bayesian.el
+** $BJQ495!G=$N4JC1$J@Z$jBX$((B
 
-experimental/bayesian $B$KDI2C$5$l$^$7$?!#(B
+skk-search-prog-list-1,
+skk-search-prog-list-2,
+...
+skk-search-prog-list-9,
+skk-search-prog-list-0
+
+$B$H$$$&JQ?t$r?7@_$7$^$7$?!#$3$l$i$O(B skk-search-prog-list $B$HA4$/F1$87A<0(B
+($BJQ49%W%m%0%i%`$N(B list) $B$G@_Dj$G$-$^$9!#(B
+$BNc$($P"&%b!<%I$G(B SPC $B$NBe$o$j$K(B C-6 SPC $B$HF~NO$9$k$H!"(B
+skk-search-prog-list $B$NBe$o$j$K(B skk-search-prog-list-6 $B$r;H$C$FJd40$7(B
+$B$^$9!#(B
 
 ** $BCm<a;2>H;~$K(B Wikipedia/Wiktionary $B$r;2>H$9$k5!G=(B
 
