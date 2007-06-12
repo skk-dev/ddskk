@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.219 2007/06/12 17:24:33 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.220 2007/06/12 23:08:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/12 17:24:33 $
+;; Last Modified: $Date: 2007/06/12 23:08:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1865,6 +1865,8 @@ o 候補一覧を表示するとき (候補の文字列の後ろに注釈が付加される)
     skk-kakutei
     skk-delete-backward-char
     skk-insert
+    skk-try-completion
+    skk-completion-wrapper
     skk-previous-candidate))
 
 (defconst skk-quote-char-alist

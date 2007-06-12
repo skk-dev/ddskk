@@ -7,6 +7,9 @@
 	* skk-e21.el (skk-tooltip-resize-text): Decide max lines according
 	to `display-pixel-height' and `frame-char-height'.
 
+	* skk-vars.el (skk-kana-cleanup-command-list): Add
+	`skk-try-completion' and `skk-completion-wrapper'.
+
 2007-06-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-annotation-en-wiktionary-lang-regexp):
