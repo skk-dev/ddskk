@@ -4,6 +4,9 @@
 
 2007-06-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skk-annotation-wikipedia-1): Remove span with
+	interProject class.
+
 	* skk-e21.el (skk-tooltip-resize-text): Decide max lines according
 	to `display-pixel-height' and `frame-char-height'.
 
