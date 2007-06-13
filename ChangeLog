@@ -1,3 +1,9 @@
+2007-06-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-xemacs.el (skk-tooltip-resize-text): Decide max lines
+	according to `display-pixel-height' and the size of the default
+	font.
+
 2007-06-12  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-use-look): Fix value.

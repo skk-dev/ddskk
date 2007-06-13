@@ -240,6 +240,11 @@
 
 (defun skk-tooltip-resize-text (text)
   (let ((lines 0)
+	(max-lines
+	 ;; 画面の半分の高さを基準に最大高を決める
+	 (- (/ (/ (display-pixel-height) 2)
+	       (cdr (assq 'PIXEL_SIZE (font-properties (face-font 'default)))))
+	    2))
 	(columns 0)
 	(current-column nil))
     (with-temp-buffer
@@ -248,7 +253,7 @@
       (goto-char (point-min))
       (while (not (eobp))
 	(setq lines (1+ lines))
-	(cond ((= lines 35)
+	(cond ((= lines max-lines)
 	       ;; 長すぎる
 	       (beginning-of-line)
 	       (insert "(長すぎるので省略されました)")
