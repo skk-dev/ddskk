@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.158 2007/06/13 21:10:15 skk-cvs Exp $
-;; Last Modified: $Date: 2007/06/13 21:10:15 $
+;; Version: $Id: SKK-MK,v 1.159 2007/06/13 21:41:50 skk-cvs Exp $
+;; Last Modified: $Date: 2007/06/13 21:41:50 $
 
 ;;; Commentary:
 
@@ -65,7 +65,6 @@ This version of SKK requires MULE features"))
       (add-to-list 'load-path dir))))
 
 (require 'install)
-(require 'path-util)
 
 (setq install-prefix
   (cond	((memq system-type '(windows-nt))
