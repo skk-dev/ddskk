@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.156 2007/04/22 05:58:44 skk-cvs Exp $
-;; Last Modified: $Date: 2007/04/22 05:58:44 $
+;; Version: $Id: SKK-MK,v 1.157 2007/06/13 21:05:49 skk-cvs Exp $
+;; Last Modified: $Date: 2007/06/13 21:05:49 $
 
 ;;; Commentary:
 
@@ -65,14 +65,15 @@ This version of SKK requires MULE features"))
       (add-to-list 'load-path dir))))
 
 (require 'install)
+(require 'path-util)
 
 (setq install-prefix
   (cond	((memq system-type '(windows-nt))
 	 ;; Meadow と NTEmacs に対して APEL が標準で設定する
 	 ;; install-prefix は不自然なので、ここで修正する。
 	 (expand-file-name ".." exec-directory))
-	((boundp 'mac-carbon-version-string)
-	 ;; Carbon Emacs はまた独自のファイルツリーになっている
+	((module-installed-p 'carbon-emacs-package)
+	 ;; Carbon Emacs package はまた独自のファイルツリーになっている
 	 (let ((dir (expand-file-name ".." data-directory)))
 	   (if (string-match "/Emacs\\.app/Contents/Resources/?$" dir)
 	       dir
@@ -104,8 +105,8 @@ This version of SKK requires MULE features"))
 (unless LISPDIR
   (setq LISPDIR
 	(cond ((or (memq system-type '(windows-nt))
-		   (boundp 'mac-carbon-version-string))
-	       ;; Meadow, NTEmacs, Carbon Emacs
+		   (module-installed-p 'carbon-emacs-package))
+	       ;; Meadow, NTEmacs, Carbon Emacs Package
 	       (expand-file-name "site-lisp" PREFIX))
 	      (t
 	       (install-detect-elisp-directory PREFIX)))))
@@ -118,8 +119,8 @@ This version of SKK requires MULE features"))
 (unless VERSION_SPECIFIC_LISPDIR
   (setq VERSION_SPECIFIC_LISPDIR
 	(cond ((or (memq system-type '(windows-nt))
-		   (boundp 'mac-carbon-version-string))
-	       ;; Meadow, NTEmacs, Carbon Emacs
+		   (module-installed-p 'carbon-emacs-package))
+	       ;; Meadow, NTEmacs, Carbon Emacs Package
 	       (expand-file-name "site-lisp" PREFIX))
 	      (t
 	       (install-detect-elisp-directory
@@ -312,8 +313,8 @@ This version of SKK requires MULE features"))
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
 (defvar SKK_DATADIR
   (let ((subdir (cond ((or (memq system-type '(windows-nt))
-			   (boundp 'mac-carbon-version-string))
-		       ;; Meadow, NTEmacs, Carbon Emacs
+			   (module-installed-p 'carbon-emacs-package))
+		       ;; Meadow, NTEmacs, Carbon Emacs Package
 		       "etc")
 		      (t
 		       "share"))))
