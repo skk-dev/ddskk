@@ -1,5 +1,8 @@
 2007-06-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* SKK-MK: Distinguish Carbon Emacs Package from generic Carbon
+	Emacs.
+
 	* skk-xemacs.el (skk-tooltip-resize-text): Decide max lines
 	according to `display-pixel-height' and the size of the default
 	font.
