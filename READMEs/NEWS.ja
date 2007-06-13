@@ -34,7 +34,7 @@ APEL 10.6 $B$K4X$9$kFC5-;v9`$O(B DDSKK 12.2.0 $B$N(B NEWS $B$r;2>H$7$F$/$@$
 $BDjE*$KBP1~$9$k%3!<%I$r4^$_$^$9$,!"$3$l$i$OA4$/%5%]!<%H$5$l$^$;$s!#(BCVS
 $B@hC<$G$O2DG=$JHO0O$G3+H/HG(B Emacs $B$KDI?o$9$kM=Dj$G$9!#(B
 
-*** NTEmacs, Meadow, Carbon Emacs $B$G$N%$%s%9%H!<%k%Q%9$N8+D>$7(B
+*** NTEmacs, Meadow, Carbon Emacs Package $B$G$N%$%s%9%H!<%k%Q%9$N8+D>$7(B
 
 NTEmacs, Meadow $B$O(B Emacs 18 $B$N$3$m$N$h$&$JC10l%G%#%l%/%H%j9=@.$r$H$j$^(B
 $B$9!#$3$N>u67$K(B APEL $B$N(B install.el $B$,8=>u$G$OBP1~$7$F$$$J$$$N$G!"(BSKK-MK
@@ -42,8 +42,13 @@ NTEmacs, Meadow $B$O(B Emacs 18 $B$N$3$m$N$h$&$JC10l%G%#%l%/%H%j9=@.$r$H$j$^
 $B%j2<$KG[CV$9$k$h$&$K$7$^$7$?!#(B
 
 $B$^$?!"(BDDSKK 13.1 $B$h$j(B Mac OS X $B4D6-$G$N%$%s%9%H!<%k$K$D$$$F$b>/$7$@$1(B
-$B9MN8$7!"(BCarbon Emacs (Emacs 22 $B%Y!<%9(B) $B$N8B$i$l$?4D6-$N$_%F%9%H$7$F$$(B
-$B$^$9!#(BAquamacs $B$d(B Cocoa $BBP1~$N(B Emacs $B$K$D$$$F$OL$$@%F%9%H$7$F$$$^$;$s!#(B
+$B9MN8$7!"(BCarbon Emacs Package (Emacs 22 $B%Y!<%9(B) $B$N8B$i$l$?4D6-$N$_%F%9(B
+$B%H$7$F$$$^$9!#(BAquamacs $B$d(B Cocoa $BBP1~$N(B Emacs $B$K$D$$$F$OL$$@%F%9%H$7$F(B
+$B$$$^$;$s!#(B
+
+Carbon Emacs Package (http://homepage.mac.com/zenitani/emacs-j.html)
+$B$O%*%j%8%J%k$N(B Carbon Emacs $B$H0[$J$kFH<+$N%U%!%$%k9=@.$r$H$C$F$$$k$?$a!"(B
+SKK $B$N%$%s%9%H!<%k@h$,E,@Z$K$J$k$h$&8DJL$NBP:v$r$7$^$7$?!#(B
 
 ** $B%$%s%9%H!<%k$N:]$N4D6-JQ?t%5%]!<%H$N0l;~Dd;_(B
 
