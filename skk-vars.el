@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.222 2007/06/14 15:18:21 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.223 2007/06/14 18:37:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/14 15:18:21 $
+;; Last Modified: $Date: 2007/06/14 18:37:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2462,7 +2462,7 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
   "SKK Annotation 利用方法を示すメッセージ (自動設定)。")
 
 ;; XXX まだ不完全
-(defvar skk-annotation-en-wiktionary-lang-regexp "\
+(defconst skk-annotation-en-wiktionary-lang-regexp "\
 <h2>.*<span class=\"mw-headline\">\
 \\(<a href=.+>\\)?\
 \\(Afrikaans\\|Ainu\\|Amoy\\|Amuzgo\\|Aragonese\\|Bosnian\\|Breton\\|Cantonese\
@@ -2478,7 +2478,7 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 </span></h2>"
   "en.wiktionary において言語を表すヘッダの正規表現")
 
-(defvar skk-annotation-en-wiktionary-part-of-speech-regexp "\
+(defconst skk-annotation-en-wiktionary-part-of-speech-regexp "\
 <span class=\"mw-headline\">\
 \\(<a href=.+>\\)?\
 \\(Article\\|Noun\\|Proper Noun\\|Adjective\\|Proper Adjective\
@@ -2486,7 +2486,7 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 \\|Conjunction\\|Interjection\\|Numeral\\|Prefix\\|Suffix\\|Particle\
 \\|Preposition\\|Contraction\\|Determiner\\|Demonstrative determiner\
 \\|Interrogative determiner\\|Pronoun\\|Pronominal possessive adjective\
-\\|Demonstrative pronoun\
+\\|Demonstrative pronoun\\|Demonstrative adjective\
 \\|Interrogative pronoun\\|Relative pronoun\\|Auxiliary verb\\( form\\)?\
 \\|Indefinite article\\|Abbreviation\\|Initialism\\|Acronym\\|Symbol\
 \\|Han character\\|Phrase\\)\
