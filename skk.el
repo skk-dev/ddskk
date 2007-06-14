@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.412 2007/05/24 12:24:19 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.413 2007/06/14 11:58:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/05/24 12:24:19 $
+;; Last Modified: $Date: 2007/06/14 11:58:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1600,7 +1600,8 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
      (cond
       ((eq skk-henkan-mode 'active)
        (if (and (not skk-delete-implies-kakutei)
-		(= skk-henkan-end-point (point)))
+		(= (+ skk-henkan-end-point (length skk-henkan-okurigana))
+		   (point)))
 	   (skk-previous-candidate)
 	 ;; overwrite-mode で、ポイントが全角文字に囲まれていると
 	 ;; きに delete-backward-char を使うと、全角文字は消すが半

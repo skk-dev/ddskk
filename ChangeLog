@@ -1,3 +1,11 @@
+2007-06-14  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-delete-backward-char):
+	* skk-viper.el (viper-del-backward-char-in-insert):
+
+	Consider okurigana length when comparing `skk-henkan-end-point'
+	with current point.
+
 2007-06-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK: Distinguish Carbon Emacs Package from generic Carbon

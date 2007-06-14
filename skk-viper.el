@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.34 2007/04/22 02:38:27 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.35 2007/06/14 11:58:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:27 $
+;; Last Modified: $Date: 2007/06/14 11:58:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -198,7 +198,8 @@ viper-read-string-with-history は minibuffer-setup-hook を関数ローカル
     (cond
      ((eq skk-henkan-mode 'active)
       (if (and (not skk-delete-implies-kakutei)
-	       (= skk-henkan-end-point (point)))
+	       (= (+ skk-henkan-end-point (length skk-henkan-okurigana))
+		  (point)))
 	  (skk-previous-candidate)
 	;;(if skk-use-face (skk-henkan-face-off))
 	;; overwrite-mode $Bで、ポイントが全角文字に囲まれていると
