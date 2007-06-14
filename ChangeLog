@@ -1,3 +1,10 @@
+2007-06-14  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-comp.el (skk-comp-do): Fix order of candidates after user
+	displayed previous candidate.
+
+	* skk-vars.el (skk-comp-use-prefix): Update docstring.
+
 2007-06-14  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-delete-backward-char):
