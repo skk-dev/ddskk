@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.223 2007/06/14 18:37:03 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.224 2007/06/14 19:01:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/14 18:37:03 $
+;; Last Modified: $Date: 2007/06/14 19:01:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2465,13 +2465,16 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 (defconst skk-annotation-en-wiktionary-lang-regexp "\
 <h2>.*<span class=\"mw-headline\">\
 \\(<a href=.+>\\)?\
-\\(Afrikaans\\|Ainu\\|Amoy\\|Amuzgo\\|Aragonese\\|Bosnian\\|Breton\\|Cantonese\
+\\(Afrikaans\\|Ainu\\|Albanian\\|Amoy\\|Amuzgo\\|Aragonese\
+\\|Balinese\\|Bosnian\\|Breton\\|Cantonese\
 \\|Catalan\\|Crimean Tatar\\|Croatian\
 \\|Czech\\\|Danish\\|Dutch\\|Egyptian\\|English\\|Esperanto\\|Estonian\
 \\|Faroese\\|Finnish\\|French\\|German\\|Greek\\|Hungarian\\|Interlingua\
-\\|Irish\\|Italian\\|Japanese\\|Korean\\|Krisa\\|Kurdish\\|Latin\\|Mandarin\
-\\|Min Nan\\|Murrinh-Patha\\|Northern Sami\
-\\|Norwegian\\|Novial\\|Old English\\|Polish\\|Potuguese\\|Romanian\
+\\|Irish\\|Italian\\|Japanese\\|Korean\\|Krisa\\|Kurdish\
+\\|Latin\\|Lithuanian\\|Lojban\
+\\|Mandarin\\|Min Nan\\|Murrinh-Patha\\|Northern Sami\
+\\|Norwegian\\|Novial\\|Old English\\|Old Prussian\
+\\|Polish\\|Potuguese\\|Romanian\
 \\|Scots\\|Scottish Gaelic\\|Serbian\\|Slovak\\|Slovene\\|Spanish\\|Swahili\
 \\|Swedish\\|Torres Strait Creole\\|Translingual\\|Turkish\\|Tz'utujil\\)\
 \\(</a>\\)?\
@@ -2482,7 +2485,8 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 <span class=\"mw-headline\">\
 \\(<a href=.+>\\)?\
 \\(Article\\|Noun\\|Proper Noun\\|Adjective\\|Proper Adjective\
-\\|Verb\\( form\\)?\\|Intransitive verb\\|Transitive verb\\|Adverb\
+\\|Verb\\( form\\)?\\|Intransitive\\( verb\\)?\\|Transitive\\( verb\\)?\
+\\|Adverb\
 \\|Conjunction\\|Interjection\\|Numeral\\|Prefix\\|Suffix\\|Particle\
 \\|Preposition\\|Contraction\\|Determiner\\|Demonstrative determiner\
 \\|Interrogative determiner\\|Pronoun\\|Pronominal possessive adjective\

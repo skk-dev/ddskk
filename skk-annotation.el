@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.126 2007/06/13 00:48:23 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.127 2007/06/14 19:01:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/06/13 00:48:23 $
+;; Last Modified: $Date: 2007/06/14 19:01:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -897,7 +897,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
   (let ((cache-buffer (format " *skk %s %s" source word))
 	;; html2text $B$,@5$7$/07$($J$$(B tag $B$O0J2<$N%j%9%H$K;XDj$9$k(B
 	(html2text-remove-tag-list
-	 (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "small"
+	 (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
 		   "code")
 		 html2text-remove-tag-list))
 	(html2text-format-tag-list
@@ -1105,8 +1105,8 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		  (delete-region point (point)))
 		;;
 		(goto-char (point-min))
-		(while (re-search-forward
-			"<span.*>\\[<a.+>edit</a>\\]</span>"
+		(while (re-search-forward "\
+<span.*>\\(\\[<a.+>edit</a>\\]\\|Inflection\\)</span>"
 			nil t)
 		  (replace-match ""))))
 	     ;; ja.wikipedia

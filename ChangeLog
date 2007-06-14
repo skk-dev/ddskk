@@ -1,7 +1,13 @@
 2007-06-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skk-annotation-wikipedia-1): Add "h5" to
+	html2text-remove-tag-list.  Do not show "Inflection" in
+	en.wiktionary.
+
 	* skk-vars.el (skk-annotation-en-wiktionary-part-of-speech-regexp):
 	Support "Demonstrative adjective" and "Phrase".
+	(skk-annotation-en-wiktionary-lang-regexp): Support Albanian,
+	Balinese, Lithuanian, Lojban, and Old Prussian.
 
 2007-06-14  Eiji Obata  <e-obata@zero.ad.jp>
 
