@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.71 2007/04/27 23:22:49 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.72 2007/06/14 15:15:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/27 23:22:49 $
+;; Last Modified: $Date: 2007/06/14 15:15:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -105,7 +105,7 @@
 		     (eq data t))
 	  (setq skk-comp-prefix ""))))
     (cond
-     ;; (過去に探索済みの読みをアクセス中)
+     ;; (全候補探索済み)
      (skk-comp-search-done
       (if (= skk-comp-depth 0)
 	  ;; circulate ならば c-word = skk-comp-key なので c-word = nil
@@ -114,19 +114,26 @@
 	      (setq skk-comp-depth (length skk-comp-stack)))
 	(setq skk-comp-depth (1- skk-comp-depth))
 	(setq c-word (nth skk-comp-depth skk-comp-stack))))
-     ;; (新規の読みを探索)
+     ;; (未探索候補が残っている可能性有り)
      (t
-      (setq c-word
-	    (let ((word (skk-comp-get-candidate first)))
-	      (while (member word skk-comp-stack)
-		(setq word (skk-comp-get-candidate)))
-	      word))
-      (if c-word
-	  ;; 新規に見つけたときだけ push する。
-	  (push c-word skk-comp-stack)
-	(setq skk-comp-search-done t)
-	(if skk-comp-circulate
-	    (setq skk-comp-depth (length skk-comp-stack))))))
+      (cond
+       ;; 最後に得られた候補を表示している
+       ((= skk-comp-depth 0)
+	(setq c-word
+	      (let ((word (skk-comp-get-candidate first)))
+		(while (member word skk-comp-stack)
+		  (setq word (skk-comp-get-candidate)))
+		word))
+	(if c-word
+	    ;; 新規に見つけたときだけ push する。
+	    (push c-word skk-comp-stack)
+	  (setq skk-comp-search-done t)
+	  (if skk-comp-circulate
+	      (setq skk-comp-depth (length skk-comp-stack)))))
+       (t
+	;; "," などで前候補に戻っている
+	(setq skk-comp-depth (1- skk-comp-depth)
+	      c-word (nth skk-comp-depth skk-comp-stack))))))
     (cond
      (c-word
       (delete-region skk-henkan-start-point (point))
