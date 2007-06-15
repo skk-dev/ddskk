@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.30 2007/04/22 02:38:26 skk-cvs Exp $
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Version: $Id: SKK-CFG,v 1.31 2007/06/15 23:23:31 skk-cvs Exp $
+;; Last Modified: $Date: 2007/06/15 23:23:31 $
 
 ;;; Commentary:
 
@@ -131,18 +131,27 @@
 
 ;;; NTEmacs の設定例:
 ;; (setq APEL_DIR "c:/emacs/site-lisp/apel")
-;; (setq EMU_DIR "c:/emacs/22.0.96/site-lisp/emu")
-;; (setq SKK_DATADIR "c:/emacs/22.0.96/etc/skk")
-;; (setq SKK_INFODIR "c:/emacs/22.0.96/info")
-;; (setq SKK_LISPDIR "c:/emacs/22.0.96/site-lisp/skk")
+;; (setq EMU_DIR "c:/emacs/22.1/site-lisp/emu")
+;; (setq SKK_DATADIR "c:/emacs/22.1/etc/skk")
+;; (setq SKK_INFODIR "c:/emacs/22.1/info")
+;; (setq SKK_LISPDIR "c:/emacs/22.1/site-lisp/skk")
 ;; (setq SKK_SET_JISYO t)
+;;
+;; *[注] Windows 用の Emacs はバージョンやビルド、ディストリビューション
+;; によってファイル配置に差異があることがあります。
+;; make what-where の出力に注意してください。
 
-;;; Carbon Emacs の設定例:
+;;; Carbon Emacs Package の設定例:
 ;; (setq APEL_DIR "/Applications/Emacs.app/Contents/Resources/site-lisp/apel")
 ;; (setq EMU_DIR "/Applications/Emacs.app/Contents/Resources/site-lisp/emu")
 ;; (setq SKK_DATADIR "/Applications/Emacs.app/Contents/Resources/etc/skk")
 ;; (setq SKK_INFODIR "/Applications/Emacs.app/Contents/Resources/info")
 ;; (setq SKK_LISPDIR "/Applications/Emacs.app/Contents/Resources/site-lisp/skk")
 ;; (setq SKK_SET_JISYO t)
+;;
+;; *[注] これは下記の Carbon Emacs パッケージ用の設定です。一般的な Carbon
+;; Emacs は通常の UNIX 的ファイル配置をとります。
+;;
+;; http://homepage.mac.com/zenitani/emacs-j.html
 
 ;;; SKK-CFG ends here
