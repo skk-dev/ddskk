@@ -1,3 +1,7 @@
+2007-06-18  Kenichi Kurihara  <kenichi_kurihara@nifty.com>
+
+	* experimental/bayesian/bskk (DB::marshal): Remove an unused line.
+
 2007-06-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-CFG: Distinguish Carbon Emacs Package from generic Carbon
