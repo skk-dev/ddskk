@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.13 2006/10/10 02:58:29 skk-cvs Exp $
+## Version: $Id: bskk,v 1.14 2007/06/18 00:53:55 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2006/10/10 02:58:29 $
+## Last Modified: $Date: 2007/06/18 00:53:55 $
 
 ## This file is part of Daredevil SKK.
 
@@ -275,7 +275,6 @@ class DB
       prefix2dst.each{ |prefix, dst|
         io.puts( "#prefix=#{prefix}" )
         io.puts( "%" + dst.to_s )
-        File.expand_path( ARGV[0] )
       }
     }
     debug_log( "marchasl() took " + (Time.now-time).to_f.to_s + "(sec)." )
