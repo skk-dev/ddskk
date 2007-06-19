@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.413 2007/06/14 11:58:28 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.414 2007/06/19 02:09:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/14 11:58:28 $
+;; Last Modified: $Date: 2007/06/19 02:09:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2207,6 +2207,12 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (depth (- (1+ (minibuffer-depth)) skk-henkan-in-minibuff-nest-level))
 	  ;; XEmacs $B$G$O<!$NJQ?t$,:F5"E*%_%K%P%C%U%!$N2DH]$K1F6A$9$k!#(B
 	  minibuffer-max-depth
+	  ;; From skk-henkan()
+	  ;; we use mark to go back to the correct position after henkan
+	  (mark (unless (eobp)
+		  (skk-save-point
+		   (forward-char 1)
+		   (point-marker))))
 	  ;; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k!#(B
 	  skk-isearch-message orglen new-one pair)
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
@@ -2260,6 +2266,15 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	    ;;   $BCm<a2C9)=hM}$rFHN)$7$?4X?t$K$7$F!"(B
 	    ;;   $B$=$l$rMxMQ$9$k$h$&$K$7$?$[$&$,NI$5$=$&!#(B
 	    (setq pair (skk-insert-new-word (skk-get-current-candidate)))
+	    ;; From skk-henkan()
+	    ;; $BAw$j$"$jJQ49$N:]$N(B point $B$N0LCV$r!"<-=qEPO?%b!<%I$KF~$kA0$N(B
+	    ;; $B0LCV$KLa$9!#(B
+	    (if mark
+		(progn
+		  (goto-char mark)
+		  (skk-set-marker mark nil)
+		  (backward-char 1))
+	      (goto-char (point-max)))
 	    ;;
 	    (when skk-show-annotation
 	      (skk-annotation-find-and-show pair)))))
