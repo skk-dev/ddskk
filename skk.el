@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.414 2007/06/19 02:09:47 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.415 2007/06/26 17:04:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/19 02:09:47 $
+;; Last Modified: $Date: 2007/06/26 17:04:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1416,6 +1416,7 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	 (memq last-command
 	       '(skk-insert
 		 skk-jisx0208-latin-insert
+		 skk-kakutei-henkan
 		 ;; SKK abbrev モードでは、アスキー文字入力が Emacs オリジナ
 		 ;; ルの self-insert-command により行なわれているので、
 		 ;; skk-self-insert-non-undo-count をインクリメントすること
