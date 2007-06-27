@@ -1,5 +1,10 @@
 2007-06-27  Eiji Obata  <e-obata@zero.ad.jp>
 
+	* skk-vars.el (skk-kakutei-when-unique-candidate): New user
+	option.
+	(skk-kakutei-unique-candidate-flag): New variable.
+	* skk.el (skk-henkan-1, skk-search): Consider them.
+
 	* skk-vars.el (skk-kakutei-prog-list): New variable.
 	* skk.el (skk-kakutei-program-p): New function.
 	(skk-henkan-1, skk-undo-kakutei): Use it.

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.416 2007/06/27 09:09:58 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.417 2007/06/27 12:01:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/27 09:09:58 $
+;; Last Modified: $Date: 2007/06/27 12:01:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1715,22 +1715,34 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 
 (defun skk-henkan-1 ()
   "`skk-henkan' のサブルーチン。"
-  (let (new-word)
+  (let (new-word inhibit-kakutei)
     (cond
      ((= (skk-henkan-count) 0)
-      (when (and (eq last-command 'skk-undo-kakutei-henkan)
-		 ;; prefix arg によって変換プログラムを切り替えている可能性が
-		 ;; あるので、チェックは省けない。
-		 ;; 前回と今回では違う確定変換プログラムを使う、
-		 ;; というような需要にまでは対応していない。
-		 (skk-kakutei-program-p (car skk-current-search-prog-list)))
-	;; in this case, we should not search kakutei jisyo.
-	(setq skk-current-search-prog-list
-	      (cdr skk-current-search-prog-list)))
+      (when (eq last-command 'skk-undo-kakutei-henkan)
+	;; prefix arg によって変換プログラムを切り替えている可能性が
+	;; あるので、チェックは省けない。
+	;; 前回と今回では違う確定変換プログラムを使う、
+	;; というような需要にまでは対応していない。
+	(when (skk-kakutei-program-p (car skk-current-search-prog-list))
+	  ;; in this case, we should not search kakutei jisyo.
+	  (setq skk-current-search-prog-list
+		(cdr skk-current-search-prog-list)))
+	(when skk-kakutei-unique-candidate-flag
+	  ;; 「候補が一つなら確定変換」を取り消した時、
+	  ;; prefix arg によって変換プログラムを切り替えている可能性を考慮し、
+	  ;; skk-current-search-prog-list を nil にするのではなく
+	  ;; 「候補が一つなら確定変換」機能をオフにする。
+	  (setq inhibit-kakutei t)))
+      (setq skk-kakutei-unique-candidate-flag nil)
       (while (and skk-current-search-prog-list
 		  (not new-word))
-	(setq skk-henkan-list (skk-nunion skk-henkan-list
-					  (skk-search)))
+	(setq skk-henkan-list
+	      (skk-nunion skk-henkan-list
+			  (let ((skk-kakutei-when-unique-candidate
+				 (if inhibit-kakutei
+				     nil
+				   skk-kakutei-when-unique-candidate)))
+			    (skk-search))))
 	(skk-henkan-list-filter)
 	(setq new-word (skk-get-current-candidate)))
       (when (and new-word
@@ -3762,6 +3774,19 @@ If you want to restore the dictionary from the disc, try
 		(let (skk-use-numeric-conversion)
 		  (eval prog))))
       (setq skk-current-search-prog-list (cdr skk-current-search-prog-list)))
+    ;; 変換候補が一つしか無い時の確定変換用チェック
+    (when (and (if (eq skk-kakutei-when-unique-candidate 'okuri-nasi)
+		   (not skk-henkan-okurigana)
+		 skk-kakutei-when-unique-candidate)
+	       (null skk-henkan-list))
+      (while (and skk-current-search-prog-list
+		  (= (length l) 1))
+	(setq l (skk-nunion l
+			    (let (skk-kakutei-when-unique-candidate)
+			      (skk-search)))))
+      (when (= (length l) 1)
+	(setq skk-kakutei-flag t
+	      skk-kakutei-unique-candidate-flag t)))
     l))
 
 (defun skk-numeric-program-p (program)

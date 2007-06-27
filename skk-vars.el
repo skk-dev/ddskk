@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.225 2007/06/27 09:09:58 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.226 2007/06/27 12:01:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/27 09:09:58 $
+;; Last Modified: $Date: 2007/06/27 12:01:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1321,6 +1321,17 @@ nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
   :group 'skk-basic
   :group 'skk-kakutei)
 
+(defcustom skk-kakutei-when-unique-candidate nil
+  "*Non-nil $B$G$"$l$P!"JQ498uJd$,0l$D$7$+$J$$$H$-3NDjJQ49$9$k!#(B
+`okuri-nasi' $B$J$i$P!"Aw$jL5$7JQ49;~$N$_M-8z$H$9$k!#(B
+
+$B8uJd$,B>$KL5$$;v$r3NG'$9$k$?$a!"(B`skk-search-prog-list' $B$NFbMF<!Bh$G(B
+$B%l%9%]%s%9$,0-$/$J$k2DG=@-$,$"$k!#(B"
+  :type '(radio (const :tag "$B>o$KM-8z(B" t)
+		(const :tag "$BAw$jL5$7JQ49;~$@$1M-8z(B" okuri-nasi)
+		(const :tag "$BL58z(B" nil))
+  :group 'skk-kakutei)
+
 (defcustom skk-kakutei-end-function nil
   "*$B3NDj;~$K%3!<%k$5$l$k4X?t!#(B
 KAKUTEI-WORD $B0z?t$rH<$J$C$F!"JQ49$r9T$C$?%P%C%U%!$G%3!<%k$5$l$k!#(B
@@ -2203,6 +2214,9 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B skk-mode $B$r5/F0$7$F$$$k$3$H$r<
 `skk-henkan', `skk-search-kakutei-jisyo-file', `skk-henkan-show-candidates',
 `skk-henkan-in-minibuff' $B$H(B `skk-kakutei-save-and-init-variables' $B$GJQ99!"(B
 $B;2>H$5$l$k!#(B")
+
+(skk-deflocalvar skk-kakutei-unique-candidate-flag nil
+  "Non-nil $B$J$iJQ498uJd$,0l$D$7$+$J$$$?$a3NDjJQ49$7$?>uBV$G$"$k$3$H$r;X$9!#(B")
 
 (skk-deflocalvar skk-exit-show-candidates nil
   "$B%_%K%P%C%U%!$G8uJd$r<!!9$KI=<($7$F!"8uJd$,?T$-$?$H$-$K(B non-nil $B$H$J$k!#(B
