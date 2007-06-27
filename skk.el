@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.415 2007/06/26 17:04:40 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.416 2007/06/27 09:09:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/26 17:04:40 $
+;; Last Modified: $Date: 2007/06/27 09:09:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1719,8 +1719,11 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
     (cond
      ((= (skk-henkan-count) 0)
       (when (and (eq last-command 'skk-undo-kakutei-henkan)
-		 (eq (car (car skk-current-search-prog-list))
-		     'skk-search-kakutei-jisyo-file))
+		 ;; prefix arg $B$K$h$C$FJQ49%W%m%0%i%`$r@Z$jBX$($F$$$k2DG=@-$,(B
+		 ;; $B$"$k$N$G!"%A%'%C%/$O>J$1$J$$!#(B
+		 ;; $BA02s$H:#2s$G$O0c$&3NDjJQ49%W%m%0%i%`$r;H$&!"(B
+		 ;; $B$H$$$&$h$&$J<{MW$K$^$G$OBP1~$7$F$$$J$$!#(B
+		 (skk-kakutei-program-p (car skk-current-search-prog-list)))
 	;; in this case, we should not search kakutei jisyo.
 	(setq skk-current-search-prog-list
 	      (cdr skk-current-search-prog-list)))
@@ -2833,8 +2836,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 		skk-henkan-end-point)))
 	 (setq skk-henkan-mode 'active
 	       skk-current-search-prog-list
-	       (if (eq (car (car skk-search-prog-list))
-		       'skk-search-kakutei-jisyo-file)
+	       (if (skk-kakutei-program-p (car skk-search-prog-list))
 		   ;; $B3NDj<-=q$OC5$7$F$bL50UL#!#(B
 		   (cdr skk-search-prog-list)
 		 skk-search-prog-list))
@@ -3769,6 +3771,13 @@ nil $B$rJV$9!#$5$b$J$1$l$P(B non-nil $B$rJV$9!#(B"
   (not (or (memq (car program) skk-non-numeric-prog-list)
 	   (member program skk-non-numeric-prog-list))))
 
+(defun skk-kakutei-program-p (program)
+  "$B<-=q8!:w%W%m%0%i%`(B PROGRAM $B$,3NDjJQ49MQ$+$I$&$+H=Dj$9$k!#(B
+$B$b$7%W%m%0%i%`$,(B `skk-kakutei-prog-list' $B$K;XDj$5$l$F$$$?$i(B
+Non-nil $B$rJV$9!#$5$b$J$1$l$P(B nil $B$rJV$9!#(B"
+  (or (memq (car program) skk-kakutei-prog-list)
+      (member program skk-kakutei-prog-list)))
+
 (defun skk-search-jisyo-file (file limit &optional nomsg)
   "SKK $B<-=q%U%)!<%^%C%H$N(B FILE $B$G(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B
 $B8!:wNN0h$,(B LIMIT $B0J2<$K$J$k$^$G%P%$%J%j%5!<%A$r9T$$!"$=$N8e%j%K%"%5!<%A$r9T$&!#(B
@@ -4035,10 +4044,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 $B8uJd$r8+$D$1$?>l9g$O!"Bg0hJQ?t(B `skk-kakutei-flag' $B$K(B non-nil $B$rBeF~$9$k!#(B
 $B0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H!#(B
 
-$BMxMQ$9$k>l9g$O(B `skk-search-prog-list' $B$N(B `caar' $B$O(B
-`skk-search-kakutei-jisyo-file' $B$H$J$C$F$$$k;v$,K>$^$7$$!#(B
-$B$3$l$O(B `skk-previous-candidate-char' $B$N%?%$%W$K$h$k3NDjJQ49$N<h$j>C$7$N$?$a$K(B
-$BI,MW$J>r7o$G$"$k!#(B"
+$BMxMQ$9$k>l9g$O(B `skk-search-prog-list' $B$N@hF,$KG[$9$k;v!#(B"
   (setq skk-kakutei-flag (skk-search-jisyo-file file limit nomsg)))
 
 (defun skk-update-jisyo (word &optional purge)
