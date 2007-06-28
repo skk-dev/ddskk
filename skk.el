@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.418 2007/06/28 09:32:55 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.419 2007/06/28 12:54:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/28 09:32:55 $
+;; Last Modified: $Date: 2007/06/28 12:54:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1739,20 +1739,22 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	(setq skk-henkan-list (skk-nunion skk-henkan-list
 					  (skk-search)))
 	(skk-henkan-list-filter)
-	;; 変換候補が一つしか無い時の確定変換用チェック
-	(when (and (if (eq skk-kakutei-when-unique-candidate 'okuri-nasi)
-		       (not skk-henkan-okurigana)
-		     skk-kakutei-when-unique-candidate)
-		   (not inhibit-kakutei))
-	  (while (and skk-current-search-prog-list
-		      (<= (length skk-henkan-list) 1))
-	    (setq skk-henkan-list (skk-nunion skk-henkan-list
-					      (skk-search)))
-	    (skk-henkan-list-filter))
-	  (when (= (length skk-henkan-list) 1)
-	    (setq skk-kakutei-flag t
-		  skk-kakutei-unique-candidate-flag t)))
 	(setq new-word (skk-get-current-candidate)))
+      ;; 変換候補が一つしか無い時の確定変換用チェック
+      (when (and (if (eq skk-kakutei-when-unique-candidate 'okuri-nasi)
+		     (not skk-henkan-okurigana)
+		   skk-kakutei-when-unique-candidate)
+		 (not inhibit-kakutei))
+	(while (and skk-current-search-prog-list
+		    (<= (length skk-henkan-list) 1))
+	  (setq skk-henkan-list (skk-nunion skk-henkan-list
+					    (skk-search)))
+	  (skk-henkan-list-filter))
+	(when (= (length skk-henkan-list) 1)
+	  (setq skk-kakutei-flag t
+		skk-kakutei-unique-candidate-flag t)))
+      ;; skk-henkan-list-filter を通した後は念の為に再取得
+      (setq new-word (skk-get-current-candidate))
       (when (and new-word
 		 skk-kakutei-flag)
 	;; found the unique candidate in kakutei jisyo
