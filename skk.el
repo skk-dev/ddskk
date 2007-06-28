@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.417 2007/06/27 12:01:25 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.418 2007/06/28 09:32:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/27 12:01:25 $
+;; Last Modified: $Date: 2007/06/28 09:32:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1736,14 +1736,22 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       (setq skk-kakutei-unique-candidate-flag nil)
       (while (and skk-current-search-prog-list
 		  (not new-word))
-	(setq skk-henkan-list
-	      (skk-nunion skk-henkan-list
-			  (let ((skk-kakutei-when-unique-candidate
-				 (if inhibit-kakutei
-				     nil
-				   skk-kakutei-when-unique-candidate)))
-			    (skk-search))))
+	(setq skk-henkan-list (skk-nunion skk-henkan-list
+					  (skk-search)))
 	(skk-henkan-list-filter)
+	;; 変換候補が一つしか無い時の確定変換用チェック
+	(when (and (if (eq skk-kakutei-when-unique-candidate 'okuri-nasi)
+		       (not skk-henkan-okurigana)
+		     skk-kakutei-when-unique-candidate)
+		   (not inhibit-kakutei))
+	  (while (and skk-current-search-prog-list
+		      (<= (length skk-henkan-list) 1))
+	    (setq skk-henkan-list (skk-nunion skk-henkan-list
+					      (skk-search)))
+	    (skk-henkan-list-filter))
+	  (when (= (length skk-henkan-list) 1)
+	    (setq skk-kakutei-flag t
+		  skk-kakutei-unique-candidate-flag t)))
 	(setq new-word (skk-get-current-candidate)))
       (when (and new-word
 		 skk-kakutei-flag)
@@ -3774,19 +3782,6 @@ If you want to restore the dictionary from the disc, try
 		(let (skk-use-numeric-conversion)
 		  (eval prog))))
       (setq skk-current-search-prog-list (cdr skk-current-search-prog-list)))
-    ;; 変換候補が一つしか無い時の確定変換用チェック
-    (when (and (if (eq skk-kakutei-when-unique-candidate 'okuri-nasi)
-		   (not skk-henkan-okurigana)
-		 skk-kakutei-when-unique-candidate)
-	       (null skk-henkan-list))
-      (while (and skk-current-search-prog-list
-		  (= (length l) 1))
-	(setq l (skk-nunion l
-			    (let (skk-kakutei-when-unique-candidate)
-			      (skk-search)))))
-      (when (= (length l) 1)
-	(setq skk-kakutei-flag t
-	      skk-kakutei-unique-candidate-flag t)))
     l))
 
 (defun skk-numeric-program-p (program)

@@ -1,3 +1,8 @@
+2007-06-28  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk.el (skk-search): Undo the last change.
+	(skk-henkan-1): Handle `skk-kakutei-when-unique-candidate' here.
+
 2007-06-27  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-kakutei-when-unique-candidate): New user
