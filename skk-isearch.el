@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.52 2007/06/10 10:36:50 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.53 2007/06/28 13:10:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/10 10:36:50 $
+;; Last Modified: $Date: 2007/06/28 13:10:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -306,12 +306,9 @@ kakutei'ed and erase the buffer contents."
     (setq skk-isearch-state nil))
   (setq skk-isearch-current-buffer nil)
   ;;
-  (remove-hook 'pre-command-hook 'skk-pre-command 'local)
-  (skk-remove-minibuffer-setup-hook
-   'skk-j-mode-on 'skk-setup-minibuffer
-   (function
-    (lambda ()
-      (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
+  (skk-remove-minibuffer-setup-hook 'skk-j-mode-on
+				    'skk-setup-minibuffer
+				    'skk-add-skk-pre-command))
 
 (defun skk-isearch-incomplete-message (&optional prefix)
   "Show message when kana kanji conversion is in progress.

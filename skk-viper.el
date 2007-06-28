@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.35 2007/06/14 11:58:28 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.36 2007/06/28 13:10:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/14 11:58:28 $
+;; Last Modified: $Date: 2007/06/28 13:10:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -157,12 +157,10 @@ viper-read-string-with-history は minibuffer-setup-hook を関数ローカル
 ;; vip-4 $Bの同種の関数名は vip-read-string-with-history？
 (defadvice viper-read-string-with-history (after skk-viper-ad activate)
   "次回ミニバッファに入ったときに SKK モードにならないようにする。"
-  (remove-hook 'pre-command-hook 'skk-pre-command 'local)
-  (skk-remove-minibuffer-setup-hook
-   'skk-j-mode-on 'skk-setup-minibuffer
-   (function
-    (lambda ()
-      (add-hook 'pre-command-hook 'skk-pre-command nil 'local)))))
+  (skk-remove-skk-pre-command)
+  (skk-remove-minibuffer-setup-hook 'skk-j-mode-on
+				    'skk-setup-minibuffer
+				    'skk-add-skk-pre-command))
 
 (skk-viper-advice-select
  viper-forward-word-kernel vip-forward-word-kernel

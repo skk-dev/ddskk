@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.226 2007/06/27 12:01:25 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.227 2007/06/28 13:10:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/27 12:01:25 $
+;; Last Modified: $Date: 2007/06/28 13:10:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1208,12 +1208,6 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   :type 'character
   :group 'skk-henkan)
 
-(defcustom skk-egg-like-newline nil
-  "*Non-nil $B$G$"$l$P!""'%b!<%I$G2~9T$r%?%$%W$7$F$b3NDj$9$k$N$_$G2~9T$7$J$$!#(B"
-  :type 'boolean
-  :group 'skk-basic
-  :group 'skk-henkan)
-
 (defcustom skk-show-inline nil
   "*Non-nil $B$G$"$l$P!"%$%s%i%$%s(B $B$G8uJd$J$I$rI=<($9$k!#(B
 $B$3$N5!G=$O8=:_$N$H$3$m(B Emacs 21 $B@lMQ!#(B"
@@ -1304,6 +1298,12 @@ nil $B$G$"$l$P!"Nc$($P(B
 
 $B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
 $B$J$i$J$$!#(B"
+  :type 'boolean
+  :group 'skk-basic
+  :group 'skk-kakutei)
+
+(defcustom skk-egg-like-newline nil
+  "*Non-nil $B$G$"$l$P!""'%b!<%I$G2~9T$r%?%$%W$7$F$b3NDj$9$k$N$_$G2~9T$7$J$$!#(B"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-kakutei)

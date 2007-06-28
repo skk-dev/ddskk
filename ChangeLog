@@ -1,3 +1,18 @@
+2007-06-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-mode-cleanup): Do not remove
+	`skk-pre-command' from pre-command-hook.
+
+	* skk-isearch.el (skk-isearch-mode-cleanup):
+	* skk-macs.el (skk-mode-off):
+	* skk-viper.el (viper-read-string-with-history):
+
+	Use `skk-add-pre-command' or `skk-remove-pre-command' instead of
+	an expression with `add-hook' or `remove-hook'.
+
+	* skk-vars.el (skk-egg-like-newline): Modify custom group to
+	skk-kakutei.
+
 2007-06-28  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-search): Undo the last change.
