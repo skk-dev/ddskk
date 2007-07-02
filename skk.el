@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.419 2007/06/28 12:54:19 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.420 2007/07/02 19:57:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/28 12:54:19 $
+;; Last Modified: $Date: 2007/07/02 19:57:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2716,6 +2716,21 @@ WORD $B$G3NDj$9$k!#(B"
 	     (cons kakutei-word converted)
 	   kakutei-word))))
     (skk-do-auto-fill)
+    (when (and skk-undo-kakutei-return-previous-point
+	       (numberp skk-undo-kakutei-previous-point)
+	       (numberp skk-undo-kakutei-previous-length)
+	       (markerp skk-henkan-end-point)
+	       (markerp skk-henkan-start-point))
+      (goto-char (+ skk-undo-kakutei-previous-point
+		    (if (>= skk-undo-kakutei-previous-point
+			    (1- (+ skk-henkan-start-point
+				   skk-undo-kakutei-previous-length)))
+			(- skk-henkan-end-point
+			   skk-henkan-start-point
+			   skk-undo-kakutei-previous-length)
+		      0))))
+    (setq skk-undo-kakutei-previous-point nil
+	  skk-undo-kakutei-previous-length nil)
     (if skk-mode
 	(unless (or skk-j-mode
 		    skk-jisx0201-mode)
@@ -2868,6 +2883,12 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	       skk-henkan-okurigana (skk-get-last-henkan-datum
 				     'henkan-okurigana)
 	       skk-okuri-char (skk-get-last-henkan-datum 'okuri-char))
+	 (when (and skk-undo-kakutei-return-previous-point
+		    (markerp skk-henkan-end-point)
+		    (markerp skk-henkan-start-point))
+	   (setq skk-undo-kakutei-previous-point (point)
+		 skk-undo-kakutei-previous-length (- skk-henkan-end-point
+						     skk-henkan-start-point)))
 	 (when skk-use-numeric-conversion
 	   (setq skk-num-list (skk-get-last-henkan-datum 'skk-num-list)))
 	 (when (>= (point-max) end)

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.227 2007/06/28 13:10:59 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.228 2007/07/02 19:57:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/28 13:10:59 $
+;; Last Modified: $Date: 2007/07/02 19:57:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1334,9 +1334,8 @@ nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
 
 (defcustom skk-kakutei-end-function nil
   "*$B3NDj;~$K%3!<%k$5$l$k4X?t!#(B
-KAKUTEI-WORD $B0z?t$rH<$J$C$F!"JQ49$r9T$C$?%P%C%U%!$G%3!<%k$5$l$k!#(B
-skk-kakutei-initialize $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!":G8e$N3NDj(B
-$B$K4X$9$k%U%i%0N`$O!"$3$N4X?t$NCf$+$i;2>H$9$k$3$H$,$G$-$k!#(B"
+`skk-kakutei-initialize' $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!"(B
+$B:G8e$N3NDj$K4X$9$k%U%i%0N`$O!"$3$N4X?t$NCf$+$i;2>H$9$k$3$H$,$G$-$k!#(B"
   :type '(radio (function :tag "$B4X?t(B")
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-kakutei)
@@ -1532,6 +1531,11 @@ skk-init-file $B$NJ}$,?7$7$$$H$-$O!"$=$N%P%$%H%3%s%Q%$%k:Q%U%!%$%k$r>C$9!#(B"
 
 (defcustom skk-undo-kakutei-word-only nil
   "*Non-nil $B$G$"$l$P(B $B"&%b!<%I$H"'%b!<%I;~$N%"%s%I%%>pJs$r5-O?$7$J$$!#(B"
+  :type 'boolean
+  :group 'skk-misc)
+
+(defcustom skk-undo-kakutei-return-previous-point nil
+  "*Non-nil $B$G$"$l$P3NDj%"%s%I%%8e$K0JA0$N%+!<%=%k0LCV$KLa$9!#(B"
   :type 'boolean
   :group 'skk-misc)
 
@@ -2316,8 +2320,14 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 (skk-deflocalvar skk-last-henkan-data nil
   "$B:G8e$K9T$C$?JQ49$K4X$9$k%G!<%?$NO"A[%j%9%H!#(B
 $B%G%#%U%)%k%H$N%-!<$O!"(B`henkan-key', `henkan-okurigana', `okuri-char',
-`henkan-list' $B$N3F%7%s%\%k!#(B
+`henkan-list', `henkan-point', `henkan-buffer' $B$N3F%7%s%\%k!#(B
  (skk-num $B$r(B require $B$7$F$$$k$H$-$O!"(Bnum-list $B$,DI2C$5$l$k(B)$B!#(B")
+
+(skk-deflocalvar skk-undo-kakutei-previous-point nil
+  "$B3NDj%"%s%I%%D>A0$N%]%$%s%H$r<($9%^!<%+!<!#(B")
+
+(skk-deflocalvar skk-undo-kakutei-previous-length nil
+  "$B3NDj%"%s%I%%$9$kBP>]$NJQ497k2L$ND9$5!#(B")
 
 (skk-deflocalvar skk-henkan-overlay nil
   "$B8uJd$rI=<($9$k$H$-$K;HMQ$9$k(B Overlay$B!#(B")

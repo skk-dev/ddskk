@@ -1,3 +1,15 @@
+2007-06-30  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-undo-kakutei-return-previous-point): New user
+	option.
+	(skk-undo-kakutei-previous-point)
+	(skk-undo-kakutei-previous-length): New variable.
+
+	* skk.el (skk-kakutei, skk-undo-kakutei): Use them.
+
+	* skk-vars.el (skk-kakutei-end-function, skk-last-henkan-data):
+	Fix docstring.
+
 2007-06-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-isearch.el (skk-isearch-mode-cleanup): Do not remove
