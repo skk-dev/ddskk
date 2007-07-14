@@ -1,3 +1,7 @@
+2007-07-14  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: X -> X Window System.
+
 2007-07-14  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-kakutei-henkan-flag): New variable.

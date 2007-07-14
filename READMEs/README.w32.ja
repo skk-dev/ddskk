@@ -2,8 +2,8 @@
 
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2007/04/01 15:55:28 $
-$Id: README.w32.ja,v 1.7 2007/04/01 15:55:28 skk-cvs Exp $
+$Date: 2007/07/14 15:53:09 $
+$Id: README.w32.ja,v 1.8 2007/07/14 15:53:09 skk-cvs Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
@@ -217,7 +217,7 @@ Windows で利用できる SKK 辞書サーバには次のようなものがあります。
 
 Windows 上で動作する skkserv です。
 
-     http://www.tatari-sakamoto.jp/~tatari/wskkserv.jis.html
+     http://www.tatari-sakamoto.jp/wskkserv.jis.html
 
 から入手できます。
 
@@ -272,7 +272,7 @@ Windows 上で動作する SKK ライクの IME があります。
 設定がある程度 elisp でできるようになっていることと、SKK と共通の辞書
 が使用できます。
 
-     http://www.tatari-sakamoto.jp/~tatari/skkime.jis.html
+     http://www.tatari-sakamoto.jp/skkime.jis.html
 
 
 [End of README.win]
