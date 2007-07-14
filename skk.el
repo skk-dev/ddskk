@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.420 2007/07/02 19:57:57 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.421 2007/07/14 08:18:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/02 19:57:57 $
+;; Last Modified: $Date: 2007/07/14 08:18:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1719,21 +1719,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
     (cond
      ((= (skk-henkan-count) 0)
       (when (eq last-command 'skk-undo-kakutei-henkan)
-	;; prefix arg $B$K$h$C$FJQ49%W%m%0%i%`$r@Z$jBX$($F$$$k2DG=@-$,(B
-	;; $B$"$k$N$G!"%A%'%C%/$O>J$1$J$$!#(B
-	;; $BA02s$H:#2s$G$O0c$&3NDjJQ49%W%m%0%i%`$r;H$&!"(B
-	;; $B$H$$$&$h$&$J<{MW$K$^$G$OBP1~$7$F$$$J$$!#(B
-	(when (skk-kakutei-program-p (car skk-current-search-prog-list))
-	  ;; in this case, we should not search kakutei jisyo.
-	  (setq skk-current-search-prog-list
-		(cdr skk-current-search-prog-list)))
-	(when skk-kakutei-unique-candidate-flag
-	  ;; $B!V8uJd$,0l$D$J$i3NDjJQ49!W$r<h$j>C$7$?;~!"(B
-	  ;; prefix arg $B$K$h$C$FJQ49%W%m%0%i%`$r@Z$jBX$($F$$$k2DG=@-$r9MN8$7!"(B
-	  ;; skk-current-search-prog-list $B$r(B nil $B$K$9$k$N$G$O$J$/(B
-	  ;; $B!V8uJd$,0l$D$J$i3NDjJQ49!W5!G=$r%*%U$K$9$k!#(B
-	  (setq inhibit-kakutei t)))
-      (setq skk-kakutei-unique-candidate-flag nil)
+	(setq inhibit-kakutei t))
       (while (and skk-current-search-prog-list
 		  (not new-word))
 	(setq skk-henkan-list (skk-nunion skk-henkan-list
@@ -1751,14 +1737,15 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 					    (skk-search)))
 	  (skk-henkan-list-filter))
 	(when (= (length skk-henkan-list) 1)
-	  (setq skk-kakutei-flag t
-		skk-kakutei-unique-candidate-flag t)))
+	  (setq skk-kakutei-henkan-flag t)))
       ;; skk-henkan-list-filter $B$rDL$7$?8e$OG0$N0Y$K:F<hF@(B
       (setq new-word (skk-get-current-candidate))
       (when (and new-word
-		 skk-kakutei-flag)
+		 (not inhibit-kakutei)
+		 skk-kakutei-henkan-flag)
 	;; found the unique candidate in kakutei jisyo
-	(setq this-command 'skk-kakutei-henkan)))
+	(setq this-command 'skk-kakutei-henkan
+	      skk-kakutei-flag t)))
      (t
       ;; $BJQ492s?t$,(B 1 $B0J>e$N$H$-!#(B
       (setq new-word (skk-get-current-candidate))
@@ -2840,6 +2827,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	skk-henkan-okurigana nil
 	skk-henkan-mode nil
 	skk-kakutei-flag nil
+	skk-kakutei-henkan-flag nil
 	skk-okuri-char nil
 	skk-okuri-index-min -1
 	skk-okuri-index-max -1
@@ -4084,11 +4072,11 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 
 (defun skk-search-kakutei-jisyo-file (file limit &optional nomsg)
   "SKK $B<-=q%U%)!<%^%C%H$N(B FILE $B$+$i8!:w$9$k!#(B
-$B8uJd$r8+$D$1$?>l9g$O!"Bg0hJQ?t(B `skk-kakutei-flag' $B$K(B non-nil $B$rBeF~$9$k!#(B
+$B8uJd$r8+$D$1$?>l9g$O!"Bg0hJQ?t(B `skk-kakutei-henkan-flag' $B$K(B non-nil $B$rBeF~$9$k!#(B
 $B0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H!#(B
 
 $BMxMQ$9$k>l9g$O(B `skk-search-prog-list' $B$N@hF,$KG[$9$k;v!#(B"
-  (setq skk-kakutei-flag (skk-search-jisyo-file file limit nomsg)))
+  (setq skk-kakutei-henkan-flag (skk-search-jisyo-file file limit nomsg)))
 
 (defun skk-update-jisyo (word &optional purge)
   (funcall skk-update-jisyo-function word purge))

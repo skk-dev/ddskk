@@ -1,3 +1,13 @@
+2007-07-14  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-kakutei-henkan-flag): New variable.
+	(skk-kakutei-flag): Update docstring.
+	(skk-kakutei-unique-candidate-flag): Abolish.
+
+	* skk.el (skk-henkan-1): Check for `skk-kakutei-henkan-flag'.
+	(skk-kakutei-initialize): Clear `skk-kakutei-henkan-flag'.
+	(skk-search-kakutei-jisyo-file): Update docstring.
+
 2007-07-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by IRIE Tetsuya <irie@t.email.ne.jp>.
