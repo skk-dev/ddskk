@@ -1,3 +1,10 @@
+2007-07-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* dot.emacs:
+	* dot.skk:
+
+	Add settings for skk-study.el.
+
 2007-04-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Emacs.ad: Update.

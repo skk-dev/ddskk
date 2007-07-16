@@ -1,3 +1,8 @@
+2007-07-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Add ~/ to init file names.  Add spaces around
+	ascii words.
+
 2007-07-15  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-vars.el (skk-undo-kakutei-flag): New variable.

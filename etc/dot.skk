@@ -187,6 +187,9 @@
 ;; 辞書登録のとき、余計な送り仮名を送らないようにする
 ;; (setq skk-check-okurigana-on-touroku 'auto)
 
+;; 変換の学習
+(require 'skk-study)
+
 ;; @@ 検索に関連した設定
 
 ;; look コマンドを使った検索をする

@@ -32,10 +32,12 @@
       skk-emacs-id-file "~/.ddskk/emacs-id"
       skk-record-file "~/.ddskk/record"
       skk-jisyo "~/.ddskk/jisyo"
-      skk-backup-jisyo "~/.ddskk/jisyo.bak")
+      skk-backup-jisyo "~/.ddskk/jisyo.bak"
+      skk-study-file "~/.ddskk/study"
+      skk-study-backup-file "~/.ddskk/study.bak")
 ;; 注) SKK の個人辞書は skkinput などのプログラムでも参照しますから、
 ;;     上記の設定をした場合はそれらのプログラムの設定ファイルも書き
-;;     かえる必要があります。
+;;     換える必要があります。
 
 ;; migemo を使うから skk-isearch にはおとなしくしていて欲しい
 (setq skk-isearch-start-mode 'latin)
