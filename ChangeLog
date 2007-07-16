@@ -1,3 +1,14 @@
+2007-07-15  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-undo-kakutei-flag): New variable.
+
+	* skk.el (skk-undo-kakutei-subr): New function.
+	(skk-undo-kakutei): Use it.
+	(skk-previous-candidate): Ditto.  Update docstring.
+	(skk-kakutei-initialize): Clear `skk-undo-kakutei-flag'.
+	(skk-henkan-1): Disable kakutei henkan if `skk-undo-kakutei-flag'
+	is non-nil.
+
 2007-07-14  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: X -> X Window System.

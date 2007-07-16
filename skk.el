@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.421 2007/07/14 08:18:43 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.422 2007/07/16 01:12:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/14 08:18:43 $
+;; Last Modified: $Date: 2007/07/16 01:12:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1715,11 +1715,9 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 
 (defun skk-henkan-1 ()
   "`skk-henkan' $B$N%5%V%k!<%A%s!#(B"
-  (let (new-word inhibit-kakutei)
+  (let (new-word)
     (cond
      ((= (skk-henkan-count) 0)
-      (when (eq last-command 'skk-undo-kakutei-henkan)
-	(setq inhibit-kakutei t))
       (while (and skk-current-search-prog-list
 		  (not new-word))
 	(setq skk-henkan-list (skk-nunion skk-henkan-list
@@ -1730,7 +1728,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
       (when (and (if (eq skk-kakutei-when-unique-candidate 'okuri-nasi)
 		     (not skk-henkan-okurigana)
 		   skk-kakutei-when-unique-candidate)
-		 (not inhibit-kakutei))
+		 (not skk-undo-kakutei-flag))
 	(while (and skk-current-search-prog-list
 		    (<= (length skk-henkan-list) 1))
 	  (setq skk-henkan-list (skk-nunion skk-henkan-list
@@ -1741,7 +1739,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
       ;; skk-henkan-list-filter $B$rDL$7$?8e$OG0$N0Y$K:F<hF@(B
       (setq new-word (skk-get-current-candidate))
       (when (and new-word
-		 (not inhibit-kakutei)
+		 (not skk-undo-kakutei-flag)
 		 skk-kakutei-henkan-flag)
 	;; found the unique candidate in kakutei jisyo
 	(setq this-command 'skk-kakutei-henkan
@@ -2399,9 +2397,9 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 
 (defun skk-previous-candidate (&optional arg)
   "$B"'%b!<%I$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
-$B"'%b!<%I0J30$G$O%+%l%s%H%P%C%U%!$K(B \"x\" $B$rA^F~$9$k!#(B
-$B3NDj<-=q$K$h$k3NDj$ND>8e$K8F$V$H3NDj$,%"%s%I%%$5$l$F!"3NDjA0$N>uBV$G(B
-$BD>A0$N8+=P$78l$,%+%l%s%H%P%C%U%!$KA^F~$5$l$k!#(B"
+$B"'%b!<%I0J30$G$O%+%l%s%H%P%C%U%!$K(B `skk-previous-candidate-char' $B$rA^F~$9$k!#(B
+$B3NDj<-=q$K$h$k3NDj$ND>8e$K8F$V$H3NDj$r%"%s%I%%$7!"8+=P$7$KBP$9$k<!8uJd$rI=<($9$k!#(B
+$B:G8e$K3NDj$7$?$H$-$N8uJd$O%9%-%C%W$5$l$k!#(B"
   (interactive "*p")
   (skk-with-point-move
    (cond
@@ -2410,15 +2408,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	 (when (and last-command-char
 		    (characterp last-command-char))
 	   (skk-kana-input arg))
-       ;; restore the state just before the last kakutei henkan.
-       (delete-region skk-henkan-start-point (point))
-       (skk-set-henkan-point-subr)
-       (insert-and-inherit
-	(if (not skk-katakana)
-	    (skk-get-last-henkan-datum 'henkan-key)
-	  (skk-hiragana-to-katakana
-	   (skk-get-last-henkan-datum 'henkan-key))))
-       (setq this-command 'skk-undo-kakutei-henkan)))
+       (skk-undo-kakutei-subr)))
     ((string= skk-henkan-key "")
      nil)
     (t
@@ -2828,6 +2818,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	skk-henkan-mode nil
 	skk-kakutei-flag nil
 	skk-kakutei-henkan-flag nil
+	skk-undo-kakutei-flag nil
 	skk-okuri-char nil
 	skk-okuri-index-min -1
 	skk-okuri-index-max -1
@@ -2853,63 +2844,61 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	  (skk-error "$B%"%s%I%%%G!<%?$,$"$j$^$;$s(B"
 		     "Lost undo data")))
    (condition-case nil
-       (let ((end
-	      (if (skk-get-last-henkan-datum 'henkan-okurigana)
-		  (+ (length (skk-get-last-henkan-datum
-			      'henkan-okurigana))
-		     skk-henkan-end-point)
-		skk-henkan-end-point)))
-	 (setq skk-henkan-mode 'active
-	       skk-current-search-prog-list
-	       (if (skk-kakutei-program-p (car skk-search-prog-list))
-		   ;; $B3NDj<-=q$OC5$7$F$bL50UL#!#(B
-		   (cdr skk-search-prog-list)
-		 skk-search-prog-list))
-	 ;; get henkan data back from skk-last-henkan-data.
-	 (setq skk-henkan-key (skk-get-last-henkan-datum 'henkan-key)
-	       skk-henkan-list (skk-get-last-henkan-datum 'henkan-list)
-	       skk-henkan-okurigana (skk-get-last-henkan-datum
-				     'henkan-okurigana)
-	       skk-okuri-char (skk-get-last-henkan-datum 'okuri-char))
-	 (when (and skk-undo-kakutei-return-previous-point
-		    (markerp skk-henkan-end-point)
-		    (markerp skk-henkan-start-point))
-	   (setq skk-undo-kakutei-previous-point (point)
-		 skk-undo-kakutei-previous-length (- skk-henkan-end-point
-						     skk-henkan-start-point)))
-	 (when skk-use-numeric-conversion
-	   (setq skk-num-list (skk-get-last-henkan-datum 'skk-num-list)))
-	 (when (>= (point-max) end)
-	   ;; $B:G8e$NJQ49ItJ,$N%F%-%9%H$r>C$9!#Aw$j2>L>$rGD0.$7$F$$$k$N$J$i(B
-	   ;; (skk-process-okuri-early $B$,(B non-nil $B$J$iAw$j2>L>$rGD0.$G$-$J$$(B)$B!"(B
-	   ;; $BAw$j2>L>$r4^$a$?ItJ,$^$G$r>C$9!#(B
-	   (delete-region skk-henkan-start-point end))
-	 (when skk-undo-kakutei-word-only
-	   (setq skk-last-buffer-undo-list buffer-undo-list
-		 buffer-undo-list t
-		 skk-last-buffer-modified (buffer-modified-p)))
-	 (goto-char skk-henkan-start-point)
-	 (insert-and-inherit "$B"'(B")
-	 (skk-set-marker skk-henkan-start-point (point))
-	 (cond
-	  (skk-okuri-char
-	   ;; $BAw$j$"$j(B
-	   (insert-and-inherit (substring skk-henkan-key 0
-					  (1- (length skk-henkan-key))))
-	   (skk-set-marker skk-henkan-end-point (point))
-	   (when skk-henkan-okurigana
-	     (insert-and-inherit skk-henkan-okurigana)))
-	  (t
-	   (insert-and-inherit skk-henkan-key)
-	   (skk-set-marker skk-henkan-end-point (point))))
-	 (skk-message "$B3NDj%"%s%I%%!*(B"
-		      "Undo kakutei!")
-	 (skk-set-henkan-count 1)
-	 (skk-henkan))
+       (skk-undo-kakutei-subr)
      ;; skk-undo-kakutei $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F$*$+$J$$(B
      ;; $B$H<!$NF0:n$r$7$h$&$H$7$?$H$-$K%(%i!<$K$J$k!#(B
      ((error quit)
       (skk-kakutei)))))
+
+(defun skk-undo-kakutei-subr ()
+  (let ((end (if (skk-get-last-henkan-datum 'henkan-okurigana)
+		 (+ (length (skk-get-last-henkan-datum
+			     'henkan-okurigana))
+		    skk-henkan-end-point)
+	       skk-henkan-end-point)))
+    (setq skk-henkan-mode 'active
+	  skk-undo-kakutei-flag t)
+    ;; get henkan data back from skk-last-henkan-data.
+    (setq skk-henkan-key (skk-get-last-henkan-datum 'henkan-key)
+	  skk-henkan-list (skk-get-last-henkan-datum 'henkan-list)
+	  skk-henkan-okurigana (skk-get-last-henkan-datum
+				'henkan-okurigana)
+	  skk-okuri-char (skk-get-last-henkan-datum 'okuri-char))
+    (when (and skk-undo-kakutei-return-previous-point
+	       (markerp skk-henkan-end-point)
+	       (markerp skk-henkan-start-point))
+      (setq skk-undo-kakutei-previous-point (point)
+	    skk-undo-kakutei-previous-length (- skk-henkan-end-point
+						skk-henkan-start-point)))
+    (when skk-use-numeric-conversion
+      (setq skk-num-list (skk-get-last-henkan-datum 'skk-num-list)))
+    (when (>= (point-max) end)
+      ;; $B:G8e$NJQ49ItJ,$N%F%-%9%H$r>C$9!#Aw$j2>L>$rGD0.$7$F$$$k$N$J$i(B
+      ;; (skk-process-okuri-early $B$,(B non-nil $B$J$iAw$j2>L>$rGD0.$G$-$J$$(B)$B!"(B
+      ;; $BAw$j2>L>$r4^$a$?ItJ,$^$G$r>C$9!#(B
+      (delete-region skk-henkan-start-point end))
+    (when skk-undo-kakutei-word-only
+      (setq skk-last-buffer-undo-list buffer-undo-list
+	    buffer-undo-list t
+	    skk-last-buffer-modified (buffer-modified-p)))
+    (goto-char skk-henkan-start-point)
+    (insert-and-inherit "$B"'(B")
+    (skk-set-marker skk-henkan-start-point (point))
+    (cond
+     (skk-okuri-char
+      ;; $BAw$j$"$j(B
+      (insert-and-inherit (substring skk-henkan-key 0
+				     (1- (length skk-henkan-key))))
+      (skk-set-marker skk-henkan-end-point (point))
+      (when skk-henkan-okurigana
+	(insert-and-inherit skk-henkan-okurigana)))
+     (t
+      (insert-and-inherit skk-henkan-key)
+      (skk-set-marker skk-henkan-end-point (point))))
+    (skk-message "$B3NDj%"%s%I%%!*(B"
+		 "Undo kakutei!")
+    (skk-set-henkan-count 1)
+    (skk-henkan)))
 
 (defun skk-set-henkan-point (&optional arg)
   "$BJQ49$r3+;O$9$k%]%$%s%H$r%^!<%/$7!"BP1~$9$k(B `skk-prefix' $B$+Jl2;$rF~NO$9$k!#(B"
