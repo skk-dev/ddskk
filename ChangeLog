@@ -1,3 +1,8 @@
+2007-07-16  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk.el (skk-undo-kakutei-subr): Consider
+	skk-search-prog-list-[0-9].
+
 2007-07-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Add ~/ to init file names.  Add spaces around

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.422 2007/07/16 01:12:53 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.423 2007/07/16 18:09:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/16 01:12:53 $
+;; Last Modified: $Date: 2007/07/16 18:09:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2857,10 +2857,22 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 		    skk-henkan-end-point)
 	       skk-henkan-end-point)))
     (setq skk-henkan-mode 'active
+	  skk-current-search-prog-list
+	  (let ((parg current-prefix-arg))
+	    (cond
+	     ((and (integerp parg)
+		   (<= 0 parg)
+		   (<= parg 9))
+	      (let ((list (symbol-value
+			   (intern
+			    (format "skk-search-prog-list-%d" parg)))))
+		(or list skk-search-prog-list)))
+	     (t
+	      skk-search-prog-list)))
 	  skk-undo-kakutei-flag t)
     ;; get henkan data back from skk-last-henkan-data.
     (setq skk-henkan-key (skk-get-last-henkan-datum 'henkan-key)
-	  skk-henkan-list (skk-get-last-henkan-datum 'henkan-list)
+	  skk-henkan-list (list (car (skk-get-last-henkan-datum 'henkan-list)))
 	  skk-henkan-okurigana (skk-get-last-henkan-datum
 				'henkan-okurigana)
 	  skk-okuri-char (skk-get-last-henkan-datum 'okuri-char))
