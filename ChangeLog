@@ -1,3 +1,9 @@
+2007-07-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-tankan.el: Modify comments considering
+	the position of skk-search-kakutei-jisyo-file in
+	skk-search-prog-list.
+
 2007-07-16  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-undo-kakutei-subr): Consider
