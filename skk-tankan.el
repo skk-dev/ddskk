@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.11 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.12 2007/07/17 21:57:17 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/07/17 21:57:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -34,14 +34,26 @@
 ;;
 ;; 設定方法
 ;;
-;; .skk には次の様なことを書いておきます。
+;; ~/.skk には次の様なことを書いておきます。
 ;;
 ;; ;; 検索先の指定
 ;; ;; skk-search-prog-list に指定できる要素 (function . args) に対して
 ;; ;; (skk-tankan-search 'function . args) を指定する
+;;
+;; ;; 確定変換を用いない場合は、以下のように skk-search-prog-list の先頭に
+;; ;; 追加しても構いません。
 ;; (add-to-list 'skk-search-prog-list
 ;;              '(skk-tankan-search 'skk-search-jisyo-file
 ;;                                  skk-large-jisyo 10000))
+;;
+;; ;; しかし、確定変換を併用する場合は、 skk-search-kakutei-jisyo-file が
+;; ;; skk-search-prog-list の先頭になければいけません。その場合は代わりに
+;; ;; 以下の設定をします。
+;; (setq skk-search-prog-list
+;;       (cons (car skk-search-prog-list)
+;;	       (cons '(skk-tankan-search 'skk-search-jisyo-file
+;;				         skk-large-jisyo 10000)
+;;		     (cdr skk-search-prog-list))
 ;;
 ;; ;; 単漢字検索のキーを @ にする(デフォルト)
 ;; (setq skk-tankan-search-key ?@)
