@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.127 2007/06/14 19:01:46 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.128 2007/07/18 01:51:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/06/14 19:01:46 $
+;; Last Modified: $Date: 2007/07/18 01:51:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1514,7 +1514,9 @@ Disambiguation\"" nil t)))
 				  ;; 二文字めが upper case なら元の case
 				  ;; 英語以外は未対応
 				  word)
-			      (upcase-initials word))))
+			      ;(upcase-initials word)
+			      (concat (vector (upcase (aref word 0)))
+				      (substring word 1)))))
 
 (defun skk-annotation-url-package-available-p ()
   (when (eq skk-annotation-url-package-available-p 'untested)

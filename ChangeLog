@@ -1,3 +1,9 @@
+2007-07-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-normalize-word):
+	Don't call `upcase-initials'.  Instead, upcase only the first
+	letter of WORD.
+
 2007-07-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-tankan.el: Modify comments considering
