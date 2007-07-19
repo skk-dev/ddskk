@@ -1,9 +1,17 @@
+2007-07-19  Eiji Obata <e-obata@zero.ad.jp>
+
+	* NEWS.ja: Modify description about `skk-previous-candidate'
+	behavior after `skk-kakutei-henkan', especially in okuri-ari
+	situation.
+
 2007-07-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* NEWS.ja:
-	* TODO.ja:
+	* NEWS.ja: Update for skk-verbose.
 
-	Update.
+2007-07-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* NEWS.ja: Update for "Kakutei Undo" and "Kakutei Henkan".
+	* TODO.ja: Update.
 
 2007-07-14  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
