@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.231 2007/07/21 07:45:19 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.232 2007/07/21 09:35:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/21 07:45:19 $
+;; Last Modified: $Date: 2007/07/21 09:35:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -449,31 +449,6 @@ C-9 SPC で使用される"
 C-0 SPC で使用される"
   :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
-
-(defcustom skk-kakutei-prog-list '(skk-search-kakutei-jisyo-file)
-  "*確定変換に使う辞書検索プログラムのリスト。
-リストの要素としては、
-
-1. プログラムの関数名を表すシンボル
-2. プログラムを引数の値まで指定した形のリスト
-
-のいずれでも指定できる。
-
-前者では、関数名の一致した全プログラムが一致と判断される。後者は
-`skk-search-prog-list' の要素と同じ書式で表され、同リストの要素と関数名および
-すべての引数が一致した場合のみ一致と判断される。
-
-一致の評価は、 1 は関数 `eq' によって、 2 はリストに対して `equal' によって
-行われる。
-
-
-この変数は、`skk-previous-candidate-char' のタイプによる確定変換の取り消しや、
-`skk-undo-kakutei' の際に確定変換用プログラムを特別扱いする為に利用される。
-なお、確定変換用プログラムを利用する場合には `skk-search-prog-list' の先頭に
-配する事。それ以外の場所だと、これらは機能しない可能性がある。"
-  :type '(repeat (radio (symbol :tag "関数名のみで指定")
-			(list :tag "関数名と引数のリスト")))
-    :group 'skk-dictionary)
 
 (defcustom skk-count-jisyo-candidates-function
   'skk-count-jisyo-candidates-original
