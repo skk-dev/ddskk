@@ -1,3 +1,18 @@
+2007-07-21  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-kakutei-prog-list): Abolish.
+	* skk.el (skk-kakutei-program-p): Ditto.
+
+	* experimental/rdbms/skk-rdbms.el
+	(skk-rdbms-search-kakutei-jisyo-table): Set
+	skk-kakutei-henkan-flag instead of skk-kakutei-flag.
+
+	* doc/skk.texi: skk-kakutei-flag -> skk-kakutei-henkan-flag.
+	Update lisp code using `when', etc.
+	Update description about usage of skkserv.
+
+	* skk-vars.el (skk-kakutei-jisyo): Update docstring.
+
 2007-07-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-normalize-word):
