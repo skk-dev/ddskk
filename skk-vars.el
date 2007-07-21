@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.230 2007/07/16 01:12:53 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.231 2007/07/21 07:45:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/16 01:12:53 $
+;; Last Modified: $Date: 2007/07/21 07:45:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -286,8 +286,9 @@ nil であれば、英語で表示する。"
   "*「確定変換」で検索する辞書。
 見出し語は、ソートされていなければならない。
 Non-nil であれば、指定された辞書をバッファに読み込み、検索を行う。
-各見出し語の最初のエントリしか検索しない (複数のエントリがあっても 2 番目以降の
-エントリは無視される)。
+各見出し語の最初のエントリで確定される。
+確定アンドゥ時には 2 番目以降のエントリも利用できるが、
+この仕様は変更される可能性もあり、また確定辞書の本質と無関係である。
 
 `skk-search-kakutei-jisyo-file' の引数として使用される。
 確定変換機能を利用する場合には、
