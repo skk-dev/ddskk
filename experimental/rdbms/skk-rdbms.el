@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@namazu.org>
-;; Version: $Id: skk-rdbms.el,v 1.10 2007/04/22 02:38:28 skk-cvs Exp $
+;; Version: $Id: skk-rdbms.el,v 1.11 2007/07/21 08:29:30 skk-cvs Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
+;; Last Modified: $Date: 2007/07/21 08:29:30 $
 
 ;; This file is not part of Daredevil SKK yet.
 
@@ -553,11 +553,11 @@ skk-rdbms-working-buffer の中でコールされる。")
 
 (defun skk-rdbms-search-kakutei-jisyo-table ()
   (prog1
-      (setq skk-kakutei-flag
+      (setq skk-kakutei-henkan-flag
 	    (skk-rdbms-run-SQL-command
 	     (skk-rdbms-SQL-search-jisyo-command skk-rdbms-kakutei-jisyo-table)
 	     skk-rdbms-cutoff-output-function))
-    (and skk-kakutei-flag
+    (and skk-kakutei-henkan-flag
 	 (setq skk-rdbms-no-update-command t))))
 
 (defun skk-rdbms-run-SQL-command (command &optional cutoff-func)
