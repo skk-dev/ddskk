@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.160 2007/07/21 08:22:48 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.161 2007/07/21 08:50:30 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/07/21 08:22:48 $
+@c  Last Modified: $Date: 2007/07/21 08:50:30 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/07/21 08:22:48 $
+@set UPDATED $Date: 2007/07/21 08:50:30 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -460,11 +460,16 @@ DDSKK 11 $B0J9_!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#(BDDSKK 13 $B$G$O!"I8=`E*$J%$%
 @lisp
 @group
 (add-hook 'isearch-mode-hook
-	  (lambda () (and (boundp 'skk-mode) skk-mode
-			  (skk-isearch-mode-setup))))
+          #'(lambda ()
+              (when (and (boundp 'skk-mode)
+                         skk-mode
+                         skk-isearch-mode-enable)
+                (skk-isearch-mode-setup))))
 (add-hook 'isearch-mode-end-hook
-	  (lambda ()
-	    (and (featurep 'skk-isearch) (skk-isearch-mode-cleanup))))
+          #'(lambda ()
+              (when (and (featurep 'skk-isearch)
+                         skk-isearch-mode-enable)
+                (skk-isearch-mode-cleanup))))
 @end group
 @end lisp
 
@@ -1526,7 +1531,7 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 $B%A%e!<%H%j%"%k%U%!%$%k$,!"I8=`$N>l=j$K$J$$>l9g$O!"(B @file{~/.emacs} $B$G(B
 
 @lisp
-  (setq skk-tut-file "/usr/local/share/skk/SKK.tut")
+(setq skk-tut-file "/usr/local/share/skk/SKK.tut")
 @end lisp
 
 @noindent
@@ -2220,7 +2225,7 @@ ohhira @expansion{}$B$*$*$R$i(B
 @end example
 
 $B$3$l$i$N?t;z$d5-9fJ8;z$N%-!<$KBP1~$7A^F~$5$l$kJ8;z$O!"JQ?t(B
-@code{skk-input-vector} $B$NCM$K$h$j7hDj$5$l$F$$$^$7$?$,!"(BDDSKK 10 $B$G$O$3(B
+@code{skk-input-vector} $B$NCM$K$h$j7hDj$5$l$F$$$^$7$?$,!"(BDDSKK 10 $B$K$F$3(B
 $B$NJQ?t$OGQ;_$5$l$^$7$?!#%+%9%?%^%$%:$9$k$?$a$K$O!"Be$o$j$KJQ?t(B
 @code{skk-rom-kana-rule-list} $B$rMxMQ$7$^$9!#Nc$($P!"(BSKK 9.6 $B0JA0$K$*$$$F!"(B
 
@@ -2238,13 +2243,13 @@ ohhira @expansion{}$B$*$*$R$i(B
 
 @lisp
 (setq skk-rom-kana-rule-list
-      (nconc skk-rom-kana-rule-list
-             '(("!" nil "!")
-               ("," nil ",")
-               ("." nil ".")
-               (":" nil ":")
-               (";" nil ";")
-               ("?" nil "?"))))
+      (append skk-rom-kana-rule-list
+              '(("!" nil "!")
+                ("," nil ",")
+                ("." nil ".")
+                (":" nil ":")
+                (";" nil ";")
+                ("?" nil "?"))))
 @end lisp
 
 @noindent
@@ -2436,8 +2441,8 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 @lisp
 @group
 (setq skk-rom-kana-rule-list
-      (nconc skk-rom-kana-rule-list
-            '(("(" nil "("))))))
+      (append skk-rom-kana-rule-list
+              '(("(" nil "("))))))
 @end group
 @end lisp
 
@@ -2489,10 +2494,10 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 @lisp
 @group
 (add-hook 'yatex-mode-hook
-          (function
-           (lambda ()
-             (if skk-auto-insert-paren
-                 (set (make-local-variable 'skk-auto-insert-paren) nil)))))
+          #'(lambda ()
+              (when skk-auto-insert-paren
+                (make-local-variable 'skk-auto-insert-paren)
+                (setq skk-auto-insert-paren nil))))
 @end group
 @end lisp
 
@@ -2503,33 +2508,29 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 @lisp
 @group
 (add-hook 'tex-mode-hook
-          (function
-           (lambda ()
-             (if skk-auto-insert-paren
-                 (progn
-                   (make-local-variable 'skk-auto-paren-string-alist)
-                   (setq skk-auto-paren-string-alist
-                         (cons '("$" . "$") skk-auto-paren-string-alist)))))))
+          #'(lambda ()
+              (when skk-auto-insert-paren
+                (make-local-variable 'skk-auto-paren-string-alist)
+                (setq skk-auto-paren-string-alist
+                      (cons '("$" . "$") skk-auto-paren-string-alist)))))
 @end group
 @end lisp
 
 @noindent
-$BF1MM$K!"FCDj$N%Z%"$r:o=|$7$?$$>l9g$O!"Nc$($P2<5-$N$h$&$K@_Dj$7$^$9(B
-@footnote{$B2?8N4X?t(B @code{copy-sequence} $B$r;HMQ$9$k$N$+$K$D$$$F$O!"(B
-@w{@ref{$B?t;z$d5-9fJ8;z$NF~NO(B}} $B$r;2>H$7$F$/$@$5$$!#(B}$B!#(B
+$BF1MM$K!"FCDj$N%Z%"$r:o=|$7$?$$>l9g$O!"Nc$($P2<5-$N$h$&$K@_Dj$7$^$9!#(B
+@c @footnote{$B2?8N4X?t(B @code{copy-sequence} $B$r;HMQ$9$k$N$+$K$D$$$F$O!"(B
+@c @w{@ref{$B?t;z$d5-9fJ8;z$NF~NO(B}} $B$r;2>H$7$F$/$@$5$$!#(B}$B!#(B
 
 @lisp
 @group
 (add-hook 'tex-mode-hook
-          (function
-           (lambda ()
-             (if skk-auto-insert-paren
-                 (progn
-                   (make-local-variable 'skk-auto-paren-string-alist)
-                   (setq skk-auto-paren-string-alist
-                         (delete
-                          '("$" . "$")
-                          (copy-sequence skk-auto-paren-string-alist))))))))
+          #'(lambda ()
+              (when skk-auto-insert-paren
+                (make-local-variable 'skk-auto-paren-string-alist)
+                (setq skk-auto-paren-string-alist
+                      (delete
+                       '("$" . "$")
+                       (copy-sequence skk-auto-paren-string-alist))))))
 @end group
 @end lisp
 
@@ -3040,25 +3041,21 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 @lisp
 @group
 (add-hook 'minibuffer-setup-hook
-          (function
-           (lambda ()
-             (if (and (boundp 'skk-henkan-okuri-strictly)
-                      skk-henkan-okuri-strictly
-                      (not (eq last-command 'skk-purge-jisyo)))
-                 (progn
-                   (setq skk-henkan-okuri-strictly nil)
-                   (put 'skk-henkan-okuri-strictly 'temporary-nil t))))))
+          #'(lambda ()
+              (when (and (boundp 'skk-henkan-okuri-strictly)
+                         skk-henkan-okuri-strictly
+                         (not (eq last-command 'skk-purge-jisyo)))
+                (setq skk-henkan-okuri-strictly nil)
+                (put 'skk-henkan-okuri-strictly 'temporary-nil t))))
 
 @end group
 @group
 (add-hook 'minibuffer-exit-hook
-          (function
-           (lambda ()
-             (if (and (get 'skk-henkan-okuri-strictly 'temporary-nil)
-                      (<= (minibuffer-depth) 1))
-                 (progn
-                   (put 'skk-henkan-okuri-strictly 'temporary-nil nil)
-                   (setq skk-henkan-okuri-strictly t))))))
+          #'(lambda ()
+              (when (and (get 'skk-henkan-okuri-strictly 'temporary-nil)
+                         (<= (minibuffer-depth) 1))
+                (put 'skk-henkan-okuri-strictly 'temporary-nil nil)
+                (setq skk-henkan-okuri-strictly t))))
 @end group
 @end lisp
 
@@ -5980,7 +5977,8 @@ other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!(
 @lisp
 @group
 (setq skk-annotation-function
-        (lambda (annotation) (eq (aref annotation 0) ?*)))
+      #'(lambda (annotation)
+          (eq (aref annotation 0) ?*)))
 @end group
 @end lisp
 
@@ -6020,10 +6018,10 @@ DDSKK $B$r%$%s%9%H!<%k$9$k;~$K(B @file{SKK-CFG} $B$rJT=8$7$F!"(B @file{looku
 
 @lisp
 @group
-(setq skk-search-prog-list 
-   (append skk-search-prog-list 
-      (list 
-         '(skk-lookup-search))))
+(setq skk-search-prog-list
+      (append skk-search-prog-list
+              (list
+               '(skk-lookup-search))))
 @end group
 @end lisp
 
@@ -6134,16 +6132,15 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
 
 @lisp
 @group
-(setq skk-search-excluding-word-pattern-function
-      ;; t $B$@$H8D?M<-=q$K<h$j9~$^$J$$!#(B
-      (function
-       ;; KAKUTEI-WORD $B$r0z?t$K$7$F%3!<%k$5$l$k$N$G!"ITMW$G$b0z?t$r<h$k(B
-       ;; $BI,MW$"$j(B
-       (lambda (kakutei-word)
-	 (and skk-abbrev-mode
-	      (save-match-data
-		;; SKK-HENKAN-KEY $B$,(B "*" $B$G=*$o$k$H$-(B
-		(string-match "\\*$" skk-henkan-key))))))
+(add-hook 'skk-search-excluding-word-pattern-function
+          ;; $BJV$jCM$,(B non-nil $B$N;~!"8D?M<-=q$K<h$j9~$^$J$$!#(B
+          ;; KAKUTEI-WORD $B$r0z?t$K$7$F%3!<%k$5$l$k$N$G!"ITMW$G$b0z?t$r<h$k(B
+          ;; $BI,MW$"$j(B
+          #'(lambda (kakutei-word)
+              (and skk-abbrev-mode
+                   (save-match-data
+                     ;; SKK-HENKAN-KEY $B$,(B "*" $B$G=*$o$k$H$-(B
+                     (string-match "\\*$" skk-henkan-key))))))
 @end group
 @end lisp
 
@@ -6185,10 +6182,10 @@ SKK $B<-=q$K(B
 
 @lisp
 @group
-(setq skk-search-prog-list 
-   (append skk-search-prog-list 
-      (list 
-         '(skk-search-jisyo-file "/your-path/SKK-JISYO.edict" 0 t))))
+(setq skk-search-prog-list
+      (append skk-search-prog-list
+              (list
+               '(skk-search-jisyo-file "/your-path/SKK-JISYO.edict" 0 t))))
 @end group
 @end lisp
 
@@ -7565,7 +7562,7 @@ tex$B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B
 @group
 (setq skk-rom-kana-rule-list
       (append '(("." nil "$B!%(B") ("," nil "$B!$(B"))
-	      skk-rom-kana-rule-list))
+              skk-rom-kana-rule-list))
 @end group
 @end lisp
 
@@ -7588,7 +7585,7 @@ tex$B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B
 @group
 (setq skk-rom-kana-rule-list
       (append '(("wi" nil ("$B%p(B" . "$B$p(B")))
-	      skk-rom-kana-rule-list))
+              skk-rom-kana-rule-list))
 @end group
 @end lisp
 
@@ -7631,8 +7628,8 @@ tex$B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B
 
 @lisp
 @group
-  ((skk-search-jisyo-file skk-jisyo 0 t)
-   (skk-search-server skk-aux-large-jisyo 10000))
+((skk-search-jisyo-file skk-jisyo 0 t)
+ (skk-search-server skk-aux-large-jisyo 10000))
 @end group
 @end lisp
 
@@ -7663,9 +7660,9 @@ tex$B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B
 @lisp
 @group
 (setq skk-search-prog-list
-  '((skk-search-jisyo-file skk-jisyo 0 t)
-    (skk-search-server skk-aux-large-jisyo 10000)
-    (skk-search-jisyo-file "~/dic/SKK-JISYO.JIS2" 0))
+      '((skk-search-jisyo-file skk-jisyo 0 t)
+        (skk-search-server skk-aux-large-jisyo 10000)
+        (skk-search-jisyo-file "~/dic/SKK-JISYO.JIS2" 0)))
 @end group
 @end lisp
 
@@ -7741,8 +7738,7 @@ muhenkan is undefined
 
 @lisp
 @group
-(if (keymapp key-translation-map)
-    nil
+(unless (keymapp key-translation-map)
   (setq key-translation-map (make-sparse-keymap)))
 
 (let ((i ?a))
@@ -8167,17 +8163,17 @@ Lookup $B$,07$($k<-=q$O$[$H$s$I;H$($^$9!#(BLookup $B$,%$%s%9%H!<%k$5$l$F$$$k
 
 @lisp
 @group
-  (setq skk-search-prog-list
-        '((skk-search-jisyo-file skk-jisyo 0 t)
-          (skk-search-server skk-aux-large-jisyo 10000)
-          (skk-lookup-search)))
+(setq skk-search-prog-list
+      '((skk-search-jisyo-file skk-jisyo 0 t)
+        (skk-search-server skk-aux-large-jisyo 10000)
+        (skk-lookup-search)))
 @end group
 @end lisp
 
 Lookup $B$K$D$$$F$O!"(B
 
 @display
-@url{http://openlab.ring.gr.jp/lookup/}
+@url{http://openlab.jp/edict/lookup/}
 @end display
 
 @noindent
