@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.159 2007/07/16 15:08:37 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.160 2007/07/21 08:22:48 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/07/16 15:08:37 $
+@c  Last Modified: $Date: 2007/07/21 08:22:48 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/07/16 15:08:37 $
+@set UPDATED $Date: 2007/07/21 08:22:48 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5335,10 +5335,10 @@ DDSKK では、個人辞書と共有辞書というように複数の辞書を扱うことが可能です。
 形式: (skk-search-kakutei-jisyo-file FILE LIMIT &optional NOMSG)
 
 @cindex 確定変換
-@vindex skk-kakutei-flag
+@vindex skk-kakutei-henkan-flag
 @b{「確定変換」}を行う検索プログラム。検索対象の辞書ファイルは Emacs
 のバッファに読み込まれます。検索対象のファイルから候補を見つけると、内部
-変数 @code{skk-kakutei-flag} を立てて、いきなり確定します。このためユー
+変数 @code{skk-kakutei-henkan-flag} を立てて、いきなり確定します。このためユー
 ザーが確定する必要はありません。
 
 第 1 引数は検索対象辞書。
