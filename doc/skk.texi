@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.161 2007/07/21 08:50:30 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.162 2007/07/21 16:16:04 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/07/21 08:50:30 $
+@c  Last Modified: $Date: 2007/07/21 16:16:04 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/07/21 08:50:30 $
+@set UPDATED $Date: 2007/07/21 16:16:04 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -525,31 +525,63 @@ SKK 9、 SKK 10 と比較して、変数名、関数名が大幅に変更されたので、
 
 @lisp
 @group
-(setq skk-server-host "hogehoge")
+(setq skk-server-host "example.org")
+(setq skk-server-portnum 1178)
+@end group
+@end lisp
+
+@table @code
+@item skk-server-host
+@vindex skk-server-host
+
+辞書サーバの走っているホスト名、または IP アドレス。
+
+@item skk-server-portnum
+@vindex skk-server-portnum
+
+辞書サーバが使うポート番号。@file{/etc/services} に skkserv のエントリがあれば
+指定する必要は無い。
+@end table
+
+
+@vindex skk-server-inhibit-startup-server
+辞書サーバが起動して無かった時、Emacs から skkserv プロセスを立ち上げる
+事もできます。@code{skk-server-inhibit-startup-server} を @code{nil} に
+する事でこの機能が有効になります。@ref{サーバ関連} も参照してください。
+
+Emacs から立ち上げて利用する事のできるサーバは、
+
+@example
+skkserv [-p port] [jisyo]
+@end example
+
+@noindent
+のようなオプションを受け付け、inetd などを経由せず直接起動するものに限ら
+れます。
+
+サーバプログラムと辞書は次のように設定します。
+
+@lisp
+@group
 (setq skk-server-prog "/your/path/to/skkserv")
 (setq skk-server-jisyo "/your/path/to/SKK-JISYO.L")
 @end group
 @end lisp
 
 @table @code
-@item skk-server-host
-@findex skk-server-host
-
-辞書サーバを走らせるホスト名、または IP アドレス。
-
 @item skk-server-prog
-@findex skk-server-prog
+@vindex skk-server-prog
 
 辞書サーバプログラム(フルパスで指定する)。
 
 @item skk-server-jisyo
-@findex skk-server-jisyo
+@vindex skk-server-jisyo
 
 サーバに渡す辞書(フルパスで指定する)。
 @end table
 
 @noindent
-この設定は、環境変数を利用して下記のようにすることもできます。
+これらの設定は、環境変数を利用して下記のようにすることもできます。
 @cindex @code{SKKSERVER}
 @cindex @code{SKKSERV}
 @cindex @code{SKK_JISYO}
@@ -558,7 +590,7 @@ SKK 9、 SKK 10 と比較して、変数名、関数名が大幅に変更されたので、
 @item B シェルの場合 (sh, bash, ksh, zsh など)
 
 @example
-export SKKSERVER=hogehoge
+export SKKSERVER=example.org
 export SKKSERV=/your/path/to/skkserv
 export SKK_JISYO=/your/path/to/SKK-JISYO.L
 @end example
@@ -566,7 +598,7 @@ export SKK_JISYO=/your/path/to/SKK-JISYO.L
 @item C シェルの場合 (csh, tcsh など)
 
 @example
-setenv SKKSERVER hogehoge
+setenv SKKSERVER example.org
 setenv SKKSERV /your/path/to/skkserv
 setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 @end example
