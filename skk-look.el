@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.40 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.41 2007/07/27 13:33:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/07/27 13:33:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -225,8 +225,6 @@ words ファイルにある全ての見出しが対象となる。
 
 ;;;###autoload
 (defun skk-look-completion (&optional completion-arguments not-abbrev-only expand-null)
-  ;; skk-comp-prefix は使わないので、
-  ;; 必要なら skk-comp-restrict-by-prefix() を併用する。
   "look コマンドを利用して補完候補を得る。
 COMPLETION-ARGUMENTS は `skk-look-completion-arguments' を
 一時的に置き換えたい時に指定する。
@@ -259,6 +257,15 @@ words ファイルにある全ての見出しを返す。
 		    (skk-look-ispell comp-key 'completion)
 		  (skk-look-1 comp-key 'completion))))
 	(setq word (pop skk-look-completion-words))
+	(when (and skk-comp-use-prefix
+		   (not (string= skk-comp-prefix "")))
+	  (save-match-data
+	    (let ((regexp-key (concat "^"
+				      (regexp-quote comp-key)
+				      (skk-comp-get-regexp skk-comp-prefix))))
+	      (while (and word
+			  (not (string-match regexp-key word)))
+		(setq word (pop skk-look-completion-words))))))
 	(when word
 	  (if numericp
 	      (concat skk-comp-key

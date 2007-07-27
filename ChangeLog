@@ -1,3 +1,16 @@
+2007-07-27  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-look.el (skk-look-completion): If
+	`skk-comp-use-prefix' is non-nil, restrict result using
+	`skk-comp-prefix'.
+	* skk-server-completion.el (skk-comp-by-server-completion):
+	Ditto.
+
+	* skk-vars.el (skk-server-completion-words): Stop being buffer
+	local.
+
+	* skk-comp.el (skk-comp-restrict-by-prefix): Update docstring.
+
 2007-07-21  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-vars.el (skk-kakutei-prog-list): Abolish.

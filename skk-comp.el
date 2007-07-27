@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.72 2007/06/14 15:15:04 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.73 2007/07/27 13:33:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/14 15:15:04 $
+;; Last Modified: $Date: 2007/07/27 13:33:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -497,9 +497,10 @@ NOT-ABBREV-ONLY を指定する事で常に有効となる。"
 
 (defun skk-comp-restrict-by-prefix (comp-prog)
   "補完プログラムにより得られた候補を `skk-comp-prefix' で絞り込む。
+`skk-comp-prefix' に対応していない補完プログラムを手軽に対応させる際に使う。
 
-  (skk-comp-restrict-by-prefix '(skk-comp-by-server-completion))
-のようなものを `skk-completion-prog-list' に指定する。"
+  (skk-comp-restrict-by-prefix '(your-completion-program))
+のようなものを `skk-completion-prog-list' の要素に指定する。"
   (save-match-data
     (let ((regexp-key (concat "^"
 			      (regexp-quote skk-comp-key)

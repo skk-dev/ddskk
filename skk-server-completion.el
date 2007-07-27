@@ -128,8 +128,6 @@
 
 ;;;###autoload
 (defun skk-comp-by-server-completion ()
-  ;; skk-comp-prefix は使わないので、
-  ;; 必要なら skk-comp-restrict-by-prefix() を併用する。
   "Server completion に対応した SKK サーバを利用する補完プログラム。
 `skk-completion-prog-list' の要素に指定して使う。"
   (let* ((numericp (and skk-use-numeric-conversion
@@ -146,6 +144,15 @@
 		     (car skk-server-completion-words))
 	(pop skk-server-completion-words)))
     (setq word (pop skk-server-completion-words))
+    (when (and skk-comp-use-prefix
+	       (not (string= skk-comp-prefix "")))
+      (save-match-data
+	(let ((regexp-key (concat "^"
+				  (regexp-quote comp-key)
+				  (skk-comp-get-regexp skk-comp-prefix))))
+	  (while (and word
+		      (not (string-match regexp-key word)))
+	    (setq word (pop skk-server-completion-words))))))
     (when word
       (if numericp
 	  (concat skk-comp-key

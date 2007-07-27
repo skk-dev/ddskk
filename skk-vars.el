@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.232 2007/07/21 09:35:49 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.233 2007/07/27 13:33:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/21 09:35:49 $
+;; Last Modified: $Date: 2007/07/27 13:33:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2796,7 +2796,7 @@ car $B$K$"$kJd40%W%m%0%i%`$,(B nil $B$rJV$9$4$H$K(B 1$B$D$E$DC;$/$J$C$F$f$/
   :type 'character
   :group 'skk-server-completion)
 
-(skk-deflocalvar skk-server-completion-words nil
+(defvar skk-server-completion-words nil
   "server completion $B$K$h$jF@$i$l$?8+=P$78l$N%j%9%H!#(B")
 
 ;;; skk-cursor.el related.
