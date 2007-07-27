@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.163 2007/07/27 10:43:37 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.164 2007/07/27 11:00:21 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/07/27 10:43:37 $
+@c  Last Modified: $Date: 2007/07/27 11:00:21 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/07/27 10:43:37 $
+@set UPDATED $Date: 2007/07/27 11:00:21 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7133,8 +7133,10 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item Haru'yasu Ueda @email{hal@@sics.se}
 @item Hideki Sakurada @email{sakurada@@kuis.kyoto-u.ac.jp}
 @item Hiroya Murata @email{lapis-lazuli@@pop06.odn.ne.jp}
+@item Hiroyuki KUROSAKI  @email{noir@@st.rim.or.jp}
 @item Hisao Kuroda @email{kuroda@@msi.co.jp}
 @item IIDA Yosiaki @email{iida@@ring.gr.jp}
+@item IRIE Tetsuya @email{irie@@t.email.ne.jp}
 @item ISHIKAWA Naoya @email{ml@@be.to}
 @item Jun-ichi Nakamura @email{nakamura@@pluto.ai.kyutech.ac.jp}
 @item Katuya Tomioka @email{tomioka@@culle.l.chiba-u.ac.jp}
@@ -7148,6 +7150,7 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item KIHARA Hideto @email{deton@@m1.interq.or.jp}
 @item Kimura Chikahiro @email{kimura@@oa1.kb.nec.co.jp}
 @item Kimura Fuyuki @email{fuyuki@@hadaly.org}
+@item Kitamoto Tsuyoshi @email{fmv5200na8x@@yahoo.co.jp}
 @item Koichi MORI @email{kmori@@onsei2.rilp.m.u-tokyo.ac.jp}
 @item KOIE Hidetaka ($B8q9>1QN4(B) @email{hide@@koie.org}
 @item Koji Uchida @email{uchida@@cfd.tytlabs.co.jp}
@@ -7201,6 +7204,7 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item Tsuyoshi AKIHO @email{akiho@@sky.email.ne.jp}
 @item Wataru Matsui @email{matsui@@atr-rd.atr.co.jp}
 @item Wataru Matsui @email{matsui@@gf.hm.rd.sanyo.co.jp}
+@item YAGI Tatsuya @email{ynyaaa@@ybb.ne.jp}
 @item YAMASHITA Junji @email{ysjj@@unixuser.org}
 @item Yoshida Toyonobu @email{toyono-y@@is.aist-nara.ac.jp}
 @item Yukihiro Nakai @email{ynakai@@redhat.com}
