@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.162 2007/07/21 16:16:04 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.163 2007/07/27 10:43:37 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/07/21 16:16:04 $
+@c  Last Modified: $Date: 2007/07/27 10:43:37 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/07/21 16:16:04 $
+@set UPDATED $Date: 2007/07/27 10:43:37 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7128,6 +7128,7 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item Fukaya Shigeru @email{SFUKAYA@@oracle.co.jp}
 @item FURUE Hideyuki @email{furue@@kke.co.jp}
 @item GUNJI Takao @email{gunji@@sils.shoin.ac.jp}
+@item G. Yoshida @email{grothendieck@@max.hi-ho.ne.jp}
 @item Haru Mizuno @email{mizu@@cs3.cs.oki.co.jp}
 @item Haru'yasu Ueda @email{hal@@sics.se}
 @item Hideki Sakurada @email{sakurada@@kuis.kyoto-u.ac.jp}
@@ -7143,10 +7144,14 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item Kenichi OKADA @email{okada@@opaopa.org}
 @item Kenji Rikitake @email{kenji@@reseau.toyonaka.osaka.jp}
 @item Kenji Yamashita @email{kenji@@cs.titech.ac.jp}
+@item Kentaro Fukuchi @email{fukuchi@@users.sourceforge.net}
 @item KIHARA Hideto @email{deton@@m1.interq.or.jp}
 @item Kimura Chikahiro @email{kimura@@oa1.kb.nec.co.jp}
+@item Kimura Fuyuki @email{fuyuki@@hadaly.org}
 @item Koichi MORI @email{kmori@@onsei2.rilp.m.u-tokyo.ac.jp}
+@item KOIE Hidetaka ($B8q9>1QN4(B) @email{hide@@koie.org}
 @item Koji Uchida @email{uchida@@cfd.tytlabs.co.jp}
+@item KURIHARA Kenichi @email{kenichi_kurihara@@nifty.com}
 @item Makoto MATSUSHITA @email{matusita@@ics.es.osaka-u.ac.jp}
 @item Manabu Kawashima @email{kaw@@lp.nm.fujitsu.co.jp}
 @item Martin Buchholz @email{martin@@xemacs.org}
@@ -7183,6 +7188,7 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item TAKAHASHI Kaoru @email{kaoru@@kaisei.org}
 @item Takao KAWAMURA @email{kawamura@@ike.tottori-u.ac.jp}
 @item Takeshi OHTANI @email{ohtani@@iias.flab.fujitsu.co.jp}
+@item Tatsuya Kinoshita @email{tats@@vega.ocn.ne.jp}
 @item Thierry Emery @email{Thierry.Emery@@nmu.alcatel.fr}
 @item TOKUYA Junichi @email{tokuya@@crab.fuji-ric.co.jp}
 @item Tomotaka SUWA @email{cooper@@saitama.fujimic.fujisankei-g.co.jp}
