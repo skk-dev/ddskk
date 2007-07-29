@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.233 2007/07/27 13:33:11 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.234 2007/07/29 05:04:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/27 13:33:11 $
+;; Last Modified: $Date: 2007/07/29 05:04:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3391,7 +3391,7 @@ SKK abbrev モードで、「英文字 + アスタリスク」にて変換を行うと、look
   :group 'skk-look)
 
 (defcustom skk-look-completion-arguments
-  (concat "-df %s "
+  (concat "%s "
 	  (cond ((file-exists-p "/usr/share/dict/words")
 		 "/usr/share/dict/words")
 		((file-exists-p "/usr/share/lib/dict/words")

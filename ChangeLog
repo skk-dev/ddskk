@@ -1,3 +1,10 @@
+2007-07-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Eiji Obata <e-obata@zero.ad.jp>.
+
+	* skk-vars.el (skk-look-completion-arguments): By default, do not
+	pass "-d" to look command.
+
 2007-07-27  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-look.el (skk-look-completion): If
