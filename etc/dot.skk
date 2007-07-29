@@ -143,23 +143,14 @@
 
 ;; 動的補完の可否を判定するより高度な設定例
 (setq skk-dcomp-activate
-      '(and
-	;; -nw では動的補完をしない。
-	window-system
-	;; 基本的に行末のときのみ補完する。ただし行末でなくても現在のポイント
-	;; から行末までの文字が空白のみだったら補完する。
-	(or (eolp)
-	    (looking-at "[ \t]+$"))
-	;; 以上の条件に加え、
-	;; o 通常のかなモードとカナモード (英数変換モード以外) では補完する。
-	;; o 英数補完モードでは、入力中の見出し語がアルファベットまたは数字
-	;;   だけの場合のみ補完する。
-	;; (後者の条件は look での補完のとき役に立つ。)
-	(or (not skk-abbrev-mode)
-	    (let ((point (point)))
-	      (save-excursion
-		(goto-char skk-henkan-start-point)
-		(not (re-search-forward "[^a-z0-9A-Z]" point t)))))))
+      #'(lambda ()
+	  (and
+	   ;; -nw では動的補完をしない。
+	   window-system
+	   ;; 基本的に行末のときのみ補完する。ただし行末でなくても現在の
+	   ;; ポイントから行末までの文字が空白のみだったら補完する。
+	   (or (eolp)
+	       (looking-at "[ \t]+$")))))
 
 ;; viper と組み合わせて使う
 ;; (setq skk-use-viper t)

@@ -1,3 +1,7 @@
+2007-07-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.skk: Modify setting for skk-dcomp-activate.
+
 2007-07-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* dot.emacs:
