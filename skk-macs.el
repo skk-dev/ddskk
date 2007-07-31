@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.116 2007/07/31 06:45:10 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.117 2007/07/31 06:47:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/31 06:45:10 $
+;; Last Modified: $Date: 2007/07/31 06:47:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -560,22 +560,27 @@ BUFFER defaults to the current buffer."
 (defsubst skk-select-branch (tree char)
   (assq char (skk-get-branch-list tree)))
 
-(skk-deflocalvar skk-prefix-overlay nil)
-
 (defun skk-erase-prefix (&optional clean)
-  "`skk-echo' が非 nil であれば現在表示されている `skk-prefix' を消す。
+  "`skk-echo' が非 nil であれば現在のバッファに挿入された `skk-prefix' を消す。
 オプション引数の CLEAN が指定されると、変数としての `skk-prefix' を空文字に、
 `skk-current-rule-tree' を nil に初期化する。"
-  ;; かな文字の入力がまだ完成していない場合にこの関数が呼ばれたときなどは
-  ;; 表示されている skk-prefix は削除したいが、変数としての skk-prefix は
+
+  ;; かな文字の入力がまだ完成していない場合にこの関数が呼ばれたときなどは、バッ
+  ;; ファに挿入されている skk-prefix は削除したいが、変数としての skk-prefix は
   ;; null 文字にしたくない。
-  (when (overlayp skk-prefix-overlay)
+  (when (and skk-echo
+	     skk-kana-start-point
+	     (not (string= skk-prefix ""))) ; fail safe.
+    (let ((start (marker-position skk-kana-start-point)))
+      (when start
 	(condition-case nil
-	    (delete-overlay skk-prefix-overlay)
+	    ;; skk-prefix の消去をアンドゥの対象としない。
+	    (skk-cannot-be-undone
+	     (delete-region start (+ start (length skk-prefix))))
 	  (error
 	   (skk-set-marker skk-kana-start-point nil)
 	   (setq skk-prefix ""
-		 skk-current-rule-tree nil))))
+		 skk-current-rule-tree nil))))))
   (when clean
     (setq skk-prefix ""
 	  skk-current-rule-tree nil))) ; fail safe
@@ -703,13 +708,14 @@ BUFFER defaults to the current buffer."
   "カレントバッファがミニバッファかどうかをチェックする。"
   (eq (current-buffer) (window-buffer (minibuffer-window))))
 
-(defun skk-insert-prefix (&optional char)
+(defsubst skk-insert-prefix (&optional char)
   "`skk-echo' が non-nil であればカレントバッファに `skk-prefix' を挿入する。"
   (when skk-echo
-    ;; skk-prefix はアンドゥの対象とならないので
-    ;; バッファに挿入される必要がない。
-    (setq skk-prefix-overlay (make-overlay (point) (point)))
-    (overlay-put skk-prefix-overlay 'after-string (or char skk-prefix))))
+    ;; skk-prefix の挿入をアンドゥの対象としない。挿入したプレフィックスは、
+    ;; かな文字を挿入する前に全て消去するので、その間、buffer-undo-list を
+    ;; t にしてアンドゥ情報を蓄えなくとも問題がない。
+    (skk-cannot-be-undone
+     (insert-and-inherit (or char skk-prefix)))))
 
 (defsubst skk-string-lessp-in-coding-system (str1 str2 coding-system)
   (string< (encode-coding-string str1 coding-system)

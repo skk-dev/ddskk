@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.54 2007/07/31 06:45:10 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.55 2007/07/31 06:48:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/31 06:45:10 $
+;; Last Modified: $Date: 2007/07/31 06:48:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -123,11 +123,6 @@
   "Set current skk mode to normal latin input mode."
   (let ((skk-use-color-cursor nil))
     (skk-latin-mode-on)))
-
-(defsubst skk-isearch-buffer-string ()
-  (if skk-prefix
-      (concat (buffer-string) skk-prefix)
-    (buffer-string)))
 
 ;;;###autoload
 (defun skk-isearch-message ()
@@ -457,10 +452,10 @@ If the conversion is in progress and no string is fixed, just return nil."
 		;; whole string in the buffer is fixed.
 		((not (zerop (buffer-size)))
 		 (prog1
-		     (skk-isearch-buffer-string)
+		     (buffer-string)
 		   (erase-buffer))))
 	;; update incomplete-message with contents of working buffer.
-	(setq skk-isearch-incomplete-message (skk-isearch-buffer-string))
+	(setq skk-isearch-incomplete-message (buffer-string))
 	;; update echo area.
 	(skk-isearch-incomplete-message))))
 
@@ -533,7 +528,7 @@ If the current mode is different from previous, remove it first."
 		    (skk-kakutei))
 		  (delete-backward-char 1)
 		  (setq isearch-string (concat isearch-string
-					       (skk-isearch-buffer-string))
+					       (buffer-string))
 			isearch-message (concat
 					 (skk-isearch-mode-string)
 					 (mapconcat
@@ -553,8 +548,7 @@ If the current mode is different from previous, remove it first."
 		    (delete-backward-char 1))
 		   (t
 		    (skk-erase-prefix 'clean)))
-		  (setq skk-isearch-incomplete-message
-			(skk-isearch-buffer-string))
+		  (setq skk-isearch-incomplete-message (buffer-string))
 		  (skk-isearch-incomplete-message))))))
     ;;
     (let* ((cmd (nth 1 isearch-cmds))

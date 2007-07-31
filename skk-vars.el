@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.235 2007/07/31 06:45:10 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.236 2007/07/31 06:51:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/31 06:45:10 $
+;; Last Modified: $Date: 2007/07/31 06:51:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1883,13 +1883,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
     skk-insert
     skk-try-completion
     skk-completion-wrapper
-    skk-previous-candidate
-    digit-argument
-    universal-argument
-    universal-argument-more
-    universal-argument-other-key
-    universal-argument-minus
-    negative-argument))
+    skk-previous-candidate))
 
 (defconst skk-quote-char-alist
   '((?\; . "\\073")
@@ -2342,10 +2336,6 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 (skk-deflocalvar skk-after-prefix nil
   "t $B$G$"$l$P!"@\F,<-F~NO8e$N>uBV$K$"$k$3$H$rI=$9!#(B
 $B@\F,<-F~NO3+;O;~$K(B t $B$K%;%C%H$5$l!"B3$/8l$N3NDj8e$K(B nil $B$K%;%C%H$5$l$k!#(B")
-
-(skk-deflocalvar skk-prefix-arg nil
-  "$BJ#?t%9%H%m!<%/$K$h$j7hDj$5$l$k!V$+$J!W$rF~NO$9$k:]$K(B
-`current-prefix-arg' $B$rJ];}$7$F$*$/JQ?t!#(B")
 
 ;; skk-act.el related.
 (defcustom skk-use-act nil
