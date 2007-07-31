@@ -1,6 +1,6 @@
 2007-07-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* ccc.el (ccc-setup-new-frame): Rename anonymous function for
+	* ccc.el (ccc-setup-new-frame): Name anonymous function for
 	after-frame-functions.
 
 2007-07-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
