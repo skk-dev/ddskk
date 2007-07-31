@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.29 2007/05/09 09:32:49 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.30 2007/07/31 06:44:36 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2007/05/09 09:32:49 $
+;; Last Modified: $Date: 2007/07/31 06:44:36 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -82,6 +82,11 @@
 
 (defsubst ccc-color-equal (a b)
   (facemenu-color-equal a b))
+
+(defun ccc-setup-new-frame (frame)
+  (set-frame-cursor-color frame frame-cursor-color)
+  (set-frame-foreground-color frame frame-foreground-color)
+  (set-frame-background-color frame frame-background-color))
 
 ;;;###autoload
 (defun update-buffer-local-frame-params (&optional buffer)
@@ -191,13 +196,7 @@
 
 ;; Hooks
 (add-hook 'post-command-hook 'update-buffer-local-frame-params)
-
-(add-hook 'after-make-frame-functions
-	  (lambda (new-frame)
-	    (set-frame-cursor-color new-frame frame-cursor-color)
-	    (set-frame-foreground-color new-frame frame-foreground-color)
-	    (set-frame-background-color new-frame frame-background-color))
-	  'append)
+(add-hook 'after-make-frame-functions 'ccc-setup-new-frame)
 
 (provide 'ccc)
 
