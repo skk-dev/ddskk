@@ -124,7 +124,17 @@
 		       count))
 	(when (eq (following-char) ?1)	;?1
 	  (forward-char 2)
-	  (car (skk-compute-henkan-lists nil)))))))
+	  (delq nil
+		;; '/' を含む見出しの処理がプロトコル的にダメなので対処
+		(let ((len (length key)))
+		  (mapcar #'(lambda (midasi)
+			      ;; key に完全一致な midasi をどうするか。
+			      (when (and (> (length midasi) len)
+					 (string-equal key
+						       (substring midasi
+								  0 len)))
+				midasi))
+			  (car (skk-compute-henkan-lists nil))))))))))
 
 ;;;###autoload
 (defun skk-comp-by-server-completion ()
