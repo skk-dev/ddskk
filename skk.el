@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.427 2007/08/02 08:22:35 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.428 2007/08/02 15:25:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/02 08:22:35 $
+;; Last Modified: $Date: 2007/08/02 15:25:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2583,14 +2583,14 @@ auto に設定するとユーザに確認しない。
 	(setq cand word))
       (cons cand note))))
 
-(defun skk-kakutei (&optional word)
+(defun skk-kakutei (&optional arg word)
   "現在表示されている語で確定し、辞書の更新を行う。
 カレントバッファで SKK モードになっていなかったら SKK モードに入る。
 オプショナル引数の WORD を渡すと、現在表示されている候補とは無関係に
 WORD で確定する。"
   ;; read only でエラーになるようにすると read only バッファで SKK が起動でき
   ;; なくなる。
-  (interactive)
+  (interactive "P")
   (let ((inhibit-quit t)
 	converted kakutei-word)
     (when skk-henkan-mode
