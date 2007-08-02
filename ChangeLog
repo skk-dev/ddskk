@@ -1,3 +1,9 @@
+2007-08-02  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk.el (skk-kakutei): Add optional argument `ARG' so that C-u
+	C-j doesn't raise error.
+	(skk-henkan): Remove redundant code.
+
 2007-08-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-isearch.el (skk-isearch-buffer-string): New function.
