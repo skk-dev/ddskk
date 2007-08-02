@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.73 2007/07/27 13:33:11 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.74 2007/08/02 23:13:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/27 13:33:11 $
+;; Last Modified: $Date: 2007/08/02 23:13:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -404,6 +404,7 @@
 	      (nreverse list))))
     (pop skk-comp-kakutei-midasi-list)))
 
+;;;###autoload
 (defun skk-comp-smart-find (&optional path)
   "`smart-find' $B$,8+$D$1$?%U%!%$%kL>$GJd40$9$k(B"
   (cond (skk-abbrev-mode
@@ -416,6 +417,7 @@
 	(t
 	 (setq skk-comp-smart-find-files nil))))
 
+;;;###autoload
 (defun skk-search-smart-find (&optional path not-abbrev-only
 					without-char-maybe)
   "`smart-find'$B$rMxMQ$7$?JQ49$r9T$J$&!#(B
@@ -453,6 +455,7 @@ NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B"
       (setq files
 	    (sort files #'string-lessp)))))
 
+;;;###autoload
 (defun skk-comp-lisp-symbol (&optional predicate)
   "Lisp symbol $BL>$GJd40$9$k!#(B
 PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$r8+$?$9%7%s%\%k(B
@@ -478,6 +481,7 @@ PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$r8+$?$9%7%s%\
 	(t
 	 (setq skk-comp-lisp-symbols nil))))
 
+;;;###autoload
 (defun skk-search-lisp-symbol (&optional predicate not-abbrev-only
 					 without-char-maybe)
   "Lisp symbol $BL>$GJd40$9$k!#(B

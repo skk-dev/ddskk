@@ -26,7 +26,7 @@
 ;;
 ;; dvorak 配列での拡張ローマ字入力 "ACT" を SKK で使うための設定です．
 ;; "ACT" については，以下の URL を参照して下さい．
-;;   http://hp.vector.co.jp/authors/VA002116/azik/act_index.html
+;;   http://www1.vecceed.ne.jp/~bemu/act/act_index.html
 ;;
 ;; 使い方 - 下記の設定を .skk に加えてください．
 ;;          その後 Emacs(Mule) を再起動すれば skk による ACT での
