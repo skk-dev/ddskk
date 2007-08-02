@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.428 2007/08/02 15:25:59 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.429 2007/08/02 15:43:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/02 15:25:59 $
+;; Last Modified: $Date: 2007/08/02 15:43:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1686,11 +1686,6 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	  (setq pair (skk-insert-new-word new-word))))
       (skk-inline-hide)
       ;;
-      (when (and new-word
-		 (string= new-word prototype)
-		 (skk-numeric-p))
-	(setq new-word (skk-get-current-candidate 'noconv)))
-      ;;
       (if mark
 	  (progn
 	    (goto-char mark)
@@ -1704,10 +1699,7 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
       ;;
       (when (and skk-show-annotation
 		 (not kakutei-henkan))
-	(skk-annotation-find-and-show pair))
-      ;;
-      (when kakutei-henkan
-	(skk-kakutei new-word)))))
+	(skk-annotation-find-and-show pair)))))
 
 (defun skk-exit-henkan-in-minibuff ()
   (when (and (numberp skk-henkan-in-minibuff-nest-level)
