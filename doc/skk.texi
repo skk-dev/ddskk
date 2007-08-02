@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.165 2007/08/02 22:36:06 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.166 2007/08/02 23:12:10 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/08/02 22:36:06 $
+@c  Last Modified: $Date: 2007/08/02 23:12:10 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/08/02 22:36:06 $
+@set UPDATED $Date: 2007/08/02 23:12:10 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1619,6 +1619,7 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 @cindex @file{skk-auto.el}
 @cindex @file{skk-autoloads.el}
 @cindex @file{skk-azik.el}
+@cindex @file{skk-bayesian.el}
 @cindex @file{skk-comp.el}
 @cindex @file{skk-cursor.el}
 @cindex @file{skk-dcomp.el}
@@ -1632,6 +1633,7 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 @cindex @file{skk-jisx0213.el}
 @cindex @file{skk-jisyo-edit-mode.el}
 @cindex @file{skk-kakasi.el}
+@cindex @file{skk-kanagaki.el}
 @cindex @file{skk-kcode.el}
 @cindex @file{skk-leim.el}
 @cindex @file{skk-look.el}
@@ -1645,6 +1647,7 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 @cindex @file{skk-study.el}
 @cindex @file{skk-tankan.el}
 @cindex @file{skk-tut.el}
+@cindex @file{skk-tutcode.el}
 @cindex @file{skk-vars.el}
 @cindex @file{skk-version.el}
 @cindex @file{skk-viper.el}
@@ -1660,7 +1663,7 @@ DDSKK 13 $B$G$O!"1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$r(B @file{skk.el} $B$
 @cindex @file{context-skk.el}
 
 $BJT=8$NJ8L.$K1~$8$F<+F0E*$K(Bskk$B$N%b!<%I$r@Z$jBX$($?$j!"(BSKK $B$N3F<o@_Dj$rJQ(B
-$B99$9$k5!G=$rDs6!$9$k%U%!%$%k!#(B
+$B99$9$k5!G=$rDs6!$7$^$9!#(B
 
 @item skk-abbrev.el
 @cindex @file{skk-abbrev.el}
@@ -1672,8 +1675,10 @@ SKK abbrev mode $B$N5!G=$rDs6!$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 @item skk-act.el
 @cindex @file{skk-act.el}
 
-dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs6!$9$k(B
-$B%U%!%$%k!#(B
+dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs6!$7$^(B
+$B$9!#(B
+
+@url{http://www1.vecceed.ne.jp/~bemu/act/act_index.html}
 
 @item skk-annotation.el
 @cindex @file{skk-annotation.el}
@@ -1695,6 +1700,20 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 $B%$%s%9%H!<%k$7$?>l9g$O(B @file{auto-autoloads.el} $B$H$$$&%U%!%$%k$,$3$l$KAj(B
 $BEv$7$^$9!#(B
 
+@item skk-azik.el
+@cindex @file{skk-azik.el}
+
+$B3HD%%m!<%^;zF~NO(B "AZIK" $B$N@_Dj$rDs6!$7$^$9!#(B
+
+@url{http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm}
+
+@item skk-bayesian.el
+@cindex @file{skk-bayesian.el}
+
+SKK $B$N3X=,5!G=$N$R$H$D$G!"%f!<%6$N2a5n$NF~NO$+$iJQ498uJd$rM=B,$7$^$9!#(B
+
+@url{http://kenichi.kurihara.googlepages.com/bskk.html}
+
 @item skk-comp.el
 @cindex @file{skk-comp.el}
 
@@ -1707,6 +1726,11 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 
 $B%+!<%=%k$N?'$r@)8f$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 
+@item skk-dcomp.el
+@cindex @file{skk-dcomp.el}
+
+skk-comp $B$K$h$kJd40$r<+F0E*$K<B9T$7$F8+=P$78lF~NO$r;Y1g$7$^$9!#(B
+
 @item skk-develop.el
 @cindex @file{skk-develop.el}
 
@@ -1715,7 +1739,13 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 @item skk-dic.el
 @cindex @file{skk-dic.el}
 
-$B%G%U%)%k%H$N<-=q(B(S$B<-=q(B)$B$H%G%U%)%k%H$N<-=q$r;HMQ$9$k$?$a$N%W%m%0%i%`%U%!%$%k!#(B
+SKK $B<-=q$r(B Emacs Lisp $B%W%m%0%i%`$H$7$FMQ0U$G$-$^$9!#(B
+
+@item skk-e21.el
+@cindex @file{skk-e21.el}
+
+GNU Emacs 21 $B0J9_$N3HD%5!G=$rMxMQ$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
+$B%$%s%8%1!<%?$N%+%i!<2=$d2hA|I=<(!"%D!<%k%F%#%C%WMxMQ$J$I!#(B
 
 @item skk-gadget.el
 @cindex @file{skk-gadget.el}
@@ -1724,18 +1754,32 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 
 @xref{$B%W%m%0%i%`<B9TJQ49(B}.
 
+@item skk-hint.el
+@cindex @file{skk-hint.el}
+
+SKK $B$NJQ498uJd$,B?$$$H$-$K%R%s%H$rM?$($F9J$j$3$`5!G=$rDs6!$7$^$9!#(B
+
 @item skk-isearch.el
 @cindex @file{skk-isearch.el}
 
-DDSKK $B$rJ;MQ$7$?%$%s%/%j%a%s%?%k!&%5!<%A5!G=$rDs6!$9$k%U%!%$%k!#(B
+DDSKK $B$rJ;MQ$7$?%$%s%/%j%a%s%?%k!&%5!<%A5!G=$rDs6!$7$^$9!#(B
 
 @xref{I-search$B4XO"(B}.
+
+@item skk-jisx0201.el
+@cindex @file{skk-jisx0201.el}
+
+$B$$$o$f$kH>3Q%+%J$rMxMQ$9$k5!G=$rDs6!$7$^$9!#(B
+
+@item skk-jisx0213.el
+@cindex @file{skk-jisx0213.el}
+
+JISX0213 $BJ8;z%3!<%I$r07$&%W%m%0%i%`$G$9!#(B
 
 @item skk-jisyo-edit-mode.el
 @cindex @file{skk-jisyo-edit-mode.el}
 
-SKK $B<-=q$rJT=8$9$k$?$a$N%a%8%c!<%b!<%I$rDs6!$9$k%W%m%0%i%`$r=8$a$?%U%!%$(B
-$B%k!#(B
+SKK $B<-=q$rJT=8$9$k$?$a$N%a%8%c!<%b!<%I$rDs6!$7$^$9!#(B
 
 @item skk-kakasi.el
 @cindex @file{skk-kakasi.el}
@@ -1743,6 +1787,15 @@ SKK $B<-=q$rJT=8$9$k$?$a$N%a%8%c!<%b!<%I$rDs6!$9$k%W%m%0%i%`$r=8$a$?%U%!%$(B
 KAKASI $B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 
 @xref{$BNN0h0l3gJQ49(B}.
+
+@item skk-kanagaki.el
+@cindex @file{skk-kanagaki.el}
+
+$B%-!<%\!<%I$N$+$JG[Ns$J$I$KBP1~$9$kOHAH$_$rDs6!$7$^$9!#(B
+$B8=CJ3,$G$O5l(B JIS $BG[Ns$N$+$J%-!<%\!<%I!"$*$h$S(B NICOLA $B5,3J$N?F;X%7%U%HG[(B
+$BNs$KBP1~$7$F$$$^$9!#(B
+
+@url{http://nicola.sunicom.co.jp/}
 
 @item skk-kcode.el
 @cindex @file{skk-kcode.el}
@@ -1789,10 +1842,15 @@ Lookup $B$G8!:w$G$-$k<-=q$r;H$C$FC18l$N8uJd$r=PNO$9$k%W%m%0%i%`!#(B
 $B?t!"4X?tL>$J$I(B)$B$N=$@5;Y1g%W%m%0%i%`!#(B
 @c XXX
 
+@item skk-server-completion.el
+@cindex @file{skk-server-completion.el}
+
+$B3HD%$5$l$?(B SKK $B<-=q%5!<%P$K$h$k8+=P$78lJd405!G=$rMxMQ$G$-$^$9!#(B
+
 @item skk-server.el
 @cindex @file{skk-server.el}
 
-SKK $B%5!<%P%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
+SKK $B<-=q%5!<%P$HDL?.$7$FJQ49$9$k5!G=$rDs6!$7$^$9!#(B
 
 @xref{$B%5!<%P4XO"(B}.
 
@@ -1809,10 +1867,20 @@ SKK $B%5!<%P%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 
 @xref{$BJQ49$N3X=,(B}.
 
+@item skk-tankan.el
+@cindex @file{skk-tankan.el}
+
+SKK $B$r;H$C$FC14A;zJQ49$r9T$&%W%m%0%i%`$G$9!#(B
+
 @item skk-tut.el
 @cindex @file{skk-tut.el}
 
 SKK $B%A%e!<%H%j%"%k%W%m%0%i%`!#(B
+
+@item skk-tutcode.el
+@cindex @file{skk-tutcode.el}
+
+SKK $B$G(B TUT-code $BF~NO$r<B8=$7$^$9!#(B
 
 @item skk-vars.el
 @cindex @file{skk-vars.el}
@@ -1829,6 +1897,12 @@ DDSKK $B$N%P!<%8%g%s>pJs$rDs6!$9$k%W%m%0%i%`%U%!%$%k!#(B
 @cindex @file{skk-viper.el}
 
 VIPER $B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
+
+@item skk-xemacs.el
+@cindex @file{skk-xemacs.el}
+
+XEmacs $B$N3HD%5!G=$rMxMQ$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
+$B%$%s%8%1!<%?$N%+%i!<2=$d2hA|I=<(!"%D!<%k%F%#%C%WMxMQ$J$I!#(B
 @end table
 
 $B$J$*!"(BElib$B$h$j(B @file{queue-m.el} $B%U%!%$%k$r<}O?$7$F$$$^$9!#(B

@@ -24,6 +24,12 @@
 	* skk.el (skk-delete-backward-char): Don't call `skk-kakutei' if
 	skk-prefix is present.
 
+	* skk-act.el: Update URL.
+
+	* skk-comp.el: Add autoload cookie.
+
+	* doc/skk.texi: List new elisp files.
+
 2007-08-01  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-server-completion.el (skk-server-completion-search-midasi):
