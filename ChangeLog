@@ -1,3 +1,23 @@
+2007-08-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el (skk-isearch-buffer-string): New function.
+
+	(skk-isearch-search-string):
+	(skk-isearch-delete-char):
+
+	Call it instead of `buffer-string'.
+
+	* skk-macs.el (skk-erase-prefix):
+	(skk-insert-prefix):
+
+	Don't insert skk-prefix to the current buffer.  Instead, display
+	it using overlay.
+
+	* skk-vars.el (skk-prefix-overlay): New local variable.
+
+	* skk.el (skk-delete-backward-char): Don't call `skk-kakutei' if
+	skk-prefix is present.
+
 2007-08-01  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk-server-completion.el (skk-server-completion-search-midasi):

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.236 2007/07/31 06:51:10 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.237 2007/08/02 08:22:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/31 06:51:10 $
+;; Last Modified: $Date: 2007/08/02 08:22:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2241,6 +2241,10 @@ skk-jisyo のバッファでは辞書の更新の必要があるためにマーカーが代入される。
 
 (skk-deflocalvar skk-prefix ""
   "入力するかなを決定するためのプレフィックス。")
+
+(skk-deflocalvar skk-prefix-overlay nil
+  "skk-prefix を表示するために使用される overlay。
+skk-echo の値が non-nil のときに使用される。")
 
 (skk-deflocalvar skk-henkan-start-point nil
   "変換開始ポイントを示すマーカー。")
