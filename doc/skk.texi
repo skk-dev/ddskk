@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.164 2007/07/27 11:00:21 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.165 2007/08/02 22:36:06 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/07/27 11:00:21 $
+@c  Last Modified: $Date: 2007/08/02 22:36:06 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/07/27 11:00:21 $
+@set UPDATED $Date: 2007/08/02 22:36:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1609,17 +1609,27 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 @node $B%U%!%$%k9=@.(B, $B%f!<%6!<%*%W%7%g%s$N@_DjJ}K!(B, $BJXMx$J1~MQ5!G=(B, $BJXMx$J1~MQ5!G=(B
 @comment  node-name,  next,  previous,  up
 @section $B%U%!%$%k9=@.(B
+@cindex @file{ccc.el}
+@cindex @file{context-skk.el}
+@cindex @file{leim-list.el}
 @cindex @file{queue-m.el}
 @cindex @file{skk-abbrev.el}
+@cindex @file{skk-act.el}
 @cindex @file{skk-annotation.el}
 @cindex @file{skk-auto.el}
 @cindex @file{skk-autoloads.el}
+@cindex @file{skk-azik.el}
 @cindex @file{skk-comp.el}
 @cindex @file{skk-cursor.el}
+@cindex @file{skk-dcomp.el}
 @cindex @file{skk-develop.el}
 @cindex @file{skk-dic.el}
+@cindex @file{skk-e21.el}
 @cindex @file{skk-gadget.el}
+@cindex @file{skk-hint.el}
 @cindex @file{skk-isearch.el}
+@cindex @file{skk-jisx0201.el}
+@cindex @file{skk-jisx0213.el}
 @cindex @file{skk-jisyo-edit-mode.el}
 @cindex @file{skk-kakasi.el}
 @cindex @file{skk-kcode.el}
@@ -1629,13 +1639,16 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 @cindex @file{skk-macs.el}
 @cindex @file{skk-num.el}
 @cindex @file{skk-obsolete.el}
+@cindex @file{skk-server-completion.el}
 @cindex @file{skk-server.el}
 @cindex @file{skk-setup.el}
 @cindex @file{skk-study.el}
+@cindex @file{skk-tankan.el}
 @cindex @file{skk-tut.el}
 @cindex @file{skk-vars.el}
 @cindex @file{skk-version.el}
 @cindex @file{skk-viper.el}
+@cindex @file{skk-xemacs.el}
 @cindex @file{skk.el}
 
 DDSKK 13 $B$G$O!"1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$r(B @file{skk.el} $B$H(B
@@ -1643,12 +1656,24 @@ DDSKK 13 $B$G$O!"1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$r(B @file{skk.el} $B$
 $B@_7W$5$l$F$$$^$9!#3F1~MQ5!G=$N35N,$H3:Ev$N%U%!%$%kL>$K$D$$$F@bL@$7$^$9!#(B
 
 @table @file
+@item context-skk.el
+@cindex @file{context-skk.el}
+
+$BJT=8$NJ8L.$K1~$8$F<+F0E*$K(Bskk$B$N%b!<%I$r@Z$jBX$($?$j!"(BSKK $B$N3F<o@_Dj$rJQ(B
+$B99$9$k5!G=$rDs6!$9$k%U%!%$%k!#(B
+
 @item skk-abbrev.el
 @cindex @file{skk-abbrev.el}
 
 SKK abbrev mode $B$N5!G=$rDs6!$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 
 @xref{$B%"%9%-!<J8;z$r8+=P$78l$H$7$?JQ49(B, , SKK abbrev mode}.
+
+@item skk-act.el
+@cindex @file{skk-act.el}
+
+dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs6!$9$k(B
+$B%U%!%$%k!#(B
 
 @item skk-annotation.el
 @cindex @file{skk-annotation.el}

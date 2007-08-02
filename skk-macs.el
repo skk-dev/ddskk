@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.118 2007/08/02 08:22:35 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.119 2007/08/02 22:36:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/02 08:22:35 $
+;; Last Modified: $Date: 2007/08/02 22:36:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -707,7 +707,9 @@ BUFFER defaults to the current buffer."
     ;; skk-prefix はアンドゥの対象とならないので
     ;; バッファに挿入される必要がない。
     (setq skk-prefix-overlay (make-overlay (point) (point)))
-    (overlay-put skk-prefix-overlay 'after-string (or char skk-prefix))))
+    (overlay-put skk-prefix-overlay 'after-string (or char skk-prefix))
+    (static-when (eq skk-emacs-type 'mule4)
+      (redraw-frame (selected-frame)))))
 
 (defsubst skk-string-lessp-in-coding-system (str1 str2 coding-system)
   (string< (encode-coding-string str1 coding-system)
