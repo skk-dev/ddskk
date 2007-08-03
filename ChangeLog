@@ -1,3 +1,27 @@
+2007-08-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-1): Refer to
+	skk-annotation-ja-wiktionary-lang-regexp and
+	skk-annotation-ja-wiktionary-part-of-speech-regexp.  Ignore
+	"Badtitle" page.  Deal with simple.wikipedia.
+
+	* skk-tankan.el (skk-search-tankanji): New function.
+
+	* skk-vars.el (skk-search-prog-list-5): Set default value for
+	skk-tankan.
+
+	(skk-annotation-en-wiktionary-lang-regexp):
+	(skk-annotation-en-wiktionary-part-of-speech-regexp):
+
+	Update.
+
+	(skk-annotation-ja-wiktionary-lang-regexp):
+	(skk-annotation-ja-wiktionary-part-of-speech-regexp):
+
+	New variables.
+
+	* skk.el (skk-setup-verbose-messages): Show "単漢字" for C-5.
+
 2007-08-02  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-kakutei): Add optional argument `ARG' so that C-u
@@ -27,6 +51,8 @@
 	* skk-act.el: Update URL.
 
 	* skk-comp.el: Add autoload cookie.
+
+	* doc/skk.texi: List new elisp files.
 
 2007-08-01  Eiji Obata  <e-obata@zero.ad.jp>
 

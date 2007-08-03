@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.128 2007/07/18 01:51:13 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.129 2007/08/03 02:46:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/07/18 01:51:13 $
+;; Last Modified: $Date: 2007/08/03 02:46:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -944,7 +944,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	      (goto-char (point-min))
 	      (if (save-excursion
 		    (re-search-forward "\
-\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
+\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
+\\|:Badtitle\\)"
 				       nil t))
 		  ;; $B9`L\$,$J$$>l9g(B
 		  (erase-buffer)
@@ -953,9 +954,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		;;
 		(goto-char (point-min))
 		(when (re-search-forward
-		       ;; XXX $B$^$@IT40A4(B
-		       "<h2>.*<span class=\"mw-headline\">\
-\\(<a href=.+>\\)?\\($BF|K\8l(B\\|$B1Q8l(B\\)\\(</a>\\)?\</span></h2>"
+		       skk-annotation-ja-wiktionary-lang-regexp
 		       nil t)
 		  (save-excursion
 		    (goto-char (match-end 2))
@@ -963,24 +962,24 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 		  (delete-region (point-min) (match-beginning 0))
 		  (setq top (point))
 		  (when (re-search-forward
-			 "<h2>.*<span class=\"mw-headline\">\
-\\(<a href=.+>\\)?.+$B8l(B\\(</a>\\)?</span></h2>"
+			 skk-annotation-ja-wiktionary-lang-regexp
 			 nil t)
-		    (delete-region (match-beginning 0) (point-max))))
+		    (delete-region (setq pt1 (match-beginning 0))
+				   (point-max))))
 		;;
 		(setq point top)
 		(goto-char (point-min))
+		;; ja.wiktionary $B$N=q<0$,(B en.wiktionary $B$[$I@0$C$F$$$J$$$N$G(B
+		;; workaround
+		(unless
+		    (save-excursion
+		       (re-search-forward
+			skk-annotation-ja-wiktionary-part-of-speech-regexp
+			nil t))
+		  (setq point pt1))
+		;;
 		(while (re-search-forward
-			;; XXX $B$^$@IT40A4(B
-			"<span class=\"mw-headline\">\
-\\(<a href=.+>\\)?\
-\\(\
-\\(\\($B8GM-(B\\|\\($B?M>N(B\\)?$BBe(B\\)?$BL>(B\\|\\($B=u(B\\)?$BF0(B\\|$B7AMFF0(B?\\|\
-$B@\B3(B\\|$BA0CV(B\\|$BI{(B\\|$B4'(B\\)\
-$B;l(B.*\
-\\|$B4A;z:.$8$jI=5-(B\\|$B0U5A(B\\|$BN,8l(B\\)\
-\\(</a>\\)?\
-</span>"
+			skk-annotation-ja-wiktionary-part-of-speech-regexp
 			nil t)
 		  (setq nop t)
 		  (save-match-data
@@ -1008,10 +1007,15 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			(setq point pt2)
 			(goto-char point)))))
 		;;
+		;; ja.wiktionary $B$N=q<0$,(B en.wiktionary $B$[$I@0$C$F$$$J$$$N$G(B
+		;; $B>C$7$9$.$F$7$^$&4m81@-$"$j!#(B
 		(when point
 		  (delete-region point (point-max)))
 		;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
-		(skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
+		;; ja.wiktionary $B$O(B en.wiktionary $B$HA4$/E}0l$5$l$?=q$-J}$K$O(B
+		;; $B$J$C$F$$$J$$$N$G!"(Bul $B$r=|$/$H>pJs$,$[$H$s$I;D$i$J$$>l9g$,(B
+		;; $B$"$k(B
+		;; (skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
 		(skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
 		(skk-annotation-wikipedia-remove-nested "<table[^<]*>"
 							"</table>")
@@ -1028,7 +1032,8 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	      (goto-char (point-min))
 	      (if (save-excursion
 		    (re-search-forward "\
-\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
+\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
+\\|:Badtitle\\)"
 				       nil t))
 		  ;; $B9`L\$,$J$$>l9g(B
 		  (erase-buffer)
@@ -1114,7 +1119,8 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	      (goto-char (point-min))
 	      (if (save-excursion
 		    (re-search-forward "\
-\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
+\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
+\\|:Badtitle\\)"
 				       nil t))
 		  ;; $B9`L\$,$J$$>l9g(B
 		  (erase-buffer)
@@ -1186,11 +1192,12 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 				       "</p>")
 				     nil t)
 		  (delete-region (point) (point-max)))))
-	     ((eq source 'en.wikipedia)
+	     ((memq source '(simple.wikipedia en.wikipedia))
 	      (goto-char (point-min))
 	      (if (save-excursion
 		    (re-search-forward "\
-\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\\)"
+\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
+\\|:Badtitle\\)"
 				       nil t))
 		  ;; $B9`L\$,$J$$>l9g(B
 		  (erase-buffer)

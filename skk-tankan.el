@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.13 2007/07/18 01:51:13 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.14 2007/08/03 02:46:57 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/07/18 01:51:13 $
+;; Last Modified: $Date: 2007/08/03 02:46:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1558,6 +1558,23 @@
 		      (char-to-string (car cell))
 		    (concat (char-to-string (car cell)) ";" anno))))
 	      lis))))
+
+;;;###autoload
+(defun skk-search-tankanji (&optional jisyo)
+  (let ((skk-henkan-key (concat skk-henkan-key
+				(char-to-string skk-tankan-search-key))))
+    (skk-tankan-search 'skk-search-jisyo-file
+		       (or jisyo
+			   skk-large-jisyo
+			   (static-if (fboundp 'locate-file)
+			       (locate-file "skk/SKK-JISYO.L"
+					    (list
+					     (expand-file-name
+					      "../../.."
+					      data-directory)))
+			     nil)
+			   skk-aux-large-jisyo)
+		       10000)))
 
 
 ;;; annotation data for japanese-jisx0208

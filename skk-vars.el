@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.237 2007/08/02 08:22:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.238 2007/08/03 02:46:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/02 08:22:35 $
+;; Last Modified: $Date: 2007/08/03 02:46:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -414,7 +414,7 @@ C-4 SPC で使用される"
   :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
-(defcustom skk-search-prog-list-5 nil
+(defcustom skk-search-prog-list-5 '((skk-search-tankanji))
   "*検索関数、検索対象の辞書を決定するためのリスト。
 C-5 SPC で使用される"
   :type '(repeat (sexp :tag "S式"))
@@ -2451,9 +2451,12 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
   :group 'skk-annotation)
 
 (defcustom skk-annotation-wikipedia-sources '(ja.wikipedia
-					      ja.wiktionary
+					      en.wiktionary
+					      simple.wikipedia
 					      en.wikipedia
-					      en.wiktionary)
+					      ja.wiktionary)
+  ;; (注) 2007 年時点では ja.wiktionary は発展途上であり、
+  ;; 表記などにやや不統一な点がある模様。
   "*アノテーションに使う Wikimedia のソースを指定するオプション。
 標準ではまず Wikipedia を参照し、Wikipedia の記述が無ければ Wiktionary を
 参照する。"
@@ -2501,18 +2504,90 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 (defconst skk-annotation-en-wiktionary-lang-regexp "\
 <h2>.*<span class=\"mw-headline\">\
 \\(<a href=.+>\\)?\
-\\(Afrikaans\\|Ainu\\|Albanian\\|Amoy\\|Amuzgo\\|Aragonese\
-\\|Balinese\\|Bosnian\\|Breton\\|Cantonese\
-\\|Catalan\\|Crimean Tatar\\|Croatian\
-\\|Czech\\\|Danish\\|Dutch\\|Egyptian\\|English\\|Esperanto\\|Estonian\
-\\|Faroese\\|Finnish\\|French\\|German\\|Greek\\|Hungarian\\|Interlingua\
-\\|Irish\\|Italian\\|Japanese\\|Korean\\|Krisa\\|Kurdish\
-\\|Latin\\|Lithuanian\\|Lojban\
-\\|Mandarin\\|Min Nan\\|Murrinh-Patha\\|Northern Sami\
-\\|Norwegian\\|Novial\\|Old English\\|Old Prussian\
-\\|Polish\\|Potuguese\\|Romanian\
-\\|Scots\\|Scottish Gaelic\\|Serbian\\|Slovak\\|Slovene\\|Spanish\\|Swahili\
-\\|Swedish\\|Torres Strait Creole\\|Translingual\\|Turkish\\|Tz'utujil\\)\
+\\(Aari\\|Abanyom\\|Abaza\\|Abenaki\\|Abkhaz\\|Acehnese\\|Acholi\\|Acholi\
+\\|Achumawa\\|Adangme\\|Adele\\|Adnyamathanha\\|Adyghe\\|Adzera\\|Afar\
+\\|Afrikaans\\|Aghul\\|Ainu\\|Akan\\|Akawaio\\|Akkadian\\|Aklanon\\|Alabama\
+\\|Albanian\\|Aleut\\|Algonquin\\|Alsatian\\|Amaimon\\|Amanab\\|Ambai\
+\\|Amharic\\|Amoy\\|Amuzgo\\|Ankave\\|Ansus\\|Apala,Am\\|\\(Egyptian \\)?Arabic\
+\\|Aragonese\\|Aramaic\\|Arapaho\\|Arawak\\|Armenian\\|Aromanian\\|Assamese\
+\\|Asturian\\|'Auhelawa\\|Avar\\|Avestan\\|Awabakal\\|Aymara\\|Azeri\
+\\|Balinese\\|Balti\\|Bambara\\|Bandjalang\\|Baruga\\|Bashkir\\|Basque\
+\\|Belarusian\\|Bengali\\|Berbice Creole Dutch\\|Betawi\\|Bhojpuri\\|Biak\
+\\|Bikol\\|Bislama\\|Blackfoot\\|Bokm,Ael\\|Bosnian\\|Breton\
+\\|Broome Pearling Lugger Pidgin\\|Bube\\|Bulgarian\\|Burmese\
+\\|Cantonese\\|Capeverdean Crioulo\\|Catalan\\|Catawba\\|Cebuano\
+\\|Central Tarahumara\\|Ch'orti'\\|Chamorro\\|Chechen\\|Cherokee\\|Cheyenne\
+\\|Chichewa\\|Chickasaw\\|Chinese Pidgin English\\|Chinese\\|Chinook Jargon\
+\\|Chiricahua\\|Choctaw\\|Tumbal,Aa Chol\\|Chukchee\\|Chuvash\
+\\|Classical Nahuatl\\|Coatl,Aan Mixe\\|Comorian\\|Coptic\\|Cornish\\|Corsican\
+\\|Cree\\|Creek\\|Crimean Tatar\\|Croatian\\|Czech\
+\\|DAcian\\|Dadibi\\|Northern Dagara\\\Dalmatian\\|Danish\\|Dargwa\
+\\|Darkinjung\\|Darling\\|Dharuk\\|Dhivehi\\|Dhuwal\\|Dieri\\|Dusner\\|Dutch\
+\\|Dyirbal\\|Dzongkha\
+\\|Egyptian\\|English\\|Erzya\\|Esan\\|Esperanto\\|Estonian\\|Etruscan\\|Ewe\
+\\|Fang\\|Faroese\\|Fijian\\|Filipino\\|Finnish\\|Fon\\|French\\|Frisian\
+\\|Friulian\\|Fula\
+\\|Ga\\|Gabi-Gabi\\|Gagauz\\|Galician\\|Gallo\\|Gamilaraay\\|Ge'ez\\|Georgian\
+\\|\\(Middle High\\)?German\\|Gilbertese\\|Golin\\|Gooniyandi\\|Gothic\
+\\|\\(Ancient \\|Mycenaean \\)?Greek\\|Greenlandic\\|Guaran,Am\\|Mby,Aa Guaran,Am\
+\\|Gujarati\\|Guugu Yimidhirr\
+\\|Hausa\\|Hawaiian\\|Hebrew\\|Hindi\\|Hittite\\|Hmong\\|Hopi\\|Hungarian\
+\\|Icelandic\\|Ido\\|Igbo\\|Ilocano\\|Indoneian\\|Interlingua\\|Inuktitut\
+\\|Irish\\|Italian\
+\\|Japanese\\|Javanese\\|Jingpho\\|J,Ahrriais\
+\\|Kabardian\\|Kabyle\\|Kadiw,Aiu\\|Kannada\\|Kanuri\\|Kapingamarangi\\|Karelian\
+\\|Kariti,Abna\\|Kashmiri\\|Kashubian\\|Kaurna\\|Kazakh\\|Khmer\\|Kickapoo\
+\\|Kinyarwanda\\|Kiput\\|Kirundi\\|Kokborok\\|Komi\\|Kongo\\|Korean\\|Kriol\
+\\|Krisa\\|!Kung\\|Kurdish\\|Kurnai\\|Kwanyama\\|Kyrgyz\
+\\|Ladino\\|Lak\\|Lakota\\|Laotian\\|Latin\\|Latvian\\|Lavukaleve\\|Lenape\
+\\|Lezgi\\|Limburgish\\|Lingala\\|Lithuanian\\|Livonian\\|Lojban\
+\\|Low Saxon\\|Lower Sorbian\\|Luganda\\|Luxembourgish\
+\\|Maay\\|Macedonian\\|Makhuwa\\(-Meetto\\|-Shirima\\)?\\|Malagasy\\|Malay\
+\\|Malayalam\\|Maliseet\\|Maltese\\|Manchu\\|Mandarin\\|Mandinka\\|Mangarevan\
+\\|Mansi\\|Manx\\|Maori\\|Marathi\\|Marau\\|Maroon\\|Marshallese\
+\\|Martuthunira\\|Mati Ke\\|Mbabaram\\|Mende\\|Menominee\\|Meriam\\|Mesquakie\
+\\|Mi'kmaq\\|Miami\
+\\|Middle \\(Dutch\\|English\\|French\\|Korean\\|Norwegian\\|Scots\\)\
+\\|Min Nan\\|Mirandese\\|Miskito\\|\\(Alcozauca \\|Yosond,Aza \\)?Mixtec\
+\\|Miyako\\|Mohegan\\|Mohican\\|Moldavian\\|Mongolian\\|Montauk\\|Munduapa\
+\\|Munggui\\|Munsee\\|Murrinh-Patha\\|Mutsun\
+\\|\\(Isthmus-Mecayapan \\)?Nahuatl\\|Nanticoke\\|Narragansett\\|Nauruan\
+\\|Navajo\\|Ndonga\\|Neapolitan\\|Nepali\\|Nhanta\\|Niuean\\|Nootka\\|Norfuk\
+\\|Norman\\|Norn\\|Northern Sami\\|Norwegian\\|Novial\\|Nynorsk\\|Nyunga\
+\\|O'odham\\|Occitan\\|Ohlone\\|Ojibwe\
+\\|Old \\(Church Slavonic\\|English\\|French\\|Frisian\\|High German\\|Irish\
+\\|Norse\\|Prussian\\|Saxon\\|Slavonic\\)\\|Oriya\\|Oromo\
+\\|Pali\\|Pangasinan\\|Panyjima\\|Papiamentu\\|Papuma\\|Pashto\
+\\|Passamaquoddy\\|Paumar,Am\\|Penobscot\\|\\(Old \\)?Perian\\|Phoenician\
+\\|Pirah,Ac\\|Pitcairnese\\|Pitjantjatjara\\|Pitta-Pitta\\|Pochutec\\|Polish\
+\\|Sayula Popoluca\\|Portuguese\\|Potawatomi\\|Powhatan\
+\\|Proto-\\(Germanic\\|Indo-European\\|Uralic\\)\\|Proven,Aga\\|Punjabi\
+\\|Quechua\\|Quenya\
+\\|Rarotongan\\|Reconstructed\\|Rohingya\\|Roman\\(i\\|ian\\|sch\\)\\|Rotokas\
+\\|Rotuman\\|Russian\\|Rutul\
+\\|Saanich\
+\\|\\(Inari \\|Kildin \\|Lule \\|Northern \\|Pite \\|Skolt \\|Sourthern \
+\\|Ter \\|Ume \\)?Sami\\|Samoan\\( Plantation Pidgin\\)?\\|Sanskrit\
+\\|Sardinian\\|Scots\\|Scottish Gaelic\\|Serbian\\|Serbo-Croatian\\|Seri\
+\\|Shabo\\|Shawnee\\|Shelta\\|Shona\\|SHoshoni\\|Shuar\\|Sicilian\\|Sindarin\
+\\|Sindhi\\|Sinhalese\\|Slovak\\|Slovene\\|Somali\\|Upper Sorbian\\|Spanish\
+\\|Sranan\\|SUmerian\\|Swahili\\|Swazi\\|Swedish\\|Syriac\
+\\|Tabassaran\\|TAchelhit\\|Tagalog\\|Tahitian\\|Taimyr Pidgin Russian\\|Tajik\
+\\|Tamasheq\\|Tamazight\\|Tamil\\|Tatar\\|Tausug\\|Ta,Amno\\|Telugu\\|Tetum\
+\\|Thai\\|Tibetan\\|Tigrinya\\|Tiwi\\|Tocharian \\(A\\|B\\)\\|Tok Pisin\
+\\|Tokelauan\\|Tongan\\|Torres Strait Creole\\|Translingual\\|Tsakhur\
+\\|Tshiluba\\|Tswana\\|Tuamotuan\\|Tumbuka\\|Tupi\\|Tupinamb,Aa\\|Turkish\
+\\|Turkmen\\|Tuvaluan\\|Tuvan\\|Twi\\|Tz'utujil\
+\\|Ugaritic\\|Ukrainian\\|Umbundu\\|Unami\\|Unserdeutsch\\|Urdu\\|Uyghur\
+\\|Uzbek\
+\\|Vandalic\\|Venda\\|Veps\\|Vietnamese\\|Volap,A|k\\|Votic\\|V,Auro\
+\\|Wageman\\|Walloon\\|Wampanoag\\|Wangaaybuwan-Ngiyambaa\\|Warlpiri\\|Welsh\
+\\|Wembawemba\\|Western Apache\\|Wik-Mungkan\\|Wiradhuri\\|Woi\\|Woiwurrung\
+\\|Wolof\\|Worimi\
+\\|Xav,Aante\\|Xhosa\\|!X,Asu\
+\\|Yapese\\|Yiddish\\|Yidiny\\|Yindjibarndi\\|Yoruba\\|Yucatec\\|Yup'ik\
+\\|\\(Yatzachi \\|Zoogocho \\|Isthmus \\)Zapotec\\|Zenga\\|Zhuang\
+\\|Zulgo-Gemzek\\|Zulu\\|Zuni\\)\
 \\(</a>\\)?\
 </span></h2>"
   "en.wiktionary において言語を表すヘッダの正規表現")
@@ -2529,7 +2604,29 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 \\|Demonstrative pronoun\\|Demonstrative adjective\
 \\|Interrogative pronoun\\|Relative pronoun\\|Auxiliary verb\\( form\\)?\
 \\|Indefinite article\\|Abbreviation\\|Initialism\\|Acronym\\|Symbol\
-\\|Han character\\|Phrase\\)\
+\\|\\(Han \\|Hiragana \\|Katakana \\)character\\|Phrase\\)\
+\\(</a>\\)?\
+</span>"
+    "en.wiktionary において品詞を表すヘッダの正規表現")
+
+(defconst skk-annotation-ja-wiktionary-lang-regexp "\
+<h2>.*<span class=\"mw-headline\">\
+\\(<a href=.+>\\)?\
+\\(.+語\\|インターリングア\\|エスペラント\\|サンスクリット\\|トキポナ\
+\\|トク・ピジン\\|記号\\|漢字\\)\
+\\(</a>\\)?\
+</span>"
+  "ja.wiktionary において言語を表すヘッダの正規表現")
+
+(defconst skk-annotation-ja-wiktionary-part-of-speech-regexp "\
+<span class=\"mw-headline\">\
+\\(<a href=.+>\\)?\
+\\(\
+\\(\\(固有\\|\\(人称\\|疑問\\)?代\\)?名\\|\\(助\\)?動\\|形容動?\\|\
+接続\\|前置\\|副\\|冠\\|関係\\|間投\\|助\\|数\\|分\\|類別\\|感動\\)\
+詞.*\
+\\|漢字混じり表記\\|意義\\|借用語\\|略語\\|コピュラ\\|接頭辞\\|接尾辞\
+\\|人称接辞\\|平仮名\\|片仮名\\|意義\\|漢字\\)\
 \\(</a>\\)?\
 </span>"
     "en.wiktionary において品詞を表すヘッダの正規表現")
