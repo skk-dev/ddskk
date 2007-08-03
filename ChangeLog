@@ -9,6 +9,7 @@
 
 	* skk-vars.el (skk-search-prog-list-5): Set default value for
 	skk-tankan.
+	(skk-annotation-wikipedia-sources): Add simple.wikipedia.
 
 	(skk-annotation-en-wiktionary-lang-regexp):
 	(skk-annotation-en-wiktionary-part-of-speech-regexp):
