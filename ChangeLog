@@ -1,3 +1,13 @@
+2007-08-04  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk-vars.el (skk-server-disable-completion): New variable.
+
+	* skk-server-completion.el (skk-server-completion-search-midasi):
+	If SKK server doesn't respond for server completion, set
+	`skk-server-disable-completion'.
+
+	* skk.el (skk-restart): Clear `skk-server-disable-completion'.
+
 2007-08-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Refer to

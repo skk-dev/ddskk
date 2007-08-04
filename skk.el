@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.430 2007/08/03 02:46:58 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.431 2007/08/04 14:03:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/03 02:46:58 $
+;; Last Modified: $Date: 2007/08/04 14:03:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -240,12 +240,14 @@ dependent."
 (defun skk-restart ()
   "`skk-init-file' の再ロード及び各種再設定の後 SKK モードを起動する。
 一旦各種ユーザ変数を初期化するので、.emacs で SKK の設定をしている場合は
-使うべきでない。"
+使うべきでない。
+`skk-kakutei-key' の変更には対応できていない。"
   (interactive)
   (skk-save-jisyo)
   (setq skk-jisyo-update-vector nil)
   (when (featurep 'skk-server)
     (skk-disconnect-server))
+  (setq skk-server-disable-completion nil)
   (kill-local-variable 'skk-rule-tree)
   (setq skk-rule-tree nil)
   ;; いっそ unload-feature とかしたほうがいいのかもしれない。

@@ -99,42 +99,52 @@
 
 (defun skk-server-completion-search-midasi (key)
   "server completion を利用して、key から始まるすべての見出し語のリストを返却する。"
-  (when (skk-server-live-p (skk-open-server))
+  (when (and (not skk-server-disable-completion)
+	     (skk-server-live-p (skk-open-server)))
     (with-current-buffer skkserv-working-buffer
       (let ((cont t)
 	    (count 0))
 	(erase-buffer)
-	(process-send-string skkserv-process (concat "4" key " "))
-	(while (and cont (skk-server-live-p))
-	  (accept-process-output)
-	  (setq count (1+ count))
-	  (when (> (buffer-size) 0)
-	    (if (eq (char-after 1) ?1)	;?1
-		;; found key successfully, so check if a whole line
-		;; is received.
-		(when (eq (char-after (1- (point-max)))
-			  ?\n)		;?\n
-		  (setq cont nil))
-	      ;; not found or error, so exit
-	      (setq cont nil))))
-	(goto-char (point-min))
-	(when skk-server-report-response
-	  (skk-message "%d 回 SKK サーバーの応答待ちをしました"
-		       "Waited for server response %d times"
-		       count))
-	(when (eq (following-char) ?1)	;?1
-	  (forward-char 2)
-	  (delq nil
-		;; '/' を含む見出しの処理がプロトコル的にダメなので対処
-		(let ((len (length key)))
-		  (mapcar #'(lambda (midasi)
-			      ;; key に完全一致な midasi をどうするか。
-			      (when (and (> (length midasi) len)
-					 (string-equal key
-						       (substring midasi
-								  0 len)))
-				midasi))
-			  (car (skk-compute-henkan-lists nil))))))))))
+	;; server completion に対応しておらず、かつ無反応なサーバに対処
+	;; 5秒も待てば充分であろう
+	(with-timeout
+	    (5
+	     (skk-message
+	      "お使いのサーバは server completion に対応してないようです。"
+	      "Your SKK server doesn't have ability for server completion.")
+	     (sleep-for 5)
+	     (setq skk-server-disable-completion t))
+	  (process-send-string skkserv-process (concat "4" key " "))
+	  (while (and cont (skk-server-live-p))
+	    (accept-process-output)
+	    (setq count (1+ count))
+	    (when (> (buffer-size) 0)
+	      (if (eq (char-after 1) ?1) ;?1
+		  ;; found key successfully, so check if a whole line
+		  ;; is received.
+		  (when (eq (char-after (1- (point-max)))
+			    ?\n)	;?\n
+		    (setq cont nil))
+		;; not found or error, so exit
+		(setq cont nil))))
+	  (goto-char (point-min))
+	  (when skk-server-report-response
+	    (skk-message "%d 回 SKK サーバーの応答待ちをしました"
+			 "Waited for server response %d times"
+			 count))
+	  (when (eq (following-char) ?1) ;?1
+	    (forward-char 2)
+	    (delq nil
+		  ;; '/' を含む見出しの処理がプロトコル的にダメなので対処
+		  (let ((len (length key)))
+		    (mapcar #'(lambda (midasi)
+				;; key に完全一致な midasi をどうするか。
+				(when (and (> (length midasi) len)
+					   (string-equal key
+							 (substring midasi
+								    0 len)))
+				  midasi))
+			    (car (skk-compute-henkan-lists nil)))))))))))
 
 ;;;###autoload
 (defun skk-comp-by-server-completion ()

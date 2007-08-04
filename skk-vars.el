@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.238 2007/08/03 02:46:58 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.239 2007/08/04 14:03:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/03 02:46:58 $
+;; Last Modified: $Date: 2007/08/04 14:03:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2899,6 +2899,10 @@ car $B$K$"$kJd40%W%m%0%i%`$,(B nil $B$rJV$9$4$H$K(B 1$B$D$E$DC;$/$J$C$F$f$/
 
 (defvar skk-server-completion-words nil
   "server completion $B$K$h$jF@$i$l$?8+=P$78l$N%j%9%H!#(B")
+
+(defvar skk-server-disable-completion nil
+  "Non-nil $B$J$i(B server completion $B$N5!G=$rL58z$K$9$k!#(B
+server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J%5!<%PBP:v!#(B")
 
 ;;; skk-cursor.el related.
 (defcustom skk-use-color-cursor (and window-system
