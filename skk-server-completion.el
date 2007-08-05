@@ -103,7 +103,8 @@
 	     (skk-server-live-p (skk-open-server)))
     (with-current-buffer skkserv-working-buffer
       (let ((cont t)
-	    (count 0))
+	    (count 0)
+	    sep ret)
 	(erase-buffer)
 	;; server completion に対応しておらず、かつ無反応なサーバに対処
 	;; 5秒も待てば充分であろう
@@ -133,18 +134,31 @@
 			 "Waited for server response %d times"
 			 count))
 	  (when (eq (following-char) ?1) ;?1
+	    ;; 2文字目をセパレータとして扱う  ('/' か ' ' の筈)
+	    (setq sep (char-to-string (char-after 2)))
 	    (forward-char 2)
-	    (delq nil
-		  ;; '/' を含む見出しの処理がプロトコル的にダメなので対処
-		  (let ((len (length key)))
-		    (mapcar #'(lambda (midasi)
-				;; key に完全一致な midasi をどうするか。
-				(when (and (> (length midasi) len)
-					   (string-equal key
-							 (substring midasi
-								    0 len)))
-				  midasi))
-			    (car (skk-compute-henkan-lists nil)))))))))))
+	    (setq ret
+		  (save-match-data
+		    (split-string (buffer-substring-no-properties
+				   (point) (progn
+					     (end-of-line)
+					     (1- (point))))
+				  sep)))
+	    (when (string= sep "/")
+	      ;; 見出しに '/' を含んでいる時、セパレータの '/' と混同し、
+	      ;; 正しく処理できない。
+	      (setq ret
+		    (delq nil
+			  (let ((len (length key)))
+			    (mapcar #'(lambda (midasi)
+					;; key に完全一致な midasi をどうするか。
+					(when (and (> (length midasi) len)
+						   (string-equal key
+								 (substring midasi
+									    0 len)))
+					  midasi))
+				    ret)))))
+	    ret))))))
 
 ;;;###autoload
 (defun skk-comp-by-server-completion ()
