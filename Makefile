@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.59 2006/01/06 13:03:52 skk-cvs Exp $
-# Last Modified: $Date: 2006/01/06 13:03:52 $
+# Version: $Id: Makefile,v 1.60 2007/08/08 15:41:04 skk-cvs Exp $
+# Last Modified: $Date: 2007/08/08 15:41:04 $
 
 
 VERSION = 13.0.90
@@ -66,6 +66,7 @@ clean:
 	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 tar: clean
+	cp skk-dic.el.in skk-dic.el
 	cd .. ;\
 	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot ddskk$(VERSION).tar.gz ddskk$(VERSION).tar.bz2 ddskk-$(VERSION).tar.gz ddskk-$(VERSION).tar.bz2 ;\
 	$(RM) ddskk-$(VERSION) ;\
