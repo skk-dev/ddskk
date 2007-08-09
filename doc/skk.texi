@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.167 2007/08/05 12:51:51 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.168 2007/08/09 05:30:10 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/08/05 12:51:51 $
+@c  Last Modified: $Date: 2007/08/09 05:30:10 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/08/05 12:51:51 $
+@set UPDATED $Date: 2007/08/09 05:30:10 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4159,7 +4159,7 @@ is /インクリメンタル・サーチ/
 @item 1
 @itemx t
 
-全角数字。@samp{１９９６年７月２１日(日)} のようになります1。
+全角数字。@samp{１９９６年７月２１日(日)} のようになります。
 
 @item 2
 

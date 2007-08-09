@@ -1,3 +1,7 @@
+2007-08-09  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Typo.
+
 2007-08-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile (tar): Copy skk-dic.el.in to skk-dic.el.
