@@ -1,3 +1,9 @@
+2007-08-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Eiji Obata <e-obata@zero.ad.jp>.
+
+	* dot.skk: Modify setting for skk-look-completion-arguments.
+
 2007-07-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Eiji Obata <e-obata@zero.ad.jp>.

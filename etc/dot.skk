@@ -192,14 +192,13 @@
   ;; ispell を look と一緒に使うのはやめる
   (setq skk-look-use-ispell nil)
   ;; look に渡すコマンドラインオプションの設定。補完時と検索時それぞれに
-  ;; ついて設定できる。以下の例では、補完時は case を見て、検索時には
-  ;; case を無視する。ただし look で case を見るときは、それ専用の辞書を
-  ;; sort コマンドで作る必要がある。(look の引数 -d, -f は sort の引数
-  ;; -d, -f と一致させておく必要がある) 例えば、以下の words.case という
-  ;; ファイルは
-  ;; % sort -d words > words.case
-  ;; などとして作製する。
-  (setq skk-look-completion-arguments "-d %s /usr/share/dict/words.case")
+  ;; ついて設定できる。
+  ;; look で case を見るときは、それ専用の辞書を sort コマンドで作る必要
+  ;; がある (look の引数 -d, -f は sort の引数 -d, -f と一致させておく必
+  ;; 要がある)。
+  ;; (*) 補完時には引数 -d を指定すると dcomp との併用時に問題あることが
+  ;; 報告されているため、-d を指定しないことをお勧めします。
+  (setq skk-look-completion-arguments "%s /usr/share/dict/words")
   (setq skk-look-conversion-arguments "-df %s /usr/share/dict/words")
   ;; `skk-abbrev-mode' で skk-look を使った検索をしたときに確定情報を
   ;; 個人辞書に記録しないようにする
