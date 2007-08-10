@@ -7,6 +7,10 @@
 	* skk-comp.el (skk-smart-find): Load "smart-find" only if
 	function `smart-find-file' is not defined.
 
+	* skk-vars.el
+	(skk-annotation-en-wiktionary-part-of-speech-regexp): Add
+	"Letter".
+
 	* skk.el (skk-search-jisx0208-romaji): Modify doc string.
 
 2007-08-09  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
