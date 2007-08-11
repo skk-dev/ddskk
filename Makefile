@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.61 2007/08/08 15:46:36 skk-cvs Exp $
-# Last Modified: $Date: 2007/08/08 15:46:36 $
+# Version: $Id: Makefile,v 1.62 2007/08/11 11:05:30 skk-cvs Exp $
+# Last Modified: $Date: 2007/08/11 11:05:30 $
 
 
 VERSION = 13.0.90
@@ -62,7 +62,7 @@ TAGS:
 	$(ETAGS) `find . -name '*.el'`
 clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
-	auto-autoloads.el custom-load.el skk-dic.el \
+	auto-autoloads.el custom-load.el \
 	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 tar: clean

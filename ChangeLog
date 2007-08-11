@@ -1,3 +1,7 @@
+2007-08-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (clean): Don't remove skk-dic.el.
+
 2007-08-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Eiji Obata <e-obata@zero.ad.jp>.
