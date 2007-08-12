@@ -249,7 +249,11 @@
 ;; 辞書検索に関する高度な設定 --
 ;; ユーザオプションに頼らず検索方法と検索順を自分で制御する方法
 ;; (setq skk-search-prog-list
-;;   '(;; 1. 個人辞書
+;;   '(;; 0. 確定辞書
+;;     (skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
+;;     ;; 注) 確定変換機能を使うときには上記設定します。
+;;     ;; 確定変換機能については info を参照してください。
+;;     ;; 1. 個人辞書
 ;;     (skk-search-jisyo-file skk-jisyo 0 t)
 ;;     ;; 2. list の前方に置くべき機能
 ;;     (skk-abbrev-search)

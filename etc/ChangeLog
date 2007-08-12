@@ -1,3 +1,8 @@
+2007-08-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.skk: Update for `skk-search-kakutei-jisyo-file' in
+	skk-search-prog-list.
+
 2007-08-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Eiji Obata <e-obata@zero.ad.jp>.

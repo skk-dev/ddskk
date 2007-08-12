@@ -397,3 +397,9 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 ** elisp 著作・アイデア
 
 *** skk-act.el (Dvorak 配列用拡張ローマ字入力 "ACT" 対応)
+
+*** 確定アンドゥ機能と確定変換機能の改良と拡張
+
+*** 以下のプログラムへの改変
+
+**** skk-bayesian.el, skk-kakasi.el, skk-vars.el, skk-viper.el, skk.el
