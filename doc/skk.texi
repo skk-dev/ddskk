@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.168 2007/08/09 05:30:10 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.169 2007/08/12 00:03:12 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/08/09 05:30:10 $
+@c  Last Modified: $Date: 2007/08/12 00:03:12 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/08/09 05:30:10 $
+@set UPDATED $Date: 2007/08/12 00:03:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -154,13 +154,13 @@ DDSKK 13.1 が動作を保証する Emacsen のバージョンは下記の通りです。
 @item Emacs 21.1 以降
 @item Emacs 22.1
 @item Mule 機能付きでコンパイルされた XEmacs 21.4.18 以降
-@item Mule 機能付きでコンパイルされた XEmacs 21.5.27 以降
+@item Mule 機能付きでコンパイルされた XEmacs 21.5.28
 @end itemize
 
 @noindent
 なお、XEmacs に関して、本体と別配布のパッケージ群は最新版が要求されます。
 少なくとも xemacs-base パッケージは最新でなければなりません。また、
-fsf-compat パッケージをインストールしないと一部機能に制限があります。
+fsf-compat パッケージが動作のために必須です。
 
 全体として、現在は XEmacs より GNU Emacs での動作がよくテストされており、
 XEmacs でのより多くのテストが必要です。
