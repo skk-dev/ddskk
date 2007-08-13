@@ -1,3 +1,12 @@
+2007-08-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
+
+	* skk-vars.el (skk-show-inline):
+	(skk-show-tooltip):
+
+	Update docstring.
+
 2007-08-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile (clean): Don't remove skk-dic.el.
