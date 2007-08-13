@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.240 2007/08/10 12:57:34 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.241 2007/08/13 05:14:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/10 12:57:34 $
+;; Last Modified: $Date: 2007/08/13 05:14:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1186,7 +1186,9 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 
 (defcustom skk-show-inline nil
   "*Non-nil $B$G$"$l$P!"%$%s%i%$%s(B $B$G8uJd$J$I$rI=<($9$k!#(B
-$B$3$N5!G=$O8=:_$N$H$3$m(B Emacs 21 $B@lMQ!#(B"
+$B$3$N5!G=$O3F%P!<%8%g%s$N(B Emacs $B$GF0:n$9$k$,!"8uJd$NAu>~$,M-8z$J$N$O(B
+GNU Emacs 21 $B0J>e!#$^$?(B XEmacs $B$G$O8=>u$G$O(B fsf-compat $B%Q%C%1!<%8(B
+$B7PM3$NMxMQ$H$J$k!#(B"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-henkan)
@@ -4243,10 +4245,10 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
 		       'generic
 		     'annotation)))
 
-;;; skk-tooltip.el related.
+;;; skk-tooltip related.
 (defcustom skk-show-tooltip nil
   "*Non-nil $B$G$"$l$P!"%(%3!<%(%j%"$NBe$o$j$K(B tooltip $B$G8uJd$J$I$rI=<($9$k!#(B
-$B$3$N5!G=$O(B GNU Emacs 21, 22 $B$H(B XEmacs 21.5 $B0J>e$GF0:n$9$k!#(B
+$B$3$N5!G=$O(B GNU Emacs 21 $B0J>e$H(B XEmacs 21.5 $B0J>e$GF0:n$9$k!#(B
 GNU Emacs 20.7 $B$G$O5!G=$;$:!";XDj$9$k$H%(%i!<$K$J$k!#(B
 XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!#(B"
   :type 'boolean
