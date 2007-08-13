@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.434 2007/08/13 09:11:36 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.435 2007/08/13 23:37:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/13 09:11:36 $
+;; Last Modified: $Date: 2007/08/13 23:37:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -718,11 +718,13 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		 skk-current-touten
 		 skk-input-by-code-or-menu
 		 skk-insert
-		 skk-today)))
-    (when (and (featurep feature)
-	       (not (get 'skk-insert property)))
+		 skk-today))
+	(supersede-funcs '(skk-delete-backward-char)))
+    (unless (get 'skk-insert property)
       (dolist (func funcs)
-	(put func property t)))))
+	(put func property t))
+      (dolist (func supersede-funcs)
+	(put func property 'supersede)))))
 
 (defun skk-setup-auto-paren ()
   (when (and skk-auto-insert-paren

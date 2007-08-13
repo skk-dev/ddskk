@@ -7,8 +7,13 @@
 
 	Update docstring.
 
+	* skk-macs.el (skk-erase-prefix): Call `redraw-frame' under Emacs
+	20.7.
+
 	* skk.el (skk-inline-show): Do not call `propertize' if face is
 	nil.
+	(skk-setup-delete-selection-mode): Always put property for
+	delsel or pending-del.
 
 2007-08-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

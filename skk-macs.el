@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.119 2007/08/02 22:36:06 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.120 2007/08/13 23:37:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/02 22:36:06 $
+;; Last Modified: $Date: 2007/08/13 23:37:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -576,7 +576,9 @@ BUFFER defaults to the current buffer."
 		 skk-current-rule-tree nil))))
   (when clean
     (setq skk-prefix ""
-	  skk-current-rule-tree nil))) ; fail safe
+	  skk-current-rule-tree nil)) ; fail safe
+  (static-when (eq skk-emacs-type 'mule4)
+    (redraw-frame (selected-frame))))
 
 (defun skk-kana-cleanup (&optional force)
   (let ((data (cond
