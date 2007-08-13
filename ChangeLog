@@ -7,6 +7,9 @@
 
 	Update docstring.
 
+	* skk.el (skk-inline-show): Do not call `propertize' if face is
+	nil.
+
 2007-08-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile (clean): Don't remove skk-dic.el.
