@@ -426,7 +426,7 @@
   (skk-henkan-on-message))
 
 ;;;###autoload
-(let ((property (static-if (featurep 'xemacs)
+(let ((property (if (featurep 'xemacs)
 		    'pending-del
 		  'delete-selection)))
   (put 'skk-nicola-self-insert-rshift property t)

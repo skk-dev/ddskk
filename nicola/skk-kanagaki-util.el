@@ -255,7 +255,7 @@
     (skk-dcomp-after-delete-backward-char)))
 
 ;;;###autoload
-(let ((property (static-if (featurep 'xemacs)
+(let ((property (if (featurep 'xemacs)
 		    'pending-del
 		  'delete-selection)))
   (put 'skk-kanagaki-bs property 'supersede))
