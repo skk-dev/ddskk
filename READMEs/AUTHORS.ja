@@ -285,11 +285,19 @@ skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 
 *** skk-dinsert.el (動的入力)
 
+*** 補完機能の拡張
+
+**** プログラム可能な補完 (skk-completion-prog-list)
+
+**** ローマ字 prefix からの補完
+
 *** 以下のプログラムへの改変
 
 **** skk.el, skk-annotation.el, skk-server-completion.el, skk-vars.el,
 skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el,
-skk-comp.el, skk-look.el, skk-vars.el
+skk-comp.el, skk-look.el, skk-vars.el, skk-rdbms.el, skk-kcode.el,
+skk-isearch.el, skk-viper.el, skk-bayesian.el, skk-annotation.el,
+skk-jisyo-edit-mode.el, 
 
 ** ドキュメント整備
 
