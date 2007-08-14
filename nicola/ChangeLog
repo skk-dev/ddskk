@@ -1,3 +1,11 @@
+2007-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanataki-util.el:
+	* skk-nicola.el:
+
+	Put `skk-kanagaki-bs', skk-nicola-self-insert-lshift and
+	skk-nicola-self-insert-rshift' property for pending-del or delsel.
+
 2007-04-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-util.el (skk-kanagaki-bs): Call

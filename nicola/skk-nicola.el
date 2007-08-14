@@ -425,6 +425,13 @@
   ;; verbose message
   (skk-henkan-on-message))
 
+;;;###autoload
+(let ((property (static-if (featurep 'xemacs)
+		    'pending-del
+		  'delete-selection)))
+  (put 'skk-nicola-self-insert-rshift property t)
+  (put 'skk-nicola-self-insert-lshift property t))
+
 (defun skk-nicola-self-insert-lshift-1 (arg parg)
   (when (or (and (markerp skk-nicola-okuri-flag)
 		 (<= (point)

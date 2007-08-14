@@ -255,6 +255,12 @@
     (skk-dcomp-after-delete-backward-char)))
 
 ;;;###autoload
+(let ((property (static-if (featurep 'xemacs)
+		    'pending-del
+		  'delete-selection)))
+  (put 'skk-kanagaki-bs property 'supersede))
+
+;;;###autoload
 (defun skk-kanagaki-esc (&optional arg)
   ;; OASYS における取り消し機能の代わり。 とりあえず keyboard-quit の場合と同様
   ;; の動作をするようににしておく。OAK β版だと
