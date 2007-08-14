@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.14 2007/08/03 02:46:57 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.15 2007/08/14 04:03:04 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/08/03 02:46:57 $
+;; Last Modified: $Date: 2007/08/14 04:03:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1562,19 +1562,29 @@
 ;;;###autoload
 (defun skk-search-tankanji (&optional jisyo)
   (let ((skk-henkan-key (concat skk-henkan-key
-				(char-to-string skk-tankan-search-key))))
-    (skk-tankan-search 'skk-search-jisyo-file
-		       (or jisyo
-			   skk-large-jisyo
-			   (static-if (fboundp 'locate-file)
-			       (locate-file "skk/SKK-JISYO.L"
-					    (list
-					     (expand-file-name
-					      "../../.."
-					      data-directory)))
-			     nil)
-			   skk-aux-large-jisyo)
-		       10000)))
+				(char-to-string skk-tankan-search-key)))
+	(jisyo (or jisyo
+		   skk-large-jisyo
+		   (static-cond
+		    ((fboundp 'locate-file)
+		     (locate-file "skk/SKK-JISYO.L"
+				  (list
+				   (expand-file-name
+				    "../../.."
+				    data-directory))))
+		    ((fboundp 'locate-data-file)
+		     (locate-data-file "SKK-JISYO.L"))
+		    (t
+		     nil))
+		   skk-aux-large-jisyo))
+	(server-prog (assq 'skk-search-server skk-search-prog-list)))
+    (or
+     (if server-prog
+	 (apply #'skk-tankan-search server-prog)
+       nil)
+     (if (file-readable-p jisyo)
+	 (skk-tankan-search 'skk-search-jisyo-file jisyo 10000)
+       nil))))
 
 
 ;;; annotation data for japanese-jisx0208

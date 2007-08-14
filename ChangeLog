@@ -1,3 +1,7 @@
+2007-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-tankan.el (skk-search-tankanji): Try to talk to a server.
+
 2007-08-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
