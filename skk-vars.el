@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.244 2007/08/15 05:05:44 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.245 2007/08/15 10:50:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/15 05:05:44 $
+;; Last Modified: $Date: 2007/08/15 10:50:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2523,7 +2523,7 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 \\|Chiricahua\\|Choctaw\\|Tumbal,Aa Chol\\|Chukchee\\|Chuvash\
 \\|Classical Nahuatl\\|Coatl,Aan Mixe\\|Comorian\\|Coptic\\|Cornish\\|Corsican\
 \\|Cree\\|Creek\\|Crimean Tatar\\|Croatian\\|Czech\
-\\|DAcian\\|Dadibi\\|Northern Dagara\\\Dalmatian\\|Danish\\|Dargwa\
+\\|Dacian\\|Dadibi\\|Northern Dagara\\\Dalmatian\\|Danish\\|Dargwa\
 \\|Darkinjung\\|Darling\\|Dharuk\\|Dhivehi\\|Dhuwal\\|Dieri\\|Dusner\\|Dutch\
 \\|Dyirbal\\|Dzongkha\
 \\|Egyptian\\|English\\|Erzya\\|Esan\\|Esperanto\\|Estonian\\|Etruscan\\|Ewe\
@@ -2571,9 +2571,9 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 \\|\\(Inari \\|Kildin \\|Lule \\|Northern \\|Pite \\|Skolt \\|Sourthern \
 \\|Ter \\|Ume \\)?Sami\\|Samoan\\( Plantation Pidgin\\)?\\|Sanskrit\
 \\|Sardinian\\|Scots\\|Scottish Gaelic\\|Serbian\\|Serbo-Croatian\\|Seri\
-\\|Shabo\\|Shawnee\\|Shelta\\|Shona\\|SHoshoni\\|Shuar\\|Sicilian\\|Sindarin\
+\\|Shabo\\|Shawnee\\|Shelta\\|Shona\\|Shoshoni\\|Shuar\\|Sicilian\\|Sindarin\
 \\|Sindhi\\|Sinhalese\\|Slovak\\|Slovene\\|Somali\\|Upper Sorbian\\|Spanish\
-\\|Sranan\\|SUmerian\\|Swahili\\|Swazi\\|Swedish\\|Syriac\
+\\|Sranan\\|Sumerian\\|Swahili\\|Swazi\\|Swedish\\|Syriac\
 \\|Tabassaran\\|TAchelhit\\|Tagalog\\|Tahitian\\|Taimyr Pidgin Russian\\|Tajik\
 \\|Tamasheq\\|Tamazight\\|Tamil\\|Tatar\\|Tausug\\|Ta,Amno\\|Telugu\\|Tetum\
 \\|Thai\\|Tibetan\\|Tigrinya\\|Tiwi\\|Tocharian \\(A\\|B\\)\\|Tok Pisin\
