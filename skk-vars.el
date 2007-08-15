@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.243 2007/08/15 04:13:29 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.244 2007/08/15 05:05:44 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/15 04:13:29 $
+;; Last Modified: $Date: 2007/08/15 05:05:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2604,7 +2604,7 @@ skk-annotation-save-and-quit を呼ぶとこの window configuration
 \\|Preposition\\|Contraction\\|Determiner\\|Demonstrative determiner\
 \\|Interrogative determiner\\|Pronoun\\|Pronominal possessive adjective\
 \\|Demonstrative pronoun\\|Demonstrative adjective\
-\\|Quasi-Adjective\\|Proverb\\|Counter\
+\\|Quasi-Adjective\\|Proverb\\|Counter\\|Personal pronoun\
 \\|Interrogative pronoun\\|Relative pronoun\\|Auxiliary verb\\( form\\)?\
 \\|Indefinite article\\|Abbreviation\\|Initialism\\|Acronym\\|Symbol\
 \\|\\(Han \\|Hiragana \\|Katakana \\)character\\|Phrase\\|Letter\\)\
