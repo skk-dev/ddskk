@@ -4,6 +4,8 @@
 	(skk-annotation-en-wiktionary-part-of-speech-regexp):
 	Add "Quasi-Adjective", "Proverb" "Personal pronoun" and "Counter".
 
+	(skk-annotation-en-wiktionary-lang-regexp): Typo.
+
 2007-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-tankan.el (skk-search-tankanji): Try to talk to a server.
