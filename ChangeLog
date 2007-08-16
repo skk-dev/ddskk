@@ -1,5 +1,8 @@
 2007-08-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skk-annotation-wikipedia-1): Workaround for
+	nested <ul>s.
+
 	* skk.el (backward-kill-sentence): New advice.
 
 2007-08-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>

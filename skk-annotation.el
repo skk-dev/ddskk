@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.129 2007/08/03 02:46:57 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.130 2007/08/16 06:30:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/08/03 02:46:57 $
+;; Last Modified: $Date: 2007/08/16 06:30:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1187,10 +1187,10 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 			    (setq nop t)))
 		  (delete-region (point-min) (point))
 		  (goto-char (point-min))
-		  (re-search-forward (if (or aimai nop)
-					 "</\\(u\\|o\\)l>"
-				       "</p>")
-				     nil t)
+		  (if (or aimai nop)
+		      (while (re-search-forward "</\\(u\\|o\\)l>" nil t)
+			(goto-char (match-end 0)))
+		    (re-search-forward "</p>" nil t))
 		  (delete-region (point) (point-max)))))
 	     ((memq source '(simple.wikipedia en.wikipedia))
 	      (goto-char (point-min))
@@ -1265,10 +1265,11 @@ Disambiguation\"" nil t)))
 			    (setq nop t)))
 		  (delete-region (point-min) (point))
 		  (goto-char (point-min))
-		  (re-search-forward (if (or aimai nop)
-					 "</\\(u\\|o\\)l>"
-				       "</p>")
-				     nil t)
+		  ;;
+		  (if (or aimai nop)
+		      (while (re-search-forward "</\\(u\\|o\\)l>" nil t)
+			(goto-char (match-end 0)))
+		    (re-search-forward "</p>" nil t))
 		  (delete-region (point) (point-max))))))
 	    ;;
 	    (setq point nil)
