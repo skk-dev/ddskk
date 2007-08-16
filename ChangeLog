@@ -1,3 +1,7 @@
+2007-08-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (backward-kill-sentence): New advice.
+
 2007-08-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el
