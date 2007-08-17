@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.131 2007/08/17 03:40:47 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.132 2007/08/17 14:11:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/08/17 03:40:47 $
+;; Last Modified: $Date: 2007/08/17 14:11:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1563,8 +1563,10 @@ Disambiguation\"" nil t)))
   (when (eq skk-annotation-url-package-available-p 'untested)
     ;; Emacs 22 以降以外で URL パッケージをテストする
     (cond
-     ((and (eq skk-emacs-type 'mule4)
-	   (string-lessp mule-version "4.1"))
+     ((or (and (eq skk-emacs-type 'mule4)
+	       (string-lessp mule-version "4.1"))
+	  (not (ignore-errors
+		 (require 'un-define))))
       ;; Emacs 20.7 (MULE 4.0) ではサポートしない
       (setq skk-annotation-url-package-available-p nil))
      (t

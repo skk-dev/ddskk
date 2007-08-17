@@ -2,6 +2,7 @@
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Fix for nested
 	<ul>s.
+	(skk-annotation-url-package-available-p): Require un-define.
 
 2007-08-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
