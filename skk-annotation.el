@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.132 2007/08/17 14:11:50 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.133 2007/08/17 14:36:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/08/17 14:11:50 $
+;; Last Modified: $Date: 2007/08/17 14:36:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1539,7 +1539,7 @@ Disambiguation\"" nil t)))
 			     (url-hexify-string element)
 			   element))
 		     args))
-    (error "%s" "URL パッケージが利用できません")))
+    (error "%s" "URL パッケージまたは Mule-UCS が利用できません")))
 
 (defun skk-annotation-wikipedia-normalize-word (word &optional source)
   ;; スペースは %20 ではなく、アンダースコアに変換する
@@ -1565,8 +1565,10 @@ Disambiguation\"" nil t)))
     (cond
      ((or (and (eq skk-emacs-type 'mule4)
 	       (string-lessp mule-version "4.1"))
-	  (not (ignore-errors
-		 (require 'un-define))))
+	  (and (not (and (featurep 'xemacs)
+			 (string< "21.5" emacs-version)))
+	       (not (ignore-errors
+		      (require 'un-define)))))
       ;; Emacs 20.7 (MULE 4.0) ではサポートしない
       (setq skk-annotation-url-package-available-p nil))
      (t

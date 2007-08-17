@@ -2,7 +2,8 @@
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Fix for nested
 	<ul>s.
-	(skk-annotation-url-package-available-p): Require un-define.
+	(skk-annotation-url-package-available-p): Require un-define for
+	Emacs 20, 21 or XEmacs 21.4.
 
 2007-08-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
