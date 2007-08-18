@@ -1,3 +1,8 @@
+2007-08-18  Eiji Obata  <e-obata@zero.ad.jp>
+
+	* skk.el (skk-henkan-show-candidates): Call
+	`skk-henkan-list-filter' only when new candidates were got.
+
 2007-08-18  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Type 「註釈」as「注釈」.

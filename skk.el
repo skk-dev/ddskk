@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.436 2007/08/16 04:03:35 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.437 2007/08/18 19:09:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/16 04:03:35 $
+;; Last Modified: $Date: 2007/08/18 19:09:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1886,14 +1886,18 @@ skk-auto-insert-paren の値が non-nil の場合で、skk-auto-paren-string
 	(t
 	 ;; skk-henkan-show-candidates-keys の最終のキーに対応する候補
 	 ;; が出てくるまでサーチを続ける。
-	 (skk-henkan-list-filter)
 	 (while (and skk-current-search-prog-list
 		     (null (nthcdr (+ 4 max-candidates (* loop max-candidates))
 				   skk-henkan-list)))
-	   (setq skk-henkan-list
-		 (skk-nunion skk-henkan-list
-			     (skk-search)))
-	   (skk-henkan-list-filter))
+	   ;; 新規に候補が得られた時のみ skk-henkan-list-filter を呼ぶ。
+	   ;; skk-look や skk-server-completion-search を利用した郵便番号からの
+	   ;; 変換時などのように、数値を含み且つ大量の候補がある時の速度改善。
+	   (let ((cands (skk-search)))
+	     (when cands
+	       (setq skk-henkan-list
+		     (skk-nunion skk-henkan-list
+				 cands))
+	       (skk-henkan-list-filter))))
 	 (setq henkan-list (nthcdr (+ 4 (* loop max-candidates))
 				   skk-henkan-list))))
        (save-window-excursion
