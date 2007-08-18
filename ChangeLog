@@ -9,6 +9,16 @@
 
 	Rename parg to prog-list-number.
 
+	(keyboard-quit): Set this-command after `skk-comp-do'.
+
+	* skk-annotation.el (skk-annotation-wikipedia-1): Use the
+	conditional statement for ja.wikipedia, simple.wikipedia and
+	en.wikipedia.
+
+	* skk-comp.el (skk-comp-do): Check `skk-comp-by-history' in
+	skk-completion-prog-list instead of
+	skk-current-completion-prog-list.
+
 2007-08-18  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-henkan-show-candidates): Call

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.75 2007/08/10 05:20:23 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.76 2007/08/18 23:48:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/10 05:20:23 $
+;; Last Modified: $Date: 2007/08/18 23:48:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -147,7 +147,7 @@
 	(ding)
 	(cond
 	 ((and (string= skk-comp-key "")
-	       (assq 'skk-comp-by-history skk-current-completion-prog-list)
+	       (assq 'skk-comp-by-history skk-completion-prog-list)
 	       (or (not skk-comp-use-prefix)
 		   (string= skk-comp-prefix "")))
 	  (skk-message "これ以上の履歴はありません"

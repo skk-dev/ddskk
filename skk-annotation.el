@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.133 2007/08/17 14:36:08 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.134 2007/08/18 23:48:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/08/17 14:36:08 $
+;; Last Modified: $Date: 2007/08/18 23:48:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1114,8 +1114,8 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 <span.*>\\(\\[<a.+>edit</a>\\]\\|Inflection\\)</span>"
 			nil t)
 		  (replace-match ""))))
-	     ;; ja.wikipedia
-	     ((eq source 'ja.wikipedia)
+	     ;; wikipedia
+	     ((memq source '(ja.wikipedia simple.wikipedia en.wikipedia))
 	      (goto-char (point-min))
 	      (if (save-excursion
 		    (re-search-forward "\
@@ -1126,8 +1126,9 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		  (erase-buffer)
 		(setq aimai
 		      (save-excursion
-			(search-forward "<a href=\"/wiki/Wikipedia:\
-%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF\"" nil t)))
+			(re-search-forward "<a href=\"/wiki/Wikipedia:\
+\\(%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF\\|Disambiguation\\)\""
+					nil t)))
 		(search-forward "<!-- start content -->" nil t)
 		(delete-region (point-min) (point))
 		;; <div> を除去する
@@ -1170,105 +1171,14 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 			    (goto-char (match-beginning 0))
 			    (if (and (save-excursion
 				       (re-search-forward "</p>" nil t))
-				     (string-match "。\\|．"
-						   (buffer-substring
-						    (point)
-						    (match-beginning 0))))
-				t
-			      (setq point (point)
-				    continue t)
-			      nil))
-			  (when (progn
-				  (goto-char (point-min))
-				  (re-search-forward "<\\(u\\|o\\)l>" nil t))
-			    (goto-char (if continue
-					   point
-					 (match-beginning 0)))
-			    (setq nop t)))
-		  (delete-region (point-min) (point))
-		  (goto-char (point-min))
-		  ;;
-		  (cond
-		   ((or aimai nop)
-		    (setq pt1 (if (re-search-forward "<\\(u\\|o\\)l>" nil t)
-				  (match-end 0)
-				nil)
-			  pt2 nil)
-		    (while (and (not end)
-				(re-search-forward "</\\(u\\|o\\)l>"
-						   nil t))
-		      (setq pt2 (match-end 0))
-		      (save-excursion
-			(goto-char (or pt1 (1+ (point-min))))
-			(when (re-search-forward "<\\(u\\|o\\)l>"
-						 nil t)
-			  (setq pt1 (match-end 0))))
-		      (when (or (null pt1)
-				(> pt1 pt2))
-			(setq end t))))
-		   (t
-		    (re-search-forward "</p>" nil t)))
-		  (delete-region (point) (point-max)))))
-	     ((memq source '(simple.wikipedia en.wikipedia))
-	      (goto-char (point-min))
-	      (if (save-excursion
-		    (re-search-forward "\
-\\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
-\\|:Badtitle\\)"
-				       nil t))
-		  ;; 項目がない場合
-		  (erase-buffer)
-		(setq aimai
-		      (save-excursion
-			(search-forward "<a href=\"/wiki/Wikipedia:\
-Disambiguation\"" nil t)))
-		(search-forward "<!-- start content -->" nil t)
-		(delete-region (point-min) (point))
-		;; <div> を除去する
-		(skk-annotation-wikipedia-remove-nested "<div.+>" "</div>")
-		;; <span> を除去する
-		(setq point nil)
-		(goto-char (point-min))
-		(while (re-search-forward
-			"<span class=\"\\(.+audiolink.+\\)\".*>" nil t)
-		  (setq point (match-beginning 0))
-		  (goto-char point)
-		  (search-forward "</span>" nil t)
-		  (delete-region point (point))
-		  (goto-char point))
-		;; <big> を除去する
-		(goto-char (point-min))
-		(while (re-search-forward "<p><big>.+</big></p>" nil t)
-		  (replace-match ""))
-		;; &#160; を処理
-		(goto-char (point-min))
-		(while (re-search-forward "&#160;" nil t)
-		  (replace-match " "))
-		;; <br /> を除去する
-		(goto-char (point-min))
-		(while (re-search-forward "<p>.+\\(<br />\\)$" nil t)
-		  (replace-match "" nil nil nil 1))
-		;; xxx > xxx > xxx ... を除去する
-		(goto-char (point-min))
-		(while (re-search-forward
-			"<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
-		  (replace-match ""))
-		;; <table> を除去
-		(skk-annotation-wikipedia-remove-nested "<table.*>"
-							"</table>")
-		;;
-		(goto-char (point-min))
-		(when (or (when (re-search-forward
-				 "<p>\\(<br />\n\\|[^\n]*\\)?\
-<b>[^\n]+</b>[^\n]+"
-				 nil t)
-			    (goto-char (match-beginning 0))
-			    (if (and (save-excursion
-				       (re-search-forward "</p>" nil t))
-				     (string-match "\\."
-						   (buffer-substring
-						    (point)
-						    (match-beginning 0))))
+				     (string-match
+				      (cond
+				       ((eq source 'ja.wikipedia)
+					"。\\|．")
+				       (t
+					"\\."))
+				      (buffer-substring (point)
+							(match-beginning 0))))
 				t
 			      (setq point (point)
 				    continue t)
@@ -1334,9 +1244,9 @@ Disambiguation\"" nil t)))
 		       (fill-paragraph nil)))))
 	      ;;
 	      (when aimai
-		(insert (if (eq source 'en.wikipedia)
-			    "\n(Disambiguation)"
-			  "\n(曖昧さ回避のページ)")))
+		(insert (if (eq source 'ja.wikipedia)
+			    "\n(曖昧さ回避のページ)"
+			  "\n(Disambiguation)")))
 	      ;;
 	      (goto-char (point-max))
 	      (while (and (looking-at "^$")

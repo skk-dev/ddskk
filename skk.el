@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.438 2007/08/18 23:16:38 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.439 2007/08/18 23:48:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/18 23:16:38 $
+;; Last Modified: $Date: 2007/08/18 23:48:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5117,7 +5117,8 @@ SKK 辞書の候補として正しい形に整形する。"
     (if (eq last-command 'skk-comp-do)
 	(progn
 	  (delete-region skk-henkan-start-point (point))
-	  (insert skk-comp-key))
+	  (insert skk-comp-key)
+	  (setq this-command 'keyboard-quit))
       (skk-erase-prefix 'clean)
       (when (> (point) skk-henkan-start-point)
 	(delete-region (point) skk-henkan-start-point))
