@@ -11,7 +11,7 @@
 
 	(keyboard-quit): Set this-command after `skk-comp-do'.
 
-	* skk-annotation.el (skk-annotation-wikipedia-1): Use the
+	* skk-annotation.el (skk-annotation-wikipedia-1): Use the same
 	conditional statement for ja.wikipedia, simple.wikipedia and
 	en.wikipedia.
 
