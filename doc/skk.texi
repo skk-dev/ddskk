@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.169 2007/08/12 00:03:12 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.170 2007/08/18 13:41:34 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/08/12 00:03:12 $
+@c  Last Modified: $Date: 2007/08/18 13:41:34 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/08/12 00:03:12 $
+@set UPDATED $Date: 2007/08/18 13:41:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1683,7 +1683,7 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 @item skk-annotation.el
 @cindex @file{skk-annotation.el}
 
-$B8D?M<-=q$KIU$1$?%"%N%F!<%7%g%s(B ($BCp<a(B) $B$r3hMQ$9$k%W%m%0%i%`$r=8$a$?%U%!%$(B
+$B8D?M<-=q$KIU$1$?%"%N%F!<%7%g%s(B ($BCm<a(B) $B$r3hMQ$9$k%W%m%0%i%`$r=8$a$?%U%!%$(B
 $B%k!#(B
 
 @item skk-auto.el
@@ -5091,7 +5091,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 * $B<-=q%P%C%U%!$NJ8;z%3!<%I$N@_Dj(B::  
 * $B<-=q%P%C%U%!$N%a%8%c!<%b!<%I(B::  
 * $B<-=q%P%C%U%!$N(Bbuffer-file-name::  
-* $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B)::  
+* $B<-=q$N%"%N%F!<%7%g%s(B($BCm<a(B)::  
 @end menu
 
 @node $B<-=q$N7A<0(B, $B<-=q$K4X$9$k@_Dj(B, $B<-=q4XO"(B, $B<-=q4XO"(B
@@ -5992,7 +5992,7 @@ abbreviation $B$NE83+$r9T$&$h$&$K@_Dj$9$k$3$H$,$G$-$k$N$G$9$,!"2>$K<-=q(B
 $B$^$@$H$9$k$H!"(B Dabbrev $B$,<-=q%P%C%U%!$r8!:w$7$F$7$^$&2DG=@-$,$"$j$^$9!#(B
 $B$3$NA<CV$K$h$C$F!"$=$N$h$&$J;vBV$r2sHr$7$F$$$^$9!#(B}$B!#(B
 
-@node $B<-=q%P%C%U%!$N(Bbuffer-file-name, $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B), $B<-=q%P%C%U%!$N%a%8%c!<%b!<%I(B, $B<-=q4XO"(B
+@node $B<-=q%P%C%U%!$N(Bbuffer-file-name, $B<-=q$N%"%N%F!<%7%g%s(B($BCm<a(B), $B<-=q%P%C%U%!$N%a%8%c!<%b!<%I(B, $B<-=q4XO"(B
 @comment  node-name,  next,  previous,  up
 @subsection $B<-=q%P%C%U%!$N(B@code{buffer-file-name}
 @vindex buffer-file-name
@@ -6010,9 +6010,9 @@ Emacs $B$N%3%^%s%I$K$O(B @kbd{M-x compile} $B$N$h$&$K!"(B
 DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @code{buffer-file-name} $B$NCM$r(B @code{nil} $B$K@_Dj$7$F$$$^$9!#(B
 
-@node $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B),  , $B<-=q%P%C%U%!$N(Bbuffer-file-name, $B<-=q4XO"(B
+@node $B<-=q$N%"%N%F!<%7%g%s(B($BCm<a(B),  , $B<-=q%P%C%U%!$N(Bbuffer-file-name, $B<-=q4XO"(B
 @comment  node-name,  next,  previous,  up
-@subsection $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B)
+@subsection $B<-=q$N%"%N%F!<%7%g%s(B($BCm<a(B)
 @vindex skk-show-annotation
 @vindex skk-annotation-show-as-message
 @findex skk-annotation-update-jisyo-format
@@ -6021,7 +6021,7 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @findex skk-annotation-remove
 @findex skk-annotation-function
 
-$B<-=q$K%"%N%F!<%7%g%s(B ($BCp<a(B)$B$rIU$1$k$3$H$,$G$-$^$9(B@footnote{
+$B<-=q$K%"%N%F!<%7%g%s(B ($BCm<a(B)$B$rIU$1$k$3$H$,$G$-$^$9(B@footnote{
 Viper $BBP:v$O$^$@9T$o$l$F$$$^$;$s!#(B@file{~/.viper}$B$K<!$N$h$&$K=q$$$F2<(B
 $B$5$$!#(B
 
