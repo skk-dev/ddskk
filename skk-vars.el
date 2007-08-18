@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.245 2007/08/15 10:50:41 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.246 2007/08/18 05:06:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/15 10:50:41 $
+;; Last Modified: $Date: 2007/08/18 05:06:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -51,7 +51,7 @@
      ((string< "4.0" mule-version)
       'mule4)))
   ;;
-  (require 'poe))
+  (require 'poem))
 
 ;;;###autoload
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
