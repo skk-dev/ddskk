@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.437 2007/08/18 19:09:18 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.438 2007/08/18 23:16:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/18 19:09:18 $
+;; Last Modified: $Date: 2007/08/18 23:16:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -999,11 +999,11 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	(kill-local-variable v)))))
 
 ;;;; kana inputting functions
-(defun skk-insert (&optional arg parg)
+(defun skk-insert (&optional arg prog-list-number)
   "SKK $B$NJ8;zF~NO$r9T$J$&!#(B"
   (interactive "p")
-  (unless parg
-    (setq parg current-prefix-arg))
+  (unless prog-list-number
+    (setq prog-list-number current-prefix-arg))
   (barf-if-buffer-read-only)
   (skk-with-point-move
    (let ((ch last-command-char))
@@ -1027,7 +1027,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   ;; start conversion.
 	   ((and skk-henkan-mode
 		 (eq ch skk-start-henkan-char))
-	    (skk-start-henkan arg parg))
+	    (skk-start-henkan arg prog-list-number))
 	   ;; just input kana.
 	   ((not (eq skk-henkan-mode 'on))
 	    (skk-kana-input arg))
@@ -1046,7 +1046,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   ;; $B$b(B)$B!#(B
 	   ((and (eq skk-henkan-mode 'on)
 		 (eq ch skk-try-completion-char))
-	    (skk-comp (or parg ; C-u TAB $B$GJd40%-!<$r=i4|2=(B
+	    (skk-comp (or prog-list-number ; C-u TAB $B$GJd40%-!<$r=i4|2=(B
 			  (not (eq last-command 'skk-comp-do)))))
 	   ((and (eq skk-henkan-mode 'on)
 		 (memq ch (list skk-next-completion-char
@@ -1650,7 +1650,7 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	 (skk-emulate-original-map arg)))))))
 
 ;;; henkan routines
-(defun skk-henkan (&optional parg)
+(defun skk-henkan (&optional prog-list-number)
   "$B%+%J$r4A;zJQ49$9$k%a%$%s%k!<%A%s!#(B"
   (let (mark
 	prototype
@@ -1668,12 +1668,12 @@ skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string
 	(skk-change-marker)
 	(setq skk-current-search-prog-list
 	      (cond
-	       ((and (integerp parg)
-		     (<= 0 parg)
-		     (<= parg 9))
+	       ((and (integerp prog-list-number)
+		     (<= 0 prog-list-number)
+		     (<= prog-list-number 9))
 		(let ((list (symbol-value
 			     (intern
-			      (format "skk-search-prog-list-%d" parg)))))
+			      (format "skk-search-prog-list-%d" prog-list-number)))))
 		  (or list skk-search-prog-list)))
 	       (t
 		skk-search-prog-list))))
@@ -2861,14 +2861,14 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	       skk-henkan-end-point)))
     (setq skk-henkan-mode 'active
 	  skk-current-search-prog-list
-	  (let ((parg current-prefix-arg))
+	  (let ((prog-list-number current-prefix-arg))
 	    (cond
-	     ((and (integerp parg)
-		   (<= 0 parg)
-		   (<= parg 9))
+	     ((and (integerp prog-list-number)
+		   (<= 0 prog-list-number)
+		   (<= prog-list-number 9))
 	      (let ((list (symbol-value
 			   (intern
-			    (format "skk-search-prog-list-%d" parg)))))
+			    (format "skk-search-prog-list-%d" prog-list-number)))))
 		(or list skk-search-prog-list)))
 	     (t
 	      skk-search-prog-list)))
@@ -3058,15 +3058,15 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
      (keyboard-quit)))
   nil)
 
-(defun skk-start-henkan (arg &optional parg)
+(defun skk-start-henkan (arg &optional prog-list-number)
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B
 $B"&%b!<%I$G!"%+%?%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$9$k$H!"8+=P$78l$rJ?2>L>$K(B
 $BJQ498e!"4A;zJQ49$r3+;O$9$k!#(B
 $B8+=P$78l$NJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$J$$$?$1$l$P!"(BC-u SPC \(arg $B$,(B 4
 $B$K$J$k(B\) $B$H%?%$%W$9$k!#(B"
   (interactive "*p")
-  (unless parg
-    (setq parg current-prefix-arg))
+  (unless prog-list-number
+    (setq prog-list-number current-prefix-arg))
   (skk-with-point-move
    (cancel-undo-boundary)
    (if (eq skk-henkan-mode 'active)
@@ -3090,8 +3090,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 			       skk-henkan-start-point pos))
 	 (when (and skk-katakana
 		    ;; C-u $B$r;H$C$F$$$J$$>l9g(B
-		    ;; parg $B$O(B skk-insert() $B$K$*$1$k(B current-prefix-arg
-		    (not (and parg (listp parg))))
+		    ;; prog-list-number $B$O(B skk-insert() $B$K$*$1$k(B current-prefix-arg
+		    (not (and prog-list-number (listp prog-list-number))))
 	   (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)))
 	 (when (and skk-okurigana
 		    (string-match "\\* *$" skk-henkan-key))
@@ -3117,7 +3117,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 							 skk-henkan-key))))
 	 (skk-set-marker skk-henkan-end-point pos)
 	 (skk-set-henkan-count 0)
-	 (skk-henkan parg)
+	 (skk-henkan prog-list-number)
 	 (when (and skk-abbrev-mode
 		    (eq skk-henkan-mode 'active))
 	   ;; $B$3$&$7$F$*$+$J$$$HJQ498e!"<!$KF~NO$5$l$kJ8;z$b$^$?(B

@@ -1,3 +1,14 @@
+2007-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-version.el (skk-version): Bump to 13.1.50.
+
+	* skk.el (skk-insert):
+	(skk-henkan):
+	(skk-undo-kakutei-subr):
+	(skk-start-henkan):
+
+	Rename parg to prog-list-number.
+
 2007-08-18  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-henkan-show-candidates): Call
