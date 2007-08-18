@@ -2,6 +2,11 @@
 
 	* Version 13.1 Hattori released.
 
+2007-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-prepare-modeline-properties): Ignore errors
+	in `file-name-directory'.
+
 	* skk-version.el (skk-version): Bump to 13.1.
 
 2007-08-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
