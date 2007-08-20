@@ -1,3 +1,8 @@
+2007-08-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el (skk-setup-keymap): Define function keys only
+	when skk-j-mode-function-key-usage is `kanagaki'.
+
 2007-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanataki-util.el:
@@ -16,7 +21,7 @@
 
 2007-04-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-kanataki.el (skk-kanagaki-insert):
+	* skk-kanagaki.el (skk-kanagaki-insert):
 	* skk-nicola.el (skk-nicola-self-insert-lshift):
 	(skk-nicola-insert-single):
 	(skk-nicola-space-function):

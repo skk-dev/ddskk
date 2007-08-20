@@ -480,7 +480,9 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では
 		  (skk-kanagaki-previous-candidate-key
 		   . skk-previous-candidate)))
     (when (and (symbol-value (car cell))
-	       (commandp (cdr cell)))
+	       (commandp (cdr cell))
+	       (or (eq (car cell) 'skk-kanagaki-previous-candidate-key)
+		   (eq skk-j-mode-function-key-usage 'kanagaki)))
       (define-key skk-j-mode-map
 	(symbol-value (car cell)) (cdr cell))))
   (define-key help-map
