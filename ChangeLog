@@ -5,6 +5,8 @@
 	* skk.el (skk-start-henkan-prog-{0-9}): New functions.
 	(skk-setup-keymap): Bind function keys to the functions when
 	skk-j-mode-function-key-usage is `conversion'.
+	(skk-setup-verbose-messages): Show function key usage when
+	skk-j-mode-function-key-usage is `conversion'.
 
 2007-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

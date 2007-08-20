@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.440 2007/08/20 11:49:15 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.441 2007/08/20 11:52:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/20 11:49:15 $
+;; Last Modified: $Date: 2007/08/20 11:52:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -656,7 +656,7 @@ dependent."
 
 (defun skk-setup-verbose-messages ()
   (unless skk-henkan-on-message
-    (let ((string (if (eq skk-function-key-usage 'conversion)
+    (let ((string (if (eq skk-j-mode-function-key-usage 'conversion)
 		      "[F5]%s[F6]%s[F7]%s[F8]%s[F9]%s[F10]%s"
 		    "\
 [C-5 SPC]%s[C-6 SPC]%s[C-7 SPC]%s[C-8 SPC]%s[C-9 SPC]%s[C-0 SPC]%s"))
