@@ -482,6 +482,8 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では
     (when (and (symbol-value (car cell))
 	       (commandp (cdr cell))
 	       (or (eq (car cell) 'skk-kanagaki-previous-candidate-key)
+		   (string-match "\\[f[1-9][1-9]\\]"
+				 (format "%s" (symbol-value (car cell))))
 		   (eq skk-j-mode-function-key-usage 'kanagaki)))
       (define-key skk-j-mode-map
 	(symbol-value (car cell)) (cdr cell))))
