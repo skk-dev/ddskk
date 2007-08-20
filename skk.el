@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.439 2007/08/18 23:48:27 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.440 2007/08/20 11:49:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/18 23:48:27 $
+;; Last Modified: $Date: 2007/08/20 11:49:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -414,6 +414,21 @@ dependent."
 	       (keymapp (symbol-value 'minibuffer-local-ns-map)))
       (define-key minibuffer-local-ns-map skk-kakutei-key 'skk-kakutei)))
   ;;
+  (cond
+   ((eq skk-j-mode-function-key-usage 'conversion)
+    (define-key skk-j-mode-map [f1] 'skk-start-henkan-prog-1)
+    (define-key skk-j-mode-map [f2] 'skk-start-henkan-prog-2)
+    (define-key skk-j-mode-map [f3] 'skk-start-henkan-prog-3)
+    (define-key skk-j-mode-map [f4] 'skk-start-henkan-prog-4)
+    (define-key skk-j-mode-map [f5] 'skk-start-henkan-prog-5)
+    (define-key skk-j-mode-map [f6] 'skk-start-henkan-prog-6)
+    (define-key skk-j-mode-map [f7] 'skk-start-henkan-prog-7)
+    (define-key skk-j-mode-map [f8] 'skk-start-henkan-prog-8)
+    (define-key skk-j-mode-map [f9] 'skk-start-henkan-prog-9)
+    (define-key skk-j-mode-map [f10] 'skk-start-henkan-prog-0))
+   (t
+    nil))
+  ;;
   (unless skk-rule-tree
     (setq skk-rule-tree (skk-compile-rule-list
 			 skk-rom-kana-base-rule-list
@@ -641,7 +656,10 @@ dependent."
 
 (defun skk-setup-verbose-messages ()
   (unless skk-henkan-on-message
-    (let ((string "{prefix$BJQ49(B}[C-5]%s[C-6]%s[C-7]%s[C-8]%s[C-9]%s[C-0]%s")
+    (let ((string (if (eq skk-function-key-usage 'conversion)
+		      "[F5]%s[F6]%s[F7]%s[F8]%s[F9]%s[F10]%s"
+		    "\
+[C-5 SPC]%s[C-6 SPC]%s[C-7 SPC]%s[C-8 SPC]%s[C-9 SPC]%s[C-0 SPC]%s"))
 	  (i 10)
 	  list val)
       (while (> i 4)
@@ -3124,6 +3142,116 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   ;; SKK abbrev-mode $BF~NO$K$J$C$F$7$^$&!#(B
 	   (skk-j-mode-on skk-katakana)
 	   (setq skk-abbrev-mode t)))))))
+
+(defun skk-start-henkan-prog-1 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-1)
+      (skk-start-henkan arg 1)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f1] nil)
+       (skk-unread-event 'f1)))))
+
+(defun skk-start-henkan-prog-2 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-2)
+      (skk-start-henkan arg 2)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f2] nil)
+       (skk-unread-event 'f2)))))
+
+(defun skk-start-henkan-prog-3 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-3)
+      (skk-start-henkan arg 3)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f3] nil)
+       (skk-unread-event 'f3)))))
+
+(defun skk-start-henkan-prog-4 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-4)
+      (skk-start-henkan arg 4)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f4] nil)
+       (skk-unread-event 'f4)))))
+
+(defun skk-start-henkan-prog-5 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-5)
+      (skk-start-henkan arg 5)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f5] nil)
+       (skk-unread-event 'f5)))))
+
+(defun skk-start-henkan-prog-6 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-6)
+      (skk-start-henkan arg 6)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f6] nil)
+       (skk-unread-event 'f6)))))
+
+(defun skk-start-henkan-prog-7 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-7)
+      (skk-start-henkan arg 7)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f7] nil)
+       (skk-unread-event 'f7)))))
+
+(defun skk-start-henkan-prog-8 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-8)
+      (skk-start-henkan arg 8)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f8] nil)
+       (skk-unread-event 'f8)))))
+
+(defun skk-start-henkan-prog-9 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-9)
+      (skk-start-henkan arg 9)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f9] nil)
+       (skk-unread-event 'f9)))))
+
+(defun skk-start-henkan-prog-0 (arg)
+  (interactive "*p")
+  (if (and (eq skk-henkan-mode 'on)
+	   skk-search-prog-list-0)
+      (skk-start-henkan arg 0)
+    (condition-case err
+	(skk-emulate-original-map arg)
+      (error
+       (define-key skk-j-mode-map [f0] nil)
+       (skk-unread-event 'f0)))))
 
 (defun skk-auto-start-henkan (str)
   "$B$"$k>r7o2<$K$*$$$F!"<+F0E*$KJQ49$r3+;O$9$k!#(B

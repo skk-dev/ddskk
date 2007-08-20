@@ -1,3 +1,11 @@
+2007-08-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-j-mode-function-key-usage): New user option.
+
+	* skk.el (skk-start-henkan-prog-{0-9}): New functions.
+	(skk-setup-keymap): Bind function keys to the functions when
+	skk-j-mode-function-key-usage is `conversion'.
+
 2007-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version.el (skk-version): Bump to 13.1.50.

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.246 2007/08/18 05:06:26 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.247 2007/08/20 11:49:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/18 05:06:26 $
+;; Last Modified: $Date: 2007/08/20 11:49:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -113,8 +113,7 @@ Automatically becomes buffer-local when set in any fashion."
      (t
       'mono)))))
 
-;;;; variables declaration
-;;; user variables
+;;;; Custom group definitions
 
 (defgroup skk nil "日本語入力システム SKK のカスタマイズ"
   :group 'mule
@@ -1504,8 +1503,8 @@ skk-init-file の方が新しいときは、そのバイトコンパイル済ファイルを消す。"
 (defcustom skk-preload nil
   "Non-nil ならば、SKK を前もってロードする。
 これによって初回起動が高速になる。"
-  :group 'skk-misc
-  :type 'boolean)
+  :type 'boolean
+  :group 'skk-misc)
 
 (defcustom skk-undo-kakutei-word-only nil
   "*Non-nil であれば ▽モードと▼モード時のアンドゥ情報を記録しない。"
@@ -1545,6 +1544,16 @@ skk-init-file の方が新しいときは、そのバイトコンパイル済ファイルを消す。"
 標準では自動設定する。"
   :type '(radio (string :tag "内容を指定")
 		(const :tag "自動設定" nil))
+  :group 'skk-misc)
+
+(defcustom skk-j-mode-function-key-usage nil
+  "*キーボード上の F1 〜 F10 キーの使い方を指定する。
+`conversion' ならば、skk-search-prog-list-{1-9,0} を実行できる。
+`kanagaki' ならば、かなキーボード入力用の設定になる。
+nil ならば自動設定はしない (自分で好きな設定ができる)。"
+  :type '(radio (const :tag "切り替え変換機能用設定" conversion)
+		(const :tag "かな入力用設定" kanagaki)
+		(const :tag "設定しない" nil))
   :group 'skk-misc)
 
 (defcustom skk-mode-hook nil
