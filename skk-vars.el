@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.247 2007/08/20 11:49:15 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.248 2007/08/24 23:23:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/20 11:49:15 $
+;; Last Modified: $Date: 2007/08/24 23:23:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2201,9 +2201,7 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B skk-mode $B$r5/F0$7$F$$$k$3$H$r<
 `nil' $B$G$"$l$P!"3NDjF~NO%b!<%I!#(B")
 
 (skk-deflocalvar skk-kakutei-flag nil
-  "Non-nil $B$J$i3NDj$7$FNI$$8uJd$r8+$D$1$?>uBV$G$"$k$3$H$r;X$9!#(B
-`skk-henkan', `skk-henkan-show-candidates', `skk-henkan-in-minibuff'
-$B$H(B `skk-kakutei-save-and-init-variables' $B$GJQ99!";2>H$5$l$k!#(B")
+  "Non-nil $B$J$i3NDj$7$FNI$$8uJd$r8+$D$1$?>uBV$G$"$k$3$H$r;X$9!#(B")
 
 (skk-deflocalvar skk-kakutei-henkan-flag nil
   "Non-nil $B$J$i3NDjJQ49$9$k;v$r;X$9!#(B
@@ -2218,8 +2216,8 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B skk-mode $B$r5/F0$7$F$$$k$3$H$r<
 $B$=$NCM$O%j%9%H$G!"(Bcar $B$K(B `skk-henkan-show-candidate' $B4X?t$G(B while $B%k!<%W$r(B
 $B2s$C$?2s?t$r<($90l;~JQ?t(B loop $B$NCM$r!"(Bcdr $BIt$K:G8e$K%_%K%P%C%U%!$KI=<($7$?(B
 1 $B$DA0$N8uJd72$N:G8e$NMWAG$r;X$9%$%s%G%/%9$,BeF~$5$l$k!#(B
-`skk-henkan-show-candidates', `skk-henkan-in-minibuff' $B$H(B
-`skk-kakutei-save-and-init-variables' $B$GJQ99!";2>H$5$l$k!#(B")
+`skk-henkan-show-candidates' $B$H(B `skk-set-exit-show-candidates' $B$GJQ99!"(B
+$B;2>H$5$l$k!#(B")
 
  ;; <$B%-!<%^%C%W4XO"(B>
 (skk-deflocalvar skk-current-rule-tree nil
