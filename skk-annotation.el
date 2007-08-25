@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.135 2007/08/25 15:13:28 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.136 2007/08/25 15:15:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/08/25 15:13:28 $
+;; Last Modified: $Date: 2007/08/25 15:15:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1489,7 +1489,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
   (replace-regexp-in-string " "
 			    "_"
 			    (cond
-			     ((memq source '(ja.wiktionary en.wiktionary))
+			     ((memq method '(ja.wiktionary en.wiktionary))
 			      (if (and (> (length word) 1)
 				       (skk-ascii-char-p (aref word 0))
 				       (skk-lower-case-p (aref word 1)))
@@ -1499,7 +1499,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 				;; 二文字めが upper case なら元の case
 				;; 英語以外は未対応
 				word))
-			      ((eq source 'upcase-initials)
+			      ((eq method 'upcase-initials)
 			       (upcase-initials word))
 			      (t
 			       (concat (vector (upcase (aref word 0)))
