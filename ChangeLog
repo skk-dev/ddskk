@@ -1,3 +1,17 @@
+2007-08-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia):
+	(skk-annotation-wikipedia-cache):
+
+	If annotation for "foo bar" or "Foo bar" is not found, also look
+	up "Foo Bar".
+
+	(skk-annotation-wikipedia-normalize-word): If the 2nd arg is
+	`upcase-initials', modify WORD with `upcase-initials'.
+
+	(skk-annotation-wikipedia-region): When skk-henkan-mode is on,
+	use the region from skk-henkan-start-point to the current point.
+
 2007-08-25  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-vars.el (skk-kakutei-flag, skk-exit-show-candidates): Update

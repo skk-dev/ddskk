@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.134 2007/08/18 23:48:27 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.135 2007/08/25 15:13:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/08/18 23:48:27 $
+;; Last Modified: $Date: 2007/08/25 15:13:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -844,18 +844,31 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	    (while (and (not note)
 			sources)
 	      (setq source (car sources))
+	      ;; Wiktionary $B$G$O$=$N$^$^!"(BWikipedia $B$G$OBh(B 1 $BJ8;z$N$_(B upcase
 	      (setq note (skk-annotation-wikipedia-1 word source
 						     (= 1 (length sources))))
+	      ;;
+	      (when (and (null note)
+			 (memq source '(ja.wikipedia
+					simple.wikipedia
+					en.wikipedia))
+			 (skk-ascii-char-p (aref word 0)))
+		;; Wikipedia $B$G3F(B initial $B$r(B upcase
+		(setq note (skk-annotation-wikipedia-1
+			    (upcase-initials word)
+			    source
+			    (= 1 (length sources)))))
+	      ;;
 	      (when (and (null note)
 			 (memq source '(en.wiktionary ja.wiktionary))
 			 (skk-ascii-char-p (aref word 0))
 			 (not (skk-lower-case-p (aref word 0))))
-		;; Wiktionary $B$O(B downcase $B$,4pK\(B
-		;; (Wikipedia $B$O(B initial $B$,(B upcase)
+		;; Wiktionary $B$G$9$Y$F(B downcase $B$9$k>l9g(B
 		(setq note (skk-annotation-wikipedia-1
 			    (downcase word)
 			    source
 			    (= 1 (length sources)))))
+	      ;;
 	      (setq string (format (if (string= "" string)
 				       "%s%s"
 				     "%s/%s")
@@ -1378,42 +1391,62 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 (defun skk-annotation-wikipedia-cache (word &optional sources)
   (let ((sources (or sources skk-annotation-wikipedia-sources))
 	(word (skk-annotation-wikipedia-normalize-word word 'en.wiktionary))
-	(cword (skk-annotation-wikipedia-normalize-word word)))
+	(cword (skk-annotation-wikipedia-normalize-word word))
+	(ccword (skk-annotation-wikipedia-normalize-word word
+							 'upcase-initials)))
     (catch 'found
       (while sources
 	(let* ((source (pop sources))
 	       (ccache-buffer (if (equal word cword)
 				  nil
 				(format " *skk %s %s" source cword)))
+	       (cccache-buffer (if (equal word ccword)
+				   nil
+				 (format " *skk %s %s" source ccword)))
 	       (cache-buffer (format " *skk %s %s" source word))
 	       string)
 	  (setq string
 		(if (and ccache-buffer
 			 (get-buffer ccache-buffer))
-		    ;; Word
+		    ;; Word word
 		    (with-current-buffer (get-buffer ccache-buffer)
 		      (buffer-string))
 		  ""))
 	  (if (> (length string) 0)
 	      (throw 'found (cons string ccache-buffer))
 	    (setq string
-		  (if (get-buffer cache-buffer)
-		      ;; word
-		      (with-current-buffer (get-buffer cache-buffer)
+		  (if (and cccache-buffer
+			 (get-buffer cccache-buffer))
+		      ;; Word Word
+		      (with-current-buffer (get-buffer cccache-buffer)
 			(buffer-string))
 		    ""))
-	    (if (string= string "")
-		nil
-	      (throw 'found (cons string cache-buffer)))))))))
+	    (if (> (length string) 0)
+		(throw 'found (cons string cccache-buffer))
+	      (setq string
+		    (if (get-buffer cache-buffer)
+			;; word word
+			(with-current-buffer (get-buffer cache-buffer)
+			  (buffer-string))
+		      ""))
+	      (if (string= string "")
+		  nil
+		(throw 'found (cons string cache-buffer))))))))))
 
 ;;;###autoload
 (defun skk-annotation-wikipedia-region (&optional prefix-arg start end)
   (interactive (cons (prefix-numeric-value current-prefix-arg)
-		     (if (static-if (featurep 'xemacs)
-			     (region-active-p)
-			   (and transient-mark-mode mark-active))
-			 (list (region-beginning) (region-end))
-		       (list 1 1))))
+		     (cond
+		      ((static-if (featurep 'xemacs)
+			   (region-active-p)
+			 (and transient-mark-mode mark-active))
+		       (list (region-beginning) (region-end)))
+		      ((eq skk-henkan-mode 'on)
+		       (list (marker-position skk-henkan-start-point)
+			     (point)))
+		      (t
+		       ;; dummy
+		       (list 1 1)))))
   ;; $B%_%K%P%C%U%!$K$$$k$H$-M>7W$J%a%C%;!<%8$r%/%j%"$9$k(B
   (when (or skk-isearch-switch
 	    (skk-in-minibuffer-p))
@@ -1451,23 +1484,26 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		     args))
     (error "%s" "URL $B%Q%C%1!<%8$^$?$O(B Mule-UCS $B$,MxMQ$G$-$^$;$s(B")))
 
-(defun skk-annotation-wikipedia-normalize-word (word &optional source)
+(defun skk-annotation-wikipedia-normalize-word (word &optional method)
   ;; $B%9%Z!<%9$O(B %20 $B$G$O$J$/!"%"%s%@!<%9%3%"$KJQ49$9$k(B
   (replace-regexp-in-string " "
 			    "_"
-			    (if (memq source '(ja.wiktionary en.wiktionary))
-				(if (and (> (length word) 1)
-					 (skk-ascii-char-p (aref word 0))
-					 (skk-lower-case-p (aref word 1)))
-				    ;; $BFsJ8;z$a$,(B lower case $B$J$i(B downcase
-				    (downcase word)
-				  ;; $B0lJ8;z$@$C$?$i85$N(B case
-				  ;; $BFsJ8;z$a$,(B upper case $B$J$i85$N(B case
-				  ;; $B1Q8l0J30$OL$BP1~(B
-				  word)
-			      ;(upcase-initials word)
-			      (concat (vector (upcase (aref word 0)))
-				      (substring word 1)))))
+			    (cond
+			     ((memq source '(ja.wiktionary en.wiktionary))
+			      (if (and (> (length word) 1)
+				       (skk-ascii-char-p (aref word 0))
+				       (skk-lower-case-p (aref word 1)))
+				  ;; $BFsJ8;z$a$,(B lower case $B$J$i(B downcase
+				  (downcase word)
+				;; $B0lJ8;z$@$C$?$i85$N(B case
+				;; $BFsJ8;z$a$,(B upper case $B$J$i85$N(B case
+				;; $B1Q8l0J30$OL$BP1~(B
+				word))
+			      ((eq source 'upcase-initials)
+			       (upcase-initials word))
+			      (t
+			       (concat (vector (upcase (aref word 0)))
+				       (substring word 1))))))
 
 (defun skk-annotation-url-package-available-p ()
   (when (eq skk-annotation-url-package-available-p 'untested)
