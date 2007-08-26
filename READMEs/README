@@ -1,7 +1,3 @@
--*- text -*-
-             $Date: 2005/11/14 17:41:55 $
-	     $Id: README,v 1.9 2005/11/14 17:41:55 skk-cvs Exp $
-
 Daredevil SKK is a version of SKK (Simple Kana to Kanji conversion
 program, an input method of Japanese) maintained by the SKK
 development team at
@@ -42,5 +38,8 @@ Thank you.
 
 <Post>
   To: skk@ring.gr.jp
-
-[end of README]
+
+Local variables:
+mode: text
+fill-column: 72
+end:

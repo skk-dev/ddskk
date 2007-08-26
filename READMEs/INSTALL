@@ -1,8 +1,3 @@
--*- outline -*-
-
-             $Date: 2007/04/21 15:44:10 $
-	     $Id: INSTALL,v 1.32 2007/04/21 15:44:10 skk-cvs Exp $
-
 * System-dependent configurations
 
 For system-dependent configurations, see SKK-CFG in the top source
@@ -132,4 +127,7 @@ compatible with the version you installed.
 If you are looking for example elisp codes for customization, see files
 etc/dot.emacs and etc/dot.skk, which are included in this distribution.  
 
-[End of INSTALL]
+
+Local variables:
+mode: outline
+end:

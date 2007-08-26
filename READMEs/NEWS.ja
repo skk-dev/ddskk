@@ -1,5 +1,3 @@
--*- outline -*-
-
 * 13.1
 
 ** 要求される APEL のバージョンが 10.7 以上になりました。
@@ -805,3 +803,7 @@ works well with SKK by itself.  skk-vip.el is discarded.
 
 ** Experimental package skk-tutcode.el is provided by GUNJI Takao
 <gunji@sils.shoin.ac.jp>.  Now you can imput Japanese by TUT-code with SKK.
+
+Local variables:
+mode: outline
+end:

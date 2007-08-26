@@ -1,9 +1,5 @@
--*- outline -*-
-
 `MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
 
-$Date: 2007/07/14 15:53:09 $
-$Id: README.w32.ja,v 1.8 2007/07/14 15:53:09 skk-cvs Exp $
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
@@ -274,5 +270,7 @@ Windows 上で動作する SKK ライクの IME があります。
 
      http://www.tatari-sakamoto.jp/skkime.jis.html
 
-
-[End of README.win]
+
+Local variables:
+mode: outline
+end:

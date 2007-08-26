@@ -1,9 +1,3 @@
--*- outline -*-
-
-             $Date: 2004/01/19 11:02:47 $
-	     $Id: PROPOSAL.ja,v 1.4 2004/01/19 11:02:47 czkmt Exp $
-
-
 このファイルには、SKK コーディングに関し、注意すべき点、統一した方が良い
 と思われる点を列挙しております。
 
@@ -591,5 +585,7 @@ o skk-after-point-move として inline function として実装。フックを r
 
 o skk-mode の中で post-command-hook のローカルフックとして
   skk-after-point-move をフックした。
-
-[end of PROPOSAL]
+
+Local variables:
+mode: outline
+end:

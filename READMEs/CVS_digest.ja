@@ -1,8 +1,3 @@
--*- outline -*-
-
-             $Date: 2005/10/01 18:39:29 $
-	     $Id: CVS_digest.ja,v 1.3 2005/10/01 18:39:29 skk-cvs Exp $
-
 [CVS ダイジェスト]
 
 * cvs repository tree
@@ -215,5 +210,7 @@ CVS/Root というファイルにサーバ情報が保存されています。
 Emacs の cvs front end、pcl-cvs を使うと、commit のために C キー
 (`cvs-mode-changelog-commit') を押すと ChangeLog から、当日 commiter
 自身が書いた部分を抜き出して、log を書く手助けをしてくれます。
-
-[end of CVS_digest.ja]
+
+Local variables:
+mode: outline
+end:

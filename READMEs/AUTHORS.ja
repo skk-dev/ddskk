@@ -1,5 +1,3 @@
--*- outline -*-
-
 SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 ファイルでは、現在 SKK Openlab にて開発しているプログラム・辞書の著者
 のうち、現在その貢献内容を把握している人々について、主な業績をリスト
@@ -411,3 +409,7 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 *** 以下のプログラムへの改変
 
 **** skk-bayesian.el, skk-kakasi.el, skk-vars.el, skk-viper.el, skk.el
+
+Local variables:
+mode: outline
+end:

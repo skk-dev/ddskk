@@ -1,8 +1,3 @@
--*- outline -*- 
-
-$Date: 2004/01/19 11:02:47 $
-$Id: CVS_on_Windows.ja,v 1.2 2004/01/19 11:02:47 czkmt Exp $
-
 [cvs on Windows 95/NT Windows 95 で動作確認済み (NT では未確認)] 
 
 * Windows 上で cvs を利用して開発に参加する際の注意
@@ -60,5 +55,7 @@ cygwin root があるドライブ以外のドライブをバイナリマウントするには、下
      します。
 
    % umount /tmp ; mount -b d:\tmp /tmp
-
-[End of CVS_on_Widows]
+
+Local variables:
+mode: outline
+end:
