@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.248 2007/08/24 23:23:49 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.249 2007/08/26 17:06:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/24 23:23:49 $
+;; Last Modified: $Date: 2007/08/26 17:06:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1099,6 +1099,8 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 		 (string :tag "$BFIE@(B" "$B!"(B")))
   :group 'skk-input-basic)
 (make-variable-buffer-local 'skk-kutouten-type)
+;;;###autoload
+(put 'skk-kutouten-type 'safe-local-variable 'symbolp)
 
 (defcustom skk-auto-insert-paren nil
   "*Non-nil $B$G$"$l$P!"3g8L$HJD3g8L$r$^$H$a$FA^F~$9$k!#(B

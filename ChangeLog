@@ -15,6 +15,9 @@
 	* skk.el (skk-start-henkan-prog-{0-9}): Undefine and unread key
 	only when the global key binding is a keymap.
 
+	* skk-vars.el (skk-kutouten-type): Put property
+	safe-local-variable.
+
 2007-08-26  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-henkan-in-minibuff): Call `skk-inline-hide' when
