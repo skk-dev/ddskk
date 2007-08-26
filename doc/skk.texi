@@ -11,13 +11,13 @@
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
-@c  Version: $Id: skk.texi,v 1.170 2007/08/18 13:41:34 skk-cvs Exp $
+@c  Version: $Id: skk.texi,v 1.171 2007/08/26 15:45:30 skk-cvs Exp $
 @c  Keywords: japanese
-@c  Last Modified: $Date: 2007/08/18 13:41:34 $
+@c  Last Modified: $Date: 2007/08/26 15:45:30 $
 @c
 @set EDITION 13.1
 @set SKK-VERSION 13.1
-@set UPDATED $Date: 2007/08/18 13:41:34 $
+@set UPDATED $Date: 2007/08/26 15:45:30 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6852,7 +6852,7 @@ SKK $B%5!<%P%W%m%0%i%`$r(B @code{call-process} $B$7$FN)$A>e$2$h$&$H;n$_$^$9(
 @end lisp
 @end table
 
-@node  $B<-=q%D!<%k(B, DDSKK 12 $B$+$i$NJQ99E@(B, $BJXMx$J1~MQ5!G=(B, Top
+@node  $B<-=q%D!<%k(B, $B5l%P!<%8%g%s$+$i$NJQ99E@(B, $BJXMx$J1~MQ5!G=(B, Top
 @comment  node-name,  next,  previous,  up
 @chapter $B<-=q%D!<%k(B
 
@@ -6865,177 +6865,31 @@ Perl $B$K$h$k%D!<%k$O8=:_==J,%a%s%F%J%s%9$5$l$F$$$^$;$s!#8=:_$O(B C, ruby $B$
 @url{http://openlab.jp/skk/wiki/wiki.cgi?page=%BC%AD%BD%F1%A5%E1%A5%F3%A5%C6%A5%CA%A5%F3%A5%B9%A5%C4%A1%BC%A5%EB}
 @end table
 
-@node DDSKK 12 $B$+$i$NJQ99E@(B, $B3HD%%"%$%G%#%"(B, $B<-=q%D!<%k(B, Top
+@node $B5l%P!<%8%g%s$+$i$NJQ99E@(B, $B3HD%%"%$%G%#%"(B, $B<-=q%D!<%k(B, Top
 @comment  node-name,  next,  previous,  up
-@chapter DDSKK 12 $B$+$i$NJQ99E@(B
+@chapter $B5l%P!<%8%g%s$+$i$NJQ99E@(B
 
-$BK\>O$G$O(B DDSKK 13 $B$K$*$1$k(B DDSKK 12 $B$+$i$NJQ99E@$r$^$H$a$^$9!#(B
-$B$h$j>\$7$$JQ99FbMF$H99$K2a5n$NJQ99E@$K$D$$$F$O0J2<$N%j%=!<%9$r;2>H$7$F$/(B
-$B$@$5$$!#(B
+$B:G?7HG(B DDSKK $B$NJQ99FbMF$H99$K2a5n$NJQ99E@$K$D$$$F$O0J2<$N%j%=!<%9$r;2>H(B
+$B$7$F$/$@$5$$!#(B
 
 @display
 @url{http://openlab.jp/skk/skk/main/READMEs/NEWS.ja}
 @end display
 
-@table @asis
-@item $BBP1~$9$k(B Emacs $B$N%P!<%8%g%s(B
-
-Emacs 22.1 $B$r@5<0%5%]!<%H$7$^$7$?!#B>$K(B Emacs 20.7$B!"(BEmacs 21.1 $B$+$i(B 21.4$B!"(B
-XEmacs 21.4.18 $B0J9_$r%5%]!<%H$7$^$9!#(B
-
-@item $BC14A;zJQ49$N@5<0%5%]!<%H(B
-
-$BFI$_$N:G8e$K!"FI$_$N0lIt$H$7$F(B @samp{@@} $B$rF~NO$7$F$+$iJQ49$9$k$H!"0l(B
-$BJ8;z$N$_$+$i$J$k8uJd$K9J$j9~$s$@>e$G!"8uJd$rAm2h?t=g$G%=!<%H$7$F$+$iJQ(B
-$B49$9$kC14A;zJQ495!G=$r@5<0$K%5%]!<%H$7$F$$$^$9!#>\:Y$O!"(B
-@file{skk-tankan.el} $B$NCf$N%I%-%e%a%s%H$r;2>H$7$F2<$5$$!#(B
-
-@item $B%R%s%HF~NO$N@5<0%5%]!<%H(B
-
-$B8+=P$78l$N:G8e$K(B ; $B$rF~NO$7$F$+$i%R%s%H$H$J$kC18l$rF~NO$9$k$3$H$GJQ498u(B
-$BJd$r9J$j9~$a$k%W%m%0%i%`(B @file{skk-hint.el} $B$r@5<0%5%]!<%H$7$^$7$?!#(B
-
-@item $BJ8L.$K1~$8$F(B SKK $B$NF0:n$r<+F0E*$K@)8f$9$k5!G=$N@5<0%5%]!<%H(B
-
-$B$3$N5!G=$O(B @file{context-skk.el} $B$K$h$jDs6!$5$l$^$9!#JT=8$NJ8L.$K1~$8$F(B
-$B<+F0E*$K(B ASCII (latin) $B%b!<%I$K@Z$jBX$($k5!G=!"JT=8$NJ8L.$K1~$8$F(B SKK $B$N(B
-$B@_Dj$r%f!<%6$NG$0U$KJQ99$9$k%+%9%?%^%$%:5!G=$,Ek:\$5$l$F$$$^$9!#(B
-
-@item $BJQ498uJd!&Cm<aI=<($N=$>~!&2C9)5!G=(B
-
-@vindex skk-treat-candidate-appearance-function
-$BJQ?t(B @code{skk-treat-candidate-appearance-function} $B$r@_Dj$9$k$3$H$K$h$j!"(B
-$BCm<a$b4^$a$?JQ498uJd$NI=<($N%+%9%?%^%$%:$,2DG=$K$J$j$^$7$?!#$3$N@_DjNc$O(B
-@file{etc/dot.skk} $B$J$I$G>R2p$7$F$$$/M=Dj$G$9!#(B
-
-$B$3$N5!G=$O8uJd$dCm<a$NJ8;zNs$=$N$b$N$rJQ99$9$k$3$H$,$G$-$^$9!#$^$?!"J8(B
-$B;zNs$K(B text property $B$rIU2C$7$FAu>~$7$FI=<($9$k$3$H$b$G$-$^$9!#$3$N5!(B
-$BG=$ODL>o$N8uJdJQ49;~$HCm<aI=<(;~!"8uJd0lMwI=<(;~$KM-8z$G$9!#%D!<%k%F%#%C(B
-$B%W$d%$%s%i%$%s$K$h$kI=<(;~$K$bM-8z$G$9!#$?$@$7!"(Btext property $B$K$h$k=$(B
-$B>~5!G=$,40A4$K%5%]!<%H$5$l$k$N$O(B GNU Emacs 21 $B0J9_$H$J$j$^$9!#$=$l0J30(B
-$B$N%P!<%8%g%s$O%D!<%k%F%#%C%W$NI=<($O$G$-$:!"$^$?%$%s%i%$%sI=<($H%(%3!<(B
-$B%(%j%"I=<(;~$N%a%C%;!<%8$O(B text property $BHsBP1~$G$9!#$3$l$i$N%P!<%8%g(B
-$B%s$G(B text property $B$rM-8z$K$9$k$K$O%P%C%U%!$r%]%C%W%"%C%W$9$kI,MW$,$"(B
-$B$j$^$9!#$=$N$?$a$N@_Dj$O0J2<$N$h$&$K$J$j$^$9!#(B
-
-@vindex skk-annotation-show-as-message
-@vindex skk-show-candidates-always-pop-to-buffer
-@lisp
-@group
-(setq skk-annotation-show-as-message t)
-(setq skk-show-candidates-always-pop-to-buffer t)
-@end group
-@end lisp
-
-@item $B?tCMJQ49M-8z;~$KHs?tCMJQ49$bF1;~$K9T$&$h$&$KJQ99(B
-
-@vindex skk-use-numeric-conversion
-$B:#$^$G!"(B @code{skk-use-numeric-conversion} $B$,(B non-nil $B$@$H?tCMJQ49$N$_9T(B
-$B$$!"Hs?tCMJQ49$OL58z$K$9$k$h$&$K$J$C$F$$$^$7$?$,!"GSB>E*$G$"$kI,MW$O$J$$(B
-$B$H9M$($i$l$?$N$G!">o$KHs?tCMJQ49$O9T$&$h$&$K$7$^$7$?!#$3$l$K$h$j!"(B
-@code{skk-use-numeric-conversion} $B$rM-8z$K$7$F$$$k>l9g$G$b(B
-
-@example
-10^-1 /deci;SI$B@\F,8l(B/d/$B%G%7(B/
-10^-2 /centi;SI$B@\F,8l(B/c/$B%;%s%A(B/
-10^-3 /milli;SI$B@\F,8l(B/m/$B%_%j(B/
-@end example
-
-@noindent
-$B$J$I$NJQ49$b$G$-$^$9!#$?$@$7!"C18lEPO?%b!<%I$KF~$k$H?tCMJQ49$N8uJd$H$7$F(B
-$B07$o$l$^$9!#(B
-
-@item $B%$%s%i%$%s$N8uJd0lMwI=<((B
-
-$BJQ?t(B @code{skk-show-inline} $B$r(B non-nil $B$K@_Dj$9$k$3$H$G!"8uJd0lMw$rJQ49(B
-$B0LCV$N6aK5$KI=<($G$-$^$9!#$3$N5!G=$O(B window system $B$K0MB8$7$J$$$?$a(B
-terminal $B$G$bMxMQ$G$-$^$9!#$3$N5!G=$O(B Emacs 20, XEmacs $B$G$bMxMQ$G$-$^$9(B
-$B$,!"(Bface $BI=<($KBP1~$7$F$$$k$N$O(B GNU Emacs 21 $B0J9_$N$_$G$9!#(B
-@vindex skk-show-inline
-
-@item $B%D!<%k%F%#%C%W$rMxMQ$7$?8uJd0lMw!&Cm<aI=<((B
-
-$BJQ?t(B @code{skk-show-tooltip} $B$r(B non-nil $B$K@_Dj$9$k$3$H$G!"(Bwindow-system
-$B2<$K$F8uJd0lMwI=<($HCm<aI=<($r%P%k!<%s%X%k%W$K$9$k$3$H$,$G$-$k$h$&$K$J$j(B
-$B$^$7$?!#$3$l$O8=:_(B GNU Emacs 21 $B0J9_!"(BXEmacs 21.5 $B0J9_$GF0:n$7$^$9!#(B
-@vindex skk-show-tooltip
-
-@item $B?7$7$$3X=,5!G=(B skk-bayesian.el
-
-@file{experimental/bayesian} $B$KDI2C$5$l$^$7$?!#8uJd$NMxMQ$5$l$k3NN($r2a(B
-$B5n$NJQ49MzNr$NJ,@O$K$h$j7W;;$9$k$3$H$GJQ49@:EY$r8~>e$5$;$^$9!#(B
-
-@end table
-
-@node $B3HD%%"%$%G%#%"(B, SKK$B%a!<%j%s%0%j%9%H(B, DDSKK 12 $B$+$i$NJQ99E@(B, Top
+@node $B3HD%%"%$%G%#%"(B, SKK$B%a!<%j%s%0%j%9%H(B, $B5l%P!<%8%g%s$+$i$NJQ99E@(B, Top
 @comment  node-name,  next,  previous,  up
 @chapter $B3HD%%"%$%G%#%"(B
 
-$BK\>O$K$O!">-Mh$N%P!<%8%g%s$KBw$5$l$?3HD%%"%$%G%#%"$K$D$$$F5-=R$7$^$9!#<B(B
-$B8=2DG=$+$I$&$+$K4X$7$F$OI,$:$7$b?($l$^$;$s!#(B
+$B>-Mh$N%P!<%8%g%s$K$*$1$k3HD%%"%$%G%#%"$K$D$$$F$O!"(BTODO $B$H$7$F$^$H$a$i$l(B
+$B$F$$$^$9!#(B
 
-$B$3$l0J30$K$bMWK>!"3HD%$N6qBNE*%"%$%G%#%"$,$"$l$P!"(B
+@display
+@url{http://openlab.jp/skk/skk/main/READMEs/TODO.ja}
+@end display
+
+$BMWK>!"3HD%$N6qBNE*%"%$%G%#%"$,$"$l$P!"(B
 @email{skk@@ring.gr.jp} $B$KO"Mm$$$?$@$1$k$3$H$r4|BT$7$^$9!#(B
 @w{@xref{SKK$B%a!<%j%s%0%j%9%H(B}.}
-
-@itemize @bullet
-@item
-FLIM
-@footnote{@url{http://www.kanji.zinbun.kyoto-u.ac.jp/~tomo/elisp/FLIM/}}
-$B$K4^$^$l$k(B luna $B$H$$$&(B Emacs Lisp $B$G(B Object Oriented programming $B$r2DG=(B
-$B$K$9$k%W%m%0%i%`$,$"$j$^$9!#CxL>$I$3$m$G$O!"(BWanderlust $B$d(B Emacs-w3m $B$N(B
-Shimbun $B%i%$%V%i%j$,(B luna $B$rMxMQ$7$F$$$^$9!#(BDDSKK $B$O(B Emacs $B$N%P%C%U%!$K(B
-$BD>@\FI$_9~$`<-=q!"%5!<%P7PM3$N<-=q!"(BLookup $B$H$N%2!<%H%&%'%$$K$h$k<-=q$J(B
-$B$IBt;3$N<-=q$,$"$j!"$^$?!"%-!<%\!<%IF~NO$K$b(B TUT-Code $B$d(B NICOLA $B$J$I?'!9(B
-$B$J<oN`$r%5%]!<%H$7$F$$$^$9!#(Bluna $B$rMxMQ$9$k$3$H$K$h$j!"$3$l$i$N$=$l$>$l(B
-$B$N5!G=$N$?$a$K!"$=$l$>$l8DJL$K=q$+$l$?=hM}$r0l854IM}$9$k$3$H$,$G$-$k$h$&(B
-$B$K$J$k$N$G$O$J$$$+$H9M$($F$$$^$9!#(B
-
-@item
-$B<-=q$N8D!9$N8+=P$78l!"8uJd$KB0@-$r;}$?$;$k!#$=$l$K$h$j!"Nc$($P!"<!$N$h$&(B
-$B$J5!G=$r<BAu$9$k!#(B
-
-@enumerate
-@item
-$B$=$NB0@-$NFbMF$K$h$j!"JQ49$N:]$K8uJd$N9J$j9~$_>r7o$r;XDj$G$-$k$h$&$K$9$k!#(B
-$B$=$N:]!"9J$j9~$_>r7o$O%f!<%6!<$NG$0U$KJQ99$G$-$k$h$&$K$9$k!#0lNc$r$"$2$l(B
-$B$P!"%5JQF0;l$K$J$jF@$kL>;l$KE,Ev$JB0@-$r;}$?$;!"(B@samp{$B!A$9$k(B} $B$H$$$&Aw$j(B
-$B2>L>$,F~NO$5$l$?>l9g$K$O!"$=$N%5JQF0;lB0@-$r;}$C$?L>;l$N$_$r8uJd$H$7$F=P(B
-$BNO$9$k!"$J$I3hMQ$NI}$OHs>o$K9-$$!#%5JQF0;l$NLdBj$K$D$$$F$O!"(B
-@w{@ref{$B<-=qEPO?%b!<%I(B}} $B$b;2>H$N$3$H!#(B
-
-@item
-$B8uJd$K:G=*$NJQ49;~9o$J$I$rB0@-$H$7$F;}$?$;!"<-=q$N%a%s%F%J%s%9$KMxMQ$9$k(B
-($B0lDj4|4V%"%/%;%9$N$J$$8uJd$r8D?M<-=q$+$i:o=|$9$k$J$I(B)$B!#(B
-
-@item
-$B8uJd$K4X$9$k0UL#$rB0@-$H$7$F;}$?$;!"0UL#$rD4$Y$k$h$&$J3HD%JQ49$r9T$($k(B
-$B$h$&$K$9$k!#(B
-@end enumerate
-
-@c XXX $B:#$^$G<B83$7$F$-$?$3$H$r5-=R$9$k!#(B
-@noindent
-$B8@$&$O0W$7$@$,!"?'!9$JL$2r7h$NLdBj$,$"$k!#B??t$N8+=P$78l$d8uJd$KB0@-$r;}(B
-$B$?$;$F!"DL>o$NJQ498zN($r$G$-$k8B$jMn$5$J$$$G!"$+$D8zN(NI$/B0@-$N%a%s%F%J(B
-$B%s%9$r9T$&J}K!$rLO:w$9$k$3$H$,$^$:BgJQ!#(BEmacs $B$N%P%C%U%!$KFI$_9~$`<-=q(B
-$B$H%5!<%P7PM3$G%"%/%;%9$7$F$$$k<-=q$H$,$"$k$3$H$b8!F$;v9`!#(BEmacs $BB&$N5!(B
-$BG=$GBP1~$7$?>l9g$K%5!<%P7PM3$N<-=qB0@-$r$I$&$d$C$FF@$k$+!"$^$?$O$=$N5U(B
-$B$,2]Bj$G$"$k!#%3!<%G%#%s%0H4$-$G$"$C$F$b%"%$%G%#%"$r$$$?$@$1$?$i9,$$$G$"(B
-$B$k!#(B
-
-@item
-Canna $B$d(B Wnn $B$N%5!<%P$H@\B3$7$F8!:w$,2DG=$K$J$k$h$&$K$9$k(B
-@footnote{Tamago 4 $B$G$O!"(BEmacs Lisp $B%Y!<%9$G%5!<%P$H@\B3$G$-$k!#(B
-
-@url{http://www.m17n.org/tamago/}}$B!#(B
-
-@item
-$B$$$+$J$k%f!<%6!<%*%W%7%g%sJQ?t$r%P%C%U%!%m!<%+%k2=$7$F$bF0:n$9$k$h$&$K$9(B
-$B$k$3$H!#(Bluna $B2=$K$h$j2r7h$9$k(B?
-
-@item
-$BIt<sJQ49%W%m%0%i%`$H<-=q$r:n$k$3$H!#(B
-@end itemize
 
 @node SKK$B%a!<%j%s%0%j%9%H(B, DDSKK$B$NF~<jJ}K!(B, $B3HD%%"%$%G%#%"(B, Top
 @comment  node-name,  next,  previous,  up
@@ -7114,9 +6968,6 @@ SKK $B4XO"%=%U%H%&%'%"$K4X$7$F$O!"0J2<$N(B URL $B$K%j%s%/$r$^$H$a$F$"$j$^$9$N
 $B$G;2>H$7$F$/$@$5$$!#(B
 
 @table @asis
-
-@item SKK $B4XO"%j%s%/(B
-@url{http://openlab.jp/skk/links-ja.html}
 
 @item SKK $B<-=q(B Wiki $B$K$*$1$k%j%s%/=8(B
 @url{http://openlab.jp/skk/wiki/wiki.cgi?page=%A5%EA%A5%F3%A5%AF%BD%B8}

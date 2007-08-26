@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.136 2007/08/25 15:15:33 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.137 2007/08/26 15:45:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/08/25 15:15:33 $
+;; Last Modified: $Date: 2007/08/26 15:45:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1400,7 +1400,8 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	       (ccache-buffer (if (equal word cword)
 				  nil
 				(format " *skk %s %s" source cword)))
-	       (cccache-buffer (if (equal word ccword)
+	       (cccache-buffer (if (or (equal word ccword)
+				       (equal cword ccword))
 				   nil
 				 (format " *skk %s %s" source ccword)))
 	       (cache-buffer (format " *skk %s %s" source word))

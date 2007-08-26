@@ -1,3 +1,11 @@
+2007-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Remove duplicated descriptions also written in
+	NEWS.ja, TODO.ja, etc.
+
+	* skk-annotation.el (skk-annotation-wikipedia-cache): Also compare
+	ccword with cword.
+
 2007-08-26  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-henkan-in-minibuff): Call `skk-inline-hide' when
