@@ -1,10 +1,19 @@
 2007-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* Makefile (snapshot): Stop creating bzip2 archive.
+
 	* doc/skk.texi: Remove duplicated descriptions also written in
 	NEWS.ja, TODO.ja, etc.
 
 	* skk-annotation.el (skk-annotation-wikipedia-cache): Also compare
 	ccword with cword.
+
+	* skk-isearch.el (skk-isearch-setup-keymap): If
+	skk-j-mode-function-key-usage is non-nil, bind f1-f10 to
+	`skk-isearch-wrapper'.
+
+	* skk.el (skk-start-henkan-prog-{0-9}): Undefine and unread key
+	only when the global key binding is a keymap.
 
 2007-08-26  IRIE Tetsuya  <irie@t.email.ne.jp>
 

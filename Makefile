@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.63 2007/08/18 04:09:39 skk-cvs Exp $
-# Last Modified: $Date: 2007/08/18 04:09:39 $
+# Version: $Id: Makefile,v 1.64 2007/08/26 16:12:16 skk-cvs Exp $
+# Last Modified: $Date: 2007/08/26 16:12:16 $
 
 
 VERSION = 13.1
@@ -86,11 +86,11 @@ snapshot: clean
 	$(RM) $(SNAPBASE) ;\
 	ln -sf main $(SNAPBASE) ;\
 	$(TAR) -cvpf $(SNAPBASE).tar --exclude-from=$(SNAPBASE)/skk.ex --dereference $(SNAPBASE);\
-	$(BZIP2) -cf $(SNAPBASE).tar > $(SNAPBASE).tar.bz2 ;\
+#	$(BZIP2) -cf $(SNAPBASE).tar > $(SNAPBASE).tar.bz2 ;\
 	$(GZIP) -cf $(SNAPBASE).tar > $(SNAPBASE).tar.gz ;\
 	$(RM) $(SNAPBASE).tar ;\
 	$(RM) $(SNAPBASE) ;\
-	$(MD5) $(SNAPBASE).tar.bz2 >$(SNAPBASE).tar.bz2.md5 ;\
+#	$(MD5) $(SNAPBASE).tar.bz2 >$(SNAPBASE).tar.bz2.md5 ;\
 	$(MD5) $(SNAPBASE).tar.gz >$(SNAPBASE).tar.gz.md5
 	$(RM) skk-dic.el
 

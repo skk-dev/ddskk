@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.442 2007/08/26 10:38:48 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.443 2007/08/26 16:12:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/26 10:38:48 $
+;; Last Modified: $Date: 2007/08/26 16:12:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3153,8 +3153,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f1] nil)
-       (skk-unread-event 'f1)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f1])))
+	 (define-key skk-j-mode-map [f1] nil)
+	 (skk-unread-event 'f1))))))
 
 (defun skk-start-henkan-prog-2 (arg)
   (interactive "*p")
@@ -3164,8 +3165,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f2] nil)
-       (skk-unread-event 'f2)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f2])))
+	 (define-key skk-j-mode-map [f2] nil)
+	 (skk-unread-event 'f2))))))
 
 (defun skk-start-henkan-prog-3 (arg)
   (interactive "*p")
@@ -3175,8 +3177,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f3] nil)
-       (skk-unread-event 'f3)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f3])))
+	 (define-key skk-j-mode-map [f3] nil)
+	 (skk-unread-event 'f3))))))
 
 (defun skk-start-henkan-prog-4 (arg)
   (interactive "*p")
@@ -3186,8 +3189,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f4] nil)
-       (skk-unread-event 'f4)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f4])))
+	 (define-key skk-j-mode-map [f4] nil)
+	 (skk-unread-event 'f4))))))
 
 (defun skk-start-henkan-prog-5 (arg)
   (interactive "*p")
@@ -3197,8 +3201,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f5] nil)
-       (skk-unread-event 'f5)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f5])))
+	 (define-key skk-j-mode-map [f5] nil)
+	 (skk-unread-event 'f5))))))
 
 (defun skk-start-henkan-prog-6 (arg)
   (interactive "*p")
@@ -3208,8 +3213,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f6] nil)
-       (skk-unread-event 'f6)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f6])))
+	 (define-key skk-j-mode-map [f6] nil)
+	 (skk-unread-event 'f6))))))
 
 (defun skk-start-henkan-prog-7 (arg)
   (interactive "*p")
@@ -3219,8 +3225,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f7] nil)
-       (skk-unread-event 'f7)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f7])))
+	 (define-key skk-j-mode-map [f7] nil)
+	 (skk-unread-event 'f7))))))
 
 (defun skk-start-henkan-prog-8 (arg)
   (interactive "*p")
@@ -3230,8 +3237,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f8] nil)
-       (skk-unread-event 'f8)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f8])))
+	 (define-key skk-j-mode-map [f8] nil)
+	 (skk-unread-event 'f8))))))
 
 (defun skk-start-henkan-prog-9 (arg)
   (interactive "*p")
@@ -3241,8 +3249,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f9] nil)
-       (skk-unread-event 'f9)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f9])))
+	 (define-key skk-j-mode-map [f9] nil)
+	 (skk-unread-event 'f9))))))
 
 (defun skk-start-henkan-prog-0 (arg)
   (interactive "*p")
@@ -3252,8 +3261,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (condition-case err
 	(skk-emulate-original-map arg)
       (error
-       (define-key skk-j-mode-map [f0] nil)
-       (skk-unread-event 'f0)))))
+       (when (keymapp (let (skk-j-mode) (key-binding [f0])))
+	 (define-key skk-j-mode-map [f0] nil)
+	 (skk-unread-event 'f0))))))
 
 (defun skk-auto-start-henkan (str)
   "$B$"$k>r7o2<$K$*$$$F!"<+F0E*$KJQ49$r3+;O$9$k!#(B
