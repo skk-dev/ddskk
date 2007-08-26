@@ -2953,8 +2953,7 @@
 	* skk-vars.el: New file for definitions of user variables.
 	(skk-emacs-id): New internal variable.
 	(skk-jisyo-update-vector): Ditto.
-
-Local Variables:
-mode: change-log
-buffer-file-coding-system: iso-2022-jp
-End:
+
+;; Local Variables:
+;; coding: iso-2022-7bit
+;; End:

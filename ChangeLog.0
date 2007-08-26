@@ -2234,7 +2234,7 @@ skk-j-mode-map
 	来のものと変更されてるものが色々あります。これはお手数ですが、ソー
 	スを見ていただくということで勘弁して下さい。ネーミングが変だ、とい
 	うようなご指摘がありましたら、どんどんお願いいたします。
-
-Local Variables:
-buffer-file-coding-system: iso-2022-jp
-End:
+
+;; Local Variables:
+;; coding: iso-2022-7bit
+;; End:
