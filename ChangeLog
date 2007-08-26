@@ -1,3 +1,8 @@
+2007-08-26  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-henkan-in-minibuff): Call `skk-inline-hide' when
+	exiting jisyo touroku by C-g or RET.
+
 2007-08-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia):

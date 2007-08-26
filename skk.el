@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.441 2007/08/20 11:52:07 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.442 2007/08/26 10:38:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/20 11:52:07 $
+;; Last Modified: $Date: 2007/08/26 10:38:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2266,6 +2266,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 			      skk-read-from-minibuffer-function)
 		     (funcall skk-read-from-minibuffer-function))))
 	  (quit
+	   (skk-inline-hide)
 	   (setq new-one ""))))
       (when (and skk-check-okurigana-on-touroku
 		 ;; $BAw$j$"$jJQ49$G$b(B skk-okuri-char $B$@$1$@$HH=CG$G$-$J$$!#(B
@@ -2273,6 +2274,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	(setq new-one (skk-remove-redundant-okurigana new-one)))
       (cond
        ((string= new-one "")
+	(skk-inline-hide)
 	(if (skk-exit-show-candidates)
 	    ;; $B%(%3!<%(%j%"$KI=<($7$?8uJd$,?T$-$F<-=qEPO?$KF~$C$?$,!"6uJ8;z(B
 	    ;; $BNs$,EPO?$5$l$?>l9g!#:G8e$K%(%3!<%(%j%"$KI=<($7$?8uJd72$r:FI=(B
