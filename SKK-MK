@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.159 2007/06/13 21:41:50 skk-cvs Exp $
-;; Last Modified: $Date: 2007/06/13 21:41:50 $
+;; Version: $Id: SKK-MK,v 1.160 2007/08/27 09:03:56 skk-cvs Exp $
+;; Last Modified: $Date: 2007/08/27 09:03:56 $
 
 ;;; Commentary:
 
@@ -778,6 +778,7 @@ This version of SKK requires MULE features"))
       (setq x (expand-file-name (car targets) DOCDIR))
       (find-file x)
       (setq obuf (current-buffer))
+      (texinfo-every-node-update)
       (texinfo-format-buffer)
       (save-buffer)
       (kill-buffer (current-buffer))	; info
