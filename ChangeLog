@@ -1,6 +1,7 @@
 2007-08-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Simplify node descriptions.
+
 	* SKK-MK (SKK-MK-texinfo-format): Call
 	`texinfo-every-node-update'.
 	
