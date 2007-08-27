@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/08/27 09:03:56 $
+@set UPDATED $Date: 2007/08/27 09:13:28 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6119,9 +6119,12 @@ other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!(
 $B$N8uJd$r=P$9$3$H$,$G$-$k$h$&$K$J$j$^$9(B @footnote{@file{skk-lookup.el}
 $B$O(B @file{skk-look.el} $B$H$OJL$b$N$G$9!#(B}$B!#(B
 
-DDSKK $B$r%$%s%9%H!<%k$9$k;~$K(B @file{SKK-CFG} $B$rJT=8$7$F!"(B @file{lookup.el}
-$B$N$"$k%Q%9$r(B @code{ADDITIONAL_LISPDIR} $B$K@_Dj$7$F%$%s%9%H!<%k$7$F(B
-$B2<$5$$!#<+F0E*$K(B @file{skk-lookup.el} $B$,%$%s%9%H!<%k$5$l$^$9(B
+DDSKK $B$N%$%s%9%H!<%k2aDx$G(B @code{(require 'lookup)} $B$,@.8y$9$k>l9g$O(B
+@file{skk-lookup.el} $B$b<+F0E*$K%$%s%9%H!<%k$5$l$^$9!#(B
+Lookup $B$,%$%s%9%H!<%k$5$l$F$$$k$K$b4X$o$i$:!"$&$^$/(B @file{skk-lookup.el} $B$,(B
+$B%$%s%9%H!<%k$5$l$J$$>l9g$O!"(B@file{SKK-CFG} $B$rJT=8$7$F(B @file{lookup.el}
+$B$,$"$k%Q%9$r(B @code{ADDITIONAL_LISPDIR} $B$K@_Dj$7!":FEY(B DDSKK $B$r%$%s%9%H!<%k$7$F(B
+$B2<$5$$!#(B
 @footnote{$B4X?t(B @code{skk-lookup-search} $B$,(B @file{skk-autoloads.el} $B$K(B
 $BDI2C$5$l$^$9(B (@pxref{$B<-=q8!:w$N$?$a$N4X?t(B}).}$B!#(B
 

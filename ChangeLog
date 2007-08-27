@@ -1,3 +1,9 @@
+2007-08-26  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-lookup.el: <HOW TO INSTALL> update.
+
+	* doc/skk.texi: update (part concerning `skk-lookup').
+
 2007-08-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Simplify node descriptions.

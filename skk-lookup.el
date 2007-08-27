@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.28 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-lookup.el,v 1.29 2007/08/27 09:13:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/08/27 09:13:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -36,7 +36,7 @@
 ;; make を実行する際に、lookup.el にパスが通っていて require できる
 ;; ときは、本プログラムも自動的にインストールされます。lookup.el が
 ;; インストールされているのに Emacs が検出してくれないときは、
-;; SKK-CFG を編集して VERSION_SPECIFIC_LISPDIR にそのパスを書くと良
+;; SKK-CFG を編集して ADDITIONAL_LISPDIR にそのパスを書くと良
 ;; いでしょう。
 ;;
 ;; <HOW TO USE>
