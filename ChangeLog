@@ -1,3 +1,8 @@
+2007-08-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-start-henkan-prog-null-handler): New function.
+	(skk-start-henkan-prog-{0-9}): Use it.
+	
 2007-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile (snapshot): Stop creating bzip2 archive.
