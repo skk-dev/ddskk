@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/08/28 10:40:05 $
+@set UPDATED $Date: 2007/08/28 14:37:30 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -288,9 +288,8 @@ SKK $B$NL>$NA0$KIU$$$F$$$k(B @samp{Daredevil} $B$,5$$K$J$kA!:Y$JJ}$O(B
 @cindex APEL
 
 DDSKK 13 $B$O<o!9$N(B Emacsen $B$G$NF0:n$r2DG=$H$9$k$?$a(B APEL (A Portable
-Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 13.1 $B$O(B APEL 10.7 $B$G$NF0:n$r3NG'$7$F$$(B
-$B$^$9$,!"(B APEL $B$O(B Emacs/XEmacs $B$N%P!<%8%g%s%"%C%W$K9g$o$;$FF|?J7nJb$J$N$G!"(B
-$B$G$-$k$@$1?7$7$$%P!<%8%g%s$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
+Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 13.1 $B$O(B APEL 10.7 $B$G$NF0:n$r3NG'$7$F(B
+$B$$$^$9$,!"$G$-$k$@$1?7$7$$%P!<%8%g%s$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
 
 @display
 @url{http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/}
@@ -301,10 +300,6 @@ Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 13.1 $B$O(B APEL 10.7 $B$G$NF0:n$r3N
 $B$h$jF~<j$G$-$^$9!#(B
 
 DDSKK $B$N%$%s%9%H!<%k$r$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
-
-@display
-@xref{Q.2-4 APEL $B$C$F2?$G$9$+(B?}.
-@end display
 
 @node DDSKK $B$N%$%s%9%H!<%k(B
 @section DDSKK $B$N%$%s%9%H!<%k(B
@@ -6943,8 +6938,8 @@ Perl $B$K$h$k%D!<%k$O8=:_==J,%a%s%F%J%s%9$5$l$F$$$^$;$s!#8=:_$O(B C, ruby $B$
 @section SKK$B$N:n<T(B
 
 SKK $B$N86:n<T$O!"8=5~ETBg3X$N(B
-@uref{http://www.sato.kuis.kyoto-u.ac.jp/member/masahiko-j.html, $B:4F#2m(B
-$BI'65<x(B}$B$G$9!#(B
+@uref{http://www.sato.kuis.kyoto-u.ac.jp/member/masahiko-j.html,
+$B:4F#2mI'65<x(B}$B$G$9!#(B
 
 $B8=:_$N(B DDSKK $B$O!"Bg@*$N%\%i%s%F%#%"$N9W8%$K$h$j@.N)$7$F$$$^$9!#0J2<$O3N(B
 $BG'$5$l$F$$$k9W8%<TL>$G$9!#$3$3$KF~$C$F$$$J$$9W8%<T$,$*$i$l$k>l9g!"(Bemail
@@ -7242,14 +7237,18 @@ APEL $B$O(B A Portable Emacs Library $B$NN,$G$9!#(BAPEL $B$N<g$J5!G=$O0[$J$
 @node Q.2-1 SKK $B$r;H$&$N$K2?$,I,MW$G$9$+(B?
 @unnumberedsubsec Q.2-1 SKK $B$r;H$&$N$K2?$,I,MW$G$9$+(B?
 
-SKK $BK\BN$H(B SKK $B<-=q$,I,MW$G$9!#%*%W%7%g%s$G(B SKK $B<-=q%5!<%P$rMQ0U$9$k$3$H(B
-$B$,$G$-$^$9!#(BSKK $BK\BN$O(B
+APEL, SKK $BK\BN$H(B SKK $B<-=q$,I,MW$G$9!#%*%W%7%g%s$G(B SKK $B<-=q%5!<%P$rMQ0U$9(B
+$B$k$3$H$,$G$-$^$9!#(B
+
+@display
+@xref{APEL $B$N%$%s%9%H!<%k(B}
+@end display
+
+SKK $BK\BN$O0J2<$+$iF~<j$G$-$^$9!#(B
 
 @display
 @url{http://openlab.jp/skk/maintrunk}
 @end display
-
-$B$+$iF~<j$G$-$^$9!#(B
 
 @node Q.2-2 SKK $B<-=q$O$I$3$K$"$j$^$9$+(B?
 @unnumberedsubsec SKK $B<-=q$O$I$3$K$"$j$^$9$+(B?
@@ -7872,7 +7871,7 @@ t $B$K%;%C%H$7$F(B Emacs/SKK $B$rN)$A>e$2D>$7$F2<$5$$!#(B
 $B$k%9%Z%k%A%'%C%/!&=$@5$r%*%U$K$7$F$*;n$72<$5$$!#(B
 
 @node Q.5-3 $B;THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+(B?
-@unnumberedsubsec Q.5-3 SKK $B$N8!:w$G!";THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+(B?
+@unnumberedsubsec Q.5-3 $B;THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+(B?
 @cindex @file{skk-lookup.el}
 @cindex Lookup
 @vindex skk-search-prog-list
@@ -7916,7 +7915,7 @@ Lookup $B$K$D$$$F$O!"(B
 epwutil $B$G(B @code{squeeze} $B$7$?<-=q%G!<%?$N%5%$%:$O(B 45MB $B<e$G$9!#(B
 
 @node Q.5-4 $BB>$N(B FEP $B$r;HMQCf$K$b(B SHIFT $B$r2!$7$F$7$^$$$^$9!#(B
-@unnumberedsubsec Q.5-4 SKK $B$r;H$$;O$a$F$+$i!"B>$N(B FEP $B$r;HMQCf$K$b(B @key{SHIFT} $B$r2!$7$F$7$^$$$^$9!#(B
+@unnumberedsubsec Q.5-4 $BB>$N(B FEP $B$r;HMQCf$K$b(B @key{SHIFT} $B$r2!$7$F$7$^$$$^$9!#(B
 
 $B<#$9$K$O(B SKK $B$r$d$a$k$7$+$"$j$^$;$s(B :-)
 
