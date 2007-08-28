@@ -1,3 +1,7 @@
+2007-08-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Remove obsolete sections.
+
 2007-08-26  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-lookup.el: <HOW TO INSTALL> update.
@@ -10,7 +14,7 @@
 
 	* SKK-MK (SKK-MK-texinfo-format): Call
 	`texinfo-every-node-update'.
-	
+
 	* skk.el (skk-start-henkan-prog-null-handler): New function.
 	(skk-start-henkan-prog-{0-9}): Use it.
 
