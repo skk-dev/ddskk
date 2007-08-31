@@ -1,6 +1,6 @@
 * $B6a$$Fb$K2r7h$9$Y$-(B TODO
 
-$B$$$^$N$H$3$m$J$7(B (?)
+** skk.texi $B$r$J$s$H$+$9$k!#3HD%5!G=$N@bL@$r5-=R$9$k!#(B
 
 * $BJQ49%b!<%I(B
 
@@ -81,6 +81,25 @@ skk-abbrev-mode $B$G6hE@%3!<%I$rJ8;z$KJQ49$9$k5!G=$,$"$C$F$b$$$$$+$b$7$l(B
 $B$$$k!#(B
 
 $B4V@\E*$@$,>e5-!VG$0U$N30It%3%^%s%I8!:w5!G=!W$rMxMQ$9$k$3$H$G$b2DG=!#(B
+
+** skk-search-prog-list $B$N3HD%(B
+
+skk-search-prog-list $B$NMWAG$O8=:_!"(B
+
+ (skk-search-jisyo-file '("/usr/share/skk/SKK-JISYO.L" . euc-jp)
+                        10000)
+
+ (skk-search-server "/usr/share/skk/SKK-JISYO.L" 10000)
+
+$B$N$h$&$K5-=R$7!"$=$N$^$^(B eval $B$G$-$k;EMM$K$J$C$F$$$k!#$b$7$3$N@_Dj$r(B
+plist $B$r$b5vMF$7$F(B
+
+ (file :file "/usr/share/skk/SKK-JISYO.L" :coding euc-jp :limit 10000)
+
+ (server :host "localhost" :port 1178)
+
+$B$H$$$&;XDj$r2DG=$K$G$-$J$$$+!#$3$NJ}K!$@$H!"J#?t%5!<%P$X$NBP1~$b<+A3$J(B
+$B7A$G<BAu$G$-$=$&!#(B
 
 * $B<-=q$N<h$j07$$(B
 
@@ -200,6 +219,9 @@ skk.texi $B$N5-=R$N$&$A!"(Bweb $B$r4^$a$?B>$N%I%-%e%a%s%H$H$N=EJ#@-$O$5$i$K(
 
 Texi $BFCM-$N0];}$N$7$K$/$5$b$"$k$N$G!"(BSKK $B<-=q(B Wiki $B$b4^$a$F0];}$7$d$9(B
 $B$$7A$K>/$7$:$DE>49$7$F$$$C$F$b$$$$$+$b$7$l$J$$!#(B
+
+skk.texi $B$K0lHVMW5a$5$l$k$N$O!"(BSKK $B$N5!G=$K$D$$$F>\:Y$K2r@b$9$k$3$H!#(B
+$B$3$NItJ,$OB>$N7A<0$G$O$J$/$F(B texi $B$G0];}$7!"0i$F$F$$$/$Y$-!#(B
 
 ** $B1Q8lHG%I%-%e%a%s%H$N@0Hw(B
 
