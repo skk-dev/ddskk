@@ -1,3 +1,7 @@
+2007-09-01  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Add skk-preload.
+
 2007-08-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Remove obsolete sections.
