@@ -224,27 +224,7 @@
 ;; Hooks.
 
 (add-hook 'skk-mode-hook 'skk-nicola-setup)
-
-(add-hook
- 'skk-mode-hook
- #'(lambda ()
-     ;;
-     (case skk-kanagaki-state
-       (kana
-	(setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
-	      skk-katakana-mode-string skk-nicola-katakana-mode-string))
-       (rom
-	(setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
-	      skk-katakana-mode-string skk-nicola-katakana-rom-string)))
-     ;;
-     (skk-modify-indicator-alist 'katakana
-				 skk-katakana-mode-string)
-     (skk-modify-indicator-alist 'hiragana
-				 skk-hiragana-mode-string)
-     ;;
-     (skk-update-modeline (if skk-katakana
-			      'katakana
-			    'hiragana))))
+(add-hook 'skk-mode-hook 'skk-nicola-setup-modeline)
 
 ;; Functions.
 
@@ -295,6 +275,24 @@
 		    skk-kanagaki-keyboard-type)))))
   ;;
   (remove-hook 'skk-mode-hook 'skk-nicola-setup))
+
+(defun skk-nicola-setup-modeline ()
+  (case skk-kanagaki-state
+    (kana
+     (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
+	   skk-katakana-mode-string skk-nicola-katakana-mode-string))
+    (rom
+     (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
+	   skk-katakana-mode-string skk-nicola-katakana-rom-string)))
+  ;;
+  (skk-modify-indicator-alist 'katakana
+			      skk-katakana-mode-string)
+  (skk-modify-indicator-alist 'hiragana
+			      skk-hiragana-mode-string)
+  ;;
+  (skk-update-modeline (if skk-katakana
+			   'katakana
+			 'hiragana)))
 
 (defun skk-nicola-setup-tutorial ()
   (dolist (key skk-nicola-lshift-keys)
@@ -988,6 +986,11 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
 	   (newline arg)))))
 
 ;; Pieces of Advice.
+
+(defadvice skk-kanagaki-initialize (after skk-nicols-setup activate)
+  ;; M-x skk-restart 対策として
+  (add-hook 'skk-mode-hook 'skk-nicola-setup)
+  (add-hook 'skk-mode-hook 'skk-nicola-setup-modeline))
 
 (defadvice skk-insert (before skk-nicola-update-flag activate)
   "送り待ち状態を管理する。"
