@@ -1,12 +1,13 @@
 ;;; skk-macs.el --- macros and inline functions commonly used in SKK -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1999-2007  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1993, 2000 Free Software Foundation, Inc.
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.121 2007/09/02 01:39:34 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.122 2007/09/02 02:06:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/02 01:39:34 $
+;; Last Modified: $Date: 2007/09/02 02:06:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -54,6 +55,8 @@ Otherwise, return result of last FORM."
 ;;;###autoload
 (put 'dolist 'lisp-indent-function 1)
 (put 'dolist 'defmacro-maybe (eq skk-emacs-type 'mule4))
+
+;; From GNU Emacs 21.
 (defmacro-maybe dolist (spec &rest body)
   "(dolist (VAR LIST [RESULT]) BODY...): loop over a list.
 Evaluate BODY with VAR bound to each car from LIST, in turn.
@@ -72,6 +75,8 @@ Then evaluate RESULT to get return value, default nil."
 ;;;###autoload
 (put 'dotimes 'lisp-indent-function 1)
 (put 'dotimes 'defmacro-maybe (eq skk-emacs-type 'mule4))
+
+;; From GNU Emacs 21.
 (defmacro-maybe dotimes (spec &rest body)
   "(dotimes (VAR COUNT [RESULT]) BODY...): loop a certain number of times.
 Evaluate BODY with VAR bound to successive integers running from 0,
@@ -260,6 +265,8 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 
 ;;; functions.
 ;; version dependent
+
+;; From XEmacs 21.5.
 (defun-maybe propertize (string &rest properties)
   "Return a copy of STRING with text properties added.
 First argument is the string to copy.
@@ -271,6 +278,19 @@ properties to add to the result."
 			 str)
     str))
 
+(defun-maybe substring-no-properties (string &optional from to)
+  "Return a substring of string, without text properties.
+It starts at index from and ending before to.
+to may be nil or omitted; then the substring runs to the end of string.
+If from is nil or omitted, the substring starts at the beginning of string.
+If from or to is negative, it counts from the end.
+
+With one argument, just copy string without its properties."
+  (let ((substr (copy-sequence (substring string (or from 0) to))))
+    (set-text-properties 0 (length substr) nil substr)
+    substr))
+
+;; From GNU Emacs 22.1.
 (defun-maybe replace-regexp-in-string (regexp rep string &optional
 					      fixedcase literal subexp start)
   "Replace all matches for REGEXP with REP in STRING.
@@ -329,21 +349,10 @@ and replace a sub-expression, e.g.
       (setq matches (cons (substring string start l) matches)) ; leftover
       (apply #'concat (nreverse matches)))))
 
-(defun-maybe substring-no-properties (string &optional from to)
-  "Return a substring of string, without text properties.
-It starts at index from and ending before to.
-to may be nil or omitted; then the substring runs to the end of string.
-If from is nil or omitted, the substring starts at the beginning of string.
-If from or to is negative, it counts from the end.
-
-With one argument, just copy string without its properties."
-  (let ((substr (copy-sequence (substring string (or from 0) to))))
-    (set-text-properties 0 (length substr) nil substr)
-    substr))
-
 (static-unless (featurep 'xemacs)
   (fmakunbound 'next-command-event))
 
+;; For GNU Emacs.
 (defun-maybe next-command-event (&optional event prompt)
   "Read an event object from the input stream.
 If EVENT is non-nil, it should be an event object and will be filled
@@ -353,6 +362,7 @@ If PROMPT is non-nil, it should be a string and will be displayed in
 the echo area while this function is waiting for an event."
   (read-event prompt))
 
+;; For GNU Emacs 20.7.
 (defalias-maybe 'plist-member 'widget-plist-member)
 
 (defsubst skk-sit-for (seconds &optional nodisplay)
