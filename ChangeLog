@@ -11,6 +11,9 @@
 
 	* skk.el (skk-restart): Always use it.
 
+	* skk-xemacs.el (skk-tooltip-show-at-point): Use the same top
+	position in listing.
+
 2007-09-01  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Add skk-preload.

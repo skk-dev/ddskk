@@ -299,9 +299,7 @@
 		      (+ (car P) (/ (1+ fontsize) 2)))
 		  (frame-parameter (selected-frame) 'left)))
 	 (top (+ (cadr edges)
-		 (if (eq situation 'listing)
-		     0
-		   (* 7 (/ (1+ fontsize) 2)))
+		 (* 7 (/ (1+ fontsize) 2))
 		 (or (current-pixel-row window pos)
 		     (+ (cdr P) fontsize))
 		 (frame-parameter (selected-frame) 'top)))
