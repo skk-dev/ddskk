@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.444 2007/08/27 07:13:29 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.445 2007/09/02 01:39:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/27 07:13:29 $
+;; Last Modified: $Date: 2007/09/02 01:39:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -257,9 +257,7 @@ dependent."
 		;; 他にも除外すべき変数がないか要検討。
 		(when (and (string-match "^skk-" (symbol-name sym))
 			   (not (eq sym 'skk-init-file))
-			   (static-if (eq skk-emacs-type 'mule4)
-			       (widget-plist-member (symbol-plist sym) 'standard-value)
-			     (plist-member (symbol-plist sym) 'standard-value)))
+			   (plist-member (symbol-plist sym) 'standard-value))
 		  (set-default sym
 			       (eval (car (get sym 'standard-value)))))))
   (let (skk-mode-invoked)

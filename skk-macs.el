@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.120 2007/08/13 23:37:24 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.121 2007/09/02 01:39:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/13 23:37:24 $
+;; Last Modified: $Date: 2007/09/02 01:39:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -352,6 +352,8 @@ returned.
 If PROMPT is non-nil, it should be a string and will be displayed in
 the echo area while this function is waiting for an event."
   (read-event prompt))
+
+(defalias-maybe 'plist-member 'widget-plist-member)
 
 (defsubst skk-sit-for (seconds &optional nodisplay)
   "`sit-for' の Emacsen による違いを吸収する。"

@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.160 2007/08/27 09:03:56 skk-cvs Exp $
-;; Last Modified: $Date: 2007/08/27 09:03:56 $
+;; Version: $Id: SKK-MK,v 1.161 2007/09/02 01:39:34 skk-cvs Exp $
+;; Last Modified: $Date: 2007/09/02 01:39:34 $
 
 ;;; Commentary:
 
@@ -601,18 +601,10 @@ This version of SKK requires MULE features"))
     (unless (file-exists-p SKK_INFODIR)
       (make-directory SKK_INFODIR t))
     (SKK-MK-compile-info)
-    (let ((files (list SKK_INFO))
-	  (i 1) file)
-      (while (file-exists-p
-	      (expand-file-name
-	       (setq file (format "%s-%d" SKK_INFO i))
-	       DOCDIR))
-	(setq files (cons file files))
-	(setq i (1+ i)))
-      (install-files (nreverse files)
-		     DOCDIR
-		     SKK_INFODIR
-		     nil t nil))
+    (install-files (list SKK_INFO)
+		   DOCDIR
+		   SKK_INFODIR
+		   nil t nil)
     (require 'install-info
 	     (expand-file-name "install-info.el"))
     (let ((info-file (expand-file-name
@@ -779,7 +771,7 @@ This version of SKK requires MULE features"))
       (find-file x)
       (setq obuf (current-buffer))
       (texinfo-every-node-update)
-      (texinfo-format-buffer)
+      (texinfo-format-buffer 'nosplit)
       (save-buffer)
       (kill-buffer (current-buffer))	; info
       (kill-buffer obuf)		; texi
