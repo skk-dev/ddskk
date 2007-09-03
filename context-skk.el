@@ -92,9 +92,11 @@
 ;; で オン/オフをできます。モードラインに ";▽" が表示されている
 ;; 場合、このマイナーモードがonになっていることを意味します。
 ;;
-;; - インストール
+;; - インストール - .emacs に以下を記述します。
+;;
 ;; (add-hook 'skk-load-hook
-;;           '(require 'context-skk))
+;;	  (lambda ()
+;;	    (require 'context-skk)))
 ;;
 ;; - todo 
 ;; Handling the prefix arguments

@@ -1,3 +1,7 @@
+2007-09-03  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Add description on context-skk.
+
 2007-09-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK-MK-texinfo-format): Give `texinfo-format-buffer' the
