@@ -1,4 +1,4 @@
-;;;; $Id: queue-m.el,v 1.4 2007/04/22 02:38:26 skk-cvs Exp $
+;;;; $Id: queue-m.el,v 1.5 2007/09/03 21:01:20 skk-cvs Exp $
 ;;;; This file implements a simple FIFO queue using macros.
 
 ;; Copyright (C) 1991-1995 Free Software Foundation
@@ -6,7 +6,7 @@
 ;; Author: Inge Wallin <inge@lysator.liu.se>
 ;; Maintainer: elib-maintainers@lysator.liu.se
 ;; Created: before 12 May 1991
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/09/03 21:01:20 $
 ;; Keywords: extensions, lisp
 
 ;;;;
@@ -55,12 +55,12 @@
 
 (defmacro queue-create ()
   "Create an empty fifo queue."
-  (` (cons 'QUEUE (cons nil nil))))
+  `(cons 'QUEUE (cons nil nil)))
 
 
 (defmacro queue-p (queue)
   "Return t if QUEUE is a queue, otherwise return nil."
-  (` (eq (car-safe (, queue)) 'QUEUE)))
+  `(eq (car-safe ,queue) 'QUEUE))
 
 
 (defun queue-enqueue (queue element)
@@ -92,13 +92,13 @@ If QUEUE is empty, return nil and do nothing."
 
 (defmacro queue-empty (queue)
   "Return t if QUEUE is empty, otherwise return nil."
-  (` (null (car (cdr (, queue))))))
+  `(null (car (cdr ,queue))))
 
 
 (defmacro queue-first (queue)
   "Return the first element of QUEUE or nil if it is empty.
 The element is not removed."
-  (` (car-safe (car (cdr (, queue))))))
+  `(car-safe (car (cdr ,queue))))
 
 
 (defmacro queue-nth (queue n)
@@ -107,18 +107,18 @@ Args: QUEUE N
 If the length of the queue is less than N, return nil.
 
 The oldest element (the first one) has number 0."
-  (` (nth (, n) (car (cdr (, queue))))))
+  `(nth ,n (car (cdr ,queue))))
 
 
 (defmacro queue-last (queue)
   "Return the last element of QUEUE or nil if it is empty."
-  (` (car-safe (cdr (cdr (, queue))))))
+  `(car-safe (cdr (cdr ,queue))))
 
 
 (defmacro queue-all (queue)
   "Return a list of all elements of QUEUE or nil if it is empty.
 The oldest element in the queue is the first in the list."
-  (` (car (cdr (, queue)))))
+  `(car (cdr ,queue)))
 
 
 (defun queue-copy (queue)
@@ -132,11 +132,11 @@ The oldest element in the queue is the first in the list."
 
 (defmacro queue-length (queue)
   "Return the number of elements in QUEUE."
-  (` (length (car (cdr (, queue))))))
+  `(length (car (cdr ,queue))))
 
 
 (defmacro queue-clear (queue)
   "Remove all elements from QUEUE."
-  (` (setcdr (, queue) (cons nil nil))))
+  `(setcdr ,queue (cons nil nil)))
 
 ;;; queue-m.el ends here

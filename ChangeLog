@@ -2,6 +2,15 @@
 
 	* doc/skk.texi: Add description on context-skk.
 
+2007-09-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* install-info.el:
+	* queue-m.el:
+	* skk-vars.el:
+	* skk-viper.el:
+
+	Eliminate old-style backquotes.
+
 2007-09-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK-MK-texinfo-format): Give `texinfo-format-buffer' the

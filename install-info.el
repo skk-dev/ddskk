@@ -38,29 +38,29 @@
 ;; Macros.
 (defmacro install-info-compressed-name-p (filename)
   (when (featurep 'jka-compr)
-    (` (jka-compr-get-compression-info (, filename)))))
+    `(jka-compr-get-compression-info ,filename)))
 
 (defmacro install-info-forward-line (n)
-  (` (when (< 0 (forward-line (, n)))
-       (unless (bolp)
-	 (insert "\n")))))
+  `(when (< 0 (forward-line ,n))
+     (unless (bolp)
+       (insert "\n"))))
 
 (put 'install-info-save-point 'lisp-indent-function 0)
 (defmacro install-info-save-point (&rest forms)
-  (` (let ((original-point (point)))
-       (prog1
-	   (progn (,@ forms))
-	 (goto-char original-point)))))
+  `(let ((original-point (point)))
+     (prog1
+	 (progn ,@forms)
+       (goto-char original-point))))
 
 (defmacro install-info-point-at-eol (&optional n)
   (if (fboundp 'point-at-eol)
-      (` (point-at-eol (, n)))
-    (` (install-info-save-point
-	 (if (or (null (, n)) (= 1 (, n)))
-	     (end-of-line)
-	   (when (eq (forward-line (- (, n) 1)) 0)
-	     (end-of-line)))
-	 (point)))))
+      `(point-at-eol ,n)
+    `(install-info-save-point
+      (if (or (null ,n) (= 1 ,n))
+	  (end-of-line)
+	(when (eq (forward-line (- ,n 1)) 0)
+	  (end-of-line)))
+      (point))))
 
 ;; Functions.
 (defun install-info-skip-blank-lines ()

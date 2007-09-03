@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.36 2007/06/28 13:10:59 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.37 2007/09/03 21:01:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/06/28 13:10:59 $
+;; Last Modified: $Date: 2007/09/03 21:01:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -43,9 +43,9 @@
 
 ;;; macros and inline functions.
 (defmacro skk-viper-advice-select (viper vip arg body)
-  (` (if skk-viper-use-vip-prefix
-	 (defadvice (, vip) (, arg) (,@ body))
-       (defadvice (, viper) (, arg) (,@ body)))))
+  `(if skk-viper-use-vip-prefix
+	 (defadvice ,vip ,arg ,@body)
+       (defadvice ,viper ,arg ,@body)))
 
 (setq skk-kana-cleanup-command-list
       (cons
@@ -100,12 +100,11 @@
 	     viper-open-line))))
     (dolist (func funcs)
       (eval
-       (`
-	(defadvice (, (intern (symbol-name func)))
+       `(defadvice ,(intern (symbol-name func))
 	  (after skk-viper-cursor-ad activate)
 	  "Set cursor color which represents skk mode."
 	  (when skk-use-color-cursor
-	    (skk-cursor-set)))))))
+	    (skk-cursor-set))))))
 
   (let ((funcs '(skk-abbrev-mode
 		 skk-jisx0208-latin-mode
@@ -113,14 +112,13 @@
 		 skk-toggle-kana)))
     (dolist (func funcs)
       (eval
-       (`
-	(defadvice (, (intern (symbol-name func)))
+       `(defadvice ,(intern (symbol-name func))
 	  (after skk-viper-cursor-ad activate)
 	  "\
 viper-insert-state-cursor-color を SKK の入力モードのカーソル色と合わせる。"
 	  (when skk-use-color-cursor
 	    (setq viper-insert-state-cursor-color
-		  (skk-cursor-current-color))))))))
+		  (skk-cursor-current-color)))))))
 
   (defadvice skk-mode (after skk-viper-cursor-ad activate)
     "\

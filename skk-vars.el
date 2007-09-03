@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.249 2007/08/26 17:06:21 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.250 2007/09/03 21:01:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/26 17:06:21 $
+;; Last Modified: $Date: 2007/09/03 21:01:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4357,8 +4357,8 @@ The English version is SKK.tut.E."
   :group 'skk-tut)
 
 (defvar skk-tut-file-alist
-  (` (("Japanese" . (, skk-tut-file))
-      ("English" . (, (concat skk-tut-file ".E")))))
+  `(("Japanese" . ,skk-tut-file)
+    ("English" . ,(concat skk-tut-file ".E")))
   "*Alist of `(LANGUAGE . TUTORIAL-FILE)' pairs.")
 
 (defcustom skk-tut-use-face skk-use-face
