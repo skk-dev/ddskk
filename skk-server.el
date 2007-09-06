@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.42 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-server.el,v 1.43 2007/09/06 13:50:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/09/06 13:50:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -206,7 +206,7 @@ HOST が nil ならば `skk-server-host' を参照する。
 				(or host skk-server-host)
 				(or port "skkserv"))))
       (static-cond
-       ((and (not (featurep 'xemacs))
+       ((and (string-match "^GNU" (emacs-version))
 	     (string-lessp "22.0" emacs-version))
 	(set-process-query-on-exit-flag process nil))
        (t

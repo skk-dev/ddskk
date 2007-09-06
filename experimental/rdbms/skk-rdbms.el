@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@namazu.org>
-;; Version: $Id: skk-rdbms.el,v 1.11 2007/07/21 08:29:30 skk-cvs Exp $
+;; Version: $Id: skk-rdbms.el,v 1.12 2007/09/06 13:50:22 skk-cvs Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2007/07/21 08:29:30 $
+;; Last Modified: $Date: 2007/09/06 13:50:22 $
 
 ;; This file is not part of Daredevil SKK yet.
 
@@ -205,92 +205,85 @@ CREATE TABLE hinsi_data \(
 ;; からね。PostgreSQL 以外の RDBMS を使う人にはマクロを書き替えてもら
 ;; う...酷だろうか？
 (defmacro skk-rdbms-SQL-insert-command (word)
-  (`
-   (if (not skk-henkan-okurigana)
+  `(if (not skk-henkan-okurigana)
        (format
 	"INSERT INTO %s (okuriari,yomi,kanji,date) VALUES (%s, '%s', '%s', '%s');"
-	skk-rdbms-private-jisyo-table 0 skk-henkan-key (, word)
+	skk-rdbms-private-jisyo-table 0 skk-henkan-key ,word
 	(current-time-string))
      (format
       "INSERT INTO %s (okuriari,yomi,kanji,okurigana,date) VALUES (%s, '%s', '%s', '%s', '%s');"
-      skk-rdbms-private-jisyo-table 1 skk-henkan-key (, word) skk-henkan-okurigana
-      (current-time-string)))))
+      skk-rdbms-private-jisyo-table 1 skk-henkan-key ,word skk-henkan-okurigana
+      (current-time-string))))
 
 (defmacro skk-rdbms-SQL-delete-command (word)
-  (`
-   (concat
+  `(concat
     (format
      "DELETE FROM %s WHERE kanji = '%s' AND yomi = '%s' AND okuriari = %s "
-	    skk-rdbms-private-jisyo-table (, word) skk-henkan-key
-	    (if skk-okuri-char 1 0))
+     skk-rdbms-private-jisyo-table ,word skk-henkan-key
+     (if skk-okuri-char 1 0))
     (if (and skk-henkan-okuri-strictly skk-henkan-okurigana)
 	(format "AND okurigana = '%s'" skk-henkan-okurigana))
-    ";")))
+    ";"))
 
 (defmacro skk-rdbms-SQL-regexp-delete-command (word)
-  (`
-   (concat
+  `(concat
     ;; 当然だけど、正規表現が使えない RDBMS では使えないね...。どん
     ;; どん PostgreSQL 寄りになってゆく...f(^_^;;;。
     (format
      "DELETE FROM %s WHERE kanji ~ '%s' AND yomi = '%s' AND okuriari = %s "
-	    skk-rdbms-private-jisyo-table (, word) skk-henkan-key
-	    (if skk-okuri-char 1 0))
+     skk-rdbms-private-jisyo-table ,word skk-henkan-key
+     (if skk-okuri-char 1 0))
     (if (and skk-henkan-okuri-strictly skk-henkan-okurigana)
 	(format "AND okurigana = '%s'" skk-henkan-okurigana))
-    ";")))
+    ";"))
 
 (defmacro skk-rdbms-SQL-update-command (word)
-  (`
-   (concat
+  `(concat
     ;; SET date = 'now'::abstime って PostgreSQL だけでしか通用しないコ
     ;; マンド？  SQL92 (というのかな？) ではどう書くんでしょう？
     (format
      "UPDATE %s SET date = 'now'::abstime WHERE kanji = '%s' AND yomi = '%s' AND okuriari = %s "
-	    skk-rdbms-private-jisyo-table (, word) skk-henkan-key (if skk-okuri-char 1 0))
+     skk-rdbms-private-jisyo-table ,word skk-henkan-key (if skk-okuri-char 1 0))
     (if (and skk-henkan-okuri-strictly skk-henkan-okurigana)
 	(format "AND okurigana = '%s'" skk-henkan-okurigana))
-    ";")))
+    ";"))
 
 (defmacro skk-rdbms-SQL-search-jisyo-command (table)
-  (`
-   (format "SELECT kanji FROM %s WHERE yomi = '%s' AND okuriari = %s;"
-	   (, table) skk-henkan-key (if skk-okuri-char 1 0))))
+  `(format "SELECT kanji FROM %s WHERE yomi = '%s' AND okuriari = %s;"
+	   ,table skk-henkan-key (if skk-okuri-char 1 0)))
 
 (defmacro skk-rdbms-SQL-search-private-jisyo-command ()
-  (`
-   (concat
+  `(concat
     (format "SELECT kanji FROM %s WHERE yomi = '%s' AND okuriari = %s "
 	    skk-rdbms-private-jisyo-table skk-henkan-key (if skk-okuri-char 1 0))
     (if (and skk-henkan-okurigana skk-henkan-okuri-strictly)
 	(format "AND okurigana = '%s' " skk-henkan-okurigana))
-    "ORDER BY date DESC;")))
+    "ORDER BY date DESC;"))
 
 (defmacro skk-rdbms-SQL-search-completion-word-command ()
-  (`
-   (format
+  `(format
     "SELECT yomi FROM %s WHERE yomi LIKE '%s%s' AND okuriari = 0 GROUP BY yomi ORDER BY max(date) DESC;"
-    skk-rdbms-private-jisyo-table skk-completion-word skk-rdbms-SQL-wildcard)))
+    skk-rdbms-private-jisyo-table skk-completion-word skk-rdbms-SQL-wildcard))
 
 (defmacro skk-rdbms-SQL-search-busyu-command (key)
-  (` (format
-      ;; SQL 文の途中に改行を入れると psql の第 2 プロンプトが出る。これを正規表現で
-      ;; 表現して検索するとオーバーヘッドが大きく、確定してからの辞書更新が遅くなる。
-      ;; 従い SQL 文は長くても無理矢理 1 行で表現するか、嫌なら細切れに切って
-      ;; concat でつなぐ。
-      "SELECT kanji FROM %s WHERE busyuID = (SELECT busyuID FROM %s WHERE yomi1 = '%s' OR yomi2 = '%s' OR yomi3 = '%s' OR yomi4 = '%s');"
-      skk-rdbms-busyu-data-table skk-rdbms-busyu-base-table
-      (, key) (, key) (, key) (, key))))
+  `(format
+    ;; SQL 文の途中に改行を入れると psql の第 2 プロンプトが出る。これを正規表現で
+    ;; 表現して検索するとオーバーヘッドが大きく、確定してからの辞書更新が遅くなる。
+    ;; 従い SQL 文は長くても無理矢理 1 行で表現するか、嫌なら細切れに切って
+    ;; concat でつなぐ。
+    "SELECT kanji FROM %s WHERE busyuID = (SELECT busyuID FROM %s WHERE yomi1 = '%s' OR yomi2 = '%s' OR yomi3 = '%s' OR yomi4 = '%s');"
+    skk-rdbms-busyu-data-table skk-rdbms-busyu-base-table
+    ,key ,key ,key ,key))
 
 (defmacro skk-rdbms-SQL-search-stroke-command (stroke)
-  (` (format "SELECT kanji FROM %s WHERE stroke = %s;"
-	     skk-rdbms-stroke-table (, stroke))))
+  `(format "SELECT kanji FROM %s WHERE stroke = %s;"
+	   skk-rdbms-stroke-table ,stroke))
 
 (defmacro skk-rdbms-search-sahen-command (dakuten)
-  (` (format
-      "SELECT kanji FROM %s WHERE yomi = '%s' AND hinsiID = (SELECT hinsiID FROM %s WHERE hinsi = '%s');"
-      skk-rdbms-hinsi-data-table skk-henkan-key skk-rdbms-hinsi-base-table
-      (if dakuten "ザ行(ずる)" "サ行(する)"))))
+  `(format
+    "SELECT kanji FROM %s WHERE yomi = '%s' AND hinsiID = (SELECT hinsiID FROM %s WHERE hinsi = '%s');"
+    skk-rdbms-hinsi-data-table skk-henkan-key skk-rdbms-hinsi-base-table
+    (if dakuten "ザ行(ずる)" "サ行(する)")))
 
 (defvar skk-rdbms-cutoff-output-function
   (function

@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.32 2007/04/22 02:38:28 skk-cvs Exp $
+;; Version: $Id: skk-w3m.el,v 1.33 2007/09/06 13:50:22 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
+;; Last Modified: $Date: 2007/09/06 13:50:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -196,9 +196,9 @@ w3m を backend で動かしていない)。")
 ;;;; macros
 (defmacro skk-w3m-with-work-buffer (&rest body)
   "Execute the forms in BODY with working buffer as the current buffer."
-  (` (with-current-buffer
-	 (w3m-get-buffer-create skk-w3m-working-buffer)
-       (,@ body))))
+  `(with-current-buffer
+       (w3m-get-buffer-create skk-w3m-working-buffer)
+     ,@body))
 
 (put 'skk-w3m-with-work-buffer 'lisp-indent-function 0)
 (put 'skk-w3m-with-work-buffer 'edebug-form-spec '(body))
@@ -331,7 +331,12 @@ w3m を backend で動かしていない)。")
 	  (setq skk-w3m-process
 		(start-process "skk w3m" (current-buffer) skk-w3m-command
 			       skk-w3m-command-args))
-	  (process-kill-without-query skk-w3m-process)
+	  (static-cond
+	   ((and (string-match "^GNU" (emacs-version))
+		 (string-lessp "22.0" emacs-version))
+	    (set-process-query-on-exit-flag skk-w3m-process nil))
+	   (t
+	    (process-kill-without-query skk-w3m-process)))
 	  (skk-w3m-set-process-coding-system
 	   skk-w3m-default-process-coding-system))
       (file-error (skk-error "システム上に \"%s\" が見つかりません"

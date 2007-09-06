@@ -10,6 +10,14 @@
 
 	* doc/skk.texi: Update description about skk-kcode usage.
 
+	* experimental/skk-w3m.el:
+	* experimental/rdbms/skk-rdbms.el:
+
+	Eliminate old-style backquotes.
+
+	* skk-server.el (skk-open-network-stream): Recognize "GNU" Emacs
+	instead of excluding XEmacs.
+
 2007-09-05  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Modify some messages (skk-count-jisyo-candidates).
