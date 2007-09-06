@@ -1,6 +1,8 @@
 2007-09-06  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Add spaces around ascii words.
+	Add skk-abbrev-mode-string, skk-cursor-jisx0201-color.
+	Modify skk-henkan-face.
 
 2007-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

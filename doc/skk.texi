@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/06 13:16:23 $
+@set UPDATED $Date: 2007/09/06 13:30:32 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6455,6 +6455,12 @@ t
 @vindex skk-jisx0208-latin-mode-string
 
 全英モードを示す文字列。標準では、``全英''。
+
+@item skk-abbrev-mode-string
+@vindex skk-abbrev-mode-string
+
+SKK abbrev モードを示す文字列。標準では、``aあ''。
+
 @end table
 
 @node 入力モードを示すカーソル色に関する設定
@@ -6492,6 +6498,11 @@ SKK モードがオフであることを示すカーソル色。標準では、カーソルのある該当
 
 カタカナモードであることを示すカーソル色。標準では、背景の明暗により
 ``forestgreen'' または ``green'' を用います。
+
+@item skk-cursor-jisx0201-color
+@vindex skk-cursor-jisx0201-color
+JISX0201 モードであることを示すカーソル色。標準では、背景の明暗により
+``blueviolet'' または ``thistle" を用います。
 
 @item skk-cursor-jisx0208-latin-color
 @vindex skk-cursor-jisx0208-latin-color
@@ -6537,7 +6548,8 @@ SKK モードがオフであることを示すカーソル色。標準では、カーソルのある該当
 @vindex skk-henkan-face
 
 この変数の値はフェイスであり、このフェイスによって変換候補がハイライト表
-示されます。既定値は @w{highlight} です。
+示されます。標準では、背景の明暗により ``black/darkseagreen2'' 又は
+``white/darkolivegreen'' を用います。
 @end table
 
 変数 @code{skk-henkan-face} には、既存のフェイス
@@ -6559,7 +6571,8 @@ SKK モードがオフであることを示すカーソル色。標準では、カーソルのある該当
 
 @example
 @group
-(setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1))
+(skk-make-face 'DimGray/PeachPuff1)
+(setq skk-henkan-face 'DimGray/PeachPuff1)
 @end group
 @end example
 
@@ -6569,9 +6582,10 @@ SKK モードがオフであることを示すカーソル色。標準では、カーソルのある該当
 
 @lisp
 (skk-make-face 'RosyBrown1)
+(setq skk-henkan-face 'RosyBrown1)
 @end lisp
 
-この場合、前景色は DimGray になります。背景色はもちません。つまり、バッ
+この場合、前景色は RosyBrown1 になります。背景色はもちません。つまり、バッ
 ファの背景色がそのまま見えます。
 @end table
 
