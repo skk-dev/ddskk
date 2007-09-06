@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/05 13:52:06 $
+@set UPDATED $Date: 2007/09/06 13:13:37 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4796,7 +4796,12 @@ KAKASI がインストールされていなければ使用することができません。
 @end example
 
 @noindent
-というプロンプトが表示されます。（○○部分は japanese-jisx0213-1 又は japanese-jisx0208 であり、これは変数 @code{skk-kcode-charset} の値です。）
+というプロンプトが表示されます。○○部分は 変数 @code{skk-kcode-charset}
+の値であり、その初期値は japanese-jisx0208 又は japanese-jisx0213-1 です。
+初期値は環境によって自動的に設定されます。
+
+@kbd{\} の代わりに @kbd{C-u \} とすると異なる文字集合 (charset) を指定す
+る事ができます。
 
 ここで、漢字コードがあらかじめ分かっている場合には、その漢字コードを入力
 します。例えば @samp{℃} の漢字コードは、JIS コードでは @samp{216e}、EUC

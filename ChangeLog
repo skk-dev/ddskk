@@ -1,3 +1,9 @@
+2007-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Eiji Obata <e-obata@zero.ad.jp>.
+
+	* doc/skk.texi: Update description about skk-kcode usage.
+
 2007-09-05  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Modify some messages (skk-count-jisyo-candidates).
