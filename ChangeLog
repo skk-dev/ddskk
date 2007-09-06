@@ -1,3 +1,7 @@
+2007-09-06  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Add spaces around ascii words.
+
 2007-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Eiji Obata <e-obata@zero.ad.jp>.
