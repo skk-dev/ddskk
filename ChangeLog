@@ -1,3 +1,32 @@
+2007-09-08  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-public-jisyo-to-be-searched-function): Update
+	docstring.
+	(skk-exit-show-candidates): Fix typo in docstring.
+	(skk-count-jisyo-candidates-function)
+	(skk-public-jisyo-to-be-searched-function)
+	(skk-search-excluding-word-pattern-function)
+	(skk-update-jisyo-function, skk-save-jisyo-function)
+	(skk-previous-candidate-char, skk-kakutei-early)
+	(skk-process-okuri-early, skk-byte-compile-init-file)
+	(skk-read-from-minibuffer-function)
+	(skk-default-jisx0208-latin-vector, skk-jisyo-update-vector)
+	(skk-rule-tree, skk-insert-new-word-function, skk-mode)
+	(skk-exit-show-candidates, skk-okuri-ari-max)
+	(skk-okuri-nasi-min, skk-prefix-overlay, skk-okuri-index-min)
+	(skk-okuri-index-max, skk-last-buffer-undo-list)
+	(skk-annotation-function, skk-annotation-show-wikipedia-url)
+	(skk-annotation-wikipedia-key)
+	(skk-annotation-original-window-configuration)
+	(skk-okuri-search-function, skk-comp-prefix, skk-comp-depth)
+	(skk-isearch-mode-map, skk-isearch-overriding-local-map)
+	(skk-hint-henkan-hint, skk-lookup-default-option-list)
+	(skk-lookup-option-alist, skk-lookup-kana-vector, skk-num-list)
+	(skk-study-data-ring, skk-viper-normalize-map-function): Wrap
+	around functions and variables in docstring with single-quotes.
+
+	* skk-obsolete.el (skk-obsolete-function-alist): Update.
+
 2007-09-06  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-make-face): Return face even if it had already

@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.17 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-obsolete.el,v 1.18 2007/09/08 01:12:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/09/08 01:12:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -134,7 +134,7 @@
     (skk-toggle-kana . skk-toggle-characters)
     (skk-update-jisyo-for-numerals . skk-num-update-jisyo)
     (skk-uniq-numerals . skk-num-uniq)
-    (skk-public-jisyo-contains-p . skk-public-jisyo-has-entry-p)
+    (skk-public-jisyo-has-word-p . skk-public-jisyo-has-entry-p)
     (skk-zenkaku-mode . skk-jisx0208-latin-mode)
     (skk-zenkaku-mode-on . skk-jisx0208-latin-mode-on)
     (skktut-quit-tutorial . skk-tutorial-quit)
