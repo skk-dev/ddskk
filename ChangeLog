@@ -1,6 +1,7 @@
 2007-09-07  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi: In the VIPER section, add 5th arg to `@ref'.
+	* doc/skk.texi: Add some @xref, and small modify.
+	In the VIPER section, add 5th arg to `@ref'.
 
 2007-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

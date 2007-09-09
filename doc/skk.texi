@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/09 11:41:11 $
+@set UPDATED $Date: 2007/09/09 11:43:10 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -682,8 +682,9 @@ setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 $BK\>O$G$O!"(BDDSKK $B$N4pK\E*$J;HMQJ}K!$r@bL@$7$^$9!#$3$l$rFI$a$P!"$H$j$"$($:(B
 DDSKK $B$r;H$C$F$_$k$K$O=<J,$G$9!#(B
 
-DDSKK $B$r;H$C$?F~NOJ}K!$K47$l$k$K$O!"IUB0$N(B@ref{$B%A%e!<%H%j%"%k(B}$B%W%m%0%i%`$,:G(B
-$BE,$J$N$G!"$*;n$7$/$@$5$$!#(B
+DDSKK $B$r;H$C$?F~NOJ}K!$K47$l$k$K$O!"IUB0$N%A%e!<%H%j%"%k$,:GE,$J$N$G!"$*(B
+$B;n$7$/$@$5$$!#(B
+@xref{$B%A%e!<%H%j%"%k(B}
 
 $B$J$*!"<!>O$N!VJXMx$J1~MQ5!G=!W$O!"6=L#$N$"$k8D=j$N$_$r%T%C%/%"%C%W$7$F(B
 $B$*FI$_$K$J$k$N$,$$$$$G$7$g$&!#(B
@@ -964,7 +965,7 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k(B 4 $B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"
 @samp{$B$!(B}$B!"(B@kbd{x y a} @result{} @samp{$B$c(B}$B$J$I$N$h$&$K(B @kbd{x} $B$rMQ$$$k!#(B
 
 @item
-$BD92;$K$O!"(B@kbd{-}$B$rMQ$$$k!#(B@kbd{-}@result{}@samp{$B!<(B}$B!#(B
+$BD92;$K$O!"(B@kbd{-} $B$rMQ$$$k!#(B@kbd{-} @result{} @samp{$B!<(B}$B!#(B
 @end itemize
 
 @node $B"&%b!<%I(B
@@ -1016,7 +1017,15 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k(B 4 $B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"
 ------ Buffer: foo ------
 @end group
 
-@kbd{C-u 3 C-b}, @kbd{Q}
+@kbd{C-u 3 C-b}
+
+@group
+------ Buffer: foo ------
+@point{}$B$+$s$8(B
+------ Buffer: foo ------
+@end group
+
+@kbd{Q}
 
 @group
 ------ Buffer: foo ------
@@ -1798,6 +1807,7 @@ SKK $B$N3X=,5!G=$N$R$H$D$G!"%f!<%6$N2a5n$NF~NO$+$iJQ498uJd$rM=B,$7$^$9!#(B
 @cindex @file{skk-dcomp.el}
 
 skk-comp $B$K$h$kJd40$r<+F0E*$K<B9T$7$F8+=P$78lF~NO$r;Y1g$7$^$9!#(B
+@xref{$B"&%b!<%I$K$*$1$kF0E*Jd40(B}.
 
 @item skk-develop.el
 @cindex @file{skk-develop.el}
@@ -1944,6 +1954,7 @@ SKK $B$r;H$C$FC14A;zJQ49$r9T$&%W%m%0%i%`$G$9!#(B
 @cindex @file{skk-tut.el}
 
 SKK $B%A%e!<%H%j%"%k%W%m%0%i%`!#(B
+@xref{$B%A%e!<%H%j%"%k(B}.
 
 @item skk-tutcode.el
 @cindex @file{skk-tutcode.el}
@@ -1965,6 +1976,7 @@ DDSKK $B$N%P!<%8%g%s>pJs$rDs6!$9$k%W%m%0%i%`%U%!%$%k!#(B
 @cindex @file{skk-viper.el}
 
 VIPER $B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
+@xref{VIP/VIPER$B$H$NJ;MQ(B}.
 
 @item skk-xemacs.el
 @cindex @file{skk-xemacs.el}
