@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/09 11:10:14 $
+@set UPDATED $Date: 2007/09/09 11:41:11 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6653,13 +6653,13 @@ XEmacs の場合
 @table @code
 @item skk-use-viper
 @vindex skk-use-viper
+@c XXX VIP 3.7 について言及する。
 
 この変数の値を非 @code{nil} に設定すると、VIPER に対応します。
 @end table
 
-VIPER については @ref{Top, , VIPER, viper} を参照してください。
+VIPER については @ref{Top, , VIPER, viper, VIPER Manual}. を参照してください。
 
-@c XXX VIP 3.7 について言及する。
 また、VIPER の前身である VIP にも対応します。ただし、正式に対応している
 バージョンは 3.5 のみです。これは Mule 2.3 に標準添付します
 @footnote{ちなみに、VIP 3.5 の作者は、SKK の原作者でもある佐藤雅彦教授で
