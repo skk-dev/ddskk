@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/06 13:30:32 $
+@set UPDATED $Date: 2007/09/09 11:10:14 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2338,7 +2338,7 @@ skK @expansion{}SKK
 
 更に @code{skk-rom-kana-rule-list} を用いれば T-code や TUT-code による
 日本語入力を実現することもできます。例えば TUT-code による入力については
-ソースアーカイブの @samp{experimental/tut-code} ディレクトリに収録されて
+ソースアーカイブの @samp{tut-code} ディレクトリに収録されて
 いるソースコードを参照してください。
 
 @node ■モードに関連するその他の変数

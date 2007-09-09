@@ -1,3 +1,9 @@
+2007-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Kitamoto Tsuyoshi <lisp_interaction@yahoo.co.jp>.
+
+	* doc/skk.texi: "experimental/tut-code" -> "tut-code".
+
 2007-09-08  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-vars.el (skk-public-jisyo-to-be-searched-function): Update
