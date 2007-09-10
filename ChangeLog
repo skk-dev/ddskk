@@ -1,3 +1,15 @@
+2007-09-10  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-abbrev-period, skk-abbrev-comma): Update docstring.
+	(skk-auto-fill-mode, skk-toggle-characters)
+	(skk-jisx0208-latin-insert, skk-backward-and-set-henkan-point)
+	(skk-set-henkan-point-subr, skk-record-jisyo-data)
+	(skk-search-upcase, skk-update-kakutei-history, keyboard-quit)
+	(abort-recursive-edit): Wrap around functions and variables in
+	docstring with single-quotes.
+
+	* skk-abbrev.el: Update commentary.
+
 2007-09-07  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Add some @xref, and small modify.

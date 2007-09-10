@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.446 2007/09/06 14:09:23 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.447 2007/09/10 13:44:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/06 14:09:23 $
+;; Last Modified: $Date: 2007/09/10 13:44:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -202,8 +202,8 @@ dependent."
 (defun skk-auto-fill-mode (&optional arg)
   "$BF|K\8lF~NO%b!<%I!#<+F0@^$jJV$75!G=IU$-!#(B
 $B%^%$%J!<%b!<%I$N0l<o$G!"%*%j%8%J%k$N%b!<%I$K$O1F6A$rM?$($J$$!#(B
-$B@5$N0z?t$rM?$($k$H!"6/@)E*$K(B auto-fill-mode $B5Z$S(B SKK $B%b!<%I$KF~$k!#(B
-$BIi$N0z?t$rM?$($k$H(B auto-fill-mode $B5Z$S(B SKK $B%b!<%I$+$iH4$1$k!#(B"
+$B@5$N0z?t$rM?$($k$H!"6/@)E*$K(B `auto-fill-mode' $B5Z$S(B SKK $B%b!<%I$KF~$k!#(B
+$BIi$N0z?t$rM?$($k$H(B `auto-fill-mode' $B5Z$S(B SKK $B%b!<%I$+$iH4$1$k!#(B"
   (interactive "P")
   (let ((auto-fill
 	 (cond ((null arg)
@@ -949,7 +949,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 (defun skk-toggle-characters (arg)
   "$B"#%b!<%I!""'%b!<%I$G!"$R$i$,$J%b!<%I$H%+%?%+%J%b!<%I$r%H%0%k$G@Z$jBX$($k!#(B
-$B"&%b!<%I$G$O(B skk-henkan-start-point ($B"&$ND>8e(B) $B$H%+!<%=%k$N4V$NJ8;zNs$K$D$$(B
+$B"&%b!<%I$G$O(B `skk-henkan-start-point' ($B"&$ND>8e(B) $B$H%+!<%=%k$N4V$NJ8;zNs$K$D$$(B
 $B$F!"$R$i$,$J$H%+%?%+%J$rF~$lBX$($k!#(B"
   (interactive "P")
   (cond
@@ -1560,8 +1560,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 
 (defun skk-abbrev-period (arg)
   "SKK abbrev $B%b!<%I$G8+=P$7$NJd40Cf$G$"$l$P!"<!$N8uJd$rI=<($9$k!#(B
-$BJd40$ND>8e$G$J$1$l$P!"%*%j%8%J%k$N%-!<3d$jIU$1$N%3%^%s%I$r%(%_%e%l!<%H$9$k!#(B
-SKK abbrev $B%b!<%I0J30$G$O!"(Bskk-insert-period $B4X?t$r;HMQ$9$k$3$H!#(B"
+$BJd40$ND>8e$G$J$1$l$P!"%*%j%8%J%k$N%-!<3d$jIU$1$N%3%^%s%I$r%(%_%e%l!<%H$9$k!#(B"
   (interactive "*P")
   (skk-with-point-move
    (if (eq last-command 'skk-comp-do)
@@ -1572,8 +1571,7 @@ SKK abbrev $B%b!<%I0J30$G$O!"(Bskk-insert-period $B4X?t$r;HMQ$9$k$3$H!#(B"
 
 (defun skk-abbrev-comma (arg)
   "SKK abbrev $B%b!<%I$G8+=P$7$NJd40Cf$G$"$l$P!"D>A0$N8uJd$rI=<($9$k!#(B
-$BJd40$ND>8e$G$J$1$l$P!"%*%j%8%J%k$N%-!<3d$jIU$1$N%3%^%s%I$r%(%_%e%l!<%H$9$k!#(B
-SKK abbrev $B%b!<%I0J30$G$O!"(Bskk-insert-comma $B4X?t$r;HMQ$9$k$3$H!#(B"
+$BJd40$ND>8e$G$J$1$l$P!"%*%j%8%J%k$N%-!<3d$jIU$1$N%3%^%s%I$r%(%_%e%l!<%H$9$k!#(B"
   (interactive "*P")
   (skk-with-point-move
    (if (eq last-command 'skk-comp-do)
@@ -1584,10 +1582,10 @@ SKK abbrev $B%b!<%I0J30$G$O!"(Bskk-insert-comma $B4X?t$r;HMQ$9$k$3$H!#(B"
 
 (defun skk-jisx0208-latin-insert (arg)
   "$BA41QJ8;z$r%+%l%s%H%P%C%U%!$KA^F~$9$k!#(B
-skk-jisx0208-latin-vector $B$r%F!<%V%k$H$7$F!":G8e$KF~NO$5$l$?%-!<$KBP1~$9$kJ8(B
+`skk-jisx0208-latin-vector' $B$r%F!<%V%k$H$7$F!":G8e$KF~NO$5$l$?%-!<$KBP1~$9$kJ8(B
 $B;z$rA^F~$9$k!#(B
-skk-auto-insert-paren $B$NCM$,(B non-nil $B$N>l9g$G!"(Bskk-auto-paren-string-alist $B$K(B
-$BBP1~$9$kJ8;zNs$,$"$k$H$-$O!"$=$NBP1~$9$kJ8;zNs(B ($B$+$C$3N`(B) $B$r<+F0E*$KA^F~$9$k!#(B"
+`skk-auto-insert-paren' $B$NCM$,(B non-nil $B$N>l9g$G!"(B`skk-auto-paren-string-alist'
+$B$KBP1~$9$kJ8;zNs$,$"$k$H$-$O!"$=$NBP1~$9$kJ8;zNs(B ($B$+$C$3N`(B) $B$r<+F0E*$KA^F~$9$k!#(B"
   (interactive "p")
   (barf-if-buffer-read-only)
   (skk-with-point-move
@@ -3240,7 +3238,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 (defun skk-backward-and-set-henkan-point (arg)
   "$B%]%$%s%H$ND>A0$K$"$kJ8;zNs$N@hF,$KJQ493+;O%]%$%s%H$r<($9(B \"$B"&(B\" $B$rIU$1$k!#(B
 $B%+!<%=%k$ND>A0$K$"$kJ8;z(B ($B%9%Z!<%9J8;z!"%?%VJ8;z!"D92;$rI=$o$9!V!<!W(B $B$OL5>r7o(B
-$B$K%9%-%C%W$5$l$k(B) $B$r(B skk-what-char-type $B$K$FH=JL$7!"F1<o$NJ8;zNs$r$R$H$+$?$^(B
+$B$K%9%-%C%W$5$l$k(B) $B$r(B `skk-what-char-type' $B$K$FH=JL$7!"F1<o$NJ8;zNs$r$R$H$+$?$^(B
 $B$j$H$7$F8eJ}$X%9%-%C%W$9$k!#(B
 $BC"$7!"$R$i$+$J$N>l9g$O!V$r!W$ND>A0$G!"%+%?%+%J$N>l9g$O!V%r!W$ND>A0$G;_$^$k!#(B
 C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
@@ -3338,7 +3336,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 
 (defun skk-set-henkan-point-subr (&optional arg)
   "$B$+$J$rF~NO$7$?8e$G!"%]%$%s%H$KJQ493+;O$N%^!<%/(B ($B"&(B) $B$rIU$1$k!#(B
-$B$3$N4X?t$O(B skk-set-henkan-point $B$NFbIt4X?t$H$7$F$b;HMQ$5$l$F$$$k!#(B"
+$B$3$N4X?t$O(B `skk-set-henkan-point' $B$NFbIt4X?t$H$7$F$b;HMQ$5$l$F$$$k!#(B"
   (interactive "*P")
   (skk-with-point-move
    (unless skk-undo-kakutei-word-only
@@ -3698,7 +3696,7 @@ If you want to restore the dictionary from the disc, try
 		   "Cannot reread private JISYO!")))))
 
 (defun skk-record-jisyo-data ()
-  "$B<-=q%G!<%?$r(B skk-record-file $B$K%;!<%V$9$k!#(B"
+  "$B<-=q%G!<%?$r(B `skk-record-file' $B$K%;!<%V$9$k!#(B"
   (unless (or (not skk-keep-record)
 	      (> 1 skk-kakutei-count))
     (with-temp-file skk-record-file
@@ -4589,7 +4587,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 (defun skk-search-upcase (&optional initial)
   "$BJQ49%-!<$N(B ascii $B>.J8;z$rBgJ8;z$KJQ49$7$?8uJd$rJV$9!#(B
-$B$3$N4X?t$O(B skk-abbrev-mode $B@lMQ!#(B"
+$B$3$N4X?t$O(B `skk-abbrev-mode' $B@lMQ!#(B"
   (if skk-abbrev-mode
       (list (if initial
 		(upcase-initials skk-henkan-key)
@@ -5032,7 +5030,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 (defun skk-update-kakutei-history (midasi &optional word)
   "$BJQ?t(B `skk-kakutei-history' $B$r99?7$9$k!#(B
-$B$3$NMzNr$O(Bskk-comp.el $B$K$*$$$FMxMQ$5$l$k!#(B"
+$B$3$NMzNr$O(B skk-comp.el $B$K$*$$$FMxMQ$5$l$k!#(B"
   (cond
    ((<= skk-kakutei-history-limit 0)
     (setq skk-kakutei-history nil))
@@ -5192,7 +5190,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 (skk-defadvice keyboard-quit (around skk-ad activate)
   "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
 $B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
-$B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B keyboard-quit $B$HF1$8F0:n$r$9$k!#(B"
+$B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B `keyboard-quit' $B$HF1$8F0:n$r$9$k!#(B"
   (cond
    ;; SKK is not invoked in the current buffer.
    ((not skk-mode)
@@ -5227,7 +5225,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 (skk-defadvice abort-recursive-edit (around skk-ad activate)
   "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
 $B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
-$B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B abort-recursive-edit $B$HF1$8F0:n$r$9$k!#(B"
+$B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B `abort-recursive-edit' $B$HF1$8F0:n$r$9$k!#(B"
   ;; subr command but no arg.
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
@@ -5348,10 +5346,12 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 (defmacro skk-wrap-newline-command (cmd)
   "[return]$B%-!<$K3dEv$F$i$l$F$$$k$@$m$&%3%^%s%I(B(CMD)$B$r%i%C%W$7$F!"(Bskk$B$NF0:n$H@09g$5$;$k!#(B
- [return]$B%-!<$K%3%^%s%I$r3dEv$F$F$$$k%a!<%8%c%b!<%I$G(Bskk$B$r;H$&$H!"(Bskk$B$,(B`skk-kakutei'
-$B$r8F$S=P$95!2q$,$J$$$?$a!"JQ49$r3NDj$G$-$:(B'$B"'(B'$B$,%P%C%U%!$K;D$C$F$7$^$&$H$$$&LdBj$,$"$k!#(B
+ [return]$B%-!<$K%3%^%s%I$r3dEv$F$F$$$k%a!<%8%c%b!<%I$G(B skk $B$r;H$&$H!"(Bskk $B$,(B
+`skk-kakutei' $B$r8F$S=P$95!2q$,$J$$$?$a!"JQ49$r3NDj$G$-$:(B`$B"'(B'$B$,%P%C%U%!$K;D$C$F(B
+$B$7$^$&$H$$$&LdBj$,$"$k!#(B
 
-$BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(BCMD$BK\BN$r<B9T$9$k$h$&$K(BCMD$B$r%i%C%W$9$k!#(B"
+$BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(B CMD $BK\BN$r<B9T$9$k$h$&$K(B CMD $B$r%i%C%W(B
+$B$9$k!#(B"
   `(defadvice ,cmd (around skk-ad activate compile)
      (cond (skk-henkan-mode
 	    (skk-kakutei)
