@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.251 2007/09/08 01:12:34 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.252 2007/09/14 13:55:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/08 01:12:34 $
+;; Last Modified: $Date: 2007/09/14 13:55:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1304,11 +1304,25 @@ nil であれば、一つ前の候補を表示する。
   "*Non-nil であれば、変換候補が一つしかないとき確定変換する。
 `okuri-nasi' ならば、送り無し変換時のみ有効とする。
 
-候補が他に無い事を確認するため、`skk-search-prog-list' の内容次第で
-レスポンスが悪くなる可能性がある。"
+候補が他に無い事を確認するため、`skk-search-prog-list' の内容次第
+でレスポンスが悪くなる可能性がある。その場合
+`skk-kakutei-search-prog-limit' を設定することで検索対象を制限する
+ことも可能。"
   :type '(radio (const :tag "常に有効" t)
 		(const :tag "送り無し変換時だけ有効" okuri-nasi)
 		(const :tag "無効" nil))
+  :group 'skk-kakutei)
+
+(defcustom skk-kakutei-search-prog-limit nil
+  "*複数辞書による確定変換において、検索対象とする辞書を制限する。
+
+これが数値であれば、検索対象を `skk-search-prog-list' の先頭からこ
+の個数までの辞書に制限する。
+それ以外であれば無制限に全ての辞書を対象とする。
+
+`skk-kakutei-when-unique-candidate' が non-nil のときのみ有効。"
+  :type '(radio (integer :tag "対象とする辞書の数")
+		(const :tag "制限しない" nil))
   :group 'skk-kakutei)
 
 (defcustom skk-kakutei-end-function nil

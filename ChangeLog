@@ -1,3 +1,11 @@
+2007-09-14  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-kakutei-when-unique-candidate): Update
+	docstring.
+	(skk-kakutei-search-prog-limit): New user option.
+
+	* skk.el (skk-henkan-1): Use it.
+
 2007-09-10  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-abbrev-period, skk-abbrev-comma): Update docstring.

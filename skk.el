@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.447 2007/09/10 13:44:22 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.448 2007/09/14 13:55:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/10 13:44:22 $
+;; Last Modified: $Date: 2007/09/14 13:55:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1731,32 +1731,43 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
   (let (new-word)
     (cond
      ((= (skk-henkan-count) 0)
-      (while (and skk-current-search-prog-list
-		  (not new-word))
-	(setq skk-henkan-list (skk-nunion skk-henkan-list
-					  (skk-search)))
-	(skk-henkan-list-filter)
-	(setq new-word (skk-get-current-candidate)))
-      ;; 変換候補が一つしか無い時の確定変換用チェック
-      (when (and (if (eq skk-kakutei-when-unique-candidate 'okuri-nasi)
-		     (not skk-henkan-okurigana)
-		   skk-kakutei-when-unique-candidate)
-		 (not skk-undo-kakutei-flag))
+      (let ((prog-list-length (when (numberp skk-kakutei-search-prog-limit)
+				(length skk-current-search-prog-list))))
 	(while (and skk-current-search-prog-list
-		    (<= (length skk-henkan-list) 1))
+		    (not new-word))
 	  (setq skk-henkan-list (skk-nunion skk-henkan-list
 					    (skk-search)))
-	  (skk-henkan-list-filter))
-	(when (= (length skk-henkan-list) 1)
-	  (setq skk-kakutei-henkan-flag t)))
-      ;; skk-henkan-list-filter を通した後は念の為に再取得
-      (setq new-word (skk-get-current-candidate))
-      (when (and new-word
-		 (not skk-undo-kakutei-flag)
-		 skk-kakutei-henkan-flag)
-	;; found the unique candidate in kakutei jisyo
-	(setq this-command 'skk-kakutei-henkan
-	      skk-kakutei-flag t)))
+	  (skk-henkan-list-filter)
+	  (setq new-word (skk-get-current-candidate)))
+	;; 変換候補が一つしか無い時の確定変換用チェック
+	(when (and (if (eq skk-kakutei-when-unique-candidate 'okuri-nasi)
+		       (not skk-henkan-okurigana)
+		     skk-kakutei-when-unique-candidate)
+		   (= (length skk-henkan-list) 1)
+		   (not skk-undo-kakutei-flag))
+	  (while (and skk-current-search-prog-list
+		      (or (not (numberp skk-kakutei-search-prog-limit))
+			  (< (- prog-list-length
+				(length skk-current-search-prog-list))
+			     skk-kakutei-search-prog-limit))
+		      (<= (length skk-henkan-list) 1))
+	    (setq skk-henkan-list (skk-nunion skk-henkan-list
+					      (skk-search)))
+	    (skk-henkan-list-filter))
+	  (when (and (= (length skk-henkan-list) 1)
+		     (or (not (numberp skk-kakutei-search-prog-limit))
+			 (<= (- prog-list-length
+				(length skk-current-search-prog-list))
+			     skk-kakutei-search-prog-limit)))
+	    (setq skk-kakutei-henkan-flag t)))
+	;; skk-henkan-list-filter を通した後は念の為に再取得
+	(setq new-word (skk-get-current-candidate))
+	(when (and new-word
+		   (not skk-undo-kakutei-flag)
+		   skk-kakutei-henkan-flag)
+	  ;; found the unique candidate in kakutei jisyo
+	  (setq this-command 'skk-kakutei-henkan
+		skk-kakutei-flag t))))
      (t
       ;; 変換回数が 1 以上のとき。
       (setq new-word (skk-get-current-candidate))
