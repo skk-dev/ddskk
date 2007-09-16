@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/16 14:16:26 $
+@set UPDATED $Date: 2007/09/16 14:35:36 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6482,7 +6482,7 @@ SKK $B<-=q$K(B
 * $B2>L>J8;z$N%m!<%^;z%W%l%U%#%C%/%9$N%(%3!<(B::
 * $BF~NO%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs$NJQ99(B::
 * $BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B::
-* $BJQ498uJd$NI=<(J}K!(B::
+* $BJQ498uJd0lMw$NI=<(J}K!(B::
 * $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B::
 * $B%(%i!<$J$I$NF|K\8lI=<((B::
 * XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B::
@@ -6621,10 +6621,10 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 
 @end table
 
-@node $BJQ498uJd$NI=<(J}K!(B
-@subsection $BJQ498uJd$NI=<(J}K!(B::
+@node $BJQ498uJd0lMw$NI=<(J}K!(B
+@subsection $BJQ498uJd0lMw$NI=<(J}K!(B::
 
-$BJQ498uJd$NI=<(J}K!$OBg$-$/0J2<$N(B 4 $B$D$KJ,$+$l$^$9!#(B
+$BJQ498uJd0lMw$NI=<(J}K!$OBg$-$/0J2<$N(B 4 $B$D$KJ,$+$l$^$9!#(B
 
 @itemize @bullet
 @item $B%(%3!<%(%j%"(B
@@ -6638,25 +6638,35 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 @defvr {$B%f!<%6JQ?t(B} skk-show-inline
 @vindex skk-show-inline
 
-$B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"JQ498uJd$r8=:_$N%]%$%s%H0LCV$G%$%s%i%$%sI=(B
+$B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"8uJd0lMw$r8=:_$N%]%$%s%H0LCV$G%$%s%i%$%sI=(B
 $B<($7$^$9!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-tooltip
 @vindex skk-show-tooltip
 
-$B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"JQ498uJd$r%D!<%k%F%#%C%W$H$7$FI=<($7$^$9!#(B
+$B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"8uJd0lMw$r%D!<%k%F%#%C%W$H$7$FI=<($7$^$9!#(B
 $B$3$N@_Dj$O$^$?!"Cm<a(B ($B%"%N%F!<%7%g%s(B) $B$NI=<(J}K!$bF1;~$K@)8f$7$^$9!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-candidates-always-pop-to-buffer
 @vindex skk-show-candidates-always-pop-to-buffer
 
-$B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"2hLL$r>e2<$KJ,3d$7$?$&$($G!"JQ498uJd$r@lMQ(B
-$B$N!V(B*$B8uJd(B*$B%P%C%U%!!W$G0lMwI=<($7$^$9!#(B
+$B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"2hLL$r>e2<$KJ,3d$7$?$&$($G!"JQ490lMw$r@lMQ(B
+$B$N!V(B*$B8uJd(B*$B%P%C%U%!!W$GI=<($7$^$9!#(B
+
+$B8uJd0lMwI=<(Cf$K!"$3$NCM$rF0E*$K@Z$j49$($k<jCJ$,MQ0U$5$l$F$$$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-show-candidates-toggle-display-place-char
+@vindex skk-show-candidates-toggle-display-place-char
+@kindex C-f
+
+$B$3$l$OI8=`$G$O(B @kbd{C-f} $B$K@_Dj$5$l$F$$$^$9!#$3$N%-!<$r8uJd0lMwI=<(;~$K(B
+$B%?%$%W$9$k$H!"8uJd0lMw$NI=<(0LCV$r%(%3!<%(%j%"$H%P%C%U%!$H$G@Z$jBX$($^$9!#(B
+@end defvr
 @end defvr
 
-$B>e5-(B 3 $BJQ?t$H$b%G%U%)%k%H$OHs(B @code{nil} $B$G$9!#$=$N>uBV$G$O!"JQ498uJd$O(B
+$B>e5-(B 3 $BJQ?t$H$b%G%U%)%k%H$OHs(B @code{nil} $B$G$9!#$=$N>uBV$G$O!"8uJd0lMw$O(B
 $B%(%3!<%(%j%"$KI=<($5$l$^$9!#(B
 
 $B$^$?!"$b$7$3$l$i$N$&$A(B 2 $B$D0J>e$,Hs(B @code{nil} $B$N>l9g!"M%@h=g0L$O>e5-2r(B
