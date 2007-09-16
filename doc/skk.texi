@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/16 14:35:36 $
+@set UPDATED $Date: 2007/09/16 14:42:00 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6666,8 +6666,8 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 @end defvr
 @end defvr
 
-$B>e5-(B 3 $BJQ?t$H$b%G%U%)%k%H$OHs(B @code{nil} $B$G$9!#$=$N>uBV$G$O!"8uJd0lMw$O(B
-$B%(%3!<%(%j%"$KI=<($5$l$^$9!#(B
+$B>e5-(B 3 $BJQ?t$H$b%G%U%)%k%H$O(B @code{nil} $B$G$9!#$=$N>uBV$G$O!"8uJd0lMw$O%((B
+$B%3!<%(%j%"$KI=<($5$l$^$9!#(B
 
 $B$^$?!"$b$7$3$l$i$N$&$A(B 2 $B$D0J>e$,Hs(B @code{nil} $B$N>l9g!"M%@h=g0L$O>e5-2r(B
 $B@b=g$H$J$j$^$9!#(B
