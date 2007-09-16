@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/16 04:20:50 $
+@set UPDATED $Date: 2007/09/16 07:31:28 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -257,7 +257,7 @@ Daredevil SKK (DDSKK) $B$O(B SKK $B$N$5$i$J$k3HD%HG$H$7$F0LCVIU$1$i$l$F$$$^$9
 DDSKK $B$N<g$JFCD'$O!"<!$NDL$j$G$9!#(B
 
 @itemize @bullet
-@item $BB?:L$JF~NOJ}<0%5%]!<%H!#%m!<%^(B/$B$+$J(B $BN>BP1~$N$+$JF~NO$N$[$,!"(BT-Code$B!"(B
+@item $BB?:L$JF~NOJ}<0%5%]!<%H!#%m!<%^(B/$B$+$J(B $BN>BP1~$N$+$JF~NO$N$[$+!"(BT-Code$B!"(B
 TUT-code $B$K$h$kF~NO$b2DG=!#(B
 @item $BJ8K!E*CN<1$rMQ$$$J$$9bB.$J!V$+$J(B $B"*(B $B4A;z!WJQ49!#(B
 @item $B<-=q$KEPO?$5$l$F$$$J$$C18l$NEPO?$,4JC1!#(B
@@ -2106,7 +2106,7 @@ DDSKK $B$K$O!"%+%?%+%J$NF~NO$K$O%+%J%b!<%I$r!"A43Q%"%k%U%!%Y%C%H$NF~NO$K$O(B
 $B$"$j!"(B @dfn{SKK abbrev mode} $B$H8F$P$l$F$$$^$9!#$3$N5!G=$r;HMQ$9$k$3$H$K(B
 $B$h$j!"(B
 
-@samp{is}@result{}@samp{$B%$%s%/%j%a%s%?%k!&%5!<%A(B}
+@samp{is} @result{} @samp{$B%$%s%/%j%a%s%?%k!&%5!<%A(B}
 
 $B$N$h$&$JJQ49$r9T$&$3$H$,$G$-$^$9!#(B
 
@@ -2748,7 +2748,7 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 @footnote{$B$3$3$G(B @samp{Q} $B$OBgJ8;z$GF~NO$9$kI,MW$,$"$j$^$9!#(B}$B$H%?%$%W$9(B
 $B$k$H8=:_0LCV$ND>A0$NJ8;zNs$K$D$$$FAv::$7!"F1<o$NJ8;z(B
 @footnote{$B$R$i$,$J!"%+%?%+%J!"A43Q%"%k%U%!%Y%C%H!"%"%k%U%!%Y%C%H$N(B 4 $B<o(B
-$BN`$N$$$:$l$+!#(B}$B$,B3$/8B$j(B $B8eJ}$K%]%$%s%H$rLa$7$F"&%b!<%I$KF~$j!"$^$?%]%$(B
+$BN`$N$$$:$l$+!#(B}$B$,B3$/8B$j8eJ}$K%]%$%s%H$rLa$7$F"&%b!<%I$KF~$j!"$^$?%]%$(B
 $B%s%H$r85$NCOE@$KLa$7$^$9!#(B
 @vindex skk-allow-spaces-newlines-and-tabs
 @footnote{$B8eJ}$K%]%$%s%H$rLa$9ESCf$G9TF,$KE~C#$7$?>l9g$O!"99$K>e$N9T$K$D(B
@@ -3371,8 +3371,8 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 $B$3$NNc$K$*$$$F8!:w$5$l$k8+=P$78l$NJQ2=$rDI$&$H!"(B
 
 @example
-@samp{$B$?$A$"$2$k(B}@result{}@samp{$B$?$A$"$2(Br}@result{}@samp{$B$?$A$"(Bg}
-@result{}@samp{$B$?$A(Ba}@result{}@samp{$B$?(Bt}
+@samp{$B$?$A$"$2$k(B} @result{} @samp{$B$?$A$"$2(Br} @result{} @samp{$B$?$A$"(Bg}
+@result{} @samp{$B$?$A(Ba} @result{} @samp{$B$?(Bt}
 @end example
 
 @noindent
@@ -3722,7 +3722,7 @@ Shall I register this as okuri-ari entry: $B$"$j$,(Bs /$BM-2l(B/ ? (y or n)
 $B$HJQ49$5$l$^$9!#2?8N$J$i(B @w{(@samp{$B$U(Br})} $B$N4XO"8l$rC5$9:]!"(B
 @code{skk-study-search-times} @footnote{$B%G%U%)%k%HCM$O(B 5 $B$G$9!#(B} $B$K(B
 $B;XDj$5$l$?2s?tJ,$@$1AL$C$F!"0JA0$K3NDj$7$?8l$NCf$K4XO"8l$,$J$$$+C5$9$N(B
-$B$G$9!#=>$$$3$N>l9g$@$H!"(B2 $B$DA0$N3NDj>pJs$rC5$7$?:]$K(B @samp{$B1+(B}
+$B$G$9!#=>$C$F!"$3$N>l9g$@$H!"(B2 $B$DA0$N3NDj>pJs$rC5$7$?:]$K(B @samp{$B1+(B}
 @w{(@samp{$B$"$a(B})} $B8+$D$1!"$3$l$r4XO"8l$H$7$F!"(B@w{(@samp{$B$U(Br})} $B$NCM$r(B
 $B7h$a$h$&$H$9$k$N$G$9!#(B
 
@@ -5446,11 +5446,11 @@ Emacs $B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$
 
 DDSKK $B$G$O!"8D?M<-=q$H6&M-<-=q$H$$$&$h$&$KJ#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#(B
 $BJ#?t$N<-=q$rF1;~$K8!:w$9$k$N$G$O$J$/!";XDj$7$?=gHV$K8!:w$7$^$9!#8!:w$N=g(B
-$BHV$O!"(B@code{skk-search-prog-list}$B$H$$$&JQ?t$K8!:w$7$?$$=g$K<-=q(B($B@53N$K$O!"(B
+$BHV$O!"(B@code{skk-search-prog-list} $B$H$$$&JQ?t$K8!:w$7$?$$=g$K<-=q(B($B@53N$K$O!"(B
 $B<-=q8!:w%W%m%0%i%`(B)$B$r;XDj$7$^$9!#(B
 
 $B$^$:!"(BDDSKK $B$,J#?t<-=q$r$I$N$h$&$K8!:w$9$k$+$r@bL@$7$^$9!#(B
-$B$=$l$+$i!"(B @code{skk-search-prog-list}$B$G;HMQ$9$k4X?t$*$h$SJQ?t$r@bL@$7$^(B
+$B$=$l$+$i!"(B @code{skk-search-prog-list} $B$G;HMQ$9$k4X?t$*$h$SJQ?t$r@bL@$7$^(B
 $B$9!#(B
 
 @menu
@@ -5626,7 +5626,7 @@ DDSKK $B$G$O!"8D?M<-=q$H6&M-<-=q$H$$$&$h$&$KJ#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#(B
 $B$r(B Emacs $B$N%P%C%U%!$KFI$_9~$s$G8!:w$r9T$$$^$9!#(B
 
 $BBh(B 1 $B0z?t!"Bh(B 2 $B0z?t!"Bh(B 3 $B0z?t$O$$$:$l$b(B
-@code{skk-search-kakutei-jisyo-file}$B$N$=$l$HF1$8$G$9$,!"Bh(B 2 $B0z?t5Z$SBh(B
+@code{skk-search-kakutei-jisyo-file} $B$N$=$l$HF1$8$G$9$,!"Bh(B 2 $B0z?t5Z$SBh(B
 3 $B0z?t$O!"<-=q%U%!%$%k$r(B Emacs $B$N%P%C%U%!$KFI$_9~$s$@$H$-$N$_MxMQ$5$l$^(B
 $B$9!#(B
 @end table
@@ -5753,7 +5753,7 @@ DDSKK $B$G$O!"8D?M<-=q$H6&M-<-=q$H$$$&$h$&$KJ#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#(B
 
 @code{skk-search-prog-list} $B$N@_DjJ}K!$H$7$F$O!"Nc$($P(B
 @code{skk-large-jisyo} $B$K(B S $B<-=q$+(B M $B<-=q$r;XDj$7!"(BS $B<-=q!"(BM $B<-=q$O(B Emacs
-$B$N%P%C%U%!$KFI$_9~$s$G8!:w$7$F!"(B@code{skk-aux-large-jisyo}$B$K(B L $B<-=q$r;X(B
+$B$N%P%C%U%!$KFI$_9~$s$G8!:w$7$F!"(B@code{skk-aux-large-jisyo} $B$K(B L $B<-=q$r;X(B
 $BDj$7!"(BL $B<-=q$K$O<-=q%5!<%P7PM3$G%"%/%;%9$9$k!"$H$$$&A*Br;h$b$"$j$^$9!#(B
 
 @noindent
@@ -5895,7 +5895,7 @@ Jisyo} $B$rA*Br$7$?>l9g!#(B
 $B?M<-=q%P%C%U%!$r0l;~%U%!%$%k$KJ]B8$7$F!"$=$N%U%!%$%k%5%$%:$,8=B8$N(B ($B%;!<(B
 $B%VA0$N(B) $B8D?M<-=q$h$j>.$5$/$J$$$+$I$&$+$r%A%'%C%/$7$^$9!#8D?M<-=q$h$j>.$5(B
 $B$$$H$-$O!"J]B8F0:n$r7QB3$9$k$+$I$&$+!"3NG'$N$?$a$N<ALd$,$5$l$^$9!#(B
-@footnote{$BDL>o$N;HMQ$NHO0O$G$O(B@kbd{M-x skk-purge-from-jisyo}$B$7$?>l9g!"$"(B
+@footnote{$BDL>o$N;HMQ$NHO0O$G$O(B @kbd{M-x skk-purge-from-jisyo} $B$7$?>l9g!"$"(B
 $B$k$$$O8D?M<-=q$r%f!<%6!<$,0U?^E*$KJT=8$7$?>l9g!"J#?t$N(B Emacs $B$G(B DDSKK $B$r(B
 $B;HMQ$7$?>l9g$J$I$K!"8D?M<-=q$,>.$5$/$J$k$3$H$,$"$j$^$9!#B>$N>l9g$O%P%0$N(B
 $B2DG=@-$,$"$j$^$9!#(B}
@@ -6024,7 +6024,7 @@ Counting jisyo candidates... 100% done
 @end group
 @end example
 
-$B$?$@$7!"(B@samp{[}$B$H(B@samp{]}$B$K0O$^$l$?Aw$j2>L>Kh$N%V%m%C%/7A<0Fb$O?t$($^$;(B
+$B$?$@$7!"(B@samp{[} $B$H(B @samp{]} $B$K0O$^$l$?Aw$j2>L>Kh$N%V%m%C%/7A<0Fb$O?t$($^$;(B
 $B$s!#(B
 
 $B$^$?!"%a%K%e!<%P!<$,;HMQ$G$-$k4D6-$G$O!"%a%K%e!<%P!<$r;H$C$F$3$N%3%^%s%I(B
@@ -6558,6 +6558,13 @@ JISX0201 $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B
 
 $B%"%9%-!<%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B
 ``ivory4'' $B$^$?$O(B ``gray'' $B$rMQ$$$^$9!#(B
+
+@item skk-cursor-abbrev-color
+@vindex skk-cursor-abbrev-color
+
+skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r(B
+$BMQ$$$^$9!#(B
+
 @end table
 
 @node $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B

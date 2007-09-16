@@ -1,3 +1,8 @@
+2007-09-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: 半角スペースの調整.
+	変数 skk-cursor-abbrev-color の説明を追加.
+
 2007-09-14  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: 用語の統一、半角スペースの調整.
