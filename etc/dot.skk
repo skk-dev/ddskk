@@ -24,8 +24,14 @@
 ;; メッセージを日本語で通知する
 (setq skk-japanese-message-and-error t)
 
-;; 変換時に註釈 (annotation) を表示する
+;; メニューを英語で表示する
+;; (setq skk-show-japanese-menu nil)
+
+;; 変換時に注釈 (annotation) を表示する
 (setq skk-show-annotation t)
+
+;; 注釈 (annotation) を別な window で表示する
+;; (setq skk-annotation-show-as-message nil)
 
 ;; カーソルに色を付けない
 ;; (setq skk-use-color-cursor nil)
@@ -36,7 +42,8 @@
 ;;	   skk-cursor-katakana-color "green"
 ;;	   skk-cursor-abbrev-color "red"
 ;;	   skk-cursor-jisx0208-latin-color "red"
-;;	   skk-cursor-jisx0201-color "purple"))
+;;	   skk-cursor-jisx0201-color "purple"
+;;	   skk-cursor-latin-color "cyan"))
 
 ;; インジケータに色を付けない
 ;; (setq skk-indicator-use-cursor-color nil)
@@ -73,7 +80,10 @@
 	(mouse-avoidance-set-pointer-shape shape))))
   )
 
-;; インライン候補表示を使用する
+;; 変換候補を other-window に表示する
+;; (setq skk-show-candidates-always-pop-to-buffer t)
+
+;; 変換候補をインラインに表示する
 (setq skk-show-inline t)
 
 (when skk-show-inline

@@ -1,3 +1,9 @@
+2007-09-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* dot.skk: Add sample code for skk-show-japanese-menu,
+	skk-annotation-show-as-message, skk-cursor-latin-color and
+	skk-show-candidates-always-pop-to-buffer.
+
 2007-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.emacs: Update for skk-user-directory.
