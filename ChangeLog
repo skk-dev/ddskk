@@ -1,5 +1,9 @@
 2007-09-16  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* doc/skk.texi (SKKオートフィルモード, skk-isearchの操作性)
+	(アスキー文字を見出し語とした変換, 辞書ファイルを指定する変数):
+	Add period after @ref command if arg is 2 and over.
+
 	* skk-vars.el (skk-kakutei-when-unique-candidate): Allow to set
 	list value of `okuri-ari', `okuri-nasi' and `abbrev'.
 

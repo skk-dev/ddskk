@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/16 14:42:00 $
+@set UPDATED $Date: 2007/09/16 14:54:25 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -770,7 +770,7 @@ Window System 下で対応する Emacs を使用している場合。
 @footnote{「引数」については、
 
 @display
-@ref{Arguments, , Arguments, emacs, GNU Emacs Manual}
+@ref{Arguments, , Arguments, emacs, GNU Emacs Manual}.
 @end display
 
 @noindent
@@ -1581,7 +1581,7 @@ DDSKK では、専用のインクリメンタル・サーチプログラムを Emacs 添付の
 もそのまま利用できます。
 
 オリジナルのインクリメンタル・サーチについては、
-@w{@ref{Incremental Search, ,Incremental Search, emacs, GNU Emacs Manual}}
+@w{@ref{Incremental Search, ,Incremental Search, emacs, GNU Emacs Manual}.}
 を参照してください。
 
 インクリメンタル・サーチ中の入力方法は、通常のバッファにおける各入力モー
@@ -4300,7 +4300,7 @@ is /インクリメンタル・サーチ/
 
 @noindent
 入力したアスキー文字をそのまま全角アルファベットに変換する方法については、
-@ref{全英文字の一時的入力,, 全角アルファベットへの変換} を参照してくださ
+@ref{全英文字の一時的入力,, 全角アルファベットへの変換}. を参照してくださ
 い。
 
 なお、SKK abbrev mode においても見出し語の補完を行うことができます。
@@ -5698,7 +5698,7 @@ DDSKK では、個人辞書と共有辞書というように複数の辞書を扱うことが可能です。
 ばユーザー側で用意する必要があります。
 @footnote{確定変換用辞書の見出し語の配列については、サイズが大きければ共
 有辞書と同じ配列にして二分検索を行い、サイズが小さければ適当な配置で直
-線的検索を行うことをお勧めします。@w{@ref{辞書の形式, , 共有辞書の配置}}
+線的検索を行うことをお勧めします。@w{@ref{辞書の形式, , 共有辞書の配置}.}
 を参照してください。}
 
 @item skk-initial-search-jisyo
