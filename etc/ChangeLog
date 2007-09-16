@@ -1,3 +1,7 @@
+2007-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.emacs: Update for skk-user-directory.
+
 2007-08-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.skk: Update for `skk-search-kakutei-jisyo-file' in

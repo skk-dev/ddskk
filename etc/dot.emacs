@@ -4,6 +4,12 @@
 
 ;; ~/.emacs に追加するための設定例です。
 
+;;; 注意:
+
+;; SKK の設定は、~/.skk の方が優先されます。以下は、特殊な事情で
+;; ~/.skk ではうまく機能しない設定を集めています。これら以外は
+;; ~/.skk で設定することをお勧めします。
+
 ;;; Code:
 
 ;; @@ 基本の設定
@@ -25,30 +31,13 @@
 ;; @@ 応用的な設定
 
 ;; ~/.skk* なファイルがたくさんあるので整理したい
-(if (not (file-directory-p "~/.ddskk"))
-    (make-directory "~/.ddskk"))
-(setq skk-init-file "~/.ddskk/init.el"
-      skk-custom-file "~/.ddskk/custom.el"
-      skk-emacs-id-file "~/.ddskk/emacs-id"
-      skk-record-file "~/.ddskk/record"
-      skk-jisyo "~/.ddskk/jisyo"
-      skk-backup-jisyo "~/.ddskk/jisyo.bak"
-      skk-study-file "~/.ddskk/study"
-      skk-study-backup-file "~/.ddskk/study.bak")
+(setq skk-user-directory "~/.ddskk")
 ;; 注) SKK の個人辞書は skkinput などのプログラムでも参照しますから、
 ;;     上記の設定をした場合はそれらのプログラムの設定ファイルも書き
 ;;     換える必要があります。
 
 ;; migemo を使うから skk-isearch にはおとなしくしていて欲しい
 (setq skk-isearch-start-mode 'latin)
-
-;; super-smart-find のための設定 (意味あるかな？)
-(setq super-smart-find-self-insert-command-list
-      '(canna-self-insert-command
-	egg-self-insert-command
-	self-insert-command
-	tcode-self-insert-command-maybe
-	skk-insert))
 
 ;; YaTeX のときだけ句読点を変更したい
 (add-hook 'yatex-mode-hook
