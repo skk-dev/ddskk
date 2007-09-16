@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/16 10:31:37 $
+@set UPDATED $Date: 2007/09/16 14:16:26 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -728,7 +728,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 
 @xref{$BF~NO%b!<%I(B, , $B%"%9%-!<%b!<%I(B}.}
 
-@defvr {$B%f!<%6!<JQ?t(B} skk-preload
+@defvr {$B%f!<%6JQ?t(B} skk-preload
 @vindex skk-preload
 
 @file{~/.emacs} $B$K$FJQ?t(B @code{skk-preload} $B$rHs(B @code{nil} $B$H@_Dj$9$k$3(B
@@ -6482,6 +6482,7 @@ SKK $B<-=q$K(B
 * $B2>L>J8;z$N%m!<%^;z%W%l%U%#%C%/%9$N%(%3!<(B::
 * $BF~NO%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs$NJQ99(B::
 * $BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B::
+* $BJQ498uJd$NI=<(J}K!(B::
 * $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B::
 * $B%(%i!<$J$I$NF|K\8lI=<((B::
 * XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B::
@@ -6619,6 +6620,47 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $BMQ$$$^$9!#(B
 
 @end table
+
+@node $BJQ498uJd$NI=<(J}K!(B
+@subsection $BJQ498uJd$NI=<(J}K!(B::
+
+$BJQ498uJd$NI=<(J}K!$OBg$-$/0J2<$N(B 4 $B$D$KJ,$+$l$^$9!#(B
+
+@itemize @bullet
+@item $B%(%3!<%(%j%"(B
+@item $B8=:_$N%&%$%s%I%&$HJL$N%&%$%s%H%&(B ($B%]%C%W%"%C%W(B)
+@item $B8=:_$N%&%$%s%I%&(B ($B%$%s%i%$%s(B)
+@item $B%D!<%k%F%#%C%W(B
+@end itemize
+
+$B$3$3$G$O$=$NI=<(J}K!$N@)8f$K$D$$$F2r@b$7$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-show-inline
+@vindex skk-show-inline
+
+$B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"JQ498uJd$r8=:_$N%]%$%s%H0LCV$G%$%s%i%$%sI=(B
+$B<($7$^$9!#(B
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-show-tooltip
+@vindex skk-show-tooltip
+
+$B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"JQ498uJd$r%D!<%k%F%#%C%W$H$7$FI=<($7$^$9!#(B
+$B$3$N@_Dj$O$^$?!"Cm<a(B ($B%"%N%F!<%7%g%s(B) $B$NI=<(J}K!$bF1;~$K@)8f$7$^$9!#(B
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-show-candidates-always-pop-to-buffer
+@vindex skk-show-candidates-always-pop-to-buffer
+
+$B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"2hLL$r>e2<$KJ,3d$7$?$&$($G!"JQ498uJd$r@lMQ(B
+$B$N!V(B*$B8uJd(B*$B%P%C%U%!!W$G0lMwI=<($7$^$9!#(B
+@end defvr
+
+$B>e5-(B 3 $BJQ?t$H$b%G%U%)%k%H$OHs(B @code{nil} $B$G$9!#$=$N>uBV$G$O!"JQ498uJd$O(B
+$B%(%3!<%(%j%"$KI=<($5$l$^$9!#(B
+
+$B$^$?!"$b$7$3$l$i$N$&$A(B 2 $B$D0J>e$,Hs(B @code{nil} $B$N>l9g!"M%@h=g0L$O>e5-2r(B
+$B@b=g$H$J$j$^$9!#(B
 
 @node $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B
 @subsection $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B

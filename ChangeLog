@@ -1,3 +1,8 @@
+2007-09-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Add description on skk-show-inline and
+	skk-show-candidates-always-pop-to-buffer.
+
 2007-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cus.el: Require `custom'.
