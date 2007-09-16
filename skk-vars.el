@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.252 2007/09/14 13:55:43 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.253 2007/09/16 10:31:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/14 13:55:43 $
+;; Last Modified: $Date: 2007/09/16 10:31:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -264,13 +264,25 @@ Automatically becomes buffer-local when set in any fashion."
   :group 'skk-kanagaki)
 
 ;;; skk.el related.
-(defcustom skk-init-file (convert-standard-filename "~/.skk")
+(defcustom skk-user-directory nil
+  "*SKK の設定ファイルなどを起くディレクトリ名。
+各種設定ファイルをひとつのディレクトリにまとめたい場合に設定する。
+
+  (例) (setq skk-user-directory \"~/.ddskk\")
+"
+  :type '(radio (directory :tag "ディレクトリ名" "~/.ddskk")
+		(const :tag "設定しない" nil))
+  :group 'skk-basic)
+
+(defcustom skk-init-file (if skk-user-directory
+			     (expand-file-name "init.el" skk-user-directory)
+			   (convert-standard-filename "~/.skk"))
   "*SKK の初期設定ファイル名。
 このファイルの代わりに ~/.emacs で設定することも可能だが、
 その場合 `skk-restart' は使いものにならない。"
   ;;"*Name of the SKK initialization file.
   ;;From skk.el 9.x on all customization may be done in ~/.emacs."
-  :type '(file :tag "辞書ファイル名" "~/.skk")
+  :type '(file :tag "ファイル名")
   :group 'skk-basic)
 
 (defcustom skk-japanese-message-and-error nil
@@ -461,14 +473,19 @@ C-0 SPC で使用される"
   :type 'function
   :group 'skk-dictionary)
 
-(defcustom skk-jisyo (convert-standard-filename "~/.skk-jisyo")
+(defcustom skk-jisyo (if skk-user-directory
+			 (expand-file-name "jisyo" skk-user-directory)
+		       (convert-standard-filename "~/.skk-jisyo"))
   "*SKK のユーザー辞書。"
-  :type '(file :tag "辞書ファイル名" "~/.skk-jisyo")
+  :type `(file :tag "辞書ファイル名")
   :group 'skk-private)
 
-(defcustom skk-backup-jisyo (convert-standard-filename "~/.skk-jisyo.BAK")
+(defcustom skk-backup-jisyo (if skk-user-directory
+				(expand-file-name "jisyo.bak"
+						  skk-user-directory)
+			      (convert-standard-filename "~/.skk-jisyo.BAK"))
   "*SKK のユーザー辞書のバックアップファイル。"
-  :type '(file :tag "辞書ファイル名" "~/.skk-jisyo.BAK")
+  :type '(file :tag "辞書ファイル名")
   :group 'skk-private)
 
 (defcustom skk-jisyo-code nil
@@ -1467,7 +1484,11 @@ car に「実際のキー入力によるかな prefix 文字列」、cdr に「SKK 
   :type '(repeat (cons string string))
   :group 'skk-okurigana)
 
-(defcustom skk-emacs-id-file (convert-standard-filename "~/.skk-emacs-id") "\
+(defcustom skk-emacs-id-file (if skk-user-directory
+				 (expand-file-name "emacs-id"
+						   skk-user-directory)
+			       (convert-standard-filename "~/.skk-emacs-id"))
+  "\
 *`skk-jisyo-file'に最近アクセスした SKK の `skk-emacs-id' を保存するファイル。"
   :type 'file
   :group 'skk-misc)
@@ -1481,7 +1502,9 @@ nil であれば、変換に関する記録を取らない。"
 		(const :tag "記録しない" nil))
   :group 'skk-misc)
 
-(defcustom skk-record-file (convert-standard-filename "~/.skk-record")
+(defcustom skk-record-file (if skk-user-directory
+			       (expand-file-name "record" skk-user-directory)
+			     (convert-standard-filename "~/.skk-record"))
   "*ユーザー辞書の統計を取るファイル。
 辞書セーブの時刻、単語の登録数、確定を行った回数、確定率、全体の語数の
 情報を収める。"
@@ -4185,20 +4208,18 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
 (defvar skkserv-process nil)
 
 ;;; skk-study.el related.
-(defcustom skk-study-file (convert-standard-filename
-			   (cond ((eq system-type 'ms-dos)
-				  "~/_skkst")
-				 (t
-				  "~/.skk-study")))
+(defcustom skk-study-file (if skk-user-directory
+			      (expand-file-name "study" skk-user-directory)
+			    (convert-standard-filename "~/.skk-study"))
   "*学習結果を保存するファイル。"
   :type 'file
   :group 'skk-study)
 
-(defcustom skk-study-backup-file (convert-standard-filename
-				  (cond ((eq system-type 'ms-dos)
-					 "~/_skkstbk")
-					(t
-					 "~/.skk-study.BAK")))
+(defcustom skk-study-backup-file (if skk-user-directory
+				     (expand-file-name "study.bak"
+						       skk-user-directory)
+				   (convert-standard-filename
+				    "~/.skk-study.BAK"))
   "*学習結果を保存するバックアップファイル。"
   :type 'file
   :group 'skk-study)

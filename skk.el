@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.448 2007/09/14 13:55:43 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.449 2007/09/16 10:31:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/14 13:55:43 $
+;; Last Modified: $Date: 2007/09/16 10:31:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -253,10 +253,12 @@ dependent."
   ;; いっそ unload-feature とかしたほうがいいのかもしれない。
   ;; skk-kakutei-key に関しては minibuffer-local-map などの処理も。
   (mapatoms #'(lambda (sym)
-		;; skk-init-file 以外の defcustom で宣言された変数を再初期化。
+		;; skk-user-directory, skk-init-file 以外の defcustom で宣言
+		;; された変数のうち、saved-value を持たないものを再初期化。
 		;; 他にも除外すべき変数がないか要検討。
 		(when (and (string-match "^skk-" (symbol-name sym))
-			   (not (eq sym 'skk-init-file))
+			   (not (memq sym '(skk-user-directory skk-init-file)))
+			   (not (plist-member (symbol-plist sym) 'saved-value))
 			   (plist-member (symbol-plist sym) 'standard-value))
 		  (set-default sym
 			       (eval (car (get sym 'standard-value)))))))
@@ -295,9 +297,11 @@ dependent."
     (delete-menu-item (list (car skk-menu)))))
 
 (defun skk-mode-invoke ()
+  (when skk-user-directory
+    (make-directory skk-user-directory t))
   (skk-compile-init-file-maybe)
-  (load skk-init-file t)
   (skk-cus-setup)
+  (load skk-init-file t)
   (skk-adjust-user-option)
   (skk-setup-modeline)
   (when skk-share-private-jisyo
@@ -3780,40 +3784,45 @@ If you want to restore the dictionary from the disc, try
 (defun skk-count-jisyo-candidates-original (file)
   "SKK 辞書の候補数を数える。
 `[' と `]' に囲まれた送り仮名毎のブロック内は数えない。"
-  (with-current-buffer (find-file-noselect file)
-    (save-match-data
-      (let ((count 0)
-	    (min (point-min))
-	    (max (and (interactive-p) (point-max)))
-	    (interactive-p (interactive-p)))
-	(goto-char min)
-	(unless (and
-		 ;; こちらは skk-save-point を使わず、ポイントを移動させる。
-		 (re-search-forward "^;; okuri-ari entries.$" nil t nil)
-		 (skk-save-point
-		  (re-search-forward "^;; okuri-nasi entries.$" nil t nil)))
-	  (skk-error "このファイルは SKK 辞書ではありません"
-		     "This file is not an SKK dictionary"))
-	(beginning-of-line)
-	(while (looking-at ";")
-	  (forward-line 1)
-	  (beginning-of-line))
-	(search-forward " " nil t)
-	(while (search-forward "/" nil t)
-	  (cond ((or (eolp)
-		     (looking-at "\\["))
-		 (forward-line 1)
-		 (beginning-of-line)
-		 (while (looking-at ";")
+  (let ((orig-buffer (find-buffer-visiting file)))
+    (with-current-buffer (let ((find-file-visit-truename t))
+			   (or orig-buffer (find-file-noselect file)))
+      (save-match-data
+	(let ((count 0)
+	      (min (point-min))
+	      (max (and (interactive-p) (point-max)))
+	      (interactive-p (interactive-p)))
+	  (goto-char min)
+	  (unless (and
+		   ;; こちらは skk-save-point を使わず、ポイントを移動させる。
+		   (re-search-forward "^;; okuri-ari entries.$" nil t nil)
+		   (skk-save-point
+		    (re-search-forward "^;; okuri-nasi entries.$" nil t nil)))
+	    (skk-error "このファイルは SKK 辞書ではありません"
+		       "This file is not an SKK dictionary"))
+	  (beginning-of-line)
+	  (while (looking-at ";")
+	    (forward-line 1)
+	    (beginning-of-line))
+	  (search-forward " " nil t)
+	  (while (search-forward "/" nil t)
+	    (cond ((or (eolp)
+		       (looking-at "\\["))
 		   (forward-line 1)
-		   (beginning-of-line))
-		 (search-forward " " nil t))
-		(t
-		 (setq count (1+ count))))
-	  (when interactive-p
-	    (message "Counting jisyo candidates...%3d%% done"
-		     (/ (* 100 (- (point) min)) max))))
-	count))))
+		   (beginning-of-line)
+		   (while (looking-at ";")
+		     (forward-line 1)
+		     (beginning-of-line))
+		   (search-forward " " nil t))
+		  (t
+		   (setq count (1+ count))))
+	    (when interactive-p
+	      (message "Counting jisyo candidates...%3d%% done"
+		       (/ (* 100 (- (point) min)) max))))
+	  (prog1
+	      count
+	    (unless orig-buffer
+	      (kill-buffer (current-buffer)))))))))
 
 (defun skk-create-file (file &optional japanese english modes)
   "FILE がなければ、FILE という名前の空ファイルを作る。
@@ -5380,13 +5389,9 @@ SKK 辞書の候補として正しい形に整形する。"
 ;;;###autoload
 (add-hook 'after-init-hook
 	  #'(lambda ()
-	      (when (symbol-value 'init-file-user)
-		(when (and (boundp 'skk-custom-file)
-			   (load skk-custom-file t)
-			   (cdr (assq 'skk-preload skk-custom-alist)))
-		  (setq skk-preload t))
-		(when skk-preload
-		  (skk-preload)))))
+	      (when (and (symbol-value 'init-file-user)
+			 skk-preload)
+		(skk-preload))))
 
 (add-hook 'kill-buffer-hook
 	  ;; SKK の▼モードだったら、確定してからバッファをキルする。

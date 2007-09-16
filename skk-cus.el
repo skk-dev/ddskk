@@ -33,11 +33,9 @@
 
 (require 'skk-vars)
 (require 'wid-edit)
+(require 'custom)
 
-;;;###autoload
-(defvar skk-custom-file "~/.skk-cus")
 (defvar skk-custom-params nil)
-;;;###autoload
 (defvar skk-custom-alist nil)
 (defvar skk-custom-buffer-original nil)
 (defvar skk-custom-map
@@ -108,10 +106,6 @@
     (skk-preload
      (const :tag "SKK をあらかじめロードして初回起動を高速にする" t) "")))
 
-(defun skk-cus-set ()
-  (dolist (param skk-custom-alist)
-    (set (car param) (cdr param))))
-
 (defun skk-custom-mode ()
   (kill-all-local-variables)
   (setq major-mode 'skk-custom-mode
@@ -129,10 +123,12 @@
 		 nil)))
 	 params)))
 
+;;;###autoload
 (defun skk-customize-group-skk ()
   (interactive)
   (customize-group 'skk))
 
+;;;###autoload
 (defun skk-customize ()
   (interactive)
   (dolist (param (append skk-cus-params-visual
@@ -258,9 +254,9 @@
 (defun skk-customize-done (&rest args)
   (interactive)
   (setq skk-custom-alist nil)
-  (dolist (params skk-custom-params)
+  (dolist (group skk-custom-params)
     (setq skk-custom-alist (append skk-custom-alist
-				   (widget-value params))))
+				   (widget-value group))))
   (dolist (param (append skk-cus-params-visual
 			 skk-cus-params-ui
 			 skk-cus-params-henkan
@@ -270,44 +266,36 @@
     (unless (assq (car param) skk-custom-alist)
       (push (cons (car param) nil) skk-custom-alist)))
   (skk-cus-set)
-  (skk-cus-save-file)
   (bury-buffer)
   (unless (eq skk-custom-buffer-original (current-buffer))
     (switch-to-buffer skk-custom-buffer-original))
   (skk-adjust-user-option))
 
-(defun skk-cus-save-file ()
-  (with-temp-buffer
-    (insert "(setq skk-custom-alist '"
-	    (prin1-to-string skk-custom-alist)
-	    ")\n")
-    (write-region (point-min) (point-max) skk-custom-file)))
-
 ;;;###autoload
 (defun skk-cus-setup ()
-  (let ((file (expand-file-name skk-custom-file)))
-    (when (file-readable-p file)
-      (load-file file)
-      (skk-cus-set))))
+  ;; obsolete
+  (when (and (boundp 'skk-custom-file)
+	     (ignore-errors
+	       (file-readable-p (symbol-value 'skk-custom-file))))
+    (let* ((old-name (expand-file-name (symbol-value 'skk-custom-file)))
+	   (new-name (concat old-name ".not_used")))
+      (load-file old-name)
+      (copy-file old-name new-name 'ok-if-already-exists)
+      (delete-file old-name))
+    (skk-cus-set)))
 
-(defun skk-cus-update ()
-  (let ((params (append skk-cus-params-visual
-			skk-cus-params-ui
-			skk-cus-params-henkan
-			skk-cus-params-search
-			skk-cus-params-input
-			skk-cus-params-misc))
-	param)
-    (setq skk-custom-alist nil)
-    (while params
-      (setq param (pop params))
-      (setq skk-custom-alist
-	    (cons (cons (car param) (symbol-value (car param)))
-		  skk-custom-alist)))
-    (skk-cus-save-file)))
-
-(defadvice custom-save-variables (after skk-cus-update activate)
-  (skk-cus-update))
+(defun skk-cus-set ()
+  (dolist (param skk-custom-alist)
+    (let ((variable (car param))
+	  (value (cdr param)))
+      (funcall (or (get variable 'custom-set) 'set-default) variable value)
+      (put variable 'saved-value (list (custom-quote value)))
+      (custom-push-theme 'theme-value variable 'user 'set (custom-quote value))
+      (put variable 'customized-value nil)
+      (put variable 'customized-variable-comment nil)))
+  (custom-save-all)
+  ;;
+  (setq skk-custom-alist nil))
 
 (require 'product)
 (product-provide

@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/16 07:31:28 $
+@set UPDATED $Date: 2007/09/16 10:31:37 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1803,6 +1803,12 @@ SKK $B$N3X=,5!G=$N$R$H$D$G!"%f!<%6$N2a5n$NF~NO$+$iJQ498uJd$rM=B,$7$^$9!#(B
 
 @xref{$BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B}.
 
+@item skk-cus.el
+@cindex @file{skk-cus.el}
+@kbd{M-x customize-group} $B$K$h$kBPOCE*$J@_DjJQ995!G=$N4J0WHG$rDs6!$7$^$9!#(B
+
+@xref{Customize $B$K$h$k@_DjJQ99(B}.
+
 @item skk-dcomp.el
 @cindex @file{skk-dcomp.el}
 
@@ -2006,6 +2012,15 @@ DDSKK $B$N%+%9%?%^%$%:$O!"(B@file{~/.emacs} $B$"$k$$$O(B @file{~/.skk} $B$K
 $B$G9T$&I,MW$,$"$j$^$7$?$,!"(BDDSKK 11 $B0J9_$G$O!"(B@code{defcustom} $B$r;HMQ$7$?(B
 $B@k8@$r9T$C$F$$$k$N$G!"$3$N@)8B$O$J$/$J$j$^$7$?!#(B}$B!#(B
 
+@menu
+* $B@_Dj%U%!%$%k(B::
+* $B%U%C%/(B::
+* Customize $B$K$h$k@_DjJQ99(B::
+@end menu
+
+@node $B@_Dj%U%!%$%k(B
+@subsection $B@_Dj%U%!%$%k(B
+
 @table @asis
 @item @file{~/.emacs}
 
@@ -2030,6 +2045,9 @@ DDSKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_$3$^$l$^$9!#%U%!%$%kL>$N4{DjCM$O!"(BOS
 @noindent
 $B$r;2>H$7$F$/$@$5$$!#(B
 @end table
+
+@node $B%U%C%/(B
+@subsection $B%U%C%/(B
 
 @table @code
 @item skk-mode-hook
@@ -2092,6 +2110,41 @@ DDSKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_$3$^$l$^$9!#%U%!%$%kL>$N4{DjCM$O!"(BOS
 
 @noindent
 $B$N$h$&$K5-=R$7$^$9!#(B
+
+@node Customize $B$K$h$k@_DjJQ99(B
+@subsection Customize $B$K$h$k@_DjJQ99(B
+
+SKK $B$N@_Dj$O!"(BEmacs $BI8=`$N(B Customize $B5!G=$r;H$C$F9T$&$3$H$b$G$-$^$9!#(B
+$B$?$@$7!"(B Customize $B$G$N@_Dj$O(B @file{~/.emacs} $B$G$N@_Dj$HF1MM!"(B
+@file{~/.skk} $B$G$N@_Dj$K$h$j>e=q$-$5$l$^$9$N$GCm0U$7$F$/$@$5$$!#(B
+
+@kindex M-x customize-group
+@kbd{M-x customize-group} $B$K$h$j!"(Bskk $B$N@_Dj$rBPOCE*$KJQ99$9$k$3$H$,$G$-(B
+$B$^$9!#(B
+
+@kbd{M-x customize-group} $B$r<B9T$9$k$H!"%_%K%P%C%U%!$K(B ''Customize group''
+$B$H%W%m%s%W%H$,I=<($5$l$^$9!#$3$3$G(B ``skk'' $B$HEz$($k$H!"(BSKK $B%0%k!<%W$N2h(B
+$BLL$H$J$j$^$9!#(B
+
+$B$"$k$$$O!"%b!<%I9T$G(B SKK $B%$%s%8%1!<%?$r1&(B ($BBh(B 3 $B%\%?%s(B) $B%/%j%C%/$7$FI=<((B
+$B$5$l$k%a%K%e!<$+$i(B ''SKK$B$r%+%9%?%^%$%:(B'' $B$rA*$s$G$bF1$82hLL$H$J$j$^$9!#(B
+
+$B%+%9%?%^%$%:$N;H$$$+$?$O0J2<$r;2>H$7$F$/$@$5$$!#(B
+
+@display
+@xref{Easy Customization, , Easy Customization, emacs, GNU Emacs Manual}.
+@end display
+
+@kindex M-x skk-customize
+
+@kbd{M-x customize-group} $B$N@_Dj$,J#;($9$.$k$H46$8$k%f!<%6$N$?$a$K!"4J0W(B
+$BHG$H$7$F(B @kbd{M-x skk-customize} $B$rMQ0U$7$F$$$^$9!#$3$l$O(B SKK $B%0%k!<%W$N(B
+$B%f!<%6%*%W%7%g%s$N$&$A!"$h$/;H$&$b$N$@$1H4?h$7$F@_Dj$G$-$k$h$&$K$7$?$b$N(B
+$B$G$9!#(B
+
+$B$3$l$O!"%b!<%I9T$G(B SKK $B%$%s%8%1!<%?$r1&(B ($BBh(B 3 $B%\%?%s(B) $B%/%j%C%/$7$FI=<((B
+$B$5$l$k%a%K%e!<$+$i(B ''SKK$B$r%+%9%?%^%$%:(B ($B4J0WHG(B)'' $B$rA*$s$G8F$S=P$9$3$H$b(B
+$B$G$-$^$9!#(B
 
 @node $BF~NO%b!<%I$N0l;~JQ99(B
 @section $BF~NO%b!<%I$N0l;~JQ99(B

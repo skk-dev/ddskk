@@ -1,3 +1,29 @@
+2007-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cus.el: Require `custom'.
+	(skk-customize-group-skk, skk-customize): Autoload.
+	(skk-cus-save-file, skk-cus-update): Abolish functions.
+	(skk-custom-file): Abolish variable.
+	(skk-cus-setup, skk-cus-set): Use `custom' instead of taking care
+	of params itself.
+
+	* skk-vars.el (skk-user-directory): New user option.
+
+	(skk-init-file, skk-jisyo, skk-backup-jisyo):
+	(skk-emacs-id-file, skk-record-file):
+	(skk-study-file, skk-study-backup-file):
+
+	Set default values according to it.
+
+	* skk.el (skk-mode-invoke): Call `skk-cus-setup' before loading
+	skk-init-file.  If skk-user-directory is set, create the
+	directory.
+	(after-init-hook): Stop loading skk-custom-file.
+	(skk-count-jisyo-candidates-original): Kill FILE buffer unless
+	FILE has been previously opened.
+	(skk-restart): Do not reset skk-user-directory.  Preserve
+	custom `saved-value's.
+
 2007-09-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: 半角スペースの調整.
@@ -12,6 +38,7 @@
 	化.
 	skk-dcomp-face の記述を追加.
 	変数 skk-show-japanese-menu, skk-show-icon, skk-icon を追加.
+	M-x customize-group と skk-cus.el に関する記述.
 
 2007-09-14  IRIE Tetsuya  <irie@t.email.ne.jp>
 
