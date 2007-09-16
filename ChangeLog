@@ -1,3 +1,10 @@
+2007-09-16  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-kakutei-when-unique-candidate): Allow to set
+	list value of `okuri-ari', `okuri-nasi' and `abbrev'.
+
+	* skk.el (skk-henkan-1): Consider it.
+
 2007-09-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Add description on skk-show-inline and

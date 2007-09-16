@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.449 2007/09/16 10:31:37 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.450 2007/09/16 14:23:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/16 10:31:37 $
+;; Last Modified: $Date: 2007/09/16 14:23:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1744,9 +1744,17 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	  (skk-henkan-list-filter)
 	  (setq new-word (skk-get-current-candidate)))
 	;; 変換候補が一つしか無い時の確定変換用チェック
-	(when (and (if (eq skk-kakutei-when-unique-candidate 'okuri-nasi)
-		       (not skk-henkan-okurigana)
-		     skk-kakutei-when-unique-candidate)
+	(when (and (or (eq skk-kakutei-when-unique-candidate t)
+		       (cond (skk-abbrev-mode
+			      (memq 'abbrev skk-kakutei-when-unique-candidate))
+			     (skk-henkan-okurigana
+			      (memq 'okuri-ari skk-kakutei-when-unique-candidate))
+			     (t
+			      ;; 送り無しのみを特別扱いしていた古い仕様に対応
+			      (or (eq 'okuri-nasi
+				      skk-kakutei-when-unique-candidate)
+				  (memq 'okuri-nasi
+					skk-kakutei-when-unique-candidate)))))
 		   (= (length skk-henkan-list) 1)
 		   (not skk-undo-kakutei-flag))
 	  (while (and skk-current-search-prog-list

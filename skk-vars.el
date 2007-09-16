@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.253 2007/09/16 10:31:37 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.254 2007/09/16 14:23:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/16 10:31:37 $
+;; Last Modified: $Date: 2007/09/16 14:23:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1319,14 +1319,20 @@ nil であれば、一つ前の候補を表示する。
 
 (defcustom skk-kakutei-when-unique-candidate nil
   "*Non-nil であれば、変換候補が一つしかないとき確定変換する。
-`okuri-nasi' ならば、送り無し変換時のみ有効とする。
+
+この値が t であればどの変換モードでも確定変換する。
+`okuri-ari', `okuri-nasi', `abbrev' のいずれかを要素とするリストで
+あれば、変換モードがその条件に合致した場合のみ確定変換する。
 
 候補が他に無い事を確認するため、`skk-search-prog-list' の内容次第
 でレスポンスが悪くなる可能性がある。その場合
 `skk-kakutei-search-prog-limit' を設定することで検索対象を制限する
 ことも可能。"
   :type '(radio (const :tag "常に有効" t)
-		(const :tag "送り無し変換時だけ有効" okuri-nasi)
+		(set :tag "有効にする変換モード"
+		     (const :tag "送り有り変換" okuri-ari)
+		     (const :tag "送り無し変換" okuri-nasi)
+		     (const :tag "abbrev 変換" abbrev))
 		(const :tag "無効" nil))
   :group 'skk-kakutei)
 
