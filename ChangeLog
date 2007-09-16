@@ -1,3 +1,13 @@
+2007-09-14  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: 用語の統一、半角スペースの調整.
+	「使用者」を「ユーザ」に置換.
+	個人辞書に関する部分で、「辞書」を「個人辞書」と明示.
+	skk-study.el に係る変数の説明書き部分を、他の箇所と同じく @table
+	化.
+	skk-dcomp-face の記述を追加.
+	変数 skk-show-japanese-menu, skk-show-icon, skk-icon を追加.
+
 2007-09-14  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-vars.el (skk-kakutei-when-unique-candidate): Update
