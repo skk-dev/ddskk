@@ -1,5 +1,9 @@
 2007-09-17  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
+	* doc/skk.texi: Add description on skk-gadget-units-conversion.
+
+2007-09-17  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
 	* doc/skk.texi: Add description on skk-use-azik and
 	skk-use-act.
 

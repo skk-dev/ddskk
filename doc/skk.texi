@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/17 08:32:01 $
+@set UPDATED $Date: 2007/09/17 14:36:50 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4391,7 +4391,6 @@ L 辞書
 @node プログラム実行変換
 @subsection プログラム実行変換
 @cindex @file{skk-gadget.el}
-@findex skk-calc
 
 辞書の候補に Emacs Lisp のプログラムが書いてあれば、そのプログラムを
 Emacs に実行させ、返り値をカレントバッファに挿入します。これを @b{「プロ
@@ -4438,9 +4437,12 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/@dots{}/
 因みに、X Window System で使用される @samp{Widget} という言葉は、 @samp{window}
 + @samp{gadget} から作られた造語のようです。}には、西暦/元号変換プログラ
 ムや、簡単な計算プログラムなど、実行変換用のプログラムが集められています。
-ここではその中の 1 つを取り上げて説明します。
+以下、２つの例を掲げます。
 
-下記は、引数を 1 つ取り、見出し語の数字に対しその演算を行う簡単な計算
+@defun skk-calc operator
+@findex skk-calc
+
+skk-calc は、引数を 1 つ取り、見出し語の数字に対しその演算を行う簡単な計算
 プログラムです。
 
 @lisp
@@ -4450,7 +4452,9 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/@dots{}/
   ;;@r{注意: '/ は引数として渡せないので (defalias 'div '/) などとし、別の形で}
   ;;@r{skk-calc に渡す。}
   ;;@r{辞書見出し例; #*# /(skk-calc '*)/}
-  (number-to-string (apply operator (mapcar 'string-to-number skk-num-list))))
+  (number-to-string (apply operator
+                           (mapcar 'string-to-number 
+                                   skk-num-list))))
 @end group
 @end lisp
 
@@ -4470,6 +4474,70 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/@dots{}/
 各要素に対し演算を行うため、各要素は数に変換されます。その上で、
 @code{skk-calc} に与えられた引数 (この場合は @samp{*}) を演算子として演
 算を行います。
+@end defun
+
+@defun skk-gadget-units-conversion 基準単位 数値 変換単位
+@findex skk-gadget-units-conversion
+
+数値について、基準単位から変換単位への変換を行います。
+
+@example
+@kbd{/ 1 3 m i l e}
+
+@group
+------ Buffer: foo ------
+▽13mile@point{}
+------ Buffer: foo ------
+@end group
+
+@key{SPC}
+
+@group
+------ Buffer: foo ------
+▼20.9209km@point{}
+------ Buffer: foo ------
+@end group
+
+@key{RET}
+
+@group
+------ Buffer: foo ------
+20.9209km@point{}
+------ Buffer: foo ------
+@end group
+@end example
+
+単位変換の情報は、変数 @code{skk-units-alist} で定義されています。
+@end defun
+
+@defvr {ユーザ変数} skk-units-alist
+
+この変数は以下の形式の連想リストです。
+
+@example
+(基準となる単位 (変換する単位 . 変換時の倍率)
+                (… . …))
+@end example
+
+関数 @code{skk-gadget-units-conversion} で利用されています。デフォルトで
+は、以下の単位変換の情報を定義しています。
+
+@lisp
+@group
+("mile" ("km" . 1.6093)
+        ("yard" . 1760))
+
+("yard" ("feet" . 3)
+        ("cm" . 91.44))
+
+("feet" ("inch" . 12)
+        ("cm" . 30.48))
+
+("inch" ("feet" . 0.5)
+        ("cm" . 2.54))
+@end group
+@end lisp
+@end defvr
 
 @node 接頭辞・接尾辞
 @section 接頭辞・接尾辞
