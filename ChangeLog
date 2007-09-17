@@ -1,3 +1,12 @@
+2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cus.el (skk-cus-params-visual): Add skk-verbose,
+	skk-show-japanese-menu, skk-show-inline, skk-show-tooltip and
+	skk-show-candidates-always-pop-to-buffer.
+	(skk-cus-params-henkan): Add skk-j-mode-function-key-usage.
+	(skk-cus-params-search): Add skk-use-numeric-conversion.
+	(skk-cus-params-input): Remove skk-use-kana-keyboard.
+
 2007-09-16  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (SKKオートフィルモード, skk-isearchの操作性)

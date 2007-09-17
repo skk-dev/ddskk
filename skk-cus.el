@@ -51,6 +51,10 @@
      (const :tag "カーソルに色をつける" t) "")
     (skk-japanese-message-and-error
      (const :tag "メッセージは日本語で通知する" t) "")
+    (skk-verbose
+     (const :tag "ふつうより多くのメッセージを表示する" t) "")
+    (skk-show-japanese-menu
+     (const :tag "日本語メニューを使用する" t) "")
     (skk-show-annotation
      (radio :tag "変換時に註釈を表示する？"
 	    (const :tag "常に表示" t)
@@ -59,7 +63,13 @@
 	    (const :tag "候補一覧とミニバッファでは非表示"
 		   (not list minibuf))
 	    (const :tag "非表示" nil))
-     "")))
+     "")
+    (skk-show-inline
+     (const :tag "候補一覧をそのウインドウにインライン表示する" t) "")
+    (skk-show-tooltip
+     (const :tag "候補一覧・注釈をツールティップで表示する" t) "")
+    (skk-show-candidates-always-pop-to-buffer
+     (const :tag "候補一覧を別ウインドウを用意して表示する" t) "")))
 
 (defconst skk-cus-params-ui
   '((skk-egg-like-newline
@@ -84,19 +94,24 @@
 	     (const :tag "自動処理する" auto)
 	     (const :tag "ユーザの指示による" ask)
 	     (const :tag "自動処理しない" nil))
+     "")
+    (skk-j-mode-function-key-usage
+     (radio :tag "かなモードでファンクションキーを使う？"
+	    (const :tag "特殊変換に割り当てる" conversion)
+	    (const :tag "使わない" nil))
      "")))
 
 (defconst skk-cus-params-search
   '((skk-use-look
      (const :tag "補完の時に look コマンドを使う" t) "")
     (skk-auto-okuri-process
-     (const :tag "送りなし変換で送りあり候補も検索する" t) "")))
+     (const :tag "送りなし変換で送りあり候補も検索する" t) "")
+    (skk-use-numeric-conversion
+     (const :tag "数値変換機能を使う" t) "")))
 
 (defconst skk-cus-params-input
   '((skk-use-jisx0201-input-method
-     (const :tag "半角カナを入力可能にする" t) "")
-    (skk-use-kana-keyboard
-     (const :tag "かな入力を可能にする" t) "")))
+     (const :tag "半角カナを入力可能にする" t) "")))
 
 (defconst skk-cus-params-misc
   '((skk-share-private-jisyo
