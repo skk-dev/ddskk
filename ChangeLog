@@ -1,3 +1,8 @@
+2007-09-17  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Add description on skk-use-azik and
+	skk-use-act.
+
 2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cus.el (skk-cus-params-visual): Add skk-verbose,

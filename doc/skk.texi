@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/16 14:54:25 $
+@set UPDATED $Date: 2007/09/17 08:32:01 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -115,6 +115,7 @@ SKK $B$N%P!<%8%g%s(B @value{SKK-VERSION} $B$KBP1~$7$F$$$^$9!#(B
 * $B$O$8$a$N@_Dj(B::
 * $B4pK\E*$J;H$$J}(B::
 * $BJXMx$J1~MQ5!G=(B::
+* $B%m!<%^;zF~NO0J30$NF~NOJ}<0(B::
 * SKK$B$K4X$9$k>pJs(B::
 * $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)::
 * $B;v9`:w0z(B::
@@ -181,6 +182,13 @@ SKK $B$N%P!<%8%g%s(B @value{SKK-VERSION} $B$KBP1~$7$F$$$^$9!#(B
 * skk-init-file$B$N%3%s%Q%$%k(B::   $B@_Dj%U%!%$%k$N<+F0%P%$%H%3%s%Q%$%k!#(B
 * picture-mode$B$H$NJ;MQ(B::        picture-mode $B$H$NJ;MQ$N:]$NLdBjE@!#(B
 * $B%5!<%P4XO"(B::
+
+$B%m!<%^;zF~NO0J30$NF~NOJ}<0(B
+
+* AZIK::
+* ACT::
+* TUT-code::
+* $B$+$JF~NO$H?F;X%7%U%H(B::
 
 SKK$B$K4X$9$k>pJs(B
 
@@ -257,8 +265,8 @@ Daredevil SKK (DDSKK) $B$O(B SKK $B$N$5$i$J$k3HD%HG$H$7$F0LCVIU$1$i$l$F$$$^$9
 DDSKK $B$N<g$JFCD'$O!"<!$NDL$j$G$9!#(B
 
 @itemize @bullet
-@item $BB?:L$JF~NOJ}<0%5%]!<%H!#%m!<%^(B/$B$+$J(B $BN>BP1~$N$+$JF~NO$N$[$+!"(BT-Code$B!"(B
-TUT-code $B$K$h$kF~NO$b2DG=!#(B
+@item $BB?:L$JF~NOJ}<0%5%]!<%H!#%m!<%^(B/$B$+$J(B $BN>BP1~$N$+$JF~NO$N$[$+!"(BAZIK$B!"(B
+ACT$B!"(BTUT-code $B$K$h$kF~NO$b2DG=!#(B
 @item $BJ8K!E*CN<1$rMQ$$$J$$9bB.$J!V$+$J(B $B"*(B $B4A;z!WJQ49!#(B
 @item $B<-=q$KEPO?$5$l$F$$$J$$C18l$NEPO?$,4JC1!#(B
 @item $B8D?M<-=q$X$NC18l$N<+F0EPO?$K$h$kJQ49$N9b%R%C%H!#(B
@@ -1751,7 +1759,7 @@ SKK abbrev mode $B$N5!G=$rDs6!$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs6!$7$^(B
 $B$9!#(B
 
-@url{http://www1.vecceed.ne.jp/~bemu/act/act_index.html}
+@xref{ACT}.
 
 @item skk-annotation.el
 @cindex @file{skk-annotation.el}
@@ -1780,7 +1788,7 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 
 $B3HD%%m!<%^;zF~NO(B "AZIK" $B$N@_Dj$rDs6!$7$^$9!#(B
 
-@url{http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm}
+@xref{ACT}.
 
 @item skk-bayesian.el
 @cindex @file{skk-bayesian.el}
@@ -1880,7 +1888,7 @@ KAKASI $B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 $B8=CJ3,$G$O5l(B JIS $BG[Ns$N$+$J%-!<%\!<%I!"$*$h$S(B NICOLA $B5,3J$N?F;X%7%U%HG[(B
 $BNs$KBP1~$7$F$$$^$9!#(B
 
-@url{http://nicola.sunicom.co.jp/}
+@xref{$B$+$JF~NO$H?F;X%7%U%H(B}.
 
 @item skk-kcode.el
 @cindex @file{skk-kcode.el}
@@ -1969,6 +1977,8 @@ SKK $B%A%e!<%H%j%"%k%W%m%0%i%`!#(B
 @cindex @file{skk-tutcode.el}
 
 SKK $B$G(B TUT-code $BF~NO$r<B8=$7$^$9!#(B
+
+@xref{TUT-code}.
 
 @item skk-vars.el
 @cindex @file{skk-vars.el}
@@ -2290,8 +2300,6 @@ file /$B#f#i#l#e(B/
 
 @node $B"#%b!<%I$K$*$1$kJ8;zJQ49(B
 @subsubsection $B"#%b!<%I$K$*$1$kJ8;zJQ49(B
-@cindex T-code
-@cindex TUT-code
 
 @table @code
 @item skk-rom-kana-base-rule-list
@@ -2405,10 +2413,10 @@ skK @expansion{}SKK
 $B$"$k$N$G!"E,Ev$J>JN,7A$rMQ$$$F!"$3$N%j%9%H$KDI2C$7$F$*$/!"$H$$$C$?MxMQ$r(B
 $B$*4+$a$7$^$9!#(B
 
-$B99$K(B @code{skk-rom-kana-rule-list} $B$rMQ$$$l$P(B T-code $B$d(B TUT-code $B$K$h$k(B
-$BF|K\8lF~NO$r<B8=$9$k$3$H$b$G$-$^$9!#Nc$($P(B TUT-code $B$K$h$kF~NO$K$D$$$F$O(B
-$B%=!<%9%"!<%+%$%V$N(B @samp{tut-code} $B%G%#%l%/%H%j$K<}O?$5$l$F(B
-$B$$$k%=!<%9%3!<%I$r;2>H$7$F$/$@$5$$!#(B
+$B99$K(B @code{skk-rom-kana-rule-list} $B$rMQ$$$l$P(B TUT-code $B$K$h$kF|K\8lF~NO$r(B
+$B<B8=$9$k$3$H$b$G$-$^$9!#Nc$($P(B TUT-code $B$K$h$kF~NO$K$D$$$F$O%=!<%9%"!<%+(B
+$B%$%V$N(B @samp{tut-code} $B%G%#%l%/%H%j$K<}O?$5$l$F$$$k%=!<%9%3!<%I$r;2>H$7$F(B
+$B$/$@$5$$!#(B
 
 @node $B"#%b!<%I$K4XO"$9$k$=$NB>$NJQ?t(B
 @subsubsection $B"#%b!<%I$K4XO"$9$k$=$NB>$NJQ?t(B
@@ -7096,6 +7104,188 @@ SKK $B%5!<%P%W%m%0%i%`$r(B @code{call-process} $B$7$FN)$A>e$2$h$&$H;n$_$^$9(
 @end group
 @end lisp
 @end table
+
+@node $B%m!<%^;zF~NO0J30$NF~NOJ}<0(B
+@chapter $B%m!<%^;zF~NO0J30$NF~NOJ}<0(B
+
+DDSKK $B$O!"(BSKK $B5lMh$N%m!<%^;z<0$+$JF~NO(B ($B71Na<0!"%X%\%s<0(B) $BJ}<0$N$[$+!"3F(B
+$B<o%-!<G[Ns$HF~NOJ}<0$KBP1~$7$F$$$^$9!#(B
+
+@menu
+* AZIK::
+* ACT::
+* TUT-code::
+* $B$+$JF~NO$H?F;X%7%U%H(B::
+@end menu
+
+@node AZIK
+@section AZIK
+@cindex AZIK
+
+AZIK ($B%(%$%:%#%C%/(B) $B$O(B QWERTY $BG[Ns$r%Y!<%9$H$7$?3HD%%m!<%^;zF~NO$G$9!#(B
+$B0lHL$N%m!<%^;zF~NO$,$=$N$^$^;H$($k>e$G$N3HD%$G$"$k$3$H$,FCD'$G$9!#(B
+
+@url{http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm}
+
+@defvr {$B%f!<%6JQ?t(B} skk-use-azik
+@vindex skk-use-azik
+
+$B$3$NCM$,Hs(B @code{nil} $B$G$"$l$P(B AZIK $B3HD%$,M-8z$H$J$j$^$9!#(B@file{~/.skk}
+$B$K(B
+
+@lisp
+(setq skk-use-azik t)
+@end lisp
+
+@noindent
+$B$H=q$-$^$9!#(B
+@end defvr
+
+@node ACT
+@section ACT
+@cindex ACT
+
+ACT $B$O(B AZIK $B$N9M$(J}$r(B Dvorak $BG[Ns$KE,MQ$7!"(BDvorak $BG[Ns$G$+$J$r2wE,$K%?(B
+$B%$%W$G$-$k$h$&$K9M0F$5$l$?J}<0$G$9!#(B
+
+@url{http://www1.vecceed.ne.jp/~bemu/act/act_index.html}
+
+@defvr {$B%f!<%6JQ?t(B} skk-use-act
+@vindex skk-use-act
+
+$B$3$NCM$,Hs(B @code{nil} $B$G$"$l$P(B ACT $B3HD%$,M-8z$H$J$j$^$9!#(B@file{~/.skk}
+$B$K(B
+
+@lisp
+(setq skk-use-act t)
+@end lisp
+
+@noindent
+$B$H=q$-$^$9!#(B
+@end defvr
+
+@node TUT-code
+@section TUT-code
+@cindex TUT-code
+
+TUT-code $B$O(B 2 $B%9%H%m!<%/7O$NF|K\8lD>@\F~NOJ}<0$N0l$D$G$9!#(B
+
+@url{http://plone.crew.sfc.keio.ac.jp/groups/tut-code}
+
+$B;HMQ$9$k$K$O!"(BSKK $B$N%$%s%9%H!<%k;~$K$$$/$D$+$N%U%!%$%k$r%$%s%9%H!<%k$9$k(B
+$BI,MW$,$"$j$^$9!#(BSKK $B%=!<%9$N(B @file{tut-code} $B%G%#%l%/%H%j$K$"$k(B
+
+@itemize @bullet
+@item skk-tutcdef.el
+@item skk-tutcode.el
+@end itemize
+
+@noindent
+$B$r!"(BSKK $B%=!<%9$N%H%C%W%G%#%l%/%H%j$K%3%T!<$7$F!"(BSKK $B$N%$%s%9%H!<%k$r:FEY(B
+$B9T$$$^$9!#(B
+
+@xref{DDSKK $B$N%$%s%9%H!<%k(B}.
+
+$B$=$N8e!"(B@file{~/.skk} $B$K(B
+
+@lisp
+(require 'skk-tutcdef)
+@end lisp
+
+@noindent
+$B$H=q$-$^$9!#(B
+
+@node $B$+$JF~NO$H?F;X%7%U%H(B
+@section $B$+$JF~NO$H?F;X%7%U%H(B
+@cindex $B$+$JF~NO(B
+@cindex $B?F;X%7%U%H(B
+@cindex NICOLA
+
+DDSKK $B$O%m!<%^;z<0$G$O$J$$!"$$$o$f$k$+$JF~NOJ}<0$r%5%]!<%H$7$^$9!#6qBNE*(B
+$B$K$O(B
+
+@itemize @bullet
+@item $B5l(B JIS $BG[Ns$G$N$+$JF~NO(B
+@item $B?F;X%7%U%HJ}<0$G$N$+$JF~NO(B
+@end itemize
+
+@noindent
+$B$KBP1~$7$F$$$^$9!#$3$l$r;H$&$K$O$^$:!"(Bnicola-ddskk $B3HD%%Q%C%1!<%8$r%$%s(B
+$B%9%H!<%k$9$kI,MW$,$"$j$^$9!#(BSKK $B%=!<%9%G%#%l%/%H%j$N(B @file{nicola} $B%G%#(B
+$B%l%/%H%j$K0\F0$7!"%I%-%e%a%s%H$K=>$C$F%$%s%9%H!<%k$7$F$/$@$5$$!#(B
+
+@url{http://openlab.jp/skk/skk/main/nicola/README.ja}
+
+$B$D$E$$$F@_Dj$r$7$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-use-kana-keyboard
+@vindex skk-use-kana-keyboard
+
+$B$3$l$rHs(B @code{nil} $B$K@_Dj$9$k$H!"$+$JF~NO%5%]!<%H$,(B SKK $B5/F0;~$KM-8z$K(B
+$B$J$j$^$9!#(B
+
+@lisp
+(setq skk-use-kana-keyboard t)
+@end lisp
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-kanagaki-keyboard-type
+@vindex skk-kanagaki-keyboard-type
+
+$B$3$N@_Dj$G!"$+$JF~NO%5%]!<%H$N<oN`$r@Z49$($^$9!#(B
+
+@table @code
+@item 106-jis
+
+$BF|K\8l(B 106 $B%-!<%\!<%I(B ($B5l(B JIS $BG[Ns(B) $B$G$N$+$JF~NO$KBP1~$7$^$9!#(B
+
+@lisp
+(setq skk-kanagaki-keyboard-type '106-jis)
+@end lisp
+
+@item nicola-jis
+
+$BF|K\8l(B 106 $B%-!<%\!<%I(B ($B5l(B JIS $BG[Ns(B) $B$G$N?F;X%7%U%H%(%_%e%l!<%7%g%s$KBP1~(B
+$B$7$^$9!#(B
+
+@lisp
+(setq skk-kanagaki-keyboard-type 'nicola-jis)
+@end lisp
+
+@item omelet-jis
+
+@code{nicola-jis} $B$HF1MM$G$9$,!"$h$jF~NO$7$d$9$$G[Ns$,9MN8$5$l$F$$$^$9!#(B
+
+@lisp
+(setq skk-kanagaki-keyboard-type 'omelet-jis)
+@end lisp
+@end table
+@end defvr
+
+$B$+$JF~NOJ}<0;HMQ;~$N"#%b!<%I$G$O0J2<$N%3%^%s%I$J$I$,Lr$KN)$A$^$9!#(B
+
+@table @asis
+@item @kbd{F1 1}
+@kindex F1 1
+
+$B$+$JF~NOJ}<0$G$NFC<l%-!<Dj5A$N0lMw$rI=<($7$^$9!#(B
+
+@item @kbd{F1 2}
+@kindex F1 2
+
+$B$+$JF~NOJ}<0$G$N$+$J%-!<G[Ns$rI=<($7$^$9!#(B
+
+@item @kbd{F12} $B$^$?$O(B @kbd{M-x skk-kanagaki-toggle-rom-kana}
+@kindex F12
+@kindex M-x skk-kanagaki-toggle-rom-kana
+
+$B$+$JF~NOJ}<0$H%m!<%^;zF~NOJ}<0$H$r@Z$j49$($^$9!#(B
+@end table
+
+$B$J$*!"?F;X%7%U%HJ}<0$K$D$$$F$O0J2<$,;29M$K$J$j$^$9!#(B
+
+@url{http://nicola.sunicom.co.jp/}
 
 @node SKK$B$K4X$9$k>pJs(B
 @chapter SKK$B$K4X$9$k>pJs(B
