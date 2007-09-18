@@ -1,3 +1,8 @@
+2007-09-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-hint.el (skk-hint-setup-hint): When skk-hint-state is kana,
+	call `skk-kana-cleanup' before obtaining hint.
+
 2007-09-18  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Add description on skk-hint.el.
@@ -13,7 +18,7 @@
 
 2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* ptexinfmt: Update.
+	* ptexinfmt.el: Update.
 
 	* skk-cus.el (skk-cus-params-visual): Add skk-verbose,
 	skk-show-japanese-menu, skk-show-inline, skk-show-tooltip and

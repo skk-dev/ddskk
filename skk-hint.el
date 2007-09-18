@@ -88,6 +88,7 @@
 
 (defun skk-hint-setup-hint ()
   (cond ((eq skk-hint-state 'kana)
+	 (skk-kana-cleanup t)
 	 (let ((hint (buffer-substring-no-properties
 		      skk-hint-start-point (point))))
 	   (unless (string= hint "")
