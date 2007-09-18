@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/18 03:19:25 $
+@set UPDATED $Date: 2007/09/18 13:15:17 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -166,6 +166,7 @@ SKK のバージョン @value{SKK-VERSION} に対応しています。
 * 見出し語関連::                変換のキーとなる語の処理について。
 * 送り仮名関連::                送り仮名の処理について。
 * 変換の学習::
+* 候補の絞り込み::
 * ▽モードにおける動的補完::
 * 自動変換開始::                @key{SPC} を押さずに変換開始。
 * 特殊変換::                    ちょっと変った便利な変換方法。
@@ -1669,6 +1670,7 @@ English [RET]} を実行します。
 * 見出し語関連::                変換のキーとなる語の処理について。
 * 送り仮名関連::                送り仮名の処理について。
 * 変換の学習::
+* 候補の絞り込み::
 * ▽モードにおける動的補完::
 * 自動変換開始::                @key{SPC} を押さずに変換開始。
 * 特殊変換::                    ちょっと変った便利な変換方法。
@@ -1852,6 +1854,8 @@ GNU Emacs 21 以降の拡張機能を利用するプログラムを集めたファイル。
 @cindex @file{skk-hint.el}
 
 SKK の変換候補が多いときにヒントを与えて絞りこむ機能を提供します。
+
+@xref{候補の絞り込み}.
 
 @item skk-isearch.el
 @cindex @file{skk-isearch.el}
@@ -3844,6 +3848,96 @@ Shall I register this as okuri-ari entry: ありがs /有賀/ ? (y or n)
 この変数のデフォルト値は @code{nil} です。
 
 @end table
+
+@node 候補の絞り込み
+@section 候補の絞り込み
+@cindex @file{skk-hint.el}
+
+@file{skk-hint.el} は、２つの読みの積集合みたいなものを取ることによって
+候補の絞り込みを行うプログラムです。
+インストールは @file{~/.skk} に以下を記入します。
+
+@lisp
+(require 'skk-hint)
+@end lisp
+
+例えば、読み ``かんどう'' に対する変換は L 辞書によると
+
+@example
+感動、勘当、完動、間道、官道、貫道
+@end example
+
+と複数の候補があります。
+
+一方、これに ``あいだ'' という「他の読み」(ヒント)を与えると候補は
+``間道'' に一意に決まります。
+ヒントは @key{;} に続けて入力します。
+
+@example
+@kbd{K a n d o u ; a i d a}
+
+※ @key{;} 自体は表示されません。
+
+----- Buffer: foo -----
+▽かんどうあいだ
+----- Buffer: foo -----
+
+@kbd{SPC}
+
+----- Buffer: foo -----
+▼間道
+----- Buffer: foo -----
+@end example
+
+@file{skk-hint.el} は、２つの読みの厳密な積集合を取っているわけではなく、
+通常の変換候補のなかでヒントとして与えられた読みを含んだ漢字を持つものに
+候補を絞ります。この実例として ``感動'' と ``感圧'' を挙げます。
+
+@example
+@kbd{K a n d o u ; k a n n a t u}
+
+----- Buffer: foo -----
+▽かんどうかんあつ
+----- Buffer: foo -----
+
+@kbd{SPC}
+
+----- Buffer: foo -----
+▼感動
+----- Buffer: foo -----
+@end example
+
+@file{skk-hint.el} は単漢字の候補がたくさんある場合に、そこから候補を絞
+りこむ手段としても非常に有効です。例えば
+
+@example
+▽わ
+@end example
+
+を変換すると、輪、環、話、和、羽、…と大量に候補が出てきます。
+この中から ``和'' を選びたいとします。普通に変換していても
+そのうち ``和'' が表示されますが、これを @kbd{W a ; h e i w a} と入力し
+変換すると、「▼へいわ」の候補である「平和」に含まれる
+
+@example
+▼和
+@end example
+
+が唯一の候補となります。
+
+@example
+@kbd{W a ; h e i w a}
+
+----- Buffer: foo -----
+▽わへいわ
+----- Buffer: foo -----
+
+@kbd{SPC}
+
+----- Buffer: foo -----
+▼和
+----- Buffer: foo -----
+@end example
 
 @node  ▽モードにおける動的補完
 @section ▽モードにおける動的補完
