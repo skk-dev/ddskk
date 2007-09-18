@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/17 14:36:50 $
+@set UPDATED $Date: 2007/09/18 03:19:25 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -692,7 +692,8 @@ DDSKK を使ってみるには充分です。
 
 DDSKK を使った入力方法に慣れるには、付属のチュートリアルが最適なので、お
 試しください。
-@xref{チュートリアル}
+
+@xref{チュートリアル}.
 
 なお、次章の「便利な応用機能」は、興味のある個所のみをピックアップして
 お読みになるのがいいでしょう。
