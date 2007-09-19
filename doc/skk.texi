@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/18 13:15:17 $
+@set UPDATED $Date: 2007/09/19 13:31:02 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -167,6 +167,7 @@ SKK のバージョン @value{SKK-VERSION} に対応しています。
 * 送り仮名関連::                送り仮名の処理について。
 * 変換の学習::
 * 候補の絞り込み::
+* 単漢字変換::
 * ▽モードにおける動的補完::
 * 自動変換開始::                @key{SPC} を押さずに変換開始。
 * 特殊変換::                    ちょっと変った便利な変換方法。
@@ -1671,6 +1672,7 @@ English [RET]} を実行します。
 * 送り仮名関連::                送り仮名の処理について。
 * 変換の学習::
 * 候補の絞り込み::
+* 単漢字変換::
 * ▽モードにおける動的補完::
 * 自動変換開始::                @key{SPC} を押さずに変換開始。
 * 特殊変換::                    ちょっと変った便利な変換方法。
@@ -3938,6 +3940,157 @@ Shall I register this as okuri-ari entry: ありがs /有賀/ ? (y or n)
 ▼和
 ----- Buffer: foo -----
 @end example
+
+@node 単漢字変換
+@section 単漢字変換
+@cindex @file{skk-tankan.el}
+
+@file{skk-tankan.el} は、単漢字変換機能を提供するプログラムです。単漢字
+変換を行う際、▽モードの最後の文字として @kbd{@@} を付加してから変換を開
+始すると、候補を総画数の昇順でソートして表示します。
+
+@menu
+* 検索キーの設定::
+* 辞書の設定::
+* 使用方法::
+@end menu
+
+@node 検索キーの設定
+@subsection 検索キーの設定
+
+デフォルトの検索キーは @kbd{@@} です。しかし、DDSKK の標準設定では
+キー @kbd{@@} は関数 @code{skk-today} に割り当てられています（
+変数 @code{skk-rom-kana-base-rule-list}、@ref{今日の日付の入力}.）。
+
+ここでは、キー @kbd{@@} を @code{skk-today} ではなく、単漢字変換の検索キ
+ーとして使用するために @file{~/.skk} で次の設定を行います
+@footnote{@file{skk-tankan.el} を使おうとして「たん▼平成19年9月19日(水)
+」となってしまう方は、@code{skk-rom-kana-rule-list} の設定を見直しましょ
+う。}。
+
+@lisp
+@group
+;; @@ を入力できるようにする
+(setq skk-rom-kana-rule-list
+      (append skk-rom-kana-rule-list
+      '(("@@" nil "@@"))))
+@end group
+@end lisp
+
+@vindex skk-tankan-search-key
+なお、単漢字変換の検索キーは、変数 @code{skk-tankan-search-key} で変更す
+ることが可能です。
+以下に検索キーを @kbd{!} へと変更する例を挙げます。
+
+@lisp
+(setq skk-tankan-search-key ?!)
+@end lisp
+
+@node 辞書の設定
+@subsection 辞書の設定
+
+@findex skk-tankan-search
+次に、辞書の設定を行います。以下の形式で
+変数 @code{skk-search-prog-list} に要素を追加します。
+
+@lisp
+(skk-tankan-search 'function . args) 
+@end lisp
+
+ただし、@b{「確定変換」}を併用する場合は、@code{skk-search-prog-list} の
+先頭の要素は @code{skk-search-kakutei-jisyo-file} であることが必要です。
+@b{「確定変換」}を使用しない場合は、 @code{skk-search-prog-list} の要素
+の先頭が @code{skk-tankan-search} でも大丈夫です。
+
+@xref{辞書に関する設定}.
+
+@xref{辞書検索の設定の具体例}.
+
+以下に、具体例を挙げます。
+
+@lisp
+@group
+;; skk-search-prog-list の２番目の要素に skk-tankan-search を追加する
+(setq skk-search-prog-list
+      (cons (car skk-search-prog-list)
+	       (cons '(skk-tankan-search 'skk-search-jisyo-file
+				         skk-large-jisyo 10000)
+		     (cdr skk-search-prog-list))))
+@end group
+@end lisp
+
+@node 使用方法
+@subsection 使用方法
+
+▽モードの最後の文字に @kbd{@@} を付加してから変換を開始してください。
+以下、少し冗長ですが実行例を挙げます。
+
+@example
+T a n @@
+
+----- Buffer: foo -----
+▽たん@@@point{}
+----- Buffer: foo -----
+
+@kbd{SPC}
+
+----- Buffer: foo -----
+▼丹@point{}
+----- Buffer: foo -----
+
+----- Echo Area -----
+4画(丶部3画)
+----- Echo Area -----
+
+@kbd{SPC}
+
+----- Buffer: foo -----
+▼反@point{}
+----- Buffer: foo -----
+
+----- Echo Area -----
+4画(又部2画)
+----- Echo Area -----
+
+@kbd{SPC}
+
+----- Buffer: foo -----
+▼旦@point{}
+----- Buffer: foo -----
+
+----- Echo Area -----
+5画(日部1画)
+----- Echo Area -----
+
+@kbd{SPC}
+
+----- Buffer: foo -----
+▼但@point{}
+----- Buffer: foo -----
+
+----- Echo Area -----
+7画(人部5画)
+----- Echo Area -----
+
+@kbd{SPC}
+
+----- Buffer: foo -----
+▼@point{}
+----- Buffer: foo -----
+
+----- Buffer: *候補* -----
+A:坦;8画(土部5画)
+S:担;8画(手部5画)
+D:単;9画(十部7画)
+F:彖;9画(彑部6画)
+J:炭;9画(火部5画)
+K:眈;9画(目部4画)
+L:胆;9画(肉部5画)
+[残り 50+++++]
+----- Buffer: *候補* -----
+@end example
+
+以上のとおり、総画数の昇順でソートされた候補が次々に表示されます。
 
 @node  ▽モードにおける動的補完
 @section ▽モードにおける動的補完
