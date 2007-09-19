@@ -1,3 +1,7 @@
+2007-09-19  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Add description on skk-tankan.el.
+
 2007-09-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-tooltip-face): New variable.
