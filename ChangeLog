@@ -12,6 +12,9 @@
 	If skk-tooltip-face is a face name, add the face property to the
 	text.
 
+	* skk-tankan.el (skk-search-tankanji): Prefer SKK-JISYO.L to
+	server.
+
 2007-09-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-hint.el (skk-hint-setup-hint): When skk-hint-state is kana,

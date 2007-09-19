@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.15 2007/08/14 04:03:04 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.16 2007/09/19 13:56:00 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/08/14 04:03:04 $
+;; Last Modified: $Date: 2007/09/19 13:56:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1579,11 +1579,11 @@
 		   skk-aux-large-jisyo))
 	(server-prog (assq 'skk-search-server skk-search-prog-list)))
     (or
-     (if server-prog
-	 (apply #'skk-tankan-search server-prog)
-       nil)
      (if (file-readable-p jisyo)
 	 (skk-tankan-search 'skk-search-jisyo-file jisyo 10000)
+       nil)
+     (if server-prog
+	 (apply #'skk-tankan-search server-prog)
        nil))))
 
 
