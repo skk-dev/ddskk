@@ -556,10 +556,8 @@
 	    (setq params (tooltip-set-param params 'border-color fg)))
 	  (when (stringp bg)
 	    (setq params (tooltip-set-param params 'background-color bg))))
-	(unless (ignore-errors
-		  (or (get-text-property 0 'face text)
-		      (get-text-property 2 'face text)))
-	  (setq text (propertize text 'face 'tooltip)))
+	(when (facep skk-tooltip-face)
+	  (setq text (propertize text 'face skk-tooltip-face)))
 	;; ミニバッファにいるとき余計なメッセージをクリアする
 	(when (or skk-isearch-switch
 		  (skk-in-minibuffer-p))

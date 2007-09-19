@@ -418,6 +418,8 @@
     (when (and (device-on-window-system-p)
 	       (stringp help))
       (save-excursion
+	(when (find-face skk-tooltip-face)
+	  (setq help (propertize help 'face skk-tooltip-face)))
 	(when (or (not (frame-live-p balloon-help-frame))
 		  (not (eq (selected-device)
 			   (frame-device balloon-help-frame))))

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.254 2007/09/16 14:23:06 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.255 2007/09/19 13:20:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/16 14:23:06 $
+;; Last Modified: $Date: 2007/09/19 13:20:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1215,7 +1215,7 @@ GNU Emacs 21 $B0J>e!#$^$?(B XEmacs $B$G$O8=>u$G$O(B fsf-compat $B%Q%C%1!<%8
   "*$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$9$kJQ?t!#(B
 $B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B"
   :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B")
-		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B"))
+		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
   :group 'skk-henkan)
 
 (defcustom skk-search-end-function nil
@@ -4311,6 +4311,13 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 $B$3$N;~4V$,7P2a$9$k$H<+F0E*$K(B tooltip $B$O>C$($k!#(B"
   :type 'integer
   :group 'skk-tooltip)
+
+(defcustom skk-tooltip-face nil
+  "*$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$9$kJQ?t!#(B
+$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B"
+  :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B" tooltip)
+		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
+  :group 'skk-henkan)
 
 (defcustom skk-tooltip-parameters nil
   "*tooltip $B$r;H$&>l9g$N(B SKK $BFH<+$N(B tooltip $B%U%l!<%`%Q%i%a!<%?@_Dj!#(B

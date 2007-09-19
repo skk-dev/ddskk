@@ -1,3 +1,13 @@
+2007-09-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-tooltip-face): New variable.
+
+	* skk-e21.el (skk-tooltip-show-1):
+	* skk-xemacs.el (skk-tooltip-show-1):
+
+	If skk-tooltip-face is a face name, add the face property to the
+	text.
+
 2007-09-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-hint.el (skk-hint-setup-hint): When skk-hint-state is kana,
