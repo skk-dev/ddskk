@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.16 2007/09/19 13:56:00 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.17 2007/09/20 14:20:40 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/09/19 13:56:00 $
+;; Last Modified: $Date: 2007/09/20 14:20:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -54,7 +54,7 @@
 ;;       (cons (car skk-search-prog-list)
 ;;	       (cons '(skk-tankan-search 'skk-search-jisyo-file
 ;;				         skk-large-jisyo 10000)
-;;		     (cdr skk-search-prog-list))
+;;		     (cdr skk-search-prog-list))))
 ;;
 ;; ;; 単漢字検索のキーを @ にする(デフォルト)
 ;; (setq skk-tankan-search-key ?@)

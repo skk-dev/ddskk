@@ -1,6 +1,10 @@
+2007-09-20  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-tankan.el: Comment typo.
+
 2007-09-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-vars.el (skk-tooltip-face): Docstring typo.
+	* skk-vars.el (skk-tooltip-face): Docstring fix.
 	(skk-treat-default): New face name.
 	(skk-treat-candidate-sample2): Use face skk-treat-default instead
 	of face default.
