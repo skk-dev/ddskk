@@ -1,5 +1,7 @@
 2007-09-20  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
+	* doc/skk.texi: Add description on skk-kutouten-type.
+
 	* skk-tankan.el: Comment typo.
 
 2007-09-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>

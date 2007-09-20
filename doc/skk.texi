@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/19 13:31:02 $
+@set UPDATED $Date: 2007/09/20 14:53:36 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1973,6 +1973,8 @@ SKK 辞書サーバと通信して変換する機能を提供します。
 
 SKK を使って単漢字変換を行うプログラムです。
 
+@xref{単漢字変換}.
+
 @item skk-tut.el
 @cindex @file{skk-tut.el}
 
@@ -2428,30 +2430,29 @@ skK @expansion{}SKK
 @node ■モードに関連するその他の変数
 @subsubsection ■モードに関連するその他の変数
 
-@table @code
-@item skk-kana-input-search-function
+@defvr {ユーザ変数} skk-kana-input-search-function
 @vindex skk-kana-input-search-function
 
 ルールリストの中に記せない変換ルールを処理する関数。これは
 
 @example
-ohs @expansion{}おおs
+ohs @expansion{} おおs
 @end example
 
 @noindent
 のような変換を実現するために用意されています。これにより
 
 @example
-ohsaka @expansion{}おおさか
-ohta @expansion{}おおた
+ohsaka @expansion{} おおさか
+ohta @expansion{} おおた
 @end example
 
 @noindent
 のように変換されますが、一方
 
 @example
-ohhonn @expansion{}おっほん
-ohhira @expansion{}おっひら
+ohhonn @expansion{} おっほん
+ohhira @expansion{} おっひら
 @end example
 
 @noindent
@@ -2465,13 +2466,53 @@ ohhira @expansion{}おっひら
 が入っているためです。これを削除すれば
 
 @example
-ohhonn @expansion{}おおほん
-ohhira @expansion{}おおひら
+ohhonn @expansion{} おおほん
+ohhira @expansion{} おおひら
 @end example
 
 @noindent
 となります。
-@end table
+@end defvr
+
+@defvr {ユーザ変数} skk-kutouten-type
+■モードの標準では、キーボードの @kbd{.} をタイプすると「。」が、
+@kbd{,} をタイプすると「、」がバッファに入力されます。
+変数 @code{skk-kutouten-type} に適切なシンボルを設定することにより、この
+組み合せを変更することができます
+@footnote{変数 @code{skk-use-kana-keyboard} が 非 @code{nil} ならば無効
+である。}。そのシンボルとは、次の４つです。
+
+@example
+'jp@ @ @ @ @expansion{} 「。」「、」 (デフォルト)
+'en@ @ @ @ @expansion{} 「．」「，」
+'jp-en @expansion{} 「。」「，」
+'en-jp @expansion{} 「．」「、」
+@end example
+
+または、変数 @code{skk-kutouten-type} にはコンス・セルを指定することも可
+能です。その場合は、
+
+@example
+(句点を示す文字列 . 読点を示す文字列)
+@end example
+
+のように指定します。例として、次のように設定するとキーボード
+の @kbd{.} で @code{abc} が、@kbd{,} で @code{def} がバッファに入力され
+ます。
+@c ↓実用的な例が思い付きませんでした
+@example
+(setq skk-kutouten-type '("abc" . "def"))
+@end example
+
+なお、変数 @code{skk-kutouten-type} はバッファローカル変数です。すべての
+バッファで統一した設定としたい場合は、
+
+@example
+(setq-default skk-kutouten-type 'en)
+@end example
+
+のように関数 @code{setq-default} を用いてください。
+@end defvr
 
 @node 数字や記号文字の入力
 @subsubsection 数字や記号文字の入力
