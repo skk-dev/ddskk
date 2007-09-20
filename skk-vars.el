@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.255 2007/09/19 13:20:24 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.256 2007/09/20 10:26:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/19 13:20:24 $
+;; Last Modified: $Date: 2007/09/20 10:26:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1848,8 +1848,14 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
 	   (cons cand (cons sep note)))
 	  (t
 	   (put-text-property 0 (length cand)
-			      'face 'default cand)
+			      'face 'skk-treat-default cand)
 	   cand))))
+
+(defface skk-treat-default
+  '((((class color) (background light)) (:foreground "black"))
+    (((class color) (background dark)) (:foreground "white")))
+  "$BGX7J$J$7$NC1=c$J(B face$B!#(B`default' $B$NBe$o$j$K;H$&!#(B"
+  :group 'skk-visual)
 
 ;;; -- Internal constants and variables of skk.el
 (defconst skk-coding-system-alist
@@ -4313,7 +4319,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-face nil
-  "*$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$9$kJQ?t!#(B
+  "*$B%D!<%k%F%#%C%W$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$9$kJQ?t!#(B
 $B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B"
   :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B" tooltip)
 		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))

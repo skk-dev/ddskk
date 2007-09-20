@@ -1,3 +1,10 @@
+2007-09-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-tooltip-face): Docstring typo.
+	(skk-treat-default): New face name.
+	(skk-treat-candidate-sample2): Use face skk-treat-default instead
+	of face default.
+
 2007-09-19  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Add description on skk-tankan.el.
