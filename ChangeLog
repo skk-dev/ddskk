@@ -1,5 +1,7 @@
 2007-09-23  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* skk.el (skk-inline-show-vertical): Fix auto scroll.
+
 	* doc/skk.texi (変換候補一覧の表示方法): Update.
 
 	* skk-vars.el (skk-show-inline): Allow vertical value.  Update
