@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.450 2007/09/16 14:23:06 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.451 2007/09/23 11:19:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/16 14:23:06 $
+;; Last Modified: $Date: 2007/09/23 11:19:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2093,7 +2093,17 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	     (not skk-isearch-switch)
 	     (not (skk-in-minibuffer-p)))
 	;; $B8=:_$N%P%C%U%!$NCf$KI=<($9$k(B ($B%$%s%i%$%sI=<((B)
-	(skk-inline-show str skk-inline-show-face))
+	(if (and (eq 'vertical skk-show-inline)
+		 (not (featurep 'xemacs))
+		 ;; window $B$,8uJd72$rI=<($G$-$k9b$5$,$"$k$+%A%'%C%/(B
+		 (> (if (fboundp 'window-body-height) ; emacs21 $B$K$O$J$$(B
+			(window-body-height)
+		      (- (window-height)
+			 (if mode-line-format 1 0)
+			 (if header-line-format 1 0)))
+		    (1+ max-candidates)))
+	    (skk-inline-show-vertical tooltip-str skk-inline-show-face)
+	  (skk-inline-show str skk-inline-show-face)))
        ((and window-system
 	     skk-show-tooltip
 	     (not (eq (symbol-function 'skk-tooltip-show-at-point)
@@ -5199,20 +5209,152 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
       (message "SKK isearch is enabled")
     (message "SKK isearch is disabled")))
 
+(defun skk-add-background-color (string color)
+  "STRING $B$N$J$+$GGX7J?';XDj$,$J$$J8;z$K$@$1(B COLOR $B$NGX7J?'$r$D$1$k!#(B"
+  (when (and string color (not (featurep 'xemacs)))
+    (let ((start 0)
+	  (end 1)
+	  orig-face)
+      (while (< start (length string))
+	(setq orig-face (get-text-property start 'face string))
+	(while (and (< end (length string))
+		    (eq orig-face (get-text-property end 'face string)))
+	  (setq end (1+ end)))
+	(cond
+	 ((not orig-face)
+	  (put-text-property start end 'face
+			     `(:background
+			       ,skk-inline-show-background-color)
+			     string))
+	 ((and (facep orig-face) (not (face-background orig-face)))
+	  (put-text-property start end 'face
+			     `(:inherit ,orig-face
+			       :background
+			       ,skk-inline-show-background-color)
+			     string))
+	 ((and (listp orig-face)
+	       (not (plist-get (get-text-property start 'face string)
+			       :background))
+	       (not (and (plist-get (get-text-property start 'face start)
+				    :inherit)
+			 (face-background
+			  (plist-get (get-text-property start 'face start)
+				     :inherit)))))
+	  (put-text-property start end 'face
+			     (cons
+			      `(:background
+				,skk-inline-show-background-color)
+			      orig-face)
+			     string)))
+	(setq start (max (1+ start) end)
+	      end (1+ start)))))
+  string)
+
 (defun skk-inline-show (string face)
   (skk-inline-hide)
   (unless (skk-in-minibuffer-p)
-    (setq skk-inline-overlay (make-overlay (point) (point)))
-    (overlay-put skk-inline-overlay
-		 'after-string
-		 (if face
-		     (propertize string 'face face)
-		   string))))
+    (let ((ol (make-overlay (point) (point)))
+	  (base-ol (make-overlay (point) (1+ (point)))))
+      (overlay-put base-ol 'face 'default)
+      (push base-ol skk-inline-overlays)
+      (push ol skk-inline-overlays)
+      (when face
+	(setq string (propertize string 'face face)))
+      (when skk-inline-show-background-color
+	(setq string (skk-add-background-color
+		      string skk-inline-show-background-color)))
+      (overlay-put ol 'after-string string))))
+
+(defun skk-inline-show-vertical (string face)
+  (skk-inline-hide)
+  (unless (skk-in-minibuffer-p)
+    (let* ((margin 2)
+	   (beg-col (- (current-column) margin))
+	   (candidates (split-string string "\n"))
+	   (max-width (apply 'max (mapcar 'string-width candidates)))
+	   (i 0)
+	   bottom ol invisible)
+      (dolist (str candidates)
+	(setq str (concat (when (/= 0 i) (make-string margin ? ))
+			  str
+			  (make-string (+ (- max-width (string-width str))
+					  margin)
+				       ? )))
+	(when face
+	  (setq str (propertize str 'face face)))
+	(when skk-inline-show-background-color
+	  (setq str (skk-add-background-color
+		     str skk-inline-show-background-color)))
+	(save-excursion
+	  (unless (= 0 i)
+	    (setq bottom (/= 0 (forward-line i)))
+	    (end-of-line)
+	    (cond
+	     (bottom
+	      ;; $B%P%C%U%!:G=*9T$G$OIaDL$K(B overlay $B$rDI2C$7$F$$$/J}K!$@(B
+	      ;; $B$H(B overlay $B$NI=<($5$l$k=gHV$,68$&$3$H$,$"$C$F$&$^$/$J(B
+	      ;; $B$$!#$7$?$,$C$FA02s$N(B overlay $B$N(B after-string $B$KDI2C$9(B
+	      ;; $B$k!#(B
+	      (setq ol (pop skk-inline-overlays))
+	      (setq str (concat (overlay-get ol 'after-string)
+				"\n" (make-string beg-col ? ) str)))
+	     ((> beg-col (current-column)) ; $B9TKv$,"'$h$j$b:8(B
+	      ;; $B7e9g$o$;$N6uGr$rDI2C(B
+	      (setq str (concat (make-string (- beg-col (current-column)) ? )
+				str)))
+	     ((= beg-col (current-column))) ; $BFC$K$d$k$3$H$J$7(B
+	     (t
+	      ;; overlay $B$N3+;O0LCV$K(B point $B$r0\F0(B
+	      (while (and (not (bolp))
+			  (< beg-col (current-column)))
+		(backward-char))
+	      ;; overlay $B$N:8C<$,%^%k%AI}J8;z$H=E$J$C$?$H$-$NHyD4@0(B
+	      (unless (= beg-col (current-column))
+		(setq str (concat (make-string (- beg-col (current-column)) ? )
+				  str))))))
+	  ;; $B$3$N;~E@$G(B overlay $B$N3+;O0LCV$K(B point $B$,$"$k(B
+	  (unless bottom
+	    (let ((ol-beg (point))
+		  (insert-width (string-width str))
+		  ol-width base-ol)
+	      ;; overlay $B$N=*N;0LCV$r7h$a$k(B
+	      (unless (eolp)
+		(forward-char))
+	      (while (and (not (eolp))
+			  (< (setq ol-width (string-width
+					     (buffer-substring
+					      ol-beg (point))))
+			     insert-width))
+		(forward-char))
+	      ;; overlay $B$N1&C<$,%^%k%AI}J8;z$H=E$J$C$?$H$-$NHyD4@0(B
+	      (when (and ol-width
+			 (> ol-width insert-width))
+		(setq str (concat str
+				  (make-string (- ol-width insert-width) ? ))))
+	      (setq ol (make-overlay ol-beg (point)))
+	      ;; $B85%F%-%9%H$N(B face $B$r7Q>5$7$J$$$h$&$K(B1$B$D8e$m$K(B overlay $B$r:n$C(B
+	      ;; $B$F!"$=$N(B face $B$r(B 'default $B$K;XDj$7$F$*$/(B
+	      (setq base-ol (make-overlay (point) (1+ (point))))
+	      (overlay-put base-ol 'face 'default)
+	      (push base-ol skk-inline-overlays)
+	      ;; $B8uJd$,2D;k$+$I$&$+%A%'%C%/(B
+	      (unless (pos-visible-in-window-p (point))
+		(setq invisible t)))))
+	(overlay-put ol 'invisible t)
+	(overlay-put ol 'after-string str)
+	(push ol skk-inline-overlays)
+	(setq i (1+ i)))
+      (when (or invisible bottom)
+	(recenter (- (1+ (* 7 skk-henkan-show-candidates-rows)))))
+      (scroll-left (max 0
+			(- (+ beg-col margin max-width margin 1)
+			   (window-width) (window-hscroll)))))))
 
 (defun skk-inline-hide ()
-  (when skk-inline-overlay
-    (delete-overlay skk-inline-overlay)
-    (setq skk-inline-overlay nil)))
+  (when skk-inline-overlays
+    (dolist (ol skk-inline-overlays)
+      (delete-overlay ol))
+    (setq skk-inline-overlays nil)))
 
 ;;; cover to original functions.
 (skk-defadvice keyboard-quit (around skk-ad activate)

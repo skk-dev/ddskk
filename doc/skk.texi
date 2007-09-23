@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/21 23:49:48 $
+@set UPDATED $Date: 2007/09/23 11:19:38 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7028,6 +7028,9 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 
 $B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"8uJd0lMw$r8=:_$N%]%$%s%H0LCV$G%$%s%i%$%sI=(B
 $B<($7$^$9!#(B
+
+$B$^$?!"CM$,(B @code{vertical} $B$N>l9g$O3F8uJd$r=D$K%$%s%i%$%sI=<($7$^$9(B
+(XEmacs $B$r=|$/(B)$B!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-tooltip

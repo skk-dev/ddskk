@@ -1,3 +1,23 @@
+2007-09-23  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (変換候補一覧の表示方法): Update.
+
+	* skk-vars.el (skk-show-inline): Allow vertical value.  Update
+	docstring about supported Emacs.
+	(skk-inline-show-face): Change to skk-visual group from
+	skk-henkan.
+	(skk-inline-show-background-color): New user option.
+	(skk-inline-overlays): Rename from `skk-inline-overlay'.
+
+	* skk.el (skk-add-background-color, skk-inline-show-vertical): New
+	function.
+	(skk-inline-hide): Use `skk-inline-overlays'.
+	(skk-inline-show): Use `skk-inline-overlays' and
+	`skk-inline-show-background-color'.  Add an overlay after the
+	inline overlay for don't inherit original text property.
+	(skk-henkan-show-candidate-subr): Consider
+	`skk-inline-show-vertical'.
+
 2007-09-21  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Misc updates.

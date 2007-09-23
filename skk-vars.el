@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.256 2007/09/20 10:26:32 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.257 2007/09/23 11:19:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/20 10:26:32 $
+;; Last Modified: $Date: 2007/09/23 11:19:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1204,10 +1204,12 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 
 (defcustom skk-show-inline nil
   "*Non-nil $B$G$"$l$P!"%$%s%i%$%s(B $B$G8uJd$J$I$rI=<($9$k!#(B
-$B$3$N5!G=$O3F%P!<%8%g%s$N(B Emacs $B$GF0:n$9$k$,!"8uJd$NAu>~$,M-8z$J$N$O(B
-GNU Emacs 21 $B0J>e!#$^$?(B XEmacs $B$G$O8=>u$G$O(B fsf-compat $B%Q%C%1!<%8(B
-$B7PM3$NMxMQ$H$J$k!#(B"
-  :type 'boolean
+$BCM$,(B `vertical' $B$G$"$l$P3F8uJd$r=D$K%$%s%i%$%sI=<($9$k!#(B
+$B$3$N5!G=$O(B XEmacs $B0J30$N3F%P!<%8%g%s$N(B Emacs $B$GF0:n$9$k$,!"8uJd$N(B
+$BAu>~$,M-8z$J$N$O(BGNU Emacs 21 $B0J>e!#(B"
+  :type '(radio (const :tag "$BM-8z(B" t)
+		(const :tag "$BM-8z(B ($B=DI=<((B)" vertical)
+		(const :tag "$BL58z(B" nil))
   :group 'skk-basic
   :group 'skk-henkan)
 
@@ -1216,7 +1218,18 @@ GNU Emacs 21 $B0J>e!#$^$?(B XEmacs $B$G$O8=>u$G$O(B fsf-compat $B%Q%C%1!<%8
 $B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B"
   :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B")
 		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
-  :group 'skk-henkan)
+  :group 'skk-visual)
+
+(defcustom skk-inline-show-background-color
+  (if (eq skk-background-mode 'light)
+      "beige"
+    "gray15")
+  "*$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$NGX7J?'$r;XDj$9$kJQ?t!#(B
+`skk-inline-show-face' $B$^$?$O(B
+`skk-treat-candidate-appearance-function' $B$GGX7J?'$,;XDj$5$l$F$$$J(B
+$B$$J8;z$KBP$7$F$N$_:nMQ$9$k!#(B"
+  :type 'string
+  :group 'skk-visual)
 
 (defcustom skk-search-end-function nil
   "*$BC18l8!:w=*N;;~$K%3!<%k$5$l$k4X?t!#(B
@@ -2019,7 +2032,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
 
 (defvar skk-buffer-undo-list nil)
 
-(defvar skk-inline-overlay nil)
+(defvar skk-inline-overlays nil)
 
 (defvar skk-latin-mode-map nil
   "*ASCII $B%b!<%I$N%-!<%^%C%W!#(B")
