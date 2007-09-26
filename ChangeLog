@@ -1,3 +1,8 @@
+2007-09-24  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-kcode.el (skk-display-code-for-char-at-point): Modify
+	docstring according to the function implementation.
+
 2007-09-23  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Unifies ASCII to アスキー.

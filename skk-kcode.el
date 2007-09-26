@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.34 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.35 2007/09/26 04:07:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/09/26 04:07:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -348,7 +348,7 @@
 
 ;;;###autoload
 (defun skk-display-code-for-char-at-point (&optional arg)
-  "ポイントにある文字の EUC コードと JIS コードを表示する。"
+  "ポイントにある文字の区点コード、JIS コード、EUC コード及びシフト JIS コード を表示する。"
   (interactive "P")
   (when (eobp)
     (skk-error "カーソルがバッファの終端にあります"
