@@ -2,6 +2,8 @@
 
 	* doc/skk.texi: Unifies ASCII to アスキー.
 
+	* skk-vars.el (skk-user-directory): Docstring typo.
+
 2007-09-23  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-inline-show-vertical): Fix auto scroll.

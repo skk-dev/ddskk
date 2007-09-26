@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.257 2007/09/23 11:19:38 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.258 2007/09/26 03:51:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/23 11:19:38 $
+;; Last Modified: $Date: 2007/09/26 03:51:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -265,7 +265,7 @@ Automatically becomes buffer-local when set in any fashion."
 
 ;;; skk.el related.
 (defcustom skk-user-directory nil
-  "*SKK の設定ファイルなどを起くディレクトリ名。
+  "*SKK の設定ファイルなどを置くディレクトリ名。
 各種設定ファイルをひとつのディレクトリにまとめたい場合に設定する。
 
   (例) (setq skk-user-directory \"~/.ddskk\")
