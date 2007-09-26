@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/26 03:48:19 $
+@set UPDATED $Date: 2007/09/26 04:04:25 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2055,15 +2055,42 @@ DDSKK を起動した最初の一度だけ読みこまれます。ファイル名の既定値は、OS
 @findex convert-standard-filename
 @file{~/.skk} のファイル名は変数 @code{skk-init-file} で変更することがで
 きます。また、DDSKK にはこのファイルを自動的にバイトコンパイルする機能が
-あります。詳細は、
+あります@xref{skk-init-fileのコンパイル}.。
 
-@display
-@xref{skk-init-fileのコンパイル}.
-@end display
-
-@noindent
-を参照してください。
 @end table
+
+@defvr {ユーザ変数} skk-user-directory
+DDSKK は、@file{~/.skk} や @file{~/.skk-jisyo} といった複数のファイルを
+使用します。これらのファイルをひとつのディレクトリにまとめて置きたい場合
+は、変数 @code{skk-user-directory} にそのディレクトリ名を設定します。
+
+この変数のデフォルトは @code{nil} です。この変数を設定する場合
+は @file{~/.emacs} で行ってください。DDSKK 起動時
+に @code{skk-user-directory} が指すディレクトリが存在しない場合は、自動
+的に作られます。
+
+@lisp
+(setq skk-user-directory "~/.ddskk")
+@end lisp
+
+この変数を設定した場合（例えば上記 @code{"~/.ddskk"}）、以下に挙げる各変
+数のデフォルト値が変更されます。
+
+@example
+影響を受ける変数       デフォルト値      変更後のデフォルト値
+skk-init-file          ~/.skk            ~/.ddskk/init.el
+skk-jisyo              ~/.skk-jisyo      ~/.ddskk/jisyo
+skk-backup-jisyo       ~/.skk-jisyo.BAK  ~/.ddskk/jisyo.bak
+skk-emacs-id-file      ~/.skk-emacs-id   ~/.ddskk/emacs-id
+skk-record-file        ~/.skk-record     ~/.ddskk/record
+skk-study-file         ~/.skk-study      ~/.ddskk/study
+skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
+@end example
+
+なお、@code{skk-user-directory} を設定した場合でも、各変数を個別に設定し
+ている場合はその個別の設定が優先されます。
+
++@end defvr
 
 @node フック
 @subsection フック

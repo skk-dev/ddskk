@@ -1,6 +1,7 @@
 2007-09-23  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Unifies ASCII to アスキー.
+	Add description on skk-user-directory.
 
 	* skk-vars.el (skk-user-directory): Docstring typo.
 
