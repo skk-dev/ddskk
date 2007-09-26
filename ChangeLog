@@ -1,3 +1,8 @@
+2007-09-25  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Fix for description on
+	`skk-search-kakutei-jisyo-file'.
+
 2007-09-24  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-kcode.el (skk-display-code-for-char-at-point): Modify
