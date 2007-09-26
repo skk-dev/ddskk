@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/26 04:04:25 $
+@set UPDATED $Date: 2007/09/26 21:53:07 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2090,7 +2090,7 @@ skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
 なお、@code{skk-user-directory} を設定した場合でも、各変数を個別に設定し
 ている場合はその個別の設定が優先されます。
 
-+@end defvr
+@end defvr
 
 @node フック
 @subsection フック
@@ -6059,8 +6059,9 @@ DDSKK では、個人辞書と共有辞書というように複数の辞書を扱うことが可能です。
 では二分検索が行われ、最後に直線的検索が 1 回行われます。第 2 引数に
 0 を指定すると常に直線的検索のみが行われます。
 
-第 3 引数が 非 @code{nil} であるとき、辞書をバッファに読み込むときにミ
-ニバッファに読み込んでいる旨のメッセージを出力します。
+第 3 引数が @code{nil} であるとき、辞書をバッファに読み込むときにミニバッ
+ファに読み込んでいる旨のメッセージを出力します。非 @code{nil} を与えると
+出力をしません。
 
 @item skk-search-jisyo-file
 @findex skk-search-jisyo-file
