@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/26 21:53:07 $
+@set UPDATED $Date: 2007/09/28 03:36:20 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2732,7 +2732,7 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 
 @vindex skk-auto-insert-paren
 $B$=$N$?$a$KJQ?t(B @code{skk-auto-insert-paren} $B$,MQ0U$5$l$F$$$^$9!#$3$NCM$r(B
-$BHs(B @code{nil} $B$K$9$k$H!">e5-$N<+F0A^F~$r9T$$$^$9!"(B
+$BHs(B @code{nil} $B$K$9$k$H!">e5-$N<+F0A^F~$r9T$$$^$9!#(B
 
 @example
 @group
@@ -7038,7 +7038,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 @end table
 
 @node $BJQ498uJd0lMw$NI=<(J}K!(B
-@subsection $BJQ498uJd0lMw$NI=<(J}K!(B::
+@subsection $BJQ498uJd0lMw$NI=<(J}K!(B
 
 $BJQ498uJd0lMw$NI=<(J}K!$OBg$-$/0J2<$N(B 4 $B$D$KJ,$+$l$^$9!#(B
 
