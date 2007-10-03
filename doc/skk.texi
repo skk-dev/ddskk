@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/09/28 03:36:20 $
+@set UPDATED $Date: 2007/10/03 14:12:13 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5208,7 +5208,7 @@ KAKASI がインストールされていなければ使用することができません。
 
 漢字にカタカナのふりがなを付ける。
 
-引数を渡して、@kbd{C-u M-x skk-hurigana-katakana-region}のようにすると、
+引数を渡して、@kbd{C-u M-x skk-hurigana-katakana-region} のようにすると、
 複数の候補がある場合に、`@{@}' で囲って表示します。
 
 @item @kbd{M-x skk-romaji-region}
@@ -5216,8 +5216,8 @@ KAKASI がインストールされていなければ使用することができません。
 @findex skk-romaji-region
 @vindex skk-romaji-*-by-hepburn
 
-漢字、ひらがな、カタカナ、全英文字を全てローマ字へ変換。標準では、ローマ
-字への変換様式にヘボン式です。例えば、
+漢字、ひらがな、カタカナをローマ字へ、全英文字をアスキー文字へ変換。標準
+では、ローマ字への変換様式はヘボン式です。例えば、
 
 @example
 ``し'' @expansion{} ``shi''
@@ -5238,7 +5238,7 @@ KAKASI がインストールされていなければ使用することができません。
 むしろヘボン式であるようです。}。
 @end table
 
-以下のコマンドは、領域の文字列を置き換えるの代わりに、変換結果をエコーエ
+以下のコマンドは、領域の文字列を置き換える代わりに、変換結果をエコーエ
 リアに表示します。
 
 @itemize @bullet
@@ -7010,7 +7010,7 @@ SKK モードがオフであることを示すカーソル色。標準では、カーソルのある該当
 @item skk-cursor-katakana-color
 @vindex skk-cursor-katakana-color
 
-カタカナモードであることを示すカーソル色。標準では、背景の明暗により
+カナモードであることを示すカーソル色。標準では、背景の明暗により
 ``forestgreen'' または ``green'' を用います。
 
 @item skk-cursor-jisx0201-color
