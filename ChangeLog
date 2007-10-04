@@ -1,3 +1,10 @@
+2007-10-04  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (確定変換とその取り消し): アップデート。「暗黙の確定
+	のタイミング」の後に移動。
+	(確定アンドゥ): `skk-undo-kakutei-return-previous-point' の記述を追
+	加。
+
 2007-10-02  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi (漢字コード関連): add 区点コードによる入力方法.
