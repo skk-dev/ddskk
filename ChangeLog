@@ -1,3 +1,14 @@
+2007-10-06  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (確定アンドゥ): Fix last change.
+	(変換モード, アスキー文字を見出し語とした変換): Add spaces.
+	(変換候補一覧の表示方法): Add `skk-inline-show-face',
+	`skk-inline-show-background-color' and `skk-tooltip-face'.
+	(起動と終了, ■モードに関連するその他の変数, プログラム実行変換)
+	(変換候補一覧の表示方法, AZIK, ACT, かな入力と親指シフト)
+	(Q.3-3 検索する辞書を増やしたいのですが。): Delete @findex,
+	@vindex if keyword defined by @defun or @defvr.
+
 2007-10-04  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (確定変換とその取り消し): アップデート。「暗黙の確定

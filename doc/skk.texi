@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/10/04 12:18:45 $
+@set UPDATED $Date: 2007/10/06 10:15:46 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -740,7 +740,6 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 @xref{$BF~NO%b!<%I(B, , $B%"%9%-!<%b!<%I(B}.}
 
 @defvr {$B%f!<%6JQ?t(B} skk-preload
-@vindex skk-preload
 
 @file{~/.emacs} $B$K$FJQ?t(B @code{skk-preload} $B$rHs(B @code{nil} $B$H@_Dj$9$k$3(B
 $B$H$K$h$j!"(BDDSKK $B$N=i2s5/F0$rB.$/$9$k$3$H$,$G$-$^$9!#(B
@@ -935,7 +934,7 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k(B 4 $B<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"
 $B8+=P$78l$K$D$$$F!"<-=qJQ49$r9T$&%b!<%I!#(B
 @end table
 
-$B$^$?!""&%b!<%I$NJQ<o$H$7$F(B@dfn{SKK abbrev mode}$B$,$"$j!""'%b!<%I$N%5%V%b!<(B
+$B$^$?!""&%b!<%I$NJQ<o$H$7$F(B @dfn{SKK abbrev mode} $B$,$"$j!""'%b!<%I$N%5%V%b!<(B
 $B%I$H$7$F!"(B@b{$B!V<-=qEPO?%b!<%I!W(B}$B$,$"$j$^$9!#(B
 
 @menu
@@ -2458,7 +2457,6 @@ skK @expansion{}SKK
 @subsubsection $B"#%b!<%I$K4XO"$9$k$=$NB>$NJQ?t(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-kana-input-search-function
-@vindex skk-kana-input-search-function
 
 $B%k!<%k%j%9%H$NCf$K5-$;$J$$JQ49%k!<%k$r=hM}$9$k4X?t!#$3$l$O(B
 
@@ -2977,8 +2975,7 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 @cindex $B3NDj%"%s%I%%(B
 
 $B0lHV:G8e$K9T$C$?JQ49$K$D$$$F$N3NDj$r<h$j>C$7$F!":FJQ49$r9T$&$3$H$,$G(B
-$B$-$^$9!#$3$l$r(B@b{$B!V3NDj%"%s%I%%!W(B}$B$H8F$S$^$9!#$3$l$O3NDjJQ49$N<h$j>C$7$H(B
-$B$O0[$J$k35G0$G$9!#(B
+$B$-$^$9!#$3$l$r(B@b{$B!V3NDj%"%s%I%%!W(B}$B$H8F$S$^$9!#(B
 
 $BNc$($P!"<-=q%(%s%H%j$,(B
 
@@ -3036,8 +3033,8 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 $B$3$NCM$,(B $BHs(B @code{nil} $B$G$"$l$P3NDj%"%s%I%%8e$K0JA0$N0LCV$K%+!<%=%k$,La(B
 $B$j$^$9!#(B
 
-$B>e$NNc$N>l9g!"3NDj$7$?8e$N%+!<%=%k0LCV$O%G%U%)%k%H$G$O!V9'9T!W$ND>8e$N$^(B
-$B$^$G$9$,!"Hs(B @code{nil} $B$G$"$l$P!V$9$k!W$ND>8e$KI|5"$7$^$9!#(B
+$B>e$NNc$N>l9g!"3NDj$7$?8e$N%+!<%=%k0LCV$O%G%U%)%k%H$G$O(B @samp{$B9'9T(B} $B$ND>8e(B
+$B$N$^$^$G$9$,!"Hs(B @code{nil} $B$G$"$l$P(B @samp{$B$9$k(B} $B$ND>8e$KI|5"$7$^$9!#(B
 @end defvr
 
 @node $B8+=P$78l4XO"(B
@@ -4490,8 +4487,8 @@ p# /#4/
 @subsection $B%"%9%-!<J8;z$r8+=P$78l$H$7$?JQ49(B
 
 @cindex SKK abbrev mode
-@dfn{SKK abbrev mode}$B$G$O!"%"%9%-!<J8;z$r8+=P$78l$H$7$?JQ49$r9T$&$3$H(B
-$B$,$G$-$^$9!#(B
+@dfn{SKK abbrev mode} $B$G$O!"%"%9%-!<J8;z$r8+=P$78l$H$7$?JQ49$r9T$&$3$H$,(B
+$B$G$-$^$9!#(B
 
 $B$^$:!"$+$J%b!<%I$KF~$j$^$9!#(B@kbd{/} $B$rF~NO$9$k$H!"8+=P$78lF~NO$N4V$@$1(B
 $B0l;~E*$K(B SKK abbrev mode $B$KF~$j$^$9!#B3$1$FF~NO$9$kJ8;z$O!"%"%9%-!<J8;z(B
@@ -4675,7 +4672,6 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/@dots{}/
 $B0J2<!"#2$D$NNc$r7G$2$^$9!#(B
 
 @defun skk-calc operator
-@findex skk-calc
 
 skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7W;;(B
 $B%W%m%0%i%`$G$9!#(B
@@ -4712,7 +4708,6 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 @end defun
 
 @defun skk-gadget-units-conversion $B4p=`C10L(B $B?tCM(B $BJQ49C10L(B
-@findex skk-gadget-units-conversion
 
 $B?tCM$K$D$$$F!"4p=`C10L$+$iJQ49C10L$X$NJQ49$r9T$$$^$9!#(B
 
@@ -7055,24 +7050,46 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $B$3$3$G$O$=$NI=<(J}K!$N@)8f$K$D$$$F2r@b$7$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-inline
-@vindex skk-show-inline
 
 $B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"8uJd0lMw$r8=:_$N%]%$%s%H0LCV$G%$%s%i%$%sI=(B
 $B<($7$^$9!#(B
 
 $B$^$?!"CM$,(B @code{vertical} $B$N>l9g$O3F8uJd$r=D$K%$%s%i%$%sI=<($7$^$9(B
 (XEmacs $B$r=|$/(B)$B!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-inline-show-face
+
+$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$7$^$9!#(B
+
+$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B @code{nil} $B$K@_Dj$7$F2<(B
+$B$5$$!#(B
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-inline-show-background-color
+
+$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$NGX7J?'$r;XDj$7$^$9!#(B
+
+@code{skk-inline-show-face} $B$^$?$O(B
+@code{skk-treat-candidate-appearance-function} $B$GGX7J?'$,;XDj$5$l$F$$$J$$(B
+$BJ8;z$KBP$7$F$N$_:nMQ$7$^$9!#(B
+@end defvr
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-tooltip
-@vindex skk-show-tooltip
 
 $B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"8uJd0lMw$r%D!<%k%F%#%C%W$H$7$FI=<($7$^$9!#(B
 $B$3$N@_Dj$O$^$?!"Cm<a(B ($B%"%N%F!<%7%g%s(B) $B$NI=<(J}K!$bF1;~$K@)8f$7$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-tooltip-face
+
+$B%D!<%k%F%#%C%W$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$7$^$9!#(B
+
+$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B @code{nil} $B$K@_Dj$7$F2<(B
+$B$5$$!#(B
+@end defvr
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-candidates-always-pop-to-buffer
-@vindex skk-show-candidates-always-pop-to-buffer
 
 $B$3$NCM$,Hs(B @code{nil} $B$N>l9g!"2hLL$r>e2<$KJ,3d$7$?$&$($G!"JQ490lMw$r@lMQ(B
 $B$N!V(B*$B8uJd(B*$B%P%C%U%!!W$GI=<($7$^$9!#(B
@@ -7080,7 +7097,6 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $B8uJd0lMwI=<(Cf$K!"$3$NCM$rF0E*$K@Z$j49$($k<jCJ$,MQ0U$5$l$F$$$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-candidates-toggle-display-place-char
-@vindex skk-show-candidates-toggle-display-place-char
 @kindex C-f
 
 $B$3$l$OI8=`$G$O(B @kbd{C-f} $B$K@_Dj$5$l$F$$$^$9!#$3$N%-!<$r8uJd0lMwI=<(;~$K(B
@@ -7542,7 +7558,6 @@ AZIK ($B%(%$%:%#%C%/(B) $B$O(B QWERTY $BG[Ns$r%Y!<%9$H$7$?3HD%%m!<%^;zF~NO$
 @url{http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm}
 
 @defvr {$B%f!<%6JQ?t(B} skk-use-azik
-@vindex skk-use-azik
 
 $B$3$NCM$,Hs(B @code{nil} $B$G$"$l$P(B AZIK $B3HD%$,M-8z$H$J$j$^$9!#(B@file{~/.skk}
 $B$K(B
@@ -7565,7 +7580,6 @@ ACT $B$O(B AZIK $B$N9M$(J}$r(B Dvorak $BG[Ns$KE,MQ$7!"(BDvorak $BG[Ns$G$+
 @url{http://www1.vecceed.ne.jp/~bemu/act/act_index.html}
 
 @defvr {$B%f!<%6JQ?t(B} skk-use-act
-@vindex skk-use-act
 
 $B$3$NCM$,Hs(B @code{nil} $B$G$"$l$P(B ACT $B3HD%$,M-8z$H$J$j$^$9!#(B@file{~/.skk}
 $B$K(B
@@ -7633,7 +7647,6 @@ DDSKK $B$O%m!<%^;z<0$G$O$J$$!"$$$o$f$k$+$JF~NOJ}<0$r%5%]!<%H$7$^$9!#6qBNE*(B
 $B$D$E$$$F@_Dj$r$7$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-use-kana-keyboard
-@vindex skk-use-kana-keyboard
 
 $B$3$l$rHs(B @code{nil} $B$K@_Dj$9$k$H!"$+$JF~NO%5%]!<%H$,(B SKK $B5/F0;~$KM-8z$K(B
 $B$J$j$^$9!#(B
@@ -7645,7 +7658,6 @@ DDSKK $B$O%m!<%^;z<0$G$O$J$$!"$$$o$f$k$+$JF~NOJ}<0$r%5%]!<%H$7$^$9!#6qBNE*(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-kanagaki-keyboard-type
-@vindex skk-kanagaki-keyboard-type
 
 $B$3$N@_Dj$G!"$+$JF~NO%5%]!<%H$N<oN`$r@Z49$($^$9!#(B
 
@@ -8263,9 +8275,9 @@ tex$B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B
 
 @node Q.3-3 $B8!:w$9$k<-=q$rA}$d$7$?$$$N$G$9$,!#(B
 @unnumberedsubsec Q.3-3 $B8!:w$9$k<-=q$rA}$d$7$?$$$N$G$9$,!#(B
-@vindex skk-search-prog-list
 
 @code{skk-search-prog-list} $B$G@_Dj$r$7$^$7$g$&!#(B
+@vindex skk-search-prog-list
 
 $B$^$:!"8=:_$N@_Dj$r3NG'$7$^$7$g$&$M!#(B*scratch* $B%P%C%U%!$K(B
 @code{skk-search-prog-list} $B$H=q$$$F$=$N%7%s%\%k$NKvHx$K%]%$%s%H$rCV$$$F(B
