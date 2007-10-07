@@ -1,3 +1,12 @@
+2007-10-08  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-viper.el (skk-cursor-current-color): Prefer viper's cursor
+	color setting to skk in advice.
+	Add advice to `viper-change-to-eol', `viper-overwrite',
+	`viper-change-state-to-vi' and `viper-change-state-to-emacs'.
+	Wrap around functions and variables in docstring with
+	single-quotes.
+
 2007-10-06  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (確定アンドゥ): Fix last change.

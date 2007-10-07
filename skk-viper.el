@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.37 2007/09/03 21:01:20 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.38 2007/10/07 15:58:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/03 21:01:20 $
+;; Last Modified: $Date: 2007/10/07 15:58:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -67,7 +67,7 @@
 ;; `viper-insert-state-cursor-color'?
 (when (boundp 'viper-insert-state-cursor-color)
   (defadvice skk-cursor-current-color (around skk-viper-cursor-ad activate)
-    "vi-state $B$N$H$-$O!"(BSKK $B%b!<%I$K$J$C$F$$$F$b%G%#%U%)%k%H%+!<%=%k$rJV$9!#(B"
+    "vi-state $B0J30$G3n$D(B SKK $B%b!<%I$N$H$-$N$_(B SKK $BM3Mh$N%+!<%=%k?'$rJV$9!#(B"
     (cond
      ((not skk-use-color-cursor)
       ad-do-it)
@@ -75,11 +75,24 @@
 	       (eq viper-current-state 'vi-state))
 	  (and (boundp 'vip-current-state)
 	       (eq vip-current-state 'vi-state)))
-      (setq ad-return-value skk-cursor-default-color))
+      (setq ad-return-value
+	    (if (boundp 'viper-current-state)
+		;; FIXME: `viper-vi-state-cursor-color' $B$O(B frame-local
+		;; $B$K$J$C$F$$$k$N$@$,!"$J$<$+(B vi-state $B$i$7$+$i$LCM$K$J(B
+		;; $B$k$3$H$,$"$k$N$G(B default-value $B$r;HMQ$9$k!#$"$^$j$K(B
+		;; ad hoc $B$J$N$G$A$c$s$HDI$&$Y$-!#(B
+		(default-value 'viper-vi-state-cursor-color)
+	      skk-cursor-default-color)))
      ((not skk-mode)
       (setq viper-insert-state-cursor-color
 	    skk-viper-saved-cursor-color)
-      ad-do-it)
+      (setq ad-return-value
+	    (cond ((eq viper-current-state 'insert-state)
+		   viper-insert-state-cursor-color)
+		  ((eq viper-current-state 'replace-state)
+		   viper-replace-overlay-cursor-color)
+		  ((eq viper-current-state 'emacs-state)
+		   viper-emacs-state-cursor-color))))
      (t
       ad-do-it
       (setq viper-insert-state-cursor-color ad-return-value))))
@@ -97,7 +110,11 @@
 	     viper-hide-replace-overlay
 	     viper-insert
 	     viper-intercept-ESC-key
-	     viper-open-line))))
+	     viper-open-line
+	     viper-change-to-eol
+	     viper-overwrite
+	     viper-change-state-to-vi
+	     viper-change-state-to-emacs))))
     (dolist (func funcs)
       (eval
        `(defadvice ,(intern (symbol-name func))
@@ -115,19 +132,15 @@
        `(defadvice ,(intern (symbol-name func))
 	  (after skk-viper-cursor-ad activate)
 	  "\
-viper-insert-state-cursor-color $B$r(B SKK $B$NF~NO%b!<%I$N%+!<%=%k?'$H9g$o$;$k!#(B"
+`viper-insert-state-cursor-color' $B$r(B SKK $B$NF~NO%b!<%I$N%+!<%=%k?'$H9g$o$;$k!#(B"
 	  (when skk-use-color-cursor
 	    (setq viper-insert-state-cursor-color
 		  (skk-cursor-current-color)))))))
 
   (defadvice skk-mode (after skk-viper-cursor-ad activate)
-    "\
-viper-insert-state-cursor-color $B$r(B SKK $B$NF~NO%b!<%I$N%+!<%=%k?'$H9g$o$;$k!#(B"
+    "Set cursor color which represents skk mode."
     (when skk-use-color-cursor
-      (setq viper-insert-state-cursor-color
-	    (if skk-mode
-		(skk-cursor-current-color)
-	      skk-viper-saved-cursor-color))))
+      (skk-cursor-set)))
 
   (defadvice skk-kakutei (after skk-viper-cursor-ad activate)
     (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))
@@ -142,9 +155,9 @@ viper-insert-state-cursor-color $B$r(B SKK $B$NF~NO%b!<%I$N%+!<%=%k?'$H9g$o$;
 		  'append))))
    (t
     (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
-      "minibuffer-setup-hook $B$K(B update-buffer-local-frame-params $B$r%U%C%/$9$k!#(B
-viper-read-string-with-history $B$O(B minibuffer-setup-hook $B$r4X?t%m!<%+%k(B
-$B$K$7$F$7$^$&$N$G!"M=$a(B minibuffer-setup-hook $B$K$+$1$F$*$$$?%U%C%/$,L58z(B
+      "`minibuffer-setup-hook' $B$K(B `update-buffer-local-frame-params' $B$r%U%C%/$9$k!#(B
+`viper-read-string-with-history' $B$O(B `minibuffer-setup-hook' $B$r4X?t%m!<%+%k(B
+$B$K$7$F$7$^$&$N$G!"M=$a(B `minibuffer-setup-hook' $B$K$+$1$F$*$$$?%U%C%/$,L58z(B
 $B$H$J$k!#(B"
       (when skk-use-color-cursor
 	;; non-command subr.
@@ -164,7 +177,7 @@ viper-read-string-with-history $B$O(B minibuffer-setup-hook $B$r4X?t%m!<%+%k
  viper-forward-word-kernel vip-forward-word-kernel
  (around skk-ad activate)
  ("SKK $B%b!<%I$,%*%s$G!"%]%$%s%H$ND>8e$NJ8;z$,(B JISX0208/JISX0213 $B$@$C$?$i(B\
- forward-word $B$9$k!#(B"
+ `forward-word' $B$9$k!#(B"
   (if (and skk-mode
 	   (or (skk-jisx0208-p (following-char))
 	       (skk-jisx0213-p (following-char))))
@@ -175,7 +188,7 @@ viper-read-string-with-history $B$O(B minibuffer-setup-hook $B$r4X?t%m!<%+%k
  viper-backward-word-kernel vip-backward-word-kernel
  (around skk-ad activate)
  ("SKK $B%b!<%I$,%*%s$G!"%]%$%s%H$ND>A0$NJ8;z$,(B JISX0208/JISX0213 $B$@$C$?$i(B\
- backward-word $B$9$k!#(B"
+ `backward-word' $B$9$k!#(B"
   (if (and skk-mode (or (skk-jisx0208-p (preceding-char))
 			(skk-jisx0213-p (preceding-char))))
       (backward-word (ad-get-arg 0))
@@ -185,9 +198,9 @@ viper-read-string-with-history $B$O(B minibuffer-setup-hook $B$r4X?t%m!<%+%k
 (skk-viper-advice-select
  viper-del-backward-char-in-insert vip-del-backward-char-in-insert
  (around skk-ad activate)
- ("$B"'%b!<%I$G(B skk-delete-implies-kakutei $B$,(B non-nil $B$@$C$?$iD>A0$NJ8;z$r>C$7$F(B\
+ ("$B"'%b!<%I$G(B `skk-delete-implies-kakutei' $B$,(B non-nil $B$@$C$?$iD>A0$NJ8;z$r>C$7$F(B\
 $B3NDj$9$k!#(B
-$B"'%b!<%I$G(B skk-delete-implies-kakutei $B$,(B nil $B$@$C$?$iA08uJd$rI=<($9$k!#(B
+$B"'%b!<%I$G(B `skk-delete-implies-kakutei' $B$,(B nil $B$@$C$?$iA08uJd$rI=<($9$k!#(B
 $B"&%b!<%I$@$C$?$i3NDj$9$k!#(B
 $B3NDjF~NO%b!<%I$G!"$+$J%W%l%U%#%C%/%9$NF~NOCf$J$i$P!"$+$J%W%l%U%#%C%/%9$r>C$9!#(B"
   (let ((count (or (prefix-numeric-value (ad-get-arg 0)) 1)))
