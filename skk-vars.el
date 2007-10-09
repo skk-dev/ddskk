@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.258 2007/09/26 03:51:08 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.259 2007/10/09 14:00:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/26 03:51:08 $
+;; Last Modified: $Date: 2007/10/09 14:00:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -275,7 +275,7 @@ Automatically becomes buffer-local when set in any fashion."
   :group 'skk-basic)
 
 (defcustom skk-init-file (if skk-user-directory
-			     (expand-file-name "init.el" skk-user-directory)
+			     (expand-file-name "init" skk-user-directory)
 			   (convert-standard-filename "~/.skk"))
   "*SKK の初期設定ファイル名。
 このファイルの代わりに ~/.emacs で設定することも可能だが、

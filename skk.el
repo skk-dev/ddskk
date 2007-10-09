@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.452 2007/09/23 12:11:09 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.453 2007/10/09 14:00:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/23 12:11:09 $
+;; Last Modified: $Date: 2007/10/09 14:00:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -700,7 +700,10 @@ dependent."
 イルしたファイルより `skk-init-file' の方が新しいときは、そのバイトコンパイ
 ル済ファイルを消す。"
   (save-match-data
-    (let* ((init-file (expand-file-name skk-init-file))
+    (let* ((file (expand-file-name skk-init-file))
+	   (init-file (if (file-exists-p (concat file ".el"))
+			  (concat file ".el")
+			file))
 	   (elc (concat init-file
 			(if (string-match "\\.el$" init-file)
 			    "c"

@@ -1,3 +1,11 @@
+2007-10-09  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-init-file): Rename default value to "init" from
+	"init.el".
+
+	* skk.el (skk-compile-init-file-maybe): Use file adding ".el"
+	suffix to `skk-init-file-name' if file exists.
+
 2007-10-08  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-viper.el (skk-cursor-current-color): Prefer viper's cursor
