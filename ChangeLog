@@ -1,5 +1,7 @@
 2007-10-09  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* doc/skk.texi (設定ファイル): Update.
+
 	* skk-vars.el (skk-init-file): Rename default value to "init" from
 	"init.el".
 

@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/10/06 10:15:46 $
+@set UPDATED $Date: 2007/10/09 14:05:35 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2077,7 +2077,7 @@ DDSKK $B$O!"(B@file{~/.skk} $B$d(B @file{~/.skk-jisyo} $B$H$$$C$?J#?t$N%U%!
 
 @example
 $B1F6A$r<u$1$kJQ?t(B       $B%G%U%)%k%HCM(B      $BJQ998e$N%G%U%)%k%HCM(B
-skk-init-file          ~/.skk            ~/.ddskk/init.el
+skk-init-file          ~/.skk            ~/.ddskk/init
 skk-jisyo              ~/.skk-jisyo      ~/.ddskk/jisyo
 skk-backup-jisyo       ~/.skk-jisyo.BAK  ~/.ddskk/jisyo.bak
 skk-emacs-id-file      ~/.skk-emacs-id   ~/.ddskk/emacs-id
