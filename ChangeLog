@@ -1,3 +1,10 @@
+2007-10-10  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-viper.el: Require cl package when compile.
+	(skk-cursor-current-color): Fix previous change.  Use `case'
+	instead of `cond' in advice.
+	Change to correct name of functions and variables of vip.
+
 2007-10-09  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (設定ファイル): Update.

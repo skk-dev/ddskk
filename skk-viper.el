@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.38 2007/10/07 15:58:45 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.39 2007/10/10 13:07:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/07 15:58:45 $
+;; Last Modified: $Date: 2007/10/10 13:07:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,6 +33,7 @@
 ;;; Code:
 
 (eval-when-compile
+  (require 'cl)
   (require 'static)
   (require 'skk-macs)
   (require 'skk-vars))
@@ -50,7 +51,7 @@
 (setq skk-kana-cleanup-command-list
       (cons
        (if skk-viper-use-vip-prefix
-	   'vip-del-backward-char-in-insert
+	   'vip-delete-backward-char
 	 'viper-del-backward-char-in-insert)
        skk-kana-cleanup-command-list))
 
@@ -73,26 +74,20 @@
       ad-do-it)
      ((or (and (boundp 'viper-current-state)
 	       (eq viper-current-state 'vi-state))
-	  (and (boundp 'vip-current-state)
-	       (eq vip-current-state 'vi-state)))
-      (setq ad-return-value
-	    (if (boundp 'viper-current-state)
-		;; FIXME: `viper-vi-state-cursor-color' は frame-local
-		;; になっているのだが、なぜか vi-state らしからぬ値にな
-		;; ることがあるので default-value を使用する。あまりに
-		;; ad hoc なのでちゃんと追うべき。
-		(default-value 'viper-vi-state-cursor-color)
-	      skk-cursor-default-color)))
+	  (and (boundp 'vip-current-mode)
+	       (eq vip-current-mode 'vi-mode)))
+      (setq ad-return-value skk-cursor-default-color))
      ((not skk-mode)
       (setq viper-insert-state-cursor-color
 	    skk-viper-saved-cursor-color)
       (setq ad-return-value
-	    (cond ((eq viper-current-state 'insert-state)
-		   viper-insert-state-cursor-color)
-		  ((eq viper-current-state 'replace-state)
-		   viper-replace-overlay-cursor-color)
-		  ((eq viper-current-state 'emacs-state)
-		   viper-emacs-state-cursor-color))))
+	    (case viper-current-state
+	      (insert-state
+	       viper-insert-state-cursor-color)
+	      (replace-state
+	       viper-replace-overlay-cursor-color)
+	      (emacs-state
+	       viper-emacs-state-cursor-color))))
      (t
       ad-do-it
       (setq viper-insert-state-cursor-color ad-return-value))))
@@ -103,7 +98,7 @@
 	     '(vip-Append
 	       vip-Insert
 	       vip-insert
-	       vip-intercept-ESC-key
+	       vip-escape-to-emacs
 	       vip-open-line)
 	   '(viper-Append
 	     viper-Insert
@@ -174,7 +169,7 @@
 				    'skk-add-skk-pre-command))
 
 (skk-viper-advice-select
- viper-forward-word-kernel vip-forward-word-kernel
+ viper-forward-word-kernel vip-forward-word
  (around skk-ad activate)
  ("SKK モードがオンで、ポイントの直後の文字が JISX0208/JISX0213 だったら\
  `forward-word' する。"
@@ -185,7 +180,7 @@
     ad-do-it)))
 
 (skk-viper-advice-select
- viper-backward-word-kernel vip-backward-word-kernel
+ viper-backward-word-kernel vip-backward-word
  (around skk-ad activate)
  ("SKK モードがオンで、ポイントの直前の文字が JISX0208/JISX0213 だったら\
  `backward-word' する。"
@@ -196,7 +191,7 @@
 
 ;; please sync with advice to delete-backward-char
 (skk-viper-advice-select
- viper-del-backward-char-in-insert vip-del-backward-char-in-insert
+ viper-del-backward-char-in-insert vip-delete-backward-char
  (around skk-ad activate)
  ("▼モードで `skk-delete-implies-kakutei' が non-nil だったら直前の文字を消して\
 確定する。
@@ -248,7 +243,7 @@
 	(skk-erase-prefix 'clean)))))))
 
 (skk-viper-advice-select
- viper-intercept-ESC-key vip-intercept-ESC-key
+ viper-intercept-ESC-key vip-escape-to-emacs
  (before skk-add activate)
  ("▽モード、▼モードだったら確定する。"
   (when (and skk-mode
