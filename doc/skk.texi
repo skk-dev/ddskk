@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/10/09 14:05:35 $
+@set UPDATED $Date: 2007/10/10 14:51:47 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7803,6 +7803,7 @@ subscribe して下さい。
 @item 過去ログの閲覧
 
 @url{http://mail.ring.gr.jp/skk}
+
 @url{news://news.ring.gr.jp/ring.openlab.skk}
 @end table
 

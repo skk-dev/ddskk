@@ -1,3 +1,8 @@
+2007-10-07  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi (SKKメーリングリスト): Insert blank line between
+	urls for DVI.
+
 2007-10-10  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-viper.el: Require cl package when compile.
