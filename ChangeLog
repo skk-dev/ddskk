@@ -1,3 +1,8 @@
+2007-10-10  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-kakasi.el (skk-kakasi-region): Apply `expand-file-name' to
+	`skk-gyakubiki-jisyo-list'.
+
 2007-10-07  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi (SKKメーリングリスト): Insert blank line between

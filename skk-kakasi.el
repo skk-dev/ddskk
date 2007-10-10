@@ -5,9 +5,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.25 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-kakasi.el,v 1.26 2007/10/10 14:59:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2007/10/10 14:59:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -240,8 +240,8 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
      "KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$$$+!";HMQ$7$J$$@_Dj$K$J$C$F$$$^$9(B"
      "KAKASI was not installed, or skk-use-kakasi is nil"))
   ;; $BJ#?t<-=qBP1~(B
-  (when skk-gyakubiki-jisyo-list
-    (setq arglist (append arglist skk-gyakubiki-jisyo-list)))
+  (dolist (jisyo skk-gyakubiki-jisyo-list)
+    (setq arglist (append arglist (list (expand-file-name jisyo)))))
 
   (let ((str (buffer-substring-no-properties start end)))
     ;; $BIQEY>pJs$r;H$C$F2?$+$*$b$7$m$$;H$$J}$,$G$-$k$+$J!)(B  $B8=>u$G$O;H$C$F(B
