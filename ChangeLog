@@ -1,3 +1,7 @@
+2007-10-11  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-gyakubiki-jisyo-list): Update docstring.
+
 2007-10-06  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Add variable skk-gyakubiki-jisyo-list.

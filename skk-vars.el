@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.259 2007/10/09 14:00:41 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.260 2007/10/11 14:09:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/09 14:00:41 $
+;; Last Modified: $Date: 2007/10/11 14:09:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3430,8 +3430,7 @@ nil であれば、訓令式 \"(「日本式」とも言うようだ)\" を用いる。
   :group 'skk-kakasi)
 
 (defcustom skk-gyakubiki-jisyo-list nil
-  "KAKASI を使った変換の際に参照する逆引き辞書のリスト。
-nil なら KAKASI コマンドは標準の辞書を参照する。"
+  "KAKASI を使った変換の際に追加参照する逆引きユーザ辞書のリスト。"
   :type '(repeat file)
   :group 'skk-kakasi)
 
