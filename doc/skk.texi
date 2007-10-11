@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/10/10 14:51:47 $
+@set UPDATED $Date: 2007/10/11 13:21:36 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5142,7 +5142,8 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 @end table
 
 @cindex $B5U0z$-(B
-$B0J2<$K>R2p$9$k%3%^%s%I$K$D$$$F$O!"30It%W%m%0%i%`(B KAKASI $B$K0MB8$7$F$$$^$9!#(B
+$B0J2<$K>R2p$9$k%3%^%s%I$K$D$$$F$O!"30It%W%m%0%i%`(B KAKASI
+@footnote{@url{http://kakasi.namazu.org/}} $B$K0MB8$7$F$$$^$9!#(B
 KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$1$l$P;HMQ$9$k$3$H$,$G$-$^$;$s!#(B
 
 @table @asis
@@ -5255,6 +5256,24 @@ KAKASI $B$,%$%s%9%H!<%k$5$l$F$$$J$1$l$P;HMQ$9$k$3$H$,$G$-$^$;$s!#(B
 @kindex M-x skk-romaji-message
 @findex skk-romaji-message
 @end itemize
+
+@c http://mail.ring.gr.jp/skk/200110/msg00005.html
+@defvr {$B%f!<%6JQ?t(B} skk-gyakubiki-jisyo-list
+
+$B4X?t(B @code{skk-gyakubiki-region} $B$O%3%^%s%I(B kakasi $B$r8F$S=P$7$F$$$^$9!#(B
+kakasi $B$K$O4A;z$r$R$i$,$J$XJQ49$9$k5!G=$,$"$j!"$3$NJQ49$K$O4D6-JQ?t(B
+@code{KANWADICTPATH} $B$G;XDj$5$l$F$$$k<-=q$rMQ$$$F$$$^$9!#(B
+
+$BJQ?t(B @code{skk-gyakubiki-jisyo-list} $B$r@_Dj$9$k$3$H$K$h$j(B kakasi $B$XM?$((B
+$B$k<-=q$rG$0U$KDI2C$9$k$3$H$,$G$-$^$9!#(B
+$B0J2<$N$h$&$K8D?M<-=q(B @code{skk-jisyo} $B$r;XDj$9$k$3$H$K$h$j!"<-=qEPO?%b!<(B
+$B%I$GEPO?$7$?$P$+$j$NC18l$b(B kakasi $B$K$h$k5U0z$-JQ49$NBP>]$H$9$k$3$H$,$G$-(B
+$B$^$9!#(B
+
+@example
+(setq skk-gyakubiki-jisyo-list (list skk-jisyo))
+@end example
+@end defvr
 
 @node $B4A;z%3!<%I4XO"(B
 @section $B4A;z%3!<%I4XO"(B
