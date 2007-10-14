@@ -1,3 +1,12 @@
+2007-10-14  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-viper.el: Fix previous change.  Don't require cl.
+	(skk-cursor-current-color): Use `cond' instead of `case' in
+	advice.
+	Advice of cursor color change to viper-change-state-to-* functinos
+	instead of `viper-Append', `viper-Insert', ... etc.
+	(viper-intercept-ESC-key): Invoke `skk-kana-cleanup' in advice.
+
 2007-10-11  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-vars.el (skk-gyakubiki-jisyo-list): Update docstring.

@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.39 2007/10/10 13:07:20 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.40 2007/10/14 10:52:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/10 13:07:20 $
+;; Last Modified: $Date: 2007/10/14 10:52:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,7 +33,6 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
   (require 'static)
   (require 'skk-macs)
   (require 'skk-vars))
@@ -81,13 +80,13 @@
       (setq viper-insert-state-cursor-color
 	    skk-viper-saved-cursor-color)
       (setq ad-return-value
-	    (case viper-current-state
-	      (insert-state
-	       viper-insert-state-cursor-color)
-	      (replace-state
-	       viper-replace-overlay-cursor-color)
-	      (emacs-state
-	       viper-emacs-state-cursor-color))))
+	    (cond
+	     ((eq viper-current-state 'insert-state)
+	      viper-insert-state-cursor-color)
+	     ((eq viper-current-state 'replace-state)
+	      viper-replace-overlay-cursor-color)
+	     ((eq viper-current-state 'emacs-state)
+	      viper-emacs-state-cursor-color))))
      (t
       ad-do-it
       (setq viper-insert-state-cursor-color ad-return-value))))
@@ -100,16 +99,11 @@
 	       vip-insert
 	       vip-escape-to-emacs
 	       vip-open-line)
-	   '(viper-Append
-	     viper-Insert
-	     viper-hide-replace-overlay
-	     viper-insert
-	     viper-intercept-ESC-key
-	     viper-open-line
-	     viper-change-to-eol
-	     viper-overwrite
+	   '(viper-change-state-to-insert
+	     viper-change-state-to-replace
 	     viper-change-state-to-vi
-	     viper-change-state-to-emacs))))
+	     viper-change-state-to-emacs
+	     viper-insert-state-post-command-sentinel))))
     (dolist (func funcs)
       (eval
        `(defadvice ,(intern (symbol-name func))
@@ -249,6 +243,12 @@
   (when (and skk-mode
 	     skk-henkan-mode)
     (skk-kakutei))))
+
+(skk-viper-advice-select
+ viper-intercept-ESC-key vip-escape-to-emacs
+ (after skk-kana-cleanup-ad activate)
+ ("vi-state 移行の際に確定入力モードで入力されたローマ字プレフィックスを消す。"
+  (skk-kana-cleanup t)))
 
 (skk-viper-advice-select
  viper-join-lines vip-join-lines
