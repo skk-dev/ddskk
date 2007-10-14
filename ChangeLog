@@ -1,5 +1,12 @@
 2007-10-14  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* skk-vars.el (skk-prefix-face): New face.
+
+	* skk-macs.el (skk-insert-prefix): Use it to prefix string if not
+	henkan mode.
+
+2007-10-14  IRIE Tetsuya  <irie@t.email.ne.jp>
+
 	* skk-viper.el: Fix previous change.  Don't require cl.
 	(skk-cursor-current-color): Use `cond' instead of `case' in
 	advice.

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.260 2007/10/11 14:09:59 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.261 2007/10/14 11:30:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/11 14:09:59 $
+;; Last Modified: $Date: 2007/10/14 11:30:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2314,6 +2314,17 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$
 
 (skk-deflocalvar skk-prefix ""
   "$BF~NO$9$k$+$J$r7hDj$9$k$?$a$N%W%l%U%#%C%/%9!#(B")
+
+(defface skk-prefix-face
+  '((((class color) (type tty))
+     (:foreground "green"))
+    (((class color) (background light))
+     (:foreground "darkolivegreen"))
+    (((class color) (background dark))
+     (:foreground "darkseagreen4"))
+    (((class grayscale)) (:underline t)))
+  "*$B%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
+  :group 'skk-visual)
 
 (skk-deflocalvar skk-prefix-overlay nil
   "`skk-prefix' $B$rI=<($9$k$?$a$K;HMQ$5$l$k(B overlay$B!#(B
