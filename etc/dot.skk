@@ -108,7 +108,7 @@
 			  (propertize (if (skk-annotation-display-p 'list)
 					  " ≒ "
 					" !")
-				      'face 'skk-e21-latin-face)
+				      'face 'skk-e21-jisx0208-latin-face)
 			nil)))
 	    (cond (note
 		   (put-text-property 0 (length cand)

@@ -1,3 +1,8 @@
+2007-10-08  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* dot.skk (skk-treat-candidate-appearance-function): Use
+	`skk-e21-jisx0208-latin-face' instead of `skk-e21-latin-face'.
+
 2007-09-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* dot.skk: Add sample code for skk-show-japanese-menu,
