@@ -1,3 +1,7 @@
+2007-10-16  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* dot.skk (skk-show-inline): Add about vertical.
+
 2007-10-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* dot.emacs: Update comment.

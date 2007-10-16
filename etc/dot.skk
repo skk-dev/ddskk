@@ -84,7 +84,10 @@
 ;; (setq skk-show-candidates-always-pop-to-buffer t)
 
 ;; 変換候補をインラインに表示する
-(setq skk-show-inline t)
+;; (setq skk-show-inline t)
+
+;; 変換候補を縦型インラインに表示する
+(setq skk-show-inline 'vertical)
 
 (when skk-show-inline
   ;; 変数 skk-treat-candidate-appearance-function を利用して自前で候補に
