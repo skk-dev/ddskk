@@ -1,3 +1,7 @@
+2007-10-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* dot.emacs: Update comment.
+
 2007-10-08  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* dot.skk (skk-treat-candidate-appearance-function): Use
