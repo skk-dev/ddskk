@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/10/11 13:21:36 $
+@set UPDATED $Date: 2007/10/19 14:48:25 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6917,6 +6917,7 @@ SKK $B<-=q$K(B
 * $BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B::
 * $BJQ498uJd0lMw$NI=<(J}K!(B::
 * $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B::
+* $BJQ498uJd$N99$J$kAu>~(B::
 * $B%(%i!<$J$I$NF|K\8lI=<((B::
 * XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B::
 @end menu
@@ -7201,6 +7202,69 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $B$3$N>l9g!"A07J?'$O(B RosyBrown1 $B$K$J$j$^$9!#GX7J?'$O$b$A$^$;$s!#$D$^$j!"%P%C(B
 $B%U%!$NGX7J?'$,$=$N$^$^8+$($^$9!#(B
 @end table
+
+@node $BJQ498uJd$N99$J$kAu>~(B
+@subsection $BJQ498uJd$N99$J$kAu>~(B
+
+$BJQ498uJd$K$D$$$F%f!<%6$NG$0U$N2C9)$r;\$9$?$a$K(B
+$BJQ?t(B @code{skk-treat-candidate-appearance-function} $B$rMQ0U$7$F$"$j$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-treat-candidate-appearance-function
+
+$BJQ?t(B @code{skk-treat-candidate-appearance-function} $B$KE,@Z$J7A<0$G4X?t$r(B
+$B<}$a$k$3$H$K$h$j!"JQ498uJd$r%f!<%6$NG$0U$K2C9)$9$k$3$H$,$G$-$^$9!#(B
+
+$B!VE,@Z$J7A<0!W$H$O!"<!$N$H$*$j$G$9!#(B
+
+@enumerate
+@item
+$B0z?t$r(B 2 $B$D<h$k$3$H!#(B
+
+@item
+$BBh(B 1 $B0z?t$OJ8;zNs$H$7$F07$&$3$H!#$3$l$O2C9)A0$NJ8;zNs$KAjEv$9$k!#(B
+
+@item
+$BBh(B 2 $B0z?t$,(B @code{nil} $B$N;~$ODL>o$NJQ49;~!"Hs(B @code{nil} $B$N;~$O8uJd0lMwI=(B
+$B<(;~$rI=$9$b$N$H$7$F07$&$3$H!#(B
+
+@item
+$BJV$jCM$O0J2<$N$$$:$l$+$H$9$k$3$H!#(B
+
+@table @asis
+@item - $BJ8;zNs(B
+
+$B$3$N>l9g!"$3$NJ8;zNs$O8uJd$HCm<a$rN>J}4^$_$&$k$b$N$H$7$F=hM}$5$l$k!#(B
+
+@item - cons cell ($B8uJd(B . $BCm<a(B)
+
+$B$3$N>l9g!"8uJd$O$b$&Cm<a$r4^$^$J$$$b$N$H$7$F=hM}$5$l$k!#Cm<a$K$D$$$F$O@h(B
+$BF,$,(B ";" $B$+$I$&$+$rD4$Y$?>e$G=hM}$5$l$k!#(B
+
+@item - cons cell ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
+
+$B$3$N>l9g!"8uJd$O$b$&Cm<a$r4^$^$J$$$b$N$H$7$F=hM}$5$l$k!#%;%Q%l!<%?$ODL>o(B
+$B$N(B ";" $B$NBe$o$j$KMxMQ$5$l$k!#Cm<a$O$b$&%;%Q%l!<%?$r4^$^$J$$$b$N$H$7$F=h(B
+$BM}$5$l$k!#(B
+@end table
+@end enumerate
+
+$B%U%!%$%k(B @file{etc/dot.skk} $B$K@_DjNc$,$"$k$[$+!"%5%s%W%k$H$7$F4X?t(B
+@code{skk-treat-candidate-sample1} $B$H(B @code{skk-treat-candidate-sample2}
+$B$rMQ0U$7$F$"$j$^$9!#(B
+$B%U%!%$%k(B @file{~/.skk} $B$K<!$N$$$:$l$+$r=q$$$F$_$FJQ498uJd$NAu>~$r;n$7$F(B
+$B$/$@$5$$!#(B
+
+@example
+(setq skk-treat-candidate-appearance-function
+      'skk-treat-candidate-sample1)
+@end example
+
+@example
+(setq skk-treat-candidate-appearance-function
+      'skk-treat-candidate-sample2)
+@end example
+
+@end defvr
 
 @node $B%(%i!<$J$I$NF|K\8lI=<((B
 @subsection $B%(%i!<$J$I$NF|K\8lI=<((B

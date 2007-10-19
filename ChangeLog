@@ -1,3 +1,8 @@
+2007-10-08  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi (変換候補の更なる装飾): Add description on
+	`skk-treat-candidate-appearance-function'.
+
 2007-10-19  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-restart): Unload skk-{act,azik} if loaded.
