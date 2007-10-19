@@ -9,7 +9,7 @@
 
 	* skk-azik.el (skk-azik-unnecessary-base-rule-list)
 	(skk-azik-additional-rom-kana-rule-list)
-	(skk-azik-keyboard-depends-additional-rom-kana-rule-list): New
+	(skk-azik-keyboard-specific-additional-rom-kana-rule-list): New
 	variable.
 	(skk-jisx0201-base-rule-list, skk-jisx0201-rule-list): Set AZIK
 	rules when "skk-jisx0201.el" is loaded.

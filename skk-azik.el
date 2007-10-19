@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.6 2007/10/19 12:43:24 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.7 2007/10/19 13:29:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2007/10/19 12:43:24 $
+;; Last Modified: $Date: 2007/10/19 13:29:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -538,7 +538,7 @@
     ("zyz" nil ("ジャン" . "じゃん"))
     ("zz" nil ("ザン" . "ざん"))))
 
-(defvar skk-azik-keyboard-depends-additional-rom-kana-rule-list nil)
+(defvar skk-azik-keyboard-specific-additional-rom-kana-rule-list nil)
 
 ;; キーボード依存部分。
 ;; skk-azik-keyboard-type が設定されていれば以下を実行。
@@ -549,7 +549,7 @@
             (append '(?+) skk-set-henkan-point-key))
       (setq skk-downcase-alist
             (append '((?+ . ?\;)) skk-downcase-alist))
-      (setq skk-azik-keyboard-depends-additional-rom-kana-rule-list
+      (setq skk-azik-keyboard-specific-additional-rom-kana-rule-list
 	    '(("@" nil skk-toggle-kana)
 	      ("x@" nil skk-today)
 	      ("`" nil skk-set-henkan-point-subr)
@@ -559,7 +559,7 @@
             (append '(?+) skk-set-henkan-point-key))
       (setq skk-downcase-alist
             (append '((?+ . ?\;)) skk-downcase-alist))
-      (setq skk-azik-keyboard-depends-additional-rom-kana-rule-list
+      (setq skk-azik-keyboard-specific-additional-rom-kana-rule-list
 	    '(("@" nil skk-toggle-kana)
 	      ("x@" nil skk-today)
 	      ("~" nil skk-set-henkan-point-subr)
@@ -570,7 +570,7 @@
             (append '(?:) skk-set-henkan-point-key))
       (setq skk-downcase-alist
             (append '((?: . ?\;)) skk-downcase-alist))
-      (setq skk-azik-keyboard-depends-additional-rom-kana-rule-list
+      (setq skk-azik-keyboard-specific-additional-rom-kana-rule-list
 	    '(("\'" nil "ー")
 	      ("x\'" nil "'")
 	      ("[" nil skk-toggle-kana)
@@ -587,7 +587,7 @@
 	(del-alist str skk-rom-kana-base-rule-list)))
 
 ;; AZIK 特有の変換規則を追加する
-(dolist (rule (append skk-azik-keyboard-depends-additional-rom-kana-rule-list
+(dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
 		      skk-azik-additional-rom-kana-rule-list))
   (add-to-list 'skk-rom-kana-rule-list rule))
 
@@ -598,7 +598,7 @@
        (setq skk-jisx0201-base-rule-list
 	     (del-alist str skk-jisx0201-base-rule-list)))
 
-     (dolist (rule (append skk-azik-keyboard-depends-additional-rom-kana-rule-list
+     (dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
 			   skk-azik-additional-rom-kana-rule-list))
        (add-to-list 'skk-jisx0201-rule-list
 		    (if (listp (nth 2 rule))
