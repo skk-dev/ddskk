@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.453 2007/10/09 14:00:40 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.454 2007/10/19 12:43:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/09 14:00:40 $
+;; Last Modified: $Date: 2007/10/19 12:43:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -262,6 +262,9 @@ dependent."
 			   (plist-member (symbol-plist sym) 'standard-value))
 		  (set-default sym
 			       (eval (car (get sym 'standard-value)))))))
+  (dolist (feature '(skk-act skk-azik))
+    (when (featurep feature)
+      (unload-feature feature)))
   (let (skk-mode-invoked)
     (skk-mode 1)))
 

@@ -1,3 +1,19 @@
+2007-10-19  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-restart): Unload skk-{act,azik} if loaded.
+
+	* skk-act.el (skk-act-unnecessary-base-rule-list)
+	(skk-act-additional-rom-kana-rule-list): New variable.
+	(skk-jisx0201-base-rule-list, skk-jisx0201-rule-list): Set ACT
+	rules when "skk-jisx0201.el" is loaded.
+
+	* skk-azik.el (skk-azik-unnecessary-base-rule-list)
+	(skk-azik-additional-rom-kana-rule-list)
+	(skk-azik-keyboard-depends-additional-rom-kana-rule-list): New
+	variable.
+	(skk-jisx0201-base-rule-list, skk-jisx0201-rule-list): Set AZIK
+	rules when "skk-jisx0201.el" is loaded.
+
 2007-10-14  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-vars.el (skk-prefix-face): New face.
