@@ -1,3 +1,10 @@
+2007-10-20  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (積極的な確定変換): Add description on
+	`skk-kakutei-when-unique-candidate' and
+	`skk-kakutei-search-prog-limit'.
+	(辞書のアノテーション(注釈), 変換候補一覧の表示方法): Tiny fix.
+
 2007-10-08  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi (変換候補の更なる装飾): Add description on
