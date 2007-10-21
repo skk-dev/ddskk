@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/10/19 15:26:22 $
+@set UPDATED $Date: 2007/10/21 12:58:08 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6694,7 +6694,7 @@ M-x skk-annotation-remove
 
 とします。
 
-アノテーションを表示させるには、変数@code{skk-show-annotation} を
+アノテーションを表示させるには、変数 @code{skk-show-annotation} を
 @code{non-nil} にします。辞書の候補にアノテーションがあればエコーエリ
 ア @footnote{変数 @code{skk-annotation-show-as-message}を @code{nil}
 にした場合は、other-window を一時的に開いてアノテーションを表示します。
