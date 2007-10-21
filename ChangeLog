@@ -1,3 +1,10 @@
+2007-10-07  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi (ユーザガイダンス関連): New node.
+	(エラーなどの日本語表示): 「ユーザガイダンス関連」の下に移動。
+	(助言的案内メッセージの表示): New node.  Add description on
+	`skk-verbose' and `skk-verbose-wait'.
+
 2007-10-21  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (辞書のアノテーション(注釈)): Insert white space.

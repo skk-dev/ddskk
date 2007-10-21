@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/10/21 12:58:08 $
+@set UPDATED $Date: 2007/10/21 14:30:16 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -180,6 +180,7 @@ SKK $B$N%P!<%8%g%s(B @value{SKK-VERSION} $B$KBP1~$7$F$$$^$9!#(B
 * $B<-=q4XO"(B::                    $B<-=q$K$^$D$o$k@_Dj$*$h$S5!G=!#(B
 * DDSKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B::
 * $B>~$j$D$1(B::                    $BMM!9$JI=<($N@_Dj!#(B
+* $B%f!<%6%,%$%@%s%94XO"(B::
 * VIP/VIPER$B$H$NJ;MQ(B::
 * I-search$B4XO"(B::                $B%$%s%/%j%a%s%?%k!&%5!<%A$K$^$D$o$k5!G=!#(B
 * skk-init-file$B$N%3%s%Q%$%k(B::   $B@_Dj%U%!%$%k$N<+F0%P%$%H%3%s%Q%$%k!#(B
@@ -1685,6 +1686,7 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 * $B<-=q4XO"(B::                    $B<-=q$K$^$D$o$k@_Dj$*$h$S5!G=!#(B
 * DDSKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B::
 * $B>~$j$D$1(B::                    $BMM!9$JI=<($N@_Dj!#(B
+* $B%f!<%6%,%$%@%s%94XO"(B::
 * VIP/VIPER$B$H$NJ;MQ(B::
 * I-search$B4XO"(B::                $B%$%s%/%j%a%s%?%k!&%5!<%A$K$^$D$o$k5!G=!#(B
 * skk-init-file$B$N%3%s%Q%$%k(B::   $B@_Dj%U%!%$%k$N<+F0%P%$%H%3%s%Q%$%k!#(B
@@ -6953,7 +6955,6 @@ SKK $B<-=q$K(B
 * $BJQ498uJd0lMw$NI=<(J}K!(B::
 * $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B::
 * $BJQ498uJd$N99$J$kAu>~(B::
-* $B%(%i!<$J$I$NF|K\8lI=<((B::
 * XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B::
 @end menu
 
@@ -7302,26 +7303,6 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 
 @end defvr
 
-@node $B%(%i!<$J$I$NF|K\8lI=<((B
-@subsection $B%(%i!<$J$I$NF|K\8lI=<((B
-
-$BI8=`$G$O!"%(%i!<!"%a%C%;!<%8$*$h$S%_%K%P%C%U%!$G$N%W%m%s%W%H$O!"1Q8l$GI=(B
-$B<($5$l$^$9!#(B
-
-@table @code
-@item skk-japanese-message-and-error
-@vindex skk-japanese-message-and-error
-
-$B$3$NJQ?t$NCM$rHs(B @code{nil} $B$K@_Dj$9$k$H!"%(%i!<!"%a%C%;!<%8$*$h$S%_%K(B
-$B%P%C%U%!$G$N%W%m%s%W%H$rF|K\8l$GI=<($7$^$9!#(B
-
-@item skk-show-japanese-menu
-@vindex skk-show-japanese-menu
-
-$B$3$NJQ?t$NCM$rHs(B @code{nil} $B$K@_Dj$9$k$H!"%a%K%e!<$rF|K\8l$GI=<($7$^$9!#(B
-
-@end table
-
 @node XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B
 @subsection XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B
 
@@ -7390,6 +7371,54 @@ XEmacs $B$N>l9g(B
 $B%I%i%$%s$K(B SKK $B$N%"%$%3%s$,I=<($5$l$^$9!#(B
 $B%"%$%3%s$N2hA|%U%!%$%k(B(skk.xpm)$B$O!"JQ?t(B @code{skk-icon} $B$GDj5A$5$l$F$$$^(B
 $B$9!#(B
+
+@node $B%f!<%6%,%$%@%s%94XO"(B
+@section $B%f!<%6%,%$%@%s%94XO"(B
+
+@menu
+* $B%(%i!<$J$I$NF|K\8lI=<((B::
+* $B=u8@E*0FFb%a%C%;!<%8$NI=<((B::
+@end menu
+
+@node $B%(%i!<$J$I$NF|K\8lI=<((B
+@subsection $B%(%i!<$J$I$NF|K\8lI=<((B
+
+$BI8=`$G$O!"%(%i!<!"%a%C%;!<%8$*$h$S%_%K%P%C%U%!$G$N%W%m%s%W%H$O!"1Q8l$GI=(B
+$B<($5$l$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-japanese-message-and-error
+
+$B$3$NJQ?t$NCM$rHs(B @code{nil} $B$K@_Dj$9$k$H!"%(%i!<!"%a%C%;!<%8$*$h$S%_%K(B
+$B%P%C%U%!$G$N%W%m%s%W%H$rF|K\8l$GI=<($7$^$9!#I8=`$G$O(B @code{nil} $B$G$9!#(B
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-show-japanese-menu
+
+$B$3$NJQ?t$NCM$rHs(B @code{nil} $B$K@_Dj$9$k$H!"%a%K%e!<$rF|K\8l$GI=<($7$^$9!#(B
+@end defvr
+
+@node $B=u8@E*0FFb%a%C%;!<%8$NI=<((B
+@subsection $B=u8@E*0FFb%a%C%;!<%8$NI=<((B
+
+@c http://mail.ring.gr.jp/skk/200704/msg00036.html
+@defvr {$B%f!<%6JQ?t(B} skk-verbose
+
+$B$3$NJQ?t$NCM$rHs(B @code{nil} $B$K@_Dj$9$k$H!"(BSKK $B$,=>MhI=<($7$J$+$C$?$h$&$J(B
+$BF~NO!&JQ49Cf$N=u8@E*%a%C%;!<%8$,I=<($5$l$^$9!#6qBNE*$K$O!"(B
+
+@itemize @bullet
+@item $B"&%b!<%I$G0lDj;~4V%-!<F~NO$,$J$+$C$?$H$-!"%W%l%U%#%C%/%9$K$h$kJQ49(B
+$B%W%m%0%i%`@Z49$(J}K!$r%a%C%;!<%8$G0FFb$7$^$9!#(B
+
+@item $B"'%b!<%I$G0lDj;~4V%-!<F~NO$,$J$+$C$?$H$-!"%"%N%F!<%7%g%s5!G=$N;H$$(B
+$BJ}$K4X$7$F%a%C%;!<%8$G0FFb$7$^$9!#(B
+@end itemize
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-verbose-wait
+
+$B=u8@E*%a%C%;!<%8$rI=<($9$k$^$G$NBT$A;~4V(B ($BIC(B)$B!#I8=`$O(B 2.5 $BIC$G$9!#(B
+@end defvr
 
 @node VIP/VIPER$B$H$NJ;MQ(B
 @section VIP/VIPER$B$H$NJ;MQ(B
