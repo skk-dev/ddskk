@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.35 2007/09/26 04:07:01 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.36 2007/10/24 13:32:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/26 04:07:01 $
+;; Last Modified: $Date: 2007/10/24 13:32:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -392,7 +392,7 @@
 	   char1-e char2-e 
 	   char1-s char2-s))))
      ((memq charset '(ascii latin-jisx0201))
-      (message "`%s' %2x (%3d)"
+      (message "`%s' HEX: %2x, DECIMAL: %3d"
 	       str
 	       (skk-char-octet char 0)
 	       (skk-char-octet char 0)))

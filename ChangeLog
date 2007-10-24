@@ -1,3 +1,7 @@
+2007-10-10  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-kcode.el (skk-display-code): Improve message.
+
 2007-10-24  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (仮名文字のローマ字プレフィックスのエコー): Add
