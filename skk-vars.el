@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.261 2007/10/14 11:30:19 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.262 2007/10/24 12:42:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/14 11:30:19 $
+;; Last Modified: $Date: 2007/10/24 12:42:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2246,7 +2246,7 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$
 
 (skk-deflocalvar skk-katakana nil
   "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,%+%J%b!<%I$G$"$k$3$H$r<($9!#(B
-\"(and (not skk-katakana) skk-j-mode))\" $B$,(B t $B$G$"$l$P!"$+$J%b!<%I$G$"$k$3$H$r(B
+\"(and (not skk-katakana) skk-j-mode)\" $B$,(B t $B$G$"$l$P!"$+$J%b!<%I$G$"$k$3$H$r(B
 $B<($9!#(B")
 
 (skk-deflocalvar skk-jisx0208-latin-mode nil
@@ -2315,15 +2315,37 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$
 (skk-deflocalvar skk-prefix ""
   "$BF~NO$9$k$+$J$r7hDj$9$k$?$a$N%W%l%U%#%C%/%9!#(B")
 
-(defface skk-prefix-face
+(defface skk-prefix-hiragana-face
+  '((((class color) (type tty))
+     (:foreground "red"))
+    (((class color) (background light))
+     (:foreground "coral4"))
+    (((class color) (background dark))
+     (:foreground "pink"))
+    (((class grayscale)) (:underline t)))
+  "*$B$+$J%b!<%I$N%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
+  :group 'skk-visual)
+
+(defface skk-prefix-katakana-face
   '((((class color) (type tty))
      (:foreground "green"))
     (((class color) (background light))
-     (:foreground "darkolivegreen"))
+     (:foreground "forestgreen"))
     (((class color) (background dark))
-     (:foreground "darkseagreen4"))
+     (:foreground "green"))
     (((class grayscale)) (:underline t)))
-  "*$B%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
+  "*$B%+%?%+%J%b!<%I$N%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
+  :group 'skk-visual)
+
+(defface skk-prefix-jisx0201-face
+  '((((class color) (type tty))
+     (:foreground "blue"))
+    (((class color) (background light))
+     (:foreground "blueviolet"))
+    (((class color) (background dark))
+     (:foreground "thistle"))
+    (((class grayscale)) (:underline t)))
+  "*JISX0201 $B%b!<%I$N%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
   :group 'skk-visual)
 
 (skk-deflocalvar skk-prefix-overlay nil

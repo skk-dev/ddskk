@@ -1,3 +1,15 @@
+2007-10-24  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (仮名文字のローマ字プレフィックスのエコー): Add
+	about `skk-prefix-{hiragana,katakana,jisx0201}-face'.
+
+	* skk-vars.el (skk-katakana): Fix typo in docstring.
+	(skk-prefix-face): Delete face.
+	(skk-prefix-hiragana-face, skk-prefix-katakana-face)
+	(skk-prefix-jisx0201-face): New face.
+
+	* skk-macs.el (skk-insert-prefix): Use new faces.
+
 2007-10-07  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi (ユーザガイダンス関連): New node.

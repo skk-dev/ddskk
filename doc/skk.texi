@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/10/21 14:30:16 $
+@set UPDATED $Date: 2007/10/24 12:42:22 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6961,14 +6961,12 @@ SKK 辞書に
 @node 仮名文字のローマ字プレフィックスのエコー
 @subsection 仮名文字のローマ字プレフィックスのエコー
 
-@table @code
-@item skk-echo
-@vindex skk-echo
+@defvr {ユーザ変数} skk-echo
 
 この変数の値は、仮名文字のローマ字プレフィックス
 @footnote{@xref{辞書の形式, ローマ字プレフィックス}.}
 のエコーの有無を制御します。
-@end table
+@end defvr
 
 変数 @code{skk-echo} の値が 非 @code{nil} であれば、仮名文字のローマ字
 プレフィックスが、入力時点で一旦現在のバッファに挿入され、続く母音の入
@@ -6992,10 +6990,20 @@ t
 @end group
 @end example
 
-変数 @code{skk-echo} の値が @code{nil} であれば、仮名文字のローマ字プレフィック
-スのエコーは行われません。これを上記の例で考えると、@samp{t} が現在の
-バッファに挿入されず、続く母音 (@kbd{a}) が入力されたとき @samp{た} の
-文字が挿入されます。
+変数 @code{skk-echo} の値が @code{nil} であれば、仮名文字のローマ字プレ
+フィックスのエコーは行われません。これを上記の例で考えると、@samp{t} が現
+在のバッファに挿入されず、続く母音 (@kbd{a}) が入力されたとき @samp{た}
+の文字が挿入されます。
+
+@defvr {ユーザ変数} skk-prefix-hiragana-face
+@end defvr
+@defvr {ユーザ変数} skk-prefix-katakana-face
+@end defvr
+@defvr {ユーザ変数} skk-prefix-jisx0201-face
+
+それぞれかなモード、カナモード、JISX0201 モードにおけるローマ字プレフィッ
+クスのフェイスを指定します。
+@end defvr
 
 @node 入力モードを示すモードラインの文字列の変更
 @subsection 入力モードを示すモードラインの文字列の変更
