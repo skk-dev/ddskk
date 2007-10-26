@@ -1,8 +1,3 @@
-2007-10-26  IRIE Tetsuya  <irie@t.email.ne.jp>
-
-	* skk.el (skk-setup-keymap): Check if
-	`skk-previous-candidate-char' is a character.
-
 2007-10-25  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-kcode.el (skk-input-by-code-or-menu-jump)
