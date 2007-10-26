@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.454 2007/10/19 12:43:24 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.455 2007/10/26 10:48:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/19 12:43:24 $
+;; Last Modified: $Date: 2007/10/26 10:48:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -364,7 +364,8 @@ dependent."
 	  ;; する必要がある。
 	  (define-key skk-j-mode-map [(tab)] 'skk-completion-wrapper)))
       ;;
-      (unless (featurep 'skk-kanagaki)
+      (when (and (not (featurep 'skk-kanagaki))
+		 (characterp skk-previous-candidate-char))
 	(define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
 	  'skk-previous-candidate))
       (when skk-use-jisx0201-input-method
