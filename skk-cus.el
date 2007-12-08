@@ -29,6 +29,7 @@
 ;;; Code:
 
 (eval-when-compile
+  (require 'static)
   (require 'skk-macs))
 
 (require 'skk-vars)
@@ -120,6 +121,22 @@
      (const :tag "SKK のアイコンを表示する" t) "")
     (skk-preload
      (const :tag "SKK をあらかじめロードして初回起動を高速にする" t) "")))
+
+;; For Emacs 21.
+(defun-maybe custom-quote (sexp)
+  "Quote SEXP if it is not self quoting."
+  (if (or (memq sexp '(t nil))
+	  (keywordp sexp)
+	  (and (listp sexp)
+	       (memq (car sexp) '(lambda)))
+	  (stringp sexp)
+	  (numberp sexp)
+	  (vectorp sexp)
+;;;  	  (and (fboundp 'characterp)
+;;;  	       (characterp sexp))
+	  )
+      sexp
+    (list 'quote sexp)))
 
 (defun skk-custom-mode ()
   (kill-all-local-variables)
@@ -305,7 +322,9 @@
 	  (value (cdr param)))
       (funcall (or (get variable 'custom-set) 'set-default) variable value)
       (put variable 'saved-value (list (custom-quote value)))
-      (custom-push-theme 'theme-value variable 'user 'set (custom-quote value))
+      (static-when (fboundp 'custom-push-theme)
+	(custom-push-theme 'theme-value variable 'user 'set
+			   (custom-quote value)))
       (put variable 'customized-value nil)
       (put variable 'customized-variable-comment nil)))
   (custom-save-all)

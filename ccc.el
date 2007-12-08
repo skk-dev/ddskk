@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.32 2007/12/08 13:34:22 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.33 2007/12/08 14:11:45 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2007/12/08 13:34:22 $
+;; Last Modified: $Date: 2007/12/08 14:11:45 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -154,7 +154,7 @@
   (let ((color (if (stringp buffer-local-cursor-color)
 		   buffer-local-cursor-color
 		 (frame-cursor-color))))
-    (when (stringp color)
+    (when (x-color-defined-p color)
       (unless (ccc-color-equal color (current-cursor-color))
 	(set-cursor-color color)))))
 
@@ -182,7 +182,7 @@
   (let ((color (if (stringp buffer-local-foreground-color)
 		   buffer-local-foreground-color
 		 (frame-foreground-color))))
-    (when (stringp color)
+    (when (x-color-defined-p color)
       (unless (ccc-color-equal color (current-foreground-color))
 	(set-foreground-color color)))))
 
@@ -210,7 +210,7 @@
   (let ((color (if (stringp buffer-local-background-color)
 		   buffer-local-background-color
 		 (frame-background-color))))
-    (when (stringp color)
+    (when (x-color-defined-p color)
       (unless (ccc-color-equal color (current-background-color))
 	(set-background-color color)))))
 
