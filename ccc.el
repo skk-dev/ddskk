@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.31 2007/12/08 08:48:41 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.32 2007/12/08 13:34:22 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2007/12/08 08:48:41 $
+;; Last Modified: $Date: 2007/12/08 13:34:22 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -124,7 +124,8 @@
 					  (default-background-color)
 					  (fallback-background-color)))))
 
-(ccc-setup-initial-frame)
+(dolist (frame (frame-list))
+  (ccc-setup-new-frame frame))
 
 ;;;###autoload
 (defun update-buffer-local-frame-params (&optional buffer)
