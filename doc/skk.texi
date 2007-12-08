@@ -15,7 +15,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/10/24 12:42:22 $
+@set UPDATED $Date: 2007/12/08 08:23:57 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -257,7 +257,7 @@ XEmacs $B$G$N$h$jB?$/$N%F%9%H$,I,MW$G$9!#(B
 SKK $B$O$+$J4A;zJQ49%W%m%0%i%`$G$"$j!"(BSimple Kana to Kanji conversion
 program $B$K$A$J$s$GL>IU$1$i$l$^$7$?!#$^$?!"$=$NL>$O(B Combinatory Logic $B$G$N(B
 $BM-L>$JEy<0(B @samp{SKK = I} $B$K$bM3Mh$7$F$$$^$9(B @footnote{@samp{SKK = I} $B$K(B
-$B$D$$$F>\$7$/$O(B@url{http://openlab.jp/skk/SKK.html} $B$r$4;2>H2<$5$$!#(B}$B!#(B
+$B$D$$$F>\$7$/$O(B @url{http://openlab.jp/skk/SKK.html} $B$r$4;2>H2<$5$$!#(B}$B!#(B
 
 Daredevil SKK (DDSKK) $B$O(B SKK $B$N$5$i$J$k3HD%HG$H$7$F0LCVIU$1$i$l$F$$$^$9!#(B
 
@@ -1796,7 +1796,7 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 
 $B3HD%%m!<%^;zF~NO(B "AZIK" $B$N@_Dj$rDs6!$7$^$9!#(B
 
-@xref{ACT}.
+@xref{AZIK}.
 
 @item skk-bayesian.el
 @cindex @file{skk-bayesian.el}
