@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.30 2007/07/31 06:44:36 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.31 2007/12/08 08:48:41 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2007/07/31 06:44:36 $
+;; Last Modified: $Date: 2007/12/08 08:48:41 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -39,39 +39,60 @@
   (require 'poe))
 
 ;; Frame parameters.
-(defsubst get-apparent-cursor-color ()
+(defsubst current-cursor-color ()
   (cdr (assq 'cursor-color (frame-parameters (selected-frame)))))
+(defsubst initial-cursor-color ()
+  (cdr (assq 'cursor-color initial-frame-alist)))
+(defsubst default-cursor-color ()
+  (cdr (assq 'cursor-color default-frame-alist)))
+(defsubst fallback-cursor-color ()
+  (if (eq frame-background-mode 'dark)
+      "white"
+    "black"))
 
-(defsubst get-apparent-foreground-color ()
+(defsubst current-foreground-color ()
   (cdr (assq 'foreground-color (frame-parameters (selected-frame)))))
+(defsubst initial-foreground-color ()
+  (cdr (assq 'foreground-color initial-frame-alist)))
+(defsubst default-foreground-color ()
+  (cdr (assq 'foreground-color default-frame-alist)))
+(defsubst fallback-foreground-color ()
+  (if (eq frame-background-mode 'dark)
+      "white"
+    "black"))
 
-(defsubst get-apparent-background-color ()
+(defsubst current-background-color ()
   (cdr (assq 'background-color (frame-parameters (selected-frame)))))
+(defsubst initial-background-color ()
+  (cdr (assq 'background-color initial-frame-alist)))
+(defsubst default-background-color ()
+  (cdr (assq 'background-color default-frame-alist)))
+(defsubst fallback-background-color ()
+  (if (eq frame-background-mode 'dark)
+      "black"
+    "white"))
 
+(defsubst frame-cursor-color (&optional frame)
+  (frame-parameter (or frame (selected-frame)) 'frame-cursor-color))
 (defsubst set-frame-cursor-color (frame color)
   (modify-frame-parameters frame (list (cons 'frame-cursor-color color))))
 
+(defsubst frame-foreground-color (&optional frame)
+  (frame-parameter (or frame (selected-frame)) 'frame-foreground-color))
 (defsubst set-frame-foreground-color (frame color)
   (modify-frame-parameters frame (list (cons 'frame-foreground-color color))))
 
+(defsubst frame-background-color (&optional frame)
+  (frame-parameter (or frame (selected-frame)) 'frame-background-color))
 (defsubst set-frame-background-color (frame color)
   (modify-frame-parameters frame (list (cons 'frame-background-color color))))
 
 ;; Internal variables.
-(defvar frame-cursor-color (get-apparent-cursor-color))
-(make-variable-frame-local 'frame-cursor-color)
-
 (defvar buffer-local-cursor-color nil)
 (make-variable-buffer-local 'buffer-local-cursor-color)
 
-(defvar frame-foreground-color (get-apparent-foreground-color))
-(make-variable-frame-local 'frame-foreground-color)
-
 (defvar buffer-local-foreground-color nil)
 (make-variable-buffer-local 'buffer-local-foreground-color)
-
-(defvar frame-background-color (get-apparent-background-color))
-(make-variable-frame-local 'frame-background-color)
 
 (defvar buffer-local-background-color nil)
 (make-variable-buffer-local 'buffer-local-background-color)
@@ -84,9 +105,26 @@
   (facemenu-color-equal a b))
 
 (defun ccc-setup-new-frame (frame)
-  (set-frame-cursor-color frame frame-cursor-color)
-  (set-frame-foreground-color frame frame-foreground-color)
-  (set-frame-background-color frame frame-background-color))
+  (set-frame-cursor-color frame (or (default-cursor-color)
+				    (fallback-cursor-color)))
+  (set-frame-foreground-color frame (or (default-foreground-color)
+					(fallback-foreground-color)))
+  (set-frame-background-color frame (or (default-background-color)
+					(fallback-background-color))))
+
+(defun ccc-setup-initial-frame ()
+  (let ((frame (selected-frame)))
+    (set-frame-cursor-color frame (or (initial-cursor-color)
+				      (default-cursor-color)
+				      (fallback-cursor-color)))
+    (set-frame-foreground-color frame (or (initial-foreground-color)
+					  (default-foreground-color)
+					  (fallback-foreground-color)))
+    (set-frame-background-color frame (or (initial-background-color)
+					  (default-background-color)
+					  (fallback-background-color)))))
+
+(ccc-setup-initial-frame)
 
 ;;;###autoload
 (defun update-buffer-local-frame-params (&optional buffer)
@@ -105,7 +143,7 @@
   (let ((local buffer-local-cursor-color))
     (setq buffer-local-cursor-color
 	  (or color-name
-	      frame-cursor-color))
+	      (frame-cursor-color)))
     (condition-case nil
 	(update-buffer-local-cursor-color)
       (error
@@ -114,14 +152,15 @@
 (defun update-buffer-local-cursor-color ()
   (let ((color (if (stringp buffer-local-cursor-color)
 		   buffer-local-cursor-color
-		 frame-cursor-color)))
-    (unless (ccc-color-equal color (get-apparent-cursor-color))
-      (set-cursor-color color))))
+		 (frame-cursor-color))))
+    (when (stringp color)
+      (unless (ccc-color-equal color (current-cursor-color))
+	(set-cursor-color color)))))
 
 (defun set-cursor-color-buffer-local (arg)
   (if arg
-      (setq buffer-local-cursor-color (get-apparent-cursor-color))
-    (set-cursor-color frame-cursor-color)
+      (setq buffer-local-cursor-color (current-cursor-color))
+    (set-cursor-color (frame-cursor-color))
     (setq buffer-local-cursor-color nil)))
 
 ;;
@@ -132,7 +171,7 @@
   (let ((local buffer-local-foreground-color))
     (setq buffer-local-foreground-color
 	  (or color-name
-	      frame-foreground-color))
+	      (frame-foreground-color)))
     (condition-case nil
 	(update-buffer-local-foreground-color)
       (error
@@ -141,14 +180,15 @@
 (defun update-buffer-local-foreground-color ()
   (let ((color (if (stringp buffer-local-foreground-color)
 		   buffer-local-foreground-color
-		 frame-foreground-color)))
-    (unless (ccc-color-equal color (get-apparent-foreground-color))
-      (set-foreground-color color))))
+		 (frame-foreground-color))))
+    (when (stringp color)
+      (unless (ccc-color-equal color (current-foreground-color))
+	(set-foreground-color color)))))
 
 (defun set-foreground-color-buffer-local (arg)
   (if arg
-      (setq buffer-local-foreground-color (get-apparent-foreground-color))
-    (set-foreground-color frame-foreground-color)
+      (setq buffer-local-foreground-color (current-foreground-color))
+    (set-foreground-color (frame-foreground-color))
     (setq buffer-local-foreground-color nil)))
 
 ;;
@@ -159,7 +199,7 @@
   (let ((local buffer-local-background-color))
     (setq buffer-local-background-color
 	  (or color-name
-	      frame-background-color))
+	      (frame-background-color)))
     (condition-case nil
 	(update-buffer-local-background-color)
       (error
@@ -168,14 +208,15 @@
 (defun update-buffer-local-background-color ()
   (let ((color (if (stringp buffer-local-background-color)
 		   buffer-local-background-color
-		 frame-background-color)))
-    (unless (ccc-color-equal color (get-apparent-background-color))
-      (set-background-color color))))
+		 (frame-background-color))))
+    (when (stringp color)
+      (unless (ccc-color-equal color (current-background-color))
+	(set-background-color color)))))
 
 (defun set-background-color-buffer-local (arg)
   (if arg
-      (setq buffer-local-background-color (get-apparent-background-color))
-    (set-background-color frame-background-color)
+      (setq buffer-local-background-color (current-background-color))
+    (set-background-color (frame-background-color))
     (setq buffer-local-background-color nil)))
 
 ;; Advices.
@@ -197,6 +238,7 @@
 ;; Hooks
 (add-hook 'post-command-hook 'update-buffer-local-frame-params)
 (add-hook 'after-make-frame-functions 'ccc-setup-new-frame)
+(add-hook 'after-init-hook 'ccc-setup-initial-frame)
 
 (provide 'ccc)
 

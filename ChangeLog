@@ -1,3 +1,38 @@
+2007-12-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el (current-cursor-color, current-foreground-color)
+	(current-background-color): Rename from
+	get-apparent-cursor-color, get-apparent-foreground-color and
+	get-apparent-background-color.
+
+	(initial-cursor-color, default-cursor-color)
+	(fallback-cursor-color, initial-foreground-color)
+	(default-foreground-color, fallback-foreground-color)
+	(initial-background-color, default-background-color)
+	(fallback-background-color, frame-cursor-color)
+	(frame-foreground-color, frame-background-color): New functions.
+
+	(frame-cursor-color, frame-foreground-color)
+	(frame-background-color): Abolish variables.
+
+	(ccc-setup-new-frame): Setup default colors according to
+	default-frame-alist.
+
+	(ccc-setup-initial-frame): New function, called at top level
+	and/or in after-init-hook.
+
+	(update-buffer-local-frame-params)
+	(update-buffer-local-cursor-color, set-cursor-color-buffer-local)
+	(update-buffer-local-cursor-color)
+	(set-foreground-color-buffer-local)
+	(update-buffer-local-background-color)
+	(set-background-color-buffer-local): Use new functions instead of
+	abolished functions or variables.
+
+	* skk-cursor.el (skk-cursor-default-color): Call
+	`frame-cursor-color' instead of referring to variable
+	frame-cursor-color.
+
 2007-10-30  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Fix xref to AZIK.
