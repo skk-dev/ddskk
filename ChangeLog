@@ -4,6 +4,9 @@
 	Instead, modify all existing frames'
 	frame-{cursor|foreground|background}-color parameters according to
 	default-frame-alist.
+	(update-buffer-local-cursor-color)
+	(update-buffer-local-foreground-color)
+	(update-buffer-local-background-color): Use `x-color-defined-p'.
 
 	* skk-cus.el (custom-quote): defun-maybe for Emacs 21.
 	(skk-cus-set): Do not call `cusrom-push-theme' if it is not
