@@ -1,3 +1,10 @@
+2007-12-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el (update-buffer-local-cursor-color)
+	(update-buffer-local-foreground-color)
+	(update-buffer-local-background-color): Also check COLOR with
+	`stringp'.
+
 2007-12-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ccc.el: Do not call `ccc-setup-initial-frame' at top level.

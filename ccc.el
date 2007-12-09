@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.33 2007/12/08 14:11:45 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.34 2007/12/09 22:25:58 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2007/12/08 14:11:45 $
+;; Last Modified: $Date: 2007/12/09 22:25:58 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -154,9 +154,10 @@
   (let ((color (if (stringp buffer-local-cursor-color)
 		   buffer-local-cursor-color
 		 (frame-cursor-color))))
-    (when (x-color-defined-p color)
-      (unless (ccc-color-equal color (current-cursor-color))
-	(set-cursor-color color)))))
+    (when (and (stringp color)
+	       (x-color-defined-p color)
+	       (not (ccc-color-equal color (current-cursor-color))))
+	(set-cursor-color color))))
 
 (defun set-cursor-color-buffer-local (arg)
   (if arg
@@ -182,9 +183,10 @@
   (let ((color (if (stringp buffer-local-foreground-color)
 		   buffer-local-foreground-color
 		 (frame-foreground-color))))
-    (when (x-color-defined-p color)
-      (unless (ccc-color-equal color (current-foreground-color))
-	(set-foreground-color color)))))
+    (when (and (stringp color)
+	       (x-color-defined-p color)
+	       (not (ccc-color-equal color (current-foreground-color))))
+      (set-foreground-color color))))
 
 (defun set-foreground-color-buffer-local (arg)
   (if arg
@@ -210,9 +212,10 @@
   (let ((color (if (stringp buffer-local-background-color)
 		   buffer-local-background-color
 		 (frame-background-color))))
-    (when (x-color-defined-p color)
-      (unless (ccc-color-equal color (current-background-color))
-	(set-background-color color)))))
+    (when (and (stringp color)
+	       (x-color-defined-p color)
+	       (not (ccc-color-equal color (current-background-color))))
+	(set-background-color color))))
 
 (defun set-background-color-buffer-local (arg)
   (if arg
