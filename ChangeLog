@@ -1,3 +1,8 @@
+2007-12-31  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-henkan-1): Avoid error when
+	`skk-kakutei-when-unique-candidate' is old style setting.
+
 2007-12-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ccc.el (update-buffer-local-cursor-color)

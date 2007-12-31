@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.456 2007/10/26 11:04:25 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.457 2007/12/31 06:53:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/26 11:04:25 $
+;; Last Modified: $Date: 2007/12/31 06:53:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1752,9 +1752,13 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	;; 変換候補が一つしか無い時の確定変換用チェック
 	(when (and (or (eq skk-kakutei-when-unique-candidate t)
 		       (cond (skk-abbrev-mode
-			      (memq 'abbrev skk-kakutei-when-unique-candidate))
+			      (and (listp skk-kakutei-when-unique-candidate)
+				   (memq 'abbrev
+					 skk-kakutei-when-unique-candidate)))
 			     (skk-henkan-okurigana
-			      (memq 'okuri-ari skk-kakutei-when-unique-candidate))
+			      (and (listp skk-kakutei-when-unique-candidate)
+				   (memq 'okuri-ari
+					 skk-kakutei-when-unique-candidate)))
 			     (t
 			      ;; 送り無しのみを特別扱いしていた古い仕様に対応
 			      (or (eq 'okuri-nasi
