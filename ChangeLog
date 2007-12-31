@@ -21,7 +21,7 @@
 	(update-buffer-local-background-color): Use `x-color-defined-p'.
 
 	* skk-cus.el (custom-quote): defun-maybe for Emacs 21.
-	(skk-cus-set): Do not call `cusrom-push-theme' if it is not
+	(skk-cus-set): Do not call `custom-push-theme' if it is not
 	defined.
 
 2007-12-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
