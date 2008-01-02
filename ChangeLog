@@ -1,3 +1,7 @@
+2008-01-02  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-inline-show-vertical): Fix about detection of EOB.
+
 2007-12-31  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-henkan-1): Avoid error when
