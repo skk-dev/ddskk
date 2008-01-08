@@ -1,13 +1,13 @@
 ;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program) -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988-1997 Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Copyright (C) 1999-2007 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2008 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.459 2008/01/08 08:57:35 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.460 2008/01/08 13:04:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/01/08 08:57:35 $
+;; Last Modified: $Date: 2008/01/08 13:04:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3466,9 +3466,9 @@ NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。
      (when (eq ?* (char-after skk-okurigana-start-point))
        (delete-region skk-okurigana-start-point
 		      (1+ skk-okurigana-start-point))))
+    (setq skk-okurigana nil)
     (unless noclear
-      (setq skk-okurigana nil
-	    skk-okuri-char nil
+      (setq skk-okuri-char nil
 	    skk-henkan-okurigana nil))))
 
 ;;; jisyo related functions

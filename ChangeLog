@@ -1,3 +1,9 @@
+2008-01-08  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el: Add 2008 to copyright years.
+	(skk-delete-okuri-mark): Clear `skk-okurigana' even if NOCLEAR is
+	non-nil.
+
 2008-01-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ccc.el (default-cursor-color, default-foreground-color)
