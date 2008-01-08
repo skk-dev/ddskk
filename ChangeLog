@@ -1,3 +1,14 @@
+2008-01-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el (default-cursor-color, default-foreground-color)
+	(default-background-color): New variables.
+	(ccc-setup): Rename from `ccc-setup-initial-frame'.  This function
+	is called in after-init-hook for determining default frame
+	parameter values as well as setting up the initial frame.
+
+	* skk.el (after-init-hook): Call `skk-preload' later than
+	`ccc-setup'.
+
 2008-01-02  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-inline-show-vertical): Fix about detection of EOB.

@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.34 2007/12/09 22:25:58 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.35 2008/01/08 08:57:35 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2007/12/09 22:25:58 $
+;; Last Modified: $Date: 2008/01/08 08:57:35 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -38,13 +38,28 @@
   (require 'advice)
   (require 'poe))
 
+;; Internal variables.
+(defvar buffer-local-cursor-color nil)
+(make-variable-buffer-local 'buffer-local-cursor-color)
+
+(defvar buffer-local-foreground-color nil)
+(make-variable-buffer-local 'buffer-local-foreground-color)
+
+(defvar buffer-local-background-color nil)
+(make-variable-buffer-local 'buffer-local-background-color)
+
+(defvar default-cursor-color nil)
+(defvar default-foreground-color nil)
+(defvar default-background-color nil)
+
 ;; Frame parameters.
 (defsubst current-cursor-color ()
   (cdr (assq 'cursor-color (frame-parameters (selected-frame)))))
 (defsubst initial-cursor-color ()
   (cdr (assq 'cursor-color initial-frame-alist)))
 (defsubst default-cursor-color ()
-  (cdr (assq 'cursor-color default-frame-alist)))
+  (or default-cursor-color
+      (cdr (assq 'cursor-color default-frame-alist))))
 (defsubst fallback-cursor-color ()
   (if (eq frame-background-mode 'dark)
       "white"
@@ -55,7 +70,8 @@
 (defsubst initial-foreground-color ()
   (cdr (assq 'foreground-color initial-frame-alist)))
 (defsubst default-foreground-color ()
-  (cdr (assq 'foreground-color default-frame-alist)))
+  (or default-foreground-color
+      (cdr (assq 'foreground-color default-frame-alist))))
 (defsubst fallback-foreground-color ()
   (if (eq frame-background-mode 'dark)
       "white"
@@ -66,7 +82,8 @@
 (defsubst initial-background-color ()
   (cdr (assq 'background-color initial-frame-alist)))
 (defsubst default-background-color ()
-  (cdr (assq 'background-color default-frame-alist)))
+  (or default-background-color
+      (cdr (assq 'background-color default-frame-alist))))
 (defsubst fallback-background-color ()
   (if (eq frame-background-mode 'dark)
       "black"
@@ -87,16 +104,6 @@
 (defsubst set-frame-background-color (frame color)
   (modify-frame-parameters frame (list (cons 'frame-background-color color))))
 
-;; Internal variables.
-(defvar buffer-local-cursor-color nil)
-(make-variable-buffer-local 'buffer-local-cursor-color)
-
-(defvar buffer-local-foreground-color nil)
-(make-variable-buffer-local 'buffer-local-foreground-color)
-
-(defvar buffer-local-background-color nil)
-(make-variable-buffer-local 'buffer-local-background-color)
-
 ;; Functions.
 (defsubst ccc-read-color (prompt)
   (list (facemenu-read-color prompt)))
@@ -112,20 +119,26 @@
   (set-frame-background-color frame (or (default-background-color)
 					(fallback-background-color))))
 
-(defun ccc-setup-initial-frame ()
+;;;###autoload
+(defun ccc-setup ()
+  ;; Determine default colors for frames other than the initial frame.
+  (setq default-cursor-color (or (default-cursor-color)
+				 (current-cursor-color))
+	default-foreground-color (or (default-foreground-color)
+				     (current-foreground-color))
+	default-background-color (or (default-background-color)
+				     (current-background-color)))
+  ;; Set up colors for the initial frame.
   (let ((frame (selected-frame)))
     (set-frame-cursor-color frame (or (initial-cursor-color)
 				      (default-cursor-color)
 				      (fallback-cursor-color)))
     (set-frame-foreground-color frame (or (initial-foreground-color)
 					  (default-foreground-color)
-					  (fallback-foreground-color)))
+					  (fallback-background-color)))
     (set-frame-background-color frame (or (initial-background-color)
 					  (default-background-color)
 					  (fallback-background-color)))))
-
-(dolist (frame (frame-list))
-  (ccc-setup-new-frame frame))
 
 ;;;###autoload
 (defun update-buffer-local-frame-params (&optional buffer)
@@ -242,7 +255,9 @@
 ;; Hooks
 (add-hook 'post-command-hook 'update-buffer-local-frame-params)
 (add-hook 'after-make-frame-functions 'ccc-setup-new-frame)
-(add-hook 'after-init-hook 'ccc-setup-initial-frame)
+;;;###autoload
+(when window-system
+  (add-hook 'after-init-hook 'ccc-setup))
 
 (provide 'ccc)
 
