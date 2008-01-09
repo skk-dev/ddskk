@@ -1,3 +1,7 @@
+2008-01-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el: Check window-system in after-init-hook.
+
 2008-01-08  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el: Add 2008 to copyright years.

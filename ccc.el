@@ -4,9 +4,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.35 2008/01/08 08:57:35 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.36 2008/01/09 21:46:59 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2008/01/08 08:57:35 $
+;; Last Modified: $Date: 2008/01/09 21:46:59 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -256,8 +256,10 @@
 (add-hook 'post-command-hook 'update-buffer-local-frame-params)
 (add-hook 'after-make-frame-functions 'ccc-setup-new-frame)
 ;;;###autoload
-(when window-system
-  (add-hook 'after-init-hook 'ccc-setup))
+(add-hook 'after-init-hook
+	  (lambda ()
+	    (when window-system
+	      (ccc-setup))))
 
 (provide 'ccc)
 
