@@ -1,12 +1,14 @@
 ;;; ccc.el --- cursor color control
 
 ;; Copyright (C) 2000 Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
+;; Copyright (C) 2001, 2002, 2004, 2005,
+;;   2007, 2008 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.36 2008/01/09 21:46:59 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.37 2008/01/14 16:02:44 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2008/01/09 21:46:59 $
+;; Last Modified: $Date: 2008/01/14 16:02:44 $
 
 ;; This file is not part of GNU Emacs.
 
