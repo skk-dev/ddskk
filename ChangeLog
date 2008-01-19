@@ -1,3 +1,8 @@
+2008-01-19  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (後から▽モードに入る方法)
+	(ポイントを戻して▽モードへ): Tiny change.
+
 2008-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Add Kitamoto Tsuyoshi to authors.
