@@ -10,12 +10,13 @@
 @c          Tsuyoshi AKIHO <akiho@sky.email.ne.jp>
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
+@c          Kitamoto Tsuyoshi <lisp_interaction@yahoo.co.jp>
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2007/12/08 08:23:57 $
+@set UPDATED $Date: 2008/01/19 02:35:29 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
