@@ -1,3 +1,8 @@
+2008-01-20  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el: Add 2008 to copyright years.
+	(skk-self-insert-non-undo-count): Fix docstring.
+
 2008-01-19  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (後から▽モードに入る方法)

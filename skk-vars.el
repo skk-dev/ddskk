@@ -1,12 +1,12 @@
 ;;; skk-vars.el --- common vars and consts in SKK -*- coding: iso-2022-7bit -*-
 
-;; Copyright (C) 1999-2007  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2008  SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.262 2007/10/24 12:42:23 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.263 2008/01/20 08:04:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/24 12:42:23 $
+;; Last Modified: $Date: 2008/01/20 08:04:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2398,7 +2398,7 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$
 `skk-insert' $B$b$7$/$O(B `skk-jisx0208-latin-insert' $B$G%+%&%s%H$5$l$k!#(B
 Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!<F~NO$O(B
 $BO"B3(B 20 $B2s$^$G$,(B 1 $B$D$N%"%s%I%%$NBP>]$H$J$k!#$3$NF0:n$r%(%_%e%l!<%H$9$k$?$a$N(B
-$B%+%&%s%?!<!#$3$N%+%&%s%?!<$,!"(B20 $B0J2<$G$"$k$H$-$O!"F~NO$N$?$S$K(B
+$B%+%&%s%?!<!#$3$N%+%&%s%?!<$,!"(B20 $BL$K~$G$"$k$H$-$O!"F~NO$N$?$S$K(B
 `cancel-undo-boundary' $B$,%3!<%k$5$l$k!#(B")
 
 (skk-deflocalvar skk-current-search-prog-list nil
