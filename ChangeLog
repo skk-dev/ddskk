@@ -1,3 +1,15 @@
+2008-01-21  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-sticky.el (Module): New file.
+
+	* skk-vars.el (skk-sticky): New custom group.
+	(skk-sticky-key, skk-sticky-double-interval): New user option.
+
+	* skk.el (skk-require-module): Load skk-sticky if `skk-sticky-key'
+	is non-nil.
+
+	* SKK-MK (SKK_MODULES): Add skk-sticky.
+
 2008-01-20  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-vars.el: Add 2008 to copyright years.

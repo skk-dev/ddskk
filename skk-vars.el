@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.263 2008/01/20 08:04:46 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.264 2008/01/21 12:31:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/01/20 08:04:46 $
+;; Last Modified: $Date: 2008/01/21 12:31:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -225,6 +225,10 @@ Automatically becomes buffer-local when set in any fashion."
 
 (defgroup skk-server nil "SKK サーバとの通信に関する設定"
   :prefix "skk-server-"
+  :group 'skk)
+
+(defgroup skk-sticky nil "SKK 変換位置指定方式の設定"
+  :prefix "skk-sticky-"
   :group 'skk)
 
 (defgroup skk-study nil "SKK 学習機能の設定"
@@ -4263,6 +4267,49 @@ SKK サーバーが使用するポート番号を書き、設定をすることができる。
 
 (defconst skkserv-working-buffer " *skkserv*")
 (defvar skkserv-process nil)
+
+;;; skk-sticky related.
+(defcustom skk-sticky-key nil
+  "*変換開始位置もしくは送り開始位置の指定をするキー。
+
+キーの設定方法は割当てるキーの種類によって異なります。
+
+1. 表示可能なキー
+
+  \";\" などの表示が可能なキーの場合は
+
+    (setq skk-sticky-key \";\")
+
+  のように string を設定して下さい。`skk-sticky-key' に設定した文
+  字そのものを入力したい場合は2回続けて打つと入力できます。
+
+2. 表示されないキー
+
+  \"無変換\" のような表示を伴わないキーの場合は
+
+    (setq skk-sticky-key [muhenkan])	; Windows 環境だと [noconvert]
+
+  のようにそのキーを表わす vector を設定して下さい。
+
+3. 同時打鍵
+
+  2つのキーを同時に打鍵することでも変換位置を指定できます。例えば
+  \"f\" と \"j\" の同時打鍵で指定する場合は
+
+    (setq skk-sticky-key '(?f ?j))
+
+  のように character のリストを設定して下さい。"
+  :type '(radio (string :tag "表示可能なキー")
+		(vector :tag "表示されないキー" symbol)
+		(list :tag "同時打鍵" character character)
+		(const :tag "指定しない" nil))
+  :group 'skk-sticky)
+
+(defcustom skk-sticky-double-interval 0.1
+  "*この時間以内に打鍵されたものを同時打鍵と判定する。
+単位は秒。デフォルトは 0.1 秒。"
+  :type 'number
+  :group 'skk-sticky)
 
 ;;; skk-study.el related.
 (defcustom skk-study-file (if skk-user-directory

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.460 2008/01/08 13:04:58 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.461 2008/01/21 12:31:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/01/08 13:04:58 $
+;; Last Modified: $Date: 2008/01/21 12:31:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -285,7 +285,9 @@ dependent."
   (when (featurep 'skk-jisx0201)
     (setq skk-use-jisx0201-input-method t))
   (when skk-dcomp-activate
-    (require 'skk-dcomp)))
+    (require 'skk-dcomp))
+  (when skk-sticky-key
+    (require 'skk-sticky)))
 
 (defun skk-mode-exit ()
   (let ((skk-mode t))
