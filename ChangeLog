@@ -1,3 +1,10 @@
+2008-01-26  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (変換位置の指定方法): 新規ノード。
+	(Top, 便利な応用機能)
+	(Q.3-4 左手の小指を SHIFT で酷使したくありません。): 上記を追加。
+	(ファイル構成): 同上。重複している @cindex タグを削除。
+
 2008-01-21  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-sticky.el (Module): New file.

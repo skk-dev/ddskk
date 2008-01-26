@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/01/19 08:27:31 $
+@set UPDATED $Date: 2008/01/26 03:31:37 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -178,6 +178,7 @@ SKK $B$N%P!<%8%g%s(B @value{SKK-VERSION} $B$KBP1~$7$F$$$^$9!#(B
 * $BNN0h0l3gJQ49(B::                $B%9%Q%C$HNN0h0l3gJQ49!#(B
 * $B4A;z%3!<%I4XO"(B::              $B4A;z%3!<%I$K$^$D$o$k5!G=!#(B
 * $B"'%b!<%I$NFC<l%-!<(B::          $B%-!<$NF0:n!"$"$k$$$O%-!<Dj5AJQ99!#(B
+* $BJQ490LCV$N;XDjJ}K!(B::          $BBgJ8;z0J30$G$bJQ490LCV$r;XDj2DG=$K!#(B
 * $B<-=q4XO"(B::                    $B<-=q$K$^$D$o$k@_Dj$*$h$S5!G=!#(B
 * DDSKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B::
 * $B>~$j$D$1(B::                    $BMM!9$JI=<($N@_Dj!#(B
@@ -1684,6 +1685,7 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 * $BNN0h0l3gJQ49(B::                $B%9%Q%C$HNN0h0l3gJQ49!#(B
 * $B4A;z%3!<%I4XO"(B::              $B4A;z%3!<%I$K$^$D$o$k5!G=!#(B
 * $B"'%b!<%I$NFC<l%-!<(B::          $B%-!<$NF0:n!"$"$k$$$O%-!<Dj5AJQ99!#(B
+* $BJQ490LCV$N;XDjJ}K!(B::          $BBgJ8;z0J30$G$bJQ490LCV$r;XDj2DG=$K!#(B
 * $B<-=q4XO"(B::                    $B<-=q$K$^$D$o$k@_Dj$*$h$S5!G=!#(B
 * DDSKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B::
 * $B>~$j$D$1(B::                    $BMM!9$JI=<($N@_Dj!#(B
@@ -1698,48 +1700,7 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 @node $B%U%!%$%k9=@.(B
 @section $B%U%!%$%k9=@.(B
 @cindex @file{ccc.el}
-@cindex @file{context-skk.el}
 @cindex @file{leim-list.el}
-@cindex @file{queue-m.el}
-@cindex @file{skk-abbrev.el}
-@cindex @file{skk-act.el}
-@cindex @file{skk-annotation.el}
-@cindex @file{skk-auto.el}
-@cindex @file{skk-autoloads.el}
-@cindex @file{skk-azik.el}
-@cindex @file{skk-bayesian.el}
-@cindex @file{skk-comp.el}
-@cindex @file{skk-cursor.el}
-@cindex @file{skk-dcomp.el}
-@cindex @file{skk-develop.el}
-@cindex @file{skk-dic.el}
-@cindex @file{skk-e21.el}
-@cindex @file{skk-gadget.el}
-@cindex @file{skk-hint.el}
-@cindex @file{skk-isearch.el}
-@cindex @file{skk-jisx0201.el}
-@cindex @file{skk-jisx0213.el}
-@cindex @file{skk-jisyo-edit-mode.el}
-@cindex @file{skk-kakasi.el}
-@cindex @file{skk-kanagaki.el}
-@cindex @file{skk-kcode.el}
-@cindex @file{skk-leim.el}
-@cindex @file{skk-look.el}
-@cindex @file{skk-lookup.el}
-@cindex @file{skk-macs.el}
-@cindex @file{skk-num.el}
-@cindex @file{skk-obsolete.el}
-@cindex @file{skk-server-completion.el}
-@cindex @file{skk-server.el}
-@cindex @file{skk-setup.el}
-@cindex @file{skk-study.el}
-@cindex @file{skk-tankan.el}
-@cindex @file{skk-tut.el}
-@cindex @file{skk-tutcode.el}
-@cindex @file{skk-vars.el}
-@cindex @file{skk-version.el}
-@cindex @file{skk-viper.el}
-@cindex @file{skk-xemacs.el}
 @cindex @file{skk.el}
 
 DDSKK 13 $B$G$O!"1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$r(B @file{skk.el} $B$H(B
@@ -1963,6 +1924,13 @@ SKK $B<-=q%5!<%P$HDL?.$7$FJQ49$9$k5!G=$rDs6!$7$^$9!#(B
 @cindex @file{skk-setup.el}
 
 $B<+F0E*$K8D?M@_Dj$r9T$&$?$a$N%U%!%$%k!#(B
+
+@item skk-sticky.el
+@cindex @file{skk-sticky.el}
+
+$BJQ493+;O0LCV$*$h$SAw$j3+;O0LCV$N;XDjJ}K!$rJQ992DG=$K$9$k!#(B
+
+@xref{$BJQ490LCV$N;XDjJ}K!(B}.
 
 @item skk-study.el
 @cindex @file{skk-study.el}
@@ -5719,6 +5687,103 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @end example
 @end table
 
+@node $BJQ490LCV$N;XDjJ}K!(B
+@section $BJQ490LCV$N;XDjJ}K!(B
+@cindex @file{skk-sticky.el}
+
+SKK $B$G$ODL>o!"4A;zJQ49$N3+;O$*$h$SAw$j2>L>3+;O$N0LCV$rBgJ8;z$G;XDj$7$^$9(B
+$B$,!"$3$l$rG$0U$N%-!<$G;XDj$9$k$3$H$G(B sticky-shift $B%i%$%/$JA`:n(B
+@footnote{$B$"$/$^$G$b!VG$0U$N%-!<$GJQ490LCV$r;XDj$9$k!W$b$N$G$"$j!"(B
+sticky-shift $B$=$N$b$N$G$O$"$j$^$;$s!#$7$?$,$C$F!"(Blatin $B%b!<%I$d(B abbrev $B%b!<(B
+$B%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=R$N$h$&$J@_Dj$rJ;MQ(B
+$B$9$kI,MW$,$"$j$^$9!#(B}$B$b2DG=$G$9!#(B
+
+@lisp
+(setq skk-sticky-key ";")
+@end lisp
+
+@noindent
+$B$H@_Dj$9$k$H(B @kbd{;} $B%-!<$GJQ490LCV$,;XDj$G$-$k$h$&$K$J$j$^$9!#(B
+@footnote{@file{skk-hint.el} $B$rJ;MQ$9$k>l9g$O(B @code{skk-hint-start-char}
+$B$N%G%U%)%k%H$b(B @samp{;} $B$J$N$G$I$A$i$+$rJL$N%-!<$K3dEv$F$kI,MW$,$"$j$^(B
+$B$9!#(B}$BNc$($P(B @samp{$BM-$k(B} $B$,(B
+
+@example
+@kbd{; a ; r u}
+@end example
+
+$B$G$bF~NO$G$-!"%7%U%H%-!<$r2!$9I,MW$,$J$/$J$j$^$9!#A`:n>e$O(B
+@w{@xref{Q.3-4 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B}} $B$J$I$K$"$kDL(B
+$B>o$N(B sticky-shift $B$HJQ$o$j$^$;$s$,!"2hLLI=<($O(B
+ 
+@display
+@group
+@multitable {$BBG80(B } {$BDL>o$N(B@tie{}sticky} {skk-sticky}
+@item $BBG80(B
+@tab $BDL>o$N(B@tie{}sticky
+@tab skk-sticky
+@item ;
+@tab $BJQ2=$J$7(B
+@tab $B"&(B
+@item a
+@tab $B"&$"(B
+@tab $B"&$"(B
+@item ;
+@tab $B"&$"(B
+@tab $B"&$"(B*
+@item r
+@tab $B"&$"(B*r
+@tab $B"&$"(B*r
+@end multitable
+@end group
+@end display
+
+@noindent
+$B$HA+0\$7$^$9!#(Bskk-sticky $B$O(B @kbd{;} $B$r2!$7$?;~E@$GI=<($,JQ2=$9$k$N$G<c43(B
+$BJ,$+$j0W$/$J$k$+$H;W$$$^$9!#(B
+
+$B%-!<$N@_DjJ}K!$O3dEv$F$k%-!<$N<oN`$K$h$C$F0[$J$j$^$9!#(B
+
+@enumerate
+@item
+$BI=<(2DG=$J%-!<(B
+
+@samp{;} $B$J$I$NI=<($,2DG=$J%-!<$N>l9g$O(B
+
+@lisp
+(setq skk-sticky-key ";")
+@end lisp
+
+$B$N$h$&$K(B @code{string} $B$r@_Dj$7$F2<$5$$!#(B@code{skk-sticky-key} $B$K@_Dj$7$?(B
+$BJ8;z$=$N$b$N$rF~NO$7$?$$>l9g$O(B2$B2sB3$1$FBG$D$HF~NO$G$-$^$9!#(B
+
+@item
+$BI=<($5$l$J$$%-!<(B
+
+@key{$BL5JQ49(B} $B$N$h$&$JI=<($rH<$o$J$$%-!<$N>l9g$O(B
+
+@lisp
+(setq skk-sticky-key [muhenkan])   ; Windows $B4D6-$J$i$P(B [noconvert]
+@end lisp
+
+$B$N$h$&$K$=$N%-!<$rI=$o$9(B @code{vector} $B$r@_Dj$7$F2<$5$$!#(B
+
+@item
+$BF1;~BG80(B
+
+2$B$D$N%-!<$rF1;~$KBG80$9$k$3$H$G$bJQ490LCV$r;XDj$G$-$^$9!#Nc$($P(B
+@kbd{f}$B$H(B @kbd{j} $B$NF1;~BG80$G;XDj$9$k>l9g$O(B
+
+@lisp
+(setq skk-sticky-key '(?f ?j))
+@end lisp
+
+$B$N$h$&$K(B @code{character} $B$N%j%9%H$r@_Dj$7$F2<$5$$!#(B
+
+Dvorak $BG[Ns$N$h$&$J!"2!$7$d$9$$>l=j$KE,Ev$J%-!<$,$J$$4D6-$G$b$3$N5!G=$r;H(B
+$B$$$?$$>l9g$KJXMx$+$b$7$l$^$;$s!#(B
+@end enumerate
+
 @node $B<-=q4XO"(B
 @section $B<-=q4XO"(B
 
@@ -8585,6 +8650,11 @@ X Window System $B>e$G$O!"(Bxmodmap $B$H$$$&%W%m%0%i%`$r;H$C$F%-!<G[Ns$rJQ99$
 @noindent
 $B$H$7$^$9!#$3$l$GL5JQ49%-!<$ODL>o$N%7%U%H%-!<$HF1$8$h$&$J46$8$G;H$($k$h(B
 $B$&$K$J$j$^$9!#(B
+
+@item
+@file{skk-sticky.el} $B$r;H$&!#(B
+
+@xref{$BJQ490LCV$N;XDjJ}K!(B}
 
 @item
 $B?F;X%7%U%HF~NO$N%(%_%e%l!<%7%g%s5!G=$rMxMQ$9$k!#(B
