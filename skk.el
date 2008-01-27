@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.462 2008/01/27 13:07:51 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.463 2008/01/27 13:19:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/01/27 13:07:51 $
+;; Last Modified: $Date: 2008/01/27 13:19:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2779,6 +2779,9 @@ WORD で確定する。"
 		     (skk-latin-mode-on))
 		    ((cdr (assq 'skk-jisx0208-latin-mode skk-undo-kakutei-prev-state))
 		     (skk-jisx0208-latin-mode-on))
+		    ;; skk-mode がオフの状態に戻そうとすると
+		    ;; `skk-mode-exit' 内で再度 `skk-kakutei' を呼ぶた
+		    ;; め無限ループになってしまう
 ;; 		    ((not (cdr (assq 'skk-mode skk-undo-kakutei-prev-state)))
 ;; 		     (skk-mode -1))
 		    )
