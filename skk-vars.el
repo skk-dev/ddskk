@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.264 2008/01/21 12:31:18 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.265 2008/01/27 13:07:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/01/21 12:31:18 $
+;; Last Modified: $Date: 2008/01/27 13:07:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2412,13 +2412,17 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 
 ;; for skk-undo-kakutei
 (skk-deflocalvar skk-last-henkan-data nil
-  "$B:G8e$K9T$C$?JQ49$K4X$9$k%G!<%?$NO"A[%j%9%H!#(B
-$B%G%#%U%)%k%H$N%-!<$O!"(B`henkan-key', `henkan-okurigana', `okuri-char',
-`henkan-list', `henkan-point', `henkan-buffer' $B$N3F%7%s%\%k!#(B
+  "$B:G8e$K9T$C$?JQ49$K4X$9$k%G!<%?$NO"A[%j%9%H!#%G%#%U%)%k%H$N%-!<(B
+$B$O!"(B`henkan-key', `henkan-okurigana', `okuri-char',
+`henkan-list', `henkan-point', `henkan-buffer', `abbrev-mode' $B$N3F(B
+$B%7%s%\%k!#(B
  (skk-num $B$r(B require $B$7$F$$$k$H$-$O!"(Bnum-list $B$,DI2C$5$l$k(B)$B!#(B")
 
 (skk-deflocalvar skk-undo-kakutei-flag nil
   "Non-nil $B$J$i$P3NDj%"%s%I%%Cf$G$"$k$3$H$r;X$9!#(B")
+
+(skk-deflocalvar skk-undo-kakutei-prev-state nil
+  "`skk-undo-kakutei' $B$,8F$P$l$?;~$NF~NO%b!<%I$N>uBV!#(B")
 
 (skk-deflocalvar skk-undo-kakutei-previous-point nil
   "$B3NDj%"%s%I%%D>A0$N%]%$%s%H$r<($9%^!<%+!<!#(B")

@@ -1,3 +1,17 @@
+2008-01-27  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-kakutei): Return to (jisx0208-)latin-mode if input
+	mode before `skk-undo-kakutei' is (jisx0208-)latin-mode.
+	(skk-kakutei-initialize): Store state of abbrev-mode in
+	`skk-last-henkan-data'.
+	(skk-undo-kakutei-subr): Set `skk-undo-kakutei-prev-state'.
+	Change to abbrev-mode if last input mode is abbrev-mode.  Change
+	to skk-j-mode if current input mode is skk-latin-mode or
+	skk-jisx0208-latin-mode.
+
+	* skk-vars.el (skk-last-henkan-data): Update docstring.
+	(skk-undo-kakutei-prev-state): New internal variable.
+
 2008-01-26  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (変換位置の指定方法): 新規ノード。

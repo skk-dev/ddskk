@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.461 2008/01/21 12:31:18 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.462 2008/01/27 13:07:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/01/21 12:31:18 $
+;; Last Modified: $Date: 2008/01/27 13:07:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2773,9 +2773,19 @@ WORD $B$G3NDj$9$k!#(B"
     (setq skk-undo-kakutei-previous-point nil
 	  skk-undo-kakutei-previous-length nil)
     (if skk-mode
-	(unless (or skk-j-mode
-		    skk-jisx0201-mode)
-	  (skk-j-mode-on skk-katakana))
+	(if skk-undo-kakutei-prev-state
+	    (progn
+	      (cond ((cdr (assq 'skk-latin-mode skk-undo-kakutei-prev-state))
+		     (skk-latin-mode-on))
+		    ((cdr (assq 'skk-jisx0208-latin-mode skk-undo-kakutei-prev-state))
+		     (skk-jisx0208-latin-mode-on))
+;; 		    ((not (cdr (assq 'skk-mode skk-undo-kakutei-prev-state)))
+;; 		     (skk-mode -1))
+		    )
+	      (setq skk-undo-kakutei-prev-state nil))
+	  (unless (or skk-j-mode
+		      skk-jisx0201-mode)
+	    (skk-j-mode-on skk-katakana)))
       ;; $B%+%l%s%H%P%C%U%!$G$^$@(B skk-mode $B$,(B
       ;; $B%3!<%k$5$l$F$$$J$+$C$?$i!"%3!<%k$9$k!#(B
       (skk-mode 1)))
@@ -2865,6 +2875,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 		   (if hpoint
 		       (set-marker hpoint (point))
 		     (point-marker))))
+	   (cons 'abbrev-mode skk-abbrev-mode)
 	   ;; (eq last-command 'skk-kakutei-henkan) $B$G%]!<%?%V%k$K3NG'$G$-(B
 	   ;; $B$k$N$G$"$($F$$$i$J$$$+!#(B
 	   ;; (cons 'kakutei-henkan (eq this-command 'skk-kakutei-henkan))
@@ -2940,6 +2951,18 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	  skk-henkan-okurigana (skk-get-last-henkan-datum
 				'henkan-okurigana)
 	  skk-okuri-char (skk-get-last-henkan-datum 'okuri-char))
+    (setq skk-undo-kakutei-prev-state
+	  (list (cons 'skk-mode skk-mode)
+		(cons 'skk-abbrev-mode skk-abbrev-mode)
+		(cons 'skk-latin-mode skk-latin-mode)
+		(cons 'skk-j-mode skk-j-mode)
+		(cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode)
+		(cons 'skk-jisx0201-mode skk-jisx0201-mode)
+		(cons 'skk-katakana skk-katakana)))
+    (cond ((skk-get-last-henkan-datum 'abbrev-mode)
+	   (skk-abbrev-mode-on))
+	  ((or skk-latin-mode skk-jisx0208-latin-mode)
+	   (skk-j-mode-on)))
     (when (and skk-undo-kakutei-return-previous-point
 	       (markerp skk-henkan-end-point)
 	       (markerp skk-henkan-start-point))
