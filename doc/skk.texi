@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/01/26 03:31:37 $
+@set UPDATED $Date: 2008/02/02 01:25:08 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5694,9 +5694,9 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 SKK $B$G$ODL>o!"4A;zJQ49$N3+;O$*$h$SAw$j2>L>3+;O$N0LCV$rBgJ8;z$G;XDj$7$^$9(B
 $B$,!"$3$l$rG$0U$N%-!<$G;XDj$9$k$3$H$G(B sticky-shift $B%i%$%/$JA`:n(B
 @footnote{$B$"$/$^$G$b!VG$0U$N%-!<$GJQ490LCV$r;XDj$9$k!W$b$N$G$"$j!"(B
-sticky-shift $B$=$N$b$N$G$O$"$j$^$;$s!#$7$?$,$C$F!"(Blatin $B%b!<%I$d(B abbrev $B%b!<(B
-$B%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=R$N$h$&$J@_Dj$rJ;MQ(B
-$B$9$kI,MW$,$"$j$^$9!#(B}$B$b2DG=$G$9!#(B
+sticky-shift $B$=$N$b$N$G$O$"$j$^$;$s!#$7$?$,$C$F!"%"%9%-!<%b!<%I$d(B abbrev
+$B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=R$N$h$&$J@_Dj$r(B
+$BJ;MQ$9$kI,MW$,$"$j$^$9!#(B}$B$b2DG=$G$9!#(B
 
 @lisp
 (setq skk-sticky-key ";")
@@ -5772,7 +5772,7 @@ sticky-shift $B$=$N$b$N$G$O$"$j$^$;$s!#$7$?$,$C$F!"(Blatin $B%b!<%I$d(B abbr
 $BF1;~BG80(B
 
 2$B$D$N%-!<$rF1;~$KBG80$9$k$3$H$G$bJQ490LCV$r;XDj$G$-$^$9!#Nc$($P(B
-@kbd{f}$B$H(B @kbd{j} $B$NF1;~BG80$G;XDj$9$k>l9g$O(B
+@kbd{f} $B$H(B @kbd{j} $B$NF1;~BG80$G;XDj$9$k>l9g$O(B
 
 @lisp
 (setq skk-sticky-key '(?f ?j))
