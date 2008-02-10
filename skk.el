@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.463 2008/01/27 13:19:57 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.464 2008/02/10 13:19:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/01/27 13:19:57 $
+;; Last Modified: $Date: 2008/02/10 13:19:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2747,6 +2747,15 @@ WORD $B$G3NDj$9$k!#(B"
 	(skk-tooltip-hide))
       (when skk-mode
 	(skk-kakutei-cleanup-buffer)
+	(when skk-undo-kakutei-word-only
+	  ;; $B"&%b!<%I$K0\$C$F$+$i8=:_$^$G$N(B undo $B>pJs$+$i@hF,0J30$N(B
+	  ;; nil $B$r:o=|$9$k(B
+	  (setq buffer-undo-list
+		(cons (car buffer-undo-list)
+		      (nconc
+		       (delq nil (cdr (butlast buffer-undo-list
+					       (length skk-last-buffer-undo-list))))
+		       skk-last-buffer-undo-list))))
 	;; KAKUTEI-WORD $B$J$I$N>pJs$,I,MW$G$"$l$P!"(Bskk-last-henkan-data
 	;; $B$+$iF@$i$l$k!#I,MW$J%G!<%?$,$=$l$i$NJQ?t$K8BDj$5$l$J$$$N$G!"(B
 	;; $B0z?t$K$7$J$$!#(B
@@ -2813,38 +2822,6 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     ;; `skk-delete-okuri-mark' $B$N(B NOCLEAR $B$r%;%C%H$7$F8F$V!#(B
     (skk-delete-okuri-mark t))
   (skk-delete-henkan-markers)
-  (when skk-undo-kakutei-word-only
-    (cond
-     ((> (point) skk-henkan-start-point)
-      (if skk-henkan-end-point
-	  (let ((kakutei-word (buffer-substring-no-properties
-			       skk-henkan-start-point skk-henkan-end-point))
-		(tail (buffer-substring-no-properties
-		       skk-henkan-end-point (point))))
-	    (delete-region skk-henkan-start-point (point))
-
-	    (setq buffer-undo-list skk-last-buffer-undo-list)
-	    (setq skk-last-buffer-undo-list t)
-	    (set-buffer-modified-p skk-last-buffer-modified)
-
-	    (goto-char skk-henkan-start-point)
-	    (skk-insert-str kakutei-word)
-	    (skk-set-marker skk-henkan-end-point (point))
-	    (skk-insert-str tail))
-	(let ((word (buffer-substring-no-properties
-		     skk-henkan-start-point (point))))
-	  (delete-region skk-henkan-start-point (point))
-
-	  (setq buffer-undo-list skk-last-buffer-undo-list)
-	  (setq skk-last-buffer-undo-list t)
-	  (set-buffer-modified-p skk-last-buffer-modified)
-
-	  (goto-char skk-henkan-start-point)
-	  (skk-insert-str word))))
-     (t
-      (setq buffer-undo-list skk-last-buffer-undo-list)
-      (setq skk-last-buffer-undo-list t)
-      (set-buffer-modified-p skk-last-buffer-modified))))
   (when (and (boundp 'self-insert-after-hook)
 	     self-insert-after-hook)
     (funcall self-insert-after-hook
@@ -2980,9 +2957,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
       ;; $BAw$j2>L>$r4^$a$?ItJ,$^$G$r>C$9!#(B
       (delete-region skk-henkan-start-point end))
     (when skk-undo-kakutei-word-only
-      (setq skk-last-buffer-undo-list buffer-undo-list
-	    buffer-undo-list t
-	    skk-last-buffer-modified (buffer-modified-p)))
+      (setq skk-last-buffer-undo-list buffer-undo-list))
     (goto-char skk-henkan-start-point)
     (insert-and-inherit "$B"'(B")
     (skk-set-marker skk-henkan-start-point (point))
@@ -3416,9 +3391,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
        (skk-kakutei)
      (skk-kana-cleanup));; XXX
    (when skk-undo-kakutei-word-only
-     (setq skk-last-buffer-undo-list buffer-undo-list
-	   buffer-undo-list t
-	   skk-last-buffer-modified (buffer-modified-p)))
+     (setq skk-last-buffer-undo-list buffer-undo-list))
    (if (not (skk-get-prefix skk-current-rule-tree))
        (insert-and-inherit "$B"&(B")
      (skk-erase-prefix)
@@ -5434,8 +5407,10 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	  (insert skk-comp-key)
 	  (setq this-command 'keyboard-quit))
       (skk-erase-prefix 'clean)
-      (when (> (point) skk-henkan-start-point)
-	(delete-region (point) skk-henkan-start-point))
+      (delete-region skk-henkan-start-point
+		     (if (> (point) skk-henkan-start-point)
+			 (point)
+		       skk-previous-point))
       (skk-kakutei)))))
 
 (skk-defadvice abort-recursive-edit (around skk-ad activate)
@@ -5468,8 +5443,10 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	       (delete-region skk-henkan-start-point (point))
 	       (insert skk-comp-key))
 	   (skk-erase-prefix 'clean)
-	   (when (> (point) skk-henkan-start-point)
-	     (delete-region (point) skk-henkan-start-point))
+	   (delete-region skk-henkan-start-point
+			  (if (> (point) skk-henkan-start-point)
+			      (point)
+			    skk-previous-point))
 	   (skk-kakutei)))))
 
 (defadvice newline (around skk-ad activate)

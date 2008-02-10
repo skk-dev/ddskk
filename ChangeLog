@@ -1,3 +1,13 @@
+2008-02-10  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-last-buffer-modified): Abolish variable.
+
+	* skk.el (skk-kakutei): Delete undo-boundary from
+	`buffer-undo-list' if `skk-undo-kakutei-word-only' is non-nil.
+	(skk-kakutei-cleanup-buffer, skk-undo-kakutei-subr)
+	(skk-set-henkan-point-subr): Simplify.
+	(keyboard-quit, abort-recursive-edit): Fix advice.
+
 2008-02-02  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (変換位置の指定方法): 「アスキーモード」に用語を揃

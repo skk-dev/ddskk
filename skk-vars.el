@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.265 2008/01/27 13:07:51 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.266 2008/02/10 13:19:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/01/27 13:07:51 $
+;; Last Modified: $Date: 2008/02/10 13:19:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2447,9 +2447,6 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 
 (skk-deflocalvar skk-last-buffer-undo-list nil
   "$B"&%b!<%I$KF~$kD>A0$N(B `buffer-undo-list' $B$rB`Hr$7$F$*$/JQ?t!#(B")
-
-(skk-deflocalvar skk-last-buffer-modified nil
-  "$B"&%b!<%I$KF~$kD>A0$N%P%C%U%!JQ99%U%i%0$rB`Hr$7$F$*$/JQ?t!#(B")
 
 (skk-deflocalvar skk-after-prefix nil
   "t $B$G$"$l$P!"@\F,<-F~NO8e$N>uBV$K$"$k$3$H$rI=$9!#(B
