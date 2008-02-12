@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.464 2008/02/10 13:19:07 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.465 2008/02/12 13:43:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/02/10 13:19:07 $
+;; Last Modified: $Date: 2008/02/12 13:43:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1490,7 +1490,10 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
   (setq skk-henkan-key (concat (buffer-substring-no-properties
 				skk-henkan-start-point
 				skk-henkan-end-point)
-			       (or (skk-okurigana-prefix skk-henkan-okurigana)
+			       (or (skk-okurigana-prefix
+				    (if skk-katakana
+					(skk-katakana-to-hiragana skk-henkan-okurigana)
+				      skk-henkan-okurigana))
 				   skk-okuri-char))
 	skk-prefix "")
   (when skk-katakana

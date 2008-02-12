@@ -1,3 +1,8 @@
+2008-02-12  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-set-okurigana): Convert `skk-henkan-okurigana' to
+	hiragana when `skk-okurigana-prefix' is called.
+
 2008-02-10  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-vars.el (skk-last-buffer-modified): Abolish variable.
