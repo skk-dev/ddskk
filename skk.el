@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.465 2008/02/12 13:43:32 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.466 2008/02/20 12:24:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/02/12 13:43:32 $
+;; Last Modified: $Date: 2008/02/20 12:24:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5237,14 +5237,12 @@ SKK 辞書の候補として正しい形に整形する。"
 	(cond
 	 ((not orig-face)
 	  (put-text-property start end 'face
-			     `(:background
-			       ,skk-inline-show-background-color)
+			     `(:background ,color)
 			     string))
 	 ((and (facep orig-face) (not (face-background orig-face)))
 	  (put-text-property start end 'face
 			     `(:inherit ,orig-face
-			       :background
-			       ,skk-inline-show-background-color)
+			       :background ,color)
 			     string))
 	 ((and (listp orig-face)
 	       (not (plist-get (get-text-property start 'face string)
@@ -5256,8 +5254,7 @@ SKK 辞書の候補として正しい形に整形する。"
 				     :inherit)))))
 	  (put-text-property start end 'face
 			     (cons
-			      `(:background
-				,skk-inline-show-background-color)
+			      `(:background ,color)
 			      orig-face)
 			     string)))
 	(setq start (max (1+ start) end)

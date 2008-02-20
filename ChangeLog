@@ -1,3 +1,7 @@
+2008-02-20  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-add-background-color): Bug fix.
+
 2008-02-12  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-set-okurigana): Convert `skk-henkan-okurigana' to
