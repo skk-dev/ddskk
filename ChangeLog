@@ -1,3 +1,10 @@
+2008-02-23  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-dcomp.el (skk-dcomp-after-keyboard-quit): New alias name of
+	`skk-dcomp-after-delete-backward-char'.
+	(keyboard-quit): Use it instead of `skk-dcomp-after-kakutei' in
+	advice.
+
 2008-02-20  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-add-background-color): Bug fix.
