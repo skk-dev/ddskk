@@ -1,3 +1,12 @@
+2008-02-25  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-dcomp.el (skk-previous-candidate@after@skk-dcomp-ad): New
+	advice.
+	(skk-dcomp-after-keyboard-quit): Delete alias.
+	(keyboard-quit@around@skk-dcomp-ad): Use
+	`skk-dcomp-after-delete-backward-char' instead of
+	`skk-dcomp-after-keyboard-quit'.
+
 2008-02-23  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-dcomp.el (skk-dcomp-after-keyboard-quit): New alias name of
