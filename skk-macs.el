@@ -1,13 +1,13 @@
 ;;; skk-macs.el --- macros and inline functions commonly used in SKK -*- coding: iso-2022-jp -*-
 
-;; Copyright (C) 1999-2007  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2008  SKK Development Team <skk@ring.gr.jp>
 ;; Copyright (C) 1993, 2000 Free Software Foundation, Inc.
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.124 2007/10/24 12:42:23 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.125 2008/02/27 12:20:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/24 12:42:23 $
+;; Last Modified: $Date: 2008/02/27 12:20:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -714,6 +714,15 @@ BUFFER defaults to the current buffer."
 (defsubst skk-in-minibuffer-p ()
   "カレントバッファがミニバッファかどうかをチェックする。"
   (eq (current-buffer) (window-buffer (minibuffer-window))))
+
+(defun skk-window-body-height ()
+  (if (fboundp 'window-body-height)	; emacs21 にはない
+      (window-body-height)
+    (- (window-height)
+       (if mode-line-format 1 0)
+       (if (and (boundp 'header-line-format) ; emacs20 にはない
+		header-line-format)
+	   1 0))))
 
 (defun skk-insert-prefix (&optional char)
   "`skk-echo' が non-nil であればカレントバッファに `skk-prefix' を挿入する。"

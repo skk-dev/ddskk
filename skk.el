@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.466 2008/02/20 12:24:33 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.467 2008/02/27 12:20:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/02/20 12:24:33 $
+;; Last Modified: $Date: 2008/02/27 12:20:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2106,17 +2106,14 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
       (cond
        ((and skk-show-inline
 	     (not skk-isearch-switch)
-	     (not (skk-in-minibuffer-p)))
+	     (not (skk-in-minibuffer-p))
+	     (not (eq skk-emacs-type 'xemacs))
+	     (<= 21 emacs-major-version))
 	;; $B8=:_$N%P%C%U%!$NCf$KI=<($9$k(B ($B%$%s%i%$%sI=<((B)
 	(if (and (eq 'vertical skk-show-inline)
-		 (not (featurep 'xemacs))
 		 ;; window $B$,8uJd72$rI=<($G$-$k9b$5$,$"$k$+%A%'%C%/(B
-		 (> (if (fboundp 'window-body-height) ; emacs21 $B$K$O$J$$(B
-			(window-body-height)
-		      (- (window-height)
-			 (if mode-line-format 1 0)
-			 (if header-line-format 1 0)))
-		    (1+ max-candidates)))
+		 (< (1+ max-candidates)
+		    (skk-window-body-height)))
 	    (skk-inline-show-vertical tooltip-str skk-inline-show-face)
 	  (skk-inline-show str skk-inline-show-face)))
        ((and window-system
@@ -5358,11 +5355,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
       (when (or invisible
 		(and bottom
 		     (> (1+ (* 7 skk-henkan-show-candidates-rows))
-			(- (if (fboundp 'window-body-height)
-			       (window-body-height)
-			     (- (window-height)
-				(if mode-line-format 1 0)
-				(if header-line-format 1 0)))
+			(- (skk-window-body-height)
 			   (count-lines (window-start) (point))))))
 	(recenter (- (1+ (* 7 skk-henkan-show-candidates-rows)))))
       (scroll-left (max 0

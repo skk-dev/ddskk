@@ -1,3 +1,11 @@
+2008-02-27  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-macs.el: Add 2008 to copyright years.
+	(skk-window-body-height): New function.
+
+	* skk.el (skk-henkan-show-candidate-subr): Enable inline display
+	Emacs21 or later only.  Use `skk-window-body-height'.
+
 2008-02-25  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-dcomp.el (skk-previous-candidate@after@skk-dcomp-ad): New
