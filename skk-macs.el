@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.125 2008/02/27 12:20:17 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.126 2008/02/29 12:23:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/02/27 12:20:17 $
+;; Last Modified: $Date: 2008/02/29 12:23:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -716,13 +716,12 @@ BUFFER defaults to the current buffer."
   (eq (current-buffer) (window-buffer (minibuffer-window))))
 
 (defun skk-window-body-height ()
-  (if (fboundp 'window-body-height)	; emacs21 にはない
+  (static-if (fboundp 'window-body-height) ; emacs21 にはない
       (window-body-height)
     (- (window-height)
        (if mode-line-format 1 0)
-       (if (and (boundp 'header-line-format) ; emacs20 にはない
-		header-line-format)
-	   1 0))))
+       (static-cond ((not (boundp 'header-line-format)) 0) ; emacs20 にはない
+		    (t (if header-line-format 1 0))))))
 
 (defun skk-insert-prefix (&optional char)
   "`skk-echo' が non-nil であればカレントバッファに `skk-prefix' を挿入する。"
