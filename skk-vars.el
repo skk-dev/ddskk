@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.266 2008/02/10 13:19:07 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.267 2008/02/29 17:03:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/02/10 13:19:07 $
+;; Last Modified: $Date: 2008/02/29 17:03:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3089,6 +3089,36 @@ server completion が実装されておらず、かつ無反応なサーバ対策。")
   "*Face used to highlight region dynamically completed."
   :group 'skk-dcomp)
 
+(defface skk-dcomp-multiple-face
+  '((((class color) (type tty))
+     (:foreground "blue" :background "yellow"))
+    (((class color) (background  dark))
+     (:foreground "gainsboro" :background "gray15"))
+    (((class color) (background light))
+     (:foreground "dim gray" :background "beige")))
+  "*ダイナミックコンプリーションの複数表示群のフェイス。"
+  :group 'skk-dcomp)
+
+(defface skk-dcomp-multiple-trailing-face
+  '((((class color) (type tty))
+     (:inherit skk-dcomp-multiple-face :foreground "black" :bold t))
+    (((class color) (background  dark))
+     (:inherit skk-dcomp-multiple-face :foreground "white" :bold t))
+    (((class color) (background light))
+     (:inherit skk-dcomp-multiple-face :foreground "black" :bold t)))
+  "*ダイナミックコンプリーションの複数表示群の補完部分のフェイス。"
+  :group 'skk-dcomp)
+
+(defface skk-dcomp-multiple-selected-face
+  '((((class color) (type tty))
+     (:foreground "white" :background "magenta" :bold t))
+    (((class color) (background  dark))
+     (:foreground "dark slate blue" :background "peach puff" :bold t))
+    (((class color) (background light))
+     (:foreground "yellow" :background "navy" :bold t)))
+  "*ダイナミックコンプリーションの複数表示群の選択対象のフェイス。"
+  :group 'skk-dcomp)
+
 (defcustom skk-dcomp-activate nil
   "*Non-nil であれば見出し語のダイナミックコンプリーションの機能を有効にする。
 この変数の値が `eolp' だった場合、ポイントが行末にある時だけ補完する。"
@@ -3124,9 +3154,25 @@ server completion が実装されておらず、かつ無反応なサーバ対策。")
 		(const :tag "指定しない" nil))
   :group 'skk-dcomp)
 
+(defcustom skk-dcomp-show-multiple nil
+  "*Non-nil であればダイナミックコンプリーションの候補を複数表示する。"
+  :type 'boolean
+  :group 'skk-dcomp)
+
+(defcustom skk-dcomp-show-multiple-rows 7
+  "*ダイナミックコンプリーションの候補の表示数。"
+  :type 'integer
+  :group 'skk-dcomp)
+
 (skk-deflocalvar skk-dcomp-start-point nil)
 (skk-deflocalvar skk-dcomp-end-point nil)
 (skk-deflocalvar skk-dcomp-extent nil)
+(skk-deflocalvar skk-dcomp-multiple-candidates nil)
+(skk-deflocalvar skk-dcomp-multiple-key "")
+(skk-deflocalvar skk-dcomp-multiple-prefix "")
+(skk-deflocalvar skk-dcomp-multiple-search-done nil)
+(skk-deflocalvar skk-dcomp-multiple-select-index -1)
+(skk-deflocalvar skk-dcomp-multiple-overlays nil)
 (defvar skk-dcomp-face 'skk-dcomp-face)
 
 ;;; skk-gadget.el related.

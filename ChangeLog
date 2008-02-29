@@ -1,3 +1,29 @@
+2008-03-01  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-dcomp-multiple-face)
+	(skk-dcomp-multiple-trailing-face)
+	(skk-dcomp-multiple-selected-face): New face.
+	(skk-dcomp-show-multiple, skk-dcomp-show-multiple-rows): New user
+	option.
+	(skk-dcomp-multiple-candidates, skk-dcomp-multiple-key)
+	(skk-dcomp-multiple-prefix, skk-dcomp-multiple-search-done)
+	(skk-dcomp-multiple-select-index, skk-dcomp-multiple-overlays):
+	New internal variable.
+
+	* skk-dcomp.el: Require cl package when compiling.
+	(skk-dcomp-save-point-in-jisyo-buffer): New macro.
+	(skk-dcomp-multiple-available-p)
+	(skk-dcomp-multiple-increase-index)
+	(skk-dcomp-multiple-extract-candidates)
+	(skk-dcomp-multiple-get-candidates, skk-dcomp-multiple-show)
+	(skk-dcomp-multiple-hide): New function.
+	(skk-dcomp-cleanup-buffer, skk-dcomp-do-completion)
+	(skk-dcomp-before-kakutei, skk-dcomp-after-kakutei)
+	(skk-dcomp-after-delete-backward-char, skk-kana-input, skk-comp):
+	Consider these.
+	(skk-comp-previous@after@skk-docmp-ad)
+	(skk-comp-do@after@skk-docmp-ad): Consider these.
+
 2008-02-29  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-macs.el (skk-window-body-height): Use `static-if' and
