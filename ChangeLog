@@ -20,9 +20,9 @@
 	(skk-dcomp-cleanup-buffer, skk-dcomp-do-completion)
 	(skk-dcomp-before-kakutei, skk-dcomp-after-kakutei)
 	(skk-dcomp-after-delete-backward-char, skk-kana-input, skk-comp):
-	Consider these.
+	Consider them.
 	(skk-comp-previous@after@skk-docmp-ad)
-	(skk-comp-do@after@skk-docmp-ad): Consider these.
+	(skk-comp-do@after@skk-docmp-ad): Consider them.
 
 2008-02-29  IRIE Tetsuya  <irie@t.email.ne.jp>
 
