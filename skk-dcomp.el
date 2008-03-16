@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.47 2008/03/16 04:06:13 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.48 2008/03/16 12:52:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/16 04:06:13 $
+;; Last Modified: $Date: 2008/03/16 12:52:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -333,7 +333,7 @@
 				     str))))))
 	  (save-excursion
 	    (setq pre-bottom bottom)
-	    (setq bottom (not (= (1+ i) (vertical-motion (1+ i)))))
+	    (setq bottom (> (1+ i) (vertical-motion (1+ i))))
 	    (cond (bottom
 		   ;; バッファ最終行では普通に overlay を追加していく方
 		   ;; 法だとoverlay の表示される順番が狂うことがあって
@@ -390,16 +390,16 @@
 	  (overlay-put ol 'invisible t)
 	  (overlay-put ol 'after-string str)
 	  (push ol skk-dcomp-multiple-overlays)
+	  (scroll-left (max 0
+			    (- (+ beg-col margin max-width margin 1)
+			       (window-width) (window-hscroll))))
 	  (incf i))
 	(when (or invisible
 		  (and bottom
 		       (> (+ 2 skk-dcomp-show-multiple-rows)
 			  (- (skk-window-body-height)
 			     (count-screen-lines (window-start) (point))))))
-	  (recenter (- (+ 2 skk-dcomp-show-multiple-rows))))
-	(scroll-left (max 0
-			  (- (+ beg-col margin max-width margin 1)
-			     (window-width) (window-hscroll))))))))
+	  (recenter (- (+ 2 skk-dcomp-show-multiple-rows))))))))
 
 (defun skk-dcomp-multiple-hide ()
   (when skk-dcomp-multiple-overlays

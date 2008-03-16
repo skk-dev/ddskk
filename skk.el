@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.468 2008/03/16 04:06:13 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.469 2008/03/16 12:52:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/16 04:06:13 $
+;; Last Modified: $Date: 2008/03/16 12:52:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5299,7 +5299,7 @@ SKK 辞書の候補として正しい形に整形する。"
 	    (setq col (skk-screen-column)))
 	   (t
 	    (setq pre-bottom bottom)
-	    (setq bottom (not (= i (vertical-motion i))))
+	    (setq bottom (> i (vertical-motion i)))
 	    (cond
 	     (bottom
 	      ;; バッファ最終行では普通に overlay を追加していく方法だ
@@ -5348,16 +5348,16 @@ SKK 辞書の候補として正しい形に整形する。"
 	(overlay-put ol 'invisible t)
 	(overlay-put ol 'after-string str)
 	(push ol skk-inline-overlays)
-	(setq i (1+ i)))
+	(scroll-left (max 0
+			  (- (+ beg-col margin max-width margin 1)
+			     (window-width) (window-hscroll))))
+	(incf i))
       (when (or invisible
 		(and bottom
 		     (> (1+ (* 7 skk-henkan-show-candidates-rows))
 			(- (skk-window-body-height)
 			   (count-screen-lines (window-start) (point))))))
-	(recenter (- (1+ (* 7 skk-henkan-show-candidates-rows)))))
-      (scroll-left (max 0
-			(- (+ beg-col margin max-width margin 1)
-			   (window-width) (window-hscroll)))))))
+	(recenter (- (1+ (* 7 skk-henkan-show-candidates-rows))))))))
 
 (defun skk-inline-hide ()
   (when skk-inline-overlays

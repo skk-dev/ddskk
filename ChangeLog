@@ -1,5 +1,13 @@
 2008-03-16  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* skk-macs.el (skk-screen-column): Fix.
+
+	* skk-dcomp.el (skk-dcomp-multiple-show): Ditto.
+
+	* skk.el (skk-inline-show-vertical): Ditto.
+
+2008-03-16  IRIE Tetsuya  <irie@t.email.ne.jp>
+
 	* skk-macs.el (skk-screen-column, skk-move-to-screen-column): New
 	function.
 
