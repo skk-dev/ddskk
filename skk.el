@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.467 2008/02/27 12:20:17 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.468 2008/03/16 04:06:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/02/27 12:20:17 $
+;; Last Modified: $Date: 2008/03/16 04:06:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5277,11 +5277,11 @@ SKK 辞書の候補として正しい形に整形する。"
   (skk-inline-hide)
   (unless (skk-in-minibuffer-p)
     (let* ((margin 2)
-	   (beg-col (- (current-column) margin))
+	   (beg-col (- (skk-screen-column) margin))
 	   (candidates (split-string string "\n"))
 	   (max-width (apply 'max (mapcar 'string-width candidates)))
 	   (i 0)
-	   bottom ol invisible)
+	   bottom pre-bottom col ol invisible)
       (dolist (str candidates)
 	(setq str (concat (when (/= 0 i) (make-string margin ? ))
 			  str
@@ -5294,54 +5294,51 @@ SKK 辞書の候補として正しい形に整形する。"
 	  (setq str (skk-add-background-color
 		     str skk-inline-show-background-color)))
 	(save-excursion
-	  (unless (= 0 i)
-	    (setq bottom (not (and (= 0 (forward-line i)) (bolp))))
-	    (end-of-line)
+	  (cond
+	   ((= 0 i)
+	    (setq col (skk-screen-column)))
+	   (t
+	    (setq pre-bottom bottom)
+	    (setq bottom (not (= i (vertical-motion i))))
 	    (cond
 	     (bottom
 	      ;; バッファ最終行では普通に overlay を追加していく方法だ
 	      ;; と overlay の表示される順番が狂うことがあってうまくな
 	      ;; い。したがって前回の overlay の after-string に追加す
 	      ;; る。
-	      (setq ol (pop skk-inline-overlays))
+	      (setq ol (cond ((and (not pre-bottom)
+				   (< (overlay-end
+				       (car skk-inline-overlays))
+				      (point)))
+			      (make-overlay (point) (point)))
+			     (t (pop skk-inline-overlays))))
 	      (setq str (concat (overlay-get ol 'after-string)
 				"\n" (make-string beg-col ? ) str)))
-	     ((> beg-col (current-column)) ; 行末が▼よりも左
-	      ;; 桁合わせの空白を追加
-	      (setq str (concat (make-string (- beg-col (current-column)) ? )
-				str)))
-	     ((= beg-col (current-column))) ; 特にやることなし
 	     (t
-	      ;; overlay の開始位置に point を移動
-	      (while (and (not (bolp))
-			  (< beg-col (current-column)))
-		(backward-char))
-	      ;; overlay の左端がマルチ幅文字と重なったときの微調整
-	      (unless (= beg-col (current-column))
-		(setq str (concat (make-string (- beg-col (current-column)) ? )
-				  str))))))
+	      (setq col (skk-move-to-screen-column beg-col))
+	      (cond ((> beg-col col)
+		     ;; 桁合わせの空白を追加
+		     (setq str (concat (make-string (- beg-col col) ? )
+				       str)))
+		    ;; overlay の左端がマルチ幅文字と重なったときの微調整
+		    ((< beg-col col)
+		     (backward-char)
+		     (setq col (skk-screen-column))
+		     (setq str (concat (make-string (- beg-col col) ? )
+				       str))))))))
 	  ;; この時点で overlay の開始位置に point がある
 	  (unless bottom
 	    (let ((ol-beg (point))
-		  (insert-width (string-width str))
-		  ol-width base-ol)
-	      ;; overlay の終了位置を決める
-	      (unless (eolp)
-		(forward-char))
-	      (while (and (not (eolp))
-			  (< (setq ol-width (string-width
-					     (buffer-substring
-					      ol-beg (point))))
-			     insert-width))
-		(forward-char))
+		  (ol-end-col (+ col (string-width str)))
+		  base-ol)
+	      (setq col (skk-move-to-screen-column ol-end-col))
 	      ;; overlay の右端がマルチ幅文字と重なったときの微調整
-	      (when (and ol-width
-			 (> ol-width insert-width))
+	      (when (< ol-end-col col)
 		(setq str (concat str
-				  (make-string (- ol-width insert-width) ? ))))
+				  (make-string (- col ol-end-col) ? ))))
 	      (setq ol (make-overlay ol-beg (point)))
-	      ;; 元テキストの face を継承しないように1つ後ろに overlay を作っ
-	      ;; て、その face を 'default に指定しておく
+	      ;; 元テキストの face を継承しないように1つ後ろに overlay
+	      ;; を作って、その face を 'default に指定しておく
 	      (setq base-ol (make-overlay (point) (1+ (point))))
 	      (overlay-put base-ol 'face 'default)
 	      (push base-ol skk-inline-overlays)
@@ -5356,7 +5353,7 @@ SKK 辞書の候補として正しい形に整形する。"
 		(and bottom
 		     (> (1+ (* 7 skk-henkan-show-candidates-rows))
 			(- (skk-window-body-height)
-			   (count-lines (window-start) (point))))))
+			   (count-screen-lines (window-start) (point))))))
 	(recenter (- (1+ (* 7 skk-henkan-show-candidates-rows)))))
       (scroll-left (max 0
 			(- (+ beg-col margin max-width margin 1)

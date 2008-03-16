@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.46 2008/02/29 17:03:40 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.47 2008/03/16 04:06:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/02/29 17:03:40 $
+;; Last Modified: $Date: 2008/03/16 04:06:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -298,10 +298,15 @@
   (skk-dcomp-multiple-hide)
   (unless (skk-in-minibuffer-p)
     (let* ((margin 1)
-	   (beg-col (save-excursion (goto-char skk-henkan-start-point)
-				    (- (current-column) margin)))
+	   (beg-col (save-excursion
+		      (goto-char skk-henkan-start-point)
+		      (- (skk-screen-column) margin
+			 (if (and skk-echo
+				  (string= "" skk-dcomp-multiple-key))
+			     (string-width skk-prefix)
+			   0))))
 	   (i 0)
-	   max-width bottom ol invisible)
+	   max-width bottom pre-bottom col ol invisible)
       (when candidates
 	(setq max-width (apply 'max (mapcar 'string-width candidates)))
 	(dolist (str candidates)
@@ -327,57 +332,51 @@
 				     'face 'skk-dcomp-multiple-trailing-face
 				     str))))))
 	  (save-excursion
-	    (setq bottom (not (and (= 0 (forward-line (1+ i))) (bolp))))
-	    (end-of-line)
-	    (cond
-	     (bottom
-	      ;; バッファ最終行では普通に overlay を追加していく方法だ
-	      ;; とoverlay の表示される順番が狂うことがあってうまくない。
-	      ;; したがって前回の overlay の after-string に追加する。
-	      ;; ただし、EOB の場合は prefix の overlay と衝突するため
-	      ;; `skk-prefix-overlay' に追加する
-	      (setq ol (cond ((and (= i 0) (eobp)
+	    (setq pre-bottom bottom)
+	    (setq bottom (not (= (1+ i) (vertical-motion (1+ i)))))
+	    (cond (bottom
+		   ;; バッファ最終行では普通に overlay を追加していく方
+		   ;; 法だとoverlay の表示される順番が狂うことがあって
+		   ;; うまくない。したがって前回の overlay の
+		   ;; after-string に追加する。ただし、EOB の場合は
+		   ;; prefix の overlay と衝突するため
+		   ;; `skk-prefix-overlay' に追加する
+		   (setq ol (cond
+			     ((and (= i 0) (eobp)
 				   (not (string= "" skk-prefix))
 				   (overlayp skk-prefix-overlay))
 			      skk-prefix-overlay)
-			     ((= i 0)
+			     ((or (= i 0)
+				  (and (not pre-bottom)
+				       (< (overlay-end
+					   (car skk-dcomp-multiple-overlays))
+					  (point))))
 			      (make-overlay (point) (point)))
 			     (t (pop skk-dcomp-multiple-overlays))))
-	      (setq str (concat (overlay-get ol 'after-string)
-				"\n" (make-string beg-col ? ) str)))
-	     ((> beg-col (current-column)) ; 行末が overlay 開始位置よりも左
-	      ;; 桁合わせの空白を追加
-	      (setq str (concat (make-string (- beg-col (current-column)) ? )
-				str)))
-	     ((= beg-col (current-column))) ; 特にやることなし
-	     (t
-	      ;; overlay の開始位置に point を移動
-	      (while (and (not (bolp))
-			  (< beg-col (current-column)))
-		(backward-char))
-	      ;; overlay の左端がマルチ幅文字と重なったときの微調整
-	      (unless (= beg-col (current-column))
-		(setq str (concat (make-string (- beg-col (current-column)) ? )
-				  str)))))
+		   (setq str (concat (overlay-get ol 'after-string)
+				     "\n" (make-string beg-col ? ) str)))
+		  (t
+		   (setq col (skk-move-to-screen-column beg-col))
+		   (cond ((> beg-col col)
+			  ;; 桁合わせの空白を追加
+			  (setq str (concat (make-string (- beg-col col) ? )
+					    str)))
+			 ;; overlay の左端がマルチ幅文字と重なったときの微調整
+			 ((< beg-col col)
+			  (backward-char)
+			  (setq col (skk-screen-column))
+			  (setq str (concat (make-string (- beg-col col) ? )
+					    str))))))
 	    ;; この時点で overlay の開始位置に point がある
 	    (unless bottom
 	      (let ((ol-beg (point))
-		    (insert-width (string-width str))
-		    ol-width base-ol)
-		;; overlay の終了位置を決める
-		(unless (eolp)
-		  (forward-char))
-		(while (and (not (eolp))
-			    (< (setq ol-width (string-width
-					       (buffer-substring
-						ol-beg (point))))
-			       insert-width))
-		  (forward-char))
+		    (ol-end-col (+ col (string-width str)))
+		    base-ol)
+		(setq col (skk-move-to-screen-column ol-end-col))
 		;; overlay の右端がマルチ幅文字と重なったときの微調整
-		(when (and ol-width
-			   (> ol-width insert-width))
+		(when (< ol-end-col col)
 		  (setq str (concat str
-				    (make-string (- ol-width insert-width) ? ))))
+				    (make-string (- col ol-end-col) ? ))))
 		(setq ol (make-overlay ol-beg (point)))
 		;; 元テキストの face を継承しないように1つ後ろに
 		;; overlay を作って、その face を 'default に指定してお
@@ -396,7 +395,7 @@
 		  (and bottom
 		       (> (+ 2 skk-dcomp-show-multiple-rows)
 			  (- (skk-window-body-height)
-			     (count-lines (window-start) (point))))))
+			     (count-screen-lines (window-start) (point))))))
 	  (recenter (- (+ 2 skk-dcomp-show-multiple-rows))))
 	(scroll-left (max 0
 			  (- (+ beg-col margin max-width margin 1)
