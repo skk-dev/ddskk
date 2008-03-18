@@ -1,3 +1,10 @@
+2008-03-18  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-dcomp.el (skk-previous-candidate@around@skk-dcomp-ad):
+	Change advice class to around from after.  Call
+	`skk-dcomp-after-delete-backward-char' only if `skk-henkan-mode'
+	is active.
+
 2008-03-16  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-macs.el (skk-screen-column): Fix.
