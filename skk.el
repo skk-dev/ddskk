@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.469 2008/03/16 12:52:06 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.470 2008/03/23 04:58:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/16 12:52:06 $
+;; Last Modified: $Date: 2008/03/23 04:58:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5294,6 +5294,14 @@ SKK 辞書の候補として正しい形に整形する。"
 	  (setq str (skk-add-background-color
 		     str skk-inline-show-background-color)))
 	(save-excursion
+	  (scroll-left (max 0
+			    (- (+ beg-col margin max-width margin 1)
+			       (window-width) (window-hscroll))))
+
+	  (unless (zerop (window-hscroll))
+	    (setq beg-col
+		  (save-excursion (goto-char skk-henkan-start-point)
+				  (- (current-column) margin))))
 	  (cond
 	   ((= 0 i)
 	    (setq col (skk-screen-column)))
@@ -5348,9 +5356,6 @@ SKK 辞書の候補として正しい形に整形する。"
 	(overlay-put ol 'invisible t)
 	(overlay-put ol 'after-string str)
 	(push ol skk-inline-overlays)
-	(scroll-left (max 0
-			  (- (+ beg-col margin max-width margin 1)
-			     (window-width) (window-hscroll))))
 	(incf i))
       (when (or invisible
 		(and bottom

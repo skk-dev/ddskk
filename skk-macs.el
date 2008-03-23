@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.128 2008/03/16 12:52:07 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.129 2008/03/23 04:58:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/16 12:52:07 $
+;; Last Modified: $Date: 2008/03/23 04:58:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -723,14 +723,11 @@ BUFFER defaults to the current buffer."
        (static-cond ((not (boundp 'header-line-format)) 0) ; emacs20 にはない
 		    (t (if header-line-format 1 0))))))
 
-(defun skk-screen-column (&optional point)
-  (nth 1 (compute-motion (window-start)
-			 '(0 . 0)
-			 (or point (point))
-			 nil
-			 (window-width)
-			 nil
-			 (selected-window))))
+(defun skk-screen-column ()
+  (- (current-column)
+     (save-excursion
+       (vertical-motion 0)
+       (current-column))))
 
 (defun skk-move-to-screen-column (col)
   (move-to-column (+ (current-column)

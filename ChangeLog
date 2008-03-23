@@ -1,3 +1,12 @@
+2008-03-23  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-macs.el (skk-screen-column): Refine, use `current-column'
+	instead of 'cumpute-motion'.
+
+	* skk.el (skk-inline-show-vertical): Fix.
+
+	* skk-dcomp.el (skk-dcomp-multiple-show): Fix.
+
 2008-03-18  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-dcomp.el (skk-previous-candidate@around@skk-dcomp-ad):

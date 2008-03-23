@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.49 2008/03/18 14:41:32 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.50 2008/03/23 04:58:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/18 14:41:32 $
+;; Last Modified: $Date: 2008/03/23 04:58:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -300,14 +300,12 @@
     (let* ((margin 1)
 	   (beg-col (save-excursion
 		      (goto-char skk-henkan-start-point)
-		      (- (skk-screen-column) margin
-			 (if (and skk-echo
-				  (string= "" skk-dcomp-multiple-key))
-			     (string-width skk-prefix)
-			   0))))
+		      (max 0 (- (skk-screen-column) margin))))
 	   (i 0)
 	   max-width bottom pre-bottom col ol invisible)
       (when candidates
+	(when (zerop beg-col)
+	  (setq margin 0))
 	(setq max-width (apply 'max (mapcar 'string-width candidates)))
 	(dolist (str candidates)
 	  (setq str (concat (make-string margin ? )
@@ -332,6 +330,13 @@
 				     'face 'skk-dcomp-multiple-trailing-face
 				     str))))))
 	  (save-excursion
+	    (scroll-left (max 0
+			      (- (+ beg-col margin max-width margin 1)
+				 (window-width) (window-hscroll))))
+	    (unless (zerop (window-hscroll))
+	      (setq beg-col 
+		    (save-excursion (goto-char skk-henkan-start-point)
+				    (- (current-column) margin))))
 	    (setq pre-bottom bottom)
 	    (setq bottom (> (1+ i) (vertical-motion (1+ i))))
 	    (cond (bottom
@@ -390,9 +395,6 @@
 	  (overlay-put ol 'invisible t)
 	  (overlay-put ol 'after-string str)
 	  (push ol skk-dcomp-multiple-overlays)
-	  (scroll-left (max 0
-			    (- (+ beg-col margin max-width margin 1)
-			       (window-width) (window-hscroll))))
 	  (incf i))
 	(when (or invisible
 		  (and bottom
