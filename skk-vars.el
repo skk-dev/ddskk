@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.267 2008/02/29 17:03:39 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.268 2008/03/27 11:31:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/02/29 17:03:39 $
+;; Last Modified: $Date: 2008/03/27 11:31:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4473,7 +4473,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
        '((foreground-color . \"navy blue\")
 	 (background-color . \"alice blue\")
 	 (border-color . \"royal blue\")
-	 (border-with . 1)))
+	 (border-width . 1)))
 "
   ;; ;; name
   ;; foreground-color
@@ -4484,7 +4484,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 		       ((foreground-color . "navy blue")
 			(background-color . "alice blue")
 			(border-color . "royal blue")
-			(border-with . 1)))
+			(border-width . 1)))
 		(repeat :tag "$BG$0U$N@_Dj(B"
 			(cons (symbol :tag "$B%Q%i%a!<%?L>(B")
 			      (sexp :tag "$BCM(B (S$B<0(B)"))))

@@ -1,3 +1,7 @@
+2008-03-20  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-vars.el (skk-tooltip-parameters): Typo.
+
 2008-03-23  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-macs.el (skk-screen-column): Refine, use `current-column'
