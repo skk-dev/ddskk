@@ -1,3 +1,7 @@
+2008-03-27  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-macs.el (skk-y-or-n-p): Fix typo in docstring.
+
 2008-03-20  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-vars.el (skk-tooltip-parameters): Typo.

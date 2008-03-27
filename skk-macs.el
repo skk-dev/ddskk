@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.129 2008/03/23 04:58:55 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.130 2008/03/27 13:24:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/23 04:58:55 $
+;; Last Modified: $Date: 2008/03/27 13:24:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -196,7 +196,7 @@ ENGLISH をエコーエリアに表示し、エラーを発生させる。 ARG は `error' 
 				   japanese english)))
 
 (defmacro skk-y-or-n-p (japanese english)
-  "ユーザに \"y or n\" の質問をし、答えが \y\" だったら t を返す。
+  "ユーザに \"y or n\" の質問をし、答えが \"y\" だったら t を返す。
 `skk-japanese-message-and-error' が non-nil であれば JAPANESE を nil であれ
 ば ENGLISH をプロンプトとして `y-or-n-p' を実行する。"
   (list 'y-or-n-p (list 'if 'skk-japanese-message-and-error
