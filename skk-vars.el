@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.268 2008/03/27 11:31:12 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.269 2008/03/29 13:52:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/27 11:31:12 $
+;; Last Modified: $Date: 2008/03/29 13:52:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3712,7 +3712,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 
 $BNc(B: (setq skk-lookup-search-agents
           '((ndtp \"dserver\" :port 2010)
-            (ndeb \"/cdrom\" :enable (\"EIWA\")))))"
+            (ndeb \"/cdrom\" :enable (\"EIWA\"))))"
   :type '(repeat (sexp :tag "Agent"))	; type $B$O$A$g$C$H$d$d$3$7$9$.!&!&(B
   :group 'skk-lookup)
 
@@ -3891,7 +3891,8 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 
 $B8=:_BP1~$7$F$$$k<-=qL>$O(B \"ispell\", \"jedict\", \"CHIEZO\", \"CHUJITEN\",
 \"COLLOC\", \"GENIUS\", \"GN99EP01\", \"GN99EP02\", \"IWAKOKU\", \"KANWA\",
-\"KOUJIEN\", \"KOJIEN\", \"MYPAEDIA\" \"NEWANC\" $B5Z$S(B \"PLUS\"$B!#(B
+\"KOUJIEN\", \"KOJIEN\", \"KOKUGO\", \"MYPAEDIA\", \"NEWANC\", \"PLUS\" $B5Z$S(B
+\"lsd\"$B!#(B
 `lookup-entry-heading' $B$,<+J,$N;HMQ$9$k<-=q$+$i$I$N$h$&$JJ8;zNs$r<h$j=P$9$N$+(B
 $B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
 

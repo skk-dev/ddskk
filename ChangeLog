@@ -1,3 +1,8 @@
+2008-03-29  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-vars.el (skk-lookup-search-agents, skk-lookup-option-alist):
+	Fix typo in docstring.
+
 2008-03-29  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el: Require cl package when compiling.
