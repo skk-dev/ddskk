@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.471 2008/03/29 10:56:04 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.472 2008/03/29 13:38:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/29 10:56:04 $
+;; Last Modified: $Date: 2008/03/29 13:38:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5400,13 +5400,13 @@ SKK 辞書の候補として正しい形に整形する。"
    ;; ▽ mode (Midashi input mode).
    (t
     (if (eq last-command 'skk-comp-do)
-	(progn
-	  (delete-region skk-henkan-start-point (point))
-	  (insert skk-comp-key)
-	  (setq this-command 'keyboard-quit))
+	(skk-with-point-move
+	 (delete-region skk-henkan-start-point (point))
+	 (insert skk-comp-key)
+	 (setq this-command 'keyboard-quit))
       (skk-erase-prefix 'clean)
       (delete-region skk-henkan-start-point
-		     (if (>= (point) skk-henkan-start-point)
+		     (if (> (point) skk-henkan-start-point)
 			 (point)
 		       skk-previous-point))
       (skk-kakutei)))))
@@ -5437,7 +5437,7 @@ SKK 辞書の候補として正しい形に整形する。"
 	   (skk-previous-candidate)))
 	(t
 	 (if (eq last-command 'skk-comp-do)
-	     (progn
+	     (skk-with-point-move
 	       (delete-region skk-henkan-start-point (point))
 	       (insert skk-comp-key))
 	   (skk-erase-prefix 'clean)

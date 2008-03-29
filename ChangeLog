@@ -3,6 +3,7 @@
 	* skk.el: Require cl package when compiling.
 	(keyboard-quit@around@skk-ad): Avoid error C-g hitting twice after
 	completing from prefix only.
+	(abort-recursive-edit@around@skk-ad): Ditto.
 
 2008-03-27  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
