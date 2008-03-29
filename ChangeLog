@@ -1,3 +1,9 @@
+2008-03-29  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el: Require cl package when compiling.
+	(keyboard-quit@around@skk-ad): Avoid error C-g hitting twice after
+	completing from prefix only.
+
 2008-03-27  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-macs.el (skk-y-or-n-p): Fix typo in docstring.
