@@ -1,3 +1,7 @@
+2008-03-29  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-vars.el (skk-comp-lisp-symbols): Fix typo in docstring.
+
 2008-03-30  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-inline-show-vertical): Simplify.
