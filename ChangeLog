@@ -1,3 +1,9 @@
+2008-03-30  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-inline-show-vertical): Simplify.
+
+	* skk-dcomp.el (skk-dcomp-multiple-show): Fix.
+
 2008-03-29  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-vars.el (skk-lookup-search-agents, skk-lookup-option-alist):

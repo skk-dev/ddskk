@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.50 2008/03/23 04:58:55 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.51 2008/03/30 14:28:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/23 04:58:55 $
+;; Last Modified: $Date: 2008/03/30 14:28:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -302,7 +302,7 @@
 		      (goto-char skk-henkan-start-point)
 		      (max 0 (- (skk-screen-column) margin))))
 	   (i 0)
-	   max-width bottom pre-bottom col ol invisible)
+	   max-width bottom col ol invisible)
       (when candidates
 	(when (zerop beg-col)
 	  (setq margin 0))
@@ -334,30 +334,25 @@
 			      (- (+ beg-col margin max-width margin 1)
 				 (window-width) (window-hscroll))))
 	    (unless (zerop (window-hscroll))
-	      (setq beg-col 
+	      (setq beg-col
 		    (save-excursion (goto-char skk-henkan-start-point)
 				    (- (current-column) margin))))
-	    (setq pre-bottom bottom)
 	    (setq bottom (> (1+ i) (vertical-motion (1+ i))))
 	    (cond (bottom
 		   ;; バッファ最終行では普通に overlay を追加していく方
-		   ;; 法だとoverlay の表示される順番が狂うことがあって
+		   ;; 法だと overlay の表示される順番が狂うことがあって
 		   ;; うまくない。したがって前回の overlay の
 		   ;; after-string に追加する。ただし、EOB の場合は
 		   ;; prefix の overlay と衝突するため
 		   ;; `skk-prefix-overlay' に追加する
-		   (setq ol (cond
-			     ((and (= i 0) (eobp)
-				   (not (string= "" skk-prefix))
-				   (overlayp skk-prefix-overlay))
-			      skk-prefix-overlay)
-			     ((or (= i 0)
-				  (and (not pre-bottom)
-				       (< (overlay-end
-					   (car skk-dcomp-multiple-overlays))
-					  (point))))
-			      (make-overlay (point) (point)))
-			     (t (pop skk-dcomp-multiple-overlays))))
+		   (setq ol (if (= i 0)
+				(cond ((or (not skk-echo)
+					   (string= "" skk-prefix)
+					   (< (overlay-end skk-prefix-overlay)
+					      (point)))
+				       (make-overlay (point) (point)))
+				      (t skk-prefix-overlay))
+			      (pop skk-dcomp-multiple-overlays)))
 		   (setq str (concat (overlay-get ol 'after-string)
 				     "\n" (make-string beg-col ? ) str)))
 		  (t

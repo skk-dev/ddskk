@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.472 2008/03/29 13:38:47 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.473 2008/03/30 14:28:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/29 13:38:47 $
+;; Last Modified: $Date: 2008/03/30 14:28:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5284,7 +5284,7 @@ SKK 辞書の候補として正しい形に整形する。"
 	   (candidates (split-string string "\n"))
 	   (max-width (apply 'max (mapcar 'string-width candidates)))
 	   (i 0)
-	   bottom pre-bottom col ol invisible)
+	   bottom col ol invisible)
       (dolist (str candidates)
 	(setq str (concat (when (/= 0 i) (make-string margin ? ))
 			  str
@@ -5309,7 +5309,6 @@ SKK 辞書の候補として正しい形に整形する。"
 	   ((= 0 i)
 	    (setq col (skk-screen-column)))
 	   (t
-	    (setq pre-bottom bottom)
 	    (setq bottom (> i (vertical-motion i)))
 	    (cond
 	     (bottom
@@ -5317,10 +5316,9 @@ SKK 辞書の候補として正しい形に整形する。"
 	      ;; と overlay の表示される順番が狂うことがあってうまくな
 	      ;; い。したがって前回の overlay の after-string に追加す
 	      ;; る。
-	      (setq ol (cond ((and (not pre-bottom)
-				   (< (overlay-end
-				       (car skk-inline-overlays))
-				      (point)))
+	      (setq ol (cond ((< (overlay-end
+				  (car skk-inline-overlays))
+				 (point))
 			      (make-overlay (point) (point)))
 			     (t (pop skk-inline-overlays))))
 	      (setq str (concat (overlay-get ol 'after-string)
