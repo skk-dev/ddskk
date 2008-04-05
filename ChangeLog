@@ -1,3 +1,12 @@
+2008-04-02  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-comp.el (skk-comp-lisp-symbol, skk-search-lisp-symbol):
+	Fix typo in docstring.
+
+	* skk-kakasi.el (skk-hurigana-region, skk-hurigana-message)
+	(skk-hurigana-katakana-region, skk-hurigana-katakana-message):
+	Fix typo in docstring.
+
 2008-03-29  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-vars.el (skk-comp-lisp-symbols): Fix typo in docstring.

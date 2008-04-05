@@ -5,9 +5,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.26 2007/10/10 14:59:54 skk-cvs Exp $
+;; Version: $Id: skk-kakasi.el,v 1.27 2008/04/05 00:56:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/10 14:59:54 $
+;; Last Modified: $Date: 2008/04/05 00:56:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -132,7 +132,7 @@
 オプショナル引数の ALL が non-nil ならば、複数の候補がある場合は、\"{}\" でく
 くって表示する。
 例えば、
-    中島 -> {なかしま|なかじま}"
+    中島 -> [{なかしま|なかじま}]"
   (interactive "*r\nP")
   (let ((str (skk-hurigana-1 start end all)))
     (delete-region start end)
@@ -148,7 +148,7 @@
 オプショナル引数の ALL が non-nil ならば、複数の候補がある場合は、\"{}\" でく
 くって表示する。
 例えば、
-    中島 -> {なかしま|なかじま}"
+    中島 -> [{なかしま|なかじま}]"
   (interactive "r\nP")
   (message "%s" (skk-hurigana-1 start end all)))
 
@@ -161,7 +161,7 @@
 オプショナル引数の ALL が non-nil ならば、複数の候補がある場合は、\"{}\" でく
 くって表示する。
 例えば、
-    中島 -> {ナカシマ|ナカジマ}"
+    中島 -> [{ナカシマ|ナカジマ}]"
   (interactive "*r\nP")
   (let ((str (skk-hurigana-1 start end all 'katakana)))
     (delete-region start end)
@@ -177,7 +177,7 @@
 オプショナル引数の ALL が non-nil ならば、複数の候補がある場合は、\"{}\" でく
 くって表示する。
 例えば、
-    中島 -> {ナカシマ|ナカジマ}"
+    中島 -> [{ナカシマ|ナカジマ}]"
   (interactive "r\nP")
   (message "%s" (skk-hurigana-1 start end all 'katakana)))
 
