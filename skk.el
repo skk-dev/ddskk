@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.473 2008/03/30 14:28:30 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.474 2008/04/13 13:04:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/30 14:28:30 $
+;; Last Modified: $Date: 2008/04/13 13:04:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2750,7 +2750,8 @@ WORD で確定する。"
 	(skk-tooltip-hide))
       (when skk-mode
 	(skk-kakutei-cleanup-buffer)
-	(when skk-undo-kakutei-word-only
+	(when (and skk-undo-kakutei-word-only
+		   (consp buffer-undo-list))
 	  ;; ▽モードに移ってから現在までの undo 情報から先頭以外の
 	  ;; nil を削除する
 	  (setq buffer-undo-list

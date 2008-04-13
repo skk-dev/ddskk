@@ -1,5 +1,8 @@
 2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* skk.el (skk-kakutei): Avoid error kakutei on skk-isearch if
+	`skk-undo-kakutei-word-only' is t.
+
 	* skk-kakasi.el (skk-hurigana-region, skk-hurigana-message)
 	(skk-hurigana-katakana-region, skk-hurigana-katakana-message): Fix
 	docstring.
