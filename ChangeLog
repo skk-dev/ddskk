@@ -1,3 +1,9 @@
+2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-kakasi.el (skk-hurigana-region, skk-hurigana-message)
+	(skk-hurigana-katakana-region, skk-hurigana-katakana-message): Fix
+	docstring.
+
 2008-04-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by IRIE Tetsuya <irie@t.email.ne.jp>.
@@ -11,7 +17,7 @@
 	* doc/skk.texi (▽モードにおける動的補完): 補完候補の複数表示につ
 	いて追加。
 
-2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>w
+2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
 	* skk-vars.el (skk-dcomp-show-multiple-rows): Fix docstring.
 	(skk-dcomp-multiple-keep-point-buffer-list): New user option.
 
