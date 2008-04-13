@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/02/02 01:25:08 $
+@set UPDATED $Date: 2008/04/13 10:04:53 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4184,14 +4184,48 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 (setq skk-dcomp-activate nil)
 @end lisp
 
-@table @code
-@item skk-dcomp-face
-@vindex skk-dcomp-face
+@defvr {$B%f!<%6JQ?t(B} skk-dcomp-face
 
 $B$3$NJQ?t$NCM$O%U%'%$%9$G$"$j!"$3$N%U%'%$%9$K$h$C$FF0E*$KJd40$5$l$?ItJ,$,(B
 $BI=<($5$l$^$9!#I8=`$G$O!"(B``DarkKhaki'' $B$rMQ$$$^$9!#(B
 
-@end table
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-dcomp-show-multiple
+
+Non-nil $B$G$"$l$P!"F0E*Jd40$N8uJd$r%$%s%i%$%s$KJ#?tI=<($7$^$9!#(B
+
+@kindex @key{TAB}
+@kindex @samp{,}
+@kindex @samp{.}
+$B8uJd$NA*Br$K$O(B @key{TAB} $B$r2!$7$^$9!#$^$?!"(B@ref{$B8+=P$78l$NJd40(B} $B$HF1MM$K(B
+@samp{.} ($B%T%j%*%I(B) $B$H(B @samp{,} ($B%3%s%^(B) $B$bMxMQ$G$-$^$9!#(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-dcomp-show-multiple-rows
+
+$BF0E*Jd40$N8uJd$rJ#?tI=<($9$k>l9g$NI=<(?t!#I8=`$O(B 7$B!#(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-face
+
+$BF0E*Jd40$NJ#?tI=<(72$N%U%'%$%9(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-trailing-face
+
+$BF0E*Jd40$NJ#?tI=<(74$NJd40ItJ,$N%U%'%$%9(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-selected-face
+
+$BF0E*Jd40$NJ#?tI=<(74$NA*BrBP>]$N%U%'%$%9(B
+
+@end defvr
 
 @node $B<+F0JQ493+;O(B
 @section $B<+F0JQ493+;O(B

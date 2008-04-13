@@ -1,5 +1,9 @@
-2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
+2008-03-20  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
+	* doc/skk.texi (▽モードにおける動的補完): 補完候補の複数表示につ
+	いて追加。
+
+2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
 	* skk-vars.el (skk-dcomp-show-multiple-rows): Fix docstring.
 	(skk-dcomp-multiple-keep-point-buffer-list): New user option.
 
