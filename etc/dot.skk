@@ -166,7 +166,7 @@
 	       (looking-at "[ \t]+$")))))
 
 ;; 動的補完で候補を複数表示する
-;; (steq skk-dcomp-show-multiple t)
+;; (setq skk-dcomp-show-multiple t)
 
 ;; viper と組み合わせて使う
 ;; (setq skk-use-viper t)
