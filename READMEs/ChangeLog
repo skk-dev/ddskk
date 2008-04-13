@@ -1,4 +1,10 @@
-2008-02-03  Yoichi NAKAYAMA <yoichi@geiin.org>
+2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* TODO.ja: Update.
+
+	* NEWS.ja: Update.
+
+2008-02-03  Yoichi NAKAYAMA  <yoichi@geiin.org>
 
 	* NEWS.ja: Typo.
 
@@ -33,7 +39,7 @@
 
 	Update.
 
-2007-07-19  Eiji Obata <e-obata@zero.ad.jp>
+2007-07-19  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* NEWS.ja: Modify description about `skk-previous-candidate'
 	behavior after `skk-kakutei-henkan', especially in okuri-ari
