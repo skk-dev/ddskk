@@ -1,5 +1,11 @@
-2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
+2008-04-13  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
+	* doc/skk.texi (辞書登録モード, 送り仮名が無い場合の辞書登録)
+	(送り仮名が有る場合の辞書登録, 再帰的辞書登録)
+	(辞書登録の際に注意すべきこと, 複数辞書の検索方法): プロンプトの表
+	示を現状に合わせた。
+
+2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
 	* skk.el (skk-kakutei): Avoid error kakutei on skk-isearch if
 	`skk-undo-kakutei-word-only' is t.
 

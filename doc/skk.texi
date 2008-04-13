@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/04/13 10:04:53 $
+@set UPDATED $Date: 2008/04/13 14:27:56 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1322,7 +1322,7 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 ------ Buffer: foo ------
 
 ------ Minibuffer -------
-へんかんちゅう@point{}
+[辞書登録] へんかんちゅう @point{}
 ------ Minibuffer -------
 @end group
 @end example
@@ -1356,9 +1356,9 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 @group
 @kbd{H e n k a n @key{SPC} T y u u @key{SPC}}
 
------- Minibuffer -------
-へんかんちゅう 変換▼中
------- Minibuffer -------
+----------- Minibuffer ------------
+[辞書登録] へんかんちゅう 変換▼中
+----------- Minibuffer ------------
 @end group
 @end example
 
@@ -1399,7 +1399,7 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 ------ Buffer: foo ------
 
 ------ Minibuffer -------
-うご*く@point{}
+[辞書登録] うご*く@point{}
 ------ Minibuffer -------
 @end group
 @end example
@@ -1423,7 +1423,7 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 @end group
 @group
 ------ Minibuffer -------
-うご*く 動@point{}
+[辞書登録] うご*く 動@point{}
 ------ Minibuffer -------
 
 @end group
@@ -1499,12 +1499,14 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 
 @example
 ------ Minibuffer -------
-さいき 再▼帰
+[[辞書登録]] さいき 再▼帰
 ------ Minibuffer -------
 @end example
 
 @noindent
-となります。ここで @key{RET} をタイプすると、個人辞書には
+となります。プロンプトが @samp{[[辞書登録]]} となり、@samp{[]} が1つ増え
+ていますが、この @samp{[]} の数が再帰的な登録モードの深さを表わしています。
+ここで @key{RET} をタイプすると、個人辞書には
 
 @example
 さいき /再帰/
@@ -1519,7 +1521,7 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 
 @example
 ------ Minibuffer -------
-さいきてき 再帰▼的
+[辞書登録] さいきてき 再帰▼的
 ------ Minibuffer -------
 @end example
 
@@ -3502,7 +3504,7 @@ t a s i t a @key{SPC}}と入力すると、送り仮名の自動処理においては送り仮名
 ------ Buffer: foo ------
 
 ------ Minibuffer -------
-わたした@point{}
+[辞書登録] わたした@point{}
 ------ Minibuffer -------
 @end group
 @end example
@@ -3518,7 +3520,7 @@ t a s i t a @key{SPC}}と入力すると、送り仮名の自動処理においては送り仮名
 @group
 @kbd{W a t a S i t a}
 ------ Minibuffer -------
-わたした 渡した
+[辞書登録] わたした 渡した@point{}
 ------ Minibuffer -------
 @end group
 @group
@@ -6176,7 +6178,7 @@ DDSKK では、個人辞書と共有辞書というように複数の辞書を扱うことが可能です。
 ------ Buffer: foo ------
 
 ------ Minibuffer -------
-かなかんじ@point{}
+[辞書登録] かなかんじ@point{}
 ------ Minibuffer -------
 @end group
 @end example
