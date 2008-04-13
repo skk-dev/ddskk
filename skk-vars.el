@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.270 2008/03/30 14:34:25 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.271 2008/04/13 09:09:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/30 14:34:25 $
+;; Last Modified: $Date: 2008/04/13 09:09:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3160,8 +3160,22 @@ server completion が実装されておらず、かつ無反応なサーバ対策。")
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-show-multiple-rows 7
-  "*ダイナミックコンプリーションの候補の表示数。"
+  "*ダイナミックコンプリーションの候補を複数表示する場合の表示数。"
   :type 'integer
+  :group 'skk-dcomp)
+
+(defcustom skk-dcomp-multiple-keep-point-buffer-list
+  (list (concat " *" (file-name-nondirectory skk-jisyo) "*"))
+  "*複数表示の為に補完候補を検索する際に `point' を保持するバッファのリスト。
+
+ダイナミックコンプリーションで候補を複数表示する際に検索対象バッファ
+内の `point' を動かしてしまうと通常の補完が正常に機能しなくなる。
+そのため、複数表示用の検索が終わった後で `point' を戻すべきバッファ
+をこのリストに設定する。
+
+具体的には `skk-comp-from-jisyo' を使用して候補を検索する場合、そ
+の対象バッファはこのリストに設定する必要がある。"
+  :type '(repeat string)
   :group 'skk-dcomp)
 
 (skk-deflocalvar skk-dcomp-start-point nil)

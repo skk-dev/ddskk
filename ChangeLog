@@ -1,3 +1,10 @@
+2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-dcomp-show-multiple-rows): Fix docstring.
+	(skk-dcomp-multiple-keep-point-buffer-list): New user option.
+
+	* skk-dcomp.el (skk-dcomp-save-point-in-jisyo-buffer): Use it.
+
 2008-04-02  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-comp.el (skk-comp-lisp-symbol, skk-search-lisp-symbol):

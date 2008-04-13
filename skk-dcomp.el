@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.51 2008/03/30 14:28:30 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.52 2008/04/13 09:09:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/30 14:28:30 $
+;; Last Modified: $Date: 2008/04/13 09:09:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -182,21 +182,15 @@
 ;; 複数表示のために検索して辞書バッファの point を動かすと、skk-comp の
 ;; 補完候補が狂ってしまうので一旦保存しておき最後に元に戻す
 (defmacro skk-dcomp-save-point-in-jisyo-buffer (form)
-  `(let (points)
-     (dolist (prog skk-completion-prog-list)
-       (when (eq (car prog) 'skk-comp-from-jisyo)
-	 (with-current-buffer (skk-get-jisyo-buffer (eval (cadr prog))
-						    'nomsg)
-	   (setq points (cons (cons prog (point)) points)))))
+  `(let (alist)
+     (dolist (buf skk-dcomp-multiple-keep-point-buffer-list)
+       (when (get-buffer buf)
+	 (with-current-buffer buf
+	   (setq alist (cons (cons buf (point)) alist)))))
      ,form
-     (let (p)
-       (dolist (prog skk-completion-prog-list)
-	 (when (and (eq (car prog) 'skk-comp-from-jisyo)
-		    (setq p (cdr (assq prog points)))
-		    (integerp p))
-	   (with-current-buffer (skk-get-jisyo-buffer (eval (cadr prog))
-						      'nomsg)
-	     (goto-char p)))))))
+     (dolist (pair alist)
+       (with-current-buffer (car pair)
+	 (goto-char (cdr pair))))))
 
 (defun skk-dcomp-multiple-available-p ()
   (static-cond ((eq skk-emacs-type 'xemacs) nil)
