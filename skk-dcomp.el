@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.52 2008/04/13 09:09:23 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.53 2008/04/20 16:39:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/04/13 09:09:23 $
+;; Last Modified: $Date: 2008/04/20 16:39:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -230,6 +230,7 @@
   (let (candidates)
     (cond ( ;; 新規検索
 	   (not same-key)
+	   (setq skk-dcomp-multiple-select-index -1)
 	   (setq skk-dcomp-multiple-key (buffer-substring-no-properties
 					 skk-henkan-start-point (point)))
 	   (setq skk-dcomp-multiple-prefix skk-prefix)
