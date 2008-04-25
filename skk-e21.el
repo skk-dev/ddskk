@@ -133,7 +133,11 @@
      (cons 'latin skk-e21-modeline-property))))
 
 (defvar skk-e21-coding-system (cond
-			       ((memq window-system '(w32 nil))
+			       ((or (memq window-system '(w32 nil))
+				    (and (>= emacs-major-version 22)
+					 (boundp 'gtk-version-string)
+					 (stringp (symbol-value
+						   'gtk-version-string))))
 				nil)
 			       ((and (boundp 'mac-carbon-version-string)
 				     window-system

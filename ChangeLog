@@ -1,3 +1,8 @@
+2008-04-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-coding-system): Default to nil when Emacs
+	uses GTK.
+
 2008-04-18  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi (対になる文字列の一括入力): Typo.
