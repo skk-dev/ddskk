@@ -237,7 +237,7 @@
   (setq skk-non-numeric-prog-list
 	'(skk-look
 	  skk-tankan-search
-	  (skk-search-jisyo-file \"/usr/share/skk/SKK-JISYO.jinmei\" 10000))))
+	  (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.jinmei" 10000))))
 
 ;; lookup を利用した変換を行う
 ;; (setq skk-search-prog-list
