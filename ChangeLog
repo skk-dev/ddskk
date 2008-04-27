@@ -1,3 +1,7 @@
+2008-04-26  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi (Top, 英単語をあいまいに変換して取り出す): Typo.
+
 2008-04-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-e21-coding-system): Abolish variable.
