@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/04/25 19:47:02 $
+@set UPDATED $Date: 2008/04/27 01:27:01 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -200,7 +200,7 @@ SKK$B$K4X$9$k>pJs(B
 
 * $B:G?7>pJs(B::
 * SKK$B%a!<%j%s%0%j%9%H(B::
-* SKK$B4XO"%=%U%H%&%'%"(B
+* SKK$B4XO"%=%U%H%&%'%"(B::
 * SKK$B<-=q$K$D$$$F(B::
 * $B<-=q%D!<%k(B::
 * SKK$B$N:n<T(B::
@@ -6998,7 +6998,7 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
               (and skk-abbrev-mode
                    (save-match-data
                      ;; SKK-HENKAN-KEY $B$,(B "*" $B$G=*$o$k$H$-(B
-                     (string-match "\\*$" skk-henkan-key))))))
+                     (string-match "\\*$" skk-henkan-key)))))
 @end group
 @end lisp
 
