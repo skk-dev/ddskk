@@ -1,3 +1,8 @@
+2008-04-28  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (▽モードにおける動的補完): フェイスがリセットされ
+	てしまう制約を脚注に追記。
+
 2008-04-27  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-dcomp.el (skk-dcomp-multiple-get-candidates)
