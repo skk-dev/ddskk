@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.271 2008/04/13 09:09:23 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.272 2008/04/27 01:11:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/04/13 09:09:23 $
+;; Last Modified: $Date: 2008/04/27 01:11:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1580,12 +1580,13 @@ nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$
 
 (defcustom skk-show-japanese-menu
   (and window-system
-       (or (and (boundp 'gtk-version-string)
-		(stringp gtk-version-string)
-		(string-lessp "2.0" gtk-version-string))
+       (or (eq window-system 'w32)
 	   (boundp 'mac-carbon-version-string)
-	   (memq system-type '(windows-nt)))
-       (find-coding-system locale-coding-system)
+	   (and (eq window-system 'x)
+		(>= emacs-major-version 22)
+		(boundp 'gtk-version-string)
+		(stringp gtk-version-string)
+		(string< "2.0" gtk-version-string)))
        (equal current-language-environment "Japanese")) "\
 *Non-nil $B$G$"$l$PF|K\8l%a%K%e!<$rI=<($9$k!#(B"
   :type 'boolean

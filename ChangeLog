@@ -1,3 +1,14 @@
+2008-04-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-coding-system): Abolish variable.
+	(skk-e21-prepare-menu): Force skk-show-japanese-menu set to nil if
+	window-system is x and the X toolkit widget used is not GTK+.
+	(skk-e21-encode-string): Abolish function.
+	(skk-e21-menu-replace): Do not call it.
+
+	* skk-vars.el (skk-show-japanese-menu): Do not check for
+	locale-coding-system to determine the default value.
+
 2008-04-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-e21-coding-system): Default to nil when Emacs

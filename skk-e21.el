@@ -132,20 +132,6 @@
     (list
      (cons 'latin skk-e21-modeline-property))))
 
-(defvar skk-e21-coding-system (cond
-			       ((or (memq window-system '(w32 nil))
-				    (and (>= emacs-major-version 22)
-					 (boundp 'gtk-version-string)
-					 (stringp (symbol-value
-						   'gtk-version-string))))
-				nil)
-			       ((and (boundp 'mac-carbon-version-string)
-				     window-system
-				     (find-coding-system 'utf-8))
-				'utf-8)
-			       (t
-				locale-coding-system)))
-
 (defvar skk-e21-modeline-menu nil)
 
 ;; Functions.
@@ -156,6 +142,17 @@
     (setq skk-e21-modeline-menu
 	  (easy-menu-create-menu (car skk-e21-modeline-menu-items)
 				 (cdr skk-e21-modeline-menu-items))))
+  ;;
+  (unless (or (null window-system)
+	      (eq window-system 'w32)
+	      (boundp 'mac-carbon-version-string)
+	      (and (eq window-system 'x)
+		   (>= emacs-major-version 22)
+		   (boundp 'gtk-version-string)
+		   (stringp (symbol-value 'gtk-version-string))
+		   (string< "2.0" gtk-version-string)))
+    (setq skk-show-japanese-menu nil))
+  ;;
   (when skk-show-japanese-menu
     (skk-e21-menu-replace skk-e21-modeline-menu)
     (dolist (map (list skk-j-mode-map skk-latin-mode-map
@@ -284,11 +281,6 @@
 	(format "%s" (key-description keys))
       nil)))
 
-(defun skk-e21-encode-string (str)
-  (if (null skk-e21-coding-system)
-      str
-    (encode-coding-string str skk-e21-coding-system)))
-
 (defun skk-e21-menu-replace (list)
   (let (cons)
     (while (and list (listp list))
@@ -298,10 +290,10 @@
 	(skk-e21-menu-replace (car list)))
        ((and (stringp (car-safe list))
 	     (setq cons (assoc (car list) skk-e21-menu-resource-ja)))
-	(setcar list (skk-e21-encode-string (cdr cons))))
+	(setcar list (cdr cons)))
        ((and (vectorp (car-safe list))
 	     (setq cons (assoc (aref (car list) 0) skk-e21-menu-resource-ja)))
-	(aset (car list) 0 (skk-e21-encode-string (cdr cons)))))
+	(aset (car list) 0 (cdr cons))))
       (setq list (cdr list)))))
 
 (defun skk-e21-mouse-position ()
