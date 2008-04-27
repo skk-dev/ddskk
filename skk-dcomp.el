@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.53 2008/04/20 16:39:28 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.54 2008/04/27 09:03:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/04/20 16:39:28 $
+;; Last Modified: $Date: 2008/04/27 09:03:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -230,9 +230,15 @@
   (let (candidates)
     (cond ( ;; 新規検索
 	   (not same-key)
-	   (setq skk-dcomp-multiple-select-index -1)
-	   (setq skk-dcomp-multiple-key (buffer-substring-no-properties
-					 skk-henkan-start-point (point)))
+	   (setq skk-dcomp-multiple-select-index
+		 ;; skk-comp の C-u TAB を考慮する
+		 (if (and current-prefix-arg (listp current-prefix-arg)) 0 -1))
+	   (setq skk-dcomp-multiple-key
+		 ;; skk-comp の C-u TAB を考慮する
+		 (if (and current-prefix-arg (listp current-prefix-arg))
+		     skk-comp-key
+		   (buffer-substring-no-properties
+		    skk-henkan-start-point (point))))
 	   (setq skk-dcomp-multiple-prefix skk-prefix)
 	   (setq skk-dcomp-multiple-search-done nil)
 	   (let ( ;; `skk-comp-get-candidate' に必要なデータを束縛
@@ -584,7 +590,10 @@
 		 (skk-dcomp-multiple-increase-index
 		  skk-dcomp-multiple-select-index))
 	   (skk-dcomp-multiple-show
-	    (skk-dcomp-multiple-get-candidates t))))))
+	    (skk-dcomp-multiple-get-candidates
+	     ;; skk-comp の C-u TAB を考慮する
+	     (not (and current-prefix-arg
+		       (listp current-prefix-arg)))))))))
 
 (defadvice skk-comp-do (after skk-dcomp-ad activate)
   (when (and skk-dcomp-activate

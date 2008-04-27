@@ -1,3 +1,8 @@
+2008-04-27  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-dcomp.el (skk-dcomp-multiple-get-candidates)
+	(skk-comp@around@skk-dcomp-ad): Consider completion by C-u TAB.
+
 2008-04-26  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi (Top, 英単語をあいまいに変換して取り出す): Typo.
@@ -35,6 +40,7 @@
 	示を現状に合わせた。
 
 2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
+
 	* skk.el (skk-kakutei): Avoid error kakutei on skk-isearch if
 	`skk-undo-kakutei-word-only' is t.
 
@@ -56,6 +62,7 @@
 	いて追加。
 
 2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
+
 	* skk-vars.el (skk-dcomp-show-multiple-rows): Fix docstring.
 	(skk-dcomp-multiple-keep-point-buffer-list): New user option.
 
