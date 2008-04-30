@@ -1,3 +1,7 @@
+2008-04-14  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Misc updates.
+
 2008-04-28  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (▽モードにおける動的補完): フェイスがリセットされ

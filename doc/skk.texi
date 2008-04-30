@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/04/27 15:14:38 $
+@set UPDATED $Date: 2008/04/30 23:17:16 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -241,7 +241,7 @@ DDSKK 13.1 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 @itemize @minus
 @item Emacs 20.7 $B0J9_(B
 @item Emacs 21.1 $B0J9_(B
-@item Emacs 22.1
+@item Emacs 22.1 $B0J9_(B
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.4.18 $B0J9_(B
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.5.28
 @end itemize
@@ -2146,7 +2146,7 @@ SKK $B$N@_Dj$O!"(BEmacs $BI8=`$N(B Customize $B5!G=$r;H$C$F9T$&$3$H$b$G$-$^
 $B$H%W%m%s%W%H$,I=<($5$l$^$9!#$3$3$G(B ``skk'' $B$HEz$($k$H!"(BSKK $B%0%k!<%W$N2h(B
 $BLL$H$J$j$^$9!#(B
 
-$B$"$k$$$O!"%b!<%I9T$G(B SKK $B%$%s%8%1!<%?$r1&(B ($BBh(B 3 $B%\%?%s(B) $B%/%j%C%/$7$FI=<((B
+$B$"$k$$$O!"%b!<%I%i%$%s$G(B SKK $B%$%s%8%1!<%?$r1&(B ($BBh(B 3 $B%\%?%s(B) $B%/%j%C%/$7$FI=<((B
 $B$5$l$k%a%K%e!<$+$i(B ''SKK$B$r%+%9%?%^%$%:(B'' $B$rA*$s$G$bF1$82hLL$H$J$j$^$9!#(B
 
 $B%+%9%?%^%$%:$N;H$$$+$?$O0J2<$r;2>H$7$F$/$@$5$$!#(B
@@ -2162,7 +2162,7 @@ SKK $B$N@_Dj$O!"(BEmacs $BI8=`$N(B Customize $B5!G=$r;H$C$F9T$&$3$H$b$G$-$^
 $B%f!<%6%*%W%7%g%s$N$&$A!"$h$/;H$&$b$N$@$1H4?h$7$F@_Dj$G$-$k$h$&$K$7$?$b$N(B
 $B$G$9!#(B
 
-$B$3$l$O!"%b!<%I9T$G(B SKK $B%$%s%8%1!<%?$r1&(B ($BBh(B 3 $B%\%?%s(B) $B%/%j%C%/$7$FI=<((B
+$B$3$l$O!"%b!<%I%i%$%s$G(B SKK $B%$%s%8%1!<%?$r1&(B ($BBh(B 3 $B%\%?%s(B) $B%/%j%C%/$7$FI=<((B
 $B$5$l$k%a%K%e!<$+$i(B ''SKK$B$r%+%9%?%^%$%:(B ($B4J0WHG(B)'' $B$rA*$s$G8F$S=P$9$3$H$b(B
 $B$G$-$^$9!#(B
 
@@ -8843,7 +8843,7 @@ CVS $B$+$i<-=q$r<hF@$7$?>l9g$O!"(B@file{zipcode} $B$H$$$&%G%#%l%/%H%j$KF~$C$F
 $B$h$jF~<j$G$-$^$9!#;HMQJ}K!$O(B
 
 @display
-@url{http://openlab.ring.gr.jp/skk/skk/dic/zipcode/README.ja}
+@url{http://openlab.jp/skk/skk/dic/zipcode/README.ja}
 @end display
 
 @noindent
