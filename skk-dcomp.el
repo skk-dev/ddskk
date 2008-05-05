@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.55 2008/05/05 06:14:21 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.56 2008/05/05 13:35:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/05/05 06:14:21 $
+;; Last Modified: $Date: 2008/05/05 13:35:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -158,7 +158,9 @@
 (defun skk-dcomp-do-completion (pos)
   (when (and (eq skk-henkan-mode 'on)
 	     (not skk-okurigana)
-	     (not (eq (marker-position skk-henkan-start-point) (point)))
+	     (or (not (eq (marker-position skk-henkan-start-point) (point)))
+		 (and skk-dcomp-show-multiple
+		      (skk-dcomp-multiple-available-p)))
 	     (skk-dcomp-activate-p))
     (condition-case nil
 	(progn
@@ -252,12 +254,16 @@
 		 (skk-look-completion-words skk-look-completion-words)
 		 (i 0)
 		 cand)
-	     (skk-dcomp-save-point-in-jisyo-buffer
-	      (while (and (< i skk-dcomp-show-multiple-rows)
-			  (setq cand (skk-comp-get-candidate (= i 0))))
-		(unless (member cand candidates)
-		  (push cand candidates)
-		  (incf i))))
+	     (when (or skk-comp-use-prefix
+		       ;; skk-comp-use-prefix が nil の場合、▽n などは
+		       ;; 補完候補を検索しない
+		       (not (skk-get-kana skk-current-rule-tree)))
+	       (skk-dcomp-save-point-in-jisyo-buffer
+		(while (and (< i skk-dcomp-show-multiple-rows)
+			    (setq cand (skk-comp-get-candidate (= i 0))))
+		  (unless (member cand candidates)
+		    (push cand candidates)
+		    (incf i)))))
 	     (setq candidates (nreverse candidates))
 	     (when (< i skk-dcomp-show-multiple-rows)
 	       (setq skk-dcomp-multiple-search-done t))

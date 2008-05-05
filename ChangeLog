@@ -1,5 +1,11 @@
 2008-05-05  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* skk-dcomp.el (skk-dcomp-do-completion): Do complete if
+	`skk-dcomp-show-multiple' is set even if completion target is
+	empty.
+	(skk-dcomp-multiple-get-candidates): Don't complete if
+	`skk-comp-use-prefix' is nil and completion target is `n' only.
+
 	* skk-sticky.el (skk-sticky-set-henkan-point): Use `skk-kakutei'
 	instead of `skk-kakutei-cleanup-buffer' and
 	`skk-kakutei-initialize'.
