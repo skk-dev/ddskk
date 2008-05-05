@@ -1,5 +1,8 @@
 2008-05-05  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Bind
+	`skk-look-completion-words'.
+
 	* skk.el (skk-emulate-original-map): Set original command to
 	`this-command'.  Call `skk-cancel-undo-boundary' unless original
 	command is undo.

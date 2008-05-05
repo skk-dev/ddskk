@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.54 2008/04/27 09:03:57 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.55 2008/05/05 06:14:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/04/27 09:03:57 $
+;; Last Modified: $Date: 2008/05/05 06:14:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -249,6 +249,7 @@
 		  skk-current-completion-prog-list)
 		 ;; `skk-comp-get-candidates' で値を変えないように束縛
 		 (skk-server-completion-words skk-server-completion-words)
+		 (skk-look-completion-words skk-look-completion-words)
 		 (i 0)
 		 cand)
 	     (skk-dcomp-save-point-in-jisyo-buffer
@@ -271,8 +272,9 @@
 		(< (1- (length skk-dcomp-multiple-candidates))
 		   skk-dcomp-multiple-select-index))
 	   (skk-dcomp-save-point-in-jisyo-buffer
-	    ;; `skk-comp-get-all-candidates' で空になってしまうため束縛
-	    (let ((skk-server-completion-words skk-server-completion-words))
+	    (let ( ;; `skk-comp-get-all-candidates' で空になってしまうため束縛
+		  (skk-server-completion-words skk-server-completion-words)
+		  (skk-look-completion-words skk-look-completion-words))
 	      (setq skk-dcomp-multiple-candidates
 		    (skk-comp-get-all-candidates skk-dcomp-multiple-key
 						 skk-dcomp-multiple-prefix
