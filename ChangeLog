@@ -1,5 +1,9 @@
 2008-05-05  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* skk-sticky.el (skk-sticky-set-henkan-point): Use `skk-kakutei'
+	instead of `skk-kakutei-cleanup-buffer' and
+	`skk-kakutei-initialize'.
+
 	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Bind
 	`skk-look-completion-words'.
 

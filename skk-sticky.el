@@ -3,9 +3,9 @@
 ;; Copyright (C) 2008  IRIE Tetsuya
 
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
-;; Version: $Id: skk-sticky.el,v 1.1 2008/01/21 12:31:18 skk-cvs Exp $
+;; Version: $Id: skk-sticky.el,v 1.2 2008/05/05 07:18:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/01/21 12:31:18 $
+;; Last Modified: $Date: 2008/05/05 07:18:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -147,8 +147,7 @@
 	((eq (point) (marker-position skk-henkan-start-point))
 	 (let ((data skk-sticky-key-orig-output))
 	   (when data
-	     (skk-kakutei-cleanup-buffer)
-	     (skk-kakutei-initialize)
+	     (skk-kakutei)
 	     (when (functionp data)
 	       (setq data (funcall data (skk-make-raw-arg arg))))
 	     (when (stringp (if (consp data)
