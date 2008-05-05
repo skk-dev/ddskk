@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.474 2008/04/13 13:04:31 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.475 2008/05/05 01:04:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/04/13 13:04:31 $
+;; Last Modified: $Date: 2008/05/05 01:04:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -885,12 +885,13 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	  (setq keys (lookup-key function-key-map keys))
 	  (when keys
 	    (setq command (key-binding keys))))
+	;; avoid recursive calling of skk-emulate-original-map.
 	(unless (eq command this-command)
-	  ;; avoid recursive calling of skk-emulate-original-map.
-
+	  (setq this-command command)
+	  (unless (memq command '(undo advertised-undo))
+	    (skk-cancel-undo-boundary))
 	  ;; if no bindings are found, call `undefined'.  it's
 	  ;; original behaviour.
-	  ;;(skk-cancel-undo-boundary)
 	  (command-execute (or command
 			       #'undefined)))))))
 
@@ -1467,6 +1468,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 		 ;; $BA^F~$9$k$3$H$O$"$^$j$J$/!"LdBj$b>.$5$$$H9M$($i$l$k!#(B
 		 ;;skk-abbrev-comma
 		 ;;skk-abbrev-period
+		 self-insert-command
 		 )))
     (cancel-undo-boundary)
     (when (null skk-current-rule-tree)
