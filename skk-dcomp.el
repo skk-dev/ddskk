@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.56 2008/05/05 13:35:09 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.57 2008/06/29 09:36:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/05/05 13:35:09 $
+;; Last Modified: $Date: 2008/06/29 09:36:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -157,29 +157,32 @@
 
 (defun skk-dcomp-do-completion (pos)
   (when (and (eq skk-henkan-mode 'on)
-	     (not skk-okurigana)
-	     (or (not (eq (marker-position skk-henkan-start-point) (point)))
-		 (and skk-dcomp-show-multiple
-		      (skk-dcomp-multiple-available-p)))
-	     (skk-dcomp-activate-p))
-    (condition-case nil
-	(progn
-	  (skk-comp-do 'first 'silent)
-	  (skk-set-marker skk-dcomp-start-point pos)
-	  (skk-set-marker skk-dcomp-end-point (point))
-	  (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
-	  (goto-char skk-dcomp-start-point))
-      (error
-       (setq skk-comp-stack nil)
-       (message nil)))
+	     (not skk-okurigana))
+    (when (and (not (eq (marker-position skk-henkan-start-point) (point)))
+	       (skk-dcomp-activate-p))
+      (condition-case nil
+	  (progn
+	    (skk-comp-do 'first 'silent)
+	    (skk-set-marker skk-dcomp-start-point pos)
+	    (skk-set-marker skk-dcomp-end-point (point))
+	    (skk-dcomp-face-on skk-dcomp-start-point skk-dcomp-end-point)
+	    (goto-char skk-dcomp-start-point))
+	(error
+	 (setq skk-comp-stack nil)
+	 (message nil))))
     (when (and skk-dcomp-show-multiple
-	       (skk-dcomp-multiple-available-p))
-      (skk-dcomp-multiple-show
-       (skk-dcomp-multiple-get-candidates
-	(and (string= skk-dcomp-multiple-key
-		      (buffer-substring-no-properties
-		       skk-henkan-start-point (point)))
-	     (string= skk-dcomp-multiple-prefix skk-prefix)))))))
+	       (skk-dcomp-multiple-available-p)
+	       skk-dcomp-activate)
+      ;; 'skk-dcomp-activate' に function が指定してある場合を考慮して
+      ;; t に束縛する
+      (let ((skk-dcomp-activate t))
+	(when (skk-dcomp-activate-p)
+	  (skk-dcomp-multiple-show
+	   (skk-dcomp-multiple-get-candidates
+	    (and (string= skk-dcomp-multiple-key
+			  (buffer-substring-no-properties
+			   skk-henkan-start-point (point)))
+		 (string= skk-dcomp-multiple-prefix skk-prefix)))))))))
 
 ;; 複数表示のために検索して辞書バッファの point を動かすと、skk-comp の
 ;; 補完候補が狂ってしまうので一旦保存しておき最後に元に戻す
