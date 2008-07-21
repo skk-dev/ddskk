@@ -1,3 +1,7 @@
+2008-05-05  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* doc/skk.texi: Update for Wikipedia annotation.
+
 2008-06-29  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-dcomp.el (skk-dcomp-do-completion): Consider if

@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/04/30 23:17:16 $
+@set UPDATED $Date: 2008/07/21 14:07:38 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5841,6 +5841,7 @@ Dvorak $BG[Ns$N$h$&$J!"2!$7$d$9$$>l=j$KE,Ev$J%-!<$,$J$$4D6-$G$b$3$N5!G=$r;H(B
 * $B<-=q%P%C%U%!$N%a%8%c!<%b!<%I(B::
 * $B<-=q%P%C%U%!$N(Bbuffer-file-name::
 * $B<-=q$N%"%N%F!<%7%g%s(B($BCm<a(B)::
+* $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B::
 @end menu
 
 @node $B<-=q$N7A<0(B
@@ -6847,6 +6848,55 @@ other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!(
 $B>e5-$NNc$G$O!"%"%N%F!<%7%g%s$N@hF,$,(B @code{*} $B$G;O$^$k!V%f!<%6%"%N%F!<(B
 $B%7%g%s!W$N>l9g$K(B @code{t} $B$rJV$9$N$G!"%f!<%6%"%N%F!<%7%g%s$@$1$rI=<($7(B
 $B$^$9!#(B
+
+@node $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B
+@subsection $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B
+
+$B8uJd$K%"%N%F!<%7%g%s$,$J$$>l9g!"%"%N%F!<%7%g%s$KBe$($F(B Wikipedia
+(@url{http://ja.wikipedia.org/}) $B$K$h$k2r@b$rI=<($9$k$3$H$,$G$-$^$9!#(B
+
+$B"'%b!<%I$G8uJd$rI=<($7$F$$$k$H$-$K(B @key{TAB} $B$r2!$9$H!"(B
+skk-annotation-wikipedia-sources $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7%(%3!<%(%j(B
+$B%"$KI=<((B@footnote{$BJQ?t(B skk-show-tooltip $B$,(B Non-nil $B$N>l9g!"(BTooltip $B$GI=(B
+$B<($7$^$9!#(B} $B$7$^$9!#(B
+
+@example
+B o k u j o u
+
+----- Buffer: foo -----
+$B"&$\$/$8$g$&(B@point{}
+----- Buffer: foo -----
+
+@kbd{SPC}
+
+----- Buffer: foo -----
+$B"'KR>l(B@point{}
+----- Buffer: foo -----
+
+@kbd{TAB}
+
+----------------------------- Echo Area ------------------------------
+$BKR>l!J$\$/$8$g$&!K$H$O!"%&%7!"%&%^$J$I$N2HC\$r;tM\$9$k;\@_!#71FI$_$5$l(B
+$B$F$^$-$P$H8F$P$l$k$3$H$b$"$k!#(B
+----------------------------- Echo Area ------------------------------
+@end example
+
+$B%(%3!<%(%j%"$K2r@b$,I=<($5$l$F$$$k:GCf$K(B @kbd{C-o} $B$r2!$9$H!"(B
+$B4X?t(B @code{browse-url} $B$rMQ$$$F!"$=$N2r@b$N85$H$J$C$?(B URL $B$r%V%i%&%:$7$^(B
+$B$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-annotation-show-wikipedia-url
+$B%G%U%)%k%H$O(B nil$B!#(BNon-nil $B$H$9$k$H!"8+=P$78l$r(B @kbd{SPC} $B$GJQ49$7$?:]$K(B
+$B$=$N8+=P$78l$NCm<a$,B8:_$7$J$$>l9g$K8B$j!"(B Wikipedia ($BF|K\8lHG(B) $B$G$=$N8l(B
+$B$,;2>H$5$l$k$?$a$N(B URL $B$rCm<a$H$7$FI=<($7$^$9!#I=<(Cf$K(B @kbd{C-o} $B$r2!$9(B
+$B$H!"4X?t(B @code{browse-url} $B$rMQ$$$F$=$N(B URL $B$r%V%i%&%:$7$^$9!#(B
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-annotation-wikipedia-sources
+$B%"%N%F!<%7%g%s$H$7$FI=<($9$k(B Wikimedia $B$N%=!<%9$r;XDj$7$^$9!#(B
+$B%G%U%)%k%H$O(B ja.wikipedia$B!"(Ben.wiktionary$B!"(Bsimple.wikipedia$B!"(Ben.wikipedia$B!"(B
+ja.wiktionary $B$N=g$G$9!#(B
+@end defvr
 
 @node DDSKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B
 @section DDSKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B
