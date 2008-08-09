@@ -1,3 +1,8 @@
+2008-08-09  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (Q.3-4 左手の小指を SHIFT で酷使したくありません。):
+	Tiny fix.
+
 2008-05-05  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Update for Wikipedia annotation.

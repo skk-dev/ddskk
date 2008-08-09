@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/07/21 14:07:38 $
+@set UPDATED $Date: 2008/08/09 09:54:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8662,7 +8662,7 @@ SKK を標準の状態で使っている場合、変換のためにシフトキーを多用しますの
 で小指への負担が大きくなります。
 @footnote{このため、ある人々は SKK を小指キラーと呼びます。}
 
-この苦しみを回避するためにここでは 3 つの方法を紹介します。
+この苦しみを回避するためにここでは 4 つの方法を紹介します。
 
 @enumerate
 @item
