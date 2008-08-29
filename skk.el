@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.475 2008/05/05 01:04:47 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.476 2008/08/29 04:58:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/05/05 01:04:47 $
+;; Last Modified: $Date: 2008/08/29 04:58:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3391,8 +3391,8 @@ TYPE (文字の種類) に応じた文字をスキップしてバッファの先頭方向へ戻る。
 $Bこの関数は `skk-set-henkan-point' の内部関数としても使用されている。"
   (interactive "*P")
   (skk-with-point-move
-   (unless skk-undo-kakutei-word-only
-       (cancel-undo-boundary))
+;;;    (unless skk-undo-kakutei-word-only
+;;;      (skk-cancel-undo-boundary))
    (if skk-henkan-mode
        (skk-kakutei)
      (skk-kana-cleanup));; XXX

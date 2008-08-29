@@ -1,3 +1,8 @@
+2008-08-29  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk.el (skk-set-henkan-point-subr): Don't call
+	`cancel-undo-boundary'.
+
 2008-08-09  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (Q.3-4 左手の小指を SHIFT で酷使したくありません。):
