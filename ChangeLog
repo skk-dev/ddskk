@@ -1,3 +1,8 @@
+2008-08-31  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Bind
+	`skk-comp-kakutei-midasi-list'.
+
 2008-08-29  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-set-henkan-point-subr): Don't call
