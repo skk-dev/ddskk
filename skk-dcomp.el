@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.58 2008/08/31 07:49:45 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.59 2008/09/01 12:49:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/08/31 07:49:45 $
+;; Last Modified: $Date: 2008/09/01 12:49:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -252,7 +252,6 @@
 		 ;; `skk-comp-get-candidate' で値が変わってしまうため束縛
 		 (skk-current-completion-prog-list
 		  skk-current-completion-prog-list)
-		 ;; `skk-comp-get-candidates' で値を変えないように束縛
 		 (skk-server-completion-words skk-server-completion-words)
 		 (skk-look-completion-words skk-look-completion-words)
 		 (i 0)

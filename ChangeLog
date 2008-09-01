@@ -1,3 +1,7 @@
+2008-09-01  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Fix comment.
+
 2008-08-31  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Bind
