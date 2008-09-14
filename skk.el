@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.476 2008/08/29 04:58:49 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.477 2008/09/14 06:17:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/08/29 04:58:49 $
+;; Last Modified: $Date: 2008/09/14 06:17:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3921,7 +3921,12 @@ If you want to restore the dictionary from the disc, try
 	    (skk-message "SKK 辞書 %s をバッファに読み込んでいます..."
 			 "Inserting contents of %s ..."
 			 (file-name-nondirectory file)))
-	  (insert-file-contents-as-coding-system code file)
+	  (condition-case obj
+	      (insert-file-contents-as-coding-system code file)
+	    (error
+	     (if (buffer-live-p buf)
+		 (kill-buffer buf))
+	     (skk-error "`%s'を読み込めません" "Cannot load `%s'." file)))
 	  (unless nomsg
 	    (skk-message
 	     "SKK 辞書 %s をバッファに読み込んでいます...完了！"
