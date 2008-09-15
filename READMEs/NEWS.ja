@@ -26,6 +26,36 @@
 補完した状態から C-g で戻った時や、▼モードから x で▽モードに戻った時
 も補完候補が表示されるようになりました。
 
+** skk-j-mode-function-key-usage
+
+キーボード上の F1 〜 F10 キーの使い方を指定する
+skk-j-mode-function-key-usage が新設されました。
+
+  (setq skk-j-mode-function-key-usage 'conversion)
+
+と設定すると、C-7 SPC などの代わりに [F7] などで変換できるようにな
+ります。
+
+詳しくは skk-j-mode-function-key-usage の docstring を参照下さい。
+
+** 各種設定ファイルの置き場所の指定
+
+SKK の設定ファイルなどを置くディレクトリ名、skk-user-directory が新設さ
+れました。
+
+各種設定ファイルをひとつのディレクトリにまとめたい場合に利用できます。
+
+詳しくは (info "(skk)設定ファイル") を参照下さい。
+
+** tooltip フェイスの指定
+
+skk-tooltip-face という変数が新設されました。
+
+この変数には face 名または nil が設定されます。標準は nil です。
+
+skk-tooltip-face の値が face 名だった場合には tooltip のテキストが
+face で装飾されます。nil ならば、もとのテキストの属性を維持します。
+
 ** 積極的な確定変換の機能追加
 
 *** 検索対象辞書の制限
