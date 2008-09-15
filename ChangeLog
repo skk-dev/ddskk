@@ -1,3 +1,13 @@
+2008-09-15  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* doc/skk.texi (辞書のアノテーション(注釈)):
+	`skk-annotation-update-jisyo-format' に関する記述を削除。
+
+	* skk-annotation.el: Add 2008 to copyright years.
+	Update commentary.
+	(skk-annotation-update-jisyo-format)
+	(skk-annotation-update-jisyo-format-1): Delete obsolete function.
+
 2008-09-08  Kenichi OKADA  <okada@opaopa.org>
 
 	* skk.el (skk-get-jisyo-buffer): Consider the error of jisyo file

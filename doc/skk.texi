@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/08/09 09:54:27 $
+@set UPDATED $Date: 2008/09/15 14:34:04 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6746,7 +6746,6 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @subsection $B<-=q$N%"%N%F!<%7%g%s(B($BCm<a(B)
 @vindex skk-show-annotation
 @vindex skk-annotation-show-as-message
-@findex skk-annotation-update-jisyo-format
 @findex skk-annotation-add
 @findex skk-annotation-kill
 @findex skk-annotation-remove
@@ -6760,20 +6759,6 @@ Viper $BBP:v$O$^$@9T$o$l$F$$$^$;$s!#(B@file{~/.viper} $B$K<!$N$h$&$K=q$$$F2<
 (viper-harness-minor-mode "skk-annotation")
 @end display
 }$B!#(B
-
-$B$^$@!"%"%N%F!<%7%g%s5!G=$r0lEY$b;HMQ$7$F$$$J$$>l9g$O<!$NA`:n$r9T$C$F2<$5(B
-$B$$!#8D?M<-=q$rFI$_$3$_!"<-=q$rFI$_9~$s$@%P%C%U%!$G(B
-
-@display
-M-x skk-annotation-update-jisyo-format
-@end display
-
-$B$r<B9T$7$F2<$5$$(B@footnote{
-@code{;} $B$NJ8;z$r4^$s$@8uJd$O!"(Beval $B$9$k$H(B @code{;} $B$K$J$k(B Lisp $B<0$H$7$F(B
-quote $B$5$l$F<-=q8uJd$H$7$F<}$a$i$l$J$1$l$P$J$j$^$;$s!#(B
-@code{skk-annotation-update-jisyo-format} $B$r<B9T$9$k$3$H$K$h$j!"$3$N:n6H(B
-$B$r9T$&$3$H$,$G$-$^$9!#%"%N%F!<%7%g%s5!G=$,;H$o$l$kA0$N4{B8$N<-=q(B($B8D?M(B
-$B<-=q!"(BSKK-JISYO.L)$B$K$D$$$F$O@'Hs9T$C$F$*$$$F2<$5$$(B}$B!#(B
 
 $B%"%N%F!<%7%g%s$rIU$1$k$K$O!"%"%N%F!<%7%g%s$rIU$1$?$$C18l$r3NDj$7$?D>8e(B
 $B$KF1$8%P%C%U%!$G(B

@@ -1,14 +1,14 @@
 ;;; skk-annotation.el --- SKK annotation $B4XO"%W%m%0%i%`(B -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Copyright (C) 2000-2007  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 2000-2008  SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.137 2007/08/26 15:45:30 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.138 2008/09/15 14:34:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2007/08/26 15:45:30 $
+;; Last Modified: $Date: 2008/09/15 14:34:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -110,20 +110,6 @@
 ;;   M-x skk-annotation-remove
 ;;
 ;; $B$7$F2<$5$$!#(B
-;; `;' $B$NJ8;z$r4^$s$@8uJd$O!"(Beval $B$9$k$H(B `;' $B$K$J$k(B Lisp $B<0$H$7$F(B
-;; quote $B$5$l$F<-=q8uJd$H$7$F<}$a$i$l$J$1$l$P$J$j$^$;$s!#4{B8$N<-=q$K(B
-;; $B$D$$$F$O!"<-=q$rFI$_9~$s$@%P%C%U%!$G(B
-;;
-;;   M-x skk-annotation-update-jisyo-format
-;;
-;; $B$9$k$3$H$G$3$N:n6H$r9T$J$&$3$H$,$G$-$^$9!#8D?M<-=q!"(BSKK-JISYO.L $B$K(B
-;; $B$D$$$F$O@'Hs9T$J$C$F$*$$$?J}$,NI$$$G$7$g$&!#(B
-;; SKK Openlab $B$G:#8eG[I[$9$k<-=q$O(B `;' $B$OM=$a(B quote $B$5$l$F$$$k>uBV$K(B
-;; $B$7$^$9!#(B
-;; $BC"$7!"4{$K%"%N%F!<%7%g%s$,IU$1$i$l$F$$$k>l9g$O!"$3$N%"%N%F!<%7%g%s(B
-;; $B<+BN$b8uJd$H6hJL$G$-$:$K(B quote $B$5$l$F$7$^$$$^$9$N$G!"$4Cm0U2<$5$$(B
-;; ($B:#$N$H$3$m<j:n6H$G(B quote $B$5$l$J$$$h$&$KB`Hr$9$k$J$I$7$+J}K!$O$"$j(B
-;; $B$^$;$s(B)$B!#(B
 ;;
 ;; Viper $BBP:v$O$^$@9T$J$C$F$$$^$;$s!#(B~/.viper $B$K<!$N$h$&$K=q$$$F2<$5$$!#(B
 ;; (viper-harness-minor-mode "skk-annotation")
@@ -173,6 +159,57 @@
 ;;    http://www.meadowy.org/~shirai/
 ;;
 ;;    $B$+$i:G?7HG$,F~<j$G$-$^$9!#(B
+;;
+;; <$B5l$$(B SKK $B$+$i$N0\9T(B>
+;;
+;; $B$3$N9`$O%"%N%F!<%7%g%s5!G=$,$J$$5l$$(B SKK (DDSKK 11.2 $B0JA0$^$?$O(B SKK
+;; 10.62 $B0JA0(B) $B$+$i:G?7$N$b$N$K0\9T$9$k>l9g$NCm0U;v9`$G$9!#(B
+;;
+;; $B%"%N%F!<%7%g%s$O%;%Q%l!<%?$H$7$F(B `;' $B$r;HMQ$7$F$$$k$?$a!"(B`;' $B$NJ8;z(B
+;; $B$r4^$s$@8uJd$O!"(Beval $B$9$k$H(B `;' $B$K$J$k(B Lisp $B<0$H$7$F(B quote $B$7<-=q8u(B
+;; $BJd$K<}$a$kI,MW$,$"$j$^$9!#(B
+;;
+;; $B$^$@%"%N%F!<%7%g%s5!G=$r0lEY$b;HMQ$7$F$$$J$$8D?M<-=q$K$D$$$F$O!"0J2<(B
+;; $B$N(B S $B<0$rI>2A$7$?8e!"(B
+;;
+;;   (defun skk-annotation-update-jisyo-format ()
+;;     (interactive)
+;;     (skk-setup-jisyo-buffer)
+;;     (let ((min skk-okuri-ari-min) (max skk-okuri-ari-max))
+;;       (skk-annotation-update-jisyo-format-1 min max)
+;;       (setq min skk-okuri-nasi-min
+;;	     max (point-max))
+;;       (skk-annotation-update-jisyo-format-1 min max)))
+;;
+;;   (defun skk-annotation-update-jisyo-format-1 (min max)
+;;     (let (candidate)
+;;       (goto-char min)
+;;       (while (re-search-forward "\\/\\([^\n/]*;[^\n/]*\\)\\/" max t nil)
+;;	 (setq candidate (buffer-substring-no-properties
+;;			  (match-beginning 1) (match-end 1)))
+;;	 (delete-region (match-beginning 1) (match-end 1))
+;;	 (goto-char (match-beginning 1))
+;;	 (insert
+;;	  (concat "(concat \""
+;;		  (mapconcat
+;;		   (function
+;;		    (lambda (c)
+;;		      (if (eq c ?\;)
+;;			  "\\073"
+;;			(char-to-string c))))
+;;		   (append candidate nil) "")
+;;		  "\")")))))
+;;
+;; $B8D?M<-=q$rFI$_$3$_!"<-=q$rFI$_9~$s$@%P%C%U%!$G(B
+;;
+;;   M-x skk-annotation-update-jisyo-format
+;;
+;; $B$9$k$3$H$G$3$N:n6H$r9T$J$&$3$H$,$G$-$^$9!#(B
+;;
+;; $BC"$7!"4{$K%"%N%F!<%7%g%s$,IU$1$i$l$F$$$k>l9g$O!"$3$N%"%N%F!<%7%g%s(B
+;; $B<+BN$b8uJd$H6hJL$G$-$:$K(B quote $B$5$l$F$7$^$$$^$9$N$G!"$4Cm0U2<$5$$(B
+;; ($B:#$N$H$3$m<j:n6H$G(B quote $B$5$l$J$$$h$&$KB`Hr$9$k$J$I$7$+J}K!$O$"$j(B
+;; $B$^$;$s(B)$B!#(B
 
 ;;; Code:
 
@@ -801,35 +838,6 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	 (insert (skk-quote-semicolon candidate))
 	 (unless quiet
 	   (message "%s" "Quoted")))))))
-
-;;;###autoload
-(defun skk-annotation-update-jisyo-format ()
-  (interactive)
-  (skk-setup-jisyo-buffer)
-  (let ((min skk-okuri-ari-min) (max skk-okuri-ari-max))
-    (skk-annotation-update-jisyo-format-1 min max)
-    (setq min skk-okuri-nasi-min
-	  max (point-max))
-    (skk-annotation-update-jisyo-format-1 min max)))
-
-(defun skk-annotation-update-jisyo-format-1 (min max)
-  (let (candidate)
-    (goto-char min)
-    (while (re-search-forward "\\/\\([^\n/]*;[^\n/]*\\)\\/" max t nil)
-      (setq candidate (buffer-substring-no-properties
-		       (match-beginning 1) (match-end 1)))
-      (delete-region (match-beginning 1) (match-end 1))
-      (goto-char (match-beginning 1))
-      (insert
-       (concat "(concat \""
-	       (mapconcat
-		(function
-		 (lambda (c)
-		   (if (eq c ?\;)
-		       "\\073"
-		     (char-to-string c))))
-		(append candidate nil) "")
-	       "\")")))))
 
 ;;;###autoload
 (defun skk-annotation-wikipedia (word &optional sources)
