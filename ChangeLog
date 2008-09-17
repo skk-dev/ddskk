@@ -1,3 +1,7 @@
+2008-09-17  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-dcomp.el (skk-undo@after@skk-dcomp-ad): New advice.
+
 2008-09-15  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* doc/skk.texi (辞書のアノテーション(注釈)):

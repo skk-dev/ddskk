@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.59 2008/09/01 12:49:30 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.60 2008/09/17 12:11:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/09/01 12:49:30 $
+;; Last Modified: $Date: 2008/09/17 12:11:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -631,6 +631,9 @@
 	  ad-do-it)))
 
 (defadvice skk-delete-backward-char (after skk-dcomp-ad activate)
+  (skk-dcomp-after-delete-backward-char))
+
+(defadvice skk-undo (after skk-dcomp-ad activate)
   (skk-dcomp-after-delete-backward-char))
 
 (defadvice viper-del-backward-char-in-insert (after skk-dcomp-ad activate)
