@@ -1,3 +1,7 @@
+2008-09-28  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* dot.skk: Add skk-period and skk-comma.
+
 2008-04-18  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* dot.skk: Fix typo.
