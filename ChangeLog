@@ -1,3 +1,7 @@
+2008-10-02  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* makeit.bat: Fix typo.
+
 2008-09-17  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-dcomp.el (skk-undo@after@skk-dcomp-ad): New advice.

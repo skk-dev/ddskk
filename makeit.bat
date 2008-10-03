@@ -5,8 +5,8 @@ rem ---  1999/07/07, Masaki YATSU mailto:yatsu@aurora.dti.ne.jp
 rem ---              cmail ML member
 rem ---  modified 1999/12/01, Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem ---  modified 2000/12/26, Takeshi Morishima mailto:tm@interaccess.com
-rem ---  date $Date: 2007/04/01 04:26:48 $
-rem ---  version $Id: makeit.bat,v 1.3 2007/04/01 04:26:48 skk-cvs Exp $
+rem ---  date $Date: 2008/10/03 15:03:39 $
+rem ---  version $Id: makeit.bat,v 1.4 2008/10/03 15:03:39 skk-cvs Exp $
 
 set ELISPMK_APP=skk
 
@@ -155,7 +155,7 @@ rem --- MAKE1.BAT Control
 set SUBMAKEOK=OK
 
 echo ----
-echo Executing make1.bat in the current directory using the folloiwing env.
+echo Executing make1.bat in the current directory using the following env.
 echo HOME=%HOME%
 echo PREFIX=%PREFIX%
 echo EMACS=%EMACS%
