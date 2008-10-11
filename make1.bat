@@ -4,9 +4,9 @@ rem Copyright (C) 1999 Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem
 rem Author: Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem Maintainer: SKK Development Team mailto:skk@ring.gr.jp
-rem Version: $Id: make1.bat,v 1.4 2001/01/25 22:05:12 minakaji Exp $
+rem Version: $Id: make1.bat,v 1.5 2008/10/11 09:25:19 skk-cvs Exp $
 rem Created: March 23, 1999
-rem Last Modified: $Date: 2001/01/25 22:05:12 $
+rem Last Modified: $Date: 2008/10/11 09:25:19 $
 
 rem --- argument
 rem ---   elc : byte compile
@@ -15,7 +15,7 @@ rem ---   clean : cleaning garbage file
 rem ---   what-where : print where to install
 rem ---
 
-rem --- check calling from make.bat
+rem --- check calling from makeit.bat
 if not "%SUBMAKEOK%"=="OK" goto prnusage
 set SUBMAKEOK=
 
@@ -47,9 +47,9 @@ goto end
 :clean
 del leim-list.el skk-autoloads.el skk-setup.el auto-autoloads.el custom-load.el *.elc doc\skk.info* *~
 
-rem --- This file should not be executed by itself. Use make.bat.
+rem --- This file should not be executed by itself. Use makeit.bat.
 :prnusage
-echo This file should not be executed by itself. Use make.bat.
+echo This file should not be executed by itself. Use makeit.bat.
 
 rem --- If error occurs, stay display until any key is typed.
 :pauseend
