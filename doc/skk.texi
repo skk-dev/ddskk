@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/09/15 14:34:04 $
+@set UPDATED $Date: 2008/11/30 01:40:51 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2029,7 +2029,9 @@ DDSKK を起動した最初の一度だけ読みこまれます。ファイル名の既定値は、OS
 @findex convert-standard-filename
 @file{~/.skk} のファイル名は変数 @code{skk-init-file} で変更することがで
 きます。また、DDSKK にはこのファイルを自動的にバイトコンパイルする機能が
-あります@xref{skk-init-fileのコンパイル}.。
+あります。
+
+@xref{skk-init-fileのコンパイル}.
 
 @end table
 
