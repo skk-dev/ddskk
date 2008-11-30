@@ -1,3 +1,7 @@
+2008-10-31  Kazuhiro NISHIYAMA  <zn@mbf.nifty.com>
+
+	* doc/skk.texi (設定ファイル): Fix.
+
 2008-10-08  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* make1.bat: Fix comment and message.
