@@ -1,6 +1,6 @@
 2008-10-31  Kazuhiro NISHIYAMA  <zn@mbf.nifty.com>
 
-	* doc/skk.texi (設定ファイル): Fix.
+	* doc/skk.texi (起動と終了, 設定ファイル): Fix.
 
 2008-10-08  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
