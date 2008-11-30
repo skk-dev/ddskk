@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/11/30 01:40:51 $
+@set UPDATED $Date: 2008/11/30 01:47:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -722,7 +722,7 @@ SKK $B%b!<%I$KF~$k$K$O(B @kbd{C-x C-j}$B!"$b$7$/$O(B @kbd{C-x j} $B$H%?%$%W
 @footnote{$B<!$N@_Dj$r$7$F$$$k$H$-$O%^%$%J!<%b!<%I$NI=<($KDI2C$5$l$^$9!#(B
 
 @lisp
-(setq skk-status-indicator 'minor)
+(setq skk-status-indicator 'minor-mode)
 @end lisp
 }
 
