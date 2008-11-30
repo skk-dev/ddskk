@@ -40,7 +40,7 @@
 ;;       -- 影響を受ける変数の一覧 --
 ;;          skk-init-file, skk-jisyo, skk-backup-jisyo
 ;;          skk-emacs-id-file. skk-record-file,
-;;          skk-study-backup-file, skk-study-backup-file
+;;          skk-study-file, skk-study-backup-file
 ;; 注 2) SKK の個人辞書は skkinput などのプログラムでも参照しますから、
 ;;       上記の設定をした場合はそれらのプログラムの設定ファイルも書き
 ;;       換える必要があります。
