@@ -1,13 +1,13 @@
 ;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program) -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988-1997 Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Copyright (C) 1999-2008 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2009 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.477 2008/09/14 06:17:49 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.478 2009/01/04 09:58:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/09/14 06:17:49 $
+;; Last Modified: $Date: 2009/01/04 09:58:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -287,7 +287,8 @@ dependent."
     (require 'skk-look))
   (when (featurep 'skk-jisx0201)
     (setq skk-use-jisx0201-input-method t))
-  (when skk-dcomp-activate
+  (when (or skk-dcomp-activate
+	    skk-dcomp-multiple-activate)
     (require 'skk-dcomp))
   (when skk-sticky-key
     (require 'skk-sticky)))
