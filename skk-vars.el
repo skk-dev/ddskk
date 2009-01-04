@@ -1,12 +1,12 @@
 ;;; skk-vars.el --- common vars and consts in SKK -*- coding: iso-2022-7bit -*-
 
-;; Copyright (C) 1999-2008  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2009  SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.272 2008/04/27 01:11:12 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.273 2009/01/04 07:04:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/04/27 01:11:12 $
+;; Last Modified: $Date: 2009/01/04 07:04:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3155,12 +3155,15 @@ server completion が実装されておらず、かつ無反応なサーバ対策。")
 		(const :tag "指定しない" nil))
   :group 'skk-dcomp)
 
-(defcustom skk-dcomp-show-multiple nil
-  "*Non-nil であればダイナミックコンプリーションの候補を複数表示する。"
-  :type 'boolean
+(defcustom skk-dcomp-multiple-activate nil
+  "*Non-nil であればダイナミックコンプリーションの候補を複数表示する。
+この変数の値が関数だった場合、その評価結果が non-nil の時だけ補完する。"
+  :type '(radio (const :tag "always on" t)
+		(const :tag "off" nil)
+		(sexp :tag "任意のルール"))
   :group 'skk-dcomp)
 
-(defcustom skk-dcomp-show-multiple-rows 7
+(defcustom skk-dcomp-multiple-rows 7
   "*ダイナミックコンプリーションの候補を複数表示する場合の表示数。"
   :type 'integer
   :group 'skk-dcomp)

@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.60 2008/09/17 12:11:16 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.61 2009/01/04 07:04:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/09/17 12:11:16 $
+;; Last Modified: $Date: 2009/01/04 07:04:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -135,7 +135,8 @@
 
 (defun skk-dcomp-cleanup-buffer ()
   (skk-dcomp-multiple-hide)
-  (when (and skk-dcomp-activate
+  (when (and (or skk-dcomp-activate
+		 skk-dcomp-multiple-activate)
 	     (skk-dcomp-marked-p))
     (skk-dcomp-face-off)
     (delete-region skk-dcomp-end-point (point))
@@ -150,6 +151,19 @@
 	     ((listp skk-dcomp-activate)
 	      (save-match-data
 		(eval skk-dcomp-activate)))
+	     (skk-hint-inhibit-dcomp
+	      nil)
+	     (t
+	      t))))
+
+(defun skk-dcomp-multiple-activate-p ()
+  (and skk-dcomp-multiple-activate
+       (cond ((functionp skk-dcomp-multiple-activate)
+	      (save-match-data
+		(funcall skk-dcomp-multiple-activate)))
+	     ((listp skk-dcomp-multiple-activate)
+	      (save-match-data
+		(eval skk-dcomp-multiple-activate)))
 	     (skk-hint-inhibit-dcomp
 	      nil)
 	     (t
@@ -170,19 +184,14 @@
 	(error
 	 (setq skk-comp-stack nil)
 	 (message nil))))
-    (when (and skk-dcomp-show-multiple
-	       (skk-dcomp-multiple-available-p)
-	       skk-dcomp-activate)
-      ;; 'skk-dcomp-activate' に function が指定してある場合を考慮して
-      ;; t に束縛する
-      (let ((skk-dcomp-activate t))
-	(when (skk-dcomp-activate-p)
-	  (skk-dcomp-multiple-show
-	   (skk-dcomp-multiple-get-candidates
-	    (and (string= skk-dcomp-multiple-key
-			  (buffer-substring-no-properties
-			   skk-henkan-start-point (point)))
-		 (string= skk-dcomp-multiple-prefix skk-prefix)))))))))
+    (when (and (skk-dcomp-multiple-activate-p)
+	       (skk-dcomp-multiple-available-p))
+      (skk-dcomp-multiple-show
+       (skk-dcomp-multiple-get-candidates
+	(and (string= skk-dcomp-multiple-key
+		      (buffer-substring-no-properties
+		       skk-henkan-start-point (point)))
+	     (string= skk-dcomp-multiple-prefix skk-prefix)))))))
 
 ;; 複数表示のために検索して辞書バッファの point を動かすと、skk-comp の
 ;; 補完候補が狂ってしまうので一旦保存しておき最後に元に戻す
@@ -200,7 +209,7 @@
 (defun skk-dcomp-multiple-available-p ()
   (static-cond ((eq skk-emacs-type 'xemacs) nil)
 	       ((< emacs-major-version 21) nil)
-	       (t (< (1+ skk-dcomp-show-multiple-rows)
+	       (t (< (1+ skk-dcomp-multiple-rows)
 		     (skk-window-body-height)))))
 
 (defun skk-dcomp-multiple-increase-index (index &optional ignore-search-done)
@@ -220,13 +229,13 @@
 (defun skk-dcomp-multiple-extract-candidates (candidates index)
   (let ((i 0)
 	head extract)
-    (setq head (cond ((< index skk-dcomp-show-multiple-rows)
+    (setq head (cond ((< index skk-dcomp-multiple-rows)
 		      candidates)
 		     (t
-		      (nthcdr (* (/ index skk-dcomp-show-multiple-rows)
-				 skk-dcomp-show-multiple-rows)
+		      (nthcdr (* (/ index skk-dcomp-multiple-rows)
+				 skk-dcomp-multiple-rows)
 			      candidates))))
-    (while (and (< i skk-dcomp-show-multiple-rows) head)
+    (while (and (< i skk-dcomp-multiple-rows) head)
       (push (pop head) extract)
       (incf i))
     (nreverse extract)))
@@ -261,13 +270,13 @@
 		       ;; 補完候補を検索しない
 		       (not (skk-get-kana skk-current-rule-tree)))
 	       (skk-dcomp-save-point-in-jisyo-buffer
-		(while (and (< i skk-dcomp-show-multiple-rows)
+		(while (and (< i skk-dcomp-multiple-rows)
 			    (setq cand (skk-comp-get-candidate (= i 0))))
 		  (unless (member cand candidates)
 		    (push cand candidates)
 		    (incf i)))))
 	     (setq candidates (nreverse candidates))
-	     (when (< i skk-dcomp-show-multiple-rows)
+	     (when (< i skk-dcomp-multiple-rows)
 	       (setq skk-dcomp-multiple-search-done t))
 	     (setq skk-dcomp-multiple-candidates candidates)))
 	  ;; 全て検索済
@@ -328,7 +337,7 @@
 	  (cond
 	   ((and (< -1 skk-dcomp-multiple-select-index)
 		 (= i (mod skk-dcomp-multiple-select-index
-			   skk-dcomp-show-multiple-rows)))
+			   skk-dcomp-multiple-rows)))
 	    (setq str (propertize
 		       str 'face 'skk-dcomp-multiple-selected-face)))
 	   (t
@@ -405,10 +414,10 @@
 	  (incf i))
 	(when (or invisible
 		  (and bottom
-		       (> (+ 2 skk-dcomp-show-multiple-rows)
+		       (> (+ 2 skk-dcomp-multiple-rows)
 			  (- (skk-window-body-height)
 			     (count-screen-lines (window-start) (point))))))
-	  (recenter (- (+ 2 skk-dcomp-show-multiple-rows))))))))
+	  (recenter (- (+ 2 skk-dcomp-multiple-rows))))))))
 
 (defun skk-dcomp-multiple-hide ()
   (when skk-dcomp-multiple-overlays
@@ -419,14 +428,16 @@
 ;;;###autoload
 (defun skk-dcomp-before-kakutei ()
   (skk-dcomp-multiple-hide)
-  (when (and skk-dcomp-activate
+  (when (and (or skk-dcomp-activate
+		 skk-dcomp-multiple-activate)
 	     (eq skk-henkan-mode 'on)
 	     (skk-dcomp-marked-p))
     (skk-dcomp-face-off)
     (skk-dcomp-delete-completion)))
 
 (defun skk-dcomp-after-kakutei ()
-  (when skk-dcomp-activate
+  (when (or skk-dcomp-activate
+	    skk-dcomp-multiple-activate)
     (skk-set-marker skk-dcomp-start-point nil)
     (skk-set-marker skk-dcomp-end-point nil)
     (setq skk-comp-stack nil)
@@ -434,7 +445,8 @@
 
 ;;;###autoload
 (defun skk-dcomp-after-delete-backward-char ()
-  (when (and skk-dcomp-activate
+  (when (and (or skk-dcomp-activate
+		 skk-dcomp-multiple-activate)
 	     skk-mode
 	     (eq skk-henkan-mode 'on)
 	     (not skk-hint-inhibit-dcomp))
@@ -455,7 +467,8 @@
 (defadvice skk-kana-input (around skk-dcomp-ad activate)
   (cond
    ((or skk-hint-inhibit-dcomp
-	(not (and skk-dcomp-activate
+	(not (and (or skk-dcomp-activate
+		      skk-dcomp-multiple-activate)
 		  skk-henkan-mode)))
     ad-do-it)
    (t
@@ -476,7 +489,7 @@
 		   ;; 送りあり変換が始まったら補完しない
 		   (not (memq last-command-char skk-set-henkan-point-key))))
       (if (skk-get-prefix skk-current-rule-tree)
-	  (when (and skk-dcomp-show-multiple
+	  (when (and (skk-dcomp-multiple-activate-p)
 		     (skk-dcomp-multiple-available-p))
 	    (skk-dcomp-multiple-show
 	     (skk-dcomp-multiple-get-candidates)))
@@ -484,7 +497,8 @@
 
 (defadvice skk-set-henkan-point-subr (around skk-dcomp-ad activate)
   (cond
-   (skk-dcomp-activate
+   ((or skk-dcomp-activate
+	skk-dcomp-multiple-activate)
     (let ((henkan-mode skk-henkan-mode))
       ad-do-it
       (unless (or henkan-mode
@@ -495,7 +509,8 @@
 
 (defadvice skk-abbrev-insert (around skk-dcomp-ad activate)
   (cond
-   (skk-dcomp-activate
+   ((or skk-dcomp-activate
+	skk-dcomp-multiple-activate)
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)
       (skk-dcomp-delete-completion))
@@ -509,7 +524,8 @@
 
 (defadvice skk-abbrev-comma (around skk-dcomp-ad activate)
   (cond
-   ((and skk-dcomp-activate
+   ((and (or skk-dcomp-activate
+	     skk-dcomp-multiple-activate)
 	 (not (eq last-command 'skk-comp-do)))
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)
@@ -524,7 +540,8 @@
 
 (defadvice skk-abbrev-period (around skk-dcomp-ad activate)
   (cond
-   ((and skk-dcomp-activate
+   ((and (or skk-dcomp-activate
+	     skk-dcomp-multiple-activate)
 	 (not (eq last-command 'skk-comp-do)))
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)
@@ -538,11 +555,11 @@
     ad-do-it)))
 
 (defadvice skk-comp-previous (after skk-dcomp-ad activate)
-  (when (and skk-dcomp-activate
-	     skk-dcomp-show-multiple
+  (when (and (skk-dcomp-multiple-activate-p)
 	     (skk-dcomp-multiple-available-p)
 	     (or skk-comp-circulate
 		 (< 0 skk-dcomp-multiple-select-index)))
+    (skk-kana-cleanup 'force)
     (setq skk-dcomp-multiple-select-index
 	  (cond ((and skk-comp-circulate
 		      (< skk-dcomp-multiple-select-index 0))
@@ -570,7 +587,8 @@
     (skk-dcomp-cleanup-buffer)))
 
 (defadvice skk-comp (around skk-dcomp-ad activate)
-  (cond ((and skk-dcomp-activate
+  (cond ((and (or skk-dcomp-activate
+		  skk-dcomp-multiple-activate)
 	      (skk-dcomp-marked-p))
 	 (cond ((integerp (ad-get-arg 0))
 		(skk-dcomp-cleanup-buffer)
@@ -581,8 +599,7 @@
 		(skk-dcomp-face-off)
 		(skk-set-marker skk-dcomp-start-point nil)
 		(skk-set-marker skk-dcomp-end-point nil)
-		(when (and skk-dcomp-activate
-			   skk-dcomp-show-multiple
+		(when (and (skk-dcomp-multiple-activate-p)
 			   (skk-dcomp-multiple-available-p)
 			   (or skk-comp-circulate
 			       (< skk-dcomp-multiple-select-index
@@ -594,8 +611,7 @@
 		   (skk-dcomp-multiple-get-candidates t))))))
 	(t
 	 ad-do-it
-	 (when (and skk-dcomp-activate
-		    skk-dcomp-show-multiple
+	 (when (and (skk-dcomp-multiple-activate-p)
 		    (skk-dcomp-multiple-available-p))
 	   (setq skk-dcomp-multiple-select-index
 		 (skk-dcomp-multiple-increase-index
@@ -606,12 +622,18 @@
 	     (not (and current-prefix-arg
 		       (listp current-prefix-arg)))))))))
 
-(defadvice skk-comp-do (after skk-dcomp-ad activate)
-  (when (and skk-dcomp-activate
-	     skk-dcomp-show-multiple
-	     (skk-dcomp-multiple-available-p)
-	     (not (ad-get-arg 0))
+(defadvice skk-comp-do (before skk-dcomp-ad activate)
+  (when (and skk-comp-use-prefix
+	     (not (string= "" skk-prefix))
 	     (eq last-command-char skk-next-completion-char))
+    (ad-set-arg 0 t)))
+
+(defadvice skk-comp-do (after skk-dcomp-ad activate)
+  (when (and (skk-dcomp-multiple-activate-p)
+	     (skk-dcomp-multiple-available-p)
+	     ;;(not (ad-get-arg 0))
+	     (eq last-command-char skk-next-completion-char))
+    (skk-kana-cleanup 'force)
     (setq skk-dcomp-multiple-select-index
 	  (skk-dcomp-multiple-increase-index skk-dcomp-multiple-select-index))
     (skk-dcomp-multiple-show
@@ -619,7 +641,8 @@
 
 (defadvice skk-comp-start-henkan (around skk-dcomp-ad activate)
    (cond ((and (eq skk-henkan-mode 'on)
-	       skk-dcomp-activate
+	       (or skk-dcomp-activate
+		   skk-dcomp-multiple-activate)
 	       (skk-dcomp-marked-p))
 	  (goto-char skk-dcomp-end-point)
 	  (setq this-command 'skk-comp-do)
