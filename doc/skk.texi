@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2008/11/30 01:47:06 $
+@set UPDATED $Date: 2009/01/04 07:04:49 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4197,7 +4197,7 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 
 @end defvr
 
-@defvr {$B%f!<%6JQ?t(B} skk-dcomp-show-multiple
+@defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-activate
 
 Non-nil $B$G$"$l$P!"F0E*Jd40$N8uJd$r%$%s%i%$%s$KJ#?tI=<($7$^$9(B@footnote{$B8=(B
 $B:_$O8uJd72$N1&B&(B1$B%+%i%`$N%U%'%$%9$,%G%U%)%k%H$KLa$k!"$H$$$&@)Ls$,$"$j$^(B
@@ -4211,7 +4211,7 @@ Non-nil $B$G$"$l$P!"F0E*Jd40$N8uJd$r%$%s%i%$%s$KJ#?tI=<($7$^$9(B@footnote{$B8
 
 @end defvr
 
-@defvr {$B%f!<%6JQ?t(B} skk-dcomp-show-multiple-rows
+@defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-rows
 
 $BF0E*Jd40$N8uJd$rJ#?tI=<($9$k>l9g$NI=<(?t!#I8=`$O(B 7$B!#(B
 
