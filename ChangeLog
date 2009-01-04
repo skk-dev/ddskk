@@ -1,3 +1,30 @@
+2009-01-04  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-vars.el (skk-dcomp-multiple-activate): Rename option name
+	from `skk-dcomp-show-multiple'.
+	(skk-dcomp-multiple-rows): Rename option name from
+	`skk-dcomp-show-multiple-rows'.
+
+	* skk-dcomp.el (skk-dcomp-multiple-activate-p): New function.
+
+	(skk-dcomp-cleanup-buffer, skk-dcomp-do-completion)
+	(skk-dcomp-before-kakutei, skk-dcomp-after-kakutei)
+	(skk-kana-input@around@skk-dcomp-ad)
+	(skk-set-henkan-point-subr@around@skk-dcomp-ad)
+	(skk-abbrev-insert@around@skk-dcomp-ad)
+	(skk-abbrev-comma@around@skk-dcomp-ad)
+	(skk-abbrev-period@around@skk-dcomp-ad)
+	(skk-comp-previous@after@skk-dcomp-ad)
+	(skk-comp@around@skk-dcomp-ad)
+	(skk-comp-do@after@skk-dcomp-ad)
+	(skk-comp-start-henkan@around@skk-dcomp-ad): Consider
+	`skk-dcomp-multiple-activate' and/or
+	skk-dcomp-multiple-activate-p().
+
+	(skk-comp-do@before@skk-dcomp-ad): New advice.
+
+	* doc/skk.texi (▽モードにおける動的補完): Fix.
+
 2008-10-31  Kazuhiro NISHIYAMA  <zn@mbf.nifty.com>
 
 	* doc/skk.texi (起動と終了, 設定ファイル): Fix.
