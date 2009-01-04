@@ -1,5 +1,8 @@
 2009-01-04  IRIE Tetsuya  <irie@t.email.ne.jp>
 
+	* skk.el (skk-require-module): Consider
+	`skk-dcomp-multiple-activate'.
+
 	* skk-vars.el (skk-dcomp-multiple-activate): Rename option name
 	from `skk-dcomp-show-multiple'.
 	(skk-dcomp-multiple-rows): Rename option name from
