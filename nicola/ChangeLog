@@ -16,7 +16,7 @@
 
 2007-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-kanataki-util.el:
+	* skk-kanagaki-util.el:
 	* skk-nicola.el:
 
 	Put `skk-kanagaki-bs', skk-nicola-self-insert-lshift and
@@ -41,7 +41,7 @@
 
 2007-04-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-kanataki.el (skk-kanagaki-insert):
+	* skk-kanagaki.el (skk-kanagaki-insert):
 	* skk-nicola.el (skk-nicola-self-insert-lshift):
 	(skk-nicola-insert-single):
 	(skk-nicola-space-function):
