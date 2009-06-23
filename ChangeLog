@@ -1,3 +1,9 @@
+2009-06-21  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk.el (skk-henkan-show-candidates-buffer): Fix line wrapping
+	for long candidates or ones with long notes.  Take care of
+	kinsoku.
+
 2009-01-04  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk.el (skk-require-module): Consider

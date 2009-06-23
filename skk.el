@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.478 2009/01/04 09:58:09 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.479 2009/06/23 15:03:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/01/04 09:58:09 $
+;; Last Modified: $Date: 2009/06/23 15:03:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2239,12 +2239,17 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	(delete-char 2)
 	(insert "\n"))
       (goto-char (point-min))
+      ;; $B1&C<$KM>Gr$r@_$1$k(B
       (while (and (move-to-column (- (frame-width) 2))
 		  (not (eobp))
 		  (>= (frame-width) (current-column)))
 	(unless (eolp)
-	  (backward-char 1)
-	  (insert "\n  "))
+	  ;; $B6XB'=hM}(B
+	  (unless (member (char-to-string (char-before))
+			  skk-auto-start-henkan-keyword-list)
+	    (backward-char 1))
+	  (insert "\n  ")
+	  (forward-line -1))
 	(forward-line 1))
       (goto-char (point-min)))
     (let ((minibuf-p (skk-in-minibuffer-p))
