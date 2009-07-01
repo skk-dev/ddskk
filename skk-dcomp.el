@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.61 2009/01/04 07:04:24 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.62 2009/07/01 12:16:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/01/04 07:04:24 $
+;; Last Modified: $Date: 2009/07/01 12:16:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -251,8 +251,11 @@
 		 ;; skk-comp の C-u TAB を考慮する
 		 (if (and current-prefix-arg (listp current-prefix-arg))
 		     skk-comp-key
-		   (buffer-substring-no-properties
-		    skk-henkan-start-point (point))))
+		   (let ((key (buffer-substring-no-properties
+			       skk-henkan-start-point (point))))
+		     (if skk-katakana
+			 (skk-katakana-to-hiragana key)
+		       key))))
 	   (setq skk-dcomp-multiple-prefix skk-prefix)
 	   (setq skk-dcomp-multiple-search-done nil)
 	   (let ( ;; `skk-comp-get-candidate' に必要なデータを束縛

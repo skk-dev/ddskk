@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.77 2008/04/05 00:56:07 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.78 2009/07/01 12:16:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/04/05 00:56:07 $
+;; Last Modified: $Date: 2009/07/01 12:16:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -71,6 +71,7 @@
 	;; buffer-local 値を壊す恐れあり。
 	skk-num-list
 	tmp-key data
+	orig-key
 	c-word)
     (when first
       (setq skk-comp-search-done nil
@@ -104,6 +105,11 @@
 	(unless (and skk-comp-use-prefix
 		     (eq data t))
 	  (setq skk-comp-prefix ""))))
+    (setq orig-key (if skk-katakana
+		       (skk-hiragana-to-katakana skk-comp-key)
+		     skk-comp-key))
+    (when skk-katakana
+      (setq skk-comp-key (skk-katakana-to-hiragana skk-comp-key)))
     (cond
      ;; (全候補探索済み)
      (skk-comp-search-done
@@ -142,7 +148,7 @@
       ;; When skk-comp-circulate, return to the keyword.
       (when skk-comp-circulate
 	(delete-region skk-henkan-start-point (point))
-	(insert skk-comp-key))
+	(insert orig-key))
       (unless silent
 	(ding)
 	(cond
@@ -156,14 +162,14 @@
 	  (if skk-japanese-message-and-error
 	      (message "\"%s\" で補完すべき見出し語は%sありません"
 		       (if skk-comp-use-prefix
-			   (concat skk-comp-key skk-comp-prefix)
-			 skk-comp-key)
+			   (concat orig-key skk-comp-prefix)
+			 orig-key)
 		       (if first "" "他に"))
 	    (message "No %scompletions for \"%s\""
 		     (if first "" "more ")
 		     (if skk-comp-use-prefix
-			 (concat skk-comp-key skk-comp-prefix)
-		       skk-comp-key))))))))))
+			 (concat orig-key skk-comp-prefix)
+		       orig-key))))))))))
 
 (defun skk-comp-get-candidate (&optional first)
   (when first
@@ -189,7 +195,9 @@
 	(setq skk-current-completion-prog-list
 	      (cdr skk-current-completion-prog-list))
 	(setq skk-comp-first t)))
-    cand))
+    (if (and skk-katakana cand)
+	(skk-hiragana-to-katakana cand)
+      cand)))
 
 ;; for test or backend use
 ;;;###autoload
@@ -206,7 +214,9 @@
       (while (setq cand (skk-comp-get-candidate))
 	(unless (member cand ret)
 	  (setq ret (cons cand ret)))))
-    (nreverse ret)))
+    (nreverse (if skk-katakana
+		  (mapcar 'skk-hiragana-to-katakana ret)
+		ret))))
 
 (defun skk-comp-get-regexp (prefix)
   ;; プレフィクスに対応する正規表現を返す。

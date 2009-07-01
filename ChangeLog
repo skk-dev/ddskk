@@ -1,3 +1,12 @@
+2009-07-01  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Consider
+	completing on katakana mode.
+
+	* skk-comp.el (skk-comp-do, skk-comp-get-candidate)
+	(skk-comp-get-all-candidates): Consider completing on katakana
+	mode.
+
 2009-06-30  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk.el (skk-henkan-skk-region-by-func): Fix typo in docstring.
