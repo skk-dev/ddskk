@@ -1,3 +1,7 @@
+2009-06-30  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk.el (skk-henkan-skk-region-by-func): Fix typo in docstring.
+
 2009-06-21  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk.el (skk-henkan-show-candidates-buffer): Fix line wrapping

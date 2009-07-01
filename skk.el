@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.479 2009/06/23 15:03:56 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.480 2009/07/01 00:43:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/06/23 15:03:56 $
+;; Last Modified: $Date: 2009/07/01 00:43:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4856,7 +4856,7 @@ SKK 辞書の候補として正しい形に整形する。"
 	 skk-henkan-start-point (point))))
      ;; 変換可能かどうかの最終チェック
      (when (skk-get-prefix skk-current-rule-tree)
-       (skk-error "入力途中の仮名ブレフィックスがあります"
+       (skk-error "入力途中の仮名プレフィックスがあります"
 		  "There remains a kana prefix"))
 
      (when (< (point) skk-henkan-start-point)
