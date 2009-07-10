@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.78 2009/07/01 12:16:10 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.79 2009/07/10 23:19:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/07/01 12:16:10 $
+;; Last Modified: $Date: 2009/07/10 23:19:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -470,7 +470,7 @@ NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B"
 (defun skk-comp-lisp-symbol (&optional predicate)
   "Lisp symbol $BL>$GJd40$9$k!#(B
 PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$rK~$?$9%7%s%\%k(B
-$B$K8B$C$FJd40$9$k!#(BPREDICATE $B$K$O(B `fboundp', `boundpp', `commandp'
+$B$K8B$C$FJd40$9$k!#(BPREDICATE $B$K$O(B `fboundp', `boundp', `commandp'
 $B$J$I$,;XDj$G$-$k!#;XDj$7$J$1$l$P4X?t$^$?$OJQ?t$K8B$C$FJd40$9$k!#(B"
   (cond (skk-abbrev-mode
 	 (when skk-comp-first
@@ -497,7 +497,7 @@ PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$rK~$?$9%7%s%\
 					 without-char-maybe)
   "Lisp symbol $BL>$GJd40$7$?7k2L$r8!:w7k2L$H$7$FJV$9!#(B
 PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$rK~$?$9%7%s%\%k(B
-$B$K8B$C$FJd40$9$k!#(BPREDICATE $B$K$O(B `fboundp', `boundpp', `commandp'
+$B$K8B$C$FJd40$9$k!#(BPREDICATE $B$K$O(B `fboundp', `boundp', `commandp'
 $B$J$I$,;XDj$G$-$k!#;XDj$7$J$1$l$P4X?t$^$?$OJQ?t$K8B$C$FJd40$9$k!#(B
 SKK abbrev $B%b!<%I$K$F!"1QJ8;z(B + skk-completion-search-char (~)$B$G(B
 $BL$40%9%Z%k$r;XDj$7$FJQ49$9$k$H!"Jd408uJd$,JQ498uJd$H$7$F=P8=$9$k!#(B

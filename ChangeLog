@@ -1,3 +1,8 @@
+2009-07-09  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-comp.el (skk-comp-lisp-symbol, skk-search-lisp-symbol): Fix
+	typo in docstring.
+
 2009-07-01  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Consider
