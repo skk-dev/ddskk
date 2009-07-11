@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.41 2009/07/11 00:55:42 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.42 2009/07/11 02:15:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/07/11 00:55:42 $
+;; Last Modified: $Date: 2009/07/11 02:15:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -183,14 +183,13 @@
       (backward-word (ad-get-arg 0))
     ad-do-it)))
 
-;; please sync with advice to delete-backward-char
+;; please sync with `skk-delete-backward-char'
 (skk-viper-advice-select
  viper-del-backward-char-in-insert vip-delete-backward-char
  (around skk-ad activate)
- ("▼モードで `skk-delete-implies-kakutei' が non-nil だったら直前の文字を消して\
-確定する。
+ ("▼モードで `skk-delete-implies-kakutei' なら直前の文字を消して確定する。
 ▼モードで `skk-delete-implies-kakutei' が nil だったら前候補を表示する。
-▽モードだったら確定する。
+▽モードで`▽'よりも前のポイントで実行すると確定する。
 確定入力モードで、かなプレフィックスの入力中ならば、かなプレフィックスを消す。"
   (skk-with-point-move
    (let ((count (or (prefix-numeric-value (ad-get-arg 0)) 1)))
