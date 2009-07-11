@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.40 2007/10/14 10:52:25 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.41 2009/07/11 00:55:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/14 10:52:25 $
+;; Last Modified: $Date: 2009/07/11 00:55:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -192,49 +192,52 @@
 ▼モードで `skk-delete-implies-kakutei' が nil だったら前候補を表示する。
 ▽モードだったら確定する。
 確定入力モードで、かなプレフィックスの入力中ならば、かなプレフィックスを消す。"
-  (let ((count (or (prefix-numeric-value (ad-get-arg 0)) 1)))
-    (cond
-     ((eq skk-henkan-mode 'active)
-      (if (and (not skk-delete-implies-kakutei)
-	       (= (+ skk-henkan-end-point (length skk-henkan-okurigana))
-		  (point)))
-	  (skk-previous-candidate)
-	;;(if skk-use-face (skk-henkan-face-off))
-	;; overwrite-mode で、ポイントが全角文字に囲まれていると
-	;; きに delete-backward-char を使うと、全角文字は消すが半
-	;; 角文字分しか backward 方向にポイントが戻らない (Emacs
-	;; 19.31 にて確認)。変換中の候補に対しては
-	;; delete-backward-char で必ず全角文字 1 文字分 backward
-	;; 方向に戻った方が良い。
-	(if overwrite-mode
-	    (progn
-	      (backward-char count)
-	      (delete-char count))
-	  ad-do-it)
-	;; XXX assume skk-prefix has no multibyte chars.
-	(if (> (length skk-prefix) count)
-	    (setq skk-prefix (substring skk-prefix
-					0 (- (length skk-prefix) count)))
-	  (setq skk-prefix ""))
-	(when (>= skk-henkan-end-point (point))
-	  (if (eq skk-delete-implies-kakutei 'dont-update)
-	      (let ((skk-update-jisyo-function #'ignore))
-		(skk-kakutei))
-	    (skk-kakutei)))))
-     ((and (eq skk-henkan-mode 'on)
-	   (>= skk-henkan-start-point (point)))
-      (setq skk-henkan-count 0)
-      (skk-kakutei))
-     ;; 入力中の見出し語に対しては delete-backward-char で必ず全角文字 1
-     ;; 文字分 backward 方向に戻った方が良い。
-     ((and (eq skk-henkan-mode 'on)
-	   overwrite-mode)
-      (backward-char count)
-      (delete-char count))
-     (t
-      (if (string= skk-prefix "")
-	  ad-do-it
-	(skk-erase-prefix 'clean)))))))
+  (skk-with-point-move
+   (let ((count (or (prefix-numeric-value (ad-get-arg 0)) 1)))
+     (cond
+      ((eq skk-henkan-mode 'active)
+       (if (and (not skk-delete-implies-kakutei)
+		(= (+ skk-henkan-end-point (length skk-henkan-okurigana))
+		   (point)))
+	   (skk-previous-candidate)
+	 ;; overwrite-mode で、ポイントが全角文字に囲まれていると
+	 ;; きに delete-backward-char を使うと、全角文字は消すが半
+	 ;; 角文字分しか backward 方向にポイントが戻らない (Emacs
+	 ;; 19.31 にて確認)。変換中の候補に対しては
+	 ;; delete-backward-char で必ず全角文字 1 文字分 backward
+	 ;; 方向に戻った方が良い。
+	 (if overwrite-mode
+	     (progn
+	       (backward-char count)
+	       (delete-char count))
+	   ad-do-it)
+	 ;; XXX assume skk-prefix has no multibyte chars.
+	 (if (> (length skk-prefix) count)
+	     (setq skk-prefix (substring skk-prefix
+					 0 (- (length skk-prefix) count)))
+	   (setq skk-prefix ""))
+	 (when (>= skk-henkan-end-point (point))
+	   (if (eq skk-delete-implies-kakutei 'dont-update)
+	       (let ((skk-update-jisyo-function #'ignore))
+		 (skk-kakutei))
+	     (skk-kakutei)))))
+      ((and skk-henkan-mode
+	    (>= skk-henkan-start-point (point))
+	    (not (skk-get-prefix skk-current-rule-tree)))
+       (skk-set-henkan-count 0)
+       (skk-kakutei))
+      ;; 入力中の見出し語に対しては delete-backward-char で
+      ;; 必ず全角文字 1文字分 backward 方向に戻った方が良い。
+      ((and skk-henkan-mode
+	    overwrite-mode)
+       (backward-char count)
+       (delete-char count))
+      (t
+       (skk-delete-okuri-mark)
+       (if (skk-get-prefix skk-current-rule-tree)
+	   (skk-erase-prefix 'clean)
+	 (skk-set-marker skk-kana-start-point nil)
+	 ad-do-it)))))))
 
 (skk-viper-advice-select
  viper-intercept-ESC-key vip-escape-to-emacs

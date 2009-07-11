@@ -1,3 +1,8 @@
+2009-07-11  IRIE Tetsuya  <irie@t.email.ne.jp>
+
+	* skk-viper.el (viper-del-backward-char-in-insert@around@skk-ad):
+	Sync with advice to delete-backward-char.
+
 2009-07-09  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-comp.el (skk-comp-lisp-symbol, skk-search-lisp-symbol): Fix
