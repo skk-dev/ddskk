@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.41 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.42 2009/07/16 16:28:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2009/07/16 16:28:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -46,7 +46,7 @@
   "KEY の中の連続する数字を現わす文字列を \"#\" に置き換えた文字列を返す。
 \"12\" や \"０９\" など連続する数字を 1 つの \"#\" に置き換えることに注意。
 置き換えた数字を `skk-num-list' の中にリストの形で保存する。
-例えば、KEY が \"へいせい7年12がつ\" であれば、\"へいせい#ねん#がつ\"
+例えば、KEY が \"へいせい7ねん12がつ\" であれば、\"へいせい#ねん#がつ\"
 と変換し、`skk-num-list' に (\"7\" \"12\") というリストを代入する。
 辞書の見出し語の検索に使用する。"
   (let ((numexp (if skk-num-convert-float
