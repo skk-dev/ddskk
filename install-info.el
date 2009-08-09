@@ -92,7 +92,7 @@
   "Install or delete dir entries from INFO-FILE in the Info directory file
 DIR-FILE.
 
-Optioinal third arg ENTRY specifies the text inserted as an Info directory
+Optional third arg ENTRY specifies the text inserted as an Info directory
 entry. ENTRY should have the form of an Info menu item line plus zero or more
 extra lines starting with whitespace. If you specify more than one entry (i.e.
 list of entries), they are all added. If you don't specify any entries, they

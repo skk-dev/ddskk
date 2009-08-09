@@ -1,3 +1,15 @@
+2009-08-04  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* skk-vars.el (skk-show-inline):
+	(skk-delete-okuri-when-quit):
+	(skk-emacs-id-file):
+	(skk-isearch-overriding-local-map):
+	Fix typo in docstring.
+
+2009-08-03  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* install-info.el (install-info): Fix typo in docstring.
+
 2009-07-15  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-num.el (skk-num-compute-henkan-key): Fix typo

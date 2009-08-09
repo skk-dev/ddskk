@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.273 2009/01/04 07:04:24 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.274 2009/08/09 11:14:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/01/04 07:04:24 $
+;; Last Modified: $Date: 2009/08/09 11:14:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1207,10 +1207,10 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   :group 'skk-henkan)
 
 (defcustom skk-show-inline nil
-  "*Non-nil $B$G$"$l$P!"%$%s%i%$%s(B $B$G8uJd$J$I$rI=<($9$k!#(B
+  "*Non-nil $B$G$"$l$P!"%$%s%i%$%s$G8uJd$J$I$rI=<($9$k!#(B
 $BCM$,(B `vertical' $B$G$"$l$P3F8uJd$r=D$K%$%s%i%$%sI=<($9$k!#(B
 $B$3$N5!G=$O(B XEmacs $B0J30$N3F%P!<%8%g%s$N(B Emacs $B$GF0:n$9$k$,!"8uJd$N(B
-$BAu>~$,M-8z$J$N$O(BGNU Emacs 21 $B0J>e!#(B"
+$BAu>~$,M-8z$J$N$O(B GNU Emacs 21 $B0J>e!#(B"
   :type '(radio (const :tag "$BM-8z(B" t)
 		(const :tag "$BM-8z(B ($B=DI=<((B)" vertical)
 		(const :tag "$BL58z(B" nil))
@@ -1261,7 +1261,7 @@ HENKAN-BUFFER, MIDASI, OKURIGANA, ENTRY $B$N(B 4 $B0z?t$rH<$J$C$F%3!<%k$5$l$k
   :group 'skk-henkan)
 
 (defcustom skk-delete-okuri-when-quit nil
-  "*Non-nil $B$G$"$l$PJQ49Cf$N(B\\[keyboard-quit]$B$GAw$j2>L>$r>C$7$F"&%b!<%I$KF~$k!#(B
+  "*Non-nil $B$G$"$l$PJQ49Cf$N(B \\[keyboard-quit] $B$GAw$j2>L>$r>C$7$F"&%b!<%I$KF~$k!#(B
 $BNc$($P!"(B
 
     \"$B"&$J(B*$B$/(B -> $B"'5c$/(B -> \\[keyboard-quit] ->$B"&$J(B\"
@@ -1512,7 +1512,7 @@ car $B$K!V<B:]$N%-!<F~NO$K$h$k$+$J(B prefix $BJ8;zNs!W!"(Bcdr $B$K!V(BSKK 
 						   skk-user-directory)
 			       (convert-standard-filename "~/.skk-emacs-id"))
   "\
-*`skk-jisyo-file'$B$K:G6a%"%/%;%9$7$?(B SKK $B$N(B `skk-emacs-id' $B$rJ]B8$9$k%U%!%$%k!#(B"
+*`skk-jisyo-file' $B$K:G6a%"%/%;%9$7$?(B SKK $B$N(B `skk-emacs-id' $B$rJ]B8$9$k%U%!%$%k!#(B"
   :type 'file
   :group 'skk-misc)
 
@@ -3446,7 +3446,7 @@ This map should be derived from `isearch-mode-map'.")
    ;; GNU Emacs version 19.28 or earlier uses this in isearch.el.
    (t
     'overriding-local-map))
-  "Variable holding overrinding local map used in `isearch-mode'.")
+  "Variable holding overriding local map used in `isearch-mode'.")
 
 (defvar skk-isearch-last-mode-string "")
 (defvar skk-isearch-last-mode-regexp "")
