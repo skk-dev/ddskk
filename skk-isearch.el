@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.57 2007/08/26 16:12:16 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.58 2009/08/13 04:52:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/08/26 16:12:16 $
+;; Last Modified: $Date: 2009/08/13 04:52:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -135,7 +135,7 @@
   "Show isearch message."
   (skk-isearch-incomplete-message
    (if (string= skk-prefix "")
-       (char-to-string last-command-char)
+       (char-to-string (skk-last-command-char))
      skk-prefix)))
 
 (defun skk-isearch-current-mode ()
@@ -690,14 +690,14 @@ If the current mode is different from previous, remove it first."
 が参照される。"
   (interactive)
   (let ((digit (or digit
-		   (- (logand last-command-char ?\177) ?0)))
+		   (- (logand (skk-last-command-char) ?\177) ?0)))
 	(event (next-command-event nil (skk-isearch-incomplete-message))))
     (cond
      ((equal event (character-to-event ?\ ))
       ;; XEmacs では eq にはならない
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	(when (eq skk-henkan-mode 'on)
-	  (let ((last-command-char skk-start-henkan-char))
+	  (skk-bind-last-command-char skk-start-henkan-char
 	    (skk-start-henkan 1 digit))))
       (skk-isearch-mode-message)
       (skk-isearch-wrapper-1))
