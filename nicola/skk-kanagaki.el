@@ -387,7 +387,7 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]  (XEmacs $B$G$O
    ((or (integerp parg)
 	;; C-u $B$G$O$J$$>l9g(B
 	(not (and parg (listp parg))))
-    (let ((last-command-char ?\ ))
+    (skk-bind-last-command-char ?\ 
       (skk-insert arg parg)))
    (t
     ;; C-u [SPC] $B$GAw$j$"$jJQ49$r$9$k!#(B
