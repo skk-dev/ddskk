@@ -442,8 +442,8 @@
 	 (not skk-jisx0201-mode))
     (skk-nicola-insert arg parg))
    (t
-    (unless last-command-char
-      (setq last-command-char ?\ ))
+    (unless (skk-last-command-char)
+      (skk-set-last-command-char ?\ ))
     (call-interactively 'skk-insert))))
 
 ;;;###autoload
@@ -453,11 +453,11 @@
   (interactive "*p")
   (if (skk-sit-for skk-nicola-latin-interval t)
       ;; then
-      (let ((last-command-char
-	     (if (characterp (event-to-character
-			      last-command-event))
-		 (event-to-character last-command-event)
-	       ?\ )))
+      (skk-bind-last-command-char
+	  (if (characterp (event-to-character
+			   last-command-event))
+	      (event-to-character last-command-event)
+	    ?\ )
 	(call-interactively 'self-insert-command t))
     ;; else
     (let ((last (static-cond
@@ -473,11 +473,11 @@
 	  char)
       (if (eq last next)
 	  ;; then
-	  (let ((last-command-char
-		 (if (characterp (event-to-character
-				  last-command-event))
-		     (event-to-character last-command-event)
-		   ?\ )))
+	  (skk-bind-last-command-char
+	      (if (characterp (event-to-character
+			       last-command-event))
+		  (event-to-character last-command-event)
+		?\ )
 	    (call-interactively 'self-insert-command t)
 	    (call-interactively 'self-insert-command t))
 	;; else
@@ -505,14 +505,13 @@
 	       (skk-j-mode-on)
 	       (skk-cursor-set skk-cursor-hiragana-color))
 	      (char
-	       (let ((last-command-char
-		      (if (characterp (event-to-character
-				       last-command-event))
-			  (event-to-character
-			   last-command-event)
-			?\ )))
+	       (skk-bind-last-command-char
+		   (if (characterp (event-to-character
+				    last-command-event))
+		       (event-to-character last-command-event)
+		     ?\ )
 		 (call-interactively 'self-insert-command t))
-	       (let ((last-command-char char))
+	       (skk-bind-last-command-char char
 		 (call-interactively 'self-insert-command
 				     t)))))))
   nil)
@@ -554,7 +553,7 @@
     ;; 統計的価値があるかな...？
 ;    (setq skk-nicola-temp-data
 ;	  (cons
-;	   (list (or last-command-char this-command)
+;	   (list (or (skk-last-command-char) this-command)
 ;		 period1
 ;		 next
 ;		 period2
@@ -657,7 +656,7 @@
 
 (defun skk-nicola-insert-single (command arg &optional parg)
   "単独打鍵を処理する。"
-  (let ((char last-command-char))
+  (let ((char (skk-last-command-char)))
     (case command
       (skk-nicola-self-insert-rshift
        ;; (変換・スペース)
@@ -683,7 +682,7 @@
 		   (lookup-key skk-j-mode-map first))))
 	(char (if (characterp first)
 		  first
-		last-command-char))
+		(skk-last-command-char)))
 	(str (when (characterp next)
 	       (char-to-string next))))
     ;;
@@ -693,7 +692,7 @@
        (case command
 	 (skk-nicola-self-insert-rshift
 	  ;; [右 右]
-	  (let ((last-command-char ?\ ))
+	  (skk-bind-last-command-char ?\ 
 	    (cond (skk-henkan-mode
 		   ;;
 		   (skk-kanagaki-insert arg)
@@ -749,7 +748,7 @@
 				 skk-nicola-lshift-rule
 				 arg))
 	((and (not (eq char next))
-	      (memq last-command-char
+	      (memq (skk-last-command-char)
 		    skk-nicola-set-henkan-point-chars)
 	      (memq next
 		    skk-nicola-set-henkan-point-chars))
@@ -851,7 +850,7 @@
 		   (lookup-key skk-j-mode-map first))))
 	(char (if (characterp first)
 		  first
-		last-command-char))
+		(skk-last-command-char)))
 	(str (when (characterp next)
 	       (char-to-string next)))
 	(shifts '(skk-nicola-self-insert-lshift
@@ -866,7 +865,7 @@
    (and (not (eq char next))
 	(or
 	 ;; [fj]
-	 (and (memq last-command-char
+	 (and (memq (skk-last-command-char)
 		    skk-nicola-set-henkan-point-chars)
 	      (memq next
 		    skk-nicola-set-henkan-point-chars))
@@ -958,7 +957,7 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
 
 (defun skk-nicola-space-function (&optional arg parg)
   "親指右キー単独打鍵時の挙動を決める関数。"
-  (let ((last-command-char ?\ ))
+  (skk-bind-last-command-char ?\ 
     (cond
      ((eq skk-henkan-mode 'active)
       (call-interactively 'skk-insert))
@@ -1034,9 +1033,9 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
     (cond
      ((and (eq skk-kanagaki-state 'kana)
 	   skk-j-mode
-	   (or (eq last-command-char
+	   (or (eq (skk-last-command-char)
 		   (car cell1))
-	       (eq last-command-char
+	       (eq (skk-last-command-char)
 		   (car cell2)))
 	   skk-henkan-mode)
       ;; なぜかこける。原因解明中。
