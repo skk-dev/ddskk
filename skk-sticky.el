@@ -3,9 +3,9 @@
 ;; Copyright (C) 2008  IRIE Tetsuya
 
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
-;; Version: $Id: skk-sticky.el,v 1.2 2008/05/05 07:18:09 skk-cvs Exp $
+;; Version: $Id: skk-sticky.el,v 1.3 2009/08/13 04:52:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/05/05 07:18:09 $
+;; Last Modified: $Date: 2009/08/13 04:52:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -174,10 +174,10 @@
   (when (and skk-sticky-okuri-flag
 	     (skk-sticky-looking-back-okuri-mark)
 	     (string= "" skk-prefix))
-    (let ((pair (rassq last-command-char skk-downcase-alist)))
-      (setq last-command-char (if pair
-				  (car pair)
-				(upcase last-command-char))))))
+    (let ((pair (rassq (skk-last-command-char) skk-downcase-alist)))
+      (skk-set-last-command-char (if pair
+				     (car pair)
+				   (upcase (skk-last-command-char)))))))
 
 (defadvice skk-set-henkan-point (before skk-sticky-ad activate)
   "`point' 直前の `*' を消す。"
@@ -194,7 +194,7 @@
 ;;; (defadvice skk-kana-input (around skk-sticky-ad activate)
 ;;;   "▽直後の `skk-sticky-key' の入力の際 `cancel-undo-boundary' を呼ばないように。"
 ;;;   (if (and (stringp skk-sticky-key)
-;;; 	   (eq last-command-char (string-to-char skk-sticky-key))
+;;; 	   (eq (skk-last-command-char) (string-to-char skk-sticky-key))
 ;;; 	   (eq skk-henkan-mode 'on)
 ;;; 	   (eq (point) (marker-position skk-henkan-start-point)))
 ;;;       (progn
@@ -208,7 +208,7 @@
   "FIRST と NEXT が同時打鍵であれば non-nil を返す。"
   (let ((char (if (characterp first)
 		  first
-		last-command-char)))
+		(skk-last-command-char))))
     (and (not (eq char next))
 	 (memq char skk-sticky-key)
 	 (memq next skk-sticky-key))))
@@ -217,7 +217,7 @@
   "同時打鍵を検出して処理する。"
   (cond ((not (consp skk-sticky-key))
 	 ad-do-it)
-	((not (memq last-command-char skk-sticky-key))
+	((not (memq (skk-last-command-char) skk-sticky-key))
 	 ad-do-it)
 	((skk-sit-for skk-sticky-double-interval t)
 	 ;; No input in the interval.
