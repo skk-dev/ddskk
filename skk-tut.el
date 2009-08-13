@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.65 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.66 2009/08/13 05:26:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2009/08/13 05:26:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -413,7 +413,7 @@
 
 (defadvice skk-insert (before skktut-ad disable)
   "SKK チュートリアル用アドバイス付。"
-  (when (and (memq last-command-char skk-set-henkan-point-key)
+  (when (and (memq (skk-last-command-char) skk-set-henkan-point-key)
 	     (> 12 skktut-question-count))
     (skktut-error "かな/カナモードでは、英大文字はまだ使えません"
 		  "Cannot use upper case character in kana/katakana mode")))
