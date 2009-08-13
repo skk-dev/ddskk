@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.62 2009/07/01 12:16:10 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.63 2009/08/13 05:20:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/07/01 12:16:10 $
+;; Last Modified: $Date: 2009/08/13 05:20:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -490,7 +490,7 @@
     (when (and skk-j-mode
 	       (or skk-use-kana-keyboard
 		   ;; 送りあり変換が始まったら補完しない
-		   (not (memq last-command-char skk-set-henkan-point-key))))
+		   (not (memq (skk-last-command-char) skk-set-henkan-point-key))))
       (if (skk-get-prefix skk-current-rule-tree)
 	  (when (and (skk-dcomp-multiple-activate-p)
 		     (skk-dcomp-multiple-available-p))
@@ -520,7 +520,7 @@
     ad-do-it
     (when skk-use-look
       (setq skk-look-completion-words nil))
-    (unless (memq last-command-char '(?*))
+    (unless (memq (skk-last-command-char) '(?*))
       (skk-dcomp-do-completion (point))))
    (t
     ad-do-it)))
@@ -536,7 +536,7 @@
     ad-do-it
     (when skk-use-look
       (setq skk-look-completion-words nil))
-    (unless (memq last-command-char '(?*))
+    (unless (memq (skk-last-command-char) '(?*))
       (skk-dcomp-do-completion (point))))
    (t
     ad-do-it)))
@@ -552,7 +552,7 @@
     ad-do-it
     (when skk-use-look
       (setq skk-look-completion-words nil))
-    (unless (memq last-command-char '(?*))
+    (unless (memq (skk-last-command-char) '(?*))
       (skk-dcomp-do-completion (point))))
    (t
     ad-do-it)))
@@ -628,14 +628,14 @@
 (defadvice skk-comp-do (before skk-dcomp-ad activate)
   (when (and skk-comp-use-prefix
 	     (not (string= "" skk-prefix))
-	     (eq last-command-char skk-next-completion-char))
+	     (eq (skk-last-command-char) skk-next-completion-char))
     (ad-set-arg 0 t)))
 
 (defadvice skk-comp-do (after skk-dcomp-ad activate)
   (when (and (skk-dcomp-multiple-activate-p)
 	     (skk-dcomp-multiple-available-p)
 	     ;;(not (ad-get-arg 0))
-	     (eq last-command-char skk-next-completion-char))
+	     (eq (skk-last-command-char) skk-next-completion-char))
     (skk-kana-cleanup 'force)
     (setq skk-dcomp-multiple-select-index
 	  (skk-dcomp-multiple-increase-index skk-dcomp-multiple-select-index))
