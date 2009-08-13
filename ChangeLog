@@ -1,3 +1,29 @@
+2009-08-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el (skk-last-command-char):
+	(skk-set-last-command-char):
+	New functions.
+	(skk-bind-last-command-char): New macro.
+
+	* skk.el (skk-insert, skk-process-prefix-or-suffix):
+	(skk-kana-input, skk-jisx0208-latin-insert):
+	(skk-previous-candidate):
+	(skk-set-henkan-point):
+	Use `skk-last-command-char' and `skk-set-last-command-char'.
+
+	(skk-completion-wrapper):
+	(skk-check-size-and-do-save-jisyo):
+	Use `skk-bind-last-command-char'.
+
+	* skk-sticky.el (skk-sticky-double-p):
+	(skk-insert@around@skk-sticky-ad-double):
+	Use `skk-last-command-char' and `skk-set-last-command-char'.
+
+	* skk-isearch.el (skk-isearch-message):
+	(skk-isearch-start-henkan):
+	Use `skk-last-command-char' and `skk-bind-last-command-char'.
+
+
 2009-08-04  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-vars.el (skk-show-inline):
