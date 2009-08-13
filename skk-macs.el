@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.130 2008/03/27 13:24:48 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.131 2009/08/13 04:51:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2008/03/27 13:24:48 $
+;; Last Modified: $Date: 2009/08/13 04:51:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -491,6 +491,36 @@ BUFFER defaults to the current buffer."
 	  (vector char)
 	(setq keys (recent-keys))
 	(vector (aref keys (1- (length keys)))))))))
+
+;; Emacs 23 or later shows warning for the use of last-command-char,
+;; which is an obsolete variable alias for last-command-event.
+;; What is annoying is incompatibility between FSF Emacs and XEmacs.
+;; In XEmacs, last-command-event is an event, not a character, whereas
+;; last-command-char is a character equivalent to last-command-event.
+(defsubst skk-last-command-char ()
+  (static-cond
+   ((eq skk-emacs-type 'xemacs)
+    last-command-char)
+   (t
+    last-command-event)))
+
+(defsubst skk-set-last-command-char (char)
+  (let ((variable (static-cond
+		   ((eq skk-emacs-type 'xemacs)
+		    'last-command-char)
+		   (t
+		    'last-command-event))))
+    (set variable char)))
+
+(put 'skk-bind-last-command-char 'lisp-indent-function 1)
+(defmacro skk-bind-last-command-char (char &rest body)
+  (let ((variable (cond ((eq skk-emacs-type 'xemacs)
+			 'last-command-char)
+			(t
+			 'last-command-event))))
+    `(let ((,variable ,char))
+       (progn
+	 ,@body))))
 
 ;;; version independent
 (defsubst skk-cursor-set (&optional color force)
