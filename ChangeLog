@@ -23,6 +23,23 @@
 	(skk-isearch-start-henkan):
 	Use `skk-last-command-char' and `skk-bind-last-command-char'.
 
+	* skk-dcomp.el (skk-kana-input@around@skk-dcomp-ad):
+	(skk-abbrev-insert@around@skk-dcomp-ad):
+	(skk-abbrev-comma@around@skk-dcomp-ad):
+	(skk-abbrev-period@around@skk-dcomp-ad):
+	(skk-comp-do@before@skk-dcomp-ad):
+	(skk-comp-do@after@skk-dcomp-ad):
+	Use `skk-last-command-char'.
+
+	* skk-jisx0201.el (skk-insert@around@skk-jisx0201-ad): Use
+	`skk-last-command-char'.
+
+	* skk-hint.el (skk-insert@arount@skk-hint-ad): Use
+	`skk-last-command-char' and `skk-set-last-command-char'.
+
+	* skk-tut.el (skk-insert@before@skktut-ad): Use
+	`skk-last-command-char'.
+
 2009-08-04  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-vars.el (skk-show-inline):
