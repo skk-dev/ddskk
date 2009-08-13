@@ -23,7 +23,6 @@
 	(skk-isearch-start-henkan):
 	Use `skk-last-command-char' and `skk-bind-last-command-char'.
 
-
 2009-08-04  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* skk-vars.el (skk-show-inline):
