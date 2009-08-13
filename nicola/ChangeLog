@@ -1,3 +1,15 @@
+2009-08-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el (skk-kanagaki-insert): Use
+	`skk-bind-last-command-char'.
+
+	* skk-nicola.el (skk-nicola-self-insert-lshift-1):
+	(skk-nicola-insert-single, skk-nicola-insert-double):
+	(skk-nicola-turn-on-j-mode, skk-nicola-space-function):
+	(skk-nicola-maybe-double-p):
+	(skk-insert@around@skk-nicola-workaround):
+	Use `skk-last-command-char' and `skk-bind-last-command-char'.
+
 2008-12-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-nicola-format-time): CAR of return value of
