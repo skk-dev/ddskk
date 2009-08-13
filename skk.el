@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.480 2009/07/01 00:43:08 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.481 2009/08/13 04:51:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/07/01 00:43:08 $
+;; Last Modified: $Date: 2009/08/13 04:51:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -935,7 +935,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 (defun skk-completion-wrapper (&optional arg)
   "Character $B$G$J$$%-!<$KJd40$r3d$jEv$F$k$?$a$N%3%^%s%I!#(B"
   (interactive "p")
-  (let ((last-command-char skk-try-completion-char))
+  (skk-bind-last-command-char skk-try-completion-char
     (call-interactively #'skk-insert)))
 
 (defun skk-latin-mode (arg)
@@ -1039,13 +1039,13 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
     (setq prog-list-number current-prefix-arg))
   (barf-if-buffer-read-only)
   (skk-with-point-move
-   (let ((ch last-command-char))
+   (let ((ch (skk-last-command-char)))
      (cond ((and skk-henkan-mode
 		 (memq ch skk-special-midashi-char-list))
 	    (if (= skk-henkan-start-point (point))
 		;; `$B"&(B' $B$KB3$/(B `>' $B$G$OJQ49=hM}$r3+;O$7$J$$(B
 		(progn
-		  (setq last-command-char ?>)
+		  (skk-set-last-command-char ?>)
 		  (skk-kana-input arg))
 	      ;; $B@\F,<-!&@\Hx<-$N=hM}!#(B
 	      (skk-process-prefix-or-suffix arg)))
@@ -1118,10 +1118,10 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	       skk-prefix "")
 	 (setq skk-after-prefix t)
 	 (skk-henkan))
-	(last-command-char
+	((skk-last-command-char)
 	 ;; `skk-insert' $B$+$i8F$P$l$k>l9g$K$O!"$3$N%1!<%9$O$J$$!#(B
 	 (let ((i (prefix-numeric-value arg))
-	       (str (skk-char-to-string last-command-char)))
+	       (str (skk-char-to-string (skk-last-command-char))))
 	   (while (> i 0)
 	     (skk-insert-str str)
 	     (setq i (1- i)))))
@@ -1189,7 +1189,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   ;; skk-get-nextstate $B$G<h$j$^$9(B.
   ;; don't echo key strokes in the minibuffer.
   (let ((echo-keystrokes 0)
-	(queue (list last-command-char)))
+	(queue (list (skk-last-command-char))))
     (while queue
       (if (not (skk-get-prefix skk-current-rule-tree))
 	  (progn
@@ -1197,7 +1197,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	    (setq skk-current-rule-tree skk-rule-tree))
 	(skk-erase-prefix))
       (setq skk-prefix (concat (skk-get-prefix skk-current-rule-tree)
-			       (char-to-string last-command-char)))
+			       (char-to-string (skk-last-command-char))))
       (let ((next (skk-select-branch
 		   skk-current-rule-tree
 		   (car queue)))
@@ -1610,7 +1610,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
   (interactive "p")
   (barf-if-buffer-read-only)
   (skk-with-point-move
-   (let* ((str (aref skk-jisx0208-latin-vector last-command-char))
+   (let* ((str (aref skk-jisx0208-latin-vector (skk-last-command-char)))
 	  (arg2 arg)
 	  (pair-str
 	   (and skk-auto-insert-paren
@@ -2480,8 +2480,8 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
    (cond
     ((not (eq skk-henkan-mode 'active))
      (if (not (eq last-command 'skk-kakutei-henkan))
-	 (when (and last-command-char
-		    (characterp last-command-char))
+	 (when (and (skk-last-command-char)
+		    (characterp (skk-last-command-char)))
 	   (skk-kana-input arg))
        (skk-undo-kakutei-subr)))
     ((string= skk-henkan-key "")
@@ -2991,8 +2991,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 
 (defun skk-set-henkan-point (&optional arg)
   "$BJQ49$r3+;O$9$k%]%$%s%H$r%^!<%/$7!"BP1~$9$k(B `skk-prefix' $B$+Jl2;$rF~NO$9$k!#(B"
-  (let* ((last-char (skk-downcase last-command-char))
-	 (normal (not (eq last-char last-command-char)))
+  (let* ((last-char (skk-downcase (skk-last-command-char)))
+	 (normal (not (eq last-char (skk-last-command-char))))
 	 (sokuon (if (string= skk-prefix (char-to-string last-char))
 		     (/= last-char ?o)
 		   nil))
@@ -3097,8 +3097,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   ;; "AruKu" $B$HF1MM$NJQ49$r$9$k$h$&$K$7$F$*$/!#(B
 	   (setq skk-okuri-char nil
 		 skk-okurigana nil
-		 last-command-char last-char
 		 normal nil)
+	   (skk-set-last-command-char last-char)
 	   (let ((skk-dcomp-activate nil))
 	     (skk-kana-input arg))
 	   (skk-set-char-before-as-okurigana))
@@ -3114,7 +3114,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (setq skk-okuri-char (char-to-string last-char)
 		 skk-okurigana t)))))))
     (when normal
-      (setq last-command-char last-char)
+      (skk-set-last-command-char last-char)
       (skk-kana-input arg))))
 
 ;;;###autoload
@@ -3646,43 +3646,44 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
      1 (point-max) file nil 'nomsg)))
 
 (defun skk-check-size-and-do-save-jisyo (new-file)
-  (let ((new-size (nth 7 (file-attributes new-file)))
-	old-size
-	;; yes-or-no-p $B$K2sEz$7!"(Bnewline $B$9$k$H!"(Bthis-command $B$,JQ$C$F$7$^$&!#(B
-	this-command this-command-char last-command last-command-char)
-    (when (= new-size 0)
-      (delete-file new-file)
-      (skk-error "SKK $B<-=q$,6u$K$J$C$F$$$^$9!*(B $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
-		 "Null SKK jisyo!  Stop saving jisyo"))
-    (cond
-     ((or (not skk-compare-jisyo-size-when-saving)
-	  ;; $B5l<-=q$H$N%5%$%:Hf3S$r9T$J$o$J$$!#(B
-	  (progn
-	    ;; (1)skk-jisyo $B$,$J$$$+!"(B
-	    ;; (2)new-file $B$H(B skk-jisyo $B$,F10l$N%5%$%:$+(B
-	    ;;    (skk-(aux-)large-jisyo $B$+$i?75,$NC18l$rFI$_9~$^$J$+$C$?$j!"(B
-	    ;;    $B?75,C18l$NEPO?$r9T$J$o$J$+$C$?>l9g$O%5%$%:$,F1$8(B)$B!"(B
-	    ;; (3)new-file $B$NJ}$,Bg$-$$(B
-	    ;; $B>l9g(B ($B>e5-$N(B 3 $BDL$j$G$"$l$P$$$:$l$b@5>o(B)$B!#(B
-	    (setq old-size (nth 7 (file-attributes skk-jisyo)))
-	    (or (not old-size)
-		(>= new-size old-size))))
-      (skk-make-new-jisyo new-file))
-     ((skk-yes-or-no-p
-       (format
-	"skk-jisyo $B$,(B %dbytes $B>.$5$/$J$j$^$9$,!"%;!<%V$7$FNI$$$G$9$+!)(B"
-	(- old-size new-size))
-       (format
-	"New %s will be %dbytes smaller.  Save anyway?"
-	skk-jisyo (- old-size new-size)))
-      ;; $B$H$K$+$/%;!<%V!#(B
-      (skk-make-new-jisyo new-file))
-     (t
-      ;; $B%;!<%V$H$j;_$a!#(B
-      (delete-file new-file)
-      (with-output-to-temp-buffer "*SKK warning*"
-	(if skk-japanese-message-and-error
-	    (princ "\
+  (skk-bind-last-command-char nil
+    (let ((new-size (nth 7 (file-attributes new-file)))
+	  old-size
+	  ;; yes-or-no-p $B$K2sEz$7!"(Bnewline $B$9$k$H!"(Bthis-command $B$,JQ$C$F$7$^$&!#(B
+	  this-command this-command-char last-command)
+      (when (= new-size 0)
+	(delete-file new-file)
+	(skk-error "SKK $B<-=q$,6u$K$J$C$F$$$^$9!*(B $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
+		   "Null SKK jisyo!  Stop saving jisyo"))
+      (cond
+       ((or (not skk-compare-jisyo-size-when-saving)
+	    ;; $B5l<-=q$H$N%5%$%:Hf3S$r9T$J$o$J$$!#(B
+	    (progn
+	      ;; (1)skk-jisyo $B$,$J$$$+!"(B
+	      ;; (2)new-file $B$H(B skk-jisyo $B$,F10l$N%5%$%:$+(B
+	      ;;    (skk-(aux-)large-jisyo $B$+$i?75,$NC18l$rFI$_9~$^$J$+$C$?$j!"(B
+	      ;;    $B?75,C18l$NEPO?$r9T$J$o$J$+$C$?>l9g$O%5%$%:$,F1$8(B)$B!"(B
+	      ;; (3)new-file $B$NJ}$,Bg$-$$(B
+	      ;; $B>l9g(B ($B>e5-$N(B 3 $BDL$j$G$"$l$P$$$:$l$b@5>o(B)$B!#(B
+	      (setq old-size (nth 7 (file-attributes skk-jisyo)))
+	      (or (not old-size)
+		  (>= new-size old-size))))
+	(skk-make-new-jisyo new-file))
+       ((skk-yes-or-no-p
+	 (format
+	  "skk-jisyo $B$,(B %dbytes $B>.$5$/$J$j$^$9$,!"%;!<%V$7$FNI$$$G$9$+!)(B"
+	  (- old-size new-size))
+	 (format
+	  "New %s will be %dbytes smaller.  Save anyway?"
+	  skk-jisyo (- old-size new-size)))
+	;; $B$H$K$+$/%;!<%V!#(B
+	(skk-make-new-jisyo new-file))
+       (t
+	;; $B%;!<%V$H$j;_$a!#(B
+	(delete-file new-file)
+	(with-output-to-temp-buffer "*SKK warning*"
+	  (if skk-japanese-message-and-error
+	      (princ "\
 $B%;!<%V$7$h$&$H$9$k<-=q$N%5%$%:$,85$N$b$N$h$j$b>.$5$/$J$C$F$7$^$&$N$G!"(B
 $B%;!<%V$rCf;_$7$^$7$?!#<-=q$N%5%$%:$,>.$5$/$J$C$?860x$K$ONc$($P!"(B
 
@@ -3701,7 +3702,7 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
     M-x skk-reread-private-jisyo
 
 $B$r<B9T$7$F2<$5$$!#(B")
-	  (princ "\
+	    (princ "\
 Saving your private dictionary has been canceled, since the size of the
 dictionary will be smaller.  The following cases should be considered:
 
@@ -3720,8 +3721,8 @@ If you want to restore the dictionary from the disc, try
 
     M-x skk-reread-private-jisyo
 ")))
-      (skk-error "SKK $B<-=q$N%;!<%V$rCf;_$7$^$7$?!*(B"
-		 "Stop saving SKK jisyo!")))))
+	(skk-error "SKK $B<-=q$N%;!<%V$rCf;_$7$^$7$?!*(B"
+		   "Stop saving SKK jisyo!"))))))
 
 (defun skk-make-new-jisyo (tempo-file)
   "TEMPO-FILE $B$r?75,$N(B `skk-jisyo' $B$K$9$k!#(B
