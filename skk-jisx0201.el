@@ -1,13 +1,13 @@
-;;; skk-jisx0201.el --- JIS X 0201 ｶﾅ, Roman -*- coding: iso-2022-7bit -*-
+;;; skk-jisx0201.el --- JIS X 0201 ｶﾅ, Roman -*- coding: iso-2022-7bit -*-
 
 ;; Copyright (C) 1999-2007  SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.54 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.55 2009/08/13 05:21:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2009/08/13 05:21:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -154,28 +154,28 @@
   "*SKK JISX0201 モードのベースのルール。")
 
 (defvar skk-jisx0201-roman-rule-list
-  '(("!" nil "!") ("\"" nil "\"") ("#" nil "#") ("$" nil "$") ("%" nil "%")
-    ("&" nil "&") ("'" nil "'") ("\(" nil "(") ("\)" nil ")") ("*" nil "*")
-    ("+" nil "+") ("," nil ",") ("-" nil "-") ("." nil ".") ("/" nil "/")
-    ("0" nil "0") ("1" nil "1") ("2" nil "2") ("3" nil "3") ("4" nil "4")
-    ("5" nil "5") ("6" nil "6") ("7" nil "7") ("8" nil "8") ("9" nil "9")
-    (":" nil ":") (";" nil ";") ("<" nil "<") ("=" nil "=") (">" nil ">")
-    ("?" nil "?") ("@" nil "@")
-    ("A" nil "A") ("B" nil "B") ("C" nil "C") ("D" nil "D") ("E" nil "E")
-    ("F" nil "F") ("G" nil "G") ("H" nil "H") ("I" nil "I") ("J" nil "J")
-    ("K" nil "K") ("L" nil "L") ("M" nil "M") ("N" nil "N") ("O" nil "O")
-    ("P" nil "P") ("Q" nil "Q") ("R" nil "R") ("S" nil "S") ("T" nil "T")
-    ("U" nil "U") ("V" nil "V") ("W" nil "W") ("X" nil "X") ("Y" nil "Y")
-    ("Z" nil "Z")
-    ("[" nil "[") ("\\" nil "\\") ("]" nil "]") ("^" nil "^") ("_" nil "_")
-    ("`" nil "`")
-    ("a" nil "a") ("b" nil "b") ("c" nil "c") ("d" nil "d") ("e" nil "e")
-    ("f" nil "f") ("g" nil "g") ("h" nil "h") ("i" nil "i") ("j" nil "j")
-    ("k" nil "k") ("l" nil "l") ("m" nil "m") ("n" nil "n") ("o" nil "o")
-    ("p" nil "p") ("q" nil "q") ("r" nil "r") ("s" nil "s") ("t" nil "t")
-    ("u" nil "u") ("v" nil "v") ("w" nil "w") ("x" nil "x") ("y" nil "y")
-    ("z" nil "z")
-    ("{" nil "{") ("|" nil "|") ("}" nil "}") ("~" nil "~"))
+  '(("!" nil "!") ("\"" nil "\"") ("#" nil "#") ("$" nil "$") ("%" nil "%")
+    ("&" nil "&") ("'" nil "'") ("\(" nil "(") ("\)" nil ")") ("*" nil "*")
+    ("+" nil "+") ("," nil ",") ("-" nil "-") ("." nil ".") ("/" nil "/")
+    ("0" nil "0") ("1" nil "1") ("2" nil "2") ("3" nil "3") ("4" nil "4")
+    ("5" nil "5") ("6" nil "6") ("7" nil "7") ("8" nil "8") ("9" nil "9")
+    (":" nil ":") (";" nil ";") ("<" nil "<") ("=" nil "=") (">" nil ">")
+    ("?" nil "?") ("@" nil "@")
+    ("A" nil "A") ("B" nil "B") ("C" nil "C") ("D" nil "D") ("E" nil "E")
+    ("F" nil "F") ("G" nil "G") ("H" nil "H") ("I" nil "I") ("J" nil "J")
+    ("K" nil "K") ("L" nil "L") ("M" nil "M") ("N" nil "N") ("O" nil "O")
+    ("P" nil "P") ("Q" nil "Q") ("R" nil "R") ("S" nil "S") ("T" nil "T")
+    ("U" nil "U") ("V" nil "V") ("W" nil "W") ("X" nil "X") ("Y" nil "Y")
+    ("Z" nil "Z")
+    ("[" nil "[") ("\\" nil "\\") ("]" nil "]") ("^" nil "^") ("_" nil "_")
+    ("`" nil "`")
+    ("a" nil "a") ("b" nil "b") ("c" nil "c") ("d" nil "d") ("e" nil "e")
+    ("f" nil "f") ("g" nil "g") ("h" nil "h") ("i" nil "i") ("j" nil "j")
+    ("k" nil "k") ("l" nil "l") ("m" nil "m") ("n" nil "n") ("o" nil "o")
+    ("p" nil "p") ("q" nil "q") ("r" nil "r") ("s" nil "s") ("t" nil "t")
+    ("u" nil "u") ("v" nil "v") ("w" nil "w") ("x" nil "x") ("y" nil "y")
+    ("z" nil "z")
+    ("{" nil "{") ("|" nil "|") ("}" nil "}") ("~" nil "~"))
   "*SKK JISX0201 モードの Roman のルール。")
 
 (defvar skk-jisx0201-rule-list
@@ -288,7 +288,7 @@
   (cond
    (skk-jisx0201-mode
     (let ((arg (ad-get-arg 0))
-	  (ch last-command-char))
+	  (ch (skk-last-command-char)))
       (cond
        ((or (and (not skk-jisx0201-roman)
 		 (memq ch skk-set-henkan-point-key)
