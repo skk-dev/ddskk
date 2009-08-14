@@ -1,5 +1,20 @@
 2009-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-vars.el (skk-charset-list): New internal variable.
+
+	* skk.el (skk-setup-charset-list): New function.
+	(skk-mode-invoke): Call it.
+
+	* skk-macs.el (skk-ascii-char-p, skk-jisx0208-p):
+	(skk-jisx0213-p):
+	For Emacs 23 or later, restrict charsets to ones in
+	skk-charset-list.
+
+	(skk-split-char): New function.
+	(skk-char-octet): Use it instead of `split-char'.
+
+2009-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-vars.el (skk-emacs-type): Define mule6 for Emacs 23.
 
 	* skk-isearch.el (skk-isearch-mode-setup):
