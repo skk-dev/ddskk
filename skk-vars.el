@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.275 2009/08/14 11:45:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.276 2009/08/14 13:46:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/14 11:45:35 $
+;; Last Modified: $Date: 2009/08/14 13:46:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1975,6 +1975,9 @@ o 候補一覧を表示するとき (候補の文字列の後ろに注釈が付加される)
     (?\\  . "\\\\"))
   "辞書エントリ内に含めてはならない文字を置き変えるための連想リスト。
 `;' は、註釈と関係ない場合だけ置換する。")
+
+(defvar skk-charset-list nil
+  "SKK が扱う文字集合のリスト。SKK 初回起動時に設定される。")
 
 (defvar skk-emacs-id nil
   "複数 emacs を識別する文字列。
