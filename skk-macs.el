@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.132 2009/08/14 11:46:11 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.133 2009/08/14 13:46:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/14 11:46:11 $
+;; Last Modified: $Date: 2009/08/14 13:46:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -396,24 +396,53 @@ the echo area while this function is waiting for an event."
     (char-to-string char)))
 
 (defsubst skk-ascii-char-p (char)
-  (eq (char-charset char) 'ascii))
+  (static-cond
+   ((memq skk-emacs-type '(mule6))
+    (eq (char-charset char skk-charset-list) 'ascii))
+   (t
+    (eq (char-charset char) 'ascii))))
 
 (defsubst skk-jisx0208-p (char)
-  (eq (char-charset char) 'japanese-jisx0208))
+  (static-cond
+   ((memq skk-emacs-type '(mule6))
+    (eq (char-charset char skk-charset-list) 'japanese-jisx0208))
+   (t
+    (eq (char-charset char) 'japanese-jisx0208))))
 
 (defsubst skk-jisx0213-p (char)
-  (and (featurep 'jisx0213)
-       (memq (char-charset char)
-	     '(japanese-jisx0213-1 japanese-jisx0213-2))))
+  (static-cond
+   ((memq skk-emacs-type '(mule6))
+       (memq (char-charset char skk-charset-list)
+	     '(japanese-jisx0213.2004-1
+	       japanese-jisx0213-1
+	       japanese-jisx0213-2)))
+   (t
+    (and (featurep 'jisx0213)
+	 (memq (char-charset char)
+	       '(japanese-jisx0213-1 japanese-jisx0213-2))))))
 
 (defsubst skk-char-octet (ch &optional n)
+  (or (nth (if n
+	       (1+ n)
+	     1)
+	   (skk-split-char ch))
+      0))
+
+(defun skk-split-char (ch)
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (or (nth (if n (1+ n) 1) (split-char ch))
-	0))
+   ((memq skk-emacs-type '(mule6))
+    (let* ((charset (char-charset ch skk-charset-list))
+	   (code (encode-char ch charset))
+	   (dimension (charset-dimension charset))
+	   val)
+      (while (> dimension 0)
+	(setq val (cons (logand code 255) ;; 0xFF
+			val))
+	(setq code (lsh code -8))
+	(setq dimension (1- dimension)))
+      (cons charset val)))
    (t
-    ;; FSF Emacs.
-    (char-octet ch n))))
+    (split-char ch))))
 
 ;; this one is called once in skk-kcode.el, too.
 (defsubst skk-charsetp (object)
