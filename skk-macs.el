@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.131 2009/08/13 04:51:34 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.132 2009/08/14 11:46:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/13 04:51:34 $
+;; Last Modified: $Date: 2009/08/14 11:46:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -431,7 +431,7 @@ the echo area while this function is waiting for an event."
     (if (stringp indicator)
 	indicator
       (cdr indicator)))
-   ((eq skk-emacs-type 'mule5)
+   ((memq skk-emacs-type '(mule5 mule6))
     (if no-properties
 	(with-temp-buffer
 	  (insert indicator)
@@ -446,7 +446,7 @@ the echo area while this function is waiting for an event."
    ((eq skk-emacs-type 'xemacs)
     (cons (cdr (assq mode skk-xemacs-extent-alist))
 	  string))
-   ((memq skk-emacs-type '(mule5))
+   ((memq skk-emacs-type '(mule5 mule6))
     (if (and window-system
 	     (not (eq mode 'default)))
 	(apply 'propertize string
@@ -468,7 +468,7 @@ BUFFER defaults to the current buffer."
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (face-proportional-p face))
-   ((eq skk-emacs-type 'mule5)
+   ((memq skk-emacs-type '(mule5 mule6))
     (or (face-equal face 'variable-pitch)
 	(eq (face-attribute face :inherit) 'variable-pitch)))))
 

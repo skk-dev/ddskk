@@ -1,3 +1,9 @@
+2009-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-menu.el:
+	* skk-nicola.el:
+	Check for mule6.
+
 2009-08-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki.el (skk-kanagaki-insert): Use

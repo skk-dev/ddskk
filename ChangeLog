@@ -1,3 +1,20 @@
+2009-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-emacs-type): Define mule6 for Emacs 23.
+
+	* skk-isearch.el (skk-isearch-mode-setup):
+	(skk-isearch-mode-cleanup):
+	Check for mule6.
+
+	* skk-macs.el (skk-indicator-to-string):
+	(skk-mode-string-to-indicator):
+	(skk-face-proportional-p):
+	Check for mule6.
+
+	* skk.el (skk-mode, skk-mode-invoke):
+	(skk-make-indicator-alist, skk-setup-modeline):
+	Check for mule6.
+
 2009-08-14  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Fix typo.

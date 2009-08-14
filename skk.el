@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.481 2009/08/13 04:51:56 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.482 2009/08/14 11:46:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/13 04:51:56 $
+;; Last Modified: $Date: 2009/08/14 11:46:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -88,7 +88,7 @@
   (require 'skk-macs)
   ;; SKK version dependent.
   (static-cond
-   ((eq skk-emacs-type 'mule5)
+   ((memq skk-emacs-type '(mule5 mule6))
     (require 'skk-e21))
    ((eq skk-emacs-type 'xemacs)
     (require 'skk-xemacs)))
@@ -192,10 +192,10 @@ dependent."
       (easy-menu-add skk-menu))
     (skk-require-module)
     ;; To terminate kana input.
-    (static-unless (memq skk-emacs-type '(mule5))
+    (static-unless (memq skk-emacs-type '(mule5 mule6))
       (make-local-hook 'pre-command-hook))
     (skk-add-skk-pre-command)
-    (static-unless (memq skk-emacs-type '(mule5))
+    (static-unless (memq skk-emacs-type '(mule5 mule6))
       (make-local-hook 'post-command-hook))
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
     (skk-j-mode-on)
@@ -333,7 +333,7 @@ dependent."
 	(skk-use-kana-keyboard
 	 ;; 仮名入力 (日本語旧 JIS または親指シフト)
 	 (skk-kanagaki-initialize)))
-  (static-when (eq skk-emacs-type 'mule5)
+  (static-when (memq skk-emacs-type '(mule5 mule6))
     (skk-e21-prepare-menu))
   (skk-setup-delete-selection-mode)
   (setq skk-mode-invoked t))
@@ -521,7 +521,7 @@ dependent."
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (skk-xemacs-prepare-modeline-properties))
-   ((eq skk-emacs-type 'mule5)
+   ((memq skk-emacs-type '(mule5 mule6))
     (skk-e21-prepare-modeline-properties)))
   ;;
   (let ((mode-string-list '(skk-latin-mode-string
@@ -596,7 +596,7 @@ dependent."
     (setq-default skk-modeline-input-mode "")
 
     (static-if
-	(memq skk-emacs-type '(xemacs mule5))
+	(memq skk-emacs-type '(xemacs mule5 mule6))
 	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
       (setq minor-mode-alist
 	    ;; each element of minor-mode-alist is not cons cell.

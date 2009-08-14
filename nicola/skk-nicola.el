@@ -50,7 +50,7 @@
 (eval-and-compile
   (require 'skk-kanagaki))
 
-(static-when (eq skk-emacs-type 'mule5)
+(static-when (memq skk-emacs-type '(mule5 mule6))
   (eval-and-compile
     (require 'skk-e21)))
 

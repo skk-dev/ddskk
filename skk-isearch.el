@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.58 2009/08/13 04:52:43 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.59 2009/08/14 11:45:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/13 04:52:43 $
+;; Last Modified: $Date: 2009/08/14 11:45:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -249,7 +249,7 @@ kakutei'ed and erase the buffer contents."
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
   (static-when
-      (memq skk-emacs-type '(mule4 mule5))
+      (memq skk-emacs-type '(mule4 mule5 mule6))
     (when (and current-input-method
 	       (string-match "^japanese-skk" current-input-method))
       (let* ((method current-input-method)
@@ -302,7 +302,7 @@ kakutei'ed and erase the buffer contents."
        (skk-jisx0208-latin-mode-on))))
   ;; Input Method として SKK を使っている場合の対策
   (static-when
-      (memq skk-emacs-type '(mule4 mule5))
+      (memq skk-emacs-type '(mule4 mule5 mule6))
     (when (string-match "^japanese-skk" (format "%s" default-input-method))
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	(inactivate-input-method))))

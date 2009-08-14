@@ -83,7 +83,7 @@ Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
      map
      '("menu-bar" "SKK")
      skk-kanagaki-menu-items))
-  (static-when (eq skk-emacs-type 'mule5)
+  (static-when (memq skk-emacs-type '(mule5 mule6))
     (setq skk-e21-menu-resource-ja
 	  (append
 	   skk-e21-menu-resource-ja
