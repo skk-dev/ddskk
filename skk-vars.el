@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.274 2009/08/09 11:14:48 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.275 2009/08/14 11:45:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/09 11:14:48 $
+;; Last Modified: $Date: 2009/08/14 11:45:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -46,6 +46,8 @@
     (cond
      ((featurep 'xemacs)
       'xemacs)
+     ((string< "6.0" mule-version)
+      'mule6)
      ((string< "5.0" mule-version)
       'mule5)
      ((string< "4.0" mule-version)
@@ -1877,8 +1879,7 @@ o 候補一覧を表示するとき (候補の文字列の後ろに注釈が付加される)
 
 ;;; -- Internal constants and variables of skk.el
 (defconst skk-coding-system-alist
-  (cond ((and (boundp 'mule-version)
-	      (string-lessp "6.0" (symbol-value 'mule-version)))
+  (cond ((eq skk-emacs-type 'mule6)
 	 '(("euc" . euc-jis-2004)
 	   ("ujis" . euc-jis-2004)
 	   ("sjis". japanese-shift-jis-2004)
@@ -3596,7 +3597,7 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
   (mapcar #'(lambda (x)
 	      (list (symbol-name x)))
 	  (static-if
-	      (memq skk-emacs-type '(mule5))
+	      (memq skk-emacs-type '(mule5 mule6))
 	      charset-list
 	    (charset-list))))
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
