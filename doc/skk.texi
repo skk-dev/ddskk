@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2009/01/04 07:04:49 $
+@set UPDATED $Date: 2009/08/14 10:07:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -773,7 +773,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 (@pxref{Auto Fill, , Auto Fill, emacs, GNU Emacs Manual})
 $B$r%*%s$K$7$^$9!#(B
 
-$B4{$K%*!<%H%U%#%k%b!<%I$,%*%s$K$J$C$F$$$k%P%C%U%!$G(B @kbd{C-x j}$B$r%?%$%W$9(B
+$B4{$K%*!<%H%U%#%k%b!<%I$,%*%s$K$J$C$F$$$k%P%C%U%!$G(B @kbd{C-x j} $B$r%?%$%W$9(B
 $B$k$H!"%*!<%H%U%#%k%b!<%I$O5U$K%*%U$K$J$k$N$GCm0U$7$F$/$@$5$$!#(B
 
 @kindex M-1 C-x j
@@ -1535,7 +1535,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 
 @noindent
 $B$H$$$&%(%s%H%j$,EPO?$5$l$^$9!#%+%l%s%H%P%C%U%!$N%]%$%s%H$K$O!"(B@samp{$B:F5"(B
-$BE*(B}$B$,A^F~$5$l$^$9!#(B
+$BE*(B} $B$,A^F~$5$l$^$9!#(B
 
 @node $B2~9TJ8;z$r4^$`<-=qEPO?(B
 @subsubsection $B2~9TJ8;z$r4^$`<-=qEPO?(B
@@ -2144,12 +2144,12 @@ SKK $B$N@_Dj$O!"(BEmacs $BI8=`$N(B Customize $B5!G=$r;H$C$F9T$&$3$H$b$G$-$^
 @kbd{M-x customize-group} $B$K$h$j!"(Bskk $B$N@_Dj$rBPOCE*$KJQ99$9$k$3$H$,$G$-(B
 $B$^$9!#(B
 
-@kbd{M-x customize-group} $B$r<B9T$9$k$H!"%_%K%P%C%U%!$K(B ''Customize group''
+@kbd{M-x customize-group} $B$r<B9T$9$k$H!"%_%K%P%C%U%!$K(B ``Customize group''
 $B$H%W%m%s%W%H$,I=<($5$l$^$9!#$3$3$G(B ``skk'' $B$HEz$($k$H!"(BSKK $B%0%k!<%W$N2h(B
 $BLL$H$J$j$^$9!#(B
 
 $B$"$k$$$O!"%b!<%I%i%$%s$G(B SKK $B%$%s%8%1!<%?$r1&(B ($BBh(B 3 $B%\%?%s(B) $B%/%j%C%/$7$FI=<((B
-$B$5$l$k%a%K%e!<$+$i(B ''SKK$B$r%+%9%?%^%$%:(B'' $B$rA*$s$G$bF1$82hLL$H$J$j$^$9!#(B
+$B$5$l$k%a%K%e!<$+$i(B ``SKK$B$r%+%9%?%^%$%:(B'' $B$rA*$s$G$bF1$82hLL$H$J$j$^$9!#(B
 
 $B%+%9%?%^%$%:$N;H$$$+$?$O0J2<$r;2>H$7$F$/$@$5$$!#(B
 
@@ -2165,7 +2165,7 @@ SKK $B$N@_Dj$O!"(BEmacs $BI8=`$N(B Customize $B5!G=$r;H$C$F9T$&$3$H$b$G$-$^
 $B$G$9!#(B
 
 $B$3$l$O!"%b!<%I%i%$%s$G(B SKK $B%$%s%8%1!<%?$r1&(B ($BBh(B 3 $B%\%?%s(B) $B%/%j%C%/$7$FI=<((B
-$B$5$l$k%a%K%e!<$+$i(B ''SKK$B$r%+%9%?%^%$%:(B ($B4J0WHG(B)'' $B$rA*$s$G8F$S=P$9$3$H$b(B
+$B$5$l$k%a%K%e!<$+$i(B ``SKK$B$r%+%9%?%^%$%:(B ($B4J0WHG(B)'' $B$rA*$s$G8F$S=P$9$3$H$b(B
 $B$G$-$^$9!#(B
 
 @node $BF~NO%b!<%I$N0l;~JQ99(B
@@ -7221,7 +7221,7 @@ SKK $B%b!<%I$,%*%U$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"%+!<%=%k$N$"$k3:Ev(B
 @item skk-cursor-jisx0201-color
 @vindex skk-cursor-jisx0201-color
 JISX0201 $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B
-``blueviolet'' $B$^$?$O(B ``thistle" $B$rMQ$$$^$9!#(B
+``blueviolet'' $B$^$?$O(B ``thistle'' $B$rMQ$$$^$9!#(B
 
 @item skk-cursor-jisx0208-latin-color
 @vindex skk-cursor-jisx0208-latin-color
