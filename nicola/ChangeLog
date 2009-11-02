@@ -1,3 +1,14 @@
+2009-11-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki.el (skk-kanagaki-initialize): Use
+	`skk-char-to-unibyte-string' instead of `char-to-string'.
+
+	* skk-nicola.el (skk-insert@around@skk-nicola-workaround): Use
+	`char-to-string' instead of `skk-char-to-string'.
+	(skk-nicola-turn-on-j-mode, skk-nicola-treat-triple)
+	(skk-nicola-insert-double, skk-nicola-maybe-double-p): Use
+	`skk-char-to-unibyte-string' instead of `char-to-string'.
+
 2009-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-menu.el:

@@ -431,7 +431,7 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では
   (dolist (char skk-special-midashi-char-list)
     (when (and skk-use-kana-keyboard
 	       (memq (nth 2 (assoc
-			     (skk-char-to-string char)
+			     (skk-char-to-unibyte-string char)
 			     (symbol-value
 			      (intern
 			       (format

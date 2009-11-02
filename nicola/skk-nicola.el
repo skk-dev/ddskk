@@ -484,7 +484,7 @@
 	(when (characterp next)
 	  (setq char next)
 	  (setq next (key-description
-		      (char-to-string char))))
+		      (skk-char-to-unibyte-string char))))
 	(when (eq next 'space)
 	  (setq next (key-description " ")))
 	(when (symbolp next)
@@ -629,7 +629,7 @@
 				  (current-time)))
 		     time2)
 	  str (if (characterp next)
-		  (char-to-string next))
+		  (skk-char-to-unibyte-string next))
 	  third-event (next-command-event)
 	  third (skk-nicola-event-to-key third-event))
     (cond
@@ -677,14 +677,14 @@
 		   first)
 		  ((characterp first)
 		   (lookup-key skk-j-mode-map
-			       (char-to-string first)))
+			       (skk-char-to-unibyte-string first)))
 		  (t
 		   (lookup-key skk-j-mode-map first))))
 	(char (if (characterp first)
 		  first
 		(skk-last-command-char)))
 	(str (when (characterp next)
-	       (char-to-string next))))
+	       (skk-char-to-unibyte-string next))))
     ;;
     (case (lookup-key skk-j-mode-map (or str next))
       (skk-nicola-self-insert-rshift
@@ -845,14 +845,14 @@
 		   first)
 		  ((characterp first)
 		   (lookup-key skk-j-mode-map
-			       (char-to-string first)))
+			       (skk-char-to-unibyte-string first)))
 		  (t
 		   (lookup-key skk-j-mode-map first))))
 	(char (if (characterp first)
 		  first
 		(skk-last-command-char)))
 	(str (when (characterp next)
-	       (char-to-string next)))
+	       (skk-char-to-unibyte-string next)))
 	(shifts '(skk-nicola-self-insert-lshift
 		  skk-nicola-self-insert-rshift)))
   (or
@@ -1044,9 +1044,9 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
 	(setq marker skk-henkan-start-point)
 	(skk-kakutei)
 	ad-do-it
-	(unless (or (string= (skk-char-to-string (char-before))
+	(unless (or (string= (char-to-string (char-before))
 			     (cadr cell1))
-		    (string= (skk-char-to-string (char-before))
+		    (string= (char-to-string (char-before))
 			     (cadr cell2)))
 	  (skk-save-point
 	   (goto-char marker)
