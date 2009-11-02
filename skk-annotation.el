@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.142 2009/11/02 09:21:48 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.143 2009/11/02 09:46:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2009/11/02 09:21:48 $
+;; Last Modified: $Date: 2009/11/02 09:46:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -925,7 +925,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	 (append '(("sup" . skk-annotation-wikipedia-clean-sup)
 		   ("sub" . skk-annotation-wikipedia-clean-sub))
 		 html2text-format-tag-list))
-	buffer note aimai continue nop point top pt1 pt2 btag etag end)
+	buf buffer note aimai continue nop point top pt1 pt2 btag etag end)
     (if (get-buffer cache-buffer)
 	(with-current-buffer cache-buffer
 	  (setq note (buffer-string)))
@@ -935,13 +935,15 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 				  source word)
 				 #'skk-annotation-wikipedia-retrieved
 				 (list (list source))))
-      (when (and (setq buffer (catch 'skk-annotation-wikipedia-retrieved
-				(condition-case nil
-				    (sleep-for 1000)
-				  (quit
-				   (kill-buffer buffer)
-				   (throw 'skk-annotation-wikipedia-suspended
-					  source)))))
+      (while (not buf)
+	(setq buf (catch 'skk-annotation-wikipedia-retrieved
+		    (condition-case nil
+			(sleep-for 0.1)
+		      ((error quit)
+		       (kill-buffer buffer)
+		       (throw 'skk-annotation-wikipedia-suspended
+			      source))))))
+      (when (and (setq buffer buf)
 		 (buffer-live-p buffer))
 	(with-current-buffer buffer
 	  (set-buffer-multibyte t)
