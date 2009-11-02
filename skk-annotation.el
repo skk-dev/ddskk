@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.140 2009/11/02 07:13:25 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.141 2009/11/02 07:14:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2009/11/02 07:13:25 $
+;; Last Modified: $Date: 2009/11/02 07:14:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -847,7 +847,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(string "")
 	(note nil))
     ;; sources $B$K;XDj$5$l$?=gHV$K;2>H$9$k(B
-    (if (setq hoge (catch 'skk-annotation-wikipedia-suspended
+    (if (catch 'skk-annotation-wikipedia-suspended
 	  (save-match-data
 	    (while (and (not note)
 			sources)
@@ -884,7 +884,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	      (setq sources (cdr sources)))
 	    (unless note
 	      (message "%s $B$K9`L\$,$"$j$^$;$s(B" string)))
-	  nil))
+	  nil)
 	;; $B%@%&%s%m!<%I$,CfCG$5$l$?$H$-(B
 	(progn
 	  (message "%s $B$NE>Aw$,CfCG$5$l$^$7$?(B" source)
@@ -1325,11 +1325,11 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	    (goto-char pt1))))))))))
 
 (defun skk-annotation-wikipedia-retrieved (&rest args)
-  (cond ((setq geho (or (member "deleted\n" (assq 'error (memq :error (car args))))
+  (cond ((or (member "deleted\n" (assq 'error (memq :error (car args))))
 	     (< (buffer-size) 7)
 	     (not (progn
 		    (goto-char (point-max))
-		    (search-backward "</html>" nil t)))))
+		    (search-backward "</html>" nil t))))
 	 ;; $BIT40A4$J(B retrieval $B$K$*$$$F$b(B STATUS $B$,(B nil $B$H$J$k$3$H$,$"$k$N$G(B
 	 ;; $B$3$3$GD4@0$9$k!#(B
 	 (kill-buffer (current-buffer))
