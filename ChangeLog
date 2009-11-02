@@ -26,6 +26,8 @@
 	(skk-annotation-ja-wiktionary-lang-regexp)
 	(skk-annotation-ja-wiktionary-part-of-speech-regexp): Update.
 
+	* skk-annotation.el (skk-annotation-wikipedia-1): Remove <script>.
+
 2009-08-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-setup-charset-list): Place `ascii' at the top of

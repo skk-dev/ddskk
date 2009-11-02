@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.138 2008/09/15 14:34:04 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.139 2009/11/02 06:34:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2008/09/15 14:34:04 $
+;; Last Modified: $Date: 2009/11/02 06:34:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -374,7 +374,7 @@
 	       (skk-annotation-show-2 annotation)))
 	    ((eq command browse-command)
 	     (setq list (delq browse-command list))
-	     (setq urls (delq nil (mapcar #'skk-annotation-find-url notes)))
+;	     (setq urls (delq nil (mapcar #'skk-annotation-find-url notes)))
 	     (when word
 	       (cond ((setq cache
 			    (skk-annotation-wikipedia-cache word sources))
@@ -1158,7 +1158,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		(setq point nil)
 		(goto-char (point-min))
 		(while (re-search-forward
-			"<span class=\"\\(.+audiolink.+\\)\".*>" nil t)
+			"<span class=\"\\(.+audiolink.+\\|editsection\\)\".*>" nil t)
 		  (setq point (match-beginning 0))
 		  (goto-char point)
 		  (search-forward "</span>" nil t)
@@ -1181,6 +1181,8 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		(while (re-search-forward
 			"<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
 		  (replace-match ""))
+		;; <script> を除去
+		(skk-annotation-wikipedia-remove-nested "<script.*>" "</script>")
 		;; <table> を除去
 		(skk-annotation-wikipedia-remove-nested "<table.*>" "</table>")
 		;;
