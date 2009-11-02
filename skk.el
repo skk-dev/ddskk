@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.484 2009/08/20 02:38:18 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.485 2009/11/02 03:56:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/20 02:38:18 $
+;; Last Modified: $Date: 2009/11/02 03:56:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -376,11 +376,11 @@ dependent."
    (skk-j-mode
     (skk-define-j-mode-map)
     (unless (eq (lookup-key skk-j-mode-map
-			    (char-to-string skk-try-completion-char))
+			    (skk-char-to-unibyte-string skk-try-completion-char))
 		'skk-insert)
       (when (vectorp skk-kakutei-key)
 	(define-key skk-j-mode-map skk-kakutei-key 'skk-kakutei))
-      (define-key skk-j-mode-map (char-to-string skk-try-completion-char)
+      (define-key skk-j-mode-map (skk-char-to-unibyte-string skk-try-completion-char)
 	'skk-insert)
       ;; Workaround for key translation.
       (static-unless (featurep 'xemacs)
@@ -391,17 +391,18 @@ dependent."
 	  (define-key skk-j-mode-map [(tab)] 'skk-completion-wrapper)))
       ;;
       (unless (featurep 'skk-kanagaki)
-	(define-key skk-j-mode-map (char-to-string skk-previous-candidate-char)
+	(define-key skk-j-mode-map (skk-char-to-unibyte-string
+				    skk-previous-candidate-char)
 	  'skk-previous-candidate))
       (when skk-use-jisx0201-input-method
 	;; This command is autoloaded.
 	(define-key skk-j-mode-map "\C-q" 'skk-toggle-katakana))
       (unless skk-use-viper
 	(define-key skk-j-mode-map
-	  (char-to-string skk-start-henkan-with-completion-char)
+	  (skk-char-to-unibyte-string skk-start-henkan-with-completion-char)
 	  'skk-comp-start-henkan)
 	(define-key skk-j-mode-map
-	  (char-to-string skk-backward-and-set-henkan-point-char)
+	  (skk-char-to-unibyte-string skk-backward-and-set-henkan-point-char)
 	  'skk-backward-and-set-henkan-point))
       (skk-setup-delete-backward-char)
       (skk-setup-undo)))
@@ -419,7 +420,7 @@ dependent."
       (define-key skk-jisx0208-latin-mode-map skk-kakutei-key 'skk-kakutei)
       (unless skk-use-viper
 	(define-key skk-jisx0208-latin-mode-map
-	  (char-to-string skk-backward-and-set-henkan-point-char)
+	  (skk-char-to-unibyte-string skk-backward-and-set-henkan-point-char)
 	  'skk-backward-and-set-henkan-point))))
    ;;
    (skk-abbrev-mode-map
@@ -427,13 +428,15 @@ dependent."
     (unless (eq (lookup-key skk-abbrev-mode-map skk-kakutei-key)
 		'skk-kakutei)
       (define-key skk-abbrev-mode-map skk-kakutei-key 'skk-kakutei)
-      (define-key skk-abbrev-mode-map (char-to-string skk-start-henkan-char)
+      (define-key skk-abbrev-mode-map (skk-char-to-unibyte-string
+				       skk-start-henkan-char)
 	'skk-start-henkan)
-      (define-key skk-abbrev-mode-map (char-to-string skk-try-completion-char)
+      (define-key skk-abbrev-mode-map (skk-char-to-unibyte-string
+				       skk-try-completion-char)
 	'skk-try-completion)
       (unless skk-use-viper
 	(define-key skk-abbrev-mode-map
-	  (char-to-string skk-start-henkan-with-completion-char)
+	  (skk-char-to-unibyte-string skk-start-henkan-with-completion-char)
 	  'skk-start-henkan-with-completion)))))
   ;;
   (unless (eq (lookup-key minibuffer-local-map skk-kakutei-key)
@@ -484,7 +487,7 @@ dependent."
 	      'skk-insert)
     (let ((i 32))
       (while (< i 127)
-	(define-key skk-j-mode-map (char-to-string i) 'skk-insert)
+	(define-key skk-j-mode-map (skk-char-to-unibyte-string i) 'skk-insert)
 	(setq i (1+ i))))
     (skk-define-menu skk-j-mode-map)))
 
@@ -509,7 +512,7 @@ dependent."
     (let ((i 0))
       (while (< i 128)
 	(when (aref skk-jisx0208-latin-vector i)
-	  (define-key skk-jisx0208-latin-mode-map (char-to-string i)
+	  (define-key skk-jisx0208-latin-mode-map (skk-char-to-unibyte-string i)
 	    'skk-jisx0208-latin-insert))
 	(setq i (1+ i))))
     (define-key skk-jisx0208-latin-mode-map "\C-q" 'skk-toggle-characters)
@@ -524,7 +527,8 @@ dependent."
      (list (cons 'skk-abbrev-mode skk-abbrev-mode-map)))
     (let ((i 32))
       (while (< i 127)
-	(define-key skk-abbrev-mode-map (char-to-string i) 'skk-abbrev-insert)
+	(define-key skk-abbrev-mode-map (skk-char-to-unibyte-string i)
+	  'skk-abbrev-insert)
 	(setq i (1+ i))))
     (define-key skk-abbrev-mode-map "," 'skk-abbrev-comma)
     (define-key skk-abbrev-mode-map "." 'skk-abbrev-period)
@@ -1141,7 +1145,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	((skk-last-command-char)
 	 ;; `skk-insert' $B$+$i8F$P$l$k>l9g$K$O!"$3$N%1!<%9$O$J$$!#(B
 	 (let ((i (prefix-numeric-value arg))
-	       (str (skk-char-to-string (skk-last-command-char))))
+	       (str (skk-char-to-unibyte-string (skk-last-command-char))))
 	   (while (> i 0)
 	     (skk-insert-str str)
 	     (setq i (1- i)))))
@@ -1217,7 +1221,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	    (setq skk-current-rule-tree skk-rule-tree))
 	(skk-erase-prefix))
       (setq skk-prefix (concat (skk-get-prefix skk-current-rule-tree)
-			       (char-to-string (skk-last-command-char))))
+			       (skk-char-to-unibyte-string (skk-last-command-char))))
       (let ((next (skk-select-branch
 		   skk-current-rule-tree
 		   (car queue)))
@@ -1320,7 +1324,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		(setq count0 (1- count0)))
 	      (when pair
 		(while (> count1 0)
-		  (if (not (string= pair (char-to-string (following-char))))
+		  (if (not (string= pair (skk-char-to-unibyte-string (following-char))))
 		      (progn
 			(setq inserted (1+ inserted))
 			(skk-insert-str pair)))
@@ -1922,7 +1926,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 		  (skk-error "`%s' $B$KL58z$J%-!<$,;XDj$5$l$F$$$^$9(B"
 			     "Illegal key in `%s'"
 			     "skk-henkan-show-candidates-keys"))
-		(char-to-string (upcase c)))
+		(skk-char-to-unibyte-string (upcase c)))
 	    skk-henkan-show-candidates-keys))
 	  key-num-alist	; $B8uJdA*BrMQ$NO"A[%j%9%H(B
 	  (key-num-alist1 ; key-num-alist $B$rAH$_N)$F$k$?$a$N:n6HMQO"A[%j%9%H!#(B
@@ -3013,7 +3017,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
   "$BJQ49$r3+;O$9$k%]%$%s%H$r%^!<%/$7!"BP1~$9$k(B `skk-prefix' $B$+Jl2;$rF~NO$9$k!#(B"
   (let* ((last-char (skk-downcase (skk-last-command-char)))
 	 (normal (not (eq last-char (skk-last-command-char))))
-	 (sokuon (if (string= skk-prefix (char-to-string last-char))
+	 (sokuon (if (string= skk-prefix (skk-char-to-unibyte-string last-char))
 		     (/= last-char ?o)
 		   nil))
 	 (henkan-active (eq skk-henkan-mode 'active)))
@@ -3069,7 +3073,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
        (cond
 	(skk-process-okuri-early
 	 (skk-set-marker skk-henkan-end-point (point))
-	 (let ((char (char-to-string last-char)))
+	 (let ((char (skk-char-to-unibyte-string last-char)))
 	   (setq skk-okuri-char
 		 (or (cdr (assoc char skk-okuri-char-alist))
 		     char)))
@@ -3131,7 +3135,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (skk-set-marker skk-okurigana-start-point (point))
 	   (insert-and-inherit "*")
 	   (skk-set-marker skk-kana-start-point (point))
-	   (setq skk-okuri-char (char-to-string last-char)
+	   (setq skk-okuri-char (skk-char-to-unibyte-string last-char)
 		 skk-okurigana t)))))))
     (when normal
       (skk-set-last-command-char last-char)

@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.59 2009/08/14 11:45:51 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.60 2009/11/02 03:56:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/14 11:45:51 $
+;; Last Modified: $Date: 2009/11/02 03:56:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -135,7 +135,7 @@
   "Show isearch message."
   (skk-isearch-incomplete-message
    (if (string= skk-prefix "")
-       (char-to-string (skk-last-command-char))
+       (skk-char-to-unibyte-string (skk-last-command-char))
      skk-prefix)))
 
 (defun skk-isearch-current-mode ()
@@ -346,7 +346,7 @@ Optional argument PREFIX is appended if given."
   ;; printable chars.
   (do ((c ?\040 (1+ c)))
       ((>= c ?\177))
-    (define-key map (char-to-string c) 'skk-isearch-wrapper))
+    (define-key map (skk-char-to-unibyte-string c) 'skk-isearch-wrapper))
 
   (when skk-j-mode-function-key-usage
     (define-key map [f1] 'skk-isearch-wrapper)
@@ -365,7 +365,7 @@ Optional argument PREFIX is appended if given."
   (define-key map skk-kakutei-key 'skk-isearch-newline)
   (define-key map "\C-m" 'skk-isearch-exit)
   (when (characterp skk-previous-candidate-char)
-    (define-key map (char-to-string skk-previous-candidate-char)
+    (define-key map (skk-char-to-unibyte-string skk-previous-candidate-char)
       'skk-isearch-wrapper))
 
   ;; C-x map for skk.

@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.135 2009/08/14 14:31:22 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.136 2009/11/02 03:56:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/14 14:31:22 $
+;; Last Modified: $Date: 2009/11/02 03:56:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -391,9 +391,13 @@ the echo area while this function is waiting for an event."
     ;; FSF Emacs on X Window System.
     (and window-system (x-display-color-p)))))
 
-(defsubst skk-char-to-string (char)
+(defsubst skk-char-to-unibyte-string (char)
   (ignore-errors
-    (char-to-string char)))
+    (static-cond
+     ((memq skk-emacs-type '(mule6))
+      (string-make-unibyte (char-to-string char)))
+     (t
+      (char-to-string char)))))
 
 (defsubst skk-ascii-char-p (char)
   (static-cond

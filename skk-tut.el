@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.66 2009/08/13 05:26:16 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.67 2009/11/02 03:56:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/13 05:26:16 $
+;; Last Modified: $Date: 2009/11/02 03:56:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -352,7 +352,7 @@
   (let ((map (make-sparse-keymap))
 	(c 32))
     (while (< c 127)
-      (define-key map (char-to-string c) 'skk-insert)
+      (define-key map (skk-char-to-unibyte-string c) 'skk-insert)
       (setq c (1+ c)))
     (setq skktut-j-mode-map map)))
 
@@ -364,7 +364,7 @@
 	(i 0))
     (while (< i 128)
       (if (aref skk-jisx0208-latin-vector i)
-	  (define-key map (char-to-string i) 'skk-jisx0208-latin-insert))
+	  (define-key map (skk-char-to-unibyte-string i) 'skk-jisx0208-latin-insert))
 	(setq i (1+ i)))
       (define-key map "\C-j" 'skk-kakutei)
       (setq skktut-jisx0208-latin-mode-map map)))

@@ -139,7 +139,8 @@
 	  (setq skk-hint-end-point (point))
 	  (setq skk-hint-state 'okuri)
 	  (skk-set-last-command-char (skk-downcase (skk-last-command-char)))
-	  (setq skk-hint-okuri-char (char-to-string (skk-last-command-char)))
+	  (setq skk-hint-okuri-char (skk-char-to-unibyte-string
+				     (skk-last-command-char)))
 	  (skk-kana-input arg)
 	  (when (skk-jisx0208-p (char-before))
 	    (skk-hint-setup-hint)

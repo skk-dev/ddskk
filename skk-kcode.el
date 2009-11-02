@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.37 2007/10/25 13:55:32 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.38 2009/11/02 03:56:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/10/25 13:55:32 $
+;; Last Modified: $Date: 2009/11/02 03:56:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -152,7 +152,7 @@
   (let ((menu-keys1 ; 表示用のキーリストを組み立てる。
 	 (mapcar (function
 		  (lambda (char)
-		    (char-to-string (upcase char))))
+		    (skk-char-to-unibyte-string (upcase char))))
 		 skk-input-by-code-menu-keys1))
 	kanji-char)
     (when (< n skk-code-n1-min)
@@ -254,7 +254,7 @@
 
 (defun skk-input-by-code-or-menu-1 (n1 n2)
   (let ((menu-keys2 ; 表示用のキーリストを組み立てる。
-	 (mapcar (function (lambda (char) (char-to-string (upcase char))))
+	 (mapcar (function (lambda (char) (skk-char-to-unibyte-string (upcase char))))
 		 skk-input-by-code-menu-keys2))
 	kanji-char)
     (while (not kanji-char)
