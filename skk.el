@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.485 2009/11/02 03:56:13 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.486 2009/11/02 04:54:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/11/02 03:56:13 $
+;; Last Modified: $Date: 2009/11/02 04:54:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4383,8 +4383,16 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
 	(words4 (nth 3 old-words-list)))
     (cond
      ((not purge)
-      ;; words1 の先頭の候補を word にする。
-      (setq words1 (cons word (delete word words1))))
+      ;; words1 を更新
+      (if skk-jisyo-fix-order
+	(if (consp words1)
+	    ;; 新規の時は、他の同音語の後に追加
+	    (unless (member word words1)
+	      (setcdr (last words1) (cons word nil)))
+	  ;; 今回の読みの語、そのものが新規
+	  (setq words1 (cons word nil)))
+	;; words1 の先頭の候補を word にする。
+	(setq words1 (cons word (delete word words1)))))
      ;; 送りなし、もしくは skk-henkan-okuri-strictly と
      ;; skk-henkan-strict-okuri-precedence が nil の場合。
      (t
@@ -4413,7 +4421,10 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
 	 (words3
 	  (cond
 	   ((not purge)
-	    (setq words3 (cons word (delete word words3))))
+	    (if skk-jisyo-fix-order
+	      (unless (member word words3)
+		(setcdr (last words3) (cons word nil)))
+	      (setq words3 (cons word (delete word words3)))))
 	   (t
 	    (setq words3 (delete word words3))
 	    (when (null words3)

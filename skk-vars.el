@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.276 2009/08/14 13:46:14 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.277 2009/11/02 04:54:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/08/14 13:46:14 $
+;; Last Modified: $Date: 2009/11/02 04:54:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -296,6 +296,12 @@ Automatically becomes buffer-local when set in any fashion."
 nil であれば、英語で表示する。"
   :type 'boolean
   :group 'skk-basic)
+
+(defcustom skk-jisyo-fix-order nil
+  "*Non-nil の時は、確定の際に、個人辞書の同音語の順序を変更しない。
+個人辞書に新規に追加される語は、既出語の後に追加される。"
+  :type 'boolean
+  :group 'skk-dictionary)
 
 (defcustom skk-kakutei-jisyo nil
   ;; ソートされている必要があるかどうかは設定次第だが、そこまで説明するのは面倒

@@ -1,3 +1,9 @@
+2009-09-23  Teika Kazura  <teika@lavabit.com>
+
+	* skk-vars.el (skk-jisyo-fix-order): New user option.
+	* skk.el (skk-update-jisyo-1): When skk-jisyo-fix-order is
+	non-nil, do not modify word order.
+
 2009-11-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el (skk-char-to-unibyte-string): New function. Call
