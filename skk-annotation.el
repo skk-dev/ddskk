@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.144 2009/11/02 12:30:54 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.145 2009/11/02 12:32:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2009/11/02 12:30:54 $
+;; Last Modified: $Date: 2009/11/02 12:32:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -925,7 +925,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	 (append '(("sup" . skk-annotation-wikipedia-clean-sup)
 		   ("sub" . skk-annotation-wikipedia-clean-sub))
 		 html2text-format-tag-list))
-	buf buffer)
+	buf buffer note)
     (if (get-buffer cache-buffer)
 	(with-current-buffer cache-buffer
 	  (setq note (buffer-string)))
@@ -945,9 +945,9 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 			      source))))))
       (when (and (setq buffer buf)
 		 (buffer-live-p buffer))
-	(skk-annotation-wikipedia-format-buffer buffer cache-buffer)))))
+	(skk-annotation-wikipedia-format-buffer source buffer cache-buffer)))))
 
-(defun skk-annotation-wikipedia-format-buffer (buffer cache-buffer)
+(defun skk-annotation-wikipedia-format-buffer (source buffer cache-buffer)
   (let ((html2text-remove-tag-list
 	 (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
 		   "code")
