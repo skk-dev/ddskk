@@ -27,8 +27,7 @@
 	(skk-annotation-ja-wiktionary-part-of-speech-regexp): Update.
 
 	* skk-annotation.el (skk-annotation-wikipedia-1): Remove
-	<script>.  Do not throw `skk-annotation-wikipedia-suspended' after
-	`skk-sit-for'.
+	<script>.  Use `sleep-for' instead of `skk-sit-for'.
 
 2009-08-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
