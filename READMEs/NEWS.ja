@@ -1,4 +1,44 @@
-* 13.2
+* 14.1
+
+** $BBP1~$9$k(B Emacs $B$N%P!<%8%g%s(B
+
+*** Emacs 21.1 $B0J9_!"(BEmacs 22.1 $B0J9_!"(BEmacs 23.1
+
+Emacs 21 $B$G$O=<J,%F%9%H$5$l$F$$$^$;$s!#(BEmacs 23 $B$N$?$a$N%F%9%H$r?J$a$F(B
+$B$$$^$9$,!"$^$@IT40A4$H;W$o$l$^$9!#(B
+
+*** XEmacs 21.4.22 $B0J9_(B, XEmacs 21.5 beta29
+
+$B0l1~%5%]!<%HBP>]$H$7$F5s$2$F$*$-$^$9$,!"$[$H$s$I%F%9%H$G$-$F$$$^$;$s!#(B
+
+** Emacs 23 $BBP1~$r?J$a$^$7$?!#(B
+
+Emacs 23 $B$O(B Unicode $B$KBP1~$7!"$J$*$+$DFbIt%3!<%I$,=>Mh$N(B emacs-mule $B$+(B
+$B$i(B unicode $B%Y!<%9$N$b$N$KJQ99$5$l$^$7$?!#$3$N4X78$G!"=>Mh$N(B SKK $B$K$*$1(B
+$B$kJ8;z$N=xNs$r2>Dj$7$?%3!<%I$J$I$,@5$7$/F0:n$7$J$+$C$?LdBj$,$"$j$^$7$?(B
+$B$,!"=g<!=$@5$r?J$a$F$$$^$9!#(B
+
+*** Emacs 23 $B$K$*$1$k(B char-to-string $B$N;HMQK!$N8!F$(B
+
+SKK $B$G$OEAE}E*$K!"%-!<$HJ8;z(B (char) $B$N4XO"$rA0Ds$H$7$F!"%-!<Dj5A$K:]$7(B
+$B$FJ8;z$r(B char-to-string $B$GJQ49$7$FDj5A$9$k<jK!$,;H$o$l$F$$$^$7$?!#$7$+(B
+$B$7!"(BEmacs 23 $B$G$N(B char-to-string $B$N=PNO$O(B Emacs 22 $B$N$=$l$H0[$J$k>l9g(B
+$B$,$"$j$^$9!#$=$3$G!"(Bunibyte $BJ8;zNs$,I,MW$J>l9g$K$OL@<(E*$K(B unibyte $BJ8(B
+$B;zNs$rMW5a$9$k$h$&$K$7!"(Bchar $B$,%-!<Dj5A$r0UL#$9$k>l9g$HJ8;z$=$N$b$N$r(B
+$B0UL#$9$k>l9g$H$r6hJL$7$^$7$?!#(B
+
+*** Emacs 23 $B$N$?$a$N(B  split-char $B$N:F<BAu(B
+
+Emacs 23 $B$G$O(B split-char $B$9$k:]$K!"F|K\8l$NJ8;z$,(B unicode-bmp $B$KB0$9$k(B
+$B$HH=CG$5$l$k>l9g$,$"$j!"(BEmacs 22 $B0JA0$H=PNO$,0[$J$j$^$9!#$3$N$?$a!"(B
+Emacs 22 $B0JA0$N(B split-char $B$HF1Ey$N(B skk-split-char $B4X?t$rMQ0U$7$^$7$?!#(B
+
+*** Emacs 23 $B$K$*$1$k(B last-command-char $B;HMQ$NCf;_(B
+
+Emacs 23 $B$G$OJQ?t(B last-command-char $B$,(B obsolete $B$H$J$j!"(B
+last-command-event $B$NMxMQ$,?d>)$5$l$F$$$^$9!#$7$+$7!"(BGNU Emacs $B$H(B
+XEmacs $B$H$N4V$G(B last-command-event $B$K8_49@-$,$J$$$?$a!"(BSKK $BB&$G(B
+workaround $B$7$F$$$^$9!#(B
 
 ** $B?7$7$/0J2<$N%W%m%0%i%`$,DI2C$5$l$^$7$?!#(B
 
@@ -252,7 +292,7 @@ APEL 10.6 $B$K4X$9$kFC5-;v9`$O(B DDSKK 12.2.0 $B$N(B NEWS $B$r;2>H$7$F$/$@$
 
 $B:#2s$H$/$K!"(BEmacs 22 $B$N?75!G=$KBP1~$9$Y$/B?$/$N3HD%$,9T$o$l$^$7$?!#(B
 
-*** XEmacs 21.4.18 $B0J9_(B,XEmacs 21.5 beta28
+*** XEmacs 21.4.18 $B0J9_(B, XEmacs 21.5 beta28
 
 $B0lIt(B XEmacs 21.5 $B$N?75!G=$K$bBP1~$7$F$$$^$9!#(B
 
