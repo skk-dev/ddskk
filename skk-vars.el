@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.277 2009/11/02 04:54:57 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.278 2009/11/02 05:50:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/11/02 04:54:57 $
+;; Last Modified: $Date: 2009/11/02 05:50:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2624,7 +2624,7 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
 
 ;; XXX まだ不完全
 (defconst skk-annotation-en-wiktionary-lang-regexp "\
-<h2>.*<span class=\"mw-headline\">\
+<h2>.*<span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
 \\(Aari\\|Abanyom\\|Abaza\\|Abenaki\\|Abkhaz\\|Acehnese\\|Acholi\\|Acholi\
 \\|Achumawa\\|Adangme\\|Adele\\|Adnyamathanha\\|Adyghe\\|Adzera\\|Afar\
@@ -2715,7 +2715,7 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
   "en.wiktionary において言語を表すヘッダの正規表現")
 
 (defconst skk-annotation-en-wiktionary-part-of-speech-regexp "\
-<span class=\"mw-headline\">\
+<span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
 \\(Article\\|Noun\\|Proper Noun\\|Adjective\\|Proper Adjective\
 \\|Verb\\( form\\)?\\|Intransitive\\( verb\\)?\\|Transitive\\( verb\\)?\
@@ -2733,7 +2733,7 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
     "en.wiktionary において品詞を表すヘッダの正規表現")
 
 (defconst skk-annotation-ja-wiktionary-lang-regexp "\
-<h2>.*<span class=\"mw-headline\">\
+<h2>.*<span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
 \\(.+語\\|インターリングア\\|エスペラント\\|サンスクリット\\|トキポナ\
 \\|トク・ピジン\\|記号\\|漢字\\)\
@@ -2742,7 +2742,7 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
   "ja.wiktionary において言語を表すヘッダの正規表現")
 
 (defconst skk-annotation-ja-wiktionary-part-of-speech-regexp "\
-<span class=\"mw-headline\">\
+<span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
 \\(\
 \\(\\(固有\\|\\(人称\\|疑問\\)?代\\)?名\\|\\(助\\)?動\\|形容動?\\|\
