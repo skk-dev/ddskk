@@ -1,3 +1,20 @@
+2009-11-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el (skk-char-to-unibyte-string): New function. Call
+	`string-make-unibyte' under Emacs 23.
+	(skk-char-to-string): Abolish function.
+
+	* skk-hint.el (skk-insert@around@skk-hint-ad):
+	* skk-isearch.el (skk-isearch-message, skk-isearch-setup-keymap):
+	* skk-kcode.el (skk-input-by-code-or-menu-jump)
+	(skk-input-by-code-or-menu-1):
+	* skk-tut.el:
+	* skk.el (skk-setup-keymap, skk-define-jisx0208-latin-mode-map)
+	(skk-define-abbrev-mode-map, skk-process-prefix-or-suffix)
+	(skk-kana-input, skk-henkan-show-candidates)
+	(skk-set-henkan-point): Call `skk-char-to-unibyte-string' for key
+	definitions etc, where unibyte strings are expected.
+
 2009-08-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-setup-charset-list): Place `ascii' at the top of
