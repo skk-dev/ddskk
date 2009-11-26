@@ -1,3 +1,8 @@
+2009-11-14  Teika Kazura  <teika@lavabit.com>
+
+	* skk.texi: Add description for skk-jisyo-fix-order.
+	Also edit skk-edit-private-jisyo.
+
 2009-09-23  Teika Kazura  <teika@lavabit.com>
 
 	* skk-vars.el (skk-jisyo-fix-order): New user option.
