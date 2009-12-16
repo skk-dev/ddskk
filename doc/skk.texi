@@ -16,7 +16,7 @@
 @c
 @set EDITION 13.1.50
 @set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2009/11/26 17:04:12 $
+@set UPDATED $Date: 2009/12/16 21:43:51 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8288,7 +8288,7 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item Yukihiro Nakai @email{ynakai@@redhat.com}
 @item Yoshiki Hayashi @email{yoshiki@@xemacs.org}
 @item YOSHIZAWA Masahiro @email{manbou@@ceres.dti.ne.jp}
-@item Yuh Ohmura @email{yutopia@@t3.rim.or.jp}
+@item Yuh Ohmura @email{yutopia@@giga.ocn.ne.jp}
 @item Yukiyoshi Kameyama @email{kameyama@@kuis.kyoto-u.ac.jp}
 @end itemize
 
