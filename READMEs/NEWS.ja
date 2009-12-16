@@ -496,6 +496,8 @@ skk-completion-prog-list-0
 skk-completion-prog-list の代わりに skk-completion-prog-list-6 を使っ
 て補完します。
 
+変換にも類似の機能が使えるようになりましたので、その項目も読んで下さい。
+
 ** アピアランスの拡張
 
 *** 変換候補・注釈表示の修飾・加工機能
@@ -574,8 +576,10 @@ skk-search-prog-list-0
 という変数を新設しました。これらは skk-search-prog-list と全く同じ形式
 (変換プログラムの list) で設定できます。
 例えば▽モードで SPC の代わりに C-6 SPC と入力すると、
-skk-search-prog-list の代わりに skk-search-prog-list-6 を使って補完し
+skk-search-prog-list の代わりに skk-search-prog-list-6 を使って変換し
 ます。
+
+補完にも類似の機能が使えるようになりましたので、その項目も読んで下さい。
 
 ** アノテーションのために Wikipedia/Wiktionary を参照する機能
 

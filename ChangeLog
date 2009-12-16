@@ -1,6 +1,12 @@
+2009-12-16  Teika Kazura  <teika@lavabit.com>
+
+	* READMEs/NEWS-ja: Modify for skk-completion-prog-list-* and
+	skk-search-prog-list-*.
+	* skk.el (skk-show-num-type-info): Update doc string.
+
 2009-11-14  Teika Kazura  <teika@lavabit.com>
 
-	* skk.texi: Add description for skk-jisyo-fix-order.
+	* doc/skk.texi: Add description for skk-jisyo-fix-order.
 	Also edit skk-edit-private-jisyo.
 
 2009-09-23  Teika Kazura  <teika@lavabit.com>
