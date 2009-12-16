@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.486 2009/11/02 04:54:57 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.487 2009/12/16 02:37:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/11/02 04:54:57 $
+;; Last Modified: $Date: 2009/12/16 02:37:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2472,8 +2472,8 @@ auto に設定するとユーザに確認しない。
 	(insert "\
 #0 無変換                 e.g. 12
 #1 全角数字               e.g. １２
-#2 漢数字で位取りなし     e.g. 五五〇〇
-#3 漢数字で位取りあり     e.g. 五千五百
+#2 漢数字で位取りあり     e.g. 五五〇〇
+#3 漢数字で位取りなし     e.g. 五千五百
 #4 数値再変換
 #5 金額表記               e.g. 壱阡九百九拾伍
 #9 将棋用"))
