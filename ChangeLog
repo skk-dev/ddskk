@@ -1,12 +1,16 @@
+2009-12-26  Teika Kazura  <teika@lavabit.com>
+
+	* doc/skk.texi: Major rewritements, mostly in the chapter 便利な
+	応用機能. Reorganizations. Improvements in various descriptions.
+
 2009-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* READMEs/NEWS.ja: Minor correction & notice addition.
 	* doc/skk.texi: Update email info.
 
 2009-12-16  Teika Kazura  <teika@lavabit.com>
 
-	* READMEs/NEWS-ja: Modify for skk-completion-prog-list-* and
-	skk-search-prog-list-*.
-	* skk.el (skk-show-num-type-info): Update doc string.
+	* skk.el (skk-show-num-type-info): Minor doc correction.
 
 2009-11-14  Teika Kazura  <teika@lavabit.com>
 
