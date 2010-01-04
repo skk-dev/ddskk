@@ -5,11 +5,11 @@
 
 2009-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* READMEs/NEWS.ja: Minor correction & notice addition.
 	* doc/skk.texi: Update email info.
 
 2009-12-16  Teika Kazura  <teika@lavabit.com>
 
+	* READMEs/NEWS.ja: Minor correction & notice addition.
 	* skk.el (skk-show-num-type-info): Minor doc correction.
 
 2009-11-14  Teika Kazura  <teika@lavabit.com>
