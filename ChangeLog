@@ -5,6 +5,8 @@
 	appear correctly.  Encode strings in shift_jis here.  Note that
 	this workaround is not needed for Meadow 3 (based on Emacs 22).
 
+	* skk-version.el (skk-version): Bump to 14.0.90.
+
 2009-12-26  Teika Kazura  <teika@lavabit.com>
 
 	* doc/skk.texi: Major rewritements, mostly in the chapter 便利な
