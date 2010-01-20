@@ -282,7 +282,9 @@
       nil)))
 
 (defun skk-e21-menu-replace (list)
-  (let (cons)
+  (let ((running-ntemacs (and (eq window-system 'w32)
+			      (not (fboundp 'Meadow-version))))
+	cons)
     (while (and list (listp list))
       (cond
        ((and (car-safe list)
@@ -290,8 +292,7 @@
 	(skk-e21-menu-replace (car list)))
        ((and (stringp (car-safe list))
 	     (setq cons (assoc (car list) skk-e21-menu-resource-ja)))
-	(setcar list (if (and (eq window-system 'w32)
-			      (not (fboundp 'Meadow-version))
+	(setcar list (if (and running-ntemacs
 			      (member (car list) '("Hiragana" "Katakana"
 				      "Hankaku alphabet" "Zenkaku alphabet")))
 			 ;; NTEmacs で Widget 付きメニューアイテムの
@@ -301,7 +302,7 @@
 		       (cdr cons))))
        ((and (vectorp (car-safe list))
 	     (setq cons (assoc (aref (car list) 0) skk-e21-menu-resource-ja)))
-	(aset (car list) 0 (if (and (eq window-system 'w32)
+	(aset (car list) 0 (if (and running-ntemacs
 				    (member (aref (car list) 0)
 					    '("Hiragana" "Katakana"
 					      "Hankaku alphabet" "Zenkaku alphabet")))
