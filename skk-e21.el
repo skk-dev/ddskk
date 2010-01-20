@@ -290,10 +290,26 @@
 	(skk-e21-menu-replace (car list)))
        ((and (stringp (car-safe list))
 	     (setq cons (assoc (car list) skk-e21-menu-resource-ja)))
-	(setcar list (cdr cons)))
+	(setcar list (if (and (eq window-system 'w32)
+			      (not (fboundp 'Meadow-version))
+			      (member (car list) '("Hiragana" "Katakana"
+				      "Hankaku alphabet" "Zenkaku alphabet")))
+			 ;; NTEmacs で Widget 付きメニューアイテムの
+			 ;; 日本語がうまく表示できない問題への対策
+			 ;; (NTEmacs 22.1, 23.1)
+			 (encode-coding-string (cdr cons) 'shift_jis)
+		       (cdr cons))))
        ((and (vectorp (car-safe list))
 	     (setq cons (assoc (aref (car list) 0) skk-e21-menu-resource-ja)))
-	(aset (car list) 0 (cdr cons))))
+	(aset (car list) 0 (if (and (eq window-system 'w32)
+				    (member (aref (car list) 0)
+					    '("Hiragana" "Katakana"
+					      "Hankaku alphabet" "Zenkaku alphabet")))
+			       ;; NTEmacs で Widget 付きメニューアイテムの
+			       ;; 日本語がうまく表示できない問題への対策
+			       ;; (NTEmacs 22.1, 23.1)
+			       (encode-coding-string (cdr cons) 'shift_jis)
+			     (cdr cons)))))
       (setq list (cdr list)))))
 
 (defun skk-e21-mouse-position ()

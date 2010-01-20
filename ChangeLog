@@ -1,3 +1,10 @@
+2010-01-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-e21.el (skk-e21-menu-replace): Workaround for an NTEmacs
+	problem where names of menu items with widget properties do not
+	appear correctly.  Encode strings in utf-8 here.  Note that this
+	workaround is not needed for Meadow 3 (based on Emacs 22).
+
 2009-12-26  Teika Kazura  <teika@lavabit.com>
 
 	* doc/skk.texi: Major rewritements, mostly in the chapter 便利な
