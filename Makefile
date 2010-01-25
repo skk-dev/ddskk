@@ -1,11 +1,11 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.65 2007/09/02 06:39:38 skk-cvs Exp $
-# Last Modified: $Date: 2007/09/02 06:39:38 $
+# Version: $Id: Makefile,v 1.66 2010/01/25 15:12:17 skk-cvs Exp $
+# Last Modified: $Date: 2010/01/25 15:12:17 $
 
 
-VERSION = 13.1
+VERSION = 14.0.90
 
 BZIP2     = bzip2 -9
 DATE	  = date
