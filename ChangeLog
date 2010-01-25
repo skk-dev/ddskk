@@ -1,3 +1,8 @@
+2010-01-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Pre-release 14.0.90.
+	* doc/skk.texi: Add author Teika Kazura.
+
 2010-01-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-e21.el (skk-e21-menu-replace): Workaround for an NTEmacs

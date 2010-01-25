@@ -13,6 +13,7 @@
 @c  Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@namazu.org>
+@c          Teika Kazura  <teika@lavabit.com>
 @c          Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 @c          Tsuyoshi AKIHO <akiho@sky.email.ne.jp>
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
@@ -21,9 +22,9 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set EDITION 13.1.50
-@set SKK-VERSION 13.1.50
-@set UPDATED $Date: 2009/12/26 18:17:10 $
+@set EDITION 14.0.90
+@set SKK-VERSION 14.0.90
+@set UPDATED $Date: 2010/01/25 15:06:19 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -90,7 +91,8 @@ by the author.
 @vskip 0pt plus 1filll
 Copyright @copyright{}1991-2007 @w{Masahiko Sato}($B:4F#2mI'(B), @*
 @w{Yukiyoshi Kameyama}($B55;39,5A(B), @w{NAKAJIMA Mikio}($BCfEg44IW(B),
-@w{Tsukamoto Tetsuo}($BDMK\E0M:(B) and @w{Tsuyoshi AKIHO} ($B=)J]6/(B).
+@w{Teika Kazura}($BDj2H(B), @w{Tsukamoto Tetsuo}($BDMK\E0M:(B) and
+@w{Tsuyoshi AKIHO} ($B=)J]6/(B).
 Revised by @w{Kiyotaka Sakai}($B<r0f@6N4(B) and @w{Satoshi Harauchi}($B86FbAo(B).
 
 Permission is granted to make and distribute verbatim copies of
@@ -161,18 +163,27 @@ SKK $B$N%P!<%8%g%s(B @value{SKK-VERSION} $B$KBP1~$7$F$$$^$9!#(B
 * $B%$%s%/%j%a%s%?%k!&%5!<%A(B::
 * $B%A%e!<%H%j%"%k(B::
 
-$BJXMx$J1~MQ5!G=(B
+$BJXMx$J1~MQ5!G=(B -- $BM=HwCN<1(B
 
 * $B%U%!%$%k9=@.(B::                $B1~MQ5!G=$r;H$$$3$J$9$?$a$NM=HwCN<1!#(B
 * $B%f!<%6%*%W%7%g%s$N@_DjJ}K!(B::
-* $B%+%?%+%J!"1Q;zF~NO$NJXK!(B::
+
+$BJXMx$J1~MQ5!G=(B -- $BF~NO4X78(B
+
+* $B%+%?%+%J!"1Q;zF~NO$NJXK!(B::     $B$3$l$H<!$N9`$O@dBP!"JXMx$G$9!#(B
 * $BJd40(B::                      $B!V$+$7$?$s!W(B + Tab -> $B!V$+$7$?$s$]$;$-$K$s!W(B
-* $BJXMx$JJQ49!"$=$NB>$NJQ49(B::
+* $BJXMx$JJQ49!"$=$NB>$NJQ49(B::    $BC14A;z!"@\F,<-!"4A?t;z!"Ey!9!#(B
+
+$BJXMx$J1~MQ5!G=(B -- $BMM!9$J@_Dj(B
+
 * $B%-!<@_Dj(B::                   $B%m!<%^;z$N%k!<%k$J$I$bJQ99$G$-$^$9!#(B
-* $BJQ49!"3NDj$NA08e(B::           $B8mJQ49$ND{@5!"0lH/3NDj!"3NDj$N%?%$%_%s%0$J$I(B
+* $BJQ49!"3NDj$NA08e(B::            $B8mJQ49$ND{@5!"0lH/3NDj!"3NDj$N%?%$%_%s%0$J$I(B
 * $BAw$j2>L>4XO"(B::                $BAw$j2>L>$N=hM}$K$D$$$F!#(B
 * $B8uJd$N=g=x(B::                 $B4XO"$N$"$k8l$O>e0L$KI=<($J$I!"8zN($r5a$a$F(B
 * $B<-=q4XO"(B::                    $B<-=q$K$^$D$o$k@_Dj$*$h$S5!G=!#(B
+
+$BJXMx$J1~MQ5!G=(B -- $BB>(B
+
 * $BCm<a(B ($B%"%N%F!<%7%g%s(B)::
 * $B4A;z%3!<%I4XO"(B::              $B4A;z%3!<%I$K$^$D$o$k5!G=!#(B
 * DDSKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B::
@@ -229,14 +240,13 @@ Daredevil SKK ($B0J2<(B @samp{DDSKK} $B$H$$$$$^$9(B) $B$O9bB.$G8zN(E*$JF|K\
 $B6-$rDs6!$9$k%7%9%F%`$G$9!#(BGNU General Public License $B$K=>$C$?%U%j!<!&%=%U(B
 $B%H%&%'%"$H$7$FG[I[$5$l$^$9!#(B
 
-DDSKK 13.1 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
+DDSKK 14 $B$,F0:n$9$k$H;W$o$l$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 
 @itemize @minus
-@item Emacs 20.7 $B0J9_(B
-@item Emacs 21.1 $B0J9_(B
 @item Emacs 22.1 $B0J9_(B
-@item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.4.18 $B0J9_(B
-@item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.5.28
+@item Emacs 23.1 $B0J9_(B
+@item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.4 $B$N:G?7HG(B
+@item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.5 $B$N:G?7HG(B
 @end itemize
 
 $B$J$*!"(BXEmacs $B$K4X$7$F!"K\BN$HJLG[I[$N%Q%C%1!<%872$O:G?7HG$,MW5a$5$l$^$9!#(B
@@ -244,7 +254,10 @@ DDSKK 13.1 $B$,F0:n$rJ]>Z$9$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 fsf-compat $B%Q%C%1!<%8$,F0:n$N$?$a$KI,?\$G$9!#(B
 
 $BA4BN$H$7$F!"8=:_$O(B XEmacs $B$h$j(B GNU Emacs $B$G$NF0:n$,$h$/%F%9%H$5$l$F$*$j!"(B
-XEmacs $B$G$N$h$jB?$/$N%F%9%H$,I,MW$G$9!#(B
+$B:G6a$G$O(B XEmacs $B$G$N%F%9%H$O=<J,9T$o$l$F$$$^$;$s!#(B
+
+Emacs 20.7 $B$*$h$S(B Emacs 21 $B$G$NF0:n3NG'$O9T$o$l$F$$$^$;$s$,!"F0:n$9$k$+(B
+$B$b$7$l$^$;$s!#(B
 
 @node SKK$B$H$O$J$K$+(B
 @section SKK$B$H$O$J$K$+(B
@@ -299,8 +312,8 @@ ACT$B!"(BTUT-code $B$K$h$kF~NO$b2DG=!#(B
 @section APEL $B$N%$%s%9%H!<%k(B
 @cindex APEL
 
-DDSKK 13 $B$O<o!9$N(B Emacsen $B$G$NF0:n$r2DG=$H$9$k$?$a(B APEL (A Portable
-Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 13.1 $B$O(B APEL 10.7 $B$G$NF0:n$r3NG'$7$F(B
+DDSKK 14 $B$O<o!9$N(B Emacsen $B$G$NF0:n$r2DG=$H$9$k$?$a(B APEL (A Portable
+Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 14 $B$O(B APEL 10.7 $B$G$NF0:n$r3NG'$7$F(B
 $B$$$^$9$,!"$G$-$k$@$1?7$7$$%P!<%8%g%s$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
 
 @display
@@ -1699,7 +1712,7 @@ English [RET]} $B$r<B9T$7$^$9!#(B
 @cindex @file{skk.el}
 
 SKK $B$N4pK\E*$J5!G=$O!"(B@file{skk.el} $B$K<}$a$i$l$F$$$^$9!#0lJ}!"(B
-DDSKK 13 $B$G1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$O(B @file{skk.el} $B$H(B
+DDSKK 14 $B$G1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$O(B @file{skk.el} $B$H(B
 $B$OJL$N%U%!%$%k$K<}$a$F$$$^$9!#$3$l$i$O!"I,MW$K1~$8%*!<%H%m!<%I$9$k$h$&$K(B
 $B@_7W$5$l$F$$$^$9!#3F1~MQ5!G=$N35N,$H3:Ev$N%U%!%$%kL>$K$D$$$F@bL@$7$^$9!#(B
 
@@ -5947,7 +5960,7 @@ emacs $B$KFI$_$3$^$l$^$k<-=q$G$9!#(B
 @subsubsection $B<-=q8!:w$N@_Dj$N6qBNNc(B
 @vindex skk-search-prog-list
 
-$B$3$N@a$G$O!"(B@code{skk-search-prog-list} $B$N6qBNNc$H$7$F(B DDSKK-14.1 $B$G$N(B
+$B$3$N@a$G$O!"(B@code{skk-search-prog-list} $B$N6qBNNc$H$7$F(B DDSKK 14 $B$G$N(B
 $B=i4|@_Dj$r<($7!"BgBN$NN.$l$r@bL@$7$^$9!#(B
 
 DDSKK $B$G$O!"J#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#J#?t$N<-=q$,F1;~$K(B
@@ -8230,6 +8243,7 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item Takao KAWAMURA @email{kawamura@@ike.tottori-u.ac.jp}
 @item Takeshi OHTANI @email{ohtani@@iias.flab.fujitsu.co.jp}
 @item Tatsuya Kinoshita @email{tats@@vega.ocn.ne.jp}
+@item Teika Kazura  @email{teika@@lavabit.com}
 @item Thierry Emery @email{Thierry.Emery@@nmu.alcatel.fr}
 @item TOKUYA Junichi @email{tokuya@@crab.fuji-ric.co.jp}
 @item Tomotaka SUWA @email{cooper@@saitama.fujimic.fujisankei-g.co.jp}
@@ -8464,7 +8478,7 @@ SKK $BK\BN$O0J2<$+$iF~<j$G$-$^$9!#(B
 @node Q.2-3 SKK $B%5!<%P$O$I$3$K$"$j$^$9$+(B?
 @unnumberedsubsec Q.2-3 SKK $B%5!<%P$O$I$3$K$"$j$^$9$+(B?
 
-DDSKK 13 $B$O(B $B%5!<%P$N<oN`!"%P!<%8%g%s$K$O0MB8$7$F$$$^$;$s!#(B
+DDSKK 14 $B$O(B $B%5!<%P$N<oN`!"%P!<%8%g%s$K$O0MB8$7$F$$$^$;$s!#(B
 
 @display
 @url{http://openlab.jp/skk/skkserv-ja.html}
