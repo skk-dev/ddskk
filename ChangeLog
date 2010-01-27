@@ -4,6 +4,7 @@
 	`upcase-initials' for wikipedia here.
 	* skk-jisyo-edit-mode.el: Add "SKK-JISYO" to the last of
 	auto-mode-alist.
+	* skk-version.el (skk-version): Bump to 14.0.91.
 
 2010-01-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
