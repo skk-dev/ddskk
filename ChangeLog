@@ -1,3 +1,8 @@
+2010-01-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia): Do not call
+	`upcase-initials' for wikipedia here.
+
 2010-01-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Pre-release 14.0.90.
