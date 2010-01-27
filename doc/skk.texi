@@ -24,7 +24,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/01/25 15:06:19 $
+@set UPDATED $Date: 2010/01/27 14:21:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6707,15 +6707,6 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 * $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B::
 @end menu
 
-@footnote{
-Viper $BBP:v$O$^$@9T$o$l$F$$$^$;$s!#(B@file{~/.viper} $B$K<!$N$h$&$K=q$$$F2<(B
-$B$5$$!#(B
-
-@display
-(viper-harness-minor-mode "skk-annotation")
-@end display
-}
-
 @node $B%"%N%F!<%7%g%s$N4pAC(B
 @subsection $B%"%N%F!<%7%g%s$N4pAC(B
 
@@ -6751,12 +6742,20 @@ Viper $BBP:v$O$^$@9T$o$l$F$$$^$;$s!#(B@file{~/.viper} $B$K<!$N$h$&$K=q$$$F2<
 @findex skk-annotation-function
 
 $B%"%N%F!<%7%g%s$rI=<($5$;$k$K$O!"JQ?t(B @code{skk-show-annotation} $B$r(B
-@code{non-nil} $B$K$7$^$9!#<-=q$N8uJd$K%"%N%F!<%7%g%s$,$"$l$P%(%3!<%(%j(B
-$B%"(B @footnote{$BJQ?t(B @code{skk-annotation-show-as-message}$B$r(B @code{nil}
-$B$K$7$?>l9g$O!"(Bother-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g%s$rI=<($7$^$9!#(B
-other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!(B
-$B$N8uJd$rA*Br$7$?$j!"(Bquit $B$7$?$j(B) $B$9$k$H<+F0E*$KJD$8$i$l$^$9!#(B}$B$KI=<($7(B
-$B$^$9!#(B
+@code{non-nil} $B$K$7$^$9!#(B
+@footnote{Viper $BBP:v$O$^$@9T$o$l$F$$$^$;$s!#(B@file{~/.viper} $B$K<!$N$h$&$K(B
+$B=q$$$F2<$5$$!#(B
+
+@display
+(viper-harness-minor-mode "skk-annotation")
+@end display
+}
+
+$B<-=q$N8uJd$K%"%N%F!<%7%g%s$,$"$l$P%(%3!<%(%j%"$KI=<($7$^$9!#(B
+@footnote{$BJQ?t(B @code{skk-annotation-show-as-message} $B$r(B @code{nil} $B$K$7(B
+$B$?>l9g$O!"(Bother-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g%s$rI=<($7$^$9!#(B
+other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!$N(B
+$B8uJd$rA*Br$7$?$j!"(Bquit $B$7$?$j(B) $B$9$k$H<+F0E*$KJD$8$i$l$^$9!#(B}
 
 $B%f!<%6%"%N%F!<%7%g%s$H%7%9%F%`%"%N%F!<%7%g%s$r6hJL$9$k$3$H$G!"%f!<%6%"%N(B
 $B%F!<%7%g%s$@$1$rI=<($7$?$j!"$"$k$$$O$=$N5U$r9T$&$3$H$,2DG=$G$9!#(B
@@ -6771,6 +6770,7 @@ other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!(
 @end group
 @end lisp
 
+@noindent
 $B>e5-$NNc$G$O!"%"%N%F!<%7%g%s$N@hF,$,(B @code{*} $B$G;O$^$k!V%f!<%6%"%N%F!<(B
 $B%7%g%s!W$N>l9g$K(B @code{t} $B$rJV$9$N$G!"%f!<%6%"%N%F!<%7%g%s$@$1$rI=<($7(B
 $B$^$9!#(B

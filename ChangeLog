@@ -1,5 +1,7 @@
 2010-01-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* doc/skk.texi: Move footnote for Viper with skk-annotation to
+	subsection "アノテーションの使用".
 	* skk-annotation.el (skk-annotation-wikipedia): Do not call
 	`upcase-initials' for wikipedia here.
 	* skk-jisyo-edit-mode.el: Add "SKK-JISYO" to the last of
