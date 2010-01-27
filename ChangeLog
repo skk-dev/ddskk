@@ -2,6 +2,8 @@
 
 	* skk-annotation.el (skk-annotation-wikipedia): Do not call
 	`upcase-initials' for wikipedia here.
+	* skk-jisyo-edit-mode.el: Add "SKK-JISYO" to the last of
+	auto-mode-alist.
 
 2010-01-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

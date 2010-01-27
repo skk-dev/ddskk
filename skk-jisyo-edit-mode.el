@@ -85,7 +85,7 @@
   (run-hooks 'skk-jisyo-edit-mode-hook))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("SKK-JISYO" . skk-jisyo-edit-mode))
+(add-to-list 'auto-mode-alist '("SKK-JISYO" . skk-jisyo-edit-mode) t)
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
 				. skk-jisyo-edit-mode))
