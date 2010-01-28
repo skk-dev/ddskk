@@ -368,6 +368,9 @@
 	       (when (> current-column columns)
 		 (setq columns current-column))
 	       (forward-line 1)))))
+    (when (eq system-type 'windows-nt)
+      ;; NTEmacs で最終行が切れることがあるので、workaround。
+      (setq text (concat text "\n ")))
     ;; (text . (x . y))
     (cons text (cons columns lines))))
 
@@ -420,7 +423,11 @@
 			  ;; (cdr avoid-destination)
 			  0))
     ;;
-    (unless (eq skk-tooltip-mouse-behavior 'follow)
+    (cond
+     ((eq skk-tooltip-mouse-behavior 'follow)
+      (setq tooltip-info (skk-tooltip-resize-text text)
+	    text (car tooltip-info)))
+     (t
       ;; マウスポインタに依存せず tooptip の位置を決定する。
       (setq edges (window-inside-pixel-edges
 		   (if skk-isearch-switch
@@ -508,7 +515,7 @@
 			  (* (frame-pixel-width)))))
 	  (when (and (<= left mouse-x) (<= mouse-x right))
 	    ;; マウスポインタと被りそうなとき
-	    (setq left (- left (- right mouse-x) fontsize))))))
+	    (setq left (- left (- right mouse-x) fontsize)))))))
     ;;
     (setq parameters (if (eq skk-tooltip-mouse-behavior 'follow)
 			 skk-tooltip-parameters
