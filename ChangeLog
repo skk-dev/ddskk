@@ -1,3 +1,9 @@
+2010-01-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (skk-cursor-set-1, skk-cursor-off-1):
+	Modifications for FSF Emacs.  Do not set cursor color when
+	default-cursor-color is not yet set.
+
 2010-01-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Move footnote for Viper with skk-annotation to
