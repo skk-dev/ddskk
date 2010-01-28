@@ -368,9 +368,6 @@
 	       (when (> current-column columns)
 		 (setq columns current-column))
 	       (forward-line 1)))))
-    (when (eq system-type 'windows-nt)
-      ;; NTEmacs で最終行が切れることがあるので、workaround。
-      (setq text (concat text "\n ")))
     ;; (text . (x . y))
     (cons text (cons columns lines))))
 
