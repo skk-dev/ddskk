@@ -61,11 +61,16 @@
     ("ホ" "ボ" "ポ")) "\
 濁点と半濁点を入力するためのルール。")
 
+(defconst skk-kanagaki-print-help-function
+  (cond ((memq skk-emacs-type '(mule6))
+	 #'help-print-return-message)
+	(t
+	 #'print-help-return-message)))
+
 ;;;###autoload
 (defmacro skk-kanagaki-help-1 (bufname title list)
   `(let ((buf (get-buffer-create ,bufname)))
-     (save-excursion
-       (set-buffer buf)
+     (with-current-buffer buf
        (setq buffer-read-only nil)
        (erase-buffer)
        (insert
@@ -89,7 +94,7 @@
        (goto-char (point-min))
        (help-mode))
      (let ((standard-output buf))
-       (print-help-return-message))
+       (funcall skk-kanagaki-print-help-function))
      (display-buffer buf)))
 
 ;;;###autoload

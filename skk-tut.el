@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.67 2009/11/02 03:56:13 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.68 2010/01/30 03:44:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/11/02 03:56:13 $
+;; Last Modified: $Date: 2010/01/30 03:44:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -846,9 +846,8 @@ tutorial /チュートリアル/
 
 (defun skktut-next-answer-buffer ()
   (save-match-data
-    (save-excursion
+    (with-current-buffer skktut-question-buffer
       ;; first get right answer in `skktut-question-buffer'.
-      (set-buffer skktut-question-buffer)
       (goto-char (point-max))
       (search-backward "\n>>")
       (forward-char 1)
