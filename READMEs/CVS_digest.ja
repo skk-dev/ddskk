@@ -2,7 +2,7 @@
 
 * cvs repository tree
 
-     $CVSROOT(openlab.ring.gr.jp:/circus/cvsroot)
+     $CVSROOT(openlab.jp:/circus/cvsroot)
         |
         |
         +-- skk --+-- main (Main distribution -- Emacs Lisp, tutorials, etc)
@@ -62,10 +62,10 @@ http://www.itojun.org/hack/cvs/tut-kernel.html
 
 ** Login
 
-$B$^$:!"(Bguest $B%"%+%&%s%H$G(B openlab.ring.gr.jp $B$N(B cvs server $B$K%m%0%$%s$7(B
+$B$^$:!"(Bguest $B%"%+%&%s%H$G(B openlab.jp $B$N(B cvs server $B$K%m%0%$%s$7(B
 $B$^$9!#(B
 
-     $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot login
+     $ cvs -d :pserver:guest@openlab.jp:/circus/cvsroot login
 
 $B%Q%9%o!<%I$NF~NO$rB%$9%W%m%s%W%H$,=P$k$N$G!"%Q%9%o!<%I$H$7$F(B `guest'
 $B$rF~$l!"(BCR $B$7$^$7$g$&!#(B
@@ -81,12 +81,12 @@ Checkout $B$7$F(B cvs server $B$+$i%=!<%9$r$b$i$C$F$-$^$9(B ($B$3$N%U%!%$%k
 $B%-%s%0%3%T!<$H$$$$$^$9(B) (*$BCm(B2)$B!#(BMaintrunk (Daredevil SKK-11.x) $B$rF~<j(B
 $B$7$?$1$l$P!"2<5-$N$h$&$K$7$^$9(B
 
-     $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot checkout skk/main
+     $ cvs -d :pserver:guest@openlab.jp:/circus/cvsroot checkout skk/main
 
 Legacy branch (maintenance version of SKK-10.x) $B$rF~<j$7$?$1$l$P!"2<5-(B
 $B$N$h$&$K$7$^$9!#(B
 
-     $ cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot checkout -r legacy skk/main
+     $ cvs -d :pserver:guest@openlab.jp:/circus/cvsroot checkout -r legacy skk/main
 
 $B%+%l%s%H%G%#%l%/%H%j$N2<$K$G$-$k(B skk/main $B$H$$$&%G%#%l%/%H%j$K%o!<%-%s(B
 $B%0%3%T!<$,%3%T!<$5$l$^$9!#(B
@@ -103,7 +103,7 @@ account $B$NH/9T$r;2>H(B)$B!#(B
 $B$?$H$-$K:9J,$@$1<h$j4s$;!"%o!<%-%s%0%3%T!<$r:G?7$N>uBV$K$9$k$3$H$,$G$-(B
 $B$^$9!#(B
 
-$B%o!<%-%s%0%3%T!<$O!"(Bopenlab.ring.gr.jp:/circus/cvsroot $B$r;X$7$F$$$k$3(B
+$B%o!<%-%s%0%3%T!<$O!"(Bopenlab.jp:/circus/cvsroot $B$r;X$7$F$$$k$3(B
 $B$H$r5-21$7$F$$$k(B (*$BCm(B3) $B$N$G!"(Bupdate $B$+$i;O$a$k$H!"<+F0E*$K%m%0%$%s$G(B
 $B$-$^$9!#(B
 
@@ -185,10 +185,10 @@ legacy branch $B$O(Btag $B$O(B skk10_62, skk10_63, skk10_64... $B$H$$$&$U$&
 
 ** $BCm(B1
 
-$B%o!<%-%s%0%3%T!<$O!"(Bopenlab.ring.gr.jp:/circus/cvsroot $B$r;X$7$F$$$k$3(B
+$B%o!<%-%s%0%3%T!<$O!"(Bopenlab.jp:/circus/cvsroot $B$r;X$7$F$$$k$3(B
 $B$H$r5-21$7$F$$$k(B (*$BCm(B3) $B$N$G!"%o!<%-%s%0%3%T!<$rCV$$$F$$$k%G%#%l%/%H%j(B
 $B$G(B checkout, update, commit, tag $B$J$I$N(B cvs $B%3%^%s%I$r<B9T$9$k$H!"<+F0(B
-$BE*$K(B openlab.ring.gr.jp $B$K%m%0%$%s$7$F!"$=$l$>$l$N%3%^%s%I$r<B9T$7$^$9!#(B
+$BE*$K(B openlab.jp $B$K%m%0%$%s$7$F!"$=$l$>$l$N%3%^%s%I$r<B9T$7$^$9!#(B
 
 ** $BCm(B2
 

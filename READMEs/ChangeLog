@@ -1,3 +1,21 @@
+2010-02-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Kitamoto Tsuyoshi <lisp_interaction@yahoo.co.jp>.
+
+	* CVS_digest.ja:
+	* FAQ.ja:
+	* PROPOSAL.ja:
+	* README.MacOSX.ja:
+	* README.w32.ja:
+
+	Always use "openlab.jp" for Open Laboratory URLs.
+
+2010-01-30  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
+
+	* INSTALL: Always use "openlab.jp" for Open Laboratory URLs.
+
+	* README: Ditto.
+
 2010-01-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* News.ja: Update.

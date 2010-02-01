@@ -2,7 +2,7 @@ Daredevil SKK is a version of SKK (Simple Kana to Kanji conversion
 program, an input method of Japanese) maintained by the SKK
 development team at
 
-http://openlab.ring.gr.jp/skk
+http://openlab.jp/skk
 
 It consists of a simple core and many optional programs which provide
 extensive features.  Though it has been well developed, our target is
@@ -12,7 +12,7 @@ If you want to join development of Daredevil SKK, you can access its
 sources via a cvs server on the Ring Server Openlab.  To learn briefly
 how to access the cvs server, see
 
-http://openlab.ring.gr.jp/skk/cvs.html
+http://openlab.jp/skk/cvs.html
 
 If you want to join the SKK Openlab Mailing list, see a description
 below.
