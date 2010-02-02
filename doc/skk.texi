@@ -24,7 +24,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/01/28 20:29:16 $
+@set UPDATED $Date: 2010/02/02 14:20:22 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -489,7 +489,7 @@ DDSKK $B$N%/%i%$%"%s%HB&$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<(B
 @node $B$O$8$a$N@_Dj(B
 @chapter $B$O$8$a$N@_Dj(B
 
-DDSKK 11 $B0J9_!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#(BDDSKK 13 $B$G$O!"I8=`E*$J%$%s(B
+DDSKK 11 $B0J9_!"@_Dj$,Hs>o$K4JC1$K$J$j$^$7$?!#(BDDSKK 14 $B$G$O!"I8=`E*$J%$%s(B
 $B%9%H!<%k$N>l9g!"$J$K$b@_Dj$;$:(B Emacs $B$r5/F0$9$k$@$1$G;H$($k>uBV$K$J$C$F(B
 $B$$$^$9!#<+F0E*$K(B @file{skk-setup.el} $B$H$$$&%U%!%$%k$,FI$_9~$^$l!"@_Dj$5(B
 $B$l$^$9!#(B
@@ -1505,7 +1505,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 @samp{$B$5$$$-(B} $B$H$$$&%W%m%s%W%H$rI=<($7$F!":F5"E*$K(B @samp{$B$5$$$-(B} $B$N<-=q(B
 $BEPO?%b!<%I$KF~$j$^$9!#(B
 
-@kbd{S a i @key{SPC} K i @key{SPC}}$B$H%?%$%W$9$k$H!"%_%K%P%C%U%!$O!"(B
+@kbd{S a i @key{SPC} K i @key{SPC}} $B$H%?%$%W$9$k$H!"%_%K%P%C%U%!$O!"(B
 
 @example
 ------ Minibuffer -------
@@ -6396,7 +6396,7 @@ Emacs $B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$
 $B8m$C$F8D?M<-=q$KEPO?$7$?C18l$O:o=|$G$-$^$9!#(B
 
 $B:o=|$7$?$$C18l$rJQ49$K$h$j5a$a!"$=$NC18l$,F@$i$l$?;~E@$G(B @kbd{X} $B$rF~NO(B
-$B$7$^$9!#%_%K%P%C%U%!$K3NG'$,=P$k$N$G!"$=$l$KBP$7(B @kbd{y e s}$B$HEz$($^$9!#(B
+$B$7$^$9!#%_%K%P%C%U%!$K3NG'$,=P$k$N$G!"$=$l$KBP$7(B @kbd{y e s} $B$HEz$($^$9!#(B
 $B$9$k$H!"8D?M<-=q$NBP1~$9$k%(%s%H%j$,:o=|$5$l$^$9!#8=:_$N%P%C%U%!$K@hDxF~(B
 $BNO$7$?8m$j$NJQ497k2L$b:o=|$5$l$^$9!#(B
 
@@ -8425,7 +8425,7 @@ APEL $B$O(B A Portable Emacs Library $B$NN,$G$9!#(BAPEL $B$N<g$J5!G=$O0[$J$
 @item $BF~NO%b!<%I(B
 @table @asis
 @item $B$+$J%b!<%I(B/$B%+%J%b!<%I(B (skk-j-mode)    @kbd{C-j}
-@item $B%"%9%-!<%b!<%I(B (skk-latin-mode)         @kbd{l}
+@item $B%"%9%-!<%b!<%I(B (skk-latin-mode)       @kbd{l}
 @item $BA41Q%b!<%I(B (skk-jisx0208-latin-mode)  @kbd{L}
 @item Abbrev $B%b!<%I(B (skk-abbrev-mode)       @kbd{/}
 @end table
@@ -8526,7 +8526,7 @@ DDSKK 14 $B$O(B $B%5!<%P$N<oN`!"%P!<%8%g%s$K$O0MB8$7$F$$$^$;$s!#(B
 (@pxref{File Variables, , File Variables, emacs, GNU Emacs Manual})
 $B$r;2>H2<$5$$!#(B
 $BNc$($P!"(B tex $B%b!<%I$G$N$_!V!$!W!V!%!W$K@Z$jBX$($?$$>l9g$O!"$D$.$N@_Dj$r(B
-tex$B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B
+tex $B%U%!%$%k$N:G8e$KDI2C$7$^$9!#(B
 
 @example
 % Local Variables:
