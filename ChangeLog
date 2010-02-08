@@ -1,3 +1,8 @@
+2010-02-06  Teika Kazura  <teika@lavabit.com>
+
+	* doc/skk.texi: リンク切れを修正。makeinfo によるコンパイルの方法。
+	このファイルに含まれる非 Unicode 文字についてコメント。
+
 2010-02-01  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
 	* doc/skk.texi: Tiny fix.
