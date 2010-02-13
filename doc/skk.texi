@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/02/13 06:11:17 $
+@set UPDATED $Date: 2010/02/13 11:51:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2160,14 +2160,14 @@ skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
 $B$N@_Dj$r9T$$$?$$>l9g$O!"4X?t(B @code{eval-after-load} $B$r;HMQ$7$^$9!#Nc$((B
 $B$P!"(B
 
-@example
+@lisp
 @group
 (eval-after-load "skk-look"
   '(
     ...
     ))
 @end group
-@end example
+@end lisp
 
 @noindent
 $B$N$h$&$K5-=R$7$^$9!#(B
@@ -2505,9 +2505,9 @@ kakasi $B$K$O4A;z$r$R$i$,$J$XJQ49$9$k5!G=$,$"$j!"$3$NJQ49$K$O4D6-JQ?t(B
 $B%I$GEPO?$7$?$P$+$j$NC18l$b(B kakasi $B$K$h$k5U0z$-JQ49$NBP>]$H$9$k$3$H$,$G$-(B
 $B$^$9!#(B
 
-@example
+@lisp
 (setq skk-gyakubiki-jisyo-list (list skk-jisyo))
-@end example
+@end lisp
 @end defvr
 
 @node $B%+%?%+%J$N8+=P$78l(B
@@ -3299,9 +3299,7 @@ L:$BC@(B;9$B2h(B($BFyIt(B5$B2h(B)
 @samp{?} $B$r30$7$F(B
 
 @lisp
-@group
 (setq skk-special-midashi-char-list '(?> ?<))
-@end group
 @end lisp
 
 @noindent
@@ -3602,18 +3600,22 @@ L $B<-=q(B
 $B$?$$>l9g$K$O!"(B
 
 @lisp
+@group
 (setq skk-rom-kana-rule-list
       (append skk-rom-kana-rule-list
               '(("@@" nil "@@"))))
+@end group
 @end lisp
 
 @noindent
 $B$N$h$&$K$7$^$9!#A43QJ8;z$N(B @samp{$B!w(B} $B$rA^F~$7$?$$>l9g$O!"(B
 
 @lisp
+@group
 (setq skk-rom-kana-rule-list
       (append skk-rom-kana-rule-list
               '(("@@" nil "$B!w(B"))))
+@end group
 @end lisp
 
 @noindent
@@ -4017,9 +4019,9 @@ ohhira @expansion{} $B$*$C$R$i(B
 @noindent
 $B$3$l$O(B @code{skk-rom-kana-rule-list} $B$N4{DjCM$K(B
 
-@example
+@lisp
 ("hh" "h" ("$B%C(B" . "$B$C(B"))
-@end example
+@end lisp
 
 @noindent
 $B$,F~$C$F$$$k$?$a$G$9!#$3$l$r:o=|$9$l$P(B
@@ -4059,16 +4061,16 @@ ohhira @expansion{} $B$*$*$R$i(B
 $B$N(B @kbd{.} $B$G(B @code{abc} $B$,!"(B@kbd{,} $B$G(B @code{def} $B$,%P%C%U%!$KF~NO$5$l(B
 $B$^$9!#(B
 @c $B"-<BMQE*$JNc$,;W$$IU$-$^$;$s$G$7$?(B
-@example
+@lisp
 (setq skk-kutouten-type '("abc" . "def"))
-@end example
+@end lisp
 
 $B$J$*!"JQ?t(B @code{skk-kutouten-type} $B$O%P%C%U%!%m!<%+%kJQ?t$G$9!#$9$Y$F$N(B
 $B%P%C%U%!$GE}0l$7$?@_Dj$H$7$?$$>l9g$O!"(B
 
-@example
+@lisp
 (setq-default skk-kutouten-type 'en)
-@end example
+@end lisp
 
 $B$N$h$&$K4X?t(B @code{setq-default} $B$rMQ$$$F$/$@$5$$!#(B
 @end defvr
@@ -5773,16 +5775,14 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"3NDj$5$l$?8l$,!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!#
 skk $B$N=i4|@_Dj$G$O!"JQ49!"A*Br$5$l$?8uJd$O!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!#(B
 $B$3$l$KBP$7!"Kh2sF1$8=g=x$G8uJd$rI=<($5$;$k$3$H$,$G$-$^$9!#(B
 
-@table @code
-@item skk-jisyo-fix-order
-@vindex skk-jisyo-fix-order
+@defvr {$B%f!<%6JQ?t(B} skk-jisyo-fix-order
 
-@code{non-nil}$B$N;~$O!"3NDj$N:]$K!"8D?M<-=q$NF12;8l$N=g=x$rJQ99$7$J$$!#(B
+@code{non-nil} $B$N;~$O!"3NDj$N:]$K!"8D?M<-=q$NF12;8l$N=g=x$rJQ99$7$J$$!#(B
 $B8D?M<-=q$K?75,$KDI2C$5$l$k8l$O!"4{=P8l$N8e$KDI2C$5$l$k!#(B
-@end table
+@end defvr
 
 $B$3$l$O!"8D?M<-=q$N%(%s%H%j$NCf$N!"3F8uJd$N=g=x$rJQ99$7$J$$$3$H$G!"(B
-$B<B8=$5$l$F$$$^$9$+$i!"(B@file{skk-study.el}$B$rMQ$$$?3X=,(B @w{(@pxref{$BJQ49$N3X=,(B})} $B$H(B
+$B<B8=$5$l$F$$$^$9$+$i!"(B@file{skk-study.el} $B$rMQ$$$?3X=,(B @w{(@pxref{$BJQ49$N3X=,(B})} $B$H(B
 $BJ;MQ$G$-$^$9!#(B
 
 @code{skk-jisyo-fix-order} $B$,(B @code{non-nil} $B$N;~!"<-=q$N8uJd$r<j7Z$KJB$YBX(B
@@ -6141,9 +6141,7 @@ DDSKK $B$G$O!"J#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#J#?t$N<-=q$,F1;~$K(B
 $B<-=q%5!<%P$N4pK\E*$J@_Dj$O!"(B@w{@xref{$B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B}} $B$r(B
 $B$4Mw2<$5$$!#(B
 
-@table @code
-@item skk-servers-list
-@vindex skk-servers-list
+@defvr {$B%f!<%6JQ?t(B} skk-servers-list
 
 $B$3$NJQ?t$r;H$&$H!"J#?t$N%[%9%H>e$N<-=q%5!<%P$r;H$$J,$1$k$3$H$,$G$-$^$9!#(B
 
@@ -6165,16 +6163,16 @@ DDSKK $B$G$O!"J#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#J#?t$N<-=q$,F1;~$K(B
 
 $B>e5-$N@_Dj$N>l9g!"$^$:(B host1 $B>e$N%5!<%P$H@\B3$7$^$9!#@\B3$G$-$J$/$J$k$H!"(B
 $B<!$K(B host2 $B>e$N%5!<%P$H@\B3$7$^$9!#(B
+@end defvr
 
-@item skk-server-report-response
-@vindex skk-server-report-response
+@defvr {$B%f!<%6JQ?t(B} skk-server-report-response
 
 $B$3$NJQ?t$NCM$,Hs(B @code{nil} $B$G$"$l$P!"JQ49;~$K!"%5!<%P$NAw=P$9$kJ8;z$r(B
 $B<u$1<h$k$^$G$K4X?t(B @code{accept-process-output} $B$,<B9T$5$l$?2s?t$rJs9p(B
 $B$7$^$9!#(B
+@end defvr
 
-@item skk-server-inhibit-startup-server
-@vindex skk-server-inhibit-startup-server
+@defvr {$B%f!<%6JQ?t(B} skk-server-inhibit-startup-server
 
 $B$3$NJQ?t$r(B @code{nil} $B$K@_Dj$9$k$H!"(BSKK $B%5!<%P$H@\B3$G$-$J$$>l9g$K!"(B
 SKK $B%5!<%P%W%m%0%i%`$r(B @code{call-process} $B$7$FN)$A>e$2$h$&$H;n$_$^$9(B
@@ -6182,9 +6180,9 @@ SKK $B%5!<%P%W%m%0%i%`$r(B @code{call-process} $B$7$FN)$A>e$2$h$&$H;n$_$^$9(
 $B%5!<%P$O!"(B@code{call-process} $B$GN)$A>e$2$k$3$H$,$G$-$^$;$s$,!"(B
 @file{skkserv} $B$N$h$&$KN)$A>e$2$k$3$H$,$G$-$k%5!<%P$rMxMQ$7$F$$$k>l9g(B
 $B$K$O!"$3$NJQ?t$r(B @code{nil} $B$K@_Dj$9$k$N$,NI$$$+$b$7$l$^$;$s!#(B
+@end defvr
 
-@item skk-server-remote-shell-program
-@vindex skk-server-remote-shell-program
+@defvr {$B%f!<%6JQ?t(B} skk-server-remote-shell-program
 
 $B$3$NJQ?t$K$O!"%j%b!<%H%7%'%k$N%W%m%0%i%`L>$r;XDj$7$^$9!#4{DjCM$O!"%7%9%F(B
 $B%`0MB8@-$r9MN8$9$kI,MW$,$"$k$?$a!"0J2<$N(B Emacs Lisp $B%3!<%I$rI>2A$9$k$3$H(B
@@ -6205,7 +6203,7 @@ SKK $B%5!<%P%W%m%0%i%`$r(B @code{call-process} $B$7$FN)$A>e$2$h$&$H;n$_$^$9(
      (t "rsh")))
 @end group
 @end lisp
-@end table
+@end defvr
 
 @node $B<-=q$N=q<0(B
 @subsection $B<-=q$N=q<0(B
@@ -6488,9 +6486,7 @@ New ~/.skk-jisyo will be 11bytes smaller.  Save anyway?(yes or no)
 $B$b$7!"0l;~%U%!%$%k$N%5%$%:$,(B 0 $B$G$"$k>l9g$O!"$J$s$i$+$N0[>o$H9M$($i$l$k(B
 $B$N$G!"J]B8F0:n$OD>$A$KCf;_$5$l$^$9!#$=$N>l9g$O(B
 
-@lisp
 @kbd{M-x skk-kill-emacs-without-saving-jisyo}
-@end lisp
 
 @noindent
 $B$G(B Emacs $B$r=*N;$5$;!"8D?M<-=q(B (@code{skk-jisyo})$B!"$*$h$S8D?M<-=q$NB`HrMQ(B
@@ -7418,9 +7414,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 @cindex @file{canna.el}
 @cindex @file{rgb.txt}
 
-@table @code
-@item skk-use-face
-@vindex skk-use-face
+@defvr {$B%f!<%6JQ?t(B} skk-use-face
 
 $B$3$NJQ?t$NCM$,Hs(B @code{nil} $B$G$"$l$P!"(BEmacs $B$N%U%'%$%95!G=$r;H$C$FJQ49(B
 $B8uJd$r%O%$%i%$%HI=<($7$^$9!#(B
@@ -7440,14 +7434,14 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 
 $B$J$*!"(BXEmacs $B$K$O%*!<%P!<%l%$5!G=$O$"$j$^$;$s!#Be$o$j$K(B extent $B$H$$$&$b(B
 $B$N$,MQ0U$5$l$F$$$k$N$G$=$l$rMxMQ$7$^$9!#(B}$B!#(B
+@end defvr
 
-@item skk-henkan-face
-@vindex skk-henkan-face
+@defvr {$B%f!<%6JQ?t(B} skk-henkan-face
 
 $B$3$NJQ?t$NCM$O%U%'%$%9$G$"$j!"$3$N%U%'%$%9$K$h$C$FJQ498uJd$,%O%$%i%$%HI=(B
 $B<($5$l$^$9!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B ``black/darkseagreen2'' $BKt$O(B
 ``white/darkolivegreen'' $B$rMQ$$$^$9!#(B
-@end table
+@end defvr
 
 $BJQ?t(B @code{skk-henkan-face} $B$K$O!"4{B8$N%U%'%$%9(B
 @footnote{Emacs $BI8=`(B $B$G$O(B @w{default}, @w{modeline}, @w{region},
@@ -7456,9 +7450,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $B$?$K%U%'%$%9$r:n$k$3$H$b$G$-$^$9!#$=$N$?$a$K!"0J2<$N4X?t$,MQ0U$5$l$F$$$^(B
 $B$9!#(B
 
-@table @code
-@item skk-make-face
-@findex skk-make-face
+@defun skk-make-face FACE
 
 $B7A<0(B: (skk-make-face FACE)
 
@@ -7466,12 +7458,10 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $B$^$9!#%U%'%$%9$NA07J?'!&GX7J?'$O!"0z?t(B FACE $B$K$h$C$F!"Nc$($P0J2<$NNc$N$h(B
 $B$&$K7hDj$5$l$^$9!#(B
 
-@example
-@group
+@lisp
 (skk-make-face 'DimGray/PeachPuff1)
 (setq skk-henkan-face 'DimGray/PeachPuff1)
-@end group
-@end example
+@end lisp
 
 $B$3$N>l9g!"A07J?'$O(B DimGray $B$K!"GX7J?'$O(B PeachPuff1 $B$K$J$j$^$9!#(B
 
@@ -7484,7 +7474,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 
 $B$3$N>l9g!"A07J?'$O(B RosyBrown1 $B$K$J$j$^$9!#GX7J?'$O$b$A$^$;$s!#$D$^$j!"%P%C(B
 $B%U%!$NGX7J?'$,$=$N$^$^8+$($^$9!#(B
-@end table
+@end defun
 
 @node $BJQ498uJd$N99$J$kAu>~(B
 @subsection $BJQ498uJd$N99$J$kAu>~(B
@@ -7537,15 +7527,15 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $B%U%!%$%k(B @file{~/.skk} $B$K<!$N$$$:$l$+$r=q$$$F$_$FJQ498uJd$NAu>~$r;n$7$F(B
 $B$/$@$5$$!#(B
 
-@example
+@lisp
 (setq skk-treat-candidate-appearance-function
       'skk-treat-candidate-sample1)
-@end example
+@end lisp
 
-@example
+@lisp
 (setq skk-treat-candidate-appearance-function
       'skk-treat-candidate-sample2)
-@end example
+@end lisp
 
 @end defvr
 
@@ -8504,9 +8494,7 @@ DDSKK 14 $B$O(B $B%5!<%P$N<oN`!"%P!<%8%g%s$K$O0MB8$7$F$$$^$;$s!#(B
 @file{~/.skk} $B$K0J2<$r@_Dj$7$^$9!#(B
 
 @lisp
-@group
 (setq skk-kutouten-type 'en)
-@end group
 @end lisp
 
 @item

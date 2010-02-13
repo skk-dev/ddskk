@@ -1,5 +1,10 @@
 2010-02-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: some CODE redefined from @example
+	to @lisp.
+
+2010-02-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* doc/skk.texi: some variables defined by @defvr.
 
 2010-02-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
