@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/02/08 14:17:12 $
+@set UPDATED $Date: 2010/02/13 06:11:17 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2086,9 +2086,8 @@ skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
 @node skk-init-file$B$N<+F0%3%s%Q%$%k(B
 @subsubsection @code{skk-init-file}$B$N<+F0%3%s%Q%$%k(B
 
-@table @code
-@item skk-byte-compile-init-file
-@vindex skk-byte-compile-init-file
+
+@defvr {$B%f!<%6JQ?t(B} skk-byte-compile-init-file
 
 $B$3$NJQ?t$NCM$,Hs(B @code{nil} $B$G$"$l$P!"(BDDSKK $B$N5/F0;~$K(B DDSKK $B$N@_Dj%U%!(B
 $B%$%k(B ($BI8=`$G$O(B @file{~/.skk}) $B$rI,MW$K1~$8$F%P%$%H%3%s%Q%$%k$7$^$9!#(B
@@ -2106,7 +2105,7 @@ skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
 $B$H5-=R$7$^$9!#(B
 @footnote{$B$3$NJQ?t$O(B DDSKK $B$N@_Dj%U%!%$%k$,FI$_9~$^$l$kA0$KD4$Y$i$l$k$N(B
 $B$G!"(BDDSKK $B$N@_Dj%U%!%$%k$K>e5-$N@_Dj$r=q$$$F$b$3$N5!G=$OM-8z$K$J$j$^$;$s!#(B}
-@end table
+@end defvr
 
 @node $B%U%C%/(B
 @subsection $B%U%C%/(B
@@ -3462,12 +3461,10 @@ p# /#4/
 $BA43Q?t;z$N%?%$%W$O!"(B@samp{#1} $B$J$N$G!"(B @w{@samp{#1$B7n(B#1$BF|(B}} $B$r%_%K%P%C%U%!$G:n$jEP(B
 $BO?$7$^$9!#(B
 
-$B%?%$%W$r3P$($F$$$kI,MW$O$"$j$^$;$s!#$A$c$s$H!"%&%$%s%I$,3+$+$l$F@bL@$,(B
+$B%?%$%W$r3P$($F$$$kI,MW$O$"$j$^$;$s!#$A$c$s$H!"%&%#%s%I%&$,3+$+$l$F@bL@$,(B
 $BI=<($5$l$^$9!#(B
 
-@table @code
-@item skk-num-convert-float
-@vindex skk-num-convert-float
+@defvr {$B%f!<%6JQ?t(B} skk-num-convert-float
 
 $B$3$NJQ?t$NCM$rHs(B @code{nil} $B$K@_Dj$9$k$H!"IbF0>.?tE@?t$r;H$C$?8+=P$78l(B
 $B$KBP1~$7$F?tCMJQ49$r9T$$$^$9!#$?$@$7!"<-=q$K$*$$$F(B
@@ -3478,12 +3475,14 @@ p# /#4/
 
 $B$J$I$N8+=P$78l$,;HMQ$G$-$J$/$J$j$^$9!#(B
 
-@item skk-use-numeric-conversion
-@vindex skk-use-numeric-conversion
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-use-numeric-conversion
 
 $B$3$NJQ?t$r(B @code{nil} $B$K@_Dj$9$k$H!"K\@a$G@bL@$7$??tCMJQ49$N5!G=$rA4$F(B
 $BL58z$K$7$^$9!#(B
-@end table
+
+@end defvr
 
 @node $B%"%9%-!<J8;z$r8+=P$78l$H$7$?JQ49(B
 @subsection $B%"%9%-!<J8;z$r8+=P$78l$H$7$?JQ49(B
@@ -3556,15 +3555,14 @@ SKK abbve mode $B$G;H$o$l$k<-=q$O!"IaDL$NJQ49$HF1$8$G$9!#%(%s%H%j$,%"%9%-!<J8;z
 
 $BF|IU$N7A<0$O0J2<$NJQ?t$K$h$j7hDj$5$l$^$9!#(B
 
-@table @code
-@item skk-date-ad
-@vindex skk-date-ad
+@defvr {$B%f!<%6JQ?t(B} skk-date-ad
 
 $B$3$NJQ?t$NCM$,Hs(B @code{nil} $B$G$"$l$P@>Nq$G!"(B@code{nil} $B$G$"$l$P859f$G(B
 $BI=<($7$^$9!#4{DjCM$O(B @code{nil} $B$G$9!#(B
 
-@item skk-number-style
-@vindex skk-number-style
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-number-style
 
 $B$3$NJQ?t$NCM$O0J2<$N$h$&$K2r<a$5$l$^$9!#(B
 
@@ -3591,7 +3589,7 @@ SKK abbve mode $B$G;H$o$l$k<-=q$O!"IaDL$NJQ49$HF1$8$G$9!#%(%s%H%j$,%"%9%-!<J8;z
 $B>e5-$N(B @samp{1996$BG/(B}$B!"(B@samp{$B#1#9#9#6G/(B}$B!"(B@samp{$B0l6e6eO;G/(B} $B$NItJ,$O!"JQ(B
 $B?t(B @code{skk-date-ad} $B$NCM$,(B @code{nil} $B$G$"$l$P(B @samp{$BJ?@.(B8$BG/(B} $B$N$h$&(B
 $B$K859f$GI=<($5$l$^$9!#(B @code{skk-number-style} $B$N4{DjCM$O!"(B@samp{1} $B$G$9!#(B
-@end table
+@end defvr
 
 L $B<-=q(B
 @footnote{@ref{$B<-=q$N<oN`(B, , L$B<-=q(B}.}$B$K$O!"8+=P$78l(B @samp{today} $B$N8uJd(B
@@ -3833,13 +3831,12 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 $B$3$3$G$O2~9T$r1[$($F8+=P$78l$rC5$7!"JQ49$9$kNc$r<($7$^$7$?!#F1MM$K!"6uGr!"(B
 $B%?%VJ8;z$rCf4V$K4^$`J8;zNs$KBP$7$F$bJQ49$r9T$&$3$H$,$G$-$^$9!#(B
 
-@table @code
-@item skk-allow-spaces-newlines-and-tabs
-@vindex skk-allow-spaces-newlines-and-tabs
+@defvr {$B%f!<%6JQ?t(B} skk-allow-spaces-newlines-and-tabs
 
 $B$3$NJQ?t$r(B @code{nil} $B$K@_Dj$9$k$H!"K\@a$G@bL@$7$?$h$&$J(B 2 $B9T0J>e$K$^(B
 $B$?$,$kJ8;zNs$KBP$9$kJQ49$r6X;_$7$^$9!#(B
-@end table
+
+@end defvr
 
 @node $B%-!<@_Dj(B
 @section $B%-!<@_Dj(B 
@@ -4444,14 +4441,14 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 $B$N$h$&$K!""'%b!<%I$G(B @key{RET} $B$rF~NO$9$k$H!"3NDj$7!"$+$D2~9T$r9T$$$^$9!#(B
 $B$3$N5sF0$rJQ$($k$?$a$N%f!<%6%*%W%7%g%s$,MQ0U$5$l$F$$$^$9!#(B
 
-@table @code
-@item skk-egg-like-newline
-@vindex skk-egg-like-newline
+@defvr {$B%f!<%6JQ?t(B} skk-egg-like-newline
 
 $B$3$NJQ?t$NCM$rHs(B @code{nil} $B$K$9$k$H!""'%b!<%I$G(B @key{RET} $B$rF~NO$7$?(B
 $B$H$-$K3NDj$N$_9T$$!"2~9T$O$7$^$;$s!#(B@footnote{$B=>$C$F!"<-=qEPO?%b!<%I$K$*$$$F"'%b!<%I$G$"$k$H$-$N(B @key{RET}
 $BF~NO;~$N5sF0$bJQ2=$7$^$9!#I8=`$N3NDj!"EPO?$NF0:n$K$D$$$F$O!"(B
 @w{@ref{$B<-=qEPO?%b!<%I(B}} $B$r;2>H$7$F$/$@$5$$!#(B}
+
+@end defvr
 
 @example
 @kbd{K a k u t e i @key{SPC}}
@@ -4470,7 +4467,6 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 ------ Buffer: foo ------
 @end group
 @end example
-@end table
 
 @node $B"'%b!<%I$G$N(BBS
 @subsection $B"'%b!<%I$G$N(B@key{BS}
@@ -4579,14 +4575,13 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @end group
 @end example
 
-@table @code
-@item skk-delete-okuri-when-quit
-@vindex skk-delete-okuri-when-quit
+@defvr {$B%f!<%6JQ?t(B} skk-delete-okuri-when-quit
 
 $B$3$NJQ?t$NCM$rHs(B @code{nil} $B$K@_Dj$9$k$H!"Aw$j$"$j$NJQ49Cf$K(B @kbd{C-g}
 $B$rF~NO$7$?$H$-$N5sF0$,JQ2=$7$^$9!#"&%b!<%I$KF~$k$N$OF1$8$G$9$,!"F1;~$K(B
 $BAw$j2>L>$r>C$7$^$9!#Aw$j2>L>$NF~NO4V0c$$$r=$@5$9$k$N$K$OJXMx$G$9!#(B
 $BNc$($P!"0J2<$N$h$&$K$J$j$^$9!#(B
+@end defvr
 
 @example
 @kbd{N a K u}
@@ -4605,7 +4600,6 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 ------ Buffer: foo ------
 @end group
 @end example
-@end table
 
 @node $BJQ490LCV$N;XDjJ}K!(B
 @subsection $BJQ490LCV$N;XDjJ}K!(B
@@ -4959,12 +4953,11 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 @end group
 @end example
 
-@table @code
-@item skk-auto-start-henkan-keyword-list
-@vindex skk-auto-start-henkan-keyword-list
+@defvr {$B%f!<%6JQ?t(B} skk-auto-start-henkan-keyword-list
 
 $B$3$NJQ?t$NCM$O!"C18l$dJ8@a$N6h@Z$j$H$J$k$h$&$JJ8;zNs$N%j%9%H$G$9!#(B
 $B4{DjCM$O0J2<$N$h$&$K$J$C$F$$$^$9!#(B
+@end defvr
 
 @lisp
 @group
@@ -4974,11 +4967,11 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 @end group
 @end lisp
 
-@item skk-auto-start-henkan
+@defvr {$B%f!<%6JQ?t(B} skk-auto-start-henkan
 
 $B$3$NJQ?t$NCM$r(B @code{nil} $B$K@_Dj$9$k$H!"K\@a$G@bL@$7$?<+F0JQ493+;O5!G=(B
 $B$rL58z$K$7$^$9!#(B
-@end table
+@end defvr
 
 @node $B0EL[$N3NDj$N%?%$%_%s%0(B
 @subsection $B0EL[$N3NDj$N%?%$%_%s%0(B
@@ -5227,9 +5220,8 @@ SKK $B$NAw$j2>L>$N=hM}$O!"9%$_$,J,$+$l$k$H$3$m$G$9!#?'!9$J(B
 $B$O8=Be$NF|K\8l$H$7$F@5$7$/$"$j$^$;$s!#$3$N$h$&$J>l9g$K!"=PNO$5$l$k8uJd$r(B
 $B@5$7$$I=8=$N$_$K9J$j$3$`J}K!$K$D$$$F!"@bL@$7$^$9!#(B
 
-@table @code
-@item skk-henkan-okuri-strictly
-@vindex skk-henkan-okuri-strictly
+
+@defvr {$B%f!<%6JQ?t(B} skk-henkan-okuri-strictly
 @vindex skk-process-okuri-early
 
 $B$3$NJQ?t$NCM$r(B $BHs(B @code{nil} $B$K@_Dj$9$k$H!"8+=P$78l$,%^%C%A$9$k$+$I$&(B
@@ -5244,7 +5236,7 @@ SKK $B$NAw$j2>L>$N=hM}$O!"9%$_$,J,$+$l$k$H$3$m$G$9!#?'!9$J(B
 $B8D?M<-=q$NAw$j$"$j%(%s%H%j$,=<<B$7$F$$$l$P!"I8=`$N@_Dj$h$j$b8uJd$,9J$j9~(B
 $B$^$l$k$N$GJQ498zN($,%"%C%W$7$^$9$,!"$5$b$J$1$l$P!"$9$0$K<-=qEPO?%b!<%I$K(B
 $BF~$C$F$7$^$&$?$a5U$KITJX$K$J$j$^$9!#(B
-@end table
+@end defvr
 
 $BJQ?t(B @code{skk-henkan-okuri-strictly} $B$NCM$r(B $BHs(B @code{nil} $B$K$9$k$H!"(B
 $B<-=qEPO?%b!<%I$KF~$C$F$bAw$j2>L>$N%^%C%A$,87L)$K9T$o$l$^$9!#$3$l$O<-(B
@@ -5300,8 +5292,7 @@ SKK $B$NAw$j2>L>$N=hM}$O!"9%$_$,J,$+$l$k$H$3$m$G$9!#?'!9$J(B
 $B$O8=Be$NF|K\8l$H$7$F@5$7$/$"$j$^$;$s!#$3$N$h$&$J>l9g$K!"=PNO$5$l$k8uJd$r(B
 $B@5$7$$I=8=$,M%@hE*$K$9$k@_Dj$r>R2p$7$^$9!#(B
 
-@table @code
-@item skk-henkan-strict-okuri-precedence
+@defvr {$B%f!<%6JQ?t(B} skk-henkan-strict-okuri-precedence
 @vindex skk-henkan-okuri-strictly
 @vindex skk-process-okuri-early
 
@@ -5316,7 +5307,7 @@ SKK $B$NAw$j2>L>$N=hM}$O!"9%$_$,J,$+$l$k$H$3$m$G$9!#?'!9$J(B
 @footnote{$BM}M3$rCN$j$?$$>l9g$O!"(B@ref{$BAw$j$"$jJQ49$NJQ493+;O$N%?%$%_%s%0(B}
 $B$r;2>H$7$F$/$@$5$$!#(B}$B!#$^$?JQ?t(B @code{skk-henkan-okuri-strictly} $B$,(B
 $BHs(B @code{nil} $B$N$H$-$O!"$3$NJQ?t$OL5;k$5$l$^$9!#(B
-@end table
+@end defvr
 
 @node $BAw$j2>L>$N<+F0=hM}(B
 @subsection $BAw$j2>L>$N<+F0=hM}(B
@@ -5727,10 +5718,7 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"3NDj$5$l$?8l$,!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!#
 
 @file{skk-study.el} $B$K4X$9$k$=$NB>$N%*%W%7%g%s$r@bL@$7$^$9!#(B
 
-@table @code
-@item skk-study-max-distance
-@vindex skk-study-max-distance
-
+@defvr {$B%f!<%6JQ?t(B} skk-study-max-distance
 $B$3$NJQ?t$K$O(B integer $B$r;XDj$7$^$9!#D>A0$K3NDj$7$?%]%$%s%H$H:#2s$NJQ49%](B
 $B%$%s%H$,$3$N5wN%0J>eN%$l$F$$$k$H3X=,%G!<%?$rC_@Q$7$J$$$h$&$K$7$^$9!#(B
 $B$3$NJQ?t$O!"I,$:$7$bJ8>O$,%P%C%U%!$N(B @code{point-min} $B$+(B
@@ -5743,46 +5731,41 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"3NDj$5$l$?8l$,!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!#
 
 $B$J$*!"$3$NJQ?t$NCM$K$+$+$o$i$:!"D>A0$NJQ49%P%C%U%!$H8=:_JQ49$r9T$C$F$$$k(B
 $B%P%C%U%!$,0[$J$k>l9g$O3X=,%G!<%?$rC_@Q$7$^$;$s!#(B
+@end defvr 
 
-@item skk-study-first-candidate
-@vindex skk-study-first-candidate
-
+@defvr {$B%f!<%6JQ?t(B} skk-study-first-candidate
 $B$3$NJQ?t$,(B @code{non-nil} $B$G$"$l$P!"Bh0l8uJd(B
 $B$G3NDj$7$?:]$b3X=,$7$^$9!#(B@code{nil} $B$G$"$l$P!"Bh0l8uJd$G3NDj$7$?$H$-(B
 $B$N$_3X=,%G!<%?$rC_@Q$7$^$;$s!#3X=,%G!<%?$r$G$-$k$@$1>.$5$/$7$?$$>l9g!"(B
 $B$3$NJQ?t$r(B @code{nil} $B$K$9$k$H8z2L$,$"$k$+$b$7$l$^$;$s!#(B
 $B$3$NJQ?t$N%G%U%)%k%HCM$O(B @code{t} $B$G$9!#(B
+@end defvr
 
-@item skk-study-file
-@vindex skk-study-file
-
+@defvr {$B%f!<%6JQ?t(B} skk-study-file
 $B3X=,7k2L$rJ]B8$9$k%U%!%$%kL>$G$9!#(B
 $B$3$NJQ?t$N%G%U%)%k%HCM$O(B @file{~/.skk-study} $B$G$9!#(B
 $BJQ?t(B @code{skk-user-directory} $B$+$i$b@_Dj$,$G$-$^$9!#(B
 (@w{@pxref{$B@_Dj%U%!%$%k(B}})
+@end defvr
 
-@item skk-study-backup-file
-@vindex skk-study-backup-file
+@defvr {$B%f!<%6JQ?t(B} skk-study-backup-file
 @file{~/.skk-study} $B$N%P%C%/%"%C%W%U%!%$%k$G$9!#(B
 $B$3$NJQ?t$N%G%U%)%k%HCM$O(B @file{~/.skk-study.BAK} $B$G$9!#(B
+@end defvr
 
-@item skk-study-sort-saving
-@vindex skk-study-sort-saving
-
+@defvr {$B%f!<%6JQ?t(B} skk-study-sort-saving
 $B3X=,%G!<%?$N%G!<%?9=B$$K4X$9$k$b$N$G$9!#$3$NJQ?t$NCM$,(B @code{non-nil} $B$G(B
 $B$"$l$P3X=,7k2L$r%=!<%H$7$F%;!<%V$7$^$9!#$3$NJQ?t$,1F6A$r5Z$\$9$N$O3X=,%G(B
 $B!<%?$NC1$J$k8+1G$($NLdBj$@$1$G$9!#(B
 $B$3$NJQ?t$N%G%U%)%k%HCM$O(B @code{nil} $B$G$9!#(B
+@end defvr
 
-@item skk-study-check-alist-format
-@vindex skk-study-check-alist-format
-
+@defvr {$B%f!<%6JQ?t(B} skk-study-check-alist-format
 $B3X=,%G!<%?$N%G!<%?9=B$$K4X$9$k$b$N$G$9!#$3$NJQ?t$NCM$,(B  @code{non-nil} $B$G(B
 $B$"$l$P!"3X=,7k2L$NFI$_9~$_;~$KO"A[%j%9%H$N%U%)!<%^%C%H$r%A%'%C%/$7$^$9!#(B
 $B$3$l$O<g$K(B debug $B$NL\E*$G;H$$$^$9!#(B
 $B$3$NJQ?t$N%G%U%)%k%HCM$O(B @code{nil} $B$G$9!#(B
-
-@end table
+@end defvr
 
 @node $B8uJd$N=g=x$N8GDj(B
 @subsection $B8uJd$N=g=x$N8GDj(B

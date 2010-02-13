@@ -1,7 +1,11 @@
+2010-02-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: some variables defined by @defvr.
+
 2010-02-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* make1.bat: Add 'info' option.
-	
+
 2010-02-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Pre-release 14.0.91.
