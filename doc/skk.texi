@@ -19,7 +19,7 @@
 @c  Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@namazu.org>
-@c          Kitamoto Tsuyoshi <lisp_interaction@yahoo.co.jp>
+@c          Kitamoto Tsuyoshi <tsuyoshi.kitamoto@gmail.com>
 @c          Teika Kazura  <teika@lavabit.com>
 @c          Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 @c          Tsuyoshi AKIHO <akiho@sky.email.ne.jp>
@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/02/13 11:51:03 $
+@set UPDATED $Date: 2010/02/14 10:34:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -625,18 +625,16 @@ SKK 9$B!"(B SKK 10 $B$HHf3S$7$F!"JQ?tL>!"4X?tL>$,BgI}$KJQ99$5$l$?$N$G!"(B
 @end group
 @end lisp
 
-@table @code
-@item skk-server-host
-@vindex skk-server-host
+@defvr {$B%f!<%6JQ?t(B} skk-server-host
 
-$B<-=q%5!<%P$NAv$C$F$$$k%[%9%HL>!"$^$?$O(B IP $B%"%I%l%9!#(B
+$B<-=q%5!<%P$,5/F0$7$F$$$k%[%9%HL>!"$^$?$O(B IP $B%"%I%l%9!#(B
+@end defvr
 
-@item skk-server-portnum
-@vindex skk-server-portnum
+@defvr {$B%f!<%6JQ?t(B} skk-server-portnum
 
 $B<-=q%5!<%P$,;H$&%]!<%HHV9f!#(B@file{/etc/services} $B$K(B skkserv $B$N%(%s%H%j$,$"$l$P(B
 $B;XDj$9$kI,MW$OL5$$!#(B
-@end table
+@end defvr
 
 @vindex skk-server-inhibit-startup-server
 $B<-=q%5!<%P$,5/F0$7$FL5$+$C$?;~!"(BEmacs $B$+$i(B skkserv $B%W%m%;%9$rN)$A>e$2$k(B
@@ -662,19 +660,17 @@ skkserv [-p port] [jisyo]
 @end group
 @end lisp
 
-@table @code
-@item skk-server-prog
-@vindex skk-server-prog
+@defvr {$B%f!<%6JQ?t(B} skk-server-prog
 
 $B<-=q%5!<%P%W%m%0%i%`(B($B%U%k%Q%9$G;XDj$9$k(B)$B!#(B
+@end defvr
 
-@item skk-server-jisyo
-@vindex skk-server-jisyo
+@defvr {$B%f!<%6JQ?t(B} skk-server-jisyo
 
-$B%5!<%P$KEO$9<-=q(B($B%U%k%Q%9$G;XDj$9$k(B)$B!#$7$P$7$P<-=q%5!<%P$G$O!"<-=q$N;XDj$O(B
+$B<-=q%5!<%P$KEO$9<-=q(B($B%U%k%Q%9$G;XDj$9$k(B)$B!#$7$P$7$P<-=q%5!<%P$G$O!"<-=q$N;XDj$O(B
 $BFH<+$NJ}K!$G9T$J$$!"(Bemacs $B$+$i$N;XDj$OL5;k$5$l$^$9!#(B
-$B>\$7$/$O3F%5!<%P$N@bL@=q$rFI$s$G2<$5$$!#(B
-@end table
+$B>\$7$/$O3F<-=q%5!<%P$N@bL@=q$rFI$s$G2<$5$$!#(B
+@end defvr
 
 @noindent
 $B$3$l$i$N@_Dj$O!"4D6-JQ?t$rMxMQ$7$F2<5-$N$h$&$K$9$k$3$H$b$G$-$^$9!#(B
@@ -6768,28 +6764,22 @@ other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!$N
 $B%"%N%F!<%7%g%s$rIU$1$k$K$O!"%"%N%F!<%7%g%s$rIU$1$?$$C18l$r3NDj$7$?D>8e(B
 $B$KF1$8%P%C%U%!$G(B
 
-@display
-M-x skk-annotation-add
-@end display
+@kbd{M-x skk-annotation-add}
 
 $B$H$7$^$9!#%"%N%F!<%7%g%s$rJT=8$9$k%P%C%U%!$,3+$$$F!"%+%l%s%H%P%C%U%!$K$J(B
 $B$j$^$9!#$=$3$X%"%N%F!<%7%g%s$rIU$1$^$9!#JT=8$,=*$o$C$?$i(B @kbd{C-c C-c} $B$7(B
 $B$^$9!#(B
 
-@code{M-x skk-annotation-add} $B$7$?$b$N$N!"%"%N%F!<%7%g%s$rIU$1$:$KCV$-$?(B
+@kbd{M-x skk-annotation-add} $B$7$?$b$N$N!"%"%N%F!<%7%g%s$rIU$1$:$KCV$-$?(B
 $B$$$H$-$O!"(B
 
-@display
-M-x skk-annotation-kill
-@end display
+@kbd{M-x skk-annotation-kill}
 
 $B$H$7$^$9!#(B
 
 $B$^$?!":G8e$K3NDj$7$?8uJd$K$D$$$F$N%"%N%F!<%7%g%s$r<h$j5n$j$?$$$H$-$O!"(B
 
-@display
-M-x skk-annotation-remove
-@end display
+@kbd{M-x skk-annotation-remove}
 
 $B$H$7$^$9!#(B
 
@@ -6800,8 +6790,8 @@ M-x skk-annotation-remove
 (@url{http://ja.wikipedia.org/}) $B$K$h$k2r@b$rI=<($9$k$3$H$,$G$-$^$9!#(B
 
 $B"'%b!<%I$G8uJd$rI=<($7$F$$$k$H$-$K(B @key{TAB} $B$r2!$9$H!"(B
-skk-annotation-wikipedia-sources $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7%(%3!<%(%j(B
-$B%"$KI=<((B@footnote{$BJQ?t(B skk-show-tooltip $B$,(B Non-nil $B$N>l9g!"(BTooltip $B$G(B
+@code{skk-annotation-wikipedia-sources} $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7%(%3!<%(%j(B
+$B%"$KI=<((B@footnote{$BJQ?t(B@code{skk-show-tooltip} $B$,(B @code{Non-nil} $B$N>l9g!"(BTooltip $B$G(B
 $BI=<($7$^$9!#(B} $B$7$^$9!#(B
 
 @example
@@ -6830,7 +6820,7 @@ B o k u j o u
 $B$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-show-wikipedia-url
-$B%G%U%)%k%H$O(B nil$B!#(BNon-nil $B$H$9$k$H!"8+=P$78l$r(B @kbd{SPC} $B$GJQ49$7$?:]$K(B
+$B%G%U%)%k%H$O(B @code{nil}$B!#(B@code{Non-nil} $B$H$9$k$H!"8+=P$78l$r(B @kbd{SPC} $B$GJQ49$7$?:]$K(B
 $B$=$N8+=P$78l$NCm<a$,B8:_$7$J$$>l9g$K8B$j!"(B Wikipedia ($BF|K\8lHG(B) $B$G$=$N8l(B
 $B$,;2>H$5$l$k$?$a$N(B URL $B$rCm<a$H$7$FI=<($7$^$9!#I=<(Cf$K(B @kbd{C-o} $B$r2!$9(B
 $B$H!"4X?t(B @code{browse-url} $B$rMQ$$$F$=$N(B URL $B$r%V%i%&%:$7$^$9!#(B
@@ -7663,13 +7653,11 @@ XEmacs $B$N>l9g(B
 @cindex @file{vip.el}
 @cindex @file{viper.el}
 
-@table @code
-@item skk-use-viper
-@vindex skk-use-viper
+@defvr {$B%f!<%6JQ?t(B} skk-use-viper
 @c XXX VIP 3.7 $B$K$D$$$F8@5Z$9$k!#(B
 
 $B$3$NJQ?t$NCM$rHs(B @code{nil} $B$K@_Dj$9$k$H!"(BVIPER $B$KBP1~$7$^$9!#(B
-@end table
+@end defvr
 
 VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$@$5$$!#(B
 
@@ -7693,15 +7681,13 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 @node $B5/F0;~$NF~NO%b!<%I$N;XDj(B
 @subsection $B5/F0;~$NF~NO%b!<%I$N;XDj(B
 
-@table @code
-@item skk-isearch-use-previous-mode
-@vindex skk-isearch-use-previous-mode
+@defvr {$B%f!<%6JQ?t(B} skk-isearch-use-previous-mode
 
 $B$3$NJQ?t$NCM$,Hs(B @code{nil} $B$G$"$l$P!"<!$N%$%s%/%j%a%s%?%k!&%5!<%A5/F0(B
 $B;~$NF~NO%b!<%I$O!"A02s$N%$%s%/%j%a%s%?%k!&%5!<%A$G$NF~NO%b!<%I$K$J$j$^$9!#(B
+@end defvr
 
-@item skk-isearch-start-mode
-@vindex skk-isearch-start-mode
+@defvr {$B%f!<%6JQ?t(B} skk-isearch-start-mode
 
 $B$3$NJQ?t$NCM$O!"%$%s%/%j%a%s%?%k!&%5!<%A$N5/F0;~$NF~NO%b!<%I$r7hDj$7$^$9!#(B
 $B$?$@$7JQ?t(B @code{skk-isearch-use-previous-mode} $B$NCM$,Hs(B @code{nil} $B$J(B
@@ -7722,7 +7708,7 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 
 $BA41Q%b!<%I(B
 @end table
-@end table
+@end defvr
 
 @node $B4V$K6uGrEy$r4^$`J8;zNs$N8!:w(B
 @subsection $B4V$K6uGrEy$r4^$`J8;zNs$N8!:w(B
