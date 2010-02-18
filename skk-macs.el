@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.136 2009/11/02 03:56:13 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.137 2010/02/18 13:42:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/11/02 03:56:13 $
+;; Last Modified: $Date: 2010/02/18 13:42:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -792,13 +792,18 @@ BUFFER defaults to the current buffer."
 		    (t (if header-line-format 1 0))))))
 
 (defun skk-screen-column ()
+  "スクリーン行から得たカーソル位置の桁数を返す。
+テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示されている場合にも対応する。"
   (- (current-column)
      (save-excursion
-       (vertical-motion 0)
-       (current-column))))
+       (vertical-motion 0)		;スクリーン行の行頭に移動する
+       (current-column))))		;↑この結果、スクリーン行の行頭なのか
+					;テキスト行の行頭なのか
 
 (defun skk-move-to-screen-column (col)
-  (move-to-column (+ (current-column)
+  "スクリーン行から見た COL 桁位置にポイントを移動する。
+テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示されている場合にも対応するが、改行文字を越える移動は行わない。"
+  (move-to-column (+ (current-column)	;テキスト行から見た桁数
 		     (- col (skk-screen-column))))
   (skk-screen-column))
 
