@@ -1,3 +1,8 @@
+2010-02-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-search-jisyo-file): Add content.
+	some function/variable are ditto.
+
 2010-02-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (skk-screen-column, skk-move-to-screen-column):
