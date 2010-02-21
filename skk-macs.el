@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.137 2010/02/18 13:42:41 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.138 2010/02/21 12:12:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/02/18 13:42:41 $
+;; Last Modified: $Date: 2010/02/21 12:12:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -641,7 +641,7 @@ BUFFER defaults to the current buffer."
   (assq char (skk-get-branch-list tree)))
 
 (defun skk-erase-prefix (&optional clean)
-  "`skk-echo' が非 nil であれば現在表示されている `skk-prefix' を消す。
+  "`skk-echo' が non-nil であれば現在表示されている `skk-prefix' を消す。
 オプション引数の CLEAN が指定されると、変数としての `skk-prefix' を空文字に、
 `skk-current-rule-tree' を nil に初期化する。"
   ;; かな文字の入力がまだ完成していない場合にこの関数が呼ばれたときなどは
@@ -968,7 +968,7 @@ BUFFER defaults to the current buffer."
    (append word nil) ""))
 
 (defun skk-key-binding-member (key commands &optional map)
-  "入力 KEY が発動するコマンドが、COMMANDS に含まれれば 非 nil を返す。
+  "入力 KEY が発動するコマンドが、COMMANDS に含まれれば non-nil を返す。
 MAP は入力が書かれているキーマップを指定するが、指定されなければ
 `skk-j-mode-map' を参照する。
 この関数は、入力 KEY が `lookup-key' で探せない形式でありうる場合に用いる。"

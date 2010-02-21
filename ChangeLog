@@ -1,5 +1,11 @@
 2010-02-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-macs.el: 非nil を non-nil へ.
+	* skk.el: ditto.
+	* doc/skk.texi: ditto.
+
+2010-02-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* doc/skk.texi (skk-search-jisyo-file): Add content.
 	some function/variable are ditto.
 

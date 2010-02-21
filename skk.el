@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.487 2009/12/16 02:37:35 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.488 2010/02/21 12:12:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/12/16 02:37:35 $
+;; Last Modified: $Date: 2010/02/21 12:12:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5229,7 +5229,7 @@ SKK 辞書の候補として正しい形に整形する。"
 
 ;;;###autoload
 (defun skk-preload ()
-  "変数 `skk-preload' が非 nil のとき、`after-init-hook' から呼ばれる。
+  "変数 `skk-preload' が non-nil のとき、`after-init-hook' から呼ばれる。
 あらかじめ SKK を呼んでおくことで、 SKK の初回起動を速くする。"
   (with-temp-buffer
     (skk-mode 1))
