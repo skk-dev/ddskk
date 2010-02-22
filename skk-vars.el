@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.278 2009/11/02 05:50:34 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.279 2010/02/22 12:29:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/11/02 05:50:34 $
+;; Last Modified: $Date: 2010/02/22 12:29:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -333,7 +333,7 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
 (defcustom skk-initial-search-jisyo nil
   ;; $B%=!<%H$5$l$F$$$kI,MW$,$"$k$+$I$&$+$O@_Dj<!Bh$@$,!"$=$3$^$G@bL@$9$k$N$OLLE](B
   ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B
-  "*$B%f!<%6!<<-=q$N8!:w$NA0$K8!:w$9$k<-=q!#(B
+  "*$B8D?M<-=q$N8!:w$NA0$K8!:w$9$k<-=q!#(B
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
 Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
 
@@ -355,7 +355,7 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#
 
 (defcustom skk-large-jisyo nil
   ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B
-  "*$B%f!<%6!<<-=q$N8!:w$N8e$K8!:w$9$k<-=q!#(B
+  "*$B8D?M<-=q$N8!:w$N8e$K8!:w$9$k<-=q!#(B
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
 Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
   :type `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
@@ -488,7 +488,7 @@ C-0 SPC $B$G;HMQ$5$l$k(B"
 (defcustom skk-jisyo (if skk-user-directory
 			 (expand-file-name "jisyo" skk-user-directory)
 		       (convert-standard-filename "~/.skk-jisyo"))
-  "*SKK $B$N%f!<%6!<<-=q!#(B"
+  "*SKK $B$N8D?M<-=q!#(B"
   :type `(file :tag "$B<-=q%U%!%$%kL>(B")
   :group 'skk-private)
 
@@ -496,7 +496,7 @@ C-0 SPC $B$G;HMQ$5$l$k(B"
 				(expand-file-name "jisyo.bak"
 						  skk-user-directory)
 			      (convert-standard-filename "~/.skk-jisyo.BAK"))
-  "*SKK $B$N%f!<%6!<<-=q$N%P%C%/%"%C%W%U%!%$%k!#(B"
+  "*SKK $B$N8D?M<-=q$N%P%C%/%"%C%W%U%!%$%k!#(B"
   :type '(file :tag "$B<-=q%U%!%$%kL>(B")
   :group 'skk-private)
 
@@ -1536,7 +1536,7 @@ nil $B$G$"$l$P!"JQ49$K4X$9$k5-O?$r<h$i$J$$!#(B"
 (defcustom skk-record-file (if skk-user-directory
 			       (expand-file-name "record" skk-user-directory)
 			     (convert-standard-filename "~/.skk-record"))
-  "*$B%f!<%6!<<-=q$NE}7W$r<h$k%U%!%$%k!#(B
+  "*$B8D?M<-=q$NE}7W$r<h$k%U%!%$%k!#(B
 $B<-=q%;!<%V$N;~9o!"C18l$NEPO??t!"3NDj$r9T$C$?2s?t!"3NDjN(!"A4BN$N8l?t$N(B
 $B>pJs$r<}$a$k!#(B"
   :type 'file
@@ -1987,7 +1987,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
 
 (defvar skk-emacs-id nil
   "$BJ#?t(B emacs $B$r<1JL$9$kJ8;zNs!#(B
-$B%f!<%6!<<-=q$rJ#?t$N(B emacs $B>e$G5/F0$5$l$F$$$k(B SKK $B$G6&M-$9$k$H$-$K;2>H$9$k!#(B")
+$B8D?M<-=q$rJ#?t$N(B emacs $B>e$G5/F0$5$l$F$$$k(B SKK $B$G6&M-$9$k$H$-$K;2>H$9$k!#(B")
 
 (defvar skk-jisyo-update-vector nil
   "$BD9$5$,(B `skk-jisyo-save-count' $B$N%Y%/%H%k!#(B
@@ -2018,7 +2018,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
 
 (defvar skk-update-jisyo-count 0
   "$B<-=q$r99?7$7$?2s?t!#(B
-$B$3$N%+%&%s%?!<$N?t;z$,(B `skk-jisyo-save-count' $B0J>e$H$J$C$?$H$-$K%f!<%6!<<-=q$N(B
+$B$3$N%+%&%s%?!<$N?t;z$,(B `skk-jisyo-save-count' $B0J>e$H$J$C$?$H$-$K8D?M<-=q$N(B
 $B%*!<%H%;!<%V$,9T$o$l$k!#(B
 $B<-=q$N%;!<%V$,9T$o$l$k$H%$%K%7%c%i%$%:$5$l$k!#(B")
 

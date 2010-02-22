@@ -1,6 +1,10 @@
+2010-02-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el: s/ユーザ辞書/個人辞書/g
+
 2010-02-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-macs.el: 非nil を non-nil へ.
+	* skk-macs.el: s/非nil/non-nil/g
 	* skk.el: ditto.
 	* doc/skk.texi: ditto.
 
