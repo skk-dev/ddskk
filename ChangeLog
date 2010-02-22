@@ -1,5 +1,13 @@
 2010-02-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk.el: s/(SKK)?(辞書)?サーバ/辞書サーバ/g
+	* skk-vars.el: ditto.
+	* skk-server.el: ditto.
+	* skk-server-completion.el: ditto
+	* doc/skk.texi: ditto.
+	
+2010-02-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-vars.el: s/ユーザ辞書/個人辞書/g
 
 2010-02-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

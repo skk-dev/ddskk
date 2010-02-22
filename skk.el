@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.488 2010/02/21 12:12:46 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.489 2010/02/22 13:03:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/02/21 12:12:46 $
+;; Last Modified: $Date: 2010/02/22 13:03:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4013,9 +4013,9 @@ FILE には辞書ファイルだけでなく、
 			limit))
 
 (defun skk-search-server (file limit &optional nomsg)
-  "SKK サーバーを使用して `skk-henkan-key' をキーにして検索を行う。
-SKK サーバーが使用できないときは、FILE をバッファに読み込んで検索を行う。
-LIMIT と NOMSG は SKK サーバーを使用しないときのみ使う。
+  "辞書サーバーを使用して `skk-henkan-key' をキーにして検索を行う。
+辞書サーバーが使用できないときは、FILE をバッファに読み込んで検索を行う。
+LIMIT と NOMSG は辞書サーバーを使用しないときのみ使う。
 これらの引数については `skk-search-jisyo-file' を参照。"
   (if (or skk-server-host
 	  skk-servers-list)

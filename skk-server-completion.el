@@ -85,9 +85,9 @@
 	   midasi-list result-list kouho-list)
       (setq midasi-list (skk-server-completion-search-midasi key))
       (dolist (skk-henkan-key midasi-list)
-	;; 見出しに対応したエントリがサーバに存在する事を前提としている。
+	;; 見出しに対応したエントリが辞書サーバに存在する事を前提としている。
 	;; 不整合があってもエラーにはならないが、見出しだけが表示される事になるので
-	;; 検索対象辞書から直接補完候補を生成していないサーバでは運用に気をつける事。
+	;; 検索対象辞書から直接補完候補を生成していない辞書サーバでは運用に気をつける事。
 	(setq kouho-list (cons (if numericp
 				   (concat henkan-key
 					   (substring skk-henkan-key
@@ -106,12 +106,12 @@
 	    (count 0)
 	    sep ret)
 	(erase-buffer)
-	;; server completion に対応しておらず、かつ無反応なサーバに対処
+	;; server completion に対応しておらず、かつ無反応な辞書サーバに対処
 	;; 5秒も待てば充分であろう
 	(with-timeout
 	    (5
 	     (skk-message
-	      "お使いのサーバは server completion に対応してないようです。"
+	      "お使いの辞書サーバは server completion に対応してないようです。"
 	      "Your SKK server doesn't have ability for server completion.")
 	     (sleep-for 5)
 	     (setq skk-server-disable-completion t))
@@ -130,7 +130,7 @@
 		(setq cont nil))))
 	  (goto-char (point-min))
 	  (when skk-server-report-response
-	    (skk-message "%d 回 SKK サーバーの応答待ちをしました"
+	    (skk-message "辞書サーバーの応答を %d 回待ちました"
 			 "Waited for server response %d times"
 			 count))
 	  (when (eq (following-char) ?1) ;?1
@@ -162,7 +162,7 @@
 
 ;;;###autoload
 (defun skk-comp-by-server-completion ()
-  "Server completion に対応した SKK サーバを利用する補完プログラム。
+  "Server completion に対応した辞書サーバを利用する補完プログラム。
 `skk-completion-prog-list' の要素に指定して使う。"
   (let* ((numericp (and skk-use-numeric-conversion
 			(save-match-data
