@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.280 2010/02/22 13:03:45 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.281 2010/02/26 12:25:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/02/22 13:03:45 $
+;; Last Modified: $Date: 2010/02/26 12:25:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1025,8 +1025,8 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
 $B$H$$$&%;%k$rJV$9!#=PNO$N<oN`$K$D$$$F$O(B `skk-rom-kana-base-rule-list' $B$r(B
 $B;2>H$N$3$H!#(B
 
-$B%G%#%U%)%k%H$G$O!"(B\"$B$*(B\" $B$N8e$N(B \"h\" + $B;R2;$NF~NO$r(B \"$B$*$*(B\" + $BB3$/;R(B
-$B2;=hM}MQ$N(B unfixed prefix $B$KJQ49$7$F$$$k!#(B"
+$B%G%U%)%k%H$G$O!"(B\"$B$*(B\" $B$N8e$N(B \"h\" + $B;R2;$NF~NO$r(B \"$B$*$*(B\" + $BB3$/;R2;(B
+$B=hM}MQ$N(B unfixed prefix $B$KJQ49$7$F$$$k!#(B"
   :type 'function
   :group 'skk-input-basic)
 
@@ -1089,7 +1089,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 
 $B$H$$$&(B cons cell$B!#%7%s%\%k$NItJ,$O!"(B`jp' $B$b$7$/$O(B `en' $B$H$7!"(B
 `skk-toggle-kutouten' $B$O$3$l$r%H%0%k$G@Z$j49$($k!#(B
-$B%G%#%U%)%k%H$N6gFIE@$N%?%$%W$O!"(B`skk-kutouten-type' $B$G;XDj$9$k!#(B"
+$B%G%U%)%k%H$N6gFIE@$N%?%$%W$O!"(B`skk-kutouten-type' $B$G;XDj$9$k!#(B"
   :type '(repeat (cons (radio :tag "$BAH$N$J$^$((B"
 			      (const jp)
 			      (const en)
@@ -1286,11 +1286,11 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
   :group 'skk-henkan)
 
 (defcustom skk-show-candidates-always-pop-to-buffer nil
-  "*$BJQ498uJd0lMw$NI=<(0LCV$r@)8f$9$k!#(B
-$B$3$NJQ?t$,(B nil $B$N>l9g$O!"%(%3!<%(%j%"$rMxMQ$7$F8uJd0lMw$rI=<($9$k$,!"8uJd0lMw(B
-$B$NJ8;zNs$ND9$5$,%U%l!<%`$N2#I}$K<}$^$i$J$$>l9g$N$_!"(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=$7(B
-$B$F(B 1 $B$D$N@lMQ%&%#%s%I%&$r3+$/!#$3$l$,(B non-nil $B$@$C$?>l9g$O8uJd0lMw$ND9$5$K4X$o(B
-$B$i$:>o$K(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=$7$F@lMQ%&%#%s%I%&$r3+$/!#(B"
+  "*$BJQ498uJd0lMw$NI=<(J}K!$r@)8f$9$k!#(B
+$B$3$NJQ?t$,(B nil $B$N>l9g$O!"8uJd0lMw$r%(%3!<%(%j%"$KI=<($9$k!#$3$N$H$-8uJd0lMw(B
+$B$NJ8;zNs$ND9$5$,%U%l!<%`$N2#I}$K<}$^$i$J$$>l9g$K8B$C$F(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n(B
+$B@=(B(pop-to-buffer)$B$7$F@lMQ$N%&%#%s%I%&$GI=<($9$k!#(B
+$B0lJ}!"$3$NJQ?t$,(B non-nil $B$N>l9g$O!"8uJd0lMw$ND9$5$K4X$o$i$:>o$K(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=$7$F@lMQ%&%#%s%I%&$GI=<($9$k!#(B"
   :type 'boolean
   :group 'skk-henkan)
 
@@ -1383,7 +1383,7 @@ nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
 
 (defcustom skk-henkan-okuri-strictly nil
   "*Non-nil $B$G$"$l$P!"8+=P$78l$HAw$j2>L>$,0lCW$7$?$H$-$@$18uJd$H$7$F=PNO$9$k!#(B
-$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,!"(B`skk-jisyo' ($B%W%i%$%Y!<%H<-=q(B) $B$K$"$C$?(B
+$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,!"(B`skk-jisyo' ($B8D?M<-=q(B) $B$K$"$C$?(B
 $B>l9g$K(B
 
   \"$B$*$*(Bk /$BBg(B/$BB?(B/[$B$/(B/$BB?(B/]/[$B$-(B/$BBg(B/]/\"
@@ -1427,7 +1427,7 @@ Emacs 19 $B0J>e$J$i$P!"2<5-$N<0$rI>2A$9$k$3$H$G!"C18lEPO?$KF~$C$?$H$-$@$1(B
 
 (defcustom skk-henkan-strict-okuri-precedence nil
   "*Non-nil $B$G$"$l$P!"8+=P$78l$HAw$j2>L>$,0lCW$7$?8uJd$rM%@h$7$FI=<($9$k!#(B
-$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,!"(B`skk-jisyo' ($B%W%i%$%Y!<%H<-=q(B) $B$K$"$C$?(B
+$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,!"(B`skk-jisyo' ($B8D?M<-=q(B) $B$K$"$C$?(B
 $B>l9g$K(B
 
   \"$B$*$*(Bk /$BBg(B/$BB?(B/[$B$/(B/$BB?(B/]/[$B$-(B/$BBg(B/]/\"
@@ -1659,10 +1659,10 @@ nil $B$J$i$P<+F0@_Dj$O$7$J$$(B ($B<+J,$G9%$-$J@_Dj$,$G$-$k(B)$B!#(B"
   :group 'skk-misc)
 
 (defcustom skk-status-indicator 'left
-  "*SKK $B$N>uBV$r%b!<%I9T$N$I$3$KI=<($9$k$+$r7h$a$k!#(B
+  "*SKK $B$N>uBV$r%b!<%I%i%$%s$N$I$3$KI=<($9$k$+$r7h$a$k!#(B
 left $B$G$"$l$P:8C<$KI=<($9$k!#(B
 $B$5$b$J$1$l$P%^%$%J!<%b!<%I$H$7$F$NI=<(K!$r<h$k!#(B"
-  :type '(radio (const :tag "$B%b!<%I9T$N:8C<$KI=<((B" left)
+  :type '(radio (const :tag "$B%b!<%I%i%$%s$N:8C<$KI=<((B" left)
 		(const :tag "$B%^%$%J!<%b!<%I$N0l<o$H$7$FI=<((B" minor-mode))
   :group 'skk-visual)
 
@@ -1773,7 +1773,7 @@ highlight, underline, bold, italic, bold-italic $B$NB>!"?7$?$K(B face $B$r:n
   "*$BJQ49$7$?8uJd$K=E$M$k(B overlay $B$N(B priority$B!#(B
 $BNc$($P!"(BViper $B$G(B R $B%3%^%s%I$K$h$j(B replace $B$r9T$&$H$-$K!"(B
 `viper-replace-overlay' $B$H$$$&(B priority 400 $B$N(B overlay $B$r=E$M$i$l$k$,!"(B
-`skk-henkan-overlay-priority' $B$N%G%#%U%)%k%HCM$O$3$N(B overlay $B$h$j(B
+`skk-henkan-overlay-priority' $B$N%G%U%)%k%HCM$O$3$N(B overlay $B$h$j(B
 priority $B$,9b$$$N$G!"M%@h$7$FI=<($5$l$k!#(B"
   :type 'integer
   :group 'skk-visual)
@@ -2017,10 +2017,10 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
 `skk-record-file' $B$N(B \"$BEPO?(B:\" $B9`L\$N%+%&%s%?!<!#(B")
 
 (defvar skk-update-jisyo-count 0
-  "$B<-=q$r99?7$7$?2s?t!#(B
-$B$3$N%+%&%s%?!<$N?t;z$,(B `skk-jisyo-save-count' $B0J>e$H$J$C$?$H$-$K8D?M<-=q$N(B
+  "$B8D?M<-=q$r99?7$7$?2s?t!#(B
+$B$3$NJQ?t$N?tCM$,(B `skk-jisyo-save-count' $B0J>e$H$J$C$?$H$-$K8D?M<-=q$N(B
 $B%*!<%H%;!<%V$,9T$o$l$k!#(B
-$B<-=q$N%;!<%V$,9T$o$l$k$H%$%K%7%c%i%$%:$5$l$k!#(B")
+$B8D?M<-=q$N%;!<%V$,9T$o$l$k$H%$%K%7%c%i%$%:$5$l$k!#(B")
 
 (defvar skk-kakutei-history nil
   "$BAw$j$J$7$G3NDj$5$l$?8+=P$78l!&8uJd$NMzNr!#(B
@@ -2146,9 +2146,9 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$KCm<a$,IU2C$5$l$k(B)
 ;;(skk-deflocalvar skk-current-henkan-data
 ;;  '(;; global variables
 
-;;    ;; $B%P%C%U%!%m!<%+%kJQ?t$N%G%#%U%)%k%HCM$r@_Dj$9$k$H!"$3$l$rD>@\=q49$($7$?(B
+;;    ;; $B%P%C%U%!%m!<%+%kJQ?t$N%G%U%)%k%HCM$r@_Dj$9$k$H!"$3$l$rD>@\=q49$($7$?(B
 ;;    ;; $B$H$-$KB>$N%P%C%U%!$+$i8+$($kCM$bJQ$o$C$F$7$^$&!#(Bglobal $B$J%U%i%0$O$3$l(B
-;;    ;; $B$rMxMQ$7$F%G%#%U%)%k%HCM$rM?$($F$*$/!#(B
+;;    ;; $B$rMxMQ$7$F%G%U%)%k%HCM$rM?$($F$*$/!#(B
 
 ;;    ;; Emacs $B$r5/F08e4{$K(B skk-mode $B$r5/F0$7$?$3$H$r<($9(B
 ;;    (invoked . nil)
@@ -2423,7 +2423,7 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 
 ;; for skk-undo-kakutei
 (skk-deflocalvar skk-last-henkan-data nil
-  "$B:G8e$K9T$C$?JQ49$K4X$9$k%G!<%?$NO"A[%j%9%H!#%G%#%U%)%k%H$N%-!<(B
+  "$B:G8e$K9T$C$?JQ49$K4X$9$k%G!<%?$NO"A[%j%9%H!#%G%U%)%k%H$N%-!<(B
 $B$O!"(B`henkan-key', `henkan-okurigana', `okuri-char',
 `henkan-list', `henkan-point', `henkan-buffer', `abbrev-mode' $B$N3F(B
 $B%7%s%\%k!#(B
@@ -2475,13 +2475,13 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
   :group 'skk-act)
 
 (defcustom skk-act-load-hook nil
-  "*Skk-act $B$r(B load $B$7$?8e$K<B9T$5$l$k(B hook."
+  "*skk-act $B$r(B load $B$7$?8e$K<B9T$5$l$k(B hook."
   :type 'hook
   :group 'skk-act)
 
 ;; skk-azik.el related.
 (defcustom skk-use-azik nil
-  "*Non-nil $B$G$"$l$P3HD%%m!<%^;zF~NO(B ACT $B$rMxMQ$9$k!#(B"
+  "*Non-nil $B$G$"$l$P3HD%%m!<%^;zF~NO(B AZIK $B$rMxMQ$9$k!#(B"
   :type 'boolean
   :group 'skk-azik)
 
@@ -2507,7 +2507,7 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 ;; skk-annotation.el related.
 (defcustom skk-show-annotation nil
   "*Non-nil $B$G$"$l$P!"Cp<a$rI=<($9$k!#(B
-$B<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$rJQ49$N:]!"Cm5-$H$7$F(B\
+$BJQ49$N:]!"<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$rCm5-$H$7$F(B\
 $B%(%3!<%(%j%"!"$^$?$OJL(B Window $B$KI=<($9$k!#(B"
   :type '(radio (const :tag "$B>o$KI=<((B" t)
 		(const :tag "$B8uJd0lMw$G$OHsI=<((B" (not list))
@@ -2764,7 +2764,7 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
 
     \"Uresii (\"UreSii\" $B$G$O$J$/(B) -> $B4r$7$$(B\"
 
-$B$N$h$&$KJQ49$5$l$k!#C"$7!"(Bskk-jisyo $B<-=q(B ($B%W%i%$%Y!<%H<-=q(B) $B$,!"(B
+$B$N$h$&$KJQ49$5$l$k!#C"$7!"(Bskk-jisyo $B<-=q(B ($B8D?M<-=q(B) $B$,!"(B
 
     \"$B$&$l(Bs /$B4r(B/[$B$7(B/$B4r(B/]/\"
 
@@ -3107,7 +3107,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
      (:foreground "gainsboro" :background "gray15"))
     (((class color) (background light))
      (:foreground "dim gray" :background "beige")))
-  "*$B%@%$%J%_%C%/%3%s%W%j!<%7%g%s$NJ#?tI=<(72$N%U%'%$%9!#(B"
+  "*$BF0E*Jd40$NJ#?tI=<(72$N%U%'%$%9!#(B"
   :group 'skk-dcomp)
 
 (defface skk-dcomp-multiple-trailing-face
@@ -3117,7 +3117,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
      (:inherit skk-dcomp-multiple-face :foreground "white" :bold t))
     (((class color) (background light))
      (:inherit skk-dcomp-multiple-face :foreground "black" :bold t)))
-  "*$B%@%$%J%_%C%/%3%s%W%j!<%7%g%s$NJ#?tI=<(72$NJd40ItJ,$N%U%'%$%9!#(B"
+  "*$BF0E*Jd40$NJ#?tI=<(72$NJd40ItJ,$N%U%'%$%9!#(B"
   :group 'skk-dcomp)
 
 (defface skk-dcomp-multiple-selected-face
@@ -3127,11 +3127,11 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
      (:foreground "dark slate blue" :background "peach puff" :bold t))
     (((class color) (background light))
      (:foreground "yellow" :background "navy" :bold t)))
-  "*$B%@%$%J%_%C%/%3%s%W%j!<%7%g%s$NJ#?tI=<(72$NA*BrBP>]$N%U%'%$%9!#(B"
+  "*$BF0E*Jd40$NJ#?tI=<(72$NA*BrBP>]$N%U%'%$%9!#(B"
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-activate nil
-  "*Non-nil $B$G$"$l$P8+=P$78l$N%@%$%J%_%C%/%3%s%W%j!<%7%g%s$N5!G=$rM-8z$K$9$k!#(B
+  "*Non-nil $B$G$"$l$P8+=P$78l$NF0E*Jd40$N5!G=$rM-8z$K$9$k!#(B
 $B$3$NJQ?t$NCM$,(B `eolp' $B$@$C$?>l9g!"%]%$%s%H$,9TKv$K$"$k;~$@$1Jd40$9$k!#(B"
   :type '(radio (const :tag "always on" t)
 		(const :tag "only at the end of a line" eolp)
@@ -3156,17 +3156,17 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
   ;;                  skk-rom-kana-base-rule-list))
   ;;     (car (rassoc (list nil 'skk-toggle-characters)
   ;;                  skk-rom-kana-base-rule-list))))
-  "*$B<+F0%3%s%W%j!<%7%g%s$5$l$?8+=P$78l$r>C$5$J$$%-!<$N%j%9%H!#(B
-$BDL>o$O8+=P$78l$N%3%s%W%j!<%7%g%s8e!"<!$N%-!<F~NO$r$9$k$H!"<+F0%3%s%W(B
-$B%j!<%7%g%s$5$l$?%-!<F~NO$,>C$($F$7$^$&$,!"$3$N%j%9%H$K;XDj$5$l$?%-!<(B
-$BF~NO$,$"$C$?$H$-$O<+F0%3%s%W%j!<%7%g%s$5$l$?8+=P$78l$r>C$5$J$$!#(B"
+  "*$BF0E*Jd40$5$l$?8+=P$78l$r>C$5$J$$%-!<$N%j%9%H!#(B
+$BDL>o$O8+=P$78l$NJd408e!"<!$N%-!<F~NO$r$9$k$H!"F0E*(B
+$BJd40$5$l$?%-!<F~NO$,>C$($F$7$^$&$,!"$3$N%j%9%H$K;XDj$5$l$?%-!<(B
+$BF~NO$,$"$C$?$H$-$OF0E*Jd40$5$l$?8+=P$78l$r>C$5$J$$!#(B"
   :type '(radio (repeat :tag "$B%j%9%H(B"
 			(string :tag "$B%-!<(B($BJ8;z(B)"))
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-multiple-activate nil
-  "*Non-nil $B$G$"$l$P%@%$%J%_%C%/%3%s%W%j!<%7%g%s$N8uJd$rJ#?tI=<($9$k!#(B
+  "*Non-nil $B$G$"$l$PF0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B
 $B$3$NJQ?t$NCM$,4X?t$@$C$?>l9g!"$=$NI>2A7k2L$,(B non-nil $B$N;~$@$1Jd40$9$k!#(B"
   :type '(radio (const :tag "always on" t)
 		(const :tag "off" nil)
@@ -3174,7 +3174,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-multiple-rows 7
-  "*$B%@%$%J%_%C%/%3%s%W%j!<%7%g%s$N8uJd$rJ#?tI=<($9$k>l9g$NI=<(?t!#(B"
+  "*$BF0E*Jd40$N8uJd$rJ#?tI=<($9$k>l9g$NI=<(?t!#(B"
   :type 'integer
   :group 'skk-dcomp)
 
@@ -3182,7 +3182,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
   (list (concat " *" (file-name-nondirectory skk-jisyo) "*"))
   "*$BJ#?tI=<($N0Y$KJd408uJd$r8!:w$9$k:]$K(B `point' $B$rJ];}$9$k%P%C%U%!$N%j%9%H!#(B
 
-$B%@%$%J%_%C%/%3%s%W%j!<%7%g%s$G8uJd$rJ#?tI=<($9$k:]$K8!:wBP>]%P%C%U%!(B
+$BF0E*Jd40$G8uJd$rJ#?tI=<($9$k:]$K8!:wBP>]%P%C%U%!(B
 $BFb$N(B `point' $B$rF0$+$7$F$7$^$&$HDL>o$NJd40$,@5>o$K5!G=$7$J$/$J$k!#(B
 $B$=$N$?$a!"J#?tI=<(MQ$N8!:w$,=*$o$C$?8e$G(B `point' $B$rLa$9$Y$-%P%C%U%!(B
 $B$r$3$N%j%9%H$K@_Dj$9$k!#(B
@@ -3244,7 +3244,7 @@ cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
   #'(lambda (date-information format gengo and-time)
       (skk-default-current-date date-information nil skk-number-style
 				gengo 0 0 0 and-time))
-  "*`skk-current-date' $B$G%3!<%k$5$l$k%G%#%U%)%k%H$N4X?t!#(B
+  "*`skk-current-date' $B$G%3!<%k$5$l$k%G%U%)%k%H$N4X?t!#(B
 $B;~4V>pJs$r0z?t$K<h$j2C9)$7$?J8;zNs$r=PNO$9$k!#(B
 
 $B0z?t$O(B DATE-INFORMATION, FORMAT, GENGO, AND-TIME $B$N(B 4 $B$D!#(B
@@ -3962,7 +3962,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   ;; KANJIGEN: Super$BE}9g<-=q(B99 Disk2/$B4A;z8;(B : EPWING
   ;; RIKAGAKU: $BM}2=3X<-E5(B
   ;; WAEI: what's this?
-  "*$B%G%#%U%)%k%H$N<-=q8!:w!"J8;z@Z$j=P$7%*%W%7%g%s!#(B
+  "*$B%G%U%)%k%H$N<-=q8!:w!"J8;z@Z$j=P$7%*%W%7%g%s!#(B
 $B$^$:<-=qL>$r%-!<$K$7$F(B `skk-lookup-option-alist' $B$r0z$-!"$=$3$K<-=q8!:w!"J8;z@Z(B
 $B$j=P$7$N%*%W%7%g%s$,8+$D$+$l$P$=$l$r;HMQ$7!"8+$D$+$i$J$+$C$?>l9g$K$3$NJQ?t$G(B
 $B;XDj$5$l$k<-=q8!:w!"J8;z@Z$j=P$7$N%*%W%7%g%s$r;HMQ$9$k!#(B
@@ -4138,7 +4138,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 $B%$%s%G%/%9$K$O!"Nc$($P8+=P$78l$,(B \"$BJ?@.(B#1$BG/(B\" $B$N$H$-!"(B`#' $B5-9f$ND>8e$KI=<((B
 $B$5$l$k(B integer `1' $B$rBeF~$9$k!#(B
 
-$B%$%s%G%/%9$H4X?t$N4X78(B ($B%G%#%U%)%k%HCM(B) $B$O2<5-$NDL$j!#(B
+$B%$%s%G%/%9$H4X?t$N4X78(B ($B%G%U%)%k%HCM(B) $B$O2<5-$NDL$j!#(B
     0 -> $BL5JQ49(B
     1 -> $BA43Q?t;z$XJQ49(B
     2 -> $B4A?t;z$XJQ49(B ($B0L<h$j$J$7(B)
@@ -4254,7 +4254,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 				nil)
   "*Non-nil $B$G$"$l$P!"$=$NCM$r(B port number $B$H$7$F(B skkserv $B$H(B TCP $B@\B3$9$k!#(B
 /etc/services $B$rD>@\=q$-49$($k8"8B$,$J$$%f!<%6!<$N$?$a$NJQ?t!#(B
-Windows $B$G$O%G%#%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
+Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
   :type '(radio (integer :tag "$B%]!<%HHV9f(B" 1178)
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-server)
@@ -4272,7 +4272,7 @@ Windows $B$G$O%G%#%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
 
 $B$3$N>l9g!":G=i$K;XDj$7$?<-=q%5!<%P$K%"%/%;%9$G$-$J$/$J$k$H!"<+F0E*$K=g<!%j%9%H$K$"(B
 $B$k;D$j$N<-=q%5!<%P$K%"%/%;%9$9$k$h$&$K$J$k!#(B
-$B<-=q%5!<%P!<$N%G%#%U%)%k%H$N<-=q$*$h$S%]!<%HHV9f$r;HMQ$9$k>l9g$O(B nil $B$r;XDj$9$k$+!"(B
+$B<-=q%5!<%P!<$N%G%U%)%k%H$N<-=q$*$h$S%]!<%HHV9f$r;HMQ$9$k>l9g$O(B nil $B$r;XDj$9$k$+!"(B
 $B2?$b=q$+$J$$$GNI$$!#(B
 
 $B$J$*!"%f!<%6!<<+?H$K<B9T8"8B$N$J$$<-=q%5!<%P!<$r;XDj$9$k>l9g$O!"(B
@@ -4400,7 +4400,7 @@ Windows $B$G$O%G%#%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
 						       skk-user-directory)
 				   (convert-standard-filename
 				    "~/.skk-study.BAK"))
-  "*$B3X=,7k2L$rJ]B8$9$k%P%C%/%"%C%W%U%!%$%k!#(B"
+  "*$B3X=,7k2L$rJ]B8$9$k%U%!%$%k$N%P%C%/%"%C%W!#(B"
   :type 'file
   :group 'skk-study)
 
@@ -4529,16 +4529,16 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 	 'banish))
   "*Tooltip $B$rI=<($9$k>l9g$N!"%^%&%9%]%$%s%?$N5sF0!#(B
 `follow' $B$J$i$P(B  tip $B$N0LCV$K0\F0$9$k!#(B
-`avoid' $B$J$i$P!"%&%$%s%I%&$NC<$KB`Hr$9$k!#(B
-`avoid-maybe' $B$J$i$P!"%&%$%s%I%&>e$K$"$k%^%&%9%]%$%s%?$N$_B`Hr$9$k!#(B
-`banish' $B$J$i$P!"%&%$%s%I%&$NC<$KB`Hr$7$?$^$^5"$C$F$3$J$$!#(B
+`avoid' $B$J$i$P!"%&%#%s%I%&$NC<$KB`Hr$9$k!#(B
+`avoid-maybe' $B$J$i$P!"%&%#%s%I%&>e$K$"$k%^%&%9%]%$%s%?$N$_B`Hr$9$k!#(B
+`banish' $B$J$i$P!"%&%#%s%I%&$NC<$KB`Hr$7$?$^$^5"$C$F$3$J$$!#(B
 `nil' $B$J$i$P!"B`Hr$7$J$$!#$3$N>l9g!"(Btip $B$N%F%-%9%H$H%^%&%9%]%$%s%?$,(B
 $B=E$J$C$?$j!"$&$^$/(B tip $B$,I=<($G$-$J$+$C$?$j$9$k$N$GCm0U!#(B
 
 $B$3$N5!G=$O(B GNU Emacs 22 $B0J>e$+(B XEmacs 21.5 $B0J>e$GF0:n$9$k!#(B
 GNU Emacs 21 $B$G$O6/@)E*$K(B `follow' $B$H$J$k!#(B"
   :type '(radio (const :tag "Tip $B$K=>$&(B" follow)
-		(const :tag "$B%&%$%s%I%&$NC<$KF($2$k(B" avoid)
+		(const :tag "$B%&%#%s%I%&$NC<$KF($2$k(B" avoid)
 		(const :tag "$BF($2$?$[$&$,$h$5$=$&$J$H$-$@$1F($2$k(B" avoid-maybe)
 		(const :tag "$BF($2$?$^$^5"$i$J$$(B" banish)
 		(const :tag "$B5o:B$k(B" nil))

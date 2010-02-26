@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.489 2010/02/22 13:03:45 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.490 2010/02/26 12:25:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/02/22 13:03:45 $
+;; Last Modified: $Date: 2010/02/26 12:25:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3999,9 +3999,9 @@ nil $B$rJV$9!#$5$b$J$1$l$P(B non-nil $B$rJV$9!#(B"
   "SKK $B<-=q%U%)!<%^%C%H$N(B FILE $B$G(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B
 $B8!:wNN0h$,(B LIMIT $B0J2<$K$J$k$^$G%P%$%J%j%5!<%A$r9T$$!"$=$N8e%j%K%"%5!<%A$r9T$&!#(B
 LIMIT $B$,(B 0 $B$G$"$l$P!"%j%K%"%5!<%A$N$_$r9T$&!#(B
-$B<-=q$,%=!<%H$5$l$F$$$J$$$N$G$"$l$P!"(BLIMIT $B$r(B 0 $B$9$kI,MW$,$"$k!#(B
+$B<-=q$,%=!<%H$5$l$F$$$J$$>l9g$O(B LIMIT $B$r(B 0 $B$H$9$kI,MW$,$"$k!#(B
 $B%*%W%7%g%s0z?t$N(B NOMSG $B$,(B non-nil $B$G$"$l$P(B `skk-get-jisyo-buffer' $B$N(B
-$B%a%C%;!<%8$r=PNO$7$J$$$h$&$K$9$k!#(B
+$B%a%C%;!<%8$r=PNO$7$J$$!#(B
 
 FILE $B$K$O<-=q%U%!%$%k$@$1$G$J$/!"(B
   ($B<-=q%U%!%$%k(B . $B%3!<%G%#%s%0%7%9%F%`(B)
@@ -4016,7 +4016,7 @@ FILE $B$K$O<-=q%U%!%$%k$@$1$G$J$/!"(B
   "$B<-=q%5!<%P!<$r;HMQ$7$F(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B
 $B<-=q%5!<%P!<$,;HMQ$G$-$J$$$H$-$O!"(BFILE $B$r%P%C%U%!$KFI$_9~$s$G8!:w$r9T$&!#(B
 LIMIT $B$H(B NOMSG $B$O<-=q%5!<%P!<$r;HMQ$7$J$$$H$-$N$_;H$&!#(B
-$B$3$l$i$N0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H!#(B"
+$B$3$l$i$N0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H$9$k$3$H!#(B"
   (if (or skk-server-host
 	  skk-servers-list)
       (skk-search-server-1 file limit)
@@ -4248,7 +4248,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 
 ;;;###autoload
 (defun skk-remove-duplicates (list)
-  "LIST $B$+$i=EJ#$r$J$/$7$?%j%9%H$rJV$9!#(B"
+  "LIST $B$+$i=EJ#$r=|30$7$?%j%9%H$rJV$9!#(B"
   (let (new)
     (while list
       (or (member (car list) new)

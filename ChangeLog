@@ -1,3 +1,8 @@
+2010-02-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el: Misc updates.
+	* skk-vars.el: ditto.
+
 2010-02-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el: s/(SKK)?(辞書)?サーバ/辞書サーバ/g
