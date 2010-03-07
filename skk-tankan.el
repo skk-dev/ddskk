@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.17 2007/09/20 14:20:40 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.18 2010/03/07 10:44:10 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/09/20 14:20:40 $
+;; Last Modified: $Date: 2010/03/07 10:44:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1532,17 +1532,17 @@
 				    (skk-tankan-get-char-data tmp))))
 	  (setcar lis tmp)))
       ;; sort KOUHO by KAKUSUU(or BUSYU)
-      (setq lis  (sort (cdr top)
-		       (lambda (x y)
-			 (let ((xa (nth 2 x)) (xb (nth 3 x)) (xc (nth 4 x))
-			       (ya (nth 2 y)) (yb (nth 3 y)) (yc (nth 4 y)))
-			   (if (= xc yc)
-			       (if (= xa ya)
-				   (if (= xb yb)
-				       (< (car x) (car y))
-				     (< xb yb))
-				 (< xa ya))
-			     (< xc yc))))))
+      (setq lis (sort (cdr top)
+		      (lambda (x y)
+			(let ((xa (nth 2 x)) (xb (nth 3 x)) (xc (nth 4 x))
+			      (ya (nth 2 y)) (yb (nth 3 y)) (yc (nth 4 y)))
+			  (if (= xc yc)
+			      (if (= xa ya)
+				  (if (= xb yb)
+				      (< (car x) (car y))
+				    (< xb yb))
+				(< xa ya))
+			    (< xc yc))))))
       ;; return list with annotation
       (mapcar (lambda (cell)
 		(let ((anno (if (= 0 (nth 2 cell))
