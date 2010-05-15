@@ -1,3 +1,8 @@
+2010-05-15  Kazuhiro NISHIYAMA  <zn@mbf.nifty.com>
+
+	* SKK-MK: EMU_DIR の load-path への追加を
+	(requre 'install) の前に移動.
+
 2010-03-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tankan.el (skk-tankan-search): update indent.

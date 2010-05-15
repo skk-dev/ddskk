@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.162 2008/01/21 12:31:18 skk-cvs Exp $
-;; Last Modified: $Date: 2008/01/21 12:31:18 $
+;; Version: $Id: SKK-MK,v 1.163 2010/05/15 02:03:02 skk-cvs Exp $
+;; Last Modified: $Date: 2010/05/15 02:03:02 $
 
 ;;; Commentary:
 
@@ -64,6 +64,11 @@ This version of SKK requires MULE features"))
     (when (file-directory-p dir)
       (add-to-list 'load-path dir))))
 
+(when (stringp EMU_DIR)
+  (let ((dir (expand-file-name EMU_DIR)))
+    (when (file-directory-p dir)
+      (add-to-list 'load-path dir))))
+
 (require 'install)
 
 (setq install-prefix
@@ -95,11 +100,6 @@ This version of SKK requires MULE features"))
 ;; 非 UNIX 的環境のために上記で install-prefix を再設定している。
 (unless PREFIX
   (setq PREFIX install-prefix))
-
-(when (stringp EMU_DIR)
-  (let ((dir (expand-file-name EMU_DIR)))
-    (when (file-directory-p dir)
-      (add-to-list 'load-path dir))))
 
 (unless LISPDIR
   (setq LISPDIR
