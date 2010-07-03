@@ -1,3 +1,7 @@
+2010-07-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* make1.bat (clean): add "goto end".
+
 2010-05-15  Kazuhiro NISHIYAMA  <zn@mbf.nifty.com>
 
 	* SKK-MK: EMU_DIR の load-path への追加を

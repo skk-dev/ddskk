@@ -4,9 +4,9 @@ rem Copyright (C) 1999 Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem
 rem Author: Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem Maintainer: SKK Development Team mailto:skk@ring.gr.jp
-rem Version: $Id: make1.bat,v 1.6 2010/02/11 02:28:57 skk-cvs Exp $
+rem Version: $Id: make1.bat,v 1.7 2010/07/03 00:06:56 skk-cvs Exp $
 rem Created: March 23, 1999
-rem Last Modified: $Date: 2010/02/11 02:28:57 $
+rem Last Modified: $Date: 2010/07/03 00:06:56 $
 
 rem --- argument
 rem ---   elc : byte compile
@@ -51,6 +51,7 @@ goto end
 
 :clean
 del leim-list.el skk-autoloads.el skk-setup.el auto-autoloads.el custom-load.el *.elc doc\skk.info* *~
+goto end
 
 rem --- This file should not be executed by itself. Use makeit.bat.
 :prnusage
