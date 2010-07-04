@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/02/22 13:03:45 $
+@set UPDATED $Date: 2010/07/04 02:27:43 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -88,7 +88,7 @@ by the author.
 @sp 10
 @comment The title is printed in a large font.
 @title SKK Manual
-@subtitle Edition @value{EDITION}for SKK Version @value{SKK-VERSION}
+@subtitle Edition @value{EDITION} for SKK Version @value{SKK-VERSION}
 @c @subtitle @value{UPDATED-MONTH}
 @subtitle @value{UPDATED}
 
@@ -320,7 +320,7 @@ ACT$B!"(BTUT-code $B$K$h$kF~NO$b2DG=!#(B
 
 DDSKK 14 $B$O<o!9$N(B Emacsen $B$G$NF0:n$r2DG=$H$9$k$?$a(B APEL (A Portable
 Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 14 $B$O(B APEL 10.7 $B$G$NF0:n$r3NG'$7$F(B
-$B$$$^$9$,!"$G$-$k$@$1?7$7$$%P!<%8%g%s$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
+$B$$$^$9$,!"$G$-$k$@$1?7$7$$%P!<%8%g%s$N(B APEL $B$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
 
 @display
 @url{http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/}
@@ -330,7 +330,7 @@ Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 14 $B$O(B APEL 10.7 $B$G$NF0:n$r3NG'
 @noindent
 $B$h$jF~<j$G$-$^$9!#(B
 
-DDSKK $B$N%$%s%9%H!<%k$r$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
+DDSKK $B$r%$%s%9%H!<%k$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
 
 @node DDSKK $B$N%$%s%9%H!<%k(B
 @section DDSKK $B$N%$%s%9%H!<%k(B
@@ -338,7 +338,7 @@ DDSKK $B$N%$%s%9%H!<%k$r$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
 @cindex SKK_DEFAULT_JISYO
 @cindex @file{SKK-CFG}
 
-APEL $B$r%$%s%9%H!<%k$7$?$i!"(B DDSKK $B$r%$%s%9%H!<%k$7$^$7$g$&!#$3$3$G$O!"(B
+APEL $B$N%$%s%9%H!<%k$,40N;$7$?$i!"(B DDSKK $B$r%$%s%9%H!<%k$7$^$7$g$&!#$3$3$G$O!"(B
 UNIX $B>e$G(B @code{make} $B%3%^%s%I$,MQ0U$5$l$F$$$k>l9g$rA[Dj$7$F$$$^$9(B
 @footnote{Windows $B4D6-$G$O!"(B@code{makeit.bat} $B$r;HMQ$9$k$3$H$K$h$j!"F1(B
 $BMM$NA`:n$G%$%s%9%H!<%k$G$-$^$9!#(B $B<!$N;qNA$r;2>H$7$F$/$@$5$$!#(B
@@ -367,17 +367,17 @@ cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @code{make} $B%3%^%s%I$,;HMQ$G$-$
 
 @noindent
 DDSKK $B$N%H%C%W%G%#%l%/%H%j(B (@file{ChangeLog} $B$d(B @file{Makefile} $B$N(B
-$B$"$k%G%#%l%/%H%j(B)$B$r%+%l%s%H%G%#%l%/%H%j$K$7$^$9!#(B
+$B$"$k%G%#%l%/%H%j(B) $B$r%+%l%s%H%G%#%l%/%H%j$K$7$^$9!#(B
 
 @example
 % make what-where
 @end example
 
 @noindent
-$B$H<B9T$9$k$H!"$I$N%G%#%l%/%H%j$K%$%s%9%H!<%k$5$l$k$+3NG'$G$-$^$9!#(B
-$B$3$3$G!"(BDDSKK $B$N%$%s%9%H!<%k@h%G%#%l%/%H%j$,I=<($5$l$J$$>l9g$O!"(BAPEL $B$N(B
+$B$H<B9T$9$k$H!"$I$N%G%#%l%/%H%j$K(B DDSKK $B$,%$%s%9%H!<%k$5$l$k$N$+3NG'$G$-$^$9!#(B
+$B$3$3$G%$%s%9%H!<%k@h%G%#%l%/%H%j$,I=<($5$l$J$$>l9g$O(B APEL $B$N(B
 path $B$r(B @file{SKK-CFG} $B$K5-F~$7$^$9!#(B@file{SKK-CFG} $B$K@_DjJ}K!$,=q$$$F$"(B
-$B$j$^$9!#$^$?!"%$%s%9%H!<%k@h%G%#%l%/%H%j$rJQ99$7$?$$>l9g$b!"(B
+$B$j$^$9!#$^$?!"(BDDSKK $B$N%$%s%9%H!<%k@h%G%#%l%/%H%j$rJQ99$7$?$$>l9g$b!"(B
 @file{SKK-CFG} $B%U%!%$%k$rJT=8$9$k$3$H$K$h$j;XDj$G$-$^$9!#(B
 
 $B$D$.$K%9!<%Q!<%f!<%6$K$J$C$F!"(B
@@ -637,7 +637,7 @@ SKK 9$B!"(B SKK 10 $B$HHf3S$7$F!"JQ?tL>!"4X?tL>$,BgI}$KJQ99$5$l$?$N$G!"(B
 @end defvr
 
 @vindex skk-server-inhibit-startup-server
-$B<-=q%5!<%P$,5/F0$7$FL5$+$C$?;~!"(BEmacs $B$+$i(B skkserv $B%W%m%;%9$rN)$A>e$2$k(B
+$B<-=q%5!<%P$,5/F0$7$F$$$J$+$C$?$H$-$K(B Emacs $B$+$i(B skkserv $B%W%m%;%9$rN)$A>e$2$k(B
 $B;v$b$G$-$^$9!#(B@code{skk-server-inhibit-startup-server} $B$r(B @code{nil} $B$K(B
 $B$9$k;v$G$3$N5!G=$,M-8z$K$J$j$^$9!#(B@ref{$B%5!<%P4XO"(B} $B$b;2>H$7$F$/$@$5$$!#(B
 
@@ -6509,29 +6509,28 @@ Sun Jul 28 09:38:59 1996  $BEPO?(B:   4  $B3NDj(B:  285  $B3NDjN((B:  98% 
 $B>e5-$N!V8l?t!W$NMs$O(B 1 $B9T$r(B 1 $B8l$H$7$F?t$($F$$$k$N$G!"(B1 $B$D$N8+=P$78l$KBP(B
 $B$7J#?t$N8uJd$r;}$C$F$$$k>l9g!"(B2 $B$DL\0J9_$N8uJd$rL5;k$7$F$$$^$9!#(B
 
-@table @code
-@item skk-record-file
-@vindex skk-record-file
+
+@defvr {$B%f!<%6JQ?t(B} skk-record-file
 
 $BE}7W$N7k2L$rJ]B8$9$k%U%!%$%kL>$r;XDj$7$^$9!#(B
 $BJQ?t(B @code{skk-user-directory} $B$+$i$b@_Dj$,$G$-$^$9!#(B
 (@w{@pxref{$B@_Dj%U%!%$%k(B}})
+@end defvr
 
-@item skk-keep-record
-@vindex skk-keep-record
+@defvr {$B%f!<%6JQ?t(B} skk-keep-record
 
 $B$3$NJQ?t$NCM$r(B @code{nil} $B$K@_Dj$9$k$H!"K\@a$G@bL@$7$?E}7W5!G=$rL58z$K(B
 $B$7$^$9!#$?$@$7?tCM$G$"$l$P!"(B@code{skk-record-file} $B$r;XDj?tCM$N9T?t$h(B
 $B$jBg$-$/$7$^$;$s!#(B
+@end defvr
 
-@item skk-count-private-jisyo-candidates-exactly
-@vindex skk-count-private-jisyo-candidates-exactly
+@defvr {$B%f!<%6JQ?t(B} skk-count-private-jisyo-candidates-exactly
 
 $B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H!"!V8l?t!W$N?t$(J}$rJQ99$7$^$9!#(B
 $B6qBNE*$K$O!"(B 1 $B9T$r(B 1 $B8l$H$7$F?t$($k$N$G$O$J$/!"@53N$K8l?t$r?t$($^$9!#(B
 $B$J$*!"$=$NJ,;~4V$,$+$+$j$^$9!#$^$?!"$3$N>l9g$G$b(B @samp{[} $B$H(B @samp{]}
 $B$K0O$^$l$?Aw$j2>L>Kh$N%V%m%C%/7A<0Fb$O?t$($^$;$s!#(B
-@end table
+@end defvr
 
 @cindex Menu Bars
 @cindex $B%a%K%e!<%P!<(B
@@ -7217,93 +7216,74 @@ t
 $B2<5-$NJQ?t$NCM$rJQ99$9$k$3$H$K$h$j!"%b!<%I%i%$%s$K$*$$$FF~NO%b!<%I$r<($9J8;z(B
 $BNs$,JQ99$5$l$^$9!#(B
 
-@table @code
-@item skk-latin-mode-string
-@vindex skk-latin-mode-string
-
+@defvr {$B%f!<%6JQ?t(B} skk-latin-mode-string
 $B%"%9%-!<%b!<%I$r<($9J8;zNs!#I8=`$G$O!"(B``SKK''$B!#(B
+@end defvr
 
-@item skk-hiragana-mode-string
-@vindex skk-hiragana-mode-string
-
+@defvr {$B%f!<%6JQ?t(B} skk-hiragana-mode-string
 $B$+$J%b!<%I$r<($9J8;zNs!#I8=`$G$O!"(B``$B$+$J(B''$B!#(B
+@end defvr
 
-@item skk-katakana-mode-string
-@vindex skk-katakana-mode-string
-
+@defvr {$B%f!<%6JQ?t(B} skk-katakana-mode-string
 $B%+%J%b!<%I$r<($9J8;zNs!#I8=`$G$O!"(B``$B%+%J(B''$B!#(B
+@end defvr
 
-@item skk-jisx0208-latin-mode-string
-@vindex skk-jisx0208-latin-mode-string
-
+@defvr {$B%f!<%6JQ?t(B} skk-jisx0208-latin-mode-string
 $BA41Q%b!<%I$r<($9J8;zNs!#I8=`$G$O!"(B``$BA41Q(B''$B!#(B
+@end defvr
 
-@item skk-abbrev-mode-string
-@vindex skk-abbrev-mode-string
-
+@defvr {$B%f!<%6JQ?t(B} skk-abbrev-mode-string
 SKK abbrev $B%b!<%I$r<($9J8;zNs!#I8=`$G$O!"(B``a$B$"(B''$B!#(B
-
-@end table
+@end defvr
 
 @node $BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B
 @subsection $BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B
 
-@table @code
-@item skk-use-color-cursor
-@vindex skk-use-color-cursor
+@defvr {$B%f!<%6JQ?t(B} skk-use-color-cursor
 
 $B$3$NJQ?t$NCM$,(B @code{non-nil} $B$J$i$P!"%+!<%=%k$K?'IU$1$7$^$9!#(B@code{nil}
 $B$J$i$P!"$3$N5!G=$rL58z$K$7$^$9!#(B
 
 $BI8=`$G$O!"%&%#%s%I%&%7%9%F%`$r;HMQ$7$F$$$F$J$*$+$D?'I=<($,2DG=$J>l9g$K8B(B
 $B$j!"$3$N5!G=$,M-8z$K$J$j$^$9!#(B
-@end table
+@end defvr
 
 $B$3$N5!G=$,M-8z$K$J$C$F$$$k$H$-!"0J2<$NJQ?t$NCM$rJQ99$9$k$3$H$G!"3F%b!<%I(B
 $B$K$*$1$k%+!<%=%k$N?'$,JQ99$5$l$^$9!#(B
 
-@table @code
-@item skk-cursor-default-color
-@vindex skk-cursor-default-color
-
+@defvr {$B%f!<%6JQ?t(B} skk-cursor-default-color
 SKK $B%b!<%I$,%*%U$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"%+!<%=%k$N$"$k3:Ev(B
 $B%U%l!<%`$K$*$1$kI8=`$N%+!<%=%k?'$r;H$$$^$9!#(B
+@end defvr
 
-@item skk-cursor-hiragana-color
-@vindex skk-cursor-hiragana-color
-
+@defvr {$B%f!<%6JQ?t(B} skk-cursor-hiragana-color
 $B$+$J%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B
 ``coral4'' $B$^$?$O(B ``pink'' $B$rMQ$$$^$9!#(B
+@end defvr
 
-@item skk-cursor-katakana-color
-@vindex skk-cursor-katakana-color
-
+@defvr {$B%f!<%6JQ?t(B} skk-cursor-katakana-color
 $B%+%J%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B
 ``forestgreen'' $B$^$?$O(B ``green'' $B$rMQ$$$^$9!#(B
+@end defvr
 
-@item skk-cursor-jisx0201-color
-@vindex skk-cursor-jisx0201-color
+@defvr {$B%f!<%6JQ?t(B} skk-cursor-jisx0201-color
 JISX0201 $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B
 ``blueviolet'' $B$^$?$O(B ``thistle'' $B$rMQ$$$^$9!#(B
+@end defvr
 
-@item skk-cursor-jisx0208-latin-color
-@vindex skk-cursor-jisx0208-latin-color
-
+@defvr {$B%f!<%6JQ?t(B} skk-cursor-jisx0208-latin-color
 $BA43Q1Q;z%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``gold'' $B$rMQ$$$^$9!#(B
+@end defvr
 
-@item skk-cursor-latin-color
-@vindex skk-cursor-latin-color
-
+@defvr {$B%f!<%6JQ?t(B} skk-cursor-latin-color
 $B%"%9%-!<%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B
 ``ivory4'' $B$^$?$O(B ``gray'' $B$rMQ$$$^$9!#(B
+@end defvr
 
-@item skk-cursor-abbrev-color
-@vindex skk-cursor-abbrev-color
-
+@defvr {$B%f!<%6JQ?t(B} skk-cursor-abbrev-color
 skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r(B
 $BMQ$$$^$9!#(B
-
-@end table
+@end defvr
 
 @node $BJQ498uJd0lMw$NI=<(J}K!(B
 @subsection $BJQ498uJd0lMw$NI=<(J}K!(B

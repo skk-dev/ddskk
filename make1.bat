@@ -4,13 +4,15 @@ rem Copyright (C) 1999 Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem
 rem Author: Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem Maintainer: SKK Development Team mailto:skk@ring.gr.jp
-rem Version: $Id: make1.bat,v 1.7 2010/07/03 00:06:56 skk-cvs Exp $
+rem Version: $Id: make1.bat,v 1.8 2010/07/04 02:27:43 skk-cvs Exp $
 rem Created: March 23, 1999
-rem Last Modified: $Date: 2010/07/03 00:06:56 $
+rem Last Modified: $Date: 2010/07/04 02:27:43 $
 
 rem --- argument
 rem ---   elc : byte compile
 rem ---   all, install : install
+rem ---   info : generate info file
+rem ---   install-info : install info file
 rem ---   clean : cleaning garbage file
 rem ---   what-where : print where to install
 rem ---
@@ -27,10 +29,11 @@ if "%arg1%"=="elc" goto compile
 if "%arg1%"=="all" goto install
 if "%arg1%"=="install" goto install
 if "%arg1%"=="info" goto info
+if "%arg1%"=="install-info" goto installinfo
 if "%arg1%"=="what-where" goto listing
 if "%arg1%"=="clean" goto clean
 echo Unrecognized argument: specify either 'elc', 'all',
-echo 'install', 'info', 'clean' or 'what-where'.
+echo 'install', 'info', 'install-info', 'clean' or 'what-where'.
 goto pauseend
 
 :compile
@@ -43,6 +46,10 @@ goto end
 
 :info
 %EMACS% -batch -q -no-site-file -l SKK-MK -f SKK-MK-compile-info
+goto end
+
+:installinfo
+%EMACS% -batch -q -no-site-file -l SKK-MK -f SKK-MK-install-info
 goto end
 
 :listing
