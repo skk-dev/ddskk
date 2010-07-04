@@ -1,5 +1,8 @@
 2010-07-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el: 用語の統一。そのほか.
+	* etc/dot.skk: ditto.
+
 	* make1.bat (install-info): new argument.
 
 2010-07-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

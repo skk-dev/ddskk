@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.281 2010/02/26 12:25:27 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.282 2010/07/04 10:20:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/02/26 12:25:27 $
+;; Last Modified: $Date: 2010/07/04 10:20:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -524,9 +524,9 @@ SKK $B5/F08e$KJQ99$7$?>l9g$O(B \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
   :group 'skk-private)
 
 (defcustom skk-jisyo-save-count 50
-  "*$B?tCM$G$"$l$P!"$=$N2s?t<-=q$,99?7$5$l$?$H$-$K<-=q$r<+F0E*$K%;!<%V$9$k!#(B
+  "*$B?tCM$G$"$l$P!"$=$N2s?t$@$1<-=q$,99?7$5$l$?$H$-$K<-=q$r<+F0E*$K%;!<%V$9$k!#(B
 nil $B$G$"$l$P!"<-=q$N%*!<%H%;!<%V$r9T$o$J$$!#(B
-SKK $B5/F08e$G!"(B`skk-share-private-jisyo' $B$J;~$K$3$NCM$rJQ99$7$?>l9g$O(B
+SKK $B5/F08e$G!"JQ?t(B `skk-share-private-jisyo' $B$,(B non-nil $B$J>l9g$K(B skk-jisyo-save-count $B$NCM$rJQ99$7$?>l9g$O(B
 \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
   :type '(radio (integer :tag "$B@0?t(B" 50)
 		(const :tag "$B;XDj$7$J$$(B" nil))
@@ -1435,7 +1435,7 @@ Emacs 19 $B0J>e$J$i$P!"2<5-$N<0$rI>2A$9$k$3$H$G!"C18lEPO?$KF~$C$?$H$-$@$1(B
 \"$B"&$*$*(B*$B$/(B\" $B$rJQ49$7$?$H$-!"$^$:(B\"$BB?$/(B\" $B$r=PNO$7!"(B
 $B<!$K(B \"$BBg$/(B\" $B$r=PNO$9$k!#(B
 
-\"$BBg$/(B\"$B$J$I$N8uJd$O$&$C$H$&$7$$$,!"$9$0$KC18lEPO?$K$O$$$C$F$7$^$&$N$b(B
+\"$BBg$/(B\" $B$J$I$N8uJd$O$&$C$H$&$7$$$,!"$9$0$KC18lEPO?$K$O$$$C$F$7$^$&$N$b(B
 $B7y$J$R$H$K$*$9$9$a!#(B
 
 $B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
@@ -2506,7 +2506,7 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 
 ;; skk-annotation.el related.
 (defcustom skk-show-annotation nil
-  "*Non-nil $B$G$"$l$P!"Cp<a$rI=<($9$k!#(B
+  "*Non-nil $B$G$"$l$P!"Cm<a$rI=<($9$k!#(B
 $BJQ49$N:]!"<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$rCm5-$H$7$F(B\
 $B%(%3!<%(%j%"!"$^$?$OJL(B Window $B$KI=<($9$k!#(B"
   :type '(radio (const :tag "$B>o$KI=<((B" t)
@@ -2544,8 +2544,8 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
   :group 'skk-annotation)
 
 (defcustom skk-annotation-function nil
-  "*annotation $B$rI=<($9$k$+$I$&$+$N%A%'%C%/;~$K%3!<%k$5$l$k4X?t!#(B
-non-nil $B$rJV$9$H(B annotation $B$rI=<($9$k!#(Bannotation $B$NBP>]$H$9$kJ8;zNs(B
+  "*$B%"%N%F!<%7%g%s$rI=<($9$k$+$I$&$+$N%A%'%C%/;~$K%3!<%k$5$l$k4X?t!#(B
+non-nil $B$rJV$9$H%"%N%F!<%7%g%s$rI=<($9$k!#%"%N%F!<%7%g%s$NBP>]$H$9$kJ8;zNs(B
 $B$r0z?t$K$7$F(B `funcall' $B$5$l$k!#(B
 
 $B8uJd0lMw;~$K$O8F$P$l$J$$!#(B
@@ -2554,7 +2554,8 @@ non-nil $B$rJV$9$H(B annotation $B$rI=<($9$k!#(Bannotation $B$NBP>]$H$9$kJ8
   :group 'skk-annotation)
 
 (defcustom skk-annotation-show-as-message t
-  "*Non-nil $B$G$"$l$P!"Cm5-$r%(%3!<%(%j%"$KI=<($9$k!#(B"
+  "*Non-nil $B$G$"$l$P!"Cm<a$r%(%3!<%(%j%"$KI=<($9$k!#(B
+nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B"
   :type 'boolean
   :group 'skk-annotation)
 

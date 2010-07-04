@@ -30,7 +30,9 @@
 ;; 変換時に注釈 (annotation) を表示する
 (setq skk-show-annotation t)
 
-;; 注釈 (annotation) を別な window で表示する
+;; 注釈 (annotation) の表示の仕方
+;;   Non-nil => エコーエリアに表示する (デフォルト)
+;;   nil => 別な window に表示する
 ;; (setq skk-annotation-show-as-message nil)
 
 ;; カーソルに色を付けない
@@ -56,9 +58,10 @@
 ;;   (skk-make-face 'DimGray/PeachPuff1)
 ;;   (setq skk-henkan-face 'DimGray/PeachPuff1))
 
-;; 変換候補一覧と注釈 (annotation) を GUI ぽく表示する
-(setq skk-show-tooltip t)
+;; 変換候補一覧と注釈 (annotation) の表示を
+;; エコーエリアに代えて tooltip で表示する
 ;; 注) 今のところ FSF Emacs 21 以上しか対応していません
+(setq skk-show-tooltip t)
 
 (when skk-show-tooltip
   ;; tooltip のルックスを指定する。デフォルトでは Emacs 標準のルックスに
@@ -80,14 +83,16 @@
 	(mouse-avoidance-set-pointer-shape shape))))
   )
 
-;; 変換候補を other-window に表示する
+;; 変換候補の表示方法
+;;   nil => 変換候補をエコーエリアに表示する (デフォルト)
+;;   Non-nil => "*候補*" バッファ を pop-to-buffer する。
 ;; (setq skk-show-candidates-always-pop-to-buffer t)
 
-;; 変換候補をインラインに表示する
+;; 変換候補をインラインに
+;;   nil => 表示しない (デフォルト)
+;;   t   => 表示する
+;;   'vertical => 縦型インラインに表示する
 ;; (setq skk-show-inline t)
-
-;; 変換候補を縦型インラインに表示する
-(setq skk-show-inline 'vertical)
 
 (when skk-show-inline
   ;; 変数 skk-treat-candidate-appearance-function を利用して自前で候補に
@@ -166,7 +171,11 @@
 	       (looking-at "[ \t]+$")))))
 
 ;; 動的補完で候補を複数表示する
-;; (setq skk-dcomp-multiple-activate t)
+;; (setq skk-dcomp-multiple-activate t
+;;       skk-dcomp-multiple-rows 10)
+;; (set-face-foreground 'skk-dcomp-multiple-face "green")
+;; (set-face-foreground 'skk-dcomp-multiple-trailing-face "white")
+;; (set-face-foreground 'skk-dcomp-multiple-selected-face "white")
 
 ;; viper と組み合わせて使う
 ;; (setq skk-use-viper t)
