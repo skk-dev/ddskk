@@ -85,6 +85,7 @@
 
 ;; [残り 99++] の表示を右端へ寄せてみる
 (setq skk-henkan-rest-indicator t)
+;; skk-henkan-rest-indicator-face も。
 
 ;; 変換候補の表示方法
 ;;   nil => 変換候補をエコーエリアに表示する (デフォルト)

@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/07/10 11:28:12 $
+@set UPDATED $Date: 2010/07/10 21:32:32 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4412,15 +4412,15 @@ A:嘘  S:拒  D:拠  F:虚  J:挙  K:許  L:渠
 $B補の選択ができません。これは現在の仕様です。}。
 
 @defvr {ユーザ変数} skk-henkan-show-candidates-keys-face
-
 選択キーを表示する際のフェイスを指定します。
-
 @end defvr
 
 @defvr {ユーザ変数} skk-henkan-rest-indicator
-
 @code{Non-nil} であれば @samp{[残り 99++]} の表示を右寄せ配置する。
+@end defvr
 
+@defvr {ユーザ変数} skk-henkan-rest-indicator-face
+@samp{[残り 99++]} の face 属性。
 @end defvr
 
 @node ▼モードでのRET

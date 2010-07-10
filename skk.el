@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.493 2010/07/10 11:28:12 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.494 2010/07/10 21:32:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/10 11:28:12 $
+;; Last Modified: $Date: 2010/07/10 21:32:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2122,13 +2122,14 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 			    (if (= (% i 7) 0) "" "  ")
 			    key cand)
 		tooltip-str (concat tooltip-str key cand "\n"))))
-      (setq str (concat str
-			(format "  [$B;D$j(B %d%s]"
-				(- (length candidates)
-				   (length workinglst))
-				(make-string
-				 (length skk-current-search-prog-list)
-				 ?+)))
+      (setq str (concat str (propertize
+			     (format "  [$B;D$j(B %d%s]"
+				     (- (length candidates)
+					(length workinglst))
+				     (make-string
+				      (length skk-current-search-prog-list)
+				      ?+))
+			     'face 'skk-henkan-rest-indicator-face))
 	    tooltip-str (concat tooltip-str
 				(format "[$B;D$j(B %d%s]"
 					(- (length candidates)
