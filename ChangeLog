@@ -11,7 +11,11 @@
 
 	* skk.el (skk-henkan-show-candidates-buffer): Add `fit-window-to-buffer'.
 	
+	* skk-vars.el (skk-kouho-window-background): New user option.
+	* skk.el (skk-henkan-show-candidates-buffer): Use it.
+	
 	* doc/skk.texi: Update.
+	* etc/dot.skk: Update.
 
 2010-07-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

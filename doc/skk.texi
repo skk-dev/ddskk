@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/07/10 05:53:16 $
+@set UPDATED $Date: 2010/07/10 11:28:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7252,7 +7252,6 @@ SKK abbrev $B%b!<%I$r<($9J8;zNs!#I8=`$G$O!"(B``a$B$"(B''$B!#(B
 @subsection $BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-use-color-cursor
-
 $B$3$NJQ?t$NCM$,(B @code{non-nil} $B$J$i$P!"%+!<%=%k$K?'IU$1$7$^$9!#(B@code{nil}
 $B$J$i$P!"$3$N5!G=$rL58z$K$7$^$9!#(B
 
@@ -7312,7 +7311,6 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $B$3$3$G$O$=$NI=<(J}K!$N@)8f$K$D$$$F2r@b$7$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-inline
-
 $B$3$NCM$,(B @code{non-nil} $B$G$"$l$P!"8uJd0lMw$r8=:_$N%]%$%s%H0LCV$G%$%s%i%$%sI=(B
 $B<($7$^$9!#(B
 
@@ -7320,7 +7318,6 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 (XEmacs $B$r=|$/(B)$B!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-inline-show-face
-
 $B%$%s%i%$%s$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$7$^$9!#(B
 
 $B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B @code{nil} $B$K@_Dj$7$F2<(B
@@ -7328,9 +7325,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-inline-show-background-color
-
 $B%$%s%i%$%s$G8uJd$rI=<($9$k:]$NGX7J?'$r;XDj$7$^$9!#(B
-
 @code{skk-inline-show-face} $B$^$?$O(B
 @code{skk-treat-candidate-appearance-function} $B$GGX7J?'$,;XDj$5$l$F$$$J$$(B
 $BJ8;z$KBP$7$F$N$_:nMQ$7$^$9!#(B
@@ -7338,14 +7333,12 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-tooltip
-
 $B$3$NCM$,(B @code{non-nil} $B$G$"$l$P!"8uJd0lMw$r%D!<%k%F%#%C%W$GI=<($7$^$9!#(B
 $BF1;~$K!"$3$NJQ?t$OCm<a(B ($B%"%N%F!<%7%g%s(B) $B$NI=<(J}K!$b@)8f$7$^$9!#(B
 
 @xref{$BCm<a(B ($B%"%N%F!<%7%g%s(B)}.
 
 @defvr {$B%f!<%6JQ?t(B} skk-tooltip-face
-
 $B%D!<%k%F%#%C%W$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$7$^$9!#(B
 
 $B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B @code{nil} $B$K@_Dj$7$F2<(B
@@ -7354,7 +7347,6 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-candidates-always-pop-to-buffer
-
 $B$3$NCM$,(B @code{non-nil} $B$G$"$l$P!"2hLL$r>e2<$KJ,3d$7$?$&$($G!"JQ490lMw$r@lMQ(B
 $B$N!V(B*$B8uJd(B*$B%P%C%U%!!W$GI=<($7$^$9!#(B
 
@@ -7362,9 +7354,13 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-candidates-toggle-display-place-char
 @kindex C-f
-
 $B%G%U%)%k%H$O(B @kbd{C-f} $B$G$9!#$3$N%-!<$r8uJd0lMwI=<(;~$K%?%$%W$9$k$H!"8uJd(B
 $B0lMw$NI=<(0LCV$r%(%3!<%(%j%"$H%P%C%U%!$H$G@Z$jBX$($^$9!#(B
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-kouho-window-background
+ *$B8uJd(B*$B%P%C%U%!$NGX7J?'$r;XDj$7$^$9!#%G%U%)%k%H$OG;@D(B(#00005F)$B$G$9!#(B
+$BGX7J?'$rIU$1$?$/$J$$>l9g$O(B @code{nil} $B$r;XDj$9$k$3$H!#(B
 @end defvr
 @end defvr
 

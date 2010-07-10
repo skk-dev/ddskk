@@ -88,8 +88,11 @@
 
 ;; 変換候補の表示方法
 ;;   nil => 変換候補をエコーエリアに表示する (デフォルト)
-;;   Non-nil => "*候補*" バッファ を pop-to-buffer する。
+;;   Non-nil => *候補*バッファ を pop-to-buffer する。
 ;; (setq skk-show-candidates-always-pop-to-buffer t)
+
+;; *候補*バッファ の背景色
+;; (setq skk-kouho-window-background "#121212")
 
 ;; 変換候補をインラインに
 ;;   nil => 表示しない (デフォルト)
