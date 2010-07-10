@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.282 2010/07/04 10:20:45 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.283 2010/07/10 00:59:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/04 10:20:45 $
+;; Last Modified: $Date: 2010/07/10 00:59:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1179,6 +1179,18 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 $B$k!#(B\"x\", \" \" $B5Z$S(B \"C-g\" $B$O8uJdA*Br;~$K$=$l$>$lFCJL$J;E;v$K3d$jEv(B
 $B$F$i$l$F$$$k$N$G!"$3$N%j%9%H$NCf$K$O4^$a$J$$$3$H!#(B"
   :type '(repeat character)
+  :group 'skk-henkan)
+
+(defface skk-henkan-show-candidates-keys-face
+  '((((class color) (type tty))
+     (:foreground "white" :background "#870000"))
+    (((class color) (background light))
+     (:inherit font-lock-comment-face :bold t :slant oblique))
+    (((class color) (background dark))
+     (:inherit font-lock-comment-face :bold t :slant oblique))
+    (((class grayscale))
+     (:underline t)))
+  "*$BA*Br%-!<$N(B face $BB0@-!#(B"
   :group 'skk-henkan)
 
 (defcustom skk-auto-start-henkan t

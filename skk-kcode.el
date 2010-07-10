@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.38 2009/11/02 03:56:13 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.39 2010/07/10 00:59:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/11/02 03:56:13 $
+;; Last Modified: $Date: 2010/07/10 00:59:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -183,7 +183,8 @@
 	       str)
 	   (while (< i 12)
 	     (setq str (concat str
-			       (nth i menu-keys1)
+			       (propertize (nth i menu-keys1) 'face
+					   'skk-henkan-show-candidates-keys-face)
 			       ":"
 			       (car (nth i chars))
 			       "  "))
@@ -273,7 +274,8 @@
 	 (let ((i 0) message-log-max str)
 	   (while (< i 16)
 	     (setq str (concat str
-			       (nth i menu-keys2)
+			       (propertize (nth i menu-keys2) 'face
+					   'skk-henkan-show-candidates-keys-face)
 			       ":"
 			       (nth i chars)
 			       " "))

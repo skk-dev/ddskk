@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/07/04 02:27:43 $
+@set UPDATED $Date: 2010/07/10 00:59:51 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4411,6 +4411,12 @@ A:嘘  S:拒  D:拠  F:虚  J:挙  K:許  L:渠
 $B文字が指定された場合、候補の選択の際に対応する小文字キーが入力されても候
 補の選択ができません。これは現在の仕様です。}。
 
+@defvr {ユーザ変数} skk-henkan-show-candidates-keys-face
+
+選択キーを表示する際のフェイスを指定します。
+
+@end defvr
+
 @node ▼モードでのRET
 @subsection ▼モードでの@key{RET}
 
@@ -7503,20 +7509,22 @@ XEmacs および Emacs 21 では以下の機能が使用できます。
 
 @node インジケータ
 @subsubsection インジケータ
-@vindex skk-indicator-use-cursor-color
+@defvr {ユーザ変数} skk-indicator-use-cursor-color
 DDSKK のインジケータをモードラインの左に表示している場合@footnote{デフォルト
 では、左です。@w{@xref{起動と終了}.}}、
-カーソルの色と同じ色が付くようになりました。また、モードラインの DDSKK のイ
-ンジケータをマウスなどのポインティングデバイスの第 2ボタンをクリックする
-とメニューが表示されます。
+インジケータにカーソルの色と同じ色が付くようになりました。
+また、インジケータをマウスなどのポインティングデバイスの第２ボタンをクリック
+するとメニューが表示されます。
 
-DDSKK のインジケータの色を付けない場合は、変数
-@code{skk-indicator-use-cursor-color} を @code{nil} にします。
+インジケータに色を付けたくない場合は、この変数を @code{nil} にします。
 
-インジケータに独自色を使いたい場合は、以下のフェイスを設定します。
-この場合カーソルの色は参照しません。
+@end defvr
 
-Emacs 21 の場合
+インジケータに独自色を使いたい場合は、以下のフェイス@footnote{変数
+@code{window-system} が @code{nil} の場合は、これらフェイスは未定義と
+なります。} を設定します。この場合カーソルの色は参照されません。
+
+Emacs 21@footnote{変数 @code{mule-version} の値が ``5.0'' 以上の Emacs} の場合
 
 @vindex skk-e21-hiragana-face
 @vindex skk-e21-katakana-face
@@ -7524,13 +7532,13 @@ Emacs 21 の場合
 @vindex skk-e21-jisx0201-face
 @vindex skk-e21-abbrev-face
 
-@display
-@code{skk-e21-hiragana-face} 
-@code{skk-e21-katakana-face} 
-@code{skk-e21-jisx0208-latin-face} 
-@code{skk-e21-jisx0201-face} 
-@code{skk-e21-abbrev-face} 
-@end display
+@itemize @bullet
+@item @code{skk-e21-hiragana-face} 
+@item @code{skk-e21-katakana-face} 
+@item @code{skk-e21-jisx0208-latin-face} 
+@item @code{skk-e21-jisx0201-face} 
+@item @code{skk-e21-abbrev-face} 
+@end itemize
 
 XEmacs の場合
 
@@ -7541,24 +7549,25 @@ XEmacs の場合
 @vindex skk-xemacs-jisx0201-face
 @vindex skk-xemacs-abbrev-face
 
-@display
-@code{skk-xemacs-hiragana-face}
-@code{skk-xemacs-katakana-face}
-@code{skk-xemacs-jisx0208-latin-face}
-@code{skk-xemacs-latin-face}
-@code{skk-xemacs-jisx0201-face}
-@code{skk-xemacs-abbrev-face}
-@end display
+@itemize @bullet
+@item @code{skk-xemacs-hiragana-face}
+@item @code{skk-xemacs-katakana-face}
+@item @code{skk-xemacs-jisx0208-latin-face}
+@item @code{skk-xemacs-latin-face}
+@item @code{skk-xemacs-jisx0201-face}
+@item @code{skk-xemacs-abbrev-face}
+@end itemize
 
 @node アイコン
 @subsubsection アイコン
 @vindex skk-show-icon
 @vindex skk-icon
+@cindex @file{skk.xpm}
 
 変数 @code{skk-show-icon} の値を @code{non-nil} と設定することにより、モー
 ドラインに SKK のアイコンが表示されます。
-アイコンの画像ファイル(skk.xpm)は、変数 @code{skk-icon} で定義されていま
-す。
+アイコンの画像ファイル(@file{skk.xpm})は、変数 @code{skk-icon} で定義されてい
+ます。
 
 @node ユーザガイダンス関連
 @section ユーザガイダンス関連
