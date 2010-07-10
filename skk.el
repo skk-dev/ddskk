@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.491 2010/07/10 00:59:51 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.492 2010/07/10 05:53:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/10 00:59:51 $
+;; Last Modified: $Date: 2010/07/10 05:53:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1907,6 +1907,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	str))))
 
 (defun skk-multiple-line-string-width (str)
+  "$BJ#?t9T$NCf$+$i:G$bD9$$9T$NJ8;z?t$rJV$9!#(B"
   (let ((max 0))
     (while (and (not (equal str "")) (string-match "\n\\|$" str))
       (setq max (max max (string-width (substring str 0 (match-beginning 0))))
@@ -2157,6 +2158,11 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
        ((and (not skk-show-candidates-always-pop-to-buffer)
 	     (> (frame-width) (skk-multiple-line-string-width str)))
 	;; $B%(%3!<%(%j%"$r;H$&(B
+	(if skk-henkan-rest-indicator
+	    (let* ((body (substring str 0 (string-match "  \\[$B;D$j(B" str)))
+		   (rest (substring str (- (length body) (length str)))))
+	      (setq str (concat body (make-string (- (frame-width) (string-width str) 1) ? )
+				rest))))
 	(skk-multiple-line-message "%s" str))
        (t
 	;; $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&(B
@@ -2277,6 +2283,13 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (insert "\n  ")
 	  (forward-line -1))
 	(forward-line 1))
+      ;; [$B;D$j(B 99++] $B$r1&C<$X(B
+      (if skk-henkan-rest-indicator
+	  (let (col)
+	    (goto-char (point-max))
+	    (setq col (skk-screen-column))
+	    (beginning-of-line)
+	    (insert-char 32 (- (frame-width) col 1))))
       (goto-char (point-min)))
     (let ((minibuf-p (skk-in-minibuffer-p))
 	  (window (get-buffer-window
@@ -2296,7 +2309,9 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 	  (when (> lines (1- (window-height)))
 	    (enlarge-window (- lines (1- (window-height))))))
 	(unless (pos-visible-in-window-p)
-	  (recenter '(1))))
+	  (recenter '(1)))
+	(fit-window-to-buffer)
+	)
       (when minibuf-p
 	(select-window (minibuffer-window))))))
 

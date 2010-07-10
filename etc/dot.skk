@@ -83,6 +83,9 @@
 	(mouse-avoidance-set-pointer-shape shape))))
   )
 
+;; [残り 99++] の表示を右端へ寄せてみる
+(setq skk-henkan-rest-indicator t)
+
 ;; 変換候補の表示方法
 ;;   nil => 変換候補をエコーエリアに表示する (デフォルト)
 ;;   Non-nil => "*候補*" バッファ を pop-to-buffer する。

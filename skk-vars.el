@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.283 2010/07/10 00:59:51 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.284 2010/07/10 05:53:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/10 00:59:51 $
+;; Last Modified: $Date: 2010/07/10 05:53:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1191,6 +1191,11 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
     (((class grayscale))
      (:underline t)))
   "*$BA*Br%-!<$N(B face $BB0@-!#(B"
+  :group 'skk-henkan)
+
+(defcustom skk-henkan-rest-indicator nil
+  "*Non-nil $B$G$"$l$P(B \[$B;D$j(B 99++\] $B$NI=<($r1&4s$;G[CV$9$k!#(B"
+  :type 'boolean
   :group 'skk-henkan)
 
 (defcustom skk-auto-start-henkan t

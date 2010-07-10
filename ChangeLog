@@ -4,6 +4,13 @@
 	* skk.el (skk-henkan-show-candidate-subr): Use it.
 	* skk-kcode.el (skk-input-by-code-or-menu-jump)
         (skk-input-by-code-or-menu-1): Use it.
+
+	* skk-vars.el (skk-henkan-rest-indicator): New user option.
+	* skk.el (skk-henkan-show-candidate-subr)
+	(skk-henkan-show-candidates-buffer): Use it.
+
+	* skk.el (skk-henkan-show-candidates-buffer): Add `fit-window-to-buffer'.
+	
 	* doc/skk.texi: Update.
 
 2010-07-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
