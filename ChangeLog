@@ -3,7 +3,6 @@
 	* skk-vars.el (skk-henkan-rest-indicator-face): New face.
 	* skk.el (skk-henkan-show-candidate-subr): Use it.
 	* doc/skk.texi: Update.
-	* etc/dot.skk: Update.
 
 2010-07-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -22,13 +21,10 @@
 	* skk.el (skk-henkan-show-candidates-buffer): Use it.
 	
 	* doc/skk.texi: Update.
-	* etc/dot.skk: Update.
 
 2010-07-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el: 用語の統一。そのほか.
-	* etc/dot.skk: ditto.
-
 	* make1.bat (install-info): new argument.
 
 2010-07-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

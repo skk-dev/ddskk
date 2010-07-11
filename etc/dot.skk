@@ -16,8 +16,9 @@
 ;; (setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
 
 ;; 辞書サーバを使うための設定
-;; (setq skk-server-host "localhost")
-;; (setq skk-server-portnum 1178)
+;; (setq skk-server-host "localhost"
+;;       skk-server-portnum 1178
+;;       skk-server-report-response t)
 
 ;; @@ 表示の設定
 
@@ -41,11 +42,15 @@
 ;; (when skk-use-color-cursor
 ;;   ;; カーソル色を変えてみる
 ;;   (setq skk-cursor-hiragana-color "blue"
-;;	   skk-cursor-katakana-color "green"
-;;	   skk-cursor-abbrev-color "red"
-;;	   skk-cursor-jisx0208-latin-color "red"
-;;	   skk-cursor-jisx0201-color "purple"
-;;	   skk-cursor-latin-color "cyan"))
+;; 	   skk-cursor-katakana-color "green"
+;; 	   skk-cursor-abbrev-color "red"
+;; 	   skk-cursor-jisx0208-latin-color "red"
+;; 	   skk-cursor-jisx0201-color "purple"
+;; 	   skk-cursor-latin-color "cyan")
+;;   ;;
+;;   (set-face-foreground 'skk-prefix-hiragana-face skk-cursor-hiragana-color)
+;;   (set-face-foreground 'skk-prefix-katakana-face skk-cursor-katakana-color)
+;;   (set-face-foreground 'skk-prefix-jisx0201-face skk-cursor-jisx0201-color))
 
 ;; インジケータに色を付けない
 ;; (setq skk-indicator-use-cursor-color nil)
@@ -69,6 +74,14 @@
   (setq skk-tooltip-parameters
 	'((background-color . "alice blue")
 	  (border-color . "royal blue")))
+
+  ;; Tooltip を表示する場合の、マウスポインタの挙動。
+  ;;   follow => tip の位置に移動する。
+  ;;   avoid => ウィンドウの端に退避する。
+  ;;   avoid-maybe => ウィンドウ上にあるマウスポインタのみ退避する。
+  ;;   banish => ウィンドウの端に退避したまま帰ってこない。
+  ;;   nil => 退避しない。この場合、tip のテキストとマウスポインタが
+  (setq skk-tooltip-mouse-behavior 'nil)
 
   ;; tooltip 表示の際のマウスポインタを変更して遊んでみる
   ;; 注) この設定は X Window System でないと利用できません。
@@ -108,8 +121,8 @@
 
 ;; 候補表示のルックスに関する高度な設定
 ;;
-;; 注1) skk-e21-*-face は FSF Emacs 21 以上のみで存在する face です。それ
-;; 以外の Emacsen では別の存在する face に置き換えてください。
+;; 注1) skk-e21-*-face は FSF Emacs 21 以上に限って定義される face です。
+;; それ以外の Emacsen では別の存在する face に置き換えてください。
 ;;
 ;; 注2) 候補の個人辞書への登録においても、`skk-update-jisyo-function' を
 ;; 設定することで同様のカスタマイズができます。「個人辞書に関する設定」の
@@ -135,6 +148,15 @@
 		   (put-text-property 0 (length cand)
 				      'face 'skk-e21-hiragana-face cand)
 		   cand)))))
+
+;; F1 〜 F10 キーの使い方を指定する。
+;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。
+;;   kanagaki => かなキーボード入力用の設定になる。
+;;   nil => 自動設定しない（自分で好きな設定ができる） デフォルト
+;; (setq skk-j-mode-function-key-usage 'conversion)
+
+;; モードラインに SKK アイコンを表示する。
+(setq skk-show-icon t)
 
 ;; @@ 基本的なユーザ・インターフェース
 
@@ -165,6 +187,7 @@
 
 ;; 動的な補完を使う
 ;; (setq skk-dcomp-activate t)
+;; (set-face-foreground 'skk-dcomp-face "green")
 
 ;; 動的補完の可否を判定するより高度な設定例
 (setq skk-dcomp-activate
