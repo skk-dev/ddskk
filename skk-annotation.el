@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.146 2010/01/27 03:02:48 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.147 2010/07/14 16:47:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/01/27 03:02:48 $
+;; Last Modified: $Date: 2010/07/14 16:47:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1150,10 +1150,6 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		    (re-search-forward "<a href=\"/wiki/Wikipedia:\
 \\(%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF\\|Disambiguation\\)\""
 				       nil t)))
-	    (search-forward "<!-- start content -->" nil t)
-	    (delete-region (point-min) (point))
-	    ;; <div> を除去する
-	    (skk-annotation-wikipedia-remove-nested "<div.+>" "</div>")
 	    ;; <span> を除去する
 	    (setq point nil)
 	    (goto-char (point-min))
