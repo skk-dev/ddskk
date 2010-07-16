@@ -1,3 +1,8 @@
+2010-07-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-obsolete.el (skk-obsolete-put-obsolete-mark): give nil to 
+	make-obsolete-variable's 3rd argument.
+
 2010-07-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-format-buffer):
@@ -21,10 +26,10 @@
 	(skk-henkan-show-candidates-buffer): Use it.
 
 	* skk.el (skk-henkan-show-candidates-buffer): Add `fit-window-to-buffer'.
-	
+
 	* skk-vars.el (skk-kouho-window-background): New user option.
 	* skk.el (skk-henkan-show-candidates-buffer): Use it.
-	
+
 	* doc/skk.texi: Update.
 
 2010-07-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

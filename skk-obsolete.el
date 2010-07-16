@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.18 2007/09/08 01:12:34 skk-cvs Exp $
+;; Version: $Id: skk-obsolete.el,v 1.19 2010/07/16 13:30:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/09/08 01:12:34 $
+;; Last Modified: $Date: 2010/07/16 13:30:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -94,7 +94,7 @@
     (skk-zenkaku-mode-map . skk-jisx0208-latin-mode-map)
     (skk-zenkaku-mode-string . skk-jisx0208-latin-mode-string)
     (skk-zenkaku-vector . skk-jisx0208-latin-vector))
-  "obsolete 変数のエーリスト。")
+  "obsolete 変数の連想リスト。")
 
 (defvar skk-obsolete-function-alist
   '((skk-adjust-numeric-henkan-data . skk-num-process-user-minibuf-input)
@@ -139,11 +139,11 @@
     (skk-zenkaku-mode-on . skk-jisx0208-latin-mode-on)
     (skktut-quit-tutorial . skk-tutorial-quit)
     (skktut-tutorial-again . skk-tutorial-again))
-  "obsolete 関数のエーリスト。")
+  "obsolete 関数の連想リスト。")
 
 ;;;###autoload
 (defun skk-obsolete-check (file)
-  "FILE 内の obsolete 変数名と obsolete 関数名をチェックし、書換える。"
+  "FILE 内の obsolete 変数名と obsolete 関数名をチェックし、書き換える。"
   (interactive
    (list (read-file-name
 	  (format "File to check: (default: %s) "
@@ -154,9 +154,8 @@
 
 ;;;###autoload
 (defun skk-obsolete-check-all-files (&optional program-files-too)
-  "関連ファイル全ての obsolete 変数名と obsolete 関数名をチェックし、書換える。
-C-u M-x skk-obsolete-check-all-files のように起動したときは、ディフォルトディレ
-クトリにある SKK プログラムファイルもチェックを行なう。"
+  "関連ファイル全ての obsolete 変数名と obsolete 関数名をチェックし、書き換える。
+C-u M-x skk-obsolete-check-all-files とプレフィックス付きで起動したときは、デフォルトディレクトリにある SKK プログラムファイルもチェックを行なう。"
   (interactive "p")
   (save-window-excursion
     (let ((lp load-path)
@@ -255,7 +254,7 @@ It is strongly recommended to kill and restart Emacs.  Kill Emacs?"))
 	;;(fl skk-obsolete-function-alist))
 	)
     (while vl
-      (make-obsolete-variable (car (car vl)) (cdr (car vl)))
+      (make-obsolete-variable (car (car vl)) (cdr (car vl)) nil)
       (setq vl (cdr vl)))
     ;; Put mark by define-obsolete-function-alias in skk-foreword.el.
     ;;(while fl
