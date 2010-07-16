@@ -3,6 +3,8 @@
 	* skk-obsolete.el (skk-obsolete-put-obsolete-mark): give nil to 
 	make-obsolete-variable's 3rd argument.
 
+	* doc/skk.texi: some update.
+
 2010-07-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-format-buffer):
