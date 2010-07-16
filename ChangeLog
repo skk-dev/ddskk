@@ -1,3 +1,7 @@
+2010-07-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-message): Modify messages.
+
 2010-07-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-obsolete.el (skk-obsolete-put-obsolete-mark): give nil to 

@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.147 2010/07/14 16:47:26 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.148 2010/07/16 20:07:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/07/14 16:47:26 $
+;; Last Modified: $Date: 2010/07/16 20:07:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -454,23 +454,27 @@
 		      (skk-in-minibuffer-p))))
     (unless skk-annotation-wikipedia-message
       (let* ((key (key-description skk-annotation-wikipedia-key))
-	     (string (format "{prefix %s}" (if (equal key "TAB")
-					       "C-i"
-					     key)))
+	     (string "{どのWiki?}")
 	     (i 0)
 	     source)
+	(when (equal key "TAB")
+	  (setq key "C-i"))
 	(while (setq source (nth i skk-annotation-wikipedia-sources))
-	  (setq string (format "%s[C-%d]%s" string (1+ i) source))
+	  (setq string (format "%s[C-%d %s]%s " string (1+ i) key source))
 	  (setq i (1+ i)))
 	(setq skk-annotation-wikipedia-message string)))
     (unless skk-annotation-message
-      (let* ((key-copy (or (key-description skk-annotation-copy-key)
-			   "未定義"))
-	     (key-browse (or (key-description skk-annotation-browse-key)
-			     "未定義")))
+      (let ((key-copy (or (key-description skk-annotation-copy-key)
+			  "未定義"))
+	    (key-wiki (or (key-description skk-annotation-wikipedia-key)
+			  "未定義"))
+	    (key-browse (or (key-description skk-annotation-browse-key)
+			    "未定義")))
+	(when (equal key-wiki "TAB")
+	  (setq key-wiki "C-i"))
 	(setq skk-annotation-message
-	      (format "{アノテーション}[%s]コピー[%s]URLブラウズ"
-		      key-copy key-browse))))
+	      (format "{アノテーション操作}[%s]コピーする [%s]URLを見つける [%s]デフォルトWikiから抜粋"
+		      key-copy key-browse key-wiki))))
     (condition-case nil
 	(cond ((eq situation 'annotation)
 	       (if (skk-sit-for skk-verbose-wait)
