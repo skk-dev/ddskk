@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.286 2010/07/10 21:32:32 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.287 2010/07/17 01:05:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/10 21:32:32 $
+;; Last Modified: $Date: 2010/07/17 01:05:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4595,6 +4595,15 @@ GNU Emacs 21 では強制的に `follow' となる。"
   "*Tooltip の位置を下にずらすピクセル数。
 負の整数を指定すると上にずれる。"
   :type 'integer
+  :group 'skk-tooltip)
+
+(defcustom skk-tooltip-function
+  #'(lambda (tooltip-str)
+      (skk-tooltip-show-at-point tooltip-str 'listing))
+  "*Tip 描画機構の関数を指定する。
+デフォルトでは Emacs 標準の Tooltip を使用する。
+他の Tip 描画機構 である pos-tip や popup-tip も指定できる。"
+  :type 'function
   :group 'skk-tooltip)
 
 ;;; skk-tut.el related.

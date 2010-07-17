@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.494 2010/07/10 21:32:32 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.495 2010/07/17 01:05:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/10 21:32:32 $
+;; Last Modified: $Date: 2010/07/17 01:05:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2138,35 +2138,40 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
 					 (length skk-current-search-prog-list)
 					 ?+))))
       (cond
+       ;; (1) $B8=:_$N%P%C%U%!$NCf$KI=<($9$k(B ($B%$%s%i%$%sI=<((B)
        ((and skk-show-inline
 	     (not skk-isearch-switch)
 	     (not (skk-in-minibuffer-p))
 	     (not (eq skk-emacs-type 'xemacs))
 	     (<= 21 emacs-major-version))
-	;; $B8=:_$N%P%C%U%!$NCf$KI=<($9$k(B ($B%$%s%i%$%sI=<((B)
 	(if (and (eq 'vertical skk-show-inline)
 		 ;; window $B$,8uJd72$rI=<($G$-$k9b$5$,$"$k$+%A%'%C%/(B
 		 (< (1+ max-candidates)
 		    (skk-window-body-height)))
 	    (skk-inline-show-vertical tooltip-str skk-inline-show-face)
 	  (skk-inline-show str skk-inline-show-face)))
+
+       ;; (2) tooptip $B$GI=<($9$k(B
        ((and window-system
 	     skk-show-tooltip
 	     (not (eq (symbol-function 'skk-tooltip-show-at-point)
 		      'ignore)))
-	;; tooptip $B$GI=<($9$k(B
-	(skk-tooltip-show-at-point tooltip-str 'listing))
+	(funcall skk-tooltip-function tooltip-str))
+
+       ;; (3) $B%(%3!<%(%j%"$r;H$&(B
        ((and (not skk-show-candidates-always-pop-to-buffer)
 	     (> (frame-width) (skk-multiple-line-string-width str)))
-	;; $B%(%3!<%(%j%"$r;H$&(B
 	(if skk-henkan-rest-indicator
 	    (let* ((body (substring str 0 (string-match "  \\[$B;D$j(B" str)))
 		   (rest (substring str (- (length body) (length str)))))
-	      (setq str (concat body (make-string (- (frame-width) (string-width str) 1) ? )
+	      (setq str (concat body
+				(make-string (- (frame-width)
+						(string-width str) 1) ? )
 				rest))))
 	(skk-multiple-line-message "%s" str))
+
+       ;; (4) $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&(B
        (t
-	;; $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&(B
 	(skk-henkan-show-candidates-buffer str keys))))
     ;; $BI=<($9$k8uJd?t$rJV$9!#(B
     (length workinglst)))

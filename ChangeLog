@@ -1,3 +1,10 @@
+2010-07-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-tooltip-function): New variable.
+
+	* skk.el (skk-henkan-show-candidate-subr): Use it.
+	Switching function that allows user to use to draw a tip.
+
 2010-07-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-message): Modify messages.

@@ -68,6 +68,20 @@
 ;; 注) 今のところ FSF Emacs 21 以上しか対応していません
 (setq skk-show-tooltip t)
 
+;; ;; Tip 描画に pos-tip を利用してみる
+;; ;; http://www.emacswiki.org/emacs-en/PosTip
+;; (require 'pos-tip)
+;; (setq skk-tooltip-function
+;;   #'(lambda (tooltip-str)
+;;       (pos-tip-show tooltip-str nil nil nil 0)))
+
+;; ;; Tip 描画に popup-tip を利用してみる
+;; ;; http://github.com/m2ym/auto-complete
+;; (require 'popup)
+;; (setq skk-tooltip-function
+;;   #'(lambda (tooltip-str)
+;;       (popup-tip tooltip-str)))
+
 (when skk-show-tooltip
   ;; tooltip のルックスを指定する。デフォルトでは Emacs 標準のルックスに
   ;; なります。
