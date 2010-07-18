@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.495 2010/07/17 01:05:53 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.496 2010/07/18 09:29:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/17 01:05:53 $
+;; Last Modified: $Date: 2010/07/18 09:29:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2101,8 +2101,9 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 
 (defun skk-henkan-show-candidate-subr (keys candidates)
   "$B8uJd72$rI=<($9$k4X?t!#(B
-KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
-$BK~$?$J$+$C$?$i$=$3$GBG$A@Z$k(B) $B$NJ8;zNs$r:n$j!"%(%3!<%(%j%"$KI=<($9$k!#(B"
+KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
+$BK~$?$J$+$C$?$i$=$3$GBG$A@Z$k(B) $B$NJ8;zNs$r:n$j!"%$%s%i%$%s!"%D!<%k%F%#%C%W!"(B
+$B%(%3!<%(%j%"Kt$O8uJd%P%C%U%!$KI=<($9$k!#(B"
   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	 (workinglst (skk-henkan-candidate-list candidates max-candidates))
 	 str tooltip-str
@@ -2259,7 +2260,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F(B 7 $B$NG\?t8D$N8uJd72(B ($B8uJd?
     (nreverse v)))
 
 (defun skk-henkan-show-candidates-buffer (str keys)
-  ;; $B%(%3!<%(%j%"$NBe$o$j$K%P%C%U%!$r(B pop up $B$7$F8uJd0lMw$rI=<($9$k!#(B
+  ;; $B%(%3!<%(%j%"$NBe$o$j$K0l;~%P%C%U%!$r(B pop up $B$7$F8uJd0lMw$rI=<($9$k!#(B
   (let ((buff (get-buffer-create "*$B8uJd(B*"))
 	(case-fold-search t))
     (with-current-buffer buff

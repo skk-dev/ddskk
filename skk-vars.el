@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.287 2010/07/17 01:05:53 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.288 2010/07/18 09:29:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/17 01:05:53 $
+;; Last Modified: $Date: 2010/07/18 09:29:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1176,7 +1176,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   '(?a ?s ?d ?f ?j ?k ?l ?q ?w ?e ?r ?u ?i ?o ?z ?c ?v ?b ?n ?m ?,)
   "*$B%a%K%e!<7A<0$G8uJd$rA*Br$9$k$H$-$NA*Br%-!<$N%j%9%H!#(B
 \"x\", \" \" $B5Z$S(B \"C-g\" $B0J30$N(B 7 $B$NG\?t8D$N%-!<(B (char type) $B$r4^$`I,MW$,$"(B
-$B$k!#(B\"x\", \" \" $B5Z$S(B \"C-g\" $B$O8uJdA*Br;~$K$=$l$>$lFCJL$J;E;v$K3d$jEv(B
+$B$k!#(B\"x\", \" \" $B5Z$S(B \"C-g\" $B$O8uJdA*Br;~$K$=$l$>$lFCJL$J5!G=$K3d$jEv(B
 $B$F$i$l$F$$$k$N$G!"$3$N%j%9%H$NCf$K$O4^$a$J$$$3$H!#(B"
   :type '(repeat character)
   :group 'skk-henkan)
@@ -1223,8 +1223,8 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
     "," "!")
   ;; $B$"$^$j%-!<%o!<%I$,B?$/$J$k$H!"DL>o$NJQ49$r:$Fq$K$9$k!)(B
   "*$B<+F0JQ49$r3+;O$9$k%-!<%o!<%I!#(B
-`skk-auto-start-henkan' $B$,(B non-nil $B$N$H$-!"$3$N%j%9%H$NMWAG$NJ8;z$rA^F~(B
-$B$9$k$H!"(BSPC $B$r2!$9$3$H$J$/<+F0E*$KJQ49$r3+;O$9$k!#(B"
+`skk-auto-start-henkan' $B$,(B non-nil $B$N$H$-!"$3$N%j%9%H$NMWAG$NJ8;z$rBG80(B
+$B$9$k$H!"(BSPC (skk-start-henkan-char) $B$r2!$9$3$H$J$/<+F0E*$KJQ49$r3+;O$9$k!#(B"
   :type '(repeat string)
   :group 'skk-henkan)
 
@@ -1769,9 +1769,7 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
 ;; should use defface?  however, can I use defface for highlight?
 (defcustom skk-henkan-face 'skk-henkan-face-default
   "*$BJQ498uJd$N(B face $BB0@-!#(B`skk-use-face' $B$,(B non-nil $B$N$H$-$N$_M-8z!#(B
-Emacs $BI8=`%U%'%$%9$N(B default, modeline, region, secondary-selection,
-highlight, underline, bold, italic, bold-italic $B$NB>!"?7$?$K(B face $B$r:n(B
-$B$j;XDj$9$k$3$H$b2DG=!#(B
+Emacs $BI8=`$N%U%'%$%9$N$[$+!"?7$?$K(B face $B$r:n$C$F;XDj$9$k$3$H$b2DG=!#(B
 $B?7$?$J(B face $B$r:n$j;XDj$9$k$K$O(B `skk-make-face' $B$rMxMQ$7$F!"(B
 
       (skk-make-face 'DimGray/PeachPuff1)
