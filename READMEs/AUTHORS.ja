@@ -435,6 +435,13 @@ skk-vars.el, skk.el
 *** skk-server-completion.el (サーバ補完機能)
 
 
+* Yano Keisuke
+
+** SKK 辞書の拡張、維持
+
+*** SKK-JISYO.JIS3_4 の拡張・維持
+
+
 * IRIE Tetsuya
 
 ** elisp 著作・アイデア
