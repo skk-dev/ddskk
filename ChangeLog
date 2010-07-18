@@ -1,3 +1,8 @@
+2010-07-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el (skk-jisx0201-roman-rule-list): Broken at the
+	last commitment.  Fix.
+
 2010-07-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-tooltip-function): New variable.
