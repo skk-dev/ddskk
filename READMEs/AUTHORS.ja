@@ -10,6 +10,7 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 著しく不完全であると思われます．とくに Openlab 以前の業績を把握するこ
 とは困難です。
 
+
 * Masahiko Sato
 
 ** 原作者であり、以下のプログラムの著作者
@@ -36,6 +37,7 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 ** SKK 辞書開発
 
+
 * Yukiyoshi Kameyama
 
 ** 初期の SKK 開発
@@ -46,6 +48,7 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 *** skkserv
 
+
 * Enami Tsugutomo
 
 ** 主に Openlab 以前の SKK の開発
@@ -54,9 +57,11 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 ** 意味辞書 (アノテーションの原案) の発案
 
+
 * Kiyotaka Sakai
 
 ** 主に SKK 9, 10 の開発
+
 
 * NAKAJIMA Mikio
 
@@ -139,6 +144,7 @@ skk-server.el, skk-kcode.el, ccc.el
 
 ** ドキュメント執筆・整備
 
+
 * Hideki Sakurada
 
 ** 主に SKK 10 の開発
@@ -148,6 +154,7 @@ skk-server.el, skk-kcode.el, ccc.el
 *** 以下のプログラムへの改変
 
 **** skk.el, skk-kcode.el, skk-num.el, skk-isearch.el
+
 
 * Murata Shuuichirou
 
@@ -164,6 +171,7 @@ skk-server.el, skk-kcode.el, ccc.el
 **** skk.el, skk-macs.el, skk-study.el, skk-obsolete.el, skk-kcode.el,
 skk-num.el, skk-isearch.el
 
+
 * Shuhei KOBAYASHI
 
 ** elisp 著作・アイデア
@@ -171,6 +179,7 @@ skk-num.el, skk-isearch.el
 *** 以下のプログラムへの改変
 
 **** skk.el, skk-num.el, skk-look.el
+
 
 * Masatake YAMATO
 
@@ -189,6 +198,7 @@ skk-num.el, skk-isearch.el
 *** 以下のプログラムへの改変
 
 **** skk.el, ekk-e21.el, skk-vars.el, skk-xemacs.el
+
 
 * IIDA Yosiaki
 
@@ -209,6 +219,7 @@ skk-num.el, skk-isearch.el
 **** skk-tut.el, skk-kcode.el
 
 ** ドキュメント整備
+
 
 * MITA Yuusuke
 
@@ -246,6 +257,7 @@ skk-num.el, skk-isearch.el
 
 *** SKK フロントエンドからの SKK 辞書利用法に関する提言 (see ML archives)
 
+
 * Tsuyoshi AKIHO
 
 ** ドキュメント執筆・整備、とくに skk.texi を中心として
@@ -256,6 +268,7 @@ skk-num.el, skk-isearch.el
 
 **** skk.el, skk-exsearch.el, skk-vars.el, skk-annotation.el, skk-tut.el,
 skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
+
 
 * Yuh Ohmura
 
@@ -272,6 +285,7 @@ skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 *** 以下のプログラムへの改変
 
 **** skk.el
+
 
 * Eiji Obata
 
@@ -299,11 +313,13 @@ skk-jisyo-edit-mode.el,
 
 ** ドキュメント整備
 
+
 * Itsushi Minoura
 
 ** elisp 著作・アイデア
 
 *** skk-nicola.el (NICOLA-SKK, SKK に対する親指シフト入力インターフェース)
+
 
 * Tetsuo Tsukamoto
 
@@ -333,6 +349,7 @@ skk-nicola.el
 
 ** ドキュメント執筆・整備
 
+
 * FURUE Hideyuki
 
 ** elisp 著作・アイデア
@@ -344,11 +361,13 @@ skk-nicola.el
 **** skk.el, skk-vars.el, skk-macs.el, skk-comp.el, skk-kakasi.el, skk-num.el,
 skk-kcode.el, skk-isearch.el, skk-cursor.el, 
 
+
 * GUNJI Takao
 
 ** elisp 著作・アイデア
 
 *** skk-tutcode.el (TUT-code 入力への対応)
+
 
 * Yoshiki Hayashi
 
@@ -360,17 +379,20 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 **** skk-vars.el
 
+
 * ONODA Arata
 
 ** elisp 著作・アイデア
 
 *** skk-azik.el (拡張ローマ字入力 "AZIK" 対応)
 
+
 * YAGI Tatsuya
 
 ** elisp 著作・アイデア
 
 *** skk-tankan.el (単漢字変換)
+
 
 * Kimura Fuyuki <fuyuki@hadaly.org>
 
@@ -382,6 +404,7 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 *** skkdic-diff.scm (辞書間の差分を真鵺道形式で出力)
 
+
 * Kenichi Kurihara
 
 ** elisp 著作・アイデア
@@ -390,13 +413,27 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 *** 以下のプログラムへの改変
 
-**** skk-kaksi.el, skk-viper.el
+**** skk-kakasi.el, skk-viper.el
+
+
+* Tsuyoshi Kitamoto
+
+** elisp 著作・アイデア
+
+*** 以下のプログラムへの改変
+
+**** skk-kcode.el, skk-macs.el, skk-obsolete.el, skk-tankan.el,
+skk-vars.el, skk.el
+
+** skk.texi などドキュメント執筆・整備
+
 
 * Fumihiko MACHIDA
 
 ** elisp 著作・アイデア
 
 *** skk-server-completion.el (サーバ補完機能)
+
 
 * IRIE Tetsuya
 
@@ -406,9 +443,22 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 *** 確定アンドゥ機能と確定変換機能の改良と拡張
 
+*** skk-dcomp (動的補完) で複数の補完候補を表示する機能の実装
+
+*** 変換候補のインライン表示を改良、一般的な垂直型表示の実装
+
 *** 以下のプログラムへの改変
 
-**** skk-bayesian.el, skk-kakasi.el, skk-vars.el, skk-viper.el, skk.el
+**** skk-bayesian.el, skk-dcomp.el, skk-kakasi.el, skk-kcode.el,
+skk-vars.el, skk-viper.el, skk.el
+
+** skk.texi などドキュメント執筆・整備
+
+
+* Teika Kazura
+
+** skk.texi 応用機能に関して大きく加筆、ドキュメント執筆・整備
+
 
 Local variables:
 mode: outline
