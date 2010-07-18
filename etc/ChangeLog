@@ -1,3 +1,8 @@
+2010-07-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.skk: Add examples for skk-verbose and
+	skk-j-mode-function-key-usage.
+
 2010-07-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: Add sample skk-tooltip-function.

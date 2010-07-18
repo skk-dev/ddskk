@@ -36,6 +36,9 @@
 ;;   nil => 別な window に表示する
 ;; (setq skk-annotation-show-as-message nil)
 
+;; 変換前/変換中にミニバッファに少し余計なメッセージを表示
+(setq skk-verbose t)
+
 ;; カーソルに色を付けない
 ;; (setq skk-use-color-cursor nil)
 
@@ -370,6 +373,12 @@
 ;; 注) skk-search-prog-list は厳密な意味でのユーザオプションではないので
 ;; 直接設定することはお勧めしません。自分が何をしようとしているか理解して
 ;; いる場合のみ設定してください。
+
+;; Windows の IME のようにファンクションキーにいくつかの変換機能をわりあてる
+(setq skk-j-mode-function-key-usage 'conversion)
+;; 注) 標準では以下の変換機能が割り当てられます。
+;;  [F5]単漢字[F6]無変換[F7]カタカナ[F8]半角カナ[F9]全角ローマ[F10]ローマ
+;; (setq skk-verbose t) と併用すると上記の割り当て情報がメッセージされます。
 
 ;; @@ かな入力関連の設定
 
