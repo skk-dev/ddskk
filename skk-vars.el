@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.288 2010/07/18 09:29:57 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.289 2010/07/19 09:52:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/18 09:29:57 $
+;; Last Modified: $Date: 2010/07/19 09:52:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -298,8 +298,8 @@ nil $B$G$"$l$P!"1Q8l$GI=<($9$k!#(B"
   :group 'skk-basic)
 
 (defcustom skk-jisyo-fix-order nil
-  "*Non-nil $B$N;~$O!"3NDj$N:]$K!"8D?M<-=q$NF12;8l$N=g=x$rJQ99$7$J$$!#(B
-$B8D?M<-=q$K?75,$KDI2C$5$l$k8l$O!"4{=P8l$N8e$KDI2C$5$l$k!#(B"
+  "*Non-nil $B$G$"$l$P!"3NDj$N:]$K8D?M<-=q$NF12;8l$N=g=x$rJQ99$;$:!"(B
+$B8D?M<-=q$K?75,DI2C$9$k:]$O4{=P8l$N8e$KDI2C$9$k!#(B"
   :type 'boolean
   :group 'skk-dictionary)
 
@@ -524,8 +524,8 @@ SKK $B5/F08e$KJQ99$7$?>l9g$O(B \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
   :group 'skk-private)
 
 (defcustom skk-jisyo-save-count 50
-  "*$B?tCM$G$"$l$P!"$=$N2s?t$@$1<-=q$,99?7$5$l$?$H$-$K<-=q$r<+F0E*$K%;!<%V$9$k!#(B
-nil $B$G$"$l$P!"<-=q$N%*!<%H%;!<%V$r9T$o$J$$!#(B
+  "*$B?tCM$G$"$l$P!"$=$N2s?t$@$18D?M<-=q$,99?7$5$l$?$H$-$K<+F0E*$K%;!<%V$9$k!#(B
+nil $B$G$"$l$P!"8D?M<-=q$N%*!<%H%;!<%V$r9T$o$J$$!#(B
 SKK $B5/F08e$G!"JQ?t(B `skk-share-private-jisyo' $B$,(B non-nil $B$J>l9g$K(B skk-jisyo-save-count $B$NCM$rJQ99$7$?>l9g$O(B
 \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
   :type '(radio (integer :tag "$B@0?t(B" 50)
@@ -1087,9 +1087,9 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 
    ($B%7%s%\%k(B . ($B6gE@$rI=$o$9J8;zNs(B . $BFIE@$rI=$o$9J8;zNs(B))
 
-$B$H$$$&(B cons cell$B!#%7%s%\%k$NItJ,$O!"(B`jp' $B$b$7$/$O(B `en' $B$H$7!"(B
-`skk-toggle-kutouten' $B$O$3$l$r%H%0%k$G@Z$j49$($k!#(B
-$B%G%U%)%k%H$N6gFIE@$N%?%$%W$O!"(B`skk-kutouten-type' $B$G;XDj$9$k!#(B"
+$B$H$$$&(B cons cell$B!#%7%s%\%k$NItJ,$O!"(B`jp' $B$b$7$/$O(B `en' $B!#(B
+M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
+$B%G%U%)%k%H$N6gFIE@$N%?%$%W$O!"JQ?t(B `skk-kutouten-type' $B$G;XDj$9$k!#(B"
   :type '(repeat (cons (radio :tag "$BAH$N$J$^$((B"
 			      (const jp)
 			      (const en)

@@ -1,3 +1,8 @@
+2010-07-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el: tiny fix docstring.
+	* doc/skk.texi: tiny fix.
+
 2010-07-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el: tiny fix docstring.

@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/07/18 17:08:00 $
+@set UPDATED $Date: 2010/07/19 09:52:56 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3775,7 +3775,7 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 @example
 @group
 ---------------- Buffer: foo ------------------
-$B$8$s$8$g$&$7$g(B
+$B"&$8$s$8$g$&$7$g(B
 $B$&$,$C$3$&(B@point{}
 ---------------- Buffer: foo ------------------
 @end group
@@ -3784,7 +3784,7 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 
 @group
 ---------------- Buffer: foo ------------------
-$B?R>o>.3X9;(B@point{}
+$B"'?R>o>.3X9;(B@point{}
 ---------------- Buffer: foo ------------------
 @end group
 @end example
@@ -5041,11 +5041,9 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 @end group
 @end example
 
-@table @code
-@item skk-kakutei-early
-@vindex skk-kakutei-early
+@defvr {$B%f!<%6JQ?t(B} skk-kakutei-early
 
-$B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K$9$k$H!"0EL[$N3NDj$rCY$i$;$^$9!#(B
+$B$3$NJQ?t$NCM$r(B @code{nil} $B$K$9$k$H!"0EL[$N3NDj$rCY$i$;$^$9!#(B
 $B6qBNE*$K$O!"3g8L(B (@kbd{(}, @kbd{)}, @kbd{[}, @kbd{]}) $B$^$?(B
 $B$O6gFIE@(B (@kbd{,}, @kbd{.}) $B$NF~NO;~!"<!$NJQ493+;O(B (@kbd{A} $B$+$i(B @kbd{Z}
 $B$^$G$NBgJ8;z$NF~NO(B) $B;~!"$"$k$$$O(B @key{RET} $BF~NO;~$^$G0EL[$N3NDj$,CY1d(B
@@ -5055,7 +5053,7 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 @code{skk-kakutei-early} $B$N(B $BCM$r(B @code{non-nil} $B$K$9$k>l9g$O(B
 @code{skk-process-okuri-early} $B$NCM$r(B @code{nil} $B$K$9$kI,MW$,$"$j$^(B
 $B$9!#(B}$B!#(B
-@end table
+@end defvr
 
 @example
 @kbd{K a k u t e i}
@@ -5799,16 +5797,15 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"A*Br$5$l$?8uJd$O!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!
 
 @defvr {$B%f!<%6JQ?t(B} skk-jisyo-fix-order
 
-@code{non-nil} $B$N;~$O!"3NDj$N:]$K!"8D?M<-=q$NF12;8l$N=g=x$rJQ99$7$J$$!#(B
-$B8D?M<-=q$K?75,$KDI2C$5$l$k8l$O!"4{=P8l$N8e$KDI2C$5$l$k!#(B
+@code{non-nil} $B$G$"$l$P!"3NDj$N:]$K8D?M<-=q$NF12;8l$N=g=x$rJQ99$;$:!"(B
+$B8D?M<-=q$K?75,DI2C$9$k:]$O4{=P8l$N8e$KDI2C$9$k!#(B
 @end defvr
 
 $B$3$l$O!"8D?M<-=q$N%(%s%H%j$NCf$N!"3F8uJd$N=g=x$rJQ99$7$J$$$3$H$G!"(B
-$B<B8=$5$l$F$$$^$9$+$i!"(B@file{skk-study.el} $B$rMQ$$$?3X=,(B @w{(@pxref{$BJQ49$N3X=,(B})} $B$H(B
-$BJ;MQ$G$-$^$9!#(B
+$B<B8=$5$l$F$$$^$9$+$i!"(B@file{skk-study.el} $B$rMQ$$$?3X=,(B @w{(@pxref{$BJQ49$N3X=,(B})} $B$HJ;MQ$G$-$^$9!#(B
 
-@code{skk-jisyo-fix-order} $B$,(B @code{non-nil} $B$N;~!"<-=q$N8uJd$r<j7Z$KJB$YBX(B
-$B$($kJ}K!$O!"8=;~E@$G$O$"$j$^$;$s!#8D?M<-=q%U%!%$%k$rD>$KJT=8$9$k$+!"(B
+@code{skk-jisyo-fix-order} $B$,(B @code{non-nil} $B$N;~!"8D?M<-=q$N8uJd$r<j7Z$KJB$YBX(B
+$B$($kJ}K!$O!"8=;~E@$G$O$"$j$^$;$s!#8D?M<-=q%U%!%$%k$rD>@\JT=8$9$k$+!"(B
 $B%3%^%s%I(B @kbd{M-x skk-edit-private-jisyo} $B$r<B9T$7$F2<$5$$!#(B
 (@w{@pxref{$B8D?M<-=q%U%!%$%k$NJT=8(B}})
 
