@@ -1,3 +1,7 @@
+2010-07-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-kouho-window-background): fix.
+
 2010-07-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el: tiny fix docstring.
