@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.290 2010/07/19 20:56:26 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.291 2010/07/20 21:46:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/19 20:56:26 $
+;; Last Modified: $Date: 2010/07/20 21:46:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1183,13 +1183,13 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
 
 (defface skk-henkan-show-candidates-keys-face
   '((((class color) (type tty))
-     (:foreground "white" :background "#870000"))
+     (:inherit default))
     (((class color) (background light))
-     (:inherit font-lock-comment-face :bold t :slant oblique))
+     (:inherit default))
     (((class color) (background dark))
-     (:inherit font-lock-comment-face :bold t :slant oblique))
+     (:inherit default))
     (((class grayscale))
-     (:underline t)))
+     (:inherit default)))
   "*$BA*Br%-!<$N(B face $BB0@-!#(B"
   :group 'skk-henkan)
 
@@ -1200,13 +1200,13 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
 
 (defface skk-henkan-rest-indicator-face
   '((((class color) (type tty))
-     (:inherit font-lock-keyword-face))
+     (:inherit default))
     (((class color) (background light))
-     (:inherit font-lock-keyword-face))
+     (:inherit default))
     (((class color) (background dark))
-     (:inherit font-lock-keyword-face))
+     (:inherit default))
     (((class grayscale))
-     (:underline t)))
+     (:inherit default)))
   "*\[$B;D$j(B 99++\] $B$N(B face $BB0@-!#(B"
   :group 'skk-henkan)
 
@@ -1323,10 +1323,7 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
   :type 'boolean
   :group 'skk-henkan)
 
-(defcustom skk-kouho-window-background
-  (if (eq skk-background-mode 'light)
-      "#fffacd"
-    "#00005f")
+(defcustom skk-kouho-window-background nil
   "*\"*$B8uJd(B*$B%P%C%U%!(B\"$B$NGX7J?'!#(B"
   :type 'string
   :group 'skk-henkan)

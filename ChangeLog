@@ -1,3 +1,9 @@
+2010-07-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-henkan-show-candidates-keys-face) 
+	(skk-henkan-rest-indicator-face, skk-kouho-window-background):
+	Change the default value.
+
 2010-07-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-kouho-window-background): fix.
