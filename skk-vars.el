@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.291 2010/07/20 21:46:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.292 2010/07/21 20:55:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/20 21:46:35 $
+;; Last Modified: $Date: 2010/07/21 20:55:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1244,7 +1244,7 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
   :group 'skk-henkan)
 
 (defcustom skk-show-inline nil
-  "*Non-nil $B$G$"$l$P!"%$%s%i%$%s$G8uJd$J$I$rI=<($9$k!#(B
+  "*Non-nil $B$G$"$l$P!"JQ498uJd$r%$%s%i%$%s$GI=<($9$k!#(B
 $BCM$,(B `vertical' $B$G$"$l$P3F8uJd$r=D$K%$%s%i%$%sI=<($9$k!#(B
 $B$3$N5!G=$O(B XEmacs $B0J30$N3F%P!<%8%g%s$N(B Emacs $B$GF0:n$9$k$,!"8uJd$N(B
 $BAu>~$,M-8z$J$N$O(B GNU Emacs 21 $B0J>e!#(B"
@@ -2539,7 +2539,7 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 ;; skk-annotation.el related.
 (defcustom skk-show-annotation nil
   "*Non-nil $B$G$"$l$P!"Cm<a$rI=<($9$k!#(B
-$BJQ49$N:]!"<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$rCm5-$H$7$F(B\
+$BJQ49$N:]!"<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$rCm<a$H$7$F(B\
 $B%(%3!<%(%j%"!"$^$?$OJL(B Window $B$KI=<($9$k!#(B"
   :type '(radio (const :tag "$B>o$KI=<((B" t)
 		(const :tag "$B8uJd0lMw$G$OHsI=<((B" (not list))
@@ -4254,7 +4254,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 
 ;;; skk-server.el related.
 (defcustom skk-server-host (or (getenv "SKKSERVER") "localhost")
-  "*$B<-=q%5!<%P!<$rAv$i$;$F$$$k%[%9%HL>!#(B"
+  "*$B<-=q%5!<%P!<$,5/F0$7$F$$$k%[%9%HL>Kt$O(B IP $B%"%I%l%9!#(B"
   :type `(radio (string :tag "$B%[%9%HL>(B"
 			,(or (getenv "SKKSERVER") "localhost"))
 		(const nil))

@@ -168,12 +168,6 @@
 				      'face 'skk-e21-hiragana-face cand)
 		   cand)))))
 
-;; F1 〜 F10 キーの使い方を指定する。
-;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。
-;;   kanagaki => かなキーボード入力用の設定になる。
-;;   nil => 自動設定しない（自分で好きな設定ができる） デフォルト
-;; (setq skk-j-mode-function-key-usage 'conversion)
-
 ;; A S D F J K L に適用するフェイス
 ;; (copy-face 'font-lock-type-face 'skk-henkan-show-candidates-keys-face)
 
@@ -260,7 +254,7 @@
 
 ;; @@ 検索に関連した設定
 
-;; look コマンドを使った検索をする
+;; look コマンドを使った検索を行う
 (setq skk-use-look t)
 
 (when skk-use-look
@@ -300,7 +294,7 @@
 	  skk-tankan-search
 	  (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.jinmei" 10000))))
 
-;; lookup を利用した変換を行う
+;; Lookup を利用した変換を行う
 ;; (setq skk-search-prog-list
 ;;       (skk-nunion skk-search-prog-list
 ;;		     '((skk-lookup-search))))
@@ -379,10 +373,13 @@
 ;; 直接設定することはお勧めしません。自分が何をしようとしているか理解して
 ;; いる場合のみ設定してください。
 
-;; Windows の IME のようにファンクションキーにいくつかの変換機能をわりあてる
+;; Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
+;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。
+;;   kanagaki => かなキーボード入力用の設定になる。
+;;   nil => 自動設定しない（自分で好きな設定ができる） デフォルト
 (setq skk-j-mode-function-key-usage 'conversion)
 ;; 注) 標準では以下の変換機能が割り当てられます。
-;;  [F5]単漢字[F6]無変換[F7]カタカナ[F8]半角カナ[F9]全角ローマ[F10]ローマ
+;;  [F5]単漢字 [F6]無変換 [F7]カタカナ [F8]半角カナ [F9]全角ローマ [F10]ローマ
 ;; (setq skk-verbose t) と併用すると上記の割り当て情報がメッセージされます。
 
 ;; @@ かな入力関連の設定
