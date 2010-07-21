@@ -113,9 +113,11 @@
 	(mouse-avoidance-set-pointer-shape shape))))
   )
 
-;; [残り 99++] の表示を右端へ寄せてみる
-(setq skk-henkan-rest-indicator t)
-;; skk-henkan-rest-indicator-face も。
+;; ;; [残り 99++]
+;; 表示を右端へ寄せてみる
+;; (setq skk-henkan-rest-indicator t)
+;; 適用するフェイス
+;; (copy-face 'font-lock-keyword-face 'skk-henkan-rest-indicator-face)
 
 ;; 変換候補の表示方法
 ;;   nil => 変換候補をエコーエリアに表示する (デフォルト)
@@ -171,6 +173,9 @@
 ;;   kanagaki => かなキーボード入力用の設定になる。
 ;;   nil => 自動設定しない（自分で好きな設定ができる） デフォルト
 ;; (setq skk-j-mode-function-key-usage 'conversion)
+
+;; A S D F J K L に適用するフェイス
+;; (copy-face 'font-lock-type-face 'skk-henkan-show-candidates-keys-face)
 
 ;; モードラインに SKK アイコンを表示する。
 (setq skk-show-icon t)

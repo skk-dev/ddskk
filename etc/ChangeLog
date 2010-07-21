@@ -1,3 +1,8 @@
+2010-07-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: Add examples for skk-henkan-rest-indicator-face and
+	skk-henkan-show-candidates-keys-face.
+
 2010-07-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.skk: Add examples for skk-verbose and
