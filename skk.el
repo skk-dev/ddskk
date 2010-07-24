@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.496 2010/07/18 09:29:57 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.497 2010/07/24 21:24:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/18 09:29:57 $
+;; Last Modified: $Date: 2010/07/24 21:24:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -225,7 +225,7 @@ dependent."
   (when (yes-or-no-p
 	 (format
 	  (if skk-japanese-message-and-error
-	      "辞書の保存をせずに %s を終了します。良いですか？"
+	      "辞書を保存せずに %s を終了します。良いですか？"
 	    "Do you really wish to kill %s without saving Jisyo? ")
 	  (static-cond
 	   ((eq skk-emacs-type 'xemacs)

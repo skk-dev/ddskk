@@ -176,7 +176,9 @@
 
 ;; @@ 基本的なユーザ・インターフェース
 
-;; Enter キーを押したときには確定する
+;; ▼モードで Enter キーを押したとき
+;;   nil => 確定と改行（デフォルト）
+;;   non-nil => 確定するのみ。改行しない。
 (setq skk-egg-like-newline t)
 
 ;; ▼モードで BS を押したときには確定しないで前候補を表示する
@@ -467,7 +469,7 @@
 ;; ASCII 数字の直後では `-' に、全角数字の直後では `−' にしたい。
 (setq skk-rom-kana-rule-list
 	  (cons '("-" nil skk-hyphen)
-			skk-rom-kana-rule-list))
+		skk-rom-kana-rule-list))
 (defun skk-hyphen (arg)
   (let ((c (char-before (point))))
     (cond ((null c) "ー")
@@ -481,7 +483,7 @@
 ;; period
 (setq skk-rom-kana-rule-list
 	  (cons '("." nil skk-period)
-			skk-rom-kana-rule-list))
+		skk-rom-kana-rule-list))
 (defun skk-period (arg)
   (let ((c (char-before (point))))
     (cond ((null c) "。")
@@ -492,7 +494,7 @@
 ;; comma
 (setq skk-rom-kana-rule-list
 	  (cons '("," nil skk-comma)
-			skk-rom-kana-rule-list))
+		skk-rom-kana-rule-list))
 (defun skk-comma (arg)
   (let ((c (char-before (point))))
     (cond ((null c) "、")
