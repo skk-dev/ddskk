@@ -1,3 +1,9 @@
+2010-07-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-e21.el (skk-e21-visit-openlab): fix url.
+
+	* skk-xemacs.el (skk-xemacs-visit-openlab): fix url.
+
 2010-07-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-kill-emacs-without-saving-jisyo): Fix doc.

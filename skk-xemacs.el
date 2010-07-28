@@ -134,7 +134,7 @@
 
 (defun skk-xemacs-visit-openlab ()
   (interactive)
-  (browse-url "http://openlab.ring.gr.jp/skk/index-j.html"))
+  (browse-url "http://openlab.jp/skk/index-j.html"))
 
 ;;;###autoload
 (defun skk-xemacs-prepare-modeline-properties ()
