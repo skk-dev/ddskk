@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/07/31 01:06:44 $
+@set UPDATED $Date: 2010/07/31 02:57:07 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6721,6 +6721,7 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @subsection $B%"%N%F!<%7%g%s$N;HMQ(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-annotation
+
 $B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H%"%N%F!<%7%g%s$rI=<($7$^$9(B
 @footnote{Viper $BBP:v$O$^$@9T$o$l$F$$$^$;$s!#(B@file{~/.viper} $B$K<!$N$h$&$K(B
 $B=q$$$F2<$5$$!#(B
@@ -6734,10 +6735,53 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 
 @end defvr
 
+@defvr {$B%f!<%6JQ?t(B} skk-annotation-copy-key
+
+$B%(%3!<%(%j%"$KI=<($5$l$F$$$k%"%N%F!<%7%g%s$O!"(B@kbd{C-w} $B$r%?%$%W$9$k$H(B
+kill ring $B$KJ]B8$5$l$^$9!#(B
+
+$B%?%$%W$9$k%-!<$rJQ99$9$k$K$O!"JQ?t(B @code{skk-annotation-copy-key} $B$rE,59(B
+$B@_Dj$7$F$/$@$5$$!#(B
+
+@end defvr
+
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-show-as-message
+
 $B$3$NJQ?t$NCM$r(B @code{nil} $B$K@_Dj$9$k$H!"(Bother-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g%s$rI=<($7$^$9!#(B
 other-window $B$O!"$=$N8uJd$r3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!$N(B
 $B8uJd$NI=<(Kt$O(B quit) $B$H<+F0E*$KJD$8$^$9!#(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-annotation-toggle-display-char
+
+$B!V(B*$B8uJd(B*$B%P%C%U%!!W$GJQ498uJd$r0lMwI=<($7$F$$$k$H$-$K%"%N%F!<%7%g%s$N(B
+$BI=<(!?HsI=<($rF0E*$K@Z$jBX$($k%-!<$r@_Dj$7$^$9!#(B
+$B%G%U%)%k%H$O(B @kbd{^} $B$G$9!#(B
+
+@example
+----- Buffer: *$B8uJd(B* -----
+A:$B<M(B
+S:$B0g(B;[$B==Fs;Y(B](12)$B$$$N$7$7(B
+D:$B0P(B;$B0P`?(B
+F:$BU)(B;$B$*$P(B
+J:$B^&(B;$B$O$J(B
+K:$BaX(B;$BK~?HAOaX(B
+L:$B0](B;$B0];}(B
+----- Buffer: *$B8uJd(B* -----
+
+@kbd{^}
+
+----- Buffer: *$B8uJd(B* -----
+A:$B<M(B
+S:$B0g(B;
+D:$B0P(B;
+F:$BU)(B;
+J:$B^&(B;
+K:$BaX(B;
+L:$B0](B;
+----- Buffer: *$B8uJd(B* -----
+@end example
 
 @end defvr
 
@@ -7462,13 +7506,12 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 @node $BJQ498uJd$N99$J$kAu>~(B
 @subsection $BJQ498uJd$N99$J$kAu>~(B
 
-$BJQ498uJd$K$D$$$F%f!<%6$NG$0U$N2C9)$r;\$9$?$a$K(B
-$BJQ?t(B @code{skk-treat-candidate-appearance-function} $B$rMQ0U$7$F$"$j$^$9!#(B
+$BJQ498uJd$K$D$$$F%f!<%6$NG$0U$N2C9)$r;\$9$?$a$NJQ?t$rMQ0U$7$F$"$j$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-treat-candidate-appearance-function
 
-$BJQ?t(B @code{skk-treat-candidate-appearance-function} $B$KE,@Z$J7A<0$G4X?t$r(B
-$B<}$a$k$3$H$K$h$j!"JQ498uJd$r%f!<%6$NG$0U$K2C9)$9$k$3$H$,$G$-$^$9!#(B
+$B$3$NJQ?t$KE,@Z$J7A<0$G4X?t$r<}$a$k$3$H$K$h$C$F!"JQ498uJd$r%f!<%6$NG$0U$K(B
+$B2C9)$9$k$3$H$,$G$-$^$9!#(B
 
 $B!VE,@Z$J7A<0!W$H$O!"<!$N$H$*$j$G$9!#(B
 
@@ -7494,12 +7537,12 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 @item - cons cell ($B8uJd(B . $BCm<a(B)
 
 $B$3$N>l9g!"8uJd$O$b$&Cm<a$r4^$^$J$$$b$N$H$7$F=hM}$5$l$k!#Cm<a$K$D$$$F$O@h(B
-$BF,$,(B ";" $B$+$I$&$+$rD4$Y$?>e$G=hM}$5$l$k!#(B
+$BF,$,(B @samp{;} $B$+$I$&$+$rD4$Y$?>e$G=hM}$5$l$k!#(B
 
 @item - cons cell ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
 
 $B$3$N>l9g!"8uJd$O$b$&Cm<a$r4^$^$J$$$b$N$H$7$F=hM}$5$l$k!#%;%Q%l!<%?$ODL>o(B
-$B$N(B ";" $B$NBe$o$j$KMxMQ$5$l$k!#Cm<a$O$b$&%;%Q%l!<%?$r4^$^$J$$$b$N$H$7$F=h(B
+$B$N(B @samp{;} $B$NBe$o$j$KMxMQ$5$l$k!#Cm<a$O$b$&%;%Q%l!<%?$r4^$^$J$$$b$N$H$7$F=h(B
 $BM}$5$l$k!#(B
 @end table
 @end enumerate
