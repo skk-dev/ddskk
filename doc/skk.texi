@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/07/31 02:57:07 $
+@set UPDATED $Date: 2010/07/31 12:44:23 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -242,24 +242,24 @@ SKK$B$K4X$9$k>pJs(B
 @node $B$3$N%P!<%8%g%s$N(BSKK$B$K$D$$$F(B
 @section $B$3$N%P!<%8%g%s$N(BSKK$B$K$D$$$F(B
 
-Daredevil SKK ($B0J2<(B @samp{DDSKK} $B$H$$$$$^$9(B) $B$O9bB.$G8zN(E*$JF|K\8lF~NO4D(B
-$B6-$rDs6!$9$k%7%9%F%`$G$9!#(BGNU General Public License $B$K=>$C$?%U%j!<!&%=%U(B
-$B%H%&%'%"$H$7$FG[I[$5$l$^$9!#(B
+Daredevil SKK ($B0J2<(B @samp{DDSKK} $B$H$$$$$^$9(B) $B$O!"F0:n$,Aa$/$F8zN(E*$JF|K\(B
+$B8lF~NO4D6-$rDs6!$9$k%=%U%H%&%'%"$G$9!#(BGNU General Public License $B$rE,MQ$7(B
+$B$?%U%j!<!&%=%U%H%&%'%"$H$7$FG[I[$5$l$F$$$^$9!#(B
 
 DDSKK 14 $B$,F0:n$9$k$H;W$o$l$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 
 @itemize @minus
-@item Emacs 22.1 $B0J9_(B
-@item Emacs 23.1 $B0J9_(B
+@item GNU Emacs 22.1 $B0J9_(B
+@item GNU Emacs 23.1 $B0J9_(B
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.4 $B$N:G?7HG(B
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.5 $B$N:G?7HG(B
 @end itemize
 
-$B$J$*!"(BXEmacs $B$K4X$7$F!"K\BN$HJLG[I[$N%Q%C%1!<%872$O:G?7HG$,MW5a$5$l$^$9!#(B
+$B$J$*!"(BXEmacs $B$K4X$7$F$OK\BN$HJLG[I[$N%Q%C%1!<%872$O:G?7HG$,MW5a$5$l$^$9!#(B
 $B>/$J$/$H$b(B xemacs-base $B%Q%C%1!<%8$O:G?7$G$J$1$l$P$J$j$^$;$s!#$^$?!"(B
 fsf-compat $B%Q%C%1!<%8$,F0:n$N$?$a$KI,?\$G$9!#(B
 
-$BA4BN$H$7$F!"8=:_$O(B XEmacs $B$h$j(B GNU Emacs $B$G$NF0:n$,$h$/%F%9%H$5$l$F$*$j!"(B
+$BAmO@$H$7$F!"8=:_$O(B XEmacs $B$h$j$b(B GNU Emacs $B$G$NF0:n$,$h$/%F%9%H$5$l$F$*$j!"(B
 $B:G6a$G$O(B XEmacs $B$G$N%F%9%H$O=<J,9T$o$l$F$$$^$;$s!#(B
 
 Emacs 20.7 $B$*$h$S(B Emacs 21 $B$G$NF0:n3NG'$O9T$o$l$F$$$^$;$s$,!"F0:n$9$k$+(B
@@ -273,12 +273,12 @@ program $B$K$A$J$s$GL>IU$1$i$l$^$7$?!#$^$?!"$=$NL>$O(B Combinatory Logic $B$G
 $BM-L>$JEy<0(B @samp{SKK = I} $B$K$bM3Mh$7$F$$$^$9(B @footnote{@samp{SKK = I} $B$K(B
 $B$D$$$F>\$7$/$O(B @url{http://openlab.jp/skk/SKK.html} $B$r$4;2>H2<$5$$!#(B}$B!#(B
 
-Daredevil SKK (DDSKK) $B$O(B SKK $B$N$5$i$J$k3HD%HG$H$7$F0LCVIU$1$i$l$F$$$^$9!#(B
+Daredevil SKK (DDSKK) $B$O(B SKK $B$N99$J$k3HD%HG$H$7$F0LCVIU$1$i$l$F$$$^$9!#(B
 
-$BC"$7!"(B@samp{SKK $B%b!<%I(B}$B!"(B@samp{SKK $B<-=q(B}$B!"(B@samp{SKK $B%5!<%P(B} $B$J$I!"Nr;KE*(B
-$B$JMQ8l$O0z$-7Q$$$G$*$j!"(BDDSKK $B$H8F$P$J$$>l9g$b$"$j$^$9!#$^$?!"(BSKK $BJ}<0$N(B
-$BF~NOJ}K!$r:NMQ$7$?%W%m%0%i%`$J$I!"9-$/(B SKK family$B$r0UL#$9$k>l9g$bF1MM$G(B
-$B$9!#(B
+$B$?$@$7!"(B@samp{SKK $B%b!<%I(B}$B!"(B@samp{SKK $B<-=q(B}$B!"(B@samp{SKK $B%5!<%P(B} $B$H$$$C$?Nr(B
+$B;KE*$JMQ8l$O0z$-B3$-;HMQ$7$F$*$j!"(BDDSKK $B$H8F$P$J$$>l9g$b$"$j$^$9!#$^$?!"(B
+SKK $BJ}<0$NF~NOJ}K!$r:NMQ$7$?%W%m%0%i%`$J$I!"9-$/(B SKK family$B$r0UL#$9$k>l9g(B
+$B$bF1MM$G$9!#(B
 
 DDSKK $B$N<g$JFCD'$O!"<!$NDL$j$G$9!#(B
 
@@ -286,17 +286,17 @@ DDSKK $B$N<g$JFCD'$O!"<!$NDL$j$G$9!#(B
 @item $BB?:L$JF~NOJ}<0%5%]!<%H!#%m!<%^(B/$B$+$J(B $BN>BP1~$N$+$JF~NO$N$[$+!"(BAZIK$B!"(B
 ACT$B!"(BTUT-code $B$K$h$kF~NO$b2DG=!#(B
 @item $BJ8K!E*CN<1$rMQ$$$J$$9bB.$J!V$+$J(B $B"*(B $B4A;z!WJQ49!#(B
-@item $B<-=q$KEPO?$5$l$F$$$J$$C18l$NEPO?$,4JC1!#(B
-@item $B8D?M<-=q$X$NC18l$N<+F0EPO?$K$h$kJQ49$N9b%R%C%H!#(B
+@item $B<-=q$KEPO?$5$l$F$$$J$$C18l$N%7!<%`%l%9$JEPO?!#(B
+@item $B3NDj8l$r8D?M<-=q$X<+F0EPO?$9$k$3$H$K$h$k8zN(E*$JJQ498uJd$NI=<(!#(B
 @item $B%^%$%J!<%b!<%I$H$7$F<BAu$5$l$F$$$k$N$G!"%a%8%c!<%b!<%I$K$[$H$s$I1F(B
 $B6A$rM?$($J$$!#$D$^$j!"(BEmacs $B$H$N?FOB@-$,9b$$!#(B
-@item DDSKK $BK\BN(B (Emacs Lisp) $B$H<-=q$N$_$GF0:n(B($B<-=q%5!<%P$OI,?\$G$O$J$$(B)$B!#<-(B
-$B=q%5!<%P$,%@%&%s$7$F$$$F$b;HMQ$G$-$k!#(B
-@item $B<-=q%5!<%P$r;H$&$3$H$G!";HMQ%a%b%j$r:o8:2DG=!#(B
-@item $B%G%#%9%/MFNL$K1~$8$FA*$Y$k<-=q!#(B
+@item DDSKK $BK\BN(B (Emacs Lisp) $B$H<-=q%U%!%$%k$N$_$GF0:n!J<-=q%5!<%P$OI,?\(B
+$B$G$O$J$$!K!#<-=q%5!<%P$,%@%&%s$7$F$$$F$b;HMQ$G$-$k!#(B
+@item $B<-=q%5!<%P$r;H$&$3$H$G!";HMQ%a%b%j$N:o8:$,2DG=!#(B
+@item $B%G%#%9%/MFNL$K1~$8$FA*$Y$k<-=q%U%!%$%k!#(B
 @item Emacs $B$N%*%j%8%J%k$HF1MM$NA`:n$G9T$($kF|K\8l%$%s%/%j%a%s%?%k!&%5!<(B
 $B%A!#(B
-@item Emacs Lisp $B$G=q$+$l$?%W%m%0%i%`$rJQ498uJd$K$G$-$k!#(B
+@item Emacs Lisp $B$G=q$+$l$?%W%m%0%i%`$,JV$9CM$rJQ498uJd$K5s$2$k$3$H$,$G$-$k!#(B
 @end itemize
 
 @samp{Daredevil} $B$NL>$NM3Mh$K$D$$$F$O(B
@@ -318,17 +318,17 @@ ACT$B!"(BTUT-code $B$K$h$kF~NO$b2DG=!#(B
 @section APEL $B$N%$%s%9%H!<%k(B
 @cindex APEL
 
-DDSKK 14 $B$O<o!9$N(B Emacsen $B$G$NF0:n$r2DG=$H$9$k$?$a(B APEL (A Portable
+DDSKK 14 $B$OB?<oB?MM$J(B Emacsen $B$G$NF0:n$r2DG=$H$9$k$?$a(B APEL (A Portable
 Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 14 $B$O(B APEL 10.7 $B$G$NF0:n$r3NG'$7$F(B
 $B$$$^$9$,!"$G$-$k$@$1?7$7$$%P!<%8%g%s$N(B APEL $B$r%$%s%9%H!<%k$9$k$3$H$r$*4+$a$7$^$9!#(B
 
-@display
-@url{http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/}
-@url{ftp://ftp.jpl.org/pub/elisp/apel/}
-@end display
+@itemize @minus
+@item @url{http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/}
+@item @url{ftp://ftp.jpl.org/pub/elisp/apel/}
+@end itemize
 
 @noindent
-$B$h$jF~<j$G$-$^$9!#(B
+$B$+$iF~<j$G$-$^$9!#(B
 
 DDSKK $B$r%$%s%9%H!<%k$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
 
@@ -358,7 +358,7 @@ cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @code{make} $B%3%^%s%I$,;HMQ$G$-$
 @end display
 }$B!#(B
 
-$B$^$:!"(B@code{tar} $B$H(B @code{gzip} $B%3%^%s%I$r;HMQ$7$F!"(B DDSKK $B$r=q8K(B
+$B$^$:!"(B@code{tar} $B%3%^%s%I$H(B @code{gzip} $B%3%^%s%I$r;HMQ$7$F!"(B DDSKK $B$r=q8K(B
 (@file{ddskk-VERSION.tar.gz}) $B$+$i<h$j=P$7$^$9!#(B
 
 @example
