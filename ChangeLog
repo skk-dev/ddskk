@@ -1,3 +1,7 @@
+2010-07-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
 2010-07-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-e21.el (skk-e21-visit-openlab): fix url.

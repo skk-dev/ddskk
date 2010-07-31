@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/07/25 09:51:39 $
+@set UPDATED $Date: 2010/07/31 01:06:44 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6489,8 +6489,8 @@ New ~/.skk-jisyo will be 11bytes smaller.  Save anyway?(yes or no)
 @noindent
 $B$G(B Emacs $B$r=*N;$5$;!"8D?M<-=q(B (@code{skk-jisyo})$B!"$*$h$S8D?M<-=q$NB`HrMQ(B
 $B<-=q(B (@code{skk-backup-jisyo}) $B$r%A%'%C%/$9$k$h$&6/$/$*4+$a$7$^$9(B
-@footnote{@code{skk-jisyo} $B$,4{$K2u$l$F$$$F$b!"(B@code{skk-backup-jisyo}
-$B$K$=$l0JA0$N8D?M<-=q$,;D$C$F$$$k2DG=@-$,$"$j$^$9!#(B}$B!#(B
+@footnote{@code{skk-jisyo} $B$,4{$K2u$l$F$$$F$b!"JQ?t(B @code{skk-backup-jisyo} $B$,(B
+$B;X$7<($9%U%!%$%k$K$=$l0JA0$N8D?M<-=q$,;D$C$F$$$k2DG=@-$,$"$j$^$9!#(B}$B!#(B
 
 @table @code
 @item skk-compare-jisyo-size-when-saving
@@ -6678,8 +6678,8 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @node $BCm<a(B ($B%"%N%F!<%7%g%s(B)
 @section $BCm<a(B ($B%"%N%F!<%7%g%s(B)
 
-$BJQ49$N:]$K!"8uJd$KCm<a(B ($B%"%N%F!<%7%g%s(B) $B$,$D$$$F$$$l$P!"$=$l$rI=<($5$;$k(B
-$B$3$H$,$G$-$^$9!#(B
+$BJQ49$N:]$K!"8uJd$KCm<a(B ($B%"%N%F!<%7%g%s(B) $B$,EPO?$5$l$F$$$F$$$l$P!"$=$l$rI=<((B
+$B$9$k$3$H$,$G$-$^$9!#(B
 
 @menu
 * $B%"%N%F!<%7%g%s$N4pAC(B::     $BM=HwCN<1(B
@@ -6691,57 +6691,66 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @node $B%"%N%F!<%7%g%s$N4pAC(B
 @subsection $B%"%N%F!<%7%g%s$N4pAC(B
 
-$B$3$N@a$G$O!"%"%N%F!<%7%g%s$N<-=q$JCf$G$N07$$$r@bL@$7$^$9!#(B
-$B%"%N%F!<%7%g%s$K$O!"%f!<%6$,EPO?$7$?$b$N$H!"85!9!"6&M-<-=q$K$"$k$b$N$,(B
-$B$"$j$^$9!#(B
+$B$3$N@a$G$O!"<-=q$NCf$G$N%"%N%F!<%7%g%s$N<h$j07$$$r@bL@$7$^$9!#(B
+
+$B%"%N%F!<%7%g%s$O!"%f!<%6$,EPO?$7$?$b$N$H!"6&M-<-=q$K85!9EPO?$5$l$F$$$k(B
+$B$b$N$N#2$D$KBgJL$5$l$^$9!#(B
 
 $B%f!<%6$,IU$1$?%"%N%F!<%7%g%s$r!V%f!<%6%"%N%F!<%7%g%s!W(B
-$B$H8F$S$^$9!#%f!<%6%"%N%F!<%7%g%s$O!"<!$N7A<0$G8D?M<-=q$KJ]B8$5$l$^$9!#(B
+$B$H8F$S$^$9!#%f!<%6%"%N%F!<%7%g%s$O!"<!$N7A<0$G8D?M<-=q$KEPO?$5$l$^$9!#(B
 
-@display
+@example
 $B!V$-$+$s(B /$B4|4V(B/$B5!4X(B;*$B5!4XEj;q2H(B/$B4p44(B;*$B4p446HL3(B/$B!W(B
-@end display
+@end example
 
-$B$3$N$h$&$K(B @code{;} $B$ND>8e$K(B @code{*} $B$NJ8;z$,<+F0E*$K?6$i$l$^$9!#$3$l$O(B
-$B%f!<%6$,FH<+$KIU$1$?%"%N%F!<%7%g%s$G$"$k$3$H$r(B
-$B<($7$^$9(B @footnote{@code{*} $B$NJ8;z$OJQ49;~$K$OI=<($5$l$^$;$s(B}$B!#(B
+$B>e5-$N$H$*$j!"(B@code{;} $B$ND>8e$K(B @code{*} $B$,<+F0E*$K?6$i$l$k(B
+@footnote{@code{*} $B$NJ8;z$OJQ49;~$K$OI=<($5$l$^$;$s(B}$B$3$H$K$h$C$F%f!<%6$,(B
+$BFH<+$KEPO?$7$?%"%N%F!<%7%g%s$G$"$k$3$H$,J,$+$j$^$9!#(B
 
-$B0lJ}!"6&M-<-=q$K85!9IU$1$i$l$F$$$k%"%N%F!<%7%g%s$r!V%7%9%F%`%"%N%F!<(B
+$B0lJ}!"6&M-<-=q$K85!9EPO?$5$l$F$$$k%"%N%F!<%7%g%s$r!V%7%9%F%`%"%N%F!<(B
 $B%7%g%s!W$H8F$S!"$3$l$O(B @code{;} $B$ND>8e$K(B @code{*} $B$NJ8;z$rH<$$$^$;$s!#(B
-$BNc$($P!"<-=q$N7A<0$O<!$N$h$&$K$J$j$^$9!#(B
+$B%7%9%F%`%"%N%F!<%7%g%s$O!"<!$N7A<0$G<-=q$KEPO?$5$l$F$$$^$9!#(B
 
-@display
+@example
 $B!V$$$<$s(B /$B0JA0(B;previous/$B0MA3(B;still/$B!W(B
-@end display
+@end example
 
 $B%7%9%F%`%"%N%F!<%7%g%s$O!"(BL $B<-=qEy$K:NMQ$5$l$F$$$^$9!#(B
 
 @node $B%"%N%F!<%7%g%s$N;HMQ(B
 @subsection $B%"%N%F!<%7%g%s$N;HMQ(B
-@vindex skk-show-annotation
-@vindex skk-annotation-show-as-message
-@findex skk-annotation-function
 
-$B%"%N%F!<%7%g%s$rI=<($5$;$k$K$O!"JQ?t(B @code{skk-show-annotation} $B$r(B
-@code{non-nil} $B$K$7$^$9!#(B
+@defvr {$B%f!<%6JQ?t(B} skk-show-annotation
+$B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H%"%N%F!<%7%g%s$rI=<($7$^$9(B
 @footnote{Viper $BBP:v$O$^$@9T$o$l$F$$$^$;$s!#(B@file{~/.viper} $B$K<!$N$h$&$K(B
 $B=q$$$F2<$5$$!#(B
 
-@display
+@lisp
 (viper-harness-minor-mode "skk-annotation")
-@end display
-}
+@end lisp
+}$B!#(B
 
-$B<-=q$N8uJd$K%"%N%F!<%7%g%s$,$"$l$P%(%3!<%(%j%"$KI=<($7$^$9!#(B
-@footnote{$BJQ?t(B @code{skk-annotation-show-as-message} $B$r(B @code{nil} $B$K$7(B
-$B$?>l9g$O!"(Bother-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g%s$rI=<($7$^$9!#(B
-other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!$N(B
-$B8uJd$rA*Br$7$?$j!"(Bquit $B$7$?$j(B) $B$9$k$H<+F0E*$KJD$8$i$l$^$9!#(B}
+$B<-=q$N8uJd$K%"%N%F!<%7%g%s$,EPO?$5$l$F$$$l$P%(%3!<%(%j%"$KI=<($7$^$9!#(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-annotation-show-as-message
+$B$3$NJQ?t$NCM$r(B @code{nil} $B$K@_Dj$9$k$H!"(Bother-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g%s$rI=<($7$^$9!#(B
+other-window $B$O!"$=$N8uJd$r3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!$N(B
+$B8uJd$NI=<(Kt$O(B quit) $B$H<+F0E*$KJD$8$^$9!#(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-annotation-function
 
 $B%f!<%6%"%N%F!<%7%g%s$H%7%9%F%`%"%N%F!<%7%g%s$r6hJL$9$k$3$H$G!"%f!<%6%"%N(B
 $B%F!<%7%g%s$@$1$rI=<($7$?$j!"$"$k$$$O$=$N5U$r9T$&$3$H$,2DG=$G$9!#(B
-@code{skk-annotation-function} $B$KI=<($7$?$$%"%N%F!<%7%g%s$r(B
-@code{non-nil} $B$HH=Dj$9$k4X?t$r=q$-$^$9!#(B
+
+$BJQ?t(B @code{skk-annotation-function} $B$K!VI=<($7$?$$%"%N%F!<%7%g%s(B
+$B$r(B @code{non-nil} $B$HH=Dj$9$k4X?t!W$rDj5A$7$^$9!#(B
+$B%"%N%F!<%7%g%sJ8;zNs$r0z?t$K$7$FJQ?t(B @code{skk-annotation-function} $B$,(B
+$B;X$7<($94X?t$,(B @code{funcall} $B$5$l$F!"La$jCM$,(B @code{non-nil} $B$G$"$k>l9g$K(B
+$B8B$C$F%"%N%F!<%7%g%s$,I=<($5$l$^$9!#(B
 
 @lisp
 @group
@@ -6753,8 +6762,10 @@ other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!$N
 
 @noindent
 $B>e5-$NNc$G$O!"%"%N%F!<%7%g%s$N@hF,$,(B @code{*} $B$G;O$^$k!V%f!<%6%"%N%F!<(B
-$B%7%g%s!W$N>l9g$K(B @code{t} $B$rJV$9$N$G!"%f!<%6%"%N%F!<%7%g%s$@$1$rI=<($7(B
-$B$^$9!#(B
+$B%7%g%s!W$N>l9g$K(B @code{t} $B$rJV$9&K<0$r(B @code{skk-annotation-function} $B$K(B
+$BDj5A$7$^$7$?!#$3$l$K$h$C$F%f!<%6%"%N%F!<%7%g%s$@$1$,I=<($5$l$^$9!#(B
+
+@end defvr
 
 @node $B%"%N%F!<%7%g%s$NEPO?(B
 @subsection $B%"%N%F!<%7%g%s$NEPO?(B
@@ -6787,11 +6798,11 @@ other-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!$N
 @node $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B
 @subsection $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B
 
-$B8uJd$K%"%N%F!<%7%g%s$,$J$$>l9g!"%"%N%F!<%7%g%s$KBe$($F(B Wikipedia
+$B8uJd$K%"%N%F!<%7%g%s$NEPO?$,$J$$>l9g!"%"%N%F!<%7%g%s$KBe$($F(B Wikipedia
 (@url{http://ja.wikipedia.org/}) $B$K$h$k2r@b$rI=<($9$k$3$H$,$G$-$^$9!#(B
 
 $B"'%b!<%I$G8uJd$rI=<($7$F$$$k$H$-$K(B @key{TAB} $B$r2!$9$H!"(B
-@code{skk-annotation-wikipedia-sources} $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7(B
+@code{skk-annotation-wikipedia-sources} $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7$F(B
 $B%(%3!<%(%j%"$KI=<((B@footnote{$BJQ?t(B@code{skk-show-tooltip} $B$,(B @code{Non-nil} $B$N(B
 $B>l9g!"%D!<%k%F%#%C%W$GI=<($7$^$9!#(B} $B$7$^$9!#(B
 
@@ -6817,8 +6828,7 @@ B o k u j o u
 @end example
 
 $B%(%3!<%(%j%"$K2r@b$,I=<($5$l$F$$$k:GCf$K(B @kbd{C-o} $B$r2!$9$H!"(B
-$B4X?t(B @code{browse-url} $B$rMQ$$$F!"$=$N2r@b$N85$H$J$C$?(B URL $B$r%V%i%&%:$7$^(B
-$B$9!#(B
+$B4X?t(B @code{browse-url} $B$rMQ$$$F$=$N2r@b$N85$H$J$C$?(B URL $B$r%V%i%&%:$7$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-show-wikipedia-url
 $B%G%U%)%k%H$O(B @code{nil}$B!#(B@code{Non-nil} $B$H$9$k$H!"8+=P$78l$r(B @kbd{SPC} $B$GJQ49$7$?:]$K(B
