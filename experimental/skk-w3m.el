@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-w3m.el,v 1.33 2007/09/06 13:50:22 skk-cvs Exp $
+;; Version: $Id: skk-w3m.el,v 1.34 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 12, 2001 (oh, its my brother's birthday!)
-;; Last Modified: $Date: 2007/09/06 13:50:22 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -841,8 +841,7 @@ w3m を backend で動かしていない)。")
 	    v
 	    (eval (if (eq 'postfix position) convert-currency-to)))))
 
-(require 'product)
-(product-provide (provide 'skk-w3m) (require 'skk-version))
+(provide 'skk-w3m)
 ;;; Local Variables:
 ;;; End:
 ;;; skk-w3m.el ends here

@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.149 2010/07/17 04:22:17 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.150 2010/08/02 15:21:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/07/17 04:22:17 $
+;; Last Modified: $Date: 2010/08/02 15:21:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1547,9 +1547,6 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
   ;;
   skk-annotation-url-package-available-p)
 
-(require 'product)
-(product-provide
-    (provide 'skk-annotation)
-  (require 'skk-version))
+(provide 'skk-annotation)
 
 ;;; skk-annotation.el ends here

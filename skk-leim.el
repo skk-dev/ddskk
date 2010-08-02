@@ -5,9 +5,9 @@
 
 ;; Author: Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-leim.el,v 1.18 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-leim.el,v 1.19 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -71,9 +71,6 @@
  'skk-auto-fill-activate ""
  "Simple Kana to Kanji conversion program with auto-fill")
 
-(require 'product)
-(product-provide
-    (provide 'skk-leim)
-  (require 'skk-version))
+(provide 'skk-leim)
 
 ;;; skk-leim.el ends here

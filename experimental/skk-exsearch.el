@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-exsearch.el,v 1.9 2007/04/22 02:38:28 skk-cvs Exp $
+;; Version: $Id: skk-exsearch.el,v 1.10 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -232,6 +232,6 @@ This type inserts multiple lines to the buffer.  Each line contains a candidate.
 	       (setq v (cdr v)))
 	     v2)))))
 
-(require 'product)
-(product-provide (provide 'skk-exsearch) (require 'skk-version))
+(provide 'skk-exsearch)
+
 ;;; skk-exsearch.el ends here

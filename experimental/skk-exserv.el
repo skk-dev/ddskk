@@ -6,9 +6,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-exserv.el,v 1.8 2007/04/22 02:38:28 skk-cvs Exp $
+;; Version: $Id: skk-exserv.el,v 1.9 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -226,8 +226,7 @@ candidates that are delimited by slash.")
 
 (run-hooks 'skk-exserv-load-hook)
 
-(require 'product)
-(product-provide (provide 'skk-exserv) (require 'skk-version))
+(provide 'skk-exserv)
 ;;; Local Variables:
 ;;; eval: (require 'eieio)
 ;;; End:

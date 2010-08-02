@@ -5,9 +5,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.38 2010/01/28 03:23:23 skk-cvs Exp $
+;; Version: $Id: skk-cursor.el,v 1.39 2010/08/02 15:21:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/01/28 03:23:23 $
+;; Last Modified: $Date: 2010/08/02 15:21:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -128,9 +128,6 @@
 		(skk-cursor-set skk-cursor-default-color 'force))
 	    'append))
 
-(require 'product)
-(product-provide
-    (provide 'skk-cursor)
-  (require 'skk-version))
+(provide 'skk-cursor)
 
 ;;; skk-cursor.el ends here

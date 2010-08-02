@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.68 2010/01/30 03:44:19 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.69 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/01/30 03:44:19 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1049,9 +1049,6 @@ with empty body and subject.
 	  name
 	"nanasi"))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-tut)
-  (require 'skk-version))
+(provide 'skk-tut)
 
 ;;; skk-tut.el ends here

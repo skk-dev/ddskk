@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0213.el,v 1.12 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-jisx0213.el,v 1.13 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 30, 2000.
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -51,9 +51,6 @@
 		henkan-list (delq e henkan-list))
 	(setq henkan-list (cdr henkan-list))))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-jisx0213)
-  (require 'skk-version))
+(provide 'skk-jisx0213)
 
 ;;; skk-jisx0213.el ends here

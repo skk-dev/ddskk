@@ -207,9 +207,6 @@ US 101 キーボードで NICOLA 入力するための基本ルール。")
 	    #'(lambda ()
 		(define-key skk-j-mode-map "'" 'skk-kanagaki-bs))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-nicola-us)
-  (require 'skk-version))
+(provide 'skk-nicola-us)
 
 ;;; skk-nicola-us.el ends here

@@ -535,9 +535,6 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では
    (t
     ad-do-it)))
 
-(require 'product)
-(product-provide
-    (provide 'skk-kanagaki)
-  (require 'skk-version))
+(provide 'skk-kanagaki)
 
 ;;; skk-kanagaki.el ends here

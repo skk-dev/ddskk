@@ -512,9 +512,6 @@
 	   (delete-region (point) skk-henkan-start-point))
 	 (skk-kakutei))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-xemacs)
-  (require 'skk-version))
+(provide 'skk-xemacs)
 
 ;;; skk-xemacs.el ends here

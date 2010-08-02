@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.42 2009/07/11 02:15:39 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.43 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/07/11 02:15:39 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -330,9 +330,6 @@ Convert hirakana to katakana and vice versa."
 
 (add-hook 'skk-mode-hook 'skk-viper-init-function)
 
-(require 'product)
-(product-provide
-    (provide 'skk-viper)
-  (require 'skk-version))
+(provide 'skk-viper)
 
 ;;; skk-viper.el ends here

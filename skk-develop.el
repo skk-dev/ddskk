@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.27 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-develop.el,v 1.28 2010/08/02 15:21:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2010/08/02 15:21:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -141,9 +141,6 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
      (put 'defmacro-maybe 'doc-string-elt 3)
      (put 'defalias-maybe 'doc-string-elt 3)))
 
-(require 'product)
-(product-provide
-    (provide 'skk-develop)
-  (require 'skk-version))
+(provide 'skk-develop)
 
 ;;; skk-develop.el ends here

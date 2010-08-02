@@ -205,9 +205,6 @@ ANSI Dvorak 配列キーボードで omelet 入力するための基本ルール。")
 
 (require 'skk-nicola)
 
-(require 'product)
-(product-provide
-    (provide 'skk-omelet-dvorak)
-  (require 'skk-version))
+(provide 'skk-omelet-dvorak)
 
 ;;; skk-omelet.el ends here

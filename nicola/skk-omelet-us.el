@@ -207,9 +207,6 @@ US 101 キーボードで omelet 入力するための基本ルール。")
 	    #'(lambda ()
 		(define-key skk-j-mode-map "'" 'skk-kanagaki-bs))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-omelet-us)
-  (require 'skk-version))
+(provide 'skk-omelet-us)
 
 ;;; skk-omelet-us.el ends here

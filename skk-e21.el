@@ -601,9 +601,6 @@
 (defadvice tooltip-hide (after ccc-ad activate)
   (update-buffer-local-frame-params))
 
-(require 'product)
-(product-provide
-    (provide 'skk-e21)
-  (require 'skk-version))
+(provide 'skk-e21)
 
 ;;; skk-e21.el ends here

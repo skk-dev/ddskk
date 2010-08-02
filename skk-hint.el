@@ -216,8 +216,8 @@
 		(delete ret kouho)))))))
     (nreverse result)))
 
-(require 'product)
-(product-provide (provide 'skk-hint) (require 'skk-version))
+(provide 'skk-hint)
+
 ;;; Local Variables:
 ;;; End:
 ;;; skk-hint.el ends here

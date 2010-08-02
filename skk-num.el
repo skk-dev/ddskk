@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.42 2009/07/16 16:28:02 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.43 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/07/16 16:28:02 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -499,9 +499,6 @@ type4 の数値再変換が行なわれたときは、数値自身を返し、それ以外の数値変換
 
 (run-hooks 'skk-num-load-hook)
 
-(require 'product)
-(product-provide
-    (provide 'skk-num)
-  (require 'skk-version))
+(provide 'skk-num)
 
 ;;; skk-num.el ends here

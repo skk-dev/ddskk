@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dbm.el,v 1.8 2007/04/22 02:38:28 skk-cvs Exp $
+;; Version: $Id: skk-dbm.el,v 1.9 2010/08/02 15:21:06 skk-cvs Exp $
 ;; Keywords: japanese, dbm, gdbm
 ;; Created: Jan. 1, 1999
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
+;; Last Modified: $Date: 2010/08/02 15:21:06 $
 
 ;; This file is not part of Daredevil SKK yet.
 
@@ -394,8 +394,8 @@ berkeley-db を使用する場合のみ指定すること。"
 ;;(add-hook 'kill-emacs-hook 'skk-dbm-close-all-database)
 
 (run-hooks 'skk-dbm-load-hook)
-(require 'product)
-(product-provide (provide 'skk-dbm) (require 'skk-version))
+
+(provide 'skk-dbm)
 ;; Local Variables:
 ;; mode: auto-fill
 ;; fill-column: 78

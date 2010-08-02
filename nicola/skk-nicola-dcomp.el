@@ -76,9 +76,6 @@
       ;;
       (skk-dcomp-do-completion (point))))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-nicola-dcomp)
-  (require 'skk-version))
+(provide 'skk-nicola-dcomp)
 
 ;;; skk-nicola-dcomp.el ends here

@@ -288,9 +288,6 @@
    (t
     nil)))
 
-(require 'product)
-(product-provide
-    (provide 'skk-kanagaki-util)
-  (require 'skk-version))
+(provide 'skk-kanagaki-util)
 
 ;;; skk-kanagaki-util.el ends here

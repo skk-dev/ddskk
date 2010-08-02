@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.499 2010/08/02 14:48:26 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.500 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 14:48:26 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5652,9 +5652,6 @@ skk の動作と整合させる。
 
 (run-hooks 'skk-load-hook)
 
-(require 'product)
-(product-provide
-    (provide 'skk)
-  (require 'skk-version))
+(provide 'skk)
 
 ;;; skk.el ends here

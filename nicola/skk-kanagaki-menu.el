@@ -111,9 +111,6 @@ Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
 	     ("Visit NIHONGO-NYURYOKU CONSORTIUM Web Site"
 	      . "日本語入力コンソーシアムのサイトへ")))))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-kanagaki-menu)
-  (require 'skk-version))
+(provide 'skk-kanagaki-menu)
 
 ;;; skk-kanagaki-menu.el ends here

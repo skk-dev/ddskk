@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.294 2010/08/01 01:56:17 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.295 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/01 01:56:17 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4705,9 +4705,6 @@ The English version is SKK.tut.E."
     'viper-normalize-minor-mode-map-alist)
   "Viper が `minor-mode-map-alist' を調整するための関数。")
 
-(require 'product)
-(product-provide
-    (provide 'skk-vars)
-  (require 'skk-version))
+(provide 'skk-vars)
 
 ;;; skk-vars.el ends here

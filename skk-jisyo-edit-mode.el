@@ -174,9 +174,6 @@
 		     "You are editing private jisyo.  Can't purge."))
     ad-do-it))
 
-(require 'product)
-(product-provide
-    (provide 'skk-jisyo-edit)
-  (require 'skk-version))
+(provide 'skk-jisyo-edit)
 
 ;;; skk-jisyo-edit.el ends here

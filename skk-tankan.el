@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.18 2010/03/07 10:44:10 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.19 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/03/07 10:44:10 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2936,9 +2936,6 @@
 		  (+ 32 (nth 1 x)))
 		  (nth 2 x)))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-tankan)
-  (require 'skk-version))
+(provide 'skk-tankan)
 
 ;;; skk-tankan.el ends here

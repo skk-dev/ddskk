@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.19 2010/07/16 13:30:12 skk-cvs Exp $
+;; Version: $Id: skk-obsolete.el,v 1.20 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/16 13:30:12 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -262,9 +262,6 @@ It is strongly recommended to kill and restart Emacs.  Kill Emacs?"))
     ;;  (setq fl (cdr fl)))))
    ))
 
-(require 'product)
-(product-provide
-    (provide 'skk-obsolete)
-  (require 'skk-version))
+(provide 'skk-obsolete)
 
 ;;; skk-obsolete.el ends here

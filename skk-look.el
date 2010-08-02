@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.41 2007/07/27 13:33:11 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.42 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/07/27 13:33:11 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -320,9 +320,6 @@ words ファイルにある全ての見出しを返す。
 	(setq ret (skk-nunion ret (cons key (skk-look-1 key situation)))))
       (delete word (skk-nunion (skk-look-1 word situation) ret))))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-look)
-  (require 'skk-version))
+(provide 'skk-look)
 
 ;;; skk-look.el ends here

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.39 2010/07/10 00:59:51 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.40 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/10 00:59:51 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -440,9 +440,6 @@
 
 (run-hooks 'skk-kcode-load-hook)
 
-(require 'product)
-(product-provide
-    (provide 'skk-kcode)
-  (require 'skk-version))
+(provide 'skk-kcode)
 
 ;;; skk-kcode.el ends here

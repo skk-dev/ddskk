@@ -1,5 +1,7 @@
 2010-08-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* *.el: Never provide product.el.
+
 	* skk-isearch.el (skk-isearch-delete-char): Use `delete-char'
 	intead of `delete-backward-char'.
 	* skk.el (skk-set-henkan-point, keyboard-quit@around@skk-ad)

@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-correct.el,v 1.7 2007/04/22 02:38:28 skk-cvs Exp $
+;; Version: $Id: skk-correct.el,v 1.8 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -151,8 +151,7 @@
 	(setq skk-correct-current-table (cdr skk-correct-current-table)))
       v)))
 
-(require 'product)
-(product-provide (provide 'skk-correct) (require 'skk-version))
+(provide 'skk-correct)
 ;;; Local Variables:
 ;;; End:
 ;;; skk-correct.el ends here

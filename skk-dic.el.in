@@ -77,9 +77,6 @@ SKK インストール時にインストーラが SKK-JISYO.S を見つけたら、skk-dic
   "\
 ")
 
-(require 'product)
-(product-provide
-    (provide 'skk-dic)
-  (require 'skk-version))
+(provide 'skk-dic)
 
 ;;; skk-dic.el ends here

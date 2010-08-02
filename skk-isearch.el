@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.61 2010/08/02 14:48:26 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.62 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 14:48:26 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -837,9 +837,6 @@ If the current mode is different from previous, remove it first."
 (put 'isearch-other-control-char 'isearch-command t)
 (put 'skk-isearch-skk-mode 'isearch-command t)
 
-(require 'product)
-(product-provide
-    (provide 'skk-isearch)
-  (require 'skk-version))
+(provide 'skk-isearch)
 
 ;;; skk-isearch.el ends here

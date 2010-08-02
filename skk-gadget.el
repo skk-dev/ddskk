@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.36 2007/04/22 02:38:26 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.37 2010/08/02 15:21:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:26 $
+;; Last Modified: $Date: 2010/08/02 15:21:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -436,9 +436,6 @@ NUMBER について UNIT-FROM から UNIT-TO への換算を行なう。"
 
 (run-hooks 'skk-gadget-load-hook)
 
-(require 'product)
-(product-provide
-    (provide 'skk-gadget)
-  (require 'skk-version))
+(provide 'skk-gadget)
 
 ;;; skk-gadget.el ends here

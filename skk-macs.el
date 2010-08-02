@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.138 2010/02/21 12:12:46 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.139 2010/08/02 15:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/02/21 12:12:46 $
+;; Last Modified: $Date: 2010/08/02 15:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -983,9 +983,6 @@ MAP は入力が書かれているキーマップを指定するが、指定されなければ
 			(key-description k))
 		    keys))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-macs)
-  (require 'skk-version))
+(provide 'skk-macs)
 
 ;;; skk-macs.el ends here

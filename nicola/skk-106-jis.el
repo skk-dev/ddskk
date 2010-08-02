@@ -165,9 +165,6 @@
 
 (require 'skk-nicola)
 
-(require 'product)
-(product-provide
-    (provide 'skk-106-jis)
-  (require 'skk-version))
+(provide 'skk-106-jis)
 
 ;;; skk-106-jis.el ends here

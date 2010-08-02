@@ -205,9 +205,6 @@
 		(define-key skk-j-mode-map ":" 'skk-kanagaki-bs)
 		(define-key skk-j-mode-map "]" 'skk-kanagaki-esc))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-omelet-jis)
-  (require 'skk-version))
+(provide 'skk-omelet-jis)
 
 ;;; skk-omelet-jis.el ends here

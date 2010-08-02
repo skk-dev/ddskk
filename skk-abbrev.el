@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-abbrev.el,v 1.15 2007/09/10 13:44:22 skk-cvs Exp $
+;; Version: $Id: skk-abbrev.el,v 1.16 2010/08/02 15:21:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 23, 1999
-;; Last Modified: $Date: 2007/09/10 13:44:22 $
+;; Last Modified: $Date: 2010/08/02 15:21:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -100,9 +100,6 @@
        (delete-region skk-henkan-start-point (point))
        (insert c-word)))))
 
-(require 'product)
-(product-provide
-    (provide 'skk-abbrev)
-  (require 'skk-version))
+(provide 'skk-abbrev)
 
 ;;; skk-abbrev.el ends here

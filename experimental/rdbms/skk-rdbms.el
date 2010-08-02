@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@namazu.org>
-;; Version: $Id: skk-rdbms.el,v 1.12 2007/09/06 13:50:22 skk-cvs Exp $
+;; Version: $Id: skk-rdbms.el,v 1.13 2010/08/02 15:21:06 skk-cvs Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2007/09/06 13:50:22 $
+;; Last Modified: $Date: 2010/08/02 15:21:06 $
 
 ;; This file is not part of Daredevil SKK yet.
 
@@ -904,6 +904,5 @@ C-u M-x skk-rdbms-restore-private-jisyo すると確認なしに復元する。"
 
 (run-hooks 'skk-rdbms-load-hook)
 
-(require 'product)
-(product-provide (provide 'skk-rdbms) (require 'skk-version))
+(provide 'skk-rdbms)
 ;;; skk-rdbms.el ends here

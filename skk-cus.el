@@ -331,9 +331,6 @@
   ;;
   (setq skk-custom-alist nil))
 
-(require 'product)
-(product-provide
-    (provide 'skk-cus)
-  (require 'skk-version))
+(provide 'skk-cus)
 
 ;;; skk-cus.el ends here

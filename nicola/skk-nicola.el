@@ -1084,9 +1084,6 @@ ARG を与えられた場合はその数だけ文字列を連結して入力する。"
 (put 'skk-nicola-self-insert-lshift 'isearch-command t)
 (put 'skk-nicola-self-insert-rshift 'isearch-command t)
 
-(require 'product)
-(product-provide
-    (provide 'skk-nicola)
-  (require 'skk-version))
+(provide 'skk-nicola)
 
 ;;; skk-nicola.el ends here
