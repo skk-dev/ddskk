@@ -1,3 +1,8 @@
+2010-08-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-util.el (skk-kanagaki-bs): Use `delete-char'
+	instead of `delete-backward-char'.
+
 2010-01-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-util.el (skk-kanagaki-print-help-function): New

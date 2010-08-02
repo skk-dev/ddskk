@@ -254,7 +254,7 @@
     (with-current-buffer skk-isearch-current-buffer
       (skk-isearch-delete-char arg)))
    (t
-    (delete-backward-char arg)))
+    (delete-char (- 0 arg))))
   ;;
   (when skk-dcomp-activate
     (skk-dcomp-after-delete-backward-char)))
