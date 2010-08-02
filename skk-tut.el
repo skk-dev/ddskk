@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.69 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.70 2010/08/02 17:36:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/08/02 17:36:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -491,8 +491,6 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
       (message "Language for the tutorial is %s until you exit Emacs"
 	       lang)))
   (let ((inhibit-quit t))
-    (unless (product-version>= 'skk-version '(11 3))
-      (error "%s" "Daredevil SKK or later is required"))
     (skktut-pre-setup-tutorial)
     (skktut-setup-jisyo-buffer)
     (skktut-setup-working-buffer)
@@ -993,7 +991,7 @@ send mail to:
 with empty body and subject.
 
 !! Hit <return> key when you are ready.")
-		 (product-string-1 'skk-version t)
+		 (skk-version t)
 		 skk-ml-address
 		 skk-ml-command-address))
     (when skk-tut-use-face
