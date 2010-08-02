@@ -4,9 +4,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.11 2007/04/22 02:38:28 skk-cvs Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.12 2010/08/02 15:30:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
+;; Last Modified: $Date: 2010/08/02 15:30:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -955,9 +955,6 @@
 		   ("alu" nil "ヴ") ("eld" nil "ヵ") ("elg" nil "ヶ"))
 		 skk-rom-kana-rule-list)))
 
-(require 'product)
-(product-provide
-    (provide 'skk-tutcdef)
-  (require 'skk-version))
+(provide 'skk-tutcdef)
 
 ;;; skk-tutcdef.el ends here
