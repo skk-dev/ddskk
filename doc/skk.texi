@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/07/31 12:44:23 $
+@set UPDATED $Date: 2010/08/02 12:17:37 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2286,7 +2286,7 @@ skk で設定できる変数の中には、まだこのマニュアルで記述されていないものも
 @kindex /
 @kindex C-q
 
-まず、かなモードに入ります。次に、@kbd{/} を入力すると、SKK abbrev モー
+まず、かなモードに入ります。次に @kbd{/} をタイプすると SKK abbrev モー
 ドに入ります。これにより、アルファベット (アスキー文字) を入力できます。
 なお、skk abbrev モードでは、
 
@@ -3483,18 +3483,18 @@ p# /#4/
 @subsection アスキー文字を見出し語とした変換
 
 @cindex SKK abbrev mode
-かなモードで @kbd{/} を入力すると @dfn{SKK abbrev mode} に入り、以後の入力は
-アスキー文字になります。普通に @key{SPC} を押すと、その見出し語についての変換が
-得られます。
+かなモードで @kbd{/} をタイプすると @dfn{SKK abbrev mode} に入り、以後の
+入力はアスキー文字になります。普通に @key{SPC} を押すと、その見出し語に係
+る変換が得られます。
 
-仮に、
+仮に、辞書に
 
 @example
 is /インクリメンタル・サーチ/
 @end example
 
 @noindent
-というようなエントリが辞書にあるとして、例を示します。
+というエントリがあるとして、以下に例を示します。
 
 @example
 @kbd{/}
@@ -3505,7 +3505,7 @@ is /インクリメンタル・サーチ/
 ------ Buffer: foo ------
 @end group
 
-@kbd{is}
+@kbd{i s}
 
 @group
 ------ Buffer: foo ------
@@ -3530,7 +3530,7 @@ is /インクリメンタル・サーチ/
 @end group
 @end example
 
-変換が終わると、SKK abbrev mode は終わり、かなモードに戻ります。
+変換が終わると SKK abbrev mode を抜けてかなモードに戻ります。
 
 SKK abbve mode で使われる辞書は、普通の変換と同じです。エントリがアスキー文字で
 書かれているだけで、特殊な点はありません。
@@ -6760,6 +6760,7 @@ other-window は、その候補を確定するか、その候補の選択を止める (次の
 デフォルトは @kbd{^} です。
 
 @example
+@group
 ----- Buffer: *候補* -----
 A:射
 S:亥;[十二支](12)いのしし
@@ -6769,9 +6770,11 @@ J:洟;はな
 K:痍;満身創痍
 L:維;維持
 ----- Buffer: *候補* -----
+@end group
 
 @kbd{^}
 
+@group
 ----- Buffer: *候補* -----
 A:射
 S:亥;
@@ -6781,6 +6784,7 @@ J:洟;
 K:痍;
 L:維;
 ----- Buffer: *候補* -----
+@end group
 @end example
 
 @end defvr

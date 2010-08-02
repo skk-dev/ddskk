@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.497 2010/07/24 21:24:04 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.498 2010/08/02 12:17:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/07/24 21:24:04 $
+;; Last Modified: $Date: 2010/08/02 12:17:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -362,8 +362,7 @@ dependent."
 		      japanese-jisx0213-1
 		      japanese-jisx0213-2
 		      japanese-jisx0208-1978))
-	candidate
-	(list nil))
+	candidate list)
     (while candidates
       (setq candidate (pop candidates))
       (when (skk-charsetp candidate)
@@ -1915,7 +1914,7 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
     max))
 
 (defun skk-henkan-show-candidates ()
-  "$B%(%3!<%(%j%"$GJQ49$7$?8uJd72$rI=<($9$k!#(B"
+  "$BJQ49$7$?8uJd72$r%(%3!<%(%j%"$KI=<($9$k!#(B"
   (skk-save-point
    (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	  (candidate-keys ; $BI=<(MQ$N%-!<%j%9%H(B
@@ -2694,13 +2693,13 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	(cons word note)))))
 
 (defun skk-treat-strip-note-from-word (word)
-  "$BJQ498uJdJ8;zNs(B WORD $B$r8uJd$=$N$b$N$HCm<a$KJ,3d$9$k!#(B
-$B8uJd$=$N$b$N$HCm<a$H$N(B cons cell $B$rJV$9!#8uJd$=$N$b$N$HCm<a$H$N%;%Q%l!<%?$O(B
-\";\"$B$G$"$kI,MW$,$"$k!#J,3d$N%k!<%k$O0J2<$N$h$&$K$J$C$F$$$k!#(B
+  "$BJQ498uJd$NJ8;zNs(B WORD $B$r!"8uJd$=$N$b$N$HCm<a$H$KJ,3d$7$F(B cons cell $B$rJV$9!#(B
+$B8uJd$=$N$b$N$HCm<a$H$N%;%Q%l!<%?$O(B \";\" $B$G$"$kI,MW$,$"$k!#(B
+$BJ,3d$N%k!<%k$O0J2<$N$H$*$j!#(B
 
-\"word\" --> (\"word\" . nil)
-\"word;\" --> (\"word\" . \"\")
-\"word;note\" --> (\"word\" . \"note\")
+  \"word\" --> (\"word\" . nil)
+  \"word;\" --> (\"word\" . \"\")
+  \"word;note\" --> (\"word\" . \"note\")
 "
   (save-match-data
     (let (cand note)
@@ -2946,7 +2945,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	))
 
 (defun skk-undo-kakutei ()
-  "$B0lHV:G8e$N3NDj$r%"%s%I%%$7!"8+=P$7$KBP$9$k8uJd$rI=<($9$k!#(B
+  "$B0lHV:G8e$N3NDj$r%"%s%I%%$7!"8+=P$78l$KBP$9$k8uJd$rI=<($9$k!#(B
 $B:G8e$K3NDj$7$?$H$-$N8uJd$O%9%-%C%W$5$l$k!#(B
 $B8uJd$,B>$K$J$$$H$-$O!"%(%3!<%(%j%"$G$N<-=qEPO?$KF~$k!#(B"
   (interactive)
@@ -3187,9 +3186,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 
 (defun skk-start-henkan (arg &optional prog-list-number)
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B
-$B"&%b!<%I$G!"%+%?%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$9$k$H!"8+=P$78l$rJ?2>L>$K(B
-$BJQ498e!"4A;zJQ49$r3+;O$9$k!#(B
-$B8+=P$78l$NJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$J$$$?$1$l$P!"(BC-u SPC \(arg $B$,(B 4
+$B"&%b!<%I$G%+%?%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$7$?>l9g$O!"8+=P$78l$rJ?2>L>$K(B
+$BJQ49$7$F$+$i4A;zJQ49$r3+;O$9$k!#(B
+$B8+=P$78l$rJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$J$$$?$1$l$P!"(BC-u SPC \(arg $B$,(B 4
 $B$K$J$k(B\) $B$H%?%$%W$9$k!#(B"
   (interactive "*p")
   (unless prog-list-number
@@ -3237,7 +3236,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	      (skk-error
 	       "$BJQ49%-!<$K2~9T$,4^$^$l$F$$$^$9(B"
 	       "Henkan key may not contain a new line character")))
-	   ;; $B:G=i$N%9%Z!<%9$G(B skk-henkan-key $B$r$A$g$s@Z$k$@$1!#(B
+	   ;; $B:G=i$N%9%Z!<%9$G(B skk-henkan-key $B$r%+%C%H$9$k$@$1!#(B
 	   (setq skk-henkan-key (substring skk-henkan-key
 					   0
 					   (string-match " "
@@ -3737,20 +3736,21 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
 	(with-output-to-temp-buffer "*SKK warning*"
 	  (if skk-japanese-message-and-error
 	      (princ "\
-$B%;!<%V$7$h$&$H$9$k<-=q$N%5%$%:$,85$N$b$N$h$j$b>.$5$/$J$C$F$7$^$&$N$G!"(B
-$B%;!<%V$rCf;_$7$^$7$?!#<-=q$N%5%$%:$,>.$5$/$J$C$?860x$K$ONc$($P!"(B
+$B%;!<%V$7$h$&$H$9$k<-=q$N%5%$%:$,85$N%5%$%:$h$j$b>.$5$/$J$C$F$7$^$&$?$a!"(B
+$B%;!<%V$rCf;_$7$^$7$?!#<-=q$N%5%$%:$,>.$5$/$J$C$?860x$K$O!"Nc$($P!"(B
 
     (a) M-x skk-purge-from-jisyo $B$r<B9T$7$?!#(B
 
-    (b) ~/.skk-jisyo $B$N4A;z%3!<%I$H!"0c$&4A;z%3!<%I$G(B \" *.skk-jisyo*\"
+    (b) ~/.skk-jisyo $B$N4A;z%3!<%I$H$O0[$J$k4A;z%3!<%I$G(B \" *.skk-jisyo*\"
        $B%P%C%U%!$,J]B8$5$l$h$&$H$7$F$$$k!#(B
 
     (c) \" *.skk-jisyo*\" $B%P%C%U%!$r<+J,$GJT=8$7$?!#(B
 
-$B$J$I$,$"$j$^$9!#(Ba $B$H(B b $B$N>l9g$O!"0[>o$G$O$"$j$^$;$s!#(Bc $B$N>l9g$O!"JT=8$N(B
-$BFbMF$K$h$j$^$9!#860x$r3NG'8e!"?5=E$K<-=q$rJ]B8$9$k$3$H$r$*4+$a$7$^$9!#(B
+$B$J$I$,$"$j$^$9!#(B(a) $B$H(B (b) $B$N>l9g$O0[>o$G$O$"$j$^$;$s!#(B
+(c) $B$N>l9g$OJT=8$NFbMF$K$h$j$^$9!#860x$r?5=E$K3NG'$7$F$+$i<-=q$rJ]B8$9$k$3(B
+$B$H$r$*4+$a$7$^$9!#(B
 
-$B85$N<-=q$r:FEYFI$_9~$`$K$O!"(B
+$B85$N<-=q$r:F$SFI$_9~$`$K$O!"(B
 
     M-x skk-reread-private-jisyo
 
@@ -5613,10 +5613,11 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     (skk-kakutei)))
 
 (defmacro skk-wrap-newline-command (cmd)
-  "[return]$B%-!<$K3dEv$F$i$l$F$$$k$@$m$&%3%^%s%I(B(CMD)$B$r%i%C%W$7$F!"(Bskk$B$NF0:n$H@09g$5$;$k!#(B
- [return]$B%-!<$K%3%^%s%I$r3dEv$F$F$$$k%a!<%8%c%b!<%I$G(B skk $B$r;H$&$H!"(Bskk $B$,(B
-`skk-kakutei' $B$r8F$S=P$95!2q$,$J$$$?$a!"JQ49$r3NDj$G$-$:(B`$B"'(B'$B$,%P%C%U%!$K;D$C$F(B
-$B$7$^$&$H$$$&LdBj$,$"$k!#(B
+  "[return]$B%-!<$K3d$jEv$F$i$l$F$$$k$G$"$m$&%3%^%s%I(B (CMD) $B$r%i%C%W$7$F!"(B
+skk $B$NF0:n$H@09g$5$;$k!#(B
+ [return]$B%-!<$K%3%^%s%I$r3d$jEv$F$F$$$k%a!<%8%c%b!<%I$G(B skk $B$r;H$&$H!"(Bskk $B$,(B
+`skk-kakutei' $B$r8F$S=P$95!2q$,$J$$$?$a$KJQ49$r3NDj$G$-$:(B`$B"'(B'$B$,%P%C%U%!$K(B
+$B;D$C$F$7$^$&$H$$$&LdBj$,$"$k!#(B
 
 $BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(B CMD $BK\BN$r<B9T$9$k$h$&$K(B CMD $B$r%i%C%W(B
 $B$9$k!#(B"
