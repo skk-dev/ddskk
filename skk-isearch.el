@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.60 2009/11/02 03:56:13 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.61 2010/08/02 14:48:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2009/11/02 03:56:13 $
+;; Last Modified: $Date: 2010/08/02 14:48:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -544,7 +544,7 @@ If the current mode is different from previous, remove it first."
 		      (let ((skk-update-jisyo-function #'ignore))
 			(skk-kakutei))
 		    (skk-kakutei))
-		  (delete-backward-char 1)
+		  (delete-char -1)
 		  (setq isearch-string (concat isearch-string
 					       (skk-isearch-buffer-string))
 			isearch-message (concat
@@ -563,7 +563,7 @@ If the current mode is different from previous, remove it first."
 		   ((string= skk-prefix "")
 		    ;; now, we can't pass the universal argument within
 		    ;; the isearch-mode.  so hard code the value `1'.
-		    (delete-backward-char 1))
+		    (delete-char -1))
 		   (t
 		    (skk-erase-prefix 'clean)))
 		  (setq skk-isearch-incomplete-message

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.498 2010/08/02 12:17:37 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.499 2010/08/02 14:48:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 12:17:37 $
+;; Last Modified: $Date: 2010/08/02 14:48:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3118,7 +3118,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (setq skk-prefix "")
 	   (skk-set-henkan-count 0)
 	   (skk-henkan)
-	   (delete-backward-char 2))
+	   (delete-char -2))
 	  (t
 	   (setq skk-henkan-key (concat
 				 (buffer-substring-no-properties
@@ -3129,7 +3129,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (setq skk-prefix "")
 	   (skk-set-henkan-count 0)
 	   (skk-henkan)
-	   (delete-backward-char 1)))
+	   (delete-char -1)))
 	 ;; we set skk-kana-start-point here, since the marker may no
 	 ;; longer point at the correct position after skk-henkan.
 	 (skk-set-marker skk-kana-start-point (point)))
@@ -5472,7 +5472,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	(let ((count (length skk-henkan-okurigana)))
 	  (skk-previous-candidate)
 	  ;; $B$3$3$G$O(B delete-backward-char $B$KBhFs0z?t$rEO$5$J$$J}$,%Y%?!<!)(B
-	  (delete-backward-char count))
+	  (delete-char (- 0 count)))
       (skk-previous-candidate)))
    ;; $B"&(B mode (Midashi input mode).
    (t
@@ -5510,7 +5510,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	       (skk-previous-candidate)
 	       ;; $B$3$3$G$O(B delete-backward-char $B$K(B
 	       ;; $BBhFs0z?t$rEO$5$J$$J}$,%Y%?!<!)(B
-	       (delete-backward-char count))
+	       (delete-char (- 0 count)))
 	   (skk-previous-candidate)))
 	(t
 	 (if (eq last-command 'skk-comp-do)
