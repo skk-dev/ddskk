@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/02 12:17:37 $
+@set UPDATED $Date: 2010/08/03 20:47:49 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2920,71 +2920,92 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 @cindex @file{skk-tankan.el}
 @cindex $BC14A;z(B
 
-$BC14A;zJQ49$G$O!"8uJd$OAm2h?t$N>:=g$G%=!<%H$7$FI=<($7$^$9!#(B
-$B$3$l$O(B @file{skk-tankan.el} $B$KDs6!$5$l$^$9!#(B
+$B%U%!%$%k(B @file{skk-tankan.el} $B$rFI$_9~$`$3$H$K$h$C$FC14A;zJQ49$,2DG=$H$J(B
+$B$j$^$9!#8uJd$OAm2h?t$N>:=g$G%=!<%H$7$FI=<($7$^$9!#(B
 
 @menu
 * $B8!:w%-!<$N@_Dj(B::
 * $B<-=q$N@_Dj(B::
 @end menu
 
-$B<B$O!"C14A;zJQ49$r;H$&$K$O@_Dj$,I,MW$G$9$,!"@h$KNc$r8+$F$_$^$7$g$&!#(B
+$BC14A;zJQ49$r;H$&$K$O@_Dj$,I,MW$G$9$,!"@h$KNc$r8+$F$_$^$7$g$&!#(B
 
 $B"&%b!<%I$N:G8e$NJ8;z$K(B @kbd{@@} $B$rIU2C$7$F$+$iJQ49$r3+;O$7$F$/$@$5$$!#(B
 
 @example
 T a n @@
 
+@group
 ----- Buffer: foo -----
 $B"&$?$s(B@@@point{}
 ----- Buffer: foo -----
+@end group
 
 @kbd{SPC}
 
+@group
 ----- Buffer: foo -----
 $B"'C0(B@point{}
 ----- Buffer: foo -----
+@end group
 
+@group
 ----- Echo Area -----
 4$B2h(B($BP&It(B3$B2h(B)
 ----- Echo Area -----
+@end group
 
 @kbd{SPC}
 
+@group
 ----- Buffer: foo -----
 $B"'H?(B@point{}
 ----- Buffer: foo -----
+@end group
 
+@group
 ----- Echo Area -----
 4$B2h(B($BKtIt(B2$B2h(B)
 ----- Echo Area -----
+@end group
 
 @kbd{SPC}
 
+@group
 ----- Buffer: foo -----
 $B"'C6(B@point{}
 ----- Buffer: foo -----
+@end group
 
+@group
 ----- Echo Area -----
 5$B2h(B($BF|It(B1$B2h(B)
 ----- Echo Area -----
+@end group
 
 @kbd{SPC}
 
+@group
 ----- Buffer: foo -----
 $B"'C"(B@point{}
 ----- Buffer: foo -----
+@end group
 
+@group
 ----- Echo Area -----
 7$B2h(B($B?MIt(B5$B2h(B)
 ----- Echo Area -----
+@end group
 
 @kbd{SPC}
 
+@group
 ----- Buffer: foo -----
 $B"'(B@point{}
 ----- Buffer: foo -----
+@end group
 
+@group
 ----- Buffer: *$B8uJd(B* -----
 A:$BC3(B;8$B2h(B($BEZIt(B5$B2h(B)
 S:$BC4(B;8$B2h(B($B<jIt(B5$B2h(B)
@@ -2995,6 +3016,7 @@ K:$Bb>(B;9$B2h(B($BL\It(B4$B2h(B)
 L:$BC@(B;9$B2h(B($BFyIt(B5$B2h(B)
 [$B;D$j(B 50+++++]
 ----- Buffer: *$B8uJd(B* -----
+@end group
 @end example
 
 $B0J>e$N$H$*$j!"Am2h?t$N>:=g$G%=!<%H$5$l$?8uJd$,<!!9$KI=<($5$l$^$9!#(B
@@ -6678,8 +6700,8 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @node $BCm<a(B ($B%"%N%F!<%7%g%s(B)
 @section $BCm<a(B ($B%"%N%F!<%7%g%s(B)
 
-$BJQ49$N:]$K!"8uJd$KCm<a(B ($B%"%N%F!<%7%g%s(B) $B$,EPO?$5$l$F$$$F$$$l$P!"$=$l$rI=<((B
-$B$9$k$3$H$,$G$-$^$9!#(B
+$BJQ49$N:]$K!"8uJd$KCm<a(B ($B%"%N%F!<%7%g%s(B) $B$,EPO?$5$l$F$$$l$P!"$=$l$rI=<($9(B
+$B$k$3$H$,$G$-$^$9!#(B
 
 @menu
 * $B%"%N%F!<%7%g%s$N4pAC(B::     $BM=HwCN<1(B
@@ -6737,8 +6759,8 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-copy-key
 
-$B%(%3!<%(%j%"$KI=<($5$l$F$$$k%"%N%F!<%7%g%s$O!"(B@kbd{C-w} $B$r%?%$%W$9$k$H(B
-kill ring $B$KJ]B8$5$l$^$9!#(B
+@kbd{C-w} $B$r%?%$%W$9$k$H!"%(%3!<%(%j%"$KI=<($5$l$F$$$k%"%N%F!<%7%g%s(B
+$B$r(B kill ring $B$KJ]B8$7$^$9!#(B
 
 $B%?%$%W$9$k%-!<$rJQ99$9$k$K$O!"JQ?t(B @code{skk-annotation-copy-key} $B$rE,59(B
 $B@_Dj$7$F$/$@$5$$!#(B
@@ -6846,8 +6868,9 @@ L:$B0](B;
 @node $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B
 @subsection $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B
 
-$B8uJd$K%"%N%F!<%7%g%s$NEPO?$,$J$$>l9g!"%"%N%F!<%7%g%s$KBe$($F(B Wikipedia
-(@url{http://ja.wikipedia.org/}) $B$K$h$k2r@b$rI=<($9$k$3$H$,$G$-$^$9!#(B
+$B8uJd$K%"%N%F!<%7%g%s$NEPO?$,$J$$>l9g!"%"%N%F!<%7%g%s$KBe$($F(B
+@uref{http://ja.wikipedia.org/, Wikipedia} $B$K$h$k2r@b$rI=<($9$k$3$H$,$G$-(B
+$B$^$9!#(B
 
 $B"'%b!<%I$G8uJd$rI=<($7$F$$$k$H$-$K(B @key{TAB} $B$r2!$9$H!"(B
 @code{skk-annotation-wikipedia-sources} $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7$F(B
@@ -6857,38 +6880,49 @@ L:$B0](B;
 @example
 B o k u j o u
 
+@group
 ----- Buffer: foo -----
 $B"&$\$/$8$g$&(B@point{}
 ----- Buffer: foo -----
+@end group
 
 @kbd{SPC}
 
+@group
 ----- Buffer: foo -----
 $B"'KR>l(B@point{}
 ----- Buffer: foo -----
+@end group
 
 @kbd{TAB}
 
+@group
 ----------------------------- Echo Area ------------------------------
 $BKR>l!J$\$/$8$g$&!K$H$O!"%&%7!"%&%^$J$I$N2HC\$r;tM\$9$k;\@_!#71FI$_$5$l(B
 $B$F$^$-$P$H8F$P$l$k$3$H$b$"$k!#(B
 ----------------------------- Echo Area ------------------------------
+@end group
 @end example
 
 $B%(%3!<%(%j%"$K2r@b$,I=<($5$l$F$$$k:GCf$K(B @kbd{C-o} $B$r2!$9$H!"(B
 $B4X?t(B @code{browse-url} $B$rMQ$$$F$=$N2r@b$N85$H$J$C$?(B URL $B$r%V%i%&%:$7$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-show-wikipedia-url
-$B%G%U%)%k%H$O(B @code{nil}$B!#(B@code{Non-nil} $B$H$9$k$H!"8+=P$78l$r(B @kbd{SPC} $B$GJQ49$7$?:]$K(B
-$B$=$N8+=P$78l$NCm<a$,B8:_$7$J$$>l9g$K8B$j!"(B Wikipedia ($BF|K\8lHG(B) $B$G$=$N8l(B
-$B$,;2>H$5$l$k$?$a$N(B URL $B$rCm<a$H$7$FI=<($7$^$9!#I=<(Cf$K(B @kbd{C-o} $B$r2!$9(B
-$B$H!"4X?t(B @code{browse-url} $B$rMQ$$$F$=$N(B URL $B$r%V%i%&%:$7$^$9!#(B
+
+$B%G%U%)%k%H$O(B @code{nil}$B!#(B@code{Non-nil} $B$H$9$k$H!"8+=P$78l$r(B @kbd{SPC} $B$G(B
+$BJQ49$7$?:]$K$=$N8+=P$78l$N%"%N%F!<%7%g%s$,B8:_$7$J$$>l9g$K8B$C(B
+$B$F(B Wikipedia ($BF|K\8lHG(B) $B$G$=$N8l$,;2>H$5$l$k$?$a$N(B URL $B$r%"%N%F!<%7%g%s$H(B
+$B$7$FI=<($7$^$9!#I=<(Cf$K(B @kbd{C-o} $B$r2!$9$H!"4X?t(B @code{browse-url} $B$rMQ(B
+$B$$$F$=$N(B URL $B$r%V%i%&%:$7$^$9!#(B
+
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-wikipedia-sources
+
 $B%"%N%F!<%7%g%s$H$7$FI=<($9$k(B Wikimedia $B$N%=!<%9$r;XDj$7$^$9!#(B
 $B%G%U%)%k%H$O(B ja.wikipedia$B!"(Ben.wiktionary$B!"(Bsimple.wikipedia$B!"(Ben.wikipedia$B!"(B
 ja.wiktionary $B$N=g$G$9!#(B
+
 @end defvr
 
 @node $B4A;z%3!<%I4XO"(B
@@ -7632,13 +7666,16 @@ XEmacs $B$N>l9g(B
 
 @node $B%"%$%3%s(B
 @subsubsection $B%"%$%3%s(B
-@vindex skk-show-icon
-@vindex skk-icon
+@cindex @file{skk-icon}
+
+@defvr {$B%f!<%6JQ?t(B} skk-show-icon
 
 $BJQ?t(B @code{skk-show-icon} $B$NCM$r(B @code{non-nil} $B$H@_Dj$9$k$3$H$K$h$j!"%b!<(B
 $B%I%i%$%s$K(B SKK $B$N%"%$%3%s$,I=<($5$l$^$9!#(B
-$B%"%$%3%s$N2hA|%U%!%$%k(B(skk.xpm)$B$O!"JQ?t(B @code{skk-icon} $B$GDj5A$5$l$F$$$^(B
-$B$9!#(B
+$B%"%$%3%s$N2hA|%U%!%$%k(B @file{skk.xpm} $B$X$N%Q%9$O!"JQ?t(B @code{skk-icon} $B$G(B
+$BDj5A$5$l$F$$$^$9!#(B
+
+@end defvr
 
 @node $B%f!<%6%,%$%@%s%94XO"(B
 @section $B%f!<%6%,%$%@%s%94XO"(B
