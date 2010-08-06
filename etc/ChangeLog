@@ -1,3 +1,8 @@
+2010-08-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk (skk-candidate-buffer-background-color): Rename option
+	name from `skk-kouho-window-background'.
+
 2010-07-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: fix doc.

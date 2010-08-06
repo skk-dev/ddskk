@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/06 11:41:30 $
+@set UPDATED $Date: 2010/08/06 20:59:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7462,7 +7462,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $B0lMw$NI=<(0LCV$r%(%3!<%(%j%"$H%P%C%U%!$H$G@Z$jBX$($^$9!#(B
 @end defvr
 
-@defvr {$B%f!<%6JQ?t(B} skk-kouho-window-background
+@defvr {$B%f!<%6JQ?t(B} skk-candidate-buffer-background-color
  *$B8uJd(B*$B%P%C%U%!$NGX7J?'$r;XDj$7$^$9!#(B
 $BGX7J?'$rIU$1$?$/$J$$>l9g$O(B @code{nil} $B$r;XDj$9$k$3$H!J%G%U%)%k%H!K!#(B
 @end defvr

@@ -125,7 +125,7 @@
 ;; (setq skk-show-candidates-always-pop-to-buffer t)
 
 ;; *候補*バッファ の背景色
-;; (setq skk-kouho-window-background "#121212")
+;; (setq skk-candidate-buffer-background-color "grey90")
 
 ;; 変換候補をインラインに
 ;;   nil => 表示しない (デフォルト)

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.295 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.296 2010/08/06 20:59:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/08/06 20:59:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1329,7 +1329,7 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7!""#%b!<%I$KF~$k!#Nc$($P!
   :type 'boolean
   :group 'skk-henkan)
 
-(defcustom skk-kouho-window-background nil
+(defcustom skk-candidate-buffer-background-color nil
   "*\"*$B8uJd(B*$B%P%C%U%!(B\"$B$NGX7J?'!#(B"
   :type 'string
   :group 'skk-henkan)
