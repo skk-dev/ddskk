@@ -1,4 +1,4 @@
-2010-08-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+2010-08-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
 
@@ -646,7 +646,7 @@
 2008-03-23  IRIE Tetsuya  <irie@t.email.ne.jp>
 
 	* skk-macs.el (skk-screen-column): Refine, use `current-column'
-	instead of 'cumpute-motion'.
+	instead of 'compute-motion'.
 
 	* skk.el (skk-inline-show-vertical): Fix.
 

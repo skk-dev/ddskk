@@ -164,6 +164,29 @@ SKK $B$H(B VIPER $B$rJ;MQ$7$F$$$k;~$N%+!<%=%k?'$,3F%b!<%I$N@_Dj?'$K87L)$KDI(
 $B%3%^%s%I(B skk-display-code-for-char-at-point ($B%G%U%)%k%H$G$O(B $ $B$K3dEv$F(B)
 $B$G%"%9%-!<J8;z$N%3!<%II=<(7A<0$,J,$+$j0W$/$J$j$^$7$?!#(B
 
+** $BA*Br%-!<$XE,MQ$9$k%U%'%$%9(B
+
+A S D F J K L $B$K%U%'%$%9$rF3F~$7$^$7$?!#(B
+skk-henkan-show-candidates-keys-face $B$N=i4|CM$O(B 'default $B$G$9!#(B
+
+** [$B;D$j(B 99++] $B$NI=<(2~A1(B
+
+$BJQ?t(B skk-henkan-rest-indicator $B$,(B non-nil $B$G$"$l$P!"(B[$B;D$j(B 99++] $B$r1&4s$;(B
+$B$7$FI=<($7$^$9!#(B
+
+$B$^$?!"(Bskk-henkan-rest-indicator-face $B$G%U%'%$%9$r;XDj$G$-$^$9!#(B
+
+** $B8uJd%P%C%U%!(B
+
+*** $BGX7J?'(B
+
+skk-kouho-window-background $B$G;XDj$G$-$^$9!#=i4|CM$O(B nil $B$G$9!#(B
+
+*** $B9b$5$N<+F0D4@0(B
+
+$B$3$l$^$G$OC1=c$J(B pop-to-buffer $B$G$7$?$,!"99$K(B fit-window-to-buffer $B$9$k$h$&(B
+$BJQ99$7$^$7$?!#(B
+
 ** undo $B$NF0:n2~A1(B
 
 *** skk-undo-kakutei-word-only $B2<$G$N(B undo $B>pJs$NAS<:(B
@@ -250,7 +273,7 @@ skk-init-file $B$O!V(B.el$B!W$J$7$G@_Dj$7$F$$$F<B:]$N%U%!%$%kL>$K$O!V(B.el$
 *** skk-large-jisyo $B$N%(%i!<=hM}(B
     
 skk-large-jisyo $B$KB8:_$7$J$$%U%!%$%k$,@_Dj$5$l$F$$$?>l9g!"6u$N(B
-*SKK-JISYO.L* $B%P%C%U%!$,$G$-$F$7$^$$!"JQ49;~$K(B skk-okuri-*-{min|max} $B$,(B
+ *SKK-JISYO.L* $B%P%C%U%!$,$G$-$F$7$^$$!"JQ49;~$K(B skk-okuri-*-{min|max} $B$,(B
 nil $B$K$J$C$F(B error $B$H$J$C$F$$$?LdBj$,=$@5$5$l$^$7$?!#(B
 
 *** prefix $B$N$_$N>uBV$+$iJd40$7$?8e$N(B C-g

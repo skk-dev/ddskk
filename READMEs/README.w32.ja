@@ -1,14 +1,18 @@
-`MAKE.BAT'の編集とインストール(Windows 95,98/NT) [README.win]
+`MAKEIT.BAT' の編集とインストール [README.w32.ja]
+
+Windows 95, Windows 98, Windows Me, Windows NT, Windows 2000, Windows XP
+の各オペレーティングシステムの上で動く Emacs に DDSKK をインストールする
+方法を解説します。
 
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
-同梱の INSTALL および README も必ずご覧下さい。
+同梱の INSTALL 及び README も必ずご覧下さい。
 
 * Meadow/NTEmacs
 
 以下は Meadow 2.10 を例に解説します。他の環境についても十分参考になる
-よう記述します。Meadow は
+ように記述します。Meadow は
 
      c:/meadow
 
@@ -16,13 +20,18 @@ NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 ** gzip, make, tar などの準備
 
-APEL, SKK のインストールに使うのは gzip, make, tar の各プログラムです。
-これらを入手する手段は例えば
+APEL と SKK のインストールには gzip, make, tar の各プログラムを使います。
+これらを入手する手段は、例えば
 
      http://sourceforge.net/projects/unxutils
 
-などがあります。UnxUtils.zip をダウンロード・展開して、例えば
-c:/UnxUtils に置いたとします。~/.emacs に以下のように設定します。
+などがあります。
+
+UnxUtils.zip をダウンロード・展開して、例えば
+
+     c:/UnxUtils
+
+に置いたと仮定し、 ~/.emacs に以下のように設定します。
 
 (setenv "PATH"
 	(format "%s;%s;%s"
@@ -38,15 +47,15 @@ c:/UnxUtils に置いたとします。~/.emacs に以下のように設定します。
 
 などを実行します。
 
-なお、cygwin を導入している環境では上記設定ではなく、cygwin の設定をし
+なお、cygwin を導入している環境では、上記設定ではなく cygwin の設定をし
 て下さい。
 
 ** APEL のインストール
 
-まず APELをインストールします。Daredevil SKK では、APEL 10.7 以降での動
+まず APEL をインストールします。Daredevil SKK では、APEL 10.7 以降での動
 作が確認されていますが、APEL は Emacs/XEmacs のバージョンアップに合わせ
-て日進月歩なので、できるだけ新しいバージョンをインストールすることをお
-勧めします。
+て日進月歩なので、できるだけ新しいバージョンの APEL をインストールするこ
+とをお勧めします。
 
 *** APEL の取得
 
@@ -76,7 +85,7 @@ APEL を tar.exe などを使って展開します。shell モードで以下のコマンドを
 (setq APEL_DIR "c:/meadow/site-lisp/apel")
 (setq EMU_DIR "c:/meadow/site-lisp/emu")
 
-(これを設定しないと思わぬ場所にインストールされることがあります。)
+これを設定しないと思わぬ場所にインストールされることがあります。
 
 *** APEL の インストール
 
@@ -102,9 +111,9 @@ load-path を設定するようになっています。なのでユーザはなにもする必要が
 SKK ディストリビューションを上記の tar.exe を用いて展開します。
 
      % cd c:/tmp
-     % gunzip ddskk-13.1.tar.gz
-     % tar xvf ddskk-13.1.tar
-     % cd ddskk-13.1
+     % gunzip ddskk-14.1.tar.gz
+     % tar xvf ddskk-14.1.tar
+     % cd ddskk-14.1
 
 **** SKK 辞書の取得
 
@@ -112,7 +121,7 @@ SKK ディストリビューションを上記の tar.exe を用いて展開します。
 
      http://openlab.jp/skk/dic/SKK-JISYO.L.gz
 
-これを gunzip で展開し、ddskk のソースの dic というディレクトリに置き
+これを gunzip で展開して ddskk のソースの dic というディレクトリに置き
 ます。
 
 **** SKK の インストール設定
@@ -137,12 +146,12 @@ shell モードで以下を実行します。
 
 *** makeit.bat を使う場合
 
-Daredevil SKK には make コマンドの代わりに使える bat ファイルを収録し
-ています。makeit.bat というファイルがそれです。
+Daredevil SKK には make コマンドの代わりに使える makeit.bat というファイ
+ルを収録しています。
 
 **** SKK 本体、辞書の取得と展開
 
-適当な方法で展開します。SKK-JISYO.L を本体を展開した dic というサブディ
+適当な方法で展開します。SKK-JISYO.L を、本体を展開した dic というサブディ
 レクトリに置きます。
 
 **** MAKEIT.BAT の編集
@@ -163,23 +172,29 @@ MAKEIT.BAT を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
 
 Windows のコマンドプロンプトで MAKEIT.BAT のあるディレクトリに移動しま
 す。
-     > c:
-     c:\> cd tmp
-     c:\tmp> cd ddskk-13.1
-     C:\tmp\ddskk\main> makeit what-where
+     c:\>cd tmp
+     c:\tmp>cd ddskk-14.1
 
-でインストール先が確認できます。
+`what-where' を引数として MAKEIT.BAT を実行すると
 
-     C:\tmp\ddskk\main> makeit install
+     C:\tmp\ddskk-14.1>makeit what-where
 
-によりインストールが実行されます。
+インストール先が確認できます。
+
+`install' を引数として MAKEIT.BAT を実行すると
+
+     C:\tmp\ddskk-14.1>makeit install
+
+バイトコンパイルとインストールが実行されます。
 
 なお、DEFAULT_MAKE_ARG に install と記述しておくことで、次回からは
 MAKEIT.BAT をダブルクリックするだけでインストールが可能となります。
 
-適宜指定が終った makeit.bat は下のいずれかのファイルとしてコピーしてお
-くとそちらを優先して実行されます。(アップグレードの際に makeit.bat を
-再編集する必要がなくなります) 優先順に:
+適宜指定が終った makeit.bat は、下記のいずれかのファイルとしてコピーしてお
+く次回はそちらを優先して実行されます。(アップグレードの際に makeit.bat を
+再編集する必要がなくなります)
+
+優先順に:
 
   1-1. %HOME%\.elispmk.skk.bat
   1-2. %HOME%\elisp\elispmk.skk.bat
@@ -269,6 +284,10 @@ Windows 上で動作する SKK ライクの IME があります。
 が使用できます。
 
      http://www.tatari-sakamoto.jp/skkime.jis.html
+
+
+
+Windows は米国 Microsoft Corporation の米国およびその他の国における登録商標です。
 
 
 Local variables:
