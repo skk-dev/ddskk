@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/07 05:13:14 $
+@set UPDATED $Date: 2010/08/08 09:37:30 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -670,14 +670,14 @@ skkserv [-p port] [jisyo]
 
 @defvr {ユーザ変数} skk-server-prog
 
-辞書サーバプログラム(フルパスで指定する)。
+辞書サーバプログラムをフルパスで指定する。
 @end defvr
 
 @defvr {ユーザ変数} skk-server-jisyo
 
-辞書サーバに渡す辞書(フルパスで指定する)。しばしば辞書サーバでは、辞書の指定は
-独自の方法で行ない、emacs からの指定は無視されます。
-詳しくは各辞書サーバの説明書を読んで下さい。
+辞書サーバに渡す辞書をフルパスで指定する。しばしば辞書サーバでは、辞書の
+指定は独自の方法で行ない、emacs からの指定は無視されます。詳しくは各辞書
+サーバの説明書を読んで下さい。
 @end defvr
 
 @noindent
@@ -8017,7 +8017,7 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 
 この設定で、かな入力サポートの種類を切換えます。
 
-@table @code
+@table @samp
 @item 106-jis
 
 日本語 106 キーボード (旧 JIS 配列) でのかな入力に対応します。
@@ -8066,9 +8066,7 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 かな入力方式とローマ字入力方式とを切り換えます。
 @end table
 
-なお、親指シフト方式については以下が参考になります。
-
-@url{http://nicola.sunicom.co.jp/}
+なお、親指シフト方式については @uref{http://nicola.sunicom.co.jp/, NICOLA 日本語入力コンソーシアム} が参考になります。
 
 @node SKKに関する情報
 @chapter SKKに関する情報
