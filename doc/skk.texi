@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/09 11:04:05 $
+@set UPDATED $Date: 2010/08/10 12:08:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1994,7 +1994,7 @@ XEmacs $B$N3HD%5!G=$rMxMQ$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 $B%$%s%8%1!<%?$N%+%i!<2=$d2hA|I=<(!"%D!<%k%F%#%C%WMxMQ$J$I!#(B
 @end table
 
-$B$J$*!"(BElib$B$h$j(B @file{queue-m.el} $B%U%!%$%k$r<}O?$7$F$$$^$9!#(B
+$B$J$*!"(BElib $B$h$j(B @file{queue-m.el} $B%U%!%$%k$r<}O?$7$F$$$^$9!#(B
 @cindex @file{queue-m.el}
 
 @node $B%f!<%6%*%W%7%g%s$N@_DjJ}K!(B
@@ -3553,8 +3553,8 @@ is /$B%$%s%/%j%a%s%?%k!&%5!<%A(B/
 
 $BJQ49$,=*$o$k$H(B SKK abbrev mode $B$rH4$1$F$+$J%b!<%I$KLa$j$^$9!#(B
 
-SKK abbve mode $B$G;H$o$l$k<-=q$O!"IaDL$NJQ49$HF1$8$G$9!#%(%s%H%j$,%"%9%-!<J8;z$G(B
-$B=q$+$l$F$$$k$@$1$G!"FC<l$JE@$O$"$j$^$;$s!#(B
+SKK abbrve mode $B$G;H$o$l$k<-=q$O!"IaDL$NJQ49$HF1$8$G$9!#%(%s%H%j$,%"%9%-!<(B
+$BJ8;z$G=q$+$l$F$$$k$@$1$G!"FC<l$JE@$O$"$j$^$;$s!#(B
 
 $BF~NO$7$?%"%9%-!<J8;z$r$=$N$^$^A43Q%"%k%U%!%Y%C%H$KJQ49$9$kJ}K!$K$D$$$F$O!"(B
 @w{@ref{$BA41QJ8;z$NF~NO(B}} $B$r;2>H$7$F$/$@$5$$!#(B
@@ -4522,7 +4522,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"'EE5$20(B
+$B"'EE5$20(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -4530,14 +4530,12 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$BEE5$(B
+$BEE5$(B@point{}
 ------ Buffer: foo ------
 @end group
 @end example
 
-@table @code
-@item skk-delete-implies-kakutei
-@vindex skk-delete-implies-kakutei
+@defvr {$B%f!<%6JQ?t(B} skk-delete-implies-kakutei
 
 $B$3$NJQ?t$NCM$r(B @code{nil} $B$K@_Dj$9$k$H!""'%b!<%I$G(B @key{BS} $B$r2!$7$?;~(B
 $B$K0l$DA0$N8uJd$rI=<($7$^$9!#Nc$($P!"(B
@@ -4554,7 +4552,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"&$G$s$-(B
+$B"&$G$s$-(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -4562,7 +4560,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"'EE5$(B
+$B"'EE5$(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -4570,7 +4568,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"'EA5-(B
+$B"'EA5-(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -4578,7 +4576,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"'EE5$(B
+$B"'EE5$(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -4586,11 +4584,17 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"&$G$s$-(B
+$B"&$G$s$-(B@point{}
 ------ Buffer: foo ------
 @end group
 @end example
-@end table
+@end defvr
+
+$BJQ?t(B @code{skk-delete-implies-kakutei} $B$,%7%s%\%k(B @code{dont-update} $B$G(B
+$B$"$l$P!"(B@code{non-nil} $B;~$HF1$8F0:n$N$&$($G8D?M<-=q$r99?7$7$^$;$s!#(B
+
+$B$J$*!"JQ?t(B @code{skk-delete-implies-kakutei} $B$NCM$K$+$+$o$i$:!"(B*$B8uJd(B*$B%P%C%U%!(B
+$B$rI=<($7$F$$$k>l9g$O0l$DA0$N8uJdI=<($KLa$kF0:n$H$J$j$^$9!#(B
 
 @node $BAw$j$"$jJQ49Cf$N(BC-g
 @subsection $BAw$j$"$jJQ49Cf$N(B@kbd{C-g}
@@ -4604,7 +4608,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"'5c$/(B
+$B"'5c$/(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -4612,15 +4616,15 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"&$J$/(B
+$B"&$J$/(B@point{}
 ------ Buffer: foo ------
 @end group
 @end example
 
 @defvr {$B%f!<%6JQ?t(B} skk-delete-okuri-when-quit
 
-$B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H!"Aw$j$"$j$NJQ49Cf$K(B @kbd{C-g}
-$B$rF~NO$7$?$H$-$N5sF0$,JQ2=$7$^$9!#"&%b!<%I$KF~$k$N$OF1$8$G$9$,!"F1;~$K(B
+$B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H!"Aw$j$"$j$NJQ49Cf$K(B @kbd{C-g} $B$r(B
+$BF~NO$7$?$H$-$N5sF0$,JQ2=$7$^$9!#"&%b!<%I$KF~$k$N$OF1$8$G$9$,!"F1;~$K(B
 $BAw$j2>L>$r>C$7$^$9!#Aw$j2>L>$NF~NO4V0c$$$r=$@5$9$k$N$K$OJXMx$G$9!#(B
 $BNc$($P!"0J2<$N$h$&$K$J$j$^$9!#(B
 @end defvr
@@ -4630,7 +4634,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"'5c$/(B
+$B"'5c$/(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -4638,7 +4642,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 
 @group
 ------ Buffer: foo ------
-$B"&$J(B
+$B"&$J(B@point{}
 ------ Buffer: foo ------
 @end group
 @end example
@@ -4840,9 +4844,9 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 @findex skk-backward-and-set-henkan-point
 @vindex skk-allow-spaces-newlines-and-tabs
 
-$B"&%b!<%I$KF~$jK:$l$?>l9g$K!"<jF0$G"&%^!<%/$rIU$1$kJ}K!$K$D$$$F$O!"A0=R$7$^$7$?!#(B
-@footnote{@w{@xref{$B8e$+$i"&%b!<%I$KF~$kJ}K!(B}}} $B$3$3$G=R$Y$kJ}K!$G$O!"(B
-$B$5$+$N$\$C$F"&%^!<%/$rIU$1$k0LCV$r<+F0E*$KA*$S!"$7$+$b%+!<%=%k$OF0$-$^$;$s!#(B
+$B"&%b!<%I$KF~$jK:$l$?>l9g$K!"<jF0$G"&%^!<%/$rIU$1$kJ}K!$K$D$$$F$O!"A0=R$7$^$7$?(B
+@footnote{@w{@xref{$B8e$+$i"&%b!<%I$KF~$kJ}K!(B}}}$B!#(B
+$B$3$3$G=R$Y$kJ}K!$G$O!"$5$+$N$\$C$F"&%^!<%/$rIU$1$k0LCV$r<+F0E*$KA*$S!"$7$+$b%+!<%=%k$OF0$-$^$;$s!#(B
 
 @kindex M-Q
 @kbd{M-Q}
@@ -5223,16 +5227,12 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-kakutei-jisyo
 
-$B3NDjJQ49MQ$N<-=q%U%!%$%k$r;XDj$7$^$9!#(B
+$B3NDjJQ49MQ$N<-=q%U%!%$%k$r;XDj$7$^$9(B@footnote{$B3NDjJQ49MQ<-=q$N8+=P$78l$NG[Ns$K$D$$$F$O!"%5%$%:$,Bg$-$$>l9g$O!"6&M-<-=q$HF1MM!"%=!<%H$7$FFsJ,8!:w$r9T$$!"%5%$%:$,>.$5$1$l$PE,Ev$JG[CV$GD>@~E*8!:w$r9T$&$3$H$r$*4+$a$7$^$9!#(B(@w{@ref{$B<-=q8!:w$N$?$a$N4X?t(B}.}$B5Z$S(B @w{@ref{$B%(%s%H%j$NG[Ns(B}}) $B$r;2>H$7$F$/$@$5$$!#(B}$B!#(B
 $B$3$N<-=q$O!"I8=`$NG[I[%Q%C%1!<%8$K$O4^$^$l$F$$$J$$$N$G!";HMQ$9$k$N$G$"$l(B
 $B$P%f!<%6B&$GMQ0U$9$kI,MW$,$"$j$^$9!#(B(@w{@pxref{$B<-=q$N=q<0(B}})
 
 @code{nil} $B$G$"$l$P!"3NDjJQ49$O$5$l$^$;$s!#(B
 
-@footnote{$B3NDjJQ49MQ<-=q$N8+=P$78l$NG[Ns$K$D$$$F$O!"%5%$%:$,Bg$-$$>l9g$O!"(B
-$B6&M-<-=q$HF1MM!"%=!<%H$7$FFsJ,8!:w$r9T$$!"%5%$%:$,>.$5$1$l$PE,Ev$JG[CV$G(B
-$BD>@~E*8!:w$r9T$&$3$H$r$*4+$a$7$^$9!#(B(@w{@ref{$B<-=q8!:w$N$?$a$N4X?t(B}.}
-$B5Z$S(B @w{@ref{$B%(%s%H%j$NG[Ns(B}}) $B$r;2>H$7$F$/$@$5$$!#(B}
 @end defvr
 
 @node $BAw$j2>L>4XO"(B
@@ -5370,13 +5370,10 @@ SKK $B$NAw$j2>L>$N=hM}$O!"9%$_$,J,$+$l$k$H$3$m$G$9!#?'!9$J(B
 @node $B$I$N$h$&$KJQ49$5$l$k$+(B
 @subsubsection $B$I$N$h$&$KJQ49$5$l$k$+(B
 
-@table @code
-@item skk-auto-okuri-process
-@vindex skk-auto-okuri-process
-
+@defvr {$B%f!<%6JQ?t(B} skk-auto-okuri-process
 $B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H!"Aw$j2>L>$N<+F0=hM}$,9T$o(B
 $B$l$^$9!#(B
-@end table
+@end defvr
 
 $BNc$($P!"(B@kbd{T a t i a g e r u @key{SPC}} $B$HF~NO$7$?>l9g$r9M$($^$9!#(B
 $B$3$N$H$-!"8!:w$5$l$k8+=P$78l$NJQ2=$rDI$&$H!"(B
@@ -6521,15 +6518,12 @@ New ~/.skk-jisyo will be 11bytes smaller.  Save anyway?(yes or no)
 @footnote{@code{skk-jisyo} $B$,4{$K2u$l$F$$$F$b!"JQ?t(B @code{skk-backup-jisyo} $B$,(B
 $B;X$7<($9%U%!%$%k$K$=$l0JA0$N8D?M<-=q$,;D$C$F$$$k2DG=@-$,$"$j$^$9!#(B}$B!#(B
 
-@table @code
-@item skk-compare-jisyo-size-when-saving
-@vindex skk-compare-jisyo-size-when-saving
-
+@defvr {$B%f!<%6JQ?t(B} skk-compare-jisyo-size-when-saving
 $B$3$NJQ?t$NCM$r(B @code{nil} $B$K@_Dj$9$k$H!"J]B8A0$N8D?M<-=q$H$N%5%$%:Hf3S(B
 $B$r9T$$$^$;$s!#(B
+@end defvr
 
-@item skk-jisyo-save-count
-@vindex skk-jisyo-save-count
+@defvr {$B%f!<%6JQ?t(B} skk-jisyo-save-count
 
 $B$3$NJQ?t$G;XDj$5$l$?2s?t!"8D?M<-=q$N99?7$r9T$C$?>l9g$K8D?M<-=q$N<+F0J](B
 $BB8$,9T$o$l$^$9!#4{DjCM$O(B 50 $B$G$9!#$^$?!"$3$NCM$r(B @code{nil} $B$K$9$k$H!"(B
@@ -6540,7 +6534,7 @@ New ~/.skk-jisyo will be 11bytes smaller.  Save anyway?(yes or no)
 @footnote{$B$3$l$O!"8D?M<-=q$N:G>.%]%$%s%H$K!">o$K:G8e$KJQ49$r9T$C$?%(%s(B
 $B%H%j$r0\F0$5$;$k$?$a$K!"%(%s%H%j?t!"8uJd?t$,A4$/A}$($F$$$J$/$H$b!"3NDj$K(B
 $B$h$j8D?M<-=q$,99?7$5$l$F$$$k$+$i$G$9!#(B}$B!#(B
-@end table
+@end defvr
 
 @node $BJQ495Z$S8D?M<-=q$K4X$9$kE}7W(B
 @subsection $BJQ495Z$S8D?M<-=q$K4X$9$kE}7W(B
@@ -6664,12 +6658,9 @@ abbreviation $B$NE83+$r9T$&$h$&$K@_Dj$9$k$3$H$,$G$-$k$N$G$9$,!"2>$K<-=q(B
 @node $B<-=q%P%C%U%!$NJ8;z%3!<%I$N@_Dj(B
 @subsection $B<-=q%P%C%U%!$NJ8;z%3!<%I$N@_Dj(B
 
-@table @code
-@item skk-jisyo-code
-@vindex skk-jisyo-code
+@defvr {$B%f!<%6JQ?t(B} skk-jisyo-code
 
 $B$3$NJQ?t$NCM$O<-=q%U%!%$%k$N4A;z%3!<%I$r7hDj$7$^$9!#(B
-
 $B$3$NJQ?t$O0J2<$N$h$&$JCM$r<h$j$^$9(B
 @footnote{Mule 2.3 $B$G$O(B @w{@code{*euc-japan*}}, @w{@code{*sjis*}},
 @w{@code{*junet*}} $B$J$I$N%7%s%\%k$r;XDj$9$k$3$H$,$G$-$^$9!#(B
@@ -6677,15 +6668,15 @@ Emacs 20 $B$G$O!"(B@code{euc-jp}, @code{shift_jis}, @code{junet} $B$J$I$N%7%s
 $B%\%k$r;XDj$9$k$3$H$,$G$-$^$9!#(B}$B!#(B
 
 @itemize @bullet
-@item @w{``euc''}, @w{``ujis''}, @w{``sjis''}, @w{``jis''} $B$J$I$NJ8;zNs(B
+@item @code{euc}, @code{ujis}, @code{sjis}, @code{jis} $B$J$I$NJ8;zNs(B
 @item Emacs $B$K$h$C$F(B coding system $B$HG'$a$i$l$k%7%s%\%k(B
 @item Emacs $B$K$h$C$F(B coding system $B$r<($9$N$K;H$o$l$k%7%s%\%k(B
-@item nil
+@item @code{nil}
 @end itemize
 
 $B4{DjCM$O(B @code{nil} $B$G$9!#$3$N>l9g!"(BDDSKK $BB&$G<-=q$N4A;z%3!<%I$r@_Dj$9$k(B
 $B$3$H$O$;$:!"(BEmacs $B$KG$$;$^$9!#(B
-@end table
+@end defvr
 
 @node $B<-=q%P%C%U%!$N(Bbuffer-file-name
 @subsection $B<-=q%P%C%U%!$N(B@code{buffer-file-name}
