@@ -1,3 +1,9 @@
+2010-08-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-show-japanese-menu): Fix docstring.
+
+	* doc/skk.texi: update.
+
 2010-08-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: From @code{} to @command{}, @option{} or @env{}
