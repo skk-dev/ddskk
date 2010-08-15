@@ -1,3 +1,7 @@
+2010-08-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: update.
+
 2010-08-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-show-japanese-menu): Fix docstring.

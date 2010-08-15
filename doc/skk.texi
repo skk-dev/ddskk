@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/14 07:17:06 $
+@set UPDATED $Date: 2010/08/15 10:45:10 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3167,7 +3167,7 @@ L:$BC@(B;9$B2h(B($BFyIt(B5$B2h(B)
 $B"&$o(B
 @end example
 
-$B$rJQ49$9$k$H!"NX!"4D!"OC!"OB!"1)!"!D$HBgNL$K8uJd$,=P$F$-$^$9!#(B
+$B$rJQ49$9$k$H!"NX!"4D!"OC!"OB!"1)!"(B@dots{}$B$HBgNL$K8uJd$,=P$F$-$^$9!#(B
 $B$3$NCf$+$i(B ``$BOB(B'' $B$rA*$S$?$$$H$7$^$9!#IaDL$KJQ49$7$F$$$F$b(B
 $B$=$N$&$A(B ``$BOB(B'' $B$,I=<($5$l$^$9$,!"$3$l$r(B @kbd{W a ; h e i w a} $B$HF~NO$7(B
 $BJQ49$9$k$H!"!V"'$X$$$o!W$N8uJd$G$"$k!VJ?OB!W$K4^$^$l$k(B
@@ -6398,10 +6398,10 @@ DDSKK $B$G$O!"J#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#J#?t$N<-=q$,F1;~$K(B
 $B$r9T$&$?$a$G$9!#(B
 @footnote{$B%=!<%H$9$k:]$K$O!"8+=P$78l$r(B unsigned-char $B$H8+$J$7$F$$$^$9!#(B
 $B$3$N=g=x$O(B Emacs $B$,(B $B4X?t(B @code{string<} $B$GJ8;zNs$rHf3S$9$k$H$-$N=g=x$G$"(B
-$B$j!"(BUNIX $B$N(B @code{sort} $B%3%^%s%I$G$NI8=`$N=g=x$H$O0[$J$j$^$9!#(B
+$B$j!"(BUNIX $B$N(B @command{sort} $B%3%^%s%I$G$NI8=`$N=g=x$H$O0[$J$j$^$9!#(B
 Emacs $B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$9(B
 $B$k$3$H$,$G$-$^$9!#(BEmacs $B$N%3%^%s%I(B @code{sort-columns} $B$OFbItE*$K(B UNIX $B%3(B
-$B%^%s%I$N(B @code{sort} $B$r;H$C$F$$$k$N$G!"<-=q$N%=!<%H$K$O;H$($^$;$s!#(B}
+$B%^%s%I$N(B @command{sort} $B$r;H$C$F$$$k$N$G!"<-=q$N%=!<%H$K$O;H$($^$;$s!#(B}
 
 $B0lJ}8D?M<-=q$O!"0lHV:G8e$KJQ49$5$l$?8l$,:G$b<jA0$KCV$+$l$F$$$^$9!#(B
 $B$D$^$j!"Aw$j$J$7!"$"$j!"$=$l$>$l$N%(%s%H%j$,(B
@@ -6613,7 +6613,7 @@ Jisyo file: (default: /your/home/.skk-jisyo) ~/
 @kbd{. s k k - j i s y o @key{RET}}
 
 -------------- Echo Area --------------
-Counting jisyo candidates... 100% done
+Counting jisyo candidates@dots{} 100% done
 -------------- Echo Area --------------
 @end group
 
@@ -7177,7 +7177,7 @@ SKK abbrev $B%b!<%I$,3HD%$5$l$F!"(B@command{look} $B%3%^%s%I$r;HMQ$7$?Jd40$,M
 
 @end example
 
-$B$HJd40$7$F$/$l$^$9!#DL>o$NJd40$HF1MM$K!"(B@kbd{.} $B$G<!$NJd408uJd!"(B@kbd{,} $B$G(B
+$B$HJd40$7$F$/$l$^$9!#DL>o$NJd40$HF1MM$K(B @kbd{.} $B$G<!$NJd408uJd$K!"(B@kbd{,} $B$G(B
 $B$R$H$DA0$NJd408uJd$K0\F0$G$-$^$9!#(B
 
 SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F$$$^$9!#(B
@@ -7187,7 +7187,7 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
 @subsubsection $B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$9(B
 @vindex skk-search-excluding-word-pattern-function
 
-$B8+=P$78l$K%"%9%?%j%9%/(B (*) $B$rF~$l$F!"(B@key{SPC} $B$r2!$9$H1QC18l$r$"$$$^$$(B
+$B8+=P$78l$K%"%9%?%j%9%/(B @samp{*} $B$rF~$l$F(B @key{SPC} $B$r2!$9$H1QC18l$r$"$$$^$$(B
 $B$K$7$FJQ49$G$-$^$9!#(B
 
 @example
@@ -7208,9 +7208,9 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
 
 @end example
 
-$B3NDj$9$k$H!"(B@samp{abstr*} $B$r8+=P$78l!"(B@samp{abstract} $B$r8uJd$H$9$k(B
+$B3NDj$9$k$H!"(B@samp{abstr*} $B$r8+=P$78l$H!"(B@samp{abstract} $B$r8uJd$H$9$k(B
 $B%(%s%H%j$,8D?M<-=q$KDI2C$5$l$^$9!#$3$N$h$&$J%(%s%H%j$rDI2C$7$?$/$J$$>l9g!"(B
-$B%f!<%6JQ?t!"(B@code{skk-search-excluding-word-pattern-function} $B$rE,@Z$K(B
+$B%f!<%6JQ?t(B @code{skk-search-excluding-word-pattern-function} $B$rE,@Z$K(B
 $B@_Dj$7$^$9!#(B
 
 $BNc$($P<!$N$h$&$J@_Dj$G$9!#(B
@@ -7926,7 +7926,7 @@ DDSKK $B$O!"(BSKK $B5lMh$N%m!<%^;z<0$+$JF~NO(B ($B71Na<0!"%X%\%s<0(B) $BJ
 AZIK ($B%(%$%:%#%C%/(B) $B$O(B QWERTY $BG[Ns$r%Y!<%9$H$7$?3HD%%m!<%^;zF~NO$G$9!#(B
 $B0lHL$N%m!<%^;zF~NO$,$=$N$^$^;H$($k>e$G$N3HD%$G$"$k$3$H$,FCD'$G$9!#(B
 
-@url{http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm}
+@uref{http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm, $B3HD%%m!<%^;zF~NO!X#A#Z#I#K!Y!&!X#A#C#T!Y$G2wE,$JF|K\8lF~NO$r!*(B}
 
 @defvr {$B%f!<%6JQ?t(B} skk-use-azik
 
@@ -7948,7 +7948,7 @@ AZIK ($B%(%$%:%#%C%/(B) $B$O(B QWERTY $BG[Ns$r%Y!<%9$H$7$?3HD%%m!<%^;zF~NO$
 ACT $B$O(B AZIK $B$N9M$(J}$r(B Dvorak $BG[Ns$KE,MQ$7!"(BDvorak $BG[Ns$G$+$J$r2wE,$K%?(B
 $B%$%W$G$-$k$h$&$K9M0F$5$l$?J}<0$G$9!#(B
 
-@url{http://www1.vecceed.ne.jp/~bemu/act/act_index.html}
+@uref{http://www1.vecceed.ne.jp/~bemu/act/act_index.html, ACT (AZIK on Dvorak)}
 
 @defvr {$B%f!<%6JQ?t(B} skk-use-act
 
