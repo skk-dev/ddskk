@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/17 15:31:04 $
+@set UPDATED $Date: 2010/08/17 15:40:13 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1802,6 +1802,13 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 SKK $B$N3X=,5!G=$N$R$H$D$G!"%f!<%6$N2a5n$NF~NO$+$iJQ498uJd$rM=B,$7$^$9!#(B
 
 @url{http://kenichi.kurihara.googlepages.com/bskk.html}
+
+@item skk-cdb.el
+@cindex @file{skk-cdb.el}
+
+CDB $B7A<0<-=q$r<-=q%5!<%P$J$7$KD>@\MxMQ$G$-$k%W%m%0%i%`!#(B
+
+@xref{$B:G$b4pK\E*$J@_Dj(B}.
 
 @item skk-comp.el
 @cindex @file{skk-comp.el}
