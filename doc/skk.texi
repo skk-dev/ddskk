@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/17 15:40:13 $
+@set UPDATED $Date: 2010/08/17 21:51:23 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -345,11 +345,9 @@ APEL $B$N%$%s%9%H!<%k$,40N;$7$?$i!"(B DDSKK $B$r%$%s%9%H!<%k$7$^$7$g$&!#$3$3$
 cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @command{make} $B%3%^%s%I$,;HMQ$G$-$k(B
 $B$N$G!"$3$3$N@bL@$,$=$N$^$^Ev$F$O$^$j$^$9!#(B
 
-$B$^$?!"(BMac OS $B4D6-$NJ}$O0J2<$N;qNA$r;2>H$7$F$/$@$5$$!#(B
+$B$^$?!"(BMac OS X $B4D6-$NJ}$O0J2<$N;qNA$r;2>H$7$F$/$@$5$$!#(B
 
 @url{http://openlab.jp/skk/skk/main/READMEs/README.MacOSX.ja}
-
-@url{http://openlab.jp/skk/skk/main/READMEs/README.Mac.ja}
 }$B!#(B
 
 $B$^$:!"(B@command{tar} $B%3%^%s%I$H(B @command{gzip} $B%3%^%s%I$r;HMQ$7$F!"(B DDSKK $B$r=q8K(B
@@ -7139,7 +7137,7 @@ Lookup $B$,%$%s%9%H!<%k$5$l$F$$$k$K$b4X$o$i$:!"$&$^$/(B @file{skk-lookup.el} 
 DDSKK $B$,MQ0U$7$F$$$k8!:w%W%m%0%i%`$NCf$G:G$bCY$$$?$a(B@footnote{6 $BG\B.(B
 CD-ROM $B%I%i%$%V$G$O%9%H%l%9$r46$8$kDx!"CY$/$"$j$^$;$s$G$7$?!#%m!<%+%k%^(B
 $B%7%s$N%O!<%I%G%#%9%/$K%3%T!<$7$FMxMQ$9$k$H!"B.EYE*$K$O<-=q%5!<%P$HB=?'$"$j$^(B
-$B$;$s!#$A$J$_$K9-<-1q$NBh;MHG$r(B epwutil $B$G(B @code{squeeze} $B$9$k$H<-=q%G!<(B
+$B$;$s!#$A$J$_$K9-<-1q$NBh;MHG$r(B epwutil $B$G(B @command{squeeze} $B$9$k$H<-=q%G!<(B
 $B%?$N%5%$%:$O(B 45MB $B<e$K$J$j$^$9!#(B}$B!"(B@code{skk-search-server} $B$N8e$m$K;}$C(B
 $B$F$-$F<-=q%5!<%P$N8!:w$h$j8e$K$7$^$9!#(B
 
@@ -8474,10 +8472,9 @@ SKK $B$,(B Simple Kana to Kanji conversion program $B$NN,$G$"$kDL$j!"$+$J$r4A
 $B$"$j$^$9(B (@command{look} $B$d(B @command{ispell} $B$J$I(B)$B!#$3$l$i$,$*;H$$$N(B OS $B$K$b(B
 $B$"$l$P3:Ev$N3HD%5!G=$b4pK\E*$K$O;H$($k$G$7$g$&!#(B
 
-Mac $BHG(B Emacs $B$KFC2=$7$?>pJs$K$D$$$F$O!"0J2<$N%U%!%$%k$r;2>H$7$F$/$@$5$$!#(B
+Mac OS X $BHG(B Emacs $B$KFC2=$7$?>pJs$K$D$$$F$O!"0J2<$N%U%!%$%k$r;2>H$7$F$/$@$5$$!#(B
 @display
 @url{http://openlab.jp/skk/skk/main/READMEs/README.MacOSX.ja}
-@url{http://openlab.jp/skk/skk/main/READMEs/README.Mac.ja}
 @end display
 
 @node Q1-5 APEL $B$C$F2?(B? $BI,MW$G$9$+(B?
@@ -9226,7 +9223,7 @@ Lookup $B$K$D$$$F$O!"(B
 @noindent
 $B$r$4;2>H2<$5$$!#CfEg$O!"%m!<%+%k%^%7%s$N%O!<%I%G%#%9%/$K9-<-1q$NBh;MHG(B
 $B$r%3%T!<$7$FMxMQ$7$F$$$^$9$,!"B.EYE*$K$O==J,K~B-$7$F$$$^$9!#$A$J$_$K(B
-epwutil $B$G(B @code{squeeze} $B$7$?<-=q%G!<%?$N%5%$%:$O(B 45MB $B<e$G$9!#(B
+epwutil $B$G(B @command{squeeze} $B$7$?<-=q%G!<%?$N%5%$%:$O(B 45MB $B<e$G$9!#(B
 
 @node Q5-4 $BB>$N(B FEP $B$r;HMQCf$K$b(B SHIFT $B$r2!$7$F$7$^$$$^$9!#(B
 @unnumberedsubsec Q5-4 $BB>$N(B FEP $B$r;HMQCf$K$b(B @key{SHIFT} $B$r2!$7$F$7$^$$$^$9!#(B

@@ -4,13 +4,9 @@ For system-dependent configurations, see SKK-CFG in the top source
 directory.  It describes installation howto as well as
 system-dependent setting examples.
 
-If you are a user of Emacs on Apple MacOS (X) or Microsoft Windows,
+If you are a user of Emacs on Apple Mac OS X or Microsoft Windows,
 also see one of the following files, which may be found in this
 directory.
-
-** README.Mac.ja
-
-Describes how to install SKK for Emacs on Mac OS 8.x or 9.x.
 
 ** README.MacOSX.ja
 

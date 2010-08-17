@@ -1,3 +1,7 @@
+2010-08-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Remove remove README.Mac.ja related.
+
 2010-08-17  Yusuke Shinyama  <yusuke at cs . nyu . edu>
 
 	* cdb.el, skk-cdb.el: New files.
