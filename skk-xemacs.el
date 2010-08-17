@@ -90,6 +90,8 @@
     ["About Daredevil SKK..." skk-version t]
     ["Visit Daredevil SKK Web Site" skk-xemacs-visit-openlab t]))
 
+(defvar skk-tooltip-default-font-pixel-size 16)
+
 ;; Functions.
 
 (defun skk-xemacs-modeline-menu ()
@@ -243,7 +245,8 @@
 	(max-lines
 	 ;; 画面の半分の高さを基準に最大高を決める
 	 (- (/ (/ (display-pixel-height) 2)
-	       (cdr (assq 'PIXEL_SIZE (font-properties (face-font 'default)))))
+	       (or (cdr (assq 'PIXEL_SIZE (font-properties (face-font 'default))))
+		   skk-tooltip-default-font-pixel-size))
 	    2))
 	(columns 0)
 	(current-column nil))
