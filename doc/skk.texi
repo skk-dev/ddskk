@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/15 10:45:10 $
+@set UPDATED $Date: 2010/08/17 09:50:58 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -535,7 +535,8 @@ DDSKK 14 $B$G$O!"I8=`E*$J%$%s%9%H!<%k$N>l9g$OFCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F
 
 @node $B:G$b4pK\E*$J@_Dj(B
 @section $B:G$b4pK\E*$J@_Dj(B
-@cindex @file{skk-obsolete.el}
+@vindex skk-large-jisyo
+@vindex skk-cdb-large-jisyo
 
 $B<+F0@_Dj$K$h$i$:!"<jF0$G@_Dj$9$k>l9g$O!"0J2<$N$h$&$K(B @file{~/.emacs} $B$K=q(B
 $B$-$^$9(B@footnote{$B%5%s%W%k$H$7$F!"G[I[J*$K(B @file{etc/dot.emacs}$B!"(B
@@ -571,6 +572,19 @@ DDSKK 14 $B$G$O!"I8=`E*$J%$%s%9%H!<%k$N>l9g$OFCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F
 $B$3$l$K$h$j%a%b%j$,05Gw$5$l$9$.$k>l9g$O!">e5-$N(B @file{SKK-JISYO.L} $B$r(B
 @file{SKK-JISYO.M}$B!"(B@file{SKK-JISYO.ML} $BKt$O(B @file{SKK-JISYO.S} $B$KJQ99(B
 $B$7$^$9!#(B
+
+$B$J$*!"(BDDSKK 14 $B$h$j(B CDB $B<-=q7A<0$r%5!<%P$r7PM3$;$:D>@\MxMQ$G$-$k$h$&$K$J(B
+$B$j$^$7$?!#(BCDB $B7A<0<-=q%U%!%$%k$rMxMQ$9$k>l9g$O0J2<$N$h$&$K;XDj$7$F$/$@$5(B
+$B$$!#(B
+
+@lisp
+(setq skk-cdb-large-jisyo "/your/path/to/SKK-JISYO.L.cdb")
+@end lisp
+
+@noindent
+@code{skk-large-jisyo} $B$H(B @code{skk-cdb-large-jisyo} $B$r6&$K;XDj$7$?>l9g(B
+$B$K$O!"I8=`$G$O(B CDB $B<-=q$NJ}$,@h$K8!:w$5$l$^$9!#$3$l$K4X$7$F$O(B
+@ref{$B<-=q8!:w$N@_Dj$N6qBNNc(B} $B$b;2>H$7$F$/$@$5$$!#(B
 
 @node $B%$%s%/%j%a%s%H8!:w$N@_Dj(B
 @section $B%$%s%/%j%a%s%H8!:w$N@_Dj(B
@@ -610,6 +624,7 @@ DDSKK 14 $B$G$O!"I8=`E*$J%$%s%9%H!<%k$N>l9g$OFCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F
 
 @node $B8E$$@_Dj$N%A%'%C%/(B
 @section $B8E$$@_Dj$N%A%'%C%/(B
+@cindex @file{skk-obsolete.el}
 
 @table @code
 @item skk-obsolete-check-all-files
@@ -6014,6 +6029,7 @@ DDSKK $B$G$O!"J#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#J#?t$N<-=q$,F1;~$K(B
  (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
  (skk-search-jisyo-file skk-jisyo 0 t)
  (skk-okuri-search)
+ (skk-search-cdb-jisyo skk-cdb-large-jisyo)
  (skk-search-jisyo-file skk-large-jisyo 10000)
  (skk-search-server skk-aux-large-jisyo 10000))
 @end group
@@ -6030,7 +6046,8 @@ DDSKK $B$G$O!"J#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#J#?t$N<-=q$,F1;~$K(B
 $B<!$KAw$j2>L>$N<+F0=hM}$r9T$$!"(B(@w{@pxref{$BAw$j2>L>$N<+F0=hM}(B}})
 
 @item
-$B$=$N8e!"(B@code{skk-large-jisyo} $B$N8!:w$r9T$$!"(B
+$B$=$N8e!"(B@code{skk-cdb-large-jisyo} $B$H(B @code{skk-large-jisyo} $B$N8!:w$r=g(B
+$B$K9T$$!"(B
 
 @item
 $B:G8e$K(B @code{skk-aux-large-jisyo} $B$K<-=q%5!<%P7PM3$G%"%/%;%9$7$F$$$^$9!#(B

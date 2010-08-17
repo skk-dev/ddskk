@@ -8,6 +8,7 @@
 
 2010-08-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* doc/skk.texi: Update.
 	* skk-kcode.el (skk-jis2sjis2): Move funtion to skk-e21.el simply
 	to avoid a compile error in XEmacs.
 	* skk-xemacs.el (skk-tooltip-default-font-pixel-size): New
