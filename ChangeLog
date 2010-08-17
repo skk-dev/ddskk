@@ -1,3 +1,11 @@
+2010-08-17  Yusuke Shinyama  <yusuke at cs . nyu . edu>
+
+	* cdb.el, skk-cdb.el: New files.
+	* SKK-MK (SKK_MODULES): Add cdb and skk-cdb.
+	* skk-vars.el (skk-cdb-large-jisyo, skk-cdb-coding-system): New
+	user options.
+	(skk-search-prog-list): Add `skk-search-cdb-jisyo'.
+
 2010-08-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kcode.el (skk-jis2sjis2): Move funtion to skk-e21.el simply

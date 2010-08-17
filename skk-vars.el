@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.298 2010/08/14 07:17:06 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.299 2010/08/17 09:20:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/14 07:17:06 $
+;; Last Modified: $Date: 2010/08/17 09:20:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -168,6 +168,10 @@ Automatically becomes buffer-local when set in any fashion."
   :group 'skk)
 
 (defgroup skk-auto nil "SKK 自動送りがな機能の設定"
+  :prefix "skk-"
+  :group 'skk)
+
+(defgroup skk-cdb nil "SKK CDB 辞書検索機能の設定"
   :prefix "skk-"
   :group 'skk)
 
@@ -398,6 +402,7 @@ Non-nil であれば、辞書サーバーが active でない時に、
     (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
     (skk-search-jisyo-file skk-jisyo 0 t)
     (skk-okuri-search)
+    (skk-search-cdb-jisyo skk-cdb-large-jisyo)
     (skk-search-jisyo-file skk-large-jisyo 10000)
     (skk-search-server skk-aux-large-jisyo 10000))
   "*検索関数、検索対象の辞書を決定するためのリスト。
@@ -2821,6 +2826,32 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
   "*skk-auto.el をロードした後にコールされるフック。"
   :type 'hook
   :group 'skk-auto)
+
+;; skk-cdb.el related.
+(defcustom skk-cdb-large-jisyo nil
+  "*個人辞書の検索の後に検索する CDB 形式辞書ファイル名。
+Non-nil であれば、指定された CDB 形式辞書を Emacs から直接利用し、
+高速で検索を行う。"
+  :type `(radio (file :tag "辞書ファイル名"
+		      ,(cond
+			((featurep 'xemacs)
+			 (locate-data-file "SKK-JISYO.L.cdb"))
+			((fboundp 'locate-file)
+			 (or (locate-file "skk/SKK-JISYO.L.cdb"
+					  (list
+					   (expand-file-name "../../.."
+							     data-directory)))
+			     (locate-file "skk/SKK-JISYO.L.cdb"
+					  (list data-directory))))))
+		(const :tag "指定しない" nil))
+  :group 'skk-cdb
+  :group 'skk-dictionary)
+
+(defcustom skk-cdb-coding-system 'euc-jp
+  "*個人辞書の検索の後に検索する CDB 形式辞書のコーディング・システム。"
+  :type '(radio coding-system)
+  :group 'skk-cdb
+  :group 'skk-dictionary)
 
 ;;; skk-comp.el related.
 (defcustom skk-try-completion-char ?\011 ; TAB
