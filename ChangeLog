@@ -1,10 +1,3 @@
-2010-08-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
-
-	* skk-vars.el (skk-menu-items): Rename and reorder items.
-	(skk-large-jisyo, skk-aux-large-jisyo, skk-cdb-large-jisyo): Make
-	custom types compatible with Emacs 21.
-	* skk-e21.el (skk-e21-menu-resource-ja): Modify according to it.
-
 2010-08-17  Yusuke Shinyama  <yusuke at cs . nyu . edu>
 
 	* cdb.el, skk-cdb.el: New files.
@@ -21,8 +14,13 @@
 	* skk-xemacs.el (skk-tooltip-default-font-pixel-size): New
 	variable.
 	(skk-tooltip-resize-text): Use it.
+	* skk-vars.el (skk-menu-items): Rename and reorder items.
+	(skk-large-jisyo, skk-aux-large-jisyo, skk-cdb-large-jisyo): Make
+	custom types compatible with Emacs 21.
 	* skk-e21.el (skk-e21-prepare-menu): Avoid a warning for
 	gtk-version-string in Emacs 21.
+	(skk-e21-menu-resource-ja): Modify according to changes in
+	skk-menu-items.
 	* skk-cus.el: Require `cus-edit' instead of `wid-edit'.
 
 2010-08-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
