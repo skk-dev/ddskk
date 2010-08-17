@@ -20,6 +20,11 @@
 ;;       skk-server-portnum 1178
 ;;       skk-server-report-response t)
 
+;; SKK が検索する CDB 形式辞書 (辞書サーバを使わないとき)
+;; (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
+;; 注) DDSKK 14 より、CDB 形式の SKK 辞書を直接扱えるようになり、
+;; CDB 対応の辞書サーバを用意する必要はなくなりました。
+
 ;; @@ 表示の設定
 
 ;; メッセージを日本語で通知する

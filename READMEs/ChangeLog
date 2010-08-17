@@ -1,3 +1,8 @@
+2010-08-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* AUTHORS.ja, Contributors: Add Yusuke Shinyama.
+	* NEWS.ja: Add description for cdb.el and skk-cdb.el.
+
 2010-08-12  玉野健一 <suzu@a7m3.jp>
 
 	* README.MacOSX.ja: Update.

@@ -42,6 +42,11 @@ workaround しています。
 
 ** 新しく以下のプログラムが追加されました。
 
+*** cdb.el, skk-cdb.el
+
+CDB 形式の SKK 辞書に Emacs から直接アクセスできるようになります。
+これを用いれば、CDB 対応 SKK サーバを用意する必要はありません。
+
 *** skk-sticky.el
 
 通常、大文字で指定する変換開始および送り開始の位置を任意のキーで指定で
@@ -180,7 +185,7 @@ skk-henkan-show-candidates-keys-face の初期値は 'default です。
 
 *** 背景色
 
-skk-kouho-window-background で指定できます。初期値は nil です。
+skk-candidate-buffer-background-color で指定できます。初期値は nil です。
 
 *** 高さの自動調整
 

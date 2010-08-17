@@ -466,6 +466,15 @@ skk-vars.el, skk-viper.el, skk.el
 
 ** skk.texi 応用機能に関して大きく加筆、ドキュメント執筆・整備
 
+
+* Yusuke Shinyama
+
+** elisp 著作・アイデア
+
+*** cdb.el (Emacs の CDB サポート)
+
+*** skk-cdb.el (CDB 形式辞書サポート)
+
 
 Local variables:
 mode: outline
