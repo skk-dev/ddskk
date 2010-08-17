@@ -3,6 +3,7 @@
 	* AUTHORS.ja, Contributors: Add Yusuke Shinyama.
 	* NEWS.ja: Add description for cdb.el and skk-cdb.el.
 	* README.Mac.ja: No longer in the repository.
+	* README.MacOSX.ja, README.w32.ja: Update for APEL.
 
 2010-08-12  玉野健一 <suzu@a7m3.jp>
 

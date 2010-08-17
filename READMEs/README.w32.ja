@@ -73,9 +73,9 @@ APEL を tar.exe などを使って展開します。shell モードで以下のコマンドを
 実行します。apel のアーカイブを c:/tmp に置いたと仮定すると
 
      % cd c:/tmp
-     % gunzip apel-10.7.tar.gz
-     % tar xvf apel-10.7.tar
-     % cd apel-10.7
+     % gunzip apel-10.8.tar.gz
+     % tar xvf apel-10.8.tar
+     % cd apel-10.8
 
 *** APEL の インストール設定
 

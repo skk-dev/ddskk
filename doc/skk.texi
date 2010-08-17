@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/17 09:50:58 $
+@set UPDATED $Date: 2010/08/17 11:57:43 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -318,9 +318,8 @@ ACT、TUT-code による入力も可能。
 @cindex APEL
 
 DDSKK 14 は多種多様な Emacsen での動作を可能とするため APEL (A Portable
-Emacs Library) を使用します。DDSKK 14 は APEL 10.7 での動作を確認して
-いますが、できるだけ新しいバージョンの APEL をインストールすることをお勧
-めします。
+Emacs Library) を使用します。DDSKK 14 は APEL 10.7 以上を要求しますが、
+DDSKK 14.1 リリース時点での最新版である APEL 10.8 以上が推奨されます。
 
 DDSKK をインストールする前に APEL をインストールして下さい。次のサイトか
 ら入手できます。
