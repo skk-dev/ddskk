@@ -165,7 +165,7 @@
 		   (>= emacs-major-version 22)
 		   (boundp 'gtk-version-string)
 		   (stringp (symbol-value 'gtk-version-string))
-		   (string< "2.0" gtk-version-string)))
+		   (string< "2.0" (symbol-value 'gtk-version-string))))
     (setq skk-show-japanese-menu nil))
   ;;
   (when skk-show-japanese-menu

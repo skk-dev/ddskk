@@ -33,7 +33,7 @@
   (require 'skk-macs))
 
 (require 'skk-vars)
-(require 'wid-edit)
+(require 'cus-edit)
 (require 'custom)
 
 (defvar skk-custom-params nil)

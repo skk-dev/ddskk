@@ -14,6 +14,9 @@
 	* skk-xemacs.el (skk-tooltip-default-font-pixel-size): New
 	variable.
 	(skk-tooltip-resize-text): Use it.
+	* skk-e21.el (skk-e21-prepare-menu): Avoid a warning for
+	gtk-version-string in Emacs 21.
+	* skk-cus.el: Require `cus-edit' instead of `wid-edit'.
 
 2010-08-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
