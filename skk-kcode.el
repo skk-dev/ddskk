@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.40 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.41 2010/08/17 09:13:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/08/17 09:13:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -427,16 +427,8 @@
     (list c1 c2)))
 
 ;; 2面
-(defun skk-jis2sjis2 (char1 char2)
-  (let* ((ch2 (if (eq (* (/ char1 2) 2) char1)
-		  (+ char2 125) (+ char2 31)))
-	 (c2 (if (>= ch2 127)
-		 (+ ch2 1) ch2))
-         (ku (- char1 32))
-         (c1 (if (<= ku 15)
-		 (- (/ (+ ku ?\x1df) 2) (* (/ ku 8) 3))
-	       (/ (+ ku ?\x19b) 2))))
-    (list c1 c2)))
+;; XEmacs でのエラー回避のためにこの関数を一時 skk-e21.el に退避する。
+;; (autoload 'skk-jis2sjis2 "skk-e21")
 
 (run-hooks 'skk-kcode-load-hook)
 

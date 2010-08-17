@@ -136,6 +136,21 @@
 
 ;; Functions.
 
+;; skk-kcode.el より。
+;; XEmacs でのエラー回避のためにこの関数を一時退避している。
+;; 2面
+;;;###autoload
+(defun skk-jis2sjis2 (char1 char2)
+  (let* ((ch2 (if (eq (* (/ char1 2) 2) char1)
+		  (+ char2 125) (+ char2 31)))
+	 (c2 (if (>= ch2 127)
+		 (+ ch2 1) ch2))
+         (ku (- char1 32))
+         (c1 (if (<= ku 15)
+		 (- (/ (+ ku ?\x1df) 2) (* (/ ku 8) 3))
+	       (/ (+ ku ?\x19b) 2))))
+    (list c1 c2)))
+
 ;;;###autoload
 (defun skk-e21-prepare-menu ()
   (unless skk-e21-modeline-menu
