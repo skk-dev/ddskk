@@ -1,7 +1,10 @@
 2010-08-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-menu-items): Rename and reorder items.
-	* skk-e21.el (skk-e21-menu-resource-ja): Modify according to it.
+	(skk-large-jisyo, skk-aux-large-jisyo, skk-cdb-large-jisyo): Make
+	custom types compatible with Emacs 21.
+	* skk-e21.el (skk-e21-menu-resource-ja): Modify according to
+	changes in skk-menu-items.
 
 2010-08-17  Yusuke Shinyama  <yusuke at cs . nyu . edu>
 
