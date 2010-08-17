@@ -19,11 +19,11 @@
 *XlwMenu.toKatakanaAllCandidates.labelString: カタカナに変換、全ての候補を表示
 *XlwMenu.hurigana.labelString: ふりがな
 *XlwMenu.convertRegionAndReplace.labelString: 領域を変換して置き換える
-*XlwMenu.ascii.labelString: 全角英数を ASCII に変換
-*XlwMenu.hiragana.labelString: ひらがなに変換
-*XlwMenu.katakana.labelString: カタカナに変換
-*XlwMenu.romaji.labelString: ローマ字に変換
-*XlwMenu.zenkaku.labelString: ASCII を全角英数に変換
+*XlwMenu.ZenkakuToAscii.labelString: 全角英数を ASCII に変換
+*XlwMenu.katakanaToHiragana.labelString: ひらがなに変換
+*XlwMenu.HiraganaToKatakana.labelString: カタカナに変換
+*XlwMenu.kanaAndZenkakuToRomaji.labelString: ローマ字に変換
+*XlwMenu.asciiToZenkaku.labelString: ASCII を全角英数に変換
 
 *XlwMenu.countJisyoCandidates.labelString: 辞書中の候補数を数える
 *XlwMenu.saveJisyo.labelString: 辞書を保存する

@@ -1,6 +1,8 @@
 2010-08-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.skk: Add skk-cdb-large-jisyo.
+	* Emacs.ad: Modify according to the modification to
+	skk-menu-items.
 
 2010-08-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
