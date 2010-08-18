@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.302 2010/08/18 11:04:23 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.303 2010/08/18 13:20:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 11:04:23 $
+;; Last Modified: $Date: 2010/08/18 13:20:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -77,43 +77,6 @@ Automatically becomes buffer-local when set in any fashion."
 
 (defconst skk-ml-address "skk@ring.gr.jp")
 (defconst skk-ml-command-address "skk-subscribe@ring.gr.jp")
-(defconst skk-background-mode
-  ;; from font-lock-make-faces of font-lock.el  Welcome!
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (if (< (apply '+ (color-rgb-components
-		      (face-property 'default 'background)))
-	   (/ (apply '+ (color-rgb-components
-			 (make-color-specifier "white")))
-	      3))
-	'dark
-      'light))
-   (t
-    (cond
-     ((and window-system (x-display-color-p))
-      (let ((bg-resource (x-get-resource ".backgroundMode"
-					 "BackgroundMode"))
-	    (params (frame-parameters)))
-	(cond
-	 (bg-resource
-	  (intern (downcase bg-resource)))
-	 ((and (eq system-type 'windows-nt)
-	       (not (fboundp 'x-color-values)))
-	  (if (string-match "light"
-			    (cdr (assq 'background-color params)))
-	      'light
-	    'dark))
-	 ((not (null (cdr (assq 'background-mode params))))
-	  ;; Emacs20.x (Meadow)
-	  (cdr (assq 'background-mode params)))
-	 ((< (apply '+ (x-color-values
-			(cdr (assq 'background-color params))))
-	     (/ (apply '+ (x-color-values "white")) 3))
-	  'dark)
-	 (t
-	  'light))))
-     (t
-      'mono)))))
 
 ;;;; Custom group definitions
 
@@ -272,6 +235,57 @@ Automatically becomes buffer-local when set in any fashion."
 (defgroup skk-nicola nil "SKK 親指シフト入力の設定"
   :prefix "skk-nicola-"
   :group 'skk-kanagaki)
+
+;;; skk-vars.el related.
+(defcustom skk-background-mode
+  ;; from font-lock-make-faces of font-lock.el  Welcome!
+  (or frame-background-mode
+      (static-cond
+       ((eq skk-emacs-type 'xemacs)
+	(if (< (apply '+ (color-rgb-components
+			  (face-property 'default 'background)))
+	       (/ (apply '+ (color-rgb-components
+			     (make-color-specifier "white")))
+		  3))
+	    'dark
+	  'light))
+       (t
+	(cond
+	 ((and window-system (x-display-color-p))
+	  (let ((bg-resource (x-get-resource ".backgroundMode"
+					     "BackgroundMode"))
+		(params (frame-parameters)))
+	    (cond
+	     (bg-resource
+	      (intern (downcase bg-resource)))
+	     ((and (eq system-type 'windows-nt)
+		   (not (fboundp 'x-color-values)))
+	      (if (string-match "light"
+				(cdr (assq 'background-color params)))
+		  'light
+		'dark))
+	     ((not (null (cdr (assq 'background-mode params))))
+	      ;; Emacs20.x (Meadow)
+	      (cdr (assq 'background-mode params)))
+	     ((< (apply '+ (x-color-values
+			    (cdr (assq 'background-color params))))
+		 (/ (apply '+ (x-color-values "white")) 3))
+	      'dark)
+	     (t
+	      'light))))
+	 (t
+	  nil)))))
+  "*SKK の標準のフェイス色を決めるための背景色に関する情報。
+標準では `frame-background-mode' を設定している場合はそれに従い、
+設定していない場合は独自の方法で `light' か `dark' かを決める。
+この場合ユーザの意図と合わないかもしれない。
+このオプションは ~/.skk に設定しても反映されない。~/.emacs か
+M-x customize にて、SKK が読み込まれる前に設定することが必要。"
+  :type '(choice (const dark)
+		 (const light)
+		 (const :tag "自動で決める" nil))
+  :group 'skk-basic
+  :group 'skk-visual)
 
 ;;; skk.el related.
 (defcustom skk-user-directory nil
