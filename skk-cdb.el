@@ -72,3 +72,5 @@
 		       (car l)))))))))))
 
 (provide 'skk-cdb)
+
+;;; skk-cdb.el ends here
