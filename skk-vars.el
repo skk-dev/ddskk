@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.303 2010/08/18 13:20:52 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.304 2010/08/18 13:25:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 13:20:52 $
+;; Last Modified: $Date: 2010/08/18 13:25:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -278,7 +278,9 @@ Automatically becomes buffer-local when set in any fashion."
   "*SKK の標準のフェイス色を決めるための背景色に関する情報。
 標準では `frame-background-mode' を設定している場合はそれに従い、
 設定していない場合は独自の方法で `light' か `dark' かを決める。
-この場合ユーザの意図と合わないかもしれない。
+ただし、ターミナルで Emacs を利用している場合は判定できず、
+ユーザの意図と合わないかもしれないので、このオプションか
+`frame-background-mode' をあらかじめ設定しておくことが望ましい。
 このオプションは ~/.skk に設定しても反映されない。~/.emacs か
 M-x customize にて、SKK が読み込まれる前に設定することが必要。"
   :type '(choice (const dark)
