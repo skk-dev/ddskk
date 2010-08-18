@@ -3,12 +3,13 @@
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2000
 ;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
+;; Copyright (C) 1998-2010 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.41 2010/08/17 09:13:43 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.42 2010/08/18 11:09:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/17 09:13:43 $
+;; Last Modified: $Date: 2010/08/18 11:09:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -428,7 +429,7 @@
 
 ;; 2面
 ;; XEmacs でのエラー回避のためにこの関数を一時 skk-e21.el に退避する。
-;; (autoload 'skk-jis2sjis2 "skk-e21")
+;; (autoload 'skk-jis2sjis2 "skk-emacs")
 
 (run-hooks 'skk-kcode-load-hook)
 

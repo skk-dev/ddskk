@@ -1,6 +1,6 @@
 ;;; skk-xemacs.el --- XEmacs support for SKK -*- coding: iso-2022-jp -*-
 
-;; Copyright (C) 2000-2007 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 2000-2010 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>

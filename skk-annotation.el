@@ -1,14 +1,14 @@
 ;;; skk-annotation.el --- SKK annotation 関連プログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Copyright (C) 2000-2008  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 2000-2010  SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.150 2010/08/02 15:21:04 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.151 2010/08/18 11:09:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/08/02 15:21:04 $
+;; Last Modified: $Date: 2010/08/18 11:09:11 $
 
 ;; This file is part of Daredevil SKK.
 

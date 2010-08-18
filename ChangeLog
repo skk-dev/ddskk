@@ -1,3 +1,21 @@
+2010-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* *: Update copyright notices.
+	* doc/skk.texi: Update.
+	* skk-emacs.el: New file.
+	* SKK-MK (SKK_MODULES): Add skk-emacs for GNU Emacs.
+	* cdb.el: Require cl at the compile time.
+	(cdb-test-simple): Uncomment.
+	* skk-cdb.el: Add comments.
+	* skk-e21.el (skk-jis2sjis2): Move function to skk-emacs.el.
+	* skk-jisyo-edit-mode.el: Don't register "SKK-JISYO" to
+	auto-mode-alist under Emacs 20.
+	* skk-vars.el (skk-show-inline, skk-dcomp-multiple-activate):
+	Update docstrings.
+	* skk.el: Require skk-emacs under GNU Emacs.
+	(skk-add-background-color): Workaround for Emacs 21 where :inherit
+	attribute does not always work correctly.
+
 2010-08-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Remove remove README.Mac.ja related.

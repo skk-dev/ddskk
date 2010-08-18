@@ -1,6 +1,6 @@
 ;;; skk-jisyo-edit-mode.el --- major mode for editing SKK dictionaries -*- coding: euc-jp -*-
 
-;; Copyright (C) 2001-2007 SKK Development Team
+;; Copyright (C) 2001-2010 SKK Development Team
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Keywords: japanese, mule, input method
