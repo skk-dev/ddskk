@@ -6,6 +6,7 @@
 	* SKK-MK (SKK_MODULES): Add skk-emacs for GNU Emacs.
 	* cdb.el: Require cl at the compile time.
 	(cdb-test-simple): Uncomment.
+	(cdb-hash): Under Emacs 20, call mapcar instead of mapc.
 	* skk-cdb.el: Add comments.
 	* skk-e21.el (skk-jis2sjis2): Move function to skk-emacs.el.
 	* skk-jisyo-edit-mode.el: Don't register "SKK-JISYO" to
