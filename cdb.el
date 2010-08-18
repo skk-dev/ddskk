@@ -2,13 +2,16 @@
 ;;
 ;;  Author: Yusuke Shinyama, 2010/07/19
 ;;  * public domain *
-;;
+;; 
 ;;  Usage:
 ;;    (cdb-init "foo.cdb") -> nil
 ;;    (cdb-get "foo.cdb" "abc") -> "123"
 ;;    (cdb-keys "foo.cdb") -> ("abc" ...)
 ;;    (cdb-uninit "foo.cdb") -> nil
 ;;
+(eval-when-compile
+  (require 'cl))
+
 (defconst cdb-version "20100719+")
 
 
@@ -16,7 +19,7 @@
 ;;    Represents little endian uint32 value as a 4-byte string.
 ;;    We need them for making up with Emacs' 30-bit integer system.
 ;;    This should work on 64-bit machines, but I haven't tested yet.
-;;
+;; 
 (defun uint32le (x)
   "creates uint32le string from an integer."
   (string (% x 256)
@@ -35,7 +38,7 @@
   "returns the lower 8 bits of the value."
   (aref v 0))
 
-(defun uint32le-int24u (v)
+(defun uint32le-int24u (v) 
   "returns the upper 8 bits of the value."
   (logior (aref v 1)
 	  (lsh (aref v 2) 8)
@@ -47,7 +50,7 @@
        (= (aref v1 1) (aref v2 1))
        (= (aref v1 2) (aref v2 2))
        (= (aref v1 3) (aref v2 3))))
-
+       
 (defun uint32le-add (v1 v2)
   "adds two uint32le values v1 and v2."
   (let ((a (string 0 0 0 0))
@@ -99,8 +102,11 @@
 (defun cdb-hash (s)
   "computes an uint32le hash value for string s."
   (let ((h (uint32le cdb-hash-initvalue)))
-    (mapc (lambda (c) (setq h (uint32le-xor (uint32le-add h (uint32le-lsh h 5)) (uint32le c))))
-	  s)
+    (if (eval-when-compile (< emacs-major-version 21))
+	(mapcar (lambda (c) (setq h (uint32le-xor (uint32le-add h (uint32le-lsh h 5)) (uint32le c))))
+		s)
+      (mapc (lambda (c) (setq h (uint32le-xor (uint32le-add h (uint32le-lsh h 5)) (uint32le c))))
+	  s))
     h))
 
 (defun cdb-buffer-name (path)
@@ -190,7 +196,7 @@
   (let (keys)
     (cdb-mapc path (lambda (key value) (setq keys (cons key keys))))
     (nreverse keys)))
-
+  
 (defun cdb-values (path)
   "returns all values in the database."
   (let (values)
@@ -200,39 +206,37 @@
 (provide 'cdb)
 
 ;;  Simplistic test suite
-;;
-;; (defun cdb-test-simple (path)
-;;   ;; test.cdb should be:
-;;   ;;	+2,8:de->00596d84
-;;   ;;	+2,8:eD->00596d84
-;;   ;;	+2,8:dE->00596da4
-;;   ;;	+3,8:xxx->0b8791dd
-;;   ;;	+5,8:xxxxx->0bb36ddd
-;;   ;;	+6,8:xxxxxx->82212905
-;;   ;;	+7,8:xxxxxxx->c64649dd
-;;   ;;	+3,8:abc->0b873285
-;;   ;;	+2,2:\xa4\xa2->\xa4\xa4
-;;   ;;
-;;   (require 'cl)
-;;   (require 'cdb)
-;;   (cdb-init path)
-;;   (assert (string= (cdb-get path "de") "00596d84"))
-;;   (assert (string= (cdb-get path "eD") "00596d84"))
-;;   (assert (string= (cdb-get path "dE") "00596da4"))
-;;   (assert (not (cdb-get path "ed")))
-;;   (assert (not (cdb-get path "x")))
-;;   (assert (string= (cdb-get path "xxx") "0b8791dd"))
-;;   (assert (not (cdb-get path "xxxx")))
-;;   (assert (string= (cdb-get path "xxxxx") "0bb36ddd"))
-;;   (assert (string= (cdb-get path "xxxxxx") "82212905"))
-;;   (assert (string= (cdb-get path "xxxxxxx") "c64649dd"))
-;;   (assert (string= (cdb-get path "abc") "0b873285"))
-;;   (assert (not (cdb-get path "bbbb")))
-;;   (assert (not (cdb-get path "dd")))
-;;   (assert (string= (cdb-get path "\244\242") "\244\244"))
-;;   (assert (equal (cdb-keys path)
-;;		 '("de" "eD" "dE" "xxx" "xxxxx" "xxxxxx"
-;;		   "xxxxxxx" "abc" "\244\242")))
-;;   (cdb-uninit path)
-;;   )
-;; (cdb-test-simple "test.cdb")
+;; 
+(defun cdb-test-simple (path)
+  ;; test.cdb should be:
+  ;;	+2,8:de->00596d84
+  ;;	+2,8:eD->00596d84
+  ;;	+2,8:dE->00596da4
+  ;;	+3,8:xxx->0b8791dd
+  ;;	+5,8:xxxxx->0bb36ddd
+  ;;	+6,8:xxxxxx->82212905
+  ;;	+7,8:xxxxxxx->c64649dd
+  ;;	+3,8:abc->0b873285
+  ;;	+2,2:\xa4\xa2->\xa4\xa4
+  ;;
+  (cdb-init path)
+  (assert (string= (cdb-get path "de") "00596d84"))
+  (assert (string= (cdb-get path "eD") "00596d84"))
+  (assert (string= (cdb-get path "dE") "00596da4"))
+  (assert (not (cdb-get path "ed")))
+  (assert (not (cdb-get path "x")))
+  (assert (string= (cdb-get path "xxx") "0b8791dd"))
+  (assert (not (cdb-get path "xxxx")))
+  (assert (string= (cdb-get path "xxxxx") "0bb36ddd"))
+  (assert (string= (cdb-get path "xxxxxx") "82212905"))
+  (assert (string= (cdb-get path "xxxxxxx") "c64649dd"))
+  (assert (string= (cdb-get path "abc") "0b873285"))
+  (assert (not (cdb-get path "bbbb")))
+  (assert (not (cdb-get path "dd")))
+  (assert (string= (cdb-get path "\244\242") "\244\244"))
+  (assert (equal (cdb-keys path) 
+		 '("de" "eD" "dE" "xxx" "xxxxx" "xxxxxx" 
+		   "xxxxxxx" "abc" "\244\242")))
+  (cdb-uninit path)
+  )
+;(cdb-test-simple "test.cdb")
