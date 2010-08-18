@@ -10,6 +10,7 @@
 	* skk-e21.el (skk-jis2sjis2): Move function to skk-emacs.el.
 	* skk-jisyo-edit-mode.el: Don't register "SKK-JISYO" to
 	auto-mode-alist under Emacs 20.
+	* skk-kcode.el: Update comments.
 	* skk-vars.el (skk-show-inline, skk-dcomp-multiple-activate):
 	Update docstrings.
 	* skk.el: Require skk-emacs under GNU Emacs.
