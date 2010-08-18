@@ -16,7 +16,8 @@
 	Update docstrings.
 	* skk-macs.el (skk-color-cursor-display-p): Rename from
 	`skk-color-display-p'.
-	(skk-cursor-set): Check `skk-color-cursor-display-p'.
+	(skk-cursor-set, skk-cursor-off): Check
+	`skk-color-cursor-display-p'.
 	* skk-cursor.el: Modify according to it.
 	* skk.el: Require skk-emacs under GNU Emacs.
 	(skk-add-background-color): Workaround for Emacs 21 where :inherit

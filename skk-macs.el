@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.142 2010/08/18 12:35:55 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.143 2010/08/18 12:59:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 12:35:55 $
+;; Last Modified: $Date: 2010/08/18 12:59:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -562,12 +562,15 @@ BUFFER defaults to the current buffer."
 
 ;;; version independent
 (defsubst skk-cursor-set (&optional color force)
-  (when (and (skk-color-cursor-display-p)
-	     (or skk-use-color-cursor
-		 force))
+  (unless (skk-color-cursor-display-p)
+    (setq skk-use-color-cursor nil))
+  (when (or skk-use-color-cursor
+	    force)
     (skk-cursor-set-1 color)))
 
 (defsubst skk-cursor-off ()
+  (unless (skk-color-cursor-display-p)
+    (setq skk-use-color-cursor nil))
   (when skk-use-color-cursor
     (skk-cursor-off-1)))
 
