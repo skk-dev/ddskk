@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/17 21:51:23 $
+@set UPDATED $Date: 2010/08/18 10:58:55 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -249,8 +249,10 @@ Daredevil SKK ($B0J2<(B @samp{DDSKK} $B$H$$$$$^$9(B) $B$O!"F0:n$,Aa$/$F8zN(
 DDSKK 14 $B$,F0:n$9$k$H;W$o$l$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 
 @itemize @bullet
-@item GNU Emacs 22.1 $B0J9_(B
-@item GNU Emacs 23.1 $B0J9_(B
+@item GNU Emacs 20.7
+@item GNU Emacs 21.4
+@item GNU Emacs 22.1 $B0J9_(B ($B?d>)(B)
+@item GNU Emacs 23.1 $B0J9_(B ($B?d>)(B)
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.4 $B$N:G?7HG(B
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.5 $B$N:G?7HG(B
 @end itemize
@@ -260,10 +262,37 @@ DDSKK 14 $B$,F0:n$9$k$H;W$o$l$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 fsf-compat $B%Q%C%1!<%8$,F0:n$N$?$a$KI,?\$G$9!#(B
 
 $BAmO@$H$7$F!"8=:_$O(B XEmacs $B$h$j$b(B GNU Emacs $B$G$NF0:n$,$h$/%F%9%H$5$l$F$*$j!"(B
-$B:G6a$G$O(B XEmacs $B$G$N%F%9%H$O=<J,9T$o$l$F$$$^$;$s!#(B
+$B:G6a$G$O(B XEmacs $B$G$N%F%9%H$O=<J,9T$o$l$F$$$^$;$s!#(BGNU Emacs $B$G$b(B 20.7 $B5Z(B
+$B$S(B 21.4 $B$G$NF0:n3NG'$O=<J,$H$O8@$($^$;$s!#(BGNU Emacs 22 $B0J>e$G$NMxMQ$,:G(B
+$B$b?d>)$5$l$^$9!#(B
 
-Emacs 20.7 $B5Z$S(B Emacs 21 $B$G$NF0:n3NG'$O9T$o$l$F$$$^$;$s$,!"F0:n$9$k$+$b$7(B
-$B$l$^$;$s!#(B
+$B8=;~E@$G%P!<%8%g%s$4$H$K>/$J$/$H$b0J2<$N@)8B$,$"$j$^$9!#(B
+
+@noindent
+Emacs 20.7
+
+@itemize @bullet
+@item $B%D!<%k%P!<!"%F%-%9%H$NAu>~5!G=$,@)8B$5$l$^$9!#(B
+@item $B%$%s%i%$%s8uJdI=<($O5!G=$7$^$;$s!#(B
+@item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
+@end itemize
+
+@noindent
+Emacs 21.4
+
+@itemize @bullet
+@item X $B>e$G$NF|K\8l%a%K%e!<$KBP1~$7$^$;$s!#(B
+@end itemize
+
+@noindent
+XEmacs
+
+@itemize @bullet
+@item skk-kcode.el $B$N(B JISX 0213 $BBP1~5!G=$,;H$($^$;$s!#(B
+@item $B%$%s%i%$%s8uJdI=<($O5!G=$7$^$;$s!#(B
+@item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
+@item XEmacs 21.4 $B$G$O%D!<%k%F%#%C%WI=<($,5!G=$7$^$;$s!#(B
+@end itemize
 
 @node SKK$B$H$O$J$K$+(B
 @section SKK$B$H$O$J$K$+(B
