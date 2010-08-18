@@ -1,13 +1,13 @@
 ;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program) -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988-1997 Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Copyright (C) 1999-2009 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2010 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.501 2010/08/06 20:59:27 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.502 2010/08/18 11:06:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/06 20:59:27 $
+;; Last Modified: $Date: 2010/08/18 11:06:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -88,10 +88,15 @@
   (require 'skk-macs)
   ;; SKK version dependent.
   (static-cond
-   ((memq skk-emacs-type '(mule5 mule6))
-    (require 'skk-e21))
    ((eq skk-emacs-type 'xemacs)
-    (require 'skk-xemacs)))
+    (require 'skk-xemacs))
+   ((memq skk-emacs-type '(mule5 mule6))
+    ;; Emacs 21 or later
+    (require 'skk-emacs)
+    (require 'skk-e21))
+   (t
+    ;; Emacs 20.7
+    (require 'skk-emacs)))
   ;; Shut up, compiler.
   (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
@@ -5319,10 +5324,25 @@ SKK 辞書の候補として正しい形に整形する。"
 			     `(:background ,color)
 			     string))
 	 ((and (facep orig-face) (not (face-background orig-face)))
-	  (put-text-property start end 'face
-			     `(:inherit ,orig-face
-			       :background ,color)
-			     string))
+	  (static-cond
+	   ((and (eq skk-emacs-type 'mule5)
+		 (= emacs-major-version 21))
+	    ;; Emacs 21 で :inherit がうまく継承されない？
+	    ;; workaround
+	    (let (attrs)
+	      (dolist (pair face-attribute-name-alist)
+		(let* ((attr (car pair))
+		       (val (face-attribute orig-face attr (selected-frame))))
+		  (unless (eq val 'unspecified)
+		    (setq attrs (cons attr (cons val attrs))))))
+	      (put-text-property start end 'face
+				 (append attrs `(:background ,color))
+				 string)))
+	   (t
+	    (put-text-property start end 'face
+			       `(:inherit ,orig-face
+				 :background ,color)
+			       string))))
 	 ((and (listp orig-face)
 	       (not (plist-get (get-text-property start 'face string)
 			       :background))
