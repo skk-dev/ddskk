@@ -1,12 +1,12 @@
 ;;; skk-vars.el --- common vars and consts in SKK -*- coding: iso-2022-7bit -*-
 
-;; Copyright (C) 1999-2009  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2010 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.301 2010/08/17 15:02:30 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.302 2010/08/18 11:04:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/17 15:02:30 $
+;; Last Modified: $Date: 2010/08/18 11:04:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1265,8 +1265,7 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
 (defcustom skk-show-inline nil
   "*Non-nil $B$G$"$l$P!"JQ498uJd$r%$%s%i%$%s$GI=<($9$k!#(B
 $BCM$,(B `vertical' $B$G$"$l$P3F8uJd$r=D$K%$%s%i%$%sI=<($9$k!#(B
-$B$3$N5!G=$O(B XEmacs $B0J30$N3F%P!<%8%g%s$N(B Emacs $B$GF0:n$9$k$,!"8uJd$N(B
-$BAu>~$,M-8z$J$N$O(B GNU Emacs 21 $B0J>e!#(B"
+$B$3$l$O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BEmacs 20 $B$H(B XEmacs $B$G$OF0:n$7$J$$!#(B"
   :type '(radio (const :tag "$BM-8z(B" t)
 		(const :tag "$BM-8z(B ($B=DI=<((B)" vertical)
 		(const :tag "$BL58z(B" nil))
@@ -1646,8 +1645,8 @@ nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$
 	   (and (eq window-system 'x)
 		(>= emacs-major-version 22)
 		(boundp 'gtk-version-string)
-		(stringp gtk-version-string)
-		(string< "2.0" gtk-version-string)))
+		(stringp (symbol-value 'gtk-version-string))
+		(string< "2.0" (symbol-value 'gtk-version-string))))
        (equal current-language-environment "Japanese")) "\
 *Non-nil $B$G$"$l$P%a%K%e!<%P!<$rF|K\8l$GI=<($9$k!#(B"
   :type 'boolean
@@ -3245,7 +3244,8 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
 
 (defcustom skk-dcomp-multiple-activate nil
   "*Non-nil $B$G$"$l$PF0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B
-$B$3$NJQ?t$NCM$,4X?t$@$C$?>l9g!"$=$NI>2A7k2L$,(B non-nil $B$N;~$@$1Jd40$9$k!#(B"
+$B$3$NJQ?t$NCM$,4X?t$@$C$?>l9g!"$=$NI>2A7k2L$,(B non-nil $B$N;~$@$1Jd40$9$k!#(B
+$B$3$l$O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BEmacs 20 $B$H(B XEmacs $B$G$OF0:n$7$J$$!#(B"
   :type '(radio (const :tag "always on" t)
 		(const :tag "off" nil)
 		(sexp :tag "$BG$0U$N%k!<%k(B"))
