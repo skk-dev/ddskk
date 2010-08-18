@@ -147,7 +147,8 @@
   ;;
   (unless (or (null window-system)
 	      (eq window-system 'w32)
-	      (boundp 'mac-carbon-version-string)
+	      (boundp 'mac-carbon-version-string) ; Carbon Emacs
+	      (featurep 'ns) ; Cocoa Emacs
 	      (and (eq window-system 'x)
 		   (>= emacs-major-version 22)
 		   (boundp 'gtk-version-string)

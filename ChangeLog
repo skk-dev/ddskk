@@ -1,5 +1,12 @@
 2010-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	Suggested by Takeru Naito <takeru.naito@gmail.com>
+
+	* skk-e21.el (skk-e21-prepare-menu): Find Cocoa Emacs by checking
+	the feature ns.
+
+2010-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* *: Update copyright notices.
 	* doc/skk.texi: Update.
 	* skk-emacs.el: New file.
