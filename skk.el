@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.502 2010/08/18 11:06:10 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.503 2010/08/18 12:35:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 11:06:10 $
+;; Last Modified: $Date: 2010/08/18 12:35:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -935,7 +935,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 (defun skk-adjust-user-option ()
   "$B%f!<%6%*%W%7%g%s$NIT@09g$rD4@0$9$k!#(B"
-  (unless (skk-color-display-p)
+  (unless (skk-color-cursor-display-p)
     (setq skk-use-color-cursor nil))
   ;; $BN>N)$G$-$J$$%*%W%7%g%s$ND4@0$r9T$J$&!#(B
   (when skk-process-okuri-early

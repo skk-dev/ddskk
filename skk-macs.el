@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.141 2010/08/18 12:11:58 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.142 2010/08/18 12:35:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 12:11:58 $
+;; Last Modified: $Date: 2010/08/18 12:35:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -383,13 +383,13 @@ the echo area while this function is waiting for an event."
    (t
     (ding arg))))
 
-(defsubst skk-color-display-p ()
+(defsubst skk-color-cursor-display-p ()
   (static-cond
    ((eq skk-emacs-type 'xemacs)
     (eq (device-class (selected-device)) 'color))
    ((fboundp 'x-display-color-p)
-    ;; FSF Emacs
-    (x-display-color-p))))
+    ;; FSF Emacs on X Window System.
+    (and window-system (x-display-color-p)))))
 
 (defsubst skk-char-to-unibyte-string (char)
   (ignore-errors
@@ -562,8 +562,9 @@ BUFFER defaults to the current buffer."
 
 ;;; version independent
 (defsubst skk-cursor-set (&optional color force)
-  (when (or skk-use-color-cursor
-	    force)
+  (when (and (skk-color-cursor-display-p)
+	     (or skk-use-color-cursor
+		 force))
     (skk-cursor-set-1 color)))
 
 (defsubst skk-cursor-off ()

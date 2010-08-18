@@ -14,9 +14,14 @@
 	* skk-kcode.el: Update comments.
 	* skk-vars.el (skk-show-inline, skk-dcomp-multiple-activate):
 	Update docstrings.
+	* skk-macs.el (skk-color-cursor-display-p): Rename from
+	`skk-color-display-p'.
+	(skk-cursor-set): Check `skk-color-cursor-display-p'.
+	* skk-cursor.el: Modify according to it.
 	* skk.el: Require skk-emacs under GNU Emacs.
 	(skk-add-background-color): Workaround for Emacs 21 where :inherit
 	attribute does not always work correctly.
+	(skk-adjust-user-option): Check `skk-color-cursor-display-p'.
 
 2010-08-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
