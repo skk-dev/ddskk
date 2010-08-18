@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.164 2010/08/17 09:20:40 skk-cvs Exp $
-;; Last Modified: $Date: 2010/08/17 09:20:40 $
+;; Version: $Id: SKK-MK,v 1.165 2010/08/18 10:54:33 skk-cvs Exp $
+;; Last Modified: $Date: 2010/08/18 10:54:33 $
 
 ;;; Commentary:
 
@@ -240,6 +240,7 @@ This version of SKK requires MULE features"))
       (add-to-list 'list 'skk-xemacs))
      (t
       ;; FSFmacs
+      (add-to-list 'list 'skk-emacs)
       (unless (fboundp 'define-minor-mode)
 	(setq list (delq 'context-skk list)))
       (when (featurep 'faces)
