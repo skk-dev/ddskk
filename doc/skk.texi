@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/18 10:58:55 $
+@set UPDATED $Date: 2010/08/19 10:55:37 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -281,14 +281,14 @@ Emacs 20.7
 Emacs 21.4
 
 @itemize @bullet
-@item X $B>e$G$NF|K\8l%a%K%e!<$KBP1~$7$^$;$s!#(B
+@item X window system $B>e$G$NF|K\8l%a%K%e!<$KBP1~$7$^$;$s!#(B
 @end itemize
 
 @noindent
 XEmacs
 
 @itemize @bullet
-@item skk-kcode.el $B$N(B JISX 0213 $BBP1~5!G=$,;H$($^$;$s!#(B
+@item @samp{skk-kcode.el} $B$N(B JISX 0213 $BBP1~5!G=$,;H$($^$;$s!#(B
 @item $B%$%s%i%$%s8uJdI=<($O5!G=$7$^$;$s!#(B
 @item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
 @item XEmacs 21.4 $B$G$O%D!<%k%F%#%C%WI=<($,5!G=$7$^$;$s!#(B
@@ -353,10 +353,9 @@ DDSKK 14.1 $B%j%j!<%9;~E@$G$N:G?7HG$G$"$k(B APEL 10.8 $B0J>e$,?d>)$5$l$^$9!#
 DDSKK $B$r%$%s%9%H!<%k$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#<!$N%5%$%H$+(B
 $B$iF~<j$G$-$^$9!#(B
 
-@table @url
-@item http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/
-@item ftp://ftp.jpl.org/pub/elisp/apel/
-@end table
+@url{http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/}
+
+@url{ftp://ftp.jpl.org/pub/elisp/apel/}
 
 @node DDSKK $B$N%$%s%9%H!<%k(B
 @section DDSKK $B$N%$%s%9%H!<%k(B
