@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.0.90
 @set SKK-VERSION 14.0.90
-@set UPDATED $Date: 2010/08/19 10:55:37 $
+@set UPDATED $Date: 2010/08/19 13:51:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -261,10 +261,10 @@ DDSKK 14 が動作すると思われる Emacsen のバージョンは下記の通りです。
 少なくとも xemacs-base パッケージは最新でなければなりません。また、
 fsf-compat パッケージが動作のために必須です。
 
-総論として、現在は XEmacs よりも GNU Emacs での動作がよくテストされており、
-最近では XEmacs でのテストは充分行われていません。GNU Emacs でも 20.7 及
-び 21.4 での動作確認は充分とは言えません。GNU Emacs 22 以上での利用が最
-も推奨されます。
+総論として、現在は XEmacs よりも GNU Emacs での動作がよくテストされてお
+り、最近では XEmacs でのテストは充分行われていません。Emacs 20 では多く
+の重要な機能が使えません。Emacs 21 では動作テストが充分とは言えません。
+GNU Emacs 22 以上での利用が最も推奨されます。
 
 現時点でバージョンごとに少なくとも以下の制限があります。
 
@@ -273,8 +273,10 @@ Emacs 20.7
 
 @itemize @bullet
 @item ツールバー、テキストの装飾機能が制限されます。
+@item ツールティップ表示は機能しません。
 @item インライン候補表示は機能しません。
 @item 動的補完における複数候補表示は機能しません。
+@item JISX 0213 対応等 MULE 4.1 パッチの適用を必要とする機能があります。
 @end itemize
 
 @noindent
