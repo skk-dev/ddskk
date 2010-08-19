@@ -583,15 +583,19 @@
 		  (skk-in-minibuffer-p))
 	  (message nil))
 	;;
-	(x-show-tip text (selected-frame) params skk-tooltip-hide-delay
-		    ;;
-		    (if (eq skk-tooltip-mouse-behavior 'follow)
-			skk-tooltip-x-offset
-		      tooltip-x-offset)
-		    ;;
-		    (if (eq skk-tooltip-mouse-behavior 'follow)
-			skk-tooltip-y-offset
-		      tooltip-y-offset)))
+	(let ((x-gtk-use-system-tooltips nil))
+	  ;; GTK 付 Emacs で、GTK のツールティップを利用すると
+	  ;; 現状フェイス属性が適用されないので、Emacs のツール
+	  ;; ティップを用いる。
+	  (x-show-tip text (selected-frame) params skk-tooltip-hide-delay
+		      ;;
+		      (if (eq skk-tooltip-mouse-behavior 'follow)
+			  skk-tooltip-x-offset
+			tooltip-x-offset)
+		      ;;
+		      (if (eq skk-tooltip-mouse-behavior 'follow)
+			  skk-tooltip-y-offset
+			tooltip-y-offset))))
     (error
      (message "Error while displaying tooltip: %s" error)
      (sit-for 1)

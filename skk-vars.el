@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.304 2010/08/18 13:25:43 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.305 2010/08/19 13:53:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 13:25:43 $
+;; Last Modified: $Date: 2010/08/19 13:53:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2876,7 +2876,7 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
 
 (defcustom skk-cdb-coding-system 'euc-jp
   "*$B8D?M<-=q$N8!:w$N8e$K8!:w$9$k(B CDB $B7A<0<-=q$N%3!<%G%#%s%0!&%7%9%F%`!#(B"
-  :type '(radio coding-system)
+  :type 'coding-system
   :group 'skk-cdb
   :group 'skk-dictionary)
 

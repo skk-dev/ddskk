@@ -68,6 +68,8 @@
   "left-shifts the value v by n bits."
   (let ((a (string 0 0 0 0))
 	(x (lsh (aref v 0) n)))
+    (when (eval-when-compile (= emacs-major-version 20))
+      (setq v (string-make-multibyte v)))
     (aset a 0 (% x 256))
     (setq x (logior (lsh (aref v 1) n) (/ x 256)))
     (aset a 1 (% x 256))

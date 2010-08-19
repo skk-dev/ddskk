@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.20 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-obsolete.el,v 1.21 2010/08/19 13:53:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/08/19 13:53:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -254,7 +254,9 @@ It is strongly recommended to kill and restart Emacs.  Kill Emacs?"))
 	;;(fl skk-obsolete-function-alist))
 	)
     (while vl
-      (make-obsolete-variable (car (car vl)) (cdr (car vl)) nil)
+      (if (eval-when-compile (< emacs-major-version 21))
+	  (make-obsolete-variable (car (car vl)) (cdr (car vl)))
+	(make-obsolete-variable (car (car vl)) (cdr (car vl)) nil))
       (setq vl (cdr vl)))
     ;; Put mark by define-obsolete-function-alias in skk-foreword.el.
     ;;(while fl

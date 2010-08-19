@@ -1,3 +1,15 @@
+2010-08-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Update.
+	* cdb.el (uint32le-lsh): For Emacs 20 only.  Convert v to the
+	multibyte equivalent
+	* skk-e21.el (skk-tooltip-show-1): Bind x-gtk-use-system-tooltips
+	to nil in order to use the Emacs' own tooltips and thus preserve
+	text properties.
+	* skk-obsolete.el (skk-obsolete-put-obsolete-mark): Under Emacs
+	20, call `make-obsolete-variable' with only 2 args.
+	* skk-vars.el (skk-cdb-coding-system): Modify the custom type.
+
 2010-08-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
