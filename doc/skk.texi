@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/19 13:52:53 $
+@set UPDATED $Date: 2010/08/19 16:36:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -276,6 +276,7 @@ Emacs 20.7
 @item ツールティップ表示は機能しません。
 @item インライン候補表示は機能しません。
 @item 動的補完における複数候補表示は機能しません。
+@item 辞書サーバを介さない CDB 形式辞書の直接検索は機能しません。
 @item JISX 0213 対応等 MULE 4.1 パッチの適用を必要とする機能があります。
 @end itemize
 
