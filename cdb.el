@@ -102,11 +102,8 @@
 (defun cdb-hash (s)
   "computes an uint32le hash value for string s."
   (let ((h (uint32le cdb-hash-initvalue)))
-    (if (eval-when-compile (< emacs-major-version 21))
-	(mapcar (lambda (c) (setq h (uint32le-xor (uint32le-add h (uint32le-lsh h 5)) (uint32le c))))
-		s)
-      (mapc (lambda (c) (setq h (uint32le-xor (uint32le-add h (uint32le-lsh h 5)) (uint32le c))))
-	  s))
+    (mapc (lambda (c) (setq h (uint32le-xor (uint32le-add h (uint32le-lsh h 5)) (uint32le c))))
+	  s)
     h))
 
 (defun cdb-buffer-name (path)
