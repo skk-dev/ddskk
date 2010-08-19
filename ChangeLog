@@ -9,6 +9,8 @@
 	* skk-obsolete.el (skk-obsolete-put-obsolete-mark): Under Emacs
 	20, call `make-obsolete-variable' with only 2 args.
 	* skk-vars.el (skk-cdb-coding-system): Modify the custom type.
+	* skk.el (skk-henkan-show-candidates-buffer): Do not call
+	`fit-window-to-buffer' under Emacs 20 or XEmacs 21.4.
 
 2010-08-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
