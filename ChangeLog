@@ -1,8 +1,6 @@
 2010-08-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Update.
-	* cdb.el (uint32le-lsh): For Emacs 20 only.  Convert v to the
-	multibyte equivalent.
 	* skk-e21.el (skk-tooltip-show-1): Bind x-gtk-use-system-tooltips
 	to nil in order to use the Emacs' own tooltips and thus preserve
 	text properties.
