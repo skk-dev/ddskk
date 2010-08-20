@@ -3,6 +3,12 @@
 	* skk-vars.el (skk-show-japanese-menu): Find Cocoa Emacs by
 	checking the feature ns.
 
+	* patches/README.ja:
+	* patches/emacs22-gtk-fix-dynamic-menus.diff:
+	* patches/emacs23_1-gtk-fix-dynamic-menus.diff:
+	Add patches which fix the menu update problem in Emacs 22/23.1
+	with GTK 2.18 or later.
+
 2010-08-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Update.
