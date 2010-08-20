@@ -1,5 +1,12 @@
 2010-08-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-tut.el (skktut-init-variables-alist): Bind
+	skk-henkan-show-candidates-rows,
+	skk-show-candidates-always-pop-to-buffer, skk-show-annotation and
+	skk-verbose.
+	(skktut-make-windows): Increase the height of the question window.
+	(skktut-next-answer-buffer): In skktut-question-buffer, move point
+	to bob.
 	* skk-vars.el (skk-show-japanese-menu): Find Cocoa Emacs by
 	checking the feature ns.
 

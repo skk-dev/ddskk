@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.71 2010/08/18 11:09:11 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.72 2010/08/20 15:09:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 11:09:11 $
+;; Last Modified: $Date: 2010/08/20 15:09:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -102,6 +102,8 @@
     (skk-henkan-okuri-strictly . nil)
     (skk-henkan-overlay-priority . 600)
     (skk-henkan-show-candidates-keys . '(?a ?s ?d ?f ?j ?k ?l))
+    (skk-henkan-show-candidates-rows . 1)
+    (skk-show-candidates-always-pop-to-buffer . nil)
     (skk-henkan-strict-okuri-precedence . nil)
     (skk-hiragana-mode-string . " かな")
     (skk-init-file . "")
@@ -293,6 +295,7 @@
     (skk-use-viper . nil)
     (skk-show-tooltip . nil)
     (skk-show-inline . nil)
+    (skk-show-annotation . nil)
     (skk-kcode-charset . (if (featurep 'jisx0213)
 			     (quote japanese-jisx0208)
 			   skk-kcode-charset))
@@ -599,9 +602,9 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
   (delete-other-windows)
   (split-window-vertically)
   (let ((height (window-height (selected-window))))
-    (unless (< 19 height)
-      ;; Keep at least 20 lines for the upper window.
-      (enlarge-window (- 20 height))))
+    (unless (< 22 height)
+      ;; Keep at least 23 lines for the upper window.
+      (enlarge-window (- 23 height))))
   (other-window 1)
   ;; make it selected window and current buffer.
   (switch-to-buffer skktut-answer-buffer)
@@ -852,7 +855,8 @@ tutorial /チュートリアル/
       (setq skktut-right-answer
 	    (buffer-substring-no-properties
 	     (+ 3 (point))
-	     (skk-save-point (end-of-line) (point)))))
+	     (skk-save-point (end-of-line) (point))))
+      (goto-char (point-min)))
     ;; not to save point.
     (let ((cbuf (current-buffer))
 	  p)
