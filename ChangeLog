@@ -9,6 +9,10 @@
 	to bob.
 	* skk-vars.el (skk-show-japanese-menu): Find Cocoa Emacs by
 	checking the feature ns.
+	(skk-candidate-buffer-background-color, skk-henkan-rest-indicator)
+	(skk-henkan-show-candidates-keys-face)
+	(skk-henkan-rest-indicator-face): Modify custom types and/or
+	groups.
 
 	* patches/README.ja:
 	* patches/emacs22-gtk-fix-dynamic-menus.diff:

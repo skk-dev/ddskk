@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.306 2010/08/20 12:24:49 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.307 2010/08/20 15:26:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/20 12:24:49 $
+;; Last Modified: $Date: 2010/08/20 15:26:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1226,12 +1226,14 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
     (((class grayscale))
      (:inherit default)))
   "*$BA*Br%-!<$N(B face $BB0@-!#(B"
-  :group 'skk-henkan)
+  :group 'skk-henkan
+  :group 'skk-visual)
 
 (defcustom skk-henkan-rest-indicator nil
   "*Non-nil $B$G$"$l$P(B \[$B;D$j(B 99++\] $B$NI=<($r1&4s$;G[CV$9$k!#(B"
   :type 'boolean
-  :group 'skk-henkan)
+  :group 'skk-henkan
+  :group 'skk-visual)
 
 (defface skk-henkan-rest-indicator-face
   '((((class color) (type tty))
@@ -1243,7 +1245,8 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
     (((class grayscale))
      (:inherit default)))
   "*\[$B;D$j(B 99++\] $B$N(B face $BB0@-!#(B"
-  :group 'skk-henkan)
+  :group 'skk-henkan
+  :group 'skk-visual)
 
 (defcustom skk-auto-start-henkan t
   "*$BC18l$dJ8@a$N6h@Z$j$r<($9J8;z$NBG80$K$h$j<+F0E*$KJQ49$r3+;O$9$k!#(B
@@ -1359,8 +1362,10 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#Nc$($P!
 
 (defcustom skk-candidate-buffer-background-color nil
   "*\"*$B8uJd(B*$B%P%C%U%!(B\"$B$NGX7J?'!#(B"
-  :type 'string
-  :group 'skk-henkan)
+  :type '(radio (string :tag "$B?'$NL>A0(B")
+		(const :tag "$B;XDj$7$J$$(B" nil))
+  :group 'skk-henkan
+  :group 'skk-visual)
 
 (defcustom skk-kakutei-key "\C-j"
   "*$B4A;zJQ49$N3NDjF0:n$r9T$&%-!<!#(B"
