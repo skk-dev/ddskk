@@ -3,6 +3,7 @@
 	* skk-tut.el (skktut-update-jisyo): Bind skk-jisyo-update-vector.
 	* skk.el (skk-adjust-user-option): Check the default value of
 	skk-share-private-jisyo.
+	* skk-version.el (skk-version): Bump to 14.0.92.
 
 2010-08-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
