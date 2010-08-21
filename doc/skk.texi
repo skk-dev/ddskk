@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/21 00:45:27 $
+@set UPDATED $Date: 2010/08/21 01:20:26 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2184,11 +2184,13 @@ skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
 @item skk-load-hook
 @vindex skk-load-hook
 
-@file{skk.el} の読みこみを完了した時点で呼ばれます。@file{~/.skk} は SKK
+@file{skk.el} の読み込みを完了した時点で呼ばれます。@file{~/.skk} は SKK
 モードを起動しなければ読み込まれないのに対し、このフックは、
-@file{skk.el} を読みこんだら SKK モードを起動しなくとも呼ばれます。
+@file{skk.el} を読み込んだら SKK モードを起動しなくとも呼ばれます。
 
-@item skk-auto-load-hook
+@item  skk-act-load-hook
+@itemx skk-auto-load-hook
+@itemx skk-azik-load-hook
 @itemx skk-comp-load-hook
 @itemx skk-gadget-load-hook
 @itemx skk-kakasi-load-hook
@@ -2196,7 +2198,9 @@ skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
 @itemx skk-num-load-hook
 @itemx skk-server-load-hook
 @c @itemx skk-viper-load-hook
+@vindex skk-act-load-hook
 @vindex skk-auto-load-hook
+@vindex skk-azik-load-hook
 @vindex skk-comp-load-hook
 @vindex skk-gadget-load-hook
 @vindex skk-kakasi-load-hook
@@ -2205,16 +2209,15 @@ skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
 @vindex skk-server-load-hook
 @c @vindex skk-viper-load-hook
 
-@file{skk-auto.el}, @file{skk-comp.el}, @file{skk-gadget.el},
-@file{skk-kakasi.el}, @file{skk-kcode.el}, @file{skk-num.el},
-@file{skk-server.el}
+@file{skk-act.el}, @file{skk-auto.el}, @file{skk-azik.el}, @file{skk-comp.el},
+@file{skk-gadget.el}, @file{skk-kakasi.el}, @file{skk-kcode.el}, 
+@file{skk-num.el}, @file{skk-server.el}
 @c , @file{skk-viper.el} 
-の各ファイルの読みこみが完了し
-た直後に呼ばれるフック。
+の各ファイルの読み込みが完了した直後に呼ばれるフック。
 @end table
 
 @findex eval-after-load
-@code{load-hook} が提供されていないプログラムであっても、ロード後に何らか
+@code{load-hook} が提供されていないプログラムであっても、ロード完了後に何らか
 の設定を行いたい場合は、関数 @code{eval-after-load} を使用します。例え
 ば、
 
@@ -3370,9 +3373,7 @@ L:胆;9画(肉部5画)
 キー @kbd{>} を押しただけで、@kbd{SPC} が押されたかのように変換されます。
 他の接頭辞を選びたいときは、@kbd{SPC} を押して下さい。
 
-@table @code
-@item skk-special-midashi-char-list
-@vindex skk-special-midashi-char-list
+@defvr {ユーザ変数} skk-special-midashi-char-list
 
 ▽モードまたは▼モードにおいて、この変数の値に含まれる文字の入力があった
 場合、接頭辞・接尾辞の入力を開始します。この変数の既定値は、
@@ -3395,7 +3396,7 @@ L:胆;9画(肉部5画)
 
 L 辞書の接頭・接尾辞は、昔は @samp{<}, @samp{?} も使われていましたが、
 現在は @samp{>} に統一されています。
-@end table
+@end defvr
 
 @node 数値変換
 @subsection 数値変換
@@ -4387,9 +4388,9 @@ ohhira @expansion{} おおひら
 @end example
 
 @vindex yatex-mode
-@code{yatex-mode} など、既に同種の機能が付いているモードがあります。その
+@code{yatex-mode} など、既に同様の機能が付いているモードがあります。その
 ようなモードにおいてもこの自動挿入の機能が邪魔になることはないでしょうが、
-そのモードにおいてのみこの機能をオフにしたい場合は、該当のモードに入った
+特定のモードに限って自動入力機能をオフにしたい場合は、当該モードに入った
 ときにコールされるフック変数を利用して設定を行うことができます。
 
 @lisp
@@ -6188,6 +6189,12 @@ DDSKK では、複数の辞書を扱うことが可能です。複数の辞書が同時に
 ます。@code{non-nil} を与えると出力しません。
 @end defun
 
+@defun skk-search-cdb-jisyo CDB-PATH
+
+not documented
+
+@end defun
+
 @defun skk-search-kakutei-jisyo-file FILE LIMIT &optional NOMSG
 @cindex 確定変換
 @vindex skk-kakutei-henkan-flag
@@ -6243,7 +6250,7 @@ DDSKK では、複数の辞書を扱うことが可能です。複数の辞書が同時に
 
 この変数の値は、辞書サーバ毎の情報リストです。各リストは 4 つの要素か
 ら成ります。4 つの要素はそれぞれ、ホスト名、辞書サーバ名 (フルパス)、辞書サーバ
-が読みこむ辞書ファイル名、辞書サーバが使用するポート番号、となります。ただし、辞書
+が読み込む辞書ファイル名、辞書サーバが使用するポート番号、となります。ただし、辞書
 及びポート番号は、辞書サーバ自身が決定することもあるため、そのような場合は
 @code{nil} として構いません。
 
