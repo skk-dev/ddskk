@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/21 01:20:26 $
+@set UPDATED $Date: 2010/08/21 01:40:00 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8037,15 +8037,7 @@ TUT-code は 2 ストローク系の日本語直接入力方式の一つです。
 
 使用するには、SKK のインストール時にいくつかのファイルをインストールする
 必要があります。SKK ソースの @file{tut-code} ディレクトリにある
-
-@itemize @bullet
-@item skk-tutcdef.el
-@item skk-tutcode.el
-@end itemize
-
-@noindent
-を、SKK ソースのトップディレクトリにコピーして、SKK のインストールを再度
-行います。
+@file{skk-tutcdef.el} と @file{skk-tutcode.el} を、SKK ソースのトップディレクトリにコピーして、SKK のインストールを再度行います。
 
 @xref{DDSKK のインストール}.
 
@@ -8083,7 +8075,7 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 
 @defvr {ユーザ変数} skk-use-kana-keyboard
 
-これを @code{non-nil} に設定すると、かな入力サポートが SKK 起動時に有効に
+この変数を @code{non-nil} に設定すると、かな入力サポートが SKK 起動時に有効に
 なります。
 
 @lisp
@@ -8094,7 +8086,7 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 
 @defvr {ユーザ変数} skk-kanagaki-keyboard-type
 
-この設定で、かな入力サポートの種類を切換えます。
+この変数で、かな入力サポートの種類を切換えます。
 
 @table @samp
 @item 106-jis
