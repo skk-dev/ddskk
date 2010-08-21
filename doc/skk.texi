@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/21 03:21:34 $
+@set UPDATED $Date: 2010/08/21 23:11:25 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -266,35 +266,63 @@ fsf-compat パッケージが動作のために必須です。
 の重要な機能が使えません。Emacs 21 では動作テストが充分とは言えません。
 GNU Emacs 22 以上での利用が最も推奨されます。
 
-現時点でバージョンごとに少なくとも以下の制限があります。
+現時点で Emacs のバージョンごとに少なくとも以下の制限があります。
+
+@noindent
+Emacs 20.2 以前
+
+@itemize @bullet
+@item 動作しません。
+@end itemize
 
 @noindent
 Emacs 20.7
 
 @itemize @bullet
-@item ツールバー、テキストの装飾機能が制限されます。
+@item テキストの装飾機能が制限されます。
+@item モードラインでのポップアップなどは機能しません。
 @item ツールティップ表示は機能しません。
 @item インライン候補表示は機能しません。
 @item 動的補完における複数候補表示は機能しません。
 @item 辞書サーバを介さない CDB 形式辞書の直接検索は機能しません。
-@item JISX 0213 対応等 MULE 4.1 パッチの適用を必要とする機能があります。
+@item JIS X 0213 対応等 MULE 4.1 パッチの適用を必要とする機能があります。
+@item JIS X 0213 対応には Mule-UCS の導入が必要です。
+@item 日本語メニュー表示に対応しません。
 @end itemize
 
 @noindent
 Emacs 21.4
 
 @itemize @bullet
-@item X window system 上での日本語メニューに対応しません。
+@item JIS X 0213 対応には Mule-UCS の導入が必要です。
+@item X Window System 上での日本語メニュー表示に対応しません。
 @end itemize
 
 @noindent
-XEmacs
+Emacs 22.3
 
 @itemize @bullet
-@item @file{skk-kcode.el} の JISX 0213 対応機能が使えません。
+@item JIS X 0213 対応には Mule-UCS 導入などの対策が必要です。
+@item X Window System 上での日本語メニュー表示は GTK 対応版のみです。
+@end itemize
+
+@noindent
+Emacs 23.2
+
+@itemize @bullet
+@item X Window System 上での日本語メニュー表示は GTK 対応版のみです。
+@end itemize
+
+@noindent
+XEmacs 21.4, 21.5 (beta)
+
+@itemize @bullet
+@item @file{skk-kcode.el} の機能を含む JIS X 0213 対応が機能しません。
 @item インライン候補表示は機能しません。
 @item 動的補完における複数候補表示は機能しません。
 @item XEmacs 21.4 ではツールティップ表示が機能しません。
+@item X Window System 上での日本語メニュー表示は GTK 対応版のみです。
+@item 日本語メニュー表示は X リソースによる方法のみテストされています。
 @end itemize
 
 @node SKKとはなにか
@@ -1916,7 +1944,11 @@ DDSKK を併用したインクリメンタル・サーチ機能を提供します。
 @item skk-jisx0213.el
 @cindex @file{skk-jisx0213.el}
 
-JISX0213 文字コードを扱うプログラムです。
+JISX0213 文字コードを扱うプログラムです。この機能は Emacs 23 では標準で
+利用できます。それ以外のバージョンにおいては、Mule-UCS を導入するなどの
+対策が必要です。Mule-UCS については 
+@uref{http://tats.haun.org/mule-ucs/, Mule-UCS Unofficial Site} を参照
+してください。
 
 @item skk-jisyo-edit-mode.el
 @cindex @file{skk-jisyo-edit-mode.el}
