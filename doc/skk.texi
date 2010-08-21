@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/19 16:36:12 $
+@set UPDATED $Date: 2010/08/21 00:45:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -291,7 +291,7 @@ Emacs 21.4
 XEmacs
 
 @itemize @bullet
-@item @samp{skk-kcode.el} $B$N(B JISX 0213 $BBP1~5!G=$,;H$($^$;$s!#(B
+@item @file{skk-kcode.el} $B$N(B JISX 0213 $BBP1~5!G=$,;H$($^$;$s!#(B
 @item $B%$%s%i%$%s8uJdI=<($O5!G=$7$^$;$s!#(B
 @item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
 @item XEmacs 21.4 $B$G$O%D!<%k%F%#%C%WI=<($,5!G=$7$^$;$s!#(B
@@ -2059,6 +2059,8 @@ XEmacs $B$N3HD%5!G=$rMxMQ$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 @section $B%f!<%6%*%W%7%g%s$N@_DjJ}K!(B
 
 @cindex @file{~/.emacs}
+@cindex @file{~/.emacs.d/init.el}
+@cindex @file{~/.xemacs/init.el}
 @cindex @file{~/.skk}
 DDSKK $B$N%+%9%?%^%$%:$O!"(B@file{~/.emacs} $B$"$k$$$O(B @file{~/.skk} $B$K5-=R$7(B
 $B$^$9!#$^$?!"3F%U%!%$%k$NDs6!$9$k%U%C%/$bMxMQ$7$^$9!#>e5-$N%U%!%$%k$d%U%C(B
@@ -2080,14 +2082,17 @@ DDSKK $B$N%+%9%?%^%$%:$O!"(B@file{~/.emacs} $B$"$k$$$O(B @file{~/.skk} $B$K
 
 @table @file
 @item ~/.emacs
+@itemx ~/.emacs.d/init.el
+@itemx ~/.xemacs/init.el
 
-Emacs $B$r5/F0$7$?$H$-$K0lEY$@$1FI$_$3$^$l$^$9!#(B
+Emacs $B$r5/F0$7$?$H$-$K0lEY$@$1FI$_9~$^$l$^$9!#(B
+$B$3$N%^%K%e%"%k$O(B @file{~/.emacs} $B$H$$$&5-=R$GE}0l$7$F$$$^$9!#(B
 
 @xref{Init File, ,.emacs, emacs, GNU Emacs Manual}.
 
 @item ~/.skk
 
-DDSKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_$3$^$l$^$9!#%U%!%$%kL>$N4{DjCM$O!"(BOS
+DDSKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_9~$^$l$^$9!#%U%!%$%kL>$N4{DjCM$O!"(BOS
 $B$N<oN`$K$h$j0[$J$j$^$9$,!"<B:]$O(B Emacs $B$N4X?t(B
 @code{convert-standard-filename} $B$K$h$j2C9)$5$l$^$9!#(B
 @findex convert-standard-filename
@@ -2180,7 +2185,7 @@ skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
 @vindex skk-load-hook
 
 @file{skk.el} $B$NFI$_$3$_$r40N;$7$?;~E@$G8F$P$l$^$9!#(B@file{~/.skk} $B$O(B SKK
-$B%b!<%I$r5/F0$7$J$1$l$PFI$_$3$^$l$J$$$N$KBP$7!"$3$N%U%C%/$O!"(B
+$B%b!<%I$r5/F0$7$J$1$l$PFI$_9~$^$l$J$$$N$KBP$7!"$3$N%U%C%/$O!"(B
 @file{skk.el} $B$rFI$_$3$s$@$i(B SKK $B%b!<%I$r5/F0$7$J$/$H$b8F$P$l$^$9!#(B
 
 @item skk-auto-load-hook
