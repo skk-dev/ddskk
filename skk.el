@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.504 2010/08/19 14:19:26 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.505 2010/08/21 23:14:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/19 14:19:26 $
+;; Last Modified: $Date: 2010/08/21 23:14:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -318,7 +318,7 @@ dependent."
   (load skk-init-file t)
   (skk-adjust-user-option)
   (skk-setup-modeline)
-  (when skk-share-private-jisyo
+  (when (default-value 'skk-share-private-jisyo)
     (skk-setup-shared-private-jisyo))
   (when skk-keep-record
     (skk-create-file skk-record-file

@@ -1,3 +1,9 @@
+2010-08-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-tut.el (skktut-update-jisyo): Bind skk-jisyo-update-vector.
+	* skk.el (skk-adjust-user-option): Check the default value of
+	skk-share-private-jisyo.
+
 2010-08-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
