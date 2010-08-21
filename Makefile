@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.68 2010/08/21 23:32:43 skk-cvs Exp $
-# Last Modified: $Date: 2010/08/21 23:32:43 $
+# Version: $Id: Makefile,v 1.69 2010/08/21 23:50:27 skk-cvs Exp $
+# Last Modified: $Date: 2010/08/21 23:50:27 $
 
 
 VERSION = 14.0.92
@@ -16,7 +16,7 @@ GZIP      = gzip -9
 MD5	  = md5
 RM	  = /bin/rm -f
 SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
-TAR	  = tar
+TAR	  = gtar
 XEMACS	  = xemacs
 RUBY      = ruby
 SKK_DEFAULT_JISYO =

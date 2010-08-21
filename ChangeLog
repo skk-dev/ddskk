@@ -1,5 +1,9 @@
 2010-08-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* Makefile (TAR): Use gtar, assuming the FreeBSD system.
+
+2010-08-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* Pre-release 14.0.92.
 
 2010-08-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
