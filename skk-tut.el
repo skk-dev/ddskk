@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.72 2010/08/20 15:09:38 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.73 2010/08/21 23:14:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/20 15:09:38 $
+;; Last Modified: $Date: 2010/08/21 23:14:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -679,6 +679,7 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
 
 (defun skktut-update-jisyo (word &optional purge)
   (let ((skk-share-private-jisyo nil)
+	(skk-jisyo-update-vector nil)
 	(skk-update-jisyo-count 0))
     (skk-update-jisyo-original word purge)))
 
