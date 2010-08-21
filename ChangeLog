@@ -4,6 +4,7 @@
 
 2010-08-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* Makefile (VERSION): Bump to 14.0.92.
 	* skk-tut.el (skktut-update-jisyo): Bind skk-jisyo-update-vector.
 	* skk.el (skk-adjust-user-option): Check the default value of
 	skk-share-private-jisyo.
