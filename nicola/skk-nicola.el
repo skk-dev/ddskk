@@ -89,15 +89,15 @@
   :group 'skk-nicola)
 
 (defcustom skk-nicola-rshift-keys
-  (nconc '(" ")
-	 (list (cond
-		((eq system-type 'windows-nt)
-		 [convert])
-		((eq skk-emacs-type 'xemacs)
-		 [henkan-mode])
-		(t
-		 ;; Emacs 20.3 or later
-		 [henkan])))) "\
+  (append '(" ")
+	  (list (cond
+		 ((eq system-type 'windows-nt)
+		  [convert])
+		 ((eq skk-emacs-type 'xemacs)
+		  [henkan-mode])
+		 (t
+		  ;; Emacs 20.3 or later
+		  [henkan])))) "\
 *右親指キーとして使うキー。"
   :type `(repeat
 	  ,(if (get 'key-sequence 'widget-type)

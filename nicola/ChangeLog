@@ -1,3 +1,8 @@
+2010-08-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-nicola.el (skk-nicola-rshift-keys): Use `append' instead of
+	`nconc'.
+
 2010-08-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-util.el (skk-kanagaki-bs): Use `delete-char'
