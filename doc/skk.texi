@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/21 01:40:00 $
+@set UPDATED $Date: 2010/08/21 03:21:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -789,12 +789,6 @@ DDSKK を使った入力方法に慣れるには、付属のチュートリアルが最適なので、お
 
 SKK モードに入るには @kbd{C-x C-j}、もしくは @kbd{C-x j} とタイプします。
 モードラインの左端には、下記のように @w{@samp{--かな:}} が追加されます。
-@footnote{次の設定をしているときはマイナーモードの表示に追加されます。
-
-@lisp
-(setq skk-status-indicator 'minor-mode)
-@end lisp
-}
 
 @example
 --かな:MULE/7bit----- Buffer-name (Major-mode)---
@@ -812,6 +806,17 @@ Window System 下で対応する Emacs を使用している場合。
 必要はほとんどありません。
 
 @xref{入力モード, , アスキーモード}.}
+
+@defvr {ユーザ変数} skk-status-indicator
+
+この変数がシンボル @samp{minor-mode} であれば、モードラインのマイナーモー
+ドの表示に追加されます。
+
+@example
+-MULE/7bit----- Buffer-name (Major-mode かな)---
+@end example
+
+@end defvr
 
 @defvr {ユーザ変数} skk-preload
 
