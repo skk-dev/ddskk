@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.165 2010/08/18 10:54:33 skk-cvs Exp $
-;; Last Modified: $Date: 2010/08/18 10:54:33 $
+;; Version: $Id: SKK-MK,v 1.166 2010/08/22 12:29:16 skk-cvs Exp $
+;; Last Modified: $Date: 2010/08/22 12:29:16 $
 
 ;;; Commentary:
 
@@ -187,6 +187,7 @@ This version of SKK requires MULE features"))
 		skk-auto
 		skk-autoloads
 		skk-azik
+		skk-bayesian
 		skk-cdb
 		skk-comp
 		;; skk-cursor
@@ -217,7 +218,6 @@ This version of SKK requires MULE features"))
 		skk-version
 		skk
 		;; EXPERIMENTAL
-		skk-bayesian
 		skk-correct
 		skk-exsearch
 		skk-exserv

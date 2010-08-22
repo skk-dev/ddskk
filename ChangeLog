@@ -1,3 +1,8 @@
+2010-08-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* bayesian: From experimental.
+	* SKK-MK: Modify according to it.
+
 2010-08-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
