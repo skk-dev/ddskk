@@ -3,9 +3,7 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.1 2010/08/22 11:53:06 skk-cvs Exp $
-;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/22 11:53:06 $
+;; Keywords: japanese, mule, input method, bayesian estimation
 
 ;; This file is part of Daredevil SKK.
 
@@ -82,7 +80,7 @@
 ;; サーバを終了させる方法は、kill -TERM です。
 ;; .skk には、(setq skk-bayesian-prefer-server t) を書いて下さい。
 ;;
-;; <使用の覚え書き>
+;; <仕様の覚え書き>
 ;; 各関数と、bskk のコメント内の Specifications に書かれている。
 ;;
 
