@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/22 06:09:38 $
+@set UPDATED $Date: 2010/08/22 06:28:16 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8413,6 +8413,7 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item @email{yoshiki@@xemacs.org, Yoshiki Hayashi}
 @item @email{manbou@@ceres.dti.ne.jp, YOSHIZAWA Masahiro}
 @item @email{yutopia@@giga.ocn.ne.jp, Yuh Ohmura}
+@item Yusuke Shinyama
 @item @email{kameyama@@kuis.kyoto-u.ac.jp, Yukiyoshi Kameyama}
 @end itemize
 
