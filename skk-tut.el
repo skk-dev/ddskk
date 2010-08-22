@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.74 2010/08/22 15:02:03 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.75 2010/08/22 15:04:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/22 15:02:03 $
+;; Last Modified: $Date: 2010/08/22 15:04:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -973,7 +973,7 @@ SKK チュートリアルはこれで終りです。
 
 迄お送り下さい。なお、このアドレスは SKK Ring Server Openlab Mailing
 List のアドレスです。ただし現在、投稿できるのはメンバーに限られます。
-SKK Ring Server Openlab ML へ参加希望の場合は
+投稿前に ML に参加してください。ML に参加するには
 
 \t%s
 
@@ -990,12 +990,11 @@ Please send comments, questions and bug reports on %s to:
 
 This is the address of the SKK Ring Server Openlab Mailing list.
 Note that only members can post to the ML.  So, if you are not an
-ML member, please subscribe to the SKK Ring Server Openlab ML,
-sending mail to:
+ML member, please subscribe to the ML first, by sending email to:
 
 \t%s
 
-with empty body and subject.
+with both the subject and the body empty.
 
 !! Hit <return> key when you are ready.")
 		 (skk-version t)
