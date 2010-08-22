@@ -3,6 +3,9 @@
 	* bayesian: From experimental.
 	* SKK-MK: Modify according to it.
 	* doc/skk.texi: Update.
+	* skk-tut.el (skktut-init-variables-alist): Bind
+	skk-previous-char.
+	(skktut-end-tutorial): Update message.
 
 2010-08-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

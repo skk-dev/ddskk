@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.73 2010/08/21 23:14:30 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.74 2010/08/22 15:02:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/21 23:14:30 $
+;; Last Modified: $Date: 2010/08/22 15:02:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -105,6 +105,10 @@
     (skk-henkan-show-candidates-rows . 1)
     (skk-show-candidates-always-pop-to-buffer . nil)
     (skk-henkan-strict-okuri-precedence . nil)
+    (skk-previous-candidate-char
+     . (if (equal skk-tut-file skktut-nicola-tut-file)
+	   ?\C-p
+	?x))
     (skk-hiragana-mode-string . " かな")
     (skk-init-file . "")
     (skk-input-by-code-menu-keys1 . '(?a ?s ?d ?f ?g ?h ?q ?w ?e ?r ?t ?y))
@@ -968,8 +972,7 @@ SKK チュートリアルはこれで終りです。
 \t%s
 
 迄お送り下さい。なお、このアドレスは SKK Ring Server Openlab Mailing
-List のアドレスです。どなたでも投稿はできますが、メンバーにしか配送され
-ないので、メンバーでない方はその旨を明記してメールをお送りください。
+List のアドレスです。ただし現在、投稿できるのはメンバーに限られます。
 SKK Ring Server Openlab ML へ参加希望の場合は
 
 \t%s
@@ -986,10 +989,9 @@ Please send comments, questions and bug reports on %s to:
 \t%s
 
 This is the address of the SKK Ring Server Openlab Mailing list.
-Anyone can post, but responces will be sent only to the ML members.
-So, if you are not a ML member, please say so in your mail.
-If you are interested in joining the SKK Ring Server Openlab ML,
-send mail to:
+Note that only members can post to the ML.  So, if you are not an
+ML member, please subscribe to the SKK Ring Server Openlab ML,
+sending mail to:
 
 \t%s
 
