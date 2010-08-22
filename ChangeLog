@@ -1,3 +1,7 @@
+2010-08-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
 2010-08-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile (TAR): Use gtar, assuming the FreeBSD system.
