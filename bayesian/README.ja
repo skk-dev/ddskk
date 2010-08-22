@@ -68,7 +68,7 @@ skk-bayesian.el は直前の履歴のみ使用する skk-study.el よりも拡�
    (Ruby1.8.7p248 String#inspect broken on multibyte string.)
 
    http://redmine.ruby-lang.org/repositories/revision/ruby-18?rev=26103
-   (リビジョン 26103)
+   (Ruby 1.8 - リビジョン 26103)
 
 *** string.c.org	2010-01-22 01:54:05.000000000 +0900
 --- string.c	2010-01-22 01:54:23.000000000 +0900
