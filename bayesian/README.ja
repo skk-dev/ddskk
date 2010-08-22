@@ -54,3 +54,38 @@ skk-bayesian.el は直前の履歴のみ使用する skk-study.el よりも拡�
 
    skk-bayesian.el の動作の仕組み、仕様については skk-bayesian.el 内のコ
    メントを参照してください。
+
+5. ruby のリビジョンによる不具合について
+
+   ruby は様々なリビジョンのものが利用されていますが、場合によっては出力
+   が正常でなく、skk-bayesian で文字化けとして現れることがあります。
+   例えば ruby 1.8.7 (2009-12-24 patchlevel 248) では問題があることが分か
+   っています。これについては ruby 1.8.8 のリビジョン 26103 で修正されて
+   います。または最後のパッチを当てることで修正されます。参考になる URL
+   は以下です。
+
+   http://redmine.ruby-lang.org/issues/show/2569
+   (Ruby1.8.7p248 String#inspect broken on multibyte string.)
+
+   http://redmine.ruby-lang.org/repositories/revision/ruby-18?rev=26103
+   (リビジョン 26103)
+
+*** string.c.org	2010-01-22 01:54:05.000000000 +0900
+--- string.c	2010-01-22 01:54:23.000000000 +0900
+***************
+*** 2642,2648 ****
+      while (p < pend) {
+  	char c = *p++;
+  	int len;
+! 	if (ismbchar(c) && p + (len = mbclen(c)) <= pend) {
+  	    rb_str_buf_cat(result, p - 1, len);
+  	    p += len - 1;
+  	}
+--- 2642,2648 ----
+      while (p < pend) {
+  	char c = *p++;
+  	int len;
+! 	if (ismbchar(c) && p - 1 + (len = mbclen(c)) <= pend) {
+  	    rb_str_buf_cat(result, p - 1, len);
+  	    p += len - 1;
+  	}
