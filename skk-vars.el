@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.307 2010/08/20 15:26:39 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.308 2010/08/23 08:43:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/20 15:26:39 $
+;; Last Modified: $Date: 2010/08/23 08:43:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2703,6 +2703,7 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
 \\|Aragonese\\|Aramaic\\|Arapaho\\|Arawak\\|Armenian\\|Aromanian\\|Assamese\
 \\|Asturian\\|'Auhelawa\\|Avar\\|Avestan\\|Awabakal\\|Aymara\\|Azeri\
 \\|Balinese\\|Balti\\|Bambara\\|Bandjalang\\|Baruga\\|Bashkir\\|Basque\
+\\|Baure\
 \\|Belarusian\\|Bengali\\|Berbice Creole Dutch\\|Betawi\\|Bhojpuri\\|Biak\
 \\|Bikol\\|Bislama\\|Blackfoot\\|Bokm,Ael\\|Bosnian\\|Breton\
 \\|Broome Pearling Lugger Pidgin\\|Bube\\|Bulgarian\\|Burmese\
@@ -2735,7 +2736,7 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
 \\|Low Saxon\\|Lower Sorbian\\|Luganda\\|Luxembourgish\
 \\|Maay\\|Macedonian\\|Makhuwa\\(-Meetto\\|-Shirima\\)?\\|Malagasy\\|Malay\
 \\|Malayalam\\|Maliseet\\|Maltese\\|Manchu\\|Mandarin\\|Mandinka\\|Mangarevan\
-\\|Mansi\\|Manx\\|Maori\\|Marathi\\|Marau\\|Maroon\\|Marshallese\
+\\|Mansi\\|Manx\\|Maori\\|Mapudungun\\|Marathi\\|Marau\\|Maroon\\|Marshallese\
 \\|Martuthunira\\|Mati Ke\\|Mbabaram\\|Mende\\|Menominee\\|Meriam\\|Mesquakie\
 \\|Mi'kmaq\\|Miami\
 \\|Middle \\(Dutch\\|English\\|French\\|Korean\\|Norwegian\\|Scots\\)\
@@ -2749,7 +2750,8 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
 \\|Old \\(Church Slavonic\\|English\\|French\\|Frisian\\|High German\\|Irish\
 \\|Norse\\|Prussian\\|Saxon\\|Slavonic\\)\\|Oriya\\|Oromo\
 \\|Pali\\|Pangasinan\\|Panyjima\\|Papiamentu\\|Papuma\\|Pashto\
-\\|Passamaquoddy\\|Paumar,Am\\|Penobscot\\|\\(Old \\)?Perian\\|Phoenician\
+\\|Passamaquoddy\\|Paumar,Am\\|Pennsylvania German\\|Penobscot\
+\\|\\(Old \\)?Perian\\|Phoenician\
 \\|Pirah,Ac\\|Pitcairnese\\|Pitjantjatjara\\|Pitta-Pitta\\|Pochutec\\|Polish\
 \\|Sayula Popoluca\\|Portuguese\\|Potawatomi\\|Powhatan\
 \\|Proto-\\(Germanic\\|Indo-European\\|Uralic\\)\\|Proven,Aga\\|Punjabi\
@@ -2773,8 +2775,8 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
 \\|Uzbek\
 \\|Vandalic\\|Venda\\|Veps\\|Vietnamese\\|Volap,A|k\\|Votic\\|V,Auro\
 \\|Wageman\\|Walloon\\|Wampanoag\\|Wangaaybuwan-Ngiyambaa\\|Warlpiri\\|Welsh\
-\\|Wembawemba\\|Western Apache\\|Wik-Mungkan\\|Wiradhuri\\|Woi\\|Woiwurrung\
-\\|Wolof\\|Worimi\
+\\|Wembawemba\\|Western Apache\\|West Frisian\\|Wik-Mungkan\\|Wiradhuri\
+\\|Woi\\|Woiwurrung\\|Wolof\\|Worimi\
 \\|Xav,Aante\\|Xhosa\\|!X,Asu\
 \\|Yapese\\|Yiddish\\|Yidiny\\|Yindjibarndi\\|Yoruba\\|Yucatec\\|Yup'ik\
 \\|\\(Yatzachi \\|Zoogocho \\|Isthmus \\)Zapotec\\|Zenga\\|Zhuang\
@@ -2821,7 +2823,7 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
 \\|人称接辞\\|平仮名\\|片仮名\\|意義\\|漢字\\)\
 \\(</a>\\)?\
 </span>"
-    "en.wiktionary において品詞を表すヘッダの正規表現")
+    "ja.wiktionary において品詞を表すヘッダの正規表現")
 
 (skk-deflocalvar skk-annotation-mode nil
   "Non-nil であれば、annotation モードであることを示す。")

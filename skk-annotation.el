@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.151 2010/08/18 11:09:11 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.152 2010/08/23 08:43:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/08/18 11:09:11 $
+;; Last Modified: $Date: 2010/08/23 08:43:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -332,7 +332,9 @@
 	 (list (list copy-command browse-command))
 	 event key command urls note cache char digit)
     (while (and list
-		(or (eq this-command 'skk-annotation-wikipedia-region)
+		(or (memq this-command
+			  '(skk-annotation-wikipedia-region-or-at-point
+			    skk-annotation-wikipedia-region))
 		    (eq skk-henkan-mode 'active))
 		(if digit
 		    t
@@ -351,7 +353,9 @@
 		      ;; Return value of the following expression is important.
 		      (or (memq command list)
 			  (eq command 'digit-argument)
-			  (eq command 'skk-annotation-wikipedia-region)
+			  (memq command
+				'(skk-annotation-wikipedia-region-or-at-point
+				  skk-annotation-wikipedia-region))
 			  (equal (key-description key)
 				 (key-description
 				  skk-annotation-wikipedia-key))))
@@ -419,7 +423,9 @@
 		   event nil))
 	    ((or (equal (key-description key)
 			(key-description skk-annotation-wikipedia-key))
-		 (eq command 'skk-annotation-wikipedia-region))
+		 (memq command
+		       '(skk-annotation-wikipedia-region-or-at-point
+			 skk-annotation-wikipedia-region)))
 	     (setq sources
 		   (if (and digit
 			    (> digit 0)
@@ -1447,7 +1453,9 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		(throw 'found (cons string cache-buffer))))))))))
 
 ;;;###autoload
-(defun skk-annotation-wikipedia-region (&optional prefix-arg start end)
+(defun skk-annotation-wikipedia-region-or-at-point (&optional prefix-arg start end)
+  "選択領域またはポイント位置の単語を Wikipedia/Wikitionary で調べる。
+領域が選択されていなければ単語の始めと終わりを推測して調べる。"
   (interactive (cons (prefix-numeric-value current-prefix-arg)
 		     (cond
 		      ((static-if (featurep 'xemacs)
@@ -1482,6 +1490,10 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
       (setq note (or (car (skk-annotation-wikipedia-cache word sources))
 		     (skk-annotation-wikipedia word sources)))
       (skk-annotation-show (or note "") word sources))))
+
+;;;###autoload
+(defalias 'skk-annotation-wikipedia-region
+  'skk-annotation-wikipedia-region-or-at-point)
 
 (defun skk-annotation-generate-url (format-string &rest args)
   (condition-case nil

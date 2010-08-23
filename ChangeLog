@@ -1,3 +1,14 @@
+2010-08-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-region-or-at-point):
+	Rename from `skk-annotation-wikipedia-region-or-at-point'.
+	(skk-annotation-wikipedia-region): Redefine as an alias to it.
+	(skk-annotation-wait-for-input): Modify according to the above
+	changes.
+
+	* skk-xemacs.el (skk-tooltip-default-font-pixel-size): Change the
+	default value to 12.
+
 2010-08-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* bayesian: From experimental.
