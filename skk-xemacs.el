@@ -90,7 +90,7 @@
     ["About Daredevil SKK..." skk-version t]
     ["Visit Daredevil SKK Web Site" skk-xemacs-visit-openlab t]))
 
-(defvar skk-tooltip-default-font-pixel-size 16)
+(defvar skk-tooltip-default-font-pixel-size 12)
 
 ;; Functions.
 
