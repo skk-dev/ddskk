@@ -5,6 +5,8 @@
 	(skk-annotation-wikipedia-region): Redefine as an alias to it.
 	(skk-annotation-wait-for-input): Modify according to the above
 	changes.
+	(skk-annotation-wikipedia-1): Also throw
+	`skk-annotation-wikipedia-suspended' on quit.
 	* skk-vars.el (skk-annotation-en-wiktionary-lang-regexp): Update.
 	(skk-annotation-ja-wiktionary-part-of-speech-regexp): Fix doc
 	string.

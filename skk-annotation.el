@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.152 2010/08/23 08:43:53 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.153 2010/08/23 15:44:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/08/23 08:43:53 $
+;; Last Modified: $Date: 2010/08/23 15:44:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -147,7 +147,7 @@
 ;;
 ;;    http://ftp.debian.org/debian/pool/main/w/w3-url-e21/
 ;;
-;;    $B$J$I$+$i:G?7(B *.orig.tar.gz $B$r<hF@$7$F%$%s%9%H!<%k$7$^$9!#(B
+;;    $B$J$I$+$i?7$7$a$N(B *.orig.tar.gz $B$r<hF@$7$F%$%s%9%H!<%k$7$^$9!#(B
 ;;
 ;;    XEmacs $B$N>l9g!"(B xemacs-sumo $BCf$N(B w3 $B$K4^$^$l$k(B url.el $B$,FI$_9~$^$l$F$7$^(B
 ;;    $B$&$H@5$7$/5!G=$7$J$$$N$G!"Cm0U$7$F$/$@$5$$!#(B
@@ -942,7 +942,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 	(setq buf (catch 'skk-annotation-wikipedia-retrieved
 		    (condition-case nil
 			(sleep-for 0.01)
-		      ((error)
+		      ((error quit)
 		       (kill-buffer buffer)
 		       (throw 'skk-annotation-wikipedia-suspended
 			      source))))))
