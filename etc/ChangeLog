@@ -1,3 +1,8 @@
+2010-08-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.skk: Add skk-tooltip-x-offset, skk-tooltip-y-offset and
+	`skk-annotation-wikipedia-region-or-at-point'.
+
 2010-08-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.skk: Add skk-cdb-large-jisyo.

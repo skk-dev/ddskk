@@ -73,7 +73,7 @@
 
 ;; 変換候補一覧と注釈 (annotation) の表示を
 ;; エコーエリアに代えて tooltip で表示する
-;; 注) 今のところ FSF Emacs 21 以上しか対応していません
+;; 注) 今のところ FSF Emacs 21 以上と XEmacs 21.5 以上で機能します。
 (setq skk-show-tooltip t)
 
 ;; ;; Tip 描画に pos-tip を利用してみる
@@ -97,16 +97,24 @@
 	'((background-color . "alice blue")
 	  (border-color . "royal blue")))
 
+  ;; Tooltip 表示位置の調整。Tooltip の表示位置は OS (Window System) や
+  ;; Emacs のバージョン、フォント設定など諸々の影響を受けてずれるので、
+  ;; 自分の環境に合わせて微調整します。
+
+  ;; (setq skk-tooltip-x-offset 3)
+  ;; (setq skk-tooltip-y-offset 10)
+
   ;; Tooltip を表示する場合の、マウスポインタの挙動。
   ;;   follow => tip の位置に移動する。
   ;;   avoid => ウィンドウの端に退避する。
   ;;   avoid-maybe => ウィンドウ上にあるマウスポインタのみ退避する。
   ;;   banish => ウィンドウの端に退避したまま帰ってこない。
   ;;   nil => 退避しない。この場合、tip のテキストとマウスポインタが
-  (setq skk-tooltip-mouse-behavior 'nil)
+  ;;          重なってしまうこともある。
+  (setq skk-tooltip-mouse-behavior 'avoid-maybe)
 
   ;; tooltip 表示の際のマウスポインタを変更して遊んでみる
-  ;; 注) この設定は X Window System でないと利用できません。
+  ;; 注) この設定は X Window System 上の GNU Emacs でないと利用できません。
   (defadvice skk-tooltip-show-at-point (around set-pointer activate)
     (let ((shape x-pointer-shape))
       (require 'avoid)
@@ -506,6 +514,13 @@
 	  ((and (<= ?0 c) (>= ?9 c)) ",")
 	  ((and (<= ?０ c) (>= ?９ c)) "，")
 	  (t "、"))))
+
+;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
+;; (global-set-key "\M-i" 'skk-annotation-wikipedia-region-or-at-point)
+;; 注) 基本形の (活用形/複数形などでない) 英単語なら領域選択しないで M-i
+;; だけで調べられます。例えば en.wiktionary を使うと「どこでも英英辞典」の
+;; ように使えて便利です。 skk-annotation-wikipedia-sources の設定がデフォ
+;; ルト値であれば、英単語上で M-2 M-i で常に en.wiktionary を調べられます。
 
 ;; Tips といえるものではないが、`lisp-interaction-mode' において "C-j"
 ;; (`eval-print-last-sexp') を利用する人にとっては、英数モードにおいて

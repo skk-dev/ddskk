@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/22 14:16:38 $
+@set UPDATED $Date: 2010/08/23 08:36:46 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -287,6 +287,7 @@ Emacs 20.7
 @item 辞書サーバを介さない CDB 形式辞書の直接検索は機能しません。
 @item JIS X 0213 対応等 MULE 4.1 パッチの適用を必要とする機能があります。
 @item JIS X 0213 対応には Mule-UCS の導入が必要です。
+@item Wikipedia アノテーション機能をサポートしません。
 @item 日本語メニュー表示に対応しません。
 @end itemize
 
