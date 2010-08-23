@@ -5,7 +5,9 @@
 	(skk-annotation-wikipedia-region): Redefine as an alias to it.
 	(skk-annotation-wait-for-input): Modify according to the above
 	changes.
-
+	* skk-vars.el (skk-annotation-en-wiktionary-lang-regexp): Update.
+	(skk-annotation-ja-wiktionary-part-of-speech-regexp): Fix doc
+	string.
 	* skk-xemacs.el (skk-tooltip-default-font-pixel-size): Change the
 	default value to 12.
 
