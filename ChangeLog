@@ -9,6 +9,7 @@
 	* skk-gadget.el (skk-ignore-dic-word): Remove unused local
 	variable save-okurigana.
 	* skk-kcode.el (skk-jis2sjis2): Alias to `ignore' for XEmacs.
+	* skk-server.el (skk-search-server-1): Check if file is readable.
 	* skk-study.el: Don't warn for print-quoted.
 	(skk-study-save): Remove unused local variable last-time.
 	* skk-xemacs.el (skk-xemacs-balloon-help-resize-help-frame):

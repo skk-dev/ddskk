@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.45 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-server.el,v 1.46 2010/08/24 22:10:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/08/24 22:10:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -140,7 +140,9 @@ When called interactively, print version information."
 		     (car l))))))))
      (t
       ;; server is not active, so search file instead
-      (skk-search-jisyo-file file limit)))))
+      (when (and (stringp file)
+		 (file-readable-p file))
+	(skk-search-jisyo-file file limit))))))
 
 (defun skk-open-server ()
   "辞書サーバーと接続する。サーバープロセスを返す。"
