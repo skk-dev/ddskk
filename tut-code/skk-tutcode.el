@@ -4,9 +4,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcode.el,v 1.15 2010/08/02 15:30:56 skk-cvs Exp $
-;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:30:56 $
+;; Version: $Id: skk-tutcode.el,v 1.16 2010/08/24 09:13:28 skk-cvs Exp $
+;; Keywords: japanese, mule, input method, TUT-code
+;; Last Modified: $Date: 2010/08/24 09:13:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -68,7 +68,7 @@
 ;;
 ;; <TODO>
 ;; - Efficient mazegaki (e.x. provided by T-code driver) support.
-;; - To switch easyly okurigana prefix in jisyo buffer.
+;; - To switch easily okurigana prefix in jisyo buffer.
 
 ;;; Code:
 
@@ -109,64 +109,34 @@
     t))
 
 (defun skk-tutcode-display-code-1 (str)
-  (static-cond
-   ((memq skk-emacs-type '(xemacs mule5 mule4 mule3))
-    (let* ((char (string-to-char str))
-	   (charset (char-charset char))
-	   (charset-list
-	    '(japanese-jisx0208 japanese-jisx0208-1978)))
-      (if (charsetp 'japanese-jisx0213-1)
-	  (setq charset-list
-		(nconc
-		 (list 'japanese-jisx0213-1 'japanese-jisx0213-2)
-		 charset-list)))
-      (cond
-       ((memq charset charset-list)
-	(let* ((char1-j (skk-char-octet char 0))
-	       (char1-k (- char1-j 32))
-	       (char1-e (+ char1-j 128))
-	       (char2-j (skk-char-octet char 1))
-	       (char2-k (- char2-j 32))
-	       (char2-e (+ char2-j 128))
-	       (char3 (skk-tutcode-get-code str)))
-	  (message
-	   "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d), TUT: `%s'"
-	   str char1-e char2-e char1-e char2-e
-	   char1-j char2-j char1-j char2-j char1-k char2-k char3)))
-       ((memq charset '(ascii latin-jisx0201))
-	(message "\"%s\"  %2x (%3d)"
-		 str (skk-char-octet char 0)  (skk-char-octet char 0)))
-       (t
-	(skk-error "判別できない文字です"
-		   "Cannot understand this character")))
-     ))
-   ;; 'mule2
-   (t
-    (let (
-	  ;; 文字列を char に分解。
-	  ;; (mapcar '+ str) == (append str nil)
-	  (char-list (mapcar (function +) str)))
-      (cond
-       ((and (= (length char-list) 3)
-	     (memq (car char-list) (list lc-jp lc-jpold)))
-	(let* ((char1-e (car (cdr char-list)))
-	       (char1-j (- char1-e 128))
-	       (char1-k (- char1-j 32))
-	       (char2-e (car (cdr (cdr char-list))))
-	       (char2-j (- char2-e 128))
-	       (char2-k (- char2-j 32))
-	       (char3 (skk-tutcode-get-code str)))
-	  (message
-	   "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d), TUT: `%s'"
-	   str char1-e char2-e char1-e char2-e
-	   char1-j char2-j char1-j char2-j char1-k char2-k char3)))
-       ((or (= (length char-list) 1)	; ascii character
-	    (memq (car char-list) (list lc-ascii lc-roman)))
-	(let ((char (car char-list)))
-	  (message "\"%c\"  %2x (%3d)" char char char)))
-       (t
-	(skk-error "判別できない文字です"
-		   "Cannot understand this character")))))))
+  (let* ((char (string-to-char str))
+	 (charset (char-charset char))
+	 (charset-list (if (charsetp 'japanese-jisx0213-1)
+			   '(japanese-jisx0213-1
+			     japanese-jisx0213-2
+			     japanese-jisx0208
+			     japanese-jisx0208-1978)
+			 '(japanese-jisx0208
+			   japanese-jisx0208-1978))))
+    (cond
+     ((memq charset charset-list)
+      (let* ((char1-j (skk-char-octet char 0))
+	     (char1-k (- char1-j 32))
+	     (char1-e (+ char1-j 128))
+	     (char2-j (skk-char-octet char 1))
+	     (char2-k (- char2-j 32))
+	     (char2-e (+ char2-j 128))
+	     (char3 (skk-tutcode-get-code str)))
+	(message
+	 "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d), TUT: `%s'"
+	 str char1-e char2-e char1-e char2-e
+	 char1-j char2-j char1-j char2-j char1-k char2-k char3)))
+     ((memq charset '(ascii latin-jisx0201))
+      (message "\"%s\"  %2x (%3d)"
+	       str (skk-char-octet char 0)  (skk-char-octet char 0)))
+     (t
+      (skk-error "判別できない文字です"
+		 "Cannot understand this character")))))
 
 ;; some new stuff
 (defun skk-tutcode-get-code (key)

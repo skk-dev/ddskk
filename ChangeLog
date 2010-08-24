@@ -1,7 +1,11 @@
 2010-08-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* bayesian/README.ja, patches/README.ja: Convert to junet.
 	* skk-annotation.el (skk-annotation-wikipedia-format-buffer):
 	Check wgCategories to find disambiguation pages.
+	(skk-annotation-wikipedia): Maybe search upcased word.
+	* tut-code/skk-tutcode.el (skk-tutcode-display-code-1): Remove
+	codes written for Mule 2.
 
 2010-08-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
