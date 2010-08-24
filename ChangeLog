@@ -1,3 +1,8 @@
+2010-08-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-format-buffer):
+	Check wgCategories to find disambiguation pages.
+
 2010-08-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia-region-or-at-point):

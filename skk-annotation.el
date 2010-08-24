@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.153 2010/08/23 15:44:36 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.154 2010/08/24 08:09:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/08/23 15:44:36 $
+;; Last Modified: $Date: 2010/08/24 08:09:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1161,14 +1161,13 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	      (erase-buffer)
 	    (setq aimai
 		  (save-excursion
-		    (re-search-forward "<a href=\"/wiki/Wikipedia:\
-\\(%E6%9B%96%E6%98%A7%E3%81%95%E5%9B%9E%E9%81%BF\\|Disambiguation\\)\""
-				       nil t)))
+		    (re-search-forward "\
+^wgCategories=.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	    ;; <span> を除去する
 	    (setq point nil)
 	    (goto-char (point-min))
-	    (while (re-search-forward
-		    "<span class=\"\\(.+audiolink.+\\|editsection\\)\".*>" nil t)
+	    (while (re-search-forward "\
+<span class=\"\\(.+audiolink.+\\|editsection\\)\".*>" nil t)
 	      (setq point (match-beginning 0))
 	      (goto-char point)
 	      (search-forward "</span>" nil t)
@@ -1279,7 +1278,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	  (when aimai
 	    (insert (if (eq source 'ja.wikipedia)
 			"\n(曖昧さ回避のページ)"
-		      "\n(Disambiguation)")))
+		      "\n(Disambiguation page)")))
 	  ;;
 	  (goto-char (point-max))
 	  (while (and (looking-at "^$")
@@ -1541,6 +1540,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	       (not (ignore-errors
 		      (require 'un-define)))))
       ;; Emacs 20.7 (MULE 4.0) ではサポートしない
+      ;; Emacs 20.7 (MULE 4.1) は排除しないでおく
       (setq skk-annotation-url-package-available-p nil))
      (t
       ;; Emacs 21 と XEmacs
