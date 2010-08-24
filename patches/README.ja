@@ -1,11 +1,11 @@
 [emacs22-gtk-fix-dynamic-menus.diff]
 [emacs23_1-gtk-fix-dynamic-menus.diff]
 
-GTK 2.18 以降と Emacs の組合わせにて、メニューが更新されない問題に対す
-るパッチ。修正前は SKK のメニューが表示されない。それぞれ Emacs 22 用、
-Emacs 23.1 用。
+GTK 2.18 $B0J9_$H(B Emacs $B$NAH9g$o$;$K$F!"%a%K%e!<$,99?7$5$l$J$$LdBj$KBP$9(B
+$B$k%Q%C%A!#=$@5A0$O(B SKK $B$N%a%K%e!<$,I=<($5$l$J$$!#$=$l$>$l(B Emacs 22 $BMQ!"(B
+Emacs 23.1 $BMQ!#(B
 
 Cf. http://debbugs.gnu.org/cgi/bugreport.cgi?bug=4122
-転載元  Ubuntu の diff より
+$BE>:\85(B  Ubuntu $B$N(B diff $B$h$j(B
  http://archive.ubuntu.com/ubuntu/pool/universe/e/emacs22/emacs22_22.2-0ubuntu9.diff.gz
  http://archive.ubuntu.com/ubuntu/pool/main/e/emacs23/emacs23_23.1+1-4ubuntu7.diff.gz

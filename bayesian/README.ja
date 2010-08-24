@@ -1,75 +1,75 @@
-skk-bayesian.el は、直前の履歴のみ使用する skk-study.el に比べて、より
-拡張された学習機能です。文脈から変換候補が選択される確率を計算して候補
-順をソートします。
+skk-bayesian.el $B$O!"D>A0$NMzNr$N$_;HMQ$9$k(B skk-study.el $B$KHf$Y$F!"$h$j(B
+$B3HD%$5$l$?3X=,5!G=$G$9!#J8L.$+$iJQ498uJd$,A*Br$5$l$k3NN($r7W;;$7$F8uJd(B
+$B=g$r%=!<%H$7$^$9!#(B
 
-<使い方>
+<$B;H$$J}(B>
 
-1. bskk のインストール
+1. bskk $B$N%$%s%9%H!<%k(B
 
-   bskk は ruby スクリプトです。ruby をインストールしてください。
-   bskk はサーバ、またはサブプロセスとして使用します。
+   bskk $B$O(B ruby $B%9%/%j%W%H$G$9!#(Bruby $B$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
+   bskk $B$O%5!<%P!"$^$?$O%5%V%W%m%;%9$H$7$F;HMQ$7$^$9!#(B
 
-   (a) サブプロセスとして使用する場合
+   (a) $B%5%V%W%m%;%9$H$7$F;HMQ$9$k>l9g(B
 
-       bskk を PATH の通った場所に置いてください。
+       bskk $B$r(B PATH $B$NDL$C$?>l=j$KCV$$$F$/$@$5$$!#(B
 
-   (b) サーバとして使用する場合
+   (b) $B%5!<%P$H$7$F;HMQ$9$k>l9g(B
 
-       skk-bayesian.el が Emacs から読み込まれる前に以下のように bskk 
-       をあらかじめ起動しておいてください。
+       skk-bayesian.el $B$,(B Emacs $B$+$iFI$_9~$^$l$kA0$K0J2<$N$h$&$K(B bskk 
+       $B$r$"$i$+$8$a5/F0$7$F$*$$$F$/$@$5$$!#(B
 
        % bskk -f ~/.skk-bayesian -s
 
-       サーバを終了させるときは以下のようにします。
+       $B%5!<%P$r=*N;$5$;$k$H$-$O0J2<$N$h$&$K$7$^$9!#(B
 
-       % kill -TERM {bskk の PID}
+       % kill -TERM {bskk $B$N(B PID}
 
-       ~/.skk には skk-bayesian-prefer-server 変数を追加で指定します
-       (後述)。
+       ~/.skk $B$K$O(B skk-bayesian-prefer-server $BJQ?t$rDI2C$G;XDj$7$^$9(B
+       ($B8e=R(B)$B!#(B
 
-2. skk-bayesian.el のインストール
+2. skk-bayesian.el $B$N%$%s%9%H!<%k(B
 
-   以下のいずれかの方法で skk-bayesian.el をインストールしてください。
+   $B0J2<$N$$$:$l$+$NJ}K!$G(B skk-bayesian.el $B$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
 
-   (a) SKK ソースのトップディレクトリ (このディレクトリのひとつ上) に
-       skk-bayesian.el をコピーし、SKK をインストールしてください。
+   (a) SKK $B%=!<%9$N%H%C%W%G%#%l%/%H%j(B ($B$3$N%G%#%l%/%H%j$N$R$H$D>e(B) $B$K(B
+       skk-bayesian.el $B$r%3%T!<$7!"(BSKK $B$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
 
        % make install
 
-   (b) skk-bayesian.el のみ手動で load-path の通った場所にコピーして利用
-       することもできます。
+   (b) skk-bayesian.el $B$N$_<jF0$G(B load-path $B$NDL$C$?>l=j$K%3%T!<$7$FMxMQ(B
+       $B$9$k$3$H$b$G$-$^$9!#(B
 
        % cp skk-bayesian.el ~/site-lisp
 
-3. ~/.skk の設定
+3. ~/.skk $B$N@_Dj(B
 
-   以下を自分の ~/.skk に追加してください。
+   $B0J2<$r<+J,$N(B ~/.skk $B$KDI2C$7$F$/$@$5$$!#(B
 
    (require 'skk-bayesian)
 
-   なお、bskk をサーバとして使う場合は以下も追加してください。
+   $B$J$*!"(Bbskk $B$r%5!<%P$H$7$F;H$&>l9g$O0J2<$bDI2C$7$F$/$@$5$$!#(B
 
    (setq skk-bayesian-prefer-server t)
 
-4. その他
+4. $B$=$NB>(B
 
-   skk-bayesian.el の動作の仕組み、仕様については skk-bayesian.el 内のコ
-   メントを参照してください。
+   skk-bayesian.el $B$NF0:n$N;EAH$_!";EMM$K$D$$$F$O(B skk-bayesian.el $BFb$N%3(B
+   $B%a%s%H$r;2>H$7$F$/$@$5$$!#(B
 
-5. ruby のリビジョンによる不具合について
+5. ruby $B$N%j%S%8%g%s$K$h$kIT6q9g$K$D$$$F(B
 
-   ruby は様々なリビジョンのものが利用されていますが、場合によっては出力
-   が正常でなく、skk-bayesian で文字化けとして現れることがあります。
-   例えば ruby 1.8.7 (2009-12-24 patchlevel 248) では問題があることが分か
-   っています。これについては ruby 1.8.8 のリビジョン 26103 で修正されて
-   います。または最後のパッチを当てることで修正されます。参考になる URL
-   は以下です。
+   ruby $B$OMM!9$J%j%S%8%g%s$N$b$N$,MxMQ$5$l$F$$$^$9$,!">l9g$K$h$C$F$O=PNO(B
+   $B$,@5>o$G$J$/!"(Bskk-bayesian $B$GJ8;z2=$1$H$7$F8=$l$k$3$H$,$"$j$^$9!#(B
+   $BNc$($P(B ruby 1.8.7 (2009-12-24 patchlevel 248) $B$G$OLdBj$,$"$k$3$H$,J,$+(B
+   $B$C$F$$$^$9!#$3$l$K$D$$$F$O(B ruby 1.8.8 $B$N%j%S%8%g%s(B 26103 $B$G=$@5$5$l$F(B
+   $B$$$^$9!#$^$?$O:G8e$N%Q%C%A$rEv$F$k$3$H$G=$@5$5$l$^$9!#;29M$K$J$k(B URL
+   $B$O0J2<$G$9!#(B
 
    http://redmine.ruby-lang.org/issues/show/2569
    (Ruby1.8.7p248 String#inspect broken on multibyte string.)
 
    http://redmine.ruby-lang.org/repositories/revision/ruby-18?rev=26103
-   (Ruby 1.8 - リビジョン 26103)
+   (Ruby 1.8 - $B%j%S%8%g%s(B 26103)
 
 *** string.c.org	2010-01-22 01:54:05.000000000 +0900
 --- string.c	2010-01-22 01:54:23.000000000 +0900
