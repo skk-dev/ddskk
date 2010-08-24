@@ -13,6 +13,10 @@
 	(skk-study-save): Remove unused local variable last-time.
 	* skk-xemacs.el (skk-xemacs-balloon-help-resize-help-frame):
 	Modify calculation of frame size.
+	(skk-xemacs-need-redraw-tooltip, skk-xemacs-redraw-interval): New
+	variables.
+	(skk-tooltip-show-1): Redraw tooltip when
+	skk-xemacs-need-redraw-tooltip is non-nil.
 	* skk.el (skk-setup-delete-selection-mode): Remove unused local
 	variable feature.
 	(skk-compile-rule-list): Remove unused local variable rule.
