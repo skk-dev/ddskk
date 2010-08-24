@@ -459,7 +459,9 @@ Non-nil ならばツールティップを再描画する。")
 		       nil))))
 
 (defun skk-xemacs-balloon-help-resize-help-frame (&optional listing)
-  ;; 縦の長さが合わないので、合わせる。
+  ;; GNU Emacs と違い XEmacs の balloon help はサイズの自動調整が
+  ;; うまく効かず、文字が欠けることもあるため、ここで出来るだけ
+  ;; 調整する。
   (save-excursion
     (set-buffer balloon-help-buffer)
     (let* ((longest 0)
