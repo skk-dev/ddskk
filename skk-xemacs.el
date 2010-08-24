@@ -93,7 +93,11 @@
     ["Visit Daredevil SKK Web Site" skk-xemacs-visit-openlab t]))
 
 (defvar skk-tooltip-default-font-pixel-size 12)
-
+(defvar skk-xemacs-need-redraw-tooltip nil
+  "*Compiz 稼動時などツールティップの横幅がおかしいときに設定。
+Non-nil ならばツールティップを再描画する。")
+(defvar skk-xemacs-redraw-interval 0.01
+  "*ツールティップ再描画の際に置く時間。")
 ;; Functions.
 
 (defun skk-xemacs-modeline-menu ()
@@ -438,7 +442,13 @@
 	(balloon-help-set-frame-properties)
 	(skk-xemacs-balloon-help-resize-help-frame listing)
 	(balloon-help-move-help-frame)
-	(balloon-help-expose-help-frame)))
+	(balloon-help-expose-help-frame)
+	(when skk-xemacs-need-redraw-tooltip
+	  ;; Compiz 稼動時に再描画しないと横幅がおかしくなることあり
+	  (sleep-for skk-xemacs-redraw-interval)
+	  (skk-tooltip-hide)
+	  (sleep-for skk-xemacs-redraw-interval)
+	  (balloon-help-expose-help-frame))))
     ;; Is this right?
     (setq balloon-help-timeout-id
 	  (add-timeout (/ balloon-help-timeout 1000.0)
@@ -472,7 +482,8 @@
 	(and (not done) (setq lines (1+ lines))))
       (setq width (round (/ (float longest) (float font-width))))
       ;; Increase width and lines...
-      (setq width (+ (round (/ (float width) 3.0)) width))
+      (when (<= width 10)
+	(setq width (+ (round (log (float width) 2)) width)))
       (setq lines (cond
 		   ((= lines 1)
 		    lines)
