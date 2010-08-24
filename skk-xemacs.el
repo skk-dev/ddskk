@@ -93,11 +93,14 @@
     ["Visit Daredevil SKK Web Site" skk-xemacs-visit-openlab t]))
 
 (defvar skk-tooltip-default-font-pixel-size 12)
+
 (defvar skk-xemacs-need-redraw-tooltip nil
   "*Compiz 稼動時などツールティップの横幅がおかしいときに設定。
 Non-nil ならばツールティップを再描画する。")
+
 (defvar skk-xemacs-redraw-interval 0.01
   "*ツールティップ再描画の際に置く時間。")
+
 ;; Functions.
 
 (defun skk-xemacs-modeline-menu ()
