@@ -5,6 +5,18 @@
 	Check wgCategories to find disambiguation pages.
 	(skk-annotation-wikipedia): Maybe search upcased word.
 	(skk-annotation-wikipedia-1): Remove unused local variable note.
+	* skk-comp.el: Don' warn for dont-bind-my-keys.
+	* skk-gadget.el (skk-ignore-dic-word): Remove unused local
+	variable save-okurigana.
+	* skk-kcode.el (skk-jis2sjis2): Alias to `ignore' for XEmacs.
+	* skk-study.el: Don't warn for print-quoted.
+	(skk-study-save): Remove unused local variable last-time.
+	* skk-xemacs.el (skk-xemacs-balloon-help-resize-help-frame):
+	Modify calculation of frame size.
+	* skk.el (skk-setup-delete-selection-mode): Remove unused local
+	variable feature.
+	(skk-compile-rule-list): Remove unused local variable rule.
+	(skk-get-jisyo-buffer): Remove unused local variable obj.
 	* tut-code/skk-tutcode.el (skk-tutcode-display-code-1): Remove
 	codes written for Mule 2.
 
