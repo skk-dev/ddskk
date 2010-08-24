@@ -472,7 +472,7 @@
 	(and (not done) (setq lines (1+ lines))))
       (setq width (round (/ (float longest) (float font-width))))
       ;; Increase width and lines...
-      (setq width (+ 10 width))
+      (setq width (+ (round (/ (float width) 3.0)) width))
       (setq lines (cond
 		   ((= lines 1)
 		    lines)
