@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.54 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.55 2010/08/24 11:37:41 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/08/24 11:37:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -75,7 +75,8 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl)
+  (defvar print-quoted))
 
 (require 'pym)
 (require 'skk-macs)
@@ -200,8 +201,6 @@
 オプショナル引数の NOMSG が non-nil であれば、保存メッセージを出力しない。"
   (interactive "P")
   (let ((inhibit-quit t)
-	(last-time
-	 (nth 5 (file-attributes (expand-file-name skk-study-file))))
 	e)
     (if (or (and (null skk-study-alist) (not nomsg))
 	    (not skk-study-last-read)

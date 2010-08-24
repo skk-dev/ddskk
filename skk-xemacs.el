@@ -34,7 +34,9 @@
 (eval-and-compile
   (require 'balloon-help)
   (require 'poe)
-  (require 'skk-macs))
+  (require 'skk-macs)
+  (autoload 'display-pixel-height "frame")
+  (autoload 'display-pixel-width "frame"))
 
 ;;;###autoload (unless (noninteractive) (require 'skk-setup))
 
@@ -452,7 +454,11 @@
 	   (done nil)
 	   (inst (vector 'string ':data nil))
 	   (window (frame-selected-window balloon-help-frame))
-	   (font-width (font-width (face-font 'default) balloon-help-frame))
+	   (font-width (min (font-width (face-font 'default)
+					balloon-help-frame)
+			    (glyph-width (make-glyph "a") window)
+			    (/ (glyph-width (make-glyph "あ") window)
+			       2)))
 	   start width
 	   (window-min-height 1)
 	   (window-min-width 1))
@@ -464,18 +470,20 @@
 	(setq longest (max longest (glyph-width (make-glyph inst) window))
 	      done (not (= 0 (forward-line))))
 	(and (not done) (setq lines (1+ lines))))
-      (setq width (/ longest font-width)
-	    width (if (> longest (* width font-width)) (1+ width) width))
+      (setq width (round (/ (float longest) (float font-width))))
       ;; Increase width and lines...
-      (setq width (1+ width))
-      (setq lines (cond ((= lines 1)
-			 lines)
-			((or listing (= lines 2))
-			 (+ 1 lines))
-			(t
-			 (+ 1 lines))))
+      (setq width (+ 10 width))
+      (setq lines (cond
+		   ((= lines 1)
+		    lines)
+		   ((or listing (= lines 2))
+		    (+ 1 lines))
+		   (t
+		    (+ (max 1
+			    (round (/ (float lines) 10.0))) ; 1+ per 10 lines
+			    lines))))
       ;;
-      (set-frame-size balloon-help-frame (+ 0 width) lines))))
+      (set-frame-size balloon-help-frame width lines))))
 
 ;; Hooks.
 

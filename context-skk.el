@@ -150,6 +150,24 @@
   :type '(repeat (symbol))
   :group 'context-skk)
 
+;;;###autoload
+(defcustom context-skk-mode-hook nil
+  "*`context-skk-mode' を切り替える際に呼ばれるフック。"
+  :type 'hook
+  :group 'context-skk)
+
+;;;###autoload
+(defcustom context-skk-mode-on-hook nil
+  "*`context-skk-mode' が on になる際に呼ばれるフック。"
+  :type 'hook
+  :group 'context-skk)
+
+;;;###autoload
+(defcustom context-skk-mode-off-hook nil
+  "*`context-skk-mode' が off になる際に呼ばれるフック。"
+  :type 'hook
+  :group 'context-skk)
+
 ;;
 ;; Minor mode definition
 ;;

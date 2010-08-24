@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.37 2010/08/02 15:21:04 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.38 2010/08/24 11:37:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:04 $
+;; Last Modified: $Date: 2010/08/24 11:37:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -385,7 +385,7 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
   ;; $B辞書見出し例;
   ;;   るすばん /留守番/(skk-ignore-dic-word "留守電")/
   ;;   かくてい /(skk-ignore-dic-word "確定")/
-  (let (new-word save-okurigana)
+  (let (new-word)
     ;; skk-ignore-dic-word 自身のエントリを消す。消すべき候補は
     ;; skk-henkan-list から直接抽出しているので delete ではなく delq で十分。
     (setq skk-henkan-list (delq (nth skk-henkan-count skk-henkan-list)
@@ -400,9 +400,7 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
     ;; $Bカレントの候補 (skk-ignore-dic-word 自身のエントリ) を消したので、
     ;; skk-henkan-count は次の候補を指している。
     (setq new-word (or (nth skk-henkan-count skk-henkan-list)
-		       (progn
-			 (setq save-okurigana skk-okuri-char)
-			 (skk-henkan-in-minibuff))))
+		       (skk-henkan-in-minibuff)))
     ;; 候補がないとき。
     (unless new-word
       ;; 空文字列が登録されたら辞書登録の前の状態に戻す。

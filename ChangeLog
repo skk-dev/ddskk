@@ -4,6 +4,7 @@
 	* skk-annotation.el (skk-annotation-wikipedia-format-buffer):
 	Check wgCategories to find disambiguation pages.
 	(skk-annotation-wikipedia): Maybe search upcased word.
+	(skk-annotation-wikipedia-1): Remove unused local variable note.
 	* tut-code/skk-tutcode.el (skk-tutcode-display-code-1): Remove
 	codes written for Mule 2.
 

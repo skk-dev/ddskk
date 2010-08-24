@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.80 2010/08/02 15:21:04 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.81 2010/08/24 11:37:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:04 $
+;; Last Modified: $Date: 2010/08/24 11:37:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -38,7 +38,7 @@
   (require 'skk-vars)
 
   (defvar smart-find-file-path)
-
+  (defvar dont-bind-my-keys)
   (condition-case nil
       (let ((dont-bind-my-keys t))
 	(load "smart-find"))

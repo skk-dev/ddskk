@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.505 2010/08/21 23:14:42 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.506 2010/08/24 11:37:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/21 23:14:42 $
+;; Last Modified: $Date: 2010/08/24 11:37:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -764,12 +764,7 @@ dependent."
   "Delete Selection モードのための設定をする。
 Delete Selection モードが SKK を使った日本語入力に対しても機能するように
 セットアップする。"
-  (let ((feature (static-cond
-		  ((eq skk-emacs-type 'xemacs)
-		   'pending-del)
-		  (t
-		   'delsel)))
-	(property (static-cond
+  (let ((property (static-cond
 		   ((eq skk-emacs-type 'xemacs)
 		    'pending-delete)
 		   (t
@@ -1411,7 +1406,7 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 (defun skk-compile-rule-list (&rest rule-lists)
   "rule list を木の形にコンパイルする。"
   (let ((tree (skk-make-rule-tree nil "" nil nil nil))
-	rule key)
+	key)
     (dolist (rule-list rule-lists)
       (dolist (rule rule-list)
 	(setq key (car rule))
@@ -3991,11 +3986,11 @@ If you want to restore the dictionary from the disc, try
 	    (skk-message "SKK 辞書 %s をバッファに読み込んでいます..."
 			 "Inserting contents of %s ..."
 			 (file-name-nondirectory file)))
-	  (condition-case obj
+	  (condition-case nil
 	      (insert-file-contents-as-coding-system code file)
 	    (error
-	     (if (buffer-live-p buf)
-		 (kill-buffer buf))
+	     (when (buffer-live-p buf)
+	       (kill-buffer buf))
 	     (skk-error "`%s'を読み込めません" "Cannot load `%s'." file)))
 	  (unless nomsg
 	    (skk-message

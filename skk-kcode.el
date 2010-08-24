@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.42 2010/08/18 11:09:11 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.43 2010/08/24 11:37:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 11:09:11 $
+;; Last Modified: $Date: 2010/08/24 11:37:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -430,6 +430,8 @@
 ;; 2面
 ;; XEmacs でのエラー回避のためにこの関数を一時 skk-e21.el に退避する。
 ;; (autoload 'skk-jis2sjis2 "skk-emacs")
+(static-when (featurep 'xemacs)
+  (defalias 'skk-jis2sjis2 'ignore))
 
 (run-hooks 'skk-kcode-load-hook)
 
