@@ -1,3 +1,11 @@
+2010-08-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Update.
+	* skk-var.sl (skk-verbose-wait): Change default value to 1.5.
+	* skk.el (skk-update-jisyo-original): Ensure that
+	skk-jisyo-save-count is smaller than the length of
+	skk-jisyo-update-vector.
+
 2010-08-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* bayesian/README.ja, patches/README.ja: Convert to junet.

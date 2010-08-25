@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.506 2010/08/24 11:37:41 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.507 2010/08/25 13:15:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/24 11:37:41 $
+;; Last Modified: $Date: 2010/08/25 13:15:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4393,7 +4393,8 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
 			      purge)
 	  ;; 複数の emacs で SKK が起動されているときに個人辞書を整合的に
 	  ;; 更新するために確定の動作を記録する。
-	  (when (skk-share-private-jisyo-p)
+	  (when (and (skk-share-private-jisyo-p)
+		     (< skk-jisyo-save-count (length skk-jisyo-update-vector)))
 	    (aset skk-jisyo-update-vector skk-update-jisyo-count
 		  (list midasi okurigana word purge)))
 	  (dolist (function skk-update-end-function)
