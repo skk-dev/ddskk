@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.507 2010/08/25 13:15:11 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.508 2010/08/25 16:07:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/25 13:15:11 $
+;; Last Modified: $Date: 2010/08/25 16:07:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4054,7 +4054,11 @@ LIMIT と NOMSG は辞書サーバーを使用しないときのみ使う。
   (if (or skk-server-host
 	  skk-servers-list)
       (skk-search-server-1 file limit)
-    (skk-search-jisyo-file file limit nomsg)))
+    ;; サーバが利用可能でなければ file を検索する。
+    ;; 引数 file は通常 `skk-aux-large-jisyo' が指定される。
+    (when (and (stringp file)
+	       (file-readable-p file))
+      (skk-search-jisyo-file file limit nomsg))))
 
 (defun skk-okuri-search ()
   "見出し語を送り仮名を含むものとして検索する。

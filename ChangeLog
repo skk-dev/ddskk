@@ -5,6 +5,7 @@
 	* skk.el (skk-update-jisyo-original): Ensure that
 	skk-jisyo-save-count is smaller than the length of
 	skk-jisyo-update-vector.
+	(skk-search-server): Check if file is readable.
 
 2010-08-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
