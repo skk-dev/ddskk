@@ -4,6 +4,8 @@
 	* bayesian/skk-bayesian.el (skk-bayesian-history-file)
 	(skk-bayesian-corpus-file): Save in skk-user-directory if it is
 	specified.
+	* skk-tankan.el (skk-search-tankanji): Read a CDB dictionary when
+	available.
 	* skk-vars.el (skk-jisyo-update-vector): Update doc string.
 	* skk.el (skk-setup-shared-private-jisyo): Make
 	skk-jisyo-update-vector a bit longer than skk-jisyo-save-count.

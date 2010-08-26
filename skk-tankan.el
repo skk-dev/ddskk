@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.19 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.20 2010/08/26 11:33:44 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/08/26 11:33:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1563,25 +1563,41 @@
 (defun skk-search-tankanji (&optional jisyo)
   (let ((skk-henkan-key (concat skk-henkan-key
 				(char-to-string skk-tankan-search-key)))
-	(jisyo (or jisyo
-		   skk-large-jisyo
-		   (static-cond
-		    ((fboundp 'locate-file)
-		     (locate-file "skk/SKK-JISYO.L"
-				  (list
-				   (expand-file-name
-				    "../../.."
-				    data-directory))))
-		    ((fboundp 'locate-data-file)
-		     (locate-data-file "SKK-JISYO.L"))
-		    (t
-		     nil))
-		   skk-aux-large-jisyo))
+	(large-jisyo (or skk-large-jisyo
+			 (static-cond
+			  ((fboundp 'locate-file)
+			   (locate-file "skk/SKK-JISYO.L"
+					(list
+					 (expand-file-name
+					  "../../.."
+					  data-directory))))
+			  ((fboundp 'locate-data-file)
+			   (locate-data-file "SKK-JISYO.L"))
+			  (t
+			   nil))
+			 skk-aux-large-jisyo))
+	(cdb-jisyo (or skk-cdb-large-jisyo
+		       (static-cond
+			((fboundp 'locate-file)
+			 (locate-file "skk/SKK-JISYO.L.cdb"
+				      (list
+				       (expand-file-name
+					"../../.."
+					data-directory))))
+			((fboundp 'locate-data-file)
+			 (locate-data-file "SKK-JISYO.L.cdb"))
+			(t
+			 nil))))
 	(server-prog (assq 'skk-search-server skk-search-prog-list)))
     (or
-     (if (file-readable-p jisyo)
-	 (skk-tankan-search 'skk-search-jisyo-file jisyo 10000)
-       nil)
+     (cond ((and (stringp jisyo) (file-readable-p jisyo))
+	    (skk-tankan-search 'skk-search-jisyo-file jisyo 10000))
+	   ((and (stringp cdb-jisyo) (file-readable-p cdb-jisyo))
+	    (skk-tankan-search 'skk-search-cdb-jisyo cdb-jisyo))
+	   ((and (stringp large-jisyo) (file-readable-p large-jisyo))
+	    (skk-tankan-search 'skk-search-jisyo-file large-jisyo 10000))
+	   (t
+	    nil))
      (if server-prog
 	 (apply #'skk-tankan-search server-prog)
        nil))))
