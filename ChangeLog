@@ -1,3 +1,8 @@
+2010-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-display-code): キー `$' をタイプした際のメッセージ
+	に "総%d画(%s部%d画)" を追加。
+
 2010-08-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

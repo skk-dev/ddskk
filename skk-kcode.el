@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.43 2010/08/24 11:37:41 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.44 2010/08/26 21:41:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/24 11:37:41 $
+;; Last Modified: $Date: 2010/08/26 21:41:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -38,6 +38,8 @@
   (require 'skk-vars)
   (defvar enable-recursive-minibuffers)
   (defvar message-log-max))
+
+(require 'skk-tankan)
 
 ;;;###autoload
 (defun skk-input-by-code-or-menu (&optional arg)
@@ -384,7 +386,9 @@
 		       (skk-jis2sjis2 char1-j char2-j)
 		     (skk-jis2sjis char1-j char2-j)))
 	     (char1-s (car sjis))
-	     (char2-s (cadr sjis)))
+	     (char2-s (cadr sjis))
+	     (list (skk-tankan-get-char-data char))
+	     (stroke (nth 2 list)))
 	(if (eq charset 'japanese-jisx0213-2)
 	    (message
 	     "`%s' (plane 2) KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
@@ -394,12 +398,19 @@
 	     char1-e char2-e
 	     char1-s char2-s)
 	  (message
-	   "`%s' KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
+	   "`%s' KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s"
 	   str
 	   char1-k char2-k
 	   char1-j char2-j 
 	   char1-e char2-e 
-	   char1-s char2-s))))
+	   char1-s char2-s
+	   (if (= 0 stroke)
+	       ""
+	     (format " , 総%d画(%s部%d画)"
+		     stroke
+		     (aref skk-tankan-radical-vector (nth 0 list))
+		     (nth 1 list)))))))
+
      ((memq charset '(ascii latin-jisx0201))
       (message "`%s' HEX: %2x, DECIMAL: %3d"
 	       str
