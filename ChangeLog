@@ -6,8 +6,8 @@
 	(skk-update-shared-jisyo): Do not call `skk-update-jisyo-1' for
 	null entries.
 	(skk-update-jisyo-original): Call `skk-save-jisyo' when
-	skk-update-jisyo-count reaches skk-jisyo-save-count, not the
-	length of skk-jisyo-update-vector.
+	skk-update-jisyo-count reaches skk-jisyo-save-count, i.e. usually
+	before it reaches the length of skk-jisyo-update-vector.
 
 2010-08-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
