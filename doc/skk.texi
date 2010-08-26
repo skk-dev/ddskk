@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/26 11:44:30 $
+@set UPDATED $Date: 2010/08/26 12:44:57 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2708,7 +2708,7 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 
 @kindex @samp{,}
 @kindex @samp{.}
-$B<!$NFI$_$N8uJd$rI=<($9$k$K$O!"(B@samp{.} ($B%T%j%*%I(B) $B$r!"La$k;~$K$O(B @samp{,} 
+$B<!$NFI$_$N8uJd$rI=<($9$k$K$O!"(B@kbd{.} ($B%T%j%*%I(B) $B$r!"La$k;~$K$O(B @kbd{,} 
 ($B%3%s%^(B)$B$r2!$7$^$9!#$=$NFI$_$GJL$N8l$r=P$9$K$O!"$$$D$b$N$h$&$K(B @kbd{SPC} $B$r(B
 $B2!$7$^$9!#(B
 
@@ -2731,7 +2731,7 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 ------ Buffer: foo ------
 @end group
 
-@samp{.}
+@kbd{.}
 
 @end example
 
@@ -2776,7 +2776,7 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 $B0lC6(B @key{SPC} $B$rF~NO$7$F"'%b!<%I$KF~$k$H!"0J8e$OJd40$O9T$o$l$^$;$s!#(B
 
 @kindex @key{C-u TAB}
-$B$^$?!"(B@samp{.} $B$NBe$o$j$K(B @key{C-u TAB} $B$rF~NO(B
+$B$^$?!"(B@kbd{.} $B$NBe$o$j$K(B @key{C-u TAB} $B$rF~NO(B
 $B$9$k$H!"8=:_$N8uJd$KBP$7$FJd40$r$7$^$9!#>e$NNc$G$O(B @samp{$B$5(B} $B$KBP$7!"(B
 @samp{$B$5$H$&(B} $B$,Jd40$5$l$?;~$K(B @key{C-u TAB} $B$r2!$9$H!"(B
 $B0J8e$NJd40$O!"(B@samp{$B$5$H$&(B} $B$r4^$`8l(B ($BNc$($P!"(B@samp{$B$5$H$&$;$s$;$$(B}$B$J$I(B)
@@ -2979,7 +2979,7 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 @kindex @samp{,}
 @kindex @samp{.}
 $B8uJd$NA*Br$K$O(B @key{TAB} $B$r2!$7$^$9!#$^$?!"IaDL$NJd40$HF1MM$K(B
-@samp{.} ($B%T%j%*%I(B) $B$H(B @samp{,} ($B%3%s%^(B) $B$bMxMQ$G$-$^$9!#(B@w{@ref{$BFI$_$NJd40(B}}
+@kbd{.} ($B%T%j%*%I(B) $B$H(B @kbd{,} ($B%3%s%^(B) $B$bMxMQ$G$-$^$9!#(B@w{@ref{$BFI$_$NJd40(B}}
 
 @end defvr
 
@@ -5340,7 +5340,9 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 
 $B$^$?!"(B@samp{okuri-ari}, @samp{okuri-nasi}, @samp{abbrev} $B$rMWAG$H$9$k%j%9(B
 $B%H$G$"$k$3$H$b$G$-$^$9!#$=$N>l9g$OJQ49BP>]$,$=$N>r7o$K9gCW$7$?>l9g$N$_3N(B
-$BDjJQ49$,5!G=$7$^$9!#Nc(B: @samp{'(okuri-nasi abbrev)}
+$BDjJQ49$,5!G=$7$^$9!#(B
+
+$BNc(B: @samp{'(okuri-nasi abbrev)}
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-kakutei-search-prog-limit
@@ -7165,7 +7167,7 @@ buffer $B$K%]%$%s%H$r9g$o$;!"(B@kbd{M-2 M-i} $B$H%W%l%U%#%C%/%9IU$G%3%^%s%I$r
 @example
 @group
 ----- Buffer: *scratch* -----
-;; This buffer@point{} is for notes you don't want to save, and for ...
+;; This buffer@point{} is for notes you don't want to save, and for @dots{}
 ----- Buffer: +scratch -----
 @end group
 
@@ -7186,7 +7188,7 @@ buffer (plural&#160;buffers)
  3: (computing) A portion of memory set aside to store data, often
  before it is sent to an external device or as it is received from an
  external device.
-[...]
+[@dots{}]
 @end group
 @end example
 @end defun
@@ -7411,7 +7413,7 @@ SKK abbrev $B%b!<%I$,3HD%$5$l$F!"(B@command{look} $B%3%^%s%I$r;HMQ$7$?Jd40$,M
 $B$K$J$j$^$9!#(B
 
 @example
-@kbd{/abstr}
+@kbd{/ a b s t r}
 
 @group
 ------ Buffer: foo ------
@@ -9409,7 +9411,7 @@ t $B$K%;%C%H$7$F(B Emacs/SKK $B$rN)$A>e$2D>$7$F2<$5$$!#(B
   $B"&(Babstr(@key{TAB}) @expansion{} $B"&(Babstract
 @end example
 
-$BDL>o$NJd405!G=F1MM!"(B@kbd{.} $B$G<!$NJd408uJd!"(B@kbd{,} $B$G$R$H$DA0$NJd408uJd(B
+$BDL>o$NJd405!G=$HF1MM$K(B @kbd{.} $B$G<!$NJd408uJd$K!"(B@kbd{,} $B$G$R$H$DA0$NJd408uJd(B
 $B$K0\F0$G$-$^$9!#(BSKK $B7A<0$N1QOB<-=q$,$"$l$P!"$3$3$+$i(B @key{SPC} $B$r2!$7$F(B
 $B1QOBJQ49$,$G$-$^$9$M!#$^$?!"(B@code{skk-look-use-ispell} $B$NCM$,(B
 @code{non-nil} $B$G$"$l$P!"(B@command{look} $B$G8!:w$9$kA0$K(B @command{ispell} $B$G%9(B
