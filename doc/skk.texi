@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/26 09:27:50 $
+@set UPDATED $Date: 2010/08/26 10:00:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4036,7 +4036,7 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 $B$,$G$-$^$9!#(B
 
 $B$3$N%5JQF0;lAw$j$"$jJQ495!G=$O!"%+%?%+%JJQ495!G=$HAH$_9g$o$;$k$H$5$i$KM-(B
-$B8z$G$9!#(B(@w{@pxref{$B%+%?%+%JJQ49(B})
+$B8z$G$9!#(B(@w{@pxref{$B%+%?%+%JJQ49(B}})
 @end defun
 
 @node $B%U%!%s%/%7%g%s%-!<$N;H$$J}(B
@@ -7975,14 +7975,22 @@ XEmacs $B$N>l9g(B
 @defvr {$B%f!<%6JQ?t(B} skk-verbose
 
 $B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H!"(BSKK $B$,=>MhI=<($7$J$+$C$?$h$&$J(B
-$BF~NO!&JQ49Cf$N=u8@E*%a%C%;!<%8$,I=<($5$l$^$9!#6qBNE*$K$O!"(B
+$BF~NO!&JQ49Cf$N=u8@E*%a%C%;!<%8$,I=<($5$l$^$9!#(B
 
-@itemize @bullet
-@item $B"&%b!<%I$G%U%!%s%/%7%g%s%-!<(B (F1 $B!A(B F10)$B$N;H$$J}$rI=<((B
-@end itemize
+@lisp
+(setq skk-verbose t)
+@end lisp
+@end defvr
 
-@code{skk-verbose} $B$N@_Dj$H$H$b$K(B @code{skk-j-mode-function-key-usage}
-$B$r0J2<$N$h$&$K@_Dj$7$F$_$F$/$@$5$$!#(B
+@noindent
+$B$3$N%*%W%7%g%s$N6qBNE*$J8z2L$r$_$F$$$-$^$7$g$&!#(B
+
+@table @asis
+@item $B"&%b!<%I(B
+
+$B%U%!%s%/%7%g%s%-!<(B (F1 $B!A(B F10)$B$N;H$$J}$rI=<($7$^$9!#(B@code{skk-verbose}
+$B$N@_Dj$H$H$b$K(B @code{skk-j-mode-function-key-usage}$B$r0J2<$N$h$&$K@_Dj$7(B
+$B$F$_$F$/$@$5$$!#(B
 @vindex skk-j-mode-function-key-usage
 
 @lisp
@@ -8001,10 +8009,9 @@ XEmacs $B$N>l9g(B
 $B$3$N0FFb$K=>$C$F%U%!%s%/%7%g%s%-!<$r2!$9$3$H$G!"0l;~E*$KC14A;zJQ49$d%+%?(B
 $B%+%JJQ49$r9T$&$3$H$,$G$-$^$9!#(B
 
-@itemize @bullet
-@item $B"'%b!<%I$G(B Wikipedia $B%"%N%F!<%7%g%s5!G=$N;H$$J}$r%a%C%;!<%8$G0FFb(B
-@end itemize
+@item $B"'%b!<%I(B
 
+Wikipedia $B%"%N%F!<%7%g%s5!G=$N;H$$J}$r%a%C%;!<%8$G0FFb$7$^$9!#(B
 @code{skk-verbose} $B$N@_Dj$H$H$b$K(B @code{skk-show-annotation} $B$r0J2<$N$h(B
 $B$&$K@_Dj$7$F$_$F$/$@$5$$!#(B
 @vindex skk-show-annotation
@@ -8018,7 +8025,7 @@ XEmacs $B$N>l9g(B
 $B%(%j%"$K0J2<$N$h$&$J%a%C%;!<%8$,I=<($5$l$^$9!#(B
 
 @example
-{$B$I$N(BWiki?}[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary [C-3 C-i]simple.wikipedia [C-4 C-i]en.wikipedia [C-5 C-i]ja.wiktionary
+@{$B$I$N(BWiki?@}[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary [C-3 C-i]simple.wikipedia [C-4 C-i]en.wikipedia [C-5 C-i]ja.wiktionary
 @end example
 
 @noindent
@@ -8028,7 +8035,7 @@ XEmacs $B$N>l9g(B
 $B%8$,>e5-$N$b$N$H8r8_$KI=<($5$l$^$9!#(B
 
 @example
-{$B%"%N%F!<%7%g%sA`:n(B}[C-w]$B%3%T!<$9$k(B [C-o]URL$B$r8+$D$1$k(B [C-i]$B%G%U%)%k%H(BWiki$B$+$iH4?h(B
+@{$B%"%N%F!<%7%g%sA`:n(B@}[C-w]$B%3%T!<$9$k(B [C-o]URL$B$r8+$D$1$k(B [C-i]$B%G%U%)%k%H(BWiki$B$+$iH4?h(B
 @end example
 
 @noindent
@@ -8036,7 +8043,7 @@ XEmacs $B$N>l9g(B
 $BJ]B8$7$FMxMQ$9$k$3$H$,$G$-$^$9!#$^$?(B @kbd{C-o} $B$r2!$7$?>l9g$K$O!"$b$78=(B
 $B:_$N%"%N%F!<%7%g%s$,(B Wikipedia $B%"%N%F!<%7%g%s$G$"$l$P$=$N=PE5$H$J$k(B
 Wikipedia/Wiktionary $B$N%Z!<%8$r%&%'%V%V%i%&%6$GI=<($7$^$9!#(B
-@end defvr
+@end table
 
 @defvr {$B%f!<%6JQ?t(B} skk-verbose-wait
 
