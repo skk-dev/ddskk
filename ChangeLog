@@ -11,6 +11,8 @@
 	* skk-tankan.el (skk-search-tankanji): Read a CDB dictionary when
 	available.
 	* skk-vars.el (skk-jisyo-update-vector): Update doc string.
+	(skk-verbose-message-interval): New user option.
+	* skk-annotation.el (skk-annotation-message): Use it.
 	* skk.el (skk-setup-shared-private-jisyo): Make
 	skk-jisyo-update-vector a bit longer than skk-jisyo-save-count.
 	(skk-update-shared-jisyo): Do not call `skk-update-jisyo-1' for
