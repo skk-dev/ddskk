@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/26 07:26:08 $
+@set UPDATED $Date: 2010/08/26 09:27:50 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7535,7 +7535,7 @@ SKK $B<-=q$K(B
 * $BJQ498uJd0lMw$NI=<(J}K!(B::
 * $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B::
 * $BJQ498uJd$N99$J$kAu>~(B::
-* XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B::
+* $B%b!<%I%i%$%s$NAu>~(B::
 @end menu
 
 @node $B2>L>J8;z$N%m!<%^;z%W%l%U%#%C%/%9$N%(%3!<(B
@@ -7869,10 +7869,10 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 
 @end defvr
 
-@node XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B
-@subsection XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B
+@node $B%b!<%I%i%$%s$NAu>~(B
+@subsection $B%b!<%I%i%$%s$NAu>~(B
 
-XEmacs $B5Z$S(B Emacs 21 $B$G$O0J2<$N5!G=$,;HMQ$G$-$^$9!#(B
+XEmacs $B5Z$S(B Emacs 21 $B0J9_$G$O0J2<$N5!G=$,;HMQ$G$-$^$9!#(B
 
 @menu
 * $B%$%s%8%1!<%?(B::
@@ -7881,22 +7881,22 @@ XEmacs $B5Z$S(B Emacs 21 $B$G$O0J2<$N5!G=$,;HMQ$G$-$^$9!#(B
 
 @node $B%$%s%8%1!<%?(B
 @subsubsection $B%$%s%8%1!<%?(B
+
 @defvr {$B%f!<%6JQ?t(B} skk-indicator-use-cursor-color
-DDSKK $B$N%$%s%8%1!<%?$r%b!<%I%i%$%s$N:8$KI=<($7$F$$$k>l9g(B@footnote{$B%G%U%)%k%H(B
-$B$G$O!":8$G$9!#(B@w{@xref{$B5/F0$H=*N;(B}.}}$B!"(B
-$B%$%s%8%1!<%?$K%+!<%=%k$N?'$HF1$8?'$,IU$/$h$&$K$J$j$^$7$?!#(B
-$B$^$?!"%$%s%8%1!<%?$r%^%&%9$J$I$N%]%$%s%F%#%s%0%G%P%$%9$NBh#2%\%?%s$r%/%j%C%/(B
-$B$9$k$H%a%K%e!<$,I=<($5$l$^$9!#(B
+
+DDSKK $B$N%$%s%8%1!<%?$r%b!<%I%i%$%s$N:8$KI=<($7$F$$$k>l9g!"(B@footnote{$B%G%U%)%k%H$G$O!":8$G$9!#(B@w{@xref{$B5/F0$H=*N;(B}.}}
+$B%$%s%8%1!<%?$N?'$,%+!<%=%k$N?'$HF14|$7$^$9!#$^$?!"%^%&%9%]%$%s%?$r%$%s%8(B
+$B%1!<%?>e$KCV$$$FBh#2%\%?%s$r%/%j%C%/(B($B1&%/%j%C%/(B) $B$9$k$H%]%C%W%"%C%W%a%K%e!<(B
+$B$,I=<($5$l$^$9!#(B
 
 $B%$%s%8%1!<%?$K?'$rIU$1$?$/$J$$>l9g$O!"$3$NJQ?t$r(B @code{nil} $B$K$7$^$9!#(B
-
 @end defvr
 
 $B%$%s%8%1!<%?$KFH<+?'$r;H$$$?$$>l9g$O!"0J2<$N%U%'%$%9(B@footnote{
 $BJQ?t(B @code{window-system} $B$,(B @code{nil} $B$N>l9g$O!"$3$l$i%U%'%$%9$OL$Dj5A$H(B
 $B$J$j$^$9!#(B} $B$r@_Dj$7$^$9!#$3$N>l9g%+!<%=%k$N?'$O;2>H$5$l$^$;$s!#(B
 
-Emacs 21@footnote{$BJQ?t(B @code{mule-version} $B$NCM$,(B ``5.0'' $B0J>e$N(B Emacs} $B$N>l9g(B
+Emacs 21 $B0J>e(B @footnote{$BJQ?t(B @code{mule-version} $B$NCM$,(B ``5.0'' $B0J>e$N(B Emacs} $B$N>l9g(B
 
 @vindex skk-e21-hiragana-face
 @vindex skk-e21-katakana-face

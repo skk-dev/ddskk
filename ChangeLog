@@ -1,5 +1,9 @@
 2010-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* doc/skk.texi: Update.
+	* bayesian/skk-bayesian.el (skk-bayesian-history-file)
+	(skk-bayesian-corpus-file): Save in skk-user-directory if it is
+	specified.
 	* skk-vars.el (skk-jisyo-update-vector): Update doc string.
 	* skk.el (skk-setup-shared-private-jisyo): Make
 	skk-jisyo-update-vector a bit longer than skk-jisyo-save-count.

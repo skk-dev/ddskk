@@ -118,8 +118,10 @@
   :type 'integer
   :group 'skk-bayesian)
 
-(defcustom skk-bayesian-history-file (convert-standard-filename
-                                      "~/.skk-bayesian")
+(defcustom skk-bayesian-history-file
+  (if skk-user-directory
+      (expand-file-name "bayesian" skk-user-directory)
+    (convert-standard-filename "~/.skk-bayesian"))
   "*履歴を記録するファイル名。
 `skk-bayesian-prefer-server'が non-nil の時にのみ使用される。"
   :type 'file
@@ -144,7 +146,10 @@
   :type 'boolean
   :group 'skk-bayesian)
 
-(defcustom skk-bayesian-corpus-file (convert-standard-filename "~/.skk-corpus")
+(defcustom skk-bayesian-corpus-file
+  (if skk-user-directory
+      (expand-file-name "corpus" skk-user-directory)
+    (convert-standard-filename "~/.skk-corpus"))
   "*corpus を保存するファイル。"
   :type 'file
   :group 'skk-bayesian)
