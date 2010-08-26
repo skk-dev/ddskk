@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/25 13:14:09 $
+@set UPDATED $Date: 2010/08/26 07:26:08 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -322,7 +322,6 @@ XEmacs 21.4, 21.5 (beta)
 @item $B%$%s%i%$%s8uJdI=<($O5!G=$7$^$;$s!#(B
 @item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
 @item XEmacs 21.4 $B$G$O%D!<%k%F%#%C%WI=<($,5!G=$7$^$;$s!#(B
-@item X Window System $B>e$G$NF|K\8l%a%K%e!<I=<($O(B GTK $BBP1~HG$N$_$G$9!#(B
 @item $BF|K\8l%a%K%e!<I=<($O(B X $B%j%=!<%9$K$h$kJ}K!$N$_%F%9%H$5$l$F$$$^$9!#(B
 @end itemize
 
@@ -1533,22 +1532,17 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 
 @node $B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B
 @subsubsection $B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B,
+@cindex $B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B
 
 $B%5JQF0;l!JL>;l$N8e$K(B @samp{$B$9$k(B} $B$rIU$1$?7A$G9=@.$5$l$kF0;l!K$K$D$$$F$O(B
-@samp{$B$9$k(B} $B$rAw$j2>L>$H$7$?Aw$j$"$jJQ49(B @footnote{$BAw$j2>L>$rH<$&JQ49!#(B
-$B>\$7$/$O!"(B@ref{$BAw$j2>L>$,M-$k>l9g(B} $B$r;2>H$7$F$/$@$5$$!#(B} $B$r$7$J$$$G!"(B
-@samp{$B1?F0(B} $B$H(B @samp{$B$9$k(B} $B$HJ,$1$FF~NO$9$k$3$H$rA0Ds$H$7$F$$$^$9(B
-@footnote{$BL>;l$H$=$N%5JQF0;l$H$rJL!9$K<-=q$K;}$D$H>pJsNL$N3d$K<-=q%5%$%:(B
-$B$,Bg$-$/$J$C$F$7$^$&$3$H!"$*$h$S6&M-<-=q$N%a%s%F%J%s%9>eIiC4$K$J$k$3$H$,(B
-$BM}M3$G!"86B'$H$7$F%5JQF0;l$rAw$j$"$j%(%s%H%j$KDI2C$7$F$$$^$;$s!#$=$N$?$a!"(B
-@samp{$B$9$k(B} $B$rAw$j2>L>$H$7$?Aw$j$"$jJQ49$G$O!"<-=q$K8uJd$,$J$/<-=qEPO?%b!<(B
-$B%I$KF~$C$F$7$^$&2DG=@-$,9b$$$N$G!"L>;l$H$7$FJ,2r$7$FF~NO$9$k$3$H$,0lHLE*(B
-$B$G$9!#0lJ}$G!"$3$NJQ49J}K!$@$H%5JQF0;l$K$J$kC18l$H$J$i$J$$C18l$,6&$KJQ49(B
-$B8uJd$K=P$F$/$k$?$a(B ($BNc$($P(B @samp{$B9'9T$9$k(B} $B$H$$$&JQ49$r9T$$$?$$>l9g$K(B
-@samp{$B9b9;(B} $B$,=P$F$/$k$J$I(B)$B!"8uJd$N9J$j9~$_$H$$$&E@$G$OI,$:$7$b8zN($,NI(B
-$B$/$J$/!"$^$?8D?M<-=q$b0i$A$K$/$/$J$j$^$9!#(BDDSKK 13 $B0J9_$G$O;CDjE*$K%5JQ(B
-$BF0;l$NAw$j$"$jJQ49$r2DG=$K$9$k5!G=$rMQ0U$7$^$7$?!#(B
-(@w{@pxref{$B%5JQF0;lJQ49(B}})}$B!#(B
+@samp{$B$9$k(B} $B$rAw$j2>L>$H$7$?Aw$j$"$jJQ49(B (@w{@pxref{$BAw$j2>L>$,M-$k>l9g(B}})
+$B$r$7$J$$$G!"(B@samp{$B1?F0(B} $B$H(B @samp{$B$9$k(B} $B$HJ,$1$FF~NO$9$k$3$H$rA0Ds$H$7$F(B
+$B$$$^$9!#(B@footnote{SKK-JISYO.L $B$J$I6&M-<-=q$N%a%s%F%J%s%9>e!"86B'$H$7$F%5(B
+$BJQF0;l$rAw$j$"$j%(%s%H%j$KDI2C$7$F$$$^$;$s!#$=$N$?$a!"(B@samp{$B$9$k(B} $B$rAw$j(B
+$B2>L>$H$7$?Aw$j$"$jJQ49$G$O!"<-=q$K8uJd$,$J$/<-=qEPO?%b!<%I$KF~$C$F$7$^$&(B
+$B$N$G!"L>;l$H$7$FJ,2r$7$FF~NO$9$k$3$H$,0lHLE*$G$9!#$?$@$7!"(BDDSKK 13 $B0J9_(B
+$B$G$O;CDjE*$K%5JQF0;l$NAw$j$"$jJQ49$r2DG=$K$9$k5!G=$rMQ0U$7$^$7$?!#(B
+(@w{@pxref{$B%5JQF0;lJQ49(B}})}
 
 $BNc$($P(B @samp{$B1?F0$9$k(B} $B$O(B @kbd{U n d o u @key{SPC} s u r u} $B$H%?%$%W$9$k(B
 $B$3$H$K$h$jF~NO$G$-$^$9!#L>;l$+$i:n$i$l$k7AMF;lEy$bF1MM$G$9!#(B
@@ -4054,7 +4048,9 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 @code{skk-search-prog-list-9}, @code{skk-search-prog-list-0} $B$r(B
 $B<B9T$9$k$h$&<+F0@_Dj$7$^$9!#$3$l$i$N%W%m%0%i%`$O"&%b!<%I8BDj$G%U%!%s%/%7%g(B
 $B%s%-!<(B (@key{[F1]} $B!A(B @key{[F10]}) $B$K3d$jEv$F$i$l$^$9!#(B@key{[F5]} $B!A(B
-@key{[F10]} $B$K$D$$$F$OK\%*%W%7%g%s$N@_Dj$K$h$j<+F0E*$K3dEv$F$5$l$^$9!#(B
+@key{[F10]} $B$K$D$$$F$OK\%*%W%7%g%s$N@_Dj$K$h$j<+F0E*$K3dEv$F$5$l$^$9!#$3(B
+$B$l$i$N3d$jEv$F$O%f!<%6%*%W%7%g%s(B @code{skk-verbose} $B$r@_Dj$9$k$H%(%3!<%((B
+$B%j%"$KI=<($5$l$k$h$&$K$J$j$^$9!#(B(@w{@pxref{$B=u8@E*0FFb%a%C%;!<%8$NI=<((B}})
 
 @itemize @bullet
 @item @key{[F5]}  $B!D(B $BC14A;z(B
@@ -6868,16 +6864,18 @@ abbreviation $B$NE83+$r9T$&$h$&$K@_Dj$9$k$3$H$,$G$-$k$N$G$9$,!"2>$K<-=q(B
 @defvr {$B%f!<%6JQ?t(B} skk-jisyo-code
 
 $B$3$NJQ?t$NCM$O<-=q%U%!%$%k$N4A;z%3!<%I$r7hDj$7$^$9!#(B
-$B$3$NJQ?t$O0J2<$N$h$&$JCM$r<h$j$^$9(B
-@footnote{Mule 2.3 $B$G$O(B @w{@code{*euc-japan*}}, @w{@code{*sjis*}},
-@w{@code{*junet*}} $B$J$I$N%7%s%\%k$r;XDj$9$k$3$H$,$G$-$^$9!#(B
-Emacs 20 $B$G$O!"(B@code{euc-jp}, @code{shift_jis}, @code{junet} $B$J$I$N%7%s(B
-$B%\%k$r;XDj$9$k$3$H$,$G$-$^$9!#(B}$B!#(B
+$B$3$NJQ?t$O0J2<$N$h$&$JCM$r<h$j$^$9!#(B
 
 @itemize @bullet
-@item @code{euc}, @code{ujis}, @code{sjis}, @code{jis} $B$J$I$NJ8;zNs(B
-@item Emacs $B$K$h$C$F(B coding system $B$HG'$a$i$l$k%7%s%\%k(B
-@item Emacs $B$K$h$C$F(B coding system $B$r<($9$N$K;H$o$l$k%7%s%\%k(B
+@item ``euc'', ``ujis'', ``sjis'', ``jis'' $B$J$I$NJ8;zNs(B
+@item Emacs $B$N(B coding system ($B%3!<%I7O(B)@footnote{coding system $B$O(B Emacs $B$N>l9g(B @code{euc-jp}, @code{shift_jis},
+@code{junet} $B$J$I$N(B symbol $B$GI=$5$l$^$9!#$3$l$i$O(B @kbd{M-x
+describe-coding-system} $B$GD4$Y$k$3$H$,$G$-$^$9!#$J$*!"(BXEmacs $B$G$O$3$l$i(B
+$B$N(B symbol $B$O(B coding system $B$=$N$b$N$G$O$J$/!"(B coding system object $B$r;X(B
+$B<($9$k$?$a$N(B symbol $B$H$7$F07$o$l$^$9!#6qBNE*$K$O(B Emacs $B$G$O(B
+@code{(coding-system-p 'euc-jp)} $B$,(B t $B$rJV$9$N$KBP$7!"(B XEmacs $B$G$O(B nil
+$B$rJV$7$^$9$,!"Be$o$j$K(B symbol $B$,<($9(B coding system object $B$rJV$9(B
+@code{find-coding-system} $B4X?t$,B8:_$7$^$9!#(B}
 @item @code{nil}
 @end itemize
 
@@ -6913,6 +6911,7 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 * $B%"%N%F!<%7%g%s$N;HMQ(B:: 
 * $B%"%N%F!<%7%g%s$NEPO?(B::
 * $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B::
+* Wikipedia $B%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B::
 @end menu
 
 @node $B%"%N%F!<%7%g%s$N4pAC(B
@@ -7079,7 +7078,7 @@ L:$B0](B;
 
 $B"'%b!<%I$G8uJd$rI=<($7$F$$$k$H$-$K(B @key{TAB} $B$r2!$9$H!"(B
 @code{skk-annotation-wikipedia-sources} $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7$F(B
-$B%(%3!<%(%j%"$KI=<((B@footnote{$BJQ?t(B@code{skk-show-tooltip} $B$,(B @code{Non-nil} $B$N(B
+$B%(%3!<%(%j%"$KI=<((B@footnote{$BJQ?t(B@code{skk-show-tooltip} $B$,(B @code{on-nil} $B$N(B
 $B>l9g!"%D!<%k%F%#%C%W$GI=<($7$^$9!#(B} $B$7$^$9!#(B
 
 @example
@@ -7129,6 +7128,65 @@ B o k u j o u
 ja.wiktionary $B$N=g$G$9!#(B
 
 @end defvr
+
+@node Wikipedia $B%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B
+@subsection Wikipedia $B%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B
+
+$BA0=R$7$?(B Wikipedia $B%"%N%F!<%7%g%s5!G=$O!"<B$O(B SKK $B$NJQ49%b!<%I$@$1$G$J$/!"(B
+Emacs $B$N$"$i$f$k>u67$G;H$&$3$H$,$G$-$^$9!#$=$N$?$a$K$O!"%3%^%s%I(B
+@code{skk-annotation-wikipedia-region-or-at-point} $B$rG$0U$N%-!<$K3dEv$7(B
+$B$^$9!#(B
+
+@defun {$B%3%^%s%I(B} skk-annotation-wikipedia-region-or-at-point &optional PREFIX-ARG START END
+
+$B$3$N%3%^%s%I$O!"NN0h$,;XDj$5$l$F$$$l$P$=$NNN0h$NJ8;zNs$r%-!<%o!<%I$H$7$F(B
+Wikipedia $B%"%N%F!<%7%g%s$rC5$7!"I=<($7$^$9!#NN0h$,;XDj$5$l$F$$$J$1$l$P!"(B
+$B2DG=$JHO0O$G$=$N0LCV$K$"$kC18l(B ($B;OE@$H=*E@(B) $B$r?dB,$7!"(BWikipedia $B%"%N%F!<(B
+$B%7%g%s$rC5$7$^$9!#0lNc$H$7$F!"0J2<$N%-!<3dEv$r>R2p$7$^$9!#(B
+
+@lisp
+(global-set-key "\M-i" 'skk-annotation-wikipedia-region-or-at-point)
+@end lisp
+
+@noindent
+$B$3$N$h$&$K$7$F$*$/$H!"2?$+$N0UL#$,D4$Y$?$/$J$C$?$H$-!"NN0hA*Br$7$F(B
+@kbd{M-i} $B$H%?%$%W$9$l$PN)$A=j$K$7$F(B Wikipedia $B$r8!:w$G$-$^$9!#(B
+
+@noindent
+$B$5$i$K!"%f!<%6%*%W%7%g%s(B @code{skk-annotation-wikipedia-sources} $B$N(B 2 $BHV(B
+$BL\$OI8=`$G(B @code{en.wiktionary} $B$K$J$C$F$$$^$9!#Nc$($P!"1QJ8$rFI$s$G$$$F(B
+buffer $B$H$$$&8l$N@53N$J0UL#$r;2>H$7$?$/$J$C$?$H$7$^$9!#$=$N$H$-$O(B $BC18l(B
+buffer $B$K%]%$%s%H$r9g$o$;!"(B@kbd{M-2 M-i} $B$H%W%l%U%#%C%/%9IU$G%3%^%s%I$r(B
+$B<B9T$7$F$_$F$/$@$5$$!#(B
+
+@example
+@group
+----- Buffer: *scratch* -----
+;; This buffer@point{} is for notes you don't want to save, and for ...
+----- Buffer: +scratch -----
+@end group
+
+@kbd{M-2 M-i}
+@end example
+
+@noindent
+$B$9$k$H(B SKK $B%b!<%I$G$N%"%N%F!<%7%g%s$HF1MM!"0J2<$N$h$&$J@bL@$,I=<($5$l$^(B
+$B$9!#(B
+
+@example
+@group
+ English, Noun
+buffer (plural&#160;buffers)
+ 1: Someone or something that buffs.
+ 2: (chemistry) A solution used to stabilize the pH (acidity) of a
+ liquid.
+ 3: (computing) A portion of memory set aside to store data, often
+ before it is sent to an external device or as it is received from an
+ external device.
+[...]
+@end group
+@end example
+@end defun
 
 @node $B4A;z%3!<%I4XO"(B
 @section $B4A;z%3!<%I4XO"(B
