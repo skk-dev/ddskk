@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/26 10:00:03 $
+@set UPDATED $Date: 2010/08/26 11:44:30 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1939,7 +1939,7 @@ DDSKK $B$rJ;MQ$7$?%$%s%/%j%a%s%?%k!&%5!<%A5!G=$rDs6!$7$^$9!#(B
 @item skk-jisx0213.el
 @cindex @file{skk-jisx0213.el}
 
-JISX0213 $BJ8;z%3!<%I$r07$&%W%m%0%i%`$G$9!#$3$N5!G=$O(B Emacs 23 $B$G$OI8=`$G(B
+JIS X 0213 $BJ8;z%3!<%I$r07$&%W%m%0%i%`$G$9!#$3$N5!G=$O(B Emacs 23 $B$G$OI8=`$G(B
 $BMxMQ$G$-$^$9!#$=$lL$K~$N%P!<%8%g%s$N(B Emacs $B$K$*$$$F$O!"(BMule-UCS $B$rF3F~$9(B
 $B$k$J$I$NBP:v$,I,MW$G$9!#(BMule-UCS $B$K$D$$$F$O(B 
 @uref{http://tats.haun.org/mule-ucs/, Mule-UCS Unofficial Site} $B$r;2>H(B
@@ -2154,14 +2154,17 @@ DDSKK $B$O!"(B@file{~/.skk} $B$d(B @file{~/.skk-jisyo} $B$H$$$C$?J#?t$N%U%!
 $B?t$N%G%U%)%k%HCM$,JQ99$5$l$^$9!#(B
 
 @example
-$B1F6A$r<u$1$kJQ?t(B       $B%G%U%)%k%HCM(B      $BJQ998e$N%G%U%)%k%HCM(B
-skk-init-file          ~/.skk            ~/.ddskk/init
-skk-jisyo              ~/.skk-jisyo      ~/.ddskk/jisyo
-skk-backup-jisyo       ~/.skk-jisyo.BAK  ~/.ddskk/jisyo.bak
-skk-emacs-id-file      ~/.skk-emacs-id   ~/.ddskk/emacs-id
-skk-record-file        ~/.skk-record     ~/.ddskk/record
-skk-study-file         ~/.skk-study      ~/.ddskk/study
-skk-study-backup-file  ~/.skk-study.BAK  ~/.ddskk/study.bak
+@group
+$B1F6A$r<u$1$kJQ?t(B          $B%G%U%)%k%HCM(B      $BJQ998e$N%G%U%)%k%HCM(B
+skk-init-file             ~/.skk            ~/.ddskk/init
+skk-jisyo                 ~/.skk-jisyo      ~/.ddskk/jisyo
+skk-backup-jisyo          ~/.skk-jisyo.BAK  ~/.ddskk/jisyo.bak
+skk-emacs-id-file         ~/.skk-emacs-id   ~/.ddskk/emacs-id
+skk-record-file           ~/.skk-record     ~/.ddskk/record
+skk-study-file            ~/.skk-study      ~/.ddskk/study
+skk-study-backup-file     ~/.skk-study.BAK  ~/.ddskk/study.bak
+skk-bayesian-history-file ~/.skk-bayesian   ~/.ddskk/bayesian
+@end group
 @end example
 
 $B$J$*!"(B@code{skk-user-directory} $B$r@_Dj$7$?>l9g$G$b!"3FJQ?t$r8DJL$K@_Dj$7(B
@@ -4009,7 +4012,7 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 
 $B$7$+$7!"$3$3$K>R2p$9$kJ}K!$G$OG$0U$NAw$j$J$78uJd$rMxMQ$7$F%59T$NAw$j%W%l(B
 $B%U%#%C%/%9$K8BDj$7$FAw$j$"$jJQ49$,2DG=$K$J$j!"8D?M<-=q$r0i$F$k$3$H$,2DG=(B
-$B$K$J$j$^$9!#@_Dj$9$k$K$O0J2<$r(B@file{~/.skk} $B$K5-=R$7$^$9!#(B
+$B$K$J$j$^$9!#@_Dj$9$k$K$O0J2<$r(B @file{~/.skk} $B$K5-=R$7$^$9!#(B
 
 @lisp
 @group
@@ -7581,7 +7584,7 @@ t
 @end defvr
 @defvr {$B%f!<%6JQ?t(B} skk-prefix-jisx0201-face
 
-$B$=$l$>$l$+$J%b!<%I!"%+%J%b!<%I!"(BJISX0201 $B%b!<%I$K$*$1$k%m!<%^;z%W%l%U%#%C(B
+$B$=$l$>$l$+$J%b!<%I!"%+%J%b!<%I!"(BJIS X 0201 $B%b!<%I$K$*$1$k%m!<%^;z%W%l%U%#%C(B
 $B%/%9$N%U%'%$%9$r;XDj$7$^$9!#(B
 @end defvr
 
@@ -7641,7 +7644,7 @@ SKK $B%b!<%I$,%*%U$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"%+!<%=%k$N$"$k3:Ev(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-cursor-jisx0201-color
-JISX0201 $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B
+JIS X 0201 $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B
 ``blueviolet'' $B$^$?$O(B ``thistle'' $B$rMQ$$$^$9!#(B
 @end defvr
 
