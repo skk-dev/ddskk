@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.508 2010/08/25 16:07:55 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.509 2010/08/26 07:51:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/25 16:07:55 $
+;; Last Modified: $Date: 2010/08/26 07:51:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -347,7 +347,14 @@ dependent."
 
 ;;; setup
 (defun skk-setup-shared-private-jisyo ()
-  (setq skk-jisyo-update-vector (make-vector skk-jisyo-save-count nil))
+  ;; vector の長さは、`skk-save-jisyo' が失敗しない前提ならば
+  ;; skk-jisyo-save-count と同じでよい。エラーその他で失敗する可能性を
+  ;; 考慮すると、それより少し長い方が問題が起こりにくい。
+  ;; (以下の具体的な数字には根拠はない)
+  (setq skk-jisyo-update-vector
+	(make-vector (max (* 2 skk-jisyo-save-count)
+			  (+ 20 skk-jisyo-save-count))
+		     nil))
   (setq skk-emacs-id
 	(concat (system-name) ":" (number-to-string (emacs-pid))
 		":" (mapconcat 'int-to-string (current-time) "") ":"))
@@ -3673,13 +3680,13 @@ NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。
 		(setq list (aref skk-jisyo-update-vector index)))
       ;; skk-update-jisyo-1, skk-search-jisyo
       ;; で参照される skk-henkan-key をセットする
-      (setq skk-henkan-key (car list))
-      (skk-update-jisyo-1
-       ;; okurigana    word
-       (nth 1 list) (nth 2 list)
-       (skk-search-jisyo (nth 1 list) 0 'delete)
-       ;; purge
-       (nth 3 list))
+      (when (setq skk-henkan-key (car list))
+	(skk-update-jisyo-1
+	 ;; okurigana    word
+	 (nth 1 list) (nth 2 list)
+	 (skk-search-jisyo (nth 1 list) 0 'delete)
+	 ;; purge
+	 (nth 3 list)))
       (setq index (1+ index)))))
 
 (defun skk-save-jisyo-as (file)
@@ -4404,13 +4411,12 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
 	  (dolist (function skk-update-end-function)
 	    (funcall function henkan-buffer midasi okurigana word purge))
 	  (setq skk-update-jisyo-count (1+ skk-update-jisyo-count))
-	  (let ((save-count (if (skk-share-private-jisyo-p)
-				(length skk-jisyo-update-vector)
-			      skk-jisyo-save-count)))
-	    (when (and save-count
-		       (<= save-count skk-update-jisyo-count))
-	      ;; auto save.
-	      (skk-save-jisyo 'quiet))))))))
+	  ;; skk-share-private-jisyo が non-nil のときは skk-jisyo-save-count
+	  ;; も non-nil であることを前提とする
+	  (when (and skk-jisyo-save-count
+		     (<= skk-jisyo-save-count skk-update-jisyo-count))
+	    ;; auto save.
+	    (skk-save-jisyo 'quiet)))))))
 
 (defun skk-update-jisyo-1 (okurigana word old-words-list purge)
   "個人辞書に新しいエントリを挿入する。

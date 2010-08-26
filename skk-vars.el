@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.309 2010/08/25 13:14:38 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.310 2010/08/26 07:51:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/25 13:14:38 $
+;; Last Modified: $Date: 2010/08/26 07:51:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2057,10 +2057,11 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 $B8D?M<-=q$rJ#?t$N(B emacs $B>e$G5/F0$5$l$F$$$k(B SKK $B$G6&M-$9$k$H$-$K;2>H$9$k!#(B")
 
 (defvar skk-jisyo-update-vector nil
-  "$BD9$5$,(B `skk-jisyo-save-count' $B$N%Y%/%H%k!#(B
+  "`skk-share-private-jisyo' $BM-8z;~$K<-=q%P%C%U%!99?7>pJs$rJ];}$9$k(B vector.
+$BD9$5$O(B `skk-jisyo-save-count' $B$h$jD9$/$J$k$h$&$K@_Dj$7$F$$$k!#(B
 $B<-=q%P%C%U%!99?7$N5-O?$rJ]B8$7!"<-=q%P%C%U%!$r<-=q%U%!%$%k$K%;!<%V$9$k$H$-$K!"(B
 $BB>$N(B SKK $B$,<-=q%U%!%$%k$K:G6a%"%/%;%9$7$F$$$k$H$-$K$O!"<-=q%U%!%$%k$r%P%C%U%!(B
-$B$KFI$_9~$s$G$+$i!"(B`skk-jisyo-update-vector' $B$rMQ$$$F%P%C%U%!$r99?7$7!"$=$N(B
+$B$KFI$_9~$s$G$+$i!"(B`skk-jisyo-update-vector' $B$rMQ$$$F%P%C%U%!$r99?7D>$7!"$=$N(B
 $B7k2L$r%U%!%$%k$K%;!<%V$9$k!#(B")
 
 (defvar skk-rule-tree nil
