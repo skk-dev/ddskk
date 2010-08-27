@@ -1,11 +1,13 @@
 ;;; skk-tankan.el --- SKK 単漢字変換プログラム -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 2003 YAGI Tatsuya <ynyaaa@ybb.ne.jp>
+;; Copyright (C) 2010 Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
+;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.22 2010/08/27 13:15:53 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.23 2010/08/27 14:58:17 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/27 13:15:53 $
+;; Last Modified: $Date: 2010/08/27 14:58:17 $
 
 ;; This file is part of Daredevil SKK.
 

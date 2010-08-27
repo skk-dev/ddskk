@@ -420,6 +420,10 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 ** elisp 著作・アイデア
 
+*** 単漢字の総画数による検索
+
+*** 単漢字の部首による検索
+
 *** 以下のプログラムへの改変
 
 **** skk-kcode.el, skk-macs.el, skk-obsolete.el, skk-tankan.el,

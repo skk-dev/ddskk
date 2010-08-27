@@ -1,12 +1,14 @@
 ;;; skk-dcomp.el --- SKK dynamic completion -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1999, 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Copyright (C) 2008, 2009 IRIE Tetsuya <irie@t.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
+;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.65 2010/08/27 10:42:17 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.66 2010/08/27 14:58:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/27 10:42:17 $
+;; Last Modified: $Date: 2010/08/27 14:58:17 $
 
 ;; This file is part of Daredevil SKK.
 
