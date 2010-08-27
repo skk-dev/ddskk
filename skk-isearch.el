@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.62 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.63 2010/08/27 10:42:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/08/27 10:42:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -237,7 +237,7 @@ kakutei'ed and erase the buffer contents."
   ;; setup variables and keymap
   (unless (keymapp skk-isearch-mode-map)
     (static-cond
-     ((eq skk-emacs-type 'xemacs)
+     ((featurep 'xemacs)
       (setq skk-isearch-mode-map (skk-isearch-setup-keymap
 				  (make-keymap)))
       (set-keymap-parents skk-isearch-mode-map
@@ -248,8 +248,7 @@ kakutei'ed and erase the buffer contents."
 					    isearch-mode-map))))))
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
-  (static-when
-      (memq skk-emacs-type '(mule4 mule5 mule6))
+  (static-when (string-match "^GNU" (emacs-version))
     (when (and current-input-method
 	       (string-match "^japanese-skk" current-input-method))
       (let* ((method current-input-method)
@@ -301,8 +300,7 @@ kakutei'ed and erase the buffer contents."
       (jisx0208-latin
        (skk-jisx0208-latin-mode-on))))
   ;; Input Method として SKK を使っている場合の対策
-  (static-when
-      (memq skk-emacs-type '(mule4 mule5 mule6))
+  (static-when (string-match "^GNU" (emacs-version))
     (when (string-match "^japanese-skk" (format "%s" default-input-method))
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	(inactivate-input-method))))
@@ -373,7 +371,7 @@ Optional argument PREFIX is appended if given."
 
   ;; Keys for `skk-isearch-skk-mode'.
   (let ((commands '(skk-mode skk-auto-fill-mode)))
-    (static-unless (eq skk-emacs-type '(xemacs))
+    (static-unless (featurep 'xemacs)
       (when (string-match "^japanese-skk"
 			  (format "%s" default-input-method))
 	(push 'toggle-input-method commands)))

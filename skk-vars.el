@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.311 2010/08/26 15:36:48 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.312 2010/08/27 10:42:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/26 15:36:48 $
+;; Last Modified: $Date: 2010/08/27 10:42:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -241,7 +241,7 @@ Automatically becomes buffer-local when set in any fashion."
   ;; from font-lock-make-faces of font-lock.el  Welcome!
   (or frame-background-mode
       (static-cond
-       ((eq skk-emacs-type 'xemacs)
+       ((featurep 'xemacs)
 	(if (< (apply '+ (color-rgb-components
 			  (face-property 'default 'background)))
 	       (/ (apply '+ (color-rgb-components
@@ -1958,7 +1958,8 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 
 ;;; -- Internal constants and variables of skk.el
 (defconst skk-coding-system-alist
-  (cond ((eq skk-emacs-type 'mule6)
+  (cond ((and (string-match "^GNU" (emacs-version))
+	      (>= emacs-major-version 23))
 	 '(("euc" . euc-jis-2004)
 	   ("ujis" . euc-jis-2004)
 	   ("sjis". japanese-shift-jis-2004)
@@ -3146,7 +3147,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
 
 (defcustom skk-cursor-default-color
   (cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (frame-property (selected-frame) 'cursor-color))
    (t
     (cdr (assq 'cursor-color (frame-parameters (selected-frame))))))
@@ -3551,20 +3552,9 @@ Non-nil $B$G$"$l$P!"(B`skk-isearch-message' $B4X?t$r%3!<%k$9$k!#(B")
 This map should be derived from `isearch-mode-map'.")
 
 (defvar skk-isearch-overriding-local-map
-  (static-cond
-   ((eq skk-emacs-type 'xemacs)
-    (cond
-     ((string-lessp "21.2  (beta2)" emacs-version)
-      'overriding-local-map)
-     (t
-      'overriding-terminal-local-map)))
-   ;; for Mule/GNU Emacs.
-   ((string-lessp "19.29" emacs-version)
-    ;; GNU Emacs version 19.29 or later uses this in isearch.el.
+  (if (featurep 'xemacs)
+      'overriding-local-map
     'overriding-terminal-local-map)
-   ;; GNU Emacs version 19.28 or earlier uses this in isearch.el.
-   (t
-    'overriding-local-map))
   "Variable holding overriding local map used in `isearch-mode'.")
 
 (defvar skk-isearch-last-mode-string "")
@@ -3714,8 +3704,8 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
 (defconst skk-kcode-charset-list
   (mapcar #'(lambda (x)
 	      (list (symbol-name x)))
-	  (static-if
-	      (memq skk-emacs-type '(mule5 mule6))
+	  (static-if (and (string-match "^GNU" (emacs-version))
+			  (>= emacs-major-version 21))
 	      charset-list
 	    (charset-list))))
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
@@ -4575,7 +4565,7 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
 
 (put 'annotation 'char-table-extra-slots 0)
 (defvar skk-tankan-annotation-table
-  (make-char-table (static-if (eq skk-emacs-type 'xemacs)
+  (make-char-table (static-if (featurep 'xemacs)
 		       'generic
 		     'annotation)))
 
@@ -4682,7 +4672,7 @@ GNU Emacs 21 $B$G$O6/@)E*$K(B `follow' $B$H$J$k!#(B"
 
 ;;; skk-tut.el related.
 (defcustom skk-tut-file
-  (cond ((eq skk-emacs-type 'xemacs)
+  (cond ((featurep 'xemacs)
 	 (locate-data-file "SKK.tut"))
 	((fboundp 'locate-file)
 	 (or (locate-file "skk/SKK.tut"

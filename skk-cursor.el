@@ -5,9 +5,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.40 2010/08/18 12:35:55 skk-cvs Exp $
+;; Version: $Id: skk-cursor.el,v 1.41 2010/08/27 10:42:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 12:35:55 $
+;; Last Modified: $Date: 2010/08/27 10:42:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -39,7 +39,7 @@
   (require 'skk-vars))
 
 (static-unless
-    (eq skk-emacs-type 'xemacs)
+    (featurep 'xemacs)
   (require 'ccc))
 
 ;; Functions.
@@ -78,7 +78,7 @@
 ;;;###autoload
 (defun skk-cursor-set-1 (color)
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     ;;At 10 Jul 2000 16:37:49 +0900,
     ;;Yoshiki Hayashi <t90553@mail.ecc.u-tokyo.ac.jp> wrote:
     ;;> foreground を background に変える必要があること以外は、今の
@@ -99,20 +99,20 @@
 ;;;###autoload
 (defun skk-cursor-off-1 ()
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (skk-cursor-set))
    (t
     (when default-cursor-color
       (set-cursor-color-buffer-local nil)))))
 
 ;; advices.
-(static-when (eq skk-emacs-type 'xemacs)
+(static-when (featurep 'xemacs)
   (defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
     (unless skk-henkan-mode
       (skk-cursor-set (skk-cursor-default-color)))))
 
 ;; Hooks
-(static-when (eq skk-emacs-type 'xemacs)
+(static-when (featurep 'xemacs)
   (add-hook 'isearch-mode-end-hook
 	    #'skk-cursor-set
 	    'append)

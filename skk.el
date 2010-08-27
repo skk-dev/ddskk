@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.509 2010/08/26 07:51:48 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.510 2010/08/27 10:42:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/26 07:51:48 $
+;; Last Modified: $Date: 2010/08/27 10:42:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -88,9 +88,9 @@
   (require 'skk-macs)
   ;; SKK version dependent.
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (require 'skk-xemacs))
-   ((memq skk-emacs-type '(mule5 mule6))
+   ((>= emacs-major-version 21)
     ;; Emacs 21 or later
     (require 'skk-emacs)
     (require 'skk-e21))
@@ -193,14 +193,16 @@ dependent."
     (skk-create-file skk-jisyo
 		     "SKK の空辞書を作りました"
 		     "I have created an empty SKK Jisyo file for you")
-    (static-when (eq skk-emacs-type 'xemacs)
+    (static-when (featurep 'xemacs)
       (easy-menu-add skk-menu))
     (skk-require-module)
     ;; To terminate kana input.
-    (static-unless (memq skk-emacs-type '(mule5 mule6))
+    (static-when (or (featurep 'xemacs)
+		     (<= emacs-major-version 20))
       (make-local-hook 'pre-command-hook))
     (skk-add-skk-pre-command)
-    (static-unless (memq skk-emacs-type '(mule5 mule6))
+    (static-when (or (featurep 'xemacs)
+		     (<= emacs-major-version 20))
       (make-local-hook 'post-command-hook))
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
     (skk-j-mode-on)
@@ -233,7 +235,7 @@ dependent."
 	      "辞書を保存せずに %s を終了します。良いですか？"
 	    "Do you really wish to kill %s without saving Jisyo? ")
 	  (static-cond
-	   ((eq skk-emacs-type 'xemacs)
+	   ((featurep 'xemacs)
 	    "XEmacs")
 	   (t
 	    "Emacs"))))
@@ -307,7 +309,7 @@ dependent."
 	       'skk-after-point-move
 	       'local)
   (skk-update-modeline)
-  (static-when (eq skk-emacs-type 'xemacs)
+  (static-when (featurep 'xemacs)
     (delete-menu-item (list (car skk-menu)))))
 
 (defun skk-mode-invoke ()
@@ -338,9 +340,11 @@ dependent."
 	(skk-use-kana-keyboard
 	 ;; 仮名入力 (日本語旧 JIS または親指シフト)
 	 (skk-kanagaki-initialize)))
-  (static-when (memq skk-emacs-type '(mule5 mule6))
+  (static-when (and (string-match "^GNU" (emacs-version))
+		    (>= emacs-major-version 21))
     (skk-e21-prepare-menu))
-  (static-when (memq skk-emacs-type '(mule6))
+  (static-when (and (string-match "^GNU" (emacs-version))
+		    (>= emacs-major-version 23))
     (skk-setup-charset-list))
   (skk-setup-delete-selection-mode)
   (setq skk-mode-invoked t))
@@ -367,12 +371,12 @@ dependent."
 (defun skk-setup-charset-list ()
   (let ((candidates '(ascii
 		      japanese-jisx0208
-		      japanese-jisx0212
-		      latin-jisx0201
-		      katakana-jisx0201
-		      japanese-jisx0213.2004-1
 		      japanese-jisx0213-1
 		      japanese-jisx0213-2
+		      japanese-jisx0213.2004-1
+		      katakana-jisx0201
+		      latin-jisx0201
+		      japanese-jisx0212
 		      japanese-jisx0208-1978))
 	candidate list)
     (while candidates
@@ -554,9 +558,9 @@ dependent."
 (defun skk-make-indicator-alist ()
   "SKK インジケータ型オブジェクトを用意し、連想リストにまとめる。"
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (skk-xemacs-prepare-modeline-properties))
-   ((memq skk-emacs-type '(mule5 mule6))
+   ((>= emacs-major-version 21)
     (skk-e21-prepare-modeline-properties)))
   ;;
   (let ((mode-string-list '(skk-latin-mode-string
@@ -630,9 +634,10 @@ dependent."
 
     (setq-default skk-modeline-input-mode "")
 
-    (static-if
-	(memq skk-emacs-type '(xemacs mule5 mule6))
+    (static-if (or (featurep 'xemacs)
+		   (>= emacs-major-version 21))
 	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
+      ;; GNU Emacs 20.7 or earlier
       (setq minor-mode-alist
 	    ;; each element of minor-mode-alist is not cons cell.
 	    (put-alist 'skk-mode
@@ -772,7 +777,7 @@ dependent."
 Delete Selection モードが SKK を使った日本語入力に対しても機能するように
 セットアップする。"
   (let ((property (static-cond
-		   ((eq skk-emacs-type 'xemacs)
+		   ((featurep 'xemacs)
 		    'pending-delete)
 		   (t
 		    'delete-selection)))
@@ -1871,7 +1876,7 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	       (function skk-multiple-line-message-clear)))
 
 (defun skk-multiple-line-message (fmt &rest args)
-  (if (and (not (eq skk-emacs-type 'xemacs))
+  (if (and (not (featurep 'xemacs))
 	   (boundp 'emacs-major-version)
 	   (>= emacs-major-version 21))
       (apply (function message) fmt args)
@@ -1888,7 +1893,7 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	(condition-case nil
 	    (progn
 	      (enlarge-window (- lines last-minibuffer-height))
-	      (static-if (eq skk-emacs-type 'xemacs)
+	      (static-if (featurep 'xemacs)
 		  (apply (function message) fmt args)
 		(let ((buffer-undo-list skk-buffer-undo-list))
 		  (erase-buffer)
@@ -2149,7 +2154,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
        ((and skk-show-inline
 	     (not skk-isearch-switch)
 	     (not (skk-in-minibuffer-p))
-	     (not (eq skk-emacs-type 'xemacs))
+	     (not (featurep 'xemacs))
 	     (<= 21 emacs-major-version))
 	(if (and (eq 'vertical skk-show-inline)
 		 ;; window が候補群を表示できる高さがあるかチェック
@@ -5023,7 +5028,7 @@ SKK 辞書の候補として正しい形に整形する。"
 
 (defun skk-detach-extent (object)
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (when (extentp object)
       (detach-extent object)))
    (t
@@ -5336,7 +5341,7 @@ SKK 辞書の候補として正しい形に整形する。"
 			     string))
 	 ((and (facep orig-face) (not (face-background orig-face)))
 	  (static-cond
-	   ((and (eq skk-emacs-type 'mule5)
+	   ((and (string-match "^GNU" (emacs-version))
 		 (= emacs-major-version 21))
 	    ;; Emacs 21 で :inherit がうまく継承されない？
 	    ;; workaround

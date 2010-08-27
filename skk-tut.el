@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.75 2010/08/22 15:04:56 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.76 2010/08/27 10:42:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/22 15:04:56 $
+;; Last Modified: $Date: 2010/08/27 10:42:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -86,7 +86,7 @@
     (skk-date-ad . 1)
     (skk-cursor-default-color
      . (cond
-	((eq skk-emacs-type 'xemacs)
+	((featurep 'xemacs)
 	 (frame-property (selected-frame) 'cursor-color))
 	(t
 	 (cdr
@@ -866,7 +866,7 @@ tutorial /チュートリアル/
     (let ((cbuf (current-buffer))
 	  p)
       (unwind-protect
-	  (let ((plist (cons (if (eq skk-emacs-type 'xemacs)
+	  (let ((plist (cons (if (featurep 'xemacs)
 				 'end-open
 			       'rear-nonsticky)
 			     '(t intangible t read-only t))))

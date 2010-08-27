@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.20 2010/08/26 11:33:44 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.21 2010/08/27 10:42:18 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/26 11:33:44 $
+;; Last Modified: $Date: 2010/08/27 10:42:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1446,7 +1446,7 @@
 (defun skk-tankan-get-char-annotation (char)
   (if skk-tankan-annotation-table
       (static-cond
-       ((eq skk-emacs-type 'xemacs)
+       ((featurep 'xemacs)
 	(get-char-table char skk-tankan-annotation-table))
        (t
 	(aref skk-tankan-annotation-table char)))
@@ -1454,7 +1454,7 @@
 
 (defun skk-tankan-set-char-annotaion (char annotation)
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (put-char-table char annotation skk-tankan-annotation-table))
    (t
     (aset skk-tankan-annotation-table char annotation))))
@@ -1565,42 +1565,43 @@
 				(char-to-string skk-tankan-search-key)))
 	(large-jisyo (or skk-large-jisyo
 			 (static-cond
-			  ((fboundp 'locate-file)
+			  ((featurep 'xemacs)
+			   (locate-data-file "SKK-JISYO.L"))
+			  ((>= emacs-major-version 22)
 			   (locate-file "skk/SKK-JISYO.L"
 					(list
-					 (expand-file-name
-					  "../../.."
-					  data-directory))))
-			  ((fboundp 'locate-data-file)
-			   (locate-data-file "SKK-JISYO.L"))
+					 (expand-file-name "../../.."
+							   data-directory)
+					 ;; Windows etc
+					 data-directory)))
 			  (t
 			   nil))
 			 skk-aux-large-jisyo))
 	(cdb-jisyo (or skk-cdb-large-jisyo
 		       (static-cond
-			((fboundp 'locate-file)
+			((featurep 'xemacs)
+			 (locate-data-file "SKK-JISYO.L.cdb"))
+			((>= emacs-major-version 22)
 			 (locate-file "skk/SKK-JISYO.L.cdb"
 				      (list
-				       (expand-file-name
-					"../../.."
-					data-directory))))
-			((fboundp 'locate-data-file)
-			 (locate-data-file "SKK-JISYO.L.cdb"))
+				       (expand-file-name "../../.."
+							 data-directory)
+				       ;; Windows etc
+				       data-directory)))
 			(t
 			 nil))))
 	(server-prog (assq 'skk-search-server skk-search-prog-list)))
-    (or
-     (cond ((and (stringp jisyo) (file-readable-p jisyo))
-	    (skk-tankan-search 'skk-search-jisyo-file jisyo 10000))
-	   ((and (stringp cdb-jisyo) (file-readable-p cdb-jisyo))
-	    (skk-tankan-search 'skk-search-cdb-jisyo cdb-jisyo))
-	   ((and (stringp large-jisyo) (file-readable-p large-jisyo))
-	    (skk-tankan-search 'skk-search-jisyo-file large-jisyo 10000))
-	   (t
-	    nil))
-     (if server-prog
-	 (apply #'skk-tankan-search server-prog)
-       nil))))
+    (or (cond ((and (stringp jisyo) (file-readable-p jisyo))
+	       (skk-tankan-search 'skk-search-jisyo-file jisyo 10000))
+	      ((and (stringp cdb-jisyo) (file-readable-p cdb-jisyo))
+	       (skk-tankan-search 'skk-search-cdb-jisyo cdb-jisyo))
+	      ((and (stringp large-jisyo) (file-readable-p large-jisyo))
+	       (skk-tankan-search 'skk-search-jisyo-file large-jisyo 10000))
+	      (t
+	       nil))
+	(if server-prog
+	    (apply #'skk-tankan-search server-prog)
+	  nil))))
 
 
 ;;; annotation data for japanese-jisx0208

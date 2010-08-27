@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.143 2010/08/18 12:59:57 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.144 2010/08/27 10:42:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/18 12:59:57 $
+;; Last Modified: $Date: 2010/08/27 10:42:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -43,7 +43,7 @@
 
 ;;;; macros
 
-(put 'ignore-errors 'defmacro-maybe (not (eq skk-emacs-type 'xemacs)))
+(put 'ignore-errors 'defmacro-maybe (not (featurep 'xemacs)))
 (defmacro-maybe ignore-errors (&rest body)
   "Execute FORMS; if an error occurs, return nil.
 Otherwise, return result of last FORM."
@@ -222,7 +222,7 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 
 (defmacro skk-face-on (object start end face &optional priority)
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     `(let ((inhibit-quit t))
        (if (not (extentp ,object))
 	   (progn
@@ -368,7 +368,7 @@ the echo area while this function is waiting for an event."
 (defsubst skk-sit-for (seconds &optional nodisplay)
   "`sit-for' の Emacsen による違いを吸収する。"
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (sit-for seconds nodisplay))
    ((< emacs-major-version 22)
     (sit-for seconds nil nodisplay))
@@ -378,14 +378,14 @@ the echo area while this function is waiting for an event."
 (defsubst skk-ding (&optional arg sound device)
   "`ding' の Emacsen による違いを吸収する。"
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
      (ding arg sound device))
    (t
     (ding arg))))
 
 (defsubst skk-color-cursor-display-p ()
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (eq (device-class (selected-device)) 'color))
    ((fboundp 'x-display-color-p)
     ;; FSF Emacs on X Window System.
@@ -394,28 +394,32 @@ the echo area while this function is waiting for an event."
 (defsubst skk-char-to-unibyte-string (char)
   (ignore-errors
     (static-cond
-     ((memq skk-emacs-type '(mule6))
+     ((and (string-match "^GNU" (emacs-version))
+	   (>= emacs-major-version 23))
       (string-make-unibyte (char-to-string char)))
      (t
       (char-to-string char)))))
 
 (defsubst skk-ascii-char-p (char)
   (static-cond
-   ((memq skk-emacs-type '(mule6))
+   ((and (string-match "^GNU" (emacs-version))
+	 (>= emacs-major-version 23))
     (eq (char-charset char skk-charset-list) 'ascii))
    (t
     (eq (char-charset char) 'ascii))))
 
 (defsubst skk-jisx0208-p (char)
   (static-cond
-   ((memq skk-emacs-type '(mule6))
+   ((and (string-match "^GNU" (emacs-version))
+	 (>= emacs-major-version 23))
     (eq (char-charset char skk-charset-list) 'japanese-jisx0208))
    (t
     (eq (char-charset char) 'japanese-jisx0208))))
 
 (defsubst skk-jisx0213-p (char)
   (static-cond
-   ((memq skk-emacs-type '(mule6))
+   ((and (string-match "^GNU" (emacs-version))
+	   (>= emacs-major-version 23))
        (memq (char-charset char skk-charset-list)
 	     '(japanese-jisx0213.2004-1
 	       japanese-jisx0213-1
@@ -434,7 +438,8 @@ the echo area while this function is waiting for an event."
 
 (defun skk-split-char (ch)
   (static-cond
-   ((memq skk-emacs-type '(mule6))
+   ((and (string-match "^GNU" (emacs-version))
+	 (>= emacs-major-version 23))
     ;; C の split-char と同様の機能だが、char-charset の呼出しにおいて
     ;; 文字集合の選択肢を skk-charset-list に含まれるものに制限する。
     ;; これは例えば、japanese-jisx0208 の文字が unicode-bmp に属する、
@@ -456,7 +461,7 @@ the echo area while this function is waiting for an event."
 ;; this one is called once in skk-kcode.el, too.
 (defsubst skk-charsetp (object)
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (find-charset object))
    (t
     ;; FSF Emacs 20 or later.
@@ -465,11 +470,11 @@ the echo area while this function is waiting for an event."
 (defun skk-indicator-to-string (indicator &optional no-properties)
   "SKK インジケータ型オブジェクト INDICATOR を文字列に変換する。"
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (if (stringp indicator)
 	indicator
       (cdr indicator)))
-   ((memq skk-emacs-type '(mule5 mule6))
+   ((>= emacs-major-version 21)
     (if no-properties
 	(with-temp-buffer
 	  (insert indicator)
@@ -481,10 +486,10 @@ the echo area while this function is waiting for an event."
 (defun skk-mode-string-to-indicator (mode string)
   "文字列 STRING を SKK インジケータ型オブジェクトに変換する。"
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (cons (cdr (assq mode skk-xemacs-extent-alist))
 	  string))
-   ((memq skk-emacs-type '(mule5 mule6))
+   ((>= emacs-major-version 21)
     (if (and window-system
 	     (not (eq mode 'default)))
 	(apply 'propertize string
@@ -497,23 +502,23 @@ the echo area while this function is waiting for an event."
   "Non-nil if VARIABLE has a local binding in buffer BUFFER.
 BUFFER defaults to the current buffer."
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (local-variable-p variable (or buffer (current-buffer)) afterset))
    (t
     (local-variable-p variable (or buffer (current-buffer))))))
 
 (defsubst skk-face-proportional-p (face)
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (face-proportional-p face))
-   ((memq skk-emacs-type '(mule5 mule6))
+   ((>= emacs-major-version 21)
     (or (face-equal face 'variable-pitch)
 	(eq (face-attribute face :inherit) 'variable-pitch)))))
 
 (defun skk-event-key (event)
   "イベント EVENT を発生した入力の情報を取得する。"
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
 ;    (let ((tmp (event-key event)))
 ;      (if (symbolp tmp)
 ;	  (vector tmp)
@@ -537,14 +542,14 @@ BUFFER defaults to the current buffer."
 ;; last-command-char is a character equivalent to last-command-event.
 (defsubst skk-last-command-char ()
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     last-command-char)
    (t
     last-command-event)))
 
 (defsubst skk-set-last-command-char (char)
   (let ((variable (static-cond
-		   ((eq skk-emacs-type 'xemacs)
+		   ((featurep 'xemacs)
 		    'last-command-char)
 		   (t
 		    'last-command-event))))
@@ -552,7 +557,7 @@ BUFFER defaults to the current buffer."
 
 (put 'skk-bind-last-command-char 'lisp-indent-function 1)
 (defmacro skk-bind-last-command-char (char &rest body)
-  (let ((variable (cond ((eq skk-emacs-type 'xemacs)
+  (let ((variable (cond ((featurep 'xemacs)
 			 'last-command-char)
 			(t
 			 'last-command-event))))

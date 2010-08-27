@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.44 2010/08/26 21:41:10 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.45 2010/08/27 10:42:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/26 21:41:10 $
+;; Last Modified: $Date: 2010/08/27 10:42:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -119,7 +119,7 @@
 ;; tiny function, but called once in skk-kcode.el.  So not make it inline.
 (defun skk-make-char (charset n1 n2)
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (make-char charset
 	       (logand (lognot 128) n1)
 	       (logand (lognot 128) n2)))
@@ -373,7 +373,11 @@
 
 (defun skk-display-code (str)
   (let* ((char (string-to-char str))
-	 (charset (char-charset char)))
+	 (charset (static-if (and (not (featurep 'xemacs))
+				  (>= emacs-major-version 23))
+		      ;; GNU Emacs 23.1 or later
+		      (char-charset char skk-charset-list)
+		    (char-charset char))))
     (cond
      ((memq charset '(japanese-jisx0213-1 japanese-jisx0213-2 japanese-jisx0208 japanese-jisx0208-1978))
       (let* ((char1-j (skk-char-octet char 0))

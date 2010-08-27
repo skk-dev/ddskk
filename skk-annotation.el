@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.158 2010/08/26 15:36:48 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.159 2010/08/27 10:42:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/08/26 15:36:48 $
+;; Last Modified: $Date: 2010/08/27 10:42:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -233,7 +233,7 @@
 	     (= emacs-major-version 20))
     (defalias 'skk-tooltip-show-at-point 'ignore)))
 
-(static-when (eq skk-emacs-type 'xemacs)
+(static-when (featurep 'xemacs)
   (require 'skk-xemacs))
 
 (unless skk-annotation-mode-map
@@ -624,7 +624,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
     (skk-annotation-setup)
     (let* ((plist (append
 		   '(intangible t read-only t)
-		   (static-if (eq skk-emacs-type 'xemacs)
+		   (static-if (featurep 'xemacs)
 		       '(start-closed t end-open t)
 		     '(front-sticky t rear-nonsticky t))))
 	   (wholestring (nth 2 skk-annotation-target-data))

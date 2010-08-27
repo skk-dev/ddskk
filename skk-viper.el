@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.43 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.44 2010/08/27 10:42:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/08/27 10:42:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -136,7 +136,7 @@
 
 (when (boundp 'viper-insert-state-cursor-color)
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
       (when skk-use-color-cursor
 	(add-hook 'minibuffer-setup-hook
@@ -274,7 +274,7 @@
 ;;;###autoload
 (defun skk-viper-normalize-map ()
   (let ((other-buffer
-	 (static-if (eq skk-emacs-type 'xemacs)
+	 (static-if (featurep 'xemacs)
 	     (local-variable-p 'minor-mode-map-alist nil t)
 	   (local-variable-if-set-p 'minor-mode-map-alist))))
     ;; for current buffer and buffers to be created in the future.

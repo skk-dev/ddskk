@@ -1,3 +1,15 @@
+2010-08-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el, skk-cursor.el, skk-dcomp.el, skk-gadget.el,
+	skk-isearch.el, skk-kcode.el, skk-macs.el, skk-tankan.el,
+	skk-tut.el, skk-vars.el, skk-viper.el, skk.el,
+	tut-code/skk-tutcdef.el: Reduce usage of skk-emacs-type.
+
+	* doc/skk.texi: Update.
+	* skk-kcode.el (skk-display-code): For GNU Emacs 23.1 or later,
+	call `char-charset' with skk-charset-list as the second arg.
+	* skk.el (skk-setup-charset-list): Modify charsets' order.
+
 2010-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-kcode.el (skk-display-code): キー `$' をタイプした際のメッセージ
