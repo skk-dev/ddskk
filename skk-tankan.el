@@ -3,9 +3,9 @@
 
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.21 2010/08/27 10:42:18 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.22 2010/08/27 13:15:53 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/27 10:42:18 $
+;; Last Modified: $Date: 2010/08/27 13:15:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1508,6 +1508,33 @@
     (and tmp
 	 (+ (* 94 tmp) (- (nth 2 l) ?!)))))
 
+(defun skk-search-by-stroke-sub (high he ls le num n)
+  (let (low char list)
+    (while (<= high he)
+      (setq low ls)
+      (while (<= low le)
+	(setq char (make-char 'japanese-jisx0208 high low))
+	(if (= num (nth n (skk-tankan-get-char-data char)))
+	    (setq list (cons (char-to-string char) list)))
+	(setq low (1+ low)))
+      (setq high (1+ high)))
+    list))
+
+(defun skk-search-by-stroke-or-radical (num n)
+  (append (skk-search-by-stroke-sub ?\x30 ?\x4e ?\x21 ?\x7e num n)
+	  (skk-search-by-stroke-sub ?\x4f ?\x4f ?\x21 ?\x53 num n)
+	  (skk-search-by-stroke-sub ?\x50 ?\x73 ?\x21 ?\x7e num n)
+	  (skk-search-by-stroke-sub ?\x74 ?\x74 ?\x21 ?\x26 num n)))
+
+(defun skk-select-bushu ()
+  (let ((i 1)
+	alist)
+    (while (< i (length skk-tankan-radical-vector))
+      (setq alist (cons (list (format "%03d %s" i (aref skk-tankan-radical-vector i)))
+			alist))
+      (setq i (1+ i)))
+    (string-to-number (completing-read "部首を番号で選択（TABで一覧表示）: " alist nil t))))
+
 ;;;###autoload
 (defun skk-tankan-search (func &rest args)
   (when (string-match (format "%s$" (regexp-quote
@@ -1516,8 +1543,22 @@
     (let ((skk-henkan-key (substring skk-henkan-key 0 (match-beginning 0)))
 	  lis top tmp)
       ;; get KOUHO list
-      (setq lis (cons nil (apply func args))
-	    top lis)
+      (setq lis (cons nil
+		      (cond
+		       ;; Q 1 2 @ <SPC> => 総画数変換
+		       ((string-match "^[0-9]+$" skk-henkan-key)
+			(skk-search-by-stroke-or-radical
+			 (string-to-number skk-henkan-key) 2))
+		       ;; Q @ @ <SPC> => 部首変換
+		       ((equal (char-to-string skk-tankan-search-key)
+			       skk-henkan-key)
+			(skk-search-by-stroke-or-radical
+			 (skk-select-bushu) 0))
+		       ;; ▽あ <SPC> => "読み"単漢字変換
+		       (t
+			(apply func args))))
+            top lis)
+
       ;; select TANKANJI KOUHO
       (while (cdr lis)
 	;; remove annotation
