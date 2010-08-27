@@ -62,7 +62,8 @@
 濁点と半濁点を入力するためのルール。")
 
 (defconst skk-kanagaki-print-help-function
-  (cond ((memq skk-emacs-type '(mule6))
+  (cond ((and (string-match "^GNU" (emacs-version))
+	      (>= emacs-major-version 23))
 	 #'help-print-return-message)
 	(t
 	 #'print-help-return-message)))

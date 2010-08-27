@@ -50,7 +50,8 @@
 (eval-and-compile
   (require 'skk-kanagaki))
 
-(static-when (memq skk-emacs-type '(mule5 mule6))
+(static-when (and (string-match "^GNU" (emacs-version))
+		  (>= emacs-major-version 21))
   (eval-and-compile
     (require 'skk-e21)))
 
@@ -93,7 +94,7 @@
 	  (list (cond
 		 ((eq system-type 'windows-nt)
 		  [convert])
-		 ((eq skk-emacs-type 'xemacs)
+		 ((featurep 'xemacs)
 		  [henkan-mode])
 		 (t
 		  ;; Emacs 20.3 or later
@@ -461,12 +462,12 @@
 	(call-interactively 'self-insert-command t))
     ;; else
     (let ((last (static-cond
-		 ((eq skk-emacs-type 'xemacs)
+		 ((featurep 'xemacs)
 		  (event-key last-command-event))
 		 (t
 		  last-command-event)))
 	  (next (static-cond
-		 ((eq skk-emacs-type 'xemacs)
+		 ((featurep 'xemacs)
 		  (event-key (next-command-event)))
 		 (t
 		  (next-command-event))))
@@ -575,7 +576,7 @@
 (defun skk-nicola-event-to-key (event)
   "EVENT を発生するキーを取得する。"
   (static-cond
-   ((eq skk-emacs-type 'xemacs)
+   ((featurep 'xemacs)
     (let ((char (event-to-character event)))
       (if (characterp char)
 	  char

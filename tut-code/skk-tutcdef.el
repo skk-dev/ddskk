@@ -4,9 +4,9 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcdef.el,v 1.12 2010/08/02 15:30:56 skk-cvs Exp $
+;; Version: $Id: skk-tutcdef.el,v 1.13 2010/08/27 10:07:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:30:56 $
+;; Last Modified: $Date: 2010/08/27 10:07:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -54,7 +54,7 @@
    ("^" nil skk-input-by-code-or-menu)
    ("\C-@" nil skk-start-henkan)))
 
-;; (if (and (eq skk-emacs-type 'xemacs) (= emacs-major-version 20))
+;; (if (and (featurep 'xemacs) (= emacs-major-version 20))
 ;;     (progn
 ;;       (setq skk-rom-kana-base-rule-list
 ;;	    (delete '("\t" nil skk-toggle-kana) skk-rom-kana-base-rule-list))

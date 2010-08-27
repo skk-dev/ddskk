@@ -68,7 +68,7 @@ Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
        skk-nicola-visit-nicola-website (module-installed-p 'browse-url)])))
 
 (static-cond
- ((eq skk-emacs-type 'xemacs)
+ ((featurep 'xemacs)
   (add-hook 'skk-mode-hook
 	    #'(lambda ()
 		(add-submenu
@@ -83,7 +83,8 @@ Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
      map
      '("menu-bar" "SKK")
      skk-kanagaki-menu-items))
-  (static-when (memq skk-emacs-type '(mule5 mule6))
+  (static-when (and (string-match "^GNU" (emacs-version))
+		    (>= emacs-major-version 21))
     (setq skk-e21-menu-resource-ja
 	  (append
 	   skk-e21-menu-resource-ja
