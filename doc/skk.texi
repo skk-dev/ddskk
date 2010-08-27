@@ -19,6 +19,7 @@
 @c  Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 @c          Yukiyoshi Kameyama <kameyama@@kuis.kyoto-u.ac.jp>
 @c          NAKAJIMA Mikio <minakaji@namazu.org>
+@c          IRIE Tetsuya <irie@t.email.ne.jp>
 @c          Kitamoto Tsuyoshi <tsuyoshi.kitamoto@gmail.com>
 @c          Teika Kazura  <teika@lavabit.com>
 @c          Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
@@ -30,7 +31,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/27 14:16:08 $
+@set UPDATED $Date: 2010/08/27 15:45:35 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -97,9 +98,10 @@ by the author.
 @vskip 0pt plus 1filll
 Copyright @copyright{}1991-2007 @w{Masahiko Sato}($B:4F#2mI'(B), @*
 @w{Yukiyoshi Kameyama}($B55;39,5A(B), @w{NAKAJIMA Mikio}($BCfEg44IW(B),
-@w{Kitamoto Tsuyoshi} ($BKLK\9d(B), @w{Teika Kazura}($BDj2H(B),
-@w{Tsukamoto Tetsuo}($BDMK\E0M:(B) and @w{Tsuyoshi AKIHO} ($B=)J]6/(B).
-Revised by @w{Kiyotaka Sakai}($B<r0f@6N4(B) and @w{Satoshi Harauchi}($B86FbAo(B).
+@w{IRIE Tetsuya} ($BF~9>(B), @w{Kitamoto Tsuyoshi} ($BKLK\9d(B),
+@w{Teika Kazura}($BDj2H(B), @w{Tsukamoto Tetsuo}($BDMK\E0M:(B)
+and @w{Tsuyoshi AKIHO} ($B=)J]6/(B).  Revised by @w{Kiyotaka Sakai}($B<r0f@6N4(B)
+and @w{Satoshi Harauchi}($B86FbAo(B).
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -3035,6 +3037,8 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 @menu
 * $B8!:w%-!<$N@_Dj(B::
 * $B<-=q$N@_Dj(B::
+* $BAm2h?t$K$h$kC14A;zJQ49(B::
+* $BIt<s$K$h$kC14A;zJQ49(B::
 @end menu
 
 $BC14A;zJQ49$r;H$&$K$O@_Dj$,I,MW$G$9$,!"@h$KNc$r8+$F$_$^$7$g$&!#(B
@@ -8715,7 +8719,7 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item @email{manbou@@ceres.dti.ne.jp, YOSHIZAWA Masahiro}
 @item @email{yutopia@@giga.ocn.ne.jp, Yuh Ohmura}
 @item @email{kameyama@@kuis.kyoto-u.ac.jp, Yukiyoshi Kameyama}
-@item Yusuke Shinyama
+@item @email{yusuke@@example.com, Yusuke Shinyama}
 @end itemize
 
 @node SKK$B$NNr;K(B
