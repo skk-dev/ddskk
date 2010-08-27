@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/27 15:45:35 $
+@set UPDATED $Date: 2010/08/27 16:00:24 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8606,7 +8606,7 @@ Perl $B$K$h$k%D!<%k$O8=:_==J,%a%s%F%J%s%9$5$l$F$$$^$;$s!#8=:_$O(B C, ruby $B$
 @section SKK$B$N:n<T(B
 
 SKK $B$N86:n<T$O!"8=5~ETBg3X$N(B
-@uref{http://www.sato.kuis.kyoto-u.ac.jp/member/masahiko-j.html,
+@uref{http://www.sato.kuis.kyoto-u.ac.jp/~masahiko/masahiko-j.html,
 $B:4F#2mI'65<x(B}$B$G$9!#(B
 
 $B8=:_$N(B DDSKK $B$O!"Bg@*$N%\%i%s%F%#%"$N9W8%$K$h$j@.N)$7$F$$$^$9!#0J2<$O3N(B
