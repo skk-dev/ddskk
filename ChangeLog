@@ -2,6 +2,8 @@
 
 	* skk-tankan.el (skk-tankan-search): 総画数変換と部首変換を追加.
 
+	* doc/skk.texi: Update.
+
 2010-08-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el, skk-cursor.el, skk-dcomp.el, skk-gadget.el,

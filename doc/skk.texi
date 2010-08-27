@@ -30,7 +30,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/27 10:08:12 $
+@set UPDATED $Date: 2010/08/27 14:16:08 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3195,6 +3195,91 @@ L:胆;9画(肉部5画)
 		     (cdr skk-search-prog-list))))
 @end group
 @end lisp
+
+@node 総画数による単漢字変換
+@subsubsection 総画数による単漢字変換
+
+▽モードで総画数を入力して最後に @kbd{@@} を付加してから変換を開始します。
+
+@example
+Q 1 0 @@
+
+@group
+----- Buffer: foo -----
+▽10@@@point{}
+----- Buffer: foo -----
+@end group
+
+@kbd{SPC}
+
+@group
+----- Buffer: *候補* -----
+A:倹;10画(人部8画)
+S:倦;10画(人部8画)
+D:個;10画(人部8画)
+F:候;10画(人部8画)
+J:倖;10画(人部8画)
+K:借;10画(人部8画)
+L:修;10画(人部8画)
+[残り 532+++++++]
+----- Buffer: *候補* -----
+@end group
+
+@end example
+
+@node 部首による単漢字変換
+@subsubsection 部首による単漢字変換
+
+▽モードで @kbd{@@} を２つ重ねて変換を開始すると、部首による単漢字変換が
+できます。
+
+@example
+Q @@ @@
+
+@group
+----- Buffer: foo -----
+▽@@@@@point{}
+----- Buffer: foo -----
+@end group
+
+@kbd{SPC}
+
+@group
+------ Minibuffer -------
+部首を番号で選択（TABで一覧表示）: @point{}
+------ Minibuffer -------
+@end group
+
+@kbd{TAB}
+
+@group
+------ Completion List -------
+Click <mouse-2> on a completion to select it.
+In this buffer, type RET to select the completion near point.
+
+Possible completions are:
+001 一 	002     003 丶  004 丿  005 乙  006 亅  007 二  008 亠 	009 人
+010 儿 	011 入 	012 八 	013 冂 	014 冖 	015 冫 	016 几 	017 凵 	018 刀
+@dots{}
+------ Completion List -------
+@end group
+
+0 1 8 @kbd{RET}
+
+@group
+----- Buffer: *候補* -----
+A:切;4画(刀部2画)
+S:刈;4画(刀部2画)
+D:刊;5画(刀部3画)
+F:刋;5画(刀部3画)
+J:刎;6画(刀部4画)
+K:刑;6画(刀部4画)
+L:刔;6画(刀部4画)
+[残り 51+++++++]
+----- Buffer: *候補* -----
+@end group
+
+@end example
 
 @node 候補の絞り込み
 @subsection 候補の絞り込み
