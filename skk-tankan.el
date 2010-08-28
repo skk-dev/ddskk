@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.23 2010/08/27 14:58:17 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.24 2010/08/28 01:32:01 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/27 14:58:17 $
+;; Last Modified: $Date: 2010/08/28 01:32:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,13 +28,19 @@
 
 ;;; Commentary:
 
-;; 使い方
+;; 1. 使い方
 ;;
-;; 読みの最後に、読みの一部として @ を入力してから変換すると、
-;; 一文字のみからなる候補に絞り込んだ上で、
-;; 候補を総画数順でソートしてから変換します。
+;; 1-a. 読みの最後に、読みの一部として @ を入力してから変換すると、
+;;      一文字のみからなる候補に絞り込んだ上で、
+;;      候補を総画数順でソートしてから変換します。
 ;;
-;; 設定方法
+;; 1-b. 「読み」部分が数値であれば、その数値を総画数とする候補を表示します。
+;;        ▽12@<SPC> [Q 1 2 @ <SPC>]
+;;  
+;; 1-c. 「読み」部分が @ であれば、部首変換を開始します。
+;;        ▽@@<SPC> [Q @ @ <SPC>]
+;;
+;; 2. 設定方法
 ;;
 ;; ~/.skk には次の様なことを書いておきます。
 ;;
@@ -87,6 +93,13 @@
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars))
+
+;; 
+(defvar skk-tankan-mode-map (make-keymap))
+(define-key skk-tankan-mode-map "p" (lambda nil (interactive)
+				      (forward-line -1)))
+(define-key skk-tankan-mode-map "n" 'forward-line)
+(define-key skk-tankan-mode-map "q" 'delete-window)
 
 ;;; 部首番号を部首を表す文字列に変換するための配列
 (defconst skk-tankan-radical-vector
@@ -1510,58 +1523,88 @@
     (and tmp
 	 (+ (* 94 tmp) (- (nth 2 l) ?!)))))
 
-(defun skk-search-by-stroke-sub (high he ls le num n)
+(defun skk-search-by-stroke-sub (high he ls le num i)
   (let (low char list)
     (while (<= high he)
       (setq low ls)
       (while (<= low le)
 	(setq char (make-char 'japanese-jisx0208 high low))
-	(if (= num (nth n (skk-tankan-get-char-data char)))
+	(if (= num (nth i (skk-tankan-get-char-data char)))
 	    (setq list (cons (char-to-string char) list)))
 	(setq low (1+ low)))
       (setq high (1+ high)))
     list))
 
-(defun skk-search-by-stroke-or-radical (num n)
-  (append (skk-search-by-stroke-sub ?\x30 ?\x4e ?\x21 ?\x7e num n)
-	  (skk-search-by-stroke-sub ?\x4f ?\x4f ?\x21 ?\x53 num n)
-	  (skk-search-by-stroke-sub ?\x50 ?\x73 ?\x21 ?\x7e num n)
-	  (skk-search-by-stroke-sub ?\x74 ?\x74 ?\x21 ?\x26 num n)))
+(defun skk-search-by-stroke-or-radical (num i)
+  (append (skk-search-by-stroke-sub ?\x30 ?\x4e ?\x21 ?\x7e num i)
+	  (skk-search-by-stroke-sub ?\x4f ?\x4f ?\x21 ?\x53 num i)
+	  (skk-search-by-stroke-sub ?\x50 ?\x73 ?\x21 ?\x7e num i)
+	  (skk-search-by-stroke-sub ?\x74 ?\x74 ?\x21 ?\x26 num i)))
 
-(defun skk-select-bushu ()
+(defun skk-tankan-bushu-compread ()
   (let ((i 1)
 	alist)
     (while (< i (length skk-tankan-radical-vector))
-      (setq alist (cons (list (format "%03d %s" i (aref skk-tankan-radical-vector i)))
+      (setq alist (cons (list (format "%03d %s"
+				      i
+				      (aref skk-tankan-radical-vector i)))
 			alist))
       (setq i (1+ i)))
-    (string-to-number (completing-read "部首を番号で選択（TABで一覧表示）: " alist nil t))))
+    (string-to-number (completing-read "部首を番号で選択（TABで一覧表示）: "
+				       alist nil t))))
+
+(defun skk-tankan (arg)
+  "単漢字変換を実行する。
+M-x skk-tankan であれば部首変換を、
+C-u 数値 M-x skk-tankan であれば総画数変換を実行する。"
+  (interactive "P")
+  (let ((b (get-buffer-create "*単漢字*"))
+	list)
+    (setq list (skk-tankan-select-tankanji-kouho
+		(cons nil (if arg
+			      (skk-search-by-stroke-or-radical arg 2)
+			    (skk-search-by-stroke-or-radical
+			     (skk-tankan-bushu-compread) 0)
+			    ))))
+    (set-buffer b)
+    (setq buffer-read-only nil)
+    (erase-buffer)
+    (while list
+      (insert (format " %s\n" (car list)))
+      (setq list (cdr list))))
+  (set-buffer-modified-p nil)
+  (setq buffer-read-only t)
+  (pop-to-buffer "*単漢字*")
+  (goto-char (point-min))
+
+  (use-local-map skk-tankan-mode-map))
 
 ;;;###autoload
 (defun skk-tankan-search (func &rest args)
   (when (string-match (format "%s$" (regexp-quote
 				     (char-to-string skk-tankan-search-key)))
 		      skk-henkan-key)
-    (let ((skk-henkan-key (substring skk-henkan-key 0 (match-beginning 0)))
-	  lis top tmp)
+    (let ((skk-henkan-key (substring skk-henkan-key 0 (match-beginning 0))))
       ;; get KOUHO list
-      (setq lis (cons nil
-		      (cond
-		       ;; Q 1 2 @ <SPC> => 総画数変換
-		       ((string-match "^[0-9]+$" skk-henkan-key)
-			(skk-search-by-stroke-or-radical
-			 (string-to-number skk-henkan-key) 2))
-		       ;; Q @ @ <SPC> => 部首変換
-		       ((equal (char-to-string skk-tankan-search-key)
-			       skk-henkan-key)
-			(skk-search-by-stroke-or-radical
-			 (skk-select-bushu) 0))
-		       ;; ▽あ <SPC> => "読み"単漢字変換
-		       (t
-			(apply func args))))
-            top lis)
+      (skk-tankan-select-tankanji-kouho
+       (cons nil (cond
+		  ;; ▽12@ <SPC> => 総画数変換
+		  ((string-match "^[0-9]+$" skk-henkan-key)
+		   (skk-search-by-stroke-or-radical
+		    (string-to-number skk-henkan-key) 2))
+		  ;; ▽@@ <SPC> => 部首変換
+		  ((equal (char-to-string skk-tankan-search-key)
+			  skk-henkan-key)
+		   (skk-search-by-stroke-or-radical
+		    (skk-tankan-bushu-compread) 0))
+		  ;; ▽あ <SPC> => "読み"単漢字変換
+		  (t
+		   (apply func args))))))))
 
-      ;; select TANKANJI KOUHO
+(defun skk-tankan-select-tankanji-kouho (lis)
+  (let ((top lis)
+	tmp)
+    ;; select TANKANJI KOUHO
       (while (cdr lis)
 	;; remove annotation
 	(setq tmp (nth 1 lis))
@@ -1600,7 +1643,7 @@
 		  (if (= 0 (length anno))
 		      (char-to-string (car cell))
 		    (concat (char-to-string (car cell)) ";" anno))))
-	      lis))))
+	      lis)))
 
 ;;;###autoload
 (defun skk-search-tankanji (&optional jisyo)

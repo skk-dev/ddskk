@@ -1,3 +1,8 @@
+2010-08-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tankan.el (skk-tankan): New interactive function
+	`M-x skk-tankan'.
+
 2010-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tankan.el (skk-tankan-search): 総画数変換と部首変換を追加.
