@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.24 2010/08/28 01:32:01 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.25 2010/08/29 02:21:41 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/28 01:32:01 $
+;; Last Modified: $Date: 2010/08/29 02:21:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1483,6 +1483,13 @@
 
 ;;; get char's radical, strokes in radical, total strokes
 (defun skk-tankan-get-char-data (char)
+  "文字を表す整数 CHAR を与えると、その文字に関する部首、部首内画数、総画数を
+リストで返す。
+
+\(string-to-char \"単\"\)
+ => 57777
+\(skk-tankan-get-char-data 57777\)
+ => \(24 7 9\)"
   (let ((fun (cdr (assq (char-charset char)
 			skk-tankan-get-char-data-functions))))
     (or (and fun (funcall fun char))
@@ -1523,11 +1530,11 @@
     (and tmp
 	 (+ (* 94 tmp) (- (nth 2 l) ?!)))))
 
-(defun skk-search-by-stroke-sub (high he ls le num i)
+(defun skk-search-by-stroke-or-radical-sub (high himax lomin lomax num i)
   (let (low char list)
-    (while (<= high he)
-      (setq low ls)
-      (while (<= low le)
+    (while (<= high himax)
+      (setq low lomin)
+      (while (<= low lomax)
 	(setq char (make-char 'japanese-jisx0208 high low))
 	(if (= num (nth i (skk-tankan-get-char-data char)))
 	    (setq list (cons (char-to-string char) list)))
@@ -1535,13 +1542,20 @@
       (setq high (1+ high)))
     list))
 
-(defun skk-search-by-stroke-or-radical (num i)
-  (append (skk-search-by-stroke-sub ?\x30 ?\x4e ?\x21 ?\x7e num i)
-	  (skk-search-by-stroke-sub ?\x4f ?\x4f ?\x21 ?\x53 num i)
-	  (skk-search-by-stroke-sub ?\x50 ?\x73 ?\x21 ?\x7e num i)
-	  (skk-search-by-stroke-sub ?\x74 ?\x74 ?\x21 ?\x26 num i)))
+(defun skk-search-by-stroke-or-radical (num method)
+  "JIS X 0208 の範囲から指定された方式で単漢字を検索する。
+NUM は数値であり、METHOD が 0 であれば部首番号として、
+METHOD が 2 であれば総画数として検索を実行する。
+戻り値は (\"力\" \"了\" \"又\" …) のリストである。"
+  (append
+   (skk-search-by-stroke-or-radical-sub ?\x30 ?\x4e ?\x21 ?\x7e num method)
+   (skk-search-by-stroke-or-radical-sub ?\x4f ?\x4f ?\x21 ?\x53 num method)
+   (skk-search-by-stroke-or-radical-sub ?\x50 ?\x73 ?\x21 ?\x7e num method)
+   (skk-search-by-stroke-or-radical-sub ?\x74 ?\x74 ?\x21 ?\x26 num method)))
 
 (defun skk-tankan-bushu-compread ()
+  "配列 skk-tankan-radical-vector の内容を一覧表示して選択する。
+戻り値は数値である。"
   (let ((i 1)
 	alist)
     (while (< i (length skk-tankan-radical-vector))
@@ -1581,6 +1595,10 @@ C-u 数値 M-x skk-tankan であれば総画数変換を実行する。"
 
 ;;;###autoload
 (defun skk-tankan-search (func &rest args)
+  "変数 skk-henkan-key で指定された「読み」に基づいて単漢字変換を実行する。
+通常は skk-search-prog-list の１要素として次の形式で指定される。
+'(skk-tankan-search 'skk-search-jisyo-file
+                    skk-large-jisyo 10000))"
   (when (string-match (format "%s$" (regexp-quote
 				     (char-to-string skk-tankan-search-key)))
 		      skk-henkan-key)
