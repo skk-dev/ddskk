@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.25 2010/08/29 02:21:41 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.26 2010/08/29 06:17:17 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/29 02:21:41 $
+;; Last Modified: $Date: 2010/08/29 06:17:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1490,9 +1490,9 @@
  => 57777
 \(skk-tankan-get-char-data 57777\)
  => \(24 7 9\)"
-  (let ((fun (cdr (assq (char-charset char)
+  (let ((fun (cdr (assq (char-charset char) ; => "japanese-jisx0208"
 			skk-tankan-get-char-data-functions))))
-    (or (and fun (funcall fun char))
+    (or (and fun (funcall fun char))	; => skk-tankan-get-char-data-0213-1
 	(list 0 0 0))))
 
 (defun skk-tankan-get-char-data-0213-1 (char)

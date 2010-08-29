@@ -1,5 +1,8 @@
 2010-08-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kcode.el (skk-display-code): Add displaying
+	skk-tankan-get-char-annotation.
+
 	* skk-tankan.el: Update docstring.
 
 2010-08-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

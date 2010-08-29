@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.46 2010/08/27 15:34:52 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.47 2010/08/29 06:17:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/27 15:34:52 $
+;; Last Modified: $Date: 2010/08/29 06:17:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -392,7 +392,9 @@
 	     (char1-s (car sjis))
 	     (char2-s (cadr sjis))
 	     (list (skk-tankan-get-char-data char))
-	     (stroke (nth 2 list)))
+	     (stroke (nth 2 list))
+	     (anno (skk-tankan-get-char-annotation char))
+	     )
 	(if (eq charset 'japanese-jisx0213-2)
 	    (message
 	     "`%s' (plane 2) KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
@@ -401,8 +403,9 @@
 	     char1-j char2-j
 	     char1-e char2-e
 	     char1-s char2-s)
+	  ;; 
 	  (message
-	   "`%s' KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s"
+	   "`%s' KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
 	   str
 	   char1-k char2-k
 	   char1-j char2-j 
@@ -410,16 +413,21 @@
 	   char1-s char2-s
 	   (if (= 0 stroke)
 	       ""
-	     (format " , 総%d画(%s部%d画)"
+	     (format ", 総%d画(%s部%d画)"
 		     stroke
 		     (aref skk-tankan-radical-vector (nth 0 list))
-		     (nth 1 list)))))))
-
+		     (nth 1 list)))
+	   (if anno
+	       (concat ", " anno)
+	     "")
+	   ))))
+     ;;
      ((memq charset '(ascii latin-jisx0201))
       (message "`%s' HEX: %2x, DECIMAL: %3d"
 	       str
 	       (skk-char-octet char 0)
 	       (skk-char-octet char 0)))
+     ;;
      (t
       (skk-error "判別できない文字です"
 		 "Cannot understand this character")))))
