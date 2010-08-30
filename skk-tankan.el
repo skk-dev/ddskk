@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.26 2010/08/29 06:17:17 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.27 2010/08/30 16:22:10 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/29 06:17:17 $
+;; Last Modified: $Date: 2010/08/30 16:22:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1567,6 +1567,7 @@ METHOD が 2 であれば総画数として検索を実行する。
     (string-to-number (completing-read "部首を番号で選択（TABで一覧表示）: "
 				       alist nil t))))
 
+;;;###autoload
 (defun skk-tankan (arg)
   "単漢字変換を実行する。
 M-x skk-tankan であれば部首変換を、
