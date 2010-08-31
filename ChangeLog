@@ -1,3 +1,11 @@
+2010-08-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (cdb): New target to create dic/SKK-JISYO.L.cdb.
+
+2010-08-31  Yusuke Shinyama  <yusuke at cs . nyu . edu>
+
+	* etc/skk2cdb.py: New file.
+
 2010-08-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-tankan.el (skk-tankan): Add autoload cookie.
