@@ -42,6 +42,29 @@ Unpack and Copy the downloaded dictionaries to ./dic subdirectory.
 They will be installed with `make install' or `make install-package',
 which is described below.
 
+If you want to install the SKK L dictionary converted in the CDB
+format, follow these steps.
+
+1. Obtain SKK-JISYO.L and copy it to ./dic.
+2. Type `make cdb'.  This will call a python script ./etc/skk2cdb.py
+   and convert SKK-JISYO.L into SKK-JISYO.L.cdb.  Note that you need
+   python installed before this step.
+3. After you read the following installation instructions, do `make
+   install'.  This will copy both SKK-JISYO.L and SKK-JISYO.L.cdb to
+   the same place as SKK.tut, e.g. /usr/share/skk or
+   c:/emacs-23.2/etc/skk.
+   
+4. Set skk-cdb-large-jisyo in your ~/.skk as the following.
+
+   (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
+
+   In this case you may not want Emacs to read SKK-JISYO.L. if so, set
+   skk-large-jisyo and skk-aux-large-jisyo in your ~/.skk as the
+   following.
+   
+   (setq skk-large-jisyo nil
+   	 skk-aux-large-jisyo nil)
+
 ** Edit SKK-CFG.
 
 Edit SKK-CFG for your installation.  Examples are found in SKK-CFG but
@@ -62,13 +85,13 @@ Before actual installation, you can find out installation paths with
 If your editor is not just named emacs, you can specify the name as
 the following.
 
-    % make what-where EMACS=/usr/bin/emacs-21.4
+    % make what-where EMACS=/usr/bin/emacs-23.2
 
 If installation paths seem all right, proceed to installation with
 
     % make install
 or
-    % make install EMACS=/usr/bin/emacs-21.4
+    % make install EMACS=/usr/bin/emacs-23.2
 
 ** Installation for XEmacs
 
@@ -79,13 +102,13 @@ You can find out installation paths before actual installation with
 If your editor is not just named xemacs, you can specify the name as
 the following.
 
-    % make what-where-package XEMACS=/usr/bin/xemacs-21.4.20
+    % make what-where-package XEMACS=/usr/bin/xemacs-21.5-b29
 
 If installation paths seem all right, proceed to installation with
 
     % make install-package
 or
-    % make install-package XEMACS=/usr/bin/xemacs-21.4.20
+    % make install-package XEMACS=/usr/bin/xemacs-21.5-b29
 
 * Post-installation
 

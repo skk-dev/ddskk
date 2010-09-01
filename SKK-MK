@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.166 2010/08/22 12:29:16 skk-cvs Exp $
-;; Last Modified: $Date: 2010/08/22 12:29:16 $
+;; Version: $Id: SKK-MK,v 1.167 2010/09/01 15:04:12 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/01 15:04:12 $
 
 ;;; Commentary:
 
@@ -173,6 +173,12 @@ This version of SKK requires MULE features"))
     "SKK-JISYO.propernoun" "SKK-JISYO.station" "SKK-JISYO.requested"
     "SKK-JISYO.fullname" "SKK-JISYO.JIS2004"
     "SKK-JISYO.office.zipcode" "SKK-JISYO.zipcode"))
+
+(setq SKK_DICTIONARIES
+      (append SKK_DICTIONARIES
+	      (mapcar (lambda (dic)
+			(format "%s.cdb" dic))
+		      SKK_DICTIONARIES)))
 
 (defvar SKK_DEFAULT_JISYO nil)
 
