@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/09/01 20:30:46 $
+@set UPDATED $Date: 2010/09/01 21:40:25 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -514,7 +514,7 @@ DDSKK を使用するには、辞書が必要です。
 
 @end table
 
-上記のサイトには、以下のような辞書が用意されています。
+上記のサイトには様々な辞書が用意されています。以下は一例です。
 
 @table @code
 @item SKK-JISYO.S
@@ -534,13 +534,14 @@ L 辞書（あらゆる単語を収録）
 郵便番号辞書
 
 @item SKK-JISYO.JIS2
-JIS Level 2 辞書
+JIS 第２水準の文字を部首を見出し語として収録した辞書
+
+@item SKK-JISYO.JIS3_4
+JIS 第３水準、第４水準の文字に代表される、JIS X 0208 には含まれない
+が JIS X 0213 には含まれる文字及びそれらを含む語録を収録した辞書
 
 @item SKK-JISYO.public+
 public+ 辞書
-
-@item SKK-JISYO.JIS3_4
-JIS Level 3, 4 辞書
 
 @item SKK-JISYO.edict
 edict 辞書(英和辞書)
@@ -551,7 +552,7 @@ edict 辞書(英和辞書)
 
 @end table
 
-一部の辞書の著作権は GNU GPL 2 とは異なるものがありますのでご注意下さい。
+一部の辞書の著作権は GNU GPL v2 とは異なるものがありますのでご注意下さい。
 詳細は、次の資料を参照して下さい。
 
 @url{http://openlab.jp/skk/skk/dic/READMEs/committers.txt}
