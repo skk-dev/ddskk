@@ -1,6 +1,7 @@
 2010-09-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK_DICTIONARIES): Also install cdb dictionaries.
+	* doc/skk.texi: Update.
 
 2010-08-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

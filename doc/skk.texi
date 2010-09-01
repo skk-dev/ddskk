@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/08/27 16:00:24 $
+@set UPDATED $Date: 2010/09/01 15:32:13 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -154,6 +154,7 @@ SKK $B$N%P!<%8%g%s(B @value{SKK-VERSION} $B$KBP1~$7$F$$$^$9!#(B
 * APEL $B$N%$%s%9%H!<%k(B::
 * DDSKK $B$N%$%s%9%H!<%k(B::
 * $B<-=q$NF~<j(B::
+* $B<-=q$r(B DDSKK $B$HF1;~$K%$%s%9%H!<%k$9$k(B::
 * $B<-=q%5!<%P$NF~<j(B::
 
 $B$O$8$a$N@_Dj(B
@@ -372,6 +373,7 @@ ACT$B!"(BTUT-code $B$K$h$kF~NO$b2DG=!#(B
 * APEL $B$N%$%s%9%H!<%k(B::
 * DDSKK $B$N%$%s%9%H!<%k(B::
 * $B<-=q$NF~<j(B::
+* $B<-=q$r(B DDSKK $B$HF1;~$K%$%s%9%H!<%k$9$k(B::
 * $B<-=q%5!<%P$NF~<j(B::
 @end menu
 
@@ -502,8 +504,7 @@ SKK $B<-=q$N%U%!%$%kL>(B($B%U%k%Q%9(B)$B$,Dj5A$5$l$F$$$k$H!"$=$N<-=q$NFbMF$
 @node $B<-=q$NF~<j(B
 @section $B<-=q$NF~<j(B
 
-DDSKK $B$r;HMQ$9$k$K$O!"<-=q$,I,MW$G$9!#(BDDSKK $BK\BN(B (elisp) $B$K$O(B S $B<-=q$,Im(B
-$BB0$7$^$9!#$=$l0J30$N<-=q$O!"I,MW$K1~$8$FJLESF~<j$7$F2<$5$$!#(B
+DDSKK $B$r;HMQ$9$k$K$O!"<-=q$,I,MW$G$9!#(B
 
 @table @b
 
@@ -554,6 +555,33 @@ edict $B<-=q(B($B1QOB<-=q(B)
 $B>\:Y$O!"<!$N;qNA$r;2>H$7$F2<$5$$!#(B
 
 @url{http://openlab.jp/skk/skk/dic/READMEs/committers.txt}
+
+@node $B<-=q$r(B DDSKK $B$HF1;~$K%$%s%9%H!<%k$9$k(B
+@section $B<-=q$r(B DDSKK $B$HF1;~$K%$%s%9%H!<%k$9$k(B
+
+DDSKK $B$N%=!<%9$rE83+$9$k$H!"Cf$K(B @file{dic} $B$H$$$&%G%#%l%/%H%j$,B8:_$7$^(B
+$B$9!#(B@file{SKK-JISYO.L} $B$J$I$r$3$N%G%#%l%/%H%j$K%3%T!<$7$F$+$i(B
+
+@example
+% make install
+@end example
+
+$B$r<B9T$9$k$H!"<-=q%U%!%$%k$,%A%e!<%H%j%"%k(B (@file{SKK.tut}) $B$HF1$8%G%#(B
+$B%l%/%H%j(B (@file{/usr/share/skk} $B$d(B @file{c:/emacs-23.2/etc/skk} $B$J$I(B) $B$K(B
+$B%$%s%9%H!<%k$5$l$^$9!#(B
+
+$B$5$i$K!"(B@file{SKK-JISYO.L} $B$r(B DDSKK $B%=!<%9$N(B @file{dic} $B%G%#%l%/%H%j$K%3(B
+$B%T!<$7$F$+$i(B
+
+@example
+% make cdb
+@end example
+
+$B$r<B9T$9$k$H!"(BCDB $B7A<0<-=q(B @file{SKK-JISYO.L.cdb} $B$,@8@.$5$l$^$9!#$3$N8e(B
+$B$G>e5-(B @code{make install} $B$r<B9T$9$k$H(B @file{SKK-JISYO.L.cdb} $B$b(B
+@file{SKK-JISYO.L} $B$H6&$K%$%s%9%H!<%k$5$l$^$9!#(B
+@footnote{CDB $B7A<0<-=q$N@8@.$K$O(B python $B%9%/%j%W%H(B @file{etc/skk2cdb.py}
+$B$,<B9T$5$l$k$N$G!"$"$i$+$8$a(B python $B$r%$%s%9%H!<%k$7$F$*$/I,MW$,$"$j$^$9!#(B}
 
 @node $B<-=q%5!<%P$NF~<j(B
 @section $B<-=q%5!<%P$NF~<j(B
@@ -6254,6 +6282,12 @@ Emacs $B$N%P%C%U%!$KFI$_9~$s$G8!:w$r9T$$$^$9!#6&M-<-=q$O@_Dj$K$h$j(B Emacs
 $B<-=q$G$9!#(B
 @end defvr
 
+@defvr {$B%f!<%6JQ?t(B} skk-cdb-large-jisyo
+$B6&M-<-=q$N$&$A(B CDB $B7A<0$KJQ49$7$?<-=q!#;XDj$7$?>l9g$O(B skk-large-jisyo $B$h(B
+$B$j@h$K8!:w$5$l$^$9!#(BDDSKK 14 $B$h$j(B CDB $B7A<0<-=q$r<-=q%5!<%P$r7PM3$;$:$KD>(B
+$B@\8!:w$G$-$k$h$&$K$J$j$^$7$?!#(B
+@end defvr
+
 $B$3$l$i$NJQ?t$N0UL#$9$k$H$3$m$O=i4|@_Dj$G$N$b$N$G$9$,!"(B
 @code{skk-search-prog-list} $B$N@_Dj$GJQ99$9$k$3$H$b$G$-$^$9!#(B
 (@w{@pxref{$B<-=q8!:w$N$?$a$N4X?t(B}})
@@ -9227,12 +9261,11 @@ X Window System $B>e$G$O!"(B@command{xmodmap} $B$H$$$&%W%m%0%i%`$r;H$C$F%-!<G
 @cindex NICOLA
 @cindex $BF|K\8lF~NO%3%s%=!<%7%"%`(B
 
-$B$3$N5!G=$O!"(BSKK 10 $B$G$OMxMQ$G$-$^$;$s!#(BDaredevil SKK 11.3 $B0J9_$K$O!"(B
-NICOLA-DDSKK $B$H$$$&%W%m%0%i%`$,IUB0$7$F$*$j!"$3$l$r%$%s%9%H!<%k$9$k$H(B
-$B?F;X%7%U%HF~NO$,2DG=$K$J$j$^$9!#%$%s%9%H!<%k<+BN$O4JC1$G!"(B
+DDSKK $B$K$O(B NICOLA-DDSKK $B$H$$$&%W%m%0%i%`$,IUB0$7$F$*$j!"$3$l$r%$%s%9%H!<(B
+$B%k$9$k$H?F;X%7%U%HF~NO$,2DG=$K$J$j$^$9!#%$%s%9%H!<%k<+BN$O4JC1$G!"(B
 
 @example
-% cd experimental/nicola (Daredevil SKK 11.4 $B0J9_(B $B$G$O(B cd nicola )
+% cd nicola
 % make install
 @end example
 
