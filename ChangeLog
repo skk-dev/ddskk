@@ -1,3 +1,7 @@
+2010-09-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* context-skk.el: Insert white space for comment and docstring.
+
 2010-09-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
