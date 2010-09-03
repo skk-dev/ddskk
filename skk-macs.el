@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.144 2010/08/27 10:42:17 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.145 2010/09/03 20:40:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/27 10:42:17 $
+;; Last Modified: $Date: 2010/09/03 20:40:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -153,7 +153,7 @@ doesn't give arguments of `interactive'. See `interactive' for details."
 
 (defmacro skk-message (japanese english &rest arg)
   "$B%a%C%;!<%8$rI=<($9$k!#(B
-`skk-japanese-message-and-error' $B$,(B non-nil $B$@$C$?$i(B JAPANESE $B$r(B nil $B$G$"$l$P(B
+`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r!"(B nil $B$G$"$l$P(B
 ENGLISH $B$r%(%3!<%(%j%"$KI=<($9$k!#(BARG $B$O(B `message' $B4X?t$NBh#20z?t0J9_$N0z?t$H(B
 $B$7$FEO$5$l$k!#(B"
   (append
@@ -170,7 +170,7 @@ ENGLISH $B$r%(%3!<%(%j%"$KI=<($9$k!#(BARG $B$O(B `message' $B4X?t$NBh#20z?t
 
 (defmacro skk-error (japanese english &rest arg)
   "$B%a%C%;!<%8$rI=<($7$F!"%(%i!<$rH/@8$5$;$k!#(B
-`skk-japanese-message-and-error' $B$,(B non-nil $B$@$C$?$i(B JAPANESE $B$r(B nil $B$G$"$l$P(B
+`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r!"(B nil $B$G$"$l$P(B
 ENGLISH $B$r%(%3!<%(%j%"$KI=<($7!"%(%i!<$rH/@8$5$;$k!#(B ARG $B$O(B `error' $B4X?t$NBh(B
 $B#20z?t0J9_$N0z?t$H$7$FEO$5$l$k!#(B"
   (append
@@ -186,8 +186,8 @@ ENGLISH $B$r%(%3!<%(%j%"$KI=<($7!"%(%i!<$rH/@8$5$;$k!#(B ARG $B$O(B `error' 
    arg))
 
 (defmacro skk-yes-or-no-p (japanese english)
-  "$B%f!<%6$K(B yes-or-no $B$N<ALd$r$7!"Ez$($,(B yes $B$@$C$?$i(B t $B$rJV$9!#(B
-`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r(B nil $B$G$"$l(B
+  "$B%f!<%6$K(B yes-or-no $B$r<ALd$7!"Ez$($,(B yes $B$@$C$?$i(B t $B$rJV$9!#(B
+`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r!"(B nil $B$G$"$l(B
 $B$P(B ENGLISH $B$r%W%m%s%W%H$H$7$F(B `yes-or-no-p' $B$r<B9T$9$k!#(B
 `yes-or-no-p' $B$N0z?t$N%W%m%s%W%H$,J#;($KF~$l9~$s$G$$$k>l9g$O$3$N%^%/%m$r;H$&(B
 $B$h$j%*%j%8%J%k$N(B `yes-or-no-p' $B$r;HMQ$7$?J}$,%3!<%I$,J#;($K$J$i$J$$>l9g$,$"(B
@@ -196,8 +196,8 @@ ENGLISH $B$r%(%3!<%(%j%"$KI=<($7!"%(%i!<$rH/@8$5$;$k!#(B ARG $B$O(B `error' 
 				   japanese english)))
 
 (defmacro skk-y-or-n-p (japanese english)
-  "$B%f!<%6$K(B \"y or n\" $B$N<ALd$r$7!"Ez$($,(B \"y\" $B$@$C$?$i(B t $B$rJV$9!#(B
-`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r(B nil $B$G$"$l(B
+  "$B%f!<%6$K(B \"y or n\" $B$r<ALd$7!"Ez$($,(B \"y\" $B$@$C$?$i(B t $B$rJV$9!#(B
+`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r!"(B nil $B$G$"$l(B
 $B$P(B ENGLISH $B$r%W%m%s%W%H$H$7$F(B `y-or-n-p' $B$r<B9T$9$k!#(B"
   (list 'y-or-n-p (list 'if 'skk-japanese-message-and-error
 				japanese english)))
