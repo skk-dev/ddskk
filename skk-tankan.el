@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.27 2010/08/30 16:22:10 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.28 2010/09/03 23:23:29 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/30 16:22:10 $
+;; Last Modified: $Date: 2010/09/03 23:23:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -95,11 +95,16 @@
   (require 'skk-vars))
 
 ;; 
-(defvar skk-tankan-mode-map (make-keymap))
-(define-key skk-tankan-mode-map "p" (lambda nil (interactive)
-				      (forward-line -1)))
-(define-key skk-tankan-mode-map "n" 'forward-line)
-(define-key skk-tankan-mode-map "q" 'delete-window)
+(defvar skk-tankan-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "p" 'skk-tankan-mode-prev)
+    (define-key map "k" 'skk-tankan-mode-prev)
+    (define-key map "n" 'skk-tankan-mode-next)
+    (define-key map "j" 'skk-tankan-mode-next)
+    (define-key map "w" 'skk-tankan-mode-copy)
+    (define-key map "q" 'skk-tankan-mode-quit)
+    map)
+  "Keymap used in skk-tankan mode.")
 
 ;;; 部首番号を部首を表す文字列に変換するための配列
 (defconst skk-tankan-radical-vector
@@ -1567,11 +1572,20 @@ METHOD が 2 であれば総画数として検索を実行する。
     (string-to-number (completing-read "部首を番号で選択（TABで一覧表示）: "
 				       alist nil t))))
 
+(defun skk-tankan-mode ()
+  "Major mode for skk-tankan.
+
+\\{skk-tankan-mode-map}"
+  (kill-all-local-variables)
+  (setq mode-name "skk-tankan"
+	major-mode 'skk-tankan-mode)
+  (use-local-map skk-tankan-mode-map))
+
 ;;;###autoload
 (defun skk-tankan (arg)
-  "単漢字変換を実行する。
-M-x skk-tankan であれば部首変換を、
-C-u 数値 M-x skk-tankan であれば総画数変換を実行する。"
+  "単漢字変換を開始する。
+M-x skk-tankan で部首変換を、
+C-u 数値 M-x skk-tankan で総画数変換を開始する。"
   (interactive "P")
   (let ((b (get-buffer-create "*単漢字*"))
 	list)
@@ -1579,8 +1593,7 @@ C-u 数値 M-x skk-tankan であれば総画数変換を実行する。"
 		(cons nil (if arg
 			      (skk-search-by-stroke-or-radical arg 2)
 			    (skk-search-by-stroke-or-radical
-			     (skk-tankan-bushu-compread) 0)
-			    ))))
+			     (skk-tankan-bushu-compread) 0)))))
     (set-buffer b)
     (setq buffer-read-only nil)
     (erase-buffer)
@@ -1591,8 +1604,32 @@ C-u 数値 M-x skk-tankan であれば総画数変換を実行する。"
   (setq buffer-read-only t)
   (pop-to-buffer "*単漢字*")
   (goto-char (point-min))
+  (skk-tankan-mode))
 
-  (use-local-map skk-tankan-mode-map))
+(defun skk-tankan-mode-prev ()
+  (interactive)
+  (forward-line -1))
+
+(defun skk-tankan-mode-next ()
+  (interactive)
+  (forward-line)
+  (if (eobp)
+      (forward-line -1)))
+
+(defun skk-tankan-mode-copy ()
+  (interactive)
+  (if (eobp)
+      (forward-line -1))
+  (beginning-of-line)
+  (let ((str (char-to-string (char-after (1+ (point))))))
+    (kill-new str)
+    (message "`%s' copied." str)))
+
+(defun skk-tankan-mode-quit ()
+  (interactive)
+  (if (one-window-p)
+      (switch-to-buffer "*scratch*")
+    (delete-window)))
 
 ;;;###autoload
 (defun skk-tankan-search (func &rest args)

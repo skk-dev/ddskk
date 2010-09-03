@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/09/01 21:40:25 $
+@set UPDATED $Date: 2010/09/03 23:23:29 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3232,7 +3232,8 @@ L:胆;9画(肉部5画)
 @node 総画数による単漢字変換
 @subsubsection 総画数による単漢字変換
 
-▽モードで総画数を入力して最後に @kbd{@@} を付加してから変換を開始します。
+▽モードで総画数を入力して最後に @kbd{@@} を付加してから変換を開始します
+@footnote{@kbd{C-u 総画数 M-x skk-tankan} でも可。}。
 
 @example
 Q 1 0 @@
@@ -3264,7 +3265,7 @@ L:修;10画(人部8画)
 @subsubsection 部首による単漢字変換
 
 ▽モードで @kbd{@@} を２つ重ねて変換を開始すると、部首による単漢字変換が
-できます。
+できます@footnote{@kbd{M-x skk-tankan} でも可。}。
 
 @example
 Q @@ @@

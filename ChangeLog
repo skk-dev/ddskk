@@ -1,5 +1,9 @@
 2010-09-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tankan.el (skk-tankan): Code update.
+
+	* doc/skk.texi: Update.
+
 	* skk-macs.el: Update docstring.
 
 2010-09-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
