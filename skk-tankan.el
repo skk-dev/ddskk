@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.28 2010/09/03 23:23:29 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.29 2010/09/03 23:57:26 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/09/03 23:23:29 $
+;; Last Modified: $Date: 2010/09/03 23:57:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1598,7 +1598,12 @@ C-u 数値 M-x skk-tankan で総画数変換を開始する。"
     (setq buffer-read-only nil)
     (erase-buffer)
     (while list
-      (insert (format " %s\n" (car list)))
+      (let* ((str (car list))
+	     (cand (substring str 0 1))
+	     (anno (substring str 2)))
+	(insert (format " %s  %s\n"
+			(propertize cand 'face 'skk-henkan-face-default)
+			anno)))
       (setq list (cdr list))))
   (set-buffer-modified-p nil)
   (setq buffer-read-only t)
