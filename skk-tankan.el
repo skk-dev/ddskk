@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.29 2010/09/03 23:57:26 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.30 2010/09/04 04:41:31 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/09/03 23:57:26 $
+;; Last Modified: $Date: 2010/09/04 04:41:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -165,7 +165,7 @@
      14 14 (12 12 15 15) (10 16) (11 16) 17])
 
 ;;; japanese-jisx0208, japanese-jisx0213-1 用の部首・画数データ
-;; 1-14-1 から 2Byte ずつ使用している
+;; 1面-14区-01点 から 2Byte ずつ使用している
 ;; 1st byte = radical number
 ;; 2nd byte = (sub radical index) << 6 | strokes in radical
 (defconst skk-tankan-radical-stroke-table-0213-1 "\
@@ -1493,8 +1493,13 @@
 
 \(string-to-char \"単\"\)
  => 57777
+
 \(skk-tankan-get-char-data 57777\)
- => \(24 7 9\)"
+ => \(24 7 9\)
+
+\(aref skk-tankan-radical-vector 24\)
+ => \"十\"
+"
   (let ((fun (cdr (assq (char-charset char) ; => "japanese-jisx0208"
 			skk-tankan-get-char-data-functions))))
     (or (and fun (funcall fun char))	; => skk-tankan-get-char-data-0213-1
@@ -1513,12 +1518,23 @@
 	 radical dat stroke)
     (if (null n)
 	nil
-      (setq n (* 2 n)
-	    radical (aref table n)
-	    dat (aref table (1+ n))
-	    stroke (logand 63 dat))
+      (setq n (* 2 n)			; table は、1文字あたり 2byte を使用
+	    radical (aref table n)	; 部首番号
+	    dat (aref table (1+ n))	;
+	    stroke (logand 63 dat))	; 部首内画数
       (list radical stroke
 	    (+ stroke (skk-tankan-stroke-for-radical radical dat))))))
+
+;; (string-to-char "亜")  => 55329
+;; (split-char 55329)     => (japanese-jisx0208 48 33)
+;; split-char の結果を16進に直すと JISコード が得られる。
+;; (format "%x %x" 48 33) => "30 21" 
+
+;; ?! = 33 = 0x21
+;; 01区〜13区までは非漢字領域
+;; 区ひとつ当たり (- (* 16 6) 2) = 94
+
+;; (skk-tankan-encode-0213-1 55329) => 188
 
 (defun skk-tankan-encode-0213-1 (char)
   (let* ((l (split-char char))
@@ -1552,6 +1568,12 @@
 NUM は数値であり、METHOD が 0 であれば部首番号として、
 METHOD が 2 であれば総画数として検索を実行する。
 戻り値は (\"力\" \"了\" \"又\" …) のリストである。"
+  ;; TODO
+  ;; 回りくどいループと skk-tankan-get-char-data 経由は明らかに無駄。
+  ;; skk-tankan-radical-stroke-table-0213-1 を直接参照するよう書き換える。
+  ;; ↑の 1st byte が部首番号。
+  ;; ↑の 2nd byte + skk-tankan-stroke-for-radical-vector が総画数。
+  ;; index から char へは skk-tankan-encode-0213-1 を逆算すれば可能。
   (append
    (skk-search-by-stroke-or-radical-sub ?\x30 ?\x4e ?\x21 ?\x7e num method)
    (skk-search-by-stroke-or-radical-sub ?\x4f ?\x4f ?\x21 ?\x53 num method)
