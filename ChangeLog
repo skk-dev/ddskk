@@ -1,5 +1,9 @@
 2010-09-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* Version 14.1 Syounai released.
+
+2010-09-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* Makefile (VERSION)
 	* skk-version.el (skk-version): Bump to 14.1.
 
