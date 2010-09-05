@@ -1,3 +1,8 @@
+2010-09-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile (VERSION)
+	* skk-version.el (skk-version): Bump to 14.1.
+
 2010-09-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tankan.el (skk-tankan): Code update.
