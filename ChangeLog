@@ -1,3 +1,8 @@
+2010-09-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK: Define and use variable EMACS_SELF_CONTAINED for
+	NTEmacs, Meadow, Carbon and Cocoa Emacsen.
+
 2010-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version.el (skk-version): Bump to 14.1.50.

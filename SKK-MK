@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.167 2010/09/01 15:04:12 skk-cvs Exp $
-;; Last Modified: $Date: 2010/09/01 15:04:12 $
+;; Version: $Id: SKK-MK,v 1.168 2010/09/06 19:11:19 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/06 19:11:19 $
 
 ;;; Commentary:
 
@@ -55,6 +55,8 @@ This version of SKK requires MULE features"))
 
 (defvar ADDITIONAL_LISPDIR nil)
 
+(defvar EMACS_SELF_CONTAINED nil)
+
 ;; load user custom file.
 (load (expand-file-name "./SKK-CFG") t nil nil)
 
@@ -72,16 +74,23 @@ This version of SKK requires MULE features"))
 (require 'install)
 
 (setq install-prefix
-  (cond	((memq system-type '(windows-nt))
-	 ;; Meadow と NTEmacs に対して APEL が標準で設定する
-	 ;; install-prefix は不自然なので、ここで修正する。
+  (cond	((eq system-type 'windows-nt)
+	 ;; Meadow と NTEmacs は自己完結型。これらに対して APEL が標準で
+	 ;; 設定する install-prefix は不自然なので、ここで修正する。
+	 (setq EMACS_SELF_CONTAINED t)
 	 (expand-file-name ".." exec-directory))
-	((module-installed-p 'carbon-emacs-package)
-	 ;; Carbon Emacs package はまた独自のファイルツリーになっている
+	((eq system-type 'darwin)
+	 ;; Mac OS X (Carbon emacs または Cocoa Emacs)
+	 ;; Mac で Emacs を build する場合は自己完結型かどうかを選べる。
+	 ;; ユーザが自己完結型を使っているかどうか調べる。
 	 (let ((dir (expand-file-name ".." data-directory)))
 	   (if (string-match "/.+\\.app/Contents/Resources/?$" dir)
-	       dir
-	     (expand-file-name "../../.." dir))))
+	       ;; 自己完結型
+	       (progn
+		 (setq EMACS_SELF_CONTAINED t)
+		 dir)
+	     ;; UNIX 的環境と同様
+	     (expand-file-name "../../../.." data-directory))))
 	((featurep 'xemacs)
 	 ;; running-xemacs
 	 (expand-file-name "../../.." exec-directory))
@@ -98,14 +107,17 @@ This version of SKK requires MULE features"))
 ;; 変数 install-prefix は install.el で定義されている。
 ;; UNIX 的環境ではこれは "/usr/local" のような値となる。
 ;; 非 UNIX 的環境のために上記で install-prefix を再設定している。
+;; 非 UNIX 的環境では通常自己完結型 (self-contained) のファイル配置を
+;; とる。この場合、特定のディレクトリ下に bin, etc, info, lisp, site-lisp
+;; などのディレクトリが全て含まれている。
+;; (実は Emacs 18 までは UNIX 環境でも自己完結型であった。)
 (unless PREFIX
   (setq PREFIX install-prefix))
 
 (unless LISPDIR
   (setq LISPDIR
-	(cond ((or (memq system-type '(windows-nt))
-		   (module-installed-p 'carbon-emacs-package))
-	       ;; Meadow, NTEmacs, Carbon Emacs Package
+	(cond (EMACS_SELF_CONTAINED
+	       ;; Meadow, NTEmacs, Carbon Emacs, Cocoa Emacs.
 	       (expand-file-name "site-lisp" PREFIX))
 	      (t
 	       (install-detect-elisp-directory PREFIX)))))
@@ -117,8 +129,7 @@ This version of SKK requires MULE features"))
 
 (unless VERSION_SPECIFIC_LISPDIR
   (setq VERSION_SPECIFIC_LISPDIR
-	(cond ((or (memq system-type '(windows-nt))
-		   (module-installed-p 'carbon-emacs-package))
+	(cond (EMACS_SELF_CONTAINED
 	       ;; Meadow, NTEmacs, Carbon Emacs Package
 	       (expand-file-name "site-lisp" PREFIX))
 	      (t
@@ -321,8 +332,7 @@ This version of SKK requires MULE features"))
 
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
 (defvar SKK_DATADIR
-  (let ((subdir (cond ((or (memq system-type '(windows-nt))
-			   (module-installed-p 'carbon-emacs-package))
+  (let ((subdir (cond (EMACS_SELF_CONTAINED
 		       ;; Meadow, NTEmacs, Carbon Emacs Package
 		       "etc")
 		      (t
