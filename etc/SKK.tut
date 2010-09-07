@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut,v 1.13 2007/04/22 02:38:28 skk-cvs Exp $
+;; Version: $Id: SKK.tut,v 1.14 2010/09/07 10:45:10 skk-cvs Exp $
 ;; Keywords: japanese, help
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
+;; Last Modified: $Date: 2010/09/07 10:45:10 $
 
 ;; This is the tutorial text for Daredevil SKK version 11.1 and later
 ;; versions.
@@ -379,7 +379,7 @@ SKKでの仮名漢字変換は次のようにして行われます。
 
 !! 『□□□□□□』とタイプしてください (<space> を6回)。
 
-候補が尽きたので辞書登録モードになってしましました。候補の中に【午】はあっ
+候補が尽きたので辞書登録モードになってしまいました。候補の中に【午】はあっ
 たのですが、行き過ぎてしまったのです。
 
 !! <return> キーを押してから『x』とタイプしてください。

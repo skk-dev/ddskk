@@ -1,3 +1,8 @@
+2010-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK.tut: Fix typo.
+	Thanks 小林健一さま [skk 7269].
+
 2010-08-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.skk: Add skk-tooltip-x-offset, skk-tooltip-y-offset and
