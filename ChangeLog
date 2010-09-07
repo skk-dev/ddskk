@@ -1,3 +1,7 @@
+2010-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-display-code): `$' の表示を tooltip 化.
+
 2010-09-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK: Define and use variable EMACS_SELF_CONTAINED for

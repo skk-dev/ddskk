@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.47 2010/08/29 06:17:17 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.48 2010/09/07 12:08:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/29 06:17:17 $
+;; Last Modified: $Date: 2010/09/07 12:08:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -377,9 +377,13 @@
 				  (>= emacs-major-version 23))
 		      ;; GNU Emacs 23.1 or later
 		      (char-charset char skk-charset-list)
-		    (char-charset char))))
+		    (char-charset char)))
+	 mesg)
     (cond
-     ((memq charset '(japanese-jisx0213-1 japanese-jisx0213-2 japanese-jisx0208 japanese-jisx0208-1978))
+     ((memq charset '(japanese-jisx0213-1
+		      japanese-jisx0213-2
+		      japanese-jisx0208
+		      japanese-jisx0208-1978))
       (let* ((char1-j (skk-char-octet char 0))
 	     (char1-k (- char1-j 32))
 	     (char1-e (+ char1-j 128))
@@ -391,46 +395,47 @@
 		     (skk-jis2sjis char1-j char2-j)))
 	     (char1-s (car sjis))
 	     (char2-s (cadr sjis))
-	     (list (skk-tankan-get-char-data char))
-	     (stroke (nth 2 list))
-	     (anno (skk-tankan-get-char-annotation char))
-	     )
-	(if (eq charset 'japanese-jisx0213-2)
-	    (message
-	     "`%s' (plane 2) KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
-	     str
-	     char1-k char2-k
-	     char1-j char2-j
-	     char1-e char2-e
-	     char1-s char2-s)
-	  ;; 
-	  (message
-	   "`%s' KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
-	   str
-	   char1-k char2-k
-	   char1-j char2-j 
-	   char1-e char2-e 
-	   char1-s char2-s
-	   (if (= 0 stroke)
-	       ""
-	     (format ", 総%d画(%s部%d画)"
-		     stroke
-		     (aref skk-tankan-radical-vector (nth 0 list))
-		     (nth 1 list)))
-	   (if anno
-	       (concat ", " anno)
-	     "")
-	   ))))
+	     (char-data (skk-tankan-get-char-data char))
+	     (anno (skk-tankan-get-char-annotation char)))
+	(setq mesg (if (eq charset 'japanese-jisx0213-2)
+		       (format "`%s' (plane 2) KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
+			       str
+			       char1-k char2-k
+			       char1-j char2-j
+			       char1-e char2-e
+			       char1-s char2-s)
+		     ;;
+		     (format "`%s' KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
+			     str
+			     char1-k char2-k
+			     char1-j char2-j
+			     char1-e char2-e
+			     char1-s char2-s
+			     (if (zerop (nth 2 char-data))
+				 ""
+			       (format ", 総%d画(%s部%d画)"
+				       (nth 2 char-data)
+				       (aref skk-tankan-radical-vector (nth 0 char-data))
+				       (nth 1 char-data)))
+			     (if anno
+				 (concat ", " anno)
+			       ""))))))
      ;;
      ((memq charset '(ascii latin-jisx0201))
-      (message "`%s' HEX: %2x, DECIMAL: %3d"
-	       str
-	       (skk-char-octet char 0)
-	       (skk-char-octet char 0)))
+      (setq mesg (format "`%s' HEX: %2x, DECIMAL: %3d"
+			 str
+			 (skk-char-octet char 0)
+			 (skk-char-octet char 0))))
      ;;
      (t
       (skk-error "判別できない文字です"
-		 "Cannot understand this character")))))
+		 "Cannot understand this character")))
+    ;;
+    (if (and window-system
+	     skk-show-tooltip
+	     (not (eq (symbol-function 'skk-tooltip-show-at-point) 'ignore)))
+	(funcall skk-tooltip-function mesg)
+      (message mesg))))
 
 (defun skk-jis2sjis (char1 char2)
   (let* ((ch2 (if (eq (* (/ char1 2) 2) char1)
