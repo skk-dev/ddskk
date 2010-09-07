@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.48 2010/09/07 12:08:01 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.49 2010/09/07 21:22:44 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/07 12:08:01 $
+;; Last Modified: $Date: 2010/09/07 21:22:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -398,14 +398,14 @@
 	     (char-data (skk-tankan-get-char-data char))
 	     (anno (skk-tankan-get-char-annotation char)))
 	(setq mesg (if (eq charset 'japanese-jisx0213-2)
-		       (format "`%s' (plane 2) KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
+		       (format "`%s' (plane 2), KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
 			       str
 			       char1-k char2-k
 			       char1-j char2-j
 			       char1-e char2-e
 			       char1-s char2-s)
 		     ;;
-		     (format "`%s' KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
+		     (format "`%s', KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
 			     str
 			     char1-k char2-k
 			     char1-j char2-j
@@ -422,7 +422,7 @@
 			       ""))))))
      ;;
      ((memq charset '(ascii latin-jisx0201))
-      (setq mesg (format "`%s' HEX: %2x, DECIMAL: %3d"
+      (setq mesg (format "`%s', HEX: %2x, DECIMAL: %3d"
 			 str
 			 (skk-char-octet char 0)
 			 (skk-char-octet char 0))))
@@ -434,7 +434,9 @@
     (if (and window-system
 	     skk-show-tooltip
 	     (not (eq (symbol-function 'skk-tooltip-show-at-point) 'ignore)))
-	(funcall skk-tooltip-function mesg)
+	(funcall skk-tooltip-function (mapconcat #'(lambda (x) x)
+						 (split-string mesg ", ")
+						 "\n\t"))
       (message mesg))))
 
 (defun skk-jis2sjis (char1 char2)

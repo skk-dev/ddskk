@@ -1,3 +1,8 @@
+2010-09-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-display-code): tooltip 時の `$' メッセージ内容
+	に適宜改行を加えた。
+
 2010-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-kcode.el (skk-display-code): `$' の表示を tooltip 化.
