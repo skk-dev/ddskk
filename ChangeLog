@@ -1,3 +1,7 @@
+2010-09-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
 2010-09-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tankan.el (skk-tankan-get-char-data, skk-tankan-encode-0213-2):
