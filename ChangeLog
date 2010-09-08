@@ -1,5 +1,8 @@
 2010-09-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tankan.el (skk-tankan-get-char-data, skk-tankan-encode-0213-2):
+	GNU Emacs 23 向け japanese-jisx0213-2 対応。
+
 	* skk-kcode.el (skk-display-code): tooltip 時の `$' メッセージ内容
 	に適宜改行を加えた。
 

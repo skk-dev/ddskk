@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.49 2010/09/07 21:22:44 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.50 2010/09/08 12:20:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/07 21:22:44 $
+;; Last Modified: $Date: 2010/09/08 12:20:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -397,29 +397,25 @@
 	     (char2-s (cadr sjis))
 	     (char-data (skk-tankan-get-char-data char))
 	     (anno (skk-tankan-get-char-annotation char)))
-	(setq mesg (if (eq charset 'japanese-jisx0213-2)
-		       (format "`%s' (plane 2), KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x"
-			       str
-			       char1-k char2-k
-			       char1-j char2-j
-			       char1-e char2-e
-			       char1-s char2-s)
-		     ;;
-		     (format "`%s', KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
-			     str
-			     char1-k char2-k
-			     char1-j char2-j
-			     char1-e char2-e
-			     char1-s char2-s
-			     (if (zerop (nth 2 char-data))
-				 ""
-			       (format ", 総%d画(%s部%d画)"
-				       (nth 2 char-data)
-				       (aref skk-tankan-radical-vector (nth 0 char-data))
-				       (nth 1 char-data)))
-			     (if anno
-				 (concat ", " anno)
-			       ""))))))
+	;;
+	(setq mesg (format "`%s'%s, KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
+			   str
+			   (if (eq charset 'japanese-jisx0213-2)
+			       " (plane 2)"
+			     "")
+			   char1-k char2-k
+			   char1-j char2-j
+			   char1-e char2-e
+			   char1-s char2-s
+			   (if (zerop (nth 2 char-data))
+			       ""
+			     (format ", 総%d画(%s部%d画)"
+				     (nth 2 char-data)
+				     (aref skk-tankan-radical-vector (nth 0 char-data))
+				     (nth 1 char-data)))
+			   (if anno
+			       (concat ", " anno)
+			     "")))))
      ;;
      ((memq charset '(ascii latin-jisx0201))
       (setq mesg (format "`%s', HEX: %2x, DECIMAL: %3d"

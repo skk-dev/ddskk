@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.30 2010/09/04 04:41:31 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.31 2010/09/08 12:20:15 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/09/04 04:41:31 $
+;; Last Modified: $Date: 2010/09/08 12:20:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1500,8 +1500,13 @@
 \(aref skk-tankan-radical-vector 24\)
  => \"十\"
 "
-  (let ((fun (cdr (assq (char-charset char) ; => "japanese-jisx0208"
-			skk-tankan-get-char-data-functions))))
+  (let* ((charset (static-if (and (not (featurep 'xemacs))
+				  (>= emacs-major-version 23))
+		      ;; GNU Emacs 23.1 or later
+		      (char-charset char skk-charset-list)
+		    (char-charset char))) ; => 'japanese-jisx0208
+					  ; or 'japanese-jisx0213-2
+	(fun (cdr (assq charset skk-tankan-get-char-data-functions))))
     (or (and fun (funcall fun char))	; => skk-tankan-get-char-data-0213-1
 	(list 0 0 0))))
 
@@ -1542,7 +1547,7 @@
     (and (>= n 0) n)))
 
 (defun skk-tankan-encode-0213-2 (char)
-  (let* ((l (split-char char))
+  (let* ((l (skk-split-char char))
 	 (ku (- (nth 1 l) ?!))
 	 (tmp (if (>= ku 77)
 		  (- ku 68)

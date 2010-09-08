@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/09/03 23:23:29 $
+@set UPDATED $Date: 2010/09/08 12:20:15 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7428,6 +7428,8 @@ A:＼ S:〜 D:‖ F:｜ G:… H:‥ J:‘ K:
 $BBh 1 段階あるいは第 2 段階のメニューが表示されているときに @kbd{?} を入
 力すると、そのときのキー @kbd{A} に対応する文字 (上記の例では、@samp{＼})
 の文字コードが表示されます。
+
+ほか、Emacs のコマンド @code{M-x list-charset-chars} も有用でしょう。
 
 @node 漢字コードを知る方法
 @subsection 漢字コードを知る方法
