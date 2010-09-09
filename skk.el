@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.512 2010/09/09 14:28:18 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.513 2010/09/09 19:40:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/09 14:28:18 $
+;; Last Modified: $Date: 2010/09/09 19:40:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5361,7 +5361,9 @@ SKK 辞書の候補として正しい形に整形する。"
   (skk-inline-hide)
   (unless (skk-in-minibuffer-p)
     (let* ((margin 2)
-	   (beg-col (- (skk-screen-column) margin))
+	   ;; XXX beg-col が -1 になって `make-string' でエラーになる
+	   ;; 場合あり ?
+	   (beg-col (max 0 (- (skk-screen-column) margin)))
 	   (candidates (split-string string "\n"))
 	   (max-width (apply 'max (mapcar 'string-width candidates)))
 	   (i 0)

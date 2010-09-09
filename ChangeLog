@@ -15,6 +15,9 @@
 	`write-region-as-coding-system' and
 	`insert-file-contents-as-coding-system'.
 
+	* skk.el (skk-inline-show-vertical): Make sure beg-col is not
+	negative.
+
 2010-09-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
