@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.511 2010/08/27 14:50:46 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.512 2010/09/09 14:28:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/27 14:50:46 $
+;; Last Modified: $Date: 2010/09/09 14:28:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -90,13 +90,10 @@
   (static-cond
    ((featurep 'xemacs)
     (require 'skk-xemacs))
-   ((>= emacs-major-version 21)
+   (t
     ;; Emacs 21 or later
     (require 'skk-emacs)
-    (require 'skk-e21))
-   (t
-    ;; Emacs 20.7
-    (require 'skk-emacs)))
+    (require 'skk-e21)))
   ;; Shut up, compiler.
   (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
@@ -197,12 +194,10 @@ dependent."
       (easy-menu-add skk-menu))
     (skk-require-module)
     ;; To terminate kana input.
-    (static-when (or (featurep 'xemacs)
-		     (<= emacs-major-version 20))
+    (static-when (featurep 'xemacs)
       (make-local-hook 'pre-command-hook))
     (skk-add-skk-pre-command)
-    (static-when (or (featurep 'xemacs)
-		     (<= emacs-major-version 20))
+    (static-when (featurep 'xemacs)
       (make-local-hook 'post-command-hook))
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
     (skk-j-mode-on)
@@ -560,7 +555,7 @@ dependent."
   (static-cond
    ((featurep 'xemacs)
     (skk-xemacs-prepare-modeline-properties))
-   ((>= emacs-major-version 21)
+   (t
     (skk-e21-prepare-modeline-properties)))
   ;;
   (let ((mode-string-list '(skk-latin-mode-string
@@ -625,38 +620,23 @@ dependent."
 
     (skk-loop-for-buffers (buffer-list)
       (when (and (listp mode-line-format)
-		 (equal (car mode-line-format)
-			"")
-		 (eq 'skk-modeline-input-mode
-		     (nth 1 mode-line-format)))
+		 (equal (car mode-line-format) "")
+		 (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
 	;; for skk-restart.
 	(setq mode-line-format (nthcdr 2 mode-line-format))))
-
     (setq-default skk-modeline-input-mode "")
-
-    (static-if (or (featurep 'xemacs)
-		   (>= emacs-major-version 21))
-	(add-minor-mode 'skk-mode 'skk-modeline-input-mode)
-      ;; GNU Emacs 20.7 or earlier
-      (setq minor-mode-alist
-	    ;; each element of minor-mode-alist is not cons cell.
-	    (put-alist 'skk-mode
-		       '(skk-modeline-input-mode)
-		       minor-mode-alist))))
+    (add-minor-mode 'skk-mode 'skk-modeline-input-mode))
    (t
-    (unless (memq 'skk-modeline-input-mode
-		  (default-value 'mode-line-format))
+    (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
       (setq-default mode-line-format
 		    (append '("" skk-modeline-input-mode)
 			    (default-value 'mode-line-format))))
     (skk-loop-for-buffers (buffer-list)
       (when (and (listp mode-line-format)
 		 (skk-local-variable-p 'mode-line-format)
-		 (null (memq 'skk-modeline-input-mode
-			     mode-line-format)))
+		 (null (memq 'skk-modeline-input-mode mode-line-format)))
 	(setq mode-line-format
-	      (append '("" skk-modeline-input-mode)
-		      mode-line-format))))
+	      (append '("" skk-modeline-input-mode) mode-line-format))))
 
     (when skk-icon
       (unless (memq 'skk-icon (default-value 'mode-line-format))
@@ -666,11 +646,8 @@ dependent."
       (skk-loop-for-buffers (buffer-list)
 	(when (and (listp mode-line-format)
 		   (skk-local-variable-p 'mode-line-format)
-		   (null (memq 'skk-icon
-			       mode-line-format)))
-	  (setq mode-line-format
-		(append '("" skk-icon)
-			mode-line-format)))))
+		   (null (memq 'skk-icon mode-line-format)))
+	  (setq mode-line-format (append '("" skk-icon) mode-line-format)))))
 
     (force-mode-line-update t))))
 
@@ -1876,10 +1853,9 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	       (function skk-multiple-line-message-clear)))
 
 (defun skk-multiple-line-message (fmt &rest args)
-  (if (and (not (featurep 'xemacs))
-	   (boundp 'emacs-major-version)
-	   (>= emacs-major-version 21))
+  (if skk-running-gnu-emacs
       (apply (function message) fmt args)
+    ;; XEmacs
     (save-selected-window
       (select-window (minibuffer-window))
       (let* ((str (if fmt (apply (function format) fmt args) ""))
@@ -1893,22 +1869,11 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	(condition-case nil
 	    (progn
 	      (enlarge-window (- lines last-minibuffer-height))
-	      (static-if (featurep 'xemacs)
-		  (apply (function message) fmt args)
-		(let ((buffer-undo-list skk-buffer-undo-list))
-		  (erase-buffer)
-		  (message nil)
-		  (insert str)
-		  (setq skk-buffer-undo-list buffer-undo-list)))
+	      (apply (function message) fmt args)
 	      ;; We also need to clear `current-message' in case
 	      ;; running under XEmacs so that the height of
 	      ;; `minibuffer-window' is left unchanged.
-	      (if (equal str "")
-		  (when (eq skk-emacs-type 'mule4)
-		    (let (buffer-undo-list)
-		      (primitive-undo (length skk-buffer-undo-list)
-				      skk-buffer-undo-list)
-		      (setq skk-buffer-undo-list nil)))
+	      (unless (equal str "")
 		;; (make-local-hook 'pre-command-hook)
 		;; (add-hook 'pre-command-hook
 		;;	  (function skk-multiple-line-message-clear))))
@@ -2151,11 +2116,11 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 					 ?+))))
       (cond
        ;; (1) 現在のバッファの中に表示する (インライン表示)
-       ((and skk-show-inline
+       ((and skk-running-gnu-emacs
+	     (= 21 emacs-major-version)
+	     skk-show-inline
 	     (not skk-isearch-switch)
-	     (not (skk-in-minibuffer-p))
-	     (not (featurep 'xemacs))
-	     (<= 21 emacs-major-version))
+	     (not (skk-in-minibuffer-p)))
 	(if (and (eq 'vertical skk-show-inline)
 		 ;; window が候補群を表示できる高さがあるかチェック
 		 (< (1+ max-candidates)
@@ -2329,11 +2294,10 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	(unless (pos-visible-in-window-p)
 	  (recenter '(1)))
 	;;
-	(static-unless (or (<= emacs-major-version 20)
-			   (and (featurep 'xemacs)
-				(= emacs-major-version 21)
-				(<= emacs-minor-version 4)))
-	  ;; Emacs 20.7, XEmacs 21.4 にはない関数
+	(static-unless (and (featurep 'xemacs)
+			    (= emacs-major-version 21)
+			    (<= emacs-minor-version 4))
+	  ;; XEmacs 21.4 にはない関数
 	  (fit-window-to-buffer))
 	;;
 	(if skk-candidate-buffer-background-color
@@ -3710,9 +3674,8 @@ Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
 送りなしエントリのヘッダーがありません ！ SKK 辞書のセーブを中止します"
 	 "\
 Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
-    (write-region-as-coding-system
-     (skk-find-coding-system skk-jisyo-code)
-     1 (point-max) file nil 'nomsg)))
+    (let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code)))
+      (write-region 1 (point-max) file nil 'nomsg))))
 
 (defun skk-check-size-and-do-save-jisyo (new-file)
   (skk-bind-last-command-char nil
@@ -3999,7 +3962,9 @@ If you want to restore the dictionary from the disc, try
 			 "Inserting contents of %s ..."
 			 (file-name-nondirectory file)))
 	  (condition-case nil
-	      (insert-file-contents-as-coding-system code file)
+	      (let ((coding-system-for-read code)
+		    format-alist)
+		(insert-file-contents file))
 	    (error
 	     (when (buffer-live-p buf)
 	       (kill-buffer buf))
@@ -5325,56 +5290,57 @@ SKK 辞書の候補として正しい形に整形する。"
 
 (defun skk-add-background-color (string color)
   "STRING のなかで背景色指定がない文字にだけ COLOR の背景色をつける。"
-  (when (and string color (not (featurep 'xemacs)))
-    (let ((start 0)
-	  (end 1)
-	  orig-face)
-      (while (< start (length string))
-	(setq orig-face (get-text-property start 'face string))
-	(while (and (< end (length string))
-		    (eq orig-face (get-text-property end 'face string)))
-	  (setq end (1+ end)))
-	(cond
-	 ((not orig-face)
-	  (put-text-property start end 'face
-			     `(:background ,color)
-			     string))
-	 ((and (facep orig-face) (not (face-background orig-face)))
-	  (static-cond
-	   ((and (string-match "^GNU" (emacs-version))
-		 (= emacs-major-version 21))
-	    ;; Emacs 21 で :inherit がうまく継承されない？
-	    ;; workaround
-	    (let (attrs)
-	      (dolist (pair face-attribute-name-alist)
-		(let* ((attr (car pair))
-		       (val (face-attribute orig-face attr (selected-frame))))
-		  (unless (eq val 'unspecified)
-		    (setq attrs (cons attr (cons val attrs))))))
-	      (put-text-property start end 'face
-				 (append attrs `(:background ,color))
-				 string)))
-	   (t
+  (static-when skk-running-gnu-emacs
+    (when (and string color)
+      (let ((start 0)
+	    (end 1)
+	    orig-face)
+	(while (< start (length string))
+	  (setq orig-face (get-text-property start 'face string))
+	  (while (and (< end (length string))
+		      (eq orig-face (get-text-property end 'face string)))
+	    (setq end (1+ end)))
+	  (cond
+	   ((not orig-face)
 	    (put-text-property start end 'face
-			       `(:inherit ,orig-face
-				 :background ,color)
-			       string))))
-	 ((and (listp orig-face)
-	       (not (plist-get (get-text-property start 'face string)
-			       :background))
-	       (not (and (plist-get (get-text-property start 'face start)
-				    :inherit)
-			 (face-background
-			  (plist-get (get-text-property start 'face start)
-				     :inherit)))))
-	  (put-text-property start end 'face
-			     (cons
-			      `(:background ,color)
-			      orig-face)
-			     string)))
-	(setq start (max (1+ start) end)
-	      end (1+ start)))))
-  string)
+			       `(:background ,color)
+			       string))
+	   ((and (facep orig-face) (not (face-background orig-face)))
+	    (static-cond
+	     ((and (string-match "^GNU" (emacs-version))
+		   (= emacs-major-version 21))
+	      ;; Emacs 21 で :inherit がうまく継承されない？
+	      ;; workaround
+	      (let (attrs)
+		(dolist (pair face-attribute-name-alist)
+		  (let* ((attr (car pair))
+			 (val (face-attribute orig-face attr (selected-frame))))
+		    (unless (eq val 'unspecified)
+		      (setq attrs (cons attr (cons val attrs))))))
+		(put-text-property start end 'face
+				   (append attrs `(:background ,color))
+				   string)))
+	     (t
+	      (put-text-property start end 'face
+				 `(:inherit ,orig-face
+					    :background ,color)
+				 string))))
+	   ((and (listp orig-face)
+		 (not (plist-get (get-text-property start 'face string)
+				 :background))
+		 (not (and (plist-get (get-text-property start 'face start)
+				      :inherit)
+			   (face-background
+			    (plist-get (get-text-property start 'face start)
+				       :inherit)))))
+	    (put-text-property start end 'face
+			       (cons
+				`(:background ,color)
+				orig-face)
+			       string)))
+	  (setq start (max (1+ start) end)
+		end (1+ start)))))
+    string))
 
 (defun skk-inline-show (string face)
   (skk-inline-hide)
