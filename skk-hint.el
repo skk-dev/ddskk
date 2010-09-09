@@ -1,4 +1,4 @@
-;;; skk-hint.el --- SKK conversion with hints -*- coding: euc-jp -*-
+;;; skk-hint.el --- SKK conversion with hints -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 2001, 2003 Yoshiki Hayashi <yoshiki@xemacs.org>
 
 ;; Author: Yoshiki Hayashi <yoshiki@xemacs.org>
@@ -23,41 +23,41 @@
 
 ;;; Commentary
 
-;; ¤³¤ì¤Ï¢¦¥â¡¼¥É¤È¢§¥â¡¼¥É¤ÇÆÉ¤ß¤ÎÀÑ½¸¹ç (¤ß¤¿¤¤¤Ê¤â¤Î) ¤ò¼è¤ë¤³¤È¤Ë
-;; ¤è¤Ã¤Æ¸õÊä¤Î¹Ê¤ê¹þ¤ß¤ò¹Ô¤¦¥×¥í¥°¥é¥à¤Ç¤¹¡£
+;; $B$3$l$O"&%b!<%I$H"'%b!<%I$GFI$_$N@Q=89g(B ($B$_$?$$$J$b$N(B) $B$r<h$k$3$H$K(B
+;; $B$h$C$F8uJd$N9J$j9~$_$r9T$&%W%m%0%i%`$G$9!#(B
 ;;
-;; ¥¤¥ó¥¹¥È¡¼¥ë¤Ï ~/.skk ¤Ë°Ê²¼¤òµ­Æþ¤·¤Þ¤¹¡£
+;; $B%$%s%9%H!<%k$O(B ~/.skk $B$K0J2<$r5-F~$7$^$9!#(B
 ;;
 ;; (require 'skk-hint)
 ;;
-;; Îã¤¨¤Ð¡¢¢¦¤«¤ó¤É¤¦ ¤È¤Ê¤Ã¤Æ¤¤¤ë¤È¤­¤Ë¡¢; michi SPC ¤ÈÆþÎÏ¤¹¤ë¤È¡¢
-;; ¢§´ÖÆ»¤È¤¤¤¦¾õÂÖ¤Ë¤Ê¤ê¤Þ¤¹¡£
+;; $BNc$($P!""&$+$s$I$&(B $B$H$J$C$F$$$k$H$-$K!"(B; michi SPC $B$HF~NO$9$k$H!"(B
+;; $B"'4VF;$H$$$&>uBV$K$J$j$^$9!#(B
 ;;
-;; ¸·Ì©¤ËÀÑ½¸¹ç¤ò¼è¤Ã¤Æ¤¤¤ë¤ï¤±¤Ç¤Ï¤Ê¤¯¡¢¢¦¤«¤ó¤É¤¦ ¤Ç ; doubutsu SPC
-;; ¤ÈÆþÎÏ¤¹¤ë¤È¢§´¶Æ°¤È¤¤¤¦¾õÂÖ¤Ë¤Ê¤ê¤Þ¤¹¡£
+;; $B87L)$K@Q=89g$r<h$C$F$$$k$o$1$G$O$J$/!""&$+$s$I$&(B $B$G(B ; doubutsu SPC
+;; $B$HF~NO$9$k$H"'46F0$H$$$&>uBV$K$J$j$^$9!#(B
 ;;
-;; ¤Ä¤Þ¤ê¡¢ÄÌ¾ï¤ÎÊÑ´¹¸õÊä¤Î¤Ê¤«¤Ç¡¢¥Ò¥ó¥È¤È¤·¤ÆÍ¿¤¨¤é¤ì¤¿ÆÉ¤ß¤ò´Þ¤ó¤À
-;; ´Á»ú¤ò»ý¤Ä¤â¤Î¤Ë¸õÊä¤ò¹Ê¤ê¤Þ¤¹¡£
+;; $B$D$^$j!"DL>o$NJQ498uJd$N$J$+$G!"%R%s%H$H$7$FM?$($i$l$?FI$_$r4^$s$@(B
+;; $B4A;z$r;}$D$b$N$K8uJd$r9J$j$^$9!#(B
 ;;
 ;; -- Tips --
 ;;
-;; skk-hint.el ¤ÏÃ±´Á»ú¤Î¸õÊä¤¬¤¿¤¯¤µ¤ó¤¢¤ë¾ì¹ç¤Ë¡¢¤½¤³¤«¤é¸õÊä¤ò¹Ê¤ê
-;; ¤³¤à¼êÃÊ¤È¤·¤ÆÈó¾ï¤ËÍ­¸ú¤Ç¤¹¡£Îã¤¨¤Ð
+;; skk-hint.el $B$OC14A;z$N8uJd$,$?$/$5$s$"$k>l9g$K!"$=$3$+$i8uJd$r9J$j(B
+;; $B$3$`<jCJ$H$7$FHs>o$KM-8z$G$9!#Nc$($P(B
 ;;
-;; ¢¦¤«
+;; $B"&$+(B
 ;;
-;; ¤òÊÑ´¹¤¹¤ë¤È¡¢²ã¡¢²½¡¢²Ä¡¢²¼¡¢Æü¡¢...¤È²Ì¤Æ¤·¤Ê¤¯¸õÊä¤¬½Ð¤Æ¤­¤Þ¤¹¡£
-;; ¤³¤ÎÃæ¤«¤é¡Ö²ß¡×¤ò¤È¤¯¤Ë½Ð¤·¤¿¤¤¤È¤·¤Þ¤¹¡£ÉáÄÌ¤ËÊÑ´¹¤·¤Æ¤â¤½¤Î¤¦¤Á
-;; ½Ð¤Æ¤­¤Þ¤¹¤¬¤³¤ì¤ò
+;; $B$rJQ49$9$k$H!"2c!"2=!"2D!"2<!"F|!"(B...$B$H2L$F$7$J$/8uJd$,=P$F$-$^$9!#(B
+;; $B$3$NCf$+$i!V2_!W$r$H$/$K=P$7$?$$$H$7$^$9!#IaDL$KJQ49$7$F$b$=$N$&$A(B
+;; $B=P$F$-$^$9$,$3$l$r(B
 ;;
-;; ¢¦¤«;kahei
+;; $B"&$+(B;kahei
 ;;
-;; ¤Î¤è¤¦¤ËÆþÎÏ¤·¤Æ¤«¤é SPC ¤ò²¡¤·¤ÆÊÑ´¹¤ò³«»Ï¤¹¤ë¤È¡¢¡Ö¤«¤Ø¤¤¡×¤Î¸õÊä
-;; ¤Ç¤¢¤ë¡Ö²ßÊ¾¡×¤Ë´Þ¤Þ¤ì¤ë
+;; $B$N$h$&$KF~NO$7$F$+$i(B SPC $B$r2!$7$FJQ49$r3+;O$9$k$H!"!V$+$X$$!W$N8uJd(B
+;; $B$G$"$k!V2_J>!W$K4^$^$l$k(B
 ;;
-;; ¢§²ß
+;; $B"'2_(B
 ;;
-;; ¤¬¾å°Ì¤Ë¸½¤ì¤Þ¤¹¡£
+;; $B$,>e0L$K8=$l$^$9!#(B
 
 ;;;Code
 
@@ -70,8 +70,8 @@
 (require 'skk-comp)
 
 (defadvice skk-search (around skk-hint-ad activate)
-  ;; skk-current-search-prog-list ¤ÎÍ×ÁÇ¤Ë¤Ê¤Ã¤Æ¤¤¤ë¥×¥í¥°¥é¥à¤òÉ¾²Á¤·¤Æ¡¢
-  ;; skk-henkan-key¤ò¥­¡¼¤Ë¤·¤Æ¸¡º÷¤ò¹Ô¤¦¡£
+  ;; skk-current-search-prog-list $B$NMWAG$K$J$C$F$$$k%W%m%0%i%`$rI>2A$7$F!"(B
+  ;; skk-henkan-key$B$r%-!<$K$7$F8!:w$r9T$&!#(B
   (if (null skk-hint-henkan-hint)
       ad-do-it
     (let (l kouho hint)
@@ -109,7 +109,7 @@
 	     (setq skk-hint-henkan-hint
 		  (list (concat henkan-key skk-hint-okuri-char)
 			okurigana skk-hint-okuri-char)))))
-	(t (skk-error "Í½´ü¤·¤Ê¤¤¾õÂÖ¤Ç skk-hint-setup-hint ¤¬¸Æ¤Ð¤ì¤Þ¤·¤¿"
+	(t (skk-error "$BM=4|$7$J$$>uBV$G(B skk-hint-setup-hint $B$,8F$P$l$^$7$?(B"
 		       "skk-hint-setup-hint is called from unexpected place")))
   (setq skk-hint-inhibit-kakutei nil))
 
@@ -193,7 +193,7 @@
 	  skk-hint-inhibit-kakutei nil)))
 
 (defun skk-hint-member (char kouho)
-  ;; Ê¸»úÎó¤Î¥ê¥¹¥È KOUHO ¤ÎÃæ¤ËÊ¸»ú CHAR ¤ò´Þ¤à¤â¤Î¤¬¤¢¤ì¤Ð¡¢¤½¤ÎÊ¸»úÎó¤òÊÖ¤¹
+  ;; $BJ8;zNs$N%j%9%H(B KOUHO $B$NCf$KJ8;z(B CHAR $B$r4^$`$b$N$,$"$l$P!"$=$NJ8;zNs$rJV$9(B
   (catch 'found
     (dolist (word kouho)
       (let ((length (length word)))
@@ -202,8 +202,8 @@
 	      (throw 'found word)))))))
 
 (defun skk-hint-limit (kouho hint)
-  ;; ÊÑ´¹¸õÊä KOUHO ¤ò¡¢Ê¸»úÎó¤Î¥ê¥¹¥È HINT ¤ÎÃæ¤Î¤É¤ì¤«¤ÎÊ¸»ú¤¬
-  ;; ´Þ¤Þ¤ì¤Æ¤¤¤ë¤â¤Î¤Î¤ß¤ËÀ©¸Â¤¹¤ë¡£
+  ;; $BJQ498uJd(B KOUHO $B$r!"J8;zNs$N%j%9%H(B HINT $B$NCf$N$I$l$+$NJ8;z$,(B
+  ;; $B4^$^$l$F$$$k$b$N$N$_$K@)8B$9$k!#(B
   (let ((kouho (copy-sequence kouho))
 	result)
     (dolist (string hint)

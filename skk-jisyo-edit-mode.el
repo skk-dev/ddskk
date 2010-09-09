@@ -1,4 +1,4 @@
-;;; skk-jisyo-edit-mode.el --- major mode for editing SKK dictionaries -*- coding: euc-jp -*-
+;;; skk-jisyo-edit-mode.el --- major mode for editing SKK dictionaries -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2001-2010 SKK Development Team
 
@@ -85,8 +85,7 @@
   (run-hooks 'skk-jisyo-edit-mode-hook))
 
 ;;;###autoload
-(when (eval-when-compile (>= emacs-major-version 21))
-  (add-to-list 'auto-mode-alist '("SKK-JISYO" . skk-jisyo-edit-mode) t))
+(add-to-list 'auto-mode-alist '("SKK-JISYO" . skk-jisyo-edit-mode) t)
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
 				. skk-jisyo-edit-mode))
@@ -99,27 +98,26 @@
   (interactive "P")
   (when coding-system
     (setq coding-system (read-coding-system
-			 "¸Ä¿Í¼­½ñ¤Î¥³¡¼¥É·Ï¤ò»ØÄê: "
+			 "$B8D?M<-=q$N%3!<%I7O$r;XDj(B: "
 			 (skk-find-coding-system skk-jisyo-code))))
   (unless coding-system
     (setq coding-system (skk-find-coding-system skk-jisyo-code)))
   ;;
-  (when (skk-y-or-n-p "¼­½ñ¤ò¥»¡¼¥Ö¤·¤Þ¤¹¤«¡© "
+  (when (skk-y-or-n-p "$B<-=q$r%;!<%V$7$^$9$+!)(B "
 		      "Save jisyo? ")
     (skk-save-jisyo))
   (message nil)
   (setq skk-jisyo-edit-original-window-configuration
 	(current-window-configuration))
-  ;; SKK ¼­½ñ¤Î¥³¡¼¥É¤Ï¸íÈ½Äê¤¬¤¢¤ê¤¦¤ë¤¿¤á¡¢Ãí°Õ¤¹¤ë
+  ;; SKK $B<-=q$N%3!<%I$O8mH=Dj$,$"$j$&$k$?$a!"Cm0U$9$k(B
   (let ((coding-system-for-read coding-system))
     (find-file skk-jisyo))
   (unless (eq major-mode 'skk-jisyo-edit-mode)
     (skk-jisyo-edit-mode))
-  (static-when (or (featurep 'xemacs)
-		   (< emacs-major-version 21))
+  (static-when (featurep 'xemacs)
     (make-local-hook 'kill-buffer-hook))
-  ;; ÊÔ½¸Ãæ¤ËºÆÅÙ¼Â¹Ô¤·¤Æ¤â¡¢
-  ;; ¢­ ¤Î¤è¤¦¤Ë¤Ê¤ë¤«¤é skk-update-jisyo-function ¤ÏÉü¸µ¤µ¤ì¤ë¡£
+  ;; $BJT=8Cf$K:FEY<B9T$7$F$b!"(B
+  ;; $B"-(B $B$N$h$&$K$J$k$+$i(B skk-update-jisyo-function $B$OI|85$5$l$k!#(B
   ;; '((lambda nil
   ;;     (setq skk-update-jisyo-function #'ignore))
   ;;   (lambda nil
@@ -142,7 +140,7 @@
   (local-set-key "\C-c\C-c"
 		 #'(lambda ()
 		     (interactive)
-		     (when (skk-y-or-n-p "ÊÔ½¸¤ò½ªÎ»¤·¤Þ¤¹¤«¡© "
+		     (when (skk-y-or-n-p "$BJT=8$r=*N;$7$^$9$+!)(B "
 					 "Finish editing jisyo? ")
 		       (save-buffer)
 		       (kill-buffer (current-buffer))
@@ -153,7 +151,7 @@
   (local-set-key "\C-c\C-k"
 		 #'(lambda ()
 		     (interactive)
-		     (when (skk-y-or-n-p "ÊÔ½¸¤òÃæ»ß¤·¤Þ¤¹¤«¡© "
+		     (when (skk-y-or-n-p "$BJT=8$rCf;_$7$^$9$+!)(B "
 					 "Abort editing jisyo? ")
 		       (set-buffer-modified-p nil)
 		       (kill-buffer (current-buffer))
@@ -163,7 +161,7 @@
 
 (defadvice skk-henkan-in-minibuff (before notify-no-effect disable)
   (ding)
-  (skk-message "¸Ä¿Í¼­½ñ¤ÎÊÔ½¸Ãæ¤Ç¤¹¡£ÅÐÏ¿¤ÏÈ¿±Ç¤µ¤ì¤Þ¤»¤ó¡£"
+  (skk-message "$B8D?M<-=q$NJT=8Cf$G$9!#EPO?$OH?1G$5$l$^$;$s!#(B"
 	       "You are editing private jisyo.  This registration has no effect.")
   (sit-for 1.5))
 
@@ -171,7 +169,7 @@
   (if (eq skk-henkan-mode 'active)
       (progn
 	(ding)
-	(skk-message "¸Ä¿Í¼­½ñ¤ÎÊÔ½¸Ãæ¤Ç¤¹¡£ºï½ü¤Ç¤­¤Þ¤»¤ó¡£"
+	(skk-message "$B8D?M<-=q$NJT=8Cf$G$9!#:o=|$G$-$^$;$s!#(B"
 		     "You are editing private jisyo.  Can't purge."))
     ad-do-it))
 
