@@ -50,10 +50,8 @@
 (eval-and-compile
   (require 'skk-kanagaki))
 
-(static-when (and (string-match "^GNU" (emacs-version))
-		  (>= emacs-major-version 21))
-  (eval-and-compile
-    (require 'skk-e21)))
+(static-when skk-running-gnu-emacs
+  (require 'skk-e21))
 
 (eval-and-compile
   (autoload 'skk-dcomp-marked-p "skk-dcomp")
