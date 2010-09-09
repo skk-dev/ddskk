@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.63 2010/08/27 10:42:17 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.64 2010/09/09 14:19:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/27 10:42:17 $
+;; Last Modified: $Date: 2010/09/09 14:19:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -372,8 +372,7 @@ Optional argument PREFIX is appended if given."
   ;; Keys for `skk-isearch-skk-mode'.
   (let ((commands '(skk-mode skk-auto-fill-mode)))
     (static-unless (featurep 'xemacs)
-      (when (string-match "^japanese-skk"
-			  (format "%s" default-input-method))
+      (when (string-match "^japanese-skk" (format "%s" default-input-method))
 	(push 'toggle-input-method commands)))
     (skk-isearch-find-keys-define map commands 'skk-isearch-skk-mode))
 
