@@ -1,3 +1,20 @@
+2010-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cursor.el (skk-cursor-default-color): Defsubst.
+	* skk-hint.el, skk-jisyo-edit-mode.el: Modify coding system to
+	iso-2022-jp.
+	* skk-var.el (skk-emacs-type): Abolish variable.
+	(skk-running-gnu-emacs): New variable.
+
+	* skk-kcode.el, skk-macs.el, skk.el: Use skk-running-gnu-emacs.
+
+	* skk-annotation.el, skk-dcomp.el, skk-lookup.el, skk-macs.el,
+	* skk.el: Remove codes for GNU Emacs 20.
+
+	* skk-study.el, skk.el: No longer use
+	`write-region-as-coding-system' and
+	`insert-file-contents-as-coding-system'.
+
 2010-09-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
