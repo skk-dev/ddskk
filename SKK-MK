@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.169 2010/09/09 19:52:07 skk-cvs Exp $
-;; Last Modified: $Date: 2010/09/09 19:52:07 $
+;; Version: $Id: SKK-MK,v 1.170 2010/09/09 20:21:31 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/09 20:21:31 $
 
 ;;; Commentary:
 
@@ -80,7 +80,7 @@ This version of SKK requires MULE features"))
 	 (setq EMACS_SELF_CONTAINED t)
 	 (expand-file-name ".." exec-directory))
 	((eq system-type 'darwin)
-	 ;; Mac OS X (Carbon emacs または Cocoa Emacs)
+	 ;; Mac OS X (Carbon emacs, Cocoa Emacs または OS 付属の Emacs)
 	 ;; Mac で Emacs を build する場合は自己完結型かどうかを選べる。
 	 ;; ユーザが自己完結型を使っているかどうか調べる。
 	 (let ((dir (expand-file-name ".." data-directory)))
