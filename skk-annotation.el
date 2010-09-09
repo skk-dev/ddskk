@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.159 2010/08/27 10:42:17 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.160 2010/09/09 14:21:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/08/27 10:42:17 $
+;; Last Modified: $Date: 2010/09/09 14:21:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -120,9 +120,7 @@
 ;; の項目から探し，見つかった場合は、内容の抜粋をアノテーションとして表示
 ;; します。この機能は Emacs 22 でテストされています。XEmacs 21.5 では以下
 ;; の 1 と 2 を導入する必要があります。XEmacs 21.4 では更に 3 も必要です。
-;; Emacs 21.4 でも 1, 2, 3 が必要となります。Emacs 20.7 での動作はサポート
-;; しませんが、MULE 4.1 パッチを当てていれば Emacs 21 と同様に動作する可能
-;; 性があります。
+;; Emacs 21.4 でも 1, 2, 3 が必要となります。
 ;;
 ;; 1. html2text.el
 ;;
@@ -227,11 +225,7 @@
 
   (defvar mule-version)
   (defvar html2text-remove-tag-list)
-  (defvar html2text-format-tag-list)
-
-  (when (and (string-match "^GNU" (emacs-version))
-	     (= emacs-major-version 20))
-    (defalias 'skk-tooltip-show-at-point 'ignore)))
+  (defvar html2text-format-tag-list))
 
 (static-when (featurep 'xemacs)
   (require 'skk-xemacs))
@@ -360,11 +354,10 @@
 				 (key-description
 				  skk-annotation-wikipedia-key))))
 		  (quit
-		   (static-when
-		       (and (featurep 'xemacs)
-			    (= emacs-major-version 21)
-			    (<= emacs-minor-version 4))
-		     ;; workaround
+		   (static-when (and (featurep 'xemacs)
+				     (= emacs-major-version 21)
+				     (= emacs-minor-version 4))
+		     ;; workaround for XEmacs 21.4
 		     (keyboard-quit)))))
       (cond ((eq command copy-command)
 	     (setq list (delq copy-command list))
@@ -1547,16 +1540,13 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 
 (defun skk-annotation-url-package-available-p ()
   (when (eq skk-annotation-url-package-available-p 'untested)
-    ;; Emacs 22 以降以外で URL パッケージをテストする
+    ;; GNU Emacs 22 以降以外で URL パッケージをテストする
     (cond
-     ((or (and (eq skk-emacs-type 'mule4)
-	       (string-lessp mule-version "4.1"))
-	  (and (not (and (featurep 'xemacs)
-			 (string< "21.5" emacs-version)))
-	       (not (ignore-errors
-		      (require 'un-define)))))
-      ;; Emacs 20.7 (MULE 4.0) ではサポートしない
-      ;; Emacs 20.7 (MULE 4.1) は排除しないでおく
+     ((and (featurep 'xemacs)
+	   (= emacs-major-version 21)
+	   (= emacs-minor-version 4)
+	   (not (featurep 'un-define)))
+      ;; XEmacs 21.4 で Mule-UCS もない場合
       (setq skk-annotation-url-package-available-p nil))
      (t
       ;; Emacs 21 と XEmacs

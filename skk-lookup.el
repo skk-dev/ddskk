@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.30 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-lookup.el,v 1.31 2010/09/09 14:22:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/09/09 14:22:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -121,10 +121,6 @@
 
 (require 'poe)
 (require 'lookup)
-
-(static-when (memq skk-emacs-type '(mule4))
-  (when lookup-use-bitmap
-    (require 'bitmap)))
 
 (eval-and-compile
   (autoload 'lookup-vse-search-query "lookup-vse"))
