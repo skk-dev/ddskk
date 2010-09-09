@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.145 2010/09/03 20:40:45 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.146 2010/09/09 14:23:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/03 20:40:45 $
+;; Last Modified: $Date: 2010/09/09 14:23:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -43,7 +43,8 @@
 
 ;;;; macros
 
-(put 'ignore-errors 'defmacro-maybe (not (featurep 'xemacs)))
+(put 'ignore-errors 'defmacro-maybe (and skk-running-gnu-emacs
+					 (<= emacs-major-version 22)))
 (defmacro-maybe ignore-errors (&rest body)
   "Execute FORMS; if an error occurs, return nil.
 Otherwise, return result of last FORM."
@@ -51,46 +52,6 @@ Otherwise, return result of last FORM."
        (progn
 	 ,@body)
      (error nil)))
-
-;;;###autoload
-(put 'dolist 'lisp-indent-function 1)
-(put 'dolist 'defmacro-maybe (eq skk-emacs-type 'mule4))
-
-;; From GNU Emacs 21.
-(defmacro-maybe dolist (spec &rest body)
-  "(dolist (VAR LIST [RESULT]) BODY...): loop over a list.
-Evaluate BODY with VAR bound to each car from LIST, in turn.
-Then evaluate RESULT to get return value, default nil."
-  (let ((temp (make-symbol "--dolist-temp--")))
-    (list 'let (list (list temp (nth 1 spec)) (car spec))
-	  (list 'while temp
-		(list 'setq (car spec) (list 'car temp))
-		(cons 'progn
-		      (append body
-			      (list (list 'setq temp (list 'cdr temp))))))
-	  (if (cdr (cdr spec))
-	      (cons 'progn
-		    (cons (list 'setq (car spec) nil) (cdr (cdr spec))))))))
-
-;;;###autoload
-(put 'dotimes 'lisp-indent-function 1)
-(put 'dotimes 'defmacro-maybe (eq skk-emacs-type 'mule4))
-
-;; From GNU Emacs 21.
-(defmacro-maybe dotimes (spec &rest body)
-  "(dotimes (VAR COUNT [RESULT]) BODY...): loop a certain number of times.
-Evaluate BODY with VAR bound to successive integers running from 0,
-inclusive, to COUNT, exclusive.  Then evaluate RESULT to get
-the return value (nil if RESULT is omitted)."
-  (let ((temp (make-symbol "--dotimes-temp--")))
-    (list 'let (list (list temp (nth 1 spec)) (list (car spec) 0))
-	   (list 'while (list '< (car spec) temp)
-		 (cons 'progn
-		       (append body (list (list 'setq (car spec)
-						(list '1+ (car spec)))))))
-	   (if (cdr (cdr spec))
-	       (car (cdr (cdr spec)))
-	     nil))))
 
 (defmacro skk-defadvice (function &rest everything-else)
   "Defines a piece of advice for FUNCTION (a symbol).
@@ -362,17 +323,16 @@ If PROMPT is non-nil, it should be a string and will be displayed in
 the echo area while this function is waiting for an event."
   (read-event prompt))
 
-;; For GNU Emacs 20.7.
-(defalias-maybe 'plist-member 'widget-plist-member)
-
 (defsubst skk-sit-for (seconds &optional nodisplay)
   "`sit-for' の Emacsen による違いを吸収する。"
   (static-cond
    ((featurep 'xemacs)
     (sit-for seconds nodisplay))
-   ((< emacs-major-version 22)
+   ((= emacs-major-version 21)
+    ;; GNU Emacs 21
     (sit-for seconds nil nodisplay))
    (t
+    ;; GNU Emacs 22.1 or later
     (sit-for seconds nodisplay))))
 
 (defsubst skk-ding (&optional arg sound device)
@@ -394,36 +354,40 @@ the echo area while this function is waiting for an event."
 (defsubst skk-char-to-unibyte-string (char)
   (ignore-errors
     (static-cond
-     ((and (string-match "^GNU" (emacs-version))
+     ((and skk-running-gnu-emacs
 	   (>= emacs-major-version 23))
+      ;; GNU Emacs 23.1 or later
       (string-make-unibyte (char-to-string char)))
      (t
       (char-to-string char)))))
 
 (defsubst skk-ascii-char-p (char)
   (static-cond
-   ((and (string-match "^GNU" (emacs-version))
+   ((and skk-running-gnu-emacs
 	 (>= emacs-major-version 23))
+    ;; GNU Emacs 23.1 or later
     (eq (char-charset char skk-charset-list) 'ascii))
    (t
     (eq (char-charset char) 'ascii))))
 
 (defsubst skk-jisx0208-p (char)
   (static-cond
-   ((and (string-match "^GNU" (emacs-version))
+   ((and skk-running-gnu-emacs
 	 (>= emacs-major-version 23))
+    ;; GNU Emacs 23.1 or later
     (eq (char-charset char skk-charset-list) 'japanese-jisx0208))
    (t
     (eq (char-charset char) 'japanese-jisx0208))))
 
 (defsubst skk-jisx0213-p (char)
   (static-cond
-   ((and (string-match "^GNU" (emacs-version))
-	   (>= emacs-major-version 23))
-       (memq (char-charset char skk-charset-list)
-	     '(japanese-jisx0213.2004-1
-	       japanese-jisx0213-1
-	       japanese-jisx0213-2)))
+   ((and skk-running-gnu-emacs
+	 (>= emacs-major-version 23))
+    ;; GNU Emacs 23.1 or later
+    (memq (char-charset char skk-charset-list)
+	  '(japanese-jisx0213-1
+	    japanese-jisx0213.2004-1
+	    japanese-jisx0213-2)))
    (t
     (and (featurep 'jisx0213)
 	 (memq (char-charset char)
@@ -438,7 +402,7 @@ the echo area while this function is waiting for an event."
 
 (defun skk-split-char (ch)
   (static-cond
-   ((and (string-match "^GNU" (emacs-version))
+   ((and skk-running-gnu-emacs
 	 (>= emacs-major-version 23))
     ;; C の split-char と同様の機能だが、char-charset の呼出しにおいて
     ;; 文字集合の選択肢を skk-charset-list に含まれるものに制限する。
@@ -464,7 +428,6 @@ the echo area while this function is waiting for an event."
    ((featurep 'xemacs)
     (find-charset object))
    (t
-    ;; FSF Emacs 20 or later.
     (charsetp object))))
 
 (defun skk-indicator-to-string (indicator &optional no-properties)
@@ -489,14 +452,12 @@ the echo area while this function is waiting for an event."
    ((featurep 'xemacs)
     (cons (cdr (assq mode skk-xemacs-extent-alist))
 	  string))
-   ((>= emacs-major-version 21)
+   (t
     (if (and window-system
 	     (not (eq mode 'default)))
 	(apply 'propertize string
 	       (cdr (assq mode skk-e21-property-alist)))
-      string))
-   (t
-    string)))
+      string))))
 
 (defsubst skk-local-variable-p (variable &optional buffer afterset)
   "Non-nil if VARIABLE has a local binding in buffer BUFFER.
@@ -511,7 +472,7 @@ BUFFER defaults to the current buffer."
   (static-cond
    ((featurep 'xemacs)
     (face-proportional-p face))
-   ((>= emacs-major-version 21)
+   (t
     (or (face-equal face 'variable-pitch)
 	(eq (face-attribute face :inherit) 'variable-pitch)))))
 
@@ -519,10 +480,6 @@ BUFFER defaults to the current buffer."
   "イベント EVENT を発生した入力の情報を取得する。"
   (static-cond
    ((featurep 'xemacs)
-;    (let ((tmp (event-key event)))
-;      (if (symbolp tmp)
-;	  (vector tmp)
-;	event)))
     (let ((char (event-to-character event t t t)))
       (if (characterp char)
 	  char
@@ -665,9 +622,7 @@ BUFFER defaults to the current buffer."
 		 skk-current-rule-tree nil))))
   (when clean
     (setq skk-prefix ""
-	  skk-current-rule-tree nil)) ; fail safe
-  (static-when (eq skk-emacs-type 'mule4)
-    (redraw-frame (selected-frame))))
+	  skk-current-rule-tree nil))) ; fail safe
 
 (defun skk-kana-cleanup (&optional force)
   (let ((data (cond
@@ -832,9 +787,7 @@ BUFFER defaults to the current buffer."
 				 'skk-prefix-katakana-face)
 				(skk-jisx0201-mode
 				 'skk-prefix-jisx0201-face)))))
-      (overlay-put skk-prefix-overlay 'after-string prefix)
-      (static-when (eq skk-emacs-type 'mule4)
-	(redraw-frame (selected-frame))))))
+      (overlay-put skk-prefix-overlay 'after-string prefix))))
 
 (defsubst skk-string-lessp-in-coding-system (str1 str2 coding-system)
   (string< (encode-coding-string str1 coding-system)
