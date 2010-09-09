@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.50 2010/09/08 12:20:15 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.51 2010/09/09 14:21:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/08 12:20:15 $
+;; Last Modified: $Date: 2010/09/09 14:21:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -373,7 +373,7 @@
 
 (defun skk-display-code (str)
   (let* ((char (string-to-char str))
-	 (charset (static-if (and (not (featurep 'xemacs))
+	 (charset (static-if (and skk-running-gnu-emacs
 				  (>= emacs-major-version 23))
 		      ;; GNU Emacs 23.1 or later
 		      (char-charset char skk-charset-list)
