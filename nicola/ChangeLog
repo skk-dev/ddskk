@@ -1,3 +1,8 @@
+2010-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-menu.el, skk-kanagaki-util.el, skk-nicola.el: Use
+	skk-running-gnu-emacs.
+
 2010-08-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-menu.el, skk-kanagaki-util.el, skk-nicola.el: Do

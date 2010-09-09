@@ -32,6 +32,7 @@
 
 (eval-when-compile
   (require 'cl)
+  (require 'skk-vars)
   (require 'skk-macs)
   (require 'static))
 
@@ -62,7 +63,7 @@
 濁点と半濁点を入力するためのルール。")
 
 (defconst skk-kanagaki-print-help-function
-  (cond ((and (string-match "^GNU" (emacs-version))
+  (cond ((and skk-running-gnu-emacs
 	      (>= emacs-major-version 23))
 	 #'help-print-return-message)
 	(t

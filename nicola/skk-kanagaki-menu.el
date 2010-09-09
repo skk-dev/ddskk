@@ -83,8 +83,7 @@ Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
      map
      '("menu-bar" "SKK")
      skk-kanagaki-menu-items))
-  (static-when (and (string-match "^GNU" (emacs-version))
-		    (>= emacs-major-version 21))
+  (static-when skk-running-gnu-emacs
     (setq skk-e21-menu-resource-ja
 	  (append
 	   skk-e21-menu-resource-ja
