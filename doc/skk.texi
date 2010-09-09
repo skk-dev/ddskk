@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1
 @set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/09/08 20:48:07 $
+@set UPDATED $Date: 2010/09/09 21:10:29 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -609,7 +609,16 @@ DDSKK のクライアント側は特定の辞書サーバの実装に依存していませんので、下
 
 DDSKK 14 では、標準的なインストールの場合は特段の設定なしに Emacs を起動
 するだけで DDSKK が使える状態になります。
-自動的に @file{skk-setup.el} というファイルが読み込まれ、設定されます。
+自動的に @file{skk-setup.el} というファイルが読み込まれ、設定されます
+@footnote{Emacs が起動する過程で @file{SKK_LISPDIR/leim-list.el} が読み込
+まれます。
+
+@file{leim-list.el} は @file{skk-autoloads.el} と @file{skk-setup.el} を @code{require} します。
+
+@file{skk-autoloads.el} はインストール時に自動的に生成されるファイルであ
+り、各関数を自動ロード(autoload)するよう定義しています。
+
+@file{skk-setup.el} はキーバインド（@kbd{C-x C-j} @result{} @code{'skk-mode}）、変数 @code{skk-tut-file} の定義及びインクリメンタル・サーチの定義を行っています。}。
 
 この自動設定によらずに手動で設定したい場合は、以下の説明を参照してください。
 
