@@ -30,7 +30,7 @@
     (autoload 'set-buffer-local-cursor-color "ccc")
     (autoload 'skk-cursor-current-color "skk-cursor")
     (princ (format "PREFIX=%s
-LISPDIR=%s\n" PREFIX LISPDIR))))
+VERSION_SPECIFIC_LISPDIR=%s\n" PREFIX VERSION_SPECIFIC_LISPDIR))))
 
 (defun compile-nicola-ddskk ()
   (condition-case nil (load "bytecomp-runtime.el") (error))
