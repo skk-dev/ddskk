@@ -55,7 +55,7 @@
 	 ;; Meadow, NTEmacs
 	 (setq emacs-self-containd t)
 	 (expand-file-name ".." exec-directory))
-	((eq system-type darwin)
+	((eq system-type 'darwin)
 	 ;; Carbon Emacs or Cocoa Emacs (or system-default Emacs)
 	 (let ((dir (expand-file-name ".." data-directory)))
 	   (if (string-match "/Emacs\\.app/Contents/Resources/?$" dir)
