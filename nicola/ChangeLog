@@ -1,5 +1,6 @@
 2010-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* NICOLA-DDSKK-CFG: Check if Emacs is self-contained.
 	* skk-kanagaki-menu.el, skk-kanagaki-util.el, skk-nicola.el: Use
 	skk-running-gnu-emacs.
 
