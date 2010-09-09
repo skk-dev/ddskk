@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.313 2010/09/09 14:14:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.314 2010/09/09 15:31:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/09 14:14:35 $
+;; Last Modified: $Date: 2010/09/09 15:31:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -44,7 +44,7 @@
 (eval-and-compile
   ;; XEmacs の識別は (featurep 'xemacs) を用いる。GNU Emacs については
   ;; Emacs 21 が `emacs' feature を provide しないので以下を用いる。
-  ;; Emacs 21 対応終了語は (featurep 'emacs) がよいと思われる。
+  ;; Emacs 21 サポート終了後は (featurep 'emacs) がよいと思われる。
   (defconst skk-running-gnu-emacs (or (featurep 'emacs)
 				      (string-match "^GNU" (emacs-version))))
   (require 'poem))
