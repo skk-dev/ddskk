@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.55 2010/08/24 11:37:41 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.56 2010/09/09 14:26:15 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2010/08/24 11:37:41 $
+;; Last Modified: $Date: 2010/09/09 14:26:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -82,11 +82,6 @@
 (require 'skk-macs)
 (require 'skk-vars)
 (require 'ring)
-
-(defun-maybe ring-elements (ring)
-  "Return a list of the elements of RING."
-  ;; ring.el of Emacs 20 does not have ring-elements.
-  (mapcar #'identity (cddr ring)))
 
 ;;;; inline functions.
 (defsubst skk-study-get-last-henkan-data (index)
@@ -239,9 +234,9 @@
 			  (function (lambda (a b)
 				      (skk-string< (car a) (car b)))))))
 	(skk-study-prin1 skk-study-alist (current-buffer))
-	(write-region-as-coding-system
-	 (skk-find-coding-system skk-jisyo-code)
-	 (point-min) (point-max) skk-study-file))
+	(let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code))
+	      jka-compr-compression-info-list)
+	  (write-region (point-min) (point-max) skk-study-file)))
       (setq skk-study-last-save (current-time))
       (when (not nomsg)
 	(skk-message "%s に SKK の学習結果をセーブしています...完了！"
@@ -287,8 +282,9 @@
     (let ((version-string
 	   (format ";;; skk-study-file format version %s\n"
 		   skk-study-file-format-version)))
-      (insert-file-contents-as-coding-system
-       (skk-find-coding-system skk-jisyo-code) file)
+      (let ((coding-system-for-read (skk-find-coding-system skk-jisyo-code))
+	    format-alist)
+	(insert-file-contents file))
       (when (= (buffer-size) 0)
 	;; bare alist
 	(insert version-string "((okuri-ari) (okuri-nasi))"))
