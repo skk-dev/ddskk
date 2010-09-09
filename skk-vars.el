@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.312 2010/08/27 10:42:18 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.313 2010/09/09 14:14:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/27 10:42:18 $
+;; Last Modified: $Date: 2010/09/09 14:14:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -42,17 +42,11 @@
   (require 'static))
 
 (eval-and-compile
-  (defconst skk-emacs-type
-    (cond
-     ((featurep 'xemacs)
-      'xemacs)
-     ((string< "6.0" mule-version)
-      'mule6)
-     ((string< "5.0" mule-version)
-      'mule5)
-     ((string< "4.0" mule-version)
-      'mule4)))
-  ;;
+  ;; XEmacs $B$N<1JL$O(B (featurep 'xemacs) $B$rMQ$$$k!#(BGNU Emacs $B$K$D$$$F$O(B
+  ;; Emacs 21 $B$,(B `emacs' feature $B$r(B provide $B$7$J$$$N$G0J2<$rMQ$$$k!#(B
+  ;; Emacs 21 $BBP1~=*N;8l$O(B (featurep 'emacs) $B$,$h$$$H;W$o$l$k!#(B
+  (defconst skk-running-gnu-emacs (or (featurep 'emacs)
+				      (string-match "^GNU" (emacs-version))))
   (require 'poem))
 
 ;;;###autoload
@@ -67,6 +61,7 @@
 	`(progn
 	   (defvar ,symbol ,initvalue)
 	   (make-variable-buffer-local ',symbol)))
+    ;; GNU Emacs 21
     `(progn
        (defvar ,symbol ,initvalue
 	 ,(format "%s
@@ -378,8 +373,8 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#
   "*$B8D?M<-=q$N8!:w$N8e$K8!:w$9$k<-=q!#(B
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
 Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
-  :type (if (and (not (featurep 'xemacs))
-		 (< emacs-major-version 22))
+  :type (if (and skk-running-gnu-emacs
+		 (= emacs-major-version 21))
 	    '(radio (file :tag "$B<-=q%U%!%$%kL>(B")
 		    (const :tag "$B;XDj$7$J$$(B" nil))
 	  `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
@@ -402,8 +397,8 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
 Non-nil $B$G$"$l$P!"<-=q%5!<%P!<$,(B active $B$G$J$$;~$K!"(B
 $B;XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
-  :type (if (and (not (featurep 'xemacs))
-		 (< emacs-major-version 22))
+  :type (if (and skk-running-gnu-emacs
+		 (= emacs-major-version 21))
 	    '(radio (file :tag "$B<-=q%U%!%$%kL>(B")
 		    (const :tag "$B;XDj$7$J$$(B" nil))
 	  `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
@@ -1284,7 +1279,7 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
 (defcustom skk-show-inline nil
   "*Non-nil $B$G$"$l$P!"JQ498uJd$r%$%s%i%$%s$GI=<($9$k!#(B
 $BCM$,(B `vertical' $B$G$"$l$P3F8uJd$r=D$K%$%s%i%$%sI=<($9$k!#(B
-$B$3$l$O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BEmacs 20 $B$H(B XEmacs $B$G$OF0:n$7$J$$!#(B"
+$B$3$l$O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BXEmacs $B$G$OF0:n$7$J$$!#(B"
   :type '(radio (const :tag "$BM-8z(B" t)
 		(const :tag "$BM-8z(B ($B=DI=<((B)" vertical)
 		(const :tag "$BL58z(B" nil))
@@ -2688,7 +2683,7 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
   "annotation $B$rIU$1$i$l$k8uJd$K4X$9$k%G!<%?!#(B")
 
 (defvar skk-annotation-url-package-available-p
-  (if (and (not (featurep 'xemacs))
+  (if (and skk-running-gnu-emacs
 	   (>= emacs-major-version 22))
       t
     'untested))
@@ -2871,8 +2866,8 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
   "*$B8D?M<-=q$N8!:w$N8e$K8!:w$9$k(B CDB $B7A<0<-=q%U%!%$%kL>!#(B
 Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!"(B
 $B9bB.$G8!:w$r9T$&!#(B"
-  :type (if (and (not (featurep 'xemacs))
-		 (< emacs-major-version 22))
+  :type (if (and skk-running-gnu-emacs
+		 (= emacs-major-version 21))
 	    '(radio (file :tag "$B<-=q%U%!%$%kL>(B")
 		    (const :tag "$B;XDj$7$J$$(B" nil))
 	  `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
@@ -3277,7 +3272,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
 (defcustom skk-dcomp-multiple-activate nil
   "*Non-nil $B$G$"$l$PF0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B
 $B$3$NJQ?t$NCM$,4X?t$@$C$?>l9g!"$=$NI>2A7k2L$,(B non-nil $B$N;~$@$1Jd40$9$k!#(B
-$B$3$l$O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BEmacs 20 $B$H(B XEmacs $B$G$OF0:n$7$J$$!#(B"
+$B$3$l$O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BXEmacs $B$G$OF0:n$7$J$$!#(B"
   :type '(radio (const :tag "always on" t)
 		(const :tag "off" nil)
 		(sexp :tag "$BG$0U$N%k!<%k(B"))
@@ -4573,7 +4568,6 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
 (defcustom skk-show-tooltip nil
   "*Non-nil $B$G$"$l$P!"%(%3!<%(%j%"$NBe$o$j$K(B tooltip $B$G8uJd$J$I$rI=<($9$k!#(B
 $B$3$N5!G=$O(B GNU Emacs 21 $B0J>e$H(B XEmacs 21.5 $B0J>e$GF0:n$9$k!#(B
-GNU Emacs 20.7 $B$G$O5!G=$;$:!";XDj$9$k$H%(%i!<$K$J$k!#(B
 XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!#(B"
   :type 'boolean
   :group 'skk-basic
@@ -4621,10 +4615,10 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 (defcustom skk-tooltip-mouse-behavior
   (cond ((featurep 'xemacs)
 	 'banish)
-	((<= emacs-major-version 21)
+	((= emacs-major-version 21)
 	 'follow)
 	(t
-	 ;; FSF Emacs 22 $B0J>e(B
+	 ;; GNU Emacs 22 $B0J>e(B
 	 'banish))
   "*Tooltip $B$rI=<($9$k>l9g$N!"%^%&%9%]%$%s%?$N5sF0!#(B
 `follow' $B$J$i$P(B  tip $B$N0LCV$K0\F0$9$k!#(B
