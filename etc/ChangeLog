@@ -1,3 +1,7 @@
+2010-09-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.emacs: Add skk-startup-screen.
+
 2010-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK.tut: Fix typo.

@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.38 2010/09/06 18:41:35 skk-cvs Exp $
+;; Version: $Id: skk-version.el,v 1.39 2010/09/10 14:02:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/06 18:41:35 $
+;; Last Modified: $Date: 2010/09/10 14:02:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -49,6 +49,42 @@ the codename."
 	      (get 'skk-version 'product-name)
 	      (get 'skk-version 'version-string)
 	      (get 'skk-version 'codename)))))
+
+;;; 
+(defun skk-startup-screen-message ()
+  ""
+  (insert "\n"
+	  (format "%s is available for use. move to the `KANA mode' typing %s"
+		  (skk-version)
+		  (mapconcat '(lambda (x)
+				(format "`%s'"
+					(mapconcat 'key-description
+						   (list x)
+						   "")))
+			     (where-is-internal 'skk-mode)
+			     " or "))))
+
+;;;###autoload
+(defun skk-startup-screen ()
+  ;; ~/.emacs に (skk-startup-screen) と追記してください。
+  ;; TODO
+  ;;  1) skk-setup.el(.in) への組み込みも試しましたが、
+  ;;     cannot open load file: advice とエラーが発生して
+  ;;     emacs が起動すらしませんでした。
+  ;;  2) GNU Emacs 23 でのみテストしています。
+  "Emacs 起動時の startup screen に skk のバージョンを追加表示する。"
+  (if (fboundp 'skk-mode)
+      (progn
+	;; for GUI
+	(defadvice fancy-startup-tail (after insert-skk-version activate)
+	  "docstring."
+	  (skk-startup-screen-message))
+	;; for TTY
+	(defadvice normal-mouse-startup-screen (after insert-skk-version activate)
+	  "docstring."
+	  (skk-startup-screen-message)))))
+
+;;;
 
 (provide 'skk-version)
 

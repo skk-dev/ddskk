@@ -1,5 +1,8 @@
 2010-09-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-version.el (skk-startup-screen): Add new function.
+	insert skk-version on emacs startup screen.
+
 	* doc/skk.texi: Update.
 
 2010-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>

@@ -71,4 +71,7 @@
 ;; 準備する。Emacs の起動は遅くなるが，SKK を使い始めるときのレスポンス
 ;; が軽快になる。
 
+;; startup-screen に skk-version を追加表示します。
+(skk-startup-screen)
+
 ;;; dot.emacs ends here
