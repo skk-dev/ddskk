@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.314 2010/09/09 15:31:55 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.315 2010/09/10 14:44:44 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/09 15:31:55 $
+;; Last Modified: $Date: 2010/09/10 14:44:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -29,25 +29,28 @@
 
 ;;; Code:
 
-;; APEL
-(require 'path-util) ; for exec-installed-p.
-
 (eval-when-compile
   ;; shut down compiler warnings.
+  (defvar charset-list)
   (defvar word-across-newline)
   (defvar emacs-beta-version)
   (defvar mule-version)
   (defalias-maybe 'frame-property 'ignore)
-  (defalias-maybe 'locate-data-file 'ignore)
-  (require 'static))
+  (defalias-maybe 'locate-data-file 'ignore))
 
 (eval-and-compile
   ;; XEmacs $B$N<1JL$O(B (featurep 'xemacs) $B$rMQ$$$k!#(BGNU Emacs $B$K$D$$$F$O(B
   ;; Emacs 21 $B$,(B `emacs' feature $B$r(B provide $B$7$J$$$N$G0J2<$rMQ$$$k!#(B
   ;; Emacs 21 $B%5%]!<%H=*N;8e$O(B (featurep 'emacs) $B$,$h$$$H;W$o$l$k!#(B
   (defconst skk-running-gnu-emacs (or (featurep 'emacs)
-				      (string-match "^GNU" (emacs-version))))
-  (require 'poem))
+				      (string-match "^GNU" (emacs-version)))))
+
+;; Functions needed prior to loading skk-macs.el.
+(when (eval-when-compile skk-running-gnu-emacs)
+  (defsubst find-coding-system (obj)
+    "Return OBJ if it is a coding-system."
+    (if (coding-system-p obj)
+	obj)))
 
 ;;;###autoload
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
@@ -235,7 +238,7 @@ Automatically becomes buffer-local when set in any fashion."
 (defcustom skk-background-mode
   ;; from font-lock-make-faces of font-lock.el  Welcome!
   (or frame-background-mode
-      (static-cond
+      (cond
        ((featurep 'xemacs)
 	(if (< (apply '+ (color-rgb-components
 			  (face-property 'default 'background)))
@@ -1953,7 +1956,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 
 ;;; -- Internal constants and variables of skk.el
 (defconst skk-coding-system-alist
-  (cond ((and (string-match "^GNU" (emacs-version))
+  (cond ((and skk-running-gnu-emacs
 	      (>= emacs-major-version 23))
 	 '(("euc" . euc-jis-2004)
 	   ("ujis" . euc-jis-2004)
@@ -3510,19 +3513,15 @@ ALIAS can be used as an alias of CANONICAL.
 CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
 
 (defconst skk-isearch-breakable-character-p-function
-  (static-cond
-   ((fboundp 'char-category-set)
-    #'(lambda (char)
-	;; see emacs/lisp/fill.el how the category `|' is
-	;; treated.
-	(aref (char-category-set char) ?|)))
-   ((boundp 'word-across-newline)
-    #'(lambda (char)
-	(string-match word-across-newline
-		      (char-to-string char))))
-   (t
-    (error "No appropriate function as: %s"
-	   'skk-isearch-breakable-character-p-function)))
+  (cond ((eval-when-compile skk-running-gnu-emacs)
+	 #'(lambda (char)
+	     ;; see emacs/lisp/fill.el how the category `|' is
+	     ;; treated.
+	     (aref (char-category-set char) ?|)))
+	(t
+	 #'(lambda (char)
+	     (string-match word-across-newline
+			   (char-to-string char)))))
   "Function to test if we can insert a newline around CHAR when filling.")
 
 (defconst skk-isearch-working-buffer " *skk-isearch*"
@@ -3605,12 +3604,12 @@ JISX0213 $B$r07$($J$$$H$-$O$3$NCM$OF0:n$K1F6A$7$J$$!#(B"
   :group 'skk-jisx0213)
 
 ;;; skk-kakasi.el related.
-(defcustom skk-use-kakasi (exec-installed-p "kakasi")
+(defcustom skk-use-kakasi (if (executable-find "kakasi") t nil)
   "*Non-nil $B$G$"$l$P(B KAKASI $B$r;H$C$?JQ49$r9T$&!#(B"
   :type 'boolean
   :group 'skk-kakasi)
 
-(defcustom skk-kakasi-command (exec-installed-p "kakasi")
+(defcustom skk-kakasi-command (executable-find "kakasi")
   "*KAKASI $B%3%^%s%IK\BN!#(B"
   :type 'file
   :group 'skk-kakasi)
@@ -3699,8 +3698,8 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
 (defconst skk-kcode-charset-list
   (mapcar #'(lambda (x)
 	      (list (symbol-name x)))
-	  (static-if (and (string-match "^GNU" (emacs-version))
-			  (>= emacs-major-version 21))
+	  (if (eval-when-compile
+		(and skk-running-gnu-emacs (>= emacs-major-version 21)))
 	      charset-list
 	    (charset-list))))
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
@@ -3735,9 +3734,9 @@ SKK abbrev $B%b!<%I$G!"!V1QJ8;z(B + $B%"%9%?%j%9%/!W$K$FJQ49$r9T$&$H!"(Blook
   :group 'skk-basic
   :group 'skk-look)
 
-(defcustom skk-look-command (exec-installed-p "look")
+(defcustom skk-look-command (executable-find "look")
   "*UNIX look $B%3%^%s%I$NL>A0!#(B"
-  :type `(file :tag "$B%U%!%$%kL>(B" ,(or (exec-installed-p "look") ""))
+  :type `(file :tag "$B%U%!%$%kL>(B" ,(or (executable-find "look") ""))
   :group 'skk-look)
 
 (defcustom skk-look-conversion-arguments
@@ -4560,7 +4559,7 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
 
 (put 'annotation 'char-table-extra-slots 0)
 (defvar skk-tankan-annotation-table
-  (make-char-table (static-if (featurep 'xemacs)
+  (make-char-table (if (featurep 'xemacs)
 		       'generic
 		     'annotation)))
 
