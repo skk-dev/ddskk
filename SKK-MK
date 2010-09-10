@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.170 2010/09/09 20:21:31 skk-cvs Exp $
-;; Last Modified: $Date: 2010/09/09 20:21:31 $
+;; Version: $Id: SKK-MK,v 1.171 2010/09/10 14:14:27 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/10 14:14:27 $
 
 ;;; Commentary:
 
@@ -32,8 +32,13 @@ Try ddskk-e18 branch"))
 
 (when (string-lessp emacs-version "20.3")
   (error "%s" "\
-Emacs 20.2 or older is not supported by this version of SKK.
+Emacs 20.2 and Mule 2.3 (Emacs 19) is not supported by this version of SKK.
 Please install Daredevil SKK 11.6.0"))
+
+(when (string-lessp emacs-version "21.0")
+  (error "%s" "\
+Emacs 20.7 is not supported by this version of SKK.
+Please install Daredevil SKK 13.1 or 14.1"))
 
 (unless (featurep 'mule)
   (error "%s" "\
@@ -151,7 +156,6 @@ This version of SKK requires MULE features"))
   (princ (format "load-path=%s\n" load-path)))
 
 ;; After determining APEL installed dirctory.
-(require 'poem)
 
 (condition-case nil
     (require 'product)
@@ -265,7 +269,9 @@ This version of SKK requires MULE features"))
       (when (string< "5.0" mule-version)
 	(add-to-list 'list 'skk-e21))))
     ;; skk-jisx0213.el
-    (when (or (find-coding-system 'euc-jisx0213)
+    (when (or (coding-system-p 'euc-jisx0213)
+	      (and (fboundp 'find-coding-system)
+		   (find-coding-system 'euc-jisx0213))
 	      (condition-case nil
 		  (and (require 'jisx0213)
 		       (require 'un-define))
@@ -907,10 +913,8 @@ SKK tutorials:
       (insert "(provide 'skk-autoloads)
 ;;; skk-autoloads.el ends here
 ")
-      (write-region-as-coding-system
-       'iso-2022-jp
-       (point-min) (point-max)
-       "skk-autoloads.el" nil 'quiet)
+      (let ((coding-system-for-write 'iso-2022-jp))
+	(write-region (point-min) (point-max) "skk-autoloads.el" nil 'quiet))
       (kill-buffer buf))))
 
 (defun SKK-MK-generate-autoloads-el-package ()
@@ -934,10 +938,8 @@ SKK tutorials:
 	(goto-char (point-max))
 	(unless (bolp)
 	  (insert "\n"))
-	(write-region-as-coding-system 'iso-2022-jp
-				       (point-min)
-				       (point-max)
-				       generated-autoload-file)))
+	(let ((coding-system-for-write 'iso-2022-jp))
+	  (write-region (point-min) (point-max) generated-autoload-file))))
     (add-to-list 'command-line-args-left ".")
     (Custom-make-dependencies)))
 
@@ -972,9 +974,8 @@ SKK tutorials:
      ((not jisyo)
       (copy-file "skk-dic.el.in" "skk-dic.el" t t))
      ((and (file-exists-p skk-dic)
-	   (file-newer-than-file-p
-	    skk-dic
-	    (expand-file-name "skk-dic.el.in")))
+	   (file-newer-than-file-p skk-dic
+				   (expand-file-name "skk-dic.el.in")))
       (princ (format "%s is up-to-date
 "
 		     skk-dic))
@@ -985,7 +986,8 @@ SKK tutorials:
 		     jisyo))
       (with-current-buffer buf
 	(erase-buffer)
-	(insert-file-contents-as-coding-system 'euc-jp jisyo)
+	(let ((coding-system-for-read 'euc-jp))
+	  (insert-file-contents jisyo))
 	(goto-char (point-min))
 	(while (not (looking-at "^;; okuri-ari entries\\.$"))
 	  (next-line 1))
@@ -998,9 +1000,8 @@ SKK tutorials:
 	  (replace-match "\\\\\"")))
       (with-temp-buffer
 	(erase-buffer)
-	(insert-file-contents-as-coding-system
-	 'iso-2022-jp
-	 (expand-file-name "skk-dic.el.in"))
+	(let ((coding-system-for-read 'iso-2022-jp))
+	  (insert-file-contents (expand-file-name "skk-dic.el.in")))
 	(goto-char (point-min))
 	(while (not (looking-at "^\")$"))
 	  (next-line 1))
