@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.513 2010/09/09 19:40:29 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.514 2010/09/10 14:46:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/09 19:40:29 $
+;; Last Modified: $Date: 2010/09/10 14:46:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,6 +52,7 @@
 (eval-when-compile ; shut up compiler warning.
   (defvar enable-character-translation)
   (defvar epoch::version)
+  (defvar jka-compr-compression-info-list)
   (defvar message-log-max)
   (defvar migemo-isearch-enable-p)
   (defvar minibuffer-local-ns-map)
@@ -66,10 +67,6 @@
 ;; $B%s%H$r;2>H!#(B
 (eval-when-compile
   (require 'static))
-(require 'poe)
-(require 'poem) ; requires pces.
-(require 'pces)
-(require 'alist)
 
 (eval-when-compile
   (require 'cl))
@@ -99,11 +96,9 @@
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
 
-(when (or (and (string-match "^GNU" (emacs-version))
-	       (= emacs-major-version 20))
-	  (and (featurep 'xemacs)
-	       (= emacs-major-version 21)
-	       (<= emacs-minor-version 4)))
+(when (and (featurep 'xemacs)
+	   (= emacs-major-version 21)
+	   (<= emacs-minor-version 4))
   (defalias 'skk-tooltip-show-at-point 'ignore)
   (defalias 'skk-tooltip-hide 'ignore))
 
@@ -335,10 +330,10 @@ dependent."
 	(skk-use-kana-keyboard
 	 ;; $B2>L>F~NO(B ($BF|K\8l5l(B JIS $B$^$?$O?F;X%7%U%H(B)
 	 (skk-kanagaki-initialize)))
-  (static-when (and (string-match "^GNU" (emacs-version))
+  (static-when (and skk-running-gnu-emacs
 		    (>= emacs-major-version 21))
     (skk-e21-prepare-menu))
-  (static-when (and (string-match "^GNU" (emacs-version))
+  (static-when (and skk-running-gnu-emacs
 		    (>= emacs-major-version 23))
     (skk-setup-charset-list))
   (skk-setup-delete-selection-mode)
@@ -394,7 +389,7 @@ dependent."
 	'skk-insert)
       ;; Workaround for key translation.
       (static-unless (featurep 'xemacs)
-	(when (eq (char-int skk-try-completion-char) 9)
+	(when (eq skk-try-completion-char 9)
 	  ;; tab $B%-!<$O(B <tab> $B$NDj5A$,L5$1$l$P(B TAB $B$NDj5A$,3d$jEv$F$i$l$k!#(B
 	  ;; Org-mode $B$J$I$O(B <tab> $B$rDj5A$9$k$N$G!$(BSKK $B$NJ}$G$b(B <tab> $B$rDj5A(B
 	  ;; $B$9$kI,MW$,$"$k!#(B
@@ -489,10 +484,8 @@ dependent."
   "$B%-!<%^%C%W(B `skk-j-mode-map' $B$rDj5A$9$k!#(B"
   (unless (keymapp skk-j-mode-map)
     (setq skk-j-mode-map (make-sparse-keymap))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-j-mode skk-j-mode-map)
-	   (cons 'skk-jisx0201-mode skk-j-mode-map))))
+    (skk-update-minor-mode-map-alist 'skk-j-mode skk-j-mode-map)
+    (skk-update-minor-mode-map-alist 'skk-jisx0201-mode skk-j-mode-map))
   (unless (eq (lookup-key skk-j-mode-map "a")
 	      'skk-insert)
     (let ((i 32))
@@ -505,18 +498,15 @@ dependent."
   "$B%-!<%^%C%W(B `skk-latin-mode-map' $B$rDj5A$9$k!#(B"
   (unless (keymapp skk-latin-mode-map)
     (setq skk-latin-mode-map (make-sparse-keymap))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-latin-mode skk-latin-mode-map)))
+    (skk-update-minor-mode-map-alist 'skk-latin-mode skk-latin-mode-map)
     (skk-define-menu skk-latin-mode-map)))
 
 (defun skk-define-jisx0208-latin-mode-map ()
   "$B%-!<%^%C%W(B `skk-jisx0208-latin-mode-map' $B$rDj5A$9$k!#(B"
   (unless (keymapp skk-jisx0208-latin-mode-map)
     (setq skk-jisx0208-latin-mode-map (make-sparse-keymap))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map))))
+    (skk-update-minor-mode-map-alist 'skk-jisx0208-latin-mode
+				     skk-jisx0208-latin-mode-map))
   (unless (eq (lookup-key skk-jisx0208-latin-mode-map "a")
 	      'skk-jisx0208-latin-insert)
     (let ((i 0))
@@ -532,9 +522,7 @@ dependent."
   "$B%-!<%^%C%W(B `skk-abbrev-mode-map' $B$rDj5A$9$k!#(B"
   (unless (keymapp skk-abbrev-mode-map)
     (setq skk-abbrev-mode-map (make-sparse-keymap))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-abbrev-mode skk-abbrev-mode-map)))
+    (skk-update-minor-mode-map-alist 'skk-abbrev-mode skk-abbrev-mode-map)
     (let ((i 32))
       (while (< i 127)
 	(define-key skk-abbrev-mode-map (skk-char-to-unibyte-string i)
@@ -781,7 +769,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	;; skk-auto-paren-string-alist $B$NCf$+$i!"(B
 	;; skk-special-midashi-char-list $B$NMWAG$K(B
 	;; $B4XO"$9$k$b$N$r<h$j=|$/!#(B
-	(remove-alist 'skk-auto-paren-string-alist (car strlst))
+	(skk-remove-alist 'skk-auto-paren-string-alist (car strlst))
 	(setq strlst (cdr strlst)))
       (when (memq t (mapcar
 		     #'(lambda (e)
@@ -3674,7 +3662,8 @@ Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
 $BAw$j$J$7%(%s%H%j$N%X%C%@!<$,$"$j$^$;$s(B $B!*(B SKK $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
 	 "\
 Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
-    (let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code)))
+    (let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code))
+	  jka-compr-compression-info-list)
       (write-region 1 (point-max) file nil 'nomsg))))
 
 (defun skk-check-size-and-do-save-jisyo (new-file)
@@ -4674,7 +4663,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 (defun skk-search-romaji (&optional jisx0208)
   "$BJQ49%-!<$r%m!<%^;z$KJQ49$7$?8uJd$rJV$9!#(B"
   (when (and (not skk-henkan-okurigana)
-	     (exec-installed-p "kakasi"))
+	     (executable-find "kakasi"))
     (let ((key skk-henkan-key)
 	  words chars)
       (with-temp-buffer
@@ -4720,7 +4709,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 (defun skk-search-function-usage ()
   "Emacs Lisp $B4X?t$N(B usage $B$rJV$9!#(B"
-  (static-when (and (string-match "^GNU" (emacs-version))
+  (static-when (and skk-running-gnu-emacs
 		    (>= emacs-major-version 22))
     (unless skk-henkan-okurigana
       (let* ((symbol (intern (format "%s" skk-henkan-key)))
@@ -5307,7 +5296,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 			       string))
 	   ((and (facep orig-face) (not (face-background orig-face)))
 	    (static-cond
-	     ((and (string-match "^GNU" (emacs-version))
+	     ((and skk-running-gnu-emacs
 		   (= emacs-major-version 21))
 	      ;; Emacs 21 $B$G(B :inherit $B$,$&$^$/7Q>5$5$l$J$$!)(B
 	      ;; workaround

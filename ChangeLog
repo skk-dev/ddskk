@@ -1,3 +1,39 @@
+2010-09-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK: Do not require poem here.  No longer use
+	`write-region-as-coding-system' and
+	`insert-file-contents-as-coding-system'.
+	* ccc.el: Temporarily disable loading poe here.
+	* skk-act.el, skk-azik.el: Use `skk-put-alist' and `skk-del-alist'
+	instead of `put-alist' and `del-alist'.
+	* skk-annotation.el, skk-isearch.el, skk-jisyo-edit-mode.el: Do not require static.el. Use `eval-when-compile' instead.
+	* skk-cus.el (custom-quote): Remove definition.
+	* skk-lookup.el: static.el is not used. Do not require it.
+	* skk-macs.el: Do not require static.el.  Do not use
+	`defun-maybe', `defmacro-maybe'.  Use `eval-when-compile' instead.
+	(string-to-char-list, string-to-int-list, character-to-event)
+	(event-to-character, cancel-undo-boundary, skk-put-alist)
+	(skk-del-alist, skk-remove-alist): Define here.
+	(skk-update-minor-mode-map-alist): New function.
+	* skk-num.el (skk-num-initialize): Use `skk-put-alist' instead of
+	`put-alist'.
+	* skk-server.el (skk-open-network-stream): Use
+	skk-running-gnu-emacs.
+	* skk-study.el: Temporarily disable loading pym here.
+
+	* skk-tut.el (skktut-enable-tutmap, skktut-disable-tutmap):
+	* skk-viper.el (skk-viper-normalize-map): Use
+	`skk-update-minor-mode-map-alist' instead of `set-modified-alist'.
+
+	* skk-vars.el: Do not use static.el.  Use `eval-when-compile'
+	instead (if needed).  Also do not use `exec-installed-p' in
+	path-util.el.  Use `executable-find' instead.
+	* skk-xemacs.el: Do not require poe. Require overlay.
+	* skk.el: Temporarily disable loading poe, poem, pces, and alist.
+	Use `skk-update-minor-mode-map-alist' instead of
+	`set-modified-alist'.  Use `executable-find' instead of
+	`exec-installed-p'.  Use skk-running-gnu-emacs.
+
 2010-09-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-version.el (skk-startup-screen): Add new function.
