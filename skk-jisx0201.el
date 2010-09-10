@@ -4,10 +4,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.57 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.58 2010/09/10 15:47:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2010/09/10 15:47:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -65,8 +65,7 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'static))
+  (require 'skk-vars))
 
 (require 'japan-util)
 

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.39 2010/08/27 10:42:17 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.40 2010/09/10 15:47:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/27 10:42:17 $
+;; Last Modified: $Date: 2010/09/10 15:47:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -53,8 +53,7 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'static))
+  (require 'skk-vars))
 
 ;; -- programs
 ;;;###autoload
@@ -206,7 +205,7 @@ skk-date-ad と skk-number-style によって表示方法のカスタマイズが可能。
       (setq expr1 "[$B七八九]秒"
 	    expr2 "〇秒")))
     ;;
-    (static-when (featurep 'xemacs)
+    (when (eval-when-compile (featurep 'xemacs))
       ;; XEmacs で sound がロードされているかどうか。
       (when (setq snd
 		  (and (boundp 'sound-alist)

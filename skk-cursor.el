@@ -5,9 +5,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.42 2010/09/09 14:17:33 skk-cvs Exp $
+;; Version: $Id: skk-cursor.el,v 1.43 2010/09/10 15:42:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/09 14:17:33 $
+;; Last Modified: $Date: 2010/09/10 15:42:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -34,22 +34,20 @@
   (error "%s" "SKK-CURSOR requires color display"))
 
 (eval-when-compile
-  (require 'static)
   (require 'skk-macs)
   (require 'skk-vars))
 
-(static-unless
-    (featurep 'xemacs)
-  (require 'ccc))
+(eval-and-compile
+  (when skk-running-gnu-emacs
+    (require 'ccc)))
 
 ;; Functions.
 
-(defsubst skk-cursor-default-color ()
-  (static-cond
-   ((featurep 'xemacs)
-    (frame-property (selected-frame) 'cursor-color))
-   (t
-    (frame-cursor-color))))
+(defun skk-cursor-default-color ()
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (frame-property (selected-frame) 'cursor-color))
+	(t
+	 (frame-cursor-color))))
 
 ;;;###autoload
 (defun skk-cursor-current-color ()
@@ -77,8 +75,8 @@
 
 ;;;###autoload
 (defun skk-cursor-set-1 (color)
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     ;;At 10 Jul 2000 16:37:49 +0900,
     ;;Yoshiki Hayashi <t90553@mail.ecc.u-tokyo.ac.jp> wrote:
     ;;> foreground を background に変える必要があること以外は、今の
@@ -98,28 +96,23 @@
 
 ;;;###autoload
 (defun skk-cursor-off-1 ()
-  (static-cond
-   ((featurep 'xemacs)
-    (skk-cursor-set))
-   (t
-    (when default-cursor-color
-      (set-cursor-color-buffer-local nil)))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (skk-cursor-set))
+	(t
+	 (when default-cursor-color
+	   (set-cursor-color-buffer-local nil)))))
 
 ;; advices.
-(static-when (featurep 'xemacs)
+(when (eval-when-compile (featurep 'xemacs))
   (defadvice minibuffer-keyboard-quit (before skk-cursor-ad activate)
     (unless skk-henkan-mode
       (skk-cursor-set (skk-cursor-default-color)))))
 
 ;; Hooks
-(static-when (featurep 'xemacs)
-  (add-hook 'isearch-mode-end-hook
-	    #'skk-cursor-set
-	    'append)
+(when (eval-when-compile (featurep 'xemacs))
+  (add-hook 'isearch-mode-end-hook #'skk-cursor-set 'append)
 
-  (add-hook 'minibuffer-setup-hook
-	    #'skk-cursor-set
-	    'append)
+  (add-hook 'minibuffer-setup-hook #'skk-cursor-set 'append)
 
   (add-hook 'minibuffer-exit-hook
 	    #'(lambda ()

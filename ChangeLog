@@ -37,8 +37,7 @@
 	`exec-installed-p'.  Use skk-running-gnu-emacs.
 
 	* skk-annotation.el, skk-cursor.el, skk-isearch.el,
-	* skk-jisyo-edit-mode.el, skk-server.el, skk-viper.el: Do not
-	require static.el. Use `eval-when-compile' instead.
+	* skk-jisyo-edit-mode.el, skk-kcode.el, skk-server.el, skk-viper.el: Do not require static.el. Use `eval-when-compile' instead.
 
 2010-09-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
