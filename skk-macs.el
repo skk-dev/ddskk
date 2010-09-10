@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.146 2010/09/09 14:23:08 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.147 2010/09/10 14:21:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/09 14:23:08 $
+;; Last Modified: $Date: 2010/09/10 14:21:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -35,23 +35,22 @@
   (defvar skk-e21-modeline-property))
 
 (eval-when-compile
-  (require 'advice)
-  (require 'static))
+  (require 'advice))
 
 (eval-and-compile
   (require 'skk-vars))
 
 ;;;; macros
 
-(put 'ignore-errors 'defmacro-maybe (and skk-running-gnu-emacs
-					 (<= emacs-major-version 22)))
-(defmacro-maybe ignore-errors (&rest body)
-  "Execute FORMS; if an error occurs, return nil.
+(when (eval-when-compile (and skk-running-gnu-emacs
+			      (<= emacs-major-version 22)))
+  (defmacro ignore-errors (&rest body)
+    "Execute FORMS; if an error occurs, return nil.
 Otherwise, return result of last FORM."
-  `(condition-case nil
-       (progn
-	 ,@body)
-     (error nil)))
+    `(condition-case nil
+	 (progn
+	   ,@body)
+       (error nil))))
 
 (defmacro skk-defadvice (function &rest everything-else)
   "Defines a piece of advice for FUNCTION (a symbol).
@@ -182,8 +181,8 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 (def-edebug-spec skk-with-point-move t)
 
 (defmacro skk-face-on (object start end face &optional priority)
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     `(let ((inhibit-quit t))
        (if (not (extentp ,object))
 	   (progn
@@ -226,35 +225,65 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 
 ;;; functions.
 ;; version dependent
+;; Many functions are derived from emu (APEL).
 
-;; From XEmacs 21.5.
-(defun-maybe propertize (string &rest properties)
-  "Return a copy of STRING with text properties added.
-First argument is the string to copy.
-Remaining arguments form a sequence of PROPERTY VALUE pairs for text
-properties to add to the result."
-  (let ((str (copy-sequence string)))
-    (add-text-properties 0 (length str)
-			 properties
-			 str)
-    str))
+(when (eval-when-compile skk-running-gnu-emacs)
+  (defun string-to-char-list (string)
+    "Return a list of which elements are characters in the STRING."
+    (mapcar #'identity string)))
 
-(defun-maybe substring-no-properties (string &optional from to)
-  "Return a substring of string, without text properties.
+(when (eval-when-compile skk-running-gnu-emacs)
+  (defalias 'string-to-int-list 'string-to-char-list))
+
+(when (eval-when-compile skk-running-gnu-emacs)
+  (defun character-to-event (ch)
+    "Convert keystroke CH into an event structure, replete with bucky bits.
+Note that CH (the keystroke specifier) can be an integer, a character
+or a symbol such as 'clear."
+    ch))
+
+(when (eval-when-compile skk-running-gnu-emacs)
+  (defun event-to-character (event)
+    "Return the character approximation to the given event object.
+If the event isn't a keypress, this returns nil."
+    (cond
+     ((symbolp event)
+      ;; mask is (BASE-TYPE MODIFIER-BITS) or nil.
+      (let ((mask (get event 'event-symbol-element-mask)))
+	(if mask
+	    (let ((base (get (car mask) 'ascii-character)))
+	      (if base
+		  (logior base (car (cdr mask))))))))
+     ((integerp event) event))))
+
+(when (eval-when-compile skk-running-gnu-emacs)
+  (defun cancel-undo-boundary ()
+    "Cancel undo boundary."
+    (if (and (consp buffer-undo-list)
+	     (null (car buffer-undo-list)))
+	(setq buffer-undo-list (cdr buffer-undo-list)))))
+
+(unless (eval-when-compile (and skk-running-gnu-emacs
+				(>= emacs-major-version 22)))
+  (defun substring-no-properties (string &optional from to)
+    "Return a substring of string, without text properties.
 It starts at index from and ending before to.
 to may be nil or omitted; then the substring runs to the end of string.
 If from is nil or omitted, the substring starts at the beginning of string.
 If from or to is negative, it counts from the end.
 
 With one argument, just copy string without its properties."
-  (let ((substr (copy-sequence (substring string (or from 0) to))))
-    (set-text-properties 0 (length substr) nil substr)
-    substr))
+    (let ((substr (copy-sequence (substring string (or from 0) to))))
+      (set-text-properties 0 (length substr) nil substr)
+      substr)))
 
 ;; From GNU Emacs 22.1.
-(defun-maybe replace-regexp-in-string (regexp rep string &optional
-					      fixedcase literal subexp start)
-  "Replace all matches for REGEXP with REP in STRING.
+(when (eval-when-compile (and (featurep 'xemacs)
+			      (= emacs-major-version 21)
+			      (= emacs-minor-version 4)))
+  (defun replace-regexp-in-string (regexp rep string &optional
+						fixedcase literal subexp start)
+    "Replace all matches for REGEXP with REP in STRING.
 
 Return a new string containing the replacements.
 
@@ -274,115 +303,114 @@ and replace a sub-expression, e.g.
     => \" bar foo\"
 "
 
-  ;; To avoid excessive consing from multiple matches in long strings,
-  ;; don't just call `replace-match' continually.  Walk down the
-  ;; string looking for matches of REGEXP and building up a (reversed)
-  ;; list MATCHES.  This comprises segments of STRING which weren't
-  ;; matched interspersed with replacements for segments that were.
-  ;; [For a `large' number of replacements it's more efficient to
-  ;; operate in a temporary buffer; we can't tell from the function's
-  ;; args whether to choose the buffer-based implementation, though it
-  ;; might be reasonable to do so for long enough STRING.]
-  (let ((l (length string))
-	(start (or start 0))
-	matches str mb me)
-    (save-match-data
-      (while (and (< start l) (string-match regexp string start))
-	(setq mb (match-beginning 0)
-	      me (match-end 0))
-	;; If we matched the empty string, make sure we advance by one char
-	(when (= me mb) (setq me (min l (1+ mb))))
-	;; Generate a replacement for the matched substring.
-	;; Operate only on the substring to minimize string consing.
-	;; Set up match data for the substring for replacement;
-	;; presumably this is likely to be faster than munging the
-	;; match data directly in Lisp.
-	(string-match regexp (setq str (substring string mb me)))
-	(setq matches
-	      (cons (replace-match (if (stringp rep)
-				       rep
-				     (funcall rep (match-string 0 str)))
-				   fixedcase literal str subexp)
-		    (cons (substring string start mb)       ; unmatched prefix
-			  matches)))
-	(setq start me))
-      ;; Reconstruct a string from the pieces.
-      (setq matches (cons (substring string start l) matches)) ; leftover
-      (apply #'concat (nreverse matches)))))
-
-(static-unless (featurep 'xemacs)
-  (fmakunbound 'next-command-event))
+    ;; To avoid excessive consing from multiple matches in long strings,
+    ;; don't just call `replace-match' continually.  Walk down the
+    ;; string looking for matches of REGEXP and building up a (reversed)
+    ;; list MATCHES.  This comprises segments of STRING which weren't
+    ;; matched interspersed with replacements for segments that were.
+    ;; [For a `large' number of replacements it's more efficient to
+    ;; operate in a temporary buffer; we can't tell from the function's
+    ;; args whether to choose the buffer-based implementation, though it
+    ;; might be reasonable to do so for long enough STRING.]
+    (let ((l (length string))
+	  (start (or start 0))
+	  matches str mb me)
+      (save-match-data
+	(while (and (< start l) (string-match regexp string start))
+	  (setq mb (match-beginning 0)
+		me (match-end 0))
+	  ;; If we matched the empty string, make sure we advance by one char
+	  (when (= me mb) (setq me (min l (1+ mb))))
+	  ;; Generate a replacement for the matched substring.
+	  ;; Operate only on the substring to minimize string consing.
+	  ;; Set up match data for the substring for replacement;
+	  ;; presumably this is likely to be faster than munging the
+	  ;; match data directly in Lisp.
+	  (string-match regexp (setq str (substring string mb me)))
+	  (setq matches
+		(cons (replace-match (if (stringp rep)
+					 rep
+				       (funcall rep (match-string 0 str)))
+				     fixedcase literal str subexp)
+		      (cons (substring string start mb)      ; unmatched prefix
+			    matches)))
+	  (setq start me))
+	;; Reconstruct a string from the pieces.
+	(setq matches (cons (substring string start l) matches)) ; leftover
+	(apply #'concat (nreverse matches))))))
 
 ;; For GNU Emacs.
-(defun-maybe next-command-event (&optional event prompt)
-  "Read an event object from the input stream.
+(when (eval-when-compile skk-running-gnu-emacs)
+  (defun next-command-event (&optional event prompt)
+    "Read an event object from the input stream.
 If EVENT is non-nil, it should be an event object and will be filled
 in and returned; otherwise a new event object will be created and
 returned.
 If PROMPT is non-nil, it should be a string and will be displayed in
 the echo area while this function is waiting for an event."
-  (read-event prompt))
+    (read-event prompt)))
 
-(defsubst skk-sit-for (seconds &optional nodisplay)
+(defun skk-sit-for (seconds &optional nodisplay)
   "`sit-for' の Emacsen による違いを吸収する。"
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (sit-for seconds nodisplay))
-   ((= emacs-major-version 21)
+   ((eval-when-compile (= emacs-major-version 21))
     ;; GNU Emacs 21
     (sit-for seconds nil nodisplay))
    (t
     ;; GNU Emacs 22.1 or later
     (sit-for seconds nodisplay))))
 
-(defsubst skk-ding (&optional arg sound device)
+(defun skk-ding (&optional arg sound device)
   "`ding' の Emacsen による違いを吸収する。"
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
      (ding arg sound device))
    (t
     (ding arg))))
 
-(defsubst skk-color-cursor-display-p ()
-  (static-cond
-   ((featurep 'xemacs)
+(defun skk-color-cursor-display-p ()
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (eq (device-class (selected-device)) 'color))
-   ((fboundp 'x-display-color-p)
-    ;; FSF Emacs on X Window System.
-    (and window-system (x-display-color-p)))))
+   (t
+    (and window-system
+	 (fboundp 'x-display-color-p)
+	 (x-display-color-p)))))
 
-(defsubst skk-char-to-unibyte-string (char)
+(defun skk-char-to-unibyte-string (char)
   (ignore-errors
-    (static-cond
-     ((and skk-running-gnu-emacs
-	   (>= emacs-major-version 23))
+    (cond
+     ((eval-when-compile (and skk-running-gnu-emacs
+			      (>= emacs-major-version 23)))
       ;; GNU Emacs 23.1 or later
       (string-make-unibyte (char-to-string char)))
      (t
       (char-to-string char)))))
 
-(defsubst skk-ascii-char-p (char)
-  (static-cond
-   ((and skk-running-gnu-emacs
-	 (>= emacs-major-version 23))
+(defun skk-ascii-char-p (char)
+  (cond
+   ((eval-when-compile (and skk-running-gnu-emacs
+			    (>= emacs-major-version 23)))
     ;; GNU Emacs 23.1 or later
     (eq (char-charset char skk-charset-list) 'ascii))
    (t
     (eq (char-charset char) 'ascii))))
 
-(defsubst skk-jisx0208-p (char)
-  (static-cond
-   ((and skk-running-gnu-emacs
-	 (>= emacs-major-version 23))
+(defun skk-jisx0208-p (char)
+  (cond
+   ((eval-when-compile (and skk-running-gnu-emacs
+			    (>= emacs-major-version 23)))
     ;; GNU Emacs 23.1 or later
     (eq (char-charset char skk-charset-list) 'japanese-jisx0208))
    (t
     (eq (char-charset char) 'japanese-jisx0208))))
 
-(defsubst skk-jisx0213-p (char)
-  (static-cond
-   ((and skk-running-gnu-emacs
-	 (>= emacs-major-version 23))
+(defun skk-jisx0213-p (char)
+  (cond
+   ((eval-when-compile (and skk-running-gnu-emacs
+			    (>= emacs-major-version 23)))
     ;; GNU Emacs 23.1 or later
     (memq (char-charset char skk-charset-list)
 	  '(japanese-jisx0213-1
@@ -393,17 +421,10 @@ the echo area while this function is waiting for an event."
 	 (memq (char-charset char)
 	       '(japanese-jisx0213-1 japanese-jisx0213-2))))))
 
-(defsubst skk-char-octet (ch &optional n)
-  (or (nth (if n
-	       (1+ n)
-	     1)
-	   (skk-split-char ch))
-      0))
-
 (defun skk-split-char (ch)
-  (static-cond
-   ((and skk-running-gnu-emacs
-	 (>= emacs-major-version 23))
+  (cond
+   ((eval-when-compile (and skk-running-gnu-emacs
+			    (>= emacs-major-version 23)))
     ;; C の split-char と同様の機能だが、char-charset の呼出しにおいて
     ;; 文字集合の選択肢を skk-charset-list に含まれるものに制限する。
     ;; これは例えば、japanese-jisx0208 の文字が unicode-bmp に属する、
@@ -423,21 +444,21 @@ the echo area while this function is waiting for an event."
     (split-char ch))))
 
 ;; this one is called once in skk-kcode.el, too.
-(defsubst skk-charsetp (object)
-  (static-cond
-   ((featurep 'xemacs)
+(defun skk-charsetp (object)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (find-charset object))
    (t
     (charsetp object))))
 
 (defun skk-indicator-to-string (indicator &optional no-properties)
   "SKK インジケータ型オブジェクト INDICATOR を文字列に変換する。"
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (if (stringp indicator)
 	indicator
       (cdr indicator)))
-   ((>= emacs-major-version 21)
+   ((eval-when-compile (>= emacs-major-version 21))
     (if no-properties
 	(with-temp-buffer
 	  (insert indicator)
@@ -448,8 +469,8 @@ the echo area while this function is waiting for an event."
 
 (defun skk-mode-string-to-indicator (mode string)
   "文字列 STRING を SKK インジケータ型オブジェクトに変換する。"
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (cons (cdr (assq mode skk-xemacs-extent-alist))
 	  string))
    (t
@@ -459,18 +480,18 @@ the echo area while this function is waiting for an event."
 	       (cdr (assq mode skk-e21-property-alist)))
       string))))
 
-(defsubst skk-local-variable-p (variable &optional buffer afterset)
+(defun skk-local-variable-p (variable &optional buffer afterset)
   "Non-nil if VARIABLE has a local binding in buffer BUFFER.
 BUFFER defaults to the current buffer."
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (local-variable-p variable (or buffer (current-buffer)) afterset))
    (t
     (local-variable-p variable (or buffer (current-buffer))))))
 
-(defsubst skk-face-proportional-p (face)
-  (static-cond
-   ((featurep 'xemacs)
+(defun skk-face-proportional-p (face)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (face-proportional-p face))
    (t
     (or (face-equal face 'variable-pitch)
@@ -478,8 +499,8 @@ BUFFER defaults to the current buffer."
 
 (defun skk-event-key (event)
   "イベント EVENT を発生した入力の情報を取得する。"
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (let ((char (event-to-character event t t t)))
       (if (characterp char)
 	  char
@@ -497,19 +518,17 @@ BUFFER defaults to the current buffer."
 ;; What is annoying is incompatibility between FSF Emacs and XEmacs.
 ;; In XEmacs, last-command-event is an event, not a character, whereas
 ;; last-command-char is a character equivalent to last-command-event.
-(defsubst skk-last-command-char ()
-  (static-cond
-   ((featurep 'xemacs)
+(defun skk-last-command-char ()
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     last-command-char)
    (t
     last-command-event)))
 
-(defsubst skk-set-last-command-char (char)
-  (let ((variable (static-cond
-		   ((featurep 'xemacs)
-		    'last-command-char)
-		   (t
-		    'last-command-event))))
+(defun skk-set-last-command-char (char)
+  (let ((variable (if (featurep 'xemacs)
+		      'last-command-char
+		    'last-command-event)))
     (set variable char)))
 
 (put 'skk-bind-last-command-char 'lisp-indent-function 1)
@@ -523,20 +542,28 @@ BUFFER defaults to the current buffer."
 	 ,@body))))
 
 ;;; version independent
-(defsubst skk-cursor-set (&optional color force)
+
+(defsubst skk-char-octet (ch &optional n)
+  (or (nth (if n
+	       (1+ n)
+	     1)
+	   (skk-split-char ch))
+      0))
+
+(defun skk-cursor-set (&optional color force)
   (unless (skk-color-cursor-display-p)
     (setq skk-use-color-cursor nil))
   (when (or skk-use-color-cursor
 	    force)
     (skk-cursor-set-1 color)))
 
-(defsubst skk-cursor-off ()
+(defun skk-cursor-off ()
   (unless (skk-color-cursor-display-p)
     (setq skk-use-color-cursor nil))
   (when skk-use-color-cursor
     (skk-cursor-off-1)))
 
-(defsubst skk-modify-indicator-alist (mode string)
+(defun skk-modify-indicator-alist (mode string)
   (setcdr (assq mode skk-indicator-alist)
 	  (cons string (skk-mode-string-to-indicator mode string))))
 
@@ -555,7 +582,7 @@ BUFFER defaults to the current buffer."
     (force-mode-line-update)))
 
 ;; ツリーにアクセスするためのインターフェース
-(defsubst skk-make-rule-tree (char prefix nextstate kana branch-list)
+(defun skk-make-rule-tree (char prefix nextstate kana branch-list)
   (list char
 	prefix
 	(if (string= nextstate "")
@@ -748,12 +775,16 @@ BUFFER defaults to the current buffer."
   (eq (current-buffer) (window-buffer (minibuffer-window))))
 
 (defun skk-window-body-height ()
-  (static-if (fboundp 'window-body-height) ; emacs21 にはない
-      (window-body-height)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
+    nil) ; XEmacs でサポートされない機能
+   ((eval-when-compile (and skk-running-gnu-emacs
+			      (>= emacs-major-version 22)))
+    (window-body-height)) ; emacs21 にはない
+   (t
     (- (window-height)
        (if mode-line-format 1 0)
-       (static-cond ((not (boundp 'header-line-format)) 0) ; emacs20 にはない
-		    (t (if header-line-format 1 0))))))
+       (if header-line-format 1 0)))))
 
 (defun skk-screen-column ()
   "スクリーン行から得たカーソル位置の桁数を返す。
@@ -798,9 +829,9 @@ BUFFER defaults to the current buffer."
 内部コードが emacs-mule でないなど `stringp' の返り値が異なる Emacs に
 対して emacs-mule の encoded string に変換して比較する。
 比較の結果 str1 < str2 ならば t を返す。"
-  (static-cond
-   ((and (string-match "^GNU" (emacs-version))
-	 (string< "6.0" mule-version))
+  (cond
+   ((eval-when-compile (and skk-running-gnu-emacs
+			    (>= emacs-major-version 23)))
     ;; Emacs with coding system utf-8-emacs
     (skk-string-lessp-in-coding-system str1 str2 'emacs-mule))
    (t
@@ -944,6 +975,38 @@ MAP は入力が書かれているキーマップを指定するが、指定されなければ
 	    (mapcar #'(lambda (k)
 			(key-description k))
 		    keys))))
+
+(defun skk-update-minor-mode-map-alist (mode map)
+  (let ((element (assq mode minor-mode-map-alist)))
+    (if element
+	(setcdr element map)
+      (setq minor-mode-map-alist (cons (cons mode map)
+				       minor-mode-map-alist)))))
+
+;; Functions from alist.el (APEL)
+(defun skk-put-alist (key value alist)
+  "Set cdr of an element (KEY . ...) in ALIST to VALUE and return ALIST.
+If there is no such element, create a new pair (KEY . VALUE) and
+return a new alist whose car is the new pair and cdr is ALIST."
+  (let ((elm (assoc key alist)))
+    (if elm
+	(progn
+	  (setcdr elm value)
+	  alist)
+      (cons (cons key value) alist))))
+
+(defun skk-del-alist (key alist)
+  "Delete an element whose car equals KEY from ALIST.
+Return the modified ALIST."
+  (let ((pair (assoc key alist)))
+    (if pair
+	(delq pair alist)
+      alist)))
+
+(defun skk-remove-alist (symbol key)
+  "Delete an element whose car equals KEY from the alist bound to SYMBOL."
+  (and (boundp symbol)
+       (set symbol (skk-del-alist key (symbol-value symbol)))))
 
 (provide 'skk-macs)
 
