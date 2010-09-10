@@ -28,7 +28,6 @@
 
 (eval-when-compile
   (require 'cl)
-  (require 'static)
   (require 'tooltip)
 
   (defvar tool-bar-border)
@@ -237,8 +236,8 @@
   (setq skk-icon
 	(let* ((dir (ignore-errors
 		      (file-name-directory
-		       (static-if (fboundp 'locate-file)
-			   ;; Emacs 22.1 or later
+		       (if (eval-when-compile (>= emacs-major-version 22))
+			   ;; Emacs 22 以降 `locate-file' が利用可能。
 			   (or (locate-file "skk/skk.xpm"
 					    (list (expand-file-name
 						   "../../.."
