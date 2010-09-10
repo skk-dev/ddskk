@@ -122,22 +122,6 @@
     (skk-preload
      (const :tag "SKK をあらかじめロードして初回起動を高速にする" t) "")))
 
-;; For Emacs 21.
-(defun-maybe custom-quote (sexp)
-  "Quote SEXP if it is not self quoting."
-  (if (or (memq sexp '(t nil))
-	  (keywordp sexp)
-	  (and (listp sexp)
-	       (memq (car sexp) '(lambda)))
-	  (stringp sexp)
-	  (numberp sexp)
-	  (vectorp sexp)
-;;;  	  (and (fboundp 'characterp)
-;;;  	       (characterp sexp))
-	  )
-      sexp
-    (list 'quote sexp)))
-
 (defun skk-custom-mode ()
   (kill-all-local-variables)
   (setq major-mode 'skk-custom-mode
