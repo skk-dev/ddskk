@@ -7,8 +7,6 @@
 	* ccc.el: Temporarily disable loading poe here.
 	* skk-act.el, skk-azik.el: Use `skk-put-alist' and `skk-del-alist'
 	instead of `put-alist' and `del-alist'.
-	* skk-annotation.el, skk-isearch.el, skk-jisyo-edit-mode.el: Do
-	not require static.el. Use `eval-when-compile' instead.
 	* skk-cus.el (custom-quote): Remove definition.
 	* skk-e21.el: Remove file.
 	* skk-emacs.el: Move contens of skk-e21.el to this file.
@@ -37,6 +35,10 @@
 	Use `skk-update-minor-mode-map-alist' instead of
 	`set-modified-alist'.  Use `executable-find' instead of
 	`exec-installed-p'.  Use skk-running-gnu-emacs.
+
+	* skk-annotation.el, skk-cursor.el, skk-isearch.el,
+	* skk-jisyo-edit-mode.el, skk-server.el, skk-viper.el: Do not
+	require static.el. Use `eval-when-compile' instead.
 
 2010-09-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
