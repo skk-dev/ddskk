@@ -6,9 +6,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.37 2008/01/14 16:02:44 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.38 2010/09/10 14:22:11 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2008/01/14 16:02:44 $
+;; Last Modified: $Date: 2010/09/10 14:22:11 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -37,8 +37,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'advice)
-  (require 'poe))
+  (require 'advice))
 
 ;; Internal variables.
 (defvar buffer-local-cursor-color nil)
