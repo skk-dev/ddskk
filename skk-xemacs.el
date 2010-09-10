@@ -28,8 +28,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'avoid)
-  (require 'static))
+  (require 'avoid))
 
 (eval-and-compile
   (require 'balloon-help)
