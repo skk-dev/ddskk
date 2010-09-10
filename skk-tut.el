@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.76 2010/08/27 10:42:18 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.77 2010/09/10 14:36:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/27 10:42:18 $
+;; Last Modified: $Date: 2010/09/10 14:36:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -633,14 +633,10 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
 
 (defun skktut-enable-tutmap ()
   (let ((inhibit-quit t))
-    (set-modified-alist
-     'minor-mode-map-alist
-     ;; tut map
-     (list (cons 'skk-latin-mode skktut-latin-mode-map)
-	   (cons 'skk-abbrev-mode skktut-abbrev-mode-map)
-	   (cons 'skk-j-mode skktut-j-mode-map)
-	   (cons 'skk-jisx0208-latin-mode skktut-jisx0208-latin-mode-map)))
-    ;;
+    (skk-update-minor-mode-map-alist 'skk-latin-mode skktut-latin-mode-map)
+    (skk-update-minor-mode-map-alist 'skk-abbrev-mode skktut-abbrev-mode-map)
+    (skk-update-minor-mode-map-alist 'skk-j-mode skktut-j-mode-map)
+    (skk-update-minor-mode-map-alist 'skk-jisx0208-mode skktut-jisx0208-latin-mode-map)
     (define-key skktut-j-mode-map
       (if (equal skk-tut-file skktut-nicola-tut-file)
 	  "\C-p"
@@ -666,12 +662,10 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
       ;; fail safe.
       (while (setq e (assq minor-mode minor-mode-map-alist))
 	(setq minor-mode-map-alist (delq e minor-mode-map-alist))))
-    (set-modified-alist
-     'minor-mode-map-alist
-     (list (cons 'skk-latin-mode skk-latin-mode-map)
-	   (cons 'skk-abbrev-mode skk-abbrev-mode-map)
-	   (cons 'skk-j-mode skk-j-mode-map)
-	   (cons 'skk-jisx0208-latin-mode skk-jisx0208-latin-mode-map))))
+    (skk-update-minor-mode-map-alist 'skk-latin-mode skk-latin-mode-map)
+    (skk-update-minor-mode-map-alist 'skk-abbrev-mode skk-abbrev-mode-map)
+    (skk-update-minor-mode-map-alist 'skk-j-mode skk-j-mode-map)
+    (skk-update-minor-mode-map-alist 'skk-jisx0208-mode skk-jisx0208-latin-mode-map))
   ;; for minor-mode-map-alist localized by Viper.
   (when (default-value skk-use-viper)
     (skk-viper-normalize-map)))
