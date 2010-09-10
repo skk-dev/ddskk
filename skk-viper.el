@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.45 2010/09/10 14:32:10 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.46 2010/09/10 15:33:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 14:32:10 $
+;; Last Modified: $Date: 2010/09/10 15:33:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,7 +33,6 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'static)
   (require 'skk-macs)
   (require 'skk-vars))
 (require 'viper)
@@ -56,7 +55,9 @@
 
 (setq skk-use-viper t)
 (save-match-data
-  (unless (string-match (static-if (fboundp 'sentence-end)
+  (unless (string-match (if (eval-when-compile
+			      (and skk-running-gnu-emacs
+				   (>= emacs-major-version 22)))
 			    (sentence-end)
 			  sentence-end)
 			"。？！．")
@@ -135,8 +136,8 @@
     (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))
 
 (when (boundp 'viper-insert-state-cursor-color)
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
       (when skk-use-color-cursor
 	(add-hook 'minibuffer-setup-hook
@@ -274,7 +275,7 @@
 ;;;###autoload
 (defun skk-viper-normalize-map ()
   (let ((other-buffer
-	 (static-if (featurep 'xemacs)
+	 (if (eval-when-compile (featurep 'xemacs))
 	     (local-variable-p 'minor-mode-map-alist nil t)
 	   (local-variable-if-set-p 'minor-mode-map-alist))))
     ;; for current buffer and buffers to be created in the future.
