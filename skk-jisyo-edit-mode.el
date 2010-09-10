@@ -29,8 +29,6 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'poe)
-  (require 'static)
   (defvar font-lock-defaults))
 
 (defvar skk-jisyo-edit-map nil
@@ -74,8 +72,8 @@
   (setq skk-jisyo-edit-syntax-table (make-syntax-table))
   (set-syntax-table skk-jisyo-edit-syntax-table)
   (let ((map (make-sparse-keymap)))
-    (static-cond
-     ((featurep 'xemacs)
+    (cond
+     ((eval-when-compile (featurep 'xemacs))
       (set-keymap-parents map (list skk-jisyo-edit-map))
       (use-local-map map))
      (t
@@ -114,7 +112,7 @@
     (find-file skk-jisyo))
   (unless (eq major-mode 'skk-jisyo-edit-mode)
     (skk-jisyo-edit-mode))
-  (static-when (featurep 'xemacs)
+  (when (eval-when-compile (featurep 'xemacs))
     (make-local-hook 'kill-buffer-hook))
   ;; 編集中に再度実行しても、
   ;; ↓ のようになるから skk-update-jisyo-function は復元される。

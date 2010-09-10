@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.64 2010/09/09 14:19:38 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.65 2010/09/10 14:28:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/09 14:19:38 $
+;; Last Modified: $Date: 2010/09/10 14:28:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -58,8 +58,7 @@
 
 (eval-when-compile
   (require 'cl)
-  (require 'skk-macs)
-  (require 'static))
+  (require 'skk-macs))
 (require 'skk)
 (require 'skk-vars)
 
@@ -236,8 +235,8 @@ kakutei'ed and erase the buffer contents."
       (skk-isearch-set-initial-mode initial)))
   ;; setup variables and keymap
   (unless (keymapp skk-isearch-mode-map)
-    (static-cond
-     ((featurep 'xemacs)
+    (cond
+     ((eval-when-compile (featurep 'xemacs))
       (setq skk-isearch-mode-map (skk-isearch-setup-keymap
 				  (make-keymap)))
       (set-keymap-parents skk-isearch-mode-map
@@ -248,7 +247,7 @@ kakutei'ed and erase the buffer contents."
 					    isearch-mode-map))))))
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
-  (static-when (string-match "^GNU" (emacs-version))
+  (when (eval-when-compile skk-running-gnu-emacs)
     (when (and current-input-method
 	       (string-match "^japanese-skk" current-input-method))
       (let* ((method current-input-method)
@@ -300,7 +299,7 @@ kakutei'ed and erase the buffer contents."
       (jisx0208-latin
        (skk-jisx0208-latin-mode-on))))
   ;; Input Method として SKK を使っている場合の対策
-  (static-when (string-match "^GNU" (emacs-version))
+  (when (eval-when-compile skk-running-gnu-emacs)
     (when (string-match "^japanese-skk" (format "%s" default-input-method))
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	(inactivate-input-method))))
@@ -371,12 +370,12 @@ Optional argument PREFIX is appended if given."
 
   ;; Keys for `skk-isearch-skk-mode'.
   (let ((commands '(skk-mode skk-auto-fill-mode)))
-    (static-unless (featurep 'xemacs)
+    (unless (eval-when-compile (featurep 'xemacs))
       (when (string-match "^japanese-skk" (format "%s" default-input-method))
 	(push 'toggle-input-method commands)))
     (skk-isearch-find-keys-define map commands 'skk-isearch-skk-mode))
 
-  (static-unless (featurep 'xemacs)
+  (unless (eval-when-compile (featurep 'xemacs))
     ;; XEmacs にはないコマンド
     (define-key map [?\C-x t] 'isearch-other-control-char)
 
@@ -699,8 +698,8 @@ If the current mode is different from previous, remove it first."
       (skk-isearch-mode-message)
       (skk-isearch-wrapper-1))
      (t
-      (static-cond
-       ((featurep 'xemacs)
+      (cond
+       ((eval-when-compile (featurep 'xemacs))
 	(let ((search-nonincremental-instead nil))
 	  (isearch-exit))
 	(skk-unread-event last-event)
@@ -764,7 +763,7 @@ If the current mode is different from previous, remove it first."
 	     (skk-isearch-mode-string)
 	     (mapconcat 'isearch-text-char-description isearch-string ""))))))
 
-(static-when (featurep 'xemacs)
+(when (eval-when-compile (featurep 'xemacs))
   (defadvice digit-argument (around skk-isearch activate)
     "isearch 内で digit-argument を活用できるよう調整する。"
     (if (and skk-isearch-switch
