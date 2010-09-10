@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.160 2010/09/09 14:21:22 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.161 2010/09/10 14:25:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/09/09 14:21:22 $
+;; Last Modified: $Date: 2010/09/10 14:25:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -221,13 +221,11 @@
   (autoload 'url-retrieve "url"))
 
 (eval-when-compile
-  (require 'static)
-
   (defvar mule-version)
   (defvar html2text-remove-tag-list)
   (defvar html2text-format-tag-list))
 
-(static-when (featurep 'xemacs)
+(when (eval-when-compile (featurep 'xemacs))
   (require 'skk-xemacs))
 
 (unless skk-annotation-mode-map
@@ -246,22 +244,19 @@
 	(cons (cons 'skk-annotation-mode skk-annotation-mode-map)
 	      minor-mode-map-alist)))
 
-;; inline functions.
-(defsubst skk-annotation-erase-buffer ()
+;; functions.
+(defun skk-annotation-erase-buffer ()
   (let ((inhibit-read-only t)
 	buffer-read-only)
-    (static-when
-	(fboundp 'set-text-properties)
-      (set-text-properties (point-min) (point-max) nil))
+    (set-text-properties (point-min) (point-max) nil)
     (erase-buffer)))
 
-(defsubst skk-annotation-insert (annotation)
+(defun skk-annotation-insert (annotation)
   (with-current-buffer (get-buffer-create skk-annotation-buffer)
     (skk-annotation-erase-buffer)
     (insert annotation)
     (goto-char (point-min))))
 
-;; functions.
 ;;;###autoload
 (defun skk-annotation-get (annotation)
   (if (string= annotation "")
@@ -341,9 +336,7 @@
 		      (setq event (next-command-event)
 			    key (skk-event-key event)
 			    command (key-binding
-				     (static-if (featurep 'xemacs)
-					 event
-				       key)))
+				     (if (featurep 'xemacs) event key)))
 		      ;; Return value of the following expression is important.
 		      (or (memq command list)
 			  (eq command 'digit-argument)
@@ -354,9 +347,9 @@
 				 (key-description
 				  skk-annotation-wikipedia-key))))
 		  (quit
-		   (static-when (and (featurep 'xemacs)
-				     (= emacs-major-version 21)
-				     (= emacs-minor-version 4))
+		   (when (eval-when-compile (and (featurep 'xemacs)
+						 (= emacs-major-version 21)
+						 (= emacs-minor-version 4)))
 		     ;; workaround for XEmacs 21.4
 		     (keyboard-quit)))))
       (cond ((eq command copy-command)
@@ -373,25 +366,24 @@
 	     (setq list (delq browse-command list))
 ;	     (setq urls (delq nil (mapcar #'skk-annotation-find-url notes)))
 	     (when word
-	       (cond ((setq cache
-			    (skk-annotation-wikipedia-cache word sources))
-		      (setq urls
-			    (cons (apply
-				   #'skk-annotation-generate-url
-				   "http://%s.org/wiki/%s"
-				   ;; split-string $B$NHs8_49@-$KG[N8(B
-				   (static-if (and (string-match
-						    "^GNU"
-						    (emacs-version))
-						   (<= emacs-major-version 21))
-				       (cdr (split-string (cdr cache) " "))
-				     (cdr (split-string (cdr cache) " " t))))
-				  urls)))
-		     (skk-annotation-show-wikipedia-url
-		      (add-to-list 'urls
-				   (skk-annotation-generate-url
-				    "http://ja.wikipedia.org/wiki/%s"
-				    word)))))
+	       (cond
+		((setq cache (skk-annotation-wikipedia-cache word sources))
+		 (setq urls
+		       (cons
+			(apply #'skk-annotation-generate-url
+			       "http://%s.org/wiki/%s"
+			       ;; split-string $B$NHs8_49@-$KG[N8(B
+			       (if (eval-when-compile
+				     (and skk-running-gnu-emacs
+					  (<= emacs-major-version 21)))
+				   (cdr (split-string (cdr cache) " "))
+				 (cdr (split-string (cdr cache) " " t))))
+			urls)))
+		(skk-annotation-show-wikipedia-url
+		 (add-to-list 'urls
+			      (skk-annotation-generate-url
+			       "http://ja.wikipedia.org/wiki/%s"
+			       word)))))
 	     (unless (equal annotation "")
 	       (cond
 		(urls
@@ -407,11 +399,12 @@
 		     char  nil)
 	       (skk-annotation-show-2 annotation)))
 	    ((eq command 'digit-argument)
-	     (setq char  (static-if (featurep 'xemacs)
-			     key
-			   (if (integerp event)
-			       event
-			     (get event 'ascii-character)))
+	     (setq char  (cond ((featurep 'xemacs)
+				key)
+			       ((integerp event)
+				event)
+			       (t
+				(get event 'ascii-character)))
 		   digit (- (logand char ?\177) ?0)
 		   event nil))
 	    ((or (equal (key-description key)
@@ -617,7 +610,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
     (skk-annotation-setup)
     (let* ((plist (append
 		   '(intangible t read-only t)
-		   (static-if (featurep 'xemacs)
+		   (if (featurep 'xemacs)
 		       '(start-closed t end-open t)
 		     '(front-sticky t rear-nonsticky t))))
 	   (wholestring (nth 2 skk-annotation-target-data))
@@ -643,8 +636,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 ;; Add a note to word `%s' (this line will not be added to the note.)
 "
 	       realword))
-      (static-if (fboundp 'set-text-properties)
-	  (add-text-properties (point-min) (1- (point)) plist))
+      (add-text-properties (point-min) (1- (point)) plist)
       (when (and (not no-previous-annotation)
 		 annotation)
 	(insert annotation))
@@ -1466,7 +1458,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 $BNN0h$,A*Br$5$l$F$$$J$1$l$PC18l$N;O$a$H=*$o$j$r?dB,$7$FD4$Y$k!#(B"
   (interactive (cons (prefix-numeric-value current-prefix-arg)
 		     (cond
-		      ((static-if (featurep 'xemacs)
+		      ((if (eval-when-compile (featurep 'xemacs))
 			   (region-active-p)
 			 (and transient-mark-mode mark-active))
 		       (list (region-beginning) (region-end)))
