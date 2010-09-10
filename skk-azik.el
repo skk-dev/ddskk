@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.7 2007/10/19 13:29:41 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.8 2010/09/10 14:23:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2007/10/19 13:29:41 $
+;; Last Modified: $Date: 2010/09/10 14:23:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -59,8 +59,7 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'alist))
+  (require 'skk-vars))
 
 (defvar skk-azik-unnecessary-base-rule-list
   '("cha" "che" "chi" "cho" "chu"
@@ -584,7 +583,7 @@
 ;; skk-rom-kana-base-rule-list から変換規則を削除する
 (dolist (str skk-azik-unnecessary-base-rule-list)
   (setq skk-rom-kana-base-rule-list
-	(del-alist str skk-rom-kana-base-rule-list)))
+	(skk-del-alist str skk-rom-kana-base-rule-list)))
 
 ;; AZIK 特有の変換規則を追加する
 (dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
@@ -596,7 +595,7 @@
   '(progn
      (dolist (str skk-azik-unnecessary-base-rule-list)
        (setq skk-jisx0201-base-rule-list
-	     (del-alist str skk-jisx0201-base-rule-list)))
+	     (skk-del-alist str skk-jisx0201-base-rule-list)))
 
      (dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
 			   skk-azik-additional-rom-kana-rule-list))

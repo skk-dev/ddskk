@@ -67,8 +67,7 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'alist))
+  (require 'skk-vars))
 
 (defvar skk-act-unnecessary-base-rule-list
   (let ((list
@@ -805,13 +804,13 @@
 ;; skk-rom-kana-base-rule-list から変換規則を削除する
 (dolist (str skk-act-unnecessary-base-rule-list)
   (setq skk-rom-kana-base-rule-list
-	(del-alist str skk-rom-kana-base-rule-list)))
+	(skk-del-alist str skk-rom-kana-base-rule-list)))
 
 ;; skk-rom-kana-rule-list から変換規則を削除する
 (let ((del-list '("hh" "mm")))
   (dolist (str del-list)
     (setq skk-rom-kana-rule-list
-	  (del-alist str skk-rom-kana-rule-list))))
+	  (skk-del-alist str skk-rom-kana-rule-list))))
 
 ;; ACT 特有の変換規則を追加する
 (dolist (rule skk-act-additional-rom-kana-rule-list)
@@ -822,12 +821,12 @@
   '(progn
      (dolist (str skk-act-unnecessary-base-rule-list)
        (setq skk-jisx0201-base-rule-list
-	     (del-alist str skk-jisx0201-base-rule-list)))
+	     (skk-del-alist str skk-jisx0201-base-rule-list)))
 
      (let ((del-list '("hh" "mm")))
        (dolist (str del-list)
 	 (setq skk-jisx0201-base-rule-list
-	       (del-alist str skk-jisx0201-base-rule-list))))
+	       (skk-del-alist str skk-jisx0201-base-rule-list))))
 
      (dolist (rule skk-act-additional-rom-kana-rule-list)
        (add-to-list 'skk-jisx0201-rule-list
