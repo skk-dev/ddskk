@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.44 2010/08/27 10:42:18 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.45 2010/09/10 14:32:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/27 10:42:18 $
+;; Last Modified: $Date: 2010/09/10 14:32:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -286,13 +286,10 @@
       ;; the minor-mode-map-alist localized by Viper.
       (skk-loop-for-buffers (buffer-list)
 	(unless (assq 'skk-j-mode minor-mode-map-alist)
-	  (set-modified-alist
-	   'minor-mode-map-alist
-	   (list (cons 'skk-latin-mode skk-latin-mode-map)
-		 (cons 'skk-abbrev-mode skk-abbrev-mode-map)
-		 (cons 'skk-j-mode skk-j-mode-map)
-		 (cons 'skk-jisx0208-latin-mode
-		       skk-jisx0208-latin-mode-map))))
+	  (skk-update-minor-mode-map-alist 'skk-latin-mode skk-latin-mode-map)
+	  (skk-update-minor-mode-map-alist 'skk-abbrev-mode skk-abbrev-mode-map)
+	  (skk-update-minor-mode-map-alist 'skk-j-mode skk-j-mode-map)
+	  (skk-update-minor-mode-map-alist 'skk-jisx0208-mode skk-jisx0208-latin-mode-map))
 	(funcall skk-viper-normalize-map-function)))))
 
 (eval-after-load "viper-cmd"
