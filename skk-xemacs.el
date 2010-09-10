@@ -33,7 +33,7 @@
 
 (eval-and-compile
   (require 'balloon-help)
-  (require 'poe)
+  (require 'overlay)
   (require 'skk-macs)
   (autoload 'display-pixel-height "frame")
   (autoload 'display-pixel-width "frame"))
