@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.56 2010/09/09 14:26:15 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.57 2010/09/10 14:39:57 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2010/09/09 14:26:15 $
+;; Last Modified: $Date: 2010/09/10 14:39:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -76,9 +76,9 @@
 
 (eval-when-compile
   (require 'cl)
+  (defvar jka-compr-compression-info-list)
   (defvar print-quoted))
 
-(require 'pym)
 (require 'skk-macs)
 (require 'skk-vars)
 (require 'ring)
