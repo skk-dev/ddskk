@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.147 2010/09/10 14:21:11 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.148 2010/09/10 15:14:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 14:21:11 $
+;; Last Modified: $Date: 2010/09/10 15:14:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -32,7 +32,7 @@
 
 (eval-when-compile
   (defvar mule-version)
-  (defvar skk-e21-modeline-property))
+  (defvar skk-emacs-modeline-property))
 
 (eval-when-compile
   (require 'advice))
@@ -477,7 +477,7 @@ the echo area while this function is waiting for an event."
     (if (and window-system
 	     (not (eq mode 'default)))
 	(apply 'propertize string
-	       (cdr (assq mode skk-e21-property-alist)))
+	       (cdr (assq mode skk-emacs-property-alist)))
       string))))
 
 (defun skk-local-variable-p (variable &optional buffer afterset)

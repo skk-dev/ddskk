@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.315 2010/09/10 14:44:44 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.316 2010/09/10 15:14:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 14:44:44 $
+;; Last Modified: $Date: 2010/09/10 15:14:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1789,7 +1789,7 @@ left であれば左端に表示する。
 	     (cond (value
 		    (if (featurep 'xemacs)
 			(skk-xemacs-prepare-modeline-properties)
-		      (skk-e21-prepare-modeline-properties))
+		      (skk-emacs-prepare-modeline-properties))
 		    (skk-setup-modeline))
 		   (t
 		    (setq skk-icon nil))))))

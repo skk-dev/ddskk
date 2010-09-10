@@ -3,12 +3,15 @@
 	* SKK-MK: Do not require poem here.  No longer use
 	`write-region-as-coding-system' and
 	`insert-file-contents-as-coding-system'.
+	(SKK_MODULES): Remove skk-e21.
 	* ccc.el: Temporarily disable loading poe here.
 	* skk-act.el, skk-azik.el: Use `skk-put-alist' and `skk-del-alist'
 	instead of `put-alist' and `del-alist'.
 	* skk-annotation.el, skk-isearch.el, skk-jisyo-edit-mode.el: Do
 	not require static.el. Use `eval-when-compile' instead.
 	* skk-cus.el (custom-quote): Remove definition.
+	* skk-e21.el: Remove file.
+	* skk-emacs.el: Move contens of skk-e21.el to this file.
 	* skk-lookup.el: static.el is not used. Do not require it.
 	* skk-macs.el: Do not require static.el.  Do not use
 	`defun-maybe', `defmacro-maybe'.  Use `eval-when-compile' instead.

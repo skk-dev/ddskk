@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.514 2010/09/10 14:46:37 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.515 2010/09/10 15:14:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 14:46:37 $
+;; Last Modified: $Date: 2010/09/10 15:14:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -65,8 +65,6 @@
 ;; APEL 10.6 はセキュリティ上の重大な欠陥に対応しているため、必須である。
 ;; make-temp-file() の欠陥については関数 skk-save-jisyo-original() のコメ
 ;; ントを参照。
-(eval-when-compile
-  (require 'static))
 
 (eval-when-compile
   (require 'cl))
@@ -84,13 +82,10 @@
   (require 'skk-vars)
   (require 'skk-macs)
   ;; SKK version dependent.
-  (static-cond
-   ((featurep 'xemacs)
-    (require 'skk-xemacs))
-   (t
-    ;; Emacs 21 or later
-    (require 'skk-emacs)
-    (require 'skk-e21)))
+  (cond ((featurep 'xemacs)
+	 (require 'skk-xemacs))
+	(t
+	 (require 'skk-emacs)))
   ;; Shut up, compiler.
   (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
@@ -185,14 +180,14 @@ dependent."
     (skk-create-file skk-jisyo
 		     "SKK の空辞書を作りました"
 		     "I have created an empty SKK Jisyo file for you")
-    (static-when (featurep 'xemacs)
+    (when (eval-when-compile (featurep 'xemacs))
       (easy-menu-add skk-menu))
     (skk-require-module)
     ;; To terminate kana input.
-    (static-when (featurep 'xemacs)
+    (when (eval-when-compile (featurep 'xemacs))
       (make-local-hook 'pre-command-hook))
     (skk-add-skk-pre-command)
-    (static-when (featurep 'xemacs)
+    (when (eval-when-compile (featurep 'xemacs))
       (make-local-hook 'post-command-hook))
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
     (skk-j-mode-on)
@@ -220,15 +215,10 @@ dependent."
   ;; format を引数に持たせた場合は、skk-yes-or-no-p を使うとかえって冗長にな
   ;; る。
   (when (yes-or-no-p
-	 (format
-	  (if skk-japanese-message-and-error
-	      "辞書を保存せずに %s を終了します。良いですか？"
-	    "Do you really wish to kill %s without saving Jisyo? ")
-	  (static-cond
-	   ((featurep 'xemacs)
-	    "XEmacs")
-	   (t
-	    "Emacs"))))
+	 (format (if skk-japanese-message-and-error
+		     "辞書を保存せずに %s を終了します。良いですか？"
+		   "Do you really wish to kill %s without saving Jisyo? ")
+		 (if (featurep 'xemacs) "XEmacs" "Emacs")))
     (let ((buff (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
       (remove-hook 'kill-emacs-hook 'skk-save-jisyo)
       (when buff
@@ -299,7 +289,7 @@ dependent."
 	       'skk-after-point-move
 	       'local)
   (skk-update-modeline)
-  (static-when (featurep 'xemacs)
+  (when (eval-when-compile (featurep 'xemacs))
     (delete-menu-item (list (car skk-menu)))))
 
 (defun skk-mode-invoke ()
@@ -330,11 +320,11 @@ dependent."
 	(skk-use-kana-keyboard
 	 ;; 仮名入力 (日本語旧 JIS または親指シフト)
 	 (skk-kanagaki-initialize)))
-  (static-when (and skk-running-gnu-emacs
-		    (>= emacs-major-version 21))
-    (skk-e21-prepare-menu))
-  (static-when (and skk-running-gnu-emacs
-		    (>= emacs-major-version 23))
+  (when (eval-when-compile (and skk-running-gnu-emacs
+				(>= emacs-major-version 21)))
+    (skk-emacs-prepare-menu))
+  (when (eval-when-compile (and skk-running-gnu-emacs
+				(>= emacs-major-version 23)))
     (skk-setup-charset-list))
   (skk-setup-delete-selection-mode)
   (setq skk-mode-invoked t))
@@ -388,7 +378,7 @@ dependent."
       (define-key skk-j-mode-map (skk-char-to-unibyte-string skk-try-completion-char)
 	'skk-insert)
       ;; Workaround for key translation.
-      (static-unless (featurep 'xemacs)
+      (when (eval-when-compile skk-running-gnu-emacs)
 	(when (eq skk-try-completion-char 9)
 	  ;; tab キーは <tab> の定義が無ければ TAB の定義が割り当てられる。
 	  ;; Org-mode などは <tab> を定義するので，SKK の方でも <tab> を定義
@@ -540,11 +530,11 @@ dependent."
 
 (defun skk-make-indicator-alist ()
   "SKK インジケータ型オブジェクトを用意し、連想リストにまとめる。"
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (skk-xemacs-prepare-modeline-properties))
    (t
-    (skk-e21-prepare-modeline-properties)))
+    (skk-emacs-prepare-modeline-properties)))
   ;;
   (let ((mode-string-list '(skk-latin-mode-string
 			    skk-hiragana-mode-string
@@ -741,11 +731,10 @@ dependent."
   "Delete Selection モードのための設定をする。
 Delete Selection モードが SKK を使った日本語入力に対しても機能するように
 セットアップする。"
-  (let ((property (static-cond
-		   ((featurep 'xemacs)
-		    'pending-delete)
-		   (t
-		    'delete-selection)))
+  (let ((property (cond ((featurep 'xemacs)
+			 'pending-delete)
+			(t
+			 'delete-selection)))
 	(funcs '(skk-current-kuten
 		 skk-current-touten
 		 skk-input-by-code-or-menu
@@ -2282,9 +2271,9 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	(unless (pos-visible-in-window-p)
 	  (recenter '(1)))
 	;;
-	(static-unless (and (featurep 'xemacs)
-			    (= emacs-major-version 21)
-			    (<= emacs-minor-version 4))
+	(unless (eval-when-compile (and (featurep 'xemacs)
+					(= emacs-major-version 21)
+					(<= emacs-minor-version 4)))
 	  ;; XEmacs 21.4 にはない関数
 	  (fit-window-to-buffer))
 	;;
@@ -4709,8 +4698,8 @@ SKK 辞書の候補として正しい形に整形する。"
 
 (defun skk-search-function-usage ()
   "Emacs Lisp 関数の usage を返す。"
-  (static-when (and skk-running-gnu-emacs
-		    (>= emacs-major-version 22))
+  (when (eval-when-compile (and skk-running-gnu-emacs
+				(>= emacs-major-version 22)))
     (unless skk-henkan-okurigana
       (let* ((symbol (intern (format "%s" skk-henkan-key)))
 	     def doc usage arglist result)
@@ -4981,13 +4970,12 @@ SKK 辞書の候補として正しい形に整形する。"
     (skk-detach-extent skk-henkan-overlay)))
 
 (defun skk-detach-extent (object)
-  (static-cond
-   ((featurep 'xemacs)
-    (when (extentp object)
-      (detach-extent object)))
-   (t
-    (when (overlayp object)
-      (delete-overlay object)))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (when (extentp object)
+	   (detach-extent object)))
+	(t
+	 (when (overlayp object)
+	   (delete-overlay object)))))
 
 (defun skk-make-face (face)
   "新しい FACE を作成する。"
@@ -5151,47 +5139,43 @@ SKK 辞書の候補として正しい形に整形する。"
 
 ;; ??? Workaround for XEmacs isearch.
 (defun skk-henkan-count ()
-  (static-cond
-   ((featurep 'xemacs)
-    (if skk-isearch-switch
-	(with-current-buffer skk-isearch-working-buffer
-	  skk-henkan-count)
-      skk-henkan-count))
-   (t
-    skk-henkan-count)))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (if skk-isearch-switch
+	     (with-current-buffer skk-isearch-working-buffer
+	       skk-henkan-count)
+	   skk-henkan-count))
+	(t
+	 skk-henkan-count)))
 
 ;; ??? Workaround for XEmacs isearch.
 (defun skk-set-henkan-count (i)
-  (static-cond
-   ((featurep 'xemacs)
-    (if skk-isearch-switch
-	(with-current-buffer skk-isearch-working-buffer
-	  (setq skk-henkan-count i))
-      (setq skk-henkan-count i)))
-   (t
-    (setq skk-henkan-count i))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (if skk-isearch-switch
+	     (with-current-buffer skk-isearch-working-buffer
+	       (setq skk-henkan-count i))
+	   (setq skk-henkan-count i)))
+	(t
+	 (setq skk-henkan-count i))))
 
 ;; ??? Workaround for XEmacs isearch.
 (defun skk-exit-show-candidates ()
-  (static-cond
-   ((featurep 'xemacs)
-    (if skk-isearch-switch
-	(with-current-buffer skk-isearch-working-buffer
-	  skk-exit-show-candidates)
-      skk-exit-show-candidates))
-   (t
-    skk-exit-show-candidates)))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (if skk-isearch-switch
+	     (with-current-buffer skk-isearch-working-buffer
+	       skk-exit-show-candidates)
+	   skk-exit-show-candidates))
+	(t
+	 skk-exit-show-candidates)))
 
 ;; ??? Workaround for XEmacs isearch.
 (defun skk-set-exit-show-candidates (list)
-  (static-cond
-   ((featurep 'xemacs)
-    (if skk-isearch-switch
-	(with-current-buffer skk-isearch-working-buffer
-	  (setq skk-exit-show-candidates list))
-      (setq skk-exit-show-candidates list)))
-   (t
-    (setq skk-exit-show-candidates list))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (if skk-isearch-switch
+	     (with-current-buffer skk-isearch-working-buffer
+	       (setq skk-exit-show-candidates list))
+	   (setq skk-exit-show-candidates list)))
+	(t
+	 (setq skk-exit-show-candidates list))))
 
 ;;; functions for hooks.
 (defun skk-after-point-move ()
@@ -5279,7 +5263,7 @@ SKK 辞書の候補として正しい形に整形する。"
 
 (defun skk-add-background-color (string color)
   "STRING のなかで背景色指定がない文字にだけ COLOR の背景色をつける。"
-  (static-when skk-running-gnu-emacs
+  (when (eval-when-compile skk-running-gnu-emacs)
     (when (and string color)
       (let ((start 0)
 	    (end 1)
@@ -5295,9 +5279,8 @@ SKK 辞書の候補として正しい形に整形する。"
 			       `(:background ,color)
 			       string))
 	   ((and (facep orig-face) (not (face-background orig-face)))
-	    (static-cond
-	     ((and skk-running-gnu-emacs
-		   (= emacs-major-version 21))
+	    (cond
+	     ((eval-when-compile (= emacs-major-version 21))
 	      ;; Emacs 21 で :inherit がうまく継承されない？
 	      ;; workaround
 	      (let (attrs)
@@ -5311,8 +5294,7 @@ SKK 辞書の候補として正しい形に整形する。"
 				   string)))
 	     (t
 	      (put-text-property start end 'face
-				 `(:inherit ,orig-face
-					    :background ,color)
+				 `(:inherit ,orig-face :background ,color)
 				 string))))
 	   ((and (listp orig-face)
 		 (not (plist-get (get-text-property start 'face string)
