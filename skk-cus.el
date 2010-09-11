@@ -306,7 +306,7 @@
       (funcall (or (get variable 'custom-set) 'set-default) variable value)
       (put variable 'saved-value (list (custom-quote value)))
       (unless (eval-when-compile (and skk-running-gnu-emacs
-				    (= emacs-major-version 21)))
+				      (= emacs-major-version 21)))
 	;; Emacs 21 にはない関数。
 	(custom-push-theme 'theme-value variable 'user 'set
 			   (custom-quote value)))
