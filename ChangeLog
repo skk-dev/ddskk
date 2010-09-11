@@ -1,3 +1,11 @@
+2010-09-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-setup.el.in (before-init-hook): add-hook 'before-init-hook
+	for display skk-version on emacs startup screen.
+
+	* skk-version.el (skk-startup-screen): Remove function.
+	
+
 2010-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* bayesian/skk-bayesian.el, skk-dcomp.el, skk-tankan.el: Do not

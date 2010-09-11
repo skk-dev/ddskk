@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.30 2006/01/04 10:10:46 skk-cvs Exp $
+;; Version: $Id: skk-setup.el.in,v 1.31 2010/09/11 22:44:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2006/01/04 10:10:46 $
+;; Last Modified: $Date: 2010/09/11 22:44:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -55,6 +55,21 @@
 	      (when (and (featurep 'skk-isearch)
 			 skk-isearch-mode-enable)
 		(skk-isearch-mode-cleanup))))
+
+;;; Emacs 起動時の startup screen に skk のバージョンを追加表示する。
+(add-hook 'before-init-hook
+	  #'(lambda ()
+	      (cond
+	       ((fboundp 'skk-mode)
+		;; for GUI
+		(defadvice fancy-startup-tail (after insert-skk-version
+						     activate)
+		  (skk-startup-screen-message))
+		;; for TTY
+		(defadvice normal-mouse-startup-screen (after
+							insert-skk-version
+							activate)
+		  (skk-startup-screen-message))))))
 
 (provide 'skk-setup)
 
