@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.172 2010/09/10 15:13:36 skk-cvs Exp $
-;; Last Modified: $Date: 2010/09/10 15:13:36 $
+;; Version: $Id: SKK-MK,v 1.173 2010/09/11 15:17:12 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/11 15:17:12 $
 
 ;;; Commentary:
 
@@ -76,7 +76,7 @@ This version of SKK requires MULE features"))
     (when (file-directory-p dir)
       (add-to-list 'load-path dir))))
 
-(require 'install)
+(require 'install (expand-file-name "install.el"))
 
 (setq install-prefix
   (cond	((eq system-type 'windows-nt)
@@ -157,16 +157,17 @@ This version of SKK requires MULE features"))
 
 ;; After determining APEL installed dirctory.
 
-(condition-case nil
-    (require 'product)
-  (error
-   (error "%s"
-	  "This version of Daredevil SKK requires APEL/10.7 or later")))
-
-(unless (product-version>= 'apel-ver
-			   '(10 7))
- (error "%s"
-	"This version of Daredevil SKK requires APEL/10.7 or later"))
+(when (and (string-match "^GNU" (emacs-version))
+	   (= emacs-major-version 21))
+  (condition-case nil
+      (require 'product)
+    (error
+     (error "%s"
+	    "DDSKK requires APEL/10.7 or later for GNU Emacs 21")))
+  (unless (product-version>= 'apel-ver
+			     '(10 7))
+    (error "%s"
+	   "DDSKK requires APEL/10.7 or later for GNU Emacs 21")))
 
 ;; constants.
 (defconst SKK-MK-texinfo-coding-system 'iso-2022-jp)
@@ -900,7 +901,6 @@ SKK tutorials:
 
 ;;; Code:\n\n")
       (require 'autoload)
-      (require 'poem)
       (while modules
 	(let ((file (expand-file-name
 		     (format "%s.el" (car modules)))))
@@ -918,7 +918,6 @@ SKK tutorials:
 (defun SKK-MK-generate-autoloads-el-package ()
   "Generate auto-autoload.el."
   (let ((modules SKK_MODULES))
-    (require 'poem)
     (with-temp-buffer
       (dolist (module modules)
 	(let ((file (expand-file-name
@@ -942,7 +941,6 @@ SKK tutorials:
     (Custom-make-dependencies)))
 
 (defun SKK-MK-skk-dic ()
-  (require 'poem)
   (let* ((buf (get-buffer-create " *SKK-JISYO.S*"))
 	 (jisyo0 (and SKK_DEFAULT_JISYO
 		      (expand-file-name SKK_DEFAULT_JISYO)))
