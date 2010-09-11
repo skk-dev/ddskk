@@ -5,9 +5,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.31 2010/09/10 15:44:25 skk-cvs Exp $
+;; Version: $Id: skk-kakasi.el,v 1.32 2010/09/11 14:59:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:44:25 $
+;; Last Modified: $Date: 2010/09/11 14:59:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -48,8 +48,6 @@
   (require 'skk-macs))
 
 (require 'skk-vars)
-;; APEL
-(require 'path-util)
 
 (let ((euc (cdr (assoc "euc" skk-coding-system-alist))))
   (modify-coding-system-alist 'process "kakasi" (cons euc euc)))
