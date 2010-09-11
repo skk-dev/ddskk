@@ -44,14 +44,13 @@
   (require 'cl)
   (require 'skk-kanagaki-util)
   (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'static))
+  (require 'skk-vars))
 
 (eval-and-compile
   (require 'skk-kanagaki))
 
-(static-when skk-running-gnu-emacs
-  (require 'skk-e21))
+(when (eval-when-compile skk-running-gnu-emacs)
+  (require 'skk-emacs))
 
 (eval-and-compile
   (autoload 'skk-dcomp-marked-p "skk-dcomp")
@@ -459,13 +458,13 @@
 	    ?\ )
 	(call-interactively 'self-insert-command t))
     ;; else
-    (let ((last (static-cond
-		 ((featurep 'xemacs)
+    (let ((last (cond
+		 ((eval-when-compile (featurep 'xemacs))
 		  (event-key last-command-event))
 		 (t
 		  last-command-event)))
-	  (next (static-cond
-		 ((featurep 'xemacs)
+	  (next (cond
+		 ((eval-when-compile (featurep 'xemacs))
 		  (event-key (next-command-event)))
 		 (t
 		  (next-command-event))))
@@ -573,8 +572,8 @@
 
 (defun skk-nicola-event-to-key (event)
   "EVENT を発生するキーを取得する。"
-  (static-cond
-   ((featurep 'xemacs)
+  (cond
+   ((eval-when-compile (featurep 'xemacs))
     (let ((char (event-to-character event)))
       (if (characterp char)
 	  char

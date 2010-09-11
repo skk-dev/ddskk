@@ -1,3 +1,13 @@
+2010-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* NICOLA-DDSKK-CFG, NICOLA-DDSKK-ELS: Do not use path-util.el.
+	* NICOLA-DDSKK-MK: Do not requiqre pcustom and poem.
+	* skk-kanagaki-menu.el: Do not use path-util.el and static.el.
+	* skk-kanagaki-util.el, skk-nicola-dcomp.el: Do not require static.
+	* skk-kanagaki.el: Do not use `defalias-maybe'.
+	* skk-nicola.el: Do not use static.el.  Require skk-emacs instead
+	of skk-e21 for GNU Emacsen.
+
 2010-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* NICOLA-DDSKK-CFG: Check if Emacs is self-contained.
