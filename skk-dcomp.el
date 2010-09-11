@@ -6,9 +6,9 @@
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.67 2010/09/09 14:21:22 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.68 2010/09/11 14:56:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/09 14:21:22 $
+;; Last Modified: $Date: 2010/09/11 14:56:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -209,9 +209,11 @@
 	 (goto-char (cdr pair))))))
 
 (defun skk-dcomp-multiple-available-p ()
-  (static-cond ((featurep 'xemacs) nil)
-	       (t (< (1+ skk-dcomp-multiple-rows)
-		     (skk-window-body-height)))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 nil)
+	(t
+	 (< (1+ skk-dcomp-multiple-rows)
+	    (skk-window-body-height)))))
 
 (defun skk-dcomp-multiple-increase-index (index &optional ignore-search-done)
   (cond ((and skk-comp-circulate

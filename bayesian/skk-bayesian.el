@@ -441,7 +441,8 @@
   (set-process-coding-system skk-bayesian-process
                              skk-bayesian-coding-system
                              skk-bayesian-coding-system)
-  (static-if (fboundp 'set-process-query-on-exit-flag)
+  (if (eval-when-compile (and skk-running-gnu-emacs
+				(>= emacs-major-version 22)))
       (set-process-query-on-exit-flag skk-bayesian-process nil)
     (process-kill-without-query skk-bayesian-process)))
 
