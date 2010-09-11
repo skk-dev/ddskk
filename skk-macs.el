@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.149 2010/09/11 15:03:47 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.150 2010/09/11 20:03:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/11 15:03:47 $
+;; Last Modified: $Date: 2010/09/11 20:03:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -841,7 +841,7 @@ BUFFER defaults to the current buffer."
   (string< (encode-coding-string str1 coding-system)
 	   (encode-coding-string str2 coding-system)))
 
-(defsubst skk-string< (str1 str2)
+(defun skk-string< (str1 str2)
   "STR1 と STR2 とを比較する。
 内部コードが emacs-mule でないなど `stringp' の返り値が異なる Emacs に
 対して emacs-mule の encoded string に変換して比較する。
