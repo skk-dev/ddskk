@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.515 2010/09/10 15:14:00 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.516 2010/09/11 15:13:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:14:00 $
+;; Last Modified: $Date: 2010/09/11 15:13:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -320,8 +320,7 @@ dependent."
 	(skk-use-kana-keyboard
 	 ;; 仮名入力 (日本語旧 JIS または親指シフト)
 	 (skk-kanagaki-initialize)))
-  (when (eval-when-compile (and skk-running-gnu-emacs
-				(>= emacs-major-version 21)))
+  (when (eval-when-compile skk-running-gnu-emacs)
     (skk-emacs-prepare-menu))
   (when (eval-when-compile (and skk-running-gnu-emacs
 				(>= emacs-major-version 23)))
