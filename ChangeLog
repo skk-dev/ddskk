@@ -15,6 +15,7 @@
 	* install.el: Import from APEL 10.8 with minimal modifications.
 	* SKK-MK: Use it.  Do not check for APEL except for Emacs 21.  Do
 	not require poem.
+	* SKK-CFG: Remove descriptions on APEL_DIR and EMU_DIR.
 
 2010-09-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
