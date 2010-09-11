@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.32 2010/09/10 14:37:53 skk-cvs Exp $
+;; Version: $Id: skk-lookup.el,v 1.33 2010/09/11 15:00:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2010/09/10 14:37:53 $
+;; Last Modified: $Date: 2010/09/11 15:00:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -123,7 +123,8 @@
 (eval-and-compile
   (autoload 'lookup-vse-search-query "lookup-vse"))
 
-(defalias-maybe 'skk-okurigana-prefix 'skk-auto-okurigana-prefix)
+(unless (fboundp 'skk-okurigana-prefix)
+  (defalias 'skk-okurigana-prefix 'skk-auto-okurigana-prefix))
 
 ;;;; inline functions.
 (defsubst skk-lookup-get-1 (name index)

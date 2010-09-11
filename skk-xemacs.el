@@ -241,10 +241,12 @@ Non-nil ならばツールティップを再描画する。")
     (cons (selected-window) (cons col row))))
 
 
-(defalias-maybe 'multibyte-string-p 'stringp)
+(unless (fboundp 'multibyte-string-p)
+  (defalias 'multibyte-string-p 'stringp))
 
 ;; XEmacs 21.4
-(defalias-maybe 'current-pixel-row 'ignore)
+(unless (fboundp 'current-column)
+  (defalias 'current-pixel-row 'ignore))
 
 (defalias 'skk-tooltip-hide 'balloon-help-undisplay-help)
 

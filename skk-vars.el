@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.316 2010/09/10 15:14:00 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.317 2010/09/11 15:05:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:14:00 $
+;; Last Modified: $Date: 2010/09/11 15:05:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -34,9 +34,7 @@
   (defvar charset-list)
   (defvar word-across-newline)
   (defvar emacs-beta-version)
-  (defvar mule-version)
-  (defalias-maybe 'frame-property 'ignore)
-  (defalias-maybe 'locate-data-file 'ignore))
+  (defvar mule-version))
 
 (eval-and-compile
   ;; XEmacs の識別は (featurep 'xemacs) を用いる。GNU Emacs については
