@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.31 2010/09/08 12:20:15 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.32 2010/09/11 15:04:33 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/09/08 12:20:15 $
+;; Last Modified: $Date: 2010/09/11 15:04:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1465,19 +1465,17 @@
 ;;; get/set char's annotation
 (defun skk-tankan-get-char-annotation (char)
   (if skk-tankan-annotation-table
-      (static-cond
-       ((featurep 'xemacs)
-	(get-char-table char skk-tankan-annotation-table))
-       (t
-	(aref skk-tankan-annotation-table char)))
+      (cond ((eval-when-compile (featurep 'xemacs))
+	     (get-char-table char skk-tankan-annotation-table))
+	    (t
+	     (aref skk-tankan-annotation-table char)))
     nil))
 
 (defun skk-tankan-set-char-annotaion (char annotation)
-  (static-cond
-   ((featurep 'xemacs)
-    (put-char-table char annotation skk-tankan-annotation-table))
-   (t
-    (aset skk-tankan-annotation-table char annotation))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (put-char-table char annotation skk-tankan-annotation-table))
+	(t
+	 (aset skk-tankan-annotation-table char annotation))))
 
 ;;; get stroke for radical part
 (defun skk-tankan-stroke-for-radical (radical dat)
@@ -1500,8 +1498,8 @@
 \(aref skk-tankan-radical-vector 24\)
  => \"十\"
 "
-  (let* ((charset (static-if (and (not (featurep 'xemacs))
-				  (>= emacs-major-version 23))
+  (let* ((charset (if (eval-when-compile (and skk-running-gnu-emacs
+					      (>= emacs-major-version 23)))
 		      ;; GNU Emacs 23.1 or later
 		      (char-charset char skk-charset-list)
 		    (char-charset char))) ; => 'japanese-jisx0208
@@ -1738,10 +1736,10 @@ C-u 数値 M-x skk-tankan で総画数変換を開始する。"
   (let ((skk-henkan-key (concat skk-henkan-key
 				(char-to-string skk-tankan-search-key)))
 	(large-jisyo (or skk-large-jisyo
-			 (static-cond
-			  ((featurep 'xemacs)
+			 (cond
+			  ((eval-when-compile (featurep 'xemacs))
 			   (locate-data-file "SKK-JISYO.L"))
-			  ((>= emacs-major-version 22)
+			  ((eval-when-compile (>= emacs-major-version 22))
 			   (locate-file "skk/SKK-JISYO.L"
 					(list
 					 (expand-file-name "../../.."
@@ -1752,10 +1750,10 @@ C-u 数値 M-x skk-tankan で総画数変換を開始する。"
 			   nil))
 			 skk-aux-large-jisyo))
 	(cdb-jisyo (or skk-cdb-large-jisyo
-		       (static-cond
-			((featurep 'xemacs)
+		       (cond
+			((eval-when-compile (featurep 'xemacs))
 			 (locate-data-file "SKK-JISYO.L.cdb"))
-			((>= emacs-major-version 22)
+			((eval-when-compile (>= emacs-major-version 22))
 			 (locate-file "skk/SKK-JISYO.L.cdb"
 				      (list
 				       (expand-file-name "../../.."
