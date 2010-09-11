@@ -5,9 +5,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.148 2010/09/10 15:14:00 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.149 2010/09/11 15:03:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:14:00 $
+;; Last Modified: $Date: 2010/09/11 15:03:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -227,12 +227,19 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 ;; version dependent
 ;; Many functions are derived from emu (APEL).
 
+(when (eval-when-compile (and skk-running-gnu-emacs
+			      (<= emacs-major-version 22)))
+  (defalias 'characterp 'char-valid-p))
+
+(when (eval-when-compile skk-running-gnu-emacs)
+  (defalias 'int-char 'identity))
+
 (when (eval-when-compile skk-running-gnu-emacs)
   (defun string-to-char-list (string)
     "Return a list of which elements are characters in the STRING."
     (mapcar #'identity string)))
 
-(when (eval-when-compile skk-running-gnu-emacs)
+(unless (fboundp 'string-to-int-list)
   (defalias 'string-to-int-list 'string-to-char-list))
 
 (when (eval-when-compile skk-running-gnu-emacs)
@@ -350,6 +357,16 @@ If PROMPT is non-nil, it should be a string and will be displayed in
 the echo area while this function is waiting for an event."
     (read-event prompt)))
 
+(when (eval-when-compile (featurep 'xemacs))
+  (defun set-buffer-multibyte (flag)
+    "Set the multibyte flag of the current buffer to FLAG.
+If FLAG is t, this makes the buffer a multibyte buffer.
+If FLAG is nil, this makes the buffer a single-byte buffer.
+The buffer contents remain unchanged as a sequence of bytes
+but the contents viewed as characters do change.
+\[Emacs 20.3 emulating function]"
+  flag))
+
 (defun skk-sit-for (seconds &optional nodisplay)
   "`sit-for' の Emacsen による違いを吸収する。"
   (cond
@@ -366,7 +383,7 @@ the echo area while this function is waiting for an event."
   "`ding' の Emacsen による違いを吸収する。"
   (cond
    ((eval-when-compile (featurep 'xemacs))
-     (ding arg sound device))
+    (ding arg sound device))
    (t
     (ding arg))))
 
