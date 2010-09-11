@@ -35,7 +35,6 @@
 (eval-and-compile
   (autoload 'browse-url-netscape "browse-url"))
 
-(require 'path-util)
 (require 'easymenu)
 
 (eval-and-compile
@@ -65,10 +64,10 @@ Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
        (featurep 'skk-nicola)]
       "--"
       ["Visit NIHONGO-NYURYOKU CONSORTIUM Web Site"
-       skk-nicola-visit-nicola-website (module-installed-p 'browse-url)])))
+       skk-nicola-visit-nicola-website (locate-library "browse-url")])))
 
-(static-cond
- ((featurep 'xemacs)
+(cond
+ ((eval-and-compile (featurep 'xemacs))
   (add-hook 'skk-mode-hook
 	    #'(lambda ()
 		(add-submenu
@@ -83,10 +82,10 @@ Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
      map
      '("menu-bar" "SKK")
      skk-kanagaki-menu-items))
-  (static-when skk-running-gnu-emacs
-    (setq skk-e21-menu-resource-ja
+  (when (eval-when-compile skk-running-gnu-emacs)
+    (setq skk-emacs-menu-resource-ja
 	  (append
-	   skk-e21-menu-resource-ja
+	   skk-emacs-menu-resource-ja
 	   '(("Set Henkan point" . "変換開始点をセット")
 	     ("Input Prefix or Suffix" . "接頭辞・接尾辞を入力")
 	     ("Start Conversion with Okuri" . "送りあり変換を開始")
