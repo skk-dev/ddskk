@@ -35,7 +35,6 @@ VERSION_SPECIFIC_LISPDIR=%s\n" PREFIX VERSION_SPECIFIC_LISPDIR))))
 (defun compile-nicola-ddskk ()
   (condition-case nil (load "bytecomp-runtime.el") (error))
   (config-nicola-ddskk)
-  (require 'pcustom)
   (require 'skk-isearch)
   (require 'skk-macs)
   (require 'skk-autoloads)
@@ -45,7 +44,6 @@ VERSION_SPECIFIC_LISPDIR=%s\n" PREFIX VERSION_SPECIFIC_LISPDIR))))
 
 (defun install-nicola-ddskk ()
   (config-nicola-ddskk)
-  (require 'pcustom)
   (install-elisp-modules nicola-ddskk-modules "./" NICOLA-DDSKK_DIR)
   (delete-file "./nicola-ddskk-autoloads.el"))
 
@@ -68,7 +66,6 @@ VERSION_SPECIFIC_LISPDIR=%s\n" PREFIX VERSION_SPECIFIC_LISPDIR))))
   (install-update-package-files "nicola-ddskk" ".")
 
   (require 'nicola-ddskk-autoloads "./auto-autoloads.el")
-  (require 'pcustom)
   (require 'skk-isearch)
   (require 'skk-macs)
   (require 'skk-autoloads)
@@ -88,7 +85,6 @@ VERSION_SPECIFIC_LISPDIR=%s\n" PREFIX VERSION_SPECIFIC_LISPDIR))))
 (defun nicola-ddskk-generate-autoloads ()
   "Generate nicola-ddskk-autoload.el."
   (require 'autoload)
-  (require 'poem)
   (let ((buf (get-buffer-create " *nicola-ddskk-generate-autoloads*"))
        sort-min standard-output)
     (save-excursion
@@ -103,8 +99,8 @@ VERSION_SPECIFIC_LISPDIR=%s\n" PREFIX VERSION_SPECIFIC_LISPDIR))))
 	(insert "
 (provide 'nicola-ddskk-autoloads)
 ")
-	(write-region-as-coding-system 'iso-2022-7bit
-	 (point-min) (point-max) "nicola-ddskk-autoloads.el" nil nil)
-	(kill-buffer buf))))
+(let ((coding-system-for-write 'iso-2022-7bit))
+  (write-region (point-min) (point-max) "nicola-ddskk-autoloads.el" nil nil))
+  (kill-buffer buf))))
 
 ;;; NICOLA-DDSKK-MK ends here
