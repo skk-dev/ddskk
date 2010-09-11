@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.53 2010/09/10 15:44:25 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.54 2010/09/11 05:22:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:44:25 $
+;; Last Modified: $Date: 2010/09/11 05:22:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -42,15 +42,13 @@
 
 ;;;###autoload
 (defun skk-input-by-code-or-menu (&optional arg)
-  "7bit もしくは 8bit もしくは 区点コードに対応する 2byte 文字を挿入する。"
+  "7/8 bit JIS コード もしくは 区点コードに対応する文字を挿入する。"
   (interactive "*P")
   (when arg
-    (let ((charset
-	   (intern (completing-read
-		    (format "CHARSET(%s): "
-			    skk-kcode-charset)
-		    skk-kcode-charset-list
-		    nil t))))
+    (let ((charset (intern (completing-read (format "CHARSET(%s): "
+						    skk-kcode-charset)
+					    skk-kcode-charset-list
+					    nil t))))
       (cond
        ((eq charset (intern ""))
 	nil)
@@ -59,20 +57,20 @@
 		   "Invalid charset"))
        (t
 	(setq skk-kcode-charset charset)))))
-  (let ((str
-	 (read-string
-	  (format
-	   "7/8 bits or KUTEN code for %s (00nn or CR for Jump Menu): "
-	   skk-kcode-charset)))
+
+  (let ((str (read-string (format "7/8 bits JIS code or KUTEN code for %s (00nn or CR for Jump Menu): "
+				  skk-kcode-charset)))
 	(enable-recursive-minibuffers t)
 	n1 n2)
     (if (string-match "\\(.+\\)-\\(.+\\)" str)
+	;; ハイフン `-' で区切られていれば区点コード
 	(setq n1 (+ (string-to-number (match-string-no-properties 1 str))
 		    32
 		    128)
 	      n2 (+ (string-to-number (match-string-no-properties 2 str))
 		    32
 		    128))
+      ;; そうでなければ JIS コード
       (setq n1 (if (string= str "")
 		   128
 		 (+ (* 16 (skk-char-to-hex (aref str 0) 'jis))
@@ -358,20 +356,15 @@
 ;;;###autoload
 (defun skk-display-code-for-char-at-point (&optional arg)
   "ポイントにある文字の区点コード、JIS コード、EUC コード及びシフト JIS コード を表示する。"
-  (interactive "P")
-  (when (eobp)
-    (skk-error "カーソルがバッファの終端にあります"
-	       "Cursor is at the end of the buffer"))
-  (skk-display-code (buffer-substring-no-properties
-		     (point) (skk-save-point
-			      (forward-char 1)
-			      (point))))
-    ;; エコーした文字列をカレントバッファに挿入しないように。
-    t)
+  (if (eobp)
+      (and (skk-message "カーソルがバッファの終端にあります"
+			"Cursor is at the end of the buffer")
+	   t) ; エコーした文字列をカレントバッファに挿入しないように。
+    (skk-display-code (following-char))
+    t))
 
-(defun skk-display-code (str)
-  (let* ((char (string-to-char str))
-	 (charset (if (eval-when-compile (and skk-running-gnu-emacs
+(defun skk-display-code (char)
+  (let* ((charset (if (eval-when-compile (and skk-running-gnu-emacs
 					      (>= emacs-major-version 23)))
 		      ;; GNU Emacs 23.1 or later
 		      (char-charset char skk-charset-list)
@@ -396,8 +389,8 @@
 	     (char-data (skk-tankan-get-char-data char))
 	     (anno (skk-tankan-get-char-annotation char)))
 	;;
-	(setq mesg (format "`%s'%s, KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
-			   str
+	(setq mesg (format "`%c'%s, KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
+			   char
 			   (if (eq charset 'japanese-jisx0213-2)
 			       " (plane 2)"
 			     "")
@@ -416,8 +409,8 @@
 			     "")))))
      ;;
      ((memq charset '(ascii latin-jisx0201))
-      (setq mesg (format "`%s', HEX: %2x, DECIMAL: %3d"
-			 str
+      (setq mesg (format "`%c', HEX: %2x, DECIMAL: %3d"
+			 char
 			 (skk-char-octet char 0)
 			 (skk-char-octet char 0))))
      ;;

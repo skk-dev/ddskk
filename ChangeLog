@@ -1,5 +1,8 @@
 2010-09-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kcode.el (skk-display-code-for-char-at-point):code reviewd.
+	(skk-display-code): code reviewd.
+
 	* doc/skk.texi: Update.
 
 2010-09-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
