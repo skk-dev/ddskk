@@ -2,8 +2,7 @@
 
 ;;; Code:
 
-(require 'path-util)
-(if (module-installed-p 'easymenu)
+(if (locate-library "easymenu")
     (require 'easymenu))
 
 (setq nicola-ddskk-modules

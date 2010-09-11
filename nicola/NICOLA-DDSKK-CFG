@@ -23,28 +23,23 @@
 (defvar default-load-path load-path)
 
 (add-to-list 'load-path
-	     (expand-file-name "../../site-lisp/apel" data-directory))
-
-(add-to-list 'load-path
-	     (expand-file-name "../site-lisp/apel" data-directory))
-
-(add-to-list 'load-path
 	     (expand-file-name "../../site-lisp/skk" data-directory))
 
 (add-to-list 'load-path
 	     (expand-file-name "../site-lisp/skk" data-directory))
 
+(add-to-list 'load-path (expand-file-name "."))
+
 (if (boundp 'LISPDIR)
     (progn
       (add-to-list 'default-load-path LISPDIR)
       (add-to-list 'load-path LISPDIR)
-      (add-to-list 'load-path (expand-file-name "apel" LISPDIR))
       (add-to-list 'load-path (expand-file-name "skk" LISPDIR))))
 
 (if (boundp 'VERSION_SPECIFIC_LISPDIR)
     (add-to-list 'load-path VERSION_SPECIFIC_LISPDIR))
 
-(require 'install)
+(require 'install (expand-file-name "install.el" ".."))
 
 (defvar emacs-self-contained nil)
 
@@ -67,10 +62,6 @@
 	 (expand-file-name "../../.." exec-directory))
 	(t
 	 (expand-file-name "../../../.." data-directory))))
-
-(add-latest-path "custom")
-
-(add-path default-directory)
 
 ;;; @ Please specify prefix of install directory.
 ;;;
