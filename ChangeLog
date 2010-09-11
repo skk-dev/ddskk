@@ -8,6 +8,7 @@
 	`defalias-maybe'.
 	* skk-macs.el (characterp, int-char, set-buffer-multibyte): Add
 	definitions for Emacsen missing these functions.
+	(skk-string<): Defun instead of defsubst.
 	* skk.el (skk-mode-invoke): Do not check for Emacs 21.
 	* skk-annotation.el (skk-annotation-wikipedia-normalize-word):
 	Make sure word is not a null string.
