@@ -33,8 +33,7 @@
 (eval-when-compile
   (require 'cl)
   (require 'skk-vars)
-  (require 'skk-macs)
-  (require 'static))
+  (require 'skk-macs))
 
 (eval-when-compile
   (defvar skk-dcomp-start-point)

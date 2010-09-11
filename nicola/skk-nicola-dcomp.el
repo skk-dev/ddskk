@@ -28,8 +28,7 @@
 
 (eval-when-compile
   (require 'cl)
-  (require 'skk-macs)
-  (require 'static))
+  (require 'skk-macs))
 
 ;;;###autoload
 (add-hook 'skk-mode-hook
