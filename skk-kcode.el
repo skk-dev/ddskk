@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.54 2010/09/11 05:22:31 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.55 2010/09/11 09:54:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/11 05:22:31 $
+;; Last Modified: $Date: 2010/09/11 09:54:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -148,47 +148,45 @@
     (skk-input-by-code-or-menu-1 n1 n2)))
 
 (defun skk-input-by-code-or-menu-jump (n)
-  (let ((menu-keys1 ; 表示用のキーリストを組み立てる。
-	 (mapcar (function
-		  (lambda (char)
-		    (skk-char-to-unibyte-string (upcase char))))
-		 skk-input-by-code-menu-keys1))
+  (let ((menu-keys1 (mapcar #'(lambda (char) ; 表示用のキーリスト
+				(skk-char-to-unibyte-string (upcase char)))
+			    skk-input-by-code-menu-keys1))
 	kanji-char)
     (when (< n skk-code-n1-min)
       (setq n skk-input-by-code-or-menu-jump-default))
     (while (not kanji-char)
       (let ((n-org n)
-	    (chars
-	     (list
-	      (list (skk-make-string n skk-code-n1-min)
-		    n skk-code-n1-min)
-	      (list (skk-make-string n 177) n 177)
-	      (list (skk-make-string n 193) n 193)
-	      (list (skk-make-string n 209) n 209)
-	      (list (skk-make-string n 225) n 225)
-	      (list (skk-make-string n 241) n 241)
-	      (progn
-		(setq n (skk-next-n1-code n))
-		(list (skk-make-string n skk-code-n1-min)
-		      n skk-code-n1-min))
-	      (list (skk-make-string n 177) n 177)
-	      (list (skk-make-string n 193) n 193)
-	      (list (skk-make-string n 209) n 209)
-	      (list (skk-make-string n 225) n 225)
-	      (list (skk-make-string n 241) n 241))))
+	    (chars (list
+		    (list (skk-make-string n skk-code-n1-min)
+			  n skk-code-n1-min)
+		    (list (skk-make-string n 177) n 177)
+		    (list (skk-make-string n 193) n 193)
+		    (list (skk-make-string n 209) n 209)
+		    (list (skk-make-string n 225) n 225)
+		    (list (skk-make-string n 241) n 241)
+		    (progn
+		      (setq n (skk-next-n1-code n))
+		      (list (skk-make-string n skk-code-n1-min)
+			    n skk-code-n1-min))
+		    (list (skk-make-string n 177) n 177)
+		    (list (skk-make-string n 193) n 193)
+		    (list (skk-make-string n 209) n 209)
+		    (list (skk-make-string n 225) n 225)
+		    (list (skk-make-string n 241) n 241))))
 	(skk-save-point
 	 (let ((i 0)
 	       message-log-max
 	       str)
 	   (while (< i 12)
 	     (setq str (concat str
-			       (propertize (nth i menu-keys1) 'face
+			       (propertize (nth i menu-keys1)
+					   'face
 					   'skk-henkan-show-candidates-keys-face)
 			       ":"
 			       (car (nth i chars))
 			       "  "))
 	     (setq i (1+ i)))
-	   (message "%s" str))
+	   (message str))
 	 (let ((char (event-to-character (next-command-event)))
 	       rest ch)
 	   (if (not (characterp char))
@@ -209,71 +207,75 @@
 			  ;; 12 == (length skk-input-by-code-menu-keys1)
 			  (nth (- 12 (length rest)) chars)
 			nil)
-		   kanji-char
-		   (cond
-		    (ch
-		     ch)
-		    ((or (eq char skk-previous-candidate-char)
-			 (and (not skk-delete-implies-kakutei)
-			      (eq 'skk-delete-backward-char
-				  (lookup-key skk-j-mode-map (vector char)))))
-		     (when (< (setq n (- n-org 2)) skk-code-n1-min)
-		       (setq n skk-code-n1-max))
-		     nil)
-		    ((eq char skk-start-henkan-char) ; space
-		     (setq n (skk-next-n1-code n))
-		     nil)
-		    ((eq char ?\?)
-		     (skk-message
-		      "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d)\
- [何かキーを押してください]"
-		      "
-`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d)\
- [Hit any key to continue]"
-		      (car (car chars))
-		      n-org skk-code-n1-min
-		      n-org skk-code-n1-min
-		      (- n-org 128) (- skk-code-n1-min 128)
-		      (- n-org 128) (- skk-code-n1-min 128))
-		     (next-command-event)
-		     (setq n n-org)
-		     nil)
-		    (t
-		     (skk-message "`%c' は有効なキーではありません！"
-				  "`%c' is not valid here!"
-				  char)
-		     (sit-for 1)
-		     (message "")
-		     (setq n n-org)
-		     nil))))))))
+		   kanji-char (cond
+			       ;;
+			       (ch
+				ch)
+			       ;;
+			       ((or (eq char skk-previous-candidate-char)
+				    (and (not skk-delete-implies-kakutei)
+					 (eq 'skk-delete-backward-char
+					     (lookup-key skk-j-mode-map (vector char)))))
+				(when (< (setq n (- n-org 2)) skk-code-n1-min)
+				  (setq n skk-code-n1-max))
+				nil)
+			       ;;
+			       ((eq char skk-start-henkan-char) ; space
+				(setq n (skk-next-n1-code n))
+				nil)
+			       ;;
+			       ((eq char ?\?)
+				(skk-message
+				 "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d) [何かキーを押してください]"
+				 "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d) [Hit any key to continue]"
+				 (car (car chars))
+				 n-org skk-code-n1-min
+				 n-org skk-code-n1-min
+				 (- n-org 128) (- skk-code-n1-min 128)
+				 (- n-org 128) (- skk-code-n1-min 128))
+				(next-command-event)
+				(setq n n-org)
+				nil)
+			       ;;
+			       (t
+				(skk-message "`%c' は有効なキーではありません！"
+					     "`%c' is not valid here!"
+					     char)
+				(sit-for 1)
+				(message "")
+				(setq n n-org)
+				nil))))))))
     (setq skk-input-by-code-or-menu-jump-default
 	  (car (cdr kanji-char)))
-    (skk-input-by-code-or-menu-1
-     (car (cdr kanji-char))
-     (car (cdr (cdr kanji-char))))))
+    (skk-input-by-code-or-menu-1 (car (cdr kanji-char))
+				 (car (cdr (cdr kanji-char))))))
 
 (defun skk-input-by-code-or-menu-1 (n1 n2)
-  (let ((menu-keys2 ; 表示用のキーリストを組み立てる。
-	 (mapcar (function (lambda (char) (skk-char-to-unibyte-string (upcase char))))
-		 skk-input-by-code-menu-keys2))
+  (let ((menu-keys2 (mapcar #'(lambda (char) ; 表示用のキーリスト
+				(skk-char-to-unibyte-string (upcase char)))
+			    skk-input-by-code-menu-keys2))
 	kanji-char)
     (while (not kanji-char)
-      (let ((n1-org n1) (n2-org n2) (i 0)
+      (let ((n1-org n1)
+	    (n2-org n2)
+	    (i 0)
 	    (chars (list (skk-make-string n1 n2))))
 	;; 16 == (length skk-input-by-code-menu-keys2)
 	(while (< i (1- 16))
-	  (nconc chars (list
-			(progn
-			  (setq n2 (skk-next-n2-code n2))
-			  (if (= n2 skk-code-n2-min)
-			      (setq n1 (skk-next-n1-code n1)))
-			  (skk-make-string n1 n2))))
+	  (nconc chars (list (progn
+			       (setq n2 (skk-next-n2-code n2))
+			       (if (= n2 skk-code-n2-min)
+				   (setq n1 (skk-next-n1-code n1)))
+			       (skk-make-string n1 n2))))
 	  (setq i (1+ i)))
 	(skk-save-point
-	 (let ((i 0) message-log-max str)
+	 (let ((i 0)
+	       message-log-max
+	       str)
 	   (while (< i 16)
 	     (setq str (concat str
-			       (propertize (nth i menu-keys2) 'face
+			       (propertize (nth i menu-keys2)
+					   'face
 					   'skk-henkan-show-candidates-keys-face)
 			       ":"
 			       (nth i chars)
@@ -290,67 +292,70 @@
 		 (sit-for 1)
 		 (message "")
 		 (setq n1 n1-org n2 n2-org))
-	     (setq rest
-		   (or (memq char skk-input-by-code-menu-keys2)
-		       (if (skk-lower-case-p char)
-			   (memq (upcase char)
-				 skk-input-by-code-menu-keys2)
-			 (memq (downcase char)
-			       skk-input-by-code-menu-keys2)))
+	     (setq rest (or (memq char skk-input-by-code-menu-keys2)
+			    (if (skk-lower-case-p char)
+				(memq (upcase char)
+				      skk-input-by-code-menu-keys2)
+			      (memq (downcase char)
+				    skk-input-by-code-menu-keys2)))
 		   ch (when rest
 			;; 16 == (length skk-input-by-code-menu-keys2)
 			(nth (- 16 (length rest)) chars))
-		   kanji-char
-		   (cond
-		    (ch
-		     ch)
-		    ((or (eq char skk-previous-candidate-char)
-			 (and (not skk-delete-implies-kakutei)
-			      (eq 'skk-delete-backward-char
-				  (lookup-key skk-j-mode-map (vector char)))))
-		     (when (< (setq n2 (- n2 31)) skk-code-n2-min)
-		       (setq n2 (+ n2 94)
-			     n1 (skk-previous-n1-code n1)))
-		     nil)
-		    ((eq char skk-start-henkan-char) ; space
-		     (if (= (setq n2 (skk-next-n2-code n2))
-			    skk-code-n2-min)
-			 (setq n1 (skk-next-n1-code n1)))
-		     nil)
-		    ((eq char ?\?)
-		     (skk-message
-		      "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d)\
- [何かキーを押してください]"
-		      "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d)\
-  [Hit any key to continue]"
-		      (car chars)
-		      n1-org n2-org
-		      n1-org n2-org
-		      (- n1-org 128) (- n2-org 128)
-		      (- n1-org 128) (- n2-org 128))
-		     (next-command-event)
-		     (setq n1 n1-org n2 n2-org)
-		     nil)
-		    ((eq char ?>)
-		     (if (= (setq n2 (skk-next-n2-code n2-org))
-			    skk-code-n2-min)
-			 (setq n1 (skk-next-n1-code n1-org))
-		       (setq n1 n1-org))
-		     nil)
-		    ((eq char ?<)
-		     (if (= (setq n2 (skk-previous-n2-code n2-org))
-			    skk-code-n2-max)
-			 (setq n1 (skk-previous-n1-code n1-org))
-		       (setq n1 n1-org))
-		     nil)
-		    (t
-		     (skk-message "`%c' は有効なキーではありません！"
-				  "`%c' is not valid here!"
-				  char)
-		     (sit-for 1)
-		     (message "")
-		     (setq n1 n1-org n2 n2-org)
-		     nil))))))))
+		   kanji-char (cond
+			       ;;
+			       (ch
+				ch)
+			       ;;
+			       ((or (eq char skk-previous-candidate-char)
+				    (and (not skk-delete-implies-kakutei)
+					 (eq 'skk-delete-backward-char
+					     (lookup-key skk-j-mode-map (vector char)))))
+				(when (< (setq n2 (- n2 31)) skk-code-n2-min)
+				  (setq n2 (+ n2 94)
+					n1 (skk-previous-n1-code n1)))
+				nil)
+			       ;;
+			       ((eq char skk-start-henkan-char) ; space
+				(if (= (setq n2 (skk-next-n2-code n2))
+				       skk-code-n2-min)
+				    (setq n1 (skk-next-n1-code n1)))
+				nil)
+			       ;;
+			       ((eq char ?\?)
+				(skk-message
+				 "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d) [何かキーを押してください]"
+				 "`%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d) [Hit any key to continue]"
+				 (car chars)
+				 n1-org n2-org
+				 n1-org n2-org
+				 (- n1-org 128) (- n2-org 128)
+				 (- n1-org 128) (- n2-org 128))
+				(next-command-event)
+				(setq n1 n1-org n2 n2-org)
+				nil)
+			       ;;
+			       ((eq char ?>)
+				(if (= (setq n2 (skk-next-n2-code n2-org))
+				       skk-code-n2-min)
+				    (setq n1 (skk-next-n1-code n1-org))
+				  (setq n1 n1-org))
+				nil)
+			       ;;
+			       ((eq char ?<)
+				(if (= (setq n2 (skk-previous-n2-code n2-org))
+				       skk-code-n2-max)
+				    (setq n1 (skk-previous-n1-code n1-org))
+				  (setq n1 n1-org))
+				nil)
+			       ;;
+			       (t
+				(skk-message "`%c' は有効なキーではありません！"
+					     "`%c' is not valid here!"
+					     char)
+				(sit-for 1)
+				(message "")
+				(setq n1 n1-org n2 n2-org)
+				nil))))))))
     kanji-char))
 
 ;;;###autoload
