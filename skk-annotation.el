@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.161 2010/09/10 14:25:09 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.162 2010/09/11 16:36:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/09/10 14:25:09 $
+;; Last Modified: $Date: 2010/09/11 16:36:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1511,24 +1511,26 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 
 (defun skk-annotation-wikipedia-normalize-word (word &optional method)
   ;; スペースは %20 ではなく、アンダースコアに変換する
-  (replace-regexp-in-string " "
-			    "_"
-			    (cond
-			     ((memq method '(ja.wiktionary en.wiktionary))
-			      (if (and (> (length word) 1)
-				       (skk-ascii-char-p (aref word 0))
-				       (skk-lower-case-p (aref word 1)))
-				  ;; 二文字めが lower case なら downcase
-				  (downcase word)
-				;; 一文字だったら元の case
-				;; 二文字めが upper case なら元の case
-				;; 英語以外は未対応
-				word))
-			      ((eq method 'upcase-initials)
-			       (upcase-initials word))
-			      (t
-			       (concat (vector (upcase (aref word 0)))
-				       (substring word 1))))))
+  (replace-regexp-in-string
+   " " "_"
+   (cond
+    ((memq method '(ja.wiktionary en.wiktionary))
+     (if (and (> (length word) 1)
+	      (skk-ascii-char-p (aref word 0))
+	      (skk-lower-case-p (aref word 1)))
+	 ;; 二文字めが lower case なら downcase
+	 (downcase word)
+       ;; 一文字だったら元の case
+       ;; 二文字めが upper case なら元の case
+       ;; 英語以外は未対応
+       word))
+    ((eq method 'upcase-initials)
+     (upcase-initials word))
+    (t
+     (if (> (length word) 1)
+	 (concat (vector (upcase (aref word 0)))
+		 (substring word 1))
+       word)))))
 
 (defun skk-annotation-url-package-available-p ()
   (when (eq skk-annotation-url-package-available-p 'untested)

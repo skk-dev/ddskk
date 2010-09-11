@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.31 2007/06/15 23:23:31 skk-cvs Exp $
-;; Last Modified: $Date: 2007/06/15 23:23:31 $
+;; Version: $Id: SKK-CFG,v 1.32 2010/09/11 16:36:46 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/11 16:36:46 $
 
 ;;; Commentary:
 
@@ -49,14 +49,6 @@
 
 ;; SKK-MK-debugging:
 ;;
-
-;; APEL_DIR:
-;;   APEL がインストールされているディレクトリ。
-;;   APEL を標準的でないパスにインストールした場合指定する必要がある。
-
-;; EMU_DIR:
-;;   APEL の emu モジュールがインストールされているディレクトリ。
-;;   APEL を標準的でないパスにインストールした場合指定する必要がある。
 
 ;; PREFIX:
 ;;   全てのファイルがインストールされるディレクトリの root ディレクトリ。
@@ -112,8 +104,6 @@
 ;; (setq SKK-MK-debugging nil)
 
 ;;; GNU Emacs 20 の設定例:
-;; (setq APEL_DIR "/usr/local/share/emacs/site-lisp/apel")
-;; (setq EMU_DIR "/usr/local/share/emacs/20.7/site-lisp/emu")
 ;; (setq SKK_DATADIR "/usr/local/share/skk")
 ;; (setq SKK_INFODIR "/usr/local/info")
 ;; (setq SKK_LISPDIR "/usr/local/share/emacs/site-lisp/skk")
@@ -122,16 +112,12 @@
 ;; (setq PACKAGEDIR "/usr/share/xemacs/site-packages")
 
 ;;; Meadow 2.10 または 3.00-dev の設定例:
-;; (setq APEL_DIR "c:/meadow/site-lisp/apel")
-;; (setq EMU_DIR "c:/meadow/site-lisp/emu")
 ;; (setq SKK_DATADIR "c:/meadow/etc/skk")
 ;; (setq SKK_INFODIR "c:/meadow/info")
 ;; (setq SKK_LISPDIR "c:/meadow/site-lisp/skk")
 ;; (setq SKK_SET_JISYO t)
 
 ;;; NTEmacs の設定例:
-;; (setq APEL_DIR "c:/emacs/site-lisp/apel")
-;; (setq EMU_DIR "c:/emacs/22.1/site-lisp/emu")
 ;; (setq SKK_DATADIR "c:/emacs/22.1/etc/skk")
 ;; (setq SKK_INFODIR "c:/emacs/22.1/info")
 ;; (setq SKK_LISPDIR "c:/emacs/22.1/site-lisp/skk")
@@ -141,17 +127,14 @@
 ;; によってファイル配置に差異があることがあります。
 ;; make what-where の出力に注意してください。
 
-;;; Carbon Emacs Package の設定例:
-;; (setq APEL_DIR "/Applications/Emacs.app/Contents/Resources/site-lisp/apel")
-;; (setq EMU_DIR "/Applications/Emacs.app/Contents/Resources/site-lisp/emu")
+;;; Mac OS X における self-contained な Carbon/Cocoa Emacs の設定例:
 ;; (setq SKK_DATADIR "/Applications/Emacs.app/Contents/Resources/etc/skk")
 ;; (setq SKK_INFODIR "/Applications/Emacs.app/Contents/Resources/info")
 ;; (setq SKK_LISPDIR "/Applications/Emacs.app/Contents/Resources/site-lisp/skk")
 ;; (setq SKK_SET_JISYO t)
 ;;
-;; *[注] これは下記の Carbon Emacs パッケージ用の設定です。一般的な Carbon
-;; Emacs は通常の UNIX 的ファイル配置をとります。
-;;
-;; http://homepage.mac.com/zenitani/emacs-j.html
+;; *[注] Carbon/Cocoa Emacs はコンパイル時の設定により self-contained かどうか
+;; 設定できます。self-contained でない場合は通常の UNIX 的ファイル配置になりま
+;; す。
 
 ;;; SKK-CFG ends here

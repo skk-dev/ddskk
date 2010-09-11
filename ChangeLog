@@ -9,6 +9,8 @@
 	* skk-macs.el (characterp, int-char, set-buffer-multibyte): Add
 	definitions for Emacsen missing these functions.
 	* skk.el (skk-mode-invoke): Do not check for Emacs 21.
+	* skk-annotation.el (skk-annotation-wikipedia-normalize-word):
+	Make sure word is not a null string.
 
 	* install.el: Import from APEL 10.8 with minimal modifications.
 	* SKK-MK: Use it.  Do not check for APEL except for Emacs 21.  Do
