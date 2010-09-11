@@ -153,8 +153,8 @@
 
 ;; 候補表示のルックスに関する高度な設定
 ;;
-;; 注1) skk-e21-*-face は FSF Emacs 21 以上に限って定義される face です。
-;; それ以外の Emacsen では別の存在する face に置き換えてください。
+;; 注1) skk-emacs-*-face は GNU Emacs に限って定義される face です。
+;; XEmacs では別の存在する face に置き換えてください。
 ;;
 ;; 注2) 候補の個人辞書への登録においても、`skk-update-jisyo-function' を
 ;; 設定することで同様のカスタマイズができます。「個人辞書に関する設定」の
@@ -168,17 +168,17 @@
 			  (propertize (if (skk-annotation-display-p 'list)
 					  " ≒ "
 					" !")
-				      'face 'skk-e21-jisx0208-latin-face)
+				      'face 'skk-emacs-jisx0208-latin-face)
 			nil)))
 	    (cond (note
 		   (put-text-property 0 (length cand)
-				      'face 'skk-e21-jisx0201-face cand)
+				      'face 'skk-emacs-jisx0201-face cand)
 		   (put-text-property 0 (length note)
-				      'face 'skk-e21-katakana-face note)
+				      'face 'skk-emacs-katakana-face note)
 		   (cons cand (cons sep note)))
 		  (t
 		   (put-text-property 0 (length cand)
-				      'face 'skk-e21-hiragana-face cand)
+				      'face 'skk-emacs-hiragana-face cand)
 		   cand)))))
 
 ;; A S D F J K L に適用するフェイス

@@ -1,3 +1,7 @@
+2010-09-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.skk: Rename skk-e21-*-face to skk-emacs-*-face.
+
 2010-09-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.emacs: Add skk-startup-screen.
