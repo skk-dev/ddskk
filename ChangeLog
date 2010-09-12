@@ -4,7 +4,7 @@
 	suitable.
 	* skk-macs.el (string-to-int-list): Fix definition for XEmacs.
 	(skk-update-minor-mode-map-alist): Use `add-to-list'.
-	* skk.el (skk-setup-modeline): Make `left' to precede.
+	* skk.el (skk-setup-modeline): Make `left' precede.
 
 2010-09-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
