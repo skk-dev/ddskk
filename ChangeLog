@@ -5,6 +5,8 @@
 	* skk-macs.el (string-to-int-list): Fix definition for XEmacs.
 	(skk-update-minor-mode-map-alist): Use `add-to-list'.
 	* skk.el (skk-setup-modeline): Make `left' precede.
+	(skk-henkan-show-candidate-subr): Fix the condition to call
+	`skk-show-inline'.
 
 2010-09-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

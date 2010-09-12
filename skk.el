@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.518 2010/09/12 07:40:46 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.519 2010/09/12 16:21:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/12 07:40:46 $
+;; Last Modified: $Date: 2010/09/12 16:21:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2088,7 +2088,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
       (cond
        ;; (1) 現在のバッファの中に表示する (インライン表示)
        ((and skk-running-gnu-emacs
-	     (= emacs-major-version 21)
+	     (>= emacs-major-version 21)
 	     skk-show-inline
 	     (not skk-isearch-switch)
 	     (not (skk-in-minibuffer-p)))
