@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.517 2010/09/12 06:33:45 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.518 2010/09/12 07:40:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/12 06:33:45 $
+;; Last Modified: $Date: 2010/09/12 07:40:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -585,7 +585,30 @@ dependent."
   "モード行へのステータス表示を準備する。"
   (setq skk-indicator-alist (skk-make-indicator-alist))
   (case skk-status-indicator
-   (minor-mode
+   (left
+    (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
+      (setq-default mode-line-format
+		    (append '("" skk-modeline-input-mode)
+			    (default-value 'mode-line-format))))
+    (skk-loop-for-buffers (buffer-list)
+      (when (and (listp mode-line-format)
+		 (skk-local-variable-p 'mode-line-format)
+		 (null (memq 'skk-modeline-input-mode mode-line-format)))
+	(setq mode-line-format
+	      (append '("" skk-modeline-input-mode) mode-line-format))))
+    (when skk-icon
+      (unless (memq 'skk-icon (default-value 'mode-line-format))
+	(setq-default mode-line-format
+		      (append '("" skk-icon)
+			      (default-value 'mode-line-format))))
+      (skk-loop-for-buffers (buffer-list)
+	(when (and (listp mode-line-format)
+		   (skk-local-variable-p 'mode-line-format)
+		   (null (memq 'skk-icon mode-line-format)))
+	  (setq mode-line-format (append '("" skk-icon) mode-line-format)))))
+    (force-mode-line-update t))
+   ;;
+   (t
     (when (and (listp mode-line-format)
 	       (equal (car mode-line-format)
 		      "")
@@ -602,32 +625,7 @@ dependent."
 	;; for skk-restart.
 	(setq mode-line-format (nthcdr 2 mode-line-format))))
     (setq-default skk-modeline-input-mode "")
-    (add-minor-mode 'skk-mode 'skk-modeline-input-mode))
-   ;;
-   (left
-    (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
-      (setq-default mode-line-format
-		    (append '("" skk-modeline-input-mode)
-			    (default-value 'mode-line-format))))
-    (skk-loop-for-buffers (buffer-list)
-      (when (and (listp mode-line-format)
-		 (skk-local-variable-p 'mode-line-format)
-		 (null (memq 'skk-modeline-input-mode mode-line-format)))
-	(setq mode-line-format
-	      (append '("" skk-modeline-input-mode) mode-line-format))))
-
-    (when skk-icon
-      (unless (memq 'skk-icon (default-value 'mode-line-format))
-	(setq-default mode-line-format
-		      (append '("" skk-icon)
-			      (default-value 'mode-line-format))))
-      (skk-loop-for-buffers (buffer-list)
-	(when (and (listp mode-line-format)
-		   (skk-local-variable-p 'mode-line-format)
-		   (null (memq 'skk-icon mode-line-format)))
-	  (setq mode-line-format (append '("" skk-icon) mode-line-format)))))
-
-    (force-mode-line-update t))))
+    (add-minor-mode 'skk-mode 'skk-modeline-input-mode))))
 
 (defun skk-setup-emulation-commands (commands emulation)
   (let ((map (if (and (boundp 'overriding-local-map)
