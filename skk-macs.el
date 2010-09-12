@@ -1,13 +1,12 @@
 ;;; skk-macs.el --- macros and inline functions commonly used in SKK -*- coding: iso-2022-jp -*-
 
-;; Copyright (C) 1999-2010  SKK Development Team <skk@ring.gr.jp>
-;; Copyright (C) 1993, 2000 Free Software Foundation, Inc.
+;; Copyright (C) 1999-2010 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
-;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.150 2010/09/11 20:03:48 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.151 2010/09/12 06:33:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/11 20:03:48 $
+;; Last Modified: $Date: 2010/09/12 06:33:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -261,7 +260,8 @@ If the event isn't a keypress, this returns nil."
 	    (let ((base (get (car mask) 'ascii-character)))
 	      (if base
 		  (logior base (car (cdr mask))))))))
-     ((integerp event) event))))
+     ((integerp event)
+      event))))
 
 (when (eval-when-compile skk-running-gnu-emacs)
   (defun cancel-undo-boundary ()
@@ -891,9 +891,10 @@ BUFFER defaults to the current buffer."
 ;; <nextstate>    ::= <英小文字文字列> | nil
 
 (defsubst skk-make-raw-arg (arg)
-  (cond ((= arg 1) nil)
-	((= arg -1) '-)
-	((numberp arg) (list arg))))
+  (case arg
+    (1 nil)
+    (-1 '-)
+    (t (if (numberp arg) (list arg) nil))))
 
 (defsubst skk-unread-event (event)
   "Unread single EVENT."
