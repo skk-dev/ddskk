@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.152 2010/09/12 06:40:09 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.153 2010/09/12 07:05:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/12 06:40:09 $
+;; Last Modified: $Date: 2010/09/12 07:05:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1002,8 +1002,7 @@ MAP は入力が書かれているキーマップを指定するが、指定されなければ
   (let ((element (assq mode minor-mode-map-alist)))
     (if element
 	(setcdr element map)
-      (setq minor-mode-map-alist (cons (cons mode map)
-				       minor-mode-map-alist)))))
+      (add-to-list 'minor-mode-map-alist (cons mode map)))))
 
 ;; Functions from alist.el (APEL)
 (defun skk-put-alist (key value alist)
