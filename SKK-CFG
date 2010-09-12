@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.32 2010/09/11 16:36:46 skk-cvs Exp $
-;; Last Modified: $Date: 2010/09/11 16:36:46 $
+;; Version: $Id: SKK-CFG,v 1.33 2010/09/12 06:49:45 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/12 06:49:45 $
 
 ;;; Commentary:
 
@@ -102,11 +102,6 @@
 
 ;;; Example:
 ;; (setq SKK-MK-debugging nil)
-
-;;; GNU Emacs 20 の設定例:
-;; (setq SKK_DATADIR "/usr/local/share/skk")
-;; (setq SKK_INFODIR "/usr/local/info")
-;; (setq SKK_LISPDIR "/usr/local/share/emacs/site-lisp/skk")
 
 ;;; XEmacs 21 の設定例:
 ;; (setq PACKAGEDIR "/usr/share/xemacs/site-packages")
