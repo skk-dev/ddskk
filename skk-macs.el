@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.151 2010/09/12 06:33:45 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.152 2010/09/12 06:40:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/12 06:33:45 $
+;; Last Modified: $Date: 2010/09/12 06:40:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -238,8 +238,12 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
     "Return a list of which elements are characters in the STRING."
     (mapcar #'identity string)))
 
-(unless (fboundp 'string-to-int-list)
+(when (eval-when-compile skk-running-gnu-emacs)
   (defalias 'string-to-int-list 'string-to-char-list))
+
+(when (eval-when-compile (featurep 'xemacs))
+  (defun string-to-int-list (str)
+    (mapcar #'char-int str)))
 
 (when (eval-when-compile skk-running-gnu-emacs)
   (defun character-to-event (ch)

@@ -2,6 +2,7 @@
 
 	* skk-macs.el, skk.el: Use `case' instead of `cond' where it is
 	suitable.
+	* skk-macs.el (string-to-int-list): Fix definition for XEmacs.
 
 2010-09-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
