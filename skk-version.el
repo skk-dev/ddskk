@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.40 2010/09/11 22:44:13 skk-cvs Exp $
+;; Version: $Id: skk-version.el,v 1.41 2010/09/13 13:09:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/11 22:44:13 $
+;; Last Modified: $Date: 2010/09/13 13:09:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -49,18 +49,6 @@ the codename."
 	      (get 'skk-version 'product-name)
 	      (get 'skk-version 'version-string)
 	      (get 'skk-version 'codename)))))
-
-;;;###autoload
-(defun skk-startup-screen-message ()
-  "docstring."
-  (insert (format "\n%s is available for use. move to KANA mode typing %s"
-		  (skk-version)
-		  (mapconcat '(lambda (x)
-				(format "`%s'" (mapconcat 'key-description
-							  (list x)
-							  "")))
-			     (where-is-internal 'skk-mode)
-			     " or "))))
 
 (provide 'skk-version)
 

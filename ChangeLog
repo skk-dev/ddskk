@@ -1,3 +1,9 @@
+2010-09-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-setup.el.in: 2010-09-12 の commit は取り下げます。
+
+	* skk-version.el (skk-startup-screen): ditto.
+
 2010-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cus.el (skk-cus-params-visual): Support skk-show-inline's
