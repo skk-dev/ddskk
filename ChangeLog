@@ -1,3 +1,8 @@
+2010-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cus.el (skk-cus-params-visual): Support skk-show-inline's
+	value `vertical'.
+
 2010-09-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el, skk.el: Use `case' instead of `cond' where it is

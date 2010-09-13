@@ -65,7 +65,11 @@
 	    (const :tag "非表示" nil))
      "")
     (skk-show-inline
-     (const :tag "候補一覧をそのウインドウにインライン表示する" t) "")
+     (radio :tag "候補一覧をインライン表示する？"
+	    (const :tag "縦に並べて表示" vertical)
+	    (const :tag "一列に表示" t)
+	    (const :tag "インライン表示しない" nil))
+     "")
     (skk-show-tooltip
      (const :tag "候補一覧・注釈をツールティップで表示する" t) "")
     (skk-show-candidates-always-pop-to-buffer
