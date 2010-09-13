@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.173 2010/09/11 15:17:12 skk-cvs Exp $
-;; Last Modified: $Date: 2010/09/11 15:17:12 $
+;; Version: $Id: SKK-MK,v 1.174 2010/09/13 17:17:44 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/13 17:17:44 $
 
 ;;; Commentary:
 
@@ -157,8 +157,9 @@ This version of SKK requires MULE features"))
 
 ;; After determining APEL installed dirctory.
 
-(when (and (string-match "^GNU" (emacs-version))
-	   (= emacs-major-version 21))
+(when (or (featurep 'xemacs)
+	  (and (string-match "^GNU" (emacs-version))
+	       (= emacs-major-version 21)))
   (condition-case nil
       (require 'product)
     (error

@@ -30,10 +30,12 @@
 (eval-when-compile
   (require 'avoid))
 
+(require 'balloon-help)
+(require 'overlay)
+(require 'poe)
+(require 'skk-macs)
+
 (eval-and-compile
-  (require 'balloon-help)
-  (require 'overlay)
-  (require 'skk-macs)
   (autoload 'display-pixel-height "frame")
   (autoload 'display-pixel-width "frame"))
 
