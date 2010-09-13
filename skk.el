@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.519 2010/09/12 16:21:42 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.520 2010/09/13 17:19:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/12 16:21:42 $
+;; Last Modified: $Date: 2010/09/13 17:19:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -90,12 +90,6 @@
   (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
-
-(when (and (featurep 'xemacs)
-	   (= emacs-major-version 21)
-	   (<= emacs-minor-version 4))
-  (defalias 'skk-tooltip-show-at-point 'ignore)
-  (defalias 'skk-tooltip-hide 'ignore))
 
 ;; aliases.
 (defalias 'skk-toggle-kana 'skk-toggle-characters)
