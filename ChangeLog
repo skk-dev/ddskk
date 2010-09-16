@@ -1,5 +1,8 @@
 2010-09-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-annotation.el (skk-annotation-wikipedia-region-or-at-point): 
+	Update docstring.
+
 	* SKK-MK: Add comment.
 
 	* SKK-CFG (SKK-MK-debugging): Add comment.
