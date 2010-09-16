@@ -1,3 +1,23 @@
+* 14.2 (?)
+
+** 技術基盤としていた APEL から独立しました。
+
+*** GNU Emacs 22.x 及び GNU Emacs 23.x
+APEL は不要です。
+
+*** GNU Emacs 21.x 及び XEmacs
+これまでどおり、APEL (10.7 以上) をインストールしてください。
+
+** 古い Emacsen のサポート終了
+
+GNU Emacs 20.x のサポートを打ち切りました。
+同バージョンの Emacs をお使いの方は ddskk-14.1 を利用してください。
+
+** 文字のコード表示
+
+コマンド skk-display-code-for-char-at-point (デフォルトでは $ に割当て)
+の表示をツールティップ化しました。
+
 * 14.1
 
 ** 対応する Emacs のバージョン

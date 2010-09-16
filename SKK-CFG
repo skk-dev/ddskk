@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.33 2010/09/12 06:49:45 skk-cvs Exp $
-;; Last Modified: $Date: 2010/09/12 06:49:45 $
+;; Version: $Id: SKK-CFG,v 1.34 2010/09/16 13:12:09 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/16 13:12:09 $
 
 ;;; Commentary:
 
@@ -48,6 +48,7 @@
 ;;; Explanation:
 
 ;; SKK-MK-debugging:
+;;   Non-nil means making verbose output.
 ;;
 
 ;; PREFIX:

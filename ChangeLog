@@ -1,3 +1,9 @@
+2010-09-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK: Add comment.
+
+	* SKK-CFG (SKK-MK-debugging): Add comment.
+
 2010-09-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-setup.el.in: 2010-09-12 の commit は取り下げます。

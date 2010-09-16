@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.174 2010/09/13 17:17:44 skk-cvs Exp $
-;; Last Modified: $Date: 2010/09/13 17:17:44 $
+;; Version: $Id: SKK-MK,v 1.175 2010/09/16 13:12:09 skk-cvs Exp $
+;; Last Modified: $Date: 2010/09/16 13:12:09 $
 
 ;;; Commentary:
 
@@ -161,7 +161,7 @@ This version of SKK requires MULE features"))
 	  (and (string-match "^GNU" (emacs-version))
 	       (= emacs-major-version 21)))
   (condition-case nil
-      (require 'product)
+      (require 'product)		; emu
     (error
      (error "%s"
 	    "DDSKK requires APEL/10.7 or later for GNU Emacs 21")))
