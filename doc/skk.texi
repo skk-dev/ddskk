@@ -29,9 +29,9 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set EDITION 14.1
-@set SKK-VERSION 14.1
-@set UPDATED $Date: 2010/09/11 03:08:29 $
+@set EDITION 14.1.50
+@set SKK-VERSION 14.1.50
+@set UPDATED $Date: 2010/09/17 11:18:59 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1944,7 +1944,7 @@ skk-comp $B$K$h$kJd40$r<+F0E*$K<B9T$7$F8+=P$78lF~NO$r;Y1g$7$^$9!#(B
 
 SKK $B<-=q$r(B Emacs Lisp $B%W%m%0%i%`$H$7$FMQ0U$G$-$^$9!#(B
 
-@item skk-e21.el
+@item skk-emacs.el $B!J5l(B skk-e21.el$B!K(B
 @cindex @file{skk-e21.el}
 
 GNU Emacs 21 $B0J9_$N3HD%5!G=$rMxMQ$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
@@ -8041,18 +8041,18 @@ DDSKK $B$N%$%s%8%1!<%?$r%b!<%I%i%$%s$N:8$KI=<($7$F$$$k>l9g!"(B@footnote{$B%G%
 
 Emacs 21 $B0J>e(B @footnote{$BJQ?t(B @code{mule-version} $B$NCM$,(B ``5.0'' $B0J>e$N(B Emacs} $B$N>l9g(B
 
-@vindex skk-e21-hiragana-face
-@vindex skk-e21-katakana-face
-@vindex skk-e21-jisx0208-latin-face
-@vindex skk-e21-jisx0201-face
-@vindex skk-e21-abbrev-face
+@vindex skk-emacs-hiragana-face
+@vindex skk-emacs-katakana-face
+@vindex skk-emacs-jisx0208-latin-face
+@vindex skk-emacs-jisx0201-face
+@vindex skk-emacs-abbrev-face
 
 @itemize @bullet
-@item @code{skk-e21-hiragana-face} 
-@item @code{skk-e21-katakana-face} 
-@item @code{skk-e21-jisx0208-latin-face} 
-@item @code{skk-e21-jisx0201-face} 
-@item @code{skk-e21-abbrev-face} 
+@item @code{skk-emacs-hiragana-face} 
+@item @code{skk-emacs-katakana-face} 
+@item @code{skk-emacs-jisx0208-latin-face} 
+@item @code{skk-emacs-jisx0201-face} 
+@item @code{skk-emacs-abbrev-face} 
 @end itemize
 
 XEmacs $B$N>l9g(B
