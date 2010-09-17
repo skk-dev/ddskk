@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/17 21:26:48 $
+@set UPDATED $Date: 2010/09/17 23:34:51 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7296,6 +7296,7 @@ buffer $B$K%]%$%s%H$r9g$o$;!"(B@kbd{M-2 M-i} $B$H%W%l%U%#%C%/%9IU$G%3%^%s%I$r
 
 @example
 @group
+-------------------- Echo Area --------------------
  English, Noun
 buffer (plural&#160;buffers)
  1: Someone or something that buffs.
@@ -7305,6 +7306,7 @@ buffer (plural&#160;buffers)
  before it is sent to an external device or as it is received from an
  external device.
 [@dots{}]
+-------------------- Echo Area --------------------
 @end group
 @end example
 @end defun
