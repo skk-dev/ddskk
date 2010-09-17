@@ -1,11 +1,9 @@
 * 14.2 (?)
 
-** 技術基盤としていた APEL から独立しました。
-
-*** GNU Emacs 22.x 及び GNU Emacs 23.x
+** GNU Emacs 22.x 及び GNU Emacs 23.x
 APEL は不要です。
 
-*** GNU Emacs 21.x 及び XEmacs
+** GNU Emacs 21.x 及び XEmacs
 これまでどおり、APEL (10.7 以上) をインストールしてください。
 
 ** 古い Emacsen のサポート終了
