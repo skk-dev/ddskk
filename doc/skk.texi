@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/17 11:18:59 $
+@set UPDATED $Date: 2010/09/17 12:05:30 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -252,7 +252,6 @@ Daredevil SKK ($B0J2<(B @samp{DDSKK} $B$H$$$$$^$9(B) $B$O!"F0:n$,Aa$/$F8zN(
 DDSKK 14 $B$,F0:n$9$k$H;W$o$l$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 
 @itemize @bullet
-@item GNU Emacs 20.7
 @item GNU Emacs 21.4
 @item GNU Emacs 22.1 $B0J9_(B ($B?d>)(B)
 @item GNU Emacs 23.1 $B0J9_(B ($B?d>)(B)
@@ -265,33 +264,17 @@ DDSKK 14 $B$,F0:n$9$k$H;W$o$l$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 fsf-compat $B%Q%C%1!<%8$,F0:n$N$?$a$KI,?\$G$9!#(B
 
 $BAmO@$H$7$F!"8=:_$O(B XEmacs $B$h$j$b(B GNU Emacs $B$G$NF0:n$,$h$/%F%9%H$5$l$F$*(B
-$B$j!":G6a$G$O(B XEmacs $B$G$N%F%9%H$O=<J,9T$o$l$F$$$^$;$s!#(BEmacs 20 $B$G$OB?$/(B
-$B$N=EMW$J5!G=$,;H$($^$;$s!#(BEmacs 21 $B$G$OF0:n%F%9%H$,=<J,$H$O8@$($^$;$s!#(B
+$B$j!":G6a$G$O(B XEmacs $B$G$N%F%9%H$O=<J,9T$o$l$F$$$^$;$s!#(B
+Emacs 21 $B$G$OF0:n%F%9%H$,=<J,$H$O8@$($^$;$s!#(B
 GNU Emacs 22 $B0J>e$G$NMxMQ$,:G$b?d>)$5$l$^$9!#(B
 
 $B8=;~E@$G(B Emacs $B$N%P!<%8%g%s$4$H$K>/$J$/$H$b0J2<$N@)8B$,$"$j$^$9!#(B
 
 @noindent
-Emacs 20.2 $B0JA0(B
+Emacs 20.x
 
 @itemize @bullet
 @item $BF0:n$7$^$;$s!#(B
-@end itemize
-
-@noindent
-Emacs 20.7
-
-@itemize @bullet
-@item $B%F%-%9%H$NAu>~5!G=$,@)8B$5$l$^$9!#(B
-@item $B%b!<%I%i%$%s$G$N%]%C%W%"%C%W$J$I$O5!G=$7$^$;$s!#(B
-@item $B%D!<%k%F%#%C%WI=<($O5!G=$7$^$;$s!#(B
-@item $B%$%s%i%$%s8uJdI=<($O5!G=$7$^$;$s!#(B
-@item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
-@item $B<-=q%5!<%P$r2p$5$J$$(B CDB $B7A<0<-=q$ND>@\8!:w$O5!G=$7$^$;$s!#(B
-@item JIS X 0213 $BBP1~Ey(B MULE 4.1 $B%Q%C%A$NE,MQ$rI,MW$H$9$k5!G=$,$"$j$^$9!#(B
-@item JIS X 0213 $BBP1~$K$O(B Mule-UCS $B$NF3F~$,I,MW$G$9!#(B
-@item Wikipedia $B%"%N%F!<%7%g%s5!G=$r%5%]!<%H$7$^$;$s!#(B
-@item $BF|K\8l%a%K%e!<I=<($KBP1~$7$^$;$s!#(B
 @end itemize
 
 @noindent
@@ -381,12 +364,12 @@ ACT$B!"(BTUT-code $B$K$h$kF~NO$b2DG=!#(B
 @section APEL $B$N%$%s%9%H!<%k(B
 @cindex APEL
 
-DDSKK 14 $B$OB?<oB?MM$J(B Emacsen $B$G$NF0:n$r2DG=$H$9$k$?$a(B APEL (A Portable
-Emacs Library) $B$r;HMQ$7$^$9!#(BDDSKK 14 $B$O(B APEL 10.7 $B0J>e$rMW5a$7$^$9$,!"(B
-DDSKK 14.1 $B%j%j!<%9;~E@$G$N:G?7HG$G$"$k(B APEL 10.8 $B0J>e$,?d>)$5$l$^$9!#(B
+GNU Emacs 22 $B0J>e$O(B APEL (A Portable Emacs Library) $B$OITMW$G$9!#(B
 
-DDSKK $B$r%$%s%9%H!<%k$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#<!$N%5%$%H$+(B
-$B$iF~<j$G$-$^$9!#(B
+GNU Emacs 21 $B5Z$S(B XEmacs $B$r$*;H$$$N>l9g$O(B DDSKK $B$r%$%s%9%H!<%k$9$kA0$K(B
+APEL (APEL 10.8 $B0J>e$r?d>)(B)$B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
+
+$B<!$N%5%$%H$+$iF~<j$G$-$^$9!#(B
 
 @url{http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/}
 
@@ -398,8 +381,7 @@ DDSKK $B$r%$%s%9%H!<%k$9$kA0$K(B APEL $B$r%$%s%9%H!<%k$7$F2<$5$$!#<!$N%5%$%H$
 @cindex SKK_DEFAULT_JISYO
 @cindex @file{SKK-CFG}
 
-APEL $B$N%$%s%9%H!<%k$,40N;$7$?$i!"(B DDSKK $B$r%$%s%9%H!<%k$7$^$7$g$&!#$3$3$G(B
-$B$O!"(BUNIX $B>e$G(B @command{make} $B%3%^%s%I$,MQ0U$5$l$F$$$k>l9g$rA[Dj$7$F$$$^$9(B
+$B$3$3$G$O!"(BUNIX $B>e$G(B @command{make} $B%3%^%s%I$,MQ0U$5$l$F$$$k>l9g$rA[Dj$7$F$$$^$9(B
 @footnote{Microsoft Windows $B4D6-$G$O!"(B@command{makeit.bat} $B$r;HMQ$9$k$3$H$G(B
 $BF1MM$NA`:n$G%$%s%9%H!<%k$G$-$^$9!#(B $B<!$N;qNA$r;2>H$7$F$/$@$5$$!#(B
 
@@ -3881,7 +3863,7 @@ L $B<-=q(B
 
 $B<-=q$N8uJd$K(B Emacs Lisp $B$N%W%m%0%i%`$,=q$$$F$"$l$P!"$=$N%W%m%0%i%`$r(B
 Emacs $B$K<B9T$5$;!"JV$jCM$r%+%l%s%H%P%C%U%!$KA^F~$7$^$9!#$3$l$r(B @b{$B!V%W%m(B
-$B%0%i%`<B9TJQ49!W(B}$B$HFI$s$G$$$^$9!#Nc$($P!"<-=q$K(B
+$B%0%i%`<B9TJQ49!W(B}$B$H8F$s$G$$$^$9!#Nc$($P!"<-=q$K(B
 
 @example
 now /(current-time-string)/
