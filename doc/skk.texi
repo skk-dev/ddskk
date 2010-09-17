@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/17 12:05:30 $
+@set UPDATED $Date: 2010/09/17 21:26:48 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7284,7 +7284,7 @@ buffer $B$K%]%$%s%H$r9g$o$;!"(B@kbd{M-2 M-i} $B$H%W%l%U%#%C%/%9IU$G%3%^%s%I$r
 @group
 ----- Buffer: *scratch* -----
 ;; This buffer@point{} is for notes you don't want to save, and for @dots{}
------ Buffer: +scratch -----
+----- Buffer: *scratch* -----
 @end group
 
 @kbd{M-2 M-i}

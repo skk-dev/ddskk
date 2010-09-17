@@ -1,3 +1,7 @@
+2010-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: typo.
+
 2010-09-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile (VERSION): 14.1.50.
