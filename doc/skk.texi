@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/18 00:20:42 $
+@set UPDATED $Date: 2010/09/18 04:38:08 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8106,8 +8106,8 @@ XEmacs の場合
 @table @asis
 @item ▽モード
 
-ファンクションキー (F1 〜 F10)の使い方を表示します。@code{skk-verbose}
-の設定とともに @code{skk-j-mode-function-key-usage}を以下のように設定し
+ファンクションキー (F1 〜 F10) の使い方を表示します。@code{skk-verbose}
+の設定とともに @code{skk-j-mode-function-key-usage} を以下のように設定し
 てみてください。
 @vindex skk-j-mode-function-key-usage
 
@@ -8116,11 +8116,15 @@ XEmacs の場合
 @end lisp
 
 @noindent
-すると▽モードで一定時間 (標準では 1.5 秒) キー入力がなかったとき、エコー
+すると、▽モードで一定時間 (標準では 1.5 秒) キー入力がなかったとき、エコー
 エリアに以下のようなメッセージが表示されます。
 
 @example
+@group
+-------------------- Echo Area --------------------
 [F5]単漢字[F6]無変換[F7]カタカナ[F8]半角カナ[F9]全角ローマ[F10]ローマ
+-------------------- Echo Area --------------------
+@end group
 @end example
 
 @noindent
@@ -8139,33 +8143,48 @@ Wikipedia アノテーション機能の使い方をメッセージで案内します。
 @end lisp
 
 @noindent
-すると▼モードで一定時間 (標準では 1.5 秒) キー入力がなかったとき、エコー
+すると、▼モードで一定時間 (標準では 1.5 秒) キー入力がなかったとき、エコー
 エリアに以下のようなメッセージが表示されます。
 
 @example
-@{どのWiki?@}[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary [C-3 C-i]simple.wikipedia [C-4 C-i]en.wikipedia [C-5 C-i]ja.wiktionary
+@group
+-------------------- Echo Area --------------------
+@{どのWiki?@}[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary
+[C-3 C-i]simple.wikipedia [C-4 C-i]en.wikipedia [C-5 C-i]ja.wiktionary
+-------------------- Echo Area --------------------
+@end group
 @end example
 
 @noindent
-上記に従い、例えば @kbd{C-1 C-i} をタイプすると日本語 Wikipedia の該当記
-事を調べて、あればその一部をアノテーションとして表示します。一方、現在の
-変換候補に対するアノテーションが既に表示されているときは、以下のメッセー
-ジが上記のものと交互に表示されます。
+この案内に従って、例えば @kbd{C-1 C-i} をタイプすると日本語 Wikipedia の該当記
+事を調べて、あればその一部をアノテーションとして表示します。
+
+一方、現在の変換候補に対するアノテーションが既に表示されているときは、
+以下のメッセージが上記のものと交互に表示されます。
 
 @example
+@group
+-------------------- Echo Area --------------------
 @{アノテーション操作@}[C-w]コピーする [C-o]URLを見つける [C-i]デフォルトWikiから抜粋
+-------------------- Echo Area --------------------
+@end group
 @end example
 
 @noindent
-これに従い、@kbd{C-w} をタイプすればアノテーションの全文を kill ring に
+この案内に従って @kbd{C-w} をタイプすればアノテーションの全文を kill ring に
 保存して利用することができます。また @kbd{C-o} を押した場合には、もし現
 在のアノテーションが Wikipedia アノテーションであればその出典となる
 Wikipedia/Wiktionary のページをウェブブラウザで表示します。
 @end table
 
 @defvr {ユーザ変数} skk-verbose-wait
-
 助言的メッセージを表示するまでの待ち時間 (秒)。標準は 1.5 秒です。
+@end defvr
+
+@defvr {ユーザ変数} skk-verbose-message-interval
+助言的メッセージが複数ある場合の１メッセージあたり表示時間を秒で指定する。
+標準は 5.0 秒です。
+この時間が経過したら表示を次の助言的メッセージに切り替えます。
 @end defvr
 
 @node VIP/VIPERとの併用
