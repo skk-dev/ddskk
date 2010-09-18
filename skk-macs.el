@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.153 2010/09/12 07:05:48 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.154 2010/09/18 02:56:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/12 07:05:48 $
+;; Last Modified: $Date: 2010/09/18 02:56:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -792,7 +792,7 @@ BUFFER defaults to the current buffer."
   (skk-cursor-set))
 
 (defsubst skk-in-minibuffer-p ()
-  "カレントバッファがミニバッファかどうかをチェックする。"
+  "カレントバッファがミニバッファであれば t を返す。"
   (eq (current-buffer) (window-buffer (minibuffer-window))))
 
 (defun skk-window-body-height ()

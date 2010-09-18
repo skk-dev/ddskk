@@ -1,5 +1,10 @@
 2010-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-annotation.el (skk-annotation-show-buffer): 
+	Use fit-window-to-buffer except XEmacs 21.4.
+
+	* skk-macs.el (skk-in-minibuffer-p): Update docstring.
+
 	* skk-obsolete.el (skk-obsolete-variable-alist):
 	Add obsolete-variables skk-e21-*-face.
 

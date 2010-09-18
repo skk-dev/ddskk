@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.163 2010/09/16 20:58:52 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.164 2010/09/18 02:56:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/09/16 20:58:52 $
+;; Last Modified: $Date: 2010/09/18 02:56:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -523,18 +523,25 @@
 	(let ((minibuf-p (skk-in-minibuffer-p))
 	      event window)
 	  (skk-annotation-insert annotation)
-	  (cond
-	   (minibuf-p
-	    (if (setq window (get-buffer-window (skk-minibuffer-origin)))
-		(select-window window)
-	      (other-window 1))
-	    (unless (eq (next-window) (selected-window))
-	      (delete-other-windows)))
-	   (t
-	    (split-window-vertically)))
+	  (cond (minibuf-p
+		 (if (setq window (get-buffer-window (skk-minibuffer-origin)))
+		     (select-window window)
+		   (other-window 1))
+		 (unless (eq (next-window) (selected-window))
+		   (delete-other-windows)))
+		(t
+		 (split-window-vertically)))
+	  ;;
 	  (display-buffer skk-annotation-buffer)
 	  (when minibuf-p
 	    (select-window (minibuffer-window)))
+	  ;;
+	  (unless (eval-when-compile (and (featurep 'xemacs)
+					  (= emacs-major-version 21)
+					  (<= emacs-minor-version 4)))
+	    (save-selected-window
+	      (pop-to-buffer skk-annotation-buffer)
+	      (fit-window-to-buffer)))
 	  ;;
 	  (skk-annotation-message 'annotation)
 	  ;;
