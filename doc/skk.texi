@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/18 04:38:08 $
+@set UPDATED $Date: 2010/09/18 11:06:49 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6152,6 +6152,7 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"A*Br$5$l$?8uJd$O!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!
 @noindent
 $B<-=q$N4IM}(B
 * $B<-=q$N=q<0(B::
+* $B6/@)E*$K<-=qEPO?%b!<%I$XF~$k(B::
 * $B8m$C$?EPO?$N:o=|(B::            $B:o=|$bEPO?$_$?$$$K$G$-$^$9!#(B
 * $B8D?M<-=q%U%!%$%k$NJT=8(B::       $B8D?M<-=q$rJT=8$9$k%3%^%s%I$,$"$j$^$9!#(B
 * $B8D?M<-=q$NJ]B8F0:n(B::          $B$$$D8D?M<-=q$,99?7!"J]B8$5$l$k$+!#(B
@@ -6715,6 +6716,15 @@ Emacs $B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$
 
 $B:G8e$K3NDj$5$l$?8l$O!"0l$D$N%(%s%H%j$NCf$N:G=i$N0LCV$KCV$+$l$^$9!#(B
 
+@node $B6/@)E*$K<-=qEPO?%b!<%I$XF~$k(B
+@subsection $B6/@)E*$K<-=qEPO?%b!<%I$XF~$k(B
+$B"'%b!<%I$K$F%(%3!<%(%j%"$G8uJdI=<(Cf$K(B @key{.} $B$r%?%$%W$9$k$H6/@)E*$K<-=qEPO?%b!<%I$XF~$j$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-force-registration-mode-char
+$B6/@)E*$K<-=qEPO?%b!<%I$XF~$k$?$a$N%-!<%-%c%i%/%?$r$3$NJQ?t$GDj5A$7$^$9!#(B
+$BI8=`@_Dj$O(B @key{.} $B$G$9!#(B
+@end defvr
+
 @node $B8m$C$?EPO?$N:o=|(B
 @subsection $B8m$C$?EPO?$N:o=|(B
 @cindex $B8D?M<-=q%(%s%H%j$N:o=|(B
@@ -6897,20 +6907,21 @@ Sun Jul 28 09:38:59 1996  $BEPO?(B:   4  $B3NDj(B:  285  $B3NDjN((B:  98% 
 @findex skk-count-jisyo-candidates
 @kindex M-x skk-count-jisyo-candidates
 
-$B%3%^%s%I(B @kbd{M-x skk-count-jisyo-candidates} $B$r;H$&$H!"<-=q$N8uJd?t$r?t(B
-$B$($k$3$H$,$G$-$^$9!#(B
+@noindent
+@kbd{M-x skk-count-jisyo-candidates}
+
+$B$3$N%3%^%s%I$r;H$&$H!"<-=q$N8uJd?t$r?t$($k$3$H$,$G$-$^$9!#(B
 
 @example
 @group
-
 @kbd{M-x skk-count-jisyo-candidates}
 
 --------------- MiniBuffer --------------
 Jisyo file: (default: /your/home/.skk-jisyo) ~/
 --------------- MiniBuffer --------------
 @end group
-@group
 
+@group
 @kbd{. s k k - j i s y o @key{RET}}
 
 -------------- Echo Area --------------
@@ -6919,7 +6930,6 @@ Counting jisyo candidates@dots{} 100% done
 @end group
 
 @group
-
 ------ Echo Area ------
 3530 candidates
 ------ Echo Area ------
