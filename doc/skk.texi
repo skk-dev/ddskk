@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/18 00:08:43 $
+@set UPDATED $Date: 2010/09/18 00:20:42 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -270,38 +270,32 @@ GNU Emacs 22 以上での利用が最も推奨されます。
 
 現時点で Emacs のバージョンごとに少なくとも以下の制限があります。
 
-@noindent
-Emacs 20.x
+@table @b
+@item Emacs 20.x
+インストールできません。DDSKK 14.1 をお使いください。
 
-@itemize @bullet
-@item 動作しません。
-@end itemize
-
-@noindent
-Emacs 21.4
+@item Emacs 21.4
 
 @itemize @bullet
 @item JIS X 0213 対応には Mule-UCS の導入が必要です。
 @item X Window System 上での日本語メニュー表示に対応しません。
 @end itemize
 
-@noindent
-Emacs 22.3
+@item Emacs 22.3
 
 @itemize @bullet
 @item JIS X 0213 対応には Mule-UCS 導入などの対策が必要です。
 @item X Window System 上での日本語メニュー表示は GTK 対応版のみです。
 @end itemize
 
-@noindent
-Emacs 23.2
+@item Emacs 23.2
 
 @itemize @bullet
 @item X Window System 上での日本語メニュー表示は GTK 対応版のみです。
 @end itemize
 
-@noindent
-XEmacs 21.4, 21.5 (beta)
+@item XEmacs 21.4
+@itemx XEmacs 21.5 (beta)
 
 @itemize @bullet
 @item @file{skk-kcode.el} の機能を含む JIS X 0213 対応が機能しません。
@@ -310,6 +304,7 @@ XEmacs 21.4, 21.5 (beta)
 @item XEmacs 21.4 ではツールティップ表示が機能しません。
 @item 日本語メニュー表示は X リソースによる方法のみテストされています。
 @end itemize
+@end table
 
 @node SKKとはなにか
 @section SKKとはなにか
