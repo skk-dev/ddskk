@@ -1,7 +1,15 @@
 2010-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk.el (skk-setup-verbose-messages): insert a white space between
+	words.
+
+	* skk-vars.el (skk-verbose, skk-verbose-wait)
+	(skk-verbose-message-interval, skk-henkan-on-message):
+	Unified from きもち多めなメッセージ to 助言的メッセージ.
+
 	* skk-annotation.el (skk-annotation-show-buffer): 
 	Use fit-window-to-buffer except XEmacs 21.4.
+	(skk-annotation-insert): *SKK annotation* buffer changed to read only.
 
 	* skk-macs.el (skk-in-minibuffer-p): Update docstring.
 
