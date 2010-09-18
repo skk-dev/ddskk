@@ -1,3 +1,7 @@
+2010-09-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: Update.
+
 2010-09-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.emacs: Remove skk-startup-screen.

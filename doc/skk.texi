@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/18 11:06:49 $
+@set UPDATED $Date: 2010/09/18 21:25:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -249,7 +249,7 @@ Daredevil SKK ($B0J2<(B @samp{DDSKK} $B$H$$$$$^$9(B) $B$O!"F0:n$,Aa$/$F8zN(
 $B8lF~NO4D6-$rDs6!$9$k%=%U%H%&%'%"$G$9!#(BGNU General Public License $B$rE,MQ$7(B
 $B$?%U%j!<!&%=%U%H%&%'%"$H$7$FG[I[$5$l$F$$$^$9!#(B
 
-DDSKK 14 $B$,F0:n$9$k$H;W$o$l$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
+DDSKK @value{SKK-VERSION} $B$,F0:n$9$k$H;W$o$l$k(B Emacsen $B$N%P!<%8%g%s$O2<5-$NDL$j$G$9!#(B
 
 @itemize @bullet
 @item GNU Emacs 21.4
@@ -295,13 +295,21 @@ GNU Emacs 22 $B0J>e$G$NMxMQ$,:G$b?d>)$5$l$^$9!#(B
 @end itemize
 
 @item XEmacs 21.4
+
+@itemize @bullet
+@item @file{skk-kcode.el} $B$N5!G=$r4^$`(B JIS X 0213 $BBP1~$,5!G=$7$^$;$s!#(B
+@item $B%$%s%i%$%s8uJdI=<($O5!G=$7$^$;$s!#(B
+@item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
+@item $B%D!<%k%F%#%C%WI=<($,5!G=$7$^$;$s!#(B
+@item $BF|K\8l%a%K%e!<I=<($O(B X $B%j%=!<%9$K$h$kJ}K!$N$_%F%9%H$5$l$F$$$^$9!#(B
+@end itemize
+
 @itemx XEmacs 21.5 (beta)
 
 @itemize @bullet
 @item @file{skk-kcode.el} $B$N5!G=$r4^$`(B JIS X 0213 $BBP1~$,5!G=$7$^$;$s!#(B
 @item $B%$%s%i%$%s8uJdI=<($O5!G=$7$^$;$s!#(B
 @item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
-@item XEmacs 21.4 $B$G$O%D!<%k%F%#%C%WI=<($,5!G=$7$^$;$s!#(B
 @item $BF|K\8l%a%K%e!<I=<($O(B X $B%j%=!<%9$K$h$kJ}K!$N$_%F%9%H$5$l$F$$$^$9!#(B
 @end itemize
 @end table
@@ -579,7 +587,7 @@ DDSKK $B$N%/%i%$%"%s%HB&$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<(B
 @node $B$O$8$a$N@_Dj(B
 @chapter $B$O$8$a$N@_Dj(B
 
-DDSKK 14 $B$G$O!"I8=`E*$J%$%s%9%H!<%k$N>l9g$OFCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F0(B
+$BI8=`E*$J%$%s%9%H!<%k$N>l9g$OFCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F0(B
 $B$9$k$@$1$G(B DDSKK $B$,;H$($k>uBV$K$J$j$^$9!#(B
 $B<+F0E*$K(B @file{skk-setup.el} $B$H$$$&%U%!%$%k$,FI$_9~$^$l!"@_Dj$5$l$^$9(B
 @footnote{Emacs $B$,5/F0$9$k2aDx$G(B @file{SKK_LISPDIR/leim-list.el} $B$,FI$_9~(B

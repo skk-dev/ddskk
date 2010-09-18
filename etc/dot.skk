@@ -41,7 +41,7 @@
 ;;   nil => 別な window に表示する
 ;; (setq skk-annotation-show-as-message nil)
 
-;; 変換前/変換中にミニバッファに少し余計なメッセージを表示
+;; 変換前/変換中にミニバッファに助言的メッセージを表示
 (setq skk-verbose t)
 
 ;; カーソルに色を付けない
@@ -140,7 +140,7 @@
 ;; *候補*バッファ の背景色
 ;; (setq skk-candidate-buffer-background-color "grey90")
 
-;; 変換候補をインラインに
+;; 変換候補をインラインに （XEmacs では機能しません）
 ;;   nil => 表示しない (デフォルト)
 ;;   t   => 表示する
 ;;   'vertical => 縦型インラインに表示する
@@ -231,7 +231,7 @@
 	   (or (eolp)
 	       (looking-at "[ \t]+$")))))
 
-;; 動的補完で候補を複数表示する
+;; 動的補完で候補を複数表示する （XEmacs では機能しません）
 ;; (setq skk-dcomp-multiple-activate t
 ;;       skk-dcomp-multiple-rows 10)
 ;; (set-face-foreground 'skk-dcomp-multiple-face "green")
@@ -310,27 +310,24 @@
 	  (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.jinmei" 10000))))
 
 ;; Lookup を利用した変換を行う
-;; (setq skk-search-prog-list
-;;       (skk-nunion skk-search-prog-list
-;;		     '((skk-lookup-search))))
+(if (featurep 'skk-lookup)
+    (setq skk-search-prog-list (skk-nunion skk-search-prog-list
+					   '((skk-lookup-search)))))
 
 ;; 送りあり変換を送りなし変換と同じ操作でできるようにする
 ;; (setq skk-auto-okuri-process t)
 
 ;; カタカナ語を変換候補に加える。1、2 を好みで選んでください
 ;; 例 1) 単純にカタカナに変換したものを加える
-;; (setq skk-search-prog-list
-;;       (skk-nunion skk-search-prog-list
-;;		     '((skk-search-katakana))))
+;; (setq skk-search-prog-list (skk-nunion skk-search-prog-list
+;; 				       '((skk-search-katakana))))
 ;; 例 2) 全角カタカナの候補と半角カタカナの候補を共に加える
-;; (setq skk-search-prog-list
-;;       (skk-nunion skk-search-prog-list
-;;		     '((skk-search-katakana t))))
+;; (setq skk-search-prog-list (skk-nunion skk-search-prog-list
+;; 				       '((skk-search-katakana t))))
 
 ;; サ行変格活用の動詞も送りあり変換出来るようにする
-;; (setq skk-search-prog-list
-;;       (skk-nunion skk-search-prog-list
-;;		     '((skk-search-sagyo-henkaku))))
+;; (setq skk-search-prog-list (skk-nunion skk-search-prog-list
+;; 				       '((skk-search-sagyo-henkaku))))
 
 ;; 辞書検索に関する高度な設定 --
 ;; ユーザオプションに頼らず検索方法と検索順を自分で制御する方法
