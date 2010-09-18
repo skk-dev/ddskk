@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/17 23:34:51 $
+@set UPDATED $Date: 2010/09/18 00:08:43 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -489,11 +489,9 @@ SKK $B<-=q$N%U%!%$%kL>(B($B%U%k%Q%9(B)$B$,Dj5A$5$l$F$$$k$H!"$=$N<-=q$NFbMF$
 DDSKK $B$r;HMQ$9$k$K$O!"<-=q$,I,MW$G$9!#(B
 
 @table @b
-
 @item SKK $B3F<-=q$N2r@b$H%@%&%s%m!<%I(B
 
 @url{http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1}
-
 @end table
 
 $B>e5-$N%5%$%H$K$OMM!9$J<-=q$,MQ0U$5$l$F$$$^$9!#0J2<$O0lNc$G$9!#(B
@@ -531,7 +529,6 @@ edict $B<-=q(B($B1QOB<-=q(B)
 @item SKK-JISYO.wrong
 $B4V0c$$<-=q!J(BS, M, L $B<-=q$K4{$KEPO?$5$l$F$$$?$,!"4V0c$$$G$"$C$?$N$G:o=|$5(B
 $B$l$?C18l$r<}O?!K(B
-
 @end table
 
 $B0lIt$N<-=q$NCx:n8"$O(B GNU GPL v2 $B$H$O0[$J$k$b$N$,$"$j$^$9$N$G$4Cm0U2<$5$$!#(B
@@ -579,11 +576,9 @@ DDSKK $B$N%/%i%$%"%s%HB&$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<(B
 $B%k$K$D$$$F$O$=$l$>$l$N%&%'%V%5%$%H$r$4;2>H2<$5$$!#(B
 
 @table @b
-
 @item $B<-=q%5!<%P$N@bL@$H%j%s%/(B
 
 @url{http://openlab.jp/skk/skkserv-ja.html}
-
 @end table
 
 @node $B$O$8$a$N@_Dj(B
@@ -703,23 +698,29 @@ DDSKK 14 $B$G$O!"I8=`E*$J%$%s%9%H!<%k$N>l9g$OFCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F
 @section $B8E$$@_Dj$N%A%'%C%/(B
 @cindex @file{skk-obsolete.el}
 
-@table @code
-@item skk-obsolete-check-all-files
+$B0J2<$N%3%^%s%I$r<B9T$9$k$3$H$G!"@_Dj%U%!%$%kCf$N8E$$@_Dj!JJQ?tL>!"4X?tL>!"%U%'%$%9L>$J$I!K$r8!=P$7!"=q$-49$($k$3$H$,$G$-$^$9!#(B
+
+@table @kbd
+@item M-x skk-obsolete-check
+@kindex M-x skk-obsolete-check
+@findex skk-obsolete-check
+
+$B%U%!%$%kL>$rLd$o$l$^$9$N$GEz$($F$/$@$5$$!#$=$N%U%!%$%k$NFbMF$rD4::$7$F(B
+$B8E$$@_Dj$r=q$-49$($^$9!#(B
+
+$B=q$-49$($O(B @code{query-replace-regexp} $B$GBPOCE*$K9T$o$l$^$9$N$G!"4pK\E*$K$O(B
+@key{y} $BKt$O(B @key{SPC} $B$r%?%$%W$7$F$/$@$5$$!#(B
+@key{n} $B$r%?%$%W$9$k$H!"$=$N8!=P2U=j$O=q$-49$($:$K<!$N8!=P2U=j$^$G%9%-%C%W$7$^$9!#(B
+
+@item M-x skk-obsolete-check-all-files
+@kindex M-x skk-obsolete-check-all-files
 @findex skk-obsolete-check-all-files
 
-$B$3$N%3%^%s%I$O!"3F8D?M$N@_Dj%U%!%$%k$N8E$$@_Dj$rD4$Y$F!"2DG=$J8B$j?7$7$$(B
-$B@_Dj$K=q49$($^$9!#(B
+@code{load-path} $B$KB8:_$9$k(B @file{~/.skk}, @file{~/.emacs}, @file{default.el}, @file{site-start.el} $B$NFbMF$rD4::$7$F8E$$@_Dj$r=q$-49$($^$9!#(B
+
+@kbd{C-u M-x skk-obsolete-check-all-files} $B$H%W%l%U%#%C%/%9IU$-$G<B9T$7$?>l9g$O(B
+@file{skk.el} $B$r$O$8$a$H$9$k3F%W%m%0%i%`%U%!%$%k$bD4::BP>]$H$7$^$9!#(B
 @end table
-
-SKK 9$B!"(B SKK 10 $B$HHf3S$7$F!"JQ?tL>!"4X?tL>$,BgI}$KJQ99$5$l$?$N$G!"(B
-@file{skk-obsolete.el} $B$r%m!<%I$7$F!"(B
-
-@example
-@kbd{M-x skk-obsolete-check-all-files}
-@end example
-
-@noindent
-$B$r<B9T$9$k$3$H$r6/$/$*4+$a$7$^$9!#(B
 
 @node $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B
 @section $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B
@@ -788,7 +789,6 @@ skkserv [-p port] [jisyo]
 @cindex @code{SKK_JISYO}
 
 @table @b
-
 @item B $B%7%'%k$N>l9g(B (sh, bash, ksh, zsh $B$J$I(B)
 
 @example
@@ -804,7 +804,6 @@ setenv SKKSERVER example.org
 setenv SKKSERV /your/path/to/skkserv
 setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 @end example
-
 @end table
 
 $B4XO"9`L\(B: @w{@ref{$B<-=q%5!<%P$NF~<j(B}}$B!"(B@w{@ref{$B%5!<%P4XO"(B}}
@@ -1003,7 +1002,6 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k#4<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=q$rM
 $B%^%$%J!<%b!<%I$NI=<((B: @samp{SKK}
 
 $B%+!<%=%k?'(B: $BGX7J$K$h$j%"%$%\%j!<$+%0%l%$!#(B
-
 @end table
 
 $BF~NO%b!<%I$KH<$&%+!<%=%k?'$NJQ99J}K!$K$D$$$F$O!"(B
@@ -2155,7 +2153,6 @@ DDSKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_9~$^$l$^$9!#%U%!%$%kL>$N4{DjCM$O!"(BOS
 $B$"$j$^$9!#(B
 
 @xref{skk-init-file$B$N<+F0%3%s%Q%$%k(B}.
-
 @end table
 
 @defvr {$B%f!<%6JQ?t(B} skk-user-directory
@@ -6023,15 +6020,15 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"3NDj$5$l$?8l$,!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!#
 $B$5$$!#0J9_JQ49$K$D$$$F$N3X=,$r;O$a$^$9!#(B
 
 $BNc$($P!"(B@samp{$BG_1+$K$O1+$,9_$k(B} $B$HJQ49$7$?>l9g!"(B
-@enumerate
 
+@enumerate
 @item
 @samp{$B1+(B} (@samp{$B$"$a(B}) $B$N4XO"8l$O(B @samp{$BG_1+(B} (@samp{$B$D$f(B})$B!"(B
 
 @item
 @samp{$B9_$k(B} (@samp{$B$U(Br}) $B$N4XO"8l$O(B @samp{$B1+(B} (@samp{$B$"$a(B})$B!"(B
-
 @end enumerate
+
 @noindent
 $B$H$$$&Iw$KD>A0$K3NDj$7$?8l$r4XO"8l$H$7$F!"8l$H8l$N4XO"@-$r3X=,$7$^$9!#(B
 
@@ -6321,6 +6318,7 @@ DDSKK $B$G$O!"J#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#J#?t$N<-=q$,F1;~$K(B
 @end lisp
 
 $B$3$NNc$G$O!"(B
+
 @enumerate
 @item
 @code{skk-kakutei-jisyo} (@w{@pxref{$B3NDj<-=q(B}}),
@@ -6343,8 +6341,8 @@ DDSKK $B$G$O!"J#?t$N<-=q$r07$&$3$H$,2DG=$G$9!#J#?t$N<-=q$,F1;~$K(B
 $B$b$73NDj<-=q$G8uJd$,8+$D$+$C$?$i$=$N$^$^<+F0E*$K3NDj$5$l$^$9!#(B1 $B2s(B
 @key{SPC} $B$r2!$9F0:n$KBP$7!"%W%m%0%i%`B&$G$O?7$?$J8uJd$r8+$D$1$k$^$G>e5-(B
 $B$NF0:n$r?J$a$^$9!#Nc$($P!"(B
-@enumerate
 
+@enumerate
 @item
 $B3NDj<-=q$G$O8uJd$O8+$D$1$i$l$J$+$C$?$,(B @code{skk-initial-search-jisyo}
 $B$K8uJd$,$"$k>l9g!"$=$3$G0lC6;_$^$j%f!<%6$K$=$N8uJd$rI=<($7$^$9!#(B
@@ -7945,7 +7943,6 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $B!VE,@Z$J7A<0!W$H$O!"<!$N$H$*$j$G$9!#(B
 
 @enumerate
-
 @item
 $B0z?t$r#2$D<h$k$3$H!#(B
 
@@ -7960,7 +7957,6 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$G$O!"(B``royalblue'' $B$r
 $BJV$jCM$O<!$N$$$:$l$+$H$9$k$3$H!#(B
 
 @table @samp
-
 @item $BJ8;zNs(B
 
 $B$3$N>l9g!"$3$NJ8;zNs$O8uJd$HCm<a$rN>J}4^$_$&$k$b$N$H$7$F=hM}$5$l$k!#(B
@@ -8576,7 +8572,6 @@ SKK Openlab $B%a!<%j%s%0%j%9%H$O!"E}0l$5$l$?0l$D$N(B ML $B$G$9!#MxMQ<TMQ!"3+H
 $B%5!<%P$d%U%m%s%H%(%s%I!"(B SKK $B<-=q%D!<%k$NOCBj$J$I$b5DO@$NHO0O$KF~$j$^$9!#(B
 
 @table @asis
-
 @item $B%a!<%j%s%0%j%9%H$K;22C$9$k>l9g(B
 
 $B%"%I%l%9(B @email{skk-subscribe@@ring.gr.jp} $B08$F$K6u$N%a!<%k$rAw$C$F2<$5$$!#(B
@@ -8604,7 +8599,6 @@ subscribe $B$7$F2<$5$$!#(B
 @url{http://mail.ring.gr.jp/skk}
 
 @url{news://news.ring.gr.jp/ring.openlab.skk}
-
 @end table
 
 @node SKK$B4XO"%=%U%H%&%'%"(B
@@ -8939,7 +8933,6 @@ SKK abbrev $B%b!<%I(B (@code{skk-abbrev-mode})
 @item $B$=$NB>$N%b!<%I(B
 
 $B<-=qEPO?%b!<%I(B
-
 @end table
 
 @node Installation

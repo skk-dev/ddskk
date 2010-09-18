@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-obsolete.el,v 1.21 2010/08/19 13:53:14 skk-cvs Exp $
+;; Version: $Id: skk-obsolete.el,v 1.22 2010/09/18 00:08:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/19 13:53:14 $
+;; Last Modified: $Date: 2010/09/18 00:08:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -93,7 +93,13 @@
     (skk-zenkaku-mode . skk-jisx0208-latin-mode)
     (skk-zenkaku-mode-map . skk-jisx0208-latin-mode-map)
     (skk-zenkaku-mode-string . skk-jisx0208-latin-mode-string)
-    (skk-zenkaku-vector . skk-jisx0208-latin-vector))
+    (skk-zenkaku-vector . skk-jisx0208-latin-vector)
+    (skk-e21-hiragana-face . skk-emacs-hiragana-face)
+    (skk-e21-katakana-face . skk-emacs-katakana-face)
+    (skk-e21-jisx0208-latin-face . skk-emacs-jisx0208-latin-face)
+    (skk-e21-jisx0201-face . skk-emacs-jisx0201-face)
+    (skk-e21-abbrev-face . skk-emacs-abbrev-face)
+    )
   "obsolete 変数の連想リスト。")
 
 (defvar skk-obsolete-function-alist

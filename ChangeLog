@@ -1,5 +1,8 @@
 2010-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-obsolete.el (skk-obsolete-variable-alist):
+	Add obsolete-variables skk-e21-*-face.
+
 	* doc/skk.texi: typo, and update.
 
 2010-09-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
