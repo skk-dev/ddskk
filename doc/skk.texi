@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/20 07:11:12 $
+@set UPDATED $Date: 2010/09/20 10:55:41 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -754,8 +754,7 @@ DDSKK $B$N%/%i%$%"%s%HB&$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<(B
 @node $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B
 @section $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B
 
-$B<-=q%5!<%P$r;H$$$?$$$H$-$O!"(B@file{~/.emacs} $B$d(B @file{~/.skk} $B$G0J2<$N$h$&$K(B
-$B@_Dj$7$^$9!#(B
+$B<-=q%5!<%P$r;H$$$?$$$H$-$O!"(B@file{~/.skk} $B$G0J2<$N$h$&$K@_Dj$7$^$9!#(B
 
 @lisp
 @group
@@ -2895,8 +2894,7 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 $B<+F0Jd40!JF1$8Ns$K4{$KF~NO$7$F$$$kJ8;zNs$,$"$C$?$H$-$K$=$l$r;2>H$7$FJd40(B
 $B$7$h$&$H$9$k5!G=!K$r%$%a!<%8$9$k$HJ,$+$j$d$9$$$+$bCN$l$^$;$s!#(B
 
-$B$3$N5!G=$rMxMQ$9$k$K$O(B @file{~/.emacs} $B$b$7$/$O(B @file{~/.skk} $B$K2<5-$N<0(B
-$B$r=q$-$^$7$g$&!#(B
+$B$3$N5!G=$rMxMQ$9$k$K$O(B @file{~/.skk} $B$K2<5-$N<0$r=q$-$^$7$g$&!#(B
 
 @lisp
 (setq skk-dcomp-activate t)
@@ -7031,8 +7029,8 @@ abbreviation $B$NE83+$r9T$&$h$&$K@_Dj$9$k$3$H$,$G$-$k$N$G$9$,!"2>$K<-=q(B
 describe-coding-system} $B$GD4$Y$k$3$H$,$G$-$^$9!#$J$*!"(BXEmacs $B$G$O$3$l$i(B
 $B$N(B symbol $B$O(B coding system $B$=$N$b$N$G$O$J$/!"(B coding system object $B$r;X(B
 $B<($9$k$?$a$N(B symbol $B$H$7$F07$o$l$^$9!#6qBNE*$K$O(B Emacs $B$G$O(B
-@code{(coding-system-p 'euc-jp)} $B$,(B t $B$rJV$9$N$KBP$7!"(B XEmacs $B$G$O(B nil
-$B$rJV$7$^$9$,!"Be$o$j$K(B symbol $B$,<($9(B coding system object $B$rJV$9(B
+@code{(coding-system-p 'euc-jp)} $B$,(B @code{t} $B$rJV$9$N$KBP$7!"(B XEmacs $B$G(B
+$B$O(B @code{nil} $B$rJV$7$^$9$,!"Be$o$j$K(B symbol $B$,<($9(B coding system object $B$rJV$9(B
 @code{find-coding-system} $B4X?t$,B8:_$7$^$9!#(B}
 @item @code{nil}
 @end itemize
@@ -9570,8 +9568,7 @@ edict $B$r<+J,$G2C9)$7$F>e5-$HF1Ey$N$b$N$r:n@.$9$k$3$H$b$G$-$^$9!#(Bedict $B$
 @vindex skk-use-look
 
 UNIX @command{look} $B%3%^%s%I$H(B @file{skk-look.el} $B$rMxMQ$9$k$H!"?'!9$G$-$^(B
-$B$9$h!#$^$:!"(B @file{~/.skk} $B$+(B @file{~/.emacs} $B$G(B @code{skk-use-look} $B$r(B
-t $B$K%;%C%H$7$F(B Emacs/SKK $B$rN)$A>e$2D>$7$F2<$5$$!#(B
+$B$9$h!#$^$:!"(B @file{~/.skk} $B$G(B @code{skk-use-look} $B$r(B @code{t} $B$K%;%C%H$7$F(B Emacs/SKK $B$rN)$A>e$2D>$7$F2<$5$$!#(B
 
 $B$5$!!"2<5-$N$h$&$J7]Ev$,2DG=$K$J$j$^$7$?!#(B
 
@@ -9657,7 +9654,7 @@ Lookup $B$,07$($k<-=q$O$[$H$s$I;H$($^$9!#(BLookup $B$,%$%s%9%H!<%k$5$l$F$$$k
 @file{SKK-CFG} $B$NCf$G(B @var{VERSION_SPECIFIC_LISPDIR} $B$J$I$K%G%#%l%/%H%j(B
 $B$rL@<($9$k$3$H$G2r7h$G$-$^$9!#(B
 
-$B$5$!!"(B@file{~/.emacs} $B$+(B @file{~/.skk} $B$G(B @code{skk-search-prog-list} $B$N(B
+$B$5$!!"(B@file{~/.skk} $B$G(B @code{skk-search-prog-list} $B$N(B
 $BMWAG$K(B @code{(skk-lookup-search)} $B$rDI2C$7$^$7$g$&!#B>$N8!:w%(%s%8%s$h$j(B
 $B$b8!:w$OHf3SE*CY$$$N$G!":G8e$NJ}$,NI$$$H;W$$$^$9!#(B
 
