@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/18 21:25:03 $
+@set UPDATED $Date: 2010/09/20 07:11:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -402,20 +402,34 @@ cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @command{make} $B%3%^%s%I$,;HMQ$G
 @file{ddskk-VERSION.tar.gz} $B$+$i<h$j=P$7$^$9!#(B
 
 @example
-% gzip -cd ddskk-VERSION.tar.gz | tar xvf -
+% gzip -cd ddskk-@value{SKK-VERSION}.tar.gz | tar xvf -
 @end example
 
-DDSKK $B$N%H%C%W%G%#%l%/%H%j(B (@file{ChangeLog} $B$d(B @file{Makefile} $B$N(B
-$B$"$k%G%#%l%/%H%j(B) $B$r%+%l%s%H%G%#%l%/%H%j$K$7$^$9!#(B
+$B<!$K!"(BDDSKK $B$N%H%C%W%G%#%l%/%H%j(B@footnote{@file{ChangeLog} $B$d(B @file{Makefile} $B$,CV$+$l$F$$$k%G%#%l%/%H%j$G$9!#(B}$B$r%+%l%s%H%G%#%l%/%H%j$K$7$^$9!#(B
 
 @example
-% cd ddskk-VERSION
+% cd ddskk-@value{SKK-VERSION}
 @end example
 
-@option{what-where} $B$r0z?t$K$7$F(B @command{make} $B%3%^%s%I$r<B9T$9$k$H!"$I$N%G%#(B
-$B%l%/%H%j$K(B DDSKK $B$,%$%s%9%H!<%k$5$l$k$N$+3NG'$G$-$^$9!#(B
+$B0J2<$K=R$Y$k(B @command{make} $B%3%^%s%I$r<B9T$9$k:]!"(BSHELL $B$N4D6-JQ?t(B @env{SKK_DEFAULT_JISYO} $B$K(B
+SKK $B<-=q$N%U%!%$%kL>!J%U%k%Q%9!K$,Dj5A$5$l$F$$$k$H!"$=$N<-=q$NFbMF$r(B
+@file{skk-dic.el} $B$NCf$K<h$j9~$_!"<-=q8!:w4X?t$H$7$F(B
+@code{skk-search-small-dic} $B$,;H$($k$h$&$K$J$j$^$9!#(B
+@env{SKK_DEFAULT_JISYO} $B$K$ODL>o!"(B@file{SKK-JISYO.S} $B$r;XDj$9$k$HNI$$(B
+$B$G$7$g$&!#(B@w{@xref{$B<-=q%U%!%$%k$N;XDj(B}.}
+
+@menu
+* GNU Emacs $B$X$N%$%s%9%H!<%k(B::
+* XEmacs $B$X$N%$%s%9%H!<%k(B::
+@end menu
+
+@node GNU Emacs $B$X$N%$%s%9%H!<%k(B
+@subsection GNU Emacs $B$X$N%$%s%9%H!<%k(B
+
+$B$^$:$O!"(BDDSKK $B$,$I$N%G%#%l%/%H%j$K%$%s%9%H!<%k$5$l$k$N$+!"(B@option{what-where} $B$r0z?t$K(B @command{make} $B%3%^%s%I$r<B9T$7$F3NG'$7$^$7$g$&!#(B
 
 @example
+@group
 % make what-where
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
@@ -428,9 +442,10 @@ DDSKK $B$N%H%C%W%G%#%l%/%H%j(B (@file{ChangeLog} $B$d(B @file{Makefile} $B$
 @print{}SKK tutorials:
 @print{}  SKK.tut, SKK.tut.E, NICOLA-SKK.tut, skk.xpm
 @print{}  -> /usr/local/share/skk
+@end group
 @end example
 
-$B$3$3$G%$%s%9%H!<%k@h%G%#%l%/%H%j$,I=<($5$l$J$$>l9g$O(B APEL $B$N(B
+$B$3$NCJ3,$G%$%s%9%H!<%k@h%G%#%l%/%H%j$,I=<($5$l$J$$>l9g$O(B APEL $B$N(B
 path $B$r(B @file{SKK-CFG} $B$K5-F~$7$^$9!#(B@file{SKK-CFG} $B$K@_DjJ}K!$,=q$$$F$"(B
 $B$j$^$9!#$^$?!"(BDDSKK $B$N%$%s%9%H!<%k@h%G%#%l%/%H%j$rJQ99$7$?$$>l9g$b!"(B
 @file{SKK-CFG} $B%U%!%$%k$rJT=8$9$k$3$H$K$h$j;XDj$G$-$^$9!#(B
@@ -442,17 +457,17 @@ path $B$r(B @file{SKK-CFG} $B$K5-F~$7$^$9!#(B@file{SKK-CFG} $B$K@_DjJ}K!$,=
 @end example
 
 @noindent
-$B$H$9$k$H!"<B:]$K%$%s%9%H!<%k$5$l$^$9!#(B
+$B$H<B9T$9$k$H!"<B:]$K(B DDSKK $B$,%$%s%9%H!<%k$5$l$^$9!#(B
 
 $B$"$k$$$O!"0lHL%f!<%6$,<+J,$N(B home directory $B$r(B root directory $B$H$7$F%$%s(B
-$B%9%H!<%k$9$k$K$O!"(B
+$B%9%H!<%k$9$k$K$O!"(BPREFIX $B$r(B
 
 @example
 % make install PREFIX=~/
 @end example
 
 @noindent
-$B$H$7$^$9!#(B
+$B$H;XDj$7$^$9!#(B
 
 $BFCDj$N(B Emacs $B$r;XDj$9$k>l9g$O!"(B
 
@@ -461,30 +476,41 @@ path $B$r(B @file{SKK-CFG} $B$K5-F~$7$^$9!#(B@file{SKK-CFG} $B$K@_DjJ}K!$,=
 @end example
 
 @noindent
-$B$H$9$k$H;XDj$G$-$^$9!#(B
+$B$H;XDj$7$^$9!#(B
 
-XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$9$k>l9g$O!"(B
+@node XEmacs $B$X$N%$%s%9%H!<%k(B
+@subsection XEmacs $B$X$N%$%s%9%H!<%k(B
 
+XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$9$k>l9g$O!"$^$:!"(B@option{what-where-package} $B$r0z?t$K(B @command{make} $B%3%^%s%I$r<B9T$7$F%Q%C%1!<%8$N%$%s%9%H!<%k@h$r3NG'$7$^$7$g$&!#(B
 @example
-% make what-where-package
+@group
+% make what-where-package EMACS=/usr/bin/xemacs
+@print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where-package
+@print{}  Loading /home/user/temp/ddskk-14.1.50/SKK-CFG...
+@print{}SKK modules:
+@print{}  skk-cursor, skk-viper, @dots{}
+@print{}  -> /usr/share/xemacs/site-packages/lisp/skk
+
+@print{}SKK infos:
+@print{}  skk.info
+@print{}  -> /usr/share/xemacs/site-packages/info
+
+@print{}SKK tutorials:
+@print{}  SKK.tut, SKK.tut.E, NICOLA-SKK.tut, skk.xpm
+@print{}  -> /usr/share/xemacs/site-packages/etc/skk
+@end group
 @end example
 
-@noindent
-$B$r<B9T$9$k$H!"%Q%C%1!<%8$N%$%s%9%H!<%k@h$,I=<($5$l$^$9!#(B
+$B%$%s%9%H!<%k@h%G%#%l%/%H%j$N3NG'$,:Q$_$^$7$?$i!"%9!<%Q!<%f!<%6$K$J$C$F(B @option{install-package} $B$r0z?t$K(B @command{make} $B$r<B9T$9$k$H<B:]$K%$%s%9%H!<%k$5$l$^$9!#(B
 
 @example
-% make install-package
+@group
+% make install-package EMACS=/usr/bin/xemacs
+@print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-install-package
+@print{}  Loading /home/user/temp/ddskk-14.1.50/SKK-CFG@dots{}
+@dots{}
+@end group
 @end example
-
-@noindent
-$B$r<B9T$9$k$H<B:]$K%$%s%9%H!<%k$7$^$9!#(B
-
-@command{make} $B$r<B9T$9$k:]!"(BSHELL $B$N4D6-JQ?t(B @env{SKK_DEFAULT_JISYO} $B$K(B
-SKK $B<-=q$N%U%!%$%kL>(B($B%U%k%Q%9(B)$B$,Dj5A$5$l$F$$$k$H!"$=$N<-=q$NFbMF$r(B
-@file{skk-dic.el} $B$NCf$K<h$j9~$_!"<-=q8!:w4X?t$H$7$F(B
-@code{skk-search-small-dic} $B$,;H$($k$h$&$K$J$j$^$9!#(B
-@env{SKK_DEFAULT_JISYO} $B$K$ODL>o!"(B@file{SKK-JISYO.S} $B$r;XDj$9$k$HNI$$(B
-$B$G$7$g$&!#(B@w{@xref{$B<-=q%U%!%$%k$N;XDj(B}.}
 
 @node $B<-=q$NF~<j(B
 @section $B<-=q$NF~<j(B
