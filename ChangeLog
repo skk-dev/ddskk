@@ -1,3 +1,10 @@
+2010-09-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (running-gnu-emacs): New variable.  Use it instead of
+	"(not (featurep 'xemacs)".
+	(SKK_MODULES): Always include ccc, skk-cursor and context-skk for
+	GNU Emacs.
+
 2010-09-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
