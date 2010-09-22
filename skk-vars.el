@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.318 2010/09/18 05:54:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.319 2010/09/22 12:15:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/18 05:54:35 $
+;; Last Modified: $Date: 2010/09/22 12:15:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1640,8 +1640,8 @@ nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$
 
 ;;;###autoload
 (defcustom skk-preload nil
-  "Non-nil $B$J$i$P!"(BSKK $B$rA0$b$C$F%m!<%I$9$k!#(B
-$B$3$l$K$h$C$F=i2s5/F0$,9bB.$K$J$k!#(B"
+  "Non-nil $B$J$i$P!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$^$9!#(B
+$B$3$l$O!"(BSKK $B%W%m%0%i%`$H<-=q$NFI$_9~$_$r(B Emacs $B5/F0;~$K:Q$^$;$k$3$H$K$h$j<B8=$7$F$$$^$9!#$=$N$?$a!"(BEmacs $B$N5/F0$=$N$b$N$OCY$/$J$j$^$9!#(B"
   :type 'boolean
   :group 'skk-misc)
 
@@ -2866,7 +2866,7 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
 (defcustom skk-cdb-large-jisyo nil
   "*$B8D?M<-=q$N8!:w$N8e$K8!:w$9$k(B CDB $B7A<0<-=q%U%!%$%kL>!#(B
 Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!"(B
-$B9bB.$G8!:w$r9T$&!#(B"
+$B9bB.$J8!:w$r9T$&!#(B"
   :type (if (and skk-running-gnu-emacs
 		 (= emacs-major-version 21))
 	    '(radio (file :tag "$B<-=q%U%!%$%kL>(B")
@@ -2925,7 +2925,7 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
 
 (defcustom skk-comp-circulate nil
   "*$B8+=P$78l$NJd40$r9T$&:]$N8uJd$NI=<(=g$r@)8f$9$k!#(Bnon-nil $B$G$"$l$P!"(B
-$B:G8e$N8+=P$78l$,I=<($5$l$?>uBV$G$5$i$KJd40$r9T$&$HF~NOJ8;zNs$KLa$k!#(B
+$B:G8e$N8+=P$78l$,I=<($5$l$?>uBV$G99$KJd40$r9T$&$HF~NOJ8;zNs$KLa$k!#(B
 nil $B$G$"$l$P!":G8e$N8+=P$78l$,I=<($5$l$?>uBV$GDd;_$9$k!#(B"
   :type 'boolean
   :group 'skk-comp)
@@ -2947,7 +2947,7 @@ kakutei-first $B$rA*$s$@;~$O!"(B\"$B$7$s$j(Bn\" $B$rJd40$9$k$H!"(B
 (defcustom skk-comp-prefix-regexp-alist nil
   "*$B%W%l%U%#%/%9$rMxMQ$7$?Jd40;~$K;H$&!"%W%l%U%#%/%9$H@55,I=8=$NO"A[%j%9%H!#(B
 $B$3$NJQ?t$O(B `skk-rule-tree' $B$rMxMQ$7$F<+F0$GMWAG$,DI2C$5$l$k$,!"(B
-$B$=$l$,4|BT$9$k$b$N$G$J$$>l9g$K$OM=$aI,MW$J$b$N$@$1@_Dj$7$F$*$/;v!#(B"
+$B$=$l$,4|BT$9$k$b$N$G$J$$>l9g$K$OM=$aI,MW$J$b$N$@$1@_Dj$7$F$*$/$3$H!#(B"
   :type '(repeat (cons string regexp))
   :group 'skk-comp)
 

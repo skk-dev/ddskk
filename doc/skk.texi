@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/20 10:55:41 $
+@set UPDATED $Date: 2010/09/22 12:15:29 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2229,13 +2229,35 @@ skk-bayesian-history-file ~/.skk-bayesian   ~/.ddskk/bayesian
 
 @defvr {$B%f!<%6JQ?t(B} skk-byte-compile-init-file
 
-$B$3$NJQ?t$NCM$,(B @code{non-nil} $B$G$"$l$P!"(BDDSKK $B$N5/F0;~$K(B DDSKK $B$N@_Dj%U%!(B
-$B%$%k(B ($BI8=`$G$O(B @file{~/.skk}) $B$rI,MW$K1~$8$F%P%$%H%3%s%Q%$%k$7$^$9!#(B
+@cartouche
+@smallformat
+$B$3$3$G$O(B
+@itemize @minus
+@item $B!V(BDDSKK $B$N@_Dj%U%!%$%k!W$r(B @code{el} $B$H!"(B
+@item $B!V(BDDSKK $B$N@_Dj%U%!%$%k$r%P%$%H%3%s%Q%$%k$7$?%U%!%$%k!W$r(B @code{elc} $B$H(B
+@end itemize
+$B$=$l$>$l8F$V$3$H$H$7$^$9!#(B
+@end smallformat
+@end cartouche
 
-$B$3$NJQ?t$NCM$,(B @code{nil} $B$G$"$l$P!"(BDDSKK $B$N@_Dj%U%!%$%k$r%P%$%H%3%s%Q%$(B
-$B%k$7$?%U%!%$%k$r>C5n$7$^$9!#(B
+DDSKK $B$N5/F0;~$K!"(B
 
-$B$3$N5!G=$rM-8z$K$7$?$$>l9g$O!"(B@file{~/.emacs} $B$K(B
+@itemize @bullet
+@item $B$3$NJQ?t$NCM$,(B @code{non-nil} $B$G$"$l$P!"(B
+
+@itemize @minus
+@item @code{elc} $B$,B8:_$7$J$$$+!"Kt$O(B
+@item @code{elc} $B$h$j$b(B @code{el} $B$,?7$7$$$H$-(B
+@end itemize
+
+$B$O!"(B@code{el} $B$r%P%$%H%3%s%Q%$%k$7$?(B @code{elc} $B$r@8@.$7$^$9!#(B
+
+@item $B$3$NJQ?t$NCM$,(B @code{nil} $B$G$"$l$P!"(B
+
+@code{elc} $B$h$j$b(B @code{el} $B$,?7$7$$$H$-$O!"(B@code{elc} $B$r>C5n$7$^$9!#(B
+@end itemize
+
+$B0J>e$N5!G=$rM-8z$K$7$?$$>l9g$O!"(B@file{~/.emacs} $B$K(B
 
 @lisp
 (setq skk-byte-compile-init-file t)
@@ -8628,19 +8650,19 @@ SKK Openlab $B%a!<%j%s%0%j%9%H$O!"E}0l$5$l$?0l$D$N(B ML $B$G$9!#MxMQ<TMQ!"3+H
 $B%5!<%P$d%U%m%s%H%(%s%I!"(B SKK $B<-=q%D!<%k$NOCBj$J$I$b5DO@$NHO0O$KF~$j$^$9!#(B
 
 @table @asis
-@item $B%a!<%j%s%0%j%9%H$K;22C$9$k>l9g(B
+@item $B%a!<%j%s%0%j%9%H$K;22C$9$k(B
 
 $B%"%I%l%9(B @email{skk-subscribe@@ring.gr.jp} $B08$F$K6u$N%a!<%k$rAw$C$F2<$5$$!#(B
 $B3NG'$N0Y$N%a%C%;!<%8$,;XDj$5$l$?%"%I%l%908$KAw?.$5$l$^$9!#$=$N3NG'$N0Y$N(B
-$B%a%C%;!<%8$KBP$7$F!"JV?.$9$k$3$H$G2CF~<jB3$-$O=*N;$7$^$9!#(B
+$B%a%C%;!<%8$KBP$7$FJV?.$9$k$3$H$G2CF~<jB3$-$O=*N;$7$^$9!#(B
 
-@item $B%a!<%j%s%0%j%9%H$+$iC&2q$9$k>l9g(B
+@item $B%a!<%j%s%0%j%9%H$+$iC&2q$9$k(B
 
 $B%"%I%l%9(B @email{skk-unsubscribe@@ring.gr.jp} $B08$F$K6u$N%a!<%k$rAw$C$F2<$5(B
 $B$$!#3NG'$N0Y$N%a%C%;!<%8$,;XDj$5$l$?%"%I%l%908$KAw?.$5$l$^$9!#$=$N3NG'$N(B
-$B0Y$N%a%C%;!<%8$KBP$7$F!"JV?.$9$k$3$H$GC&B`<jB3$-$O=*N;$7$^$9!#(B
+$B0Y$N%a%C%;!<%8$KBP$7$FJV?.$9$k$3$H$GC&B`<jB3$-$O=*N;$7$^$9!#(B
 
-@item $BEPO?$7$?%"%I%l%9$NJQ99$9$k>l9g(B
+@item $BEPO?$7$?%"%I%l%9$rJQ99$9$k(B
 
 $B8E$$%"%I%l%9$K$D$$$F0lC6(B unsubscribe $B$7$F!"?7$7$$%"%I%l%9$+$i:FEY(B
 subscribe $B$7$F2<$5$$!#(B
@@ -8672,16 +8694,16 @@ SKK $B<-=q$OB?$/$N%f!<%6$NJ}!9$+$iDs6!$5$l$?<-=q$K$h$j%3%T!<%U%j!<$N<-=q$H(B
 $B$7$F$O:GBg5,LO$N<-=q$K$J$C$F$$$^$9!#:#8e$b$3$NJ}<0$K$h$j(B SKK $B<-=q$r$h$j(B
 $B=<<B$7$?$b$N$K$7$F$$$-$?$$$H;W$$$^$9!#(B
 
-SKK $B<-=q$KDI2C$7$?$$C18l!"8mEPO?$H$7$F:o=|$7$?$$C18l$,$"$k$h$&$G$7$?$i!"(B
 @url{http://openlab.jp/skk/registdic.cgi} $B$K$F(B Web/cgi $B$rMxMQ(B
-$B$7$?EPO?!&:o=|4uK>%U%)!<%`$r1?MQ$7$F$*$j$^$9$N$G!"@'Hs$4MxMQ2<$5$$!#(B
+$B$7$?EPO?!&:o=|4uK>%U%)!<%`$r1?MQ$7$F$$$^$9!#(B
+SKK $B<-=q$KDI2C$7$?$$C18l!"8mEPO?$H$7$F:o=|$7$?$$C18l$,$"$j$^$7$?$i!"(B
+$B@'Hs$4MxMQ2<$5$$!#(B
 
 @node  $B<-=q%D!<%k(B
 @section $B<-=q%D!<%k(B
 
-SKK $B<-=q$K4X$9$k%D!<%k$K$O!"(BPerl, C $B$N3F8@8l$K$h$j=q$+$l$F$$$^$7$?$,!"(B
-Perl $B$K$h$k%D!<%k$O8=:_==J,%a%s%F%J%s%9$5$l$F$$$^$;$s!#8=:_$O(B C, ruby $B$N(B
-$B%W%m%0%i%`$,3+H/!&%a%s%F%J%s%9$5$l$F$$$^$9!#(B
+SKK $B<-=q$K4X$9$k%D!<%k$K$O!"(BPerl, C, Ruby $B$N3F8@8l$K$h$j=q$+$l$?%D!<%k$,$"$j$^$9$,!"(BPerl $B$K$h$k%D!<%k$O8=:_==J,%a%s%F%J%s%9$5$l$F$$$^$;$s!#(B
+$B8=:_$O(B C, Ruby $B$N%D!<%k$,3+H/!&%a%s%F%J%s%9$5$l$F$$$^$9!#(B
 
 @uref{http://openlab.jp/skk/wiki/wiki.cgi?page=%BC%AD%BD%F1%A5%E1%A5%F3%A5%C6%A5%CA%A5%F3%A5%B9%A5%C4%A1%BC%A5%EB, $B<-=q%a%s%F%J%s%9%D!<%k(B}
 
