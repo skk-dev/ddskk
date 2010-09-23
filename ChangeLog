@@ -1,3 +1,7 @@
+2010-09-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-search-lisp-symbol): Add new describe.
+
 2010-09-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-byte-compile-init-file): Update.

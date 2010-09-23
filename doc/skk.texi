@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/22 12:15:29 $
+@set UPDATED $Date: 2010/09/23 02:04:50 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3335,7 +3335,7 @@ Possible completions are:
 ------ Completion List -------
 @end group
 
-0 1 8 @kbd{RET}
+0 1 8 @kbd{RET} @footnote{@kbd{M-v} の打鍵で、カーソルを Completion List へ移すこともできます。}
 
 @group
 ----- Buffer: *候補* -----
@@ -7512,6 +7512,7 @@ Emacs のコマンド @code{describe-char} も有用でしょう。
 @menu
 * skk-lookup::                  Lookup を用いた辞書変換
 * skk-look::                    look コマンドを用いた辞書変換
+* Lisp シンボル名の補完検索変換::
 @end menu
 
 @node skk-lookup
@@ -7708,6 +7709,87 @@ SKK 辞書に
 
 @noindent
 のように設定することにより、 edict 辞書を使用できます。}。
+
+@node Lisp シンボル名の補完検索変換
+@subsection Lisp シンボル名の補完検索変換
+
+SKK abbrev モードにて、Lisp シンボル名を補完して検索し、検索結果を候補として返すことができます。英文字の後ろに @samp{~} を付加してから変換を開始してください。
+
+まずは動作例を示します。
+
+@example
+/ d e f i ~
+
+@group
+----- Buffer: foo -----
+▽defi~@point{}
+----- Buffer: foo -----
+@end group
+
+@kbd{SPC}
+
+@group
+----- Buffer: foo -----
+▽defimage@point{}
+----- Buffer: foo -----
+@end group
+
+@kbd{SPC}
+
+@group
+----- Buffer: foo -----
+▽define-abbrev@point{}
+----- Buffer: foo -----
+@end group
+
+@kbd{SPC}
+
+@group
+----- Buffer: foo -----
+▽define-abbrev-table@point{}
+----- Buffer: foo -----
+@end group
+
+@kbd{SPC}
+
+@group
+----- Buffer: foo -----
+▽define-abbrevs@point{}
+----- Buffer: foo -----
+@end group
+
+@kbd{SPC}
+
+@group
+----- Buffer: *候補* -----
+A:define-auto-insert
+S:define-category
+D:define-ccl-codepoint-translation-table
+F:define-ccl-constant-translation-table
+J:define-ccl-identity-translation-table
+K:define-ccl-program
+L:define-ccl-slide-translation-table
+----- Buffer: *候補* -----
+@end group
+@end example
+
+この機能を有効とするには、リスト @code{skk-search-prog-list} の要素に
+関数 @code{skk-search-lisp-symbol} を加えてください。
+@lisp
+(add-to-list 'skk-search-prog-list
+	     '(skk-search-lisp-symbol) t)
+@end lisp
+
+@defun skk-search-lisp-symbol &optional PREDICATE NOT-ABBREV-ONLY WITHOUT-CHAR-MAYBE
+オプション @code{PREDICATE} で補完検索する範囲（関数名、変数名、コマンド名）を限定することができます。
+詳細は docstring を参照してください。
+@end defun
+
+@defvr {ユーザ変数} skk-completion-search-char
+@code{skk-completion-search} による変換機能を指示するキーキャラクタ。
+デフォルトは @kbd{~} です。
+
+@end defvr
 
 @node 飾りつけ
 @section 飾りつけ
