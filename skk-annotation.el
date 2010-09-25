@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.165 2010/09/18 05:54:35 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.166 2010/09/25 13:58:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/09/18 05:54:35 $
+;; Last Modified: $Date: 2010/09/25 13:58:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1463,15 +1463,15 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		(throw 'found (cons string cache-buffer))))))))))
 
 ;;;###autoload
-(defun skk-annotation-wikipedia-region-or-at-point (&optional prefix-arg start end)
+(defun skk-annotation-wikipedia-region-or-at-point (&optional prefix-arg
+							      start end)
   "選択領域またはポイント位置の単語を Wikipedia/Wikitionary で調べる。
 領域が選択されていなければ単語の始めと終わりを推測して調べる。
-調べた結果を、skk-annotation-show-as-message が Non-nil であればエコーエリアに、nil であれば別 window に表示する。"
+調べた結果を skk-annotation-show-as-message が Non-nil であればエコーエリアに、
+nil であれば別 window に表示する。"
   (interactive (cons (prefix-numeric-value current-prefix-arg)
 		     (cond
-		      ((if (eval-when-compile (featurep 'xemacs))
-			   (region-active-p)
-			 (and transient-mark-mode mark-active))
+		      ((skk-region-active-p)
 		       (list (region-beginning) (region-end)))
 		      ((eq skk-henkan-mode 'on)
 		       (list (marker-position skk-henkan-start-point)

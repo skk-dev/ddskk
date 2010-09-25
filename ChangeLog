@@ -1,3 +1,9 @@
+2010-09-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el (skk-region-active-p): New function.
+	* skk-annotation.el (skk-annotation-wikipedia-region-or-at-point):
+	Use it.
+
 2010-09-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-search-lisp-symbol): Add new describe.

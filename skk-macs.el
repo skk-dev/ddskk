@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.154 2010/09/18 02:56:12 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.155 2010/09/25 13:58:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/18 02:56:12 $
+;; Last Modified: $Date: 2010/09/25 13:58:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -552,6 +552,17 @@ BUFFER defaults to the current buffer."
 		    'last-command-event)))
     (set variable char)))
 
+(defun skk-region-active-p ()
+  (cond
+   ((eval-when-compile (and skk-running-gnu-emacs
+			    (>= emacs-major-version 23)))
+    (use-region-p))
+   ((featurep 'xemacs)
+    (region-active-p))
+   (t
+    ;; GNU Emacs 21 and 22.
+    (and transient-mark-mode mark-active))))
+
 (put 'skk-bind-last-command-char 'lisp-indent-function 1)
 (defmacro skk-bind-last-command-char (char &rest body)
   (let ((variable (cond ((featurep 'xemacs)
@@ -809,7 +820,8 @@ BUFFER defaults to the current buffer."
 
 (defun skk-screen-column ()
   "スクリーン行から得たカーソル位置の桁数を返す。
-テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示されている場合にも対応する。"
+テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示
+されている場合にも対応する。"
   (- (current-column)
      (save-excursion
        (vertical-motion 0)		;スクリーン行の行頭に移動する
@@ -818,7 +830,8 @@ BUFFER defaults to the current buffer."
 
 (defun skk-move-to-screen-column (col)
   "スクリーン行から見た COL 桁位置にポイントを移動する。
-テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示されている場合にも対応するが、改行文字を越える移動は行わない。"
+テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示
+されている場合にも対応するが、改行文字を越える移動は行わない。"
   (move-to-column (+ (current-column)	;テキスト行から見た桁数
 		     (- col (skk-screen-column))))
   (skk-screen-column))
