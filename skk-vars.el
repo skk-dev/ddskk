@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.320 2010/09/26 04:23:13 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.321 2010/09/26 19:32:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/26 04:23:13 $
+;; Last Modified: $Date: 2010/09/26 19:32:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -49,6 +49,22 @@
     "Return OBJ if it is a coding-system."
     (if (coding-system-p obj)
 	obj)))
+
+(defun skk-find-window-system ()
+  (cond
+   (skk-running-gnu-emacs
+    (let ((frames (frame-list))
+	  val)
+      (while (and (not val) frames)
+	;; $BJQ?t(B window-system $B$O(B frame local $BCM$r;}$D!#(B
+	;; $BNc$($P(B window system $B$H(B "emacsclient -nw" $B$NJ;MQ;~$J$I(B
+	;; $B$$$:$l$+$N(B frame $B$,(B window system $B2<$GF0$$$F$$$k$3$H$r(B
+	;; $B3NG'$9$k!#(B
+	(setq val (frame-parameter (car frames) 'window-system)
+	      frames (cdr frames)))
+      val))
+   (t
+    window-system)))
 
 ;;;###autoload
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
@@ -3133,7 +3149,7 @@ car $B$K$"$kJd40%W%m%0%i%`$,(B nil $B$rJV$9$4$H$K(B 1$B$D$E$DC;$/$J$C$F$f$/
 server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
 
 ;;; skk-cursor.el related.
-(defcustom skk-use-color-cursor (and window-system
+(defcustom skk-use-color-cursor (and (skk-find-window-system)
 				     (fboundp 'x-display-color-p)
 				     (x-display-color-p))
   "*Non-nil $B$G$"$l$P!"(BSKK $B%b!<%I$NF~NO%b!<%I$K1~$8$F%+!<%=%k$K?'$rIU$1$k!#(B"
