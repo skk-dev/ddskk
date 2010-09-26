@@ -6,8 +6,9 @@
 2010-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-message): Modify message.
-	* skk-emacs.el (skk-tooltip-show-at-point): Modify y-axis
-	calculation.
+	* skk-emacs.el (skk-emacs-tool-bar-height)
+	(skk-emacs-menu-bar-height): New variables.
+	(skk-tooltip-show-at-point): Use them.  Modify y-axis calculation.
 	* skk-vars.el (skk-tooltip-y-offset): Default to zero.
 
 2010-09-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>

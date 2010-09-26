@@ -140,6 +140,41 @@
 
 (defvar skk-emacs-modeline-menu nil)
 
+(defvar skk-emacs-tool-bar-height
+  (+ (if (and (boundp 'tool-bar-images-pixel-height)
+	      (integerp tool-bar-images-pixel-height))
+	 tool-bar-images-pixel-height
+       0)
+     (if (and (boundp 'tool-bar-button-margin)
+	      (integerp tool-bar-button-margin))
+	 (* 2 tool-bar-button-margin)
+       0)
+     (if (and (boundp 'tool-bar-button-relief)
+	      (integerp tool-bar-button-relief))
+	 (* 2 tool-bar-button-relief)
+       0)
+     (if (boundp 'tool-bar-border)
+	 (cond ((integerp tool-bar-border)
+		tool-bar-border)
+	       ((symbolp tool-bar-border)
+		(or (frame-parameter (selected-frame)
+				     tool-bar-border)
+		    0))
+	       (t
+		0))
+       0)
+     (if (featurep 'gtk)
+	 ;; inaccurate (seems each few pixels (top and bottom) are used)
+	 6
+       0)))
+
+(defvar skk-emacs-menu-bar-height
+  (+ (frame-char-height) ; menu font is not the frame font, though
+     (if (featurep 'gtk)
+	 ;; inaccurate (seems each few pixels (top and bottom) are used)
+	 4
+       0)))
+
 ;; Functions.
 
 ;;@@ Menu related functions.
@@ -396,7 +431,7 @@
 				      '(avoid avoid-maybe banish))
 				(mouse-avoidance-banish-destination)
 			       nil))
-	 edges
+	 win
 	 tip-destination
 	 fontsize
 	 left top
@@ -410,12 +445,6 @@
     (when (null (car P))
       (unless (memq skk-tooltip-mouse-behavior '(avoid-maybe banish nil))
 	(setq oP (cdr (mouse-avoidance-point-position)))))
-    ;; Elscreen 使用時は Y 座標がずれる。とりあえず workaround。
-    (when (and (featurep 'elscreen)
-	       (not (or skk-isearch-switch
-			(skk-in-minibuffer-p)))
-	       (symbol-value 'elscreen-display-tab))
-      (setcdr P (1+ (cdr P))))
     ;;
     (when (eq skk-tooltip-mouse-behavior 'follow)
       (mouse-avoidance-set-mouse-position P))
@@ -438,10 +467,9 @@
 	    text (car tooltip-info)))
      (t
       ;; マウスポインタに依存せず tooptip の位置を決定する。
-      (setq edges (window-inside-pixel-edges
-		   (if skk-isearch-switch
-		       (minibuffer-window)
-		     (selected-window)))
+      (setq win (if skk-isearch-switch
+		    (minibuffer-window)
+		  (selected-window))
 	    tip-destination (posn-x-y
 			     (if skk-isearch-switch
 				 (posn-at-point
@@ -451,54 +479,17 @@
 				  (minibuffer-window))
 			       (posn-at-point (point))))
 	    fontsize (frame-char-height)
-	    ;; x 座標 (左からの)
-	    left (+ (car tip-destination)
-		    (nth 0 edges)
-		    (frame-parameter (selected-frame) 'left)
-		    skk-tooltip-x-offset)
-	    ;; y 座標 (上からの)
-	    ;; 正しいか分からないが、ツールバーとメニューバーの分も計算する
-	    ;; (ただしウィンドウデコレータなどの扱いは関知できない？)
-	    top  (+ (if (boundp 'tool-bar-images-pixel-height)
-			tool-bar-images-pixel-height
-		      0)
-		    (if (boundp 'tool-bar-button-margin)
-			(* 2 tool-bar-button-margin)
-		      0)
-		    (if (boundp 'tool-bar-button-relief)
-			(* 2 tool-bar-button-relief)
-		      0)
-		    (if (boundp 'tool-bar-border)
-			(cond ((integerp tool-bar-border)
-			       tool-bar-border)
-			      ((symbolp tool-bar-border)
-			       (frame-parameter (selected-frame)
-						tool-bar-border))
-			      (t
-			       0))
-		      0)
-		    (if menu-bar-mode
-			(* 1 fontsize)
-		      0)
-		    (if (and (featurep 'elscreen)
-			     (not (or skk-isearch-switch
-				      (skk-in-minibuffer-p)))
-			     (symbol-value 'elscreen-display-tab))
-			(* 1 fontsize)
-		      0)
-		    ;;
-		    (cdr tip-destination)
-		    (nth 1 edges)
-		    (frame-parameter (selected-frame) 'top)
-		    skk-tooltip-y-offset)
-	    tooltip-info (skk-tooltip-resize-text text)
-	    text (car tooltip-info)
-	    tooltip-size (cdr tooltip-info)
-	    spacing (or (cdr-safe (assq 'line-spacing skk-tooltip-parameters))
-			(cdr-safe (assq 'line-spacing tooltip-frame-parameters))
-			(frame-parameter (selected-frame) 'line-spacing)
-			(default-value line-spacing)
-			0)
+	    spacing (let ((val (or (cdr-safe (assq 'line-spacing
+						   skk-tooltip-parameters))
+				   (cdr-safe (assq 'line-spacing
+						   tooltip-frame-parameters))
+				   (frame-parameter (selected-frame)
+						    'line-spacing)
+				   (default-value 'line-spacing)
+				   0)))
+		      (if (integerp val)
+			  val
+			(truncate (* fontsize spacing))))
 	    border-width (or (cdr-safe (assq 'border-width
 					     skk-tooltip-parameters))
 			     (cdr-safe (assq 'border-width
@@ -512,10 +503,31 @@
 				      (frame-parameter (selected-frame)
 						       'internal-border-width)
 				      0)
-	    text-width (* (/ (1+ fontsize) 2) (+ 2 (car tooltip-size)))
-	    text-height (+ (* (+ fontsize spacing) (+ 1 (cdr tooltip-size)))
-			   (* 2 border-width)
-			   (* 2 internal-border-width))
+	    ;; x 座標 (左からの)
+	    left (+ (car tip-destination)
+		    (nth 0 (window-inside-pixel-edges win))
+		    (frame-parameter (selected-frame) 'left)
+		    skk-tooltip-x-offset)
+	    ;; y 座標 (上からの)
+	    top  (+ (frame-parameter (selected-frame) 'top)
+		    (if tool-bar-mode
+			skk-emacs-tool-bar-height
+		      0)
+		    (if menu-bar-mode
+			skk-emacs-menu-bar-height
+		      0)
+		    ;;
+		    (nth 1 (window-pixel-edges win))
+		    (+ fontsize spacing)
+		    (cdr tip-destination)
+		    skk-tooltip-y-offset)
+	    tooltip-info (skk-tooltip-resize-text text)
+	    text (car tooltip-info)
+	    tooltip-size (cdr tooltip-info)
+	    text-width (+ (* (/ (1+ fontsize) 2) (car tooltip-size))
+			  (* 2 (+ border-width internal-border-width)))
+	    text-height (+ (* (+ fontsize spacing) (cdr tooltip-size))
+			   (* 2 (+ border-width internal-border-width)))
 	    screen-width (display-pixel-width)
 	    screen-height (display-pixel-height))
       ;;
@@ -529,11 +541,9 @@
       (when (> (+ top text-height) screen-height)
 	;; 下に寄りすぎて欠けてしまわないように
 	(setq top (- top
-		     (- (+ top text-height) screen-height)
 		     ;; 十分上げないとテキストと重なるので、
 		     ;; いっそテキストの上にしてみる
-		     (- screen-height top)
-		     fontsize))
+		     text-height (* 2 (+ fontsize spacing))))
 	;; さらに X 座標を...
 	(let ((right (+ left
 			text-width
