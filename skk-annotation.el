@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.166 2010/09/25 13:58:59 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.167 2010/09/26 04:23:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/09/25 13:58:59 $
+;; Last Modified: $Date: 2010/09/26 04:23:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -468,7 +468,8 @@
 	(when (equal key-wiki "TAB")
 	  (setq key-wiki "C-i"))
 	(setq skk-annotation-message
-	      (format "{アノテーション操作}[%s]コピーする [%s]URLを見つける [%s]デフォルトWikiから抜粋"
+	      (format "\
+\{アノテーション}[%s]コピー [%s]URLブラウズ [%s]デフォルトWiki参照"
 		      key-copy key-browse key-wiki))))
     (condition-case nil
 	(cond ((eq situation 'annotation)

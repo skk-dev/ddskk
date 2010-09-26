@@ -401,6 +401,7 @@
 	 fontsize
 	 left top
 	 tooltip-info tooltip-size
+	 spacing border-width internal-border-width
 	 text-width text-height
 	 screen-width screen-height
 	 (inhibit-quit t)
@@ -485,8 +486,6 @@
 			     (symbol-value 'elscreen-display-tab))
 			(* 1 fontsize)
 		      0)
-		    ;; magic
-		    (* 1 fontsize)
 		    ;;
 		    (cdr tip-destination)
 		    (nth 1 edges)
@@ -495,8 +494,25 @@
 	    tooltip-info (skk-tooltip-resize-text text)
 	    text (car tooltip-info)
 	    tooltip-size (cdr tooltip-info)
+	    spacing (or (cdr-safe (assq 'line-spacing skk-tooltip-parameters))
+			(cdr-safe (assq 'line-spacing tooltip-frame-parameters))
+			(frame-parameter (selected-frame) 'line-spacing)
+			(default-value line-spacing))
+	    border-width (or (cdr-safe (assq 'border-width
+					     skk-tooltip-parameters))
+			     (cdr-safe (assq 'border-width
+					     tooltip-frame-parameters))
+			     (frame-parameter (selected-frame) 'border-width))
+	    internal-border-width (or (cdr-safe (assq 'internal-border-width
+						      skk-tooltip-parameters))
+				      (cdr-safe (assq 'internal-border-width
+						      tooltip-frame-parameters))
+				      (frame-parameter (selected-frame)
+						       'internal-border-width))
 	    text-width (* (/ (1+ fontsize) 2) (+ 2 (car tooltip-size)))
-	    text-height (* fontsize (+ 1 (cdr tooltip-size)))
+	    text-height (+ (* (+ fontsize spacing) (+ 1 (cdr tooltip-size)))
+			   (* 2 border-width)
+			   (* 2 internal-border-width))
 	    screen-width (display-pixel-width)
 	    screen-height (display-pixel-height))
       ;;

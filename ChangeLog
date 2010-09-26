@@ -1,3 +1,10 @@
+2010-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-message): Modify message.
+	* skk-emacs.el (skk-tooltip-show-at-point): Modify y-axis
+	calculation.
+	* skk-vars.el (skk-tooltip-y-offset): Default to zero.
+
 2010-09-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el (skk-region-active-p): New function.
