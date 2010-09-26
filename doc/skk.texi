@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/23 02:04:50 $
+@set UPDATED $Date: 2010/09/26 07:05:20 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2905,7 +2905,6 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 
 @node $BF0E*Jd40(B
 @subsection $BF0E*Jd40(B
-@vindex skk-dcomp-activate
 @cindex @file{skk-dcomp.el}
 
 $B"&%b!<%I$GJ8;z$rF~NO$9$kEY$K!"(B@key{TAB} $B$r2!$5$J$/$F$b!">o$K!"<+F0E*$KJd(B
@@ -3024,12 +3023,14 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 @end group
 @end example
 
-@file{skk-dcomp.el} $B$r(B load $B$7$?8e$K!"F0E*Jd40$N5!G=$r;_$a$?$+$C$?$i!"2<(B
-$B5-$N<0$rI>2A$7$^$7$g$&!#(B
 
-@lisp
-(setq skk-dcomp-activate nil)
-@end lisp
+@defvr {$B%f!<%6JQ?t(B} skk-dcomp-activate
+
+$B$3$NJQ?t$NCM$,(B @code{Non-nil} $B$G$"$l$P!"%+!<%=%k0LCV$K4X$o$i$:>o$KF0E*Jd40$,M-8z$H$J$j$^$9!#(B
+$BCM$,%7%s%\%k(B @code{eolp} $B$G$"$l$P!"%+!<%=%k$,9TKv$K$"$k$H$-$K8B$C$FF0E*Jd40$,M-8z$H$J$j$^$9!#(B
+$BCM$,(B @code{nil} $B$G$"$l$P!"F0E*Jd405!G=$OL58z$H$J$j$^$9!#(B
+
+@end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-dcomp-face
 
@@ -8311,7 +8312,7 @@ Wikipedia $B%"%N%F!<%7%g%s5!G=$N;H$$J}$r%a%C%;!<%8$G0FFb$7$^$9!#(B
 @example
 @group
 -------------------- Echo Area --------------------
-@{$B%"%N%F!<%7%g%sA`:n(B@}[C-w]$B%3%T!<$9$k(B [C-o]URL$B$r8+$D$1$k(B [C-i]$B%G%U%)%k%H(BWiki$B$+$iH4?h(B
+@{$B%"%N%F!<%7%g%s(B@}[C-w]$B%3%T!<(B [C-o]URL$B%V%i%&%:(B [C-i]$B%G%U%)%k%H(BWiki$B;2>H(B
 -------------------- Echo Area --------------------
 @end group
 @end example

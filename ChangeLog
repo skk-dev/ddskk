@@ -1,3 +1,8 @@
+2010-09-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-dcomp-activate): Add new describe.
+	(skk-show-annotation): Modify message.
+
 2010-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-message): Modify message.
