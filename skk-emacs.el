@@ -497,18 +497,21 @@
 	    spacing (or (cdr-safe (assq 'line-spacing skk-tooltip-parameters))
 			(cdr-safe (assq 'line-spacing tooltip-frame-parameters))
 			(frame-parameter (selected-frame) 'line-spacing)
-			(default-value line-spacing))
+			(default-value line-spacing)
+			0)
 	    border-width (or (cdr-safe (assq 'border-width
 					     skk-tooltip-parameters))
 			     (cdr-safe (assq 'border-width
 					     tooltip-frame-parameters))
-			     (frame-parameter (selected-frame) 'border-width))
+			     (frame-parameter (selected-frame) 'border-width)
+			     0)
 	    internal-border-width (or (cdr-safe (assq 'internal-border-width
 						      skk-tooltip-parameters))
 				      (cdr-safe (assq 'internal-border-width
 						      tooltip-frame-parameters))
 				      (frame-parameter (selected-frame)
-						       'internal-border-width))
+						       'internal-border-width)
+				      0)
 	    text-width (* (/ (1+ fontsize) 2) (+ 2 (car tooltip-size)))
 	    text-height (+ (* (+ fontsize spacing) (+ 1 (cdr tooltip-size)))
 			   (* 2 border-width)
