@@ -1,3 +1,9 @@
+2010-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-find-window-system): Under Emacs 22 or older,
+	just check the value of window-system.  Under Emacs 23 or later,
+	check the return values of function `window-system'.
+
 2010-09-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-dcomp-activate): Add new describe.

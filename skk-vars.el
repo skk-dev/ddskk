@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.321 2010/09/26 19:32:24 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.322 2010/09/27 07:08:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/26 19:32:24 $
+;; Last Modified: $Date: 2010/09/27 07:08:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,7 +52,8 @@
 
 (defun skk-find-window-system ()
   (cond
-   (skk-running-gnu-emacs
+   ((eval-when-compile (and skk-running-gnu-emacs
+			    (>= emacs-major-version 23)))
     (let ((frames (frame-list))
 	  val)
       (while (and (not val) frames)
@@ -60,10 +61,11 @@
 	;; 例えば window system と "emacsclient -nw" の併用時など
 	;; いずれかの frame が window system 下で動いていることを
 	;; 確認する。
-	(setq val (frame-parameter (car frames) 'window-system)
+	(setq val (window-system (car frames))
 	      frames (cdr frames)))
       val))
    (t
+    ;; Emacs 22, XEmacs
     window-system)))
 
 ;;;###autoload
