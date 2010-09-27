@@ -1,4 +1,4 @@
-2010-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2010-09-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-find-window-system): Under Emacs 22 or older,
 	just check the value of window-system.  Under Emacs 23 or later,
