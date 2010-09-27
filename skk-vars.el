@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.322 2010/09/27 07:08:22 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.323 2010/09/27 08:13:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/27 07:08:22 $
+;; Last Modified: $Date: 2010/09/27 08:13:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -65,7 +65,7 @@
 	      frames (cdr frames)))
       val))
    (t
-    ;; Emacs 22, XEmacs
+    ;; Emacs 22 or earlier, XEmacs
     window-system)))
 
 ;;;###autoload
