@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/09/27 12:34:27 $
+@set UPDATED $Date: 2010/09/28 11:17:05 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2772,7 +2772,7 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 $B$b$7$"$l$P!"(B X $B$NBe$o$j$K$=$N8l$,I=<($5$l$^$9!#(B}
 
 $BJd40$O!"8D?M<-=q$NFb!"Aw$j$J$7%(%s%H%j$KBP$7$F9T$o$l$^$9!#(B
-$B8D?M<-=q$@$1$J$N$O!"6&M-<-=q$G$O@hF,$NJ8;z$r6&DL$K$9$k8+=P$78l$,B?$9$.$F!"(B
+$B8D?M<-=q$K8B$C$F$$$k$N$O!"6&M-<-=q$G$O@hF,$NJ8;z$r6&DL$K$9$k8+=P$78l$,B?$9$.$F!"(B
 $BK>$_$NJd40$,9T$($k3NN($,Dc$$$?$a$G$9!#(B
 
 @kindex @samp{,}
@@ -2788,7 +2788,7 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 
 @group
 ------ Buffer: foo ------
-$B"&$5(B
+$B"&$5(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -2796,7 +2796,7 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 
 @group
 ------ Buffer: foo ------
-$B"&$5$H$&(B
+$B"&$5$H$&(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -2807,15 +2807,15 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 @example
 @group
 ------ Buffer: foo ------
-$B"&$5$$$H$&(B
+$B"&$5$$$H$&(B@point{}
 ------ Buffer: foo ------
 @end group
 
-@samp{,}
+@kbd{,}
 
 @group
 ------ Buffer: foo ------
-$B"&$5$H$&(B
+$B"&$5$H$&(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -2823,7 +2823,7 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 
 @group
 ------ Buffer: foo ------
-$B"':4F#(B
+$B"':4F#(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -2831,12 +2831,12 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 
 @group
 ------ Buffer: foo ------
-$B:4F#(B
+$B:4F#(B@point{}
 ------ Buffer: foo ------
 @end group
 @end example
 
-$BJd40$5$l$k8l$O!"$I$N$h$&$J=g$GI=<($5$l$k$+$H8@$&$H!":G6a;H$o$l$?8l$+$i!"(B
+$BJd40$5$l$k8l$,$I$N$h$&$J=g$GI=<($5$l$k$+$H8@$&$H!V:G6a;H$o$l$?8l$+$i!W(B
 $B$H$J$j$^$9!#Nc$($P!"(B@samp{$B@FF#(B}$B!"(B@samp{$B:4F#(B} $B$N=g$GJQ49$7$?8e!"(B@samp{$B$5(B} $B$r%-!<(B
 $B$K$7$F8+=P$78l$NJd40$r9T$&$H!":G=i$K(B @samp{$B$5$H$&(B} $B$,!"$=$N<!$K(B
 @samp{$B$5$$$H$&(B} $B$,Jd40$5$l$^$9!#$3$l$O!"8D?M<-=q$G$O!":G6a;H$o$l$?%(%s%H%j$[$I(B
@@ -2850,6 +2850,13 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 @samp{$B$5$H$&(B} $B$,Jd40$5$l$?;~$K(B @key{C-u TAB} $B$r2!$9$H!"(B
 $B0J8e$NJd40$O!"(B@samp{$B$5$H$&(B} $B$r4^$`8l(B ($BNc$($P!"(B@samp{$B$5$H$&$;$s$;$$(B}$B$J$I(B)
 $B$K$D$$$F9T$o$l$^$9!#(B
+
+@defvr  {$B%f!<%6JQ?t(B} skk-comp-circulate
+@kbd{.} $B!J%T%j%*%I!K$G<!$N8uJd$r!"(B@kbd{,} $B!J%3%s%^!K$GA0$N8uJd$rI=<($9$k(B
+$B$H$3$m!"8uJd$,?T$-$F$$$l$P%G%U%)%k%H(B @code{nil} $B$G$O!V!{!{$GJd40$9$Y$-8+(B
+$B=P$78l$OB>$K$"$j$^$;$s!W$H%(%3!<%(%j%"$KI=<($7$FF0:n$,;_$^$j$^$9!#(B
+$B$3$NJQ?t$,(B @code{non-nil} $B$G$"$l$PEv=i$NJ8;zNs$rI=<($7$FJd40$r:F3+$7$^$9!#(B
+@end defvr
 
 @node $BJd40$7$J$,$iJQ49(B
 @subsection $BJd40$7$J$,$iJQ49(B
@@ -2870,36 +2877,33 @@ context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H$_$J$9%a%8%c!<%b!<%I$O!"JQ?t(B
 @group
 @kbd{K a s i t a n n p o s e k i n i n n}
 
-@group
 ------ Buffer: foo ------
 $B"&$+$7$?$s$]$;$-$K$s(B
 ------ Buffer: foo ------
 @end group
 
+@group
 @key{SPC}, @key{RET}
 
-@group
 ------ Buffer: foo ------
 $B`laSC4J]@UG$(B
 ------ Buffer: foo ------
 @end group
 
+@group
 @kbd{K a}
 
-@group
 ------ Buffer: foo ------
 $B"&$+(B
 ------ Buffer: foo ------
 @end group
 
+@group
 @kbd{M-@key{SPC}}
 
-@group
 ------ Buffer: foo ------
 $B"'`laSC4J]@UG$(B
 ------ Buffer: foo ------
-@end group
-
 @end group
 @end example
 
@@ -3042,7 +3046,7 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 @defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-activate
 
 @code{Non-nil} $B$G$"$l$P!"F0E*Jd40$N8uJd$r%$%s%i%$%s$KJ#?tI=<($7$^$9(B
-@footnote{$B8=:_$O8uJd72$N1&B&(B1$B%+%i%`$N%U%'%$%9$,%G%U%)%k%H$KLa$k!"$H$$$&@)Ls$,$"$j$^$9!#(B}$B!#(B
+@footnote{$B8=:_$O8uJd72$N1&B&(B1$B%+%i%`$N%U%'%$%9$,%G%U%)%k%H$KLa$k!"$H$$$&@)Ls$,$"$j$^$9!#(B}$B!#(BXEmacs $B$G$OF0:n$7$^$;$s!#(B
 
 @kindex @key{TAB}
 @kindex @samp{,}
