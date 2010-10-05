@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.50
 @set SKK-VERSION 14.1.50
-@set UPDATED $Date: 2010/10/05 12:24:11 $
+@set UPDATED $Date: 2010/10/05 13:05:43 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3049,6 +3049,19 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 @code{Non-nil} $B$G$"$l$P!"F0E*Jd40$N8uJd$r%$%s%i%$%s$KJ#?tI=<($7$^$9(B
 @footnote{$B8=:_$O8uJd72$N1&B&(B1$B%+%i%`$N%U%'%$%9$,%G%U%)%k%H$KLa$k!"$H$$$&@)Ls$,$"$j$^$9!#(B}$B!#(BXEmacs $B$G$OF0:n$7$^$;$s!#(B
 
+@example
+@group
+---------------- Buffer: foo ------------------
+$B"&$[(B@point{}$B$s$H$&(B
+$B!!$[$s$H$&(B
+$B!!$[$+$s(B
+$B!!$[$C$+$$$I$&(B
+$B!!$[$&$[$&(B
+$B!!(B@dots{}
+---------------- Buffer: foo ------------------
+@end group
+@end example
+
 @kindex @key{TAB}
 @kindex @samp{,}
 @kindex @samp{.}
@@ -3065,19 +3078,22 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 
 @defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-face
 
-$BF0E*Jd40$NJ#?tI=<(72$N%U%'%$%9(B
+$BF0E*Jd40$NJ#?tI=<(72$N%U%'%$%9!#>e5-Nc$G$O!V$[!W$N%U%'%$%9!#(B
 
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-trailing-face
 
-$BF0E*Jd40$NJ#?tI=<(74$NJd40ItJ,$N%U%'%$%9(B
+$BF0E*Jd40$NJ#?tI=<(74$NJd40ItJ,$N%U%'%$%9!#>e5-Nc$G$O!V$s$H$&!W!"!V$+$s!W(B
+$B!V$C$+$$$I$&!W!"!V$&$[$&!W$N%U%'%$%9!#(B
 
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-selected-face
 
-$BF0E*Jd40$NJ#?tI=<(74$NA*BrBP>]$N%U%'%$%9(B
+$BF0E*Jd40$NJ#?tI=<(74$NA*BrBP>]$N%U%'%$%9!#>e5-Nc$G$O(B @key{TAB} $B$r2!$9$?$S(B
+$B$K!V$[$s$H$&!W!"!V$[$+$s!W!"!V$[$C$+$$$I$&!W$HA*Br0LCV$,0\$j$^$9!#$=$N8=:_(B
+$BA*Br0LCV$KE,MQ$9$k%U%'%$%9$G$9!#(B
 
 @end defvr
 

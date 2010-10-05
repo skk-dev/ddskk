@@ -1,6 +1,10 @@
 2010-10-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (Emacs21.4): Add restriction for Emacs21.4.
+	(skk-dcomp-multiple-activate): Update.
+	(skk-dcomp-multiple-face): Update.
+	(skk-dcomp-multiple-trailing-face): Update.
+	(skk-dcomp-multiple-selected-face): Update.
 
 2010-09-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
