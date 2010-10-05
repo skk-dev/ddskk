@@ -1,3 +1,7 @@
+2010-10-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (Emacs21.4): Add restriction for Emacs21.4.
+
 2010-09-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-comp-circulate): Add new describe.
