@@ -1,3 +1,8 @@
+2010-10-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-tooltip-resize-text): 入力が長大な場合、
+	適度に改行を挿入する [skk 7291].
+
 2010-10-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (Emacs21.4): Add restriction for Emacs21.4.

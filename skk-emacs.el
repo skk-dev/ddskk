@@ -389,31 +389,41 @@
 
 (defun skk-tooltip-resize-text (text)
   (let ((lines 0)
-	(max-lines
-	 ;; 画面の半分の高さを基準に最大高を決める
-	 (- (/ (/ (display-pixel-height) 2) (frame-char-height))
-	    2))
+	(max-lines (- (/ (/ (display-pixel-height) 2) ;ディスプレイの半分 (ex.512)
+			 (frame-char-height)) ;の行数(ex.16) => 32
+		      2))		;基準とする最大高 => 16
+	(max-columns (- (car x-max-tooltip-size) 2)) ;ex.78
 	(columns 0)
-	(current-column nil))
+	(key (concat (capitalize (char-to-string (car skk-henkan-show-candidates-keys)))
+		     ":"))
+	current-column indent)
     (with-temp-buffer
       (set-buffer-multibyte t)
       (insert text)
+      (setq indent (if (equal key (buffer-substring-no-properties 1 3))
+		       "  "
+		     ""))
       (goto-char (point-min))
       (while (not (eobp))
 	(setq lines (1+ lines))
-	(cond ((= lines max-lines)
-	       ;; 長すぎる
+	(cond ((= lines max-lines)	;長すぎる
 	       (beginning-of-line)
 	       (insert "(長すぎるので省略されました)")
 	       (delete-region (point) (point-max))
-	       (goto-char (point-max))
-	       (setq text (buffer-string)))
+	       (goto-char (point-max)))
+	      ;;
 	      (t
+	       (if (> (progn (end-of-line) (current-column)) max-columns)
+		   (progn
+		     (move-to-column max-columns)
+		     (insert "\n" indent)
+		     (forward-line -1)))
 	       (end-of-line)
 	       (setq current-column (current-column))
 	       (when (> current-column columns)
 		 (setq columns current-column))
-	       (forward-line 1)))))
+	       (forward-line 1))))
+      (setq text (buffer-string)))
     ;; (text . (x . y))
     (cons text (cons columns lines))))
 
