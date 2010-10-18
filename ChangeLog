@@ -1,3 +1,7 @@
+2010-10-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* leim-list.el.in: Remove old codes for Emacs 20.
+
 2010-10-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-tooltip-resize-text): 入力が長大な場合、
