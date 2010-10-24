@@ -563,7 +563,7 @@
 
 (defun skk-nicola-format-time (time)
   "`current-time' の返す結果を変換して評価できるようにする。"
-  (let ((time1 (* (float 65536) ;; 2x10^6
+  (let ((time1 (* (float 65536) ;; 2^16
 		  (car time)))
 	(time2 (cadr time))
 	(time3 (/ (caddr time)
