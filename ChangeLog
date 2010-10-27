@@ -1,3 +1,7 @@
+2010-10-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cus.el (skk-custom-mode): Use custom faces.
+
 2010-10-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* leim-list.el.in: Remove old codes for Emacs 20.
