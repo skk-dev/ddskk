@@ -4,7 +4,8 @@
 	variable x-max-tooltip-size is not defined.
 	(skk-emacs-max-tooltip-size): New variable.
 	(skk-tooltip-max-tooltip-size): New function.
-	(skk-tooltip-resize-text): Use it.
+	(skk-tooltip-resize-text): Use it.  Under Cocoa Emacs, set top and
+	left as positions within the current frame.
 
 2010-10-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

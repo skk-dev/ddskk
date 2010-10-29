@@ -523,23 +523,31 @@
 				      (frame-parameter (selected-frame)
 						       'internal-border-width)
 				      0)
+
+	    ;; 以下 left と top は、X Window System 下では画面全体の中での座標を
+	    ;; 指定する。 Mac OS X においても、Carbon Emacs 22.3 では同様だが
+	    ;; Cocoa Emacs 23.2 では Emacs フレーム内での座標を指定する必要がある。
+
 	    ;; x 座標 (左からの)
 	    left (+ (car tip-destination)
 		    (nth 0 (window-inside-pixel-edges win))
-		    (frame-parameter (selected-frame) 'left)
+		    (if (featurep 'ns)
+			0
+		      (frame-parameter (selected-frame) 'left))
 		    skk-tooltip-x-offset)
 	    ;; y 座標 (上からの)
-	    top  (+ (frame-parameter (selected-frame) 'top)
-		    (if tool-bar-mode
-			skk-emacs-tool-bar-height
-		      0)
-		    (if menu-bar-mode
-			skk-emacs-menu-bar-height
-		      0)
-		    ;;
-		    (nth 1 (window-pixel-edges win))
-		    (+ fontsize spacing)
-		    (cdr tip-destination)
+	    top  (+ (cdr tip-destination)
+		    (nth 1 (window-inside-pixel-edges win))
+		    (if (featurep 'ns)
+			0
+		      (+ (if tool-bar-mode
+			     skk-emacs-tool-bar-height
+			   0)
+			 (if menu-bar-mode
+			     skk-emacs-menu-bar-height
+			   0)
+			 (frame-parameter (selected-frame) 'top)
+			 (+ fontsize spacing)))
 		    skk-tooltip-y-offset)
 	    tooltip-info (skk-tooltip-resize-text text)
 	    text (car tooltip-info)
@@ -551,28 +559,29 @@
 	    screen-width (display-pixel-width)
 	    screen-height (display-pixel-height))
       ;;
-      (when (> (+ left text-width) screen-width)
-	;; 右に寄りすぎて欠けてしまわないように
-	(setq left (- left (- (+ left text-width
-				 ;; 少し余計に左に寄せないと avoid
-				 ;; したマウスポインタと干渉する
-				 (* 2 fontsize))
-			      screen-width))))
-      (when (> (+ top text-height) screen-height)
-	;; 下に寄りすぎて欠けてしまわないように
-	(setq top (- top
-		     ;; 十分上げないとテキストと重なるので、
-		     ;; いっそテキストの上にしてみる
-		     text-height (* 2 (+ fontsize spacing))))
-	;; さらに X 座標を...
-	(let ((right (+ left
-			text-width
-			skk-tooltip-x-offset))
-	      (mouse-x (+ (frame-parameter (selected-frame) 'left)
-			  (* (frame-pixel-width)))))
-	  (when (and (<= left mouse-x) (<= mouse-x right))
-	    ;; マウスポインタと被りそうなとき
-	    (setq left (- left (- right mouse-x) fontsize)))))))
+      (unless (featurep 'ns)
+	(when (> (+ left text-width) screen-width)
+	  ;; 右に寄りすぎて欠けてしまわないように
+	  (setq left (- left (- (+ left text-width
+				   ;; 少し余計に左に寄せないと avoid
+				   ;; したマウスポインタと干渉する
+				   (* 2 fontsize))
+				screen-width))))
+	(when (> (+ top text-height) screen-height)
+	  ;; 下に寄りすぎて欠けてしまわないように
+	  (setq top (- top
+		       ;; 十分上げないとテキストと重なるので、
+		       ;; いっそテキストの上にしてみる
+		       text-height (* 2 (+ fontsize spacing))))
+	  ;; さらに X 座標を...
+	  (let ((right (+ left
+			  text-width
+			  skk-tooltip-x-offset))
+		(mouse-x (+ (frame-parameter (selected-frame) 'left)
+			    (* (frame-pixel-width)))))
+	    (when (and (<= left mouse-x) (<= mouse-x right))
+	      ;; マウスポインタと被りそうなとき
+	      (setq left (- left (- right mouse-x) fontsize))))))))
     ;;
     (setq parameters (if (eq skk-tooltip-mouse-behavior 'follow)
 			 skk-tooltip-parameters
