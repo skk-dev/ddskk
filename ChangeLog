@@ -1,3 +1,11 @@
+2010-10-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-emacs.el: Workaround for Cocoa Emacs 23.2 where
+	variable x-max-tooltip-size is not defined.
+	(skk-emacs-max-tooltip-size): New variable.
+	(skk-tooltip-max-tooltip-size): New function.
+	(skk-tooltip-resize-text): Use it.
+
 2010-10-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cus.el (skk-custom-mode): Use custom faces.

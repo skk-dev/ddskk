@@ -138,6 +138,9 @@
     (list
      (cons 'latin skk-emacs-modeline-property))))
 
+(defvar skk-emacs-max-tooltip-size '(80 . 40)
+  "Not used if x-max-tooltip-size is bound.")
+
 (defvar skk-emacs-modeline-menu nil)
 
 (defvar skk-emacs-tool-bar-height
@@ -387,12 +390,19 @@
 	  (cons (+ (car edges)       (car (cdr list)))
 		(+ (car (cdr edges)) (car (cdr (cdr list))))))))
 
+(defun skk-tooltip-max-tooltip-size ()
+  (if (boundp 'x-max-tooltip-size)
+      (symbol-value 'x-max-tooltip-size)
+    ;; Workaround.
+    ;; Cocoa Emacs 23.2 で x-max-tooltip-size が定義されていないのを確認
+    skk-emacs-max-tooltip-size))
+
 (defun skk-tooltip-resize-text (text)
   (let ((lines 0)
 	(max-lines (- (/ (/ (display-pixel-height) 2) ;ディスプレイの半分 (ex.512)
 			 (frame-char-height)) ;の行数(ex.16) => 32
 		      2))		;基準とする最大高 => 16
-	(max-columns (- (car x-max-tooltip-size) 2)) ;ex.78
+	(max-columns (- (car (skk-tooltip-max-tooltip-size)) 2)) ;ex.78
 	(columns 0)
 	(key (concat (capitalize (char-to-string (car skk-henkan-show-candidates-keys)))
 		     ":"))
