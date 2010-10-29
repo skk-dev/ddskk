@@ -139,7 +139,7 @@
      (cons 'latin skk-emacs-modeline-property))))
 
 (defvar skk-emacs-max-tooltip-size '(80 . 40)
-  "Not used if x-max-tooltip-size is bound.")
+  "Not used if `x-max-tooltip-size' is bound.")
 
 (defvar skk-emacs-modeline-menu nil)
 
