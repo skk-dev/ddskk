@@ -1,3 +1,7 @@
+2010-11-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-tooltip-resize-text): Bug fix [skk 7297].
+
 2010-10-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-emacs.el: Workaround for Cocoa Emacs 23.2 where
