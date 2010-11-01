@@ -404,14 +404,15 @@
 		      2))		;基準とする最大高 => 16
 	(max-columns (- (car (skk-tooltip-max-tooltip-size)) 2)) ;ex.78
 	(columns 0)
-	(key (concat (capitalize (char-to-string (car skk-henkan-show-candidates-keys)))
-		     ":"))
 	current-column indent)
     (with-temp-buffer
       (set-buffer-multibyte t)
       (insert text)
-      (setq indent (if (equal key (buffer-substring-no-properties 1 3))
-		       "  "
+      (setq indent (if (member (downcase (char-after (point-min)))
+			       skk-henkan-show-candidates-keys)
+		       (if (equal ?: (char-after (1+ (point-min))))
+			   "  "
+			 "")
 		     ""))
       (goto-char (point-min))
       (while (not (eobp))
