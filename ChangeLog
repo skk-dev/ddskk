@@ -1,5 +1,9 @@
 2010-11-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* Makefile (VERSION):
+	* doc/skk.texi (SKK-VERSION):
+	* skk-version.el (skk-version): Bump to 14.1.90.
+
 	* skk-emacs.el (skk-tooltip-resize-text): Use `memq' and `eq' for
 	char comparisons to determine indent.
 
