@@ -1,8 +1,8 @@
 `MAKEIT.BAT' の編集とインストール [README.w32.ja]
 
 Windows 95, Windows 98, Windows Me, Windows NT, Windows 2000, Windows XP
-の各オペレーティングシステムの上で動く Emacs に DDSKK をインストールする
-方法を解説します。
+の各オペレーティングシステムの上で動く Emacs 22 以降に DDSKK をインス
+トールする方法を解説します。
 
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
@@ -49,58 +49,6 @@ UnxUtils.zip をダウンロード・展開して、例えば
 
 なお、cygwin を導入している環境では、上記設定ではなく cygwin の設定をし
 て下さい。
-
-** APEL のインストール
-
-まず APEL をインストールします。Daredevil SKK では、APEL 10.7 以降での動
-作が確認されていますが、APEL は Emacs/XEmacs のバージョンアップに合わせ
-て日進月歩なので、できるだけ新しいバージョンの APEL をインストールするこ
-とをお勧めします。
-
-*** APEL の取得
-
-APEL は、
-
-     http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/
-
-     ftp://ftp.jpl.org/pub/elisp/apel/
-
-などから入手できます。
-
-*** APEL の展開(解凍)
-
-APEL を tar.exe などを使って展開します。shell モードで以下のコマンドを
-実行します。apel のアーカイブを c:/tmp に置いたと仮定すると
-
-     % cd c:/tmp
-     % gunzip apel-10.8.tar.gz
-     % tar xvf apel-10.8.tar
-     % cd apel-10.8
-
-*** APEL の インストール設定
-
-つづいて APEL-CFG というファイルを設定します。具体的には次の 2 行をファ
-イルの末尾に追加します。
-
-(setq APEL_DIR "c:/meadow/site-lisp/apel")
-(setq EMU_DIR "c:/meadow/site-lisp/emu")
-
-これを設定しないと思わぬ場所にインストールされることがあります。
-
-*** APEL の インストール
-
-つづいて shell モードで次を実行します。
-
-     % make install EMACS=c:/meadow/bin/Meadow.exe
-
-shell の出力を見て、指定通りの場所にインストールされたことを確認してく
-ださい。
-
-*** load-path への追加
-
-c:/meadow/site-lisp 以下のサブディレクトリには Emacs が自動的に
-load-path を設定するようになっています。なのでユーザはなにもする必要が
-ありません。
 
 ** SKKのインストール
 

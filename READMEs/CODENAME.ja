@@ -2,21 +2,6 @@
 
 $B$[$s$NM7$S$G$9!#%k!<%k$O0J2<$NDL$j!#(B
 
-** Codename $B$H(B cvs TAG
-
-$B$3$N(B 2 $B$D$O!"I,$:(B sync $B$7$F2<$5$$!#(B
-
-   $ cd (working-copy directory)
-   $ cvs tag (Codename) .
-
-$B$G(B cvs $B$K(B working copy directory $B$K$"$k%=!<%9$N(B TAG $BIU$1$,$G$-$^$9!#$3$&$7$F(B
-$B$*$/$H!"(B
-
-   $ cvs checkout -r (Codename) skk/main
-
-$B$G(B Codename $B$N%=!<%9$,F~<j$G$-$^$9!#$3$l$i$,NI$/J,$i$J$$?M$O(B Codename $B$rIU$1(B
-$B$J$$$G2<$5$$!#(B
-
 ** $B;HMQ$7$FNI$$J8;z(B
 
 $BI,$:(B ascii $BJ8;z$N$_$GI85-$7$F2<$5$$!#(Biso8859-4 $B$J$I$NJ8;z%;%C%H$r;H$C$F$O$J(B
@@ -33,15 +18,14 @@
 
 skk-version.el $B$NCf$N(B
 
-(product-provide 'skk-version
-  (product-define "Daredevil SKK" nil '(11 4 0) "Ishibashi"))
+(put 'skk-version 'codename "Syounai")
 
-"Ishibashi" $B$N$h$&$K$J$C$F$$$k$H$3$m$G$9!#(B"$B1XL>(B" $B$r%m!<%^;zI85-$7$F2<(B
-$B$5$$!#$3$3$rJQ99$9$k$3$H$G(B M-x skk-version $B$G(B Codename $B$r4^$a$?I=<($,(B
-$B$5$l$k$h$&$K$J$j$^$9!#(B
+"Syounai" $B$N$h$&$K$J$C$F$$$k$H$3$m$G$9!#(B"$B1XL>(B" $B$r%m!<%^;zI85-$7$F2<$5(B
+$B$$!#$3$3$rJQ99$9$k$3$H$G(B M-x skk-version $B$G(B Codename $B$r4^$a$?I=<($,$5(B
+$B$l$k$h$&$K$J$j$^$9!#(B
 
    M-x skk-version
-    => Daredevil SKK/11.4.0 (Ishibashi)
+    => Daredevil SKK/14.1 (Syounai)
 
 ** $B$=$NB>(B
 
@@ -78,8 +62,8 @@ o $B0[$J$kO)@~$GF1$81X$rFsEYDL2a$7$F$bF1$8(B Codename $B$O(B 2 $BEY=P$5$J$$
 $BK-Cf(B                Toyonaka      11.6.0
 $B2,D.(B                Okamachi      12.1.0
 $BA>:,(B                Sone          12.2.0
-$BI~It(B                Hattori       13.1.0
-$B>1Fb(B                Syounai
+$BI~It(B                Hattori       13.1
+$B>1Fb(B                Syounai       14.1
 $B;09q(B                Mikuni
 $B==;0(B                Juso
 $BCfDE(B                Nakatsu
