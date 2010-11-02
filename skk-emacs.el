@@ -408,9 +408,9 @@
     (with-temp-buffer
       (set-buffer-multibyte t)
       (insert text)
-      (setq indent (if (and (member (downcase (char-after (point-min)))
-				    skk-henkan-show-candidates-keys)
-			    (equal ?: (char-after (1+ (point-min)))))
+      (setq indent (if (and (memq (downcase (char-after (point-min)))
+				  skk-henkan-show-candidates-keys)
+			    (eq ?: (char-after (1+ (point-min)))))
 		       "  "
 		     ""))
       (goto-char (point-min))
