@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.55 2010/09/11 09:54:52 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.56 2010/11/03 00:28:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/11 09:54:52 $
+;; Last Modified: $Date: 2010/11/03 00:28:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -58,7 +58,7 @@
        (t
 	(setq skk-kcode-charset charset)))))
 
-  (let ((str (read-string (format "7/8 bits JIS code or KUTEN code for %s (00nn or CR for Jump Menu): "
+  (let ((str (read-string (format "7/8 bits JIS code (00nn) or KUTEN code (00-00) for %s (CR for Jump Menu): "
 				  skk-kcode-charset)))
 	(enable-recursive-minibuffers t)
 	n1 n2)
