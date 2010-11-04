@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.90
 @set SKK-VERSION 14.1.90
-@set UPDATED $Date: 2010/11/04 10:00:00 $
+@set UPDATED $Date: 2010/11/04 20:39:36 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2023,13 +2023,6 @@ Lookup で検索できる辞書を使って単語の候補を出力するプログラム。
 数値変換を行うプログラムを集めたファイル。
 
 @xref{数値変換}.
-
-@item skk-obsolete.el
-@cindex @file{skk-obsolete.el}
-
-@file{~/.emacs} や @file{~/.skk} などのユーザ設定ファイル中の古い設定 (変
-数、関数名など)の修正支援プログラム。
-@c XXX
 
 @item skk-server-completion.el
 @cindex @file{skk-server-completion.el}
