@@ -1,5 +1,7 @@
 2010-11-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-obsolete.el: Remove file.
+
 	* skk.el (skk-setup-keymap): Define <backtab> key in skk-j-mode-map
 	for skk-comp-previous/next.
 
