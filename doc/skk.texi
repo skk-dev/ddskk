@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.90
 @set SKK-VERSION 14.1.90
-@set UPDATED $Date: 2010/11/02 14:17:41 $
+@set UPDATED $Date: 2010/11/04 10:00:00 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -161,7 +161,6 @@ SKK のバージョン @value{SKK-VERSION} に対応しています。
 
 * 最も基本的な設定::
 * インクリメント検索の設定::
-* 古い設定のチェック::
 * 辞書サーバを使いたいときの設定::
 
 基本的な使い方
@@ -632,7 +631,6 @@ DDSKK のクライアント側は特定の辞書サーバの実装に依存していませんので、下
 @menu
 * 最も基本的な設定::
 * インクリメント検索の設定::
-* 古い設定のチェック::
 * 辞書サーバを使いたいときの設定::
 @end menu
 
@@ -723,34 +721,6 @@ DDSKK のクライアント側は特定の辞書サーバの実装に依存していませんので、下
 (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
 @end group
 @end lisp
-
-@node 古い設定のチェック
-@section 古い設定のチェック
-@cindex @file{skk-obsolete.el}
-
-以下のコマンドを実行することで、設定ファイル中の古い設定（変数名、関数名、フェイス名など）を検出し、書き換えることができます。
-
-@table @kbd
-@item M-x skk-obsolete-check
-@kindex M-x skk-obsolete-check
-@findex skk-obsolete-check
-
-ファイル名を問われますので答えてください。そのファイルの内容を調査して
-古い設定を書き換えます。
-
-書き換えは @code{query-replace-regexp} で対話的に行われますので、基本的には
-@key{y} 又は @key{SPC} をタイプしてください。
-@key{n} をタイプすると、その検出箇所は書き換えずに次の検出箇所までスキップします。
-
-@item M-x skk-obsolete-check-all-files
-@kindex M-x skk-obsolete-check-all-files
-@findex skk-obsolete-check-all-files
-
-@code{load-path} に存在する @file{~/.skk}, @file{~/.emacs}, @file{default.el}, @file{site-start.el} の内容を調査して古い設定を書き換えます。
-
-@kbd{C-u M-x skk-obsolete-check-all-files} とプレフィックス付きで実行した場合は
-@file{skk.el} をはじめとする各プログラムファイルも調査対象とします。
-@end table
 
 @node 辞書サーバを使いたいときの設定
 @section 辞書サーバを使いたいときの設定
