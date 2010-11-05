@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.522 2010/11/04 03:12:13 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.523 2010/11/05 12:29:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/04 03:12:13 $
+;; Last Modified: $Date: 2010/11/05 12:29:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3543,7 +3543,8 @@ NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。
   (interactive "P")
   ;; skk.el 以外で提供される辞書セーブ機能を利用できるように関数を funcall する
   ;; 形にしておく。
-  (funcall skk-save-jisyo-function quiet))
+  (unless noninteractive
+    (funcall skk-save-jisyo-function quiet)))
 
 (defun skk-save-jisyo-original (&optional quiet)
   "SKK の辞書バッファをセーブする。
