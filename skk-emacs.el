@@ -29,6 +29,8 @@
 (eval-when-compile
   (require 'cl)
   (require 'tooltip)
+  (require 'skk-vars)
+  (require 'skk-macs)
 
   (defvar tool-bar-border)
 
@@ -341,7 +343,8 @@
 	     (setq cons (assoc (car list) skk-emacs-menu-resource-ja)))
 	(setcar list (if (and running-ntemacs
 			      (member (car list) '("Hiragana" "Katakana"
-				      "Hankaku alphabet" "Zenkaku alphabet")))
+						   "Hankaku alphabet"
+						   "Zenkaku alphabet")))
 			 ;; NTEmacs で Widget 付きメニューアイテムの
 			 ;; 日本語がうまく表示できない問題への対策
 			 ;; (NTEmacs 22.1, 23.1)
@@ -628,14 +631,13 @@
 
 (defun skk-tooltip-show-1 (text skk-params)
   (condition-case error
-      (let ((params (copy-sequence tooltip-frame-parameters))
+      (let ((params (or skk-params tooltip-frame-parameters))
 	    fg bg)
 	(if skk-params
 	    ;; ユーザが独自に tooltip 表示設定する
-	    (dolist (cell skk-params)
-	      (setq params (tooltip-set-param params
-					      (car cell)
-					      (cdr cell))))
+	    (dolist (cell tooltip-frame-parameters)
+	      (unless (assq (car cell) skk-params)
+		(setq params (cons cell params))))
 	  ;; tooltip のデフォルトの設定をする
 	  (setq fg (face-attribute 'tooltip :foreground))
 	  (setq bg (face-attribute 'tooltip :background))
@@ -644,6 +646,7 @@
 	    (setq params (tooltip-set-param params 'border-color fg)))
 	  (when (stringp bg)
 	    (setq params (tooltip-set-param params 'background-color bg))))
+	;;
 	(when (facep skk-tooltip-face)
 	  (setq text (propertize text 'face skk-tooltip-face)))
 	;; ミニバッファにいるとき余計なメッセージをクリアする
