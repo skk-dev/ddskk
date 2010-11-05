@@ -1,3 +1,10 @@
+2010-11-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Refer to changes in DDSKK 14.2.
+	* skk-emacs (skk-tooltip-show-1): Avoid modifying
+	tooltip-frame-parameters by side effect.
+	* skk.el (skk-save-jisyo): Do not save in the batch mode.
+
 2010-11-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-tooltip-resize-text):
