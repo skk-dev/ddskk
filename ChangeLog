@@ -1,5 +1,8 @@
 2010-11-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-emacs.el (skk-tooltip-resize-text):
+	skk-auto-start-henkan-keyword-list を流用した禁則処理。
+
 	* doc/skk.texi: Remove description with reference to skk-obsolete.el.
 
 2010-11-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

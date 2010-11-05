@@ -426,6 +426,8 @@
 	       (if (> (progn (end-of-line) (current-column)) max-columns)
 		   (progn
 		     (move-to-column max-columns)
+		     (if (member (char-to-string (following-char)) skk-auto-start-henkan-keyword-list)
+			 (backward-char))
 		     (insert "\n" indent)
 		     (forward-line -1)))
 	       (end-of-line)
