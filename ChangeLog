@@ -1,5 +1,7 @@
 2010-11-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-emacs.el (skk-tooltip-resize-text): 禁則処理の実装を見直した。
+
 	* skk-vars.el (skk-previous-completion-backtab): New variable.
 
 	* skk.el (skk-setup-keymap): Use it.
