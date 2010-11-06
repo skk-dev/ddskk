@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.523 2010/11/05 12:29:27 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.524 2010/11/06 00:44:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/05 12:29:27 $
+;; Last Modified: $Date: 2010/11/06 00:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -378,11 +378,11 @@ dependent."
 	  ;; する必要がある。
 	  (define-key skk-j-mode-map [(tab)] 'skk-completion-wrapper)))
       ;; comp と dcomp での前候補へ戻る動作を Shift TAB に割り当てる
-      (define-key skk-j-mode-map (kbd "<backtab>")
-	(lambda ()
-	  (interactive)
-	  (if (eq skk-henkan-mode 'on)	;▽モード
-	      (skk-comp-previous/next skk-previous-completion-char))))
+      (define-key skk-j-mode-map (read-kbd-macro skk-previous-completion-backtab)
+	#'(lambda ()
+	    (interactive)
+	    (if (eq skk-henkan-mode 'on)	;▽モード
+		(skk-comp-previous/next skk-previous-completion-char))))
       ;;
       (unless (featurep 'skk-kanagaki)
 	(define-key skk-j-mode-map (skk-char-to-unibyte-string

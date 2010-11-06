@@ -1,3 +1,9 @@
+2010-11-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-previous-completion-backtab): New variable.
+
+	* skk.el (skk-setup-keymap): Use it.
+
 2010-11-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Refer to changes in DDSKK 14.2.

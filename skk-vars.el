@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.323 2010/09/27 08:13:01 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.324 2010/11/06 00:44:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/27 08:13:01 $
+;; Last Modified: $Date: 2010/11/06 00:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2924,6 +2924,19 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
 (defcustom skk-previous-completion-char ?,
   "*$B8+=P$78l$NJd40F0:n$G!"A0$N8uJd$r=PNO$9$k%-!<%-%c%i%/%?!#(B"
   :type 'character
+  :group 'skk-comp)
+
+(defcustom skk-previous-completion-backtab
+  (cond ((featurep 'xemacs)
+	 "<iso-left-tab>")
+	((eq (skk-find-window-system) 'x)
+	 "<S-iso-lefttab>")
+	((eq (skk-find-window-system) 'w32)
+	 "<S-tab>")
+	(t
+	 "<backtab>"))
+  "*$B8+=P$78l$NJd40F0:n$G!"A0$N8uJd$r=PNO$9$k%-!<A`:n!#(B"
+  :type 'string
   :group 'skk-comp)
 
 (defcustom skk-start-henkan-with-completion-char ?\240 ; M-SPC
