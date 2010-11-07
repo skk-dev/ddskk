@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.90
 @set SKK-VERSION 14.1.90
-@set UPDATED $Date: 2010/11/06 10:27:06 $
+@set UPDATED $Date: 2010/11/07 20:59:55 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2820,27 +2820,31 @@ context-skk にて「プログラミングモード」とみなすメジャーモードは、変数
 以後の補完は、@samp{さとう} を含む語 (例えば、@samp{さとうせんせい}など)
 について行われます。
 
-@defvr  {ユーザ変数} skk-comp-circulate
+@defvr {ユーザ変数} skk-comp-circulate
 @kbd{.} （ピリオド）で次の候補を、@kbd{,} （コンマ）で前の候補を表示する
 ところ、候補が尽きていればデフォルト @code{nil} では「○○で補完すべき見
 出し語は他にありません」とエコーエリアに表示して動作が止まります。
 この変数が @code{non-nil} であれば当初の文字列を表示して補完を再開します。
 @end defvr
 
-@defvr  {ユーザ変数} skk-try-completion-char
+@defvr {ユーザ変数} skk-try-completion-char
 補完を開始するキーキャラクタです。デフォルトは @key{TAB} です。
 @end defvr
 
-@defvr  {ユーザ変数} skk-next-completion-char
+@defvr {ユーザ変数} skk-next-completion-char
 次の「読み候補」へ移るキーキャラクタです。デフォルトはピリオド @kbd{.} です。
 @end defvr
 
-@defvr  {ユーザ変数} skk-previous-completion-char
+@defvr {ユーザ変数} skk-previous-completion-char
 前の「読み候補」へ戻るキーキャラクタです。デフォルトはコンマ @kbd{,} です。
 @end defvr
 
-@defvr  {ユーザ変数} skk-previous-completion-backtab
-前の「読み候補」へ戻るキー操作です。デフォルトは @key{SHIFT} + @key{TAB} です。
+@defvr {ユーザ変数} skk-previous-completion-use-backtab
+@code{Non-nil} であれば、前の「読み候補」へ戻る動作を @key{SHIFT} + @key{TAB} でも可能とします。デフォルトは @code{nil} です。
+@end defvr
+
+@defvr {ユーザ変数} skk-previous-completion-backtab-key-description
+@key{SHIFT} + @key{TAB} を表す key description です。Emacs の種類／その実行環境によって異なります。
 @end defvr
 
 @node 補完しながら変換
