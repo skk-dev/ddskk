@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.325 2010/11/07 05:44:14 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.326 2010/11/07 16:40:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/07 05:44:14 $
+;; Last Modified: $Date: 2010/11/07 16:40:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -399,14 +399,16 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#
 	  `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
 			,(cond
 			  ((featurep 'xemacs)
-			   (locate-data-file "SKK-JISYO.L"))
+			   (or (locate-data-file "SKK-JISYO.L")
+			       ""))
 			  ((fboundp 'locate-file)
 			   (or (locate-file "skk/SKK-JISYO.L"
 					    (list
 					     (expand-file-name "../../.."
 							       data-directory)))
 			       (locate-file "skk/SKK-JISYO.L"
-					    (list data-directory))))))
+					    (list data-directory))
+			       ""))))
 		  (const :tag "$B;XDj$7$J$$(B" nil)))
   :group 'skk-dictionary)
 
@@ -423,14 +425,16 @@ Non-nil $B$G$"$l$P!"<-=q%5!<%P!<$,(B active $B$G$J$$;~$K!"(B
 	  `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
 			,(cond
 			  ((featurep 'xemacs)
-			   (locate-data-file "SKK-JISYO.L"))
+			   (or (locate-data-file "SKK-JISYO.L")
+			       ""))
 			  ((fboundp 'locate-file)
 			   (or (locate-file "skk/SKK-JISYO.L"
 					    (list
 					     (expand-file-name "../../.."
 							       data-directory)))
 			       (locate-file "skk/SKK-JISYO.L"
-					    (list data-directory))))))
+					    (list data-directory))
+			       ""))))
 		  (const :tag "$B;XDj$7$J$$(B" nil)))
   :group 'skk-dictionary
   :group 'skk-server)
@@ -2892,14 +2896,16 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
 	  `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
 			,(cond
 			  ((featurep 'xemacs)
-			   (locate-data-file "SKK-JISYO.L.cdb"))
+			   (or (locate-data-file "SKK-JISYO.L.cdb")
+			       ""))
 			  ((fboundp 'locate-file)
 			   (or (locate-file "skk/SKK-JISYO.L.cdb"
 					    (list
 					     (expand-file-name "../../.."
 							       data-directory)))
 			       (locate-file "skk/SKK-JISYO.L.cdb"
-					    (list data-directory))))))
+					    (list data-directory))
+			       ""))))
 		  (const :tag "$B;XDj$7$J$$(B" nil)))
   :group 'skk-cdb
   :group 'skk-dictionary)
@@ -4697,12 +4703,14 @@ GNU Emacs 21 $B$G$O6/@)E*$K(B `follow' $B$H$J$k!#(B"
 ;;; skk-tut.el related.
 (defcustom skk-tut-file
   (cond ((featurep 'xemacs)
-	 (locate-data-file "SKK.tut"))
+	 (or (locate-data-file "SKK.tut")
+	     "/usr/local/share/skk/SKK.tut"))
 	((fboundp 'locate-file)
 	 (or (locate-file "skk/SKK.tut"
 			  (list (expand-file-name "../../.."
 						  data-directory)))
-	     (locate-file "skk/SKK.tut" (list data-directory))))
+	     (locate-file "skk/SKK.tut" (list data-directory))
+	     "/usr/local/share/skk/SKK.tut"))
 	(t
 	 "/usr/local/share/skk/SKK.tut"))
   "*SKK $B%A%e!<%H%j%"%k$N%U%!%$%kL>!#(B

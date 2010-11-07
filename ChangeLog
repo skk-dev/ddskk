@@ -1,3 +1,9 @@
+2010-11-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-large-jisyo, skk-aux-large-jisyo)
+	(skk-cdb-large-jisyo, skk-tut-file): Provide some strings even
+	when `locate-file' fails.
+
 2010-11-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-previous-completion-use-backtab): New variable.
