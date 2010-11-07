@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.324 2010/11/06 00:44:55 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.325 2010/11/07 05:44:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/06 00:44:55 $
+;; Last Modified: $Date: 2010/11/07 05:44:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2926,7 +2926,12 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
   :type 'character
   :group 'skk-comp)
 
-(defcustom skk-previous-completion-backtab
+(defcustom skk-previous-completion-use-backtab nil
+  "*$B8+=P$78l$NJd40F0:n!JA08uJd$N=PNO!K$r(B Shift + TAB $B$G$b9T$&!#(B"
+  :type 'boolean
+  :group 'skk-comp)
+
+(defcustom skk-previous-completion-backtab-key-description
   (cond ((featurep 'xemacs)
 	 "<iso-left-tab>")
 	((eq (skk-find-window-system) 'x)
@@ -2935,7 +2940,7 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
 	 "<S-tab>")
 	(t
 	 "<backtab>"))
-  "*$B8+=P$78l$NJd40F0:n$G!"A0$N8uJd$r=PNO$9$k%-!<A`:n!#(B"
+  "*backtab $B$KAjEv$9$k(B key description $B$r@_Dj$9$kJQ?t!#(B"
   :type 'string
   :group 'skk-comp)
 

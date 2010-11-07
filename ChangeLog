@@ -1,3 +1,11 @@
+2010-11-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-previous-completion-use-backtab): New variable.
+	(skk-previous-completion-backtab-key-description):
+	Rename from skk-previous-completion-backtab.
+	
+	* skk.el (skk-setup-keymap): Use it.
+
 2010-11-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK_MODULES): remove skk-obsolete.
