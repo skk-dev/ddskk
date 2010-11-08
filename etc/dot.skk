@@ -216,6 +216,12 @@
 ;;                   (setq skk-kutouten-type 'en)
 ;;                 (setq skk-kutouten-type 'jp)))))
 
+;; 見出し語の補完を行う際の候補の表示順
+;; (setq skk-comp-circulate t)
+
+;; 見出し語の補完動作（前候補の出力）を Shift + TAB でも行う。
+;; (setq skk-previous-completion-use-backtab t)
+
 ;; 動的な補完を使う
 ;; (setq skk-dcomp-activate t)
 ;; (set-face-foreground 'skk-dcomp-face "green")

@@ -1,3 +1,8 @@
+2010-11-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk (skk-comp-circulate): New description.
+	(skk-previous-completion-use-backtab): New description.
+
 2010-10-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: Modify comment.
