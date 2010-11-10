@@ -1,6 +1,6 @@
 ;;; skk-emacs.el --- GNU Emacs support for SKK -*- coding: iso-2022-jp -*-
 
-;; Copyright (C) 1999-2010 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 2004 Masatake YAMATO <jet@gyve.org>
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Keywords: japanese, mule, input method
