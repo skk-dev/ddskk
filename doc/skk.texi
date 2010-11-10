@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.90
 @set SKK-VERSION 14.1.90
-@set UPDATED $Date: 2010/11/07 20:59:55 $
+@set UPDATED $Date: 2010/11/10 19:18:14 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2843,8 +2843,8 @@ context-skk にて「プログラミングモード」とみなすメジャーモードは、変数
 @code{Non-nil} であれば、前の「読み候補」へ戻る動作を @key{SHIFT} + @key{TAB} でも可能とします。デフォルトは @code{nil} です。
 @end defvr
 
-@defvr {ユーザ変数} skk-previous-completion-backtab-key-description
-@key{SHIFT} + @key{TAB} を表す key description です。Emacs の種類／その実行環境によって異なります。
+@defvr {ユーザ変数} skk-previous-completion-backtab-key
+@key{SHIFT} + @key{TAB} が発行する key event です。Emacs の種類／その実行環境によって異なります。
 @end defvr
 
 @node 補完しながら変換
