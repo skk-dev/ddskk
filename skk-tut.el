@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.78 2010/09/10 15:34:08 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.79 2010/11/10 19:25:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:34:08 $
+;; Last Modified: $Date: 2010/11/10 19:25:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -141,10 +141,10 @@
     (skk-latin-mode-string . " SKK")
     (skk-load-hook . nil)
     (skk-mode-hook . nil)
-    (skk-next-completion-key . ".")
+    (skk-next-completion-char . ?.)
     (skk-number-style . 1)
     (skk-okuri-char-alist . nil)
-    (skk-previous-completion-key . ",")
+    (skk-previous-completion-char . ?,)
     (skk-process-okuri-early . nil)
     (skk-public-jisyo-has-entry-p-function
      . 'skk-public-jisyo-has-entry-p-original)
@@ -284,7 +284,7 @@
     (skk-share-private-jisyo . nil)
     (skk-special-midashi-char-list . '(?> ?< ??))
     (skk-start-henkan-key . " ")
-    (skk-try-completion-key . "\t")
+    (skk-try-completion-char . ?\011)
     (skk-update-jisyo-function . 'skktut-update-jisyo)
     (skk-use-color-cursor
      . (and window-system
