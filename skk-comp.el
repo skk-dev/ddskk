@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.82 2010/11/04 03:12:13 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.83 2010/11/10 19:18:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/04 03:12:13 $
+;; Last Modified: $Date: 2010/11/10 19:18:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -64,8 +64,10 @@
   (skk-comp-do first silent))
 
 ;;;###autoload
-(defun skk-comp-do (first &optional silent)
+(defun skk-comp-do (first &optional silent set-this-command)
   ;; main completion engine.
+  (when set-this-command
+    (setq this-command 'skk-comp-do))
   (let ((inhibit-quit t)
 	;; skk-num が require されてないと
 	;; buffer-local 値を壊す恐れあり。
@@ -358,9 +360,11 @@
       c-word)))
 
 ;;;###autoload
-(defun skk-comp-previous ()
+(defun skk-comp-previous (&optional set-this-command)
   ;; skk-abbrev-comma, skk-insert-comma のサブルーチン。
   ;; 直前に補完を行った見出しを挿入する。
+  (when set-this-command
+    (setq this-command 'skk-comp-do))
   (let ((inhibit-quit t)
 	(stack-length (length skk-comp-stack))
 	c-word)
@@ -388,12 +392,38 @@
 
 ;;;###autoload
 (defun skk-comp-previous/next (ch)
-  (setq this-command 'skk-comp-do)
-  (cond ((eq ch skk-next-completion-char)
-	 (skk-comp-do nil))
-	((eq ch skk-previous-completion-char)
-	 (skk-previous-completion))	; alias 'skk-comp-previous
-	))
+  (case ch
+    (skk-next-completion-char
+     (skk-comp-do nil nil t))
+    (skk-previous-completion-char
+     (skk-comp-previous t))))
+
+;;;###autoload
+(defun skk-try-completion (arg)
+  "▽モードで見出し語の補完を行う。
+それ以外のモードでは、オリジナルのキー割り付けのコマンドをエミュレートする。"
+  (interactive "P")
+  (skk-with-point-move
+   (if (eq skk-henkan-mode 'on)
+       (skk-comp (or arg
+		     (not (eq last-command 'skk-comp-do))))
+     (skk-emulate-original-map arg))))
+
+;;;###autoload
+(defun skk-comp-wrapper (&optional arg)
+  "Character でないキーに補完を割り当てるためのコマンド。"
+  (interactive "p")
+  (skk-bind-last-command-char skk-try-completion-char
+    (call-interactively #'skk-insert)))
+
+;;;###autoload
+(defun skk-previous-comp-maybe (&optional arg)
+  "Character でないキーに補完前候補を割り当てるためのコマンド。
+▽モードでは補完前候補、さもなければオリジナルのキー定義を実行する。"
+  (interactive "P")
+  (if (eq skk-henkan-mode 'on) ;▽モード
+      (skk-comp-previous t)
+    (skk-emulate-original-map arg)))
 
 ;;;###autoload
 (defun skk-comp-by-history ()
@@ -563,7 +593,6 @@ WITHOUT-MIDASI を指定すると見出しは省かれる。"
 	    (setq words (nconc words tmp))))
 	words))))
 
-(defalias 'skk-previous-completion 'skk-comp-previous)
 (defalias 'skk-start-henkan-with-completion 'skk-comp-start-henkan)
 
 (run-hooks 'skk-comp-load-hook)
