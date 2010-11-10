@@ -1,3 +1,39 @@
+2010-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK_MODULES): Add skk-inline.
+	* doc/skk.texi: Update for skk-previous-completion-backtab-key.
+	* skk-emacs.el: Modify copyright notice.
+	* skk-inline.el: New file.
+	* skk-comp.el (skk-try-completion, skk-completion-wrapper): Move
+	functions from skk.el.
+	(skk-previous-comp-maybe): Give name to anonymous funtion in
+	`skk-setup-keymap'.
+	(skk-comp-do, skk-comp-previous): Add an optional arg
+	set-this-command.
+	* skk-macs.el (skk-color-cursor-display-p): Check
+	skk-running-gnu-emacs at compile time.
+	* skk-tankan.el (skk-tankan): Modify the interactive spec.
+	* skk-tut.el (skktut-init-variables-alist): Bind
+	skk-try-completion-char, skk-next-completion-char and
+	skk-previous-completion-char.
+	* skk-vars.el (skk-quit-commands): New internal variable.
+	(skk-previous-completion-backtab-key): Rename from
+	`skk-previous-completion-backtab-key-description' and change
+	custom type to `key-sequence', allowing users to customize it by
+	C-q [key] in M-x customize-variable.
+	* skk.el (skk-define-minibuffer-maps)
+	(skk-setup-j-mode-map-options, skk-setup-latin-mode-map-options)
+	(skk-setup-jisx0208-latin-mode-map-options)
+	(skk-setup-abbrev-mode-map-options): New functions sepatated from
+	`skk-setup-keymap'.
+	(skk-start-henkan-prog-i): New function.
+	(skk-define-start-henkan-progs): New macro to define
+	`skk-start-henkan-prog-{0-9}'.
+	(skk-inline-show, skk-inline-show-vertical, skk-inline-hide)
+	(skk-add-background-color): Move to skk-inline.el.
+	(skk-henkan-inactivate, skk-henkan-off): New functions called from
+	advised `keyboard-quit' and `abort-recursive-edit'.
+
 2010-11-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Add description for skk-previous-completion-use-backtab.
