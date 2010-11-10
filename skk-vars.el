@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.326 2010/11/07 16:40:05 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.327 2010/11/10 19:19:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/07 16:40:05 $
+;; Last Modified: $Date: 2010/11/10 19:19:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2232,6 +2232,10 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
     ["Version" skk-version t])
   "Menu used in SKK mode.")
 
+(defvar skk-quit-commands '(keyboard-quit abort-recursive-edit
+					  skk-kanagaki-bs
+					  skk-kanagaki-esc))
+
 ;; ---- buffer local variables
 
 ;; <$B%U%i%0N`(B>
@@ -2937,17 +2941,21 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
   :type 'boolean
   :group 'skk-comp)
 
-(defcustom skk-previous-completion-backtab-key-description
-  (cond ((featurep 'xemacs)
-	 "<iso-left-tab>")
-	((eq (skk-find-window-system) 'x)
-	 "<S-iso-lefttab>")
-	((eq (skk-find-window-system) 'w32)
-	 "<S-tab>")
+(defcustom skk-previous-completion-backtab-key
+  (cond ((not (skk-find-window-system))
+	 [backtab])
+	((featurep 'xemacs)
+	 [iso-left-tab])
+	((memq system-type '(darwin windows-nt))
+	 [S-tab])
 	(t
-	 "<backtab>"))
-  "*backtab $B$KAjEv$9$k(B key description $B$r@_Dj$9$kJQ?t!#(B"
-  :type 'string
+	 ;; X Window System
+	 [S-iso-lefttab]))
+  "*Shift + TAB $B$KAjEv$9$k%-!<(B (key event)$B!#(B
+`skk-previous-completion-use-backtab' $B$,M-8z$J:]$KMQ$$$i$l$k!#(B"
+  :type `,(if (get 'key-sequence 'widget-type)
+	      'key-sequence
+	    'sexp)
   :group 'skk-comp)
 
 (defcustom skk-start-henkan-with-completion-char ?\240 ; M-SPC
