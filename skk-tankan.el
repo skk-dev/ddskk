@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.32 2010/09/11 15:04:33 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.33 2010/11/10 19:18:53 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/09/11 15:04:33 $
+;; Last Modified: $Date: 2010/11/10 19:18:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1611,7 +1611,7 @@ METHOD が 2 であれば総画数として検索を実行する。
   "単漢字変換を開始する。
 M-x skk-tankan で部首変換を、
 C-u 数値 M-x skk-tankan で総画数変換を開始する。"
-  (interactive "P")
+  (interactive "p")
   (let ((b (get-buffer-create "*単漢字*"))
 	list)
     (setq list (skk-tankan-select-tankanji-kouho
