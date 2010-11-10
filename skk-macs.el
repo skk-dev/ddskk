@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.156 2010/09/26 19:32:24 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.157 2010/11/10 19:22:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/26 19:32:24 $
+;; Last Modified: $Date: 2010/11/10 19:22:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -395,7 +395,7 @@ but the contents viewed as characters do change.
   (cond
    ((eval-when-compile (featurep 'xemacs))
     (eq (device-class (selected-device)) 'color))
-   (skk-running-gnu-emacs
+   ((eval-when-compile skk-running-gnu-emacs)
     (and (skk-find-window-system)
 	 (fboundp 'x-display-color-p)
 	 (x-display-color-p)))))
