@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.83 2010/11/10 19:18:39 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.84 2010/11/11 15:04:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/10 19:18:39 $
+;; Last Modified: $Date: 2010/11/11 15:04:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -392,10 +392,10 @@
 
 ;;;###autoload
 (defun skk-comp-previous/next (ch)
-  (case ch
-    (skk-next-completion-char
+  (cond
+    ((eq ch skk-next-completion-char)
      (skk-comp-do nil nil t))
-    (skk-previous-completion-char
+    ((eq ch skk-previous-completion-char)
      (skk-comp-previous t))))
 
 ;;;###autoload

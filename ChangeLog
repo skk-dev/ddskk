@@ -1,3 +1,8 @@
+2010-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-comp.el (skk-comp-previous/next): Use `cond' instead of
+	`case'.
+
 2010-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK_MODULES): Add skk-inline.
