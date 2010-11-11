@@ -2,6 +2,9 @@
 
 	* skk-comp.el (skk-comp-previous/next): Use `cond' instead of
 	`case'.
+	* skk.el (skk-henkan-off-by-quit): Rename from
+	`skk-henkan-off'. Temporarily set both last-command and
+	this-command.
 
 2010-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

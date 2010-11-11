@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.526 2010/11/10 19:19:52 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.527 2010/11/11 15:25:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/10 19:19:52 $
+;; Last Modified: $Date: 2010/11/11 15:25:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5194,13 +5194,18 @@ SKK 辞書の候補として正しい形に整形する。"
 	(delete-char (- 0 count)))
     (skk-previous-candidate nil)))
 
-(defun skk-henkan-off ()
+(defun skk-henkan-off-by-quit ()
   "▽モードをキャンセルして■モードに戻る。文字列は破棄する。"
   (if (eq last-command 'skk-comp-do)
       (skk-with-point-move
        (delete-region skk-henkan-start-point (point))
        (insert skk-comp-key)
-       (setq last-command 'keyboard-quit))
+       ;; 本来 this-command だけ set すれば問題ないと思われるが、
+       ;; なんらかの (恐らく SKK 関係の) 理由で last-command が
+       ;; `skk-comp-do' のままになることがある。
+       ;; 一時的に last-command を set しておく。
+       (setq last-command 'keyboard-quit
+	     this-command 'keyboard-quit))
     (skk-erase-prefix 'clean)
     (delete-region skk-henkan-start-point
 		   (if (> (point) skk-henkan-start-point)
@@ -5219,7 +5224,7 @@ SKK 辞書の候補として正しい形に整形する。"
       ((eq skk-henkan-mode 'active)
        (skk-henkan-inactivate))
       ((eq skk-henkan-mode 'on)
-       (skk-henkan-off))
+       (skk-henkan-off-by-quit))
       (t
        (if (skk-get-prefix skk-current-rule-tree)
 	   (skk-erase-prefix 'clean)
@@ -5238,7 +5243,7 @@ SKK 辞書の候補として正しい形に整形する。"
       ((eq skk-henkan-mode 'active)
        (skk-henkan-inactivate))
       ((eq skk-henkan-mode 'on)
-       (skk-henkan-off))
+       (skk-henkan-off-by-quit))
       (t
        (if (skk-get-prefix skk-current-rule-tree)
 	   (skk-erase-prefix 'clean)
