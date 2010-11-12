@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.90
 @set SKK-VERSION 14.1.90
-@set UPDATED $Date: 2010/11/10 19:18:14 $
+@set UPDATED $Date: 2010/11/12 12:30:40 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1947,6 +1947,11 @@ GNU Emacs 21 以降の拡張機能を利用するプログラムを集めたファイル。
 SKK の変換候補が多いときにヒントを与えて絞りこむ機能を提供します。
 
 @xref{候補の絞り込み}.
+
+@item skk-inline.el
+@cindex @file{skk-inline.el}
+
+変換候補のインライン表示機能を集めたファイル。
 
 @item skk-isearch.el
 @cindex @file{skk-isearch.el}
