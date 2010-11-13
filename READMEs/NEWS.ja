@@ -1,10 +1,10 @@
-* 14.2 (?)
+* 14.2
 
 ** GNU Emacs 22.x 及び GNU Emacs 23.x
 APEL は不要です。
 
 ** GNU Emacs 21.x 及び XEmacs
-これまでどおり、APEL (10.7 以上) をインストールしてください。
+これまでどおり、APEL (10.8 以上を推奨) をインストールしてください。
 
 ** 古い Emacsen のサポート終了
 
@@ -15,6 +15,11 @@ GNU Emacs 20.x のサポートを打ち切りました。
 
 コマンド skk-display-code-for-char-at-point (デフォルトでは $ に割当て)
 の表示をツールティップ化しました。
+
+** 見出し語の補完
+見出し語を補完（▽モードで TAB）したとき、SHIFT + TAB でひとつ前の補完
+候補へ戻ることができます。
+変数 skk-previous-completion-use-backtab を Non-nil とします。
 
 * 14.1
 
