@@ -1,3 +1,23 @@
+2010-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-previous-candidate-keys): New variable.
+	(skk-previous-candidate-char): Make obsolete.
+	* skk.el (skk-setup-j-mode-map-options): Define keys in
+	skk-previous-candidate-keys.
+	(skk-henkan-show-candidates): Do not refer to
+	skk-previous-candidate-char.  Check key binding of the current
+	input instead.
+	(skk-previous-candidate): Update doc string.
+	(skk-henan-off-by-quit): Temporarily check both last-command and
+	this-command.
+	* skk-isearch.el (skk-isearch-setup-keymap): Set keys in
+	skk-previous-candidate-keys instead of
+	skk-previous-candidate-char.
+	* skk-kcode.el (skk-input-by-code-or-menu-jump)
+	(skk-input-by-code-or-menu-1): Do not refer to
+	skk-previous-candidate-char.  Check key binding of the current
+	input instead.
+
 2010-11-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el :Update Docstring.
