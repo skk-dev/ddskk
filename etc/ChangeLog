@@ -1,3 +1,7 @@
+2010-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: Change default value skk-previous-completion-use-backtab.
+
 2010-11-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk (skk-tooltip-parameters): Add options.

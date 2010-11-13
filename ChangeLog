@@ -1,3 +1,8 @@
+2010-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-previous-completion-use-backtab): Change default value.
+	* doc/skk.texi: Ditto.
+
 2010-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* experimental/skk-ja-names.el: New file.
