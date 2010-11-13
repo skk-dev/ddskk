@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.157 2010/11/10 19:22:51 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.158 2010/11/13 11:47:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/10 19:22:51 $
+;; Last Modified: $Date: 2010/11/13 11:47:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -557,7 +557,7 @@ BUFFER defaults to the current buffer."
    ((eval-when-compile (and skk-running-gnu-emacs
 			    (>= emacs-major-version 23)))
     (use-region-p))
-   ((featurep 'xemacs)
+   ((eval-when-compile (featurep 'xemacs))
     (region-active-p))
    (t
     ;; GNU Emacs 21 and 22.

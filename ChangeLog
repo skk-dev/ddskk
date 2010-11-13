@@ -17,6 +17,8 @@
 	(skk-input-by-code-or-menu-1): Do not refer to
 	skk-previous-candidate-char.  Check key binding of the current
 	input instead.
+	* skk-macs.el (skk-region-active-p): Check feature xemacs at
+	compile time.
 
 2010-11-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
