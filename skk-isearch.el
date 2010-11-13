@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.65 2010/09/10 14:28:57 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.66 2010/11/13 11:45:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 14:28:57 $
+;; Last Modified: $Date: 2010/11/13 11:45:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -361,9 +361,8 @@ Optional argument PREFIX is appended if given."
   (define-key map "\C-g" 'skk-isearch-keyboard-quit)
   (define-key map skk-kakutei-key 'skk-isearch-newline)
   (define-key map "\C-m" 'skk-isearch-exit)
-  (when (characterp skk-previous-candidate-char)
-    (define-key map (skk-char-to-unibyte-string skk-previous-candidate-char)
-      'skk-isearch-wrapper))
+  (dolist (key skk-previous-candidate-keys)
+    (define-key map key 'skk-isearch-wrapper))
 
   ;; C-x map for skk.
   (define-key map "\C-x" (make-sparse-keymap))
