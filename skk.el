@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.527 2010/11/11 15:25:37 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.528 2010/11/13 11:44:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/11 15:25:37 $
+;; Last Modified: $Date: 2010/11/13 11:44:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -470,10 +470,14 @@ dependent."
       (define-key skk-j-mode-map skk-previous-completion-backtab-key
 	#'skk-previous-comp-maybe))
     ;;
+    (when (characterp (symbol-value 'skk-previous-candidate-char))
+      (add-to-list 'skk-previous-candidate-keys
+		   (skk-char-to-unibyte-string
+		    (symbol-value 'skk-previous-candidate-char))))
     (unless (featurep 'skk-kanagaki)
-      (define-key skk-j-mode-map
-	(skk-char-to-unibyte-string skk-previous-candidate-char)
-	#'skk-previous-candidate))
+      (dolist (key skk-previous-candidate-keys)
+	(define-key skk-j-mode-map key #'skk-previous-candidate)))
+    ;;
     (when skk-use-jisx0201-input-method
       ;; This command is autoloaded.
       (define-key skk-j-mode-map "\C-q" #'skk-toggle-katakana))
@@ -1850,9 +1854,10 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	  (candidate-keys ; 表示用のキーリスト
 	   (mapcar
 	    #'(lambda (c)
-		(when (memq c '(?\C-g
-				skk-start-henkan-char	      ; SPC
-				skk-previous-candidate-char)) ; ?x
+		(when (or (memq c '(?\C-g skk-start-henkan-char))
+			  (skk-key-binding-member
+			   (skk-char-to-unibyte-string c)
+			   '(skk-previous-candidate)))
 		  (skk-error "`%s' に無効なキーが指定されています"
 			     "Illegal key in `%s'"
 			     "skk-henkan-show-candidates-keys"))
@@ -1974,13 +1979,11 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 		    ((eq char skk-show-candidates-toggle-display-place-char)
 		     (setq skk-show-candidates-always-pop-to-buffer
 			   (not skk-show-candidates-always-pop-to-buffer)))
-		    ((or (eq char skk-previous-candidate-char) ; ?x
-			 (skk-key-binding-member
-			  key
-			  '(skk-previous-candidate
-			    skk-delete-backward-char
-			    skk-undo)
-			  skk-j-mode-map))
+		    ((skk-key-binding-member key
+					     '(skk-previous-candidate
+					       skk-delete-backward-char
+					       skk-undo)
+					     skk-j-mode-map)
 		     (case loop
 		      (0
 		       ;; skk-henkan-show-candidates を呼ぶ前の
@@ -2444,7 +2447,7 @@ auto に設定するとユーザに確認しない。
 
 (defun skk-previous-candidate (&optional arg)
   "▼モードであれば、一つ前の候補を表示する。
-▼モード以外ではカレントバッファに `skk-previous-candidate-char' を挿入する。
+▼モード以外ではカレントバッファにタイプした文字を挿入する。
 確定辞書による確定の直後に呼ぶと確定をアンドゥし、見出しに対する次候補を表示する。
 最後に確定したときの候補はスキップされる。"
   (interactive "*p")
@@ -5109,10 +5112,8 @@ SKK 辞書の候補として正しい形に整形する。"
      (skk-erase-prefix 'clean))))
 
 (defun skk-pre-command ()
-  (when (and (memq last-command
-		   '(skk-insert skk-previous-candidate))
-	     (null (memq this-command
-			 skk-kana-cleanup-command-list)))
+  (when (and (memq last-command '(skk-insert skk-previous-candidate))
+	     (null (memq this-command skk-kana-cleanup-command-list)))
     (skk-kana-cleanup t)))
 
 (defun skk-remove-minibuffer-setup-hook (&rest args)
@@ -5196,16 +5197,13 @@ SKK 辞書の候補として正しい形に整形する。"
 
 (defun skk-henkan-off-by-quit ()
   "▽モードをキャンセルして■モードに戻る。文字列は破棄する。"
-  (if (eq last-command 'skk-comp-do)
+  (if (memq 'skk-comp-do (list last-command this-command))
       (skk-with-point-move
        (delete-region skk-henkan-start-point (point))
        (insert skk-comp-key)
-       ;; 本来 this-command だけ set すれば問題ないと思われるが、
-       ;; なんらかの (恐らく SKK 関係の) 理由で last-command が
-       ;; `skk-comp-do' のままになることがある。
-       ;; 一時的に last-command を set しておく。
-       (setq last-command 'keyboard-quit
-	     this-command 'keyboard-quit))
+       (when skk-verbose
+	 (setq last-command 'keyboard-quit))
+       (setq this-command 'keyboard-quit))
     (skk-erase-prefix 'clean)
     (delete-region skk-henkan-start-point
 		   (if (> (point) skk-henkan-start-point)
