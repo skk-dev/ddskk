@@ -1,3 +1,8 @@
+2010-11-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk (skk-tooltip-parameters): Add options.
+	foreground-color and internal-border-width.
+
 2010-11-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk (skk-comp-circulate): New description.

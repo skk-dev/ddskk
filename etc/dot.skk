@@ -95,7 +95,10 @@
   ;; なります。
   (setq skk-tooltip-parameters
 	'((background-color . "alice blue")
-	  (border-color . "royal blue")))
+	  (border-color . "royal blue")
+	  (foreground-color . "gray")	;FACE が優先されます。
+	  (internal-border-width . 3)	;境界線と文字との間の余白
+	  ))
 
   ;; Tooltip 表示位置の調整。Tooltip の表示位置は OS (Window System) や
   ;; Emacs のバージョン、フォント設定など諸々の影響を受けてずれるので、
