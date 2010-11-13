@@ -1,5 +1,6 @@
 2010-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* experimental/skk-ja-names.el: New file.
 	* skk-vars.el (skk-previous-candidate-keys): New variable.
 	(skk-previous-candidate-char): Make obsolete.
 	* skk.el (skk-setup-j-mode-map-options): Define keys in
