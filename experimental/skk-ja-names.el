@@ -1,0 +1,15 @@
+(defalias 'SKKモード 'skk-mode)
+(defalias 'SKKのバージョン 'skk-version)
+(defalias 'SKKのバグを報告する 'skk-submit-bug-report)
+(defalias 'SKKのチュートリアル 'skk-tutorial)
+
+(defvaralias 'SKK設定-リターンキーを確定に使う? 'skk-egg-like-newline)
+(defvaralias 'SKK設定-L辞書のファイル名 'skk-large-jisyo)
+(defvaralias 'SKK設定-個人辞書のファイル名 'skk-jisyo)
+(defvaralias 'SKK設定-個人辞書を共有する? 'skk-share-private-jisyo)
+(defvaralias 'SKK設定-インライン表示する? 'skk-show-inline)
+(defvaralias 'SKK設定-ツールティップ表示する? 'skk-show-inline)
+(defvaralias 'SKK設定-先読みしておく? 'skk-preload)
+(defvaralias 'SKK設定-日本語メニュー表示する? 'skk-show-japanese-menu)
+
+(provide 'skk-ja-names)
