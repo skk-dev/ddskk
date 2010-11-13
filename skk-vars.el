@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.328 2010/11/13 06:36:22 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.329 2010/11/13 11:44:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/13 06:36:22 $
+;; Last Modified: $Date: 2010/11/13 11:44:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,6 +28,8 @@
 ;;; Commentary:
 
 ;;; Code:
+
+(require 'wid-edit)
 
 (eval-when-compile
   ;; shut down compiler warnings.
@@ -1214,10 +1216,19 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
   :type 'character
   :group 'skk-henkan)
 
-(defcustom skk-previous-candidate-char ?x
-  "*`skk-previous-candidate' $B$r3dEv$F$?%-!<%-%c%i%/%?!#(B"
-  :type 'character
+(defcustom skk-previous-candidate-keys (list "x" "\C-p")
+  "*`skk-previous-candidate' $B$r3dEv$F$k%-!<!#(B
+$B$3$NJQ?t$K$O%-!<$rI=$9%*%V%8%'%/%H!"$^$?$O%*%V%8%'%/%H$N%j%9%H$r;XDj$9$k!#(B
+$B%*%V%8%'%/%H$H$7$F$O!"%-!<$rI=$9J8;z$^$?$O(B event vector $B$,;XDj$G$-$k!#(B"
+  :type (if (get 'key-sequence 'widget-type)
+	    '(repeat (key-sequence :tag "$B%-!<(B (C-q key $B$G<hF@2D(B)"))
+	  '(repeat sexp))
   :group 'skk-henkan)
+
+(defvar skk-previous-candidate-char ?x)
+(make-obsolete-variable 'skk-previous-candidate-char
+			'skk-previous-candidate-keys
+			"DDSKK 14.2")
 
 (defcustom skk-set-henkan-point-key
   '(?A ?B ?C ?D ?E ?F ?G ?H ?I ?J ?K ?M ?N ?O ?P ?R ?S ?T ?U ?V ?W ?Y ?Z)
@@ -1387,9 +1398,9 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#Nc$($P!
 
 (defcustom skk-kakutei-key "\C-j"
   "*$B4A;zJQ49$N3NDjF0:n$r9T$&%-!<!#(B"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-basic
   :group 'skk-kakutei)
 
@@ -2625,9 +2636,9 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 $B$3$N%-!<$r%?%$%W$9$k$H8=:_I=<(Cf$N%"%N%F!<%7%g%s$r(B kill ring $B$KJ]B8$9$k!#(B
 $BJ]B8$7$?FbMF$r(B Emacs $B0J30$N%"%W%j%1!<%7%g%s$GMxMQ$7$?$$>l9g$O(B
 $BJQ?t(B `interprogram-cut-function' $B$r@_Dj$9$k!#(B"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-annotation)
 
 (defcustom skk-annotation-browse-key "\C-o"
@@ -2635,9 +2646,9 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 $B$3$N%-!<$r%?%$%W$9$k$H8=:_I=<(Cf$N%"%N%F!<%7%g%s$r4X?t(B `browse-url' $B$KEO$9!#(B
 $B$3$N5!G=$rM-8z$K$9$k$?$a$K$OJQ?t(B `browse-url-browser-function' $B$rE,@Z$K(B
 $B@_Dj$9$k!#(B"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-annotation)
 
 (defcustom skk-annotation-function nil
@@ -2690,9 +2701,9 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
 (defcustom skk-annotation-wikipedia-key "\C-i"
   "*$B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$NFbMF$rI=<($9$k%-!<!#(B
 $B%*%W%7%g%s(B `skk-show-annotation' $B$,(B non-nil $B$N$H$-$@$1M-8z!#(B"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-annotation)
 
 (defconst skk-annotation-buffer
@@ -2953,9 +2964,9 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
 	 [S-iso-lefttab]))
   "*Shift + TAB $B$KAjEv$9$k%-!<(B (key event)$B!#(B
 `skk-previous-completion-use-backtab' $B$,M-8z$J:]$KMQ$$$i$l$k!#(B"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-comp)
 
 (defcustom skk-start-henkan-with-completion-char ?\240 ; M-SPC
