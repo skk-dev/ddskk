@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.90
 @set SKK-VERSION 14.1.90
-@set UPDATED $Date: 2010/11/12 12:30:40 $
+@set UPDATED $Date: 2010/11/13 22:22:57 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2845,7 +2845,10 @@ context-skk にて「プログラミングモード」とみなすメジャーモードは、変数
 @end defvr
 
 @defvr {ユーザ変数} skk-previous-completion-use-backtab
-@code{Non-nil} であれば、前の「読み候補」へ戻る動作を @key{SHIFT} + @key{TAB} でも可能とします。デフォルトは @code{nil} です。
+@code{Non-nil} であれば、前の「読み候補」へ戻る動作を @key{SHIFT} + @key{TAB} で
+も可能とします。デフォルトは @code{t} です。
+この機能の有効化／無効化の切り替えは、ファイル @file{~/.skk} を書き換えて Emacs を
+再起動してください。
 @end defvr
 
 @defvr {ユーザ変数} skk-previous-completion-backtab-key

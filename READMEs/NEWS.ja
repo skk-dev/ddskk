@@ -18,8 +18,8 @@ GNU Emacs 20.x のサポートを打ち切りました。
 
 ** 見出し語の補完
 見出し語を補完（▽モードで TAB）したとき、SHIFT + TAB でひとつ前の補完
-候補へ戻ることができます。
-変数 skk-previous-completion-use-backtab を Non-nil とします。
+候補へ戻ることができます。この機能を無効とするには、
+変数 skk-previous-completion-use-backtab を nil としてください。
 
 * 14.1
 
