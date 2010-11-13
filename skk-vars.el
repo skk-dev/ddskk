@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.327 2010/11/10 19:19:29 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.328 2010/11/13 06:36:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/10 19:19:29 $
+;; Last Modified: $Date: 2010/11/13 06:36:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -107,7 +107,7 @@ Automatically becomes buffer-local when set in any fashion."
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-private nil "SKK $B8D?M<-=q$N$H$j07$$(B"
+(defgroup skk-private nil "SKK $B8D?M<-=q$N<h$j07$$(B"
   :prefix "skk-"
   :group 'skk)
 
@@ -127,7 +127,7 @@ Automatically becomes buffer-local when set in any fashion."
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-okurigana nil "SKK $BAw$j$,$J$N$H$j07$$(B"
+(defgroup skk-okurigana nil "SKK $BAw$j$,$J$N<h$j07$$(B"
   :prefix "skk-"
   :group 'skk)
 
@@ -175,7 +175,7 @@ Automatically becomes buffer-local when set in any fashion."
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-isearch nil "SKK $B%$%s%/%j%a%s%?%k%5!<%A$N@_Dj(B"
+(defgroup skk-isearch nil "SKK $B%$%s%/%j%a%s%?%k!&%5!<%A$N@_Dj(B"
   :prefix "skk-isearch-"
   :group 'skk)
 
@@ -198,7 +198,7 @@ Automatically becomes buffer-local when set in any fashion."
   :prefix "skk-look-"
   :group 'skk)
 
-(defgroup skk-lookup nil "SKK $B$+$i(B lookup $B%Q%C%1!<%8$rMxMQ$9$k@_Dj(B"
+(defgroup skk-lookup nil "SKK $B$+$i(B Lookup $B%Q%C%1!<%8$rMxMQ$9$k@_Dj(B"
   :prefix "skk-lookup-"
   :group 'skk)
 
@@ -1747,7 +1747,7 @@ nil $B$J$i$P<+F0@_Dj$O$7$J$$(B ($B<+J,$G9%$-$J@_Dj$,$G$-$k(B)$B!#(B"
   :group 'skk-misc)
 
 (defcustom skk-load-hook nil
-  "*skk.el $B$r%m!<%I$7$?$H$-$N%U%C%/!#(B
+  "*skk.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B
 $BB>$K!"(B`skk-mode-hook', `skk-auto-fill-mode-hook', `skk-init-file' $B$G$b%+%9%?(B
 $B%^%$%:$,2DG=!#(B"
   ;;  "*Hook run when SKK is loaded.
@@ -3678,7 +3678,7 @@ nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
   :group 'skk-kakasi)
 
 (defcustom skk-kakasi-load-hook nil
-  "*skk-kakasi.el $B$,%m!<%I$5$l$?$H$-$N%U%C%/!#(B"
+  "*skk-kakasi.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
   :type 'hook
   :group 'skk-kakasi)
 
@@ -3767,7 +3767,7 @@ SKK abbrev $B%b!<%I$GJd40$r9T$&$H!"8D?M<-=q$r8!:w$7?T$7$?8e$G!"(BUNIX look $B
   ---> $B"&(Babstract
 
 SKK abbrev $B%b!<%I$G!"!V1QJ8;z(B + $B%"%9%?%j%9%/!W$K$FJQ49$r9T$&$H!"(Blook $B%3%^%s%I(B
-$B$K$h$k$"$$$^$$8!:w$r9T$&$3$H$,$G$-$k!#Nc$($P!"(B
+$B$K$h$k[#Kf8!:w$r9T$&$3$H$,$G$-$k!#Nc$($P!"(B
 
  $B"&(Babstra* (SPC)
   ---> $B"'(Babstract

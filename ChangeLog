@@ -1,3 +1,7 @@
+2010-11-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el :Update Docstring.
+
 2010-11-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Add skk-inline.el.
