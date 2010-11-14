@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.332 2010/11/14 04:19:45 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.333 2010/11/14 11:12:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/14 04:19:45 $
+;; Last Modified: $Date: 2010/11/14 11:12:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1225,7 +1225,7 @@ M-x skk-toggle-kutouten は、これをトグルで切り換える。
 	  '(repeat sexp))
   :group 'skk-henkan)
 
-(defvar skk-previous-candidate-char ?x)
+(defvar skk-previous-candidate-char nil)
 (make-obsolete-variable 'skk-previous-candidate-char
 			'skk-previous-candidate-keys
 			"DDSKK 14.2")

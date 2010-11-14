@@ -6,6 +6,7 @@
 
 	* experimental/skk-ja-names.el: Update.
 	* skk-vars.el (skk-previous-candidate-keys): Fix doc string.
+	(skk-previous-candidate-char): Default to nil.
 
 2010-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
