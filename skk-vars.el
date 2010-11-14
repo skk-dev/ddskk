@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.331 2010/11/13 22:22:57 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.332 2010/11/14 04:19:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/13 22:22:57 $
+;; Last Modified: $Date: 2010/11/14 04:19:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1218,7 +1218,7 @@ M-x skk-toggle-kutouten は、これをトグルで切り換える。
 
 (defcustom skk-previous-candidate-keys (list "x" "\C-p")
   "*`skk-previous-candidate' を割当てるキー。
-この変数にはキーを表すオブジェクト、またはオブジェクトのリストを指定する。
+この変数にはキーを表すオブジェクトのリストを指定する。
 オブジェクトとしては、キーを表す文字列または event vector が指定できる。"
   :type (if (get 'key-sequence 'widget-type)
 	    '(repeat (key-sequence :tag "キー (C-q key で取得可)"))
