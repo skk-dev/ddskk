@@ -1,3 +1,9 @@
+2010-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagai.el (skk-setup-keymap@around@skk-kangaki-keys): No
+	longer modify value of skk-previous-candidate-char.  Change to
+	after advice.
+
 2010-10-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-nicola-format-time): Update comments.

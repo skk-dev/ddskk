@@ -444,18 +444,7 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]  (XEmacs $B$G$O
 
 ;; Pieces of advice.
 
-(defadvice skk-setup-keymap (around skk-kanagaki-keys activate preactivate)
-  (let ((char
-	 (when (stringp skk-kanagaki-previous-candidate-key)
-	   (string-to-char skk-kanagaki-previous-candidate-key))))
-    (when (eq ?x skk-previous-candidate-char)
-      ;; $B4{DjCM$N$^$^$G$"$k$H$-!"E,@Z$K@_Dj$9$k!#(B
-      (setq skk-previous-candidate-char
-	    (or char
-		;; C-p
-		(int-char 16)))))
-  ;;
-  ad-do-it
+(defadvice skk-setup-keymap (after skk-kanagaki-keys activate preactivate)
   ;; $B%-!<%P%$%s%I!#$?$@$7$3$l$O!"$h$jE,@Z$J%-!<Dj5A$r8+$D$1$k$^$G$N;CDjE*=hCV!#(B
   ;; $B$3$3$G8@$&!V$h$jE,@Z$J%-!<Dj5A!W$H$O!"F~NOJ}<0$K0MB8$9$k$?$a!"(BSKK $B$N=EMW(B
   ;; $B$J%-!<Dj5A$r%U%!%s%/%7%g%s%-!<$K;D$7$F$*$/$3$H$O!"<BMQ$N$?$a$h$j$b$`$7$m(B
@@ -486,15 +475,10 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]  (XEmacs $B$G$O
 		   (string-match "\\[f[1-9][1-9]\\]"
 				 (format "%s" (symbol-value (car cell))))
 		   (eq skk-j-mode-function-key-usage 'kanagaki)))
-      (define-key skk-j-mode-map
-	(symbol-value (car cell)) (cdr cell))))
-  (define-key help-map
-    skk-kanagaki-help-key
-    'skk-kanagaki-help))
+      (define-key skk-j-mode-map (symbol-value (car cell)) (cdr cell))))
+  (define-key help-map skk-kanagaki-help-key 'skk-kanagaki-help))
 
-(defadvice skk-insert (around skk-kanagaki-workaround
-			      activate
-			      compile)
+(defadvice skk-insert (around skk-kanagaki-workaround activate compile)
   "$B2>L>F~NOMQ$N(B work around $B!#(B"
   ;;
   (when (and skk-process-okuri-early
