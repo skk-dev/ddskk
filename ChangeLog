@@ -1,3 +1,8 @@
+2010-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* experimental/skk-ja-names.el: Update.
+	* skk-vars.el (skk-previous-candidate-keys): Fix doc string.
+
 2010-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-previous-completion-use-backtab): Change default value.
