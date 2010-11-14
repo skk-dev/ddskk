@@ -21,6 +21,20 @@ GNU Emacs 20.x のサポートを打ち切りました。
 候補へ戻ることができます。この機能を無効とするには、
 変数 skk-previous-completion-use-backtab を nil としてください。
 
+* その他ばぐ修正など
+
+** emacsclient -nw 時におけるカーソル色制御の集成
+
+Emacs 23 では window-system 変数が frame local variable となり、また
+emacsclient で -nw オプションが追加されました。tty な frame と x な frame
+の共存が可能になったためカーソル色制御が乱れることがありましたが、
+関数 skk-find-window-system によって windw-system な frame を検出する
+ことで対処されました。
+
+** Cocoa Emacs 用にインストール先設定
+
+** ツールティップにおける改行位置の改善
+
 * 14.1
 
 ** 対応する Emacs のバージョン
