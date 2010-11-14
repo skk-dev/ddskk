@@ -21,7 +21,7 @@ GNU Emacs 20.x のサポートを打ち切りました。
 候補へ戻ることができます。この機能を無効とするには、
 変数 skk-previous-completion-use-backtab を nil としてください。
 
-* その他ばぐ修正など
+* その他バグ修正など
 
 ** emacsclient -nw 時におけるカーソル色制御の集成
 
