@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.529 2010/11/14 11:19:23 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.530 2010/11/14 12:39:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/14 11:19:23 $
+;; Last Modified: $Date: 2010/11/14 12:39:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -204,7 +204,7 @@ dependent."
     (run-hooks 'skk-auto-fill-mode-hook)))
 
 (defun skk-kill-emacs-without-saving-jisyo (&optional query)
-  "SKK $B<-=q$r%;!<%V$7$J$$$G!"(BEmacs $B$r=*N;$9$k!#(B"
+  "SKK $B<-=q$rJ]B8$;$:$K(B Emacs $B$r=*N;$9$k!#(B"
   (interactive "P")
   ;; format $B$r0z?t$K;}$?$;$?>l9g$O!"(Bskk-yes-or-no-p $B$r;H$&$H$+$($C$F>iD9$K$J(B
   ;; $B$k!#(B
@@ -223,7 +223,7 @@ dependent."
 
 (defun skk-restart ()
   "`skk-init-file' $B$N:F%m!<%I5Z$S3F<o:F@_Dj$N8e(B SKK $B%b!<%I$r5/F0$9$k!#(B
-$B0lC63F<o%f!<%6JQ?t$r=i4|2=$9$k$N$G!"(B.emacs $B$G(B SKK $B$N@_Dj$r$7$F$$$k>l9g$O(B
+$B3F<o%f!<%6JQ?t$r$$$C$?$s=i4|2=$9$k$N$G!"(B.emacs $B$G(B SKK $B$N@_Dj$r$7$F$$$k>l9g$O(B
 $B;H$&$Y$-$G$J$$!#(B
 `skk-kakutei-key' $B$NJQ99$K$OBP1~$G$-$F$$$J$$!#(B"
   (interactive)
@@ -585,7 +585,7 @@ dependent."
     (skk-mode-string-to-indicator mode string)))
 
 (defun skk-setup-modeline ()
-  "$B%b!<%I9T$X$N%9%F!<%?%9I=<($r=`Hw$9$k!#(B"
+  "$B%b!<%I%i%$%s$X$N%9%F!<%?%9I=<($r=`Hw$9$k!#(B"
   (setq skk-indicator-alist (skk-make-indicator-alist))
   (case skk-status-indicator
    (left
@@ -653,7 +653,7 @@ dependent."
    'skk-delete-backward-char))
 
 (defun skk-setup-undo ()
-  "$B!V$d$j$J$*$7!W7O$N%-!<$K%3%^%s%I(B `skk-undo' $B$r3dEv$F$k!#(B"
+  "$B!V$d$jD>$7!W7O$N%-!<$K%3%^%s%I(B `skk-undo' $B$r3dEv$F$k!#(B"
   (skk-setup-emulation-commands
   '(undo
     advertised-undo)
@@ -800,7 +800,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 			skk-rom-kana-rule-list))))))))
 
 (defun skk-setup-minibuffer ()
-  "$B%+%l%s%H%P%C%U%!$NF~NO%b!<%I$K=>$$%_%K%P%C%U%!$NF~NO%b!<%I$r@_Dj$9$k!#(B"
+  "$B%+%l%s%H%P%C%U%!$NF~NO%b!<%I$K=>$C$F%_%K%P%C%U%!$NF~NO%b!<%I$r@_Dj$9$k!#(B"
   (case skk-minibuffer-origin-mode
     (hiragana
      (skk-j-mode-on))
@@ -1144,19 +1144,19 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   ;;
   ;; $B=i4|>uBV(B($BLZ$N:,(B)$B$G(B `a' $B$rF~NO$9$k$H(B, $BLZ$N:,$+$i(B
   ;; $B!V$"!W$K0\F0$7$^$9(B. $B<!$K$I$N$h$&$JF~NO$,Mh$F$b(B,
-  ;; $B$=$l$h$j2<$K$?$I$l$J$$$N$G(B, $B!V$"!W$r=PNO$7$F:,$KLa$j$^$9(B.
+  ;; $B$=$l$h$j2<$KC)$l$J$$$N$G(B, $B!V$"!W$r=PNO$7$F:,$KLa$j$^$9(B.
   ;; $B%k!<%k$K<!>uBV$,@_Dj$5$l$F$$$k>l9g$O(B, $B@_Dj$5$l$F$$(B
   ;; $B$kJ8;zNs$r%-%e!<$KLa$7$F$+$i:,$KLa$j$^$9(B.
   ;;
   ;; $B=i4|>uBV$G(B `n' $B$rF~NO$9$k$H(B, $B!V$s!W$K0\F0$7$^$9(B.
-  ;; $B<!$K(B `a' $B$^$?$O(B `n' $B$,F~NO$5$l$l$P$=$l$h$j2<$K$?$I$l$k(B
+  ;; $B<!$K(B `a' $B$^$?$O(B `n' $B$,F~NO$5$l$l$P$=$l$h$j2<$KC)$l$k(B
   ;; $B$N$G<!$NF~NO$r8+$k$^$G$^$@=PNO$7$^$;$s(B.
-  ;; $B<!$K(B `t' $B$,F~NO$5$l$?>l9g$O(B, `t' $B$G$O2<$K$?$I$l$J$$$N$G(B,
+  ;; $B<!$K(B `t' $B$,F~NO$5$l$?>l9g$O(B, `t' $B$G$O2<$KC)$l$J$$$N$G(B,
   ;; $B!V$s!W$r=PNO$7$F(B `t' $B$r%-%e!<$KLa$7$^$9(B.
   ;;
   ;; $B$3$3$G(B, $B=i4|>uBV(B, $B8=>uBV$r$=$l$>$l(B skk-rule-tree,
   ;; skk-current-rule-tree $B$GI=$7(B.
-  ;; $BLZ$r2<$K$?$I$k(B, $B$H$$$&A`:n$O(B, skk-select-branch $B$r(B
+  ;; $BLZ$r2<$KC)$k(B, $B$H$$$&A`:n$O(B, skk-select-branch $B$r(B
   ;; $BMQ$$$F(B,
   ;;
   ;;   (skk-select-branch rule-tree ?a)
@@ -1293,9 +1293,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 ;;; tree procedure ($B%D%j!<$K%"%/%;%9$9$k$?$a$N%$%s%?!<%U%'!<%9(B)
 (defun skk-search-tree (tree char-list)
-  "TREE $B$N:,$+$i@hC<$X(B CHAR-LIST $B$K=>$C$F$?$I$k!#(B
-$B@.8y$7$?>l9g$O(B nil $B$H(B $B7k2L$NLZ$NAH$rJV$7(B, $B<:GT$7$?>l9g$O$?$I$l$J$+$C$?(B
-CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
+  "TREE $B$N:,$+$i@hC<$X(B CHAR-LIST $B$K=>$C$FC)$k!#(B
+$B@.8y$7$?>l9g$O(B nil $B$H(B $B7k2L$NLZ$NAH$rJV$7!"<:GT$7$?>l9g$OC)$l$J$+$C$?(B
+CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
   (catch 'return
     (let (next char rest)
       (while char-list
@@ -1404,16 +1404,16 @@ CHAR-LIST $B$N;D$j$H$?$I$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 (defun skk-ovwrt-len (len)
   "$B>e=q$-$7$FNI$$D9$5$rJV$9!#(B"
   (min (string-width
-	(buffer-substring-no-properties
-	 (point) (skk-save-point
-		  (end-of-line)
-		  (point))))
+	(buffer-substring-no-properties (point)
+					(skk-save-point (end-of-line)
+							(point))))
        len))
 
 (defun skk-del-char-with-pad (length)
   "$BD9$5(B LENGTH $B$NJ8;z$r>C5n$9$k!#(B
 $BD4@0$N$?$a!"I,MW$G$"$l$P!"KvHx$K%9%Z!<%9$rA^F~$9$k!#(B"
-  (let ((p (point)) (len 0))
+  (let ((p (point))
+	(len 0))
     (while (< len length)
       (forward-char 1)
       (setq len (string-width (buffer-substring-no-properties (point) p))))
