@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.528 2010/11/13 11:44:45 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.529 2010/11/14 11:19:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/13 11:44:45 $
+;; Last Modified: $Date: 2010/11/14 11:19:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1840,9 +1840,10 @@ CHAR-LIST の残りとたどれなくなった節点の木の組を返す。"
 	str))))
 
 (defun skk-multiple-line-string-width (str)
-  "複数行の中から最も長い行の文字数を返す。"
+  "改行文字で区切られた複数行の中から、文字数が最も長い行のコラム幅 (string-width) を返す。"
   (let ((max 0))
-    (while (and (not (equal str "")) (string-match "\n\\|$" str))
+    (while (and (not (equal str ""))
+		(string-match "\n\\|$" str))
       (setq max (max max (string-width (substring str 0 (match-beginning 0))))
 	    str (substring str (match-end 0))))
     max))
@@ -2079,6 +2080,14 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
        ((and window-system
 	     skk-show-tooltip
 	     (not (eq (symbol-function 'skk-tooltip-show-at-point) 'ignore)))
+	(when skk-henkan-rest-indicator
+	  (let* ((body (substring tooltip-str 0 (string-match "\\[残り" tooltip-str)))
+		 (rest (substring tooltip-str (- (length body) (length tooltip-str)))))
+	    (setq tooltip-str (concat body
+				      (make-string (- (car (skk-tooltip-max-tooltip-size))
+						      (string-width rest) 3)
+						   ? )
+				      rest))))
 	(funcall skk-tooltip-function tooltip-str))
 
        ;; (3) エコーエリアを使う

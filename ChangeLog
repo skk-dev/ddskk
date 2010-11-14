@@ -1,5 +1,8 @@
 2010-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk.el (skk-henkan-show-candidate-subr): ツールティップでも [残り99++] を
+	右寄せ表示可能とした。
+
 	* doc/skk.texi (skk-previous-candidate-keys): Add description.
 
 2010-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
