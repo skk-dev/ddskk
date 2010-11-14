@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.90
 @set SKK-VERSION 14.1.90
-@set UPDATED $Date: 2010/11/13 22:22:57 $
+@set UPDATED $Date: 2010/11/14 04:43:24 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1353,12 +1353,20 @@ A:嘘  S:拒  D:拠  F:虚  J:挙  K:許  L:渠
 $Bついては、@w{@ref{候補の選択に用いるキー}} を参照してください。
 
 @key{SPC} を連打してしまい求める候補を誤って通過してしまったときは 
-@kbd{x} をタイプすれば前候補/前候補群に戻ることができます
+@kbd{x} をタイプすれば前候補／前候補群に戻ることができます
 @footnote{@samp{x} は小文字で入力する必要があります}。
 
 候補を次々と探しても求める語がなければ、自動的に辞書登録モードになります
 (辞書登録モードは▼モードのサブモードです) 。
 @ref{辞書登録モード}にて説明します。
+
+@defvr {ユーザ変数} skk-previous-candidate-keys
+前候補／前候補群に戻る関数 @code{skk-previous-candidate} を割り当てるオブジェクト
+のリストを指定する。
+オブジェクトにはキーを表す文字列または event vector が指定できます。
+
+デフォルトは @code{(list "x" "\C-p")} です。
+@end defvr
 
 @node 送り仮名が有る場合
 @subsubsection 送り仮名が有る場合
