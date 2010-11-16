@@ -2,12 +2,16 @@
 
 	* skk-cus.el: Modify strings.
 
-2010-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2010-11-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skk-annotation-wikipedia-1): Update docstring.
 	* skk-kcode.el (skk-input-by-code-or-menu): Improve readability.
 	(skk-input-by-code-or-menu-jump, skk-input-by-code-or-menu-1):
 	Enable tooltip.  Improve readability.
 	* skk.el (skk-setup-keymap): Fix typo in "skk-abbrev-mode".
+	(skk-toggle-characters): Use `case'.
+	(skk-ovwrt-len, skk-kana-input, skk-jisx0208-latin-insert):
+	Improve readability.
 
 2010-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

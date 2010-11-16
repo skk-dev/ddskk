@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.531 2010/11/16 11:24:47 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.532 2010/11/16 15:18:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/16 11:24:47 $
+;; Last Modified: $Date: 2010/11/16 15:18:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -949,7 +949,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (interactive "P")
   (cond
    ((eq skk-henkan-mode 'on)
-    (let (char)
+    (let (char-type)
       (skk-save-point
        (goto-char skk-henkan-start-point)
        (while (and (>= skk-save-point (point))
@@ -957,16 +957,17 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		   (or
 		    ;; "$B!<(B" $B$G$OJ8;z<oJL$,H=JL$G$-$J$$$N$G!"%]%$%s%H$r?J$a$k!#(B
 		    (looking-at "$B!<(B")
-		    (eq 'unknown (setq char (skk-what-char-type)))))
+		    (eq 'unknown (setq char-type (skk-what-char-type)))))
 	 (forward-char 1)))
       (skk-henkan-skk-region-by-func
-       (cond ((eq char 'hiragana) #'skk-katakana-region)
-	     ((eq char 'katakana) #'skk-hiragana-region)
-	     ((eq char 'jisx0208-latin) #'skk-latin-region)
-	     ((eq char 'ascii) #'skk-jisx0208-latin-region))
+       (case char-type
+	 (hiragana #'skk-katakana-region)
+	 (katakana #'skk-hiragana-region)
+	 (jisx0208-latin #'skk-latin-region)
+	 (ascii #'skk-jisx0208-latin-region))
        ;; `skk-katakana-region' $B$N0z?t(B VCONTRACT $B$^$?$O(B
        ;; `skk-hiragana-region' $B$N0z?t(B VEXPAND $B$rM?$($k!#(B
-       (memq char '(hiragana katakana)))))
+       (memq char-type '(hiragana katakana)))))
    ((and (skk-in-minibuffer-p)
 	 (not skk-j-mode))
     ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
@@ -1174,10 +1175,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	    (setq skk-current-rule-tree skk-rule-tree))
 	(skk-erase-prefix))
       (setq skk-prefix (concat (skk-get-prefix skk-current-rule-tree)
-			       (skk-char-to-unibyte-string (skk-last-command-char))))
-      (let ((next (skk-select-branch
-		   skk-current-rule-tree
-		   (car queue)))
+			       (skk-char-to-unibyte-string
+				(skk-last-command-char))))
+      (let ((next (skk-select-branch skk-current-rule-tree (car queue)))
 	    data)
 	(cond
 	 (next
@@ -1277,10 +1277,11 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		(setq count0 (1- count0)))
 	      (when pair
 		(while (> count1 0)
-		  (if (not (string= pair (skk-char-to-unibyte-string (following-char))))
-		      (progn
-			(setq inserted (1+ inserted))
-			(skk-insert-str pair)))
+		  (unless (string= pair
+				   (skk-char-to-unibyte-string
+				    (following-char)))
+		    (setq inserted (1+ inserted))
+		    (skk-insert-str pair))
 		  (setq count1 (1- count1)))
 		(unless (= inserted 0)
 		  (backward-char inserted)))
@@ -1403,11 +1404,10 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 
 (defun skk-ovwrt-len (len)
   "$B>e=q$-$7$FNI$$D9$5$rJV$9!#(B"
-  (min (string-width
-	(buffer-substring-no-properties (point)
-					(skk-save-point (end-of-line)
-							(point))))
-       len))
+  (let* ((pt (skk-save-point (end-of-line) (point)))
+	 (str (buffer-substring-no-properties (point) pt))
+	 (width (string-width str)))
+  (min width len)))
 
 (defun skk-del-char-with-pad (length)
   "$BD9$5(B LENGTH $B$NJ8;z$r>C5n$9$k!#(B
@@ -1446,8 +1446,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 		 ;; $BA^F~$9$k$3$H$O$"$^$j$J$/!"LdBj$b>.$5$$$H9M$($i$l$k!#(B
 		 ;;skk-abbrev-comma
 		 ;;skk-abbrev-period
-		 self-insert-command
-		 )))
+		 self-insert-command)))
     (cancel-undo-boundary)
     (when (null skk-current-rule-tree)
       ;; $B$^$@$+$JJ8;z$,40@.$7$F$$$J$$$H$-$O!"(Bundo count $B$r%$%s%/%j%a%s%H(B
@@ -1475,7 +1474,8 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 				skk-henkan-end-point)
 			       (or (skk-okurigana-prefix
 				    (if skk-katakana
-					(skk-katakana-to-hiragana skk-henkan-okurigana)
+					(skk-katakana-to-hiragana
+					 skk-henkan-okurigana)
 				      skk-henkan-okurigana))
 				   skk-okuri-char))
 	skk-prefix "")
@@ -1576,18 +1576,19 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 
 (defun skk-jisx0208-latin-insert (arg)
   "$BA41QJ8;z$r%+%l%s%H%P%C%U%!$KA^F~$9$k!#(B
-`skk-jisx0208-latin-vector' $B$r%F!<%V%k$H$7$F!":G8e$KF~NO$5$l$?%-!<$KBP1~$9$kJ8(B
-$B;z$rA^F~$9$k!#(B
+`skk-jisx0208-latin-vector' $B$r%F!<%V%k$H$7$F!":G8e$KF~NO$5$l$?%-!<$KBP1~$9$k(B
+$BJ8;z$rA^F~$9$k!#(B
 `skk-auto-insert-paren' $B$NCM$,(B non-nil $B$N>l9g$G!"(B`skk-auto-paren-string-alist'
-$B$KBP1~$9$kJ8;zNs$,$"$k$H$-$O!"$=$NBP1~$9$kJ8;zNs(B ($B$+$C$3N`(B) $B$r<+F0E*$KA^F~$9$k!#(B"
+$B$KBP1~$9$kJ8;zNs$,$"$k$H$-$O!"$=$NBP1~$9$kJ8;zNs(B ($B$+$C$3N`(B) $B$r<+F0E*$KA^F~$9(B
+$B$k!#(B"
   (interactive "p")
   (barf-if-buffer-read-only)
   (skk-with-point-move
    (let* ((str (aref skk-jisx0208-latin-vector (skk-last-command-char)))
 	  (arg2 arg)
-	  (pair-str
-	   (and skk-auto-insert-paren
-		(cdr (assoc str skk-auto-paren-string-alist))))
+	  (pair-str (if skk-auto-insert-paren
+			(cdr (assoc str skk-auto-paren-string-alist))
+		      nil))
 	  (pair-str-inserted 0))
      (if (not str)
 	 (skk-emulate-original-map arg)
@@ -1646,8 +1647,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
        (skk-kakutei))
       ;; $BF~NOCf$N8+=P$78l$KBP$7$F$O(B delete-backward-char $B$G(B
       ;; $BI,$:A43QJ8;z(B 1$BJ8;zJ,(B backward $BJ}8~$KLa$C$?J}$,NI$$!#(B
-      ((and skk-henkan-mode
-	    overwrite-mode)
+      ((and skk-henkan-mode overwrite-mode)
        (backward-char count)
        (delete-char count arg))
       (t
@@ -1677,7 +1677,8 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 		     (<= prog-list-number 9))
 		(let ((list (symbol-value
 			     (intern
-			      (format "skk-search-prog-list-%d" prog-list-number)))))
+			      (format "skk-search-prog-list-%d"
+				      prog-list-number)))))
 		  (or list skk-search-prog-list)))
 	       (t
 		skk-search-prog-list))))
