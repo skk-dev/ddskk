@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.530 2010/11/14 12:39:39 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.531 2010/11/16 11:24:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/14 12:39:39 $
+;; Last Modified: $Date: 2010/11/16 11:24:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -369,7 +369,7 @@ dependent."
 	(skk-jisx0208-latin-mode
 	 (skk-define-jisx0208-latin-mode-map)
 	 (skk-setup-jisx0208-latin-mode-map-options))
-	(skk-abbrev-mode-map
+	(skk-abbrev-mode
 	 (skk-define-abbrev-mode-map)
 	 (skk-setup-abbrev-mode-map-options)))
   (skk-define-minibuffer-maps)
