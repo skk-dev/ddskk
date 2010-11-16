@@ -52,9 +52,9 @@
     (skk-japanese-message-and-error
      (const :tag "メッセージは日本語で通知する" t) "")
     (skk-verbose
-     (const :tag "ふつうより多くのメッセージを表示する" t) "")
+     (const :tag "助言的メッセージを表示する" t) "")
     (skk-show-japanese-menu
-     (const :tag "日本語メニューを使用する" t) "")
+     (const :tag "メニューバーを日本語で表示する" t) "")
     (skk-show-annotation
      (radio :tag "変換時に註釈を表示する？"
 	    (const :tag "常に表示" t)
