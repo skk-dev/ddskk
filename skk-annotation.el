@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.167 2010/09/26 04:23:13 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.168 2010/11/16 15:15:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/09/26 04:23:13 $
+;; Last Modified: $Date: 2010/11/16 15:15:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -924,7 +924,7 @@ no-previous-annotation $B$r;XDj$9$k$H(B \(C-u M-x skk-annotation-add $B$G;XDj
 (defun skk-annotation-wikipedia-1 (word source last)
   "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$r<B:]$K%@%&%s%m!<%I$7$FD4$Y$k!#(B
 $B3:Ev%Z!<%8(B (html) $B$r%@%&%s%m!<%I$9$k5!G=$O(B Emacs $B$KIUB0$N(B URL $B%Q%C%1!<%8$K0M(B
-$B$k!#E,@Z$J(B URL $B$r@8@.$9$k$?$a$K$O!"(B"
+$B$k!#(B"
   (require 'html2text)
   (require 'url)
   ;;
