@@ -59,14 +59,14 @@
 
 ;; Variables.
 
-(defcustom skk-nicola-interval 0.1 "\
-*この時間以内に打鍵されたものを同時打鍵と判定する。
+(defcustom skk-nicola-interval 0.1
+  "*この時間以内に打鍵されたものを同時打鍵と判定する。
 単位は秒。デフォルトは 0.1 秒。"
   :type 'number
   :group 'skk-nicola)
 
 (defcustom skk-nicola-latin-interval 0.1
-"*この時間以内に打鍵されたものを同時打鍵と判定する。
+  "*この時間以内に打鍵されたものを同時打鍵と判定する。
 単位は秒。デフォルトは 0.1 秒。"
   :type 'number
   :group 'skk-nicola)
@@ -102,12 +102,12 @@
   :group 'skk-nicola)
 
 (defcustom skk-nicola-use-lshift-as-space nil
-"*Non-nil であれば左親指キーもスペースキーとして利用する。"
+  "*Non-nil であれば左親指キーもスペースキーとして利用する。"
   :type 'boolean
   :group 'skk-nicola)
 
 (defcustom skk-nicola-lshift-function nil
-"*Non-nil であれば左親指キーを押したときにこの関数を実行する。"
+  "*Non-nil であれば左親指キーを押したときにこの関数を実行する。"
   :type 'function
   :group 'skk-nicola)
 

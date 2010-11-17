@@ -78,8 +78,8 @@
     ("A" nil skk-latin-mode)
     (":" nil skk-jisx0208-latin-mode)
     ("Q" nil skk-purge-from-jisyo)
-    ("J" nil skk-input-by-code-or-menu)) "\
-ANSI Dvorak 配列キーボードで omelet 入力するための基本ルール。")
+    ("J" nil skk-input-by-code-or-menu))
+  "ANSI Dvorak 配列キーボードで omelet 入力するための基本ルール。")
 
 (defconst skk-omelet-dvorak-keymap-display 'dummy "\
 以下は、ANSI Dvorak 配列キーボードで omelet 入力するためのキー配列図です。
@@ -142,8 +142,8 @@ ANSI Dvorak 配列キーボードで omelet 入力するための基本ルール。")
     (?b ("メ" . "め")) (?m ("ソ" . "そ")) (?w ("ネ" . "ね")) (?v ("ホ" . "ほ"))
     (?z "・")
     ;;
-    (?\  " ")) "\
-単独打鍵時の入力ルール。")
+    (?\  " "))
+  "単独打鍵時の入力ルール。")
 
 (defvar skk-omelet-dvorak-rshift-rule-list
   '((?` ("ヵ" . "￣"))
@@ -171,8 +171,8 @@ ANSI Dvorak 配列キーボードで omelet 入力するための基本ルール。")
     (?b ("ヌ" . "ぬ")) (?m ("ユ" . "ゆ")) (?w ("ム" . "む")) (?v ("ワ" . "わ"))
     (?z ("ォ" . "ぉ"))
     ;;
-    (?\  " ")) "\
-右親指キーが押されたときの入力ルール。")
+    (?\  " "))
+  "右親指キーが押されたときの入力ルール。")
 
 (defvar skk-omelet-dvorak-lshift-rule-list
   '((?` "￣")
@@ -200,11 +200,11 @@ ANSI Dvorak 配列キーボードで omelet 入力するための基本ルール。")
     (?b ("プ" . "ぷ")) (?m ("ゾ" . "ぞ")) (?w ("ペ" . "ぺ")) (?v ("ボ" . "ぼ"))
     (?z ("ヮ" . "ゎ"))
     ;;
-    (?\  " ")) "\
-左親指キーが押されたときの入力ルール。")
+    (?\  " "))
+  "左親指キーが押されたときの入力ルール。")
 
 (require 'skk-nicola)
 
 (provide 'skk-omelet-dvorak)
 
-;;; skk-omelet.el ends here
+;;; skk-omelet-dvorak.el ends here
