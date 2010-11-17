@@ -180,90 +180,90 @@
 *このキーを押すことで変換開始位置を設定する。
 変換開始位置の設定は仮名を入力する前におこなっても、 入力し終わった後でおこなっ
 ても構わない。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-abbrev-mode-key [f6] "\
 *このキーを押すことで abbrev モードに入る。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-katakana-mode-key [f7] "\
 *このキーを押すことでカナモードとかなモードを切りかえる。
 変換開始位置の設定後に押すことで対象文字列をカナに変換することもできる。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-latin-jisx0208-mode-key [f8] "\
 *このキーを押すことで全角英数モードに入る。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-hankaku-mode-key [f9] "\
 *このキーを押すことで半角カナモードに切りかえる。
 変換開始位置の設定後に押すことで対象文字列を半角カナに変換することもできる。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-latin-mode-key [f10] "\
 *このキーを押すことで latin モードに入る。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-toggle-rom-kana-key [f12] "\
 *このキーを押すことで ローマ字入力 ⇔ 仮名入力の切り替えができる。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-code-input-key [f5] "\
 *このキーを押すことでコード入力ができる。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-midashi-henkan-key [f3] "\
 *このキーを押すことで接頭辞または接尾辞変換をする。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-help-key "1" "\
 *\\[help] においてヘルプを表示するキー。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-previous-candidate-key "\C-p"
   "*前候補を表示するためのキー。
 XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では [henkan-mode])
 にすれば、日本語キーボードの [前候補] キーに割り当てることができる。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-start-henkan-key " " "\
 *変換を開始するためのキー。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-rule-list
