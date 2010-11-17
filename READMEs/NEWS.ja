@@ -1,10 +1,18 @@
 * 14.2
 
-** GNU Emacs 22.x $B5Z$S(B GNU Emacs 23.x
-APEL $B$OITMW$G$9!#(B
+** GNU Emacs 22.x $B5Z$S(B 23.x $BMxMQ;~$N(B APEL $B0MB8@-$N8+D>$7(B
 
-** GNU Emacs 21.x $B5Z$S(B XEmacs
-$B$3$l$^$G$I$*$j!"(BAPEL (10.8 $B0J>e$r?d>)(B) $B$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
+$B$3$l$i$N(B Emacs $B$G(B DDSKK 14.2 $B$r;H$&:]!"(BAPEL $B$rJLES%$%s%9%H!<%k$9$kI,MW(B
+$B$,$J$/$J$j$^$7$?!#I,MW$J%3!<%I$,0JA0$h$j>.$5$/$J$C$?$?$a!"(Bskk-macs.el
+$B$J$I$K4^$a$F$"$j$^$9!#(B
+
+GNU Emacs 21.x $B5Z$S(B XEmacs $B$G$3$l$^$G$I$*$j!"(BAPEL (10.8 $B0J>e$r?d>)(B) $B$r(B
+$B%$%s%9%H!<%k$7$F$/$@$5$$!#(B
+
+** skk-obsolete.el $B$NGQ;_(B
+
+$B$3$l$O<g$K(B DDSKK $B$X$N0\9T4|$N%f!<%6;Y1g$,L\E*$G$7$?$,!"$=$NLrL\$r$$$A(B
+$B$*$&=*$($?$H9M$(!"$$$C$?$sGQ;_$H$7$^$7$?!#(B
 
 ** $B8E$$(B Emacsen $B$N%5%]!<%H=*N;(B
 
@@ -17,13 +25,14 @@ GNU Emacs 20.x $B$N%5%]!<%H$rBG$A@Z$j$^$7$?!#(B
 $B$NI=<($r%D!<%k%F%#%C%W2=$7$^$7$?!#(B
 
 ** $B8+=P$78l$NJd40(B
+
 $B8+=P$78l$rJd40!J"&%b!<%I$G(B TAB$B!K$7$?$H$-!"(BSHIFT + TAB $B$G$R$H$DA0$NJd40(B
 $B8uJd$XLa$k$3$H$,$G$-$^$9!#$3$N5!G=$rL58z$H$9$k$K$O!"(B
 $BJQ?t(B skk-previous-completion-use-backtab $B$r(B nil $B$H$7$F$/$@$5$$!#(B
 
-* $B$=$NB>%P%0=$@5$J$I(B
+** $B$=$NB>%P%0=$@5$J$I(B
 
-** emacsclient -nw $B;~$K$*$1$k%+!<%=%k?'@)8f$N=8@.(B
+*** emacsclient -nw $B;~$K$*$1$k%+!<%=%k?'@)8f$N=$@5(B
 
 Emacs 23 $B$G$O(B window-system $BJQ?t$,(B frame local variable $B$H$J$j!"$^$?(B
 emacsclient $B$G(B -nw $B%*%W%7%g%s$,DI2C$5$l$^$7$?!#(Btty $B$J(B frame $B$H(B x $B$J(B frame
@@ -31,9 +40,9 @@ emacsclient $B$G(B -nw $B%*%W%7%g%s$,DI2C$5$l$^$7$?!#(Btty $B$J(B frame $
 $B4X?t(B skk-find-window-system $B$K$h$C$F(B windw-system $B$J(B frame $B$r8!=P$9$k(B
 $B$3$H$GBP=h$5$l$^$7$?!#(B
 
-** Cocoa Emacs $BMQ$K%$%s%9%H!<%k@h@_Dj(B
+*** Cocoa Emacs $BMQ$K%$%s%9%H!<%k@h@_Dj(B
 
-** $B%D!<%k%F%#%C%W$K$*$1$k2~9T0LCV$N2~A1(B
+*** $B%D!<%k%F%#%C%W$K$*$1$k2~9T0LCV$N2~A1(B
 
 * 14.1
 
