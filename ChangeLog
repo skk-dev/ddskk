@@ -2,6 +2,11 @@
 
 	* skk-tankan.el (skk-tankan): Modify the interactive spec.
 
+2010-11-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-isearch.el: Sort isearch-commands (at the last part of the
+	file).
+
 2010-11-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-cus.el: Modify strings.
