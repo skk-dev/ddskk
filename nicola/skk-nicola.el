@@ -65,8 +65,8 @@
   :type 'number
   :group 'skk-nicola)
 
-(defcustom skk-nicola-latin-interval 0.1 "\
-*この時間以内に打鍵されたものを同時打鍵と判定する。
+(defcustom skk-nicola-latin-interval 0.1
+"*この時間以内に打鍵されたものを同時打鍵と判定する。
 単位は秒。デフォルトは 0.1 秒。"
   :type 'number
   :group 'skk-nicola)
@@ -78,12 +78,11 @@
 	 (t
 	  ;; XEmacs, Emacs 19 or later
 	  ;; (except Emacs 20.1 & 20.2)
-	  [muhenkan]))) "\
-*左親指キーとして使うキー。"
-  :type `(repeat
-	  ,(if (get 'key-sequence 'widget-type)
-	       'key-sequence
-	     'sexp))
+	  [muhenkan])))
+  "*左親指キーとして使うキー。"
+  :type (if (get 'key-sequence 'widget-type)
+	    '(repeat key-sequence)
+	  '(repeat sexp))
   :group 'skk-nicola)
 
 (defcustom skk-nicola-rshift-keys
@@ -95,21 +94,20 @@
 		  [henkan-mode])
 		 (t
 		  ;; Emacs 20.3 or later
-		  [henkan])))) "\
-*右親指キーとして使うキー。"
-  :type `(repeat
-	  ,(if (get 'key-sequence 'widget-type)
-	       'key-sequence
-	     'sexp))
+		  [henkan]))))
+  "*右親指キーとして使うキー。"
+  :type (if (get 'key-sequence 'widget-type)
+	    '(repeat key-sequence)
+	  '(repeat sexp))
   :group 'skk-nicola)
 
-(defcustom skk-nicola-use-lshift-as-space nil "\
-*Non-nil であれば左親指キーもスペースキーとして利用する。"
+(defcustom skk-nicola-use-lshift-as-space nil
+"*Non-nil であれば左親指キーもスペースキーとして利用する。"
   :type 'boolean
   :group 'skk-nicola)
 
-(defcustom skk-nicola-lshift-function nil "\
-*Non-nil であれば左親指キーを押したときにこの関数を実行する。"
+(defcustom skk-nicola-lshift-function nil
+"*Non-nil であれば左親指キーを押したときにこの関数を実行する。"
   :type 'function
   :group 'skk-nicola)
 
@@ -120,8 +118,7 @@
 	 '(?u ?h))
 	(t
 	 '(?f ?j)))
-  "\
-*変換開始位置もしくは送り開始位置の指定をする文字。
+  "*変換開始位置もしくは送り開始位置の指定をする文字。
 これらの文字に当たるキーの同時打鍵を検出すると、 実行される。"
   :type '(repeat character)
   :group 'skk-nicola)
@@ -133,8 +130,7 @@
 	 '(?e ?t))
 	(t
 	 '(?d ?k)))
-  "\
-*カナ変換または カナ ⇔ かな 切り替えをする文字。
+  "*カナ変換または カナ ⇔ かな 切り替えをする文字。
 これらの文字に当たるキーの同時打鍵を検出すると、 実行される。"
   :type '(repeat character)
   :group 'skk-nicola)
@@ -145,8 +141,7 @@
 	 t)
 	(t
 	 nil))
-  "\
-*Non-nil なら OASYS 風の BS キーと取り消しキーを用意する。
+  "*Non-nil なら OASYS 風の BS キーと取り消しキーを用意する。
 これは、JIS キーボードでは \":\" と \"]\" の位置に相当する。"
   :type 'boolean
   :group 'skk-nicola)
@@ -158,47 +153,44 @@
 	 '(?i ?d))
 	(t
 	 '(?g ?h)))
-  "\
-*接頭・接尾語入力をしたり、 abbrev モードに入る文字。
+  "*接頭・接尾語入力をしたり、 abbrev モードに入る文字。
 これらの文字に当たるキーの同時打鍵を検出すると、 実行される。"
   :type '(repeat character)
   :group 'skk-nicola)
 
-(defcustom skk-nicola-okuri-style 'nicola-skk "\
-*送り仮名のスタイル。
+(defcustom skk-nicola-okuri-style 'nicola-skk
+  "*送り仮名のスタイル。
 `nicola-skk' を選ぶと、「▽し*っ ⇒ ▼知っ」のように変換する。
 `skk' を選ぶと、「▽し*って ⇒ ▼知って」のように変換する。"
   :type '(choice (const nicola-skk)
 		 (const skk))
   :group 'skk-nicola)
 
-(defcustom skk-nicola-help-key "2" "\
-* \\[help] においてヘルプを表示するキー。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+(defcustom skk-nicola-help-key "2"
+  "* \\[help] においてヘルプを表示するキー。"
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-nicola)
 
-(defcustom skk-nicola-2nd-help-key "3" "\
-* \\[help] においてもうひとつのヘルプを表示するキー。"
-  :type `,(if (get 'key-sequence 'widget-type)
-	      'key-sequence
-	    'sexp)
+(defcustom skk-nicola-2nd-help-key "3"
+  "* \\[help] においてもうひとつのヘルプを表示するキー。"
+  :type (if (get 'key-sequence 'widget-type)
+	    'key-sequence
+	  'sexp)
   :group 'skk-nicola)
 
 (defcustom skk-nicola-hiragana-mode-string
   (cond ((eq skk-status-indicator 'left) "にこら:")
 	(t " にこら"))
-  "\
-*ひらがなモードのインジケータ。"
+  "*ひらがなモードのインジケータ。"
   :type 'string
   :group 'skk-nicola)
 
 (defcustom skk-nicola-katakana-mode-string
   (cond ((eq skk-status-indicator 'left) "ニコラ:")
 	(t " ニコラ"))
-  "\
-*カタカナモードのインジケータ。"
+  "*カタカナモードのインジケータ。"
   :type 'string
   :group 'skk-nicola)
 
