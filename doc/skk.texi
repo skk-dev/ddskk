@@ -31,7 +31,7 @@
 @c
 @set EDITION 14.1.90
 @set SKK-VERSION 14.1.90
-@set UPDATED $Date: 2010/11/14 04:43:24 $
+@set UPDATED $Date: 2010/11/18 11:07:58 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -885,6 +885,14 @@ Window System 下で対応する Emacs を使用している場合。
 ています。そのため、Emacs の起動そのものは遅くなりますが、DDSKK を使い始
 めるときのレスポンスが軽快になります。
 @end defvr
+
+@findex skk-restart
+@defun {コマンド} skk-restart
+
+@code{M-x skk-restart} と実行すると SKK を再起動します。
+@file{~/.skk} は再ロードしますが、@file{~/.emacs} は再ロードしません。
+
+@end defun
 
 @menu
 * SKKオートフィルモード::

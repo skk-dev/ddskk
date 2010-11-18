@@ -1,8 +1,12 @@
 2010-11-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk.el (skk-restart): little modify docstring.
+
 	* skk-vars.el (skk-menu-items): Add menu item "Restart SKK".
 
 	* skk-emacs.el (skk-emacs-menu-resource-ja): Ditto.
+
+	* doc/skk.texi (skk-restart): Add description.
 
 	* skk-tankan.el (skk-tankan): Modify the interactive spec.
 

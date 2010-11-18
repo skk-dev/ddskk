@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.532 2010/11/16 15:18:04 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.533 2010/11/18 11:07:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/16 15:18:04 $
+;; Last Modified: $Date: 2010/11/18 11:07:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -223,7 +223,7 @@ dependent."
 
 (defun skk-restart ()
   "`skk-init-file' の再ロード及び各種再設定の後 SKK モードを起動する。
-各種ユーザ変数をいったん初期化するので、.emacs で SKK の設定をしている場合は
+各種ユーザ変数をいったん初期化するので、~/.emacs で SKK の設定をしている場合は
 使うべきでない。
 `skk-kakutei-key' の変更には対応できていない。"
   (interactive)
