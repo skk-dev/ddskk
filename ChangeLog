@@ -1,5 +1,9 @@
 2010-11-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-menu-items): Add menu item "Restart SKK".
+
+	* skk-emacs.el (skk-emacs-menu-resource-ja): Ditto.
+
 	* skk-tankan.el (skk-tankan): Modify the interactive spec.
 
 2010-11-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
