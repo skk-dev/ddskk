@@ -1,3 +1,8 @@
+2010-11-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to
+	14.1.91.
+
 2010-11-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-restart): little modify docstring.

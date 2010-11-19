@@ -29,9 +29,8 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set EDITION 14.1.90
-@set SKK-VERSION 14.1.90
-@set UPDATED $Date: 2010/11/18 11:07:58 $
+@set SKK-VERSION 14.1.91
+@set UPDATED $Date: 2010/11/19 16:13:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -89,7 +88,7 @@ by the author.
 @sp 10
 @comment The title is printed in a large font.
 @title SKK Manual
-@subtitle Edition @value{EDITION} for SKK Version @value{SKK-VERSION}
+@subtitle This edition is for SKK version @value{SKK-VERSION}
 @c @subtitle @value{UPDATED-MONTH}
 @subtitle @value{UPDATED}
 
@@ -123,9 +122,8 @@ approved by the author.
 @node Top
 @top SKK
 
-これは @cite{SKK マニュアル} 第 @value{EDITION} 版です。
-SKK のバージョン @value{SKK-VERSION} に対応しています。
-
+この @cite{SKK マニュアル} は SKK のバージョン @value{SKK-VERSION} に対
+応しています。
 
 @menu
 * はじめに::
