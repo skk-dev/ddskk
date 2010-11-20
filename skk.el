@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.533 2010/11/18 11:07:58 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.534 2010/11/20 22:10:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/18 11:07:58 $
+;; Last Modified: $Date: 2010/11/20 22:10:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1553,7 +1553,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
   (self-insert-command arg))
 
 (defun skk-abbrev-period (arg)
-  "SKK abbrev モードで見出しの補完中であれば、次の候補を表示する。
+  "SKK abbrev モードで見出し語の補完中であれば、次の候補を表示する。
 補完の直後でなければ、オリジナルのキー割り付けのコマンドをエミュレートする。"
   (interactive "*P")
   (skk-with-point-move
@@ -1564,7 +1564,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
      (skk-emulate-original-map arg))))
 
 (defun skk-abbrev-comma (arg)
-  "SKK abbrev モードで見出しの補完中であれば、直前の候補を表示する。
+  "SKK abbrev モードで見出し語の補完中であれば、直前の候補を表示する。
 補完の直後でなければ、オリジナルのキー割り付けのコマンドをエミュレートする。"
   (interactive "*P")
   (skk-with-point-move
@@ -2224,9 +2224,8 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	(forward-line 1))
       ;; [残り 99++] を右端へ
       (if skk-henkan-rest-indicator
-	  (let (col)
-	    (goto-char (point-max))
-	    (setq col (skk-screen-column))
+	  (let ((col (progn (goto-char (point-max))
+			    (skk-screen-column))))
 	    (beginning-of-line)
 	    (insert-char 32 (- (frame-width) col 1))))
       (goto-char (point-min)))

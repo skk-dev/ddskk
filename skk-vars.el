@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.334 2010/11/18 10:48:55 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.335 2010/11/20 22:10:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/18 10:48:55 $
+;; Last Modified: $Date: 2010/11/20 22:10:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1776,17 +1776,17 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
   :group 'skk-visual)
 
 (defcustom skk-latin-mode-string "SKK"
-  "*SKK $B$,(B latin (ascii) $B%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
+  "*SKK $B$,%"%9%-!<%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-visual)
 
 (defcustom skk-hiragana-mode-string "$B$+$J(B"
-  "*$B$R$i$,$J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
+  "*$B$+$J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-visual)
 
 (defcustom skk-katakana-mode-string "$B%+%J(B"
-  "*$B%+%?%+%J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
+  "*$B%+%J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-visual)
 
@@ -2154,7 +2154,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 (defvar skk-inline-overlays nil)
 
 (defvar skk-latin-mode-map nil
-  "*ASCII $B%b!<%I$N%-!<%^%C%W!#(B")
+  "*$B%"%9%-!<%b!<%I$N%-!<%^%C%W!#(B")
 (defvar skk-j-mode-map nil
   "*$B$+$J%b!<%I$N%-!<%^%C%W!#(B")
 (defvar skk-jisx0208-latin-mode-map nil
@@ -2363,7 +2363,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$r<($9!#(B")
 
 (skk-deflocalvar skk-latin-mode nil
-  "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,(B ASCII $B%b!<%I$G$"$k$3$H$r<($9!#(B")
+  "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,%"%9%-!<%b!<%I$G$"$k$3$H$r<($9!#(B")
 
 (skk-deflocalvar skk-j-mode nil
   "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,$+$J!&%+%J%b!<%I$G$"$k$3$H$r<($9!#(B")
@@ -2458,7 +2458,7 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$
     (((class color) (background dark))
      (:foreground "green"))
     (((class grayscale)) (:underline t)))
-  "*$B%+%?%+%J%b!<%I$N%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
+  "*$B%+%J%b!<%I$N%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
   :group 'skk-visual)
 
 (defface skk-prefix-jisx0201-face
@@ -3224,7 +3224,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
 (defcustom skk-cursor-katakana-color (if (eq skk-background-mode 'light)
 					 "forestgreen"
 				       "green")
-  "*$B%+%?%+%J%b!<%I$r<($9%+!<%=%k?'!#(B
+  "*$B%+%J%b!<%I$r<($9%+!<%=%k?'!#(B
 `skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
   :type 'string
   :group 'skk-cursor)
@@ -3546,8 +3546,8 @@ isearch $B$r9T$&>l9g!">o$K$3$NJQ?t$G;XDj$7$?F~NO%b!<%I$,;HMQ$5$l$k(B ($B%f!<%
   ;;skk is turned off in the current buffer."
   "*SKK $B%b!<%I$,%*%U$N%P%C%U%!$G!":G=i$K(B isearch $B$r9T$&:]$NF~NO%b!<%I!#(B"
   :type '(radio (const :tag "$B%"%9%-!<%b!<%I(B" latin)
-		(const :tag "$B$R$i$,$J%b!<%I(B" hiragana)
-		(const :tag "$BA43Q1Q?t%b!<%I(B" jisx0208-latin))
+		(const :tag "$B$+$J%b!<%I(B" hiragana)
+		(const :tag "$BA41Q%b!<%I(B" jisx0208-latin))
   :group 'skk-isearch)
 
 (defcustom skk-isearch-whitespace-regexp "\\(\\s \\|[ \t\n\r\f]\\)*"

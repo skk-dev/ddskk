@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/20 02:53:30 $
+@set UPDATED $Date: 2010/11/20 22:10:38 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5348,25 +5348,27 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 @node $B<+F0JQ493+;O(B
 @subsection $B<+F0JQ493+;O(B
 
-$B"&%b!<%I$G8+=P$78l$NF~NOCf$K!"!V$r!W$d!V!#!W$J$I$NJ8;z$r(B
-$BBG80$9$k$H!"(B@footnote{$B"&%^!<%/$+$i%]%$%s%H$ND>A0$NJ8;z$^$G$r8+=P$78l$H$7$^$9!#:G8e$KF~NO$5$l$?(B
-$BJ8;z$O8+=P$78l$K$O4^$^$l$^$;$s!#(B}@key{SPC}
-$B$r2!$7$?$+$N$h$&$KJQ49$r3+;O$7!""'%b!<%I$KF~$k$h$&$K$J$C$F(B
-$B$$$^$9!#(B@footnote{$BK?%a!<%+!<$N(B MS-DOS $B>e$N(B FEP $B$N;EMM$r;29M$K$7$F$$$^$9!#(B}
+$B"&%b!<%I$G8+=P$78l$NF~NOCf$K!V$r!W$d!V!#!W$J$I$NJ8;z$r(B
+$BBG80$9$k$H!"(B@key{SPC} $B$r2!$7$?$+$N$h$&$KJQ49$r3+;O(B
+@footnote{$B"&%^!<%/$+$i%]%$%s%H$ND>A0$NJ8;z$^$G$r8+=P$78l$H$7$^$9!#:G8e$KF~NO$5$l$?(B
+$BJ8;z$O8+=P$78l$K$O4^$^$l$^$;$s!#(B}
+$B$7!""'%b!<%I$KF~$k$h$&$K$J$C$F(B
+$B$$$^$9(B@footnote{$BK?%a!<%+!<$N(B MS-DOS $B>e$N(B FEP $B$N;EMM$r;29M$K$7$F$$$^$9!#(B}$B!#(B
 
 @example
 @kbd{K a n j i}
 
 @group
 ------ Buffer: foo ------
-$B"&$+$s$8(B
+$B"&$+$s$8(B@point{}
 ------ Buffer: foo ------
 @end group
+
 @group
 
 @kbd{w o}
 ------ Buffer: foo ------
-$B"'4A;z$r(B
+$B"'4A;z$r(B@point{}
 ------ Buffer: foo ------
 @end group
 @end example
@@ -8124,8 +8126,8 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
 (setq skk-henkan-face 'RosyBrown1)
 @end lisp
 
-$B$3$N>l9g!"A07J?'$O(B RosyBrown1 $B$K$J$j$^$9!#GX7J?'$O$b$A$^$;$s!#$D$^$j!"%P%C(B
-$B%U%!$NGX7J?'$,$=$N$^$^8+$($^$9!#(B
+$B$3$N>l9g!"A07J?'$O(B RosyBrown1 $B$K$J$j$^$9!#GX7J?'$,L5;XDj$N>l9g$O%P%C%U%!(B
+$B$NGX7J?'$,$=$N$^$^8+$($^$9!#(B
 @end defun
 
 @node $BJQ498uJd$N99$J$kAu>~(B
@@ -8205,19 +8207,18 @@ XEmacs $B5Z$S(B Emacs 21 $B0J9_$G$O0J2<$N5!G=$,;HMQ$G$-$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-indicator-use-cursor-color
 
-DDSKK $B$N%$%s%8%1!<%?$r%b!<%I%i%$%s$N:8$KI=<($7$F$$$k>l9g!"(B@footnote{$B%G%U%)%k%H$G$O!":8$G$9!#(B@w{@xref{$B5/F0$H=*N;(B}.}}
-$B%$%s%8%1!<%?$N?'$,%+!<%=%k$N?'$HF14|$7$^$9!#$^$?!"%^%&%9%]%$%s%?$r%$%s%8(B
-$B%1!<%?>e$KCV$$$FBh#2%\%?%s$r%/%j%C%/(B($B1&%/%j%C%/(B) $B$9$k$H%]%C%W%"%C%W%a%K%e!<(B
-$B$,I=<($5$l$^$9!#(B
-
+DDSKK $B$N%$%s%8%1!<%?$r%b!<%I%i%$%s$N:8$KI=<((B
+@footnote{$B%G%U%)%k%H$G$O!":8$G$9!#(B@w{@xref{$B5/F0$H=*N;(B}.}}
+$B$7$F$$$k>l9g!"%$%s%8%1!<%?$N?'$,%+!<%=%k$N?'$HF14|$7$^$9!#(B
 $B%$%s%8%1!<%?$K?'$rIU$1$?$/$J$$>l9g$O!"$3$NJQ?t$r(B @code{nil} $B$K$7$^$9!#(B
+
 @end defvr
 
 $B%$%s%8%1!<%?$KFH<+?'$r;H$$$?$$>l9g$O!"0J2<$N%U%'%$%9(B@footnote{
 $BJQ?t(B @code{window-system} $B$,(B @code{nil} $B$N>l9g$O!"$3$l$i%U%'%$%9$OL$Dj5A$H(B
 $B$J$j$^$9!#(B} $B$r@_Dj$7$^$9!#$3$N>l9g%+!<%=%k$N?'$O;2>H$5$l$^$;$s!#(B
 
-Emacs 21 $B0J>e(B @footnote{$BJQ?t(B @code{mule-version} $B$NCM$,(B ``5.0'' $B0J>e$N(B Emacs} $B$N>l9g(B
+Emacs 21 $B0J>e(B @footnote{$BJQ?t(B @code{mule-version} $B$NCM$,(B 5.0 $B0J>e$N(B Emacs} $B$N>l9g(B
 
 @vindex skk-emacs-hiragana-face
 @vindex skk-emacs-katakana-face
@@ -8250,6 +8251,8 @@ XEmacs $B$N>l9g(B
 @item @code{skk-xemacs-jisx0201-face}
 @item @code{skk-xemacs-abbrev-face}
 @end itemize
+
+$B$J$*!"%$%s%8%1!<%?$r1&%/%j%C%/$9$k$H%]%C%W%"%C%W%a%K%e!<$,I=<($5$l$^$9!#(B
 
 @node $B%"%$%3%s(B
 @subsubsection $B%"%$%3%s(B
