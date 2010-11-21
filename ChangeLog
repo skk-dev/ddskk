@@ -1,6 +1,8 @@
 2010-11-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-henkan-show-candidates-buffer): little modify.
+	(skk-undo-kakutei): skk-mode ではないときに確定アンドゥを実行した場合、
+	確定アンドゥの本処理の前に skk-j-mode-on を追加した。[skk 7319]。
 
 	* skk-vars.el: Update docstring.
 

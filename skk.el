@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.534 2010/11/20 22:10:37 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.535 2010/11/21 06:25:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/20 22:10:37 $
+;; Last Modified: $Date: 2010/11/21 06:25:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2903,6 +2903,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	  ;; skk-henkan-key may be nil or "".
 	  (skk-error "$B%"%s%I%%%G!<%?$,$"$j$^$;$s(B"
 		     "Lost undo data")))
+   (skk-j-mode-on)			; [skk 7319] $BBP:v(B
    (condition-case nil
        (skk-undo-kakutei-subr)
      ;; skk-undo-kakutei $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F$*$+$J$$(B
