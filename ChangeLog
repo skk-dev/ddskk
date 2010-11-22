@@ -1,3 +1,13 @@
+2010-11-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-undo-kakutei): Do not call `skk-j-mode-on' here.
+	(skk-undo-kakutei-subr): Call `skk-j-mode-on' when skk-mode is
+	nil.
+	(skk-kakutei): Call `skk-j-mode-on' when
+	skk-undo-kakutei-prev-state indicates that the previous state was
+	skk-j-mode.  This is needed for the kakutei after user returns to
+	skk-abbrev-mode with M-x skk-undo-kakutei.
+
 2010-11-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

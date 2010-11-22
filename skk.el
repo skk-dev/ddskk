@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.535 2010/11/21 06:25:50 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.536 2010/11/22 17:44:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/21 06:25:50 $
+;; Last Modified: $Date: 2010/11/22 17:44:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2786,26 +2786,26 @@ WORD $B$G3NDj$9$k!#(B"
 		      0))))
     (setq skk-undo-kakutei-previous-point nil
 	  skk-undo-kakutei-previous-length nil)
-    (if skk-mode
-	(if skk-undo-kakutei-prev-state
-	    (progn
-	      (cond ((cdr (assq 'skk-latin-mode skk-undo-kakutei-prev-state))
-		     (skk-latin-mode-on))
-		    ((cdr (assq 'skk-jisx0208-latin-mode skk-undo-kakutei-prev-state))
-		     (skk-jisx0208-latin-mode-on))
-		    ;; skk-mode $B$,%*%U$N>uBV$KLa$=$&$H$9$k$H(B
-		    ;; `skk-mode-exit' $BFb$G:FEY(B `skk-kakutei' $B$r8F$V$?(B
-		    ;; $B$aL58B%k!<%W$K$J$C$F$7$^$&(B
-;;		    ((not (cdr (assq 'skk-mode skk-undo-kakutei-prev-state)))
-;;		     (skk-mode -1))
-		    )
-	      (setq skk-undo-kakutei-prev-state nil))
-	  (unless (or skk-j-mode
-		      skk-jisx0201-mode)
-	    (skk-j-mode-on skk-katakana)))
-      ;; $B%+%l%s%H%P%C%U%!$G$^$@(B skk-mode $B$,(B
-      ;; $B%3!<%k$5$l$F$$$J$+$C$?$i!"%3!<%k$9$k!#(B
-      (skk-mode 1)))
+    (cond
+     ((not skk-mode)
+       (skk-mode 1))
+     (skk-undo-kakutei-prev-state
+      (cond ((cdr (assq 'skk-latin-mode skk-undo-kakutei-prev-state))
+	     (skk-latin-mode-on))
+	    ((cdr (assq 'skk-jisx0208-latin-mode skk-undo-kakutei-prev-state))
+	     (skk-jisx0208-latin-mode-on))
+	    ;; skk-mode $B$,%*%U$N>uBV$KLa$=$&$H$9$k$H(B
+	    ;; `skk-mode-exit' $BFb$G:FEY(B `skk-kakutei' $B$r8F$V$?(B
+	    ;; $B$aL58B%k!<%W$K$J$C$F$7$^$&(B
+;;	    ((not (cdr (assq 'skk-mode skk-undo-kakutei-prev-state)))
+;;	     (skk-mode -1))
+	    ((cdr (assq 'skk-j-mode skk-undo-kakutei-prev-state))
+	     ;; M-x skk-undo-kakutei $B$G(B skk-abbrev-mode $B$KLa$C$?:]!"(B
+	     ;; $B3NDj8e$K(B skk-j-mode $B$KLa$k$?$a$K$O0J2<$,I,MW!#(B
+	     (skk-j-mode-on skk-katakana)))
+      (setq skk-undo-kakutei-prev-state nil))
+     ((not (or skk-j-mode skk-jisx0201-mode))
+      (skk-j-mode-on skk-katakana))))
   nil)
 
 (defun skk-update-jisyo-p (word)
@@ -2903,7 +2903,6 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	  ;; skk-henkan-key may be nil or "".
 	  (skk-error "$B%"%s%I%%%G!<%?$,$"$j$^$;$s(B"
 		     "Lost undo data")))
-   (skk-j-mode-on)			; [skk 7319] $BBP:v(B
    (condition-case nil
        (skk-undo-kakutei-subr)
      ;; skk-undo-kakutei $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F$*$+$J$$(B
@@ -2947,7 +2946,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 		(cons 'skk-katakana skk-katakana)))
     (cond ((skk-get-last-henkan-datum 'abbrev-mode)
 	   (skk-abbrev-mode-on))
-	  ((or skk-latin-mode skk-jisx0208-latin-mode)
+	  ((or (not skk-mode) skk-latin-mode skk-jisx0208-latin-mode)
 	   (skk-j-mode-on)))
     (when (and skk-undo-kakutei-return-previous-point
 	       (markerp skk-henkan-end-point)

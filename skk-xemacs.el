@@ -542,6 +542,13 @@ Non-nil ならばツールティップを再描画する。")
 	   (delete-region (point) skk-henkan-start-point))
 	 (skk-kakutei))))
 
+;; XEmacs 21.4 workarounds.
+
+(when (and (= emacs-major-version 21)
+	   (<= emacs-minor-version 4))
+  (defalias 'skk-tooltip-show-at-point 'ignore)
+  (defalias 'skk-tooltip-hide 'ignore))
+
 (provide 'skk-xemacs)
 
 ;;; skk-xemacs.el ends here
