@@ -1,3 +1,7 @@
+2010-11-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
 2010-11-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-henkan-show-candidates-buffer): little modify.
