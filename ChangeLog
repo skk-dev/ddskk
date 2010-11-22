@@ -8,6 +8,9 @@
 	skk-j-mode.  This is needed for the kakutei after user returns to
 	skk-abbrev-mode with M-x skk-undo-kakutei.
 
+	* skk-xemacs.el: Disable `skk-tooltip-show-at-point' for XEmacs
+	21.4.
+
 2010-11-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
