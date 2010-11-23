@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/22 13:22:36 $
+@set UPDATED $Date: 2010/11/23 09:56:46 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -591,21 +591,21 @@ DDSKK $B$N%=!<%9$rE83+$9$k$H!"Cf$K(B @file{dic} $B$H$$$&%G%#%l%/%H%j$,B8:_$7$
 
 $B$r<B9T$9$k$H!"(BCDB $B7A<0<-=q(B @file{SKK-JISYO.L.cdb} $B$,@8@.$5$l$^$9!#$3$N8e(B
 $B$G>e5-(B @code{make install} $B$r<B9T$9$k$H(B @file{SKK-JISYO.L.cdb} $B$b(B
-@file{SKK-JISYO.L} $B$H6&$K%$%s%9%H!<%k$5$l$^$9!#(B
+@file{SKK-JISYO.L} $B$H6&$K%$%s%9%H!<%k$5$l$^$9(B
 @footnote{CDB $B7A<0<-=q$N@8@.$K$O(B python $B%9%/%j%W%H(B @file{etc/skk2cdb.py}
-$B$,<B9T$5$l$k$N$G!"$"$i$+$8$a(B python $B$r%$%s%9%H!<%k$7$F$*$/I,MW$,$"$j$^$9!#(B}
+$B$,<B9T$5$l$k$N$G!"$"$i$+$8$a(B python $B$r%$%s%9%H!<%k$7$F$*$/I,MW$,$"$j$^$9!#(B}$B!#(B
 
 @node $B<-=q%5!<%P$NF~<j(B
 @section $B<-=q%5!<%P$NF~<j(B
 
-$B<-=q%5!<%P$O%*%W%7%g%s$G$9$N$GL5$/$F$b(B DDSKK $B$OF0:n$7$^$9$,!"FC$K<-=q$,(B
-$BBg$-$J>l9g$K<-=q%5!<%P$rMxMQ$9$k$3$H$G>J%a%b%j8z2L$rF@$i$l$^$9!#$^$?!"<-(B
-$B=q%5!<%P$K$h$C$F$OJ#?t<-=q$N8!:w!"(BEPWING $B<-=q$N8!:w$,$G$-$?$j$9$k$b$N$b(B
-$B$"$j$^$9!#(B
+$B<-=q%5!<%P$O%*%W%7%g%s$G$9$N$GL5$/$F$b(B DDSKK $B$OF0:n$7$^$9$,!"FC$K<-=q$N%5(B
+$B%$%:$,Bg$-$J>l9g$O<-=q%5!<%P$rMxMQ$9$k$3$H$G>J%a%b%j8z2L$rF@$i$l$^$9!#$^(B
+$B$?!"<-=q%5!<%P$K$h$C$F$OJ#?t<-=q$N8!:w!"(BEPWING $B<-=q$N8!:w$,$G$-$?$j$9$k$b(B
+$B$N$b$"$j$^$9!#(B
 
-DDSKK $B$N%/%i%$%"%s%HB&$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<(B
-$B5-$N<-=q%5!<%P$N$$$:$l$G$bF0:n2DG=$G$9!#%=!<%9$d%P%$%J%j$NF~<j!"%$%s%9%H!<(B
-$B%k$K$D$$$F$O$=$l$>$l$N%&%'%V%5%$%H$r$4;2>H2<$5$$!#(B
+DDSKK $B$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<5-$N<-=q%5!<%P$N(B
+$B$$$:$l$G$bF0:n2DG=$G$9!#%=!<%9$d%P%$%J%j$NF~<j!"%$%s%9%H!<%k$K$D$$$F$O$=(B
+$B$l$>$l$N%&%'%V%5%$%H$r$4;2>H2<$5$$!#(B
 
 @table @b
 @item $B<-=q%5!<%P$N@bL@$H%j%s%/(B
@@ -616,7 +616,7 @@ DDSKK $B$N%/%i%$%"%s%HB&$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<(B
 @node $B$O$8$a$N@_Dj(B
 @chapter $B$O$8$a$N@_Dj(B
 
-$BI8=`E*$J%$%s%9%H!<%k$N>l9g$OFCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F0(B
+$BI8=`E*$K%$%s%9%H!<%k$7$?>l9g$O!"FCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F0(B
 $B$9$k$@$1$G(B DDSKK $B$,;H$($k>uBV$K$J$j$^$9!#(B
 $B<+F0E*$K(B @file{skk-setup.el} $B$H$$$&%U%!%$%k$,FI$_9~$^$l!"@_Dj$5$l$^$9(B
 @footnote{Emacs $B$,5/F0$9$k2aDx$G(B @file{SKK_LISPDIR/leim-list.el} $B$,FI$_9~(B
@@ -852,16 +852,16 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 @w{@xref{$BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B}.}}$B!#(B
 
 @kbd{C-x C-j}$B!"$b$7$/$O(B @kbd{C-x j} $B$r:FEY%?%$%W$9$k$3$H$G!"(BSKK $B%b!<%I$K(B
-$BF~$kA0$N%b!<%I$KLa$j!"%+!<%=%k?'$b85$KLa$j$^$9!#(B
+$BF~$kA0$N%b!<%I$KLa$j!"%+!<%=%k?'$b85$KLa$j$^$9(B
 @footnote{$B$?$@$7!"(B@b{$B!V%"%9%-!<%b!<%I!W(B}$B$rMxMQ$9$l$P(B SKK $B%b!<%I$+$iH4$1$k(B
 $BI,MW$O$[$H$s$I$"$j$^$;$s!#(B
 
-@xref{$BF~NO%b!<%I(B, , $B%"%9%-!<%b!<%I(B}.}
+@xref{$BF~NO%b!<%I(B, , $B%"%9%-!<%b!<%I(B}.}$B!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-status-indicator
 
-$B$3$NJQ?t$,%7%s%\%k(B @samp{minor-mode} $B$G$"$l$P!"%b!<%I%i%$%s$N%^%$%J!<%b!<(B
-$B%I$NI=<($KDI2C$5$l$^$9!#(B
+$B%G%U%)%k%H$O%7%s%\%k(B @code{'left} $B$G$9!#$3$NJQ?t$r%7%s%\%k(B @code{'minor-mode} $B$H(B
+$B@_Dj$9$l$P!"%$%s%8%1!<%?$O%b!<%I%i%$%s$N%^%$%J!<%b!<%I$N0LCV$KI=<($5$l$^$9!#(B
 
 @example
 -MULE/7bit----- Buffer-name (Major-mode $B$+$J(B)---
@@ -932,24 +932,20 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 
 @node $B<-=q$NJ]B8(B
 @subsection $B<-=q$NJ]B8(B
-@kindex C-x C-c
 @vindex skk-backup-jisyo
 @vindex skk-jisyo
 
-@kbd{C-x C-c} $B$G(B Emacs $B$r=*N;$7$h$&$H$9$k$H(B @file{~/.skk-jisyo} $B$K8D?M<-(B
-$B=q(B (@pxref{$B<-=q$N<oN`(B, , $B8D?M<-=q(B})$B$NFbMF$r<+F0E*$KJ]B8$7$^$9!#(B
-
-@file{~/.skk-jisyo.BAK} $B$KJ]B8$r9T$&A0$N8D?M<-=q$,B`Hr$5$l$^$9!#(B
+Emacs $B$r=*N;$9$k$H$-$O!"J]B8A0$N8D?M<-=q$r(B @file{~/.skk-jisyo.BAK} $B$KB`Hr(B
+$B$7$F$+$i!"8D?M<-=q(B (@pxref{$B<-=q$N<oN`(B, , $B8D?M<-=q(B})$B$NFbMF$r(B @file{~/.skk-jisyo} $B$K(B
+$BJ]B8$7$^$9!#(B
 
 @file{~/.skk-jisyo} $B$d(B @file{~/.skk-jisyo.BAK} $B$N%U%!%$%kL>$rJQ99$7$?$1(B
-$B$l$P$=$l$>$l(B @code{skk-jisyo} $B$d(B @code{skk-backup-jisyo} $B$NCM$rJQ99$7$F(B
+$B$l$P!"$=$l$>$l(B @code{skk-jisyo} $B$d(B @code{skk-backup-jisyo} $B$NCM$rJQ99$7$F(B
 $B2<$5$$!#(B
 
-@table @code
-@item  skk-kill-emacs-without-saving-jisyo
 @findex  skk-kill-emacs-without-saving-jisyo
 
-$B8D?M<-=q$rJ]B8$;$:(B Emacs $B$r=*N;$5$;$?$$>l9g$K$O!"(B
+$B8D?M<-=q$rJ]B8$;$:$K(B Emacs $B$r=*N;$5$;$?$$>l9g$K$O!"(B
 
 @example
 @kbd{M-x skk-kill-emacs-without-saving-jisyo}
@@ -957,7 +953,6 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 
 @noindent
 $B$H%?%$%W$7$^$9!#(B
-@end table
 
 $B8D?M<-=q$NJ]B8F0:n$K$D$$$F99$K>\$7$/$O!"(B@ref{$B8D?M<-=q$NJ]B8F0:n(B} $B$r;2>H(B
 $B$7$F$/$@$5$$!#(B
@@ -1896,7 +1891,7 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 
 SKK $B$N3X=,5!G=$N$R$H$D$G!"%f!<%6$N2a5n$NF~NO$+$iJQ498uJd$rM=B,$7$^$9!#(B
 
-@url{http://openlab.ring.gr.jp/skk/skk/main/bayesian/README.ja}
+@url{http://openlab.jp/skk/skk/main/bayesian/README.ja}
 
 @item skk-cdb.el
 @cindex @file{skk-cdb.el}
@@ -1966,6 +1961,8 @@ SKK $B$NJQ498uJd$,B?$$$H$-$K%R%s%H$rM?$($F9J$j$3$`5!G=$rDs6!$7$^$9!#(B
 @cindex @file{skk-inline.el}
 
 $BJQ498uJd$N%$%s%i%$%sI=<(5!G=$r=8$a$?%U%!%$%k!#(B
+
+@xref{$BJQ498uJd0lMw$NI=<(J}K!(B}.
 
 @item skk-isearch.el
 @cindex @file{skk-isearch.el}

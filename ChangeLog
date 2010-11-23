@@ -1,5 +1,7 @@
 2010-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: Update.
+
 	* skk.el (skk-henkan-show-candidate-subr): 2010-11-14 の commit
 	（ツールティップでの [残り99++] の右寄せ表示）は、XEmacs では無効
 	としました。
