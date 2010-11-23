@@ -1,3 +1,9 @@
+2010-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-henkan-show-candidate-subr): 2010-11-14 の commit
+	（ツールティップでの [残り99++] の右寄せ表示）は、XEmacs では無効
+	としました。
+
 2010-11-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-undo-kakutei): Do not call `skk-j-mode-on' here.
