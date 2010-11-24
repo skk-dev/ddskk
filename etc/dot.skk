@@ -484,42 +484,25 @@
 
 ;; @@ その他いろいろ
 
-;; かなモードの入力で (モード変更を行なわずに) 長音(ー)を
-;; ASCII 数字の直後では `-' に、全角数字の直後では `−' にしたい。
+;; かなモードで、モード変更を行なわずに
+;;   長音(ー)を ASCII 数字の直後では `-' に、全角数字の直後では `−' に
+;;   句点(。)を ASCII 数字の直後では `.' に、全角数字の直後では `．' に
+;;   読点(、)を ASCII 数字の直後では `,' に、全角数字の直後では `，' に
 (setq skk-rom-kana-rule-list
-	  (cons '("-" nil skk-hyphen)
-		skk-rom-kana-rule-list))
+      (append '(("-" nil skk-hyphen)
+		("." nil skk-hyphen)
+		("," nil skk-hyphen))
+	      skk-rom-kana-rule-list))
+
 (defun skk-hyphen (arg)
-  (let ((c (char-before (point))))
-    (cond ((null c) "ー")
-	  ((and (<= ?0 c) (>= ?9 c)) "-")
-	  ((and (<= ?０ c) (>= ?９ c)) "−")
-	  (t "ー"))))
-
-;; かなモードの入力でモード変更を行わずに、数字入力中の
-;; 小数点 (.) およびカンマ (,) 入力を実現する。
-;; (例) かなモードのまま 1.23 や 1,234,567 などの記述を行える。
-;; period
-(setq skk-rom-kana-rule-list
-	  (cons '("." nil skk-period)
-		skk-rom-kana-rule-list))
-(defun skk-period (arg)
-  (let ((c (char-before (point))))
-    (cond ((null c) "。")
-	  ((and (<= ?0 c) (>= ?9 c)) ".")
-	  ((and (<= ?０ c) (>= ?９ c)) "．")
-	  (t "。"))))
-
-;; comma
-(setq skk-rom-kana-rule-list
-	  (cons '("," nil skk-comma)
-		skk-rom-kana-rule-list))
-(defun skk-comma (arg)
-  (let ((c (char-before (point))))
-    (cond ((null c) "、")
-	  ((and (<= ?0 c) (>= ?9 c)) ",")
-	  ((and (<= ?０ c) (>= ?９ c)) "，")
-	  (t "、"))))
+  (let ((output (cdr (assq (skk-last-command-char) '((45 . "ー-−ー")
+						     (44 . "、,，、")
+						     (46 . "。.．。")))))
+	(c (char-before (point))))
+    (cond ((null c) (substring output 0 1))
+	  ((and (<= ?0 c) (>= ?9 c)) (substring output 1 2))
+	  ((and (<= ?０ c) (>= ?９ c)) (substring output 2 3))
+	  (t (substring output 3 4)))))
 
 ;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
 ;; (global-set-key "\M-i" 'skk-annotation-wikipedia-region-or-at-point)

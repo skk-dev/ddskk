@@ -1,3 +1,7 @@
+2010-11-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk (skk-hyphen): コード見直し。
+
 2010-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: Change default value skk-previous-completion-use-backtab.
