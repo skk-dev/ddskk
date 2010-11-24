@@ -495,14 +495,15 @@
 	      skk-rom-kana-rule-list))
 
 (defun skk-hyphen (arg)
-  (let ((output (cdr (assq (skk-last-command-char) '((45 . "ー-−ー")
-						     (44 . "、,，、")
-						     (46 . "。.．。")))))
+  (let ((output (cdr (assq (skk-last-command-char)
+			   '((?- . ("ー" "-" "−" "ー"))
+			     (?, . ("、" "," "，" "、"))
+			     (?. . ("。" "." "．" "。"))))))
 	(c (char-before (point))))
-    (cond ((null c) (substring output 0 1))
-	  ((and (<= ?0 c) (>= ?9 c)) (substring output 1 2))
-	  ((and (<= ?０ c) (>= ?９ c)) (substring output 2 3))
-	  (t (substring output 3 4)))))
+    (cond ((null c) (nth 0 output))
+	  ((and (<= ?0 c) (>= ?9 c)) (nth 1 output))
+	  ((and (<= ?０ c) (>= ?９ c)) (nth 2 output))
+	  (t (nth 3 output)))))
 
 ;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
 ;; (global-set-key "\M-i" 'skk-annotation-wikipedia-region-or-at-point)
