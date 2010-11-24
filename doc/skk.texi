@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/23 09:56:46 $
+@set UPDATED $Date: 2010/11/24 12:22:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -676,9 +676,9 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、下記の辞書サーバの
 @file{SKK-JISYO.M}、@file{SKK-JISYO.ML} 又は @file{SKK-JISYO.S} に変更
 します。
 
-なお、DDSKK 14 より CDB 辞書形式をサーバを経由せず直接利用できるようにな
-りました。CDB 形式辞書ファイルを利用する場合は以下のように指定してくださ
-い。
+なお、DDSKK 14 より辞書サーバを経由せずとも CDB 形式の辞書ファイルを直接
+利用できるようになりました。CDB 形式辞書ファイルを利用する場合は以下のよ
+うに指定してください。
 
 @lisp
 (setq skk-cdb-large-jisyo "/your/path/to/SKK-JISYO.L.cdb")
@@ -9188,7 +9188,7 @@ SKK 本体は以下から入手できます。
 @node Q2-3 SKK サーバはどこにありますか?
 @unnumberedsubsec Q2-3 SKK サーバはどこにありますか?
 
-DDSKK 14 は サーバの種類、バージョンには依存していません。
+DDSKK 14 は辞書サーバの種類、バージョンには依存していません。
 
 @display
 @url{http://openlab.jp/skk/skkserv-ja.html}

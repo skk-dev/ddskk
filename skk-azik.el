@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.8 2010/09/10 14:23:31 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.9 2010/11/24 12:22:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2010/09/10 14:23:31 $
+;; Last Modified: $Date: 2010/11/24 12:22:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -233,7 +233,7 @@
     ("kj" nil ("クン" . "くん"))
     ("kk" nil ("キン" . "きん"))
     ("kl" nil ("コン" . "こん"))
-    ("km" nil ("キ" . "き"))
+    ("km" nil ("カモ" . "かも"))
     ("kn" nil ("カン" . "かん"))
     ("kp" nil ("コウ" . "こう"))
     ("kq" nil ("カイ" . "かい"))
@@ -454,7 +454,7 @@
     ("vz" nil ("ヴァン" . "う゛ぁん"))
     ("wA" nil ("ヮ" . "ゎ"))
     ("wd" nil ("ウェン" . "うぇん"))
-    ("wf" nil ("ワ" . "わ"))
+    ("wf" nil ("ワイ" . "わい"))
     ("wha" nil ("ウァ" . "うぁ"))
     ("whe" nil ("ウェ" . "うぇ"))
     ("whi" nil ("ウィ" . "うぃ"))
