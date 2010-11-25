@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.538 2010/11/24 12:22:27 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.539 2010/11/25 15:29:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/24 12:22:27 $
+;; Last Modified: $Date: 2010/11/25 15:29:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2552,8 +2552,8 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	;; $B=hM}$r7+$jJV$9!#J8;zNs0J30$,BeF~$5$l$?$i%k!<%W$r=*N;$9$k!#(B
 	())
       (when (consp retval)
-	(setq note (car retval)
-	      word (cdr retval)))
+	(setq word (car retval)
+	      note (cdr retval)))
       (unless (eq retval 'none)
 	;; $BA^F~$9$Y$-8uJd$,$"$k!#(B
 	(when skk-use-face
@@ -2625,14 +2625,14 @@ catch $B$9$k!#(Bcatch $B$7$?CM$,J8;zNs$J$i$P!"$=$l$rJV$9(B (word $B$r$=$l$K
       ;; $B$$$k>l9g$O(BSKK $B$NJ}$G$OBP=h$7$J$$!#(B
       (when (and (not (stringp note))
 		 (string-match ";" word))
-	(setq note (substring word (match-end 0))
-	      word (substring word 0 (match-beginning 0))))
+	(setq word (substring word 0 (match-beginning 0))
+	      note (substring word (match-end 0))))
       ;; word $B$NJ}$,(B S $B<0$NJ8;zNs$@$C$?$i!"$=$l$rI>2A$7$?(B
       ;; $BJ8;zNs$rJV$9!#(B
       ;; note $B$NJ}$b(B S $B<0$N>l9g$,$"$j$&$k$,!"$=$l$NI>2A$O(B
       ;; skk-annotation $B$,$d$C$F$/$l$k!#(B
       (setq word (skk-eval-string word))
-      (cons note word))))
+      (cons word note))))
 
 (defun skk-treat-strip-note-from-word (word)
   "$BJQ498uJd$NJ8;zNs(B WORD $B$r!"8uJd$=$N$b$N$HCm<a$H$KJ,3d$7$F(B cons cell $B$rJV$9!#(B

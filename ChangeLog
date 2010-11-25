@@ -1,3 +1,8 @@
+2010-11-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk.el (skk-treat-new-word): Swap car and cdr of return value.
+	(skk-insert-new-word): Modify according to it.
+
 2010-11-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
