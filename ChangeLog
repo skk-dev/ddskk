@@ -13,8 +13,10 @@
 
 	* skk.el: Update docstring.
 
+2010-11-24  Kiyoka Nishiyama  <kiyoka@sumibi.org>
+
 	* skk-azik.el (skk-azik-additional-rom-kana-rule-list): 
-	変換ルールの修正 [skk 7327]。
+	変換ルールを修正 [skk 7327]。
 
 2010-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

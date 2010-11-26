@@ -44,10 +44,9 @@
 
 	* dot.emacs: Add skk-startup-screen.
 
-2010-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+2010-09-07  小林健一  <kobayashi@mamezou.com>
 
-	* SKK.tut: Fix typo.
-	Thanks 小林健一さま [skk 7269].
+	* SKK.tut: Fix typo [skk 7269].
 
 2010-08-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
