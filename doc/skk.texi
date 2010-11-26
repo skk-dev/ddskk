@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/24 12:22:27 $
+@set UPDATED $Date: 2010/11/26 12:16:05 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1979,7 +1979,7 @@ DDSKK $B$rJ;MQ$7$?%$%s%/%j%a%s%?%k!&%5!<%A5!G=$rDs6!$7$^$9!#(B
 @item skk-jisx0213.el
 @cindex @file{skk-jisx0213.el}
 
-JIS X 0213 $BJ8;z%3!<%I$r07$&%W%m%0%i%`$G$9!#$3$N5!G=$O(B Emacs 23 $B$G$OI8=`$G(B
+JIS X 0213 $BJ8;z=89g$r07$&%W%m%0%i%`$G$9!#$3$N5!G=$O(B Emacs 23 $B$G$OI8=`$G(B
 $BMxMQ$G$-$^$9!#$=$lL$K~$N%P!<%8%g%s$N(B Emacs $B$K$*$$$F$O!"(BMule-UCS $B$rF3F~$9(B
 $B$k$J$I$NBP:v$,I,MW$G$9!#(BMule-UCS $B$K$D$$$F$O(B 
 @uref{http://tats.haun.org/mule-ucs/, Mule-UCS Unofficial Site} $B$r;2>H(B
@@ -3275,25 +3275,33 @@ L:$BC@(B;9$B2h(B($BFyIt(B5$B2h(B)
 (skk-tankan-search 'function . args) 
 @end lisp
 
-$B$?$@$7!"(B@b{$B!V3NDjJQ49!W(B}$B$rJ;MQ$9$k>l9g$O!"(B@code{skk-search-prog-list} $B$N(B
-$B@hF,$NMWAG$O(B @code{skk-search-kakutei-jisyo-file} $B$G$"$k$3$H$,I,MW$G$9!#(B
-@b{$B!V3NDjJQ49!W(B}$B$r;HMQ$7$J$$>l9g$O!"(B @code{skk-search-prog-list} $B$NMWAG(B
-$B$N@hF,$,(B @code{skk-tankan-search} $B$G$bBg>fIW$G$9!#(B
-
-@xref{$B<-=q$N8!:wJ}K!$N@_Dj(B}.
-
-$B0J2<$K!"6qBNNc$r5s$2$^$9!#(B
+@b{$B!V3NDjJQ49!W(B}$B$rJ;MQ$9$k>l9g$O!"(B@code{skk-search-prog-list} $B$N(B
+$B@hF,$NMWAG$O(B @code{skk-search-kakutei-jisyo-file} $B$G$J$1$l$P$$$1$^$;$s$N$G!"(B
+@code{skk-search-prog-list} $B$N#2HVL\$NMWAG$K(B @code{skk-tankan-search} $B$rDI2C$7$^$9!#(B
 
 @lisp
 @group
-;; skk-search-prog-list $B$N(B 2 $BHVL\$NMWAG$K(B skk-tankan-search $B$rDI2C$9$k(B
+;; skk-search-prog-list $B$N#2HVL\$NMWAG$K(B skk-tankan-search $B$rDI2C$9$k(B
 (setq skk-search-prog-list
       (cons (car skk-search-prog-list)
-	       (cons '(skk-tankan-search 'skk-search-jisyo-file
-				         skk-large-jisyo 10000)
-		     (cdr skk-search-prog-list))))
+            (cons '(skk-tankan-search 'skk-search-jisyo-file
+                                      skk-large-jisyo 10000)
+                  (cdr skk-search-prog-list))))
 @end group
 @end lisp
+
+$B$J$*!"(B@b{$B!V3NDjJQ49!W(B}$B$r;HMQ$7$J$$>l9g$O!"(B @code{skk-search-prog-list} $B$NMWAG(B
+$B$N@hF,$,(B @code{skk-tankan-search} $B$G$bBg>fIW$G$9!#(B
+
+@lisp
+@group
+(add-to-list 'skk-search-prog-list
+             '(skk-tankan-search 'skk-search-jisyo-file
+                                 skk-large-jisyo 10000))
+@end group
+@end lisp
+
+@xref{$B<-=q$N8!:wJ}K!$N@_Dj(B}.
 
 @node $BAm2h?t$K$h$kC14A;zJQ49(B
 @subsubsection $BAm2h?t$K$h$kC14A;zJQ49(B
@@ -3704,8 +3712,7 @@ DDSKK $B$O!"(B@samp{$B$@$$(B12$B$+$$(B} $B$rJQ49$9$k$H!"(B@samp{$BBh#1#
 
 @example
 @group
-@kbd{Q 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 @key{SPC}}
-@footnote{$B$^$?$O(B@kbd{/ 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 @key{SPC}}$B!#(B}
+@kbd{Q 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 @key{SPC}}@footnote{$B$^$?$O(B@kbd{/ 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 @key{SPC}}$B!#(B}
 @end group
 @end example
 
@@ -4156,9 +4163,9 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 
 @defun skk-search-katakana &optional JISX0201-KANA
 
-$BDL>o!"(BSKK $B$G%+%?%+%J8l$rF~NO$9$k$H$-$O$"$i$+$8$a(B @kbd{q} $B$G%+%?%+%J%b!<(B
-$B%I$K$9$k$+!""&%b!<%I$G(B @kbd{q} $B$K$h$j%+%?%+%J$K$G$-$^$9!#$3$l$i$NJ}K!$O(B
-$B<j7Z$G$9$,!"8D?M<-=q$KEPO?$5$l$J$$$?$aJd408uJd$K$b8=$l$:!"2?EY$G$bF~NO$7(B
+$BDL>o!"(BSKK $B$G%+%?%+%J8l$rF~NO$9$k$K$O!"(B@kbd{q} $B$G%+%J%b!<%I$K0\$C$F$+$i(B
+$B%+%?%+%J$rF~NO$9$k$+!""&%b!<%I$G(B @kbd{q} $B$K$h$j%+%?%+%J$XJQ49$9$k$+!"$G$9!#(B
+$B$3$l$i$NJ}K!$O<j7Z$G$9$,!"8D?M<-=q$KEPO?$5$l$J$$$?$aJd408uJd$K$b8=$l$:!"2?EY$G$bF~NO$7(B
 $B$J$1$l$P$$$1$^$;$s!#(B
 
 $B$7$+$7!"$3$3$K>R2p$9$kJ}K!$G$O%+%?%+%J8l$,IaDL$NJQ498uJd$H$7$F8=$l$k$?$a!"(B
@@ -6353,7 +6360,7 @@ Emacs $B$N%P%C%U%!$KFI$_9~$s$G8!:w$r9T$$$^$9!#6&M-<-=q$O@_Dj$K$h$j(B Emacs
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-cdb-large-jisyo
-$B6&M-<-=q$N$&$A(B CDB $B7A<0$KJQ49$7$?<-=q!#;XDj$7$?>l9g$O(B skk-large-jisyo $B$h(B
+$B6&M-<-=q$N$&$A(B CDB $B7A<0$KJQ49$7$?<-=q!#;XDj$7$?>l9g$O(B @code{skk-large-jisyo} $B$h(B
 $B$j@h$K8!:w$5$l$^$9!#(BDDSKK 14 $B$h$j(B CDB $B7A<0<-=q$r<-=q%5!<%P$r7PM3$;$:$KD>(B
 $B@\8!:w$G$-$k$h$&$K$J$j$^$7$?!#(B
 @end defvr
@@ -7286,7 +7293,7 @@ L:$B0](B;
 
 $B"'%b!<%I$G8uJd$rI=<($7$F$$$k$H$-$K(B @key{TAB} $B$r2!$9$H!"(B
 @code{skk-annotation-wikipedia-sources} $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7$F(B
-$B%(%3!<%(%j%"$KI=<((B@footnote{$BJQ?t(B@code{skk-show-tooltip} $B$,(B @code{on-nil} $B$N(B
+$B%(%3!<%(%j%"$KI=<((B@footnote{$BJQ?t(B@code{skk-show-tooltip} $B$,(B @code{non-nil} $B$N(B
 $B>l9g!"%D!<%k%F%#%C%W$GI=<($7$^$9!#(B} $B$7$^$9!#(B
 
 @example
@@ -7726,7 +7733,7 @@ SKK $B<-=q$K(B
 
 @noindent
 $B$H$$$&%(%s%H%j$,$"$k$3$H$rA0Ds$H$7$F$$$^$9(B
-@footnote{edict $B<-=q!"(B@file{SKK-JISYO.edict} $B$,$"$l$PNc$($P!"(B
+@footnote{edict $B<-=q!"(B@file{SKK-JISYO.edict} $B$,$"$l$P!"Nc$($P!"(B
 
 @lisp
 @group
