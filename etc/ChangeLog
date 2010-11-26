@@ -1,3 +1,7 @@
+2010-11-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: 単漢字変換の設定例を記載。
+
 2010-11-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk (skk-hyphen): コード見直し。

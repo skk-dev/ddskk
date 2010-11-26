@@ -323,6 +323,18 @@
     (setq skk-search-prog-list (skk-nunion skk-search-prog-list
 					   '((skk-lookup-search)))))
 
+;; 単漢字変換を行う ▽よみ@<SPC>
+;; キー`@' の skk-today の割り当てを解除する。
+;; (setq skk-rom-kana-rule-list
+;;       (append skk-rom-kana-rule-list
+;; 	      '(("@" nil "@"))))
+;; skk-search-prog-list の２番目の要素に skk-tankan-search を追加する
+;; (setq skk-search-prog-list
+;;       (cons (car skk-search-prog-list)
+;; 	    (cons '(skk-tankan-search 'skk-search-jisyo-file
+;; 				      skk-large-jisyo 10000)
+;; 		  (cdr skk-search-prog-list))))
+
 ;; 送りあり変換を送りなし変換と同じ操作でできるようにする
 ;; (setq skk-auto-okuri-process t)
 

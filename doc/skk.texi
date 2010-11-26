@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/26 12:16:05 $
+@set UPDATED $Date: 2010/11/26 12:32:59 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3244,7 +3244,7 @@ L:胆;9画(肉部5画)
 ;; @@ を入力できるようにする
 (setq skk-rom-kana-rule-list
       (append skk-rom-kana-rule-list
-      '(("@@" nil "@@"))))
+              '(("@@" nil "@@"))))
 @end group
 @end lisp
 
