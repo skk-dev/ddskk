@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/26 12:32:59 $
+@set UPDATED $Date: 2010/11/27 02:17:49 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7172,13 +7172,13 @@ DDSKK では、このような事態を避けるため、辞書バッファにおける変数
 @end lisp
 }。
 
-辞書の候補にアノテーションが登録されていればエコーエリアに表示します。
+辞書の候補にアノテーションが登録されていれば、エコーエリア又は other-window に表示します。
 
 @end defvr
 
 @defvr {ユーザ変数} skk-annotation-copy-key
 
-@kbd{C-w} をタイプすると、エコーエリアに表示されているアノテーション
+@kbd{C-w} をタイプすると、現在表示されているアノテーション
 を kill ring に保存します。
 
 タイプするキーを変更するには、変数 @code{skk-annotation-copy-key} を適宜
@@ -7262,27 +7262,32 @@ L:維;
 @findex skk-annotation-kill
 @findex skk-annotation-remove
 
-アノテーションを付けるには、アノテーションを付けたい単語を確定した直後
-に同じバッファで
+@defun {コマンド} skk-annotation-add &optional NO-PREVIOUS-ANNOTATION
+アノテーションを登録／修正するには、アノテーションを付けたい単語を確定した直後
+に同じバッファで @kbd{M-x skk-annotation-add} と実行します。
 
-@kbd{M-x skk-annotation-add}
+アノテーションを編集するバッファ(*SKK annotation*)が開いてカレントバッファにな
+りますので、アノテーションとして表示する文章を編集してください。
+編集が終わったら @kbd{C-c C-c} とタイプします。
 
-とします。アノテーションを編集するバッファが開いて、カレントバッファにな
-ります。そこへアノテーションを付けます。編集が終わったら @kbd{C-c C-c} し
-ます。
+その単語に既にアノテーションが付いている場合は、あらかじめ当該アノテーションを挿入し
+て *SKK annotation* を開きます。
 
-@kbd{M-x skk-annotation-add} したものの、アノテーションを付けずに置きた
-いときは、
+@end defun
 
-@kbd{M-x skk-annotation-kill}
+@defun {コマンド} skk-annotation-kill
 
-とします。
+上記 @kbd{M-x skk-annotation-add} を実行したもののアノテーションを付けず
+に *SKK annotation* を閉じたいときは、@kbd{C-c C-k} とタイプするか @kbd{M-x skk-annotation-kill} を実行してください。
 
-また、最後に確定した候補についてのアノテーションを取り去りたいときは、
+@end defun
 
-@kbd{M-x skk-annotation-remove}
+@defun {コマンド} skk-annotation-remove
 
-とします。
+最後に確定した候補からアノテーションを取り去りたいとき
+は @kbd{M-x skk-annotation-remove} と実行します。
+
+@end defun
 
 @node アノテーションとして Wikipedia を表示する
 @subsection アノテーションとして Wikipedia を表示する
