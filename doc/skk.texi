@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/27 06:37:12 $
+@set UPDATED $Date: 2010/11/27 11:46:14 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7709,24 +7709,6 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
 @vindex skk-look-recursive-search
 @vindex skk-look-expanded-word-only
 
-@code{skk-look-recursive-search} $B$NCM$r(B @code{non-nil} $B$K%;%C%H$7$F2<(B
-$B$5$$!#(B
-
-@example
-$B"&(Babstr* (SPC)
-
-  ---> $B"'(Babstract (SPC) -> $B"'%"%V%9%H%i%/%H(B (SPC) -> $B"'Cj>](B (SPC)
-    -> $B"'(Babstraction (SPC) -> $B"'%"%V%9%H%i%/%7%g%s(B
-@end example
-
-@noindent
-$B$3$N$h$&$K1QC18l(B + $B$=$N1QC18l$r8+=P$78l$K$7$?8uJd$N!V%;%C%H!W$rJQ49(B
-$B7k2L$H$7$F=PNO$9$k$3$H$,$G$-$^$9!#(B
-
-$B$3$N:]!"(B@code{skk-look-expanded-word-only} $B$NCM$,(B @code{non-nil} $B$G$"(B
-$B$l$P!":F5"8!:w$K@.8y$7$?1QC18l$N!V%;%C%H!W$@$1$r=PNO$9$k$3$H$,$G$-$^$9(B
-($B:F5"8!:w$G8!=P$5$l$J$+$C$?1QC18l$OL5;k$7$F=PNO$7$^$;$s(B) $B!#(B
-
 SKK $B<-=q$K(B
 
 @example
@@ -7735,8 +7717,8 @@ SKK $B<-=q$K(B
 @end example
 
 @noindent
-$B$H$$$&%(%s%H%j$,$"$k$3$H$rA0Ds$H$7$F$$$^$9(B
-@footnote{edict $B<-=q!"(B@file{SKK-JISYO.edict} $B$,$"$l$P!"Nc$($P!"(B
+$B$H$$$&%(%s%H%j$,$"$k$H$7$F2r@b$7$^$9(B
+@footnote{edict $B<-=q(B @file{SKK-JISYO.edict} $B$,$"$l$P!"Nc$($P!"(B
 
 @lisp
 @group
@@ -7749,6 +7731,45 @@ SKK $B<-=q$K(B
 
 @noindent
 $B$N$h$&$K@_Dj$9$k$3$H$K$h$j!"(B edict $B<-=q$r;HMQ$G$-$^$9!#(B}$B!#(B
+
+$BJQ?t(B @code{skk-look-recursive-search} $B$NCM$r(B @code{non-nil} $B$K%;%C%H$7$F(B
+$B2<$5$$!#(B
+
+@example
+$B"&(Babstr*
+
+@key{SPC}
+
+$B"'(Babstract
+
+@key{SPC}
+
+$B"'%"%V%9%H%i%/%H(B
+
+@key{SPC}
+
+$B"'Cj>](B
+
+@key{SPC}
+
+$B"'(Babstraction
+
+@key{SPC}
+
+$B"'%"%V%9%H%i%/%7%g%s(B
+@end example
+
+@noindent
+$B$3$N$h$&$K1QC18l(B + $B$=$N1QC18l$r8+=P$78l$K$7$?8uJd$N!V%;%C%H!W$rJQ49(B
+$B7k2L$H$7$F=PNO$9$k$3$H$,$G$-$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-look-expanded-word-only
+
+$B$3$NJQ?t$NCM$,(B @code{non-nil} $B$G$"$l$P!":F5"8!:w$K@.8y$7$?1QC18l$N!V%;%C(B
+$B%H!W$@$1$r=PNO$9$k$3$H$,$G$-$^$9!#:F5"8!:w$G8!=P$5$l$J$+$C$?1QC18l$OL5;k(B
+$B$7$F=PNO$7$^$;$s!#(B
+
+@end defvr
 
 @node Lisp $B%7%s%\%kL>$NJd408!:wJQ49(B
 @subsection Lisp $B%7%s%\%kL>$NJd408!:wJQ49(B
