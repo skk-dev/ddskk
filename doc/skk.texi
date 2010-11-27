@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/27 02:17:49 $
+@set UPDATED $Date: 2010/11/27 06:37:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7426,10 +7426,7 @@ buffer (plural&#160;buffers)
 @cindex JIS$B%3!<%I(B
 @cindex EUC$B%3!<%I(B
 @kindex \
-$B$^$:$+$J%b!<%I$KF~$j$^$9!#(B@kbd{\} $B%-!<$rF~NO$9$k$H!"4A;z%3!<%I(B ($B6hE@!"(BJIS $B$^(B
-$B$?$O(B EUC $B%3!<%I(B) $B$^$?$O%a%K%e!<$K$h$kJ8;zF~NO$,9T$o$l$^$9!#%_%K%P%C%U%!(B
-$B$K$O!"(B
-
+$B$^$:$+$J%b!<%I$KF~$j$^$9!#(B@kbd{\} $B%-!<$rF~NO$9$k$H!"%_%K%P%C%U%!$K(B
 @example
 @group
 ---------------------------- Minibuffer -----------------------------
@@ -7439,12 +7436,12 @@ buffer (plural&#160;buffers)
 @end example
 
 @noindent
-$B$H$$$&%W%m%s%W%H$,I=<($5$l$^$9!#!{!{ItJ,$O(B $BJQ?t(B @code{skk-kcode-charset}
-$B$NCM$G$"$j!"$=$N=i4|CM$O(B @code{japanese-jisx0208} $BKt(B
-$B$O(B @code{japanese-jisx0213-1} $B$G$9!#(B
-$B=i4|CM$O4D6-$K$h$C$F<+F0E*$K@_Dj$5$l$^$9!#(B
+$B$H$$$&%W%m%s%W%H$,I=<($5$l!"4A;z%3!<%I!J6hE@!"(BJIS $B$^$?$O(B EUC $B%3!<%I!K$^$?$O%a%K%e!<$K$h$kJ8;zF~NO$,B%$5$l$^$9!#(B
 
-@kbd{\} $B$NBe$o$j$K(B @kbd{C-u \} $B$H$9$k$H0[$J$kJ8;z=89g(B (charset) $B$r;XDj$9(B
+$B>e5-Nc<($N!{!{ItJ,$O(B $BJQ?t(B @code{skk-kcode-charset} $B$NCM$G$"$j!"(B
+$B$=$N=i4|CM$O(B @code{japanese-jisx0208} $BKt$O(B @code{japanese-jisx0213-1} $B$G$9!#(B
+$B=i4|CM$O4D6-$K$h$C$F<+F0E*$K@_Dj$5$l$^$9!#(B
+$B%-!<(B @kbd{\} $B$NBe$o$j$K(B @kbd{C-u \} $B$HF~NO$9$k$H!"0[$J$kJ8;z=89g(B (charset) $B$r;XDj$9(B
 $B$k;v$,$G$-$^$9!#(B
 
 $B$3$3$G!"4A;z%3!<%I$,$"$i$+$8$aJ,$+$C$F$$$k>l9g$K$O!"$=$N4A;z%3!<%I$rF~NO(B
@@ -7498,8 +7495,9 @@ A:$B!A(B S:$B!B(B D:$B!C(B F:$B!D(B G:$B!E(B H:$B!F(B J:$B!G(B K:
 @end group
 @end smallexample
 
-$B$3$3$G%?%$%W$9$k$H!"%-!<(B @kbd{a}, @kbd{s}, @kbd{d}, @kbd{f}, @kbd{g}, @kbd{h},
-@kbd{q}, @kbd{w}, @kbd{e}, @kbd{r}, @kbd{t}, @kbd{y} $B$N$$$:$l$+$r(B
+$B$3$3$G!"%-!<(B @kbd{a}, @kbd{s}, @kbd{d}, @kbd{f}, @kbd{g}, @kbd{h}, @kbd{j},
+@kbd{k}, @kbd{l}, @kbd{q}, @kbd{w}, @kbd{e}, @kbd{r}, @kbd{t}, @kbd{y},
+@kbd{u}, $B$N$$$:$l$+$r(B
 $BF~NO$9$k$H!"BP1~$9$kJ8;z$,%+%l%s%H%P%C%U%!$KA^F~$5$l$F%a%K%e!<$K$h$kF~NO(B
 $B$,=*N;$7$^$9!#(B
 
@@ -7597,8 +7595,8 @@ CD-ROM $B%I%i%$%V$G$O%9%H%l%9$r46$8$kDx!"CY$/$"$j$^$;$s$G$7$?!#%m!<%+%k%^(B
 $B%?$N%5%$%:$O(B 45MB $B<e$K$J$j$^$9!#(B}$B!"(B@code{skk-search-server} $B$N8e$m$K;}$C(B
 $B$F$-$F<-=q%5!<%P$N8!:w$h$j8e$K$7$^$9!#(B
 
-Lookup $B$N(B agent $B$GMxMQ$9$k$N$O!"(B @code{lookup-search-agents} $B$+$i(B ndkks,
-ndcookie, ndnmz $B$r<h$j5n$C$?$b$N$G$9(B
+Lookup $B$N(B agent $B$GMxMQ$9$k$N$O!"(B @code{lookup-search-agents} $B$+$i(B @code{ndkks},
+@code{ndcookie} $B5Z$S(B @code{ndnmz} $B$r<h$j5n$C$?$b$N$G$9(B
 @footnote{@code{skk-lookup-search-agents} $B$K%;%C%H$7$F8!:w$9$k$h$&$K(B
 $B$7$F$$$^$9!#(BLookup $B$H$O0[$J$k@_Dj$r$9$k>l9g!"$3$NJQ?t$N@_Dj$rJQ99$9$l$P(B
 $B2DG=$G$9(B}$B!#(B
@@ -7639,7 +7637,7 @@ SKK abbrev $B%b!<%I$,3HD%$5$l$F!"(B@command{look} $B%3%^%s%I$r;HMQ$7$?Jd40$,M
 
 @group
 ------ Buffer: foo ------
-$B"&(Babstr
+$B"&(Babstr@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -7647,7 +7645,7 @@ SKK abbrev $B%b!<%I$,3HD%$5$l$F!"(B@command{look} $B%3%^%s%I$r;HMQ$7$?Jd40$,M
 
 @group
 ------ Buffer: foo ------
-$B"&(Babstract
+$B"&(Babstract@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -7670,7 +7668,7 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
 
 @group
 ------ Buffer: foo ------
-$B"&(Babstr*
+$B"&(Babstr@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -7678,7 +7676,7 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
 
 @group
 ------ Buffer: foo ------
-$B"'(Babstract
+$B"'(Babstract@point{}
 ------ Buffer: foo ------
 @end group
 
