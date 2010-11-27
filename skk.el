@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.539 2010/11/25 15:29:03 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.540 2010/11/27 12:35:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/25 15:29:03 $
+;; Last Modified: $Date: 2010/11/27 12:35:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2625,8 +2625,8 @@ catch $B$9$k!#(Bcatch $B$7$?CM$,J8;zNs$J$i$P!"$=$l$rJV$9(B (word $B$r$=$l$K
       ;; $B$$$k>l9g$O(BSKK $B$NJ}$G$OBP=h$7$J$$!#(B
       (when (and (not (stringp note))
 		 (string-match ";" word))
-	(setq word (substring word 0 (match-beginning 0))
-	      note (substring word (match-end 0))))
+	(setq note (substring word (match-end 0))
+	      word (substring word 0 (match-beginning 0))))
       ;; word $B$NJ}$,(B S $B<0$NJ8;zNs$@$C$?$i!"$=$l$rI>2A$7$?(B
       ;; $BJ8;zNs$rJV$9!#(B
       ;; note $B$NJ}$b(B S $B<0$N>l9g$,$"$j$&$k$,!"$=$l$NI>2A$O(B
