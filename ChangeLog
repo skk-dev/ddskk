@@ -1,3 +1,7 @@
+2010-11-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kakasi.el (skk-gyakubiki-and-henkan): Typo function name.
+
 2010-11-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-kakasi.el (skk-gyakubiki-and-hankan): New command.

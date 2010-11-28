@@ -23,6 +23,11 @@ GNU Emacs 21 $B5Z$S(B XEmacs $B$G$O$3$l$^$G$I$*$j!"(BAPEL (10.8 $B0J>e$r?d>
 skk.el $B$NCf$K5-=R$5$l$F$$$?%$%s%i%$%sI=<(5!G=$K$D$$$F!"(Bskk-inline.el
 $B$H$7$F$^$H$a$^$7$?!#(B
 
+** M-x skk-gyakubiki-and-henkan (skk-kakasi.el)
+$B?7$?$J%3%^%s%I$G$9!#(B
+$BNN0h$rA*$s$G$+$i(B M-x $B$G<B9T$9$k$H!"NN0h$N4A;z$r$R$i$,$J$KJQ49$7!"(B
+$B$=$N$R$i$,$J$r8+=P$78l$H$7$F$+$J4A;zJQ49$r<B9T$7$^$9!#(B
+
 ** $BJ8;z$N%3!<%II=<((B
 
 $B%3%^%s%I(B skk-display-code-for-char-at-point ($B%G%U%)%k%H$G$O(B $ $B$K3dEv$F(B)
@@ -47,6 +52,8 @@ emacsclient $B$G(B -nw $B%*%W%7%g%s$,DI2C$5$l$^$7$?!#(Btty $B$J(B frame $
 *** Cocoa Emacs $BMQ$K%$%s%9%H!<%k@h@_Dj(B
 
 *** $B%D!<%k%F%#%C%W$K$*$1$k2~9T0LCV$N2~A1(B
+
+*** $B"&%b!<%I$K$*$1$k(B @ $B$N5sF0$r2~A1(B
 
 * 14.1
 
