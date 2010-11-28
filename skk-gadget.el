@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.40 2010/09/10 15:47:02 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.41 2010/11/28 09:34:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:47:02 $
+;; Last Modified: $Date: 2010/11/28 09:34:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -159,15 +159,21 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 ;;;###autoload
 (defun skk-today (arg)
   "\
-`current-time-string' の出力を加工し、現在の日時を表す文字列を作り、挿入する。
-実質的に today エントリの呼出しなので、個人辞書の today エントリによりカスタマ
-イズすることができる。"
+`current-time-string' の出力を加工し、現在の日時を表す文字列を作り、挿入
+する。実質的に「today エントリの呼び出し」だけなので、カスタマイスは個人
+辞書の today エントリによる。"
+  ;; TODO
+  ;;   (1) 現在のキーが skk-today を実行するルールになっているか、をチェック
+  ;;   (2) 現在の point が skk-henkan-start-point より大であること、をチェック
   (interactive "p")
-  (unless skk-mode
-    (skk-mode 1))
-  (skk-set-henkan-point-subr)
-  (insert "today")
-  (skk-start-henkan arg))
+  (cond ((eq skk-henkan-mode 'on)	;▽モード
+	 (this-command-keys))
+	(t
+	 (unless skk-mode
+	   (skk-mode 1))
+	 (skk-set-henkan-point-subr)
+	 (insert "today")
+	 (skk-start-henkan arg))))
 
 ;;;###autoload
 (defun skk-clock (&optional kakutei-when-quit time-signal)

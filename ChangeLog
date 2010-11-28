@@ -1,3 +1,8 @@
+2010-11-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-gadget.el (skk-today): Return this-command-keys's value
+	if skk-henkan-mode on (▽mode).
+
 2010-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-treat-new-word): Fix for the previous change in
