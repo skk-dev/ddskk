@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.42 2010/11/28 10:58:56 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.43 2010/11/28 11:19:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/28 10:58:56 $
+;; Last Modified: $Date: 2010/11/28 11:19:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -171,12 +171,11 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 `current-time-string' の出力を加工し、現在の日時を表す文字列を作り、挿入
 する。実質的に「today エントリの呼び出し」だけなので、カスタマイスは個人
 辞書の today エントリによる。"
-  ;; TODO
-  ;;   現在の point が skk-henkan-start-point より大であること、をチェック
   (interactive "p")
   (cond ((eq skk-henkan-mode 'on)	;▽モード
-	 (if (equal (this-command-keys)
-		    (skk-today-execute-char))
+	 (if (and (equal (this-command-keys)
+			 (skk-today-execute-char))
+		  (< skk-henkan-start-point (point)))
 	     (this-command-keys)
 	   nil))
 	;;
