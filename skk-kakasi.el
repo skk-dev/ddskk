@@ -5,9 +5,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.32 2010/09/11 14:59:59 skk-cvs Exp $
+;; Version: $Id: skk-kakasi.el,v 1.33 2010/11/28 09:59:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/11 14:59:59 $
+;; Last Modified: $Date: 2010/11/28 09:59:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -65,6 +65,16 @@
     (delete-region start end)
     (goto-char start)
     (insert-and-inherit str)))
+
+;;;###autoload
+(defun skk-gyakubiki-and-hankan (start end)
+  "領域の漢字をひらがなに変換し、そのひらがなを見出し語としてかな漢字変換を実行する。"
+  (interactive "*r")
+  (let ((str (skk-gyakubiki-1 start end nil)))
+    (delete-region start end)
+    (skk-set-henkan-point-subr)
+    (insert-and-inherit str)
+    (skk-start-henkan nil)))
 
 ;;;###autoload
 (defun skk-gyakubiki-message (start end &optional all)

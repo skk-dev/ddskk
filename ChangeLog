@@ -1,5 +1,7 @@
 2010-11-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kakasi.el (skk-gyakubiki-and-hankan): New command.
+
 	* skk-gadget.el (skk-today): Return this-command-keys's value
 	if skk-henkan-mode on (▽mode).
 
