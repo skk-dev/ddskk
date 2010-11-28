@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.41 2010/11/28 09:34:45 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.42 2010/11/28 10:58:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/28 09:34:45 $
+;; Last Modified: $Date: 2010/11/28 10:58:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -156,6 +156,15 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 		year month day day-of-week hour minute second)
       (format (or format "%s年%s月%s日(%s)") year month day day-of-week))))
 
+(defun skk-today-execute-char ()
+  (let ((tree (nth 4 skk-rule-tree))
+	list char)
+    (while (setq list (car tree))
+      (if (memq 'skk-today list)
+	  (setq char (char-to-string (car list))))
+      (setq tree (cdr tree)))
+    char))
+
 ;;;###autoload
 (defun skk-today (arg)
   "\
@@ -163,11 +172,14 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 する。実質的に「today エントリの呼び出し」だけなので、カスタマイスは個人
 辞書の today エントリによる。"
   ;; TODO
-  ;;   (1) 現在のキーが skk-today を実行するルールになっているか、をチェック
-  ;;   (2) 現在の point が skk-henkan-start-point より大であること、をチェック
+  ;;   現在の point が skk-henkan-start-point より大であること、をチェック
   (interactive "p")
   (cond ((eq skk-henkan-mode 'on)	;▽モード
-	 (this-command-keys))
+	 (if (equal (this-command-keys)
+		    (skk-today-execute-char))
+	     (this-command-keys)
+	   nil))
+	;;
 	(t
 	 (unless skk-mode
 	   (skk-mode 1))

@@ -2,8 +2,9 @@
 
 	* skk-kakasi.el (skk-gyakubiki-and-hankan): New command.
 
-	* skk-gadget.el (skk-today): Return this-command-keys's value
-	if skk-henkan-mode on (▽mode).
+	* skk-gadget.el (skk-today-execute-char): New function.
+	(skk-today): Return this-command-keys's value if skk-henkan-mode on (▽mode).
+	Use function skk-today-execute-char.
 
 2010-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
