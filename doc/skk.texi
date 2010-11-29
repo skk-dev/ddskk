@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/27 11:46:14 $
+@set UPDATED $Date: 2010/11/29 12:42:47 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2569,6 +2569,13 @@ file /ｆｉｌｅ/
 を含めずにこのコマンドを実行すると、@samp{ごがつはえ} に変換されてしまい
 ます。
 
+@item M-x skk-gyakubiki-and-henkan
+@kindex M-x skk-gyakubiki-and-henkan
+@findex skk-gyakubiki-and-henkan
+
+領域の漢字をひらがなへ変換し、これで得たひらがなを見出し語として
+漢字変換を実行します。
+
 @item M-x skk-gyakubiki-katakana-region
 @kindex M-x skk-gyakubiki-katakana-region
 @findex skk-gyakubiki-katakana-region
@@ -3232,34 +3239,40 @@ L:胆;9画(肉部5画)
 @node 検索キーの設定
 @subsubsection 検索キーの設定
 
-デフォルトの検索キーは @kbd{@@} です。しかし、DDSKK の標準設定では
-キー @kbd{@@} は関数 @code{skk-today} に割り当てられています（
-変数 @code{skk-rom-kana-base-rule-list}、@ref{今日の日付の入力}.）。
+@c デフォルトの検索キーは @kbd{@@} です。しかし、DDSKK の標準設定では
+@c キー @kbd{@@} は関数 @code{skk-today} に割り当てられています（
+@c 変数 @code{skk-rom-kana-base-rule-list}、@ref{今日の日付の入力}.）。
 
-ここでは、キー @kbd{@@} を @code{skk-today} ではなく、単漢字変換の検索キ
-ーとして使用するために @file{~/.skk} で次の設定を行います
+@c ここでは、キー @kbd{@@} を @code{skk-today} ではなく、単漢字変換の検索キ
+@c ーとして使用するために @file{~/.skk} で次の設定を行います
 
-@lisp
-@group
-;; @@ を入力できるようにする
-(setq skk-rom-kana-rule-list
-      (append skk-rom-kana-rule-list
-              '(("@@" nil "@@"))))
-@end group
-@end lisp
+@c @lisp
+@c @group
+@c ;; @@ を入力できるようにする
+@c (setq skk-rom-kana-rule-list
+@c       (append skk-rom-kana-rule-list
+@c               '(("@@" nil "@@"))))
+@c @end group
+@c @end lisp
 
-もしこれでも日付が入力されてしまうようなら、既に別の設定が
-@code{skk-rom-kana-rule-list} に対して行われていますので、
-それを見直して下さい。
+@c もしこれでも日付が入力されてしまうようなら、既に別の設定が
+@c @code{skk-rom-kana-rule-list} に対して行われていますので、
+@c それを見直して下さい。
 
-@vindex skk-tankan-search-key
-なお、単漢字変換の検索キーは、変数 @code{skk-tankan-search-key} で変更す
-ることも可能です。
-以下に検索キーを @kbd{!} へと変更する例を挙げます。
+デフォルトの検索キーは @kbd{@@} です。
+DDSKK の標準設定ではキー @kbd{@@} は関数 @code{skk-today} の実行に割り
+当てられていますが、DDSKK 14.2 からは特段の設定なしに▽モードで @kbd{@@} の
+タイプが可能となりました。
+
+@defvr {ユーザ変数} skk-tankan-search-key
+単漢字変換の検索キーは、変数 @code{skk-tankan-search-key} で変更できます。
+以下は、検索キーを @kbd{!} へと変更する例です。
 
 @lisp
 (setq skk-tankan-search-key ?!)
 @end lisp
+
+@end defvr
 
 @node 辞書の設定
 @subsubsection 辞書の設定

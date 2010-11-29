@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.34 2010/11/17 20:42:44 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.35 2010/11/29 12:42:47 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/11/17 20:42:44 $
+;; Last Modified: $Date: 2010/11/29 12:42:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -67,10 +67,11 @@
 ;; ;; 単漢字検索のキーを @ にする(デフォルト)
 ;; (setq skk-tankan-search-key ?@)
 ;;
-;; ;; @ を入力できるようにする
-;; (setq skk-rom-kana-rule-list
-;;       (append skk-rom-kana-rule-list
-;;	         '(("@" nil "@"))))
+;; ;; ;; @ を入力できるようにする          ; DDSKK 14.2 からは不要です。
+;; ;; (setq skk-rom-kana-rule-list         ; メーリングリスト 2010-11-27
+;; ;;       (append skk-rom-kana-rule-list ; 
+;; ;;	         '(("@" nil "@"))))        ;
+;;
 ;; ;; annotation として画数と部首を表示する
 ;; (setq skk-show-annotation t)
 ;;

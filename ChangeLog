@@ -1,5 +1,9 @@
 2010-11-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tankan.el: Update comment.
+
+	* doc/skk.texi: Update.
+
 	* skk-gadget.el (skk-today): コード見直し。
 
 	* skk-kakasi.el (skk-gyakubiki-and-henkan): Typo function name.
