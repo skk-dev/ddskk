@@ -323,18 +323,6 @@
     (setq skk-search-prog-list (skk-nunion skk-search-prog-list
 					   '((skk-lookup-search)))))
 
-;; 単漢字変換を行う ▽よみ@<SPC>
-;; キー`@' の skk-today の割り当てを解除する。
-;; (setq skk-rom-kana-rule-list
-;;       (append skk-rom-kana-rule-list
-;; 	      '(("@" nil "@"))))
-;; skk-search-prog-list の２番目の要素に skk-tankan-search を追加する
-;; (setq skk-search-prog-list
-;;       (cons (car skk-search-prog-list)
-;; 	    (cons '(skk-tankan-search 'skk-search-jisyo-file
-;; 				      skk-large-jisyo 10000)
-;; 		  (cdr skk-search-prog-list))))
-
 ;; 送りあり変換を送りなし変換と同じ操作でできるようにする
 ;; (setq skk-auto-okuri-process t)
 
@@ -405,6 +393,14 @@
 ;; 注) skk-search-prog-list は厳密な意味でのユーザオプションではないので
 ;; 直接設定することはお勧めしません。自分が何をしようとしているか理解して
 ;; いる場合のみ設定してください。
+
+;; 単漢字変換を行う ▽よみ@<SPC>
+;;   skk-search-prog-list の２番目の要素に skk-tankan-search を追加する
+;; (setq skk-search-prog-list
+;;       (cons (car skk-search-prog-list)
+;; 	    (cons '(skk-tankan-search 'skk-search-jisyo-file
+;; 				      skk-large-jisyo 10000)
+;; 		  (cdr skk-search-prog-list))))
 
 ;; Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
 ;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。

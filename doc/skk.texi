@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/29 12:42:47 $
+@set UPDATED $Date: 2010/11/30 12:14:42 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -546,7 +546,8 @@ L 辞書（あらゆる単語を収録）
 郵便番号辞書
 
 @item SKK-JISYO.JIS2
-JIS 第２水準の文字を部首を見出し語として収録した辞書
+JIS X 0208 で定められている第２水準の文字を、部首の読みを見出し語として
+単漢字を収録した辞書
 
 @item SKK-JISYO.JIS3_4
 JIS 第３水準、第４水準の文字に代表される、JIS X 0208 には含まれない

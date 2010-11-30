@@ -1,3 +1,7 @@
+2010-11-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: 単漢字変換の設定例から skk-rom-kana-rule-list の例を削除。
+
 2010-11-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: 単漢字変換の設定例を記載。
