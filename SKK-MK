@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.179 2010/11/10 19:17:15 skk-cvs Exp $
-;; Last Modified: $Date: 2010/11/10 19:17:15 $
+;; Version: $Id: SKK-MK,v 1.180 2010/12/01 20:12:16 skk-cvs Exp $
+;; Last Modified: $Date: 2010/12/01 20:12:16 $
 
 ;;; Commentary:
 
@@ -220,7 +220,6 @@ This version of SKK requires MULE features"))
 		skk-cus
 		skk-dcomp
 		skk-develop
-		skk-dic
 		skk-gadget
 		skk-hint
 		skk-inline
@@ -306,7 +305,7 @@ This version of SKK requires MULE features"))
   (while modules
     (unless (or
 	     ;; skk-autoloads.el は自動生成されるのでまだ存在しない。
-	     (memq (car modules) '(skk-autoloads skk-dic))
+	     (memq (car modules) '(skk-autoloads))
 	     (file-exists-p (concat (symbol-name (car modules))
 				    ".el")))
       (setq SKK_MODULES (delq (car modules) SKK_MODULES)))
@@ -435,7 +434,6 @@ This version of SKK requires MULE features"))
 
 (defun SKK-MK-compile ()
   (let (enable-local-eval)
-    (SKK-MK-skk-dic)
     (SKK-MK-generate-autoloads-el)
     (load (expand-file-name "skk-autoloads.el"))
     (require 'skk (expand-file-name "skk.el"))
@@ -452,7 +450,6 @@ This version of SKK requires MULE features"))
     (SKK-MK-texinfo-format SKK_TEXIS)))
 
 (defun SKK-MK-compile-package ()
-  (SKK-MK-skk-dic)
   (SKK-MK-generate-autoloads-el-package)
   (setq features (delq 'skk-autoloads features))
   (require 'skk-autoloads (expand-file-name "auto-autoloads.el"))
@@ -936,72 +933,5 @@ SKK tutorials:
 	  (write-region (point-min) (point-max) generated-autoload-file))))
     (add-to-list 'command-line-args-left ".")
     (Custom-make-dependencies)))
-
-(defun SKK-MK-skk-dic ()
-  (let* ((buf (get-buffer-create " *SKK-JISYO.S*"))
-	 (jisyo0 (and SKK_DEFAULT_JISYO
-		      (expand-file-name SKK_DEFAULT_JISYO)))
-	 (jisyo1 (and SKK_DEFAULT_JISYO
-		      (expand-file-name SKK_DEFAULT_JISYO "dic")))
-	 (jisyo2 (and SKK_DEFAULT_JISYO
-		      (expand-file-name "SKK-JISYO.S" "dic")))
-	 (jisyo3 (and
-		  (expand-file-name "SKK-JISYO.S" "../dic")))
-	 (jisyo (cond
-		 ((not SKK_DEFAULT_JISYO)
-		  nil)
-		 ((and (file-readable-p jisyo0)
-		       (not (file-directory-p jisyo0)))
-		  jisyo0)
-		 ((and (file-readable-p jisyo1)
-		       (not (file-directory-p jisyo1)))
-		  jisyo1)
-		 ((and (file-readable-p jisyo2)
-		       (not (file-directory-p jisyo2)))
-		  jisyo2)
-		 ((and (file-readable-p jisyo3)
-		       (not (file-directory-p jisyo3)))
-		  jisyo3)))
-	 (skk-dic (expand-file-name "skk-dic.el")))
-    (cond
-     ((not jisyo)
-      (copy-file "skk-dic.el.in" "skk-dic.el" t t))
-     ((and (file-exists-p skk-dic)
-	   (file-newer-than-file-p skk-dic
-				   (expand-file-name "skk-dic.el.in")))
-      (princ (format "%s is up-to-date
-"
-		     skk-dic))
-      nil)
-     (t
-      (princ (format "Processing %s...
-"
-		     jisyo))
-      (with-current-buffer buf
-	(erase-buffer)
-	(let ((coding-system-for-read 'euc-jp))
-	  (insert-file-contents jisyo))
-	(goto-char (point-min))
-	(while (not (looking-at "^;; okuri-ari entries\\.$"))
-	  (next-line 1))
-	(delete-region (point-min) (point))
-	(goto-char (point-min))
-	(while (search-forward "\\" nil t)
-	  (replace-match "\\\\\\\\"))
-	(goto-char (point-min))
-	(while (search-forward "\"" nil t)
-	  (replace-match "\\\\\"")))
-      (with-temp-buffer
-	(erase-buffer)
-	(let ((coding-system-for-read 'iso-2022-jp))
-	  (insert-file-contents (expand-file-name "skk-dic.el.in")))
-	(goto-char (point-min))
-	(while (not (looking-at "^\")$"))
-	  (next-line 1))
-	(insert-buffer buf)
-	(write-region-as-coding-system
-	 'iso-2022-jp
-	 (point-min) (point-max)
-	 (expand-file-name "skk-dic.el")))))))
 
 ;;; SKK-MK ends here

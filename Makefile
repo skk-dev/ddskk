@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.74 2010/11/19 16:09:02 skk-cvs Exp $
-# Last Modified: $Date: 2010/11/19 16:09:02 $
+# Version: $Id: Makefile,v 1.75 2010/12/01 20:12:16 skk-cvs Exp $
+# Last Modified: $Date: 2010/12/01 20:12:16 $
 
 
 VERSION = 14.1.91
@@ -58,14 +58,6 @@ what-where-package:
 cdb:
 	$(PYTHON) $(SKK2CDB) $(CDB_TARGET) $(CDB_SOURCE)
 
-skk-dic:
-	$(RM) skk-dic.el
-	$(EMACS) $(FLAGS) -f SKK-MK-skk-dic
-
-rb-skk-dic:
-	$(RM) skk-dic.el
-	$(RUBY) etc/skk-dic.rb ../dic/SKK-JISYO.S
-
 TAGS:
 	$(ETAGS) `find . -name '*.el'`
 clean:
@@ -74,7 +66,6 @@ clean:
 	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 tar: clean
-	cp -f skk-dic.el.in skk-dic.el
 	cd .. ;\
 	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot ddskk$(VERSION).tar.gz ddskk$(VERSION).tar.bz2 ddskk-$(VERSION).tar.gz ddskk-$(VERSION).tar.bz2 ;\
 	$(RM) ddskk-$(VERSION) ;\
@@ -86,7 +77,6 @@ tar: clean
 	$(RM) ddskk-$(VERSION) ;\
 	$(MD5) ddskk-$(VERSION).tar.bz2 >ddskk-$(VERSION).tar.bz2.md5 ;\
 	$(MD5) ddskk-$(VERSION).tar.gz >ddskk-$(VERSION).tar.gz.md5
-	$(RM) skk-dic.el
 
 snapshot: clean
 	cd .. ;\
@@ -98,6 +88,5 @@ snapshot: clean
 	$(RM) $(SNAPBASE).tar ;\
 	$(RM) $(SNAPBASE) ;\
 	$(MD5) $(SNAPBASE).tar.gz >$(SNAPBASE).tar.gz.md5
-	$(RM) skk-dic.el
 
 # end of Makefile.
