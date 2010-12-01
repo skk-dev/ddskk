@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/12/01 11:42:07 $
+@set UPDATED $Date: 2010/12/01 20:27:54 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -413,13 +413,6 @@ cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @command{make} $B%3%^%s%I$,;HMQ$G
 @example
 % cd ddskk-@value{SKK-VERSION}
 @end example
-
-$B0J2<$K=R$Y$k(B @command{make} $B%3%^%s%I$r<B9T$9$k:]!"(BSHELL $B$N4D6-JQ?t(B @env{SKK_DEFAULT_JISYO} $B$K(B
-SKK $B<-=q$N%U%!%$%kL>!J%U%k%Q%9!K$,Dj5A$5$l$F$$$k$H!"$=$N<-=q$NFbMF$r(B
-@file{skk-dic.el} $B$NCf$K<h$j9~$_!"<-=q8!:w4X?t$H$7$F(B
-@code{skk-search-small-dic} $B$,;H$($k$h$&$K$J$j$^$9!#(B
-@env{SKK_DEFAULT_JISYO} $B$K$ODL>o!"(B@file{SKK-JISYO.S} $B$r;XDj$9$k$HNI$$(B
-$B$G$7$g$&!#(B@w{@xref{$B<-=q%U%!%$%k$N;XDj(B}.}
 
 @menu
 * GNU Emacs $B$X$N%$%s%9%H!<%k(B::
@@ -1933,13 +1926,8 @@ skk-comp $B$K$h$kJd40$r<+F0E*$K<B9T$7$F8+=P$78lF~NO$r;Y1g$7$^$9!#(B
 
 $B%P%0%l%]!<%H$N%a!<%k%P%C%U%!$rMQ0U$9$k%W%m%0%i%`%U%!%$%k!#(B
 
-@item skk-dic.el
-@cindex @file{skk-dic.el}
-
-SKK $B<-=q$r(B Emacs Lisp $B%W%m%0%i%`$H$7$FMQ0U$G$-$^$9!#(B
-
-@item skk-emacs.el $B!J5l(B skk-e21.el$B!K(B
-@cindex @file{skk-e21.el}
+@item skk-emacs.el $B!J(BDDSKK 14.1 $B0JA0$N%U%!%$%kL>(B: skk-e21.el$B!K(B
+@cindex @file{skk-emacs.el}
 
 GNU Emacs 21 $B0J9_$N3HD%5!G=$rMxMQ$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 $B%$%s%8%1!<%?$N%+%i!<2=$d2hA|I=<(!"%D!<%k%F%#%C%WMxMQ$J$I!#(B
@@ -6574,12 +6562,6 @@ not documented
 $B<-=q%5!<%P$,;H$&<-=q%U%!%$%k$N@_Dj$K$D$$$F$O!"(B
 @w{@pxref{$B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B}} $B5Z$S(B @w{@pxref{$B%5!<%P4XO"(B}} $B$r(B
 $B$4Mw2<$5$$!#(B
-@end defun
-
-@defun skk-search-small-dic
-$B7A<0(B: (skk-search-small-dic)
-
-$B%3%s%Q%$%k;~$K;XDj$5$l$?<-=q$r8!:w$7$^$9!#(B(@w{@pxref{DDSKK $B$N%$%s%9%H!<%k(B}})
 @end defun
 
 @node $B%5!<%P4XO"(B

@@ -1,5 +1,6 @@
 2010-12-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* doc/skk.texi: Update.
 	* Makefile, SKK-MK: Remove codes related to skk-dic.el.in.
 	* skk-dic.el.in: No longer in the repository.
 	* skk-emacs.el (skk-search-ja-dic): New function.
