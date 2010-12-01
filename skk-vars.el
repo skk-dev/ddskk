@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.335 2010/11/20 22:10:37 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.336 2010/12/01 20:17:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/20 22:10:37 $
+;; Last Modified: $Date: 2010/12/01 20:17:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -441,6 +441,27 @@ Non-nil $B$G$"$l$P!"<-=q%5!<%P!<$,(B active $B$G$J$$;~$K!"(B
   :group 'skk-dictionary
   :group 'skk-server)
 
+(defcustom skk-inhibit-ja-dic-search nil
+  "*GNU Emacs $BIUB0$N<-=q$rMQ$$$?8!:w$r6X;_$9$k$+$I$&$+;XDj$9$k%*%W%7%g%s!#(B
+GNU Emacs $B$K$O(B SKK-JISYO.L $B$r85$KJQ49$5$l$?(B ja-dic.el $B$H$$$&<-=q$,IUB0$9$k!#(B
+$B$3$l$rMQ$$$FDL>o$N$+$J4A;zJQ49(B ($BAw$j$"$j!"Aw$j$J$7!"@\F,<-!"@\Hx<-(B) $B$,2DG=(B
+$B$G$"$k(B ($B$?$@$7(B SKK-JISYO.L $B$K$h$k1Q?tJQ49!"?tCMJQ49$J$I$O$G$-$J$$(B)$B!#(B
+DDSKK 14.2 $B$h$j(B ja-dic.el $B8!:w5!G=$,DI2C$5$l$?!#$3$l$O(B `skk-large-jisyo'$B!"(B
+`skk-aux-karge-jisyo'$B!"(B`skk-cdb-large-jisyo' `skk-server-host' $B$NA4$F$,L58z(B
+$B$J>l9g$N$_M-8z$K$J$k$,!"$"$i$f$k>l9g$KL58z$K$7$?$$>l9g$O$3$l$r(B t $B$K@_Dj$9$k!#(B"
+  :type 'boolean
+  :group 'skk-dictionary)
+
+(defcustom skk-extra-jisyo-file-list nil
+  "*$B%a%$%s<-=q$NB>$K8!:w$9$k<-=q$N%j%9%H$r;XDj$9$k!#(B
+$B$$$:$l$N<-=q$b!"8+=P$78l$O%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
+SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"$k$,!"(B
+$B%a%$%s<-=q(B (SKK-JISYO.L $B$d%5!<%P$J$I(B) $B$NB>$K8!:w$7$?$$<-=q$N%U%!%$%kL>$N%j%9%H(B
+$B$r;XDj$9$k!#%U%!%$%kL>$NBe$o$j$K!"%U%!%$%kL>$H%3!<%I7O$N%Z%"$r;XDj$9$k$3$H$b(B
+$B$G$-$k!#<-=q$O;XDj$5$l$?=g$K8!:w$5$l$k!#(B"
+  :type '(repeat (file :tag "$B<-=q%U%!%$%kL>(B"))
+  :group 'skk-dictionary)
+
 (defcustom skk-search-prog-list
   '((skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
     (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
@@ -448,7 +469,11 @@ Non-nil $B$G$"$l$P!"<-=q%5!<%P!<$,(B active $B$G$J$$;~$K!"(B
     (skk-okuri-search)
     (skk-search-cdb-jisyo skk-cdb-large-jisyo)
     (skk-search-jisyo-file skk-large-jisyo 10000)
-    (skk-search-server skk-aux-large-jisyo 10000))
+    (skk-search-server skk-aux-large-jisyo 10000)
+    (skk-search-ja-dic-maybe)
+    (skk-search-extra-jisyo-files)
+    (skk-search-katakana-maybe)
+    (skk-search-sagyo-henkaku-maybe))
   "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
 $BJQ49$7$?8uJd$rJV$9(B S $B<0$r%j%9%H$N7A$KI=5-$7$?$b$N!#(B
 `skk-search' $B4X?t$,(B `skk-search-prog-list' $B$N(B car $B$+$i8eJ}8~$X=gHV$K(B S $B<0$N(B
@@ -1395,6 +1420,31 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#Nc$($P!
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-henkan
   :group 'skk-visual)
+
+(defcustom skk-search-katakana nil
+  "*$B$+$J$rC1=c$K%+%?%+%JJQ49$7$?8uJd$rI=<($9$k$+$I$&$+$r7h$a$k%*%W%7%g%s!#(B
+nil $B$J$i$P4^$a$J$$!#(Bt $B$J$i$PA43Q%+%J8uJd$r4^$a$k!#(B
+`jisx0201-kana' $B$J$i$PA43Q$K2C$($FH>3Q%+%J8uJd$b4^$a$k!#(B
+$B$3$N5!G=$O0lHLE*$J(B FEP $B$N;H$$>!<j$K6aIU$1$?$$%f!<%6!<!"8D?M<-=q$r0i$F$?$$(B
+$B%f!<%6!<8~$1$KDs6!$5$l$k!#(B"
+  :type '(radio (const :tag "$B$3$N5!G=$rL58z$K$9$k(B" nil)
+		(const :tag "$BA43Q%+%J$N$_(B" t)
+		(const :tag "$BH>3Q%+%J$b4^$a$k(B" jisx0201-kana))
+  :group 'skk-henkan)
+
+(defcustom skk-search-sagyo-henkaku nil
+  "*$B4J0W$J%5JQF0;lJQ495!G=$rM-8z$K$9$k$+$I$&$+7h$a$k%*%W%7%g%s!#(B
+nil $B$J$i$P!"Aw$j2>L>$,(B \"$B$5(B\" \"$B$7(B\" \"$B$9(B\" \"$B$;(B\" $B$N$$$:$l$+$N;~$K(B
+$BAw$j$J$78uJd$,JQ498uJd$K8=$l$k!#(B
+anything $B$K@_Dj$9$k$H!"Aw$j2>L>$,2?$G$"$C$F$bAw$j$J$78uJd$rAw$j$"$jJQ49$K(B
+$BMQ$$$k!#$3$N>l9g!"Aw$j2>L>$H$$$&$h$j$b!"G$0U$N4A;z$H$+$J$N@Z$jBX$(0LCV$r(B
+$B;XDj$9$k$h$&$JF~NO$K$J$k!#(B
+$B$3$N5!G=$OIT@53N$J=PNO$r$9$k2DG=@-$KCm0U$9$kI,MW$,$"$k$,!"8D?M<-=q$r0i$F$?$$(B
+$B%f!<%6!<8~$1$KDs6!$5$l$k!#(B"
+  :type '(radio (const :tag "$B$3$N5!G=$rL58z$K$9$k(B" nil)
+		(const :tag "$B4J0W%5JQF0;lJQ49$r$9$k(B" t)
+		(const :tag "$B$3$N5!G=$rG$0U$NAw$j$"$jJQ49$K3HD%$9$k(B" anything))
+  :group 'skk-henkan)
 
 (defcustom skk-kakutei-key "\C-j"
   "*$B4A;zJQ49$N3NDjF0:n$r9T$&%-!<!#(B"
@@ -4643,7 +4693,8 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 $B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B"
   :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B" tooltip)
 		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
-  :group 'skk-henkan)
+  :group 'skk-henkan
+  :group 'skk-tooltip)
 
 (defcustom skk-tooltip-parameters nil
   "*tooltip $B$r;H$&>l9g$N(B SKK $BFH<+$N(B tooltip $B%U%l!<%`%Q%i%a!<%?@_Dj!#(B
