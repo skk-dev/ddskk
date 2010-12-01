@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/12/01 11:18:09 $
+@set UPDATED $Date: 2010/12/01 11:42:07 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7558,7 +7558,7 @@ A:＼ S:〜 D:‖ F:｜ G:… H:‥ J:‘ K:
 @noindent
 がエコーエリアに表示され、この文字がロシア文字であることがわかります。
 
-Emacs のコマンド @code{describe-char} も有用でしょう。
+Emacs のコマンド @code{M-x describe-char} も@footnote{Emacs 21 では @code{M-x describe-char-after} です。}有用でしょう。
 
 @node DDSKK 以外のツールを用いた辞書変換
 @section DDSKK 以外のツールを用いた辞書変換
@@ -7861,7 +7861,7 @@ L:define-ccl-slide-translation-table
 @lisp
 A~ /チルド付きA(LATIN CAPITAL LETTER A WITH TILDE)/
 @end lisp
-と登録@footnote{実際には JIS X 0213 の1面9区57点の1文字が登録されています。
+と登録@footnote{実際には JIS X 0213 の1面9区26点の1文字が登録されています。
 この文字を skk.texi に直接記載するのは避けました。}されています。
 したがって、▽A~ @key{SPC} と変換したときに「チルド付きA」が表示されるか、Lisp シンボル名が補完されるかは、リスト @code{skk-search-prog-list} 内の要素の順によります。
 
