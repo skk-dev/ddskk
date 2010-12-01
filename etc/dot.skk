@@ -278,6 +278,32 @@
 
 ;; @@ 検索に関連した設定
 
+;; From DDSKK 14.2: メイン辞書 (L 辞書、CDB 辞書、サーバー)以外の
+;; 辞書を指定する
+
+(setq skk-extra-jisyo-file-list
+      (list "/usr/share/skk/SKK-JISYO.JIS2"
+	    '("/usr/share/skk/SKK-JISYO.JIS3_4" . euc-jisx0213)
+	    "/usr/share/skk/SKK-JISYO.notes"
+	    "/usr/share/skk/SKK-JISYO.assoc"
+	    "/usr/share/skk/SKK-JISYO.edict"
+	    "/usr/share/skk/SKK-JISYO.geo"
+	    "/usr/share/skk/SKK-JISYO.hukugougo"
+	    "/usr/share/skk/SKK-JISYO.jinmei"
+	    "/usr/share/skk/SKK-JISYO.law"
+	    "/usr/share/skk/SKK-JISYO.okinawa"
+	    "/usr/share/skk/SKK-JISYO.propernoun"
+	    "/usr/share/skk/SKK-JISYO.pubdic+"
+	    "/usr/share/skk/SKK-JISYO.station"
+	    "/usr/share/skk/SKK-JISYO.zipcode"
+	    "/usr/share/skk/SKK-JISYO.office.zipcode"))
+;; 注1) 辞書ファイル名のリストを指定します。ファイルのコード系が
+;; skk-jisyo-code と異なるファイルの場合はファイル名の代わりに
+;; ("ファイル名" . コード系) のペアを指定することが推奨されます。
+;; 上記の例をご覧ください。
+;; 注2) skk-search-prog-list を手動で設定している場合はこの機能の
+;; 動作は保証されません。
+
 ;; look コマンドを使った検索を行う
 (setq skk-use-look t)
 
@@ -328,15 +354,16 @@
 
 ;; カタカナ語を変換候補に加える。1、2 を好みで選んでください
 ;; 例 1) 単純にカタカナに変換したものを加える
-;; (setq skk-search-prog-list (skk-nunion skk-search-prog-list
-;; 				       '((skk-search-katakana))))
+;; (setq skk-search-katakana t)
 ;; 例 2) 全角カタカナの候補と半角カタカナの候補を共に加える
-;; (setq skk-search-prog-list (skk-nunion skk-search-prog-list
-;; 				       '((skk-search-katakana t))))
+;; (setq skk-search-katakana 'jisx0201-kana)
+;; 注) skk-search-prog-list を手動で設定している場合はこの機能の
+;; 動作は保証されません。
 
 ;; サ行変格活用の動詞も送りあり変換出来るようにする
-;; (setq skk-search-prog-list (skk-nunion skk-search-prog-list
-;; 				       '((skk-search-sagyo-henkaku))))
+;; (setq skk-search-sagyo-henkaku t)
+;; 注) skk-search-prog-list を手動で設定している場合はこの機能の
+;; 動作は保証されません。
 
 ;; 辞書検索に関する高度な設定 --
 ;; ユーザオプションに頼らず検索方法と検索順を自分で制御する方法

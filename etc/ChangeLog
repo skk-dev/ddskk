@@ -1,5 +1,7 @@
 2010-12-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* dot.skk: Update for skk-search-katakana,
+	skk-search-sagyo-henkaku and skk-extra-jisyo-file-list.
 	* skk-dic.rb: No longer in the repository.
 
 2010-11-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
