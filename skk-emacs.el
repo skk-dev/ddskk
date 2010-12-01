@@ -29,6 +29,7 @@
 
 (eval-when-compile
   (require 'cl)
+  (require 'ja-dic-utl)
   (require 'tooltip)
   (require 'skk-vars)
   (require 'skk-macs)
@@ -682,6 +683,75 @@
 (defalias 'skk-tooltip-hide 'tooltip-hide)
 
 ;;@@ Other functions.
+
+;;;###autoload
+(defun skk-search-ja-dic ()
+  "GNU Emacs に付属するかな漢字変換辞書を用いて検索する。
+現在の Emacs には SKK-JISYO.L を基に変換された ja-dic.el が付属している。
+この辞書データを用いて送りあり、送りなし、接頭辞、接尾辞の変換を行う。
+ただし、SKK-JISYO.L のような英数変換、数値変換などはできない。"
+  (require 'ja-dic-utl)
+  ;; Mostly from ja-dic-utl.el.
+  (when (and (locate-library "ja-dic/ja-dic")
+	     (not skkdic-okuri-nasi))
+    (ignore-errors
+	(load-library "ja-dic/ja-dic")))
+  (let* ((len (length skk-henkan-key))
+	 (vec (make-vector len 0))
+	 (i 0)
+	 entry result)
+    ;; At first, generate vector VEC from SEQ for looking up SKK
+    ;; alists.  Nth element in VEC corresponds to Nth element in SEQ.
+    ;; The values are decided as follows.
+    ;;   If SEQ[N] is `ー', VEC[N] is 0,
+    ;;   else if SEQ[N] is a Hiragana character, VEC[N] is:
+    ;;     ((The 2nd position code of SEQ[N]) - 32),
+    ;;   else VEC[N] is 128.
+    (while (< i len)
+      (let ((ch (aref skk-henkan-key i))
+	    code)
+	(cond ((= ch ?ー)
+	       (aset vec i 0))
+	      ((and (eval-when-compile (>= emacs-major-version 23))
+		    (>= ch (car skkdic-jisx0208-hiragana-block))
+		    (<= ch (cdr skkdic-jisx0208-hiragana-block))
+		    (setq code (encode-char ch 'japanese-jisx0208)))
+	       (aset vec i (- (logand code #xFF) 32)))
+	      ((and (eval-when-compile (<= emacs-major-version 22))
+		    (setq code (split-char ch))
+		    (eq (car code) 'japanese-jisx0208)
+		    (= (nth 1 code) skkdic-jisx0208-hiragana-block))
+	       (aset vec i (- (nth 2 code) 32)))
+	      (t
+	       (aset vec i 128))))
+      (setq i (1+ i)))
+    (cond
+     (skk-henkan-okurigana ; 送りあり変換
+      (let ((okurigana (assq (aref skk-henkan-okurigana 0)
+			     skkdic-okurigana-table))
+	    orig-element)
+	(when okurigana
+	  (setq orig-element (aref vec (1- len)))
+	  (aset vec (1- len) (- (cdr okurigana)))
+	  (when (and (setq entry (lookup-nested-alist vec
+						      skkdic-okuri-ari
+						      len 0 t))
+		     (consp (car entry)))
+	    (setq entry (nreverse (copy-sequence (car entry))))))))
+     ((string-match ">$" skk-henkan-key) ; 接頭辞
+      (setq entry (lookup-nested-alist vec skkdic-prefix (1- len) 0 t)))
+     ((string-match "^>" skk-henkan-key) ; 接尾辞
+      (setq entry (lookup-nested-alist vec skkdic-postfix len 1 t)))
+     (t ; 通常の送りなし変換
+      (setq entry (lookup-nested-alist vec skkdic-okuri-nasi len 0 t))))
+    ;;
+    (when (consp (car entry))
+      (setq entry (car entry)))
+    (while entry
+      (when (stringp (car entry))
+	(setq result (nconc result (list (car entry)))))
+      (setq entry (cdr entry)))
+    result))
 
 ;; skk-kcode.el より。
 ;; XEmacs でのエラー回避のためにこの関数を一時退避している。
