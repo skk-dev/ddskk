@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.91
-@set UPDATED $Date: 2010/11/30 12:14:42 $
+@set UPDATED $Date: 2010/12/01 11:18:09 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7788,7 +7788,9 @@ SKK 辞書に
 @node Lisp シンボル名の補完検索変換
 @subsection Lisp シンボル名の補完検索変換
 
-SKK abbrev モードにて、Lisp シンボル名を補完して検索し、検索結果を候補として返すことができます。英文字の後ろに @samp{~} を付加してから変換を開始してください。
+SKK abbrev モードにて、Lisp シンボル名を補完して検索し、検索結果を候補と
+して返すことができます。英文字の後ろに @samp{~} を付加してから変換を開始
+してください。
 
 まずは動作例を示します。
 
@@ -7854,6 +7856,14 @@ L:define-ccl-slide-translation-table
 (add-to-list 'skk-search-prog-list
 	     '(skk-search-lisp-symbol) t)
 @end lisp
+
+なお、見出し語に @samp{~} を含む辞書もあります。例えば @file{SKK-JISYO.JIS3_4} には
+@lisp
+A~ /チルド付きA(LATIN CAPITAL LETTER A WITH TILDE)/
+@end lisp
+と登録@footnote{実際には JIS X 0213 の1面9区57点の1文字が登録されています。
+この文字を skk.texi に直接記載するのは避けました。}されています。
+したがって、▽A~ @key{SPC} と変換したときに「チルド付きA」が表示されるか、Lisp シンボル名が補完されるかは、リスト @code{skk-search-prog-list} 内の要素の順によります。
 
 @defun skk-search-lisp-symbol &optional PREDICATE NOT-ABBREV-ONLY WITHOUT-CHAR-MAYBE
 オプション @code{PREDICATE} で補完検索する範囲（関数名、変数名、コマンド名）を限定することができます。
