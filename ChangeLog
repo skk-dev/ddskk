@@ -1,3 +1,23 @@
+2010-12-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile, SKK-MK: Remove codes related to skk-dic.el.in.
+	* skk-dic.el.in: No longer in the repository.
+	* skk-emacs.el (skk-search-ja-dic): New function.
+	* skk-vars.el (skk-inhibit-ja-dic-search)
+	(skk-extra-jisyo-file-list, skk-search-katakana)
+	(skk-search-sagyo-henkaku): New user options.
+	(skk-search-prog-list): Add `skk-search-ja-dic-maybe',
+	`skk-search-extra-jisyo-files', `skk-search-katakana-maybe' and
+	`skk-search-sagyo-henkaku-maybe'.
+	(skk-tooltip-face): Change group to `skk-tooltip'.
+	* skk.el (skk-search-extra-jisyo-files, skk-search-katakana-maybe)
+	(skk-search-sagyo-henkaku-maybe, skk-search-ja-dic-maybe)
+	(skk-preload-jisyo): New functions.
+	(skk-preload): Also preload jisyo files specified in
+	skk-extra-jisyo-file-list.
+	(skk-search-katakana, skk-search-romaji): Do not do search when
+	user inputs prefix/suffix.
+
 2010-12-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

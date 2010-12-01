@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.540 2010/11/27 12:35:46 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.541 2010/12/01 20:22:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/27 12:35:46 $
+;; Last Modified: $Date: 2010/12/01 20:22:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3942,6 +3942,15 @@ FILE には辞書ファイルだけでなく、
   (skk-search-jisyo-buf (skk-get-jisyo-buffer file nomsg)
 			limit))
 
+(defun skk-search-extra-jisyo-files ()
+  (let ((rest skk-extra-jisyo-file-list)
+	candidates)
+    (while rest
+      (setq candidates (nconc candidates (skk-search-jisyo-file (car rest)
+								10000))
+	    rest (cdr rest)))
+    candidates))
+
 (defun skk-search-server (file limit &optional nomsg)
   "辞書サーバを使用して `skk-henkan-key' をキーにして検索を行う。
 辞書サーバが使用できないときは、FILE をバッファに読み込んで検索を行う。
@@ -4544,16 +4553,21 @@ SKK 辞書の候補として正しい形に整形する。"
    (t
     str)))
 
+(defun skk-search-katakana-maybe ()
+  (when skk-search-katakana
+    (skk-search-katakana (eq skk-search-katakana 'jisx0201-kana))))
+
 (defun skk-search-katakana (&optional jisx0201-kana)
   "見出し語をカタカナにして、リストにして返す。
 これは `skk-search-prog-list' に追加されるべき機能で、変換キーを単純にカ
 タカナに変換したものを候補として返す。
 一般的な FEP は単純にカタカナに変換したものが候補に現れるものが多いが、
 そのような挙動が好みの場合にはこの関数を用いるとよい。"
-  (unless skk-henkan-okurigana
+  (unless (or skk-henkan-okurigana
+	      (string-match ">$" skk-henkan-key) ; 接頭辞
+	      (string-match "^>" skk-henkan-key)) ; 接尾辞
     (let ((key skk-henkan-key)
-	  char
-	  words)
+	  char words)
       (with-temp-buffer
 	(insert key)
 	;; 接頭辞・接尾辞の入力だったら ">" を消しておく。
@@ -4564,12 +4578,10 @@ SKK 辞書の候補として正しい形に整形する。"
 	(when (looking-at ">")
 	  (delete-char 1))
 	;;
-	(while (and
-		(not (eobp))
-		(or
-		 ;; "ー" では文字種別が判別できないので、ポイントを進める。
-		 (looking-at "ー")
-		 (eq 'unknown (setq char (skk-what-char-type)))))
+	(while (and (not (eobp))
+		    ;; "ー" では文字種が判別できないので point を進める。
+		    (or (looking-at "ー")
+			(eq 'unknown (setq char (skk-what-char-type)))))
 	  (forward-char 1))
 	(when (eq char 'hiragana)
 	  (skk-katakana-region (point-min) (point-max) t)
@@ -4587,30 +4599,32 @@ SKK 辞書の候補として正しい形に整形する。"
 
 (defun skk-search-romaji (&optional jisx0208)
   "変換キーをローマ字に変換した候補を返す。"
-  (when (and (not skk-henkan-okurigana)
-	     (executable-find "kakasi"))
-    (let ((key skk-henkan-key)
-	  words chars)
-      (with-temp-buffer
-	(insert key)
-	;; 接頭辞・接尾辞の入力だったら ">" を消しておく。
-	(goto-char (1- (point)))
-	(when (looking-at ">")
-	  (delete-char 1))
-	(goto-char (point-min))
-	(when (looking-at ">")
-	  (delete-char 1))
-	;;
-	(while (not (eobp))
-	  (add-to-list 'chars (skk-what-char-type))
-	  (forward-char 1))
-	(when (memq 'hiragana chars)
-	  (skk-romaji-region (point-min) (point-max))
-	  (setq words (list (buffer-string))))
-	(when (and jisx0208 words)
-	  (skk-jisx0208-latin-region (point-min) (point-max))
-	  (setq words (nconc words (list (buffer-string))))))
-      words)))
+  (when (executable-find "kakasi")
+    (unless (or skk-henkan-okurigana
+		(string-match ">$" skk-henkan-key) ; 接頭辞
+		(string-match "^>" skk-henkan-key)) ; 接尾辞
+      (let ((key skk-henkan-key)
+	    words chars)
+	(with-temp-buffer
+	  (insert key)
+	  ;; 接頭辞・接尾辞の入力だったら ">" を消しておく。
+	  (goto-char (1- (point)))
+	  (when (looking-at ">")
+	    (delete-char 1))
+	  (goto-char (point-min))
+	  (when (looking-at ">")
+	    (delete-char 1))
+	  ;;
+	  (while (not (eobp))
+	    (add-to-list 'chars (skk-what-char-type))
+	    (forward-char 1))
+	  (when (memq 'hiragana chars)
+	    (skk-romaji-region (point-min) (point-max))
+	    (setq words (list (buffer-string))))
+	  (when (and jisx0208 words)
+	    (skk-jisx0208-latin-region (point-min) (point-max))
+	    (setq words (nconc words (list (buffer-string))))))
+	words))))
 
 (defun skk-search-jisx0208-romaji ()
   "見出し語を全角ローマ字に変換して、リストにして返す。"
@@ -4691,6 +4705,10 @@ SKK 辞書の候補として正しい形に整形する。"
 	    (setq words (skk-nunion words (list word))))))
       words)))
 
+(defun skk-search-sagyo-henkaku-maybe ()
+  (when skk-search-sagyo-henkaku
+    (skk-search-sagyo-henkaku nil (eq skk-search-sagyo-henkaku 'anything))))
+
 (defun skk-search-sagyo-henkaku (&optional okuri-list anything)
   "見出し語をサ行変格活用の動詞とみなして、送りあり候補を検索する。"
   (unless okuri-list
@@ -4701,6 +4719,18 @@ SKK 辞書の候補として正しい形に整形する。"
     (skk-search-progs (substring skk-henkan-key
 				 0
 				 (1- (length skk-henkan-key))))))
+
+(defun skk-search-ja-dic-maybe ()
+  (when (eval-when-compile skk-running-gnu-emacs)
+    (unless (or (and (stringp skk-large-jisyo)
+		     (file-readable-p skk-large-jisyo))
+		(and (stringp skk-aux-large-jisyo)
+		     (file-readable-p skk-aux-large-jisyo))
+		(and (stringp skk-cdb-large-jisyo)
+		     (file-readable-p skk-cdb-large-jisyo))
+		skk-server-host
+		skk-inhibit-ja-dic-search)
+      (skk-search-ja-dic))))
 
 (defun skk-search-with-suffix ()
   (unless (or skk-henkan-okurigana
@@ -5157,24 +5187,28 @@ SKK 辞書の候補として正しい形に整形する。"
     (skk-mode 1))
   (dolist (item skk-search-prog-list)
     (when (eq (car item) 'skk-search-jisyo-file)
-      (catch 'tag
-	(let ((jisyo (cadr item)))
-	  (cond
-	   ((eq jisyo 'skk-jisyo)
-	    (throw 'tag nil))
-	   ((symbolp jisyo)
-	    (setq jisyo (symbol-value jisyo))
-	    (unless (and (stringp jisyo)
-			 (file-readable-p jisyo))
-	      (throw 'tag nil)))
-	   ((and (listp jisyo)
-		 (memq (car jisyo) '(cons quote)))
-	    (setq jisyo (ignore-errors (eval jisyo)))
-	    (unless (and (consp jisyo)
-			 (stringp (car jisyo))
-			 (file-readable-p (car jisyo)))
-	      (throw 'tag nil))))
-	  (skk-get-jisyo-buffer jisyo 'nomsg))))))
+      (skk-preload-jisyo (cadr item))))
+  (dolist (item skk-extra-jisyo-file-list)
+    (skk-preload-jisyo item)))
+
+(defun skk-preload-jisyo (jisyo)
+  (cond
+   ((eq jisyo 'skk-jisyo)
+    (setq jisyo nil))
+   ((symbolp jisyo)
+    (setq jisyo (symbol-value jisyo))
+    (unless (and (stringp jisyo)
+		 (file-readable-p jisyo))
+      (setq jisyo nil)))
+   ((and (listp jisyo)
+	 (memq (car jisyo) '(cons quote)))
+    (setq jisyo (ignore-errors (eval jisyo)))
+    (unless (and (consp jisyo)
+		 (stringp (car jisyo))
+		 (file-readable-p (car jisyo)))
+      (setq jisyo nil))))
+  (when jisyo
+    (skk-get-jisyo-buffer jisyo 'nomsg)))
 
 (defun skk-toggle-isearch-mode (&optional arg)
   "skk-isearch を利用するかどうかをトグルで変更する。
