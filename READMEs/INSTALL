@@ -20,15 +20,28 @@ Describes how to install SKK for Emacs on Windows.
 
 ** APEL
 
-APEL (A Portable Emacs Library) is required to install SKK.  Make sure
-you have APEL 10.7 or later installed.  It is highly recommended that
-you install the latest release.  APEL is available at:
+In DDSKK 14.2, installation of APEL (A Portable Emacs Library) is no
+longer required under GNU Emacs 22 or later.  For Emacs 21 and XEmacs,
+make sure you have APEL 10.7 or later installed.  It is highly
+recommended that you install the latest release.  APEL is available
+at:
 
     http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/lemi/dist/apel/
 or
     ftp://ftp.jpl.org/pub/elisp/apel/
 
 ** Get SKK dictionaries and copy them to ./dic subdirectory.
+
+In DDSKK 14.2, installation of an SKK dictionary is no longer
+mandatory under GNU Emacs 22 or later.  Emacs 22 contains a japanese
+kana-kanji dictionary called ja-dic as a part of the LEIM input
+method.  Indeed ja-dic is derived from SKK-JISYO.L and we wrote a
+code to use ja-dic for DDSKK.
+
+Although ja-dic may be of some use, it lacks entries for
+English-Japanese conversion and numeric conversion, making it inferior
+to SKK-JISYO.L.  In this way we recommend installing SKK dictionaries
+including SKK-JISYO.L. 
 
 If you do not have SKK dictionaries, get one or more from
 
@@ -38,7 +51,7 @@ You should get at least one of "基本辞書" (i.e. basic dictionaries).
 If unsure, we recommend SKK-JISYO.L.  All other dictionaries are
 optional.
 
-Unpack and Copy the downloaded dictionaries to ./dic subdirectory.
+Unpack and copy the downloaded dictionaries to ./dic subdirectory.
 They will be installed with `make install' or `make install-package',
 which is described below.
 
@@ -58,7 +71,7 @@ format, follow these steps.
 
    (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
 
-   In this case you may not want Emacs to read SKK-JISYO.L. if so, set
+   In this case you may not want Emacs to read SKK-JISYO.L. If so, set
    skk-large-jisyo and skk-aux-large-jisyo in your ~/.skk as the
    following.
    
