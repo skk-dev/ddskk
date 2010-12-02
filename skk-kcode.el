@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.58 2010/11/16 11:19:25 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.59 2010/12/02 12:11:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/16 11:19:25 $
+;; Last Modified: $Date: 2010/12/02 12:11:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -400,10 +400,17 @@
 	     (char1-s (car sjis))
 	     (char2-s (cadr sjis))
 	     (char-data (skk-tankan-get-char-data char))
-	     (anno (skk-tankan-get-char-annotation char)))
+	     (anno (skk-tankan-get-char-annotation char))
+	     (unicode (cond ((eval-when-compile (and skk-running-gnu-emacs
+						     (>= emacs-major-version 23)))
+			     (format ", UNICODE: U+%04x" char))
+			    ((eval-when-compile (fboundp 'char-to-ucs))
+			     (format ", UNICODE: U+%04x" (char-to-ucs char)))
+			    (t
+			     ""))))
 	;;
 	(setq mesg (format "\
-`%c'%s, KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s"
+`%c'%s, KUTEN: %02d-%02d, JIS: %2x%2x, EUC: %2x%2x, SJIS: %2x%2x%s%s%s"
 			   char
 			   (if (eq charset 'japanese-jisx0213-2)
 			       " (plane 2)"
@@ -412,6 +419,7 @@
 			   char1-j char2-j
 			   char1-e char2-e
 			   char1-s char2-s
+			   unicode
 			   (if (zerop (nth 2 char-data))
 			       ""
 			     (format ", 総%d画(%s部%d画)"
