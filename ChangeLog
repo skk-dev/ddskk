@@ -2,6 +2,10 @@
 
 	* doc/skk.texi: Update for skk-search-katakana,
 	skk-search-sagyo-henkaku, skk-extra-jisyo-file-list, and ja-dic.
+	* skk-annotation.el (skk-annotation-wikipedia-test-html-tag): New
+	function separated from skk-annotation-wikipedia-retrieved.  Check
+	if the html date ends with </html>.  Prior to the test gunzip the
+	data if it is gzipped.
 
 2010-12-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

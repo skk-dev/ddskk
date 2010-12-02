@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.168 2010/11/16 15:15:26 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.169 2010/12/02 19:08:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/11/16 15:15:26 $
+;; Last Modified: $Date: 2010/12/02 19:08:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1352,9 +1352,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 (defun skk-annotation-wikipedia-retrieved (&rest args)
   (cond ((or (member "deleted\n" (assq 'error (memq :error (car args))))
 	     (< (buffer-size) 7)
-	     (not (progn
-		    (goto-char (point-max))
-		    (search-backward "</html>" nil t))))
+	     (not (skk-annotation-wikipedia-test-html-tag)))
 	 ;; 不完全な retrieval においても STATUS が nil となることがあるので
 	 ;; ここで調整する。
 	 (kill-buffer (current-buffer))
@@ -1362,6 +1360,23 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	   (throw 'skk-annotation-wikipedia-suspended (cadr args))))
 	(t
 	 (throw 'skk-annotation-wikipedia-retrieved (current-buffer)))))
+
+(defun skk-annotation-wikipedia-test-html-tag ()
+  ;; html データが最後の </html> タグを持つことを確認する
+  (goto-char (point-min))
+  (when (re-search-forward "^Content-Encoding: gzip$" nil t)
+    ;; html が gzip 圧縮で送られて来た場合
+    (let ((gzip (executable-find "gzip")))
+      (unless gzip
+	(error "%s" "この内容を表示するには gzip が必要です"))
+      (while (and (not (looking-at "^\n"))
+		  (not (eobp)))
+	(forward-line 1))
+      (forward-line 1)
+      (when (< (point) (point-max))
+	(call-process-region (point) (point-max) gzip t t t "-cd"))))
+  (goto-char (point-max))
+  (search-backward "</html>" nil t))
 
 ;;;###autoload
 (defun skk-annotation-treat-wikipedia (word &optional sources)
