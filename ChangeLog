@@ -1,3 +1,8 @@
+2010-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Update for skk-search-katakana,
+	skk-search-sagyo-henkaku, skk-extra-jisyo-file-list, and ja-dic.
+
 2010-12-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-kcode.el (skk-display-code): Display UNICODE.
