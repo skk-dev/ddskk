@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.169 2010/12/02 19:08:30 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.170 2010/12/03 17:29:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/12/02 19:08:30 $
+;; Last Modified: $Date: 2010/12/03 17:29:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1374,7 +1374,8 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	(forward-line 1))
       (forward-line 1)
       (when (< (point) (point-max))
-	(call-process-region (point) (point-max) gzip t t t "-cd"))))
+	(let ((coding-system-for-write 'binary))
+	  (call-process-region (point) (point-max) gzip t t t "-cd")))))
   (goto-char (point-max))
   (search-backward "</html>" nil t))
 
