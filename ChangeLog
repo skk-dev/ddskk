@@ -1,5 +1,12 @@
 2010-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-inline.el (skk-inline-hide-1): Rename from
+	`skk-inline-hide'.
+	* skk-macs.el (skk-inline-hide): New function. Call
+	`skk-inline-hide-1'.
+
+2010-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* doc/skk.texi: Update for skk-search-katakana,
 	skk-search-sagyo-henkaku, skk-extra-jisyo-file-list, and ja-dic.
 	* skk-annotation.el (skk-annotation-wikipedia-test-html-tag): New

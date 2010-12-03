@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.158 2010/11/13 11:47:14 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.159 2010/12/03 16:50:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/13 11:47:14 $
+;; Last Modified: $Date: 2010/12/03 16:50:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -588,6 +588,10 @@ BUFFER defaults to the current buffer."
   (when (or skk-use-color-cursor
 	    force)
     (skk-cursor-set-1 color)))
+
+(defsubst skk-inline-hide ()
+  (when skk-inline-overlays
+    (skk-inline-hide-1)))
 
 (defun skk-cursor-off ()
   (unless (skk-color-cursor-display-p)
