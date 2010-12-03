@@ -3,7 +3,7 @@
 
 * $BF~NO5!G=(B
 
-** skk-kcode.el $B$r%D!<%k%F%#%C%W!&%$%s%i%$%sI=<(BP1~$K$9$k(B
+** skk-kcode.el $B$r%$%s%i%$%sI=<(BP1~$K$9$k(B
 
 ** $B!V%P%C%U%!$KA^F~$9$kJ8;zNs!W$H!V2hLL$KI=<($9$kJ8;zNs!W$N6hJL(B
 
@@ -129,12 +129,6 @@ SKK-JISYO.notes $B$,;0ED$5$s$K$h$j:n@=$5$l!"$3$3$NAw$j$"$j%(%s%H%j$K$"$k(B
 
 [skk 7193] http://mail.ring.gr.jp/skk/201007/msg00000.html
 
-** skk-isearch $B$H(B transient-mark-mode
-
-transient-mark-mode $B$,M-8z$J$H$-!"(Bisearch $B$ODL>oNN0h$r0];}$7$FB3$1$i$l(B
-$B$k$,!"(Bskk-isearch $B$KF~$k$H(B 1 $BJ8;z0J>eF~NO$7$?;~E@$GNN0h$,L58z$K$J$k!#(B
-$B860x$OD4::Cf!#(B
-
 
 * $B<-=q$N<h$j07$$(B
 
@@ -231,6 +225,12 @@ SKK $B$+$i$b8F$S=P$;$k%W%m%0%i%`$rMQ0U$9$k$+$7$F%W%m%0%i%`JQ495!G=$r6&M-(B
 
 * $BJs9p$5$l$?!"$^$?$O3NG'$5$l$F$$$k%P%0(B ($BL$=$@5(B)
 
+** skk-isearch $B$H(B transient-mark-mode
+
+transient-mark-mode $B$,M-8z$J$H$-!"(Bisearch $B$ODL>oNN0h$r0];}$7$FB3$1$i$l(B
+$B$k$,!"(Bskk-isearch $B$KF~$k$H(B 1 $BJ8;z0J>eF~NO$7$?;~E@$GNN0h$,L58z$K$J$k!#(B
+$B860x$OD4::Cf!#(B
+
 ** skk-henkan-show-candidates $B$N?tCMJQ49M-8z;~$N%P%0(B
 
 http://mail.ring.gr.jp/skk/200602/msg00030.html
@@ -299,6 +299,13 @@ skk-dcomp-show-multiple $B$r(B t $B$H@_Dj$7!"<B:]$K(B dcomp $B8uJd$rJ#?tI=<
 
 $B>-MhE*$K$O$b$C$H%9%^!<%H$J2r7hK!$,5a$a$i$l$k!#(B
 
+** Cocoa Emacs $B$K8GM-$NLdBj(B
+
+*** $B%D!<%k%F%#%C%W$K$*$1$k%U%)%s%H!&%U%'%$%9$N;XDj(B
+
+$B8=>u(B Cocoa Emacs $B$G%D!<%k%F%#%C%WI=<($9$k$H2DJQI}%U%)%s%H$N$^$^JQ99$G(B
+$B$-$J$$(B (Carbon Emacs $B$G$O(B X $B$N>l9g$N$h$&$K(B Emacs $B$N%U%)%s%H@_Dj$,$G$-(B
+$B$?(B)$B!#(B
 
 
 Local variables:
