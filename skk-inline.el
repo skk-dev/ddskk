@@ -86,11 +86,10 @@
     string))
 
 ;;;###autoload
-(defun skk-inline-hide ()
-  (when skk-inline-overlays
-    (dolist (ol skk-inline-overlays)
-      (delete-overlay ol))
-    (setq skk-inline-overlays nil)))
+(defun skk-inline-hide-1 ()
+  (dolist (ol skk-inline-overlays)
+    (delete-overlay ol))
+  (setq skk-inline-overlays nil))
 
 ;;;###autoload
 (defun skk-inline-show (str face &optional vertical-str text-max-height)
