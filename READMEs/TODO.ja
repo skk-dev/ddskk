@@ -129,6 +129,12 @@ SKK-JISYO.notes が三田さんにより作製され、ここの送りありエントリにある
 
 [skk 7193] http://mail.ring.gr.jp/skk/201007/msg00000.html
 
+** skk-isearch と transient-mark-mode
+
+transient-mark-mode が有効なとき、isearch は通常領域を維持して続けられ
+るが、skk-isearch に入ると 1 文字以上入力した時点で領域が無効になる。
+原因は調査中。
+
 
 * 辞書の取り扱い
 
@@ -168,9 +174,6 @@ luna を利用することにより、これらのそれぞれの機能のために、それぞれ個
 られる。
 
 ** 変換モード毎に異なる動作をするコマンドの統一的な記述
-
-** APEL 依存性の是非を検討する
-
 
 * ドキュメント
 
