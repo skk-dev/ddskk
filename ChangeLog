@@ -2,10 +2,11 @@
 
 	* doc/skk.texi: Replace string from 漢字コード to 文字コード.
 
-	* skk-kcode.el (skk-input-by-code-or-menu): JIS X 0213 の2面の区点
-	番号を入力可能とした。形式 00-00-00 を2面とみなす。
+	* skk-kcode.el (skk-input-by-code-or-menu): JIS X 0213 の２面の区点
+	番号を入力可能とした。形式 00-00-00 を２面とみなす。
 	Unicode の符号位置を入力可能とした。形式 U+nnnnn 。
 	(skk-char-to-hex): コード見直し。
+	(skk-display-code): 色付け (font-lock-keyword-face) して見やすくした。
 
 2010-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
