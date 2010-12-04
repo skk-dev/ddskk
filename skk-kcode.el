@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.59 2010/12/02 12:11:20 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.60 2010/12/04 00:47:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/02 12:11:20 $
+;; Last Modified: $Date: 2010/12/04 00:47:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -57,34 +57,42 @@
        (t
 	(setq skk-kcode-charset charset)))))
   ;;
-  (let ((str (read-string (format "\
-7/8 bits JIS code (00nn) or KUTEN code (00-00) for %s (CR for Jump Menu): "
-				  skk-kcode-charset)))
-	(enable-recursive-minibuffers t)
-	n1 n2)
-    (if (string-match "\\(.+\\)-\\(.+\\)" str)
-	;; ハイフン `-' で区切られていれば区点コード
-	(setq n1 (+ (string-to-number (match-string-no-properties 1 str))
-		    32
-		    128)
-	      n2 (+ (string-to-number (match-string-no-properties 2 str))
-		    32
-		    128))
-      ;; そうでなければ JIS コード
-      (setq n1 (if (string= str "")
-		   128
-		 (+ (* 16 (skk-char-to-hex (aref str 0) 'jis))
-		    (skk-char-to-hex (aref str 1))))
-	    n2 (if (string= str "")
-		   128
-		 (+ (* 16 (skk-char-to-hex (aref str 2) 'jis))
-		    (skk-char-to-hex (aref str 3))))))
+  (let* ((str (read-string (format "\
+7/8 bits JIS code (00nn) or KUTEN code (00-00) for `%s' (CR for Jump Menu): "
+				   skk-kcode-charset)))
+	 (list (split-string str "-"))
+	 (len (length list))
+	 (enable-recursive-minibuffers t)
+	 n1 n2 x0213-2)
+    (cond ((eq len 2)			; ハイフン `-' で区切られた「区-点」
+	   (setq n1 (+ (string-to-number (nth 0 list))
+		       32 128)
+		 n2 (+ (string-to-number (nth 1 list))
+		       32 128)))
+	  ((eq len 3)			; ハイフン `-' で区切られた「面-区-点」
+	   (setq x0213-2 t
+		 n1 (+ (string-to-number (nth 1 list))
+		       32 128)
+		 n2 (+ (string-to-number (nth 2 list))
+		       32 128)))
+	  (t				; 上記以外は JIS コードとみなす
+	   (setq n1 (if (string= str "")
+			128
+		      (+ (* 16 (skk-char-to-hex (aref str 0) 'jis))
+			 (skk-char-to-hex (aref str 1))))
+		 n2 (if (string= str "")
+			128
+		      (+ (* 16 (skk-char-to-hex (aref str 2) 'jis))
+			 (skk-char-to-hex (aref str 3)))))))
+    ;;
     (when (or (> n1 256)
 	      (> n2 256))
       (skk-error "無効なコードです"
 		 "Invalid code"))
     (insert (if (> n1 160)
-		(skk-make-string n1 n2)
+		(if x0213-2
+		    (skk-make-string-x0213-2 n1 n2)
+		  (skk-make-string n1 n2))
 	      (skk-input-by-code-or-menu-0 n1 n2)))
     (when (eq skk-henkan-mode 'active)
       (skk-kakutei))))
@@ -112,6 +120,9 @@
 
 (defun skk-make-string (n1 n2)
   (char-to-string (skk-make-char skk-kcode-charset n1 n2)))
+
+(defun skk-make-string-x0213-2 (n1 n2)
+  (char-to-string (skk-make-char 'japanese-jisx0213-2 n1 n2)))
 
 ;; tiny function, but called once in skk-kcode.el.  So not make it inline.
 (defun skk-make-char (charset n1 n2)
