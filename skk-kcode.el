@@ -1,4 +1,4 @@
-;;; skk-kcode.el --- 漢字コードを使った変換のためのプログラム -*- coding: iso-2022-jp -*-
+;;; skk-kcode.el --- 文字コードを使った変換のためのプログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2000
@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.62 2010/12/04 05:56:42 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.63 2010/12/04 11:05:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/04 05:56:42 $
+;; Last Modified: $Date: 2010/12/04 11:05:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -63,23 +63,23 @@
 	 (list (split-string str "-"))
 	 (len (length list))
 	 (enable-recursive-minibuffers t)
-	 n1 n2 x0213-2 unicode)
+	 n1 n2 flag)
     (cond ((eq len 2)			; ハイフン `-' で区切られた「区-点」
 	   (setq n1 (+ (string-to-number (nth 0 list))
 		       32 128)
 		 n2 (+ (string-to-number (nth 1 list))
 		       32 128)))
 	  ((eq len 3)			; ハイフン `-' で区切られた「面-区-点」
-	   (setq x0213-2 t
+	   (setq flag 'x0213-2
 		 n1 (+ (string-to-number (nth 1 list))
 		       32 128)
 		 n2 (+ (string-to-number (nth 2 list))
 		       32 128)))
 	  ((string-match "^[uU]\\+\\(.*\\)$" str) ; `U+' で始まればユニコード
-	   (setq n1 161
+	   (setq flag 'unicode
+		 n1 161
 		 n2 0
-		 unicode (string-to-number (match-string-no-properties 1 str)
-					   16)))
+		 str (string-to-number (match-string-no-properties 1 str) 16)))
 	  (t				; 上記以外は JIS コードとみなす
 	   (setq n1 (if (string= str "")
 			128
@@ -95,12 +95,14 @@
       (skk-error "無効なコードです"
 		 "Invalid code"))
     (insert (if (> n1 160)
-		(cond (x0213-2
+		(cond ((eq flag 'x0213-2)
 		       (skk-make-string-x0213-2 n1 n2))
-		      (unicode
-		       (char-to-string (if (eval-when-compile (fboundp 'ucs-representation-decoding-backend))
-					   (ucs-representation-decoding-backend 'ucs unicode nil)
-					 unicode)))
+		      ((eq flag 'unicode)
+		       (char-to-string
+			(if (eval-when-compile (fboundp
+						'ucs-representation-decoding-backend))
+			    (ucs-representation-decoding-backend 'ucs str nil)
+			  str)))
 		      (t
 		       (skk-make-string n1 n2)))
 	      (skk-input-by-code-or-menu-0 n1 n2)))
@@ -108,25 +110,23 @@
       (skk-kakutei))))
 
 (defun skk-char-to-hex (char &optional jischar)
-  (cond ((and (<= char 102)
-	      (> char 96))
-	 ;; a-f
-	 (- char 87))
-	((and (<= char 70)
-	      (> char 64))
-	 ;; A-F
-	 (- char 55))
-	((and (<= char 57)
-	      (> char 47))
-	 ;; 0-9
-	 (cond (jischar
-		(- char 40))
-	       (t
-		(- char 48))))
-	(t
-	 (skk-error "%c を 16 進数に変換できません"
-		    "Cannot convert %c to hexadecimal number"
-		    char))))
+  "CHAR を 16 進数とみなして、対応する数値を 10 進数で返す。"
+  (cond
+   ;; a(97) -- f(102)
+   ((and (<= 97 char) (<= char 102))
+    (- char 87))			; a なら 10 が、f なら 15 が返る。
+   ;; A(65) -- F(70)
+   ((and (<= 65 char) (<= char 70))
+    (- char 55))			; A なら 10 が、F なら 15 が返る。
+   ;; 0(48) -- 9(57)
+   ((and (<= 48 char) (<= char 57))
+    (if jischar
+	(- char 40)			; 0 なら 8 が、9 なら 17 が返る。
+      (- char 48)))			; 0 なら 0 が、9 なら 9 が返る。
+   (t
+    (skk-error "`%c' を 16 進数に変換できません"
+	       "Cannot convert `%c' to hexadecimal number"
+	       char))))
 
 (defun skk-make-string (n1 n2)
   (char-to-string (skk-make-char skk-kcode-charset n1 n2)))
