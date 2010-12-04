@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.61 2010/12/04 01:59:46 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.62 2010/12/04 05:56:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/04 01:59:46 $
+;; Last Modified: $Date: 2010/12/04 05:56:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -63,7 +63,7 @@
 	 (list (split-string str "-"))
 	 (len (length list))
 	 (enable-recursive-minibuffers t)
-	 n1 n2 x0213-2)
+	 n1 n2 x0213-2 unicode)
     (cond ((eq len 2)			; ハイフン `-' で区切られた「区-点」
 	   (setq n1 (+ (string-to-number (nth 0 list))
 		       32 128)
@@ -75,6 +75,11 @@
 		       32 128)
 		 n2 (+ (string-to-number (nth 2 list))
 		       32 128)))
+	  ((string-match "^[uU]\\+\\(.*\\)$" str) ; `U+' で始まればユニコード
+	   (setq n1 161
+		 n2 0
+		 unicode (string-to-number (match-string-no-properties 1 str)
+					   16)))
 	  (t				; 上記以外は JIS コードとみなす
 	   (setq n1 (if (string= str "")
 			128
@@ -90,9 +95,14 @@
       (skk-error "無効なコードです"
 		 "Invalid code"))
     (insert (if (> n1 160)
-		(if x0213-2
-		    (skk-make-string-x0213-2 n1 n2)
-		  (skk-make-string n1 n2))
+		(cond (x0213-2
+		       (skk-make-string-x0213-2 n1 n2))
+		      (unicode
+		       (char-to-string (if (eval-when-compile (fboundp 'ucs-representation-decoding-backend))
+					   (ucs-representation-decoding-backend 'ucs unicode nil)
+					 unicode)))
+		      (t
+		       (skk-make-string n1 n2)))
 	      (skk-input-by-code-or-menu-0 n1 n2)))
     (when (eq skk-henkan-mode 'active)
       (skk-kakutei))))
