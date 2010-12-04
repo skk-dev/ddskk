@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.60 2010/12/04 00:47:38 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.61 2010/12/04 01:59:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/04 00:47:38 $
+;; Last Modified: $Date: 2010/12/04 01:59:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -42,7 +42,7 @@
 
 ;;;###autoload
 (defun skk-input-by-code-or-menu (&optional arg)
-  "7/8 bit JIS コード もしくは 区点コードに対応する文字を挿入する。"
+  "7/8 bit JIS コード もしくは 区点番号に対応する文字を挿入する。"
   (interactive "*P")
   (when arg
     (let* ((input (completing-read (format "CHARSET(%s): " skk-kcode-charset)
@@ -378,7 +378,7 @@
 
 ;;;###autoload
 (defun skk-display-code-for-char-at-point (&optional arg)
-  "ポイントにある文字の区点コード、JIS コード、EUC コード及びシフト JIS コード\
+  "ポイントにある文字の区点番号、JIS コード、EUC コード及びシフト JIS コード\
  を表示する。"
   (if (eobp)
       (and (skk-message "カーソルがバッファの終端にあります"
