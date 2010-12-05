@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.64 2010/12/04 12:03:32 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.65 2010/12/05 05:37:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/04 12:03:32 $
+;; Last Modified: $Date: 2010/12/05 05:37:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -45,18 +45,12 @@
   "7/8 bit JIS コード もしくは 区点番号に対応する文字を挿入する。"
   (interactive "*P")
   (when arg
-    (let* ((input (completing-read (format "CHARSET(%s): " skk-kcode-charset)
-				   nil t))
-	   (charset (intern input)))
-      (cond
-       ((string= input "")
-	nil)
-       ((not (skk-charsetp charset))
-	(skk-error "無効なキャラクターセットです"
-		   "Invalid charset"))
-       (t
-	(setq skk-kcode-charset charset)))))
-  ;;
+    (setq skk-kcode-charset (intern (completing-read "Character set: "
+						     '(("japanese-jisx0213-1")
+						       ("japanese-jisx0213-2")
+						       ("japanese-jisx0208"))
+						     nil t
+						     (symbol-name skk-kcode-charset)))))
   (let* ((str (read-string (format "\
 7/8 bits JIS code (00nn) or KUTEN code (00-00) for `%s' (CR for Jump Menu): "
 				   skk-kcode-charset)))
@@ -70,7 +64,9 @@
 		 n2 (+ (string-to-number (nth 1 list))
 		       32 128)))
 	  ((eq len 3)			; ハイフン `-' で区切られた「面-区-点」
-	   (setq flag 'x0213-2
+	   (setq flag (if (equal "2" (nth 0 list))
+			  'x0213-2
+			'x0213-1)
 		 n1 (+ (string-to-number (nth 1 list))
 		       32 128)
 		 n2 (+ (string-to-number (nth 2 list))
@@ -95,8 +91,10 @@
       (skk-error "無効なコードです"
 		 "Invalid code"))
     (insert (if (> n1 160)
-		(cond ((eq flag 'x0213-2)
-		       (skk-make-string-x0213-2 n1 n2))
+		(cond ((eq flag 'x0213-1)
+		       (char-to-string (skk-make-char 'japanese-jisx0213-1 n1 n2)))
+		      ((eq flag 'x0213-2)
+		       (char-to-string (skk-make-char 'japanese-jisx0213-2 n1 n2)))
 		      ((eq flag 'unicode)
 		       (char-to-string
 			(if (eval-when-compile (fboundp
@@ -130,9 +128,6 @@
 
 (defun skk-make-string (n1 n2)
   (char-to-string (skk-make-char skk-kcode-charset n1 n2)))
-
-(defun skk-make-string-x0213-2 (n1 n2)
-  (char-to-string (skk-make-char 'japanese-jisx0213-2 n1 n2)))
 
 ;; tiny function, but called once in skk-kcode.el.  So not make it inline.
 (defun skk-make-char (charset n1 n2)
@@ -428,7 +423,8 @@
 				     (propertize "UNICODE: " 'face
 						 'font-lock-keyword-face)
 				     (format "U+%04x" char)))
-			    ((eval-when-compile (fboundp 'char-to-ucs))
+			    ((and (eval-when-compile (fboundp 'char-to-ucs))
+				  (char-to-ucs char))
 			     (concat ", "
 				     (propertize "UNICODE: " 'face
 						 'font-lock-keyword-face)
@@ -443,11 +439,11 @@
 					   ""))
 			   (format "%02d-%02d, " char1-k char2-k)
 			   (propertize "JIS: " 'face 'font-lock-keyword-face)
-			   (format "%2x%2x, " char1-j char2-j)
+			   (format "#x%2x%2x, " char1-j char2-j)
 			   (propertize "EUC: " 'face 'font-lock-keyword-face)
-			   (format "%2x%2x, " char1-e char2-e)
+			   (format "#x%2x%2x, " char1-e char2-e)
 			   (propertize "SJIS: " 'face 'font-lock-keyword-face)
-			   (format "%2x%2x" char1-s char2-s)
+			   (format "#x%2x%2x" char1-s char2-s)
 			   unicode
 			   (if (zerop (nth 2 char-data))
 			       ""
@@ -466,7 +462,7 @@
      ((memq charset '(ascii latin-jisx0201))
       (setq mesg (concat (format "`%c', " char)
 			 (propertize "HEX: " 'face 'font-lock-keyword-face)
-			 (format "%2x, " (skk-char-octet char 0))
+			 (format "#x%2x, " (skk-char-octet char 0))
 			 (propertize "DECIMAL: " 'face 'font-lock-keyword-face)
 			 (format "%3d" (skk-char-octet char 0)))))
      ;;

@@ -1,3 +1,8 @@
+2010-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-input-by-code-or-menu): 軽微な修正。
+	(skk-display-code): 軽微な修正。
+
 2010-12-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Replace string from 漢字コード to 文字コード.
