@@ -44,6 +44,18 @@ skk.el の中に記述されていたインライン表示機能について、skk-inline.el
 候補へ戻ることができます。この機能を無効とするには、
 変数 skk-previous-completion-use-backtab を nil としてください。
 
+** Emacs 付属辞書 ja-dic 対応
+
+Emacs 22 以上に (LEIM をインストールすれば 21 にも) に対応します。もと
+もと ja-dic は SKK-JISYO.L を変換して作られており、送りなし、送りあり、
+接頭辞、接尾辞の変換に対応しています。これを利用することで、SKK 辞書の
+インストールなしで SKK が利用可能です。ただし英数変換、数値変換などに
+は対応しません。
+
+この機能は skk-large-jisyo, skk-aux-large-jisyo, skk-cdb-large-jisyo,
+skk-server-host が全て無効という条件を全て満たしたときのみ、自動的に呼
+び出されます。
+
 ** その他バグ修正など
 
 *** emacsclient -nw 時におけるカーソル色制御の修正
