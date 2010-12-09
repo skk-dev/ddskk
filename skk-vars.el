@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.336 2010/12/01 20:17:26 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.337 2010/12/09 12:34:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/01 20:17:26 $
+;; Last Modified: $Date: 2010/12/09 12:34:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -940,7 +940,8 @@ Non-nil ならば、接頭辞または接尾辞入力の際、接頭辞または接尾辞と結合した
     ("/" nil skk-abbrev-mode)
     ("$" nil skk-display-code-for-char-at-point)
     ("@" nil skk-today)
-    ("\\" nil skk-input-by-code-or-menu)
+;;     ("\\" nil skk-input-by-code-or-menu)
+    ("\\" nil skk-list-chars)
     (skk-kakutei-key nil skk-kakutei)
     ;; XXX
     ;;("\t" nil skk-insert)

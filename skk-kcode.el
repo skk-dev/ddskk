@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.66 2010/12/07 11:46:18 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.67 2010/12/09 12:34:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/07 11:46:18 $
+;; Last Modified: $Date: 2010/12/09 12:34:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -389,11 +389,8 @@
       (and (skk-message "カーソルがバッファの終端にあります"
 			"Cursor is at the end of the buffer")
 	   t) ; エコーした文字列をカレントバッファに挿入しないように。
-    (let ((c (following-char)))
-      (when arg				; C-u
-	(skk-list-chars c))
-      (skk-display-code c)
-      t)))
+    (skk-display-code (following-char))
+    t))
 
 (defun skk-display-code (char)
   (let* ((charset (if (eval-when-compile (and skk-running-gnu-emacs
@@ -503,17 +500,20 @@
 (defvar skk-list-chars-buffer-name "*skk-list-chars*"
   "Docstring.")
 
+(defvar skk-list-chars-destination-buffer nil
+  "Docstring.")
+
 (defvar skk-list-chars-skip-chars (concat " #`'.0-9a-zA-Z\-"
 					  (char-to-string 9)
 					  (char-to-string 10))
   "Docstring.")
 
 (defvar skk-list-chars-point nil
-  "Docstring.")
+  "C-x C-x (skk-list-chars-goto-point) のジャンプ先")
 
 (defvar skk-list-chars-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map "$" 'skk-list-display-code)
+    (define-key map "$" 'skk-list-chars-display-code)
     (define-key map "w" 'skk-list-chars-copy)
     (define-key map "q" 'skk-list-chars-quit)
     (define-key map "f" 'skk-list-chars-forward)
@@ -525,7 +525,9 @@
     (define-key map "p" 'skk-list-chars-previous-line)
     (define-key map "k" 'skk-list-chars-previous-line)
     (define-key map (kbd "C-x C-x") 'skk-list-chars-goto-point)
-;;     (define-key map "c" 'CHANGE-CHARSET) ; TODO
+    (define-key map (kbd "RET") 'skk-list-chars-insert)
+    (define-key map "o" 'skk-list-chars-other-charset)
+    (define-key map "c" 'skk-list-chars-code-input)
     map)
   "Keymap used in skk-list-chars mode.")
 
@@ -534,9 +536,9 @@
 
 \\{skk-list-chars-mode-map}"
   (kill-all-local-variables)
-  (setq mode-name "skk-list-chars"
-	major-mode 'skk-list-chars-mode)
   (use-local-map skk-list-chars-mode-map)
+  (setq mode-name "skk-list-chars"	; (format "%s" skk-kcode-charset)
+	major-mode 'skk-list-chars-mode)
   (setq tab-width 4))
 
 (defun skk-list-chars-sub (high charset)
@@ -562,39 +564,32 @@
       (setq i (1+ i))
       )))
 
-(defun skk-list-chars (char)
+;;;###autoload
+(defun skk-list-chars (arg)
   "Docstring."
-  (let* ((charset (if (eval-when-compile (and skk-running-gnu-emacs
-					      (>= emacs-major-version 23)))
-		      ;; GNU Emacs 23.1 or later
-		      (char-charset char skk-charset-list)
-		    (char-charset char)))
-	 (buf (progn (and (get-buffer skk-list-chars-buffer-name)
+  (let* ((buf (progn (and (get-buffer skk-list-chars-buffer-name)
 			  (kill-buffer skk-list-chars-buffer-name))
 		     (get-buffer-create skk-list-chars-buffer-name))))
-    (unless (memq charset '(japanese-jisx0213-1
-			    japanese-jisx0213-2
-			    japanese-jisx0208))
-      (skk-error "文字集合 %s はサポートしていません"
-		 "Non support character set %s" charset))
+    (skk-kakutei)			; ▽ or ▼ で \ した場合
+    (setq skk-list-chars-destination-buffer (current-buffer))
     (set-buffer buf)
     (setq buffer-read-only nil)
     (erase-buffer)
     (set-buffer-multibyte t)
-    (insert (propertize (format "Charaters in the coded character set `%s'.\n"
-				charset)
+    (insert (propertize (format "variable skk-kcode-charset's value is `%s'.\n"
+				skk-kcode-charset)
 			'face 'font-lock-doc-face))
 
     (let ((high 33))			; ?\x21
       (while (<= high 126)		; ?\x7e
-	(skk-list-chars-sub high charset)
+	(skk-list-chars-sub high skk-kcode-charset)
 	(setq high (1+ high))))
     (pop-to-buffer buf)
-    (search-backward (char-to-string char))
+    (search-backward (char-to-string (make-char skk-kcode-charset 33 33)))
     (setq skk-list-chars-point (point))
-    (put-text-property skk-list-chars-point (progn (forward-char) (point))
-		       'face 'font-lock-warning-face)
-    (goto-char skk-list-chars-point)
+    ;; (put-text-property skk-list-chars-point (progn (forward-char) (point))
+    ;; 		       'face 'font-lock-warning-face)
+    ;; (goto-char skk-list-chars-point)
     (set-buffer-modified-p nil)
     (setq buffer-read-only t)
     (skk-list-chars-mode)))
@@ -602,10 +597,10 @@
 (defun skk-list-chars-quit ()
   (interactive)
   (if (one-window-p)
-      (switch-to-buffer "*scratch*")
+      (switch-to-buffer skk-list-chars-destination-buffer) ;killされている可能性あり
     (delete-window)))
 
-(defun skk-list-display-code ()
+(defun skk-list-chars-display-code ()
   (interactive)
   (skk-display-code (following-char)))
 
@@ -626,6 +621,7 @@
   (interactive)
   (skip-chars-backward skk-list-chars-skip-chars)
   (when (bobp)
+    ;; バッファ先頭まで skip しちゃった場合
     (re-search-forward "japanese-jisx02.+'")
     (let* ((str (buffer-substring-no-properties (match-beginning 0)
 						(match-end 0)))
@@ -647,6 +643,32 @@
 (defun skk-list-chars-goto-point ()
   (interactive)
   (goto-char skk-list-chars-point))
+
+(defun skk-list-chars-insert ()
+  (interactive)
+  (unless (eobp)
+    (if (eq 'ascii (car (split-char (following-char))))
+	;; 区切り行などで RET された場合
+	(skk-list-chars-forward)
+      (let ((c (char-to-string (following-char))))
+	(set-buffer skk-list-chars-destination-buffer) ; kill されている可能性あり
+	(insert c)))))
+
+(defun skk-list-chars-other-charset ()
+  (interactive)
+  (setq skk-kcode-charset (intern (completing-read "Character set: "
+						   '(("japanese-jisx0213-1")
+						     ("japanese-jisx0213-2")
+						     ("japanese-jisx0208"))
+						   nil t
+						   (symbol-name skk-kcode-charset))))
+  (skk-list-chars-quit)
+  (skk-list-chars nil))
+
+(defun skk-list-chars-code-input ()
+  (interactive)
+  ;; これから実装
+  )
 
 ;;;;
 
