@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.35 2010/11/29 12:42:47 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.36 2010/12/10 13:25:00 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/11/29 12:42:47 $
+;; Last Modified: $Date: 2010/12/10 13:25:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -93,7 +93,9 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+;;  (require 'skk-kcode)
+  )
 
 ;; 
 (defvar skk-tankan-mode-map
@@ -104,6 +106,7 @@
     (define-key map "j" 'skk-tankan-mode-next)
     (define-key map "w" 'skk-tankan-mode-copy)
     (define-key map "q" 'skk-tankan-mode-quit)
+    (define-key map "$" 'skk-tankan-mode-display-code)
     map)
   "Keymap used in skk-tankan mode.")
 
@@ -1623,12 +1626,10 @@ C-u 数値 M-x skk-tankan で総画数変換を開始する。"
     (setq buffer-read-only nil)
     (erase-buffer)
     (while list
-      (let* ((str (car list))
-	     (cand (substring str 0 1))
-	     (anno (substring str 2)))
+      (let ((str (car list)))
 	(insert (format " %s  %s\n"
-			(propertize cand 'face 'skk-henkan-face-default)
-			anno)))
+			(propertize (substring str 0 1) 'face 'skk-henkan-face-default)
+			(substring str 2))))
       (setq list (cdr list))))
   (set-buffer-modified-p nil)
   (setq buffer-read-only t)
@@ -1660,6 +1661,11 @@ C-u 数値 M-x skk-tankan で総画数変換を開始する。"
   (if (one-window-p)
       (switch-to-buffer "*scratch*")
     (delete-window)))
+
+(defun skk-tankan-mode-display-code ()
+  (interactive)
+;;   (skk-display-code (char-after (1+ (point))))
+  )
 
 ;;;###autoload
 (defun skk-tankan-search (func &rest args)

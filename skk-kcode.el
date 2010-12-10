@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.68 2010/12/10 11:26:35 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.69 2010/12/10 13:25:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/10 11:26:35 $
+;; Last Modified: $Date: 2010/12/10 13:25:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -569,9 +569,18 @@
 ;;;###autoload
 (defun skk-list-chars (arg)
   "Docstring."
-  (let* ((buf (progn (and (get-buffer skk-list-chars-buffer-name)
-			  (kill-buffer skk-list-chars-buffer-name))
-		     (get-buffer-create skk-list-chars-buffer-name))))
+  (let ((buf (progn (and (get-buffer skk-list-chars-buffer-name)
+			 (kill-buffer skk-list-chars-buffer-name))
+		    (get-buffer-create skk-list-chars-buffer-name)))
+	(ch (char-to-string (if arg
+				(following-char)
+			      (make-char skk-kcode-charset 33 33)))))
+    (setq skk-kcode-charset (if arg
+				(car (split-char (string-to-char ch)))
+			      skk-kcode-charset))
+    (if (eq skk-kcode-charset 'ascii)
+	(setq skk-kcode-charset 'japanese-jisx0208
+	      ch (char-to-string (make-char skk-kcode-charset 33 33))))
     (skk-kakutei)			; ▽ or ▼ で \ した場合
     (setq skk-list-chars-destination-buffer (current-buffer))
     (set-buffer buf)
@@ -587,11 +596,11 @@
 	(skk-list-chars-sub high skk-kcode-charset)
 	(setq high (1+ high))))
     (pop-to-buffer buf)
-    (search-backward (char-to-string (make-char skk-kcode-charset 33 33)))
+    (search-backward ch)
     (setq skk-list-chars-point (point))
-    ;; (put-text-property skk-list-chars-point (progn (forward-char) (point))
-    ;; 		       'face 'font-lock-warning-face)
-    ;; (goto-char skk-list-chars-point)
+    (put-text-property skk-list-chars-point (progn (forward-char) (point))
+    		       'face 'font-lock-warning-face)
+    (goto-char skk-list-chars-point)
     (set-buffer-modified-p nil)
     (setq buffer-read-only t)
     (skk-list-chars-mode)))

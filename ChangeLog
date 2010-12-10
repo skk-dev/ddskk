@@ -1,7 +1,10 @@
 2010-12-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tankan.el (skk-tankan): コード見直し。
+
 	* skk-kcode.el (skk-list-chars-code-input): New function.
 	(skk-list-chars-code-input-1): New function.
+	(skk-list-chars): C-u \ で カーソル位置の文字を引数に skk-list-chars を実行.
 
 2010-12-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
