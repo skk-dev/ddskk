@@ -1,3 +1,8 @@
+2010-12-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-list-chars-code-input): New function.
+	(skk-list-chars-code-input-1): New function.
+
 2010-12-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-rom-kana-base-rule-list): \ の実行を
