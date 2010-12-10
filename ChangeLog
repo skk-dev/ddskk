@@ -1,3 +1,10 @@
+2010-12-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-list-chars-buffer-name, skk-list-chars-destination-buffer)
+	(skk-list-chars-skip-chars, skk-list-chars-point, skk-list-chars-mode-map):
+	Move from skk-kcode.el.
+	(skk-tankan-mode-map): Move from skk-tankan.el.
+
 2010-12-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tankan.el (skk-tankan): コード見直し。

@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.36 2010/12/10 13:25:00 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.37 2010/12/10 21:18:12 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/12/10 13:25:00 $
+;; Last Modified: $Date: 2010/12/10 21:18:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -96,19 +96,6 @@
   (require 'skk-vars)
 ;;  (require 'skk-kcode)
   )
-
-;; 
-(defvar skk-tankan-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map "p" 'skk-tankan-mode-prev)
-    (define-key map "k" 'skk-tankan-mode-prev)
-    (define-key map "n" 'skk-tankan-mode-next)
-    (define-key map "j" 'skk-tankan-mode-next)
-    (define-key map "w" 'skk-tankan-mode-copy)
-    (define-key map "q" 'skk-tankan-mode-quit)
-    (define-key map "$" 'skk-tankan-mode-display-code)
-    map)
-  "Keymap used in skk-tankan mode.")
 
 ;;; 部首番号を部首を表す文字列に変換するための配列
 (defconst skk-tankan-radical-vector

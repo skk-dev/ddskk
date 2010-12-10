@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.69 2010/12/10 13:25:00 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.70 2010/12/10 21:18:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/10 13:25:00 $
+;; Last Modified: $Date: 2010/12/10 21:18:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -497,42 +497,7 @@
 	 (c1 (if (> ch2 127) (+ ch1 1) ch1)))
     (list c1 c2)))
 
-;;;;
-(defvar skk-list-chars-buffer-name "*skk-list-chars*"
-  "Docstring.")
-
-(defvar skk-list-chars-destination-buffer nil
-  "Docstring.")
-
-(defvar skk-list-chars-skip-chars (concat " #`'.0-9a-zA-Z\-"
-					  (char-to-string 9)
-					  (char-to-string 10))
-  "Docstring.")
-
-(defvar skk-list-chars-point nil
-  "C-x C-x (skk-list-chars-goto-point) のジャンプ先")
-
-(defvar skk-list-chars-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map "$" 'skk-list-chars-display-code)
-    (define-key map "w" 'skk-list-chars-copy)
-    (define-key map "q" 'skk-list-chars-quit)
-    (define-key map "f" 'skk-list-chars-forward)
-    (define-key map "l" 'skk-list-chars-forward)
-    (define-key map "b" 'skk-list-chars-backward)
-    (define-key map "h" 'skk-list-chars-backward)
-    (define-key map "n" 'skk-list-chars-next-line)
-    (define-key map "j" 'skk-list-chars-next-line)
-    (define-key map "p" 'skk-list-chars-previous-line)
-    (define-key map "k" 'skk-list-chars-previous-line)
-    (define-key map (kbd "C-x C-x") 'skk-list-chars-goto-point)
-    (define-key map (kbd "RET") 'skk-list-chars-insert)
-    (define-key map "o"  'skk-list-chars-other-charset)
-    (define-key map "\\" 'skk-list-chars-other-charset)
-    (define-key map "c" 'skk-list-chars-code-input)
-    map)
-  "Keymap used in skk-list-chars mode.")
-
+;;;; skk-list-chars
 (defun skk-list-chars-mode ()
   "Major mode for skk-list-chars.
 
@@ -663,7 +628,8 @@
 	(skk-list-chars-forward)
       (let ((c (following-char)))
 	(set-buffer skk-list-chars-destination-buffer) ; kill されている可能性あり
-	(insert c)))))
+	(insert c))
+      )))
 
 (defun skk-list-chars-other-charset ()
   (interactive)

@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.337 2010/12/09 12:34:43 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.338 2010/12/10 21:18:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/09 12:34:43 $
+;; Last Modified: $Date: 2010/12/10 21:18:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3813,7 +3813,45 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 		(and skk-running-gnu-emacs (>= emacs-major-version 21)))
 	      charset-list
 	    (charset-list))))
+
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
+
+;;; skk-list-chars (in skk-kcode.el) related.
+(defvar skk-list-chars-buffer-name "*skk-list-chars*"
+  "Docstring.")
+
+(defvar skk-list-chars-destination-buffer nil
+  "Docstring.")
+
+(defvar skk-list-chars-skip-chars (concat " #`'.0-9a-zA-Z\-"
+					  (char-to-string 9)
+					  (char-to-string 10))
+  "Docstring.")
+
+(defvar skk-list-chars-point nil
+  "C-x C-x (skk-list-chars-goto-point) のジャンプ先")
+
+(defvar skk-list-chars-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "$" 'skk-list-chars-display-code)
+    (define-key map "w" 'skk-list-chars-copy)
+    (define-key map "q" 'skk-list-chars-quit)
+    (define-key map "f" 'skk-list-chars-forward)
+    (define-key map "l" 'skk-list-chars-forward)
+    (define-key map "b" 'skk-list-chars-backward)
+    (define-key map "h" 'skk-list-chars-backward)
+    (define-key map "n" 'skk-list-chars-next-line)
+    (define-key map "j" 'skk-list-chars-next-line)
+    (define-key map "p" 'skk-list-chars-previous-line)
+    (define-key map "k" 'skk-list-chars-previous-line)
+    (define-key map (kbd "C-x C-x") 'skk-list-chars-goto-point)
+    (define-key map (kbd "RET") 'skk-list-chars-insert)
+    (define-key map "i"         'skk-list-chars-insert)
+    (define-key map "o"  'skk-list-chars-other-charset)
+    (define-key map "\\" 'skk-list-chars-other-charset)
+    (define-key map "c" 'skk-list-chars-code-input)
+    map)
+  "Keymap used in skk-list-chars mode.")
 
 ;;; skk-look.el related.
 (defcustom skk-use-look nil
@@ -4673,6 +4711,18 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
   (make-char-table (if (featurep 'xemacs)
 		       'generic
 		     'annotation)))
+
+(defvar skk-tankan-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "p" 'skk-tankan-mode-prev)
+    (define-key map "k" 'skk-tankan-mode-prev)
+    (define-key map "n" 'skk-tankan-mode-next)
+    (define-key map "j" 'skk-tankan-mode-next)
+    (define-key map "w" 'skk-tankan-mode-copy)
+    (define-key map "q" 'skk-tankan-mode-quit)
+    (define-key map "$" 'skk-tankan-mode-display-code)
+    map)
+  "Keymap used in skk-tankan mode.")
 
 ;;; skk-tooltip related.
 (defcustom skk-show-tooltip nil
