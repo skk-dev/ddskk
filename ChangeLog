@@ -1,5 +1,8 @@
 2010-12-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kcode.el (skk-list-chars-sub): 区切り行に区番号を表示.
+	(skk-list-chars-code-input-1): 文字コード入力後、当該文字を search-forward.
+
 	* skk-vars.el (skk-list-chars-buffer-name, skk-list-chars-destination-buffer)
 	(skk-list-chars-skip-chars, skk-list-chars-point, skk-list-chars-mode-map):
 	Move from skk-kcode.el.

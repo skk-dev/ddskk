@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.70 2010/12/10 21:18:12 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.71 2010/12/10 23:55:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/10 21:18:12 $
+;; Last Modified: $Date: 2010/12/10 23:55:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -498,6 +498,9 @@
     (list c1 c2)))
 
 ;;;; skk-list-chars
+;; TODO
+;;   o mode-line に現在 charset を表示したい
+
 (defun skk-list-chars-mode ()
   "Major mode for skk-list-chars.
 
@@ -513,13 +516,13 @@
   (let ((min 33)			;?\x21
 	(max 126)			;?\x7e
 	i ch)
-    (insert
-     (propertize "\n--#x---- 0-- 1-- 2-- 3-- 4-- 5-- 6-- 7-- 8-- 9-- A-- B-- C-- D-- E-- F"
-		 'face 'font-lock-comment-face))
+    (insert "\n"
+	    (propertize
+	     (format "%02d-#x--- 0-- 1-- 2-- 3-- 4-- 5-- 6-- 7-- 8-- 9-- A-- B-- C-- D-- E-- F" (- high 32)) 'face 'font-lock-comment-face))
     (setq i (* (/ min 16) 16))		; i は 下位バイト
     (while (<= i max)			; 0x21 .. 0x7e
       (when (= (% i 16) 0)
-	(insert (propertize (format "\n%5X0" (/ (+ (* high 256)
+	(insert (propertize (format "\n %5X0" (/ (+ (* high 256)
 						   i)
 						16))
 			    'face 'font-lock-comment-face)))
@@ -528,8 +531,7 @@
 		 (or (make-char charset (/ (* high 256) 256) i)
 		     32)))
       (insert "\t" ch)
-      (setq i (1+ i))
-      )))
+      (setq i (1+ i)))))
 
 ;;;###autoload
 (defun skk-list-chars (arg)
@@ -651,31 +653,37 @@
       (skk-list-chars-code-input-1 code))))
 
 (defun skk-list-chars-code-input-1 (code)
-  (set-buffer skk-list-chars-destination-buffer)
-  (insert
-   (cond
-    ;; ハイフン `-' で区切られた「区-点」
-    ((string-match "^\\([0-9]*[0-9]\\)-\\([0-9]*[0-9]\\)$" code)
-     (skk-make-string (+ (string-to-number (match-string 1 code))
-			 32 128)
-		      (+ (string-to-number (match-string 2 code))
-			 32 128)))
-    ;; `U+' で始まればユニコード
-    ((string-match "^[uU]\\+\\(.*\\)$" code)
-     (let ((char (string-to-number (match-string-no-properties 1 code) 16)))
-       (char-to-string
-	(cond ((eval-when-compile (fboundp 'ucs-representation-decoding-backend))
-	       (ucs-representation-decoding-backend 'ucs char nil))
-	       ((>= emacs-major-version 23)
-		char)
-	       (t
-		32)))))
-    ;; 上記以外は JIS コードとみなす
-    (t				
-     (skk-make-string (+ (* 16 (skk-char-to-hex (aref code 0) 'jis))
-			 (skk-char-to-hex (aref code 1)))
-		      (+ (* 16 (skk-char-to-hex (aref code 2) 'jis))
-			 (skk-char-to-hex (aref code 3)))))))
+  (let ((str (cond
+	      ;; ハイフン `-' で区切られた「区-点」
+	      ((string-match "^\\([0-9]*[0-9]\\)-\\([0-9]*[0-9]\\)$" code)
+	       (skk-make-string (+ (string-to-number (match-string 1 code))
+				   32 128)
+				(+ (string-to-number (match-string 2 code))
+				   32 128)))
+	      ;; `U+' で始まればユニコード
+	      ((string-match "^[uU]\\+\\(.*\\)$" code)
+	       (let ((char (string-to-number (match-string-no-properties 1 code) 16)))
+		 (char-to-string
+		  (cond ((eval-when-compile
+			   (fboundp 'ucs-representation-decoding-backend))
+			 (ucs-representation-decoding-backend 'ucs char nil))
+			((>= emacs-major-version 23)
+			 char)
+			(t
+			 32)))))
+	      ;; 上記以外は JIS コードとみなす
+	      (t				
+	       (skk-make-string (+ (* 16 (skk-char-to-hex (aref code 0) 'jis))
+				   (skk-char-to-hex (aref code 1)))
+				(+ (* 16 (skk-char-to-hex (aref code 2) 'jis))
+				   (skk-char-to-hex (aref code 3))))))
+	     ))
+    (save-current-buffer
+      (set-buffer skk-list-chars-destination-buffer)
+      (insert str))
+    (goto-char (point-min))
+    (search-forward str nil t)
+    (forward-char -1))
   (when (eq skk-henkan-mode 'active)
     (skk-kakutei)))
 
