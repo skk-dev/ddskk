@@ -1,5 +1,7 @@
 2010-12-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: Update for 文字コード入力.
+
 	* skk-tankan.el (skk-search-by-stroke-or-radical): 部首変換
 	及び 総画数変換の JIS X 0213-[12] 対応.
 
