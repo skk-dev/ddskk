@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.71 2010/12/10 23:55:06 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.72 2010/12/11 13:48:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/10 23:55:06 $
+;; Last Modified: $Date: 2010/12/11 13:48:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,6 +33,7 @@
 ;;; Code:
 
 (eval-when-compile
+  (require 'font-lock)
   (require 'skk-macs)
   (require 'skk-vars)
   (defvar enable-recursive-minibuffers)
@@ -394,6 +395,7 @@
     t))
 
 (defun skk-display-code (char)
+  (require 'font-lock)
   (let* ((charset (if (eval-when-compile (and skk-running-gnu-emacs
 					      (>= emacs-major-version 23)))
 		      ;; GNU Emacs 23.1 or later
@@ -536,6 +538,7 @@
 ;;;###autoload
 (defun skk-list-chars (arg)
   "Docstring."
+  (require 'font-lock)
   (let ((buf (progn (and (get-buffer skk-list-chars-buffer-name)
 			 (kill-buffer skk-list-chars-buffer-name))
 		    (get-buffer-create skk-list-chars-buffer-name)))
@@ -556,7 +559,7 @@
     (set-buffer-multibyte t)
     (insert (propertize (format "variable skk-kcode-charset's value is `%s'.\n"
 				skk-kcode-charset)
-			'face 'font-lock-doc-face))
+			'face font-lock-doc-face))
 
     (let ((high 33))			; ?\x21
       (while (<= high 126)		; ?\x7e
