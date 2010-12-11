@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.72 2010/12/11 13:48:02 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.73 2010/12/11 21:40:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/11 13:48:02 $
+;; Last Modified: $Date: 2010/12/11 21:40:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -610,15 +610,21 @@
     (search-forward (char-to-string (make-char skk-kcode-charset 33 33))))
   (forward-char -1))
 
-(defun skk-list-chars-next-line (arg)
-  (interactive "p")
+(defun skk-list-chars-next-line ()
+  (interactive)
   (let ((col (current-column)))
-    (forward-line arg)
+    (forward-line)
+    (if (eq 'ascii (car (split-char (following-char))))
+	(skip-chars-forward skk-list-chars-skip-chars))
     (move-to-column col)))
 
 (defun skk-list-chars-previous-line ()
   (interactive)
-  (skk-list-chars-next-line -1))
+  (let ((col (current-column)))
+    (forward-line -1)
+    (if (eq 'ascii (car (split-char (following-char))))
+	(skip-chars-backward skk-list-chars-skip-chars))
+    (move-to-column col)))
 
 (defun skk-list-chars-goto-point ()
   (interactive)

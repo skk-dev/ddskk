@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.338 2010/12/10 21:18:12 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.339 2010/12/11 21:40:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/10 21:18:12 $
+;; Last Modified: $Date: 2010/12/11 21:40:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3836,20 +3836,32 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
     (define-key map "$" 'skk-list-chars-display-code)
     (define-key map "w" 'skk-list-chars-copy)
     (define-key map "q" 'skk-list-chars-quit)
-    (define-key map "f" 'skk-list-chars-forward)
-    (define-key map "l" 'skk-list-chars-forward)
-    (define-key map "b" 'skk-list-chars-backward)
-    (define-key map "h" 'skk-list-chars-backward)
-    (define-key map "n" 'skk-list-chars-next-line)
-    (define-key map "j" 'skk-list-chars-next-line)
-    (define-key map "p" 'skk-list-chars-previous-line)
-    (define-key map "k" 'skk-list-chars-previous-line)
     (define-key map (kbd "C-x C-x") 'skk-list-chars-goto-point)
+    (define-key map "c" 'skk-list-chars-code-input)
+;;     (define-key map (kbd "C-a") '区の先頭へ)
+;;     (define-key map (kbd "C-e") '区の末尾へ)
+
+    (define-key map (kbd "C-f") 'skk-list-chars-forward)
+    (define-key map "f"         'skk-list-chars-forward)
+    (define-key map "l"         'skk-list-chars-forward)
+
+    (define-key map (kbd "C-b") 'skk-list-chars-backward)
+    (define-key map "b"         'skk-list-chars-backward)
+    (define-key map "h"         'skk-list-chars-backward)
+
+    (define-key map (kbd "C-n") 'skk-list-chars-next-line)
+    (define-key map "n"         'skk-list-chars-next-line)
+    (define-key map "j"         'skk-list-chars-next-line)
+
+    (define-key map (kbd "C-p") 'skk-list-chars-previous-line)
+    (define-key map "p"         'skk-list-chars-previous-line)
+    (define-key map "k"         'skk-list-chars-previous-line)
+
     (define-key map (kbd "RET") 'skk-list-chars-insert)
     (define-key map "i"         'skk-list-chars-insert)
+
     (define-key map "o"  'skk-list-chars-other-charset)
     (define-key map "\\" 'skk-list-chars-other-charset)
-    (define-key map "c" 'skk-list-chars-code-input)
     map)
   "Keymap used in skk-list-chars mode.")
 

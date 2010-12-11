@@ -1,3 +1,10 @@
+2010-12-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-list-chars-next-line): Skip separate line.
+	(skk-list-chars-previous-line): Ditto.
+
+	* skk-vars.el (skk-list-chars-mode-map): Add C-f, C-b, C-n, C-p.
+
 2010-12-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update for 文字コード入力.
