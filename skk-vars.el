@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.339 2010/12/11 21:40:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.340 2010/12/12 11:09:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/11 21:40:35 $
+;; Last Modified: $Date: 2010/12/12 11:09:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3800,12 +3800,17 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
   :group 'skk-kcode)
 
 (defconst skk-code-n1-min 161)
+
 (defconst skk-code-n1-max (if (find-coding-system 'euc-jisx0213)
 			      254
 			    244))
+
 (defconst skk-code-n2-min 161)
+
 (defconst skk-code-n2-max 254)
+
 (defconst skk-code-null 128)
+
 (defconst skk-kcode-charset-list
   (mapcar #'(lambda (x)
 	      (list (symbol-name x)))
@@ -3840,6 +3845,8 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
     (define-key map "c" 'skk-list-chars-code-input)
 ;;     (define-key map (kbd "C-a") '区の先頭へ)
 ;;     (define-key map (kbd "C-e") '区の末尾へ)
+;;     (define-key map "<" 'バッファ先頭へ)
+;;     (define-key map ">" 'バッファ末尾へ)
 
     (define-key map (kbd "C-f") 'skk-list-chars-forward)
     (define-key map "f"         'skk-list-chars-forward)
