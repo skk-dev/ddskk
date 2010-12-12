@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.92
-@set UPDATED $Date: 2010/12/12 06:28:57 $
+@set UPDATED $Date: 2010/12/12 10:36:46 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7568,32 +7568,38 @@ buffer (plural&#160;buffers)
 
 @example
 @group
+-------------------- *skk-list-chars* --------------------
 variable skk-kcode-charset's value is `japanese-jisx0208'.
 
 01-#x--- 0-- 1-- 2-- 3-- 4-- 5-- 6-- 7-- 8-- 9-- A-- B-- C-- D-- E-- F
-   2120     　  、  。  ，  ．  ・  ：  ；  ？  ！  ゛  ゜  ´  ｀  ¨
-   2130 ＾  ￣  ＿  ヽ  ヾ  ゝ  ゞ  〃  仝  々  〆  〇  ー  ―  ‐  ／
-   2140 ＼  〜  ‖  ｜  …  ‥  ‘  ’  “  ”  （  ）  〔  〕  ［  ］
-   2150 ｛  ｝  〈  〉  《  》  「  」  『  』  【  】  ＋  −  ±  ×
-   2160 ÷  ＝  ≠  ＜  ＞  ≦  ≧  ∞  ∴  ♂  ♀  °  ′  ″  ℃  ￥
-   2170 ＄  ¢  £  ％  ＃  ＆  ＊  ＠  §  ☆  ★  ○  ●  ◎  ◇
+　 2120 　　　　、　。　，　．　・　：　；　？　！　゛　゜　´　｀　¨
+　 2130 ＾　￣　＿　ヽ　ヾ　ゝ　ゞ　〃　仝　々　〆　〇　ー　―　‐　／
+　 2140 ＼　〜　‖　｜　…　‥　‘　’　“　”　（　）　〔　〕　［　］
+　 2150 ｛　｝　〈　〉　《　》　「　」　『　』　【　】　＋　−　±　×
+　 2160 ÷　＝　≠　＜　＞　≦　≧　∞　∴　♂　♀　°　′　″　℃　￥
+　 2170 ＄　¢　£　％　＃　＆　＊　＠　§　☆　★　○　●　◎　◇
+-------------------- *skk-list-chars* --------------------
 @end group
 @end example
 
 @table @kbd
 @item f
+@itemx C-f
 @itemx l
 カーソル移動
 
 @item b
+@itemx C-b
 @itemx h
 カーソル移動
 
 @item n
+@itemx C-n
 @itemx j
 カーソル移動
 
 @item p
+@itemx C-p
 @itemx k
 カーソル移動
 
@@ -7648,9 +7654,11 @@ skk-list-chars を抜ける。
 
 @example
 @group
+-------------------- *skk-list-chars* --------------------
 07-#x--- 0-- 1-- 2-- 3-- 4-- 5-- 6-- 7-- 8-- 9-- A-- B-- C-- D-- E-- F
-   2720     А  Б  В  Г  Д  Е  Ё  Ж  З  И  Й  К  Л  М  Н
-   2730 О  П  Р  С  Т  У  Ф  Х  Ц  Ч  Ш  Щ  Ъ  Ы  Ь  Э
+　 2720 　　А　Б　В　Г　Д　Е　Ё　Ж　З　И　Й　К　Л　М　Н
+　 2730 О　П　Р　С　Т　У　Ф　Х　Ц　Ч　Ш　Щ　Ъ　Ы　Ь　Э
+-------------------- *skk-list-chars* --------------------
 @end group
 @end example
 

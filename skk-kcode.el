@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.73 2010/12/11 21:40:35 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.74 2010/12/12 10:36:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/11 21:40:35 $
+;; Last Modified: $Date: 2010/12/12 10:36:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -502,6 +502,9 @@
 ;;;; skk-list-chars
 ;; TODO
 ;;   o mode-line に現在 charset を表示したい
+;;   o 挿入先のバッファ skk-list-chars-destination-buffer が存在しない場合の対処
+;;   o キー操作 a, e で区の先頭/末尾へ
+;;   o キー操作 <, > で先頭/末尾へ
 
 (defun skk-list-chars-mode ()
   "Major mode for skk-list-chars.
@@ -645,12 +648,12 @@
 (defun skk-list-chars-other-charset ()
   (interactive)
   (setq skk-kcode-charset
-	(intern (completing-read "Character set: "
-				 '(("japanese-jisx0213-1")
-				   ("japanese-jisx0213-2")
-				   ("japanese-jisx0208"))
-				 nil t
-				 (symbol-name skk-kcode-charset))))
+	(intern-soft (completing-read "Character set: "
+				      '(("japanese-jisx0213-1")
+					("japanese-jisx0213-2")
+					("japanese-jisx0208"))
+				      nil t
+				      (symbol-name skk-kcode-charset))))
   (skk-list-chars-quit)
   (skk-list-chars nil))
 

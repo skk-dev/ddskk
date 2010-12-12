@@ -1,5 +1,14 @@
 2010-12-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: Update.
+
+	* skk-tankan.el (skk-search-by-stroke-or-radical): Update Docstring.
+
+	* skk-kcode.el (skk-list-chars-mode): Update comment.
+	(skk-list-chars-other-charset): intern に代えて intern-soft を使用.
+
+2010-12-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to
 	14.1.92.
 

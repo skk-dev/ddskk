@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.38 2010/12/11 09:52:58 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.39 2010/12/12 10:36:46 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/12/11 09:52:58 $
+;; Last Modified: $Date: 2010/12/12 10:36:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1560,7 +1560,7 @@
     list))
 
 (defun skk-search-by-stroke-or-radical (num method)
-  "JIS X 0208 の範囲から指定された方式で単漢字を検索する。
+  "JIS X 0208 又は JIS X 0213-[12] の文字集合のうち指定の方法で単漢字を検索する。
 NUM は数値であり、METHOD が 0 であれば部首番号として、
 METHOD が 2 であれば総画数として検索を実行する。
 戻り値は (\"力\" \"了\" \"又\" …) のリストである。"
