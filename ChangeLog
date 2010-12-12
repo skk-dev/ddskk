@@ -5,6 +5,14 @@
 
 	* skk-vars.el (skk-list-chars-mode-map): Add C-f, C-b, C-n, C-p.
 
+2010-12-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kcode.el: Require font-lock at compile time.
+	(skk-display-code, skk-list-chars): Require font-lock.
+	(skk-list-chars): Workaround for XEmacs.  Refer to
+	variable font-lock-doc-face instead of directly use the face with
+	the same name.
+
 2010-12-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update for 文字コード入力.
