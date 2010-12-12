@@ -1,5 +1,10 @@
 2010-12-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to
+	14.1.92.
+
+2010-12-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-kcode.el (skk-list-chars-next-line): Skip separate line.
 	(skk-list-chars-previous-line): Ditto.
 
