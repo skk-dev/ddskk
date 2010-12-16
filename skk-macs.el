@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.159 2010/12/03 16:50:50 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.160 2010/12/16 11:16:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/03 16:50:50 $
+;; Last Modified: $Date: 2010/12/16 11:16:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -940,15 +940,21 @@ BUFFER defaults to the current buffer."
 	      skk-last-henkan-data)))))
 
 (defun skk-find-coding-system (code)
+  "CODE が、Emacs が解釈する coding-system シンボル表現であればそのまま返し、
+文字列であれば 連想リスト `skk-coding-system-alist' を用いてシンボル表現へ変換する。
+これら以外（nil を含む）であれば シンボル euc-jisx0213 を返す。"
   (cond ((and code
-	      (or (and (fboundp 'coding-system-p)
+	      (or (and (fboundp 'coding-system-p) ; GNU Emacs
 		       (coding-system-p code))
-		  (and (fboundp 'find-coding-system)
+		  (and (fboundp 'find-coding-system) ; XEmacs
 		       (symbolp code)
 		       (find-coding-system code))))
 	 code)
-	((and code (stringp code))
+	;;
+	((and code
+	      (stringp code))
 	 (cdr (assoc code skk-coding-system-alist)))
+	;;
 	(t
 	 (cdr (assoc "euc" skk-coding-system-alist)))))
 

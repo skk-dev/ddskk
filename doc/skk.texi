@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.92
-@set UPDATED $Date: 2010/12/12 10:36:46 $
+@set UPDATED $Date: 2010/12/16 11:16:08 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4327,12 +4327,12 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 @vindex skk-rom-kana-rule-list
 @end table
 
-DDSKK $B$N"#%b!<%I$K$*$1$kJ8;zJQ49$O!">e5-(B 2 $BJQ?t$rMQ$$$F9T$o$l$^$9!#(B
-@code{skk-rom-kana-base-rule-list} $B$K$O4pK\E*$J%m!<%^;z$N%k!<%k$,(B
+DDSKK $B$N"#%b!<%I$K$*$1$kJ8;zJQ49$O!"$3$l$i#2$D$NJQ?t$rMQ$$$F9T$o$l$^$9!#(B
+@code{skk-rom-kana-base-rule-list} $B$K$O4pK\E*$J%m!<%^;z$+$JJQ49$N%k!<%k$,(B
 $BDj$a$i$l$F$$$^$9!#0lJ}!"(B@code{skk-rom-kana-rule-list} $B$O%f!<%6$,FH<+$N5,B'$r(B
-$BDj5A$9$k$?$a$KMQ0U$5$l$F$$$F!"A0<T$h$jM%@h$5$l$^$9!#(B
+$BDj$a$k$?$a$KMQ0U$5$l$F$*$j!"(B@code{skk-rom-kana-base-rule-list} $B$h$jM%@h$5$l$^$9!#(B
 
-$B$3$l$i$O!"!VF~=PNO$N>uBV$,$$$+$K0\$jJQ$o$k$Y$-$+!W$r7hDj$7$^$9!#$=$NFbMF$O!"(B
+$B$3$l$i$O!VF~=PNO$N>uBV$,$$$+$K0\$jJQ$o$k$Y$-$+!W$r7hDj$7$^$9!#$=$NFbMF$O!"(B
 
 @example
 ($BF~NO$5$l$kJ8;zNs(B $B=PNO8e$K<+F0E*$KF~NO$KDI2C$5$l$kJ8;zNs(B $B=PNO(B)
@@ -4818,40 +4818,40 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @end lisp
 @end defvr
 
-$B%a%K%e!<$K$h$kJ8;zF~NO(B
-@footnote{@w{@ref{$BJ8;z%3!<%I$^$?$O%a%K%e!<$K$h$kJ8;zF~NO(B}}.}$B$N:]$K8uJd$NA*Br(B
-$B$KMQ$$$i$l$k%-!<$O!"<!$N#2$D$NJQ?t$K$h$jJQ99$5$l$^$9!#(B
+@c $B%a%K%e!<$K$h$kJ8;zF~NO(B
+@c @footnote{@w{@ref{$BJ8;z%3!<%I$^$?$O%a%K%e!<$K$h$kJ8;zF~NO(B}}.}$B$N:]$K8uJd$NA*Br(B
+@c $B$KMQ$$$i$l$k%-!<$O!"<!$N#2$D$NJQ?t$K$h$jJQ99$5$l$^$9!#(B
 
-@defvr {$B%f!<%6JQ?t(B} skk-input-by-code-menu-keys1
+@c @defvr {$B%f!<%6JQ?t(B} skk-input-by-code-menu-keys1
 
-$BBh#1CJ3,$N%a%K%e!<$K$*$1$k8uJd$NA*Br%-!<!#4{DjCM$O!"(B
+@c $BBh#1CJ3,$N%a%K%e!<$K$*$1$k8uJd$NA*Br%-!<!#4{DjCM$O!"(B
 
-@lisp
-(?a ?s ?d ?f ?g ?h ?q ?w ?e ?r ?t ?y)
-@end lisp
+@c @lisp
+@c (?a ?s ?d ?f ?g ?h ?q ?w ?e ?r ?t ?y)
+@c @end lisp
 
-@noindent
-$B$G$9!#$3$N%j%9%H$K$O(B 12 $B8D$N0[$J$kJ8;z$r4^$`I,MW$,$"$j$^$9!#(B
+@c @noindent
+@c $B$G$9!#$3$N%j%9%H$K$O(B 12 $B8D$N0[$J$kJ8;z$r4^$`I,MW$,$"$j$^$9!#(B
 
-@end defvr
+@c @end defvr
 
-@defvr {$B%f!<%6JQ?t(B} skk-input-by-code-menu-keys2
+@c @defvr {$B%f!<%6JQ?t(B} skk-input-by-code-menu-keys2
 
-$BBh#2CJ3,$N%a%K%e!<$K$*$1$k8uJd$NA*Br%-!<!#4{DjCM$O!"(B
+@c $BBh#2CJ3,$N%a%K%e!<$K$*$1$k8uJd$NA*Br%-!<!#4{DjCM$O!"(B
 
-@lisp
-(?a ?s ?d ?f ?g ?h ?j ?k ?l ?q ?w ?e ?r ?t ?y ?u)
-@end lisp
+@c @lisp
+@c (?a ?s ?d ?f ?g ?h ?j ?k ?l ?q ?w ?e ?r ?t ?y ?u)
+@c @end lisp
 
-@noindent
-$B$G$9!#$3$N%j%9%H$K$O(B 16 $B8D$N0[$J$kJ8;z$r4^$`I,MW$,$"$j$^$9!#(B
-@end defvr
+@c @noindent
+@c $B$G$9!#$3$N%j%9%H$K$O(B 16 $B8D$N0[$J$kJ8;z$r4^$`I,MW$,$"$j$^$9!#(B
+@c @end defvr
 
-$B>e5-$N#2$D$NJQ?t$NMWAG$O(B@b{$BA4$F>.J8;z$G;XDj$9$k$3$H(B}$B$r6/$/$*4+$a$7$^$9(B
-@footnote{$B>.J8;z$,;XDj$5$l$?>l9g$O!"8uJd$NA*Br$N:]$KBP1~$9$kBgJ8;z%-!<$,(B
-$BF~NO$5$l$F$b8uJd$NA*Br$,2DG=$H$J$k$h$&$K@_7W$5$l$F$$$^$9!#$=$N0lJ}$G!"Bg(B
-$BJ8;z$,;XDj$5$l$?>l9g!"8uJd$NA*Br$N:]$KBP1~$9$k>.J8;z%-!<$,F~NO$5$l$F$b8u(B
-$BJd$NA*Br$,$G$-$^$;$s!#$3$l$O8=:_$N;EMM$G$9!#(B}$B!#(B
+@c $B>e5-$N#2$D$NJQ?t$NMWAG$O(B@b{$BA4$F>.J8;z$G;XDj$9$k$3$H(B}$B$r6/$/$*4+$a$7$^$9(B
+@c @footnote{$B>.J8;z$,;XDj$5$l$?>l9g$O!"8uJd$NA*Br$N:]$KBP1~$9$kBgJ8;z%-!<$,(B
+@c $BF~NO$5$l$F$b8uJd$NA*Br$,2DG=$H$J$k$h$&$K@_7W$5$l$F$$$^$9!#$=$N0lJ}$G!"Bg(B
+@c $BJ8;z$,;XDj$5$l$?>l9g!"8uJd$NA*Br$N:]$KBP1~$9$k>.J8;z%-!<$,F~NO$5$l$F$b8u(B
+@c $BJd$NA*Br$,$G$-$^$;$s!#$3$l$O8=:_$N;EMM$G$9!#(B}$B!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-henkan-show-candidates-keys-face
 $BA*Br%-!<$rI=<($9$k:]$N%U%'%$%9$r;XDj$7$^$9!#(B
@@ -6385,7 +6385,7 @@ Emacs $B$N%P%C%U%!$KFI$_9~$s$G8!:w$r9T$$$^$9!#6&M-<-=q$O@_Dj$K$h$j(B Emacs
 
 @defvr {$B%f!<%6JQ?t(B} skk-extra-jisyo-file-list
 SKK $B$G$O8D?M<-=q$NB>$K!"%a%$%s<-=q(B (@code{skk-large-jisyo}$B!"(B
-@code{skk-cdb-large-jisyo}) $B$^$?$O%5!<%P$N@_Dj$r$7$FMxMQ$9$k$N$,0lHLE*$G(B
+@code{skk-cdb-large-jisyo}) $B$^$?$O<-=q%5!<%P$N@_Dj$r$7$FMxMQ$9$k$N$,0lHLE*$G(B
 $B$9$,!"$[$+$KB?:L$J<-=q$,%a%s%F%J%s%9$5$l$F$*$j!"MxMQ2DG=$G$9!#$=$N$?$a$K(B
 $B$OJQ?t(B @code{skk-search-prog-list} $B$r<jF0$GJT=8$9$k$3$H$b$G$-$^$9$,!"$3(B
 $B$l$O87L)$K$O%f!<%6JQ?t$KJ,N`$5$l$F$$$J$$$?$a!"M=4|$7$J$$LdBj$,5/$3$k$3$H(B
@@ -6402,10 +6402,10 @@ DDSKK 14.2 $B0J9_$G$ODI2C$N<-=q$r4JC1$K@_Dj$9$kJ}K!$rDs6!$7$^$9!#0J2<$NNc(B
 @end group
 @end lisp
 
-$B$3$N$h$&$K!"<-=q$N%U%!%$%kL>$N%j%9%H$r;XDj$7$^$9!#$?$@$7!"%3!<%I7O$,(B
-@code{skk-jisyo-code} $B$H0[$J$k%U%!%$%k$K$$$D$$$F$O!"NcCf$N(B
-@file{SKK-JISYO.JIS3_4} $B$N@_Dj$N$h$&$K!"%U%!%$%kL>$H%3!<%I7O$N%Z%"$r5-=R(B
-$B$7$^$9!#(B
+$B$3$N$h$&$K!"<-=q$N%U%!%$%kL>$N%j%9%H$r;XDj$7$^$9!#$?$@$7!"JQ?t(B @code{skk-jisyo-code}
+(@w{@pxref{$B<-=q%P%C%U%!$NJ8;z%3!<%I$N@_Dj(B}}) $B$H$O0[$J$kJ8;z%3!<%I$N%U%!%$%k$K$D$$$F$O!"(B
+$B>e5-$NNcCf$N(B @file{SKK-JISYO.JIS3_4} $B$N$h$&$K!V%U%!%$%kL>$HJ8;z%3!<%I$N%Z%"!W$r(B
+$B5-=R$7$^$9!#(B
 @end defvr
 
 $B$3$l$i$NJQ?t$N0UL#$9$k$H$3$m$O=i4|@_Dj$G$N$b$N$G$9$,!"(B
@@ -7119,12 +7119,12 @@ abbreviation $B$NE83+$r9T$&$h$&$K@_Dj$9$k$3$H$,$G$-$k$N$G$9$,!"2>$K<-=q(B
 $B$3$NJQ?t$O0J2<$N$h$&$JCM$r<h$j$^$9!#(B
 
 @itemize @bullet
-@item ``euc'', ``ujis'', ``sjis'', ``jis'' $B$J$I$NJ8;zNs(B
-@item Emacs $B$N(B coding system ($B%3!<%I7O(B)@footnote{coding system $B$O(B Emacs $B$N>l9g(B @code{euc-jp}, @code{shift_jis},
-@code{junet} $B$J$I$N(B symbol $B$GI=$5$l$^$9!#$3$l$i$O(B @kbd{M-x
-describe-coding-system} $B$GD4$Y$k$3$H$,$G$-$^$9!#$J$*!"(BXEmacs $B$G$O$3$l$i(B
+@item ``euc'', ``ujis'', ``sjis'', ``jis'' $B$J$I$NJ8;zNs!#=g$K(B euc-jisx0213, euc-jisx0213, shift_jisx0213, iso-2022-jp-3-strict $B$N3F%7%s%\%k$XJQ49$5$l$^$9(B(skk-coding-system-alist)$B!#(B
+@item Emacs $B$N(B coding system ($B%3!<%I7O(B)@footnote{coding system $B$O(B GNU Emacs $B$N>l9g(B @code{euc-jp}, @code{shift_jis},
+@code{junet} $B$J$I$N(B symbol $B$GI=$5$l$^$9!#(B
+$B$3$l$i$O(B @kbd{M-x describe-coding-system} $B$GD4$Y$k$3$H$,$G$-$^$9!#$J$*!"(BXEmacs $B$G$O$3$l$i(B
 $B$N(B symbol $B$O(B coding system $B$=$N$b$N$G$O$J$/!"(B coding system object $B$r;X(B
-$B<($9$k$?$a$N(B symbol $B$H$7$F07$o$l$^$9!#6qBNE*$K$O(B Emacs $B$G$O(B
+$B<($9$k$?$a$N(B symbol $B$H$7$F07$o$l$^$9!#6qBNE*$K$O(B GNU Emacs $B$G$O(B
 @code{(coding-system-p 'euc-jp)} $B$,(B @code{t} $B$rJV$9$N$KBP$7!"(B XEmacs $B$G(B
 $B$O(B @code{nil} $B$rJV$7$^$9$,!"Be$o$j$K(B symbol $B$,<($9(B coding system object $B$rJV$9(B
 @code{find-coding-system} $B4X?t$,B8:_$7$^$9!#(B}
