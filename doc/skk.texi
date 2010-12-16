@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.92
-@set UPDATED $Date: 2010/12/16 11:16:08 $
+@set UPDATED $Date: 2010/12/16 21:08:15 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6917,10 +6917,11 @@ skk $B$+$i$NC18l$NEPO?!":o=|$O$G$-$^$;$s!#(B($BB>$K$b>/$7@)8B$,$"$j$^$9$,!"(
 @cindex $B8D?M<-=q(B
 @cindex $B8D?M<-=q$N%*!<%H%;!<%V(B
 @kindex C-x C-c
+@vindex skk-save-jisyo-instantly
 
 $B8D?M<-=q$NJ]B8F0:n$K$D$$$F@bL@$7$^$9!#(B
 
-$B8D?M<-=q$NJ]B8$,9T$o$l$k>l9g$H$7$F!"<!$N(B 3 $BDL$j$,$"$j$^$9!#(B
+$B8D?M<-=q$NJ]B8$,9T$o$l$k>l9g$H$7$F!"<!$N#4DL$j$,$"$j$^$9!#(B
 
 @enumerate
 @item
@@ -6934,6 +6935,10 @@ Jisyo} $B$rA*Br$7$?>l9g!#(B
 @item
 $BJQ?t(B @code{skk-jisyo-save-count} $B$G;XDj$5$l$?2s?t!"<-=q$N99?7$r9T$C$?7k(B
 $B2L$H$7$F!"<+F0J]B8(B ($B%*!<%H%;!<%V(B) $B5!G=$,F/$/$H$-!#(B
+
+@item 
+$BJQ?t(B @code{skk-save-jisyo-instantly} $B$,(B @code{non-nil} $B$G$"$l$P!"(B
+$BC18lEPO?!JC18l:o=|!K$N$?$S$K8D?M<-=q$rJ]B8$9$k!#(B
 @end enumerate
 
 $BJ]B8F0:n$rJ,@O$7$F9M$($^$9!#$^$:!"(B Emacs $B$KFI$_9~$s$@8D?M<-=q$,99?7$5$l(B

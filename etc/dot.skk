@@ -472,6 +472,9 @@
 		     'skk-auto-save-jisyo)
 ;; (cancel-function-timers 'skk-auto-save-jisyo)
 
+;; 単語登録／単語削除のたびに個人辞書を保存する
+;; (setq skk-save-jisyo-instantly t)
+
 ;; 個人辞書の文字コードを指定する
 ;; (setq skk-jisyo-code 'utf-8)
 ;; 注) この設定は気をつけないと辞書の検索ができなくなりますので十分理

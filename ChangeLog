@@ -1,3 +1,7 @@
+2010-12-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Add skk-save-jisyo-instantly.
+
 2010-12-17  u-ch  <@yunh>
 
 	* skk-vars.el (skk-save-jisyo-instantly, skk-jisyo-updated): New variable.
