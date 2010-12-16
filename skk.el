@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.541 2010/12/01 20:22:03 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.542 2010/12/16 15:17:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/01 20:22:03 $
+;; Last Modified: $Date: 2010/12/16 15:17:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2370,6 +2370,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
       ;; $BF~$C$F$$$k!#(Bskk-henkan-count $B$r%$%s%/%j%a%s%H$9$kI,MW$O$J$$!#(B
       ;; new-one $B$,6uJ8;zNs$@$C$?$i(B nil $B$rJV$9!#(B
       (unless (string= new-one "")
+	(setq skk-jisyo-updated t)	; skk-update-jisyo $B$G;2>H(B
 	new-one))))
 
 (defun skk-compute-henkan-key2 ()
@@ -4208,7 +4209,12 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
   (setq skk-kakutei-henkan-flag (skk-search-jisyo-file file limit nomsg)))
 
 (defun skk-update-jisyo (word &optional purge)
-  (funcall skk-update-jisyo-function word purge))
+  (funcall skk-update-jisyo-function word purge)
+  (when (and skk-save-jisyo-instantly
+	     (or skk-jisyo-updated	; skk-henkan-in-minibuff $B$G(B setq
+		 purge))
+    (skk-save-jisyo 'quiet)
+    (setq skk-jisyo-updated nil)))
 
 (defun skk-update-jisyo-original (word &optional purge)
   "WORD $B$,<!$NJQ49;~$K:G=i$N8uJd$K$J$k$h$&$K!"%W%i%$%Y!<%H<-=q$r99?7$9$k!#(B

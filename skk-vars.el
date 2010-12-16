@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.340 2010/12/12 11:09:19 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.341 2010/12/16 15:17:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/12 11:09:19 $
+;; Last Modified: $Date: 2010/12/16 15:17:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -685,7 +685,15 @@ HENKAN-BUFFER, MIDASI, OKURIGANA, WORD, PURGE $B$N(B 5 $B0z?t$rH<$J$C$F%3!<%k
 Non-nil $B$J$i$P!"@\F,<-$^$?$O@\Hx<-F~NO$N:]!"@\F,<-$^$?$O@\Hx<-$H7k9g$7$?(B
 $B8l$r<+F0E*$K3X=,$9$k!#(B"
   :type 'boolean
-   :group 'skk-private)
+  :group 'skk-private)
+
+(defcustom skk-save-jisyo-instantly nil
+  "*non-nil $B$G$"$l$P!"C18lEPO?!JC18l:o=|!K$NETEY!"8D?M<-=q$rJ]B8$9$k!#(B"
+  :type 'boolean
+  :group 'skk-private)
+
+(defvar skk-jisyo-updated nil
+  "skk-henkan-in-minibuff ($BC18lEPO?(B) $B$5$l$l$P(B t $B$K!#(Bskk-update-jisyo $B$G;2>H$7$F$$$k!#(B")
 
 (defcustom skk-rom-kana-base-rule-list
   '(("a" nil ("$B%"(B" . "$B$"(B"))

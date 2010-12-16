@@ -1,3 +1,9 @@
+2010-12-17  u-ch  <@yunh>
+
+	* skk-vars.el (skk-save-jisyo-instantly, skk-jisyo-updated): New variable.
+
+	* skk.el (skk-henkan-in-minibuff, skk-update-jisyo): Use it.
+
 2010-12-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
