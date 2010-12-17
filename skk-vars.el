@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.341 2010/12/16 15:17:52 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.342 2010/12/17 10:40:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/16 15:17:52 $
+;; Last Modified: $Date: 2010/12/17 10:40:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -447,7 +447,7 @@ GNU Emacs $B$K$O(B SKK-JISYO.L $B$r85$KJQ49$5$l$?(B ja-dic.el $B$H$$$&<-=q$
 $B$3$l$rMQ$$$FDL>o$N$+$J4A;zJQ49(B ($BAw$j$"$j!"Aw$j$J$7!"@\F,<-!"@\Hx<-(B) $B$,2DG=(B
 $B$G$"$k(B ($B$?$@$7(B SKK-JISYO.L $B$K$h$k1Q?tJQ49!"?tCMJQ49$J$I$O$G$-$J$$(B)$B!#(B
 DDSKK 14.2 $B$h$j(B ja-dic.el $B8!:w5!G=$,DI2C$5$l$?!#$3$l$O(B `skk-large-jisyo'$B!"(B
-`skk-aux-karge-jisyo'$B!"(B`skk-cdb-large-jisyo' `skk-server-host' $B$NA4$F$,L58z(B
+`skk-aux-large-jisyo'$B!"(B`skk-cdb-large-jisyo' `skk-server-host' $B$NA4$F$,L58z(B
 $B$J>l9g$N$_M-8z$K$J$k$,!"$"$i$f$k>l9g$KL58z$K$7$?$$>l9g$O$3$l$r(B t $B$K@_Dj$9$k!#(B"
   :type 'boolean
   :group 'skk-dictionary)
