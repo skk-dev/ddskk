@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.92
-@set UPDATED $Date: 2010/12/17 10:40:08 $
+@set UPDATED $Date: 2010/12/17 11:19:28 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9264,8 +9264,14 @@ Mac OS X $BHG(B Emacs $B$KFC2=$7$?>pJs$K$D$$$F$O!"0J2<$N%U%!%$%k$r;2>H$7$F$/$
 @unnumberedsubsec Q1-5 APEL $B$C$F2?(B? $BI,MW$G$9$+(B?
 
 APEL $B$O(B A Portable Emacs Library $B$NN,$G$9!#(BAPEL $B$N<g$J5!G=$O0[$J$k(B Emacs
-$B4V$NHs8_49@-$r5[<}$9$k$3$H$G$9!#$3$l$O8=:_3+H/%3%9%H$N:o8:$KLrN)$C$F$*$j!"(B
-$B8=>u$G$O(B APEL $B$r;H$$B3$1$kJ}?K$G$9!#(B
+$B4V$NHs8_49@-$r5[<}$9$k$3$H$G$9!#(B
+@c $B4V$NHs8_49@-$r5[<}$9$k$3$H$G$9!#$3$l$O8=:_3+H/%3%9%H$N:o8:$KLrN)$C$F$*$j!"(B
+@c $B8=>u$G$O(B APEL $B$r;H$$B3$1$kJ}?K$G$9!#(B
+
+GNU Emacs 21 $B5Z$S(B XEmacs $B$G$O(B APEL $B$,I,MW$G$9!#(B
+GNU Emacs 22 $B0J>e$G$O(B APEL $B$OITMW$H$J$j$^$7$?!#(B
+$B$3$l$i$NJQ99$O(B 2010 $BG/(B 9 $B7n$K(B CVS $B$K(B commit $B$5$l!"(B DDSKK 14.2 $B$H$7$F%j%j(B
+$B!<%9$5$l$kM=Dj$G$9!#(B
 
 @node Q1-6 SKK $B$K$*$1$k!V%b!<%I!W$N0UL#$H$O(B?
 @unnumberedsubsec Q1-6 SKK $B$K$*$1$k!V%b!<%I!W$N0UL#$H$O(B?
@@ -9328,8 +9334,9 @@ SKK abbrev $B%b!<%I(B (@code{skk-abbrev-mode})
 @node Q2-1 SKK $B$r;H$&$N$K2?$,I,MW$G$9$+(B?
 @unnumberedsubsec Q2-1 SKK $B$r;H$&$N$K2?$,I,MW$G$9$+(B?
 
-APEL, SKK $BK\BN$H(B SKK $B<-=q$,I,MW$G$9!#%*%W%7%g%s$G<-=q%5!<%P$rMQ0U$9(B
+SKK $BK\BN$H(B SKK $B<-=q$,I,MW$G$9!#%*%W%7%g%s$G<-=q%5!<%P$rMQ0U$9(B
 $B$k$3$H$,$G$-$^$9!#(B
+GNU Emacs 21 $B5Z$S(B XEmacs $B$G$O;vA0$K(B APEL $B$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
 
 @display
 @xref{APEL $B$N%$%s%9%H!<%k(B}.
