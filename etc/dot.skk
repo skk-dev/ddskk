@@ -422,12 +422,7 @@
 ;; いる場合のみ設定してください。
 
 ;; 単漢字変換を行う ▽よみ@<SPC>
-;;   skk-search-prog-list の２番目の要素に skk-tankan-search を追加する
-;; (setq skk-search-prog-list
-;;       (cons (car skk-search-prog-list)
-;; 	    (cons '(skk-tankan-search 'skk-search-jisyo-file
-;; 				      skk-large-jisyo 10000)
-;; 		  (cdr skk-search-prog-list))))
+;;   DDSKK 14.2 からは特段の設定の必要はなく、標準で単漢字変換が行えます。
 
 ;; Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
 ;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。

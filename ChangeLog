@@ -1,8 +1,6 @@
-2010-12-17  Yu-ji Hosokawa  <yu-ji@hoso.net>
-
-	* skk-vars.el (skk-inhibit-ja-dic-search): Fix docstring.
-
 2010-12-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-search-prog-list): 標準に skk-tankan-search を加えた.
 
 	* doc/skk.texi: Add skk-save-jisyo-instantly.
 	Update FAQ.
@@ -10,6 +8,7 @@
 2010-12-17  Yu-ji Hosokawa  <yu-ji@hoso.net>
 
 	* skk-vars.el (skk-save-jisyo-instantly, skk-jisyo-updated): New variable.
+	(skk-inhibit-ja-dic-search): Fix docstring.
 
 	* skk.el (skk-henkan-in-minibuff, skk-update-jisyo): Use it.
 

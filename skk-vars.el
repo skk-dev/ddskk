@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.342 2010/12/17 10:40:07 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.343 2010/12/17 12:20:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/17 10:40:07 $
+;; Last Modified: $Date: 2010/12/17 12:20:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -464,6 +464,7 @@ SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"
 
 (defcustom skk-search-prog-list
   '((skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
+    (skk-tankan-search 'skk-search-jisyo-file skk-large-jisyo 10000)
     (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
     (skk-search-jisyo-file skk-jisyo 0 t)
     (skk-okuri-search)

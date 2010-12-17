@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.92
-@set UPDATED $Date: 2010/12/17 11:19:28 $
+@set UPDATED $Date: 2010/12/17 12:20:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3284,6 +3284,12 @@ DDSKK $B$NI8=`@_Dj$G$O%-!<(B @kbd{@@} $B$O4X?t(B @code{skk-today} $B$N<B9T$
 @subsubsection $B<-=q$N@_Dj(B
 
 @findex skk-tankan-search
+
+DDSKK 14.2 $B$+$i$O!"I8=`$GJQ?t(B @code{skk-search-prog-list} $B$K(B
+@code{skk-tankan-search} $B$,4^$^$l$F$$$^$9!#(B
+DDSKK 14.1 $B$rMxMQ$NJ}!"$4<+?H$G(B @code{skk-search-prog-list} $B$r@_Dj$9$kJ}$O(B
+$B0J2<$N2r@b$r;29M$K$7$F$/$@$5$$!#(B
+
 @file{skk-tankan.el} $B$K$O!"4A;z$NIt<s$H$=$NCf$G$N2h?t$N(B
 $B%G!<%?$N$_$,F~$C$F$$$^$9!#FI$_$N%G!<%?$O!"IaDL$N<-=q%U%!%$%k$r;H$$$^$9!#(B
 
