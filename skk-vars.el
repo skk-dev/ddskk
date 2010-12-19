@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.343 2010/12/17 12:20:06 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.344 2010/12/19 07:28:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/17 12:20:06 $
+;; Last Modified: $Date: 2010/12/19 07:28:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4751,6 +4751,21 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
     (define-key map "$" 'skk-tankan-mode-display-code)
     map)
   "Keymap used in skk-tankan mode.")
+
+(defface skk-tankan-face
+  '((((class color) (type tty))
+     (:inherit default))
+    (((class color) (background light))
+     (:inherit default))
+    (((class color) (background dark))
+     (:inherit default))
+    (((class grayscale))
+     (:inherit default)))
+  "*選択キーの face 属性。"
+  :group 'skk-tankan
+  :group 'skk-visual)
+
+(defvar skk-tankan-overlay nil)
 
 ;;; skk-tooltip related.
 (defcustom skk-show-tooltip nil

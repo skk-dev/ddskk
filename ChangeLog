@@ -1,3 +1,12 @@
+2010-12-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-tankan-face): New face.
+	(skk-tankan-overlay): New variable.
+
+	* skk-tankan.el (skk-tankan-overlay): New function.
+	(skk-tankan-mode-prev, skk-tankan-mode-next): Use skk-tankan-overlay.
+	(skk-tankan): Use skk-tankan-face.
+
 2010-12-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-search-prog-list): 標準に skk-tankan-search を加えた.

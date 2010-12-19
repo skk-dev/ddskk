@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.39 2010/12/12 10:36:46 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.40 2010/12/19 07:28:58 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/12/12 10:36:46 $
+;; Last Modified: $Date: 2010/12/19 07:28:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1640,24 +1640,38 @@ C-u 数値 M-x skk-tankan で総画数変換を開始する。"
     (while list
       (let ((str (car list)))
 	(insert (format " %s  %s\n"
-			(propertize (substring str 0 1) 'face 'skk-henkan-face-default)
+			(propertize (substring str 0 1) 'face 'skk-tankan-face)
 			(substring str 2))))
       (setq list (cdr list))))
   (set-buffer-modified-p nil)
   (setq buffer-read-only t)
   (pop-to-buffer "*単漢字*")
   (goto-char (point-min))
-  (skk-tankan-mode))
+  (skk-tankan-mode)
+  (skk-tankan-overlay))
+
+(defun skk-tankan-overlay ()
+  (or skk-tankan-overlay
+      (progn
+	(make-local-variable 'skk-tankan-overlay)
+	(setq skk-tankan-overlay (make-overlay (point) (point)))))
+  (move-overlay skk-tankan-overlay
+		(line-beginning-position)
+		(line-end-position))
+  (overlay-put skk-tankan-overlay 'face
+	       'highlight))
 
 (defun skk-tankan-mode-prev ()
   (interactive)
-  (forward-line -1))
+  (forward-line -1)
+  (skk-tankan-overlay))
 
 (defun skk-tankan-mode-next ()
   (interactive)
   (forward-line)
   (if (eobp)
-      (forward-line -1)))
+      (forward-line -1))
+  (skk-tankan-overlay))
 
 (defun skk-tankan-mode-copy ()
   (interactive)

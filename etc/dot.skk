@@ -423,6 +423,9 @@
 
 ;; 単漢字変換を行う ▽よみ@<SPC>
 ;;   DDSKK 14.2 からは特段の設定の必要はなく、標準で単漢字変換が行えます。
+(set-face-attribute 'skk-tankan-face nil
+		    :foreground "yellow"
+		    :height 150)
 
 ;; Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
 ;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。
