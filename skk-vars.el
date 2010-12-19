@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.344 2010/12/19 07:28:58 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.345 2010/12/19 10:28:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/19 07:28:58 $
+;; Last Modified: $Date: 2010/12/19 10:28:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3830,6 +3830,32 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
 
+(defface skk-display-code-prompt-face
+  '((((class color) (type tty))
+     (:inherit default))
+    (((class color) (background light))
+     (:inherit default))
+    (((class color) (background dark))
+     (:inherit default))
+    (((class grayscale))
+     (:inherit default)))
+  "*skk-display-code `$' の face 属性。"
+  :group 'skk-kcode
+  :group 'skk-visual)
+
+(defface skk-display-code-char-face
+  '((((class color) (type tty))
+     (:inherit default))
+    (((class color) (background light))
+     (:inherit default))
+    (((class color) (background dark))
+     (:inherit default))
+    (((class grayscale))
+     (:inherit default)))
+  "*skk-display-code `$' の face 属性。"
+  :group 'skk-kcode
+  :group 'skk-visual)
+
 ;;; skk-list-chars (in skk-kcode.el) related.
 (defvar skk-list-chars-buffer-name "*skk-list-chars*"
   "Docstring.")
@@ -4761,7 +4787,7 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*選択キーの face 属性。"
+  "*skk-tankan-mode の face 属性。"
   :group 'skk-tankan
   :group 'skk-visual)
 

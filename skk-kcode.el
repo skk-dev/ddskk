@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.74 2010/12/12 10:36:46 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.75 2010/12/19 10:28:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/12 10:36:46 $
+;; Last Modified: $Date: 2010/12/19 10:28:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -420,54 +420,64 @@
 	     (char2-s (cadr sjis))
 	     (char-data (skk-tankan-get-char-data char))
 	     (anno (skk-tankan-get-char-annotation char))
-	     (unicode (cond ((eval-when-compile (and skk-running-gnu-emacs
-						     (>= emacs-major-version 23)))
+	     (unicode (cond ((eval-when-compile
+			       (and skk-running-gnu-emacs
+				    (>= emacs-major-version 23)))
 			     (concat ", "
-				     (propertize "UNICODE: " 'face
-						 'font-lock-keyword-face)
+				     (propertize "UNICODE:" 'face
+						 'skk-display-code-prompt-face)
 				     (format "U+%04x" char)))
 			    ((and (eval-when-compile (fboundp 'char-to-ucs))
 				  (char-to-ucs char))
 			     (concat ", "
-				     (propertize "UNICODE: " 'face
-						 'font-lock-keyword-face)
+				     (propertize "UNICODE:" 'face
+						 'skk-display-code-prompt-face)
 				     (format "U+%04x" (char-to-ucs char))))
 			    (t
 			     ""))))
 	;;
-	(setq mesg (concat (format "`%c', " char)
-			   (propertize "KUTEN:" 'face 'font-lock-keyword-face)
-			   (format "%s " (if (eq charset 'japanese-jisx0213-2)
-					     "(plane 2)"
-					   ""))
-			   (format "%02d-%02d, " char1-k char2-k)
-			   (propertize "JIS: " 'face 'font-lock-keyword-face)
-			   (format "#x%2x%2x, " char1-j char2-j)
-			   (propertize "EUC: " 'face 'font-lock-keyword-face)
-			   (format "#x%2x%2x, " char1-e char2-e)
-			   (propertize "SJIS: " 'face 'font-lock-keyword-face)
-			   (format "#x%2x%2x" char1-s char2-s)
-			   unicode
-			   (if (zerop (nth 2 char-data))
-			       ""
-			     (concat ", "
-				     (propertize (format "総%d画（%s部 %d画）"
-							 (nth 2 char-data)
-							 (aref skk-tankan-radical-vector
-							       (nth 0 char-data))
-							 (nth 1 char-data))
-						 'face 'font-lock-string-face)))
-			   (if anno
-			       (concat ", "
-				       (propertize anno 'face 'font-lock-string-face)))
+	(setq mesg
+	      (concat (propertize (char-to-string char)
+				  'face 'skk-display-code-char-face)
+		      "\t"
+		      (propertize "KUTEN:" 'face 'skk-display-code-prompt-face)
+		      (if (eq charset 'japanese-jisx0213-2)
+			  "(plane2)" "")
+		      (format "%02d-%02d, " char1-k char2-k)
+
+		      (propertize "JIS:" 'face 'skk-display-code-prompt-face)
+		      (format "#x%2x%2x, " char1-j char2-j)
+
+		      (propertize "EUC:" 'face 'skk-display-code-prompt-face)
+		      (format "#x%2x%2x, " char1-e char2-e)
+
+		      (propertize "SJIS:" 'face 'skk-display-code-prompt-face)
+		      (format "#x%2x%2x" char1-s char2-s)
+
+		      unicode
+		      (if (zerop (nth 2 char-data))
+			  ""
+			(concat ", "
+				(propertize
+				 (format "総%d画（%s部 %d画）"
+					 (nth 2 char-data)
+					 (aref skk-tankan-radical-vector
+					       (nth 0 char-data))
+					 (nth 1 char-data))
+				 'face 'font-lock-string-face)))
+		      (if anno
+			  (concat ", "
+				  (propertize anno
+					      'face 'font-lock-string-face)))
 			   ))))
      ;;
      ((memq charset '(ascii latin-jisx0201))
-      (setq mesg (concat (format "`%c', " char)
-			 (propertize "HEX: " 'face 'font-lock-keyword-face)
-			 (format "#x%2x, " (skk-char-octet char 0))
-			 (propertize "DECIMAL: " 'face 'font-lock-keyword-face)
-			 (format "%3d" (skk-char-octet char 0)))))
+      (setq mesg
+	    (concat (format "`%c', " char)
+		    (propertize "HEX:" 'face 'skk-display-code-prompt-face)
+		    (format "#x%2x, " (skk-char-octet char 0))
+		    (propertize "DECIMAL:" 'face 'skk-display-code-prompt-face)
+		    (format "%3d" (skk-char-octet char 0)))))
      ;;
      (t
       (skk-error "判別できない文字です"

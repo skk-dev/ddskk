@@ -548,6 +548,18 @@
 ;; ように使えて便利です。 skk-annotation-wikipedia-sources の設定がデフォ
 ;; ルト値であれば、英単語上で M-2 M-i で常に en.wiktionary を調べられます。
 
+;; `$' skk-display-code-for-char-at-point で使用するフェイス
+(set-face-attribute 'skk-display-code-prompt-face
+		    nil
+		    :foreground "cyan"
+		    :bold t)
+
+(set-face-attribute 'skk-display-code-char-face
+		    nil
+		    :height 150
+		    :foreground "white"
+		    :background "black")
+
 ;; Tips といえるものではないが、`lisp-interaction-mode' において "C-j"
 ;; (`eval-print-last-sexp') を利用する人にとっては、英数モードにおいて
 ;; "C-j" によって かなモードに入る仕様は使いづらい。

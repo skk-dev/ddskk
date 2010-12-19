@@ -2,10 +2,15 @@
 
 	* skk-vars.el (skk-tankan-face): New face.
 	(skk-tankan-overlay): New variable.
+	(skk-display-code-prompt-face): New face.
+	(skk-display-code-char-face): New face.
 
 	* skk-tankan.el (skk-tankan-overlay): New function.
 	(skk-tankan-mode-prev, skk-tankan-mode-next): Use skk-tankan-overlay.
 	(skk-tankan): Use skk-tankan-face.
+
+	* skk-kcode.el (skk-display-code): Use skk-display-code-prompt-face and
+	skk-display-code-char-face.
 
 2010-12-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
