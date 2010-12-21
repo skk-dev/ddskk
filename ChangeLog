@@ -1,3 +1,11 @@
+2010-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-display-code-prompt-face): Update docstring.
+	(skk-display-code-char-face): Update docstring.
+
+	* doc/skk.texi: Add skk-tankan-face, skk-display-code-prompt-face and
+	skk-display-code-char-face.
+
 2010-12-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-tankan-face): New face.

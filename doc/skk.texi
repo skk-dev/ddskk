@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.92
-@set UPDATED $Date: 2010/12/17 12:20:06 $
+@set UPDATED $Date: 2010/12/21 00:06:22 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3413,6 +3413,12 @@ L:刔;6画(刀部4画)
 @end group
 
 @end example
+
+@defvr {ユーザ変数} skk-tankan-face
+
+@kbd{M-x skk-tankan} を実行したときに表示される「単漢字バッファ」で使用するフェイスです。
+
+@end defvr
 
 @node 候補の絞り込み
 @subsection 候補の絞り込み
@@ -7652,7 +7658,7 @@ skk-list-chars を抜ける。
 @example
 @group
 -------------------- Echo Area --------------------
-`А',KUTEN: 07-01, JIS: #x2721, EUC: #xa7a1, SJIS: #x8440, UNICODE: U+0410
+`А',KUTEN:07-01, JIS:#x2721, EUC:#xa7a1, SJIS:#x8440, UNICODE:U+0410
 -------------------- Echo Area --------------------
 @end group
 @end example
@@ -7674,6 +7680,15 @@ skk-list-chars を抜ける。
 @end example
 
 ほか、 Emacs のコマンド @code{M-x describe-char} も@footnote{Emacs 21 では @code{M-x describe-char-after} です。}有用でしょう。
+
+@defvr {ユーザ変数} skk-display-code-prompt-face
+エコーエリアに表示されるメッセージ中「KUTEN:」、「JIS:」、「EUC:」、「SJIS:」
+及び「UNICODE:」に適用するフェイスです。
+@end defvr
+
+@defvr {ユーザ変数} skk-display-code-char-face
+エコーエリアに表示されるメッセージ中の当該文字に適用するフェイスです。
+@end defvr
 
 @node DDSKK 以外のツールを用いた辞書変換
 @section DDSKK 以外のツールを用いた辞書変換

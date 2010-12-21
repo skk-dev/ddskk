@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.345 2010/12/19 10:28:13 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.346 2010/12/21 00:06:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/19 10:28:13 $
+;; Last Modified: $Date: 2010/12/21 00:06:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3839,7 +3839,8 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*skk-display-code `$' の face 属性。"
+  "*skk-display-code `$' でエコーエリアに表示するメッセージ中の KUTEN:、JIS:、EUC:、
+SJIS: 及び UNICODE: に適用する face 属性。"
   :group 'skk-kcode
   :group 'skk-visual)
 
@@ -3852,7 +3853,7 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*skk-display-code `$' の face 属性。"
+  "*skk-display-code `$' でエコーエリアに表示するメッセージ中の当該文字に適用する face 属性。"
   :group 'skk-kcode
   :group 'skk-visual)
 
