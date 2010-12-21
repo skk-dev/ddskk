@@ -1,7 +1,12 @@
 2010-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-display-code-prompt-face): Update docstring.
-	(skk-display-code-char-face): Update docstring.
+	* skk-kcode.el (skk-list-chars-forward, skk-list-chars-backward): Remove.
+	(skk-list-chars-sub): Propertize mouse-face 'highlight when insert char.
+
+	* skk-vars.el (skk-list-chars-skip-chars): Remove.
+	(skk-list-chars-mode-map): Use next-completion/previous-completion
+	instead of skk-list-chars-forward/skk-list-chars-backward.
+	(skk-display-code-[prompt|char]-face): Update docstring.
 
 	* doc/skk.texi: Add skk-tankan-face, skk-display-code-prompt-face and
 	skk-display-code-char-face.

@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.75 2010/12/19 10:28:13 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.76 2010/12/21 03:23:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/19 10:28:13 $
+;; Last Modified: $Date: 2010/12/21 03:23:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -545,7 +545,9 @@
 		   32
 		 (or (make-char charset (/ (* high 256) 256) i)
 		     32)))
-      (insert "\t" ch)
+      (insert "\t" (propertize (char-to-string ch)
+			       'mouse-face
+			       'highlight))
       (setq i (1+ i)))))
 
 ;;;###autoload
@@ -599,8 +601,8 @@
   (let ((c (following-char)))
     (if (eq 'ascii (car (split-char c)))
 	;; 区切り行などで $ された場合
-	(skk-list-chars-forward))
-    (skk-display-code c)))
+	(next-completion 1)
+      (skk-display-code c))))
 
 (defun skk-list-chars-copy ()
   (interactive)
@@ -608,27 +610,12 @@
     (message "`%s' copied." 
 	     (kill-new (char-to-string (following-char))))))
 
-(defun skk-list-chars-forward ()
-  (interactive)
-  (forward-char)
-  (skip-chars-forward skk-list-chars-skip-chars)
-  (when (eobp)
-    (forward-char -1)))
-
-(defun skk-list-chars-backward ()
-  (interactive)
-  (skip-chars-backward skk-list-chars-skip-chars)
-  (when (bobp)
-    ;; バッファ先頭まで skip しちゃった場合
-    (search-forward (char-to-string (make-char skk-kcode-charset 33 33))))
-  (forward-char -1))
-
 (defun skk-list-chars-next-line ()
   (interactive)
   (let ((col (current-column)))
     (forward-line)
     (if (eq 'ascii (car (split-char (following-char))))
-	(skip-chars-forward skk-list-chars-skip-chars))
+	(next-completion 1))
     (move-to-column col)))
 
 (defun skk-list-chars-previous-line ()
@@ -636,7 +623,7 @@
   (let ((col (current-column)))
     (forward-line -1)
     (if (eq 'ascii (car (split-char (following-char))))
-	(skip-chars-backward skk-list-chars-skip-chars))
+	(next-completion -1))
     (move-to-column col)))
 
 (defun skk-list-chars-goto-point ()
@@ -649,7 +636,7 @@
       (forward-char -1)
     (if (eq 'ascii (car (split-char (following-char))))
 	;; 区切り行などで RET された場合
-	(skk-list-chars-forward)
+	(next-completion 1)
       (let ((c (following-char)))
 	(set-buffer skk-list-chars-destination-buffer) ; kill されている可能性あり
 	(insert c))
