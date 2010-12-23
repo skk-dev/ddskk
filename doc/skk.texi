@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.92
-@set UPDATED $Date: 2010/12/21 00:06:22 $
+@set UPDATED $Date: 2010/12/23 05:44:16 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1457,7 +1457,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 ------ Buffer: foo ------
 
 ------ Minibuffer -------
-[$B<-=qEPO?(B] $B$X$s$+$s$A$e$&(B @point{}
+[$B<-=qEPO?(B] $B$X$s$+$s$A$e$&(B: @point{}
 ------ Minibuffer -------
 @end group
 @end example
@@ -1495,7 +1495,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 @kbd{H e n k a n @key{SPC} T y u u @key{SPC}}
 
 ----------- Minibuffer ------------
-[$B<-=qEPO?(B] $B$X$s$+$s$A$e$&(B $BJQ49"'Cf(B@point{}
+[$B<-=qEPO?(B] $B$X$s$+$s$A$e$&(B: $BJQ49"'Cf(B@point{}
 ----------- Minibuffer ------------
 @end group
 @end example
@@ -1537,7 +1537,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 ------ Buffer: foo ------
 
 ------ Minibuffer -------
-[$B<-=qEPO?(B] $B$&$4(B*$B$/(B@point{}
+[$B<-=qEPO?(B] $B$&$4(B*$B$/(B: @point{}
 ------ Minibuffer -------
 @end group
 @end example
@@ -1561,7 +1561,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 @end group
 @group
 ------ Minibuffer -------
-[$B<-=qEPO?(B] $B$&$4(B*$B$/(B $BF0(B@point{}
+[$B<-=qEPO?(B] $B$&$4(B*$B$/(B: $BF0(B@point{}
 ------ Minibuffer -------
 
 @end group
@@ -1569,7 +1569,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 @group
 
 ------ Buffer: foo ------
-$BF0$/(B
+$BF0$/(B@point{}
 ------ Buffer: foo ------
 @end group
 @end example
@@ -1633,7 +1633,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 
 @example
 ------ Minibuffer -------
-[[$B<-=qEPO?(B]] $B$5$$$-(B $B:F"'5"(B
+[[$B<-=qEPO?(B]] $B$5$$$-(B: $B:F"'5"(B
 ------ Minibuffer -------
 @end example
 
@@ -1655,7 +1655,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 
 @example
 ------ Minibuffer -------
-[$B<-=qEPO?(B] $B$5$$$-$F$-(B $B:F5""'E*(B
+[$B<-=qEPO?(B] $B$5$$$-$F$-(B: $B:F5""'E*(B
 ------ Minibuffer -------
 @end example
 
@@ -3085,8 +3085,9 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$N$_0[$J$k(B face $B$
 @kindex @key{TAB}
 @kindex @samp{,}
 @kindex @samp{.}
-$B8uJd$NA*Br$K$O(B @key{TAB} $B$r2!$7$^$9!#$^$?!"IaDL$NJd40$HF1MM$K(B
-@kbd{.} ($B%T%j%*%I(B) $B$H(B @kbd{,} ($B%3%s%^(B) $B$bMxMQ$G$-$^$9!#(B@w{@ref{$BFI$_$NJd40(B}}
+$B8uJd$NA*Br$K$O(B @key{TAB} $BKt$O(B @key{SHIFT} + @key{TAB} $B$r2!$7$^$9!#$^$?!"(B
+$BIaDL$NJd40$HF1MM$K(B @kbd{.} ($B%T%j%*%I(B) $B$H(B @kbd{,} ($B%3%s%^(B) $B$bMxMQ$G$-$^(B
+$B$9!#(B@w{@ref{$BFI$_$NJd40(B}}
 
 @end defvr
 

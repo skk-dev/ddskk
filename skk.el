@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.542 2010/12/16 15:17:52 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.543 2010/12/23 05:44:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/16 15:17:52 $
+;; Last Modified: $Date: 2010/12/23 05:44:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -916,14 +916,14 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
     (setq skk-share-private-jisyo nil)))
 
 (defun skk-latin-mode (arg)
-  "SKK $B$N%b!<%I$r(B latin (ascii) $B%b!<%I$KJQ99$9$k!#(B"
+  "SKK $B$N%b!<%I$r%"%9%-!<%b!<%I$KJQ99$9$k!#(B"
   (interactive "P")
   (skk-kakutei)
   (skk-latin-mode-on)
   nil)
 
 (defun skk-jisx0208-latin-mode (arg)
-  "SKK $B$N%b!<%I$rA43Q1Q;zF~NO%b!<%I$KJQ99$9$k!#(B"
+  "SKK $B$N%b!<%I$rA41Q%b!<%I$KJQ99$9$k!#(B"
   (interactive "P")
   (skk-kakutei)
   (skk-jisx0208-latin-mode-on)
@@ -943,7 +943,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   nil)
 
 (defun skk-toggle-characters (arg)
-  "$B"#%b!<%I!""'%b!<%I$G!"$R$i$,$J%b!<%I$H%+%?%+%J%b!<%I$r%H%0%k$G@Z$jBX$($k!#(B
+  "$B"#%b!<%I!""'%b!<%I$G!"$+$J%b!<%I$H%+%J%b!<%I$r%H%0%k$G@Z$jBX$($k!#(B
 $B"&%b!<%I$G$O(B `skk-henkan-start-point' ($B"&$ND>8e(B) $B$H%+!<%=%k$N4V$NJ8;zNs$K$D$$(B
 $B$F!"$R$i$,$J$H%+%?%+%J$rF~$lBX$($k!#(B"
   (interactive "P")
@@ -2294,7 +2294,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
 	(condition-case nil
 	    (setq new-one
 		  (read-from-minibuffer
-		   (format "%s$B<-=qEPO?(B%s %s "
+		   (format "%s$B<-=qEPO?(B%s %s: "
 			   (make-string depth ?\[)
 			   (make-string depth ?\])
 			   (or (and (skk-numeric-p)
