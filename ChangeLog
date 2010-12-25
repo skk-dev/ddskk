@@ -1,5 +1,9 @@
 2010-12-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: Update.
+
+2010-12-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to
 	14.1.93.
 
