@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.347 2010/12/21 03:23:21 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.348 2010/12/25 09:51:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/21 03:23:21 $
+;; Last Modified: $Date: 2010/12/25 09:51:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2218,7 +2218,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 (defvar skk-j-mode-map nil
   "*$B$+$J%b!<%I$N%-!<%^%C%W!#(B")
 (defvar skk-jisx0208-latin-mode-map nil
-  "*$BA43Q%b!<%I$N%-!<%^%C%W!#(B")
+  "*$BA41Q%b!<%I$N%-!<%^%C%W!#(B")
 (defvar skk-abbrev-mode-map nil
   "*SKK abbrev $B%b!<%I$N%-!<%^%C%W!#(B")
 
@@ -3053,7 +3053,7 @@ nil $B$G$"$l$P!":G8e$N8+=P$78l$,I=<($5$l$?>uBV$GDd;_$9$k!#(B"
   :group 'skk-comp)
 
 (defcustom skk-comp-use-prefix nil
-  "*$B8+=P$78l$NJd40$r9T$&:]$K%W%l%U%#%/%9(B(`skk-prefix')$B$b;H$&$+!#(B
+  "*$B8+=P$78l$NJd40$r9T$&:]$K%W%l%U%#%C%/%9(B(`skk-prefix')$B$b;H$&$+!#(B
 $BNc$($P!"(B\"$B"&$"(Bk\" $B$H$"$k>uBV$GJd40$r$7$?;~$K!"(Bnon-nil $B$G$"$l$P(B
 \"$B$"$5(B\" $B$OBP>]$H$J$i$:!"(B\"$B$"$+(B\", \"$B$"$-(B\" $B$J$I$K9J$i$l$k!#(B
 $B$7$+$7<B:]$K$OJd40%W%m%0%i%`$bBP1~$7$F$$$kI,MW$,$"$k!#(B
@@ -3067,7 +3067,7 @@ kakutei-first $B$rA*$s$@;~$O!"(B\"$B$7$s$j(Bn\" $B$rJd40$9$k$H!"(B
   :group 'skk-comp)
 
 (defcustom skk-comp-prefix-regexp-alist nil
-  "*$B%W%l%U%#%/%9$rMxMQ$7$?Jd40;~$K;H$&!"%W%l%U%#%/%9$H@55,I=8=$NO"A[%j%9%H!#(B
+  "*$B%W%l%U%#%C%/%9$rMxMQ$7$?Jd40;~$K;H$&!"%W%l%U%#%C%/%9$H@55,I=8=$NO"A[%j%9%H!#(B
 $B$3$NJQ?t$O(B `skk-rule-tree' $B$rMxMQ$7$F<+F0$GMWAG$,DI2C$5$l$k$,!"(B
 $B$=$l$,4|BT$9$k$b$N$G$J$$>l9g$K$OM=$aI,MW$J$b$N$@$1@_Dj$7$F$*$/$3$H!#(B"
   :type '(repeat (cons string regexp))
@@ -3100,7 +3100,7 @@ kakutei-first $B$rA*$s$@;~$O!"(B\"$B$7$s$j(Bn\" $B$rJd40$9$k$H!"(B
 			    kana))
 		      kana-list))))
   "*`skk-comp-prefix-regexp-alist' $B$K<+F0$GMWAG$rDI2C$9$k:]$KMxMQ$5$l$k4X?t!#(B
-`skk-rule-tree' $B$+$i%W%l%U%#%/%9$KBP1~$9$k(B \"$B$+$J(B\" $B$r=8$a$?8e!"(B
+`skk-rule-tree' $B$+$i%W%l%U%#%C%/%9$KBP1~$9$k(B \"$B$+$J(B\" $B$r=8$a$?8e!"(B
 $B$3$N4X?t$K$h$C$FD4@0$r9T$&!#(B"
   :type '(radio (function :tag "$B4X?t(B")
 		(const :tag "$B;XDj$7$J$$(B" nil))
@@ -3298,7 +3298,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
   :group 'skk-cursor)
 
 (defcustom skk-cursor-jisx0208-latin-color "gold"
-  "*$BA43Q1Q;z%b!<%I$r<($9%+!<%=%k?'!#(B
+  "*$BA41Q%b!<%I$r<($9%+!<%=%k?'!#(B
 `skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
   :type 'string
   :group 'skk-cursor)

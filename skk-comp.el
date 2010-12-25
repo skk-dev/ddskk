@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.84 2010/11/11 15:04:11 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.85 2010/12/25 09:51:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/11 15:04:11 $
+;; Last Modified: $Date: 2010/12/25 09:51:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -221,7 +221,7 @@
 		ret))))
 
 (defun skk-comp-get-regexp (prefix)
-  ;; プレフィクスに対応する正規表現を返す。
+  ;; プレフィックスに対応する正規表現を返す。
   ;; 一度生成した正規表現は skk-comp-prefix-regexp-alist に保存しておく。
   (or (cdr (assoc prefix skk-comp-prefix-regexp-alist))
       (let ((regexp
@@ -263,7 +263,7 @@
 
 (defun skk-comp-arrange-kana-list (kana-list prefix)
   ;; skk-comp-collect-kana から得た "かな" のリストを元に
-  ;; プレフィクスに対応した調整をする
+  ;; プレフィックスに対応した調整をする
   (let (short-list long-list tmp)
     (dolist (kana kana-list)
       (if (= (length kana) 1)

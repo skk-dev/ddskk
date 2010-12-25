@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.93
-@set UPDATED $Date: 2010/12/25 02:56:32 $
+@set UPDATED $Date: 2010/12/25 09:51:55 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8764,8 +8764,8 @@ AZIK ($B%(%$%:%#%C%/(B) $B$O(B QWERTY $BG[Ns$r%Y!<%9$H$7$?3HD%%m!<%^;zF~NO$
 
 @defvr {$B%f!<%6JQ?t(B} skk-use-azik
 
-$B$3$NCM$,(B @code{non-nil} $B$G$"$l$P(B AZIK $B3HD%$,M-8z$H$J$j$^$9!#(B@file{~/.skk}
-$B$K(B
+$B$3$NCM$,(B @code{non-nil} $B$G$"$l$P(B AZIK $B3HD%$,M-8z$H$J$j$^$9!#(B
+@file{~/.skk} $B$K(B
 
 @lisp
 (setq skk-use-azik t)
@@ -8773,6 +8773,14 @@ AZIK ($B%(%$%:%#%C%/(B) $B$O(B QWERTY $BG[Ns$r%Y!<%9$H$7$?3HD%%m!<%^;zF~NO$
 
 @noindent
 $B$H=q$-$^$9!#(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-azik-keyboard-type
+
+AZIK $B$G;H$&%-!<%\!<%I$N%?%$%W$r%7%s%\%k$G;XDj$9$k!#(B
+@code{'jp106} $B!"(B @code{'jp-pc98} $BKt$O(B @code{'us101} $B$r;XDj$7$F$/$@$5$$!#(B
+
 @end defvr
 
 @node ACT

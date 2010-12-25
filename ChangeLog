@@ -1,5 +1,9 @@
 2010-12-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el: Update comment.
+
+	* skk-comp.el: Update comment.
+
 	* doc/skk.texi: Update.
 
 2010-12-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
