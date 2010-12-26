@@ -1,3 +1,14 @@
+2010-12-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+	* skk.el (skk-start-henkan): Fix docstring.
+	(skk-backward-and-set-henkan-point): Fix docstring.
+
+	* skk-vars.el (skk-cursor-abbrev-color): Fix string.
+
+	* skk-emacs.el (skk-emacs-menu-resource-ja): Fix string.
+
 2010-12-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el: Update comment.

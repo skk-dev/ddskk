@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.348 2010/12/25 09:51:55 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.349 2010/12/26 01:43:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/25 09:51:55 $
+;; Last Modified: $Date: 2010/12/26 01:43:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3312,7 +3312,7 @@ server completion が実装されておらず、かつ無反応な辞書サーバ対策。")
   :group 'skk-cursor)
 
 (defcustom skk-cursor-abbrev-color "royalblue"
-  "*abbrev モードを示すカーソル色。
+  "*skk abbrev モードを示すカーソル色。
 `skk-use-color-cursor' が non-nil のときに使用される。"
   :type 'string
   :group 'skk-cursor)

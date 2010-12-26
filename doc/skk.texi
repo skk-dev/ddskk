@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.93
-@set UPDATED $Date: 2010/12/25 09:51:55 $
+@set UPDATED $Date: 2010/12/26 01:43:20 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7009,6 +7009,11 @@ New ~/.skk-jisyo will be 11bytes smaller.  Save anyway?(yes or no)
 より個人辞書が更新されているからです。}。
 @end defvr
 
+@defvr {ユーザ変数} skk-save-jisyo-instantly
+この変数が @code{non-nil} であれば、単語を登録するたび（削除するたび）に
+個人辞書を保存します。
+@end defvr
+
 @node 変換及び個人辞書に関する統計
 @subsection 変換及び個人辞書に関する統計
 
@@ -8059,8 +8064,10 @@ t
 
 @defvr {ユーザ変数} skk-prefix-hiragana-face
 @end defvr
+
 @defvr {ユーザ変数} skk-prefix-katakana-face
 @end defvr
+
 @defvr {ユーザ変数} skk-prefix-jisx0201-face
 
 それぞれかなモード、カナモード、JIS X 0201 モードにおけるローマ字プレフィッ
@@ -8070,34 +8077,34 @@ t
 @node 入力モードを示すモードラインの文字列の変更
 @subsection 入力モードを示すモードラインの文字列の変更
 
-下記の変数の値を変更することにより、モードラインにおいて入力モードを示す文字
-列が変更されます。
+下記の変数の値を変更することによって、モードライン上の入力モードを示す文字
+列を変更することができます。
 
 @defvr {ユーザ変数} skk-latin-mode-string
-アスキーモードを示す文字列。標準では、``SKK''。
+アスキーモードを示す文字列。標準は、``SKK''。
 @end defvr
 
 @defvr {ユーザ変数} skk-hiragana-mode-string
-かなモードを示す文字列。標準では、``かな''。
+かなモードを示す文字列。標準は、``かな''。
 @end defvr
 
 @defvr {ユーザ変数} skk-katakana-mode-string
-カナモードを示す文字列。標準では、``カナ''。
+カナモードを示す文字列。標準は、``カナ''。
 @end defvr
 
 @defvr {ユーザ変数} skk-jisx0208-latin-mode-string
-全英モードを示す文字列。標準では、``全英''。
+全英モードを示す文字列。標準は、``全英''。
 @end defvr
 
 @defvr {ユーザ変数} skk-abbrev-mode-string
-SKK abbrev モードを示す文字列。標準では、``aあ''。
+SKK abbrev モードを示す文字列。標準は、``aあ''。
 @end defvr
 
 @node 入力モードを示すカーソル色に関する設定
 @subsection 入力モードを示すカーソル色に関する設定
 
 @defvr {ユーザ変数} skk-use-color-cursor
-この変数の値が @code{non-nil} ならば、カーソルに色付けします。@code{nil}
+この変数が @code{non-nil} ならば、カーソルを色付けします。@code{nil}
 ならば、この機能を無効にします。
 
 標準では、ウィンドウシステムを使用していてなおかつ色表示が可能な場合に限
@@ -8105,7 +8112,7 @@ SKK abbrev モードを示す文字列。標準では、``aあ''。
 @end defvr
 
 この機能が有効になっているとき、以下の変数の値を変更することで、各モード
-におけるカーソルの色が変更されます。
+におけるカーソルの色を変更できます。
 
 @defvr {ユーザ変数} skk-cursor-default-color
 SKK モードがオフであることを示すカーソル色。標準では、カーソルのある該当
@@ -8113,32 +8120,32 @@ SKK モードがオフであることを示すカーソル色。標準では、カーソルのある該当
 @end defvr
 
 @defvr {ユーザ変数} skk-cursor-hiragana-color
-かなモードであることを示すカーソル色。標準では、背景の明暗により
-``coral4'' または ``pink'' を用います。
+かなモードであることを示すカーソル色。標準は、背景の明暗により coral4 また
+は pink です。
 @end defvr
 
 @defvr {ユーザ変数} skk-cursor-katakana-color
-カナモードであることを示すカーソル色。標準では、背景の明暗により
-``forestgreen'' または ``green'' を用います。
+カナモードであることを示すカーソル色。標準は、背景の明暗により forestgreen また
+は green です。
 @end defvr
 
 @defvr {ユーザ変数} skk-cursor-jisx0201-color
-JIS X 0201 モードであることを示すカーソル色。標準では、背景の明暗により
-``blueviolet'' または ``thistle'' を用います。
+JIS X 0201 モードであることを示すカーソル色。標準は、背景の明暗により blueviolet また
+は thistle です。
 @end defvr
 
 @defvr {ユーザ変数} skk-cursor-jisx0208-latin-color
-全角英字モードであることを示すカーソル色。標準では、``gold'' を用います。
+全英モードであることを示すカーソル色。標準は、gold です。
 @end defvr
 
 @defvr {ユーザ変数} skk-cursor-latin-color
-アスキーモードであることを示すカーソル色。標準では、背景の明暗により
-``ivory4'' または ``gray'' を用います。
+アスキーモードであることを示すカーソル色。標準は、背景の明暗により ivory4 また
+は gray です。
 @end defvr
 
 @defvr {ユーザ変数} skk-cursor-abbrev-color
-skk abbrev モードであることを示すカーソル色。標準では、``royalblue'' を
-用います。
+skk abbrev モードであることを示すカーソル色。標準は、royalblue です。
+
 @end defvr
 
 @node 変換候補一覧の表示方法

@@ -111,7 +111,7 @@
     ("Zenkaku to Ascii" . "全角英数を ASCII に変換")
     ("Count Jisyo Candidates" . "辞書中の候補数を数える")
     ("Save Jisyo" . "辞書を保存する")
-    ("Undo Kakutei" . "確定を取り消す (アンドゥー)")
+    ("Undo Kakutei" . "確定を取り消す (アンドゥ)")
     ("Restart SKK" . "SKK の再起動")
     ("Version" . "SKK のバージョン")
     ("Daredevil SKK Menu" . "Daredevil SKK メニュー")
