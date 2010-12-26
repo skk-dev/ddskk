@@ -96,7 +96,7 @@
   (interactive "P")
   (when coding-system
     (setq coding-system (read-coding-system
-			 "個人辞書のコード系を指定: "
+			 "個人辞書のコーディングシステムを指定: "
 			 (skk-find-coding-system skk-jisyo-code))))
   (unless coding-system
     (setq coding-system (skk-find-coding-system skk-jisyo-code)))
@@ -107,7 +107,7 @@
   (message nil)
   (setq skk-jisyo-edit-original-window-configuration
 	(current-window-configuration))
-  ;; SKK 辞書のコードは誤判定がありうるため、注意する
+  ;; SKK 辞書の文字コードは誤判定がありうるため、注意する
   (let ((coding-system-for-read coding-system))
     (find-file skk-jisyo))
   (unless (eq major-mode 'skk-jisyo-edit-mode)

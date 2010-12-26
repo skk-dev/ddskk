@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.544 2010/12/26 01:43:20 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.545 2010/12/26 04:18:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/26 01:43:20 $
+;; Last Modified: $Date: 2010/12/26 04:18:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3641,7 +3641,7 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
 
     (a) M-x skk-purge-from-jisyo を実行した。
 
-    (b) ~/.skk-jisyo の漢字コードとは異なる漢字コードで \" *.skk-jisyo*\"
+    (b) ~/.skk-jisyo の文字コードとは異なる文字コードで \" *.skk-jisyo*\"
        バッファが保存されようとしている。
 
     (c) \" *.skk-jisyo*\" バッファを自分で編集した。

@@ -1,11 +1,15 @@
 2010-12-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo): Fix string.
+
 	* doc/skk.texi: Update.
 
 	* skk.el (skk-start-henkan): Fix docstring.
 	(skk-backward-and-set-henkan-point): Fix docstring.
+	(skk-check-size-and-do-save-jisyo): Fix docstring.
 
 	* skk-vars.el (skk-cursor-abbrev-color): Fix string.
+	(skk-kcode): Fix string.
 
 	* skk-emacs.el (skk-emacs-menu-resource-ja): Fix string.
 

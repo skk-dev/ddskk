@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.349 2010/12/26 01:43:20 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.350 2010/12/26 04:18:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/26 01:43:20 $
+;; Last Modified: $Date: 2010/12/26 04:18:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -192,7 +192,7 @@ Automatically becomes buffer-local when set in any fashion."
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-kcode nil "SKK 漢字コードを扱う設定"
+(defgroup skk-kcode nil "SKK 文字コードを扱う設定"
   :prefix "skk-"
   :group 'skk)
 
