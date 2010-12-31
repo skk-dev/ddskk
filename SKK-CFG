@@ -5,29 +5,26 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.34 2010/09/16 13:12:09 skk-cvs Exp $
-;; Last Modified: $Date: 2010/09/16 13:12:09 $
+;; Version: $Id: SKK-CFG,v 1.35 2010/12/31 01:35:15 skk-cvs Exp $
+;; Last Modified: $Date: 2010/12/31 01:35:15 $
 
 ;;; Commentary:
 
-;; Emacs のファイル配置が標準的でない環境の場合、このファイルを使ってサイトに合
-;; わせた設定をすることができます。ここでは設定できる変数を紹介し、次に設定例を
-;; 示します。
+;; Emacs のファイル配置が標準的でない環境に skk をインストールする場合、このファ
+;; イル (SKK-CFG) を編集することによってお使いの環境に合わせた設定をすることがで
+;; きます。ここでは設定できる変数を紹介し、次に設定例を示します。
 
 ;; SKK のインストーラは、標準的な環境では make install (XEmacs の場合は make
-;; install-package) とするだけでインストールできるようにつくられていますが、も
-;; しあなたの環境でうまくいかないときは、以下の設定を変更してみて下さい。
+;; install-package) と実行するだけでインストールできるように作られていますが、
+;; もし、あなたの環境でうまくいかないときは、以下の設定を変更してみて下さい。
 
-;; また、インストーラが SKK のファイル達をどこにインストールしようとしているか
+;; また、インストーラが SKK の各ファイルをどこにインストールしようとしているか
 ;; 知りたい場合は、
 ;;
-;; (例)% make what-where
-;;
-;; を実行してみてください。ただし XEmacs を使う場合は
-;;
-;; (例)% make what-where-package
-;;
-;; としてください。
+;; (例)% make what-where         ※ GNU Emacs の場合
+;; (例)% make what-where-package ※ XEmacs
+
+;; を実行してみてください。
 
 ;; make what-where が示す場所が不適切な場合、このファイルでインストール先を設定
 ;; した後、再度 make what-where を実行してください。設定が反映されているかどう
@@ -42,8 +39,8 @@
 ;;
 ;; (例 3)% make install-pacakge XEMACS=/usr/bin/xemacs
 
-;; 非 UNIX 的な Emacs 環境ではとくにインストール先が適切に決定されないことが
-;; ありえますので、このファイルを活用して設定してください。
+;; 非 UNIX 的な Emacs 環境では特にインストール先が適切に決定されないことが
+;; あり得ますので、このファイルを活用して設定してください。
 
 ;;; Explanation:
 

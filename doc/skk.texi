@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.93
-@set UPDATED $Date: 2010/12/26 01:43:20 $
+@set UPDATED $Date: 2010/12/31 01:35:15 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4504,7 +4504,7 @@ ohhira @expansion{} $B$*$*$R$i(B
 'en-jp @expansion{} $B!V!%!W!V!"!W(B
 @end example
 
-$B$^$?$O!"JQ?t(B @code{skk-kutouten-type} $B$K$O%3%s%9!&%;%k$r;XDj$9$k$3$H$b2D(B
+$B$^$?$O!"JQ?t(B @code{skk-kutouten-type} $B$K$O%3%s%9%;%k$r;XDj$9$k$3$H$b2D(B
 $BG=$G$9!#$=$N>l9g$O!"(B
 
 @example
@@ -9165,6 +9165,7 @@ address $B$,JQ99$K$J$j(B credit $B$r$3$l$K9g$o$;$?$$>l9g$K$O!"DI2C!"=$@5$$$?$
 @item @email{yu-ji@@hoso.net, Yu-ji Hosokawa}
 @item @email{kameyama@@kuis.kyoto-u.ac.jp, Yukiyoshi Kameyama}
 @item @email{yusuke@@example.com, Yusuke Shinyama}
+@item @email{kiyoka@@sumibi.org, Kiyoka Nishiyama.}
 @end itemize
 
 @node SKK$B$NNr;K(B
