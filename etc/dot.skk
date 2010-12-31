@@ -12,25 +12,26 @@
 
 ;; @@ 基本中の基本の設定
 
-;; SKK が検索する辞書 (辞書サーバを使わないとき)
-;; (setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
-
-;; 辞書サーバを使うための設定
+;; 辞書サーバを使うとき
 ;; (setq skk-server-host "localhost"
 ;;       skk-server-portnum 1178
 ;;       skk-server-report-response t)
 
-;; SKK が検索する CDB 形式辞書 (辞書サーバを使わないとき)
+;; 辞書サーバを使わないとき
+;; SKK が検索する CDB 形式辞書 (DDSKK 14 以降)
 ;; (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
-;; 注) DDSKK 14 より、CDB 形式の SKK 辞書を直接扱えるようになり、
-;; CDB 対応の辞書サーバを用意する必要はなくなりました。
+
+;; SKK が検索する辞書
+;; (setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
 
 ;; @@ 表示の設定
 
-;; メッセージを日本語で通知する
+;; 各種メッセージを日本語で通知する
 (setq skk-japanese-message-and-error t)
 
-;; メニューを英語で表示する
+;; メニューバーの表示
+;;   Non-nil => 日本語
+;;   nil => 英語
 ;; (setq skk-show-japanese-menu nil)
 
 ;; 変換時に注釈 (annotation) を表示する
@@ -422,12 +423,12 @@
 ;; いる場合のみ設定してください。
 
 ;; 単漢字変換を行う ▽よみ@<SPC>
-;;   DDSKK 14.2 からは特段の設定の必要はなく、標準で単漢字変換が行えます。
+;;   DDSKK 14.2 からは特段の設定の必要なしに標準で単漢字変換が行えます。
 (set-face-attribute 'skk-tankan-face nil
 		    :foreground "yellow"
 		    :height 150)
 
-;; Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
+;; Microsoft Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
 ;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。
 ;;   kanagaki => かなキーボード入力用の設定になる。
 ;;   nil => 自動設定しない（自分で好きな設定ができる） デフォルト
@@ -549,13 +550,11 @@
 ;; ルト値であれば、英単語上で M-2 M-i で常に en.wiktionary を調べられます。
 
 ;; `$' skk-display-code-for-char-at-point で使用するフェイス
-(set-face-attribute 'skk-display-code-prompt-face
-		    nil
+(set-face-attribute 'skk-display-code-prompt-face nil
 		    :foreground "cyan"
 		    :bold t)
 
-(set-face-attribute 'skk-display-code-char-face
-		    nil
+(set-face-attribute 'skk-display-code-char-face nil
 		    :height 150
 		    :foreground "white"
 		    :background "black")
