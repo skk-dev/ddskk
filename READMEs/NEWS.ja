@@ -1,16 +1,21 @@
 * 14.2
 
-** GNU Emacs 20 のサポートを打ち切りました。
+** GNU Emacs 20 のサポートを終了しました。
 
-同バージョンをお使いの方は DDSKK 14.1 を利用してください。
+GNU Emacs 20 をお使いの方は DDSKK 14.1 を利用してください。
 
-** GNU Emacs 22 及び 23 利用時の APEL 依存性の見直し
+** GNU Emacs 22 及び GNU Emacs 23 利用時の APEL の見直し
 
 これらの Emacsen で DDSKK 14.2 を使うときは、APEL は不要です。
 必要なコードが以前より小さくなったため skk-macs.el などに含めてあります。
 
-GNU Emacs 21 及び XEmacs ではこれまでどおり、APEL (10.8 以上を推奨) を
-事前にインストールしてください。
+GNU Emacs 21 及び XEmacs ではこれまでどおり APEL  を事前にインストール
+してください。APEL 10.8 以上を推奨します。
+
+** 複数の辞書ファイルを用意に取り扱うことが可能となりました。
+
+変数 skk-extra-jisyo-file-list にファイル名を列記するだけです。
+詳しくは etc/dot.skk をご覧ください。
 
 ** skk-obsolete.el の廃止
 
@@ -23,6 +28,7 @@ skk.el の中に記述されていたインライン表示機能について、skk-inline.el
 としてまとめました。
 
 ** M-x skk-gyakubiki-and-henkan (skk-kakasi.el)
+
 新たなコマンドです。
 領域を選んでから M-x で実行すると、領域の漢字をひらがなに変換し、
 そのひらがなを見出し語としてかな漢字変換を実行します。
@@ -30,14 +36,17 @@ skk.el の中に記述されていたインライン表示機能について、skk-inline.el
 ** 文字のコード表示 (`$' で起動する skk-display-code-for-char-at-point)
 
 *** ツールティップ表示に対応した。
+
 skk-show-tooltip が non-nil であればツールティップ表示します。
 
 *** 表示する項目に UNICODE を追加した。
 
 *** フェイスを適用してカラフルに。
+
 skk-display-code-prompt-face と skk-display-code-char-face を新設しました。
 
 ** \ タイプの起動を skk-input-by-code-or-menu から skk-list-chars へ変更
+
 skk-rom-kana-base-rule-list のデフォルトを
   ("\\" nil skk-input-by-code-or-menu)
 から
@@ -46,10 +55,12 @@ skk-rom-kana-base-rule-list のデフォルトを
 元の skk-input-by-code-or-menu の起動へ戻すことも可能です。
 
 ** 文字コードでの入力 (skk-list-chars)
+
 skk-input-by-code-or-menu の代替を目指した、独立したメジャーモードです。
 JIS X 0213 の２面の文字も入力可能です。
 
 ** 部首変換 及び 総画数変換の JIS X 0213-[12] 対応
+
 M-x skk-tankan は JIS X 0213-[12] に対応しました。
 
 ** 見出し語の補完
@@ -71,6 +82,7 @@ skk-server-host が全て無効という条件を全て満たしたときのみ、自動的に呼
 び出されます。
 
 ** 個人辞書を即時保存
+
 新たな変数 skk-save-jisyo-instantly を non-nil としておくと、
 単語登録（単語削除）のたびに個人辞書を保存します。
 
