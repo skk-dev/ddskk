@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.1.93
-@set UPDATED $Date: 2010/12/31 01:35:15 $
+@set UPDATED $Date: 2010/12/31 03:24:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -263,18 +263,18 @@ fsf-compat パッケージが動作のために必須です。
 
 総論として、現在は XEmacs よりも GNU Emacs での動作がよくテストされてお
 り、最近では XEmacs でのテストは充分行われていません。
-Emacs 21 では動作テストが充分とは言えません。
+GNU Emacs 21 では動作テストが充分とは言えません。
 GNU Emacs 22 以上での利用が最も推奨されます。
 
 現時点で Emacs のバージョンごとに少なくとも以下の制限があります。
 
 @table @b
-@item Emacs 20.x
+@item GNU Emacs 20.x
 
-DDSKK 14.2 では Emacs 20 のサポートが終了します。
-Emacs 20 のユーザーは DDSKK 14.1 をお使いください。
+DDSKK 14.2 は GNU Emacs 20 をサポートしていません。
+GNU Emacs 20 のユーザーは DDSKK 14.1 をお使いください。
 
-@item Emacs 21.4
+@item GNU Emacs 21.4
 
 @itemize @bullet
 @item JIS X 0213 対応には Mule-UCS の導入が必要です。
@@ -282,14 +282,14 @@ Emacs 20 のユーザーは DDSKK 14.1 をお使いください。
 @item アノテーションとして Wikipedia を表示するには @file{html2text.el} と @file{w3-url-e21} の導入が必要です。
 @end itemize
 
-@item Emacs 22.3
+@item GNU Emacs 22.3
 
 @itemize @bullet
-@item JIS X 0213 対応には Mule-UCS 導入などの対策が必要です。
+@item JIS X 0213 対応には Mule-UCS の導入が必要です。
 @item X Window System 上での日本語メニュー表示は GTK 対応版のみです。
 @end itemize
 
-@item Emacs 23.2
+@item GNU Emacs 23.2
 
 @itemize @bullet
 @item X Window System 上での日本語メニュー表示は GTK 対応版のみです。
