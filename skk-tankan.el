@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.40 2010/12/19 07:28:58 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.41 2011/01/03 06:57:56 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/12/19 07:28:58 $
+;; Last Modified: $Date: 2011/01/03 06:57:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1601,12 +1601,17 @@ METHOD が 2 であれば総画数として検索を実行する。
 (defun skk-tankan-bushu-compread ()
   "配列 skk-tankan-radical-vector の内容を一覧表示して選択する。
 戻り値は数値である。"
+  ;; Memo
+  ;;   skk-tankan-radical-vector は固定値（不変）なので、
+  ;;   本来であれば alist も動的に生成せずに固定値で良い。
+  ;;   ただし、face を導入してしまった(2011-1-3)ので、動的に face を適用させるため
+  ;;   当面は alist も動的に生成する。
   (let ((i 1)
 	alist)
     (while (< i (length skk-tankan-radical-vector))
-      (setq alist (cons (list (format "%03d %s"
-				      i
-				      (aref skk-tankan-radical-vector i)))
+      (setq alist (cons (list (concat (format "%03d " i)
+				      (propertize (aref skk-tankan-radical-vector i)
+						  'face 'skk-tankan-face)))
 			alist))
       (setq i (1+ i)))
     (string-to-number (completing-read "部首を番号で選択（TABで一覧表示）: "

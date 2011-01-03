@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.545 2010/12/26 04:18:08 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.546 2011/01/03 06:57:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/26 04:18:08 $
+;; Last Modified: $Date: 2011/01/03 06:57:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1028,21 +1028,25 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		  (skk-kana-input arg))
 	      ;; $B@\F,<-!&@\Hx<-$N=hM}!#(B
 	      (skk-process-prefix-or-suffix arg)))
-	   (;; start writing a midasi key.
-	    (and (memq ch skk-set-henkan-point-key)
+
+	   ;; start writing a midasi key.
+	   ((and (memq ch skk-set-henkan-point-key)
 		 (or skk-okurigana
 		     (not (skk-get-prefix skk-current-rule-tree))
 		     (not (skk-select-branch skk-current-rule-tree ch))))
 	    ;; normal pattern
 	    ;; skk-set-henkan-point -> skk-kana-input.
 	    (skk-set-henkan-point arg))
+
 	   ;; start conversion.
 	   ((and skk-henkan-mode
 		 (eq ch skk-start-henkan-char))
 	    (skk-start-henkan arg prog-list-number))
+
 	   ;; just input kana.
-	   ((not (eq skk-henkan-mode 'on))
+	   ((not (eq skk-henkan-mode 'on)) ; not $B"&%b!<%I(B
 	    (skk-kana-input arg))
+
 	   ;; for completion.
 	   ;; $B%3%s%W%j!<%7%g%s4XO"$N4X?t$O(B skk-rom-kana-base-rule-list $B$NCf$K2!(B
 	   ;; $B$79~$a!"(Bskk-kana-input $B$NCf$+$i@)8f$9$Y$-!#(B
@@ -1056,17 +1060,20 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	   ;; $B!<%k$,%O!<%I%3!<%G%#%s%0$5$l$k$N$O$^$:$$$+$b(B (skk-comp $B$O;H$C$F$b(B
 	   ;; skk-current-kuten/skk-current-touten $B$O;H$o$J$$!"$H$$$&?M$,$$$k$+(B
 	   ;; $B$b(B)$B!#(B
-	   ((and (eq skk-henkan-mode 'on)
+	   ((and (eq skk-henkan-mode 'on) ; $B"&%b!<%I(B
 		 (eq ch skk-try-completion-char))
 	    (skk-comp (or prog-list-number ; C-u TAB $B$GJd40%-!<$r=i4|2=(B
 			  (not (eq last-command 'skk-comp-do)))))
-	   ((and (eq skk-henkan-mode 'on)
+
+	   ;;
+	   ((and (eq skk-henkan-mode 'on) ; $B"&%b!<%I(B
 		 (memq ch (list skk-next-completion-char
 				skk-previous-completion-char))
 		 (eq last-command 'skk-comp-do))
 	    (skk-comp-previous/next ch))
-	   (t
+
 	   ;; just input Kana.
+	   (t
 	    (skk-kana-input arg)))
      ;; verbose message
      (skk-henkan-on-message))))
@@ -2200,7 +2207,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
       (erase-buffer)
       (insert str)
       (goto-char (point-min))
-      ;; 1 $B8uJd$K(B 1 $B9T$r$o$j$"$F$k!#(B
+      ;; 1 $B8uJd$K(B 1 $B9T$r3d$jEv$F$k!#(B
       (forward-char 2)
       (while (re-search-forward
 	      (concat "  "

@@ -1,7 +1,12 @@
 2011-01-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to
-	14.2.50.
+	* skk-tankan.el (skk-tankan-bushu-compread): introduce skk-tankan-face.
+
+	* skk.el (skk-insert): Add comment.
+
+2011-01-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 14.2.50.
 
 ;; Local Variables:
 ;; coding: iso-2022-7bit
