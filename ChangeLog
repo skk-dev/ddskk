@@ -1,3 +1,9 @@
+2011-01-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-make-setup-file): search-forward 失敗の原因であった
+	STRING 違い "Initial setup for SKK" を "initial setup for SKK" へ修正.
+	skk-setup.el.in との整合性を図った.
+
 2011-01-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tankan.el (skk-tankan-bushu-compread): introduce skk-tankan-face.

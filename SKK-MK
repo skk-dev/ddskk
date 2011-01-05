@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.180 2010/12/01 20:12:16 skk-cvs Exp $
-;; Last Modified: $Date: 2010/12/01 20:12:16 $
+;; Version: $Id: SKK-MK,v 1.181 2011/01/05 13:03:33 skk-cvs Exp $
+;; Last Modified: $Date: 2011/01/05 13:03:33 $
 
 ;;; Commentary:
 
@@ -407,22 +407,18 @@ This version of SKK requires MULE features"))
       (insert-file-contents "skk-setup.el.in")
       (goto-char (point-min))
       (when (looking-at ";;; -\\*- emacs-lisp -\\*-")
-	(delete-region (point)
-		       (progn
-			 (forward-line 1)
-			 (point))))
-      (when (search-forward
-	     ";;; skk-setup.el --- Initial setup for SKK")
+	(delete-region (point) (progn
+				 (forward-line 1)
+				 (point))))
+      (when (search-forward ";;; skk-setup.el --- initial setup for SKK")
 	(forward-line 1)
-	(insert
-	 ";; This file was generated automatically by SKK-MK at "
-	 (current-time-string)
-	 "\n"))
+	(insert ";; This file was generated automatically by SKK-MK at "
+		(current-time-string)
+		"\n"))
       (while spec
 	(goto-char (point-min))
-	(while (re-search-forward
-		(concat "^;;[^@]+\\(" (car spec) "\\)")
-		nil t nil)
+	(while (re-search-forward (concat "^;;[^@]+\\(" (car spec) "\\)")
+				  nil t nil)
 	  (delete-region (match-beginning 1)
 			 (match-end 1))
 	  (insert (nth 1 spec))
