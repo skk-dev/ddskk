@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.181 2011/01/05 13:03:33 skk-cvs Exp $
-;; Last Modified: $Date: 2011/01/05 13:03:33 $
+;; Version: $Id: SKK-MK,v 1.182 2011/01/05 13:58:48 skk-cvs Exp $
+;; Last Modified: $Date: 2011/01/05 13:58:48 $
 
 ;;; Commentary:
 
@@ -616,25 +616,22 @@ This version of SKK requires MULE features"))
     (unless (file-exists-p SKK_INFODIR)
       (make-directory SKK_INFODIR t))
     (SKK-MK-compile-info)
-    (install-files (list SKK_INFO)
+    (install-files (list SKK_INFO)	;defun in install.el
 		   DOCDIR
 		   SKK_INFODIR
 		   nil t nil)
-    (require 'install-info
-	     (expand-file-name "install-info.el"))
-    (let ((info-file (expand-file-name
-		      SKK_INFO
-		      SKK_INFODIR))
-	  (dir-file
-	   (cond
-	    ((file-exists-p (expand-file-name
-			     "dir" SKK_INFODIR))
-	     (expand-file-name "dir" SKK_INFODIR))
-	    ((file-exists-p (expand-file-name
-			     "dir.info" SKK_INFODIR))
-	     (expand-file-name "dir.info" SKK_INFODIR))
-	    (t
-	     (expand-file-name "dir" SKK_INFODIR)))))
+
+    ;; Updates info/dir entries.
+    (require 'install-info (expand-file-name "install-info.el"))
+    (let ((info-file (expand-file-name SKK_INFO
+				       SKK_INFODIR))
+	  (dir-file (cond
+		     ((file-exists-p (expand-file-name "dir" SKK_INFODIR))
+		      (expand-file-name "dir" SKK_INFODIR))
+		     ((file-exists-p (expand-file-name "dir.info" SKK_INFODIR))
+		      (expand-file-name "dir.info" SKK_INFODIR))
+		     (t
+		      (expand-file-name "dir" SKK_INFODIR)))))
       (when (file-readable-p dir-file)
 	(install-info info-file
 		      dir-file nil nil 'delete))
