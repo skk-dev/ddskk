@@ -1,5 +1,7 @@
 2011-01-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* SKK-CFG: Update comment.
+
 	* doc/skk.texi: Add 対話的なインストール.
 
 	* SKK-MK (SKK_INFO_DIR_FILE): New variable.

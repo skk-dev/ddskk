@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/01/07 05:40:37 $
+@set UPDATED $Date: 2011/01/07 11:01:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -392,7 +392,7 @@ APEL $B$O<!$N%5%$%H$+$iF~<j$G$-$^$9!#(B
 cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @command{make} $B%3%^%s%I$,;HMQ$G$-$k(B
 $B$N$G!"$3$3$N@bL@$,$=$N$^$^Ev$F$O$^$j$^$9!#(B
 
-$B$^$?!"(BMac OS X $B4D6-$NJ}$O0J2<$N;qNA$r;2>H$7$F$/$@$5$$!#(B
+$B$^$?!"(BApple Mac OS X $B4D6-$NJ}$O0J2<$N;qNA$r;2>H$7$F$/$@$5$$!#(B
 
 @url{http://openlab.jp/skk/skk/main/READMEs/README.MacOSX.ja}
 }$B!#(B
@@ -4025,13 +4025,8 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/@dots{}/
 @end group
 @end lisp
 
-@file{skk-gadget.el}
-@footnote{@samp{gadget} $B$O!V>e<j$/9)IW$7$?F;6q!W$N0UL#!#!V?'!9Ht$S=P$95$(B
-$B$N$-$$$?$*$b$A$cH"!W$H$$$&$h$&$J0UL#$GL>IU$1$i$l$F$$$^$9!#(B
-$B0x$_$K!"(BX Window System $B$J$I$G;HMQ$5$l$k(B @samp{Widget} $B$H$$$&8@MU$O!"(B 
-@samp{window} + @samp{gadget} $B$+$i:n$i$l$?B$8l$G$9!#(B}$B$K$O!"@>Nq(B/$B859fJQ49%W%m%0%i(B
-$B%`$d!"4JC1$J7W;;%W%m%0%i%`$J$I!"<B9TJQ49MQ$N%W%m%0%i%`$,=8$a$i$l$F$$$^$9!#(B
-$B0J2<!"#2$D$NNc$r7G$2$^$9!#(B
+@file{skk-gadget.el} $B$K$O!"@>Nq(B/$B859fJQ49%W%m%0%i%`$d!"4JC1$J7W;;%W%m%0%i(B
+$B%`$J$I!"<B9TJQ49MQ$N%W%m%0%i%`$,=8$a$i$l$F$$$^$9!#0J2<!"#2$D$NNc$r7G$2$^$9!#(B
 
 @defun skk-calc operator
 
@@ -7749,12 +7744,8 @@ Lookup $B$,%$%s%9%H!<%k$5$l$F$$$k$K$b4X$o$i$:!"$&$^$/(B @file{skk-lookup.el} 
 @end lisp
 
 @noindent
-DDSKK $B$,MQ0U$7$F$$$k8!:w%W%m%0%i%`$NCf$G:G$bCY$$$?$a(B@footnote{6 $BG\B.(B
-CD-ROM $B%I%i%$%V$G$O%9%H%l%9$r46$8$kDx!"CY$/$"$j$^$;$s$G$7$?!#%m!<%+%k%^(B
-$B%7%s$N%O!<%I%G%#%9%/$K%3%T!<$7$FMxMQ$9$k$H!"B.EYE*$K$O<-=q%5!<%P$HB=?'$"$j$^(B
-$B$;$s!#$A$J$_$K9-<-1q$NBh;MHG$r(B epwutil $B$G(B @command{squeeze} $B$9$k$H<-=q%G!<(B
-$B%?$N%5%$%:$O(B 45MB $B<e$K$J$j$^$9!#(B}$B!"(B@code{skk-search-server} $B$N8e$m$K;}$C(B
-$B$F$-$F<-=q%5!<%P$N8!:w$h$j8e$K$7$^$9!#(B
+DDSKK $B$,MQ0U$7$F$$$k8!:w%W%m%0%i%`$NCf$G:G$bCY$$$?$a(B
+$B!"(B@code{skk-search-server} $B$N8e$m$K;}$C$F$-$F<-=q%5!<%P$N8!:w$h$j8e$K$7$^$9!#(B
 
 Lookup $B$N(B agent $B$GMxMQ$9$k$N$O!"(B @code{lookup-search-agents} $B$+$i(B @code{ndkks},
 @code{ndcookie} $B5Z$S(B @code{ndnmz} $B$r<h$j5n$C$?$b$N$G$9(B
@@ -9225,8 +9216,6 @@ SKK $B<-=qBh(B 6, 7 $BHG:n@.$K$"$?$j6(NO$7$F$/$@$5$C$?9b66M5?.;a$K46<U$7$^$9!
 @node $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 @chapter $B$h$/$"$k<ALd$H$=$N2sEz(B(FAQ)
 
-@c @include{skk-faq.texi}
-
 $B$3$l$O(B SKK $B$KBP$9$k$h$/$"$k<ALd$H!"$=$l$KBP$9$k2sEz=8$G$9!#(B
 
 @menu
@@ -9246,7 +9235,6 @@ SKK $B<-=qBh(B 6, 7 $BHG:n@.$K$"$?$j6(NO$7$F$/$@$5$C$?9b66M5?.;a$K46<U$7$^$9!
 * Q1-3 DDSKK $B$O$I$N(B Emacs $B$G;H$($^$9$+(B?::
 * Q1-4 DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?::
 * Q1-5 APEL $B$C$F2?(B? $BI,MW$G$9$+(B?::
-* Q1-6 SKK $B$K$*$1$k!V%b!<%I!W$N0UL#$H$O(B?::
 @end menu
 
 @node Q1-1 Daredevil SKK $B$C$F(B SKK $B$H$O0c$&$N$G$9$+(B?
@@ -9297,14 +9285,14 @@ SKK $B$,(B Simple Kana to Kanji conversion program $B$NN,$G$"$kDL$j!"$+$J$r4A
 @node Q1-4 DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?
 @unnumberedsubsec Q1-4 DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?
 
-$B4pK\E*$K%5%]!<%HBP>]$N(B Emacs $B$,$=$N(B OS $B$GF0$$$F$$$k$J$i!"(BSKK $B$N4pK\E*(B
-$B$J5!G=$OF0$/$O$:$G$9!#(B Microsoft Windows $B$G$b(B Mac OS X $B$G$b;H$($^$9!#(B
+SKK $B$,%5%]!<%H$7$F$$$k(B Emacs $B$,$=$N(B OS $B$GF0$$$F$$$k$J$i!"(BSKK $B$N4pK\E*(B
+$B$J5!G=$OF0$/$O$:$G$9!#(B Microsoft Windows $B$G$b(B Apple Mac OS X $B$G$b;H$($^$9!#(B
 
 $B3HD%5!G=$K$D$$$F$O!"(BUNIX $B$N3F<o%3%^%s%I$rA0Ds$H$7$F$$$k$b$N$,$$$/$D$+(B
-$B$"$j$^$9(B (@command{look} $B$d(B @command{ispell} $B$J$I(B)$B!#$3$l$i$,$*;H$$$N(B OS $B$K$b(B
-$B$"$l$P3:Ev$N3HD%5!G=$b4pK\E*$K$O;H$($k$G$7$g$&!#(B
+$B$"$j$^$9(B (@command{look} $B$d(B @command{ispell} $B$J$I(B)$B!#$3$l$i$N%3%^%s%I$,$*;H$$$N(B OS $B$K$b(B
+$BB8:_$9$l$P3:Ev$N3HD%5!G=$b4pK\E*$K$O;H$($k$G$7$g$&!#(B
 
-Mac OS X $BHG(B Emacs $B$KFC2=$7$?>pJs$K$D$$$F$O!"0J2<$N%U%!%$%k$r;2>H$7$F$/$@$5$$!#(B
+Apple Mac OS X $BHG(B Emacs $B$KFC2=$7$?>pJs$K$D$$$F$O!"0J2<$N%U%!%$%k$r;2>H$7$F$/$@$5$$!#(B
 @display
 @url{http://openlab.jp/skk/skk/main/READMEs/README.MacOSX.ja}
 @end display
@@ -9314,62 +9302,10 @@ Mac OS X $BHG(B Emacs $B$KFC2=$7$?>pJs$K$D$$$F$O!"0J2<$N%U%!%$%k$r;2>H$7$F$/$
 
 APEL $B$O(B A Portable Emacs Library $B$NN,$G$9!#(BAPEL $B$N<g$J5!G=$O0[$J$k(B Emacs
 $B4V$NHs8_49@-$r5[<}$9$k$3$H$G$9!#(B
-@c $B4V$NHs8_49@-$r5[<}$9$k$3$H$G$9!#$3$l$O8=:_3+H/%3%9%H$N:o8:$KLrN)$C$F$*$j!"(B
-@c $B8=>u$G$O(B APEL $B$r;H$$B3$1$kJ}?K$G$9!#(B
 
 GNU Emacs 21 $B5Z$S(B XEmacs $B$G$O(B APEL $B$,I,MW$G$9!#(B
-GNU Emacs 22 $B0J>e$G$O(B APEL $B$OITMW$H$J$j$^$7$?!#(B
-$B$3$l$i$NJQ99$O(B 2010 $BG/(B 9 $B7n$K(B CVS $B$K(B commit $B$5$l!"(B DDSKK 14.2 $B$H$7$F%j%j(B
-$B!<%9$5$l$kM=Dj$G$9!#(B
 
-@node Q1-6 SKK $B$K$*$1$k!V%b!<%I!W$N0UL#$H$O(B?
-@unnumberedsubsec Q1-6 SKK $B$K$*$1$k!V%b!<%I!W$N0UL#$H$O(B?
-
-$B304Q$9$k$H0J2<$N$h$&$K$J$j$^$9!#(B
-
-@table @b
-@item $B%^%$%J!<%b!<%I(B
-
-SKK $B%b!<%I(B (@code{skk-mode})
-
-@kbd{C-x C-j}
-
-@item $BF~NO%b!<%I(B
-
-$B$+$J%b!<%I(B/$B%+%J%b!<%I(B (@code{skk-j-mode})
-
-@kbd{C-j}
-
-$B%"%9%-!<%b!<%I(B (@code{skk-latin-mode})
-
-@kbd{l}
-
-$BA41Q%b!<%I(B (@code{skk-jisx0208-latin-mode})
-
-@kbd{L}
-
-SKK abbrev $B%b!<%I(B (@code{skk-abbrev-mode})
-
-@kbd{/}
-
-@item $BJQ49%b!<%I(B
-
-$B"#%b!<%I(B (@code{eq skk-henkan-mode nil})
-
-$B$+$J$J$I3NDjF~NO(B
-
-$B"&%b!<%I(B (@code{eq skk-henkan-mode 'on})
-
-$BJQ49A0(B
-
-$B"'%b!<%I(B (@code{eq skk-henkan-mode 'active})
-
-$BJQ49Cf(B
-
-@item $B$=$NB>$N%b!<%I(B
-
-$B<-=qEPO?%b!<%I(B
-@end table
+GNU Emacs 22 $B0J>e$G$O(B APEL $B$OITMW$H$J$j$^$7$?!#$3$NJQ99$O(B 2010 $BG/(B 9 $B7n$K(B CVS $B$K(B commit $B$5$l!"(B2011 $BG/(B 1 $B7n$K(B DDSKK 14.2 $B$H$7$F%j%j!<%9$5$l$^$7$?!#(B
 
 @node Installation
 @section SKK $B$NF~<j$+$iF3F~$^$G(B
@@ -9398,7 +9334,7 @@ SKK $BK\BN$O0J2<$+$iF~<j$G$-$^$9!#(B
 @end display
 
 @node Q2-2 SKK $B<-=q$O$I$3$K$"$j$^$9$+(B?
-@unnumberedsubsec SKK $B<-=q$O$I$3$K$"$j$^$9$+(B?
+@unnumberedsubsec Q2-2 SKK $B<-=q$O$I$3$K$"$j$^$9$+(B?
 
 $B0J2<$r;2>H$7$F$/$@$5$$!#(B
 
@@ -9910,32 +9846,13 @@ edict $B$r<+J,$G2C9)$7$F>e5-$HF1Ey$N$b$N$r:n@.$9$k$3$H$b$G$-$^$9!#(Bedict $B$
 @section SKK $B$N3hMQK!$=$NB>(B
 
 @menu
-* Q5-1 SKK abbrev $B%b!<%I$C$F2?$G$9$+(B?::
-* Q5-2 SKK abbrev $B%b!<%I$G$b$C$H1QC18l$rMxMQ$7$?JQ49$,$G$-$^$;$s$+(B?::
-* Q5-3 $B;THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+(B?::
-* Q5-4 $BB>$N(B FEP $B$r;HMQCf$K$b(B SHIFT $B$r2!$7$F$7$^$$$^$9!#(B::
+* Q5-1 SKK abbrev $B%b!<%I$G$b$C$H1QC18l$rMxMQ$7$?JQ49$,$G$-$^$;$s$+(B?::
+* Q5-2 $B;THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+(B?::
+* Q5-3 $BB>$N(B FEP $B$r;HMQCf$K$b(B SHIFT $B$r2!$7$F$7$^$$$^$9!#(B::
 @end menu
 
-@node Q5-1 SKK abbrev $B%b!<%I$C$F2?$G$9$+(B?
-@unnumberedsubsec Q5-1 SKK abbrev $B%b!<%I$C$F2?$G$9$+(B?
-@cindex SKK abbrev $B%b!<%I(B
-
-@example
-  @kbd{$B"&(Bis} @key{SPC}
-       @expansion{} @samp{$B%$%s%/%j%a%s%?%k!&%5!<%A(B}
-@end example
-
-@noindent
-$B$J$I$N$h$&$KC;$$1Q8l8+=P$7$+$iJQ49$G$-$k$HJXMx$@$H$O;W$$$^$;$s$+(B?
-
-$B$+$J(B/$B%+%J%b!<%I$G!"(B@kbd{/} $B%-!<$rF~NO$7$F$_$F2<$5$$!#(B@samp{$B"&(B}$B$,=P$F%"%9(B
-$B%-!<J8;z$,F~NO$G$-$k$h$&$K$J$k$O$:$G$9!#$3$3$G1QJ8;z$rF~NO$7$F(B @key{SPC}
-$B$r2!$;$PJQ49$G$-$^$9!#(B
-
-$B$b$A$m$sBP1~$9$k%(%s%H%j$,<-=q$K$J$$$HC18lEPO?%b!<%I$KF~$j$^$9$h!#(B
-
-@node Q5-2 SKK abbrev $B%b!<%I$G$b$C$H1QC18l$rMxMQ$7$?JQ49$,$G$-$^$;$s$+(B?
-@unnumberedsubsec Q5-2 SKK abbrev $B%b!<%I$G$b$C$H1QC18l$rMxMQ$7$?JQ49$,$G$-$^$;$s$+(B?
+@node Q5-1 SKK abbrev $B%b!<%I$G$b$C$H1QC18l$rMxMQ$7$?JQ49$,$G$-$^$;$s$+(B?
+@unnumberedsubsec Q5-1 SKK abbrev $B%b!<%I$G$b$C$H1QC18l$rMxMQ$7$?JQ49$,$G$-$^$;$s$+(B?
 @cindex @code{look}
 @cindex @file{skk-look.el}
 @cindex edict
@@ -10017,8 +9934,8 @@ UNIX @command{look} $B%3%^%s%I$H(B @file{skk-look.el} $B$rMxMQ$9$k$H!"?'!9$G$
 @code{skk-look-use-ispell} $B$NCM$r(B @code{nil} $B$K$7$F(B @command{ispell} $B$K$h(B
 $B$k%9%Z%k%A%'%C%/!&=$@5$r%*%U$K$7$F$*;n$72<$5$$!#(B
 
-@node Q5-3 $B;THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+(B?
-@unnumberedsubsec Q5-3 $B;THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+(B?
+@node Q5-2 $B;THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+(B?
+@unnumberedsubsec Q5-2 $B;THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+(B?
 @cindex @file{skk-lookup.el}
 @cindex Lookup
 @vindex skk-search-prog-list
@@ -10057,12 +9974,10 @@ Lookup $B$K$D$$$F$O!"(B
 @end display
 
 @noindent
-$B$r$4;2>H2<$5$$!#CfEg$O!"%m!<%+%k%^%7%s$N%O!<%I%G%#%9%/$K9-<-1q$NBh;MHG(B
-$B$r%3%T!<$7$FMxMQ$7$F$$$^$9$,!"B.EYE*$K$O==J,K~B-$7$F$$$^$9!#$A$J$_$K(B
-epwutil $B$G(B @command{squeeze} $B$7$?<-=q%G!<%?$N%5%$%:$O(B 45MB $B<e$G$9!#(B
+$B$r$4;2>H2<$5$$!#(B
 
-@node Q5-4 $BB>$N(B FEP $B$r;HMQCf$K$b(B SHIFT $B$r2!$7$F$7$^$$$^$9!#(B
-@unnumberedsubsec Q5-4 $BB>$N(B FEP $B$r;HMQCf$K$b(B @key{SHIFT} $B$r2!$7$F$7$^$$$^$9!#(B
+@node Q5-3 $BB>$N(B FEP $B$r;HMQCf$K$b(B SHIFT $B$r2!$7$F$7$^$$$^$9!#(B
+@unnumberedsubsec Q5-3 $BB>$N(B FEP $B$r;HMQCf$K$b(B @key{SHIFT} $B$r2!$7$F$7$^$$$^$9!#(B
 
 $B<#$9$K$O(B SKK $B$r$d$a$k$7$+$"$j$^$;$s(B :-)
 
