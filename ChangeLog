@@ -1,5 +1,7 @@
 2011-01-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: Add 対話的なインストール.
+
 	* SKK-MK (SKK_INFO_DIR_FILE): New variable.
 	(SKK-MK-install-info-1): Separate from SKK-MK-install-info.
 	(DDSKK_Interactive_Installer): New.

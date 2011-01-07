@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/01/03 06:37:05 $
+@set UPDATED $Date: 2011/01/07 05:40:37 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -369,9 +369,6 @@ ACT$B!"(BTUT-code $B$K$h$kF~NO$b2DG=!#(B
 @section APEL $B$N%$%s%9%H!<%k(B
 @cindex APEL
 
-APEL $B$O(B A Portable Emacs Library $B$NN,$G$"$j!"(BEmacs $B$N%P!<%8%g%s4V:90[5[(B
-$B<}$rCf?4$H$7$?JXMx$J%i%$%V%i%j$rDs6!$7$^$9!#(B
-
 DDSKK 14.2 $B$h$j!"(BGNU Emacs 22 $B0J>e$K$*$$$F(B APEL $B$rJLES%$%s%9%H!<%k$9$kI,(B
 $BMW$,$J$/$J$j$^$7$?!#B>$K(B APEL $B0MB8$N%W%m%0%i%`$r;HMQ$7$F$$$J$1$l$P!"%$%s(B
 $B%9%H!<%k:Q$N(B APEL $B$O:o=|$9$k$3$H$,2DG=$G$9!#(B
@@ -400,8 +397,8 @@ cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @command{make} $B%3%^%s%I$,;HMQ$G
 @url{http://openlab.jp/skk/skk/main/READMEs/README.MacOSX.ja}
 }$B!#(B
 
-$B$^$:!"(B@command{tar} $B%3%^%s%I$H(B @command{gzip} $B%3%^%s%I$r;HMQ$7$F!"(B DDSKK $B$r=q8K(B
-@file{ddskk-VERSION.tar.gz} $B$+$i<h$j=P$7$^$9!#(B
+$B$^$:!"(BDDSKK $B$N%"!<%+%$%V(B @file{ddskk-VERSION.tar.gz} $B$r(B @command{tar} $B%3(B
+$B%^%s%I$H(B @command{gzip} $B%3%^%s%I$r;HMQ$7$FE83+$7$^$9!#(B
 
 @example
 % gzip -cd ddskk-@value{SKK-VERSION}.tar.gz | tar xvf -
@@ -416,6 +413,7 @@ cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @command{make} $B%3%^%s%I$,;HMQ$G
 @menu
 * GNU Emacs $B$X$N%$%s%9%H!<%k(B::
 * XEmacs $B$X$N%$%s%9%H!<%k(B::
+* $BBPOCE*$J%$%s%9%H!<%k(B::
 @end menu
 
 @node GNU Emacs $B$X$N%$%s%9%H!<%k(B
@@ -506,6 +504,19 @@ XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$9$k>l9g$O!"$^$:!"(B@option{what-where-
 @dots{}
 @end group
 @end example
+
+@node $BBPOCE*$J%$%s%9%H!<%k(B
+@subsection $BBPOCE*$J%$%s%9%H!<%k(B
+
+DDSKK 14.3 $B$GBPOCE*%$%s%9%H!<%i$,DI2C$5$l$^$7$?!#(B
+
+$B$^$:!"(B@kbd{M-x dired} $B$H%?%$%W$7$F(B dired $B$r5/F0$7$F$/$@$5$$!#$3$N$H$-!"%G%#%l%/%H%j$r(B
+$BLd$o$l$^$9$N$G!V(BDDSKK $B$N%"!<%+%$%V$rE83+$7$?%G%#%l%/%H%j!W$r;XDj$7$F$/$@$5$$!#(B
+
+$B<!$K!"I=<($5$l$?%G%#%l%/%H%j0lMw$N(B @file{SKK-MK} $B$K%+!<%=%k$r$"$o$;$F(B @key{L} $B$r%?%$%W$7$F$/$@$5$$!#(B
+$B%W%m%s%W%H(B @samp{Load SKK-MK?} $B$K$O(B @key{y} $B$r%?%$%W$7$F$/$@$5$$!#(B
+
+$B0J9_!"%$%s%9%H!<%i$+$i$N<ALd$KEz$($F%$%s%9%H!<%k:n6H$r?J$a$F$/$@$5$$!#(B
 
 @node $B<-=q$K$D$$$F(B
 @section $B<-=q$K$D$$$F(B
@@ -898,7 +909,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 @findex skk-restart
 @defun {$B%3%^%s%I(B} skk-restart
 
-@code{M-x skk-restart} $B$H<B9T$9$k$H(B SKK $B$r:F5/F0$7$^$9!#(B
+@kbd{M-x skk-restart} $B$H<B9T$9$k$H(B SKK $B$r:F5/F0$7$^$9!#(B
 @file{~/.skk} $B$O:F%m!<%I$7$^$9$,!"(B@file{~/.emacs} $B$O:F%m!<%I$7$^$;$s!#(B
 
 @end defun
