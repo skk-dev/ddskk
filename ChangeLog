@@ -1,3 +1,9 @@
+2011-01-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK_INFO_DIR_FILE): New variable.
+	(SKK-MK-install-info-1): Separate from SKK-MK-install-info.
+	(DDSKK_Interactive_Installer): New.
+
 2011-01-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK-MK-make-setup-file): search-forward 失敗の原因であった
