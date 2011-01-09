@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.76 2010/12/21 03:23:21 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.77 2011/01/09 22:39:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/21 03:23:21 $
+;; Last Modified: $Date: 2011/01/09 22:39:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -387,6 +387,7 @@
 (defun skk-display-code-for-char-at-point (&optional arg)
   "ポイントにある文字の区点番号、JIS コード、EUC コード及びシフト JIS コード\
  を表示する。"
+  (interactive)
   (if (eobp)
       (and (skk-message "カーソルがバッファの終端にあります"
 			"Cursor is at the end of the buffer")
@@ -553,6 +554,7 @@
 ;;;###autoload
 (defun skk-list-chars (arg)
   "Docstring."
+  (interactive "p")
   (require 'font-lock)
   (let ((buf (progn (and (get-buffer skk-list-chars-buffer-name)
 			 (kill-buffer skk-list-chars-buffer-name))

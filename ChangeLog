@@ -1,3 +1,8 @@
+2011-01-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-display-code-for-char-at-point): interactive.
+	(skk-list-chars): interactive.
+
 2011-01-08  Teika Kazura  <teika@lavabit.com>
 
 	* doc/skk.texi: Update.
