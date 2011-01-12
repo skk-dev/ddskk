@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.546 2011/01/03 06:57:56 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.547 2011/01/12 13:44:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/01/03 06:57:56 $
+;; Last Modified: $Date: 2011/01/12 13:44:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4968,12 +4968,10 @@ SKK 辞書の候補として正しい形に整形する。"
       (save-match-data
 	(if (not (string-match "/" face-name))
 	    (set-face-foreground face face-name)
-	  (set-face-foreground
-	   face
-	   (substring face-name 0 (match-beginning 0)))
-	  (set-face-background
-	   face
-	   (substring face-name (1+ (match-beginning 0))))))))
+	  (set-face-foreground face
+			       (substring face-name 0 (match-beginning 0)))
+	  (set-face-background face
+			       (substring face-name (1+ (match-beginning 0))))))))
   face)
 
 ;; skk-auto.el, skk-rdbms.el の両方で使うので、skk-auto.el より移動した。
@@ -5194,8 +5192,8 @@ SKK 辞書の候補として正しい形に整形する。"
 
 ;;;###autoload
 (defun skk-preload ()
-  "変数 `skk-preload' が non-nil のとき、`after-init-hook' から呼ばれる。
-あらかじめ SKK を呼んでおくことで、 SKK の初回起動を速くする。"
+  "変数 `skk-preload' が non-nil のとき `after-init-hook' から呼ばれる。
+Emacs 起動時にあらかじめ辞書を読み込むことで SKK の初回起動を速くする。"
   (with-temp-buffer
     (skk-mode 1))
   (dolist (item skk-search-prog-list)
@@ -5205,21 +5203,22 @@ SKK 辞書の候補として正しい形に整形する。"
     (skk-preload-jisyo item)))
 
 (defun skk-preload-jisyo (jisyo)
-  (cond
-   ((eq jisyo 'skk-jisyo)
-    (setq jisyo nil))
-   ((symbolp jisyo)
-    (setq jisyo (symbol-value jisyo))
-    (unless (and (stringp jisyo)
-		 (file-readable-p jisyo))
-      (setq jisyo nil)))
-   ((and (listp jisyo)
-	 (memq (car jisyo) '(cons quote)))
-    (setq jisyo (ignore-errors (eval jisyo)))
-    (unless (and (consp jisyo)
-		 (stringp (car jisyo))
-		 (file-readable-p (car jisyo)))
-      (setq jisyo nil))))
+  (cond ((eq jisyo 'skk-jisyo)
+	 (setq jisyo nil))
+	;;
+	((symbolp jisyo)
+	 (setq jisyo (symbol-value jisyo))
+	 (unless (and (stringp jisyo)
+		      (file-readable-p jisyo))
+	   (setq jisyo nil)))
+	;;
+	((and (listp jisyo)
+	      (memq (car jisyo) '(cons quote)))
+	 (setq jisyo (ignore-errors (eval jisyo)))
+	 (unless (and (consp jisyo)
+		      (stringp (car jisyo))
+		      (file-readable-p (car jisyo)))
+	   (setq jisyo nil))))
   (when jisyo
     (skk-get-jisyo-buffer jisyo 'nomsg)))
 
