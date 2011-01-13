@@ -1,7 +1,7 @@
 2010-01-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-preload): Rewrite the docstring bacause 1) the
-	original one was based on the old version of the function and is
+	original one was based on the old version of the function and was
 	not complete, and 2) the previous modification by Mr. Tsuyoshii
 	Kitamoto contains some misunderstandings.  Of course I appreciate
 	his efforts on improvement of the document so much.  Please
