@@ -1,9 +1,13 @@
 2010-01-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk.el (skk-preload): Fix for the misunderstandings in the
-	previous modification of the docstring.
-	(skk-preload-jisyo): Undo the previous indent fix which is
-	completely unnecessary.
+	* skk.el (skk-preload): Rewrite the docstring bacause 1) the
+	original one was based on the old version of the function and is
+	not complete, and 2) the previous modification by Mr. Tsuyoshii
+	Kitamoto contains some misunderstandings.  Please consult me if
+	there remains any issue about it.
+	(skk-preload-jisyo): Undo the previous indent fix which I believe
+	is unnecessary.  Please feel free to consult me if anyone still
+	thinks it is important.
 
 2011-01-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
