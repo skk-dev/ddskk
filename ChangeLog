@@ -3,11 +3,13 @@
 	* skk.el (skk-preload): Rewrite the docstring bacause 1) the
 	original one was based on the old version of the function and is
 	not complete, and 2) the previous modification by Mr. Tsuyoshii
-	Kitamoto contains some misunderstandings.  Please consult me if
-	there remains any issue about it.
+	Kitamoto contains some misunderstandings.  Of course I appreciate
+	his efforts on improvement of the document so much.  Please
+	consult me if there remains any issue about it.
 	(skk-preload-jisyo): Undo the previous indent fix which I believe
-	is unnecessary.  Please feel free to consult me if anyone still
-	thinks it is important.
+	is unnecessary, even though I really appreciate his attitude
+	toward better and more readble codes.  Please feel free to consult
+	me if anyone still thinks it is important.
 
 2011-01-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
