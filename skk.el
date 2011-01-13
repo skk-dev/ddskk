@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.547 2011/01/12 13:44:08 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.548 2011/01/13 06:23:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/01/12 13:44:08 $
+;; Last Modified: $Date: 2011/01/13 06:23:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5192,8 +5192,12 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 ;;;###autoload
 (defun skk-preload ()
-  "$BJQ?t(B `skk-preload' $B$,(B non-nil $B$N$H$-(B `after-init-hook' $B$+$i8F$P$l$k!#(B
-Emacs $B5/F0;~$K$"$i$+$8$a<-=q$rFI$_9~$`$3$H$G(B SKK $B$N=i2s5/F0$rB.$/$9$k!#(B"
+  "Emacs $B5/F0;~$K$"$i$+$8$a(B SKK $B$r8F$V$3$H$G(B SKK $B$N1~Ez$rB.$/$9$k!#(B
+$B@hFI$_$NBP>]$K$J$k$N$O0J2<!#(B
+1. skk.el $B$H4XO"$9$k$$$/$D$+$N%U%!%$%k(B ($B=i2s5/F0;~$NCY1d$r4KOB(B)
+2. $B6&M-<-=q72(B ($B=iJQ49;~$NCY1d$r4KOB(B)
+$BJQ?t(B `skk-preload' $B$,(B non-nil $B$N$H$-(B `after-init-hook' $B$+$i8F$P$l$k!#(B
+$B$=$N$?$a(B Emacs $B$N5/F0;~4V$,D9$/$J$kE@$K$OCm0U$rMW$9$k!#(B"
   (with-temp-buffer
     (skk-mode 1))
   (dolist (item skk-search-prog-list)
@@ -5203,22 +5207,23 @@ Emacs $B5/F0;~$K$"$i$+$8$a<-=q$rFI$_9~$`$3$H$G(B SKK $B$N=i2s5/F0$rB.$/$9$k!#
     (skk-preload-jisyo item)))
 
 (defun skk-preload-jisyo (jisyo)
-  (cond ((eq jisyo 'skk-jisyo)
-	 (setq jisyo nil))
-	;;
-	((symbolp jisyo)
-	 (setq jisyo (symbol-value jisyo))
-	 (unless (and (stringp jisyo)
-		      (file-readable-p jisyo))
-	   (setq jisyo nil)))
-	;;
-	((and (listp jisyo)
-	      (memq (car jisyo) '(cons quote)))
-	 (setq jisyo (ignore-errors (eval jisyo)))
-	 (unless (and (consp jisyo)
-		      (stringp (car jisyo))
-		      (file-readable-p (car jisyo)))
-	   (setq jisyo nil))))
+  (cond
+   ((eq jisyo 'skk-jisyo)
+    (setq jisyo nil))
+   ;;
+   ((symbolp jisyo)
+    (setq jisyo (symbol-value jisyo))
+    (unless (and (stringp jisyo)
+		 (file-readable-p jisyo))
+      (setq jisyo nil)))
+   ;;
+   ((and (listp jisyo)
+	 (memq (car jisyo) '(cons quote)))
+    (setq jisyo (ignore-errors (eval jisyo)))
+    (unless (and (consp jisyo)
+		 (stringp (car jisyo))
+		 (file-readable-p (car jisyo)))
+      (setq jisyo nil))))
   (when jisyo
     (skk-get-jisyo-buffer jisyo 'nomsg)))
 
