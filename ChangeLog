@@ -2,6 +2,7 @@
 
 	* skk.el (skk-insert-str): Docstring を修正.
 	(skk-auto-start-henkan): Docstring を修正.
+	(skk-what-char-type): Docstring を修正.
 
 2010-01-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

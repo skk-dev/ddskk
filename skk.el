@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.549 2011/01/15 04:05:52 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.550 2011/01/15 04:29:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/01/15 04:05:52 $
+;; Last Modified: $Date: 2011/01/15 04:29:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3299,7 +3299,9 @@ TYPE (文字の種類) に応じた文字をスキップしてバッファの先頭方向へ戻る。
      (skip-chars-backward " -~"))))
 
 (defun skk-what-char-type ()
-  "$B現在のポイントにある文字がどんな種類かを判別する。"
+  "現在のポイントにある文字の種類を判別する。
+文字の種類に応じて、次のいずれかのシンボルを返す。
+'hiragana 'katakana 'jisx0208-latin 'ascii 'unknown"
   (save-match-data
     (cond ((looking-at "[ぁ-ん]")
 	   'hiragana)
