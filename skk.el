@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.548 2011/01/13 06:23:20 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.549 2011/01/15 04:05:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/01/13 06:23:20 $
+;; Last Modified: $Date: 2011/01/15 04:05:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1387,15 +1387,17 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
     tree))
 
 (defun skk-insert-str (str)
-  "STR $B$rA^F~$9$k!#I,MW$G$"$l$P(B `self-insert-after-hook' $B$r%3!<%k$9$k!#(B
+  "STR $B$rA^F~$9$k!#(B
+$BI,MW$G$"$l$P(B `skk-auto-start-henkan' $B$r%3!<%k$9$k!#(B
+$BI,MW$G$"$l$P(B `self-insert-after-hook' $B$r%3!<%k$9$k!#(B
 `overwrite-mode' $B$G$"$l$P!"E,@Z$K>e=q$-$r9T$&!#(B"
   (insert-and-inherit str)
   (if (eq skk-henkan-mode 'on)
-      ;;
+      ;; $B"&%b!<%I(B
       (when (and skk-auto-start-henkan
 		 (not skk-okurigana))
 	(skk-auto-start-henkan str))
-    ;;
+    ;; $B"&%b!<%I0J30(B
     (when (and (boundp 'self-insert-after-hook)
 	       self-insert-after-hook)
       (funcall self-insert-after-hook
@@ -3202,10 +3204,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 	   (setq skk-abbrev-mode t)))))))
 
 (defun skk-auto-start-henkan (str)
-  "$B$"$k>r7o2<$K$*$$$F!"<+F0E*$KJQ49$r3+;O$9$k!#(B
-`skk-auto-start-henkan-keyword-list' $B$NMWAG$NJ8;zNs$rA^F~$7$?$H$-$K<+F0E*$K(B
-\($B%9%Z!<%9$rBG80$7$J$/$H$b(B) $BJQ49$r3+;O$9$k!#%(!<!_%$%=%U%H<R$N(B MSDOS $BMQ(B $B$N(B
- FEP$B!"(BWX2+ $BIw!#(B"
+  "STR $B$,(B `skk-auto-start-henkan-keyword-list' $B$NMWAG$H0lCW(B (member) $B$9$k>l9g$KJQ49$r3+;O$9$k!#(B
+$B4X?t(B `skk-insert-str' $B$N<B9TCf!"JQ?t(B `skk-auto-start-henkan' $B$,(B non-nil $B$N$H$-$K$3$N4X?t$,%3!<%k$5$l$k!#(B"
   (when (member str skk-auto-start-henkan-keyword-list)
     (skk-save-point
      (backward-char 1)

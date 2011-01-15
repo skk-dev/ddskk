@@ -1,3 +1,8 @@
+2011-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-insert-str): Docstring を修正.
+	(skk-auto-start-henkan): Docstring を修正.
+
 2010-01-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-preload): Rewrite the docstring bacause 1) the
@@ -13,7 +18,7 @@
 
 2011-01-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-preload): modift docstring.
+	* skk.el (skk-preload): modify docstring.
 	(skk-preload-jisyo): modify indent.
 	(skk-make-face): modify indent.
 
