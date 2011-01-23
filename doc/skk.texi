@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/01/08 10:31:39 $
+@set UPDATED $Date: 2011/01/23 07:46:31 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1649,7 +1649,7 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 @end example
 
 @noindent
-$B$H$J$j$^$9!#%W%m%s%W%H$,(B @samp{[[$B<-=qEPO?(B]]} $B$H$J$j!"(B@samp{[]} $B$,(B1$B$DA}$((B
+$B$H$J$j$^$9!#%W%m%s%W%H$,(B @samp{[[$B<-=qEPO?(B]]} $B$H$J$j!"(B@samp{[]} $B$,$R$H$DA}$((B
 $B$F$$$^$9$,!"$3$N(B @samp{[]} $B$N?t$,:F5"E*$JEPO?%b!<%I$N?<$5$rI=$o$7$F$$$^$9!#(B
 $B$3$3$G(B @key{RET} $B$r%?%$%W$9$k$H!"8D?M<-=q$K$O(B
 
@@ -2676,15 +2676,16 @@ file /$B#f#i#l#e(B/
 @c http://mail.ring.gr.jp/skk/200110/msg00005.html
 @defvr {$B%f!<%6JQ?t(B} skk-gyakubiki-jisyo-list
 
-$B4X?t(B @code{skk-gyakubiki-region} $B$O%3%^%s%I(B @command{kakasi} $B$r8F$S=P$7$F$$$^$9!#(B
-@command{kakasi} $B$K$O4A;z$r$R$i$,$J$XJQ49$9$k5!G=$,$"$j!"$3$NJQ49$K$O4D6-JQ?t(B
-@env{KANWADICTPATH} $B$G;XDj$5$l$F$$$k<-=q$rMQ$$$F$$$^$9!#(B
+$B4X?t(B @code{skk-gyakubiki-region} $B$O%3%^%s%I(B @command{kakasi} $B$r8F$S=P$7(B
+$B$F$$$^$9!#(B
+@command{kakasi} $B$K$O4A;z$r$R$i$,$J$XJQ49$9$k5!G=$,$"$j!"$3$NJQ49$K$O4D(B
+$B6-JQ?t(B @env{KANWADICTPATH} $B$G;XDj$5$l$F$$$k<-=q$rMQ$$$F$$$^$9!#(B
 
-$BJQ?t(B @code{skk-gyakubiki-jisyo-list} $B$r@_Dj$9$k$3$H$K$h$j(B @command{kakasi} $B$XM?$((B
-$B$k<-=q$rG$0U$KDI2C$9$k$3$H$,$G$-$^$9!#(B
+$BJQ?t(B @code{skk-gyakubiki-jisyo-list} $B$r@_Dj$9$k$3$H$K$h(B
+$B$j(B @command{kakasi} $B$XM?$($k<-=q$rG$0U$KDI2C$9$k$3$H$,$G$-$^$9!#(B
 $B0J2<$N$h$&$K8D?M<-=q(B @code{skk-jisyo} $B$r;XDj$9$k$3$H$K$h$j!"<-=qEPO?%b!<(B
-$B%I$GEPO?$7$?$P$+$j$NC18l$b(B @command{kakasi} $B$K$h$k5U0z$-JQ49$NBP>]$H$9$k$3$H$,$G$-(B
-$B$^$9!#(B
+$B%I$GEPO?$7$?$P$+$j$NC18l$b(B @command{kakasi} $B$K$h$k5U0z$-JQ49$NBP>]$H$9(B
+$B$k$3$H$,$G$-$^$9!#(B
 
 @lisp
 (setq skk-gyakubiki-jisyo-list (list skk-jisyo))
@@ -2694,10 +2695,10 @@ file /$B#f#i#l#e(B/
 @node $B%+%?%+%J$N8+=P$78l(B
 @subsection $B%+%?%+%J$N8+=P$78l(B
 
-@kbd{q} $B$K$h$j$+$J%b!<%I!"%+%J%b!<%I$rEY!9@Z$jBX$($FF~NO$rB3$1$F$$$k$H!"(B
+@kbd{q} $B$N%?%$%W$G$+$J%b!<%I!"%+%J%b!<%I$rEY!9@Z$jBX$($FF~NO$rB3$1$F$$$k$H!"(B
 $B%+%J%b!<%I$G8m$C$F"'%b!<%I$KF~$C$F$7$^$&$3$H$,$"$j$^$9!#$=$N$?$a!"%+%J(B
-$B%b!<%I$G"'%b!<%I$KF~$C$?>l9g!"$^$:8+=P$78l$r$R$i$,$J$KJQ49$7$F$+$i!"<-(B
-$B=q$N8!:w$KF~$k$h$&@_7W$5$l$F$$$^$9!#$^$?!"$3$N>l9g$NAw$j$"$jJQ49$G$NAw(B
+$B%b!<%I$G"'%b!<%I$KF~$C$?>l9g$O!"$^$:8+=P$78l$r$R$i$,$J$KJQ49$7$F$+$i<-(B
+$B=q$N8!:w$KF~$k$h$&@_7W$5$l$F$$$^$9!#$J$*!"$3$N>l9g$NAw$j$"$jJQ49$G$NAw(B
 $B$j2>L>$O!"%+%?%+%J$K$J$j$^$9!#(B
 
 @node $BJ8L.$K1~$8$?<+F0%b!<%I@Z$jBX$((B
@@ -3257,26 +3258,6 @@ L:$BC@(B;9$B2h(B($BFyIt(B5$B2h(B)
 @node $B8!:w%-!<$N@_Dj(B
 @subsubsection $B8!:w%-!<$N@_Dj(B
 
-@c $B%G%U%)%k%H$N8!:w%-!<$O(B @kbd{@@} $B$G$9!#$7$+$7!"(BDDSKK $B$NI8=`@_Dj$G$O(B
-@c $B%-!<(B @kbd{@@} $B$O4X?t(B @code{skk-today} $B$K3d$jEv$F$i$l$F$$$^$9!J(B
-@c $BJQ?t(B @code{skk-rom-kana-base-rule-list}$B!"(B@ref{$B:#F|$NF|IU$NF~NO(B}.$B!K!#(B
-
-@c $B$3$3$G$O!"%-!<(B @kbd{@@} $B$r(B @code{skk-today} $B$G$O$J$/!"C14A;zJQ49$N8!:w%-(B
-@c $B!<$H$7$F;HMQ$9$k$?$a$K(B @file{~/.skk} $B$G<!$N@_Dj$r9T$$$^$9(B
-
-@c @lisp
-@c @group
-@c ;; @@ $B$rF~NO$G$-$k$h$&$K$9$k(B
-@c (setq skk-rom-kana-rule-list
-@c       (append skk-rom-kana-rule-list
-@c               '(("@@" nil "@@"))))
-@c @end group
-@c @end lisp
-
-@c $B$b$7$3$l$G$bF|IU$,F~NO$5$l$F$7$^$&$h$&$J$i!"4{$KJL$N@_Dj$,(B
-@c @code{skk-rom-kana-rule-list} $B$KBP$7$F9T$o$l$F$$$^$9$N$G!"(B
-@c $B$=$l$r8+D>$7$F2<$5$$!#(B
-
 $B%G%U%)%k%H$N8!:w%-!<$O(B @kbd{@@} $B$G$9!#(B
 DDSKK $B$NI8=`@_Dj$G$O%-!<(B @kbd{@@} $B$O4X?t(B @code{skk-today} $B$N<B9T$K3d$j(B
 $BEv$F$i$l$F$$$^$9$,!"(BDDSKK 14.2 $B$+$i$OFCCJ$N@_Dj$J$7$K"&%b!<%I$G(B @kbd{@@} $B$N(B
@@ -3686,8 +3667,8 @@ L $B<-=q$N@\F,!&@\Hx<-$O!"@N$O(B @samp{<}, @samp{?} $B$b;H$o$l$F$$$^$7$?$,!"
 @cindex $B4A?t;z(B
 @cindex $B6b3[(B
 
-DDSKK $B$O!"(B@samp{$B$@$$(B12$B$+$$(B} $B$rJQ49$9$k$H!"(B@samp{$BBh#1#22s(B}$B!"(B@samp{$BBh0lFs2s(B}$B!"(B
-@samp{$BBh==Fs2s(B} $B$H$9$k$J$I!"?t$r4^$`8l$rMM!9$KJQ49$G$-$^$9!#(B
+DDSKK $B$O!"(B@samp{$B$@$$(B12$B$+$$(B} $B$rJQ49$9$k$H(B @samp{$BBh#1#22s(B}$B!"(B@samp{$BBh0lFs2s(B}$B!"(B
+@samp{$BBh==Fs2s(B} $B$J$I$N8uJd$r5s$2$k$J$I?t;z$r4^$`8+=P$78l$rMM!9$KJQ49$G$-$^$9!#(B
 
 $B$3$N@a$G$O!"$3$N$h$&$J8uJd$r<-=q$KEPO?$9$kJ}K!$r@bL@$7$^$9!#4pK\$O!"(B
 $B?t;z$NItJ,$r(B @samp{#} $B$GCV$-BX$($k$3$H$G$9!#(BSKK $B$N(B L $B<-=q$+$i!"(B
@@ -3702,7 +3683,7 @@ DDSKK $B$O!"(B@samp{$B$@$$(B12$B$+$$(B} $B$rJQ49$9$k$H!"(B@samp{$BBh#1#
 $B$NItJ,$O<+F0E*$K(B @samp{#} $B$KCV$-49$($i$l$k$h$&$K$J$C$F$$$k$N$G!">e5-$NNc(B
 $B$K%^%C%A$7$^$9!#(B
 
-$B1&JU$N(B @samp{#1}$B!"(B@samp{#2} $B$J$I$O!"$I$N$h$&$K?t;z$r2C9)$9$k$+!"$N%?%$%W$r(B
+$B1&JU$N(B @samp{#1}$B!"(B@samp{#2} $B$J$I$O!V$I$N$h$&$K?t;z$r2C9)$9$k$+!W$N%?%$%W$r(B
 $BI=$7$^$9!#0J2<!"3F%?%$%W$K$D$$$F@bL@$7$^$9!#(B
 
 @table @samp
@@ -8858,7 +8839,7 @@ DDSKK $B$O%m!<%^;z<0$G$O$J$$!"$$$o$f$k$+$JF~NOJ}<0$r%5%]!<%H$7$^$9!#6qBNE*(B
 
 @url{http://openlab.jp/skk/skk/main/nicola/README.ja}
 
-$B$D$E$$$F@_Dj$r$7$^$9!#(B
+$BB3$$$F@_Dj$r$7$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-use-kana-keyboard
 
@@ -9581,7 +9562,7 @@ muhenkan is undefined
 @vindex key-translation-map
 
 $B$3$N@_Dj$r=*$($k$H!"(B@kbd{@key{muhenkan}-a} $B$G(B @kbd{A} $B$,F~NO$G$-$k$h$&$K(B
-$B$J$j$^$9!#$D$E$$$F!"(BSKK $B$r5/F0$7$F$_$^$7$g$&!#(B@kbd{@key{muhenkan}-a} $B$G(B
+$B$J$j$^$9!#B3$$$F(B SKK $B$r5/F0$7$F$_$^$7$g$&!#(B@kbd{@key{muhenkan}-a} $B$G(B
 @samp{$B"&$"(B} $B$H$J$j$^$9!#Aw$j$N3+;OE@$b!"$b$A$m$sF1MM$NA`:n$G;XDj$G$-$^$9!#(B
 @footnote{$BJQ?t(B @code{key-translation-map} $B$N0UL#$rD4$Y$F$_$F$/$@$5$$!#(B
 
