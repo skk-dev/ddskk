@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.50 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.51 2011/02/23 20:45:23 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2011/02/23 20:45:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -72,20 +72,16 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl)
+  (defvar jka-compr-compression-info-list)
+  (defvar print-quoted))
 
-(require 'pym)
 (require 'skk-macs)
 (require 'skk-vars)
 (require 'ring)
 
 (defconst skk-study-file-format-version "0.3")
 (skk-deflocalvar skk-study-current-buffer-theme nil)
-
-(defun-maybe ring-elements (ring)
-  "Return a list of the elements of RING."
-  ;; ring.el of Emacs 20 does not have ring-elements.
-  (mapcar #'identity (cddr ring)))
 
 ;;;; inline functions.
 (defsubst skk-study-get-last-henkan-data (index)
@@ -201,8 +197,6 @@
 オプショナル引数の NOMSG が non-nil であれば、保存メッセージを出力しない。"
   (interactive "P")
   (let ((inhibit-quit t)
-	(last-time
-	 (nth 5 (file-attributes (expand-file-name skk-study-file))))
 	e)
     (if (or (and (null skk-study-alist) (not nomsg))
 	    (not skk-study-last-read)
@@ -235,15 +229,15 @@
 	  (setq e (assq 'okuri-ari skk-study-alist))
 	  (setcdr e (sort (cdr e)
 			  (function (lambda (a b)
-				      (string< (car a) (car b))))))
+				      (skk-string< (car a) (car b))))))
 	  (setq e (assq 'okuri-nasi skk-study-alist))
 	  (setcdr e (sort (cdr e)
 			  (function (lambda (a b)
-				      (string< (car a) (car b)))))))
+				      (skk-string< (car a) (car b)))))))
 	(skk-study-prin1 skk-study-alist (current-buffer))
-	(write-region-as-coding-system
-	 (skk-find-coding-system skk-jisyo-code)
-	 (point-min) (point-max) skk-study-file))
+	(let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code))
+	      jka-compr-compression-info-list)
+	  (write-region (point-min) (point-max) skk-study-file)))
       (setq skk-study-last-save (current-time))
       (when (not nomsg)
 	(skk-message "%s に SKK の学習結果をセーブしています...完了！"
@@ -368,8 +362,9 @@ TO の既存データは破壊される。"
 	   (format ";;; skk-study-file format version %s\n"
 		   skk-study-file-format-version))
 	  version)
-      (insert-file-contents-as-coding-system
-       (skk-find-coding-system skk-jisyo-code) file)
+      (let ((coding-system-for-read (skk-find-coding-system skk-jisyo-code))
+	    format-alist)
+	(insert-file-contents file))
       (when (= (buffer-size) 0)
 	;; bare alist
 	(insert version-string
@@ -484,7 +479,7 @@ TO の既存データは破壊される。"
 	(lo1 (nth 1 time1)))
     (or (< hi0 hi1) (and (= hi0 hi1) (< lo0 lo1)))))
 
-(add-hook 'skk-before-kill-emacs-hook 'skk-study-save)
+(add-hook 'kill-emacs-hook 'skk-study-save)
 
 (provide 'skk-study)
 

@@ -1,3 +1,11 @@
+2011-02-21  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* experimental/skk-study.el: Use kill-emacs-hook instead of
+	skk-before-kill-emacs-hook.
+	(ring-elements): Remove definition for Emacs 20.
+	(skk-study-save, skk-study-read-1): Remove APEL dependencies.  Use
+	`skk-string<' instead of `string<'.
+
 2011-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: 誤字の修正、ソースの整形.
