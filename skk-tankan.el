@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.41 2011/01/03 06:57:56 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.42 2011/03/21 21:32:04 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/01/03 06:57:56 $
+;; Last Modified: $Date: 2011/03/21 21:32:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1772,42 +1772,20 @@ C-u 数値 M-x skk-tankan で総画数変換を開始する。"
 (defun skk-search-tankanji (&optional jisyo)
   (let ((skk-henkan-key (concat skk-henkan-key
 				(char-to-string skk-tankan-search-key)))
-	(large-jisyo (or skk-large-jisyo
-			 (cond
-			  ((eval-when-compile (featurep 'xemacs))
-			   (locate-data-file "SKK-JISYO.L"))
-			  ((eval-when-compile (>= emacs-major-version 22))
-			   (locate-file "skk/SKK-JISYO.L"
-					(list
-					 (expand-file-name "../../.."
-							   data-directory)
-					 ;; Windows etc
-					 data-directory)))
-			  (t
-			   nil))
-			 skk-aux-large-jisyo))
-	(cdb-jisyo (or skk-cdb-large-jisyo
-		       (cond
-			((eval-when-compile (featurep 'xemacs))
-			 (locate-data-file "SKK-JISYO.L.cdb"))
-			((eval-when-compile (>= emacs-major-version 22))
-			 (locate-file "skk/SKK-JISYO.L.cdb"
-				      (list
-				       (expand-file-name "../../.."
-							 data-directory)
-				       ;; Windows etc
-				       data-directory)))
-			(t
-			 nil))))
-	(server-prog (assq 'skk-search-server skk-search-prog-list)))
-    (or (cond ((and (stringp jisyo) (file-readable-p jisyo))
-	       (skk-tankan-search 'skk-search-jisyo-file jisyo 10000))
-	      ((and (stringp cdb-jisyo) (file-readable-p cdb-jisyo))
-	       (skk-tankan-search 'skk-search-cdb-jisyo cdb-jisyo))
-	      ((and (stringp large-jisyo) (file-readable-p large-jisyo))
-	       (skk-tankan-search 'skk-search-jisyo-file large-jisyo 10000))
-	      (t
-	       nil))
+	(server-prog (if skk-server-host
+			 (assq 'skk-search-server skk-search-prog-list)
+		       nil)))
+    (or (cond
+	 ((and (stringp jisyo) (file-readable-p jisyo))
+	  (skk-tankan-search 'skk-search-jisyo-file jisyo 10000))
+	 ((and (stringp skk-cdb-large-jisyo)
+	       (file-readable-p skk-cdb-large-jisyo))
+	  (skk-tankan-search 'skk-search-cdb-jisyo skk-cdb-large-jisyo))
+	 ((and (stringp skk-large-jisyo)
+	       (file-readable-p skk-large-jisyo))
+	  (skk-tankan-search 'skk-search-jisyo-file skk-large-jisyo 10000))
+	 (t
+	  (skk-tankan-search 'skk-search-ja-dic-maybe)))
 	(if server-prog
 	    (apply #'skk-tankan-search server-prog)
 	  nil))))
