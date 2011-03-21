@@ -1,3 +1,11 @@
+2010-03-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cdb.el (skk-search-cdb-jisyo): Check cdb-path instead of
+	skk-cdb-large-jisyo.
+	* skk-tankan.el (skk-search-tankanji): Do not try to find
+	SKK-JISYO.L or SKK-JISYO.L.cdb.  Call `skk-search-ja-dic-maybe'
+	if no other methods are available.
+
 2011-02-21  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* experimental/skk-study.el: Do not require pym.  Add defvar for
