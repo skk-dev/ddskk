@@ -45,8 +45,10 @@
 ;;
 ;;;###autoload
 (defun skk-search-cdb-jisyo (cdb-path)
-  (when (and (stringp skk-cdb-large-jisyo)
-	     (file-readable-p skk-cdb-large-jisyo))
+  (unless cdb-path
+    (setq cdb-path skk-cdb-large-jisyo))
+  (when (and (stringp cdb-path)
+	     (file-readable-p cdb-path))
     (cdb-init cdb-path)
     (let* ((key (if skk-use-numeric-conversion
 		    (skk-num-compute-henkan-key skk-henkan-key)
