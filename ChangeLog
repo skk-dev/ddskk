@@ -1,3 +1,19 @@
+2010-03-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-tut-file): Fix docstring so as to advise users
+	to specify the Japanese tutorial file.
+	(skk-tut-lang): New user option.
+	(skk-tut-file-alist): Abolish.
+	(skk-tut-file-suffix-alist, skk-tut-current-lang): New variables.
+	* skk-tut.el (skk-tut-find-tut-file, skk-tut-nicola-p): New
+	functions.
+	(skktut-init-variables-alist): Use `skk-tut-nicola-p'.
+	(skktut-enable-tutmap): Ditto.
+	(skk-tutorial): Set skk-tut-current-lang.  Call
+	`skk-tut-find-tut-file'.
+	(skktut-nicola-tut-file): Specify file name sans directory.
+	(skktut-setup-working-buffer): Accept an argument.
+
 2010-03-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cdb.el (skk-search-cdb-jisyo): Check cdb-path instead of
