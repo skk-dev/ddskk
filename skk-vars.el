@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.350 2010/12/26 04:18:08 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.351 2011/03/22 21:06:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/26 04:18:08 $
+;; Last Modified: $Date: 2011/03/22 21:06:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4900,15 +4900,31 @@ GNU Emacs 21 では強制的に `follow' となる。"
 	     "/usr/local/share/skk/SKK.tut"))
 	(t
 	 "/usr/local/share/skk/SKK.tut"))
-  "*SKK チュートリアルのファイル名。
-The English version is SKK.tut.E."
+  "*SKK 日本語チュートリアルのファイル名 (パスを含む)。"
   :type 'file
   :group 'skk-tut)
 
-(defvar skk-tut-file-alist
-  `(("Japanese" . ,skk-tut-file)
-    ("English" . ,(concat skk-tut-file ".E")))
-  "*Alist of `(LANGUAGE . TUTORIAL-FILE)' pairs.")
+(defcustom skk-tut-lang "Japanese"
+  "*SKK チュートリアルで用いる言語。
+C-u M-x skk-tutorial での言語指定はこの変数に優先する。"
+  :type '(radio (string "Japanese")
+		(string "English"))
+  :set (lambda (symbol value)
+	 (prog1
+	     (if (fboundp 'custom-set-default)
+		 (custom-set-default symbol value)
+	       (set-default symbol value))
+	   (setq skk-tut-current-lang nil)))
+  :group 'skk-tut)
+
+(defvar skk-tut-file-suffix-alist
+  `(("Japanese" . "")
+    ("English" . ".E"))
+  "Alist of (LANGUAGE . suffix) pairs.
+For example, if filename of the Japanese version is \"SKK.tut\",
+then filename of the English version will be \"SKK.tut.E\".")
+
+(defvar skk-tut-current-lang nil)
 
 (defcustom skk-tut-use-face skk-use-face
   "*Non-nil であれば、チュートリアルで face を利用した表示を行う。"
