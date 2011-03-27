@@ -1,4 +1,13 @@
-2010-03-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2011-03-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
+
+	* experimental/skk-study.el: No longer in the repository.
+	* skk-study.el: Install the experimental version.
+
+	* experimental/GUIDELINE: Update.
+
+2011-03-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-tut-file): Fix docstring so as to advise users
 	to specify the Japanese tutorial file.
@@ -14,7 +23,7 @@
 	(skktut-nicola-tut-file): Specify file name sans directory.
 	(skktut-setup-working-buffer): Accept an argument.
 
-2010-03-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2011-03-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cdb.el (skk-search-cdb-jisyo): Check cdb-path instead of
 	skk-cdb-large-jisyo.
