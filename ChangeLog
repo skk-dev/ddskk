@@ -1,3 +1,7 @@
+2011-04-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK: Fix [skk 7393] remove-hook 'kill-emacs-hook 'skk-save-jisyo.
+
 2011-03-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
