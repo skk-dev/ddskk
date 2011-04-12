@@ -2,6 +2,13 @@
 
 ** 対話的インストーラの追加
 
+** skk-study.el
+
+skk/main/experimental/skk-study.el を skk/main/skk-study.el へ移しました。
+学習テーマ対応版です。このファイル (NEWS.ja) の「* 12.2.0」に簡単な説明
+があります。
+skk-study-file-format-version は 0.3 です。
+
 * 14.2
 
 ** GNU Emacs 20 のサポートを終了しました。
