@@ -1,3 +1,8 @@
+2011-04-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Add skk-study-switch-current-theme, 
+	skk-study-remove-theme, skk-study-copy-theme.
+
 2011-04-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK: Fix [skk 7393] remove-hook 'kill-emacs-hook 'skk-save-jisyo.

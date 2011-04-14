@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/01/23 07:46:31 $
+@set UPDATED $Date: 2011/04/14 13:17:48 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6221,6 +6221,25 @@ skk の初期設定では、変換、確定された語が、次回の変換では最初に表示されます。
 $Bこれは主に debug の目的で使います。
 この変数のデフォルト値は @code{nil} です。
 @end defvr
+
+@table @kbd
+
+@kindex M-x skk-study-switch-current-theme
+@item M-x skk-study-switch-current-theme
+そのバッファで利用する学習テーマを切り替えます。
+プロンプト @samp{Theme of current buffer: } に対して学習テーマ名を入力し
+てください。例えば、科学の話題を書くバッファでは science と、法律の話題
+を書くバッファでは law などと入力してください。
+
+@kindex M-x skk-study-remove-theme
+@item M-x skk-study-remove-theme
+不要な学習テーマを消去します。
+
+@kindex M-x skk-study-copy-theme
+@item M-x skk-study-copy-theme
+学習テーマを複製します。
+
+@end table
 
 @node 候補の順序の固定
 @subsection 候補の順序の固定
