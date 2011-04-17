@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.550 2011/01/15 04:29:31 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.551 2011/04/17 05:10:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/01/15 04:29:31 $
+;; Last Modified: $Date: 2011/04/17 05:10:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1539,7 +1539,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 			    (en 'jp-en)
 			    (jp-en 'en-jp)
 			    (t 'jp)))
-  (when (interactive-p)
+  (when (skk-called-interactively-p 'any)
     (skk-message "句点: `%s'  読点: `%s'"
 		 "Kuten: `%s'  Touten: `%s'"
 		 (skk-current-kuten nil)
@@ -3778,7 +3778,7 @@ If you want to restore the dictionary from your drive, try
   ;; (interactive "f辞書ファイル: ")
   (let ((count (funcall skk-count-jisyo-candidates-function
 			file-or-table)))
-    (if (interactive-p)
+    (if (skk-called-interactively-p 'any)
 	(message (if (= count 1)
 		     "%d candidate"
 		   "%d candidates")
@@ -3794,8 +3794,8 @@ If you want to restore the dictionary from your drive, try
       (save-match-data
 	(let ((count 0)
 	      (min (point-min))
-	      (max (and (interactive-p) (point-max)))
-	      (interactive-p (interactive-p)))
+	      (max (and (skk-called-interactively-p 'any) (point-max)))
+	      (interactive-p (skk-called-interactively-p 'any)))
 	  (goto-char min)
 	  (unless (and
 		   ;; こちらは skk-save-point を使わず、ポイントを移動させる。

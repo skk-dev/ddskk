@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.160 2010/12/16 11:16:08 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.161 2011/04/17 05:10:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/16 11:16:08 $
+;; Last Modified: $Date: 2011/04/17 05:10:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -221,6 +221,20 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
        (when (buffer-live-p buf)
 	 (set-buffer buf)
 	 ,@body))))
+
+;;; org-called-interactively-p (org-macs.el) を参考にしました。
+(defmacro skk-called-interactively-p (&optional kind)
+  (cond ((featurep 'xemacs)
+	 `(interactive-p))
+	;;
+	((or (> emacs-major-version 23)
+	     (and (>= emacs-major-version 23)
+		  (>= emacs-minor-version 2)))
+	 `(with-no-warnings
+	    (called-interactively-p ,kind))) ; defined with no argument in <=23.1
+	;;
+	(t
+	 `(interactive-p))))
 
 ;;; functions.
 ;; version dependent

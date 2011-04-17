@@ -1,3 +1,21 @@
+2011-04-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-called-interactively-p): New macro. interactive-p
+	is an obsolete function (as of Emacs 23.2). use called-interactively-p
+	instead.
+
+	* skk-server.el (skk-server-version): use skk-called-interactively-p
+	instead of interactive-p.
+
+	* skk-tut.el (kill-buffer-hook): Ditto.
+
+	* skk-version.el (skk-version): Ditto.
+
+	* skk.el (skk-toggle-kutouten): Ditto.
+	(skk-count-jisyo-candidates): Ditto.
+	(skk-count-jisyo-candidates-original): Ditto.
+
+
 2011-04-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Add skk-study-switch-current-theme, 

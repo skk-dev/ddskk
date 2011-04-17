@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.48 2010/09/10 15:29:32 skk-cvs Exp $
+;; Version: $Id: skk-server.el,v 1.49 2011/04/17 05:10:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:29:32 $
+;; Last Modified: $Date: 2011/04/17 05:10:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -49,7 +49,7 @@ When PROCESS is nil, check `skkserv-process' instead."
 When called interactively, print version information."
   (interactive)
   (cond
-   ((interactive-p)
+   ((skk-called-interactively-p 'any)
     (message "%s" (skk-server-version)))
    ((not (or skk-server-host
 	     skk-servers-list))
