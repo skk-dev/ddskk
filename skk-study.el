@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.58 2011/03/27 16:16:44 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.59 2011/04/17 09:35:45 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2011/03/27 16:16:44 $
+;; Last Modified: $Date: 2011/04/17 09:35:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -247,10 +247,10 @@
 
 ;;;###autoload
 (defun skk-study-switch-current-theme (theme)
-  "skk-study のカレントバッファに対する学習テーマ THEME を設定する。
-学習テーマには任意の文字列を設定できる。
-カレントバッファの学習テーマが設定されないときは、学習テーマ
-\"general\" に対する学習が行われる。"
+  "カレントバッファに対して skk-study の学習テーマ THEME を設定する。
+学習テーマ名 THEME には任意の文字列を指定できる。
+カレントバッファに学習テーマが設定されないときは、学習テーマ
+\"general\" に対して学習が行われる。"
   (interactive
    (list (completing-read
 	  "Theme of current buffer: (default: general) "

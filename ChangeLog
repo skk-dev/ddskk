@@ -1,5 +1,9 @@
 2011-04-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-study.el (skk-study-switch-current-theme): Fix docstring.
+
+2011-04-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-macs.el (skk-called-interactively-p): New macro. interactive-p
 	is an obsolete function (as of Emacs 23.2). use called-interactively-p
 	instead.
