@@ -1,3 +1,14 @@
+2011-04-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-start-henkan, skk-backward-and-set-henkan-point): Fix
+	docstring (use \\[universal-argument] instead of C-u).
+
+	* skk-vars.el (skk-tut-lang): Ditto.
+
+	* skk-tankan.el (skk-tankan): Ditto.
+
+	* skk-annotation.el (skk-annotation-add): Ditto.
+
 2011-04-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-study.el (skk-study-switch-current-theme): Fix docstring.

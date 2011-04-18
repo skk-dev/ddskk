@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.551 2011/04/17 05:10:11 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.552 2011/04/18 11:43:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/04/17 05:10:11 $
+;; Last Modified: $Date: 2011/04/18 11:43:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3140,8 +3140,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B
 $B"&%b!<%I$G%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$7$?>l9g$O!"8+=P$78l$rJ?2>L>$K(B
 $BJQ49$7$F$+$i4A;zJQ49$r3+;O$9$k!#(B
-$B8+=P$78l$rJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$J$$$?$1$l$P!"(BC-u SPC \(arg $B$,(B 4
-$B$K$J$k(B\) $B$H%?%$%W$9$k!#(B"
+$B8+=P$78l$rJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$J$$$?$1$l$P!"(B\\[universal-argument] SPC (arg $B$,(B 4 $B$K$J$k(B) $B$H%?%$%W$9$k!#(B"
   (interactive "*p")
   (unless prog-list-number
     (setq prog-list-number current-prefix-arg))
@@ -3219,7 +3218,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 $B$K%9%-%C%W$5$l$k(B) $B$r(B `skk-what-char-type' $B$K$FH=JL$7!"F1<o$NJ8;zNs$r$R$H$+$?$^(B
 $B$j$H$7$F8eJ}$X%9%-%C%W$9$k!#(B
 $BC"$7!"$R$i$,$J$N>l9g$O!V$r!W$ND>A0$G!"%+%?%+%J$N>l9g$O!V%r!W$ND>A0$G;_$^$k!#(B
-C-u ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
+\\[universal-argument] ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
   (interactive "*P")
   (if (not skk-mode)
       (skk-emulate-original-map arg)

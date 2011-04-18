@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.351 2011/03/22 21:06:41 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.352 2011/04/18 11:43:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/03/22 21:06:41 $
+;; Last Modified: $Date: 2011/04/18 11:43:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4906,7 +4906,7 @@ GNU Emacs 21 では強制的に `follow' となる。"
 
 (defcustom skk-tut-lang "Japanese"
   "*SKK チュートリアルで用いる言語。
-C-u M-x skk-tutorial での言語指定はこの変数に優先する。"
+\\[universal-argument] \\[skk-tutorial] での言語指定はこの変数に優先する。"
   :type '(radio (string "Japanese")
 		(string "English"))
   :set (lambda (symbol value)

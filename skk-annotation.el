@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.171 2010/12/12 11:09:19 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.172 2011/04/18 11:43:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2010/12/12 11:09:19 $
+;; Last Modified: $Date: 2011/04/18 11:43:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -613,8 +613,8 @@
 (defun skk-annotation-add (&optional no-previous-annotation)
   "最後に確定した語に annotation を付ける。
 既に付けられている annotation があればそれを編集バッファに出力する。
-no-previous-annotation を指定すると \(C-u M-x skk-annotation-add で指定可\)
-既に付けられている annotation を編集バッファに出力しない。"
+no-previous-annotation を指定 (\\[universal-argument] \\[skk-annotation-add])
+すると既に付けられている annotation を編集バッファに出力しない。"
   (interactive "P")
   (save-match-data
     (skk-kakutei)
