@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/04/14 13:17:48 $
+@set UPDATED $Date: 2011/04/20 12:31:09 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -525,7 +525,7 @@ DDSKK $B$r;HMQ$9$k$K$O!"$$$o$f$k<-=q(B ($B<g$K$+$J$H4A;z$NBP1~$r5-=R$7$?%G!<%
 $B$,I,MW$G$9!#(B
 
 $B=>Mh$N(B DDSKK $B$rMxMQ$9$k$K$O!"8e=R$9$k(B SKK $B<-=q$NJLES%$%s%9%H!<%k$,I,MW$G(B
-$B$7$?!#(BDDSKK 14.2 $B$h$j!"(BGNU Emacs $B$H$NAH9g$o$;$K$*$$$F(B Emacs $BF1:-$N<-=q(B
+$B$7$?!#(BDDSKK 14.2 $B$h$j!"(BGNU Emacs $B$H$NAH$_9g$o$;$K$*$$$F(B Emacs $BF1:-$N<-=q(B
 $B%G!<%?(B (ja-dic) $B$rMxMQ$7$?JQ49$KBP1~$7!"JLES<-=q%U%!%$%k$r%$%s%9%H!<%k$7(B
 $B$J$/$F$b:GDc8B$N;HMQ$,$G$-$k$h$&$K$J$j$^$7$?!#(B(XEmacs $B$G$OMxMQ$G$-$^$;$s(B)
 
@@ -3846,7 +3846,7 @@ is /$B%$%s%/%j%a%s%?%k!&%5!<%A(B/
 
 @group
 ------ Buffer: foo ------
-$B"&(B
+$B"&(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -3854,7 +3854,7 @@ is /$B%$%s%/%j%a%s%?%k!&%5!<%A(B/
 
 @group
 ------ Buffer: foo ------
-$B"&(Bis
+$B"&(Bis@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -3862,7 +3862,7 @@ is /$B%$%s%/%j%a%s%?%k!&%5!<%A(B/
 
 @group
 ------ Buffer: foo ------
-$B"'%$%s%/%j%a%s%?%k!&%5!<%A(B
+$B"'%$%s%/%j%a%s%?%k!&%5!<%A(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -3870,7 +3870,7 @@ is /$B%$%s%/%j%a%s%?%k!&%5!<%A(B/
 
 @group
 ------ Buffer: foo ------
-$B%$%s%/%j%a%s%?%k!&%5!<%A(B
+$B%$%s%/%j%a%s%?%k!&%5!<%A(B@point{}
 ------ Buffer: foo ------
 @end group
 @end example
@@ -3933,12 +3933,12 @@ SKK abbrve $B%b!<%I$G;H$o$l$k<-=q$O!"IaDL$NJQ49$HF1$8$G$9!#%(%s%H%j$,%"%9%-!<(
 
 L $B<-=q(B
 @footnote{@ref{$B<-=q$N<oN`(B, , L$B<-=q(B}.}$B$K$O!"8+=P$78l(B @samp{today} $B$N8uJd(B
-$B$H$7$F!"(B@code{skk-date-ad} $B$H(B @code{skk-number-style} $B$NA4$F$NAH9g$o$;$,(B
+$B$H$7$F!"(B@code{skk-date-ad} $B$H(B @code{skk-number-style} $B$NA4$F$NAH$_9g$o$;$,(B
 $B%W%m%0%i%`<B9TJQ495!G=(B@footnote{@ref{$B%W%m%0%i%`<B9TJQ49(B}.}$B$rMQ$$$FEPO?$5(B
 $B$l$F$$$^$9!#=>$C$F!"(B@kbd{/ t o d a y @key{SPC}} $B$HF~NO$9$k$H!":#F|$NF|IU(B
 $B$,>e5-$N7A<0$G=g<!8uJd$H$7$FI=<($5$l$^$9!#(B
 
-@kbd{@@} $B$K$h$C$FF|IU$1$rA^F~$9$k$N$G$O$J$/!"J8;zDL$j(B @kbd{@@} $B$rA^F~$7(B
+@kbd{@@} $B$K$h$C$FF|IU$rA^F~$9$k$N$G$O$J$/!"J8;zDL$j(B @kbd{@@} $B$rA^F~$7(B
 $B$?$$>l9g$K$O!"(B
 
 @lisp
@@ -5256,7 +5256,7 @@ Emacs $B$G$OK\Mh!"O"B3$9$k(B 20 $BJ8;z$NA^F~$,0l2s$N<h$j>C$7A`:n(B ($B%"%s%
 
 $B"&%b!<%I$KF~$jK:$l$?>l9g$K!"<jF0$G"&%^!<%/$rIU$1$kJ}K!$K$D$$$F$O!"A0=R$7$^$7$?(B
 @footnote{@w{@xref{$B8e$+$i"&%b!<%I$KF~$kJ}K!(B}.}}$B!#(B
-$B$3$3$G=R$Y$kJ}K!$G$O!"$5$+$N$\$C$F"&%^!<%/$rIU$1$k0LCV$r<+F0E*$KA*$S!"$7$+$b%+!<%=%k$OF0$-$^$;$s!#(B
+$B$3$3$G=R$Y$kJ}K!$G$O!"AL$C$F"&%^!<%/$rIU$1$k0LCV$r<+F0E*$KA*$S!"$7$+$b%+!<%=%k$OF0$-$^$;$s!#(B
 
 @kindex M-Q
 @kbd{M-Q}
