@@ -1,3 +1,15 @@
+2011-04-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-server.el (skk-server-version): skk-called-interactively-p
+	の引数を 'any から 'interactive へと変更 [skk 7420].
+
+	* skk-tut.el (kill-buffer-hook): Ditto.
+
+	* skk-version.el (skk-version): Ditto.
+
+	* skk.el (skk-toggle-kutouten, skk-count-jisyo-candidates) 
+	(skk-count-jisyo-candidates-original): Ditto.
+
 2011-04-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.81 2011/04/17 05:10:11 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.82 2011/04/23 10:22:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/04/17 05:10:11 $
+;; Last Modified: $Date: 2011/04/23 10:22:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -444,7 +444,7 @@
 ;; hooks
 (add-hook 'kill-buffer-hook
 	  #'(lambda ()
-	      (when (and (skk-called-interactively-p 'any)
+	      (when (and (skk-called-interactively-p 'interactive)
 			 (member (buffer-name (current-buffer))
 				 (list skktut-working-buffer
 				       skktut-question-buffer
