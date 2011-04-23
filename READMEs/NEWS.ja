@@ -9,6 +9,12 @@ skk/main/experimental/skk-study.el $B$r(B skk/main/skk-study.el $B$X0\$7$^$7$
 $B$,$"$j$^$9!#(B
 skk-study-file-format-version $B$O(B 0.3 $B$G$9!#(B
 
+** Emacs 23.2 $B$K$*$1$k(B interactive-p $B;HMQ$NCf;_(B
+
+Emacs 23.2 $B$+$i$O4X?t(B interactive-p $B$,(B obsolete $B$H$J$j(B called-interactively-p
+$B$NMxMQ$,?d>)$5$l$F$$$^$9!#3F<o$N(B Emacs $B$N8_49@-$r?^$k$3$H$rL\E*$K!"?7$?$J%^%/%m(B
+skk-called-interactively-p $B$rF3F~$7$^$7$?!#(B
+
 * 14.2
 
 ** GNU Emacs 20 $B$N%5%]!<%H$r=*N;$7$^$7$?!#(B
