@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/04/20 12:31:09 $
+@set UPDATED $Date: 2011/04/26 13:27:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6275,6 +6275,7 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"A*Br$5$l$?8uJd$O!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!
 * $B<-=q$N<oN`(B::
 * $B<-=q%U%!%$%k$N;XDj(B::
 * $B<-=q$N8!:wJ}K!$N@_Dj(B::            $B8!:wBP>]$H8!:w=g=x$N@_Dj!#(B
+* Emacs $BIUB0$N<-=q(B::
 * $B%5!<%P4XO"(B::
 
 @noindent
@@ -6622,6 +6623,35 @@ not documented
 $B<-=q%5!<%P$,;H$&<-=q%U%!%$%k$N@_Dj$K$D$$$F$O!"(B
 @w{@pxref{$B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B}} $B5Z$S(B @w{@pxref{$B%5!<%P4XO"(B}} $B$r(B
 $B$4Mw2<$5$$!#(B
+@end defun
+
+@node Emacs $BIUB0$N<-=q(B
+@subsection Emacs $BIUB0$N<-=q(B
+
+GNU Emacs $B$K$O(B @file{SKK-JISYO.L} $B$r85$KJQ49$5$l$?(B @file{ja-dic.el} $B$H$$(B
+$B$&<-=q$,IUB0$9$k!#$3$l$rMQ$$$FDL>o$N$+$J4A;zJQ49(B ($BAw$j$"$j!"Aw$j$J$7!"@\(B
+$BF,<-!"@\Hx<-(B) $B$,2DG=$G$"$k(B ($B$?$@$7(B @file{SKK-JISYO.L} $B$K$h$k1Q?tJQ49!"?t(B
+$BCMJQ49$J$I$O$G$-$J$$(B)$B!#(B
+
+DDSKK 14.2 $B$h$j!V(Bja-dic.el $B8!:w5!G=!W(B(skk-search-ja-dic) $B$,DI2C$5$l$?!#(B
+$B$3$N(B skk-search-ja-dic $B$O(B @code{skk-large-jisyo}$B!"(B@code{skk-aux-large-jisyo}$B!"(B
+@code{skk-cdb-large-jisyo} $B5Z$S(B @code{skk-server-host} $B$NA4$F$,L58z$J>l9g(B
+$B$KM-8z$H$J$k!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-inhibit-ja-dic-search
+
+$B$3$NJQ?t$r(B @code{Non-nil} $B$K@_Dj$9$k$H!"$"$i$f$k>lLL$G(B
+@code{skk-search-ja-dic} $B$rL58z$H$9$k!#(B
+
+@end defvr
+
+@defun skk-search-ja-dic
+
+GNU Emacs $B$KIUB0$9$k$+$J4A;zJQ49<-=q(B (ja-dic.el) $B$rMQ$$$F8!:w$9$k!#(B
+$B8=:_$N(B Emacs $B$K$O(B SKK-JISYO.L $B$r4p$KJQ49$5$l$?(B ja-dic.el $B$,IUB0$7$F$$$k!#(B
+$B$3$N<-=q%G!<%?$rMQ$$$FAw$j$"$j!"Aw$j$J$7!"@\F,<-!"@\Hx<-$NJQ49$r9T$&!#(B
+$B$?$@$7!"(BSKK-JISYO.L $B$N$h$&$J1Q?tJQ49!"?tCMJQ49$J$I$O$G$-$J$$!#(B
+
 @end defun
 
 @node $B%5!<%P4XO"(B

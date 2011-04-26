@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.352 2011/04/18 11:43:06 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.353 2011/04/26 13:27:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/04/18 11:43:06 $
+;; Last Modified: $Date: 2011/04/26 13:27:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -442,13 +442,14 @@ Non-nil であれば、辞書サーバーが active でない時に、
   :group 'skk-server)
 
 (defcustom skk-inhibit-ja-dic-search nil
-  "*GNU Emacs 付属の辞書を用いた検索を禁止するかどうか指定するオプション。
+  "*「GNU Emacs 付属の辞書を用いた検索」の禁止を指示するオプション。
 GNU Emacs には SKK-JISYO.L を元に変換された ja-dic.el という辞書が付属する。
 これを用いて通常のかな漢字変換 (送りあり、送りなし、接頭辞、接尾辞) が可能
 である (ただし SKK-JISYO.L による英数変換、数値変換などはできない)。
-DDSKK 14.2 より ja-dic.el 検索機能が追加された。これは `skk-large-jisyo'、
-`skk-aux-large-jisyo'、`skk-cdb-large-jisyo' `skk-server-host' の全てが無効
-な場合のみ有効になるが、あらゆる場合に無効にしたい場合はこれを t に設定する。"
+DDSKK 14.2 より ja-dic.el 検索機能 (skk-search-ja-dic) が追加された。
+この skk-search-ja-dic は、 `skk-large-jisyo'、`skk-aux-large-jisyo'、
+`skk-cdb-large-jisyo' 及び `skk-server-host' の全てが無効な場合に有効となる
+が、あらゆる場面で禁止したい場合は、この変数を Non-nil に設定する。"
   :type 'boolean
   :group 'skk-dictionary)
 

@@ -1,3 +1,11 @@
+2011-04-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-inhibit-ja-dic-search): docstring を更新.
+
+	* doc/skk.texi: 変数 skk-inhibit-ja-dic-search と
+	関数 skk-search-ja-dic について、記述を追加.
+	docstring から切り貼りしただけですので、もう少し見直します。
+
 2011-04-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-server.el (skk-server-version): skk-called-interactively-p
