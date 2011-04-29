@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.161 2011/04/17 05:10:11 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.162 2011/04/29 21:12:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/04/17 05:10:11 $
+;; Last Modified: $Date: 2011/04/29 21:12:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -222,19 +222,27 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	 (set-buffer buf)
 	 ,@body))))
 
-;;; org-called-interactively-p (org-macs.el) を参考にしました。
 (defmacro skk-called-interactively-p (&optional kind)
-  (cond ((featurep 'xemacs)
-	 `(interactive-p))
-	;;
-	((or (> emacs-major-version 23)
-	     (and (>= emacs-major-version 23)
+  (cond ((or (featurep 'xemacs)
+	     (= emacs-major-version 21))
+	 ;; XEmacs and GNU Emacs 21
+	 ;; `called-interactively-p' is not defined.
+	 '(interactive-p))
+
+	((or (>= emacs-major-version 24)
+	     (and (= emacs-major-version 23)
 		  (>= emacs-minor-version 2)))
-	 `(with-no-warnings
-	    (called-interactively-p ,kind))) ; defined with no argument in <=23.1
-	;;
+	 ;; GNU Emacs 23.2 or later
+	 ;; `called-interactively-p' takes one argument.
+	 `(called-interactively-p ,kind))
+
 	(t
-	 `(interactive-p))))
+	 ;; GNU Emacs 22 and 23.1
+	 ;; `called-interactively-p' takes no argument and is equivalent
+	 ;; to (called-interactively-p 'any) in later Emacs versions.
+	 `(if (eq ,kind 'interactive)
+	      (interactive-p)
+	    (called-interactively-p)))))
 
 ;;; functions.
 ;; version dependent

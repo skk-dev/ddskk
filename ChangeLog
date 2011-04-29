@@ -1,3 +1,7 @@
+2011-04-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el (skk-called-interactively-p): Update.
+
 2011-04-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-inhibit-ja-dic-search): docstring を更新.
