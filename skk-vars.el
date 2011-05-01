@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.355 2011/05/01 05:14:11 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.356 2011/05/01 09:09:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/01 05:14:11 $
+;; Last Modified: $Date: 2011/05/01 09:09:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1347,8 +1347,8 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
   :group 'skk-henkan)
 
 (defcustom skk-show-inline nil
-  "*Non-nil $B$G$"$l$P!"JQ498uJd$r%$%s%i%$%s$GI=<($9$k!#(B
-$BCM$,(B `vertical' $B$G$"$l$P3F8uJd$r=D$K%$%s%i%$%sI=<($9$k!#(B
+  "*Non-nil $B$G$"$l$P!"JQ498uJd$r%$%s%i%$%sI=<($9$k!#(B
+`vertical' $B$G$"$l$P!"=DJ}8~$K%$%s%i%$%sI=<($9$k!#(B
 $B$3$l$O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BXEmacs $B$G$OF0:n$7$J$$!#(B"
   :type '(radio (const :tag "$BM-8z(B" t)
 		(const :tag "$BM-8z(B ($B=DI=<((B)" vertical)
@@ -1357,7 +1357,7 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
   :group 'skk-henkan)
 
 (defcustom skk-inline-show-face 'underline
-  "*$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$9$kJQ?t!#(B
+  "*$B%$%s%i%$%sI=<($9$kJQ498uJd$N%U%'%$%9$r;XDj$9$kJQ?t!#(B
 $B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B"
   :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B")
 		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
@@ -1367,10 +1367,9 @@ M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
   (if (eq skk-background-mode 'light)
       "beige"
     "gray15")
-  "*$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$NGX7J?'$r;XDj$9$kJQ?t!#(B
-`skk-inline-show-face' $B$^$?$O(B
-`skk-treat-candidate-appearance-function' $B$GGX7J?'$,;XDj$5$l$F$$$J(B
-$B$$J8;z$KBP$7$F$N$_:nMQ$9$k!#(B"
+  "*$B%$%s%i%$%sI=<($9$kJQ498uJd$NGX7J?'$r;XDj$9$kJQ?t!#(B
+`skk-inline-show-face' $B$^$?$O(B `skk-treat-candidate-appearance-function' $B$G(B
+$BGX7J?'$,;XDj$5$l$F$$$J$$J8;z$KBP$7$F$N$_:nMQ$9$k!#(B"
   :type 'string
   :group 'skk-visual)
 
@@ -1400,14 +1399,12 @@ HENKAN-BUFFER, MIDASI, OKURIGANA, ENTRY $B$N(B 4 $B0z?t$rH<$J$C$F%3!<%k$5$l$k
   :group 'skk-henkan)
 
 (defcustom skk-delete-okuri-when-quit nil
-  "*Non-nil $B$G$"$l$PJQ49Cf$N(B \\[keyboard-quit] $B$GAw$j2>L>$r>C$7$F"&%b!<%I$KF~$k!#(B
-$BNc$($P!"(B
+  "*Non-nil $B$G$"$l$PJQ49Cf$N(B \\[keyboard-quit] $B$GAw$j2>L>$r>C$7$F"&%b!<%I(B
+$B$KF~$k!#(B
+  $BNc!K(B \"$B"&$J(B*$B$/(B -> $B"'5c$/(B -> \\[keyboard-quit] ->$B"&$J(B\"
 
-    \"$B"&$J(B*$B$/(B -> $B"'5c$/(B -> \\[keyboard-quit] ->$B"&$J(B\"
-
-nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#Nc$($P!"(B
-
-    \"$B"&$J(B*$B$/(B -> $B"'5c$/(B -> \\[keyboard-quit] -> $B"&$J$/(B\""
+nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#(B
+  $BNc!K(B \"$B"&$J(B*$B$/(B -> $B"'5c$/(B -> \\[keyboard-quit] -> $B"&$J$/(B\""
   :type 'boolean
   :group 'skk-henkan)
 
@@ -1478,7 +1475,7 @@ nil $B$G$"$l$P!"Nc$($P(B
 
 $B$N$h$&$K(B `skk-kakutei' $B$rD>@\!"4V@\$K%3!<%k$9$k$^$G(B ($B6gFIE@$rF~NO$7$?$j!"(B
 $B?7$?$J"&%b!<%I$KF~$C$?$j$9$k$H4V@\E*$K(B `skk-kakutei' $B$r%3!<%k$9$k(B) $B$O!"3NDj(B
-$B$7$J$$$N$G!"$=$N4V$O!"JQ498uJd$rA*$S$J$*$9$3$H$J$I$,2DG=!#(B
+$B$7$J$$$N$G!"$=$N4V$O!"JQ498uJd$rA*$SD>$9$3$H$J$I$,2DG=!#(B
 
 $B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
 $B$J$i$J$$!#(B"
@@ -1560,7 +1557,7 @@ SKK-JISYO.[SML] $B$NAw$j2>L>%(%s%H%j$O>e5-$N7A<0$K$J$C$F$$$J$$$N$G!"(B`skk-jis
 `skk-process-okuri-early' $B$NCM$,(B nil $B$J$i$P>e5-$N7A<0$G(B `skk-jisyo' $B$,(B
 $B:n$i$l$k!#(B
 
-Emacs 19 $B0J>e$J$i$P!"2<5-$N<0$rI>2A$9$k$3$H$G!"C18lEPO?$KF~$C$?$H$-$@$1(B
+$B2<5-$N<0$rI>2A$9$k$3$H$G!"C18lEPO?$KF~$C$?$H$-$@$1(B
 $B0l;~E*$K$3$N%*%W%7%g%s$rL58z$K$9$k$3$H$,$G$-$k!#(B
 
     (add-hook 'minibuffer-setup-hook
@@ -1688,9 +1685,9 @@ car $B$K!V<B:]$N%-!<F~NO$K$h$k$+$J(B prefix $BJ8;zNs!W!"(Bcdr $B$K!V(BSKK 
   :group 'skk-misc)
 
 (defcustom skk-keep-record t
-  "*Non-nil $B$G$"$l$P!"JQ49$K4X$9$k5-O?$r(B `skk-record-file' $B$K<h$k!#(B
-$B$?$@$7?tCM$G$"$l$P!"(B`skk-record-file' $B$r$=$N9T?t$h$jBg$-$/$7$J$$!#(B
-nil $B$G$"$l$P!"JQ49$K4X$9$k5-O?$r<h$i$J$$!#(B"
+  "*Non-nil $B$G$"$l$P!"JQ495Z$S8D?M<-=q$K4X$9$kE}7W$r(B `skk-record-file' $B$K<h$k!#(B
+$B?tCM$G$"$l$P!"(B`skk-record-file' $B$r$=$N9T?t$h$jBg$-$/$7$J$$!#(B
+nil $B$G$"$l$P!"JQ495Z$S8D?M<-=q$K4X$9$kE}7W$r<h$i$J$$!#(B"
   :type '(radio (integer :tag "$B9T?t$r;XDj(B")
 		(const :tag "$B%l%3!<%I%5%$%:@)8B$J$7(B" t)
 		(const :tag "$B5-O?$7$J$$(B" nil))
@@ -1699,8 +1696,8 @@ nil $B$G$"$l$P!"JQ49$K4X$9$k5-O?$r<h$i$J$$!#(B"
 (defcustom skk-record-file (if skk-user-directory
 			       (expand-file-name "record" skk-user-directory)
 			     (convert-standard-filename "~/.skk-record"))
-  "*$B8D?M<-=q$NE}7W$r<h$k%U%!%$%k!#(B
-$B<-=q%;!<%V$N;~9o!"C18l$NEPO??t!"3NDj$r9T$C$?2s?t!"3NDjN(!"A4BN$N8l?t$N(B
+  "*$BJQ495Z$S8D?M<-=q$K4X$9$kE}7W$r<h$k%U%!%$%k!#(B
+$B8D?M<-=q$rJ]B8$7$?;~9o!"C18l$NEPO??t!"3NDj$r9T$C$?2s?t!"3NDjN(!"A4BN$N8l?t$N(B
 $B>pJs$r<}$a$k!#(B"
   :type 'file
   :group 'skk-misc)
@@ -1734,8 +1731,8 @@ nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$
 
 ;;;###autoload
 (defcustom skk-preload nil
-  "Non-nil $B$J$i$P!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$^$9!#(B
-$B$3$l$O!"(BSKK $B%W%m%0%i%`$H<-=q$NFI$_9~$_$r(B Emacs $B5/F0;~$K:Q$^$;$k$3$H$K$h$j<B8=$7$F$$$^$9!#$=$N$?$a!"(BEmacs $B$N5/F0$=$N$b$N$OCY$/$J$j$^$9!#(B"
+  "*Non-nil $B$J$i$P!"(BEmacs $B5/F0;~$K(B SKK $B%W%m%0%i%`$H<-=q$NFI$_9~$_$r:Q$^$;$k!#(B
+Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$k!#(B"
   :type 'boolean
   :group 'skk-misc)
 
@@ -1829,7 +1826,7 @@ nil $B$J$i$P<+F0@_Dj$O$7$J$$(B ($B<+J,$G9%$-$J@_Dj$,$G$-$k(B)$B!#(B"
   :group 'skk-misc)
 
 (defcustom skk-status-indicator 'left
-  "*SKK $B$N>uBV$r%b!<%I%i%$%s$N$I$3$KI=<($9$k$+$r7h$a$k!#(B
+  "*SKK $B$N>uBV$r%b!<%I%i%$%s$N$I$N0LCV$KI=<($9$k$+$r7h$a$k!#(B
 left $B$G$"$l$P:8C<$KI=<($9$k!#(B
 $B$5$b$J$1$l$P%^%$%J!<%b!<%I$H$7$F$NI=<(K!$r<h$k!#(B"
   :type '(radio (const :tag "$B%b!<%I%i%$%s$N:8C<$KI=<((B" left)
@@ -1837,27 +1834,27 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
   :group 'skk-visual)
 
 (defcustom skk-latin-mode-string "SKK"
-  "*SKK $B$,%"%9%-!<%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
+  "*$B%"%9%-!<%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-visual)
 
 (defcustom skk-hiragana-mode-string "$B$+$J(B"
-  "*$B$+$J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
+  "*$B$+$J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-visual)
 
 (defcustom skk-katakana-mode-string "$B%+%J(B"
-  "*$B%+%J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
+  "*$B%+%J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-visual)
 
 (defcustom skk-jisx0208-latin-mode-string "$BA41Q(B"
-  "*$BA41Q%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
+  "*$BA41Q%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-visual)
 
 (defcustom skk-abbrev-mode-string "a$B$"(B"
-  "*SKK abbrev $B%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
+  "*SKK abbrev $B%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
   :type 'string
   :group 'skk-visual)
 
@@ -2150,8 +2147,9 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
   "SKK $B$,07$&J8;z=89g$N%j%9%H!#(BSKK $B=i2s5/F0;~$K@_Dj$5$l$k!#(B")
 
 (defvar skk-emacs-id nil
-  "$BJ#?t(B emacs $B$r<1JL$9$kJ8;zNs!#(B
-$B8D?M<-=q$rJ#?t$N(B emacs $B>e$G5/F0$5$l$F$$$k(B SKK $B$G6&M-$9$k$H$-$K;2>H$9$k!#(B")
+  "$BJ#?t$N(B emacs $B%W%m%;%9$r<1JL$9$kJ8;zNs!#(B
+$B$R$H$D$N8D?M<-=q%U%!%$%k$rJ#?t$N(B emacs $B>e$G5/F0$7$F$$$k(B SKK $B$G6&M-$9$k$H(B
+$B$-$K;2>H$9$k!#(B")
 
 (defvar skk-jisyo-update-vector nil
   "`skk-share-private-jisyo' $BM-8z;~$K<-=q%P%C%U%!99?7>pJs$rJ];}$9$k(B vector.

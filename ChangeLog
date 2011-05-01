@@ -1,9 +1,18 @@
 2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi (変換及び個人辞書に関する統計): 更新.
+
 	* skk-vars.el (skk-dcomp-multiple-activate, skk-gengo-alist) 
 	(skk-month-alist, skk-day-of-week-alist, skk-isearch-mode-enable) 
 	(skk-isearch-mode-string-alist, skk-isearch-start-mode) 
-	(skk-isearch-initial-mode-when-skk-mode-disabled): Update docstring.
+	(skk-isearch-initial-mode-when-skk-mode-disabled)
+	(skk-show-inline, skk-inline-show-face) 
+	(skk-inline-show-background-color, skk-delete-okuri-when-quit) 
+	(skk-kakutei-early, skk-henkan-okuri-strictly, skk-keep-record) 
+	(skk-record-file, skk-preload, skk-status-indicator) 
+	(skk-latin-mode-string, skk-hiragana-mode-string) 
+	(skk-katakana-mode-string, skk-jisx0208-latin-mode-string) 
+	(skk-abbrev-mode-string, skk-emacs-id): docstring を更新.
 
 2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

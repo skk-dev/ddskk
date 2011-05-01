@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/05/01 00:46:26 $
+@set UPDATED $Date: 2011/05/01 09:09:57 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7063,28 +7063,27 @@ DDSKK $B$G$O!"(BEmacs $B$N=*N;;~$KJQ495Z$S8D?M<-=q$K4X$9$kE}7W$r<h$C$F$$$^$9!
 $B$=$N7k2L$O(B $B%U%!%$%k(B @file{~/.skk-record} $B$KJ]B8$5$l$^$9!#J]B8$5$l$kFbMF(B
 $B$O0J2<$N$h$&$J7A<0$G$9!#(B
 
-@example
-@group
+@cartouche
 Sun Jul 28 09:38:59 1996  $BEPO?(B:   4  $B3NDj(B:  285  $B3NDjN((B:  98%  $B8l?t(B:  3042
-@end group
-@end example
+@end cartouche
 
-$B>e5-$N!V8l?t!W$NMs$O(B 1 $B9T$r(B 1 $B8l$H$7$F?t$($F$$$k$N$G!"(B1 $B$D$N8+=P$78l$KBP(B
-$B$7J#?t$N8uJd$r;}$C$F$$$k>l9g!"(B2 $B$DL\0J9_$N8uJd$rL5;k$7$F$$$^$9!#(B
-
+$B>e5-$N!V8l?t(B:$B!W$N?t$O!"(B 1 $B9T$r(B 1 $B8l$H$7$F?t$($F$$$^$9!#$=$N$?$a!"(B1 $B$D$N8+(B
+$B=P$78l$KBP$7$FJ#?t$N8uJd$r;}$C$F$$$k>l9g$O!"(B2 $B$DL\0J9_$N8uJd$rL5;k$7$F$$(B
+$B$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-record-file
 
 $BE}7W$N7k2L$rJ]B8$9$k%U%!%$%kL>$r;XDj$7$^$9!#(B
-$BJQ?t(B @code{skk-user-directory} $B$+$i$b@_Dj$,$G$-$^$9!#(B
 (@w{@pxref{$B@_Dj%U%!%$%k(B}})
+
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-keep-record
 
 $B$3$NJQ?t$NCM$r(B @code{nil} $B$K@_Dj$9$k$H!"K\@a$G@bL@$7$?E}7W5!G=$rL58z$K(B
-$B$7$^$9!#$?$@$7?tCM$G$"$l$P!"(B@code{skk-record-file} $B$r;XDj?tCM$N9T?t$h(B
+$B$7$^$9!#?tCM$r@_Dj$9$k$H!"(B@code{skk-record-file} $B$r;XDj?tCM$N9T?t$h(B
 $B$jBg$-$/$7$^$;$s!#(B
+
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-count-private-jisyo-candidates-exactly
@@ -7093,6 +7092,7 @@ Sun Jul 28 09:38:59 1996  $BEPO?(B:   4  $B3NDj(B:  285  $B3NDjN((B:  98% 
 $B6qBNE*$K$O!"(B 1 $B9T$r(B 1 $B8l$H$7$F?t$($k$N$G$O$J$/!"@53N$K8l?t$r?t$($^$9!#(B
 $B$J$*!"$=$NJ,;~4V$,$+$+$j$^$9!#$^$?!"$3$N>l9g$G$b(B @samp{[} $B$H(B @samp{]}
 $B$K0O$^$l$?Aw$j2>L>Kh$N%V%m%C%/7A<0Fb$O?t$($^$;$s!#(B
+
 @end defvr
 
 @cindex Menu Bars
