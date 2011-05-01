@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.353 2011/04/26 13:27:03 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.354 2011/05/01 00:20:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/04/26 13:27:03 $
+;; Last Modified: $Date: 2011/05/01 00:20:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -416,9 +416,9 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#
 
 (defcustom skk-aux-large-jisyo nil
   ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B
-  "*$B<-=q%5!<%P!<$,;H$($J$$;~$K!"Be$o$j$K8!:w$9$k<-=q!#(B
+  "*$B<-=q%5!<%P$,;H$($J$$;~$K!"Be$o$j$K8!:w$9$k<-=q!#(B
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
-Non-nil $B$G$"$l$P!"<-=q%5!<%P!<$,(B active $B$G$J$$;~$K!"(B
+Non-nil $B$G$"$l$P!"<-=q%5!<%P$,(B active $B$G$J$$;~$K!"(B
 $B;XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
   :type (if (and skk-running-gnu-emacs
 		 (= emacs-major-version 21))
@@ -457,9 +457,9 @@ DDSKK 14.2 $B$h$j(B ja-dic.el $B8!:w5!G=(B (skk-search-ja-dic) $B$,DI2C$5$l
   "*$B%a%$%s<-=q$NB>$K8!:w$9$k<-=q$N%j%9%H$r;XDj$9$k!#(B
 $B$$$:$l$N<-=q$b!"8+=P$78l$O%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
 SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"$k$,!"(B
-$B%a%$%s<-=q(B (SKK-JISYO.L $B$d%5!<%P$J$I(B) $B$NB>$K8!:w$7$?$$<-=q$N%U%!%$%kL>$N%j%9%H(B
-$B$r;XDj$9$k!#%U%!%$%kL>$NBe$o$j$K!"%U%!%$%kL>$H%3!<%I7O$N%Z%"$r;XDj$9$k$3$H$b(B
-$B$G$-$k!#<-=q$O;XDj$5$l$?=g$K8!:w$5$l$k!#(B"
+$B%a%$%s<-=q(B (SKK-JISYO.L $B$d<-=q%5!<%P$J$I(B) $B$NB>$K8!:w$7$?$$<-=q$N%U%!%$%kL>$N(B
+$B%j%9%H$r;XDj$9$k!#%U%!%$%kL>$NBe$o$j$K!"%U%!%$%kL>$H%3!<%I7O$N%Z%"$r;XDj$9$k(B
+$B$3$H$b$G$-$k!#<-=q$O;XDj$5$l$?=g$K8!:w$5$l$k!#(B"
   :type '(repeat (file :tag "$B<-=q%U%!%$%kL>(B"))
   :group 'skk-dictionary)
 
@@ -4514,24 +4514,24 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 
 ;;; skk-server.el related.
 (defcustom skk-server-host (or (getenv "SKKSERVER") "localhost")
-  "*$B<-=q%5!<%P!<$,5/F0$7$F$$$k%[%9%HL>Kt$O(B IP $B%"%I%l%9!#(B"
+  "*$B<-=q%5!<%P$,5/F0$7$F$$$k%[%9%HL>Kt$O(B IP $B%"%I%l%9!#(B"
   :type `(radio (string :tag "$B%[%9%HL>(B"
 			,(or (getenv "SKKSERVER") "localhost"))
 		(const nil))
   :group 'skk-server)
 
 (defcustom skk-server-prog (getenv "SKKSERV")
-  "*$B<-=q%5!<%P!<%W%m%0%i%`L>!#(B
+  "*$B<-=q%5!<%P%W%m%0%i%`L>!#(B
 $B%U%k%Q%9$G=q$/!#(B
 `skk-server-inhibit-startup-server' $B$,(B nil $B$N;~$K;2>H$5$l!"(B
 $B$3$N%W%m%0%i%`$,(B SKK $B$h$j5/F0$5$l$k!#(B"
-  :type '(radio (file :tag "$B<-=q%5!<%P!<L>(B")
+  :type '(radio (file :tag "$B<-=q%5!<%PL>(B")
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-file
   :group 'skk-server)
 
 (defcustom skk-server-jisyo (getenv "SKK_JISYO")
-  "*$B<-=q%5!<%P!<%W%m%0%i%`$KEO$9<-=q%U%!%$%kL>!#(B
+  "*$B<-=q%5!<%P%W%m%0%i%`$KEO$9<-=q%U%!%$%kL>!#(B
 $B%U%k%Q%9$G=q$/!#(B
 `skk-server-inhibit-startup-server' $B$,(B nil $B$N;~$K;2>H$5$l$k!#(B
 $B<-=q%U%!%$%k$N;XDjK!$O<-=q%5!<%P$K$h$j0[$J$k$N$GCm0U!#(B
@@ -4553,11 +4553,11 @@ Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
   :group 'skk-server)
 
 (defcustom skk-servers-list nil
-  "*$B<-=q%5!<%P!<Kh$N>pJs%j%9%H!#(B
+  "*$B<-=q%5!<%PKh$N>pJs%j%9%H!#(B
 
 $BJ#?t$N%[%9%H$GF0$$$F$$$k<-=q%5!<%P$K%"%/%;%9$G$-$k>l9g$K$O!"0J2<$N$h$&$K%j%9%H$N(B
-$B3FMWAG$K=g$K%[%9%HL>!"%U%k%Q%9$G$N<-=q%5!<%P!<L>!"<-=q%5!<%P!<$KEO$9<-=q%U%!%$%kL>!"(B
-$B<-=q%5!<%P!<$,;HMQ$9$k%]!<%HHV9f$r=q$-!"@_Dj$r$9$k$3$H$,$G$-$k!#(B
+$B3FMWAG$K=g$K%[%9%HL>!"%U%k%Q%9$G$N<-=q%5!<%PL>!"<-=q%5!<%P$KEO$9<-=q%U%!%$%kL>!"(B
+$B<-=q%5!<%P$,;HMQ$9$k%]!<%HHV9f$r=q$-!"@_Dj$r$9$k$3$H$,$G$-$k!#(B
 
    (setq skk-servers-list
          '((\"host1\" \"/path/to/skkserv\" \"/path/to/SKK-JISYO.L\" 1178)
@@ -4565,18 +4565,18 @@ Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
 
 $B$3$N>l9g!":G=i$K;XDj$7$?<-=q%5!<%P$K%"%/%;%9$G$-$J$/$J$k$H!"<+F0E*$K=g<!%j%9%H$K$"(B
 $B$k;D$j$N<-=q%5!<%P$K%"%/%;%9$9$k$h$&$K$J$k!#(B
-$B<-=q%5!<%P!<$N%G%U%)%k%H$N<-=q$*$h$S%]!<%HHV9f$r;HMQ$9$k>l9g$O(B nil $B$r;XDj$9$k$+!"(B
+$B<-=q%5!<%P$N%G%U%)%k%H$N<-=q$*$h$S%]!<%HHV9f$r;HMQ$9$k>l9g$O(B nil $B$r;XDj$9$k$+!"(B
 $B2?$b=q$+$J$$$GNI$$!#(B
 
-$B$J$*!"%f!<%6!<<+?H$K<B9T8"8B$N$J$$<-=q%5!<%P!<$r;XDj$9$k>l9g$O!"(B
+$B$J$*!"%f!<%6!<<+?H$K<B9T8"8B$N$J$$<-=q%5!<%P$r;XDj$9$k>l9g$O!"(B
 
    (setq skk-servers-list '((\"host1\") (\"host2\")))
 
 $B$N$h$&$K!"%[%9%HL>$@$1$r=q$/$3$H$,$G$-$k!#>e5-$N@_DjNc$G$O!"(Bhost1, host2 $B$K$*(B
-$B$1$k(B skkserv $B%5!<%S%9$N(B TCP $B@\B3$N3+;O$N$_;n$_!"<-=q%5!<%P!<$N5/F0$O;n$_$J$$!#(B"
+$B$1$k(B skkserv $B%5!<%S%9$N(B TCP $B@\B3$N3+;O$N$_;n$_!"<-=q%5!<%P$N5/F0$O;n$_$J$$!#(B"
   :type '(repeat
 	  (list (string :tag "$B%[%9%HL>(B")
-		(radio :tag "$B<-=q%5!<%P!<L>(B"
+		(radio :tag "$B<-=q%5!<%PL>(B"
 			file
 			(const :tag "$B;XDj$7$J$$(B" nil))
 		(radio :tag "$B<-=q%U%!%$%k(B"
@@ -4589,7 +4589,7 @@ Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
 
 (defcustom skk-server-report-response nil
   "*Non-nil $B$G$"$l$P!"<-=q%5!<%P$N1~Ez>u67$rJs9p$9$k!#(B
-$B6qBNE*$K$O!"JQ49;~$K<-=q%5!<%P!<$NAw=P$9$kJ8;z$r<u$1<h$k$^$G$K(B
+$B6qBNE*$K$O!"JQ49;~$K<-=q%5!<%P$NAw=P$9$kJ8;z$r<u$1<h$k$^$G$K(B
 `accept-process-output' $B$r2?2s<B9T$7$?$+$rJs9p$9$k!#(B"
   :type 'boolean
   :group 'skk-server)
@@ -4620,7 +4620,7 @@ Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
   :group 'skk-server)
 
 (defcustom skk-server-inhibit-startup-server t
-  "*Non-nil $B$G$"$l$P(B `call-process' $B$G$N<-=q%5!<%P!<5/F0$r6X;_$9$k!#(B"
+  "*Non-nil $B$G$"$l$P(B `call-process' $B$G$N<-=q%5!<%P5/F0$r6X;_$9$k!#(B"
   :type 'boolean
   :group 'skk-server)
 
@@ -4630,7 +4630,7 @@ Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
   :group 'skk-server)
 
 ;;(defvar skk-server-debug nil
-;;  "*Non-nil $B$G$"$l$P!"<-=q%5!<%P!<%W%m%0%i%`$r%G%#%P%C%0%b!<%I$G5/F0$9$k!#(B
+;;  "*Non-nil $B$G$"$l$P!"<-=q%5!<%P%W%m%0%i%`$r%G%#%P%C%0%b!<%I$G5/F0$9$k!#(B
 ;;$B%G%#%P%C%0!&%b!<%I$G(B skkserv $B$rAv$i$;$k$H!"$=$N$^$^(B foreground $B$GAv$j!"(B
 ;;$B%a%C%;!<%8$r=PNO$9$k!#%-!<%\!<%I$+$i3d$j$3$_$r$+$1$k$3$H$b$G$-$k!#(B")
 

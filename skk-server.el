@@ -1,4 +1,4 @@
-;;; skk-server.el --- 辞書サーバーのためのプログラム -*- coding: iso-2022-jp -*-
+;;; skk-server.el --- 辞書サーバのためのプログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996,
 ;;               1997, 1998, 1999, 2000, 2001
@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-server.el,v 1.50 2011/04/23 10:22:14 skk-cvs Exp $
+;; Version: $Id: skk-server.el,v 1.51 2011/05/01 00:20:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/04/23 10:22:14 $
+;; Last Modified: $Date: 2011/05/01 00:20:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -54,13 +54,13 @@ When called interactively, print version information."
    ((not (or skk-server-host
 	     skk-servers-list))
     (skk-error "Lack of host information of SKK server"
-	       "辞書サーバーのホスト情報がありません"))
+	       "辞書サーバのホスト情報がありません"))
    ((skk-server-live-p (skk-open-server))
     (let (v)
       (save-match-data
 	(with-current-buffer skkserv-working-buffer
 	  (erase-buffer)
-	  ;; 辞書サーバーのバージョンを得る。
+	  ;; 辞書サーバのバージョンを得る。
 	  (process-send-string skkserv-process "2")
 	  (while (eq (buffer-size) 0)
 	    (accept-process-output))
@@ -101,7 +101,7 @@ When called interactively, print version information."
 	  (while (and cont (skk-server-live-p))
 	    (accept-process-output)
 	    ;; XXX workaround
-	    ;; dbskkd-cdb や skksearch などの辞書サーバーを使って変換する
+	    ;; dbskkd-cdb や skksearch などの辞書サーバを使って変換する
 	    ;; 際に、2 秒ほど待たされることがある。どうやら応答待ちのループ
 	    ;; が負担になっているようで、多いときには数百〜最大で数十万回の
 	    ;; 応答待ちになることがある。skk-server-report-response を t に
@@ -121,7 +121,7 @@ When called interactively, print version information."
 		(setq cont nil))))
 	  (goto-char (point-min))
 	  (when skk-server-report-response
-	    (skk-message "辞書サーバーの応答を %d 回待ちました"
+	    (skk-message "辞書サーバの応答を %d 回待ちました"
 			 "Waited for server response %d times"
 			 count))
 	  (when (eq (following-char) ?1) ;?1
@@ -144,7 +144,7 @@ When called interactively, print version information."
 	(skk-search-jisyo-file file limit))))))
 
 (defun skk-open-server ()
-  "辞書サーバーと接続する。サーバープロセスを返す。"
+  "辞書サーバと接続する。サーバープロセスを返す。"
   (unless (skk-server-live-p)
     (setq skkserv-process (skk-open-server-1))
     (when (skk-server-live-p)
@@ -241,7 +241,7 @@ HOST が nil ならば `skk-server-host' を参照する。
       ;; skkserv の起動トライアルを繰り返す...?
       (while (> count 0)
 	(skk-message
-	 "%s の辞書サーバーが起動していません。起動します%s"
+	 "%s の辞書サーバが起動していません。起動します%s"
 	 "SKK SERVER on %s is not active, I will activate it%s"
 	 host (make-string count ?.))
 	(if (or (string= host (system-name))
@@ -266,14 +266,14 @@ HOST が nil ならば `skk-server-host' を参照する。
       ;;
       (cond
        ((skk-server-live-p process)
-	(skk-message "ホスト %s の辞書サーバーが起動しました"
+	(skk-message "ホスト %s の辞書サーバが起動しました"
 		     "SKK SERVER on %s is active now"
 		     skk-server-host)
 	(sit-for 1)
 	;; process を返り値とする
 	process)
        (t
-	(skk-message "%s の辞書サーバーを起動することができませんでした"
+	(skk-message "%s の辞書サーバを起動することができませんでした"
 		     "Could not activate SKK SERVER on %s"
 		     skk-server-host)
 	(sit-for 1)
@@ -303,7 +303,7 @@ non-nil であれば、加える。"
 
 ;;;###autoload
 (defun skk-disconnect-server ()
-  "辞書サーバーを切り離す。"
+  "辞書サーバを切り離す。"
   (when (and skk-server-host
 	     (skk-server-live-p))
     ;; disconnect server

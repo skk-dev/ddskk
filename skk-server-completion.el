@@ -130,7 +130,7 @@
 		(setq cont nil))))
 	  (goto-char (point-min))
 	  (when skk-server-report-response
-	    (skk-message "辞書サーバーの応答を %d 回待ちました"
+	    (skk-message "辞書サーバの応答を %d 回待ちました"
 			 "Waited for server response %d times"
 			 count))
 	  (when (eq (following-char) ?1) ;?1
