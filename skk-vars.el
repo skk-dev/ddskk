@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.354 2011/05/01 00:20:56 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.355 2011/05/01 05:14:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/01 00:20:56 $
+;; Last Modified: $Date: 2011/05/01 05:14:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3394,9 +3394,9 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-multiple-activate nil
-  "*Non-nil $B$G$"$l$PF0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B
-$B$3$NJQ?t$NCM$,4X?t$@$C$?>l9g!"$=$NI>2A7k2L$,(B non-nil $B$N;~$@$1Jd40$9$k!#(B
-$B$3$l$O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BXEmacs $B$G$OF0:n$7$J$$!#(B"
+  "*Non-nil $B$G$"$l$P!"F0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B
+$B4X?t$G$"$l$P!"$=$NI>2A7k2L$,(B non-nil $B$N;~$@$1F0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B
+$BF0E*Jd40$N8uJd$NJ#?tI=<($O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BXEmacs $B$G$OF0:n$7$J$$!#(B"
   :type '(radio (const :tag "always on" t)
 		(const :tag "off" nil)
 		(sexp :tag "$BG$0U$N%k!<%k(B"))
@@ -3438,7 +3438,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
     (meiji "$BL@<#(B" "M"))
   "*$B859f$rI=5-$7$?J8;zNs$N(B alist$B!#(B
 car $B$O859f$r%m!<%^;zI=5-$7$?(B symbol$B!#(B
-cdr $B$O859fI=5-$N(B string $B$+$i$J$k%j%9%H!#(B"
+cdr $B$O859fI=5-$N(B string $B$+$i@.$k%j%9%H!#(B"
   :type '(repeat (list (symbol :tag "roman")
 		       (string :tag "$BF|K\8l(B")
 		       (string :tag "Initial")))
@@ -3451,7 +3451,7 @@ cdr $B$O859fI=5-$N(B string $B$+$i$J$k%j%9%H!#(B"
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
     ("Nov" "11" "November") ("Dec" "12" "Dezember"))
   "*$B7nL>$N1Q8lI=5-$H$=$NB>$NI=5-K!$NO"A[%j%9%H!#(B
-$B3F(B cons cell $B$N(B car $B$O(B Emacs $B$NI8=`4X?t(B `current-time-string' $B$,JV$97A<0!#(B
+$B3F(B cons cell $B$N(B car $B$O(B Emacs $BI8=`4X?t(B `current-time-string' $B$,JV$97A<0!#(B
 cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
   :type '(repeat (list (string :tag "English")
 		       (string :tag "$BF|K\<0(B")
@@ -3461,8 +3461,8 @@ cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
 (defcustom skk-day-of-week-alist
   '(("Sun" "$BF|(B" "So") ("Mon" "$B7n(B" "Mo") ("Tue" "$B2P(B" "Di") ("Wed" "$B?e(B" "Mi")
     ("Thu" "$BLZ(B" "Do") ("Fri" "$B6b(B" "Fr") ("Sat" "$BEZ(B" "Sa"))
-  "*$BMKF|$N1Q8lI=5-$H$=$NB>$NL>$NI=5-K!$NO"A[%j%9%H!#(B
-$B3F(B cons cell $B$N(B car $B$O(B Emacs $B$NI8=`4X?t(B `current-time-string' $B$,JV$97A<0!#(B
+  "*$BMKF|$N1Q8lI=5-$H$=$NB>$NI=5-K!$NO"A[%j%9%H!#(B
+$B3F(B cons cell $B$N(B car $B$O(B Emacs $BI8=`4X?t(B `current-time-string' $B$,JV$97A<0!#(B
 cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
   :type '(repeat (list (string :tag "English")
 		       (string :tag "$BF|K\8l(B")
@@ -3523,7 +3523,7 @@ nil $B$G$"$l$P!"859fI=<($9$k!#(B"
 
 ;;; skk-isearch.el related.
 (defcustom skk-isearch-mode-enable t
-  "*Non-nil $B$G$"$l$P!"%$%s%/%j%a%s%?%k%5!<%A$G(B skk-isearch $B$rMxMQ$9$k!#(B
+  "*Non-nil $B$G$"$l$P!"%$%s%/%j%a%s%?%k!&%5!<%A$G(B skk-isearch $B$rMxMQ$9$k!#(B
 migemo $B$rMxMQ$7$?$$>l9g$J$I$K$O(B nil $B$K@_Dj$9$k!#(B
 $BJ;MQ$9$k$N$G$"$l$P(B `skk-isearch-start-mode' $B$r(B `latin' $B$K$9$k$N$,NI$$!#(B"
   :type 'boolean
@@ -3538,23 +3538,20 @@ migemo $B$rMxMQ$7$?$$>l9g$J$I$K$O(B nil $B$K@_Dj$9$k!#(B
   ;;`latin' or nil.
   ;;PROMPT-STRING is a string used in prompt to indicates current mode of
   ;;skk for skk-isearch. "
-  "*isearch $B;~$KF~NO%b!<%I$K=>$$=P$9%W%m%s%W%H;XDj$N$?$a$NO"A[%j%9%H!#(B
+  "*$B%$%s%/%j%a%s%?%k!&%5!<%A;~$N%W%m%s%W%HI=<($N$?$a$NO"A[%j%9%H!#(B
 $B3FMWAG$O!"(B
-
   (MODE-SYMBOL . PROMPT-STRING)
-
 $B$H$$$&(B cons cell$B!#(B
-MODE-SYMBOL $B$OF~NO%b!<%I$rI=$o$9%7%s%\%k$G!"(B
-$B2<5-$N$$$:$l$+$r;XDj$9$k!#(B
 
+MODE-SYMBOL $B$OF~NO%b!<%I$rI=$o$9%7%s%\%k$G!"2<5-$N$$$:$l$+$r;XDj$9$k!#(B
    $B$+$J%b!<%I!'(B `hiragana'
    $B%+%J%b!<%I!'(B `katakana'
    $BA41Q%b!<%I!'(B `jisx0208-latin'
    $B%"%9%-!<%b!<%I!'(B `latin'
    Abbrev $B%b!<%I!'(B `abbrev'
+   nil : SKK $B%b!<%I%*%U(B
 
-nil $B$O!"(BSKK $B%b!<%I%*%U$rI=$o$9!#(B
-PROMPT-STRING $B$O!"3:Ev$N(B SKK $B%b!<%I$KBP$7=P$9%W%m%s%W%H$NJ8;zNs!#(B"
+PROMPT-STRING $B$O!"F~NO%b!<%I$K1~$8$F%W%m%s%W%HI=<($9$kJ8;zNs!#(B"
   :type '(list
 	  (cons (const :tag "$B$+$J%b!<%I(B" hiragana)
 		(string :tag "$B%W%m%s%W%H(B"))
@@ -3579,10 +3576,10 @@ PROMPT-STRING $B$O!"3:Ev$N(B SKK $B%b!<%I$KBP$7=P$9%W%m%s%W%H$NJ8;zNs!#(B"
   ;;If `hiragana', `hirakana' or `kana' -> hira kana search.
   ;;If `jisx0208-latin' or `eiji', perform zenkaku eiji (i.e. JIS X0208
   ;;alphabet) search."
-  "*$B%+%l%s%H%P%C%U%!$G(B isearch $B$r9T$&:]$NF~NO%b!<%I!#(B
+  "*$B%+%l%s%H%P%C%U%!$G%$%s%/%j%a%s%?%k!&%5!<%A$r9T$&:]$NF~NO%b!<%I!#(B
 `skk-isearch-use-previous-mode' $B$,(B nil $B$N>l9g$N$_M-8z!#(B
-isearch $B$r9T$&>l9g!">o$K$3$NJQ?t$G;XDj$7$?F~NO%b!<%I$,;HMQ$5$l$k(B ($B%f!<%6!<$,(B
-$BL@<(E*$KJQ99$r9T$&$3$H$O2D(B)$B!#(B
+$B%$%s%/%j%a%s%?%k!&%5!<%A$r9T$&>l9g!">o$K$3$NJQ?t$G;XDj$7$?F~NO%b!<%I$,;HMQ$5$l$k(B
+ ($B%f!<%6!<$,L@<(E*$KJQ99$r9T$&$3$H$O2D(B)$B!#(B
 $B2<5-$N$$$:$l$+$N%7%s%\%k$G;XDj$9$k!#(B
 
    nil:  $B%+%l%s%H%P%C%U%!$G(B SKK $B%b!<%I$,5/F0$5$l$F$$$l$P$=$N%b!<%I!"(B
@@ -3605,7 +3602,7 @@ isearch $B$r9T$&>l9g!">o$K$3$NJQ?t$G;XDj$7$?F~NO%b!<%I$,;HMQ$5$l$k(B ($B%f!<%
 (defcustom skk-isearch-initial-mode-when-skk-mode-disabled 'latin
   ;;  "*Symbol indicates the mode to use as initial mode for skk-isearch when
   ;;skk is turned off in the current buffer."
-  "*SKK $B%b!<%I$,%*%U$N%P%C%U%!$G!":G=i$K(B isearch $B$r9T$&:]$NF~NO%b!<%I!#(B"
+  "*SKK $B%b!<%I$,%*%U$N%P%C%U%!$G!":G=i$K%$%s%/%j%a%s%?%k!&%5!<%A$r9T$&:]$NF~NO%b!<%I!#(B"
   :type '(radio (const :tag "$B%"%9%-!<%b!<%I(B" latin)
 		(const :tag "$B$+$J%b!<%I(B" hiragana)
 		(const :tag "$BA41Q%b!<%I(B" jisx0208-latin))

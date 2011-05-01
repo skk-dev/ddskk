@@ -1,5 +1,12 @@
 2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-dcomp-multiple-activate, skk-gengo-alist) 
+	(skk-month-alist, skk-day-of-week-alist, skk-isearch-mode-enable) 
+	(skk-isearch-mode-string-alist, skk-isearch-start-mode) 
+	(skk-isearch-initial-mode-when-skk-mode-disabled): Update docstring.
+
+2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* doc/skk.texi: skk-share-private-jisyo の記述を追加.
 
 	* skk-vars.el: docstring 内の用語「辞書サーバー」を「辞書サーバ」へ
