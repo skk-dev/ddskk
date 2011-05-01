@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/04/26 13:27:03 $
+@set UPDATED $Date: 2011/05/01 00:46:26 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7048,6 +7048,12 @@ New ~/.skk-jisyo will be 11bytes smaller.  Save anyway?(yes or no)
 @defvr {ユーザ変数} skk-save-jisyo-instantly
 この変数が @code{non-nil} であれば、単語を登録するたび（削除するたび）に
 個人辞書を保存します。
+@end defvr
+
+@defvr {ユーザ変数} skk-share-private-jisyo
+@code{Non-nil} であれば、複数の SKK による個人辞書の共有を考慮して辞書を
+更新する。 SKK 起動後にこの変数を変更した場合は @kbd{M-x skk-restart} で
+反映させること。
 @end defvr
 
 @node 変換及び個人辞書に関する統計

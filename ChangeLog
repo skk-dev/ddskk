@@ -1,5 +1,7 @@
 2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: skk-share-private-jisyo の記述を追加.
+
 	* skk-vars.el: docstring 内の用語「辞書サーバー」を「辞書サーバ」へ
 	統一.
 	* skk-server.el: 同上.
