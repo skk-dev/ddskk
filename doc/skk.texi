@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/05/01 09:09:57 $
+@set UPDATED $Date: 2011/05/03 01:44:08 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2890,6 +2890,19 @@ context-skk にて「プログラミングモード」とみなすメジャーモードは、変数
 @key{SHIFT} + @key{TAB} が発行する key event です。Emacs の種類／実行環境
 によって異なります。
 @end defvr
+
+@defun skk-comp-lisp-symbol &optional PREDICATE
+この関数をリスト @code{skk-completion-prog-list} へ追加すると、Lisp symbol 名
+の補完を行います。
+
+@lisp
+@group
+(add-to-list 'skk-completion-prog-list
+             '(skk-comp-lisp-symbol) t)
+@end group
+@end lisp
+
+@end defun
 
 @node 補完しながら変換
 @subsection 補完しながら変換

@@ -1,3 +1,9 @@
+2011-05-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: skk-comp-lisp-symbol の記述を追加.
+
+	* skk-comp.el (skk-comp-lisp-symbol): docstring を更新.
+
 2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (変換及び個人辞書に関する統計): 更新.

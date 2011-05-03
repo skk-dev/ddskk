@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.85 2010/12/25 09:51:55 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.86 2011/05/03 01:44:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/12/25 09:51:55 $
+;; Last Modified: $Date: 2011/05/03 01:44:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -502,7 +502,11 @@ NOT-ABBREV-ONLY を指定する事で常に有効となる。"
   "Lisp symbol 名で補完する。
 PREDICATE に引数 1 個の関数を指定すれば、PREDICATE を満たすシンボル
 に限って補完する。PREDICATE には `fboundp', `boundp', `commandp'
-などが指定できる。指定しなければ関数または変数に限って補完する。"
+などが指定できる。指定しなければ関数または変数に限って補完する。
+
+skk-completion-prog-list へ追加すると有効となる。
+\(add-to-list 'skk-completion-prog-list
+	     '\(skk-comp-lisp-symbol\) t\)"
   (cond (skk-abbrev-mode
 	 (when skk-comp-first
 	   (let (temp)
