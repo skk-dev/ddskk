@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.86 2011/05/03 01:44:08 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.87 2011/05/03 06:48:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/03 01:44:08 $
+;; Last Modified: $Date: 2011/05/03 06:48:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -462,7 +462,7 @@
 (defun skk-search-smart-find (&optional path not-abbrev-only
 					without-char-maybe)
   "`smart-find'$B$rMxMQ$7$?JQ49$r9T$J$&!#(B
-SKK abbrev $B%b!<%I$K$F!"1QJ8;z(B + skk-completion-search-char (~)$B$G(B
+SKK abbrev $B%b!<%I$K$F!"1QJ8;z(B + `skk-completion-search-char' (~)$B$G(B
 $BL$40%9%Z%k$r;XDj$7$FJQ49$9$k$H!"Jd408uJd$,JQ498uJd$H$7$F=P8=$9$k!#(B
 $B%G%U%)%k%H$G$O(B SKK abbrev $B%b!<%I$N$_$GM-8z$J5!G=$@$,!"(B
 NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B"
@@ -504,7 +504,7 @@ PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$rK~$?$9%7%s%\
 $B$K8B$C$FJd40$9$k!#(BPREDICATE $B$K$O(B `fboundp', `boundp', `commandp'
 $B$J$I$,;XDj$G$-$k!#;XDj$7$J$1$l$P4X?t$^$?$OJQ?t$K8B$C$FJd40$9$k!#(B
 
-skk-completion-prog-list $B$XDI2C$9$k$HM-8z$H$J$k!#(B
+`skk-completion-prog-list' $B$XDI2C$9$k$HM-8z$H$J$k!#(B
 \(add-to-list 'skk-completion-prog-list
 	     '\(skk-comp-lisp-symbol\) t\)"
   (cond (skk-abbrev-mode
@@ -534,10 +534,15 @@ skk-completion-prog-list $B$XDI2C$9$k$HM-8z$H$J$k!#(B
 PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$rK~$?$9%7%s%\%k(B
 $B$K8B$C$FJd40$9$k!#(BPREDICATE $B$K$O(B `fboundp', `boundp', `commandp'
 $B$J$I$,;XDj$G$-$k!#;XDj$7$J$1$l$P4X?t$^$?$OJQ?t$K8B$C$FJd40$9$k!#(B
-SKK abbrev $B%b!<%I$K$F!"1QJ8;z(B + skk-completion-search-char (~)$B$G(B
+SKK abbrev $B%b!<%I$K$F!"1QJ8;z(B + `skk-completion-search-char' (~)$B$G(B
 $BL$40%9%Z%k$r;XDj$7$FJQ49$9$k$H!"Jd408uJd$,JQ498uJd$H$7$F=P8=$9$k!#(B
 $B%G%U%)%k%H$G$O(B SKK abbrev $B%b!<%I$N$_$GM-8z$J5!G=$@$,!"(B
-NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B"
+NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B
+
+
+$B@_DjNc(B
+\(add-to-list 'skk-search-prog-list
+	     '\(skk-search-lisp-symbol\) t\)"
   (when (and (or not-abbrev-only
 		 skk-abbrev-mode))
     (skk-completion-search `((skk-comp-lisp-symbol ',predicate))

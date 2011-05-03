@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.172 2011/04/18 11:43:06 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.173 2011/05/03 06:48:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/04/18 11:43:06 $
+;; Last Modified: $Date: 2011/05/03 06:48:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -612,9 +612,9 @@
 ;;;###autoload
 (defun skk-annotation-add (&optional no-previous-annotation)
   "最後に確定した語に annotation を付ける。
-既に付けられている annotation があればそれを編集バッファに出力する。
-no-previous-annotation を指定 (\\[universal-argument] \\[skk-annotation-add])
-すると既に付けられている annotation を編集バッファに出力しない。"
+既に annotation が付けられていれば、それを編集バッファに出力する。
+NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-add])
+すると、既に付けられている annotation を編集バッファに出力しない。"
   (interactive "P")
   (save-match-data
     (skk-kakutei)
@@ -1484,8 +1484,8 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 							      start end)
   "選択領域またはポイント位置の単語を Wikipedia/Wikitionary で調べる。
 領域が選択されていなければ単語の始めと終わりを推測して調べる。
-調べた結果を skk-annotation-show-as-message が Non-nil であればエコーエリアに、
-nil であれば別 window に表示する。"
+調べた結果を `skk-annotation-show-as-message' が Non-nil であればエコーエリア
+に、nil であれば別 window に表示する。"
   (interactive (cons (prefix-numeric-value current-prefix-arg)
 		     (cond
 		      ((skk-region-active-p)

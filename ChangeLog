@@ -2,22 +2,26 @@
 
 	* doc/skk.texi: skk-comp-lisp-symbol の記述を追加.
 
-	* skk-comp.el (skk-comp-lisp-symbol): docstring を更新.
+	* skk-comp.el (skk-comp-lisp-symbol, skk-search-smart-find) 
+	(skk-search-lisp-symbol): docstring を更新.
+
+	* skk-annotation.el (skk-annotation-add)
+	(skk-annotation-wikipedia-region-or-at-point): docstring を更新.
 
 2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (変換及び個人辞書に関する統計): 更新.
 
-	* skk-vars.el (skk-dcomp-multiple-activate, skk-gengo-alist) 
-	(skk-month-alist, skk-day-of-week-alist, skk-isearch-mode-enable) 
-	(skk-isearch-mode-string-alist, skk-isearch-start-mode) 
+	* skk-vars.el (skk-dcomp-multiple-activate, skk-gengo-alist)
+	(skk-month-alist, skk-day-of-week-alist, skk-isearch-mode-enable)
+	(skk-isearch-mode-string-alist, skk-isearch-start-mode)
 	(skk-isearch-initial-mode-when-skk-mode-disabled)
-	(skk-show-inline, skk-inline-show-face) 
-	(skk-inline-show-background-color, skk-delete-okuri-when-quit) 
-	(skk-kakutei-early, skk-henkan-okuri-strictly, skk-keep-record) 
-	(skk-record-file, skk-preload, skk-status-indicator) 
-	(skk-latin-mode-string, skk-hiragana-mode-string) 
-	(skk-katakana-mode-string, skk-jisx0208-latin-mode-string) 
+	(skk-show-inline, skk-inline-show-face)
+	(skk-inline-show-background-color, skk-delete-okuri-when-quit)
+	(skk-kakutei-early, skk-henkan-okuri-strictly, skk-keep-record)
+	(skk-record-file, skk-preload, skk-status-indicator)
+	(skk-latin-mode-string, skk-hiragana-mode-string)
+	(skk-katakana-mode-string, skk-jisx0208-latin-mode-string)
 	(skk-abbrev-mode-string, skk-emacs-id): docstring を更新.
 
 2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
@@ -50,7 +54,7 @@
 
 	* skk-version.el (skk-version): Ditto.
 
-	* skk.el (skk-toggle-kutouten, skk-count-jisyo-candidates) 
+	* skk.el (skk-toggle-kutouten, skk-count-jisyo-candidates)
 	(skk-count-jisyo-candidates-original): Ditto.
 
 2011-04-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
@@ -92,7 +96,7 @@
 
 2011-04-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: Add skk-study-switch-current-theme, 
+	* doc/skk.texi: Add skk-study-switch-current-theme,
 	skk-study-remove-theme, skk-study-copy-theme.
 
 2011-04-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
