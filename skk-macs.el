@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.162 2011/04/29 21:12:50 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.163 2011/05/03 10:40:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/04/29 21:12:50 $
+;; Last Modified: $Date: 2011/05/03 10:40:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -898,7 +898,7 @@ BUFFER defaults to the current buffer."
     (string< str1 str2))))
 
 (defsubst skk-string<= (str1 str2)
-  "STR1 と STR2 とを比較して、string< か string= であれば、t を返す。"
+  "STR1 と STR2 とを比較して、`string<' か `string=' であれば、t を返す。"
   (or (skk-string< str1 str2)
       (string= str1 str2)))
 

@@ -1,5 +1,17 @@
 2011-05-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-inhibit-ja-dic-search, skk-jisyo-save-count) 
+	(skk-jisyo-updated, skk-kuten-touten-alist): docstring を更新.
+
+	* skk-tankan.el (skk-tankan-search, skk-tankan-bushu-compread):
+	docstring を更新.
+
+	* skk-server.el (skk-search-server-1): docstring を更新.
+
+	* skk-macs.el (skk-string<=): docstring を更新.
+
+	* skk-kcode.el (skk-make-string): docstring を更新.
+
 	* skk-kakasi.el (skk-hurigana-1): インデントを整形.
 	(skk-romaji-region, skk-romaji-message): docstring を更新.
 

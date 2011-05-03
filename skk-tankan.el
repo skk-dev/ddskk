@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.43 2011/04/18 11:43:06 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.44 2011/05/03 10:40:36 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/04/18 11:43:06 $
+;; Last Modified: $Date: 2011/05/03 10:40:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1599,7 +1599,7 @@ METHOD が 2 であれば総画数として検索を実行する。
        ))))
 
 (defun skk-tankan-bushu-compread ()
-  "配列 skk-tankan-radical-vector の内容を一覧表示して選択する。
+  "配列 `skk-tankan-radical-vector' の内容を一覧表示して選択する。
 戻り値は数値である。"
   ;; Memo
   ;;   skk-tankan-radical-vector は固定値（不変）なので、
@@ -1700,8 +1700,8 @@ METHOD が 2 であれば総画数として検索を実行する。
 
 ;;;###autoload
 (defun skk-tankan-search (func &rest args)
-  "変数 skk-henkan-key で指定された「読み」に基づいて単漢字変換を実行する。
-通常は skk-search-prog-list の１要素として次の形式で指定される。
+  "変数 `skk-henkan-key' で指定された「読み」に基づいて単漢字変換を実行する。
+通常は `skk-search-prog-list' の１要素として次の形式で指定される。
 '(skk-tankan-search 'skk-search-jisyo-file
                     skk-large-jisyo 10000))"
   (when (string-match (format "%s$" (regexp-quote

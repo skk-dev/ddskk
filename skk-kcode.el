@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.77 2011/01/09 22:39:49 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.78 2011/05/03 10:40:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/01/09 22:39:49 $
+;; Last Modified: $Date: 2011/05/03 10:40:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -128,7 +128,7 @@
 	       char))))
 
 (defun skk-make-string (n1 n2)
-  "skk-kcode-charset が示す文字集合に従って n1 n2 に対応する STRING を返す"
+  "`skk-kcode-charset' が示す文字集合に従って n1 n2 に対応する STRING を返す"
   (char-to-string (skk-make-char skk-kcode-charset n1 n2)))
 
 ;; tiny function, but called once in skk-kcode.el.  So not make it inline.

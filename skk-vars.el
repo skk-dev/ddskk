@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.356 2011/05/01 09:09:57 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.357 2011/05/03 10:40:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/01 09:09:57 $
+;; Last Modified: $Date: 2011/05/03 10:40:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -446,8 +446,8 @@ Non-nil $B$G$"$l$P!"<-=q%5!<%P$,(B active $B$G$J$$;~$K!"(B
 GNU Emacs $B$K$O(B SKK-JISYO.L $B$r85$KJQ49$5$l$?(B ja-dic.el $B$H$$$&<-=q$,IUB0$9$k!#(B
 $B$3$l$rMQ$$$FDL>o$N$+$J4A;zJQ49(B ($BAw$j$"$j!"Aw$j$J$7!"@\F,<-!"@\Hx<-(B) $B$,2DG=(B
 $B$G$"$k(B ($B$?$@$7(B SKK-JISYO.L $B$K$h$k1Q?tJQ49!"?tCMJQ49$J$I$O$G$-$J$$(B)$B!#(B
-DDSKK 14.2 $B$h$j(B ja-dic.el $B8!:w5!G=(B (skk-search-ja-dic) $B$,DI2C$5$l$?!#(B
-$B$3$N(B skk-search-ja-dic $B$O!"(B `skk-large-jisyo'$B!"(B`skk-aux-large-jisyo'$B!"(B
+DDSKK 14.2 $B$h$j!V(Bja-dic.el $B8!:w5!G=(B `skk-search-ja-dic'$B!W$,DI2C$5$l$?!#(B
+$B$3$N(B `skk-search-ja-dic' $B$O!"(B `skk-large-jisyo'$B!"(B`skk-aux-large-jisyo'$B!"(B
 `skk-cdb-large-jisyo' $B5Z$S(B `skk-server-host' $B$NA4$F$,L58z$J>l9g$KM-8z$H$J$k(B
 $B$,!"$"$i$f$k>lLL$G6X;_$7$?$$>l9g$O!"$3$NJQ?t$r(B Non-nil $B$K@_Dj$9$k!#(B"
   :type 'boolean
@@ -602,7 +602,8 @@ SKK $B5/F08e$KJQ99$7$?>l9g$O(B \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
 (defcustom skk-jisyo-save-count 50
   "*$B?tCM$G$"$l$P!"$=$N2s?t$@$18D?M<-=q$,99?7$5$l$?$H$-$K<+F0E*$K%;!<%V$9$k!#(B
 nil $B$G$"$l$P!"8D?M<-=q$N%*!<%H%;!<%V$r9T$o$J$$!#(B
-SKK $B5/F08e$G!"JQ?t(B `skk-share-private-jisyo' $B$,(B non-nil $B$J>l9g$K(B skk-jisyo-save-count $B$NCM$rJQ99$7$?>l9g$O(B
+SKK $B5/F08e$G!"JQ?t(B `skk-share-private-jisyo' $B$,(B non-nil $B$J>l9g(B
+$B$K(B `skk-jisyo-save-count' $B$NCM$rJQ99$7$?>l9g$O(B
 \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
   :type '(radio (integer :tag "$B@0?t(B" 50)
 		(const :tag "$B;XDj$7$J$$(B" nil))
@@ -695,7 +696,7 @@ Non-nil $B$J$i$P!"@\F,<-$^$?$O@\Hx<-F~NO$N:]!"@\F,<-$^$?$O@\Hx<-$H7k9g$7$?(B
   :group 'skk-private)
 
 (defvar skk-jisyo-updated nil
-  "skk-henkan-in-minibuff ($BC18lEPO?(B) $B$5$l$l$P(B t $B$K!#(Bskk-update-jisyo $B$G;2>H$7$F$$$k!#(B")
+  "`skk-henkan-in-minibuff' ($BC18lEPO?(B) $B$5$l$l$P(B t $B$K!#(B`skk-update-jisyo' $B$G;2>H$7$F$$$k!#(B")
 
 (defcustom skk-rom-kana-base-rule-list
   '(("a" nil ("$B%"(B" . "$B$"(B"))
@@ -1179,7 +1180,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
    ($B%7%s%\%k(B . ($B6gE@$rI=$o$9J8;zNs(B . $BFIE@$rI=$o$9J8;zNs(B))
 
 $B$H$$$&(B cons cell$B!#%7%s%\%k$NItJ,$O!"(B`jp' $B$b$7$/$O(B `en' $B!#(B
-M-x skk-toggle-kutouten $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
+\\[skk-toggle-kutouten] $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
 $B%G%U%)%k%H$N6gFIE@$N%?%$%W$O!"JQ?t(B `skk-kutouten-type' $B$G;XDj$9$k!#(B"
   :type '(repeat (cons (radio :tag "$BAH$N$J$^$((B"
 			      (const jp)
@@ -1786,7 +1787,8 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
 
 (defcustom skk-j-mode-function-key-usage nil
   "*$B%-!<%\!<%I>e$N(B F1 $B!A(B F10 $B%-!<$N;H$$J}$r;XDj$9$k!#(B
-`conversion' $B$J$i$P!"(Bskk-search-prog-list-{1-9,0} $B$r<B9T$G$-$k!#(B
+`conversion' $B$J$i$P!"(B`skk-search-prog-list-1' $B!A(B `skk-search-prog-list-0' $B$r(B
+$B<B9T$G$-$k!#(B
 `kanagaki' $B$J$i$P!"$+$J%-!<%\!<%IF~NOMQ$N@_Dj$K$J$k!#(B
 nil $B$J$i$P<+F0@_Dj$O$7$J$$(B ($B<+J,$G9%$-$J@_Dj$,$G$-$k(B)$B!#(B"
   :type '(radio (const :tag "$B@Z$jBX$(JQ495!G=MQ@_Dj(B" conversion)
