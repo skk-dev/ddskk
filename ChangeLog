@@ -1,5 +1,8 @@
 2011-05-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-gadget.el (skk-clock): docstring を更新.
+	(skk-ad-to-gengo-1): typo (Unkown -> Unknown).
+
 	* doc/skk.texi: skk-comp-lisp-symbol の記述を追加.
 
 	* skk-comp.el (skk-comp-lisp-symbol, skk-search-smart-find) 

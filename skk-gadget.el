@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.44 2010/11/29 11:25:43 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.45 2011/05/03 07:26:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/29 11:25:43 $
+;; Last Modified: $Date: 2011/05/03 07:26:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -189,13 +189,12 @@ AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
 quit $B$9$k$H$=$N;~E@$NF|;~$r8uJd$H$7$FA^F~$9$k!#(B
 quit $B$7$?$H$-$K5/F0$7$F$+$i$N7P2a;~4V$r%_%K%P%C%U%!$KI=<($9$k!#(B
 interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B SKK $B$N<-=q(B
-$B$K2C$(!"(B\"/clock\"+ SPC $B$GJQ49$9$k$3$H$K$h$C$F$b5/F02D!#(BC-g $B$G;_$^$k!#(B
-$B<B9TJQ49$G5/F0$7$?>l9g$O!"(BC-g $B$7$?;~E@$N;~E@$NF|;~$rA^F~$9$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B KAKUTEI-WHEN-QUIT $B$,(B non-nil $B$G$"$l$P(B C-g $B$7$?$H$-$K3N(B
-$BDj$9$k!#(B
+$B$K2C$(!"(B\"/clock\"+ SPC $B$GJQ49$9$k$3$H$K$h$C$F$b5/F02D!#(B\\[keyboard-quit] $B$G;_$^$k!#(B
+$B<B9TJQ49$G5/F0$7$?>l9g$O!"(B\\[keyboard-quit] $B$7$?;~E@$N;~E@$NF|;~$rA^F~$9$k!#(B
+$B%*%W%7%g%J%k0z?t$N(B KAKUTEI-WHEN-QUIT $B$,(B non-nil $B$G$"$l$P(B \\[keyboard-quit] $B$7$?$H$-$K3NDj$9$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B TIME-SIGNAL $B$,(B non-nil $B$G$"$l$P!"(BNTT $B$N;~JsIw$K(B ding $B$9$k!#(B
 $B$=$l$>$l(B \"clock /(skk-clock nil t)/\" $B$N$h$&$J%(%s%H%j$r<-=q$KA^F~$9$l$PNI$$!#(B
-skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#(B"
+`skk-date-ad' $B$H(B `skk-number-style' $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#(B"
   (interactive "*")
   (let ((start (current-time))
 	end
@@ -303,7 +302,7 @@ skk-date-ad $B$H(B skk-number-style $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#
   ;; if NOT-GANNEN is non-nil and calculated year is 1,
   ;; return a value of which cdr is "$B85(B" (string).
   (when (>= 1866 ad)
-    (skk-error "$BJ,$j$^$;$s(B" "Unkown year"))
+    (skk-error "$BJ,$j$^$;$s(B" "Unknown year"))
   (cons (cond ((>= 1911 ad)
 	       (setq ad (- ad 1867))
 	       (cdr (assq 'meiji skk-gengo-alist)))
