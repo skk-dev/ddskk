@@ -1,5 +1,8 @@
 2011-05-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kakasi.el (skk-hurigana-1): インデントを整形.
+	(skk-romaji-region, skk-romaji-message): docstring を更新.
+
 	* skk-gadget.el (skk-clock): docstring を更新.
 	(skk-ad-to-gengo-1): typo (Unkown -> Unknown).
 

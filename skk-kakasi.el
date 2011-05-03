@@ -5,9 +5,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.34 2010/11/28 21:03:28 skk-cvs Exp $
+;; Version: $Id: skk-kakasi.el,v 1.35 2011/05/03 09:44:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/28 21:03:28 $
+;; Last Modified: $Date: 2011/05/03 09:44:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -190,7 +190,9 @@
 (defun skk-hurigana-1 (start end all &optional katakana)
   ;; skk-hurigana-* $B$N%5%V%k!<%A%s!#(B
   ;; $B%*%W%7%g%J%k0z?t$N(B KATAKANA $B$,(B non-nil $B$G$"$l$P!"%+%?%+%J$XJQ49$9$k!#(B
-  (let ((arg (if katakana '("-JK" "-f") '("-JH" "-f"))))
+  (let ((arg (if katakana
+		 '("-JK" "-f")
+	       '("-JH" "-f"))))
     (when skk-allow-spaces-newlines-and-tabs
       (setq arg (cons "-c" arg)))
     (when all
@@ -205,7 +207,7 @@
    \"$B4A;z$+$J:.$8$jJ8$r%m!<%^;z$KJQ49(B\"
     -> \"  kan'zi  kana  ma  ziri  bun'  woro-ma  zi ni hen'kan' \"
 
-skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$KJQ99$9(B
+`skk-romaji-*-by-hepburn' $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$KJQ99$9(B
 $B$k!#Nc$($P!"(B\"$B$7(B\" $B$O%X%\%s<0$G$O(B \"shi\" $B$@$,!"71Na<0$G$O(B \"si\" $B$H$J$k!#(B"
   (interactive "*r")
   (let ((arg '("-Ha" "-Ka" "-Ja" "-Ea" "-ka" "-s"))
@@ -227,7 +229,7 @@ skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$K
    \"$B4A;z$+$J:.$8$jJ8$r%m!<%^;z$KJQ49(B\"
     -> \"  kan'zi  kana  ma  ziri  bun'  woro-ma  zi ni hen'kan' \"
 
-skk-romaji-*-by-hepburn $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$KJQ99$9(B
+`skk-romaji-*-by-hepburn' $B$,(B nil $B$G$"$l$P!"%m!<%^;z$X$NJQ49MM<0$r71Na<0$KJQ99$9(B
 $B$k!#Nc$($P!"(B\"$B$7(B\" $B$O%X%\%s<0$G$O(B \"shi\" $B$@$,!"71Na<0$G$O(B \"si\" $B$H$J$k!#(B"
   (interactive "r")
   (let ((arg '("-Ha" "-Ka" "-Ja" "-Ea" "-ka" "-s")))
