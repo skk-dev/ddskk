@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.553 2011/04/23 10:22:14 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.554 2011/05/04 06:50:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/04/23 10:22:14 $
+;; Last Modified: $Date: 2011/05/04 06:50:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -588,45 +588,45 @@ dependent."
   "モードラインへのステータス表示を準備する。"
   (setq skk-indicator-alist (skk-make-indicator-alist))
   (case skk-status-indicator
-   (left
-    (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
-      (setq-default mode-line-format
-		    (append '("" skk-modeline-input-mode)
-			    (default-value 'mode-line-format))))
-    (skk-loop-for-buffers (buffer-list)
-      (when (and (listp mode-line-format)
-		 (skk-local-variable-p 'mode-line-format)
-		 (null (memq 'skk-modeline-input-mode mode-line-format)))
-	(setq mode-line-format
-	      (append '("" skk-modeline-input-mode) mode-line-format))))
-    (when skk-icon
-      (unless (memq 'skk-icon (default-value 'mode-line-format))
-	(setq-default mode-line-format
-		      (append '("" skk-icon)
-			      (default-value 'mode-line-format))))
-      (skk-loop-for-buffers (buffer-list)
-	(when (and (listp mode-line-format)
-		   (skk-local-variable-p 'mode-line-format)
-		   (null (memq 'skk-icon mode-line-format)))
-	  (setq mode-line-format (append '("" skk-icon) mode-line-format)))))
-    (force-mode-line-update t))
-   ;;
-   (t
-    (when (and (listp mode-line-format)
-	       (equal (car mode-line-format) "")
-	       (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
-      ;; for skk-restart.
-      (setq-default mode-line-format
-		    (nthcdr 2 mode-line-format)))
+    (left
+     (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
+       (setq-default mode-line-format
+		     (append '("" skk-modeline-input-mode)
+			     (default-value 'mode-line-format))))
+     (skk-loop-for-buffers (buffer-list)
+       (when (and (listp mode-line-format)
+		  (skk-local-variable-p 'mode-line-format)
+		  (null (memq 'skk-modeline-input-mode mode-line-format)))
+	 (setq mode-line-format
+	       (append '("" skk-modeline-input-mode) mode-line-format))))
+     (when skk-icon
+       (unless (memq 'skk-icon (default-value 'mode-line-format))
+	 (setq-default mode-line-format
+		       (append '("" skk-icon)
+			       (default-value 'mode-line-format))))
+       (skk-loop-for-buffers (buffer-list)
+	 (when (and (listp mode-line-format)
+		    (skk-local-variable-p 'mode-line-format)
+		    (null (memq 'skk-icon mode-line-format)))
+	   (setq mode-line-format (append '("" skk-icon) mode-line-format)))))
+     (force-mode-line-update t))
+    ;;
+    (t
+     (when (and (listp mode-line-format)
+		(equal (car mode-line-format) "")
+		(eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
+       ;; for skk-restart.
+       (setq-default mode-line-format
+		     (nthcdr 2 mode-line-format)))
 
-    (skk-loop-for-buffers (buffer-list)
-      (when (and (listp mode-line-format)
-		 (equal (car mode-line-format) "")
-		 (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
-	;; for skk-restart.
-	(setq mode-line-format (nthcdr 2 mode-line-format))))
-    (setq-default skk-modeline-input-mode "")
-    (add-minor-mode 'skk-mode 'skk-modeline-input-mode))))
+     (skk-loop-for-buffers (buffer-list)
+       (when (and (listp mode-line-format)
+		  (equal (car mode-line-format) "")
+		  (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
+	 ;; for skk-restart.
+	 (setq mode-line-format (nthcdr 2 mode-line-format))))
+     (setq-default skk-modeline-input-mode "")
+     (add-minor-mode 'skk-mode 'skk-modeline-input-mode))))
 
 (defun skk-setup-emulation-commands (commands emulation)
   (let ((map (if (and (boundp 'overriding-local-map)
@@ -1730,70 +1730,70 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
   "`skk-henkan' のサブルーチン。"
   (let (new-word)
     (case (skk-henkan-count)
-     (0
-      (let ((prog-list-length (when (numberp skk-kakutei-search-prog-limit)
-				(length skk-current-search-prog-list))))
-	(while (and skk-current-search-prog-list
-		    (not new-word))
-	  (setq skk-henkan-list (skk-nunion skk-henkan-list
-					    (skk-search)))
-	  (skk-henkan-list-filter)
-	  (setq new-word (skk-get-current-candidate)))
-	;; 変換候補が一つしか無い時の確定変換用チェック
-	(when (and (or (eq skk-kakutei-when-unique-candidate t)
-		       (cond (skk-abbrev-mode
-			      (and (listp skk-kakutei-when-unique-candidate)
-				   (memq 'abbrev
-					 skk-kakutei-when-unique-candidate)))
-			     (skk-henkan-okurigana
-			      (and (listp skk-kakutei-when-unique-candidate)
-				   (memq 'okuri-ari
-					 skk-kakutei-when-unique-candidate)))
-			     (t
-			      ;; 送り無しのみを特別扱いしていた古い仕様に対応
-			      (or (eq 'okuri-nasi
-				      skk-kakutei-when-unique-candidate)
-				  (memq 'okuri-nasi
-					skk-kakutei-when-unique-candidate)))))
-		   (= (length skk-henkan-list) 1)
-		   (not skk-undo-kakutei-flag))
-	  (while (and skk-current-search-prog-list
+      (0
+       (let ((prog-list-length (when (numberp skk-kakutei-search-prog-limit)
+				 (length skk-current-search-prog-list))))
+	 (while (and skk-current-search-prog-list
+		     (not new-word))
+	   (setq skk-henkan-list (skk-nunion skk-henkan-list
+					     (skk-search)))
+	   (skk-henkan-list-filter)
+	   (setq new-word (skk-get-current-candidate)))
+	 ;; 変換候補が一つしか無い時の確定変換用チェック
+	 (when (and (or (eq skk-kakutei-when-unique-candidate t)
+			(cond (skk-abbrev-mode
+			       (and (listp skk-kakutei-when-unique-candidate)
+				    (memq 'abbrev
+					  skk-kakutei-when-unique-candidate)))
+			      (skk-henkan-okurigana
+			       (and (listp skk-kakutei-when-unique-candidate)
+				    (memq 'okuri-ari
+					  skk-kakutei-when-unique-candidate)))
+			      (t
+			       ;; 送り無しのみを特別扱いしていた古い仕様に対応
+			       (or (eq 'okuri-nasi
+				       skk-kakutei-when-unique-candidate)
+				   (memq 'okuri-nasi
+					 skk-kakutei-when-unique-candidate)))))
+		    (= (length skk-henkan-list) 1)
+		    (not skk-undo-kakutei-flag))
+	   (while (and skk-current-search-prog-list
+		       (or (not (numberp skk-kakutei-search-prog-limit))
+			   (< (- prog-list-length
+				 (length skk-current-search-prog-list))
+			      skk-kakutei-search-prog-limit))
+		       (<= (length skk-henkan-list) 1))
+	     (setq skk-henkan-list (skk-nunion skk-henkan-list
+					       (skk-search)))
+	     (skk-henkan-list-filter))
+	   (when (and (= (length skk-henkan-list) 1)
 		      (or (not (numberp skk-kakutei-search-prog-limit))
-			  (< (- prog-list-length
-				(length skk-current-search-prog-list))
-			     skk-kakutei-search-prog-limit))
-		      (<= (length skk-henkan-list) 1))
-	    (setq skk-henkan-list (skk-nunion skk-henkan-list
-					      (skk-search)))
-	    (skk-henkan-list-filter))
-	  (when (and (= (length skk-henkan-list) 1)
-		     (or (not (numberp skk-kakutei-search-prog-limit))
-			 (<= (- prog-list-length
-				(length skk-current-search-prog-list))
-			     skk-kakutei-search-prog-limit)))
-	    (setq skk-kakutei-henkan-flag t)))
-	;; skk-henkan-list-filter を通した後は念の為に再取得
-	(setq new-word (skk-get-current-candidate))
-	(when (and new-word
-		   (not skk-undo-kakutei-flag)
-		   skk-kakutei-henkan-flag)
-	  ;; found the unique candidate in kakutei jisyo
-	  (setq this-command 'skk-kakutei-henkan
-		skk-kakutei-flag t))))
-     (t
-      ;; 変換回数が 1 以上のとき。
-      (setq new-word (skk-get-current-candidate))
-      (unless new-word
-	;; 新しい候補を見つけるか、skk-current-search-prog-list が空にな
-	;; るまで skk-search を連続してコールする。
-	(while (and skk-current-search-prog-list (not new-word))
-	  (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
-	  (skk-henkan-list-filter)
-	  (setq new-word (skk-get-current-candidate))))
-      (when (and new-word
-		 (> (skk-henkan-count) 3))
-	;; show candidates in minibuffer
-	(setq new-word (skk-henkan-show-candidates)))))
+			  (<= (- prog-list-length
+				 (length skk-current-search-prog-list))
+			      skk-kakutei-search-prog-limit)))
+	     (setq skk-kakutei-henkan-flag t)))
+	 ;; skk-henkan-list-filter を通した後は念の為に再取得
+	 (setq new-word (skk-get-current-candidate))
+	 (when (and new-word
+		    (not skk-undo-kakutei-flag)
+		    skk-kakutei-henkan-flag)
+	   ;; found the unique candidate in kakutei jisyo
+	   (setq this-command 'skk-kakutei-henkan
+		 skk-kakutei-flag t))))
+      (t
+       ;; 変換回数が 1 以上のとき。
+       (setq new-word (skk-get-current-candidate))
+       (unless new-word
+	 ;; 新しい候補を見つけるか、skk-current-search-prog-list が空にな
+	 ;; るまで skk-search を連続してコールする。
+	 (while (and skk-current-search-prog-list (not new-word))
+	   (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
+	   (skk-henkan-list-filter)
+	   (setq new-word (skk-get-current-candidate))))
+       (when (and new-word
+		  (> (skk-henkan-count) 3))
+	 ;; show candidates in minibuffer
+	 (setq new-word (skk-henkan-show-candidates)))))
     new-word))
 
 (defun skk-get-current-candidate (&optional noconv)
@@ -1996,21 +1996,21 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 					       skk-undo)
 					     skk-j-mode-map)
 		     (case loop
-		      (0
-		       ;; skk-henkan-show-candidates を呼ぶ前の
-		       ;; 状態に戻す。
-		       (skk-set-henkan-count 4)
-		       (skk-unread-event
-			(character-to-event
-			 (aref (car (where-is-internal
-				     'skk-previous-candidate
-				     skk-j-mode-map))
-			       0)))
-		       ;; skk-henkan まで一気に throw する。
-		       (throw 'unread nil))
-		      (t
-		       ;; 一つ前の候補群をエコーエリアに表示する。
-		       (setq reverse t))))
+		       (0
+			;; skk-henkan-show-candidates を呼ぶ前の
+			;; 状態に戻す。
+			(skk-set-henkan-count 4)
+			(skk-unread-event
+			 (character-to-event
+			  (aref (car (where-is-internal
+				      'skk-previous-candidate
+				      skk-j-mode-map))
+				0)))
+			;; skk-henkan まで一気に throw する。
+			(throw 'unread nil))
+		       (t
+			;; 一つ前の候補群をエコーエリアに表示する。
+			(setq reverse t))))
 		    ((eq char skk-annotation-toggle-display-char)
 		     (skk-annotation-toggle-display-p))
 		    ((skk-key-binding-member key skk-quit-commands
@@ -2489,35 +2489,35 @@ auto に設定するとユーザに確認しない。
 	   pair)
        (skk-save-point
 	(case (skk-henkan-count)
-	 (0
-	  (when skk-okuri-char
-	    ;; roman prefix for okurigana should be removed.
-	    (setq skk-henkan-key (substring skk-henkan-key 0 -1)))
-	  (when skk-katakana
-	    (setq skk-henkan-key
-		  (skk-hiragana-to-katakana skk-henkan-key)))
-	  (skk-set-henkan-count -1)
-	  (setq skk-henkan-in-minibuff-flag nil
-		skk-henkan-list nil
-		skk-henkan-okurigana nil
-		skk-okuri-char nil
-		skk-okuri-index-min -1
-		skk-okuri-index-max -1
-		skk-okurigana nil
-		skk-prefix "")
-	  (when (skk-numeric-p)
-	    (skk-num-initialize))
-	  ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert され
-	  ;; る skk-henkan-key に何故か Overlay がかかってしまう。
-	  (when skk-use-face
-	    (skk-henkan-face-off))
-	  (delete-region skk-henkan-start-point skk-henkan-end-point)
-	  (goto-char skk-henkan-end-point)
-	  (insert-and-inherit skk-henkan-key)
-	  (skk-change-marker-to-white))
-	 (t
-	  (skk-set-henkan-count (1- (skk-henkan-count)))
-	  (setq pair (skk-insert-new-word (skk-get-current-candidate))))))
+	  (0
+	   (when skk-okuri-char
+	     ;; roman prefix for okurigana should be removed.
+	     (setq skk-henkan-key (substring skk-henkan-key 0 -1)))
+	   (when skk-katakana
+	     (setq skk-henkan-key
+		   (skk-hiragana-to-katakana skk-henkan-key)))
+	   (skk-set-henkan-count -1)
+	   (setq skk-henkan-in-minibuff-flag nil
+		 skk-henkan-list nil
+		 skk-henkan-okurigana nil
+		 skk-okuri-char nil
+		 skk-okuri-index-min -1
+		 skk-okuri-index-max -1
+		 skk-okurigana nil
+		 skk-prefix "")
+	   (when (skk-numeric-p)
+	     (skk-num-initialize))
+	   ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert され
+	   ;; る skk-henkan-key に何故か Overlay がかかってしまう。
+	   (when skk-use-face
+	     (skk-henkan-face-off))
+	   (delete-region skk-henkan-start-point skk-henkan-end-point)
+	   (goto-char skk-henkan-end-point)
+	   (insert-and-inherit skk-henkan-key)
+	   (skk-change-marker-to-white))
+	  (t
+	   (skk-set-henkan-count (1- (skk-henkan-count)))
+	   (setq pair (skk-insert-new-word (skk-get-current-candidate))))))
        ;;
        (if mark
 	   (progn
@@ -2673,91 +2673,91 @@ WORD で確定する。"
 	converted kakutei-word)
     (when skk-henkan-mode
       (case skk-henkan-mode
-       (active
-	(setq kakutei-word
-	      ;; 確定辞書の語で確定したときは、辞書にその語を書き込む必要もな
-	      ;; いし、更新する必要もないと思っていたが、補完を行なうときは、
-	      ;; 個人辞書を参照する (確定辞書は参照しない) ので、多少資源と時
-	      ;; 間を無駄にしても、個人辞書に確定辞書のエントリを書き込んで更
-	      ;; 新もしておく。
-	      (or word (skk-get-current-candidate 'noconv)))
-	(when (and kakutei-word
-		   (skk-update-jisyo-p kakutei-word))
-	  (skk-update-jisyo kakutei-word)
-	  ;; 接尾辞・接頭辞に関する処理
-	  (cond
-	   ((not skk-learn-combined-word)
-	    ;; ユーザが希望しない限り何の処理もしない。
-	    (setq skk-after-prefix nil))
-	   ((and skk-after-prefix
-		 (not (string-match "^[^\000-\177]+>$" skk-henkan-key)))
-	    ;; このバッファにおいて、接頭辞に続く入力が進行中。
-	    (let* ((history (cdr skk-kakutei-history))
-		   (list1 (car skk-kakutei-history)) ; (りよう 利用)
-		   (list2 (catch 'list ; (さい> 再)
-			    (while history
-			      (if (eq (nth 2 list1) (nth 2 (car history)))
-				  ;; 同じバッファだったら
-				  (throw 'list (car history))
-				(setq history (cdr history))))))
-		   (list1-word (car (skk-treat-strip-note-from-word
-				     (nth 1 list1))))
-		   (list2-word (car (skk-treat-strip-note-from-word
-				     (nth 1 list2))))
-		   skk-henkan-key comb-word)
-	      (when (and (stringp list2-word)
-			 (string-match "^[^\000-\177]+>$" (car list2))
-			 (skk-save-point
-			  (ignore-errors
-			    (goto-char (- skk-henkan-start-point
-					  (length list1-word)))
-			    (looking-at list2-word))))
-		(setq skk-henkan-key
-		      (concat (substring (car list2)
-					 0
-					 (1- (length (car list2))))
-			      (car list1)) ; さいりよう
-		      comb-word (concat list2-word list1-word)) ; 再利用
-		(skk-update-jisyo comb-word))
-	      (setq skk-after-prefix nil)))
-	   ((and (stringp (caar skk-kakutei-history))
-		 (string-match "^>[^\000-\177]+$" (caar skk-kakutei-history)))
-	    ;; 今回の確定が接尾辞だった場合、前回の確定と今回の接尾辞を
-	    ;; 合わせた語を辞書登録する。
-	    (let* ((history (cdr skk-kakutei-history))
-		   (list1 (car skk-kakutei-history)) ; (>てき 的)
-		   (list2 (catch 'list ; (かんどう 感動)
-			    (while history
-			      (if (eq (nth 2 list1) (nth 2 (car history)))
-				  ;; 同じバッファだったら
-				  (throw 'list (car history))
-				(setq history (cdr history))))))
-		   (list1-word (car (skk-treat-strip-note-from-word
-				     (nth 1 list1))))
-		   (list2-word (car (skk-treat-strip-note-from-word
-				     (nth 1 list2))))
-		   skk-henkan-key comb-word)
-	      (when (stringp list2-word)
-		(setq skk-henkan-key
-		      (concat (car list2)
-			      (substring (car list1) 1)) ; かんどうてき
-		      comb-word (concat list2-word list1-word)) ; 感動的
-		(skk-update-jisyo comb-word)))))
-	  ;;
-	  (when (skk-numeric-p)
-	    (setq converted (skk-get-current-candidate))
-	    (skk-num-update-jisyo kakutei-word converted))))
-       (t
-	;; ▽モードで確定した場合。便宜的に現在のポイントまでを見出し語を扱い
-	;; して履歴を更新する。
-	(when (and (> skk-kakutei-history-limit 0)
-		   (< skk-henkan-start-point (point))
-		   (skk-save-point
-		    (goto-char skk-henkan-start-point)
-		    (eq (skk-what-char-type) 'hiragana)))
-	  (skk-update-kakutei-history
-	   (buffer-substring-no-properties
-	    skk-henkan-start-point (point))))))
+	(active
+	 (setq kakutei-word
+	       ;; 確定辞書の語で確定したときは、辞書にその語を書き込む必要もな
+	       ;; いし、更新する必要もないと思っていたが、補完を行なうときは、
+	       ;; 個人辞書を参照する (確定辞書は参照しない) ので、多少資源と時
+	       ;; 間を無駄にしても、個人辞書に確定辞書のエントリを書き込んで更
+	       ;; 新もしておく。
+	       (or word (skk-get-current-candidate 'noconv)))
+	 (when (and kakutei-word
+		    (skk-update-jisyo-p kakutei-word))
+	   (skk-update-jisyo kakutei-word)
+	   ;; 接尾辞・接頭辞に関する処理
+	   (cond
+	    ((not skk-learn-combined-word)
+	     ;; ユーザが希望しない限り何の処理もしない。
+	     (setq skk-after-prefix nil))
+	    ((and skk-after-prefix
+		  (not (string-match "^[^\000-\177]+>$" skk-henkan-key)))
+	     ;; このバッファにおいて、接頭辞に続く入力が進行中。
+	     (let* ((history (cdr skk-kakutei-history))
+		    (list1 (car skk-kakutei-history)) ; (りよう 利用)
+		    (list2 (catch 'list ; (さい> 再)
+			     (while history
+			       (if (eq (nth 2 list1) (nth 2 (car history)))
+				   ;; 同じバッファだったら
+				   (throw 'list (car history))
+				 (setq history (cdr history))))))
+		    (list1-word (car (skk-treat-strip-note-from-word
+				      (nth 1 list1))))
+		    (list2-word (car (skk-treat-strip-note-from-word
+				      (nth 1 list2))))
+		    skk-henkan-key comb-word)
+	       (when (and (stringp list2-word)
+			  (string-match "^[^\000-\177]+>$" (car list2))
+			  (skk-save-point
+			   (ignore-errors
+			     (goto-char (- skk-henkan-start-point
+					   (length list1-word)))
+			     (looking-at list2-word))))
+		 (setq skk-henkan-key
+		       (concat (substring (car list2)
+					  0
+					  (1- (length (car list2))))
+			       (car list1)) ; さいりよう
+		       comb-word (concat list2-word list1-word)) ; 再利用
+		 (skk-update-jisyo comb-word))
+	       (setq skk-after-prefix nil)))
+	    ((and (stringp (caar skk-kakutei-history))
+		  (string-match "^>[^\000-\177]+$" (caar skk-kakutei-history)))
+	     ;; 今回の確定が接尾辞だった場合、前回の確定と今回の接尾辞を
+	     ;; 合わせた語を辞書登録する。
+	     (let* ((history (cdr skk-kakutei-history))
+		    (list1 (car skk-kakutei-history)) ; (>てき 的)
+		    (list2 (catch 'list ; (かんどう 感動)
+			     (while history
+			       (if (eq (nth 2 list1) (nth 2 (car history)))
+				   ;; 同じバッファだったら
+				   (throw 'list (car history))
+				 (setq history (cdr history))))))
+		    (list1-word (car (skk-treat-strip-note-from-word
+				      (nth 1 list1))))
+		    (list2-word (car (skk-treat-strip-note-from-word
+				      (nth 1 list2))))
+		    skk-henkan-key comb-word)
+	       (when (stringp list2-word)
+		 (setq skk-henkan-key
+		       (concat (car list2)
+			       (substring (car list1) 1)) ; かんどうてき
+		       comb-word (concat list2-word list1-word)) ; 感動的
+		 (skk-update-jisyo comb-word)))))
+	   ;;
+	   (when (skk-numeric-p)
+	     (setq converted (skk-get-current-candidate))
+	     (skk-num-update-jisyo kakutei-word converted))))
+	(t
+	 ;; ▽モードで確定した場合。便宜的に現在のポイントまでを見出し語を扱い
+	 ;; して履歴を更新する。
+	 (when (and (> skk-kakutei-history-limit 0)
+		    (< skk-henkan-start-point (point))
+		    (skk-save-point
+		     (goto-char skk-henkan-start-point)
+		     (eq (skk-what-char-type) 'hiragana)))
+	   (skk-update-kakutei-history
+	    (buffer-substring-no-properties
+	     skk-henkan-start-point (point))))))
       (when (and window-system skk-show-tooltip)
 	(skk-tooltip-hide))
       (when skk-mode
@@ -4390,16 +4390,16 @@ WORD が共有辞書になければ、プライベート辞書の辞書エントリから削除する。"
 	      ;; あれば、words2 の最後方と) words4 の先頭の "]" を削除。
 	      (let* ((len (length words2))
 		     (last2 (case len
-			     (0 nil)
-			     (1 (list nil (car words2)))
-			     (t (nthcdr (- (length words2) 2)
-					words2)))))
+			      (0 nil)
+			      (1 (list nil (car words2)))
+			      (t (nthcdr (- (length words2) 2)
+					 words2)))))
 		;; words2 の最後方は常に "[送り仮名" とは限らない。
 		(when (and last2 (string= (nth 1 last2)
 					  (concat "[" okurigana)))
 		  (case len
-		   (1 (setq words2 nil))
-		   (t (setcdr last2 nil))))
+		    (1 (setq words2 nil))
+		    (t (setcdr last2 nil))))
 		;; words4 の先頭は常に "]"。
 		(setq words4 (cdr words4)))))))
 	 (t
@@ -4773,14 +4773,12 @@ SKK 辞書の候補として正しい形に整形する。"
 引数の START と END は数字でもマーカーでも良い。"
   (interactive "*r\nP")
   (when vcontract
-    (skk-search-and-replace
-     start end "う゛"
-     #'(lambda (matched)
-	 nil "ヴ")))
-  (skk-search-and-replace
-   start end "[ぁ-ん]+"
-   #'(lambda (matched)
-       (skk-hiragana-to-katakana matched))))
+    (skk-search-and-replace start end "う゛"
+			    #'(lambda (matched)
+				nil "ヴ")))
+  (skk-search-and-replace start end "[ぁ-ん]+"
+			  #'(lambda (matched)
+			      (skk-hiragana-to-katakana matched))))
 
 (defun skk-hiragana-region (start end &optional vexpand)
   "領域のカタカナをひらがなに変換する。
@@ -4790,31 +4788,28 @@ SKK 辞書の候補として正しい形に整形する。"
 カタカナとしては扱われない。"
   (interactive "*r\nP")
   (when vexpand
-    (skk-search-and-replace
-     start end "ヴ"
-     #'(lambda (matched)
-	 nil "う゛")))
-  (skk-search-and-replace
-   start end "[ァ-ン]+"
-   #'(lambda (matched)
-       (skk-katakana-to-hiragana matched))))
+    (skk-search-and-replace start end "ヴ"
+			    #'(lambda (matched)
+				nil "う゛")))
+  (skk-search-and-replace start end "[ァ-ン]+"
+			  #'(lambda (matched)
+			      (skk-katakana-to-hiragana matched))))
 
 (defun skk-jisx0208-latin-region (start end)
   "領域の ascii 文字を対応する全角英文字に変換する。"
   (interactive "*r")
-  (skk-search-and-replace
-   start end "[ -~]"
-   #'(lambda (matched)
-       (aref skk-default-jisx0208-latin-vector (string-to-char matched)))))
+  (skk-search-and-replace start end "[ -~]"
+			  #'(lambda (matched)
+			      (aref skk-default-jisx0208-latin-vector
+				    (string-to-char matched)))))
 
 (defun skk-latin-region (start end)
   "領域の全角英文字を対応する ascii 文字に変換する。"
   (interactive "*r")
-  (skk-search-and-replace
-   start end "\\cj"
-   #'(lambda (matched)
-       (or (skk-jisx0208-to-ascii matched)
-	   matched))))
+  (skk-search-and-replace start end "\\cj"
+			  #'(lambda (matched)
+			      (or (skk-jisx0208-to-ascii matched)
+				  matched))))
 
 (defun skk-search-and-replace (start end regexp func)
   (let (matched replace)
@@ -4847,43 +4842,43 @@ SKK 辞書の候補として正しい形に整形する。"
 
 (defun skk-henkan-skk-region-by-func (func &optional arg)
   "`skk-henkan-start-point' と `skk-henkan-end-point' の間の文字列を変換する。
-変換可能かどうかのチェックをした後に ARGS を引数として FUNC を適用し、
+変換可能かどうかのチェックをした後に ARG を引数として FUNC を適用し、
 `skk-henkan-start-point' と `skk-henkan-end-point' の間の文字列を変換する。"
   (skk-with-point-move
    (case skk-henkan-mode
-    (active
-     nil)
-    (on
-     (skk-set-marker skk-henkan-end-point (point))
-     (when (and (> skk-kakutei-history-limit 0)
-		(< skk-henkan-start-point (point))
-		(skk-save-point
-		 (goto-char skk-henkan-start-point)
-		 (eq (skk-what-char-type) 'hiragana)))
-       (skk-update-kakutei-history
-	(buffer-substring-no-properties
-	 skk-henkan-start-point (point))))
-     ;; 変換可能かどうかの最終チェック
-     (when (skk-get-prefix skk-current-rule-tree)
-       (skk-error "入力途中の仮名プレフィックスがあります"
-		  "There remains a kana prefix"))
+     (active				;▼モード
+      nil)
+     (on				;▽モード
+      (skk-set-marker skk-henkan-end-point (point))
+      (when (and (> skk-kakutei-history-limit 0)
+		 (< skk-henkan-start-point (point))
+		 (skk-save-point
+		  (goto-char skk-henkan-start-point)
+		  (eq (skk-what-char-type) 'hiragana)))
+	(skk-update-kakutei-history
+	 (buffer-substring-no-properties
+	  skk-henkan-start-point (point))))
+      ;; 変換可能かどうかの最終チェック
+      (when (skk-get-prefix skk-current-rule-tree)
+	(skk-error "入力途中の仮名プレフィックスがあります"
+		   "There remains a kana prefix"))
 
-     (when (< (point) skk-henkan-start-point)
-       (skk-error "カーソルが変換開始地点より前にあります"
-		  "Henkan end point must be after henkan start point"))
+      (when (< (point) skk-henkan-start-point)
+	(skk-error "カーソルが変換開始地点より前にあります"
+		   "Henkan end point must be after henkan start point"))
 
-     (when (and (not skk-allow-spaces-newlines-and-tabs)
-		(skk-save-point
-		 (beginning-of-line)
-		 (> (point) skk-henkan-start-point)))
-       (skk-error "変換キーに改行が含まれています"
-		  "Henkan key may not contain a line feed"))
-     ;;
-     (apply func skk-henkan-start-point skk-henkan-end-point
-	    (if arg (list arg) nil))
-     (skk-kakutei))
-    (t
-     (skk-emulate-original-map arg)))))
+      (when (and (not skk-allow-spaces-newlines-and-tabs)
+		 (skk-save-point
+		  (beginning-of-line)
+		  (> (point) skk-henkan-start-point)))
+	(skk-error "変換キーに改行が含まれています"
+		   "Henkan key may not contain a line feed"))
+      ;;
+      (apply func skk-henkan-start-point skk-henkan-end-point
+	     (if arg (list arg) nil))
+      (skk-kakutei))
+     (t
+      (skk-emulate-original-map arg)))))
 
 (defun skk-hiragana-to-katakana (hiragana)
   (let ((diff (- ?ア ?あ)))

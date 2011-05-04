@@ -1,3 +1,12 @@
+2011-05-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-henkan-skk-region-by-func): typo docstring.
+	(skk-setup-modeline, skk-henkan-1, skk-henkan-show-candidates) 
+	(skk-previous-candidate, skk-kakutei, skk-update-jisyo-1) 
+	(skk-katakana-region, skk-hiragana-region) 
+	(skk-jisx0208-latin-region, skk-latin-region) 
+	(skk-henkan-skk-region-by-func): ソースコードのインデントを修正.
+
 2011-05-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-inhibit-ja-dic-search, skk-jisyo-save-count) 
