@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.554 2011/05/04 06:50:57 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.555 2011/05/04 10:14:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/04 06:50:57 $
+;; Last Modified: $Date: 2011/05/04 10:14:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4953,21 +4953,20 @@ SKK 辞書の候補として正しい形に整形する。"
 	   (delete-overlay object)))))
 
 (defun skk-make-face (face)
-  "新しい FACE を作成する。"
+  "新しい FACE を作成する。
+FACE は「前景色」又は「前景色 + スラッシュ + 背景色」の形式で指定する。"
   ;; hilit-lookup-face-create のサブセット。tutorial で色付けを行なう場合でも
   ;; hilit19 に依存せずとりあえず face を自前で作ることができるように、という
   ;; 目的で作ったもので、簡単な色付けしかできない。あまり賢くはない。複雑な
   ;; face を作りたい人は hilit-lookup-face-create 等を使って下さい。
   (unless (car (memq face (face-list)))
-    (let ((face-name (symbol-name face)))
-      (setq face (make-face face))
-      (save-match-data
-	(if (not (string-match "/" face-name))
-	    (set-face-foreground face face-name)
-	  (set-face-foreground face
-			       (substring face-name 0 (match-beginning 0)))
-	  (set-face-background face
-			       (substring face-name (1+ (match-beginning 0))))))))
+    (save-match-data
+      (let* ((list (split-string (symbol-name face) "/"))
+	     (bg (car (cdr list))))
+	(setq face (make-face face))
+	(set-face-foreground face (car list))
+	(when bg
+	  (set-face-background face bg)))))
   face)
 
 ;; skk-auto.el, skk-rdbms.el の両方で使うので、skk-auto.el より移動した。

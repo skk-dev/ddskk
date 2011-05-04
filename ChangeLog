@@ -6,6 +6,7 @@
 	(skk-katakana-region, skk-hiragana-region) 
 	(skk-jisx0208-latin-region, skk-latin-region) 
 	(skk-henkan-skk-region-by-func): ソースコードのインデントを修正.
+	(skk-make-face): 機能は変えず、ソースコードを見直した.
 
 2011-05-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
