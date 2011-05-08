@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.173 2011/05/03 06:48:29 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.174 2011/05/08 08:02:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/05/03 06:48:29 $
+;; Last Modified: $Date: 2011/05/08 08:02:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -940,16 +940,21 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	 (append '(("sup" . skk-annotation-wikipedia-clean-sup)
 		   ("sub" . skk-annotation-wikipedia-clean-sub))
 		 html2text-format-tag-list))
+	(url-retrieve-func
+	 (if (fboundp 'url-queue-retrieve)
+	     #'url-queue-retrieve
+	   #'url-retrieve))
 	buf buffer)
     (if (get-buffer cache-buffer)
 	(with-current-buffer cache-buffer
 	  (buffer-string))
       ;; キャッシュがない場合
-      (setq buffer (url-retrieve (skk-annotation-generate-url
-				  "http://%s.org/wiki/%s"
-				  source word)
-				 #'skk-annotation-wikipedia-retrieved
-				 (list (list source))))
+      (setq buffer (funcall url-retrieve-func
+			    (skk-annotation-generate-url
+			     "http://%s.org/wiki/%s"
+			     source word)
+			    #'skk-annotation-wikipedia-retrieved
+			    (list (list source))))
       (while (not buf)
 	(setq buf (catch 'skk-annotation-wikipedia-retrieved
 		    (condition-case nil
