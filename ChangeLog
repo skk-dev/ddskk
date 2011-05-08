@@ -2,6 +2,9 @@
 
 	* SKK-MK (SKK-MK-generate-autoloads-el): Set
 	generated-autoload-file under Emacs 24 or later.
+	* skk-annotation.el (skk-annotation-wikipedia-1): If
+	`url-queue-retrieve' is defined, call it instead of
+	`url-retrieve'.
 
 2011-05-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
