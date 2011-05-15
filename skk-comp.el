@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.87 2011/05/03 06:48:29 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.88 2011/05/15 22:21:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/03 06:48:29 $
+;; Last Modified: $Date: 2011/05/15 22:21:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -220,6 +220,7 @@
 		  (mapcar 'skk-hiragana-to-katakana ret)
 		ret))))
 
+;;;###autoload
 (defun skk-comp-get-regexp (prefix)
   ;; プレフィックスに対応する正規表現を返す。
   ;; 一度生成した正規表現は skk-comp-prefix-regexp-alist に保存しておく。
