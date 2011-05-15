@@ -4,8 +4,8 @@
 ;;
 ;; Author: Masatake YAMATO <jet@gyve.org>
 ;; Created: Tue May 13 19:12:23 2003
-;; Version: $Id: context-skk.el,v 1.13 2011/05/15 06:28:02 skk-cvs Exp $
-;; Last Modified: $Date: 2011/05/15 06:28:02 $
+;; Version: $Id: context-skk.el,v 1.14 2011/05/15 07:05:34 skk-cvs Exp $
+;; Last Modified: $Date: 2011/05/15 07:05:34 $
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -174,6 +174,12 @@
   :type 'hook
   :group 'context-skk)
 
+;;;###autoload
+(defcustom context-skk-mode-off-message "[context-skk] 日本語入力 off"
+  "*`context-skk-mode' が off になったときにエコーエリアに表示するメッセージ。"
+  :type 'string
+  :group 'context-skk)
+
 ;;
 ;; Minor mode definition
 ;;
@@ -227,7 +233,7 @@
 
 (defun context-skk-insert ()
   "skk-latin-mode を on にした上 `this-command-keys' に対する関数を呼び出し直す。"
-  (message "[context-skk] 日本語入力 off")
+  (message context-skk-mode-off-message)
   (skk-latin-mode t)
   (let* ((keys (this-command-keys))
 	 ;; `this-command-keys' が tab を返したときなど function-key-map や

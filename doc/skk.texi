@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/05/03 01:44:08 $
+@set UPDATED $Date: 2011/05/15 07:05:35 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2749,8 +2749,13 @@ skk の入力モードをアスキーモードに切り替えます。
 @kbd{M-x context-skk-mode} でオン／オフを制御できます。
 オンの場合、モードラインのメジャーモード名の隣に「;▽」と表示されます。
 
-context-skk にて「プログラミングモード」とみなすメジャーモードは、変数
-@code{context-skk-programming-mode} で定義されています。
+@defvr {ユーザ変数} context-skk-programming-mode
+context-skk が「プログラミングモード」と見做すメジャーモード。
+@end defvr
+
+@defvr {ユーザ変数} context-skk-mode-off-message
+アスキーモードに切り替わった瞬間にエコーエリアに表示するメッセージ。
+@end defvr
 
 @node 補完
 @section 補完

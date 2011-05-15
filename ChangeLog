@@ -1,6 +1,9 @@
 2011-05-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* context-skk.el: CVS のキーワード展開 $Id: ChangeLog,v 1.1812 2011/05/15 06:28:02 skk-cvs Exp $ と $Date: 2011/05/15 06:28:02 $ を挿入.
+	* doc/skk.texi: 新変数 context-skk-mode-off-message に関する記述.
+
+	* context-skk.el: RCS のキーワード展開 Id と Date を挿入.
+	(context-skk-mode-off-message): New variable.
 
 2011-05-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
