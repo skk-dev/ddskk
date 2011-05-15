@@ -2,7 +2,7 @@
 
 	* SKK-MK (SKK-MK-generate-autoloads-el): Call
 	`autoload-generate-file-autoloads' if it is defined instead of
-	`generated-autoload-file'.
+	`generat-file-autoloads'.
 	* skk-comp.el (skk-comp-get-regexp): Add autoload cookie.
 
 2011-05-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
