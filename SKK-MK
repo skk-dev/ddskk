@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.185 2011/05/08 07:20:48 skk-cvs Exp $
-;; Last Modified: $Date: 2011/05/08 07:20:48 $
+;; Version: $Id: SKK-MK,v 1.186 2011/05/15 22:20:38 skk-cvs Exp $
+;; Last Modified: $Date: 2011/05/15 22:20:38 $
 
 ;;; Commentary:
 
@@ -895,8 +895,7 @@ SKK tutorials:
 ;;; Code:\n\n")
       (require 'autoload)
       ;;
-      (when (and running-gnu-emacs
-		 (>= emacs-major-version 24))
+      (unless generated-autoload-file
 	;; For Emacs 24 and later; generated-autoload-file defaults to nil.
 	(setq generated-autoload-file "skk-autoloads.el"))
       ;;
@@ -904,7 +903,9 @@ SKK tutorials:
 	(let ((file (expand-file-name
 		     (format "%s.el" (car modules)))))
 	  (when (file-exists-p file)
-	    (generate-file-autoloads file)))
+	    (if (fboundp 'autoload-generate-file-autoloads)
+		(autoload-generate-file-autoloads file (current-buffer))
+	      (generate-file-autoloads file))))
 	(setq modules (cdr modules)))
       (goto-char (point-max))
       (insert "(provide 'skk-autoloads)
