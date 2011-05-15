@@ -1,3 +1,10 @@
+2011-05-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* SKK-MK (SKK-MK-generate-autoloads-el): Call
+	`autoload-generate-file-autoloads' if it is defined instead of
+	`generated-autoload-file'.
+	* skk-comp.el (skk-comp-get-regexp): Add autoload cookie.
+
 2011-05-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: 新変数 context-skk-mode-off-message に関する記述.
