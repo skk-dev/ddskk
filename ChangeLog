@@ -1,3 +1,8 @@
+2011-05-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-generate-autoloads-el): kill-buffer の前に
+	set-buffer-modified-p を nil とした.
+
 2011-05-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* SKK-MK (SKK-MK-generate-autoloads-el): Undo the previous

@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.187 2011/05/16 04:42:22 skk-cvs Exp $
-;; Last Modified: $Date: 2011/05/16 04:42:22 $
+;; Version: $Id: SKK-MK,v 1.188 2011/05/18 13:33:42 skk-cvs Exp $
+;; Last Modified: $Date: 2011/05/18 13:33:42 $
 
 ;;; Commentary:
 
@@ -907,6 +907,7 @@ SKK tutorials:
 ")
       (let ((coding-system-for-write 'iso-2022-jp))
 	(write-region (point-min) (point-max) "skk-autoloads.el" nil 'quiet))
+      (set-buffer-modified-p nil)
       (kill-buffer buf))))
 
 (defun SKK-MK-generate-autoloads-el-package ()
