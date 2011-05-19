@@ -1,3 +1,10 @@
+2011-05-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-mode): docstring を更新.
+
+	* skk-vars.el (skk-background-mode): docstring を更新.
+	(skk-auto-start-henkan-keyword-list): docstring を更新.
+
 2011-05-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK-MK-generate-autoloads-el): kill-buffer の前に

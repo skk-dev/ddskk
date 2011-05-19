@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.555 2011/05/04 10:14:59 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.556 2011/05/19 13:42:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/04 10:14:59 $
+;; Last Modified: $Date: 2011/05/19 13:42:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -152,7 +152,7 @@ candidates.
 
 For more information, see the `skk' topic in Info.  \(Japanese only.\)
 
-A tutorial is available in Japanese or English via \"M-x skk-tutorial\".
+A tutorial is available in Japanese or English via \\[skk-tutorial].
 Use a prefix argument to choose the language.  The default is system-
 dependent."
   (interactive "P")

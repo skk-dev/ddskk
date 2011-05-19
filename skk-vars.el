@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.357 2011/05/03 10:40:36 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.358 2011/05/19 13:42:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/03 10:40:36 $
+;; Last Modified: $Date: 2011/05/19 13:42:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -298,7 +298,7 @@ Automatically becomes buffer-local when set in any fashion."
 $B%f!<%6$N0U?^$H9g$o$J$$$+$b$7$l$J$$$N$G!"$3$N%*%W%7%g%s$+(B
 `frame-background-mode' $B$r$"$i$+$8$a@_Dj$7$F$*$/$3$H$,K>$^$7$$!#(B
 $B$3$N%*%W%7%g%s$O(B ~/.skk $B$K@_Dj$7$F$bH?1G$5$l$J$$!#(B~/.emacs $B$+(B
-M-x customize $B$K$F!"(BSKK $B$,FI$_9~$^$l$kA0$K@_Dj$9$k$3$H$,I,MW!#(B"
+\\[customize] $B$K$F!"(BSKK $B$,FI$_9~$^$l$kA0$K@_Dj$9$k$3$H$,I,MW!#(B"
   :type '(choice (const dark)
 		 (const light)
 		 (const :tag "$B<+F0$G7h$a$k(B" nil))
@@ -1328,7 +1328,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   ;; $B$"$^$j%-!<%o!<%I$,B?$/$J$k$H!"DL>o$NJQ49$r:$Fq$K$9$k!)(B
   "*$B<+F0JQ49$r3+;O$9$k%-!<%o!<%I!#(B
 `skk-auto-start-henkan' $B$,(B non-nil $B$N$H$-!"$3$N%j%9%H$NMWAG$NJ8;z$rBG80(B
-$B$9$k$H!"(BSPC (skk-start-henkan-char) $B$r2!$9$3$H$J$/<+F0E*$KJQ49$r3+;O$9$k!#(B"
+$B$9$k$H!"(BSPC (`skk-start-henkan-char') $B$r2!$9$3$H$J$/<+F0E*$KJQ49$r3+;O$9$k!#(B"
   :type '(repeat string)
   :group 'skk-henkan)
 
