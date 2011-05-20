@@ -1,3 +1,8 @@
+2011-05-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-setup.el.in: キーバインド C-f10 に skk-edit-private-jisyo を
+	割り当て.
+
 2011-05-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-mode): docstring を更新.
