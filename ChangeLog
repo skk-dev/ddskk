@@ -1,5 +1,8 @@
 2011-05-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-jisyo-edit-mode.el (skk-jisyo-edit-mode): docstring を更新.
+	(skk-edit-private-jisyo): 簡易なガイダンスを表示.
+
 	* skk-setup.el.in: キーバインド C-f10 に skk-edit-private-jisyo を
 	割り当て.
 

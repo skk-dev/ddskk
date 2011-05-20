@@ -61,7 +61,11 @@
 
 ;;;###autoload
 (defun skk-jisyo-edit-mode ()
-  "Major mode for editing SKK JISYO."
+  "Major mode for editing SKK JISYO.
+key       binding
+---       -------
+C-c C-c   Save & Exit
+C-c C-k   Abort"
   (interactive)
   (kill-all-local-variables)
   (setq mode-name "SKK JISYO Edit")
@@ -101,8 +105,8 @@
   (unless coding-system
     (setq coding-system (skk-find-coding-system skk-jisyo-code)))
   ;;
-  (when (skk-y-or-n-p "辞書をセーブしますか？ "
-		      "Save jisyo? ")
+  (when (skk-y-or-n-p "個人辞書を保存しますか？ "
+		      "Save private jisyo? ")
     (skk-save-jisyo))
   (message nil)
   (setq skk-jisyo-edit-original-window-configuration
@@ -155,7 +159,10 @@
 		       (kill-buffer (current-buffer))
 		       (set-window-configuration
 			skk-jisyo-edit-original-window-configuration))
-		     (message nil))))
+		     (message nil)))
+  (skk-message "保存終了: C-c C-c, 編集中止: C-c C-k"
+	       "Save & Exit: C-c C-c, Abort: C-c C-k"))
+
 
 (defadvice skk-henkan-in-minibuff (before notify-no-effect disable)
   (ding)
