@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.358 2011/05/19 13:42:07 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.359 2011/05/20 14:35:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/19 13:42:07 $
+;; Last Modified: $Date: 2011/05/20 14:35:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2938,7 +2938,7 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
 
     \"Uresii (\"UreSii\" ではなく) -> 嬉しい\"
 
-のように変換される。但し、skk-jisyo 辞書 (個人辞書) が、
+のように変換される。但し、`skk-jisyo' (個人辞書) が、
 
     \"うれs /嬉/[し/嬉/]/\"
 
