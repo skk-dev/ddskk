@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.559 2011/05/21 04:24:50 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.560 2011/05/21 23:00:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/21 04:24:50 $
+;; Last Modified: $Date: 2011/05/21 23:00:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1924,9 +1924,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	 (setq henkan-list (nthcdr (+ 4 (* loop max-candidates))
 				   skk-henkan-list))))
        (save-window-excursion
-	 (setq n (skk-henkan-show-candidate-subr
-		  candidate-keys
-		  henkan-list))
+	 (setq n (skk-henkan-show-candidate-subr candidate-keys henkan-list))
 	 (when (> n 0)
 	   (condition-case nil
 	       (let* ((event (next-command-event))
@@ -1955,10 +1953,9 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 			   skk-kakutei-flag t
 			   loop nil))
 		    ((or (eq char skk-start-henkan-char) ; SPC
-			 (skk-key-binding-member
-			  key
-			  '(skk-nicola-self-insert-rshift)
-			  skk-j-mode-map))
+			 (skk-key-binding-member key
+						 '(skk-nicola-self-insert-rshift)
+						 skk-j-mode-map))
 		     ;;
 		     (if (or skk-current-search-prog-list
 			     (nthcdr max-candidates henkan-list))
@@ -1995,12 +1992,11 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 			;; skk-henkan-show-candidates $B$r8F$VA0$N(B
 			;; $B>uBV$KLa$9!#(B
 			(skk-set-henkan-count 4)
-			(skk-unread-event
-			 (character-to-event
-			  (aref (car (where-is-internal
-				      'skk-previous-candidate
-				      skk-j-mode-map))
-				0)))
+			(skk-unread-event (character-to-event
+					   (aref (car (where-is-internal
+						       'skk-previous-candidate
+						       skk-j-mode-map))
+						 0)))
 			;; skk-henkan $B$^$G0l5$$K(B throw $B$9$k!#(B
 			(throw 'unread nil))
 		       (t
@@ -2021,12 +2017,11 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	     (quit
 	      ;; skk-previous-candidate $B$X(B
 	      (skk-set-henkan-count 0)
-	      (skk-unread-event
-	       (character-to-event
-		(aref (car (where-is-internal
-			    'skk-previous-candidate
-			    skk-j-mode-map))
-		      0)))
+	      (skk-unread-event (character-to-event
+				 (aref (car (where-is-internal
+					     'skk-previous-candidate
+					     skk-j-mode-map))
+				       0)))
 	      ;; skk-henkan $B$^$G0l5$$K(B throw $B$9$k!#(B
 	      (throw 'unread nil)))))) ; end of while loop
      ;;
@@ -2040,8 +2035,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
 $B%(%3!<%(%j%"Kt$O8uJd%P%C%U%!$KI=<($9$k!#(B"
   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	 (workinglst (skk-henkan-candidate-list candidates max-candidates))
-	 str tooltip-str
-	 message-log-max)
+	 str tooltip-str message-log-max)
     (when workinglst
       (dotimes (i (length workinglst))
 	(let ((cand (if (consp (nth i workinglst))
@@ -2270,8 +2264,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
 (defun skk-henkan-in-minibuff ()
   "$B<-=qEPO?%b!<%I$KF~$j!"EPO?$7$?C18l$NJ8;zNs$rJV$9!#(B"
   (unless (numberp skk-henkan-in-minibuff-nest-level)
-    (setq skk-henkan-in-minibuff-nest-level
-	  (minibuffer-depth)))
+    (setq skk-henkan-in-minibuff-nest-level (minibuffer-depth)))
   (when (and window-system skk-show-tooltip)
     (skk-tooltip-hide))
   (when skk-show-inline
@@ -2289,8 +2282,8 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
 		  (skk-save-point
 		   (forward-char 1)
 		   (point-marker))))
-	  ;; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k!#(B
-	  skk-isearch-message orglen new-one pair)
+	  skk-isearch-message	; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k(B
+	  orglen new-one pair)
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
       (add-hook 'minibuffer-setup-hook 'skk-add-skk-pre-command)
       (save-window-excursion
@@ -2445,8 +2438,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 #9 $B>-4}MQ(B"))
       ;; skk-henkan-show-candidates-buffer $B$+$i$R$C$Q$C$F$-$?%3!<%I(B
       (let ((minibuf-p (skk-in-minibuffer-p))
-	    (window (get-buffer-window
-		     (skk-minibuffer-origin))))
+	    (window (get-buffer-window (skk-minibuffer-origin))))
 	(when minibuf-p
 	  (if window
 	      (select-window window)
@@ -2861,8 +2853,7 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 		       (delete kakutei-word skk-henkan-list)))
 	   (cons 'henkan-buffer (current-buffer))
 	   (cons 'henkan-point
-		 (let ((hpoint
-			(skk-get-last-henkan-datum 'henkan-point)))
+		 (let ((hpoint (skk-get-last-henkan-datum 'henkan-point)))
 		   (if hpoint
 		       (set-marker hpoint (point))
 		     (point-marker))))
@@ -2876,7 +2867,6 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
   (skk-set-henkan-count -1)
   (skk-set-exit-show-candidates nil)
   (setq skk-abbrev-mode nil
-
 	skk-henkan-in-minibuff-flag nil
 	skk-henkan-key nil
 	skk-henkan-list nil

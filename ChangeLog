@@ -1,3 +1,10 @@
+2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-henkan-show-candidates)
+	(skk-henkan-show-candidate-subr, skk-henkan-in-minibuff)
+	(skk-show-num-type-info, skk-kakutei-initialize):
+	ソースコードのインデントを修正.
+
 2011-05-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-dcomp.el (skk-dcomp-multiple-show): コメントを修正.
