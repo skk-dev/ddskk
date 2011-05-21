@@ -1,7 +1,12 @@
 2011-05-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-dcomp.el (skk-dcomp-multiple-show): コメントを修正.
+
 	* skk.el (skk-kill-emacs-without-saving-jisyo): docstring と
 	メッセージを修正.
+	(skk-multiple-line-string-width): 機能は変えずソースコードを見直した.
+	この関数は skk-henkan-show-candidate-subr でしか使われていないため
+	廃止を検討.
 
 2011-05-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

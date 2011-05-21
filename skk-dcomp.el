@@ -6,9 +6,9 @@
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.68 2010/09/11 14:56:51 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.69 2011/05/21 04:24:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/11 14:56:51 $
+;; Last Modified: $Date: 2011/05/21 04:24:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -406,8 +406,7 @@
 				    (make-string (- col ol-end-col) ? ))))
 		(setq ol (make-overlay ol-beg (point)))
 		;; 元テキストの face を継承しないように1つ後ろに
-		;; overlay を作って、その face を 'default に指定してお
-		;; く
+		;; overlay を作って、その face を 'default に指定しておく
 		(setq base-ol (make-overlay (point) (1+ (point))))
 		(overlay-put base-ol 'face 'default)
 		(push base-ol skk-dcomp-multiple-overlays)

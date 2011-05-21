@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.558 2011/05/21 03:16:51 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.559 2011/05/21 04:24:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/21 03:16:51 $
+;; Last Modified: $Date: 2011/05/21 04:24:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1851,12 +1851,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 
 (defun skk-multiple-line-string-width (str)
   "改行文字で区切られた複数行の中から、文字数が最も長い行のコラム幅 (string-width) を返す。"
-  (let ((max 0))
-    (while (and (not (equal str ""))
-		(string-match "\n\\|$" str))
-      (setq max (max max (string-width (substring str 0 (match-beginning 0))))
-	    str (substring str (match-end 0))))
-    max))
+  (apply 'max (mapcar 'string-width (split-string str "\n"))))
 
 (defun skk-henkan-show-candidates ()
   "変換した候補群をエコーエリアに表示する。"

@@ -288,6 +288,12 @@ skk-dcomp-multiple-activate $B$r(B t $B$H@_Dj$7!"<B:]$K(B dcomp $B8uJd$rJ#?
 $B$3$l$O!"Jd408uJd$,GX7J$N%F%-%9%H$N(B face $BB0@-$r0z$-7Q$0$N$rKI$0$?$a$K!"(B
 $B8N0U$K8uJd72$N1&B&(B1$B%+%i%`$N(B face $B$rGm$.<h$C$F$$$k!#(B
 
+$B2U=j(B:
+  skk-dcomp.el (skk-dcomp-multiple-show):
+    (setq base-ol (make-overlay (point) (1+ (point))))
+    (overlay-put base-ol 'face 'default)
+    (push base-ol skk-dcomp-multiple-overlays)
+
 $B;29M(B:
  [skk 6938] http://mail.ring.gr.jp/skk/200804/msg00019.html
  [skk 6941] http://mail.ring.gr.jp/skk/200804/msg00022.html
