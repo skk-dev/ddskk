@@ -282,7 +282,7 @@ henkan-list $B$,(B nil $B$N$H$-(B skk-henkan-list-filter() $B$r8F$P$J$$$h$&
 
 ** dcomp $B8uJdJ#?tI=<(;~$N(B face
 
-skk-dcomp-show-multiple $B$r(B t $B$H@_Dj$7!"<B:]$K(B dcomp $B8uJd$rJ#?tI=<($7$?(B
+skk-dcomp-multiple-activate $B$r(B t $B$H@_Dj$7!"<B:]$K(B dcomp $B8uJd$rJ#?tI=<($7$?(B
 $B:]$K!"8=:_$O8uJd72$N1&B&(B1$B%+%i%`$N(B face $B$,%G%U%)%k%H$KLa$C$F$7$^$&!#(B
 
 $B$3$l$O!"Jd408uJd$,GX7J$N%F%-%9%H$N(B face $BB0@-$r0z$-7Q$0$N$rKI$0$?$a$K!"(B
