@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.164 2011/05/22 10:43:00 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.165 2011/05/22 21:53:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/22 10:43:00 $
+;; Last Modified: $Date: 2011/05/22 21:53:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -865,10 +865,6 @@ BUFFER defaults to the current buffer."
 (defun skk-max-string-width (list)
   "LIST の各要素の中から、最長のコラム幅 (string-width) を返す。"
   (apply 'max (mapcar 'string-width list)))
-
-(defun skk-multiple-line-string-width (str)
-  "改行文字で区切られた複数行 STR の中から、最長のコラム幅 (string-width) を返す。"
-  (skk-max-string-width (split-string str "\n")))
 
 (defun skk-insert-prefix (&optional char)
   "`skk-echo' が non-nil であればカレントバッファに `skk-prefix' を挿入する。"

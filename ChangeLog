@@ -1,10 +1,17 @@
+2011-05-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-multiple-line-string-width): 削除.
+
+	* skk.el (skk-henkan-show-candidate-subr): skk-multiple-line-string-width に
+	代えて skk-max-string-width を使用.
+
 2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-multiple-line-string-width): Remove (to skk-macs.el).
+	* skk.el (skk-multiple-line-string-width): skk-macs.el へ移動.
 	(skk-kakutei-cleanup-buffer): インデントを整形.
 
 	* skk-macs.el (skk-max-string-width): New function.
-	(skk-multiple-line-string-width): Move from skk.el.
+	(skk-multiple-line-string-width): skk.el から移動.
 
 	* skk-inline.el (skk-inline-show-vertically): Use skk-max-string-width.
 	(skk-inline-show-vertically): インデントを整形.
