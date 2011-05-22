@@ -1,5 +1,11 @@
 2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* Makefile (VERSION): 
+	* doc/skk.texi: 
+	* skk-version.el (skk-version): Bump to 14.2.90.
+
+2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* doc/skk.texi (skk-tooltip-face): 記述を修正.
 
 	* skk-vars.el (skk-tooltip-face): docstring を修正.
