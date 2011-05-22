@@ -123,7 +123,7 @@
 	   ;; 場合あり ?
 	   (beg-col (max 0 (- (skk-screen-column) margin)))
 	   (candidates (split-string string "\n"))
-	   (max-width (apply 'max (mapcar 'string-width candidates)))
+	   (max-width (skk-max-string-width candidates))
 	   (i 0)
 	   bottom col ol invisible)
       (dolist (str candidates)
@@ -135,8 +135,8 @@
 	(when face
 	  (setq str (propertize str 'face face)))
 	(when skk-inline-show-background-color
-	  (setq str (skk-add-background-color
-		     str skk-inline-show-background-color)))
+	  (setq str (skk-add-background-color str
+					      skk-inline-show-background-color)))
 	(save-excursion
 	  (scroll-left (max 0
 			    (- (+ beg-col margin max-width margin 1)

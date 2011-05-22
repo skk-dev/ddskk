@@ -6,9 +6,9 @@
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.69 2011/05/21 04:24:50 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.70 2011/05/22 10:43:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/21 04:24:50 $
+;; Last Modified: $Date: 2011/05/22 10:43:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -188,12 +188,11 @@
 	 (message nil))))
     (when (and (skk-dcomp-multiple-activate-p)
 	       (skk-dcomp-multiple-available-p))
-      (skk-dcomp-multiple-show
-       (skk-dcomp-multiple-get-candidates
-	(and (string= skk-dcomp-multiple-key
-		      (buffer-substring-no-properties
-		       skk-henkan-start-point (point)))
-	     (string= skk-dcomp-multiple-prefix skk-prefix)))))))
+      (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates
+				(and (string= skk-dcomp-multiple-key
+					      (buffer-substring-no-properties
+					       skk-henkan-start-point (point)))
+				     (string= skk-dcomp-multiple-prefix skk-prefix)))))))
 
 ;; 複数表示のために検索して辞書バッファの point を動かすと、skk-comp の
 ;; 補完候補が狂ってしまうので一旦保存しておき最後に元に戻す
@@ -333,7 +332,7 @@
       (when candidates
 	(when (zerop beg-col)
 	  (setq margin 0))
-	(setq max-width (apply 'max (mapcar 'string-width candidates)))
+	(setq max-width (skk-max-string-width candidates))
 	(dolist (str candidates)
 	  (setq str (concat (make-string margin ? )
 			    str
@@ -496,8 +495,7 @@
       (if (skk-get-prefix skk-current-rule-tree)
 	  (when (and (skk-dcomp-multiple-activate-p)
 		     (skk-dcomp-multiple-available-p))
-	    (skk-dcomp-multiple-show
-	     (skk-dcomp-multiple-get-candidates)))
+	    (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates)))
 	(skk-dcomp-do-completion (point)))))))
 
 (defadvice skk-set-henkan-point-subr (around skk-dcomp-ad activate)
@@ -570,8 +568,7 @@
 		      (< skk-dcomp-multiple-select-index 0))
 		 (1- (length skk-comp-stack)))
 		(t (1- skk-dcomp-multiple-select-index))))
-    (skk-dcomp-multiple-show
-     (skk-dcomp-multiple-get-candidates t))))
+    (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates t))))
 
 (defadvice skk-kakutei (around skk-dcomp-ad activate)
   (skk-dcomp-before-kakutei)
@@ -612,8 +609,7 @@
 		  (setq skk-dcomp-multiple-select-index
 			(skk-dcomp-multiple-increase-index
 			 skk-dcomp-multiple-select-index t))
-		  (skk-dcomp-multiple-show
-		   (skk-dcomp-multiple-get-candidates t))))))
+		  (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates t))))))
 	(t
 	 ad-do-it
 	 (when (and (skk-dcomp-multiple-activate-p)
@@ -621,11 +617,10 @@
 	   (setq skk-dcomp-multiple-select-index
 		 (skk-dcomp-multiple-increase-index
 		  skk-dcomp-multiple-select-index))
-	   (skk-dcomp-multiple-show
-	    (skk-dcomp-multiple-get-candidates
-	     ;; skk-comp の C-u TAB を考慮する
-	     (not (and current-prefix-arg
-		       (listp current-prefix-arg)))))))))
+	   (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates
+				     ;; skk-comp の C-u TAB を考慮する
+				     (not (and current-prefix-arg
+					       (listp current-prefix-arg)))))))))
 
 (defadvice skk-comp-do (before skk-dcomp-ad activate)
   (when (and skk-comp-use-prefix
@@ -641,8 +636,7 @@
     (skk-kana-cleanup 'force)
     (setq skk-dcomp-multiple-select-index
 	  (skk-dcomp-multiple-increase-index skk-dcomp-multiple-select-index))
-    (skk-dcomp-multiple-show
-     (skk-dcomp-multiple-get-candidates t))))
+    (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates t))))
 
 (defadvice skk-comp-start-henkan (around skk-dcomp-ad activate)
    (cond ((and (eq skk-henkan-mode 'on)

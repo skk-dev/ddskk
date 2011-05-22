@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.560 2011/05/21 23:00:41 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.561 2011/05/22 10:43:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/21 23:00:41 $
+;; Last Modified: $Date: 2011/05/22 10:43:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1849,10 +1849,6 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	  (quit (shrink-window (- (window-height) last-minibuffer-height))))
 	str))))
 
-(defun skk-multiple-line-string-width (str)
-  "$B2~9TJ8;z$G6h@Z$i$l$?J#?t9T$NCf$+$i!"J8;z?t$,:G$bD9$$9T$N%3%i%`I}(B (string-width) $B$rJV$9!#(B"
-  (apply 'max (mapcar 'string-width (split-string str "\n"))))
-
 (defun skk-henkan-show-candidates ()
   "$BJQ49$7$?8uJd72$r%(%3!<%(%j%"$KI=<($9$k!#(B"
   (skk-save-point
@@ -2830,11 +2826,9 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (funcall self-insert-after-hook
 	     skk-henkan-start-point (point)))
   (when overwrite-mode
-    (skk-del-char-with-pad
-     (skk-ovwrt-len
-      (string-width
-       (buffer-substring-no-properties
-	skk-henkan-start-point (point)))))))
+    (skk-del-char-with-pad (skk-ovwrt-len (string-width
+					   (buffer-substring-no-properties
+					    skk-henkan-start-point (point)))))))
 
 (defun skk-kakutei-initialize (&optional kakutei-word)
   "$B3NDj;~$KJQ?t$N=i4|2=$H%"%s%I%%$N$?$a$NJQ?t$NJ]B8$r9T$&!#(B"
