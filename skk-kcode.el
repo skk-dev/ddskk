@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.78 2011/05/03 10:40:36 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.79 2011/05/22 09:54:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/03 10:40:36 $
+;; Last Modified: $Date: 2011/05/22 09:54:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -487,9 +487,7 @@
     (if (and window-system
 	     skk-show-tooltip
 	     (not (eq (symbol-function 'skk-tooltip-show-at-point) 'ignore)))
-	(funcall skk-tooltip-function (mapconcat #'(lambda (x) x)
-						 (split-string mesg ", ")
-						 "\n\t"))
+	(funcall skk-tooltip-function (replace-regexp-in-string ", " "\n\t" mesg))
       (message mesg))))
 
 (defun skk-jis2sjis (char1 char2)

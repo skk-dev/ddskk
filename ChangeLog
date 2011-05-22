@@ -1,7 +1,9 @@
 2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* Makefile (VERSION): 
-	* doc/skk.texi: 
+	* skk-kcode.el (skk-display-code): Use replace-regexp-in-string.
+
+	* Makefile (VERSION):
+	* doc/skk.texi:
 	* skk-version.el (skk-version): Bump to 14.2.90.
 
 2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
@@ -79,16 +81,16 @@
 2011-05-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-henkan-skk-region-by-func): typo docstring.
-	(skk-setup-modeline, skk-henkan-1, skk-henkan-show-candidates) 
-	(skk-previous-candidate, skk-kakutei, skk-update-jisyo-1) 
-	(skk-katakana-region, skk-hiragana-region) 
-	(skk-jisx0208-latin-region, skk-latin-region) 
+	(skk-setup-modeline, skk-henkan-1, skk-henkan-show-candidates)
+	(skk-previous-candidate, skk-kakutei, skk-update-jisyo-1)
+	(skk-katakana-region, skk-hiragana-region)
+	(skk-jisx0208-latin-region, skk-latin-region)
 	(skk-henkan-skk-region-by-func): ソースコードのインデントを修正.
 	(skk-make-face): 機能は変えず、ソースコードを見直した.
 
 2011-05-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-inhibit-ja-dic-search, skk-jisyo-save-count) 
+	* skk-vars.el (skk-inhibit-ja-dic-search, skk-jisyo-save-count)
 	(skk-jisyo-updated, skk-kuten-touten-alist): docstring を更新.
 
 	* skk-tankan.el (skk-tankan-search, skk-tankan-bushu-compread):
@@ -108,7 +110,7 @@
 
 	* doc/skk.texi: skk-comp-lisp-symbol の記述を追加.
 
-	* skk-comp.el (skk-comp-lisp-symbol, skk-search-smart-find) 
+	* skk-comp.el (skk-comp-lisp-symbol, skk-search-smart-find)
 	(skk-search-lisp-symbol): docstring を更新.
 
 	* skk-annotation.el (skk-annotation-add)
