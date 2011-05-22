@@ -638,6 +638,9 @@
       (skk-unread-event event)))))
 
 (defun skk-tooltip-show-1 (text skk-params)
+  "TEXT を tooltip で表示する。
+SKK-PARAMS は `skk-tooltip-parameters' 又は `tooltip-frame-parameters' のいずれか。
+TEXT には `skk-tooltip-face' が適用される。"
   (condition-case error
       (let ((params (or skk-params tooltip-frame-parameters))
 	    fg bg)

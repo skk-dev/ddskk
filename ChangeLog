@@ -1,5 +1,7 @@
 2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-emacs.el (skk-tooltip-show-1): docstring を追加.
+
 	* skk.el (skk-henkan-show-candidates)
 	(skk-henkan-show-candidate-subr, skk-henkan-in-minibuff)
 	(skk-show-num-type-info, skk-kakutei-initialize):
