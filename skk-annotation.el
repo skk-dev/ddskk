@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.174 2011/05/08 08:02:39 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.175 2011/05/22 03:49:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/05/08 08:02:39 $
+;; Last Modified: $Date: 2011/05/22 03:49:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -444,6 +444,8 @@
 
 ;;;###autoload
 (defun skk-annotation-message (&optional situation)
+  "
+オプショナル引数 SITUATION が シンボル annotation であれば、"
   (when (and skk-verbose
 	     (not (or skk-isearch-switch
 		      (skk-in-minibuffer-p))))
@@ -486,6 +488,7 @@
 			 (setq i (1+ i))))
 		     (message nil))
 		 nil))
+	      ;;
 	      (t
 	       (when (skk-sit-for skk-verbose-wait)
 		 (message "%s" skk-annotation-wikipedia-message))))

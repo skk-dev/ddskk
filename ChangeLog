@@ -1,6 +1,10 @@
 2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-emacs.el (skk-tooltip-show-1): docstring を追加.
+	* doc/skk.texi (skk-tooltip-face): 記述を修正.
+
+	* skk-vars.el (skk-tooltip-face): docstring を修正.
+
+	* skk-emacs.el (skk-tooltip-show-at-point, skk-tooltip-show-1): docstring を追加.
 
 	* skk.el (skk-henkan-show-candidates)
 	(skk-henkan-show-candidate-subr, skk-henkan-in-minibuff)

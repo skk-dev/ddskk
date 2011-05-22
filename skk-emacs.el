@@ -451,6 +451,9 @@
     (cons text (cons columns lines))))
 
 (defun skk-tooltip-show-at-point (text &optional situation)
+  "TEXT を tooltip で表示する。
+オプショナル引数 SITUATION がシンボル annotation であれば、
+シンボル listing であれば、"
   (require 'tooltip)
   ;; Emacs 21 では、マウスポインタ非依存の位置決定ができない (と思われる)
   (when (eq emacs-major-version 21)

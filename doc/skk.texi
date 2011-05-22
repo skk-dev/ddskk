@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.50
-@set UPDATED $Date: 2011/05/15 07:05:35 $
+@set UPDATED $Date: 2011/05/22 03:49:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8248,10 +8248,14 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 @xref{$BCm<a(B ($B%"%N%F!<%7%g%s(B)}.
 
 @defvr {$B%f!<%6JQ?t(B} skk-tooltip-face
-$B%D!<%k%F%#%C%W$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$7$^$9!#(B
+$B%D!<%k%F%#%C%W$KI=<($9$kJ8;zNs$KE,MQ$9$k%U%'%$%9$r;XDj$9$kJQ?t$G$9!#(B
 
-$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B @code{nil} $B$K@_Dj$7$F2<(B
-$B$5$$!#(B
+@lisp
+(setq skk-tooltip-face 'font-lock-doc-face)
+;; (make-face 'skk-tooltip-face) $B$G$O$J$$$3$H$KCm0U(B
+@end lisp
+
+$B8uJdJ8;zNs$N%U%'%$%9B0@-!J(B@code{skk-treat-candidate-appearance-function} $B$K$h$k2C9)$J$I!K$r$=$N$^$^;H$$$?$$>l9g$O(B @code{nil} $B$K@_Dj$7$F2<$5$$!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-tooltip-mouse-behavior

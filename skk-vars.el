@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.359 2011/05/20 14:35:29 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.360 2011/05/22 03:49:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/20 14:35:29 $
+;; Last Modified: $Date: 2011/05/22 03:49:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4803,8 +4803,12 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-face nil
-  "*$B%D!<%k%F%#%C%W$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$9$kJQ?t!#(B
-$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B"
+  "*$B%D!<%k%F%#%C%W$KI=<($9$kJ8;zNs$KE,MQ$9$k%U%'%$%9$r;XDj$9$kJQ?t!#(B
+$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B
+
+ ($B@_DjNc(B)
+
+(setq skk-tooltip-face 'font-lock-doc-face)"
   :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B" tooltip)
 		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
   :group 'skk-henkan
