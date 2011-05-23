@@ -542,6 +542,9 @@
 	  ((and (<= ?０ c) (>= ?９ c)) (nth 2 output))
 	  (t (nth 3 output)))))
 
+;;
+(define-key skk-j-mode-map (kbd "M-,") 'skk-toggle-kutouten)
+
 ;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
 ;; (global-set-key "\M-i" 'skk-annotation-wikipedia-region-or-at-point)
 ;; 注) 基本形の (活用形/複数形などでない) 英単語なら領域選択しないで M-i

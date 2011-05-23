@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.562 2011/05/22 21:53:36 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.563 2011/05/23 21:18:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/22 21:53:36 $
+;; Last Modified: $Date: 2011/05/23 21:18:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1540,10 +1540,10 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 			    (jp-en 'en-jp)
 			    (t 'jp)))
   (when (skk-called-interactively-p 'interactive)
-    (skk-message "$B6gE@(B: `%s'  $BFIE@(B: `%s'"
-		 "Kuten: `%s'  Touten: `%s'"
-		 (skk-current-kuten nil)
-		 (skk-current-touten nil))))
+    (skk-message "$BFIE@(B: `%s'  $B6gE@(B: `%s'"
+		 "Touten: `%s'  Kuten: `%s'"
+		 (skk-current-touten nil)
+		 (skk-current-kuten nil))))
 
 (defun skk-current-kuten (arg)
   ;; just ignore arg.
@@ -3983,7 +3983,7 @@ LIMIT $B$H(B NOMSG $B$O<-=q%5!<%P$r;HMQ$7$J$$$H$-$N$_;H$&!#(B
 (defun skk-search-jisyo (okurigana limit &optional delete)
   "$B%+%l%s%H%P%C%U%!$r<-=q$H$7$F8!:w$9$k!#(B
 `skk-compute-henkan-lists' $B$r;HMQ$7!"8+=P$78l$K$D$$$F$N8uJd$N>pJs$rJV$9!#(B
-DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k!#(B"
+DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k!#(B"
   (let ((key (concat "\n" skk-henkan-key " /"))
 	min max size p)
     (save-match-data
@@ -3994,9 +3994,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P!"(BMIDASI $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k
 	(setq min skk-okuri-nasi-min
 	      max (point-max)))
       (when (> limit 0)
-	(while (progn
-		 (setq size (- max min))
-		 (> size limit))
+	(while (> (setq size (- max min)) limit)
 	  (goto-char (+ min (/ size 2)))
 	  (beginning-of-line)
 	  (setq p (point))
@@ -4260,8 +4258,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 	 (midasi (if (and (skk-numeric-p)
 			  (or (string-match "#[0-9]" cand)
 			      (skk-lisp-prog-p cand)))
-		     (skk-num-compute-henkan-key
-		      skk-henkan-key)
+		     (skk-num-compute-henkan-key skk-henkan-key)
 		   skk-henkan-key))
 	 (henkan-buffer (and skk-update-end-function
 			     (current-buffer))))
@@ -4814,7 +4811,6 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
   (require 'japan-util)
   (let ((char (get-char-code-property (string-to-char string)
 				      'ascii)))
-    ;;
     (if char
 	(char-to-string char)
       nil)))
@@ -4861,21 +4857,19 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 (defun skk-hiragana-to-katakana (hiragana)
   (let ((diff (- ?$B%"(B ?$B$"(B)))
-    (mapconcat
-     #'(lambda (e)
-	 (if (and (<= ?$B$!(B e) (>= ?$B$s(B e))
-	     (char-to-string (+ e diff))
-	   (char-to-string e)))
-     (string-to-int-list hiragana) "")))
+    (mapconcat #'(lambda (e)
+		   (if (and (<= ?$B$!(B e) (>= ?$B$s(B e))
+		       (char-to-string (+ e diff))
+		     (char-to-string e)))
+	       (string-to-int-list hiragana) "")))
 
 (defun skk-katakana-to-hiragana (katakana)
   (let ((diff (- ?$B%"(B ?$B$"(B)))
-    (mapconcat
-     #'(lambda (e)
-	 (if (and (<= ?$B%!(B e) (>= ?$B%s(B e))
-	     (char-to-string (- e diff))
-	   (char-to-string e)))
-     (string-to-int-list katakana) "")))
+    (mapconcat #'(lambda (e)
+		   (if (and (<= ?$B%!(B e) (>= ?$B%s(B e))
+		       (char-to-string (- e diff))
+		     (char-to-string e)))
+	       (string-to-int-list katakana) "")))
 
 (defun skk-splice-in (org offset spliced)
   ;; ORG := '(A B C), SPLICED := '(X Y), OFFSET := 1
@@ -4941,7 +4935,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
   (unless (car (memq face (face-list)))
     (save-match-data
       (let* ((list (split-string (symbol-name face) "/"))
-	     (bg (car (cdr list))))
+	     (bg (nth 1 list)))
 	(setq face (make-face face))
 	(set-face-foreground face (car list))
 	(when bg
