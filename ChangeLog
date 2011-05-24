@@ -1,15 +1,17 @@
 2011-05-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-toggle-kutouten): メッセージ順を「句点 読点」から「読点 句点」へ
-	変更.
+	* skk.el (skk-toggle-kutouten): メッセージ順を「句点 読点」から
+	「読点 句点」へ	変更.
 	(skk-search-jisyo): 不要な progn を削除.
+	(skk-mode-exit): skk-mode を抜けた際は *候補*バッファと
+	*SKK annotation*バッファを削除するよう変更した.
 
 2011-05-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (skk-multiple-line-string-width): 削除.
 
-	* skk.el (skk-henkan-show-candidate-subr): skk-multiple-line-string-width に
-	代えて skk-max-string-width を使用.
+	* skk.el (skk-henkan-show-candidate-subr):
+	skk-multiple-line-string-width に代えて skk-max-string-width を使用.
 
 2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -40,7 +42,8 @@
 
 	* skk-vars.el (skk-tooltip-face): docstring を修正.
 
-	* skk-emacs.el (skk-tooltip-show-at-point, skk-tooltip-show-1): docstring を追加.
+	* skk-emacs.el (skk-tooltip-show-at-point, skk-tooltip-show-1):
+	docstring を追加.
 
 	* skk.el (skk-henkan-show-candidates)
 	(skk-henkan-show-candidate-subr, skk-henkan-in-minibuff)
