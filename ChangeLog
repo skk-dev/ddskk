@@ -1,3 +1,7 @@
+2011-05-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-mode-exit): コード見直し.
+
 2011-05-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-toggle-kutouten): メッセージ順を「句点 読点」から
