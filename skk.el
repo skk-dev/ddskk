@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.565 2011/05/25 11:07:32 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.566 2011/05/25 11:32:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/25 11:07:32 $
+;; Last Modified: $Date: 2011/05/25 11:32:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1408,19 +1408,19 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	       (- (point) (length str))
 	       (point)))
     (when overwrite-mode
-      (skk-del-char-with-pad (skk-ovwrt-len (string-width str)))))
+      (skk-del-char-with-pad (skk-ovwrt-len str))))
   ;; SKK 9.6 $B$G$O$3$N%?%$%_%s%0$G(B fill $B$,9T$o$l$F$$$?$,!"(BSKK 10 $B$G$O9T$o$l$F$$(B
   ;; $B$J$+$C$?!#(B
   (when (and skk-j-mode
 	     (not skk-henkan-mode))
     (skk-do-auto-fill)))
 
-(defun skk-ovwrt-len (len)
+(defun skk-ovwrt-len (str)
   "$B>e=q$-$7$FNI$$D9$5$rJV$9!#(B"
-  (let* ((pt (skk-save-point (end-of-line) (point)))
-	 (str (buffer-substring-no-properties (point) pt))
-	 (width (string-width str)))
-  (min width len)))
+  (min (string-width (buffer-substring-no-properties (point)
+						     (skk-save-point (end-of-line)
+								     (point))))
+       (string-width str)))
 
 (defun skk-del-char-with-pad (length)
   "$BD9$5(B LENGTH $B$NJ8;z$r>C5n$9$k!#(B
@@ -2830,9 +2830,8 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
     (funcall self-insert-after-hook
 	     skk-henkan-start-point (point)))
   (when overwrite-mode
-    (skk-del-char-with-pad (skk-ovwrt-len (string-width
-					   (buffer-substring-no-properties
-					    skk-henkan-start-point (point)))))))
+    (skk-del-char-with-pad (skk-ovwrt-len (buffer-substring-no-properties
+					   skk-henkan-start-point (point))))))
 
 (defun skk-kakutei-initialize (&optional kakutei-word)
   "$B3NDj;~$KJQ?t$N=i4|2=$H%"%s%I%%$N$?$a$NJQ?t$NJ]B8$r9T$&!#(B"

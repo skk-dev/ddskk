@@ -1,6 +1,9 @@
 2011-05-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-mode-exit): コード見直し.
+	(skk-ovwrt-len): 不要な let を削除.
+	(skk-insert-str): skk-ovwrt-len の呼び出し方法を変更.
+	(skk-kakutei-cleanup-buffer): skk-ovwrt-len の呼び出し方法を変更.
 
 2011-05-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
