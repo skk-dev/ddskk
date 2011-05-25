@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.566 2011/05/25 11:32:51 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.567 2011/05/25 12:50:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/25 11:32:51 $
+;; Last Modified: $Date: 2011/05/25 12:50:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -288,7 +288,7 @@ dependent."
   (mapc #'(lambda (x)
 	    (when (get-buffer x)
 	      (kill-buffer x)))
-	'("*候補*" "*SKK annotation*")))
+	'("*候補*" "*SKK annotation*" " *数値変換タイプ*")))
 
 (defun skk-mode-invoke ()
   (when skk-user-directory
@@ -1507,31 +1507,25 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
   (interactive)
   (let ((pt1 (point))
 	pt2 okuri sokuon)
-    (setq okuri
-	  (skk-save-point
-	    (backward-char 1)
-	    (buffer-substring-no-properties
-	     (setq pt2 (point))
-	     pt1)))
+    (setq okuri (skk-save-point
+		 (backward-char 1)
+		 (buffer-substring-no-properties (setq pt2 (point))
+						 pt1)))
     (when okuri
       (unless no-sokuon
-	(setq sokuon
-	      (skk-save-point
-		(backward-char 2)
-		(buffer-substring-no-properties
-		 (point)
-		 pt2)))
+	(setq sokuon (skk-save-point
+		      (backward-char 2)
+		      (buffer-substring-no-properties (point)
+						      pt2)))
 	(unless (member sokuon '("っ" "ッ"))
 	  (setq sokuon nil)))
       ;;
       (skk-save-point
 	(backward-char (if sokuon 2 1))
-	(skk-set-marker skk-okurigana-start-point
-			(point)))
+	(skk-set-marker skk-okurigana-start-point (point)))
       (setq skk-okuri-char (skk-okurigana-prefix okuri))
       (unless skk-current-search-prog-list
-	(setq skk-current-search-prog-list
-	      skk-search-prog-list))
+	(setq skk-current-search-prog-list skk-search-prog-list))
       (skk-set-okurigana))))
 
 ;;; other inputting functions
@@ -1688,17 +1682,15 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	       ((and (integerp prog-list-number)
 		     (<= 0 prog-list-number)
 		     (<= prog-list-number 9))
-		(let ((list (symbol-value
-			     (intern
-			      (format "skk-search-prog-list-%d"
-				      prog-list-number)))))
+		(let ((list (symbol-value (intern
+					   (format "skk-search-prog-list-%d"
+						   prog-list-number)))))
 		  (or list skk-search-prog-list)))
 	       (t
 		skk-search-prog-list))))
       ;; skk-henkan-1 の中からコールされる skk-henkan-show-candidates
       ;; から throw される。ここでキャッチした場合は、?x がストリームに
-      ;; 戻されているので、この関数を出て、skk-previous-candidate へゆ
-      ;; く。
+      ;; 戻されているので、この関数を出て、skk-previous-candidate へゆく。
       (catch 'unread
 	(cond
 	 ((setq prototype (skk-henkan-1))
@@ -1858,17 +1850,16 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
   (skk-save-point
    (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
 	  (candidate-keys ; 表示用のキーリスト
-	   (mapcar
-	    #'(lambda (c)
-		(when (or (memq c '(?\C-g skk-start-henkan-char))
-			  (skk-key-binding-member
-			   (skk-char-to-unibyte-string c)
-			   '(skk-previous-candidate)))
-		  (skk-error "`%s' に無効なキーが指定されています"
-			     "Illegal key in `%s'"
-			     "skk-henkan-show-candidates-keys"))
-		(skk-char-to-unibyte-string (upcase c)))
-	    skk-henkan-show-candidates-keys))
+	   (mapcar #'(lambda (c)
+		       (when (or (memq c '(?\C-g skk-start-henkan-char))
+				 (skk-key-binding-member
+				  (skk-char-to-unibyte-string c)
+				  '(skk-previous-candidate)))
+			 (skk-error "`%s' に無効なキーが指定されています"
+				    "Illegal key in `%s'"
+				    "skk-henkan-show-candidates-keys"))
+		       (skk-char-to-unibyte-string (upcase c)))
+		   skk-henkan-show-candidates-keys))
 	  key-num-alist	; 候補選択用の連想リスト
 	  (key-num-alist1 ; key-num-alist を組み立てるための作業用連想リスト。
 	   ;; 逆さまにしておいて、表示する候補の数が少なかったら先
@@ -2178,9 +2169,8 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	;; ここで結合しておく。
 	(setq e (concat (skk-eval-string e)
 			sep
-			(if note
-			    (skk-eval-string
-			     (skk-annotation-get note)))))
+			(when note
+			  (skk-eval-string (skk-annotation-get note)))))
 	;; 全ての加工処理終わり。変数にセットする。
 	(setq v     (cons e v)
 	      count (1+ count)))
@@ -2229,8 +2219,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	    (insert-char 32 (- (frame-width) col 1))))
       (goto-char (point-min)))
     (let ((minibuf-p (skk-in-minibuffer-p))
-	  (window (get-buffer-window
-		   (skk-minibuffer-origin))))
+	  (window (get-buffer-window (skk-minibuffer-origin))))
       (when minibuf-p
 	(if window
 	    (select-window window)
@@ -2289,19 +2278,18 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
       (save-window-excursion
 	(skk-show-num-type-info)
 	(condition-case nil
-	    (setq new-one
-		  (read-from-minibuffer
-		   (format "%s辞書登録%s %s: "
-			   (make-string depth ?\[)
-			   (make-string depth ?\])
-			   (or (and (skk-numeric-p)
-				    (skk-num-henkan-key))
-			       (if skk-okuri-char
-				   (skk-compute-henkan-key2)
-				 skk-henkan-key)))
-		   (when (and (not skk-okuri-char)
-			      skk-read-from-minibuffer-function)
-		     (funcall skk-read-from-minibuffer-function))))
+	    (setq new-one (read-from-minibuffer
+			   (format "%s辞書登録%s %s: "
+				   (make-string depth ?\[)
+				   (make-string depth ?\])
+				   (or (and (skk-numeric-p)
+					    (skk-num-henkan-key))
+				       (if skk-okuri-char
+					   (skk-compute-henkan-key2)
+					 skk-henkan-key)))
+			   (when (and (not skk-okuri-char)
+				      skk-read-from-minibuffer-function)
+			     (funcall skk-read-from-minibuffer-function))))
 	  (quit
 	   (skk-inline-hide)
 	   (setq new-one ""))))
@@ -2435,7 +2423,7 @@ auto に設定するとユーザに確認しない。
 #3 漢数字で位取りなし     e.g. 五千五百
 #4 数値再変換
 #5 金額表記               e.g. 壱阡九百九拾伍
-#9 将棋用"))
+#9 将棋棋譜用"))
       ;; skk-henkan-show-candidates-buffer からひっぱってきたコード
       (let ((minibuf-p (skk-in-minibuffer-p))
 	    (window (get-buffer-window (skk-minibuffer-origin))))
@@ -2447,6 +2435,11 @@ auto に設定するとユーザに確認しない。
 	  (delete-other-windows))
 	(save-selected-window
 	  (pop-to-buffer buff)
+	  (unless (eval-when-compile (and (featurep 'xemacs)
+					  (= emacs-major-version 21)
+					  (<= emacs-minor-version 4)))
+	  ;; XEmacs 21.4 にはない関数
+	    (fit-window-to-buffer))
 	  (unless (pos-visible-in-window-p)
 	    (recenter '(1))))
 	(when minibuf-p

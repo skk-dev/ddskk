@@ -4,6 +4,7 @@
 	(skk-ovwrt-len): 不要な let を削除.
 	(skk-insert-str): skk-ovwrt-len の呼び出し方法を変更.
 	(skk-kakutei-cleanup-buffer): skk-ovwrt-len の呼び出し方法を変更.
+	(skk-show-num-type-info): Use fit-window-to-buffer except XEmacs 21.4.
 
 2011-05-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
