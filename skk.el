@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.567 2011/05/25 12:50:25 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.568 2011/05/26 20:59:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/25 12:50:25 $
+;; Last Modified: $Date: 2011/05/26 20:59:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3873,18 +3873,16 @@ If you want to restore the dictionary from your drive, try
 	       (kill-buffer buf))
 	     (skk-error "`%s'$B$rFI$_9~$a$^$;$s(B" "Cannot load `%s'." file)))
 	  (unless nomsg
-	    (skk-message
-	     "SKK $B<-=q(B %s $B$r%P%C%U%!$KFI$_9~$s$G$$$^$9(B...$B40N;!*(B"
-	     "Inserting contents of %s ...done"
-	     (file-name-nondirectory file)))
+	    (skk-message "SKK $B<-=q(B %s $B$r%P%C%U%!$KFI$_9~$s$G$$$^$9(B...$B40N;!*(B"
+			 "Inserting contents of %s ...done"
+			 (file-name-nondirectory file)))
 	  (skk-setup-jisyo-buffer)
 	  (set-buffer-modified-p nil)))
       buf)))
 
 (defun skk-search ()
-  "$B8!:w$r9T$&!#(B
-`skk-current-search-prog-list' $B$NMWAG$K$J$C$F$$$k%W%m%0%i%`$rI>2A$7$F!"(B
-`skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B"
+  "`skk-henkan-key' $B$r%-!<$H$7$F8!:w$r9T$&!#(B
+`skk-current-search-prog-list' $B$NMWAG$K$J$C$F$$$k%W%m%0%i%`$rI>2A$9$k!#(B"
   (let (l prog)
     (while (and (null l) skk-current-search-prog-list)
       (setq prog (car skk-current-search-prog-list))
@@ -3904,8 +3902,8 @@ If you want to restore the dictionary from your drive, try
 
 (defun skk-numeric-program-p (program)
   "$B<-=q8!:w%W%m%0%i%`(B PROGRAM $B$,?tCMJQ49M-8z$+$I$&$+H=Dj$9$k!#(B
-$B$b$7%W%m%0%i%`$,(B `skk-non-numeric-prog-list' $B$K;XDj$5$l$F$$$?$i(B
-nil $B$rJV$9!#$5$b$J$1$l$P(B non-nil $B$rJV$9!#(B"
+$B$b$7%W%m%0%i%`$,(B `skk-non-numeric-prog-list' $B$K;XDj$5$l$F$$$?$i(B nil $B$rJV$9!#(B
+$B$5$b$J$1$l$P(B non-nil $B$rJV$9!#(B"
   (not (or (memq (car program) skk-non-numeric-prog-list)
 	   (member program skk-non-numeric-prog-list))))
 
@@ -3938,8 +3936,8 @@ FILE $B$K$O<-=q%U%!%$%k$@$1$G$J$/!"(B
 (defun skk-search-server (file limit &optional nomsg)
   "$B<-=q%5!<%P$r;HMQ$7$F(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B
 $B<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$O!"(BFILE $B$r%P%C%U%!$KFI$_9~$s$G8!:w$r9T$&!#(B
-LIMIT $B$H(B NOMSG $B$O<-=q%5!<%P$r;HMQ$7$J$$$H$-$N$_;H$&!#(B
-$B$3$l$i$N0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H$9$k$3$H!#(B"
+LIMIT $B$H(B NOMSG $B$O<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$N$_M-8z!#(B
+$B$3$l$i$N0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H$N$3$H!#(B"
   (if (or skk-server-host
 	  skk-servers-list)
       (skk-search-server-1 file limit)
@@ -4198,13 +4196,13 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
     (setq skk-jisyo-updated nil)))
 
 (defun skk-update-jisyo-original (word &optional purge)
-  "WORD $B$,<!$NJQ49;~$K:G=i$N8uJd$K$J$k$h$&$K!"%W%i%$%Y!<%H<-=q$r99?7$9$k!#(B
+  "$B<!$NJQ49;~$K(B WORD $B$,:G=i$N8uJd$K$J$k$h$&$K!"8D?M<-=q$r99?7$9$k!#(B
 PURGE $B$,(B non-nil $B$G(B WORD $B$,6&M-<-=q$K$"$k8uJd$J$i(B `skk-ignore-dic-word'
-$B4X?t$G%/%)!<%H$7$?8uJd$r%W%i%$%Y!<%H<-=q$K:n$j!"<!$NJQ49$+$i=PNO$7$J(B
+$B4X?t$G%/%)!<%H$7$?8uJd$r8D?M<-=q$K:n$j!"<!$NJQ49$+$i=PNO$7$J(B
 $B$$$h$&$K$9$k!#(B
-WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
+WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
   ;;
-  ;; SKK 9.x $B$h$j!"%W%i%$%Y!<%H<-=q$N%(%s%H%j$NA^F~$NJ}K!$rJQ99$7$?(B (9.3 $B$N$_(B
+  ;; SKK 9.x $B$h$j!"8D?M<-=q$N%(%s%H%j$NA^F~$NJ}K!$rJQ99$7$?(B (9.3 $B$N$_(B
   ;; $B$ONc30(B)$B!#(B
   ;;
   ;; $B!ZJQ99A0![(B
@@ -4242,10 +4240,10 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
   ;; skk-auto-okuri-process $B$,(B non-nil $B$N$H$-$K!"(B(j-okuri-search $B2~$a(B)
   ;; skk-okuri-search $B$O8+=P$78l$ND9$$=g$K8uJd$rJV$9I,MW$,$"$k!#(B
   ;; SKK 8.6 $B$^$G$O!"(Bskk-okuri-search $B$,(B j-okuri-ari-min $B$+$i(B j-okuri-ari-max
-  ;; $B$^$G$r=g$KC5$7!"8+$D$1$?$b$N=g$K8uJd$rJV$9$?$a$K%W%i%$%Y!<%H<-=q$,8+=P$7(B
+  ;; $B$^$G$r=g$KC5$7!"8+$D$1$?$b$N=g$K8uJd$rJV$9$?$a$K8D?M<-=q$,8+=P$7(B
   ;; $B8l$r%-!<$H$7$F9_=g$K%=!<%H$5$l$F$$$kI,MW$,$"$C$?!#(B
   ;; SKK 9.x $B$G$O!"(Bskk-okuri-search $B$,!"8+IU$1$?8uJd$r8+=P$78l$r%-!<$H$7$F>:=g(B
-  ;; $B$K%=!<%H$7$FJV$9$?$a!"%W%i%$%Y!<%H<-=q$N%=!<%H$OI,MW$G$J$$!#$h$C$F!":G8e(B
+  ;; $B$K%=!<%H$7$FJV$9$?$a!"8D?M<-=q$N%=!<%H$OI,MW$G$J$$!#$h$C$F!":G8e(B
   ;; $B$KJQ49$7$?$b$N$r(B (j-okuri-ari-min $B2~$a(B) skk-okuri-ari-min $B$N0LCV$KA^F~$9(B
   ;; $B$k!#(B
   ;;
@@ -4419,7 +4417,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"%W%i%$%Y!<%H<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 
 (defun skk-quote-char (word)
   "WORD $B$r<-=q%(%s%H%j$H$7$F@5$7$$7A$K@07A$9$k!#(B
-$B<-=q$N@)8B$+$i<-=q%(%s%H%jFb$K4^$a$F$O$J$i$J$$J8;z$,(B WORD $B$NCf$K$"$l$P!"(B
+$B<-=q7A<0$N@)8B$+$i!"<-=q%(%s%H%jFb$K4^$a$F$O$J$i$J$$J8;z$,(B WORD $B$NCf$K$"$l$P!"(B
 $BI>2A$7$?$H$-$K$=$NJ8;z$H$J$k$h$&$J(B Lisp $B%3!<%I$rJV$9!#(B"
   (save-match-data
     (cond
