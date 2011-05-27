@@ -4,6 +4,7 @@
 	(skk-search, skk-numeric-program-p, skk-search-server)
 	(skk-update-jisyo-original, skk-quote-char): docstring を修正.
 	(skk-undo-kakutei): skk-error を除去.
+	(skk-mode-exit): コード見直し.
 
 2011-05-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
