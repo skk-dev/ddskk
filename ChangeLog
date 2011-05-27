@@ -3,6 +3,7 @@
 	* skk.el (skk-get-jisyo-buffer): インデントを整形.
 	(skk-search, skk-numeric-program-p, skk-search-server)
 	(skk-update-jisyo-original, skk-quote-char): docstring を修正.
+	(skk-undo-kakutei): skk-error を除去.
 
 2011-05-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

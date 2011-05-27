@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.568 2011/05/26 20:59:23 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.569 2011/05/27 13:37:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/26 20:59:23 $
+;; Last Modified: $Date: 2011/05/27 13:37:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -462,6 +462,7 @@ dependent."
     (define-key skk-j-mode-map
       (skk-char-to-unibyte-string skk-try-completion-char)
       #'skk-insert)
+
     ;; Workaround for key translation.
     (when (eval-when-compile skk-running-gnu-emacs)
       (when (eq skk-try-completion-char 9)
@@ -469,6 +470,7 @@ dependent."
 	;; Org-mode $B$J$I$O(B <tab> $B$rDj5A$9$k$N$G!$(BSKK $B$NJ}$G$b(B <tab> $B$rDj5A(B
 	;; $B$9$kI,MW$,$"$k!#(B
 	(define-key skk-j-mode-map [(tab)] #'skk-comp-wrapper)))
+
     ;; comp $B$H(B dcomp $B$G$NA08uJd$XLa$kF0:n$r(B Shift TAB $B$G$b2DG=$H$9$k!#(B
     (when skk-previous-completion-use-backtab
       (define-key skk-j-mode-map skk-previous-completion-backtab-key
@@ -659,9 +661,8 @@ dependent."
 (defun skk-setup-undo ()
   "$B!V$d$jD>$7!W7O$N%-!<$K%3%^%s%I(B `skk-undo' $B$r3dEv$F$k!#(B"
   (skk-setup-emulation-commands
-  '(undo
-    advertised-undo)
-  'skk-undo))
+   '(undo advertised-undo)		;commands
+   'skk-undo))				;emulation
 
 (defun skk-setup-verbose-messages ()
   (unless skk-henkan-on-message
@@ -2874,27 +2875,30 @@ WORD $B$r0z?t$K$7$F8F$V!#$b$7(B non-nil $B$rJV$;$P(B `skk-update-jisyo-p' $
 (defun skk-undo-kakutei ()
   "$B0lHV:G8e$N3NDj$r%"%s%I%%$7!"8+=P$78l$KBP$9$k8uJd$rI=<($9$k!#(B
 $B:G8e$K3NDj$7$?$H$-$N8uJd$O%9%-%C%W$5$l$k!#(B
-$B8uJd$,B>$K$J$$$H$-$O!"%(%3!<%(%j%"$G$N<-=qEPO?$KF~$k!#(B"
+$BB>$K8uJd$,$J$$$H$-$O!"%(%3!<%(%j%"$G$N<-=qEPO?$KF~$k!#(B"
   (interactive)
-  (skk-with-point-move
-   (cond ((eq last-command 'skk-undo-kakutei)
-	  (skk-error "$B3NDj%"%s%I%%$OO"B3;HMQ$G$-$^$;$s(B"
-		     "Cannot undo kakutei repeatedly"))
-	 ((eq skk-henkan-mode 'active)
-	  (skk-error "$B"'%b!<%I$G$O3NDj%"%s%I%%$G$-$^$;$s(B"
-		     "Cannot undo kakutei in $B"'(B mode"))
-	 ((or (not (skk-get-last-henkan-datum 'henkan-key))
-	      (string= (skk-get-last-henkan-datum 'henkan-key) "")
-	      (null skk-henkan-end-point))
-	  ;; skk-henkan-key may be nil or "".
-	  (skk-error "$B%"%s%I%%%G!<%?$,$"$j$^$;$s(B"
-		     "Lost undo data")))
-   (condition-case nil
-       (skk-undo-kakutei-subr)
-     ;; skk-undo-kakutei $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F$*$+$J$$(B
-     ;; $B$H<!$NF0:n$r$7$h$&$H$7$?$H$-$K%(%i!<$K$J$k!#(B
-     ((error quit)
-      (skk-kakutei)))))
+  (let (jmsg emsg)
+    (cond ((eq last-command 'skk-undo-kakutei)
+	   (setq jmsg "$B3NDj%"%s%I%%$OO"B3;HMQ$G$-$^$;$s(B"
+		 emsg "Cannot undo kakutei repeatedly"))
+	  ((eq skk-henkan-mode 'active)
+	   (setq jmsg "$B"'%b!<%I$G$O3NDj%"%s%I%%$G$-$^$;$s(B"
+		 emsg "Cannot undo kakutei in $B"'(B mode"))
+	  ((or (not (skk-get-last-henkan-datum 'henkan-key))
+	       (string= (skk-get-last-henkan-datum 'henkan-key) "")
+	       (null skk-henkan-end-point))
+	   ;; skk-henkan-key may be nil or "".
+	   (setq jmsg "$B%"%s%I%%%G!<%?$,$"$j$^$;$s(B"
+		 emsg "Lost undo data")))
+    (if jmsg
+	(skk-message jmsg emsg)
+      (skk-with-point-move
+       (condition-case nil
+	   (skk-undo-kakutei-subr)
+	 ;; skk-undo-kakutei $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F(B
+	 ;; $B$*$+$J$$$H<!$NF0:n$r$7$h$&$H$7$?$H$-$K%(%i!<$K$J$k!#(B
+	 ((error quit)
+	  (skk-kakutei)))))))
 
 (defun skk-undo-kakutei-subr ()
   (let ((end (if (skk-get-last-henkan-datum 'henkan-okurigana)
