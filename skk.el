@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.570 2011/05/27 14:07:39 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.571 2011/05/27 23:55:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/27 14:07:39 $
+;; Last Modified: $Date: 2011/05/27 23:55:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -286,7 +286,8 @@ dependent."
   (when (eval-when-compile (featurep 'xemacs))
     (delete-menu-item (list (car skk-menu))))
   ;;
-  (dolist (b '("*$B8uJd(B*" "*SKK annotation*" " *$B?tCMJQ49%?%$%W(B*"))
+  (dolist (b `("*$B8uJd(B*" "*SKK annotation*"
+	       " *$B?tCMJQ49%?%$%W(B*" ,skk-list-chars-buffer-name))
     (when (get-buffer b)
       (kill-buffer b))))
 
@@ -346,20 +347,18 @@ dependent."
     (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)))
 
 (defun skk-setup-charset-list ()
-  (let ((candidates '(ascii
-		      japanese-jisx0208
-		      japanese-jisx0213-1
-		      japanese-jisx0213-2
-		      japanese-jisx0213.2004-1
-		      katakana-jisx0201
-		      latin-jisx0201
-		      japanese-jisx0212
-		      japanese-jisx0208-1978))
-	candidate list)
-    (while candidates
-      (setq candidate (pop candidates))
-      (when (skk-charsetp candidate)
-	(push candidate list)))
+  (let (list)
+    (dolist (c '(ascii
+		 japanese-jisx0208
+		 japanese-jisx0213-1
+		 japanese-jisx0213-2
+		 japanese-jisx0213.2004-1
+		 katakana-jisx0201
+		 latin-jisx0201
+		 japanese-jisx0212
+		 japanese-jisx0208-1978))
+      (when (skk-charsetp c)
+	(push c list)))
     (setq skk-charset-list (nreverse list))))
 
 (defun skk-setup-keymap ()
@@ -393,10 +392,9 @@ dependent."
     (skk-update-minor-mode-map-alist 'skk-j-mode skk-j-mode-map)
     (skk-update-minor-mode-map-alist 'skk-jisx0201-mode skk-j-mode-map))
   (unless (eq (lookup-key skk-j-mode-map "a") 'skk-insert)
-    (let ((i 32))
-      (while (< i 127)
-	(define-key skk-j-mode-map (skk-char-to-unibyte-string i) 'skk-insert)
-	(setq i (1+ i))))
+    (dotimes (i 95)			;from " " to "~".
+      (define-key skk-j-mode-map (skk-char-to-unibyte-string (+ 32 i))
+	'skk-insert))
     (skk-define-menu skk-j-mode-map)))
 
 (defun skk-define-latin-mode-map ()
@@ -5135,9 +5133,8 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 
 (defun skk-remove-minibuffer-setup-hook (&rest args)
   ;; Remove all args from minibuffer-setup-hook.
-  (while args
-    (remove-hook 'minibuffer-setup-hook (car args))
-    (setq args (cdr args))))
+  (dolist (hook args)
+    (remove-hook 'minibuffer-setup-hook hook)))
 
 (defun skk-add-skk-pre-command ()
   (add-hook 'pre-command-hook 'skk-pre-command nil 'local))
