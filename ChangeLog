@@ -1,10 +1,11 @@
 2011-05-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-remove-minibuffer-setup-hook, skk-setup-auto-paren):
-	while から dolist へ変更.
+	* skk.el (skk-remove-minibuffer-setup-hook, skk-setup-auto-paren)
+	(skk-kill-local-variables): while から dolist へ変更.
 	(skk-define-j-mode-map, skk-define-jisx0208-latin-mode-map)
 	(skk-define-abbrev-mode-map): while から dotimes へ変更.
 	(skk-mode-exit, skk-setup-charset-list): コード見直し.
+
 
 2011-05-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

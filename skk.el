@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.574 2011/05/28 01:12:49 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.575 2011/05/28 01:52:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 01:12:49 $
+;; Last Modified: $Date: 2011/05/28 01:52:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -752,27 +752,23 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 (defun skk-setup-auto-paren ()
   (when (and skk-auto-insert-paren
 	     skk-auto-paren-string-alist)
-    ;;
-    (let (rulealst str alist)
-      (dolist (s (mapcar #'char-to-string
-			 skk-special-midashi-char-list))
-	;; skk-auto-paren-string-alist $B$NCf$+$i!"(B
-	;; skk-special-midashi-char-list $B$NMWAG$K(B
-	;; $B4XO"$9$k$b$N$r<h$j=|$/!#(B
-	(skk-remove-alist 'skk-auto-paren-string-alist s))
+    ;; skk-auto-paren-string-alist $B$NCf$+$i!"(B
+    ;; skk-special-midashi-char-list $B$NMWAG$K4XO"$9$k$b$N$r<h$j=|$/!#(B
+    (dolist (s (mapcar #'char-to-string
+		       skk-special-midashi-char-list))
+      (skk-remove-alist 'skk-auto-paren-string-alist s))
 
-      (when (memq t (mapcar #'(lambda (e)
-				(skk-ascii-char-p (string-to-char (car e))))
-			    skk-auto-paren-string-alist))
-	;;
-	(setq alist skk-auto-paren-string-alist
-	      rulealst (nconc (mapcar #'(lambda (e)
+    (when (memq t (mapcar #'(lambda (e)
+			      (skk-ascii-char-p (string-to-char (car e))))
+			  skk-auto-paren-string-alist))
+      (let (rulealst str)
+	(setq rulealst (nconc (mapcar #'(lambda (e)
 					  (nth 2 e))
 				      skk-rom-kana-rule-list)
 			      (mapcar #'(lambda (e)
 					  (nth 2 e))
 				      skk-rom-kana-base-rule-list)))
-	(dolist (cell alist)
+	(dolist (cell skk-auto-paren-string-alist)
 	  (setq str (car cell))
 	  (when (and (skk-ascii-char-p (string-to-char str))
 		     ;; $B=PNOJ8;z$,F~$C$F$$$k%;%k$rD4$Y$F!"$$$:$l$+$N(B
@@ -785,13 +781,13 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		     (null (assoc str skk-rom-kana-rule-list)))
 	    ;; skk-auto-paren-string-alist $B$N3FMWAG$N(B car $B$NJ8;z$,(B
 	    ;; ascii char $B$G$"$k>l9g$O!"(Bskk-rom-kana-rule-list,
-	    ;; skk-rom-kana-base-rule-list $B$K$=$NJ8;z$r=q$-9~$`(B ($BK\(B
-	    ;; $BMh$O(B ascii char $B$O(B skk-rom-kana-rule-list,
-	    ;; skk-rom-kana-base-rule-list $B$K=q$/I,MW$,$J$$(B ---
-	    ;; skk-emulate-original-map$B$K$h$kF~NO$,9T$J$o$l$k(B ---
+	    ;; skk-rom-kana-base-rule-list $B$K$=$NJ8;z$r=q$-9~$`!#(B
+	    ;; $BK\Mh$O(B ascii char $B$O(B skk-rom-kana-rule-list,
+	    ;; skk-rom-kana-base-rule-list $B$K=q$/I,MW$,$J$$(B
+	    ;; --- skk-emulate-original-map$B$K$h$kF~NO$,9T$J$o$l$k(B ---
 	    ;; $B$,!"(Bskk-auto-paren-string-alist $B$K;XDj$5$l$?BP$K$J$k(B
 	    ;; $BJ8;z$NA^F~$N$?$a$K$O!"%-!<$H$J$kJ8;z$r=q$$$F$*$/I,MW$,(B
-	    ;; $B$"$k(B)$B!#(B
+	    ;; $B$"$k!#(B
 	    (setq skk-rom-kana-rule-list
 		  (cons (list str nil str)
 			skk-rom-kana-rule-list))))))))
@@ -997,11 +993,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 (defun skk-kill-local-variables ()
   "SKK $B4XO"$N%P%C%U%!%m!<%+%kJQ?t$rL58z$K$9$k!#(B"
   (skk-mode -1)
-  (let ((lv (buffer-local-variables))
-	v vstr)
-    (while lv
-      (setq v (car (car lv))
-	    lv (cdr lv)
+  (let (v vstr)
+    (dolist (lv (buffer-local-variables))
+      (setq v (car lv)
 	    vstr (prin1-to-string v))
       (when (and (> (length vstr) 3)
 		 (string= "skk-" (substring vstr 0 4)))
