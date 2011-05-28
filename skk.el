@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.575 2011/05/28 01:52:48 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.576 2011/05/28 03:27:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 01:52:48 $
+;; Last Modified: $Date: 2011/05/28 03:27:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3915,12 +3915,10 @@ FILE には辞書ファイルだけでなく、
 			limit))
 
 (defun skk-search-extra-jisyo-files ()
-  (let ((rest skk-extra-jisyo-file-list)
-	candidates)
-    (while rest
-      (setq candidates (nconc candidates (skk-search-jisyo-file (car rest)
-								10000))
-	    rest (cdr rest)))
+  (let (candidates)
+    (dolist (file skk-extra-jisyo-file-list)
+      (setq candidates (nconc candidates
+			      (skk-search-jisyo-file file 10000))))
     candidates))
 
 (defun skk-search-server (file limit &optional nomsg)
