@@ -1,7 +1,7 @@
 2011-05-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-remove-minibuffer-setup-hook)
-	(skk-setup-charset-list): while から dolist へ変更.
+	* skk.el (skk-remove-minibuffer-setup-hook): while から dolist へ変更.
+	(skk-setup-charset-list): コード見直し.
 	(skk-define-j-mode-map): while から dotimes へ変更.
 	(skk-mode-exit): コード見直し.
 

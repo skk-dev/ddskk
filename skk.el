@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.571 2011/05/27 23:55:27 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.572 2011/05/28 00:35:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/27 23:55:27 $
+;; Last Modified: $Date: 2011/05/28 00:35:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -347,19 +347,19 @@ dependent."
     (write-region 1 (point-max) skk-emacs-id-file nil 'nomsg)))
 
 (defun skk-setup-charset-list ()
-  (let (list)
-    (dolist (c '(ascii
-		 japanese-jisx0208
-		 japanese-jisx0213-1
-		 japanese-jisx0213-2
-		 japanese-jisx0213.2004-1
-		 katakana-jisx0201
-		 latin-jisx0201
-		 japanese-jisx0212
-		 japanese-jisx0208-1978))
-      (when (skk-charsetp c)
-	(push c list)))
-    (setq skk-charset-list (nreverse list))))
+  (setq skk-charset-list
+	(delq nil (mapcar #'(lambda (c)
+			      (when (skk-charsetp c)
+				c))
+			  '(ascii
+			    japanese-jisx0208
+			    japanese-jisx0213-1
+			    japanese-jisx0213-2
+			    japanese-jisx0213.2004-1
+			    katakana-jisx0201
+			    latin-jisx0201
+			    japanese-jisx0212
+			    japanese-jisx0208-1978)))))
 
 (defun skk-setup-keymap ()
   "SKK のキー設定を行う。"
