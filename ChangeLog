@@ -1,5 +1,11 @@
 2011-05-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* Makefile (VERSION):
+	* doc/skk.texi:
+	* skk-version.el (skk-version): Bump to 14.2.91.
+
+2011-05-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-vars.el (XXX workaround): while から dolist へ変更.
 
 	* skk-tankan.el (skk-tankan): while から dolist へ変更.
