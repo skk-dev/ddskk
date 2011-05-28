@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.576 2011/05/28 03:27:01 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.577 2011/05/28 03:37:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 03:27:01 $
+;; Last Modified: $Date: 2011/05/28 03:37:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4159,12 +4159,11 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 
 ;;;###autoload
 (defun skk-remove-duplicates (list)
-  "LIST $B$+$i=EJ#$r=|30$7$?%j%9%H$rJV$9!#(B"
+  "LIST $B$+$i!"=EJ#$9$kMWAG$r=|30$7$?%j%9%H$rJV$9!#(B"
   (let (new)
-    (while list
-      (or (member (car list) new)
-	  (setq new (cons (car list) new)))
-      (setq list (cdr list)))
+    (dolist (x list)
+      (or (member x new)
+	  (setq new (cons x new))))
     (nreverse new)))
 
 (defun skk-search-kakutei-jisyo-file (file limit &optional nomsg)
