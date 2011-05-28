@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.79 2011/05/22 09:54:04 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.80 2011/05/28 05:04:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/22 09:54:04 $
+;; Last Modified: $Date: 2011/05/28 05:04:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -575,11 +575,8 @@
     (insert (propertize (format "variable skk-kcode-charset's value is `%s'.\n"
 				skk-kcode-charset)
 			'face font-lock-doc-face))
-
-    (let ((high 33))			; ?\x21
-      (while (<= high 126)		; ?\x7e
-	(skk-list-chars-sub high skk-kcode-charset)
-	(setq high (1+ high))))
+    (dotimes (high 94)			; from ?\x21 to ?\x7e
+      (skk-list-chars-sub (+ high 33) skk-kcode-charset))
     (pop-to-buffer buf)
     (search-backward ch)
     (setq skk-list-chars-point (point))

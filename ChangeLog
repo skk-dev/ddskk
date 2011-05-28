@@ -1,5 +1,7 @@
 2011-05-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kcode.el (skk-list-chars): while から dotimes へ変更.
+
 	* skk-gadget.el (skk-today-execute-char): while から dolist へ変更.
 
 	* skk.el (skk-remove-minibuffer-setup-hook, skk-setup-auto-paren)
