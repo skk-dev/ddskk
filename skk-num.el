@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.44 2010/09/10 14:38:56 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.45 2011/05/28 05:32:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 14:38:56 $
+;; Last Modified: $Date: 2011/05/28 05:32:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -188,30 +188,23 @@
   "与えられたリストの各要素から組み合せ可能な文字列の連接を作る。
 結果はリストで返す。例えば
   ((\"A\" \"B\") \"1\" (\"X\" \"Y\")) -> (\"A1X\" \"A1Y\" \"B1X\" \"B1Y\")"
-  (let ((dst (car list))
-	(src (cdr list))
-	elt)
+  (let ((dst (car list)))
     (unless (listp dst)
       (setq dst (list dst)))
-    (while src
-      (setq elt (car src))
+    (dolist (elt (cdr list))
       (setq dst
 	    (cond
 	     ((consp elt)
 	      (apply #'nconc
-		     (mapcar
-		      #'(lambda (str0)
-			  (mapcar
-			   #'(lambda (str1)
-			       (concat str0 str1))
-			   elt))
-		      dst)))
+		     (mapcar #'(lambda (str0)
+				 (mapcar #'(lambda (str1)
+					     (concat str0 str1))
+					 elt))
+			     dst)))
 	     (t
-	      (mapcar
-	       (lambda (str0)
-		 (concat str0 elt))
-	       dst))))
-      (setq src (cdr src)))
+	      (mapcar #'(lambda (str0)
+			  (concat str0 elt))
+		      dst)))))
     dst))
 
 ;;;###autoload
