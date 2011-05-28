@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.360 2011/05/22 03:49:27 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.361 2011/05/28 06:03:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/22 03:49:27 $
+;; Last Modified: $Date: 2011/05/28 06:03:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4975,15 +4975,13 @@ then filename of the English version will be \"SKK.tut.E\".")
 ;; face の property が一部の状況で反映されないことに対処
 (when (and (not noninteractive)
 	   window-system)
-  (let ((faces '(skk-tut-section-face
-		 skk-tut-section-face
-		 skk-tut-do-it-face
-		 skk-tut-question-face
-		 skk-tut-key-bind-face
-		 skk-tut-hint-face)))
-    (while faces
-      (set-face-foreground (car faces) (face-foreground (car faces)))
-      (setq faces (cdr faces)))))
+  (dolist (f '(skk-tut-section-face
+	       skk-tut-section-face
+	       skk-tut-do-it-face
+	       skk-tut-question-face
+	       skk-tut-key-bind-face
+	       skk-tut-hint-face))
+      (set-face-foreground f (face-foreground f))))
 
 ;;; skk-viper.el related.
 (defcustom skk-use-viper nil
