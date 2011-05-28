@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.573 2011/05/28 00:50:00 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.574 2011/05/28 01:12:49 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 00:50:00 $
+;; Last Modified: $Date: 2011/05/28 01:12:49 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -753,19 +753,17 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (when (and skk-auto-insert-paren
 	     skk-auto-paren-string-alist)
     ;;
-    (let ((strlst (mapcar 'char-to-string
-			  skk-special-midashi-char-list))
-	  rulealst str alist)
-      (while strlst
+    (let (rulealst str alist)
+      (dolist (s (mapcar #'char-to-string
+			 skk-special-midashi-char-list))
 	;; skk-auto-paren-string-alist $B$NCf$+$i!"(B
 	;; skk-special-midashi-char-list $B$NMWAG$K(B
 	;; $B4XO"$9$k$b$N$r<h$j=|$/!#(B
-	(skk-remove-alist 'skk-auto-paren-string-alist (car strlst))
-	(setq strlst (cdr strlst)))
-      (when (memq t (mapcar
-		     #'(lambda (e)
-			 (skk-ascii-char-p (string-to-char (car e))))
-		     skk-auto-paren-string-alist))
+	(skk-remove-alist 'skk-auto-paren-string-alist s))
+
+      (when (memq t (mapcar #'(lambda (e)
+				(skk-ascii-char-p (string-to-char (car e))))
+			    skk-auto-paren-string-alist))
 	;;
 	(setq alist skk-auto-paren-string-alist
 	      rulealst (nconc (mapcar #'(lambda (e)
