@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.45 2011/05/03 07:26:10 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.46 2011/05/28 04:49:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/03 07:26:10 $
+;; Last Modified: $Date: 2011/05/28 04:49:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -157,12 +157,10 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
       (format (or format "%s年%s月%s日(%s)") year month day day-of-week))))
 
 (defun skk-today-execute-char ()
-  (let ((tree (nth 4 skk-rule-tree))
-	list char)
-    (while (setq list (car tree))
-      (if (memq 'skk-today list)
-	  (setq char (char-to-string (car list))))
-      (setq tree (cdr tree)))
+  (let (char)
+    (dolist (list (nth 4 skk-rule-tree))
+      (when (memq 'skk-today list)
+	(setq char (char-to-string (car list)))))
     char))
 
 ;;;###autoload

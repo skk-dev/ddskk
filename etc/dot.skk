@@ -544,6 +544,7 @@
 
 ;;
 (define-key skk-j-mode-map (kbd "M-,") 'skk-toggle-kutouten)
+(define-key skk-j-mode-map (kbd "C-M-j") 'skk-undo-kakutei)
 
 ;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
 ;; (global-set-key "\M-i" 'skk-annotation-wikipedia-region-or-at-point)

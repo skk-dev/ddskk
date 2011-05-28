@@ -1,5 +1,7 @@
 2011-05-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-gadget.el (skk-today-execute-char): while から dolist へ変更.
+
 	* skk.el (skk-remove-minibuffer-setup-hook, skk-setup-auto-paren)
 	(skk-kill-local-variables, skk-search-extra-jisyo-files)
 	(skk-remove-duplicates): while から dolist へ変更.
