@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.572 2011/05/28 00:35:30 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.573 2011/05/28 00:50:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 00:35:30 $
+;; Last Modified: $Date: 2011/05/28 00:50:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -412,13 +412,11 @@ dependent."
 				     skk-jisx0208-latin-mode-map))
   (unless (eq (lookup-key skk-jisx0208-latin-mode-map "a")
 	      'skk-jisx0208-latin-insert)
-    (let ((i 0))
-      (while (< i 128)
-	(when (aref skk-jisx0208-latin-vector i)
-	  (define-key skk-jisx0208-latin-mode-map
-	    (skk-char-to-unibyte-string i)
-	    'skk-jisx0208-latin-insert))
-	(setq i (1+ i))))
+    (dotimes (i 128)
+      (when (aref skk-jisx0208-latin-vector i)
+	(define-key skk-jisx0208-latin-mode-map
+	  (skk-char-to-unibyte-string i)
+	  'skk-jisx0208-latin-insert)))
     (define-key skk-jisx0208-latin-mode-map "\C-q" 'skk-toggle-characters)
     (skk-define-menu skk-jisx0208-latin-mode-map)))
 
@@ -427,11 +425,9 @@ dependent."
   (unless (keymapp skk-abbrev-mode-map)
     (setq skk-abbrev-mode-map (make-sparse-keymap))
     (skk-update-minor-mode-map-alist 'skk-abbrev-mode skk-abbrev-mode-map)
-    (let ((i 32))
-      (while (< i 127)
-	(define-key skk-abbrev-mode-map (skk-char-to-unibyte-string i)
-	  'skk-abbrev-insert)
-	(setq i (1+ i))))
+    (dotimes (i 95)
+      (define-key skk-abbrev-mode-map (skk-char-to-unibyte-string (+ 32 i))
+	  'skk-abbrev-insert))
     (define-key skk-abbrev-mode-map "," 'skk-abbrev-comma)
     (define-key skk-abbrev-mode-map "." 'skk-abbrev-period)
     (define-key skk-abbrev-mode-map "\C-q" 'skk-toggle-characters)
