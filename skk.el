@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.578 2011/05/28 05:46:11 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.579 2011/05/28 07:21:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 05:46:11 $
+;; Last Modified: $Date: 2011/05/28 07:21:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -660,41 +660,32 @@ dependent."
 
 (defun skk-setup-verbose-messages ()
   (unless skk-henkan-on-message
-    (let ((string (case skk-j-mode-function-key-usage
-		    (conversion
-		     "\
+    (setq skk-henkan-on-message
+	  (apply 'format
+	   ;; STRING
+	   (case skk-j-mode-function-key-usage
+	     (conversion
+	      "\
 \[F5]%s [F6]%s [F7]%s [F8]%s [F9]%s [F10]%s")
-		    (t
-		     "\
-\[C-5 SPC]%s [C-6 SPC]%s [C-7 SPC]%s [C-8 SPC]%s [C-9 SPC]%s [C-0 SPC]%s")))
-	  (i 10)
-	  list val)
-      (while (> i 4)
-	(setq val (caar (symbol-value
-			 (intern
-			  (format "skk-search-prog-list-%d"
-				  (if (> i 9)
-				      (- i 10)
-				    i))))))
-	(setq list
-	      (cons (case val
-		      (skk-search-tankanji
-		       "単漢字")
-		      (skk-search-identity
-		       "無変換")
-		      (skk-search-katakana
-		       "カタカナ")
-		      (skk-search-hankaku-katakana
-		       "半角カナ")
-		      (skk-search-jisx0208-romaji
-		       "全角ローマ")
-		      (skk-search-romaji
-		       "ローマ")
-		      (t
-		       "ユーザ定義"))
-		    list))
-	(setq i (1- i)))
-      (setq skk-henkan-on-message (apply 'format string list)))))
+	     (t
+	      "\
+\[C-5 SPC]%s [C-6 SPC]%s [C-7 SPC]%s [C-8 SPC]%s [C-9 SPC]%s [C-0 SPC]%s"))
+	   ;; OBJECTS
+	   (mapcar #'(lambda (x)
+		       (cdr
+			(assoc (caar (symbol-value
+				      (intern-soft
+				       (format "skk-search-prog-list-%d"
+					       x))))
+			       '((skk-search-tankanji . "単漢字")
+				 (skk-search-identity . "無変換")
+				 (skk-search-katakana . "カタカナ")
+				 (skk-search-hankaku-katakana . "半角カナ")
+				 (skk-search-jisx0208-romaji . "全角ローマ")
+				 (skk-search-romaji . "ローマ")
+				 (nil . "未定義"))
+			       )))
+		   '(5 6 7 8 9 0))))))
 
 (defun skk-compile-init-file-maybe ()
   "必要なら `skk-init-file' をバイトコンパイルする。

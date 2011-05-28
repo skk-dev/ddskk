@@ -15,7 +15,8 @@
 	(skk-remove-duplicates): while から dolist へ変更.
 	(skk-define-j-mode-map, skk-define-jisx0208-latin-mode-map)
 	(skk-define-abbrev-mode-map): while から dotimes へ変更.
-	(skk-mode-exit, skk-setup-charset-list): コード見直し.
+	(skk-mode-exit, skk-setup-charset-list, skk-setup-verbose-messages):
+	コード見直し.
 
 2011-05-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
