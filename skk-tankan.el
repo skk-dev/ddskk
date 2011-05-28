@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.44 2011/05/03 10:40:36 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.45 2011/05/28 05:46:11 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/05/03 10:40:36 $
+;; Last Modified: $Date: 2011/05/28 05:46:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1642,12 +1642,10 @@ METHOD が 2 であれば総画数として検索を実行する。
     (setq buffer-read-only nil)
     (erase-buffer)
     (set-buffer-multibyte t)
-    (while list
-      (let ((str (car list)))
-	(insert (format " %s  %s\n"
-			(propertize (substring str 0 1) 'face 'skk-tankan-face)
-			(substring str 2))))
-      (setq list (cdr list))))
+    (dolist (str list)
+      (insert (format " %s  %s\n"
+		      (propertize (substring str 0 1) 'face 'skk-tankan-face)
+		      (substring str 2)))))
   (set-buffer-modified-p nil)
   (setq buffer-read-only t)
   (pop-to-buffer "*単漢字*")

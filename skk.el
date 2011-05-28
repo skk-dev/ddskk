@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.577 2011/05/28 03:37:02 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.578 2011/05/28 05:46:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 03:37:02 $
+;; Last Modified: $Date: 2011/05/28 05:46:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -286,7 +286,7 @@ dependent."
   (when (eval-when-compile (featurep 'xemacs))
     (delete-menu-item (list (car skk-menu))))
   ;;
-  (dolist (b `("*候補*" "*SKK annotation*"
+  (dolist (b `("*候補*" "*SKK annotation*" "*単漢字*"
 	       " *数値変換タイプ*" ,skk-list-chars-buffer-name))
     (when (get-buffer b)
       (kill-buffer b))))
