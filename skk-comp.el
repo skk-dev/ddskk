@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.89 2011/05/29 07:25:25 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.90 2011/05/29 10:19:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/29 07:25:25 $
+;; Last Modified: $Date: 2011/05/29 10:19:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -432,14 +432,8 @@
 	     (or (not skk-comp-use-prefix)
 		 (string= skk-comp-prefix "")))
     (when skk-comp-first
-      (let (list
-	    el)
-	(dolist (cell skk-kakutei-history)
-	  (setq el (car cell))
-	  (unless (member el list)
-	    (push el list)))
-	(setq skk-comp-kakutei-midasi-list
-	      (nreverse list))))
+      (setq skk-comp-kakutei-midasi-list
+	    (skk-remove-duplicates (mapcar #'car skk-kakutei-history))))
     (pop skk-comp-kakutei-midasi-list)))
 
 ;;;###autoload

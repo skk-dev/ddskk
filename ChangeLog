@@ -2,6 +2,7 @@
 
 	* skk-comp.el (skk-comp-search-current-buffer)
 	(skk-comp-re-search-current-buffer): インデントを整形.
+	(skk-comp-by-history): Use function skk-remove-duplicates.
 
 	* skk-emacs.el (skk-emacs-prepare-menu)
 	(skk-emacs-prepare-modeline-properties): インデントを整形.
