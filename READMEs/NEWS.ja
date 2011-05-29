@@ -20,12 +20,17 @@ skk-study-file-format-version は 0.3 です。
 ** Emacs 23.2 における interactive-p 使用の中止
 
 Emacs 23.2 からは関数 interactive-p が obsolete となり called-interactively-p
-の利用が推奨されています。各種の Emacs の互換性を図ることを目的に、新たなマクロ
-skk-called-interactively-p を導入しました。
+の利用が推奨されています。各種の Emacs の互換性を図ることを目的に、新たなマク
+ロ skk-called-interactively-p を導入しました。
 
 ** 不要バッファの削除
 
-skk-mode を抜けたときは 候補バッファと SKK annotation バッファを削除するよう変更
+skk-mode を抜けたときは 候補バッファと SKK annotation バッファを削除するよう
+変更しました。
+
+** メッセージの色付け
+
+助言的メッセージを font-lock-keyword-face と font-lock-warning-face で色付け
 しました。
 
 ** その他バグ修正など
