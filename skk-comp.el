@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.88 2011/05/15 22:21:01 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.89 2011/05/29 07:25:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/15 22:21:01 $
+;; Last Modified: $Date: 2011/05/29 07:25:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -315,13 +315,12 @@
 		   nil t))
 	(unless (eq (following-char)
 		    ?\040) ;SPC
-	  (setq c-word
-		(concat key
-			(buffer-substring-no-properties
-			 ;; 見出し語に空白は含まれない。
-			 ;; " /" をサーチする必要はない。
-			 (point)
-			 (1- (search-forward " ")))))
+	  (setq c-word (concat key
+			       (buffer-substring-no-properties
+				;; 見出し語に空白は含まれない。
+				;; " /" をサーチする必要はない。
+				(point)
+				(1- (search-forward " ")))))
 	  (when (and abbrev
 		     (string-match "\\Ca" c-word))
 	    ;; abbrev モードで「3ねん」などの補完はしない
@@ -340,20 +339,17 @@
     (save-match-data
       ;; `case-fold-search' は、辞書バッファでは常に nil。
       (while (and (not c-word)
-		  (re-search-forward
-		   (concat "\n" regexp-key)
-		   nil t))
+		  (re-search-forward (concat "\n" regexp-key) nil t))
 	(beginning-of-line)
 	(search-forward (if skk-use-numeric-conversion
 			    (skk-num-compute-henkan-key key)
 			  key))
 	(unless (eq (following-char)
 		    ?\040)		;SPC
-	  (setq c-word
-		(concat key
-			(buffer-substring-no-properties
-			 (point)
-			 (1- (search-forward " ")))))
+	  (setq c-word (concat key
+			       (buffer-substring-no-properties
+				(point)
+				(1- (search-forward " ")))))
 	  (when (and abbrev
 		     (string-match "\\Ca" c-word))
 	    ;; abbrev モードで「3ねん」などの補完はしない

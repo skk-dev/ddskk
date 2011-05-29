@@ -1,5 +1,8 @@
 2011-05-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-comp.el (skk-comp-search-current-buffer)
+	(skk-comp-re-search-current-buffer): インデントを整形.
+
 	* skk-emacs.el (skk-emacs-prepare-menu)
 	(skk-emacs-prepare-modeline-properties): インデントを整形.
 
