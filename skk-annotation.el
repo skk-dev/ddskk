@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.175 2011/05/22 03:49:27 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.176 2011/05/29 00:17:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/05/22 03:49:27 $
+;; Last Modified: $Date: 2011/05/29 00:17:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -450,29 +450,60 @@
 	     (not (or skk-isearch-switch
 		      (skk-in-minibuffer-p))))
     (unless skk-annotation-wikipedia-message
-      (let* ((key (key-description skk-annotation-wikipedia-key))
-	     (string "{どのWiki?}")
-	     (i 0)
-	     source)
+      (let ((key (key-description skk-annotation-wikipedia-key))
+	    (string "")
+	    list new)
 	(when (equal key "TAB")
 	  (setq key "C-i"))
-	(while (setq source (nth i skk-annotation-wikipedia-sources))
-	  (setq string (format "%s[C-%d %s]%s " string (1+ i) key source))
-	  (setq i (1+ i)))
-	(setq skk-annotation-wikipedia-message string)))
+	(setq list
+	      (split-string
+	       (dotimes (i (length skk-annotation-wikipedia-sources) string)
+		 (setq string
+		       (format "%s[C-%d %s]%s  "
+			       string
+			       (1+ i)
+			       key
+			       (nth i skk-annotation-wikipedia-sources))))
+	       "  "))
+	(dolist (x list)
+	  (let* ((y (split-string x "]"))
+		 (s1 (car y))
+		 (s2 (nth 1 y)))
+	    (setq new (concat new
+			      (propertize (concat s1 "]") 'face
+					  'font-lock-keyword-face)
+			      s2 " "))))
+	(setq skk-annotation-wikipedia-message
+	      (concat (propertize "{どのWiki?}" 'face 'font-lock-warning-face)
+		      new))))
+    ;;
     (unless skk-annotation-message
       (let ((key-copy (or (key-description skk-annotation-copy-key)
 			  "未定義"))
 	    (key-wiki (or (key-description skk-annotation-wikipedia-key)
 			  "未定義"))
 	    (key-browse (or (key-description skk-annotation-browse-key)
-			    "未定義")))
+			    "未定義"))
+	    list new)
 	(when (equal key-wiki "TAB")
 	  (setq key-wiki "C-i"))
+	(setq list
+	      (split-string
+	       (format "[%s]コピー  [%s]URLブラウズ  [%s]デフォルトWiki参照"
+		       key-copy key-browse key-wiki) "  "))
+	(dolist (x list)
+	  (let* ((y (split-string x "]"))
+		 (s1 (car y))
+		 (s2 (nth 1 y)))
+	    (setq new (concat new
+			      (propertize (concat s1 "]") 'face
+					  'font-lock-keyword-face)
+			      s2 " "))))
 	(setq skk-annotation-message
-	      (format "\
-\{アノテーション}[%s]コピー [%s]URLブラウズ [%s]デフォルトWiki参照"
-		      key-copy key-browse key-wiki))))
+	      (concat (propertize "{アノテーション}" 'face
+				  'font-lock-warning-face)
+		      new))))
+    ;;
     (condition-case nil
 	(cond ((eq situation 'annotation)
 	       (if (skk-sit-for skk-verbose-wait)

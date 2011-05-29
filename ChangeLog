@@ -1,3 +1,11 @@
+2011-05-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el (skk-annotation-message): 助言的メッセージを
+	face で色付けした.
+
+	* skk.el (skk-setup-verbose-messages): 助言的メッセージを
+	face で色付けした.
+
 2011-05-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile (VERSION):
