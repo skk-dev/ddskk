@@ -1,5 +1,11 @@
 2011-05-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-list-chars-original-window-configuration):
+	New Variable.
+
+	* skk-kcode.el (skk-list-chars-quit): Use
+	skk-list-chars-original-window-configuration.
+
 	* skk-annotation.el (skk-annotation-message): 助言的メッセージを
 	face で色付けした.
 	(skk-annotation-insert): docstring を付加した.

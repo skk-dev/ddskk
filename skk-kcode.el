@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.80 2011/05/28 05:04:31 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.81 2011/05/29 04:14:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 05:04:31 $
+;; Last Modified: $Date: 2011/05/29 04:14:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -554,6 +554,8 @@
   "Docstring."
   (interactive "p")
   (require 'font-lock)
+  (setq skk-list-chars-original-window-configuration
+	(current-window-configuration))
   (let ((buf (progn (and (get-buffer skk-list-chars-buffer-name)
 			 (kill-buffer skk-list-chars-buffer-name))
 		    (get-buffer-create skk-list-chars-buffer-name)))
@@ -589,9 +591,8 @@
 
 (defun skk-list-chars-quit ()
   (interactive)
-  (if (one-window-p)
-      (switch-to-buffer skk-list-chars-destination-buffer) ;killされている可能性あり
-    (delete-window)))
+  (kill-buffer (current-buffer))
+  (set-window-configuration skk-list-chars-original-window-configuration))
 
 (defun skk-list-chars-display-code ()
   (interactive)
