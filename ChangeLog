@@ -2,6 +2,8 @@
 
 	* skk-annotation.el (skk-annotation-message): 助言的メッセージを
 	face で色付けした.
+	(skk-annotation-insert): docstring を付加した.
+	(skk-annotation-get): コード見直し.
 
 	* skk.el (skk-setup-verbose-messages): 助言的メッセージを
 	face で色付けした.
