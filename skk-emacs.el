@@ -207,10 +207,12 @@
   ;;
   (when skk-show-japanese-menu
     (skk-emacs-menu-replace skk-emacs-modeline-menu)
-    (dolist (map (list skk-j-mode-map skk-latin-mode-map
-		       skk-jisx0208-latin-mode-map skk-abbrev-mode-map))
+    (dolist (map (list skk-j-mode-map
+		       skk-latin-mode-map
+		       skk-jisx0208-latin-mode-map
+		       skk-abbrev-mode-map))
       (skk-emacs-menu-replace (or (assq 'skk (assq 'menu-bar map))
-				(assq 'SKK (assq 'menu-bar map)))))))
+				  (assq 'SKK (assq 'menu-bar map)))))))
 
 (defun skk-emacs-modeline-menu ()
   (interactive)
@@ -305,7 +307,11 @@
   ;;
   (when window-system
     (let (face)
-      (dolist (mode '(hiragana katakana jisx0208-latin jisx0201 abbrev))
+      (dolist (mode '(hiragana
+		      katakana
+		      jisx0208-latin
+		      jisx0201
+		      abbrev))
 	(setq face (intern (format "skk-emacs-%s-face" mode)))
 	(unless (facep face)
 	  (make-face face)

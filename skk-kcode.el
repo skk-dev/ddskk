@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.81 2011/05/29 04:14:23 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.82 2011/05/29 06:57:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/29 04:14:23 $
+;; Last Modified: $Date: 2011/05/29 06:57:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -630,15 +630,16 @@
 
 (defun skk-list-chars-insert ()
   (interactive)
-  (if (eobp)
-      (forward-char -1)
-    (if (eq 'ascii (car (split-char (following-char))))
-	;; 区切り行などで RET された場合
-	(next-completion 1)
-      (let ((c (following-char)))
-	(set-buffer skk-list-chars-destination-buffer) ; kill されている可能性あり
-	(insert c))
-      )))
+  (when (buffer-live-p skk-list-chars-destination-buffer)
+    (if (eobp)
+	(forward-char -1)
+      (if (eq 'ascii (car (split-char (following-char))))
+	  ;; 区切り行などで RET された場合
+	  (next-completion 1)
+	(let ((c (following-char)))
+	  (set-buffer skk-list-chars-destination-buffer)
+	  (insert c))
+	))))
 
 (defun skk-list-chars-other-charset ()
   (interactive)

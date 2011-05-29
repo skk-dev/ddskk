@@ -1,10 +1,14 @@
 2011-05-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-emacs.el (skk-emacs-prepare-menu)
+	(skk-emacs-prepare-modeline-properties): インデントを整形.
+
 	* skk-vars.el (skk-list-chars-original-window-configuration):
 	New Variable.
 
 	* skk-kcode.el (skk-list-chars-quit): Use
 	skk-list-chars-original-window-configuration.
+	(skk-list-chars-insert): 挿入先バッファを buffer-live-p で確認.
 
 	* skk-annotation.el (skk-annotation-message): 助言的メッセージを
 	face で色付けした.
