@@ -6,9 +6,9 @@
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.70 2011/05/22 10:43:00 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.71 2011/05/30 13:53:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/22 10:43:00 $
+;; Last Modified: $Date: 2011/05/30 13:53:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -136,7 +136,7 @@
        (< skk-dcomp-start-point skk-dcomp-end-point)))
 
 (defun skk-dcomp-cleanup-buffer ()
-  (skk-dcomp-multiple-hide)
+  (skk-delete-overlay skk-dcomp-multiple-overlays)
   (when (and (or skk-dcomp-activate
 		 skk-dcomp-multiple-activate)
 	     (skk-dcomp-marked-p))
@@ -321,7 +321,7 @@
 			      "??")))))))
 
 (defun skk-dcomp-multiple-show (candidates)
-  (skk-dcomp-multiple-hide)
+  (skk-delete-overlay skk-dcomp-multiple-overlays)
   (unless (skk-in-minibuffer-p)
     (let* ((margin 1)
 	   (beg-col (save-excursion
@@ -423,15 +423,9 @@
 			     (count-screen-lines (window-start) (point))))))
 	  (recenter (- (+ 2 skk-dcomp-multiple-rows))))))))
 
-(defun skk-dcomp-multiple-hide ()
-  (when skk-dcomp-multiple-overlays
-    (dolist (ol skk-dcomp-multiple-overlays)
-      (delete-overlay ol))
-    (setq skk-dcomp-multiple-overlays nil)))
-
 ;;;###autoload
 (defun skk-dcomp-before-kakutei ()
-  (skk-dcomp-multiple-hide)
+  (skk-delete-overlay skk-dcomp-multiple-overlays)
   (when (and (or skk-dcomp-activate
 		 skk-dcomp-multiple-activate)
 	     (eq skk-henkan-mode 'on)
@@ -454,7 +448,7 @@
 	     skk-mode
 	     (eq skk-henkan-mode 'on)
 	     (not skk-hint-inhibit-dcomp))
-    (skk-dcomp-multiple-hide)
+    (skk-delete-overlay skk-dcomp-multiple-overlays)
     (setq skk-dcomp-multiple-select-index -1)
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)

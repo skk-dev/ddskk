@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.165 2011/05/22 21:53:36 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.166 2011/05/30 13:53:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/22 21:53:36 $
+;; Last Modified: $Date: 2011/05/30 13:53:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -243,6 +243,13 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	 `(if (eq ,kind 'interactive)
 	      (interactive-p)
 	    (called-interactively-p)))))
+
+(defmacro skk-delete-overlay (list)
+  ;;skk-dcomp-multiple-hide
+  `(when ,list
+     (dolist (o ,list)
+       (delete-overlay o))
+     (setq ,list nil)))
 
 ;;; functions.
 ;; version dependent
