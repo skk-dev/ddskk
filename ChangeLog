@@ -1,11 +1,18 @@
 2011-05-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (skk-delete-overlay): New macro.
+	(skk-inline-hide): Remove function.
 
 	* skk-dcomp.el (skk-dcomp-multiple-hide): Remove function.
 	(skk-dcomp-cleanup-buffer, skk-dcomp-multiple-show)
 	(skk-dcomp-before-kakutei, skk-dcomp-after-delete-backward-char):
 	Use macro skk-delete-overlay.
+
+	* skk-inline.el (skk-inline-hide-1): Remove function.
+	(skk-inline-show): Use macro skk-delete-overlay.
+
+	* skk.el (skk-henkan, skk-henkan-in-minibuff): Use macro
+	skk-delete-overlay.
 
 2011-05-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.580 2011/05/29 00:17:17 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.581 2011/05/30 14:08:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/29 00:17:17 $
+;; Last Modified: $Date: 2011/05/30 14:08:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1692,7 +1692,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
 	  (setq pair (skk-insert-new-word new-word))))
-      (skk-inline-hide)
+      (skk-delete-overlay skk-inline-overlays)
       ;;
       (if mark
 	  (progn
@@ -2283,7 +2283,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 				      skk-read-from-minibuffer-function)
 			     (funcall skk-read-from-minibuffer-function))))
 	  (quit
-	   (skk-inline-hide)
+	   (skk-delete-overlay skk-inline-overlays)
 	   (setq new-one ""))))
       (when (and skk-check-okurigana-on-touroku
 		 ;; 送りあり変換でも skk-okuri-char だけだと判断できない。
@@ -2291,7 +2291,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	(setq new-one (skk-remove-redundant-okurigana new-one)))
       (cond
        ((string= new-one "")
-	(skk-inline-hide)
+	(skk-delete-overlay skk-inline-overlays)
 	(if (skk-exit-show-candidates)
 	    ;; エコーエリアに表示した候補が尽きて辞書登録に入ったが、空文字
 	    ;; 列が登録された場合。最後にエコーエリアに表示した候補群を再表

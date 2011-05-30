@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.166 2011/05/30 13:53:16 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.167 2011/05/30 14:08:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/30 13:53:16 $
+;; Last Modified: $Date: 2011/05/30 14:08:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -245,7 +245,7 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	    (called-interactively-p)))))
 
 (defmacro skk-delete-overlay (list)
-  ;;skk-dcomp-multiple-hide
+  ;; skk-dcomp-multiple-hide と skk-inline-hide を統合した。
   `(when ,list
      (dolist (o ,list)
        (delete-overlay o))
@@ -617,10 +617,6 @@ BUFFER defaults to the current buffer."
   (when (or skk-use-color-cursor
 	    force)
     (skk-cursor-set-1 color)))
-
-(defsubst skk-inline-hide ()
-  (when skk-inline-overlays
-    (skk-inline-hide-1)))
 
 (defun skk-cursor-off ()
   (unless (skk-color-cursor-display-p)
