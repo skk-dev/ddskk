@@ -1,5 +1,7 @@
 2011-05-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-macs.el (skk-key-binding-member): 不要な lambda を削除.
+
 	* skk-tankan.el (skk-tankan-select-tankanji-kouho): 
 	lambda を #'lambda へ変更.
 

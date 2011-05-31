@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.167 2011/05/30 14:08:23 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.168 2011/05/31 13:06:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/30 14:08:23 $
+;; Last Modified: $Date: 2011/05/31 13:06:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1027,27 +1027,25 @@ BUFFER defaults to the current buffer."
   (nth 1 (buffer-list)))
 
 (defun skk-quote-char-1 (word alist)
-  (mapconcat
-   #'(lambda (char)
-       (or (cdr (assq char alist))
-	   (char-to-string char)))
+  (mapconcat #'(lambda (char)
+		 (or (cdr (assq char alist))
+		     (char-to-string char)))
    ;; 文字列を対応する char のリストに分解する。
-   (append word nil) ""))
+	     (append word nil) ""))
 
 (defun skk-key-binding-member (key commands &optional map)
   "入力 KEY が発動するコマンドが、COMMANDS に含まれれば non-nil を返す。
 MAP は入力が書かれているキーマップを指定するが、指定されなければ
 `skk-j-mode-map' を参照する。
 この関数は、入力 KEY が `lookup-key' で探せない形式でありうる場合に用いる。"
+  (unless map
+    (setq map skk-j-mode-map))
   (let (keys)
-    (unless map
-      (setq map skk-j-mode-map))
     (dolist (command commands)
       (setq keys (nconc keys
 			(where-is-internal command map))))
     (member (key-description key)
-	    (mapcar #'(lambda (k)
-			(key-description k))
+	    (mapcar #'key-description
 		    keys))))
 
 (defun skk-update-minor-mode-map-alist (mode map)

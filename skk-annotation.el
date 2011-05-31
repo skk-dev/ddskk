@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.177 2011/05/29 01:06:12 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.178 2011/05/31 13:06:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/05/29 01:06:12 $
+;; Last Modified: $Date: 2011/05/31 13:06:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -586,12 +586,11 @@
 	  (skk-annotation-message 'annotation)
 	  ;;
 	  (setq event (next-command-event))
-	  (when (skk-key-binding-member
-		 (skk-event-key event)
-		 '(key-board-quit
-		   skk-kanagaki-bs
-		   skk-kanagaki-esc)
-		 skk-j-mode-map)
+	  (when (skk-key-binding-member (skk-event-key event)
+					'(key-board-quit
+					  skk-kanagaki-bs
+					  skk-kanagaki-esc)
+					skk-j-mode-map)
 	    (signal 'quit nil))
 	  (skk-unread-event event)))
     (quit
