@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.45 2011/05/28 05:46:11 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.46 2011/05/31 12:45:24 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/05/28 05:46:11 $
+;; Last Modified: $Date: 2011/05/31 12:45:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1726,21 +1726,21 @@ METHOD が 2 であれば総画数として検索を実行する。
   (let ((top lis)
 	tmp)
     ;; select TANKANJI KOUHO
-      (while (cdr lis)
-	;; remove annotation
-	(setq tmp (nth 1 lis))
-	(if (string-match ";" tmp)
-	    (setq tmp (substring tmp 0 (match-beginning 0))))
-	(if (not (string-match "^.$" tmp))
-	    (setcdr lis (cdr (cdr lis)))
-	  (setq lis (cdr lis))
-	  (setq tmp (string-to-char tmp)
-		tmp (cons tmp (cons (skk-tankan-get-char-annotation tmp)
-				    (skk-tankan-get-char-data tmp))))
-	  (setcar lis tmp)))
-      ;; sort KOUHO by KAKUSUU(or BUSYU)
-      (setq lis (sort (cdr top)
-		      (lambda (x y)
+    (while (cdr lis)
+      ;; remove annotation
+      (setq tmp (nth 1 lis))
+      (if (string-match ";" tmp)
+	  (setq tmp (substring tmp 0 (match-beginning 0))))
+      (if (not (string-match "^.$" tmp))
+	  (setcdr lis (cdr (cdr lis)))
+	(setq lis (cdr lis))
+	(setq tmp (string-to-char tmp)
+	      tmp (cons tmp (cons (skk-tankan-get-char-annotation tmp)
+				  (skk-tankan-get-char-data tmp))))
+	(setcar lis tmp)))
+    ;; sort KOUHO by KAKUSUU(or BUSYU)
+    (setq lis (sort (cdr top)
+		    #'(lambda (x y)
 			(let ((xa (nth 2 x)) (xb (nth 3 x)) (xc (nth 4 x))
 			      (ya (nth 2 y)) (yb (nth 3 y)) (yc (nth 4 y)))
 			  (if (= xc yc)
@@ -1750,8 +1750,8 @@ METHOD が 2 であれば総画数として検索を実行する。
 				    (< xb yb))
 				(< xa ya))
 			    (< xc yc))))))
-      ;; return list with annotation
-      (mapcar (lambda (cell)
+    ;; return list with annotation
+    (mapcar #'(lambda (cell)
 		(let ((anno (if (= 0 (nth 2 cell))
 				(nth 1 cell)
 			      (format "%d画(%s部%d画)%s"
@@ -1764,7 +1764,7 @@ METHOD が 2 であれば総画数として検索を実行する。
 		  (if (= 0 (length anno))
 		      (char-to-string (car cell))
 		    (concat (char-to-string (car cell)) ";" anno))))
-	      lis)))
+	    lis)))
 
 ;;;###autoload
 (defun skk-search-tankanji (&optional jisyo)
