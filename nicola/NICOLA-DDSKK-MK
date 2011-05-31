@@ -85,14 +85,11 @@ VERSION_SPECIFIC_LISPDIR=%s\n" PREFIX VERSION_SPECIFIC_LISPDIR))))
 (defun nicola-ddskk-generate-autoloads ()
   "Generate nicola-ddskk-autoload.el."
   (require 'autoload)
-  (when (and (featurep 'emacs)
-	     (>= emacs-major-version 24))
-    ;; For Emacs 24 and later; generated-autoload-file defaults to nil.
-    (setq generated-autoload-file "nicola-ddskk-autoloads.el"))
   (let ((buf (get-buffer-create " *nicola-ddskk-generate-autoloads*"))
        sort-min standard-output)
     (save-excursion
       (set-buffer buf)
+      (setq buffer-file-name "nicola-ddskk-autoloads.el")
       (erase-buffer)
       (message "%s" nicola-ddskk-modules)
 	(dolist (module nicola-ddskk-modules)

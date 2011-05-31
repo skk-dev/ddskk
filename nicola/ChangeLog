@@ -1,3 +1,8 @@
+2011-05-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* NICOLA-DDSKK-MK (nicola-ddskk-generate-autoloads): Undo the
+	previous change and set buffer-file-name instead.
+
 2011-05-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* NICOLA-DDSKK-MK (nicola-ddskk-generate-autoloads): Set
