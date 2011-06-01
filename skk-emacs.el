@@ -399,8 +399,8 @@
     ;; compute-motion returns (pos HPOS VPOS prevhpos contin)
     ;; we want:               (frame hpos . vpos)
     (cons (selected-frame)
-	  (cons (+ (car edges)       (car (cdr list)))
-		(+ (car (cdr edges)) (car (cdr (cdr list))))))))
+	  (cons (+ (car edges) (cadr list))
+		(+ (cadr edges) (car (cdr (cdr list))))))))
 
 (defun skk-tooltip-max-tooltip-size ()
   (if (boundp 'x-max-tooltip-size)

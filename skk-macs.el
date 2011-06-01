@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.168 2011/05/31 13:06:14 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.169 2011/06/01 21:44:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/31 13:06:14 $
+;; Last Modified: $Date: 2011/06/01 21:44:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -292,7 +292,7 @@ If the event isn't a keypress, this returns nil."
 	(if mask
 	    (let ((base (get (car mask) 'ascii-character)))
 	      (if base
-		  (logior base (car (cdr mask))))))))
+		  (logior base (cadr mask)))))))
      ((integerp event)
       event))))
 

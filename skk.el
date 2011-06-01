@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.582 2011/06/01 13:38:54 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.583 2011/06/01 21:44:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/01 13:38:54 $
+;; Last Modified: $Date: 2011/06/01 21:44:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1538,7 +1538,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 (defun skk-current-kuten (arg)
   ;; just ignore arg.
   (if (symbolp skk-kutouten-type)
-      (car (cdr (assq skk-kutouten-type skk-kuten-touten-alist)))
+      (cadr (assq skk-kutouten-type skk-kuten-touten-alist))
     (car skk-kutouten-type)))
 
 (defun skk-current-touten (arg)
@@ -4142,7 +4142,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 		e2 (car list2)
 		origlist1 list1)
 	  (catch 'found
-	    (while (setq e1 (car (cdr list1)))
+	    (while (setq e1 (cadr list1))
 	      (cond
 	       ((equal e1 e2)
 		(throw 'found nil))
