@@ -1,3 +1,11 @@
+2011-06-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-study.el (skk-study-check-alist-format-1): Use caar instead of car car.
+
+	* skk-kcode.el (skk-input-by-code-or-menu-jump): Ditto.
+
+	* skk-gadget.el (skk-default-current-date): Ditto.
+
 2011-06-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-setup-jisyo-buffer, skk-kana-input) 

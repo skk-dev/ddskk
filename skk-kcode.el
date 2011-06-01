@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.83 2011/06/01 13:38:54 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.84 2011/06/01 21:14:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/01 13:38:54 $
+;; Last Modified: $Date: 2011/06/01 21:14:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -255,7 +255,7 @@
 `%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d) [何かキーを押してください]"
 	      "\
 `%s' EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d) [Hit any key to continue]"
-	      (car (car chars))
+	      (caar chars)
 	      n-org skk-code-n1-min
 	      n-org skk-code-n1-min
 	      (- n-org 128) (- skk-code-n1-min 128)

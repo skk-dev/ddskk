@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.46 2011/05/28 04:49:37 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.47 2011/06/01 21:14:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 04:49:37 $
+;; Last Modified: $Date: 2011/06/01 21:14:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -135,7 +135,7 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
     (setq year (if gengo
 		   (concat (if gengo-index
 			       (nth gengo-index (car v))
-			     (car (car v)))
+			     (caar v))
 			   (skk-num-exp (number-to-string (cdr v))
 					num-type))
 		 (skk-num-exp year num-type)))
