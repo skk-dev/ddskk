@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.33 2010/09/11 15:00:56 skk-cvs Exp $
+;; Version: $Id: skk-lookup.el,v 1.34 2011/06/01 13:38:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2010/09/11 15:00:56 $
+;; Last Modified: $Date: 2011/06/01 13:38:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -245,7 +245,7 @@
     ;; So return nil if STRING is a null string.
     nil)
    ;; okuri-nasi
-   ((= process-type 0)
+   ((zerop process-type)
     string)
    ;; okuri-ari
    (t

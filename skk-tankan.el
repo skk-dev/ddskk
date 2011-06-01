@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.46 2011/05/31 12:45:24 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.47 2011/06/01 13:38:54 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/05/31 12:45:24 $
+;; Last Modified: $Date: 2011/06/01 13:38:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1752,7 +1752,7 @@ METHOD が 2 であれば総画数として検索を実行する。
 			    (< xc yc))))))
     ;; return list with annotation
     (mapcar #'(lambda (cell)
-		(let ((anno (if (= 0 (nth 2 cell))
+		(let ((anno (if (zerop (nth 2 cell))
 				(nth 1 cell)
 			      (format "%d画(%s部%d画)%s"
 				      (nth 4 cell)
@@ -1761,7 +1761,7 @@ METHOD が 2 であれば総画数として検索を実行する。
 				      (nth 3 cell)
 				      (or (nth 1 cell) "")
 				      ))))
-		  (if (= 0 (length anno))
+		  (if (zerop (length anno))
 		      (char-to-string (car cell))
 		    (concat (char-to-string (car cell)) ";" anno))))
 	    lis)))

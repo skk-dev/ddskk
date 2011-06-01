@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.90 2011/05/29 10:19:26 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.91 2011/06/01 13:38:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/29 10:19:26 $
+;; Last Modified: $Date: 2011/06/01 13:38:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -115,7 +115,7 @@
     (cond
      ;; (全候補探索済み)
      (skk-comp-search-done
-      (if (= skk-comp-depth 0)
+      (if (zerop skk-comp-depth)
 	  ;; circulate ならば c-word = skk-comp-key なので c-word = nil
 	  ;; non-circulate ならば これ以上候補がないので c-word = nil
 	  (if skk-comp-circulate
@@ -126,7 +126,7 @@
      (t
       (cond
        ;; 最後に得られた候補を表示している
-       ((= skk-comp-depth 0)
+       ((zerop skk-comp-depth)
 	(setq c-word
 	      (let ((word (skk-comp-get-candidate first)))
 		(while (member word skk-comp-stack)

@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.82 2011/05/29 06:57:14 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.83 2011/06/01 13:38:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/29 06:57:14 $
+;; Last Modified: $Date: 2011/06/01 13:38:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -535,7 +535,7 @@
 	     (format "%02d-#x--- 0-- 1-- 2-- 3-- 4-- 5-- 6-- 7-- 8-- 9-- A-- B-- C-- D-- E-- F" (- high 32)) 'face 'font-lock-comment-face))
     (setq i (* (/ min 16) 16))		; i は 下位バイト
     (while (<= i max)			; 0x21 .. 0x7e
-      (when (= (% i 16) 0)
+      (when (zerop (% i 16))
 	(insert (propertize (format "\n %5X0" (/ (+ (* high 256)
 						   i)
 						16))

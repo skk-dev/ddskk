@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.67 2010/11/17 21:15:18 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.68 2011/06/01 13:38:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/11/17 21:15:18 $
+;; Last Modified: $Date: 2011/06/01 13:38:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -430,7 +430,7 @@ Optional argument PREFIX is appended if given."
 	    ;; listify this-command-keys.  this works only if it is
 	    ;; string.
 	    (setq unread-command-events
-		  (append (if (= (length (this-command-keys)) 0)
+		  (append (if (zerop (length (this-command-keys)))
 			      (list last-command-event)
 			    (this-command-keys))
 			  nil))

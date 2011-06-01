@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.59 2011/04/17 09:35:45 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.60 2011/06/01 13:38:54 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2011/04/17 09:35:45 $
+;; Last Modified: $Date: 2011/06/01 13:38:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -121,7 +121,7 @@
   (do ((index 0 (1+ index))
        (times skk-study-search-times (1- times))
        last-data associates e exit)
-      ((or exit (= times 0)) entry)
+      ((or exit (zerop times)) entry)
     (and
      (setq last-data (skk-study-get-last-henkan-data index))
      ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
@@ -365,7 +365,7 @@ TO の既存データは破壊される。"
       (let ((coding-system-for-read (skk-find-coding-system skk-jisyo-code))
 	    format-alist)
 	(insert-file-contents file))
-      (when (= (buffer-size) 0)
+      (when (zerop (buffer-size))
 	;; bare alist
 	(insert version-string
 		"((\"general\" . ((okuri-ari) (okuri-nasi))))"))

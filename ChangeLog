@@ -1,3 +1,30 @@
+2011-06-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-setup-jisyo-buffer, skk-kana-input) 
+	(skk-jisx0208-latin-insert, skk-henkan-show-candidate-subr) 
+	(skk-check-size-and-do-save-jisyo): Use zerop instead of `= foo 0'.
+
+	* skk-xemacs.el (skk-xemacs-balloon-help-resize-help-frame): ditto.
+
+	* skk-tankan.el (skk-tankan-select-tankanji-kouho): ditto.
+
+	* skk-study.el (skk-study-search-1, skk-study-read-1): ditto.
+
+	* skk-lookup.el (skk-lookup-process-okurigana): ditto.
+
+	* skk-look.el (skk-look-1): ditto.
+
+	* skk-kcode.el (skk-list-chars-sub): ditto.
+
+	* skk-isearch.el (skk-isearch-redo-function): ditto.
+
+	* skk-hint.el (skk-previous-candidate): ditto.
+
+	* skk-dcomp.el (skk-dcomp-multiple-get-candidates) 
+	(skk-dcomp-multiple-show): ditto.
+
+	* skk-comp.el (skk-comp-do): ditto.
+
 2011-05-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (skk-key-binding-member): 不要な lambda を削除.

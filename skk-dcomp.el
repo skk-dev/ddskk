@@ -6,9 +6,9 @@
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dcomp.el,v 1.71 2011/05/30 13:53:16 skk-cvs Exp $
+;; Version: $Id: skk-dcomp.el,v 1.72 2011/06/01 13:38:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/30 13:53:16 $
+;; Last Modified: $Date: 2011/06/01 13:38:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -276,7 +276,7 @@
 		       (not (skk-get-kana skk-current-rule-tree)))
 	       (skk-dcomp-save-point-in-jisyo-buffer
 		(while (and (< i skk-dcomp-multiple-rows)
-			    (setq cand (skk-comp-get-candidate (= i 0))))
+			    (setq cand (skk-comp-get-candidate (zerop i))))
 		  (unless (member cand candidates)
 		    (push cand candidates)
 		    (incf i)))))
@@ -371,7 +371,7 @@
 		   ;; after-string に追加する。ただし、EOB の場合は
 		   ;; prefix の overlay と衝突するため
 		   ;; `skk-prefix-overlay' に追加する
-		   (setq ol (if (= i 0)
+		   (setq ol (if (zerop i)
 				(cond ((or (not skk-echo)
 					   (string= "" skk-prefix)
 					   (< (overlay-end skk-prefix-overlay)

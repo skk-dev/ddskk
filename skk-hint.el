@@ -169,7 +169,7 @@
 (defadvice skk-previous-candidate (before skk-hint-ad activate)
   (when (and (eq skk-henkan-mode 'active)
 	     (not (string= skk-henkan-key ""))
-	     (= skk-henkan-count 0))
+	     (zerop skk-henkan-count))
     (setq skk-hint-henkan-hint nil
 	  skk-hint-state nil))
   (setq skk-hint-inhibit-kakutei nil))

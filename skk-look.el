@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.42 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.43 2011/06/01 13:38:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2011/06/01 13:38:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -217,7 +217,7 @@ words ファイルにある全ての見出しが対象となる。
 		      (list word)
 		      (delete "" (split-string postargs " ")))))))
     (with-temp-buffer
-      (when (and (= 0 (apply #'call-process skk-look-command nil t nil args))
+      (when (and (zerop (apply #'call-process skk-look-command nil t nil args))
 		 (> (buffer-size) 0))
 	(delete word (split-string (buffer-substring-no-properties
 				    (point-min) (1- (point-max)))

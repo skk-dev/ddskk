@@ -486,7 +486,7 @@ Non-nil ならばツールティップを再描画する。")
 	(end-of-line)
 	(aset inst 2 (buffer-substring start (point)))
 	(setq longest (max longest (glyph-width (make-glyph inst) window))
-	      done (not (= 0 (forward-line))))
+	      done (not (zerop (forward-line))))
 	(and (not done) (setq lines (1+ lines))))
       (setq width (round (/ (float longest) (float font-width))))
       ;; Increase width and lines...

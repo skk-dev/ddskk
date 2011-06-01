@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.581 2011/05/30 14:08:23 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.582 2011/06/01 13:38:54 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/30 14:08:23 $
+;; Last Modified: $Date: 2011/06/01 13:38:54 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -839,7 +839,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   ;;
   ;; case-fold-search $B$O!"<-=q%P%C%U%!$G$O>o$K(B nil$B!#(B
   (save-match-data
-    (when (= (buffer-size) 0)
+    (when (zerop (buffer-size))
       ;; $B6u%P%C%U%!$@$C$?$i!"%X%C%@!<$N$_A^F~!#(B
       (insert ";; okuri-ari entries.\n" ";; okuri-nasi entries.\n"))
     (goto-char (point-min))
@@ -1286,7 +1286,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		    (setq inserted (1+ inserted))
 		    (skk-insert-str pair))
 		  (setq count1 (1- count1)))
-		(unless (= inserted 0)
+		(unless (zerop inserted)
 		  (backward-char inserted)))
 	      (when (and skk-okurigana
 			 (null queue))
@@ -1601,7 +1601,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	     (setq pair-str-inserted (1+ pair-str-inserted))
 	     (skk-insert-str pair-str))
 	   (setq arg2 (1- arg2)))
-	 (unless (= pair-str-inserted 0)
+	 (unless (zerop pair-str-inserted)
 	   (backward-char pair-str-inserted)))))))
 
 (defun skk-delete-backward-char (arg)
@@ -2027,11 +2027,11 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
 	      (key (concat (propertize (nth i keys) 'face
 				       'skk-henkan-show-candidates-keys-face)
 			   ":")))
-	  (when (and (= (% i 7) 0)	; $B3FNs$N:G=i$N8uJd(B
-		     (not (= i 0)))
+	  (when (and (zerop (% i 7))	; $B3FNs$N:G=i$N8uJd(B
+		     (not (zerop i)))
 	    (setq str (concat str "\n")))
 	  (setq str (concat str
-			    (if (= (% i 7) 0) "" "  ")
+			    (if (zerop (% i 7))	"" "  ")
 			    key cand)
 		tooltip-str (concat tooltip-str key cand "\n"))))
       (setq str (concat str (propertize
@@ -3581,7 +3581,7 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
 	  old-size
 	  ;; yes-or-no-p $B$K2sEz$7!"(Bnewline $B$9$k$H!"(Bthis-command $B$,JQ$C$F$7$^$&!#(B
 	  this-command this-command-char last-command)
-      (when (= new-size 0)
+      (when (zerop new-size)
 	(delete-file new-file)
 	(skk-error "SKK $B<-=q$,6u$K$J$C$F$$$^$9!*(B $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
 		   "Null SKK jisyo!  Stop saving jisyo"))
