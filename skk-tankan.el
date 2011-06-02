@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.47 2011/06/01 13:38:54 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.48 2011/06/02 12:49:24 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/06/01 13:38:54 $
+;; Last Modified: $Date: 2011/06/02 12:49:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1732,7 +1732,7 @@ METHOD が 2 であれば総画数として検索を実行する。
       (if (string-match ";" tmp)
 	  (setq tmp (substring tmp 0 (match-beginning 0))))
       (if (not (string-match "^.$" tmp))
-	  (setcdr lis (cdr (cdr lis)))
+	  (setcdr lis (cddr lis))
 	(setq lis (cdr lis))
 	(setq tmp (string-to-char tmp)
 	      tmp (cons tmp (cons (skk-tankan-get-char-annotation tmp)
