@@ -342,6 +342,10 @@
 (defun skk-emacs-menu-replace (list)
   (let ((running-ntemacs (and (eq window-system 'w32)
 			      (not (fboundp 'Meadow-version))))
+	(workaround '("Hiragana"
+		      "Katakana"
+		      "Hankaku alphabet"
+		      "Zenkaku alphabet"))
 	cons)
     (while (and list (listp list))
       (cond
@@ -351,9 +355,7 @@
        ((and (stringp (car-safe list))
 	     (setq cons (assoc (car list) skk-emacs-menu-resource-ja)))
 	(setcar list (if (and running-ntemacs
-			      (member (car list) '("Hiragana" "Katakana"
-						   "Hankaku alphabet"
-						   "Zenkaku alphabet")))
+			      (member (car list) workaround))
 			 ;; NTEmacs で Widget 付きメニューアイテムの
 			 ;; 日本語がうまく表示できない問題への対策
 			 ;; (NTEmacs 22.1, 23.1)
@@ -362,9 +364,7 @@
        ((and (vectorp (car-safe list))
 	     (setq cons (assoc (aref (car list) 0) skk-emacs-menu-resource-ja)))
 	(aset (car list) 0 (if (and running-ntemacs
-				    (member (aref (car list) 0)
-					    '("Hiragana" "Katakana"
-					      "Hankaku alphabet" "Zenkaku alphabet")))
+				    (member (aref (car list) 0) workaround))
 			       ;; NTEmacs で Widget 付きメニューアイテムの
 			       ;; 日本語がうまく表示できない問題への対策
 			       ;; (NTEmacs 22.1, 23.1)
