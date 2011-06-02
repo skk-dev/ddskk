@@ -1,6 +1,7 @@
 2011-06-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-emacs.el (skk-emacs-menu-replace): コードの整理.
+	* skk-emacs.el (skk-emacs-menu-replace, skk-tooltip-resize-text):
+	コードの整理.
 
 	* skk-tankan.el (skk-tankan-select-tankanji-kouho): Use cddr
 	instead of cdr cdr.

@@ -435,15 +435,14 @@
 	       (goto-char (point-max)))
 	      ;;
 	      (t
-	       (if (> (progn (end-of-line) (current-column)) max-columns)
-		   (progn
-		     (move-to-column max-columns)
-		     (backward-char)
-		     (if (member (char-to-string (following-char))
-				 skk-auto-start-henkan-keyword-list)
-			 (forward-char))
-		     (insert "\n" indent)
-		     (forward-line -1)))
+	       (when (> (progn (end-of-line) (current-column)) max-columns)
+		 (move-to-column max-columns)
+		 (backward-char)
+		 (if (member (char-to-string (following-char))
+			     skk-auto-start-henkan-keyword-list)
+		     (forward-char))
+		 (insert "\n" indent)
+		 (forward-line -1))
 	       (end-of-line)
 	       (setq current-column (current-column))
 	       (when (> current-column columns)
