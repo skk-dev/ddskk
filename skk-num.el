@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.45 2011/05/28 05:32:52 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.46 2011/06/02 12:43:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/28 05:32:52 $
+;; Last Modified: $Date: 2011/06/02 12:43:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -101,7 +101,7 @@
        (t
 	(let ((l (mapcar (function (lambda (e) (cons key e)))
 			 (skk-num-flatten-list convlist))))
-	  (setq current (cdr (car l)))
+	  (setq current (cdar l))
 	  (if (and (> index -1)
 		   (nth index skk-henkan-list))
 	      (progn

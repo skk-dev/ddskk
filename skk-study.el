@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.61 2011/06/01 21:14:02 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.62 2011/06/02 12:43:11 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2011/06/01 21:14:02 $
+;; Last Modified: $Date: 2011/06/02 12:43:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -436,7 +436,7 @@ TO の既存データは破壊される。"
 			    ;; 直前の変換の情報
 			    (consp (caar f))
 			    ;; 関連語リスト
-			    (listp (cdr (car f)))))
+			    (listp (cdar f))))
 		      (throw 'exit nil))
 		  (setq f (cdr f)))
 		(setq a2 (cdr a2)))

@@ -1,5 +1,10 @@
 2011-06-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-study.el (skk-study-check-alist-format-1): Use cdar instead of
+	cdr car.
+
+	* skk-num.el (skk-num-convert): Ditto.
+
 	* skk.el (skk-current-kuten, skk-nunion): Use cadr instead of car cdr.
 
 	* skk-macs.el (eval-when-compile, eval-when-compile): Ditto.
