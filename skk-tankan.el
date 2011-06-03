@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.49 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.50 2011/06/03 23:35:25 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/03 23:35:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1502,11 +1502,11 @@
 	(list 0 0 0))))
 
 (defun skk-tankan-get-char-data-0213-1 (char)
-  (skk-tankan-get-char-data-internal char (function skk-tankan-encode-0213-1)
+  (skk-tankan-get-char-data-internal char #'skk-tankan-encode-0213-1
 				     skk-tankan-radical-stroke-table-0213-1))
 
 (defun skk-tankan-get-char-data-0213-2 (char)
-  (skk-tankan-get-char-data-internal char (function skk-tankan-encode-0213-2)
+  (skk-tankan-get-char-data-internal char #'skk-tankan-encode-0213-2
 				     skk-tankan-radical-stroke-table-0213-2))
 
 (defun skk-tankan-get-char-data-internal (char encoder table)

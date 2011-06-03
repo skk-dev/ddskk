@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.62 2011/06/02 12:43:11 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.63 2011/06/03 23:35:25 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2011/06/02 12:43:11 $
+;; Last Modified: $Date: 2011/06/03 23:35:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -228,12 +228,12 @@
 	  ;; sort is not necessary, but make an alist rather readable.
 	  (setq e (assq 'okuri-ari skk-study-alist))
 	  (setcdr e (sort (cdr e)
-			  (function (lambda (a b)
-				      (skk-string< (car a) (car b))))))
+			  (lambda (a b)
+				      (skk-string< (car a) (car b)))))
 	  (setq e (assq 'okuri-nasi skk-study-alist))
 	  (setcdr e (sort (cdr e)
-			  (function (lambda (a b)
-				      (skk-string< (car a) (car b)))))))
+			  (lambda (a b)
+				      (skk-string< (car a) (car b))))))
 	(skk-study-prin1 skk-study-alist (current-buffer))
 	(let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code))
 	      jka-compr-compression-info-list)
@@ -408,22 +408,20 @@ TO の既存データは破壊される。"
 		 (assq 'okuri-nasi a))
 	(catch 'exit
 	  (let ((index '(okuri-ari okuri-nasi))
-		(func (function
-		       (lambda (str)
-			 (let ((len (length str)))
-			   (and
-			    (> len 1)
-			    (skk-ascii-char-p (aref str (1- len))))))))
+		(func (lambda (str)
+			(let ((len (length str)))
+			  (and
+			   (> len 1)
+			   (skk-ascii-char-p (aref str (1- len)))))))
 		a2 e f)
 	    (while index
 	      (and (eq (car index) 'okuri-nasi)
 		   (setq func
-			 (function
-			  (lambda (str)
-			    (let ((len (length str)))
-			      (cond ((= len 1))
-				    ((not (skk-ascii-char-p (aref str (1- len)))))
-				    ((skk-ascii-char-p (aref str (- len 2))))))))))
+			 (lambda (str)
+			   (let ((len (length str)))
+			     (cond ((= len 1))
+				   ((not (skk-ascii-char-p (aref str (1- len)))))
+				   ((skk-ascii-char-p (aref str (- len 2)))))))))
 	      (setq a2 (cdr (assq (car index) a)))
 	      (while a2
 		(setq e (car a2))

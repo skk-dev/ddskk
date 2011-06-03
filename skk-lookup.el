@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.34 2011/06/01 13:38:54 skk-cvs Exp $
+;; Version: $Id: skk-lookup.el,v 1.35 2011/06/03 23:35:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2011/06/01 13:38:54 $
+;; Last Modified: $Date: 2011/06/03 23:35:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -295,9 +295,8 @@
        ((and pickup-regexp
 	     (listp match))
 	(setq candidates-string
-	      (mapconcat (function
-			  (lambda (num)
-			    (match-string-no-properties num heading)))
+	      (mapconcat (lambda (num)
+			    (match-string-no-properties num heading))
 			 match "")
 	      ;; XXX MATCH が複数だったら、heading 切り出しは
 	      ;; 一度だけしかできない...。

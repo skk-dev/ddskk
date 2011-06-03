@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.47 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.48 2011/06/03 23:35:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/03 23:35:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -99,7 +99,7 @@
 		(nconc skk-henkan-list (list (cons key current))))))
        ;; #4
        (t
-	(let ((l (mapcar (function (lambda (e) (cons key e)))
+	(let ((l (mapcar (lambda (e) (cons key e))
 			 (skk-num-flatten-list convlist))))
 	  (setq current (cdar l))
 	  (if (and (> index -1)
@@ -227,9 +227,8 @@ TYPE は下記の通り。
   "ascii 数字の NUM を全角数字の文字列に変換し、変換後の文字列を返す。
 例えば \"45\" を \"４５\" に変換する。"
   (let ((candidate
-	 (mapconcat (function
-		     (lambda (c)
-		       (skk-num-get-suuji c skk-num-alist-type1)))
+	 (mapconcat (lambda (c)
+		      (skk-num-get-suuji c skk-num-alist-type1))
 		    num "")))
     (unless (string= candidate "")
       candidate)))
@@ -240,11 +239,10 @@ TYPE は下記の通り。
   (save-match-data
     (when (skk-num-int-p num)
       (let ((candidate
-	     (mapconcat (function
-			 (lambda (c)
-			   (skk-num-get-suuji
-			    c
-			    skk-num-alist-type2)))
+	     (mapconcat (lambda (c)
+			  (skk-num-get-suuji
+			   c
+			   skk-num-alist-type2))
 			num "")))
 	(unless (string= candidate "")
 	  candidate)))))
@@ -469,21 +467,20 @@ type4 の数値再変換が行なわれたときは、数値自身を返し、それ以外の数値変換
 (defun skk-num (str)
   "数字を `skk-number-style' の値に従い変換する。
 `skk-current-date' のサブルーチン。"
-  (mapconcat (function
-	      (lambda (c)
-		(cond
-		 ((or (< ?9 c) (< c 0))
-		  nil)
-		 ((or (not skk-number-style)
-		      (and (numberp skk-number-style)
-			   (= skk-number-style 0)))
-		  (char-to-string c))
-		 ((or (eq skk-number-style t)
-		      (and (numberp skk-number-style)
-			   (= skk-number-style 1)))
-		  (cdr (assq c skk-num-alist-type1)))
-		 (t
-		  (cdr (assq c skk-num-alist-type2))))))
+  (mapconcat (lambda (c)
+	       (cond
+		((or (< ?9 c) (< c 0))
+		 nil)
+		((or (not skk-number-style)
+		     (and (numberp skk-number-style)
+			  (= skk-number-style 0)))
+		 (char-to-string c))
+		((or (eq skk-number-style t)
+		     (and (numberp skk-number-style)
+			  (= skk-number-style 1)))
+		 (cdr (assq c skk-num-alist-type1)))
+		(t
+		 (cdr (assq c skk-num-alist-type2)))))
 	     str ""))
 
 (defadvice skk-kakutei-initialize (after skk-num-ad activate)

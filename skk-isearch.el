@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.69 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.70 2011/06/03 23:35:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/03 23:35:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -606,7 +606,7 @@ If the current mode is different from previous, remove it first."
 
 (defun skk-isearch-exit (&rest args)
   (interactive "P")
-  (skk-isearch-kakutei (function isearch-exit)))
+  (skk-isearch-kakutei #'isearch-exit))
 
 (defun skk-isearch-newline (&rest args)
   (interactive "P")
@@ -624,7 +624,7 @@ If the current mode is different from previous, remove it first."
 	  (skk-isearch-mode-message))))
     (isearch-message))
    ((event-to-character last-command-event)
-    (skk-isearch-kakutei (function isearch-printing-char)))
+    (skk-isearch-kakutei #'isearch-printing-char))
    (t
     (skk-isearch-mode-message)
     (isearch-message))))

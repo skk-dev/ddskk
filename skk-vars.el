@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.363 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.364 2011/06/03 23:35:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/03 23:35:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1718,12 +1718,13 @@ nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$
   :group 'skk-misc)
 
 (defcustom skk-read-from-minibuffer-function nil "\
-*$BC18lEPO?%b!<%I$G(B `read-from-minibuffer' $B$N(B INITIAL-CONTENTS $B$rDs6!$9$k4X?t!#(B
-$B$3$N(B function $B$OJ8;zNs$rJV$5$J$1$l$P$J$i$J$$!#(B
-$BNc$($P!"(B`skk-henkan-key' $B$r$=$N$^$^(B initial-contents $B$H$7$FMxMQ$7$?$$$H$-$O!"(B
+*$B<-=qEPO?%b!<%I$KF~$C$?$H$-$N%W%m%s%W%H$KI=<($9$k=i4|CM$rDs6!$9$k4X?t!#(B
+$B$3$N4X?t$OJ8;zNs$rJV$5$J$1$l$P$J$i$J$$!#(B
+
+`skk-henkan-key' $B$r$=$N$^$^=i4|CM$H$7$FMxMQ$7$?$$$H$-$O!"(B
 
   (setq skk-read-from-minibuffer-function
-        (function (lambda () skk-henkan-key)))
+        (lambda () skk-henkan-key))
 
 $B$H;XDj$9$k!#(B"
   :type '(radio (function :tag "$B4X?t(B")

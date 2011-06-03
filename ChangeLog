@@ -1,5 +1,9 @@
 2011-06-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-auto.el, skk-isearch.el, skk-lookup.el, skk-num.el, skk-study.el:
+	* skk-tankan.el, skk-vars.el, skk.el:
+	function foo を #'foo へと書き換え.
+
 	* skk-annotation.el, skk-comp.el, skk-cursor.el, skk-cus.el, skk-develop.el:
 	* skk-gadget.el, skk-isearch.el, skk-jisx0201.el, skk-jisyo-edit-mode.el:
 	* skk-kcode.el, skk-macs.el, skk-num.el, skk-server-completion.el:

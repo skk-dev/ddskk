@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.584 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.585 2011/06/03 23:35:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/03 23:35:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1805,15 +1805,15 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 (defun skk-multiple-line-message-clear ()
   (skk-multiple-line-message nil)
   (remove-hook 'pre-command-hook
-	       (function skk-multiple-line-message-clear)))
+	       'skk-multiple-line-message-clear))
 
 (defun skk-multiple-line-message (fmt &rest args)
   (if skk-running-gnu-emacs
-      (apply (function message) fmt args)
+      (apply #'message fmt args)
     ;; XEmacs
     (save-selected-window
       (select-window (minibuffer-window))
-      (let* ((str (if fmt (apply (function format) fmt args) ""))
+      (let* ((str (if fmt (apply #'format fmt args) ""))
 	     (lines 1)
 	     (last-minibuffer-height (window-height))
 	     (tmp str))
@@ -1824,7 +1824,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	(condition-case nil
 	    (progn
 	      (enlarge-window (- lines last-minibuffer-height))
-	      (apply (function message) fmt args)
+	      (apply #'message fmt args)
 	      ;; We also need to clear `current-message' in case
 	      ;; running under XEmacs so that the height of
 	      ;; `minibuffer-window' is left unchanged.
@@ -1833,7 +1833,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 		;; (add-hook 'pre-command-hook
 		;;	  (function skk-multiple-line-message-clear))))
 		(add-hook 'pre-command-hook
-			  (function skk-multiple-line-message-clear))))
+			  #'skk-multiple-line-message-clear)))
 	  (quit (shrink-window (- (window-height) last-minibuffer-height))))
 	str))))
 

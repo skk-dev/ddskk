@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.21 2010/08/02 15:21:04 skk-cvs Exp $
+;; Version: $Id: skk-auto.el,v 1.22 2011/06/03 23:35:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:04 $
+;; Last Modified: $Date: 2011/06/03 23:35:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -50,9 +50,7 @@
 	    skk-okuri-index-max (+ skk-okuri-index-min (length l)))
       (if (not skk-katakana)
 	  l
-	(mapcar (function
-		 (lambda (e)
-		   (skk-hiragana-to-katakana e)))
+	(mapcar 'skk-hiragana-to-katakana
 		l)))))
 
 (defun skk-okuri-search-subr-original ()
@@ -111,13 +109,10 @@
 		    ;; any more
 		    (setq cont nil)))))))
 	;; key3 の長いもの順にソートして返す。
-	(mapcar (function
-		 (lambda (x)
-		   (cdr x)))
+	(mapcar 'cdr
 		(sort (nreverse key-cand-alist)
-		      (function
-		       (lambda (x y)
-			 (skk-string< (car y) (car x))))))))))
+		      (lambda (x y)
+			(skk-string< (car y) (car x)))))))))
 
 ;;;###autoload
 (defun skk-adjust-search-prog-list-for-auto-okuri ()
