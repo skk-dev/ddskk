@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.48 2011/06/02 12:49:24 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.49 2011/06/03 22:44:55 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/06/02 12:49:24 $
+;; Last Modified: $Date: 2011/06/03 22:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1740,30 +1740,30 @@ METHOD が 2 であれば総画数として検索を実行する。
 	(setcar lis tmp)))
     ;; sort KOUHO by KAKUSUU(or BUSYU)
     (setq lis (sort (cdr top)
-		    #'(lambda (x y)
-			(let ((xa (nth 2 x)) (xb (nth 3 x)) (xc (nth 4 x))
-			      (ya (nth 2 y)) (yb (nth 3 y)) (yc (nth 4 y)))
-			  (if (= xc yc)
-			      (if (= xa ya)
-				  (if (= xb yb)
-				      (< (car x) (car y))
-				    (< xb yb))
-				(< xa ya))
-			    (< xc yc))))))
+		    (lambda (x y)
+		      (let ((xa (nth 2 x)) (xb (nth 3 x)) (xc (nth 4 x))
+			    (ya (nth 2 y)) (yb (nth 3 y)) (yc (nth 4 y)))
+			(if (= xc yc)
+			    (if (= xa ya)
+				(if (= xb yb)
+				    (< (car x) (car y))
+				  (< xb yb))
+			      (< xa ya))
+			  (< xc yc))))))
     ;; return list with annotation
-    (mapcar #'(lambda (cell)
-		(let ((anno (if (zerop (nth 2 cell))
-				(nth 1 cell)
-			      (format "%d画(%s部%d画)%s"
-				      (nth 4 cell)
-				      (aref skk-tankan-radical-vector
-					    (nth 2 cell))
-				      (nth 3 cell)
-				      (or (nth 1 cell) "")
-				      ))))
-		  (if (zerop (length anno))
-		      (char-to-string (car cell))
-		    (concat (char-to-string (car cell)) ";" anno))))
+    (mapcar (lambda (cell)
+	      (let ((anno (if (zerop (nth 2 cell))
+			      (nth 1 cell)
+			    (format "%d画(%s部%d画)%s"
+				    (nth 4 cell)
+				    (aref skk-tankan-radical-vector
+					  (nth 2 cell))
+				    (nth 3 cell)
+				    (or (nth 1 cell) "")
+				    ))))
+		(if (zerop (length anno))
+		    (char-to-string (car cell))
+		  (concat (char-to-string (car cell)) ";" anno))))
 	    lis)))
 
 ;;;###autoload

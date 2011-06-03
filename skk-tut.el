@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.82 2011/04/23 10:22:14 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.83 2011/06/03 22:44:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/04/23 10:22:14 $
+;; Last Modified: $Date: 2011/06/03 22:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -443,19 +443,19 @@
 
 ;; hooks
 (add-hook 'kill-buffer-hook
-	  #'(lambda ()
-	      (when (and (skk-called-interactively-p 'interactive)
-			 (member (buffer-name (current-buffer))
-				 (list skktut-working-buffer
-				       skktut-question-buffer
-				       skktut-answer-buffer
-				       skktut-jisyo-buffer)))
-		(skk-tutorial-quit 'now))))
+	  (lambda ()
+	    (when (and (skk-called-interactively-p 'interactive)
+		       (member (buffer-name (current-buffer))
+			       (list skktut-working-buffer
+				     skktut-question-buffer
+				     skktut-answer-buffer
+				     skktut-jisyo-buffer)))
+	      (skk-tutorial-quit 'now))))
 
 (add-hook 'kill-emacs-hook
-	  #'(lambda ()
-	      (when (buffer-live-p (get-buffer skktut-jisyo-buffer))
-		(skk-tutorial-quit 'now))))
+	  (lambda ()
+	    (when (buffer-live-p (get-buffer skktut-jisyo-buffer))
+	      (skk-tutorial-quit 'now))))
 
 ;; interactive commands. prefix should be `skk-tutorial'.
 ;;;###autoload

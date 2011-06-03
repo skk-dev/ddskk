@@ -150,13 +150,13 @@
 	      (setq ret
 		    (delq nil
 			  (let ((len (length key)))
-			    (mapcar #'(lambda (midasi)
-					;; key に完全一致な midasi をどうするか。
-					(when (and (> (length midasi) len)
-						   (string-equal key
-								 (substring midasi
-									    0 len)))
-					  midasi))
+			    (mapcar (lambda (midasi)
+				      ;; key に完全一致な midasi をどうするか。
+				      (when (and (> (length midasi) len)
+						 (string-equal key
+							       (substring midasi
+									  0 len)))
+					midasi))
 				    ret)))))
 	    ret))))))
 

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.91 2011/06/01 13:38:54 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.92 2011/06/03 22:44:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/01 13:38:54 $
+;; Last Modified: $Date: 2011/06/03 22:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -502,9 +502,9 @@ PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$rK~$?$9%7%s%\
 	 (when skk-comp-first
 	   (let (temp)
 	     (unless predicate
-	       (setq predicate #'(lambda (symbol)
-				   (or (fboundp symbol)
-				       (boundp symbol)))))
+	       (setq predicate (lambda (symbol)
+				 (or (fboundp symbol)
+				     (boundp symbol)))))
 	     (setq temp
 		   (sort (let ((completion-ignore-case nil))
 			   (all-completions skk-comp-key obarray predicate))

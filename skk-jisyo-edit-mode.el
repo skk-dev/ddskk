@@ -140,26 +140,26 @@ C-c C-k   Abort"
   (ad-activate 'skk-henkan-in-minibuff)
   (ad-activate 'skk-purge-from-jisyo)
   (local-set-key "\C-c\C-c"
-		 #'(lambda ()
-		     (interactive)
-		     (when (skk-y-or-n-p "編集を終了しますか？ "
-					 "Finish editing jisyo? ")
-		       (save-buffer)
-		       (kill-buffer (current-buffer))
-		       (skk-reread-private-jisyo t)
-		       (set-window-configuration
-			skk-jisyo-edit-original-window-configuration))
-		     (message nil)))
+		 (lambda ()
+		   (interactive)
+		   (when (skk-y-or-n-p "編集を終了しますか？ "
+				       "Finish editing jisyo? ")
+		     (save-buffer)
+		     (kill-buffer (current-buffer))
+		     (skk-reread-private-jisyo t)
+		     (set-window-configuration
+		      skk-jisyo-edit-original-window-configuration))
+		   (message nil)))
   (local-set-key "\C-c\C-k"
-		 #'(lambda ()
-		     (interactive)
-		     (when (skk-y-or-n-p "編集を中止しますか？ "
-					 "Abort editing jisyo? ")
-		       (set-buffer-modified-p nil)
-		       (kill-buffer (current-buffer))
-		       (set-window-configuration
-			skk-jisyo-edit-original-window-configuration))
-		     (message nil)))
+		 (lambda ()
+		   (interactive)
+		   (when (skk-y-or-n-p "編集を中止しますか？ "
+				       "Abort editing jisyo? ")
+		     (set-buffer-modified-p nil)
+		     (kill-buffer (current-buffer))
+		     (set-window-configuration
+		      skk-jisyo-edit-original-window-configuration))
+		   (message nil)))
   (skk-message "保存終了: C-c C-c, 編集中止: C-c C-k"
 	       "Save & Exit: C-c C-c, Abort: C-c C-k"))
 

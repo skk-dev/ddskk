@@ -1,3 +1,11 @@
+2011-06-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el, skk-comp.el, skk-cursor.el, skk-cus.el, skk-develop.el:
+	* skk-gadget.el, skk-isearch.el, skk-jisx0201.el, skk-jisyo-edit-mode.el:
+	* skk-kcode.el, skk-macs.el, skk-num.el, skk-server-completion.el:
+	* skk-tankan.el, skk-tut.el, skk-vars.el, skk.el:
+	lambda はマクロ展開で function 付加されるため #' は不要.
+
 2011-06-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-emacs-menu-replace, skk-tooltip-resize-text):

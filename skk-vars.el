@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.362 2011/05/29 04:14:23 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.363 2011/06/03 22:44:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/29 04:14:23 $
+;; Last Modified: $Date: 2011/06/03 22:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1103,11 +1103,11 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
   :group 'skk-input-basic)
 
 (defcustom skk-kana-input-search-function
-  #'(lambda ()
-      (save-match-data
-	(and (string-match "^h\\([bcdfghjklmnpqrstvwxz]\\)$" skk-prefix)
-	     (member (char-to-string (preceding-char)) '("$B$*(B" "$B%*(B"))
-	     (cons '("$B%*(B" . "$B$*(B") (match-string 1 skk-prefix)))))
+  (lambda ()
+    (save-match-data
+      (and (string-match "^h\\([bcdfghjklmnpqrstvwxz]\\)$" skk-prefix)
+	   (member (char-to-string (preceding-char)) '("$B$*(B" "$B%*(B"))
+	   (cons '("$B%*(B" . "$B$*(B") (match-string 1 skk-prefix)))))
   "*$B%k!<%k%j%9%H$NCf$K5-$;$J$$JQ49%k!<%k$r=hM}$9$k4X?t!#(B
 `skk-rom-kana-base-rule-list' $B$H(B `skk-rom-kana-rule-list' $B$NMWAG$rA4$F8!:w(B
 $B$7$?8e$K%3!<%k$5$l$k!#0z?t$O$J$$!#(B
@@ -2233,65 +2233,65 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
       ["to Hiragana" skk-gyakubiki-message skk-use-kakasi]
       ["to Hiragana, All Candidates"
        (call-interactively
-	#'(lambda (start end)
-	    (interactive "r")
-	    (skk-gyakubiki-message start end 'all-candidates)))
+	(lambda (start end)
+	  (interactive "r")
+	  (skk-gyakubiki-message start end 'all-candidates)))
        skk-use-kakasi]
       ["to Katakana" skk-gyakubiki-katakana-message skk-use-kakasi]
       ["to Katakana, All Candidates"
        (call-interactively
-	#'(lambda (start end)
-	    (interactive "r")
-	    (skk-gyakubiki-katakana-message
-	     start end 'all-candidates)))
+	(lambda (start end)
+	  (interactive "r")
+	  (skk-gyakubiki-katakana-message
+	   start end 'all-candidates)))
        skk-use-kakasi])
      ("Hurigana"
       ["to Hiragana" skk-hurigana-message skk-use-kakasi]
       ["to Hiragana, All Candidates"
        (call-interactively
-	#'(lambda (start end)
-	    (interactive "r")
-	    (skk-hurigana-message start end 'all-candidates)))
+	(lambda (start end)
+	  (interactive "r")
+	  (skk-hurigana-message start end 'all-candidates)))
        skk-use-kakasi]
       ["to Katakana" skk-hurigana-katakana-message skk-use-kakasi]
       ["to Katakana, All Candidates"
        (call-interactively
-	#'(lambda (start end)
-	    (interactive "r")
-	    (skk-hurigana-katakana-message
-	     start end 'all-candidates)))
+	(lambda (start end)
+	  (interactive "r")
+	  (skk-hurigana-katakana-message
+	   start end 'all-candidates)))
        skk-use-kakasi]))
     ("Convert Region and Replace"
      ("Gyakubiki"
       ["to Hiragana" skk-gyakubiki-region skk-use-kakasi]
       ["to Hiragana, All Candidates"
        (call-interactively
-	#'(lambda (start end)
-	    (interactive "r")
-	    (skk-gyakubiki-region start end 'all-candidates)))
+	(lambda (start end)
+	  (interactive "r")
+	  (skk-gyakubiki-region start end 'all-candidates)))
        skk-use-kakasi]
       ["to Katakana" skk-gyakubiki-katakana-region skk-use-kakasi]
       ["to Katakana, All Candidates"
        (call-interactively
-	#'(lambda (start end)
-	    (interactive "r")
-	    (skk-gyakubiki-katakana-region
-	     start end 'all-candidates)))
+	(lambda (start end)
+	  (interactive "r")
+	  (skk-gyakubiki-katakana-region
+	   start end 'all-candidates)))
        skk-use-kakasi])
      ("Hurigana"
       ["to Hiragana" skk-hurigana-region skk-use-kakasi]
       ["to Hiragana, All Candidates"
        (call-interactively
-	#'(lambda (start end)
-	    (interactive "r")
-	    (skk-hurigana-region start end 'all-candidates)))
+	(lambda (start end)
+	  (interactive "r")
+	  (skk-hurigana-region start end 'all-candidates)))
        skk-use-kakasi]
       ["to Katakana" skk-hurigana-katakana-region skk-use-kakasi]
       ["to Katakana, All Candidates"
        (call-interactively
-	#'(lambda (start end) (interactive "r")
-	    (skk-hurigana-katakana-region
-	     start end 'all-candidates)))
+	(lambda (start end) (interactive "r")
+	  (skk-hurigana-katakana-region
+	   start end 'all-candidates)))
        skk-use-kakasi])
      ["Hiragana to Katakana" skk-katakana-region t]
      ["Katakana to Hiragana" skk-hiragana-region t]
@@ -3075,31 +3075,31 @@ kakutei-first $B$rA*$s$@;~$O!"(B\"$B$7$s$j(Bn\" $B$rJd40$9$k$H!"(B
   :group 'skk-comp)
 
 (defcustom skk-comp-kana-list-filter-function
-  #'(lambda (kana-list prefix)
-      ;; "t" $B0J30$G(B "$B$C(B" $B$rJd40$7$J$$(B
-      (unless (string= prefix "t")
-	(setq kana-list (delete "$B$C(B" kana-list)))
-      ;; "m" $B$G(B "$B$s(B" $B$rJd40$7$J$$(B
-      (when (string= prefix "m")
-	(setq kana-list (delete "$B$s(B" kana-list)))
-      ;; "w" $B$G(B "$B$&(B" $B$rJd40$7$J$$(B
-      (when (string= prefix "w")
-	(setq kana-list (delete "$B$&(B" kana-list)))
-      ;; "x" $B$G(B "$B$+(B", "$B$1(B" $B$rJd40$7$J$$(B
-      ;; in skk-rom-kana-base-rule-list, "xka"$B"*(B"$B$+(B", "xke"$B"*(B"$B$1(B"
-      (when (string= prefix "x")
-	(setq kana-list (delete "$B$+(B" kana-list))
-	(setq kana-list (delete "$B$1(B" kana-list)))
-      ;; $B$$$A$*$&%+%J%b!<%I$r9M$($F(B
-      (when (string= prefix "v")
-	(add-to-list 'kana-list "$B%t(B"))
-      ;; $BJ?2>L>!&JR2>L>$N$_(B ($B5-9fN`$OITMW(B)
-      (save-match-data
-	(delq nil
-	      (mapcar #'(lambda (kana)
-			  (when (string-match "\\(\\cH\\|\\cK\\)" kana)
-			    kana))
-		      kana-list))))
+  (lambda (kana-list prefix)
+    ;; "t" $B0J30$G(B "$B$C(B" $B$rJd40$7$J$$(B
+    (unless (string= prefix "t")
+      (setq kana-list (delete "$B$C(B" kana-list)))
+    ;; "m" $B$G(B "$B$s(B" $B$rJd40$7$J$$(B
+    (when (string= prefix "m")
+      (setq kana-list (delete "$B$s(B" kana-list)))
+    ;; "w" $B$G(B "$B$&(B" $B$rJd40$7$J$$(B
+    (when (string= prefix "w")
+      (setq kana-list (delete "$B$&(B" kana-list)))
+    ;; "x" $B$G(B "$B$+(B", "$B$1(B" $B$rJd40$7$J$$(B
+    ;; in skk-rom-kana-base-rule-list, "xka"$B"*(B"$B$+(B", "xke"$B"*(B"$B$1(B"
+    (when (string= prefix "x")
+      (setq kana-list (delete "$B$+(B" kana-list))
+      (setq kana-list (delete "$B$1(B" kana-list)))
+    ;; $B$$$A$*$&%+%J%b!<%I$r9M$($F(B
+    (when (string= prefix "v")
+      (add-to-list 'kana-list "$B%t(B"))
+    ;; $BJ?2>L>!&JR2>L>$N$_(B ($B5-9fN`$OITMW(B)
+    (save-match-data
+      (delq nil
+	    (mapcar (lambda (kana)
+		      (when (string-match "\\(\\cH\\|\\cK\\)" kana)
+			kana))
+		    kana-list))))
   "*`skk-comp-prefix-regexp-alist' $B$K<+F0$GMWAG$rDI2C$9$k:]$KMxMQ$5$l$k4X?t!#(B
 `skk-rule-tree' $B$+$i%W%l%U%#%C%/%9$KBP1~$9$k(B \"$B$+$J(B\" $B$r=8$a$?8e!"(B
 $B$3$N4X?t$K$h$C$FD4@0$r9T$&!#(B"
@@ -3470,9 +3470,9 @@ cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
   :group 'skk-gadget)
 
 (defcustom skk-default-current-date-function
-  #'(lambda (date-information format gengo and-time)
-      (skk-default-current-date date-information nil skk-number-style
-				gengo 0 0 0 and-time))
+  (lambda (date-information format gengo and-time)
+    (skk-default-current-date date-information nil skk-number-style
+			      gengo 0 0 0 and-time))
   "*`skk-current-date' $B$G%3!<%k$5$l$k%G%U%)%k%H$N4X?t!#(B
 $B;~4V>pJs$r0z?t$K<h$j2C9)$7$?J8;zNs$r=PNO$9$k!#(B
 
@@ -3632,14 +3632,14 @@ CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
 
 (defconst skk-isearch-breakable-character-p-function
   (cond ((eval-when-compile skk-running-gnu-emacs)
-	 #'(lambda (char)
-	     ;; see emacs/lisp/fill.el how the category `|' is
-	     ;; treated.
-	     (aref (char-category-set char) ?|)))
+	 (lambda (char)
+	   ;; see emacs/lisp/fill.el how the category `|' is
+	   ;; treated.
+	   (aref (char-category-set char) ?|)))
 	(t
-	 #'(lambda (char)
-	     (string-match word-across-newline
-			   (char-to-string char)))))
+	 (lambda (char)
+	   (string-match word-across-newline
+			 (char-to-string char)))))
   "Function to test if we can insert a newline around CHAR when filling.")
 
 (defconst skk-isearch-working-buffer " *skk-isearch*"
@@ -3819,8 +3819,8 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
 (defconst skk-code-null 128)
 
 (defconst skk-kcode-charset-list
-  (mapcar #'(lambda (x)
-	      (list (symbol-name x)))
+  (mapcar (lambda (x)
+	    (list (symbol-name x)))
 	  (if (eval-when-compile
 		(and skk-running-gnu-emacs (>= emacs-major-version 21)))
 	      charset-list
@@ -4886,8 +4886,8 @@ GNU Emacs 21 $B$G$O6/@)E*$K(B `follow' $B$H$J$k!#(B"
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-function
-  #'(lambda (tooltip-str)
-      (skk-tooltip-show-at-point tooltip-str 'listing))
+  (lambda (tooltip-str)
+    (skk-tooltip-show-at-point tooltip-str 'listing))
   "*Tip $BIA2h5!9=$N4X?t$r;XDj$9$k!#(B
 $B%G%U%)%k%H$G$O(B Emacs $BI8=`$N(B Tooltip $B$r;HMQ$9$k!#(B
 $BB>$N(B Tip $BIA2h5!9=(B $B$G$"$k(B pos-tip $B$d(B popup-tip $B$b;XDj$G$-$k!#(B"

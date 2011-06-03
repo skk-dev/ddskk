@@ -5,9 +5,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-cursor.el,v 1.43 2010/09/10 15:42:16 skk-cvs Exp $
+;; Version: $Id: skk-cursor.el,v 1.44 2011/06/03 22:44:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:42:16 $
+;; Last Modified: $Date: 2011/06/03 22:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -115,10 +115,10 @@
   (add-hook 'minibuffer-setup-hook #'skk-cursor-set 'append)
 
   (add-hook 'minibuffer-exit-hook
-	    #'(lambda ()
-		(with-current-buffer (skk-minibuffer-origin)
-		  (skk-cursor-set))
-		(skk-cursor-set skk-cursor-default-color 'force))
+	    (lambda ()
+	      (with-current-buffer (skk-minibuffer-origin)
+		(skk-cursor-set))
+	      (skk-cursor-set skk-cursor-default-color 'force))
 	    'append))
 
 (provide 'skk-cursor)

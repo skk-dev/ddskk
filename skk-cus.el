@@ -148,13 +148,12 @@
 
 (defun skk-cus-info (params)
   (delq nil
-	(mapcar
-	 #'(lambda (el)
-	     (let ((val (symbol-value (car el))))
-	       (if val
-		   (cons (car el) val)
-		 nil)))
-	 params)))
+	(mapcar (lambda (el)
+		  (let ((val (symbol-value (car el))))
+		    (if val
+			(cons (car el) val)
+		      nil)))
+		params)))
 
 ;;;###autoload
 (defun skk-customize-group-skk ()
@@ -176,41 +175,41 @@
 	(set var t))))
   (setq skk-custom-buffer-original (current-buffer))
   (let (
-	(visual (mapcar #'(lambda (entry)
-			   `(cons :format "%v%h\n"
-				  :doc ,(nth 2 entry)
-				  (const :format "" ,(nth 0 entry))
-				  ,(nth 1 entry)))
-		       skk-cus-params-visual))
-	(ui (mapcar #'(lambda (entry)
-			   `(cons :format "%v%h\n"
-				  :doc ,(nth 2 entry)
-				  (const :format "" ,(nth 0 entry))
-				  ,(nth 1 entry)))
-		       skk-cus-params-ui))
-	(henkan (mapcar #'(lambda (entry)
-			   `(cons :format "%v%h\n"
-				  :doc ,(nth 2 entry)
-				  (const :format "" ,(nth 0 entry))
-				  ,(nth 1 entry)))
-		       skk-cus-params-henkan))
-	(search (mapcar #'(lambda (entry)
-			   `(cons :format "%v%h\n"
-				  :doc ,(nth 2 entry)
-				  (const :format "" ,(nth 0 entry))
-				  ,(nth 1 entry)))
+	(visual (mapcar (lambda (entry)
+			  `(cons :format "%v%h\n"
+				 :doc ,(nth 2 entry)
+				 (const :format "" ,(nth 0 entry))
+				 ,(nth 1 entry)))
+			skk-cus-params-visual))
+	(ui (mapcar (lambda (entry)
+		      `(cons :format "%v%h\n"
+			     :doc ,(nth 2 entry)
+			     (const :format "" ,(nth 0 entry))
+			     ,(nth 1 entry)))
+		    skk-cus-params-ui))
+	(henkan (mapcar (lambda (entry)
+			  `(cons :format "%v%h\n"
+				 :doc ,(nth 2 entry)
+				 (const :format "" ,(nth 0 entry))
+				 ,(nth 1 entry)))
+			skk-cus-params-henkan))
+	(search (mapcar (lambda (entry)
+			  `(cons :format "%v%h\n"
+				 :doc ,(nth 2 entry)
+				 (const :format "" ,(nth 0 entry))
+				 ,(nth 1 entry)))
 		       skk-cus-params-search))
-	(input (mapcar #'(lambda (entry)
-			   `(cons :format "%v%h\n"
-				  :doc ,(nth 2 entry)
-				  (const :format "" ,(nth 0 entry))
-				  ,(nth 1 entry)))
+	(input (mapcar (lambda (entry)
+			 `(cons :format "%v%h\n"
+				:doc ,(nth 2 entry)
+				(const :format "" ,(nth 0 entry))
+				,(nth 1 entry)))
 		       skk-cus-params-input))
-	(misc (mapcar #'(lambda (entry)
-			   `(cons :format "%v%h\n"
-				  :doc ,(nth 2 entry)
-				  (const :format "" ,(nth 0 entry))
-				  ,(nth 1 entry)))
+	(misc (mapcar (lambda (entry)
+			`(cons :format "%v%h\n"
+			       :doc ,(nth 2 entry)
+			       (const :format "" ,(nth 0 entry))
+			       ,(nth 1 entry)))
 		       skk-cus-params-misc))
 	(info (append
 	       (skk-cus-info skk-cus-params-visual)

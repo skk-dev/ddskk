@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.169 2011/06/01 21:44:38 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.170 2011/06/03 22:44:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/01 21:44:38 $
+;; Last Modified: $Date: 2011/06/03 22:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1027,9 +1027,9 @@ BUFFER defaults to the current buffer."
   (nth 1 (buffer-list)))
 
 (defun skk-quote-char-1 (word alist)
-  (mapconcat #'(lambda (char)
-		 (or (cdr (assq char alist))
-		     (char-to-string char)))
+  (mapconcat (lambda (char)
+	       (or (cdr (assq char alist))
+		   (char-to-string char)))
    ;; 文字列を対応する char のリストに分解する。
 	     (append word nil) ""))
 

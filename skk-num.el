@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.46 2011/06/02 12:43:11 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.47 2011/06/03 22:44:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/02 12:43:11 $
+;; Last Modified: $Date: 2011/06/03 22:44:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -196,14 +196,14 @@
 	    (cond
 	     ((consp elt)
 	      (apply #'nconc
-		     (mapcar #'(lambda (str0)
-				 (mapcar #'(lambda (str1)
-					     (concat str0 str1))
-					 elt))
+		     (mapcar (lambda (str0)
+			       (mapcar (lambda (str1)
+					 (concat str0 str1))
+				       elt))
 			     dst)))
 	     (t
-	      (mapcar #'(lambda (str0)
-			  (concat str0 elt))
+	      (mapcar (lambda (str0)
+			(concat str0 elt))
 		      dst)))))
     dst))
 
