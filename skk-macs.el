@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.171 2011/06/04 03:34:33 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.172 2011/06/04 12:10:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/04 03:34:33 $
+;; Last Modified: $Date: 2011/06/04 12:10:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -41,15 +41,17 @@
 
 ;;;; macros
 
-(when (eval-when-compile (and skk-running-gnu-emacs
-			      (<= emacs-major-version 22)))
-  (defmacro ignore-errors (&rest body)
-    "Execute FORMS; if an error occurs, return nil.
-Otherwise, return result of last FORM."
-    `(condition-case nil
-	 (progn
-	   ,@body)
-       (error nil))))
+;; ;; GNU Emacs 21.4 にも存在する (cl-macs.el) ので
+;; ;; 無効化してみる。 2011-06-04
+;; (when (eval-when-compile (and skk-running-gnu-emacs
+;; 			      (<= emacs-major-version 22)))
+;;   (defmacro ignore-errors (&rest body)
+;;     "Execute FORMS; if an error occurs, return nil.
+;; Otherwise, return result of last FORM."
+;;     `(condition-case nil
+;; 	 (progn
+;; 	   ,@body)
+;;        (error nil))))
 
 (defmacro skk-defadvice (function &rest everything-else)
   "Defines a piece of advice for FUNCTION (a symbol).

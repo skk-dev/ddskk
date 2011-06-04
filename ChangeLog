@@ -1,5 +1,9 @@
 2011-06-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-macs.el (ignore-errors): GNU Emacs 22 以下の場合に defmacro
+	していましたが、GNU Emacs 21.4 (cl-macs.el) にも存在しており普通に
+	使えることから、skk-macs.el からは削除した。
+
 	* skk-vars.el (skk-read-from-minibuffer-function): Update docstring.
 
 	* skk-macs.el (skk-downcase): Update docstring.
