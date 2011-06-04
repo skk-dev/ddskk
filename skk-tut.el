@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.84 2011/06/04 01:14:39 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.85 2011/06/04 01:30:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/04 01:14:39 $
+;; Last Modified: $Date: 2011/06/04 01:30:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -123,15 +123,14 @@
     (skk-kakutei-early . t)
     (skk-kakutei-key . "\C-j")
     (skk-kana-input-search-function
-     . (function
-	(lambda ()
-	  (save-match-data
-	    (when (and (string-match
-			"^h\\([bcdfghjklmnpqrstvwxz]\\)$"
-			skk-prefix)
-		       (member (char-to-string (preceding-char))
-			       '("お" "オ")))
-	      (cons '("オ" . "お") (match-string 1 skk-prefix)))))))
+     . (lambda ()
+	 (save-match-data
+	   (when (and (string-match
+		       "^h\\([bcdfghjklmnpqrstvwxz]\\)$"
+		       skk-prefix)
+		      (member (char-to-string (preceding-char))
+			      '("お" "オ")))
+	     (cons '("オ" . "お") (match-string 1 skk-prefix))))))
     (skk-katakana-mode-string . " カナ")
     (skk-kcode-load-hook . nil)
     (skk-keep-record . nil)
@@ -286,10 +285,9 @@
     (skk-start-henkan-key . " ")
     (skk-try-completion-char . ?\011)
     (skk-update-jisyo-function . 'skktut-update-jisyo)
-    (skk-use-color-cursor
-     . (and window-system
-	    (fboundp 'x-display-color-p)
-	    (x-display-color-p)))
+    (skk-use-color-cursor . (and window-system
+				 (fboundp 'x-display-color-p)
+				 (x-display-color-p)))
     (skk-use-face . window-system)
     (skk-use-look . nil)
     (skk-use-numeric-conversion . t)
@@ -306,6 +304,7 @@
     (skk-dcomp-multiple-activate . nil)
     (skk-read-from-minibuffer-function . nil)
     (skk-verbose . nil)
+    (debug-on-error . nil)
 
     ;; not user variables but to be localized.
     (skk-insert-new-word-function . nil)
@@ -313,10 +312,9 @@
     (skk-rule-tree
      .
      (if (and skk-use-kana-keyboard
-	     (memq skk-kanagaki-keyboard-type
-		   '(oasys
-		     nicola-jis nicola-us nicola-dvorak
-		     omelet-jis omelet-us omelet-dvorak))
+	     (memq skk-kanagaki-keyboard-type '(oasys
+						nicola-jis nicola-us nicola-dvorak
+						omelet-jis omelet-us omelet-dvorak))
 	     (eq skk-kanagaki-state 'kana)
 	     skktut-nicola-tut-file)
 	 skk-kanagaki-rule-tree
