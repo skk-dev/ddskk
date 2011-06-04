@@ -140,9 +140,7 @@
 	    (setq ret
 		  (save-match-data
 		    (split-string (buffer-substring-no-properties
-				   (point) (progn
-					     (end-of-line)
-					     (1- (point))))
+				   (point) (1- (line-end-position)))
 				  sep)))
 	    (when (string= sep "/")
 	      ;; 見出しに '/' を含んでいる時、セパレータの '/' と混同し、

@@ -435,7 +435,9 @@
 	       (goto-char (point-max)))
 	      ;;
 	      (t
-	       (when (> (progn (end-of-line) (current-column)) max-columns)
+	       (when (> (progn (end-of-line)
+			       (current-column))
+			max-columns)
 		 (move-to-column max-columns)
 		 (backward-char)
 		 (if (member (char-to-string (following-char))

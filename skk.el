@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.585 2011/06/03 23:35:25 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.586 2011/06/04 01:14:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 23:35:25 $
+;; Last Modified: $Date: 2011/06/04 01:14:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1410,8 +1410,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 (defun skk-ovwrt-len (str)
   "$B>e=q$-$7$FNI$$D9$5$rJV$9!#(B"
   (min (string-width (buffer-substring-no-properties (point)
-						     (skk-save-point (end-of-line)
-								     (point))))
+						     (line-end-position)))
        (string-width str)))
 
 (defun skk-del-char-with-pad (length)
@@ -4070,9 +4069,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
   (cond
    ((not okurigana)
     (list (split-string (buffer-substring-no-properties
-			 (point) (progn
-				   (end-of-line)
-				   (1- (point))))
+			 (point) (1- (line-end-position)))
 			"/")
 	  nil nil nil))
    (t

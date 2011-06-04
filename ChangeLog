@@ -1,5 +1,21 @@
 2011-06-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tut.el (skktut-init-variables-alist):
+	初期化対象の変数として skk-dcomp-multiple-activate, 
+	skk-read-from-minibuffer-function, skk-verbose を追加.
+
+	* skk.el (skk-ovwrt-len, skk-compute-henkan-lists):
+	Use line-end-position instead of (progn (end-of-line) (point)).
+
+	* skk-tut.el (skktut-next-answer-buffer, skktut-today): Ditto.
+
+	* skk-server-completion.el (skk-server-completion-search-midasi):
+	Ditto.
+
+	* skk-auto.el (skk-okuri-search-subr-original): Ditto.
+
+	* skk-annotation.el (skk-annotation-last-word-1): Ditto.
+
 	* skk-auto.el, skk-isearch.el, skk-lookup.el, skk-num.el, skk-study.el:
 	* skk-tankan.el, skk-vars.el, skk.el:
 	function foo を #'foo へと書き換え.

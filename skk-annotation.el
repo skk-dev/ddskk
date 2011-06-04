@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.179 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.180 2011/06/04 01:14:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/04 01:14:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -840,7 +840,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 			skk-okuri-ari-max nil)
 		    t nil)
 	    (goto-char (match-beginning 1))
-	    (set-marker eol (skk-save-point (end-of-line) (point)))
+	    (set-marker eol (line-end-position))
 	    (when (string-match ";" word)
 	      (setq word (substring word 0 (match-beginning 0))))
 	    (when (re-search-forward

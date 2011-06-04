@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.83 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.84 2011/06/04 01:14:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/04 01:14:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -303,6 +303,9 @@
 			     (quote japanese-jisx0208)
 			   skk-kcode-charset))
     (skk-dcomp-activate . nil)
+    (skk-dcomp-multiple-activate . nil)
+    (skk-read-from-minibuffer-function . nil)
+    (skk-verbose . nil)
 
     ;; not user variables but to be localized.
     (skk-insert-new-word-function . nil)
@@ -865,9 +868,8 @@ tutorial /チュートリアル/
       (search-backward "\n>>")
       (forward-char 1)
       (setq skktut-right-answer
-	    (buffer-substring-no-properties
-	     (+ 3 (point))
-	     (skk-save-point (end-of-line) (point))))
+	    (buffer-substring-no-properties (+ 3 (point))
+					    (line-end-position)))
       (goto-char (point-min)))
     ;; not to save point.
     (let ((cbuf (current-buffer))
@@ -952,9 +954,7 @@ tutorial /チュートリアル/
       (let (p)
 	(widen)
 	(search-forward "\n>> ")
-	(when (re-search-forward "「.*」"
-				 (skk-save-point (end-of-line) (point))
-				 t)
+	(when (re-search-forward "「.*」" (line-end-position) t)
 	  (delete-region (match-beginning 0) (match-end 0)))
 	(setq p (point))
 	(insert (concat "「きょうは、" (skk-current-date) "です。」"))

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.22 2011/06/03 23:35:25 skk-cvs Exp $
+;; Version: $Id: skk-auto.el,v 1.23 2011/06/04 01:14:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 23:35:25 $
+;; Last Modified: $Date: 2011/06/04 01:14:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -75,9 +75,7 @@
 	  (when (and (<= len2 len)
 			(string= key2 (substring henkan-key 0 len2)))
 	    (let ((cont t))
-	      (skk-save-point
-	       (end-of-line)
-	       (setq q (point)))
+	      (setq q (line-end-position))
 	      (while (and cont (search-forward "/[" q t))
 		(setq r (point))
 		(setq okuri3 (buffer-substring-no-properties
