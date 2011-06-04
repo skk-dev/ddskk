@@ -1,3 +1,10 @@
+2011-06-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-search-excluding-word-pattern-function):
+	Update docstring.
+
+	* skk.el (skk-update-jisyo-p): Update docstring.
+
 2011-06-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (ignore-errors): GNU Emacs 22 以下の場合に defmacro

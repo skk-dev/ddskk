@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.586 2011/06/04 01:14:39 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.587 2011/06/04 23:51:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/04 01:14:39 $
+;; Last Modified: $Date: 2011/06/04 23:51:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2792,11 +2792,14 @@ WORD で確定する。"
 
 (defun skk-update-jisyo-p (word)
   "WORD が個人辞書に登録されるべきか否かを判定する。
-変数 `skk-search-excluding-word-pattern-function' が関数であれば、その関数を
-WORD を引数にして呼ぶ。もし non-nil を返せば `skk-update-jisyo-p' は nil を返
-す。
-`skk-search-excluding-word-pattern-function' が関数のリストであれば、それぞ
-れを WORD を引数にして呼び，そのうちのひとつでも non-nil を返せば nil を返す。"
+変数 `skk-search-excluding-word-pattern-function' が関数であれば、WORD を
+引数にしてその関数を実行し、戻り値が non-nil であれば `skk-update-jisyo-p' は
+ nil を返す。
+変数 `skk-search-excluding-word-pattern-function' が関数のリストであれば、
+ WORD を引数にしてそれぞれの関数を実行し、そのうちのひとつでも non-nil を
+返せば `skk-update-jisyo-p' は nil を返す。
+
+変数 `skk-search-excluding-word-pattern-function' の docstring も参照のこと。"
   (save-match-data
     (not (run-hook-with-args-until-success
 	 'skk-search-excluding-word-pattern-function word))))
@@ -4544,8 +4547,8 @@ SKK 辞書の候補として正しい形に整形する。"
       (with-temp-buffer
 	(insert key)
 	;; 接頭辞・接尾辞の入力だったら ">" を消しておく。
-	(goto-char (1- (point)))
-	(when (looking-at ">")
+	(goto-char (1- (point)))	;
+	(when (looking-at ">")		;(looking-back ">")
 	  (delete-char 1))
 	(goto-char (point-min))
 	(when (looking-at ">")

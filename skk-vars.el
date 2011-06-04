@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.365 2011/06/04 03:34:33 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.366 2011/06/04 23:51:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/04 03:34:33 $
+;; Last Modified: $Date: 2011/06/04 23:51:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -625,22 +625,22 @@ nil であれば、1 行に複数の候補があっても 1 候補として数える。
 
 (defcustom skk-search-excluding-word-pattern-function nil
   "*個人辞書に取り込まない文字列のパターンを検索する条件を指定する。
-この変数の値には引数 1 個の関数、ないしは関数のリストを代入する。これら
-の関数は、確定した文字列を引数に渡して `funcall' される。
+この変数には引数 1 個の関数（又は関数のリスト）を代入することとし、代入し
+た関数は確定した文字列を引数に `skk-update-jisyo-p' 内で `funcall' される。
 
 基本的にこの変数はフック変数であり、その値を設定したい場合には `add-hook'
 で追加するか `remove-hook' で削除する。
 
-SKK では変換、確定を行った文字列は全て個人辞書に取り込まれるが、この
-変数で指定された関数が non-nil を返すとその文字列は個人辞書に取り込ま
-れない。
+SKK では、かな漢字変換・確定を行った文字列は全て個人辞書に取り込まれるが、
+この変数で指定された関数が non-nil を返すと、その文字列は個人辞書に取り込
+まれない。
 
-例えば、この変数に下記のような指定すると、変換により (SKK abbrev mode
-での変換を除く) カタカナのみからなる文字列を得て確定しても、それを個人
-辞書に取り込まない。
+例えば、この変数に下記のような lambda 関数を指定すると、かな漢字変換によ
+って (SKK abbrev mode での変換を除く) カタカナのみから成る文字列を得て確
+定しても、それを個人辞書に取り込まない。
 
  (add-hook 'skk-search-excluding-word-pattern-function
-	   #'(lambda (kakutei-word)
+	   (lambda (kakutei-word)
 	       ;; この関数が non-nil を返したときは、その文字列は個人
 	       ;; 辞書に取り込まれない。
 	       (and
@@ -656,10 +656,12 @@ SKK では変換、確定を行った文字列は全て個人辞書に取り込まれるが、この
 		    (not (string-match \"^[^ーァ-ンぁ-ん]+$\"
                                        skk-henkan-key))))))
 
-カタカナを変換により求めたいが、個人辞書にはカタカナのみの候補を取り込みた
-くない、など、個人辞書が必要以上に膨れるのを抑える目的に使用できる。
+かな漢字変換によってカタカナを求めたいが、個人辞書にはカタカナのみの候補
+を取り込みたくない、など、個人辞書が必要以上に膨れるのを抑える目的に使用
+できる。
 
-なお、個人辞書に取り込まない見出し語については補完が効かないので注意すること。"
+なお、個人辞書に取り込まない見出し語については補完が効かないので注意する
+こと。"
   :type 'hook
   :group 'skk-private)
 
