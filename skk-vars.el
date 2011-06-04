@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.364 2011/06/03 23:35:25 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.365 2011/06/04 03:34:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 23:35:25 $
+;; Last Modified: $Date: 2011/06/04 03:34:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1720,6 +1720,7 @@ nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$
 (defcustom skk-read-from-minibuffer-function nil "\
 *$B<-=qEPO?%b!<%I$KF~$C$?$H$-$N%W%m%s%W%H$KI=<($9$k=i4|CM$rDs6!$9$k4X?t!#(B
 $B$3$N4X?t$OJ8;zNs$rJV$5$J$1$l$P$J$i$J$$!#(B
+$B4X?t(B `read-from-minibuffer' $B$N0z?t(B INITIAL-CONTENTS $B$K3:Ev$9$k!#(B
 
 `skk-henkan-key' $B$r$=$N$^$^=i4|CM$H$7$FMxMQ$7$?$$$H$-$O!"(B
 

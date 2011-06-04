@@ -1,5 +1,11 @@
 2011-06-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-read-from-minibuffer-function): Update docstring.
+
+	* skk-macs.el (skk-downcase): Update docstring.
+
+	* doc/skk.texi: skk-read-from-minibuffer-function を追加.
+
 	* skk-tut.el (skktut-init-variables-alist):
 	初期化対象の変数として skk-dcomp-multiple-activate, 
 	skk-read-from-minibuffer-function, skk-verbose, debug-on-error を追加.

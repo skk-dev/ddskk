@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.91
-@set UPDATED $Date: 2011/05/28 07:28:03 $
+@set UPDATED $Date: 2011/06/04 03:34:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1483,6 +1483,18 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 
 もちろん、誤って登録した単語は削除できます。
 (@w{@pxref{誤った登録の削除}}, @w{@pxref{個人辞書ファイルの編集}})
+
+@defvr {ユーザ変数} skk-read-from-minibuffer-function
+この変数に文字列を返す関数を収めると、その文字列を辞書登録モードに入った
+ときのプロンプト（関数 read-from-minibuffer の引数 INITIAL-CONTENTS に該当）
+に初期表示します。
+
+@lisp
+(setq skk-read-from-minibuffer-function
+      (lambda () skk-henkan-key))
+@end lisp
+
+@end defvr
 
 @node 送り仮名が無い場合の辞書登録
 @subsubsection 送り仮名が無い場合の辞書登録
@@ -3815,7 +3827,7 @@ p# /#4/
 @end example
 
 @noindent
-がないときは、辞書登録時のプロンプトは、@w{@samp{#がつ#にち}}となります。
+がないときは、辞書登録モードのプロンプトは、@w{@samp{#がつ#にち}}となります。
 全角数字のタイプは、@samp{#1} なので、 @w{@samp{#1月#1日}} をミニバッファで作り登
 録します。
 

@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.170 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.171 2011/06/04 03:34:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/04 03:34:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -753,6 +753,9 @@ BUFFER defaults to the current buffer."
        (>= ?z char)))
 
 (defsubst skk-downcase (char)
+  "連想リスト `skk-downcase-alist' に該当あれば (assq)、要素(子リスト)の cdr を返す。
+該当なければ 関数 `downcase'の結果を返す。
+関数 `skk-set-henkan-point' から呼ばれている。"
   (or (cdr (assq char skk-downcase-alist))
       (downcase char)))
 
