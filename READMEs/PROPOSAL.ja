@@ -36,6 +36,11 @@
 
 * Emacs $B$N%P!<%8%g%s(B
 
+** Daredevil SKK 14.2 $B$,F0:n$9$k(B Emacs $B$N%P!<%8%g%s$O(B?
+
+GNU Emacs 20 $B$N%5%]!<%H$r=*N;$7$^$7$?!#(BGNU Emacs 20 $B$r$*;H$$$NJ}$O(B
+DDSKK 14.1 $B$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
+
 ** Daredevil SKK 12 $B$,F0:n$9$k(B Emacs $B$N%P!<%8%g%s$O(B?
 
 Daredevil SKK $B3+H/?X$,%5%]!<%H2DG=$J(B Emacs $B$N$_$,BP>]$G$9!#(B
@@ -46,6 +51,8 @@ XEmacs 21.1 $B0J9_$r%5%]!<%H$7$^$9$,!"3F(B Emacsen $B$N%P%0=$@5$N>u67$r9M$((
 $B$k$H(B Emacs 20.7 $B0J9_!"$"$k$$$O(B XEmacs 21.4 $B0J9_$,?d>)$5$l$^$9!#(B
 
 ** Emacs $B$N%P!<%8%g%s4V:90[$N5[<}$O(B?
+
+DDSKK 14.2 $B$+$i$O!"(BGNU Emacs 22 $B0J>e$G$"$l$P(B APEL $B$OITMW$G$9!#(B
 
 Emacs $B$N%P!<%8%g%s4V:90[$N5[<}$O(B APEL (A Portable Emacs Library$B!#0JA0(B
 $B$O(B emu $B$H$7$FCN$i$l$F$$$?(B) $B$K$h$C$F9T$J$o$l$^$9!#(BAPEL $B$O(B
@@ -157,13 +164,9 @@ skk-hoge.el $B$H$$$&%U%!%$%k$r?75,$K:n@.$7$?$i!"$=$NCf$K=q$/4X?t!&JQ?t$N(B
 
 ** $B%M!<%_%s%0$rJQ99$7$?$H$-$O(B
 
-skk-obsolete.el $B$NCf$N(B `skk-obsolete-variable-alist',
-`skk-obsolete-function-alist' $B$K?75l$NJQ?tL>!"$"$k$$$O4X?tL>$r5-:\$7$F(B
-$B$*$$$F2<$5$$!#$3$&$9$k$3$H$G!"(B
-
-     M-x skk-obsolete-check
-
-$B%3%^%s%I$G!"%$%K%7%c%k%U%!%$%k$N=q49$($rH><+F0E*$K9T$J$&$3$H$,$G$-$^$9!#(B
+(make-obsolete-variable 'old-var-name
+			'new-var-name
+			"DDSKK 14.2")
 
 * $B%P%C%U%!%m!<%+%kJQ?t$K$D$$$F(B
 
