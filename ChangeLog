@@ -1,5 +1,8 @@
 2011-06-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-annotation.el (skk-annotation-save-and-quit) 
+	(skk-annotation-quote): 余分な %s を削除.
+
 	* skk-macs.el (skk-message, skk-error, skk-yes-or-no-p) 
 	(skk-y-or-n-p): Update docstring.
 

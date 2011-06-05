@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.180 2011/06/04 01:14:39 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.181 2011/06/05 12:05:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/06/04 01:14:39 $
+;; Last Modified: $Date: 2011/06/05 12:05:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -747,7 +747,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
      skk-annotation-original-window-configuration)
     (when annotation
       (unless quiet
-	(message "%s" "Added annotation")))))
+	(message "Added annotation")))))
 
 (defun skk-annotation-kill ()
   "annotation を付けずに annotation バッファを kill する。"
@@ -878,7 +878,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	 (delete-region beg end)
 	 (insert (skk-quote-semicolon candidate))
 	 (unless quiet
-	   (message "%s" "Quoted")))))))
+	   (message "Quoted")))))))
 
 ;;;###autoload
 (defun skk-annotation-wikipedia (word &optional sources)
