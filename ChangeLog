@@ -1,5 +1,7 @@
 2011-06-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi (skk-search-excluding-word-pattern-function): 追加.
+
 	* skk-vars.el (skk-search-excluding-word-pattern-function):
 	Update docstring.
 
@@ -15,7 +17,7 @@
 
 	* skk-macs.el (skk-downcase): Update docstring.
 
-	* doc/skk.texi: skk-read-from-minibuffer-function を追加.
+	* doc/skk.texi (skk-read-from-minibuffer-function): 追加.
 
 	* skk-tut.el (skktut-init-variables-alist):
 	初期化対象の変数として skk-dcomp-multiple-activate, 

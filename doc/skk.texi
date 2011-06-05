@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.91
-@set UPDATED $Date: 2011/06/04 03:34:34 $
+@set UPDATED $Date: 2011/06/05 00:27:46 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -721,13 +721,13 @@ DDSKK $B$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<5-$N<-=q%5!<%P$N(B
 @lisp
 @group
 (add-hook 'isearch-mode-hook
-          #'(lambda ()
+          (lambda ()
               (when (and (boundp 'skk-mode)
                          skk-mode
                          skk-isearch-mode-enable)
                 (skk-isearch-mode-setup))))
 (add-hook 'isearch-mode-end-hook
-          #'(lambda ()
+          (lambda ()
               (when (and (featurep 'skk-isearch)
                          skk-isearch-mode-enable)
                 (skk-isearch-mode-cleanup))))
@@ -1384,11 +1384,15 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @ref{$B<-=qEPO?%b!<%I(B}$B$K$F@bL@$7$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-previous-candidate-keys
-$BA08uJd!?A08uJd72$KLa$k4X?t(B @code{skk-previous-candidate} $B$r3d$jEv$F$k%*%V%8%'%/%H(B
-$B$N%j%9%H$r;XDj$9$k!#(B
+$BA08uJd!?A08uJd72$KLa$k4X?t(B @code{skk-previous-candidate} $B$r3d$jEv$F$k%*%V(B
+$B%8%'%/%H$N%j%9%H$r;XDj$9$k!#(B
 $B%*%V%8%'%/%H$K$O%-!<$rI=$9J8;zNs$^$?$O(B event vector $B$,;XDj$G$-$^$9!#(B
 
 $B%G%U%)%k%H$O(B @code{(list "x" "\C-p")} $B$G$9!#(B
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-search-excluding-word-pattern-function
+$B>\$7$/$O(B docstring $B$r;2>H$N$3$H!#(B
 @end defvr
 
 @node $BAw$j2>L>$,M-$k>l9g(B
@@ -4765,7 +4769,7 @@ ohhira @expansion{} $B$*$*$R$i(B
 @lisp
 @group
 (add-hook 'yatex-mode-hook
-          #'(lambda ()
+          (lambda ()
               (when skk-auto-insert-paren
                 (make-local-variable 'skk-auto-insert-paren)
                 (setq skk-auto-insert-paren nil))))
@@ -4779,7 +4783,7 @@ ohhira @expansion{} $B$*$*$R$i(B
 @lisp
 @group
 (add-hook 'tex-mode-hook
-          #'(lambda ()
+          (lambda ()
               (when skk-auto-insert-paren
                 (make-local-variable 'skk-auto-paren-string-alist)
                 (setq skk-auto-paren-string-alist
@@ -4795,7 +4799,7 @@ ohhira @expansion{} $B$*$*$R$i(B
 @lisp
 @group
 (add-hook 'tex-mode-hook
-          #'(lambda ()
+          (lambda ()
               (when skk-auto-insert-paren
                 (make-local-variable 'skk-auto-paren-string-alist)
                 (setq skk-auto-paren-string-alist
@@ -5742,7 +5746,7 @@ SKK $B$NAw$j2>L>$N=hM}$O!"9%$_$,J,$+$l$k$H$3$m$G$9!#?'!9$J(B
 @lisp
 @group
 (add-hook 'minibuffer-setup-hook
-          #'(lambda ()
+          (lambda ()
               (when (and (boundp 'skk-henkan-okuri-strictly)
                          skk-henkan-okuri-strictly
                          (not (eq last-command 'skk-purge-jisyo)))
@@ -5752,7 +5756,7 @@ SKK $B$NAw$j2>L>$N=hM}$O!"9%$_$,J,$+$l$k$H$3$m$G$9!#?'!9$J(B
 @end group
 @group
 (add-hook 'minibuffer-exit-hook
-          #'(lambda ()
+          (lambda ()
               (when (and (get 'skk-henkan-okuri-strictly 'temporary-nil)
                          (<= (minibuffer-depth) 1))
                 (put 'skk-henkan-okuri-strictly 'temporary-nil nil)
@@ -7376,7 +7380,7 @@ L:$B0](B;
 @lisp
 @group
 (setq skk-annotation-function
-      #'(lambda (annotation)
+      (lambda (annotation)
           (eq (aref annotation 0) ?*)))
 @end group
 @end lisp
@@ -7913,7 +7917,7 @@ SKK $B7A<0$N1QOB<-=q(B@footnote{SKK $B7A<0$N1QOB<-=q(B edict $B$,Ds6!$5$l$F
           ;; $BJV$jCM$,(B non-nil $B$N;~!"8D?M<-=q$K<h$j9~$^$J$$!#(B
           ;; KAKUTEI-WORD $B$r0z?t$K$7$F%3!<%k$5$l$k$N$G!"ITMW$G$b0z?t$r<h$k(B
           ;; $BI,MW$"$j(B
-          #'(lambda (kakutei-word)
+          (lambda (kakutei-word)
               (and skk-abbrev-mode
                    (save-match-data
                      ;; SKK-HENKAN-KEY $B$,(B "*" $B$G=*$o$k$H$-(B
@@ -8589,7 +8593,7 @@ XEmacs $B$N>l9g(B
 @example
 @group
 -------------------- Echo Area --------------------
-[F5]$BC14A;z(B[F6]$BL5JQ49(B[F7]$B%+%?%+%J(B[F8]$BH>3Q%+%J(B[F9]$BA43Q%m!<%^(B[F10]$B%m!<%^(B
+[F5]$BC14A;z(B [F6]$BL5JQ49(B [F7]$B%+%?%+%J(B [F8]$BH>3Q%+%J(B [F9]$BA43Q%m!<%^(B [F10]$B%m!<%^(B
 -------------------- Echo Area --------------------
 @end group
 @end example
@@ -8616,7 +8620,7 @@ Wikipedia $B%"%N%F!<%7%g%s5!G=$N;H$$J}$r%a%C%;!<%8$G0FFb$7$^$9!#(B
 @example
 @group
 -------------------- Echo Area --------------------
-@{$B$I$N(BWiki?@}[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary
+@b{@{$B$I$N(BWiki?@}}[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary
 [C-3 C-i]simple.wikipedia [C-4 C-i]en.wikipedia [C-5 C-i]ja.wiktionary
 -------------------- Echo Area --------------------
 @end group
@@ -8632,7 +8636,7 @@ Wikipedia $B%"%N%F!<%7%g%s5!G=$N;H$$J}$r%a%C%;!<%8$G0FFb$7$^$9!#(B
 @example
 @group
 -------------------- Echo Area --------------------
-@{$B%"%N%F!<%7%g%s(B@}[C-w]$B%3%T!<(B [C-o]URL$B%V%i%&%:(B [C-i]$B%G%U%)%k%H(BWiki$B;2>H(B
+@b{@{$B%"%N%F!<%7%g%s(B@}}[C-w]$B%3%T!<(B [C-o]URL$B%V%i%&%:(B [C-i]$B%G%U%)%k%H(BWiki$B;2>H(B
 -------------------- Echo Area --------------------
 @end group
 @end example
