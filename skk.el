@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.587 2011/06/04 23:51:16 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.588 2011/06/05 12:02:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/04 23:51:16 $
+;; Last Modified: $Date: 2011/06/05 12:02:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5139,8 +5139,9 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 (add-hook 'minibuffer-exit-hook
 	  (lambda ()
 	    (skk-remove-skk-pre-command)
-	    (skk-remove-minibuffer-setup-hook
-	     'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
+	    (skk-remove-minibuffer-setup-hook 'skk-j-mode-on
+					      'skk-setup-minibuffer
+					      'skk-add-skk-pre-command)
 	    (skk-exit-henkan-in-minibuff)))
 
 ;;;###autoload

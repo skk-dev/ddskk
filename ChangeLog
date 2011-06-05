@@ -1,5 +1,8 @@
 2011-06-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-macs.el (skk-message, skk-error, skk-yes-or-no-p) 
+	(skk-y-or-n-p): Update docstring.
+
 	* Makefile (VERSION):
 	* doc/skk.texi:
 	* skk-version.el (skk-version): Bump to 14.2.92.
