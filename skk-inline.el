@@ -36,15 +36,18 @@
 (defun skk-add-background-color (string color)
   "STRING のなかで背景色指定がない文字にだけ COLOR の背景色をつける。"
   (when (eval-when-compile skk-running-gnu-emacs)
-    (when (and string color)
+    (when (and string
+	       color
+	       (color-defined-p color))
       (let ((start 0)
 	    (end 1)
+	    (len (length string))
 	    orig-face)
-	(while (< start (length string))
+	(while (< start len)
 	  (setq orig-face (get-text-property start 'face string))
-	  (while (and (< end (length string))
+	  (while (and (< end len)
 		      (eq orig-face (get-text-property end 'face string)))
-	    (setq end (1+ end)))
+	    (incf end))
 	  (cond
 	   ((not orig-face)
 	    (put-text-property start end 'face

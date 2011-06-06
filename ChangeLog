@@ -1,3 +1,8 @@
+2011-06-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-inline.el (skk-add-background-color): 引数 COLOR のチェックを
+	厳格にするため color-defined-p を追加.
+
 2011-06-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-annotation.el (skk-annotation-save-and-quit) 
