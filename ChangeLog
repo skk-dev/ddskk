@@ -1,3 +1,11 @@
+2011-06-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia): Also search "Word"
+	for "word".  This is needed for proper nouns.
+	(skk-annotation-wikipedia-1)
+	(skk-annotation-wikipedia-normalize-word): Take an optional arg
+	PRESERVE-CASE.
+
 2011-06-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-kakutei-jisyo, skk-search-prog-list) 

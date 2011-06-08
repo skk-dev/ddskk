@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.181 2011/06/05 12:05:42 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.182 2011/06/08 20:09:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/06/05 12:05:42 $
+;; Last Modified: $Date: 2011/06/08 20:09:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -885,6 +885,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
   "Wiktionary/Wikipedia の WORD に相当する記事からアノテーションを取得する。"
   (let ((sources (or sources skk-annotation-wikipedia-sources))
 	source
+	words
 	(string "")
 	(note nil))
     ;; sources に指定された順番に参照する
@@ -893,37 +894,34 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    (while (and (or (not note) (equal note ""))
 			sources)
 	      (setq source (car sources))
-	      ;; Wiktionary ではそのまま、Wikipedia では第 1 文字のみ upcase
-	      (setq note (skk-annotation-wikipedia-1 word source
-						     (= 1 (length sources))))
-	      (when (equal note "")
-		(setq note nil))
-	      ;;
-	      (when (and (null note)
-			 (memq source '(en.wiktionary ja.wiktionary))
-			 (skk-ascii-char-p (aref word 0))
-			 (not (skk-lower-case-p (aref word 0))))
-		;; Wiktionary ですべて downcase する場合
-		;; e.g. FOO or Foo -> foo
-		(setq note (skk-annotation-wikipedia-1
-			    (downcase word)
-			    source
-			    (= 1 (length sources))))
-		(when (equal note "")
-		  (setq note nil)))
-	      ;;
-	      (sleep-for 0.01) ; これがないと止まることあり
-	      ;;
-	      (when (and (null note)
-			 (skk-ascii-char-p (aref word 0))
-			 (>= (length word) 2)
+	      (cond
+	       ((memq source '(en.wiktionary ja.wiktionary))
+		(setq words (list word))
+		(when (skk-ascii-char-p (aref word 0))
+		  (cond
+		   ((skk-lower-case-p (aref word 0))
+		    ;; foo -> Foo, FOO
+		    (setq words (append words (list (upcase-initials word))))
+		    (if (>= (length word) 2)
+			(setq words (append words (list (upcase word))))))
+		   ((and (>= (length word) 2)
 			 (skk-lower-case-p (aref word 1)))
-		;; すべて upcase する場合
-		;; e.g. skk or Skk -> SKK
-		(setq note (skk-annotation-wikipedia-1
-			    (upcase word)
-			    source
-			    (= 1 (length sources))))
+		    ;; Foo -> foo, FOO
+		    (setq words (append words (list (downcase word) (upcase word)))))
+		   (t
+		    ;; FOO -> foo, Foo
+		    (setq words (append words (list (downcase word))))
+		    (if (>= (length word) 2)
+			(setq words (append words
+					    (list (upcase-initials word)))))))))
+     (t
+      (setq words (list (upcase-initials word)))
+      (if (>= (length word) 2)
+	  (setq words (append words (list (upcase word)))))))
+	      (while (and (not note) words)
+		(setq note (skk-annotation-wikipedia-1 (car words) source t))
+		(sleep-for 0.01) ; これがないと止まることあり
+		(setq words (cdr words))
 		(when (equal note "")
 		  (setq note nil)))
 	      ;;
@@ -956,14 +954,15 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
     (insert "_"))
   (html2text-delete-tags p1 p2 (1+ p3) (1+ p4)))
 
-(defun skk-annotation-wikipedia-1 (word source last)
+(defun skk-annotation-wikipedia-1 (word source &optional preserve-case)
   "Wiktionary/Wikipedia の WORD に相当する記事を実際にダウンロードして調べる。
 該当ページ (html) をダウンロードする機能は Emacs に付属の URL パッケージに依
 る。"
   (require 'html2text)
   (require 'url)
   ;;
-  (setq word (skk-annotation-wikipedia-normalize-word word source))
+  (setq word (skk-annotation-wikipedia-normalize-word word source
+						      preserve-case))
   ;;
   (let ((cache-buffer (format " *skk %s %s" source word))
 	;; html2text が正しく扱えない tag は以下のリストに指定する
@@ -1577,13 +1576,15 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 		     args))
     (error "%s" "URL パッケージまたは Mule-UCS が利用できません")))
 
-(defun skk-annotation-wikipedia-normalize-word (word &optional method)
+(defun skk-annotation-wikipedia-normalize-word (word &optional method
+						     preserve-case)
   ;; スペースは %20 ではなく、アンダースコアに変換する
   (replace-regexp-in-string
    " " "_"
    (cond
     ((memq method '(ja.wiktionary en.wiktionary))
-     (if (and (> (length word) 1)
+     (if (and (not preserve-case)
+	      (> (length word) 1)
 	      (skk-ascii-char-p (aref word 0))
 	      (skk-lower-case-p (aref word 1)))
 	 ;; 二文字めが lower case なら downcase
