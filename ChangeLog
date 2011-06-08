@@ -1,5 +1,11 @@
 2011-06-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk.el (skk-toggle-isearch-mode): 関数 message の第1引数に "%s" を
+	付加.
+
+	* skk-annotation.el (skk-annotation-save-and-quit) 
+	(skk-annotation-quote): 同上.
+
 	* skk-macs.el (ignore-errors): 2011-06-04 の変更を取り消し.
 	[skk 7427].
 
