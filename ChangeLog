@@ -1,3 +1,8 @@
+2011-06-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (ignore-errors): 2011-06-04 の変更を取り消し.
+	[skk 7427].
+
 2011-06-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-wikipedia): Also search "Word"
