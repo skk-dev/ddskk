@@ -1,3 +1,8 @@
+2011-06-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-kakutei-jisyo, skk-search-prog-list) 
+	(skk-jisyo-updated, skk-rom-kana-rule-list): docstring を修正.
+
 2011-06-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-inline.el (skk-add-background-color): 引数 COLOR のチェックを

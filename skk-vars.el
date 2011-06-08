@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.366 2011/06/04 23:51:16 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.367 2011/06/08 13:42:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/04 23:51:16 $
+;; Last Modified: $Date: 2011/06/08 13:42:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -349,10 +349,10 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
 $B3NDj%"%s%I%%;~$K$O(B 2 $BHVL\0J9_$N%(%s%H%j$bMxMQ$G$-$k$,!"(B
 $B$3$N;EMM$OJQ99$5$l$k2DG=@-$b$"$j!"$^$?3NDj<-=q$NK\<A$HL54X78$G$"$k!#(B
 
-`skk-search-kakutei-jisyo-file' $B$N0z?t$H$7$F;HMQ$5$l$k!#(B
+$B4X?t(B `skk-search-kakutei-jisyo-file' $B$N0z?t$H$7$F;HMQ$5$l$k!#(B
 $B3NDjJQ495!G=$rMxMQ$9$k>l9g$K$O!"(B
   (skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
-$B$N$h$&$JMWAG$r(B `skk-search-prog-list' $B$N:G=i$KG[CV$9$k;v!#(B"
+$B$N$h$&$JMWAG$r(B `skk-search-prog-list' $B$N@hF,$KG[CV$9$k$3$H!#(B"
   ;;  "*The first dictionary to be searched.
   ;;If non-nil, and this variable is used as a component of
   ;;`skk-search-prog-list', the indicated dictionary is read into a
@@ -478,14 +478,14 @@ SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"
     (skk-search-sagyo-henkaku-maybe))
   "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
 $BJQ49$7$?8uJd$rJV$9(B S $B<0$r%j%9%H$N7A$KI=5-$7$?$b$N!#(B
-`skk-search' $B4X?t$,(B `skk-search-prog-list' $B$N(B car $B$+$i8eJ}8~$X=gHV$K(B S $B<0$N(B
-$BI>2A$r9T$$JQ49$r9T$&!#(B
+$B4X?t(B `skk-search' $B$,(B `skk-search-prog-list' $B$N(B car $B$+$i8eJ}8~$X=gHV$K(B S $B<0$N(B
+$BI>2A$r9T$&$3$H$K$h$C$F$+$J4A;zJQ49$r<B9T$9$k!#(B
 
 $BI,MW$K1~$8$F(B
   (skk-okuri-search)
   (skk-look)
   (skk-search-server skk-aux-large-jisyo 10000)
-$B$3$l$i$N%W%m%0%i%`$,(B SKK $B$K$h$jDI2C$5$l$k!#(B"
+$B$3$l$i$N%W%m%0%i%`!JMWAG!K$,<+F0E*$KDI2C$5$l$k!#(B"
   :type '(repeat (sexp :tag "S$B<0(B"))
   :group 'skk-dictionary)
 
@@ -698,7 +698,8 @@ Non-nil $B$J$i$P!"@\F,<-$^$?$O@\Hx<-F~NO$N:]!"@\F,<-$^$?$O@\Hx<-$H7k9g$7$?(B
   :group 'skk-private)
 
 (defvar skk-jisyo-updated nil
-  "`skk-henkan-in-minibuff' ($BC18lEPO?(B) $B$5$l$l$P(B t $B$K!#(B`skk-update-jisyo' $B$G;2>H$7$F$$$k!#(B")
+  "`skk-henkan-in-minibuff' ($BC18lEPO?(B) $B$5$l$l$P(B t $B$H$J$k!#(B
+`skk-update-jisyo' $B$G;2>H$7$F$$$k!#(B")
 
 (defcustom skk-rom-kana-base-rule-list
   '(("a" nil ("$B%"(B" . "$B$"(B"))
@@ -1059,11 +1060,11 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
 
 $B>e5-$N$h$&$K(B `.emacs' $B$^$?$O(B `skk-init-file' $B$K$F@_Dj$9$k$3$H$,$G$-$k!#(B
 
-$B$3$NJQ?t$OI8=`$G$O!"(B
+$B$3$NJQ?t$O!"I8=`$G$O(B
 
     (\"hh\" \"h\" (\"$B%C(B\" . \"$B$C(B\"))
 
-$B>e5-$N@_Dj$,$5$l$F$$$k!#$3$N5,B'$K$h$k$H!"(B
+$B$N@_Dj$,$5$l$F$$$k!#$3$N5,B'$K=>$&$H!"(B
 
     ohhonn => $B$*$C$[$s(B
     ohhira => $B$*$C$R$i(B
@@ -1073,11 +1074,11 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
     ohhonn  => $B$*$*$[$s(B
     ohhira  => $B$*$*$R$i(B
 
-$B$N$h$&$KJQ99$7$?$1$l$P!"(B
+$B$N$h$&$KJQ99$7$?$1$l$P!"$3$N@_Dj(B
 
     (\"hh\" \"h\" (\"$B%C(B\" . \"$B$C(B\"))
 
-$B$3$N@_Dj$r:o=|$9$k!#(B
+$B$r:o=|$9$k!#(B
 
 $B$^$?!"(B`@' $B$G(B `skk-today' ($BEvF|$NF|IU$NF~NO(B) $B$r5/F0$9$kBe$j$K(B `$B!w(B' $B$rF~(B
 $BNO$7$?$$>l9g$O!"(B`skk-rom-kana-rule-list' $B$K(B

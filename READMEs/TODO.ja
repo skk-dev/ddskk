@@ -226,6 +226,11 @@ transient-mark-mode が有効なとき、isearch は通常領域を維持して続けられ
 $Bるが、skk-isearch に入ると 1 文字以上入力した時点で領域が無効になる。
 原因は調査中。
 
+** C-x C-j のキーバインド
+(require 'dired-x) すると、C-x C-j が dired-jump にバインドされてしまい、
+SKK が起動できなくなる。
+dired-load-hook の設定で回避できるが、もっと根本的に解決できないか。
+
 ** skk-henkan-show-candidates の数値変換有効時のバグ
 
 http://mail.ring.gr.jp/skk/200602/msg00030.html
