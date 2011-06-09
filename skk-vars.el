@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.368 2011/06/09 13:06:17 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.369 2011/06/09 19:40:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/09 13:06:17 $
+;; Last Modified: $Date: 2011/06/09 19:40:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2332,7 +2332,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
     ["Save Jisyo" skk-save-jisyo t]
     ["Undo Kakutei" skk-undo-kakutei t]
     ["Restart SKK" skk-restart t]
-    ["Version" (message (skk-version)) t])
+    ["Version" (message "%s" (skk-version)) t])
   "Menu used in SKK mode.")
 
 (defvar skk-quit-commands '(keyboard-quit abort-recursive-edit
