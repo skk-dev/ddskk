@@ -1,3 +1,8 @@
+2011-06-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-rom-kana-base-rule-list): 2010-12-09 の commit
+	を訂正。\ のタイプは skk-input-by-code-or-menu の起動に戻す.
+
 2011-06-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-toggle-isearch-mode): message 関数の使い方を修正.
