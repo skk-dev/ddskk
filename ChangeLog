@@ -1,3 +1,8 @@
+2011-06-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kcode.el (skk-display-code, skk-input-by-code-or-menu-jump):
+	Add missing format strings to `message'.
+
 2011-06-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-verbose-intention-face, skk-verbose-kbd-face):

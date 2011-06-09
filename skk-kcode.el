@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.87 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.88 2011/06/09 18:56:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/09 18:56:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -207,7 +207,7 @@
 		   i (1+ i)))
 	   (if skk-show-tooltip
 	       (funcall skk-tooltip-function str)
-	     (message str)))
+	     (message "%s" str)))
 	 ;;
 	 (let* ((event (next-command-event))
 		(char (event-to-character event))
@@ -310,7 +310,7 @@
 		   i (1+ i)))
 	   (if skk-show-tooltip
 	       (funcall skk-tooltip-function str)
-	     (message str)))
+	     (message "%s" str)))
 	 (let* ((event (next-command-event))
 		(char (event-to-character event))
 		(key (skk-event-key event))
@@ -487,8 +487,9 @@
     (if (and window-system
 	     skk-show-tooltip
 	     (not (eq (symbol-function 'skk-tooltip-show-at-point) 'ignore)))
-	(funcall skk-tooltip-function (replace-regexp-in-string ", " "\n\t" mesg))
-      (message mesg))))
+	(funcall skk-tooltip-function
+		 (replace-regexp-in-string ", " "\n\t" mesg))
+      (message "%s" mesg))))
 
 (defun skk-jis2sjis (char1 char2)
   (let* ((ch2 (if (eq (* (/ char1 2) 2) char1)
