@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.589 2011/06/08 21:28:28 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.590 2011/06/09 13:06:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/08 21:28:28 $
+;; Last Modified: $Date: 2011/06/09 13:06:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -696,7 +696,7 @@ dependent."
 	       (s2 (nth 1 y)))
 	  (setq new (concat new
 			    (propertize (concat s1 "]") 'face
-					'font-lock-keyword-face)
+					'skk-verbose-kbd-face)
 			    s2 " "))))
       (setq skk-henkan-on-message new))
     ))

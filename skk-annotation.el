@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.183 2011/06/08 21:28:28 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.184 2011/06/09 13:06:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/06/08 21:28:28 $
+;; Last Modified: $Date: 2011/06/09 13:06:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -473,10 +473,11 @@
 		 (s2 (nth 1 y)))
 	    (setq new (concat new
 			      (propertize (concat s1 "]") 'face
-					  'font-lock-keyword-face)
+					  'skk-verbose-kbd-face)
 			      s2 " "))))
 	(setq skk-annotation-wikipedia-message
-	      (concat (propertize "{どのWiki?}" 'face 'font-lock-warning-face)
+	      (concat (propertize "{どのWiki?}" 'face
+				  'skk-verbose-intention-face)
 		      new))))
     ;;
     (unless skk-annotation-message
@@ -499,11 +500,11 @@
 		 (s2 (nth 1 y)))
 	    (setq new (concat new
 			      (propertize (concat s1 "]") 'face
-					  'font-lock-keyword-face)
+					  'skk-verbose-kbd-face)
 			      s2 " "))))
 	(setq skk-annotation-message
 	      (concat (propertize "{アノテーション}" 'face
-				  'font-lock-warning-face)
+				  'skk-verbose-intention-face)
 		      new))))
     ;;
     (condition-case nil

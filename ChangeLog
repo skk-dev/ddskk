@@ -1,5 +1,12 @@
 2011-06-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-verbose-intention-face, skk-verbose-kbd-face):
+	New face.
+
+	* skk-annotation.el (skk-annotation-message): Use new face.
+
+	* skk.el (skk-setup-verbose-messages): Use new face.
+
 	* skk.el (skk-toggle-isearch-mode): 関数 message の第1引数に "%s" を
 	付加.
 
