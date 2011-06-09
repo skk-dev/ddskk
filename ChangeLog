@@ -7,6 +7,8 @@
 
 	* skk.el (skk-setup-verbose-messages): Use new face.
 
+	* doc/skk.texi: 上記 face に関する記述を追加.
+
 	* skk.el (skk-toggle-isearch-mode): 関数 message の第1引数に "%s" を
 	付加.
 

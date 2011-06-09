@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.92
-@set UPDATED $Date: 2011/06/05 00:36:08 $
+@set UPDATED $Date: 2011/06/09 13:24:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8656,6 +8656,14 @@ Wikipedia/Wiktionary のページをウェブブラウザで表示します。
 助言的メッセージが複数ある場合の１メッセージあたり表示時間を秒で指定する。
 標準は 5.0 秒です。
 この時間が経過したら表示を次の助言的メッセージに切り替えます。
+@end defvr
+
+@defvr {ユーザ変数} skk-verbose-intention-face
+「どのWiki?」と「アノテーション」に適用するフェイスです。
+@end defvr
+
+@defvr {ユーザ変数} skk-verbose-kbd-face
+[F5] や [C-1 C-i] に適用するフェイスです。
 @end defvr
 
 @node VIP/VIPERとの併用
