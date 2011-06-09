@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.591 2011/06/09 20:57:21 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.592 2011/06/09 21:29:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/09 20:57:21 $
+;; Last Modified: $Date: 2011/06/09 21:29:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5196,7 +5196,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
     (if skk-isearch-mode-enable
 	(setq migemo-isearch-enable-p nil)
       (setq migemo-isearch-enable-p t)))
-  (message "SKK isearch is " (if skk-isearch-mode-enable
+  (message "SKK isearch is %s" (if skk-isearch-mode-enable
 				 "enabled"
 			       "disabled")))
 
