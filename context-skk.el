@@ -4,8 +4,8 @@
 ;;
 ;; Author: Masatake YAMATO <jet@gyve.org>
 ;; Created: Tue May 13 19:12:23 2003
-;; Version: $Id: context-skk.el,v 1.14 2011/05/15 07:05:34 skk-cvs Exp $
-;; Last Modified: $Date: 2011/05/15 07:05:34 $
+;; Version: $Id: context-skk.el,v 1.15 2011/06/10 12:23:46 skk-cvs Exp $
+;; Last Modified: $Date: 2011/06/10 12:23:46 $
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -233,7 +233,7 @@
 
 (defun context-skk-insert ()
   "skk-latin-mode を on にした上 `this-command-keys' に対する関数を呼び出し直す。"
-  (message context-skk-mode-off-message)
+  (message "%s" context-skk-mode-off-message)
   (skk-latin-mode t)
   (let* ((keys (this-command-keys))
 	 ;; `this-command-keys' が tab を返したときなど function-key-map や
