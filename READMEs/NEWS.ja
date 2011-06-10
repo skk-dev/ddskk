@@ -28,10 +28,15 @@ Emacs 23.2 からは関数 interactive-p が obsolete となり called-
 skk-mode を抜けたときは 候補バッファと SKK annotation バッファを削除するよう
 変更しました。
 
-** 助言的メッセージをカラフルに
+** メッセージをカラフルに
 
-助言的メッセージに face を適用しました。
+*** 助言的メッセージ
+
 skk-verbose-intention-face と skk-verbose-kbd-face をお試しください。
+
+*** ↓辞書登録中↓
+
+skk-jisyo-registration-badge-face をお試しください。
 
 ** その他バグ修正など
 
