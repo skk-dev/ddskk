@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.370 2011/06/09 21:24:08 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.371 2011/06/10 13:06:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/09 21:24:08 $
+;; Last Modified: $Date: 2011/06/10 13:06:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1734,6 +1734,18 @@ nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-misc)
 
+(defface skk-jisyo-registration-badge-face
+  '((((class color) (type tty))
+     (:inherit default :inverse-video t))
+    (((class color) (background light))
+     (:inherit default :inverse-video t))
+    (((class color) (background dark))
+     (:inherit default :inverse-video t))
+    (((class grayscale))
+     (:inherit default :inverse-video t)))
+  "*$B"-<-=qEPO?Cf"-$KE,MQ$9$k%U%'%$%9!#(B"
+  :group 'skk-visual)
+
 ;;;###autoload
 (defcustom skk-preload nil
   "*Non-nil $B$J$i$P!"(BEmacs $B5/F0;~$K(B SKK $B%W%m%0%i%`$H<-=q$NFI$_9~$_$r:Q$^$;$k!#(B
@@ -1797,13 +1809,13 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
 
 (defface skk-verbose-kbd-face
   '((((class color) (type tty))
-     (:inherit default))
+     (:inherit default :inverse-video t))
     (((class color) (background light))
-     (:inherit default))
+     (:inherit default :inverse-video t))
     (((class color) (background dark))
-     (:inherit default))
+     (:inherit default :inverse-video t))
     (((class grayscale))
-     (:inherit default)))
+     (:inherit default :inverse-video t)))
   "*$B=u8@E*%a%C%;!<%8$NA`:n%-!<ItJ,$KE,MQ$9$k%U%'%$%9!#(B"
   :group 'skk-visual)
 

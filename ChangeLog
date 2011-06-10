@@ -1,5 +1,10 @@
 2011-06-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-jisyo-registration-badge-face) :New face.
+	(skk-verbose-kbd-face): 属性 inverse-video を t としてみた.
+
+	* skk.el (skk-henkan-in-minibuff): Use skk-jisyo-registration-badge-face.
+	
 	* context-skk.el (context-skk-insert): message 関数の使い方を修正.
 
 	* skk-vars.el (skk-rom-kana-base-rule-list): 2010-12-09 の commit

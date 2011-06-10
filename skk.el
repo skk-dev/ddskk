@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.592 2011/06/09 21:29:47 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.593 2011/06/10 13:06:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/09 21:29:47 $
+;; Last Modified: $Date: 2011/06/10 13:06:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2248,9 +2248,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
   (when (and window-system skk-show-tooltip)
     (skk-tooltip-hide))
   (when skk-show-inline
-    (skk-inline-show "↓辞書登録中↓" (if (featurep 'font-lock)
-					  'font-lock-warning-face
-					'bold)))
+    (skk-inline-show "↓辞書登録中↓" 'skk-jisyo-registration-badge-face))
   (save-match-data
     (let ((enable-recursive-minibuffers t)
 	  (depth (- (1+ (minibuffer-depth)) skk-henkan-in-minibuff-nest-level))
