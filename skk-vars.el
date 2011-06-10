@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.371 2011/06/10 13:06:00 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.372 2011/06/10 22:43:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/10 13:06:00 $
+;; Last Modified: $Date: 2011/06/10 22:43:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1809,13 +1809,13 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
 
 (defface skk-verbose-kbd-face
   '((((class color) (type tty))
-     (:inherit default :inverse-video t))
+     (:inherit default))
     (((class color) (background light))
-     (:inherit default :inverse-video t))
+     (:inherit default))
     (((class color) (background dark))
-     (:inherit default :inverse-video t))
+     (:inherit default))
     (((class grayscale))
-     (:inherit default :inverse-video t)))
+     (:inherit default)))
   "*$B=u8@E*%a%C%;!<%8$NA`:n%-!<ItJ,$KE,MQ$9$k%U%'%$%9!#(B"
   :group 'skk-visual)
 

@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.92
-@set UPDATED $Date: 2011/06/09 13:24:34 $
+@set UPDATED $Date: 2011/06/10 22:43:31 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1490,13 +1490,21 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 
 @defvr {ユーザ変数} skk-read-from-minibuffer-function
 この変数に文字列を返す関数を収めると、その文字列を辞書登録モードに入った
-ときのプロンプト（関数 read-from-minibuffer の引数 INITIAL-CONTENTS に該当）
-に初期表示します。
+ときのプロンプト（関数 @code{read-from-minibuffer} の引数 INITIAL-CONTENTS に
+該当）に初期表示します。
 
 @lisp
 (setq skk-read-from-minibuffer-function
       (lambda () skk-henkan-key))
 @end lisp
+
+@end defvr
+
+@defvr {ユーザ変数} skk-jisyo-registration-badge-face
+
+変数 @code{skk-show-inline} が @code{non-nil} であれば、辞書登録モードに
+移ったことを明示するためにカレントバッファに「@b{↓辞書登録中↓}」とイン
+ライン表示します。この「↓辞書登録中↓」に適用するフェイスです。
 
 @end defvr
 
