@@ -2,6 +2,7 @@
 
 	* doc/skk.texi: skk-jisyo-registration-badge-face に関する記述を
 	追加.
+	skk-input-by-code-or-menu に関する記述を復活.
 
 	* skk-vars.el (skk-verbose-kbd-face): 属性 inverse-video は取り消
 	します.
