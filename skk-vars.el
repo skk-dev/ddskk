@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.374 2011/06/11 01:42:15 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.375 2011/06/11 11:03:44 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/11 01:42:15 $
+;; Last Modified: $Date: 2011/06/11 11:03:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1796,26 +1796,26 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
 
 (defface skk-verbose-intention-face
   '((((class color) (type tty))
-     (:inherit default))
+     (:inherit default :bold t))
     (((class color) (background light))
-     (:inherit default))
+     (:inherit default :bold t))
     (((class color) (background dark))
-     (:inherit default))
+     (:inherit default :bold t))
     (((class grayscale))
-     (:inherit default)))
+     (:inherit default :bold t)))
   "*$B"'%b!<%I$N=u8@E*%a%C%;!<%8$N(B {$B%"%N%F!<%7%g%s(B} $B$H(B {$B$I$N(BWiki?} $B$KE,MQ$9$k(B
 $B%U%'%$%9!#(B"
   :group 'skk-visual)
 
 (defface skk-verbose-kbd-face
   '((((class color) (type tty))
-     (:inherit default))
+     (:inherit default :foreground "cyan"))
     (((class color) (background light))
-     (:inherit default))
+     (:inherit default :foreground "Purple"))
     (((class color) (background dark))
-     (:inherit default))
+     (:inherit default :foreground "Cyan"))
     (((class grayscale))
-     (:inherit default)))
+     (:inherit default :foreground "LightGray")))
   "*$B=u8@E*%a%C%;!<%8$NA`:n%-!<ItJ,$KE,MQ$9$k%U%'%$%9!#(B"
   :group 'skk-visual)
 

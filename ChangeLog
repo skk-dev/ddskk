@@ -7,6 +7,9 @@
 	(skk-display-code-tankan-radical-face) 
 	(skk-display-code-tankan-annotation-face)
 	(skk-list-chars-face, skk-list-chars-table-header-face): New face.
+	(skk-verbose-kbd-face): 属性 inverse-video を取り消し、デフォルト
+	色を与えた.
+	(skk-verbose-intention-face): 属性 bold を t としてみた.
 
 	* skk-kcode.el: require font-lock を無効化(コメント化).
 	(skk-display-code): skk-display-code-tankan-radical-face,
@@ -18,9 +21,6 @@
 	skk-display-code-tankan-radical-face,
 	skk-display-code-tankan-annotation-face に関する記述を追加.
 	skk-input-by-code-or-menu に関する記述を復活.
-
-	* skk-vars.el (skk-verbose-kbd-face): 属性 inverse-video は取り消
-	します.
 
 2011-06-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
