@@ -1,3 +1,9 @@
+2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (VERSION):
+	* doc/skk.texi:
+	* skk-version.el (skk-version): Bump to 14.2.93.
+
 2011-06-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-setup.el.in: 2011-05-20 の「キーバインド C-f10 に
