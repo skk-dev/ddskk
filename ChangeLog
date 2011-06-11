@@ -1,5 +1,12 @@
 2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo):主処理を
+	skk-edit-private-jisyo-1 へ分離. 自己責任のもと作業を行うよう
+	skk-yes-or-no-p を追加.
+	(skk-edit-private-jisyo-1): 元の skk-edit-private-jisyo の主処理.
+
+2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* Makefile (VERSION):
 	* doc/skk.texi:
 	* skk-version.el (skk-version): Bump to 14.2.93.

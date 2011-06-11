@@ -108,7 +108,11 @@ C-c C-k   Abort"
   (when (skk-y-or-n-p "個人辞書を保存しますか？ "
 		      "Save private jisyo? ")
     (skk-save-jisyo))
-  (message nil)
+  (when (skk-yes-or-no-p "構文チェックが十分ではありません。個人辞書ファイルの編集は自己責任のもと行ってください。継続しますか？ "
+			 "The syntax check is not enough. Edit your private dictionary files, please go under the responsibility. Do you want to continue? ")
+    (skk-edit-private-jisyo-1 coding-system)))
+
+(defun skk-edit-private-jisyo-1 (coding-system)
   (setq skk-jisyo-edit-original-window-configuration
 	(current-window-configuration))
   ;; SKK 辞書の文字コードは誤判定がありうるため、注意する
@@ -162,7 +166,6 @@ C-c C-k   Abort"
 		   (message nil)))
   (skk-message "保存終了: C-c C-c, 編集中止: C-c C-k"
 	       "Save & Exit: C-c C-c, Abort: C-c C-k"))
-
 
 (defadvice skk-henkan-in-minibuff (before notify-no-effect disable)
   (ding)
