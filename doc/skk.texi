@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.92
-@set UPDATED $Date: 2011/06/10 23:06:16 $
+@set UPDATED $Date: 2011/06/11 05:18:23 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7748,13 +7748,13 @@ skk-list-chars を抜ける。
 
 かな/カナモードで @kbd{$} を入力すると、現在のポイント位置の直後にある文字の文字コー
 ドをエコーエリア@footnote{変数 @code{skk-show-tooltip} が @code{non-nil} で
-あればツールティップ}に表示します。
+あればツールティップに表示します。}に表示します。
 例えば、カーソルを文字 @samp{А} の上に置いて @kbd{$} を入力すると、
 
 @example
 @group
 -------------------- Echo Area --------------------
-`А',KUTEN:07-01, JIS:#x2721, EUC:#xa7a1, SJIS:#x8440, UNICODE:U+0410
+`А',KUTEN:07-01, JIS:#x2721, EUC:#xa7a1, SJIS:#x8440, UNICODE:U+0410, キリール大文字A,CYRILLIC CAPITAL LETTER A
 -------------------- Echo Area --------------------
 @end group
 @end example
@@ -7762,28 +7762,35 @@ skk-list-chars を抜ける。
 @noindent
 とエコーエリアに表示され、この文字がキリル文字であることがわかります。
 
-プレフィックス付きで @kbd{\}（つまり @kbd{C-u \}）とタイプすると、
-ポイント直後の文字について文字コード一覧が表示されます。
-
-@example
-@group
--------------------- *skk-list-chars* --------------------
-07-#x--- 0-- 1-- 2-- 3-- 4-- 5-- 6-- 7-- 8-- 9-- A-- B-- C-- D-- E-- F
-　 2720 　　А　Б　В　Г　Д　Е　Ё　Ж　З　И　Й　К　Л　М　Н
-　 2730 О　П　Р　С　Т　У　Ф　Х　Ц　Ч　Ш　Щ　Ъ　Ы　Ь　Э
--------------------- *skk-list-chars* --------------------
-@end group
-@end example
-
+@c プレフィックス付きで @kbd{\}（つまり @kbd{C-u \}）とタイプすると、
+@c ポイント直後の文字について文字コード一覧が表示されます。
+@c
+@c @example
+@c @group
+@c -------------------- *skk-list-chars* --------------------
+@c 07-#x--- 0-- 1-- 2-- 3-- 4-- 5-- 6-- 7-- 8-- 9-- A-- B-- C-- D-- E-- F
+@c 　 2720 　　А　Б　В　Г　Д　Е　Ё　Ж　З　И　Й　К　Л　М　Н
+@c 　 2730 О　П　Р　С　Т　У　Ф　Х　Ц　Ч　Ш　Щ　Ъ　Ы　Ь　Э
+@c -------------------- *skk-list-chars* --------------------
+@c @end group
+@c @end example
+@c
 ほか、 Emacs のコマンド @kbd{M-x describe-char} も@footnote{Emacs 21 では @kbd{M-x describe-char-after} です。}有用でしょう。
 
 @defvr {ユーザ変数} skk-display-code-prompt-face
-エコーエリアに表示されるメッセージ中「KUTEN:」、「JIS:」、「EUC:」、「SJIS:」
-及び「UNICODE:」に適用するフェイスです。
+エコーエリアに表示されるメッセージ中 @samp{KUTEN:}、@samp{JIS:}@samp{EUC:}、@samp{SJIS:} 及び @samp{UNICODE:} に適用するフェイスです。
 @end defvr
 
 @defvr {ユーザ変数} skk-display-code-char-face
 エコーエリアに表示されるメッセージ中の当該文字に適用するフェイスです。
+@end defvr
+
+@defvr {ユーザ変数} skk-display-code-tankan-radical-face
+エコーエリアに表示されるメッセージ中の総画数表示に適用するフェイスです。
+@end defvr
+
+@defvr {ユーザ変数} skk-display-code-tankan-annotation-face
+エコーエリアに表示されるメッセージ中の文字名表示に適用するフェイスです。
 @end defvr
 
 @node DDSKK 以外のツールを用いた辞書変換
