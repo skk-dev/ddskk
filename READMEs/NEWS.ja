@@ -28,7 +28,7 @@ Emacs 23.2 $B$+$i$O4X?t(B interactive-p $B$,(B obsolete $B$H$J$j(B called-
 skk-mode $B$rH4$1$?$H$-$O(B $B8uJd%P%C%U%!$H(B SKK annotation $B%P%C%U%!$r:o=|$9$k$h$&(B
 $BJQ99$7$^$7$?!#(B
 
-** $B%a%C%;!<%8$r%+%i%U%k$K(B
+** $B%a%C%;!<%8N`$r%+%9%?%^%$%:2DG=$K(B
 
 *** $B=u8@E*%a%C%;!<%8(B
 
@@ -37,6 +37,21 @@ skk-verbose-intention-face $B$H(B skk-verbose-kbd-face $B$r$*;n$7$/$@$5$$!#(
 *** $B"-<-=qEPO?Cf"-(B
 
 skk-jisyo-registration-badge-face $B$r$*;n$7$/$@$5$$!#(B
+
+*** `$' skk-display-code-for-char-at-point
+skk-display-code-tankan-radical-face $B$H(B
+skk-display-code-tankan-annotation-face $B$r$*;n$7$/$@$5$$!#(B
+
+*** skk-list-chars $B4XO"(B
+skk-list-chars-face $B$H(B skk-list-chars-table-header-face $B$r$*;n$7$/$@$5$$!#(B
+
+** \ $B%?%$%W$N5/F0$r(B skk-list-chars $B$+$i(B skk-input-by-code-or-menu $B$XLa$7$?!#(B
+
+skk-rom-kana-base-rule-list $B$N%G%U%)%k%H$r(B
+  ("\\" nil skk-list-chars)
+$B$+$i(B
+  ("\\" nil skk-input-by-code-or-menu)
+$B$XLa$7$^$7$?!#(B
 
 ** $B$=$NB>%P%0=$@5$J$I(B
 
