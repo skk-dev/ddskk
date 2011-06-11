@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.92
-@set UPDATED $Date: 2011/06/11 05:18:23 $
+@set UPDATED $Date: 2011/06/11 11:43:22 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6994,6 +6994,9 @@ Really purge ``さいきてき /再起的/''?(yes or no)
 @node 個人辞書ファイルの編集
 @subsection 個人辞書ファイルの編集
 
+@b{構文チェックが十分ではありません。個人辞書ファイルの編集は、自己責任
+のもと行ってください。}
+
 コマンド @kbd{M-x skk-edit-private-jisyo} を使うと、個人辞書ファイルが
 開かれます。
 
@@ -7001,7 +7004,8 @@ Really purge ``さいきてき /再起的/''?(yes or no)
 skk からの単語の登録、削除はできません。(他にも少し制限がありますが、
 気にならないでしょう。)
 
-編集が終わったら、@kbd{C-c C-c} と押すと個人辞書ファイルをセーブしてバッファを閉じます。
+編集が終わったら、@kbd{C-c C-c} と押すと個人辞書ファイルをセーブしてバッ
+ファを閉じます。
 
 @node 個人辞書の保存動作
 @subsection 個人辞書の保存動作
@@ -7679,6 +7683,9 @@ A:＼ S:〜 D:‖ F:｜ G:… H:‥ J:‘ K:
 $B$9J8;z=89g$K=>$C$F%P%C%U%! @code{*skk-list-chars*} に文字の JIS コード一
 覧が表示されます。
 
+プレフィックス付きで、つまり @kbd{C-u M-x skk-list-chars} と実行すると、
+カーソル位置の文字に照準をあわすようコード一覧を表示します。
+
 @example
 @group
 -------------------- *skk-list-chars* --------------------
@@ -7739,6 +7746,14 @@ skk-list-chars を抜ける。
 @end table
 
 ほか、Emacs のコマンド @kbd{M-x list-charset-chars} も有用でしょう。
+
+@defvr {ユーザ変数} skk-list-chars-table-header-face
+コード一覧の枠線などに適用するフェイスです。
+@end defvr
+
+@defvr {ユーザ変数} skk-list-chars-face
+プレフィックス付きで実行したときの照準のフェイスです。
+@end defvr
 
 @node 文字コードを知る方法
 @subsection 文字コードを知る方法
@@ -8684,7 +8699,7 @@ Wikipedia/Wiktionary のページをウェブブラウザで表示します。
 @end defvr
 
 @defvr {ユーザ変数} skk-verbose-kbd-face
-[F5] や [C-1 C-i] に適用するフェイスです。
+@samp{[F5]} や @samp{[C-1 C-i]} に適用するフェイスです。
 @end defvr
 
 @node VIP/VIPERとの併用

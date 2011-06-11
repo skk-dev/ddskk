@@ -19,7 +19,9 @@
 
 	* doc/skk.texi: skk-jisyo-registration-badge-face,
 	skk-display-code-tankan-radical-face,
-	skk-display-code-tankan-annotation-face に関する記述を追加.
+	skk-display-code-tankan-annotation-face,
+	skk-list-chars-face, skk-list-chars-table-header-face
+	に関する記述を追加.
 	skk-input-by-code-or-menu に関する記述を復活.
 
 2011-06-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
