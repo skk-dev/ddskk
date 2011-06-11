@@ -1,5 +1,8 @@
 2011-06-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-setup.el.in: 2011-05-20 の「キーバインド C-f10 に
+	skk-edit-private-jisyo を割り当て」は取り消します.
+
 	* skk-vars.el (skk-tooltip-face): docstring を修正.
 	(skk-display-code-tankan-radical-face) 
 	(skk-display-code-tankan-annotation-face)
