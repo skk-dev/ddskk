@@ -1,3 +1,7 @@
+2011-06-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk (skk-show-tooltip): skk-show-tooltip に関するコメントを修正.
+
 2011-06-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK.tut: 文言を修正.

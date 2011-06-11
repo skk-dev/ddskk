@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.372 2011/06/10 22:43:31 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.373 2011/06/11 00:33:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/10 22:43:31 $
+;; Last Modified: $Date: 2011/06/11 00:33:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4850,7 +4850,8 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 
 (defcustom skk-tooltip-face nil
   "*$B%D!<%k%F%#%C%W$KI=<($9$kJ8;zNs$KE,MQ$9$k%U%'%$%9$r;XDj$9$kJQ?t!#(B
-$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B
+$B8uJdJ8;zNs$N%U%'%$%9B0@-!J(B`skk-treat-candidate-appearance-function' $B$K$h$k(B
+$B2C9)$J$I!K$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B
 
  ($B@_DjNc(B)
 
