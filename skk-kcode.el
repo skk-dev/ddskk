@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.88 2011/06/09 18:56:19 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.89 2011/06/11 01:42:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/09 18:56:19 $
+;; Last Modified: $Date: 2011/06/11 01:42:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,7 +33,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'font-lock)
+;;   (require 'font-lock)
   (require 'skk-macs)
   (require 'skk-vars)
   (defvar enable-recursive-minibuffers)
@@ -396,7 +396,7 @@
     t))
 
 (defun skk-display-code (char)
-  (require 'font-lock)
+;;   (require 'font-lock)
   (let* ((charset (if (eval-when-compile (and skk-running-gnu-emacs
 					      (>= emacs-major-version 23)))
 		      ;; GNU Emacs 23.1 or later
@@ -456,8 +456,7 @@
 		      (format "#x%2x%2x" char1-s char2-s)
 
 		      unicode
-		      (if (zerop (nth 2 char-data))
-			  ""
+		      (unless (zerop (nth 2 char-data))
 			(concat ", "
 				(propertize
 				 (format "総%d画（%s部 %d画）"
@@ -465,11 +464,13 @@
 					 (aref skk-tankan-radical-vector
 					       (nth 0 char-data))
 					 (nth 1 char-data))
-				 'face 'font-lock-string-face)))
+				 'face 'skk-display-code-tankan-radical-face)))
 		      (if anno
 			  (concat ", "
-				  (propertize anno
-					      'face 'font-lock-string-face)))
+				  (propertize
+				   anno
+				   'face
+				   'skk-display-code-tankan-annotation-face)))
 			   ))))
      ;;
      ((memq charset '(ascii latin-jisx0201))
@@ -533,14 +534,14 @@
 	i ch)
     (insert "\n"
 	    (propertize
-	     (format "%02d-#x--- 0-- 1-- 2-- 3-- 4-- 5-- 6-- 7-- 8-- 9-- A-- B-- C-- D-- E-- F" (- high 32)) 'face 'font-lock-comment-face))
+	     (format "%02d-#x--- 0-- 1-- 2-- 3-- 4-- 5-- 6-- 7-- 8-- 9-- A-- B-- C-- D-- E-- F" (- high 32)) 'face 'skk-list-chars-table-header-face))
     (setq i (* (/ min 16) 16))		; i は 下位バイト
     (while (<= i max)			; 0x21 .. 0x7e
       (when (zerop (% i 16))
 	(insert (propertize (format "\n %5X0" (/ (+ (* high 256)
 						   i)
 						16))
-			    'face 'font-lock-comment-face)))
+			    'face 'skk-list-chars-table-header-face)))
       (setq ch (if (< i min)
 		   32
 		 (or (make-char charset (/ (* high 256) 256) i)
@@ -554,7 +555,7 @@
 (defun skk-list-chars (arg)
   "Docstring."
   (interactive "p")
-  (require 'font-lock)
+;;   (require 'font-lock)
   (setq skk-list-chars-original-window-configuration
 	(current-window-configuration))
   (let ((buf (progn (and (get-buffer skk-list-chars-buffer-name)
@@ -575,16 +576,15 @@
     (setq buffer-read-only nil)
     (erase-buffer)
     (set-buffer-multibyte t)
-    (insert (propertize (format "variable skk-kcode-charset's value is `%s'.\n"
-				skk-kcode-charset)
-			'face font-lock-doc-face))
+    (insert (format "variable skk-kcode-charset's value is `%s'.\n"
+		    skk-kcode-charset))
     (dotimes (high 94)			; from ?\x21 to ?\x7e
       (skk-list-chars-sub (+ high 33) skk-kcode-charset))
     (pop-to-buffer buf)
     (search-backward ch)
     (setq skk-list-chars-point (point))
     (put-text-property skk-list-chars-point (progn (forward-char) (point))
-    		       'face 'font-lock-warning-face)
+    		       'face 'skk-list-chars-face)
     (goto-char skk-list-chars-point)
     (set-buffer-modified-p nil)
     (setq buffer-read-only t)

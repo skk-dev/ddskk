@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.373 2011/06/11 00:33:18 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.374 2011/06/11 01:42:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/11 00:33:18 $
+;; Last Modified: $Date: 2011/06/11 01:42:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3896,6 +3896,32 @@ SJIS: 及び UNICODE: に適用する face 属性。"
   :group 'skk-kcode
   :group 'skk-visual)
 
+(defface skk-display-code-tankan-radical-face
+  '((((class color) (type tty))
+     (:inherit default))
+    (((class color) (background light))
+     (:inherit default))
+    (((class color) (background dark))
+     (:inherit default))
+    (((class grayscale))
+     (:inherit default)))
+  "*skk-display-code `$' でエコーエリアに表示するメッセージ中の総画数に適用する face 属性。"
+  :group 'skk-kcode
+  :group 'skk-visual)
+
+(defface skk-display-code-tankan-annotation-face
+  '((((class color) (type tty))
+     (:inherit default))
+    (((class color) (background light))
+     (:inherit default))
+    (((class color) (background dark))
+     (:inherit default))
+    (((class grayscale))
+     (:inherit default)))
+  "*skk-display-code `$' でエコーエリアに表示するメッセージ中の文字名に適用する face 属性。"
+  :group 'skk-kcode
+  :group 'skk-visual)
+
 ;;; skk-list-chars (in skk-kcode.el) related.
 (defvar skk-list-chars-buffer-name "*skk-list-chars*"
   "Docstring.")
@@ -3946,6 +3972,31 @@ SJIS: 及び UNICODE: に適用する face 属性。"
     (define-key map "\\" 'skk-list-chars-other-charset)
     map)
   "Keymap used in skk-list-chars mode.")
+
+(defface skk-list-chars-face
+  '((((class color) (type tty))
+     (:inherit default))
+    (((class color) (background light))
+     (:inherit default))
+    (((class color) (background dark))
+     (:inherit default))
+    (((class grayscale))
+     (:inherit default)))
+  "*skk-list-chars バッファにおける、目的文字を指し示す用途に適用する face 属性。"
+  :group 'skk-kcode
+  :group 'skk-visual)
+
+(defface skk-list-chars-table-header-face
+  '((((class color) (type tty))
+     (:inherit default :foreground "red"))
+    (((class color) (background light))
+     (:inherit default :foreground "Firebrick"))
+    (((class color) (background dark))
+     (:inherit default :foreground "chocolate1"))
+    (((class grayscale))
+     (:inherit default :foreground "LightGray")))
+  "*skk-list-chars バッファにおける、一覧見出しや枠線に適用する face 属性。"
+  :group 'skk-visual)
 
 ;;; skk-look.el related.
 (defcustom skk-use-look nil
