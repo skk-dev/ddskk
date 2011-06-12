@@ -1,3 +1,7 @@
+2011-06-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* NICOLA-DDSKK-MK (nicola-ddskk-generate-autoloads): Indent fixes.
+
 2011-05-31  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* NICOLA-DDSKK-MK (nicola-ddskk-generate-autoloads): Undo the

@@ -100,10 +100,11 @@ VERSION_SPECIFIC_LISPDIR=%s\n" PREFIX VERSION_SPECIFIC_LISPDIR))))
 		 (generate-file-autoloads file))))
 	(goto-char (point-max))
 	(insert "
-(provide 'nicola-ddskk-autoloads)
+\(provide 'nicola-ddskk-autoloads)
 ")
-(let ((coding-system-for-write 'iso-2022-7bit))
-  (write-region (point-min) (point-max) "nicola-ddskk-autoloads.el" nil nil))
-  (kill-buffer buf))))
+	(let ((coding-system-for-write 'iso-2022-7bit))
+	  (write-region (point-min) (point-max)
+			"nicola-ddskk-autoloads.el" nil nil))
+	(kill-buffer buf))))
 
 ;;; NICOLA-DDSKK-MK ends here
