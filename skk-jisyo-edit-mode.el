@@ -28,6 +28,14 @@
 
 ;;; Code:
 
+(require 'cus-edit)
+(require 'custom)
+
+(eval-when-compile
+  (require 'skk-macs))
+
+(require 'skk-vars)
+
 (eval-when-compile
   (defvar font-lock-defaults))
 
@@ -97,19 +105,46 @@ C-c C-k   Abort"
 
 ;;;###autoload
 (defun skk-edit-private-jisyo (&optional coding-system)
+  "個人辞書ファイル `skk-jisyo' を編集する。
+任意での個人辞書保存のあと、`skk-jisyo' を開き、`skk-jisyo-edit-mode' に入る。
+ローカルに C-c C-c (保存して終了), C-c C-k (編集中止) のキー定義が追加される。
+
+SKK 使用中の場合は SKK による個人辞書バッファの更新が禁止される。
+
+オプション引数 CODING-SYSTEM にて個人辞書のコード系を指定可能。
+
+この機能は従来の手動での個人辞書編集より配慮されているが、SKK 辞書の構文を
+チェックすることはできず、自己責任での編集であることは変わりない。"
   (interactive "P")
-  (when coding-system
-    (setq coding-system (read-coding-system
-			 "個人辞書のコーディングシステムを指定: "
-			 (skk-find-coding-system skk-jisyo-code))))
-  (unless coding-system
-    (setq coding-system (skk-find-coding-system skk-jisyo-code)))
-  ;;
-  (when (skk-y-or-n-p "個人辞書を保存しますか？ "
-		      "Save private jisyo? ")
-    (skk-save-jisyo))
-  (when (skk-yes-or-no-p "構文チェックが十分ではありません。個人辞書ファイルの編集は自己責任のもと行ってください。継続しますか？ "
-			 "The syntax check is not enough. Edit your private dictionary files, please go under the responsibility. Do you want to continue? ")
+  (let (answer)
+    (unless skk-jisyo-edit-user-accepts-editing
+      (setq answer (skk-yes-or-no-p "\
+個人辞書の編集は辞書を壊す可能性があります。自己責任での実行に同意しますか？"
+				    "\
+You must edit your private dictionary at your own risk.  Do you accept it?"))
+      (when answer
+	(setq-default skk-jisyo-edit-user-accepts-editing t)
+	(put 'skk-jisyo-edit-user-accepts-editing 'saved-value '(t))
+	(unless (eval-when-compile (and skk-running-gnu-emacs
+					(= emacs-major-version 21)))
+	  ;; Non-existent in Emacs 21.
+	  (custom-push-theme 'theme-value 'skk-jisyo-edit-user-accepts-editing
+			     'user 'set t))
+	(put 'skk-jisyo-edit-user-accepts-editing 'customized-value nil)
+	(put 'skk-jisyo-edit-user-accepts-editing 'customized-variable-comment
+	     nil)
+	(custom-save-all))))
+  (when skk-jisyo-edit-user-accepts-editing
+    (when coding-system
+      (setq coding-system (read-coding-system
+			   "個人辞書のコーディングシステムを指定: "
+			   (skk-find-coding-system skk-jisyo-code))))
+    (unless coding-system
+      (setq coding-system (skk-find-coding-system skk-jisyo-code)))
+    ;;
+    (when (skk-y-or-n-p "個人辞書を保存しますか？ "
+			"Save private jisyo? ")
+      (skk-save-jisyo))
     (skk-edit-private-jisyo-1 coding-system)))
 
 (defun skk-edit-private-jisyo-1 (coding-system)

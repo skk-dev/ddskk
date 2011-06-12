@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.375 2011/06/11 11:03:44 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.376 2011/06/12 09:25:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/11 11:03:44 $
+;; Last Modified: $Date: 2011/06/12 09:25:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -186,6 +186,10 @@ Automatically becomes buffer-local when set in any fashion."
   :group 'skk)
 
 (defgroup skk-jisx0213 nil "SKK JIS X 0213 関連の設定"
+  :group 'skk)
+
+(defgroup skk-jisyo-edit-mode nil "SKK の辞書編集機能の設定"
+  :prefix "skk-"
   :group 'skk)
 
 (defgroup skk-kakasi nil "SKK から kakasi を使う設定"
@@ -3761,6 +3765,14 @@ This map should be derived from `isearch-mode-map'.")
 JISX0213 を扱えないときはこの値は動作に影響しない。"
   :type 'boolean
   :group 'skk-jisx0213)
+
+;;; skk-jisyo-edit-mode.el related
+
+(defcustom skk-jisyo-edit-user-accepts-editing nil
+  "*Non-nil であれば、ユーザが個人辞書の編集を自己責任にて行う旨確認済である。
+nil であれば、`skk-edit-private-jisyo' の実行時に確認する。"
+  :type 'boolean
+  :group 'skk-jisyo-edit-mode)
 
 ;;; skk-kakasi.el related.
 (defcustom skk-use-kakasi (if (executable-find "kakasi") t nil)

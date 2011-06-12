@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.93
-@set UPDATED $Date: 2011/06/11 21:10:11 $
+@set UPDATED $Date: 2011/06/12 09:25:28 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -271,7 +271,7 @@ GNU Emacs 22 以上での利用が最も推奨されます。
 @table @b
 @item GNU Emacs 20.x
 
-DDSKK 14.2 は GNU Emacs 20 をサポートしていません。
+DDSKK 14.3 は GNU Emacs 20 をサポートしていません。
 GNU Emacs 20 のユーザーは DDSKK 14.1 をお使いください。
 
 @item GNU Emacs 21.4

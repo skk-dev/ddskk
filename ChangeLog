@@ -1,3 +1,9 @@
+2011-06-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-jisyo-edit-user-accepts-editing): New Variable.
+
+	* skk-jisyo-edit-mode.el: Use it.
+
 2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo):主処理を
