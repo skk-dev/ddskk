@@ -28,12 +28,10 @@
 
 ;;; Code:
 
-(require 'cus-edit)
-(require 'custom)
-
 (eval-when-compile
   (require 'skk-macs))
 
+(require 'skk-cus)
 (require 'skk-vars)
 
 (eval-when-compile
@@ -69,11 +67,7 @@
 
 ;;;###autoload
 (defun skk-jisyo-edit-mode ()
-  "Major mode for editing SKK JISYO.
-key       binding
----       -------
-C-c C-c   Save & Exit
-C-c C-k   Abort"
+  "Major mode for editing SKK JISYO."
   (interactive)
   (kill-all-local-variables)
   (setq mode-name "SKK JISYO Edit")
@@ -107,7 +101,12 @@ C-c C-k   Abort"
 (defun skk-edit-private-jisyo (&optional coding-system)
   "個人辞書ファイル `skk-jisyo' を編集する。
 任意での個人辞書保存のあと、`skk-jisyo' を開き、`skk-jisyo-edit-mode' に入る。
-ローカルに C-c C-c (保存して終了), C-c C-k (編集中止) のキー定義が追加される。
+ローカルに 以下のキー定義が追加される。
+
+key       binding
+---       -------
+C-c C-c   Save & Exit
+C-c C-k   Abort
 
 SKK 使用中の場合は SKK による個人辞書バッファの更新が禁止される。
 
@@ -123,17 +122,7 @@ SKK 使用中の場合は SKK による個人辞書バッファの更新が禁止される。
 				    "\
 You must edit your private dictionary at your own risk.  Do you accept it?"))
       (when answer
-	(setq-default skk-jisyo-edit-user-accepts-editing t)
-	(put 'skk-jisyo-edit-user-accepts-editing 'saved-value '(t))
-	(unless (eval-when-compile (and skk-running-gnu-emacs
-					(= emacs-major-version 21)))
-	  ;; Non-existent in Emacs 21.
-	  (custom-push-theme 'theme-value 'skk-jisyo-edit-user-accepts-editing
-			     'user 'set t))
-	(put 'skk-jisyo-edit-user-accepts-editing 'customized-value nil)
-	(put 'skk-jisyo-edit-user-accepts-editing 'customized-variable-comment
-	     nil)
-	(custom-save-all))))
+	(skk-cus-set '((skk-jisyo-edit-user-accepts-editing . t))))))
   (when skk-jisyo-edit-user-accepts-editing
     (when coding-system
       (setq coding-system (read-coding-system

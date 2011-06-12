@@ -316,8 +316,11 @@
       (delete-file old-name))
     (skk-cus-set)))
 
-(defun skk-cus-set ()
-  (dolist (param skk-custom-alist)
+;;;###autoload
+(defun skk-cus-set (&optional alist)
+  (unless alist
+    (setq alist skk-custom-alist))
+  (dolist (param alist)
     (let ((variable (car param))
 	  (value (cdr param)))
       (funcall (or (get variable 'custom-set) 'set-default) variable value)
@@ -331,7 +334,8 @@
       (put variable 'customized-variable-comment nil)))
   (custom-save-all)
   ;;
-  (setq skk-custom-alist nil))
+  (when (eq alist skk-custom-alist)
+    (setq skk-custom-alist nil)))
 
 (provide 'skk-cus)
 

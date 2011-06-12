@@ -1,8 +1,22 @@
-2011-06-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2011-06-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-cus.el (skk-cus-set): Accept an optional arg ALIST.
+	* skk-jisyo-edit-mode.el: Require skk-cus instead of custom and
+	cus-edit.
+	(skk-edit-private-jisyo): Call `skk-cus-set' instead of directly
+	calling `custom-save-all'.
+	(skk-jisyo-edit-mode): Move the previous docstring change
+	describing the local key bindings to the docstring of
+	`skk-edit-private-jisyo' which actually binds these keys.
+
+2011-06-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-jisyo-edit-user-accepts-editing): New Variable.
-
-	* skk-jisyo-edit-mode.el: Use it.
+	* skk-jisyo-edit-mode.el: Require custom, cus-edit and skk-vars.
+	Require skk-macs at compile time.
+	(skk-edit-private-jisyo): Check
+	skk-jisyo-edit-user-accepts-editing to know if user really wants
+	to edit the private dictionary at her/his own risk.
 
 2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
