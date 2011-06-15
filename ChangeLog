@@ -1,3 +1,7 @@
+2011-06-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-annotation-browse-key): 追加.
+
 2011-06-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Modify for ja-dic.
