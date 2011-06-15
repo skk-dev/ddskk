@@ -1,3 +1,7 @@
+2011-06-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Modify for ja-dic.
+
 2011-06-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-cus.el (skk-cus-set): Accept an optional arg ALIST.
