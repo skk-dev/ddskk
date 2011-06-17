@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.376 2011/06/12 09:25:28 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.377 2011/06/17 23:21:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/12 09:25:28 $
+;; Last Modified: $Date: 2011/06/17 23:21:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4979,13 +4979,13 @@ GNU Emacs 21 では強制的に `follow' となる。"
   (if (featurep 'xemacs)
       0
     (/ (1+ (frame-char-height)) 2))
-  "*Tooltip の位置を右にずらすピクセル数。
+  "*Tooltip の表示位置を右にずらすピクセル数。
 負の整数を指定すると左にずれる。"
   :type 'integer
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-y-offset 0
-  "*Tooltip の位置を下にずらすピクセル数。
+  "*Tooltip の表示位置を下にずらすピクセル数。
 負の整数を指定すると上にずれる。"
   :type 'integer
   :group 'skk-tooltip)
@@ -5018,7 +5018,8 @@ GNU Emacs 21 では強制的に `follow' となる。"
 
 (defcustom skk-tut-lang "Japanese"
   "*SKK チュートリアルで用いる言語。
-\\[universal-argument] \\[skk-tutorial] での言語指定はこの変数に優先する。"
+\\[universal-argument] \\[skk-tutorial] での言語指定は、この変数よりも優先
+する。"
   :type '(radio (string "Japanese")
 		(string "English"))
   :set (lambda (symbol value)

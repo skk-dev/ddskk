@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.93
-@set UPDATED $Date: 2011/06/15 20:51:53 $
+@set UPDATED $Date: 2011/06/17 23:21:22 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1831,6 +1831,12 @@ DDSKK $B$K$O!"4pK\E*$JA`:nJ}K!$r3X=,$G$-$k%A%e!<%H%j%"%k$,ImB0$7$F$$$^$9!#(B
 
 @end defvr
 
+@defvr {$B%f!<%6JQ?t(B} skk-tut-lang
+$B%A%e!<%H%j%"%k$GMQ$$$k8@8l!J(B@code{Japanese} $BKt$O(B @code{English}$B!K$r;XDj$7$^$9!#(B
+$B$3$NJQ?t$h$j$b(B @kbd{C-u M-x skk-tutorial} $B$K$h$k8@8l;XDj$,M%@h$5$l$^$9!#(B
+
+@end defvr
+
 @node $BJXMx$J1~MQ5!G=(B
 @chapter $BJXMx$J1~MQ5!G=(B
 
@@ -3546,6 +3552,10 @@ L:$BQe(B;6$B2h(B($BEaIt(B4$B2h(B)
 ----- Buffer: foo -----
 @end example
 
+@defvr {$B%f!<%6JQ?t(B} skk-hint-start-char
+$B%R%s%HJQ49$r3+;O$9$k%-!<$r(B character $B$G;XDj$7$^$9!#(B
+@end defvr
+
 @node $B@\F,<-!&@\Hx<-(B
 @subsection $B@\F,<-!&@\Hx<-(B
 @cindex $B@\F,<-(B
@@ -5104,9 +5114,9 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @subsection $BJQ490LCV$N;XDjJ}K!(B
 @cindex @file{skk-sticky.el}
 
-SKK $B$G$ODL>o!"4A;zJQ49$N3+;O$HAw$j2>L>3+;O$N0LCV$rBgJ8;z$G;XDj$7$^$9(B
-$B$,!"$3$l$rG$0U$N%-!<$G;XDj$9$k$3$H$G(B sticky-shift $B%i%$%/$JA`:n(B
-@footnote{$B$"$/$^$G$b!VG$0U$N%-!<$GJQ490LCV$r;XDj$9$k!W$b$N$G$"$j!"(B
+SKK $B$G$ODL>o!"4A;zJQ49$N3+;O0LCV$HAw$j2>L>$N3+;O0LCV$rBgJ8;z$G;XDj$7$^$9(B
+$B$,!"$3$l$i$rG$0U$N%-!<$G;XDj$9$k$3$H$G(B sticky-shift $B%i%$%/$JA`:n(B
+@footnote{$B$"$/$^$G$b!VG$0U$N%-!<$GJQ493+;O0LCV$r;XDj$9$k!W$b$N$G$"$j!"(B
 sticky-shift $B$=$N$b$N$G$O$"$j$^$;$s!#$7$?$,$C$F!"%"%9%-!<%b!<%I$d(B 
 abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=R$N$h$&$J(B
 $B@_Dj$rJ;MQ$9$kI,MW$,$"$j$^$9!#(B}$B$b2DG=$G$9!#(B
@@ -5116,16 +5126,20 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 @end lisp
 
 @noindent
-$B$H@_Dj$9$k$H(B @kbd{;} $B%-!<$GJQ490LCV$,;XDj$G$-$k$h$&$K$J$j$^$9!#(B
+$B$H@_Dj$9$k$H(B @kbd{;} $B%-!<$G(B
 @footnote{@file{skk-hint.el} $B$rJ;MQ$9$k>l9g$O(B @code{skk-hint-start-char}
-$B$N%G%U%)%k%H$b(B @samp{;} $B$J$N$G$I$A$i$+$rJL$N%-!<$K3dEv$F$kI,MW$,$"$j$^(B
-$B$9!#(B}$BNc$($P(B @samp{$BM-$k(B} $B$,(B
+$B$N%G%U%)%k%H$b(B @samp{;} $B$G$"$k$?$a!"$I$A$i$+$rJL$N%-!<$K3dEv$F$kI,MW$,$"$j$^(B
+$B$9!#(B@w{@pxref{$B8uJd$N9J$j9~$_(B}}} $B4A;zJQ490LCV$,;XDj$G$-$k$h$&$K$J$j$^$9!#(B
+
+$BNc$($P(B @samp{$BM-$k(B} $B$H$$$&C18l$rF~NO$9$k$K$O(B
 
 @example
 @kbd{; a ; r u}
 @end example
 
-$B$G$bF~NO$G$-!"%7%U%H%-!<$r2!$9I,MW$,$J$/$J$j$^$9!#A`:n>e$O(B
+$B$H$$$&%-!<F~NO$G2DG=$H$J$j%7%U%H%-!<$r2!$9I,MW$,$J$/$J$j$^$9!#(B
+
+$BA`:n>e$O(B
 @w{@pxref{Q3-4 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B}} $B$J$I$K$"$kDL(B
 $B>o$N(B sticky-shift $B$HJQ$o$j$^$;$s$,!"2hLLI=<($O(B
 
@@ -5152,16 +5166,16 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 @end display
 
 @noindent
-$B$HA+0\$7$^$9!#(Bskk-sticky $B$O(B @kbd{;} $B$r2!$7$?;~E@$GI=<($,JQ2=$9$k$N$G<c43(B
-$BJ,$+$j0W$/$J$k$+$H;W$$$^$9!#(B
+$B$HA+0\$7$^$9!#DL>o$N(B sticky $B$HHf$Y$F(B skk-sticky $B$O(B @kbd{;} $B$r2!$7$?;~E@$G2hLLI=<($,JQ2=$9$k$N$G<c43(B
+$BJ,$+$j0W$$$H;W$$$^$9!#(B
 
-$B%-!<$N@_DjJ}K!$O3dEv$F$k%-!<$N<oN`$K$h$C$F0[$J$j$^$9!#(B
+$B%-!<$N@_DjJ}K!$O!"3dEv$F$k%-!<$N<oN`$K$h$C$F0[$J$j$^$9!#(B
 
 @enumerate
 @item
-$BI=<(2DG=$J%-!<(B
+$BI=<($rH<$&%-!<(B
 
-@samp{;} $B$J$I$NI=<($,2DG=$J%-!<$N>l9g$O(B
+@samp{;} $B$J$I$NI=<($rH<$&%-!<$N>l9g$O(B
 
 @lisp
 (setq skk-sticky-key ";")
@@ -5171,9 +5185,9 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 $BJ8;z$=$N$b$N$rF~NO$7$?$$>l9g$O(B2$B2sB3$1$FBG$D$HF~NO$G$-$^$9!#(B
 
 @item
-$BI=<($5$l$J$$%-!<(B
+$BI=<($rH<$o$J$$%-!<(B
 
-@key{$BL5JQ49(B} $B$N$h$&$JI=<($rH<$o$J$$%-!<$N>l9g$O(B
+$B!Z(B@key{$BL5JQ49(B}$B![$N$h$&$JI=<($rH<$o$J$$%-!<$N>l9g$O(B
 
 @lisp
 (setq skk-sticky-key [muhenkan])   ; Microsoft Windows $B4D6-$J$i$P(B [noconvert]
@@ -5184,7 +5198,7 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 @item
 $BF1;~BG80(B
 
-2$B$D$N%-!<$rF1;~$KBG80$9$k$3$H$G$bJQ490LCV$r;XDj$G$-$^$9!#Nc$($P(B
+$B#2$D$N%-!<$rF1;~$KBG80$9$k$3$H$G$b4A;zJQ490LCV$r;XDj$G$-$^$9!#Nc$($P(B
 @kbd{f} $B$H(B @kbd{j} $B$NF1;~BG80$G;XDj$9$k>l9g$O(B
 
 @lisp

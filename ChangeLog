@@ -1,3 +1,11 @@
+2011-06-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-tooltip-x-offset, skk-tooltip-y-offset) 
+	(skk-tut-lang): docstring を修正.
+
+	* doc/skk.texi (skk-tut-lang, skk-hint-start-char): 追加.
+	(変換位置の指定方法): 更新.
+
 2011-06-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-annotation-browse-key): 追加.
