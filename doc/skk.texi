@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.93
-@set UPDATED $Date: 2011/06/17 23:21:22 $
+@set UPDATED $Date: 2011/06/18 05:01:57 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8360,6 +8360,14 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
 @end table
 
 @end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-tooltip-hide-delay
+
+$B%D!<%k%F%#%C%W$rI=<($9$kIC?t!#%G%U%)%k%H$O(B 1,000$BIC!#(B
+$B$3$N;~4V$,7P2a$9$k$H!"%D!<%k%F%#%C%W$O<+F0E*$K>C$($k!#(B"
+
+@end defvr
+
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-candidates-always-pop-to-buffer
