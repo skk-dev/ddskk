@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.93 2011/06/19 10:48:09 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.94 2011/06/19 12:35:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/19 10:48:09 $
+;; Last Modified: $Date: 2011/06/19 12:35:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -633,7 +633,10 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
     (goto-char skk-list-chars-point)
     (set-buffer-modified-p nil)
     (setq buffer-read-only t)
-    (skk-list-chars-mode)))
+    (skk-list-chars-mode)
+    ;;
+    (when skk-list-chars-default-charstr
+      (skk-list-chars-move-to-charstr skk-list-chars-default-charstr))))
 
 (defun skk-list-chars-quit ()
   (interactive)
@@ -684,8 +687,8 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 	  (next-completion 1)
 	(let ((c (following-char)))
 	  (set-buffer skk-list-chars-destination-buffer)
-	  (insert c))
-	))))
+	  (insert c)
+	  (setq skk-list-chars-default-charstr (char-to-string c)))))))
 
 (defun skk-list-chars-other-charset ()
   (interactive)
@@ -701,9 +704,9 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 
 (defun skk-list-chars-code-input ()
   (interactive)
-  (skk-list-chars-move-to-char 'insert))
+  (skk-list-chars-jump 'insert))
 
-(defun skk-list-chars-move-to-char (&optional insert)
+(defun skk-list-chars-jump (&optional insert)
   (interactive)
   (let ((code (skk-kcode-read-code-string))
 	str)
@@ -713,14 +716,17 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 	(when insert
 	  (save-current-buffer
 	    (set-buffer skk-list-chars-destination-buffer)
-	    (insert str)))
-	(when (memq (skk-char-charset (string-to-char str) skk-charset-list)
-		    (list 'japanese-jisx0208 skk-kcode-charset))
-	  (goto-char (point-min))
-	  (search-forward str nil t)
-	  (forward-char -1))))
-    (when (eq skk-henkan-mode 'active)
-      (skk-kakutei))))
+	    (insert str))
+	  (setq skk-list-chars-default-charstr str))
+	(skk-list-chars-move-to-charstr str)))))
+
+(defun skk-list-chars-move-to-charstr (charstr)
+  (when (memq (skk-char-charset (string-to-char charstr) skk-charset-list)
+	      (list 'japanese-jisx0208 skk-kcode-charset))
+    (goto-char (point-min))
+    (let ((case-fold-search nil))
+      (search-forward charstr nil t))
+    (forward-char -1)))
 
 (defun skk-list-chars-find-char-string-for-code (code)
   (let* ((list (skk-kcode-parse-code-string code)))

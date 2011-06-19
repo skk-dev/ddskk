@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.378 2011/06/19 09:55:26 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.379 2011/06/19 12:35:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/19 09:55:26 $
+;; Last Modified: $Date: 2011/06/19 12:35:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3964,6 +3964,8 @@ SJIS: 及び UNICODE: に適用する face 属性。"
 (defvar skk-list-chars-point nil
   "C-x C-x (skk-list-chars-goto-point) のジャンプ先")
 
+(defvar skk-list-chars-default-charstr nil)
+
 (defvar skk-list-chars-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "$" 'skk-list-chars-display-code)
@@ -3995,7 +3997,7 @@ SJIS: 及び UNICODE: に適用する face 属性。"
     (define-key map (kbd "RET") 'skk-list-chars-insert)
     (define-key map "i"         'skk-list-chars-insert)
 
-    (define-key map "g" 'skk-list-chars-move-to-char)
+    (define-key map "g" 'skk-list-chars-jump)
 
     (define-key map "o"  'skk-list-chars-other-charset)
     (define-key map "\\" 'skk-list-chars-other-charset)

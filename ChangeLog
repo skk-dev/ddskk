@@ -1,5 +1,16 @@
 2011-06-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-kcode.el (skk-list-chars): Move to
+	skk-list-chars-default-charstr if it is set.
+	(skk-list-chars-jump): Rename from `skk-list-chars-move-to-char'.
+	(skk-list-chars-move-to-char): Redefine as a function to just move
+	point.
+	* skk-vars.el (skk-list-chars-mode-map): Modify for
+	`skk-list-chars-jump'.
+	(skk-list-chars-default-charstr): New variable.
+
+2011-06-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-kcode.el (skk-input-by-code-or-menu): Redefine to check
 	skk-kcode-method.
 	(skk-kcode-read-code-string, skk-kcode-parse-code-string)
