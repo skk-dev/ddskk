@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.377 2011/06/17 23:21:22 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.378 2011/06/19 09:55:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/17 23:21:22 $
+;; Last Modified: $Date: 2011/06/19 09:55:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3829,6 +3829,21 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
   :group 'skk-kanagaki)
 
 ;;; skk-kcode.el related.
+(defcustom skk-kcode-method (if skk-running-gnu-emacs
+				'code-or-char-list
+			      'code-or-menu)
+  "*`skk-input-by-code-or-menu' で使われる文字挿入のためのインターフェース。
+`char-list' であれば、文字一覧表 (`skk-list-chars') から選択する。
+`code-or-char-list' であれば、まず JIS コード/区点コード入力プロンプトを表示
+し、有効な入力が得られなかった場合に `skk-list-chars' を呼び出す。
+`code-or-menu' であれば従来のように、まず JIS コード/区点コード入力プロンプト
+を表示し、有効な入力が確定しなかった場合には候補文字一覧を表示する。"
+  :type '(radio (const :tag "常に文字コード表から選ぶ" char-list)
+		(const :tag "コード入力 → 文字コード表" code-or-char-list)
+		(const :tag "コード入力 → 文字候補 (旧来のメニュー)"
+		       code-or-menu))
+  :group 'skk-kcode)
+
 (defcustom skk-input-by-code-menu-keys1 '(?a ?s ?d ?f ?g ?h ?q ?w ?e ?r ?t ?y)
   "*メニュー形式で JIS 文字を入力するときに使用する選択キーのリスト。
 第 1 段階のメニューで使用する。
@@ -3979,6 +3994,8 @@ SJIS: 及び UNICODE: に適用する face 属性。"
 
     (define-key map (kbd "RET") 'skk-list-chars-insert)
     (define-key map "i"         'skk-list-chars-insert)
+
+    (define-key map "g" 'skk-list-chars-move-to-char)
 
     (define-key map "o"  'skk-list-chars-other-charset)
     (define-key map "\\" 'skk-list-chars-other-charset)

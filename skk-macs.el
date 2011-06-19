@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.174 2011/06/08 21:18:00 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.175 2011/06/19 09:55:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/08 21:18:00 $
+;; Last Modified: $Date: 2011/06/19 09:55:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -492,6 +492,15 @@ but the contents viewed as characters do change.
    (t
     ;; Emacs 22 以前、および XEmacs
     (split-char ch))))
+
+(defun skk-char-charset (ch &optional restriction)
+  (cond
+   ((eval-when-compile (and skk-running-gnu-emacs
+			    (>= emacs-major-version 23)))
+    ;; GNU Emacs 23.1 or later
+    (char-charset ch restriction))
+   (t
+    (char-charset ch))))
 
 ;; this one is called once in skk-kcode.el, too.
 (defun skk-charsetp (object)

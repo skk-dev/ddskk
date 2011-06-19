@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.89 2011/06/11 01:42:15 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.90 2011/06/19 09:55:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/11 01:42:15 $
+;; Last Modified: $Date: 2011/06/19 09:55:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -43,70 +43,111 @@
 
 ;;;###autoload
 (defun skk-input-by-code-or-menu (&optional arg)
+  "変数 `skk-kcode-method' で指定された機能を用いて文字を挿入する。"
+  (interactive "*P")
+  (let (list)
+    (case skk-kcode-method
+      (char-list
+       (skk-list-chars arg))
+      (code-or-char-list
+       (and (setq list (skk-input-by-code arg))
+	    (skk-list-chars arg)))
+      (t
+       (and (setq list (skk-input-by-code arg))
+	    (apply #'skk-input-by-code-or-menu-0 list)))))
+  (when (eq skk-henkan-mode 'active)
+    (skk-kakutei)))
+
+(defun skk-input-by-code (&optional arg)
   "7/8 bit JIS コード もしくは 区点番号に対応する文字を挿入する。"
   (interactive "*P")
   (when arg
-    (setq skk-kcode-charset (intern (completing-read "Character set: "
-						     '(("japanese-jisx0213-1")
-						       ("japanese-jisx0213-2")
-						       ("japanese-jisx0208"))
-						     nil t
-						     (symbol-name skk-kcode-charset)))))
-  (let* ((str (read-string (format "\
-7/8 bits JIS code (00nn) or KUTEN code (00-00) for `%s' (CR for Jump Menu): "
-				   skk-kcode-charset)))
-	 (list (split-string str "-"))
+    (setq skk-kcode-charset (intern (completing-read
+				     "Character set: "
+				     '(("japanese-jisx0213-1")
+				       ("japanese-jisx0213-2")
+				       ("japanese-jisx0208"))
+				     nil t
+				     (symbol-name skk-kcode-charset)))))
+  (let* ((enable-recursive-minibuffers t)
+	 (codestr (skk-kcode-read-code-string))
+	 (list (skk-kcode-parse-code-string codestr))
+	 (flag (nth 0 list))
+	 (n1 (nth 1 list))
+	 (n2 (nth 2 list))
+	 (char (nth 3 list)))
+    (cond
+     ((> n1 160)
+      (insert (skk-kcode-find-char-string flag n1 n2 char))
+      nil)
+     (t
+      (list n1 n2)))))
+
+(defun skk-kcode-read-code-string ()
+  (read-string (format (if skk-japanese-message-and-error
+			   "\
+`%s' の文字を指定します。7/8 ビット JIS コード (00nn), 区点コード (00-00),\
+ UNICODE (U+00nn), または [RET] (文字一覧): "
+			 "\
+To find a character in `%s', type 7/8 bits JIS code (00nn), KUTEN code (00-00), UNICODE (U+00nn), or [RET] for List: ")
+		       skk-kcode-charset)))
+
+(defun skk-kcode-parse-code-string (str)
+  (let* ((list (split-string str "-"))
 	 (len (length list))
-	 (enable-recursive-minibuffers t)
-	 n1 n2 flag)
-    (cond ((eq len 2)			; ハイフン `-' で区切られた「区-点」
-	   (setq n1 (+ (string-to-number (nth 0 list))
-		       32 128)
-		 n2 (+ (string-to-number (nth 1 list))
-		       32 128)))
-	  ((eq len 3)			; ハイフン `-' で区切られた「面-区-点」
-	   (setq flag (if (equal "2" (nth 0 list))
-			  'x0213-2
-			'x0213-1)
-		 n1 (+ (string-to-number (nth 1 list))
-		       32 128)
-		 n2 (+ (string-to-number (nth 2 list))
-		       32 128)))
-	  ((string-match "^[uU]\\+\\(.*\\)$" str) ; `U+' で始まればユニコード
-	   (setq flag 'unicode
-		 n1 161
-		 n2 0
-		 str (string-to-number (match-string-no-properties 1 str) 16)))
-	  (t				; 上記以外は JIS コードとみなす
-	   (setq n1 (if (string= str "")
-			128
-		      (+ (* 16 (skk-char-to-hex (aref str 0) 'jis))
-			 (skk-char-to-hex (aref str 1))))
-		 n2 (if (string= str "")
-			128
-		      (+ (* 16 (skk-char-to-hex (aref str 2) 'jis))
-			 (skk-char-to-hex (aref str 3)))))))
+	 n1 n2 flag char)
+    (cond
+     ((eq len 2)
+      ;; ハイフン `-' で区切られた「区-点」
+      (setq n1 (+ (string-to-number (nth 0 list))
+		  32 128)
+	    n2 (+ (string-to-number (nth 1 list))
+		  32 128)))
+     ((eq len 3)
+      ;; ハイフン `-' で区切られた「面-区-点」
+      (setq flag (if (equal "2" (nth 0 list))
+		     'x0213-2
+		   'x0213-1)
+	    n1 (+ (string-to-number (nth 1 list))
+		  32 128)
+	    n2 (+ (string-to-number (nth 2 list))
+		  32 128)))
+     ((string-match "^[uU]\\+\\(.*\\)$" str)
+      ;; `U+' で始まればユニコード
+      (setq flag 'unicode
+	    n1 161
+	    n2 0
+	    char (string-to-number (match-string-no-properties 1 str) 16)))
+     (t
+      ;; 上記以外は JIS コードとみなす
+      (setq n1 (if (string= str "")
+		   128
+		 (+ (* 16 (skk-char-to-hex (aref str 0) 'jis))
+		    (skk-char-to-hex (aref str 1))))
+	    n2 (if (string= str "")
+		   128
+		 (+ (* 16 (skk-char-to-hex (aref str 2) 'jis))
+		    (skk-char-to-hex (aref str 3)))))))
     ;;
     (when (or (> n1 256)
 	      (> n2 256))
       (skk-error "無効なコードです"
 		 "Invalid code"))
-    (insert (if (> n1 160)
-		(cond ((eq flag 'x0213-1)
-		       (char-to-string (skk-make-char 'japanese-jisx0213-1 n1 n2)))
-		      ((eq flag 'x0213-2)
-		       (char-to-string (skk-make-char 'japanese-jisx0213-2 n1 n2)))
-		      ((eq flag 'unicode)
-		       (char-to-string
-			(if (eval-when-compile (fboundp
-						'ucs-representation-decoding-backend))
-			    (ucs-representation-decoding-backend 'ucs str nil)
-			  str)))
-		      (t
-		       (skk-make-string n1 n2)))
-	      (skk-input-by-code-or-menu-0 n1 n2)))
-    (when (eq skk-henkan-mode 'active)
-      (skk-kakutei))))
+    (list flag n1 n2 char)))
+
+(defun skk-kcode-find-char-string (flag n1 n2 char)
+  (case flag
+    (x0213-1
+     (char-to-string (skk-make-char 'japanese-jisx0213-1 n1 n2)))
+    (x0213-2
+     (char-to-string (skk-make-char 'japanese-jisx0213-2 n1 n2)))
+    (unicode
+     (char-to-string
+      (if (fboundp 'ucs-representation-decoding-backend)
+	  (funcall #'ucs-representation-decoding-backend 'ucs char nil)
+	char)))
+    (t
+     (skk-make-string n1 n2))))
 
 (defun skk-char-to-hex (char &optional jischar)
   "CHAR を 16 進数とみなして、対応する数値を 10 進数で返す。"
@@ -397,11 +438,7 @@
 
 (defun skk-display-code (char)
 ;;   (require 'font-lock)
-  (let* ((charset (if (eval-when-compile (and skk-running-gnu-emacs
-					      (>= emacs-major-version 23)))
-		      ;; GNU Emacs 23.1 or later
-		      (char-charset char skk-charset-list)
-		    (char-charset char)))
+  (let* ((charset (skk-char-charset char skk-charset-list))
 	 mesg)
     (cond
      ((memq charset '(japanese-jisx0213-1
@@ -510,6 +547,12 @@
 	 (c1 (if (> ch2 127) (+ ch1 1) ch1)))
     (list c1 c2)))
 
+;; 2面
+;; XEmacs でのエラー回避のためにこの関数を一時 skk-emacs.el に退避する。
+;; (autoload 'skk-jis2sjis2 "skk-emacs")
+(when (eval-when-compile (featurep 'xemacs))
+  (defalias 'skk-jis2sjis2 'ignore))
+
 ;;;; skk-list-chars
 ;; TODO
 ;;   o mode-line に現在 charset を表示したい
@@ -584,7 +627,7 @@
     (search-backward ch)
     (setq skk-list-chars-point (point))
     (put-text-property skk-list-chars-point (progn (forward-char) (point))
-    		       'face 'skk-list-chars-face)
+		       'face 'skk-list-chars-face)
     (goto-char skk-list-chars-point)
     (set-buffer-modified-p nil)
     (setq buffer-read-only t)
@@ -606,7 +649,7 @@
 (defun skk-list-chars-copy ()
   (interactive)
   (unless (eobp)
-    (message "`%s' copied." 
+    (message "`%s' copied."
 	     (kill-new (char-to-string (following-char))))))
 
 (defun skk-list-chars-next-line ()
@@ -656,51 +699,32 @@
 
 (defun skk-list-chars-code-input ()
   (interactive)
-  (let ((code (read-string
-	       (format "7/8 bits JIS code (00nn) or KUTEN code (00-00) or UNICODE (U+00nn) for `%s': " skk-kcode-charset))))
+  (skk-list-chars-move-to-char 'insert))
+
+(defun skk-list-chars-move-to-char (&optional insert)
+  (interactive)
+  (let ((code (skk-kcode-read-code-string))
+	str)
     (unless (string= code "")
-      (skk-list-chars-code-input-1 code))))
+      (setq str (skk-list-chars-find-char-string-for-code code))
+      (when str
+	(when insert
+	  (save-current-buffer
+	    (set-buffer skk-list-chars-destination-buffer)
+	    (insert str)))
+	(when (memq (skk-char-charset (string-to-char str) skk-charset-list)
+		    (list 'japanese-jisx0208 skk-kcode-charset))
+	  (goto-char (point-min))
+	  (search-forward str nil t)
+	  (forward-char -1))))
+    (when (eq skk-henkan-mode 'active)
+      (skk-kakutei))))
 
-(defun skk-list-chars-code-input-1 (code)
-  (let ((str (cond
-	      ;; ハイフン `-' で区切られた「区-点」
-	      ((string-match "^\\([0-9]*[0-9]\\)-\\([0-9]*[0-9]\\)$" code)
-	       (skk-make-string (+ (string-to-number (match-string 1 code))
-				   32 128)
-				(+ (string-to-number (match-string 2 code))
-				   32 128)))
-	      ;; `U+' で始まればユニコード
-	      ((string-match "^[uU]\\+\\(.*\\)$" code)
-	       (let ((char (string-to-number (match-string-no-properties 1 code) 16)))
-		 (char-to-string
-		  (cond ((eval-when-compile
-			   (fboundp 'ucs-representation-decoding-backend))
-			 (ucs-representation-decoding-backend 'ucs char nil))
-			((>= emacs-major-version 23)
-			 char)
-			(t
-			 32)))))
-	      ;; 上記以外は JIS コードとみなす
-	      (t				
-	       (skk-make-string (+ (* 16 (skk-char-to-hex (aref code 0) 'jis))
-				   (skk-char-to-hex (aref code 1)))
-				(+ (* 16 (skk-char-to-hex (aref code 2) 'jis))
-				   (skk-char-to-hex (aref code 3))))))
-	     ))
-    (save-current-buffer
-      (set-buffer skk-list-chars-destination-buffer)
-      (insert str))
-    (goto-char (point-min))
-    (search-forward str nil t)
-    (forward-char -1))
-  (when (eq skk-henkan-mode 'active)
-    (skk-kakutei)))
-
-;; 2面
-;; XEmacs でのエラー回避のためにこの関数を一時 skk-emacs.el に退避する。
-;; (autoload 'skk-jis2sjis2 "skk-emacs")
-(when (eval-when-compile (featurep 'xemacs))
-  (defalias 'skk-jis2sjis2 'ignore))
+(defun skk-list-chars-find-char-string-for-code (code)
+  (let* ((list (skk-kcode-parse-code-string code)))
+    (if (> (nth 1 list) 160)
+	(apply #'skk-kcode-find-char-string list)
+      nil)))
 
 (run-hooks 'skk-kcode-load-hook)
 
