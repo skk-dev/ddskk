@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.90 2011/06/19 09:55:26 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.91 2011/06/19 10:17:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/19 09:55:26 $
+;; Last Modified: $Date: 2011/06/19 10:17:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -89,7 +89,8 @@
 `%s' の文字を指定します。7/8 ビット JIS コード (00nn), 区点コード (00-00),\
  UNICODE (U+00nn), または [RET] (文字一覧): "
 			 "\
-To find a character in `%s', type 7/8 bits JIS code (00nn), KUTEN code (00-00), UNICODE (U+00nn), or [RET] for List: ")
+To find a character in `%s', type 7/8 bits JIS code (00nn),\
+ KUTEN code (00-00), UNICODE (U+00nn), or [RET] for List: ")
 		       skk-kcode-charset)))
 
 (defun skk-kcode-parse-code-string (str)
