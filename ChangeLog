@@ -1,3 +1,8 @@
+2011-06-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-list-chars-next-line) 
+	(skk-list-chars-previous-line): コードの見直し.
+
 2011-06-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kcode.el (skk-list-chars): Move to

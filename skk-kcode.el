@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.94 2011/06/19 12:35:35 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.95 2011/06/21 11:33:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/19 12:35:35 $
+;; Last Modified: $Date: 2011/06/21 11:33:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -45,6 +45,7 @@
 ;;;###autoload
 (defun skk-input-by-code-or-menu (&optional arg)
   "変数 `skk-kcode-method' で指定された機能を用いて文字を挿入する。"
+  ;; `skk-rom-kana-base-rule-list' が指しているのはこの関数。
   (interactive "*P")
   (let (list)
     (case skk-kcode-method
@@ -660,18 +661,39 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 (defun skk-list-chars-next-line ()
   (interactive)
   (let ((col (current-column)))
+    (when (< col 8)
+      (setq col 8))
+    (unless (zerop (mod col 4))
+      (setq col (- col 2)))
     (forward-line)
-    (if (eq 'ascii (car (split-char (following-char))))
-	(next-completion 1))
-    (move-to-column col)))
+    (move-to-column col)
+    (when (eq 'ascii (car (split-char (following-char))))
+      (forward-line)
+      (move-to-column col)
+      (when (eq 'ascii (car (split-char (following-char))))
+	(forward-line)
+	(move-to-column col)))))
 
 (defun skk-list-chars-previous-line ()
   (interactive)
   (let ((col (current-column)))
-    (forward-line -1)
-    (if (eq 'ascii (car (split-char (following-char))))
-	(next-completion -1))
-    (move-to-column col)))
+    (when (< col 8)
+      (setq col 8))
+    (unless (zerop (mod col 4))
+      (setq col (- col 2)))
+    (if (< (count-lines (point-min) (point)) 5)
+	(progn
+	  (goto-char (point-min))
+	  (search-forward (char-to-string (make-char skk-kcode-charset 33 33)))
+	  (move-to-column col))
+      (forward-line -1)
+      (move-to-column col)
+      (when (eq 'ascii (car (split-char (following-char))))
+	(forward-line -1)
+	(move-to-column col)
+	(when (eq 'ascii (car (split-char (following-char))))
+	  (forward-line -1)
+	  (move-to-column col))))))
 
 (defun skk-list-chars-goto-point ()
   (interactive)
