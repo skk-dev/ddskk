@@ -32,26 +32,26 @@ skk-mode $B$rH4$1$?$H$-$O(B $B8uJd%P%C%U%!$H(B SKK annotation $B%P%C%U%!$r:
 
 *** $B=u8@E*%a%C%;!<%8(B
 
-skk-verbose-intention-face $B$H(B skk-verbose-kbd-face $B$r$*;n$7$/$@$5$$!#(B
+$B?7$?$J%U%'%$%9(B skk-verbose-intention-face $B$H(B skk-verbose-kbd-face $B$r(B
+$B$*;n$7$/$@$5$$!#(B
 
 *** $B"-<-=qEPO?Cf"-(B
 
-skk-jisyo-registration-badge-face $B$r$*;n$7$/$@$5$$!#(B
+$B?7$?$J%U%'%$%9(B skk-jisyo-registration-badge-face $B$r$*;n$7$/$@$5$$!#(B
 
 *** `$' skk-display-code-for-char-at-point
-skk-display-code-tankan-radical-face $B$H(B
+$B?7$?$J%U%'%$%9(B skk-display-code-tankan-radical-face $B$H(B
 skk-display-code-tankan-annotation-face $B$r$*;n$7$/$@$5$$!#(B
 
 *** skk-list-chars $B4XO"(B
-skk-list-chars-face $B$H(B skk-list-chars-table-header-face $B$r$*;n$7$/$@$5$$!#(B
+$B?7$?$J%U%'%$%9(B skk-list-chars-face $B$H(B skk-list-chars-table-header-face $B$r(B
+$B$*;n$7$/$@$5$$!#(B
 
-** \ $B%?%$%W$N5/F0$r(B skk-list-chars $B$+$i(B skk-input-by-code-or-menu $B$XLa$7$?!#(B
-
-skk-rom-kana-base-rule-list $B$N%G%U%)%k%H$r(B
-  ("\\" nil skk-list-chars)
-$B$+$i(B
-  ("\\" nil skk-input-by-code-or-menu)
-$B$XLa$7$^$7$?!#(B
+** \ $B%?%$%W$N5sF0$rD4@a(B
+$BJQ?t(B skk-kcode-method $B$XE,@Z$J%7%s%\%k$r@_Dj$9$k$3$H$K$h$C$F!"(B
+\ $B$r%?%$%W$7$?$H$-$K(B skk-input-by-code-or-menu $B$r<B9T$9$k$+!"(B
+skk-list-chars $B$r<B9T$9$k$+A*Br$9$k$3$H$,2DG=$G$9!#(B
+$B>\:Y$O(B docstring $B$d(B info $B$r$4Mw$/$@$5$$!#(B
 
 ** $B$=$NB>%P%0=$@5$J$I(B
 
