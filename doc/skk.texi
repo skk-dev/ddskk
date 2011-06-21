@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.93
-@set UPDATED $Date: 2011/06/18 05:01:57 $
+@set UPDATED $Date: 2011/06/21 12:15:38 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7696,6 +7696,28 @@ A:＼ S:〜 D:‖ F:｜ G:… H:‥ J:‘ K:
 $BBh#1CJ3,$"$k$$$OBh#2CJ3,$N%a%K%e!<$,I=<($5$l$F$$$k$H$-$K @kbd{?} を入
 力すると、そのときのキー @kbd{A} に対応する文字 (上記の例では、@samp{＼})
 の文字コードが表示されます。
+
+@defvr {ユーザ変数} skk-kcode-method
+
+@kbd{\} の打鍵で起動する @code{skk-input-by-code-or-menu} の挙動を調節します。
+
+@table @code
+@item 'char-list
+@kbd{\} の打鍵で「文字コード一覧」（skk-list-chars）を起動します。
+
+@item 'code-or-char-list
+@kbd{\} の打鍵で「文字コード」（skk-input-by-code）を起動します。
+JIS コード/区点コード入力プロンプトの表示に対して単に @key{RET} をタイプした場合、
+「文字コード一覧」（skk-list-chars）を起動します。
+
+@item 上記シンボル以外
+@kbd{\} の打鍵で「文字コード」（skk-input-by-code）を起動します。
+JIS コード/区点コード入力プロンプトの表示に対して単に @key{RET} をタイプした場合、
+「メニュー入力」を起動します。
+
+@end table
+
+@end defvr
 
 @node 文字コード一覧
 @subsection 文字コード一覧

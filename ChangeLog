@@ -1,5 +1,7 @@
 2011-06-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi (skk-kcode-method): 追加.
+
 	* skk-kcode.el (skk-list-chars-next-line) 
 	(skk-list-chars-previous-line): コードの見直し.
 
