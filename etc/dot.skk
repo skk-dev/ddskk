@@ -98,7 +98,7 @@
   (setq skk-tooltip-parameters
 	'((background-color . "alice blue")
 	  (border-color . "royal blue")
-	  (foreground-color . "gray")
+	  (foreground-color . "gray")	;skk-tooltip-face が優先される
 	  (internal-border-width . 3)	;境界線と文字との間の余白
 	  ))
 
@@ -154,7 +154,8 @@
 (when skk-show-inline
   ;; 変数 skk-treat-candidate-appearance-function を利用して自前で候補に
   ;; 色を付ける場合はこの変数を nil に設定する。
-  (setq skk-inline-show-face nil))
+  (setq skk-inline-show-face nil)
+  (setq skk-inline-show-background-color "gray15"))
 
 ;; 候補表示のルックスに関する高度な設定
 ;;
@@ -229,6 +230,7 @@
 
 ;; 動的な補完を使う
 ;; (setq skk-dcomp-activate t)
+;; ▽ほ-!-んとう の「んとう」の face
 ;; (set-face-foreground 'skk-dcomp-face "green")
 
 ;; 動的補完の可否を判定するより高度な設定例
@@ -245,9 +247,17 @@
 ;; 動的補完で候補を複数表示する （XEmacs では機能しません）
 ;; (setq skk-dcomp-multiple-activate t
 ;;       skk-dcomp-multiple-rows 10)
-;; (set-face-foreground 'skk-dcomp-multiple-face "green")
-;; (set-face-foreground 'skk-dcomp-multiple-trailing-face "white")
-;; (set-face-foreground 'skk-dcomp-multiple-selected-face "white")
+
+;; ▽ほ*んとう-!-
+;;   ほ んとう
+;;   ほ かん
+;;   ほ うほう
+;; 「ほ」のフェイス
+;; (set-face-foreground 'skk-dcomp-multiple-face "COLOR")
+;; 「んとう」、「かん」、「うほう」のフェイス
+;; (set-face-foreground 'skk-dcomp-multiple-trailing-face "COLOR")
+;; 選択位置のフェイス
+;; (set-face-foreground 'skk-dcomp-multiple-selected-face "COLOR")
 
 ;; viper と組み合わせて使う
 ;; (setq skk-use-viper t)
@@ -256,7 +266,7 @@
 ;; (setq skk-kakutei-key [henkan])
 ;; 注) 変換キーは、Emacs on XFree86  では [henkan]
 ;;                 XEmacs on XFree86 では [henkan-mode]
-;;                 Meadow            では [convert]
+;;                 Meadow と NTEmacs では [convert]
 
 ;; 接頭・接尾辞変換のキーを設定する
 ;; 例 1) 標準の設定
@@ -519,6 +529,10 @@
 			     (concat cand ";" note)
 			   cand))
 	      (skk-update-jisyo-original word)))))
+
+;; @@ SKK abbrev mode
+;; (add-to-list 'skk-completion-prog-list
+;; 	     '(skk-comp-lisp-symbol) t)
 
 ;; @@ その他いろいろ
 
