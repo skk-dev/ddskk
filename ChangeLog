@@ -1,3 +1,8 @@
+2011-06-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-henkan-face): 加筆.
+	(skk-make-face): 修正.
+
 2011-06-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-kcode-method): 追加.

@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.93
-@set UPDATED $Date: 2011/06/21 12:15:38 $
+@set UPDATED $Date: 2011/06/23 13:05:56 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8448,6 +8448,9 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
 $B$3$NJQ?t$NCM$O%U%'%$%9$G$"$j!"$3$N%U%'%$%9$K$h$C$FJQ498uJd$,%O%$%i%$%HI=(B
 $B<($5$l$^$9!#I8=`$G$O!"GX7J$NL@0E$K$h$j(B ``black/darkseagreen2'' $BKt$O(B
 ``white/darkolivegreen'' $B$rMQ$$$^$9!#(B
+
+$B$J$*!"$3$NJQ?t$h$j$b(B @code{skk-treat-candidate-appearance-function} $B$N@_(B
+$BDj$,M%@h$5$l$^$9!#(B
 @end defvr
 
 $BJQ?t(B @code{skk-henkan-face} $B$K$O!"4{B8$N%U%'%$%9(B
@@ -8466,8 +8469,7 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
 $B$&$K7hDj$5$l$^$9!#(B
 
 @lisp
-(skk-make-face 'DimGray/PeachPuff1)
-(setq skk-henkan-face 'DimGray/PeachPuff1)
+(setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1))
 @end lisp
 
 $B$3$N>l9g!"A07J?'$O(B DimGray $B$K!"GX7J?'$O(B PeachPuff1 $B$K$J$j$^$9!#(B
@@ -8475,8 +8477,7 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
 $B$b$&$R$H$DNc$r5s$2$^$9!#(B
 
 @lisp
-(skk-make-face 'RosyBrown1)
-(setq skk-henkan-face 'RosyBrown1)
+(setq skk-henkan-face (skk-make-face 'RosyBrown1))
 @end lisp
 
 $B$3$N>l9g!"A07J?'$O(B RosyBrown1 $B$K$J$j$^$9!#GX7J?'$,L5;XDj$N>l9g$O%P%C%U%!(B

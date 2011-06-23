@@ -69,8 +69,8 @@
 
 ;; (when skk-use-face
 ;;   ;; 変換文字列の色を変えてみる
-;;   (skk-make-face 'DimGray/PeachPuff1)
-;;   (setq skk-henkan-face 'DimGray/PeachPuff1))
+;;   ;; skk-treat-candidate-appearance-function が優先されます。
+;;   (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1)))
 
 ;; 変換候補一覧と注釈 (annotation) の表示を
 ;; エコーエリアに代えて tooltip で表示する
@@ -168,9 +168,9 @@
 (setq skk-treat-candidate-appearance-function
       #'(lambda (candidate listing-p)
 	  (let* ((value (skk-treat-strip-note-from-word candidate))
-		 (cand (car value))
-		 (note (cdr value))
-		 (sep (if note
+		 (cand (car value))	;候補
+		 (note (cdr value))	;注釈
+		 (sep (if note		;セパレータ
 			  (propertize (if (skk-annotation-display-p 'list)
 					  " ≒ "
 					" !")
@@ -262,7 +262,7 @@
 ;; viper と組み合わせて使う
 ;; (setq skk-use-viper t)
 
-;; 確定には C-j でなくで変換キーを使う
+;; 確定には C-j ではなく【変換キー】を使う
 ;; (setq skk-kakutei-key [henkan])
 ;; 注) 変換キーは、Emacs on XFree86  では [henkan]
 ;;                 XEmacs on XFree86 では [henkan-mode]
