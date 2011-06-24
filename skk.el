@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.593 2011/06/10 13:06:01 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.594 2011/06/24 23:58:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/10 13:06:01 $
+;; Last Modified: $Date: 2011/06/24 23:58:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2203,12 +2203,13 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	  (forward-line -1))
 	(forward-line 1))
       ;; [残り 99++] を右端へ
-      (if skk-henkan-rest-indicator
-	  (let ((col (progn (goto-char (point-max))
-			    (skk-screen-column))))
-	    (beginning-of-line)
-	    (insert-char 32 (- (frame-width) col 1))))
+      (when skk-henkan-rest-indicator
+	(let ((col (progn (goto-char (point-max))
+			  (skk-screen-column))))
+	  (beginning-of-line)
+	  (insert-char 32 (- (frame-width) col 1))))
       (goto-char (point-min)))
+
     (let ((minibuf-p (skk-in-minibuffer-p))
 	  (window (get-buffer-window (skk-minibuffer-origin))))
       (when minibuf-p
@@ -2228,16 +2229,11 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	(unless (pos-visible-in-window-p)
 	  (recenter '(1)))
 	;;
-	(unless (eval-when-compile (and (featurep 'xemacs)
-					(= emacs-major-version 21)
-					(<= emacs-minor-version 4)))
-	  ;; XEmacs 21.4 にはない関数
-	  (fit-window-to-buffer))
-	;;
-	(if skk-candidate-buffer-background-color
-	    (let ((ovl (make-overlay (point-min) (point-max))))
-	      (overlay-put ovl 'face
-			   (list :background skk-candidate-buffer-background-color)))))
+	(skk-fit-window)
+	(when skk-candidate-buffer-background-color
+	  (let ((ovl (make-overlay (point-min) (point-max))))
+	    (overlay-put ovl 'face
+			 `(:background ,skk-candidate-buffer-background-color)))))
       (when minibuf-p
 	(select-window (minibuffer-window))))))
 
@@ -2424,11 +2420,7 @@ auto に設定するとユーザに確認しない。
 	  (delete-other-windows))
 	(save-selected-window
 	  (pop-to-buffer buff)
-	  (unless (eval-when-compile (and (featurep 'xemacs)
-					  (= emacs-major-version 21)
-					  (<= emacs-minor-version 4)))
-	  ;; XEmacs 21.4 にはない関数
-	    (fit-window-to-buffer))
+	  (skk-fit-window)
 	  (unless (pos-visible-in-window-p)
 	    (recenter '(1))))
 	(when minibuf-p

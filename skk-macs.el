@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.175 2011/06/19 09:55:26 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.176 2011/06/24 23:58:03 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/19 09:55:26 $
+;; Last Modified: $Date: 2011/06/24 23:58:03 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1090,6 +1090,14 @@ Return the modified ALIST."
   "Delete an element whose car equals KEY from the alist bound to SYMBOL."
   (and (boundp symbol)
        (set symbol (skk-del-alist key (symbol-value symbol)))))
+
+(defun skk-fit-window (&optional window)
+  "カレントウィンドウ (又は WINDOW) を、その表示内容に応じた高さに調節する。"
+  (unless (eval-when-compile (and (featurep 'xemacs)
+				  (= emacs-major-version 21)
+				  (<= emacs-minor-version 4)))
+    ;; XEmacs 21.4 にはない関数
+    (fit-window-to-buffer window)))
 
 (provide 'skk-macs)
 

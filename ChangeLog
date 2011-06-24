@@ -1,3 +1,12 @@
+2011-06-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-fit-window): New function.
+
+	* skk-annotation.el (skk-annotation-show-buffer): Use it.
+
+	* skk.el (skk-henkan-show-candidates-buffer)
+	(skk-show-num-type-info): Use it.
+
 2011-06-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-henkan-face): 加筆.
