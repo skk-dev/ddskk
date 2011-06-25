@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.379 2011/06/19 12:35:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.380 2011/06/25 22:24:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/19 12:35:35 $
+;; Last Modified: $Date: 2011/06/25 22:24:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3841,7 +3841,8 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
   :type '(radio (const :tag "常に文字コード表から選ぶ" char-list)
 		(const :tag "コード入力 → 文字コード表" code-or-char-list)
 		(const :tag "コード入力 → 文字候補 (旧来のメニュー)"
-		       code-or-menu))
+		       code-or-menu)
+		(const :tag "文字コード表／コード入力は利用しない" this-key))
   :group 'skk-kcode)
 
 (defcustom skk-input-by-code-menu-keys1 '(?a ?s ?d ?f ?g ?h ?q ?w ?e ?r ?t ?y)
