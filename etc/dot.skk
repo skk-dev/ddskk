@@ -537,6 +537,12 @@
 ;; (add-to-list 'skk-completion-prog-list
 ;; 	     '(skk-comp-lisp-symbol) t)
 
+;; @@ server completion
+;; (add-to-list 'skk-search-prog-list
+;;	     '(skk-server-completion-search) t)
+;; (add-to-list 'skk-completion-prog-list
+;;	     '(skk-comp-by-server-completion) t)
+
 ;; @@ その他いろいろ
 
 ;; かなモードで、モード変更を行なわずに
