@@ -1,3 +1,9 @@
+2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (VERSION):
+	* doc/skk.texi:
+	* skk-version.el (skk-version): Bump to 14.2.94.
+
 2011-06-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-server-version):
