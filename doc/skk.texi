@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.93
-@set UPDATED $Date: 2011/06/23 13:05:56 $
+@set UPDATED $Date: 2011/06/26 06:46:05 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6565,44 +6565,44 @@ DDSKK では、複数の辞書を扱うことが可能です。複数の辞書が同時に
 見つからなかった時は、辞書登録モードに入ります。
 
 @c DDSKK 14.1 では、以下はあてはまらない。
-
+@c
 @c @footnote{@file{skk-auto.el} を読みこむと、
-
+@c
 @c @lisp
 @c (skk-okuri-search)
 @c @end lisp
-
+@c
 @c @noindent
 @c というリストが @code{skk-search-prog-list} に自動的に追加されます。実際
 @c には、@file{skk-auto.el} は必要に応じてオートロードされるので明示的に読みこむ必
 @c 要はありません。オートロードされるのは、具体的には
 @c @code{skk-auto-okuri-process} を @code{non-nil} に設定したとき、 あるいは
-
+@c
 @c @lisp
 @c (skk-okuri-search)
 @c @end lisp
-
+@c
 @c @noindent
 @c というリストを @code{skk-search-prog-list} に明示的に指定したときなどで
 @c す。}
-
+@c
 @c @footnote{@file{skk-server.el} を読みこむと、
-
+@c
 @c @lisp
 @c (skk-search-server skk-aux-large-jisyo 10000)
 @c @end lisp
-
+@c
 @c @noindent
 @c というリストが @code{skk-search-prog-list} に自動的に追加されます。実際
 @c には、@file{skk-server.el} は必要に応じてオートロードされるので明示的に読みこむ
 @c 必要はありません。オートロードされるのは、具体的には
 @c @code{skk-server-host} または @code{skk-servers-list} を @code{non-nil}
 @c に設定したとき、あるいは
-
+@c
 @c @lisp
 @c (skk-search-server skk-aux-large-jisyo 10000)
 @c @end lisp
-
+@c
 @c @noindent
 @c というリストを @code{skk-search-prog-list} に明示的に指定したときなどで
 @c す。}
@@ -6722,11 +6722,17 @@ GNU Emacs に付属するかな漢字変換辞書 (ja-dic.el) を用いて検索する。
 
 この変数を使うと、複数のホスト上の辞書サーバを使い分けることができます。
 
-この変数の値は、辞書サーバ毎の情報リストです。各リストは 4 つの要素か
-ら成ります。4 つの要素はそれぞれ、ホスト名、辞書サーバ名 (フルパス)、辞書サーバ
-が読み込む辞書ファイル名、辞書サーバが使用するポート番号、となります。ただし、辞書
-及びポート番号は、辞書サーバ自身が決定することもあるため、そのような場合は
-@code{nil} として構いません。
+この変数の値は、辞書サーバ毎の情報リストです。各リストは次の 4 つの要素か
+ら成ります。
+
+@itemize @bullet
+@item ホスト名
+@item 辞書サーバ名 (フルパス)
+@item 辞書サーバが読み込む辞書ファイル名
+@item 辞書サーバが使用するポート番号
+@end itemize
+
+ただし、辞書及びポート番号は、辞書サーバ自身が決定することもあるため、そのような場合は @code{nil} として構いません。
 
 例えば、以下のように設定します。
 
@@ -6745,18 +6751,20 @@ GNU Emacs に付属するかな漢字変換辞書 (ja-dic.el) を用いて検索する。
 @defvr {ユーザ変数} skk-server-report-response
 
 この変数の値が @code{non-nil} であれば、変換時に、辞書サーバの送出する文字を
-受け取るまでに関数 @code{accept-process-output} が実行された回数を報告
-します。
+受け取るまでに関数 @code{accept-process-output} が実行された回数をエコーエリ
+アに報告します。
 @end defvr
 
 @defvr {ユーザ変数} skk-server-inhibit-startup-server
 
 この変数を @code{nil} に設定すると、辞書サーバと接続できない場合に、
 辞書サーバプログラムを @code{call-process} して立ち上げようと試みます
-(デフォルト値は @code{t} です)。inetd 経由で立ち上げられる多くの辞書
-サーバは、@code{call-process} で立ち上げることができませんが、
-@file{skkserv} のように立ち上げることができる辞書サーバを利用している場合
-には、この変数を @code{nil} に設定するのが良いかもしれません。
+(デフォルト値は @code{t} です)。
+
+inetd 経由で立ち上げられる多くの辞書サーバは、@code{call-process} で立ち上げ
+ることができませんが、@file{skkserv} のように立ち上げることができる辞書サー
+バを利用している場合には、この変数を @code{nil} に設定するのが良いかもしれま
+せん。
 @end defvr
 
 @defvr {ユーザ変数} skk-server-remote-shell-program
@@ -6781,6 +6789,16 @@ GNU Emacs に付属するかな漢字変換辞書 (ja-dic.el) を用いて検索する。
 @end group
 @end lisp
 @end defvr
+
+@defun {コマンド} skk-server-version
+辞書サーバから得たバージョン文字列とホスト名文字列を表示する。
+
+@example
+(skk-server-version)
+@print{} SKK SERVER version (wceSKKSERV) 0.2.0.0 (ホスト名 foo:192.168.0.999: )
+@end example
+
+@end defun
 
 @node 辞書の書式
 @subsection 辞書の書式

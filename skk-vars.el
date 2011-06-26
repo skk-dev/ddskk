@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.380 2011/06/25 22:24:59 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.381 2011/06/26 06:46:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/25 22:24:59 $
+;; Last Modified: $Date: 2011/06/26 06:46:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4716,7 +4716,7 @@ Windows ではデフォルト値として 1178 が設定される。"
 (defcustom skk-server-report-response nil
   "*Non-nil であれば、辞書サーバの応答状況を報告する。
 具体的には、変換時に辞書サーバの送出する文字を受け取るまでに
-`accept-process-output' を何回実行したかを報告する。"
+`accept-process-output' を何回実行したかをエコーエリアに報告する。"
   :type 'boolean
   :group 'skk-server)
 
