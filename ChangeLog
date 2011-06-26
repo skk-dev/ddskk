@@ -1,6 +1,7 @@
 2011-06-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-server-version): 追加.
+	* doc/skk.texi (skk-server-version):
+	(サーバコンプリージョン): 追加.
 
 	* skk-vars.el (skk-kcode-method): 'this-key を追加.
 	(skk-server-report-response): docstring を修正.

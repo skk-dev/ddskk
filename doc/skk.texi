@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.2.93
-@set UPDATED $Date: 2011/06/26 06:46:05 $
+@set UPDATED $Date: 2011/06/26 10:27:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2097,6 +2097,8 @@ Lookup $B$G8!:w$G$-$k<-=q$r;H$C$FC18l$N8uJd$r=PNO$9$k%W%m%0%i%`!#(B
 @cindex @file{skk-server-completion.el}
 
 $B3HD%$5$l$?<-=q%5!<%P$K$h$k8+=P$78lJd405!G=$rMxMQ$G$-$^$9!#(B
+
+@xref{$B%5!<%P%3%s%W%j!<%8%g%s(B}.
 
 @item skk-server.el
 @cindex @file{skk-server.el}
@@ -6334,6 +6336,7 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"A*Br$5$l$?8uJd$O!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!
 * $B<-=q$N8!:wJ}K!$N@_Dj(B::            $B8!:wBP>]$H8!:w=g=x$N@_Dj!#(B
 * Emacs $BIUB0$N<-=q(B::
 * $B%5!<%P4XO"(B::
+* $B%5!<%P%3%s%W%j!<%8%g%s(B::
 
 @noindent
 $B<-=q$N4IM}(B
@@ -6714,7 +6717,7 @@ GNU Emacs $B$KIUB0$9$k$+$J4A;zJQ49<-=q(B (ja-dic.el) $B$rMQ$$$F8!:w$9$k!#(B
 
 @node $B%5!<%P4XO"(B
 @subsection $B%5!<%P4XO"(B
-
+                                    
 $B<-=q%5!<%P$N4pK\E*$J@_Dj$O!"(B@w{@pxref{$B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B}} $B$r(B
 $B$4Mw2<$5$$!#(B
 
@@ -6799,6 +6802,69 @@ inetd $B7PM3$GN)$A>e$2$i$l$kB?$/$N<-=q%5!<%P$O!"(B@code{call-process} $B$GN)$
 @end example
 
 @end defun
+
+@node $B%5!<%P%3%s%W%j!<%8%g%s(B
+@subsection $B%5!<%P%3%s%W%j!<%8%g%s(B
+
+Server completion $B$KBP1~$7$?<-=q%5!<%P$G$"$l$P!"8+=P$78l$+$i;O$^$kA4$F$N8l6g(B
+$B$N8!:w$,2DG=$G$9!#(B
+
+@defun skk-comp-by-server-completion
+$B$3$N4X?t$r(B @code{skk-completion-prog-list} $B$NMWAG$KDI2C$9$k$H!""&%b!<%I$K$*(B
+$B$$$F8+=P$78lJd40$r<B9T$7$^$9!#(B
+
+@lisp
+@group
+(add-to-list 'skk-completion-prog-list
+             '(skk-comp-by-server-completion) t)
+@end group
+@end lisp
+
+@end defun
+
+@defun skk-server-completion-search
+$B$3$N4X?t$r(B @code{skk-search-prog-list} $B$NMWAG$KDI2C$9$k$H!"(B
+$BJQ49$r<B9T$9$k:]$K(B @code{skk-server-completion-search-char} $B$rIU$9$3$H$K(B
+$B$h$C$F8+=P$78l$G;O$^$k$9$Y$F$N8uJd$r7G$2$^$9!#(B
+
+@lisp
+@group
+(add-to-list 'skk-search-prog-list
+             '(skk-server-completion-search) t)
+@end group
+@end lisp
+
+@example
+
+@group
+------ Buffer: foo ------
+$B"&$*$*$5$+(B~@point{}
+------ Buffer: foo ------
+@end group
+
+@key{SPC}
+
+@group
+------ Buffer: *$B8uJd(B* ------
+A:$B$*$*$5$+$$$+$@$$$,$/(B
+S:$BBg:e0e2JBg3X(B
+D:$B$*$*$5$+$$$,$$(B
+F:$BBg:e0J30(B
+J:$B$*$*$5$+$$$@$$(B
+K:$BBg:e0eBg(B
+L:$B$*$*$5$+$$$A$j$D$@$$$,$/(B
+------ Buffer: *$B8uJd(B* ------
+@end group
+
+@end example
+
+@end defun
+
+@defvr {$B%f!<%6JQ?t(B} skk-server-completion-search-char
+
+$B%G%U%)%k%H$O(B @samp{~}$B!J%A%k%@!"(B#x7e$B!K$G$9!#(B
+
+@end defvr
 
 @node $B<-=q$N=q<0(B
 @subsection $B<-=q$N=q<0(B
