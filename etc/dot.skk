@@ -24,6 +24,9 @@
 ;; SKK が検索する辞書
 ;; (setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
 
+;; ja-dic を無効とする
+;; (setq skk-inhibit-ja-dic-search t)
+
 ;; @@ 表示の設定
 
 ;; 各種メッセージを日本語で通知する
