@@ -1,3 +1,8 @@
+2011-06-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (newline, newline-and-indent):
+	use skk-called-interactively-p instead of interactive-p.
+
 2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile (VERSION):

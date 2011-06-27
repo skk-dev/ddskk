@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.594 2011/06/24 23:58:03 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.595 2011/06/27 21:03:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/24 23:58:03 $
+;; Last Modified: $Date: 2011/06/27 21:03:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5263,7 +5263,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 	  ;; $BL5>r7o$K(B nil $B$K$J$k$N$G!"J]B8$7$F$*$/I,MW$,$"$k!#(B
 	  (no-newline (and skk-egg-like-newline
 			   skk-henkan-mode))
-	  (auto-fill-function (if (interactive-p)
+	  (auto-fill-function (if (skk-called-interactively-p 'interactive)
 				  auto-fill-function
 				nil)))
       ;; fill $B$5$l$F$b(B nil $B$,5"$C$F$/$k(B :-<
@@ -5290,7 +5290,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
       ad-do-it
     (let ((no-newline (and skk-egg-like-newline
 			   skk-henkan-mode))
-	  (auto-fill-function (if (interactive-p)
+	  (auto-fill-function (if (skk-called-interactively-p 'interactive)
 				  auto-fill-function
 				nil)))
       (when skk-mode
