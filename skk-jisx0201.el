@@ -4,10 +4,10 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.59 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-jisx0201.el,v 1.60 2011/06/28 11:55:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/06/28 11:55:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -242,10 +242,8 @@
      (skk-jisx0201-zenkaku-region skk-henkan-start-point
 				  skk-okurigana-start-point))
     ;;
-    (let* ((pt1 (point))
-	   pt2
-	   okuri
-	   sokuon)
+    (let ((pt1 (point))
+	  pt2 okuri sokuon)
       (setq okuri
 	    (skk-save-point
 	     (backward-char 1)

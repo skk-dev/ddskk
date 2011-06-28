@@ -1,9 +1,19 @@
 2011-06-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tankan.el (skk-tankan-get-char-data-internal): let で済む箇所
+	を let* から let へ変更.
+
+	* skk-look.el (skk-look-1): 同上.
+
+	* skk-kcode.el (skk-display-code) 
+	(skk-list-chars-find-char-string-for-code): 同上.
+
+	* skk-jisx0201.el (skk-set-okurigana): 同上.
+
 	* skk.el (newline, newline-and-indent):
 	use skk-called-interactively-p instead of interactive-p.
 
-2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+2011-06-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile (VERSION):
 	* doc/skk.texi:

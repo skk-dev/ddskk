@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.96 2011/06/25 22:24:59 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.97 2011/06/28 11:55:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/25 22:24:59 $
+;; Last Modified: $Date: 2011/06/28 11:55:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -443,8 +443,8 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 
 (defun skk-display-code (char)
 ;;   (require 'font-lock)
-  (let* ((charset (skk-char-charset char skk-charset-list))
-	 mesg)
+  (let ((charset (skk-char-charset char skk-charset-list))
+	mesg)
     (cond
      ((memq charset '(japanese-jisx0213-1
 		      japanese-jisx0213-2
@@ -753,7 +753,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
     (forward-char -1)))
 
 (defun skk-list-chars-find-char-string-for-code (code)
-  (let* ((list (skk-kcode-parse-code-string code)))
+  (let ((list (skk-kcode-parse-code-string code)))
     (if (> (nth 1 list) 160)
 	(apply #'skk-kcode-find-char-string list)
       nil)))

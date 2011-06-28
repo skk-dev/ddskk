@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.43 2011/06/01 13:38:54 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.44 2011/06/28 11:55:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/01 13:38:54 $
+;; Last Modified: $Date: 2011/06/28 11:55:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -199,12 +199,12 @@ words ファイルにある全ての見出しが対象となる。
 
 (defun skk-look-1 (word situation)
   ;; core search engine
-  (let* ((format-string (cond ((eq situation 'conversion)
-			       skk-look-conversion-arguments)
-			      ((eq situation 'completion)
-			       skk-look-completion-arguments)
-			      (t
-			       "%s")))
+  (let ((format-string (cond ((eq situation 'conversion)
+			      skk-look-conversion-arguments)
+			     ((eq situation 'completion)
+			      skk-look-completion-arguments)
+			     (t
+			      "%s")))
 	 args preargs postargs)
     (if (string= format-string "%s")
 	(setq args (list word))
