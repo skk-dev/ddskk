@@ -1,13 +1,28 @@
 `MAKEIT.BAT' の編集とインストール [README.w32.ja]
 
 Windows 95, Windows 98, Windows Me, Windows NT, Windows 2000, Windows XP
-の各オペレーティングシステムの上で動く Emacs 22 以降に DDSKK をインス
-トールする方法を解説します。
+の各オペレーティングシステムの上で動く Emacs に DDSKK をインストールする
+方法を解説します。
 
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 同梱の INSTALL 及び README も必ずご覧下さい。
+
+* 前置き
+
+** Emacs20 / Meadow 1.15
+
+APEL をインストールした上で DDSKK 14.1 をインストールしてください。
+
+** Emacs21 / Meadow 2.11
+
+APEL をインストールした上で DDSKK 最新版をインストールしてください。
+
+** Emacs22 以降 / Meadow 2.20 / Meadow 3.00
+
+APEL のインストールは不要です。
+DDSKK 最新版をインストールしてください。
 
 * Meadow/NTEmacs
 
@@ -20,7 +35,7 @@ NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 ** gzip, make, tar などの準備
 
-APEL と SKK のインストールには gzip, make, tar の各プログラムを使います。
+SKK のインストールには gzip, make, tar の各プログラムを使います。
 これらを入手する手段は、例えば
 
      http://sourceforge.net/projects/unxutils
@@ -59,9 +74,9 @@ UnxUtils.zip をダウンロード・展開して、例えば
 SKK ディストリビューションを上記の tar.exe を用いて展開します。
 
      % cd c:/tmp
-     % gunzip ddskk-14.1.tar.gz
-     % tar xvf ddskk-14.1.tar
-     % cd ddskk-14.1
+     % gunzip ddskk-14.3.tar.gz
+     % tar xvf ddskk-14.3.tar
+     % cd ddskk-14.3
 
 **** SKK 辞書の取得
 
@@ -121,17 +136,17 @@ MAKEIT.BAT を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
 Windows のコマンドプロンプトで MAKEIT.BAT のあるディレクトリに移動しま
 す。
      c:\>cd tmp
-     c:\tmp>cd ddskk-14.1
+     c:\tmp>cd ddskk-14.3
 
 `what-where' を引数として MAKEIT.BAT を実行すると
 
-     C:\tmp\ddskk-14.1>makeit what-where
+     C:\tmp\ddskk-14.3>makeit what-where
 
 インストール先が確認できます。
 
 `install' を引数として MAKEIT.BAT を実行すると
 
-     C:\tmp\ddskk-14.1>makeit install
+     C:\tmp\ddskk-14.3>makeit install
 
 バイトコンパイルとインストールが実行されます。
 
@@ -157,6 +172,22 @@ MAKEIT.BAT をダブルクリックするだけでインストールが可能となります。
   2-4. c:\Program Files\Meadow\elispmk.bat
   2-5. c:\Meadow\elispmk.bat
   2-6. d:\Meadow\elispmk.bat
+
+*** 対話的インストーラを使う場合
+
+DDSKK 14.3 では対話的インストーラを追加しました。
+
+  1. M-x dired とタイプして dired を起動します。このときディレクトリを
+     問われますので、例えば /tmp/ddskk-14.3 と指定します。
+
+  2. ディレクトリ一覧が表示されますので SKK-MK にカーソルをあわせます。
+
+  3. `L' (大文字のエル) をタイプして dired-do-load を実行します。
+     プロンプト `Load SKK-MK?' には y を答えます。
+
+  4. これ以降はインストーラからの質問に答えてください。
+
+  5. Emacs を再起動すると DDSKK が使えます。
 
 *** load-path への追加
 
@@ -184,7 +215,7 @@ Windows 上で動作する skkserv です。
 
 複数辞書検索が可能な Windows 系 OS 用の skk サーバです。
 
-     http://megadriver.yi.org/~fumi/wceskkserv/
+     http://ms.megadriver.yi.org/~fumi/wceskkserv/
 
 から入手できます。
 
