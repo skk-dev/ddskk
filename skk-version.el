@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-version.el,v 1.54 2011/06/26 10:48:57 skk-cvs Exp $
+;; Version: $Id: skk-version.el,v 1.55 2011/07/01 11:32:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/26 10:48:57 $
+;; Last Modified: $Date: 2011/07/01 11:32:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -32,7 +32,7 @@
   (require 'skk-macs))
 
 (put 'skk-version 'product-name "Daredevil SKK")
-(put 'skk-version 'version-string "14.2.94")
+(put 'skk-version 'version-string "14.3")
 (put 'skk-version 'codename "Juso")
 
 ;;;###autoload

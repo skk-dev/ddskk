@@ -1,3 +1,10 @@
+2011-07-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Version 14.3 Juso released.
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to
+	14.3.
+
 2011-06-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tankan.el (skk-tankan-get-char-data-internal): let で済む箇所
