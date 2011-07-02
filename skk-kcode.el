@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.97 2011/06/28 11:55:06 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.98 2011/07/02 03:56:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/28 11:55:06 $
+;; Last Modified: $Date: 2011/07/02 03:56:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -435,11 +435,10 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
  を表示する。"
   (interactive)
   (if (eobp)
-      (and (skk-message "カーソルがバッファの終端にあります"
-			"Cursor is at the end of the buffer")
-	   t) ; エコーした文字列をカレントバッファに挿入しないように。
-    (skk-display-code (following-char))
-    t))
+      (skk-message "カーソルがバッファの終端にあります"
+		   "Cursor is at the end of the buffer")
+    (skk-display-code (following-char)))
+  t) ; エコーした文字列をカレントバッファに挿入しないように。
 
 (defun skk-display-code (char)
 ;;   (require 'font-lock)
@@ -524,15 +523,20 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 		    (format "%3d" (skk-char-octet char 0)))))
      ;;
      (t
-      (skk-error "判別できない文字です"
-		 "Cannot understand this character")))
+      (setq mesg (if skk-japanese-message-and-error
+		     "判別できない文字です"
+		   "Cannot understand this character"))))
     ;;
-    (if (and window-system
-	     skk-show-tooltip
-	     (not (eq (symbol-function 'skk-tooltip-show-at-point) 'ignore)))
-	(funcall skk-tooltip-function
-		 (replace-regexp-in-string ", " "\n\t" mesg))
-      (message "%s" mesg))))
+    (cond
+     ((and window-system
+	   skk-show-tooltip
+	   (not (eq (symbol-function 'skk-tooltip-show-at-point) 'ignore)))
+      (funcall skk-tooltip-function
+	       (replace-regexp-in-string ", " "\n\t" mesg)))
+     (skk-show-candidates-always-pop-to-buffer
+      (skk-annotation-show (replace-regexp-in-string ", " "\n\t" mesg)))
+     (t
+      (message "%s" mesg)))))
 
 (defun skk-jis2sjis (char1 char2)
   (let* ((ch2 (if (eq (* (/ char1 2) 2) char1)

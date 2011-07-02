@@ -1,5 +1,16 @@
 2011-07-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kcode.el (skk-display-code-for-char-at-point):
+	if() について、then でも else でも t を返すコードであるため、if() を
+	抜けたあとに t を評価するようにした.
+	(skk-display-code): "判別できない文字です" について、skk-error() を
+	やめてメッセージ化した.
+	これまでの表示方法（ツールチップまたはエコーエリア）に加え、別ウィン
+	ドウでの表示をサポートした. skk-show-candidates-always-pop-to-buffer
+	と連動する.
+
+2011-07-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 14.3.50.
 
 ;; Local Variables:
