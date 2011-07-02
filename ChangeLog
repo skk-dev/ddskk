@@ -1,5 +1,7 @@
 2011-07-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: 更新.
+
 	* skk-kcode.el (skk-display-code-for-char-at-point):
 	if() について、then でも else でも t を返すコードであるため、if() を
 	抜けたあとに t を評価するようにした.
