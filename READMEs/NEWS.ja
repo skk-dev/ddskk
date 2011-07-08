@@ -3,10 +3,17 @@
 ** $ タイプ時の挙動
 
 `$' のタイプで起動する skk-display-code-for-char-at-point について、
-14.1 まではエコーエリアのみ、14.2 でツールティップ表示を導入していたところ、
-別ウィンドウ表示を導入しました。
-変数 skk-show-candidates-always-pop-to-buffer が non-nil であれば、別ウィン
-ドウに表示します。
+14.1 まではエコーエリアのみ、14.2 でツールティップ表示を導入していたとこ
+ろ、14.3 では「別ウィンドウ表示」を導入しました。
+変数 skk-show-candidates-always-pop-to-buffer が non-nil であれば、別ウィ
+ンドウに表示します。
+
+** その他バグ修正など
+
+*** skk-server-version
+
+関数 skk-server-version 内の skk-error() の引数の順が逆であったのを修正し
+た。
 
 * 14.3
 
