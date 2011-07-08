@@ -1,3 +1,8 @@
+2011-07-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-server.el (skk-server-version): skk-error() の引数の順序が逆で
+	あったため、これを修正.
+
 2011-07-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: 更新.
