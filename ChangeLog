@@ -1,3 +1,8 @@
+2011-07-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-emacs.el (skk-tooltip-show-at-point): Workaround for NTEmacs
+	with its frame maximized.  Eval the frame parameters left and top.
+
 2011-07-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-save-jisyo-original, skk-create-file) 

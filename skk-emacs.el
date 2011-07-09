@@ -556,7 +556,7 @@
 		    (nth 0 (window-inside-pixel-edges win))
 		    (if (featurep 'ns)
 			0
-		      (frame-parameter (selected-frame) 'left))
+		      (eval (frame-parameter (selected-frame) 'left)))
 		    skk-tooltip-x-offset)
 	    ;; y 座標 (上からの)
 	    top  (+ (cdr tip-destination)
@@ -569,7 +569,7 @@
 			 (if menu-bar-mode
 			     skk-emacs-menu-bar-height
 			   0)
-			 (frame-parameter (selected-frame) 'top)
+			 (eval (frame-parameter (selected-frame) 'top))
 			 (+ fontsize spacing)))
 		    skk-tooltip-y-offset)
 	    tooltip-info (skk-tooltip-resize-text text)
