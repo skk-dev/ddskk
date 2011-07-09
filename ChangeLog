@@ -1,3 +1,16 @@
+2011-07-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-save-jisyo-original, skk-create-file) 
+	(skk-get-jisyo-buffer, skk-search-jisyo-file) 
+	(skk-compose-ignore-word): コメントや docstring に記載のあった単語
+	「オプション引数」を「オプショナル引数」へ統一した.
+
+	* skk-macs.el (skk-erase-prefix): 同上.
+
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo): 同上.
+
+	* skk-gadget.el (skk-ad-to-gengo, skk-gengo-to-ad): 同上.
+
 2011-07-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-server.el (skk-server-version): skk-error() の引数の順序が逆で

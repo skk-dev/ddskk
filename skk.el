@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.595 2011/06/27 21:03:28 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.596 2011/07/09 00:29:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/27 21:03:28 $
+;; Last Modified: $Date: 2011/07/09 00:29:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3122,9 +3122,8 @@ WORD で確定する。"
 		      "Have unfixed skk-prefix"))
 	 (setq pos (point))
 	 (when (< pos skk-henkan-start-point)
-	   (skk-error
-	    "カーソルが変換開始地点より前にあります"
-	    "Henkan end point must be after henkan start point"))
+	   (skk-error "カーソルが変換開始地点より前にあります"
+		      "Henkan end point must be after henkan start point"))
 	 (setq skk-henkan-key (buffer-substring-no-properties
 			       skk-henkan-start-point pos))
 	 (when (and skk-katakana
@@ -3134,9 +3133,8 @@ WORD で確定する。"
 	   (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)))
 	 (when (and skk-okurigana
 		    (string-match "\\* *$" skk-henkan-key))
-	   (skk-error
-	    "空の送り仮名で漢字を登録しようとしています"
-	    "No okurigana!"))
+	   (skk-error "空の送り仮名で漢字を登録しようとしています"
+		      "No okurigana!"))
 	 (if skk-allow-spaces-newlines-and-tabs
 	     ;; skk-henkan-key の中の "[ \n\t]+" を完全に取り除く。
 	     (while (string-match "[ \n\t]+" skk-henkan-key)
@@ -3146,9 +3144,8 @@ WORD で確定する。"
 	   (skk-save-point
 	    (beginning-of-line)
 	    (when (> (point) skk-henkan-start-point)
-	      (skk-error
-	       "変換キーに改行が含まれています"
-	       "Henkan key may not contain a new line character")))
+	      (skk-error "変換キーに改行が含まれています"
+			 "Henkan key may not contain a new line character")))
 	   ;; 最初のスペースで skk-henkan-key をカットするだけ。
 	   (setq skk-henkan-key (substring skk-henkan-key
 					   0
@@ -3464,7 +3461,7 @@ NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。
 
 (defun skk-save-jisyo-original (&optional quiet)
   "SKK の辞書バッファをセーブする。
-オプション引数 QUIET が non-nil であれば、辞書セーブ時のメッセージを出さない。"
+オプショナル引数 QUIET が non-nil であれば、辞書セーブ時のメッセージを出さない。"
   (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
     (if (not (and jisyo-buffer
 		  (buffer-modified-p jisyo-buffer)))
@@ -3791,7 +3788,7 @@ If you want to restore the dictionary from your drive, try
 
 (defun skk-create-file (file &optional japanese english modes)
   "FILE がなければ、FILE という名前の空ファイルを作る。
-オプション引数の JAPANESE/ENGLISH を指定すると、ファイル作成後そのメッセージ
+オプショナル引数の JAPANESE/ENGLISH を指定すると、ファイル作成後そのメッセージ
 をエコーエリアに表示する。"
   (let ((file (expand-file-name file)))
     (if (file-exists-p file)
@@ -3809,7 +3806,7 @@ If you want to restore the dictionary from your drive, try
 
 (defun skk-get-jisyo-buffer (file &optional nomsg)
   "FILE を開いて SKK 辞書バッファを作り、バッファを返す。
-オプション引数の NOMSG を指定するとファイル読み込みの際のメッセージを表示しな
+オプショナル引数の NOMSG を指定するとファイル読み込みの際のメッセージを表示しな
 い。"
   (when file
     (let* ((inhibit-quit t)
@@ -3899,7 +3896,7 @@ If you want to restore the dictionary from your drive, try
 検索領域が LIMIT 以下になるまでバイナリサーチを行い、その後リニアサーチを行う。
 LIMIT が 0 であれば、リニアサーチのみを行う。
 辞書がソートされていない場合は LIMIT を 0 とする必要がある。
-オプション引数の NOMSG が non-nil であれば `skk-get-jisyo-buffer' の
+オプショナル引数の NOMSG が non-nil であれば `skk-get-jisyo-buffer' の
 メッセージを出力しない。
 
 FILE には辞書ファイルだけでなく、
@@ -4471,7 +4468,7 @@ WORD が共有辞書になければ、個人辞書の辞書エントリから削除する。"
   "無視すべき候補をまとめる。
 WORDS の中に `skk-ignore-dic-word' 関数でクォートした候補があれば、一つの候補
 にまとめる。
-オプション引数の ADD が指定されていたら、ADD を含めた `skk-ignore-dic-word'
+オプショナル引数の ADD が指定されていたら、ADD を含めた `skk-ignore-dic-word'
 候補群を作る。
 新しい `skk-ignore-dic-word' 候補を car に、それ以外の候補を cdr にしたセル
 \(リスト)を返す。"

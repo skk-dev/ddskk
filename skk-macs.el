@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.176 2011/06/24 23:58:03 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.177 2011/07/09 00:29:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/24 23:58:03 $
+;; Last Modified: $Date: 2011/07/09 00:29:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -705,7 +705,7 @@ BUFFER defaults to the current buffer."
 
 (defun skk-erase-prefix (&optional clean)
   "`skk-echo' が non-nil であれば現在表示されている `skk-prefix' を消す。
-オプション引数の CLEAN が指定されると、変数としての `skk-prefix' を空文字に、
+オプショナル引数の CLEAN が指定されると、変数としての `skk-prefix' を空文字に、
 `skk-current-rule-tree' を nil に初期化する。"
   ;; かな文字の入力がまだ完成していない場合にこの関数が呼ばれたときなどは
   ;; 表示されている skk-prefix は削除したいが、変数としての skk-prefix は

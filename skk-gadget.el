@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.48 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.49 2011/07/09 00:29:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2011/07/09 00:29:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -275,9 +275,9 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 
 ;;;###autoload
 (defun skk-ad-to-gengo (gengo-index &optional divider tail not-gannen)
-  ;; 西暦を元号に変換する。オプション引数の divider が指定されていれば、年号と
-  ;; 数字の間に、tail が指定されていれば、数字の末尾に、それぞれの文字列を連結
-  ;; する。
+  ;; 西暦を元号に変換する。オプショナル引数の DIVIDER が指定されていれば、年号
+  ;; と数字の間に、TAIL が指定されていれば、数字の末尾に、それぞれの文字列を連
+  ;; 結する。
   ;; 辞書見出し例;
   ;; せいれき#ねん /(skk-ad-to-gengo 0 nil "年")/(skk-ad-to-gengo 0 " " " 年")/
   (let ((v (skk-ad-to-gengo-1 (string-to-number
@@ -319,7 +319,7 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 
 ;;;###autoload
 (defun skk-gengo-to-ad (&optional head tail)
-  ;; 元号を西暦に変換する。オプション引数の HEAD, TAIL が指定されてい
+  ;; 元号を西暦に変換する。オプショナル引数の HEAD, TAIL が指定されてい
   ;; れば、その文字列を先頭、末尾に連結する。
   ;; 辞書見出し例;
   ;;   しょうわ#ねん /(skk-gengo-to-ad "" "年")/(skk-gengo-to-ad "" " 年")/\
