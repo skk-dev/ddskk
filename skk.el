@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.596 2011/07/09 00:29:39 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.597 2011/07/10 09:31:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/07/09 00:29:39 $
+;; Last Modified: $Date: 2011/07/10 09:31:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2632,9 +2632,9 @@ WORD $B$G3NDj$9$k!#(B"
   (interactive "P")
   (let ((inhibit-quit t)
 	converted kakutei-word)
-    (when skk-henkan-mode
+    (when skk-henkan-mode		;'on or 'active
       (case skk-henkan-mode
-	(active
+	(active				;$B"'%b!<%I(B
 	 (setq kakutei-word
 	       ;; $B3NDj<-=q$N8l$G3NDj$7$?$H$-$O!"<-=q$K$=$N8l$r=q$-9~$`I,MW$b$J(B
 	       ;; $B$$$7!"99?7$9$kI,MW$b$J$$$H;W$C$F$$$?$,!"Jd40$r9T$J$&$H$-$O!"(B
@@ -2742,6 +2742,7 @@ WORD $B$G3NDj$9$k!#(B"
 	 (if (skk-numeric-p)
 	     (cons kakutei-word converted)
 	   kakutei-word))))
+
     (skk-do-auto-fill)
     (when (and skk-undo-kakutei-return-previous-point
 	       (numberp skk-undo-kakutei-previous-point)
@@ -3970,6 +3971,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 	(setq min skk-okuri-nasi-min
 	      max (point-max)))
       (when (> limit 0)
+	;; $BFsJ,C5:w(B
 	(while (> (setq size (- max min)) limit)
 	  (goto-char (+ min (/ size 2)))
 	  (beginning-of-line)
