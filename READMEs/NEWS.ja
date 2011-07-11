@@ -10,9 +10,14 @@
 
 ** その他バグ修正など
 
-*** skk-server-version
+*** skk-server-version()
 
 関数 skk-server-version 内の skk-error() の引数の順が逆であったのを修正し
+た。
+
+*** NTEmacs 関連
+
+フレームを最大化にした NTEmacs で Tooltip を表示した場合のエラーを対処し
 た。
 
 * 14.3
