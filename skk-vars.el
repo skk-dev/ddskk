@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.381 2011/06/26 06:46:05 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.382 2011/07/12 13:32:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/26 06:46:05 $
+;; Last Modified: $Date: 2011/07/12 13:32:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -670,12 +670,12 @@ SKK では、かな漢字変換・確定を行った文字列は全て個人辞書に取り込まれるが、
   :group 'skk-private)
 
 (defcustom skk-update-jisyo-function 'skk-update-jisyo-original
-  "*`skk-update-jisyo' で使用する関数。"
+  "*この変数が指す関数は、関数 `skk-update-jisyo' にて funcall で実行される。"
   :type 'function
   :group 'skk-private)
 
 (defcustom skk-save-jisyo-function 'skk-save-jisyo-original
-  "*`skk-save-jisyo' で使用する関数。"
+  "*この変数が指す関数は、 関数 `skk-save-jisyo' にて funcall で実行される。"
   :type 'function
   :group 'skk-private)
 
