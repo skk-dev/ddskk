@@ -1,3 +1,18 @@
+2011-07-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-tankan-mode-original-window-configuration):
+	新たな変数.
+
+	* skk-tankan.el (skk-tankan): M-x skk-tankan 実行時の
+	window-configuration を保存.
+	(skk-tankan-mode-quit): window-configuration を復帰.
+
+	* skk-cus.el (skk-customize, skk-customize-done): switch-to-buffer()
+	に代えて set-window-buffer() を使用.
+
+	* skk-annotation.el (skk-annotation-add): switch-to-buffer() に代えて
+	pop-to-buffer() を使用.
+
 2011-07-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-update-jisyo-function) 

@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.51 2011/06/28 11:55:06 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.52 2011/07/14 12:48:58 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/06/28 11:55:06 $
+;; Last Modified: $Date: 2011/07/14 12:48:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1632,6 +1632,8 @@ METHOD が 2 であれば総画数として検索を実行する。
 \\[skk-tankan] で部首変換を、
 \\[universal-argument] 数値 \\[skk-tankan] で総画数変換を開始する。"
   (interactive "P")
+  (setq skk-tankan-mode-original-window-configuration
+	(current-window-configuration))
   (let ((buf (get-buffer-create "*単漢字*"))
 	(list (skk-tankan-select-tankanji-kouho
 	       (cons nil (if (integerp arg)
@@ -1687,9 +1689,8 @@ METHOD が 2 であれば総画数として検索を実行する。
 
 (defun skk-tankan-mode-quit ()
   (interactive)
-  (if (one-window-p)
-      (switch-to-buffer "*scratch*")
-    (delete-window)))
+  (kill-buffer "*単漢字*")
+  (set-window-configuration skk-tankan-mode-original-window-configuration))
 
 (defun skk-tankan-mode-display-code ()
   (interactive)

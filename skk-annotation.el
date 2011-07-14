@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.185 2011/06/24 23:58:03 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.186 2011/07/14 12:48:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/06/24 23:58:03 $
+;; Last Modified: $Date: 2011/07/14 12:48:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -666,9 +666,11 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
       (setq skk-annotation-original-window-configuration
 	    (current-window-configuration))
       (delete-other-windows)
-      (split-window-vertically)
-      (other-window 1)
-      (switch-to-buffer (get-buffer-create skk-annotation-buffer))
+;;       (split-window-vertically)
+;;       (other-window 1)
+;;       (switch-to-buffer (get-buffer-create skk-annotation-buffer))
+      (pop-to-buffer skk-annotation-buffer)
+
       (setq buffer-read-only nil
 	    skk-annotation-mode t)
       (skk-annotation-erase-buffer)

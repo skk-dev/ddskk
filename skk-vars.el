@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.382 2011/07/12 13:32:34 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.383 2011/07/14 12:48:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/07/12 13:32:34 $
+;; Last Modified: $Date: 2011/07/14 12:48:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4900,6 +4900,9 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
     (define-key map "$" 'skk-tankan-mode-display-code)
     map)
   "Keymap used in skk-tankan mode.")
+
+(defvar skk-tankan-mode-original-window-configuration nil
+  "")
 
 (defface skk-tankan-face
   '((((class color) (type tty))
