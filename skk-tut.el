@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.85 2011/06/04 01:30:22 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.86 2011/07/15 13:54:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/04 01:30:22 $
+;; Last Modified: $Date: 2011/07/15 13:54:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -625,9 +625,10 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
     (unless (< 22 height)
       ;; Keep at least 23 lines for the upper window.
       (enlarge-window (- 23 height))))
-  (other-window 1)
+;;   (other-window 1)
   ;; make it selected window and current buffer.
-  (switch-to-buffer skktut-answer-buffer)
+;;   (switch-to-buffer skktut-answer-buffer)
+  (pop-to-buffer skktut-answer-buffer)
   ;; not make it current buffer but visible.
   (display-buffer skktut-question-buffer)
   (setq skktut-working-window-configuration
@@ -961,7 +962,8 @@ tutorial /チュートリアル/
 	  (put-text-property p (point) 'face skk-tut-question-face))))))
 
 (defun skktut-end-tutorial ()
-  (switch-to-buffer skktut-question-buffer)
+;;  (switch-to-buffer skktut-question-buffer)
+  (pop-to-buffer skktut-question-buffer)
   (delete-other-windows)
   (skktut-erase-buffer)
   (let (buffer-read-only)
@@ -976,13 +978,14 @@ SKK チュートリアルはこれで終りです。
 
 \t%s
 
-迄お送り下さい。なお、このアドレスは SKK Ring Server Openlab Mailing
-List のアドレスです。ただし現在、投稿できるのはメンバーに限られます。
-投稿前に ML に参加してください。ML に参加するには
+迄お送り下さい。このアドレスは SKK Ring Server Openlab Mailing List
+のアドレスです。
+ただし、投稿できるのはメンバーに限られます。投稿する前に ML に参加し
+てください。ML に参加するには、本文と Subject が空のメールを
 
 \t%s
 
-へ本文と Subject が空のメールをお送りください。
+迄お送りください。
 
 !! 最後に <return> キーを押してください。"
 
@@ -1018,7 +1021,8 @@ with both the subject and the body empty.
 	  (skktut-message "<return> キーを押してください"
 			  "Hit <return> key")
 	  (if (and char (eq ?\C-m char))
-	      (setq skktut-tutorial-end t)))))))
+	      (setq skktut-tutorial-end t)))))
+    (message nil)))
 
 (defun skktut-setup-delete-backward-char ()
   (let ((commands '(backward-delete-char-untabify

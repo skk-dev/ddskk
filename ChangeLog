@@ -1,3 +1,9 @@
+2011-07-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tut.el (skktut-make-windows, skktut-end-tutorial):
+	switch-to-buffer() に代えて pop-to-buffer() を使用.
+	(skktut-end-tutorial): 終了時メッセージの文言を微修正.
+
 2011-07-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-tankan-mode-original-window-configuration):
