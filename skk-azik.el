@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.9 2010/11/24 12:22:27 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.10 2011/07/19 13:01:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2010/11/24 12:22:27 $
+;; Last Modified: $Date: 2011/07/19 13:01:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -70,7 +70,6 @@
 (defvar skk-azik-additional-rom-kana-rule-list
   '((";" nil ("ッ" . "っ"))
     ("x;" nil ";")
-    ("b." nil ("ブ" . "ぶ"))
     ("bd" nil ("ベン" . "べん"))
     ("bh" nil ("ブウ" . "ぶう"))
     ("bj" nil ("ブン" . "ぶん"))
@@ -251,7 +250,6 @@
     ("kyw" nil ("キェイ" . "きぇい"))
     ("kyz" nil ("キャン" . "きゃん"))
     ("kz" nil ("カン" . "かん"))
-    ("m." nil ("ム" . "む"))
     ("md" nil ("メン" . "めん"))
     ("mf" nil ("ム" . "む"))
     ("mga" nil ("ミャ" . "みゃ"))
@@ -289,7 +287,6 @@
     ("myw" nil ("ミェイ" . "みぇい"))
     ("myz" nil ("ミャン" . "みゃん"))
     ("mz" nil ("マン" . "まん"))
-    ("n." nil ("ヌ" . "ぬ"))
     ("nb" nil ("ネバ" . "ねば"))
     ("nd" nil ("ネン" . "ねん"))
     ("nf" nil ("ヌ" . "ぬ"))
@@ -511,7 +508,6 @@
     ("yr" nil ("ヨル" . "よる"))
     ("yv" nil ("ユウ" . "ゆう"))
     ("yz" nil ("ヤン" . "やん"))
-    ("z." nil ("ズ" . "ず"))
     ("zc" nil ("ザ" . "ざ"))
     ("zd" nil ("ゼン" . "ぜん"))
     ("zf" nil ("ゼ" . "ぜ"))
