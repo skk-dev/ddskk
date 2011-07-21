@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.63 2011/06/03 23:35:25 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.64 2011/07/21 12:45:27 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2011/06/03 23:35:25 $
+;; Last Modified: $Date: 2011/07/21 12:45:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -281,14 +281,14 @@
 			(cons e n))
 		      (mapcar 'car skk-study-alist))))
 	  nil 'require-match)))
-  (when (string= theme "general")
-    (skk-error "\"general\" テーマは削除できません"
-	       "Cannot remove theme \"general\""))
-  (setq skk-study-alist (delq (assoc theme skk-study-alist)
-			      skk-study-alist))
-  (when (and skk-study-current-buffer-theme
-	     (string= skk-study-current-buffer-theme theme))
-    (setq skk-study-current-buffer-theme nil)))
+  (if (string= theme "general")
+      (skk-message "学習テーマ `general' は削除できません"
+		 "Cannot remove skk-study theme `general'")
+    (setq skk-study-alist (delq (assoc theme skk-study-alist)
+				skk-study-alist))
+    (when (and skk-study-current-buffer-theme
+	       (string= skk-study-current-buffer-theme theme))
+      (setq skk-study-current-buffer-theme nil))))
 
 ;;;###autoload
 (defun skk-study-copy-theme (from to)

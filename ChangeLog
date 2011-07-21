@@ -1,3 +1,8 @@
+2011-07-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-study.el (skk-study-remove-theme): skk-error() に代えて
+	skk-message() を使用.
+
 2011-07-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-azik.el (skk-azik-additional-rom-kana-rule-list):
