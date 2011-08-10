@@ -6,16 +6,17 @@ skk-bayesian.el は、直前の履歴のみ使用する skk-study.el に比べて、より
 
 1. bskk $Bのインストール
 
-   bskk は ruby スクリプトです。ruby をインストールしてください。
-   bskk はサーバ、またはサブプロセスとして使用します。
+   bskk は ruby スクリプトです。事前に ruby (http://www.ruby-lang.org/ja/)
+   をインストールしてください。
+   bskk はサブプロセス、またはサーバとして使用します。
 
    (a) サブプロセスとして使用する場合
 
-       bskk を PATH の通った場所に置いてください。
+       bskk を 環境変数 PATH の通った場所に置いてください。
 
    (b) サーバとして使用する場合
 
-       skk-bayesian.el が Emacs から読み込まれる前に以下のように bskk 
+       Emacs が skk-bayesian.el を読み込む前に、以下のように bskk 
        をあらかじめ起動しておいてください。
 
        % bskk -f ~/.skk-bayesian -s
@@ -23,21 +24,21 @@ skk-bayesian.el は、直前の履歴のみ使用する skk-study.el に比べて、より
        $Bサーバを終了させるときは以下のようにします。
 
        % kill -TERM {bskk の PID}
-
-       ~/.skk には skk-bayesian-prefer-server 変数を追加で指定します
-       (後述)。
+       
+       変数 skk-bayesian-prefer-server を Non-nil と指定します。
+       ~/.skk への記述方法は後述します。
 
 2. skk-bayesian.el のインストール
 
    以下のいずれかの方法で skk-bayesian.el をインストールしてください。
 
    (a) SKK ソースのトップディレクトリ (このディレクトリのひとつ上) に
-       skk-bayesian.el をコピーし、SKK をインストールしてください。
+       skk-bayesian.el をコピーしてから SKK をインストールしてください。
 
        % make install
 
-   (b) skk-bayesian.el のみ手動で load-path の通った場所にコピーして利用
-       することもできます。
+   (b) skk-bayesian.el のみを手動で変数 load-path の通った場所にコピー
+       して利用することもできます。
 
        % cp skk-bayesian.el ~/site-lisp
 

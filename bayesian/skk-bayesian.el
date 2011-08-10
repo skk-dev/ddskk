@@ -3,7 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: skk-bayesian.el,v 1.5 2011/08/10 12:07:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method, bayesian estimation
+;; Last Modified: $Date: 2011/08/10 12:07:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -67,18 +69,21 @@
 ;; ~/.skk に、(require 'skk-bayesian) と書いて下さい。
 ;; skk-study との併用は機能が重なるので、お勧めできません。
 ;;
-;; また、bskk は、サーバかサブプロセスとして使用します。
+;; また、bskk は、サブプロセスかサーバとして使用します。
 ;; *サブプロセス
-;; サブプロセスとして使用するには、bskk をパスの通った場所に置くだけです。
-;; 問題は、いくつも emacs を起動すると ~/.skk-bayesian は最後に更新した
-;; emacs に依るので、他の emacs での学習データは保存されません。
+;;   サブプロセスとして使用するには、bskk を環境変数 PATH の通った場所に
+;;   置くだけです。
+;;   問題は、いくつも emacs を起動すると ~/.skk-bayesian は最後に更新した
+;;   emacs に依るので、他の emacs での学習データは保存されません。
 ;; *サーバ
-;; bskk をサーバとして使用するには、skk-bayesian.el が emacs から読み込
-;; まれる前に、
-;; % bskk -f ~/.skk-bayesian -s
-;; として、立ち上げておく必要があります。
-;; サーバを終了させる方法は、kill -TERM です。
-;; .skk には、(setq skk-bayesian-prefer-server t) を書いて下さい。
+;;   bskk をサーバとして使用するには、emacs が skk-bayesian.el を読み込
+;;   む前に、
+;;     % bskk -f ~/.skk-bayesian -s
+;;   と実行して、起動しておく必要があります。
+;;   サーバを終了させる方法は、
+;;     % kill -TERM {bskk の PID}
+;;   です。
+;;   ~/.skk には、(setq skk-bayesian-prefer-server t) を書いて下さい。
 ;;
 ;; <仕様の覚え書き>
 ;; 各関数と、bskk のコメント内の Specifications に書かれている。

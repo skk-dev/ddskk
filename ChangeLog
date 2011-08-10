@@ -1,3 +1,9 @@
+2011-08-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/README.ja: ドキュメントの微修正.
+	* bayesian/bskk: ドキュメントの微修正.
+	RCS のキーワード展開 Id と Date を挿入.
+
 2011-07-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-study.el (skk-study-remove-theme): skk-error() に代えて
