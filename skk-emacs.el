@@ -457,6 +457,10 @@
     ;; (text . (x . y))
     (cons text (cons columns lines))))
 
+(defun skk-tooltip-relative-p ()
+  (and (featurep 'ns)
+       (< emacs-major-version 24)))
+
 (defun skk-tooltip-show-at-point (text &optional situation)
   "TEXT を tooltip で表示する。
 オプショナル引数 SITUATION がシンボル annotation であれば、
@@ -554,19 +558,21 @@
 	    ;; x 座標 (左からの)
 	    left (+ (car tip-destination)
 		    (nth 0 (window-inside-pixel-edges win))
-		    (if (featurep 'ns)
+		    (if (skk-tooltip-relative-p)
 			0
 		      (eval (frame-parameter (selected-frame) 'left)))
 		    skk-tooltip-x-offset)
 	    ;; y 座標 (上からの)
 	    top  (+ (cdr tip-destination)
 		    (nth 1 (window-inside-pixel-edges win))
-		    (if (featurep 'ns)
+		    (if (skk-tooltip-relative-p)
 			0
 		      (+ (if tool-bar-mode
 			     skk-emacs-tool-bar-height
 			   0)
-			 (if menu-bar-mode
+			 (if (and menu-bar-mode
+				  (not (or (boundp 'mac-carbon-version-string)
+					   (featurep 'ns))))
 			     skk-emacs-menu-bar-height
 			   0)
 			 (eval (frame-parameter (selected-frame) 'top))
@@ -582,7 +588,7 @@
 	    screen-width (display-pixel-width)
 	    screen-height (display-pixel-height))
       ;;
-      (unless (featurep 'ns)
+      (unless (skk-tooltip-relative-p)
 	(when (> (+ left text-width) screen-width)
 	  ;; 右に寄りすぎて欠けてしまわないように
 	  (setq left (- left (- (+ left text-width
