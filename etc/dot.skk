@@ -536,6 +536,7 @@
 	      (skk-update-jisyo-original word)))))
 
 ;; @@ SKK abbrev mode
+;; 見出し語の補完において Lisp シンボルも補完する
 ;; (add-to-list 'skk-completion-prog-list
 ;; 	     '(skk-comp-lisp-symbol) t)
 
