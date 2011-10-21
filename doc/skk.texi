@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/21 11:11:05 $
+@set UPDATED $Date: 2011/10/21 11:51:24 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1773,12 +1773,12 @@ Emacs $B%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$K$D$$$F$O!"(B
 @node skk-isearch$B$HF~NO%b!<%I(B
 @subsection skk-isearch$B$HF~NO%b!<%I(B
 
+@vindex skk-isearch-mode-string-alist
+
 $BF~NO%b!<%I$K9g$o$;$F!"%$%s%/%j%a%s%?%k!&%5!<%A$N%W%m%s%W%H$,I=<($5$l$^$9!#(B
-$B%W%m%s%W%H$N<oN`$O!"0J2<$N(B 5 $B$D$G$9!#(B
+$B%W%m%s%W%H$N<oN`$O!"0J2<$N(B 5 $B$D$G$9(B@footnote{$BJQ?t(B @code{skk-isearch-mode-string-alist} $B$rE,59@_Dj$9$k$3$H$K$h$jJQ99$,2DG=$G$9!#(B}$B!#(B
 
 @table @samp
-@item I-search: [aa]
-$B%"%9%-!<%b!<%I(B
 
 @item I-search: [$B$+(B]
 $B$+$J%b!<%I(B
@@ -1789,9 +1789,16 @@ Emacs $B%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$K$D$$$F$O!"(B
 @item I-search: [$B1Q(B]
 $BA41Q%b!<%I(B
 
+@item I-search: [aa]
+$B%"%9%-!<%b!<%I(B
+
+@item I-search: [a$B$"(B]
+Abbrev $B%b!<%I(B
+
 @item I-search: [--]
 $B%$%s%/%j%a%s%?%k!&%5!<%A%b!<%I$G(B @kbd{C-x C-j} $B$J$I$r%?%$%W$7$F(B DDSKK $B$r(B
 $B=*N;$7$?>l9g$O!"$3$N%W%m%s%W%H$,I=<($5$l$^$9!#(B
+
 @end table
 
 @node $B%A%e!<%H%j%"%k(B
@@ -8859,24 +8866,16 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 @node $B5/F0;~$NF~NO%b!<%I$N;XDj(B
 @subsection $B5/F0;~$NF~NO%b!<%I$N;XDj(B
 
-@defvr {$B%f!<%6JQ?t(B} skk-isearch-use-previous-mode
-
-$B$3$NJQ?t$NCM$,(B @code{non-nil} $B$G$"$l$P!"<!$N%$%s%/%j%a%s%?%k!&%5!<%A5/F0(B
-$B;~$NF~NO%b!<%I$O!"A02s$N%$%s%/%j%a%s%?%k!&%5!<%A$G$NF~NO%b!<%I$K$J$j$^$9!#(B
-@end defvr
-
 @defvr {$B%f!<%6JQ?t(B} skk-isearch-start-mode
 
-$B$3$NJQ?t$NCM$O!"%$%s%/%j%a%s%?%k!&%5!<%A$N5/F0;~$NF~NO%b!<%I$r7hDj$7$^$9!#(B
-$B$?$@$7!"JQ?t(B @code{skk-isearch-use-previous-mode} $B$NCM$,(B @code{non-nil} $B$G(B
-$B$"$l$P!"$=$A$i$N5!G=$,M%@h$5$l$^$9!#(B
+$B%$%s%/%j%a%s%?%k!&%5!<%A$r5/F0$7$?$H$-$NF~NO%b!<%I$r$3$NJQ?t$G;XDj$G$-$^$9!#(B
+$B0J2<$N$$$:$l$+$N%7%s%\%k$r<h$jF@$^$9!#(B
 
-$B$3$NJQ?t$O0J2<$NCM$r<h$jF@$^$9!#(B
+@table @code
 
-@table @samp
-@item latin
-
-$B%"%9%-!<%b!<%I(B
+@item nil
+$B%+%l%s%H%P%C%U%!$G(B SKK $B%b!<%I$,5/F0$5$l$F$$$l$P!"$=$N%b!<%I$r!#(B
+$B5/F0$5$l$F$$$J$1$l$P%"%9%-!<%b!<%I!#(B
 
 @item hiragana
 
@@ -8885,7 +8884,23 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 @item jisx0208-latin
 
 $BA41Q%b!<%I(B
+
+@item latin
+
+$B%"%9%-!<%b!<%I(B
+
 @end table
+
+$B$?$@$7!"<!$K5s$2$kJQ?t(B @code{skk-isearch-use-previous-mode} $B$N@_Dj$,M%@h(B
+$B$5$l$^$9!#(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-isearch-use-previous-mode
+
+$B$3$NJQ?t$NCM$,(B @code{non-nil} $B$G$"$l$P!"<!$N%$%s%/%j%a%s%?%k!&%5!<%A5/F0(B
+$B;~$NF~NO%b!<%I$O!"A02s$N%$%s%/%j%a%s%?%k!&%5!<%A$G$NF~NO%b!<%I$K$J$j$^$9!#(B
+
 @end defvr
 
 @node $B4V$K6uGrEy$r4^$`J8;zNs$N8!:w(B
