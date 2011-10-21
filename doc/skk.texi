@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/18 13:06:57 $
+@set UPDATED $Date: 2011/10/21 11:11:05 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7059,7 +7059,7 @@ Emacs $B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$
 
 @group
 ------ Buffer: foo ------
-$B"':F5/E*(B
+$B"':F5/E*(B@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -7067,7 +7067,7 @@ Emacs $B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$
 
 @group
 ------------------ MiniBuffer ------------------
-Really purge ``$B$5$$$-$F$-(B /$B:F5/E*(B/''?(yes or no)
+Really purge ``$B$5$$$-$F$-(B /$B:F5/E*(B/''?(yes or no) @point{}
 ------------------ MiniBuffer ------------------
 @end group
 
@@ -7075,7 +7075,7 @@ Really purge ``$B$5$$$-$F$-(B /$B:F5/E*(B/''?(yes or no)
 
 @group
 ------ Buffer: foo ------
-
+@point{}
 ------ Buffer: foo ------
 @end group
 
@@ -8726,23 +8726,19 @@ XEmacs $B$N>l9g(B
 @c http://mail.ring.gr.jp/skk/200704/msg00036.html
 @defvr {$B%f!<%6JQ?t(B} skk-verbose
 
-$B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H!"(BSKK $B$,=>MhI=<($7$J$+$C$?$h$&$J(B
-$BF~NO!&JQ49Cf$N=u8@E*%a%C%;!<%8$,I=<($5$l$^$9!#(B
+$B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H!"F~NOCf!?JQ49Cf$K=u8@E*%a%C%;(B
+$B!<%8$rI=<($7$^$9!#(B
 
 @lisp
 (setq skk-verbose t)
 @end lisp
 @end defvr
 
-@noindent
-$B$3$N%*%W%7%g%s$N6qBNE*$J8z2L$r$_$F$$$-$^$7$g$&!#(B
-
 @table @asis
 @item $B"&%b!<%I(B
 
-$B%U%!%s%/%7%g%s%-!<(B (F1 $B!A(B F10) $B$N;H$$J}$rI=<($7$^$9!#(B@code{skk-verbose}
-$B$N@_Dj$H$H$b$K(B @code{skk-j-mode-function-key-usage} $B$r0J2<$N$h$&$K@_Dj$7(B
-$B$F$_$F$/$@$5$$!#(B
+$B%U%!%s%/%7%g%s%-!<(B (@key{F1} $B!A(B @key{F10}) $B$K3d$jEv$F$i$l$F$$$k5!G=$rI=<((B
+$B$7$^$9!#JQ?t(B @code{skk-verbose} $B$N@_Dj$HF1;~$KJQ?t(B @code{skk-j-mode-function-key-usage} $B$r0J2<$N$h$&$K@_Dj$7$F$_$F$/$@$5$$!#(B
 @vindex skk-j-mode-function-key-usage
 
 @lisp
@@ -8750,8 +8746,8 @@ XEmacs $B$N>l9g(B
 @end lisp
 
 @noindent
-$B$9$k$H!""&%b!<%I$G0lDj;~4V(B ($BI8=`$G$O(B 1.5 $BIC(B) $B%-!<F~NO$,$J$+$C$?$H$-!"%(%3!<(B
-$B%(%j%"$K0J2<$N$h$&$J%a%C%;!<%8$,I=<($5$l$^$9!#(B
+$B"&%b!<%I$K$*$$$F%-!<F~NO$,0lDj;~4V(B ($BI8=`$G$O(B 1.5 $BIC(B) $B$J$5$l$J$+$C$?$H$-!"(B
+$B%(%3!<%(%j%"$K0J2<$N$h$&$J%a%C%;!<%8$,I=<($5$l$^$9!#(B
 
 @example
 @group
@@ -8768,8 +8764,7 @@ XEmacs $B$N>l9g(B
 @item $B"'%b!<%I(B
 
 Wikipedia $B%"%N%F!<%7%g%s5!G=$N;H$$J}$r%a%C%;!<%8$G0FFb$7$^$9!#(B
-@code{skk-verbose} $B$N@_Dj$H$H$b$K(B @code{skk-show-annotation} $B$r0J2<$N$h(B
-$B$&$K@_Dj$7$F$_$F$/$@$5$$!#(B
+$BJQ?t(B @code{skk-verbose} $B$N@_Dj$HF1;~$KJQ?t(B @code{skk-show-annotation} $B$r(B @code{non-nil} $B$K@_Dj$7$F$_$F$/$@$5$$!#(B
 @vindex skk-show-annotation
 
 @lisp
@@ -8777,8 +8772,8 @@ Wikipedia $B%"%N%F!<%7%g%s5!G=$N;H$$J}$r%a%C%;!<%8$G0FFb$7$^$9!#(B
 @end lisp
 
 @noindent
-$B$9$k$H!""'%b!<%I$G0lDj;~4V(B ($BI8=`$G$O(B 1.5 $BIC(B) $B%-!<F~NO$,$J$+$C$?$H$-!"%(%3!<(B
-$B%(%j%"$K0J2<$N$h$&$J%a%C%;!<%8$,I=<($5$l$^$9!#(B
+$B"'%b!<%I$K$*$$$F%-!<F~NO$,0lDj;~4V(B ($BI8=`$G$O(B 1.5 $BIC(B) $B$J$5$l$J$+$C$?$H$-!"(B
+$B%(%3!<%(%j%"$K0J2<$N$h$&$J%a%C%;!<%8$,I=<($5$l$^$9!#(B
 
 @example
 @group
