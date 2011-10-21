@@ -8,6 +8,19 @@
 変数 skk-show-candidates-always-pop-to-buffer が non-nil であれば、別ウィ
 ンドウに表示します。
 
+** skk-azik.el
+「子音 + ピリオド」の組み合せのうち、次の４つを削除した。
+  "b." nil ("ブ" . "ぶ")
+  "m." nil ("ム" . "む")
+  "n." nil ("ヌ" . "ぬ")
+  "z." nil ("ズ" . "ず")
+
+  yuu <sleepboy.zzz@gmail.com> さんと、
+  Teika Kazura <teika@lavabit.com> さんからの提案でした [skk 7485]。
+
+** skk-tankan.el
+M-x skk-tankan 実行時に window-configuration を保存するよう対処した。
+
 ** その他バグ修正など
 
 *** skk-server-version()
