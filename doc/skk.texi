@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/22 00:21:08 $
+@set UPDATED $Date: 2011/10/22 10:27:32 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8231,7 +8231,7 @@ L:define-ccl-slide-translation-table
 A~ /$B%A%k%IIU$-(BA(LATIN CAPITAL LETTER A WITH TILDE)/
 @end lisp
 $B$HEPO?(B@footnote{$B<B:]$K$O(B JIS X 0213 $B$N(B1$BLL(B9$B6h(B26$BE@$N(B1$BJ8;z$,EPO?$5$l$F$$$^$9!#(B
-$B$3$NJ8;z$r(B skk.texi $B$KD>@\5-:\$9$k$N$OHr$1$^$7$?!#(B}$B$5$l$F$$$^$9!#(B
+$B$3$NJ8;z$r(B @file{skk.texi} $B$KD>@\5-:\$9$k$N$OHr$1$^$7$?!#(B}$B$5$l$F$$$^$9!#(B
 $B$7$?$,$C$F!""&(BA~ @key{SPC} $B$HJQ49$7$?$H$-$K!V%A%k%IIU$-(BA$B!W$,I=<($5$l$k$+!"(BLisp $B%7%s%\%kL>$,Jd40$5$l$k$+$O!"%j%9%H(B @code{skk-search-prog-list} $BFb$NMWAG$N=g$K$h$j$^$9!#(B
 
 @defun skk-search-lisp-symbol &optional PREDICATE NOT-ABBREV-ONLY WITHOUT-CHAR-MAYBE
@@ -8924,7 +8924,9 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 $B1~$7$F$$$k$?$a!"6uGr$d2~9T$r4^$s$@8!:w$b2DG=$G$9!#(B
 
 @table @kbd
+
 @item M-x isearch-forward-regexp
+
 @findex isearch-forward-regexp
 @kindex M-x isearch-forward-regexp
 @kindex C-u C-s
@@ -8934,6 +8936,7 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 @kbd{C-u C-s} $B$^$?$O(B @kbd{M-C-s} $B$G5/F0$7$^$9!#(B
 
 @item M-x isearch-backward-regexp
+
 @findex isearch-backward-regexp
 @kindex M-x isearch-backward-regexp
 @kindex C-u C-r
@@ -8941,24 +8944,22 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 
 $B8eJ}$X$N@55,I=8=$K$h$k%$%s%/%j%a%s%?%k!&%5!<%A!#(B
 @kbd{C-u C-r} $B$^$?$O(B @kbd{M-C-r} $B$G5/F0$7$^$9!#(B
+
 @end table
 
-$B0J2<$O6uGr$d2~9T$N=hM}$r@)8f$9$kJQ?t$G$9!#(B
+@c $B0J2<$O6uGr$d2~9T$N=hM}$r@)8f$9$kJQ?t$G$9!#(B
 
-@table @code
-@item skk-isearch-whitespace-regexp
-@vindex skk-isearch-whitespace-regexp
+@defvr {$B%f!<%6JQ?t(B} skk-isearch-whitespace-regexp
 
-$B$3$NJQ?t$NCM$O@55,I=8=$G$9!#$3$N@55,I=8=$K%^%C%A$9$kMWAG$O!"@55,I=8=$K$h(B
-$B$k%$%s%/%j%a%s%?%k!&%5!<%A$K$*$$$F$O!"C18l$r6h@Z$kMWAG$G$O$J$$$HH=CG$5$l(B
-$B$^$9!#$3$NJQ?t$N%G%U%)%k%H$O0J2<$N$h$&$K$J$C$F$$$^$9!#(B
+$B$3$NJQ?t$NCM$O@55,I=8=$G$9!#$3$N@55,I=8=$K%^%C%A$9$kMWAG$O!V@55,I=8=$K$h(B
+$B$k%$%s%/%j%a%s%?%k!&%5!<%A$K$*$$$F$O!"C18l$r6h@Z$kMWAG$G$O$J$$!W$HH=CG$5(B
+$B$l$^$9!#$3$NJQ?t$N%G%U%)%k%H$O0J2<$N$h$&$K$J$C$F$$$^$9!#(B
 
 @example
 "\\(\\s \\|[ \t\n\r\f]\\)*"
 @end example
-@end table
 
-$BJQ?t(B @code{skk-isearch-whitespace-regexp} $B$NCM$rJQ99$9$k$3$H$G!"@55,I=8=(B
+$B$3$NJQ?t$NCM$rJQ99$9$k$3$H$G!"@55,I=8=(B
 $B$K$h$k%$%s%/%j%a%s%?%k!&%5!<%A$r3HD%$9$k$3$H$,$G$-$^$9!#Nc$($P!"EE;R%a!<(B
 $B%k$N0zMQItJ,$r8!:w$9$k>l9g$r9M$($^$9!#(B
 
@@ -8967,15 +8968,16 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 > $B:w$G$-$k!#(B
 @end example
 
-$B>e5-$N$&$A!"!V8!:w!W$H$$$&8l$O(B 2 $B9T$K$o$?$C$F$$$k$&$(0zMQ%^!<%/$,A^F~$5(B
+$B>e5-$N$&$A!"!V8!:w!W$H$$$&8l$O(B 2 $B9T$KEO$C$F$$$k>e!"0zMQ%^!<%/$,A^F~$5(B
 $B$l$F$$$^$9!#$3$3$G(B
 
 @lisp
 (setq skk-isearch-whitespace-regexp "\\(\\s \\|[ \t\n\r\f<>|]\\)*")
 @end lisp
 
-@noindent
 $B$H@_Dj$9$k$3$H$K$h$j!"!V8!:w!W$r8!:w$G$-$k$h$&$K$J$j$^$9!#(B
+
+@end defvr
 
 @node picture-mode$B$H$NJ;MQ(B
 @section @code{picture-mode}$B$H$NJ;MQ(B
