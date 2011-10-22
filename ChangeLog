@@ -1,5 +1,9 @@
 2011-10-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-hint.el (skk-hint-setup-hint): メッセージの内容を修正.
+
+	* skk-kakasi.el (skk-kakasi-region): 同上.
+
 	* skk.el (skk-record-jisyo-data): docstring を修正.
 
 	* doc/skk.texi: 微修正.

@@ -109,8 +109,10 @@
 	     (setq skk-hint-henkan-hint
 		  (list (concat henkan-key skk-hint-okuri-char)
 			okurigana skk-hint-okuri-char)))))
-	(t (skk-error "予期しない状態で skk-hint-setup-hint が呼ばれました"
-		       "skk-hint-setup-hint is called from unexpected place")))
+	(t
+	 (skk-error "予期しない状態で %s が呼ばれました"
+		    "%s is called from unexpected place"
+		    "skk-hint-setup-hint")))
   (setq skk-hint-inhibit-kakutei nil))
 
 (defadvice skk-insert (around skk-hint-ad activate)

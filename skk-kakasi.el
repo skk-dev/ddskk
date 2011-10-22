@@ -5,9 +5,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kakasi.el,v 1.35 2011/05/03 09:44:17 skk-cvs Exp $
+;; Version: $Id: skk-kakasi.el,v 1.36 2011/10/22 01:58:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/05/03 09:44:17 $
+;; Last Modified: $Date: 2011/10/22 01:58:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -245,8 +245,9 @@
   (unless (or skk-use-kakasi
 	      skk-kakasi-command)
     (skk-error
-     "KAKASI がインストールされていないか、使用しない設定になっています"
-     "KAKASI was not installed, or skk-use-kakasi is nil"))
+     "KAKASI がインストールされていないか、使用しない設定(%s)になっています"
+     "KAKASI was not installed, or %s is nil"
+     "skk-use-kakasi"))
   ;; 複数辞書対応
   (dolist (jisyo skk-gyakubiki-jisyo-list)
     (setq arglist (append arglist (list (expand-file-name jisyo)))))
