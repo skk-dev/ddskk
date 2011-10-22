@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.597 2011/07/10 09:31:08 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.598 2011/10/22 00:21:08 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/07/10 09:31:08 $
+;; Last Modified: $Date: 2011/10/22 00:21:08 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3674,7 +3674,7 @@ If you want to restore the dictionary from your drive, try
 		   "Cannot reread private JISYO!")))))
 
 (defun skk-record-jisyo-data ()
-  "辞書データを `skk-record-file' にセーブする。"
+  "個人辞書に関する統計情報を `skk-record-file' に保存する。"
   (unless (or (not skk-keep-record)
 	      (> 1 skk-kakutei-count))
     (with-temp-file skk-record-file

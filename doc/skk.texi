@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/21 11:51:24 $
+@set UPDATED $Date: 2011/10/22 00:21:08 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7202,21 +7202,21 @@ New ~/.skk-jisyo will be 11bytes smaller.  Save anyway?(yes or no)
 @node 変換及び個人辞書に関する統計
 @subsection 変換及び個人辞書に関する統計
 
-DDSKK では、Emacs の終了時に変換及び個人辞書に関する統計を取っています。
-その結果は ファイル @file{~/.skk-record} に保存されます。保存される内容
-は以下のような形式です。
+DDSKK は、かな漢字変換及び個人辞書に関する統計を取っており、Emacs の終了
+時にファイル @file{~/.skk-record} に保存します。保存する内容は、以下の形
+式です。
 
 @cartouche
 Sun Jul 28 09:38:59 1996  登録:   4  確定:  285  確定率:  98%  語数:  3042
 @end cartouche
 
-上記の「語数:」の数は、 1 行を 1 語として数えています。そのため、1 つの見
-出し語に対して複数の候補を持っている場合は、2 つ目以降の候補を無視してい
-ます。
+上記の「語数:」の数は個人辞書 @file{skk-jisyo} に登録されている候補数です
+が、ここでは 1 行を 1 語として数えています。そのため、1 つの見出し語に対
+して複数の候補を持っている場合は、2 つ目以降の候補を無視しています。
 
 @defvr {ユーザ変数} skk-record-file
 
-統計の結果を保存するファイル名を指定します。
+統計情報を保存するファイル名を指定します。
 (@w{@pxref{設定ファイル}})
 
 @end defvr
