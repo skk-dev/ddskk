@@ -1,3 +1,8 @@
+2011-10-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el (skk-annotation-message): (split-string ...) を
+	 (delete "" (split-string ...)) へ変更 [skk 7513].
+
 2011-10-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK-MK-what-where): interactive-p() に代えて noninteractive

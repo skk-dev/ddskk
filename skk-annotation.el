@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.186 2011/07/14 12:48:58 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.187 2011/10/22 22:45:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/07/14 12:48:58 $
+;; Last Modified: $Date: 2011/10/22 22:45:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -446,8 +446,6 @@
 
 ;;;###autoload
 (defun skk-annotation-message (&optional situation)
-  "
-オプショナル引数 SITUATION が シンボル annotation であれば、"
   (when (and skk-verbose
 	     (not (or skk-isearch-switch
 		      (skk-in-minibuffer-p))))
@@ -458,15 +456,16 @@
 	(when (equal key "TAB")
 	  (setq key "C-i"))
 	(setq list
-	      (split-string
-	       (dotimes (i (length skk-annotation-wikipedia-sources) string)
-		 (setq string
-		       (format "%s[C-%d %s]%s  "
-			       string
-			       (1+ i)
-			       key
-			       (nth i skk-annotation-wikipedia-sources))))
-	       "  "))
+	      (delete ""
+		      (split-string
+		       (dotimes (i (length skk-annotation-wikipedia-sources) string)
+			 (setq string
+			       (format "%s[C-%d %s]%s  "
+				       string
+				       (1+ i)
+				       key
+				       (nth i skk-annotation-wikipedia-sources))))
+		       "  ")))
 	(dolist (x list)
 	  (let* ((y (split-string x "]"))
 		 (s1 (car y))
