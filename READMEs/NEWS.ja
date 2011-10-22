@@ -33,6 +33,12 @@ M-x skk-tankan $B<B9T;~$K(B window-configuration $B$rJ]B8$9$k$h$&BP=h$7$?!#(
 $B%U%l!<%`$r:GBg2=$K$7$?(B NTEmacs $B$G(B Tooltip $B$rI=<($7$?>l9g$N%(%i!<$rBP=h$7(B
 $B$?!#(B
 
+*** SKK-MK-what-where()
+
+$B4X?t(B interactive-p $B$,(B obsolete $B$5$l$?$?$a(B Emacs 23.2 $B$G(B make what-where
+$B$r<B9T$7$F$b2?$bI=<($5$l$^$;$s$G$7$?!#JQ?t(B noninteractive $B$NCM$GH=Dj$9$k(B
+$B$h$&=$@5$7$^$7$?!#(B
+
 * 14.3
 
 ** $BBPOCE*%$%s%9%H!<%i$NF3F~(B

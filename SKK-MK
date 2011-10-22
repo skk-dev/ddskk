@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.188 2011/05/18 13:33:42 skk-cvs Exp $
-;; Last Modified: $Date: 2011/05/18 13:33:42 $
+;; Version: $Id: SKK-MK,v 1.189 2011/10/22 04:04:40 skk-cvs Exp $
+;; Last Modified: $Date: 2011/10/22 04:04:40 $
 
 ;;; Commentary:
 
@@ -817,12 +817,12 @@ SKK tutorials:
 		 SKK_INFODIR
 		 (mapconcat 'identity SKK_TUTORIALS ", ")
 		 SKK_DATADIR)))
-    (if (interactive-p)
-	(progn
-	  (with-output-to-temp-buffer
-	      "*What where*" (princ string))
-	  (message ""))
-      (princ string))))
+    (if noninteractive
+	(princ string)
+      (progn
+	(with-output-to-temp-buffer
+	    "*What where*" (princ string))
+	(message "")))))
 
 (defun SKK-MK-what-where-package ()
   (interactive)
