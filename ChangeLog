@@ -1,5 +1,11 @@
 2011-10-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-init-file, skk-count-private-jisyo-candidates-exactly)
+	(skk-auto-insert-paren, skk-auto-start-henkan-keyword-list)
+	(skk-delete-implies-kakutei, skk-verbose): docstring を更新.
+
+	* doc/skk.texi (skk-jisyo-fix-order): 記述を更新.
+
 	* skk-annotation.el (skk-annotation-message): (split-string ...) を
 	 (delete "" (split-string ...)) へ変更 [skk 7513].
 

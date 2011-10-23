@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/22 10:27:32 $
+@set UPDATED $Date: 2011/10/23 10:37:22 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6306,7 +6306,7 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"A*Br$5$l$?8uJd$O!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!
 @defvr {$B%f!<%6JQ?t(B} skk-jisyo-fix-order
 
 @code{non-nil} $B$G$"$l$P!"3NDj$N:]$K8D?M<-=q$NF12;8l$N=g=x$rJQ99$;$:!"(B
-$B8D?M<-=q$K?75,DI2C$9$k:]$O4{=P8l$N8e$KDI2C$9$k!#(B
+$B8D?M<-=q$K?75,DI2C$9$k:]$O4{=P8l$N8e$KDI2C$9$k!#I8=`$O(B @code{nil}$B!#(B
 @end defvr
 
 $B$3$l$O!"8D?M<-=q$N%(%s%H%j$NCf$N!"3F8uJd$N=g=x$rJQ99$7$J$$$3$H$G!"(B

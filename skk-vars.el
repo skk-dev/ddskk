@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.383 2011/07/14 12:48:59 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.384 2011/10/23 10:37:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/07/14 12:48:59 $
+;; Last Modified: $Date: 2011/10/23 10:37:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -323,9 +323,10 @@ Automatically becomes buffer-local when set in any fashion."
 (defcustom skk-init-file (if skk-user-directory
 			     (expand-file-name "init" skk-user-directory)
 			   (convert-standard-filename "~/.skk"))
-  "*SKK $B$N=i4|@_Dj%U%!%$%kL>!#(B
-$B$3$N%U%!%$%k$NBe$o$j$K(B ~/.emacs $B$G@_Dj$9$k$3$H$b2DG=$@$,!"(B
-$B$=$N>l9g(B `skk-restart' $B$O;H$$$b$N$K$J$i$J$$!#(B"
+  "*SKK $B$N=i4|@_Dj$r5-=R$9$k%U%!%$%kL>!#(BSKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_(B
+$B9~$^$l$k!#(B `skk-byte-compile-init-file' $B$G<+F0%3%s%Q%$%k$9$k$3$H$b2DG=!#(B
+$B$3$N%U%!%$%k$K5-=R$9$kBe$o$j$K(B ~/.emacs $B$K(B SKK $B$N3F<o=i4|@_Dj$r5-=R$9$k(B
+$B$3$H$b2DG=$@$,!"8e<T$N>l9g$O(B \\[skk-restart] $B$G$OH?1G$5$l$J$$!#(B"
   ;;"*Name of the SKK initialization file.
   ;;From skk.el 9.x on all customization may be done in ~/.emacs."
   :type '(file :tag "$B%U%!%$%kL>(B")
@@ -614,9 +615,9 @@ SKK $B5/F08e$G!"JQ?t(B `skk-share-private-jisyo' $B$,(B non-nil $B$J>l9g(B
   :group 'skk-private)
 
 (defcustom skk-count-private-jisyo-candidates-exactly nil
-  "*Non-nil $B$G$"$l$P!"(BEmacs $B$r=*N;$9$k$H$-$K@53N$K8D?M<-=q$N8uJd?t$r?t$($k!#(B
-nil $B$G$"$l$P!"(B1 $B9T$KJ#?t$N8uJd$,$"$C$F$b(B 1 $B8uJd$H$7$F?t$($k!#(B
-$B7W;;7k2L$O!"(B`skk-record-file' $B$KJ]B8$5$l$k!#(B"
+  "*Non-nil $B$G$"$l$P!"(BEmacs $B$r=*N;$9$k$H$-$K(B `skk-record-file' $B$KJ]B8$5$l(B
+$B$kE}7W>pJs$N!V8l?t!W$r@53N$K?t$($k!#(B
+nil $B$G$"$l$P!"(B1 $B9T$KJ#?t$N8uJd$,$"$C$F$b(B 1 $B8uJd$H$7$F?t$($k!#(B"
   :type 'boolean
   :group 'skk-private)
 
@@ -1231,7 +1232,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 
 (defcustom skk-auto-insert-paren nil
   "*Non-nil $B$G$"$l$P!"3g8L$HJD3g8L$r$^$H$a$FA^F~$9$k!#(B
-$BNc$($P!"(B\"$B!V(B\" $B$rF~NO$7$?$H$-$K(B \"$B!W(B\" $B$r<+F0E*$KA^F~$7!"N>$+$.$+$C$3$N4V$K(B
+$BNc$($P!"(B\"$B!V(B\" $B$rF~NO$7$?$H$-$K(B \"$B!W(B\" $B$r<+F0E*$KA^F~$7!"N>$+$.3g8L$N4V$K(B
 $B%+!<%=%k$r0\F0$9$k!#(B
 $BA^F~$9$kJ8;zNs$O!"(B`skk-auto-paren-string-alist' $B$G;XDj$9$k!#(B"
   :type 'boolean
@@ -1334,7 +1335,8 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   ;; $B$"$^$j%-!<%o!<%I$,B?$/$J$k$H!"DL>o$NJQ49$r:$Fq$K$9$k!)(B
   "*$B<+F0JQ49$r3+;O$9$k%-!<%o!<%I!#(B
 `skk-auto-start-henkan' $B$,(B non-nil $B$N$H$-!"$3$N%j%9%H$NMWAG$NJ8;z$rBG80(B
-$B$9$k$H!"(BSPC (`skk-start-henkan-char') $B$r2!$9$3$H$J$/<+F0E*$KJQ49$r3+;O$9$k!#(B"
+$B$9$k$H!"(BSPC (`skk-start-henkan-char') $B$r2!$7$?$+$N$h$&$KJQ49$r3+;O$7$F(B
+$B"'%b!<%I$KF~$k!#(B"
   :type '(repeat string)
   :group 'skk-henkan)
 
@@ -1499,10 +1501,10 @@ nil $B$G$"$l$P!"Nc$($P(B
 (defcustom skk-delete-implies-kakutei t
   "*Non-nil $B$G$"$l$P!""'%b!<%I$G(B BS $B$r2!$9$H!"A0$N0lJ8;z$r:o=|$73NDj$9$k!#(B
 nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
+$B%7%s%\%k(B `dont-update' $B$G$"$l$P!"8D?M<-=q$r99?7$7$J$$!#(B
 
-`dont-update' $B$r;XDj$9$k$H!"8D?M<-=q$r99?7$7$J$$!#(B
-
-$B8uJd0lMwI=<(;~$O(B non-nil $B$G$"$C$F$bA08uJd(B($B72(B)$B$NI=<($K$J$k!#(B"
+$B$J$*!"$3$NJQ?t$NCM$K$+$+$o$i$:!"8uJd0lMw$rI=<($7$F$$$k$H$-$N(B BS $BBG80$O(B
+$BA08uJd(B($B72(B)$B$NI=<($K$J$k!#(B"
   :type '(radio	(const t)
 		(const dont-update)
 		(const nil))
@@ -1783,7 +1785,7 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
   :group 'skk-misc)
 
 (defcustom skk-verbose nil
-  "*Non-nil $B$G$"$l$P=u8@E*%a%C%;!<%8$rI=<($9$k!#(B"
+  "*Non-nil $B$G$"$l$P!"F~NOCf!?JQ49Cf$K%(%3!<%(%j%"$K=u8@E*%a%C%;!<%8$rI=<($9$k!#(B"
   :type 'boolean
   :group 'skk-misc)
 
