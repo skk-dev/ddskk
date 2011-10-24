@@ -1,3 +1,11 @@
+2011-10-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-isearch-use-previous-mode): 記述を更新.
+
+	* skk.el (skk-setup-shared-private-jisyo): インデントを整理.
+
+	* skk-vars.el (skk-record-file): docstring を更新.
+
 2011-10-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-init-file, skk-count-private-jisyo-candidates-exactly)

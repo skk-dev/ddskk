@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.598 2011/10/22 00:21:08 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.599 2011/10/24 09:21:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/10/22 00:21:08 $
+;; Last Modified: $Date: 2011/10/24 09:21:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -338,8 +338,9 @@ dependent."
 			  (+ 20 skk-jisyo-save-count))
 		     nil))
   (setq skk-emacs-id
-	(concat (system-name) ":" (number-to-string (emacs-pid))
-		":" (mapconcat 'int-to-string (current-time) "") ":"))
+	(concat (system-name) ":"
+		(number-to-string (emacs-pid)) ":"
+		(mapconcat 'int-to-string (current-time) "") ":"))
   (skk-create-file skk-emacs-id-file nil nil 384) ; 0600
   (with-temp-buffer
     (insert-file-contents skk-emacs-id-file)

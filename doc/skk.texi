@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/23 10:37:22 $
+@set UPDATED $Date: 2011/10/24 09:21:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8900,6 +8900,8 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 
 $B$3$NJQ?t$NCM$,(B @code{non-nil} $B$G$"$l$P!"<!$N%$%s%/%j%a%s%?%k!&%5!<%A5/F0(B
 $B;~$NF~NO%b!<%I$O!"A02s$N%$%s%/%j%a%s%?%k!&%5!<%A$G$NF~NO%b!<%I$K$J$j$^$9!#(B
+@code{nil} $B$G$"$l$P!"JQ?t(B @code{skk-isearch-start-mode} $B$N@_Dj$,M%@h$5$l(B
+$B$^$9!#(B
 
 @end defvr
 

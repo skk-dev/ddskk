@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.384 2011/10/23 10:37:22 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.385 2011/10/24 09:21:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/10/23 10:37:22 $
+;; Last Modified: $Date: 2011/10/24 09:21:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1706,7 +1706,7 @@ nil であれば、変換及び個人辞書に関する統計を取らない。"
 			       (expand-file-name "record" skk-user-directory)
 			     (convert-standard-filename "~/.skk-record"))
   "*変換及び個人辞書に関する統計を取るファイル。
-個人辞書を保存した時刻、単語の登録数、確定を行った回数、確定率、全体の語数の
+個人辞書を保存した日時、単語の登録数、確定を行った回数、確定率、全体の語数の
 情報を収める。"
   :type 'file
   :group 'skk-misc)
