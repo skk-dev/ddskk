@@ -1,3 +1,8 @@
+2011-10-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tut.el (skktut-init-variables-alist): チュートリアルの起動
+	時に skk-kcode-method を初期化.
+
 2011-10-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-isearch-use-previous-mode): 記述を更新.

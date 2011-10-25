@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.86 2011/07/15 13:54:57 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.87 2011/10/25 13:37:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/07/15 13:54:57 $
+;; Last Modified: $Date: 2011/10/25 13:37:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -300,6 +300,9 @@
     (skk-kcode-charset . (if (featurep 'jisx0213)
 			     (quote japanese-jisx0208)
 			   skk-kcode-charset))
+    (skk-kcode-method . (if skk-running-gnu-emacs
+				'code-or-char-list
+			      'code-or-menu))
     (skk-dcomp-activate . nil)
     (skk-dcomp-multiple-activate . nil)
     (skk-read-from-minibuffer-function . nil)
