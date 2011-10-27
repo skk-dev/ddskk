@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/24 09:21:27 $
+@set UPDATED $Date: 2011/10/27 11:53:58 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -290,7 +290,7 @@ GNU Emacs 20 $B$N%f!<%6!<$O(B DDSKK 14.1 $B$r$*;H$$$/$@$5$$!#(B
 @item X Window System $B>e$G$NF|K\8l%a%K%e!<I=<($O(B GTK $BBP1~HG$N$_$G$9!#(B
 @end itemize
 
-@item GNU Emacs 23.2
+@item GNU Emacs 23.3
 
 @itemize @bullet
 @item X Window System $B>e$G$NF|K\8l%a%K%e!<I=<($O(B GTK $BBP1~HG$N$_$G$9!#(B
@@ -387,7 +387,7 @@ APEL $B$O<!$N%5%$%H$+$iF~<j$G$-$^$9!#(B
 @url{http://openlab.jp/skk/skk/main/READMEs/README.w32.ja}
 
 cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @command{make} $B%3%^%s%I$,;HMQ$G$-$k(B
-$B$N$G!"$3$3$N@bL@$,$=$N$^$^Ev$F$O$^$j$^$9!#(B
+$B$N$G!"K\J8$N2r@b$,$=$N$^$^Ev$F$O$^$j$^$9!#(B
 
 Apple Mac OS X $B4D6-$NJ}$O<!$N;qNA$r;2>H$7$F$/$@$5$$!#(B
 
@@ -416,14 +416,15 @@ Apple Mac OS X $B4D6-$NJ}$O<!$N;qNA$r;2>H$7$F$/$@$5$$!#(B
 @node GNU Emacs $B$X$N%$%s%9%H!<%k(B
 @subsection GNU Emacs $B$X$N%$%s%9%H!<%k(B
 
-$B$^$:$O!"(BDDSKK $B$,$I$N%G%#%l%/%H%j$K%$%s%9%H!<%k$5$l$k$N$+!"(B@option{what-where} $B$r0z?t$K(B @command{make} $B%3%^%s%I$r<B9T$7$F3NG'$7$^$7$g$&!#(B
+$B$^$:$O!"(BDDSKK $B$,$I$N%G%#%l%/%H%j$K%$%s%9%H!<%k$5$l$k$N$+3NG'$9$k$?$a(B
+$B$K(B @option{what-where} $B$r0z?t$K(B @command{make} $B%3%^%s%I$r<B9T$7$^$7$g$&!#(B
 
 @example
 @group
 % make what-where
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
-@print{}  -> /usr/local/share/emacs/23.2/site-lisp/skk
+@print{}  -> /usr/local/share/emacs/23.3/site-lisp/skk
 
 @print{}SKK infos:
 @print{}  skk.info
@@ -437,8 +438,8 @@ Apple Mac OS X $B4D6-$NJ}$O<!$N;qNA$r;2>H$7$F$/$@$5$$!#(B
 
 $B$3$NCJ3,$G%$%s%9%H!<%k@h%G%#%l%/%H%j$,I=<($5$l$J$$>l9g$O(B APEL $B$N(B
 path $B$r(B @file{SKK-CFG} $B$K5-F~$7$^$9!#(B@file{SKK-CFG} $B$K@_DjJ}K!$,=q$$$F$"(B
-$B$j$^$9!#$^$?!"(BDDSKK $B$N%$%s%9%H!<%k@h%G%#%l%/%H%j$rJQ99$7$?$$>l9g$b!"(B
-@file{SKK-CFG} $B%U%!%$%k$rJT=8$9$k$3$H$K$h$j;XDj$G$-$^$9!#(B
+$B$j$^$9!#$^$?!"(BDDSKK $B$N%$%s%9%H!<%k@h%G%#%l%/%H%j$rJQ99$7$?$$>l9g(B
+$B$b(B @file{SKK-CFG} $B%U%!%$%k$rJT=8$9$k$3$H$K$h$j;XDj$G$-$^$9!#(B
 
 $B$D$.$K%9!<%Q!<%f!<%6$K$J$C$F!"(B
 
@@ -458,7 +459,7 @@ $ su
 @end example
 
 @noindent
-$B$H!"(BPREFIX $B$r;XDj$7$F(B make $B$r<B9T$7$^$9!#(B
+$B$H!"(BPREFIX $B$r;XDj$7$F(B @command{make} $B$r<B9T$7$^$9!#(B
 
 $BFCDj$N(B Emacs $B$r;XDj$9$k>l9g$O!"(B
 
@@ -509,8 +510,8 @@ XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$9$k>l9g$O!"$^$:!"(B@option{what-where-
 DDSKK 14.3 $B$G$O!VBPOCE*%$%s%9%H!<%i!W$,DI2C$5$l$^$7$?!#(B
 
 $B$^$:!"(B@kbd{M-x dired} $B$H%?%$%W$7$F(B dired $B$r5/F0$7$F$/$@$5$$!#$3$N$H$-!"%G(B
-$B%#%l%/%H%j$rLd$o$l$^$9$N$G!V(BDDSKK $B$N%"!<%+%$%V$rE83+$7$?%G%#%l%/%H%j!W$r(B
-$B;XDj$7$F$/$@$5$$!#(B
+$B%#%l%/%H%j$rLd$o$l$^$9$N$G!"@h$K=R$Y$?!V(BDDSKK $B$N%"!<%+%$%V$rE83+$7$?%G%#(B
+$B%l%/%H%j!W$r;XDj$7$F$/$@$5$$!#(B
 
 $B<!$K!"I=<($5$l$?%G%#%l%/%H%j0lMw$N(B @file{SKK-MK} $B$K%+!<%=%k$r$"$o$;(B
 $B$F(B @key{L} $B!J(B@key{SHIFT} $B$r2!$7$J$,$i%"%k%U%!%Y%C%H$N%(%k!K$r%?%$%W$7$F$/(B
@@ -601,7 +602,7 @@ DDSKK $B$N%=!<%9$rE83+$9$k$H!"Cf$K(B @file{dic} $B$H$$$&%G%#%l%/%H%j$,B8:_$7$
 @end example
 
 $B$r<B9T$9$k$H!"<-=q%U%!%$%k$,%A%e!<%H%j%"%k(B (@file{SKK.tut}) $B$HF1$8%G%#(B
-$B%l%/%H%j(B (@file{/usr/share/skk} $B$d(B @file{c:/emacs-23.2/etc/skk} $B$J$I(B) $B$K(B
+$B%l%/%H%j(B (@file{/usr/share/skk} $B$d(B @file{c:/emacs-23.3/etc/skk} $B$J$I(B) $B$K(B
 $B%$%s%9%H!<%k$5$l$^$9!#(B
 
 $B$5$i$K!"(B@file{SKK-JISYO.L} $B$r(B DDSKK $B%=!<%9$N(B @file{dic} $B%G%#%l%/%H%j$K%3(B
@@ -611,17 +612,18 @@ DDSKK $B$N%=!<%9$rE83+$9$k$H!"Cf$K(B @file{dic} $B$H$$$&%G%#%l%/%H%j$,B8:_$7$
 % make cdb
 @end example
 
-$B$r<B9T$9$k$H!"(BCDB $B7A<0<-=q(B @file{SKK-JISYO.L.cdb} $B$,@8@.$5$l$^$9!#$3$N>uBV(B
-$B$G(B @code{make install} $B$r<B9T$9$k$H(B @file{SKK-JISYO.L.cdb} $B$b(B
-@file{SKK-JISYO.L} $B$H6&$K%$%s%9%H!<%k$5$l$^$9(B
+$B$r<B9T$9$k$H!"(BCDB $B7A<0<-=q(B @file{SKK-JISYO.L.cdb} $B$,@8@.$5$l$^$9(B
 @footnote{CDB $B7A<0<-=q$N@8@.$K$O(B python $B%9%/%j%W%H(B @file{etc/skk2cdb.py}
-$B$,<B9T$5$l$k$N$G!"$"$i$+$8$a(B python $B$r%$%s%9%H!<%k$7$F$*$/I,MW$,$"$j$^$9!#(B}$B!#(B
+$B$,<B9T$5$l$k$N$G!"$"$i$+$8$a(B python $B=hM}7O$r%$%s%9%H!<%k$7$F$*$/I,MW$,$"(B
+$B$j$^$9!#(B}$B!#(B
+$B$3$N>uBV$G(B @code{make install} $B$r<B9T$9$k$H(B @file{SKK-JISYO.L.cdb} $B$b(B
+@file{SKK-JISYO.L} $B$H6&$K%$%s%9%H!<%k$5$l$^$9!#(B
 
 @node $B<-=q%5!<%P$NF~<j(B
 @section $B<-=q%5!<%P$NF~<j(B
 
 $B<-=q%5!<%P$O%*%W%7%g%s$G$9!#(B
-$B<-=q%5!<%P$,L5$/$F$b(B DDSKK $B$OF0:n$7$^$9$,!"FC$K<-=q$N%5%$%:$,Bg$-$J>l9g$O(B
+$B<-=q%5!<%P$,L5$/$F$b(B DDSKK $B$OF0:n$7$^$9$,!"FC$K<-=q$N%5%$%:$,Bg$-$$>l9g$O(B
 $B<-=q%5!<%P$rMxMQ$9$k$3$H$G>J%a%b%j8z2L$rF@$i$l$^$9!#$^$?!"<-=q%5!<%P$K$h(B
 $B$C$F$OJ#?t<-=q$N8!:w!"(BEPWING $B<-=q$N8!:w$,$G$-$?$j$9$k$b$N$b$"$j$^$9!#(B
 
