@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/27 11:53:58 $
+@set UPDATED $Date: 2011/10/27 12:03:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1609,7 +1609,7 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 サ変動詞（名詞の後に @samp{する} を付けた形で構成される動詞）については
 @samp{する} を送り仮名とした送りあり変換 (@w{@pxref{送り仮名が有る場合}})
 をしないで、@samp{運動} と @samp{する} と分けて入力することを前提として
-います。@footnote{SKK-JISYO.L など共有辞書のメンテナンス上、原則としてサ
+います。@footnote{@file{SKK-JISYO.L} など共有辞書のメンテナンス上、原則としてサ
 変動詞を送りありエントリに追加していません。そのため、@samp{する} を送り
 仮名とした送りあり変換では、辞書に候補がなく辞書登録モードに入ってしまう
 ので、名詞として分解して入力することが一般的です。ただし、DDSKK 13 以降
@@ -1720,11 +1720,11 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 
 @example
 @group
-@samp{〒980},
-@kbd{C-q C-j},
-@samp{仙台市青葉区片平2-1-1},
-@kbd{C-q C-j},
-@samp{東北大学電気通信研究所},
+@samp{〒980}
+@kbd{C-q C-j}
+@samp{仙台市青葉区片平2-1-1}
+@kbd{C-q C-j}
+@samp{東北大学電気通信研究所}
 @key{RET}
 @end group
 @end example
@@ -1778,7 +1778,7 @@ Emacs オリジナルのインクリメンタル・サーチについては、
 @vindex skk-isearch-mode-string-alist
 
 入力モードに合わせて、インクリメンタル・サーチのプロンプトが表示されます。
-プロンプトの種類は、以下の 5 つです@footnote{変数 @code{skk-isearch-mode-string-alist} を適宜設定することにより変更が可能です。}。
+プロンプトの種類は、以下の 6 つです@footnote{変数 @code{skk-isearch-mode-string-alist} を適宜設定することにより変更が可能です。}。
 
 @table @samp
 
