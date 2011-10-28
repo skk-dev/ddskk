@@ -1,6 +1,7 @@
 2011-10-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-server-portnum): 記述誤りを修正.
+	 (skk-customize による設定変更): @subsection 化した.
 
 2011-10-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

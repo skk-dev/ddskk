@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/28 12:51:23 $
+@set UPDATED $Date: 2011/10/28 13:15:19 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2188,7 +2188,8 @@ DDSKK $B$N%+%9%?%^%$%:$O!"(B@file{~/.emacs} $B$"$k$$$O(B @file{~/.skk} $B$K
 @menu
 * $B@_Dj%U%!%$%k(B::
 * $B%U%C%/(B::
-* Customize $B$K$h$k@_DjJQ99(B::  $B$3$N%^%K%e%"%k$K$OL5$$JQ?t$b@_Dj$G$-$^$9!#(B
+* Customize $B$K$h$k@_DjJQ99(B::  $B$3$N%^%K%e%"%k$G2r@b$5$l$F$$$J$$JQ?t$b@_Dj$G$-$^$9!#(B
+* skk-customize $B$K$h$k@_DjJQ99(B::
 @end menu
 
 @node $B@_Dj%U%!%$%k(B
@@ -2392,9 +2393,6 @@ Customize group: (default emacs) @point{}
 
 $B$3$3$G(B ``skk'' $B$HEz$($k$H!"(BSKK $B%0%k!<%W$N2hLL$XE83+$7$^$9!#(B
 
-skk $B$G@_Dj$G$-$kJQ?t$NCf$K$O!"$^$@$3$N%^%K%e%"%k$G5-=R$5$l$F$$$J$$$b$N$b(B
-$B$"$j$^$9!#(B Customize $B$r;H$&$H!"$=$l$i$K$D$$$F$bCN$k$3$H$,$G$-$^$9!#(B
-
 $B$"$k$$$O!"%b!<%I%i%$%s$N(B SKK $B%$%s%8%1!<%?$r%^%&%9$N1&%\%?%s!JBh#3%\%?%s!K(B
 $B$G%/%j%C%/$9$k$HI=<($5$l$k%a%K%e!<$+$i(B ``SKK$B$r%+%9%?%^%$%:(B'' $B$rA*$s$G$bF1(B
 $B$82hLL$H$J$j$^$9!#(B
@@ -2405,12 +2403,18 @@ skk $B$G@_Dj$G$-$kJQ?t$NCf$K$O!"$^$@$3$N%^%K%e%"%k$G5-=R$5$l$F$$$J$$$b$N$b(B
 @xref{Easy Customization, , Easy Customization, emacs, GNU Emacs Manual}.
 @end display
 
+skk $B$G@_Dj$G$-$kJQ?t$NCf$K$O!"$^$@$3$N%^%K%e%"%k$G2r@b$5$l$F$$$J$$$b$N$b(B
+$B$"$j$^$9!#(B Customize $B$r;H$&$H!"$=$l$i$K$D$$$F$bCN$k$3$H$,$G$-$^$9!#(B
+
+@node skk-customize $B$K$h$k@_DjJQ99(B
+@subsection skk-customize $B$K$h$k@_DjJQ99(B
+
 @kindex M-x skk-customize
 
-@kbd{M-x customize-group} $B$N@_Dj$,J#;($9$.$k$H46$8$k%f!<%6$N$?$a$K!"4J0W(B
-$BHG$H$7$F(B @kbd{M-x skk-customize} $B$rMQ0U$7$F$$$^$9!#$3$l$O(B SKK $B%0%k!<%W$N(B
-$B%f!<%6%*%W%7%g%s$N$&$A!"$h$/;H$&$b$N$@$1H4?h$7$F@_Dj$G$-$k$h$&$K$7$?$b$N(B
-$B$G$9!#(B
+Emacs $BI8=`$N(B Customize $B5!G=(B (@kbd{M-x customize-group}) $B$K$h$k@_Dj$,J#;((B
+$B$9$.$k$H46$8$k%f!<%6$N$?$a$K!"4J0WHG$H$7$F(B @kbd{M-x skk-customize} $B$rMQ0U(B
+$B$7$F$$$^$9!#$3$l$O(B SKK $B%0%k!<%W$N%f!<%6%*%W%7%g%s$N$&$A!"$h$/;H$&$b$N$@$1(B
+$BH4?h$7$F@_Dj$G$-$k$h$&$K$7$?$b$N$G$9!#(B
 
 $B$3$l$O!"%b!<%I%i%$%s$N(B SKK $B%$%s%8%1!<%?$r%^%&%9$N1&%\%?%s!JBh#3%\%?%s!K$G(B
 $B%/%j%C%/$7$FI=<($5$l$k%a%K%e!<$+$i(B ``SKK $B$r%+%9%?%^%$%:(B ($B4J0WHG(B)'' $B$rA*$s(B
