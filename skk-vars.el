@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.385 2011/10/24 09:21:27 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.386 2011/10/28 09:35:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/10/24 09:21:27 $
+;; Last Modified: $Date: 2011/10/28 09:35:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1785,17 +1785,17 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
   :group 'skk-misc)
 
 (defcustom skk-verbose nil
-  "*Non-nil $B$G$"$l$P!"F~NOCf!?JQ49Cf$K%(%3!<%(%j%"$K=u8@E*%a%C%;!<%8$rI=<($9$k!#(B"
+  "*Non-nil $B$G$"$l$P!"F~NOCf!?JQ49Cf$K%(%3!<%(%j%"$K>iD9$J%a%C%;!<%8$rI=<($9$k!#(B"
   :type 'boolean
   :group 'skk-misc)
 
 (defcustom skk-verbose-wait 1.5
-  "*$B=u8@E*%a%C%;!<%8$rI=<($9$k$^$G$NBT$A;~4V(B ($BIC(B)$B!#(B"
+  "*$B>iD9$J%a%C%;!<%8$rI=<($9$k$^$G$NBT$A;~4V(B ($BIC(B)$B!#(B"
   :type 'number
   :group 'skk-misc)
 
 (defcustom skk-verbose-message-interval 5.0
-  "*$B=u8@E*%a%C%;!<%8$,J#?t$"$k>l9g!"#1$D$"$?$jI=<(;~4V(B ($BIC(B)$B!#(B
+  "*$B>iD9$J%a%C%;!<%8$,J#?t$"$k>l9g!"#1$D$"$?$jI=<(;~4V(B ($BIC(B)$B!#(B
 $B$3$N;~4V$,7P2a$7$?$i<!$N%a%C%;!<%8$K@Z$jBX$($k!#(B"
   :type 'number
   :group 'skk-misc)
@@ -1809,7 +1809,7 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
      (:inherit default :bold t))
     (((class grayscale))
      (:inherit default :bold t)))
-  "*$B"'%b!<%I$N=u8@E*%a%C%;!<%8$N(B {$B%"%N%F!<%7%g%s(B} $B$H(B {$B$I$N(BWiki?} $B$KE,MQ$9$k(B
+  "*$B"'%b!<%I$N>iD9$J%a%C%;!<%8$N(B {$B%"%N%F!<%7%g%s(B} $B$H(B {$B$I$N(BWiki?} $B$KE,MQ$9$k(B
 $B%U%'%$%9!#(B"
   :group 'skk-visual)
 
@@ -1822,11 +1822,11 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
      (:inherit default :foreground "Cyan"))
     (((class grayscale))
      (:inherit default :foreground "LightGray")))
-  "*$B=u8@E*%a%C%;!<%8$NA`:n%-!<ItJ,$KE,MQ$9$k%U%'%$%9!#(B"
+  "*$B>iD9$J%a%C%;!<%8$NA`:n%-!<ItJ,$KE,MQ$9$k%U%'%$%9!#(B"
   :group 'skk-visual)
 
 (defcustom skk-henkan-on-message nil
-  "*$B"&%b!<%I$GI=<($9$k=u8@E*%a%C%;!<%8$NFbMF!#(B
+  "*$B"&%b!<%I$GI=<($9$k>iD9$J%a%C%;!<%8$NFbMF!#(B
 $BI8=`$G$O<+F0@_Dj$9$k!#(B"
   :type '(radio (string :tag "$BFbMF$r;XDj(B")
 		(const :tag "$B<+F0@_Dj(B" nil))

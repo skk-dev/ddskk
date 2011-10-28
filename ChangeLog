@@ -1,3 +1,11 @@
+2011-10-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-var.el (skk-verbose, skk-verbose-wait)
+	(skk-verbose-message-interval, skk-verbose-intention-face)
+	(skk-verbose-kbd-face, skk-henkan-on-message): Replace in
+	docstrings "助言的" to "冗長な" to be more accurate.
+	{These are rather reversions than modifications.}
+
 2011-10-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: 更新.
