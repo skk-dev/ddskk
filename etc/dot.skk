@@ -51,7 +51,7 @@
 ;;   nil => 別な window に表示する
 ;; (setq skk-annotation-show-as-message nil)
 
-;; 変換前/変換中にエコーエリアに助言的メッセージを表示
+;; 変換前/変換中にエコーエリアに冗長なメッセージを表示
 (setq skk-verbose t)
 
 ;; カーソルに色を付けない

@@ -1,5 +1,7 @@
 2011-10-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-cus.el (skk-cus-params-visual): docstring の "助言的" を "冗長な" へ.
+
 	* doc/skk.texi (skk-server-portnum): 記述誤りを修正.
 	(skk-customizeによる設定変更): @subsection 化した.
 	(skk-gyakubiki-jisyo-list, 動的補完): 修正.
