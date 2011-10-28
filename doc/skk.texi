@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/27 12:03:06 $
+@set UPDATED $Date: 2011/10/28 12:51:23 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -760,7 +760,7 @@ DDSKK 14 $B0J9_$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0$N<-=q%U%!%$%k$rD>@\MxM
 @defvr {$B%f!<%6JQ?t(B} skk-server-portnum
 
 $B<-=q%5!<%P$,;H$&%]!<%HHV9f!#(B@file{/etc/services} $B$K(B skkserv $B$N%(%s%H%j$,(B
-$B5-=R$l$F$$$l$P(B @code{skk-server-portnum} $B$r;XDj$9$kI,MW$OL5$$!#(B
+$B5-=R$5$l$F$$$l$P(B @code{skk-server-portnum} $B$r;XDj$9$kI,MW$OL5$$!#(B
 @end defvr
 
 @vindex skk-server-inhibit-startup-server
