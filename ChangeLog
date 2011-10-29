@@ -1,3 +1,7 @@
+2011-10-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: 更新.
+
 2011-10-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-cus.el (skk-cus-params-visual): docstring の "助言的" を "冗長な" へ.

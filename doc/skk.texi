@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/28 14:10:51 $
+@set UPDATED $Date: 2011/10/29 22:45:53 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -5433,11 +5433,10 @@ M-Q} のように引数を渡して実行すると、変換開始位置から現在位置までの文字
 @node 自動変換開始
 @subsection 自動変換開始
 
-▽モードで見出し語の入力中に「を」や「。」などの文字を
-打鍵すると、@key{SPC} を押したかのように変換を開始
-@footnote{▽マークからポイントの直前の文字までを見出し語とします。最後に入力された
-文字は見出し語には含まれません。}
-し、▼モードに入るようになっています。
+▽モードで見出し語を入力しているときに「を」や「。」などの文字を打鍵する
+と、@key{SPC} を押したかのように変換を開始@footnote{▽マークからポイント
+の直前の文字までを見出し語とします。最後に入力された文字（「を」や「。」
+）は見出し語には含まれません。}し、▼モードに入るようになっています。
 
 @example
 @kbd{K a n j i}
@@ -5497,7 +5496,7 @@ M-Q} のように引数を渡して実行すると、変換開始位置から現在位置までの文字
 @defvr {ユーザ変数} skk-auto-start-henkan
 
 この変数の値を @code{nil} に設定すると、本節で説明した自動変換開始機能
-を無効にします。
+を無効にします。デフォルトは @code{t} です。
 @end defvr
 
 @node 暗黙の確定のタイミング
@@ -7963,10 +7962,13 @@ skk-list-chars を抜ける。
 
 DDSKK のインストール過程で @code{(require 'lookup)} が成功する場合は
 @file{skk-lookup.el} も自動的にインストールされます。
+まずは @samp{make what-where} を実行して、@samp{SKK modules:} 欄
+に @samp{skk-lookup} が含まれていることを確認してください。
+
 Lookup がインストールされているにも関わらず、うまく @file{skk-lookup.el} が
 インストールされない場合は、@file{SKK-CFG} を編集して @file{lookup.el}
-があるパスを @code{ADDITIONAL_LISPDIR} に設定し、再度 DDSKK をインストールして
-下さい。
+が置かれているパスを @code{ADDITIONAL_LISPDIR} に設定し、再度 DDSKK をイ
+ンストールして下さい
 @footnote{関数 @code{skk-lookup-search} が @file{skk-autoloads.el} に
 追加されます (@pxref{辞書検索のための関数}).}。
 
@@ -7982,8 +7984,9 @@ Lookup がインストールされているにも関わらず、うまく @file{skk-lookup.el} 
 @end lisp
 
 @noindent
-DDSKK が用意している検索プログラムの中で最も遅いため
-、@code{skk-search-server} の後ろに持ってきて辞書サーバの検索より後にします。
+@code{skk-lookup-search} は、 DDSKK が用意している検索プログラムの中で最
+も遅いものです。したがって、@code{skk-search-prog-list} の設定にあっては
+辞書サーバの検索 (@code{skk-search-server}) よりも後方に置くよう設定します。
 
 Lookup の agent で利用するのは、 @code{lookup-search-agents} から @code{ndkks},
 @code{ndcookie} 及び @code{ndnmz} を取り去ったものです
