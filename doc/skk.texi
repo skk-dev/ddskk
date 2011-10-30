@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/30 10:15:57 $
+@set UPDATED $Date: 2011/10/30 11:16:04 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7123,16 +7123,16 @@ skk $B$+$i$NC18l$NEPO?!":o=|$O$G$-$^$;$s!#(B($BB>$K$b>/$7@)8B$,$"$j$^$9$,!"(
 
 @enumerate
 @item
-@kbd{C-x C-c} ($B$^$?$O(B @kbd{M-x save-buffers-kill-emacs}) $B$K$h$j(B Emacs $B$r(B
+@kbd{C-x C-c} ($B$^$?$O(B @kbd{M-x save-buffers-kill-emacs}) $B$K$h$C$F(B Emacs $B$r(B
 $B=*N;$5$;$h$&$H$7$?>l9g!#(B
 
 @item
-@kbd{M-x skk-save-jisyo} $B$HF~NO$9$k$+!"%a%K%e!<%P!<$h$j(B @samp{Save
-Jisyo} $B$rA*Br$7$?>l9g!#(B
+@kbd{M-x skk-save-jisyo} $B$HF~NO$7$?$+!"%a%K%e!<%P!<$N(B @samp{Save Jisyo} $B$r(B
+$BA*Br$7$?>l9g!#(B
 
 @item
-$BJQ?t(B @code{skk-jisyo-save-count} $B$G;XDj$5$l$?2s?t!"<-=q$N99?7$r9T$C$?7k(B
-$B2L$H$7$F!"<+F0J]B8(B ($B%*!<%H%;!<%V(B) $B5!G=$,F/$/$H$-!#(B
+$B!VJQ?t(B @code{skk-jisyo-save-count} $B$G;XDj$5$l$?2s?t!W$N8D?M<-=q$N99?7$,9T(B
+$B$o$l$?7k2L$H$7$F!"<+F0J]B8(B ($B%*!<%H%;!<%V(B) $B5!G=$,F/$/$H$-!#(B
 
 @item 
 $BJQ?t(B @code{skk-save-jisyo-instantly} $B$,(B @code{non-nil} $B$G$"$l$P!"(B
@@ -8419,6 +8419,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 $B<($7$^$9!#(B
 $BCM$,(B $B%7%s%\%k(B @code{'vertical} $B$G$"$l$P!"3F8uJd$r=DJ}8~$K%$%s%i%$%sI=<($7$^$9!#(B
 
+@cartouche
 @defvr {$B%f!<%6JQ?t(B} skk-inline-show-face
 $B%$%s%i%$%s$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$7$^$9!#(B
 
@@ -8432,6 +8433,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 @code{skk-treat-candidate-appearance-function} $B$GGX7J?'$,;XDj$5$l$F$$$J$$(B
 $BJ8;z$KBP$7$F$N$_:nMQ$7$^$9!#(B
 @end defvr
+@end cartouche
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-tooltip
@@ -8443,6 +8445,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 
 @xref{$BJ8;z%3!<%I$^$?$O%a%K%e!<$K$h$kJ8;zF~NO(B}.
 
+@cartouche
 @defvr {$B%f!<%6JQ?t(B} skk-tooltip-face
 $B%D!<%k%F%#%C%W$KI=<($9$kJ8;zNs$KE,MQ$9$k%U%'%$%9$r;XDj$9$kJQ?t$G$9!#(B
 
@@ -8480,7 +8483,6 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
 $B%D!<%k%F%#%C%W$N%F%-%9%H$H%^%&%9%]%$%s%?$,=E$J$C$?$j!"$&$^$/%D!<%k%F%#%C%W$,I=<($G$-$J$+$C$?$j$9$k>l9g$,$"$j$^$9!#(B
 
 @end table
-
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-tooltip-hide-delay
@@ -8489,7 +8491,7 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
 $B%D!<%k%F%#%C%W$O<+F0E*$K>C$($k!#(B
 
 @end defvr
-
+@end cartouche
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-candidates-always-pop-to-buffer
@@ -8498,6 +8500,7 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
 
 $B8uJd0lMwI=<(Cf$K!"$3$NCM$rF0E*$K@Z$j49$($k<jCJ$,MQ0U$5$l$F$$$^$9!#(B
 
+@cartouche
 @defvr {$B%f!<%6JQ?t(B} skk-show-candidates-toggle-display-place-char
 @kindex C-f
 $B%G%U%)%k%H$O(B @kbd{C-f} $B$G$9!#$3$N%-!<$r8uJd0lMwI=<(;~$K%?%$%W$9$k$H!"8uJd(B
@@ -8508,6 +8511,7 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
  *$B8uJd(B*$B%P%C%U%!$NGX7J?'$r;XDj$7$^$9!#(B
 $BGX7J?'$rIU$1$?$/$J$$>l9g$O(B @code{nil} $B$r;XDj$9$k$3$H!J%G%U%)%k%H!K!#(B
 @end defvr
+@end cartouche
 @end defvr
 
 $B%G%U%)%k%H$G$O#3$D$NJQ?t(B @code{skk-show-inline}, @code{skk-show-tooltip},
