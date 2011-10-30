@@ -1,3 +1,8 @@
+2011-10-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wikipedia-format-buffer): Fix
+	regexp to detect disambiguation pages.
+
 2011-10-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: 更新.

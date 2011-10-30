@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.187 2011/10/22 22:45:43 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.188 2011/10/30 19:02:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/10/22 22:45:43 $
+;; Last Modified: $Date: 2011/10/30 19:02:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1209,7 +1209,7 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 	    (setq aimai
 		  (save-excursion
 		    (re-search-forward "\
-^wgCategories=.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
+wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	    ;; <span> を除去する
 	    (setq point nil)
 	    (goto-char (point-min))
