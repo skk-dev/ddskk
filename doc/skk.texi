@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/10/29 22:45:53 $
+@set UPDATED $Date: 2011/10/30 08:52:58 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8287,7 +8287,7 @@ A~ /チルド付きA(LATIN CAPITAL LETTER A WITH TILDE)/
 @kbd{t}
 
 ------ Buffer: foo ------
-t
+t@point{}
 ------ Buffer: foo ------
 
 @end group
@@ -8295,7 +8295,7 @@ t
 @kbd{a}
 
 ------ Buffer: foo ------
-た
+た@point{}
 ------ Buffer: foo ------
 @end group
 @end example
@@ -8306,15 +8306,21 @@ t
 の文字が挿入されます。
 
 @defvr {ユーザ変数} skk-prefix-hiragana-face
+
+かなモードにおけるローマ字プレフィックスのフェイスを指定します。
+
 @end defvr
 
 @defvr {ユーザ変数} skk-prefix-katakana-face
+
+カナモードにおけるローマ字プレフィックスのフェイスを指定します。
+
 @end defvr
 
 @defvr {ユーザ変数} skk-prefix-jisx0201-face
 
-それぞれかなモード、カナモード、JIS X 0201 モードにおけるローマ字プレフィッ
-クスのフェイスを指定します。
+JIS X 0201 モードにおけるローマ字プレフィックスのフェイスを指定します。
+
 @end defvr
 
 @node 入力モードを示すモードラインの文字列の変更
