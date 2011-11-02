@@ -1,3 +1,11 @@
+2011-11-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-read-from-minibuffer-function):
+	(サ変動詞の辞書登録に関する注意):
+	(再帰的辞書登録):
+	(確定辞書):
+	(変換の学習): 更新.
+
 2011-11-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: 更新.
