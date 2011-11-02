@@ -1,3 +1,7 @@
+2011-11-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-kana-input): インデントを修正.
+
 2011-11-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-read-from-minibuffer-function):

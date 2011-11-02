@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.599 2011/10/24 09:21:27 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.600 2011/11/02 23:07:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/10/24 09:21:27 $
+;; Last Modified: $Date: 2011/11/02 23:07:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1262,13 +1262,11 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 			      (cdr data))
 			  data))
 		   (pair (when skk-auto-insert-paren
-			   (cdr (assoc
-				 str
-				 skk-auto-paren-string-alist))))
+			   (cdr (assoc str skk-auto-paren-string-alist))))
 		   (count0 arg)
 		   (count1 arg)
 		   (inserted 0))
-	      (when (and (eq skk-henkan-mode 'active)
+	      (when (and (eq skk-henkan-mode 'active) ;$B"'%b!<%I(B
 			 skk-kakutei-early
 			 (not skk-process-okuri-early))
 		(skk-kakutei))
@@ -1282,8 +1280,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	      (when pair
 		(while (> count1 0)
 		  (unless (string= pair
-				   (skk-char-to-unibyte-string
-				    (following-char)))
+				   (skk-char-to-unibyte-string (following-char)))
 		    (setq inserted (1+ inserted))
 		    (skk-insert-str pair))
 		  (setq count1 (1- count1)))
