@@ -1,3 +1,8 @@
+2011-11-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-extra-jisyo-file-list):
+	(辞書検索の設定の具体例): 更新.
+
 2011-11-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-kana-input): インデントを修正.

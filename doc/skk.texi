@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/02 12:56:11 $
+@set UPDATED $Date: 2011/11/04 02:43:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6476,27 +6476,32 @@ Emacs のバッファに読み込んで検索を行います。
 
 @defvr {ユーザ変数} skk-extra-jisyo-file-list
 SKK では個人辞書の他に、メイン辞書 (@code{skk-large-jisyo}、
-@code{skk-cdb-large-jisyo}) または辞書サーバの設定をして利用するのが一般的で
-すが、ほかに多彩な辞書がメンテナンスされており、利用可能です。そのために
-は変数 @code{skk-search-prog-list} を手動で編集することもできますが、こ
-れは厳密にはユーザ変数に分類されていないため、予期しない問題が起こること
-もあります。
+@code{skk-cdb-large-jisyo}) または辞書サーバを設定して利用するのが一般的
+ですが、郵便番号辞書をはじめとした多彩な辞書もメンテナンスされています。
+
+これらの辞書を利用するために変数 @code{skk-search-prog-list} を手動で編集
+することもできますが、この変数は厳密にはユーザ変数に分類されていないため、
+予期しない問題が起こることもあります。
 
 DDSKK 14.2 以降では追加の辞書を簡単に設定する方法を提供します。以下の例
-を参考に @file{~/.skk} に記述します。
+を参考に変数 @code{skk-extra-jisyo-file-list} の設定を  @file{~/.skk} に
+記述します。
 
 @lisp
 @group
 (setq skk-extra-jisyo-file-list
       (list '("/usr/share/skk/SKK-JISYO.JIS3_4" . euc-jisx0213)
-	    "/usr/share/skk/SKK-JISYO.zipcode"))
+            "/usr/share/skk/SKK-JISYO.zipcode"))
 @end group
 @end lisp
 
-このように、辞書のファイル名のリストを指定します。ただし、変数 @code{skk-jisyo-code}
-(@w{@pxref{辞書バッファの文字コードの設定}}) とは異なる文字コードのファイルについては、
-上記の例中の @file{SKK-JISYO.JIS3_4} のように「ファイル名と文字コードのペア」を
-記述します。
+このように、辞書のファイル名のリストを指定します
+@footnote{@code{skk-search-prog-list} に登録されている関
+数 @code{skk-search-extra-jisyo-files} が、@code{skk-extra-jisyo-file-list} の
+各要素を逐次処理します。}。
+ただし、変数 @code{skk-jisyo-code} (@w{@pxref{辞書バッファの文字コードの設定}}) と
+は異なる文字コードのファイルについては、上記の例中の @file{SKK-JISYO.JIS3_4} の
+ように「ファイル名と文字コードのペア」を記述します。
 @end defvr
 
 これらの変数の意味するところは初期設定でのものですが、
@@ -6534,7 +6539,11 @@ DDSKK では、複数の辞書を扱うことが可能です。複数の辞書が同時に
  (skk-okuri-search)
  (skk-search-cdb-jisyo skk-cdb-large-jisyo)
  (skk-search-jisyo-file skk-large-jisyo 10000)
- (skk-search-server skk-aux-large-jisyo 10000))
+ (skk-search-server skk-aux-large-jisyo 10000)
+ (skk-search-ja-dic-maybe)
+ (skk-search-extra-jisyo-files)
+ (skk-search-katakana-maybe)
+ (skk-search-sagyo-henkaku-maybe)))
 @end group
 @end lisp
 
