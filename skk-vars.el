@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.386 2011/10/28 09:35:45 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.387 2011/11/05 11:34:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/10/28 09:35:45 $
+;; Last Modified: $Date: 2011/11/05 11:34:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -598,8 +598,9 @@ nil の場合 \"euc\" と同じ扱いになる。
   :group 'skk-private)
 
 (defcustom skk-share-private-jisyo nil "\
-*Non-nil であれば、複数の SKK による個人辞書の共有を考慮して辞書を更新する。
-SKK 起動後に変更した場合は \\[skk-restart] で反映させる事。"
+*Non-nil であれば、個人辞書を更新する際に「複数の SKK プロセスが特定の個
+人辞書を共有している」を考慮した上で処理を行う。
+SKK 起動後にこの変数の値を変更した場合は \\[skk-restart] で反映させる事。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-private)
