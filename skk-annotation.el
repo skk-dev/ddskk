@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.189 2011/11/06 23:12:05 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.190 2011/11/06 23:22:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/06 23:12:05 $
+;; Last Modified: $Date: 2011/11/06 23:22:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -320,7 +320,9 @@
     ;;
     (cond
      ((or (= skk-annotation-remaining-delay 0)
-	  (sit-for skk-annotation-remaining-delay))
+	  (condition-case nil
+	      (skk-sit-for skk-annotation-remaining-delay)
+	    (quit (call-interactively #'keyboard-quit))))
       (setq skk-annotation-remaining-delay 0)
       (skk-annotation-show (or note "") word))
      (t
@@ -346,7 +348,7 @@
       (when (string= text "")
 	(unless (get-process (buffer-name buffer))
 	  (skk-annotation-start-dict-process buffer word)
-	  (unless (sit-for 0.1)
+	  (unless (skk-sit-for 0.1)
 	    (throw 'dict nil)))))))
 
 (defun skk-annotation-lookup-dict (word)
@@ -363,7 +365,7 @@
 	  (setq process (skk-annotation-start-dict-process buffer word)))
 	(while (and no-user-input
 		    (eq (process-status process) 'run))
-	  (when (setq no-user-input (sit-for 0.1))
+	  (when (setq no-user-input (skk-sit-for 0.1))
 	    (setq skk-annotation-remaining-delay
 		  (- skk-annotation-remaining-delay 0.1))))
 	(when (< skk-annotation-remaining-delay 0)
