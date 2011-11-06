@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.600 2011/11/02 23:07:02 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.601 2011/11/06 23:11:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/02 23:07:02 $
+;; Last Modified: $Date: 2011/11/06 23:11:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3152,6 +3152,7 @@ WORD で確定する。"
 							 skk-henkan-key))))
 	 (skk-set-marker skk-henkan-end-point pos)
 	 (skk-set-henkan-count 0)
+	 (setq skk-annotation-first-candidate t)
 	 (skk-henkan prog-list-number)
 	 (when (and skk-abbrev-mode
 		    (eq skk-henkan-mode 'active))
