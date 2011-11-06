@@ -1,3 +1,7 @@
+2011-11-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-jisx0201.el: Update comments for JIS X 0201 Roman.
+
 2011-11-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-share-private-jisyo): doc string を更新.

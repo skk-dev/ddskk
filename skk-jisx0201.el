@@ -4,10 +4,8 @@
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-jisx0201.el,v 1.60 2011/06/28 11:55:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
-;; Last Modified: $Date: 2011/06/28 11:55:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -44,18 +42,17 @@
 ;;     $B49$7$^$9!#(B
 ;;
 ;; `skk-jisx0201-roman-rule-list' $B$K(B JISX0201.1976 Japanese Roman
-;;  (latin-jisx0201) $B$NJ8;zNs$rDj5A$7$F$$$^$9!#$?$@$7(B JISX0201.1976 Japanese
-;;  Roman $BF~NO$O:#$N$H$3$m(B Emacs 20.3 $B0J9_$H(B XEmacs 21 $B0J9_$G$7$+=PMh$F$$$^$;(B
-;; $B$s!#(I6E(B $B$H(B roman $B$r@Z$jBX$($k5!G=(B `skk-toggle-jisx0201' $B$K$O%-!<Dj5A$7$F$$(B
-;; $B$^$;$s!#(B
+;; (latin-jisx0201) $B$NJ8;zNs$rDj5A$7$F$$$^$9!#$?$@$7(B GNU Emacs 23 $B0J9_!"%U%!(B
+;; $B%$%k$A1#4f$(GUk$A$K(B JIS X 0201 Roman $A$H(B ASCII $A$NGx$(GI1$A$,$5$l$J$/$J$C$?$h$&$G$9(B ($(I!N(B
+;; $B5-9f$*$h$S%*!<%P!<%i%$%s$r=|$/(B)$B!#$7$?$,$C$F$3$N%U%!%$%k$N8=9THG$G$O!"$3$l(B
+;; $B$i$A$N(B 2 $ANDWVRTMb$O(B ASCII $A$NNDWV$,6($(Gex$A$5$l$F$$$^$9!#(B
 ;;
+;; (I6E(B $B$H(B roman $B$r@Z$jBX$($k5!G=(B `skk-toggle-jisx0201' $B$K$O%-!<Dj5A$7$F$$$^$;(B
+;; $B$s!#(B
 ;;
 ;; <$B6HL3O"Mm(B>
 ;;
-;; $B$3$N%U%!%$%k$rJT=8$9$k$H$-$O!"$G$-$l$P(B XEmacs $B$r;H$C$F$/$@$5$$!#(B Emacs 20
-;; $B$O%G%U%)%k%H$G$O(B JISX0201.1976 Japanese Roman $B$r<+F0E*$K(B US-ASCII $B$KJQ49$9(B
-;; $B$k$h$&$K$J$C$F$$$k$+$i$G$9!#(B Emacs 20.3 $B0J9_$G$3$N%U%!%$%k$rJT=8$9$k>l9g$O!"(B
-;; $B$3$N%U%!%$%k$r3+$/A0$K(B
+;; GNU Emacs 20.3 $B!A(B 22 $B$G$3$N%U%!%$%k$rJT=8$9$k>l9g$O!"%U%!%$%k$r3+$/A0$K(B
 ;;
 ;; (setq standard-translation-table-for-decode (make-translation-table nil))
 ;;
