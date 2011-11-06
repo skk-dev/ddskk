@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.188 2011/10/30 19:02:36 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.189 2011/11/06 23:12:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/10/30 19:02:36 $
+;; Last Modified: $Date: 2011/11/06 23:12:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -277,13 +277,113 @@
 	    (skk-in-minibuffer-p))
     (message nil))
   ;;
-  (when (and (car-safe pair)
-	     (not (cdr-safe pair)))
-    ;; Wikipedia の URL 利用の場合はここで注釈を設定する。
-    (setcdr pair (or (car (skk-annotation-wikipedia-cache (car pair)))
+  (let ((word (car-safe pair))
+	(note (cdr-safe pair))
+	(srcs skk-annotation-other-sources)
+	list)
+    (when skk-annotation-first-candidate
+      (setq skk-annotation-remaining-delay skk-annotation-delay
+	    skk-annotation-first-candidate nil))
+    (when (and word
+	       skk-annotation-lookup-dict
+	       (not skk-isearch-switch)
+	       (not (skk-in-minibuffer-p)))
+      ;; dict (Mac の DictionaryServices など) の設定があれば
+      ;; SKK 辞書のアノテーションより優先させる
+      (catch 'dict
+	(setq note (skk-annotation-lookup-dict word))
+	;; 余裕があれば次候補の意味を先読み
+	(dotimes (i (min (length skk-henkan-list) 4))
+	  (add-to-list 'list (nth i skk-henkan-list) t))
+	(when list
+	  (dolist (el list)
+	    (setq el (car (skk-treat-strip-note-from-word el)))
+	    (unless (equal word el)
+	      (skk-annotation-preread-dict el))))))
+    (when (and word (not note))
+      ;; Wikipedia などその他のリソースからのキャッシュがあれば
+      ;; それを表示する。
+      (unless (executable-find skk-annotation-dict-program)
+	(setq skk-annotation-other-sources
+	      (delete 'dict skk-annotation-other-sources)))
+      (unless skk-annotation-wikimedia-srcs
+	;; ▼モードでの呼び出しに際しては dict は再度呼ばない
+	(while srcs
+	  (unless (eq (car srcs) 'dict)
+	    (add-to-list 'skk-annotation-wikimedia-srcs (car srcs)))
+	  (setq srcs (cdr srcs))))
+      (setq note (or (car (skk-annotation-wikipedia-cache
+			   word
+			   skk-annotation-wikimedia-srcs))
 		     (when skk-annotation-show-wikipedia-url
-		       (skk-annotation-treat-wikipedia (car pair))))))
-  (skk-annotation-show (or (cdr pair) "") (car pair)))
+		       (skk-annotation-treat-wikipedia word)))))
+    ;;
+    (cond
+     ((or (= skk-annotation-remaining-delay 0)
+	  (sit-for skk-annotation-remaining-delay))
+      (setq skk-annotation-remaining-delay 0)
+      (skk-annotation-show (or note "") word))
+     (t
+      (setq skk-annotation-remaining-delay skk-annotation-delay)))))
+
+(defun skk-annotation-dict-buffer-format (word)
+  "dict の内容を格納するバッファのフォーマット。"
+  (format "  *skk dict %s" word))
+
+(defun skk-annotation-start-dict-process (buffer word)
+  "dict のプロセスを起動する。"
+  (apply #'start-process (buffer-name buffer) buffer
+	 skk-annotation-dict-program
+	 (append skk-annotation-dict-program-arguments
+		 (list word))))
+
+(defun skk-annotation-preread-dict (word)
+  "dict のプロセスを起動する。先読みのために用いる。"
+  (let ((buffer (get-buffer-create (skk-annotation-dict-buffer-format word)))
+	(text ""))
+    (with-current-buffer buffer
+      (setq text (buffer-string))
+      (when (string= text "")
+	(unless (get-process (buffer-name buffer))
+	  (skk-annotation-start-dict-process buffer word)
+	  (unless (sit-for 0.1)
+	    (throw 'dict nil)))))))
+
+(defun skk-annotation-lookup-dict (word)
+  "dict のプロセスを必要なら起動し、結果を調べる。
+意味が取得できた場合には結果を文字列として返す。"
+  (let ((buffer (get-buffer-create (skk-annotation-dict-buffer-format word)))
+	(text "")
+	(no-user-input t)
+	process)
+    (with-current-buffer buffer
+      (setq text (buffer-string))
+      (when (string= text "")
+	(unless (get-process (buffer-name buffer))
+	  (setq process (skk-annotation-start-dict-process buffer word)))
+	(while (and no-user-input
+		    (eq (process-status process) 'run))
+	  (when (setq no-user-input (sit-for 0.1))
+	    (setq skk-annotation-remaining-delay
+		  (- skk-annotation-remaining-delay 0.1))))
+	(when (< skk-annotation-remaining-delay 0)
+	  (setq skk-annotation-remaining-delay 0))
+	(unless no-user-input
+	  (set-process-query-on-exit-flag process nil)
+	  (erase-buffer)
+	  (throw 'dict nil)))
+      (goto-char (point-max))
+      (forward-line -1)
+      (cond
+       ((looking-at "^Process .+ finished$")
+	(forward-line -1)
+	(setq text (buffer-substring (point-min) (point))))
+       (t
+	(erase-buffer)
+	(insert " ")
+	(setq text ""))))
+    (unless (string= text "")
+      text)))
 
 ;;;###autoload
 (defun skk-annotation-show (annotation &optional word sources)
@@ -321,6 +421,9 @@
     inhibit-wait))
 
 (defun skk-annotation-wait-for-input (annotation notes &optional word sources)
+  "アノテーション表示時にキー入力を捕捉する。
+キー入力の内容によってアノテーションのコピー、情報源 URL のブラウズ、または
+別の情報源からの意味取得を行う。"
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
@@ -369,20 +472,22 @@
 	       (skk-annotation-show-2 annotation)))
 	    ((eq command browse-command)
 	     (setq list (delq browse-command list))
-;	     (setq urls (delq nil (mapcar #'skk-annotation-find-url notes)))
+	     (setq urls nil)
 	     (when word
 	       (cond
 		((setq cache (skk-annotation-wikipedia-cache word sources))
 		 (setq urls
 		       (cons
-			(apply #'skk-annotation-generate-url
-			       "http://%s.org/wiki/%s"
-			       ;; split-string の非互換性に配慮
-			       (if (eval-when-compile
-				     (and skk-running-gnu-emacs
-					  (<= emacs-major-version 21)))
-				   (cdr (split-string (cdr cache) " "))
-				 (cdr (split-string (cdr cache) " " t))))
+			(if (string= (cdr cache) "dict")
+			    (format "dict:///%s" word)
+			  (apply #'skk-annotation-generate-url
+				 "http://%s.org/wiki/%s"
+				 ;; split-string の非互換性に配慮
+				 (if (eval-when-compile
+				       (and skk-running-gnu-emacs
+					    (<= emacs-major-version 21)))
+				     (cdr (split-string (cdr cache) " "))
+				   (cdr (split-string (cdr cache) " " t)))))
 			urls)))
 		(skk-annotation-show-wikipedia-url
 		 (add-to-list 'urls
@@ -421,10 +526,10 @@
 		   (if (and digit
 			    (> digit 0)
 			    (<= digit
-				(length skk-annotation-wikipedia-sources)))
+				(length skk-annotation-other-sources)))
 		       (list (nth (1- digit)
-				  skk-annotation-wikipedia-sources))
-		     skk-annotation-wikipedia-sources))
+				  skk-annotation-other-sources))
+		     skk-annotation-other-sources))
 	     (setq event nil
 		   digit nil
 		   char  nil)
@@ -458,13 +563,13 @@
 	(setq list
 	      (delete ""
 		      (split-string
-		       (dotimes (i (length skk-annotation-wikipedia-sources) string)
+		       (dotimes (i (length skk-annotation-other-sources) string)
 			 (setq string
 			       (format "%s[C-%d %s]%s  "
 				       string
 				       (1+ i)
 				       key
-				       (nth i skk-annotation-wikipedia-sources))))
+				       (nth i skk-annotation-other-sources))))
 		       "  ")))
 	(dolist (x list)
 	  (let* ((y (split-string x "]"))
@@ -475,7 +580,7 @@
 					  'skk-verbose-kbd-face)
 			      s2 " "))))
 	(setq skk-annotation-wikipedia-message
-	      (concat (propertize "{どのWiki?}" 'face
+	      (concat (propertize "{どれを参照?}" 'face
 				  'skk-verbose-intention-face)
 		      new))))
     ;;
@@ -491,7 +596,7 @@
 	  (setq key-wiki "C-i"))
 	(setq list
 	      (split-string
-	       (format "[%s]コピー  [%s]URLブラウズ  [%s]デフォルトWiki参照"
+	       (format "[%s]コピー  [%s]URLブラウズ  [%s]デフォルトの情報源を参照"
 		       key-copy key-browse key-wiki) "  "))
 	(dolist (x list)
 	  (let* ((y (split-string x "]"))
@@ -879,7 +984,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 ;;;###autoload
 (defun skk-annotation-wikipedia (word &optional sources)
   "Wiktionary/Wikipedia の WORD に相当する記事からアノテーションを取得する。"
-  (let ((sources (or sources skk-annotation-wikipedia-sources))
+  (let ((sources (or sources skk-annotation-other-sources))
 	source
 	words
 	(string "")
@@ -891,7 +996,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 			sources)
 	      (setq source (car sources))
 	      (cond
-	       ((memq source '(en.wiktionary ja.wiktionary))
+	       ((memq source '(dict en.wiktionary ja.wiktionary))
 		(setq words (list word))
 		(when (skk-ascii-char-p (aref word 0))
 		  (cond
@@ -910,10 +1015,10 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 		    (if (>= (length word) 2)
 			(setq words (append words
 					    (list (upcase-initials word)))))))))
-     (t
-      (setq words (list (upcase-initials word)))
-      (if (>= (length word) 2)
-	  (setq words (append words (list (upcase word)))))))
+	       (t
+		(setq words (list (upcase-initials word)))
+		(if (>= (length word) 2)
+		    (setq words (append words (list (upcase word)))))))
 	      (while (and (not note) words)
 		(setq note (skk-annotation-wikipedia-1 (car words) source t))
 		(sleep-for 0.01) ; これがないと止まることあり
@@ -954,50 +1059,56 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
   "Wiktionary/Wikipedia の WORD に相当する記事を実際にダウンロードして調べる。
 該当ページ (html) をダウンロードする機能は Emacs に付属の URL パッケージに依
 る。"
-  (require 'html2text)
-  (require 'url)
-  ;;
-  (setq word (skk-annotation-wikipedia-normalize-word word source
-						      preserve-case))
-  ;;
-  (let ((cache-buffer (format " *skk %s %s" source word))
-	;; html2text が正しく扱えない tag は以下のリストに指定する
-	(html2text-remove-tag-list
-	 (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
-		   "code")
-		 html2text-remove-tag-list))
-	(html2text-format-tag-list
-	 (append '(("sup" . skk-annotation-wikipedia-clean-sup)
-		   ("sub" . skk-annotation-wikipedia-clean-sub))
-		 html2text-format-tag-list))
-	(url-retrieve-func
-	 (if (fboundp 'url-queue-retrieve)
-	     #'url-queue-retrieve
-	   #'url-retrieve))
-	buf buffer)
-    (if (get-buffer cache-buffer)
-	(with-current-buffer cache-buffer
-	  (buffer-string))
-      ;; キャッシュがない場合
-      (setq buffer (funcall url-retrieve-func
-			    (skk-annotation-generate-url
-			     "http://%s.org/wiki/%s"
-			     source word)
-			    #'skk-annotation-wikipedia-retrieved
-			    (list (list source))))
-      (while (not buf)
-	(setq buf (catch 'skk-annotation-wikipedia-retrieved
-		    (condition-case nil
-			(sleep-for 0.01)
-		      ((error quit)
-		       (kill-buffer buffer)
-		       (throw 'skk-annotation-wikipedia-suspended
-			      source))))))
-      (when (and (setq buffer buf)
-		 (buffer-live-p buffer))
-	(skk-annotation-wikipedia-format-buffer source buffer cache-buffer)))))
+  (cond
+   ((eq source 'dict)
+    (catch 'dict (skk-annotation-lookup-dict word)))
+   (t
+    (require 'html2text)
+    (require 'url)
+    ;;
+    (setq word (skk-annotation-wikipedia-normalize-word word source
+							preserve-case))
+    ;;
+    (let ((cache-buffer (format "  *skk %s %s" source word))
+	  ;; html2text が正しく扱えない tag は以下のリストに指定する
+	  (html2text-remove-tag-list
+	   (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
+		     "code")
+		   html2text-remove-tag-list))
+	  (html2text-format-tag-list
+	   (append '(("sup" . skk-annotation-wikipedia-clean-sup)
+		     ("sub" . skk-annotation-wikipedia-clean-sub))
+		   html2text-format-tag-list))
+	  (url-retrieve-func
+	   (if (fboundp 'url-queue-retrieve)
+	       #'url-queue-retrieve
+	     #'url-retrieve))
+	  buf buffer)
+      (if (get-buffer cache-buffer)
+	  (with-current-buffer cache-buffer
+	    (buffer-string))
+	;; キャッシュがない場合
+	(setq buffer (funcall url-retrieve-func
+			      (skk-annotation-generate-url
+			       "http://%s.org/wiki/%s"
+			       source word)
+			      #'skk-annotation-wikipedia-retrieved
+			      (list (list source))))
+	(while (not buf)
+	  (setq buf (catch 'skk-annotation-wikipedia-retrieved
+		      (condition-case nil
+			  (sleep-for 0.01)
+			((error quit)
+			 (kill-buffer buffer)
+			 (throw 'skk-annotation-wikipedia-suspended
+				source))))))
+	(when (and (setq buffer buf)
+		   (buffer-live-p buffer))
+	  (skk-annotation-wikipedia-format-buffer source buffer
+						  cache-buffer)))))))
 
 (defun skk-annotation-wikipedia-format-buffer (source buffer cache-buffer)
+  "html の余計な要素を除去し、html2text の機能を用いて整形する。"
   (let ((html2text-remove-tag-list
 	 (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
 		   "code")
@@ -1244,8 +1355,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	    ;;
 	    (goto-char (point-min))
 	    (when (or (when (re-search-forward
-			     "<p>\\(<br />\n\\|[^\n]*\\)?\
-<b>[^\n]+</b>[^\n]+"
+			     "<p>\\(<br />\n\\|[^\n]*\\)?<b>[^\n]+</b>[^\n]+"
 			     nil t)
 			(goto-char (match-beginning 0))
 			(if (and (save-excursion
@@ -1403,7 +1513,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
     ;; html が gzip 圧縮で送られて来た場合
     (let ((gzip (executable-find "gzip")))
       (unless gzip
-	(error "%s" "この内容を表示するには gzip が必要です"))
+	(error "この内容を表示するには %s が必要です" "gzip"))
       (while (and (not (looking-at "^\n"))
 		  (not (eobp)))
 	(forward-line 1))
@@ -1469,7 +1579,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 
 ;;;###autoload
 (defun skk-annotation-wikipedia-cache (word &optional sources)
-  (let ((sources (or sources skk-annotation-wikipedia-sources))
+  (let ((sources (or sources skk-annotation-other-sources))
 	(word (skk-annotation-wikipedia-normalize-word word 'en.wiktionary))
 	(cword (skk-annotation-wikipedia-normalize-word word))
 	(ccword (skk-annotation-wikipedia-normalize-word word
@@ -1479,45 +1589,54 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	(let* ((source (pop sources))
 	       (ccache-buffer (if (equal word cword)
 				  nil
-				(format " *skk %s %s" source cword)))
+				(format "  *skk %s %s" source cword)))
 	       (cccache-buffer (if (or (equal word ccword)
 				       (equal cword ccword))
 				   nil
-				 (format " *skk %s %s" source ccword)))
-	       (cache-buffer (format " *skk %s %s" source word))
+				 (format "  *skk %s %s" source ccword)))
+	       (cache-buffer (format "  *skk %s %s" source word))
 	       string)
-	  (setq string
-		(if (and ccache-buffer
-			 (get-buffer ccache-buffer))
-		    ;; Word word
-		    (with-current-buffer (get-buffer ccache-buffer)
-		      (buffer-string))
-		  ""))
-	  (if (> (length string) 0)
-	      (throw 'found (cons string ccache-buffer))
+	  (cond
+	   ((eq source 'dict)
+	    (setq string (catch 'dict (skk-annotation-lookup-dict word)))
+	    (if (or (null string)
+		    (string= string ""))
+		nil
+	      (throw 'found
+		     (cons string "dict"))))
+	   (t
 	    (setq string
-		  (if (and cccache-buffer
-			 (get-buffer cccache-buffer))
-		      ;; Word Word
-		      (with-current-buffer (get-buffer cccache-buffer)
+		  (if (and ccache-buffer
+			   (get-buffer ccache-buffer))
+		      ;; Word word
+		      (with-current-buffer (get-buffer ccache-buffer)
 			(buffer-string))
 		    ""))
 	    (if (> (length string) 0)
-		(throw 'found (cons string cccache-buffer))
+		(throw 'found (cons string ccache-buffer))
 	      (setq string
-		    (if (get-buffer cache-buffer)
-			;; word word
-			(with-current-buffer (get-buffer cache-buffer)
+		    (if (and cccache-buffer
+			     (get-buffer cccache-buffer))
+			;; Word Word
+			(with-current-buffer (get-buffer cccache-buffer)
 			  (buffer-string))
 		      ""))
-	      (if (string= string "")
-		  nil
-		(throw 'found (cons string cache-buffer))))))))))
+	      (if (> (length string) 0)
+		  (throw 'found (cons string cccache-buffer))
+		(setq string
+		      (if (get-buffer cache-buffer)
+			  ;; word word
+			  (with-current-buffer (get-buffer cache-buffer)
+			    (buffer-string))
+			""))
+		(if (string= string "")
+		    nil
+		  (throw 'found (cons string cache-buffer))))))))))))
 
 ;;;###autoload
 (defun skk-annotation-wikipedia-region-or-at-point (&optional prefix-arg
 							      start end)
-  "選択領域またはポイント位置の単語を Wikipedia/Wikitionary で調べる。
+  "選択領域またはポイント位置の単語を Wikipedia/Wikitionary などで調べる。
 領域が選択されていなければ単語の始めと終わりを推測して調べる。
 調べた結果を `skk-annotation-show-as-message' が Non-nil であればエコーエリア
 に、nil であれば別 window に表示する。"
@@ -1536,6 +1655,8 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	    (skk-in-minibuffer-p))
     (message nil))
   ;;
+  (unless (executable-find skk-annotation-dict-program)
+    (setq skk-annotation-other-sources (delete 'dict skk-annotation-other-sources)))
   (let ((word (if (and (= start 1) (= end 1))
 		  ;; region が active でないときは，ポイントにある
 		  ;; 単語を推測する
@@ -1544,9 +1665,9 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	(sources
 	 (if (and current-prefix-arg
 		  (> prefix-arg 0)
-		  (<= prefix-arg (length skk-annotation-wikipedia-sources)))
-	     (list (nth (1- prefix-arg) skk-annotation-wikipedia-sources))
-	   skk-annotation-wikipedia-sources))
+		  (<= prefix-arg (length skk-annotation-other-sources)))
+	     (list (nth (1- prefix-arg) skk-annotation-other-sources))
+	   skk-annotation-other-sources))
 	note)
     (when (and word
 	       (> (length word) 0))
