@@ -1,3 +1,33 @@
+2011-11-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-delay, skk-annotation-lookup-dict)
+	(skk-annotation-dict-program)
+	(skk-annotation-dict-program-arguments): New user options.
+	(skk-annotation-other-sources): Rename from
+	skk-annotation-wikipedia-sources, which is now defined as an
+	obsolete variable alias.
+	(skk-annotation-remaining-delay, skk-annotation-first-candidate):
+	New variables.
+
+	* skk.el (skk-start-henkan): When entering henkan-active mode, set
+	skk-annotation-first-candidate to t.
+
+	* skk-annotation.el (skk-annotation-dict-buffer-format)
+	(skk-annotation-start-dict-process, skk-annotation-preread-dict)
+	(skk-annotation-lookup-dict): New functions.
+	(skk-annotation-find-and-show): If skk-annotation-lookup-dict is
+	non-nil, call them to find an annotation.  Wait for
+	skk-annotation-delay before showing the annotation when user is
+	acting quickly.
+	(skk-annotation-wait-for-input): Browse "dict://" instead of
+	"http://" for `dict' annotations.
+	(skk-annotation-message): Modify message.
+	(skk-annotation-wikipedia-1, skk-annotation-wikipedia-cache): When
+	source is `dict', call `skk-annotation-lookup-dict'.
+	(skk-annotation-wikipedia-region-or-at-point): When
+	skk-annotation-dict-program is not available, delete `dict' from
+	skk-annotation-other-sources.
+
 2011-11-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (このバージョンのSKKについて, skk-tut-lang)
