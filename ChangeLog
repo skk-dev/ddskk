@@ -1,3 +1,10 @@
+2011-11-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (このバージョンのSKKについて, skk-tut-lang)
+	(skk-tooltip-mouse-behavior): 更新.
+	(skk-tut-use-face, skk-show-num-type-info)
+	(skk-tooltip-parameters): 追加.
+
 2011-11-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-jisx0201.el: Update comments for JIS X 0201 Roman.
@@ -10,7 +17,7 @@
 
 2011-11-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-extra-jisyo-file-list):
+	* doc/skk.texi (skk-extra-jisyo-file-list)
 	(辞書検索の設定の具体例): 更新.
 
 2011-11-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
@@ -19,11 +26,9 @@
 
 2011-11-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-read-from-minibuffer-function):
-	(サ変動詞の辞書登録に関する注意):
-	(再帰的辞書登録):
-	(確定辞書):
-	(変換の学習): 更新.
+	* doc/skk.texi (skk-read-from-minibuffer-function)
+	(サ変動詞の辞書登録に関する注意, 再帰的辞書登録)
+	(確定辞書, 変換の学習): 更新.
 
 2011-11-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

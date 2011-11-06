@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/05 11:34:56 $
+@set UPDATED $Date: 2011/11/06 10:22:00 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -281,6 +281,7 @@ GNU Emacs 20 $B$N%f!<%6!<$O(B DDSKK 14.1 $B$r$*;H$$$/$@$5$$!#(B
 @item JIS X 0213 $BBP1~$K$O(B Mule-UCS $B$NF3F~$,I,MW$G$9!#(B
 @item X Window System $B>e$G$NF|K\8l%a%K%e!<I=<($KBP1~$7$^$;$s!#(B
 @item $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k$K$O(B @file{html2text.el} $B$H(B @file{w3-url-e21} $B$NF3F~$,I,MW$G$9!#(B
+@item skk-tooltip-mouse-behavior $B$O(B 'follow $B8GDj$G$9!#(B
 @end itemize
 
 @item GNU Emacs 22.3
@@ -304,6 +305,7 @@ GNU Emacs 20 $B$N%f!<%6!<$O(B DDSKK 14.1 $B$r$*;H$$$/$@$5$$!#(B
 @item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
 @item $B%D!<%k%F%#%C%WI=<($,5!G=$7$^$;$s!#(B
 @item $BF|K\8l%a%K%e!<I=<($O(B X $B%j%=!<%9$K$h$kJ}K!$N$_%F%9%H$5$l$F$$$^$9!#(B
+@item ja-dic $B$OMxMQ$G$-$^$;$s!#(B
 @end itemize
 
 @itemx XEmacs 21.5 (beta)
@@ -313,6 +315,7 @@ GNU Emacs 20 $B$N%f!<%6!<$O(B DDSKK 14.1 $B$r$*;H$$$/$@$5$$!#(B
 @item $B%$%s%i%$%s8uJdI=<($O5!G=$7$^$;$s!#(B
 @item $BF0E*Jd40$K$*$1$kJ#?t8uJdI=<($O5!G=$7$^$;$s!#(B
 @item $BF|K\8l%a%K%e!<I=<($O(B X $B%j%=!<%9$K$h$kJ}K!$N$_%F%9%H$5$l$F$$$^$9!#(B
+@item ja-dic $B$OMxMQ$G$-$^$;$s!#(B
 @end itemize
 @end table
 
@@ -1831,8 +1834,15 @@ DDSKK $B$K$O!"4pK\E*$JA`:nJ}K!$r3X=,$G$-$k%A%e!<%H%j%"%k$,ImB0$7$F$$$^$9!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-tut-lang
-$B%A%e!<%H%j%"%k$GMQ$$$k8@8l!J(B@code{Japanese} $BKt$O(B @code{English}$B!K$r;XDj$7$^$9!#(B
+$B%A%e!<%H%j%"%k$GMQ$$$k8@8l$rJ8;zNs!J(B@code{"Japanese"} $BKt(B
+$B$O(B @code{"English"}$B!K$G;XDj$7$^$9!#(B
 $B$3$NJQ?t$h$j$b(B @kbd{C-u M-x skk-tutorial} $B$K$h$k8@8l;XDj$,M%@h$5$l$^$9!#(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-tut-use-face
+
+@code{Non-nil} $B$G$"$l$P!"%A%e!<%H%j%"%k$G(B face $B$rMxMQ$7$?I=<($r9T$&!#(B
 
 @end defvr
 
@@ -3873,6 +3883,13 @@ p# /#4/
 @end example
 
 $B$J$I$N8+=P$78l$,;HMQ$G$-$J$/$J$j$^$9!#(B
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-show-num-type-info
+
+@code{Non-nil} $B$G$"$l$P!"<-=qEPO?%b!<%I$KF~$k$N$HF1;~$KJQ49%?%$%W$N0FFb$r(B
+$BI=<($9$k!#%G%U%)%k%H$O(B @code{t} $B$G$9!#(B
 
 @end defvr
 
@@ -8490,8 +8507,10 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-tooltip-mouse-behavior
+@b{Emacs 21 $B$O(B @code{'follow} $B8GDj$G$9!#(B}
+
 $B%D!<%k%F%#%C%W$rI=<($9$k0LCV5Z$S%^%&%9%]%$%s%?$N5sF0$r;XDj$7$^$9!#(B
-Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$r;XDj$7$?>l9g$O(B @code{nil} $B$H$J$j$^$9!#(B
+$B2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$r;XDj$7$?>l9g$O(B @code{nil} $B$H$J$j$^$9!#(B
 
 @table @code
 @item 'follow
@@ -8523,6 +8542,14 @@ Emacs21 $B$O(B @code{'follow} $B8GDj$G$9!#2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$
 $B%D!<%k%F%#%C%W$O<+F0E*$K>C$($k!#(B
 
 @end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-tooltip-parameters
+
+$B%G%U%)%k%H$O(B @code{nil}$B!#(BSKK $BFH<+$N%U%l!<%`%Q%i%a!<%?$r@_Dj$9$k!#(B
+@code{nil} $B$N>l9g!"(B@code{tooltip-frame-parameters} $B$,E,MQ$5$l$k!#(B
+
+@end defvr
+
 @end cartouche
 @end defvr
 
