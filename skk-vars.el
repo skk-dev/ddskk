@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.387 2011/11/05 11:34:56 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.388 2011/11/06 23:10:57 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/05 11:34:56 $
+;; Last Modified: $Date: 2011/11/06 23:10:57 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2736,6 +2736,11 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
   :group 'skk-basic
   :group 'skk-annotation)
 
+(defcustom skk-annotation-delay 1.0
+  "$B%"%N%F!<%7%g%s$rI=<($9$k$^$G$NCY1d!#(B"
+  :type 'number
+  :group 'skk-annotation)
+
 (defcustom skk-annotation-toggle-display-char ?^
   "*$B8uJd0lMw$rI=<(Cf$K%"%N%F!<%7%g%sI=<($r@Z$jBX$($k%-!<%-%c%i%/%?!#(B"
   :type 'character
@@ -2783,6 +2788,31 @@ nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B"
   :type 'hook
   :group 'skk-annotation)
 
+(defcustom skk-annotation-lookup-dict nil
+  "*Non-nil $B$G$"$l$P!"30It%W%m%0%i%`$rFI$s$GJQ498uJd$N0UL#$rI=<($9$k!#(B"
+  :type 'boolean
+  :group 'skk-annotation)
+
+(defcustom skk-annotation-dict-program
+  (cond ((featurep 'ns)
+	 (executable-find "/usr/bin/python2.5"))
+	(t
+	 nil))
+  "*$BJQ498uJd$N0UL#$rI=<($9$k$?$a$N30It%W%m%0%i%`$N%U%!%$%kL>!#(B
+Mac OS X $B4D6-$G$"$l$P(B DictionaryServices $B$rMxMQ$9$k$?$a$N(B Python $B%9%/%j%W%H(B
+$B%U%!%$%k$r;XDj$G$-$k!#(B"
+  :type '(file :tag "$B%U%!%$%kL>(B")
+  :group 'skk-annotation)
+
+(defcustom skk-annotation-dict-program-arguments
+  (cond ((featurep 'ns)
+	 '("-c" "import sys, DictionaryServices; word = sys.argv[1].decode(\"utf-8\"); print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word))).encode(\"utf-8\")"))
+	(t
+	 nil))
+  "*$BJQ498uJd$N0UL#$rI=<($9$k$?$a$N30It%W%m%0%i%`$N0z?t$N%j%9%H!#(B"
+  :type '(string :tag "$B%U%!%$%kL>(B")
+  :group 'skk-annotation)
+
 (defcustom skk-annotation-show-wikipedia-url nil
   "*$B%"%N%F!<%7%g%s$K(B Wikipedia $B$N(B URL $B$rMxMQ$9$k$+$I$&$+7h$a$k%*%W%7%g%s!#(B
 SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
@@ -2792,21 +2822,27 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
   :type 'boolean
   :group 'skk-annotation)
 
-(defcustom skk-annotation-wikipedia-sources '(ja.wikipedia
-					      en.wiktionary
-					      simple.wikipedia
-					      en.wikipedia
-					      ja.wiktionary)
+(defcustom skk-annotation-other-sources '(dict
+					  ja.wikipedia
+					  en.wiktionary
+					  simple.wikipedia
+					  en.wikipedia
+					  ja.wiktionary)
   ;; ($BCm(B) 2007 $BG/;~E@$G$O(B ja.wiktionary $B$OH/E8ES>e$G$"$j!"(B
   ;; $BI=5-$J$I$K$d$dITE}0l$JE@$,$"$kLOMM!#(B
-  "*$B%"%N%F!<%7%g%s$K;H$&(B Wikimedia $B$N%=!<%9$r;XDj$9$k%*%W%7%g%s!#(B
+  "*$B%"%N%F!<%7%g%s$K;H$&>pJs$N%=!<%9$r;XDj$9$k%*%W%7%g%s!#(B
 $BI8=`$G$O$^$:(B Wikipedia $B$r;2>H$7!"(BWikipedia $B$N5-=R$,L5$1$l$P(B Wiktionary $B$r(B
-$B;2>H$9$k!#(B"
+$B;2>H$9$k!#(B
+
+Mac OS X $B$G$OI8=`$N(B DictionaryServices $B$rMxMQ$G$-$k!#(B"
   :type '(radio
-	  (repeat :tag "Wikimedia $B;qNA$rMxMQ$9$k(B\
+	  (repeat :tag "$B<!$N%=!<%9$rMxMQ$9$k(B\
  ($B0J2<$K9`L\$H=gHV$r;XDj$7$F$/$@$5$$(B)" symbol)
-	  (const :tag "Wikimedia $B;qNA$rMxMQ$7$J$$(B" nil))
+	  (const :tag "Wikimedia $B$J$I$N>pJs$rMxMQ$7$J$$(B" nil))
   :group 'skk-annotation)
+(make-obsolete-variable 'skk-annotation-wikipedia-sources
+			'skk-annotation-other-sources
+			"DDSKK 14.4")
 
 (defcustom skk-annotation-wikipedia-key "\C-i"
   "*$B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$NFbMF$rI=<($9$k%-!<!#(B
@@ -2818,6 +2854,10 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
 
 (defconst skk-annotation-buffer
   "*SKK annotation*")
+
+(defvar skk-annotation-remaining-delay 0)
+
+(defvar skk-annotation-first-candidate nil)
 
 (defvar skk-annotation-mode-map nil
   "*SKK annotation $B%b!<%I$N%-!<%^%C%W!#(B")
@@ -2838,6 +2878,7 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
 
 (defvar skk-annotation-wikipedia-message nil
   "SKK Wikipedia $BMxMQJ}K!$r<($9%a%C%;!<%8(B ($B<+F0@_Dj(B)$B!#(B")
+(defvar skk-annotation-wikimedia-srcs nil)
 
 (defvar skk-annotation-message nil
   "SKK Annotation $BMxMQJ}K!$r<($9%a%C%;!<%8(B ($B<+F0@_Dj(B)$B!#(B")
