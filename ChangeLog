@@ -1,3 +1,12 @@
+2011-11-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-original-buffer): New internal
+	variable.
+
+	* skk-annotation.el (skk-annotation-sit-for): New function.
+	(skk-annotation-find-and-show, skk-annotation-preread-dict)
+	(skk-annotation-lookup-dict): Use it.
+
 2011-11-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-annotation-delay, skk-annotation-lookup-dict)
