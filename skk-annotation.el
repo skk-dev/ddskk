@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.191 2011/11/07 00:08:35 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.192 2011/11/07 00:57:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/07 00:08:35 $
+;; Last Modified: $Date: 2011/11/07 00:57:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -298,7 +298,8 @@
       ;; dict (Mac の DictionaryServices など) の設定があれば
       ;; SKK 辞書のアノテーションより優先させる
       (catch 'dict
-	(setq note (skk-annotation-lookup-dict word))
+	(when (null (setq note (skk-annotation-lookup-dict word)))
+	  (setq note (cdr-safe pair)))
 	;; 余裕があれば次候補の意味を先読み
 	(dotimes (i (min (length skk-henkan-list) 4))
 	  (add-to-list 'list (nth i skk-henkan-list) t))
