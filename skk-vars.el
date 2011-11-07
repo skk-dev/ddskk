@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.388 2011/11/06 23:10:57 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.389 2011/11/07 00:08:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/06 23:10:57 $
+;; Last Modified: $Date: 2011/11/07 00:08:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2856,6 +2856,8 @@ Mac OS X では標準の DictionaryServices を利用できる。"
   "*SKK annotation*")
 
 (defvar skk-annotation-remaining-delay 0)
+
+(defvar skk-annotation-original-buffer nil)
 
 (defvar skk-annotation-first-candidate nil)
 
