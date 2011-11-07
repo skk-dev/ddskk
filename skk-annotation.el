@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.194 2011/11/07 06:37:13 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.195 2011/11/07 22:10:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/07 06:37:13 $
+;; Last Modified: $Date: 2011/11/07 22:10:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -311,7 +311,7 @@
     (when (and word (not note))
       ;; Wikipedia などその他のリソースからのキャッシュがあれば
       ;; それを表示する。
-      (unless (executable-find skk-annotation-dict-program)
+      (unless (ignore-errors (executable-find skk-annotation-dict-program))
 	(setq skk-annotation-other-sources
 	      (delete 'dict skk-annotation-other-sources)))
       (unless skk-annotation-wikimedia-srcs
@@ -328,12 +328,13 @@
     ;;
     (setq skk-annotation-original-buffer (current-buffer))
     (cond
-     ((or (= skk-annotation-remaining-delay 0)
+     ((or (<= skk-annotation-remaining-delay 0)
 	  (skk-annotation-sit-for skk-annotation-remaining-delay))
       (setq skk-annotation-remaining-delay 0)
       (skk-annotation-show (or note "") word))
      (t
-      (setq skk-annotation-remaining-delay skk-annotation-delay)))))
+      (setq skk-annotation-remaining-delay skk-annotation-delay)
+      (skk-annotation-show "" word)))))
 
 (defun skk-annotation-dict-buffer-format (word)
   "dict の内容を格納するバッファのフォーマット。"
@@ -380,7 +381,7 @@
 	(when (< skk-annotation-remaining-delay 0)
 	  (setq skk-annotation-remaining-delay 0))
 	(unless no-user-input
-	  (set-process-query-on-exit-flag process nil)
+	  (skk-process-kill-without-query process)
 	  (erase-buffer)
 	  (throw 'dict nil)))
       (goto-char (point-max))
@@ -1667,8 +1668,9 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	    (skk-in-minibuffer-p))
     (message nil))
   ;;
-  (unless (executable-find skk-annotation-dict-program)
-    (setq skk-annotation-other-sources (delete 'dict skk-annotation-other-sources)))
+  (unless (ignore-errors (executable-find skk-annotation-dict-program))
+    (setq skk-annotation-other-sources
+	  (delete 'dict skk-annotation-other-sources)))
   (let ((word (if (and (= start 1) (= end 1))
 		  ;; region が active でないときは，ポイントにある
 		  ;; 単語を推測する
