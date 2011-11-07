@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.192 2011/11/07 00:57:53 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.193 2011/11/07 06:33:00 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/07 00:57:53 $
+;; Last Modified: $Date: 2011/11/07 06:33:00 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -370,8 +370,8 @@
     (with-current-buffer buffer
       (setq text (buffer-string))
       (when (string= text "")
-	(unless (get-process (buffer-name buffer))
-	  (setq process (skk-annotation-start-dict-process buffer word)))
+	(setq process (unless (get-process (buffer-name buffer))
+			(skk-annotation-start-dict-process buffer word)))
 	(while (and no-user-input
 		    (eq (process-status process) 'run))
 	  (when (setq no-user-input (skk-annotation-sit-for 0.1))

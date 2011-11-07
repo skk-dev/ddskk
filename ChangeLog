@@ -5,7 +5,7 @@
 
 	* skk-annotation.el (skk-annotation-sit-for): New function.
 	(skk-annotation-find-and-show, skk-annotation-preread-dict)
-	(skk-annotation-lookup-dict): Use it.
+	(skk-annotation-lookup-dict): Use it.  Always set process.
 
 2011-11-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
