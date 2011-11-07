@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.190 2011/11/06 23:22:39 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.191 2011/11/07 00:08:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/06 23:22:39 $
+;; Last Modified: $Date: 2011/11/07 00:08:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -270,6 +270,13 @@
 	(t
 	 annotation)))
 
+(defun skk-annotation-sit-for (seconds)
+  (condition-case nil
+      (skk-sit-for seconds)
+    (quit
+     (with-current-buffer skk-annotation-original-buffer
+       (keyboard-quit)))))
+
 ;;;###autoload
 (defun skk-annotation-find-and-show (pair)
   ;; ミニバッファにいるとき余計なメッセージをクリアする
@@ -318,11 +325,10 @@
 		     (when skk-annotation-show-wikipedia-url
 		       (skk-annotation-treat-wikipedia word)))))
     ;;
+    (setq skk-annotation-original-buffer (current-buffer))
     (cond
      ((or (= skk-annotation-remaining-delay 0)
-	  (condition-case nil
-	      (skk-sit-for skk-annotation-remaining-delay)
-	    (quit (call-interactively #'keyboard-quit))))
+	  (skk-annotation-sit-for skk-annotation-remaining-delay))
       (setq skk-annotation-remaining-delay 0)
       (skk-annotation-show (or note "") word))
      (t
@@ -343,12 +349,13 @@
   "dict のプロセスを起動する。先読みのために用いる。"
   (let ((buffer (get-buffer-create (skk-annotation-dict-buffer-format word)))
 	(text ""))
+    (setq skk-annotation-original-buffer (current-buffer))
     (with-current-buffer buffer
       (setq text (buffer-string))
       (when (string= text "")
 	(unless (get-process (buffer-name buffer))
 	  (skk-annotation-start-dict-process buffer word)
-	  (unless (skk-sit-for 0.1)
+	  (unless (skk-annotation-sit-for 0.1)
 	    (throw 'dict nil)))))))
 
 (defun skk-annotation-lookup-dict (word)
@@ -358,6 +365,7 @@
 	(text "")
 	(no-user-input t)
 	process)
+    (setq skk-annotation-original-buffer (current-buffer))
     (with-current-buffer buffer
       (setq text (buffer-string))
       (when (string= text "")
@@ -365,7 +373,7 @@
 	  (setq process (skk-annotation-start-dict-process buffer word)))
 	(while (and no-user-input
 		    (eq (process-status process) 'run))
-	  (when (setq no-user-input (skk-sit-for 0.1))
+	  (when (setq no-user-input (skk-annotation-sit-for 0.1))
 	    (setq skk-annotation-remaining-delay
 		  (- skk-annotation-remaining-delay 0.1))))
 	(when (< skk-annotation-remaining-delay 0)
@@ -642,7 +650,8 @@
 	    (car (where-is-internal 'skk-previous-candidate skk-j-mode-map))
 	    0))))
 	(t
-	 (keyboard-quit))))))
+;	 (keyboard-quit)
+	 )))))
   ;; 常に t を返す
   t)
 
