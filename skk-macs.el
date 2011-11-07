@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.177 2011/07/09 00:29:39 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.178 2011/11/07 22:04:56 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/07/09 00:29:39 $
+;; Last Modified: $Date: 2011/11/07 22:04:56 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -610,6 +610,14 @@ BUFFER defaults to the current buffer."
     `(let ((,variable ,char))
        (progn
 	 ,@body))))
+
+(defun skk-process-kill-without-query (process)
+  (cond
+   ((eval-when-compile (and skk-running-gnu-emacs
+			    (>= emacs-major-version 22)))
+    (set-process-query-on-exit-flag process nil))
+   (t
+    (process-kill-without-query process))))
 
 ;;; version independent
 
