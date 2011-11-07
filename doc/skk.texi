@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/07 11:37:44 $
+@set UPDATED $Date: 2011/11/07 12:30:38 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7435,6 +7435,7 @@ DDSKK では、このような事態を避けるため、辞書バッファにおける変数
 * アノテーションの登録::
 * アノテーションとして Wikipedia を表示する::
 * Wikipedia アノテーション機能を SKK の枠をこえて活用する::
+* 外部コマンドからアノテーションを取得する::
 @end menu
 
 @node アノテーションの基礎
@@ -7723,6 +7724,21 @@ buffer (plural&#160;buffers)
 @end group
 @end example
 @end defun
+
+@node 外部コマンドからアノテーションを取得する
+@subsection 外部コマンドからアノテーションを取得する
+
+@defvr {ユーザ変数} skk-annotation-lookup-dict
+
+@end defvr
+
+@defvr {ユーザ変数} skk-annotation-dict-program
+
+@end defvr
+
+@defvr {ユーザ変数} skk-annotation-dict-program-arguments
+
+@end defvr
 
 @node 文字コード関連
 @section 文字コード関連

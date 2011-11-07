@@ -2,6 +2,7 @@
 
 	* doc/skk.texi (領域の操作): skk-romaji-*-by-hepburn を @defvr.
 	(動的補完): skk-dcomp-multiple-activate を更新.
+	(外部コマンドからアノテーションを取得する): 新設.
 
 2011-11-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
