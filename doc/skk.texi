@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/06 10:22:00 $
+@set UPDATED $Date: 2011/11/07 11:37:44 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2674,7 +2674,6 @@ file /$B#f#i#l#e(B/
 @item M-x skk-romaji-region
 @kindex M-x skk-hurigana-region
 @findex skk-romaji-region
-@vindex skk-romaji-*-by-hepburn
 
 $B4A;z!"$R$i$,$J!"%+%?%+%J$r%m!<%^;z$X!"A41QJ8;z$r%"%9%-!<J8;z$XJQ49!#I8=`(B
 $B$G$O!"%m!<%^;z$X$NJQ49MM<0$O%X%\%s<0$G$9!#Nc$($P!"(B
@@ -2684,18 +2683,8 @@ file /$B#f#i#l#e(B/
 @end example
 
 @noindent
-$B$H$J$j$^$9!#JQ?t(B @code{skk-romaji-*-by-hepburn} $B$NCM$r(B @code{nil} $B$K@_(B
-$BDj$9$k$H!"71Na<0$rMQ$$$^$9!#Nc$($P!"(B
+$B$H$J$j$^$9!#(B
 
-@example
-``$B$7(B'' @expansion{} ``si''
-@end example
-
-@noindent
-$B$N$h$&$K$J$j$^$9(B
-@footnote{$B><OB(B 29 $BG/(B 12 $B7n(B 9 $BF|IUFb3U9p<(Bh0l9f$K$h$l$P!"86B'E*$K71Na<0(B
-($BF|K\<0(B) $B$rMQ$$$k$+$N$h$&$K5-:\$5$l$F$$$^$9$,!":#F|0lHLE*$J5-:\J}K!$O!"(B
-$B$`$7$m%X%\%s<0$G$"$k$h$&$G$9!#(B}$B!#(B
 @end table
 
 $B0J2<$N%3%^%s%I$O!"NN0hFb$NJ8;zNs$rCV$-49$($kBe$o$j$K!"JQ497k2L$r%(%3!<%((B
@@ -2736,6 +2725,26 @@ file /$B#f#i#l#e(B/
 @lisp
 (setq skk-gyakubiki-jisyo-list (list skk-jisyo))
 @end lisp
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-romaji-*-by-hepburn
+
+$B$3$NJQ?t$NCM$r(B @code{nil} $B$K@_Dj$9$k$H!"(B
+$B%3%^%s%I(B @code{skk-romaji-@{region|message@}} $B$K$h$k%m!<%^;z$X$NJQ49MM<0(B
+$B$K71Na<0$rMQ$$$^$9!#%G%U%)%k%H$O(B @code{t} $B$G$9!#(B
+
+$BNc$($P!"(B
+
+@example
+``$B$7(B'' @expansion{} ``si''
+@end example
+
+@noindent
+$B$N$h$&$K$J$j$^$9(B
+@footnote{$B><OB(B 29 $BG/(B 12 $B7n(B 9 $BF|IUFb3U9p<(Bh0l9f$K$h$l$P!"86B'E*$K71Na<0(B
+($BF|K\<0(B) $B$rMQ$$$k$+$N$h$&$K5-:\$5$l$F$$$^$9$,!":#F|0lHLE*$J5-:\J}K!$O!"(B
+$B$`$7$m%X%\%s<0$G$"$k$h$&$G$9!#(B}$B!#(B
+
 @end defvr
 
 @node $B%+%?%+%J$N8+=P$78l(B
@@ -3142,8 +3151,10 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$,0[$J$k(B face $B$GI
 
 @defvr {$B%f!<%6JQ?t(B} skk-dcomp-multiple-activate
 
+@b{XEmacs $B$G$OF0:n$7$^$;$s!#(B}
+
 @code{Non-nil} $B$G$"$l$P!"F0E*Jd40$N8uJd$r%$%s%i%$%s$KJ#?tI=<($7$^$9(B
-@footnote{$B8=:_$O8uJd72$N1&B&(B1$B%+%i%`$N%U%'%$%9$,%G%U%)%k%H$KLa$k!"$H$$$&@)Ls$,$"$j$^$9!#(B}$B!#(BXEmacs $B$G$OF0:n$7$^$;$s!#(B
+@footnote{$B8=:_$O8uJd72$N1&B&(B1$B%+%i%`$N%U%'%$%9$,%G%U%)%k%H$KLa$k!"$H$$$&@)Ls$,$"$j$^$9!#(B}$B!#(B
 
 @example
 @group
