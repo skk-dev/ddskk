@@ -1,3 +1,16 @@
+2011-11-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-macs.el (skk-process-kill-without-query): New function.
+	* skk-server.el (skk-open-network-stream): Use it.
+
+	* skk-annotation.el (skk-annotation-find-and-show): Always call
+	`skk-annotation-show'.
+	(skk-annotation-find-and-show)
+	(skk-annotation-wikipedia-region-or-at-point): Return nil even if
+	`executable-find' causes an error.
+	(skk-annotation-lookup-dict): Call
+	`skk-process-kill-without-query'.
+
 2011-11-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (領域の操作): skk-romaji-*-by-hepburn を @defvr.
