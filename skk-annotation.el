@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.195 2011/11/07 22:10:28 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.196 2011/11/10 07:00:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/07 22:10:28 $
+;; Last Modified: $Date: 2011/11/10 07:00:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -342,10 +342,13 @@
 
 (defun skk-annotation-start-dict-process (buffer word)
   "dict のプロセスを起動する。"
-  (apply #'start-process (buffer-name buffer) buffer
-	 skk-annotation-dict-program
-	 (append skk-annotation-dict-program-arguments
-		 (list word))))
+  (let ((process-connection-type nil)
+	(word (encode-coding-string word (or locale-coding-system 'utf-8))))
+    (make-local-variable 'coding-system-for-read)
+    (setq coding-system-for-read 'undecided)
+    (apply #'start-process (buffer-name buffer) buffer
+	   skk-annotation-dict-program
+	   (append skk-annotation-dict-program-arguments (list word)))))
 
 (defun skk-annotation-preread-dict (word)
   "dict のプロセスを起動する。先読みのために用いる。"
@@ -357,8 +360,11 @@
       (when (string= text "")
 	(unless (get-process (buffer-name buffer))
 	  (skk-annotation-start-dict-process buffer word)
-	  (unless (skk-annotation-sit-for 0.1)
-	    (throw 'dict nil)))))))
+	  (cond ((skk-annotation-sit-for 0.1)
+		 (setq skk-annotation-remaining-delay
+		       (- skk-annotation-remaining-delay 0.1)))
+		(t
+		 (throw 'dict nil))))))))
 
 (defun skk-annotation-lookup-dict (word)
   "dict のプロセスを必要なら起動し、結果を調べる。
@@ -378,8 +384,6 @@
 	  (when (setq no-user-input (skk-annotation-sit-for 0.1))
 	    (setq skk-annotation-remaining-delay
 		  (- skk-annotation-remaining-delay 0.1))))
-	(when (< skk-annotation-remaining-delay 0)
-	  (setq skk-annotation-remaining-delay 0))
 	(unless no-user-input
 	  (skk-process-kill-without-query process)
 	  (erase-buffer)

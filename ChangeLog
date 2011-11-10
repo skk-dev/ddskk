@@ -1,3 +1,11 @@
+2011-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-start-process): Locally set
+	coding-system-for-read.  Encode word in utf-8.
+	(skk-annotation-preread-dict): Set skk-annotation-remaining-delay.
+	(skk-annotation-lookup-dict): Do not reset
+	skk-annotation-remaining-delay here.
+
 2011-11-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-macs.el (skk-process-kill-without-query): New function.
