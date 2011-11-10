@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/07 12:30:38 $
+@set UPDATED $Date: 2011/11/10 11:22:22 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3962,10 +3962,10 @@ is /$B%$%s%/%j%a%s%?%k!&%5!<%A(B/
 @end group
 @end example
 
-$BJQ49$,=*$o$k$H(B SKK abbrev $B%b!<%I$rH4$1$F$+$J%b!<%I$KLa$j$^$9!#(B
+$B8uJd$r3NDj$9$k$H(B SKK abbrev $B%b!<%I$rH4$1$F$+$J%b!<%I$KLa$j$^$9!#(B
 
-SKK abbrve $B%b!<%I$G;H$o$l$k<-=q$O!"IaDL$NJQ49$HF1$8$G$9!#8+=P$78l$,%"%9%-!<(B
-$BJ8;z$G=q$+$l$F$$$k$@$1$G!"FC<l$JE@$O$"$j$^$;$s!#(B
+SKK abbrve $B%b!<%I$G;H$o$l$k<-=q$O!"IaDL$N$+$J4A;zJQ49$HF1$8$G$9!#8+=P$78l(B
+$B$,%"%9%-!<J8;z$G=q$+$l$F$$$k$@$1$G!"FC<l$JE@$O$"$j$^$;$s!#(B
 
 $BF~NO$7$?%"%9%-!<J8;z$r$=$N$^$^A43Q%"%k%U%!%Y%C%H$KJQ49$9$kJ}K!$K$D$$$F$O!"(B
 @w{@ref{$BA41QJ8;z$NF~NO(B}} $B$r;2>H$7$F$/$@$5$$!#(B
@@ -4093,8 +4093,8 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/@dots{}/
 @end group
 @end lisp
 
-@file{skk-gadget.el} $B$K$O!"@>Nq(B/$B859fJQ49%W%m%0%i%`$d!"4JC1$J7W;;%W%m%0%i(B
-$B%`$J$I!"<B9TJQ49MQ$N%W%m%0%i%`$,=8$a$i$l$F$$$^$9!#0J2<!"#2$D$NNc$r7G$2$^$9!#(B
+@file{skk-gadget.el} $B$K$O!"@>Nq!?859fJQ49$d4JC1$J7W;;$J$I%W%m%0%i%`<B9TJQ(B
+$B49MQ$N4X?t$,=8$a$i$l$F$$$^$9!#0J2<!"#2$D$NNc$r7G$2$^$9!#(B
 
 @defun skk-calc operator
 
@@ -4348,7 +4348,7 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 @code{skk-search-prog-list-9}, @code{skk-search-prog-list-0} $B$r(B
 $B<B9T$9$k$h$&<+F0@_Dj$7$^$9!#$3$l$i$N%W%m%0%i%`$O"&%b!<%I8BDj$G%U%!%s%/%7%g(B
 $B%s%-!<(B (@key{[F1]} $B!A(B @key{[F10]}) $B$K3d$jEv$F$i$l$^$9!#(B@key{[F5]} $B!A(B
-@key{[F10]} $B$K$D$$$F$OK\%*%W%7%g%s$N@_Dj$K$h$j<+F0E*$K3dEv$F$5$l$^$9!#$3(B
+@key{[F10]} $B$K$D$$$F$OK\%*%W%7%g%s$N@_Dj$K$h$j<+F0E*$K3d$jEv$F$i$l$^$9!#$3(B
 $B$l$i$N3d$jEv$F$O%f!<%6%*%W%7%g%s(B @code{skk-verbose} $B$r@_Dj$9$k$H%(%3!<%((B
 $B%j%"$KI=<($5$l$k$h$&$K$J$j$^$9!#(B(@w{@pxref{$B>iD9$J0FFb%a%C%;!<%8$NI=<((B}})
 
@@ -5162,8 +5162,9 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 @noindent
 $B$H@_Dj$9$k$H(B @kbd{;} $B%-!<$G(B
 @footnote{@file{skk-hint.el} $B$rJ;MQ$9$k>l9g$O(B @code{skk-hint-start-char}
-$B$N%G%U%)%k%H$b(B @samp{;} $B$G$"$k$?$a!"$I$A$i$+$rJL$N%-!<$K3dEv$F$kI,MW$,$"$j$^(B
-$B$9!#(B@w{@pxref{$B8uJd$N9J$j9~$_(B}}} $B4A;zJQ490LCV$,;XDj$G$-$k$h$&$K$J$j$^$9!#(B
+$B$N%G%U%)%k%H$b(B @samp{;} $B$G$"$k$?$a!"$I$A$i$+$rJL$N%-!<$K3d$jEv$F$kI,MW$,(B
+$B$"$j$^$9!#(B@w{@pxref{$B8uJd$N9J$j9~$_(B}}} $B4A;zJQ490LCV$,;XDj$G$-$k$h$&$K$J$j(B
+$B$^$9!#(B
 
 $BNc$($P(B @samp{$BM-$k(B} $B$H$$$&C18l$rF~NO$9$k$K$O(B
 
@@ -5203,7 +5204,7 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 $B$HA+0\$7$^$9!#DL>o$N(B sticky $B$HHf$Y$F(B skk-sticky $B$O(B @kbd{;} $B$r2!$7$?;~E@$G2hLLI=<($,JQ2=$9$k$N$G<c43(B
 $BJ,$+$j0W$$$H;W$$$^$9!#(B
 
-$B%-!<$N@_DjJ}K!$O!"3dEv$F$k%-!<$N<oN`$K$h$C$F0[$J$j$^$9!#(B
+$B%-!<$N@_DjJ}K!$O!"3d$jEv$F$k%-!<$N<oN`$K$h$C$F0[$J$j$^$9!#(B
 
 @enumerate
 @item
@@ -7072,8 +7073,8 @@ L:$B$*$*$5$+$$$A$j$D$@$$$,$/(B
 
 @cindex $B<-=q$N%=!<%HJ}K!(B
 $B6&M-<-=q$O!"Aw$j$"$j%(%s%H%j$O(B @w{@samp{;; okuri-ari entries.}} $B$+$i=g(B
-$B$K2<J}8~$K8+=P$78l$r%-!<$H$7$F(B@b{$B9_=g(B}$B$KG[CV$5$l$^$9!#Aw$j$J$7%(%s%H%j(B
-$B$O!"(B@w{@samp{;; okuri-nasi entries.}} $B$+$i=g$K2<J}8~$K8+=P$78l$r%-!<$H(B
+$B$K2<J}8~$K8+=P$78l$r%-!<$H$7$F(B@b{$B9_=g(B}$B$KG[CV$5$l!"Aw$j$J$7%(%s%H%j(B
+$B$O(B @w{@samp{;; okuri-nasi entries.}} $B$+$i=g$K2<J}8~$K8+=P$78l$r%-!<$H(B
 $B$7$F(B@b{$B>:=g(B}$B$KG[CV$5$l$^$9!#(B
 $B9_=g!?>:=g$KG[CV$5$l$k$N$O!"<-=q%5%$%:$,Bg$-$$$3$H$KG[N8$7$FFsJ,8!:w(B
 $B$r9T$&$?$a$G$9(B
@@ -7669,7 +7670,7 @@ ja.wiktionary $B$N=g$G$9!#(B
 
 $BA0=R$7$?(B Wikipedia $B%"%N%F!<%7%g%s5!G=$O!"<B$O(B SKK $B$NJQ49%b!<%I$@$1$G$J$/!"(B
 Emacs $B$N$"$i$f$k>u67$G;H$&$3$H$,$G$-$^$9!#$=$N$?$a$K$O!"%3%^%s%I(B
-@code{skk-annotation-wikipedia-region-or-at-point} $B$rG$0U$N%-!<$K3dEv$7(B
+@code{skk-annotation-wikipedia-region-or-at-point} $B$rG$0U$N%-!<$K3d$jEv$F(B
 $B$^$9!#(B
 
 @defun {$B%3%^%s%I(B} skk-annotation-wikipedia-region-or-at-point &optional PREFIX-ARG START END
