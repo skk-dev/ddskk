@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.197 2011/11/11 04:24:14 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.198 2011/11/11 10:09:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/11 04:24:14 $
+;; Last Modified: $Date: 2011/11/11 10:09:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -377,12 +377,13 @@
 		(t
 		 (throw 'dict nil))))))))
 
-(defun skk-annotation-lookup-dict (word)
+(defun skk-annotation-lookup-dict (word &optional truncate)
   "dict のプロセスを必要なら起動し、結果を調べる。
 意味が取得できた場合には結果を文字列として返す。"
   (let ((buffer (get-buffer-create (skk-annotation-dict-buffer-format word)))
 	(text "")
 	(no-user-input t)
+	(loopint 0.1)
 	process)
     (setq skk-annotation-original-buffer (current-buffer))
     (with-current-buffer buffer
@@ -390,20 +391,42 @@
       (when (string= text "")
 	(unless (setq process (get-process (buffer-name buffer)))
 	  (setq process (skk-annotation-start-dict-process buffer word)))
-	(while (and no-user-input
-		    (eq (process-status process) 'run))
-	  (when (setq no-user-input (skk-annotation-sit-for 0.1))
-	    (setq skk-annotation-remaining-delay
-		  (- skk-annotation-remaining-delay 0.1))))
-	(unless no-user-input
-	  (erase-buffer)
-	  (throw 'dict nil)))
+	(cond
+	 (truncate
+	  (while (eq (process-status process) 'run)
+	    (sleep-for loopint))
+	  (sleep-for loopint))
+	 (t
+	  (while (and no-user-input
+		      (eq (process-status process) 'run))
+	    (when (setq no-user-input
+			(skk-annotation-sit-for loopint))
+	      (setq skk-annotation-remaining-delay
+		    (- skk-annotation-remaining-delay loopint))))
+	  (if no-user-input
+	      (sleep-for 0.01)
+	    (when (eq (process-status process) 'run)
+	      (kill-process process))
+	    (erase-buffer)
+	    (throw 'dict nil)))))
       (goto-char (point-max))
       (forward-line -1)
       (cond
        ((looking-at "^Process .+ finished$")
-	(forward-line -1)
-	(setq text (buffer-substring (point-min) (point))))
+	(cond
+	 (truncate
+	  (goto-char (point-min))
+	  (cond
+	   ((re-search-forward "[、。]" nil t)
+	    (beginning-of-line)
+	    (setq text (buffer-substring (point) (match-beginning 0))))
+	   (t
+	    (erase-buffer)
+	    (insert " ")
+	    (setq text ""))))
+	 (t
+	  (forward-line -1)
+	  (setq text (buffer-substring (point-min) (point))))))
        (t
 	(erase-buffer)
 	(insert " ")
