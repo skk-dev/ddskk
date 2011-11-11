@@ -1,3 +1,15 @@
+2011-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-dict-coding-system): New user
+	option.
+	* skk-annotation.el (skk-annotation-dict-exec-find)
+	(skk-annotation-exclude-dict-maybe): New functions.
+	(skk-annotation-find-and-show)
+	(skk-annotation-wikipedia-region-or-at-point): Use them.
+	(skk-annotation-start-dict-process): Call
+	`skk-process-kill-without-query' here.  Set coding-system-for-read
+	according to skk-annotation-dict-coding-system.
+
 2011-11-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: 微修正.

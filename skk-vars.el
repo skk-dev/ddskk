@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.389 2011/11/07 00:08:01 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.390 2011/11/11 04:24:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/07 00:08:01 $
+;; Last Modified: $Date: 2011/11/11 04:24:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2801,7 +2801,8 @@ nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B"
   "*$BJQ498uJd$N0UL#$rI=<($9$k$?$a$N30It%W%m%0%i%`$N%U%!%$%kL>!#(B
 Mac OS X $B4D6-$G$"$l$P(B DictionaryServices $B$rMxMQ$9$k$?$a$N(B Python $B%9%/%j%W%H(B
 $B%U%!%$%k$r;XDj$G$-$k!#(B"
-  :type '(file :tag "$B%U%!%$%kL>(B")
+  :type '(radio (file)
+		(const nil))
   :group 'skk-annotation)
 
 (defcustom skk-annotation-dict-program-arguments
@@ -2810,7 +2811,13 @@ Mac OS X $B4D6-$G$"$l$P(B DictionaryServices $B$rMxMQ$9$k$?$a$N(B Python $B
 	(t
 	 nil))
   "*$BJQ498uJd$N0UL#$rI=<($9$k$?$a$N30It%W%m%0%i%`$N0z?t$N%j%9%H!#(B"
-  :type '(string :tag "$B%U%!%$%kL>(B")
+  :type '(radio (repeat string)
+		(const nil))
+  :group 'skk-annotation)
+
+(defcustom skk-annotation-dict-coding-system 'utf-8
+  "*$BJQ498uJd$N0UL#$r30It%W%m%0%i%`$A$+$iH!5C$9$k$(Gkc$A$KSC$$$k%3$B!<$A%IO5!#(B"
+  :type 'coding-system
   :group 'skk-annotation)
 
 (defcustom skk-annotation-show-wikipedia-url nil

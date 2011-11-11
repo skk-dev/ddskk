@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.196 2011/11/10 07:00:01 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.197 2011/11/11 04:24:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/10 07:00:01 $
+;; Last Modified: $Date: 2011/11/11 04:24:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -277,6 +277,14 @@
      (with-current-buffer skk-annotation-original-buffer
        (keyboard-quit)))))
 
+(defun skk-annotation-dict-exec-find ()
+  (ignore-errors (executable-find skk-annotation-dict-program)))
+
+(defun skk-annotation-exclude-dict-maybe ()
+  (unless (skk-annotation-dict-exec-find)
+    (setq skk-annotation-other-sources
+	  (delete 'dict skk-annotation-other-sources))))
+
 ;;;###autoload
 (defun skk-annotation-find-and-show (pair)
   ;; ミニバッファにいるとき余計なメッセージをクリアする
@@ -291,8 +299,10 @@
     (when skk-annotation-first-candidate
       (setq skk-annotation-remaining-delay skk-annotation-delay
 	    skk-annotation-first-candidate nil))
+    (skk-annotation-exclude-dict-maybe)
     (when (and word
 	       skk-annotation-lookup-dict
+	       (skk-annotation-dict-exec-find)
 	       (not skk-isearch-switch)
 	       (not (skk-in-minibuffer-p)))
       ;; dict (Mac の DictionaryServices など) の設定があれば
@@ -311,9 +321,7 @@
     (when (and word (not note))
       ;; Wikipedia などその他のリソースからのキャッシュがあれば
       ;; それを表示する。
-      (unless (ignore-errors (executable-find skk-annotation-dict-program))
-	(setq skk-annotation-other-sources
-	      (delete 'dict skk-annotation-other-sources)))
+      (skk-annotation-exclude-dict-maybe)
       (unless skk-annotation-wikimedia-srcs
 	;; ▼モードでの呼び出しに際しては dict は再度呼ばない
 	(while srcs
@@ -343,12 +351,15 @@
 (defun skk-annotation-start-dict-process (buffer word)
   "dict のプロセスを起動する。"
   (let ((process-connection-type nil)
-	(word (encode-coding-string word (or locale-coding-system 'utf-8))))
+	(word (encode-coding-string word skk-annotation-dict-coding-system))
+	process)
     (make-local-variable 'coding-system-for-read)
     (setq coding-system-for-read 'undecided)
-    (apply #'start-process (buffer-name buffer) buffer
-	   skk-annotation-dict-program
-	   (append skk-annotation-dict-program-arguments (list word)))))
+    (prog1 (setq process (apply #'start-process (buffer-name buffer) buffer
+				skk-annotation-dict-program
+				(append skk-annotation-dict-program-arguments
+					(list word))))
+      (skk-process-kill-without-query process))))
 
 (defun skk-annotation-preread-dict (word)
   "dict のプロセスを起動する。先読みのために用いる。"
@@ -385,7 +396,6 @@
 	    (setq skk-annotation-remaining-delay
 		  (- skk-annotation-remaining-delay 0.1))))
 	(unless no-user-input
-	  (skk-process-kill-without-query process)
 	  (erase-buffer)
 	  (throw 'dict nil)))
       (goto-char (point-max))
@@ -1672,9 +1682,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	    (skk-in-minibuffer-p))
     (message nil))
   ;;
-  (unless (ignore-errors (executable-find skk-annotation-dict-program))
-    (setq skk-annotation-other-sources
-	  (delete 'dict skk-annotation-other-sources)))
+  (skk-annotation-exclude-dict-maybe)
   (let ((word (if (and (= start 1) (= end 1))
 		  ;; region が active でないときは，ポイントにある
 		  ;; 単語を推測する
