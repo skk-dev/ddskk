@@ -2,6 +2,8 @@
 
 	* skk-annotation.el (skk-annotation-lookup-dict): Accept an
 	optional arg truncate for candidate listing.  Add autoload cookie.
+	Do not kill or erase buffer before the throw.
+	(skk-annotation-preread-dict): Take an optional arg nowait.
 
 2011-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
