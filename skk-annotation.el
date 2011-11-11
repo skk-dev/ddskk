@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.201 2011/11/11 14:45:05 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.202 2011/11/11 17:44:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/11 14:45:05 $
+;; Last Modified: $Date: 2011/11/11 17:44:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -321,12 +321,11 @@
     (when (and word (not note))
       ;; Wikipedia などその他のリソースからのキャッシュがあれば
       ;; それを表示する。
-      (skk-annotation-exclude-dict-maybe)
       (unless skk-annotation-wikimedia-srcs
 	;; ▼モードでの呼び出しに際しては dict は再度呼ばない
 	(while srcs
 	  (unless (eq (car srcs) 'dict)
-	    (add-to-list 'skk-annotation-wikimedia-srcs (car srcs)))
+	    (add-to-list 'skk-annotation-wikimedia-srcs (car srcs) t))
 	  (setq srcs (cdr srcs))))
       (setq note (or (car (skk-annotation-wikipedia-cache
 			   word
