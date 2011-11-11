@@ -1,7 +1,7 @@
 2011-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-lookup-dict): Accept an
-	optional arg truncate for candidate listing.
+	optional arg truncate for candidate listing.  Add autoload cookie.
 
 2011-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

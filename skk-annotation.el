@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.198 2011/11/11 10:09:07 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.199 2011/11/11 10:20:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/11 10:09:07 $
+;; Last Modified: $Date: 2011/11/11 10:20:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -377,6 +377,7 @@
 		(t
 		 (throw 'dict nil))))))))
 
+;;;###autoload
 (defun skk-annotation-lookup-dict (word &optional truncate)
   "dict のプロセスを必要なら起動し、結果を調べる。
 意味が取得できた場合には結果を文字列として返す。"
