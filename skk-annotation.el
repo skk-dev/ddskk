@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.200 2011/11/11 12:39:30 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.201 2011/11/11 14:45:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/11 12:39:30 $
+;; Last Modified: $Date: 2011/11/11 14:45:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1226,7 +1226,8 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 		  (delete-region (match-beginning 0) (match-end 0))))
 	      (goto-char (match-beginning 0))
 	      (delete-region (or point (point-min)) (point))
-	      (when (re-search-forward "<\\(ol\\|dl\\)>" nil t)
+	      (cond
+	       ((re-search-forward "<\\(ol\\|dl\\)>" nil t)
 		(setq btag (match-string 0)
 		      etag (if (string= btag "<ol>")
 			       "</ol>"
@@ -1244,10 +1245,12 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 			(goto-char pt2)
 			(setq pt1 (point)))
 		    (setq point pt2)
-		    (goto-char point)))))
+		    (goto-char point))))
+	       (t
+		(goto-char (match-end 0))
+		(when (search-forward "</p>" nil t)
+		  (setq point (point))))))
 	    ;;
-	    ;; ja.wiktionary の書式が en.wiktionary ほど整っていないので
-	    ;; 消しすぎてしまう危険性あり。
 	    (when point
 	      (delete-region point (point-max)))
 	    ;; (用例などを除く -- 除かないほうがいい？)
