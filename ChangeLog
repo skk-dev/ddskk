@@ -6,6 +6,11 @@
 	(skk-annotation-preread-dict): Take an optional arg nowait.
 	(skk-annotation-wikipedia-format-buffer): Avoid a loop in
 	ja.wikitionary articles.
+	(skk-annotation-find-and-show): Fix the order in
+	skk-annotation-wikimedia-srcs.
+	* skk-vars.el (skk-annotation-dict-program)
+	(skk-annotation-dict-program-arguments): Check the system type
+	darwin instead of the feature ns.
 
 2011-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

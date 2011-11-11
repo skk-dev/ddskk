@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.390 2011/11/11 04:24:14 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.391 2011/11/11 17:45:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/11 04:24:14 $
+;; Last Modified: $Date: 2011/11/11 17:45:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2794,7 +2794,7 @@ nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B"
   :group 'skk-annotation)
 
 (defcustom skk-annotation-dict-program
-  (cond ((featurep 'ns)
+  (cond ((eq system-type 'darwin)
 	 (executable-find "/usr/bin/python2.5"))
 	(t
 	 nil))
@@ -2806,7 +2806,7 @@ Mac OS X $B4D6-$G$"$l$P(B DictionaryServices $B$rMxMQ$9$k$?$a$N(B Python $B
   :group 'skk-annotation)
 
 (defcustom skk-annotation-dict-program-arguments
-  (cond ((featurep 'ns)
+  (cond ((eq system-type 'darwin)
 	 '("-c" "import sys, DictionaryServices; word = sys.argv[1].decode(\"utf-8\"); print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word))).encode(\"utf-8\")"))
 	(t
 	 nil))
