@@ -14,6 +14,8 @@
 	(skk-annotation-find-and-show, skk-annotation-wikipedia)
 	(skk-annotation-wikipedia-1, skk-annotation-wikipedia-cache):
 	Modify to accept `DictionaryServices'.
+	(skk-annotation-lookup-region-or-at-point): Alias to
+	`skk-annotation-wikipedia-region-or-at-point'.
 	* skk.el (skk-mode-invoke, skk-preload): Call
 	`skk-annotation-start-python' if
 	skk-annotation-lookup-DictionaryServices is non-nil.

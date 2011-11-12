@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.203 2011/11/12 19:01:38 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.204 2011/11/12 19:15:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/12 19:01:38 $
+;; Last Modified: $Date: 2011/11/12 19:15:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -428,7 +428,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))\
 	 (forward-line 1)
 	 (beginning-of-line)
 	 (setq output (buffer-substring-no-properties (point) pt2))))
-      (unless (string-match "^Traceback " output)
+      (unless (string-match "\\(^Traceback\\|AttributeError\\)" output)
 	(cond
 	 (truncate
 	  (with-temp-buffer
@@ -1839,7 +1839,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
       (skk-annotation-show (or note "") word sources))))
 
 ;;;###autoload
-(defalias 'skk-annotation-wikipedia-region
+(defalias 'skk-annotation-lookup-region-or-at-point
   'skk-annotation-wikipedia-region-or-at-point)
 
 (defun skk-annotation-generate-url (format-string &rest args)
