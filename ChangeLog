@@ -1,7 +1,7 @@
 2011-11-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-vars.el (skk-annotation-lookup-DictionaryServices): New user
-	option.
+	* skk-vars.el (skk-annotation-lookup-DictionaryServices)
+	(skk-annotation-loop-interval): New user options.
 	(skk-annotation-python-program, skk-annotation-process-buffer):
 	New variables.
 	(skk-annotation-dict-program): Default to

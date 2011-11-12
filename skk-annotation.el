@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.204 2011/11/12 19:15:04 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.205 2011/11/12 20:17:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/12 19:15:04 $
+;; Last Modified: $Date: 2011/11/12 20:17:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -404,7 +404,7 @@
 print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))\
 .encode(\"%s\")" word "utf-8" "utf-8"))
 	 (process (get-buffer-process skk-annotation-process-buffer))
-	 (loopint 0.05)
+	 (loopint skk-annotation-loop-interval)
 	output pt1 pt2)
     (with-current-buffer skk-annotation-process-buffer
       (unless (setq output (skk-annotation-DictionaryServices-cache command))
@@ -484,7 +484,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))\
   (let ((buffer (get-buffer-create (skk-annotation-dict-buffer-format word)))
 	(text "")
 	(no-user-input t)
-	(loopint 0.1)
+	(loopint skk-annotation-loop-interval)
 	process)
     (setq skk-annotation-original-buffer (current-buffer))
     (with-current-buffer buffer
