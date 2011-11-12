@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.202 2011/11/11 17:44:47 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.203 2011/11/12 19:01:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/11 17:44:47 $
+;; Last Modified: $Date: 2011/11/12 19:01:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -215,12 +215,14 @@
   (require 'skk-macs)
   (require 'skk-vars)
 
+  (autoload 'python-send-command "python")
   (autoload 'html2text "html2text")
   (autoload 'html2text-delete-tags "html2text")
   (autoload 'url-hexify-string "url-util")
   (autoload 'url-retrieve "url"))
 
 (eval-when-compile
+  (defvar python-buffer)
   (defvar mule-version)
   (defvar html2text-remove-tag-list)
   (defvar html2text-format-tag-list))
@@ -301,23 +303,33 @@
 	    skk-annotation-first-candidate nil))
     (skk-annotation-exclude-dict-maybe)
     (when (and word
-	       skk-annotation-lookup-dict
-	       (skk-annotation-dict-exec-find)
+	       (or skk-annotation-lookup-DictionaryServices
+		   (and skk-annotation-lookup-dict
+			(skk-annotation-dict-exec-find)))
 	       (not skk-isearch-switch)
 	       (not (skk-in-minibuffer-p)))
       ;; dict (Mac の DictionaryServices など) の設定があれば
       ;; SKK 辞書のアノテーションより優先させる
-      (catch 'dict
-	(when (null (setq note (skk-annotation-lookup-dict word)))
-	  (setq note (cdr-safe pair)))
-	;; 余裕があれば次候補の意味を先読み
-	(dotimes (i (min (length skk-henkan-list) 4))
-	  (add-to-list 'list (nth i skk-henkan-list) t))
-	(when list
-	  (dolist (el list)
-	    (setq el (car (skk-treat-strip-note-from-word el)))
-	    (unless (equal word el)
-	      (skk-annotation-preread-dict el))))))
+      (cond
+       ((and (eq system-type 'darwin)
+	     skk-annotation-lookup-DictionaryServices)
+	(catch 'DictionaryServices
+	  (when (null (setq note (skk-annotation-lookup-DictionaryServices
+				  word)))
+	    (setq note (cdr-safe pair)))))
+       (t
+	(catch 'dict
+	  (when (null (setq note (skk-annotation-lookup-dict word)))
+	    (setq note (cdr-safe pair)))
+	  ;; 余裕があれば次候補の意味を先読み
+	  (dotimes (i (min (length skk-henkan-list) 4))
+	    (add-to-list 'list (nth i skk-henkan-list) t))
+	  (when list
+	    (dolist (el list)
+	      (setq el (car (skk-treat-strip-note-from-word el)))
+	      (unless (equal word el)
+		(skk-annotation-preread-dict el)))))
+	)))
     (when (and word (not note))
       ;; Wikipedia などその他のリソースからのキャッシュがあれば
       ;; それを表示する。
@@ -342,6 +354,92 @@
      (t
       (setq skk-annotation-remaining-delay skk-annotation-delay)
       (skk-annotation-show "" word)))))
+
+;;;###autoload
+(defun skk-annotation-start-python (&optional wait catch)
+  (require 'python)
+  (cond
+   ((buffer-live-p skk-annotation-process-buffer)
+    skk-annotation-process-buffer)
+   (t
+    (let ((env (getenv "LANG")))
+      (unless (equal env "Ja_JP.UTF-8")
+	(setenv "LANG" "ja_JP.UTF-8"))
+      (run-python skk-annotation-python-program t t)
+      (setenv "LANG" env)
+      (with-current-buffer python-buffer
+	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
+	(set-buffer-multibyte t)
+	(python-send-command "import DictionaryServices")
+	(cond ((and wait (skk-annotation-sit-for 1.0))
+	       (setq skk-annotation-remaining-delay
+		     (- skk-annotation-remaining-delay 1.0)))
+	      (wait
+	       (throw 'DictionaryServices nil))
+	      (t
+	       nil))
+	(setq skk-annotation-process-buffer (current-buffer)))))))
+
+(defun skk-annotation-DictionaryServices-cache (command)
+  (let (pt)
+    (skk-save-point
+     (goto-char (point-max))
+     (cond
+      ((re-search-backward (concat "^>>> " command) nil t)
+       (forward-line 1)
+       (beginning-of-line)
+       (setq pt (point))
+       (cond ((re-search-forward "^>>> " nil t)
+	      (forward-line  -2)
+	      (end-of-line)
+	      (buffer-substring-no-properties pt (point)))
+	     (t
+	      nil)))
+      (t
+       nil)))))
+
+(defun skk-annotation-lookup-DictionaryServices (word &optional truncate)
+  (skk-annotation-start-python t (not truncate))
+  (let* ((command (format "word = \"%s\".decode(\"%s\"); \
+print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))\
+.encode(\"%s\")" word "utf-8" "utf-8"))
+	 (process (get-buffer-process skk-annotation-process-buffer))
+	 (loopint 0.05)
+	output pt1 pt2)
+    (with-current-buffer skk-annotation-process-buffer
+      (unless (setq output (skk-annotation-DictionaryServices-cache command))
+	(goto-char (point-max))
+	(setq pt1 (point))
+	(python-send-command command)
+	(cond ((and (skk-annotation-sit-for loopint)
+		    (not truncate))
+	       (setq skk-annotation-remaining-delay
+		     (- skk-annotation-remaining-delay loopint)))
+	      (t
+	       (unless truncate
+		 (throw 'DictionaryServices nil))))
+	(accept-process-output process loopint)
+	(goto-char (point-max))
+	(skk-save-point
+	 (forward-line -2)
+	 (end-of-line)
+	 (setq pt2 (point))
+	 (goto-char pt1)
+	 (forward-line 1)
+	 (beginning-of-line)
+	 (setq output (buffer-substring-no-properties (point) pt2))))
+      (unless (string-match "^Traceback " output)
+	(cond
+	 (truncate
+	  (with-temp-buffer
+	    (set-buffer-multibyte t)
+	    (insert output)
+	    (goto-char (point-min))
+	    (when (re-search-forward "[、。]" nil t)
+	      (beginning-of-line)
+	      (buffer-substring (point) (match-beginning 0)))))
+	 (t
+	  output))))))
 
 (defun skk-annotation-dict-buffer-format (word)
   "dict の内容を格納するバッファのフォーマット。"
@@ -1046,7 +1144,8 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 			sources)
 	      (setq source (car sources))
 	      (cond
-	       ((memq source '(dict en.wiktionary ja.wiktionary))
+	       ((memq source '(dict DictionaryServices
+				    en.wiktionary ja.wiktionary))
 		(setq words (list word))
 		(when (skk-ascii-char-p (aref word 0))
 		  (cond
@@ -1110,6 +1209,9 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 該当ページ (html) をダウンロードする機能は Emacs に付属の URL パッケージに依
 る。"
   (cond
+   ((eq source 'DictionaryServices)
+    (catch 'DictionaryServices
+      (skk-annotation-lookup-DictionaryServices word)))
    ((eq source 'dict)
     (catch 'dict (skk-annotation-lookup-dict word)))
    (t
@@ -1650,6 +1752,15 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	       (cache-buffer (format "  *skk %s %s" source word))
 	       string)
 	  (cond
+	   ((eq source 'DictionaryServices)
+	    (setq string
+		  (catch 'DictionaryServices
+		    (skk-annotation-lookup-DictionaryServices word)))
+	    (if (or (null string)
+		    (string= string ""))
+		nil
+	      (throw 'found
+		     (cons string "dict"))))
 	   ((eq source 'dict)
 	    (setq string (catch 'dict (skk-annotation-lookup-dict word)))
 	    (if (or (null string)

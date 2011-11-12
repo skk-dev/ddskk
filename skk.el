@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.601 2011/11/06 23:11:33 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.602 2011/11/12 19:01:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/06 23:11:33 $
+;; Last Modified: $Date: 2011/11/12 19:01:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -325,6 +325,8 @@ dependent."
 				(>= emacs-major-version 23)))
     (skk-setup-charset-list))
   (skk-setup-delete-selection-mode)
+  (when skk-annotation-lookup-DictionaryServices
+    (skk-annotation-start-python))
   (setq skk-mode-invoked t))
 
 ;;; setup
@@ -5146,7 +5148,9 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
     (when (eq (car item) 'skk-search-jisyo-file)
       (skk-preload-jisyo (cadr item))))
   (dolist (item skk-extra-jisyo-file-list)
-    (skk-preload-jisyo item)))
+    (skk-preload-jisyo item))
+  (when skk-annotation-lookup-DictionaryServices
+    (skk-annotation-start-python)))
 
 (defun skk-preload-jisyo (jisyo)
   (cond

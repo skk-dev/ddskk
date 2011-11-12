@@ -1,13 +1,34 @@
 * 14.4
 
-** $B30It%3%^%s%I$+$i$N%"%N%F!<%7%g%s<hF@(B (OS X $B$N(B DictionaryServices $B$J$I(B)
+** Mac OS X $A$G(B DictionaryServices $A$+$i$N%"%N%F$B!<$A%7%g%sH!5C(B
+
+Mac $A$N4G$(GUs$A%"%W%j(B (Dictionary.app) $A$G$O$(Gm:dm$A$G9z$(Gk#$A4G5d$J$I@{SC$G$-$^$9!#(B
+$A$3$N$&$A$(Gs@$AOH$(Gb{$AN;$N8_$$4G$(GUs$A$+$i%"%N%F$B!<$A%7%g%s$rH!5C$9$k$(Gq"$AD\$,@{SC$G$-$^(B
+$A$9!#@{SC$9$k$(G^[$A:O$ORTOB$N$(I+y$AJ}$r$(G]C$A6($7$F$/$@$5$$!#(B
+
+*** skk-annotation-lookup-DictionaryServices
+
+$A$3$N$(Gq"$AD\$O%P%C%/%0%i%s%I$G(B python $A$r$(I(M$APP$7$^$9!#(Bpython $A$N3u;XFp$(GY/Uk$A$K(B
+$(GUkbf$A$,$+$+$j2;026($K$J$j$^$9$,!"RTOB$N$(I+y$AJ}$rM,$(GUk$A$K$(G]C$A6($9$k$3$H$G;X1\$G(B
+$A$-$^$9!#(B
+
+*** skk-preload
+
+non-nil $A$K$(G]C$A6($9$k$H(B skk.el, SKK $A4G$(GUs$A$H$H$b$K1XR*$J$(G^[$A:O$O(B python $A$N(B
+DictionaryServices $A$r(B Emacs $AFp$(GY/Uk$A$K$BFI$A$_$3$s$G$7$^$$$^$9!#(B
+
+** $B30It%3%^%s%I$+$i$N%"%N%F!<%7%g%s<hF@(B
 
 $B<-=q$KEPO?$5$l$F$$$k%"%N%F!<%7%g%s$h$j$b30It%3%^%s%I$+$i<hF@$7$?%"%N%F!<(B
-$B%7%g%s$rM%@h$7$FI=<($G$-$k$h$&$K$7$^$7$?!#$?$@$7!"8=CJ3,$G$O(B Mac OS X
-$B$G$N$_%F%9%H$5$l$F$$$^$9!#(BDictionary.app ($B<-=q(B) $B$G$N<-=q0z$-$KAjEv$9$k(B
-$B5!G=$,(B SKK $B$+$iMxMQ$G$-$^$9!#(B
+$B%7%g%s$rM%@h$7$FI=<($G$-$k$h$&$K$7$^$7$?!#(Bdict $B%/%i%$%"%s%H$J$I$GF|K\(B
+$B8l$N<-=q$rD4$A$Y$i$l$k$b$N$,$"$l$P(B ($A$"$k$+$I$&$+7V$+$j$^$;$s(B) $AJ9$($^$9!#(B
 
-$BJQ?t(B skk-annotation-lookup-dict $B$r(B non-nil $B$H@_Dj$7$F$/$@$5$$!#(B
+$BMxMQ$9$k>l9g$O0J2<$NJQ?t$r@_Dj$7$^$9!#(B
+
+*** skk-annotation-lookup-dict
+*** skk-annotation-dict-program
+*** skk-annotation-dict-program-arguments
+*** skk-annotation-dict-coding-system
 
 ** $ $B%?%$%W;~$N5sF0(B
 

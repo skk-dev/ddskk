@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.391 2011/11/11 17:45:19 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.392 2011/11/12 19:01:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/11 17:45:19 $
+;; Last Modified: $Date: 2011/11/12 19:01:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2788,6 +2788,19 @@ nil であれば、別なウィンドゥに表示する。"
   :type 'hook
   :group 'skk-annotation)
 
+(defcustom skk-annotation-lookup-DictionaryServices nil
+  "*Non-nil であれば、OS X で DictionaryServices より意味を取得する。
+この場合、python を inferior process として起動する。
+この設定は `skk-annotation-lookup-dict' より優先される。
+Max OS X 以外の環境では機能しない。"
+  :type 'boolean
+  :group 'skk-annotation)
+
+(defvar skk-annotation-python-program
+  (if (eq system-type 'darwin)
+      "/usr/bin/python2.5"
+    (executable-find "python")))
+
 (defcustom skk-annotation-lookup-dict nil
   "*Non-nil であれば、外部プログラムを読んで変換候補の意味を表示する。"
   :type 'boolean
@@ -2795,12 +2808,10 @@ nil であれば、別なウィンドゥに表示する。"
 
 (defcustom skk-annotation-dict-program
   (cond ((eq system-type 'darwin)
-	 (executable-find "/usr/bin/python2.5"))
+	 skk-annotation-python-program)
 	(t
 	 nil))
-  "*変換候補の意味を表示するための外部プログラムのファイル名。
-Mac OS X 環境であれば DictionaryServices を利用するための Python スクリプト
-ファイルを指定できる。"
+  "*変換候補の意味を表示するための外部プログラムのファイル名。"
   :type '(radio (file)
 		(const nil))
   :group 'skk-annotation)
@@ -2829,12 +2840,12 @@ SKK 辞書が独自のアノテーションを持たない候補に対してのみ有効となる。
   :type 'boolean
   :group 'skk-annotation)
 
-(defcustom skk-annotation-other-sources '(dict
-					  ja.wikipedia
-					  en.wiktionary
-					  simple.wikipedia
-					  en.wikipedia
-					  ja.wiktionary)
+(defcustom skk-annotation-other-sources
+  (list (if (eq system-type 'darwin)
+	    'DictionaryServices
+	  'dict)
+	'ja.wikipedia 'ja.wiktionary
+	'en.wiktionary 'simple.wikipedia 'en.wikipedia)
   ;; (注) 2007 年時点では ja.wiktionary は発展途上であり、
   ;; 表記などにやや不統一な点がある模様。
   "*アノテーションに使う情報のソースを指定するオプション。
@@ -2867,6 +2878,8 @@ Mac OS X では標準の DictionaryServices を利用できる。"
 (defvar skk-annotation-original-buffer nil)
 
 (defvar skk-annotation-first-candidate nil)
+
+(defvar skk-annotation-process-buffer nil)
 
 (defvar skk-annotation-mode-map nil
   "*SKK annotation モードのキーマップ。")

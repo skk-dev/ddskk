@@ -1,3 +1,23 @@
+2011-11-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-lookup-DictionaryServices): New user
+	option.
+	(skk-annotation-python-program, skk-annotation-process-buffer):
+	New variables.
+	(skk-annotation-dict-program): Default to
+	skk-annotation-python-program under Darwin.
+	(skk-annotation-other-sources): Add `DictionaryServices'.  Move
+	`ja.wikitionary' next to `ja.wikipedia'.
+	* skk-annotation.el (skk-annotation-start-python)
+	(skk-annotation-DictionaryServices-cache)
+	(skk-annotation-lookup-DictionaryServices): New functions.
+	(skk-annotation-find-and-show, skk-annotation-wikipedia)
+	(skk-annotation-wikipedia-1, skk-annotation-wikipedia-cache):
+	Modify to accept `DictionaryServices'.
+	* skk.el (skk-mode-invoke, skk-preload): Call
+	`skk-annotation-start-python' if
+	skk-annotation-lookup-DictionaryServices is non-nil.
+
 2011-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-lookup-dict): Accept an
