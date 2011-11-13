@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.179 2011/11/13 13:37:14 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.180 2011/11/13 15:27:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/13 13:37:14 $
+;; Last Modified: $Date: 2011/11/13 15:27:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1119,7 +1119,7 @@ Return the modified ALIST."
 
 (defun skk-escape-from-show-candidates (count)
   ;; skk-henkan まで一気に throw する。
-  (skk-reset-henkan-count 0)
+  (skk-reset-henkan-count count)
   (throw 'unread nil))
 
 (provide 'skk-macs)
