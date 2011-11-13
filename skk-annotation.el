@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.210 2011/11/13 13:37:14 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.211 2011/11/13 15:17:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/13 13:37:14 $
+;; Last Modified: $Date: 2011/11/13 15:17:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -216,13 +216,16 @@
   (require 'skk-vars)
 
   (autoload 'python-send-command "python")
-  (autoload 'comint-send-input "comint")
+  (autoload 'python-send-string "python")
+  (autoload 'python-check-comint-prompt "python")
   (autoload 'html2text "html2text")
   (autoload 'html2text-delete-tags "html2text")
   (autoload 'url-hexify-string "url-util")
   (autoload 'url-retrieve "url"))
 
 (eval-when-compile
+  (require 'compile)
+  (require 'comint)
   (defvar python-buffer)
   (defvar mule-version)
   (defvar html2text-remove-tag-list)
@@ -273,6 +276,9 @@
 	(t
 	 annotation)))
 
+(defun skk-annotation-dict-exec-find ()
+  (ignore-errors (executable-find skk-annotation-dict-program)))
+
 (defun skk-annotation-sit-for (seconds &optional listing-p)
   (condition-case nil
       (skk-sit-for seconds)
@@ -283,14 +289,6 @@
 	 (skk-escape-from-show-candidates 0))
 	(t
 	 (keyboard-quit)))))))
-
-(defun skk-annotation-dict-exec-find ()
-  (ignore-errors (executable-find skk-annotation-dict-program)))
-
-(defun skk-annotation-exclude-dict-maybe ()
-  (unless (skk-annotation-dict-exec-find)
-    (setq skk-annotation-other-sources
-	  (delete 'dict skk-annotation-other-sources))))
 
 ;;;###autoload
 (defun skk-annotation-find-and-show (pair)
@@ -306,7 +304,6 @@
     (when skk-annotation-first-candidate
       (setq skk-annotation-remaining-delay skk-annotation-delay
 	    skk-annotation-first-candidate nil))
-    (skk-annotation-exclude-dict-maybe)
     (when (and word
 	       (or skk-annotation-lookup-DictionaryServices
 		   (and skk-annotation-lookup-dict
@@ -360,6 +357,29 @@
       (setq skk-annotation-remaining-delay skk-annotation-delay)
       (skk-annotation-show "" word)))))
 
+(defun skk-annotation-send-python-string (string)
+  "Evaluate STRING in inferior Python process."
+  (interactive "sPython command: ")
+  (let ((proc (get-buffer-process skk-annotation-process-buffer)))
+    (comint-send-string proc string)
+    (unless (string-match "\n\\'" string)
+      ;; Make sure the text is properly LF-terminated.
+      (comint-send-string proc "\n"))
+    (when (string-match "\n[ \t].*\n?\\'" string)
+      ;; If the string contains a final indented line, add a second newline so
+      ;; as to make sure we terminate the multiline instruction.
+      (comint-send-string proc "\n"))))
+
+(defun skk-annotation-send-python-command (command)
+  "Like `python-send-string' but resets `compilation-shell-minor-mode'."
+  (when (python-check-comint-prompt (get-buffer-process
+				     skk-annotation-process-buffer))
+    (with-current-buffer skk-annotation-process-buffer
+      (goto-char (point-max))
+      (compilation-forget-errors)
+      (skk-annotation-send-python-string command)
+      (setq compilation-last-buffer (current-buffer)))))
+
 ;;;###autoload
 (defun skk-annotation-start-python (&optional wait catch)
   (require 'python)
@@ -367,17 +387,24 @@
    ((buffer-live-p skk-annotation-process-buffer)
     skk-annotation-process-buffer)
    (t
-    (let ((env (getenv "LANG")))
+    (let ((env (getenv "LANG"))
+	  (orig-python-buffer (default-value 'python-buffer)))
       (unless (equal env "Ja_JP.UTF-8")
 	(setenv "LANG" "ja_JP.UTF-8"))
       (run-python skk-annotation-python-program t t)
       (setenv "LANG" env)
       (with-current-buffer python-buffer
-	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
-	(set-buffer-multibyte t)
-	(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
+	(rename-buffer "  *skk python")
+	(setq-default python-buffer orig-python-buffer)
+	(setq python-buffer orig-python-buffer)
+	(setq skk-annotation-process-buffer (current-buffer))
+	;;
 	(font-lock-mode 0)
-	(python-send-command "import DictionaryServices")
+	(set-buffer-multibyte t)
+	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
+	(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
+	;;
+	(skk-annotation-send-python-command "import DictionaryServices")
 	(cond ((and wait (skk-annotation-sit-for 1.0))
 	       (setq skk-annotation-remaining-delay
 		     (- skk-annotation-remaining-delay 1.0)))
@@ -385,7 +412,8 @@
 	       (throw 'DictionaryServices nil))
 	      (t
 	       nil))
-	(setq skk-annotation-process-buffer (current-buffer)))))))
+	;;
+	skk-annotation-process-buffer)))))
 
 (defun skk-annotation-DictionaryServices-cache (word truncate)
   (let ((loopint skk-annotation-loop-interval)
@@ -436,7 +464,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 								    truncate))
 	(goto-char (point-max))
 	(setq pt1 (point))
-	(python-send-command command)
+	(skk-annotation-send-python-command command)
 	(cond ((and (skk-annotation-sit-for loopint truncate)
 		    (not truncate))
 	       (setq skk-annotation-remaining-delay
@@ -1835,7 +1863,6 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	    (skk-in-minibuffer-p))
     (message nil))
   ;;
-  (skk-annotation-exclude-dict-maybe)
   (let ((word (if (and (= start 1) (= end 1))
 		  ;; region が active でないときは，ポイントにある
 		  ;; 単語を推測する
