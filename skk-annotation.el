@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.208 2011/11/13 11:41:21 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.209 2011/11/13 12:08:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/13 11:41:21 $
+;; Last Modified: $Date: 2011/11/13 12:08:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -383,8 +383,9 @@
 	       nil))
 	(setq skk-annotation-process-buffer (current-buffer)))))))
 
-(defun skk-annotation-DictionaryServices-cache (word)
-  (let (pt)
+(defun skk-annotation-DictionaryServices-cache (word truncate)
+  (let ((loopint skk-annotation-loop-interval)
+	success pt)
     (skk-save-point
      (goto-char (point-max))
      (cond
@@ -393,15 +394,22 @@
        (forward-line 1)
        (beginning-of-line)
        (setq pt (point))
-       (cond ((re-search-forward "^>>> " nil t)
-	      (forward-line  -1)
-	      (end-of-line)
-	      (when (>= pt (point))
-		(forward-line 1)
-		(end-of-line))
-	      (buffer-substring-no-properties pt (point)))
-	     (t
-	      nil)))
+       (setq success (re-search-forward "^>>> " nil t))
+       (unless success
+	 (unless (skk-annotation-sit-for skk-annotation-loop-interval)
+	   (unless truncate
+	     (throw 'DictionaryServices nil)))
+	 (setq success (re-search-forward "^>>> " nil t)))
+       (cond
+	(success
+	 (forward-line  -1)
+	 (end-of-line)
+	 (when (>= pt (point))
+	   (forward-line 1)
+	   (end-of-line))
+	 (buffer-substring-no-properties pt (point)))
+	(t
+	 nil)))
       (t
        nil)))))
 
@@ -415,7 +423,8 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	 (loopint skk-annotation-loop-interval)
 	output pt1 pt2)
     (with-current-buffer skk-annotation-process-buffer
-      (unless (setq output (skk-annotation-DictionaryServices-cache word))
+      (unless (setq output (skk-annotation-DictionaryServices-cache word
+								    truncate))
 	(goto-char (point-max))
 	(setq pt1 (point))
 	(python-send-command command)
@@ -428,7 +437,8 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 		 (throw 'DictionaryServices nil))))
 	(accept-process-output process loopint)
 	(goto-char (point-max))
-	(setq output (or (skk-annotation-DictionaryServices-cache word)
+	(setq output (or (skk-annotation-DictionaryServices-cache word
+								  truncate)
 			 "None")))
       (unless (string-match "^\\(Traceback\\|AttributeError\\|None\\)" output)
 	(cond
