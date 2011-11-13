@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.207 2011/11/13 07:15:25 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.208 2011/11/13 11:41:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/13 07:15:25 $
+;; Last Modified: $Date: 2011/11/13 11:41:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -216,6 +216,7 @@
   (require 'skk-vars)
 
   (autoload 'python-send-command "python")
+  (autoload 'comint-send-input "comint")
   (autoload 'html2text "html2text")
   (autoload 'html2text-delete-tags "html2text")
   (autoload 'url-hexify-string "url-util")
@@ -371,6 +372,7 @@
 	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
 	(set-buffer-multibyte t)
 	(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
+	(font-lock-mode 0)
 	(python-send-command "import DictionaryServices")
 	(cond ((and wait (skk-annotation-sit-for 1.0))
 	       (setq skk-annotation-remaining-delay
@@ -381,18 +383,22 @@
 	       nil))
 	(setq skk-annotation-process-buffer (current-buffer)))))))
 
-(defun skk-annotation-DictionaryServices-cache (command)
+(defun skk-annotation-DictionaryServices-cache (word)
   (let (pt)
     (skk-save-point
      (goto-char (point-max))
      (cond
-      ((re-search-backward (concat "^>>> " command) nil t)
+      ((re-search-backward (regexp-quote
+			    (format " %s in DictionaryServices" word)) nil t)
        (forward-line 1)
        (beginning-of-line)
        (setq pt (point))
        (cond ((re-search-forward "^>>> " nil t)
-	      (forward-line  -2)
+	      (forward-line  -1)
 	      (end-of-line)
+	      (when (>= pt (point))
+		(forward-line 1)
+		(end-of-line))
 	      (buffer-substring-no-properties pt (point)))
 	     (t
 	      nil)))
@@ -402,13 +408,14 @@
 (defun skk-annotation-lookup-DictionaryServices (word &optional truncate)
   (skk-annotation-start-python t (not truncate))
   (let* ((command (format "word = u\"%s\"; \
+print \" %s(word)s in DictionaryServices\" %s {'word': word}; \
 print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
-			  word))
+			  word "%" "%"))
 	 (process (get-buffer-process skk-annotation-process-buffer))
 	 (loopint skk-annotation-loop-interval)
 	output pt1 pt2)
     (with-current-buffer skk-annotation-process-buffer
-      (unless (setq output (skk-annotation-DictionaryServices-cache command))
+      (unless (setq output (skk-annotation-DictionaryServices-cache word))
 	(goto-char (point-max))
 	(setq pt1 (point))
 	(python-send-command command)
@@ -420,19 +427,10 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	       (unless truncate
 		 (throw 'DictionaryServices nil))))
 	(accept-process-output process loopint)
-	(goto-char pt1)
-	(unless (looking-at (regexp-quote command))
-	  (insert command "\n"))
 	(goto-char (point-max))
-	(skk-save-point
-	 (forward-line -2)
-	 (end-of-line)
-	 (setq pt2 (point))
-	 (goto-char pt1)
-	 (forward-line 1)
-	 (beginning-of-line)
-	 (setq output (buffer-substring-no-properties (point) pt2))))
-      (unless (string-match "\\(^Traceback\\|AttributeError\\)" output)
+	(setq output (or (skk-annotation-DictionaryServices-cache word)
+			 "None")))
+      (unless (string-match "^\\(Traceback\\|AttributeError\\|None\\)" output)
 	(cond
 	 (truncate
 	  (with-temp-buffer

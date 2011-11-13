@@ -6,6 +6,9 @@
 	`set-buffer-process-coding-system'.
 	(skk-annotation-lookup-DictionaryServices): Make command a little
 	bit simple.  Insert the command if it has not been echoed.
+	Output a header line.
+	(skk-annotation-DictionaryServices-cache): Take word instead of
+	command as an argument.
 
 2011-11-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
