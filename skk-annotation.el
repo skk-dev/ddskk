@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.211 2011/11/13 15:17:20 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.212 2011/11/13 15:23:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/13 15:17:20 $
+;; Last Modified: $Date: 2011/11/13 15:23:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -360,6 +360,7 @@
 (defun skk-annotation-send-python-string (string)
   "Evaluate STRING in inferior Python process."
   (interactive "sPython command: ")
+  (require 'comint)
   (let ((proc (get-buffer-process skk-annotation-process-buffer)))
     (comint-send-string proc string)
     (unless (string-match "\n\\'" string)
