@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.205 2011/11/12 20:17:35 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.206 2011/11/13 03:59:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/12 20:17:35 $
+;; Last Modified: $Date: 2011/11/13 03:59:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -578,7 +578,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))\
     (while (and list
 		(or (memq this-command
 			  '(skk-annotation-wikipedia-region-or-at-point
-			    skk-annotation-wikipedia-region))
+			    skk-annotation-lookup-region-or-at-point))
 		    (eq skk-henkan-mode 'active))
 		(if digit
 		    t
@@ -597,7 +597,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))\
 			  (eq command 'digit-argument)
 			  (memq command
 				'(skk-annotation-wikipedia-region-or-at-point
-				  skk-annotation-wikipedia-region))
+				  skk-annotation-lookup-region-or-at-point))
 			  (equal (key-description key)
 				 (key-description
 				  skk-annotation-wikipedia-key))))
@@ -668,7 +668,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))\
 			(key-description skk-annotation-wikipedia-key))
 		 (memq command
 		       '(skk-annotation-wikipedia-region-or-at-point
-			 skk-annotation-wikipedia-region)))
+			 skk-annotation-lookup-region-or-at-point)))
 	     (setq sources
 		   (if (and digit
 			    (> digit 0)
