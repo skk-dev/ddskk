@@ -1,5 +1,8 @@
 2011-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skk-annotation-lookup-DictionaryServices):
+	Update the rule for truncating annotations.
+
 	* skk-annotation.el (skk-annotation-exclude-dict-maybe): Abolish
 	function.
 	(skk-annotation-send-python-string)

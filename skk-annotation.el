@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.212 2011/11/13 15:23:36 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.213 2011/11/13 18:53:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/13 15:23:36 $
+;; Last Modified: $Date: 2011/11/13 18:53:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -292,6 +292,7 @@
 
 ;;;###autoload
 (defun skk-annotation-find-and-show (pair)
+  "各種リソースからアノテーションを取得し表示する。"
   ;; ミニバッファにいるとき余計なメッセージをクリアする
   (when (or skk-isearch-switch
 	    (skk-in-minibuffer-p))
@@ -383,11 +384,13 @@
 
 ;;;###autoload
 (defun skk-annotation-start-python (&optional wait catch)
+  "DictionaryServices を利用するために python を起動する。"
   (require 'python)
   (cond
    ((buffer-live-p skk-annotation-process-buffer)
     skk-annotation-process-buffer)
    (t
+    ;; python + readline で UTF-8 の入力をするために LANG の設定が必要。
     (let ((env (getenv "LANG"))
 	  (orig-python-buffer (default-value 'python-buffer)))
       (unless (equal env "Ja_JP.UTF-8")
@@ -403,6 +406,7 @@
 	(font-lock-mode 0)
 	(set-buffer-multibyte t)
 	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
+	(set-buffer-file-coding-system 'utf-8-unix)
 	(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
 	;;
 	(skk-annotation-send-python-command "import DictionaryServices")
@@ -417,6 +421,7 @@
 	skk-annotation-process-buffer)))))
 
 (defun skk-annotation-DictionaryServices-cache (word truncate)
+  "DictionaryServices より既に取得済のアノテーションを探す。"
   (let ((loopint skk-annotation-loop-interval)
 	success pt)
     (skk-save-point
@@ -440,9 +445,7 @@
 	 (when (>= pt (point))
 	   (forward-line 1)
 	   (end-of-line))
-	 (when (string= (buffer-substring-no-properties (point-at-bol)
-							(point-at-eol))
-			"")
+	 (when (eq (point-at-bol) (point-at-eol))
 	   (forward-line -1)
 	   (end-of-line))
 	 (buffer-substring-no-properties pt (point)))
@@ -452,6 +455,9 @@
        nil)))))
 
 (defun skk-annotation-lookup-DictionaryServices (word &optional truncate)
+  "python を介して DictionaryServices を利用しアノテーションを取得する。
+オプション引数 TRUNCATE が non-nil の場合は候補一覧用に短いアノテーション
+に絞りこむ。 "
   (skk-annotation-start-python t (not truncate))
   (let* ((command (format "word = u\"%s\"; \
 print \" %s(word)s in DictionaryServices\" %s {'word': word}; \
@@ -485,7 +491,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	    (set-buffer-multibyte t)
 	    (insert output)
 	    (goto-char (point-min))
-	    (when (re-search-forward "[、。]" nil t)
+	    (when (re-search-forward "[;,.、。；｜]" nil t)
 	      (beginning-of-line)
 	      (buffer-substring (point) (match-beginning 0)))))
 	 (t
