@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.209 2011/11/13 12:08:35 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.210 2011/11/13 13:37:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/13 12:08:35 $
+;; Last Modified: $Date: 2011/11/13 13:37:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -273,12 +273,16 @@
 	(t
 	 annotation)))
 
-(defun skk-annotation-sit-for (seconds)
+(defun skk-annotation-sit-for (seconds &optional listing-p)
   (condition-case nil
       (skk-sit-for seconds)
     (quit
      (with-current-buffer skk-annotation-original-buffer
-       (keyboard-quit)))))
+       (cond
+	(listing-p
+	 (skk-escape-from-show-candidates 0))
+	(t
+	 (keyboard-quit)))))))
 
 (defun skk-annotation-dict-exec-find ()
   (ignore-errors (executable-find skk-annotation-dict-program)))
@@ -396,7 +400,7 @@
        (setq pt (point))
        (setq success (re-search-forward "^>>> " nil t))
        (unless success
-	 (unless (skk-annotation-sit-for skk-annotation-loop-interval)
+	 (unless (skk-annotation-sit-for skk-annotation-loop-interval truncate)
 	   (unless truncate
 	     (throw 'DictionaryServices nil)))
 	 (setq success (re-search-forward "^>>> " nil t)))
@@ -406,6 +410,11 @@
 	 (end-of-line)
 	 (when (>= pt (point))
 	   (forward-line 1)
+	   (end-of-line))
+	 (when (string= (buffer-substring-no-properties (point-at-bol)
+							(point-at-eol))
+			"")
+	   (forward-line -1)
 	   (end-of-line))
 	 (buffer-substring-no-properties pt (point)))
 	(t
@@ -428,7 +437,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	(goto-char (point-max))
 	(setq pt1 (point))
 	(python-send-command command)
-	(cond ((and (skk-annotation-sit-for loopint)
+	(cond ((and (skk-annotation-sit-for loopint truncate)
 		    (not truncate))
 	       (setq skk-annotation-remaining-delay
 		     (- skk-annotation-remaining-delay loopint)))
@@ -513,7 +522,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	  (while (and no-user-input
 		      (eq (process-status process) 'run))
 	    (when (setq no-user-input
-			(skk-annotation-sit-for loopint))
+			(skk-annotation-sit-for loopint truncate))
 	      (setq skk-annotation-remaining-delay
 		    (- skk-annotation-remaining-delay loopint))))
 	  (if no-user-input
@@ -792,12 +801,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
       (quit
        (cond
 	((eq skk-henkan-mode 'active)
-	 (setq skk-henkan-count 0)
-	 (skk-unread-event
-	  (character-to-event
-	   (aref
-	    (car (where-is-internal 'skk-previous-candidate skk-j-mode-map))
-	    0))))
+	 (skk-reset-henkan-count 0))
 	(t
 ;	 (keyboard-quit)
 	 )))))

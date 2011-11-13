@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.602 2011/11/12 19:01:38 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.603 2011/11/13 13:37:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/12 19:01:38 $
+;; Last Modified: $Date: 2011/11/13 13:37:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1973,14 +1973,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 		       (0
 			;; skk-henkan-show-candidates を呼ぶ前の
 			;; 状態に戻す。
-			(skk-set-henkan-count 4)
-			(skk-unread-event (character-to-event
-					   (aref (car (where-is-internal
-						       'skk-previous-candidate
-						       skk-j-mode-map))
-						 0)))
-			;; skk-henkan まで一気に throw する。
-			(throw 'unread nil))
+			(skk-escape-from-show-candidates 4))
 		       (t
 			;; 一つ前の候補群をエコーエリアに表示する。
 			(setq reverse t))))
@@ -1998,14 +1991,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 		     (sit-for 1)))))
 	     (quit
 	      ;; skk-previous-candidate へ
-	      (skk-set-henkan-count 0)
-	      (skk-unread-event (character-to-event
-				 (aref (car (where-is-internal
-					     'skk-previous-candidate
-					     skk-j-mode-map))
-				       0)))
-	      ;; skk-henkan まで一気に throw する。
-	      (throw 'unread nil)))))) ; end of while loop
+	      (skk-escape-from-show-candidates 0)))))) ; end of while loop
      ;;
      (or (cdr-safe new-one)
 	 new-one))))

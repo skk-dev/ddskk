@@ -1,5 +1,11 @@
 2011-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-macs.el (skk-reset-henkan-count)
+	(skk-escape-from-show-candidates): New functions.
+	* skk-annotation.el (skk-annotation-sit-for)
+	(skk-annotation-wait-for-input)
+	* skk.el (skk-henkan-show-candidate-subr): Use them.
+
 	* skk-vars.el (skk-annotation-python-program): Simply find
 	"python" executable.
 	* skk-annotation.el (skk-annotation-start-python): Call

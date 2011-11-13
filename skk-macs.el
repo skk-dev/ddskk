@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.178 2011/11/07 22:04:56 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.179 2011/11/13 13:37:14 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/07 22:04:56 $
+;; Last Modified: $Date: 2011/11/13 13:37:14 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1106,6 +1106,21 @@ Return the modified ALIST."
 				  (<= emacs-minor-version 4)))
     ;; XEmacs 21.4 にはない関数
     (fit-window-to-buffer window)))
+
+(defun skk-reset-henkan-count (count)
+  ;; ▽モードに戻るときは 0
+  ;; ▼モードのまま候補一覧の手前に戻るときは 4
+  (skk-set-henkan-count count)
+  (skk-unread-event (character-to-event
+		     (aref (car (where-is-internal
+				 'skk-previous-candidate
+				 skk-j-mode-map))
+			   0))))
+
+(defun skk-escape-from-show-candidates (count)
+  ;; skk-henkan まで一気に throw する。
+  (skk-reset-henkan-count 0)
+  (throw 'unread nil))
 
 (provide 'skk-macs)
 
