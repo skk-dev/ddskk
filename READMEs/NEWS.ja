@@ -25,6 +25,18 @@ DictionaryServices $A$r(B Emacs $AFp$(GY/Uk$A$K$BFI$`$3$H$,$G$-$^$9!#(B
 M-i $A$H$$$&%-$B!<$A$OR;@}$K$9$.$^$;$s!#$(Gkk$ASr$r$(GrY$(I&1$A$7$F%?%$%W$9$k$H4G$(GUs$A$,2NUU(B
 $A$G$-$^$9!#6`$/$NS"$(I+J$(Gk#$A$K$D$$$F$O$(Gkk$ASr$r$(GrY$(I&1$A$;$:$K$(I+J$(Gk#$A$,EP$(GI1$A$5$l$^$9!#(B
 
+*** $AW"RbJB$(Gbz(B
+
+$A$3$N$(Gq"$AD\$r@{SC$9$k$K$O!"(Bpython $A$K(B readline $A$H(B
+pyobject-framework-DictionaryServices $A$,1XR*$G$9!#aaU_$K$D$$$F$O(B OS X
+10.5 (Leopard) $ART=5$N(B OS $(Gm:dm$A$N(B python $A$K$(Gm:dm$A$G%$%s%9%H$B!<$A%k$5$l$F$$$^(B
+$A$9!#(Breadline $A$K$D$$$F$O(B OS X 10.7 (Lion) $(Gm:dm$A$N(B python $A$G$O%$%s%9%H$B!<(B
+$A%k$9$k1XR*$,$"$j$^$;$s!#$=$lRTMb$N$(G^[$A:O$O(B
+
+% easy_install readline 
+
+$A$J$I$N7=7($G%$%s%9%H$B!<$A%k$7$^$9!#(B
+
 ** $B30It%3%^%s%I$+$i$N%"%N%F!<%7%g%s<hF@(B
 
 $B<-=q$KEPO?$5$l$F$$$k%"%N%F!<%7%g%s$h$j$b30It%3%^%s%I$+$i<hF@$7$?%"%N%F!<(B
