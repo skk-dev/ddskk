@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.393 2011/11/12 20:17:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.394 2011/11/13 00:52:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/12 20:17:35 $
+;; Last Modified: $Date: 2011/11/13 00:52:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4578,6 +4578,25 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 (defvar skk-lookup-default-module nil)
 (defvar skk-lookup-module-list nil)
 (defvar skk-lookup-prefix-and-kana-map nil)
+
+(defvar skk-lookup-get-content-nth-dic 0
+  "*$B4X?t(B `skk-lookup-get-content' $B$N=hM}BP>]$r?tCM$G;XDj$9$k(B.
+$B?tCM$O!V4X?t(B `skk-lookup-default-module' $B$NI>2A7k2L$N$&$A2?HVL\$N(B agent $B$r(B
+$B;HMQ$9$k$+!W$r!"%<%m$r5/E@$K?t$($k(B.
+
+*scratch* $B%P%C%U%!$G<!$N(B S $B<0$rI>2A$7$F$_$k$H$h$$(B.
+(let ((i 0)
+      (list (lookup-module-dictionaries (skk-lookup-default-module))))
+  (while list
+    (insert (format \"%d %s\n\" i (lookup-dictionary-name (car list))))
+    (setq i (1+ i))
+    (setq list (cdr list))))
+
+$B$J$*!"(BDDSKK $B$N5/F08e$KJQ?t$NCM$rJQ99$7$?>l9g$O!"(B*scratch* $B%P%C%U%!$G(B
+$B4X?t(B `skk-lookup-get-content-setup-dic' $B$rI>2A$9$k$3$H(B.")
+
+(defvar skk-lookup-get-content-default-dic nil)
+(defvar skk-lookup-get-content-default-dic-name nil)
 
 ;;; skk-num.el related.
 (defcustom skk-use-numeric-conversion t

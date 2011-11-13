@@ -1,3 +1,12 @@
+2011-11-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-lookup-get-content-nth-dic) : New user option.
+	(skk-lookup-get-content-default-dic) 
+	(skk-lookup-get-content-default-dic-name): New internal variables.
+
+	* skk-lookup.el (skk-lookup-pickup-headings): Fix docstring.
+	(skk-lookup-get-content, skk-lookup-get-content-setup-dic): New Function.
+
 2011-11-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-annotation-lookup-DictionaryServices)

@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.35 2011/06/03 23:35:25 skk-cvs Exp $
+;; Version: $Id: skk-lookup.el,v 1.36 2011/11/13 00:52:34 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2011/06/03 23:35:25 $
+;; Last Modified: $Date: 2011/11/13 00:52:34 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -401,7 +401,8 @@
   (match-string-no-properties place string))
 
 (defun skk-lookup-pickup-headings (pattern method)
-  "Search PATTERN by METHOD."
+  "Search PATTERN by METHOD.
+METHOD は変数`lookup-search-methods'を参照のこと."
   (let ((module (skk-lookup-default-module))
 	(lookup-gaiji-alternate "")
 	;;lookup-enable-gaiji ;  not to put out gaiji.
@@ -437,6 +438,35 @@
 	  (setcdr prefix-kana (cons kana (cdr prefix-kana)))
 	(setq alist (cons (cons prefix (list kana)) alist))))
     alist))
+
+;;
+;; 
+(defun skk-lookup-get-content-setup-dic ()
+  (let ((module (skk-lookup-default-module)))
+    (lookup-module-setup module)
+    (setq skk-lookup-get-content-default-dic-name
+	  (lookup-dictionary-name
+	   (setq skk-lookup-get-content-default-dic
+		 (nth skk-lookup-get-content-nth-dic
+		      (lookup-module-dictionaries module)))))))
+
+(defun skk-lookup-get-content (word)
+  (unless skk-lookup-get-content-default-dic
+    (skk-lookup-get-content-setup-dic)
+    (message "skk-lookup-get-content: %s" skk-lookup-get-content-default-dic-name))
+  (let ((query (lookup-vse-search-query skk-lookup-get-content-default-dic
+					(lookup-make-query 'exact word)))
+	(content ""))
+    (when query
+      (setq content (lookup-dictionary-command skk-lookup-get-content-default-dic
+					       'content (car query))
+	    content (replace-regexp-in-string
+		     "<[^>]*>" "" 
+		     (nth 1 (split-string content "\n")))
+	    content (format "%s [%s]"
+			    content
+			    skk-lookup-get-content-default-dic-name)))
+    content))
 
 (provide 'skk-lookup)
 
