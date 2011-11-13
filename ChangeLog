@@ -1,3 +1,12 @@
+2011-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-python-program): Simply find
+	"python" executable.
+	* skk-annotation.el (skk-annotation-start-python): Call
+	`set-buffer-process-coding-system'.
+	(skk-annotation-lookup-DictionaryServices): Make command a little
+	bit simple.  Insert the command if it has not been echoed.
+
 2011-11-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-lookup-get-content-nth-dic) : New user option.

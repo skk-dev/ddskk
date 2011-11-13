@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.394 2011/11/13 00:52:34 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.395 2011/11/13 07:15:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/13 00:52:34 $
+;; Last Modified: $Date: 2011/11/13 07:15:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2803,10 +2803,7 @@ Max OS X 以外の環境では機能しない。"
   :type 'boolean
   :group 'skk-annotation)
 
-(defvar skk-annotation-python-program
-  (if (eq system-type 'darwin)
-      "/usr/bin/python2.5"
-    (executable-find "python")))
+(defvar skk-annotation-python-program (executable-find "python"))
 
 (defcustom skk-annotation-lookup-dict nil
   "*Non-nil であれば、外部プログラムを読んで変換候補の意味を表示する。"

@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.206 2011/11/13 03:59:12 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.207 2011/11/13 07:15:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/13 03:59:12 $
+;; Last Modified: $Date: 2011/11/13 07:15:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -370,6 +370,7 @@
       (with-current-buffer python-buffer
 	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
 	(set-buffer-multibyte t)
+	(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
 	(python-send-command "import DictionaryServices")
 	(cond ((and wait (skk-annotation-sit-for 1.0))
 	       (setq skk-annotation-remaining-delay
@@ -400,9 +401,9 @@
 
 (defun skk-annotation-lookup-DictionaryServices (word &optional truncate)
   (skk-annotation-start-python t (not truncate))
-  (let* ((command (format "word = \"%s\".decode(\"%s\"); \
-print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))\
-.encode(\"%s\")" word "utf-8" "utf-8"))
+  (let* ((command (format "word = u\"%s\"; \
+print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
+			  word))
 	 (process (get-buffer-process skk-annotation-process-buffer))
 	 (loopint skk-annotation-loop-interval)
 	output pt1 pt2)
@@ -419,6 +420,9 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))\
 	       (unless truncate
 		 (throw 'DictionaryServices nil))))
 	(accept-process-output process loopint)
+	(goto-char pt1)
+	(unless (looking-at (regexp-quote command))
+	  (insert command "\n"))
 	(goto-char (point-max))
 	(skk-save-point
 	 (forward-line -2)
