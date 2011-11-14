@@ -1,3 +1,8 @@
+2011-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-lookup-get-content-nth-dic): docstring を修正.
+	* doc/skk.texi (アノテーションとしてEPWING辞書を表示する): 追加.
+
 2011-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skk-annotation-start-python):  Abolish the

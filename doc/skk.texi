@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/10 11:22:22 $
+@set UPDATED $Date: 2011/11/14 12:03:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -317,6 +317,7 @@ GNU Emacs 20 $B$N%f!<%6!<$O(B DDSKK 14.1 $B$r$*;H$$$/$@$5$$!#(B
 @item $BF|K\8l%a%K%e!<I=<($O(B X $B%j%=!<%9$K$h$kJ}K!$N$_%F%9%H$5$l$F$$$^$9!#(B
 @item ja-dic $B$OMxMQ$G$-$^$;$s!#(B
 @end itemize
+
 @end table
 
 @node SKK$B$H$O$J$K$+(B
@@ -2281,6 +2282,7 @@ skk-bayesian-history-file ~/.skk-bayesian   ~/.ddskk/bayesian
 @item $B!V(BDDSKK $B$N@_Dj%U%!%$%k!W$r(B @code{el} $B$H!"(B
 @item $B!V(BDDSKK $B$N@_Dj%U%!%$%k$r%P%$%H%3%s%Q%$%k$7$?%U%!%$%k!W$r(B @code{elc} $B$H(B
 @end itemize
+
 $B$=$l$>$l8F$V$3$H$H$7$^$9!#(B
 @end smallformat
 @end cartouche
@@ -5576,12 +5578,14 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 
 $B$3$NJQ?t$NCM$r(B @code{nil} $B$K$9$k$H!"!V0EL[$N3NDj!W$rCY$i$;$^$9!#(B
 $B6qBNE*$K$O!"(B
+
 @itemize @bullet
 @item $B3g8L(B @kbd{(} @kbd{)} @kbd{[}  @kbd{]} $B$NF~NO;~(B
 @item $B6gFIE@(B @kbd{,} @kbd{.} $B$NF~NO;~(B
 @item $B<!$NJQ493+;O;~(B (@kbd{A} $B$+$i(B @kbd{Z} $B$^$G$NBgJ8;z$NF~NO;~(B)
 @item @key{RET} $BF~NO;~(B
 @end itemize
+
 $B$^$G0EL[$N3NDj$,CY1d$5$l$^$9(B
 @footnote{@code{skk-kakutei-early} $B$N5!G=$H(B
 @code{skk-process-okuri-early} $B$N5!G=$rF1;~$KM-8z$K$9$k$3$H$O$G$-$^$;$s!#(B
@@ -6745,12 +6749,14 @@ GNU Emacs $B$K$O(B @file{SKK-JISYO.L} $B$r85$KJQ49$5$l$?(B @file{ja-dic.el} 
 $B0l1~$O(B DDSKK $B$N;HMQ$,2DG=!"$H$$$&$3$H$G$9!#(B
 
 DDSKK 14.2 $B$+$iDI2C$5$l$?!V(Bja-dic.el $B8!:w5!G=!W(B(@code{skk-search-ja-dic}) $B$O!"(B
+
 @itemize @bullet
 @item @code{skk-large-jisyo}
 @item @code{skk-aux-large-jisyo}
 @item @code{skk-cdb-large-jisyo}
 @item @code{skk-server-host}
 @end itemize
+
 $B$NA4$F$,L58z$J>l9g$KM-8z$H$J$j$^$9!#(B
 
 
@@ -7437,6 +7443,7 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 * $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k(B::
 * Wikipedia $B%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B::
 * $B30It%3%^%s%I$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B::
+* $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B::
 @end menu
 
 @node $B%"%N%F!<%7%g%s$N4pAC(B
@@ -7738,6 +7745,50 @@ buffer (plural&#160;buffers)
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-dict-program-arguments
+
+@end defvr
+
+@node $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B
+@subsection $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B
+
+@file{skk-lookup.el} $B$K4^$^$l$k4X?t(B @code{skk-lookup-get-content} $B$r3hMQ(B
+$B$9$k$3$H$K$h$j!"(BEPWING $B<-=q$+$iF@$?FbMF$r%"%N%F!<%7%g%sI=<($9$k$3$H$,2DG=(B
+$B$G$9!#(B
+
+$B<-=q8!:w%D!<%k$N(B Lookup (@url{http://openlab.jp/edict/lookup/}) $B$,@5>o$K(B
+$B%$%s%9%H!<%k$5$l$F$$$k$3$H$,A0Ds$G$9!#(B
+
+$B8uJd$NI=<($rAu>~$9$k4X?t$r;XDj$9$k(B
+$BJQ?t(B @code{skk-treat-candidate-appearance-function} $B$r@_Dj$7$^$9!#(B
+
+@file{etc/dot/skk} $B$rNc$H$7$^$9!#(B
+
+@lisp
+@group
++ (require 'skk-lookup)
+  (setq skk-treat-candidate-appearance-function
+        #'(lambda (candidate listing-p)
+            (let* ((value (skk-treat-strip-note-from-word candidate))
+                   (cand (car value))     ;$B8uJd(B
+-                  (note (cdr value))     ;$BCm<a(B
++                  (note (skk-lookup-get-content cand))
+                   (sep (if note          ;$B%;%Q%l!<%?(B
+                   :
+@end group
+@end lisp
+
+@defun skk-lookup-get-content $BC18l(B
+
+$BC18l$N0UL#$r(B EPWING $B<-=q$+$i<hF@$7$^$9!#(B
+
+@end defun
+
+@defvr {$B%f!<%6JQ?t(B} skk-lookup-get-content-nth-dic
+
+@code{skk-lookup-get-content} $B$,$I$N(BEPWING $B<-=q$+$iC18l$N0UL#$r<hF@$9$k$N(B
+$B$+$r?tCM$G;XDj$7$^$9!#(B
+
+docstring $B$KNc<($7$?(B S $B<0$rI>2A$7$F$_$F$/$@$5$$!#(B
 
 @end defvr
 
@@ -8562,6 +8613,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 $B%D!<%k%F%#%C%W$N%F%-%9%H$H%^%&%9%]%$%s%?$,=E$J$C$?$j!"$&$^$/%D!<%k%F%#%C%W$,I=<($G$-$J$+$C$?$j$9$k>l9g$,$"$j$^$9!#(B
 
 @end table
+
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-tooltip-hide-delay
@@ -8602,11 +8654,13 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 @end defvr
 
 $B%G%U%)%k%H$G$O#3$D$NJQ?t(B
+
 @itemize @bullet
 @item @code{skk-show-inline}
 @item @code{skk-show-tooltip}
 @item @code{skk-show-candidates-always-pop-to-buffer}
 @end itemize
+
 $B$H$b(B @code{nil} $B$G$9!#(B
 $B$3$N>uBV$G$O8uJd0lMw$O%(%3!<%(%j%"$KI=<((B@footnote{@code{frame-width} $B$,IT(B
 $BB-$9$k>l9g$O(B *$B8uJd(B*$B%P%C%U%!$KI=<($7$^$9!#(B} $B$7$^$9!#(B
@@ -8723,6 +8777,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 $B$N(B @samp{;} $B$NBe$o$j$KMxMQ$5$l$k!#Cm<a$O$b$&%;%Q%l!<%?$r4^$^$J$$$b$N$H$7$F=h(B
 $BM}$5$l$k!#(B
 @end table
+
 @end enumerate
 
 $B%U%!%$%k(B @file{etc/dot.skk} $B$K@_DjNc$,$"$k$[$+!"%5%s%W%k$H$7$F4X?t(B
@@ -9276,6 +9331,7 @@ DDSKK $B$O%m!<%^;z<0$G$O$J$$!"$$$o$f$k$+$JF~NOJ}<0$r%5%]!<%H$7$^$9!#6qBNE*(B
 (setq skk-kanagaki-keyboard-type 'omelet-jis)
 @end lisp
 @end table
+
 @end defvr
 
 $B$+$JF~NOJ}<0;HMQ;~$N"#%b!<%I$G$O0J2<$N%3%^%s%I$J$I$,Lr$KN)$A$^$9!#(B
@@ -10320,8 +10376,8 @@ Lookup $B$,07$($k<-=q$O$[$H$s$I;H$($^$9!#(BLookup $B$,%$%s%9%H!<%k$5$l$F$$$k
 $B>uBV$G(B SKK $B$r%$%s%9%H!<%k$9$k$H!"(BSKK $B$H(B Lookup $B$N%2!<%H%&%'%$%W%m%0%i(B
 $B%`(B @file{skk-lookup.el} $B$,%$%s%9%H!<%k$5$l$^$9!#(B
 
-$B%$%s%9%H!<%k$GCm0U$9$Y$-$O!"(B@code{make} $B$G8F$S=P$5$l$k(B Emacs $B$O(B
-@samp{-q -no-site-file} $B%U%i%0IU$-$G8F$P$l$k$N$G!"(B@file{~/.emacs} $B$d(B
+$B%$%s%9%H!<%k$GCm0U$9$Y$-$O!"(B@command{make} $B$G8F$S=P$5$l$k(B Emacs $B$O(B
+@option{-q -no-site-file} $B%U%i%0IU$-$G8F$P$l$k$N$G!"(B@file{~/.emacs} $B$d(B
 @file{site-start.el} $B$J$I$OFI$_9~$^$l$J$$$3$H$G$9!#%G%U%)%k%H$G(B
 @code{load-path} $B$NDL$C$F$$$k%G%#%l%/%H%j$K(B lookup $B$r%$%s%9%H!<%k$9$k$+!"(B
 @file{SKK-CFG} $B$NCf$G(B @var{VERSION_SPECIFIC_LISPDIR} $B$J$I$K%G%#%l%/%H%j(B

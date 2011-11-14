@@ -55,6 +55,14 @@ pyobject-framework-DictionaryServices が必要です。後者については OS X
 *** skk-annotation-dict-program-arguments
 *** skk-annotation-dict-coding-system
 
+** EPWING 辞書からのアノテーション取得
+
+辞書検索ツール Lookup (http://openlab.jp/edict/lookup/) を経由して
+EPWING 辞書からアノテーションを取得します。
+
+*** skk-lookup-get-content()
+*** skk-lookup-get-content-nth-dic
+
 ** $ タイプ時の挙動
 
 `$' のタイプで起動する skk-display-code-for-char-at-point について、
