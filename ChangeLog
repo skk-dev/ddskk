@@ -11,7 +11,7 @@
 	an skk specific one.  Restore the original value of python-buffer
 	after that.
 	* skk-vars.el (skk-annotation-other-sources): Remove `dict' from
-	the default value.  Move `ja.wikipedia' to the top.
+	the default value.  Move `ja.wiktionary' to the top.
 
 	* skk-macs.el (skk-reset-henkan-count)
 	(skk-escape-from-show-candidates): New functions.
