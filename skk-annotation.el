@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.215 2011/11/14 21:35:11 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.216 2011/11/14 23:48:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/14 21:35:11 $
+;; Last Modified: $Date: 2011/11/14 23:48:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -277,14 +277,14 @@
 	(t
 	 annotation)))
 
-(defun skk-annotation-dict-exec-find ()
+(defun skkannot-dict-exec-find ()
   (ignore-errors (executable-find skk-annotation-dict-program)))
 
-(defun skk-annotation-sit-for (seconds &optional listing-p)
+(defun skkannot-sit-for (seconds &optional listing-p)
   (condition-case nil
       (skk-sit-for seconds)
     (quit
-     (with-current-buffer skk-annotation-original-buffer
+     (with-current-buffer skkannot-buffer-origin
        (cond
 	(listing-p
 	 (skk-escape-from-show-candidates 0))
@@ -304,20 +304,20 @@
 	(srcs skk-annotation-other-sources)
 	list)
     (when skk-annotation-first-candidate
-      (setq skk-annotation-remaining-delay skk-annotation-delay
+      (setq skkannot-remaining-delay skk-annotation-delay
 	    skk-annotation-first-candidate nil))
     (when (and word
 	       (or skk-annotation-lookup-DictionaryServices
 		   (and skk-annotation-lookup-dict
-			(skk-annotation-dict-exec-find)))
+			(skkannot-dict-exec-find)))
 	       (not skk-isearch-switch)
 	       (not (skk-in-minibuffer-p)))
-      ;; dict (Mac の DictionaryServices など) の設定があれば
+      ;; Mac の「辞書」あるいは dict (外部プログラム) の設定があれば
       ;; SKK 辞書のアノテーションより優先させる
       (cond
        ((and (eq system-type 'darwin)
 	     skk-annotation-lookup-DictionaryServices)
-	(catch 'DictionaryServices
+	(catch '辞書
 	  (when (null (setq note (skk-annotation-lookup-DictionaryServices
 				  word)))
 	    (setq note (cdr-safe pair)))))
@@ -343,27 +343,27 @@
 	  (unless (eq (car srcs) 'dict)
 	    (add-to-list 'skk-annotation-wikimedia-srcs (car srcs) t))
 	  (setq srcs (cdr srcs))))
-      (setq note (or (car (skk-annotation-wikipedia-cache
+      (setq note (or (car (skkannot-cache
 			   word
 			   skk-annotation-wikimedia-srcs))
 		     (when skk-annotation-show-wikipedia-url
-		       (skk-annotation-treat-wikipedia word)))))
+		       (skkannot-treat-wikipedia word)))))
     ;;
-    (setq skk-annotation-original-buffer (current-buffer))
+    (setq skkannot-buffer-origin (current-buffer))
     (cond
-     ((or (<= skk-annotation-remaining-delay 0)
-	  (skk-annotation-sit-for skk-annotation-remaining-delay))
-      (setq skk-annotation-remaining-delay 0)
+     ((or (<= skkannot-remaining-delay 0)
+	  (skkannot-sit-for skkannot-remaining-delay))
+      (setq skkannot-remaining-delay 0)
       (skk-annotation-show (or note "") word))
      (t
-      (setq skk-annotation-remaining-delay skk-annotation-delay)
+      (setq skkannot-remaining-delay skk-annotation-delay)
       (skk-annotation-show "" word)))))
 
-(defun skk-annotation-send-python-string (string)
+(defun skkannot-py-send-string (string)
   "Evaluate STRING in inferior Python process."
   (interactive "sPython command: ")
   (require 'comint)
-  (let ((proc (get-buffer-process skk-annotation-process-buffer)))
+  (let ((proc (get-buffer-process skkannot-py-buffer)))
     (comint-send-string proc string)
     (unless (string-match "\n\\'" string)
       ;; Make sure the text is properly LF-terminated.
@@ -373,56 +373,61 @@
       ;; as to make sure we terminate the multiline instruction.
       (comint-send-string proc "\n"))))
 
-(defun skk-annotation-send-python-command (command)
+(defun skkannot-py-send-command (command)
   "Like `python-send-string' but resets `compilation-shell-minor-mode'."
-  (when (python-check-comint-prompt (get-buffer-process
-				     skk-annotation-process-buffer))
-    (with-current-buffer skk-annotation-process-buffer
+  (when (or (eval-when-compile (and skk-running-gnu-emacs
+				    (= emacs-major-version 22)))
+	    (python-check-comint-prompt (get-buffer-process
+					 skkannot-py-buffer)))
+    (with-current-buffer skkannot-py-buffer
       (goto-char (point-max))
       (compilation-forget-errors)
-      (skk-annotation-send-python-string command)
+      (skkannot-py-send-string command)
       (setq compilation-last-buffer (current-buffer)))))
 
 ;;;###autoload
 (defun skk-annotation-start-python (&optional wait)
-  "DictionaryServices を利用するために python を起動する。"
+  "OS X の「辞書」を利用するために python を起動する。"
   (require 'python)
   (cond
-   ((buffer-live-p skk-annotation-process-buffer)
-    skk-annotation-process-buffer)
+   ((buffer-live-p skkannot-py-buffer)
+    skkannot-py-buffer)
    (t
     ;; python + readline で UTF-8 の入力をするために LANG の設定が必要。
     (let ((env (getenv "LANG"))
-	  (orig-python-buffer (default-value 'python-buffer)))
+	  (orig-py-buffer (default-value 'python-buffer)))
       (unless (equal env "Ja_JP.UTF-8")
 	(setenv "LANG" "ja_JP.UTF-8"))
       (run-python skk-annotation-python-program t t)
       (setenv "LANG" env)
       (with-current-buffer python-buffer
 	(rename-buffer "  *skk python")
-	(setq-default python-buffer orig-python-buffer)
-	(setq python-buffer orig-python-buffer)
-	(setq skk-annotation-process-buffer (current-buffer))
+	(setq-default python-buffer orig-py-buffer)
+	(setq python-buffer orig-py-buffer)
+	(setq skkannot-py-buffer (current-buffer))
 	;;
 	(font-lock-mode 0)
 	(set-buffer-multibyte t)
 	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
-	(set-buffer-file-coding-system 'utf-8-unix)
+	(set-buffer-file-coding-system
+	 (if (eval-when-compile (<= emacs-major-version 22))
+	     'emacs-mule
+	   'utf-8-emacs))
 	(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
 	;;
-	(skk-annotation-send-python-command "import DictionaryServices")
-	(cond ((and wait (skk-annotation-sit-for 1.0))
-	       (setq skk-annotation-remaining-delay
-		     (- skk-annotation-remaining-delay 1.0)))
+	(skkannot-py-send-command "import DictionaryServices")
+	(cond ((and wait (skkannot-sit-for 1.0))
+	       (setq skkannot-remaining-delay
+		     (- skkannot-remaining-delay 1.0)))
 	      (wait
-	       (throw 'DictionaryServices nil))
+	       (throw '辞書 nil))
 	      (t
 	       nil))
 	;;
-	skk-annotation-process-buffer)))))
+	skkannot-py-buffer)))))
 
-(defun skk-annotation-DictionaryServices-cache (word truncate)
-  "DictionaryServices より既に取得済のアノテーションを探す。"
+(defun skkannot-DictServ-cache (word truncate)
+  "OS X の「辞書」からこれまで1<に取得済のアノテーションを探す。"
   (let ((loopint skk-annotation-loop-interval)
 	success pt)
     (skk-save-point
@@ -435,9 +440,9 @@
        (setq pt (point))
        (setq success (re-search-forward "^>>> " nil t))
        (unless success
-	 (unless (skk-annotation-sit-for skk-annotation-loop-interval truncate)
+	 (unless (skkannot-sit-for skk-annotation-loop-interval truncate)
 	   (unless truncate
-	     (throw 'DictionaryServices nil)))
+	     (throw '辞書 nil)))
 	 (setq success (re-search-forward "^>>> " nil t)))
        (cond
 	(success
@@ -464,25 +469,24 @@
 print \" %s(word)s in DictionaryServices\" %s {'word': word}; \
 print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 			  word "%" "%"))
-	 (process (get-buffer-process skk-annotation-process-buffer))
+	 (process (get-buffer-process skkannot-py-buffer))
 	 (loopint skk-annotation-loop-interval)
 	output pt1 pt2)
-    (with-current-buffer skk-annotation-process-buffer
-      (unless (setq output (skk-annotation-DictionaryServices-cache word
-								    truncate))
+    (with-current-buffer skkannot-py-buffer
+      (unless (setq output (skkannot-DictServ-cache word truncate))
 	(goto-char (point-max))
 	(setq pt1 (point))
-	(skk-annotation-send-python-command command)
-	(cond ((and (skk-annotation-sit-for loopint truncate)
+	(skkannot-py-send-command command)
+	(cond ((and (skkannot-sit-for loopint truncate)
 		    (not truncate))
-	       (setq skk-annotation-remaining-delay
-		     (- skk-annotation-remaining-delay loopint)))
+	       (setq skkannot-remaining-delay
+		     (- skkannot-remaining-delay loopint)))
 	      (t
 	       (unless truncate
-		 (throw 'DictionaryServices nil))))
+		 (throw '辞書 nil))))
 	(accept-process-output process loopint)
 	(goto-char (point-max))
-	(setq output (or (skk-annotation-DictionaryServices-cache word
+	(setq output (or (skkannot-DictServ-cache word
 								  truncate)
 			 "None")))
       (unless (string-match "^\\(Traceback\\|AttributeError\\|None\\)" output)
@@ -498,11 +502,11 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	 (t
 	  output))))))
 
-(defun skk-annotation-dict-buffer-format (word)
+(defun skkannot-dict-buffer-format (word)
   "dict の内容を格納するバッファのフォーマット。"
   (format "  *skk dict %s" word))
 
-(defun skk-annotation-start-dict-process (buffer word)
+(defun skkannot-start-dict-process (buffer word)
   "dict のプロセスを起動する。"
   (let ((process-connection-type nil)
 	(word (encode-coding-string word skk-annotation-dict-coding-system))
@@ -518,19 +522,19 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 ;;;###autoload
 (defun skk-annotation-preread-dict (word &optional nowait)
   "dict のプロセスを起動する。先読みのために用いる。"
-  (let ((buffer (get-buffer-create (skk-annotation-dict-buffer-format word)))
+  (let ((buffer (get-buffer-create (skkannot-dict-buffer-format word)))
 	(text "")
 	(loopint 0.01))
-    (setq skk-annotation-original-buffer (current-buffer))
+    (setq skkannot-buffer-origin (current-buffer))
     (with-current-buffer buffer
       (setq text (buffer-string))
       (when (string= text "")
 	(unless (get-process (buffer-name buffer))
-	  (skk-annotation-start-dict-process buffer word)
+	  (skkannot-start-dict-process buffer word)
 	  (unless nowait
-	    (cond ((skk-annotation-sit-for loopint)
-		   (setq skk-annotation-remaining-delay
-			 (- skk-annotation-remaining-delay loopint)))
+	    (cond ((skkannot-sit-for loopint)
+		   (setq skkannot-remaining-delay
+			 (- skkannot-remaining-delay loopint)))
 		  (t
 		   (throw 'dict nil)))))))))
 
@@ -538,17 +542,17 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 (defun skk-annotation-lookup-dict (word &optional truncate)
   "dict のプロセスを必要なら起動し、結果を調べる。
 意味が取得できた場合には結果を文字列として返す。"
-  (let ((buffer (get-buffer-create (skk-annotation-dict-buffer-format word)))
+  (let ((buffer (get-buffer-create (skkannot-dict-buffer-format word)))
 	(text "")
 	(no-user-input t)
 	(loopint skk-annotation-loop-interval)
 	process)
-    (setq skk-annotation-original-buffer (current-buffer))
+    (setq skkannot-buffer-origin (current-buffer))
     (with-current-buffer buffer
       (setq text (buffer-string))
       (when (string= text "")
 	(unless (setq process (get-process (buffer-name buffer)))
-	  (setq process (skk-annotation-start-dict-process buffer word)))
+	  (setq process (skkannot-start-dict-process buffer word)))
 	(cond
 	 (truncate
 	  (while (eq (process-status process) 'run)
@@ -557,10 +561,9 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	 (t
 	  (while (and no-user-input
 		      (eq (process-status process) 'run))
-	    (when (setq no-user-input
-			(skk-annotation-sit-for loopint truncate))
-	      (setq skk-annotation-remaining-delay
-		    (- skk-annotation-remaining-delay loopint))))
+	    (when (setq no-user-input (skkannot-sit-for loopint truncate))
+	      (setq skkannot-remaining-delay
+		    (- skkannot-remaining-delay loopint))))
 	  (if no-user-input
 	      (sleep-for 0.01)
 	    (throw 'dict nil)))))
@@ -679,12 +682,12 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	     (setq urls nil)
 	     (when word
 	       (cond
-		((setq cache (skk-annotation-wikipedia-cache word sources))
+		((setq cache (skkannot-cache word sources))
 		 (setq urls
 		       (cons
 			(if (string= (cdr cache) "dict")
 			    (format "dict:///%s" word)
-			  (apply #'skk-annotation-generate-url
+			  (apply #'skkannot-generate-url
 				 "http://%s.org/wiki/%s"
 				 ;; split-string の非互換性に配慮
 				 (if (eval-when-compile
@@ -695,7 +698,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 			urls)))
 		(skk-annotation-show-wikipedia-url
 		 (add-to-list 'urls
-			      (skk-annotation-generate-url
+			      (skkannot-generate-url
 			       "http://ja.wikipedia.org/wiki/%s"
 			       word)))))
 	     (unless (equal annotation "")
@@ -739,7 +742,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 		   char  nil)
 	     (when word
 	       (let ((skk-annotation-show-wikipedia-url nil))
-		 (setq note (skk-annotation-treat-wikipedia word sources))))
+		 (setq note (skkannot-treat-wikipedia word sources))))
 	     (cond ((null note)
 		    (setq note annotation))
 		   (t
@@ -843,24 +846,6 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	 )))))
   ;; 常に t を返す
   t)
-
-(defun skk-annotation-find-url (string)
-  (let (url)
-    (with-temp-buffer
-      (insert string)
-      (goto-char (point-min))
-      (save-match-data
-	(while (and (not url)
-		    (re-search-forward "\\." nil t))
-	  (backward-char 1)
-	  (setq url (thing-at-point 'url))
-	  ;; http://foo のような URL を生成してしまうので対策
-	  (when (and url
-		     (not (string-match "\\." url)))
-	    (setq url nil))
-	  (unless url
-	    (forward-char 1)))))
-    url))
 
 (defun skk-annotation-show-buffer (annotation)
   (condition-case nil
@@ -1190,7 +1175,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	(string "")
 	(note nil))
     ;; sources に指定された順番に参照する
-    (if (catch 'skk-annotation-wikipedia-suspended
+    (if (catch 'skkannot-wikipedia-suspended
 	  (save-match-data
 	    (while (and (or (not note) (equal note ""))
 			sources)
@@ -1242,14 +1227,14 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
       ;;
       note)))
 
-(defun skk-annotation-wikipedia-clean-sup (p1 p2 p3 p4)
+(defun skkannot-wikipedia-clean-sup (p1 p2 p3 p4)
   (put-text-property p2 p3 'face 'underline)
   (save-excursion
     (goto-char p2)
     (insert "^"))
   (html2text-delete-tags p1 p2 (1+ p3) (1+ p4)))
 
-(defun skk-annotation-wikipedia-clean-sub (p1 p2 p3 p4)
+(defun skkannot-wikipedia-clean-sub (p1 p2 p3 p4)
   (put-text-property p2 p3 'face 'underline)
   (save-excursion
     (goto-char p2)
@@ -1261,8 +1246,8 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 該当ページ (html) をダウンロードする機能は Emacs に付属の URL パッケージに依
 る。"
   (cond
-   ((eq source 'DictionaryServices)
-    (catch 'DictionaryServices
+   ((eq source '辞書)
+    (catch '辞書
       (skk-annotation-lookup-DictionaryServices word)))
    ((eq source 'dict)
     (catch 'dict (skk-annotation-lookup-dict word)))
@@ -1270,7 +1255,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
     (require 'html2text)
     (require 'url)
     ;;
-    (setq word (skk-annotation-wikipedia-normalize-word word source
+    (setq word (skkannot-wikipedia-normalize-word word source
 							preserve-case))
     ;;
     (let ((cache-buffer (format "  *skk %s %s" source word))
@@ -1280,8 +1265,8 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 		     "code")
 		   html2text-remove-tag-list))
 	  (html2text-format-tag-list
-	   (append '(("sup" . skk-annotation-wikipedia-clean-sup)
-		     ("sub" . skk-annotation-wikipedia-clean-sub))
+	   (append '(("sup" . skkannot-wikipedia-clean-sup)
+		     ("sub" . skkannot-wikipedia-clean-sub))
 		   html2text-format-tag-list))
 	  (url-retrieve-func
 	   (if (fboundp 'url-queue-retrieve)
@@ -1293,33 +1278,33 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    (buffer-string))
 	;; キャッシュがない場合
 	(setq buffer (funcall url-retrieve-func
-			      (skk-annotation-generate-url
+			      (skkannot-generate-url
 			       "http://%s.org/wiki/%s"
 			       source word)
-			      #'skk-annotation-wikipedia-retrieved
+			      #'skkannot-wikipedia-retrieved
 			      (list (list source))))
 	(while (not buf)
-	  (setq buf (catch 'skk-annotation-wikipedia-retrieved
+	  (setq buf (catch 'skkannot-wikipedia-retrieved
 		      (condition-case nil
 			  (sleep-for 0.01)
 			((error quit)
 			 (kill-buffer buffer)
-			 (throw 'skk-annotation-wikipedia-suspended
+			 (throw 'skkannot-wikipedia-suspended
 				source))))))
 	(when (and (setq buffer buf)
 		   (buffer-live-p buffer))
-	  (skk-annotation-wikipedia-format-buffer source buffer
+	  (skkannot-wikipedia-format-buffer source buffer
 						  cache-buffer)))))))
 
-(defun skk-annotation-wikipedia-format-buffer (source buffer cache-buffer)
+(defun skkannot-wikipedia-format-buffer (source buffer cache-buffer)
   "html の余計な要素を除去し、html2text の機能を用いて整形する。"
   (let ((html2text-remove-tag-list
 	 (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
 		   "code")
 		 html2text-remove-tag-list))
 	(html2text-format-tag-list
-	 (append '(("sup" . skk-annotation-wikipedia-clean-sup)
-		   ("sub" . skk-annotation-wikipedia-clean-sub))
+	 (append '(("sup" . skkannot-wikipedia-clean-sup)
+		   ("sub" . skkannot-wikipedia-clean-sub))
 		 html2text-format-tag-list))
 	note aimai continue nop point top pt1 pt2 btag etag end)
     (with-current-buffer buffer
@@ -1346,7 +1331,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    ;;
 	    (goto-char (point-min))
 	    (when (re-search-forward
-		   skk-annotation-ja-wiktionary-lang-regexp
+		   skkannot-ja-wiktionary-lang-regexp
 		   nil t)
 	      (save-excursion
 		(goto-char (match-end 2))
@@ -1354,7 +1339,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	      (delete-region (point-min) (match-beginning 0))
 	      (setq top (point))
 	      (when (re-search-forward
-		     skk-annotation-ja-wiktionary-lang-regexp
+		     skkannot-ja-wiktionary-lang-regexp
 		     nil t)
 		(delete-region (setq pt1 (match-beginning 0))
 			       (point-max))))
@@ -1366,12 +1351,12 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    (unless
 		(save-excursion
 		  (re-search-forward
-		   skk-annotation-ja-wiktionary-part-of-speech-regexp
+		   skkannot-ja-wiktionary-part-of-speech-regexp
 		   nil t))
 	      (setq point pt1))
 	    ;;
 	    (while (re-search-forward
-		    skk-annotation-ja-wiktionary-part-of-speech-regexp
+		    skkannot-ja-wiktionary-part-of-speech-regexp
 		    nil t)
 	      (setq nop t)
 	      (save-match-data
@@ -1410,11 +1395,11 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    ;; ja.wiktionary は en.wiktionary と全く統一された書き方には
 	    ;; なっていないので、ul を除くと情報がほとんど残らない場合が
 	    ;; ある
-	    ;; (skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
-	    (skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
-	    (skk-annotation-wikipedia-remove-nested "<table[^<]*>"
+	    ;; (skkannot-wikipedia-remove-nested "<ul>" "</ul>")
+	    (skkannot-wikipedia-remove-nested "<dl>" "</dl>")
+	    (skkannot-wikipedia-remove-nested "<table[^<]*>"
 						    "</table>")
-	    (skk-annotation-wikipedia-remove-nested "\
+	    (skkannot-wikipedia-remove-nested "\
 <div class=\"\\(infl-table\\|thumb.+\\)\"[^<]*>" "</div>" "<div[^<]*>")
 	    ;;
 	    (goto-char (point-min))
@@ -1437,7 +1422,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    ;;
 	    (goto-char (point-min))
 	    (when (re-search-forward
-		   skk-annotation-en-wiktionary-lang-regexp
+		   skkannot-en-wiktionary-lang-regexp
 		   nil t)
 	      (save-excursion
 		(goto-char (match-end 2))
@@ -1445,14 +1430,14 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	      (delete-region (point-min) (match-beginning 0))
 	      (setq top (point))
 	      (when (re-search-forward
-		     skk-annotation-en-wiktionary-lang-regexp
+		     skkannot-en-wiktionary-lang-regexp
 		     nil t)
 		(delete-region (match-beginning 0) (point-max))))
 	    ;;
 	    (setq point top)
 	    (goto-char (point-min))
 	    (while (re-search-forward
-		    skk-annotation-en-wiktionary-part-of-speech-regexp
+		    skkannot-en-wiktionary-part-of-speech-regexp
 		    nil t)
 	      (setq nop t)
 	      (save-match-data
@@ -1488,13 +1473,13 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    (when point
 	      (delete-region point (point-max)))
 	    ;; (用例などを除く -- 除かないほうがいい？)
-	    (skk-annotation-wikipedia-remove-nested "<ul>" "</ul>")
-	    (skk-annotation-wikipedia-remove-nested "<dl>" "</dl>")
-	    (skk-annotation-wikipedia-remove-nested "<table[^<]*>"
+	    (skkannot-wikipedia-remove-nested "<ul>" "</ul>")
+	    (skkannot-wikipedia-remove-nested "<dl>" "</dl>")
+	    (skkannot-wikipedia-remove-nested "<table[^<]*>"
 						    "</table>")
-	    (skk-annotation-wikipedia-remove-nested "\
+	    (skkannot-wikipedia-remove-nested "\
 <div class=\"\\(infl-table\\|thumb.+\\)\"[^<]*>" "</div>" "<div[^<]*>")
-	    (skk-annotation-wikipedia-remove-nested "\
+	    (skkannot-wikipedia-remove-nested "\
 <span class=\"interProject\">" "</span>")
 	    ;; Wikipedia への案内を除く
 	    (goto-char (point-min))
@@ -1556,9 +1541,9 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 		    "<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
 	      (replace-match ""))
 	    ;; <script> を除去
-	    (skk-annotation-wikipedia-remove-nested "<script.*>" "</script>")
+	    (skkannot-wikipedia-remove-nested "<script.*>" "</script>")
 	    ;; <table> を除去
-	    (skk-annotation-wikipedia-remove-nested "<table.*>" "</table>")
+	    (skkannot-wikipedia-remove-nested "<table.*>" "</table>")
 	    ;;
 	    (goto-char (point-min))
 	    (when (or (when (re-search-forward
@@ -1661,7 +1646,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	  (t
 	   nil))))
 
-(defun skk-annotation-wikipedia-remove-nested (btag etag &optional ibtag)
+(defun skkannot-wikipedia-remove-nested (btag etag &optional ibtag)
   "<dl> <ul> <table> などの入れ子構造を除去する。"
   (unless ibtag
     (setq ibtag btag))
@@ -1701,19 +1686,19 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 		    btag      ibtag))
 	    (goto-char pt1))))))))))
 
-(defun skk-annotation-wikipedia-retrieved (&rest args)
+(defun skkannot-wikipedia-retrieved (&rest args)
   (cond ((or (member "deleted\n" (assq 'error (memq :error (car args))))
 	     (< (buffer-size) 7)
-	     (not (skk-annotation-wikipedia-test-html-tag)))
+	     (not (skkannot-wikipedia-test-html-tag)))
 	 ;; 不完全な retrieval においても STATUS が nil となることがあるので
 	 ;; ここで調整する。
 	 (kill-buffer (current-buffer))
 	 (ignore-errors
-	   (throw 'skk-annotation-wikipedia-suspended (cadr args))))
+	   (throw 'skkannot-wikipedia-suspended (cadr args))))
 	(t
-	 (throw 'skk-annotation-wikipedia-retrieved (current-buffer)))))
+	 (throw 'skkannot-wikipedia-retrieved (current-buffer)))))
 
-(defun skk-annotation-wikipedia-test-html-tag ()
+(defun skkannot-wikipedia-test-html-tag ()
   ;; html データが最後の </html> タグを持つことを確認する
   (goto-char (point-min))
   (when (re-search-forward "^Content-Encoding: gzip$" nil t)
@@ -1732,7 +1717,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
   (search-backward "</html>" nil t))
 
 ;;;###autoload
-(defun skk-annotation-treat-wikipedia (word &optional sources)
+(defun skkannot-treat-wikipedia (word &optional sources)
   "WORD が挿入されるときに表示されるべき注釈を生成する。
 生成した注釈を返す。"
   (save-match-data
@@ -1741,7 +1726,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 		;; このときは URL を注釈とする。
 		(concat "ダミー;"
 			(skk-quote-char
-			 (skk-annotation-generate-url
+			 (skkannot-generate-url
 			  "http://%s.org/wiki/%s"
 			  (or (car sources)
 			      'ja.wikipedia)
@@ -1785,11 +1770,11 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	     (skk-annotation-wikipedia word sources))))))
 
 ;;;###autoload
-(defun skk-annotation-wikipedia-cache (word &optional sources)
+(defun skkannot-cache (word &optional sources)
   (let ((sources (or sources skk-annotation-other-sources))
-	(word (skk-annotation-wikipedia-normalize-word word 'en.wiktionary))
-	(cword (skk-annotation-wikipedia-normalize-word word))
-	(ccword (skk-annotation-wikipedia-normalize-word word
+	(word (skkannot-wikipedia-normalize-word word 'en.wiktionary))
+	(cword (skkannot-wikipedia-normalize-word word))
+	(ccword (skkannot-wikipedia-normalize-word word
 							 'upcase-initials)))
     (catch 'found
       (while sources
@@ -1804,9 +1789,9 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	       (cache-buffer (format "  *skk %s %s" source word))
 	       string)
 	  (cond
-	   ((eq source 'DictionaryServices)
+	   ((eq source '辞書)
 	    (setq string
-		  (catch 'DictionaryServices
+		  (catch '辞書
 		    (skk-annotation-lookup-DictionaryServices word)))
 	    (if (or (null string)
 		    (string= string ""))
@@ -1885,7 +1870,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	note)
     (when (and word
 	       (> (length word) 0))
-      (setq note (or (car (skk-annotation-wikipedia-cache word sources))
+      (setq note (or (car (skkannot-cache word sources))
 		     (skk-annotation-wikipedia word sources)))
       (skk-annotation-show (or note "") word sources))))
 
@@ -1893,12 +1878,12 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 (defalias 'skk-annotation-lookup-region-or-at-point
   'skk-annotation-wikipedia-region-or-at-point)
 
-(defun skk-annotation-generate-url (format-string &rest args)
+(defun skkannot-generate-url (format-string &rest args)
   (condition-case nil
       (require 'url-util)
     (error
      (error "%s" "新しい URL パッケージが必要です")))
-  (if (skk-annotation-url-package-available-p)
+  (if (skkannot-url-installed-p)
       (apply #'format format-string
 	     (mapcar (lambda (element)
 		       (if (stringp element)
@@ -1907,8 +1892,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 		     args))
     (error "%s" "URL パッケージまたは Mule-UCS が利用できません")))
 
-(defun skk-annotation-wikipedia-normalize-word (word &optional method
-						     preserve-case)
+(defun skkannot-wikipedia-normalize-word (word &optional method preserve-case)
   ;; スペースは %20 ではなく、アンダースコアに変換する
   (replace-regexp-in-string
    " " "_"
@@ -1932,8 +1916,8 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 		 (substring word 1))
        word)))))
 
-(defun skk-annotation-url-package-available-p ()
-  (when (eq skk-annotation-url-package-available-p 'untested)
+(defun skkannot-url-installed-p ()
+  (when (eq skkannot-url-installed-p 'untested)
     ;; GNU Emacs 22 以降以外で URL パッケージをテストする
     (cond
      ((and (featurep 'xemacs)
@@ -1941,7 +1925,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	   (= emacs-minor-version 4)
 	   (not (featurep 'un-define)))
       ;; XEmacs 21.4 で Mule-UCS もない場合
-      (setq skk-annotation-url-package-available-p nil))
+      (setq skkannot-url-installed-p nil))
      (t
       ;; Emacs 21 と XEmacs
       (defadvice url-hexify-string (around multibyte-char activate)
@@ -1955,9 +1939,9 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 			   (ad-get-arg 0))
 			 "")))
       ;;
-      (setq skk-annotation-url-package-available-p t))))
+      (setq skkannot-url-installed-p t))))
   ;;
-  skk-annotation-url-package-available-p)
+  skkannot-url-installed-p)
 
 (provide 'skk-annotation)
 

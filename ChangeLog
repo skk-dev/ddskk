@@ -1,9 +1,29 @@
+2011-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skkannot-dict-exec-find, skkannot-sit-for)
+	(skkannot-py-send-string skkannot-py-send-command)
+	(skkannot-DictServ-cache, skkannot-dict-buffer-format)
+	(skkannot-start-dict-process, skkannot-wikipedia-clean-sup)
+	(skkannot-wikipedia-clean-sub, skkannot-wikipedia-format-buffer)
+	(skkannot-wikipedia-remove-nested, skkannot-wikipedia-retrieved)
+	(skkannot-wikipedia-test-html-tag, skkannot-treat-wikipedia)
+	(skkannot-cache, skkannot-generate-url)
+	(skkannot-wikipedia-normalize-word, skkannot-url-installed-p):
+	Abbreviate function names.
+	* skk-vars.el (skkannot-remaining-delay, skkannot-buffer-origin)
+	(skkannot-py-buffer, skkannot-url-installed-p)
+	(skkannot-en-wiktionary-lang-regexp)
+	(skkannot-en-wiktionary-part-of-speech-regexp)
+	(skkannot-ja-wiktionary-lang-regexp)
+	(skkannot-ja-wiktionary-part-of-speech-regexp): Abbreviate
+	internal variable named.
+
 2011-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-lookup-get-content-nth-dic): docstring を修正.
 	* doc/skk.texi (アノテーションとしてEPWING辞書を表示する): 追加.
 
-2011-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+2011-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el: Autoload `run-python'.
 	(skk-annotation-start-python):  Abolish the 2nd optional arg.

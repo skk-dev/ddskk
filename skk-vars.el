@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.398 2011/11/14 12:03:06 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.399 2011/11/14 23:48:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/14 12:03:06 $
+;; Last Modified: $Date: 2011/11/14 23:48:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2796,14 +2796,18 @@ nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B"
   :group 'skk-annotation)
 
 (defcustom skk-annotation-lookup-DictionaryServices nil
-  "*Non-nil $B$G$"$l$P!"(BOS X $B$G(B DictionaryServices $B$h$j0UL#$r<hF@$9$k!#(B
+  "*Non-nil $B$G$"$l$P!"(BMac OS X $B$G(B DictionaryServices $B$h$j0UL#$r<hF@$9$k!#(B
 $B$3$N>l9g!"(Bpython $B$r(B inferior process $B$H$7$F5/F0$9$k!#(B
 $B$3$N@_Dj$O(B `skk-annotation-lookup-dict' $B$h$jM%@h$5$l$k!#(B
 Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B"
   :type 'boolean
   :group 'skk-annotation)
 
-(defvar skk-annotation-python-program (executable-find "python"))
+(defcustom skk-annotation-python-program (executable-find "python")
+  "*DictionaryServices $A$N$?$a$KFp$(GY/$A$9$k(B python $A$N%U%!%$%kC{!#(B"
+  :type '(radio (file)
+		(const nil))
+  :group 'skk-annotation)
 
 (defcustom skk-annotation-lookup-dict nil
   "*Non-nil $B$G$"$l$P!"30It%W%m%0%i%`$rFI$s$GJQ498uJd$N0UL#$rI=<($9$k!#(B"
@@ -2846,8 +2850,8 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
 
 (defcustom skk-annotation-other-sources
  (if (eq system-type 'darwin)
-     '(DictionaryServices ja.wiktionary ja.wikipedia
-			  en.wiktionary simple.wikipedia en.wikipedia)
+     '($B<-=q(B ja.wiktionary ja.wikipedia
+	    en.wiktionary simple.wikipedia en.wikipedia)
    '(ja.wiktionary ja.wikipedia en.wiktionary simple.wikipedia en.wikipedia))
   ;; ($BCm(B) 2007 $BG/;~E@$G$O(B ja.wiktionary $B$OH/E8ES>e$G$"$j!"(B
   ;; $BI=5-$J$I$K$d$dITE}0l$JE@$,$"$kLOMM!#(B
@@ -2855,7 +2859,7 @@ SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
 $BI8=`$G$O$^$:(B Wikipedia $B$r;2>H$7!"(BWikipedia $B$N5-=R$,L5$1$l$P(B Wiktionary $B$r(B
 $B;2>H$9$k!#(B
 
-Mac OS X $B$G$OI8=`$N(B DictionaryServices $B$rMxMQ$G$-$k!#(B"
+Mac OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
   :type '(radio
 	  (repeat :tag "$B<!$N%=!<%9$rMxMQ$9$k(B\
  ($B0J2<$K9`L\$H=gHV$r;XDj$7$F$/$@$5$$(B)" symbol)
@@ -2873,16 +2877,9 @@ Mac OS X $B$G$OI8=`$N(B DictionaryServices $B$rMxMQ$G$-$k!#(B"
 	  'sexp)
   :group 'skk-annotation)
 
-(defconst skk-annotation-buffer
-  "*SKK annotation*")
-
-(defvar skk-annotation-remaining-delay 0)
-
-(defvar skk-annotation-original-buffer nil)
+(defconst skk-annotation-buffer "*SKK annotation*")
 
 (defvar skk-annotation-first-candidate nil)
-
-(defvar skk-annotation-process-buffer nil)
 
 (defvar skk-annotation-mode-map nil
   "*SKK annotation $B%b!<%I$N%-!<%^%C%W!#(B")
@@ -2895,12 +2892,6 @@ Mac OS X $B$G$OI8=`$N(B DictionaryServices $B$rMxMQ$G$-$k!#(B"
 (defvar skk-annotation-target-data nil
   "annotation $B$rIU$1$i$l$k8uJd$K4X$9$k%G!<%?!#(B")
 
-(defvar skk-annotation-url-package-available-p
-  (if (and skk-running-gnu-emacs
-	   (>= emacs-major-version 22))
-      t
-    'untested))
-
 (defvar skk-annotation-wikipedia-message nil
   "SKK Wikipedia $BMxMQJ}K!$r<($9%a%C%;!<%8(B ($B<+F0@_Dj(B)$B!#(B")
 (defvar skk-annotation-wikimedia-srcs nil)
@@ -2908,8 +2899,20 @@ Mac OS X $B$G$OI8=`$N(B DictionaryServices $B$rMxMQ$G$-$k!#(B"
 (defvar skk-annotation-message nil
   "SKK Annotation $BMxMQJ}K!$r<($9%a%C%;!<%8(B ($B<+F0@_Dj(B)$B!#(B")
 
+(defvar skkannot-remaining-delay 0)
+
+(defvar skkannot-buffer-origin nil)
+
+(defvar skkannot-py-buffer nil)
+
+(defvar skkannot-url-installed-p
+  (if (and skk-running-gnu-emacs
+	   (>= emacs-major-version 22))
+      t
+    'untested))
+
 ;; XXX $B$^$@IT40A4(B
-(defconst skk-annotation-en-wiktionary-lang-regexp "\
+(defconst skkannot-en-wiktionary-lang-regexp "\
 <h2>.*<span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
 \\(Aari\\|Abanyom\\|Abaza\\|Abenaki\\|Abkhaz\\|Acehnese\\|Acholi\\|Acholi\
@@ -3002,7 +3005,7 @@ Mac OS X $B$G$OI8=`$N(B DictionaryServices $B$rMxMQ$G$-$k!#(B"
 </span></h2>"
   "en.wiktionary $B$K$*$$$F8@8l$rI=$9%X%C%@$N@55,I=8=(B")
 
-(defconst skk-annotation-en-wiktionary-part-of-speech-regexp "\
+(defconst skkannot-en-wiktionary-part-of-speech-regexp "\
 <span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
 \\(Article\\|Noun\\|Proper Noun\\|Adjective\\|Proper Adjective\
@@ -3020,7 +3023,7 @@ Mac OS X $B$G$OI8=`$N(B DictionaryServices $B$rMxMQ$G$-$k!#(B"
 </span>"
     "en.wiktionary $B$K$*$$$FIJ;l$rI=$9%X%C%@$N@55,I=8=(B")
 
-(defconst skk-annotation-ja-wiktionary-lang-regexp "\
+(defconst skkannot-ja-wiktionary-lang-regexp "\
 <h2>.*<span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
 \\(.+$B8l(B\\|$B%$%s%?!<%j%s%0%"(B\\|$B%(%9%Z%i%s%H(B\\|$B%5%s%9%/%j%C%H(B\\|$B%H%-%]%J(B\
@@ -3029,7 +3032,7 @@ Mac OS X $B$G$OI8=`$N(B DictionaryServices $B$rMxMQ$G$-$k!#(B"
 </span>"
   "ja.wiktionary $B$K$*$$$F8@8l$rI=$9%X%C%@$N@55,I=8=(B")
 
-(defconst skk-annotation-ja-wiktionary-part-of-speech-regexp "\
+(defconst skkannot-ja-wiktionary-part-of-speech-regexp "\
 <span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
 \\(\
