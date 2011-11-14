@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.213 2011/11/13 18:53:19 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.214 2011/11/14 06:17:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/13 18:53:19 $
+;; Last Modified: $Date: 2011/11/14 06:17:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -383,7 +383,7 @@
       (setq compilation-last-buffer (current-buffer)))))
 
 ;;;###autoload
-(defun skk-annotation-start-python (&optional wait catch)
+(defun skk-annotation-start-python (&optional wait)
   "DictionaryServices を利用するために python を起動する。"
   (require 'python)
   (cond
@@ -458,7 +458,7 @@
   "python を介して DictionaryServices を利用しアノテーションを取得する。
 オプション引数 TRUNCATE が non-nil の場合は候補一覧用に短いアノテーション
 に絞りこむ。 "
-  (skk-annotation-start-python t (not truncate))
+  (skk-annotation-start-python (not truncate))
   (let* ((command (format "word = u\"%s\"; \
 print \" %s(word)s in DictionaryServices\" %s {'word': word}; \
 print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
