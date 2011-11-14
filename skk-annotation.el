@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.214 2011/11/14 06:17:12 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.215 2011/11/14 21:35:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/14 06:17:12 $
+;; Last Modified: $Date: 2011/11/14 21:35:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -215,6 +215,7 @@
   (require 'skk-macs)
   (require 'skk-vars)
 
+  (autoload 'run-python "python")
   (autoload 'python-send-command "python")
   (autoload 'python-send-string "python")
   (autoload 'python-check-comint-prompt "python")

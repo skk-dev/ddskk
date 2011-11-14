@@ -5,8 +5,8 @@
 
 2011-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-annotation.el (skk-annotation-start-python):  Abolish the
-	2nd optional arg.
+	* skk-annotation.el: Autoload `run-python'.
+	(skk-annotation-start-python):  Abolish the 2nd optional arg.
 
 2011-11-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
