@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.217 2011/11/15 07:12:20 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.218 2011/11/15 07:21:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/15 07:12:20 $
+;; Last Modified: $Date: 2011/11/15 07:21:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -332,8 +332,7 @@
 	    (dolist (el list)
 	      (setq el (car (skk-treat-strip-note-from-word el)))
 	      (unless (equal word el)
-		(skk-annotation-preread-dict el)))))
-	)))
+		(skk-annotation-preread-dict el))))))))
     (when (and word (not note))
       ;; Wikipedia などその他のリソースからのキャッシュがあれば
       ;; それを表示する。
@@ -434,7 +433,8 @@
      (goto-char (point-max))
      (cond
       ((re-search-backward (regexp-quote
-			    (format " %s in DictionaryServices" word)) nil t)
+			    (format " %s in DictionaryServices" word))
+			   nil t)
        (forward-line 1)
        (beginning-of-line)
        (setq pt (point))
@@ -862,8 +862,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 		(t
 		 (split-window-vertically)))
 	  ;;
-	  (skk-fit-window
-	   (display-buffer skk-annotation-buffer))
+	  (skk-fit-window (display-buffer skk-annotation-buffer))
 	  (when minibuf-p
 	    (select-window (minibuffer-window)))
 	  ;;
@@ -879,13 +878,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	  (skk-unread-event event)))
     (quit
      ;; skk-previous-candidate へ
-     (setq skk-henkan-count 0)
-     (skk-unread-event
-      (character-to-event
-       (aref
-	(car (where-is-internal 'skk-previous-candidate
-				skk-j-mode-map))
-	0))))))
+     (skk-reset-henkan-count 0))))
 
 (defun skk-annotation-show-as-message (annotation)
   (message "%s" annotation))
@@ -1255,8 +1248,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
     (require 'html2text)
     (require 'url)
     ;;
-    (setq word (skkannot-wikipedia-normalize-word word source
-							preserve-case))
+    (setq word (skkannot-wikipedia-normalize-word word source preserve-case))
     ;;
     (let ((cache-buffer (format "  *skk %s %s" source word))
 	  ;; html2text が正しく扱えない tag は以下のリストに指定する
@@ -1725,11 +1717,10 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 		;; このときは URL を注釈とする。
 		(concat "ダミー;"
 			(skk-quote-char
-			 (skkannot-generate-url
-			  "http://%s.org/wiki/%s"
-			  (or (car sources)
-			      'ja.wikipedia)
-			  word)))
+			 (skkannot-generate-url "http://%s.org/wiki/%s"
+						(or (car sources)
+						    'ja.wikipedia)
+						word)))
 	      nil))
 	   (value (if string
 		      ;; まだ「注釈の装飾」を受けていないので、ここで
@@ -1773,8 +1764,7 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
   (let ((sources (or sources skk-annotation-other-sources))
 	(word (skkannot-wikipedia-normalize-word word 'en.wiktionary))
 	(cword (skkannot-wikipedia-normalize-word word))
-	(ccword (skkannot-wikipedia-normalize-word word
-							 'upcase-initials)))
+	(ccword (skkannot-wikipedia-normalize-word word 'upcase-initials)))
     (catch 'found
       (while sources
 	(let* ((source (pop sources))
