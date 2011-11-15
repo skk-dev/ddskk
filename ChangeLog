@@ -16,7 +16,7 @@
 	(skkannot-en-wiktionary-part-of-speech-regexp)
 	(skkannot-ja-wiktionary-lang-regexp)
 	(skkannot-ja-wiktionary-part-of-speech-regexp): Abbreviate
-	internal variable named.
+	internal variable names.
 
 2011-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
