@@ -10,6 +10,7 @@
 	(skkannot-cache, skkannot-generate-url)
 	(skkannot-wikipedia-normalize-word, skkannot-url-installed-p):
 	Abbreviate function names.
+	(skkannot-treat-wikipedia): Remove autoload cookie.
 	* skk-vars.el (skkannot-remaining-delay, skkannot-buffer-origin)
 	(skkannot-py-buffer, skkannot-url-installed-p)
 	(skkannot-en-wiktionary-lang-regexp)
