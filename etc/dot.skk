@@ -78,7 +78,7 @@
 
 ;; (when skk-use-face
 ;;   ;; 変換文字列の色を変えてみる
-;;   ;; skk-treat-candidate-appearance-function が優先されます。
+;;   ;; `skk-treat-candidate-appearance-function' が優先されます。
 ;;   (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1)))
 
 ;; 変換候補一覧と注釈 (annotation) の表示を
@@ -103,11 +103,11 @@
 (when skk-show-tooltip
   ;; tooltip のルックスを指定する。デフォルトでは Emacs 標準のルックスに
   ;; なります。
-  ;; 前景色と背景色は、skk-tooltip-face の設定が優先適用されます。
+  ;; 前景色と背景色は `skk-tooltip-face' の設定が優先適用されます。
   (setq skk-tooltip-parameters
 	'((background-color . "alice blue")
 	  (border-color . "royal blue")
-	  (foreground-color . "gray")	;skk-tooltip-face が優先される
+	  (foreground-color . "gray")	;`skk-tooltip-face' が優先される
 	  (internal-border-width . 3)	;境界線と文字との間の余白
 	  ))
 
@@ -161,7 +161,7 @@
 ;; (setq skk-show-inline t)
 
 (when skk-show-inline
-  ;; 変数 skk-treat-candidate-appearance-function を利用して自前で候補に
+  ;; 変数 `skk-treat-candidate-appearance-function' を利用して自前で候補に
   ;; 色を付ける場合はこの変数を nil に設定する。
   (setq skk-inline-show-face nil)
   (setq skk-inline-show-background-color "gray15"))
@@ -320,10 +320,10 @@
 	    "/usr/share/skk/SKK-JISYO.zipcode"
 	    "/usr/share/skk/SKK-JISYO.office.zipcode"))
 ;; 注1) 辞書ファイル名のリストを指定します。ファイルのコード系が
-;;   skk-jisyo-code と異なるファイルの場合は、ファイル名の代わりに
+;;   `skk-jisyo-code' と異なるファイルの場合は、ファイル名の代わりに
 ;;   ("ファイル名" . コード系) のペアを指定することが推奨されます。
 ;;   上記の SKK-JISYO.JIS3_4 の例をご覧ください。
-;; 注2) skk-search-prog-list を手動で設定している場合はこの機能の
+;; 注2) `skk-search-prog-list' を手動で設定している場合はこの機能の
 ;;   動作は保証されません。
 
 ;; look コマンドを使った検索を行う
@@ -439,7 +439,7 @@
 ;;     ;; 5. list の後方に置くべき機能
 ;;     (skk-search-sagyo-henkaku)
 ;;     ))
-;; 注) skk-search-prog-list は厳密な意味でのユーザオプションではないので
+;; 注) `skk-search-prog-list' は厳密な意味でのユーザオプションではないので
 ;;   直接設定することはお勧めしません。自分が何をしようとしているか理解し
 ;;   ている場合のみ設定してください。
 
@@ -498,13 +498,13 @@
 ;; 個人辞書の文字コードを指定する
 ;; (setq skk-jisyo-code 'utf-8)
 ;; 注) この設定は気をつけないと辞書の検索ができなくなりますので十分理
-;;   解してから行ってください。 skk-jisyo-code は個人辞書の読み書きの
+;;   解してから行ってください。 `skk-jisyo-code' は個人辞書の読み書きの
 ;;   他、L 辞書などの読み込みコードも決めている影響力の強い変数です。
 ;;   この設定をした場合は、まず個人辞書を上記のコードに変換しなければ
 ;;   いけません。その上で、さらに以下のいずれかの対処をする必要があり
 ;;   ます。
 ;;
-;; 方針 1) Emacs のバッファに読み込む辞書を全て skk-jisyo-code と同じ
+;; 方針 1) Emacs のバッファに読み込む辞書を全て `skk-jisyo-code' と同じ
 ;;         文字コードに変換する
 ;; 方針 2) skk-search-prog-list の要素を全て文字コード指定に書き直す。
 ;;         例えば

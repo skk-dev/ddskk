@@ -1,3 +1,7 @@
+2011-11-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: コメント中の変数を `...' で囲んだ.
+
 2011-10-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: "助言的" を "冗長な" へ.
