@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.218 2011/11/15 07:21:05 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.219 2011/11/18 07:27:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/15 07:21:05 $
+;; Last Modified: $Date: 2011/11/18 07:27:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1288,6 +1288,23 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	  (skkannot-wikipedia-format-buffer source buffer
 						  cache-buffer)))))))
 
+(defun skkannot-wikt-preferred-lang-regexp (lang)
+  (let ((head "<h2>.*<span class=\"mw-headline\".+>\\(<a href=.+>\\)?\\(")
+	(tail "\\)\\(</a>\\)?</span></h2>"))
+    (concat head lang tail)))
+
+(defun skkannot-wikt-find-preferred-langs (wiktlang)
+  (let ((langs (cdr (assoc wiktlang
+			   skk-annotation-wiktionary-preferred-lang-alist)))
+	(pt (point))
+	regexp)
+    (catch 'found
+      (dolist (lang langs)
+	(setq regexp (skkannot-wikt-preferred-lang-regexp lang))
+	(if (re-search-forward regexp nil t)
+	    (throw 'found t)
+	  (goto-char pt))))))
+
 (defun skkannot-wikipedia-format-buffer (source buffer cache-buffer)
   "html の余計な要素を除去し、html2text の機能を用いて整形する。"
   (let ((html2text-remove-tag-list
@@ -1322,19 +1339,18 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    (delete-region (point-min) (point))
 	    ;;
 	    (goto-char (point-min))
-	    (when (re-search-forward
-		   skkannot-ja-wiktionary-lang-regexp
-		   nil t)
+	    (when (or (skkannot-wikt-find-preferred-langs "ja")
+		      (re-search-forward
+		       skkannot-ja-wiktionary-lang-regexp
+		       nil t))
 	      (save-excursion
 		(goto-char (match-end 2))
 		(insert ", "))
 	      (delete-region (point-min) (match-beginning 0))
 	      (setq top (point))
-	      (when (re-search-forward
-		     skkannot-ja-wiktionary-lang-regexp
-		     nil t)
-		(delete-region (setq pt1 (match-beginning 0))
-			       (point-max))))
+	      (when (re-search-forward skkannot-ja-wiktionary-lang-regexp
+				       nil t)
+		(delete-region (setq pt1 (match-beginning 0)) (point-max))))
 	    ;;
 	    (setq point top)
 	    (goto-char (point-min))
@@ -1413,9 +1429,10 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    (delete-region (point-min) (point))
 	    ;;
 	    (goto-char (point-min))
-	    (when (re-search-forward
-		   skkannot-en-wiktionary-lang-regexp
-		   nil t)
+	    (when (or (skkannot-wikt-find-preferred-langs "en")
+		      (re-search-forward
+		       skkannot-en-wiktionary-lang-regexp
+		       nil t))
 	      (save-excursion
 		(goto-char (match-end 2))
 		(insert ", "))

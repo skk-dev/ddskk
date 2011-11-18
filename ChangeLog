@@ -1,3 +1,12 @@
+2011-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-wiktionary-preferred-lang-alist):
+	New user option.
+	* skk-annotation.el (skkannot-wikt-preferred-lang-regexp)
+	(skkannot-wikt-find-preferred-langs): New functions.
+	(skkannot-wikipedia-format-buffer): In wiktionary, prefer word
+	langs found in skk-annotation-wiktionary-preferred-lang-alist.
+
 2011-11-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skkannot-dict-exec-find, skkannot-sit-for)
