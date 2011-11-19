@@ -1,3 +1,7 @@
+2011-11-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk (skk-cursor-set): 新たな advice 例 `skk-show-mode' を追加.
+
 2011-11-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: コメント中の変数を `...' で囲んだ.
