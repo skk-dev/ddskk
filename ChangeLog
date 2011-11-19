@@ -1,5 +1,7 @@
 2011-11-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi (SKKとはなにか): 更新.
+
 	* skk-inline.el (skk-add-background-color): docstring を修正.
 	(skk-inline-show-vertically): ソースコード上のインデント幅誤り
 	を修正.

@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/14 12:03:06 $
+@set UPDATED $Date: 2011/11/19 11:44:40 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -352,6 +352,8 @@ DDSKK の主な特徴は、次のとおりです。
 @item ディスク容量に応じて選べる辞書ファイル。
 @item Emacs のオリジナル操作と同様に行える日本語インクリメンタル・サーチ。
 @item Emacs Lisp で書かれたプログラムが返す値を変換候補に挙げることができる。
+@item 入力モードの自動切り替え [context-skk.el]
+@item 多彩なアノテーション表示
 @end itemize
 
 @node インストール
