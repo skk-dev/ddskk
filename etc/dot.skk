@@ -606,6 +606,7 @@
 ;;     (skk-mode-off)))
 
 ;; [SKK ML 18 Nov 2011] モード切り替え時、カーソル付近に tooltip 表示してみる
+;; ** [TODO] isearch エラーの対策
 (defadvice skk-cursor-set (after skk-show-mode)
   "かなモードやアスキーモードへ切り替わったときに skk-*-mode-string を
 tooltip 表示する."
