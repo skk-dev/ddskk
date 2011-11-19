@@ -626,6 +626,21 @@ tooltip 表示する."
 		  `(latin ,skk-latin-mode-string))))))
     (skk-tooltip-show-at-point indicator)))
 
+;; ;; コンソール環境ではこっち↓を
+;; (defadvice skk-cursor-set (after skk-show-mode)
+;;   "かなモードやアスキーモードへ切り替わったときに skk-*-mode-string を
+;; tooltip 表示する."
+;;   (let ((string (cond (skk-abbrev-mode         skk-abbrev-mode-string)
+;; 		      (skk-jisx0208-latin-mode skk-jisx0208-latin-mode-string)
+;; 		      (skk-katakana            skk-katakana-mode-string)
+;; 		      (skk-j-mode              skk-hiragana-mode-string)
+;; 		      (skk-jisx0201-mode       skk-jisx0201-mode-string)
+;; 		      (t                       skk-latin-mode-string)))
+;; 	(skk-henkan-start-point (point)))
+;;     (skk-dcomp-multiple-show (list string))
+;;     (sit-for 1)				; wait 中でもキー入力は可能
+;;     (skk-delete-overlay skk-dcomp-multiple-overlays)))
+
 (add-hook 'skk-mode-hook
 	  ;; skk-tooltip-show-at-point() は event 待ちが |defun skk-mode()
 	  ;; あるため、単なる defadvice だと Emacs 起動  |  :
