@@ -34,7 +34,8 @@
 
 ;; Functions.
 (defun skk-add-background-color (string color)
-  "STRING のなかで背景色指定がない文字にだけ COLOR の背景色をつける。"
+  "STRING のうち背景色が指定されていない文字に限って COLOR の背景色を
+適用する。"
   (when (eval-when-compile skk-running-gnu-emacs)
     (when (and string
 	       color
@@ -144,35 +145,35 @@
 		  (save-excursion (goto-char skk-henkan-start-point)
 				  (- (current-column) margin))))
 	  (case i
-	   (0
-	    (setq col (skk-screen-column)))
-	   (t
-	    (setq bottom (> i (vertical-motion i)))
-	    (cond
-	     (bottom
-	      ;; バッファ最終行では普通に overlay を追加していく方法だ
-	      ;; と overlay の表示される順番が狂うことがあってうまくな
-	      ;; い。したがって前回の overlay の after-string に追加す
-	      ;; る。
-	      (setq ol (cond ((< (overlay-end
-				  (car skk-inline-overlays))
-				 (point))
-			      (make-overlay (point) (point)))
-			     (t (pop skk-inline-overlays))))
-	      (setq str (concat (overlay-get ol 'after-string)
-				"\n" (make-string beg-col ? ) str)))
-	     (t
-	      (setq col (skk-move-to-screen-column beg-col))
-	      (cond ((> beg-col col)
-		     ;; 桁合わせの空白を追加
-		     (setq str (concat (make-string (- beg-col col) ? )
-				       str)))
-		    ;; overlay の左端がマルチ幅文字と重なったときの微調整
-		    ((< beg-col col)
-		     (backward-char)
-		     (setq col (skk-screen-column))
-		     (setq str (concat (make-string (- beg-col col) ? )
-				       str))))))))
+	    (0
+	     (setq col (skk-screen-column)))
+	    (t
+	     (setq bottom (> i (vertical-motion i)))
+	     (cond
+	      (bottom
+	       ;; バッファ最終行では普通に overlay を追加していく方法だ
+	       ;; と overlay の表示される順番が狂うことがあってうまくな
+	       ;; い。したがって前回の overlay の after-string に追加す
+	       ;; る。
+	       (setq ol (cond ((< (overlay-end
+				   (car skk-inline-overlays))
+				  (point))
+			       (make-overlay (point) (point)))
+			      (t (pop skk-inline-overlays))))
+	       (setq str (concat (overlay-get ol 'after-string)
+				 "\n" (make-string beg-col ? ) str)))
+	      (t
+	       (setq col (skk-move-to-screen-column beg-col))
+	       (cond ((> beg-col col)
+		      ;; 桁合わせの空白を追加
+		      (setq str (concat (make-string (- beg-col col) ? )
+					str)))
+		     ;; overlay の左端がマルチ幅文字と重なったときの微調整
+		     ((< beg-col col)
+		      (backward-char)
+		      (setq col (skk-screen-column))
+		      (setq str (concat (make-string (- beg-col col) ? )
+					str))))))))
 	  ;; この時点で overlay の開始位置に point がある
 	  (unless bottom
 	    (let ((ol-beg (point))

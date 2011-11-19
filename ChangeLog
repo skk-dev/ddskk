@@ -1,3 +1,9 @@
+2011-11-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-inline.el (skk-add-background-color): docstring を修正.
+	(skk-inline-show-vertically): ソースコード上のインデント幅誤り
+	を修正.
+
 2011-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-annotation-wiktionary-preferred-lang-alist):
