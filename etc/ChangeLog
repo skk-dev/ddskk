@@ -1,3 +1,7 @@
+2011-11-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: advice 例をファイル skk-show-mode.el へ移動.
+
 2011-11-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk (skk-cursor-set): 新たな advice 例 `skk-show-mode' を追加.

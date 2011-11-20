@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.400 2011/11/18 07:27:09 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.401 2011/11/20 05:13:23 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/18 07:27:09 $
+;; Last Modified: $Date: 2011/11/20 05:13:23 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5200,6 +5200,17 @@ then filename of the English version will be \"SKK.tut.E\".")
   "*チュートリアル中のヒントの表示部分の face。
 現在のところ、SKK.tut.E でしか使用されていない。"
   :group 'skk-tut)
+
+;;; skk-show-mode.el related.
+(defvar skk-show-mode-show nil)
+(defvar skk-show-mode-functions '((inline . skk-show-mode-inline)
+				  (tooltip . skk-show-mode-tooltip)))
+(defcustom skk-show-mode-style 'inline
+  "かなモードやアスキーモードへ切り替わったときに skk-*-mode-string を
+tooltip / inline 表示する"
+  :type '(radio (const :tag "tooltip" tooltip)
+		(const :tag "inline" inline))
+  :group 'skk-visual)
 
 ;; XXX workaround
 ;; face の property が一部の状況で反映されないことに対処

@@ -605,49 +605,4 @@
 ;;   (when (eq major-mode 'lisp-interaction-mode)
 ;;     (skk-mode-off)))
 
-;; [SKK ML 18 Nov 2011] モード切り替え時、カーソル付近に tooltip 表示してみる
-;; ** [TODO] isearch エラーの対策
-(defadvice skk-cursor-set (after skk-show-mode)
-  "かなモードやアスキーモードへ切り替わったときに skk-*-mode-string を
-tooltip 表示する."
-  (let ((indicator
-	 (apply 'skk-mode-string-to-indicator
-		(cond
-		 (skk-abbrev-mode
-		  `(abbrev ,skk-abbrev-mode-string))
-		 (skk-jisx0208-latin-mode
-		  `(jisx0208-latin ,skk-jisx0208-latin-mode-string))
-		 (skk-katakana
-		  `(katakana ,skk-katakana-mode-string))
-		 (skk-j-mode
-		  `(hiragana ,skk-hiragana-mode-string))
-		 (skk-jisx0201-mode
-		  `(jisx0201 ,skk-jisx0201-mode-string))
-		 (t
-		  `(latin ,skk-latin-mode-string))))))
-    (skk-tooltip-show-at-point indicator)))
-
-;; ;; コンソール環境ではこっち↓を
-;; (defadvice skk-cursor-set (after skk-show-mode)
-;;   "かなモードやアスキーモードへ切り替わったときに skk-*-mode-string を
-;; tooltip 表示する."
-;;   (let ((string (cond (skk-abbrev-mode         skk-abbrev-mode-string)
-;; 		      (skk-jisx0208-latin-mode skk-jisx0208-latin-mode-string)
-;; 		      (skk-katakana            skk-katakana-mode-string)
-;; 		      (skk-j-mode              skk-hiragana-mode-string)
-;; 		      (skk-jisx0201-mode       skk-jisx0201-mode-string)
-;; 		      (t                       skk-latin-mode-string)))
-;; 	(skk-henkan-start-point (point)))
-;;     (skk-dcomp-multiple-show (list string))
-;;     (sit-for 1)				; wait 中でもキー入力は可能
-;;     (skk-delete-overlay skk-dcomp-multiple-overlays)))
-
-(add-hook 'skk-mode-hook
-	  ;; skk-tooltip-show-at-point() は event 待ちが |defun skk-mode()
-	  ;; あるため、単なる defadvice だと Emacs 起動  |  :
-	  ;; 時(A)にも event 待ちしてしまう。初回起動時  |  (skk-j-mode-on) ; <---(A)
-	  ;; の(A)を過ぎたあとに advice を活性化する。   |  (run-hooks 'skk-mode-hook)))
-	  #'(lambda ()
-	      (ad-activate 'skk-cursor-set)))
-
 ;;; dot.skk ends here

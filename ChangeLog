@@ -1,3 +1,13 @@
+2011-11-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-show-mode.el (skk-show-mode-inline): New file.
+
+	* SKK-MK (SKK_MODULES): Add skk-show-mode.
+
+	* skk-vars.el (skk-show-mode-show, skk-show-mode-functions): New
+	internal variables.
+	(skk-show-mode-style): New user option.
+
 2011-11-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (SKKとはなにか): 更新.
