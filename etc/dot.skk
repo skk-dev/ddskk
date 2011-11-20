@@ -38,6 +38,9 @@
 ;; 各種メッセージを日本語で通知する
 (setq skk-japanese-message-and-error t)
 
+;; モードライン上の表示を変更する
+;; (setq skk-status-indicator 'minor-mode)
+
 ;; メニューバーの表示
 ;;   Non-nil => 日本語
 ;;   nil => 英語
@@ -553,6 +556,10 @@
 ;;	     '(skk-comp-by-server-completion) t)
 
 ;; @@ その他いろいろ
+
+;; カーソル付近にモード切り替えを表示する
+;; (require 'skk-show-mode)
+;; (setq skk-show-mode-style 'tooltip)	;デフォルトは 'inline
 
 ;; かなモードで、モード変更を行なわずに
 ;;   長音(ー)を ASCII 数字の直後では `-' に、全角数字の直後では `−' に

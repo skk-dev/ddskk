@@ -8,6 +8,8 @@
 	internal variables.
 	(skk-show-mode-style): New user option.
 
+	* doc/skk.texi (skk-show-mode-style): 追加.
+
 2011-11-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (SKKとはなにか): 更新.

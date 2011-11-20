@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/19 11:44:40 $
+@set UPDATED $Date: 2011/11/20 05:45:29 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -887,6 +887,12 @@ Window System 下で対応する Emacs を使用している場合。
 @example
 -MULE/7bit----- Buffer-name (Major-mode かな)---
 @end example
+
+@end defvr
+
+@defvr {ユーザ変数} skk-show-mode-style
+
+（これから記載）
 
 @end defvr
 

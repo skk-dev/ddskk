@@ -1,6 +1,8 @@
 2011-11-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: advice 例をファイル skk-show-mode.el へ移動.
+	(skk-status-indicator): 設定例を追加.
+	(skk-show-mode-style): 設定例を追加.
 
 2011-11-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
