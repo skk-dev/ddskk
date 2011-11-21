@@ -1,6 +1,7 @@
 2011-11-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-show-mode-style): 更新.
+	(文字コード関連): 更新.
 
 2011-11-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

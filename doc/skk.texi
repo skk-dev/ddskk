@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/21 12:00:31 $
+@set UPDATED $Date: 2011/11/21 12:30:16 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7814,6 +7814,7 @@ docstring に例示した S 式を評価してみてください。
 
 @menu
 * 文字コードまたはメニューによる文字入力::
+* メニューによる文字入力::
 * 文字コード一覧::
 * 文字コードを知る方法::
 @end menu
@@ -7830,8 +7831,12 @@ docstring に例示した S 式を評価してみてください。
 ミニバッファに
 @example
 @group
+@c ---------------------------- Minibuffer -----------------------------
+@c 7/8 bits or KUTEN code for ○○ (00nn or CR for Jump Menu): @point{}
+@c ---------------------------- Minibuffer -----------------------------
 ---------------------------- Minibuffer -----------------------------
-7/8 bits or KUTEN code for ○○ (00nn or CR for Jump Menu): @point{}
+○○の文字を指定します。7/8 ビット JIS コード (00nn), 区点コード (00-00),
+UNICODE (U+00nn), または [RET] (文字一覧): @point{}
 ---------------------------- Minibuffer -----------------------------
 @end group
 @end example
@@ -7856,7 +7861,10 @@ docstring に例示した S 式を評価してみてください。
 ２面のを指定したとみなします。例えば @samp{2-93-44} で「魚花」（ほっけ）が入
 力できます。
 
-文字コードが不明の文字の入力をする場合は、文字コードを入力せずにそのまま
+@node メニューによる文字入力
+@subsection メニューによる文字入力
+
+文字コードが不明の文字を入力するには、文字コードを入力せずにそのまま
 @key{RET} キーを入力します。するとミニバッファに以下のような表示が現れま
 す。
 
@@ -7878,9 +7886,9 @@ A:　  S:￣  D:〜  F:｝  G:＝  H:¢  Q:◆
 $B表示しています
 @footnote{上記の例では、JIS コード 2121 (全角スペース)、2131、2141、2151、
 @dots{} の文字がそれぞれ表示されています。}。ここで @key{SPC} を入力する
-と、次の候補群を表示します
+と次の候補群を表示します
 @footnote{文字コードの値を @w{16x12 @equiv{}192} ずつ増やします。}。
-@kbd{x} により１つ前の候補群に戻ります。
+@kbd{x} を入力すると１つ前の候補群に戻ります。
 
 キー @kbd{a}, @kbd{s}, @kbd{d}, @kbd{f}, @kbd{g}, @kbd{h},
 @kbd{q}, @kbd{w}, @kbd{e}, @kbd{r}, @kbd{t}, @kbd{y} のいずれかを
@@ -8037,9 +8045,13 @@ skk-list-chars を抜ける。
 @cindex JISコード
 @cindex EUCコード
 
-かな/カナモードで @kbd{$} を入力すると、現在のポイント位置の直後にある文字の文字コー
-ドをエコーエリア@footnote{変数 @code{skk-show-tooltip} が @code{non-nil} で
-あればツールティップに表示します。}に表示します。
+かな/カナモードで @kbd{$} を入力すると、現在のポイント位置の直後にある
+文字の文字コードをエコーエリア@footnote{変数 @code{skk-show-tooltip} が
+@code{non-nil} であればツールティップで表示します。
+変数 @code{skk-show-candidates-always-pop-to-buffer} が@code{non-nil} で
+あれば other-window に表示します。@code{skk-show-tooltip} が優先します。}
+に表示します。
+
 例えば、カーソルを文字 @samp{А} の上に置いて @kbd{$} を入力すると、
 
 @example
