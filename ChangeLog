@@ -3,6 +3,9 @@
 	* doc/skk.texi (skk-show-mode-style): 更新.
 	(文字コード関連): 更新.
 
+	* experimental/skk-search-web.el: 追加.
+	* SKK-MK (SKK_MODULES): skk-search-web を追加.
+
 2011-11-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-show-mode.el (skk-show-mode-inline): New file.
