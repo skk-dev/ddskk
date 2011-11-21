@@ -1,5 +1,16 @@
 * 14.4
 
+** $B%+!<%=%kIU6a$KF~NO%b!<%I$rI=<($9$k(B
+
+$B$+$J%b!<%I!"%+%J%b!<%I!"A41Q%b!<%I!"%"%9%-!<%b!<%I$r@Z$jBX$($?$H$-$K(B
+$B%+!<%=%kIU6a$K(B skk-{hiragana,katakana,jisx0208-latin,latin}-mode-string
+$B$rI=<($9$k$3$H$,$G$-$^$9!#(B~/.skk $B$K$F(B (require 'skk-show-mode) $B$H@_Dj$7(B
+$B$F$/$@$5$$!#(B
+
+*** skk-show-mode-style
+
+$B%7%s%\%k(B 'inline $B$^$?$O(B $B%7%s%\%k(B 'tooltip
+
 ** Mac OS X $A$G(B DictionaryServices $A$+$i$N%"%N%F$B!<$A%7%g%sH!5C(B
 
 Mac $A$N4G$(GUs$A%"%W%j(B (Dictionary.app) $A$G$O$(Gm:dm$A$G9z$(Gk#$A4G5d$J$I@{SC$G$-$^$9!#(B
