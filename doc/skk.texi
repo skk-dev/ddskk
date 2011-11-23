@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/21 12:30:16 $
+@set UPDATED $Date: 2011/11/23 06:32:58 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2138,6 +2138,11 @@ Lookup で検索できる辞書を使って単語の候補を出力するプログラム。
 @cindex @file{skk-setup.el}
 
 自動的に個人設定を行うためのファイル。
+
+@item skk-show-mode.el
+@cindex @file{skk-show-mode.el}
+
+カーソル付近に入力モードを表示する機能を提供します。
 
 @item skk-sticky.el
 @cindex @file{skk-sticky.el}
@@ -5471,11 +5476,13 @@ M-Q} のように引数を渡して実行すると、変換開始位置から現在位置までの文字
 
 @defvr {ユーザ変数} skk-undo-kakutei-return-previous-point
 
-この値が @code{non-nil} であれば確定アンドゥ後に以前の位置にカーソルが戻
-ります。
+この変数の値が @code{non-nil} であれば、確定アンドゥ処理が完了した後に、
+確定アンドゥ処理の直前の位置にカーソルが戻ります。
 
-上の例の場合、確定した後のカーソル位置はデフォルトでは @samp{孝行} の直後
-のままですが、@code{non-nil} であれば @samp{する} の直後に復帰します。
+上の例の場合、確定アンドゥ処理が完了した後のカーソル位置は、デフォル
+ト @code{nil} では @samp{孝行} の直後のままですが、@code{non-nil} であれ
+ば @samp{する} の直後に復帰します。
+
 @end defvr
 
 @node 自動変換開始
@@ -7507,6 +7514,12 @@ DDSKK では、このような事態を避けるため、辞書バッファにおける変数
 }。
 
 辞書の候補にアノテーションが登録されていれば、エコーエリア又は other-window に表示します。
+
+@end defvr
+
+@defvr {ユーザ変数} skk-annotation-delay
+
+アノテーションを表示するまでの遅延を秒で指定する。デフォルトは 1.0 秒。
 
 @end defvr
 
