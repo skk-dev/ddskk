@@ -83,6 +83,7 @@ EPWING $B<-=q$+$i%"%N%F!<%7%g%s$r<hF@$7$^$9!#(B
 $B%s%I%&$KI=<($7$^$9!#(B
 
 ** skk-azik.el
+
 $B!V;R2;(B + $B%T%j%*%I!W$NAH$_9g$;$N$&$A!"<!$N#4$D$r:o=|$7$?!#(B
   "b." nil ("$B%V(B" . "$B$V(B")
   "m." nil ("$B%`(B" . "$B$`(B")
@@ -93,7 +94,18 @@ EPWING $B<-=q$+$i%"%N%F!<%7%g%s$r<hF@$7$^$9!#(B
   Teika Kazura <teika@lavabit.com> $B$5$s$+$i$NDs0F$G$7$?(B [skk 7485]$B!#(B
 
 ** skk-tankan.el
+
 M-x skk-tankan $B<B9T;~$K(B window-configuration $B$rJ]B8$9$k$h$&BP=h$7$?!#(B
+
+** skk-search-web.el
+
+experimental/ $B$K(B skk-search-web.el $B$rDI2C$7$^$7$?!#(B
+$B$+$J4A;zJQ49$N8uJd$r(B
+  Google CGI API for Japanese Input
+          (http://www.google.com/intl/ja/ime/cgiapi.html)
+  Google $B%5%8%'%9%H(B
+          (http://labs.google.com/intl/ja/suggestfaq.html)
+$B$+$iF@$k$3$H$,$G$-$^$9!#(B
 
 ** $B$=$NB>%P%0=$@5$J$I(B
 
@@ -122,6 +134,7 @@ dired $B$r5/F0$7$F(B SKK-MK $B$K%+!<%=%k$rCV$$$F(B L (dired-do-load) $B$r%?
 $BBPOCE*$K?J$a$k$3$H$,$G$-$^$9!#(B
 
 ** context-skk
+
 context-skk $B$,I=<($9$k%a%C%;!<%8(B "[context-skk] $BF|K\8lF~NO(B off" $B$r2DJQ2=(B
 $B$7$^$7$?!#JQ?t(B context-skk-mode-off-message $B$r@_Dj$7$F$/$@$5$$!#(B
 
@@ -155,14 +168,17 @@ skk-mode $B$rH4$1$?$H$-$O(B $B8uJd%P%C%U%!$H(B SKK annotation $B%P%C%U%!$r:
 $B?7$?$J%U%'%$%9(B skk-jisyo-registration-badge-face $B$r$*;n$7$/$@$5$$!#(B
 
 *** `$' skk-display-code-for-char-at-point
+
 $B?7$?$J%U%'%$%9(B skk-display-code-tankan-radical-face $B$H(B
 skk-display-code-tankan-annotation-face $B$r$*;n$7$/$@$5$$!#(B
 
 *** skk-list-chars $B4XO"(B
+
 $B?7$?$J%U%'%$%9(B skk-list-chars-face $B$H(B skk-list-chars-table-header-face $B$r(B
 $B$*;n$7$/$@$5$$!#(B
 
 ** \ $B%?%$%W$N5sF0$rD4@a(B
+
 $BJQ?t(B skk-kcode-method $B$XE,@Z$J%7%s%\%k$r@_Dj$9$k$3$H$K$h$C$F!"(B
 \ $B$r%?%$%W$7$?$H$-$K(B skk-input-by-code-or-menu $B$r<B9T$9$k$+!"(B
 skk-list-chars $B$r<B9T$9$k$+A*Br$9$k$3$H$,2DG=$G$9!#(B
