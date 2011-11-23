@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.603 2011/11/13 13:37:14 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.604 2011/11/23 05:06:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/13 13:37:14 $
+;; Last Modified: $Date: 2011/11/23 05:06:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3577,12 +3577,10 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
 		  (>= new-size old-size))))
 	(skk-make-new-jisyo new-file))
        ((skk-yes-or-no-p
-	 (format
-	  "skk-jisyo が %dbytes 小さくなりますが、セーブして良いですか？"
-	  (- old-size new-size))
-	 (format
-	  "New %s will be %dbytes smaller.  Save anyway?"
-	  skk-jisyo (- old-size new-size)))
+	 (format "%s が %dbytes 小さくなりますが、セーブして良いですか？"
+		 skk-jisyo (- old-size new-size))
+	 (format "New %s will be %dbytes smaller.  Save anyway?"
+		 skk-jisyo (- old-size new-size)))
 	;; とにかくセーブ。
 	(skk-make-new-jisyo new-file))
        (t

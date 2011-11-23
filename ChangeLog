@@ -1,3 +1,8 @@
+2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-check-size-and-do-save-jisyo): skk-yes-or-no-p() の
+	引数 JAPANESE と ENGLISH の生成が異なっていたのを修正.
+
 2011-11-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-show-mode-style): 更新.
