@@ -1,5 +1,9 @@
 2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 14.3.90.
+
+2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-vars.el (skk-annotation-delay): 単位が秒である旨を記載.
 
 	* doc/skk.texi (skk-annotation-delay): 追加.
