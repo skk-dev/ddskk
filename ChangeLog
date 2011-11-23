@@ -3,6 +3,7 @@
 	* skk-vars.el (skk-annotation-delay): 単位が秒である旨を記載.
 
 	* doc/skk.texi (skk-annotation-delay): 追加.
+	(VIP/VIPERとの併用): 「I-search関連」と順を入れ替え.
 
 	* skk.el (skk-check-size-and-do-save-jisyo): skk-yes-or-no-p() の
 	引数 JAPANESE と ENGLISH の生成が異なっていたのを修正.

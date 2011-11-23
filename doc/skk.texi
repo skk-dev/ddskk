@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.50
-@set UPDATED $Date: 2011/11/23 06:32:58 $
+@set UPDATED $Date: 2011/11/23 10:12:56 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -196,8 +196,8 @@ approved by the author.
 * DDSKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B::
 * $B>~$j$D$1(B::                    $BMM!9$JI=<($N@_Dj!#(B
 * $B%f!<%6%,%$%@%s%94XO"(B::
-* VIP/VIPER$B$H$NJ;MQ(B::
 * I-search$B4XO"(B::                $B%$%s%/%j%a%s%?%k!&%5!<%A$K$^$D$o$k5!G=!#(B
+* VIP/VIPER$B$H$NJ;MQ(B::
 * picture-mode$B$H$NJ;MQ(B::        picture-mode $B$H$NJ;MQ$N:]$NLdBjE@!#(B
 
 $B%m!<%^;zF~NO0J30$NF~NOJ}<0(B
@@ -1893,8 +1893,8 @@ DDSKK $B$K$O!"4pK\E*$JA`:nJ}K!$r3X=,$G$-$k%A%e!<%H%j%"%k$,ImB0$7$F$$$^$9!#(B
 * DDSKK $B0J30$N%D!<%k$rMQ$$$?<-=qJQ49(B::
 * $B>~$j$D$1(B::                    $BMM!9$JI=<($N@_Dj!#(B
 * $B%f!<%6%,%$%@%s%94XO"(B::
-* VIP/VIPER$B$H$NJ;MQ(B::
 * I-search$B4XO"(B::                $B%$%s%/%j%a%s%?%k!&%5!<%A$K$^$D$o$k5!G=!#(B
+* VIP/VIPER$B$H$NJ;MQ(B::
 * picture-mode$B$H$NJ;MQ(B::        picture-mode $B$H$NJ;MQ$N:]$NLdBjE@!#(B
 @end menu
 
@@ -8497,7 +8497,7 @@ JIS X 0201 $B%b!<%I$K$*$1$k%m!<%^;z%W%l%U%#%C%/%9$N%U%'%$%9$r;XDj$7$^$9!#(B
 @subsection $BF~NO%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs$NJQ99(B
 
 $B2<5-$NJQ?t$NCM$rJQ99$9$k$3$H$K$h$C$F!"%b!<%I%i%$%s>e$NF~NO%b!<%I$r<($9J8;z(B
-$BNs$rJQ99$9$k$3$H$,$G$-$^$9!#(B
+$BNs$rJQ99$9$k$3$H$,$G$-$^$9(B@footnote{skk-show-mode $B$NI=<($bO"F0$7$^$9!#(B}$B!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-latin-mode-string
 $B%"%9%-!<%b!<%I$r<($9J8;zNs!#I8=`$O!"(B``SKK''$B!#(B
@@ -8526,8 +8526,8 @@ SKK abbrev $B%b!<%I$r<($9J8;zNs!#I8=`$O!"(B``a$B$"(B''$B!#(B
 $B$3$NJQ?t$,(B @code{non-nil} $B$J$i$P!"%+!<%=%k$r?'IU$1$7$^$9!#(B@code{nil}
 $B$J$i$P!"$3$N5!G=$rL58z$K$7$^$9!#(B
 
-$BI8=`$G$O!"%&%#%s%I%&%7%9%F%`$r;HMQ$7$F$$$F$J$*$+$D?'I=<($,2DG=$J>l9g$K8B(B
-$B$j!"$3$N5!G=$,M-8z$K$J$j$^$9!#(B
+$BI8=`$G$O!"%&%#%s%I%&%7%9%F%`$r;HMQ$7$F!"$+$D!"?'I=<($,2DG=$J>l9g$K8B(B
+$B$C$F!"$3$N5!G=$,M-8z$K$J$j$^$9!#(B
 @end defvr
 
 $B$3$N5!G=$,M-8z$K$J$C$F$$$k$H$-!"0J2<$NJQ?t$NCM$rJQ99$9$k$3$H$G!"3F%b!<%I(B
@@ -8567,6 +8567,8 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 
 @end defvr
 
+@page
+
 @node $BJQ498uJd0lMw$NI=<(J}K!(B
 @subsection $BJQ498uJd0lMw$NI=<(J}K!(B
 
@@ -8605,6 +8607,8 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 @end defvr
 @end cartouche
 @end defvr
+
+@page
 
 @defvr {$B%f!<%6JQ?t(B} skk-show-tooltip
 $B$3$NJQ?t$NCM$,(B @code{non-nil} $B$G$"$l$P!"8uJd0lMw$r%D!<%k%F%#%C%W$GI=<($7(B
@@ -8675,6 +8679,8 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 @end cartouche
 @end defvr
 
+@page
+
 @defvr {$B%f!<%6JQ?t(B} skk-show-candidates-always-pop-to-buffer
 $B$3$NCM$,(B @code{non-nil} $B$G$"$l$P!"2hLL$r>e2<$KJ,3d$7$?$&$($G!"JQ490lMw$r@lMQ(B
 $B$N!V(B*$B8uJd(B*$B%P%C%U%!!W$GI=<($7$^$9!#(B
@@ -8695,6 +8701,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 @end cartouche
 @end defvr
 
+@noindent
 $B%G%U%)%k%H$G$O#3$D$NJQ?t(B
 
 @itemize @bullet
@@ -8703,11 +8710,14 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 @item @code{skk-show-candidates-always-pop-to-buffer}
 @end itemize
 
-$B$H$b(B @code{nil} $B$G$9!#(B
-$B$3$N>uBV$G$O8uJd0lMw$O%(%3!<%(%j%"$KI=<((B@footnote{@code{frame-width} $B$,IT(B
-$BB-$9$k>l9g$O(B *$B8uJd(B*$B%P%C%U%!$KI=<($7$^$9!#(B} $B$7$^$9!#(B
+$B$H$b(B @code{nil} $B$G$"$j!"$3$N>uBV$G$O8uJd0lMw$O%(%3!<%(%j%"$KI=<((B
+@footnote{@code{frame-width} $B$,ITB-$9$k>l9g$O(B *$B8uJd(B*$B%P%C%U%!$KI=<($7$^$9!#(B}
+$B$7$^$9!#(B
+
 $B$b$7$b!"$3$l$iJQ?t$N$&$A#2$D0J>e$,(B @code{non-nil} $B$N>l9g!"M%@h=g0L$O>e5-(B
 $B$N2r@b$N=g$G$9!#(B
+
+@page
 
 @node $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B
 @subsection $B"'%b!<%I$K$*$1$kJQ498uJd$N%O%$%i%$%HI=<((B
@@ -9044,27 +9054,6 @@ Wikipedia/Wiktionary $B$N%Z!<%8$r%&%'%V%V%i%&%6$GI=<($7$^$9!#(B
 @samp{[F5]} $B$d(B @samp{[C-1 C-i]} $B$KE,MQ$9$k%U%'%$%9$G$9!#(B
 @end defvr
 
-@node VIP/VIPER$B$H$NJ;MQ(B
-@section VIP/VIPER$B$H$NJ;MQ(B
-@cindex VIP
-@cindex VIPER
-@cindex @file{vip.el}
-@cindex @file{viper.el}
-
-@defvr {$B%f!<%6JQ?t(B} skk-use-viper
-@c XXX VIP 3.7 $B$K$D$$$F8@5Z$9$k!#(B
-
-$B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H!"(BVIPER $B$KBP1~$7$^$9!#(B
-@end defvr
-
-VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$@$5$$!#(B
-
-$B$^$?!"(BVIPER $B$NA0?H$G$"$k(B VIP $B$K$bBP1~$7$^$9!#$?$@$7!"@5<0$KBP1~$7$F$$$k(B
-$B%P!<%8%g%s$O(B 3.5 $B$N$_$G$9!#$3$l$O(B Mule 2.3 $B$KI8=`E:IU$7$^$9(B
-@footnote{$B$A$J$_$K!"(BVIP 3.5 $B$N:n<T$O!"(BSKK $B$N86:n<T$G$b$"$k:4F#2mI'65<x$G(B
-$B$9!#(BVIP 3.5 $B$NH/E8HG$G$"$k(B VIPER $B$O8=:_$b%a%s%F%J%s%9$5$l$F$$$^$9!#(BEmacs
-19, 20 $B$K$O!"(BVIP $B!"(BVIPER $B$H$bI8=`E:IU$7$^$9!#(B}$B!#(B
-
 @node I-search$B4XO"(B
 @section I-search$B4XO"(B
 @cindex I-search
@@ -9193,6 +9182,27 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 $B$H@_Dj$9$k$3$H$K$h$j!"!V8!:w!W$r8!:w$G$-$k$h$&$K$J$j$^$9!#(B
 
 @end defvr
+
+@node VIP/VIPER$B$H$NJ;MQ(B
+@section VIP/VIPER$B$H$NJ;MQ(B
+@cindex VIP
+@cindex VIPER
+@cindex @file{vip.el}
+@cindex @file{viper.el}
+
+@defvr {$B%f!<%6JQ?t(B} skk-use-viper
+@c XXX VIP 3.7 $B$K$D$$$F8@5Z$9$k!#(B
+
+$B$3$NJQ?t$NCM$r(B @code{non-nil} $B$K@_Dj$9$k$H!"(BVIPER $B$KBP1~$7$^$9!#(B
+@end defvr
+
+VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$@$5$$!#(B
+
+$B$^$?!"(BVIPER $B$NA0?H$G$"$k(B VIP $B$K$bBP1~$7$^$9!#$?$@$7!"@5<0$KBP1~$7$F$$$k(B
+$B%P!<%8%g%s$O(B 3.5 $B$N$_$G$9!#$3$l$O(B Mule 2.3 $B$KI8=`E:IU$7$^$9(B
+@footnote{$B$A$J$_$K!"(BVIP 3.5 $B$N:n<T$O!"(BSKK $B$N86:n<T$G$b$"$k:4F#2mI'65<x$G(B
+$B$9!#(BVIP 3.5 $B$NH/E8HG$G$"$k(B VIPER $B$O8=:_$b%a%s%F%J%s%9$5$l$F$$$^$9!#(BEmacs
+19, 20 $B$K$O!"(BVIP $B!"(BVIPER $B$H$bI8=`E:IU$7$^$9!#(B}$B!#(B
 
 @node picture-mode$B$H$NJ;MQ(B
 @section @code{picture-mode}$B$H$NJ;MQ(B
