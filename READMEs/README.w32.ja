@@ -1,8 +1,8 @@
 `MAKEIT.BAT' の編集とインストール [README.w32.ja]
 
-Windows 95, Windows 98, Windows Me, Windows NT, Windows 2000, Windows XP
-の各オペレーティングシステムの上で動く Emacs に DDSKK をインストールする
-方法を解説します。
+Windows 95, Windows 98, Windows Me, Windows NT, Windows 2000, Windows XP,
+Windows Vista, Windows 7 の各オペレーティングシステムの上で動く Emacs に
+DDSKK をインストールする方法を解説します。
 
 Yuh Ohmura <yutopia@t3.rim.or.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
@@ -207,7 +207,8 @@ Windows で利用できる SKK 辞書サーバには次のようなものがあります。
 
 Windows 上で動作する skkserv です。
 
-     http://www.tatari-sakamoto.jp/wskkserv.jis.html
+    (http://www.tatari-sakamoto.jp/wskkserv.jis.html)
+     http://homepage3.nifty.com/monjya/wskkserv.jis.html
 
 から入手できます。
 
@@ -215,7 +216,8 @@ Windows 上で動作する skkserv です。
 
 複数辞書検索が可能な Windows 系 OS 用の skk サーバです。
 
-     http://ms.megadriver.yi.org/~fumi/wceskkserv/
+    (http://ms.megadriver.yi.org/~fumi/wceskkserv/)
+     http://www.megadriver.info/~fumi/wceskkserv/
 
 から入手できます。
 
@@ -262,7 +264,14 @@ Windows 上で動作する SKK ライクの IME があります。
 設定がある程度 elisp でできるようになっていることと、SKK と共通の辞書
 が使用できます。
 
-     http://www.tatari-sakamoto.jp/skkime.jis.html
+    (http://www.tatari-sakamoto.jp/skkime.jis.html)
+     http://homepage3.nifty.com/monjya/skkime.jis.html
+
+** corvus-skk
+
+CorvusSKK works as Text Input Processor (TIP) on Text Services Framework (TSF). 
+
+     http://code.google.com/p/corvus-skk/
 
 
 

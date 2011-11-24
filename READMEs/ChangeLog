@@ -1,3 +1,9 @@
+2011-11-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.w32.ja: Update.
+
+	* INSTALL: Update.
+
 2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* NEWS.ja: experimental/skk-search-web.el の記述を追加.
