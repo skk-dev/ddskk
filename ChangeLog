@@ -1,8 +1,15 @@
 2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version: Bump skk-version to 14.3.91.
+	* skk-vars.el (skk-annotation-show-wikipedia-url): Abolish
+	variable.
+	(skk-annotation-lookup-DictionaryServices): Accept `always'.
+	(skk-treat-candidate-sample2): If it is set to `always', call
+	`skk-annotation-lookup-DictionaryServices'.
 	* skk-annotation.el: Update comments.
-
+	(skk-skkannot-treat-wikipedia): Abolish function.
+	(skk-annotation-find-and-show, skk-annotation-wait-for-input): Do
+	not refer to skk-annotation-show-wikipedia-url.
 	* doc/skk.texi: Update.
 
 2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

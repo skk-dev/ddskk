@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.220 2011/11/26 18:10:07 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.221 2011/11/26 21:07:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/26 18:10:07 $
+;; Last Modified: $Date: 2011/11/26 21:07:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -124,6 +124,9 @@
 ;; この機能を利用する場合は以下の設定を ~/.skk に記述してください。
 ;; 
 ;; (setq skk-annotation-lookup-DictionaryServices t)
+;;
+;; この機能は Carbon Emacs 22 または Cocoa Emacs 23 以降でテストされていま
+;; す。ただし Carbon Emacs 22 では
 ;;
 ;; <Wikipedia アノテーション>
 ;;
@@ -315,11 +318,7 @@
 	  (unless (eq (car srcs) 'dict)
 	    (add-to-list 'skk-annotation-wikimedia-srcs (car srcs) t))
 	  (setq srcs (cdr srcs))))
-      (setq note (or (car (skkannot-cache
-			   word
-			   skk-annotation-wikimedia-srcs))
-		     (when skk-annotation-show-wikipedia-url
-		       (skkannot-treat-wikipedia word)))))
+      (setq note (car (skkannot-cache word skk-annotation-wikimedia-srcs))))
     ;;
     (setq skkannot-buffer-origin (current-buffer))
     (cond
@@ -433,6 +432,7 @@
       (t
        nil)))))
 
+;;;###autoload
 (defun skk-annotation-lookup-DictionaryServices (word &optional truncate)
   "python を介して DictionaryServices を利用しアノテーションを取得する。
 オプション引数 TRUNCATE が non-nil の場合は候補一覧用に短いアノテーション
@@ -653,27 +653,21 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	    ((eq command browse-command)
 	     (setq list (delq browse-command list))
 	     (setq urls nil)
-	     (when word
-	       (cond
-		((setq cache (skkannot-cache word sources))
-		 (setq urls
-		       (cons
-			(if (string= (cdr cache) "dict")
-			    (format "dict:///%s" word)
-			  (apply #'skkannot-generate-url
-				 "http://%s.org/wiki/%s"
-				 ;; split-string の非互換性に配慮
-				 (if (eval-when-compile
-				       (and skk-running-gnu-emacs
-					    (<= emacs-major-version 21)))
-				     (cdr (split-string (cdr cache) " "))
-				   (cdr (split-string (cdr cache) " " t)))))
-			urls)))
-		(skk-annotation-show-wikipedia-url
-		 (add-to-list 'urls
-			      (skkannot-generate-url
-			       "http://ja.wikipedia.org/wiki/%s"
-			       word)))))
+	     (when (and word (setq cache (skkannot-cache word sources)))
+	       (let ((url (cond
+			   ((string= (cdr cache) "dict")
+			    (format "dict:///%s" word))
+			   (t
+			    (apply #'skkannot-generate-url
+				   "http://%s.org/wiki/%s"
+				   ;; split-string の非互換性に配慮
+				   (if (eval-when-compile
+					 (and skk-running-gnu-emacs
+					      (<= emacs-major-version 21)))
+				       (cdr (split-string (cdr cache) " "))
+				     (cdr (split-string (cdr cache) " "
+							t))))))))
+		 (setq urls (cons url urls))))
 	     (unless (equal annotation "")
 	       (cond
 		(urls
@@ -714,8 +708,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 		   digit nil
 		   char  nil)
 	     (when word
-	       (let ((skk-annotation-show-wikipedia-url nil))
-		 (setq note (skkannot-treat-wikipedia word sources))))
+	       (setq note (skk-annotation-wikipedia word sources)))
 	     (cond ((null note)
 		    (setq note annotation))
 		   (t
@@ -1697,57 +1690,6 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	  (call-process-region (point) (point-max) gzip t t t "-cd")))))
   (goto-char (point-max))
   (search-backward "</html>" nil t))
-
-(defun skkannot-treat-wikipedia (word &optional sources)
-  "WORD が挿入されるときに表示されるべき注釈を生成する。
-生成した注釈を返す。"
-  (save-match-data
-    (let* ((string
-	    (if skk-annotation-show-wikipedia-url
-		;; このときは URL を注釈とする。
-		(concat "ダミー;"
-			(skk-quote-char
-			 (skkannot-generate-url "http://%s.org/wiki/%s"
-						(or (car sources)
-						    'ja.wikipedia)
-						word)))
-	      nil))
-	   (value (if string
-		      ;; まだ「注釈の装飾」を受けていないので、ここで
-		      ;; 適用する。
-		      (if (functionp skk-treat-candidate-appearance-function)
-			  (funcall skk-treat-candidate-appearance-function
-				   string nil)
-			string)
-		    nil)))
-      ;;
-      (cond ((consp value)
-	     ;; (候補 . 注釈) だが、候補は dummy なので破棄する。
-	     (cond
-	      ((consp (cdr value))
-	       ;; (候補 . (セパレータ . 注釈))
-	       ;; 注釈は既にセパレータ抜き
-	       (cddr value))
-	      ((string-match "^;" (cdr value))
-	       ;; (候補 . 注釈)
-	       ;; 注釈はまだセパレータを含んで
-	       ;; いる
-	       (substring (cdr value)
-			  (match-end 0)))
-	      (t
-	       ;; (候補 . 注釈)
-	       ;; 注釈は既にセパレータを除去して
-	       ;; いるものと判断する
-	       (cdr value))))
-	    ;;
-	    ((stringp value)
-	     ;; 返り値が文字列だった場合
-	     (if (string-match ";" value)
-		 (substring value (match-end 0))
-	       nil))
-	    (t
-	     ;; Wikipedia の内容の表示が要求された場合。
-	     (skk-annotation-wikipedia word sources))))))
 
 ;;;###autoload
 (defun skkannot-cache (word &optional sources)

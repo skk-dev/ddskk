@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.402 2011/11/23 06:32:58 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.403 2011/11/26 21:07:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/23 06:32:58 $
+;; Last Modified: $Date: 2011/11/26 21:07:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2069,7 +2069,11 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 (defun skk-treat-candidate-sample2 (candidate listing-p)
   (let* ((value (skk-treat-strip-note-from-word candidate))
 	 (cand (car value))
-	 (note (cdr value))
+	 (note (if listing-p
+		   (or (and (eq skk-annotation-lookup-DictionaryServices 'always)
+			    (skk-annotation-lookup-DictionaryServices cand t))
+		       (cdr value))
+		 (cdr value)))
 	 (sep (if note
 		  (propertize (if (skk-annotation-display-p 'list)
 				  " $B"b(B "
@@ -2799,8 +2803,18 @@ nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B"
   "*Non-nil $B$G$"$l$P!"(BMac OS X $B$G(B DictionaryServices $B$h$j0UL#$r<hF@$9$k!#(B
 $B$3$N>l9g!"(Bpython $B$r(B inferior process $B$H$7$F5/F0$9$k!#(B
 $B$3$N@_Dj$O(B `skk-annotation-lookup-dict' $B$h$jM%@h$5$l$k!#(B
-Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B"
-  :type 'boolean
+Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
+
+$B8uJd0lMw$G$b$3$N5!G=$r;H$$$?$$>l9g$O(B `always' $B$K@_Dj$7$?>e$G0J2<$N@_Dj$b(B
+$BDI2C$9$k!#(B
+
+ ($B@_DjNc(B)
+
+ (setq skk-treat-candidate-appearance-function 'skk-treat-candidate-sample2)
+"
+  :type '(radio (const :tag "$BDL>o$NJQ49;~$K<-=q$r;2>H$9$k(B" t)
+		(const :tag "$B>e5-$K2C$(8uJd0lMw$G$b;2>H$9$k(B" always)
+		(const :tag "$BMxMQ$7$J$$(B" nil))
   :group 'skk-annotation)
 
 (defcustom skk-annotation-python-program (executable-find "python")
@@ -2837,15 +2851,6 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B"
 (defcustom skk-annotation-dict-coding-system 'utf-8
   "*$BJQ498uJd$N0UL#$r30It%W%m%0%i%`$A$+$iH!5C$9$k$(Gkc$A$KSC$$$k%3$B!<$A%IO5!#(B"
   :type 'coding-system
-  :group 'skk-annotation)
-
-(defcustom skk-annotation-show-wikipedia-url nil
-  "*$B%"%N%F!<%7%g%s$K(B Wikipedia $B$N(B URL $B$rMxMQ$9$k$+$I$&$+7h$a$k%*%W%7%g%s!#(B
-SKK $B<-=q$,FH<+$N%"%N%F!<%7%g%s$r;}$?$J$$8uJd$KBP$7$F$N$_M-8z$H$J$k!#(B
-$B$3$NCM$,(B non-nil $B$J$i$P!"8uJd$NJ8;zNs$K$D$$$F5-=R$7$F$$$k(B Wikipedia $B$N(B URL $B$r(B
-$B%"%N%F!<%7%g%s$H$7$FI=<($9$k!#$3$N$H$-(B `skk-annotation-browse-key' (C-o) $B$r(B
-$B%?%$%W$9$k$3$H$G$3$N(B URL $B$r%V%i%&%6$GI=<($G$-$k!#(B"
-  :type 'boolean
   :group 'skk-annotation)
 
 (defcustom skk-annotation-other-sources

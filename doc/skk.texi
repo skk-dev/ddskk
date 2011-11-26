@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/11/26 19:00:53 $
+@set UPDATED $Date: 2011/11/26 21:07:45 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7611,6 +7611,7 @@ L:$B0](B;
 @findex skk-annotation-remove
 
 @defun {$B%3%^%s%I(B} skk-annotation-add &optional NO-PREVIOUS-ANNOTATION
+
 $B%"%N%F!<%7%g%s$rEPO?!?=$@5$9$k$K$O!"%"%N%F!<%7%g%s$rIU$1$?$$C18l$r3NDj$7(B
 $B$?D>8e$KF1$8%P%C%U%!$G(B @kbd{M-x skk-annotation-add} $B$H<B9T$7$^$9!#(B
 
@@ -7661,6 +7662,15 @@ Non-nil $B$J$i$P(B OS X $B$N<-=q%5!<%S%9$rMxMQ$7$F%"%N%F!<%7%g%s$r<hF@$9$k!#
 
 @lisp
 (setq skk-annotation-lookup-DictionaryServices t)
+@end lisp
+
+$B$3$NCM$r(B @code{always} $B$K@_Dj$7!"$5$i$K(B
+@code{skk-treat-candidate-appearance-function} $B$r0J2<$N$h$&$K@_Dj$9$k$H(B
+$B8uJd0lMw$G$b<-=q%5!<%S%9$r0z$/!#(B
+
+@lisp
+(setq skk-annotation-lookup-DictionaryServices 'always)
+(setq skk-treat-candidate-appearance-function 'skk-treat-candidate-sample2)
 @end lisp
 
 @end defvr
@@ -8875,13 +8885,11 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 $B$/$@$5$$!#(B
 
 @lisp
-(setq skk-treat-candidate-appearance-function
-      'skk-treat-candidate-sample1)
+(setq skk-treat-candidate-appearance-function 'skk-treat-candidate-sample1)
 @end lisp
 
 @lisp
-(setq skk-treat-candidate-appearance-function
-      'skk-treat-candidate-sample2)
+(setq skk-treat-candidate-appearance-function 'skk-treat-candidate-sample2)
 @end lisp
 
 @end defvr
