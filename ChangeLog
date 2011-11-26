@@ -1,6 +1,7 @@
 2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version: Bump skk-version to 14.3.91.
+	* skk-annotation.el: Update comments.
 
 2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

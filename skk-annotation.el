@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.219 2011/11/18 07:27:09 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.220 2011/11/26 18:10:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/18 07:27:09 $
+;; Last Modified: $Date: 2011/11/26 18:10:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -114,49 +114,22 @@
 ;; Viper 対策はまだ行なっていません。~/.viper に次のように書いて下さい。
 ;; (viper-harness-minor-mode "skk-annotation")
 ;;
+;; <Mac OS X 「辞書」サービスからのアノテーション>
+;;
+;; Mac の辞書アプリ (Dictionary.app) では標準で国語辞典など利用できます。
+;; このうち優先順位の高い辞書からアノテーションを取得する機能が利用できま
+;; す。現状では辞書の検索順は Dictionary.app の環境設定で設定する必要があ
+;; ります。
+;;
+;; この機能を利用する場合は以下の設定を ~/.skk に記述してください。
+;; 
+;; (setq skk-annotation-lookup-DictionaryServices t)
+;;
 ;; <Wikipedia アノテーション>
 ;;
 ;; ▼モードにて C-i をタイプすると、表示中の候補を Wikipedia/Wiktionary
 ;; の項目から探し，見つかった場合は、内容の抜粋をアノテーションとして表示
-;; します。この機能は Emacs 22 でテストされています。XEmacs 21.5 では以下
-;; の 1 と 2 を導入する必要があります。XEmacs 21.4 では更に 3 も必要です。
-;; Emacs 21.4 でも 1, 2, 3 が必要となります。
-;;
-;; 1. html2text.el
-;;
-;;    これは比較的最近の gnus に含まれています。しかし
-;;
-;;    http://www.ring.gr.jp/archives/elisp/gnus/gnus-5.10.8.tar.gz
-;;
-;;    に含まれるバージョンではエラーを発生する可能性があります。
-;;
-;;    もし Wikipedia/Wiktionary 検索の際にエラーが出るようでしたら、
-;;    html2text.el だけ開発版 No Gnus (ngnus) v0.6 以上のものに差し替える
-;;    必要があります。
-;;
-;;    http://www.ring.gr.jp/archives/elisp/gnus/snapshots/
-;;
-;;    または CVS より最新版をインストールしてください。また、Emacs 22.1 に
-;;    付属する Gnus 5.11 ではこの問題は修正されています。
-;;
-;; 2. URL パッケージ
-;;
-;;    これは Emacs/W3 に含まれていたものの拡張です。例えば
-;;
-;;    http://ftp.debian.org/debian/pool/main/w/w3-url-e21/
-;;
-;;    などから新しめの *.orig.tar.gz を取得してインストールします。
-;;
-;;    XEmacs の場合、 xemacs-sumo 中の w3 に含まれる url.el が読み込まれてしま
-;;    うと正しく機能しないので、注意してください。
-;;
-;; 3. Mule-UCS
-;;
-;;    UTF-8 の取り扱いに必要となります。
-;;
-;;    http://www.meadowy.org/~shirai/
-;;
-;;    から最新版が入手できます。
+;; します。この機能は Emacs 22 以上でテストされています。
 ;;
 ;; <旧い SKK からの移行>
 ;;
