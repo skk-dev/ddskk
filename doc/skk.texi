@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/11/26 21:07:45 $
+@set UPDATED $Date: 2011/11/26 21:16:49 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7645,9 +7645,9 @@ L:$B0](B;
 Mac OS X 10.5 $B0J9_$KI8=`$GF~$C$F$$$k9q8l<-E5$J$I$+$i%"%N%F!<%7%g%s$,<hF@(B
 $B$G$-$^$9!#(B@footnote{$B$3$N5!G=$rMxMQ$9$k$K$O!"(Bpython $B$N3HD%5!G=$H$7$F(B
 readline $B$H(B pyobject-framework-DictionaryServices $B$,I,MW$G$9!#8e<T$K$D$$(B
-$B$F$O(B OS X 10.5 (Leopard) $B0J9_$N(B OS $BI8=`$N(B python $B$KI8=`$G%$%s%9%H!<%k$5(B
-$B$l$F$$$^$9!#(Breadline $B$K$D$$$F$O(B OS X 10.7 (Lion) $BI8=`$N(B python $B$G$O%$%s(B
-$B%9%H!<%k$9$kI,MW$,$"$j$^$;$s!#$=$l0J30$N>l9g$O(B
+$B$F$O(B OS X 10.5 (Leopard) $B0J9_$N(B OS $BI8=`$N(B python $B$K=i$a$+$i%$%s%9%H!<%k(B
+$B$5$l$F$$$^$9!#(Breadline $B$K$D$$$F$O(B OS X 10.7 (Lion) $BI8=`$N(B python $B$G$O%$(B
+$B%s%9%H!<%k$9$kI,MW$,$"$j$^$;$s!#(BOS X 10.6 $B0JA0$N>l9g$O(B
 
 @example
 % easy_install readline 
@@ -7671,6 +7671,16 @@ Non-nil $B$J$i$P(B OS X $B$N<-=q%5!<%S%9$rMxMQ$7$F%"%N%F!<%7%g%s$r<hF@$9$k!#
 @lisp
 (setq skk-annotation-lookup-DictionaryServices 'always)
 (setq skk-treat-candidate-appearance-function 'skk-treat-candidate-sample2)
+@end lisp
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-annotation-python-program
+
+$B%"%N%F!<%7%g%s<hF@$N$?$a$K8F$S$@$9(B python $B$N%W%m%0%i%`L>!#(B
+
+@lisp
+(setq skk-annotation-python-program "/usr/bin/python")
 @end lisp
 
 @end defvr
