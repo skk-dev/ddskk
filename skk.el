@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.604 2011/11/23 05:06:20 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.605 2011/11/26 23:17:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/23 05:06:20 $
+;; Last Modified: $Date: 2011/11/26 23:17:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2076,6 +2076,18 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
     ;; $BI=<($9$k8uJd?t$rJV$9!#(B
     (length workinglst)))
 
+(defun skk-check-treat-candidate-appearance-function ()
+  (when (eq skk-annotation-lookup-DictionaryServices 'always)
+    ;; Mac OS X $B$N<-=q%5!<%S%9$r8uJd0lMw$G$b;H$&>l9g$O!"(B
+    ;; `skk-treat-candidate-appearance-function' $B$rD4@a$9$kI,MW$"$j(B
+    (setq skk-treat-candidate-appearance-function
+	  'skk-treat-candidate-sample2))
+  ;;
+  (functionp skk-treat-candidate-appearance-function))
+
+(defun skk-treat-candidate-appearance (candidate listing-p)
+  (funcall skk-treat-candidate-appearance-function candidate listing-p))
+
 (defun skk-henkan-candidate-list (candidates max)
   ;; CANDIDATES $B$N@hF,$N(B max $B8D$N$_$N%j%9%H$rJV$9!#(B
   (let ((count 0) e sep note v)
@@ -2088,7 +2100,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
       (cond
        (e
 	;; $B$^$@8uJd$,;D$C$F$$$k>l9g(B
-	(when (functionp skk-treat-candidate-appearance-function)
+	(when (skk-check-treat-candidate-appearance-function)
 	  ;; skk-treat-candidate-appearance-function $B$K$h$C$F%f!<%6$O(B
 	  ;; $BG$0U$K8uJdJ8;zNs$HCm<aJ8;zNs$r2C9)!&=$>~$9$k$3$H$,$G$-$k!#(B
 	  ;; $B%f!<%6$,JV$9CM$O(B cons cell $B$^$?$OJ8;zNs$H$J$k!#(B
@@ -2096,8 +2108,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
 			 ;; $B8uJd0lMwI=<($N:]$O(B
 			 ;; skk-treat-candidate-appearance-function $B$N(B
 			 ;; $BBh(B 2 $B0z?t$r(B non-nil $B$H$9$k!#(B
-			 (funcall skk-treat-candidate-appearance-function
-				  e 'list))))
+			 (skk-treat-candidate-appearance e 'list))))
 	    (cond
 	     ((consp value)
 	      ;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
@@ -2550,14 +2561,13 @@ catch $B$9$k!#(Bcatch $B$7$?CM$,J8;zNs$J$i$P!"$=$l$rJV$9(B (word $B$r$=$l$K
       ;; skk-kakutei-flag $B$,(B t $B$K$J$C$F$$$k!#$3$N>l9g$OAu>~(B
       ;; $B$7$F$b$7$+$?$J$$!#(B
       (when (and (not skk-kakutei-flag)
-		 (functionp skk-treat-candidate-appearance-function))
+		 (skk-check-treat-candidate-appearance-function))
 	;; skk-treat-candidate-appearance-function $B$K$h$C$F(B
 	;; $B%f!<%6$OG$0U$K8uJdJ8;zNs$HCm<aJ8;zNs$r2C9)!&=$>~(B
 	;; $B$9$k$3$H$,$G$-$k!#(B
 	;; $B%f!<%6$,JV$9CM$O(B cons cell $B$^$?$OJ8;zNs$H$J$k!#(B
 	(save-match-data
-	  (let ((value (funcall skk-treat-candidate-appearance-function
-				word nil)))
+	  (let ((value (skk-treat-candidate-appearance word nil)))
 	    (if (consp value)
 		;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
 		(setq word (car value)

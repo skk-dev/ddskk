@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/11/26 21:16:49 $
+@set UPDATED $Date: 2011/11/26 23:17:10 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7664,13 +7664,14 @@ Non-nil $B$J$i$P(B OS X $B$N<-=q%5!<%S%9$rMxMQ$7$F%"%N%F!<%7%g%s$r<hF@$9$k!#
 (setq skk-annotation-lookup-DictionaryServices t)
 @end lisp
 
-$B$3$NCM$r(B @code{always} $B$K@_Dj$7!"$5$i$K(B
-@code{skk-treat-candidate-appearance-function} $B$r0J2<$N$h$&$K@_Dj$9$k$H(B
-$B8uJd0lMw$G$b<-=q%5!<%S%9$r0z$/!#(B
+$B$3$NCM$r(B @code{always} $B$K@_Dj$9$k$H8uJd0lMw$G$b<-=q%5!<%S%9$r0z$/!#(B
+@footnote{$B$3$N@_Dj$OJQ?t(B @code{skk-treat-candidate-appearance-function} 
+$B$NCM$r>e=q$-$7$^$9!#(B@code{skk-treat-candidate-appearance-function} $B$r(B
+$B<+J,$G@_Dj$7$?$$>l9g$O(B @code{skk-annotation-lookup-DictionaryServices}
+$B$K$O(B @code{t} $B$r@_Dj$7$^$9!#(B}
 
 @lisp
 (setq skk-annotation-lookup-DictionaryServices 'always)
-(setq skk-treat-candidate-appearance-function 'skk-treat-candidate-sample2)
 @end lisp
 
 @end defvr

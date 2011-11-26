@@ -1,5 +1,19 @@
 2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skk-annotation.el (skkannot-DictServ-command): New function.
+	(skk-annotation-lookup-DictionaryServices): Accept an optional
+	third arg force.
+	(skk-annotation-wikipedia-1): Call it with the 3rd arg non-nil.
+	* skk-vars.el (skk-annotation-lookup-DictionaryServices): Update
+	doc string.
+	(skkannot-py-none-regexp, skkannot-DictServ-cmd-format-str): New
+	constant variables.
+	* skk.el (skk-check-treat-candidate-appearance-function)
+	(skk-treat-candidate-appearance): New functions.
+	(skk-henkan-candidate-list, skk-treat-new-word): Call them.
+
+2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skk-version: Bump skk-version to 14.3.91.
 	* skk-vars.el (skk-annotation-show-wikipedia-url): Abolish
 	variable.

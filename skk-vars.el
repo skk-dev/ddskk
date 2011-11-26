@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.403 2011/11/26 21:07:45 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.404 2011/11/26 23:17:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/26 21:07:45 $
+;; Last Modified: $Date: 2011/11/26 23:17:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2741,12 +2741,12 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
   :group 'skk-annotation)
 
 (defcustom skk-annotation-delay 1.0
-  "$B%"%N%F!<%7%g%s$rI=<($9$k$^$G$NCY1d!#C10L$OIC!#(B"
+  "*$B%"%N%F!<%7%g%s$rI=<($9$k$^$G$NCY1d!#C10L$OIC!#(B"
   :type 'number
   :group 'skk-annotation)
 
 (defcustom skk-annotation-loop-interval 0.1
-  "$B%"%N%F!<%7%g%s$rI=<(Cf$N%W%m%;%9BT$A;~4V!#(B
+  "*$B%"%N%F!<%7%g%s$rI=<(Cf$N%W%m%;%9BT$A;~4V(B ($BIC(B)$B!#(B
 $B9bB.$J4D6-$G$O>.$5$a$K@_Dj$9$k$H%l%9%]%s%9$,2wE,$K$J$k!#(B
 $BDcB.$J4D6-$G$OBg$-$a$K@_Dj$9$k$HF0:n$,2~A1$5$l$&$k!#(B"
   :type 'number
@@ -2805,13 +2805,9 @@ nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B"
 $B$3$N@_Dj$O(B `skk-annotation-lookup-dict' $B$h$jM%@h$5$l$k!#(B
 Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
 
-$B8uJd0lMw$G$b$3$N5!G=$r;H$$$?$$>l9g$O(B `always' $B$K@_Dj$7$?>e$G0J2<$N@_Dj$b(B
-$BDI2C$9$k!#(B
-
- ($B@_DjNc(B)
-
- (setq skk-treat-candidate-appearance-function 'skk-treat-candidate-sample2)
-"
+$B8uJd0lMw$G$b$3$N5!G=$r;H$$$?$$>l9g$O(B `always' $B$K@_Dj$9$k$3$H$G<B8=$G$-$k!#(B
+$B$?$@$7$3$N@_Dj$O(B `skk-treat-candidate-appearance-function' $B$r>e=q$-$7$F$7(B
+$B$^$&$?$a!">e5i<T8~$1$G$O$J$$!#(B"
   :type '(radio (const :tag "$BDL>o$NJQ49;~$K<-=q$r;2>H$9$k(B" t)
 		(const :tag "$B>e5-$K2C$(8uJd0lMw$G$b;2>H$9$k(B" always)
 		(const :tag "$BMxMQ$7$J$$(B" nil))
@@ -2849,7 +2845,7 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
   :group 'skk-annotation)
 
 (defcustom skk-annotation-dict-coding-system 'utf-8
-  "*$BJQ498uJd$N0UL#$r30It%W%m%0%i%`$A$+$iH!5C$9$k$(Gkc$A$KSC$$$k%3$B!<$A%IO5!#(B"
+  "*$B30It%W%m%0%i%`$A$+$i%"%N%F$B!<$A%7%g%sH!5C$9$k$(Gkc$A$KSC$$$k%3$B!<$A%IO5!#(B"
   :type 'coding-system
   :group 'skk-annotation)
 
@@ -2858,18 +2854,16 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
      '($B<-=q(B ja.wiktionary ja.wikipedia
 	    en.wiktionary simple.wikipedia en.wikipedia)
    '(ja.wiktionary ja.wikipedia en.wiktionary simple.wikipedia en.wikipedia))
-  ;; ($BCm(B) 2007 $BG/;~E@$G$O(B ja.wiktionary $B$OH/E8ES>e$G$"$j!"(B
-  ;; $BI=5-$J$I$K$d$dITE}0l$JE@$,$"$kLOMM!#(B
   "*$B%"%N%F!<%7%g%s$K;H$&>pJs$N%=!<%9$r;XDj$9$k%*%W%7%g%s!#(B
 $BI8=`$G$O$^$:(B Wikipedia $B$r;2>H$7!"(BWikipedia $B$N5-=R$,L5$1$l$P(B Wiktionary $B$r(B
 $B;2>H$9$k!#(B
 
 Mac OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
-  :type '(radio
-	  (repeat :tag "$B<!$N%=!<%9$rMxMQ$9$k(B\
- ($B0J2<$K9`L\$H=gHV$r;XDj$7$F$/$@$5$$(B)" symbol)
-	  (const :tag "Wikimedia $B$J$I$N>pJs$rMxMQ$7$J$$(B" nil))
+  :type '(radio (repeat :tag "\
+$B<!$N%=!<%9$rMxMQ$9$k(B ($B0J2<$K9`L\$H=gHV$r;XDj$7$F$/$@$5$$(B)" symbol)
+		(const :tag "Wikimedia $B$J$I$N>pJs$rMxMQ$7$J$$(B" nil))
   :group 'skk-annotation)
+
 (make-obsolete-variable 'skk-annotation-wikipedia-sources
 			'skk-annotation-other-sources
 			"DDSKK 14.4")
@@ -2922,6 +2916,12 @@ Mac OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
 	   (>= emacs-major-version 22))
       t
     'untested))
+
+(defconst skkannot-py-none-regexp "^\\(Traceback\\|AttributeError\\|None\\)")
+
+(defconst skkannot-DictServ-cmd-format-str "word = u\"%s\"; \
+print \" %s(word)s in DictionaryServices\" %s {'word': word}; \
+print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 
 ;; XXX $B$^$@IT40A4(B
 (defconst skkannot-en-wiktionary-lang-regexp "\

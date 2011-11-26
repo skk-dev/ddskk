@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.221 2011/11/26 21:07:45 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.222 2011/11/26 23:17:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/26 21:07:45 $
+;; Last Modified: $Date: 2011/11/26 23:17:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -294,8 +294,7 @@
        ((and (eq system-type 'darwin)
 	     skk-annotation-lookup-DictionaryServices)
 	(catch '辞書
-	  (when (null (setq note (skk-annotation-lookup-DictionaryServices
-				  word)))
+	  (unless (setq note (skk-annotation-lookup-DictionaryServices word))
 	    (setq note (cdr-safe pair)))))
        (t
 	(catch 'dict
@@ -432,48 +431,48 @@
       (t
        nil)))))
 
+(defun skkannot-DictServ-command (word)
+  (format skkannot-DictServ-cmd-format-str word "%" "%"))
+
 ;;;###autoload
-(defun skk-annotation-lookup-DictionaryServices (word &optional truncate)
+(defun skk-annotation-lookup-DictionaryServices (word &optional truncate force)
   "python を介して DictionaryServices を利用しアノテーションを取得する。
 オプション引数 TRUNCATE が non-nil の場合は候補一覧用に短いアノテーション
-に絞りこむ。 "
-  (skk-annotation-start-python (not truncate))
-  (let* ((command (format "word = u\"%s\"; \
-print \" %s(word)s in DictionaryServices\" %s {'word': word}; \
-print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
-			  word "%" "%"))
-	 (process (get-buffer-process skkannot-py-buffer))
-	 (loopint skk-annotation-loop-interval)
-	output pt1 pt2)
-    (with-current-buffer skkannot-py-buffer
-      (unless (setq output (skkannot-DictServ-cache word truncate))
-	(goto-char (point-max))
-	(setq pt1 (point))
-	(skkannot-py-send-command command)
-	(cond ((and (skkannot-sit-for loopint truncate)
-		    (not truncate))
-	       (setq skkannot-remaining-delay
-		     (- skkannot-remaining-delay loopint)))
-	      (t
-	       (unless truncate
-		 (throw '辞書 nil))))
-	(accept-process-output process loopint)
-	(goto-char (point-max))
-	(setq output (or (skkannot-DictServ-cache word
-								  truncate)
-			 "None")))
-      (unless (string-match "^\\(Traceback\\|AttributeError\\|None\\)" output)
-	(cond
-	 (truncate
-	  (with-temp-buffer
-	    (set-buffer-multibyte t)
-	    (insert output)
-	    (goto-char (point-min))
-	    (when (re-search-forward "[;,.、。；｜]" nil t)
-	      (beginning-of-line)
-	      (buffer-substring (point) (match-beginning 0)))))
-	 (t
-	  output))))))
+に絞りこむ。"
+  (when (or skk-annotation-lookup-DictionaryServices force)
+    (skk-annotation-start-python (not truncate))
+    (let ((command (skkannot-DictServ-command word))
+	  (process (get-buffer-process skkannot-py-buffer))
+	  (loopint skk-annotation-loop-interval)
+	  output pt1 pt2)
+      (with-current-buffer skkannot-py-buffer
+	(unless (setq output (skkannot-DictServ-cache word truncate))
+	  (goto-char (point-max))
+	  (setq pt1 (point))
+	  (skkannot-py-send-command command)
+	  (cond ((and (skkannot-sit-for loopint truncate)
+		      (not truncate))
+		 (setq skkannot-remaining-delay
+		       (- skkannot-remaining-delay loopint)))
+		(t
+		 (unless truncate
+		   (throw '辞書 nil))))
+	  (accept-process-output process loopint)
+	  (goto-char (point-max))
+	  (setq output (or (skkannot-DictServ-cache word truncate)
+			   "None")))
+	(unless (string-match skkannot-py-none-regexp output)
+	  (cond
+	   (truncate
+	    (with-temp-buffer
+	      (set-buffer-multibyte t)
+	      (insert output)
+	      (goto-char (point-min))
+	      (when (re-search-forward "[;,.、。；｜]" nil t)
+		(beginning-of-line)
+		(buffer-substring (point) (match-beginning 0)))))
+	   (t
+	    output)))))))
 
 (defun skkannot-dict-buffer-format (word)
   "dict の内容を格納するバッファのフォーマット。"
@@ -486,10 +485,11 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))"
 	process)
     (make-local-variable 'coding-system-for-read)
     (setq coding-system-for-read 'undecided)
-    (prog1 (setq process (apply #'start-process (buffer-name buffer) buffer
-				skk-annotation-dict-program
-				(append skk-annotation-dict-program-arguments
-					(list word))))
+    (prog1
+	(setq process (apply #'start-process (buffer-name buffer) buffer
+			     skk-annotation-dict-program
+			     (append skk-annotation-dict-program-arguments
+				     (list word))))
       (skk-process-kill-without-query process))))
 
 ;;;###autoload
@@ -1207,7 +1207,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
   (cond
    ((eq source '辞書)
     (catch '辞書
-      (skk-annotation-lookup-DictionaryServices word)))
+      (skk-annotation-lookup-DictionaryServices word nil t)))
    ((eq source 'dict)
     (catch 'dict (skk-annotation-lookup-dict word)))
    (t
