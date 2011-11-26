@@ -587,12 +587,12 @@
 (define-key skk-j-mode-map (kbd "C-M-j") 'skk-undo-kakutei)
 
 ;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
-;; (global-set-key "\M-i" 'skk-annotation-wikipedia-region-or-at-point)
+;; (global-set-key "\M-i" 'skk-annotation-lookup-region-or-at-point)
 ;; 注) 基本形の (活用形/複数形などでない) 英単語なら領域を選択せずとも M-i
 ;;   だけで調べることが可能です。例えば en.wiktionary を使うと「どこでも
-;;   英英辞典」のように使えて便利です。 skk-annotation-wikipedia-sources
-;;   の設定がデフォルト値であれば、英単語にカーソルを置いて M-2 M-i で常
-;;   に en.wiktionary を調べることができます。
+;;   英英辞典」のように使えて便利です。 skk-annotation-other-sources
+;;   の設定がデフォルト値であれば、英単語にカーソルを置いて M-3 M-i で常
+;;   に en.wiktionary を調べることができます (Mac OS X では M-4 M-i)。
 
 ;; `$' skk-display-code-for-char-at-point で使用するフェイス
 (set-face-attribute 'skk-display-code-prompt-face nil

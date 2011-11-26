@@ -1,3 +1,7 @@
+2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* dot.skk: Update for Wikipedia/Wikitionary lookup.
+
 2011-11-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: advice 例をファイル skk-show-mode.el へ移動.
