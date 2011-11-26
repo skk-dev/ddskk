@@ -1,3 +1,7 @@
+2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-version: Bump skk-version to 14.3.91.
+
 2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 14.3.90.
