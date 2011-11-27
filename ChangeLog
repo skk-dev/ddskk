@@ -1,3 +1,8 @@
+2011-11-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-show-mode.el (skk-cursor-set): インクリメンタル・サーチ中の
+	入力モード切り替え時には表示しない。変数 skk-isearch-switch で判断.
+
 2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-annotation.el (skkannot-DictServ-command): New function.

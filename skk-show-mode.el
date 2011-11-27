@@ -4,9 +4,9 @@
 
 ;; Author: 2011 Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-show-mode.el,v 1.1 2011/11/20 05:13:23 skk-cvs Exp $
+;; Version: $Id: skk-show-mode.el,v 1.2 2011/11/27 00:02:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/20 05:13:23 $
+;; Last Modified: $Date: 2011/11/27 00:02:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -44,7 +44,8 @@
 (defadvice skk-cursor-set (after skk-show-mode activate)
   "かなモードやアスキーモードへ切り替わったときに skk-*-mode-string を
 tooltip / inline 表示する."
-  (when skk-show-mode-show
+  (when (and skk-show-mode-show
+	     (not skk-isearch-switch))
     (let ((func (cdr (assq skk-show-mode-style skk-show-mode-functions))))
       (when func
 	(funcall func))))
