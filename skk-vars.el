@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.404 2011/11/26 23:17:10 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.405 2011/11/27 22:02:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/26 23:17:10 $
+;; Last Modified: $Date: 2011/11/27 22:02:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1271,6 +1271,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   :group 'skk-henkan)
 
 (defvar skk-previous-candidate-char nil)
+
 (make-obsolete-variable 'skk-previous-candidate-char
 			'skk-previous-candidate-keys
 			"DDSKK 14.2")
@@ -2855,9 +2856,7 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
 	    en.wiktionary simple.wikipedia en.wikipedia)
    '(ja.wiktionary ja.wikipedia en.wiktionary simple.wikipedia en.wikipedia))
   "*$B%"%N%F!<%7%g%s$K;H$&>pJs$N%=!<%9$r;XDj$9$k%*%W%7%g%s!#(B
-$BI8=`$G$O$^$:(B Wikipedia $B$r;2>H$7!"(BWikipedia $B$N5-=R$,L5$1$l$P(B Wiktionary $B$r(B
-$B;2>H$9$k!#(B
-
+$BI8=`$G$O(B Wiktionary, Wikipedia ($BF|K\8lHG!"1Q8lHG(B) $B$r;2>H$9$k!#(B
 Mac OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
   :type '(radio (repeat :tag "\
 $B<!$N%=!<%9$rMxMQ$9$k(B ($B0J2<$K9`L\$H=gHV$r;XDj$7$F$/$@$5$$(B)" symbol)
