@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.405 2011/11/27 22:02:51 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.406 2011/11/28 22:28:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/27 22:02:51 $
+;; Last Modified: $Date: 2011/11/28 22:28:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2876,7 +2876,7 @@ Mac OS X では標準の「辞書」を利用できる。"
   :group 'skk-annotation)
 
 (defcustom skk-annotation-wiktionary-preferred-lang-alist
-  '(("en" "Japanese" "Translingual" "English")
+  '(("en" "Translingual" "English" "Japanese")
     ("ja" "日本語" "漢字" "英語"))
   "*Wiktionary の記述言語と、単語所属言語の優先順との連想リスト。"
   :type '(repeat (repeat string))
@@ -3027,6 +3027,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Interrogative determiner\\|Pronoun\\|Pronominal possessive adjective\
 \\|Demonstrative pronoun\\|Demonstrative adjective\
 \\|Quasi-Adjective\\|Proverb\\|Counter\\|Personal pronoun\
+\\|Kanji\\|Hanja\\|Hanzi\
 \\|Interrogative pronoun\\|Relative pronoun\\|Auxiliary verb\\( form\\)?\
 \\|Indefinite article\\|Abbreviation\\|Initialism\\|Acronym\\|Symbol\
 \\|\\(Han \\|Hiragana \\|Katakana \\)character\\|Phrase\\|Letter\\)\

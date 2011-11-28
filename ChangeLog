@@ -1,3 +1,10 @@
+2011-11-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-wiktionary-preferred-lang-alist):
+	Modify the default value for en.wiktionary.
+	(skkannot-en-wiktionary-part-of-speech-regexp):  Add Kanji, Hanzi,
+	and Hanja.
+
 2011-11-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-show-mode.el (skk-cursor-set): インクリメンタル・サーチ中の
