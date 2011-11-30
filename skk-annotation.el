@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.222 2011/11/26 23:17:10 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.223 2011/11/30 21:02:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/26 23:17:10 $
+;; Last Modified: $Date: 2011/11/30 21:02:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -398,8 +398,7 @@
 
 (defun skkannot-DictServ-cache (word truncate)
   "OS X の「辞書」からこれまで1<に取得済のアノテーションを探す。"
-  (let ((loopint skk-annotation-loop-interval)
-	success pt)
+  (let (success pt)
     (skk-save-point
      (goto-char (point-max))
      (cond
@@ -444,11 +443,10 @@
     (let ((command (skkannot-DictServ-command word))
 	  (process (get-buffer-process skkannot-py-buffer))
 	  (loopint skk-annotation-loop-interval)
-	  output pt1 pt2)
+	  output)
       (with-current-buffer skkannot-py-buffer
 	(unless (setq output (skkannot-DictServ-cache word truncate))
 	  (goto-char (point-max))
-	  (setq pt1 (point))
 	  (skkannot-py-send-command command)
 	  (cond ((and (skkannot-sit-for loopint truncate)
 		      (not truncate))

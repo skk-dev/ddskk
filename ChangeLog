@@ -1,3 +1,9 @@
+2011-11-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skkannot-DictServ-cache)
+	(skk-annotation-lookup-DictionaryServices): Remove unused local
+	variables.
+
 2011-11-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-annotation-wiktionary-preferred-lang-alist):
