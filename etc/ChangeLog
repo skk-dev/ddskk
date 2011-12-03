@@ -1,3 +1,7 @@
+2011-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: skk-annotation-delay を追加.
+
 2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* dot.skk: Update for Wikipedia/Wikitionary lookup.

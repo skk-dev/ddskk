@@ -48,6 +48,8 @@
 
 ;; 変換時に注釈 (annotation) を表示する
 (setq skk-show-annotation t)
+;; 注釈を表示するまでの遅延を秒で指定する
+;; (setq skk-annotation-delay 0)
 
 ;; 注釈 (annotation) の表示の仕方
 ;;   Non-nil => エコーエリアに表示する (デフォルト)
