@@ -9,7 +9,7 @@
 	`skk-lookup-get-content' if `skk-annotation-lookup-lookup' is
 	non-nil.
 	* skk-lookup.el (skk-lookup-get-content): If content is a null
-	string, then return nil.
+	string, then return nil.  Take optional arg listing-p.
 
 2011-12-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

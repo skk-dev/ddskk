@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.408 2011/12/04 12:44:31 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.409 2011/12/04 21:58:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/04 12:44:31 $
+;; Last Modified: $Date: 2011/12/04 21:58:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2072,7 +2072,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 	 (cand (car value))
 	 (note (if listing-p
 		   (or (and (eq skk-annotation-lookup-lookup 'always)
-			    (skk-lookup-get-content cand))
+			    (skk-lookup-get-content cand t))
 		       (and (eq skk-annotation-lookup-DictionaryServices 'always)
 			    (skk-annotation-lookup-DictionaryServices cand t))
 		       (cdr value))

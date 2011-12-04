@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.37 2011/12/04 12:44:31 skk-cvs Exp $
+;; Version: $Id: skk-lookup.el,v 1.38 2011/12/04 21:58:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2011/12/04 12:44:31 $
+;; Last Modified: $Date: 2011/12/04 21:58:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -451,24 +451,27 @@ METHOD は変数`lookup-search-methods'を参照のこと."
 		      (lookup-module-dictionaries module)))))))
 
 ;;;###autoload
-(defun skk-lookup-get-content (word)
+(defun skk-lookup-get-content (word &optional listing-p)
   (unless skk-lookup-get-content-default-dic
     (skk-lookup-get-content-setup-dic)
     (message "skk-lookup-get-content: %s" skk-lookup-get-content-default-dic-name))
-  (let ((query (lookup-vse-search-query skk-lookup-get-content-default-dic
+  (let* ((query (lookup-vse-search-query skk-lookup-get-content-default-dic
 					(lookup-make-query 'exact word)))
-	(content ""))
-    (when query
-      (setq content (lookup-dictionary-command skk-lookup-get-content-default-dic
-					       'content (car query))
-	    content (replace-regexp-in-string
-		     "<[^>]*>" "" 
-		     (nth 1 (split-string content "\n")))
+	 (content (if query
+		      (lookup-dictionary-command
+		       skk-lookup-get-content-default-dic
+		       'content (car query))
+		    nil)))
+    (when content
+      (setq content (cond (listing-p
+			   (replace-regexp-in-string
+			    "<[^>]*>" "" 
+			    (nth 1 (split-string content "\n"))))
+			  (t
+			   (replace-regexp-in-string "<[^>]*>" "" content)))
 	    content (format "%s [%s]"
 			    content
 			    skk-lookup-get-content-default-dic-name)))
-    (when (equal content "")
-      (setq content nil))
     content))
 
 (provide 'skk-lookup)
