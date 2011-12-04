@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/12/04 06:42:41 $
+@set UPDATED $Date: 2011/12/04 11:02:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3481,9 +3481,10 @@ Click <mouse-2> on a completion to select it.
 In this buffer, type RET to select the completion near point.
 
 Possible completions are:
-001 一 	002     003 丶  004 丿  005 乙  006 亅  007 二  008 亠 	009 人
-010 儿 	011 入 	012 八 	013 冂 	014 冖 	015 冫 	016 几 	017 凵 	018 刀
-@dots{}
+001 一 (いち)                      002 ｜ (ぼう、たてぼう)
+003 丶 (てん)                      004 丿 (の)
+005 乙 (おつ)                      006 亅 (はねぼう)
+ ：                                 ：
 ------ Completion List -------
 @end group
 
@@ -3507,6 +3508,12 @@ L:刔;6画(刀部4画)
 @defvr {ユーザ変数} skk-tankan-face
 
 @kbd{M-x skk-tankan} を実行したときに表示される「単漢字バッファ」で使用するフェイスです。
+
+@end defvr
+
+@defvr {ユーザ変数} skk-tankan-radical-name-face
+
+部首の読みに適用するフェイスです。
 
 @end defvr
 
