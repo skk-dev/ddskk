@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.36 2011/11/13 00:52:34 skk-cvs Exp $
+;; Version: $Id: skk-lookup.el,v 1.37 2011/12/04 12:44:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2011/11/13 00:52:34 $
+;; Last Modified: $Date: 2011/12/04 12:44:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -450,6 +450,7 @@ METHOD は変数`lookup-search-methods'を参照のこと."
 		 (nth skk-lookup-get-content-nth-dic
 		      (lookup-module-dictionaries module)))))))
 
+;;;###autoload
 (defun skk-lookup-get-content (word)
   (unless skk-lookup-get-content-default-dic
     (skk-lookup-get-content-setup-dic)
@@ -466,6 +467,8 @@ METHOD は変数`lookup-search-methods'を参照のこと."
 	    content (format "%s [%s]"
 			    content
 			    skk-lookup-get-content-default-dic-name)))
+    (when (equal content "")
+      (setq content nil))
     content))
 
 (provide 'skk-lookup)

@@ -1,3 +1,16 @@
+2011-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-lookup-lookup): New user option.
+	(skk-treat-candidate-sample2): If it is set to `always', call
+	`skk-lookup-get-content'.
+	* skk.el (skk-check-treat-candidate-appearance-function): Check
+	it.
+	* skk-annotation.el (skk-annotation-find-and-show): Call
+	`skk-lookup-get-content' if `skk-annotation-lookup-lookup' is
+	non-nil.
+	* skk-lookup.el (skk-lookup-get-content): If content is a null
+	string, then return nil.
+
 2011-12-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-tankan-radical-name-face): 新たな FACE.
@@ -46,7 +59,7 @@
 
 2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-version: Bump skk-version to 14.3.91.
+	* skk-version.el: Bump skk-version to 14.3.91.
 	* skk-vars.el (skk-annotation-show-wikipedia-url): Abolish
 	variable.
 	(skk-annotation-lookup-DictionaryServices): Accept `always'.

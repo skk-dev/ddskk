@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.407 2011/12/04 10:48:46 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.408 2011/12/04 12:44:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/04 10:48:46 $
+;; Last Modified: $Date: 2011/12/04 12:44:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2071,7 +2071,9 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
   (let* ((value (skk-treat-strip-note-from-word candidate))
 	 (cand (car value))
 	 (note (if listing-p
-		   (or (and (eq skk-annotation-lookup-DictionaryServices 'always)
+		   (or (and (eq skk-annotation-lookup-lookup 'always)
+			    (skk-lookup-get-content cand))
+		       (and (eq skk-annotation-lookup-DictionaryServices 'always)
 			    (skk-annotation-lookup-DictionaryServices cand t))
 		       (cdr value))
 		 (cdr value)))
@@ -2819,6 +2821,18 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
   :type '(radio (file)
 		(const nil))
   :group 'skk-annotation)
+
+(defcustom skk-annotation-lookup-lookup nil
+  "*Non-nil $B$G$"$l$P(B elisp `lookup' $B$+$iJQ498uJd$N0UL#$r<hF@$9$k!#(B
+
+$B8uJd0lMw$G$b$3$N5!G=$r;H$$$?$$>l9g$O(B `always' $B$K@_Dj$9$k$3$H$G<B8=$G$-$k!#(B
+$B$?$@$7$3$N@_Dj$O(B `skk-treat-candidate-appearance-function' $B$r>e=q$-$7$F$7(B
+$B$^$&$?$a!">e5i<T8~$1$G$O$J$$!#(B"
+  :type '(radio (const :tag "$BDL>o$NJQ49;~$K(B lookup $B$r;2>H$9$k(B" t)
+		(const :tag "$B>e5-$K2C$(8uJd0lMw$G$b;2>H$9$k(B" always)
+		(const :tag "$BMxMQ$7$J$$(B" nil))
+  :group 'skk-annotation
+  :group 'skk-lookup)
 
 (defcustom skk-annotation-lookup-dict nil
   "*Non-nil $B$G$"$l$P!"30It%W%m%0%i%`$rFI$s$GJQ498uJd$N0UL#$rI=<($9$k!#(B"

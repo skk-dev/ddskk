@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.605 2011/11/26 23:17:10 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.606 2011/12/04 12:44:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/26 23:17:10 $
+;; Last Modified: $Date: 2011/12/04 12:44:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2077,7 +2077,8 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
     (length workinglst)))
 
 (defun skk-check-treat-candidate-appearance-function ()
-  (when (eq skk-annotation-lookup-DictionaryServices 'always)
+  (when (or (eq skk-annotation-lookup-lookup 'always)
+	    (eq skk-annotation-lookup-DictionaryServices 'always))
     ;; Mac OS X の辞書サービスを候補一覧でも使う場合は、
     ;; `skk-treat-candidate-appearance-function' を調節する必要あり
     (setq skk-treat-candidate-appearance-function

@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.223 2011/11/30 21:02:43 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.224 2011/12/04 12:44:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/11/30 21:02:43 $
+;; Last Modified: $Date: 2011/12/04 12:44:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -282,24 +282,28 @@
     (when skk-annotation-first-candidate
       (setq skkannot-remaining-delay skk-annotation-delay
 	    skk-annotation-first-candidate nil))
-    (when (and word
-	       (or skk-annotation-lookup-DictionaryServices
+    (when (and (not skk-isearch-switch)
+	       (not (skk-in-minibuffer-p))
+	       word
+	       (or skk-annotation-lookup-lookup
+		   skk-annotation-lookup-DictionaryServices
 		   (and skk-annotation-lookup-dict
-			(skkannot-dict-exec-find)))
-	       (not skk-isearch-switch)
-	       (not (skk-in-minibuffer-p)))
+			(skkannot-dict-exec-find))))
       ;; Mac の「辞書」あるいは dict (外部プログラム) の設定があれば
       ;; SKK 辞書のアノテーションより優先させる
-      (cond
-       ((and (eq system-type 'darwin)
-	     skk-annotation-lookup-DictionaryServices)
+      (setq note nil)
+      (when skk-annotation-lookup-lookup
+	(setq note (skk-lookup-get-content word)))
+      (when (and (null note)
+		 (eq system-type 'darwin)
+		 skk-annotation-lookup-DictionaryServices)
 	(catch '辞書
-	  (unless (setq note (skk-annotation-lookup-DictionaryServices word))
-	    (setq note (cdr-safe pair)))))
-       (t
+	  (setq note (skk-annotation-lookup-DictionaryServices word))))
+      (when (and (null note)
+		 skk-annotation-lookup-dict
+		 (skkannot-dict-exec-find))
 	(catch 'dict
-	  (when (null (setq note (skk-annotation-lookup-dict word)))
-	    (setq note (cdr-safe pair)))
+	  (setq note (skk-annotation-lookup-dict word))
 	  ;; 余裕があれば次候補の意味を先読み
 	  (dotimes (i (min (length skk-henkan-list) 4))
 	    (add-to-list 'list (nth i skk-henkan-list) t))
@@ -307,7 +311,9 @@
 	    (dolist (el list)
 	      (setq el (car (skk-treat-strip-note-from-word el)))
 	      (unless (equal word el)
-		(skk-annotation-preread-dict el))))))))
+		(skk-annotation-preread-dict el))))))
+      (unless note
+	(setq note (cdr-safe pair))))
     (when (and word (not note))
       ;; Wikipedia などその他のリソースからのキャッシュがあれば
       ;; それを表示する。
@@ -331,7 +337,6 @@
 
 (defun skkannot-py-send-string (string)
   "Evaluate STRING in inferior Python process."
-  (interactive "sPython command: ")
   (require 'comint)
   (let ((proc (get-buffer-process skkannot-py-buffer)))
     (comint-send-string proc string)
@@ -344,7 +349,7 @@
       (comint-send-string proc "\n"))))
 
 (defun skkannot-py-send-command (command)
-  "Like `python-send-string' but resets `compilation-shell-minor-mode'."
+  "Like `skkannot-py-send-string' but resets `compilation-shell-minor-mode'."
   (when (or (eval-when-compile (and skk-running-gnu-emacs
 				    (= emacs-major-version 22)))
 	    (python-check-comint-prompt (get-buffer-process
