@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.406 2011/11/28 22:28:29 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.407 2011/12/04 10:48:46 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/28 22:28:29 $
+;; Last Modified: $Date: 2011/12/04 10:48:46 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5015,6 +5015,19 @@ ring.el を利用しており、具体的には、下記のような構造になっている。
     (((class grayscale))
      (:inherit default)))
   "*skk-tankan-mode の face 属性。"
+  :group 'skk-tankan
+  :group 'skk-visual)
+
+(defface skk-tankan-radical-name-face
+  '((((class color) (type tty))
+     (:inherit default))
+    (((class color) (background light))
+     (:inherit default))
+    (((class color) (background dark))
+     (:inherit default))
+    (((class grayscale))
+     (:inherit default)))
+  "*skk-tankan-bushu-compread() で使用する「部首の読み」の face 属性。"
   :group 'skk-tankan
   :group 'skk-visual)
 

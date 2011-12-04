@@ -1,6 +1,12 @@
 2011-12-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: Update.
+	* skk-vars.el (skk-tankan-radical-name-face): 新たな FACE.
+
+	* skk-tankan.el (skk-tankan-radical-name): 新たな配列.
+	(skk-tankan-bushu-compread): skk-tankan-radical-name と
+	skk-tankan-radical-name-face を使用.
+
+	* doc/skk.texi: 更新.
 
 2011-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
