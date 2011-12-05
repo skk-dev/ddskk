@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.410 2011/12/05 00:05:36 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.411 2011/12/05 01:01:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/05 00:05:36 $
+;; Last Modified: $Date: 2011/12/05 01:01:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2914,7 +2914,8 @@ Mac OS X では標準の「辞書」を利用できる。"
 
 (defvar skk-annotation-wikipedia-message nil
   "SKK Wikipedia 利用方法を示すメッセージ (自動設定)。")
-(defvar skk-annotation-wikimedia-srcs nil)
+
+(defvar skkannot-cached-srcs nil)
 
 (defvar skk-annotation-message nil
   "SKK Annotation 利用方法を示すメッセージ (自動設定)。")

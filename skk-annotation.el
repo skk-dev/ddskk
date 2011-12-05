@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.225 2011/12/05 00:05:36 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.226 2011/12/05 01:01:35 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/12/05 00:05:36 $
+;; Last Modified: $Date: 2011/12/05 01:01:35 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -338,22 +338,25 @@
     (when (and word (not note))
       ;; Wikipedia などその他のリソースからのキャッシュがあれば
       ;; それを表示する。
-      (unless skk-annotation-wikimedia-srcs
+      (unless skkannot-cached-srcs
 	(while srcs
-	  (unless (memq (car srcs) '(dict lookup.el))
-	    (add-to-list 'skk-annotation-wikimedia-srcs (car srcs) t))
+	  (unless (memq (car srcs) '(lookup.el))
+	    (add-to-list 'skkannot-cached-srcs (car srcs) t))
 	  (setq srcs (cdr srcs))))
-      (setq note (car (skkannot-cache word skk-annotation-wikimedia-srcs))))
+      (setq note (car (skkannot-cache word skkannot-cached-srcs))))
     ;;
     (setq skkannot-buffer-origin (current-buffer))
     (cond
      ((or (<= skkannot-remaining-delay 0)
 	  (skkannot-sit-for skkannot-remaining-delay))
       (setq skkannot-remaining-delay 0)
-      (skk-annotation-show (or note "") word))
+      (skk-annotation-show (or note "") word
+			   (unless skk-annotation-lookup-lookup
+			     skkannot-cached-srcs)))
      (t
       (setq skkannot-remaining-delay skk-annotation-delay)
-      (skk-annotation-show "" word)))))
+      (skk-annotation-show "" word (unless skk-annotation-lookup-lookup
+				     skkannot-cached-srcs))))))
 
 ;;;###autoload
 (defun skk-annotation-show (annotation &optional word sources)
