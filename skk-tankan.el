@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.53 2011/12/04 10:48:45 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.54 2011/12/05 12:21:11 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/12/04 10:48:45 $
+;; Last Modified: $Date: 2011/12/05 12:21:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1855,7 +1855,7 @@ METHOD が 2 であれば総画数として検索を実行する。
 			alist))
       (setq i (1+ i)))
 
-    (setq i (string-to-number (completing-read "部首を番号で選択(（TABで一覧表示）: "
+    (setq i (string-to-number (completing-read "部首を番号で選択（TABで一覧表示）: "
 					       alist nil t)))
     (message "%s %s"
 	     (aref skk-tankan-radical-vector i)
@@ -1871,34 +1871,67 @@ METHOD が 2 であれば総画数として検索を実行する。
 	major-mode 'skk-tankan-mode)
   (use-local-map skk-tankan-mode-map))
 
+(defconst skk-tankan-name-radical-alist
+  (let ((i 1)
+	alist)
+    (mapc #'(lambda (radical)
+	      (mapc #'(lambda (yomi)
+			(setq alist
+			      (cons (cons (format "%-16s (%03d) %s" yomi i radical)
+					  nil)
+				    alist)))
+		    (split-string (aref skk-tankan-radical-name i) "、"))
+	      (setq i (1+ i)))
+	  (cdr (append skk-tankan-radical-vector nil)))
+    alist))
+
+(defun skk-tankan-yomi-compread ()
+  (let ((radical (completing-read "部首を読みで選択（TABで一覧表示）: "
+				  skk-tankan-name-radical-alist nil t)))
+    (if (equal "" radical)
+	0
+      (save-match-data
+	(string-match "(\\(.+\\))" radical)
+	(string-to-number (substring radical (match-beginning 1) (match-end 1)))))))
+
 ;;;###autoload
 (defun skk-tankan (arg)
   "単漢字変換を開始する。
 \\[skk-tankan] で部首変換を、
 \\[universal-argument] 数値 \\[skk-tankan] で総画数変換を開始する。"
   (interactive "P")
-  (setq skk-tankan-mode-original-window-configuration
-	(current-window-configuration))
-  (let ((buf (get-buffer-create "*単漢字*"))
-	(list (skk-tankan-select-tankanji-kouho
-	       (cons nil (if (integerp arg)
-			     (skk-search-by-stroke-or-radical arg 2)
-			   (skk-search-by-stroke-or-radical
-			    (skk-tankan-bushu-compread) 0))))))
-    (set-buffer buf)
-    (setq buffer-read-only nil)
-    (erase-buffer)
-    (set-buffer-multibyte t)
-    (dolist (str list)
-      (insert (format " %s  %s\n"
-		      (propertize (substring str 0 1) 'face 'skk-tankan-face)
-		      (substring str 2)))))
-  (set-buffer-modified-p nil)
-  (setq buffer-read-only t)
-  (pop-to-buffer "*単漢字*")
-  (goto-char (point-min))
-  (skk-tankan-mode)
-  (skk-tankan-overlay))
+  (let (tankan)
+    (if (integerp arg)
+	(setq tankan (skk-search-by-stroke-or-radical arg 2))
+      (let ((i (skk-tankan-bushu-compread)))
+	(if (zerop i)
+	    (progn
+	      (setq i (skk-tankan-yomi-compread))
+	      (if (zerop i)
+		  (setq tankan nil)
+		(setq tankan (skk-search-by-stroke-or-radical i 0))))
+	  (setq tankan (skk-search-by-stroke-or-radical i 0)))))
+
+    (when tankan
+      (let ((buf (get-buffer-create "*単漢字*"))
+	    list)
+	(setq skk-tankan-mode-original-window-configuration
+	      (current-window-configuration))
+	(setq list (skk-tankan-select-tankanji-kouho (cons nil tankan)))
+	(set-buffer buf)
+	(setq buffer-read-only nil)
+	(erase-buffer)
+	(set-buffer-multibyte t)
+	(dolist (str list)
+	  (insert (format " %s  %s\n"
+			  (propertize (substring str 0 1) 'face 'skk-tankan-face)
+			  (substring str 2))))
+	(set-buffer-modified-p nil)
+	(setq buffer-read-only t)
+	(pop-to-buffer "*単漢字*")
+	(goto-char (point-min))
+	(skk-tankan-mode)
+	(skk-tankan-overlay)))))
 
 (defun skk-tankan-overlay ()
   (or skk-tankan-overlay

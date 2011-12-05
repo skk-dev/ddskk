@@ -1,3 +1,9 @@
+2011-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tankan.el (skk-tankan-name-radical-alist): 新たなリスト.
+	(skk-tankan-yomi-compread): 新たな関数.
+	(skk-tankan): 部首の読みに基づいて単漢字変換を実行.
+
 2011-12-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-annotation-other-sources): Add lookup.el.
