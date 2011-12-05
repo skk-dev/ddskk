@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.409 2011/12/04 21:58:46 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.410 2011/12/05 00:05:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/04 21:58:46 $
+;; Last Modified: $Date: 2011/12/05 00:05:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2866,9 +2866,10 @@ Max OS X 以外の環境では機能しない。
 
 (defcustom skk-annotation-other-sources
  (if (eq system-type 'darwin)
-     '(辞書 ja.wiktionary ja.wikipedia
-	    en.wiktionary simple.wikipedia en.wikipedia)
-   '(ja.wiktionary ja.wikipedia en.wiktionary simple.wikipedia en.wikipedia))
+     '(lookup.el 辞書 ja.wiktionary ja.wikipedia
+		 en.wiktionary simple.wikipedia en.wikipedia)
+   '(lookup.el ja.wiktionary ja.wikipedia
+	       en.wiktionary simple.wikipedia en.wikipedia))
   "*アノテーションに使う情報のソースを指定するオプション。
 標準では Wiktionary, Wikipedia (日本語版、英語版) を参照する。
 Mac OS X では標準の「辞書」を利用できる。"

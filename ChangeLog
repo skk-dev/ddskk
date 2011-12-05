@@ -1,3 +1,11 @@
+2011-12-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-other-sources): Add lookup.el.
+	* skk-annotation.el (skkannot-in-normal-buffer-p)
+	(skkannot-clear-msg, skkannot-check-lookup): New functions.
+	(skkannot-cache, skk-annotation-wikipedia): Call
+	`skk-lookup-get-content' if source is lookup.el.
+
 2011-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-annotation-lookup-lookup): New user option.
