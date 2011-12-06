@@ -109,7 +109,15 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 
 *** skk-annotation.el (注釈の作製と表示機能)
 
+*** skk-correct.el (変換前文字列のぶれを補正)
+
+*** skk-dbm.el (XEmacs で dbm データベース形式の辞書にアクセス)
+
 *** skk-dcomp.el (動的補完機能)
+
+*** skk-exsearch.el (CLOS 版検索プログラム)
+
+*** skk-exserv.el (CLOS 版サーバ通信プログラム)
 
 *** skk-develop.el (SKK 開発補助機能)
 
@@ -134,6 +142,8 @@ SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
 *** skk-version.el (SKK バージョン情報)
 
 *** skk-w3m.el (w3m を利用した web 検索エンジンによる検索)
+
+*** XEmacs サポート
 
 *** 以下のプログラムへの改変
 
@@ -193,7 +203,7 @@ skk-num.el, skk-isearch.el
 
 *** tooltip による候補一覧表示
 
-*** inline 候補一覧表示
+*** skk-inline.el (inline 候補一覧表示)
 
 *** 以下のプログラムへの改変
 
@@ -297,6 +307,8 @@ skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 
 *** skk-dinsert.el (動的入力)
 
+*** 個人辞書編集機能の拡張 (skk-edit-private-jisyo)
+
 *** 補完機能の拡張
 
 **** プログラム可能な補完 (skk-completion-prog-list)
@@ -333,6 +345,22 @@ skk-jisyo-edit-mode.el,
 
 ** elisp 著作・アイデア
 
+*** モード行インジケータ、アイコン、ポップアップメニュー表示機能
+
+*** NICOLA SKK (親指シフト入力) の DDSKK への移植
+
+*** ツールティップのマウス座標非依存化コード
+
+*** Wikipedia/Wiktionary アノテーション, OS X 辞書サービスアノテーション
+
+*** 各版の Emacs/XEmacs 対応コード
+
+*** GNU Emacs 標準 ja-dic 検索機能
+
+*** install-info.el (info/dir エントリを更新するプログラムの elisp 版)
+
+*** skk-cus.el (簡便なカスタマイズ機能)
+
 *** skk-jisx0201.el (半角カナ入力)
 
 *** skk-jisyo-edit-mode.el (辞書編集用メジャーモード)
@@ -358,8 +386,8 @@ skk-nicola.el
 
 *** 以下のプログラムへの改変
 
-**** skk.el, skk-vars.el, skk-macs.el, skk-comp.el, skk-kakasi.el, skk-num.el,
-skk-kcode.el, skk-isearch.el, skk-cursor.el, 
+**** skk.el, skk-vars.el, skk-macs.el, skk-comp.el, skk-kakasi.el,
+skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el, 
 
 
 * GUNJI Takao
@@ -424,9 +452,17 @@ skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 *** 単漢字の部首による検索
 
+*** lookup の対話インストーラの SKK への移植
+
+*** lookup からアノテーションを取得する skk-lookup-get-content
+
+*** skk-show-mode.el (モード切り替えの表示)
+
 *** 以下のプログラムへの改変
 
-**** skk-kcode.el, skk-macs.el, skk-obsolete.el, skk-tankan.el,
+**** context-skk.el, skk-annotation.el, skk-hint.el, skk-inline.el,
+skk-jisyo-edit-mode.el, skk-kakasi.el, skk-kcode.el, skk-lookup.el,
+skk-macs.el, skk-obsolete.el, skk-search-web.el, skk-tankan.el,
 skk-vars.el, skk.el
 
 ** skk.texi などドキュメント執筆・整備
@@ -452,11 +488,13 @@ skk-vars.el, skk.el
 
 *** skk-act.el (Dvorak 配列用拡張ローマ字入力 "ACT" 対応)
 
+*** skk-sticky.el (SKK のための sticky shift 実装)
+
 *** 確定アンドゥ機能と確定変換機能の改良と拡張
 
 *** skk-dcomp (動的補完) で複数の補完候補を表示する機能の実装
 
-*** 変換候補のインライン表示を改良、一般的な垂直型表示の実装
+*** skk-inline における変換候補の一般的な縦列表示の実装
 
 *** 以下のプログラムへの改変
 
@@ -478,6 +516,14 @@ skk-vars.el, skk-viper.el, skk.el
 *** cdb.el (Emacs の CDB サポート)
 
 *** skk-cdb.el (CDB 形式辞書サポート)
+
+
+* Kiyoto Hamano
+
+** elisp 著作・アイデア
+
+*** skk-search-web.el (Google など利用した変換)
+
 
 
 Local variables:
