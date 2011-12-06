@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.606 2011/12/04 12:44:31 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.607 2011/12/06 16:58:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/04 12:44:31 $
+;; Last Modified: $Date: 2011/12/06 16:58:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3243,17 +3243,18 @@ WORD で確定する。"
 (defun skk-backward-and-set-henkan-point-1 (type)
   "`skk-backward-and-set-henkan-point' のサブルーチン。
 TYPE (文字の種類) に応じた文字をスキップしてバッファの先頭方向へ戻る。"
-  (case type
-    (hiragana
-     ;; "を" の前で止まった方が便利？
-     (skip-chars-backward "ヽヾゝゞ〃ーんぁ-ゑ"))
-    (katakana
-     ;; "ヲ" の前で止まった方が便利？
-     (skip-chars-backward "ヽヾゝゞ〃ーンァ-ヱ"))
-    (jisx0208-latin
-     (skip-chars-backward "　-ｚ"))
-    (ascii
-     (skip-chars-backward " -~"))))
+  (skip-chars-backward
+   (case type
+     (hiragana
+      ;; "を" の前で止まった方が便利？
+      "ヽヾゝゞ〃ーんぁ-ゑ")
+     (katakana
+      ;; "ヲ" の前で止まった方が便利？
+      "ヽヾゝゞ〃ーンァ-ヱ")
+     (jisx0208-latin
+      "　-ｚ")
+     (ascii
+      " -~"))))
 
 (defun skk-what-char-type ()
   "現在のポイントにある文字の種類を判別する。

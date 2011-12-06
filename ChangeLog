@@ -2,6 +2,7 @@
 
 	* doc/skk.texi: Update.
 	* skk-lookup.el (skk-lookup-get-content): Simplify just slightly.
+	* skk.el (skk-backward-and-set-henkan-point-1): Ditto.
 
 2011-12-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
