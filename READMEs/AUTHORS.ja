@@ -482,6 +482,13 @@ skk-vars.el, skk.el
 *** SKK-JISYO.JIS3_4 の拡張・維持
 
 
+* Kentaro Fukuchi
+
+** SKK Tools の開発
+
+*** skkdic-expr2 (glib2 を用いた skkdic-expr の発展版)
+
+
 * IRIE Tetsuya
 
 ** elisp 著作・アイデア
