@@ -454,6 +454,9 @@
 		    :foreground "yellow"
 		    :height 150)
 
+(set-face-foreground 'skk-tankan-radical-name-face
+		     "gray40")
+
 ;; Microsoft Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
 ;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。
 ;;   kanagaki => かなキーボード入力用の設定になる。

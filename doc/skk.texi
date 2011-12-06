@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/12/06 11:08:24 $
+@set UPDATED $Date: 2011/12/06 11:58:40 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7910,12 +7910,18 @@ buffer (plural&#160;buffers)
 
 @defvr {ユーザ変数} skk-lookup-get-content-nth-dic
 
-@code{skk-lookup-get-content} がどのEPWING 辞書から単語の意味を取得するの
-かを数値で指定します。
+関数 @code{skk-lookup-get-content} が「どの EPWING 辞書から単語の意味を
+取得するのか」を数値で指定します。
 
 docstring に例示した S 式を評価してみてください。
 
 @end defvr
+
+@defvr {ユーザ変数} skk-annotation-lookup-lookup
+
+@code{Non-nil} 又は シンボル @code{'always}
+
+@end defvr                                    
 
 @node 文字コード関連
 @section 文字コード関連
@@ -7935,13 +7941,9 @@ docstring に例示した S 式を評価してみてください。
 @cindex JISコード
 @cindex EUCコード
 @kindex \
-かなモードで @kbd{\} キーを入力すると、
-ミニバッファに
+かなモードで @kbd{\} キーを入力すると、ミニバッファに
 @example
 @group
-@c ---------------------------- Minibuffer -----------------------------
-@c 7/8 bits or KUTEN code for ○○ (00nn or CR for Jump Menu): @point{}
-@c ---------------------------- Minibuffer -----------------------------
 ---------------------------- Minibuffer -----------------------------
 ○○の文字を指定します。7/8 ビット JIS コード (00nn), 区点コード (00-00),
 UNICODE (U+00nn), または [RET] (文字一覧): @point{}
