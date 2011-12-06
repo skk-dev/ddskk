@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/12/04 11:02:34 $
+@set UPDATED $Date: 2011/12/06 11:08:24 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3257,6 +3257,7 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$,0[$J$k(B face $B$GI
 * $B<-=q$N@_Dj(B::
 * $BAm2h?t$K$h$kC14A;zJQ49(B::
 * $BIt<s$K$h$kC14A;zJQ49(B::
+* $BIt<s$NFI$_$K$h$kC14A;zJQ49(B::
 @end menu
 
 $BC14A;zJQ49$r;H$&$K$O@_Dj$,I,MW$G$9$,!"@h$KNc$r8+$F$_$^$7$g$&!#(B
@@ -3488,7 +3489,8 @@ Possible completions are:
 ------ Completion List -------
 @end group
 
-0 1 8 @kbd{RET} @footnote{@kbd{M-v} $B$NBG80$G!"%+!<%=%k$r(B Completion List $B$X0\$9$3$H$b$G$-$^$9!#(B}
+0 1 8 @kbd{RET} @footnote{@kbd{M-v} $B$NBG80$G!"%+!<%=%k$r(B Completion List $B$X(B
+$B0\$9$3$H$b$G$-$^$9!#(B}
 
 @group
 ----- Buffer: *$B8uJd(B* -----
@@ -3507,7 +3509,8 @@ L:$BQe(B;6$B2h(B($BEaIt(B4$B2h(B)
 
 @defvr {$B%f!<%6JQ?t(B} skk-tankan-face
 
-@kbd{M-x skk-tankan} $B$r<B9T$7$?$H$-$KI=<($5$l$k!VC14A;z%P%C%U%!!W$G;HMQ$9$k%U%'%$%9$G$9!#(B
+@kbd{M-x skk-tankan} $B$r<B9T$7$?$H$-$KI=<($5$l$k!VC14A;z%P%C%U%!!W$G;HMQ(B
+$B$9$k%U%'%$%9$G$9!#(B
 
 @end defvr
 
@@ -3516,6 +3519,36 @@ L:$BQe(B;6$B2h(B($BEaIt(B4$B2h(B)
 $BIt<s$NFI$_$KE,MQ$9$k%U%'%$%9$G$9!#(B
 
 @end defvr
+
+@node $BIt<s$NFI$_$K$h$kC14A;zJQ49(B
+@subsubsection $BIt<s$NFI$_$K$h$kC14A;zJQ49(B
+
+$BD>A0$N>.!9@a!VIt<s$K$h$kC14A;zJQ49!W$K$F!"It<sHV9f$rF~NO$9$k%W%m%s%W%H$G(B
+$BC1$K(B @kbd{RET} $B$r%?%$%W$9$k$H!"It<s$NFI$_$rF~NO$9$k%W%m%s%W%H$KBX$o$j$^$9!#(B
+
+@example
+
+@group
+------ Minibuffer -------
+$BIt<s$rFI$_$GA*Br!J(BTAB$B$G0lMwI=<(!K(B: @point{}
+------ Minibuffer -------
+@end group
+
+@kbd{TAB}
+
+@group
+------ Completion List -------
+In this buffer, type RET to select the completion near point.
+
+Possible completions are:
+$B$"$$$/$A(B         (021) $BR8(B          $B$"$*(B             (174) $B@D(B
+$B$"$+(B             (155) $B@V(B          $B$"$/$S(B           (076) $B7g(B
+$B$"$5(B             (200) $BKc(B          $B$"$5$+$s$`$j(B     (200) $BKc(B
+ $B!'(B                                 $B!'(B
+------ Completion List -------
+@end group
+
+@end example
 
 @node $B8uJd$N9J$j9~$_(B
 @subsection $B8uJd$N9J$j9~$_(B

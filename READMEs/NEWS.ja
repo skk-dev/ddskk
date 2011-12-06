@@ -4,16 +4,17 @@
 
 $B$+$J%b!<%I!"%+%J%b!<%I!"A41Q%b!<%I!"%"%9%-!<%b!<%I$r@Z$jBX$($?$H$-$K(B
 $B%+!<%=%kIU6a$K(B skk-{hiragana,katakana,jisx0208-latin,latin}-mode-string
-$B$rI=<($9$k$3$H$,$G$-$^$9!#(B~/.skk $B$K$F(B (require 'skk-show-mode) $B$H@_Dj$7(B
-$B$F$/$@$5$$!#(B
+$B$rI=<($9$k$3$H$,$G$-$^$9!#(B
+~/.skk $B$K$F(B (require 'skk-show-mode) $B$H@_Dj$7$F$/$@$5$$!#(B
 
 *** skk-show-mode-style
 
-$B%7%s%\%k(B 'inline $B$^$?$O(B $B%7%s%\%k(B 'tooltip
+$B%+!<%=%kIU6a$X$NI=<(J}K!$r!"%7%s%\%k(B 'inline $B$^$?$O(B $B%7%s%\%k(B 'tooltip
+$B$GA*Br$7$^$9!#I8=`$O(B 'inline $B$G$9!#(B
 
 ** Mac OS X $A$G(B DictionaryServices $A$+$i$N%"%N%F$B!<$A%7%g%sH!5C(B
 
-Mac $A$N4G$(GUs$A%"%W%j(B (Dictionary.app) $A$G$O$(Gm:dm$A$G9z$(Gk#$A4G5d$J$I@{SC$G$-$^$9!#(B
+Mac OS X $A$N4G$(GUs$A%"%W%j(B (Dictionary.app) $A$G$O$(Gm:dm$A$G9z$(Gk#$A4G5d$J$I@{SC$G$-$^$9!#(B
 $A$3$N$&$A$(Gs@$AOH$(Gb{$AN;$N8_$$4G$(GUs$A$+$i%"%N%F$B!<$A%7%g%s$rH!5C$9$k$(Gq"$AD\$,@{SC$G$-$^(B
 $A$9!#$(G\"$AW4$G$O4G$(GUs$A$N$(I<D$AKw$(Gb{$A$O(B Dictionary.app $A$N$(Gt?$A>3$(G]C$A6($G$(G]C$A6($9$k1XR*$,$"(B
 $A$j$^$9!#(B
@@ -93,9 +94,17 @@ EPWING $B<-=q$+$i%"%N%F!<%7%g%s$r<hF@$7$^$9!#(B
   yuu <sleepboy.zzz@gmail.com> $B$5$s$H!"(B
   Teika Kazura <teika@lavabit.com> $B$5$s$+$i$NDs0F$G$7$?(B [skk 7485]$B!#(B
 
-** skk-tankan.el
+** $BC14A;zJQ49(B
 
-M-x skk-tankan $B<B9T;~$K(B window-configuration $B$rJ]B8$9$k$h$&BP=h$7$?!#(B
+*** window $B$N>uBV$rJ]B8(B
+
+M-x skk-tankan $B<B9T;~$K(B window-configuration $B$rJ]B8$9$k$h$&BP=h$7$^$7$?!#(B
+skk-tankan $B$rH4$1$?(B($B=*N;$7$?(B)$B:]$K$O!"85$N(B window $B>uBV$KLa$j$^$9!#(B
+
+*** $BIt<s$rFI$_$GA*Br(B
+
+DDSKK 14.1 $B$GF3F~$7$?It<sJQ49(B($BIt<s$rHV9f$GA*Br(B)$B$r!"It<s$rFI$_$G$bA*Br(B
+$B$G$-$k$h$&3HD%$7$^$7$?!#(B
 
 ** skk-search-web.el
 
