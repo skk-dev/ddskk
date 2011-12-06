@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/12/06 12:24:11 $
+@set UPDATED $Date: 2011/12/06 16:41:29 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7502,11 +7502,11 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 * $B%"%N%F!<%7%g%s$N4pAC(B::     $BM=HwCN<1(B
 * $B%"%N%F!<%7%g%s$N;HMQ(B:: 
 * $B%"%N%F!<%7%g%s$NEPO?(B::
+* $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B::
 * Mac OS X $B!V<-=q!W%5!<%S%9$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B::
 * Wikipedia/Wiktionary $B$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B::
 * $B30It%3%^%s%I$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B::
 * $B3F<o%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B::
-* $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B::
 @end menu
 
 @node $B%"%N%F!<%7%g%s$N4pAC(B
@@ -7515,7 +7515,7 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 $B$3$N@a$G$O!"<-=q$NCf$G$N%"%N%F!<%7%g%s$N<h$j07$$$r@bL@$7$^$9!#(B
 
 $B%"%N%F!<%7%g%s$O!"%f!<%6$,EPO?$7$?$b$N$H!"6&M-<-=q$K85!9EPO?$5$l$F$$$k(B
-$B$b$N$N#2$D$KBgJL$5$l$^$9!#(B
+$B$b$N!"$=$l0J30$N>pJs8;$+$i<hF@$5$l$k$b$N$N(B 3 $B$D$KBgJL$5$l$^$9!#(B
 
 $B%f!<%6$,IU$1$?%"%N%F!<%7%g%s$r!V%f!<%6%"%N%F!<%7%g%s!W(B
 $B$H8F$S$^$9!#%f!<%6%"%N%F!<%7%g%s$O!"<!$N7A<0$G8D?M<-=q$KEPO?$5$l$^$9!#(B
@@ -7537,6 +7537,11 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 @end example
 
 $B%7%9%F%`%"%N%F!<%7%g%s$O!"(BL $B<-=qEy$K:NMQ$5$l$F$$$^$9!#(B
+
+$B>e5-$N$$$:$l$G$b$J$/!"30It$N<-E5$=$NB>$N>pJs8;$+$iF@$i$l$k$b$N$r30It%"%N(B
+$B%F!<%7%g%s$H$$$$$^$9!#30It%"%N%F!<%7%g%s$O(B Emacs Lisp $B%Q%C%1!<%8$G$"$k(B
+lookup.el$B!"(B Mac OS X $BIUB0$N<-=q!"(BWiktionary/Wikipedia $B$J$I$+$i<hF@2DG=$G(B
+$B$9!#(B
 
 @node $B%"%N%F!<%7%g%s$N;HMQ(B
 @subsection $B%"%N%F!<%7%g%s$N;HMQ(B
@@ -7677,6 +7682,91 @@ L:$B0](B;
 
 @end defun
 
+@node $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B
+@subsection $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B
+
+@file{skk-lookup.el} $B$K4^$^$l$k4X?t(B @code{skk-lookup-get-content} $B$r3hMQ(B
+$B$9$k$3$H$K$h$j!"(BEPWING $B<-=q$+$iF@$?FbMF$r%"%N%F!<%7%g%sI=<($9$k$3$H$,2DG=(B
+$B$G$9!#(B
+
+$B<-=q8!:w%D!<%k$N(B Lookup (@url{http://openlab.jp/edict/lookup/}) $B$,@5>o$K(B
+$B%$%s%9%H!<%k$5$l$F$$$k$3$H$,A0Ds$G$9!#(BLookup $B$r?75,$K%$%s%9%H!<%k$7$?>l(B
+$B9g$O!"(BSKK $B$r%$%s%9%H!<%k$7D>$9I,MW$,$"$j$^$9!#(B
+
+@noindent
+$B$3$N5!G=$rMxMQ$9$k$K$O(B 2 $BDL$j$N$d$jJ}$,$"$j$^$9!#(B
+
+@noindent
+1. @code{skk-treat-candidate-appearance-function} $B$r@_Dj$9$kJ}K!(B
+
+$B8uJd$NI=<($rAu>~$9$k4X?t$r;XDj$9$kJQ?t(B
+@code{skk-treat-candidate-appearance-function} $B$r@_Dj$9$k>l9g$O(B
+@file{etc/dot/skk} $B$K<($5$l$F$$$k@_DjNc$r0J2<$N$h$&$KJQ99$7$F$_$F$/$@$5(B
+$B$$!#(B
+
+@lisp
+@group
++ (require 'skk-lookup)
+  (setq skk-treat-candidate-appearance-function
+        #'(lambda (candidate listing-p)
+            (let* ((value (skk-treat-strip-note-from-word candidate))
+                   (cand (car value))     ;$B8uJd(B
+-                  (note (cdr value))     ;$BCm<a(B
++                  (note (skk-lookup-get-content cand listing-p))
+                   (sep (if note          ;$B%;%Q%l!<%?(B
+                   :
+@end group
+@end lisp
+
+@defun skk-lookup-get-content $BC18l(B
+
+$BC18l$N0UL#$r(B EPWING $B<-=q$+$i<hF@$7$^$9!#(B
+
+@end defun
+
+@defvr {$B%f!<%6JQ?t(B} skk-lookup-get-content-nth-dic
+
+$B4X?t(B @code{skk-lookup-get-content} $B$,!V$I$N(B EPWING $B<-=q$+$iC18l$N0UL#$r(B
+$B<hF@$9$k$N$+!W$r!"%<%m$r5/E@$H$7$??tCM$G;XDj$7$^$9!#(B
+
+docstring $B$KNc<($7$?(B S $B<0$rI>2A$7$F$_$F$/$@$5$$!#(B
+
+@end defvr
+
+@noindent
+@kbd{M-x skk-lookup-get-content-setup-dic}
+@kindex M-x skk-lookup-get-content-setup-dic
+
+
+@b{DDSKK $B$N5/F08e$KJQ?t(B @code{skk-lookup-get-content-nth-dic} $B$N?tCM$rJQ(B
+$B99$7$?>l9g$O!"$3$N%3%^%s%I$rI,$:<B9T$7$F$/$@$5$$!#(B}
+
+@noindent
+2. @code{skk-anotation-lookup-lookup} $B$r@_Dj$9$kJ}K!(B
+
+$B<!$KJQ?t(B @code{skk-annotation-lookup-lookup} $B$K$D$$$F@bL@$7$^$9!#$3$NJQ(B
+$B?t$O(B EPWING $B7PM3%"%N%F!<%7%g%s$N@_Dj$r4JC1$K$7$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-annotation-lookup-lookup
+
+@code{Non-nil} $B$J$i$P(B lookup.el $B$rMxMQ$7$F%"%N%F!<%7%g%s$r<hF@$9$k!#(B
+
+@lisp
+(setq skk-annotation-lookup-lookup t)
+@end lisp
+
+$B$3$NCM$r(B @code{always} $B$K@_Dj$9$k$H8uJd0lMw$G$b<-=q%5!<%S%9$r0z$/!#(B
+@footnote{$B$3$N@_Dj$OJQ?t(B @code{skk-treat-candidate-appearance-function} 
+$B$NCM$r>e=q$-$7$^$9!#(B@code{skk-treat-candidate-appearance-function} $B$r(B
+$B<+J,$G@_Dj$9$k>l9g$O(B @code{skk-annotation-lookup-lookup} $B$K$O(B @code{t}
+$B$^$?$O(B @code{nil} $B$rI,MW$K1~$8$F@_Dj$7$^$9!#(B}
+
+@lisp
+(setq skk-annotation-lookup-lookup 'always)
+@end lisp
+
+@end defvr                                    
+
 @node Mac OS X $B!V<-=q!W%5!<%S%9$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B
 @subsection Mac OS X $B!V<-=q!W%5!<%S%9$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B
 
@@ -7696,7 +7786,8 @@ readline $B$H(B pyobject-framework-DictionaryServices $B$,I,MW$G$9!#8e<T$K$D$
 
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-lookup-DictionaryServices
 
-Non-nil $B$J$i$P(B OS X $B$N<-=q%5!<%S%9$rMxMQ$7$F%"%N%F!<%7%g%s$r<hF@$9$k!#(B
+@code{Non-nil} $B$J$i$P(B OS X $B$N<-=q%5!<%S%9$rMxMQ$7$F%"%N%F!<%7%g%s$r<hF@(B
+$B$9$k!#(B
 
 @lisp
 (setq skk-annotation-lookup-DictionaryServices t)
@@ -7706,7 +7797,7 @@ Non-nil $B$J$i$P(B OS X $B$N<-=q%5!<%S%9$rMxMQ$7$F%"%N%F!<%7%g%s$r<hF@$9$k!#
 @footnote{$B$3$N@_Dj$OJQ?t(B @code{skk-treat-candidate-appearance-function} 
 $B$NCM$r>e=q$-$7$^$9!#(B@code{skk-treat-candidate-appearance-function} $B$r(B
 $B<+J,$G@_Dj$7$?$$>l9g$O(B @code{skk-annotation-lookup-DictionaryServices}
-$B$K$O(B @code{t} $B$r@_Dj$7$^$9!#(B}
+$B$K$O(B @code{t} $B$^$?$O(B @code{nil} $B$rI,MW$K1~$8$F@_Dj$7$^$9!#(B}
 
 @lisp
 (setq skk-annotation-lookup-DictionaryServices 'always)
@@ -7734,7 +7825,9 @@ OS X $B$N!V<-=q!W%"%W%j(B (Dictionary.app) $B$r5/F0$7!"4D6-@_Dj$+$i<-=q$N8!:w
 $B8uJd$K%"%N%F!<%7%g%s$NEPO?$,$J$$>l9g!"%"%N%F!<%7%g%s$KBe$($F(B
 @uref{http://ja.wiktionay.org/, Wiktionary},
 @uref{http://ja.wikipedia.org/, Wikipedia} 
-$B$K$h$k2r@b$rI=<($9$k$3$H$,$G$-$^$9!#(B
+$B$K$h$k2r@b$rI=<($9$k$3$H$,$G$-$^$9!#B>$N%"%N%F!<%7%g%s$,JQ49;~$K<+F0E*$K(B
+$BI=<($5$l$k$N$KBP$7!"(B Wikipedia/Wiktionary $B%"%N%F!<%7%g%s$O4pK\E*$K%f!<%6(B
+$B$N;X<($K$h$C$F<hF@$5$l$kE@$G0[$J$j$^$9!#(B
 
 $B"'%b!<%I$G8uJd$rI=<($7$F$$$k$H$-$K(B @key{C-i} $B$r2!$9$H!"(B
 @code{skk-annotation-other-sources} $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7$F(B
@@ -7810,18 +7903,17 @@ Non-nil $B$J$i$P!"(B@code{skk-annotation-dict-program} $B$K;XDj$5$l$?30It%3%^
 @node $B3F<o%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B
 @subsection $B3F<o%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B
 
-$BA0=R$7$?(B Mac OS X$B!V<-=q!W%"%N%F!<%7%g%s5!G=$H(B Wikipedia/Wiktionary $B%"%N(B
-$B%F!<%7%g%s5!G=$O!"(BSKK $B$NJQ49%b!<%I$@$1$G$J$/!"(BEmacs $B$N$"$i$f$k>u67$G<-=q(B
-$B0z$-5!G=$H$7$F;H$&$3$H$,$G$-$^$9!#$=$N$?$a$K$O!"%3%^%s%I(B
-@code{skk-annotation-lookup-region-or-at-point} $B$rG$0U$N%-!<$K3d$jEv$F(B
-$B$^$9!#(B
+$BA0=R$7$?3F<o30It%"%N%F!<%7%g%s(B (lookup.el + EPWING $B<-=q!"(B Mac OS X $B<-=q!"(B
+Wikipedia/Wiktionary) $B$O!"(BSKK $B$NJQ49%b!<%I$@$1$G$J$/(B Emacs $B$N$"$i$f$k>u(B
+$B67$G<-=q0z$-5!G=$H$7$F;H$&$3$H$,$G$-$^$9!#$=$N$?$a$K$O!"%3%^%s%I(B
+@code{skk-annotation-lookup-region-or-at-point} $B$rG$0U$K%-!<Dj5A$7$^$9!#(B
 
 @defun {$B%3%^%s%I(B} skk-annotation-lookup-region-or-at-point &optional PREFIX-ARG START END
 
 $B$3$N%3%^%s%I$O!"NN0h$,;XDj$5$l$F$$$l$P$=$NNN0h$NJ8;zNs$r%-!<%o!<%I$H$7$F(B
-Wikipedia $B%"%N%F!<%7%g%s$rC5$7!"I=<($7$^$9!#NN0h$,;XDj$5$l$F$$$J$1$l$P!"(B
-$B2DG=$JHO0O$G$=$N0LCV$K$"$kC18l(B ($B;OE@$H=*E@(B) $B$r?dB,$7!"<-=q(B, Wiktionary,
-Wikipedia $B$r;2>H$7$^$9!#(B
+Lookup.el, OS X $B<-=q%5!<%S%9!"$^$?$O(B Wikipedia/Wiktionary $B%"%N%F!<%7%g%s(B
+$B$rC5$7!"I=<($7$^$9!#NN0h$,;XDj$5$l$F$$$J$1$l$P!"2DG=$JHO0O$G$=$N0LCV$K$"(B
+$B$kC18l(B ($B;OE@$H=*E@(B) $B$r?dB,$7$^$9!#(B
 @end defun
 
 $B0lNc$H$7$F!"0J2<$N%-!<3dEv$r>R2p$7$^$9!#(B
@@ -7840,7 +7932,9 @@ Wikipedia $B$r;2>H$7$^$9!#(B
 $BNc$($P!"1QJ8$rFI$s$G$$$F(B buffer $B$H$$$&8l$N@53N$J0UL#$r;2>H$7$?$/$J$C$?$H(B
 $B$7$^$9!#$=$N$H$-$O(B $BC18l(B buffer $B$K%]%$%s%H$r9g$o$;!"(B@kbd{M-3 M-i} 
 (Max OS X $B$G$O(B @kbd{M-4 M-i}) $B$H%W%l%U%#%C%/%9IU$G%3%^%s%I$r<B9T$7$F$_$F(B
-$B$/$@$5$$!#(B
+$B$/$@$5$$!#(B@footnote{@code{skk-annotation-other-sources}$B$NI8=`$NCM$O4D6-(B
+$B$K$h$C$F0[$J$j$^$9!#(Blookup.el $B$H(B skk-lookup.el $B$N@_Dj$,M-8z$K$J$C$F$$$k(B
+$B>l9g$O(B @code{en.wiktionary} $B$O(B 4 $BHVL\(B (Mac OS X $B$G$O(B 5 $BHVL\(B) $B$K$J$j$^$9!#(B}
 
 @example
 @group
@@ -7871,64 +7965,6 @@ buffer (plural&#160;buffers)
 -------------------- Echo Area --------------------
 @end group
 @end example
-
-
-@node $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B
-@subsection $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B
-
-@file{skk-lookup.el} $B$K4^$^$l$k4X?t(B @code{skk-lookup-get-content} $B$r3hMQ(B
-$B$9$k$3$H$K$h$j!"(BEPWING $B<-=q$+$iF@$?FbMF$r%"%N%F!<%7%g%sI=<($9$k$3$H$,2DG=(B
-$B$G$9!#(B
-
-$B<-=q8!:w%D!<%k$N(B Lookup (@url{http://openlab.jp/edict/lookup/}) $B$,@5>o$K(B
-$B%$%s%9%H!<%k$5$l$F$$$k$3$H$,A0Ds$G$9!#(B
-
-$B8uJd$NI=<($rAu>~$9$k4X?t$r;XDj$9$k(B
-$BJQ?t(B @code{skk-treat-candidate-appearance-function} $B$r@_Dj$7$^$9!#(B
-
-@file{etc/dot/skk} $B$rNc$H$7$^$9!#(B
-
-@lisp
-@group
-+ (require 'skk-lookup)
-  (setq skk-treat-candidate-appearance-function
-        #'(lambda (candidate listing-p)
-            (let* ((value (skk-treat-strip-note-from-word candidate))
-                   (cand (car value))     ;$B8uJd(B
--                  (note (cdr value))     ;$BCm<a(B
-+                  (note (skk-lookup-get-content cand))
-                   (sep (if note          ;$B%;%Q%l!<%?(B
-                   :
-@end group
-@end lisp
-
-@defun skk-lookup-get-content $BC18l(B
-
-$BC18l$N0UL#$r(B EPWING $B<-=q$+$i<hF@$7$^$9!#(B
-
-@end defun
-
-@defvr {$B%f!<%6JQ?t(B} skk-lookup-get-content-nth-dic
-
-$B4X?t(B @code{skk-lookup-get-content} $B$,!V$I$N(B EPWING $B<-=q$+$iC18l$N0UL#$r(B
-$B<hF@$9$k$N$+!W$r!"%<%m$r5/E@$H$7$??tCM$G;XDj$7$^$9!#(B
-
-docstring $B$KNc<($7$?(B S $B<0$rI>2A$7$F$_$F$/$@$5$$!#(B
-
-@end defvr
-
-@noindent
-@kbd{M-x skk-lookup-get-content-setup-dic}
-@kindex M-x skk-lookup-get-content-setup-dic
-
-@b{DDSKK $B$N5/F08e$KJQ?t(B @code{skk-lookup-get-content-nth-dic} $B$N?tCM$rJQ(B
-$B99$7$?>l9g$O!"$3$N%3%^%s%I$rI,$:<B9T$7$F$/$@$5$$!#(B}
-
-@defvr {$B%f!<%6JQ?t(B} skk-annotation-lookup-lookup
-
-@code{Non-nil} $BKt$O(B $B%7%s%\%k(B @code{'always}
-
-@end defvr                                    
 
 @node $BJ8;z%3!<%I4XO"(B
 @section $BJ8;z%3!<%I4XO"(B
