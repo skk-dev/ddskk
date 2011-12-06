@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/12/06 11:58:40 $
+@set UPDATED $Date: 2011/12/06 12:24:11 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7911,11 +7911,18 @@ buffer (plural&#160;buffers)
 @defvr {ユーザ変数} skk-lookup-get-content-nth-dic
 
 関数 @code{skk-lookup-get-content} が「どの EPWING 辞書から単語の意味を
-取得するのか」を数値で指定します。
+取得するのか」を、ゼロを起点とした数値で指定します。
 
 docstring に例示した S 式を評価してみてください。
 
 @end defvr
+
+@noindent
+@kbd{M-x skk-lookup-get-content-setup-dic}
+@kindex M-x skk-lookup-get-content-setup-dic
+
+@b{DDSKK の起動後に変数 @code{skk-lookup-get-content-nth-dic} の数値を変
+更した場合は、このコマンドを必ず実行してください。}
 
 @defvr {ユーザ変数} skk-annotation-lookup-lookup
 

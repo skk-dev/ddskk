@@ -4,10 +4,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-lookup.el,v 1.38 2011/12/04 21:58:46 skk-cvs Exp $
+;; Version: $Id: skk-lookup.el,v 1.39 2011/12/06 12:24:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Sep. 23, 1999
-;; Last Modified: $Date: 2011/12/04 21:58:46 $
+;; Last Modified: $Date: 2011/12/06 12:24:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -442,19 +442,20 @@ METHOD は変数`lookup-search-methods'を参照のこと."
 ;;
 ;; 
 (defun skk-lookup-get-content-setup-dic ()
+  (interactive)
   (let ((module (skk-lookup-default-module)))
     (lookup-module-setup module)
     (setq skk-lookup-get-content-default-dic-name
 	  (lookup-dictionary-name
 	   (setq skk-lookup-get-content-default-dic
 		 (nth skk-lookup-get-content-nth-dic
-		      (lookup-module-dictionaries module)))))))
+		      (lookup-module-dictionaries module))))))
+  (message "skk-lookup-get-content: %s" skk-lookup-get-content-default-dic-name))
 
 ;;;###autoload
 (defun skk-lookup-get-content (word &optional listing-p)
   (unless skk-lookup-get-content-default-dic
-    (skk-lookup-get-content-setup-dic)
-    (message "skk-lookup-get-content: %s" skk-lookup-get-content-default-dic-name))
+    (skk-lookup-get-content-setup-dic))
   (let* ((query (lookup-vse-search-query skk-lookup-get-content-default-dic
 					(lookup-make-query 'exact word)))
 	 (content (if query

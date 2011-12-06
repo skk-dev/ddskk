@@ -1,5 +1,8 @@
 2011-12-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-lookup.el (skk-lookup-get-content): Remove message().
+	(skk-lookup-get-content-setup-dic): Add message() and interactive().
+
 	* doc/skk.texi: 更新.
 
 2011-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
