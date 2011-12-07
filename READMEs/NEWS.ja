@@ -74,6 +74,7 @@ EPWING 辞書からアノテーションを取得します。
 
 *** skk-lookup-get-content()
 *** skk-lookup-get-content-nth-dic
+*** skk-annotation-lookup-lookup
 
 ** $ タイプ時の挙動
 

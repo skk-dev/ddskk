@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/12/06 16:41:29 $
+@set UPDATED $Date: 2011/12/07 13:45:43 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2416,6 +2416,7 @@ SKK $B$N@_Dj$O!"(BEmacs $BI8=`$N(B Customize $B5!G=$r;H$C$F9T$&$3$H$b$G$-$^
 @file{~/.skk} $B$K$h$k@_Dj$G>e=q$-$5$l$F$7$^$$$^$9$N$GCm0U$7$F$/$@$5$$!#(B
 
 @kindex M-x customize-group
+@kindex M-x skk-emacs-customize
 
 @kbd{M-x customize-group} $B$r<B9T$9$k$H(B skk $B$N@_Dj$rBPOCE*$KJQ99$9$k$3$H$,$G$-$^$9!#%_%K%P%C%U%!$K(B ``Customize group:'' $B$H%W%m%s%W%H$,I=<($5$l$^$9!#(B
 
@@ -2428,6 +2429,8 @@ Customize group: (default emacs) @point{}
 @end example
 
 $B$3$3$G(B ``skk'' $B$HEz$($k$H!"(BSKK $B%0%k!<%W$N2hLL$XE83+$7$^$9!#(B
+
+@kbd{M-x skk-emacs-customize} $B$H<B9T$9$k$N$bF1MM$G$9!#(B
 
 $B$"$k$$$O!"%b!<%I%i%$%s$N(B SKK $B%$%s%8%1!<%?$r%^%&%9$N1&%\%?%s!JBh#3%\%?%s!K(B
 $B$G%/%j%C%/$9$k$HI=<($5$l$k%a%K%e!<$+$i(B ``SKK$B$r%+%9%?%^%$%:(B'' $B$rA*$s$G$bF1(B
@@ -2447,10 +2450,10 @@ skk $B$G@_Dj$G$-$kJQ?t$NCf$K$O!"$^$@$3$N%^%K%e%"%k$G2r@b$5$l$F$$$J$$$b$N$b(B
 
 @kindex M-x skk-customize
 
-Emacs $BI8=`$N(B Customize $B5!G=(B (@kbd{M-x customize-group}) $B$K$h$k@_Dj$,J#;((B
-$B$9$.$k$H46$8$k%f!<%6$N$?$a$K!"4J0WHG$H$7$F(B @kbd{M-x skk-customize} $B$rMQ0U(B
-$B$7$F$$$^$9!#$3$l$O(B SKK $B%0%k!<%W$N%f!<%6%*%W%7%g%s$N$&$A!"$h$/;H$&$b$N$@$1(B
-$BH4?h$7$F@_Dj$G$-$k$h$&$K$7$?$b$N$G$9!#(B
+$BA0=R$N!V(BEmacs $BI8=`$N(B Customize $B5!G=(B (@kbd{M-x customize-group}) $B!W$K$h$k(B
+$B@_Dj$,J#;($9$.$k$H46$8$k%f!<%6$N$?$a$K!"4J0WHG$H$7$F(B @kbd{M-x skk-customize} $B$r(B
+$BMQ0U$7$F$$$^$9!#$3$l$O(B SKK $B%0%k!<%W$N%f!<%6%*%W%7%g%s$N$&$A!"$h$/;H$&$b$N(B
+$B$@$1H4?h$7$F@_Dj$G$-$k$h$&$K$7$?$b$N$G$9!#(B
 
 $B$3$l$O!"%b!<%I%i%$%s$N(B SKK $B%$%s%8%1!<%?$r%^%&%9$N1&%\%?%s!JBh#3%\%?%s!K$G(B
 $B%/%j%C%/$7$FI=<($5$l$k%a%K%e!<$+$i(B ``SKK $B$r%+%9%?%^%$%:(B ($B4J0WHG(B)'' $B$rA*$s(B

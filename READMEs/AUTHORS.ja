@@ -463,7 +463,7 @@ skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el,
 **** context-skk.el, skk-annotation.el, skk-hint.el, skk-inline.el,
 skk-jisyo-edit-mode.el, skk-kakasi.el, skk-kcode.el, skk-lookup.el,
 skk-macs.el, skk-obsolete.el, skk-search-web.el, skk-tankan.el,
-skk-vars.el, skk.el
+skk-tut.el, skk-vars.el, skk.el
 
 ** skk.texi などドキュメント執筆・整備
 
