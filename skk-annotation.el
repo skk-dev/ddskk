@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.226 2011/12/05 01:01:35 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.227 2011/12/07 21:15:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/12/05 01:01:35 $
+;; Last Modified: $Date: 2011/12/07 21:15:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1395,7 +1395,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	    ;; ja.wiktionary は en.wiktionary と全く統一された書き方には
 	    ;; なっていないので、ul を除くと情報がほとんど残らない場合が
 	    ;; ある
-	    ;; (skkannot-wikipedia-remove-nested "<ul>" "</ul>")
+	    (skkannot-wikipedia-remove-nested "<ul>" "</ul>")
 	    (skkannot-wikipedia-remove-nested "<dl>" "</dl>")
 	    (skkannot-wikipedia-remove-nested "<table[^<]*>"
 						    "</table>")

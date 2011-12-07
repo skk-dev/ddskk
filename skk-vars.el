@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.412 2011/12/07 14:04:04 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.413 2011/12/07 21:15:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/07 14:04:04 $
+;; Last Modified: $Date: 2011/12/07 21:15:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2895,7 +2895,7 @@ Mac OS X では標準の「辞書」を利用できる。"
 
 (defcustom skk-annotation-wiktionary-preferred-lang-alist
   '(("en" "Translingual" "English" "Japanese")
-    ("ja" "日本語" "漢字" "英語"))
+    ("ja" "日本語" "漢字" "英語" "古典日本語"))
   "*Wiktionary の記述言語と、単語所属言語の優先順との連想リスト。"
   :type '(repeat (repeat string))
   :group 'skk-annotation)
@@ -3071,7 +3071,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 接続\\|前置\\|副\\|冠\\|関係\\|間投\\|助\\|数\\|分\\|類別\\|感動\\)\
 詞.*\
 \\|漢字混じり表記\\|意義\\|借用語\\|略語\\|コピュラ\\|接頭辞\\|接尾辞\
-\\|人称接辞\\|平仮名\\|片仮名\\|意義\\|漢字\\)\
+\\|人称接辞\\|平仮名\\|片仮名\\|意義\\|漢字\\|和語の漢字表記\\)\
 \\(</a>\\)?\
 </span>"
     "ja.wiktionary において品詞を表すヘッダの正規表現")

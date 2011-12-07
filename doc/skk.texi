@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.90
-@set UPDATED $Date: 2011/12/07 13:45:43 $
+@set UPDATED $Date: 2011/12/07 21:15:52 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7721,9 +7721,10 @@ L:維;
 @end group
 @end lisp
 
-@defun skk-lookup-get-content 単語
+@defun skk-lookup-get-content 単語 listing-p
 
-単語の意味を EPWING 辞書から取得します。
+単語の意味を EPWING 辞書から取得します。オプション引数 listing-p が
+non-nil なら候補一覧用に一行の短い文字列を返しますが、nil ならば全体を返します。
 
 @end defun
 

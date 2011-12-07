@@ -1,3 +1,13 @@
+2011-12-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Update.
+	* skk-annotation.el (skkannot-wikipedia-format-buffer): Remove uls
+	in ja.wiktionary.
+	* skk-vars.el (skk-annotation-wiktionary-preferred-lang-alist):
+	Add "古典日本語".
+	(skkannot-ja-wiktionary-part-of-speech-regexp): Add "和語の漢字表
+	記".
+
 2011-12-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-search-state, skk-search-ex-state): New internal
