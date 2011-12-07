@@ -1,5 +1,11 @@
 2011-12-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-search-state, skk-search-ex-state): New internal
+	variables.
+
+	* skk.el (skk-search, skk-search-extra-jisyo-files): Use it.
+	(skk-search-state): New command.
+
 	* doc/skk.texi: Update.
 
 2011-12-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>

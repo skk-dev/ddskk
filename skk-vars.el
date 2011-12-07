@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.411 2011/12/05 01:01:35 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.412 2011/12/07 14:04:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/05 01:01:35 $
+;; Last Modified: $Date: 2011/12/07 14:04:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2645,6 +2645,9 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
   "`skk-search-prog-list' $B$N8=:_$NCM$rJ]B8$9$k%j%9%H!#(B
 $B:G=i$NJQ49;~$O(B `skk-search-prog-list' $B$NA4$F$NCM$rJ];}$7!"JQ49$r7+$jJV$9$?$S$K(B
 1 $B$D$:$DC;$/$J$C$F$f$/!#(B")
+
+(defvar skk-search-state nil)
+(defvar skk-search-ex-state nil)
 
 ;; for skk-undo-kakutei
 (skk-deflocalvar skk-last-henkan-data nil

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.607 2011/12/06 16:58:55 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.608 2011/12/07 14:04:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/06 16:58:55 $
+;; Last Modified: $Date: 2011/12/07 14:04:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3880,7 +3880,21 @@ If you want to restore the dictionary from your drive, try
 		(let (skk-use-numeric-conversion)
 		  (eval prog))))
       (setq skk-current-search-prog-list (cdr skk-current-search-prog-list)))
+    (setq skk-search-state (list skk-henkan-key prog l))
     l))
+
+(defun skk-search-state ()
+  (interactive)
+  (with-output-to-temp-buffer "*skk search state*"
+    (with-current-buffer standard-output
+      (insert (format "skk-henkan-key: %s\n" (nth 0 skk-search-state))
+	      (format "skk-search-prog: %s\n" (nth 1 skk-search-state))
+	      (format "skk-search() result: %s\n\n" (nth 2 skk-search-state)))
+      (when (equal (nth 1 skk-search-state)
+		   '(skk-search-extra-jisyo-files))
+	(mapconcat #'(lambda (x)
+		       (insert (format "%s\n" x)))
+		       skk-search-ex-state "")))))
 
 (defun skk-numeric-program-p (program)
   "辞書検索プログラム PROGRAM が数値変換有効かどうか判定する。
@@ -3907,10 +3921,13 @@ FILE には辞書ファイルだけでなく、
 			limit))
 
 (defun skk-search-extra-jisyo-files ()
-  (let (candidates)
+  (setq skk-search-ex-state nil)
+  (let (candidates words)
     (dolist (file skk-extra-jisyo-file-list)
-      (setq candidates (nconc candidates
-			      (skk-search-jisyo-file file 10000))))
+      (setq words (skk-search-jisyo-file file 10000))
+      (when words
+	(add-to-list 'skk-search-ex-state (cons file words)))
+      (setq candidates (nconc candidates words)))
     candidates))
 
 (defun skk-search-server (file limit &optional nomsg)
