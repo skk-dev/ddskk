@@ -81,14 +81,20 @@
        :keys nil
        :key-sequence nil]
       "--"
+      ["Find kanji by radicals" skk-tankan t]
+      ["Show List of characters" (skk-list-chars nil) t]
+      ["Lookup word in region or at point"
+       skk-annotation-lookup-region-or-at-point t]
+      ["SKK Clock" (skk-clock nil t) t]
+      "--"
       ["Read Manual" skk-emacs-info t]
       ["Start Tutorial" skk-tutorial t]
       ["Customize SKK" skk-customize-group-skk t]
       ["Customize SKK (simple)" skk-customize t]
+      "--"
       ["Send a Bug Report"
        (let (skk-japanese-message-and-error)
 	 (skk-submit-bug-report)) t]
-      "--"
       ["About Daredevil SKK.." skk-version t]
       ["Visit Daredevil Web Site" skk-emacs-visit-openlab t])))
 
@@ -121,6 +127,10 @@
     ("Start Tutorial" . "チュートリアル")
     ("Customize SKK" . "SKK をカスタマイズ")
     ("Customize SKK (simple)" . "SKK をカスタマイズ (簡易版)")
+    ("Find kanji by radicals" . "漢字を部首から調べる")
+    ("Show List of characters" . "文字コード表")
+    ("SKK Clock" . "SKK 時計")
+    ("Lookup word in region or at point" . "領域またはポイントの単語を調べる")
     ("Send a Bug Report" . "バグを報告する")
     ("About Daredevil SKK.." . "Daredevil SKK について..")
     ("Visit Daredevil Web Site" . "Daredevil SKK のサイトへ")))

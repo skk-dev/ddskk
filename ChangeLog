@@ -7,6 +7,10 @@
 	Add "古典日本語".
 	(skkannot-ja-wiktionary-part-of-speech-regexp): Add "和語の漢字表
 	記".
+	* skk-emacs.el (skk-emacs-modeline-menu-items): Add new items for
+	skk-tankan, skk-list-chars,
+	skk-annotation-lookup-region-or-at-point, and skk-clock.
+	(skk-emacs-menu-resource-ja): Update.
 
 2011-12-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
