@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.227 2011/12/07 21:15:51 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.228 2011/12/08 20:35:41 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/12/07 21:15:51 $
+;; Last Modified: $Date: 2011/12/08 20:35:41 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -710,8 +710,9 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 	 (browse-command (key-binding skk-annotation-browse-key))
 	 (list (list copy-command browse-command))
-	 event key command urls note cache char digit)
-    (while (and list
+	 event key command urls note cache char digit exit)
+    (while (and (not exit)
+		list
 		(or (memq this-command
 			  '(skk-annotation-wikipedia-region-or-at-point
 			    skk-annotation-lookup-region-or-at-point))
@@ -761,7 +762,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 			   ((string= (cdr cache) "dict")
 			    (format "dict:///%s" word))
 			   ((string= (cdr cache) "lookup.el")
-			    nil)
+			    (list 'lookup-word word))
 			   (t
 			    (apply #'skkannot-generate-url
 				   "http://%s.org/wiki/%s"
@@ -778,16 +779,21 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	       (cond
 		(urls
 		 (dolist (url urls)
-		   (browse-url url))
-		 (skk-message "注釈のための URL をブラウズしています..."
-			      "Browsing URLs for the current notes..."))
+		   (cond ((consp url)
+			  (setq exit t)
+			  (apply (car url) (cdr url)))
+			 (t
+			  (browse-url url))))
+		 (skk-message "注釈のソースをブラウズしています..."
+			      "Browsing originals for the current notes..."))
 		(t
-		 (skk-message "注釈のための URL が見つかりません"
-			      "No URL found for the current notes")))
+		 (skk-message "注釈のソースが見つかりません"
+			      "No originals found for the current notes")))
 	       (setq event nil
 		     digit nil
 		     char  nil)
-	       (skk-annotation-show-2 annotation)))
+	       (unless exit
+		 (skk-annotation-show-2 annotation))))
 	    ((eq command 'digit-argument)
 	     (setq char  (cond ((featurep 'xemacs)
 				key)
@@ -873,7 +879,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	  (setq key-wiki "C-i"))
 	(setq list
 	      (split-string
-	       (format "[%s]コピー  [%s]URLブラウズ  [%s]デフォルトの情報源を参照"
+	       (format "[%s]コピー  [%s]ブラウズ  [%s]デフォルトのソースを参照"
 		       key-copy key-browse key-wiki) "  "))
 	(dolist (x list)
 	  (let* ((y (split-string x "]"))

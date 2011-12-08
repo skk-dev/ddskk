@@ -1,3 +1,8 @@
+2011-12-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skk-annotation-wait-for-input): Call
+	`lookup-word' if user try to browse the source for a lookup entry.
+
 2011-12-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 14.3.92.
