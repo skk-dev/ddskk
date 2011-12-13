@@ -82,7 +82,7 @@
        :key-sequence nil]
       "--"
       ["Find kanji by radicals" skk-tankan t]
-      ["Show List of characters" (skk-list-chars nil) t]
+      ["Show list of characters" (skk-list-chars nil) t]
       ["Lookup word in region or at point"
        skk-annotation-lookup-region-or-at-point t]
       ["SKK Clock" (skk-clock nil t) t]

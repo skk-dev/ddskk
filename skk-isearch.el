@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.70 2011/06/03 23:35:25 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.71 2011/12/13 00:16:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 23:35:25 $
+;; Last Modified: $Date: 2011/12/13 00:16:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -28,25 +28,15 @@
 
 ;;; Commentary:
 
-;; functions for hooks.
+;; Hook functions are defined in skk-setup.el.
 ;;
 ;; 1. always invoke skk isearch.
 ;;
-;; (add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
-;; (add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
+;; (setq skk-isearch-mode-enable 'always)
 ;;
 ;; 2. invoke only if skk-mode is on.
 ;;
-;; (add-hook 'isearch-mode-hook
-;;	  (lambda ()
-;;	    (if (and (boundp 'skk-mode)
-;;		     skk-mode)
-;;		(skk-isearch-mode-setup))))
-;;
-;; (add-hook 'isearch-mode-end-hook
-;;	  (lambda ()
-;;	    (if (featurep 'skk-isearch)
-;;		(skk-isearch-mode-cleanup))))
+;; (setq skk-isearch-mode-enable t)
 ;;
 ;; 3. invoke if current buffer has japanese characters.
 ;; ...
@@ -192,8 +182,8 @@ internal condition."
 	(t (error "Unknown skk-isearch-start-mode: %s" mode))))
 
 (defun skk-isearch-initial-mode ()
-  "Return the symbolic mode name of skk-isearch used to initialize working
-buffer."
+  "Return a symbol that represents a skk-isearch mode name.
+It is used to initialize the working buffer."
   (cond ((and skk-isearch-use-previous-mode skk-isearch-mode)
 	 ;; use the mode when last isearch is done.  note that the
 	 ;; `skk-isearch-mode' is numerical, so convert it to symbolic

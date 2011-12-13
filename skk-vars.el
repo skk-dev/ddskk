@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.413 2011/12/07 21:15:52 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.414 2011/12/13 00:16:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/07 21:15:52 $
+;; Last Modified: $Date: 2011/12/13 00:16:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -482,6 +482,9 @@ SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"
     (skk-search-katakana-maybe)
     (skk-search-sagyo-henkaku-maybe))
   "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
+
+$B$3$NJQ?t$NCM$r<jF0$GJQ99$9$k$H!"(BSKK $B$NF0:n$K1F6A$9$k2DG=@-$,$"$k$N$GCm0U$rMW$9$k!#(B
+
 $BJQ49$7$?8uJd$rJV$9(B S $B<0$r%j%9%H$N7A$KI=5-$7$?$b$N!#(B
 $B4X?t(B `skk-search' $B$,(B `skk-search-prog-list' $B$N(B car $B$+$i8eJ}8~$X=gHV$K(B S $B<0$N(B
 $BI>2A$r9T$&$3$H$K$h$C$F$+$J4A;zJQ49$r<B9T$9$k!#(B
@@ -3672,9 +3675,16 @@ nil $B$G$"$l$P!"859fI=<($9$k!#(B"
 ;;; skk-isearch.el related.
 (defcustom skk-isearch-mode-enable t
   "*Non-nil $B$G$"$l$P!"%$%s%/%j%a%s%?%k!&%5!<%A$G(B skk-isearch $B$rMxMQ$9$k!#(B
-migemo $B$rMxMQ$7$?$$>l9g$J$I$K$O(B nil $B$K@_Dj$9$k!#(B
-$BJ;MQ$9$k$N$G$"$l$P(B `skk-isearch-start-mode' $B$r(B `latin' $B$K$9$k$N$,NI$$!#(B"
-  :type 'boolean
+
+$BDL>o$O(B SKK $B%b!<%I$,(B ON $B$N%P%C%U%!$G$N$_(B skk-isearch $B$,M-8z$K$J$k$,!"$3(B
+$B$NCM$,(B `always' $B$G$"$l$P(B SKK $B%b!<%I$,(B OFF $B$N%P%C%U%!$G$bM-8z$K$J$k!#(B
+
+$B$3$NCM$,(B nil $B$J$i$P(B skk-isearch $B$OL58z$K$J$k!#(Bmigemo $B$rMxMQ$7$?$$>l9g(B
+$B$J$I$K$O(B nil $B$K@_Dj$9$k$+!"$b$7$/$OJ;MQ$9$k$N$G$"$l$P(B
+`skk-isearch-start-mode' $B$r(B `latin' $B$K$9$k$N$,NI$$!#(B"
+  :type '(radio (const :tag "SKK $B%b!<%I$,(B ON $B$N;~$@$1MxMQ$9$k(B" t)
+		(const :tag "$B>o$KMxMQ$9$k(B" always)
+		(const :tag "$BMxMQ$7$J$$(B" nil))
   :group 'skk-isearch)
 
 (defcustom skk-isearch-mode-string-alist

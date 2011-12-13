@@ -1,3 +1,14 @@
+2011-12-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Update.
+	* skk-annotation.el, skk-isearch.el: Update comments.
+	* skk-emacs.el (skk-emacs-modeline-menu-items): Typo.
+	* skk-setup.el.in (skk-isearch-setup-maybe)
+	(skk-isearch-cleanup-maybe): New functions.
+	(isearch-mode-hook, isearch-mode-end-hook): Call them.
+	* skk-vars.el (skk-isearch-mode-enable): Always enable skk-isearch
+	if value is `always'.
+
 2011-12-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-kcode.el (skk-list-chars): コードを整理.

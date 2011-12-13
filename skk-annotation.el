@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.228 2011/12/08 20:35:41 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.229 2011/12/13 00:16:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/12/08 20:35:41 $
+;; Last Modified: $Date: 2011/12/13 00:16:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -32,11 +32,6 @@
 ;; これは、SKK 個人辞書に付けたアノテーション (註釈) を活用するプログ
 ;; ラムです。
 ;;
-;; <INSTALL>
-;;
-;; SKK を普通に make して下さい。特に作業は不要です。
-;;
-;;
 ;; <HOW TO USE>
 ;;
 ;;   (setq skk-show-annotation t)
@@ -52,9 +47,8 @@
 ;; の選択を止める (次の候補を選択したり、quit したり) すると自動的に閉
 ;; じられます。
 ;;
-;; SKK では 5 番目の候補以降をエコーエリアを使って表示します。従って
-;; ５番目以降の候補については、skk-annotation-show-as-message が t でも
-;; ウィンドウを開いてアノテーションを表示します。
+;; SKK では 5 番目の候補以降は候補一覧 (リスト) として表示されるため、ア
+;; ノテーションは候補と一緒に纏めで表示されます。
 ;;
 ;; ある単語にアノテーションを付けたいときは、確定した直後に同じバッファ
 ;; で
@@ -133,7 +127,8 @@
 ;; (setq skk-annotation-lookup-DictionaryServices t)
 ;;
 ;; この機能は Carbon Emacs 22 または Cocoa Emacs 23 以降でテストされていま
-;; す。ただし Carbon Emacs 22 では
+;; す。ただし Carbon Emacs 22 では変換操作が速すぎる場合に辞書サービスから受け
+;; とった文字列のデコードに失敗することがあるようです。
 ;;
 ;; <Wikipedia アノテーション>
 ;;

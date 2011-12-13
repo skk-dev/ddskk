@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/08 12:34:36 $
+@set UPDATED $Date: 2011/12/13 00:16:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -714,37 +714,27 @@ DDSKK 14 $B0J9_$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0$N<-=q%U%!%$%k$rD>@\MxM
 @vindex isearch-mode-hook
 @vindex isearch-mode-end-hook
 
-$B<!$NFbMF$r(B @file{~/.emacs} $B$K=q$-$^$9!#(B
+$B4pK\E*$J@_Dj$O(B @file{skk-setup.el} $BFI$_9~$s$@;~E@$G40N;$7$F$$$^$9!#(B
+
+@defvr {$B%f!<%6JQ?t(B} skk-isearch-mode-enable
+
+@code{Non-nil} $B$J$i(B SKK $B$,(B ON $B$K$J$C$F$$$k%P%C%U%!$G(B skk-isearch $B$rM-8z(B
+$B$K$7$^$9!#%G%U%)%k%H$G$O(B t $B$K$J$C$F$$$^$9!#(B
+
+@code{nil} $B$K@_Dj$9$k$H(B skk-isearch $B$rL58z$K$9$k$3$H$,$G$-$^$9!#(B@footnote{$B$3$NJQ?t$N@_Dj$O(B @file{~/.emacs} $B$+(B @kbd{M-x customize-variable}
+$B$G9T$C$F$/$@$5$$!#(B}
 
 @lisp
-@group
-(add-hook 'isearch-mode-hook
-          (lambda ()
-              (when (and (boundp 'skk-mode)
-                         skk-mode
-                         skk-isearch-mode-enable)
-                (skk-isearch-mode-setup))))
-(add-hook 'isearch-mode-end-hook
-          (lambda ()
-              (when (and (featurep 'skk-isearch)
-                         skk-isearch-mode-enable)
-                (skk-isearch-mode-cleanup))))
-@end group
+(setq skk-isearch-mode-enable nil)
 @end lisp
 
-@noindent
-$B>e5-$N@_Dj$O!"(BDDSKK $B$,5/F0$7$F$$$k$H$-$K8B$C$F(B DDSKK $BIUB0$N%$%s%/%j%a%s%?(B
-$B%k!&%5!<%A$r;HMQ$9$k$b$N$G$9!#(BDDSKK $B$N5/>o$K4X$o$i$:>o$K(B DDSKK $BIUB0$N%$%s(B
-$B%/%j%a%s%?%k!&%5!<%A$r;HMQ$7$?$$$H$-$O!">e5-(B
-$B$N(B @code{isearch-mode-hook}$B!"(B @code{isearch-mode-end-hook} $B$N@_Dj$r2<5-$N(B
-$B@_Dj$KJQ99$7$^$9!#(B
+$B$3$NCM$r(B @code{always} $B$K@_Dj$9$k$H(B SKK $B$,(B ON $B$K$J$C$F$$$J$$%P%C%U%!$G$b(B
+skk-isearch $B$rM-8z$K$7$^$9!#(B
 
 @lisp
-@group
-(add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
-(add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
-@end group
+(setq skk-isearch-mode-enable 'always)
 @end lisp
+@end defvr
 
 @node $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B
 @section $B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B
