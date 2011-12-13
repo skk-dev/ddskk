@@ -25,8 +25,7 @@
 (setq default-input-method "japanese-skk")
 
 ;; SKK を起動していなくても、いつでも skk-isearch を使う
-(add-hook 'isearch-mode-hook 'skk-isearch-mode-setup)
-(add-hook 'isearch-mode-end-hook 'skk-isearch-mode-cleanup)
+(setq skk-isearch-mode-enable 'always)
 
 ;; @@ 応用的な設定
 
