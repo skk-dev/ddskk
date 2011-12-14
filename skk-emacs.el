@@ -128,7 +128,7 @@
     ("Customize SKK" . "SKK をカスタマイズ")
     ("Customize SKK (simple)" . "SKK をカスタマイズ (簡易版)")
     ("Find kanji by radicals" . "漢字を部首から調べる")
-    ("Show List of characters" . "文字コード表")
+    ("Show list of characters" . "文字コード表")
     ("SKK Clock" . "SKK 時計")
     ("Lookup word in region or at point" . "領域またはポイントの語句を調べる")
     ("Send a Bug Report" . "バグを報告する")

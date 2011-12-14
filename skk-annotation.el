@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.229 2011/12/13 00:16:05 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.230 2011/12/14 22:32:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/12/13 00:16:05 $
+;; Last Modified: $Date: 2011/12/14 22:32:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -697,7 +697,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	 (unless quiet
 	   (message "%s" "Quoted")))))))
 
-;;; アノテーション拡張機能
+;;; アノテーション UI 拡張機能
 (defun skk-annotation-wait-for-input (annotation notes &optional word sources)
   "アノテーション表示時にキー入力を捕捉する。
 キー入力の内容によってアノテーションのコピー、情報源 URL のブラウズ、または
@@ -913,6 +913,49 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	 (skk-reset-henkan-count 0)))))
   ;; 常に t を返す
   t)
+
+;;;###autoload
+(defun skk-annotation-lookup-region-or-at-point (&optional prefix-arg
+							   start end)
+  "選択領域またはポイント位置の単語を辞書で調べる。
+辞書としては lookup.el、Mac OS X の辞書サービス、Wikipedia/Wikitionary などが
+利用される。
+
+領域が選択されていなければ単語の始めと終わりを推測して調べる。
+
+調べた結果を `skk-annotation-show-as-message' が Non-nil であればエコーエリア
+に、nil であれば別 window に表示する。"
+  (interactive (cons (prefix-numeric-value current-prefix-arg)
+		     (cond
+		      ((skk-region-active-p)
+		       (list (region-beginning) (region-end)))
+		      ((eq skk-henkan-mode 'on)
+		       (list (marker-position skk-henkan-start-point)
+			     (point)))
+		      (t
+		       ;; dummy
+		       (list 1 1)))))
+  (skkannot-check-lookup)
+  (skkannot-clear-msg)
+  ;;
+  (let ((word (if (and (= start 1) (= end 1))
+		  ;; region が active でないときは，ポイントにある
+		  ;; 単語を推測する
+		  (thing-at-point 'word)
+		(buffer-substring-no-properties start end)))
+	(sources
+	 (if (and current-prefix-arg
+		  (> prefix-arg 0)
+		  (<= prefix-arg (length skk-annotation-other-sources)))
+	     (list (nth (1- prefix-arg) skk-annotation-other-sources))
+	   skk-annotation-other-sources))
+	note)
+    (when (and word
+	       (> (length word) 0))
+      (setq note (or (car (skkannot-cache word sources))
+		     (skk-annotation-wikipedia word sources)))
+      (skk-annotation-show (or note "") word sources))))
+
 
 ;;; Mac OS X 辞書サービス関連機能
 (defsubst skkannot-DictServ-command (word)
@@ -1719,46 +1762,8 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
   (search-backward "</html>" nil t))
 
 ;;;###autoload
-(defun skk-annotation-wikipedia-region-or-at-point (&optional prefix-arg
-							      start end)
-  "選択領域またはポイント位置の単語を Wikipedia/Wikitionary などで調べる。
-領域が選択されていなければ単語の始めと終わりを推測して調べる。
-調べた結果を `skk-annotation-show-as-message' が Non-nil であればエコーエリア
-に、nil であれば別 window に表示する。"
-  (interactive (cons (prefix-numeric-value current-prefix-arg)
-		     (cond
-		      ((skk-region-active-p)
-		       (list (region-beginning) (region-end)))
-		      ((eq skk-henkan-mode 'on)
-		       (list (marker-position skk-henkan-start-point)
-			     (point)))
-		      (t
-		       ;; dummy
-		       (list 1 1)))))
-  (skkannot-check-lookup)
-  (skkannot-clear-msg)
-  ;;
-  (let ((word (if (and (= start 1) (= end 1))
-		  ;; region が active でないときは，ポイントにある
-		  ;; 単語を推測する
-		  (thing-at-point 'word)
-		(buffer-substring-no-properties start end)))
-	(sources
-	 (if (and current-prefix-arg
-		  (> prefix-arg 0)
-		  (<= prefix-arg (length skk-annotation-other-sources)))
-	     (list (nth (1- prefix-arg) skk-annotation-other-sources))
-	   skk-annotation-other-sources))
-	note)
-    (when (and word
-	       (> (length word) 0))
-      (setq note (or (car (skkannot-cache word sources))
-		     (skk-annotation-wikipedia word sources)))
-      (skk-annotation-show (or note "") word sources))))
-
-;;;###autoload
-(defalias 'skk-annotation-lookup-region-or-at-point
-  'skk-annotation-wikipedia-region-or-at-point)
+(defalias 'skk-annotation-wikipedia-region-or-at-point
+  'skk-annotation-lookup-region-or-at-point)
 
 (defun skkannot-generate-url (format-string &rest args)
   (condition-case nil

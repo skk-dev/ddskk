@@ -1,3 +1,21 @@
+2011-12-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* doc/skk.texi: Set coding to iso-2022-7bit.  Replace invisible
+	chars with correct ones.
+	* SKK-MK (SKK-MK-texinfo-coding-system): Default to iso-2022-7bit.
+	(SKK-MK-texinfo-pre-formart, SKK-MK-texinfo-post-format): New
+	functions.
+	(SKK-MK-texinfo-format): Call them.
+	* skk-annotation.el (skk-annotation-lookup-region-or-at-point):
+	Now this is defined with defun, while
+	`skk-annotation-wikipedia-region-or-at-point' is treated as an
+	alias.
+	* skk-emacs.el (skk-emacs-menu-resource-ja): Typo.
+	* skk-setup.el.in (skk-isearch-setup-maybe)
+	(skk-isearch-cleanup-maybe): Requie skk-vars.
+	* skk-vars.el (skk-kcode-charset): Update the custom type.
+	(skk-list-chars-mode-map): Define for the cursor keys.
+
 2011-12-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Update.

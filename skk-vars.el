@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.414 2011/12/13 00:16:06 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.415 2011/12/14 22:32:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/13 00:16:06 $
+;; Last Modified: $Date: 2011/12/14 22:32:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3979,7 +3979,14 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
 	(t
 	 'japanese-jisx0208))
   "*`skk-input-by-code-or-menu' $B$G;H$o$l$kJ8;z%;%C%H!#(B"
-  :type 'symbol
+  :type (let ((list (if (find-coding-system 'euc-jisx0213)
+			'((const japanese-jisx0213-1)
+			  (const japanese-jisx0208))
+		      '((const japanese-jisx0208))))
+	      (prompt (if (get 'charset 'widget-type)
+			  '(charset)
+			'(symbol))))
+	  (append '(radio) list prompt))
   :group 'skk-jisx0213
   :group 'skk-kcode)
 
@@ -4095,18 +4102,22 @@ SJIS: $B5Z$S(B UNICODE: $B$KE,MQ$9$k(B face $BB0@-!#(B"
     (define-key map (kbd "C-f") 'next-completion)
     (define-key map "f"         'next-completion)
     (define-key map "l"         'next-completion)
+    (define-key map [right]     'next-completion)
 
     (define-key map (kbd "C-b") 'previous-completion)
     (define-key map "b"         'previous-completion)
     (define-key map "h"         'previous-completion)
+    (define-key map [left]      'previous-completion)
 
     (define-key map (kbd "C-n") 'skk-list-chars-next-line)
     (define-key map "n"         'skk-list-chars-next-line)
     (define-key map "j"         'skk-list-chars-next-line)
+    (define-key map [down]      'skk-list-chars-next-line)
 
     (define-key map (kbd "C-p") 'skk-list-chars-previous-line)
     (define-key map "p"         'skk-list-chars-previous-line)
     (define-key map "k"         'skk-list-chars-previous-line)
+    (define-key map [up]        'skk-list-chars-previous-line)
 
     (define-key map (kbd "RET") 'skk-list-chars-insert)
     (define-key map "i"         'skk-list-chars-insert)
@@ -4625,7 +4636,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 $B;HMQ$9$k$+!W$r!"%<%m$r5/E@$K?t$($k(B.
 
 *scratch* $B%P%C%U%!$G<!$N(B S $B<0$rI>2A$7$F$_$k$H$h$$(B.
-(let ((n 0))
+\(let ((n 0))
   (dolist (i (lookup-module-dictionaries (skk-lookup-default-module)))
     (insert (format \"%d %s\" n (lookup-dictionary-name i)) 10) ;10$B$O2~9T(B
     (setq n (1+ n))))
