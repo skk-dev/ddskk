@@ -1,3 +1,8 @@
+2011-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kcode.el (skk-display-code): Check function `char-to-ucs'
+	also at run time.
+
 2011-12-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Set coding to iso-2022-7bit.  Replace invisible
