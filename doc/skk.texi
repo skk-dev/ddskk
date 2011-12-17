@@ -1,4 +1,4 @@
-\input texinfo @c -*- mode: texinfo; coding: iso-2022-7bit -*-
+\input texinfo @c -*- mode: texinfo; coding: iso-2022-jp-3 -*-
 @setfilename skk.info
 @settitle SKK Manual
 @paragraphindent 1
@@ -29,7 +29,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/14 22:32:48 $
+@set UPDATED $Date: 2011/12/17 05:32:36 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
