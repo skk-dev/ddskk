@@ -18,53 +18,53 @@
 $B%+!<%=%kIU6a$X$NI=<(J}K!$r!"%7%s%\%k(B 'inline $B$^$?$O(B $B%7%s%\%k(B 'tooltip
 $B$GA*Br$7$^$9!#I8=`$O(B 'inline $B$G$9!#(B
 
-** Mac OS X $A$G(B DictionaryServices $A$+$i$N%"%N%F$B!<$A%7%g%sH!5C(B
+** Mac OS X $B$G(B DictionaryServices $B$+$i$N%"%N%F!<%7%g%s<hF@(B
 
-Mac OS X $A$N4G$(GUs$A%"%W%j(B (Dictionary.app) $A$G$O$(Gm:dm$A$G9z$(Gk#$A4G5d$J$I@{SC$G$-$^$9!#(B
-$A$3$N$&$A$(Gs@$AOH$(Gb{$AN;$N8_$$4G$(GUs$A$+$i%"%N%F$B!<$A%7%g%s$rH!5C$9$k$(Gq"$AD\$,@{SC$G$-$^(B
-$A$9!#$(G\"$AW4$G$O4G$(GUs$A$N$(I<D$AKw$(Gb{$A$O(B Dictionary.app $A$N$(Gt?$A>3$(G]C$A6($G$(G]C$A6($9$k1XR*$,$"(B
-$A$j$^$9!#(B
+Mac OS X $B$N<-=q%"%W%j(B (Dictionary.app) $B$G$OI8=`$G9q8l<-E5$J$IMxMQ$G$-$^$9!#(B
+$B$3$N$&$AM%@h=g0L$N9b$$<-=q$+$i%"%N%F!<%7%g%s$r<hF@$9$k5!G=$,MxMQ$G$-$^(B
+$B$9!#8=>u$G$O<-=q$N8!:w=g$O(B Dictionary.app $B$N4D6-@_Dj$G@_Dj$9$kI,MW$,$"(B
+$B$j$^$9!#(B
 
-$A$3$N$(Gq"$AD\$r@{SC$9$k$(G^[$A:O$ORTOB$N$(I+y$AJ}$r$(G]C$A6($7$F$/$@$5$$!#(B
+$B$3$N5!G=$rMxMQ$9$k>l9g$O0J2<$NJQ?t$r@_Dj$7$F$/$@$5$$!#(B
 
 *** skk-annotation-lookup-DictionaryServices
 
-non-nil $A$K$(G]C$A6($9$k$H%P%C%/%0%i%s%I$G(B python $A$r$(I(M$APP$7!"4G$(GUs$A$K%"%/%;%9$7(B
-$A$^$9!#(Bpython $A$N3u;XFp$(GY/Uk$A$K$(GUkbf$A$,$+$+$j$^$9$,!"RTOB$N$(I+y$AJ}$rM,$(GUk$A$K$(G]C$A6((B
-$A$9$k$3$H$G;X1\$G$-$^$9!#(B
+non-nil $B$K@_Dj$9$k$H%P%C%/%0%i%s%I$G(B python $B$r<B9T$7!"<-=q$K%"%/%;%9$7(B
+$B$^$9!#(Bpython $B$N=i2s5/F0;~$K;~4V$,$+$+$j$^$9$,!"0J2<$NJQ?t$rF1;~$K@_Dj(B
+$B$9$k$3$H$G2sHr$G$-$^$9!#(B
 
 *** skk-preload
 
-non-nil $A$K$(G]C$A6($9$k$H(B skk.el, SKK $A4G$(GUs$A$H$H$b$K1XR*$J$(G^[$A:O$O(B python $A$N(B
-DictionaryServices $A$r(B Emacs $AFp$(GY/Uk$A$K$BFI$_$3$`$3$H$,$G$-$^$9!#(B
+non-nil $B$K@_Dj$9$k$H(B skk.el, SKK $B<-=q$H$H$b$KI,MW$J>l9g$O(B python $B$N(B
+DictionaryServices $B$r(B Emacs $B5/F0;~$KFI$_$3$`$3$H$,$G$-$^$9!#(B
 skk-preload $B$N@_Dj$O(B ~/.skk $B$G$O$J$/(B ~/.emacs (~/.emacs.d/init.el) $B$G(B
-$B9T$A$$$^$9!#(B
+$B9T$$$^$9!#(B
 
-$B$5$i$K0J2<$NNc$h$&$J@_Dj$r$9$k$H!"(BSKK $B$H$O4X78$J$/>o;~<-=q0z$A$-%3%^%s%I(B
-$A$H$7$F@{SC$G$-$^$9!#(B
+$B$5$i$K0J2<$NNc$h$&$J@_Dj$r$9$k$H!"(BSKK $B$H$O4X78$J$/>o;~<-=q0z$-%3%^%s%I(B
+$B$H$7$FMxMQ$G$-$^$9!#(B
 
 *** (global-set-key "\M-i" 'skk-annotation-lookup-region-or-at-point)
 
-M-i $A$H$$$&%-$B!<$A$OR;@}$K$9$.$^$;$s!#$(Gkk$ASr$r$(GrY$(I&1$A$7$F%?%$%W$9$k$H4G$(GUs$A$,2NUU(B
-$A$G$-$^$9!#6`$/$NS"$(I+J$(Gk#$A$K$D$$$F$O$(Gkk$ASr$r$(GrY$(I&1$A$;$:$K$(I+J$(Gk#$A$,EP$(GI1$A$5$l$^$9!#(B
+M-i $B$H$$$&%-!<$O0lNc$K$9$.$^$;$s!#NN0h$rA*Br$7$F%?%$%W$9$k$H<-=q$,;2>H(B
+$B$G$-$^$9!#B?$/$N1QC18l$K$D$$$F$ONN0h$rA*Br$;$:$KC18l$,H=JL$5$l$^$9!#(B
 
-*** $AW"RbJB$(Gbz(B
+*** $BCm0U;v9`(B
 
-$A$3$N$(Gq"$AD\$r@{SC$9$k$K$O!"(Bpython $A$K(B readline $A$H(B
-pyobject-framework-DictionaryServices $A$,1XR*$G$9!#aaU_$K$D$$$F$O(B OS X
-10.5 (Leopard) $ART=5$N(B OS $(Gm:dm$A$N(B python $A$K$(Gm:dm$A$G%$%s%9%H$B!<$A%k$5$l$F$$$^(B
-$A$9!#(Breadline $A$K$D$$$F$O(B OS X 10.7 (Lion) $(Gm:dm$A$N(B python $A$G$O%$%s%9%H$B!<(B
-$A%k$9$k1XR*$,$"$j$^$;$s!#$=$lRTMb$N$(G^[$A:O$O(B
+$B$3$N5!G=$rMxMQ$9$k$K$O!"(Bpython $B$K(B readline $B$H(B
+pyobject-framework-DictionaryServices $B$,I,MW$G$9!#8e<T$K$D$$$F$O(B OS X
+10.5 (Leopard) $B0J9_$N(B OS $BI8=`$N(B python $B$KI8=`$G%$%s%9%H!<%k$5$l$F$$$^(B
+$B$9!#(Breadline $B$K$D$$$F$O(B OS X 10.7 (Lion) $BI8=`$N(B python $B$G$O%$%s%9%H!<(B
+$B%k$9$kI,MW$,$"$j$^$;$s!#$=$l0J30$N>l9g$O(B
 
 % easy_install readline 
 
-$A$J$I$N7=7($G%$%s%9%H$B!<$A%k$7$^$9!#(B
+$B$J$I$NJ}K!$G%$%s%9%H!<%k$7$^$9!#(B
 
 ** $B30It%3%^%s%I$+$i$N%"%N%F!<%7%g%s<hF@(B
 
 $B<-=q$KEPO?$5$l$F$$$k%"%N%F!<%7%g%s$h$j$b30It%3%^%s%I$+$i<hF@$7$?%"%N%F!<(B
 $B%7%g%s$rM%@h$7$FI=<($G$-$k$h$&$K$7$^$7$?!#(Bdict $B%/%i%$%"%s%H$J$I$GF|K\(B
-$B8l$N<-=q$rD4$A$Y$i$l$k$b$N$,$"$l$P(B ($A$"$k$+$I$&$+7V$+$j$^$;$s(B) $AJ9$($^$9!#(B
+$B8l$N<-=q$rD4$Y$i$l$k$b$N$,$"$l$P(B ($B$"$k$+$I$&$+J,$+$j$^$;$s(B) $B;H$($^$9!#(B
 
 $BMxMQ$9$k>l9g$O0J2<$NJQ?t$r@_Dj$7$^$9!#(B
 
@@ -1460,5 +1460,6 @@ works well with SKK by itself.  skk-vip.el is discarded.
 <gunji@sils.shoin.ac.jp>.  Now you can imput Japanese by TUT-code with SKK.
 
 Local variables:
+coding: iso-2022-jp-3
 mode: outline
 end:
