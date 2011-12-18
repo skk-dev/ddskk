@@ -29,7 +29,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/18 02:14:17 $
+@set UPDATED $Date: 2011/12/18 05:07:40 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2143,6 +2143,8 @@ Lookup で検索できる辞書を使って単語の候補を出力するプログラム。
 @cindex @file{skk-show-mode.el}
 
 カーソル付近に入力モードを表示する機能を提供します。
+
+@xref{入力モードを切り替えるキー}.
 
 @item skk-sticky.el
 @cindex @file{skk-sticky.el}
