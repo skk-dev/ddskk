@@ -563,7 +563,7 @@
 ;; @@ その他いろいろ
 
 ;; カーソル付近にモード切り替えを表示する
-;; (require 'skk-show-mode)
+;; (setq skk-show-mode-show t)		; M-x skk-show-mode でトグル可。
 ;; (setq skk-show-mode-style 'tooltip)	;デフォルトは 'inline
 
 ;; かなモードで、モード変更を行なわずに
