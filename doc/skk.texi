@@ -29,7 +29,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/17 05:32:36 $
+@set UPDATED $Date: 2011/12/18 02:14:17 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1045,20 +1045,29 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k#4<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=q$rM
 $B$G!"$+$J%b!<%I$N$^$^$G%+%JJ8;z$dA41QJ8;z$rF~NO$9$kJXK!$,MQ0U$5$l$F$$$^$9!#(B
 (@w{@pxref{$B$+$J%b!<%I$+$i%+%?%+%J$rF~NO(B}}, @w{@pxref{$BA41QJ8;z$NF~NO(B}})
 
-@defvr {$B%f!<%6JQ?t(B} skk-show-mode-style
+@kindex M-x skk-show-mode
+@defvr {$B%f!<%6JQ?t(B} skk-show-mode-show
 
-$B%U%!%$%k(B @file{skk-show-mode.el} $B$rFI$_9~$`$3$H$K$h$C$F!"%b!<%I%i%$%s$N(B
-$BI=<($K2C$($F%+!<%=%kIU6a$K$bF~NO%b!<%I$rI=<($9$k$3$H$,$G$-$^$9!#(B
+$B8=:_$NF~NO%b!<%I$O!"%b!<%I%i%$%s$KI=<($5$l$F$$$^$9!#(B
 
-@lisp
-(require 'skk-show-mode)
-@end lisp
+@ref{$B5/F0$H=*N;(B}
 
-$BJQ?t(B @code{skk-show-mode-style} $B$NI8=`$O%7%s%\%k(B @code{'inline} $B$G$9!#(B
-$B%7%s%\%k(B @code{'tooltip} $B$r;XDj$9$k$3$H$b2DG=$G$9!#(B
+$B$3$NJQ?t$r(B @code{Non-nil} $B$H$9$k$H!"F~NO%b!<%I$r@Z$jBX$($?$H$-$K%+!<%=%k(B
+$BIU6a$K$b0l=VI=<($9$k$h$&$K$J$j$^$9!#(B
+
+@kbd{M-x skk-show-mode} $B$G%H%0%k2DG=$G$9!#(B
+
+@ref{$BF~NO%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs$NJQ99(B}
 
 @end defvr
 
+@defvr {$B%f!<%6JQ?t(B} skk-show-mode-style
+
+$B%G%U%)%k%H$O(B @code{'inline} $B$G$9!#(B@code{'tooltip} $B$r;XDj$9$k$3$H$b2DG=$G$9!#(B
+
+@ref{$B%$%s%8%1!<%?(B}
+
+@end defvr
 
 @node $BJQ49%b!<%I(B
 @section $BJQ49%b!<%I(B
