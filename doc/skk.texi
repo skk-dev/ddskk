@@ -29,7 +29,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/18 05:07:40 $
+@set UPDATED $Date: 2011/12/18 05:35:46 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9013,6 +9013,8 @@ DDSKK のインジケータをモードラインの左に表示
 インジケータに色を付けたくない場合は、この変数を @code{nil} にします。
 
 @end defvr
+
+@xref{入力モードを示すカーソル色に関する設定}.
 
 インジケータに独自色を使いたい場合は、以下のフェイス@footnote{
 変数 @code{window-system} が @code{nil} の場合は、これらフェイスは未定義と
