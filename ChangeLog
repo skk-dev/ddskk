@@ -1,5 +1,7 @@
 2011-12-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tut.el (skktut-init-variables-alist): Add skk-show-mode-show.
+
 	* skk-vars.el (skk-show-mode-invoked): New variable.
 	(skk-show-mode-show): ユーザオプション化.
 	(skk-show-mode-style): docstring を変更.

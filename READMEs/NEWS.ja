@@ -4,19 +4,23 @@
 
 インジケータ又は SKK アイコンを左クリック (mouse-3) すると表示されるメニ
 ューに「漢字を部首から調べる」、「文字コード表」、「領域またはポイントの
-語句を調べる」、「SKK時計」を追加しました。
+語句を調べる」、「SKK 時計」を追加しました。
 
 ** カーソル付近に入力モードを表示する
 
 かなモード、カナモード、全英モード、アスキーモードを切り替えたときに
 カーソル付近に skk-{hiragana,katakana,jisx0208-latin,latin}-mode-string
 を表示することができます。
-~/.skk にて (require 'skk-show-mode) と設定してください。
+~/.skk にて (setq skk-show-mode-show t) と設定してください。
 
 *** skk-show-mode-style
 
 カーソル付近への表示方法を、シンボル 'inline または シンボル 'tooltip
 で選択します。標準は 'inline です。
+
+*** M-x skk-show-mode
+
+変数 skk-show-mode-show をトグル切り替えします。
 
 ** Mac OS X で DictionaryServices からのアノテーション取得
 

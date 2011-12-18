@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.87 2011/10/25 13:37:05 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.88 2011/12/18 04:58:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/10/25 13:37:05 $
+;; Last Modified: $Date: 2011/12/18 04:58:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -308,6 +308,7 @@
     (skk-read-from-minibuffer-function . nil)
     (skk-verbose . nil)
     (debug-on-error . nil)
+    (skk-show-mode-show . nil)
 
     ;; not user variables but to be localized.
     (skk-insert-new-word-function . nil)
