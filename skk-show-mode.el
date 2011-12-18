@@ -4,9 +4,9 @@
 
 ;; Author: 2011 Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-show-mode.el,v 1.3 2011/12/18 01:22:14 skk-cvs Exp $
+;; Version: $Id: skk-show-mode.el,v 1.4 2011/12/18 02:27:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/18 01:22:14 $
+;; Last Modified: $Date: 2011/12/18 02:27:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -83,6 +83,11 @@ tooltip / inline 表示する."
 		    `(latin ,skk-latin-mode-string))))))
       (skk-tooltip-show-at-point indicator))))
 
+;;;###autoload
+(defun skk-show-mode ()
+  (interactive)
+  (message "skk-show-mode-show: %s"
+	   (setq skk-show-mode-show (null skk-show-mode-show))))
 (provide 'skk-show-mode)
 
 ;;; skk-show-mode.el ends here

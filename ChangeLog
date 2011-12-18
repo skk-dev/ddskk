@@ -6,9 +6,9 @@
 
 	* skk-show-mode.el (skk-cursor-set): 判定に skk-show-mode-invoked を
 	加えた.
+	(skk-show-mode): 新たなコマンド.
 
 	* skk.el (skk-require-module): skk-show-mode を require.
-	(skk-show-mode): 新たなコマンド.
 
 	* doc/skk.texi: 更新.
 
