@@ -1,12 +1,12 @@
-;;; skk-vars.el --- common vars and consts in SKK -*- coding: iso-2022-7bit -*-
+;;; skk-vars.el --- common vars and consts in SKK -*- coding: iso-2022-7bit-ss2 -*-
 
 ;; Copyright (C) 1999-2010 SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.416 2011/12/18 01:22:14 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.417 2011/12/23 13:09:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/18 01:22:14 $
+;; Last Modified: $Date: 2011/12/23 13:09:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2823,7 +2823,7 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
   :group 'skk-annotation)
 
 (defcustom skk-annotation-python-program (executable-find "python")
-  "*DictionaryServices $A$N$?$a$KFp$(GY/$A$9$k(B python $A$N%U%!%$%kC{!#(B"
+  "*DictionaryServices $B$N$?$a$K5/F0$9$k(B python $B$N%U%!%$%kL>!#(B"
   :type '(radio (file)
 		(const nil))
   :group 'skk-annotation)
@@ -2866,7 +2866,7 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
   :group 'skk-annotation)
 
 (defcustom skk-annotation-dict-coding-system 'utf-8
-  "*$B30It%W%m%0%i%`$A$+$i%"%N%F$B!<$A%7%g%sH!5C$9$k$(Gkc$A$KSC$$$k%3$B!<$A%IO5!#(B"
+  "*$B30It%W%m%0%i%`$+$i%"%N%F!<%7%g%s<hF@$9$k:]$KMQ$$$k%3!<%I7O!#(B"
   :type 'coding-system
   :group 'skk-annotation)
 
@@ -2952,19 +2952,19 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Achumawa\\|Adangme\\|Adele\\|Adnyamathanha\\|Adyghe\\|Adzera\\|Afar\
 \\|Afrikaans\\|Aghul\\|Ainu\\|Akan\\|Akawaio\\|Akkadian\\|Aklanon\\|Alabama\
 \\|Albanian\\|Aleut\\|Algonquin\\|Alsatian\\|Amaimon\\|Amanab\\|Ambai\
-\\|Amharic\\|Amoy\\|Amuzgo\\|Ankave\\|Ansus\\|Apala,Am(B\\|\\(Egyptian \\)?Arabic\
+\\|Amharic\\|Amoy\\|Amuzgo\\|Ankave\\|Ansus\\|Apala.ANm\\|\\(Egyptian \\)?Arabic\
 \\|Aragonese\\|Aramaic\\|Arapaho\\|Arawak\\|Armenian\\|Aromanian\\|Assamese\
 \\|Asturian\\|'Auhelawa\\|Avar\\|Avestan\\|Awabakal\\|Aymara\\|Azeri\
 \\|Balinese\\|Balti\\|Bambara\\|Bandjalang\\|Baruga\\|Bashkir\\|Basque\
 \\|Baure\
 \\|Belarusian\\|Bengali\\|Berbice Creole Dutch\\|Betawi\\|Bhojpuri\\|Biak\
-\\|Bikol\\|Bislama\\|Blackfoot\\|Bokm,Ae(Bl\\|Bosnian\\|Breton\
+\\|Bikol\\|Bislama\\|Blackfoot\\|BokmNel\\|Bosnian\\|Breton\
 \\|Broome Pearling Lugger Pidgin\\|Bube\\|Bulgarian\\|Burmese\
 \\|Cantonese\\|Capeverdean Crioulo\\|Catalan\\|Catawba\\|Cebuano\
 \\|Central Tarahumara\\|Ch'orti'\\|Chamorro\\|Chechen\\|Cherokee\\|Cheyenne\
 \\|Chichewa\\|Chickasaw\\|Chinese Pidgin English\\|Chinese\\|Chinook Jargon\
-\\|Chiricahua\\|Choctaw\\|Tumbal,Aa(B Chol\\|Chukchee\\|Chuvash\
-\\|Classical Nahuatl\\|Coatl,Aa(Bn Mixe\\|Comorian\\|Coptic\\|Cornish\\|Corsican\
+\\|Chiricahua\\|Choctaw\\|TumbalNa Chol\\|Chukchee\\|Chuvash\
+\\|Classical Nahuatl\\|CoatlNan Mixe\\|Comorian\\|Coptic\\|Cornish\\|Corsican\
 \\|Cree\\|Creek\\|Crimean Tatar\\|Croatian\\|Czech\
 \\|Dacian\\|Dadibi\\|Northern Dagara\\\Dalmatian\\|Danish\\|Dargwa\
 \\|Darkinjung\\|Darling\\|Dharuk\\|Dhivehi\\|Dhuwal\\|Dieri\\|Dusner\\|Dutch\
@@ -2974,14 +2974,14 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Friulian\\|Fula\
 \\|Ga\\|Gabi-Gabi\\|Gagauz\\|Galician\\|Gallo\\|Gamilaraay\\|Ge'ez\\|Georgian\
 \\|\\(Middle High\\)?German\\|Gilbertese\\|Golin\\|Gooniyandi\\|Gothic\
-\\|\\(Ancient \\|Mycenaean \\)?Greek\\|Greenlandic\\|Guaran,Am(B\\|Mby,Aa(B Guaran,Am(B\
+\\|\\(Ancient \\|Mycenaean \\)?Greek\\|Greenlandic\\|GuaranNm\\|MbyNa GuaranNm\
 \\|Gujarati\\|Guugu Yimidhirr\
 \\|Hausa\\|Hawaiian\\|Hebrew\\|Hindi\\|Hittite\\|Hmong\\|Hopi\\|Hungarian\
 \\|Icelandic\\|Ido\\|Igbo\\|Ilocano\\|Indoneian\\|Interlingua\\|Inuktitut\
 \\|Irish\\|Italian\
-\\|Japanese\\|Javanese\\|Jingpho\\|J,Ah(Brriais\
-\\|Kabardian\\|Kabyle\\|Kadiw,Ai(Bu\\|Kannada\\|Kanuri\\|Kapingamarangi\\|Karelian\
-\\|Kariti,Ab(Bna\\|Kashmiri\\|Kashubian\\|Kaurna\\|Kazakh\\|Khmer\\|Kickapoo\
+\\|Japanese\\|Javanese\\|Jingpho\\|JNhrriais\
+\\|Kabardian\\|Kabyle\\|KadiwNiu\\|Kannada\\|Kanuri\\|Kapingamarangi\\|Karelian\
+\\|KaritiNbna\\|Kashmiri\\|Kashubian\\|Kaurna\\|Kazakh\\|Khmer\\|Kickapoo\
 \\|Kinyarwanda\\|Kiput\\|Kirundi\\|Kokborok\\|Komi\\|Kongo\\|Korean\\|Kriol\
 \\|Krisa\\|!Kung\\|Kurdish\\|Kurnai\\|Kwanyama\\|Kyrgyz\
 \\|Ladino\\|Lak\\|Lakota\\|Laotian\\|Latin\\|Latvian\\|Lavukaleve\\|Lenape\
@@ -2993,7 +2993,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Martuthunira\\|Mati Ke\\|Mbabaram\\|Mende\\|Menominee\\|Meriam\\|Mesquakie\
 \\|Mi'kmaq\\|Miami\
 \\|Middle \\(Dutch\\|English\\|French\\|Korean\\|Norwegian\\|Scots\\)\
-\\|Min Nan\\|Mirandese\\|Miskito\\|\\(Alcozauca \\|Yosond,Az(Ba \\)?Mixtec\
+\\|Min Nan\\|Mirandese\\|Miskito\\|\\(Alcozauca \\|YosondNza \\)?Mixtec\
 \\|Miyako\\|Mohegan\\|Mohican\\|Moldavian\\|Mongolian\\|Montauk\\|Munduapa\
 \\|Munggui\\|Munsee\\|Murrinh-Patha\\|Mutsun\
 \\|\\(Isthmus-Mecayapan \\)?Nahuatl\\|Nanticoke\\|Narragansett\\|Nauruan\
@@ -3003,11 +3003,11 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Old \\(Church Slavonic\\|English\\|French\\|Frisian\\|High German\\|Irish\
 \\|Norse\\|Prussian\\|Saxon\\|Slavonic\\)\\|Oriya\\|Oromo\
 \\|Pali\\|Pangasinan\\|Panyjima\\|Papiamentu\\|Papuma\\|Pashto\
-\\|Passamaquoddy\\|Paumar,Am(B\\|Pennsylvania German\\|Penobscot\
+\\|Passamaquoddy\\|PaumarNm\\|Pennsylvania German\\|Penobscot\
 \\|\\(Old \\)?Perian\\|Phoenician\
-\\|Pirah,Ac(B\\|Pitcairnese\\|Pitjantjatjara\\|Pitta-Pitta\\|Pochutec\\|Polish\
+\\|PirahNc\\|Pitcairnese\\|Pitjantjatjara\\|Pitta-Pitta\\|Pochutec\\|Polish\
 \\|Sayula Popoluca\\|Portuguese\\|Potawatomi\\|Powhatan\
-\\|Proto-\\(Germanic\\|Indo-European\\|Uralic\\)\\|Proven,Ag(Ba\\|Punjabi\
+\\|Proto-\\(Germanic\\|Indo-European\\|Uralic\\)\\|ProvenNga\\|Punjabi\
 \\|Quechua\\|Quenya\
 \\|Rarotongan\\|Reconstructed\\|Rohingya\\|Roman\\(i\\|ian\\|sch\\)\\|Rotokas\
 \\|Rotuman\\|Russian\\|Rutul\
@@ -3019,18 +3019,18 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Sindhi\\|Sinhalese\\|Slovak\\|Slovene\\|Somali\\|Upper Sorbian\\|Spanish\
 \\|Sranan\\|Sumerian\\|Swahili\\|Swazi\\|Swedish\\|Syriac\
 \\|Tabassaran\\|TAchelhit\\|Tagalog\\|Tahitian\\|Taimyr Pidgin Russian\\|Tajik\
-\\|Tamasheq\\|Tamazight\\|Tamil\\|Tatar\\|Tausug\\|Ta,Am(Bno\\|Telugu\\|Tetum\
+\\|Tamasheq\\|Tamazight\\|Tamil\\|Tatar\\|Tausug\\|TaNmno\\|Telugu\\|Tetum\
 \\|Thai\\|Tibetan\\|Tigrinya\\|Tiwi\\|Tocharian \\(A\\|B\\)\\|Tok Pisin\
 \\|Tokelauan\\|Tongan\\|Torres Strait Creole\\|Translingual\\|Tsakhur\
-\\|Tshiluba\\|Tswana\\|Tuamotuan\\|Tumbuka\\|Tupi\\|Tupinamb,Aa(B\\|Turkish\
+\\|Tshiluba\\|Tswana\\|Tuamotuan\\|Tumbuka\\|Tupi\\|TupinambNa\\|Turkish\
 \\|Turkmen\\|Tuvaluan\\|Tuvan\\|Twi\\|Tz'utujil\
 \\|Ugaritic\\|Ukrainian\\|Umbundu\\|Unami\\|Unserdeutsch\\|Urdu\\|Uyghur\
 \\|Uzbek\
-\\|Vandalic\\|Venda\\|Veps\\|Vietnamese\\|Volap,A|(Bk\\|Votic\\|V,Au(Bro\
+\\|Vandalic\\|Venda\\|Veps\\|Vietnamese\\|VolapN|k\\|Votic\\|VNuro\
 \\|Wageman\\|Walloon\\|Wampanoag\\|Wangaaybuwan-Ngiyambaa\\|Warlpiri\\|Welsh\
 \\|Wembawemba\\|Western Apache\\|West Frisian\\|Wik-Mungkan\\|Wiradhuri\
 \\|Woi\\|Woiwurrung\\|Wolof\\|Worimi\
-\\|Xav,Aa(Bnte\\|Xhosa\\|!X,Asu(B\
+\\|XavNante\\|Xhosa\\|!XNsNu\
 \\|Yapese\\|Yiddish\\|Yidiny\\|Yindjibarndi\\|Yoruba\\|Yucatec\\|Yup'ik\
 \\|\\(Yatzachi \\|Zoogocho \\|Isthmus \\)Zapotec\\|Zenga\\|Zhuang\
 \\|Zulgo-Gemzek\\|Zulu\\|Zuni\\)\
@@ -3596,7 +3596,7 @@ cdr $B$O859fI=5-$N(B string $B$+$i@.$k%j%9%H!#(B"
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "M,Ad(Brz")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "MNdrz")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
