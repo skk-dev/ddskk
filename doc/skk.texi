@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/23 13:26:23 $
+@set UPDATED $Date: 2011/12/23 23:02:41 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9153,7 +9153,7 @@ Wikipedia アノテーション機能の使い方をメッセージで案内します。
 @example
 @group
 -------------------- Echo Area --------------------
-@b{@{どのWiki?@}}[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary
+@b{@{どれを参照?@}}[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary
 [C-3 C-i]simple.wikipedia [C-4 C-i]en.wikipedia [C-5 C-i]ja.wiktionary
 -------------------- Echo Area --------------------
 @end group
@@ -9169,7 +9169,7 @@ Wikipedia アノテーション機能の使い方をメッセージで案内します。
 @example
 @group
 -------------------- Echo Area --------------------
-@b{@{アノテーション@}}[C-w]コピー [C-o]URLブラウズ [C-i]デフォルトWiki参照
+@b{@{アノテーション@}}[C-w]コピー [C-o]URLブラウズ [C-i]デフォルトのソースを参照
 -------------------- Echo Area --------------------
 @end group
 @end example

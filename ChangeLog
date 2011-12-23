@@ -1,3 +1,7 @@
+2011-12-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (冗長な案内メッセージの表示): 更新.
+
 2011-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el: Set coding to iso-2022-7bit-ss2.
