@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/23 06:20:06 $
+@set UPDATED $Date: 2011/12/23 13:02:35 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7541,10 +7541,10 @@ DDSKK では、このような事態を避けるため、辞書バッファにおける変数
 
 システムアノテーションは、L 辞書等に採用されています。
 
-上記のいずれでもなく、外部の辞典その他の情報源から得られるものを外部アノ
-テーションといいます。外部アノテーションは Emacs Lisp パッケージである
-lookup.el、 Mac OS X 付属の辞書、Wiktionary/Wikipedia などから取得可能で
-す。
+上記のいずれでもなく、外部の辞典その他の情報源から得られるものを「外部ア
+ノテーション」といいます。外部アノテーションは Emacs Lisp パッケージであ
+る lookup.el、 Mac OS X 付属の辞書、Wiktionary/Wikipedia などから取得可能
+です。
 
 @node アノテーションの使用
 @subsection アノテーションの使用
@@ -7704,7 +7704,7 @@ L:維;
 
 候補の表示を装飾する関数を指定する変数
 @code{skk-treat-candidate-appearance-function} を設定する場合は
-@file{etc/dot/skk} に示されている設定例を以下のように変更してみてくださ
+@file{etc/dot.skk} に示されている設定例を以下のように変更してみてくださ
 い。
 
 @lisp
@@ -7724,7 +7724,8 @@ L:維;
 @defun skk-lookup-get-content 単語 listing-p
 
 単語の意味を EPWING 辞書から取得します。オプション引数 listing-p が
-non-nil なら候補一覧用に一行の短い文字列を返しますが、nil ならば全体を返します。
+@code{non-nil} なら候補一覧用に一行の短い文字列を返しますが、@code{nil} な
+らば全体を返します。
 
 @end defun
 
