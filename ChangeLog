@@ -1,6 +1,6 @@
 2011-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skkv-vars.el: Set coding to iso-2022-7bit-ss2.
+	* skk-vars.el: Set coding to iso-2022-7bit-ss2.
 	(skk-annotation-python-program)
 	(skk-annotation-dict-coding-system): In docstrings, modify charset
 	of some characters from chinese-gb2312 to japanese-jisx0208.
@@ -674,5 +674,5 @@
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 14.3.50.
 
 ;; Local Variables:
-;; coding: iso-2022-7bit
+;; coding: iso-2022-7bit-ss2
 ;; End:

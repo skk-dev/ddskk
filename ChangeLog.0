@@ -2236,5 +2236,5 @@ skk-j-mode-map
 	うようなご指摘がありましたら、どんどんお願いいたします。
 
 ;; Local Variables:
-;; coding: iso-2022-7bit
+;; coding: iso-2022-jp
 ;; End:

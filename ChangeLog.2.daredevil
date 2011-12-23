@@ -2955,6 +2955,6 @@
 	(skk-jisyo-update-vector): Ditto.
 
 ;; Local Variables:
-;; coding: iso-2022-7bit
+;; coding: iso-2022-jp
 ;; mode: change-log
 ;; End:
