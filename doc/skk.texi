@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/23 13:02:35 $
+@set UPDATED $Date: 2011/12/23 13:26:23 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7888,8 +7888,8 @@ B o k u j o u
 
 @defvr {ユーザ変数} skk-annotation-lookup-dict
 
-Non-nil ならば、@code{skk-annotation-dict-program} に指定された外部コマ
-ンドからアノテーションを指定します。
+@code{Non-nil} ならば、@code{skk-annotation-dict-program} に指定された外
+部コマンドからアノテーションを指定します。
 
 @end defvr
 
@@ -8206,7 +8206,7 @@ skk-list-chars を抜ける。
 かな/カナモードで @kbd{$} を入力すると、現在のポイント位置の直後にある
 文字の文字コードをエコーエリア@footnote{変数 @code{skk-show-tooltip} が
 @code{non-nil} であればツールティップで表示します。
-変数 @code{skk-show-candidates-always-pop-to-buffer} が@code{non-nil} で
+変数 @code{skk-show-candidates-always-pop-to-buffer} が @code{non-nil} で
 あれば other-window に表示します。@code{skk-show-tooltip} が優先します。}
 に表示します。
 
