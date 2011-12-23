@@ -1,3 +1,9 @@
+2011-12-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: @documentlanguage を追加.
+	@subsection 行の中で使われていた @code{}, @key{}, @kbd{} を削除.
+	@subsubsection 行も同様.
+
 2011-12-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tut.el (skktut-init-variables-alist): Add skk-show-mode-show.

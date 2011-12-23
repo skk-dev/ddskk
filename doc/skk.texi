@@ -1,6 +1,7 @@
 \input texinfo @c -*- mode: texinfo; coding: iso-2022-jp-3 -*-
 @setfilename skk.info
 @settitle SKK Manual
+@documentlanguage ja
 @paragraphindent 1
 @c $B%a%b(B
 @c 1 makeinfo $B$G%3%s%Q%$%k$9$k$3$H$b$G$-$^$9!#0l=V$G=*$o$j!"%j%s%/@Z$l$r4^$`(B
@@ -29,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/18 05:35:46 $
+@set UPDATED $Date: 2011/12/23 06:20:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2294,8 +2295,7 @@ skk-bayesian-history-file ~/.skk-bayesian   ~/.ddskk/bayesian
 @end menu
 
 @node skk-init-file$B$N<+F0%3%s%Q%$%k(B
-@subsubsection @code{skk-init-file}$B$N<+F0%3%s%Q%$%k(B
-
+@subsubsection skk-init-file$B$N<+F0%3%s%Q%$%k(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-byte-compile-init-file
 
@@ -5018,7 +5018,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @end defvr
 
 @node $B"'%b!<%I$G$N(BRET
-@subsection $B"'%b!<%I$G$N(B@key{RET}
+@subsection $B"'%b!<%I$G$N(BRET
 
 $BI8=`@_Dj$G$O!"(B
 
@@ -5073,7 +5073,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @end example
 
 @node $B"'%b!<%I$G$N(BBS
-@subsection $B"'%b!<%I$G$N(B@key{BS}
+@subsection $B"'%b!<%I$G$N(BBS
 @kindex @key{BS}
 
 $BI8=`@_Dj$G$O!""'%b!<%I$G(B @key{BS} $B$r2!$9$H!"A0$N0lJ8;z$r:o=|$7$?>e$G3NDj(B
@@ -5159,7 +5159,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 $B$rI=<($7$F$$$k>l9g$O0l$DA0$N8uJdI=<($KLa$kF0:n$H$J$j$^$9!#(B
 
 @node $BAw$j$"$jJQ49Cf$N(BC-g
-@subsection $BAw$j$"$jJQ49Cf$N(B@kbd{C-g}
+@subsection $BAw$j$"$jJQ49Cf$N(BC-g
 @kindex C-g
 
 $BAw$j$"$j$NJQ49Cf$K(B @kbd{C-g} $B$rF~NO$9$k$H!""'%b!<%I$rH4$1!"$=$N8+=P$78l(B
@@ -7479,7 +7479,7 @@ abbreviation $B$NE83+$r9T$&$h$&$K@_Dj$9$k$3$H$,$G$-$k$N$G$9$,!"2>$K<-=q(B
 @end defvr
 
 @node $B<-=q%P%C%U%!$N(Bbuffer-file-name
-@subsection $B<-=q%P%C%U%!$N(B@code{buffer-file-name}
+@subsection $B<-=q%P%C%U%!$N(Bbuffer-file-name
 @vindex buffer-file-name
 @findex save-some-buffers
 
@@ -9349,7 +9349,7 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 19, 20 $B$K$O!"(BVIP $B!"(BVIPER $B$H$bI8=`E:IU$7$^$9!#(B}$B!#(B
 
 @node picture-mode$B$H$NJ;MQ(B
-@section @code{picture-mode}$B$H$NJ;MQ(B
+@section picture-mode$B$H$NJ;MQ(B
 @cindex @key{BS}
 @cindex move-to-column
 @cindex move-to-column-force
@@ -10604,7 +10604,7 @@ Lookup $B$K$D$$$F$O!"(B
 $B$r$4;2>H2<$5$$!#(B
 
 @node Q5-3 $BB>$N(B FEP $B$r;HMQCf$K$b(B SHIFT $B$r2!$7$F$7$^$$$^$9!#(B
-@unnumberedsubsec Q5-3 $BB>$N(B FEP $B$r;HMQCf$K$b(B @key{SHIFT} $B$r2!$7$F$7$^$$$^$9!#(B
+@unnumberedsubsec Q5-3 $BB>$N(B FEP $B$r;HMQCf$K$b(B SHIFT $B$r2!$7$F$7$^$$$^$9!#(B
 
 $B<#$9$K$O(B SKK $B$r$d$a$k$7$+$"$j$^$;$s(B :-)
 
