@@ -38,11 +38,11 @@
 
 2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* NEWS.ja: experimental/skk-search-web.el の記述を追加.
+	* NEWS.ja: experimental/skk-search-web.el $B$N5-=R$rDI2C(B.
 
 2011-11-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* NEWS.ja: 「カーソル付近に入力モードを表示する」を追加.
+	* NEWS.ja: $B!V%+!<%=%kIU6a$KF~NO%b!<%I$rI=<($9$k!W$rDI2C(B.
 
 2011-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -255,11 +255,11 @@
 	* README.Mac.ja: No longer in the repository.
 	* README.MacOSX.ja, README.w32.ja: Update for APEL.
 
-2010-08-12  玉野健一 <suzu@a7m3.jp>
+2010-08-12  $B6LLn7r0l(B <suzu@a7m3.jp>
 
 	* README.MacOSX.ja: Update.
 
-2010-08-08  玉野健一 <suzu@a7m3.jp>
+2010-08-08  $B6LLn7r0l(B <suzu@a7m3.jp>
 
 	* README.MacOSX.ja: Update.
 
@@ -502,3 +502,7 @@
 	* PROPOSAL.ja:
 	* README.w32.ja:
 	Delete description for old Emacsen.
+
+;; Local Variables:
+;; coding: iso-2022-7bit-ss2
+;; End:
