@@ -1,5 +1,15 @@
 * 14.4
 
+** skk-isearch 設定の単純化
+
+skk-isearch を有効にするための設定方法の見直しを行いました。具体的には
+skk-isearch-mode-enable の値が always なら常に skk-isearch が有効にな
+り、それ以外の non-nil ならば SKK が ON のバッファでのみ skk-isearch
+が有効になります。
+
+従来のように、ユーザが直接 isearch-mode-hook, isearch-mode-end-hook を
+設定することも可能ですが、この方法は今後はユーザに紹介されません。
+
 ** メニューの追加
 
 インジケータ又は SKK アイコンを左クリック (mouse-3) すると表示されるメニ
