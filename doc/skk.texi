@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/24 06:05:35 $
+@set UPDATED $Date: 2011/12/24 11:00:54 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -677,7 +677,7 @@ DDSKK $B$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<5-$N<-=q%5!<%P$N(B
 
 @lisp
 @group
-(require 'skk-autoloads) @footnote{XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$r$7$?>l9g$O(B @code{(require 'skk-autoloads)} $B$N5-=R$OITMW$G$9!#(B}
+(require 'skk-autoloads) ; @b{XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$7$?>l9g$OITMW(B}
 (global-set-key "\C-x\C-j" 'skk-mode)
 (global-set-key "\C-xj" 'skk-auto-fill-mode)
 (global-set-key "\C-xt" 'skk-tutorial)
@@ -721,7 +721,7 @@ DDSKK 14 $B0J9_$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0$N<-=q%U%!%$%k$rD>@\MxM
 @code{Non-nil} $B$J$i(B SKK $B$,(B ON $B$K$J$C$F$$$k%P%C%U%!$G(B @code{skk-isearch} $B$rM-8z(B
 $B$K$7$^$9!#%G%U%)%k%H$G$O(B @code{t} $B$K$J$C$F$$$^$9!#(B
 
-@code{nil} $B$K@_Dj$9$k$H(B @code{skk-isearch} $B$rL58z$K$9$k$3$H$,$G$-$^$9!#(B@footnote{$B$3$NJQ?t$N@_Dj$O(B @file{~/.emacs} $B$+(B @kbd{M-x customize-variable}
+@code{nil} $B$K@_Dj$9$k$H(B @code{skk-isearch} $B$rL58z$K$9$k$3$H$,$G$-$^$9!#(B@footnote{$BJQ?t(B @code{skk-isearch-mode-enable} $B$N@_Dj$O(B @file{~/.emacs} $B$+(B @kbd{M-x customize-variable}
 $B$G9T$C$F$/$@$5$$!#(B}
 
 @lisp
@@ -3881,12 +3881,13 @@ DDSKK $B$O!"?t;z$r4^$`8+=P$78l$rMM!9$J8uJd$KJQ49$9$k$3$H$,$G$-$^$9!#(B
 
 @example
 @group
-@kbd{Q 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 @key{SPC}}@footnote{$B$^$?$O(B@kbd{/ 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 @key{SPC}}$B!#(B}
+@kbd{Q 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 @key{SPC}}
 @end group
 @end example
 
 @noindent
-$B$HF~NO$9$l$P!"(B@samp{$BI4C{Fs@i;02/;M==K|8^I4(B}$B$HJQ49$5$l$^$9(B
+$B$HF~NO(B@footnote{$B$^$?$O(B @kbd{/ 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 @key{SPC}}}
+$B$9$l$P!"(B@samp{$BI4C{Fs@i;02/;M==K|8^I4(B}$B$HJQ49$5$l$^$9(B
 @footnote{$B?t;z$rBgJ8;z$GF~NO$7;O$a$k$3$H$O$G$-$J$$$N$G!"(B@kbd{Q} $B$^$?$O(B
 @kbd{/} $B$G"&%b!<%I$KF~$kI,MW$,$"$j$^$9!#(B}$B!#(B
 
