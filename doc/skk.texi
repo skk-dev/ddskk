@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/23 23:02:41 $
+@set UPDATED $Date: 2011/12/24 06:05:35 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -714,7 +714,7 @@ DDSKK 14 $B0J9_$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0$N<-=q%U%!%$%k$rD>@\MxM
 @vindex isearch-mode-hook
 @vindex isearch-mode-end-hook
 
-$B4pK\E*$J@_Dj$O(B @file{skk-setup.el} $BFI$_9~$s$@;~E@$G40N;$7$F$$$^$9!#(B
+$B4pK\E*$J@_Dj$O(B @file{skk-setup.el} $B$rFI$_9~$s$@;~E@$G40N;$7$F$$$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-isearch-mode-enable
 
