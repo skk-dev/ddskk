@@ -1,3 +1,7 @@
+2011-12-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-split-char): Add comment.
+
 2011-12-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (冗長な案内メッセージの表示): 更新.

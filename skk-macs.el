@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.180 2011/11/13 15:27:41 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.181 2011/12/27 13:07:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/13 15:27:41 $
+;; Last Modified: $Date: 2011/12/27 13:07:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -472,10 +472,11 @@ but the contents viewed as characters do change.
 	       '(japanese-jisx0213-1 japanese-jisx0213-2))))))
 
 (defun skk-split-char (ch)
+  ;; http://mail.ring.gr.jp/skk/200908/msg00006.html
   (cond
    ((eval-when-compile (and skk-running-gnu-emacs
 			    (>= emacs-major-version 23)))
-    ;; C の split-char と同様の機能だが、char-charset の呼出しにおいて
+    ;; C の split-char() と同様の機能だが、char-charset() の呼出しにおいて
     ;; 文字集合の選択肢を skk-charset-list に含まれるものに制限する。
     ;; これは例えば、japanese-jisx0208 の文字が unicode-bmp に属する、
     ;; と判定されるような状況を回避する。
