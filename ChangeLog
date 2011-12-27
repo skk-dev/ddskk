@@ -1,5 +1,8 @@
 2011-12-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi (文字コードを知る方法): M-x skk-display-code-for-char-at-point
+	を記載.
+
 	* skk-macs.el (skk-split-char): Add comment.
 
 2011-12-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

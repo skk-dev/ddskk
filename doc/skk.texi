@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/24 11:00:54 $
+@set UPDATED $Date: 2011/12/27 13:21:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8203,8 +8203,11 @@ skk-list-chars を抜ける。
 @kindex $
 @cindex JISコード
 @cindex EUCコード
+@kindex M-x skk-display-code-for-char-at-point
 
-かな/カナモードで @kbd{$} を入力すると、現在のポイント位置の直後にある
+かな/カナモードで @kbd{$} を入力する
+@footnote{リードオンリーなバッファでは @kbd{M-x skk-display-code-for-char-at-point} を実行してください。}
+と、現在のポイント位置の直後にある
 文字の文字コードをエコーエリア@footnote{変数 @code{skk-show-tooltip} が
 @code{non-nil} であればツールティップで表示します。
 変数 @code{skk-show-candidates-always-pop-to-buffer} が @code{non-nil} で
