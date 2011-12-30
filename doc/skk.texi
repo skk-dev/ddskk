@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/30 04:34:27 $
+@set UPDATED $Date: 2011/12/30 06:30:31 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1596,13 +1596,7 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 ミニバッファで辞書登録すべき文字列は @samp{動} だけであり、送り仮名の
 @samp{く} は含めてはいけません。 @samp{動く} と登録してしまうと、次に
 @kbd{U g o K u} とタイプしたときに出力される候補が @samp{動くく} になっ
-てしまいます@footnote{変数@code{skk-check-okurigana-on-touroku} が
-@code{non-nil} であれば、辞書登録時に送り仮名のチェックを行います。この変
-数に、シンボル @w{@code{ask}} を設定すれば、ユーザに確認を求め、送り仮
-名と認められれば送り仮名を取り除いてから登録します。シンボル
-@w{@code{auto}} を設定すれば、ユーザに確認を求めず、勝手に送り仮名を判
-断して削除してから登録します。@code{skk-check-okurigana-on-touroku} の
-デフォルトは @code{nil} です。}。
+てしまいます。
 
 @example
 @group
@@ -1623,6 +1617,19 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 ------ Buffer: foo ------
 @end group
 @end example
+
+@defvr {ユーザ変数} skk-check-okurigana-on-touroku
+
+デフォルトは @code{nil} です。@code{non-nil} であれば、辞書登録時に送り仮
+名のチェックを行います。
+
+シンボル @code{ask} を設定すれば、ユーザに確認を求め、送り仮名と認められ
+れば送り仮名を取り除いてから登録します。
+
+シンボル @code{auto} を設定すれば、ユーザに確認を求めず、勝手に送り仮名を
+判断して削除してから登録します。
+
+@end defvr
 
 @node サ変動詞の辞書登録に関する注意
 @subsubsection サ変動詞の辞書登録に関する注意

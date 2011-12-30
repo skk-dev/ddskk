@@ -2,6 +2,8 @@
 
 	* doc/skk.texi (skk-verbose-intention-face): 「どのwiki」を「どれを参照」
 	と修整.
+	(skk-check-okurigana-on-touroku): footnote から defvr へ変更.
+
 	* skk-vars.el (skk-verbose-intention-face): 同上.
 
 2011-12-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
