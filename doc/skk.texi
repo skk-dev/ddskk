@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/27 13:21:34 $
+@set UPDATED $Date: 2011/12/30 04:34:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9196,7 +9196,7 @@ Wikipedia/Wiktionary のページをウェブブラウザで表示します。
 @end defvr
 
 @defvr {ユーザ変数} skk-verbose-intention-face
-「どのWiki?」と「アノテーション」に適用するフェイスです。
+「どれを参照?」と「アノテーション」に適用するフェイスです。
 @end defvr
 
 @defvr {ユーザ変数} skk-verbose-kbd-face

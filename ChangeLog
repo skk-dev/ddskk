@@ -1,3 +1,9 @@
+2011-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-verbose-intention-face): 「どのwiki」を「どれを参照」
+	と修整.
+	* skk-vars.el (skk-verbose-intention-face): 同上.
+
 2011-12-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (文字コードを知る方法): M-x skk-display-code-for-char-at-point
