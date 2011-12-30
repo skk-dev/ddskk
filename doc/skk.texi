@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/30 06:30:31 $
+@set UPDATED $Date: 2011/12/30 06:47:55 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -279,7 +279,7 @@ GNU Emacs 20 のユーザーは DDSKK 14.1 をお使いください。
 
 @itemize @bullet
 @item JIS X 0213 対応には Mule-UCS の導入が必要です。
-@item X Window System 上での日本語メニュー表示に対応しません。
+@item X Window System 上でのメニューバーの日本語表示に対応しません。
 @item アノテーションとして Wikipedia を表示するには @file{html2text.el} と @file{w3-url-e21} の導入が必要です。
 @item skk-tooltip-mouse-behavior は 'follow 固定です。
 @end itemize
@@ -288,13 +288,13 @@ GNU Emacs 20 のユーザーは DDSKK 14.1 をお使いください。
 
 @itemize @bullet
 @item JIS X 0213 対応には Mule-UCS の導入が必要です。
-@item X Window System 上での日本語メニュー表示は GTK 対応版のみです。
+@item X Window System 上でのメニューバーの日本語表示は GTK 対応版のみです。
 @end itemize
 
 @item GNU Emacs 23.3
 
 @itemize @bullet
-@item X Window System 上での日本語メニュー表示は GTK 対応版のみです。
+@item X Window System 上でのメニューバーの日本語表示は GTK 対応版のみです。
 @end itemize
 
 @item XEmacs 21.4

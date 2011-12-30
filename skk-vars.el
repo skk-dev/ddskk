@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.418 2011/12/30 04:34:27 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.419 2011/12/30 06:47:55 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/30 04:34:27 $
+;; Last Modified: $Date: 2011/12/30 06:47:55 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1770,7 +1770,8 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
   :group 'skk-misc)
 
 (defcustom skk-undo-kakutei-return-previous-point nil
-  "*Non-nil $B$G$"$l$P3NDj%"%s%I%%8e$K0JA0$N%+!<%=%k0LCV$KLa$9!#(B"
+  "*Non-nil $B$G$"$l$P!"3NDj%"%s%I%%=hM}$,40N;$7$?8e$K!"3NDj%"%s%I%%=hM}$N(B
+$BD>A0$N0LCV$K%+!<%=%k$rLa$9!#(B"
   :type 'boolean
   :group 'skk-misc)
 

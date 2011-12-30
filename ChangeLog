@@ -5,6 +5,7 @@
 	(skk-check-okurigana-on-touroku): footnote から defvr へ変更.
 
 	* skk-vars.el (skk-verbose-intention-face): 同上.
+	(skk-undo-kakutei-return-previous-point): docstring.
 
 2011-12-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
