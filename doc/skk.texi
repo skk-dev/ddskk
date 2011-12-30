@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/30 06:47:55 $
+@set UPDATED $Date: 2011/12/30 09:53:23 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1564,7 +1564,6 @@ k a n t y u u @key{SPC}}} とタイプすると、下記のように、カレントバッファ
 
 @node 送り仮名が有る場合の辞書登録
 @subsubsection 送り仮名が有る場合の辞書登録
-@vindex skk-check-okurigana-on-touroku
 
 送り仮名のある単語の登録では、ミニバッファで作る候補に送り仮名そのものを
 登録しないように注意しなければいけません。仮に辞書に
