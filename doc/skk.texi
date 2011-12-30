@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.3.92
-@set UPDATED $Date: 2011/12/30 09:53:23 $
+@set UPDATED $Date: 2011/12/30 10:40:51 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -719,16 +719,16 @@ DDSKK 14 $B0J9_$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0$N<-=q%U%!%$%k$rD>@\MxM
 @defvr {$B%f!<%6JQ?t(B} skk-isearch-mode-enable
 
 @code{Non-nil} $B$J$i(B SKK $B$,(B ON $B$K$J$C$F$$$k%P%C%U%!$G(B @code{skk-isearch} $B$rM-8z(B
-$B$K$7$^$9!#%G%U%)%k%H$G$O(B @code{t} $B$K$J$C$F$$$^$9!#(B
+$B$K$7$^$9!#%G%U%)%k%H$O(B @code{t} $B$G$9!#(B
 
-@code{nil} $B$K@_Dj$9$k$H(B @code{skk-isearch} $B$rL58z$K$9$k$3$H$,$G$-$^$9!#(B@footnote{$BJQ?t(B @code{skk-isearch-mode-enable} $B$N@_Dj$O(B @file{~/.emacs} $B$+(B @kbd{M-x customize-variable}
-$B$G9T$C$F$/$@$5$$!#(B}
+@code{nil} $B$K@_Dj$9$k$H(B @code{skk-isearch} $B$rL58z$K$9$k$3$H$,$G$-$^$9(B
+@footnote{$BJQ?t(B @code{skk-isearch-mode-enable} $B$N@_Dj$O(B @file{~/.emacs} $B$+(B @kbd{M-x customize-variable} $B$G9T$C$F$/$@$5$$!#(B}$B!#(B
 
 @lisp
 (setq skk-isearch-mode-enable nil)
 @end lisp
 
-$B$3$NCM$r(B @code{always} $B$K@_Dj$9$k$H(B SKK $B$,(B ON $B$K$J$C$F$$$J$$%P%C%U%!$G$b(B
+$B$3$NJQ?t$NCM$r(B @code{always} $B$K@_Dj$9$k$H!"(B SKK $B$,(B ON $B$K$J$C$F$$$J$$%P%C%U%!$G$b(B
 @code{skk-isearch} $B$rM-8z$K$7$^$9!#(B
 
 @lisp
@@ -1509,8 +1509,10 @@ k a n t y u u @key{SPC}}} $B$H%?%$%W$9$k$H!"2<5-$N$h$&$K!"%+%l%s%H%P%C%U%!(B
 $B0z?t(B INITIAL-CONTENTS $B$KAjEv$7$^$9!#(B
 
 @lisp
+@group
 (setq skk-read-from-minibuffer-function
       (lambda () skk-henkan-key))
+@end group
 @end lisp
 
 @end defvr
@@ -4355,18 +4357,14 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 $B$G$O0[$J$j$^$9!#>\$7$/$O%=!<%9$KIUB0$N%I%-%e%a%s%H!"@_DjNc$r$4Mw$/$@$5$$!#(B}
 
 @lisp
-@group
 (setq skk-search-katakana t)
-@end group
 @end lisp
 
 $B$^$?!"CM$r0J2<$N$h$&$K$9$k$H%+%?%+%J8uJd$K2C$(H>3Q%+%?%+%J8uJd$bJQ498uJd(B
 $B$K8=$l$^$9!#(B
 
 @lisp
-@group
 (setq skk-search-katakana 'jisx0201-kana)
-@end group
 @end lisp
 @end defvr
 
@@ -4390,9 +4388,7 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 $B$O%=!<%9$KIUB0$N%I%-%e%a%s%H!"@_DjNc$r$4Mw$/$@$5$$!#(B}
 
 @lisp
-@group
 (setq skk-search-sagyo-henkaku t)
-@end group
 @end lisp
 
 $BNc$($P(B @samp{$B$*Cc$9$k(B} $B$NJQ49$O0J2<$N$h$&$KJQ2=$7$^$9!#(B
@@ -4704,18 +4700,21 @@ ohhira @expansion{} $B$*$*$R$i(B
 @code{skk-rom-kana-rule-list} $B$rMxMQ$7$^$9!#Nc$($P!"(BSKK 9.6 $B0JA0$K$*$$$F!"(B
 
 @lisp
+@group
 (aset skk-input-vector ?! nil)
 (aset skk-input-vector ?, nil)
 (aset skk-input-vector ?. nil)
 (aset skk-input-vector ?: nil)
 (aset skk-input-vector ?; nil)
 (aset skk-input-vector ?? nil)
+@end group
 @end lisp
 
 @noindent
 $B$3$N$h$&$J@_Dj$r$7$F$$$?>l9g!"(BDDSKK 10.x $B0J9_$GF1MM$NF~NO$r$9$k$?$a$K$O!"(B
 
 @lisp
+@group
 (setq skk-rom-kana-rule-list
       (append skk-rom-kana-rule-list
               '(("!" nil "!")
@@ -4724,6 +4723,7 @@ ohhira @expansion{} $B$*$*$R$i(B
                 (":" nil ":")
                 (";" nil ";")
                 ("?" nil "?"))))
+@end group
 @end lisp
 
 @noindent
@@ -8556,9 +8556,12 @@ L:define-ccl-slide-translation-table
 
 $B$3$N5!G=$rM-8z$H$9$k$K$O!"%j%9%H(B @code{skk-search-prog-list} $B$NMWAG$K(B
 $B4X?t(B @code{skk-search-lisp-symbol} $B$r2C$($F$/$@$5$$!#(B
+
 @lisp
+@group
 (add-to-list 'skk-search-prog-list
 	     '(skk-search-lisp-symbol) t)
+@end group
 @end lisp
 
 $B$J$*!"8+=P$78l$K(B @samp{~} $B$r4^$`<-=q$b$"$j$^$9!#Nc$($P(B @file{SKK-JISYO.JIS3_4} $B$K$O(B
