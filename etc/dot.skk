@@ -384,12 +384,12 @@
 ;; (setq skk-search-katakana t)
 ;; 例 2) 全角カタカナの候補と半角カタカナの候補を共に加える
 ;; (setq skk-search-katakana 'jisx0201-kana)
-;; 注) skk-search-prog-list を手動で設定している場合はこの機能の
+;; 注) `skk-search-prog-list' を手動で設定している場合はこの機能の
 ;; 動作は保証されません。
 
 ;; サ行変格活用の動詞も送りあり変換出来るようにする
 ;; (setq skk-search-sagyo-henkaku t)
-;; 注) skk-search-prog-list を手動で設定している場合はこの機能の
+;; 注) `skk-search-prog-list' を手動で設定している場合はこの機能の
 ;; 動作は保証されません。
 
 ;; 辞書検索に関する高度な設定 --
@@ -514,7 +514,7 @@
 ;;
 ;; 方針 1) Emacs のバッファに読み込む辞書を全て `skk-jisyo-code' と同じ
 ;;         文字コードに変換する
-;; 方針 2) skk-search-prog-list の要素を全て文字コード指定に書き直す。
+;; 方針 2) `skk-search-prog-list' の要素を全て文字コード指定に書き直す。
 ;;         例えば
 ;;
 ;; (setq skk-search-prog-list
