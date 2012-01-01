@@ -1,3 +1,9 @@
+2012-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Version 14.4 Nakatsu Released.
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK verison to 14.4.
+
 2011-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-verbose-intention-face): 「どのwiki」を「どれを参照」
