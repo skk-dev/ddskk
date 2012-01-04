@@ -1,3 +1,8 @@
+2012-01-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ChangeLog.4, ChangeLog.5, ChangeLog.6, ChangeLog.7: Merge them
+	into a single file ChangeLog.4.
+
 2012-01-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK: version check when installation. Emacs 21 is not supported by
