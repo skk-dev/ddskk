@@ -1,5 +1,7 @@
 2012-01-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* SKK-MK: version check when installation. Emacs 21 is not supported by
+	this version of SKK.
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK verison to 15.0.50.
 
 ;; Local Variables:
