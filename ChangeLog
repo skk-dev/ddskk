@@ -1,6 +1,6 @@
 2012-01-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* 
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK verison to 15.0.50.
 
 ;; Local Variables:
 ;; coding: iso-2022-7bit-ss2
