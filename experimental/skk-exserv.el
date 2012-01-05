@@ -6,9 +6,9 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-exserv.el,v 1.9 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-exserv.el,v 1.10 2012/01/05 12:06:09 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2012/01/05 12:06:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -116,11 +116,9 @@ candidates that are delimited by slash.")
 	      nil
 	    (process-kill-without-query process)
 	    (static-cond
-	     ((eq skk-emacs-type 'xemacs)
+	     ((featurep 'xemacs)
 	      (set-process-input-coding-system process coding-system)
 	      (set-process-output-coding-system process coding-system))
-	     ((eq skk-emacs-type 'nemacs)
-	      (set-process-kanji-code process 0))
 	     (t
 	      (set-process-coding-system process coding-system coding-system)))
 	    (oset engine process process)

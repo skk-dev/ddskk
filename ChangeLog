@@ -1,3 +1,8 @@
+2012-01-04  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* experimental/skk-exserv.el, experimental/skk-w3m.el,
+	experimental/rdbms/skk-rdbms.el: Don't use `skk-emacs-type'.
+
 2012-01-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ChangeLog.4, ChangeLog.5, ChangeLog.6, ChangeLog.7: Merge them

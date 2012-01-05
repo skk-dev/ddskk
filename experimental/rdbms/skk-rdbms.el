@@ -3,9 +3,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@namazu.org>
-;; Version: $Id: skk-rdbms.el,v 1.13 2010/08/02 15:21:06 skk-cvs Exp $
+;; Version: $Id: skk-rdbms.el,v 1.14 2012/01/05 12:06:11 skk-cvs Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2010/08/02 15:21:06 $
+;; Last Modified: $Date: 2012/01/05 12:06:11 $
 
 ;; This file is not part of Daredevil SKK yet.
 
@@ -475,7 +475,7 @@ skk-rdbms-working-buffer の中でコールされる。")
 					 skk-rdbms-shell
 					 skk-rdbms-shell-args))
 		    (process-kill-without-query skk-rdbms-process)
-		    (cond ((eq skk-emacs-type 'xemacs)
+		    (cond ((featurep 'xemacs)
 			   (set-process-input-coding-system
 			    skk-rdbms-process
 			    skk-rdbms-process-coding-system)
