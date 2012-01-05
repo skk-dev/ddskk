@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.0.50
-@set UPDATED $Date: 2012/01/04 12:06:38 $
+@set UPDATED $Date: 2012/01/05 13:12:41 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -251,7 +251,6 @@ DDSKK @value{SKK-VERSION} $B$,F0:n$9$k$H;W$o$l$k(B Emacsen $B$N%P!<%8%g%s$O!"
 $B$*$j$G$9!#(B
 
 @itemize @bullet
-@item GNU Emacs 21.4
 @item GNU Emacs 22.1 $B0J9_(B ($B?d>)(B)
 @item GNU Emacs 23.1 $B0J9_(B ($B?d>)(B)
 @item Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21.4 $B$N:G?7HG(B
@@ -264,7 +263,6 @@ XEmacs $B$K4X$7$F$O!"(BXEmacs $BK\BN$H$OJL$KG[I[$5$l$F$$$k%Q%C%1!<%872$O:G?7H
 
 $BAmO@$H$7$F!"8=:_$O(B XEmacs $B$h$j$b(B GNU Emacs $B$G$NF0:n$,$h$/%F%9%H$5$l$F$*(B
 $B$j!":G6a$G$O(B XEmacs $B$G$N%F%9%H$O=<J,9T$o$l$F$$$^$;$s!#(B
-GNU Emacs 21 $B$G$OF0:n%F%9%H$,=<J,$H$O8@$($^$;$s!#(B
 GNU Emacs 22 $B0J>e$G$NMxMQ$,:G$b?d>)$5$l$^$9!#(B
 
 $B8=;~E@$G(B Emacs $B$N%P!<%8%g%s$4$H$K>/$J$/$H$b0J2<$N@)8B$,$"$j$^$9!#(B
@@ -277,12 +275,8 @@ GNU Emacs 20 $B$N%f!<%6!<$O(B DDSKK 14.1 $B$r$*;H$$$/$@$5$$!#(B
 
 @item GNU Emacs 21.4
 
-@itemize @bullet
-@item JIS X 0213 $BBP1~$K$O(B Mule-UCS $B$NF3F~$,I,MW$G$9!#(B
-@item X Window System $B>e$G$N%a%K%e!<%P!<$NF|K\8lI=<($KBP1~$7$^$;$s!#(B
-@item $B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$rI=<($9$k$K$O(B @file{html2text.el} $B$H(B @file{w3-url-e21} $B$NF3F~$,I,MW$G$9!#(B
-@item skk-tooltip-mouse-behavior $B$O(B 'follow $B8GDj$G$9!#(B
-@end itemize
+DDSKK 15.1 $B0J9_$O(B GNU Emacs 21 $B$O%5%]!<%HBP>]30$G$9!#(B
+GNU Emacs 21 $B$N%f!<%6!<$O(B DDSKK 14.4 $B$r$*;H$$$/$@$5$$!#(B
 
 @item GNU Emacs 22.3
 
@@ -377,7 +371,7 @@ DDSKK 14.2 $B0J9_!"(BGNU Emacs 22 $B0J>e$K$*$$$F$O(B APEL $B$rJLES%$%s%9%H!
 $BI,MW$,$J$/$J$j$^$7$?!#(BAPEL $B$K0MB8$7$F$$$kB>$N(B elisp $B%W%m%0%i%`$r;HMQ$7$F(B
 $B$$$J$1$l$P!"%$%s%9%H!<%k:Q$N(B APEL $B$O:o=|$9$k$3$H$,2DG=$G$9!#(B
 
-GNU Emacs 21 $B5Z$S(B XEmacs $B$r$*;H$$$N>l9g$O!"(B DDSKK $B$r%$%s%9%H!<%k$9$kA0$K(B
+XEmacs $B$r$*;H$$$N>l9g$O!"(B DDSKK $B$r%$%s%9%H!<%k$9$kA0$K(B
 APEL (APEL 10.8 $B0J>e$r?d>)(B) $B$r%$%s%9%H!<%k$7$F2<$5$$!#(B
 APEL $B$O<!$N%5%$%H$+$iF~<j$G$-$^$9!#(B
 
@@ -8790,7 +8784,6 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-tooltip-mouse-behavior
-@b{Emacs 21 $B$O(B @code{'follow} $B8GDj$G$9!#(B}
 
 $B%D!<%k%F%#%C%W$rI=<($9$k0LCV5Z$S%^%&%9%]%$%s%?$N5sF0$r;XDj$7$^$9!#(B
 $B2<5-$K7G$2$k%7%s%\%k0J30$N%7%s%\%k$r;XDj$7$?>l9g$O(B @code{nil} $B$H$J$j$^$9!#(B
@@ -9944,7 +9937,7 @@ Apple Mac OS X $BHG(B Emacs $B$KFC2=$7$?>pJs$K$D$$$F$O!"0J2<$N%U%!%$%k$r;2>H$
 APEL $B$O(B A Portable Emacs Library $B$NN,$G$9!#(BAPEL $B$N<g$J5!G=$O0[$J$k(B Emacs
 $B4V$NHs8_49@-$r5[<}$9$k$3$H$G$9!#(B
 
-GNU Emacs 21 $B5Z$S(B XEmacs $B$G$O(B APEL $B$,I,MW$G$9!#(B
+XEmacs $B$G$O(B APEL $B$,I,MW$G$9!#(B
 
 GNU Emacs 22 $B0J>e$G$O(B APEL $B$OITMW$H$J$j$^$7$?!#$3$NJQ99$O(B 2010 $BG/(B 9 $B7n$K(B CVS $B$K(B commit $B$5$l!"(B2011 $BG/(B 1 $B7n$K(B DDSKK 14.2 $B$H$7$F%j%j!<%9$5$l$^$7$?!#(B
 
@@ -9962,7 +9955,7 @@ GNU Emacs 22 $B0J>e$G$O(B APEL $B$OITMW$H$J$j$^$7$?!#$3$NJQ99$O(B 2010 $BG/
 
 SKK $BK\BN$H(B SKK $B<-=q$,I,MW$G$9!#%*%W%7%g%s$G<-=q%5!<%P$rMQ0U$9(B
 $B$k$3$H$,$G$-$^$9!#(B
-GNU Emacs 21 $B5Z$S(B XEmacs $B$G$O;vA0$K(B APEL $B$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
+XEmacs $B$G$O;vA0$K(B APEL $B$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
 
 @display
 @xref{APEL $B$N%$%s%9%H!<%k(B}.
