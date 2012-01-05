@@ -1,7 +1,7 @@
 2012-01-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-version.el (skk-version):  Do not increment the major
-	version before the release of a new Emacs version.
+	version before the release of a new Emacs major version.
 
 2012-01-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
