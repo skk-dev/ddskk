@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.420 2012/01/07 06:23:28 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.421 2012/01/07 10:37:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/07 06:23:28 $
+;; Last Modified: $Date: 2012/01/07 10:37:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -399,24 +399,20 @@ Non-nil であれば、指定された辞書を検索のためバッファに読み込み、検索を行う。
   "*$B個人辞書の検索の後に検索する辞書。
 見出し語は、ソートされていなければならない。
 Non-nil であれば、指定された辞書を検索のためバッファに読み込み、検索を行う。"
-  :type (if (and skk-running-gnu-emacs
-		 (= emacs-major-version 21))
-	    '(radio (file :tag "辞書ファイル名")
-		    (const :tag "指定しない" nil))
-	  `(radio (file :tag "辞書ファイル名"
-			,(cond
-			  ((featurep 'xemacs)
-			   (or (locate-data-file "SKK-JISYO.L")
-			       ""))
-			  ((fboundp 'locate-file)
-			   (or (locate-file "skk/SKK-JISYO.L"
-					    (list
-					     (expand-file-name "../../.."
-							       data-directory)))
-			       (locate-file "skk/SKK-JISYO.L"
-					    (list data-directory))
-			       ""))))
-		  (const :tag "指定しない" nil)))
+  :type `(radio (file :tag "辞書ファイル名"
+		      ,(cond
+			((featurep 'xemacs)
+			 (or (locate-data-file "SKK-JISYO.L")
+			     ""))
+			((fboundp 'locate-file)
+			 (or (locate-file "skk/SKK-JISYO.L"
+					  (list
+					   (expand-file-name "../../.."
+							     data-directory)))
+			     (locate-file "skk/SKK-JISYO.L"
+					  (list data-directory))
+			     ""))))
+		(const :tag "指定しない" nil))
   :group 'skk-dictionary)
 
 (defcustom skk-aux-large-jisyo nil
@@ -425,24 +421,20 @@ Non-nil であれば、指定された辞書を検索のためバッファに読み込み、検索を行う。
 $B見出し語は、ソートされていなければならない。
 Non-nil であれば、辞書サーバが active でない時に、
 指定された辞書をバッファに読み込み、検索を行う。"
-  :type (if (and skk-running-gnu-emacs
-		 (= emacs-major-version 21))
-	    '(radio (file :tag "辞書ファイル名")
-		    (const :tag "指定しない" nil))
-	  `(radio (file :tag "辞書ファイル名"
-			,(cond
-			  ((featurep 'xemacs)
-			   (or (locate-data-file "SKK-JISYO.L")
-			       ""))
-			  ((fboundp 'locate-file)
-			   (or (locate-file "skk/SKK-JISYO.L"
-					    (list
-					     (expand-file-name "../../.."
-							       data-directory)))
-			       (locate-file "skk/SKK-JISYO.L"
-					    (list data-directory))
-			       ""))))
-		  (const :tag "指定しない" nil)))
+  :type `(radio (file :tag "辞書ファイル名"
+		      ,(cond
+			((featurep 'xemacs)
+			 (or (locate-data-file "SKK-JISYO.L")
+			     ""))
+			((fboundp 'locate-file)
+			 (or (locate-file "skk/SKK-JISYO.L"
+					  (list
+					   (expand-file-name "../../.."
+							     data-directory)))
+			     (locate-file "skk/SKK-JISYO.L"
+					  (list data-directory))
+			     ""))))
+		(const :tag "指定しない" nil))
   :group 'skk-dictionary
   :group 'skk-server)
 

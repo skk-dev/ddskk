@@ -2,7 +2,8 @@
 
 	* skk-vars.el (skk-kcode-method, skk-kcode-charset-list): skk-running-gnu-emacs
 	に代えて (featurep 'emacs) を使用.
-	(skk-tooltip-mouse-behavior): Emacs 21 向けコードを削除.
+	(skk-tooltip-mouse-behavior, skk-large-jisyo, skk-aux-large-jisyo):
+	Emacs 21 向けコードを削除.
 
 	* SKK-MK (166行目): `;; After determining APEL installed dirctory.' の
 	部分から Emacs 21 向けコードを削除.
