@@ -1,7 +1,8 @@
 2012-01-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* SKK-MK: 166 行目 `;; After determining APEL installed dirctory.' の
+	* SKK-MK (166行目): `;; After determining APEL installed dirctory.' の
 	部分から Emacs 21 向けコードを削除.
+	(VERSION-STRING): Interactive Installer 起動時に skk-version を表示.
 
 	* Makefile (VERSION): 14.4.50 へと修正.
 

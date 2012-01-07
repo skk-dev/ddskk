@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.194 2012/01/07 03:55:55 skk-cvs Exp $
-;; Last Modified: $Date: 2012/01/07 03:55:55 $
+;; Version: $Id: SKK-MK,v 1.195 2012/01/07 04:26:17 skk-cvs Exp $
+;; Last Modified: $Date: 2012/01/07 04:26:17 $
 
 ;;; Commentary:
 
@@ -969,12 +969,26 @@ SKK tutorials:
       (error "%s is not directory" directory))
   (directory-file-name (expand-file-name directory)))
 
+(defvar VERSION-STRING nil)
+(setq VERSION-STRING
+      (let (start)
+	(with-temp-buffer
+	  (insert-file-contents "skk-version.el")
+	  (goto-char (point-min))
+	  (search-forward "'version-string ")
+	  (forward-char)
+	  (setq start (point))
+	  (search-forward (char-to-string 34))
+	  (buffer-substring start (1- (point))))))
+
 (if noninteractive
     nil
   (switch-to-buffer (generate-new-buffer "*DDSKK Installer*"))
   (insert "DDSKK インストーラ\n")
   (insert "===================\n\n")
-  (insert "DDSKK のインストールを始めます。\n")
+  (insert "DDSKK "
+	  VERSION-STRING
+	  " のインストールを始めます。\n")
   (insert "C-g をタイプすると、いつでも中断できます。\n\n")
 
   (insert "DDSKK のインストール先を入力してください:\n")
