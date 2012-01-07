@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.421 2012/01/07 10:37:20 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.422 2012/01/07 10:57:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/07 10:37:20 $
+;; Last Modified: $Date: 2012/01/07 10:57:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1939,8 +1939,7 @@ left であれば左端に表示する。
 (defcustom skk-use-face (or window-system
 			    (fboundp 'selected-frame)
 			    ; XEmacs does not have this.
-			    (fboundp 'frame-face-alist)
-			    (> emacs-major-version 20))
+			    (fboundp 'frame-face-alist))
   "*Non-nil であれば、Emacs の face の機能を使用して変換表示を行う。"
   :type 'boolean
   :group 'skk-basic
@@ -3110,24 +3109,20 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
   "*個人辞書の検索の後に検索する CDB 形式辞書ファイル名。
 Non-nil であれば、指定された CDB 形式辞書を Emacs から直接利用し、
 高速な検索を行う。"
-  :type (if (and skk-running-gnu-emacs
-		 (= emacs-major-version 21))
-	    '(radio (file :tag "辞書ファイル名")
-		    (const :tag "指定しない" nil))
-	  `(radio (file :tag "辞書ファイル名"
-			,(cond
-			  ((featurep 'xemacs)
-			   (or (locate-data-file "SKK-JISYO.L.cdb")
-			       ""))
-			  ((fboundp 'locate-file)
-			   (or (locate-file "skk/SKK-JISYO.L.cdb"
-					    (list
-					     (expand-file-name "../../.."
-							       data-directory)))
-			       (locate-file "skk/SKK-JISYO.L.cdb"
-					    (list data-directory))
-			       ""))))
-		  (const :tag "指定しない" nil)))
+  :type `(radio (file :tag "辞書ファイル名"
+		      ,(cond
+			((featurep 'xemacs)
+			 (or (locate-data-file "SKK-JISYO.L.cdb")
+			     ""))
+			((fboundp 'locate-file)
+			 (or (locate-file "skk/SKK-JISYO.L.cdb"
+					  (list
+					   (expand-file-name "../../.."
+							     data-directory)))
+			     (locate-file "skk/SKK-JISYO.L.cdb"
+					  (list data-directory))
+			     ""))))
+		(const :tag "指定しない" nil))
   :group 'skk-cdb
   :group 'skk-dictionary)
 
