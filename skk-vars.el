@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.419 2011/12/30 06:47:55 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.420 2012/01/07 06:23:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/30 06:47:55 $
+;; Last Modified: $Date: 2012/01/07 06:23:28 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3943,7 +3943,7 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
   :group 'skk-kanagaki)
 
 ;;; skk-kcode.el related.
-(defcustom skk-kcode-method (if skk-running-gnu-emacs
+(defcustom skk-kcode-method (if (featurep 'emacs)
 				'code-or-char-list
 			      'code-or-menu)
   "*`skk-input-by-code-or-menu' $B$G;H$o$l$kJ8;zA^F~$N$?$a$N%$%s%?!<%U%'!<%9!#(B
@@ -4011,8 +4011,7 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
 (defconst skk-kcode-charset-list
   (mapcar (lambda (x)
 	    (list (symbol-name x)))
-	  (if (eval-when-compile
-		(and skk-running-gnu-emacs (>= emacs-major-version 21)))
+	  (if (eval-when-compile (featurep 'emacs))
 	      charset-list
 	    (charset-list))))
 
@@ -5131,10 +5130,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 (defcustom skk-tooltip-mouse-behavior
   (cond ((featurep 'xemacs)
 	 'banish)
-	((= emacs-major-version 21)
-	 'follow)
 	(t
-	 ;; GNU Emacs 22 $B0J>e(B
 	 'banish))
   "*Tooltip $B$rI=<($9$k>l9g$N!"%^%&%9%]%$%s%?$N5sF0!#(B
 `follow' $B$J$i$P(B  tip $B$N0LCV$K0\F0$9$k!#(B
@@ -5144,8 +5140,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 `nil' $B$J$i$P!"B`Hr$7$J$$!#$3$N>l9g!"(Btip $B$N%F%-%9%H$H%^%&%9%]%$%s%?$,(B
 $B=E$J$C$?$j!"$&$^$/(B tip $B$,I=<($G$-$J$+$C$?$j$9$k$N$GCm0U!#(B
 
-$B$3$N5!G=$O(B GNU Emacs 22 $B0J>e$+(B XEmacs 21.5 $B0J>e$GF0:n$9$k!#(B
-GNU Emacs 21 $B$G$O6/@)E*$K(B `follow' $B$H$J$k!#(B"
+$B$3$N5!G=$O(B GNU Emacs 22 $B0J>e$+(B XEmacs 21.5 $B0J>e$GF0:n$9$k!#(B"
   :type '(radio (const :tag "Tip $B$K=>$&(B" follow)
 		(const :tag "$B%&%#%s%I%&$NC<$KF($2$k(B" avoid)
 		(const :tag "$BF($2$?$[$&$,$h$5$=$&$J$H$-$@$1F($2$k(B" avoid-maybe)
