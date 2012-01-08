@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.422 2012/01/07 10:57:28 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.423 2012/01/08 10:54:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/07 10:57:28 $
+;; Last Modified: $Date: 2012/01/08 10:54:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -46,7 +46,7 @@
 				      (string-match "^GNU" (emacs-version)))))
 
 ;; Functions needed prior to loading skk-macs.el.
-(when (eval-when-compile skk-running-gnu-emacs)
+(when (eval-when-compile (featurep 'emacs))
   (defsubst find-coding-system (obj)
     "Return OBJ if it is a coding-system."
     (if (coding-system-p obj)
@@ -54,7 +54,7 @@
 
 (defun skk-find-window-system ()
   (cond
-   ((eval-when-compile (and skk-running-gnu-emacs
+   ((eval-when-compile (and (featurep 'emacs)
 			    (>= emacs-major-version 23)))
     (let ((frames (frame-list))
 	  val)
@@ -2097,7 +2097,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 
 ;;; -- Internal constants and variables of skk.el
 (defconst skk-coding-system-alist
-  (cond ((and skk-running-gnu-emacs
+  (cond ((and (featurep 'emacs)
 	      (>= emacs-major-version 23))
 	 '(("euc" . euc-jis-2004)
 	   ("ujis" . euc-jis-2004)

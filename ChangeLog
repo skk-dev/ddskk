@@ -1,5 +1,9 @@
 2012-01-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (find-coding-system, skk-find-window-system)
+	(skk-coding-system-alist):
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
+
 	* skk.el (skk-henkan-show-candidate-subr, skk-search-function-usage)
 	(skk-mode-invoke, skk-setup-j-mode-map-options)
 	(skk-multiple-line-message):
