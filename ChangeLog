@@ -1,6 +1,8 @@
 2012-01-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-henkan-show-candidate-subr, skk-search-function-usage):
+	* skk.el (skk-henkan-show-candidate-subr, skk-search-function-usage)
+	(skk-mode-invoke, skk-setup-j-mode-map-options)
+	(skk-multiple-line-message):
 	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
 	* skk-macs.el (ignore-errors): Emacs 21 向けコードを削除.

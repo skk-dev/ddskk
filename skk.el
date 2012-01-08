@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.611 2012/01/08 10:23:07 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.612 2012/01/08 10:38:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/08 10:23:07 $
+;; Last Modified: $Date: 2012/01/08 10:38:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -321,9 +321,9 @@ dependent."
 	(skk-use-kana-keyboard
 	 ;; 仮名入力 (日本語旧 JIS または親指シフト)
 	 (skk-kanagaki-initialize)))
-  (when (eval-when-compile skk-running-gnu-emacs)
+  (when (eval-when-compile (featurep 'emacs))
     (skk-emacs-prepare-menu))
-  (when (eval-when-compile (and skk-running-gnu-emacs
+  (when (eval-when-compile (and (featurep 'emacs)
 				(>= emacs-major-version 23)))
     (skk-setup-charset-list))
   (skk-setup-delete-selection-mode)
@@ -463,7 +463,7 @@ dependent."
       #'skk-insert)
 
     ;; Workaround for key translation.
-    (when (eval-when-compile skk-running-gnu-emacs)
+    (when (eval-when-compile (featurep 'emacs))
       (when (eq skk-try-completion-char 9)
 	;; tab キーは <tab> の定義が無ければ TAB の定義が割り当てられる。
 	;; Org-mode などは <tab> を定義するので，SKK の方でも <tab> を定義
@@ -1809,7 +1809,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	       'skk-multiple-line-message-clear))
 
 (defun skk-multiple-line-message (fmt &rest args)
-  (if skk-running-gnu-emacs
+  (if (featurep 'emacs)
       (apply #'message fmt args)
     ;; XEmacs
     (save-selected-window
@@ -4700,7 +4700,7 @@ SKK 辞書の候補として正しい形に整形する。"
 				 (1- (length skk-henkan-key))))))
 
 (defun skk-search-ja-dic-maybe ()
-  (when (eval-when-compile skk-running-gnu-emacs)
+  (when (eval-when-compile (featurep 'emacs))
     (unless (or (and (stringp skk-large-jisyo)
 		     (file-readable-p skk-large-jisyo))
 		(and (stringp skk-aux-large-jisyo)
