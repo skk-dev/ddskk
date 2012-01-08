@@ -1,738 +1,744 @@
+* 14.5 (15.1)
+
+** GNU Emacs 21 のサポートを終了しました。
+
+GNU Emacs 21 をお使いの方は DDSKK 14.4 を利用してください。
+
 * 14.4
 
-** skk-isearch 設定の単純化
+** skk-isearch 設定の単純化
 
-skk-isearch を有効にするための設定方法の見直しを行いました。具体的には
-skk-isearch-mode-enable の値が always なら常に skk-isearch が有効にな
-り、それ以外の non-nil ならば SKK が ON のバッファでのみ skk-isearch
-が有効になります。
+skk-isearch を有効にするための設定方法の見直しを行いました。具体的には
+skk-isearch-mode-enable の値が always なら常に skk-isearch が有効にな
+り、それ以外の non-nil ならば SKK が ON のバッファでのみ skk-isearch
+が有効になります。
 
-従来のように、ユーザが直接 isearch-mode-hook, isearch-mode-end-hook を
-設定することも可能ですが、この方法は今後はユーザに紹介されません。
+従来のように、ユーザが直接 isearch-mode-hook, isearch-mode-end-hook を
+設定することも可能ですが、この方法は今後はユーザに紹介されません。
 
-** メニューの追加
+** メニューの追加
 
-インジケータ又は SKK アイコンを左クリック (mouse-3) すると表示されるメニ
-ューに「漢字を部首から調べる」、「文字コード表」、「領域またはポイントの
-語句を調べる」、「SKK 時計」を追加しました。
+インジケータ又は SKK アイコンを左クリック (mouse-3) すると表示されるメニ
+ューに「漢字を部首から調べる」、「文字コード表」、「領域またはポイントの
+語句を調べる」、「SKK 時計」を追加しました。
 
-** カーソル付近に入力モードを表示する
+** カーソル付近に入力モードを表示する
 
-かなモード、カナモード、全英モード、アスキーモードを切り替えたときに
-カーソル付近に skk-{hiragana,katakana,jisx0208-latin,latin}-mode-string
-を表示することができます。
-~/.skk にて (setq skk-show-mode-show t) と設定してください。
+かなモード、カナモード、全英モード、アスキーモードを切り替えたときに
+カーソル付近に skk-{hiragana,katakana,jisx0208-latin,latin}-mode-string
+を表示することができます。
+~/.skk にて (setq skk-show-mode-show t) と設定してください。
 
 *** skk-show-mode-style
 
-カーソル付近への表示方法を、シンボル 'inline または シンボル 'tooltip
-で選択します。標準は 'inline です。
+カーソル付近への表示方法を、シンボル 'inline または シンボル 'tooltip
+で選択します。標準は 'inline です。
 
 *** M-x skk-show-mode
 
-変数 skk-show-mode-show をトグル切り替えします。
+変数 skk-show-mode-show をトグル切り替えします。
 
-** Mac OS X で DictionaryServices からのアノテーション取得
+** Mac OS X で DictionaryServices からのアノテーション取得
 
-Mac OS X の辞書アプリ (Dictionary.app) では標準で国語辞典など利用できます。
-このうち優先順位の高い辞書からアノテーションを取得する機能が利用できま
-す。現状では辞書の検索順は Dictionary.app の環境設定で設定する必要があ
-ります。
+Mac OS X の辞書アプリ (Dictionary.app) では標準で国語辞典など利用できます。
+このうち優先順位の高い辞書からアノテーションを取得する機能が利用できま
+す。現状では辞書の検索順は Dictionary.app の環境設定で設定する必要があ
+ります。
 
-この機能を利用する場合は以下の変数を設定してください。
+この機能を利用する場合は以下の変数を設定してください。
 
 *** skk-annotation-lookup-DictionaryServices
 
-non-nil に設定するとバックグランドで python を実行し、辞書にアクセスし
-ます。python の初回起動時に時間がかかりますが、以下の変数を同時に設定
-することで回避できます。
+non-nil に設定するとバックグランドで python を実行し、辞書にアクセスし
+ます。python の初回起動時に時間がかかりますが、以下の変数を同時に設定
+することで回避できます。
 
 *** skk-preload
 
-non-nil に設定すると skk.el, SKK 辞書とともに必要な場合は python の
-DictionaryServices を Emacs 起動時に読みこむことができます。
-skk-preload の設定は ~/.skk ではなく ~/.emacs (~/.emacs.d/init.el) で
-行います。
+non-nil に設定すると skk.el, SKK 辞書とともに必要な場合は python の
+DictionaryServices を Emacs 起動時に読みこむことができます。
+skk-preload の設定は ~/.skk ではなく ~/.emacs (~/.emacs.d/init.el) で
+行います。
 
-さらに以下の例ような設定をすると、SKK とは関係なく常時辞書引きコマンド
-として利用できます。
+さらに以下の例ような設定をすると、SKK とは関係なく常時辞書引きコマンド
+として利用できます。
 
 *** (global-set-key "\M-i" 'skk-annotation-lookup-region-or-at-point)
 
-M-i というキーは一例にすぎません。領域を選択してタイプすると辞書が参照
-できます。多くの英単語については領域を選択せずに単語が判別されます。
+M-i というキーは一例にすぎません。領域を選択してタイプすると辞書が参照
+できます。多くの英単語については領域を選択せずに単語が判別されます。
 
-*** 注意事項
+*** 注意事項
 
-この機能を利用するには、python に readline と
-pyobject-framework-DictionaryServices が必要です。後者については OS X
-10.5 (Leopard) 以降の OS 標準の python に標準でインストールされていま
-す。readline については OS X 10.7 (Lion) 標準の python ではインストー
-ルする必要がありません。それ以外の場合は
+この機能を利用するには、python に readline と
+pyobject-framework-DictionaryServices が必要です。後者については OS X
+10.5 (Leopard) 以降の OS 標準の python に標準でインストールされていま
+す。readline については OS X 10.7 (Lion) 標準の python ではインストー
+ルする必要がありません。それ以外の場合は
 
 % easy_install readline 
 
-などの方法でインストールします。
+などの方法でインストールします。
 
-** 外部コマンドからのアノテーション取得
+** 外部コマンドからのアノテーション取得
 
-辞書に登録されているアノテーションよりも外部コマンドから取得したアノテー
-ションを優先して表示できるようにしました。dict クライアントなどで日本
-語の辞書を調べられるものがあれば (あるかどうか分かりません) 使えます。
+辞書に登録されているアノテーションよりも外部コマンドから取得したアノテー
+ションを優先して表示できるようにしました。dict クライアントなどで日本
+語の辞書を調べられるものがあれば (あるかどうか分かりません) 使えます。
 
-利用する場合は以下の変数を設定します。
+利用する場合は以下の変数を設定します。
 
 *** skk-annotation-lookup-dict
 *** skk-annotation-dict-program
 *** skk-annotation-dict-program-arguments
 *** skk-annotation-dict-coding-system
 
-** EPWING 辞書からのアノテーション取得
+** EPWING 辞書からのアノテーション取得
 
-辞書検索ツール Lookup (http://openlab.jp/edict/lookup/) を経由して
-EPWING 辞書からアノテーションを取得します。
+辞書検索ツール Lookup (http://openlab.jp/edict/lookup/) を経由して
+EPWING 辞書からアノテーションを取得します。
 
 *** skk-lookup-get-content()
 *** skk-lookup-get-content-nth-dic
 *** skk-annotation-lookup-lookup
 
-** $ タイプ時の挙動
+** $ タイプ時の挙動
 
-`$' のタイプで起動する skk-display-code-for-char-at-point について、
-14.1 まではエコーエリアのみ、14.2 でツールティップ表示を導入していたとこ
-ろ、14.3 では「別ウィンドウ表示」を導入しました。
-変数 skk-show-candidates-always-pop-to-buffer が non-nil であれば、別ウィ
-ンドウに表示します。
+`$' のタイプで起動する skk-display-code-for-char-at-point について、
+14.1 まではエコーエリアのみ、14.2 でツールティップ表示を導入していたとこ
+ろ、14.3 では「別ウィンドウ表示」を導入しました。
+変数 skk-show-candidates-always-pop-to-buffer が non-nil であれば、別ウィ
+ンドウに表示します。
 
 ** skk-azik.el
 
-「子音 + ピリオド」の組み合せのうち、次の４つを削除した。
-  "b." nil ("ブ" . "ぶ")
-  "m." nil ("ム" . "む")
-  "n." nil ("ヌ" . "ぬ")
-  "z." nil ("ズ" . "ず")
+「子音 + ピリオド」の組み合せのうち、次の４つを削除した。
+  "b." nil ("ブ" . "ぶ")
+  "m." nil ("ム" . "む")
+  "n." nil ("ヌ" . "ぬ")
+  "z." nil ("ズ" . "ず")
 
-  yuu <sleepboy.zzz@gmail.com> さんと、
-  Teika Kazura <teika@lavabit.com> さんからの提案でした [skk 7485]。
+  yuu <sleepboy.zzz@gmail.com> さんと、
+  Teika Kazura <teika@lavabit.com> さんからの提案でした [skk 7485]。
 
-** 単漢字変換
+** 単漢字変換
 
-*** window の状態を保存
+*** window の状態を保存
 
-M-x skk-tankan 実行時に window-configuration を保存するよう対処しました。
-skk-tankan を抜けた(終了した)際には、元の window 状態に戻ります。
+M-x skk-tankan 実行時に window-configuration を保存するよう対処しました。
+skk-tankan を抜けた(終了した)際には、元の window 状態に戻ります。
 
-*** 部首を読みで選択
+*** 部首を読みで選択
 
-DDSKK 14.1 で導入した部首変換(部首を番号で選択)を、部首を読みでも選択
-できるよう拡張しました。
+DDSKK 14.1 で導入した部首変換(部首を番号で選択)を、部首を読みでも選択
+できるよう拡張しました。
 
 ** skk-search-web.el
 
-experimental/ に skk-search-web.el を追加しました。
-かな漢字変換の候補を
+experimental/ に skk-search-web.el を追加しました。
+かな漢字変換の候補を
   Google CGI API for Japanese Input
           (http://www.google.com/intl/ja/ime/cgiapi.html)
-  Google サジェスト
+  Google サジェスト
           (http://labs.google.com/intl/ja/suggestfaq.html)
-から得ることができます。
+から得ることができます。
 
-** その他バグ修正など
+** その他バグ修正など
 
 *** M-x skk-list-chars
 
-skk-list-chars() の内部で変数 skk-kcode-charset の値を変更しないように
-修正しました。[skk 7606]
+skk-list-chars() の内部で変数 skk-kcode-charset の値を変更しないように
+修正しました。[skk 7606]
 
 *** skk-server-version()
 
-関数 skk-server-version 内の skk-error() の引数の順が逆であったのを修正し
-た。
+関数 skk-server-version 内の skk-error() の引数の順が逆であったのを修正し
+た。
 
-*** NTEmacs 関連
+*** NTEmacs 関連
 
-フレームを最大化にした NTEmacs で Tooltip を表示した場合のエラーを対処し
-た。
+フレームを最大化にした NTEmacs で Tooltip を表示した場合のエラーを対処し
+た。
 
 *** SKK-MK-what-where()
 
-関数 interactive-p が obsolete されたため Emacs 23.2 で make what-where
-を実行しても何も表示されませんでした。変数 noninteractive の値で判定する
-よう修正しました。
+関数 interactive-p が obsolete されたため Emacs 23.2 で make what-where
+を実行しても何も表示されませんでした。変数 noninteractive の値で判定する
+よう修正しました。
 
 * 14.3
 
-** 対話的インストーラの導入
+** 対話的インストーラの導入
 
-dired を起動して SKK-MK にカーソルを置いて L (dired-do-load) をタイプして
-ください。パーミッション（書き込み権限）さえ許せば DDSKK のインストールを
-対話的に進めることができます。
+dired を起動して SKK-MK にカーソルを置いて L (dired-do-load) をタイプして
+ください。パーミッション（書き込み権限）さえ許せば DDSKK のインストールを
+対話的に進めることができます。
 
 ** context-skk
 
-context-skk が表示するメッセージ "[context-skk] 日本語入力 off" を可変化
-しました。変数 context-skk-mode-off-message を設定してください。
+context-skk が表示するメッセージ "[context-skk] 日本語入力 off" を可変化
+しました。変数 context-skk-mode-off-message を設定してください。
 
 ** skk-study.el
 
-skk/main/experimental/skk-study.el を skk/main/skk-study.el へ移しました。
-学習テーマ対応版です。このファイル (NEWS.ja) の「* 12.2.0」に簡単な説明
-があります。
-skk-study-file-format-version は 0.3 です。
+skk/main/experimental/skk-study.el を skk/main/skk-study.el へ移しました。
+学習テーマ対応版です。このファイル (NEWS.ja) の「* 12.2.0」に簡単な説明
+があります。
+skk-study-file-format-version は 0.3 です。
 
-** Emacs 23.2 における interactive-p 使用の中止
+** Emacs 23.2 における interactive-p 使用の中止
 
-Emacs 23.2 からは関数 interactive-p が obsolete となり called-interactively-p
-の利用が推奨されています。各種の Emacs の互換性を図ることを目的に、新たなマク
-ロ skk-called-interactively-p を導入しました。
+Emacs 23.2 からは関数 interactive-p が obsolete となり called-interactively-p
+の利用が推奨されています。各種の Emacs の互換性を図ることを目的に、新たなマク
+ロ skk-called-interactively-p を導入しました。
 
-** 不要バッファの削除
+** 不要バッファの削除
 
-skk-mode を抜けたときは 候補バッファと SKK annotation バッファを削除するよう
-変更しました。
+skk-mode を抜けたときは 候補バッファと SKK annotation バッファを削除するよう
+変更しました。
 
-** メッセージ類をカスタマイズ可能に
+** メッセージ類をカスタマイズ可能に
 
-*** 助言的メッセージ
+*** 助言的メッセージ
 
-新たなフェイス skk-verbose-intention-face と skk-verbose-kbd-face を
-お試しください。
+新たなフェイス skk-verbose-intention-face と skk-verbose-kbd-face を
+お試しください。
 
-*** ↓辞書登録中↓
+*** ↓辞書登録中↓
 
-新たなフェイス skk-jisyo-registration-badge-face をお試しください。
+新たなフェイス skk-jisyo-registration-badge-face をお試しください。
 
 *** `$' skk-display-code-for-char-at-point
 
-新たなフェイス skk-display-code-tankan-radical-face と
-skk-display-code-tankan-annotation-face をお試しください。
+新たなフェイス skk-display-code-tankan-radical-face と
+skk-display-code-tankan-annotation-face をお試しください。
 
-*** skk-list-chars 関連
+*** skk-list-chars 関連
 
-新たなフェイス skk-list-chars-face と skk-list-chars-table-header-face を
-お試しください。
+新たなフェイス skk-list-chars-face と skk-list-chars-table-header-face を
+お試しください。
 
-** \ タイプの挙動を調節
+** \ タイプの挙動を調節
 
-変数 skk-kcode-method へ適切なシンボルを設定することによって、
-\ をタイプしたときに skk-input-by-code-or-menu を実行するか、
-skk-list-chars を実行するか選択することが可能です。
-詳細は docstring や info をご覧ください。
+変数 skk-kcode-method へ適切なシンボルを設定することによって、
+\ をタイプしたときに skk-input-by-code-or-menu を実行するか、
+skk-list-chars を実行するか選択することが可能です。
+詳細は docstring や info をご覧ください。
 
-** その他バグ修正など
+** その他バグ修正など
 
-*** チュートリアル起動時の不具合を修正 [skk 7398]
+*** チュートリアル起動時の不具合を修正 [skk 7398]
 
-*** skk-list-chars を終了した際の画面復帰
+*** skk-list-chars を終了した際の画面復帰
 
-変数 skk-list-chars-original-window-configuration に状態を保持。
+変数 skk-list-chars-original-window-configuration に状態を保持。
 
 * 14.2
 
-** GNU Emacs 20 のサポートを終了しました。
+** GNU Emacs 20 のサポートを終了しました。
 
-GNU Emacs 20 をお使いの方は DDSKK 14.1 を利用してください。
+GNU Emacs 20 をお使いの方は DDSKK 14.1 を利用してください。
 
-** GNU Emacs 22 及び GNU Emacs 23 利用時の APEL の見直し
+** GNU Emacs 22 及び GNU Emacs 23 利用時の APEL の見直し
 
-これらの Emacsen で DDSKK 14.2 を使うときは、APEL は不要です。
-必要なコードが以前より小さくなったため skk-macs.el などに含めてあります。
+これらの Emacsen で DDSKK 14.2 を使うときは、APEL は不要です。
+必要なコードが以前より小さくなったため skk-macs.el などに含めてあります。
 
-GNU Emacs 21 及び XEmacs ではこれまでどおり APEL  を事前にインストール
-してください。APEL 10.8 以上を推奨します。
+GNU Emacs 21 及び XEmacs ではこれまでどおり APEL  を事前にインストール
+してください。APEL 10.8 以上を推奨します。
 
-** 複数の辞書ファイルを用意に取り扱うことが可能となりました。
+** 複数の辞書ファイルを用意に取り扱うことが可能となりました。
 
-変数 skk-extra-jisyo-file-list にファイル名を列記するだけです。
-詳しくは etc/dot.skk をご覧ください。
+変数 skk-extra-jisyo-file-list にファイル名を列記するだけです。
+詳しくは etc/dot.skk をご覧ください。
 
-** skk-obsolete.el の廃止
+** skk-obsolete.el の廃止
 
-この機能は主に SKK 10 以前から DDSKK への移行期のユーザ支援が目的でし
-たが、その役目をいちおう終えたと考え、いったん廃止としました。
+この機能は主に SKK 10 以前から DDSKK への移行期のユーザ支援が目的でし
+たが、その役目をいちおう終えたと考え、いったん廃止としました。
 
 ** skk-inline.el
 
-skk.el の中に記述されていたインライン表示機能について、skk-inline.el
-としてまとめました。
+skk.el の中に記述されていたインライン表示機能について、skk-inline.el
+としてまとめました。
 
 ** M-x skk-gyakubiki-and-henkan (skk-kakasi.el)
 
-新たなコマンドです。
-領域を選んでから M-x で実行すると、領域の漢字をひらがなに変換し、
-そのひらがなを見出し語としてかな漢字変換を実行します。
+新たなコマンドです。
+領域を選んでから M-x で実行すると、領域の漢字をひらがなに変換し、
+そのひらがなを見出し語としてかな漢字変換を実行します。
 
-** 文字のコード表示 (`$' で起動する skk-display-code-for-char-at-point)
+** 文字のコード表示 (`$' で起動する skk-display-code-for-char-at-point)
 
-*** ツールティップ表示に対応した。
+*** ツールティップ表示に対応した。
 
-skk-show-tooltip が non-nil であればツールティップ表示します。
+skk-show-tooltip が non-nil であればツールティップ表示します。
 
-*** 表示する項目に UNICODE を追加した。
+*** 表示する項目に UNICODE を追加した。
 
-*** フェイスを適用してカラフルに。
+*** フェイスを適用してカラフルに。
 
-skk-display-code-prompt-face と skk-display-code-char-face を新設しました。
+skk-display-code-prompt-face と skk-display-code-char-face を新設しました。
 
-** \ タイプの起動を skk-input-by-code-or-menu から skk-list-chars へ変更
+** \ タイプの起動を skk-input-by-code-or-menu から skk-list-chars へ変更
 
-skk-rom-kana-base-rule-list のデフォルトを
+skk-rom-kana-base-rule-list のデフォルトを
   ("\\" nil skk-input-by-code-or-menu)
-から
+から
   ("\\" nil skk-list-chars)
-へと変更しました。skk-rom-kana-base-rule-list を定義することで
-元の skk-input-by-code-or-menu の起動へ戻すことも可能です。
+へと変更しました。skk-rom-kana-base-rule-list を定義することで
+元の skk-input-by-code-or-menu の起動へ戻すことも可能です。
 
-** 文字コードでの入力 (skk-list-chars)
+** 文字コードでの入力 (skk-list-chars)
 
-skk-input-by-code-or-menu の代替を目指した、独立したメジャーモードです。
-JIS X 0213 の２面の文字も入力可能です。
+skk-input-by-code-or-menu の代替を目指した、独立したメジャーモードです。
+JIS X 0213 の２面の文字も入力可能です。
 
-** 部首変換 及び 総画数変換の JIS X 0213-[12] 対応
+** 部首変換 及び 総画数変換の JIS X 0213-[12] 対応
 
-M-x skk-tankan は JIS X 0213-[12] に対応しました。
+M-x skk-tankan は JIS X 0213-[12] に対応しました。
 
-** 見出し語の補完
+** 見出し語の補完
 
-見出し語を補完（▽モードで TAB）したとき、SHIFT + TAB でひとつ前の補完
-候補へ戻ることができます。この機能を無効とするには、
-変数 skk-previous-completion-use-backtab を nil としてください。
+見出し語を補完（▽モードで TAB）したとき、SHIFT + TAB でひとつ前の補完
+候補へ戻ることができます。この機能を無効とするには、
+変数 skk-previous-completion-use-backtab を nil としてください。
 
-** Emacs 付属辞書 ja-dic 対応
+** Emacs 付属辞書 ja-dic 対応
 
-Emacs 22 以上に (LEIM をインストールすれば 21 にも) に対応します。もと
-もと ja-dic は SKK-JISYO.L を変換して作られており、送りなし、送りあり、
-接頭辞、接尾辞の変換に対応しています。これを利用することで、SKK 辞書の
-インストールなしで SKK が利用可能です。ただし英数変換、数値変換などに
-は対応しません。
+Emacs 22 以上に (LEIM をインストールすれば 21 にも) に対応します。もと
+もと ja-dic は SKK-JISYO.L を変換して作られており、送りなし、送りあり、
+接頭辞、接尾辞の変換に対応しています。これを利用することで、SKK 辞書の
+インストールなしで SKK が利用可能です。ただし英数変換、数値変換などに
+は対応しません。
 
-この機能は skk-large-jisyo, skk-aux-large-jisyo, skk-cdb-large-jisyo,
-skk-server-host が全て無効という条件を全て満たしたときのみ、自動的に呼
-び出されます。
+この機能は skk-large-jisyo, skk-aux-large-jisyo, skk-cdb-large-jisyo,
+skk-server-host が全て無効という条件を全て満たしたときのみ、自動的に呼
+び出されます。
 
-** 個人辞書を即時保存
+** 個人辞書を即時保存
 
-新たな変数 skk-save-jisyo-instantly を non-nil としておくと、
-単語登録（単語削除）のたびに個人辞書を保存します。
+新たな変数 skk-save-jisyo-instantly を non-nil としておくと、
+単語登録（単語削除）のたびに個人辞書を保存します。
 
-** その他バグ修正など
+** その他バグ修正など
 
-*** emacsclient -nw 時におけるカーソル色制御の修正
+*** emacsclient -nw 時におけるカーソル色制御の修正
 
-Emacs 23 では window-system 変数が frame local variable となり、また
-emacsclient で -nw オプションが追加されました。tty な frame と x な frame
-の共存が可能になったためカーソル色制御が乱れることがありましたが、
-関数 skk-find-window-system によって windw-system な frame を検出する
-ことで対処されました。
+Emacs 23 では window-system 変数が frame local variable となり、また
+emacsclient で -nw オプションが追加されました。tty な frame と x な frame
+の共存が可能になったためカーソル色制御が乱れることがありましたが、
+関数 skk-find-window-system によって windw-system な frame を検出する
+ことで対処されました。
 
-*** Cocoa Emacs 用にインストール先設定
+*** Cocoa Emacs 用にインストール先設定
 
-*** ツールティップにおける改行位置の改善
+*** ツールティップにおける改行位置の改善
 
-*** ▽モードにおける @ の挙動を改善
+*** ▽モードにおける @ の挙動を改善
 
-*** メニューに skk-restart を追加
+*** メニューに skk-restart を追加
 
-*** skk-azik の変換テーブルを修正
+*** skk-azik の変換テーブルを修正
 
 * 14.1
 
-** 対応する Emacs のバージョン
+** 対応する Emacs のバージョン
 
-*** Emacs 22.1 以降、Emacs 23.1, 23.2
+*** Emacs 22.1 以降、Emacs 23.1, 23.2
 
-Emacs 21 では充分テストされていません。Emacs 23 のためのテストを進めて
-いますが、まだ不完全と思われます。
+Emacs 21 では充分テストされていません。Emacs 23 のためのテストを進めて
+いますが、まだ不完全と思われます。
 
-*** XEmacs 21.4.22 以降, XEmacs 21.5 beta29
+*** XEmacs 21.4.22 以降, XEmacs 21.5 beta29
 
-一応サポート対象として挙げておきますが、ほとんどテストされていません。
+一応サポート対象として挙げておきますが、ほとんどテストされていません。
 
-** Emacs 23 対応を進めました。
+** Emacs 23 対応を進めました。
 
-Emacs 23 は Unicode に対応し、なおかつ内部コードが従来の emacs-mule か
-ら unicode ベースのものに変更されました。この関係で、従来の SKK におけ
-る文字の序列を仮定したコードなどが正しく動作しなかった問題がありました
-が、順次修正を進めています。
+Emacs 23 は Unicode に対応し、なおかつ内部コードが従来の emacs-mule か
+ら unicode ベースのものに変更されました。この関係で、従来の SKK におけ
+る文字の序列を仮定したコードなどが正しく動作しなかった問題がありました
+が、順次修正を進めています。
 
-*** Emacs 23 における char-to-string の使用法の検討
+*** Emacs 23 における char-to-string の使用法の検討
 
-SKK では伝統的に、キーと文字 (char) の関連を前提として、キー定義に際し
-て文字を char-to-string で変換して定義する手法が使われていました。しか
-し、Emacs 23 での char-to-string の出力は Emacs 22 のそれと異なる場合
-があります。そこで、unibyte 文字列が必要な場合には明示的に unibyte 文
-字列を要求するようにし、char がキー定義を意味する場合と文字そのものを
-意味する場合とを区別しました。
+SKK では伝統的に、キーと文字 (char) の関連を前提として、キー定義に際し
+て文字を char-to-string で変換して定義する手法が使われていました。しか
+し、Emacs 23 での char-to-string の出力は Emacs 22 のそれと異なる場合
+があります。そこで、unibyte 文字列が必要な場合には明示的に unibyte 文
+字列を要求するようにし、char がキー定義を意味する場合と文字そのものを
+意味する場合とを区別しました。
 
-*** Emacs 23 のための  split-char の再実装
+*** Emacs 23 のための  split-char の再実装
 
-Emacs 23 では split-char する際に、日本語の文字が unicode-bmp に属する
-と判断される場合があり、Emacs 22 以前と出力が異なります。このため、
-Emacs 22 以前の split-char と同等の skk-split-char 関数を用意しました。
+Emacs 23 では split-char する際に、日本語の文字が unicode-bmp に属する
+と判断される場合があり、Emacs 22 以前と出力が異なります。このため、
+Emacs 22 以前の split-char と同等の skk-split-char 関数を用意しました。
 
-*** Emacs 23 における last-command-char 使用の中止
+*** Emacs 23 における last-command-char 使用の中止
 
-Emacs 23 では変数 last-command-char が obsolete となり、
-last-command-event の利用が推奨されています。しかし、GNU Emacs と
-XEmacs との間で last-command-event に互換性がないため、SKK 側で
-workaround しています。
+Emacs 23 では変数 last-command-char が obsolete となり、
+last-command-event の利用が推奨されています。しかし、GNU Emacs と
+XEmacs との間で last-command-event に互換性がないため、SKK 側で
+workaround しています。
 
-** 新しく以下のプログラムが追加されました。
+** 新しく以下のプログラムが追加されました。
 
 *** cdb.el, skk-cdb.el
 
-CDB 形式の SKK 辞書に Emacs から直接アクセスできるようになります。
-これを用いれば、CDB 対応 SKK サーバを用意する必要はありません。
+CDB 形式の SKK 辞書に Emacs から直接アクセスできるようになります。
+これを用いれば、CDB 対応 SKK サーバを用意する必要はありません。
 
 *** skk-sticky.el
 
-通常、大文字で指定する変換開始および送り開始の位置を任意のキーで指定で
-きるようにする拡張機能です。
+通常、大文字で指定する変換開始および送り開始の位置を任意のキーで指定で
+きるようにする拡張機能です。
 
-** 個人辞書の、候補の順序の固定ができる新機能
+** 個人辞書の、候補の順序の固定ができる新機能
 
-初期設定では、変換、選択された候補は、次回の変換では最初に表示されます。
-これに対し、 ユーザーオプション skk-jisyo-fix-order を non-nil にする
-事により、毎回同じ順序で候補を表示させることができるようになりました。
+初期設定では、変換、選択された候補は、次回の変換では最初に表示されます。
+これに対し、 ユーザーオプション skk-jisyo-fix-order を non-nil にする
+事により、毎回同じ順序で候補を表示させることができるようになりました。
 
-これは、個人辞書の同音語の順序を変更しないことで実現されます。
-また、個人辞書に新規に追加される語は、既出語の後に追加されます。
+これは、個人辞書の同音語の順序を変更しないことで実現されます。
+また、個人辞書に新規に追加される語は、既出語の後に追加されます。
 
-** info の充実
+** info の充実
 
-今回、とくに定家さんのご貢献により、「便利な応用機能」の再編が再編され、
-充実しました。
+今回、とくに定家さんのご貢献により、「便利な応用機能」の再編が再編され、
+充実しました。
 
-** 変換候補の縦型インライン表示
+** 変換候補の縦型インライン表示
 
-ユーザーオプション skk-show-inline を 'vertical に設定すると変換候補が
-縦にインライン表示されるようになりました。
+ユーザーオプション skk-show-inline を 'vertical に設定すると変換候補が
+縦にインライン表示されるようになりました。
 
-** 動的補完関連
+** 動的補完関連
    
-*** 補完候補の複数表示
+*** 補完候補の複数表示
     
-ユーザーオプション skk-dcomp-multiple-activate を non-nil に設定すると
-動的補完候補が縦にインライン表示されるようになりました。
+ユーザーオプション skk-dcomp-multiple-activate を non-nil に設定すると
+動的補完候補が縦にインライン表示されるようになりました。
 
-*** 補完候補表示のタイミング
+*** 補完候補表示のタイミング
 
-補完した状態から C-g で戻った時や、▼モードから x で▽モードに戻った時
-も補完候補が表示されるようになりました。
+補完した状態から C-g で戻った時や、▼モードから x で▽モードに戻った時
+も補完候補が表示されるようになりました。
 
 ** skk-j-mode-function-key-usage
 
-キーボード上の F1 〜 F10 キーの使い方を指定する
-skk-j-mode-function-key-usage が新設されました。
+キーボード上の F1 〜 F10 キーの使い方を指定する
+skk-j-mode-function-key-usage が新設されました。
 
   (setq skk-j-mode-function-key-usage 'conversion)
 
-と設定すると、C-7 SPC などの代わりに [F7] などで変換できるようにな
-ります。
+と設定すると、C-7 SPC などの代わりに [F7] などで変換できるようにな
+ります。
 
-詳しくは skk-j-mode-function-key-usage の docstring を参照下さい。
+詳しくは skk-j-mode-function-key-usage の docstring を参照下さい。
 
-** 各種設定ファイルの置き場所の指定
+** 各種設定ファイルの置き場所の指定
 
-SKK の設定ファイルなどを置くディレクトリ名、skk-user-directory が新設さ
-れました。
+SKK の設定ファイルなどを置くディレクトリ名、skk-user-directory が新設さ
+れました。
 
-各種設定ファイルをひとつのディレクトリにまとめたい場合に利用できます。
+各種設定ファイルをひとつのディレクトリにまとめたい場合に利用できます。
 
-詳しくは (info "(skk)設定ファイル") を参照下さい。
+詳しくは (info "(skk)設定ファイル") を参照下さい。
 
-** tooltip フェイスの指定
+** tooltip フェイスの指定
 
-skk-tooltip-face という変数が新設されました。
+skk-tooltip-face という変数が新設されました。
 
-この変数には face 名または nil が設定されます。標準は nil です。
+この変数には face 名または nil が設定されます。標準は nil です。
 
-skk-tooltip-face の値が face 名だった場合には tooltip のテキストが
-face で装飾されます。nil ならば、もとのテキストの属性を維持します。
+skk-tooltip-face の値が face 名だった場合には tooltip のテキストが
+face で装飾されます。nil ならば、もとのテキストの属性を維持します。
 
-** 積極的な確定変換の機能追加
+** 積極的な確定変換の機能追加
 
-*** 検索対象辞書の制限
+*** 検索対象辞書の制限
 
-新規ユーザーオプション skk-kakutei-search-prog-limit を設定することに
-より、確定変換の検索対象とする辞書を制限できるようになりました。
+新規ユーザーオプション skk-kakutei-search-prog-limit を設定することに
+より、確定変換の検索対象とする辞書を制限できるようになりました。
 
-*** 機能を有効にする変換モードの指定方法
+*** 機能を有効にする変換モードの指定方法
 
-ユーザーオプション skk-kakutei-when-unique-candidate の値が t/nil の他
-に okuri-ari, okuri-nasi, abbrev のいずれかを要素とするリストも設定でき
-るようになりました。それぞれ変換モードがその条件に合致した場合のみ確定
-変換機能が有効になります。
+ユーザーオプション skk-kakutei-when-unique-candidate の値が t/nil の他
+に okuri-ari, okuri-nasi, abbrev のいずれかを要素とするリストも設定でき
+るようになりました。それぞれ変換モードがその条件に合致した場合のみ確定
+変換機能が有効になります。
 
-これによりバージョン 13.1 で有効だった okuri-nasi という設定は推奨され
-なくなります。
+これによりバージョン 13.1 で有効だった okuri-nasi という設定は推奨され
+なくなります。
 
-** 単漢字変換の拡張
+** 単漢字変換の拡張
 
-読みとして数値を与えて変換すると、その数値を総画数とする漢字を単漢字変
-換の候補に挙げます。
-読みとして @ を与えて変換すると、部首変換機能を実行します。
+読みとして数値を与えて変換すると、その数値を総画数とする漢字を単漢字変
+換の候補に挙げます。
+読みとして @ を与えて変換すると、部首変換機能を実行します。
 
-** ローマ字プレフィックスのフェイス
+** ローマ字プレフィックスのフェイス
 
-色が表示できる環境であればローマ字プレフィックスに各変換モード毎の色が
-付くようになりました。
+色が表示できる環境であればローマ字プレフィックスに各変換モード毎の色が
+付くようになりました。
 
-デフォルトでは各モードのカーソル色になっています。
+デフォルトでは各モードのカーソル色になっています。
 
-** skk-act, skk-azik 機能改善
+** skk-act, skk-azik 機能改善
 
-*** リスタート対応
+*** リスタート対応
 
-skk-restart したときに ACT (or AZIK) の変換規則が再度反映されるように
-なりました。
+skk-restart したときに ACT (or AZIK) の変換規則が再度反映されるように
+なりました。
 
-*** 半角カナ対応
+*** 半角カナ対応
 
-skk-jisx0201 を読み込んだときに ACT (or AZIK) の変換規則が反映され半角
-カナもそれぞれの変換ルールで入力できるようになりました。
+skk-jisx0201 を読み込んだときに ACT (or AZIK) の変換規則が反映され半角
+カナもそれぞれの変換ルールで入力できるようになりました。
 
-** skk-undo-kakutei した時の入力モード
+** skk-undo-kakutei した時の入力モード
 
-skk-undo-kakutei した時の対象が abbrev 変換だった場合、一時的に abbrev
-モードに移行するようになりました。
+skk-undo-kakutei した時の対象が abbrev 変換だった場合、一時的に abbrev
+モードに移行するようになりました。
 
-また、skk-undo-kakutei した時のモードがアスキーモードもしくは英数モー
-ドだった場合は一時的にかなモードに移行するようになりました。
+また、skk-undo-kakutei した時のモードがアスキーモードもしくは英数モー
+ドだった場合は一時的にかなモードに移行するようになりました。
 
-** メニュー入力での BS
+** メニュー入力での BS
 
-skk-delete-implies-kakutei を nil にした場合はメニュー入力でも
-BackSpace で前候補に戻れるようになりました。
+skk-delete-implies-kakutei を nil にした場合はメニュー入力でも
+BackSpace で前候補に戻れるようになりました。
 
-** VIPER 併用時のカーソル色
+** VIPER 併用時のカーソル色
 
-SKK と VIPER を併用している時のカーソル色が各モードの設定色に厳密に追
-従するようになりました。 
+SKK と VIPER を併用している時のカーソル色が各モードの設定色に厳密に追
+従するようになりました。 
 
-** 文字のコード表示
+** 文字のコード表示
 
-コマンド skk-display-code-for-char-at-point (デフォルトでは $ に割当て)
-に次の機能を拡張しました。
+コマンド skk-display-code-for-char-at-point (デフォルトでは $ に割当て)
+に次の機能を拡張しました。
 
-*** アスキー文字のコード表示形式を改善
+*** アスキー文字のコード表示形式を改善
 
-*** 表示項目に総画数と部首を追加
+*** 表示項目に総画数と部首を追加
 
-*** 表示項目に skk-tankan-get-char-annotation の戻り値を追加
+*** 表示項目に skk-tankan-get-char-annotation の戻り値を追加
 
-** 選択キーへ適用するフェイス
+** 選択キーへ適用するフェイス
 
-A S D F J K L にフェイスを導入しました。
-skk-henkan-show-candidates-keys-face の初期値は 'default です。
+A S D F J K L にフェイスを導入しました。
+skk-henkan-show-candidates-keys-face の初期値は 'default です。
 
-** [残り 99++] の表示改善
+** [残り 99++] の表示改善
 
-変数 skk-henkan-rest-indicator が non-nil であれば、[残り 99++] を右寄せ
-して表示します。
+変数 skk-henkan-rest-indicator が non-nil であれば、[残り 99++] を右寄せ
+して表示します。
 
-また、skk-henkan-rest-indicator-face でフェイスを指定できます。
+また、skk-henkan-rest-indicator-face でフェイスを指定できます。
 
-** 候補バッファ
+** 候補バッファ
 
-*** 背景色
+*** 背景色
 
-skk-candidate-buffer-background-color で指定できます。初期値は nil です。
+skk-candidate-buffer-background-color で指定できます。初期値は nil です。
 
-*** 高さの自動調整
+*** 高さの自動調整
 
-これまでは単純な pop-to-buffer でしたが、更に fit-window-to-buffer するよう
-変更しました。
+これまでは単純な pop-to-buffer でしたが、更に fit-window-to-buffer するよう
+変更しました。
 
-** undo の動作改善
+** undo の動作改善
 
-*** skk-undo-kakutei-word-only 下での undo 情報の喪失
+*** skk-undo-kakutei-word-only 下での undo 情報の喪失
 
-READMEs/TODO.ja に記載されていた
+READMEs/TODO.ja に記載されていた
 
 | http://mail.ring.gr.jp/skk/200503/msg00011.html
 | 
-| 笠原＠九大さんからのご報告
+| 笠原＠九大さんからのご報告
 | 
-| > また別の、SKK にバッファの内容を喰われて undo で戻せない現象に当たった
-| > ので報告します。
+| > また別の、SKK にバッファの内容を喰われて undo で戻せない現象に当たった
+| > ので報告します。
 | > 
-| > 1) ある行で(うっかり)▽モードに入ってしまう
-| > 2) そのまま(気づかず)カーソルを下に数行移動
-| > 3) そこで気付いて(いつもの癖で) C-g を押すと、間の行が全部消えてしまう
+| > 1) ある行で(うっかり)▽モードに入ってしまう
+| > 2) そのまま(気づかず)カーソルを下に数行移動
+| > 3) そこで気付いて(いつもの癖で) C-g を押すと、間の行が全部消えてしまう
 | > 
 | > 1)
-| > 1行目
-| > 2行目▽あ■←カーソル
-| > 3行目
-| > 4行目
-| > 5行目
+| > 1行目
+| > 2行目▽あ■←カーソル
+| > 3行目
+| > 4行目
+| > 5行目
 | > 
 | > 2)
-| > 1行目
-| > 2行目▽あ
-| > 3行目
-| > 4行目■←カーソル
-| > 5行目
+| > 1行目
+| > 2行目▽あ
+| > 3行目
+| > 4行目■←カーソル
+| > 5行目
 | > 
 | > 3)
-| > 1行目
-| > 2行目■←カーソル
-| > 5行目
+| > 1行目
+| > 2行目■←カーソル
+| > 5行目
 | > 
-| > 上方向への移動では起こりません。
+| > 上方向への移動では起こりません。
 
-上記の問題が修正されました。
+上記の問題が修正されました。
 
-*** undo の挙動の改善
+*** undo の挙動の改善
 
- `skk-undo-kakutei-word-only' がデフォルトの nil の場合、
+ `skk-undo-kakutei-word-only' がデフォルトの nil の場合、
  
-   あああ    ;; `a a a'
+   あああ    ;; `a a a'
              ;; `C-a C-k'
-   漢字      ;; `K a n j i SPC C-j'
-   ▼漢字    ;; `C-/' これは word-only が nil なので仕様どおりのはず
-   あああ    ;; `C-/' いきなり「あああ」が復活
+   漢字      ;; `K a n j i SPC C-j'
+   ▼漢字    ;; `C-/' これは word-only が nil なので仕様どおりのはず
+   あああ    ;; `C-/' いきなり「あああ」が復活
   
-という挙動が修正されました。
-これに伴ない、
+という挙動が修正されました。
+これに伴ない、
 
 
-   あああ漢字    ;;
-   あああ▼漢字  ;; `C-/'
+   あああ漢字    ;;
+   あああ▼漢字  ;; `C-/'
                  ;; `C-/'
 		 
-上記のような場合のアンドゥ時の動作が今迄とちょっと変わりました。
-(2回目の undo で "▼漢字" だけが消える)
+上記のような場合のアンドゥ時の動作が今迄とちょっと変わりました。
+(2回目の undo で "▼漢字" だけが消える)
 
-** 不具合の修正
+** 不具合の修正
 
-*** 辞書登録中止時のインライン表示
+*** 辞書登録中止時のインライン表示
 
-1) (setq skk-show-annotation t ; デフォルト
+1) (setq skk-show-annotation t ; デフォルト
          skk-show-inline t)
-の設定で
+の設定で
 
-2) 変換候補が少なそうな言葉を変換する
-   (送りあり/なしどちらでも。候補が0個じゃ駄目)
-3) SPC を連打して、変換候補が一覧表示になる前に辞書登録に入る
-4) C-g or RET で辞書登録を抜ける
+2) 変換候補が少なそうな言葉を変換する
+   (送りあり/なしどちらでも。候補が0個じゃ駄目)
+3) SPC を連打して、変換候補が一覧表示になる前に辞書登録に入る
+4) C-g or RET で辞書登録を抜ける
 
-と「↓辞書登録中↓」というインライン表示が残ったままになってしまう現象
-が修正されました。
+と「↓辞書登録中↓」というインライン表示が残ったままになってしまう現象
+が修正されました。
 
-*** 設定ファイルのバイトコンパイル
+*** 設定ファイルのバイトコンパイル
 
-skk-init-file は「.el」なしで設定していて実際のファイル名には「.el」が
-付いていると skk-byte-compile-init-file を non-nil にしても、
-設定ファイルがバイトコンパイルされなかった問題が修正されました。
+skk-init-file は「.el」なしで設定していて実際のファイル名には「.el」が
+付いていると skk-byte-compile-init-file を non-nil にしても、
+設定ファイルがバイトコンパイルされなかった問題が修正されました。
 
-*** skk-large-jisyo のエラー処理
+*** skk-large-jisyo のエラー処理
     
-skk-large-jisyo に存在しないファイルが設定されていた場合、空の
- *SKK-JISYO.L* バッファができてしまい、変換時に skk-okuri-*-{min|max} が
-nil になって error となっていた問題が修正されました。
+skk-large-jisyo に存在しないファイルが設定されていた場合、空の
+ *SKK-JISYO.L* バッファができてしまい、変換時に skk-okuri-*-{min|max} が
+nil になって error となっていた問題が修正されました。
 
-*** prefix のみの状態から補完した後の C-g
+*** prefix のみの状態から補完した後の C-g
 
-skk-comp-use-prefix が non-nil だと入力がプレフィックスだけの状態からで
-も補完できますが、そこから C-g を叩くと…
+skk-comp-use-prefix が non-nil だと入力がプレフィックスだけの状態からで
+も補完できますが、そこから C-g を叩くと…
 
- ▽k            ;; K
- ▽かんじ       ;; TAB
- ▽             ;; C-g
- ▽             ;; C-g
+ ▽k            ;; K
+ ▽かんじ       ;; TAB
+ ▽             ;; C-g
+ ▽             ;; C-g
 
-2回目の C-g で "Args out of range: ?, ?" とエラーを吐いてしまう問題が修
-正されました。
+2回目の C-g で "Args out of range: ?, ?" とエラーを吐いてしまう問題が修
+正されました。
 
-*** 送り仮名入力途中での C-g
+*** 送り仮名入力途中での C-g
 
- 1. ▽か*k のように途中まで送り仮名を入力する
- 2. C-g で中止する
- 3. 再度、"K a" などと入力する
- 4. いきなり変換処理が走って変になる
+ 1. ▽か*k のように途中まで送り仮名を入力する
+ 2. C-g で中止する
+ 3. 再度、"K a" などと入力する
+ 4. いきなり変換処理が走って変になる
 
-という現象が修正されました。
+という現象が修正されました。
 
-*** ACT (or AZIK) でのカナモードでの促音の送り仮名
+*** ACT (or AZIK) でのカナモードでの促音の送り仮名
 
- o ACT や AZIK など促音を一打鍵で入力する入力方式において
- o カナモードで
- o 「行ッタ」など促音で送る変換
+ o ACT や AZIK など促音を一打鍵で入力する入力方式において
+ o カナモードで
+ o 「行ッタ」など促音で送る変換
  
-が正常に動作しなかった問題が修正されました。
+が正常に動作しなかった問題が修正されました。
 
 * 13.1
 
-** 要求される APEL のバージョンが 10.7 以上になりました。
+** 要求される APEL のバージョンが 10.7 以上になりました。
 
-APEL 10.7 の機能のうちインストール関連の機能、とくに XEmacs 21.5 での
-インストール機能に依存します。
+APEL 10.7 の機能のうちインストール関連の機能、とくに XEmacs 21.5 での
+インストール機能に依存します。
 
-また、これに伴って tinyinstall.el はレポジトリから削除しました。同ファ
-イルの内容のうち必要な部分は SKK-MK に移動しました。
+また、これに伴って tinyinstall.el はレポジトリから削除しました。同ファ
+イルの内容のうち必要な部分は SKK-MK に移動しました。
 
-APEL 10.6 に関する特記事項は DDSKK 12.2.0 の NEWS を参照してください。
+APEL 10.6 に関する特記事項は DDSKK 12.2.0 の NEWS を参照してください。
 
-** サポートする Emacs のバージョンが変更されました。
+** サポートする Emacs のバージョンが変更されました。
 
-*** Emacs 20.7 以降、Emacs 21.1 以降、Emacs 22.1
+*** Emacs 20.7 以降、Emacs 21.1 以降、Emacs 22.1
 
-今回とくに、Emacs 22 の新機能に対応すべく多くの拡張が行われました。
+今回とくに、Emacs 22 の新機能に対応すべく多くの拡張が行われました。
 
-*** XEmacs 21.4.18 以降, XEmacs 21.5 beta28
+*** XEmacs 21.4.18 以降, XEmacs 21.5 beta28
 
-一部 XEmacs 21.5 の新機能にも対応しています。
+一部 XEmacs 21.5 の新機能にも対応しています。
 
-XEmacs 本体と別配布のパッケージ群はなるべく新しいものをインストールし
-ます。また、DDSKK 実装上の都合で現段階では fsf-compat パッケージが動
-作のために必須です。(将来どうなるかは分かりません)
+XEmacs 本体と別配布のパッケージ群はなるべく新しいものをインストールし
+ます。また、DDSKK 実装上の都合で現段階では fsf-compat パッケージが動
+作のために必須です。(将来どうなるかは分かりません)
 
-上記はあくまでサポートするバージョンであり、実際に動作する下限のバージョ
-ンより少しだけ高めに設定されている場合がありえます。
+上記はあくまでサポートするバージョンであり、実際に動作する下限のバージョ
+ンより少しだけ高めに設定されている場合がありえます。
 
-注意点として、これらの各 Emacsen それぞれのサポート状況が異なることがあ
-ります。DDSKK 13 のほぼ全機能が動作すると思われるのは Emacs 22.1 です。
-それ以外の Emacsen では一部機能が動作しないか，あるいは動作テストが完了
-していません。ユーザが少ないバージョンの Emacs ほど動作テストは不完全な
-傾向があり、より多くのテストが望まれます。
+注意点として、これらの各 Emacsen それぞれのサポート状況が異なることがあ
+ります。DDSKK 13 のほぼ全機能が動作すると思われるのは Emacs 22.1 です。
+それ以外の Emacsen では一部機能が動作しないか，あるいは動作テストが完了
+していません。ユーザが少ないバージョンの Emacs ほど動作テストは不完全な
+傾向があり、より多くのテストが望まれます。
 
-なお、本バージョンは次期の unicode 化された Emacs (Emacs 23 以降) に暫
-定的に対応するコードを含みますが、これらは全くサポートされません。CVS
-先端では可能な範囲で開発版 Emacs に追随する予定です。
+なお、本バージョンは次期の unicode 化された Emacs (Emacs 23 以降) に暫
+定的に対応するコードを含みますが、これらは全くサポートされません。CVS
+先端では可能な範囲で開発版 Emacs に追随する予定です。
 
-*** NTEmacs, Meadow, Carbon Emacs Package でのインストールパスの見直し
+*** NTEmacs, Meadow, Carbon Emacs Package でのインストールパスの見直し
 
-NTEmacs, Meadow は Emacs 18 のころのような単一ディレクトリ構成をとりま
-す。この状況に APEL の install.el が現状では対応していないので、SKK-MK
-の方でインストール先ディレクトリをすべて各 Emacsen のトップディレクト
-リ下に配置するようにしました。
+NTEmacs, Meadow は Emacs 18 のころのような単一ディレクトリ構成をとりま
+す。この状況に APEL の install.el が現状では対応していないので、SKK-MK
+の方でインストール先ディレクトリをすべて各 Emacsen のトップディレクト
+リ下に配置するようにしました。
 
-また、DDSKK 13.1 より Mac OS X 環境でのインストールについても少しだけ
-考慮し、Carbon Emacs Package (Emacs 22 ベース) の限られた環境のみテス
-トしています。Aquamacs や Cocoa 対応の Emacs については未だテストして
-いません。
+また、DDSKK 13.1 より Mac OS X 環境でのインストールについても少しだけ
+考慮し、Carbon Emacs Package (Emacs 22 ベース) の限られた環境のみテス
+トしています。Aquamacs や Cocoa 対応の Emacs については未だテストして
+いません。
 
 Carbon Emacs Package (http://homepage.mac.com/zenitani/emacs-j.html)
-はオリジナルの Carbon Emacs と異なる独自のファイル構成をとっているため、
-SKK のインストール先が適切になるよう個別の対策をしました。
+はオリジナルの Carbon Emacs と異なる独自のファイル構成をとっているため、
+SKK のインストール先が適切になるよう個別の対策をしました。
 
-*** 限定的な locale 対応
+*** 限定的な locale 対応
 
-GNU Emacs 22 以降と限られた環境との組み合せにおいて、メニューの表示が
-デフォルトで日本語になります。具体的には、Meadow を含む Windows 環境、
-Carbon Emacs 環境、および X Window System で Emacs が GTK+ を利用しか
-つ日本語 locale の環境が対象となります。
+GNU Emacs 22 以降と限られた環境との組み合せにおいて、メニューの表示が
+デフォルトで日本語になります。具体的には、Meadow を含む Windows 環境、
+Carbon Emacs 環境、および X Window System で Emacs が GTK+ を利用しか
+つ日本語 locale の環境が対象となります。
 
-** インストールの際の環境変数サポートの一時停止
+** インストールの際の環境変数サポートの一時停止
 
-SKK-CFG がほぼ完全なインストール設定をサポートするため、環境変数 EMACS
-と XEMACS 以外は参照しないようにしています。環境変数サポートは一部復活
-する可能性はありますが、以前のように多数の変数をサポートすることはない
-でしょう。
+SKK-CFG がほぼ完全なインストール設定をサポートするため、環境変数 EMACS
+と XEMACS 以外は参照しないようにしています。環境変数サポートは一部復活
+する可能性はありますが、以前のように多数の変数をサポートすることはない
+でしょう。
 
-** 新しく以下のプログラムが正式サポートされました。
+** 新しく以下のプログラムが正式サポートされました。
 
 *** context-skk.el
 
@@ -744,125 +750,125 @@ SKK-CFG がほぼ完全なインストール設定をサポートするため、環境変数 EMACS
 
 *** skk-server-completion.el
 
-補完に対応したサーバと通信することで補完を実現します。この機能は変換時
-にも使え、この場合は skk-look のような使い勝手になります。
+補完に対応したサーバと通信することで補完を実現します。この機能は変換時
+にも使え、この場合は skk-look のような使い勝手になります。
 
 *** skk-tankan.el
 
-** 新しい学習機能 skk-bayesian.el
+** 新しい学習機能 skk-bayesian.el
 
-experimental/bayesian に追加されました。
+experimental/bayesian に追加されました。
 
-** 基本機能の拡張と改良
+** 基本機能の拡張と改良
 
-*** SKK サーバとの通信効率の改善
+*** SKK サーバとの通信効率の改善
 
-関数 `accept-process-output' がサーバからの応答を検出できず数十〜数十
-万回のリトライを繰り返す現象が確認されました。このバージョンの SKK で
-は `accept-process-output' の前に `sit-for' を呼んで 10 ミリ秒待機する
-ことでこの問題に対処されました。
+関数 `accept-process-output' がサーバからの応答を検出できず数十〜数十
+万回のリトライを繰り返す現象が確認されました。このバージョンの SKK で
+は `accept-process-output' の前に `sit-for' を呼んで 10 ミリ秒待機する
+ことでこの問題に対処されました。
 
-** 確定アンドゥの拡張と改良
+** 確定アンドゥの拡張と改良
 
-*** 確定アンドゥの際のカーソル位置の修正
+*** 確定アンドゥの際のカーソル位置の修正
 
-例えば「満た」を「見た」に再変換したい場合、
+例えば「満た」を「見た」に再変換したい場合、
 
- 満た-!-
+ 満た-!-
 
-で M-x skk-undo-kakutei すると
+で M-x skk-undo-kakutei すると
 
- ▼見-!-た
+ ▼見-!-た
 
-となりカーソル位置 (-!-) が送り仮名の前にズレる現象が修正されました。
+となりカーソル位置 (-!-) が送り仮名の前にズレる現象が修正されました。
 
-*** 確定アンドゥして再変換確定後のカーソル位置の制御
+*** 確定アンドゥして再変換確定後のカーソル位置の制御
 
-ユーザオプション skk-undo-kakutei-return-previous-point が新設されまし
-た。例えば「暑かった」としたいところを「熱か」で確定してしまって、更に
+ユーザオプション skk-undo-kakutei-return-previous-point が新設されまし
+た。例えば「暑かった」としたいところを「熱か」で確定してしまって、更に
 
-  熱かった-!-
+  熱かった-!-
 
-まで打ってしまってから再変換→確定すると、従来は
+まで打ってしまってから再変換→確定すると、従来は
 
-  暑か-!-った
+  暑か-!-った
 
-で終わりましたが、このオプションを non-nil に設定すると
+で終わりましたが、このオプションを non-nil に設定すると
 
-  暑かった-!-
+  暑かった-!-
 
-で終わります。これにより続く入力にスムーズに移行できます。
+で終わります。これにより続く入力にスムーズに移行できます。
 
-*** 送りあり確定変換に対する確定アンドゥの挙動の制御
+*** 送りあり確定変換に対する確定アンドゥの挙動の制御
 
-**** M-x skk-undo-kakutei した場合のカーソル位置
+**** M-x skk-undo-kakutei した場合のカーソル位置
 
-「満た」を「見た」に再変換したい場合、
+「満た」を「見た」に再変換したい場合、
 
-  満た-!-
+  満た-!-
 
-で M-x skk-undo-kakutei すると
+で M-x skk-undo-kakutei すると
 
-  ▼見-!-た
+  ▼見-!-た
 
-となりカーソル位置 (-!-) が送り仮名の前にズレる現象があり、修正されま
-した。(送り無しと同様の挙動)
+となりカーソル位置 (-!-) が送り仮名の前にズレる現象があり、修正されま
+した。(送り無しと同様の挙動)
 
-**** `x' で確定アンドゥしたときの挙動
+**** `x' で確定アンドゥしたときの挙動
 
-従来は、送りあり確定変換直後 `x' をタイプすると▽モードになっていまし
-たが、これは送り有り変換との相性が良くありませんでした。
-また M-x skk-undo-kakutei との機能の類似性を考慮し、`x' をタイプしたと
-きも▼モードに移行するように変更されました。
+従来は、送りあり確定変換直後 `x' をタイプすると▽モードになっていまし
+たが、これは送り有り変換との相性が良くありませんでした。
+また M-x skk-undo-kakutei との機能の類似性を考慮し、`x' をタイプしたと
+きも▼モードに移行するように変更されました。
 
-** 確定変換の拡張と改良
+** 確定変換の拡張と改良
 
-*** 積極的な確定変換モード
+*** 積極的な確定変換モード
 
-ユーザオプション skk-kakutei-when-unique-candidate が新設されまし
-た。Non-nil であれば、変換候補が一つしかないとき変換後自動的に確定しま
-す。
+ユーザオプション skk-kakutei-when-unique-candidate が新設されまし
+た。Non-nil であれば、変換候補が一つしかないとき変換後自動的に確定しま
+す。
 
-この機能を常に有効にしたい場合は t に、送り無し変換時だけ有効にしたい
-場合は okuri-nasi に設定します。
+この機能を常に有効にしたい場合は t に、送り無し変換時だけ有効にしたい
+場合は okuri-nasi に設定します。
 
-** 補完機能の拡張と改良
+** 補完機能の拡張と改良
 
 *** skk-completion-prog-list
 
-ユーザは skk-search-prog-list で変換機能を自由に選べますが、それと同様
-に補完機能を自由に選ぶことができるようになりました。それを指定する変数
-が skk-completion-prog-list です。
+ユーザは skk-search-prog-list で変換機能を自由に選べますが、それと同様
+に補完機能を自由に選ぶことができるようになりました。それを指定する変数
+が skk-completion-prog-list です。
 
 *** skk-comp-use-prefix
 
-まだかなに確定していないローマ字 prefix をみて補完する機能が実装されま
-した。これを指定する変数が skk-comp-use-prefix です。
+まだかなに確定していないローマ字 prefix をみて補完する機能が実装されま
+した。これを指定する変数が skk-comp-use-prefix です。
 
-*** skk-comp の任意辞書対応
+*** skk-comp の任意辞書対応
 
-個人辞書だけでなく、任意の辞書を補完辞書として指定できるようになりまし
-た。skk-completion-prog-list に
+個人辞書だけでなく、任意の辞書を補完辞書として指定できるようになりまし
+た。skk-completion-prog-list に
 
  (skk-comp-from-jisyo "/usr/share/skk/SKK-JISYO.L")
 
-のような要素を加えます。
+のような要素を加えます。
 
-*** skk-look 拡張
+*** skk-look 拡張
 
-**** abbrev モード以外で利用 (日本語補完)
+**** abbrev モード以外で利用 (日本語補完)
 
-*** skk-look ユーザオプション見直し
+*** skk-look ユーザオプション見直し
 
-**** ユーザオプションの変更
+**** ユーザオプションの変更
 
-旧来のコマンドラインオプションを指定するユーザオプションを全て廃止し
-以下を新設
+旧来のコマンドラインオプションを指定するユーザオプションを全て廃止し
+以下を新設
 
  skk-look-conversion-arguments
  skk-look-completion-arguments
 
-*** 補完機能の簡単な切り替え
+*** 補完機能の簡単な切り替え
 
 skk-completion-prog-list-1,
 skk-completion-prog-list-2,
@@ -870,82 +876,82 @@ skk-completion-prog-list-2,
 skk-completion-prog-list-9,
 skk-completion-prog-list-0
 
-という変数を新設しました。これらは skk-completion-prog-list と全く同じ
-形式 (補完プログラムの list) で設定できます。
-例えば▽モードで TAB の代わりに C-6 TAB と入力すると、
-skk-completion-prog-list の代わりに skk-completion-prog-list-6 を使っ
-て補完します。
+という変数を新設しました。これらは skk-completion-prog-list と全く同じ
+形式 (補完プログラムの list) で設定できます。
+例えば▽モードで TAB の代わりに C-6 TAB と入力すると、
+skk-completion-prog-list の代わりに skk-completion-prog-list-6 を使っ
+て補完します。
 
-変換にも類似の機能が使えるようになりましたので、その項目も読んで下さい。
+変換にも類似の機能が使えるようになりましたので、その項目も読んで下さい。
 
-** アピアランスの拡張
+** アピアランスの拡張
 
-*** 変換候補・注釈表示の修飾・加工機能
+*** 変換候補・注釈表示の修飾・加工機能
 
-変数 skk-treat-candidate-appearance-function を設定することにより、注
-釈も含めた変換候補の表示のカスタマイズが可能になりました。この設定例は
-etc/dot.skk などで紹介していく予定です。
+変数 skk-treat-candidate-appearance-function を設定することにより、注
+釈も含めた変換候補の表示のカスタマイズが可能になりました。この設定例は
+etc/dot.skk などで紹介していく予定です。
 
-この機能は候補や注釈の文字列そのものを変更することができます。また、文
-字列に text property を付加して装飾して表示することもできます。この機能
-は通常の候補変換時と注釈表示時、候補一覧表示時に有効です。ツールティッ
-プやインラインによる表示時にも有効です。ただし、text property による修
-飾機能が完全にサポートされるのは GNU Emacs 21 以降となります。それ以外
-のバージョンはインライン表示とエコーエリア表示時のメッセージは text
-property 非対応です。これらのバージョンで text property を有効にするに
-はバッファをポップアップする必要があります。そのための設定は以下のよう
-になります。
+この機能は候補や注釈の文字列そのものを変更することができます。また、文
+字列に text property を付加して装飾して表示することもできます。この機能
+は通常の候補変換時と注釈表示時、候補一覧表示時に有効です。ツールティッ
+プやインラインによる表示時にも有効です。ただし、text property による修
+飾機能が完全にサポートされるのは GNU Emacs 21 以降となります。それ以外
+のバージョンはインライン表示とエコーエリア表示時のメッセージは text
+property 非対応です。これらのバージョンで text property を有効にするに
+はバッファをポップアップする必要があります。そのための設定は以下のよう
+になります。
 
   (setq skk-annotation-show-as-message t)
   (setq skk-show-candidates-always-pop-to-buffer t)
 
-*** インラインの候補一覧表示
+*** インラインの候補一覧表示
 
-変数 `skk-show-inline' を non-nil に設定することで、候補一覧を変換位置
-の近傍に表示できます。この機能は window system に依存しないため
-terminal でも利用できます。この機能は Emacs 20, XEmacs でも利用できま
-すが、face 表示に対応しているのは GNU Emacs 21 以降のみです。
+変数 `skk-show-inline' を non-nil に設定することで、候補一覧を変換位置
+の近傍に表示できます。この機能は window system に依存しないため
+terminal でも利用できます。この機能は Emacs 20, XEmacs でも利用できま
+すが、face 表示に対応しているのは GNU Emacs 21 以降のみです。
 
-*** ツールティップを利用した候補一覧・注釈表示
+*** ツールティップを利用した候補一覧・注釈表示
 
-変数 `skk-show-tooltip' を non-nil に設定することで、window-system 下
-にて候補一覧表示と注釈表示をバルーンヘルプにすることができるようになり
-ました。これは現在 GNU Emacs 21 以降、XEmacs 21.5 以降に対応しています。
-Emacs 20.7 および XEmacs 21.4 では動作しません。
+変数 `skk-show-tooltip' を non-nil に設定することで、window-system 下
+にて候補一覧表示と注釈表示をバルーンヘルプにすることができるようになり
+ました。これは現在 GNU Emacs 21 以降、XEmacs 21.5 以降に対応しています。
+Emacs 20.7 および XEmacs 21.4 では動作しません。
 
-*** 入力・変換中に (冗長な) 案内メッセージを表示する機能の追加
+*** 入力・変換中に (冗長な) 案内メッセージを表示する機能の追加
 
-ユーザオプション skk-verbose が新設されました。これを non-nil に設定す
-ると、SKK が従来表示しなかったような入力・変換中の助言的メッセージが表
-示されます。具体的には、
+ユーザオプション skk-verbose が新設されました。これを non-nil に設定す
+ると、SKK が従来表示しなかったような入力・変換中の助言的メッセージが表
+示されます。具体的には、
 
-o ▽モードで一定時間キー入力がなかったとき、プレフィックスによる変換プ
-  ログラム切換え方法をメッセージで案内します。
+o ▽モードで一定時間キー入力がなかったとき、プレフィックスによる変換プ
+  ログラム切換え方法をメッセージで案内します。
 
-o ▼モードで一定時間キー入力がなかったとき、アノテーション機能の使い方
-  に関してメッセージで案内します。
+o ▼モードで一定時間キー入力がなかったとき、アノテーション機能の使い方
+  に関してメッセージで案内します。
 
-今後さらに、初心者に助言したり、まだ十分紹介されていない新機能について
-ユーザに案内するような拡張が期待されます。
+今後さらに、初心者に助言したり、まだ十分紹介されていない新機能について
+ユーザに案内するような拡張が期待されます。
 
-** 変換機能の拡張
+** 変換機能の拡張
 
-*** 数値変換有効時に非数値変換も同時に行うように変更
+*** 数値変換有効時に非数値変換も同時に行うように変更
 
-今まで、skk-use-numeric-conversion が non-nil だと数値変換のみ行い、非
-数値変換は無効にするようになっていましたが、排他的である必要はないと考
-えられたので，常に非数値変換は行うようにしました。これにより、
-skk-use-numeric-conversion を有効にしている場合でも
+今まで、skk-use-numeric-conversion が non-nil だと数値変換のみ行い、非
+数値変換は無効にするようになっていましたが、排他的である必要はないと考
+えられたので，常に非数値変換は行うようにしました。これにより、
+skk-use-numeric-conversion を有効にしている場合でも
 
-10^-1 /deci;SI接頭語/d/デシ/
-10^-2 /centi;SI接頭語/c/センチ/
-10^-3 /milli;SI接頭語/m/ミリ/
+10^-1 /deci;SI接頭語/d/デシ/
+10^-2 /centi;SI接頭語/c/センチ/
+10^-3 /milli;SI接頭語/m/ミリ/
 
-などの変換もできます。
+などの変換もできます。
 
-ただし、単語登録モードに入ると数値変換の候補として扱われます。
+ただし、単語登録モードに入ると数値変換の候補として扱われます。
 
-*** 変換機能の簡単な切り替え
+*** 変換機能の簡単な切り替え
 
 skk-search-prog-list-1,
 skk-search-prog-list-2,
@@ -953,168 +959,168 @@ skk-search-prog-list-2,
 skk-search-prog-list-9,
 skk-search-prog-list-0
 
-という変数を新設しました。これらは skk-search-prog-list と全く同じ形式
-(変換プログラムの list) で設定できます。
-例えば▽モードで SPC の代わりに C-6 SPC と入力すると、
-skk-search-prog-list の代わりに skk-search-prog-list-6 を使って変換し
-ます。
+という変数を新設しました。これらは skk-search-prog-list と全く同じ形式
+(変換プログラムの list) で設定できます。
+例えば▽モードで SPC の代わりに C-6 SPC と入力すると、
+skk-search-prog-list の代わりに skk-search-prog-list-6 を使って変換し
+ます。
 
-補完にも類似の機能が使えるようになりましたので、その項目も読んで下さい。
+補完にも類似の機能が使えるようになりましたので、その項目も読んで下さい。
 
-** アノテーションのために Wikipedia/Wiktionary を参照する機能
+** アノテーションのために Wikipedia/Wiktionary を参照する機能
 
-SKK 辞書に直接注釈を与える機能に加えて、Wikipedia/Wiktionary を参照し
-て注釈を生成する機能を追加しました。この機能を使うためには ~/.skk など
-でオプション skk-show-annotation を有効にしている必要があります。
+SKK 辞書に直接注釈を与える機能に加えて、Wikipedia/Wiktionary を参照し
+て注釈を生成する機能を追加しました。この機能を使うためには ~/.skk など
+でオプション skk-show-annotation を有効にしている必要があります。
 
-変換中に C-i をタイプすると ja.wikipedia.org, ja.wiktionary.org,
-en.wikipedia.org, en.wiktionary.org の順で候補に対する注釈を探します。
-みつかった時点で探索をやめ、みつかった注釈を表示します。
-この C-i のキー定義は skk-annotation-wikipedia-key の設定で変更できま
-す。またサイトの検索順は skk-annotation-wikipedia-sources の設定で変更
-できます。また、C-1, C-2 などの prefix argument を与えると
-skk-annotation-wikipedia-sources のなかの特定の 1 サイトに限定して検索
-することができます。
+変換中に C-i をタイプすると ja.wikipedia.org, ja.wiktionary.org,
+en.wikipedia.org, en.wiktionary.org の順で候補に対する注釈を探します。
+みつかった時点で探索をやめ、みつかった注釈を表示します。
+この C-i のキー定義は skk-annotation-wikipedia-key の設定で変更できま
+す。またサイトの検索順は skk-annotation-wikipedia-sources の設定で変更
+できます。また、C-1, C-2 などの prefix argument を与えると
+skk-annotation-wikipedia-sources のなかの特定の 1 サイトに限定して検索
+することができます。
 
-なお、本機能は変換中以外，さらには SKK モードでない条件でも使用できま
-す。その場合は region を設定して M-x skk-annotation-wikipedia-region
-を実行します。このコマンドは region を設定しなくても一応動作し、その場
-合は point の位置にある単語を推測して検索します。ただし欧米語以外で単
-語が正しく取得されることは期待できません。
+なお、本機能は変換中以外，さらには SKK モードでない条件でも使用できま
+す。その場合は region を設定して M-x skk-annotation-wikipedia-region
+を実行します。このコマンドは region を設定しなくても一応動作し、その場
+合は point の位置にある単語を推測して検索します。ただし欧米語以外で単
+語が正しく取得されることは期待できません。
 
-本機能は Emacs 22 の新機能である url パッケージと html2text.el に依存
-します。Emacs 22 以外では対応しているバージョンのこれらプログラムを別
-途インストールする必要があります。詳しくは skk-annotation.el の冒頭コ
-メントを参照してください。
+本機能は Emacs 22 の新機能である url パッケージと html2text.el に依存
+します。Emacs 22 以外では対応しているバージョンのこれらプログラムを別
+途インストールする必要があります。詳しくは skk-annotation.el の冒頭コ
+メントを参照してください。
 
-本機能の仕様はまだ完全には確定しておらず、また取得した html の処理が不
-完全になる場合があります。
+本機能の仕様はまだ完全には確定しておらず、また取得した html の処理が不
+完全になる場合があります。
 
 * 12.2.0
 
-** 個人辞書の保存に関する脆弱性のフィックス
+** 個人辞書の保存に関する脆弱性のフィックス
 
-個人辞書の保存に `make-temp-name' 関数を使用していましたが、この関数に
-は race condition が存在することが判明し、Emacs 21 に実装されている
-`make-temp-file' 関数を使用することでこの脆弱性を回避しました。
-他の version の Emacs, XEmacs における `make-temp-file' 関数のサポート
-は APEL 10.6 で行われます。
+個人辞書の保存に `make-temp-name' 関数を使用していましたが、この関数に
+は race condition が存在することが判明し、Emacs 21 に実装されている
+`make-temp-file' 関数を使用することでこの脆弱性を回避しました。
+他の version の Emacs, XEmacs における `make-temp-file' 関数のサポート
+は APEL 10.6 で行われます。
 
-APEL 10.6 については、http://emacs-w3m.namazu.org/ml/msg05365.html を
-ご参照下さい。
+APEL 10.6 については、http://emacs-w3m.namazu.org/ml/msg05365.html を
+ご参照下さい。
 
-なお、Emacs 20 では、この問題に関連し、一時ファイルが安全に生成できな
-い問題があります。この問題を回避するために、環境変数 TMPDIR を各ユーザ
-のみが書き込み可能なディレクトリ (例えば file mode を 0700 に設定した
-~/tmp) に指定することが強く推奨されます。この環境変数を設定することで
-`temp-file-name-pattern' や `temporary-file-directory' などの変数の設
-定が影響を受けます。この問題について詳しくは、
+なお、Emacs 20 では、この問題に関連し、一時ファイルが安全に生成できな
+い問題があります。この問題を回避するために、環境変数 TMPDIR を各ユーザ
+のみが書き込み可能なディレクトリ (例えば file mode を 0700 に設定した
+~/tmp) に指定することが強く推奨されます。この環境変数を設定することで
+`temp-file-name-pattern' や `temporary-file-directory' などの変数の設
+定が影響を受けます。この問題について詳しくは、
 
   http://bugs.debian.org/cgi-bin/bugreport.cgi?archive=no&bug=192732
   http://bugs.debian.org/cgi-bin/bugreport.cgi?archive=no&bug=198567
 
-をご参照下さい。Emacs 21 ではこの脆弱性はフィックスされています。
+をご参照下さい。Emacs 21 ではこの脆弱性はフィックスされています。
 
-** 新しいユーザ変数 skk-force-registration-mode-char
+** 新しいユーザ変数 skk-force-registration-mode-char
 
-この変数により、エコーエリアで候補表示中に、辞書登録モードに強制的に入
-るキーキャラクタを設定することが可能になりました。
+この変数により、エコーエリアで候補表示中に、辞書登録モードに強制的に入
+るキーキャラクタを設定することが可能になりました。
 
-** 新しいユーザ変数 skk-comp-circulate
+** 新しいユーザ変数 skk-comp-circulate
 
-この変数により、見出し語の補完を行う際の候補の表示順を制御し、最後の見
-出し語が表示された状態でさらに補完を行うと入力文字列に戻ることが可能に
-なりました。
+この変数により、見出し語の補完を行う際の候補の表示順を制御し、最後の見
+出し語が表示された状態でさらに補完を行うと入力文字列に戻ることが可能に
+なりました。
 
-** 新しいユーザ変数 skk-isearch-mode-enable
+** 新しいユーザ変数 skk-isearch-mode-enable
 
-この変数を `nil' に設定することにより、インクリメンタルサーチで
-skk-isearch を利用しないようにすることが可能になりました。migemo を利
-用したい場合などには `nil' に設定すると良いでしょう。
+この変数を `nil' に設定することにより、インクリメンタルサーチで
+skk-isearch を利用しないようにすることが可能になりました。migemo を利
+用したい場合などには `nil' に設定すると良いでしょう。
 
-** skk-study.el が正式サポートの対象になりました。
+** skk-study.el が正式サポートの対象になりました。
 
-これに伴い、プログラムが skk/main/experimental/skk-study.el から
-skk/main/skk-study.el に移動されました。`skk-study-first-candidate',
-`skk-study-max-distance' の 2 つの新しいユーザ変数が増えています (詳細
-は C-h v skk-study-first-candidate などとして表示されるドキュメントを
-ご参照下さい)。
+これに伴い、プログラムが skk/main/experimental/skk-study.el から
+skk/main/skk-study.el に移動されました。`skk-study-first-candidate',
+`skk-study-max-distance' の 2 つの新しいユーザ変数が増えています (詳細
+は C-h v skk-study-first-candidate などとして表示されるドキュメントを
+ご参照下さい)。
 
-** 更に実験的な experimental/skk-study.el が加わりました。
+** 更に実験的な experimental/skk-study.el が加わりました。
 
-experimental/skk-study.el は学習テーマ対応です。
+experimental/skk-study.el は学習テーマ対応です。
 
-M-x skk-study-switch-current-theme して任意の文字列 (例えば科学の話題
-を書くバッファでは science など) を入れると、以降そのバッファでは
-science というテーマで学習データをアップデートします。変換時 (単語検索
-時) はまず science というテーマの学習データを探し、その次に general と
-いう汎用学習データを探します。
+M-x skk-study-switch-current-theme して任意の文字列 (例えば科学の話題
+を書くバッファでは science など) を入れると、以降そのバッファでは
+science というテーマで学習データをアップデートします。変換時 (単語検索
+時) はまず science というテーマの学習データを探し、その次に general と
+いう汎用学習データを探します。
 
-他のバッファに移ったときに、そのバッファでも科学の話題を書くのであれば、
-M-x skk-study-switch-current-theme して science と入れましょう。先程学
-習した science 版学習データを使用します。そのバッファでは法律について
-書きたいのであれば、テーマを law などとすると science な学習データは参
-照しません。学習テーマは Emacs で扱える文字列ならば、multibyte 文字列
-でも構いません。
+他のバッファに移ったときに、そのバッファでも科学の話題を書くのであれば、
+M-x skk-study-switch-current-theme して science と入れましょう。先程学
+習した science 版学習データを使用します。そのバッファでは法律について
+書きたいのであれば、テーマを law などとすると science な学習データは参
+照しません。学習テーマは Emacs で扱える文字列ならば、multibyte 文字列
+でも構いません。
 
-まだ十分検証されておらず、~/.skk-study のフォーマットを壊してしまう恐
-れがあるため、バックアップを取っておくことを強くお勧めします。
+まだ十分検証されておらず、~/.skk-study のフォーマットを壊してしまう恐
+れがあるため、バックアップを取っておくことを強くお勧めします。
 
-experimental 版の skk-study-file-format-version は 0.3 です。0.2 のフォー
-マットを読み込むと自動的に conversion するようになっています。
-downgrade は自動化されていないのでご注意下さい。
+experimental 版の skk-study-file-format-version は 0.3 です。0.2 のフォー
+マットを読み込むと自動的に conversion するようになっています。
+downgrade は自動化されていないのでご注意下さい。
 
-試していみたい方は、experimental/skk-study.el を 1 つ上のディレクトリ
-の skk-study.el に上書きして make して下さい。
+試していみたい方は、experimental/skk-study.el を 1 つ上のディレクトリ
+の skk-study.el に上書きして make して下さい。
 
-なお、M-x skk-study-remove-theme で不要なテーマを消すことができ (テー
-マ general は消せません) M-x skk-study-copy-theme であるテーマの学習デー
-タを他のテーマにコピーすることができます。
+なお、M-x skk-study-remove-theme で不要なテーマを消すことができ (テー
+マ general は消せません) M-x skk-study-copy-theme であるテーマの学習デー
+タを他のテーマにコピーすることができます。
 
-** 編集の文脈に応じた自動的な latin モードへの切り替えサポート
+** 編集の文脈に応じた自動的な latin モードへの切り替えサポート
 
-`major-mode' がプログラム言語のモードである場合に、文脈に応じて自動的
-に latinモードへ切り替えを行う機能を試験的にサポートしています。詳細は、
-experimental/context-skk.el の中のドキュメントを参照して下さい。
+`major-mode' がプログラム言語のモードである場合に、文脈に応じて自動的
+に latinモードへ切り替えを行う機能を試験的にサポートしています。詳細は、
+experimental/context-skk.el の中のドキュメントを参照して下さい。
 
-** 単漢字変換のサポート
+** 単漢字変換のサポート
 
-読みの最後に、読みの一部として @ を入力してから変換すると、一文字のみ
-からなる候補に絞り込んだ上で、候補を総画数順でソートしてから変換する単
-漢字変換機能を試験的にサポートしています。詳細は、
-experimental/skk-tankan.el の中のドキュメントを参照して下さい。
+読みの最後に、読みの一部として @ を入力してから変換すると、一文字のみ
+からなる候補に絞り込んだ上で、候補を総画数順でソートしてから変換する単
+漢字変換機能を試験的にサポートしています。詳細は、
+experimental/skk-tankan.el の中のドキュメントを参照して下さい。
 
 * 12.1
 
-** 古い Emacsen のサポート終了
+** 古い Emacsen のサポート終了
 
-以下のバージョンのサポートは打ちきりました。
+以下のバージョンのサポートは打ちきりました。
 
- Mule 2.3 (based on Emacs 19.28 or 19.34) 以前
- Emacs 20.2 以前
- XEmacs 20.4 以前
+ Mule 2.3 (based on Emacs 19.28 or 19.34) 以前
+ Emacs 20.2 以前
+ XEmacs 20.4 以前
 
-これ以外はサポート対象ではありますが、推奨されるのは以下の Emacsen で
-す。
+これ以外はサポート対象ではありますが、推奨されるのは以下の Emacsen で
+す。
 
- Emacs 20.7 以上
- XEmacs 21.4.6 以上
+ Emacs 20.7 以上
+ XEmacs 21.4.6 以上
 
-** 動的入力対応
+** 動的入力対応
 
-キー入力時に、挿入する文字を動的に決定する機能。これは
-experimental/skk-dinsert.el として開発されています。
+キー入力時に、挿入する文字を動的に決定する機能。これは
+experimental/skk-dinsert.el として開発されています。
 
-** AZIK (拡張ローマ字入力法)
+** AZIK (拡張ローマ字入力法)
 
-SKK で 拡張ローマ字入力法 AZIK を利用する機能。これは
-experimental/skk-azik.el として開発されています。
-AZIK については、以下の URL を参照下さい。
+SKK で 拡張ローマ字入力法 AZIK を利用する機能。これは
+experimental/skk-azik.el として開発されています。
+AZIK については、以下の URL を参照下さい。
 http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm
 
-** アイコン
+** アイコン
 
-Emacs 21 と XEmacs において、モード行にアイコンを設置しました。
+Emacs 21 と XEmacs において、モード行にアイコンを設置しました。
 
 
 * 11.6
@@ -1123,240 +1129,240 @@ Emacs 21 と XEmacs において、モード行にアイコンを設置しました。
 
 * 11.5
 
-** GNU Emacs 21 対応
+** GNU Emacs 21 対応
 
-GNU Emacs 21 に対応しました。
+GNU Emacs 21 に対応しました。
 
-** 配布物に S 辞書が含まれます。
+** 配布物に S 辞書が含まれます。
 
-従来は別に辞書を入手する必要がありました。現在では配布物の中に S 辞書
-が含まれるようになりました。
+従来は別に辞書を入手する必要がありました。現在では配布物の中に S 辞書
+が含まれるようになりました。
 
-** Windows 用インストーラ (make.bat) の改良
+** Windows 用インストーラ (make.bat) の改良
 
-従来の make.bat は環境変数の定義を除いた上で、make1.bat に改名されまし
-た。
+従来の make.bat は環境変数の定義を除いた上で、make1.bat に改名されまし
+た。
 
-また、より汎用性の高いインストーラとして makeit.bat が追加されました。
-使用法は このディレクトリにある README.win を参照してください。
+また、より汎用性の高いインストーラとして makeit.bat が追加されました。
+使用法は このディレクトリにある README.win を参照してください。
 
-** Web 検索エンジンによる検索
+** Web 検索エンジンによる検索
 
-experimental/skk-w3m.el という新たなプログラムが追加されました。
+experimental/skk-w3m.el という新たなプログラムが追加されました。
 
-通常の変換のほか、通貨の単位換算など、かなりイケてるようです。
-例えば、ドルを円に換算するには
+通常の変換のほか、通貨の単位換算など、かなりイケてるようです。
+例えば、ドルを円に換算するには
 
-$# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/
-$#.# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/
+$# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/
+$#.# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/
 
-というエントリを個人辞書に追加します。
+というエントリを個人辞書に追加します。
 
-skk-w3m.el を使うには w3m をインストールする必要があります。
+skk-w3m.el を使うには w3m をインストールする必要があります。
 
 http://w3m.sourceforge.net
 
-** SKK にヒントを与えて変換
+** SKK にヒントを与えて変換
 
-experimental/skk-hint.el という新たなプログラムが追加されました。
+experimental/skk-hint.el という新たなプログラムが追加されました。
 
-これを使うと、通常の変換操作のなかで、SKK にヒントを与えることができま
-す。SKK は与えられた読みを含んだ漢字を持つものに候補を絞ります。
+これを使うと、通常の変換操作のなかで、SKK にヒントを与えることができま
+す。SKK は与えられた読みを含んだ漢字を持つものに候補を絞ります。
 
-** 単位換算実行変換
+** 単位換算実行変換
 
-長さなどの単位換算ができる機能です。最新の SKK-JISYO.L を用いれば
+長さなどの単位換算ができる機能です。最新の SKK-JISYO.L を用いれば
 
-  ▽97mile → 156.1021km
+  ▽97mile → 156.1021km
 
-のような変換が可能です。他に yard, feet, inch を他の単位に換算できま
-す。`skk-units-alist' という変数を参照してください。
+のような変換が可能です。他に yard, feet, inch を他の単位に換算できま
+す。`skk-units-alist' という変数を参照してください。
 
-** 日付挿入機能の強化
+** 日付挿入機能の強化
 
-通常 @ を押すことによって日付が挿入されますが、この機能が拡張されまし
-た。辞書の設定と変数の設定次第で様々な形式の日付を挿入することができま
-す。標準では英語表記、日本語表記に加えて、ドイツ語表記も可能です。
+通常 @ を押すことによって日付が挿入されますが、この機能が拡張されまし
+た。辞書の設定と変数の設定次第で様々な形式の日付を挿入することができま
+す。標準では英語表記、日本語表記に加えて、ドイツ語表記も可能です。
 
-以下の変数を参照してください。
+以下の変数を参照してください。
 
  `skk-gengo-alist'
  `skk-month-alist'
  `skk-day-of-week-alist'
  `skk-default-current-date-function'
 
-また、辞書への記入例は、最新の SKK-JISYO.L を取得して、today エントリ
-を参照してください。
+また、辞書への記入例は、最新の SKK-JISYO.L を取得して、today エントリ
+を参照してください。
 
-** 混ぜ書き辞書
+** 混ぜ書き辞書
 
-tut-code/skk-mkmgk.el は混ぜ書き SKK 辞書を作成するツールです。
+tut-code/skk-mkmgk.el は混ぜ書き SKK 辞書を作成するツールです。
 
-また、作成された混ぜ書き辞書が SKK-JISYO.mazegaki という名前で SKK 開
-発ラボから配布されています。
+また、作成された混ぜ書き辞書が SKK-JISYO.mazegaki という名前で SKK 開
+発ラボから配布されています。
 
-** ちょっとオシャレ (?) なインジケータ
+** ちょっとオシャレ (?) なインジケータ
 
-この機能は FSF Emacs 21 と XEmacs のみ有効です。インジケータをモード行
-の左に表示する場合、カーソルの色と同じ色が付くようにしました。また、こ
-のインジケータのところでマウスの第 2 ボタンをクリックすると、ポップアッ
-プメニューが表示されます。メニューの項目は、初心者に役立ちそうなことを
-中心に選んでいます。
+この機能は FSF Emacs 21 と XEmacs のみ有効です。インジケータをモード行
+の左に表示する場合、カーソルの色と同じ色が付くようにしました。また、こ
+のインジケータのところでマウスの第 2 ボタンをクリックすると、ポップアッ
+プメニューが表示されます。メニューの項目は、初心者に役立ちそうなことを
+中心に選んでいます。
 
-(画像を使ってもっとオシャレにする、なんてことも可能です。)
+(画像を使ってもっとオシャレにする、なんてことも可能です。)
 
-** 見出し語の繰り返し入力
+** 見出し語の繰り返し入力
 
-`Q' を押して▽モードに入り、TAB を押すと、それまでに確定した送り無しの
-見出し語が挿入されます。これは昔のワープロでいうところの繰り返し入力
-(テンプレート入力？) のような感じの機能といえばいいんでしょうか。
+`Q' を押して▽モードに入り、TAB を押すと、それまでに確定した送り無しの
+見出し語が挿入されます。これは昔のワープロでいうところの繰り返し入力
+(テンプレート入力？) のような感じの機能といえばいいんでしょうか。
 
-繰り返し TAB を押すことで、確定した見出し語の履歴をたどることができま
-す。この履歴は `skk-kakutei-history' という変数に保持されます。また、
-保持する履歴の数の最大値は `skk-kakutei-history-limit' の値によって決
-まります。標準では、20 となっています。
+繰り返し TAB を押すことで、確定した見出し語の履歴をたどることができま
+す。この履歴は `skk-kakutei-history' という変数に保持されます。また、
+保持する履歴の数の最大値は `skk-kakutei-history-limit' の値によって決
+まります。標準では、20 となっています。
 
-** カタカナ語を変換によって入力
+** カタカナ語を変換によって入力
 
-変換候補にカタカナ語が現れるようにしたい場合は ~/.skk に
+変換候補にカタカナ語が現れるようにしたい場合は ~/.skk に
 
  (setq skk-search-prog-list
        (skk-nunion skk-search-prog-list
                    '((skk-search-katakana))))
 
-と書きます。この方法では、q でカタカナを入力するのに比べて、辞書登録で
-きるというメリットがあります。
+と書きます。この方法では、q でカタカナを入力するのに比べて、辞書登録で
+きるというメリットがあります。
 
-** 擬似サ変入力
+** 擬似サ変入力
 
-サ行変格活用の動詞を送りあり変換できるようにするには ~/.skk に
+サ行変格活用の動詞を送りあり変換できるようにするには ~/.skk に
 
  (setq skk-search-prog-list
        (skk-nunion skk-search-prog-list
                    '((skk-search-sagyo-henkaku))))
 
-と書きます。
+と書きます。
 
 
 * 11.4
 
-** 「意味」を含む辞書の実現。
+** 「意味」を含む辞書の実現。
 
-experimental/skk-annotation.el という新たな実験プログラムが追加されま
-した。
-これに伴い、SKK 辞書に「意味(註釈)」を書きこむための仕様について議論さ
-れ、Daredevil SKK 本体にはこのための機能が追加されました。
+experimental/skk-annotation.el という新たな実験プログラムが追加されま
+した。
+これに伴い、SKK 辞書に「意味(註釈)」を書きこむための仕様について議論さ
+れ、Daredevil SKK 本体にはこのための機能が追加されました。
 
-** Info のエントリの自動追加。
+** Info のエントリの自動追加。
 
-例えば、skk.info を /usr/local/info/ 以下にインストールした場合、
-/usr/local/info/dir というファイルに skk.info を参照するためのエントリ
-を自動的に書き込む機能が追加されました。
+例えば、skk.info を /usr/local/info/ 以下にインストールした場合、
+/usr/local/info/dir というファイルに skk.info を参照するためのエントリ
+を自動的に書き込む機能が追加されました。
 
-** 自動フィル機能の復活。
+** 自動フィル機能の復活。
 
-自動フィル機能が有効になっているバッファにおける、自動フィルの挙動を
-SKK 9.6 以前のそれに戻しました。
+自動フィル機能が有効になっているバッファにおける、自動フィルの挙動を
+SKK 9.6 以前のそれに戻しました。
 
 ** NICOLA-DDSKK
 
-NICOLA-DDSKK はもはや実験版ではありません。experimental/nicola/ から
-nicola/ に移されました。
+NICOLA-DDSKK はもはや実験版ではありません。experimental/nicola/ から
+nicola/ に移されました。
 
 
 * 11.3
 
-** 基本設定の自動化。
+** 基本設定の自動化。
 
-Emacs 20 以降のために leim-list.el を用意することにより、自動的に基本
-設定がされるようになった。
+Emacs 20 以降のために leim-list.el を用意することにより、自動的に基本
+設定がされるようになった。
 
-ただし、Emacs は起動時に load-path の最上位にある leim-list.el をロー
-ドするだけなので、skk のインストールされたディレクトリより上位のディレ
-クトリに leim-list.el があればこの機能は無効になる。(*)
+ただし、Emacs は起動時に load-path の最上位にある leim-list.el をロー
+ドするだけなので、skk のインストールされたディレクトリより上位のディレ
+クトリに leim-list.el があればこの機能は無効になる。(*)
 
-  (*) ただし、egg/leim-list.el は load-path 上のすべての leim-list.el
-      をロードするのでこの限りではない。同機能は skk/leim-list.el にも
-      取りこんだ。
+  (*) ただし、egg/leim-list.el は load-path 上のすべての leim-list.el
+      をロードするのでこの限りではない。同機能は skk/leim-list.el にも
+      取りこんだ。
 
-この問題は GNU Emacs 20 では普通現れないが、XEmacs では現れうる。
-具体的には、/usr/local/lib/xemacs/mule-packages/lisp/leim/ が
-/usr/local/lib/xemacs/mule-packages/lisp/skk/ より load-path の上位に
-くるため、leim/leim-list.el がロードされてしまい、skk/leim-list.el が
-ロードされない。そのため、XEmacs では skk/leim-list.el は用いないこと
-にしている。その代わり、XEmacs のパッケージでは auto-autoloads.el が自
-動的にロードされるのでこれを利用している。
+この問題は GNU Emacs 20 では普通現れないが、XEmacs では現れうる。
+具体的には、/usr/local/lib/xemacs/mule-packages/lisp/leim/ が
+/usr/local/lib/xemacs/mule-packages/lisp/skk/ より load-path の上位に
+くるため、leim/leim-list.el がロードされてしまい、skk/leim-list.el が
+ロードされない。そのため、XEmacs では skk/leim-list.el は用いないこと
+にしている。その代わり、XEmacs のパッケージでは auto-autoloads.el が自
+動的にロードされるのでこれを利用している。
 
-なお、leim-list.el をロードしないもの (Emacs 19) においても
+なお、leim-list.el をロードしないもの (Emacs 19) においても
 
 (require 'skk-setup)
 
-で基本設定ができる。
+で基本設定ができる。
 
-** skk-isearch の input method 対応。
+** skk-isearch の input method 対応。
 
-** Emacs 18 対応。
+** Emacs 18 対応。
 
-Nemacs 3.3.2 および Mule 1.1 上で基本的な機能が動くようになった。ただ
-し飽くまで非公式対応。この機能は experimental/skk-e18.el により提供さ
-れる。
+Nemacs 3.3.2 および Mule 1.1 上で基本的な機能が動くようになった。ただ
+し飽くまで非公式対応。この機能は experimental/skk-e18.el により提供さ
+れる。
 
-また、Emacs 18 のために必要とされるもの、およびあると便利なものを
-patch/e18 ディレクトリに収録した。
+また、Emacs 18 のために必要とされるもの、およびあると便利なものを
+patch/e18 ディレクトリに収録した。
 
-** 候補表示が長い場合に対応する機能 (専用の window を使う)。
+** 候補表示が長い場合に対応する機能 (専用の window を使う)。
 
-候補一覧が一行では表示しきれない場合に、ウィンドウを分割してそこに候補
-一覧が表示されるようになった。操作性に変更はない。
+候補一覧が一行では表示しきれない場合に、ウィンドウを分割してそこに候補
+一覧が表示されるようになった。操作性に変更はない。
 
-** JIS X 0213 サポート。
+** JIS X 0213 サポート。
 
-skk-jisx0213.el によりこの機能が提供される。
+skk-jisx0213.el によりこの機能が提供される。
 
-** 仮名入力対応 (experimental/nicola)。
+** 仮名入力対応 (experimental/nicola)。
 
-experimental/nicola ディレクトリに、SKK を仮名入力対応させるためのプロ
-グラムが追加された。
+experimental/nicola ディレクトリに、SKK を仮名入力対応させるためのプロ
+グラムが追加された。
 
-** skk-look による ispell を使用した修正。
+** skk-look による ispell を使用した修正。
 
-skk-look で英単語など検索する際に、ispell で綴りを修正する機能が追加さ
-れた。
+skk-look で英単語など検索する際に、ispell で綴りを修正する機能が追加さ
+れた。
 
-** APEL のバージョンチェック。
+** APEL のバージョンチェック。
 
-APEL のバージョンをチェックするため、product.el を利用するようになりました。
-現在、APEL は 10.6 以降が必要となります。
+APEL のバージョンをチェックするため、product.el を利用するようになりました。
+現在、APEL は 10.6 以降が必要となります。
 
-** 新しいカーソル制御機構を採用。
+** 新しいカーソル制御機構を採用。
 
-GNU Emacs においては、ccc.el により新しいカーソル制御機構が提供される。
-XEmacs については本体がより良い制御機構を持っていることが分かったので、
-かなり簡潔な記述でカーソル制御ができるようになった。
+GNU Emacs においては、ccc.el により新しいカーソル制御機構が提供される。
+XEmacs については本体がより良い制御機構を持っていることが分かったので、
+かなり簡潔な記述でカーソル制御ができるようになった。
 
-** 関数 skk-set-cursor-properly は廃止されました。
+** 関数 skk-set-cursor-properly は廃止されました。
 
-isearch の設定で add-hook している場合など、 skk-set-cursor-properly
-の設定を削除して下さい。
+isearch の設定で add-hook している場合など、 skk-set-cursor-properly
+の設定を削除して下さい。
 
-** custom group の見直し。
+** custom group の見直し。
 
-カスタマイズし易いように、custom group の見直しが行われた。
+カスタマイズし易いように、custom group の見直しが行われた。
 
-** Input Method としての機能の改善。
+** Input Method としての機能の改善。
 
-Emacs 20 の為の修正。SKK を Emacs の Input Method として使用していると
-き、関数 `read-from-minibuffer' の 第 7 引数 INHERIT-INPUT-METHOD を
-非 nil にしても正しく動作しないバグが修正された。
+Emacs 20 の為の修正。SKK を Emacs の Input Method として使用していると
+き、関数 `read-from-minibuffer' の 第 7 引数 INHERIT-INPUT-METHOD を
+非 nil にしても正しく動作しないバグが修正された。
 
-** Canna との相性の改善。
+** Canna との相性の改善。
 
-SKK を起動する前に Canna の設定をしていると、スペースを押しても変換で
-きない問題が修正された。
+SKK を起動する前に Canna の設定をしていると、スペースを押しても変換で
+きない問題が修正された。
 
-** いくつかのバグの修正。
+** いくつかのバグの修正。
 
-以下の関数のバグが修正された (洩れがあったら追加してください)。
+以下の関数のバグが修正された (洩れがあったら追加してください)。
 
 o skk-count-jisyo-candidates-original
 o skk-clock
@@ -1365,64 +1371,64 @@ o skk-num-type3-kanji-1
 
 * Daredevil branch 11.1
 
-** skk.el の更なるシェイプアップを検討。
+** skk.el の更なるシェイプアップを検討。
 
-別ファイルにて提供できる特殊機能があれば、更に別にする、という方針で skk.el
-内を散策。変換候補に overlay/extent をかける機能も分離できるかもしれないが、
-分離しても小さいので、とりあえず見送り。他になんかあるかな？ ひらがな -> カ
-タカナ以外の region 変換機能、とか。
+別ファイルにて提供できる特殊機能があれば、更に別にする、という方針で skk.el
+内を散策。変換候補に overlay/extent をかける機能も分離できるかもしれないが、
+分離しても小さいので、とりあえず見送り。他になんかあるかな？ ひらがな -> カ
+タカナ以外の region 変換機能、とか。
 
-とりあえず過去別だったカーソル変化機能を skk-cursor.el として分離。
-分離した変数・関数のプレフィックスを skk-cursor- に統一。
+とりあえず過去別だったカーソル変化機能を skk-cursor.el として分離。
+分離した変数・関数のプレフィックスを skk-cursor- に統一。
 
-** ミニマムの構成を skk.el のみにする、というのを検討。
+** ミニマムの構成を skk.el のみにする、というのを検討。
 
-*** skk-foreword.el を skk.el と統合。
+*** skk-foreword.el を skk.el と統合。
 
-skk-foreword.el はユーザー変数を定義する前に定義しておく必要のあるマクロ、イ
-ンライン関数、変数、定数などをまとめたものでった。skk-foreword.el を skk.el
-に統合することで当然ユーザー変数の見通しは悪くなる (どんな変数があるのかな〜、
-と思ったらプログラムファイルを見るのが手っ取り早いよね？)。
+skk-foreword.el はユーザー変数を定義する前に定義しておく必要のあるマクロ、イ
+ンライン関数、変数、定数などをまとめたものでった。skk-foreword.el を skk.el
+に統合することで当然ユーザー変数の見通しは悪くなる (どんな変数があるのかな〜、
+と思ったらプログラムファイルを見るのが手っ取り早いよね？)。
 
-*** ユーザー変数の見通しが悪いのを考慮。
+*** ユーザー変数の見通しが悪いのを考慮。
 
-wl なんかを参考に、ユーザー変数、システム変数・定数をまとめて、skk-vars.el
-を作った。特殊機能を提供する別ファイルの変数も全部ここに閉じ込める。カスタマ
-イズに興味のあるユーザーは skk-vars.el を見れば一覧が得られる。
+wl なんかを参考に、ユーザー変数、システム変数・定数をまとめて、skk-vars.el
+を作った。特殊機能を提供する別ファイルの変数も全部ここに閉じ込める。カスタマ
+イズに興味のあるユーザーは skk-vars.el を見れば一覧が得られる。
 
-これにより下記 2 点のメリットあり。
+これにより下記 2 点のメリットあり。
 
-o 全てのプログラムから (eval-when-compile (require 'skk-vars)) することでバ
-  イトコンパイルの際の変数に関する Warning が圧倒的に減る。
+o 全てのプログラムから (eval-when-compile (require 'skk-vars)) することでバ
+  イトコンパイルの際の変数に関する Warning が圧倒的に減る。
 
-o skk.el から (require 'skk-vars) することで、特殊機能に関する変数の boundp
-  チェックが不要になる。
+o skk.el から (require 'skk-vars) することで、特殊機能に関する変数の boundp
+  チェックが不要になる。
 
-*** 本体、特殊機能提供プログラムの両方で使うマクロ、インライン関数の取り扱い。
+*** 本体、特殊機能提供プログラムの両方で使うマクロ、インライン関数の取り扱い。
 
-これらを skk.el に入れておくわけにはゆかない (特殊機能提供プログラムから
-skk.el を require するから無限 loop に陥いる)。仕方がないので skk-macs.el を
-作る。全プログラムから (eval-when-compile (require 'skk-macs)) する。
+これらを skk.el に入れておくわけにはゆかない (特殊機能提供プログラムから
+skk.el を require するから無限 loop に陥いる)。仕方がないので skk-macs.el を
+作る。全プログラムから (eval-when-compile (require 'skk-macs)) する。
 
-*** 結局、現状は...。
+*** 結局、現状は...。
 
-ミニマムの機能しか使わなくとも skk.el, skk-macs.el, skk-vars.el の 3 つを要
-することとなり、ファイルの数は main trunk よりも増えているが、各ファイルの役
-割を再確認したので、これを土台に更なる検討を加える。
+ミニマムの機能しか使わなくとも skk.el, skk-macs.el, skk-vars.el の 3 つを要
+することとなり、ファイルの数は main trunk よりも増えているが、各ファイルの役
+割を再確認したので、これを土台に更なる検討を加える。
 
-ちなみに APEL については何も検討していません。APEL から必要なものだけを機械
-的に取り出す...なんてことはできるんでしょうか？ (^^;; とりあえず SKK 側の構
-成を考えてからね。
+ちなみに APEL については何も検討していません。APEL から必要なものだけを機械
+的に取り出す...なんてことはできるんでしょうか？ (^^;; とりあえず SKK 側の構
+成を考えてからね。
 
 
 * 10.57
 
-** `skk-defmacro-cond', `skk-defsubst-cond' と `skk-defun-cond' を廃止。
-代りに `defmacro', `defsubst' と `defun' をそれぞれ `static-cond' と組み合わ
-せて使用。効果は同じ。バイトコンパイルファイルは、Mule2, Mule3, Mule4,
-XEmacs 間で共有できない。
+** `skk-defmacro-cond', `skk-defsubst-cond' と `skk-defun-cond' を廃止。
+代りに `defmacro', `defsubst' と `defun' をそれぞれ `static-cond' と組み合わ
+せて使用。効果は同じ。バイトコンパイルファイルは、Mule2, Mule3, Mule4,
+XEmacs 間で共有できない。
 
-** skk.el からカーソルの変化機能のみを取り出し、skk-cursor.el を revive.
+** skk.el からカーソルの変化機能のみを取り出し、skk-cursor.el を revive.
 
 * 10.56
 
