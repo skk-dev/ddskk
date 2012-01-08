@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.183 2012/01/08 04:09:09 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.184 2012/01/08 10:23:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/08 04:09:09 $
+;; Last Modified: $Date: 2012/01/08 10:23:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -856,13 +856,8 @@ BUFFER defaults to the current buffer."
   (cond
    ((eval-when-compile (featurep 'xemacs))
     nil) ; XEmacs でサポートされない機能
-   ((eval-when-compile (and skk-running-gnu-emacs
-			      (>= emacs-major-version 22)))
-    (window-body-height)) ; emacs21 にはない
    (t
-    (- (window-height)
-       (if mode-line-format 1 0)
-       (if header-line-format 1 0)))))
+    (window-body-height)))) ; emacs21 にはない
 
 (defun skk-screen-column ()
   "スクリーン行から得たカーソル位置の桁数を返す。

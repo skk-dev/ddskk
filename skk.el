@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.610 2011/12/18 02:27:08 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.611 2012/01/08 10:23:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/18 02:27:08 $
+;; Last Modified: $Date: 2012/01/08 10:23:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2038,8 +2038,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 					 ?+))))
       (cond
        ;; (1) 現在のバッファの中に表示する (インライン表示)
-       ((and skk-running-gnu-emacs
-	     (>= emacs-major-version 21)
+       ((and (featurep 'emacs)
 	     skk-show-inline
 	     (not skk-isearch-switch)
 	     (not (skk-in-minibuffer-p)))
@@ -4629,8 +4628,7 @@ SKK 辞書の候補として正しい形に整形する。"
 
 (defun skk-search-function-usage ()
   "Emacs Lisp 関数の usage を返す。"
-  (when (eval-when-compile (and skk-running-gnu-emacs
-				(>= emacs-major-version 22)))
+  (when (eval-when-compile (featurep 'emacs))
     (unless skk-henkan-okurigana
       (let* ((symbol (intern (format "%s" skk-henkan-key)))
 	     def doc usage arglist result)

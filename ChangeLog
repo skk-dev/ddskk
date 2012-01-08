@@ -1,8 +1,12 @@
 2012-01-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk.el (skk-henkan-show-candidate-subr, skk-search-function-usage):
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
+
 	* skk-macs.el (ignore-errors): Emacs 21 向けコードを削除.
 	docstring を修正.
-	(skk-called-interactively-p, skk-sit-for): Emacs 21 向けコードを削除.
+	(skk-called-interactively-p, skk-sit-for, skk-window-body-height):
+	Emacs 21 向けコードを削除.
 
 	* skk-kcode.el (skk-display-code): char-to-ucs() が未定義の場合は
 	encode-char() を使用.
