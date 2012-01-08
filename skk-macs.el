@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.182 2012/01/08 02:49:09 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.183 2012/01/08 04:09:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/08 02:49:09 $
+;; Last Modified: $Date: 2012/01/08 04:09:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -223,9 +223,8 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	 ,@body))))
 
 (defmacro skk-called-interactively-p (&optional kind)
-  (cond ((or (featurep 'xemacs)
-	     (= emacs-major-version 21))
-	 ;; XEmacs and GNU Emacs 21
+  (cond ((featurep 'xemacs)
+	 ;; XEmacs
 	 ;; `called-interactively-p' is not defined.
 	 '(interactive-p))
 
@@ -405,9 +404,6 @@ but the contents viewed as characters do change.
   (cond
    ((eval-when-compile (featurep 'xemacs))
     (sit-for seconds nodisplay))
-   ((eval-when-compile (= emacs-major-version 21))
-    ;; GNU Emacs 21
-    (sit-for seconds nil nodisplay))
    (t
     ;; GNU Emacs 22.1 or later
     (sit-for seconds nodisplay))))

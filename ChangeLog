@@ -2,6 +2,7 @@
 
 	* skk-macs.el (ignore-errors): Emacs 21 向けコードを削除.
 	docstring を修正.
+	(skk-called-interactively-p, skk-sit-for): Emacs 21 向けコードを削除.
 
 	* skk-kcode.el (skk-display-code): char-to-ucs() が未定義の場合は
 	encode-char() を使用.
