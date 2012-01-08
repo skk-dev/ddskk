@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.181 2011/12/27 13:07:18 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.182 2012/01/08 02:49:09 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/27 13:07:18 $
+;; Last Modified: $Date: 2012/01/08 02:49:09 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -41,11 +41,11 @@
 
 ;;;; macros
 
-(when (eval-when-compile (and skk-running-gnu-emacs
-			      (<= emacs-major-version 22)))
+(when (eval-when-compile (and (featurep 'emacs)
+			      (= emacs-major-version 22)))
   (defmacro ignore-errors (&rest body)
-    "Execute FORMS; if an error occurs, return nil.
-Otherwise, return result of last FORM."
+    "Execute BODY; if an error occurs, return nil.
+Otherwise, return result of last form in BODY."
     `(condition-case nil
 	 (progn
 	   ,@body)
