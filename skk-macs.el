@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.185 2012/01/09 05:36:11 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.186 2012/01/09 05:49:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/09 05:36:11 $
+;; Last Modified: $Date: 2012/01/09 05:49:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -302,8 +302,7 @@ If the event isn't a keypress, this returns nil."
 	     (null (car buffer-undo-list)))
 	(setq buffer-undo-list (cdr buffer-undo-list)))))
 
-(unless (eval-when-compile (and skk-running-gnu-emacs
-				(>= emacs-major-version 22)))
+(when (eval-when-compile (featurep 'xemacs))
   (defun substring-no-properties (string &optional from to)
     "Return a substring of string, without text properties.
 It starts at index from and ending before to.

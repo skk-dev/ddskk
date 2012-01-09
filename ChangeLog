@@ -9,7 +9,8 @@
 	(skk-process-kill-without-query, skk-string<):
 	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
-	(skk-indicator-to-string): Emacs 21 向けコードを削除.
+	(skk-indicator-to-string, substring-no-properties):
+	Emacs 21 向けコードを削除.
 
 	* skk-vars.el (skk-find-window-system): コメントを修正.
 	(skk-deflocalvar, skk-show-japanese-menu):
