@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.423 2012/01/08 10:54:39 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.424 2012/01/09 04:14:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/08 10:54:39 $
+;; Last Modified: $Date: 2012/01/09 04:14:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -56,6 +56,7 @@
   (cond
    ((eval-when-compile (and (featurep 'emacs)
 			    (>= emacs-major-version 23)))
+    ;; GNU Emacs 23 or later
     (let ((frames (frame-list))
 	  val)
       (while (and (not val) frames)
@@ -67,28 +68,18 @@
 	      frames (cdr frames)))
       val))
    (t
-    ;; Emacs 22 or earlier, XEmacs
+    ;; Emacs 22 and XEmacs
     window-system)))
 
 ;;;###autoload
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
 (defmacro skk-deflocalvar (symbol initvalue &optional docstring)
-  (if (or (featurep 'xemacs)
-	  (>= emacs-major-version 22))
-      (if docstring
-	  `(progn
-	     (defvar ,symbol ,initvalue ,docstring)
-	     (make-variable-buffer-local ',symbol))
-	`(progn
-	   (defvar ,symbol ,initvalue)
-	   (make-variable-buffer-local ',symbol)))
-    ;; GNU Emacs 21
+  (if docstring
+      `(progn
+	 (defvar ,symbol ,initvalue ,docstring)
+	 (make-variable-buffer-local ',symbol))
     `(progn
-       (defvar ,symbol ,initvalue
-	 ,(format "%s
-Automatically becomes buffer-local when set in any fashion."
-		  (or docstring
-		      "Not documented as a variable.")))
+       (defvar ,symbol ,initvalue)
        (make-variable-buffer-local ',symbol))))
 
 (defconst skk-ml-address "skk@ring.gr.jp")
