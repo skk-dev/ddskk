@@ -1,5 +1,16 @@
 2012-01-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-macs.el (characterp, int-char, string-to-char-list)
+	(string-to-int-list, character-to-event, event-to-character)
+	(cancel-undo-boundary, next-command-event)
+	(skk-color-cursor-display-p, skk-char-to-unibyte-string)
+	(skk-ascii-char-p, skk-jisx0208-p, skk-jisx0213-p)
+	(skk-split-char, skk-char-charset, skk-region-active-p)
+	(skk-process-kill-without-query, skk-string<):
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
+
+	(skk-indicator-to-string): Emacs 21 向けコードを削除.
+
 	* skk-vars.el (skk-find-window-system): コメントを修正.
 	(skk-deflocalvar, skk-show-japanese-menu):
 	Emacs 21 向けコードを削除.

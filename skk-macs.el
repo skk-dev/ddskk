@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.184 2012/01/08 10:23:06 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.185 2012/01/09 05:36:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/08 10:23:06 $
+;; Last Modified: $Date: 2012/01/09 05:36:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -254,33 +254,33 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 ;; version dependent
 ;; Many functions are derived from emu (APEL).
 
-(when (eval-when-compile (and skk-running-gnu-emacs
+(when (eval-when-compile (and (featurep 'emacs)
 			      (<= emacs-major-version 22)))
   (defalias 'characterp 'char-valid-p))
 
-(when (eval-when-compile skk-running-gnu-emacs)
+(when (eval-when-compile (featurep 'emacs))
   (defalias 'int-char 'identity))
 
-(when (eval-when-compile skk-running-gnu-emacs)
+(when (eval-when-compile (featurep 'emacs))
   (defun string-to-char-list (string)
     "Return a list of which elements are characters in the STRING."
     (mapcar #'identity string)))
 
-(when (eval-when-compile skk-running-gnu-emacs)
+(when (eval-when-compile (featurep 'emacs))
   (defalias 'string-to-int-list 'string-to-char-list))
 
 (when (eval-when-compile (featurep 'xemacs))
   (defun string-to-int-list (str)
     (mapcar #'char-int str)))
 
-(when (eval-when-compile skk-running-gnu-emacs)
+(when (eval-when-compile (featurep 'emacs))
   (defun character-to-event (ch)
     "Convert keystroke CH into an event structure, replete with bucky bits.
 Note that CH (the keystroke specifier) can be an integer, a character
 or a symbol such as 'clear."
     ch))
 
-(when (eval-when-compile skk-running-gnu-emacs)
+(when (eval-when-compile (featurep 'emacs))
   (defun event-to-character (event)
     "Return the character approximation to the given event object.
 If the event isn't a keypress, this returns nil."
@@ -295,7 +295,7 @@ If the event isn't a keypress, this returns nil."
      ((integerp event)
       event))))
 
-(when (eval-when-compile skk-running-gnu-emacs)
+(when (eval-when-compile (featurep 'emacs))
   (defun cancel-undo-boundary ()
     "Cancel undo boundary."
     (if (and (consp buffer-undo-list)
@@ -379,7 +379,7 @@ and replace a sub-expression, e.g.
 	(apply #'concat (nreverse matches))))))
 
 ;; For GNU Emacs.
-(when (eval-when-compile skk-running-gnu-emacs)
+(when (eval-when-compile (featurep 'emacs))
   (defun next-command-event (&optional event prompt)
     "Read an event object from the input stream.
 If EVENT is non-nil, it should be an event object and will be filled
@@ -420,7 +420,7 @@ but the contents viewed as characters do change.
   (cond
    ((eval-when-compile (featurep 'xemacs))
     (eq (device-class (selected-device)) 'color))
-   ((eval-when-compile skk-running-gnu-emacs)
+   ((eval-when-compile (featurep 'emacs))
     (and (skk-find-window-system)
 	 (fboundp 'x-display-color-p)
 	 (x-display-color-p)))))
@@ -428,7 +428,7 @@ but the contents viewed as characters do change.
 (defun skk-char-to-unibyte-string (char)
   (ignore-errors
     (cond
-     ((eval-when-compile (and skk-running-gnu-emacs
+     ((eval-when-compile (and (featurep 'emacs)
 			      (>= emacs-major-version 23)))
       ;; GNU Emacs 23.1 or later
       (string-make-unibyte (char-to-string char)))
@@ -437,7 +437,7 @@ but the contents viewed as characters do change.
 
 (defun skk-ascii-char-p (char)
   (cond
-   ((eval-when-compile (and skk-running-gnu-emacs
+   ((eval-when-compile (and (featurep 'emacs)
 			    (>= emacs-major-version 23)))
     ;; GNU Emacs 23.1 or later
     (eq (char-charset char skk-charset-list) 'ascii))
@@ -446,7 +446,7 @@ but the contents viewed as characters do change.
 
 (defun skk-jisx0208-p (char)
   (cond
-   ((eval-when-compile (and skk-running-gnu-emacs
+   ((eval-when-compile (and (featurep 'emacs)
 			    (>= emacs-major-version 23)))
     ;; GNU Emacs 23.1 or later
     (eq (char-charset char skk-charset-list) 'japanese-jisx0208))
@@ -455,7 +455,7 @@ but the contents viewed as characters do change.
 
 (defun skk-jisx0213-p (char)
   (cond
-   ((eval-when-compile (and skk-running-gnu-emacs
+   ((eval-when-compile (and (featurep 'emacs)
 			    (>= emacs-major-version 23)))
     ;; GNU Emacs 23.1 or later
     (memq (char-charset char skk-charset-list)
@@ -470,7 +470,7 @@ but the contents viewed as characters do change.
 (defun skk-split-char (ch)
   ;; http://mail.ring.gr.jp/skk/200908/msg00006.html
   (cond
-   ((eval-when-compile (and skk-running-gnu-emacs
+   ((eval-when-compile (and (featurep 'emacs)
 			    (>= emacs-major-version 23)))
     ;; C の split-char() と同様の機能だが、char-charset() の呼出しにおいて
     ;; 文字集合の選択肢を skk-charset-list に含まれるものに制限する。
@@ -492,7 +492,7 @@ but the contents viewed as characters do change.
 
 (defun skk-char-charset (ch &optional restriction)
   (cond
-   ((eval-when-compile (and skk-running-gnu-emacs
+   ((eval-when-compile (and (featurep 'emacs)
 			    (>= emacs-major-version 23)))
     ;; GNU Emacs 23.1 or later
     (char-charset ch restriction))
@@ -514,14 +514,12 @@ but the contents viewed as characters do change.
     (if (stringp indicator)
 	indicator
       (cdr indicator)))
-   ((eval-when-compile (>= emacs-major-version 21))
+   (t
     (if no-properties
 	(with-temp-buffer
 	  (insert indicator)
 	  (buffer-substring-no-properties (point-min) (point-max)))
-      indicator))
-   (t
-    indicator)))
+      indicator))))
 
 (defun skk-mode-string-to-indicator (mode string)
   "文字列 STRING を SKK インジケータ型オブジェクトに変換する。"
@@ -589,13 +587,13 @@ BUFFER defaults to the current buffer."
 
 (defun skk-region-active-p ()
   (cond
-   ((eval-when-compile (and skk-running-gnu-emacs
+   ((eval-when-compile (and (featurep 'emacs)
 			    (>= emacs-major-version 23)))
     (use-region-p))
    ((eval-when-compile (featurep 'xemacs))
     (region-active-p))
    (t
-    ;; GNU Emacs 21 and 22.
+    ;; GNU Emacs 22.
     (and transient-mark-mode mark-active))))
 
 (put 'skk-bind-last-command-char 'lisp-indent-function 1)
@@ -610,8 +608,7 @@ BUFFER defaults to the current buffer."
 
 (defun skk-process-kill-without-query (process)
   (cond
-   ((eval-when-compile (and skk-running-gnu-emacs
-			    (>= emacs-major-version 22)))
+   ((eval-when-compile (featurep 'emacs))
     (set-process-query-on-exit-flag process nil))
    (t
     (process-kill-without-query process))))
@@ -909,7 +906,7 @@ BUFFER defaults to the current buffer."
 対して emacs-mule の encoded string に変換して比較する。
 比較の結果 str1 < str2 ならば t を返す。"
   (cond
-   ((eval-when-compile (and skk-running-gnu-emacs
+   ((eval-when-compile (and (featurep 'emacs)
 			    (>= emacs-major-version 23)))
     ;; Emacs with coding system utf-8-emacs
     (skk-string-lessp-in-coding-system str1 str2 'emacs-mule))
