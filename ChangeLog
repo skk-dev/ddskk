@@ -1,7 +1,8 @@
 2012-01-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-find-window-system): コメントを修正.
-	(skk-deflocalvar): Emacs 21 向けコードを削除.
+	(skk-deflocalvar, skk-show-japanese-menu):
+	Emacs 21 向けコードを削除.
 
 2012-01-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

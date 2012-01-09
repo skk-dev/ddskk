@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.424 2012/01/09 04:14:48 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.425 2012/01/09 04:45:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/09 04:14:48 $
+;; Last Modified: $Date: 2012/01/09 04:45:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1764,7 +1764,6 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
 	   (boundp 'mac-carbon-version-string) ; Carbon Emacs
 	   (featurep 'ns) ; Cocoa Emacs
 	   (and (eq window-system 'x)
-		(>= emacs-major-version 22)
 		(boundp 'gtk-version-string)
 		(stringp (symbol-value 'gtk-version-string))
 		(string< "2.0" (symbol-value 'gtk-version-string))))
