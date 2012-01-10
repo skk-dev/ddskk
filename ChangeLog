@@ -1,3 +1,8 @@
+2012-01-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK: インストール時のバージョンチェック
+	string-lessp(emacs-version "22.0") に (featurep 'emacs) を追加.
+
 2012-01-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (characterp, int-char, string-to-char-list)

@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.195 2012/01/07 04:26:17 skk-cvs Exp $
-;; Last Modified: $Date: 2012/01/07 04:26:17 $
+;; Version: $Id: SKK-MK,v 1.196 2012/01/10 12:26:29 skk-cvs Exp $
+;; Last Modified: $Date: 2012/01/10 12:26:29 $
 
 ;;; Commentary:
 
@@ -40,9 +40,10 @@ Please install Daredevil SKK 11.6.0"))
 Emacs 20.7 is not supported by this version of SKK.
 Please install Daredevil SKK 13.1 or 14.1"))
 
-(when (string-lessp emacs-version "22.0")
+(when (and (featurep 'emacs)
+	   (string-lessp emacs-version "22.0"))
   (error "%s" "\
-Emacs 21 is not supported by this version of SKK.
+GNU Emacs 21 is not supported by this version of SKK.
 Please install Daredevil SKK 14.4"))
 
 (unless (featurep 'mule)
