@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.186 2012/01/09 05:49:27 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.187 2012/01/11 13:02:11 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/09 05:49:27 $
+;; Last Modified: $Date: 2012/01/11 13:02:11 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -255,7 +255,7 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 ;; Many functions are derived from emu (APEL).
 
 (when (eval-when-compile (and (featurep 'emacs)
-			      (<= emacs-major-version 22)))
+			      (= emacs-major-version 22)))
   (defalias 'characterp 'char-valid-p))
 
 (when (eval-when-compile (featurep 'emacs))
@@ -486,7 +486,7 @@ but the contents viewed as characters do change.
 	(setq dimension (1- dimension)))
       (cons charset val)))
    (t
-    ;; Emacs 22 以前、および XEmacs
+    ;; Emacs 22 および XEmacs
     (split-char ch))))
 
 (defun skk-char-charset (ch &optional restriction)

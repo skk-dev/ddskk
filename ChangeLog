@@ -1,3 +1,11 @@
+2012-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (characterp): Emacs 21 向けコードを削除.
+	* skk-emacs.el: Emacs 21 向けのコードを削除.具体的には次の３つ。
+  	  - defalias 'window-inside-pixel-edges 'ignore
+	  - defalias 'posn-at-point 'ignore
+	  - require 'poe
+
 2012-01-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK: インストール時のバージョンチェック

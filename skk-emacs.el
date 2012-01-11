@@ -34,16 +34,7 @@
   (require 'skk-vars)
   (require 'skk-macs)
 
-  (defvar tool-bar-border)
-
-  (when (= emacs-major-version 21)
-    (defalias 'window-inside-pixel-edges 'ignore)
-    (defalias 'posn-at-point 'ignore)))
-
-(when (eval-when-compile (= emacs-major-version 21))
-  ;; Emacs 21 では `make-temp-file' の脆弱性に対処するため
-  ;; poe を必要とする。
-  (require 'poe))
+  (defvar tool-bar-border))
 
 (eval-and-compile
   (autoload 'mouse-avoidance-banish-destination "avoid")
@@ -260,19 +251,18 @@
 
 (defun skk-emacs-circulate-modes (&optional arg)
   (interactive "P")
-  (cond
-   (skk-henkan-mode
-    nil)
-   ((not skk-mode)
-    (skk-mode arg))
-   (skk-j-mode
-    (if skk-katakana
-	(skk-jisx0208-latin-mode arg)
-      (skk-toggle-kana arg)))
-   (skk-jisx0208-latin-mode
-    (skk-latin-mode arg))
-   (skk-latin-mode
-    (skk-j-mode-on))))
+  (cond (skk-henkan-mode
+	 nil)
+	((not skk-mode)
+	 (skk-mode arg))
+	(skk-j-mode
+	 (if skk-katakana
+	     (skk-jisx0208-latin-mode arg)
+	   (skk-toggle-kana arg)))
+	(skk-jisx0208-latin-mode
+	 (skk-latin-mode arg))
+	(skk-latin-mode
+	 (skk-j-mode-on))))
 
 (defun skk-emacs-info ()
   (interactive)
