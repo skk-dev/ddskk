@@ -200,7 +200,6 @@
 	      (boundp 'mac-carbon-version-string) ; Carbon Emacs
 	      (featurep 'ns) ; Cocoa Emacs
 	      (and (eq window-system 'x)
-		   (>= emacs-major-version 22)
 		   (boundp 'gtk-version-string)
 		   (stringp (symbol-value 'gtk-version-string))
 		   (string< "2.0" (symbol-value 'gtk-version-string))))
@@ -280,17 +279,13 @@
 (defun skk-emacs-prepare-modeline-properties ()
   (setq skk-icon
 	(let* ((dir (ignore-errors
-		      (file-name-directory
-		       (if (eval-when-compile (>= emacs-major-version 22))
-			   ;; Emacs 22 以降 `locate-file' が利用可能。
-			   (or (locate-file "skk/skk.xpm"
-					    (list (expand-file-name
-						   "../../.."
-						   data-directory)))
-			       (locate-file "skk/skk.xpm"
-					    (list data-directory)))
-			 ;; Emacs 21
-			 skk-tut-file))))
+		     (file-name-directory
+		      (or (locate-file "skk/skk.xpm"
+				       (list (expand-file-name
+					      "../../.."
+					      data-directory)))
+			  (locate-file "skk/skk.xpm"
+				       (list data-directory))))))
 	       (image (when dir
 			(find-image
 			 `((:type xpm
@@ -462,14 +457,8 @@
        (< emacs-major-version 24)))
 
 (defun skk-tooltip-show-at-point (text &optional situation)
-  "TEXT を tooltip で表示する。
-オプショナル引数 SITUATION がシンボル annotation であれば、
-シンボル listing であれば、"
+  "TEXT を tooltip で表示する。"
   (require 'tooltip)
-  ;; Emacs 21 では、マウスポインタ非依存の位置決定ができない (と思われる)
-  (when (eq emacs-major-version 21)
-    (setq skk-tooltip-mouse-behavior 'follow))
-  ;;
   (let* ((P (cdr (skk-emacs-mouse-position)))
 	 (oP (cdr (mouse-position)))
 	 event

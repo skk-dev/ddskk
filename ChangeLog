@@ -1,3 +1,9 @@
+2012-01-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-emacs-prepare-menu)
+	(skk-emacs-prepare-modeline-properties)
+	(skk-tooltip-show-at-point): Emacs 21 向けコードを削除.
+
 2012-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (characterp): Emacs 21 向けコードを削除.
