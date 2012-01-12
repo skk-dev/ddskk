@@ -2,7 +2,7 @@
 
 	* skk-emacs.el (skk-emacs-prepare-menu)
 	(skk-emacs-prepare-modeline-properties)
-	(skk-tooltip-show-at-point): Emacs 21 向けコードを削除.
+	(skk-tooltip-show-at-point, skk-search-ja-dic): Emacs 21 向けコードを削除.
 
 2012-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
