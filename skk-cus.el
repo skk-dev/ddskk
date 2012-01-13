@@ -331,11 +331,8 @@
 	  (value (cdr param)))
       (funcall (or (get variable 'custom-set) 'set-default) variable value)
       (put variable 'saved-value (list (custom-quote value)))
-      (unless (eval-when-compile (and skk-running-gnu-emacs
-				      (= emacs-major-version 21)))
-	;; Emacs 21 にはない関数。
-	(custom-push-theme 'theme-value variable 'user 'set
-			   (custom-quote value)))
+      (custom-push-theme 'theme-value variable 'user 'set
+			 (custom-quote value))
       (put variable 'customized-value nil)
       (put variable 'customized-variable-comment nil)))
   (custom-save-all)
