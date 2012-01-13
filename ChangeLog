@@ -1,3 +1,7 @@
+2012-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-cursor.el: skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
+
 2012-01-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-emacs-prepare-menu)
