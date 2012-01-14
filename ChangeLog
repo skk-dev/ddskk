@@ -1,6 +1,8 @@
 2012-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-inline.el (skk-add-background-color): Emacs 21 向けコードを削除.
+	* skk-jisx0201.el:
+	エスケープシーケンス 1b 24 41 が混在していることが判明。これを削除.
 
 2012-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

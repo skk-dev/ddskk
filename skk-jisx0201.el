@@ -43,9 +43,9 @@
 ;;
 ;; `skk-jisx0201-roman-rule-list' $B$K(B JISX0201.1976 Japanese Roman
 ;; (latin-jisx0201) $B$NJ8;zNs$rDj5A$7$F$$$^$9!#$?$@$7(B GNU Emacs 23 $B0J9_!"%U%!(B
-;; $B%$%k$A1#4f$(GUk$A$K(B JIS X 0201 Roman $A$H(B ASCII $A$NGx$(GI1$A$,$5$l$J$/$J$C$?$h$&$G$9(B ($(I!N(B
+;; $B%$%kJ]B8;~$K(B JIS X 0201 Roman $B$H(B ASCII $B$N6hJL$,$5$l$J$/$J$C$?$h$&$G$9(B ($B1_(B
 ;; $B5-9f$*$h$S%*!<%P!<%i%$%s$r=|$/(B)$B!#$7$?$,$C$F$3$N%U%!%$%k$N8=9THG$G$O!"$3$l(B
-;; $B$i$A$N(B 2 $ANDWVRTMb$O(B ASCII $A$NNDWV$,6($(Gex$A$5$l$F$$$^$9!#(B
+;; $B$i$N(B 2 $BJ8;z0J30$O(B ASCII $B$NJ8;z$,Dj5A$5$l$F$$$^$9!#(B
 ;;
 ;; (I6E(B $B$H(B roman $B$r@Z$jBX$($k5!G=(B `skk-toggle-jisx0201' $B$K$O%-!<Dj5A$7$F$$$^$;(B
 ;; $B$s!#(B
