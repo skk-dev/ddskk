@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.64 2011/07/21 12:45:27 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.65 2012/01/14 09:40:19 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2011/07/21 12:45:27 $
+;; Last Modified: $Date: 2012/01/14 09:40:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -89,15 +89,15 @@
        (ring-ref skk-study-data-ring index)))
 
 (defsubst skk-study-get-current-alist (&optional theme)
-  (let ((base-alist
-	 (cdr (if theme
-		  (assoc theme skk-study-alist)
-		(or (assoc skk-study-current-buffer-theme
-			   skk-study-alist)
-		    (assoc "general" skk-study-alist))))))
+  (let ((base-alist (cdr (if theme
+			     (assoc theme skk-study-alist)
+			   (or (assoc skk-study-current-buffer-theme
+				      skk-study-alist)
+			       (assoc "general" skk-study-alist))))))
     (assq (cond ((or skk-okuri-char skk-henkan-okurigana)
 		 'okuri-ari)
-		(t 'okuri-nasi)) base-alist)))
+		(t 'okuri-nasi))
+	  base-alist)))
 
 (add-to-list 'skk-search-end-function 'skk-study-search)
 (add-to-list 'skk-update-end-function 'skk-study-update)
@@ -193,57 +193,59 @@
 
 ;;;###autoload
 (defun skk-study-save (&optional nomsg)
-  "`skk-study-file' に学習結果を保存する。
-オプショナル引数の NOMSG が non-nil であれば、保存メッセージを出力しない。"
+  "学習結果を `skk-study-file' へ保存する。
+オプショナル引数の NOMSG が non-nil であれば、保存メッセージを表示しない。"
   (interactive "P")
+  (if (or (and (null skk-study-alist) (not nomsg))
+	  (not skk-study-last-read)
+	  (and skk-study-last-save
+	       (skk-study-time-lessp
+		skk-study-last-save skk-study-last-read)))
+      (progn
+	(skk-message "SKK の学習結果をセーブする必要はありません"
+		     "No SKK study need saving")
+	(sit-for 1))
+    (skk-study-save-1 nomsg)))
+
+(defun skk-study-save-1 (nomsg)
   (let ((inhibit-quit t)
 	e)
-    (if (or (and (null skk-study-alist) (not nomsg))
-	    (not skk-study-last-read)
-	    (and skk-study-last-save
-		 (skk-study-time-lessp
-		  skk-study-last-save skk-study-last-read)))
-	(progn
-	  (skk-message "SKK の学習結果をセーブする必要はありません"
-		       "No SKK study need saving")
-	  (sit-for 1))
-      (when (not nomsg)
-	(skk-message "%s に SKK の学習結果をセーブしています..."
-		     "Saving SKK study to %s..." skk-study-file))
-      (and skk-study-backup-file
-	   (file-exists-p (expand-file-name skk-study-file))
-	   (cond ((eq system-type 'ms-dos)
-		  (with-temp-file skk-study-backup-file
-		    (erase-buffer)
-		    (insert-file-contents skk-study-file)))
-		 (t
-		  (copy-file (expand-file-name skk-study-file)
-			     (expand-file-name skk-study-backup-file)
-			     'ok-if-already-exists 'keep-date))))
-      (with-temp-buffer
-	(insert
-	 (format ";;; skk-study-file format version %s\n"
-		 skk-study-file-format-version))
-	(when skk-study-sort-saving
-	  ;; sort is not necessary, but make an alist rather readable.
-	  (setq e (assq 'okuri-ari skk-study-alist))
-	  (setcdr e (sort (cdr e)
-			  (lambda (a b)
-				      (skk-string< (car a) (car b)))))
-	  (setq e (assq 'okuri-nasi skk-study-alist))
-	  (setcdr e (sort (cdr e)
-			  (lambda (a b)
-				      (skk-string< (car a) (car b))))))
-	(skk-study-prin1 skk-study-alist (current-buffer))
-	(let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code))
-	      jka-compr-compression-info-list)
-	  (write-region (point-min) (point-max) skk-study-file)))
-      (setq skk-study-last-save (current-time))
-      (when (not nomsg)
-	(skk-message "%s に SKK の学習結果をセーブしています...完了！"
-		     "Saving SKK study to %s...done" skk-study-file)
-	(sit-for 1)
-	(message "")))))
+    (when (not nomsg)
+      (skk-message "SKK の学習結果を %s にセーブしています..."
+		   "Saving SKK study to %s..." skk-study-file))
+    (and skk-study-backup-file
+	 (file-exists-p (expand-file-name skk-study-file))
+	 (cond ((eq system-type 'ms-dos)
+		(with-temp-file skk-study-backup-file
+		  (erase-buffer)
+		  (insert-file-contents skk-study-file)))
+	       (t
+		(copy-file (expand-file-name skk-study-file)
+			   (expand-file-name skk-study-backup-file)
+			   'ok-if-already-exists 'keep-date))))
+    (with-temp-buffer
+      (insert (format ";;; skk-study-file format version %s\n"
+		      skk-study-file-format-version))
+      (when skk-study-sort-saving
+	;; sort is not necessary, but make an alist rather readable.
+	(setq e (assq 'okuri-ari skk-study-alist))
+	(setcdr e (sort (cdr e)
+			(lambda (a b)
+			  (skk-string< (car a) (car b)))))
+	(setq e (assq 'okuri-nasi skk-study-alist))
+	(setcdr e (sort (cdr e)
+			(lambda (a b)
+			  (skk-string< (car a) (car b))))))
+      (skk-study-prin1 skk-study-alist (current-buffer))
+      (let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code))
+	    jka-compr-compression-info-list)
+	(write-region (point-min) (point-max) skk-study-file)))
+    (setq skk-study-last-save (current-time))
+    (when (not nomsg)
+      (skk-message "SKK の学習結果を %s にセーブしています...完了！"
+		   "Saving SKK study to %s...done" skk-study-file)
+      (sit-for 1)
+      (message ""))))
 
 ;;;###autoload
 (defun skk-study-switch-current-theme (theme)
@@ -295,22 +297,20 @@
   "skk-study の学習テーマ FROM を TO にコピーする。
 TO の既存データは破壊される。"
   (interactive
-   (list (completing-read
-	  "Copy skk-study theme from: "
-	  (when (or skk-study-alist (skk-study-read))
-	    (let ((n 0))
-	      (mapcar (lambda (e)
-			(setq n (1+ n))
-			(cons e n))
-		      (mapcar 'car skk-study-alist))))
-	  nil 'require-match)
-	 (completing-read
-	  "Copy skk-study theme to: "
-	  (let ((n 0))
-	    (mapcar (lambda (e)
-		      (setq n (1+ n))
-		      (cons e n))
-		    (mapcar 'car skk-study-alist))))))
+   (list (completing-read "Copy skk-study theme from: "
+			  (when (or skk-study-alist (skk-study-read))
+			    (let ((n 0))
+			      (mapcar (lambda (e)
+					(setq n (1+ n))
+					(cons e n))
+				      (mapcar 'car skk-study-alist))))
+			  nil 'require-match)
+	 (completing-read "Copy skk-study theme to: "
+			  (let ((n 0))
+			    (mapcar (lambda (e)
+				      (setq n (1+ n))
+				      (cons e n))
+				    (mapcar 'car skk-study-alist))))))
   (when (string= from to)
     (skk-error "コピー元とコピー先のテーマが同一です"
 	       "FROM and TO is the same theme"))
@@ -318,7 +318,7 @@ TO の既存データは破壊される。"
 	(toalist (assoc to skk-study-alist)))
     (unless fromalist
       (skk-error "コピー元の学習データがありません"
-	       "FROM study data is null"))
+		 "FROM study data is null"))
     (if toalist
 	(setcdr toalist fromalist)
       (setq skk-study-alist (cons (cons to fromalist) skk-study-alist)))))
@@ -328,12 +328,11 @@ TO の既存データは破壊される。"
   "`skk-study-file' から学習結果を読み込む。
 オプショナル引数の FORCE が non-nil であれば、破棄の確認をしない。"
   (interactive "P")
-  (skk-create-file
-   skk-study-file
-   (if (not nomsg)
-       (if skk-japanese-message-and-error
-	   "SKK の学習結果ファイルを作りました"
-	 "I have created an SKK study file for you")))
+  (skk-create-file skk-study-file
+		   (if (not nomsg)
+		       (if skk-japanese-message-and-error
+			   "SKK の学習結果ファイルを作りました"
+			 "I have created an SKK study file for you")))
   (when (or (null skk-study-alist)
 	    force
 	    (skk-yes-or-no-p
@@ -348,9 +347,8 @@ TO の既存データは破壊される。"
     (setq skk-study-alist (skk-study-read-1 skk-study-file))
     (setq skk-study-last-read (current-time))
     (when (and skk-study-alist (not nomsg))
-      (skk-message
-       "%s の SKK 学習結果を展開しています...完了！"
-       "Expanding SKK study of %s ...done"
+      (skk-message "%s の SKK 学習結果を展開しています...完了！"
+		   "Expanding SKK study of %s ...done"
        (file-name-nondirectory skk-study-file))
       (sit-for 1)
       (message ""))))
@@ -392,9 +390,8 @@ TO の既存データは破壊される。"
   (or (skk-study-check-alist-format-1 (skk-study-read-1 file))
       (skk-error "%s のフォーマットは壊れています"
 		 "%s format is broken" file))
-  (skk-message
-   "%s のフォーマットのチェックを行なっています...完了!"
-   "Checking format of %s...done" file)
+  (skk-message "%s のフォーマットのチェックを行なっています...完了!"
+	       "Checking format of %s...done" file)
   (sit-for 1)
   (message ""))
 

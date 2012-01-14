@@ -1,5 +1,8 @@
 2012-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-study.el (skk-study-save): 主処理を skk-study-save-1() へ分離.
+	(skk-study-save-1): skk-study-save の主処理.
+
 	* skk-inline.el (skk-add-background-color): Emacs 21 向けコードを削除.
 	* skk-jisx0201.el:
 	エスケープシーケンス 1b 24 41 が混在していることが判明。これを削除.
