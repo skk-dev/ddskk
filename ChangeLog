@@ -1,5 +1,8 @@
 2012-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tut.el (skktut-init-variables-alist):
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
+
 	* skk-study.el (skk-study-save): 主処理を skk-study-save-1() へ分離.
 	(skk-study-save-1): skk-study-save の主処理.
 
