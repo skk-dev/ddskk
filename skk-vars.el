@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.426 2012/01/15 04:51:21 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.427 2012/01/15 06:58:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/15 04:51:21 $
+;; Last Modified: $Date: 2012/01/15 06:58:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -38,12 +38,13 @@
   (defvar emacs-beta-version)
   (defvar mule-version))
 
-(eval-and-compile
-  ;; XEmacs の識別は (featurep 'xemacs) を用いる。GNU Emacs については
-  ;; Emacs 21 が `emacs' feature を provide しないので以下を用いる。
-  ;; Emacs 21 サポート終了後は (featurep 'emacs) がよいと思われる。
-  (defconst skk-running-gnu-emacs (or (featurep 'emacs)
-				      (string-match "^GNU" (emacs-version)))))
+;; *** 2012.1.15 削除 ***
+;; (eval-and-compile
+;;   ;; XEmacs の識別は (featurep 'xemacs) を用いる。GNU Emacs については
+;;   ;; Emacs 21 が `emacs' feature を provide しないので以下を用いる。
+;;   ;; Emacs 21 サポート終了後は (featurep 'emacs) がよいと思われる。
+;;   (defconst skk-running-gnu-emacs (or (featurep 'emacs)
+;; 				      (string-match "^GNU" (emacs-version)))))
 
 ;; Functions needed prior to loading skk-macs.el.
 (when (eval-when-compile (featurep 'emacs))
@@ -2915,7 +2916,7 @@ Mac OS X では標準の「辞書」を利用できる。"
 (defvar skkannot-py-buffer nil)
 
 (defvar skkannot-url-installed-p
-  (if (and skk-running-gnu-emacs
+  (if (and (featurep 'emacs)
 	   (>= emacs-major-version 22))
       t
     'untested))
@@ -3767,7 +3768,7 @@ ALIAS can be used as an alias of CANONICAL.
 CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
 
 (defconst skk-isearch-breakable-character-p-function
-  (cond ((eval-when-compile skk-running-gnu-emacs)
+  (cond ((eval-when-compile (featurep 'emacs))
 	 (lambda (char)
 	   ;; see emacs/lisp/fill.el how the category `|' is
 	   ;; treated.

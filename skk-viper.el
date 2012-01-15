@@ -7,9 +7,9 @@
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>,
 ;;         Murata Shuuichirou <mrt@notwork.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-viper.el,v 1.46 2010/09/10 15:33:36 skk-cvs Exp $
+;; Version: $Id: skk-viper.el,v 1.47 2012/01/15 06:58:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/09/10 15:33:36 $
+;; Last Modified: $Date: 2012/01/15 06:58:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -56,7 +56,7 @@
 (setq skk-use-viper t)
 (save-match-data
   (unless (string-match (if (eval-when-compile
-			      (and skk-running-gnu-emacs
+			      (and (featurep 'emacs)
 				   (>= emacs-major-version 22)))
 			    (sentence-end)
 			  sentence-end)
