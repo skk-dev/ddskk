@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.0.50
-@set UPDATED $Date: 2012/01/05 13:12:41 $
+@set UPDATED $Date: 2012/01/15 04:51:21 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4478,38 +4478,45 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 
 DDSKK $B$N"#%b!<%I$K$*$1$kJ8;zJQ49$O!"$3$l$i#2$D$NJQ?t$rMQ$$$F9T$o$l$^$9!#(B
 @code{skk-rom-kana-base-rule-list} $B$K$O4pK\E*$J%m!<%^;z$+$JJQ49$N%k!<%k$,(B
-$BDj$a$i$l$F$$$^$9!#0lJ}!"(B@code{skk-rom-kana-rule-list} $B$O%f!<%6$,FH<+$N5,B'$r(B
-$BDj$a$k$?$a$KMQ0U$5$l$F$*$j!"(B@code{skk-rom-kana-base-rule-list} $B$h$jM%@h$5$l$^$9!#(B
+$BDj$a$i$l$F$$$^$9!#0lJ}!"(B@code{skk-rom-kana-rule-list} $B$O%f!<%6$,FH<+$N%k!<%k$r(B
+$BDj$a$k$?$a$KMQ0U$5$l$F$*$j!"(B@code{skk-rom-kana-base-rule-list} $B$h$j$bM%@h$5$l$^$9!#(B
 
 $B$3$l$i$O!VF~=PNO$N>uBV$,$$$+$K0\$jJQ$o$k$Y$-$+!W$r7hDj$7$^$9!#$=$NFbMF$O!"(B
 
+@lisp
 @example
 ($BF~NO$5$l$kJ8;zNs(B $B=PNO8e$K<+F0E*$KF~NO$KDI2C$5$l$kJ8;zNs(B $B=PNO(B)
 @end example
+@end lisp
 
 @noindent
 $B$H$$$&7A$N%j%9%H$rNs5s$7$?$b$N$G$9!#(B
 
-@samp{$BF~NO$5$l$kJ8;zNs(B} $B$H$OJQ49$5$l$kA0$N%"%9%-!<J8;z$NJ8;zNs$r$$$$$^$9!#(B
+@itemize @bullet
+@item $BF~NO$5$l$kJ8;zNs!DJQ49$5$l$kA0$N%"%9%-!<J8;z$NJ8;zNs$r$$$$$^$9!#(B
 
-@samp{$B=PNO(B} $B$O<!$NF~NO>uBV$K0\$k$H$-$K%P%C%U%!$KA^F~$5$l$kJ8;zNs$NAH$_9g(B
-$B$o$;$G$"$j!"(B @w{("$B%"(B" . "$B$"(B")} $B$N$h$&$J%3%s%9%;%k$G$9!#(B
+@item $B=PNO!D<!$NF~NO>uBV$K0\$k$H$-$K%P%C%U%!$KA^F~$5$l$kJ8;zNs$NAH$_9g(B
+$B$o$;$G$"$j!"(B @w{@code{("$B%"(B" . "$B$"(B")}} $B$N$h$&$J%3%s%9%;%k$G$9!#(B
+
+@end itemize
 
 @code{skk-rom-kana-base-rule-list} $B$N0lIt$r8+$F$_$^$7$g$&!#(B
 
+@lisp
 @example
-("a" nil ("$B%"(B" . "$B$"(B"))
+("a"  nil ("$B%"(B" . "$B$"(B"))
 ("ki" nil ("$B%-(B" . "$B$-(B"))
 ("tt" "t" ("$B%C(B" . "$B$C(B"))
 ("nn" nil ("$B%s(B" . "$B$s(B"))
 ("n'" nil ("$B%s(B" . "$B$s(B"))
 @end example
+@end lisp
 
 @noindent
 $B$N$h$&$J5,B'$,$"$j$^$9!#$3$l$K$h$k$H(B
 
 @example
-a @expansion{}$B$"(B
+a  @expansion{}$B$"(B
 ki @expansion{}$B$-(B
 tt @expansion{}$B$C(Bt
 nn @expansion{}$B$s(B
@@ -4518,6 +4525,27 @@ n' @expansion{}$B$s(B
 
 @noindent
 $B$N$h$&$K$J$j$^$9!#(B
+
+@code{skk-rom-kana-base-rule-list} $B$K$O!"<!$N$h$&$JJXMx$JJQ49%k!<%k$bDj$a(B
+$B$i$l$F$$$^$9!#(B
+
+@example
+z, @expansion{} $B!E(B
+z- @expansion{} $B!A(B
+z. @expansion{} $B!D(B
+z/ @expansion{} $B!&(B
+z[ @expansion{} $B!X(B
+z] @expansion{} $B!Y(B
+z@{ @expansion{} $B!Z(B
+z@} @expansion{} $B![(B
+z( @expansion{} $B!J(B
+z) @expansion{} $B!K(B
+zh @expansion{} $B"+(B
+zj @expansion{} $B"-(B
+zk @expansion{} $B",(B
+zl @expansion{} $B"*(B
+zL @expansion{} $B"M(B
+@end example
 
 @node $B%m!<%^;z%k!<%k$NJQ99Nc(B
 @subsubsection $B%m!<%^;z%k!<%k$NJQ99Nc(B
