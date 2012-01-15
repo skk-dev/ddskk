@@ -1,5 +1,8 @@
 2012-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kcode.el (skk-display-code):
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
+
 	* skk-tankan.el (skk-tankan-get-char-data)
 	(skk-search-by-stroke-or-radical):
 	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
