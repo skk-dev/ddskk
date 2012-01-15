@@ -1,5 +1,9 @@
 2012-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tankan.el (skk-tankan-get-char-data)
+	(skk-search-by-stroke-or-radical):
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
+
 	* skk-isearch.el (skk-isearch-mode-setup, skk-isearch-mode-cleanup):
 	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 

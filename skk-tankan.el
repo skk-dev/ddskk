@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.54 2011/12/05 12:21:11 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.55 2012/01/15 06:10:50 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2011/12/05 12:21:11 $
+;; Last Modified: $Date: 2012/01/15 06:10:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1711,18 +1711,14 @@
 ;;; get char's radical, strokes in radical, total strokes
 (defun skk-tankan-get-char-data (char)
   "文字を表す整数 CHAR を与えると、その文字に関する部首、部首内画数、総画数を
-リストで返す。
-
-\(string-to-char \"単\"\)
- => 57777
-
-\(skk-tankan-get-char-data 57777\)
- => \(24 7 9\)
-
-\(aref skk-tankan-radical-vector 24\)
- => \"十\"
-"
-  (let* ((charset (if (eval-when-compile (and skk-running-gnu-emacs
+リストで返す。"
+  ;; (string-to-char "単")
+  ;;   => 57777
+  ;; (skk-tankan-get-char-data 57777)
+  ;;   => (24 7 9)
+  ;; (aref skk-tankan-radical-vector 24)
+  ;;   => "十"
+  (let* ((charset (if (eval-when-compile (and (featurep 'emacs)
 					      (>= emacs-major-version 23)))
 		      ;; GNU Emacs 23.1 or later
 		      (char-charset char skk-charset-list)
@@ -1804,7 +1800,7 @@ METHOD が 2 であれば総画数として検索を実行する。
   ;; ↑の 2nd byte + skk-tankan-stroke-for-radical-vector が総画数。
   ;; index から char へは skk-tankan-encode-0213-1 を逆算すれば可能。
 
-  (if (or (and skk-running-gnu-emacs
+  (if (or (and (featurep 'emacs)
 	       (>= emacs-major-version 23))
 	  (featurep 'jisx0213))		; Mule-UCS
       ;; JIS X 0213
