@@ -1,5 +1,8 @@
 2012-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-annotation.el (skk-annotation-wait-for-input)
+	(skkannot-py-send-command): Emacs 21 向けコードを削除.
+
 	* skk-vars.el (skk-init-file): docstring を更新.
 
 	* doc/skk.texi: 更新.

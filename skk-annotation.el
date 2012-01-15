@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.230 2011/12/14 22:32:48 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.231 2012/01/15 05:46:18 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2011/12/14 22:32:48 $
+;; Last Modified: $Date: 2012/01/15 05:46:18 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -761,13 +761,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 			   (t
 			    (apply #'skkannot-generate-url
 				   "http://%s.org/wiki/%s"
-				   ;; split-string の非互換性に配慮
-				   (if (eval-when-compile
-					 (and skk-running-gnu-emacs
-					      (<= emacs-major-version 21)))
-				       (cdr (split-string (cdr cache) " "))
-				     (cdr (split-string (cdr cache) " "
-							t))))))))
+				   (cdr (split-string (cdr cache) " " t)))))))
 		 (when url
 		   (setq urls (cons url urls)))))
 	     (unless (equal annotation "")
@@ -980,7 +974,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 
 (defun skkannot-py-send-command (command)
   "Like `skkannot-py-send-string' but resets `compilation-shell-minor-mode'."
-  (when (or (eval-when-compile (and skk-running-gnu-emacs
+  (when (or (eval-when-compile (and (featurep 'emacs)
 				    (= emacs-major-version 22)))
 	    (python-check-comint-prompt (get-buffer-process
 					 skkannot-py-buffer)))
