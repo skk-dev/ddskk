@@ -1,5 +1,8 @@
 2012-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-isearch.el (skk-isearch-mode-setup, skk-isearch-mode-cleanup):
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
+
 	* skk-annotation.el (skk-annotation-wait-for-input)
 	(skkannot-py-send-command): Emacs 21 向けコードを削除.
 
