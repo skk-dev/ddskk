@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.49 2011/07/09 00:29:38 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.50 2012/01/16 12:02:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/07/09 00:29:38 $
+;; Last Modified: $Date: 2012/01/16 12:02:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -256,12 +256,12 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 		  (if snd
 		      (skk-ding nil 'clink)
 		    (ding)
-		    (unless (skk-sit-for (setq sec (+ sec 0.16))
-					 'nodisplay)
+		    (unless (sit-for (setq sec (+ sec 0.16))
+				     'nodisplay)
 		      (next-command-event)
 		      (signal 'quit nil))
 		    (ding)))))
-	      (unless (skk-sit-for (- 1 sec) 'nodisplay)
+	      (unless (sit-for (- 1 sec) 'nodisplay)
 		(next-command-event)
 		(signal 'quit nil))))
 	(quit

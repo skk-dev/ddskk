@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.231 2012/01/15 05:46:18 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.232 2012/01/16 12:02:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2012/01/15 05:46:18 $
+;; Last Modified: $Date: 2012/01/16 12:02:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -276,7 +276,7 @@
 
 (defun skkannot-sit-for (seconds &optional listing-p)
   (condition-case nil
-      (skk-sit-for seconds)
+      (sit-for seconds)
     (quit
      (with-current-buffer skkannot-buffer-origin
        (cond
@@ -885,22 +885,22 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
     ;;
     (condition-case nil
 	(cond ((eq situation 'annotation)
-	       (if (skk-sit-for skk-verbose-wait)
+	       (if (sit-for skk-verbose-wait)
 		   (let ((i 0))
 		     (catch 'loop
 		       (while (< i 20)
 			 (message "%s" skk-annotation-message)
-			 (unless (skk-sit-for skk-verbose-message-interval)
+			 (unless (sit-for skk-verbose-message-interval)
 			   (throw 'loop nil))
 			 (message "%s" skk-annotation-wikipedia-message)
-			 (unless (skk-sit-for skk-verbose-message-interval)
+			 (unless (sit-for skk-verbose-message-interval)
 			   (throw 'loop nil))
 			 (setq i (1+ i))))
 		     (message nil))
 		 nil))
 	      ;;
 	      (t
-	       (when (skk-sit-for skk-verbose-wait)
+	       (when (sit-for skk-verbose-wait)
 		 (message "%s" skk-annotation-wikipedia-message))))
       (quit
        (when (eq skk-henkan-mode 'active)

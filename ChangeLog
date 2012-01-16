@@ -1,3 +1,14 @@
+2012-01-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-sit-for): Emacs 21 向けコードを削除したことに伴って
+	GNU Emacs 22 以降の sit-for() と XEmacs の sit-for() に差異がなくなった
+	ことから、skk-sit-for() を廃止した.
+
+	* skk.el (skk-henkan-on-message): 
+	* skk-gadget.el (skk-clock): 
+	* skk-annotation.el (skkannot-sit-for, skk-annotation-message): 
+	skk-sit-for() に代えて sit-for() を使用.
+
 2012-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-running-gnu-emacs): 削除.

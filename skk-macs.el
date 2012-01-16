@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.187 2012/01/11 13:02:11 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.188 2012/01/16 12:02:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/11 13:02:11 $
+;; Last Modified: $Date: 2012/01/16 12:02:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -397,15 +397,6 @@ The buffer contents remain unchanged as a sequence of bytes
 but the contents viewed as characters do change.
 \[Emacs 20.3 emulating function]"
   flag))
-
-(defun skk-sit-for (seconds &optional nodisplay)
-  "`sit-for' の Emacsen による違いを吸収する。"
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (sit-for seconds nodisplay))
-   (t
-    ;; GNU Emacs 22.1 or later
-    (sit-for seconds nodisplay))))
 
 (defun skk-ding (&optional arg sound device)
   "`ding' の Emacsen による違いを吸収する。"
