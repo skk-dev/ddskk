@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.188 2012/01/16 12:02:04 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.189 2012/01/18 12:31:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/16 12:02:04 $
+;; Last Modified: $Date: 2012/01/18 12:31:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -453,7 +453,7 @@ but the contents viewed as characters do change.
 	    japanese-jisx0213.2004-1
 	    japanese-jisx0213-2)))
    (t
-    (and (featurep 'jisx0213)
+    (and (featurep 'jisx0213)		; Mule-UCS
 	 (memq (char-charset char)
 	       '(japanese-jisx0213-1 japanese-jisx0213-2))))))
 

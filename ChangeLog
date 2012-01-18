@@ -1,3 +1,11 @@
+2012-01-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-charset-list): Update docstring.
+
+	* skk-macs.el (skk-jisx0213-p): Add comment.
+
+	* skk-kcode.el (skk-display-code-for-char-at-point): Update comment.
+
 2012-01-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (skk-sit-for): Emacs 21 向けコードを削除したことに伴って

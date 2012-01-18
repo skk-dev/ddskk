@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.103 2012/01/15 06:14:46 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.104 2012/01/18 12:31:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/15 06:14:46 $
+;; Last Modified: $Date: 2012/01/18 12:31:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -33,7 +33,6 @@
 ;;; Code:
 
 (eval-when-compile
-  ;;   (require 'font-lock)
   (require 'cl)
   (require 'skk-macs)
   (require 'skk-vars)
@@ -434,8 +433,8 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 
 ;;;###autoload
 (defun skk-display-code-for-char-at-point (&optional arg)
-  "ポイントにある文字の区点番号、JIS コード、EUC コード及びシフト JIS コード\
- を表示する。"
+  "ポイントにある文字の区点番号、JIS コード、EUC コード、シフト JIS コード\
+及びユニコードを表示する。"
   (interactive)
   (if (eobp)
       (skk-message "カーソルがバッファの終端にあります"
@@ -444,7 +443,6 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
   t) ; エコーした文字列をカレントバッファに挿入しないように。
 
 (defun skk-display-code (char)
-;;   (require 'font-lock)
   (let ((charset (skk-char-charset char skk-charset-list))
 	mesg)
     (cond
