@@ -1,3 +1,16 @@
+* 14.5
+
+** GNU Emacs 21 のサポートを終了しました。
+
+GNU Emacs 21 をお使いの方は DDSKK 14.4 を利用してください。
+
+** $ タイプ時の挙動
+
+`$' のタイプで起動する skk-display-code-for-char-at-point について、
+jisx0213, jisx0208, ascii 以外の文字集合であれば「判別できない文字です」と
+表示していたところ、skk-char-charset() で得た文字集合を表示するようにしま
+した。
+
 * 14.4
 
 ** skk-isearch 設定の単純化
