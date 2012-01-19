@@ -1,3 +1,8 @@
+2012-01-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-display-code): 文字集合が jisx0213, jisx0208, ascii
+	以外の場合に表示するメッセージを変更.
+
 2012-01-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-charset-list): Update docstring.

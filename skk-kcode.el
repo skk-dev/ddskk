@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.104 2012/01/18 12:31:36 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.105 2012/01/19 13:32:47 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/18 12:31:36 $
+;; Last Modified: $Date: 2012/01/19 13:32:47 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -535,9 +535,10 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 		    (format "%3d" (skk-char-octet char 0)))))
      ;;
      (t
-      (setq mesg (if skk-japanese-message-and-error
-		     "判別できない文字です"
-		   "Cannot understand this character"))))
+      (setq mesg (format (if skk-japanese-message-and-error
+			     "文字集合 %s はサポートしていません"
+			   "%s character set is not supported")
+			 charset))))
     ;;
     (cond
      ((and window-system
