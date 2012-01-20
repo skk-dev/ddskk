@@ -1,3 +1,7 @@
+2012-01-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tankan.el: Update comment.
+
 2012-01-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-kcode.el (skk-display-code): 文字集合が jisx0213, jisx0208, ascii

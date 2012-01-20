@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.55 2012/01/15 06:10:50 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.56 2012/01/20 14:04:13 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2012/01/15 06:10:50 $
+;; Last Modified: $Date: 2012/01/20 14:04:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -69,8 +69,8 @@
 ;;
 ;; ;; ;; @ を入力できるようにする          ; DDSKK 14.2 からは不要です。
 ;; ;; (setq skk-rom-kana-rule-list         ; メーリングリスト 2010-11-27
-;; ;;       (append skk-rom-kana-rule-list ; 
-;; ;;	         '(("@" nil "@"))))        ;
+;; ;;       (append skk-rom-kana-rule-list
+;; ;;	         '(("@" nil "@"))))
 ;;
 ;; ;; annotation として画数と部首を表示する
 ;; (setq skk-show-annotation t)
@@ -83,19 +83,17 @@
 ;;				     (char-to-string skk-tankan-search-key)))
 ;;			    skk-henkan-key)))
 ;;
-;; ;; 文字 CHAR の ANNOTATION (文字列)を変更したい場合
+;; ;; 文字 CHAR の ANNOTATION (文字列) を変更したい場合
 ;; ;; (skk-tankan-set-char-annotation CHAR ANNOTATION)
 ;;
-;; ;; メモリを節約したい人向け(部首と画数以外のデータを保持しません)
+;; ;; メモリを節約したい人向け (部首と画数以外のデータを保持しません)
 ;; ;; (setq skk-tankan-annotation-table nil)
 
 ;;; Code:
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars)
-;;  (require 'skk-kcode)
-  )
+  (require 'skk-vars))
 
 ;;; 部首番号を部首を表す文字列に変換するための配列
 (defconst skk-tankan-radical-vector
@@ -1723,11 +1721,11 @@
 		      ;; GNU Emacs 23.1 or later
 		      (char-charset char skk-charset-list)
 		    (char-charset char))) ; => 'japanese-jisx0208
-					  ; or 'japanese-jisx0213-2
+					  ;    or 'japanese-jisx0213-2
 	(fun (cdr (assq charset skk-tankan-get-char-data-functions))))
     ;;
     (or (and fun
-	     (funcall fun char))	; => skk-tankan-get-char-data-0213-1
+	     (funcall fun char))	; => skk-tankan-get-char-data-0213-1()
 	(list 0 0 0))))
 
 (defun skk-tankan-get-char-data-0213-1 (char)
@@ -1743,7 +1741,7 @@
 	radical dat stroke)
     (if (null n)
 	nil
-      (setq n (* 2 n)			; table は、1文字あたり 2byte を使用
+      (setq n (* 2 n)			; table は、1 文字あたり 2 byte を使用
 	    radical (aref table n)	; 部首番号
 	    dat (aref table (1+ n))	;
 	    stroke (logand 63 dat))	; 部首内画数
@@ -1752,7 +1750,7 @@
 
 ;; (string-to-char "亜")  => 55329
 ;; (split-char 55329)     => (japanese-jisx0208 48 33)
-;; split-char の結果を16進に直すと JISコード が得られる。
+;; split-char の結果を 16進に直すと JISコード が得られる。
 ;; (format "%x %x" 48 33) => "30 21" 
 
 ;; ?! = 33 = 0x21
@@ -1790,8 +1788,8 @@
 
 (defun skk-search-by-stroke-or-radical (num method)
   "JIS X 0208 又は JIS X 0213-[12] の文字集合のうち指定の方法で単漢字を検索する。
-NUM は数値であり、METHOD が 0 であれば部首番号として、
-METHOD が 2 であれば総画数として検索を実行する。
+METHOD が 0 であれば数値 NUM は部首番号として、
+METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
 戻り値は (\"力\" \"了\" \"又\" …) のリストである。"
   ;; TODO
   ;; 回りくどいループと skk-tankan-get-char-data 経由は明らかに無駄。
