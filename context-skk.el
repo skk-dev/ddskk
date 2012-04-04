@@ -4,8 +4,8 @@
 ;;
 ;; Author: Masatake YAMATO <jet@gyve.org>
 ;; Created: Tue May 13 19:12:23 2003
-;; Version: $Id: context-skk.el,v 1.15 2011/06/10 12:23:46 skk-cvs Exp $
-;; Last Modified: $Date: 2011/06/10 12:23:46 $
+;; Version: $Id: context-skk.el,v 1.16 2012/04/04 13:39:06 skk-cvs Exp $
+;; Last Modified: $Date: 2012/04/04 13:39:06 $
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -193,19 +193,18 @@
 ;;
 ;; Advices
 ;;
-(defadvice skk-insert (around skk-insert-ctx-switch activate)
-  "文脈に応じて自動的に skk の入力モードを latin にする。"
-  (if (and context-skk-mode (context-skk-context-check))
-      (context-skk-insert) 
-    (eval `(let ,(context-skk-custumize)
-	     ad-do-it))))
+(defmacro define-context-skk-advice (target)
+  `(defadvice ,target (around ,(intern (concat (symbol-name target) "-ctx-switch")) activate)
+     "文脈に応じて自動的に skk の入力モードを latin にする。"
+     (if context-skk-mode
+	 (if (context-skk-context-check)
+	     (context-skk-insert) 
+	   (eval `(let ,(context-skk-custumize)
+		    ad-do-it)))
+       ad-do-it)))
 
-(defadvice skk-jisx0208-latin-insert (around skk-jisx0208-latin-insert-ctx-switch activate)
-  "文脈に応じて自動的に skk の入力モードを latin にする。"
-  (if (and context-skk-mode (context-skk-context-check))
-      (context-skk-insert) 
-    (eval `(let ,(context-skk-custumize)
-	     ad-do-it))))
+(define-context-skk-advice skk-insert)
+(define-context-skk-advice skk-jisx0208-latin-insert)
 
 ;;
 ;; Helper
