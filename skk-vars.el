@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.428 2012/01/18 12:31:36 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.429 2012/04/06 22:12:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/18 12:31:36 $
+;; Last Modified: $Date: 2012/04/06 22:12:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -985,7 +985,7 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
 
 $B$3$N$h$&$K>uBV$,0\$jJQ$o$k$3$H$r0UL#$9$k!#(B
 
-INPUT-STATE $B$*$h$S(B NEXT-STATE $B$O!"DL>o(B US-ASCII $BJ8;z$+$i$J$kJ8;zNs$rMQ$$$k!#(B
+INPUT-STATE $B5Z$S(B NEXT-STATE $B$O!"DL>o(B US-ASCII $BJ8;z$+$i@.$kJ8;zNs$rMQ$$$k!#(B
 $B$?$@$7!"FCJL$J>l9g$K$O(B INPUT-STATE $B$K$=$l0J30$NJ8;zNs$r;XDj$9$k$3$H$,$"$k!#(B
 
 OUTPUT $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
@@ -1541,7 +1541,7 @@ nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
 
 (defcustom skk-henkan-okuri-strictly nil
   "*Non-nil $B$G$"$l$P!"8+=P$78l$HAw$j2>L>$,0lCW$7$?$H$-$@$18uJd$H$7$F=PNO$9$k!#(B
-$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,!"(B`skk-jisyo' ($B8D?M<-=q(B) $B$K$"$C$?(B
+$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,(B `skk-jisyo' ($B8D?M<-=q(B) $B$K$"$C$?(B
 $B>l9g$K(B
 
   \"$B$*$*(Bk /$BBg(B/$BB?(B/[$B$/(B/$BB?(B/]/[$B$-(B/$BBg(B/]/\"
@@ -1585,7 +1585,7 @@ SKK-JISYO.[SML] $B$NAw$j2>L>%(%s%H%j$O>e5-$N7A<0$K$J$C$F$$$J$$$N$G!"(B`skk-jis
 
 (defcustom skk-henkan-strict-okuri-precedence nil
   "*Non-nil $B$G$"$l$P!"8+=P$78l$HAw$j2>L>$,0lCW$7$?8uJd$rM%@h$7$FI=<($9$k!#(B
-$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,!"(B`skk-jisyo' ($B8D?M<-=q(B) $B$K$"$C$?(B
+$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,(B `skk-jisyo' ($B8D?M<-=q(B) $B$K$"$C$?(B
 $B>l9g$K(B
 
   \"$B$*$*(Bk /$BBg(B/$BB?(B/[$B$/(B/$BB?(B/]/[$B$-(B/$BBg(B/]/\"
@@ -1593,8 +1593,8 @@ SKK-JISYO.[SML] $B$NAw$j2>L>%(%s%H%j$O>e5-$N7A<0$K$J$C$F$$$J$$$N$G!"(B`skk-jis
 \"$B"&$*$*(B*$B$/(B\" $B$rJQ49$7$?$H$-!"$^$:(B\"$BB?$/(B\" $B$r=PNO$7!"(B
 $B<!$K(B \"$BBg$/(B\" $B$r=PNO$9$k!#(B
 
-\"$BBg$/(B\" $B$J$I$N8uJd$O$&$C$H$&$7$$$,!"$9$0$KC18lEPO?$K$O$$$C$F$7$^$&$N$b(B
-$B7y$J$R$H$K$*$9$9$a!#(B
+\"$BBg$/(B\" $B$J$I$N8uJd$O$&$C$H$&$7$$$,!"$9$0$KC18lEPO?$KF~$C$F$7$^$&$N$b(B
+$B7y$J?M$K$*4+$a!#(B
 
 $B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
 $B$J$i$J$$!#(B
@@ -1618,14 +1618,14 @@ SKK-JISYO.[SML] $B$NAw$j2>L>%(%s%H%j$O>e5-$N7A<0$K$J$C$F$$$J$$$N$G!"(B`skk-jis
 
     \"$B$&$4(Bk /$BF0(B/[$B$/(B/$BF0(B/]/[$B$+(B/$BF0(B/]/[$B$1(B/$BF0(B/]/[$B$-(B/$BF0(B/]/[$B$3(B/$BF0(B/]/\"
 
-$B$N$h$&$J%(%s%H%j$,(B skk-jisyo $B$K$"$l$P!"$=$l$rGK2u$7$J$$!#(B
+$B$N$h$&$J%(%s%H%j$,(B `skk-jisyo' $B$K$"$l$P!"$=$l$rGK2u$7$J$$!#(B
 
 nil $B$G$"$l$P!"Aw$j2>L>$NF~NO$,40N;$7$?;~E@$GJQ49$,3+;O$9$k!#Nc$($P!"(B
 
     \"UgoK -> $B"&$&$4(B*k\", \"UgoKu -> $B"'F0$/(B\"
 
 $B$3$N%*%W%7%g%s$r(B on $B$K$7$F(B `skk-mode' $B$r5/F0$9$k$H!"N>N)$G$-$J$$%*%W%7%g%s(B
-$B$G$"$k(B `skk-kakutei-early', `skk-auto-okuri-process' $B$*$h$S(B
+$B$G$"$k(B `skk-kakutei-early', `skk-auto-okuri-process' $B5Z$S(B
 `skk-henkan-okuri-strictly' $B$O(B nil $B$K%;%C%H$5$l$k!#(B"
   :type 'boolean
   :group 'skk-okurigana)
@@ -2705,7 +2705,7 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 $B;XDj$G$-$k$N$O!"(B
     'jp106
     'jp-pc98
-jp106 $B$*$h$S(B jp-pc98 $B0J30$,;XDj$5$l$k$H1Q8l%-!<%\!<%I$H$7$F=hM}$7$^$9!#(B
+jp106 $B5Z$S(B jp-pc98 $B0J30$,;XDj$5$l$k$H1Q8l%-!<%\!<%I$H$7$F=hM}$7$^$9!#(B
 nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!#(B"
   :type '(radio (const :tag "$BF|K\8l(B 106 $B%-!<%\!<%I(B" jp106)
 		(const :tag "NEC PC-98 $B%-!<%\!<%I(B" jp-pc98)
@@ -4213,7 +4213,7 @@ SKK abbrev $B%b!<%I$G!"!V1QJ8;z(B + $B%"%9%?%j%9%/!W$K$FJQ49$r9T$&$H!"(Blook
 		 "")))
   "*look $B%3%^%s%I$,1Q?t!VJd40!W;~$K8F$S=P$5$l$k:]$KEO$90z?t$r;XDj$9$kJQ?t!#(B
 look $B%3%^%s%I$K4X$7$F$OJQ?t(B `skk-look-conversion-arguments' $B$N%I%-%e%a%s%H!"(B
-$B$*$h$S(B \\[man] look $B$r;2>H$5$l$?$$!#(B
+$B5Z$S(B \\[man] look $B$r;2>H$5$l$?$$!#(B
 
  ($B@_DjNc(B)
 
@@ -4641,7 +4641,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 $B$N$$$:$l$G$b;XDj$G$-$k!#(B
 
 $BA0<T$G$O!"4X?tL>$N0lCW$7$?A4%W%m%0%i%`$,0lCW$HH=CG$5$l$k!#8e<T$O(B
-`skk-search-prog-list' $B$NMWAG$HF1$8=q<0$GI=$5$l!"F1%j%9%H$NMWAG$H4X?tL>$*$h$S(B
+`skk-search-prog-list' $B$NMWAG$HF1$8=q<0$GI=$5$l!"F1%j%9%H$NMWAG$H4X?tL>5Z$S(B
 $B$9$Y$F$N0z?t$,0lCW$7$?>l9g$N$_0lCW$HH=CG$5$l$k!#(B
 
 $B0lCW$NI>2A$O!"(B 1 $B$O4X?t(B `eq' $B$K$h$C$F!"(B 2 $B$O%j%9%H$KBP$7$F(B `equal' $B$K$h$C$F(B
@@ -4810,7 +4810,7 @@ Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
 
 $B$3$N>l9g!":G=i$K;XDj$7$?<-=q%5!<%P$K%"%/%;%9$G$-$J$/$J$k$H!"<+F0E*$K=g<!%j%9%H$K$"(B
 $B$k;D$j$N<-=q%5!<%P$K%"%/%;%9$9$k$h$&$K$J$k!#(B
-$B<-=q%5!<%P$N%G%U%)%k%H$N<-=q$*$h$S%]!<%HHV9f$r;HMQ$9$k>l9g$O(B nil $B$r;XDj$9$k$+!"(B
+$B<-=q%5!<%P$N%G%U%)%k%H$N<-=q5Z$S%]!<%HHV9f$r;HMQ$9$k>l9g$O(B nil $B$r;XDj$9$k$+!"(B
 $B2?$b=q$+$J$$$GNI$$!#(B
 
 $B$J$*!"%f!<%6!<<+?H$K<B9T8"8B$N$J$$<-=q%5!<%P$r;XDj$9$k>l9g$O!"(B
