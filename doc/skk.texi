@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.0.50
-@set UPDATED $Date: 2012/01/15 04:51:21 $
+@set UPDATED $Date: 2012/04/10 14:07:39 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6448,8 +6448,9 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"A*Br$5$l$?8uJd$O!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!
 $B8D?M<-=q$K?75,DI2C$9$k:]$O4{=P8l$N8e$KDI2C$9$k!#I8=`$O(B @code{nil}$B!#(B
 @end defvr
 
-$B$3$l$O!"8D?M<-=q$N%(%s%H%j$NCf$N!"3F8uJd$N=g=x$rJQ99$7$J$$$3$H$G!"(B
-$B<B8=$5$l$F$$$^$9$+$i!"(B@file{skk-study.el} $B$rMQ$$$?3X=,(B @w{(@pxref{$BJQ49$N3X=,(B})} $B$HJ;MQ$G$-$^$9!#(B
+$B$3$l$O!"8D?M<-=q$N%(%s%H%j$NCf$N3F8uJd$N=g=x$rJQ99$7$J$$$3$H$G<B8=$5$l$F(B
+$B$$$^$9$+$i!"(B@file{skk-study.el} $B$rMQ$$$?3X=,(B @w{(@pxref{$BJQ49$N3X=,(B})} $B$H(B
+$BJ;MQ$G$-$^$9!#(B
 
 @code{skk-jisyo-fix-order} $B$,(B @code{non-nil} $B$N;~!"8D?M<-=q$N8uJd$r<j7Z$KJB$YBX(B
 $B$($kJ}K!$O!"8=;~E@$G$O$"$j$^$;$s!#8D?M<-=q%U%!%$%k$rD>@\JT=8$9$k$+!"(B
@@ -8676,8 +8677,8 @@ JIS X 0201 $B%b!<%I$K$*$1$k%m!<%^;z%W%l%U%#%C%/%9$N%U%'%$%9$r;XDj$7$^$9!#(B
 @node $BF~NO%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs$NJQ99(B
 @subsection $BF~NO%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs$NJQ99(B
 
-$B2<5-$NJQ?t$NCM$rJQ99$9$k$3$H$K$h$C$F!"%b!<%I%i%$%s>e$NF~NO%b!<%I$r<($9J8;z(B
-$BNs$rJQ99$9$k$3$H$,$G$-$^$9(B@footnote{skk-show-mode $B$NI=<($bO"F0$7$^$9!#(B}$B!#(B
+$B2<5-$NJQ?t$NCM$rJQ99$9$k$3$H$K$h$C$F!"%b!<%I%i%$%s>e$N!VF~NO%b!<%I$r<($9J8;z(B
+$BNs!W$rJQ99$9$k$3$H$,$G$-$^$9(B@footnote{skk-show-mode $B$NI=<($bO"F0$7$^$9!#(B}$B!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-latin-mode-string
 $B%"%9%-!<%b!<%I$r<($9J8;zNs!#I8=`$O!"(B``SKK''$B!#(B
@@ -8947,8 +8948,8 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 $B7A<0(B: (skk-make-face FACE)
 
 $B$3$N4X?t$O!"0z?t(B FACE $B$HF1$8L>A0$N%U%'%$%9$r:n@.$7$F!"$=$N%U%'%$%9$rJV$7(B
-$B$^$9!#%U%'%$%9$NA07J?'!&GX7J?'$O!"0z?t(B FACE $B$K$h$C$F!"Nc$($P0J2<$NNc$N$h(B
-$B$&$K7hDj$5$l$^$9!#(B
+$B$^$9!#%U%'%$%9$NA07J?'!&GX7J?'$O!"0z?t(B FACE $B$K%9%i%C%7%e$r4^$a$k$3$H$h$C(B
+$B$F!"Nc$($P0J2<$NNc$N$h$&$K7hDj$5$l$^$9!#(B
 
 @lisp
 (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1))
@@ -9250,7 +9251,8 @@ Wikipedia/Wiktionary $B$N%Z!<%8$r%&%'%V%V%i%&%6$GI=<($7$^$9!#(B
 @defvr {$B%f!<%6JQ?t(B} skk-isearch-start-mode
 
 $B%$%s%/%j%a%s%?%k!&%5!<%A$r5/F0$7$?$H$-$NF~NO%b!<%I$r$3$NJQ?t$G;XDj$G$-$^$9!#(B
-$B0J2<$N$$$:$l$+$N%7%s%\%k$r<h$jF@$^$9!#(B
+$B0J2<$N$$$:$l$+$N%7%s%\%k$r;XDj$G$-$^$9$,!"JQ?t(B @code{skk-isearch-use-previous-mode} $B$N(B
+$B@_Dj$,M%@h$5$l$^$9!#(B
 
 @table @code
 
@@ -9271,9 +9273,6 @@ Wikipedia/Wiktionary $B$N%Z!<%8$r%&%'%V%V%i%&%6$GI=<($7$^$9!#(B
 $B%"%9%-!<%b!<%I(B
 
 @end table
-
-$B$?$@$7!"<!$K5s$2$kJQ?t(B @code{skk-isearch-use-previous-mode} $B$N@_Dj$,M%@h(B
-$B$5$l$^$9!#(B
 
 @end defvr
 

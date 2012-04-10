@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.429 2012/04/06 22:12:21 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.430 2012/04/10 14:07:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/04/06 22:12:21 $
+;; Last Modified: $Date: 2012/04/10 14:07:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1931,7 +1931,7 @@ left であれば左端に表示する。
 			    (fboundp 'selected-frame)
 			    ; XEmacs does not have this.
 			    (fboundp 'frame-face-alist))
-  "*Non-nil であれば、Emacs の face の機能を使用して変換表示を行う。"
+  "*Non-nil であれば、Emacs の face の機能を使用して変換候補をハイライト表示する。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-visual)
@@ -1940,15 +1940,16 @@ left であれば左端に表示する。
 (defcustom skk-henkan-face 'skk-henkan-face-default
   "*変換候補の face 属性。`skk-use-face' が non-nil のときのみ有効。
 Emacs 標準のフェイスのほか、新たに face を作って指定することも可能。
-新たな face を作り指定するには `skk-make-face' を利用して、
+新たな face を作って指定するには、
 
-      (skk-make-face 'DimGray/PeachPuff1)
-      (setq skk-henkan-face 'DimGray/PeachPuff1)
+      (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1))
 
-のようにするのが手軽。foreground と background の色指定だけでない凝った face
-を作る場合は、`skk-make-face' では対応できないので、Emacs の hilit19.el の
-`hilit-lookup-face-create' などを利用する。色を付ける場合の配色は、canna.el の
-`canna:attribute-alist' が良い例かもしれない。"
+のように skk-make-face() を利用するのが手軽。
+foreground と background の色指定だけでない凝った face を作る場合は、`skk-make-face' で
+は対応できないので、Emacs の hilit19.el の `hilit-lookup-face-create' などを利用する。
+色を付ける場合の配色は、canna.el の `canna:attribute-alist' が良い例かもしれない。
+
+この変数よりも `skk-treat-candidate-appearance-function' の設定が優先される。"
   :type 'face
   :group 'skk-visual)
 
