@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.0.50
-@set UPDATED $Date: 2012/04/10 14:07:39 $
+@set UPDATED $Date: 2012/05/26 06:05:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6898,7 +6898,7 @@ GNU Emacs に付属するかな漢字変換辞書 (ja-dic.el) を用いて検索する。
 @item 辞書サーバが使用するポート番号
 @end itemize
 
-ただし、辞書及びポート番号は、辞書サーバ自身が決定することもあるため、そのような場合は @code{nil} として構いません。
+ただし、辞書ファイル名及びポート番号は、辞書サーバ自身が決定することもあるため、そのような場合は @code{nil} として構いません。
 
 例えば、以下のように設定します。
 
@@ -6919,18 +6919,28 @@ GNU Emacs に付属するかな漢字変換辞書 (ja-dic.el) を用いて検索する。
 この変数の値が @code{non-nil} であれば、変換時に、辞書サーバの送出する文字を
 受け取るまでに関数 @code{accept-process-output} が実行された回数をエコーエリ
 アに報告します。
+
+@example
+@group
+-------------------- Echo Area --------------------
+辞書サーバの応答を 99 回待ちました
+-------------------- Echo Area --------------------
+@end group
+@end example
+
 @end defvr
 
 @defvr {ユーザ変数} skk-server-inhibit-startup-server
 
-この変数を @code{nil} に設定すると、辞書サーバと接続できない場合に、
-辞書サーバプログラムを @code{call-process} して立ち上げようと試みます
-(デフォルト値は @code{t} です)。
+デフォルト値は @code{t} です。この変数を @code{nil} に設定すると、辞書サ
+ーバと接続できない場合に @code{call-process} で辞書サーバプログラムの起動
+を試みます。
 
-inetd 経由で立ち上げられる多くの辞書サーバは、@code{call-process} で立ち上げ
-ることができませんが、@file{skkserv} のように立ち上げることができる辞書サー
-バを利用している場合には、この変数を @code{nil} に設定するのが良いかもしれま
-せん。
+inetd 経由で起動する多くの辞書サーバは @code{call-process} で起動するこ
+とができませんが、@file{skkserv} のように @code{call-process} で起動する
+ことができる辞書サーバを利用している場合には、この変数を @code{nil} に設
+定するのが良いかもしれません。
+
 @end defvr
 
 @defvr {ユーザ変数} skk-server-remote-shell-program
