@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.613 2012/01/16 12:02:05 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.614 2012/06/10 05:39:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/16 12:02:05 $
+;; Last Modified: $Date: 2012/06/10 05:39:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -646,22 +646,11 @@ dependent."
 (defun skk-setup-delete-backward-char ()
   "$B!V8eB`!W7O$N%-!<$K%3%^%s%I(B `skk-delete-backward-char' $B$r3dEv$F$k!#(B"
   (skk-setup-emulation-commands
-   '(backward-delete-char-untabify
-     backward-delete-char
-     backward-or-forward-delete-char
-     delete-backward-char
-     picture-backward-clear-column
-     ;; following two are SKK adviced.
-     ;;viper-del-backward-char-in-insert
-     ;;vip-del-backward-char-in-insert
-     )
-   'skk-delete-backward-char))
+   skk-delete-backward-char-commands 'skk-delete-backward-char))
 
 (defun skk-setup-undo ()
   "$B!V$d$jD>$7!W7O$N%-!<$K%3%^%s%I(B `skk-undo' $B$r3dEv$F$k!#(B"
-  (skk-setup-emulation-commands
-   '(undo advertised-undo)		;commands
-   'skk-undo))				;emulation
+  (skk-setup-emulation-commands skk-undo-commands 'skk-undo))
 
 (defun skk-setup-verbose-messages ()
   (unless skk-henkan-on-message
@@ -885,7 +874,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	;; avoid recursive calling of skk-emulate-original-map.
 	(unless (eq command this-command)
 	  (setq this-command command)
-	  (unless (memq command '(undo advertised-undo))
+	  (unless (or (memq command skk-undo-commands)
+		      (memq command skk-delete-backward-char-commands))
 	    (skk-cancel-undo-boundary))
 	  ;; if no bindings are found, call `undefined'.  it's
 	  ;; original behaviour.

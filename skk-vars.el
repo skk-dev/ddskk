@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.430 2012/04/10 14:07:38 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.431 2012/06/10 05:39:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/04/10 14:07:38 $
+;; Last Modified: $Date: 2012/06/10 05:39:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2176,6 +2176,19 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
     skk-try-completion
     skk-completion-wrapper
     skk-previous-candidate))
+
+(defconst skk-delete-backward-char-commands
+  ;; following two are SKK adviced.
+  ;;viper-del-backward-char-in-insert
+  ;;vip-del-backward-char-in-insert
+  '(backward-delete-char-untabify
+    backward-delete-char
+    backward-or-forward-delete-char
+    delete-backward-char
+    picture-backward-clear-column))
+
+(defconst skk-undo-commands
+  '(undo advertised-undo))
 
 (defconst skk-quote-char-alist
   '((?\; . "\\073")
