@@ -1,3 +1,7 @@
+2012-06-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
 2012-06-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-vars.el (skk-delete-backward-char-commands)
