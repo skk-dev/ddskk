@@ -474,8 +474,7 @@
 	 spacing border-width internal-border-width
 	 text-width text-height
 	 screen-width screen-height
-	 (inhibit-quit t)
-	 (tooltip-use-echo-area nil))
+	 (inhibit-quit t))
     ;;
     (when (null (car P))
       (unless (memq skk-tooltip-mouse-behavior '(avoid-maybe banish nil))

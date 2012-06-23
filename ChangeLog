@@ -1,3 +1,8 @@
+2012-06-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-tooltip-show-at-point): tooltip-use-echo-area を
+	不使用とした.
+
 2012-06-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (skk-yes-or-no-p, skk-y-or-n-p): ソースコードのインデントを修正.
