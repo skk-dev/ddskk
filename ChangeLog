@@ -1,3 +1,7 @@
+2012-06-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (文脈に応じた自動モード切り替え): Update.
+
 2012-06-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
