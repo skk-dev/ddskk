@@ -1,5 +1,9 @@
 2012-06-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-macs.el (skk-yes-or-no-p, skk-y-or-n-p): ソースコードのインデントを修正.
+
+	* skk-emacs.el (skk-tooltip-show-at-point): コメントを追加.
+
 	* doc/skk.texi (文脈に応じた自動モード切り替え): Update.
 
 2012-06-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

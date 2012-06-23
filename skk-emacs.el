@@ -465,8 +465,7 @@
 	 parameters
 	 (avoid-destination (if (memq skk-tooltip-mouse-behavior
 				      '(avoid avoid-maybe banish))
-				(mouse-avoidance-banish-destination)
-			       nil))
+				(mouse-avoidance-banish-destination)))
 	 win
 	 tip-destination
 	 fontsize
@@ -599,7 +598,8 @@
 			    (* (frame-pixel-width)))))
 	    (when (and (<= left mouse-x) (<= mouse-x right))
 	      ;; マウスポインタと被りそうなとき
-	      (setq left (- left (- right mouse-x) fontsize))))))))
+	      (setq left (- left (- right mouse-x) fontsize))))))
+      )) ; END **マウスポインタに依存せず tooptip の位置を決定する**
     ;;
     (setq parameters (if (eq skk-tooltip-mouse-behavior 'follow)
 			 skk-tooltip-parameters

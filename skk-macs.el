@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.189 2012/01/18 12:31:36 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.190 2012/06/23 04:29:27 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/18 12:31:36 $
+;; Last Modified: $Date: 2012/06/23 04:29:27 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -151,15 +151,15 @@ doesn't give arguments of `interactive'. See `interactive' for details."
 `yes-or-no-p' の引数 PROMPT が複雑に入れ込んでいる場合は `skk-yes-or-no-p' を
 使うよりもオリジナルの `yes-or-no-p' を使用した方がコードが複雑にならない場合
 がある。"
- (list 'yes-or-no-p (list 'if 'skk-japanese-message-and-error
-				   japanese english)))
+  (list 'yes-or-no-p (list 'if 'skk-japanese-message-and-error
+			   japanese english)))
 
 (defmacro skk-y-or-n-p (japanese english)
   "ユーザに \"y or n\" を質問し、答えが \"y\" だったら t を返す。
 `skk-japanese-message-and-error' が non-nil であれば JAPANESE を、 nil であれ
 ば ENGLISH を PROMPT として `y-or-n-p' を実行する。"
   (list 'y-or-n-p (list 'if 'skk-japanese-message-and-error
-				japanese english)))
+			japanese english)))
 
 (defmacro skk-set-marker (marker position &optional buffer)
   "マーカ MARKER を BUFFER の POSITION に移動する。
