@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/06/23 01:28:21 $
+@set UPDATED $Date: 2012/06/24 06:35:40 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4407,13 +4407,12 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 
 @defvr {$B%f!<%6JQ?t(B} skk-j-mode-function-key-usage
 
-$B%7%s%\%k(B @code{conversion} $B$J$i$P!"(B@code{skk-search-prog-list-1} $B!A(B
-@code{skk-search-prog-list-9}, @code{skk-search-prog-list-0} $B$r(B
-$B<B9T$9$k$h$&<+F0@_Dj$7$^$9!#$3$l$i$N%W%m%0%i%`$O"&%b!<%I8BDj$G%U%!%s%/%7%g(B
-$B%s%-!<(B (@key{[F1]} $B!A(B @key{[F10]}) $B$K3d$jEv$F$i$l$^$9!#(B@key{[F5]} $B!A(B
-@key{[F10]} $B$K$D$$$F$OK\%*%W%7%g%s$N@_Dj$K$h$j<+F0E*$K3d$jEv$F$i$l$^$9!#$3(B
-$B$l$i$N3d$jEv$F$O%f!<%6%*%W%7%g%s(B @code{skk-verbose} $B$r@_Dj$9$k$H%(%3!<%((B
-$B%j%"$KI=<($5$l$k$h$&$K$J$j$^$9!#(B(@w{@pxref{$B>iD9$J0FFb%a%C%;!<%8$NI=<((B}})
+$B%7%s%\%k(B @code{conversion} $B$J$i$P!"(B@code{skk-search-prog-list-1} $B!A(B @code{skk-search-prog-list-9} $B$*$h$S(B @code{skk-search-prog-list-0} $B$r(B
+$B<B9T$9$k$h$&<+F0@_Dj$7$^$9!#$3$l$i$N%W%m%0%i%`$O"&%b!<%I8BDj$G%U%!%s%/%7%g%s(B
+$B%-!<(B (@key{[F1]} $B!A(B @key{[F10]}) $B$K3d$jEv$F$i$l$^$9!#(B@key{[F5]} $B!A(B @key{[F10]} $B$K(B
+$B$D$$$F$OK\%*%W%7%g%s$N@_Dj$K$h$j<+F0E*$K3d$jEv$F$i$l$^$9!#(B
+$B$3$l$i$N3d$jEv$F$O%f!<%6%*%W%7%g%s(B @code{skk-verbose} $B$r@_Dj$9$k$H%(%3!<(B
+$B%(%j%"$KI=<($5$l$k$h$&$K$J$j$^$9!#(B(@w{@pxref{$B>iD9$J0FFb%a%C%;!<%8$NI=<((B}})
 
 @itemize @bullet
 @item @key{[F5]}  $B!D(B $BC14A;z(B
@@ -4424,8 +4423,7 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 @item @key{[F10]} $B!D(B $B%m!<%^(B
 @end itemize
 
-$B0lJ}%7%s%\%k(B @code{kanagaki} $B$K@_Dj$9$k$H!"$+$J%-!<%\!<%IF~NOMQ$K<+F0@_(B
-$BDj$7$^$9!#(B
+$B%7%s%\%k(B @code{kanagaki} $B$J$i$P!"$+$J%-!<%\!<%IF~NOMQ$K<+F0@_Dj$7$^$9!#(B
 
 @code{nil} $B$J$i$P!"<+F0@_Dj$7$^$;$s!#(B
 

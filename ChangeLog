@@ -1,5 +1,7 @@
 2012-06-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: Update.
+
 	* skk-emacs.el (skk-tooltip-show-at-point): tooltip-use-echo-area を
 	不使用とした.
 
