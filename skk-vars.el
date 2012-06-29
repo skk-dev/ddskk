@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.431 2012/06/10 05:39:29 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.432 2012/06/29 23:53:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/06/10 05:39:29 $
+;; Last Modified: $Date: 2012/06/29 23:53:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -445,6 +445,11 @@ DDSKK 14.2 $B$h$j!V(Bja-dic.el $B8!:w5!G=(B `skk-search-ja-dic'$B!W$,DI2C$5
 (defcustom skk-extra-jisyo-file-list nil
   "*$B%a%$%s<-=q$NB>$K8!:w$9$k<-=q$N%j%9%H$r;XDj$9$k!#(B
 $B$$$:$l$N<-=q$b!"8+=P$78l$O%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
+
+  (setq skk-extra-jisyo-file-list
+        (list '(\"/usr/share/skk/SKK-JISYO.JIS3_4\" . euc-jisx0213)
+             \"/usr/share/skk/SKK-JISYO.zipcode\"))
+
 SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"$k$,!"(B
 $B%a%$%s<-=q(B (SKK-JISYO.L $B$d<-=q%5!<%P$J$I(B) $B$NB>$K8!:w$7$?$$<-=q$N%U%!%$%kL>$N(B
 $B%j%9%H$r;XDj$9$k!#%U%!%$%kL>$NBe$o$j$K!"%U%!%$%kL>$H%3!<%I7O$N%Z%"$r;XDj$9$k(B
@@ -1382,8 +1387,9 @@ HENKAN-BUFFER, MIDASI, OKURIGANA, ENTRY $B$N(B 4 $B0z?t$rH<$J$C$F%3!<%k$5$l$k
   :group 'skk-henkan)
 
 (defcustom skk-allow-spaces-newlines-and-tabs t
-  "*Non-nil $B$G$"$l$P!"8+=P$78l$NCf$N%9%Z!<%9!"%?%V$r<h$j=|$$$FJQ49$G$-$k!#(B
-$BNc$($P!"2<5-$N$h$&$K(B $BCf$K2~9T$,F~$C$F$$$F$bJQ49$,2DG=$G$"$k!#(B
+  "*Non-nil $B$G$"$l$P!"8+=P$78l$NCf$N%9%Z!<%9!"%?%V!"2~9T$r<h$j=|$$$FJQ49(B
+$B$G$-$k!#Nc$($P!"2<5-$N$h$&$KESCf$K2~9T$,F~$C$F$$$k8+=P$78l$G$bJQ49$,2DG=(B
+$B$G$"$k!#(B
 
      \"$B"&$+(B
   $B$J(B\"
@@ -1644,13 +1650,13 @@ nil $B$G$"$l$P!"Aw$j2>L>$NF~NO$,40N;$7$?;~E@$GJQ49$,3+;O$9$k!#Nc$($P!"(B
 $B$G$&$C$+$j(B [RET] $B$r2!$7$F$7$^$C$?$H$-$K!":G8e$N!V$9!W$,Aw$j2>L>$G$"$k$+$I$&$+(B
 $BD4$Y$k!#(B
 
-$B$3$NJQ?t$O0J2<$NCM$r$H$jF@$k!#(B
+$B$3$NJQ?t$O0J2<$NCM$r$H$jF@$k!#4{DjCM$O(B nil$B!#(B
 
 ask  -- $B%f!<%6$K3NG'$r5a$a!"Aw$j2>L>$HG'$a$i$l$l$P$3$l$r<h$j=|$$$F$+$iEPO?$9(B
         $B$k!#(B
 auto -- $B%f!<%6$K3NG'$r5a$a$:!">!<j$KAw$j2>L>$rH=CG$7$F:o=|$7$F$+$iEPO?$9$k!#(B
 nil  -- $B0l@ZAw$j2>L>$N%A%'%C%/$r$;$:!"A4BN$rC18l$H$7$FEPO?$9$k!#$3$l$O(B SKK $BK\(B
-        $BMh$NF0:n$G$"$j!"=>$C$F$3$NJQ?t$N4{DjCM$O(B nil $B$G$"$k!#(B"
+        $BMh$NF0:n$G$"$k!#(B"
   :type '(radio (const :tag "$B%f!<%6$K3NG'$9$k(B" ask)
 		(const :tag "$B<+F0E*$K=hM}$9$k(B" auto)
 		(const :tag "$B%A%'%C%/$7$J$$(B"  nil))

@@ -1,3 +1,9 @@
+2012-06-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-extra-jisyo-file-list)
+	(skk-allow-spaces-newlines-and-tabs)
+	(skk-check-okurigana-on-touroku): Update docstring.
+
 2012-06-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
