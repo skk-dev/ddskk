@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.432 2012/06/29 23:53:01 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.433 2012/07/07 23:22:30 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/06/29 23:53:01 $
+;; Last Modified: $Date: 2012/07/07 23:22:30 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1335,7 +1335,9 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   :group 'skk-henkan)
 
 (defcustom skk-force-registration-mode-char ?.
-  "*$B%(%3!<%(%j%"$G8uJdI=<(Cf$K<-=qEPO?%b!<%I$K6/@)E*$KF~$k%-!<%-%c%i%/%?!#(B"
+  "*$B6/@)E*$K<-=qEPO?%b!<%I$KF~$k%-!<%-%c%i%/%?!#(B
+$B%(%3!<%(%j%"$G8uJd$rI=<($7$F$$$k$H$-$K$3$NJQ?t$GDj5A$7$?%-!<%-%c%i%/%?$r(B
+$B%?%$%W$9$k$H!"6/@)E*$K<-=qEPO?%b!<%I$KF~$j$^$9!#(B"
   :type 'character
   :group 'skk-henkan)
 
@@ -1351,8 +1353,7 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 
 (defcustom skk-show-inline nil
   "*Non-nil $B$G$"$l$P!"JQ498uJd$r%$%s%i%$%sI=<($9$k!#(B
-`vertical' $B$G$"$l$P!"=DJ}8~$K%$%s%i%$%sI=<($9$k!#(B
-$B$3$l$O(B GNU Emacs 21 $B0J>e$G5!G=$7!"(BXEmacs $B$G$OF0:n$7$J$$!#(B"
+`vertical' $B$G$"$l$P!"=DJ}8~$K%$%s%i%$%sI=<($9$k!J(BGNU Emacs 21 $B0J>e$G5!G=$7!"(BXEmacs $B$G$OF0:n$7$J$$!K!#(B"
   :type '(radio (const :tag "$BM-8z(B" t)
 		(const :tag "$BM-8z(B ($B=DI=<((B)" vertical)
 		(const :tag "$BL58z(B" nil))

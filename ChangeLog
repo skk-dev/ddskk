@@ -1,3 +1,8 @@
+2012-07-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-force-registration-mode-char)
+	(skk-show-inline): Update docstring.
+
 2012-06-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-extra-jisyo-file-list)
