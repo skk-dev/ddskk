@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.614 2012/06/10 05:39:30 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.615 2012/07/30 11:42:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/06/10 05:39:30 $
+;; Last Modified: $Date: 2012/07/30 11:42:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -170,9 +170,9 @@ dependent."
     (unless skk-mode-invoked
       ;; enter `skk-mode' for the first time in this session.
       (skk-mode-invoke))
-    ;; 以下は skk-mode に入るたびに毎度コールされるコード。
+    ;; 以下は skk-mode に入るたびに毎回コールされるコード。
     (skk-create-file skk-jisyo
-		     "SKK の空辞書を作りました"
+		     "空の SKK 個人辞書を作りました"
 		     "I have created an empty SKK Jisyo file for you")
     (when (eval-when-compile (featurep 'xemacs))
       (easy-menu-add skk-menu))
@@ -253,6 +253,7 @@ dependent."
     (skk-mode 1)))
 
 (defun skk-require-module ()
+  ;; skk-mode に入るたびに実行される
   (when skk-use-viper
     (require 'skk-viper))
   (when (or skk-servers-list
@@ -294,6 +295,7 @@ dependent."
       (kill-buffer b))))
 
 (defun skk-mode-invoke ()
+  ;; 一番最初の skk 起動時のみ実行される
   (when skk-user-directory
     (make-directory skk-user-directory t))
   (skk-compile-init-file-maybe)
@@ -305,7 +307,7 @@ dependent."
     (skk-setup-shared-private-jisyo))
   (when skk-keep-record
     (skk-create-file skk-record-file
-		     "SKK の記録用ファイルを作りました"
+		     "SKK の統計情報用ファイルを作りました"
 		     "I have created an SKK record file for you"))
   (skk-setup-auto-paren) ; necessary to call before compiling skk-rule-tree.
   ;; SKK 拡張入力機能の設定

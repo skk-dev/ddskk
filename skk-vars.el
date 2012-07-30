@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.433 2012/07/07 23:22:30 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.434 2012/07/30 11:42:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/07/07 23:22:30 $
+;; Last Modified: $Date: 2012/07/30 11:42:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1840,7 +1840,7 @@ nil ならば自動設定はしない (自分で好きな設定ができる)。"
   :group 'skk-misc)
 
 (defcustom skk-mode-hook nil
-  "*SKK を起動したときのフック。
+  "*skk-mode に入るたびに呼ばれるフック。
 他に、`skk-auto-fill-mode-hook', `skk-load-hook', `skk-init-file' でも
 カスタマイズが可能。"
   ;; "*Hook run at SKK startup.  This hook is also run

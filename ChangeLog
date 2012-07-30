@@ -1,3 +1,11 @@
+2012-07-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-mode): Update message.
+	(skk-require-module): Insert comment.
+	(skk-mode-invoke): Insert comment and Update message.
+
+	* skk-vars.el (skk-mode-hook): Update docstring.
+
 2012-07-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-force-registration-mode-char)
