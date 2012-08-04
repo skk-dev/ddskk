@@ -1,8 +1,12 @@
 * 14.5
 
-** GNU Emacs 21 のサポートを終了しました。
+** GNU Emacs 21 のサポートを終了しました
 
 GNU Emacs 21 をお使いの方は DDSKK 14.4 を利用してください。
+
+** Emacs 24 対応を進めました
+
+M-x customize-theme に対応するよう ccc.el を修正しました。
 
 ** $ タイプ時の挙動
 
