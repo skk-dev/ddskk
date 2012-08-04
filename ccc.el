@@ -6,9 +6,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.38 2010/09/10 14:22:11 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.39 2012/08/04 07:49:21 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2010/09/10 14:22:11 $
+;; Last Modified: $Date: 2012/08/04 07:49:21 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -171,7 +171,7 @@
     (when (and (stringp color)
 	       (x-color-defined-p color)
 	       (not (ccc-color-equal color (current-cursor-color))))
-	(set-cursor-color color))))
+      (set-cursor-color color))))
 
 (defun set-cursor-color-buffer-local (arg)
   (if arg
@@ -229,7 +229,7 @@
     (when (and (stringp color)
 	       (x-color-defined-p color)
 	       (not (ccc-color-equal color (current-background-color))))
-	(set-background-color color))))
+      (set-background-color color))))
 
 (defun set-background-color-buffer-local (arg)
   (if arg
@@ -252,6 +252,14 @@
     (set-frame-background-color (ad-get-arg 0)
 				(cdr (assq 'background-color
 					   (ad-get-arg 1))))))
+
+(defadvice custom-theme-checkbox-toggle (after ccc-ad activate)
+  (setq default-cursor-color (current-cursor-color)
+	default-foreground-color (current-foreground-color)
+	default-background-color (current-background-color))
+  (set-frame-cursor-color (selected-frame) (current-cursor-color))
+  (set-frame-foreground-color (selected-frame) (current-foreground-color))
+  (set-frame-background-color (selected-frame) (current-background-color)))
 
 ;; Hooks
 (add-hook 'post-command-hook 'update-buffer-local-frame-params)

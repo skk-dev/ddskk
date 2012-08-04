@@ -1,3 +1,9 @@
+2012-08-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el (custom-theme-checkbox-toggle): New advice.
+	* skk-annotation.el (skk-annotation-wikipedia-1): Always use
+	`url-retrieve'.
+
 2012-07-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-mode): Update message.
