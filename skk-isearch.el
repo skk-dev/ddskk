@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.73 2012/01/15 05:53:54 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.74 2012/08/11 10:48:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/15 05:53:54 $
+;; Last Modified: $Date: 2012/08/11 10:48:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -246,7 +246,7 @@ kakutei'ed and erase the buffer contents."
 		     'skk-auto-fill-inactivate)))
 	(with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	  (unless current-input-method
-	    (setq inactivate-current-input-method-function func)
+	    (skk-set-deactivate-im-func func)
 	    (setq current-input-method method))))))
   ;; skk-isearch の状態を表す内部変数の設定
   (setq skk-isearch-switch t)
@@ -292,7 +292,7 @@ kakutei'ed and erase the buffer contents."
   (when (eval-when-compile (featurep 'emacs))
     (when (string-match "^japanese-skk" (format "%s" default-input-method))
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
-	(inactivate-input-method))))
+	(skk-deactivate-input-method))))
   ;; skk-isearch の状態を表す内部変数の設定
   (setq skk-isearch-switch nil)
   (unless skk-isearch-in-editing
@@ -791,7 +791,7 @@ If the current mode is different from previous, remove it first."
 	       (let ((skk-isearch-initial-mode-when-skk-mode-disabled
 		      'latin))
 		 (skk-isearch-mode-setup))
-	       (inactivate-input-method)))
+	       (skk-deactivate-input-method)))
 	    (t
 	     ad-do-it)))))
 

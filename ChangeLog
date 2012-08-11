@@ -1,3 +1,19 @@
+2012-08-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-set-deactivate-im-func)
+	(skk-deactivate-input-method): New macros.
+
+	* skk-leim.el (skk-activate, skk-auto-fill-activate):
+	Use skk-set-deactivate-im-func instead of
+	inactivate-current-input-method-function.
+	(skk-leim-exit-from-minibuffer): Use skk-deactivate-input-method instead of
+	inactivate-input-method.
+
+	* skk-isearch.el (skk-isearch-mode-setup):Use skk-set-deactivate-im-func func
+	instead of inactivate-current-input-method-function
+	(skk-isearch-mode-cleanup, skk-isearch-really-early-advice):
+	Use skk-deactivate-input-method instead of inactivate-input-method.
+
 2012-08-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ccc.el (custom-theme-checkbox-toggle): New advice.

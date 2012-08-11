@@ -5,9 +5,9 @@
 
 ;; Author: Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-leim.el,v 1.19 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-leim.el,v 1.20 2012/08/11 10:48:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2012/08/11 10:48:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -34,14 +34,14 @@
 
 ;;;###autoload
 (defun skk-activate (&optional name)
-  (setq inactivate-current-input-method-function 'skk-inactivate)
+  (skk-set-deactivate-im-func 'skk-inactivate)
   (skk-mode 1)
   (when (eq (selected-window) (minibuffer-window))
     (add-hook 'minibuffer-exit-hook 'skk-leim-exit-from-minibuffer)))
 
 ;;;###autoload
 (defun skk-auto-fill-activate (&optional name)
-  (setq inactivate-current-input-method-function 'skk-auto-fill-inactivate)
+  (skk-set-deactivate-im-func 'skk-auto-fill-inactivate)
   (skk-auto-fill-mode 1)
   (when (eq (selected-window) (minibuffer-window))
     (add-hook 'minibuffer-exit-hook 'skk-leim-exit-from-minibuffer)))
@@ -55,7 +55,7 @@
   (skk-auto-fill-mode -1))
 
 (defun skk-leim-exit-from-minibuffer ()
-  (inactivate-input-method)
+  (skk-deactivate-input-method)
   (when (<= (minibuffer-depth) 1)
     (remove-hook 'minibuffer-exit-hook 'skk-leim-exit-from-minibuffer)))
 

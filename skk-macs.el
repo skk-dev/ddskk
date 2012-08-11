@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.190 2012/06/23 04:29:27 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.191 2012/08/11 10:48:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/06/23 04:29:27 $
+;; Last Modified: $Date: 2012/08/11 10:48:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -249,6 +249,26 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
      (dolist (o ,list)
        (delete-overlay o))
      (setq ,list nil)))
+
+(defmacro skk-set-deactivate-im-func (func)
+  (cond ((boundp 'deactivate-current-input-method-function)
+	 ;; GNU Emacs 24.2 から
+	 `(setq deactivate-current-input-method-function ,func))
+
+	(t
+	 ;; GNU Emacs 24.1 まで
+	 `(setq inactivate-current-input-method-function ,func))
+	))
+
+(defmacro skk-deactivate-input-method ()
+  (cond ((fboundp 'deactivate-input-method)
+	 ;; GNU Emacs 24.2 から
+	 '(deactivate-input-method))
+	(t
+	 ;; GNU Emacs 24.1 まで
+	 '(inactivate-input-method))
+	))
+
 
 ;;; functions.
 ;; version dependent
