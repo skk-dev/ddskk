@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/06/24 06:35:40 $
+@set UPDATED $Date: 2012/08/12 01:10:23 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -660,6 +660,7 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、下記の辞書サーバの
 * 最も基本的な設定::
 * インクリメント検索の設定::
 * 辞書サーバを使いたいときの設定::
+* DDSKK を Emacs の Input Method とする::
 @end menu
 
 @node 最も基本的な設定
@@ -815,6 +816,41 @@ setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 @end table
 
 関連項目: @w{@ref{辞書サーバの入手}}、@w{@ref{サーバ関連}}
+
+@node DDSKK を Emacs の Input Method とする
+@section DDSKK を Emacs の Input Method とする
+@kindex C-\
+
+Emacs の標準キーバインドでは @kbd{C-\} をタイプすると
+関数 @code{toggle-input-method} を実行します。
+この関数は、変数 @code{default-input-method} が指す input method をトグル切り替えします。
+
+変数 @code{default-input-method} の値はおそらく @code{"Japanese"} であり、
+結果として @kbd{C-\} のタイプで LEIM を on/off します。
+
+使用可能な input method は @kbd{M-x list-input-methods} で確認することができ、
+コマンド @code{set-input-method} を実行する @footnote{@kbd{M-x set-input-method} また
+は @kbd{C-x RET C-\}} ことで input method を切り替えることができます。
+
+ファイル @file{skk-leim.el} では input method をふたつ追加しています。
+
+@table @b
+@item "japanese-skk"
+
+内容は @code{(skk-mode 1)} です。
+
+@item "japanese-skk-auto-fill"
+
+内容は @code{(skk-auto-fill-mode 1)} です。
+@end table
+
+Emacs 起動時の input method を DDSKK とするには、@file{~/.emacs} に
+
+@lisp
+(setq default-input-method "japanese-skk")
+@end lisp
+
+と記述してください。
 
 @node 基本的な使い方, 便利な応用機能, はじめの設定, Top
 @comment  node-name,  next,  previous,  up
