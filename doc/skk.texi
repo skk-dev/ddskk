@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/08/12 01:10:23 $
+@set UPDATED $Date: 2012/08/14 12:23:09 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6615,14 +6615,20 @@ Emacs のバッファに読み込んで検索を行います。
 のバックアップとして指定してください。
 @end defvr
 
+@defvr {ユーザ変数} skk-cdb-large-jisyo
+共有辞書のうち CDB 形式に変換した辞書です。指定した場合は @code{skk-large-jisyo} よ
+りも先に検索されます。DDSKK 14 からは辞書サーバを経由せずとも CDB 形式の辞書を直
+接検索できるようになりました。
+@end defvr
+
 @defvr {ユーザ変数} skk-large-jisyo
 共有辞書のひとつ。バッファに読み込んで検索を行います。
 
 例えば @code{skk-large-jisyo} に S 辞書か M 辞書を指定し、
 @code{skk-aux-large-jisyo} に L 辞書を指定する、という選択肢もあります。
 
-また、辞書サーバ経由のアクセスも決して遅くはないので、共有辞書はバッファには
-読み込まない、という設定も自然です。そのためには、@code{skk-large-jisyo} を
+また、辞書サーバ経由のアクセスも決して遅くはないので「共有辞書はバッファには
+読み込まない」という設定も自然であり、これには @code{skk-large-jisyo} を
 @code{nil} に設定します。
 @end defvr
 
@@ -6631,16 +6637,11 @@ Emacs のバッファに読み込んで検索を行います。
 辞書です。
 @end defvr
 
-@defvr {ユーザ変数} skk-cdb-large-jisyo
-共有辞書のうち CDB 形式に変換した辞書。指定した場合は @code{skk-large-jisyo} よ
-り先に検索されます。DDSKK 14 より CDB 形式辞書を辞書サーバを経由せずに直
-接検索できるようになりました。
-@end defvr
-
 @defvr {ユーザ変数} skk-extra-jisyo-file-list
-SKK では個人辞書の他に、メイン辞書 (@code{skk-large-jisyo}、
+SKK では個人辞書の他に、共有辞書 (@code{skk-large-jisyo}、
 @code{skk-cdb-large-jisyo}) または辞書サーバを設定して利用するのが一般的
-ですが、郵便番号辞書をはじめとした多彩な辞書もメンテナンスされています。
+ですが、郵便番号辞書 @file{SKK-JISYO.zipcode} をはじめとした多彩な辞書も
+メンテナンスされています。
 
 これらの辞書を利用するために変数 @code{skk-search-prog-list} を手動で編集
 することもできますが、この変数は厳密にはユーザ変数に分類されていないため、
@@ -6872,11 +6873,13 @@ not documented
 @node Emacs 付属の辞書
 @subsection Emacs 付属の辞書
 
-GNU Emacs には @file{SKK-JISYO.L} を元に変換された @file{ja-dic.el} とい
-う辞書が付属しており、DDSKK 14.2 からはこの @file{ja-dic.el} を利用したか
-な漢字変換 (送りあり、送りなし、接頭辞、接尾辞) が可能となりました。
-つまり、@file{SKK-JISYO.L} などの辞書ファイルを別途準備する必要がなくとも
-一応は DDSKK の使用が可能、ということです。
+GNU Emacs には、 @file{SKK-JISYO.L} を元に変換された @file{leim/ja-dic/ja-dic.el} とい
+う辞書が付属しています。
+
+DDSKK 14.2 からは、この @file{ja-dic.el} を利用したかな漢字変換 (送りあり、
+送りなし、接頭辞、接尾辞) が可能となりました。
+つまり、@file{SKK-JISYO.L} などの辞書ファイルを別途準備しなくても一応
+は DDSKK の使用が可能、ということです。
 
 DDSKK 14.2 から追加された「ja-dic.el 検索機能」(@code{skk-search-ja-dic}) は、
 
@@ -6888,7 +6891,6 @@ DDSKK 14.2 から追加された「ja-dic.el 検索機能」(@code{skk-search-ja-
 @end itemize
 
 の全てが無効な場合に有効となります。
-
 
 ただし、@file{SKK-JISYO.L} を利用する場合と比べて英数変換や数値変換などが
 できません。可能な限り @file{SKK-JISYO.L} などの辞書を利用することを推奨
