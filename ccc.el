@@ -6,9 +6,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.40 2012/08/15 01:47:42 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.41 2012/08/15 02:01:59 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2012/08/15 01:47:42 $
+;; Last Modified: $Date: 2012/08/15 02:01:59 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -98,7 +98,7 @@
 (defsubst frame-foreground-color (&optional frame)
   (frame-parameter (or frame (selected-frame)) 'frame-foreground-color))
 (defsubst set-frame-foreground-color (frame color)
-  (when (eval-when-compile (>= emacs-major-version 24))
+  (when (eval-when-compile (>= emacs-major-version 23))
     (unless (window-system frame)
       (setq color "unspecified-fg")))
   (modify-frame-parameters frame (list (cons 'frame-foreground-color color))))
@@ -106,7 +106,7 @@
 (defsubst frame-background-color (&optional frame)
   (frame-parameter (or frame (selected-frame)) 'frame-background-color))
 (defsubst set-frame-background-color (frame color)
-  (when (eval-when-compile (>= emacs-major-version 24))
+  (when (eval-when-compile (>= emacs-major-version 23))
     (unless (window-system frame)
       (setq color "unspecified-bg")))
   (modify-frame-parameters frame (list (cons 'frame-background-color color))))
