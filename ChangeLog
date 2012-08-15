@@ -1,3 +1,12 @@
+2012-08-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* ccc.el (frame-foreground-color, frame-background-color)
+	(set-buffer-local-foreground-color)
+	(set-buffer-local-background-color): Do not modify foregound and
+	backgorund colors on tty.
+	* skk-emacs.el (skk-emacs-prepare-modeline-properties): Modify the
+	dummy string for the icon.
+
 2012-08-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

@@ -6,9 +6,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.39 2012/08/04 07:49:21 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.40 2012/08/15 01:47:42 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2012/08/04 07:49:21 $
+;; Last Modified: $Date: 2012/08/15 01:47:42 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -98,11 +98,17 @@
 (defsubst frame-foreground-color (&optional frame)
   (frame-parameter (or frame (selected-frame)) 'frame-foreground-color))
 (defsubst set-frame-foreground-color (frame color)
+  (when (eval-when-compile (>= emacs-major-version 24))
+    (unless (window-system frame)
+      (setq color "unspecified-fg")))
   (modify-frame-parameters frame (list (cons 'frame-foreground-color color))))
 
 (defsubst frame-background-color (&optional frame)
   (frame-parameter (or frame (selected-frame)) 'frame-background-color))
 (defsubst set-frame-background-color (frame color)
+  (when (eval-when-compile (>= emacs-major-version 24))
+    (unless (window-system frame)
+      (setq color "unspecified-bg")))
   (modify-frame-parameters frame (list (cons 'frame-background-color color))))
 
 ;; Functions.
@@ -184,6 +190,8 @@
 ;;
 (defun set-buffer-local-foreground-color (color-name)
   (interactive (ccc-read-color "Foreground color: "))
+  (unless window-system
+    (setq color-name nil))
   (let ((local buffer-local-foreground-color))
     (setq buffer-local-foreground-color
 	  (or color-name
@@ -197,7 +205,8 @@
   (let ((color (if (stringp buffer-local-foreground-color)
 		   buffer-local-foreground-color
 		 (frame-foreground-color))))
-    (when (and (stringp color)
+    (when (and window-system
+	       (stringp color)
 	       (x-color-defined-p color)
 	       (not (ccc-color-equal color (current-foreground-color))))
       (set-foreground-color color))))
@@ -213,6 +222,8 @@
 ;;
 (defun set-buffer-local-background-color (color-name)
   (interactive (ccc-read-color "Background color: "))
+  (unless window-system
+    (setq color-name nil))
   (let ((local buffer-local-background-color))
     (setq buffer-local-background-color
 	  (or color-name
@@ -226,7 +237,8 @@
   (let ((color (if (stringp buffer-local-background-color)
 		   buffer-local-background-color
 		 (frame-background-color))))
-    (when (and (stringp color)
+    (when (and window-system
+	       (stringp color)
 	       (x-color-defined-p color)
 	       (not (ccc-color-equal color (current-background-color))))
       (set-background-color color))))

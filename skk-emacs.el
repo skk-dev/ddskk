@@ -291,7 +291,7 @@
 			 `((:type xpm
 				  :file ,(expand-file-name "skk.xpm" dir)
 				  :ascent center)))))
-	       (string "dummy"))
+	       (string "skk"))
 	  (if (and skk-show-icon window-system image)
 	      (apply 'propertize string
 		     (cons 'display (cons image skk-emacs-modeline-property)))
