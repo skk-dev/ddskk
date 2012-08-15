@@ -1,3 +1,7 @@
+2012-08-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
 2012-08-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* ccc.el (frame-foreground-color, frame-background-color)
