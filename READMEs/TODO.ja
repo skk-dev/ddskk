@@ -220,6 +220,25 @@ SKK からも呼び出せるプログラムを用意するかしてプログラム変換機能を共有
 
 * 報告された、または確認されているバグ (未修正)
 
+** ccc.el と multi-tty 対応
+
+[skk 7641] 笠原さんからのご報告
+
+[...]
+> 具体的には、X で emacs -q -f server-start 等で emacs server を上げて、
+> 別のターミナルから emacsclient -t し、カーソルを1つ動かすなどすると背景
+> が白で塗り潰されると思います(ターミナルが白地だとわかりにくいですが)。
+[...]
+> 逆に emacs -f server-start -nw や emacs --daemon で X 無しで起動してか
+> ら emacsclient -c で X に frame を貼ると、ccc-setup が呼ばれないので
+> SKK を起動してもカーソルに色がつかない、という事になりました。私は普段
+> そういう使い方はしていないですが…。
+
+前半の問題は tty な frame で色を設定しないようにすることで回避しうる
+(bug fix 確認中)
+後者の問題は、カーソル色だけでなくフォント設定なども問題になると思われ
+るので、Emacs 側の対応を見極めていくのがいいと思われる。
+
 ** skk-isearch と transient-mark-mode
 
 transient-mark-mode が有効なとき、isearch は通常領域を維持して続けられ
