@@ -30,7 +30,7 @@
 ;; SKK が検索する辞書
 ;; (setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
 
-;; ja-dic を無効とする
+;; ja-dic.el を利用したかな漢字変換(DDSKK 14.2〜)を無効とする
 ;; (setq skk-inhibit-ja-dic-search t)
 
 ;; @@ 表示の設定
@@ -39,6 +39,8 @@
 (setq skk-japanese-message-and-error t)
 
 ;; モードライン上の表示を変更する
+;;   'left => モードラインの左端に表示する
+;;   以外  => マイナーモードとして表示する
 ;; (setq skk-status-indicator 'minor-mode)
 
 ;; メニューバーの表示
