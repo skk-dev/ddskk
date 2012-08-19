@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.435 2012/08/19 06:10:25 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.436 2012/08/19 10:51:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/08/19 06:10:25 $
+;; Last Modified: $Date: 2012/08/19 10:51:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3648,12 +3648,14 @@ nil であれば、元号表示する。"
 
 (defcustom skk-number-style 1
   "*`skk-today', `skk-clock' で表示する数字の形式を変化させる。
-半角表示  : nil もしくは 0.
-全角表示  : t もしくは、1.
-漢数字表示: t, 0, 1 以外の non-nil 値。"
-  :type '(radio (const :tag "半角表示" 0)
-		(const :tag "全角表示" 1)
-		(const :tag "漢数字表示" 2))
+  0 , nil : ASCII 数字
+  1 , t   : 全角数字
+  2       : 漢数字(位取)
+  3       : 漢数字"
+  :type '(radio (const :tag "ASCII 数字" 0)
+		(const :tag "全角数字" 1)
+		(const :tag "漢数字(位取)" 2)
+		(const :tag "漢数字" 3))
   :group 'skk-gadget)
 
 (defcustom skk-units-alist

@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/08/19 06:10:26 $
+@set UPDATED $Date: 2012/08/19 10:51:40 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4096,13 +4096,13 @@ SKK abbrve モードで使われる辞書は、普通のかな漢字変換と同じです。見出し語
 
 @defvr {ユーザ変数} skk-number-style
 
-この変数の値は以下のように解釈されます。
+この変数の値は以下のように解釈されます。デフォルトは @samp{1} です。
 
 @table @code
 @item 0
 @itemx nil
 
-半角数字。@samp{1996年7月21日(日)} のようになります。
+ASCII 数字。@samp{1996年7月21日(日)} のようになります。
 
 @item 1
 @itemx t
@@ -4111,7 +4111,7 @@ SKK abbrve モードで使われる辞書は、普通のかな漢字変換と同じです。見出し語
 
 @item 2
 
-漢数字。@samp{一九九六年七月二一日(日)} のようになります。
+漢数字(位取)。@samp{一九九六年七月二一日(日)} のようになります。
 
 @item 3
 
@@ -4120,7 +4120,7 @@ SKK abbrve モードで使われる辞書は、普通のかな漢字変換と同じです。見出し語
 
 上記の @samp{1996年}、@samp{１９９６年}、@samp{一九九六年} の部分は、変
 数 @code{skk-date-ad} の値が @code{nil} であれば @samp{平成8年} のよう
-に元号で表示されます。 @code{skk-number-style} のデフォルトは、@samp{1} です。
+に元号で表示されます。
 @end defvr
 
 L 辞書
