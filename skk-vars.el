@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.434 2012/07/30 11:42:37 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.435 2012/08/19 06:10:25 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/07/30 11:42:37 $
+;; Last Modified: $Date: 2012/08/19 06:10:25 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1489,7 +1489,7 @@ nil であれば、例えば
   :group 'skk-kakutei)
 
 (defcustom skk-egg-like-newline nil
-  "*Non-nil であれば、▼モードで改行をタイプしても確定するのみで改行しない。"
+  "*Non-nil であれば、▼モードで RET をタイプしても確定のみ行い、改行しない。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-kakutei)
