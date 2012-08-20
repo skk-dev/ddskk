@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/08/19 10:51:40 $
+@set UPDATED $Date: 2012/08/20 12:53:57 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -724,8 +724,8 @@ DDSKK 14 $B0J9_$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0$N<-=q%U%!%$%k$rD>@\MxM
 (setq skk-isearch-mode-enable nil)
 @end lisp
 
-$B$3$NJQ?t$NCM$r(B @code{always} $B$K@_Dj$9$k$H!"(B SKK $B$,(B ON $B$K$J$C$F$$$J$$%P%C%U%!$G$b(B
-@code{skk-isearch} $B$rM-8z$K$7$^$9!#(B
+$B$3$NJQ?t$NCM$r%7%s%\%k(B @code{'always} $B$K@_Dj$9$k$H!"(B SKK $B$,(B ON $B$K$J$C$F$$(B
+$B$J$$%P%C%U%!$G$b(B @code{skk-isearch} $B$rM-8z$K$7$^$9!#(B
 
 @lisp
 (setq skk-isearch-mode-enable 'always)

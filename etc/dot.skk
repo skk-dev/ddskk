@@ -33,6 +33,12 @@
 ;; ja-dic.el を利用したかな漢字変換(DDSKK 14.2〜)を無効とする
 ;; (setq skk-inhibit-ja-dic-search t)
 
+;; 前候補/前候補群に戻る操作
+;; (setq skk-previous-candidate-keys (list "x" "\C-p"))
+
+;; SHIFT キーを使うことなく、見出し語・送り仮名の位置を指定する
+;; (setq skk-sticky-key ";")
+
 ;; @@ 表示の設定
 
 ;; 各種メッセージを日本語で通知する
@@ -550,6 +556,20 @@
 			     (concat cand ";" note)
 			   cand))
 	      (skk-update-jisyo-original word)))))
+
+;; @@ 辞書登録に関する設定
+
+;; 強制的に辞書登録モードに入るキーキャラクタ
+;; (setq skk-force-registration-mode-char ?.)
+
+;; 「↓辞書登録中↓」に適用するフェイス
+;; skk-jisyo-registration-badge-face 
+
+;; experimental/skk-search-web.el をインストールすると、
+;;   辞書登録モードに移ったときの初期値に Google サジェストを利用できます
+;;     (setq skk-read-from-minibuffer-function
+;;           (lambda ()
+;;             (car (skk-google-suggest skk-henkan-key))))
 
 ;; @@ SKK abbrev mode
 ;; 見出し語の補完において Lisp シンボルも補完する

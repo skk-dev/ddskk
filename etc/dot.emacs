@@ -22,7 +22,11 @@
 ;; 注) 異なる種類の Emacsen を使っている場合は nil にします
 
 ;; SKK を Emacs の input method として使用する
-(setq default-input-method "japanese-skk")
+;;   C-\ で DDSKK が起動します
+(setq default-input-method
+      "japanese-skk"			; (skk-mode 1)
+;;    "japanese-skk-auto-fill"		; (skk-auto-fill-mode 1)
+      )
 
 ;; SKK を起動していなくても、いつでも skk-isearch を使う
 (setq skk-isearch-mode-enable 'always)
