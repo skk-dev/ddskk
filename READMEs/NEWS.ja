@@ -6,7 +6,21 @@ GNU Emacs 21 をお使いの方は DDSKK 14.4 を利用してください。
 
 ** Emacs 24 対応を進めました
 
-M-x customize-theme に対応するよう ccc.el を修正しました。
+*** M-x customize-theme に対応するよう ccc.el を修正しました。
+
+*** マクロ skk-set-deactivate-im-func を追加
+
+inactivate-current-input-method-function が
+deactivate-current-input-method-function へ変更されたことに伴う wrap マクロ
+
+*** マクロ skk-deactivate-input-method を追加
+
+inactivate-input-method が
+deactivate-input-method へ変更されたことに伴う wrap マクロ
+
+** multi-tty 対応を進めました
+
+multi-tty に対応するよう ccc.el を修正しました。[skk 7641]
 
 ** $ タイプ時の挙動
 
@@ -20,6 +34,8 @@ jisx0213, jisx0208, ascii 以外の文字集合であれば「判別できない文字です」と
 *** context-skk.el のバグ修正 [skk 7655] 
 
 *** undo の挙動を修正 [skk 7661]
+
+*** 廃止された変数 skk-emacs-type の撤廃 [skk 7638]
 
 * 14.4
 
