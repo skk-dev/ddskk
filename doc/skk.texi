@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/08/20 12:53:57 $
+@set UPDATED $Date: 2012/08/22 12:15:51 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2089,7 +2089,8 @@ DDSKK $B$rJ;MQ$7$?%$%s%/%j%a%s%?%k!&%5!<%A5!G=$rDs6!$7$^$9!#(B
 @item skk-jisx0201.el
 @cindex @file{skk-jisx0201.el}
 
-$B$$$o$f$kH>3Q%+%J$rMxMQ$9$k5!G=$rDs6!$7$^$9!#(B
+JIS X 0201 $B%+%J(B@footnote{$B$$$o$f$kH>3Q%+%J!#0J2<!"$3$N%^%K%e%"%k$G$O!VH>3Q(B
+$B%+%J!W$H5-=R$7$^$9!#(B}$B$rMxMQ$9$k5!G=$rDs6!$7$^$9!#(B
 
 @item skk-jisx0213.el
 @cindex @file{skk-jisx0213.el}
@@ -4374,25 +4375,28 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 
 @defvr {$B%f!<%6JQ?t(B} skk-search-katakana
 
-$BDL>o!"(BSKK $B$G%+%?%+%J8l$rF~NO$9$k$K$O!"(B@kbd{q} $B$G%+%J%b!<%I$K0\$C$F$+$i(B
-$B%+%?%+%J$rF~NO$9$k$+!""&%b!<%I$G(B @kbd{q} $B$K$h$j%+%?%+%J$XJQ49$9$k$+!"$G(B
-$B$9!#$3$l$i$NJ}K!$O<j7Z$G$9$,!"8D?M<-=q$KEPO?$5$l$J$$$?$aJd408uJd$K$b8=$l(B
-$B$:!"2?EY$G$bF~NO$7$J$1$l$P$$$1$^$;$s!#(B
+$BDL>o!"(BSKK $B$G%+%?%+%J8l$rF~NO$9$k$K$O!"(B
+@itemize @bullet
+@item @kbd{q} $B$G%+%J%b!<%I$K0\$C$F$+$i%+%?%+%J$rF~NO$9$k(B
+@item $B"&%b!<%I$G(B @kbd{q} $B$K$h$j%+%?%+%J$XJQ49$9$k(B@footnote{@ref{$B$+$J%b!<%I$+$i%+%?%+%J$rF~NO(B}}
+@end itemize 
+$B$N$I$A$i$+$G$9!#$3$l$i$NJ}K!$O<j7Z$G$9$,!"8D?M<-=q$KEPO?$5$l$J$$$?$a8+=P(B
+$B$78l$NJd408uJd$K$b8=$l$:!"2?EY$G$bF~NO$7$J$1$l$P$$$1$^$;$s!#(B
 
-$B$7$+$7!"$3$3$K>R2p$9$kJ}K!$G$O%+%?%+%J8l$,IaDL$NJQ498uJd$H$7$F8=$l$k$?$a!"(B
-$B8D?M<-=q$KEPO?$9$k$3$H$,$G$-$^$9!#@_Dj$9$k$K$O0J2<$r(B @file{~/.skk} $B$K5-(B
-$B=R$7$^$9!#(B@footnote{@code{skk-search-prog-list} $B$N@_Dj$r%f!<%6$,JQ99$7$F(B
-$B$$$k>l9g$O4|BT$I$*$j$KF0:n$7$J$$>l9g$,$"$j$^$9!#$=$N>l9g$O(B
-@code{skk-search-prog-list} $B$N@_Dj$K4X?t(B @code{skk-search-katakana} $B$N8F(B
-$B$S=P$7$,$"$k$3$H$r3NG'$7$F$/$@$5$$!#$^$?$3$N5!G=$N@_Dj$O(B DDSKK 14.1 $B0JA0(B
-$B$G$O0[$J$j$^$9!#>\$7$/$O%=!<%9$KIUB0$N%I%-%e%a%s%H!"@_DjNc$r$4Mw$/$@$5$$!#(B}
+$B$=$3$G!"$3$3$K>R2p$9$kJ}K!$G$O%+%?%+%J8l$,IaDL$NJQ498uJd$H$7$F8=$l!"8D?M(B
+$B<-=q$K$bEPO?$5$l$^$9!#@_Dj$9$k$K$O0J2<$r(B @file{~/.skk} $B$K5-=R$7$^$9(B
+@footnote{@code{skk-search-prog-list} $B$N@_Dj$r%f!<%6$,JQ99$7$F$$$k>l9g$O(B
+$B4|BT$I$*$j$KF0:n$7$J$$>l9g$,$"$j$^$9!#$=$N>l9g$O(B@code{skk-search-prog-list} $B$N(B
+$B@_Dj$K4X?t(B @code{skk-search-katakana} $B$N8F$S=P$7$,$"$k$3$H$r3NG'$7$F$/$@(B
+$B$5$$!#$^$?$3$N5!G=$N@_Dj$O(B DDSKK 14.1 $B0JA0$G$O0[$J$j$^$9!#>\$7$/$O%=!<%9(B
+$B$KIUB0$N%I%-%e%a%s%H!"@_DjNc$r$4Mw$/$@$5$$!#(B}$B!#(B
 
 @lisp
 (setq skk-search-katakana t)
 @end lisp
 
-$B$^$?!"CM$r0J2<$N$h$&$K$9$k$H%+%?%+%J8uJd$K2C$(H>3Q%+%?%+%J8uJd$bJQ498uJd(B
-$B$K8=$l$^$9!#(B
+$B$^$?!"CM$r%7%s%\%k(B@code{'jisx0201-kana} $B$H$9$k$H!"%+%?%+%J8uJd$K2C$(H>3Q(B
+$B%+%?%+%J8uJd$bJQ498uJd$K8=$l$^$9!#(B
 
 @lisp
 (setq skk-search-katakana 'jisx0201-kana)
