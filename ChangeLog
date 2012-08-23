@@ -1,3 +1,8 @@
+2012-08-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-auto-paren-string-alist): Update docstring.
+	* doc/skk.texi: Update.
+
 2012-08-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/08/22 12:15:51 $
+@set UPDATED $Date: 2012/08/23 10:28:21 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4878,9 +4878,8 @@ ohhira @expansion{} $B$*$*$R$i(B
 $B%]%$%s%H$r:FG[CV$9$k$N$G!"$=$N0LCV$+$i$+$.$+$C$3$K0O$^$l$?J8;zNs$rB(;O$a(B
 $B$k$3$H$,$G$-$^$9!#(B
 
-@vindex skk-auto-paren-string-alist
-$B<+F0A^F~$9$Y$-%Z%"$NJ8;zNs$O!"JQ?t(B @code{skk-auto-paren-string-alist} $B$G(B
-$B;XDj$7$^$9!#%G%U%)%k%H$O2<5-$N$h$&$K$J$C$F$$$^$9!#(B
+@defvr {$B%f!<%6JQ?t(B} skk-auto-paren-string-alist
+$B<+F0A^F~$9$Y$-%Z%"$NJ8;zNs$r;XDj$7$^$9!#%G%U%)%k%H$O2<5-$N$H$*$j!#(B
 
 @lisp
 @group
@@ -4890,7 +4889,6 @@ ohhira @expansion{} $B$*$*$R$i(B
 @end group
 @end lisp
 
-@noindent
 $B$3$l$O!"$R$H8@$G$^$H$a$k$H!"!V3+$-3g8L$HJD$83g8L$H$N%3%s%9%;%k$r=8$a$?%j(B
 $B%9%H!W$G$9!#3F%3%s%9%;%k$N(B @code{car} $B$K$"$kJ8;zNs$rA^F~$7$?$H$-$K!"(B
 @code{cdr} $B$K$"$kJ8;zNs$,<+F0A^F~$5$l$^$9!#(B
@@ -4913,6 +4911,8 @@ ohhira @expansion{} $B$*$*$R$i(B
 @code{skk-auto-paren-string-alist} $B$rJQ99$7$?>l9g$O!"(B@kbd{C-x C-j} $B$b$7(B
 $B$/$O(B @kbd{C-x j} $B$r(B 2 $BEY%?%$%W$7$F(B @code{skk-mode} $B$b$7$/$O(B
 @code{skk-auto-fill-mode} $B$r5/F0$7D>$9I,MW$,$"$j$^$9!#(B}
+
+@end defvr
 
 $B%-!<$H$J$kJ8;z$NA^F~$,9T$o$l$F$b!"$=$NA^F~8e$N%]%$%s%H$K<+F0A^F~$9$Y$-(B
 $BJ8;z$,4{$KB8:_$7$F$$$k>l9g$K$O!"<+F0A^F~$O9T$o$l$J$$$h$&$K@_7W$5$l$F$$(B
@@ -5358,7 +5358,7 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 $B!Z(B@key{$BL5JQ49(B}$B![$N$h$&$JI=<($rH<$o$J$$%-!<$N>l9g$O(B
 
 @lisp
-(setq skk-sticky-key [muhenkan])   ; Microsoft Windows $B4D6-$J$i$P(B [noconvert]
+(setq skk-sticky-key [muhenkan]) ;Microsoft Windows $B4D6-$J$i$P(B [noconvert]
 @end lisp
 
 $B$N$h$&$K$=$N%-!<$rI=$o$9(B @code{vector} $B$r@_Dj$7$F2<$5$$!#(B
