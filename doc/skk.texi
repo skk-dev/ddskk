@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/08/24 20:39:52 $
+@set UPDATED $Date: 2012/08/24 22:48:41 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1812,15 +1812,13 @@ DDSKK $B$G$O!"@lMQ$N%$%s%/%j%a%s%?%k!&%5!<%A%W%m%0%i%`$r(B Emacs $BE:IU$N(B
 @subsection skk-isearch$B$NA`:n@-(B
 
 $BBgItJ,$NF0:n$O!"(BEmacs $B%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$N$^$^$G$9$+$i!"(B
-Emacs $B%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$N%3%^%s%I(B
+Emacs $B%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A(B
+@footnote{@w{@ref{Incremental Search, ,Incremental Search, emacs, GNU Emacs Manual}.}}
+$B$N%3%^%s%I(B
 @footnote{@kbd{M-y} $B$N(B @code{isearch-yank-kill} $B$d(B @kbd{M-p} $B$N(B
 @code{isearch-ring-retreat}, @kbd{M-n} $B$N(B @code{isearch-ring-advance} $B$J(B
 $B$I(B}$B$d%f!<%6JQ?t$G$N%+%9%?%^%$%:(B @footnote{@code{search-highlight} $B$J$I(B}
 $B$b$=$N$^$^MxMQ$G$-$^$9!#(B
-
-Emacs $B%*%j%8%J%k$N%$%s%/%j%a%s%?%k!&%5!<%A$K$D$$$F$O!"(B
-@w{@ref{Incremental Search, ,Incremental Search, emacs, GNU Emacs Manual}.}
-$B$r;2>H$7$F$/$@$5$$!#(B
 
 $B%$%s%/%j%a%s%?%k!&%5!<%ACf$NF~NOJ}K!$O!"DL>o$N%P%C%U%!$K$*$1$k3FF~NO%b!<(B
 $B%I!"JQ49%b!<%I$G$NF~NOJ}K!$HF10l$G$9!#(B
@@ -5358,7 +5356,7 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 $B!Z(B@key{$BL5JQ49(B}$B![$N$h$&$JI=<($rH<$o$J$$%-!<$N>l9g$O(B
 
 @lisp
-(setq skk-sticky-key [muhenkan]) ;Microsoft Windows $B4D6-$J$i$P(B [noconvert]
+(setq skk-sticky-key [muhenkan]) ;Microsoft Windows $B$G$O(B [noconvert]
 @end lisp
 
 $B$N$h$&$K$=$N%-!<$rI=$o$9(B @code{vector} $B$r@_Dj$7$F2<$5$$!#(B
@@ -6870,8 +6868,13 @@ not documented
 $BF1$8$G$9$,!"$3$l$i$O<-=q$r(B Emacs $B$N%P%C%U%!$KFI$_9~$s$@$H$-$N$_MxMQ$5$l$^$9!#(B
 
 $B<-=q%5!<%P$,;H$&<-=q%U%!%$%k$N@_Dj$K$D$$$F$O!"(B
-@w{@pxref{$B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B}} $B5Z$S(B @w{@pxref{$B%5!<%P4XO"(B}} $B$r(B
-$B$4Mw2<$5$$!#(B
+
+@itemize @bullet
+@item @w{@pxref{$B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B}}
+@item @w{@pxref{$B%5!<%P4XO"(B}}
+@end itemize
+
+$B$r$4Mw2<$5$$!#(B
 @end defun
 
 @node Emacs $BIUB0$N<-=q(B
@@ -9217,13 +9220,13 @@ XEmacs $B$N>l9g(B
 $B"&%b!<%I$K$*$$$F%-!<F~NO$,0lDj;~4V(B ($BI8=`$G$O(B 1.5 $BIC(B) $B$J$5$l$J$+$C$?$H$-!"(B
 $B%(%3!<%(%j%"$K0J2<$N$h$&$J%a%C%;!<%8$,I=<($5$l$^$9!#(B
 
-@example
+@smallexample
 @group
 -------------------- Echo Area --------------------
 [F5]$BC14A;z(B [F6]$BL5JQ49(B [F7]$B%+%?%+%J(B [F8]$BH>3Q%+%J(B [F9]$BA43Q%m!<%^(B [F10]$B%m!<%^(B
 -------------------- Echo Area --------------------
 @end group
-@end example
+@end smallexample
 
 @noindent
 $B$3$N0FFb$K=>$C$F%U%!%s%/%7%g%s%-!<$r2!$9$3$H$G!"0l;~E*$KC14A;zJQ49$d%+%?(B
@@ -9243,14 +9246,14 @@ Wikipedia $B%"%N%F!<%7%g%s5!G=$N;H$$J}$r%a%C%;!<%8$G0FFb$7$^$9!#(B
 $B"'%b!<%I$K$*$$$F%-!<F~NO$,0lDj;~4V(B ($BI8=`$G$O(B 1.5 $BIC(B) $B$J$5$l$J$+$C$?$H$-!"(B
 $B%(%3!<%(%j%"$K0J2<$N$h$&$J%a%C%;!<%8$,I=<($5$l$^$9!#(B
 
-@example
+@smallexample
 @group
 -------------------- Echo Area --------------------
 @b{@{$B$I$l$r;2>H(B?@}}[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary
 [C-3 C-i]simple.wikipedia [C-4 C-i]en.wikipedia [C-5 C-i]ja.wiktionary
 -------------------- Echo Area --------------------
 @end group
-@end example
+@end smallexample
 
 @noindent
 $B$3$N0FFb$K=>$C$F!"Nc$($P(B @kbd{C-1 C-i} $B$r%?%$%W$9$k$HF|K\8l(B Wikipedia $B$N3:Ev5-(B
@@ -9259,13 +9262,13 @@ Wikipedia $B%"%N%F!<%7%g%s5!G=$N;H$$J}$r%a%C%;!<%8$G0FFb$7$^$9!#(B
 $B0lJ}!"8=:_$NJQ498uJd$KBP$9$k%"%N%F!<%7%g%s$,4{$KI=<($5$l$F$$$k$H$-$O!"(B
 $B0J2<$N%a%C%;!<%8$,>e5-$N$b$N$H8r8_$KI=<($5$l$^$9!#(B
 
-@example
+@smallexample
 @group
 -------------------- Echo Area --------------------
 @b{@{$B%"%N%F!<%7%g%s(B@}}[C-w]$B%3%T!<(B [C-o]URL$B%V%i%&%:(B [C-i]$B%G%U%)%k%H$N%=!<%9$r;2>H(B
 -------------------- Echo Area --------------------
 @end group
-@end example
+@end smallexample
 
 @noindent
 $B$3$N0FFb$K=>$C$F(B @kbd{C-w} $B$r%?%$%W$9$l$P%"%N%F!<%7%g%s$NA4J8$r(B kill ring $B$K(B
