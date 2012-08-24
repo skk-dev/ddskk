@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/08/23 10:28:21 $
+@set UPDATED $Date: 2012/08/24 20:39:52 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2621,8 +2621,8 @@ file /ｆｉｌｅ/
 @node 領域の操作
 @subsection 領域の操作
 
-以下のコマンドを @kbd{M-x} により呼ぶことで領域内の文字列を一括変換するこ
-とができます
+以下のコマンドを @kbd{M-x} により呼ぶことで、領域内の文字列を一括変換する
+ことができます
 @cindex Menu Bars
 @cindex メニューバー
 @footnote{メニューバーが使用できる環境では、メニューバーを使ってこれらの一括変換
@@ -7656,8 +7656,9 @@ DDSKK では、このような事態を避けるため、辞書バッファにおける変数
 
 @defvr {ユーザ変数} skk-annotation-copy-key
 
-@kbd{C-w} をタイプすると、現在表示されているアノテーション
-を kill ring に保存します。
+@kbd{C-w} をタイプすると、現在表示されているアノテーションを kill ring に
+保存します。保存した内容を Emacs 以外のアプリケーションで利用したい場合は
+変数 @code{interprogram-cut-function} を設定してください。
 
 @end defvr
 

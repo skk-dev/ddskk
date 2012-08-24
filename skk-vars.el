@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.437 2012/08/23 10:28:21 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.438 2012/08/24 20:39:52 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/08/23 10:28:21 $
+;; Last Modified: $Date: 2012/08/24 20:39:52 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2771,7 +2771,7 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 
 (defcustom skk-annotation-copy-key "\C-w"
   "*$B%"%N%F!<%7%g%s$r%3%T!<$9$k%-!<!#(B
-$B$3$N%-!<$r%?%$%W$9$k$H8=:_I=<(Cf$N%"%N%F!<%7%g%s$r(B kill ring $B$KJ]B8$9$k!#(B
+$B$3$N%-!<$r%?%$%W$9$k$H!"8=:_I=<(Cf$N%"%N%F!<%7%g%s$r(B kill ring $B$KJ]B8$9$k!#(B
 $BJ]B8$7$?FbMF$r(B Emacs $B0J30$N%"%W%j%1!<%7%g%s$GMxMQ$7$?$$>l9g$O(B
 $BJQ?t(B `interprogram-cut-function' $B$r@_Dj$9$k!#(B"
   :type (if (get 'key-sequence 'widget-type)
@@ -2818,7 +2818,7 @@ nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B"
 Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
 
 $B8uJd0lMw$G$b$3$N5!G=$r;H$$$?$$>l9g$O(B `always' $B$K@_Dj$9$k$3$H$G<B8=$G$-$k!#(B
-$B$?$@$7$3$N@_Dj$O(B `skk-treat-candidate-appearance-function' $B$r>e=q$-$7$F$7(B
+$B$?$@$7!"(B`always' $B$O(B `skk-treat-candidate-appearance-function' $B$r>e=q$-$7$F$7(B
 $B$^$&$?$a!">e5i<T8~$1$G$O$J$$!#(B"
   :type '(radio (const :tag "$BDL>o$NJQ49;~$K<-=q$r;2>H$9$k(B" t)
 		(const :tag "$B>e5-$K2C$(8uJd0lMw$G$b;2>H$9$k(B" always)
@@ -2835,8 +2835,8 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
   "*Non-nil $B$G$"$l$P(B elisp `lookup' $B$+$iJQ498uJd$N0UL#$r<hF@$9$k!#(B
 
 $B8uJd0lMw$G$b$3$N5!G=$r;H$$$?$$>l9g$O(B `always' $B$K@_Dj$9$k$3$H$G<B8=$G$-$k!#(B
-$B$?$@$7$3$N@_Dj$O(B `skk-treat-candidate-appearance-function' $B$r>e=q$-$7$F$7(B
-$B$^$&$?$a!">e5i<T8~$1$G$O$J$$!#(B"
+$B$?$@$7!"(B`always' $B$O(B `skk-treat-candidate-appearance-function' $B$r>e=q$-$7(B
+$B$F$7$^$&$?$a!">e5i<T8~$1$G$O$J$$!#(B"
   :type '(radio (const :tag "$BDL>o$NJQ49;~$K(B lookup $B$r;2>H$9$k(B" t)
 		(const :tag "$B>e5-$K2C$(8uJd0lMw$G$b;2>H$9$k(B" always)
 		(const :tag "$BMxMQ$7$J$$(B" nil))
@@ -2844,7 +2844,8 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
   :group 'skk-lookup)
 
 (defcustom skk-annotation-lookup-dict nil
-  "*Non-nil $B$G$"$l$P!"30It%W%m%0%i%`$rFI$s$GJQ498uJd$N0UL#$rI=<($9$k!#(B"
+  "*Non-nil $B$G$"$l$P!"30It%W%m%0%i%`$rFI$s$GJQ498uJd$N0UL#$rI=<($9$k!#(B
+$B30It%W%m%0%i%`$O(B `skk-annotation-dict-program' $B$G;XDj$9$k!#(B"
   :type 'boolean
   :group 'skk-annotation)
 
@@ -4814,7 +4815,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 				nil)
   "*Non-nil $B$G$"$l$P!"$=$NCM$r(B port number $B$H$7$F(B skkserv $B$H(B TCP $B@\B3$9$k!#(B
 /etc/services $B$rD>@\=q$-49$($k8"8B$,$J$$%f!<%6!<$N$?$a$NJQ?t!#(B
-Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
+Microsoft Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
   :type '(radio (integer :tag "$B%]!<%HHV9f(B" 1178)
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-server)
@@ -5095,7 +5096,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 
  ($B@_DjNc(B)
 
-(setq skk-tooltip-face 'font-lock-doc-face)"
+ (setq skk-tooltip-face 'font-lock-doc-face)"
   :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B" tooltip)
 		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
   :group 'skk-henkan
@@ -5112,11 +5113,6 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 	 (border-color . \"royal blue\")
 	 (border-width . 1)))
 "
-  ;; ;; name
-  ;; foreground-color
-  ;; background-color
-  ;; border-color
-  ;; border-width
   :type '(radio (const :tag "$B@_DjNc$r;n$9(B"
 		       ((foreground-color . "navy blue")
 			(background-color . "alice blue")
@@ -5191,7 +5187,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 
 (defcustom skk-tut-lang "Japanese"
   "*SKK $B%A%e!<%H%j%"%k$GMQ$$$k8@8l!#(B
-\\[universal-argument] \\[skk-tutorial] $B$G$N8@8l;XDj$O!"$3$NJQ?t$h$j$bM%@h(B
+\\[universal-argument] \\[skk-tutorial] $B$K$h$k8@8l;XDj$O!"$3$NJQ?t$h$j$bM%@h(B
 $B$9$k!#(B"
   :type '(radio (string "Japanese")
 		(string "English"))
