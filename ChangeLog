@@ -1,3 +1,8 @@
+2012-08-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el: Update docstring.
+	* doc/skk.texi: Update.
+
 2012-08-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el: Update docstring.

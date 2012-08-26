@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.438 2012/08/24 20:39:52 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.439 2012/08/26 05:37:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/08/24 20:39:52 $
+;; Last Modified: $Date: 2012/08/26 05:37:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -318,7 +318,9 @@
   "*SKK の初期設定を記述するファイル名。SKK を起動した最初の一度だけ読み
 込まれる。このファイルに記述する代わりに ~/.emacs に SKK の各種初期設定を
 記述することも可能だが、後者の場合は \\[skk-restart] では反映されない。
-`skk-byte-compile-init-file' で自動的にバイトコンパイルすることも可能。"
+
+~/.emacs で 変数 `skk-byte-compile-init-file' を設定することで `skk-init-file' を
+自動的にバイトコンパイルすることも可能。"
   ;;"*Name of the SKK initialization file.
   ;;From skk.el 9.x on all customization may be done in ~/.emacs."
   :type '(file :tag "ファイル名")
@@ -1716,7 +1718,9 @@ nil であれば、変換及び個人辞書に関する統計を取らない。"
 
 に `skk-init-file' をバイトコンパイルする。
 nil であれば、`skk-init-file' とそのバイトコンパイル済みファイルを比較して
-`skk-init-file' の方が新しいときは、そのバイトコンパイル済ファイルを消す。"
+`skk-init-file' の方が新しいときは、そのバイトコンパイル済ファイルを消す。
+
+この変数の設定は ~/.emacs で行うこと。"
   :type 'boolean
   :group 'skk-misc)
 
