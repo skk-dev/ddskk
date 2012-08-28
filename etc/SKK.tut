@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut,v 1.16 2011/10/26 12:18:08 skk-cvs Exp $
+;; Version: $Id: SKK.tut,v 1.17 2012/08/28 12:56:48 skk-cvs Exp $
 ;; Keywords: japanese, help
-;; Last Modified: $Date: 2011/10/26 12:18:08 $
+;; Last Modified: $Date: 2012/08/28 12:56:48 $
 
 ;; This is the tutorial text for Daredevil SKK version 11.1 and later
 ;; versions.
@@ -71,7 +71,10 @@ SKK は『C-x C-j』とタイプすれば起動できます。やってみましょう。
 == 「かなモード」から「アスキーモード」への移行 ==
 
 「かなモード」から「アスキーモード」へ移るには『l』(英小文字のエル。「Latin」
-の頭文字) を入力します。モード行を見てモードの推移を確認してください。
+の頭文字) を入力します。
+
+!! 『l』をタイプしてください。
+!! モード行に注目して、モードの推移を確認してください。
 
 「アスキーモード」では、入力されたキーは通常の Emacs のコマンドとして解釈
 されます。「アスキーモード」は次項で説明する点を除いては、SKK を起動する
