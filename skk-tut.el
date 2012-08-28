@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.89 2012/01/14 10:02:28 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.90 2012/08/28 12:14:21 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/14 10:02:28 $
+;; Last Modified: $Date: 2012/08/28 12:14:21 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -428,14 +428,14 @@
 
 (defadvice skk-kakutei (before skktut-ad disable)
   "SKK チュートリアル用アドバイス付。"
-  (when (and (interactive-p)
+  (when (and (skk-called-interactively-p 'interactive)
 	     (= skktut-question-count 1))
     (skktut-error "このキーはまだ使えません"
 		  "Cannot use this key yet")))
 
 (defadvice skk-mode (before skktut-ad disable)
   "SKK チュートリアル用アドバイス付。"
-  (when (and (interactive-p)
+  (when (and (skk-called-interactively-p 'interactive)
 	     (= skktut-question-count 1))
     (skktut-error "このキーはまだ使えません"
 		  "Cannot use this key yet")))
