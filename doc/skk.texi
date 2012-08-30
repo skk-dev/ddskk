@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/08/26 05:37:39 $
+@set UPDATED $Date: 2012/08/30 21:27:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -97,9 +97,9 @@ by the author.
 @vskip 0pt plus 1filll
 Copyright @copyright{}1991-2007 @w{Masahiko Sato}（佐藤雅彦）, @*
 @w{Yukiyoshi Kameyama}（亀山幸義）, @w{NAKAJIMA Mikio}（中島幹夫）,
-@w{IRIE Tetsuya}（入江）, @w{Kitamoto Tsuyoshi}（(北本剛）,
+@w{IRIE Tetsuya}（入江）, @w{Kitamoto Tsuyoshi}（北本剛）,
 @w{Teika Kazura}（定家）, @w{Tsukamoto Tetsuo}（塚本徹雄）
-and @w{Tsuyoshi AKIHO}（(秋保強）.  Revised by @w{Kiyotaka Sakai}（酒井清隆）
+and @w{Tsuyoshi AKIHO}（秋保強）.  Revised by @w{Kiyotaka Sakai}（酒井清隆）
 and @w{Satoshi Harauchi}（原内聡）.
 
 Permission is granted to make and distribute verbatim copies of
@@ -518,12 +518,27 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
 ィレクトリを問われますので、先に述べた「DDSKK のアーカイブを展開したディ
 レクトリ」を指定してください。
 
+@example
+Dired (directory): ~/temp/ddskk-14.4.50 [RET]
+@end example
+
 次に、表示されたディレクトリ一覧の @file{SKK-MK} にカーソルをあわせ
 て @key{L} （@key{SHIFT} を押しながらアルファベットのエル）をタイプしてく
-ださい。プロンプト @samp{Load SKK-MK?} には @key{y} をタイプしてください。
+ださい。
 
-以降、インストーラからの質問に答えることによって DDSKK のインストールを進
-めてください。
+@example
+@group
+-rw-r--r-- 1 user user  99999 2011-00-00 00:00 SKK-CFG
+-rw-r--r-- 1 user user  99999 2011-00-00 00:00@point{}SKK-MK    @key{L}
+drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
+@end group
+@end example
+
+プロンプト @samp{Load SKK-MK?} には @key{y} をタイプしてください。
+
+以降、インストーラが表示する質問に答えながら DDSKK のインストールを進めて
+ください。なお、パーミッションは一切考慮していませんので、インストール先
+は書き込み権限を有するディレクトリを指定してください。
 
 @node 辞書について
 @section 辞書について

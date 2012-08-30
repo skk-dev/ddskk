@@ -1,3 +1,7 @@
+2012-08-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
 2012-08-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tut.el (skk-kakutei, skk-mode): interactive-p() に代えて
