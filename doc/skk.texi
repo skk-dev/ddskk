@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/08/30 21:27:06 $
+@set UPDATED $Date: 2012/09/01 11:08:39 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -347,7 +347,7 @@ DDSKK $B$N<g$JFCD'$O!"<!$N$H$*$j$G$9!#(B
 @item $B%G%#%9%/MFNL$K1~$8$FA*$Y$k<-=q%U%!%$%k!#(B
 @item Emacs $B$N%*%j%8%J%kA`:n$HF1MM$K9T$($kF|K\8l%$%s%/%j%a%s%?%k!&%5!<%A!#(B
 @item Emacs Lisp $B$G=q$+$l$?%W%m%0%i%`$,JV$9CM$rJQ498uJd$K5s$2$k$3$H$,$G$-$k!#(B
-@item $BF~NO%b!<%I$N<+F0@Z$jBX$((B [context-skk.el]
+@item $BF~NO%b!<%I$N<+F0@Z$jBX$((B @file{context-skk.el}
 @item $BB?:L$J%"%N%F!<%7%g%sI=<((B
 @end itemize
 
@@ -519,22 +519,22 @@ DDSKK 14.3 $B$G$O!VBPOCE*%$%s%9%H!<%i!W$,DI2C$5$l$^$7$?!#(B
 $B%l%/%H%j!W$r;XDj$7$F$/$@$5$$!#(B
 
 @example
-Dired (directory): ~/temp/ddskk-14.4.50 [RET]
+Dired (directory): ~/temp/ddskk-14.4.50 @key{RET}
 @end example
 
 $B<!$K!"I=<($5$l$?%G%#%l%/%H%j0lMw$N(B @file{SKK-MK} $B$K%+!<%=%k$r$"$o$;(B
-$B$F(B @key{L} $B!J(B@key{SHIFT} $B$r2!$7$J$,$i%"%k%U%!%Y%C%H$N%(%k!K$r%?%$%W$7$F$/(B
+$B$F(B @kbd{L} $B!J(B@key{SHIFT} $B$r2!$7$J$,$i%"%k%U%!%Y%C%H$N%(%k!K$r%?%$%W$7$F$/(B
 $B$@$5$$!#(B
 
 @example
 @group
 -rw-r--r-- 1 user user  99999 2011-00-00 00:00 SKK-CFG
--rw-r--r-- 1 user user  99999 2011-00-00 00:00@point{}SKK-MK    @key{L}
+-rw-r--r-- 1 user user  99999 2011-00-00 00:00@point{}SKK-MK    @kbd{L}
 drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 @end group
 @end example
 
-$B%W%m%s%W%H(B @samp{Load SKK-MK?} $B$K$O(B @key{y} $B$r%?%$%W$7$F$/$@$5$$!#(B
+$B%W%m%s%W%H(B @samp{Load SKK-MK?} $B$K$O(B @kbd{y} $B$r%?%$%W$7$F$/$@$5$$!#(B
 
 $B0J9_!"%$%s%9%H!<%i$,I=<($9$k<ALd$KEz$($J$,$i(B DDSKK $B$N%$%s%9%H!<%k$r?J$a$F(B
 $B$/$@$5$$!#$J$*!"%Q!<%_%C%7%g%s$O0l@Z9MN8$7$F$$$^$;$s$N$G!"%$%s%9%H!<%k@h(B
@@ -838,7 +838,7 @@ Emacs $B$NI8=`%-!<%P%$%s%I$G$O(B @kbd{C-\} $B$r%?%$%W$9$k$H(B
 
 $B;HMQ2DG=$J(B input method $B$O(B @kbd{M-x list-input-methods} $B$G3NG'$9$k$3$H$,$G$-!"(B
 $B%3%^%s%I(B @code{set-input-method} $B$r<B9T$9$k(B @footnote{@kbd{M-x set-input-method} $B$^$?(B
-$B$O(B @kbd{C-x RET C-\}} $B$3$H$G(B input method $B$r@Z$jBX$($k$3$H$,$G$-$^$9!#(B
+$B$O(B @kbd{C-x @key{RET} C-\}} $B$3$H$G(B input method $B$r@Z$jBX$($k$3$H$,$G$-$^$9!#(B
 
 $B%U%!%$%k(B @file{skk-leim.el} $B$G$O(B input method $B$r$U$?$DDI2C$7$F$$$^$9!#(B
 
@@ -2924,7 +2924,7 @@ context-skk $B$,!V%W%m%0%i%_%s%0%b!<%I!W$H8+Pv$9%a%8%c!<%b!<%I!#(B
 @kindex @samp{,}
 @kindex @samp{.}
 $B<!$NFI$_$N8uJd$rI=<($9$k$K$O!"(B@kbd{.} ($B%T%j%*%I(B) $B$r!"La$k;~$K$O(B @kbd{,} 
-($B%3%s%^(B)$B$r2!$7$^$9!#$=$NFI$_$GJL$N8l$r=P$9$K$O!"$$$D$b$N$h$&$K(B @kbd{SPC} $B$r(B
+($B%3%s%^(B)$B$r2!$7$^$9!#$=$NFI$_$GJL$N8l$r=P$9$K$O!"$$$D$b$N$h$&$K(B @key{SPC} $B$r(B
 $B2!$7$^$9!#(B
 
 $BNc$r8+$F$_$^$7$g$&!#<B:]$NF0:n$O!"8D?M<-=q$NFbMF$K$h$C$F0[$J$j$^$9!#(B
@@ -2990,10 +2990,10 @@ context-skk $B$,!V%W%m%0%i%_%s%0%b!<%I!W$H8+Pv$9%a%8%c!<%b!<%I!#(B
 
 $B$$$C$?$s(B @key{SPC} $B$rF~NO$7$F"'%b!<%I$KF~$k$H!"0J8e$O8+=P$78lJd40$O9T$o$l$^$;$s!#(B
 
-@kindex @key{C-u TAB}
-$B$^$?!"(B@kbd{.} $B$NBe$o$j$K(B @key{C-u TAB} $B$rF~NO(B
+@kindex @kbd{C-u @key{TAB}}
+$B$^$?!"(B@kbd{.} $B$NBe$o$j$K(B @kbd{C-u @key{TAB}} $B$rF~NO(B
 $B$9$k$H!"8=:_$N8uJd$KBP$7$FJd40$r$7$^$9!#>e$NNc$G$O(B @samp{$B$5(B} $B$KBP$7!"(B
-@samp{$B$5$H$&(B} $B$,Jd40$5$l$?;~$K(B @key{C-u TAB} $B$r2!$9$H!"(B
+@samp{$B$5$H$&(B} $B$,Jd40$5$l$?;~$K(B @kbd{C-u @key{TAB}} $B$r2!$9$H!"(B
 $B0J8e$NJd40$O!"(B@samp{$B$5$H$&(B} $B$r4^$`8l(B ($BNc$($P!"(B@samp{$B$5$H$&$;$s$;$$(B}$B$J$I(B)
 $B$K$D$$$F9T$o$l$^$9!#(B
 
@@ -3018,14 +3018,14 @@ context-skk $B$,!V%W%m%0%i%_%s%0%b!<%I!W$H8+Pv$9%a%8%c!<%b!<%I!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-previous-completion-use-backtab
-@code{Non-nil} $B$G$"$l$P!"A0$N8+=P$78l8uJd$XLa$kF0:n$r(B @key{SHIFT} + @key{TAB} $B$G(B
+@code{Non-nil} $B$G$"$l$P!"A0$N8+=P$78l8uJd$XLa$kF0:n$r(B @kbd{@key{SHIFT} @key{TAB}} $B$G(B
 $B$b2DG=$H$7$^$9!#%G%U%)%k%H$O(B @code{t} $B$G$9!#(B
 $B$3$N5!G=$NM-8z2=!?L58z2=$N@Z$jBX$($O!"%U%!%$%k(B @file{~/.skk} $B$r=q$-49$($F(B Emacs $B$r(B
 $B:F5/F0$7$F$/$@$5$$!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-previous-completion-backtab-key
-@key{SHIFT} + @key{TAB} $B$,H/9T$9$k(B key event $B$G$9!#(BEmacs $B$N<oN`!?<B9T4D6-(B
+@kbd{@key{SHIFT} @key{TAB}} $B$,H/9T$9$k(B key event $B$G$9!#(BEmacs $B$N<oN`!?<B9T4D6-(B
 $B$K$h$C$F0[$J$j$^$9!#(B
 @end defvr
 
@@ -3249,7 +3249,7 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$,0[$J$k(B face $B$GI
 @kindex @key{TAB}
 @kindex @samp{,}
 @kindex @samp{.}
-$B8uJd$NA*Br$K$O(B @key{TAB} $BKt$O(B @key{SHIFT} + @key{TAB} $B$r2!$7$^$9!#$^$?!"(B
+$B8uJd$NA*Br$K$O(B @key{TAB} $BKt$O(B @kbd{@key{SHIFT} @key{TAB}} $B$r2!$7$^$9!#$^$?!"(B
 $BIaDL$NJd40$HF1MM$K(B @kbd{.} ($B%T%j%*%I(B) $B$H(B @kbd{,} ($B%3%s%^(B) $B$bMxMQ$G$-$^(B
 $B$9!#(B@w{@ref{$BFI$_$NJd40(B}}
 
@@ -3328,7 +3328,7 @@ T a n @@
 ----- Buffer: foo -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -3342,7 +3342,7 @@ T a n @@
 ----- Echo Area -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -3356,7 +3356,7 @@ T a n @@
 ----- Echo Area -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -3370,7 +3370,7 @@ T a n @@
 ----- Echo Area -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -3384,7 +3384,7 @@ T a n @@
 ----- Echo Area -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -3489,7 +3489,7 @@ Q 1 0 @@
 ----- Buffer: foo -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: *$B8uJd(B* -----
@@ -3521,7 +3521,7 @@ Q @@ @@
 ----- Buffer: foo -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ------ Minibuffer -------
@@ -3529,10 +3529,10 @@ Q @@ @@
 ------ Minibuffer -------
 @end group
 
-@kbd{TAB}
+@key{TAB}
 
 @group
------- Completion List -------
+------ *Completions* -------
 Click <mouse-2> on a completion to select it.
 In this buffer, type RET to select the completion near point.
 
@@ -3541,11 +3541,10 @@ Possible completions are:
 003 $BP&(B ($B$F$s(B)                      004 $BP((B ($B$N(B)
 005 $B25(B ($B$*$D(B)                      006 $BP-(B ($B$O$M$\$&(B)
  $B!'(B                                 $B!'(B
------- Completion List -------
+------ *Completions* -------
 @end group
 
-0 1 8 @kbd{RET} @footnote{@kbd{M-v} $B$NBG80$G!"%+!<%=%k$r(B Completion List $B$X(B
-$B0\$9$3$H$b$G$-$^$9!#(B}
+@kbd{0 1 8 @key{RET}} @footnote{@kbd{M-v} $B$NBG80$G!"%+!<%=%k$r(B *Completions* $B%P%C%U%!$X0\$9$3$H$b$G$-$^$9!#(B}
 
 @group
 ----- Buffer: *$B8uJd(B* -----
@@ -3579,7 +3578,7 @@ L:$BQe(B;6$B2h(B($BEaIt(B4$B2h(B)
 @subsubsection $BIt<s$NFI$_$K$h$kC14A;zJQ49(B
 
 $BD>A0$N>.!9@a!VIt<s$K$h$kC14A;zJQ49!W$K$F!"It<sHV9f$rF~NO$9$k%W%m%s%W%H$G(B
-$BC1$K(B @kbd{RET} $B$r%?%$%W$9$k$H!"It<s$NFI$_$rF~NO$9$k%W%m%s%W%H$KBX$o$j$^$9!#(B
+$BC1$K(B @key{RET} $B$r%?%$%W$9$k$H!"It<s$NFI$_$rF~NO$9$k%W%m%s%W%H$KBX$o$j$^$9!#(B
 
 @example
 
@@ -3589,7 +3588,7 @@ L:$BQe(B;6$B2h(B($BEaIt(B4$B2h(B)
 ------ Minibuffer -------
 @end group
 
-@kbd{TAB}
+@key{TAB}
 
 @group
 ------ Completion List -------
@@ -3627,18 +3626,18 @@ Possible completions are:
 
 $B0lJ}!"$3$l$K(B ``$B$"$$$@(B'' $B$H$$$&!VB>$NFI$_!W(B($B%R%s%H(B)$B$rM?$($k$H8uJd$O(B
 ``$B4VF;(B'' $B$K0l0U$K7h$^$j$^$9!#(B
-$B%R%s%H$O(B @key{;} $B$KB3$1$FF~NO$7$^$9!#(B
+$B%R%s%H$O(B @kbd{;} $B$KB3$1$FF~NO$7$^$9!#(B
 
 @example
 @kbd{K a n d o u ; a i d a}
 
-$B"((B @key{;} $B<+BN$OI=<($5$l$^$;$s!#(B
+$B"((B @samp{;} $B<+BN$OI=<($5$l$^$;$s!#(B
 
 ----- Buffer: foo -----
 $B"&$+$s$I$&$"$$$@(B
 ----- Buffer: foo -----
 
-@kbd{SPC}
+@key{SPC}
 
 ----- Buffer: foo -----
 $B"'4VF;(B
@@ -3656,7 +3655,7 @@ Possible completions are:
 $B"&$+$s$I$&$+$s$"$D(B
 ----- Buffer: foo -----
 
-@kbd{SPC}
+@key{SPC}
 
 ----- Buffer: foo -----
 $B"'46F0(B
@@ -3688,7 +3687,7 @@ Possible completions are:
 $B"&$o$X$$$o(B
 ----- Buffer: foo -----
 
-@kbd{SPC}
+@key{SPC}
 
 ----- Buffer: foo -----
 $B"'OB(B
@@ -3820,8 +3819,8 @@ Possible completions are:
 @end group
 @end example
 
-$B%-!<(B @kbd{>} $B$r2!$7$?$@$1$G!"(B@kbd{SPC} $B$,2!$5$l$?$+$N$h$&$KJQ49$5$l$^$9!#(B
-$BB>$N@\F,<-$rA*$S$?$$$H$-$O!"(B@kbd{SPC} $B$r2!$7$F2<$5$$!#(B
+$B%-!<(B @kbd{>} $B$r2!$7$?$@$1$G!"(B@key{SPC} $B$,2!$5$l$?$+$N$h$&$KJQ49$5$l$^$9!#(B
+$BB>$N@\F,<-$rA*$S$?$$$H$-$O!"(B@key{SPC} $B$r2!$7$F2<$5$$!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-special-midashi-char-list
 
@@ -4085,7 +4084,7 @@ is /$B%$%s%/%j%a%s%?%k!&%5!<%A(B/
 SKK abbrve $B%b!<%I$G;H$o$l$k<-=q$O!"IaDL$N$+$J4A;zJQ49$HF1$8$G$9!#8+=P$78l(B
 $B$,%"%9%-!<J8;z$G=q$+$l$F$$$k$@$1$G!"FC<l$JE@$O$"$j$^$;$s!#(B
 
-$B>e5-$NNc$K$*$$$F(B @key{SPC} $B$NBe$o$j$K(B @key{C-q} $B$r%?%$%W$9$k$3$H$G!"F~NO(B
+$B>e5-$NNc$K$*$$$F(B @key{SPC} $B$NBe$o$j$K(B @kbd{C-q} $B$r%?%$%W$9$k$3$H$G!"F~NO(B
 $B$7$?%"%9%-!<J8;z$r$=$N$^$^A43Q%"%k%U%!%Y%C%H$KJQ49$9$k$3$H$b$G$-$^$9!#(B
 (@w{@ref{$BA41QJ8;z$NF~NO(B}})
 
@@ -5015,7 +5014,7 @@ ohhira @expansion{} $B$*$*$R$i(B
 @defvr {$B%f!<%6JQ?t(B} skk-kakutei-key
 
 $B$3$NJQ?t$NCM$O!"L@<(E*$J3NDjF0:n$r9T$&%-!<$r;XDj$7$^$9!#(B
-$BI8=`@_Dj$G$O(B @kbd{\C-j} $B$H$J$C$F$$$^$9!#(B
+$BI8=`@_Dj$G$O(B @kbd{C-j} $B$H$J$C$F$$$^$9!#(B
 
 @end defvr
 
@@ -5308,7 +5307,7 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 @noindent
 $B$H@_Dj$9$k$H(B @kbd{;} $B%-!<$G(B
 @footnote{@file{skk-hint.el} $B$rJ;MQ$9$k>l9g$O(B @code{skk-hint-start-char}
-$B$N%G%U%)%k%H$b(B @samp{;} $B$G$"$k$?$a!"$I$A$i$+$rJL$N%-!<$K3d$jEv$F$kI,MW$,(B
+$B$N%G%U%)%k%H$b(B @kbd{;} $B$G$"$k$?$a!"$I$A$i$+$rJL$N%-!<$K3d$jEv$F$kI,MW$,(B
 $B$"$j$^$9!#(B@w{@pxref{$B8uJd$N9J$j9~$_(B}}} $B4A;zJQ490LCV$,;XDj$G$-$k$h$&$K$J$j(B
 $B$^$9!#(B
 
@@ -5330,16 +5329,16 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 @item $BBG80(B
 @tab $BDL>o$N(B@tie{}sticky
 @tab skk-sticky
-@item ;
+@item @kbd{;}
 @tab $BJQ2=$J$7(B
 @tab $B"&(B
-@item a
+@item @kbd{a}
 @tab $B"&$"(B
 @tab $B"&$"(B
-@item ;
+@item @kbd{;}
 @tab $B"&$"(B
 @tab $B"&$"(B*
-@item r
+@item @kbd{r}
 @tab $B"&$"(B*r
 @tab $B"&$"(B*r
 @end multitable
@@ -5347,8 +5346,8 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 @end display
 
 @noindent
-$B$HA+0\$7$^$9!#DL>o$N(B sticky $B$HHf$Y$F(B skk-sticky $B$O(B @kbd{;} $B$r2!$7$?;~E@$G2hLLI=<($,JQ2=$9$k$N$G<c43(B
-$BJ,$+$j0W$$$H;W$$$^$9!#(B
+$B$HA+0\$7$^$9!#DL>o$N(B sticky $B$HHf$Y$F(B skk-sticky $B$O(B @kbd{;} $B$r2!$7$?;~E@$G(B
+$B2hLLI=<($,JQ2=$9$k$N$G<c43J,$+$j0W$$$H;W$$$^$9!#(B
 
 $B%-!<$N@_DjJ}K!$O!"3d$jEv$F$k%-!<$N<oN`$K$h$C$F0[$J$j$^$9!#(B
 
@@ -5356,7 +5355,7 @@ abbrev $B%b!<%I!"$^$?(B SKK $B0J30$G$b(B sticky-shift $B$r;H$$$?$$>l9g$OA0=
 @item
 $BI=<($rH<$&%-!<(B
 
-@samp{;} $B$J$I$NI=<($rH<$&%-!<$N>l9g$O(B
+@kbd{;} $B$J$I$NI=<($rH<$&%-!<$N>l9g$O(B
 
 @lisp
 (setq skk-sticky-key ";")
@@ -6379,27 +6378,27 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"3NDj$5$l$?8l$,!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!#
 $B8z2L$rDs6!$9$k%W%m%0%i%`$G$9!#(B
 
 @file{~/.skk} $B$K(B @code{(require 'skk-study)} $B$H=q$$$F(B DDSKK $B$r5/F0$7$F2<(B
-$B$5$$!#0J9_JQ49$K$D$$$F$N3X=,$r;O$a$^$9!#(B
+$B$5$$!#0J9_!"$+$J4A;zJQ49$N3X=,$r;O$a$^$9!#(B
 
 $BNc$($P!"(B@samp{$BG_1+$K$O1+$,9_$k(B} $B$HJQ49$7$?>l9g!"(B
 
-@enumerate
+@itemize @bullet
 @item
-@samp{$B1+(B} (@samp{$B$"$a(B}) $B$N4XO"8l$O(B @samp{$BG_1+(B} (@samp{$B$D$f(B})$B!"(B
+@samp{$B1+(B} (@samp{$B$"$a(B}) $B$N4XO"8l(B @expansion{} @samp{$BG_1+(B} (@samp{$B$D$f(B})$B!"(B
 
 @item
-@samp{$B9_$k(B} (@samp{$B$U(Br}) $B$N4XO"8l$O(B @samp{$B1+(B} (@samp{$B$"$a(B})$B!"(B
-@end enumerate
+@samp{$B9_$k(B} (@samp{$B$U(Br}) $B$N4XO"8l(B @expansion{} @samp{$B1+(B} (@samp{$B$"$a(B})$B!"(B
+@end itemize
 
 @noindent
-$B$H$$$&Iw$KD>A0$K3NDj$7$?8l$r4XO"8l$H$7$F!"8l$H8l$N4XO"@-$r3X=,$7$^$9!#(B
+$B$H$$$&Iw$K!VD>A0$K3NDj$7$?8l!W$r4XO"8l$H$7$F!"8l$H8l$N4XO"@-$r3X=,$7$^$9!#(B
 
 $B$3$3$GB3$1$F!"(B@samp{$B;1$r?6$k(B} $B$HJQ49$9$k$H!"8D?M<-=q$,%"%C%W%G!<%H$5$l(B
 $B$F$7$^$$!"8+=P$78l(B @samp{$B$U(Br} $B$NBh0l8uJd$O(B @samp{$B?6$k(B} $B$K$J$C$F$7$^$$(B
 $B$^$9!#(B
 
-$B$7$+$7!"99$KB3$1$F(B @kbd{Ame @key{SPC} gaHuRu} $B$H(B type $B$9$k$H!"(B
-@kbd{HuRu} (@samp{$B$U(Br}) $B$KBP$7$F(B @samp{$B1+(B} (@samp{$B$"$a(B}) $B$,4X(B
+$B$7$+$7!"99$KB3$1$F(B @kbd{A m e @key{SPC} g a H u R u} $B$H(B type $B$9$k$H!"(B
+@kbd{H u R u} (@samp{$B$U(Br}) $B$KBP$7$F(B @samp{$B1+(B} (@samp{$B$"$a(B}) $B$,4X(B
 $BO"8l$K$J$C$F$$$k$?$a!"(B@samp{$B$U(Br} $B$HBP$G5-21$5$l$F$$$k(B @samp{$B9_$k(B} $B$KJQ(B
 $B49$5$l$k$H$$$&$o$1$G$9!#(B
 
@@ -6407,26 +6406,28 @@ skk $B$N=i4|@_Dj$G$O!"JQ49!"3NDj$5$l$?8l$,!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!#
 @samp{$B?6$k(B} $B$K$J$C$?>uBV$G!"(B
 
 @display
-@kbd{Ame @key{SPC} gaTairyou @key{SPC} niHuRu}
+@kbd{A m e @key{SPC} g a T a i r y o u @key{SPC} n i H u R u}
 @end display
 
 @noindent
 $B$HJQ49$9$l$P(B @kbd{$B$U(Br} $B$O$I$&JQ49$5$l$k$G$7$g$&$+!)(B
-$B:#EY$O(B @samp{$B1+(B} @w{(@samp{$B$"$a(B})} $B$H(B @kbd{$B$U(Br} $B$N4V$K(B @samp{$BBgNL(B} @w{(@samp{$B$?$$$j$g$&(B})}
+$B!!:#EY$O(B @samp{$B1+(B} @w{(@samp{$B$"$a(B})} $B$H(B @kbd{$B$U(Br} $B$N4V$K(B @samp{$BBgNL(B} @w{(@samp{$B$?$$$j$g$&(B})}
 $B$,F~$C$F$$$^$9(B@footnote{@samp{$B$U(Br} $B$KBP$7$F(B @samp{$BBgNL(B} @w{(@samp{$B$?$$$j$g$&(B})} $B$,(B
 $B4XO"8l$H$7$FJ]B8$5$l$^$9!#L^O@(B @w{(@samp{$B$U(Br})} $B$KBP$9$k(B @samp{$B1+(B} @w{(@samp{$B$"$a(B})} $B$N3X=,$b(B
-$B$^$@@8$-$F$$$^$9!#(B}$B!#<B$O$A$c$s$H(B
+$B$^$@@8$-$F$$$^$9!#(B}$B!#(B
+
+$B<B$O$A$c$s$H(B
 
 @display
 @samp{$B1+$,BgNL$K9_$k(B}
 @end display
 
 @noindent
-$B$HJQ49$5$l$^$9!#2?8N$J$i(B @w{(@samp{$B$U(Br})} $B$N4XO"8l$rC5$9:]!"(B
+$B$HJQ49$5$l$^$9!#2?8N$J$i(B @w{@samp{$B$U(Br}} $B$N4XO"8l$rC5$9:]!"(B
 @code{skk-study-search-times} @footnote{$B%G%U%)%k%HCM$O(B 5 $B$G$9!#(B} $B$K(B
 $B;XDj$5$l$?2s?tJ,$@$1AL$C$F!"0JA0$K3NDj$7$?8l$NCf$K4XO"8l$,$J$$$+C5$9$N(B
 $B$G$9!#=>$C$F!"$3$N>l9g$@$H!"(B2 $B$DA0$N3NDj>pJs$rC5$7$?:]$K(B @samp{$B1+(B}
-@w{(@samp{$B$"$a(B})} $B8+$D$1!"$3$l$r4XO"8l$H$7$F!"(B@w{(@samp{$B$U(Br})} $B$NCM$r(B
+@w{(@samp{$B$"$a(B})} $B8+$D$1!"$3$l$r4XO"8l$H$7$F!"(B@w{@samp{$B$U(Br}} $B$NCM$r(B
 $B7h$a$h$&$H$9$k$N$G$9!#(B
 
 @file{skk-study.el} $B$K4X$9$k$=$NB>$N%*%W%7%g%s$r@bL@$7$^$9!#(B
@@ -7279,12 +7280,12 @@ Emacs $B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$
                                     
 @node $B6/@)E*$K<-=qEPO?%b!<%I$XF~$k(B
 @subsection $B6/@)E*$K<-=qEPO?%b!<%I$XF~$k(B
-$B"'%b!<%I$K$F!"%(%3!<%(%j%"$KJQ498uJd$,I=<($5$l$F$$$k$H$-$K(B @key{.} $B$r%?%$(B
+$B"'%b!<%I$K$F!"%(%3!<%(%j%"$KJQ498uJd$,I=<($5$l$F$$$k$H$-$K(B @kbd{.} $B$r%?%$(B
 $B%W$9$k$H!"6/@)E*$K<-=qEPO?%b!<%I$XF~$j$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-force-registration-mode-char
 $B6/@)E*$K<-=qEPO?%b!<%I$XF~$k$?$a$N%-!<%-%c%i%/%?$r$3$NJQ?t$GDj5A$7$^$9!#(B
-$BI8=`@_Dj$O(B @key{.} $B$G$9!#(B
+$BI8=`@_Dj$O(B @kbd{.} $B$G$9!#(B
 @end defvr
 
 @node $B8m$C$?EPO?$N:o=|(B
@@ -7948,7 +7949,7 @@ OS X $B$N!V<-=q!W%"%W%j(B (Dictionary.app) $B$r5/F0$7!"4D6-@_Dj$+$i<-=q$N8!:w
 $BI=<($5$l$k$N$KBP$7!"(B Wikipedia/Wiktionary $B%"%N%F!<%7%g%s$O4pK\E*$K%f!<%6(B
 $B$N;X<($K$h$C$F<hF@$5$l$kE@$G0[$J$j$^$9!#(B
 
-$B"'%b!<%I$G8uJd$rI=<($7$F$$$k$H$-$K(B @key{C-i} $B$r2!$9$H!"(B
+$B"'%b!<%I$G8uJd$rI=<($7$F$$$k$H$-$K(B @kbd{C-i} $B$r2!$9$H!"(B
 @code{skk-annotation-other-sources} $B$G;XDj$5$l$?=g$G2r@b$r<hF@$7$F(B
 $B%(%3!<%(%j%"$KI=<((B@footnote{$BJQ?t(B@code{skk-show-tooltip} $B$,(B @code{non-nil} $B$N(B
 $B>l9g!"%D!<%k%F%#%C%W$GI=<($7$^$9!#(B} $B$7$^$9!#(B
@@ -7962,7 +7963,7 @@ B o k u j o u
 ----- Buffer: foo -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -7985,7 +7986,7 @@ B o k u j o u
 
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-browse-key
 
-$B%G%U%)%k%H$O(B @kbd{\C-o} $B$G$9!#(B
+$B%G%U%)%k%H$O(B @kbd{C-o} $B$G$9!#(B
 
 @end defvr
 
@@ -8615,7 +8616,7 @@ SKK abbrev $B%b!<%I$K$F!"(BLisp $B%7%s%\%kL>$rJd40$7$F8!:w$7!"8!:w7k2L$r8uJd$
 ----- Buffer: foo -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -8623,7 +8624,7 @@ SKK abbrev $B%b!<%I$K$F!"(BLisp $B%7%s%\%kL>$rJd40$7$F8!:w$7!"8!:w7k2L$r8uJd$
 ----- Buffer: foo -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -8631,7 +8632,7 @@ SKK abbrev $B%b!<%I$K$F!"(BLisp $B%7%s%\%kL>$rJd40$7$F8!:w$7!"8!:w7k2L$r8uJd$
 ----- Buffer: foo -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -8639,7 +8640,7 @@ SKK abbrev $B%b!<%I$K$F!"(BLisp $B%7%s%\%kL>$rJd40$7$F8!:w$7!"8!:w7k2L$r8uJd$
 ----- Buffer: foo -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: foo -----
@@ -8647,7 +8648,7 @@ SKK abbrev $B%b!<%I$K$F!"(BLisp $B%7%s%\%kL>$rJd40$7$F8!:w$7!"8!:w7k2L$r8uJd$
 ----- Buffer: foo -----
 @end group
 
-@kbd{SPC}
+@key{SPC}
 
 @group
 ----- Buffer: *$B8uJd(B* -----
