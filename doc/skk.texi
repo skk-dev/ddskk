@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/09/01 11:08:39 $
+@set UPDATED $Date: 2012/09/03 13:13:00 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -132,6 +132,7 @@ approved by the author.
 * 基本的な使い方::
 * 便利な応用機能::
 * ローマ字入力以外の入力方式::
+* そのほかの拡張機能::
 * SKKに関する情報::
 * よくある質問とその回答(FAQ)::
 * 事項索引::
@@ -9674,6 +9675,43 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 @end table
 
 なお、親指シフト方式については @uref{http://nicola.sunicom.co.jp/, NICOLA 日本語入力コンソーシアム} が参考になります。
+
+@node そのほかの拡張機能
+@chapter そのほかの拡張機能
+
+十分にテストされていない等の理由がありますが、便利・有益と思われる拡張機
+能を紹介します。
+
+@menu
+* 交ぜ書き変換::
+* Google CGI API for Japanese Input を利用したかな漢字変換::
+@end menu
+
+@node 交ぜ書き変換
+@section 交ぜ書き変換
+
+@file{skk-mazegaki.el} をインストールすると、交ぜ書き変換が可能となります。
+
+@itemize @bullet
+@item き車 @expansion{} 汽車
+@item き者 @expansion{} 記者
+@item き社 @expansion{} 貴社
+@end itemize
+
+インストール方法などは、次の投稿を参考にしてください。
+
+@url{http://mail.ring.gr.jp/skk/201111/msg00037.html}
+
+@node Google CGI API for Japanese Input を利用したかな漢字変換
+@section Google CGI API for Japanese Input を利用したかな漢字変換
+
+@file{experimental/skk-search-web.el} をインストールすると、
+Google CGI API for Japanese Input を利用したかな漢字変換（連文節変換）が
+可能となります。
+
+Google CGI API for Japanese Input については次の URL を参照してください。
+
+@url{http://www.google.co.jp/ime/cgiapi.html}
 
 @node SKKに関する情報
 @chapter SKKに関する情報

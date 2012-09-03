@@ -5,9 +5,9 @@
 
 ;; Author: HAMANO Kiyoto <khiker.mail@gmail.com>
 ;; Maintainer: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
-;; Version: $Id: skk-search-web.el,v 1.1 2011/11/21 12:56:26 skk-cvs Exp $
+;; Version: $Id: skk-search-web.el,v 1.2 2012/09/03 13:13:02 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/11/21 12:56:26 $
+;; Last Modified: $Date: 2012/09/03 13:13:02 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -81,7 +81,8 @@
 
 (defun skk-google-cgi-api-for-japanese-input (word)
   "Google CGI API for Japanese Input を利用したかな漢字変換.
-http://www.google.com/intl/ja/ime/cgiapi.html"
+http://www.google.co.jp/ime/cgiapi.html"
+ ;; http://www.google.com/intl/ja/ime/cgiapi.html (404 not found)
   (let* ((jsonp (skk-url-retrieve
 		 (concat "http://www.google.com/transliterate"
 			 "?langpair=ja-Hira|ja"
@@ -100,8 +101,8 @@ http://www.google.com/intl/ja/ime/cgiapi.html"
 
 
 (defun skk-google-suggest (word)
-  "Google サジェストを利用したかな漢字変換.
-http://labs.google.com/intl/ja/suggestfaq.html"
+  "Google サジェストを利用したかな漢字変換."
+;; http://labs.google.com/intl/ja/suggestfaq.html (404 not found)
   (let* ((jsonp (skk-url-retrieve
 		 (concat "http://clients1.google.co.jp/complete/search"
 			 "?hl=ja"

@@ -1,3 +1,9 @@
+2012-09-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+	* experimental/skk-search-web.el: Update docstring.
+
 2012-09-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
