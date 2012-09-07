@@ -5,9 +5,9 @@
 
 ;; Author: HAMANO Kiyoto <khiker.mail@gmail.com>
 ;; Maintainer: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
-;; Version: $Id: skk-search-web.el,v 1.3 2012/09/07 02:23:33 skk-cvs Exp $
+;; Version: $Id: skk-search-web.el,v 1.4 2012/09/07 05:58:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/09/07 02:23:33 $
+;; Last Modified: $Date: 2012/09/07 05:58:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -63,12 +63,11 @@
     (unwind-protect
 	(progn
 	  (setq buf (let (
-			  ;;(url-request-extra-headers
-			  ;;	 '(("" . "")
-			  ;;	   ("" . "")))
+			  ;; (url-request-extra-headers '(("" . "")
+			  ;; 			          ("" . "")))
 			  (url-request-method "GET")
 			  (url-max-redirextions 0))
-		      (url-retrieve-synchronously url)))
+		      (url-retrieve-synchronously url))) ; return BUFFER contain data
 	  (when (setq p (url-http-symbol-value-in-buffer
 			 'url-http-end-of-headers buf))
 	    (with-current-buffer buf
@@ -125,17 +124,37 @@ http://www.google.co.jp/ime/cgiapi.html"
 
 ;; いつのまにか json レスポンスが廃止されたようです。
 ;; xml レスポンスを使うように変更した。 2012.9
-  (let (list)
-    (with-temp-buffer
-      (insert (skk-url-retrieve
-	       (concat "http://clients1.google.co.jp/complete/search"
-		       "?hl=ja"
-		       "&cp=2"
-		       "&output=toolbar" ; xml
-		       "&q=" (url-hexify-string
-			      (encode-coding-string word 'utf-8)))
-	       'sjis))
-      (goto-char (point-min))
+
+  ;; Emacs22 で (require 'xml) が上手くいかないのでボツ
+  ;; (let* ((root (with-temp-buffer
+  ;; 		 (insert (skk-url-retrieve
+  ;; 			  (concat "http://clients1.google.co.jp/complete/search"
+  ;; 				  "?hl=ja"
+  ;; 				  "&cp=2"
+  ;; 				  "&output=toolbar" ; xml
+  ;; 				  "&q=" (url-hexify-string
+  ;; 					 (encode-coding-string word 'utf-8)))
+  ;; 			  'sjis))
+  ;; 		 (xml-parse-region)))
+  ;; 	 (sugges (xml-node-children (car root)))
+  ;; 	 list)
+  ;;   (dolist (s sugges)
+  ;;     (setq list (cons
+  ;; 		  (xml-get-attribute (car (xml-node-children s))
+  ;; 				     'data)
+  ;; 		  list)))
+  ;;   (nreverse list)))
+
+  (with-temp-buffer
+    (insert (skk-url-retrieve (concat "http://clients1.google.co.jp/complete/search"
+				      "?hl=ja"
+				      "&cp=2"
+				      "&output=toolbar" ; xml
+				      "&q=" (url-hexify-string
+					     (encode-coding-string word 'utf-8)))
+			      'sjis))
+    (goto-char (point-min))
+    (let (list)
       (while (re-search-forward "suggestion data=\"\\([^>]*\\)\"" nil t)
 	(setq list (cons (buffer-substring (match-beginning 1)
 					   (match-end 1))
