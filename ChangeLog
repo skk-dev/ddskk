@@ -1,3 +1,8 @@
+2012-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/skk-search-web.el (skk-google-suggest): json レスポンスが廃止
+	されているようであるため、xml レスポンスを使用するように変更.
+
 2012-09-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

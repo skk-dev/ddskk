@@ -5,9 +5,9 @@
 
 ;; Author: HAMANO Kiyoto <khiker.mail@gmail.com>
 ;; Maintainer: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
-;; Version: $Id: skk-search-web.el,v 1.2 2012/09/03 13:13:02 skk-cvs Exp $
+;; Version: $Id: skk-search-web.el,v 1.3 2012/09/07 02:23:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/09/03 13:13:02 $
+;; Last Modified: $Date: 2012/09/07 02:23:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -103,26 +103,44 @@ http://www.google.co.jp/ime/cgiapi.html"
 (defun skk-google-suggest (word)
   "Google サジェストを利用したかな漢字変換."
 ;; http://labs.google.com/intl/ja/suggestfaq.html (404 not found)
-  (let* ((jsonp (skk-url-retrieve
-		 (concat "http://clients1.google.co.jp/complete/search"
-			 "?hl=ja"
-			 "&cp=2"
-			 "&q=" (url-hexify-string
-				(encode-coding-string word 'utf-8)))
-		 'sjis))
-	 (json (json-read-from-string (substring jsonp
-						 19
-						 (1- (length jsonp)))))
-	 ;; ["みだしご" [["候補a" "" "0r"]
-	 ;;              ["候補b" "" "1r"]
-	 ;;              ["候補c" "" "2r"]] ((k . 1))]
-	 (ary (aref json 1))
-	 list)
-    (dotimes (i (length ary))
-      (setq list (cons (aref (aref ary i) 0)
-		       list)))
-    (nreverse list)))
+  ;; (let* ((jsonp (skk-url-retrieve
+  ;; 		 (concat "http://clients1.google.co.jp/complete/search"
+  ;; 			 "?hl=ja"
+  ;; 			 "&cp=2"
+  ;; 			 "&q=" (url-hexify-string
+  ;; 				(encode-coding-string word 'utf-8)))
+  ;; 		 'sjis))
+  ;; 	 (json (json-read-from-string (substring jsonp
+  ;; 						 19
+  ;; 						 (1- (length jsonp)))))
+  ;; 	 ;; ["みだしご" [["候補a" "" "0r"]
+  ;; 	 ;;              ["候補b" "" "1r"]
+  ;; 	 ;;              ["候補c" "" "2r"]] ((k . 1))]
+  ;; 	 (ary (aref json 1))
+  ;; 	 list)
+  ;;   (dotimes (i (length ary))
+  ;;     (setq list (cons (aref (aref ary i) 0)
+  ;; 		       list)))
+  ;;   (nreverse list)))
 
+;; いつのまにか json レスポンスが廃止されたようです。
+;; xml レスポンスを使うように変更した。 2012.9
+  (let (list)
+    (with-temp-buffer
+      (insert (skk-url-retrieve
+	       (concat "http://clients1.google.co.jp/complete/search"
+		       "?hl=ja"
+		       "&cp=2"
+		       "&output=toolbar" ; xml
+		       "&q=" (url-hexify-string
+			      (encode-coding-string word 'utf-8)))
+	       'sjis))
+      (goto-char (point-min))
+      (while (re-search-forward "suggestion data=\"\\([^>]*\\)\"" nil t)
+	(setq list (cons (buffer-substring (match-beginning 1)
+					   (match-end 1))
+			 list)))
+      (nreverse list))))
 
 (defun skk-wikipedia-suggest (word)
   (let* ((jsonp (skk-url-retrieve
