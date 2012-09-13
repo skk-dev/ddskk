@@ -1,3 +1,8 @@
+2012-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-kanagaki-menu.el, skk-kanagaki-util.el, skk-nicola.el: Find
+	feature `emacs' for GNU emacs.
+
 2011-06-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* NICOLA-DDSKK-MK (nicola-ddskk-generate-autoloads): Indent fixes.

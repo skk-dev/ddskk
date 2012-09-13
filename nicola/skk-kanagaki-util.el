@@ -62,7 +62,7 @@
   "濁点と半濁点を入力するためのルール。")
 
 (defconst skk-kanagaki-print-help-function
-  (cond ((and skk-running-gnu-emacs
+  (cond ((and (featurep 'emacs)
 	      (>= emacs-major-version 23))
 	 #'help-print-return-message)
 	(t

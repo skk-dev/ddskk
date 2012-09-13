@@ -49,7 +49,7 @@
 (eval-and-compile
   (require 'skk-kanagaki))
 
-(when (eval-when-compile skk-running-gnu-emacs)
+(when (eval-when-compile (featurep 'emacs))
   (require 'skk-emacs))
 
 (eval-and-compile

@@ -82,7 +82,7 @@ Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
      map
      '("menu-bar" "SKK")
      skk-kanagaki-menu-items))
-  (when (eval-when-compile skk-running-gnu-emacs)
+  (when (eval-when-compile (featurep 'emacs))
     (setq skk-emacs-menu-resource-ja
 	  (append
 	   skk-emacs-menu-resource-ja
