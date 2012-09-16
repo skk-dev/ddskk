@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.439 2012/08/26 05:37:39 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.440 2012/09/16 17:06:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/08/26 05:37:39 $
+;; Last Modified: $Date: 2012/09/16 17:06:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2829,7 +2829,8 @@ Max OS X 以外の環境では機能しない。
 		(const :tag "利用しない" nil))
   :group 'skk-annotation)
 
-(defcustom skk-annotation-python-program (executable-find "python")
+(defcustom skk-annotation-python-program (or (executable-find "python2.6")
+					     (executable-find "python"))
   "*DictionaryServices のために起動する python のファイル名。"
   :type '(radio (file)
 		(const nil))

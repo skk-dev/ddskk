@@ -1,3 +1,9 @@
+2012-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-vars.el (skk-annotation-python-program): Temporary
+	workaround for some versions of Cocoa Emacs (24.2).  Prefer
+	python2.6.
+
 2012-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* experimental/skk-search-web.el (skk-google-suggest): json レスポンスが廃止
