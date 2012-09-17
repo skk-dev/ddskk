@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.440 2012/09/16 17:06:53 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.441 2012/09/17 02:36:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/09/16 17:06:53 $
+;; Last Modified: $Date: 2012/09/17 02:36:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2806,7 +2806,8 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 
 (defcustom skk-annotation-show-as-message t
   "*Non-nil $B$G$"$l$P!"%"%N%F!<%7%g%s$r%(%3!<%(%j%"$KI=<($9$k!#(B
-nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B"
+nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B
+$B$3$NJQ?t$h$j$b(B `skk-show-tooltip' $B$N@_Dj$,M%@h$5$l$k!#(B"
   :type 'boolean
   :group 'skk-annotation)
 
@@ -3375,7 +3376,7 @@ C-0 TAB $B$G;H$o$l$k!#(B"
 (skk-deflocalvar skk-current-completion-prog-list nil
   "`skk-completion-prog-list' $B$N8=:_$NCM$rJ]B8$9$k%j%9%H!#(B
 $B:G=i$NJd40;~$O(B `skk-completion-prog-list' $B$NA4$F$NCM$rJ];}$7!"(B
-car $B$K$"$kJd40%W%m%0%i%`$,(B nil $B$rJV$9$4$H$K(B 1$B$D$E$DC;$/$J$C$F$f$/!#(B")
+car $B$K$"$kJd40%W%m%0%i%`$,(B nil $B$rJV$9$4$H$K(B 1$B$D$:$DC;$/$J$C$F$f$/!#(B")
 
 (skk-deflocalvar skk-comp-first nil
   "$BJd40%W%m%0%i%`$K?7$7$$8uJd72$r@8@.$9$k$h$&DLCN$9$k!#(B")

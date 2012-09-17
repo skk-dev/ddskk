@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.50
-@set UPDATED $Date: 2012/09/03 13:13:00 $
+@set UPDATED $Date: 2012/09/17 02:36:19 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7700,6 +7700,9 @@ DDSKK では、このような事態を避けるため、辞書バッファにおける変数
 @code{nil} であれば、other-window を一時的に開いてアノテーションを表示します。
 other-window は、その候補を確定するか、その候補の選択を止める (次の
 候補の表示又は quit) と自動的に閉じます。
+
+この変数の値にかかわらず、変数@code{skk-show-tooltip} が @code{non-nil} の
+場合はアノテーションをツールティップで表示します。
 
 @end defvr
 

@@ -62,7 +62,7 @@
 ;; 注釈 (annotation) の表示の仕方
 ;;   Non-nil => エコーエリアに表示する (デフォルト)
 ;;   nil => 別な window に表示する
-;; (setq skk-annotation-show-as-message nil)
+;; (setq skk-annotation-show-as-message nil) ;`skk-show-tooltip' が優先される
 
 ;; 変換前/変換中にエコーエリアに冗長なメッセージを表示
 (setq skk-verbose t)
