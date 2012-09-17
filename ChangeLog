@@ -1,5 +1,8 @@
 2012-09-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* bayesian/skk-bayesian.el (skk-bayesian-restart-process):
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
+
 	* skk-vars.el (skk-annotation-show-as-message): Update docstring.
 	* doc/skk.texi: Update.
 

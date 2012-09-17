@@ -3,9 +3,9 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.5 2011/08/10 12:07:18 skk-cvs Exp $
+;; Version: $Id: skk-bayesian.el,v 1.6 2012/09/17 09:18:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method, bayesian estimation
-;; Last Modified: $Date: 2011/08/10 12:07:18 $
+;; Last Modified: $Date: 2012/09/17 09:18:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -446,7 +446,7 @@
   (set-process-coding-system skk-bayesian-process
                              skk-bayesian-coding-system
                              skk-bayesian-coding-system)
-  (if (eval-when-compile (and skk-running-gnu-emacs
+  (if (eval-when-compile (and (featurep 'emacs)
 				(>= emacs-major-version 22)))
       (set-process-query-on-exit-flag skk-bayesian-process nil)
     (process-kill-without-query skk-bayesian-process)))
