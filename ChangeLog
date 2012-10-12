@@ -1,3 +1,8 @@
+2012-10-13  Yuhei Maeda <yuhei.maeda@gmail.com>
+
+	* skk.el (skk-make-indicator-alist-1): 削除された face 'modeline に代えて
+	'mode-line を使用。
+
 2012-09-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* bayesian/skk-bayesian.el (skk-bayesian-restart-process):

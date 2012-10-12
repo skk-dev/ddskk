@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.616 2012/09/17 02:36:19 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.617 2012/10/12 23:16:29 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/09/17 02:36:19 $
+;; Last Modified: $Date: 2012/10/12 23:16:29 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -583,7 +583,7 @@ dependent."
   (let ((string
 	 (concat "--" base
 		 (cond
-		  ((skk-face-proportional-p 'modeline)
+		  ((skk-face-proportional-p 'mode-line)
 		   ":")
 		  ((memq mode '(latin abbrev))
 		   "::")
