@@ -1,5 +1,9 @@
 2012-10-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK verison to 14.4.51.
+
+2012-10-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-show-mode.el (skk-show-mode-inline): Byte compile 時の warning 対策の
 	ため declare-function() を追加.
 	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Ditto.
