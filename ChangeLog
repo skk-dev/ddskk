@@ -1,3 +1,11 @@
+2012-10-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-show-mode.el (skk-show-mode-inline): Byte compile 時の warning 対策の
+	ため declare-function() を追加.
+	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Ditto.
+	* skk-annotation.el (skkannot-py-send-string)
+	(skkannot-py-send-command): Ditto.
+
 2012-10-13  Yuhei Maeda <yuhei.maeda@gmail.com>
 
 	* skk.el (skk-make-indicator-alist-1): 削除された face 'modeline に代えて

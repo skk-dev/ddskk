@@ -4,9 +4,9 @@
 
 ;; Author: 2011 Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-show-mode.el,v 1.4 2011/12/18 02:27:07 skk-cvs Exp $
+;; Version: $Id: skk-show-mode.el,v 1.5 2012/10/15 11:31:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/18 02:27:07 $
+;; Last Modified: $Date: 2012/10/15 11:31:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -52,6 +52,7 @@ tooltip / inline 表示する."
 	(funcall func))))
   (setq skk-show-mode-invoked t))
 
+(declare-function skk-dcomp-multiple-show "skk-dcomp")
 (defun skk-show-mode-inline ()
   (let ((string (cond (skk-abbrev-mode         skk-abbrev-mode-string)
 		      (skk-jisx0208-latin-mode skk-jisx0208-latin-mode-string)

@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.233 2012/08/04 07:49:21 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.234 2012/10/15 11:31:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2012/08/04 07:49:21 $
+;; Last Modified: $Date: 2012/10/15 11:31:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -959,6 +959,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
   "dict の内容を格納するバッファのフォーマット。"
   (format "  *skk dict %s" word))
 
+(declare-function comint-send-string "comint")
 (defun skkannot-py-send-string (string)
   "Evaluate STRING in inferior Python process."
   (require 'comint)
@@ -972,6 +973,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
       ;; as to make sure we terminate the multiline instruction.
       (comint-send-string proc "\n"))))
 
+(declare-function compilation-forget-errors "compile")
 (defun skkannot-py-send-command (command)
   "Like `skkannot-py-send-string' but resets `compilation-shell-minor-mode'."
   (when (or (eval-when-compile (and (featurep 'emacs)
