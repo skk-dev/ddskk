@@ -6,9 +6,9 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.41 2012/08/15 02:01:59 skk-cvs Exp $
+;; Version: $Id: ccc.el,v 1.42 2012/10/21 09:41:07 skk-cvs Exp $
 ;; Keywords: cursor
-;; Last Modified: $Date: 2012/08/15 02:01:59 $
+;; Last Modified: $Date: 2012/10/21 09:41:07 $
 
 ;; This file is not part of GNU Emacs.
 
@@ -249,6 +249,14 @@
     (set-background-color (frame-background-color))
     (setq buffer-local-background-color nil)))
 
+(defun ccc-setup-current-colors ()
+  (setq default-cursor-color (current-cursor-color)
+	default-foreground-color (current-foreground-color)
+	default-background-color (current-background-color))
+  (set-frame-cursor-color (selected-frame) (current-cursor-color))
+  (set-frame-foreground-color (selected-frame) (current-foreground-color))
+  (set-frame-background-color (selected-frame) (current-background-color)))
+
 ;; Advices.
 (defadvice modify-frame-parameters (after ccc-ad activate)
   (when (and (assq 'cursor-color (ad-get-arg 1))
@@ -272,6 +280,12 @@
   (set-frame-cursor-color (selected-frame) (current-cursor-color))
   (set-frame-foreground-color (selected-frame) (current-foreground-color))
   (set-frame-background-color (selected-frame) (current-background-color)))
+
+(defadvice enable-theme (after ccc-ad activate)
+  (ccc-setup-current-colors))
+
+(defadvice disable-theme (after ccc-ad activate)
+  (ccc-setup-current-colors))
 
 ;; Hooks
 (add-hook 'post-command-hook 'update-buffer-local-frame-params)

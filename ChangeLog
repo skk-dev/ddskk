@@ -1,3 +1,8 @@
+2012-10-21  Tatsuya Kinoshita <tats@vega.ocn.ne.jp>
+
+	* ccc.el (ccc-setup-current-colors, enable-theme, disable-theme):
+	M-x load-theme 対応.
+
 2012-10-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK verison to 14.4.51.
