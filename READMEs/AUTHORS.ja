@@ -532,6 +532,14 @@ skk-vars.el, skk-viper.el, skk.el
 *** skk-search-web.el (Google など利用した変換)
 
 
+* Tatsuya Kinoshita
+
+*** 以下のプログラムへの改変
+
+**** ccc.el, experimental/skk-exserv.el, experimental/skk-w3m.el,
+skk-vars.el, doc/skk.texi, SKK-CFG, SKK-MK, skk-jisyo-edit-mode.el,
+skk-server.el, skk.el, skk-study.el
+
 
 Local variables:
 mode: outline

@@ -31,6 +31,8 @@ jisx0213, jisx0208, ascii 以外の文字集合であれば「判別できない文字です」と
 
 ** その他バグ修正など
 
+*** ccc.el のバグ修正 (M-x load-theme 対応) [skk 7683]
+
 *** context-skk.el のバグ修正 [skk 7655] 
 
 *** undo の挙動を修正 [skk 7661]
