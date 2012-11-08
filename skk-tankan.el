@@ -5,9 +5,9 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.56 2012/01/20 14:04:13 skk-cvs Exp $
+;; Version: $Id: skk-tankan.el,v 1.57 2012/11/08 11:32:01 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2012/01/20 14:04:13 $
+;; Last Modified: $Date: 2012/11/08 11:32:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1926,6 +1926,10 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
 	(goto-char (point-min))
 	(skk-tankan-mode)
 	(skk-tankan-overlay)))))
+
+(defun skk-tankan-mode-usage ()
+  (interactive)
+  (message "p/k:prev  n/j:next  w:copy(kill-new)  q:quit"))
 
 (defun skk-tankan-overlay ()
   (or skk-tankan-overlay
