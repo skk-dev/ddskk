@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.197 2012/01/15 06:58:42 skk-cvs Exp $
-;; Last Modified: $Date: 2012/01/15 06:58:42 $
+;; Version: $Id: SKK-MK,v 1.198 2012/11/12 12:14:25 skk-cvs Exp $
+;; Last Modified: $Date: 2012/11/12 12:14:25 $
 
 ;;; Commentary:
 
@@ -95,7 +95,7 @@ This version of SKK requires MULE features"))
 	 (expand-file-name ".." exec-directory))
 	((eq system-type 'darwin)
 	 ;; Mac OS X (Carbon emacs, Cocoa Emacs または OS 付属の Emacs)
-	 ;; Mac で Emacs を build する場合は自己完結型かどうかを選べる。
+	 ;; で DDSKK を build する場合は自己完結型かどうかを選べる。
 	 ;; ユーザが自己完結型を使っているかどうか調べる。
 	 (let ((dir (expand-file-name ".." data-directory)))
 	   (if (string-match "/.+\\.app/Contents/Resources/?$" dir)
@@ -118,9 +118,9 @@ This version of SKK requires MULE features"))
 
 (setq load-path (cons (expand-file-name ".") load-path))
 
-;; 変数 install-prefix は install.el で定義されている。
-;; UNIX 的環境ではこれは "/usr/local" のような値となる。
-;; 非 UNIX 的環境のために上記で install-prefix を再設定している。
+;; 変数 install-prefix は install.el で定義されており、
+;; その値は UNIX 的環境では "/usr/local" のような値となる。
+;; 非 UNIX 的環境のために上記の setq で install-prefix を再設定している。
 ;; 非 UNIX 的環境では通常自己完結型 (self-contained) のファイル配置を
 ;; とる。この場合、特定のディレクトリ下に etc, info, lisp, site-lisp
 ;; などのディレクトリが全て含まれている。
