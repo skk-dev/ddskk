@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-kcode.el,v 1.105 2012/01/19 13:32:47 skk-cvs Exp $
+;; Version: $Id: skk-kcode.el,v 1.106 2012/11/24 00:37:40 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/19 13:32:47 $
+;; Last Modified: $Date: 2012/11/24 00:37:40 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -439,10 +439,10 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
   (if (eobp)
       (skk-message "カーソルがバッファの終端にあります"
 		   "Cursor is at the end of the buffer")
-    (skk-display-code (following-char)))
+    (skk-display-code (following-char) (point)))
   t) ; エコーした文字列をカレントバッファに挿入しないように。
 
-(defun skk-display-code (char)
+(defun skk-display-code (char p)
   (let ((charset (skk-char-charset char skk-charset-list))
 	mesg)
     (cond
@@ -488,8 +488,9 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 				     (format "U+%04x" (encode-char char 'ucs))))
 
 			    (t
-			     ""))))
-	;;
+			     "")))
+	     (composition (find-composition p nil nil t)))
+
 	(setq mesg
 	      (concat (propertize (char-to-string char)
 				  'face 'skk-display-code-char-face)
@@ -509,6 +510,10 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 		      (format "#x%2x%2x" char1-s char2-s)
 
 		      unicode
+		      (if composition
+			  (format " (Composed with U+%x)"
+				  (string-to-char
+				   (buffer-substring (1+ p) (nth 1 composition)))))
 		      (unless (zerop (nth 2 char-data))
 			(concat ", "
 				(propertize
@@ -524,7 +529,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 				   anno
 				   'face
 				   'skk-display-code-tankan-annotation-face)))
-			   ))))
+		      ))))
      ;;
      ((memq charset '(ascii latin-jisx0201))
       (setq mesg
@@ -670,7 +675,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
     (if (eq 'ascii (car (split-char c)))
 	;; 区切り行などで $ された場合
 	(next-completion 1)
-      (skk-display-code c))))
+      (skk-display-code c (point)))))
 
 (defun skk-list-chars-copy ()
   (interactive)

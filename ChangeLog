@@ -1,5 +1,7 @@
 2012-11-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kcode.el (skk-display-code): composition 表示を追加.
+
 	* doc/skk.texi: Update.
 
 2012-11-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
