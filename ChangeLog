@@ -1,3 +1,7 @@
+2012-11-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-display-code): UNICODE 表示の暫定対応.
+
 2012-11-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-kcode.el (skk-display-code): composition 表示を追加.
