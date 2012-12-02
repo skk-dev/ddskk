@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.74 2012/08/11 10:48:38 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.75 2012/12/02 05:28:20 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/08/11 10:48:38 $
+;; Last Modified: $Date: 2012/12/02 05:28:20 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -554,21 +554,22 @@ If the current mode is different from previous, remove it first."
 		  (setq skk-isearch-incomplete-message
 			(skk-isearch-buffer-string))
 		  (skk-isearch-incomplete-message))))))
-    ;;
+
+    ;; isearch-cmds ... Stack of search status sets.
+    ;;   '(["test" "test" 198 198 t 194 nil nil nil 192 t nil]
+    ;;     ["tes" "tes" 197 197 t 194 nil nil nil 192 t nil]
+    ;;     ["te" "te" 196 196 t 194 nil nil nil 192 t nil]
+    ;;     ["t" "t" 195 195 t 194 nil nil nil 192 t nil]
+    ;;     ["" "" 192 t t nil nil nil nil 192 t nil])
     (let* ((cmd (nth 1 isearch-cmds))
-	   (oldmsg (if (vectorp cmd)
-		       ;; Emacs 21.3.50 開発版で `isearch-cmds' の各要
-		       ;; 素の形式が list から vector に変更になってし
-		       ;; まったので workaround をおく。以下同様。
-		       (aref cmd 1)
-		     (cadr cmd)))
+	   (oldmsg (aref cmd 1))
 	   (prompt (skk-isearch-mode-string))
 	   newmsg)
       (unless (or (null cmd)
 		  (string-match (concat "^" (regexp-quote prompt))
 				oldmsg))
-	;; `skk-isearch-delete-char'が呼ばれる前に `skk-isearch-working-buffer'
-	;; 内のモードが切り替えられていた場合、 isearch-cmds  の第 2 要素につい
+	;; `skk-isearch-delete-char' が呼ばれる前に `skk-isearch-working-buffer'
+	;; 内のモードが切り替えられていた場合、 isearch-cmds の第 2 要素につい
 	;; て、 messege の内容を update しないと [DEL] したときのモードの表示が
 	;; おかしくなる。
 	(do ((alist skk-isearch-mode-string-alist (cdr alist))
@@ -578,9 +579,7 @@ If the current mode is different from previous, remove it first."
 			(substring oldmsg (match-end 0)))))
 	    ((or msg (null alist))
 	     (setq newmsg (concat prompt (or msg oldmsg)))
-	     (if (vectorp cmd)
-		 (aset cmd 1 newmsg)
-	       (setcdr cmd (cons newmsg (cddr cmd))))))))
+	     (aset cmd 1 newmsg)))))
     (isearch-delete-char)))
 
 (defun skk-isearch-kakutei (isearch-function)
