@@ -1,5 +1,8 @@
 2012-12-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-show-inline, skk-dcomp-multiple-activate):
+	Update Docstring.
+
 	* skk-isearch.el (skk-isearch-delete-char): GNU Emacs 21 向けのコードを削除.
 
 2012-11-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
