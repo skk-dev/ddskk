@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.75 2012/12/02 05:28:20 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.76 2012/12/03 10:36:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/12/02 05:28:20 $
+;; Last Modified: $Date: 2012/12/03 10:36:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -561,8 +561,16 @@ If the current mode is different from previous, remove it first."
     ;;     ["te" "te" 196 196 t 194 nil nil nil 192 t nil]
     ;;     ["t" "t" 195 195 t 194 nil nil nil 192 t nil]
     ;;     ["" "" 192 t t nil nil nil nil 192 t nil])
+    ;;   or
+    ;;   '([cl-struct-isearch--state "test" "[aa] test" 196 196 t ..]
+    ;;     [cl-struct-isearch--state "tes" "[aa] tes" 195 195 t ..]
+    ;;     [cl-struct-isearch--state "te" "[aa] te" 102 102 t ..]
+    ;;     [cl-struct-isearch--state "t" "[aa] t" 92 92 t ..]
+    ;;     [cl-struct-isearch--state "" "[か] " 78 t t ..]
     (let* ((cmd (nth 1 isearch-cmds))
-	   (oldmsg (aref cmd 1))
+	   (oldmsg (if (stringp (aref cmd 0))
+		       (aref cmd 1)	;GNU Emacs 24.2 まで
+		     (aref cmd 2)))	;GNU Emacs 24.3 から
 	   (prompt (skk-isearch-mode-string))
 	   newmsg)
       (unless (or (null cmd)
@@ -579,7 +587,10 @@ If the current mode is different from previous, remove it first."
 			(substring oldmsg (match-end 0)))))
 	    ((or msg (null alist))
 	     (setq newmsg (concat prompt (or msg oldmsg)))
-	     (aset cmd 1 newmsg)))))
+	     (if (stringp (aref cmd 0))
+		 (aset cmd 1 newmsg)	;GNU Emacs 24.2 まで
+	       (aset cmd 2 newmsg))	;GNU Emacs 24.3 から
+	     ))))
     (isearch-delete-char)))
 
 (defun skk-isearch-kakutei (isearch-function)
