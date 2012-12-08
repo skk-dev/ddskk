@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.50 2012/01/16 12:02:04 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.51 2012/12/08 23:26:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/01/16 12:02:04 $
+;; Last Modified: $Date: 2012/12/08 23:26:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -63,7 +63,7 @@
 の返り値、FORMAT と AND-TIME を引数にして `funcall' する。
 PP-FUNCTION の指定がない場合は `skk-default-current-date-function' を
 `funcall' する。
-FORMAT は `format' の第一引数の様式 \(string\)による出力指定テンプレート。
+FORMAT は `format' の第一引数の様式 \(string\) による出力指定テンプレート。
 AND-TIME \(boolean\) を指定すると時刻も返す。
 `skk-today' と `skk-clock' のサブルーチン。"
   (unless pp-function
@@ -183,12 +183,13 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 
 ;;;###autoload
 (defun skk-clock (&optional kakutei-when-quit time-signal)
-  "デジタル時計をミニバッファに表示する。
-quit するとその時点の日時を候補として挿入する。
+  "ミニバッファにデジタル時計を表示する。
+quit すると、その時点の日時を候補として挿入する。
 quit したときに起動してからの経過時間をミニバッファに表示する。
 interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを SKK の辞書
 に加え、\"/clock\"+ SPC で変換することによっても起動可。\\[keyboard-quit] で止まる。
 実行変換で起動した場合は、\\[keyboard-quit] した時点の時点の日時を挿入する。
+
 オプショナル引数の KAKUTEI-WHEN-QUIT が non-nil であれば \\[keyboard-quit] したときに確定する。
 オプショナル引数の TIME-SIGNAL が non-nil であれば、NTT の時報風に ding する。
 それぞれ \"clock /(skk-clock nil t)/\" のようなエントリを辞書に挿入すれば良い。

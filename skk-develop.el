@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.30 2011/06/03 22:44:55 skk-cvs Exp $
+;; Version: $Id: skk-develop.el,v 1.31 2012/12/08 23:26:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 22:44:55 $
+;; Last Modified: $Date: 2012/12/08 23:26:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -96,7 +96,8 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
 	 (setq base (append base '(skk-servers-list))))
        (when (boundp 'skk-exserv-list)
 	 (setq base (append base '(skk-exserv-list))))
-       base))))
+       base)))
+  (message ""))
 
 ;;;###autoload
 (add-hook
