@@ -4,7 +4,7 @@
 
 GNU Emacs 21 $B$r$*;H$$$NJ}$O(B DDSKK 14.4 $B$rMxMQ$7$F$/$@$5$$!#(B
 
-** Emacs 24 $BBP1~$r?J$a$^$7$?(B
+** GNU Emacs 24 $BBP1~$r?J$a$^$7$?(B
 
 *** M-x customize-theme $B$KBP1~$9$k$h$&(B ccc.el $B$r=$@5$7$^$7$?!#(B
 
@@ -17,6 +17,8 @@ deactivate-current-input-method-function $B$XJQ99$5$l$?$3$H$KH<$&(B wrap $B%^
 
 inactivate-input-method $B$,(B
 deactivate-input-method $B$XJQ99$5$l$?$3$H$KH<$&(B wrap $B%^%/%m(B
+
+*** isearch-cmds $B$N;EMMJQ99$KBP1~(B
 
 ** multi-tty $BBP1~$r?J$a$^$7$?(B
 
