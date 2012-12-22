@@ -1,3 +1,7 @@
+2012-12-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
 2012-12-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-gadget.el (skk-current-date, skk-clock): docstring を微修正.

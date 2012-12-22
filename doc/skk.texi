@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.52
-@set UPDATED $Date: 2012/12/03 10:36:39 $
+@set UPDATED $Date: 2012/12/22 08:56:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9478,9 +9478,9 @@ VIPER $B$K$D$$$F$O(B @ref{Top, , VIPER, viper, VIPER Manual}. $B$r;2>H$7$F$/$
 
 $B$^$?!"(BVIPER $B$NA0?H$G$"$k(B VIP $B$K$bBP1~$7$^$9!#$?$@$7!"@5<0$KBP1~$7$F$$$k(B
 $B%P!<%8%g%s$O(B 3.5 $B$N$_$G$9!#$3$l$O(B Mule 2.3 $B$KI8=`E:IU$7$^$9(B
-@footnote{$B$A$J$_$K!"(BVIP 3.5 $B$N:n<T$O!"(BSKK $B$N86:n<T$G$b$"$k:4F#2mI'65<x$G(B
-$B$9!#(BVIP 3.5 $B$NH/E8HG$G$"$k(B VIPER $B$O8=:_$b%a%s%F%J%s%9$5$l$F$$$^$9!#(BEmacs
-19, 20 $B$K$O!"(BVIP $B!"(BVIPER $B$H$bI8=`E:IU$7$^$9!#(B}$B!#(B
+@footnote{$B$A$J$_$K!"(BVIP 3.5 $B$N:n<T$O!"(BSKK $B$N86:n<T$G$b$"$k:4F#2mI';a!J5~(B
+$BETBg3XL>M@65<x!K$G$9!#(BVIP 3.5 $B$NH/E8HG$G$"$k(B VIPER $B$O8=:_$b%a%s%F%J%s%9$5(B
+$B$l$F$$$^$9!#(BEmacs19, 20 $B$K$O!"(BVIP $B!"(BVIPER $B$H$bI8=`E:IU$7$^$9!#(B}$B!#(B
 
 @node picture-mode$B$H$NJ;MQ(B
 @section picture-mode$B$H$NJ;MQ(B
@@ -9849,9 +9849,9 @@ SKK $B<-=q$K4X$9$k%D!<%k$K$O!"(BPerl, C, Ruby $B$N3F8@8l$K$h$j=q$+$l$?%D!<%k$
 @node SKK$B$N:n<T(B
 @section SKK$B$N:n<T(B
 
-SKK $B$N86:n<T$O!"8=5~ETBg3X$N(B
+SKK $B$N86:n<T$O!"8=5~ETBg3XL>M@65<x$N(B
 @uref{http://www.sato.kuis.kyoto-u.ac.jp/~masahiko/masahiko-j.html,
-$B:4F#2mI'65<x(B}$B$G$9!#(B
+$B:4F#2mI';a(B}$B$G$9!#(B
 
 $B8=:_$N(B DDSKK $B$O!"Bg@*$N%\%i%s%F%#%"$N9W8%$K$h$j@.N)$7$F$$$^$9!#0J2<$O3N(B
 $BG'$5$l$F$$$k9W8%<TL>$G$9!#$3$3$KF~$C$F$$$J$$9W8%<T$,$*$i$l$k>l9g!"(Bemail
