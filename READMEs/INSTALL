@@ -20,7 +20,7 @@ Describes how to install SKK for Emacs on Microsoft Windows.
 
 ** APEL
 
-In DDSKK 14.4, installation of APEL (A Portable Emacs Library) is no
+In DDSKK 14.5, installation of APEL (A Portable Emacs Library) is no
 longer required under GNU Emacs 22 or later.  For Emacs 21 and XEmacs,
 make sure you have APEL 10.7 or later installed.  It is highly
 recommended that you install the latest release.  APEL is available
@@ -124,16 +124,6 @@ or
     % make install-package XEMACS=/usr/bin/xemacs-21.5-b29
 
 * Post-installation
-
-;; ** Obsolete check
-;; 
-;; Many variables and functions have been renamed since the previous
-;; major release.  You are strongly recommended to check old user
-;; settings. This will be done with loading skk-obsolete.el and executing
-;; 
-;;     M-x skk-obsolete-check-all-files.
-
-** File skk-obsolete.el has been deleted 2010-11-04 (DDSKK-14.2).
 
 ** Easy setup
 
