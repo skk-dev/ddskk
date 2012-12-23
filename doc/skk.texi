@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.52
-@set UPDATED $Date: 2012/12/22 08:56:12 $
+@set UPDATED $Date: 2012/12/23 10:33:11 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -426,7 +426,7 @@ Apple Mac OS X 環境の方は次の資料を参照してください。
 % make what-where
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
-@print{}  -> /usr/local/share/emacs/23.3/site-lisp/skk
+@print{}  -> /usr/local/share/emacs/24.2/site-lisp/skk
 
 @print{}SKK infos:
 @print{}  skk.info
@@ -483,7 +483,7 @@ XEmacs でパッケージとしてインストールする場合は、
 @group
 % make what-where-package EMACS=/usr/bin/xemacs
 @print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where-package
-@print{}  Loading /home/user/temp/ddskk-14.1.50/SKK-CFG...
+@print{}  Loading /home/user/temp/ddskk-14.5/SKK-CFG...
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
 @print{}  -> /usr/share/xemacs/site-packages/lisp/skk
@@ -505,7 +505,7 @@ XEmacs でパッケージとしてインストールする場合は、
 @group
 % make install-package EMACS=/usr/bin/xemacs
 @print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-install-package
-@print{}  Loading /home/user/temp/ddskk-14.1.91/SKK-CFG@dots{}
+@print{}  Loading /home/user/temp/ddskk-14.5/SKK-CFG@dots{}
 @dots{}
 @end group
 @end example
@@ -520,7 +520,7 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
 レクトリ」を指定してください。
 
 @example
-Dired (directory): ~/temp/ddskk-14.4.50 @key{RET}
+Dired (directory): ~/temp/ddskk-14.5 @key{RET}
 @end example
 
 次に、表示されたディレクトリ一覧の @file{SKK-MK} にカーソルをあわせ
@@ -618,7 +618,7 @@ edict 辞書(英和辞書)
 DDSKK のソースを展開すると、中に @file{dic} というディレクトリが存在しま
 す。@file{SKK-JISYO.L} などをこのディレクトリにコピーしてから @code{make install} を
 実行すると、辞書ファイルがチュートリアル (@file{SKK.tut}) と同じディ
-レクトリ (@file{/usr/share/skk} や @file{c:/emacs-23.3/etc/skk} など) に
+レクトリ (@file{/usr/share/skk} や @file{c:/emacs-24.2/etc/skk} など) に
 インストールされます。
 
 さらに、@file{SKK-JISYO.L} を DDSKK ソースの @file{dic} ディレクトリにコ
@@ -9978,6 +9978,8 @@ SKK の成り立ちと歴史に関しては以下の URL を参照してください。
 @uref{http://openlab.jp/skk/SKK.html, ``SKK = I''}
 
 @uref{http://openlab.jp/skk/history-ja.html, SKK の歴史 (付 Emacs の歴史の一部)}
+
+@uref{http://mail.ring.gr.jp/skk/201212/msg00007.html, SKK の 25年}
 
 @node このマニュアルについて
 @section このマニュアルについて
