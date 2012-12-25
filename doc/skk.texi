@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.52
-@set UPDATED $Date: 2012/12/23 10:33:11 $
+@set UPDATED $Date: 2012/12/25 11:45:53 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -828,6 +828,9 @@ setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 
 @node DDSKK $B$r(B Emacs $B$N(B Input Method $B$H$9$k(B
 @section DDSKK $B$r(B Emacs $B$N(B Input Method $B$H$9$k(B
+@cindex LEIM
+@cindex input method
+@cindex @file{skk-leim.el}
 @kindex C-\
 
 Emacs $B$NI8=`%-!<%P%$%s%I$G$O(B @kbd{C-\} $B$r%?%$%W$9$k$H(B
@@ -835,7 +838,7 @@ Emacs $B$NI8=`%-!<%P%$%s%I$G$O(B @kbd{C-\} $B$r%?%$%W$9$k$H(B
 $B$3$N4X?t$O!"JQ?t(B @code{default-input-method} $B$,;X$9(B input method $B$r%H%0%k@Z$jBX$($7$^$9!#(B
 
 $BJQ?t(B @code{default-input-method} $B$NCM$O$*$=$i$/(B @code{"Japanese"} $B$G$"$j!"(B
-$B7k2L$H$7$F(B @kbd{C-\} $B$N%?%$%W$G(B LEIM $B$r(B on/off $B$7$^$9!#(B
+$B7k2L$H$7$F(B @kbd{C-\} $B$N%?%$%W$G(B LEIM @footnote{Library of Emacs Input Method} $B$r(B on/off $B$7$^$9!#(B
 
 $B;HMQ2DG=$J(B input method $B$O(B @kbd{M-x list-input-methods} $B$G3NG'$9$k$3$H$,$G$-!"(B
 $B%3%^%s%I(B @code{set-input-method} $B$r<B9T$9$k(B @footnote{@kbd{M-x set-input-method} $B$^$?(B
@@ -853,6 +856,9 @@ Emacs $B$NI8=`%-!<%P%$%s%I$G$O(B @kbd{C-\} $B$r%?%$%W$9$k$H(B
 $BFbMF$O(B @code{(skk-auto-fill-mode 1)} $B$G$9!#(B
 @end table
 
+
+@defvr {$B%f!<%6JQ?t(B} default-input-method
+
 Emacs $B5/F0;~$N(B input method $B$r(B DDSKK $B$H$9$k$K$O!"(B@file{~/.emacs} $B$K(B
 
 @lisp
@@ -860,6 +866,8 @@ Emacs $B5/F0;~$N(B input method $B$r(B DDSKK $B$H$9$k$K$O!"(B@file{~/.emac
 @end lisp
 
 $B$H5-=R$7$F$/$@$5$$!#(B
+
+@end defvr
 
 @node $B4pK\E*$J;H$$J}(B, $BJXMx$J1~MQ5!G=(B, $B$O$8$a$N@_Dj(B, Top
 @comment  node-name,  next,  previous,  up
@@ -2463,6 +2471,7 @@ DDSKK $B$N5/F0;~$K!"(B
 
 @node Customize $B$K$h$k@_DjJQ99(B
 @subsection Customize $B$K$h$k@_DjJQ99(B
+@cindex Customize
 
 SKK $B$N@_Dj$O!"(BEmacs $BI8=`$N(B Customize $B5!G=$r;H$C$F9T$&$3$H$b$G$-$^$9!#(B
 $B$?$@$7!"(B Customize $B$G$N@_Dj$O(B @file{~/.emacs} $B$G$N@_Dj$HF1MM!"(B
@@ -3018,15 +3027,17 @@ context-skk $B$,!V%W%m%0%i%_%s%0%b!<%I!W$H8+Pv$9%a%8%c!<%b!<%I!#(B
 $BA0$N8+=P$78l8uJd$XLa$k%-!<%-%c%i%/%?$G$9!#%G%U%)%k%H$O%3%s%^(B @kbd{,} $B$G$9!#(B
 @end defvr
 
+@cindex backtab
+@kindex SHIFT TAB
 @defvr {$B%f!<%6JQ?t(B} skk-previous-completion-use-backtab
-@code{Non-nil} $B$G$"$l$P!"A0$N8+=P$78l8uJd$XLa$kF0:n$r(B @kbd{@key{SHIFT} @key{TAB}} $B$G(B
+@code{Non-nil} $B$G$"$l$P!"A0$N8+=P$78l8uJd$XLa$kF0:n$r(B @kbd{@key{SHIFT}+@key{TAB}} $B$G(B
 $B$b2DG=$H$7$^$9!#%G%U%)%k%H$O(B @code{t} $B$G$9!#(B
 $B$3$N5!G=$NM-8z2=!?L58z2=$N@Z$jBX$($O!"%U%!%$%k(B @file{~/.skk} $B$r=q$-49$($F(B Emacs $B$r(B
 $B:F5/F0$7$F$/$@$5$$!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-previous-completion-backtab-key
-@kbd{@key{SHIFT} @key{TAB}} $B$,H/9T$9$k(B key event $B$G$9!#(BEmacs $B$N<oN`!?<B9T4D6-(B
+@kbd{@key{SHIFT}+@key{TAB}} $B$,H/9T$9$k(B key event $B$G$9!#(BEmacs $B$N<oN`!?<B9T4D6-(B
 $B$K$h$C$F0[$J$j$^$9!#(B
 @end defvr
 
@@ -3250,7 +3261,8 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$,0[$J$k(B face $B$GI
 @kindex @key{TAB}
 @kindex @samp{,}
 @kindex @samp{.}
-$B8uJd$NA*Br$K$O(B @key{TAB} $BKt$O(B @kbd{@key{SHIFT} @key{TAB}} $B$r2!$7$^$9!#$^$?!"(B
+@kindex SHIFT TAB
+$B8uJd$NA*Br$K$O(B @key{TAB} $BKt$O(B @kbd{@key{SHIFT}+@key{TAB}} $B$r2!$7$^$9!#$^$?!"(B
 $BIaDL$NJd40$HF1MM$K(B @kbd{.} ($B%T%j%*%I(B) $B$H(B @kbd{,} ($B%3%s%^(B) $B$bMxMQ$G$-$^(B
 $B$9!#(B@w{@ref{$BFI$_$NJd40(B}}
 
@@ -3477,6 +3489,7 @@ DDSKK 14.1 $B$rMxMQ$NJ}!"$4<+?H$G(B @code{skk-search-prog-list} $B$r@_Dj$9$kJ
 
 @node $BAm2h?t$K$h$kC14A;zJQ49(B
 @subsubsection $BAm2h?t$K$h$kC14A;zJQ49(B
+@cindex $B2h?tJQ49(B
 
 $B"&%b!<%I$GAm2h?t$rF~NO$7$F:G8e$K(B @kbd{@@} $B$rIU2C$7$F$+$iJQ49$r3+;O$7$^$9(B
 @footnote{@kbd{C-u $BAm2h?t(B M-x skk-tankan} $B$G$b2D!#(B}$B!#(B
@@ -3509,6 +3522,7 @@ L:$B=$(B;10$B2h(B($B?MIt(B8$B2h(B)
 
 @node $BIt<s$K$h$kC14A;zJQ49(B
 @subsubsection $BIt<s$K$h$kC14A;zJQ49(B
+@cindex $BIt<sJQ49(B
 
 $B"&%b!<%I$G(B @kbd{@@} $B$r#2$D=E$M$FJQ49$r3+;O$9$k$H!"It<s$K$h$kC14A;zJQ49$,(B
 $B$G$-$^$9(B@footnote{@kbd{M-x skk-tankan} $B$G$b2D!#(B}$B!#(B
