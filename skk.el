@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.617 2012/10/12 23:16:29 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.618 2012/12/29 10:13:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/10/12 23:16:29 $
+;; Last Modified: $Date: 2012/12/29 10:13:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1032,8 +1032,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	    (skk-set-henkan-point arg))
 
 	   ;; start conversion.
-	   ((and skk-henkan-mode
-		 (eq ch skk-start-henkan-char))
+	   ((and skk-henkan-mode		; $B"&%b!<%I(B or $B"'%b!<%I(B
+		 (eq ch skk-start-henkan-char)) ; SPC
 	    (skk-start-henkan arg prog-list-number))
 
 	   ;; just input kana.
@@ -3099,10 +3099,11 @@ WORD $B$G3NDj$9$k!#(B"
     (setq prog-list-number current-prefix-arg))
   (skk-with-point-move
    (cancel-undo-boundary)
-   (if (eq skk-henkan-mode 'active)
+   (if (eq skk-henkan-mode 'active)	;$B"'%b!<%I(B
        (progn
 	 (skk-set-henkan-count (1+ (skk-henkan-count)))
 	 (skk-henkan))
+     ;; $B"&%b!<%I(B
      (save-match-data
        (let (pos)
 	 (skk-kana-cleanup 'force)
@@ -3469,13 +3470,6 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
 	  (when (skk-jisyo-is-shared-p)
 	    (skk-update-shared-jisyo)))
 	(let ((inhibit-quit t)
-	      ;; ($BCm(B) Emacs 21.1 $B$+$i(B 21.4 $B$^$G$N%P!<%8%g%s$O(B make-temp-file()
-	      ;; $B$NDj5A$r;}$D$,!"%U%!%$%k$,B>$N%f!<%6$+$iJ]8n$5$l$J$$7g4Y$,$"(B
-	      ;; $B$k!#$3$l$O(B Emacs 22 $B$G=$@5$5$l$F$$$k$,!"$=$l0JA0$N%P!<%8%g%s$N(B
-	      ;; $B$?$a$NBP:v$,(B APEL 10.6 $B$K$*$$$F40N;$7$F$*$j!"(BDDSKK $B$O$=$l$K0M(B
-	      ;; $BB8$7$F$$$k!#>\$7$/$O(B Emacs 22 $B$N(B files.el $B$K$*$1$k(B
-	      ;; make-temp-file() $B<BAu(B, poe.el $B$N(B make-temp-file() $B<BAu$H%3%a%s(B
-	      ;; $B%H$J$I$r;2>H!#(B
 	      (tempo-file (make-temp-file "skk")))
 	  (unless quiet
 	    (skk-message "SKK $B<-=q$rJ]B8$7$F$$$^$9(B..."
