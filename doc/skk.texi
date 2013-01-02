@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.52
-@set UPDATED $Date: 2012/12/25 11:45:53 $
+@set UPDATED $Date: 2013/01/02 11:50:15 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -616,17 +616,17 @@ edict 辞書(英和辞書)
 @section 辞書を DDSKK と同時にインストールする
 
 DDSKK のソースを展開すると、中に @file{dic} というディレクトリが存在しま
-す。@file{SKK-JISYO.L} などをこのディレクトリにコピーしてから @code{make install} を
+す。@file{SKK-JISYO.L} などをこのディレクトリにコピーしてから @command{make install} を
 実行すると、辞書ファイルがチュートリアル (@file{SKK.tut}) と同じディ
 レクトリ (@file{/usr/share/skk} や @file{c:/emacs-24.2/etc/skk} など) に
 インストールされます。
 
 さらに、@file{SKK-JISYO.L} を DDSKK ソースの @file{dic} ディレクトリにコ
-ピーしてから @code{make cdb} を実行すると、CDB 形式辞書 @file{SKK-JISYO.L.cdb} が
+ピーしてから @command{make cdb} を実行すると、CDB 形式辞書 @file{SKK-JISYO.L.cdb} が
 生成されます@footnote{CDB 形式辞書の生成には python スクリプト @file{etc/skk2cdb.py}
 が実行されるので、あらかじめ python 処理系をインストールしておく必要があ
 ります。}。
-この状態で @code{make install} を実行すると @file{SKK-JISYO.L.cdb} も
+この状態で @command{make install} を実行すると @file{SKK-JISYO.L.cdb} も
 @file{SKK-JISYO.L} と共にインストールされます。
 
 @node 辞書サーバの入手
@@ -7632,8 +7632,8 @@ DDSKK では、このような事態を避けるため、辞書バッファにおける変数
 @node 注釈 (アノテーション)
 @section 注釈 (アノテーション)
 
-変換の際に、候補に注釈 (アノテーション) が登録されていれば、それを表示す
-ることができます。
+かな漢字変換の際に、候補に注釈 (アノテーション) が登録されていれば、それ
+を表示することができます。
 
 @menu
 * アノテーションの基礎::     予備知識
@@ -7694,7 +7694,29 @@ DDSKK では、このような事態を避けるため、辞書バッファにおける変数
 @end lisp
 }。
 
-辞書の候補にアノテーションが登録されていれば、エコーエリア又は other-window に表示します。
+@table @code
+
+@item (setq skk-show-annotation t)
+
+アノテーションを常に表示します。
+
+@item (setq skk-show-annotation '(not list))
+
+ *候補*バッファ@footnote{@code{skk-show-candidates-always-pop-to-buffer}}では、アノテーションを表示しません。
+
+@item (setq skk-show-annotation '(not minibuf))
+
+ミニバッファにおけるかな漢字変換（単語登録時）では、アノテーションを表示しません。
+
+@item (setq skk-show-annotation '(not list minibuf))
+
+ *候補*バッファ及びミニバッファでは、アノテーションを表示しません。
+
+@item (setq skk-show-annotation nil)
+
+いかなる場合もアノテーションを表示しません。
+
+@end table
 
 @end defvr
 
@@ -7883,7 +7905,7 @@ docstring に例示した S 式を評価してみてください。
 更した場合は、このコマンドを必ず実行してください。}
 
 @item
-@code{skk-anotation-lookup-lookup} を設定する方法
+@code{skk-annotation-lookup-lookup} を設定する方法
 
 次に変数 @code{skk-annotation-lookup-lookup} について説明します。この変
 数は EPWING 経由アノテーションの設定を簡単にします。

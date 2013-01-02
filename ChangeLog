@@ -1,3 +1,12 @@
+2013-01-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+	* skk-vars.el (skk-show-annotation): Update.
+
+	* skk-annotation.el (skk-annotation-display-p)
+	(skk-annotation-toggle-display-p): (eq FOO nil) に代えて (null FOO).
+
 2012-12-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el: Update comment.

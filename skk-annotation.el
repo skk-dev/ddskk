@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.234 2012/10/15 11:31:26 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.235 2013/01/02 11:50:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2012/10/15 11:31:26 $
+;; Last Modified: $Date: 2013/01/02 11:50:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -425,9 +425,10 @@
 
 ;;;###autoload
 (defun skk-annotation-display-p (test)
+  ;; TEST は 'list 又は 'minibuf
   (skkannot-clear-msg)
   ;;
-  (cond ((eq skk-show-annotation nil)
+  (cond ((null skk-show-annotation)
 	 nil)
 	((and (listp skk-show-annotation)
 	      (eq (car skk-show-annotation) 'not)
@@ -442,7 +443,7 @@
 ;;;###autoload
 (defun skk-annotation-toggle-display-p ()
   (interactive)
-  (cond ((eq skk-show-annotation nil)
+  (cond ((null skk-show-annotation)
 	 ;; do nothing
 	 nil)
 	((and (listp skk-show-annotation)

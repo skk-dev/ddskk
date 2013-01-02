@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.443 2012/12/02 09:11:39 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.444 2013/01/02 11:50:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/12/02 09:11:39 $
+;; Last Modified: $Date: 2013/01/02 11:50:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2745,8 +2745,8 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 ;; skk-annotation.el related.
 (defcustom skk-show-annotation nil
   "*Non-nil $B$G$"$l$P!"%"%N%F!<%7%g%s$rI=<($9$k!#(B
-$BJQ49$N:]!"<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$r%"%N%F!<%7%g%s$H$7$F(B\
-$B%(%3!<%(%j%"!"$^$?$OJL(B Window $B$KI=<($9$k!#(B"
+$B$+$J4A;zJQ49$N:]!"<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$r%"%N%F!<%7%g%s$H$7$F(B\
+$B%(%3!<%(%j%"!"JL(B Window $B$^$?$O%D!<%k%F%#%C%W$KI=<($9$k!#(B"
   :type '(radio (const :tag "$B>o$KI=<((B" t)
 		(const :tag "$B8uJd0lMw$G$OHsI=<((B" (not list))
 		(const :tag "$B%_%K%P%C%U%!$G$OHsI=<((B" (not minibuf))

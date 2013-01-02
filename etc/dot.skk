@@ -55,7 +55,13 @@
 ;; (setq skk-show-japanese-menu nil)
 
 ;; 変換時に注釈 (annotation) を表示する
-(setq skk-show-annotation t)
+(setq skk-show-annotation
+      t					; 常に表示
+;      '(not list)			; *候補*バッファでは非表示
+;      '(not minibuf)			; ミニバッファでは非表示
+;      '(not list minibuf)		; 両方とも非表示
+      )
+
 ;; 注釈を表示するまでの遅延を秒で指定する
 ;; (setq skk-annotation-delay 0)
 
