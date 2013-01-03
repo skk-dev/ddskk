@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.52
-@set UPDATED $Date: 2013/01/02 11:50:15 $
+@set UPDATED $Date: 2013/01/03 01:51:47 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3062,8 +3062,8 @@ context-skk が「プログラミングモード」と見做すメジャーモード。
 った後、@key{SPC} を入力し、▼モードに入るまでの動作を一回の操作で行
 う方法について説明します。
 
-やり方は簡単。@key{TAB}・@key{SPC} と打鍵していたところを、
-@kbd{M-@key{SPC}} に換えると、見出し語を補完した上で変換を開始します。
+やり方は簡単。@key{TAB}・@key{SPC} と打鍵していたところを @kbd{M-@key{SPC}} に
+換えると、見出し語を補完した上で変換を開始します。
 
 この方法によると、補完される見出し語があらかじめ分かっている状況では、キー
 入力を一回分省略できるので、読みが長い見出し語の単語を連続して入力する場合
@@ -3102,6 +3102,12 @@ context-skk が「プログラミングモード」と見做すメジャーモード。
 ------ Buffer: foo ------
 @end group
 @end example
+
+@defvr {ユーザ変数} skk-start-henkan-with-completion-char
+
+デフォルトは @kbd{M-@key{SPC}} です。
+
+@end defvr
 
 @node 動的補完
 @subsection 動的補完
@@ -8029,6 +8035,14 @@ B o k u j o u
 エコーエリアに解説が表示されている最中に @kbd{C-o} を押すと、
 関数 @code{browse-url} を用いてその解説の元となった URL をブラウズします。
 
+@kindex C-i
+@defvr {ユーザ変数} skk-annotation-wikipedia-key
+
+デフォルトは @kbd{C-i} です。
+
+@end defvr
+
+@kindex C-o
 @defvr {ユーザ変数} skk-annotation-browse-key
 
 デフォルトは @kbd{C-o} です。
