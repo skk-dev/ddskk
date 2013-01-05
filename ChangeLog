@@ -1,3 +1,13 @@
+2013-01-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-require-module): skk-show-mode-inline() は内部で
+	skk-dcomp-multiple-show() を利用しているため、'skk-show-mode の
+	require と同時に 'skk-dcomp も require する.
+
+	* skk-show-mode.el: comment を追加.
+
+	* skk-vars.el (skk-show-mode-show): docstring を修正.
+
 2013-01-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-henkan-list-filter): comment を追加.

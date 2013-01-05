@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.444 2013/01/02 11:50:15 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.445 2013/01/05 22:43:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/02 11:50:15 $
+;; Last Modified: $Date: 2013/01/05 22:43:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5263,7 +5263,9 @@ then filename of the English version will be \"SKK.tut.E\".")
 (defvar skk-show-mode-functions '((inline . skk-show-mode-inline)
 				  (tooltip . skk-show-mode-tooltip)))
 (defcustom skk-show-mode-show nil
-  "*かなモードやアスキーモードへ切り替わったときに skk-*-mode-string を表示する"
+  "*Non-nil であれば、かなモードやアスキーモードへ切り替わったときにカーソル付近に skk-*-mode-string を表示する。
+
+表示スタイルは `skk-show-mode-style' で指定する。"
   :type 'boolean
   :group 'skk-visual)
 

@@ -4,9 +4,9 @@
 
 ;; Author: 2011 Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-show-mode.el,v 1.5 2012/10/15 11:31:26 skk-cvs Exp $
+;; Version: $Id: skk-show-mode.el,v 1.6 2013/01/05 22:43:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/10/15 11:31:26 $
+;; Last Modified: $Date: 2013/01/05 22:43:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -27,7 +27,12 @@
 
 ;;; Commentary:
 ;; 
-;;  ~/.skk にて (require 'skk-show-mode) としてください。
+;;  ~/.skk にて
+;;      (setq skk-show-mode-show t)
+;;  と設定してください。
+;;  Emacs 起動中は M-x skk-show-mode でトグルすることができます。
+
+;;  変数 skk-show-mode-style に 'tooltip 又は 'inline を設定してください。
 
 ;;; Code:
 
@@ -62,7 +67,7 @@ tooltip / inline 表示する."
 		      (t                       skk-latin-mode-string)))
 	(skk-henkan-start-point (point)))
     (skk-dcomp-multiple-show (list string))
-    (sit-for 1)				; wait 中でもキー入力は可能
+    (sit-for 0.5)			; wait 中でもキー入力は可能
     (skk-delete-overlay skk-dcomp-multiple-overlays)))
 
 (defun skk-show-mode-tooltip ()

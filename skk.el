@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.619 2013/01/05 12:57:28 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.620 2013/01/05 22:43:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/05 12:57:28 $
+;; Last Modified: $Date: 2013/01/05 22:43:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -275,6 +275,7 @@ dependent."
   (when skk-sticky-key
     (require 'skk-sticky))
   (when skk-show-mode-show
+    (require 'skk-dcomp)
     (require 'skk-show-mode)))
 
 (defun skk-mode-exit ()
