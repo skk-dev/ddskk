@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.65 2012/01/14 09:40:19 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.66 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2012/01/14 09:40:19 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -385,12 +385,12 @@ TO の既存データは破壊される。"
    (list (read-file-name
 	  (format "File to check: (default: %s) " skk-study-file)
 	  default-directory skk-study-file)))
-  (skk-message "%s のフォーマットのチェックを行なっています..."
+  (skk-message "%s のフォーマットをチェックしています..."
 	       "Checking format of %s..." file)
   (or (skk-study-check-alist-format-1 (skk-study-read-1 file))
       (skk-error "%s のフォーマットは壊れています"
 		 "%s format is broken" file))
-  (skk-message "%s のフォーマットのチェックを行なっています...完了!"
+  (skk-message "%s のフォーマットをチェックしています...完了!"
 	       "Checking format of %s...done" file)
   (sit-for 1)
   (message ""))

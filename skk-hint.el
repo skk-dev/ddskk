@@ -24,7 +24,7 @@
 ;;; Commentary
 
 ;; これは▽モードと▼モードで読みの積集合 (みたいなもの) を取ることに
-;; よって候補の絞り込みを行うプログラムです。
+;; よって候補を絞り込むプログラムです。
 ;;
 ;; インストールは ~/.skk に以下を記入します。
 ;;
@@ -71,7 +71,7 @@
 
 (defadvice skk-search (around skk-hint-ad activate)
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
-  ;; skk-henkan-keyをキーにして検索を行う。
+  ;; skk-henkan-key をキーにして検索を行う。
   (if (null skk-hint-henkan-hint)
       ad-do-it
     (let (l kouho hint)

@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.48 2011/06/03 23:35:25 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.49 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/03 23:35:25 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -368,7 +368,7 @@ TYPE は下記の通り。
 	    skk-henkan-okurigana skk-okuri-char skk-use-numeric-conversion)
 	(while skk-current-search-prog-list
 	  (setq result (skk-nunion result (skk-search))))))
-    ;; ここで temp-buffer を出て変換を行なっているカレントバッファに戻る
+    ;; ここで temp-buffer を出て変換を行っているカレントバッファに戻る
     ;; (バッファローカル値である skk-henkan-list を操作したいため)。
     (cond
      ((not result)
@@ -427,7 +427,7 @@ TYPE は下記の通り。
 			 tail3 (substring e3 (match-end 0)))))))
 	(when (and type2and3 type2 type3
 		   ;; 数値変換を示す文字列 "#[23]" の前後の文字列も同一のと
-		   ;; きのみ uniq を行なう。
+		   ;; きのみ uniq を行う。
 		   (string= head2 head3) (string= tail2 tail3))
 	  (if (> index2 index3)
 	      ;; "#3" の方が前にある。
@@ -447,14 +447,14 @@ TYPE は下記の通り。
 ;;;###autoload
 (defun skk-num-henkan-key ()
   "適切な変換キーを返す。
-type4 の数値再変換が行なわれたときは、数値自身を返し、それ以外の数値変換
+type4 の数値再変換が行われたときは、数値自身を返し、それ以外の数値変換
 では、`skk-henkan-key' の数値を \"#\" で置き換えたキーを返す。"
   (or skk-num-recompute-key
       (skk-num-compute-henkan-key skk-henkan-key)))
 
 ;;;###autoload
 (defun skk-num-update-jisyo (noconvword word &optional purge)
-  "数字自身を見出し語として辞書のアップデートを行なう。"
+  "数字自身を見出し語として辞書をアップデートする。"
   (when (and skk-num-recompute-key
 	     (save-match-data (string-match "#4" noconvword)))
     (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)

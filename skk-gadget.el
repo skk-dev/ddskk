@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.51 2012/12/08 23:26:22 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.52 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/12/08 23:26:22 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -435,8 +435,8 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 
 ;;;###autoload
 (defun skk-gadget-units-conversion (unit-from number unit-to)
-  "`skk-units-alist'を参照し、換算を行なう。
-NUMBER について UNIT-FROM から UNIT-TO への換算を行なう。"
+  "`skk-units-alist'を参照し、換算を行う。
+NUMBER について UNIT-FROM から UNIT-TO への換算を行う。"
   (let ((v (assoc unit-to
 		  (cdr (assoc unit-from skk-units-alist)))))
     (when v

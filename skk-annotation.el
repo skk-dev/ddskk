@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.235 2013/01/02 11:50:15 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.236 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2013/01/02 11:50:15 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -81,7 +81,7 @@
 ;;    「いぜん /以前;previous/依然;still/」
 ;;
 ;; ユーザアノテーションとシステムアノテーションを区別することで、ユー
-;; ザアノテーションだけを表示したり、あるいはその逆を行なうことが可能
+;; ザアノテーションだけを表示したり、あるいはその逆を行うことが可能
 ;; です。`skk-annotation-function' に表示したいアノテーションを
 ;; non-nil と判定する関数を書きましょう。こんな感じです。
 ;;
@@ -105,7 +105,7 @@
 ;;
 ;; して下さい。
 ;;
-;; Viper 対策はまだ行なっていません。~/.viper に次のように書いて下さい。
+;; Viper 対策はまだ行っていません。~/.viper に次のように書いて下さい。
 ;; (viper-harness-minor-mode "skk-annotation")
 ;;
 ;; <lookup.el からのアノテーション>
@@ -180,7 +180,7 @@
 ;;
 ;;   M-x skk-annotation-update-jisyo-format
 ;;
-;; することでこの作業を行なうことができます。
+;; することでこの作業を行うことができます。
 ;;
 ;; 但し、既にアノテーションが付けられている場合は、このアノテーション
 ;; 自体も候補と区別できずに quote されてしまいますので、ご注意下さい

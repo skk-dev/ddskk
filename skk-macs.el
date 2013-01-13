@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.191 2012/08/11 10:48:38 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.192 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/08/11 10:48:38 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -676,9 +676,9 @@ BUFFER defaults to the current buffer."
 ;;(defsubst skk-get-char (tree)
 ;;  (car tree))
 ;;
-;; skk-current-rule-tree に対して破壊的な操作は行なえない。skk-rule-tree の
-;; 内容まで変わってしまい、skk-current-rule-tree の initialize が手軽に行な
-;; えなくなる。ここが解決できれば skk-prefix を全滅できるのに...。
+;; skk-current-rule-tree に対して破壊的な操作は行えない。skk-rule-tree の
+;; 内容まで変わってしまい、skk-current-rule-tree の initialize が手軽に行え
+;; なくなる。ここが解決できれば skk-prefix を全滅できるのに...。
 ;;(defsubst skk-set-char (tree char)
 ;;  (setcar tree char))
 ;;

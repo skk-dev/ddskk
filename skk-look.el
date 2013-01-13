@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-look.el,v 1.44 2011/06/28 11:55:06 skk-cvs Exp $
+;; Version: $Id: skk-look.el,v 1.45 2013/01/13 09:45:48 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/28 11:55:06 $
+;; Last Modified: $Date: 2013/01/13 09:45:48 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -54,7 +54,7 @@
 ;;    設定することで、これを実現することができます。詳しくは、
 ;;    `skk-search-excluding-word-pattern-function' のドキュメントをご覧下さい。
 ;;
-;; (3)(2)で変換した後、更に再帰的な英和変換を行なうことができます。
+;; (3)(2)で変換した後、更に再帰的な英和変換を行うことができます。
 ;;
 ;;    まず、`skk-look-recursive-search' の値を non-nil にセットして下さ
 ;;    い。Emacs/SKK を再起動する必要はありません。
@@ -81,10 +81,10 @@
 ;;    というエントリがあることを前提としています。edict を SKK 辞書形式に
 ;;    変換すると良いですね。
 ;;
-;; 動作確認を行なった look は、Slackware 3.5 に入っていた、man page に
+;; 動作を確認した look は、Slackware 3.5 に入っていた、man page に
 ;; `BSD Experimental June 14, 1993' と記載のあるもの (バージョン情報がない)
-;; にて行なっています。オプションの指定などが異なる look があれば、ご一報下さ
-;; い。よろしくお願いいたします。
+;; です。オプションの指定などが異なる look があれば、ご一報下さい。
+;; よろしくお願いいたします。
 
 ;; <Dictionary>
 ;; ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/
@@ -151,7 +151,7 @@
 ;; program
 ;;;###autoload
 (defun skk-look (&optional conversion-arguments not-abbrev-only expand-null)
-  "UNIX look コマンドを利用した変換を行なう。
+  "UNIX look コマンドを利用して変換する。
 SKK abbrev モードにて、英文字 + アスタリスクで uncompleted spelling を指定する。
 詳しくは skk-look.el ファイルのコメントや Info を参照の事。
 CONVERSION-ARGUMENTS は `skk-look-conversion-arguments' を

@@ -278,7 +278,7 @@
     ad-do-it)))
 
 (defadvice skk-insert (around skk-jisx0201-ad activate)
-  "SKK JIS X 0201 モードの文字入力を行なう。"
+  "SKK JIS X 0201 モードの文字入力を行う。"
   (cond
    (skk-jisx0201-mode
     (let ((arg (ad-get-arg 0))
