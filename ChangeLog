@@ -1,10 +1,14 @@
 2013-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK verison to 14.4.53.
+
+2013-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-vars.el, skk-study.el, skk-server-completion.el, skk-num.el:
 	* skk-macs.el, skk-lookup.el, skk-look.el, skk-jisx0201.el:
 	* skk-hint.el, skk-gadget.el, skk-dcomp.el, skk-cursor.el:
 	* skk-comp.el, skk-annotation.el, skk-abbrev.el, context-skk.el:
-	* makeit.bat: Update comment.
+	* makeit.bat, skk.el: Update comment.
 
 	* doc/skk.texi: Update.
 

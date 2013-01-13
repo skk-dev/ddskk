@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.620 2013/01/05 22:43:22 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.621 2013/01/13 10:26:26 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/05 22:43:22 $
+;; Last Modified: $Date: 2013/01/13 10:26:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -370,7 +370,7 @@ dependent."
 			    japanese-jisx0208-1978)))))
 
 (defun skk-setup-keymap ()
-  "SKK $B$N%-!<@_Dj$r9T$&!#(B"
+  "SKK $B$N%-!<$r@_Dj$9$k!#(B"
   (cond (skk-j-mode
 	 (skk-define-j-mode-map)
 	 (skk-setup-j-mode-map-options))
@@ -898,7 +898,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   "$B%f!<%6%*%W%7%g%s$NIT@09g$rD4@0$9$k!#(B"
   (unless (skk-color-cursor-display-p)
     (setq skk-use-color-cursor nil))
-  ;; $BN>N)$G$-$J$$%*%W%7%g%s$ND4@0$r9T$J$&!#(B
+  ;; $BN>N)$G$-$J$$%*%W%7%g%s$rD4@0$9$k!#(B
   (when skk-process-okuri-early
     ;; skk-process-okuri-early $B$NCM$,(B non-nil $B$G$"$k$H$-$K2<5-$NCM$,(B non-nil
     ;; $B$G$"$l$P@5>o$KF0$+$J$$$N$G$3$NJQ?t$NM%@h=g0L$r9b$/$7$?!#(B
@@ -1381,7 +1381,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
   "STR $B$rA^F~$9$k!#(B
 $BI,MW$G$"$l$P(B `skk-auto-start-henkan' $B$r%3!<%k$9$k!#(B
 $BI,MW$G$"$l$P(B `self-insert-after-hook' $B$r%3!<%k$9$k!#(B
-`overwrite-mode' $B$G$"$l$P!"E,@Z$K>e=q$-$r9T$&!#(B"
+`overwrite-mode' $B$G$"$l$P!"E,@Z$K>e=q$-$9$k!#(B"
   (insert-and-inherit str)
   (if (eq skk-henkan-mode 'on)
       ;; $B"&%b!<%I(B
@@ -1433,7 +1433,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 		 skk-jisx0208-latin-insert
 		 skk-kakutei-henkan
 		 ;; SKK abbrev $B%b!<%I$G$O!"%"%9%-!<J8;zF~NO$,(B Emacs $B%*%j%8%J(B
-		 ;; $B%k$N(B self-insert-command $B$K$h$j9T$J$o$l$F$$$k$N$G!"(B
+		 ;; $B%k$N(B self-insert-command $B$K$h$j9T$o$l$F$$$k$N$G!"(B
 		 ;; skk-self-insert-non-undo-count $B$r%$%s%/%j%a%s%H$9$k$3$H(B
 		 ;; $B$,$G$-$J$$$N$G!"%"%s%I%%$r%(%_%e%l!<%H$G$-$J$$!#(B
 		 ;; $B$7$+$b!"%+%s%^$d%T%j%*%I$rA^F~$7$?;~E@$G!"(B
@@ -2614,7 +2614,7 @@ catch $B$9$k!#(Bcatch $B$7$?CM$,J8;zNs$J$i$P!"$=$l$rJV$9(B (word $B$r$=$l$K
       (cons cand note))))
 
 (defun skk-kakutei (&optional arg word)
-  "$B8=:_I=<($5$l$F$$$k8l$G3NDj$7!"<-=q$N99?7$r9T$&!#(B
+  "$B8=:_I=<($5$l$F$$$k8l$G3NDj$7!"<-=q$r99?7$9$k!#(B
 $B%+%l%s%H%P%C%U%!$G(B SKK $B%b!<%I$K$J$C$F$$$J$+$C$?$i(B SKK $B%b!<%I$KF~$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B WORD $B$rEO$9$H!"8=:_I=<($5$l$F$$$k8uJd$H$OL54X78$K(B
 WORD $B$G3NDj$9$k!#(B"
@@ -2628,7 +2628,7 @@ WORD $B$G3NDj$9$k!#(B"
 	(active				;$B"'%b!<%I(B
 	 (setq kakutei-word
 	       ;; $B3NDj<-=q$N8l$G3NDj$7$?$H$-$O!"<-=q$K$=$N8l$r=q$-9~$`I,MW$b$J(B
-	       ;; $B$$$7!"99?7$9$kI,MW$b$J$$$H;W$C$F$$$?$,!"Jd40$r9T$J$&$H$-$O!"(B
+	       ;; $B$$$7!"99?7$9$kI,MW$b$J$$$H;W$C$F$$$?$,!"Jd40$r9T$&$H$-$O!"(B
 	       ;; $B8D?M<-=q$r;2>H$9$k(B ($B3NDj<-=q$O;2>H$7$J$$(B) $B$N$G!"B?>/;q8;$H;~(B
 	       ;; $B4V$rL5BL$K$7$F$b!"8D?M<-=q$K3NDj<-=q$N%(%s%H%j$r=q$-9~$s$G99(B
 	       ;; $B?7$b$7$F$*$/!#(B
@@ -2787,7 +2787,7 @@ WORD $B$G3NDj$9$k!#(B"
 	 'skk-search-excluding-word-pattern-function word))))
 
 (defun skk-kakutei-cleanup-buffer ()
-  "$B3NDjD>8e$N%P%C%U%!$N@07A$r9T$&!#(B"
+  "$B3NDjD>8e$N%P%C%U%!$r@07A$9$k!#(B"
   (when skk-okurigana
     ;; $B3NDjJQ49$N$H$-$K$3$3$K$/$k!#(B
     ;; $B:FJQ49$N:]$KAw$j2>L>4XO"%U%i%0$,(B clear $B$5$l$F$$$k$H$h$m$7$/$J$$$N$G(B
@@ -3094,7 +3094,7 @@ WORD $B$G3NDj$9$k!#(B"
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B
 $B"&%b!<%I$G%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$7$?>l9g$O!"8+=P$78l$rJ?2>L>$K(B
 $BJQ49$7$F$+$i4A;zJQ49$r3+;O$9$k!#(B
-$B8+=P$78l$rJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$J$$$?$1$l$P!"(B\\[universal-argument] SPC (arg $B$,(B 4 $B$K$J$k(B) $B$H%?%$%W$9$k!#(B"
+$B8+=P$78l$rJQ49$;$:$K$=$N$^$^4A;zJQ49$r9T$$$?$1$l$P!"(B\\[universal-argument] SPC (arg $B$,(B 4 $B$K$J$k(B) $B$H%?%$%W$9$k!#(B"
   (interactive "*p")
   (unless prog-list-number
     (setq prog-list-number current-prefix-arg))
@@ -3171,7 +3171,7 @@ WORD $B$G3NDj$9$k!#(B"
 $B$K%9%-%C%W$5$l$k(B) $B$r(B `skk-what-char-type' $B$K$FH=JL$7!"F1<o$NJ8;zNs$r$R$H$+$?$^(B
 $B$j$H$7$F8eJ}$X%9%-%C%W$9$k!#(B
 $BC"$7!"$R$i$,$J$N>l9g$O!V$r!W$ND>A0$G!"%+%?%+%J$N>l9g$O!V%r!W$ND>A0$G;_$^$k!#(B
-\\[universal-argument] ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$J$&!#(B"
+\\[universal-argument] ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$&!#(B"
   (interactive "*P")
   (if (not skk-mode)
       (skk-emulate-original-map arg)
@@ -3564,12 +3564,12 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
 		   "Null SKK jisyo!  Stop saving jisyo"))
       (cond
        ((or (not skk-compare-jisyo-size-when-saving)
-	    ;; $B5l<-=q$H$N%5%$%:Hf3S$r9T$J$o$J$$!#(B
+	    ;; $B5l<-=q$H$N%5%$%:$rHf3S$7$J$$!#(B
 	    (progn
 	      ;; (1)skk-jisyo $B$,$J$$$+!"(B
 	      ;; (2)new-file $B$H(B skk-jisyo $B$,F10l$N%5%$%:$+(B
 	      ;;    (skk-(aux-)large-jisyo $B$+$i?75,$NC18l$rFI$_9~$^$J$+$C$?$j!"(B
-	      ;;    $B?75,C18l$NEPO?$r9T$J$o$J$+$C$?>l9g$O%5%$%:$,F1$8(B)$B!"(B
+	      ;;    $B?75,C18l$NEPO?$r9T$o$J$+$C$?>l9g$O%5%$%:$,F1$8(B)$B!"(B
 	      ;; (3)new-file $B$NJ}$,Bg$-$$(B
 	      ;; $B>l9g(B ($B>e5-$N(B 3 $BDL$j$G$"$l$P$$$:$l$b@5>o(B)$B!#(B
 	      (setq old-size (nth 7 (file-attributes skk-jisyo)))
@@ -3851,7 +3851,7 @@ If you want to restore the dictionary from your drive, try
       buf)))
 
 (defun skk-search ()
-  "`skk-henkan-key' $B$r%-!<$H$7$F8!:w$r9T$&!#(B
+  "`skk-henkan-key' $B$r%-!<$H$7$F8!:w$9$k!#(B
 `skk-current-search-prog-list' $B$NMWAG$K$J$C$F$$$k%W%m%0%i%`$rI>2A$9$k!#(B"
   (let (l prog)
     (while (and (null l) skk-current-search-prog-list)
@@ -3892,7 +3892,7 @@ If you want to restore the dictionary from your drive, try
 	   (member program skk-non-numeric-prog-list))))
 
 (defun skk-search-jisyo-file (file limit &optional nomsg)
-  "SKK $B<-=q%U%)!<%^%C%H$N(B FILE $B$G(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B
+  "SKK $B<-=q%U%)!<%^%C%H$N(B FILE $B$G(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$9$k!#(B
 $B8!:wNN0h$,(B LIMIT $B0J2<$K$J$k$^$G%P%$%J%j%5!<%A$r9T$$!"$=$N8e%j%K%"%5!<%A$r9T$&!#(B
 LIMIT $B$,(B 0 $B$G$"$l$P!"%j%K%"%5!<%A$N$_$r9T$&!#(B
 $B<-=q$,%=!<%H$5$l$F$$$J$$>l9g$O(B LIMIT $B$r(B 0 $B$H$9$kI,MW$,$"$k!#(B
@@ -3919,8 +3919,8 @@ FILE $B$K$O<-=q%U%!%$%k$@$1$G$J$/!"(B
     candidates))
 
 (defun skk-search-server (file limit &optional nomsg)
-  "$B<-=q%5!<%P$r;HMQ$7$F(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$r9T$&!#(B
-$B<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$O!"(BFILE $B$r%P%C%U%!$KFI$_9~$s$G8!:w$r9T$&!#(B
+  "$B<-=q%5!<%P$r;HMQ$7$F(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$9$k!#(B
+$B<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$O!"(BFILE $B$r%P%C%U%!$KFI$_9~$s$G8!:w$9$k!#(B
 LIMIT $B$H(B NOMSG $B$O<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$N$_M-8z!#(B
 $B$3$l$i$N0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H$N$3$H!#(B"
   (if (or skk-server-host
@@ -3981,7 +3981,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 	  (if (= p min)
 	      (setq max min)	; return
 	    (let ((p-is-further
-		   ;; $BAw$j$"$j$J$i5U=g$KHf3S$r9T$J$&!#(B
+		   ;; $BAw$j$"$j$J$i5U=g$KHf3S$9$k!#(B
 		   (if okurigana
 		       (skk-string< (buffer-substring-no-properties
 				 p (1- (search-forward  " ")))
@@ -4904,7 +4904,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 (defun skk-make-face (face)
   "$B?7$7$$(B FACE $B$r:n@.$9$k!#(B
 FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj$9$k!#(B"
-  ;; hilit-lookup-face-create $B$N%5%V%;%C%H!#(Btutorial $B$G?'IU$1$r9T$J$&>l9g$G$b(B
+  ;; hilit-lookup-face-create $B$N%5%V%;%C%H!#(Btutorial $B$G?'IU$1$r9T$&>l9g$G$b(B
   ;; hilit19 $B$K0MB8$;$:$H$j$"$($:(B face $B$r<+A0$G:n$k$3$H$,$G$-$k$h$&$K!"$H$$$&(B
   ;; $BL\E*$G:n$C$?$b$N$G!"4JC1$J?'IU$1$7$+$G$-$J$$!#$"$^$j8-$/$O$J$$!#J#;($J(B
   ;; face $B$r:n$j$?$$?M$O(B hilit-lookup-face-create $BEy$r;H$C$F2<$5$$!#(B
@@ -4926,7 +4926,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 $BNc$($P!"(BWORD == $B;}$C$F$-$?(B $B$G$"$l$P!"(B`skk-henkan-key' := $B$b(Bt ,
 `skk-henkan-okurigana' := $B$C$F(B , WORD := $B;}(B $B$N$h$&$KJ,2r$7!"(BWORD $B$rJV$9!#(B
 `skk-auto-okuri-process' $B$NCM$,(B non-nil $B$G$"$k$H$-$K$3$N4X?t$r;HMQ$9$k!#(B
-$BJQ49$,9T$J$o$l$?%P%C%U%!$G%3!<%k$5$l$k(B ($B<-=q%P%C%U%!$G$O$J$$(B)$B!#(B"
+$BJQ49$,9T$o$l$?%P%C%U%!$G%3!<%k$5$l$k(B ($B<-=q%P%C%U%!$G$O$J$$(B)$B!#(B"
   (when (and (not (skk-numeric-p))
 	     (not skk-abbrev-mode)
 	     (or skk-henkan-in-minibuff-flag
