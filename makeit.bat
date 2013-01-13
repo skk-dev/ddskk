@@ -5,8 +5,8 @@ rem ---  1999/07/07, Masaki YATSU mailto:yatsu@aurora.dti.ne.jp
 rem ---              cmail ML member
 rem ---  modified 1999/12/01, Yuh Ohmura, mailto:yutopia@t3.rim.or.jp
 rem ---  modified 2000/12/26, Takeshi Morishima mailto:tm@interaccess.com
-rem ---  date $Date: 2008/10/03 15:03:39 $
-rem ---  version $Id: makeit.bat,v 1.4 2008/10/03 15:03:39 skk-cvs Exp $
+rem ---  date $Date: 2013/01/13 09:30:21 $
+rem ---  version $Id: makeit.bat,v 1.5 2013/01/13 09:30:21 skk-cvs Exp $
 
 set ELISPMK_APP=skk
 
@@ -14,8 +14,7 @@ rem --- Japanese Comments:
 rem ---
 rem --- 引数
 rem ---   引数については make1.bat のコメントを参照してください．
-rem ---   makeit.bat は、インストールの環境変数を設定した後に
-rem ---   make1.bat を呼出してインストールを行います。
+rem ---   makeit.bat は、環境変数を設定した後に make1.bat を呼び出します。
 rem ---
 rem --- 変数設定
 rem ---   このコメントのあとにある PREFIX, EMACS, EXEC_PREFIX, LISPDIR,
