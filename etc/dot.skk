@@ -645,4 +645,26 @@
 ;;   (when (eq major-mode 'lisp-interaction-mode)
 ;;     (skk-mode-off)))
 
+;; ■モードのまま C-j を有効とする
+(defun skk-C-j-key (arg)
+  (interactive "P")
+  (let ((enable-modes '(lisp-interaction-mode ; eval-print-last-sexp
+			emacs-lisp-mode	      ; newline-and-indent
+			;; and more.
+			)))
+    (cond
+     ((and (null (skk-in-minibuffer-p)) 
+	   (null skk-henkan-mode)
+	   (member major-mode enable-modes))
+      (skk-emulate-original-map arg))
+     (t
+      (skk-kakutei arg)))))
+
+(add-to-list 'skk-rom-kana-rule-list
+	     '(skk-kakutei-key nil skk-C-j-key))
+
+;; よく使う英単語を■モードのままでも
+(add-to-list 'skk-rom-kana-rule-list
+	     '("http" nil "http://"))
+
 ;;; dot.skk ends here
