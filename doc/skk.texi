@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.53
-@set UPDATED $Date: 2013/01/13 10:26:26 $
+@set UPDATED $Date: 2013/01/14 01:50:41 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -377,7 +377,7 @@ XEmacs をお使いの場合は、 DDSKK をインストールする前に
 APEL (APEL 10.8 以上を推奨) をインストールして下さい。
 APEL は次のサイトから入手できます。
 
-@url{http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/elisp/APEL/}
+@uref{http://git.chise.org/elisp/apel/, APEL}
 
 @node DDSKK のインストール
 @section DDSKK のインストール

@@ -1,3 +1,9 @@
+2013-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update URL for APEL
+	from http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/elisp/APEL/
+	to http://git.chise.org/elisp/apel/ .
+
 2013-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK verison to 14.4.53.
