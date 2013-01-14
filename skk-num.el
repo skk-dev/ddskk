@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.49 2013/01/13 09:45:48 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.50 2013/01/14 05:42:15 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/13 09:45:48 $
+;; Last Modified: $Date: 2013/01/14 05:42:15 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -40,6 +40,29 @@
 
 (defsubst skk-num-int-p (num)
   (not (string-match "\\.[0-9]" num)))
+
+;;;###autoload
+(defun add-number-grouping (number &optional separator)
+  ;; http://www.emacswiki.org/cgi-bin/wiki/AddCommasToNumbers
+  "Add commas to NUMBER and return it as a string.
+    Optional SEPARATOR is the string to use to separate groups.
+    It defaults to a comma."
+  (let ((num (number-to-string number))
+	(op (or separator ",")))
+    (while (string-match "\\(.*[0-9]\\)\\([0-9][0-9][0-9].*\\)" num)
+      (setq num (concat 
+		 (match-string 1 num) op
+		 (match-string 2 num))))
+    num))
+
+;;;###autoload
+(defun skk-num-grouping ()
+  ;; SKK-JISYO.L
+  ;; - # /#1/#3/#2/＃;number/#0/#4/#5/
+  ;; + # /#1/#3/#2/＃;number/#0/(skk-num-grouping)/#4/#5/
+  ;; - #えん /#1円/#0円/#3円/#0えん/#2円/
+  ;; + #えん /#1円/#0円/(concat (skk-num-grouping) "円")/#3円/#0えん/#2円/
+  (add-number-grouping (string-to-number (car skk-num-list))))
 
 ;;;###autoload
 (defun skk-num-compute-henkan-key (key)

@@ -1,5 +1,8 @@
 2013-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-num.el (add-number-grouping, skk-num-grouping): Add new functions.
+	Q 1 2 3 4 5 6 7 <SPC> => 1,234,567 .
+
 	* doc/skk.texi: Update URL for APEL
 	from http://kanji.zinbun.kyoto-u.ac.jp/%7Etomo/elisp/APEL/
 	to http://git.chise.org/elisp/apel/ .
