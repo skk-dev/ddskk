@@ -59,16 +59,10 @@ XEmacs 21.1 $B0J9_$r%5%]!<%H$7$^$9$,!"3F(B Emacsen $B$N%P%0=$@5$N>u67$r9M$((
 
 DDSKK 14.2 $B$+$i$O!"(BGNU Emacs 22 $B0J>e$G$"$l$P(B APEL $B$OITMW$G$9!#(B
 
-Emacs $B$N%P!<%8%g%s4V:90[$N5[<}$O(B APEL (A Portable Emacs Library$B!#0JA0(B
-$B$O(B emu $B$H$7$FCN$i$l$F$$$?(B) $B$K$h$C$F9T$J$o$l$^$9!#(BAPEL $B$O(B
+Emacs $B$N%P!<%8%g%s4V:90[$O(B APEL (A Portable Emacs Library$B!#0JA0(B
+$B$O(B emu $B$H$7$FCN$i$l$F$$$?(B) $B$K$h$C$F5[<}$5$l$^$9!#(BAPEL $B$O(B
 
-    http://cvs.m17n.org/elisp/APEL
-
-    ftp://ftp.m17n.org/pub/mule/apel/
-
-    ftp://ftp.jpl.org/pub/elisp/apel/
-
-    http://openlab.jp/skk/apel/
+    http://git.chise.org/elisp/apel/
 
 $B$+$i(B get $B$G$-$^$9!#(B
 
@@ -116,7 +110,7 @@ variables/constants $B$,(B skk-macs.el $B$K!"A4$F$NJQ?t$,(B skk-vars.el $B$
       (defun skk-completion (first)
          ...)
 
-$B$3$l$G(B autoload $B$N@_Dj$b<+F0E*$K9T$J$o$l$^$9!#(B
+$B$3$l$G(B autoload $B$,<+F0E*$K@_Dj$5$l$^$9!#(B
 
 $B$^$?!"%U%!%$%k$NKvHx$O!"Nc$($P(B skk-abbrev.el $B$N>l9g$O2<5-$N$h$&$K5-=R(B
 $B$7$^$9!#(B
@@ -198,7 +192,7 @@ SKK $B$O(B SKK $B%b!<%I$r5/$7$?%P%C%U%!$N$_$G:nF0$9$k$h$&$K$J$C$F$$$k$?$a!"(
 
 ** $B%P%C%U%!%m!<%+%kJQ?t$N=i4|CM(B
 
-$B%P%C%U%!%m!<%+%kJQ?t$KBP$7GK2uE*A`:n$r9T$J$&>l9g!"$=$N=i4|CM$O(B nil $B$G$J(B
+$B%P%C%U%!%m!<%+%kJQ?t$KBP$7GK2uE*A`:n$r9T$&>l9g!"$=$N=i4|CM$O(B nil $B$G$J(B
 $B$1$l$P$J$j$^$;$s!#$=$NM}M3$r0J2<$K=R$Y$^$9!#GK2uE*A`:n$H$O!"(Bdelete,
 delq, nconc, nreverse, setcar, setcdr $B$J$I!"(BLisp $B$N0lHLE*$JGK2uE*4X?t(B
 (setcar $B$d(B setcdr $B$O0lHLE*$G$J$$(B?  $B0lHLE*$J$N$O(B rplaca, rplacd $B$+(B) $B$r;H(B
@@ -371,7 +365,7 @@ SKK $B$O(B `skk-japanese-message-and-error' $BJQ?t$,(B nil $B$N>l9g$O%(%i!<
 nil $B$H$J$C$F$$$^$9!#(B
 
 $B$=$b$=$b(B `skktut-init-variables-alist' $B$KDI2C$9$kI,MW$N$J$$JQ?t$b$"$j(B
-$B$^$9!#Nc$($P!"%A%e!<%H%j%"%k$G$O!"?tCMJQ49$r9T$J$o$J$$$N$G!"(B
+$B$^$9!#Nc$($P!"%A%e!<%H%j%"%k$G$O!"?tCMJQ49$r9T$o$J$$$N$G!"(B
 `skk-num-type-list', `skk-numeric-conversion-float-num',
 `skk-uniq-numerals' $B$J$I$NJQ?t$K$D$$$F$O@k8@$9$kI,MW$,$"$j$^$;$s!#(B
 
@@ -416,7 +410,7 @@ Elib (the GNU emacs lisp library version 1.0) $B$r;29M$K$7$^$7$?!#$J$*!"(B
 
      (setcar queue new-pair)
 
-$B$r9T$J$&$3$H$K$h$j!"(Bqueue $B$,(B
+$B$r9T$&$3$H$K$h$j!"(Bqueue $B$,(B
 
      ((A))
 
@@ -452,7 +446,7 @@ Elib (the GNU emacs lisp library version 1.0) $B$r;29M$K$7$^$7$?!#$J$*!"(B
 
      (setcdr (cdr queue) new-pair)
 
-$B$rI>2A$9$k$H(B ($BCm(B1)$B!"(B* $B$N8D=j$N%]%$%s%?A`:n$,9T$J$o$l!"%-%e!<$N:G8eJ}$K(B
+$B$rI>2A$9$k$H(B ($BCm(B1)$B!"(B* $B$N8D=j$N%]%$%s%?A`:n$,9T$o$l!"%-%e!<$N:G8eJ}$K(B
 $B?7$7$$MWAG$G$"$k(B B $B$,DI2C$5$l$k$3$H$K$J$j$^$9!#(Bqueue $B$O(B
 
      ((A B) A B)
@@ -479,7 +473,7 @@ Elib (the GNU emacs lisp library version 1.0) $B$r;29M$K$7$^$7$?!#$J$*!"(B
      (setcdr queue new-pair)
 
 $B$rI>2A$9$k$3$H$K$h$j!"(Brear $B%]%$%s%?$rD%$jJQ$($^$9(B (* $B$N8D=j$N%]%$%s%?(B
-$BA`:n$,9T$J$o$l$k(B)$B!#(Brear $B%]%$%s%?$,%-%e!<$N:G8eJ}$NMWAG$r;X$9$h$&$K$7$^(B
+$BA`:n$,9T$o$l$k(B)$B!#(Brear $B%]%$%s%?$,%-%e!<$N:G8eJ}$NMWAG$r;X$9$h$&$K$7$^(B
 $B$9!#(Bfront $B%]%$%s%?$,;X$9%j%9%H$O%-%e!<$NA4$F$NMWAG$rI=$o$7$^$9!#(B
 
         queue
