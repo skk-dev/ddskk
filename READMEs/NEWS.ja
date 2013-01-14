@@ -4,6 +4,8 @@
 
 GNU Emacs 21 をお使いの方は DDSKK 14.4 を利用してください。
 
+*** skk-sit-for() を廃止しました。
+
 ** GNU Emacs 24 対応を進めました
 
 *** M-x customize-theme に対応するよう ccc.el を修正しました。
@@ -20,6 +22,10 @@ deactivate-input-method へ変更されたことに伴う wrap マクロ
 
 *** isearch-cmds の仕様変更に対応
 
+*** face 名 'modeline から 'mode-line へ変更
+
+*** tooltip-use-echo-area の使用をやめました。
+
 ** multi-tty 対応を進めました
 
 multi-tty に対応するよう ccc.el を修正しました。[skk 7641]
@@ -31,6 +37,11 @@ jisx0213, jisx0208, ascii 以外の文字集合であれば「判別できない文字です」と
 表示していたところ、skk-char-charset() で得た文字集合を表示するようにしま
 した。
 
+** skk-num.el
+
+関数 add-number-grouping() と関数 skk-num-grouping() を追加しました。
+「Q 1 2 3 4 5 6 7 <SPC>」の操作で候補「▼1,234,567」が表示されます。
+
 ** その他バグ修正など
 
 *** ccc.el のバグ修正 (M-x load-theme 対応) [skk 7683]
@@ -40,6 +51,10 @@ jisx0213, jisx0208, ascii 以外の文字集合であれば「判別できない文字です」と
 *** undo の挙動を修正 [skk 7661]
 
 *** 廃止された変数 skk-emacs-type の撤廃 [skk 7638]
+
+*** experimental/skk-search-web.el
+
+json レスポンスから xml レスポンスを使用するように変更.
 
 * 14.4
 
