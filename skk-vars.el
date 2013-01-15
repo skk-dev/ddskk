@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.447 2013/01/13 10:26:26 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.448 2013/01/15 12:06:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/13 10:26:26 $
+;; Last Modified: $Date: 2013/01/15 12:06:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4699,8 +4699,10 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     (3 . skk-num-type3-kanji)
     (4 . skk-num-recompute)
     (5 . skk-num-type5-kanji)
+    (8 . skk-num-grouping)
     (9 . skk-num-shogi))
   "*$B?tCM$NJQ49$N$?$a$N!"%$%s%G%/%9$HJQ49$K;HMQ$9$k4X?t$H$NO"A[%j%9%H!#(B
+$B4X?t(B `skk-num-exp' $B$,;2>H$7$F$$$k!#(B
 $B3FMWAG$O!"(B`($B%$%s%G%/%9(B . $B4X?tL>(B)' $B$H$$$&9=@.$K$J$C$F$$$k!#(B
 $B%$%s%G%/%9$K$O!"Nc$($P8+=P$78l$,(B \"$BJ?@.(B#1$BG/(B\" $B$N$H$-!"(B`#' $B5-9f$ND>8e$KI=<((B
 $B$5$l$k(B integer `1' $B$rBeF~$9$k!#(B
@@ -4712,6 +4714,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     3 -> $B4A?t;z$XJQ49(B ($B0L<h$j$r$9$k(B)
     4 -> $B$=$N?t;z$=$N$b$N$r%-!<$K$7$F<-=q$r:F8!:w(B
     5 -> $B4A?t;z(B ($B<j7A$J$I$G;HMQ$9$kJ8;z$r;HMQ(B) $B$XJQ49(B ($B0L<h$j$r$9$k(B)
+    8 -> $B7e6h@Z$j$XJQ49(B (1,234,567)
     9 -> $B>-4}$G;HMQ$9$k?t;z(B (\"$B#3;M(B\" $B$J$I(B) $B$KJQ49(B"
   :type '(repeat (cons (radio :tag "$B%$%s%G%/%9(B"
 			      (const 0)
@@ -4720,6 +4723,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 			      (const 3)
 			      (const 4)
 			      (const 5)
+			      (const 8)
 			      (const 9))
 		       (function :tag "$B4X?t(B")))
   :group 'skk-num)
@@ -4785,6 +4789,16 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 
 (defvar skk-num-recompute-key nil
   "#4 $B%?%$%W$N%-!<$K$h$j?tCM$N:F7W;;$r9T$C$?$H$-$N8!:w%-!<!#(B")
+
+(defcustom skk-num-grouping-separator ","
+  "#8 $B%?%$%W(B($B7e6h@Z$j(B)$B$K;HMQ$9$k5-9f(B"
+  :type 'string
+  :group 'skk-num)
+
+(defcustom skk-num-grouping-places 3
+  "#8 $B%?%$%W(B($B7e6h@Z$j(B)$B$r2?7e$G6h@Z$k$+(B"
+  :type 'integer
+  :group 'skk-num)
 
 ;;; skk-server.el related.
 (defcustom skk-server-host (or (getenv "SKKSERVER") "localhost")

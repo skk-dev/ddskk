@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.50 2013/01/14 05:42:15 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.51 2013/01/15 12:06:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/14 05:42:15 $
+;; Last Modified: $Date: 2013/01/15 12:06:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -40,29 +40,6 @@
 
 (defsubst skk-num-int-p (num)
   (not (string-match "\\.[0-9]" num)))
-
-;;;###autoload
-(defun add-number-grouping (number &optional separator)
-  ;; http://www.emacswiki.org/cgi-bin/wiki/AddCommasToNumbers
-  "Add commas to NUMBER and return it as a string.
-    Optional SEPARATOR is the string to use to separate groups.
-    It defaults to a comma."
-  (let ((num (number-to-string number))
-	(op (or separator ",")))
-    (while (string-match "\\(.*[0-9]\\)\\([0-9][0-9][0-9].*\\)" num)
-      (setq num (concat 
-		 (match-string 1 num) op
-		 (match-string 2 num))))
-    num))
-
-;;;###autoload
-(defun skk-num-grouping ()
-  ;; SKK-JISYO.L
-  ;; - # /#1/#3/#2/＃;number/#0/#4/#5/
-  ;; + # /#1/#3/#2/＃;number/#0/(skk-num-grouping)/#4/#5/
-  ;; - #えん /#1円/#0円/#3円/#0えん/#2円/
-  ;; + #えん /#1円/#0円/(concat (skk-num-grouping) "円")/#3円/#0えん/#2円/
-  (add-number-grouping (string-to-number (car skk-num-list))))
 
 ;;;###autoload
 (defun skk-num-compute-henkan-key (key)
@@ -232,7 +209,7 @@
 
 ;;;###autoload
 (defun skk-num-exp (num type)
-  "ascii 数字 (string) の NUM を TYPE に従い変換し、変換後の文字列を返す。
+  "ascii 数字 (string) の NUM を TYPE に従って変換した文字列を返す。
 TYPE は下記の通り。
 0 -> 無変換
 1 -> 全角数字へ変換
@@ -240,7 +217,8 @@ TYPE は下記の通り。
 3 -> 漢数字へ変換 (位取りをする)
 4 -> その数字そのものをキーにして辞書を再検索
 5 -> 漢数字 (手形などで使用する文字を使用) へ変換 (位取りをする)
-9 -> 将棋で使用する数字 (\"３四\" など) に変換"
+8 -> 桁区切りへ変換 (1,234,567)
+9 -> 将棋で使用する数字 (\"３四\" など) へ変換"
   (save-match-data
     (let ((fun (cdr (assq type skk-num-type-alist))))
       (when fun
@@ -362,6 +340,37 @@ TYPE は下記の通り。
     ;;
     (or v
 	(skk-num-get-suuji ?0 alist))))
+
+(defun add-number-grouping (number &optional separator places)
+  ;; http://www.emacswiki.org/cgi-bin/wiki/AddCommasToNumbers
+  ;; and 玉野健一 <suzu@a7m3.jp>
+  "Add commas to NUMBER and return it as a string.
+    Optional SEPARATOR is the string to use to separate groups.
+    It defaults to a comma.
+    PLACES is the number of places of a group.
+    It defaults to three."
+  (let ((num (number-to-string number))
+	(op (or separator
+		","))
+        (pl (or (if (< places 1) 3 places)
+		3))) 
+    (while (string-match (concat "\\(.*[0-9]\\)\\([0-9]\\{"
+				 (number-to-string pl)
+				 "\\}.*\\)")
+			 num)
+      (setq num (concat (match-string 1 num)
+			op
+			(match-string 2 num))))
+    num))
+
+(defun skk-num-grouping (num)
+  "ascii 数字の NUM を桁区切りへ変換し、変換後の文字列を返す。
+例えば \"1234567\" を \"1,234,567\" へ変換する。
+区切る記号は `skk-num-grouping-separator' で、区切る桁数は `skk-num-grouping-places' で指定する。"
+  (add-number-grouping (string-to-number num)	  ; number
+		       skk-num-grouping-separator ; `,'
+		       skk-num-grouping-places	  ; 3
+		       ))
 
 (defun skk-num-shogi (num)
   "ascii 数字の NUM を将棋で使用される数字表記に変換する。

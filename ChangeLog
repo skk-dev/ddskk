@@ -1,3 +1,13 @@
+2013-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-num-type-alist): Add "#8 type" and use skk-num-grouping().
+	(skk-num-grouping-separator): New variable.
+	(skk-num-grouping-places): New variable.
+
+	* skk-num.el (skk-num-exp): Add docstring "#8 type".
+	(add-number-grouping): Add optional argument PLACES.
+	(skk-num-grouping): Use skk-num-grouping-separator and skk-num-grouping-places.
+
 2013-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-num.el (add-number-grouping, skk-num-grouping): Add new functions.
