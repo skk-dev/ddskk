@@ -1,3 +1,13 @@
+2013-01-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-num-type-alist, skk-num-grouping-separator)
+	(skk-num-grouping-places): Update docstring.
+
+	* skk-num.el (skk-num-exp, skk-num-type2-kanji)
+	(skk-num-type3-kanji, skk-num-type5-kanji): Update docstring.
+
+	* doc/skk.texi: Update.
+
 2013-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-num-type-alist): Add "#8 type" and use skk-num-grouping().
