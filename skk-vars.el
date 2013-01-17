@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.448 2013/01/15 12:06:17 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.449 2013/01/17 13:50:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/15 12:06:17 $
+;; Last Modified: $Date: 2013/01/17 13:50:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4710,10 +4710,10 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 $B%$%s%G%/%9$H4X?t$N4X78(B ($B%G%U%)%k%HCM(B) $B$O2<5-$NDL$j!#(B
     0 -> $BL5JQ49(B
     1 -> $BA43Q?t;z$XJQ49(B
-    2 -> $B4A?t;z$XJQ49(B ($B0L<h$j$J$7(B)
-    3 -> $B4A?t;z$XJQ49(B ($B0L<h$j$r$9$k(B)
+    2 -> $B4A?t;z(B ($B0L<h$j$"$j(B) $B$XJQ49(B
+    3 -> $B4A?t;z(B ($B0L<h$j$J$7(B) $B$XJQ49(B
     4 -> $B$=$N?t;z$=$N$b$N$r%-!<$K$7$F<-=q$r:F8!:w(B
-    5 -> $B4A?t;z(B ($B<j7A$J$I$G;HMQ$9$kJ8;z$r;HMQ(B) $B$XJQ49(B ($B0L<h$j$r$9$k(B)
+    5 -> $B4A?t;z(B ($B<j7A$J$I$G;HMQ$9$kJ8;z$r;HMQ(B) $B$XJQ49(B
     8 -> $B7e6h@Z$j$XJQ49(B (1,234,567)
     9 -> $B>-4}$G;HMQ$9$k?t;z(B (\"$B#3;M(B\" $B$J$I(B) $B$KJQ49(B"
   :type '(repeat (cons (radio :tag "$B%$%s%G%/%9(B"
@@ -4791,12 +4791,12 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   "#4 $B%?%$%W$N%-!<$K$h$j?tCM$N:F7W;;$r9T$C$?$H$-$N8!:w%-!<!#(B")
 
 (defcustom skk-num-grouping-separator ","
-  "#8 $B%?%$%W(B($B7e6h@Z$j(B)$B$K;HMQ$9$k5-9f(B"
+  "#8 $B%?%$%W(B ($B7e6h@Z$j(B) $B$G;HMQ$9$k5-9f(B"
   :type 'string
   :group 'skk-num)
 
 (defcustom skk-num-grouping-places 3
-  "#8 $B%?%$%W(B($B7e6h@Z$j(B)$B$r2?7e$G6h@Z$k$+(B"
+  "#8 $B%?%$%W(B ($B7e6h@Z$j(B) $B$r2?7e$G6h@Z$k$+(B"
   :type 'integer
   :group 'skk-num)
 

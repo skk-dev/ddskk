@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.51 2013/01/15 12:06:17 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.52 2013/01/17 13:50:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/15 12:06:17 $
+;; Last Modified: $Date: 2013/01/17 13:50:39 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -213,10 +213,10 @@
 TYPE は下記の通り。
 0 -> 無変換
 1 -> 全角数字へ変換
-2 -> 漢数字へ変換 (位取りなし)
-3 -> 漢数字へ変換 (位取りをする)
+2 -> 漢数字 (位取りあり) へ変換。例;1024 -> 一〇二四
+3 -> 漢数字 (位取りなし) へ変換。例;1024 -> 千二十四
 4 -> その数字そのものをキーにして辞書を再検索
-5 -> 漢数字 (手形などで使用する文字を使用) へ変換 (位取りをする)
+5 -> 漢数字 (手形などで使用する文字を使用) へ変換
 8 -> 桁区切りへ変換 (1,234,567)
 9 -> 将棋で使用する数字 (\"３四\" など) へ変換"
   (save-match-data
@@ -235,8 +235,8 @@ TYPE は下記の通り。
       candidate)))
 
 (defun skk-num-type2-kanji (num)
-  "ascii 数字 NUM を漢数字の文字列に変換し、変換後の文字列を返す。
-例えば、\"45\" を \"四五\" に変換する。"
+  "ascii 数字 NUM を漢数字の文字列 (位取りあり) に変換し、変換後の文字列を返す。
+例えば、\"1024\" を \"一〇二四\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       (let ((candidate
@@ -249,16 +249,16 @@ TYPE は下記の通り。
 	  candidate)))))
 
 (defun skk-num-type3-kanji (num)
-  "ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
-返す。例えば \"1021\" を \"千二十一\" に変換する。"
+  "ascii 数字 NUM を漢数字の文字列 (位取りなし) に変換し、変換後の文字列を返す。
+例えば \"1024\" を \"千二十四\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       ;; 小数点を含まない数
       (skk-num-to-kanji num 'type3))))
 
 (defun skk-num-type5-kanji (num)
-  "ascii 数字 NUM を漢数字の文字列に変換し (位取りをする)、変換後の文字列を
-返す。例えば \"1021\" を \"壱阡弐拾壱\" に変換する。"
+  "ascii 数字 NUM を漢数字の文字列に変換し、変換後の文字列を返す。
+例えば \"1021\" を \"壱阡弐拾壱\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       ;; 小数点を含まない数
