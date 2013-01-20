@@ -37,10 +37,19 @@ jisx0213, jisx0208, ascii 以外の文字集合であれば「判別できない文字です」と
 表示していたところ、skk-char-charset() で得た文字集合を表示するようにしま
 した。
 
-** skk-num.el
+** タイプ #8 (桁区切り) を追加しました。
+
+辞書エントリーに `#8' があれば、「Q 1 2 3 4 5 6 7 <SPC>」の操作で
+候補「▼1,234,567」が表示されます。
+
+*** skk-num.el
 
 関数 add-number-grouping() と関数 skk-num-grouping() を追加しました。
-「Q 1 2 3 4 5 6 7 <SPC>」の操作で候補「▼1,234,567」が表示されます。
+
+*** skk-vars.el
+
+区切る記号を 変数 skk-num-grouping-separator で、何桁毎に区切るかを
+変数 skk-num-grouping-places で指定します。
 
 ** その他バグ修正など
 
