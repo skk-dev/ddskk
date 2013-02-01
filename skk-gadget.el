@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-gadget.el,v 1.52 2013/01/13 09:45:48 skk-cvs Exp $
+;; Version: $Id: skk-gadget.el,v 1.53 2013/02/01 13:55:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/13 09:45:48 $
+;; Last Modified: $Date: 2013/02/01 13:55:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -58,9 +58,9 @@
 ;; -- programs
 ;;;###autoload
 (defun skk-current-date (&optional pp-function format and-time)
-  "`current-time-string' の出力を加工し、現在の日時 \(string\)を返す。
+  "`current-time-string' の出力を加工し、現在の日時 \(string\) を返す。
 オプショナル引数の PP-FUNCTION を指定すると、`skk-current-date-1'
-の返り値、FORMAT と AND-TIME を引数にして `funcall' する。
+の返り値、FORMAT と AND-TIME を引数にして PP-FUNCTION を `funcall' する。
 PP-FUNCTION の指定がない場合は `skk-default-current-date-function' を
 `funcall' する。
 FORMAT は `format' の第一引数の様式 \(string\) による出力指定テンプレート。
@@ -73,7 +73,11 @@ AND-TIME \(boolean\) を指定すると時刻も返す。
 
 (defun skk-current-date-1 (&optional specified-time)
   "`current-time-string' の出力を加工し、日付・時刻情報をリストにして返す。
-\(year month day day-of-week hour minute second\)"
+\(year month day day-of-week hour minute second\)
+\(\"2013\" \"Jan\" \"29\" \"Tue\" \"22\" \"41\" \"11\"\)
+
+オプショナル引数の SPECIFIED-TIME は `current-time-string' の docstring
+を参照のこと。"
   (let* ((str (current-time-string specified-time))
 	 (date (substring str 8 10)))
     (when (eq (aref date 0) ?\040)
