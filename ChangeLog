@@ -1,3 +1,12 @@
+2013-02-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-gadget.el: Add (require 'cl).
+	(skk-current-date): Update docstring.
+	(skk-current-date-1): Use multiple-value-bind().
+	(skk-default-current-date): Update docstring.
+	Use multiple-value-bind().
+	(skk-relative-date): Add new function.
+
 2013-02-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-gadget.el (skk-current-date, skk-current-date-1): Update docstring.
