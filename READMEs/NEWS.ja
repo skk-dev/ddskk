@@ -51,6 +51,13 @@ jisx0213, jisx0208, ascii 以外の文字集合であれば「判別できない文字です」と
 区切る記号を 変数 skk-num-grouping-separator で、何桁毎に区切るかを
 変数 skk-num-grouping-places で指定します。
 
+** 新たな日付変換を追加しました。
+
+新たな関数 skk-relative-date() を追加しました。skk-current-date() の機能
+拡張版です。skk-gadget.el のコメントを参考に辞書エントリを追加することに
+よって、見出し語「▽きのう」や「▽あさって」などから具体的な日付を求める
+ことができます。
+
 ** その他バグ修正など
 
 *** ccc.el のバグ修正 (M-x load-theme 対応) [skk 7683]
