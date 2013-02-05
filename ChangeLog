@@ -1,3 +1,7 @@
+2013-02-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK verison to 14.4.54.
+
 2013-02-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-gadget.el: Add (require 'cl).
