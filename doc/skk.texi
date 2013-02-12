@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.54
-@set UPDATED $Date: 2013/02/05 13:17:32 $
+@set UPDATED $Date: 2013/02/12 11:44:27 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4248,7 +4248,7 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/@dots{}/
 @end lisp
 
 @file{skk-gadget.el} $B$K$O!"@>Nq!?859fJQ49$d4JC1$J7W;;$J$I%W%m%0%i%`<B9TJQ(B
-$B49MQ$N4X?t$,=8$a$i$l$F$$$^$9!#0J2<!"#2$D$NNc$r7G$2$^$9!#(B
+$B49MQ$N4X?t$,=8$a$i$l$F$$$^$9!#(B
 
 @defun skk-calc operator
 
@@ -4347,6 +4347,16 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 @end group
 @end lisp
 @end defvr
+
+@defun skk-relative-date pp-function format and-time &key (yy 0) (mm 0) (dd 0)
+
+@code{skk-current-date} $B$N3HD%HG!#(B@code{PP-FUNCTION}, @code{FORMAT}, @code{AND-TIME} $B$N(B
+$B0UL#$O(B @code{skk-current-date} $B$N(B docstring $B$r;2>H$N$3$H!#(B
+$B%-!<%o!<%IJQ?t(B @code{:yy}, @code{:mm}, @code{:dd} $B$K@5$^$?$OIi$N?tCM$r;XDj$9$k$3$H$G(B
+$BL@F|!"L@8eF|!"0l:rF|$J$I$NF|IU$r5a$a$k$3$H$,$G$-$k!#(B
+$B>\:Y$O(B @file{skk-gadget.el} $B$N%3%a%s%H$r;2>H$N$3$H!#(B
+
+@end defun 
 
 @node $B6uGr!&2~9T!&%?%V$r4^$s$@8+=P$78l$NJQ49(B
 @subsection $B6uGr!&2~9T!&%?%V$r4^$s$@8+=P$78l$NJQ49(B
