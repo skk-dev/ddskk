@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 14.4.54
-@set UPDATED $Date: 2013/02/12 11:44:27 $
+@set UPDATED $Date: 2013/02/21 12:44:22 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -3313,6 +3313,7 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$,0[$J$k(B face $B$GI
 * $B6uGr!&2~9T!&%?%V$r4^$s$@8+=P$78l$NJQ49(B::
 * $B%+%?%+%JJQ49(B::                $B8D?M<-=q$G%+%?%+%J8l$r0i$F$i$l$^$9!#(B
 * $B%5JQF0;lJQ49(B::                $B%59TJQ3J3hMQF0;l$NAw$j$"$jJQ49$,2DG=$G$9(B
+* $B0[BN;z$XJQ49$9$k(B::
 * $B%U%!%s%/%7%g%s%-!<$N;H$$J}(B::
 @end menu
 
@@ -4175,12 +4176,16 @@ ASCII $B?t;z!#(B@samp{1996$BG/(B7$B7n(B21$BF|(B($BF|(B)} $B$N$h$&$K$J
 L $B<-=q(B
 @footnote{@ref{$B<-=q$N<oN`(B, , L$B<-=q(B}.}$B$K$O!"8+=P$78l(B @samp{today} $B$N8uJd(B
 $B$H$7$F!"(B@code{skk-date-ad} $B$H(B @code{skk-number-style} $B$NA4$F$NAH$_9g$o$;$,(B
-$B%W%m%0%i%`<B9TJQ495!G=(B@footnote{@ref{$B%W%m%0%i%`<B9TJQ49(B}.}$B$rMQ$$$FEPO?$5(B
+$B%W%m%0%i%`<B9TJQ495!G=(B@footnote{@ref{$B%W%m%0%i%`<B9TJQ49(B}.} $B$rMQ$$$FEPO?$5(B
 $B$l$F$$$^$9!#=>$C$F!"(B@kbd{/ t o d a y @key{SPC}} $B$HF~NO$9$k$H!":#F|$NF|IU(B
 $B$,>e5-$N7A<0$G=g<!8uJd$H$7$FI=<($5$l$^$9!#(B
 
-@kbd{@@} $B$K$h$C$FF|IU$rA^F~$9$k$N$G$O$J$/!"J8;z$I$*$j(B @kbd{@@} $B$rA^F~$7(B
-$B$?$$>l9g$K$O!"(B
+$B4X?t(B @code{skk-relative-date} $B$rMxMQ$9$k$H!":rF|!"0l:rF|!"L@8eF|$J$IG$0U(B
+$B$NF|IU$r5a$a$k$3$H$,$G$-$^$9!#>\:Y$O(B @file{skk-gadget.el} $B$N%3%a%s%H$r;2(B
+$B>H$7$F$/$@$5$$!#(B
+
+$B$J$*!"(B@kbd{@@} $B$N%?%$%W$GF|IU$rA^F~$9$k$N$G$O$J$/!"J8;z$I$*$j(B @samp{@@} $B$r(B
+$BA^F~$7$?$$>l9g$O<!$N$H$*$j!#(B
 
 @lisp
 @group
@@ -4190,8 +4195,7 @@ L $B<-=q(B
 @end group
 @end lisp
 
-@noindent
-$B$N$h$&$K$7$^$9!#A43QJ8;z$N(B @samp{$B!w(B} $B$rA^F~$7$?$$>l9g$O!"(B
+$BA43QJ8;z$N(B @samp{$B!w(B} $B$rA^F~$7$?$$>l9g$O<!$N$H$*$j!#(B
 
 @lisp
 @group
@@ -4200,9 +4204,6 @@ L $B<-=q(B
               '(("@@" nil "$B!w(B"))))
 @end group
 @end lisp
-
-@noindent
-$B$N$h$&$K$7$^$9!#(B
 
 @node $B%W%m%0%i%`<B9TJQ49(B
 @subsection $B%W%m%0%i%`<B9TJQ49(B
@@ -4499,6 +4500,50 @@ skk-calc $B$O!"0z?t$r(B 1 $B$D<h$j!"8+=P$78l$N?t;z$KBP$7$=$N1i;;$r9T$&4JC1$J7
 $B$3$N%5JQF0;lAw$j$"$jJQ495!G=$O!"%+%?%+%JJQ495!G=$HAH$_9g$o$;$k$H$5$i$KM-(B
 $B8z$G$9!#(B(@w{@pxref{$B%+%?%+%JJQ49(B}})
 @end defvr
+
+@node $B0[BN;z$XJQ49$9$k(B
+@subsection $B0[BN;z$XJQ49$9$k(B
+@samp{$BJU(B} (42$B6h(B53$BE@(B) $B$N0[BN;z$G$"$k(B @samp{$Bn4(B} (78$B6h(B20$BE@(B) $B$d(B @samp{$Bn5(B} (78
+$B6h(B21$BE@(B) $B$rF~NO$7$?$$$H$-$,$"$j$^$9(B@footnote{$B<-=q$,=<<B$7$F$$$l$P$+$J4A;z(B
+$BJQ49$G8+=P$78l(B @samp{$B$X$s(B} $B$+$i(B @samp{$Bn4(B} $B$d(B @samp{$Bn5(B} $B$r5a$a$k$3$H$,$G$-(B
+$B$^$9!#$b$A$m$s!"J8;z%3!<%I$r;XDj$7$F(B @samp{$Bn4(B} $B$d(B @samp{$Bn5(B} $B$rD>@\A^F~$9(B
+$B$k$3$H$b$G$-$^$9!#(B}$B!#(B
+
+@example
+@point{}$BJU(B
+
+@kbd{Q}
+
+$B"&(B@point{}$BJU(B
+
+@kbd{C-f}
+
+$B"&JU(B@point{}
+
+@key{SPC}
+
+$B"'n4(B@point{}
+
+@key{SPC}
+
+$B"'n5(B@point{}
+
+@end example
+
+@defvr {$B%f!<%6JQ?t(B} skk-itaiji-jisyo
+
+$B<-=q%U%!%$%k(B @file{SKK-JISYO.itaiji} $BKt$O(B @file{SKK-JISYO.itaiji.JIS3_4} $B$X(B
+$B$N%Q%9$r;XDj$9$k!#(B
+
+$BB>$N<-=q%U%!%$%k$H0[$J$j!"$3$N(B 2 $B$D$N<-=q%U%!%$%k$O8+=P$78l$,4A;z$G$9!#(B
+
+@end defvr
+
+@defun skk-search-itaiji
+
+not documented
+
+@end defun
 
 @node $B%U%!%s%/%7%g%s%-!<$N;H$$J}(B
 @subsection $B%U%!%s%/%7%g%s%-!<$N;H$$J}(B

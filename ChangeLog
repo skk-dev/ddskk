@@ -1,3 +1,12 @@
+2013-02-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-search-itaiji): New function.
+
+	* skk-vars.el (skk-itaiji-jisyo): New variable.
+	(skk-search-prog-list): Use skk-search-itaiji().
+
+	* doc/skk.texi: Update.
+
 2013-02-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

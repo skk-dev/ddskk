@@ -345,6 +345,9 @@
 ;; 注2) `skk-search-prog-list' を手動で設定している場合はこの機能の
 ;;   動作は保証されません。
 
+;; 異体字の候補を表示する
+(setq skk-itaiji-jisyo "/usr/share/skk/SKK-JISYO.itaiji")
+
 ;; look コマンドを使った検索を行う
 (setq skk-use-look t)
 

@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.621 2013/01/13 10:26:26 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.622 2013/02/21 12:44:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/13 10:26:26 $
+;; Last Modified: $Date: 2013/02/21 12:44:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3917,6 +3917,12 @@ FILE には辞書ファイルだけでなく、
 	(add-to-list 'skk-search-ex-state (cons file words)))
       (setq candidates (nconc candidates words)))
     candidates))
+
+(defun skk-search-itaiji ()
+  ;; http://mail.ring.gr.jp/skk/200303/msg00071.html
+  (and (= (length skk-henkan-key) 1)
+       skk-itaiji-jisyo
+       (skk-search-jisyo-file skk-itaiji-jisyo 0 t)))
 
 (defun skk-search-server (file limit &optional nomsg)
   "辞書サーバを使用して `skk-henkan-key' をキーにして検索する。

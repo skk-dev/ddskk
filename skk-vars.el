@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.449 2013/01/17 13:50:39 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.450 2013/02/21 12:44:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/17 13:50:39 $
+;; Last Modified: $Date: 2013/02/21 12:44:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -459,6 +459,12 @@ SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"
   :type '(repeat (file :tag "$B<-=q%U%!%$%kL>(B"))
   :group 'skk-dictionary)
 
+(defcustom skk-itaiji-jisyo nil
+  "$B0[BN;z<-=q(B `SKK-JISYO.itaiji', `SKK-JISYO.itaiji.JIS3_4' $B$X$N%Q%9$r;XDj$9$k!#(B"
+  :type '(radio (file :tag "$B<-=q%U%!%$%kL>(B")
+		(const :tag "$B;XDj$7$J$$(B" nil))
+  :group 'skk-dictionary)
+
 (defcustom skk-search-prog-list
   '((skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
     (skk-tankan-search 'skk-search-jisyo-file skk-large-jisyo 10000)
@@ -471,7 +477,8 @@ SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"
     (skk-search-ja-dic-maybe)
     (skk-search-extra-jisyo-files)
     (skk-search-katakana-maybe)
-    (skk-search-sagyo-henkaku-maybe))
+    (skk-search-sagyo-henkaku-maybe)
+    (skk-search-itaiji))
   "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
 
 $B$3$NJQ?t$NCM$r<jF0$GJQ99$9$k$H!"(BSKK $B$NF0:n$K1F6A$9$k2DG=@-$,$"$k$N$GCm0U$rMW$9$k!#(B
