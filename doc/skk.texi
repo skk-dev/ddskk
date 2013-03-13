@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.0.90
-@set UPDATED $Date: 2013/03/12 13:03:53 $
+@set UPDATED $Date: 2013/03/13 15:10:19 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -277,7 +277,7 @@ GNU Emacs 20 のユーザーは DDSKK 14.1 をお使いください。
 
 @item GNU Emacs 21.4
 
-DDSKK 14.5 以降は GNU Emacs 21 はサポート対象外です。
+DDSKK 15.1 以降は GNU Emacs 21 はサポート対象外です。
 GNU Emacs 21 のユーザーは DDSKK 14.4 をお使いください。
 
 @item GNU Emacs 22.3
@@ -292,6 +292,15 @@ GNU Emacs 21 のユーザーは DDSKK 14.4 をお使いください。
 @itemize @bullet
 @item X Window System 上でのメニューバーの日本語表示は GTK 対応版のみです。
 @end itemize
+
+@item GNU Emacs 24.3
+
+GNU Emacs 24.3 と DDSKK 14 の組み合わせで isearch 使用時の不具合が発見されています。
+GNU Emacs 24.3 のユーザーは DDSKK 15.1 をお使いください。
+
+@url{http://mail.ring.gr.jp/skk/201211/msg00000.html}
+
+@url{http://mail.ring.gr.jp/skk/201212/msg00000.html}
 
 @item XEmacs 21.4
 
@@ -483,7 +492,7 @@ XEmacs でパッケージとしてインストールする場合は、
 @group
 % make what-where-package EMACS=/usr/bin/xemacs
 @print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where-package
-@print{}  Loading /home/user/temp/ddskk-14.5/SKK-CFG...
+@print{}  Loading /home/user/temp/ddskk-@value{SKK-VERSION}/SKK-CFG...
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
 @print{}  -> /usr/share/xemacs/site-packages/lisp/skk
@@ -505,7 +514,7 @@ XEmacs でパッケージとしてインストールする場合は、
 @group
 % make install-package EMACS=/usr/bin/xemacs
 @print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-install-package
-@print{}  Loading /home/user/temp/ddskk-14.5/SKK-CFG@dots{}
+@print{}  Loading /home/user/temp/ddskk-@value{SKK-VERSION}/SKK-CFG@dots{}
 @dots{}
 @end group
 @end example
@@ -520,7 +529,7 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
 レクトリ」を指定してください。
 
 @example
-Dired (directory): ~/temp/ddskk-14.5 @key{RET}
+Dired (directory): ~/temp/ddskk-@value{SKK-VERSION} @key{RET}
 @end example
 
 次に、表示されたディレクトリ一覧の @file{SKK-MK} にカーソルをあわせ
@@ -1966,7 +1975,7 @@ DDSKK には、基本的な操作方法を学習できるチュートリアルが附属しています。
 @cindex @file{skk.el}
 
 SKK の基本的な機能は、@file{skk.el} に収められています。一方、
-DDSKK 14 で応用機能を提供するプログラムのほとんどは @file{skk.el} と
+DDSKK で応用機能を提供するプログラムのほとんどは @file{skk.el} と
 は別のファイルに収めています。これらは、必要に応じてオートロードするように
 設計されています。各応用機能の概略と該当のファイル名について説明します。
 
@@ -2073,8 +2082,10 @@ skk-comp による補完を自動的に実行して見出し語入力を支援します。
 
 バグレポートのメールバッファを用意するプログラムファイル。
 
-@item skk-emacs.el （DDSKK 14.1 以前のファイル名: skk-e21.el）
+@item skk-emacs.el
 @cindex @file{skk-emacs.el}
+
+（DDSKK 14.1 以前のファイル名: @file{skk-e21.el}）
 
 GNU Emacs 21 以降の拡張機能を利用するプログラムを集めたファイル。
 インジケータのカラー化や画像表示、ツールティップ利用など。
@@ -6811,7 +6822,7 @@ DDSKK 14.2 以降では追加の辞書を簡単に設定する方法を提供します。以下の例
 @subsubsection 辞書検索の設定の具体例
 @vindex skk-search-prog-list
 
-この節では、@code{skk-search-prog-list} の具体例として DDSKK 14 での
+この節では、@code{skk-search-prog-list} の具体例として DDSKK 15.1 での
 初期設定を示し、大体の流れを説明します。
 
 DDSKK では、複数の辞書を扱うことが可能です。複数の辞書が同時に
@@ -10264,7 +10275,7 @@ SKK 本体は以下から入手できます。
 @node Q2-3 SKK サーバはどこにありますか?
 @unnumberedsubsec Q2-3 SKK サーバはどこにありますか?
 
-DDSKK 14 は辞書サーバの種類、バージョンには依存していません。
+DDSKK 15 は辞書サーバの種類、バージョンには依存していません。
 
 @display
 @url{http://openlab.jp/skk/skkserv-ja.html}
