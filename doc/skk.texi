@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.0.90
-@set UPDATED $Date: 2013/03/13 15:10:19 $
+@set UPDATED $Date: 2013/03/14 14:14:31 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -377,7 +377,7 @@ DDSKK の主な特徴は、次のとおりです。
 @section APEL のインストール
 @cindex APEL
 
-2011 年 1 月リリースの DDSKK 14.2 からは、GNU Emacs 22 以上を利用する場合
+DDSKK 14.2 からは、GNU Emacs 22 以上を利用する場合
 においては APEL を別途インストールする必要がなくなりました。APEL に依存し
 ている他の elisp プログラムを使用していなければ、インストール済の APEL は
 削除することが可能です。

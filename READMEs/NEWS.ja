@@ -8,7 +8,7 @@ GNU Emacs 21 $B$r$*;H$$$NJ}$O(B DDSKK 14.4 $B$rMxMQ$7$F$/$@$5$$!#(B
 
 ** GNU Emacs 24 $BBP1~$r?J$a$^$7$?(B
 
-*** M-x customize-theme $B$KBP1~$9$k$h$&(B ccc.el $B$r=$@5$7$^$7$?!#(B
+*** M-x customize-theme $B$KBP1~$9$k$h$&(B ccc.el $B$r=$@5$7$^$7$?!#(B[skk 7667]
 
 *** $B%^%/%m(B skk-set-deactivate-im-func $B$rDI2C(B
 
@@ -20,11 +20,11 @@ deactivate-current-input-method-function $B$XJQ99$5$l$?$3$H$KH<$&(B wrap $B%^
 inactivate-input-method $B$,(B
 deactivate-input-method $B$XJQ99$5$l$?$3$H$KH<$&(B wrap $B%^%/%m(B
 
-*** isearch-cmds $B$N;EMMJQ99$KBP1~(B
+*** isearch-cmds $B$N;EMMJQ99$KBP1~(B [skk 7688]
 
-*** face $BL>(B 'modeline $B$+$i(B 'mode-line $B$XJQ99(B
+*** face $BL>(B 'modeline $B$+$i(B 'mode-line $B$XJQ99(B [skk 7681]
 
-*** tooltip-use-echo-area $B$N;HMQ$r$d$a$^$7$?!#(B
+*** tooltip-use-echo-area $B$N;HMQ$r$d$a$^$7$?!#(B[skk 7669]
 
 ** multi-tty $BBP1~$r?J$a$^$7$?(B
 
