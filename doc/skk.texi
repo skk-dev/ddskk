@@ -29,8 +29,8 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set SKK-VERSION 15.0.90
-@set UPDATED $Date: 2013/03/14 14:14:31 $
+@set SKK-VERSION 15.1
+@set UPDATED $Date: 2013/03/16 05:04:04 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -296,7 +296,7 @@ GNU Emacs 21 のユーザーは DDSKK 14.4 をお使いください。
 @item GNU Emacs 24.3
 
 GNU Emacs 24.3 と DDSKK 14 の組み合わせで isearch 使用時の不具合が発見されています。
-GNU Emacs 24.3 のユーザーは DDSKK 15.1 をお使いください。
+GNU Emacs 24.3 のユーザーは DDSKK 15 をお使いください。
 
 @url{http://mail.ring.gr.jp/skk/201211/msg00000.html}
 
@@ -710,7 +710,7 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、下記の辞書サーバの
 なる場合は、上記の @file{SKK-JISYO.L} を @file{SKK-JISYO.M}、@file{SKK-JISYO.ML} 又
 は @file{SKK-JISYO.S} に変更してください。
 
-DDSKK 14 以降は辞書サーバを経由せずとも CDB 形式の辞書ファイルを直接利用
+DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式の辞書ファイルを直接利用
 できるようになりました。CDB 形式辞書ファイルを利用する場合は、以下のよう
 に指定してください。
 
@@ -6752,7 +6752,7 @@ Emacs のバッファに読み込んで検索を行います。
 
 @defvr {ユーザ変数} skk-cdb-large-jisyo
 共有辞書のうち CDB 形式に変換した辞書です。指定した場合は @code{skk-large-jisyo} よ
-りも先に検索されます。DDSKK 14 からは辞書サーバを経由せずとも CDB 形式の辞書を直
+りも先に検索されます。DDSKK 14.1 からは辞書サーバを経由せずとも CDB 形式の辞書を直
 接検索できるようになりました。
 @end defvr
 
@@ -6822,8 +6822,8 @@ DDSKK 14.2 以降では追加の辞書を簡単に設定する方法を提供します。以下の例
 @subsubsection 辞書検索の設定の具体例
 @vindex skk-search-prog-list
 
-この節では、@code{skk-search-prog-list} の具体例として DDSKK 15.1 での
-初期設定を示し、大体の流れを説明します。
+この節では、@code{skk-search-prog-list} の初期設定を示し、大体
+の流れを説明します。
 
 DDSKK では、複数の辞書を扱うことが可能です。複数の辞書が同時に
 検索されるのではなく、指定した順番に検索します。
