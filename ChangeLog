@@ -1,5 +1,11 @@
 2013-03-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* Version 15.1 Umeda Released.
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK verison to 15.1.
+
+2013-03-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* doc/skk.texi: Update.
 
 2013-03-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
