@@ -44,6 +44,11 @@
 ;; 各種メッセージを日本語で通知する
 (setq skk-japanese-message-and-error t)
 
+;; skk-version() の結果を日本語で表示する
+;;   nil  => Daredevil SKK/15.1 (Umeda)
+;;   t    => Daredevil SKK/15.1 (梅田)
+(setq skk-version-codename-ja t)
+
 ;; モードライン上の表示を変更する
 ;;   'left => モードラインの左端に表示する
 ;;   以外  => マイナーモードとして表示する

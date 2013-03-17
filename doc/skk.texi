@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1
-@set UPDATED $Date: 2013/03/16 05:04:04 $
+@set UPDATED $Date: 2013/03/17 04:45:57 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9358,6 +9358,13 @@ XEmacs の場合
 @defvr {ユーザ変数} skk-show-japanese-menu
 
 この変数の値を @code{non-nil} に設定すると、メニューバーを日本語で表示します。
+@end defvr
+
+@defvr {ユーザ変数} skk-version-codename-ja
+
+この変数の値を @code{non-nil} に設定すると、関数 skk-version の結果を日本
+語で表示します。
+
 @end defvr
 
 @node 冗長な案内メッセージの表示

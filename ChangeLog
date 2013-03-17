@@ -4,6 +4,8 @@
 
 	* skk-version.el (skk-version): Use it.
 
+	* doc/skk.texi: Update.
+
 ;; Local Variables:
 ;; coding: iso-2022-7bit-ss2
 ;; End:
