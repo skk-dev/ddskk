@@ -1,5 +1,7 @@
 2013-03-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.50.
+
 	* skk-vars.el (skk-version-codename-ja): New variable.
 
 	* skk-version.el (skk-version): Use it.
