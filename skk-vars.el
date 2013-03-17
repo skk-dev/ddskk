@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.450 2013/02/21 12:44:22 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.451 2013/03/17 03:55:36 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/02/21 12:44:22 $
+;; Last Modified: $Date: 2013/03/17 03:55:36 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -329,6 +329,11 @@
 (defcustom skk-japanese-message-and-error nil
   "*Non-nil であれば、SKK のメッセージとエラーを日本語で表示する。
 nil であれば、英語で表示する。"
+  :type 'boolean
+  :group 'skk-basic)
+
+(defcustom skk-version-codename-ja nil
+  "*Non-nil であれば、関数 skk-version でのコードネームを日本語で表示する。"
   :type 'boolean
   :group 'skk-basic)
 
