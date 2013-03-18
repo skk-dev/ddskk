@@ -1,3 +1,10 @@
+* 15.2
+
+** skk-version() の日本語表示
+
+新たな変数 skk-version-codename-ja を追加しました。これが non-nil であれ
+は、skk-version() を評価したときのコードネームを日本語で表示します。
+
 * 15.1
 
 ** GNU Emacs 21 のサポートを終了しました
