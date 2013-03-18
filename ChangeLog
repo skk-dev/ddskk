@@ -1,5 +1,7 @@
 2013-03-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi: Update.
+
 	* skk-macs.el (skk-put-last-henkan-datum): どこからも参照されて
 	いないので、いったん削除.
 
