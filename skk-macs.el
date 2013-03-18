@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.192 2013/01/13 09:45:48 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.193 2013/03/18 14:07:01 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/13 09:45:48 $
+;; Last Modified: $Date: 2013/03/18 14:07:01 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -973,11 +973,12 @@ BUFFER defaults to the current buffer."
 (defsubst skk-get-last-henkan-datum (key)
   (cdr (assq key skk-last-henkan-data)))
 
-(defsubst skk-put-last-henkan-datum (key val)
-  (let ((e (assq key skk-last-henkan-data)))
-    (if e
-	(setcdr e val)
-      (push (cons key val) skk-last-henkan-data))))
+;;; 2013-3-18 どこからも参照されておらず
+;; (defsubst skk-put-last-henkan-datum (key val)
+;;   (let ((e (assq key skk-last-henkan-data)))
+;;     (if e
+;; 	(setcdr e val)
+;;       (push (cons key val) skk-last-henkan-data))))
 
 (defun skk-put-last-henkan-data (alist)
   (let (e)
