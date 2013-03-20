@@ -1,5 +1,13 @@
 2013-03-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo):
+	* skk-study.el (skk-study-read):
+	* skk-tut.el (skk-tutorial-quit):
+	* skk.el (skk-kill-emacs-without-saving-jisyo)
+	(skk-remove-redundant-okurigana, skk-purge-from-jisyo)
+	(skk-reread-private-jisyo, skk-remove-common):
+	yes-or-no-p() と y-or-no-p のプロンプトの末尾に空白を挿入.
+
 	* skk-macs.el (skk-message, skk-error, skk-yes-or-no-p)
 	(skk-y-or-n-p, skk-set-marker): バッククオート形式に書き直した.
 

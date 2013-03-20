@@ -118,9 +118,9 @@ SKK 使用中の場合は SKK による個人辞書バッファの更新が禁止される。
   (let (answer)
     (unless skk-jisyo-edit-user-accepts-editing
       (setq answer (skk-yes-or-no-p "\
-個人辞書の編集は辞書を壊す可能性があります。自己責任での実行に同意しますか？"
+個人辞書の編集は辞書を壊す可能性があります。自己責任での実行に同意しますか？ "
 				    "\
-You must edit your private dictionary at your own risk.  Do you accept it?"))
+You must edit your private dictionary at your own risk.  Do you accept it? "))
       (when answer
 	(skk-cus-set '((skk-jisyo-edit-user-accepts-editing . t))))))
   (when skk-jisyo-edit-user-accepts-editing

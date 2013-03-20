@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.90 2012/08/28 12:14:21 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.91 2013/03/20 03:20:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/08/28 12:14:21 $
+;; Last Modified: $Date: 2013/03/20 03:20:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -546,7 +546,7 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
   (interactive "P")
   (when (or now
 	    (skktut-yes-or-no-p
-	     "本当にチュートリアルをやめますか? "
+	     "本当にチュートリアルをやめますか？ "
 	     "Really quit tutorial? "))
     (let ((inhibit-quit t))
       (delete-other-windows)

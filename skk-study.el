@@ -3,10 +3,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.66 2013/01/13 09:45:48 skk-cvs Exp $
+;; Version: $Id: skk-study.el,v 1.67 2013/03/20 03:20:33 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2013/01/13 09:45:48 $
+;; Last Modified: $Date: 2013/03/20 03:20:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -336,8 +336,8 @@ TO の既存データは破壊される。"
   (when (or (null skk-study-alist)
 	    force
 	    (skk-yes-or-no-p
-	     (format "%s を再読み込みしますか？" skk-study-file)
-	     (format "Reread %s?" skk-study-file)))
+	     (format "%s を再読み込みしますか？ " skk-study-file)
+	     (format "Reread %s? " skk-study-file)))
     (unless nomsg
       (skk-message "%s の SKK 学習結果を展開しています..."
 		   "Expanding SKK study of %s ..."

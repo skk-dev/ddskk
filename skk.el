@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.622 2013/02/21 12:44:22 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.623 2013/03/20 03:20:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/02/21 12:44:22 $
+;; Last Modified: $Date: 2013/03/20 03:20:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -210,7 +210,7 @@ dependent."
   ;; $B$k!#(B
   (when (yes-or-no-p
 	 (format (if skk-japanese-message-and-error
-		     "$B8D?M<-=q$rJ]B8$;$:$K(B %s $B$r=*N;$7$^$9!#NI$$$G$9$+!)(B"
+		     "$B8D?M<-=q$rJ]B8$;$:$K(B %s $B$r=*N;$7$^$9!#NI$$$G$9$+!)(B "
 		   "Do you really wish to kill %s without saving Jisyo? ")
 		 (if (featurep 'xemacs) "XEmacs" "Emacs")))
     (let ((buff (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
@@ -2371,9 +2371,9 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 		 (string-match "^[$B$!(B-$B$s(B]$" str1)
 		 (or (eq skk-check-okurigana-on-touroku 'auto)
 		     (skk-y-or-n-p
-		      (format "%s: `%s' $B$r=|$$$FEPO?$7$^$9$+!)(B"
+		      (format "%s: `%s' $B$r=|$$$FEPO?$7$^$9$+!)(B "
 			      word str)
-		      (format "%s: Remove `%s' when register?"
+		      (format "%s: Remove `%s' when register? "
 			      word str))))
 	;; $B%f!<%6$N;X<($K=>$$Aw$j2>L>$r<h$j=|$/!#(B
 	(message "")
@@ -3410,8 +3410,8 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
 	  (yes-or-no-p
 	   (format
 	    (if skk-japanese-message-and-error
-		"%s /%s/%s$B$r<-=q$+$i:o=|$7$^$9!#NI$$$G$9$+!)(B"
-	      "Really purge \"%s /%s/%s\"?")
+		"%s /%s/%s$B$r<-=q$+$i:o=|$7$^$9!#NI$$$G$9$+!)(B "
+	      "Really purge \"%s /%s/%s\"? ")
 	    skk-henkan-key
 	    (skk-get-current-candidate)
 	    (cond
@@ -3649,8 +3649,8 @@ If you want to restore the dictionary from your drive, try
     (when (and buf
 	       (or force
 		   (skk-yes-or-no-p
-		    "$BL$%;!<%V$N8D?M<-=q$rGK4~$7$^$9$+!)(B"
-		    "Discard your unsaved private JISYO?")))
+		    "$BL$%;!<%V$N8D?M<-=q$rGK4~$7$^$9$+!)(B "
+		    "Discard your unsaved private JISYO? ")))
       (with-current-buffer buf
 	(set-buffer-modified-p nil)
 	(kill-buffer buf))
@@ -5005,7 +5005,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 	       ((y-or-n-p
 		 (format
 		  (if skk-japanese-message-and-error
-		      "%s /%s/ $B$rAw$j$"$j8uJd$H$7$FEPO?$7$^$9$+!)(B"
+		      "%s /%s/ $B$rAw$j$"$j8uJd$H$7$FEPO?$7$^$9$+!)(B "
 		    "Shall I register this as okuri-ari word: %s /%s/ ? ")
 		  new-skk-henkan-key new-word))
 		(setq word new-word
