@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.193 2013/03/18 14:07:01 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.194 2013/03/20 02:26:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/18 14:07:01 $
+;; Last Modified: $Date: 2013/03/20 02:26:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -117,14 +117,12 @@ doesn't give arguments of `interactive'. See `interactive' for details."
  ARG は `message' 関数の第２引数以降の引数として渡される。"
   (append
    (if arg
-       (list 'message (list 'if
-			    'skk-japanese-message-and-error
-			    japanese
-			    english))
-     (list 'message "%s" (list 'if
-			       'skk-japanese-message-and-error
-			       japanese
-			       english)))
+       `(message (if skk-japanese-message-and-error
+		     ,japanese
+		   ,english))
+     `(message "%s" (if skk-japanese-message-and-error
+			,japanese
+		      ,english)))
    arg))
 
 (defmacro skk-error (japanese english &rest arg)
@@ -134,14 +132,12 @@ doesn't give arguments of `interactive'. See `interactive' for details."
  ARG は `error' 関数の第２引数以降の引数として渡される。"
   (append
    (if arg
-       (list 'error (list 'if
-			  'skk-japanese-message-and-error
-			  japanese
-			  english))
-     (list 'error "%s" (list 'if
-			     'skk-japanese-message-and-error
-			     japanese
-			     english)))
+       `(error (if skk-japanese-message-and-error
+		   ,japanese
+		 ,english))
+     `(error "%s" (if skk-japanese-message-and-error
+		      ,japanese
+		    ,english)))
    arg))
 
 (defmacro skk-yes-or-no-p (japanese english)
@@ -151,24 +147,24 @@ doesn't give arguments of `interactive'. See `interactive' for details."
 `yes-or-no-p' の引数 PROMPT が複雑に入れ込んでいる場合は `skk-yes-or-no-p' を
 使うよりもオリジナルの `yes-or-no-p' を使用した方がコードが複雑にならない場合
 がある。"
-  (list 'yes-or-no-p (list 'if 'skk-japanese-message-and-error
-			   japanese english)))
+  `(yes-or-no-p (if skk-japanese-message-and-error
+		    ,japanese ,english)))
 
 (defmacro skk-y-or-n-p (japanese english)
   "ユーザに \"y or n\" を質問し、答えが \"y\" だったら t を返す。
 `skk-japanese-message-and-error' が non-nil であれば JAPANESE を、 nil であれ
 ば ENGLISH を PROMPT として `y-or-n-p' を実行する。"
-  (list 'y-or-n-p (list 'if 'skk-japanese-message-and-error
-			japanese english)))
+  `(y-or-n-p (if skk-japanese-message-and-error
+		 ,japanese ,english)))
 
 (defmacro skk-set-marker (marker position &optional buffer)
   "マーカ MARKER を BUFFER の POSITION に移動する。
 BUFFER のディフォルト値はカレントバッファである。
 MARKER が nil だったら、新規マーカーを作って代入する。"
-  (list 'progn
-	(list 'if (list 'not marker)
-	      (list 'setq marker (list 'make-marker)))
-	(list 'set-marker marker position buffer)))
+  `(progn
+     (if (not ,marker)
+	 (setq ,marker (make-marker)))
+     (set-marker ,marker ,position ,buffer)))
 
 (defmacro skk-with-point-move (&rest form)
   "ポイントを移動するがフックを実行してほしくない場合に使う。"

@@ -1,3 +1,8 @@
+2013-03-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-message, skk-error, skk-yes-or-no-p)
+	(skk-y-or-n-p, skk-set-marker): バッククオート形式に書き直した.
+
 2013-03-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
