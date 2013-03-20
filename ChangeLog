@@ -9,7 +9,9 @@
 	yes-or-no-p() と y-or-no-p のプロンプトの末尾に空白を挿入.
 
 	* skk-macs.el (skk-message, skk-error, skk-yes-or-no-p)
-	(skk-y-or-n-p, skk-set-marker): バッククオート形式に書き直した.
+	(skk-y-or-n-p, skk-set-marker):
+	* skk-tut.el (skktut-message, skktut-error, skktut-yes-or-no-p):
+	バッククオート形式に書き直した.
 
 2013-03-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

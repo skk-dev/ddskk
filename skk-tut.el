@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.91 2013/03/20 03:20:33 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.92 2013/03/20 06:53:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/20 03:20:33 $
+;; Last Modified: $Date: 2013/03/20 06:53:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -395,18 +395,18 @@
   ;; skktut-japanese-tut が non-nil だったら JAPANESE を nil であれば ENGLISH
   ;; をエコーエリアに表示する。
   ;; ARG は message 関数の第２引数以降の引数として渡される。
-  (append (list 'message (list 'if 'skktut-japanese-tut japanese english))
+  (append `(message (if skktut-japanese-tut ,japanese ,english))
 	  arg))
 
 (defmacro skktut-error (japanese english &rest arg)
   ;; skktut-japanese-tut が non-nil だったら JAPANESE を nil であれば ENGLISH
   ;; をエコーエリアに表示し、エラーを発生させる。
   ;; ARG は error 関数の第２引数以降の引数として渡される。
-  (append (list 'error (list 'if 'skktut-japanese-tut japanese english))
+  (append `(error (if skktut-japanese-tut ,japanese ,english))
 	  arg))
 
 (defmacro skktut-yes-or-no-p (japanese english)
-  (list 'yes-or-no-p (list 'if 'skktut-japanese-tut japanese english)))
+ `(yes-or-no-p (if skktut-japanese-tut ,japanese ,english)))
 
 ;; advices.
 (defadvice skk-create-file (around skktut-ad disable))
