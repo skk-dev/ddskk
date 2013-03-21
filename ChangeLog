@@ -3,6 +3,13 @@
 	* skk-macs.el (int-char): Add comment.
 	* skk.el (skk-compute-henkan-lists): ditto.
 
+	* skk-macs.el (string-to-char-list): 廃止. これが出現するのは
+	"defalias 'string-to-int-list 'string-to-char-list" のみ.
+	したがって string-to-int-list で実体定義すれば済む.
+
+	* skk-macs.el (string-to-int-list): GNU Emacs と XEmacs で別々に
+	定義されていたものを統合.
+
 2013-03-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo):
@@ -11,7 +18,7 @@
 	* skk.el (skk-kill-emacs-without-saving-jisyo)
 	(skk-remove-redundant-okurigana, skk-purge-from-jisyo)
 	(skk-reread-private-jisyo, skk-remove-common):
-	yes-or-no-p() と y-or-no-p のプロンプトの末尾に空白を挿入.
+	yes-or-no-p() と y-or-no-p() のプロンプトの末尾に空白を挿入.
 
 	* skk-macs.el (skk-message, skk-error, skk-yes-or-no-p)
 	(skk-y-or-n-p, skk-set-marker):

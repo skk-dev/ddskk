@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.195 2013/03/21 13:31:58 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.196 2013/03/21 14:03:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/21 13:31:58 $
+;; Last Modified: $Date: 2013/03/21 14:03:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -279,17 +279,29 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
   ;; XEmacs では int-char() は標準？
   (defalias 'int-char 'identity))
 
-(when (eval-when-compile (featurep 'emacs))
-  (defun string-to-char-list (string)
-    "Return a list of which elements are characters in the STRING."
-    (mapcar #'identity string)))
+;;; string-to-char-list が出現するのは 9 行下の defalias のみ
+;;; よって string-to-int-list の定義を変更してしまう
+;; (when (eval-when-compile (featurep 'emacs))
+;;   (defun string-to-char-list (string)
+;;     "Return a list of which elements are characters in the STRING."
+;;     (mapcar #'identity string)))
 
-(when (eval-when-compile (featurep 'emacs))
-  (defalias 'string-to-int-list 'string-to-char-list))
+;;; string-to-int-list() の定義を macro へ変更
+;; (when (eval-when-compile (featurep 'emacs))
+;;   ;; (defalias 'string-to-int-list 'string-to-char-list))
+;;   (defun string-to-int-list (string)
+;;     "Return a list of which elements are characters in the STRING."
+;;     (mapcar #'identity string)))
+;;
+;; (when (eval-when-compile (featurep 'xemacs))
+;;   (defun string-to-int-list (string)
+;;     (mapcar #'char-int string)))
 
-(when (eval-when-compile (featurep 'xemacs))
-  (defun string-to-int-list (str)
-    (mapcar #'char-int str)))
+(defmacro string-to-int-list (string)
+  (cond ((featurep 'xemacs)
+	 `(mapcar #'char-int ,string))	; XEamcs
+	(t
+	 `(mapcar #'identity ,string)))) ; GNU Emacs
 
 (when (eval-when-compile (featurep 'emacs))
   (defun character-to-event (ch)
