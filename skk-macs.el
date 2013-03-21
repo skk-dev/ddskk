@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.194 2013/03/20 02:26:51 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.195 2013/03/21 13:31:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/20 02:26:51 $
+;; Last Modified: $Date: 2013/03/21 13:31:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -275,6 +275,8 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
   (defalias 'characterp 'char-valid-p))
 
 (when (eval-when-compile (featurep 'emacs))
+  ;; int-char() が出現するのは skk-compute-henkan-lists() のみ
+  ;; XEmacs では int-char() は標準？
   (defalias 'int-char 'identity))
 
 (when (eval-when-compile (featurep 'emacs))

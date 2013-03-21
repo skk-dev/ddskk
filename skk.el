@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.623 2013/03/20 03:20:33 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.624 2013/03/21 13:31:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/20 03:20:33 $
+;; Last Modified: $Date: 2013/03/21 13:31:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4087,7 +4087,8 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 		      (point)
 		      (1- (search-forward "/")))
 		headchar (if (string= item "")
-			     (int-char 0)
+			     (int-char 0) ; int-char is an alias for `identity'
+					  ;  in `skk-macs.el'.
 			   (aref item 0)))
 	  (cond
 	   ((and (eq headchar ?\[)

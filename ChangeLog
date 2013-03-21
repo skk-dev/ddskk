@@ -1,3 +1,8 @@
+2013-03-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (int-char): Add comment.
+	* skk.el (skk-compute-henkan-lists): ditto.
+
 2013-03-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo):
