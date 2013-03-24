@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.196 2013/03/21 14:03:22 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.197 2013/03/24 11:54:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/21 14:03:22 $
+;; Last Modified: $Date: 2013/03/24 11:54:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -272,7 +272,24 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 
 (when (eval-when-compile (and (featurep 'emacs)
 			      (= emacs-major-version 22)))
-  (defalias 'characterp 'char-valid-p))
+  ;; GNU Emacs 22 まで
+  ;; . char-valid-p is a built-in function in `C source code'.
+  ;;     (char-valid-p OBJECT &optional GENERICP)
+  ;;   Return t if OBJECT is a valid normal character.
+  ;;   If optional arg GENERICP is non-nil, also return t if OBJECT is
+  ;;   a valid generic character.
+  (defalias 'characterp 'char-valid-p)
+
+  ;; GNU Emacs 23 から
+  ;; . char-valid-p is an alias for `characterp' in `mule.el'.
+  ;;     (char-valid-p OBJECT &optional IGNORE)
+  ;;   This function is obsolete since 23.1;
+  ;;   use `characterp' instead.
+
+  ;; . characterp is a built-in function in `C source code'.
+  ;;     (characterp OBJECT &optional IGNORE)
+  ;;   Return non-nil if OBJECT is a character.
+  )
 
 (when (eval-when-compile (featurep 'emacs))
   ;; int-char() が出現するのは skk-compute-henkan-lists() のみ

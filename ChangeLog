@@ -1,3 +1,7 @@
+2013-03-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (characterp): Add comment.
+
 2013-03-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (int-char): Add comment.
