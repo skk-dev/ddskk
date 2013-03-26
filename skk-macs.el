@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.197 2013/03/24 11:54:45 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.198 2013/03/26 13:48:51 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/24 11:54:45 $
+;; Last Modified: $Date: 2013/03/26 13:48:51 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -581,12 +581,13 @@ BUFFER defaults to the current buffer."
     (local-variable-p variable (or buffer (current-buffer))))))
 
 (defun skk-face-proportional-p (face)
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (face-proportional-p face))
-   (t
-    (or (face-equal face 'variable-pitch)
-	(eq (face-attribute face :inherit) 'variable-pitch)))))
+  (when (facep face)
+    (cond ((eval-when-compile (featurep 'xemacs))
+	   (face-proportional-p face))
+
+	  (t
+	   (or (face-equal face 'variable-pitch)
+	       (eq (face-attribute face :inherit) 'variable-pitch))))))
 
 (defun skk-event-key (event)
   "イベント EVENT を発生した入力の情報を取得する。"

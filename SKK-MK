@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.198 2012/11/12 12:14:25 skk-cvs Exp $
-;; Last Modified: $Date: 2012/11/12 12:14:25 $
+;; Version: $Id: SKK-MK,v 1.199 2013/03/26 13:48:51 skk-cvs Exp $
+;; Last Modified: $Date: 2013/03/26 13:48:51 $
 
 ;;; Commentary:
 
@@ -814,6 +814,9 @@ This version of SKK requires MULE features"))
   (interactive)
   (let ((string
 	 (format "
+Running in:
+  %s
+
 SKK modules:
   %s
   -> %s
@@ -826,6 +829,7 @@ SKK tutorials:
   %s
   -> %s
 "
+		 (version)
 		 (mapconcat 'symbol-name SKK_MODULES ", ")
 		 SKK_LISPDIR
 		 SKK_INFO
@@ -845,6 +849,9 @@ SKK tutorials:
     (error "%s" "This directive is only for XEmacs."))
   (let ((string
 	 (format "
+Running in:
+  %s
+
 SKK modules:
   %s
   -> %s
@@ -857,6 +864,7 @@ SKK tutorials:
   %s
   -> %s
 "
+		 (version)
 		 (mapconcat 'symbol-name
 			    (delq 'skk-autoloads SKK_MODULES)
 			    ", ")

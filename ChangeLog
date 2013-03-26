@@ -1,3 +1,10 @@
+2013-03-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-what-where, SKK-MK-what-where-package):
+	Display emacsen version in ddskk installation.
+
+	* skk-macs.el (skk-face-proportional-p): 引数のチェックを追加.
+
 2013-03-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (characterp): Add comment.
