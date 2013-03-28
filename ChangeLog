@@ -1,3 +1,11 @@
+2013-03-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-face-proportional-p): 2013-03-26 の修正を取消.
+	元の状態へ戻した.
+
+	* skk-macs.el (skk-facep): New macro.
+	* skk.el (skk-make-indicator-alist-1): Use skk-facep() for XEmacs.
+
 2013-03-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK-MK-what-where, SKK-MK-what-where-package):

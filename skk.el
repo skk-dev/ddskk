@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.624 2013/03/21 13:31:59 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.625 2013/03/28 11:55:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/21 13:31:59 $
+;; Last Modified: $Date: 2013/03/28 11:55:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -581,15 +581,24 @@ dependent."
 	       mode-string-list)))))
 
 (defun skk-make-indicator-alist-1 (mode base)
-  (let ((string
-	 (concat "--" base
-		 (cond
-		  ((skk-face-proportional-p 'mode-line)
-		   ":")
-		  ((memq mode '(latin abbrev))
-		   "::")
-		  (t
-		   ":")))))
+  ;; faces.el (Emacs 24.2)
+  ;;   Make `modeline' an alias for `mode-line', for compatibility.
+  ;;   (put 'modeline 'face-alias 'mode-line)
+
+  ;; * Incompatible Lisp Changes in Emacs 24.3
+  ;; ** Some obsolete functions, variables, and faces have been removed:
+  ;; *** `modeline'
+
+  (let* ((ml (if (skk-facep 'mode-line)
+		 'mode-line		;GNU Emacs
+	       'modeline))		;XEmacs
+	 (string (concat "--" base
+			 (cond ((skk-face-proportional-p ml)
+				":")
+			       ((memq mode '(latin abbrev))
+				"::")
+			       (t
+				":")))))
     (skk-mode-string-to-indicator mode string)))
 
 (defun skk-setup-modeline ()

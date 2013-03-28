@@ -4,9 +4,9 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.198 2013/03/26 13:48:51 skk-cvs Exp $
+;; Version: $Id: skk-macs.el,v 1.199 2013/03/28 11:55:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/26 13:48:51 $
+;; Last Modified: $Date: 2013/03/28 11:55:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -264,6 +264,12 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	 ;; GNU Emacs 24.1 まで
 	 '(inactivate-input-method))
 	))
+
+(defmacro skk-facep (face)
+  (cond ((featurep 'xemacs)
+	 `(find-face ,face))
+	(t
+	 `(facep ,face))))
 
 
 ;;; functions.
@@ -581,13 +587,11 @@ BUFFER defaults to the current buffer."
     (local-variable-p variable (or buffer (current-buffer))))))
 
 (defun skk-face-proportional-p (face)
-  (when (facep face)
-    (cond ((eval-when-compile (featurep 'xemacs))
-	   (face-proportional-p face))
-
-	  (t
-	   (or (face-equal face 'variable-pitch)
-	       (eq (face-attribute face :inherit) 'variable-pitch))))))
+  (cond ((eval-when-compile (featurep 'xemacs))
+	 (face-proportional-p face))
+	(t
+	 (or (face-equal face 'variable-pitch)
+	     (eq (face-attribute face :inherit) 'variable-pitch)))))
 
 (defun skk-event-key (event)
   "イベント EVENT を発生した入力の情報を取得する。"
