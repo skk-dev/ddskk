@@ -1,3 +1,7 @@
+2013-03-29  l3msh0  <@l3msh0>
+
+	* skk-xemacs.el: Fix autoload cookie.
+
 2013-03-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (skk-face-proportional-p): 2013-03-26 の修正を取消.

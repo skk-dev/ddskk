@@ -39,7 +39,7 @@
   (autoload 'display-pixel-height "frame")
   (autoload 'display-pixel-width "frame"))
 
-;;;###autoload (unless (noninteractive) (require 'skk-setup))
+;;;###autoload (unless noninteractive (require 'skk-setup))
 
 ;; Variables.
 (defvar skk-xemacs-extent-alist
