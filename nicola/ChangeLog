@@ -1,3 +1,7 @@
+2013-04-07  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* skk-nicola.el: Do not use `skk-sit-for'.
+
 2012-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-kanagaki-menu.el, skk-kanagaki-util.el, skk-nicola.el: Find

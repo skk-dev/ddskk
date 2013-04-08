@@ -3,9 +3,9 @@
 ;; Copyright (C) 2008  IRIE Tetsuya
 
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
-;; Version: $Id: skk-sticky.el,v 1.4 2010/08/02 15:21:05 skk-cvs Exp $
+;; Version: $Id: skk-sticky.el,v 1.5 2013/04/08 12:27:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2010/08/02 15:21:05 $
+;; Last Modified: $Date: 2013/04/08 12:27:07 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -219,7 +219,7 @@
 	 ad-do-it)
 	((not (memq (skk-last-command-char) skk-sticky-key))
 	 ad-do-it)
-	((skk-sit-for skk-sticky-double-interval t)
+	((sit-for skk-sticky-double-interval t)
 	 ;; No input in the interval.
 	 ad-do-it)
 	(t

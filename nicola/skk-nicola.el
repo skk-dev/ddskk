@@ -441,7 +441,7 @@
   "`skk-latin-mode' において、`skk-j-mode' に入るためのコマンド。
 左右親指キーの同時打鍵を検出した場合に `skk-j-mode' に入る。"
   (interactive "*p")
-  (if (skk-sit-for skk-nicola-latin-interval t)
+  (if (sit-for skk-nicola-latin-interval t)
       ;; then
       (skk-bind-last-command-char
 	  (if (characterp (event-to-character
@@ -522,7 +522,7 @@
       (setq skk-nicola-okuri-flag nil))
     ;;
     (cond
-     ((skk-sit-for skk-nicola-interval t)
+     ((sit-for skk-nicola-interval t)
       ;; No input in the interval.
       (skk-nicola-insert-single this-command arg parg))
      (t
@@ -610,7 +610,7 @@
 	third-event
 	third)
   (cond
-   ((skk-sit-for period1 t)
+   ((sit-for period1 t)
     ;; 3 つめの打鍵は制限時間内になかった。同時打鍵と確定。(< t1 t2)
     (skk-nicola-insert-double first next arg))
    (t

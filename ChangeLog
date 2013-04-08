@@ -1,3 +1,7 @@
+2013-04-07  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* skk-sticky.el: Do not use `skk-sit-for'.
+
 2013-03-29  l3msh0  <@l3msh0>
 
 	* skk-xemacs.el: Fix autoload cookie.
