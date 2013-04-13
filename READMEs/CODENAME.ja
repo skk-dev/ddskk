@@ -27,6 +27,18 @@ skk-version.el の中の
    M-x skk-version
     => Daredevil SKK/14.1 (Syounai)
 
+*** 2013-03-17
+
+skk-version.el に漢字駅名を追加しました。
+  (put 'skk-version 'codename-ja "長万部")
+
+同時に、新たな変数 skk-version-codename-ja も追加しました。この変数が non-nil
+であれば M-x skk-version で Codename は漢字駅名が表示されます。
+
+   (let ((skk-version-codename-ja t))
+     (skk-version))
+    => Daredevil SKK/15.1.51 (長万部)
+
 ** その他
 
 o タクシーは駅がないので駄目です。

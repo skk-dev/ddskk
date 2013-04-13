@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.51
-@set UPDATED $Date: 2013/03/28 11:55:19 $
+@set UPDATED $Date: 2013/04/13 12:07:04 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -433,9 +433,16 @@ Apple Mac OS X $B4D6-$NJ}$O<!$N;qNA$r;2>H$7$F$/$@$5$$!#(B
 @example
 @group
 % make what-where
+@print{}emacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where
+@print{}Loading /home/brutus/temp/ddskk-15.1.51/SKK-CFG...
+
+@print{}Running in:
+@print{}  GNU Emacs 24.3.50.4 (i686-pc-linux-gnu, GTK+ Version 2.20.1)
+@print{} of 2013-04-11 on localhost.localdomain
+
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
-@print{}  -> /usr/local/share/emacs/24.2/site-lisp/skk
+@print{}  -> /usr/local/share/emacs/24.3.50/site-lisp/skk
 
 @print{}SKK infos:
 @print{}  skk.info
@@ -492,7 +499,12 @@ XEmacs $B$G%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$9$k>l9g$O!"(B
 @group
 % make what-where-package EMACS=/usr/bin/xemacs
 @print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where-package
+
 @print{}  Loading /home/user/temp/ddskk-@value{SKK-VERSION}/SKK-CFG...
+
+@print{}Running in:
+@print{}  XEmacs 21.5  (beta29) garbanzo [Lucid] (i386-redhat-linux, Mule) of Wed Mar  2 2011 on x86-17.phx2.fedoraproject.org
+
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
 @print{}  -> /usr/share/xemacs/site-packages/lisp/skk
@@ -841,6 +853,8 @@ setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 @cindex input method
 @cindex @file{skk-leim.el}
 @kindex C-\
+@kindex M-x list-input-methods
+@kindex M-x set-input-method
 
 Emacs $B$NI8=`%-!<%P%$%s%I$G$O(B @kbd{C-\} $B$r%?%$%W$9$k$H(B
 $B4X?t(B @code{toggle-input-method} $B$r<B9T$7$^$9!#(B
@@ -953,10 +967,27 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 @end defvr
 
 @findex skk-restart
+@kindex M-x skk-restart
+
 @defun {$B%3%^%s%I(B} skk-restart
 
 @kbd{M-x skk-restart} $B$H<B9T$9$k$H(B SKK $B$r:F5/F0$7$^$9!#(B
 @file{~/.skk} $B$O:F%m!<%I$7$^$9$,!"(B@file{~/.emacs} $B$O:F%m!<%I$7$^$;$s!#(B
+
+@end defun
+
+@kindex M-x skk-version
+
+@defun {$B%3%^%s%I(B} skk-version
+
+@kbd{M-x skk-version} $B$H<B9T$9$k$H(B $B%(%3!<%(%j%"$K(B SKK $B$N%P!<%8%g%s$rI=<($7$^$9!#(B
+@w{@ref{$B%(%i!<$J$I$NF|K\8lI=<((B}}
+
+@example
+-------------------- Echo Area --------------------
+Daredevil SKK/15.1.51 (Oshamanbe)
+-------------------- Echo Area --------------------
+@end example
 
 @end defun
 
@@ -1012,6 +1043,7 @@ Emacs $B$r=*N;$9$k$H$-$O!"J]B8A0$N8D?M<-=q$r(B @file{~/.skk-jisyo.BAK} $B$KB`
 $B2<$5$$!#(B
 
 @findex  skk-kill-emacs-without-saving-jisyo
+@kindex  M-x skk-kill-emacs-without-saving-jisyo
 
 $B8D?M<-=q$rJ]B8$;$:$K(B Emacs $B$r=*N;$5$;$?$$>l9g$K$O!"(B
 
@@ -2851,6 +2883,7 @@ file /$B#f#i#l#e(B/
 @subsection $BJ8L.$K1~$8$?<+F0%b!<%I@Z$jBX$((B
 @cindex $BJ8L.$K1~$8$?<+F0%b!<%I@Z$jBX$((B
 @cindex @file{context-skk.el}
+@kindex M-x context-skk-mode
 
 @file{context-skk.el} $B$O!"JT=8Cf$NJ8L.$K1~$8$F(B SKK $B$NF~NO%b!<%I$r<+F0E*$K(B
 $B%"%9%-!<%b!<%I$K@Z$jBX$($kEy$N5!G=$rDs6!$7$^$9!#(B
@@ -2940,8 +2973,8 @@ context-skk $B$,!V%W%m%0%i%_%s%0%b!<%I!W$H8+Pv$9%a%8%c!<%b!<%I!#(B
 $B8D?M<-=q$K8B$C$F$$$k$N$O!"6&M-<-=q$G$O@hF,$NJ8;z$r6&DL$K$9$k8+=P$78l$,B?$9$.$F!"(B
 $BK>$_$NJd40$,9T$($k3NN($,Dc$$$?$a$G$9!#(B
 
-@kindex @samp{,}
-@kindex @samp{.}
+@kindex ,
+@kindex .
 $B<!$NFI$_$N8uJd$rI=<($9$k$K$O!"(B@kbd{.} ($B%T%j%*%I(B) $B$r!"La$k;~$K$O(B @kbd{,} 
 ($B%3%s%^(B)$B$r2!$7$^$9!#$=$NFI$_$GJL$N8l$r=P$9$K$O!"$$$D$b$N$h$&$K(B @key{SPC} $B$r(B
 $B2!$7$^$9!#(B
@@ -3274,9 +3307,10 @@ face $B$,;H$($k4D6-$G$O!"(B@samp{$B$s$H$&(B}$B$NItJ,$,0[$J$k(B face $B$GI
 @end example
 
 @kindex @key{TAB}
-@kindex @samp{,}
-@kindex @samp{.}
+@kindex ,
+@kindex .
 @kindex SHIFT TAB
+
 $B8uJd$NA*Br$K$O(B @key{TAB} $BKt$O(B @kbd{@key{SHIFT}+@key{TAB}} $B$r2!$7$^$9!#$^$?!"(B
 $BIaDL$NJd40$HF1MM$K(B @kbd{.} ($B%T%j%*%I(B) $B$H(B @kbd{,} ($B%3%s%^(B) $B$bMxMQ$G$-$^(B
 $B$9!#(B@w{@ref{$BFI$_$NJd40(B}}
@@ -3506,6 +3540,7 @@ DDSKK 14.1 $B$rMxMQ$NJ}!"$4<+?H$G(B @code{skk-search-prog-list} $B$r@_Dj$9$kJ
 @node $BAm2h?t$K$h$kC14A;zJQ49(B
 @subsubsection $BAm2h?t$K$h$kC14A;zJQ49(B
 @cindex $B2h?tJQ49(B
+@kindex C-u $BAm2h?t(B M-x skk-tankan
 
 $B"&%b!<%I$GAm2h?t$rF~NO$7$F:G8e$K(B @kbd{@@} $B$rIU2C$7$F$+$iJQ49$r3+;O$7$^$9(B
 @footnote{@kbd{C-u $BAm2h?t(B M-x skk-tankan} $B$G$b2D!#(B}$B!#(B
@@ -3539,6 +3574,7 @@ L:$B=$(B;10$B2h(B($B?MIt(B8$B2h(B)
 @node $BIt<s$K$h$kC14A;zJQ49(B
 @subsubsection $BIt<s$K$h$kC14A;zJQ49(B
 @cindex $BIt<sJQ49(B
+@kindex M-x skk-tankan
 
 $B"&%b!<%I$G(B @kbd{@@} $B$r#2$D=E$M$FJQ49$r3+;O$9$k$H!"It<s$K$h$kC14A;zJQ49$,(B
 $B$G$-$^$9(B@footnote{@kbd{M-x skk-tankan} $B$G$b2D!#(B}$B!#(B
@@ -3575,6 +3611,7 @@ Possible completions are:
 ------ *Completions* -------
 @end group
 
+@kindex M-v
 @kbd{0 1 8 @key{RET}} @footnote{@kbd{M-v} $B$NBG80$G!"%+!<%=%k$r(B *Completions* $B%P%C%U%!$X0\$9$3$H$b$G$-$^$9!#(B}
 
 @group
@@ -4806,6 +4843,7 @@ ohhira @expansion{} $B$*$*$R$i(B
 $B$H$J$j$^$9!#(B
 @end defvr
 
+@kindex M-x skk-toggle-kutouten
 @defvr {$B%f!<%6JQ?t(B} skk-kutouten-type
 $B"#%b!<%I$NI8=`$G$O!"%-!<%\!<%I$N(B @kbd{.} $B$r%?%$%W$9$k$H!V!#!W$,!"(B
 @kbd{,} $B$r%?%$%W$9$k$H!V!"!W$,%P%C%U%!$KF~NO$5$l$^$9!#(B
@@ -5393,6 +5431,7 @@ A:$B13(B  S:$B5q(B  D:$B5r(B  F:$B5u(B  J:$B5s(B  K:$B5v(B  L:$B5t
 @node $BJQ490LCV$N;XDjJ}K!(B
 @subsection $BJQ490LCV$N;XDjJ}K!(B
 @cindex @file{skk-sticky.el}
+@kindex ;
 
 SKK $B$G$ODL>o!"!V4A;zJQ49$N3+;O0LCV!W$H!VAw$j2>L>$N3+;O0LCV!W$rBgJ8;z$G;XDj$7$^$9(B
 $B$,!"$3$l$i$rG$0U$N%-!<$G;XDj$9$k$3$H$G(B sticky-shift $B%i%$%/$JA`:n(B
@@ -5644,6 +5683,7 @@ M-Q} $B$N$h$&$K0z?t$rEO$7$F<B9T$9$k$H!"JQ493+;O0LCV$+$i8=:_0LCV$^$G$NJ8;z(B
 @subsection $BD>A0$N3NDj$r:FJQ49(B
 @cindex $B3NDj%"%s%I%%(B
 @cindex $B:FJQ49(B
+@kindex M-x skk-undo-kakutei
 
 $B0lHV:G8e!JD>6a!K$N3NDj$r<h$j>C$7$F!":FJQ49$9$k$3$H$,$G$-$^$9!#(B
 $B$3$l$r(B@b{$B!V3NDj%"%s%I%%!W(B}$B$H8F$S$^$9!#(B
@@ -7386,6 +7426,7 @@ Emacs $B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$
                                     
 @node $B6/@)E*$K<-=qEPO?%b!<%I$XF~$k(B
 @subsection $B6/@)E*$K<-=qEPO?%b!<%I$XF~$k(B
+@kindex .
 $B"'%b!<%I$K$F!"%(%3!<%(%j%"$KJQ498uJd$,I=<($5$l$F$$$k$H$-$K(B @kbd{.} $B$r%?%$(B
 $B%W$9$k$H!"6/@)E*$K<-=qEPO?%b!<%I$XF~$j$^$9!#(B
 
@@ -7398,6 +7439,7 @@ Emacs $B$N%3%^%s%I(B @code{sort-lines}$B$rMQ$$$l$P%U%!%$%k$r$3$N=g=x$G%=!<%H$
 @subsection $B8m$C$?EPO?$N:o=|(B
 @cindex $B8D?M<-=q%(%s%H%j$N:o=|(B
 @cindex $B8mEPO?(B
+@kindex X
 
 $B8m$C$F8D?M<-=q$KEPO?$7$?C18l$O:o=|$G$-$^$9!#(B
 
@@ -7445,6 +7487,7 @@ Really purge ``$B$5$$$-$F$-(B /$B:F5/E*(B/''?(yes or no) @point{}
 
 @node $B8D?M<-=q%U%!%$%k$NJT=8(B
 @subsection $B8D?M<-=q%U%!%$%k$NJT=8(B
+@kindex M-x skk-edit-private-jisyo
 
 @b{$B9=J8%A%'%C%/$,==J,$G$O$"$j$^$;$s!#8D?M<-=q%U%!%$%k$NJT=8$O!"<+8J@UG$(B
 $B$N$b$H9T$C$F$/$@$5$$!#(B}
@@ -7516,6 +7559,8 @@ New ~/.skk-jisyo will be 11bytes smaller.  Save anyway?(yes or no)
 
 $B$b$7!"0l;~%U%!%$%k$N%5%$%:$,(B 0 $B$G$"$k>l9g$O!"$J$s$i$+$N0[>o$H9M$($i$l$k(B
 $B$?$aJ]B8F0:n$OD>$A$KCf;_$5$l$^$9!#$=$N>l9g$O(B
+
+@kindex M-x skk-kill-emacs-without-saving-jisyo
 
 @kbd{M-x skk-kill-emacs-without-saving-jisyo}
 
@@ -7812,6 +7857,7 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 
 @end defvr
 
+@kindex C-w
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-copy-key
 
 @kbd{C-w} $B$r%?%$%W$9$k$H!"8=:_I=<($5$l$F$$$k%"%N%F!<%7%g%s$r(B kill ring $B$K(B
@@ -7833,6 +7879,7 @@ other-window $B$O!"$=$N8uJd$r3NDj$9$k$+!"$=$N8uJd$NA*Br$r;_$a$k(B ($B<!$N(B
 
 @end defvr
 
+@kindex ^
 @defvr {$B%f!<%6JQ?t(B} skk-annotation-toggle-display-char
 
 $B!V(B*$B8uJd(B*$B%P%C%U%!!W$GJQ498uJd$r0lMwI=<($7$F$$$k$H$-$K%"%N%F!<%7%g%s$N(B
@@ -7900,6 +7947,9 @@ L:$B0](B;
 @findex skk-annotation-add
 @findex skk-annotation-kill
 @findex skk-annotation-remove
+@kindex M-x skk-annotation-add
+@kindex M-x skk-annotation-kill
+@kindex M-x skk-annotation-remove
 
 @defun {$B%3%^%s%I(B} skk-annotation-add &optional NO-PREVIOUS-ANNOTATION
 
@@ -8244,6 +8294,7 @@ buffer (plural&#160;buffers)
 @cindex JIS$B%3!<%I(B
 @cindex EUC$B%3!<%I(B
 @kindex \
+@kindex C-u \
 @vindex skk-kcode-charset
 
 $B$+$J%b!<%I$G(B @kbd{\} $B%-!<$rF~NO$9$k$H!"%_%K%P%C%U%!$K(B
@@ -8296,6 +8347,7 @@ A:$B!!(B  S:$B!1(B  D:$B!A(B  F:$B!Q(B  G:$B!a(B  H:$B!q(B  Q:$B"!
 @end group
 @end example
 
+@kindex x
 $B$3$l$r(B@b{$B!VBh#1CJ3,$N%a%K%e!<!W(B}$B$H8F$S$^$9!#Bh#1CJ3,$N%a%K%e!<$G$O!"(BJIS $B4A;z$r(B
 $B%3!<%I$N=g$K(B 16 $BJ8;zKh$K#1J8;zCj=P$7!"%_%K%P%C%U%!$K0lEY$K(B 12 $BJ8;z$:$D(B
 $BI=<($7$F$$$^$9(B
@@ -8333,6 +8385,9 @@ A:$B!A(B S:$B!B(B D:$B!C(B F:$B!D(B G:$B!E(B H:$B!F(B J:$B!G(B K:
 $BBh#2CJ3,$N%a%K%e!<$,I=<($5$l$F$$$k$H$-$b(B @key{SPC} $B$H(B @kbd{x} $B%-!<$K$h(B
 $B$jBh#2CJ3,$N%a%K%e!<$,A0?J!"8eB`$7$^$9!#(B
 
+@kindex <
+@kindex >
+@kindex ?
 $B$^$?(B @kbd{<}$B!"(B@kbd{>} $B$K$h$j%a%K%e!<$r#1J8;zJ,$@$10\F0$7$^$9!#Nc$($P!"(B
 $BBh#2CJ3,$N%a%K%e!<$,>e5-$N>uBV$N$H$-$K(B @kbd{<} $B$rF~NO$9$k$H!"%a%K%e!<$O(B
 $B0J2<$N$h$&$K$J$j$^$9!#(B
