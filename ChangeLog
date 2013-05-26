@@ -1,3 +1,9 @@
+2013-05-26  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* bayesian/bskk: To support Ruby 1.9, prevent LoadError of
+	`jcode', prevent warning of `$KCODE', add magic comment, and
+	use `fileutils' rather than `ftools'.
+
 2013-04-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

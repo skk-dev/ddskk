@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
-## -*-Ruby-*- 
+# -*- coding: euc-jp; mode: ruby; -*-
 ## bskk -- Bayesian estimation for SKK
 ## Copyright (C) 2004 Kenichi Kurihara <kenichi_kurihara@nifty.com>
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.1 2010/08/22 11:53:06 skk-cvs Exp $
+## Version: $Id: bskk,v 1.2 2013/05/26 21:05:30 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2010/08/22 11:53:06 $
+## Last Modified: $Date: 2013/05/26 21:05:30 $
 
 ## This file is part of Daredevil SKK.
 
@@ -41,10 +41,11 @@
 ## なくてはいけない。
 
 ## Code:
-require 'ftools'
-require 'jcode'
-
-$KCODE = "EUC"
+require 'fileutils'
+if RUBY_VERSION.to_f < 1.9
+  require 'jcode'
+  $KCODE = "EUC"
+end
 
 COMMAND_SORT = "#sort"
 COMMAND_ADD  = "#add"
@@ -244,7 +245,7 @@ class DB
       return true
     end
     if File.exist?( path_to_file )
-      File.copy(path_to_file, path_to_bak)
+      FileUtils.copy(path_to_file, path_to_bak)
     end
     path_to_lock = path_to_file + ".lock"
     lock = open( path_to_lock, "w" )
