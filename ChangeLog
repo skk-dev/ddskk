@@ -1,3 +1,7 @@
+2013-05-27  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* bayesian/bskk: Set default encoding to "EUC-JP" for Ruby 1.9.
+
 2013-05-26  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* bayesian/bskk: To support Ruby 1.9, prevent LoadError of

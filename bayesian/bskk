@@ -5,9 +5,9 @@
 
 ## Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: bskk,v 1.2 2013/05/26 21:05:30 skk-cvs Exp $
+## Version: $Id: bskk,v 1.3 2013/05/27 13:38:53 skk-cvs Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2013/05/26 21:05:30 $
+## Last Modified: $Date: 2013/05/27 13:38:53 $
 
 ## This file is part of Daredevil SKK.
 
@@ -45,6 +45,9 @@ require 'fileutils'
 if RUBY_VERSION.to_f < 1.9
   require 'jcode'
   $KCODE = "EUC"
+else
+  Encoding.default_external = "EUC-JP"
+  Encoding.default_internal = "EUC-JP"
 end
 
 COMMAND_SORT = "#sort"
