@@ -29,8 +29,8 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set SKK-VERSION 15.1.51
-@set UPDATED $Date: 2013/04/13 12:07:04 $
+@set SKK-VERSION 15.1.52
+@set UPDATED $Date: 2013/06/21 23:52:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -434,7 +434,7 @@ Apple Mac OS X 環境の方は次の資料を参照してください。
 @group
 % make what-where
 @print{}emacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where
-@print{}Loading /home/brutus/temp/ddskk-15.1.51/SKK-CFG...
+@print{}Loading /home/USER/temp/ddskk-15.1.52/SKK-CFG...
 
 @print{}Running in:
 @print{}  GNU Emacs 24.3.50.4 (i686-pc-linux-gnu, GTK+ Version 2.20.1)
@@ -985,7 +985,7 @@ Window System 下で対応する Emacs を使用している場合。
 
 @example
 -------------------- Echo Area --------------------
-Daredevil SKK/15.1.51 (Oshamanbe)
+Daredevil SKK/15.1.52 (Oshamanbe)
 -------------------- Echo Area --------------------
 @end example
 

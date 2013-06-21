@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.199 2013/03/26 13:48:51 skk-cvs Exp $
-;; Last Modified: $Date: 2013/03/26 13:48:51 $
+;; Version: $Id: SKK-MK,v 1.200 2013/06/21 23:52:03 skk-cvs Exp $
+;; Last Modified: $Date: 2013/06/21 23:52:03 $
 
 ;;; Commentary:
 
@@ -892,7 +892,7 @@ SKK tutorials:
       (set-buffer buf)
       (erase-buffer)
       (insert "\
-;;; skk-autoloads.el --- autoload settings for SKK.
+;;; skk-autoloads.el --- autoload settings for SKK  -*- coding: iso-2022-jp -*-
 
 ;; This file was generated automatically by SKK-MK at "
 	      (current-time-string)

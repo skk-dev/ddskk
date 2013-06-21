@@ -1,4 +1,4 @@
-;; skk-ja-names.el --- localization の可能性に関する小さな試み
+;; skk-ja-names.el --- localization の可能性に関する小さな試み  -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2010 SKK Development Team <skk@ring.gr.jp>
 

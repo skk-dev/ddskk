@@ -1,3 +1,7 @@
+2013-06-22  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* NICOLA-DDSKK-MK (nicola-ddskk-generate-autoloads): Add coding tag.
+
 2013-04-07  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* skk-nicola.el: Do not use `skk-sit-for'.

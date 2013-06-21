@@ -1,3 +1,12 @@
+2013-06-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.52.
+
+2013-06-22  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* SKK-MK (SKK-MK-generate-autoloads-el): Add coding tag.
+	* experimental/skk-ja-names.el: Add coding tag.
+
 2013-05-27  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* bayesian/bskk: Set default encoding to "EUC-JP" for Ruby 1.9.
@@ -19,6 +28,10 @@
 2013-03-29  l3msh0  <@l3msh0>
 
 	* skk-xemacs.el: Fix autoload cookie.
+
+2013-03-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.51.
 
 2013-03-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
