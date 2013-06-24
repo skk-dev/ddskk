@@ -1,5 +1,18 @@
 * 15.2
 
+** インストール
+
+make what-where の実行時、Emacs のバージョンを表示するようにした。
+
+** GNU Emacs 24 対応を進めました
+
+*** coding tag の明示
+
+2013-06-11 international/mule-conf.el (file-coding-system-alist): Use utf-8
+as default for Elisp files.
+DDSKK-15.1 は coding tag を明示していないファイルが残っているため
+emack trunk (24.3.50) でインストール中断される。
+
 ** skk-version() の日本語表示
 
 新たな変数 skk-version-codename-ja を追加しました。これが non-nil であれ
@@ -8,6 +21,10 @@
 ** Ruby 1.9 対応
 
 bayesian/bskk の Ruby 1.9 対応を進めました。
+
+** その他バグ修正など
+
+*** GNU Emacs 24.3 で modeline が廃止されたが、XEmacs は modeline のまま。
 
 * 15.1
 

@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.52
-@set UPDATED $Date: 2013/06/21 23:52:03 $
+@set UPDATED $Date: 2013/06/24 13:09:06 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -301,6 +301,12 @@ GNU Emacs 24.3 のユーザーは DDSKK 15 をお使いください。
 @url{http://mail.ring.gr.jp/skk/201211/msg00000.html}
 
 @url{http://mail.ring.gr.jp/skk/201212/msg00000.html}
+
+@item GNU Emacs 24.4
+
+GNU Emacs 24.4 から、coding tag を明示していないファイルは utf-8 と取り扱
+われるようになりました@footnote{2013-06-11 international/mule-conf.el (file-
+coding-system-alist)}。DDSKK 15.2 で対策済みです。
 
 @item XEmacs 21.4
 
