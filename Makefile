@@ -1,8 +1,8 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.100 2013/06/21 23:52:03 skk-cvs Exp $
-# Last Modified: $Date: 2013/06/21 23:52:03 $
+# Version: $Id: Makefile,v 1.101 2013/07/10 11:59:47 skk-cvs Exp $
+# Last Modified: $Date: 2013/07/10 11:59:47 $
 
 
 VERSION = 15.1.52
@@ -19,11 +19,6 @@ SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = gtar
 XEMACS	  = xemacs
 RUBY      = ruby
-PYTHON    = python
-SKK2CDB   = ./etc/skk2cdb.py -f
-CDB_SOURCE = ./dic/SKK-JISYO.L
-#CDB_TARGET = ./dic/$(notdir $(CDB_SOURCE)).cdb
-CDB_TARGET = ./dic/`basename $(CDB_SOURCE)`.cdb
 SKK_DEFAULT_JISYO =
 set_jisyo =
 
@@ -54,9 +49,6 @@ what-where:
 
 what-where-package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-what-where-package
-
-cdb:
-	$(PYTHON) $(SKK2CDB) $(CDB_TARGET) $(CDB_SOURCE)
 
 TAGS:
 	$(ETAGS) `find . -name '*.el'`
