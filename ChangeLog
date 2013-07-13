@@ -1,5 +1,9 @@
 2013-07-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-display-code-method): New variable.
+
+	* skk-kcode.el (skk-display-code-for-char-at-point): Use it.
+
 	* doc/skk.texi: Update.
 
 2013-07-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

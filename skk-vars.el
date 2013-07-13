@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.451 2013/03/17 03:55:36 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.452 2013/07/13 10:11:44 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/17 03:55:36 $
+;; Last Modified: $Date: 2013/07/13 10:11:44 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -4033,6 +4033,10 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 	  (if (eval-when-compile (featurep 'emacs))
 	      charset-list
 	    (charset-list))))
+
+(defvar skk-display-code-method 'code
+  "*Non-nil であればポイントにある文字のコードを表示する。
+nil であれば `this-command-keys' を挿入する。")
 
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
 

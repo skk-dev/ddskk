@@ -13,6 +13,12 @@ as default for Elisp files.
 DDSKK-15.1 は coding tag を明示していないファイルが残っているため
 emack trunk (24.3.50) でインストール中断される。
 
+** cdb 形式辞書の取り扱い
+
+*** skk2cdb.py を main/etc/ から tools/ へ移しました。
+
+*** ターゲット cdb を main/Makefile から dic/Makefile へ移しました。
+
 ** skk-version() の日本語表示
 
 新たな変数 skk-version-codename-ja を追加しました。これが non-nil であれ
@@ -24,7 +30,8 @@ bayesian/bskk の Ruby 1.9 対応を進めました。
 
 ** その他バグ修正など
 
-*** GNU Emacs 24.3 で modeline が廃止されたが、XEmacs は modeline のまま。
+*** GNU Emacs 24.3 からは modeline が廃止されたが、XEmacs では modeline の
+ままであることから、この対応として マクロ skk-facep を導入した。
 
 * 15.1
 
