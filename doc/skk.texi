@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.52
-@set UPDATED $Date: 2013/06/24 13:09:06 $
+@set UPDATED $Date: 2013/07/13 06:36:49 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -305,8 +305,7 @@ GNU Emacs 24.3 $B$N%f!<%6!<$O(B DDSKK 15 $B$r$*;H$$$/$@$5$$!#(B
 @item GNU Emacs 24.4
 
 GNU Emacs 24.4 $B$+$i!"(Bcoding tag $B$rL@<($7$F$$$J$$%U%!%$%k$O(B utf-8 $B$H<h$j07(B
-$B$o$l$k$h$&$K$J$j$^$7$?(B@footnote{2013-06-11 international/mule-conf.el (file-
-coding-system-alist)}$B!#(BDDSKK 15.2 $B$GBP:v:Q$_$G$9!#(B
+$B$o$l$k$h$&$K$J$j$^$7$?(B@footnote{@code{2013-06-11 international/mule-conf.el (file-coding-system-alist)}}$B!#(BDDSKK 15.2 $B$GBP:v:Q$_$G$9!#(B
 
 @item XEmacs 21.4
 
@@ -648,13 +647,13 @@ DDSKK $B$N%=!<%9$rE83+$9$k$H!"Cf$K(B @file{dic} $B$H$$$&%G%#%l%/%H%j$,B8:_$7$
 $B%l%/%H%j(B (@file{/usr/share/skk} $B$d(B @file{c:/emacs-24.2/etc/skk} $B$J$I(B) $B$K(B
 $B%$%s%9%H!<%k$5$l$^$9!#(B
 
-$B$5$i$K!"(B@file{SKK-JISYO.L} $B$r(B DDSKK $B%=!<%9$N(B @file{dic} $B%G%#%l%/%H%j$K%3(B
-$B%T!<$7$F$+$i(B @command{make cdb} $B$r<B9T$9$k$H!"(BCDB $B7A<0<-=q(B @file{SKK-JISYO.L.cdb} $B$,(B
-$B@8@.$5$l$^$9(B@footnote{CDB $B7A<0<-=q$N@8@.$K$O(B python $B%9%/%j%W%H(B @file{etc/skk2cdb.py}
-$B$,<B9T$5$l$k$N$G!"$"$i$+$8$a(B python $B=hM}7O$r%$%s%9%H!<%k$7$F$*$/I,MW$,$"(B
-$B$j$^$9!#(B}$B!#(B
-$B$3$N>uBV$G(B @command{make install} $B$r<B9T$9$k$H(B @file{SKK-JISYO.L.cdb} $B$b(B
-@file{SKK-JISYO.L} $B$H6&$K%$%s%9%H!<%k$5$l$^$9!#(B
+@c $B$5$i$K!"(B@file{SKK-JISYO.L} $B$r(B DDSKK $B%=!<%9$N(B @file{dic} $B%G%#%l%/%H%j$K%3(B
+@c $B%T!<$7$F$+$i(B @command{make cdb} $B$r<B9T$9$k$H!"(BCDB $B7A<0<-=q%U%!%$%k(B @file{SKK-JISYO.L.cdb} $B$,(B
+@c $B@8@.$5$l$^$9(B@footnote{CDB $B7A<0<-=q%U%!%$%k$N@8@.$K$O(B python $B%9%/%j%W%H(B @file{etc/skk2cdb.py}
+@c $B$,<B9T$5$l$k$N$G!"$"$i$+$8$a(B python $B=hM}7O$r%$%s%9%H!<%k$7$F$*$/I,MW$,$"(B
+@c $B$j$^$9!#(B}$B!#(B
+@c $B$3$N>uBV$G(B @command{make install} $B$r<B9T$9$k$H(B @file{SKK-JISYO.L.cdb} $B$b(B
+@c @file{SKK-JISYO.L} $B$H6&$K%$%s%9%H!<%k$5$l$^$9!#(B
 
 @node $B<-=q%5!<%P$NF~<j(B
 @section $B<-=q%5!<%P$NF~<j(B
@@ -728,9 +727,14 @@ DDSKK $B$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<5-$N<-=q%5!<%P$N(B
 $B$J$k>l9g$O!">e5-$N(B @file{SKK-JISYO.L} $B$r(B @file{SKK-JISYO.M}$B!"(B@file{SKK-JISYO.ML} $BKt(B
 $B$O(B @file{SKK-JISYO.S} $B$KJQ99$7$F$/$@$5$$!#(B
 
-DDSKK 14.1 $B0J9_$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0$N<-=q%U%!%$%k$rD>@\MxMQ(B
-$B$G$-$k$h$&$K$J$j$^$7$?!#(BCDB $B7A<0<-=q%U%!%$%k$rMxMQ$9$k>l9g$O!"0J2<$N$h$&(B
-$B$K;XDj$7$F$/$@$5$$!#(B
+@cindex CDB $B7A<0<-=q%U%!%$%k(B
+
+DDSKK 14.1 $B0J9_$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0(B@footnote{constant database $B$N(B
+$B$3$H!#>\$7$/$O(B @url{http://cr.yp.to/cdb.html} $BKt$O(B @url{http://ja.wikipedia.org/wiki/Cdb} $B$r;2>H$N$3$H!#(B}
+$B$N<-=q%U%!%$%k$rD>@\MxMQ$G$-$k$h$&$K$J$j$^$7$?!#(BCDB $B7A<0<-=q%U%!%$%k(B@footnote{
+SKK $B<-=q(B $B$N(B @file{Makefile} $BCf$N(B cdb $B%?!<%2%C%H$r<B9T$9$k$3$H$G(B @file{SKK-JISYO.L} $B$+(B
+$B$i(B @file{SKK-JISYO.L.cdb} $B$r@8@.$9$k$3$H$,$G$-$^$9!#(B}
+$B$rMxMQ$9$k>l9g$O!"0J2<$N$h$&$K;XDj$7$F$/$@$5$$!#(B
 
 @lisp
 (setq skk-cdb-large-jisyo "/your/path/to/SKK-JISYO.L.cdb")
@@ -738,7 +742,7 @@ DDSKK 14.1 $B0J9_$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0$N<-=q%U%!%$%k$rD>@\M
 
 @noindent
 $BJQ?t(B @code{skk-large-jisyo} $B$H(B $BJQ?t(B @code{skk-cdb-large-jisyo} $B$rF1;~$K;X(B
-$BDj$7$?>l9g$O!"I8=`$G$O(B CDB $B<-=q$NJ}$,@h$K8!:w$5$l$^$9!#$3$l$K4X$7$F(B
+$BDj$7$?>l9g$O!"I8=`$G$O(B CDB $B7A<0<-=q%U%!%$%k$NJ}$,@h$K8!:w$5$l$^$9!#$3$l$K4X$7$F(B
 $B$O(B @w{@ref{$B<-=q8!:w$N@_Dj$N6qBNNc(B}} $B$b;2>H$7$F$/$@$5$$!#(B
 
 @node $B%$%s%/%j%a%s%H8!:w$N@_Dj(B
@@ -2084,7 +2088,7 @@ SKK $B$N3X=,5!G=$N$R$H$D$G!"%f!<%6$N2a5n$NF~NO$+$iJQ498uJd$rM=B,$7$^$9!#(B
 @item skk-cdb.el
 @cindex @file{skk-cdb.el}
 
-CDB $B7A<0<-=q$r<-=q%5!<%P$J$7$KD>@\MxMQ$G$-$k%W%m%0%i%`!#(B
+CDB $B7A<0<-=q%U%!%$%k$r<-=q%5!<%P$J$7$KD>@\MxMQ$G$-$k%W%m%0%i%`!#(B
 
 @xref{$B:G$b4pK\E*$J@_Dj(B}.
 
@@ -6798,8 +6802,8 @@ Emacs $B$N%P%C%U%!$KFI$_9~$s$G8!:w$r9T$$$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-cdb-large-jisyo
 $B6&M-<-=q$N$&$A(B CDB $B7A<0$KJQ49$7$?<-=q$G$9!#;XDj$7$?>l9g$O(B @code{skk-large-jisyo} $B$h(B
-$B$j$b@h$K8!:w$5$l$^$9!#(BDDSKK 14.1 $B$+$i$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0$N<-=q$rD>(B
-$B@\8!:w$G$-$k$h$&$K$J$j$^$7$?!#(B
+$B$j$b@h$K8!:w$5$l$^$9!#(BDDSKK 14.1 $B$+$i$O<-=q%5!<%P$r7PM3$;$:$H$b(B CDB $B7A<0(B
+$B<-=q%U%!%$%k$rD>@\8!:w$G$-$k$h$&$K$J$j$^$7$?!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-large-jisyo
