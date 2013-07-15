@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.52
-@set UPDATED $Date: 2013/07/15 00:23:42 $
+@set UPDATED $Date: 2013/07/15 09:22:33 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -995,7 +995,7 @@ Window System 下で対応する Emacs を使用している場合。
 
 @example
 -------------------- Echo Area --------------------
-Daredevil SKK/15.1.52 (Oshamanbe)
+Daredevil SKK/15.1.52 (Oshamambe)
 -------------------- Echo Area --------------------
 @end example
 

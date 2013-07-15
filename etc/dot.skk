@@ -326,7 +326,7 @@
 ;; @@ 検索に関連した設定
 
 ;; From DDSKK 14.2:
-;;   メイン辞書（L 辞書、CDB 辞書、サーバー）以外の辞書を指定する
+;;   メイン辞書（L 辞書、CDB 形式辞書、辞書サーバ）以外の辞書を指定する
 (setq skk-extra-jisyo-file-list
       (list "/usr/share/skk/SKK-JISYO.JIS2"
 	    '("/usr/share/skk/SKK-JISYO.JIS3_4" . euc-jisx0213)

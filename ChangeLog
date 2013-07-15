@@ -1,5 +1,9 @@
 2013-07-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-version.el, doc/skk.texi: Typo fixed.
+
+2013-07-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* doc/skk.texi: Update.
 
 	* skk-comp.el (skk-comp-get-candidate, skk-comp-collect-kana)
