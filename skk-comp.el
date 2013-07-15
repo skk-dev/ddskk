@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-comp.el,v 1.93 2013/01/13 09:45:48 skk-cvs Exp $
+;; Version: $Id: skk-comp.el,v 1.94 2013/07/15 00:23:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/13 09:45:48 $
+;; Last Modified: $Date: 2013/07/15 00:23:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -173,6 +173,7 @@
 			 (concat orig-key skk-comp-prefix)
 		       orig-key))))))))))
 
+;;;###autoload
 (defun skk-comp-get-candidate (&optional first)
   (when first
     (setq skk-comp-first t
@@ -247,6 +248,7 @@
 	(add-to-list 'skk-comp-prefix-regexp-alist (cons prefix regexp))
 	regexp)))
 
+;;;###autoload
 (defun skk-comp-collect-kana (tree)
   ;; skk-rule-tree の部分木に属する "かな" を集める
   (let ((data (skk-get-kana tree))
@@ -262,6 +264,7 @@
 			    (mapcar #'skk-comp-collect-kana
 				    branches)))))
 
+;;;###autoload
 (defun skk-comp-arrange-kana-list (kana-list prefix)
   ;; skk-comp-collect-kana から得た "かな" のリストを元に
   ;; プレフィックスに対応した調整をする
@@ -327,6 +330,7 @@
 	    (setq c-word nil))))
       c-word)))
 
+;;;###autoload
 (defun skk-comp-re-search-current-buffer (key prefix &optional abbrev)
   ;; 問題のあるケースがあるかもしれないので
   ;; skk-comp-search-current-buffer との一本化はとりあえず保留
@@ -464,6 +468,7 @@ NOT-ABBREV-ONLY を指定する事で常に有効となる。"
 			   'without-midasi
 			   without-char-maybe)))
 
+;;;###autoload
 (defun skk-smart-find (key &optional path)
   ;; smart-find は provide されていない
   (unless (fboundp 'smart-find-file)

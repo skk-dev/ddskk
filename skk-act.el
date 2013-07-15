@@ -67,7 +67,10 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+
+  (defvar skk-jisx0201-rule-list)
+  (defvar skk-jisx0201-base-rule-list))
 
 (defvar skk-act-unnecessary-base-rule-list
   (let ((list

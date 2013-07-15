@@ -4,10 +4,10 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.10 2011/07/19 13:01:08 skk-cvs Exp $
+;; Version: $Id: skk-azik.el,v 1.11 2013/07/15 00:23:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2011/07/19 13:01:08 $
+;; Last Modified: $Date: 2013/07/15 00:23:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -59,7 +59,10 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+
+  (defvar skk-jisx0201-rule-list)
+  (defvar skk-jisx0201-base-rule-list))
 
 (defvar skk-azik-unnecessary-base-rule-list
   '("cha" "che" "chi" "cho" "chu"

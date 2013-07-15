@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.52
-@set UPDATED $Date: 2013/07/13 06:36:49 $
+@set UPDATED $Date: 2013/07/15 00:23:42 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -7503,7 +7503,8 @@ Really purge ``さいきてき /再起的/''?(yes or no) @point{}
 のもと行ってください。}
 
 コマンド @kbd{M-x skk-edit-private-jisyo} を使うと、個人辞書ファイルが
-開かれます。
+開かれます@footnote{前置引数を伴って実行 (@kbd{C-u M-x skk-edit-private-jisyo}) す
+ることで、コーディングシステムを指定して個人辞書を開くことができます。}。
 
 個人辞書ファイルを開いて編集している最中も skk を使えますが、
 skk からの単語の登録、削除はできません。(他にも少し制限がありますが、

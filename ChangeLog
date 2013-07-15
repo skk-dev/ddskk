@@ -1,3 +1,15 @@
+2013-07-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+	* skk-comp.el (skk-comp-get-candidate, skk-comp-collect-kana)
+	(skk-comp-arrange-kana-list, skk-comp-re-search-current-buffer)
+	(skk-smart-find): Add autoload cookie.
+
+	* skk-act.el: warning 対策のため、skk-jisx0201{-base}-rule-list
+	を defvar する。
+	* skk-azik.el: Ditto.
+
 2013-07-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-display-code-method): New variable.
