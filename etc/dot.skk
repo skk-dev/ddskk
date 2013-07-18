@@ -241,6 +241,9 @@
 ;; 対応する閉括弧を自動的に挿入する
 (setq skk-auto-insert-paren t)
 
+;;
+(define-key skk-j-mode-map (kbd "C-M-j") 'skk-undo-kakutei)
+
 ;; ▽モードと▼モード時のアンドゥ情報を記録しない
 ;; (setq skk-undo-kakutei-word-only t)
 
@@ -256,6 +259,8 @@
 ;;               (if (re-search-forward "。" 10000 t)
 ;;                   (setq skk-kutouten-type 'en)
 ;;                 (setq skk-kutouten-type 'jp)))))
+
+(define-key skk-j-mode-map (kbd "M-,") 'skk-toggle-kutouten)
 
 ;; 見出し語の補完を行う際の候補の表示順
 ;; (setq skk-comp-circulate t)
@@ -283,14 +288,17 @@
 ;; (setq skk-dcomp-multiple-activate t
 ;;       skk-dcomp-multiple-rows 10)
 
-;; ▽ほ*んとう-!-
-;;   ほ んとう
-;;   ほ かん
-;;   ほ うほう
+;;; ▽ほ*んとう-!-
+;;;   ほ んとう
+;;;   ほ かん
+;;;   ほ うほう
+
 ;; 「ほ」のフェイス
 ;; (set-face-foreground 'skk-dcomp-multiple-face "COLOR")
+
 ;; 「んとう」、「かん」、「うほう」のフェイス
 ;; (set-face-foreground 'skk-dcomp-multiple-trailing-face "COLOR")
+
 ;; 選択位置のフェイス
 ;; (set-face-foreground 'skk-dcomp-multiple-selected-face "COLOR")
 
@@ -351,7 +359,8 @@
 ;;   動作は保証されません。
 
 ;; 異体字の候補を表示する
-(setq skk-itaiji-jisyo "/usr/share/skk/SKK-JISYO.itaiji")
+;; http://mail.ring.gr.jp/skk/200303/msg00071.html
+;; (setq skk-itaiji-jisyo "/usr/share/skk/SKK-JISYO.itaiji")
 
 ;; look コマンドを使った検索を行う
 (setq skk-use-look t)
@@ -622,10 +631,6 @@
 	  ((and (<= ?0 c) (>= ?9 c)) (nth 1 output))
 	  ((and (<= ?０ c) (>= ?９ c)) (nth 2 output))
 	  (t (nth 3 output)))))
-
-;;
-(define-key skk-j-mode-map (kbd "M-,") 'skk-toggle-kutouten)
-(define-key skk-j-mode-map (kbd "C-M-j") 'skk-undo-kakutei)
 
 ;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
 ;; (global-set-key "\M-i" 'skk-annotation-lookup-region-or-at-point)
