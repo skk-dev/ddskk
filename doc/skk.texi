@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.52
-@set UPDATED $Date: 2013/07/18 11:49:08 $
+@set UPDATED $Date: 2013/08/10 05:05:32 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4894,6 +4894,13 @@ ohhira @expansion{} おおひら
 @end lisp
 
 のように関数 @code{setq-default} を用いてください。
+@end defvr
+
+@defvr {ユーザ変数} skk-use-auto-kutouten
+
+デフォルトは @code{nil}。@code{Non-nil} であれば、カーソル直前の文字種に
+応じて句読点を動的に変更します。
+
 @end defvr
 
 @node 数字や記号文字の入力

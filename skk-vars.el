@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.452 2013/07/13 10:11:44 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.453 2013/08/10 05:05:31 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/07/13 10:11:44 $
+;; Last Modified: $Date: 2013/08/10 05:05:31 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -950,9 +950,9 @@ Non-nil $B$J$i$P!"@\F,<-$^$?$O@\Hx<-F~NO$N:]!"@\F,<-$^$?$O@\Hx<-$H7k9g$7$?(B
     ("zyi" nil ("$B%8%#(B" . "$B$8$#(B"))
     ("zyo" nil ("$B%8%g(B" . "$B$8$g(B"))
     ("zyu" nil ("$B%8%e(B" . "$B$8$e(B"))
-    ("." nil skk-current-kuten)
-    ("," nil skk-current-touten)
-    ("-" nil "$B!<(B")
+    ("." nil skk-auto-kutouten)
+    ("," nil skk-auto-kutouten)
+    ("-" nil skk-auto-kutouten)
     (":" nil "$B!'(B")
     (";" nil "$B!((B")
     ("?" nil "$B!)(B")
@@ -1236,6 +1236,10 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 (make-variable-buffer-local 'skk-kutouten-type)
 ;;;###autoload
 (put 'skk-kutouten-type 'safe-local-variable 'symbolp)
+
+(defvar skk-use-auto-kutouten nil
+  "*Non-nil $B$G$"$l$P!"$+$J%b!<%I$K$*$1$kD92;(B($B!<(B)$B!"6gE@(B($B!#(B)$BKt$OFIE@(B($B!"(B)$B$NF0:n$rJQ99$9$k!#(B
+ASCII $B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `-' $B$X!"6gE@(B($B!#(B)$B$O(B `.' $B$X!"FIE@(B($B!"(B)$B$O(B `,' $B$X$HJQ99$7!"(BJISX0208($BA43Q(B)$B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `$B!](B' $B$X!"6gE@(B($B!#(B)$B$O(B `$B!%(B' $B$X!"FIE@(B($B!"(B)$B$O(B `$B!$(B' $B$X$HJQ99$9$k!#(B")
 
 (defcustom skk-auto-insert-paren nil
   "*Non-nil $B$G$"$l$P!"3g8L$HJD3g8L$r$^$H$a$FA^F~$9$k!#(B

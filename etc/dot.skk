@@ -611,26 +611,14 @@
 ;; (setq skk-show-mode-show t)		; M-x skk-show-mode でトグル可。
 ;; (setq skk-show-mode-style 'tooltip)	;デフォルトは 'inline
 
-;; かなモードで、モード変更を行なわずに
-;;   長音(ー)を ASCII 数字の直後では `-' に、全角数字の直後では `−' に
-;;   句点(。)を ASCII 数字の直後では `.' に、全角数字の直後では `．' に
-;;   読点(、)を ASCII 数字の直後では `,' に、全角数字の直後では `，' に
-(setq skk-rom-kana-rule-list
-      (append '(("-" nil skk-hyphen)
-		("." nil skk-hyphen)
-		("," nil skk-hyphen))
-	      skk-rom-kana-rule-list))
-
-(defun skk-hyphen (arg)
-  (let ((output (cdr (assq (skk-last-command-char)
-			   '((?- . ("ー" "-" "−" "ー"))
-			     (?, . ("、" "," "，" "、"))
-			     (?. . ("。" "." "．" "。"))))))
-	(c (char-before (point))))
-    (cond ((null c) (nth 0 output))
-	  ((and (<= ?0 c) (>= ?9 c)) (nth 1 output))
-	  ((and (<= ?０ c) (>= ?９ c)) (nth 2 output))
-	  (t (nth 3 output)))))
+;; かなモードにおいて、モード変更を伴わなくとも
+;;   ASCII 数字の直後であれば、長音(ー)を `-' に
+;;                             句点(。)を `.' に
+;;                             読点(、)を `,' に
+;;   JISX0208(全角)数字の直後であれば、長音(ー)を `−' に
+;;                                     句点(。)を `．' に
+;;                                     読点(、)を `，' に
+;; (setq skk-use-auto-kutouten t)
 
 ;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
 ;; (global-set-key "\M-i" 'skk-annotation-lookup-region-or-at-point)

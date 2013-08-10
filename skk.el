@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.625 2013/03/28 11:55:19 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.626 2013/08/10 05:05:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/28 11:55:19 $
+;; Last Modified: $Date: 2013/08/10 05:05:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1538,17 +1538,32 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 		 (skk-current-touten nil)
 		 (skk-current-kuten nil))))
 
-(defun skk-current-kuten (arg)
+(defun skk-current-kuten (arg)		;句点(。)
   ;; just ignore arg.
   (if (symbolp skk-kutouten-type)
       (cadr (assq skk-kutouten-type skk-kuten-touten-alist))
     (car skk-kutouten-type)))
 
-(defun skk-current-touten (arg)
+(defun skk-current-touten (arg)		;読点(、)
   ;; just ignore arg.
   (if (symbolp skk-kutouten-type)
       (cdr (cdr (assq skk-kutouten-type skk-kuten-touten-alist)))
     (cdr skk-kutouten-type)))
+
+(defun skk-auto-kutouten (arg)
+  (let ((output (cdr (assq (skk-last-command-char)
+			   (list (list ?- "-" "−" "ー")
+				 (list ?, "," "，" (skk-current-touten nil))
+				 (list ?. "." "．" (skk-current-kuten nil))))))
+	(chr (char-before (point))))
+    (cond ((null chr)			;point-min 対策
+	   (nth 2 output))
+	  ((and (<= ?0 chr) (>= ?9 chr) skk-use-auto-kutouten)
+	   (nth 0 output))
+	  ((and (<= ?０ chr) (>= ?９ chr) skk-use-auto-kutouten)
+	   (nth 1 output))
+	  (t
+	   (nth 2 output)))))
 
 (defun skk-abbrev-insert (arg)
   (interactive "*p")
