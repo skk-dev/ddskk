@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.453 2013/08/10 05:05:31 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.454 2013/08/13 14:51:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/10 05:05:31 $
+;; Last Modified: $Date: 2013/08/13 14:51:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1237,9 +1237,11 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 ;;;###autoload
 (put 'skk-kutouten-type 'safe-local-variable 'symbolp)
 
-(defvar skk-use-auto-kutouten nil
+(defcustom skk-use-auto-kutouten nil
   "*Non-nil $B$G$"$l$P!"$+$J%b!<%I$K$*$1$kD92;(B($B!<(B)$B!"6gE@(B($B!#(B)$BKt$OFIE@(B($B!"(B)$B$NF0:n$rJQ99$9$k!#(B
-ASCII $B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `-' $B$X!"6gE@(B($B!#(B)$B$O(B `.' $B$X!"FIE@(B($B!"(B)$B$O(B `,' $B$X$HJQ99$7!"(BJISX0208($BA43Q(B)$B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `$B!](B' $B$X!"6gE@(B($B!#(B)$B$O(B `$B!%(B' $B$X!"FIE@(B($B!"(B)$B$O(B `$B!$(B' $B$X$HJQ99$9$k!#(B")
+ASCII $B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `-' $B$X!"6gE@(B($B!#(B)$B$O(B `.' $B$X!"FIE@(B($B!"(B)$B$O(B `,' $B$X$HJQ99$7!"(BJISX0208($BA43Q(B)$B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `$B!](B' $B$X!"6gE@(B($B!#(B)$B$O(B `$B!%(B' $B$X!"FIE@(B($B!"(B)$B$O(B `$B!$(B' $B$X$HJQ99$9$k!#(B"
+  :type 'boolean
+  :group 'skk-input-basic)
 
 (defcustom skk-auto-insert-paren nil
   "*Non-nil $B$G$"$l$P!"3g8L$HJD3g8L$r$^$H$a$FA^F~$9$k!#(B
@@ -1378,7 +1380,7 @@ ASCII $B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `-' $B$X!"6gE@(B($B!#
   :group 'skk-henkan)
 
 (defcustom skk-inline-show-face 'underline
-  "*$B%$%s%i%$%sI=<($9$kJQ498uJd$N%U%'%$%9$r;XDj$9$kJQ?t!#(B
+  "*$B%$%s%i%$%sI=<($9$kJQ498uJd$rAu>~$9$k%U%'%$%9$r;XDj$9$kJQ?t!#(B
 $B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B"
   :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B")
 		(const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
@@ -1436,11 +1438,9 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#(B
   :group 'skk-henkan)
 
 (defcustom skk-show-candidates-always-pop-to-buffer nil
-  "*$BJQ498uJd0lMw$NI=<(J}K!$r@)8f$9$k!#(B
-$B$3$NJQ?t$,(B nil $B$N>l9g$O!"8uJd0lMw$r%(%3!<%(%j%"$KI=<($9$k!#$3$N$H$-8uJd0lMw(B
-$B$NJ8;zNs$ND9$5$,%U%l!<%`$N2#I}$K<}$^$i$J$$>l9g$K8B$C$F(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n(B
-$B@=(B(pop-to-buffer)$B$7$F@lMQ$N%&%#%s%I%&$GI=<($9$k!#(B
-$B0lJ}!"$3$NJQ?t$,(B non-nil $B$N>l9g$O!"8uJd0lMw$ND9$5$K4X$o$i$:>o$K(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=$7$F@lMQ%&%#%s%I%&$GI=<($9$k!#(B"
+  "*$B$3$NJQ?t$,(B non-nil $B$G$"$l$P!">o$K(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=$7$F!"JQ498uJd0lMw$r@lMQ%&%#%s%I%&$KI=<($9$k!#(B
+$B$3$NJQ?t$,(B nil $B$G$"$l$P!"8uJd0lMw$r%(%3!<%(%j%"$KI=<($9$k!#$?$@$7!"8uJd0lMw$NJ8;zNs$ND9$5$,%U%l!<%`$N2#I}$K<}$^$i$J$$>l9g$O!"(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=(B(pop-to-buffer)$B$7$F@lMQ$N%&%#%s%I%&$GI=<($9$k!#(B
+"
   :type 'boolean
   :group 'skk-henkan)
 
@@ -1450,6 +1450,18 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#(B
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-henkan
   :group 'skk-visual)
+
+(defcustom skk-candidate-buffer-display-fringes t
+  "*nil $B$G$"$l$P!"(B\"*$B8uJd(B*$B%P%C%U%!(B\"$B$N(B fringe $B$r>C$9(B."
+  :type 'boolean
+  :group 'skk-henkan
+  :group 'skk-visual)
+
+(defvar skk-candidate-buffer-fringe-width
+  (list nil
+	(cdr (assoc 'left-fringe (frame-parameters)))
+	(cdr (assoc 'right-fringe (frame-parameters))))
+  "skk $B5/F0;~$N(B fringe $B$NI}(B")
 
 (defcustom skk-search-katakana nil
   "*$B$+$J$rC1=c$K%+%?%+%JJQ49$7$?8uJd$rI=<($9$k$+$I$&$+$r7h$a$k%*%W%7%g%s!#(B

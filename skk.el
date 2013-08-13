@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.626 2013/08/10 05:05:32 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.627 2013/08/13 14:51:43 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/10 05:05:32 $
+;; Last Modified: $Date: 2013/08/13 14:51:43 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2249,7 +2249,11 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	(when skk-candidate-buffer-background-color
 	  (let ((ovl (make-overlay (point-min) (point-max))))
 	    (overlay-put ovl 'face
-			 `(:background ,skk-candidate-buffer-background-color)))))
+			 `(:background ,skk-candidate-buffer-background-color))))
+
+	(apply 'set-window-fringes (if skk-candidate-buffer-display-fringes
+				       skk-candidate-buffer-fringe-width
+				     '(nil 0 0))))
       (when minibuf-p
 	(select-window (minibuffer-window))))))
 

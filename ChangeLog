@@ -1,3 +1,23 @@
+2013-08-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.53.
+
+2013-08-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-candidate-buffer-display-fringes)
+	(skk-candidate-buffer-fringe-width): New variable.
+
+	* skk.el (skk-henkan-show-candidates-buffer): Use it.
+	`skk-candidate-buffer-display-fringes' が nil ならば、候補バッファの
+	fringe を消す。
+
+	* doc/skk.texi: Update.
+
+2013-08-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-use-auto-kutouten): Use function defcustom()
+	instead of defvar().
+
 2013-08-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-auto-kutouten): New function.

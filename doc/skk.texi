@@ -29,8 +29,8 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set SKK-VERSION 15.1.52
-@set UPDATED $Date: 2013/08/10 05:05:32 $
+@set SKK-VERSION 15.1.53
+@set UPDATED $Date: 2013/08/13 14:51:43 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9077,17 +9077,23 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 
 @cartouche
 @defvr {$B%f!<%6JQ?t(B} skk-inline-show-face
-$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$N%U%'%$%9$r;XDj$7$^$9!#(B
+$B%$%s%i%$%sI=<($9$kJQ498uJd$rAu>~$9$k%U%'%$%9$r;XDj$7$^$9!#%G%U%)%k%H(B
+$B$O(B @code{'underline} $B$G$9!#(B
 
-$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B @code{nil} $B$K@_Dj$7$F2<(B
-$B$5$$!#(B
+@lisp
+(setq skk-inline-show-face 'font-lock-doc-face)
+@end lisp
+
+@code{skk-treat-candidate-appearance-function} $B$K$h$kAu>~$rM%@h$9$k$K$O(B
+@code{nil} $B$K@_Dj$7$F2<$5$$!#(B
 @end defvr
 
 @defvr {$B%f!<%6JQ?t(B} skk-inline-show-background-color
-$B%$%s%i%$%s$G8uJd$rI=<($9$k:]$NGX7J?'$r;XDj$7$^$9!#(B
+$B%$%s%i%$%sI=<($9$kJQ498uJd$NGX7J?'$r;XDj$7$^$9!#(B
+
 @code{skk-inline-show-face} $B$^$?$O(B
-@code{skk-treat-candidate-appearance-function} $B$GGX7J?'$,;XDj$5$l$F$$$J$$(B
-$BJ8;z$KBP$7$F$N$_:nMQ$7$^$9!#(B
+@code{skk-treat-candidate-appearance-function} $B$K$F!"GX7J?'$,;XDj$5$l$F$$(B
+$B$J$$J8;z$KBP$7$F$N$_:nMQ$7$^$9!#(B
 @end defvr
 @end cartouche
 @end defvr
@@ -9105,7 +9111,7 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
 
 @cartouche
 @defvr {$B%f!<%6JQ?t(B} skk-tooltip-face
-$B%D!<%k%F%#%C%W$KI=<($9$kJ8;zNs$KE,MQ$9$k%U%'%$%9$r;XDj$9$kJQ?t$G$9!#(B
+$B%D!<%k%F%#%C%WI=<($9$kJ8;zNs$KE,MQ$9$k%U%'%$%9$r;XDj$9$kJQ?t$G$9!#(B
 
 @lisp
 (setq skk-tooltip-face 'font-lock-doc-face)

@@ -83,12 +83,12 @@
 
 ;; (when skk-use-color-cursor
 ;;   ;; カーソル色を変えてみる
-;;   (setq skk-cursor-hiragana-color "blue"
-;; 	   skk-cursor-katakana-color "green"
-;; 	   skk-cursor-abbrev-color "red"
+;;   (setq skk-cursor-hiragana-color       "blue"
+;; 	   skk-cursor-katakana-color       "green"
+;; 	   skk-cursor-abbrev-color         "red"
 ;; 	   skk-cursor-jisx0208-latin-color "red"
-;; 	   skk-cursor-jisx0201-color "purple"
-;; 	   skk-cursor-latin-color "cyan")
+;; 	   skk-cursor-jisx0201-color       "purple"
+;; 	   skk-cursor-latin-color          "cyan")
 ;;   ;;
 ;;   (set-face-foreground 'skk-prefix-hiragana-face skk-cursor-hiragana-color)
 ;;   (set-face-foreground 'skk-prefix-katakana-face skk-cursor-katakana-color)
@@ -102,7 +102,7 @@
 
 ;; (when skk-use-face
 ;;   ;; 変換文字列の色を変えてみる
-;;   ;; `skk-treat-candidate-appearance-function' が優先されます。
+;;   ;; 注) `skk-treat-candidate-appearance-function' の設定が優先されます。
 ;;   (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1)))
 
 ;; 変換候補一覧と注釈 (annotation) の表示を
@@ -130,10 +130,13 @@
   ;; 前景色と背景色は `skk-tooltip-face' の設定が優先適用されます。
   (setq skk-tooltip-parameters
 	'((background-color . "alice blue")
-	  (border-color . "royal blue")
+	  (border-color     . "royal blue")
 	  (foreground-color . "gray")	;`skk-tooltip-face' が優先される
 	  (internal-border-width . 3)	;境界線と文字との間の余白
 	  ))
+
+  ;; 例
+  ;; (setq skk-tooltip-face 'font-lock-doc-face)
 
   ;; Tooltip 表示位置の調整。Tooltip の表示位置は OS (Window System) や
   ;; Emacs のバージョン、フォント設定など諸々の影響を受けてずれるので、
@@ -178,6 +181,9 @@
 ;; *候補*バッファ の背景色
 ;; (setq skk-candidate-buffer-background-color "grey90")
 
+;; *候補*バッファ の fringe を消す
+;; (setq skk-candidate-buffer-display-fringes nil)
+
 ;; 変換候補をインラインに （XEmacs では機能しません）
 ;;   nil => 表示しない (デフォルト)
 ;;   t   => 表示する
@@ -185,8 +191,8 @@
 ;; (setq skk-show-inline t)
 
 (when skk-show-inline
-  ;; 変数 `skk-treat-candidate-appearance-function' を利用して自前で候補に
-  ;; 色を付ける場合はこの変数を nil に設定する。
+  ;; 変換候補の装飾に変数 `skk-treat-candidate-appearance-function' を利用
+  ;; するならば、skk-inline-show-face を nil に設定すること
   (setq skk-inline-show-face nil)
   (setq skk-inline-show-background-color "gray15"))
 
@@ -241,7 +247,7 @@
 ;; 対応する閉括弧を自動的に挿入する
 (setq skk-auto-insert-paren t)
 
-;;
+;; 確定アンドゥ
 (define-key skk-j-mode-map (kbd "C-M-j") 'skk-undo-kakutei)
 
 ;; ▽モードと▼モード時のアンドゥ情報を記録しない
