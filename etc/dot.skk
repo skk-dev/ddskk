@@ -125,9 +125,13 @@
 ;;       (popup-tip tooltip-str)))
 
 (when skk-show-tooltip
-  ;; tooltip のルックスを指定する。デフォルトでは Emacs 標準のルックスに
-  ;; なります。
-  ;; 前景色と背景色は `skk-tooltip-face' の設定が優先適用されます。
+  ;; tooltip のルックスを指定する。
+  ;; 文字の前景色と背景色の適用は、下記の順の上位ほど優先される。
+  ;;   `skk-treat-candidate-appearance-function'
+  ;;   `skk-tooltip-face'
+  ;;   `skk-tooltip-parameters'
+  ;;   `tooltip-frame-parameters'
+  ;;   `tooltip' face
   (setq skk-tooltip-parameters
 	'((background-color . "alice blue")
 	  (border-color     . "royal blue")
@@ -135,8 +139,7 @@
 	  (internal-border-width . 3)	;境界線と文字との間の余白
 	  ))
 
-  ;; 例
-  ;; (setq skk-tooltip-face 'font-lock-doc-face)
+  ;; (setq skk-tooltip-face 'font-lock-doc-face) ; 例
 
   ;; Tooltip 表示位置の調整。Tooltip の表示位置は OS (Window System) や
   ;; Emacs のバージョン、フォント設定など諸々の影響を受けてずれるので、
