@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.454 2013/08/13 14:51:42 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.455 2013/08/16 12:43:45 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/13 14:51:42 $
+;; Last Modified: $Date: 2013/08/16 12:43:45 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1391,6 +1391,16 @@ ASCII 数字の直後であれば、長音(ー)は `-' へ、句点(。
       "beige"
     "gray15")
   "*$Bインライン表示する変換候補の背景色を指定する変数。
+`skk-inline-show-face' または `skk-treat-candidate-appearance-function' で
+背景色が指定されていない文字に対してのみ作用する。"
+  :type 'string
+  :group 'skk-visual)
+
+(defcustom skk-inline-show-background-color-odd
+  (if (eq skk-background-mode 'light)
+      "wheat"
+    "gray20")
+  "*インライン表示する変換候補の背景色(奇数ライン)を指定する変数。
 `skk-inline-show-face' または `skk-treat-candidate-appearance-function' で
 背景色が指定されていない文字に対してのみ作用する。"
   :type 'string

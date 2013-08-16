@@ -122,7 +122,9 @@
 	  (setq str (propertize str 'face face)))
 	(when skk-inline-show-background-color
 	  (setq str (skk-add-background-color str
-					      skk-inline-show-background-color)))
+					      (if (zerop (mod i 2))
+						  skk-inline-show-background-color
+						skk-inline-show-background-color-odd))))
 	(save-excursion
 	  (scroll-left (max 0
 			    (- (+ beg-col margin max-width margin 1)

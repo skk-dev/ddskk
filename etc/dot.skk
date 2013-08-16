@@ -197,7 +197,9 @@
   ;; 変換候補の装飾に変数 `skk-treat-candidate-appearance-function' を利用
   ;; するならば、skk-inline-show-face を nil に設定すること
   (setq skk-inline-show-face nil)
-  (setq skk-inline-show-background-color "gray15"))
+  (setq skk-inline-show-background-color "gray15")     ; 偶数ラインの背景色
+  (setq skk-inline-show-background-color-odd "gray20") ; 奇数ラインの背景色
+  )
 
 ;; 候補表示のルックスに関する高度な設定
 ;;

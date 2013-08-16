@@ -1,3 +1,9 @@
+2013-08-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-inline-show-background-color-odd): New variable.
+	* skk-inline.el (skk-inline-show-vertically): Use it.
+	* doc/skk.texi: Update.
+
 2013-08-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.53.
