@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.627 2013/08/13 14:51:43 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.628 2013/08/17 00:14:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/13 14:51:43 $
+;; Last Modified: $Date: 2013/08/17 00:14:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2206,6 +2206,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	(delete-char 2)
 	(insert "\n"))
       (goto-char (point-min))
+
       ;; 右端に余白を設ける
       (while (and (move-to-column (- (frame-width) 2))
 		  (not (eobp))
@@ -2218,12 +2219,38 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	  (insert "\n  ")
 	  (forward-line -1))
 	(forward-line 1))
+
       ;; [残り 99++] を右端へ
       (when skk-henkan-rest-indicator
 	(let ((col (progn (goto-char (point-max))
 			  (skk-screen-column))))
 	  (beginning-of-line)
 	  (insert-char 32 (- (frame-width) col 1))))
+
+      ;;候補バッファの背景色
+      (when skk-candidate-buffer-background-color
+	(unless skk-candidate-buffer-background-color-odd
+	  (setq skk-candidate-buffer-background-color-odd
+		skk-candidate-buffer-background-color))
+	(goto-char (point-min))
+	(let ((background-color skk-candidate-buffer-background-color))
+	  (while (null (eobp))
+	    (let* ((eol (save-excursion (end-of-line)
+					(unless (eobp) (forward-char))
+					(point)))
+		   (bol (progn (beginning-of-line)
+			       (point)))
+		   (ovl (make-overlay bol eol)))
+	      (when (or (string-match "[ASDFJKL]:" (buffer-substring bol (+ 2 bol)))
+			(string-match "\\[残り [0-9]+\\(\\++\\)?\\]"
+				      (buffer-substring bol eol)))
+		(setq background-color
+		      (if (string= background-color skk-candidate-buffer-background-color)
+			  skk-candidate-buffer-background-color-odd
+			skk-candidate-buffer-background-color)))
+	      (overlay-put ovl 'face `(:background ,background-color)))
+	    (forward-line))))
+
       (goto-char (point-min)))
 
     (let ((minibuf-p (skk-in-minibuffer-p))
@@ -2244,13 +2271,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	    (enlarge-window (- lines (1- (window-height))))))
 	(unless (pos-visible-in-window-p)
 	  (recenter '(1)))
-	;;
 	(skk-fit-window)
-	(when skk-candidate-buffer-background-color
-	  (let ((ovl (make-overlay (point-min) (point-max))))
-	    (overlay-put ovl 'face
-			 `(:background ,skk-candidate-buffer-background-color))))
-
 	(apply 'set-window-fringes (if skk-candidate-buffer-display-fringes
 				       skk-candidate-buffer-fringe-width
 				     '(nil 0 0))))

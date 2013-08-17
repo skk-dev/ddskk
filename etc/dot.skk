@@ -182,7 +182,8 @@
 ;; (setq skk-show-candidates-always-pop-to-buffer t)
 
 ;; *候補*バッファ の背景色
-;; (setq skk-candidate-buffer-background-color "grey90")
+;; (setq skk-candidate-buffer-background-color     "grey90"
+;;       skk-candidate-buffer-background-color-odd "grey80")
 
 ;; *候補*バッファ の fringe を消す
 ;; (setq skk-candidate-buffer-display-fringes nil)
@@ -196,10 +197,9 @@
 (when skk-show-inline
   ;; 変換候補の装飾に変数 `skk-treat-candidate-appearance-function' を利用
   ;; するならば、skk-inline-show-face を nil に設定すること
-  (setq skk-inline-show-face nil)
-  (setq skk-inline-show-background-color "gray15")     ; 偶数ラインの背景色
-  (setq skk-inline-show-background-color-odd "gray20") ; 奇数ラインの背景色
-  )
+  (setq skk-inline-show-face nil
+	skk-inline-show-background-color     "gray15"	;偶数ラインの背景色
+	skk-inline-show-background-color-odd "gray20")) ;奇数ラインの背景色
 
 ;; 候補表示のルックスに関する高度な設定
 ;;

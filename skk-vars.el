@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.455 2013/08/16 12:43:45 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.456 2013/08/17 00:14:16 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/16 12:43:45 $
+;; Last Modified: $Date: 2013/08/17 00:14:16 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1456,6 +1456,13 @@ nil であれば、送り仮名を含めた見出し語をそのまま残して▽モードに入る。
 
 (defcustom skk-candidate-buffer-background-color nil
   "*\"*候補*バッファ\"の背景色。"
+  :type '(radio (string :tag "色の名前")
+		(const :tag "指定しない" nil))
+  :group 'skk-henkan
+  :group 'skk-visual)
+
+(defcustom skk-candidate-buffer-background-color-odd nil
+  "*\"*候補*バッファ\"の背景色（奇数ライン）。"
   :type '(radio (string :tag "色の名前")
 		(const :tag "指定しない" nil))
   :group 'skk-henkan

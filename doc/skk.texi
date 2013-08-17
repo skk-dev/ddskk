@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.53
-@set UPDATED $Date: 2013/08/16 12:43:45 $
+@set UPDATED $Date: 2013/08/17 00:14:17 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9192,6 +9192,11 @@ skk abbrev $B%b!<%I$G$"$k$3$H$r<($9%+!<%=%k?'!#I8=`$O!"(Broyalblue $B$G$9!#(
  *$B8uJd(B*$B%P%C%U%!$NGX7J?'$r;XDj$7$^$9!#(B
 $BGX7J?'$rIU$1$?$/$J$$>l9g$O(B @code{nil} $B$r;XDj$9$k$3$H!J%G%U%)%k%H!K!#(B
 @end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-candidate-buffer-background-color-odd
+ *$B8uJd(B*$B%P%C%U%!$NGX7J?'!J4q?t%i%$%s!K$r;XDj$7$^$9!#(B
+@end defvr
+
 @end cartouche
 @end defvr
 
