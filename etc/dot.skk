@@ -8,12 +8,6 @@
 ;; このファイルは ~/.skk に直接コピーして使用するように意図されたものでは
 ;; ありません。必要な設定例のみコピーして使用してください。
 
-;; 変換候補一覧の表示方法は次の変数で指定しますが、このうち２つ以上が non-nil の
-;; 場合は記載の順に優先適用されます。
-;;   1. skk-show-inline
-;;   2. skk-show-tooltip
-;;   3. skk-show-candidates-always-pop-to-buffer
-
 ;;; Code:
 
 ;; @@ 基本中の基本の設定
@@ -33,9 +27,6 @@
 ;; ja-dic.el を利用したかな漢字変換(DDSKK 14.2〜)を無効とする
 ;; (setq skk-inhibit-ja-dic-search t)
 
-;; 前候補/前候補群に戻る操作
-;; (setq skk-previous-candidate-keys (list "x" "\C-p"))
-
 ;; SHIFT キーを使うことなく、見出し語・送り仮名の位置を指定する
 ;; (setq skk-sticky-key ";")
 
@@ -54,6 +45,13 @@
 ;;   以外  => マイナーモードとして表示する
 ;; (setq skk-status-indicator 'minor-mode)
 
+;; モードラインに SKK アイコンを表示する。
+(setq skk-show-icon t)
+
+;; カーソル付近にモード切り替えを表示する
+;; (setq skk-show-mode-show t)		; M-x skk-show-mode でトグル可。
+;; (setq skk-show-mode-style 'tooltip)	;デフォルトは 'inline
+
 ;; メニューバーの表示
 ;;   Non-nil => 日本語
 ;;   nil => 英語
@@ -68,7 +66,7 @@
       )
 
 ;; 注釈を表示するまでの遅延を秒で指定する
-;; (setq skk-annotation-delay 0)
+ (setq skk-annotation-delay 0)		;デフォルトは1.0秒
 
 ;; 注釈 (annotation) の表示の仕方
 ;;   Non-nil => エコーエリアに表示する (デフォルト)
@@ -97,149 +95,26 @@
 ;; インジケータに色を付けない
 ;; (setq skk-indicator-use-cursor-color nil)
 
-;; 変換中の文字列をハイライトしない
-;; (setq skk-use-face nil)
-
-;; (when skk-use-face
-;;   ;; 変換文字列の色を変えてみる
-;;   ;; 注) `skk-treat-candidate-appearance-function' の設定が優先されます。
-;;   (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1)))
-
-;; 変換候補一覧と注釈 (annotation) の表示を
-;; エコーエリアに代えて tooltip で表示する
-;; 注) 今のところ FSF Emacs 21 以上と XEmacs 21.5 以上で機能します。
-(setq skk-show-tooltip t)
-
-;; ;; Tip 描画に pos-tip を利用してみる
-;; ;; http://www.emacswiki.org/emacs-en/PosTip
-;; (require 'pos-tip)
-;; (setq skk-tooltip-function
-;;   #'(lambda (tooltip-str)
-;;       (pos-tip-show tooltip-str nil nil nil 0)))
-
-;; ;; Tip 描画に popup-tip を利用してみる
-;; ;; http://github.com/m2ym/auto-complete
-;; (require 'popup)
-;; (setq skk-tooltip-function
-;;   #'(lambda (tooltip-str)
-;;       (popup-tip tooltip-str)))
-
-(when skk-show-tooltip
-  ;; tooltip のルックスを指定する。
-  ;; 文字の前景色と背景色の適用は、下記の順の上位ほど優先される。
-  ;;   `skk-treat-candidate-appearance-function'
-  ;;   `skk-tooltip-face'
-  ;;   `skk-tooltip-parameters'
-  ;;   `tooltip-frame-parameters'
-  ;;   `tooltip' face
-  (setq skk-tooltip-parameters
-	'((background-color . "alice blue")
-	  (border-color     . "royal blue")
-	  (foreground-color . "gray")	;`skk-tooltip-face' が優先される
-	  (internal-border-width . 3)	;境界線と文字との間の余白
-	  ))
-
-  ;; (setq skk-tooltip-face 'font-lock-doc-face) ; 例
-
-  ;; Tooltip 表示位置の調整。Tooltip の表示位置は OS (Window System) や
-  ;; Emacs のバージョン、フォント設定など諸々の影響を受けてずれるので、
-  ;; 自分の環境に合わせて微調整します。
-
-  ;; (setq skk-tooltip-x-offset 3)
-  ;; (setq skk-tooltip-y-offset 10)
-
-  ;; Tooltip を表示する場合の、マウスポインタの挙動。
-  ;;   follow => tip の位置に移動する。
-  ;;   avoid => ウィンドウの端に退避する。
-  ;;   avoid-maybe => ウィンドウ上にあるマウスポインタのみ退避する。
-  ;;   banish => ウィンドウの端に退避したまま帰ってこない。
-  ;;   nil => 退避しない。この場合、tip のテキストとマウスポインタが
-  ;;          重なってしまうこともある。
-  (setq skk-tooltip-mouse-behavior 'avoid-maybe)
-
-  ;; tooltip 表示の際のマウスポインタを変更して遊んでみる
-  ;; 注) この設定は X Window System 上の GNU Emacs でないと利用できません。
-  (defadvice skk-tooltip-show-at-point (around set-pointer activate)
-    (let ((shape x-pointer-shape))
-      (require 'avoid)
-      (mouse-avoidance-set-pointer-shape (if (ad-get-arg 1)
-					     x-pointer-pencil
-					   x-pointer-hand1))
-      (unwind-protect
-	  ad-do-it
-	(mouse-avoidance-set-pointer-shape shape))))
-  )
-
 ;; ;; [残り 99++]
 ;; 表示を右端へ寄せてみる
 ;; (setq skk-henkan-rest-indicator t)
 ;; 適用するフェイス
 ;; (copy-face 'font-lock-keyword-face 'skk-henkan-rest-indicator-face)
 
-;; 変換候補の表示方法
-;;   nil => 変換候補をエコーエリアに表示する (デフォルト)
-;;   Non-nil => *候補*バッファ を pop-to-buffer する。
-;; (setq skk-show-candidates-always-pop-to-buffer t)
+;; `$' skk-display-code-for-char-at-point で使用するフェイス
+(set-face-attribute 'skk-display-code-prompt-face nil
+		    :foreground "cyan"
+		    :bold t)
 
-;; *候補*バッファ の背景色
-;; (setq skk-candidate-buffer-background-color     "grey90"
-;;       skk-candidate-buffer-background-color-odd "grey80")
-
-;; *候補*バッファ の fringe を消す
-;; (setq skk-candidate-buffer-display-fringes nil)
-
-;; 変換候補をインラインに （XEmacs では機能しません）
-;;   nil => 表示しない (デフォルト)
-;;   t   => 表示する
-;;   'vertical => 縦型インラインに表示する
-;; (setq skk-show-inline t)
-
-(when skk-show-inline
-  ;; 変換候補の装飾に変数 `skk-treat-candidate-appearance-function' を利用
-  ;; するならば、skk-inline-show-face を nil に設定すること
-  (setq skk-inline-show-face nil
-	skk-inline-show-background-color     "gray15"	;偶数ラインの背景色
-	skk-inline-show-background-color-odd "gray20")) ;奇数ラインの背景色
-
-;; 候補表示のルックスに関する高度な設定
-;;
-;; 注1) skk-emacs-*-face は GNU Emacs に限って定義される face です。
-;; XEmacs では別の存在する face に置き換えてください。
-;;
-;; 注2) 候補の個人辞書への登録においても、`skk-update-jisyo-function' を
-;; 設定することで同様のカスタマイズができます。「個人辞書に関する設定」の
-;; 例をご覧ください。
-(setq skk-treat-candidate-appearance-function
-      #'(lambda (candidate listing-p)
-	  (let* ((value (skk-treat-strip-note-from-word candidate))
-		 (cand (car value))	;候補
-		 (note (cdr value))	;注釈
-		 (sep (if note		;セパレータ
-			  (propertize (if (skk-annotation-display-p 'list)
-					  " ≒ "
-					" !")
-				      'face 'skk-emacs-jisx0208-latin-face)
-			nil)))
-	    (cond (note
-		   (put-text-property 0 (length cand)
-				      'face 'skk-emacs-jisx0201-face cand)
-		   (put-text-property 0 (length note)
-				      'face 'skk-emacs-katakana-face note)
-		   (cons cand (cons sep note)))
-		  (t
-		   (put-text-property 0 (length cand)
-				      'face 'skk-emacs-hiragana-face cand)
-		   cand)))))
-
-;; A S D F J K L に適用するフェイス
-;; (set-face-attribute 'skk-henkan-show-candidates-keys-face nil
-;; 		    :foreground "black"
-;; 		    :background white"")
-
-;; モードラインに SKK アイコンを表示する。
-(setq skk-show-icon t)
+(set-face-attribute 'skk-display-code-char-face nil
+		    :height 150
+		    :foreground "white"
+		    :background "black")
 
 ;; @@ 基本的なユーザ・インターフェース
+
+;; 前候補/前候補群に戻る操作
+;; (setq skk-previous-candidate-keys (list "x" "\C-p"))
 
 ;; ▼モードで Enter キーを押したとき
 ;;   nil => 確定と改行（デフォルト）
@@ -331,6 +206,40 @@
 ;; (setq skk-special-midashi-char-list nil)
 ;; (define-key skk-j-mode-map [muhenkan] 'skk-process-prefix-or-suffix)
 
+;; @@ かな入力関連の設定
+
+;; 半角カナ入力メソッドを使う
+;; (setq skk-use-jisx0201-input-method t)
+
+;; かな配列キーボードで入力する
+;; (setq skk-use-kana-keyboard t)
+
+;; (when skk-use-kana-keyboard
+;;   ;; 旧 JIS 配列を使う
+;;   ;; (setq skk-kanagaki-keyboard-type '106-jis)
+;;   ;; 親指シフトエミュレーションを使う
+;;   (setq skk-kanagaki-keyboard-type 'omelet-jis)
+;;   ;; OASYS 風の後退・取消キーを使う
+;;   (setq skk-nicola-use-koyubi-functions t))
+
+;; Microsoft Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
+;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。
+;;   kanagaki => かなキーボード入力用の設定になる。
+;;   nil => 自動設定しない（自分で好きな設定ができる） デフォルト
+(setq skk-j-mode-function-key-usage 'conversion)
+;; 注) 標準では以下の変換機能が割り当てられます。
+;;  [F5]単漢字 [F6]無変換 [F7]カタカナ [F8]半角カナ [F9]全角ローマ [F10]ローマ
+;; (setq skk-verbose t) と併用すると上記の割り当て情報がメッセージされます。
+
+;; かなモードにおいて、モード変更を伴わなくとも
+;;   ASCII 数字の直後であれば、長音(ー)を `-' に
+;;                             句点(。)を `.' に
+;;                             読点(、)を `,' に
+;;   JISX0208(全角)数字の直後であれば、長音(ー)を `−' に
+;;                                     句点(。)を `．' に
+;;                                     読点(、)を `，' に
+;; (setq skk-use-auto-kutouten t)
+
 ;; @@ 変換動作の調整
 
 ;; 送り仮名が厳密に正しい候補を優先して表示する
@@ -342,7 +251,150 @@
 ;; 変換の学習
 (require 'skk-study)
 
-;; @@ 検索に関連した設定
+;;;; @@ 候補の表示方法
+
+;; 変換中の文字列をハイライトしない
+;; (setq skk-use-face nil)
+
+(when skk-use-face
+;;   ;; 変換文字列の色を変えてみる
+;;   ;; 注) `skk-treat-candidate-appearance-function' の設定が優先されます。
+;;   (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1))
+  )
+
+;; A S D F J K L に適用するフェイス
+;; (set-face-attribute 'skk-henkan-show-candidates-keys-face nil
+;; 		    :foreground "black"
+;; 		    :background white"")
+
+;; 漢字変換の候補の表示は、次の変数で指定します。
+;; このうち２つ以上が non-nil の場合は、記載の順に優先適用されます。
+;;   1. skk-show-inline
+;;   2. skk-show-tooltip
+;;   3. skk-show-candidates-always-pop-to-buffer
+;;  (4. echo area)
+
+;; 変換候補をインラインに （XEmacs では機能しません）
+;;   nil => 表示しない (デフォルト)
+;;   t   => 表示する
+;;   'vertical => 縦型インラインに表示する
+;; (setq skk-show-inline t)
+
+(when skk-show-inline
+  ;; 変換候補の装飾に変数 `skk-treat-candidate-appearance-function' を利用
+  ;; するならば、skk-inline-show-face を nil に設定すること
+  (setq skk-inline-show-face nil
+	skk-inline-show-background-color     "gray15"	;偶数ラインの背景色
+	skk-inline-show-background-color-odd "gray20")) ;奇数ラインの背景色
+
+;; 変換候補一覧と注釈 (annotation) の表示を
+;; エコーエリアに代えて tooltip で表示する
+;; 注) 今のところ FSF Emacs 21 以上と XEmacs 21.5 以上で機能します。
+(setq skk-show-tooltip t)
+
+;; ;; Tip 描画に pos-tip を利用してみる
+;; ;; http://www.emacswiki.org/emacs-en/PosTip
+;; (require 'pos-tip)
+;; (setq skk-tooltip-function
+;;   #'(lambda (tooltip-str)
+;;       (pos-tip-show tooltip-str nil nil nil 0)))
+
+;; ;; Tip 描画に popup-tip を利用してみる
+;; ;; http://github.com/m2ym/auto-complete
+;; (require 'popup)
+;; (setq skk-tooltip-function
+;;   #'(lambda (tooltip-str)
+;;       (popup-tip tooltip-str)))
+
+(when skk-show-tooltip
+  ;; tooltip のルックスを指定する。
+  ;; 文字の前景色と背景色の適用は、下記の順の上位ほど優先される。
+  ;;   `skk-treat-candidate-appearance-function'
+  ;;   `skk-tooltip-face'
+  ;;   `skk-tooltip-parameters'
+  ;;   `tooltip-frame-parameters'
+  ;;   `tooltip' face
+  (setq skk-tooltip-parameters
+	'((background-color . "alice blue")
+	  (border-color     . "royal blue")
+	  (foreground-color . "gray")	;`skk-tooltip-face' が優先される
+	  (internal-border-width . 3)	;境界線と文字との間の余白
+	  ))
+
+  ;; (setq skk-tooltip-face 'font-lock-doc-face) ; 例
+
+  ;; Tooltip 表示位置の調整。Tooltip の表示位置は OS (Window System) や
+  ;; Emacs のバージョン、フォント設定など諸々の影響を受けてずれるので、
+  ;; 自分の環境に合わせて微調整します。
+
+  ;; (setq skk-tooltip-x-offset 3)
+  ;; (setq skk-tooltip-y-offset 10)
+
+  ;; Tooltip を表示する場合の、マウスポインタの挙動。
+  ;;   follow => tip の位置に移動する。
+  ;;   avoid => ウィンドウの端に退避する。
+  ;;   avoid-maybe => ウィンドウ上にあるマウスポインタのみ退避する。
+  ;;   banish => ウィンドウの端に退避したまま帰ってこない。
+  ;;   nil => 退避しない。この場合、tip のテキストとマウスポインタが
+  ;;          重なってしまうこともある。
+  (setq skk-tooltip-mouse-behavior 'avoid-maybe)
+
+  ;; tooltip 表示の際のマウスポインタを変更して遊んでみる
+  ;; 注) この設定は X Window System 上の GNU Emacs でないと利用できません。
+  (defadvice skk-tooltip-show-at-point (around set-pointer activate)
+    (let ((shape x-pointer-shape))
+      (require 'avoid)
+      (mouse-avoidance-set-pointer-shape (if (ad-get-arg 1)
+					     x-pointer-pencil
+					   x-pointer-hand1))
+      (unwind-protect
+	  ad-do-it
+	(mouse-avoidance-set-pointer-shape shape))))
+  )
+
+;; 変換候補を別ウインドウに表示する
+;;   nil => 変換候補をエコーエリアに表示する (デフォルト)
+;;   Non-nil => *候補*バッファ を pop-to-buffer する。
+;; (setq skk-show-candidates-always-pop-to-buffer t)
+
+;; *候補*バッファ の背景色
+;; (setq skk-candidate-buffer-background-color     "grey90"
+;;       skk-candidate-buffer-background-color-odd "grey80")
+
+;; *候補*バッファ の fringe を消す
+;; (setq skk-candidate-buffer-display-fringes nil)
+
+;; @@ 候補表示の装飾（フェイス）に関する高度な設定
+
+;; 注1) skk-emacs-*-face は GNU Emacs に限って定義される face です。
+;; XEmacs では別の存在する face に置き換えてください。
+;;
+;; 注2) 候補の個人辞書への登録においても、`skk-update-jisyo-function' を
+;; 設定することで同様のカスタマイズができます。「個人辞書に関する設定」の
+;; 例をご覧ください。
+(setq skk-treat-candidate-appearance-function
+      #'(lambda (candidate listing-p)
+	  (let* ((value (skk-treat-strip-note-from-word candidate))
+		 (cand (car value))	;候補
+		 (note (cdr value))	;注釈
+		 (sep (if note		;セパレータ
+			  (propertize (if (skk-annotation-display-p 'list)
+					  " ≒ "
+					" !")
+				      'face 'skk-emacs-jisx0208-latin-face)
+			nil)))
+	    (cond (note
+		   (put-text-property 0 (length cand)
+				      'face 'skk-emacs-jisx0201-face cand)
+		   (put-text-property 0 (length note)
+				      'face 'skk-emacs-katakana-face note)
+		   (cons cand (cons sep note)))
+		  (t
+		   (put-text-property 0 (length cand)
+				      'face 'skk-emacs-hiragana-face cand)
+		   cand)))))
+
+;; @@ 辞書検索に関連した設定
 
 ;; From DDSKK 14.2:
 ;;   メイン辞書（L 辞書、CDB 形式辞書、辞書サーバ）以外の辞書を指定する
@@ -499,31 +551,6 @@
 (set-face-foreground 'skk-tankan-radical-name-face
 		     "gray40")
 
-;; Microsoft Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
-;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。
-;;   kanagaki => かなキーボード入力用の設定になる。
-;;   nil => 自動設定しない（自分で好きな設定ができる） デフォルト
-(setq skk-j-mode-function-key-usage 'conversion)
-;; 注) 標準では以下の変換機能が割り当てられます。
-;;  [F5]単漢字 [F6]無変換 [F7]カタカナ [F8]半角カナ [F9]全角ローマ [F10]ローマ
-;; (setq skk-verbose t) と併用すると上記の割り当て情報がメッセージされます。
-
-;; @@ かな入力関連の設定
-
-;; 半角カナ入力メソッドを使う
-;; (setq skk-use-jisx0201-input-method t)
-
-;; かな配列キーボードで入力する
-;; (setq skk-use-kana-keyboard t)
-
-;; (when skk-use-kana-keyboard
-;;   ;; 旧 JIS 配列を使う
-;;   ;; (setq skk-kanagaki-keyboard-type '106-jis)
-;;   ;; 親指シフトエミュレーションを使う
-;;   (setq skk-kanagaki-keyboard-type 'omelet-jis)
-;;   ;; OASYS 風の後退・取消キーを使う
-;;   (setq skk-nicola-use-koyubi-functions t))
-
 ;; @@ 個人辞書に関する設定
 
 ;; 複数の Emacsen を起動して個人辞書を共有する
@@ -618,19 +645,6 @@
 
 ;; @@ その他いろいろ
 
-;; カーソル付近にモード切り替えを表示する
-;; (setq skk-show-mode-show t)		; M-x skk-show-mode でトグル可。
-;; (setq skk-show-mode-style 'tooltip)	;デフォルトは 'inline
-
-;; かなモードにおいて、モード変更を伴わなくとも
-;;   ASCII 数字の直後であれば、長音(ー)を `-' に
-;;                             句点(。)を `.' に
-;;                             読点(、)を `,' に
-;;   JISX0208(全角)数字の直後であれば、長音(ー)を `−' に
-;;                                     句点(。)を `．' に
-;;                                     読点(、)を `，' に
-;; (setq skk-use-auto-kutouten t)
-
 ;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
 ;; (global-set-key "\M-i" 'skk-annotation-lookup-region-or-at-point)
 ;; 注) 基本形の (活用形/複数形などでない) 英単語なら領域を選択せずとも M-i
@@ -638,16 +652,6 @@
 ;;   英英辞典」のように使えて便利です。 skk-annotation-other-sources
 ;;   の設定がデフォルト値であれば、英単語にカーソルを置いて M-3 M-i で常
 ;;   に en.wiktionary を調べることができます (Mac OS X では M-4 M-i)。
-
-;; `$' skk-display-code-for-char-at-point で使用するフェイス
-(set-face-attribute 'skk-display-code-prompt-face nil
-		    :foreground "cyan"
-		    :bold t)
-
-(set-face-attribute 'skk-display-code-char-face nil
-		    :height 150
-		    :foreground "white"
-		    :background "black")
 
 ;; Tips といえるものではないが、`lisp-interaction-mode' において "C-j"
 ;; (`eval-print-last-sexp') を利用する人にとっては、英数モードにおいて
