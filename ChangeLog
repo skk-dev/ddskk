@@ -1,3 +1,8 @@
+2013-08-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-display-code): Use skk-tooltip-show-at-point()
+	instead of `funcall skk-tooltip-function'.
+
 2013-08-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-candidate-buffer-background-color-odd): New variable.
