@@ -11,20 +11,20 @@ NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 * 前置き
 
-** Emacs20 / Meadow 1.15
+** Emacs 20 / Meadow 1.15
 
 APEL をインストールした上で DDSKK 14.1 をインストールしてください。
 
-** Emacs21 / Meadow 2.11
+** Emacs 21 / Meadow 2.11
 
 APEL をインストールした上で DDSKK 14.4 をインストールしてください。
 
-** Emacs22 以降 / Meadow 2.20 / Meadow 3.00
+** Emacs 22 以降 / Meadow 2.20 / Meadow 3.00
 
 APEL のインストールは不要です。
 DDSKK 最新版をインストールしてください。
 
-** Emacs24.3 以降
+** Emacs 24.3 以降
 
 DDSKK 14.4 では isearch の不具合があります。DDSKK 15.1 をインストールしてください。
 
@@ -69,7 +69,7 @@ UnxUtils.zip をダウンロード・展開して、例えば
 なお、cygwin を導入している環境では、上記設定ではなく cygwin の設定をし
 て下さい。
 
-** SKKのインストール
+** SKK のインストール
 
 *** gzip, make, tar コマンドを使う場合
 
