@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.628 2013/08/17 00:14:16 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.629 2013/08/20 13:41:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/17 00:14:16 $
+;; Last Modified: $Date: 2013/08/20 13:41:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -279,7 +279,8 @@ dependent."
     (require 'skk-show-mode)))
 
 (defun skk-mode-exit ()
-  (let ((skk-mode t))
+  (let ((skk-mode t)
+	skk-show-mode-show)
     (skk-kakutei))
   (skk-mode-off)
   (skk-remove-skk-pre-command)
@@ -524,6 +525,7 @@ dependent."
 	(skk-char-to-unibyte-string skk-backward-and-set-henkan-point-char)
 	#'skk-backward-and-set-henkan-point))))
 
+(declare-function skk-start-henkan-with-completion "skk-comp")
 (defun skk-setup-abbrev-mode-map-options ()
   (unless (eq (lookup-key skk-abbrev-mode-map skk-kakutei-key) 'skk-kakutei)
     (define-key skk-abbrev-mode-map skk-kakutei-key #'skk-kakutei)
