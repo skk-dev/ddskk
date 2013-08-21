@@ -1,3 +1,8 @@
+2013-08-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-toggle-characters): トグル変換の場合は skk-show-mode を
+	表示しない.
+
 2013-08-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-mode-exit): skk-mode-exit() 実行の際には

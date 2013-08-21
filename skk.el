@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.629 2013/08/20 13:41:22 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.630 2013/08/21 14:01:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/20 13:41:22 $
+;; Last Modified: $Date: 2013/08/21 14:01:06 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -954,36 +954,39 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 $B"&%b!<%I$G$O(B `skk-henkan-start-point' ($B"&$ND>8e(B) $B$H%+!<%=%k$N4V$NJ8;zNs$K$D$$(B
 $B$F!"$R$i$,$J$H%+%?%+%J$rF~$lBX$($k!#(B"
   (interactive "P")
-  (cond
-   ((eq skk-henkan-mode 'on)
-    (let (char-type)
-      (skk-save-point
-       (goto-char skk-henkan-start-point)
-       (while (and (>= skk-save-point (point))
-		   ;; (not (eobp))
-		   (or
-		    ;; "$B!<(B" $B$G$OJ8;z<oJL$,H=JL$G$-$J$$$N$G!"%]%$%s%H$r?J$a$k!#(B
-		    (looking-at "$B!<(B")
-		    (eq 'unknown (setq char-type (skk-what-char-type)))))
-	 (forward-char 1)))
-      (skk-henkan-skk-region-by-func
-       (case char-type
-	 (hiragana #'skk-katakana-region)
-	 (katakana #'skk-hiragana-region)
-	 (jisx0208-latin #'skk-latin-region)
-	 (ascii #'skk-jisx0208-latin-region))
-       ;; `skk-katakana-region' $B$N0z?t(B VCONTRACT $B$^$?$O(B
-       ;; `skk-hiragana-region' $B$N0z?t(B VEXPAND $B$rM?$($k!#(B
-       (memq char-type '(hiragana katakana)))))
-   ((and (skk-in-minibuffer-p)
-	 (not skk-j-mode))
-    ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
-    (skk-j-mode-on))
-   (t
-    (setq skk-katakana (not skk-katakana))))
-  (skk-kakutei)
-  (when skk-j-mode
-    (skk-j-mode-on skk-katakana))
+  (let ((show t))
+    (cond
+     ((eq skk-henkan-mode 'on)		;$B"&%b!<%I(B
+      (let (char-type)
+	(skk-save-point
+	 (goto-char skk-henkan-start-point)
+	 (while (and (>= skk-save-point (point))
+		     ;; (not (eobp))
+		     (or
+		      ;; "$B!<(B" $B$G$OJ8;z<oJL$,H=JL$G$-$J$$$N$G!"%]%$%s%H$r?J$a$k!#(B
+		      (looking-at "$B!<(B")
+		      (eq 'unknown (setq char-type (skk-what-char-type)))))
+	   (forward-char 1)))
+	(skk-henkan-skk-region-by-func
+	 (case char-type
+	   (hiragana #'skk-katakana-region)
+	   (katakana #'skk-hiragana-region)
+	   (jisx0208-latin #'skk-latin-region)
+	   (ascii #'skk-jisx0208-latin-region))
+	 ;; `skk-katakana-region' $B$N0z?t(B VCONTRACT $B$^$?$O(B
+	 ;; `skk-hiragana-region' $B$N0z?t(B VEXPAND $B$rM?$($k!#(B
+	 (memq char-type '(hiragana katakana))))
+      (setq show nil))
+     ((and (skk-in-minibuffer-p)
+	   (not skk-j-mode))
+      ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
+      (skk-j-mode-on))
+     (t
+      (setq skk-katakana (not skk-katakana))))
+    (skk-kakutei)
+    (when skk-j-mode
+      (let ((skk-show-mode-show show))
+	(skk-j-mode-on skk-katakana))))
   nil)
 
 (defun skk-misc-for-picture ()
