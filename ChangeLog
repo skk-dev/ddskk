@@ -1,3 +1,12 @@
+2013-08-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-dcomp-face, skk-dcomp-multiple-face)
+	(skk-dcomp-multiple-trailing-face)
+	(skk-dcomp-multiple-selected-face, skk-display-code-prompt-face)
+	(skk-display-code-char-face, skk-tut-section-face)
+	(skk-tut-do-it-face, skk-tut-question-face)
+	(skk-tut-key-bind-face, skk-tut-hint-face): defface() の表記を統一.
+
 2013-08-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-toggle-characters): トグル変換の場合は skk-show-mode を

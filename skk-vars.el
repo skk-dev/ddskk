@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.456 2013/08/17 00:14:16 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.457 2013/08/24 02:57:24 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/17 00:14:16 $
+;; Last Modified: $Date: 2013/08/24 02:57:24 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -3522,41 +3522,50 @@ server completion が実装されておらず、かつ無反応な辞書サーバ対策。")
 
 ;;; skk-dcomp.el related.
 (defface skk-dcomp-face
-  '((((class color)) (:foreground "DarkKhaki"))
-    (((class grayscale) (background light))
+  '((((class color) (type tty))
+     (:foreground "DarkKhaki"))
+    (((class color) (background light))
      (:foreground "DimGray" :italic t))
-    (((class grayscale) (background dark))
-     (:foreground "LightGray" :italic t)))
+    (((class color) (background dark))
+     (:foreground "LightGray" :italic t))
+    (((class grayscale))
+     (:inherit default)))
   "*Face used to highlight region dynamically completed."
   :group 'skk-dcomp)
 
 (defface skk-dcomp-multiple-face
   '((((class color) (type tty))
      (:foreground "blue" :background "yellow"))
+    (((class color) (background light))
+     (:foreground "dim gray" :background "beige"))
     (((class color) (background  dark))
      (:foreground "gainsboro" :background "gray15"))
-    (((class color) (background light))
-     (:foreground "dim gray" :background "beige")))
+    (((class grayscale))
+      (:inherit default)))
   "*動的補完の複数表示群のフェイス。"
   :group 'skk-dcomp)
 
 (defface skk-dcomp-multiple-trailing-face
   '((((class color) (type tty))
      (:inherit skk-dcomp-multiple-face :foreground "black" :bold t))
+    (((class color) (background light))
+     (:inherit skk-dcomp-multiple-face :foreground "black" :bold t))
     (((class color) (background  dark))
      (:inherit skk-dcomp-multiple-face :foreground "white" :bold t))
-    (((class color) (background light))
-     (:inherit skk-dcomp-multiple-face :foreground "black" :bold t)))
+    (((class grayscale))
+     (:inherit default)))
   "*動的補完の複数表示群の補完部分のフェイス。"
   :group 'skk-dcomp)
 
 (defface skk-dcomp-multiple-selected-face
   '((((class color) (type tty))
      (:foreground "white" :background "magenta" :bold t))
+    (((class color) (background light))
+     (:foreground "yellow" :background "navy" :bold t))
     (((class color) (background  dark))
      (:foreground "dark slate blue" :background "peach puff" :bold t))
-    (((class color) (background light))
-     (:foreground "yellow" :background "navy" :bold t)))
+    (((class grayscale))
+     (:inherit default)))
   "*動的補完の複数表示群の選択対象のフェイス。"
   :group 'skk-dcomp)
 
@@ -4075,11 +4084,11 @@ nil であれば `this-command-keys' を挿入する。")
 
 (defface skk-display-code-prompt-face
   '((((class color) (type tty))
-     (:inherit default))
+     (:inherit default :foreground "cyan"))
     (((class color) (background light))
-     (:inherit default))
+     (:inherit default :foreground "cyan"))
     (((class color) (background dark))
-     (:inherit default))
+     (:inherit default :foreground "cyan"))
     (((class grayscale))
      (:inherit default)))
   "*skk-display-code `$' でエコーエリアに表示するメッセージ中の KUTEN:、JIS:、EUC:、
@@ -4089,11 +4098,11 @@ SJIS: 及び UNICODE: に適用する face 属性。"
 
 (defface skk-display-code-char-face
   '((((class color) (type tty))
-     (:inherit default))
+     (:inherit default :foreground "black" :background "yellow"))
     (((class color) (background light))
-     (:inherit default))
+     (:inherit default :foreground "black" :background "yellow"))
     (((class color) (background dark))
-     (:inherit default))
+     (:inherit default :foreground "black" :background "yellow"))
     (((class grayscale))
      (:inherit default)))
   "*skk-display-code `$' でエコーエリアに表示するメッセージ中の当該文字に適用する face 属性。"
@@ -5288,35 +5297,48 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:foreground "yellow" :background "dodgerblue"))
     (((class color) (background dark))
      (:foreground "yellow" :background "slateblue"))
-    (((class grayscale)) (:bold t) (:italic t)))
+    (((class grayscale))
+     (:bold t) (:italic t)))
   "*チュートリアル中のセクションの表示部分の face。"
   :group 'skk-tut)
 
 (defface skk-tut-do-it-face
-  '((((class color) (background light)) (:foreground "DarkGoldenrod"))
-    (((class color) (background dark)) (:foreground "LightGoldenrod"))
-    (((class grayscale)) (:bold t)))
+  '((((class color) (background light))
+     (:foreground "DarkGoldenrod"))
+    (((class color) (background dark))
+     (:foreground "LightGoldenrod"))
+    (((class grayscale))
+     (:bold t)))
   "*チュートリアル中の指示項目の表示部分の face。"
   :group 'skk-tut)
 
 (defface skk-tut-question-face
-  '((((class color) (background light)) (:foreground "Blue"))
-    (((class color) (background dark)) (:foreground "LightSkyBlue"))
-    (((class grayscale)) (:underline t)))
+  '((((class color) (background light))
+     (:foreground "Blue"))
+    (((class color) (background dark))
+     (:foreground "LightSkyBlue"))
+    (((class grayscale))
+     (:underline t)))
   "*チュートリアル中の問題の表示部分の face。"
   :group 'skk-tut)
 
 (defface skk-tut-key-bind-face
-  '((((class color) (background light)) (:foreground "Firebrick"))
-    (((class color) (background dark)) (:foreground "OrangeRed"))
-    (((class grayscale)) (:bold t)))
+  '((((class color) (background light))
+     (:foreground "Firebrick"))
+    (((class color) (background dark))
+     (:foreground "OrangeRed"))
+    (((class grayscale))
+     (:bold t)))
   "*チュートリアル中のキーバインドの表示部分の face。"
   :group 'skk-tut)
 
 (defface skk-tut-hint-face
-  '((((class color) (background light)) (:foreground "CadetBlue"))
-    (((class color) (background dark)) (:foreground "Aquamarine"))
-    (((class grayscale)) (:italic t)))
+  '((((class color) (background light))
+     (:foreground "CadetBlue"))
+    (((class color) (background dark))
+     (:foreground "Aquamarine"))
+    (((class grayscale))
+     (:italic t)))
   "*チュートリアル中のヒントの表示部分の face。
 現在のところ、SKK.tut.E でしか使用されていない。"
   :group 'skk-tut)
