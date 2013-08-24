@@ -4,9 +4,9 @@
 
 ;; Author: 2011 Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-show-mode.el,v 1.6 2013/01/05 22:43:22 skk-cvs Exp $
+;; Version: $Id: skk-show-mode.el,v 1.7 2013/08/24 11:00:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/05 22:43:22 $
+;; Last Modified: $Date: 2013/08/24 11:00:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -37,8 +37,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'skk-vars)
-  (require 'skk-dcomp))
+  (require 'skk-vars))
 
 (defadvice skk-isearch-set-initial-mode (before skk-show-mode activate)
   (setq skk-show-mode-show nil))
@@ -57,18 +56,104 @@ tooltip / inline 表示する."
 	(funcall func))))
   (setq skk-show-mode-invoked t))
 
-(declare-function skk-dcomp-multiple-show "skk-dcomp")
 (defun skk-show-mode-inline ()
-  (let ((string (cond (skk-abbrev-mode         skk-abbrev-mode-string)
-		      (skk-jisx0208-latin-mode skk-jisx0208-latin-mode-string)
-		      (skk-katakana            skk-katakana-mode-string)
-		      (skk-j-mode              skk-hiragana-mode-string)
-		      (skk-jisx0201-mode       skk-jisx0201-mode-string)
-		      (t                       skk-latin-mode-string)))
-	(skk-henkan-start-point (point)))
-    (skk-dcomp-multiple-show (list string))
-    (sit-for 0.5)			; wait 中でもキー入力は可能
-    (skk-delete-overlay skk-dcomp-multiple-overlays)))
+  (let ((skk-henkan-start-point (point))
+	string)
+    (unless (skk-in-minibuffer-p)
+      (cond
+       (skk-abbrev-mode
+	(setq string skk-abbrev-mode-string)
+	(set-face-foreground 'skk-show-mode-inline-face skk-cursor-abbrev-color))
+       (skk-jisx0208-latin-mode
+	(setq string skk-jisx0208-latin-mode-string)
+	(set-face-foreground 'skk-show-mode-inline-face skk-cursor-jisx0208-latin-color))
+       (skk-katakana
+	(setq string skk-katakana-mode-string)
+	(set-face-foreground 'skk-show-mode-inline-face skk-cursor-katakana-color))
+       (skk-j-mode
+	(setq string skk-hiragana-mode-string)
+	(set-face-foreground 'skk-show-mode-inline-face skk-cursor-hiragana-color))
+       (skk-jisx0201-mode
+	(setq string skk-jisx0201-mode-string)
+	(set-face-foreground 'skk-show-mode-inline-face skk-cursor-jisx0201-color))
+       (t
+	(setq string skk-latin-mode-string)
+	(set-face-foreground 'skk-show-mode-inline-face skk-cursor-latin-color)))
+      ;;
+      (skk-show-mode-inline-1 string)))
+
+  (sit-for 0.5)
+  (skk-delete-overlay skk-show-mode-inline-overlays))
+
+(defun skk-show-mode-inline-1 (str)
+  ;; skk-dcomp-multiple-show() から拝借
+  (let* ((margin 1)
+	 (beg-col (max 0 (- (skk-screen-column) margin)))
+	 (max-width (string-width str))
+	 bottom col ol)
+    (when (zerop beg-col)
+      (setq margin 0))
+    (setq str (propertize (concat (make-string margin 32)
+				  str
+				  (make-string margin 32))
+			  'face 'skk-show-mode-inline-face))
+    (save-excursion
+      (scroll-left (max 0
+			(- (+ beg-col margin max-width margin 1)
+			   (window-width) (window-hscroll))))
+      (setq bottom (zerop (vertical-motion 1)))
+      (cond (bottom
+	     ;; バッファ最終行では、普通に overlay を追加していく方法だと
+	     ;; overlay の表示される順番が狂うことがあってうまくない。
+	     ;; したがって前回の overlay の after-string に追加する。
+	     ;; ただし、EOB の場合は prefix の overlay と衝突するため
+	     ;; `skk-prefix-overlay' に追加する
+	     (setq ol (cond ((or (not skk-echo)
+				 (string= "" skk-prefix)
+				 (< (overlay-end skk-prefix-overlay)
+				    (point)))
+			     (make-overlay (point) (point)))
+			    (t skk-prefix-overlay)))
+
+	     (setq str (concat (overlay-get ol 'after-string)
+				     "\n" (make-string beg-col ? ) str)))
+	    ;; bottom 以外
+	    (t
+	     (setq col (skk-move-to-screen-column beg-col))
+	     (cond ((> beg-col col)
+		    ;; 桁合わせの空白を追加
+		    (setq str (concat (make-string (- beg-col col) ? )
+				      str)))
+		   ;; overlay の左端がマルチ幅文字と重なったときの微調整
+		   ((< beg-col col)
+		    (backward-char)
+		    (setq col (skk-screen-column))
+		    (setq str (concat (make-string (- beg-col col) ? )
+				      str))))))
+
+      ;; この時点で overlay の開始位置に point がある
+      (unless bottom
+	(let ((ol-beg (point))
+	      (ol-end-col (+ col (string-width str)))
+	      base-ol)
+	  (setq col (skk-move-to-screen-column ol-end-col))
+	  ;; overlay の右端がマルチ幅文字と重なったときの微調整
+	  (when (< ol-end-col col)
+	    (setq str (concat str
+			      (make-string (- col ol-end-col) ? ))))
+	  (setq ol (make-overlay ol-beg (point)))
+
+	  ;; 元テキストの face を継承しないように1つ後ろに overlay を作って、
+	  ;; その face を 'default に指定しておく
+	  (setq base-ol (make-overlay (point) (1+ (point))))
+	  (overlay-put base-ol 'face 'default)
+	  (push base-ol skk-show-mode-inline-overlays)
+	  )))
+
+    (overlay-put ol 'invisible t)
+    (overlay-put ol 'after-string str)
+    (push ol skk-show-mode-inline-overlays)))
+
 
 (defun skk-show-mode-tooltip ()
   (when window-system

@@ -24,13 +24,13 @@ emack trunk (24.3.50) でインストールが中断されてしまう。
 
 *** 候補バッファ
 
-skk-candidate-buffer-background-color-odd
+新たに skk-candidate-buffer-background-color-odd を定義
 
-skk-candidate-buffer-display-fringes
+新たに skk-candidate-buffer-display-fringes を定義
 
 *** インライン
 
-skk-inline-show-background-color-odd
+新たに skk-inline-show-background-color-odd を定義
 
 ** 動作
 
@@ -58,6 +58,17 @@ skk-inline-show-background-color-odd
 ** Ruby 1.9 対応
 
 bayesian/bskk の Ruby 1.9 対応を進めました。
+
+** show-mode
+
+*** skk-dcomp.el 依存の廃止
+
+これまで skk-dcomp-multiple-show() を使用していたが、準用する形で
+skk-show-mode-inline-1() を実装した。
+
+*** 背景色の設定
+
+新たに skk-show-mode-inline-face を定義
 
 ** その他バグ修正など
 

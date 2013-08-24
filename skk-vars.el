@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.457 2013/08/24 02:57:24 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.458 2013/08/24 11:00:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/24 02:57:24 $
+;; Last Modified: $Date: 2013/08/24 11:00:19 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5358,6 +5358,21 @@ then filename of the English version will be \"SKK.tut.E\".")
   "*skk-show-mode の表示スタイル。"
   :type '(radio (const :tag "tooltip" tooltip)
 		(const :tag "inline" inline))
+  :group 'skk-visual)
+
+(defvar skk-show-mode-inline-overlays nil
+  "内部スタック用")
+
+(defface skk-show-mode-inline-face
+  '((((class color) (type tty))
+     (:inherit default :background "gray"))
+    (((class color) (background light))
+     (:inherit default :background "gray"))
+    (((class color) (background dark))
+     (:inherit default :background "dark slate gray" :box t))
+    (((class grayscale))
+     (:inherit default)))
+  "*inline 向けの背景色"
   :group 'skk-visual)
 
 ;; XXX workaround

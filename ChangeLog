@@ -1,5 +1,15 @@
 2013-08-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-show-mode-inline-overlays): New internal variable.
+	(skk-show-mode-inline-face): New variable.
+
+	* skk-show-mode.el (skk-show-mode-inline-1): New function.
+	(skk-show-mode-inline): Use it.
+
+	* doc/skk.texi: Update.
+
+2013-08-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-vars.el (skk-dcomp-face, skk-dcomp-multiple-face)
 	(skk-dcomp-multiple-trailing-face)
 	(skk-dcomp-multiple-selected-face, skk-display-code-prompt-face)

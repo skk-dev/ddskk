@@ -51,6 +51,7 @@
 ;; カーソル付近にモード切り替えを表示する
 ;; (setq skk-show-mode-show t)		; M-x skk-show-mode でトグル可。
 ;; (setq skk-show-mode-style 'tooltip)	;デフォルトは 'inline
+;; (set-face-background 'skk-show-mode-inline-face "DodgerBlue")
 
 ;; メニューバーの表示
 ;;   Non-nil => 日本語

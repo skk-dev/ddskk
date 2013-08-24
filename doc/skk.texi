@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.53
-@set UPDATED $Date: 2013/08/17 00:14:17 $
+@set UPDATED $Date: 2013/08/24 11:00:19 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1173,6 +1173,12 @@ SKK $B%b!<%I$O!"J8;z<oN`$K$h$k#4<oN`$N(B@b{$B!VF~NO%b!<%I!W(B}$B$H!"<-=q$rM
 $B%G%U%)%k%H$O(B @code{'inline} $B$G$9!#(B@code{'tooltip} $B$r;XDj$9$k$3$H$b2DG=$G$9!#(B
 
 @ref{$B%$%s%8%1!<%?(B}
+
+@end defvr
+
+@defvr {$B%f!<%6JQ?t(B} skk-show-mode-inline-face
+
+@code{'tooltip} $BMxMQ;~$N(B face
 
 @end defvr
 
