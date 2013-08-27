@@ -1,3 +1,8 @@
+2013-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-rom-kana-base-rule-list): Add key stroke z* to `※',
+	z0 to `○' and z@ to `◎'.
+
 2013-08-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-show-mode-inline-overlays): New internal variable.

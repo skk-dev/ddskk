@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.458 2013/08/24 11:00:19 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.459 2013/08/27 13:44:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/24 11:00:19 $
+;; Last Modified: $Date: 2013/08/27 13:44:42 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -925,10 +925,13 @@ Non-nil ならば、接頭辞または接尾辞入力の際、接頭辞または接尾辞と結合した
     ("yu" nil ("ユ" . "ゆ"))
     ("zz" "z" ("ッ" . "っ"))
     ("z " nil "　")
+    ("z*" nil "※")
     ("z," nil "‥")
     ("z-" nil "〜")
     ("z." nil "…")
     ("z/" nil "・")
+    ("z0" nil "○")
+    ("z@" nil "◎")
     ("z[" nil "『")
     ("z]" nil "』")
     ("z{" nil "【")
