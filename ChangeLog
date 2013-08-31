@@ -1,3 +1,7 @@
+2013-08-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* * doc/skk.texi: Update (azik).
+
 2013-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-rom-kana-base-rule-list): Add key stroke z* to `※',

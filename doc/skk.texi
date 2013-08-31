@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.53
-@set UPDATED $Date: 2013/08/24 11:00:19 $
+@set UPDATED $Date: 2013/08/31 10:09:00 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9764,6 +9764,52 @@ AZIK ($B%(%$%:%#%C%/(B) $B$O(B QWERTY $BG[Ns$r%Y!<%9$H$7$?3HD%%m!<%^;zF~NO$
 $B0lHL$N%m!<%^;zF~NO$,$=$N$^$^;H$($k>e$G$N3HD%$G$"$k$3$H$,FCD'$G$9!#(B
 
 @uref{http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm, $B3HD%%m!<%^;zF~NO!X#A#Z#I#K!Y!&!X#A#C#T!Y$G2wE,$JF|K\8lF~NO$r!*(B}
+
+azik $B$H(B skk $B$G;EMM$,=E$J$kItJ,$,$"$k$?$a!"(B@file{skk-azik.el} $B$G$O0J2<$N$H(B
+$B$*$jBP1~$7$F$$$^$9!#(B
+@table @b
+@item @kbd{q}
+
+AZIK $B$G$OY{2;!V$s!W$rF~NO$9$k$K$O(B @kbd{q} $B$r;H$&$3$H$H$5$l$F$$$^$9$,!"(Bskk $B$G(B
+$B$O4{$K(B @kbd{q} $B$K(B @code{skk-toggle-kana} $B$r3d$jEv$F$F$$$^$9!#(B
+
+$B$=$N$?$a(B @file{skk-azik.el} $B$G$O!"Y{2;$NF~NO$K!"(B
+@itemize @bullet
+@item $BF|K\8l%-!<%\!<%I$G$"$l$P(B @kbd{@@} $B$r!"(B
+@item $B1Q8l%-!<%\!<%I$G$"$l$P(B @kbd{[} $B$r(B
+@end itemize
+$B$=$l$>$l;HMQ$7$^$9!#(B
+
+@item @kbd{@@}
+
+$B>e5-$N$H$*$j!"Y{2;!V$s!W$NF~NO$K(B
+$B$O(B @kbd{@@} ($BF|K\8l%-!<%\!<%I(B) $B$d(B @kbd{[} ($B1Q8l%-!<%\!<%I(B) $B$r;HMQ$7$^$9$,!"(B
+skk $B$G$O4{$K(B @kbd{@@} $B$K$O!V:#F|$NF|IU$NF~NO!W!J%W%m%0%i%`<B9TJQ49!K$r3d(B
+$B$jEv$F$F$$$^$9!#(B
+
+$B$=$N$?$a!"(Bskk $BK\Mh$NF0:n$K$O(B @kbd{x} $B$rIU$1$F!"$=$l$>$l(B @kbd{x@@} $B$H!"(B
+@kbd{x[} $B$GBeMQ$G$-$k$h$&$K$7$F$"$j$^$9!#(B
+
+@item @kbd{l}
+
+AZIK $B$G$O!"C1FH$NY92;!V$c$e$g$!$#$%$'$)$n!W$rF~NO$9$k$K$O(B @kbd{l} $B$rA0CV(B
+$B$9$k$3$H$H$5$l$F$$$^$9$,!"(Bskk $B$G$O4{$K(B @kbd{l} $B$K!V%"%9%-!<%b!<%I$X$N@Z$j(B
+$BBX$(!W$r3d$jEv$F$F$$$^$9!#(B
+
+$B$=$N$?$a(B @file{skk-azik.el} $B$G$O!"Y92;$N$&$A!V$!$#$%$'$)!W$NF~NO$K$D$$$F$O(B
+@kbd{xx} $B$rA0CV$9$k$3$H$H$7$F$$$^$9!#(B
+
+@itemize @bullet
+@item @kbd{xxa} @expansion{} $B$!(B
+@item @kbd{xxi} @expansion{} $B$#(B
+@item @kbd{xxu} @expansion{} $B$%(B
+@item @kbd{xxe} @expansion{} $B$'(B
+@item @kbd{xxo} @expansion{} $B$)(B
+@end itemize
+
+$B$J$*!"Y92;$N$&$A!V$c$e$g$n!W$NC1FHF~NO$OL$BP1~$G$9!#(B
+
+@end table
 
 @defvr {$B%f!<%6JQ?t(B} skk-use-azik
 
