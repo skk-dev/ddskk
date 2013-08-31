@@ -1,6 +1,11 @@
+2013-09-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-azik-keyboard-type): コメントを微修正.
+	* doc/skk.texi: 同上.
+
 2013-08-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* * doc/skk.texi: Update (azik).
+	* doc/skk.texi: Update (azik).
 
 2013-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

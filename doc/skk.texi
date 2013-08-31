@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.53
-@set UPDATED $Date: 2013/08/31 10:09:00 $
+@set UPDATED $Date: 2013/08/31 23:54:50 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9827,9 +9827,15 @@ AZIK $B$G$O!"C1FH$NY92;!V$c$e$g$!$#$%$'$)$n!W$rF~NO$9$k$K$O(B @kbd{l} $B$rA0C
 
 @defvr {$B%f!<%6JQ?t(B} skk-azik-keyboard-type
 
-AZIK $B$G;H$&%-!<%\!<%I$N%?%$%W$r%7%s%\%k$G;XDj$9$k!#(B
-@code{'jp106} $B!"(B @code{'jp-pc98} $BKt$O(B @code{'us101} $B$r;XDj$7$F$/$@$5$$!#(B
+AZIK $B$G;H$&$H$-$N%-!<%\!<%I$N%?%$%W$r!"%7%s%\%k$G;XDj$9$k!#(B
 
+@itemize @bullet
+@item @code{'jp106} @expansion{} $BF|K\8l(B 106 $B%-!<%\!<%I(B ($B%G%U%)%k%H(B)
+@item @code{'jp-pc98} @expansion{} NEC PC-98 $B%-!<%\!<%I(B
+@item @code{'us101} @expansion{} $B1Q8l%-!<%\!<%I(B
+@item @code{nil} @expansion{} $B%-!<%\!<%I0MB8=hM}$rL58z$K$9$k(B
+
+@end itemize
 @end defvr
 
 @node ACT

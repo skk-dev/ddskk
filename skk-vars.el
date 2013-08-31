@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.459 2013/08/27 13:44:42 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.460 2013/08/31 23:54:50 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/27 13:44:42 $
+;; Last Modified: $Date: 2013/08/31 23:54:50 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2773,11 +2773,10 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 
 (defcustom skk-azik-keyboard-type 'jp106
   "*AZIK $B$G;H$&$H$-$N%-!<%\!<%I$N%?%$%W$r%7%s%\%k$G;XDj$9$k!#(B
-$B%G%U%)%k%H$O!"(B 'jp106$B!#(B
-$B;XDj$G$-$k$N$O!"(B
-    'jp106
-    'jp-pc98
-jp106 $B5Z$S(B jp-pc98 $B0J30$,;XDj$5$l$k$H1Q8l%-!<%\!<%I$H$7$F=hM}$7$^$9!#(B
+o 'jp106    $BF|K\8l(B 106 $B%-!<%\!<%I(B ($B%G%U%)%k%H(B)
+o 'jp-pc98  NEC PC-98 $B%-!<%\!<%I(B
+o 'us101    $B1Q8l%-!<%\!<%I(B  $B"((B jp106 $B5Z$S(B jp-pc98 $B0J30$N%7%s%\%k(B
+
 nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!#(B"
   :type '(radio (const :tag "$BF|K\8l(B 106 $B%-!<%\!<%I(B" jp106)
 		(const :tag "NEC PC-98 $B%-!<%\!<%I(B" jp-pc98)
