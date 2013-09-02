@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.53
-@set UPDATED $Date: 2013/08/31 23:54:50 $
+@set UPDATED $Date: 2013/09/02 12:26:18 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -318,7 +318,7 @@ GNU Emacs 24.4 $B$+$i!"(Bcoding tag $B$rL@<($7$F$$$J$$%U%!%$%k$O(B utf-8 $B
 @item GNU Emacs $BI8=`E:IU<-=q(B ja-dic $B$OMxMQ$G$-$^$;$s!#(B
 @end itemize
 
-@itemx XEmacs 21.5 (beta)
+@item XEmacs 21.5 (beta)
 
 @itemize @bullet
 @item @file{skk-kcode.el} $B$N5!G=$r4^$`(B JIS X 0213 $BBP1~$,5!G=$7$^$;$s!#(B
@@ -9773,7 +9773,7 @@ azik $B$H(B skk $B$G;EMM$,=E$J$kItJ,$,$"$k$?$a!"(B@file{skk-azik.el} $B$G$O
 AZIK $B$G$OY{2;!V$s!W$rF~NO$9$k$K$O(B @kbd{q} $B$r;H$&$3$H$H$5$l$F$$$^$9$,!"(Bskk $B$G(B
 $B$O4{$K(B @kbd{q} $B$K(B @code{skk-toggle-kana} $B$r3d$jEv$F$F$$$^$9!#(B
 
-$B$=$N$?$a(B @file{skk-azik.el} $B$G$O!"Y{2;$NF~NO$K!"(B
+$B$=$N$?$a(B @file{skk-azik.el} $B$G$O(B @code{skk-toggle-kana} $B$N<B9T$r(B
 @itemize @bullet
 @item $BF|K\8l%-!<%\!<%I$G$"$l$P(B @kbd{@@} $B$r!"(B
 @item $B1Q8l%-!<%\!<%I$G$"$l$P(B @kbd{[} $B$r(B
@@ -9782,7 +9782,7 @@ AZIK $B$G$OY{2;!V$s!W$rF~NO$9$k$K$O(B @kbd{q} $B$r;H$&$3$H$H$5$l$F$$$^$9$,!"
 
 @item @kbd{@@}
 
-$B>e5-$N$H$*$j!"Y{2;!V$s!W$NF~NO$K(B
+$B>e5-$N$H$*$j!"(B@code{skk-toggle-kana} $B$N<B9T$K(B
 $B$O(B @kbd{@@} ($BF|K\8l%-!<%\!<%I(B) $B$d(B @kbd{[} ($B1Q8l%-!<%\!<%I(B) $B$r;HMQ$7$^$9$,!"(B
 skk $B$G$O4{$K(B @kbd{@@} $B$K$O!V:#F|$NF|IU$NF~NO!W!J%W%m%0%i%`<B9TJQ49!K$r3d(B
 $B$jEv$F$F$$$^$9!#(B
@@ -9791,9 +9791,10 @@ skk $B$G$O4{$K(B @kbd{@@} $B$K$O!V:#F|$NF|IU$NF~NO!W!J%W%m%0%i%`<B9TJQ49!K$r3
 @kbd{x[} $B$GBeMQ$G$-$k$h$&$K$7$F$"$j$^$9!#(B
 
 @item @kbd{l}
+@itemx @kbd{xx}
 
-AZIK $B$G$O!"C1FH$NY92;!V$c$e$g$!$#$%$'$)$n!W$rF~NO$9$k$K$O(B @kbd{l} $B$rA0CV(B
-$B$9$k$3$H$H$5$l$F$$$^$9$,!"(Bskk $B$G$O4{$K(B @kbd{l} $B$K!V%"%9%-!<%b!<%I$X$N@Z$j(B
+AZIK $B$G$OC1FH$NY92;!V$c$e$g$!$#$%$'$)$n!W$rF~NO$9$k$K$O(B @kbd{l} $B$rA0CV$9(B
+$B$k$3$H$H$5$l$F$$$^$9$,!"(Bskk $B$G$O4{$K(B @kbd{l} $B$K!V%"%9%-!<%b!<%I$X$N@Z$j(B
 $BBX$(!W$r3d$jEv$F$F$$$^$9!#(B
 
 $B$=$N$?$a(B @file{skk-azik.el} $B$G$O!"Y92;$N$&$A!V$!$#$%$'$)!W$NF~NO$K$D$$$F$O(B
