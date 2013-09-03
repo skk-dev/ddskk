@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.53
-@set UPDATED $Date: 2013/09/02 12:26:18 $
+@set UPDATED $Date: 2013/09/03 14:30:02 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9797,8 +9797,8 @@ AZIK $B$G$OC1FH$NY92;!V$c$e$g$!$#$%$'$)$n!W$rF~NO$9$k$K$O(B @kbd{l} $B$rA0CV$
 $B$k$3$H$H$5$l$F$$$^$9$,!"(Bskk $B$G$O4{$K(B @kbd{l} $B$K!V%"%9%-!<%b!<%I$X$N@Z$j(B
 $BBX$(!W$r3d$jEv$F$F$$$^$9!#(B
 
-$B$=$N$?$a(B @file{skk-azik.el} $B$G$O!"Y92;$N$&$A!V$!$#$%$'$)!W$NF~NO$K$D$$$F$O(B
-@kbd{xx} $B$rA0CV$9$k$3$H$H$7$F$$$^$9!#(B
+$B$=$N$?$a(B @file{skk-azik.el} $B$G$O!"Y92;$N$&$A!V$!$#$%$'$)!W$NF~NO$K$D$$$F(B
+$B$O(B @kbd{xx} $B$rA0CV$9$k$3$H$H$7$F$$$^$9!#(B
 
 @itemize @bullet
 @item @kbd{xxa} @expansion{} $B$!(B
@@ -9808,7 +9808,23 @@ AZIK $B$G$OC1FH$NY92;!V$c$e$g$!$#$%$'$)$n!W$rF~NO$9$k$K$O(B @kbd{l} $B$rA0CV$
 @item @kbd{xxo} @expansion{} $B$)(B
 @end itemize
 
-$B$J$*!"Y92;$N$&$A!V$c$e$g$n!W$NC1FHF~NO$OL$BP1~$G$9!#(B
+$B$J$*!"Y92;$N$&$A!V$c$e$g$n!W$NC1FHF~NO$O!"(BAZIK $B3HD%(B @file{skk-azik.el} $B$G(B
+$B$O$J$/!"I8=`(B @file{skk-vars.el} $B$G$9!#(B
+@itemize @bullet
+@item @kbd{xya} @expansion{} $B$c(B
+@item @kbd{xyu} @expansion{} $B$e(B
+@item @kbd{xyo} @expansion{} $B$g(B
+@item @kbd{xwa} @expansion{} $B$n(B
+@end itemize
+
+@item @kbd{X}
+@itemx $B8m$C$?EPO?$N:o=|(B
+skk $B$G$O!""'%b!<%I$G$N(B @kbd{X} $B$O(B $B4X?t(B @code{skk-purge-from-jisyo} $B$r<B9T(B
+$B$7$^$9$,!"(BAZIK $B$G$O(B X $B$O!V%7%c9T!W$NF~NO$K;H$o$l$^$9!#(B
+$B$=$N$?$a!"(B@file{skk-azik.el} $B$G$N!V8m$C$?EPO?$N:o=|!W$O!"(B
+$B"'%b!<%I$G(B @kbd{M-x skk-purge-from-jisyo} $B$r<B9T$7$F$/$@$5$$!#(B
+
+$B4XO"9`L\(B: @w{@ref{$B8m$C$?EPO?$N:o=|(B}}
 
 @end table
 
