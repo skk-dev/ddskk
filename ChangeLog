@@ -1,3 +1,7 @@
+2013-10-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el: lisp-font-lock-keywords-2 に関するコメント.
+
 2013-09-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (azik): Update.
