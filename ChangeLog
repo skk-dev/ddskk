@@ -1,3 +1,8 @@
+2013-10-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (before-init-hook): Use `lisp-el-font-lock-keywords-2'
+	instead of `lisp-font-lock-keywords-2'.
+
 2013-10-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-develop.el: lisp-font-lock-keywords-2 に関するコメント.
