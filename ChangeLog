@@ -1,3 +1,9 @@
+2013-10-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-isearch.el: Add comment for `isearch-other-control-char'.
+
+	* skk.el (skk-make-indicator-alist-1): Add comment.
+
 2013-10-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-develop.el (before-init-hook): Use `lisp-el-font-lock-keywords-2'

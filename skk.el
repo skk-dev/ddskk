@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.630 2013/08/21 14:01:06 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.631 2013/10/24 14:39:37 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/21 14:01:06 $
+;; Last Modified: $Date: 2013/10/24 14:39:37 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -592,8 +592,8 @@ dependent."
   ;; *** `modeline'
 
   (let* ((ml (if (skk-facep 'mode-line)
-		 'mode-line		;GNU Emacs
-	       'modeline))		;XEmacs
+		 'mode-line	  ;GNU Emacs (2012-10-02 Remove obsolete face `modeline')
+	       'modeline))	  ;XEmacs
 	 (string (concat "--" base
 			 (cond ((skk-face-proportional-p ml)
 				":")
