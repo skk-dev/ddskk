@@ -11,6 +11,10 @@
 	結果として minibuffer であるにも関わらず skk-dcomp-multiple-show()
 	を実行することとなりエラーが生じていた.
 
+	(skk-isearch-delete-char): isearch-cmds が nil であるときの考慮を追加.
+	探索文字列を Backspace で消去し尽したとき、すなわち isearch-cmds が nil
+	となったときの考慮不足でエラーが生じていた.
+
 2013-10-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-isearch.el: Add comment for `isearch-other-control-char'.

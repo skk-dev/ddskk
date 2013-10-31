@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.78 2013/10/31 11:04:38 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.79 2013/10/31 11:49:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/10/31 11:04:38 $
+;; Last Modified: $Date: 2013/10/31 11:49:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -582,9 +582,12 @@ If the current mode is different from previous, remove it first."
     ;;     [cl-struct-isearch--state "t" "[aa] t" 92 92 t ..]
     ;;     [cl-struct-isearch--state "" "[か] " 78 t t ..]
     (let* ((cmd (nth 1 isearch-cmds))
-	   (oldmsg (if (stringp (aref cmd 0))
-		       (aref cmd 1)	;GNU Emacs 24.2 まで
-		     (aref cmd 2)))	;GNU Emacs 24.3 から
+	   (oldmsg (cond ((null cmd)
+			  "")
+			 ((stringp (aref cmd 0))
+			  (aref cmd 1))	  ; GNU Emacs 24.2 まで
+			 (t
+			  (aref cmd 2)))) ; GNU Emacs 24.3 から
 	   (prompt (skk-isearch-mode-string))
 	   newmsg)
       (unless (or (null cmd)
