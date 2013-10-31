@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.77 2013/10/24 14:39:37 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.78 2013/10/31 11:04:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/10/24 14:39:37 $
+;; Last Modified: $Date: 2013/10/31 11:04:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -439,7 +439,10 @@ Optional argument PREFIX is appended if given."
 		;; setup last-command-event and this-command because
 		;; some command refers them.
 		(let* ((keys (read-key-sequence nil))
-		       (this-command (key-binding keys)))
+		       (this-command (key-binding keys))
+		       ;; 直後の command-execute() にて、skk-insert() 経由で
+		       ;; skk-dcomp-multiple-show() が実行されるとエラーとなってしまう
+		       skk-dcomp-multiple-activate)
 		  (setq last-command-event (aref keys (1- (length keys))))
 		  (command-execute this-command))
 	      ((quit error)

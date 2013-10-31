@@ -1,3 +1,16 @@
+2013-10-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-isearch.el (skk-isearch-redo-function):
+	変数 skk-dcomp-multiple-activate を 一時的に nil とする.
+	isearch 中のかな漢字変換は、skk-isearch-redo-function() 内の
+	command-execute() にて skk-insert() 経由で skk-dcomp-multiple-show()
+	に辿り着く. skk-dcomp-multiple-show() は従前から minibuffer 判断
+	skk-in-minibuffer-p() が考慮されているが、呼び出し元の
+	skk-isearch-redo-function() では with-current-buffer skk-isearch-working-buffer
+	環境下であるため skk-in-minibuffer-p() は nil である.
+	結果として minibuffer であるにも関わらず skk-dcomp-multiple-show()
+	を実行することとなりエラーが生じていた.
+
 2013-10-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-isearch.el: Add comment for `isearch-other-control-char'.
