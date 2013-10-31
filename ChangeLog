@@ -1,5 +1,9 @@
 2013-10-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.54.
+
+2013-10-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-isearch.el (skk-isearch-redo-function):
 	変数 skk-dcomp-multiple-activate を 一時的に nil とする.
 	isearch 中のかな漢字変換は、skk-isearch-redo-function() 内の
