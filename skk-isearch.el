@@ -5,9 +5,9 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.79 2013/10/31 11:49:12 skk-cvs Exp $
+;; Version: $Id: skk-isearch.el,v 1.80 2013/11/02 05:29:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/10/31 11:49:12 $
+;; Last Modified: $Date: 2013/11/02 05:29:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -45,17 +45,6 @@
 ;; skk-mode.
 
 ;;; Code:
-
-;; 2013-10-08  Juri Linkov  <juri@jurta.org>
-;;         (isearch-other-meta-char): Remove functions.
-;;         (isearch-pre-command-hook, isearch-post-command-hook):
-;;         New functions based on isearch-other-meta-char rewritten
-;;         relying on the new behavior of overriding-terminal-local-map
-;;         that does not replace the local keymaps any more.  (Bug#15200)
-
-;; 369: (define-key map [?\C-x t] 'isearch-other-control-char)
-;; 710: (isearch-other-control-char)
-;; 826: (put 'isearch-other-control-char 'isearch-command t)
 
 (eval-when-compile
   (require 'cl)
@@ -377,7 +366,8 @@ Optional argument PREFIX is appended if given."
 
   (unless (eval-when-compile (featurep 'xemacs))
     ;; XEmacs にはないコマンド
-    (define-key map [?\C-x t] 'isearch-other-control-char) ; ** 2013-10-08 Remove functions.
+    (if (fboundp 'isearch-other-control-char)			;2013-10-08 Remove functions
+	(define-key map [?\C-x t] 'isearch-other-control-char)) ; GNU Emacs 24.4 から廃止
 
     (define-key map [?\C-0] 'skk-isearch-start-henkan)
     (define-key map [?\C-1] 'skk-isearch-start-henkan)
@@ -726,7 +716,8 @@ If the current mode is different from previous, remove it first."
 
        (t
 	(skk-unread-event event)
-	(isearch-other-control-char))	; ** 2013-10-08 Remove functions.
+	(if (fboundp 'isearch-other-control-char) ; 2013-10-08 Remove functions.
+	    (isearch-other-control-char)))	  ; GNU Emacs 24.4 から廃止
 	)))))
 
 
@@ -843,7 +834,8 @@ If the current mode is different from previous, remove it first."
     (add-hook 'before-init-hook skk-isearch-really-early-advice))))
 
 (put 'digit-argument 'isearch-command t)
-(put 'isearch-other-control-char 'isearch-command t) ; ** 2013-10-08 Remove functions.
+(if (fboundp 'isearch-other-control-char)		  ; 2013-10-08 Remove functions
+    (put 'isearch-other-control-char 'isearch-command t)) ; GNU Emacs 24.4 から廃止
 (put 'skk-isearch-delete-char 'isearch-command t)
 (put 'skk-isearch-exit 'isearch-command t)
 (put 'skk-isearch-keyboard-quit 'isearch-command t)

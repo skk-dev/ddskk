@@ -1,3 +1,10 @@
+2013-11-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-isearch.el (skk-isearch-setup-keymap, skk-isearch-start-henkan):
+	fboundp() で isearch-other-control-char を判断するよう変更.
+	isearch-other-control-char / isearch-other-meta-char は GNU Emacs 24.3
+	まで[ChangeLog 2013-10-08].
+
 2013-10-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.54.
