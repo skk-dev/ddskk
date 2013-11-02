@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.54
-@set UPDATED $Date: 2013/10/31 11:54:16 $
+@set UPDATED $Date: 2013/11/02 09:51:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -750,7 +750,12 @@ SKK $B<-=q(B $B$N(B @file{Makefile} $BCf$N(B cdb $B%?!<%2%C%H$r<B9T$9$k$3
 @vindex isearch-mode-hook
 @vindex isearch-mode-end-hook
 
-$B4pK\E*$J@_Dj$O(B @file{skk-setup.el} $B$rFI$_9~$s$@;~E@$G40N;$7$F$$$^$9!#(B
+$B4pK\E*$J@_Dj$O(B @file{skk-setup.el} $B$,FI$_9~$^$l$?;~E@$G40N;$7$F$$$^$9(B
+@footnote{@file{skk-setup.el} $B$G$O!"4X?t(B @code{isearch-mode-hook} $B$K(B @code{skk-isearch-setup-maybe} $B$r!"(B
+$B4X?t(B @code{isearch-mode-end-hook} $B$K(B @code{skk-isearch-cleanup-maybe} $B$r(B
+$B!"$=$l$>$l(B hook $B$KDI2C$7$F$$$^$9!#(B
+@code{skk-isearch-@{setup|cleanup@}-maybe} $B$H$b(B @file{skk-setup.el} $B$GDj5A$5$l$F$*$j!"(B
+$B<BBV$O!"4X?t(B @code{skk-isearch-mode-@{setup|cleanup@}} $B$G$9!#(B}$B!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-isearch-mode-enable
 
@@ -931,7 +936,8 @@ DDSKK $B$r;H$C$?F~NOJ}K!$K47$l$k$K$O!"IUB0$N%A%e!<%H%j%"%k$,:GE,$J$N$G!"$*(B
 @kindex C-x j
 
 SKK $B%b!<%I$KF~$k$K$O(B @kbd{C-x C-j}$B!"$b$7$/$O(B @kbd{C-x j} $B$H%?%$%W$7$^$9!#(B
-$B%b!<%I%i%$%s$N:8C<$K$O!"2<5-$N$h$&$K(B @w{@samp{--$B$+$J(B:}} $B$,DI2C$5$l$^$9!#(B
+$B%b!<%I%i%$%s$N:8C<$K$O!"2<5-$N$h$&$K(B @w{@samp{--$B$+$J(B:}} $B$,DI2C$5$l$^$9(B
+@footnote{@file{skk.el} $B$N(B @code{skk-setup-modeline} $B$K$F!"(B@code{mode-line-format} $B$K(B @code{skk-icon} $B$H(B @code{skk-modeline-input-mode} $B$rDI2C$7$F$$$^$9(B}$B!#(B
 
 @example
 --$B$+$J(B:MULE/7bit----- Buffer-name (Major-mode)---
