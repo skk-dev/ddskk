@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.54
-@set UPDATED $Date: 2013/11/02 09:51:34 $
+@set UPDATED $Date: 2013/11/04 10:13:01 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4744,10 +4744,14 @@ n' @expansion{}ん
 られています。
 
 @example
+z  @expansion{} □ （全角スペース）
+z* @expansion{} ※
 z, @expansion{} ‥
 z- @expansion{} 〜
 z. @expansion{} …
 z/ @expansion{} ・
+z0 @expansion{} ○
+z@@ @expansion{} ◎
 z[ @expansion{} 『
 z] @expansion{} 』
 z@{ @expansion{} 【
@@ -7118,10 +7122,10 @@ DDSKK 14.2 から追加された「ja-dic.el 検索機能」(@code{skk-search-ja-
 
 @defun skk-search-ja-dic
 
-GNU Emacs に付属するかな漢字変換辞書 (ja-dic.el) を用いて検索する。
-現在の Emacs には SKK-JISYO.L を基に変換された ja-dic.el が付属している。
+GNU Emacs に付属するかな漢字変換辞書 @file{ja-dic.el} を用いて検索する。
+現在の Emacs には @file{SKK-JISYO.L} を基に変換された @file{ja-dic.el} が付属している。
 この辞書データを用いて送りあり、送りなし、接頭辞、接尾辞の変換を行う。
-ただし、SKK-JISYO.L のような英数変換、数値変換などはできず、また「大丈夫」
+ただし、@file{SKK-JISYO.L} のような英数変換、数値変換などはできず、また「大丈夫」
 のように複合語とみなしうる語彙が大幅に削除されている。
 
 @end defun
@@ -7727,11 +7731,13 @@ Counting jisyo candidates@dots{} 100% done
 
 「空白+@samp{*}+辞書ファイル名(ディレクトリ抜き)+@samp{*}」
 
+@noindent
 という規則に基づいて付けられます。例えば、変数 @code{skk-large-jisyo} の
 値が
 
 @file{/usr/local/share/skk/SKK-JISYO.L}
 
+@noindent
 であるとき、これに対する辞書バッファ名は、
 
 @samp{ *SKK-JISYO.L*}
@@ -7752,6 +7758,8 @@ abbreviation の展開を行うように設定することができるのですが、仮に辞書
 
 @node 辞書バッファの文字コードの設定
 @subsection 辞書バッファの文字コードの設定
+@vindex skk-coding-system-alist
+@findex skk-find-coding-system
 
 @defvr {ユーザ変数} skk-jisyo-code
 
@@ -7759,15 +7767,15 @@ abbreviation の展開を行うように設定することができるのですが、仮に辞書
 この変数は以下のような値を取ります。
 
 @itemize @bullet
-@item ``euc'', ``ujis'', ``sjis'', ``jis'' などの文字列。順に euc-jisx0213, euc-jisx0213, shift_jisx0213, iso-2022-jp-3-strict の各シンボルへ変換されます(skk-coding-system-alist)。
-@item Emacs の coding system (コード系)@footnote{coding system は GNU Emacs の場合 @code{euc-jp}, @code{shift_jis},
-@code{junet} などの symbol で表されます。
-これらは @kbd{M-x describe-coding-system} で調べることができます。なお、XEmacs ではこれら
-の symbol は coding system そのものではなく、 coding system object を指
-示するための symbol として扱われます。具体的には GNU Emacs では
-@code{(coding-system-p 'euc-jp)} が @code{t} を返すのに対し、 XEmacs で
-は @code{nil} を返しますが、代わりに symbol が示す coding system object を返す
-@code{find-coding-system} 関数が存在します。}
+@item @samp{euc}, @samp{ujis}, @samp{sjis}, @samp{jis} などの文字列。順に @code{euc-jisx0213}, @code{euc-jisx0213}, @code{shift_jisx0213}, @code{iso-2022-jp-3-strict} の各シンボルへ変換されます (@code{skk-coding-system-alist})。
+@item Emacs の coding system (コード系)
+@footnote{coding system は GNU Emacs の場合 @code{euc-jp}, @code{shift_jis},
+@code{junet} などの symbol で表され、@kbd{M-x describe-coding-system} で
+調べることができます。XEmacs の場合 symbol は coding system そのものでは
+なく coding system object を指示するための symbol として扱われます。
+具体的には GNU Emacs では @code{(coding-system-p 'euc-jp)} が @code{t} を
+返すのに対し、 XEmacs では @code{nil} を返しますが、代わりに symbol が示
+す coding system object を返す @code{find-coding-system} 関数が存在します。}
 @item @code{nil}
 @end itemize
 
