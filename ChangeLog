@@ -1,3 +1,8 @@
+2013-11-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-rom-kana-base-rule-list): Add new rule.
+	`z:' to `゜' 半濁点(1区12点), `z;' to `゛' 濁点(1区11点).
+
 2013-11-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
