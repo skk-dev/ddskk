@@ -1,3 +1,9 @@
+2013-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skkannot-emacs-24_3-or-later)
+	(skkannot-py-check-comint-prompt): New functions.
+	(skk-annotation-start-python): Workaround for Emacs 24.3.
+
 2013-11-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

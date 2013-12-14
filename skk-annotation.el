@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.236 2013/01/13 09:45:48 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.237 2013/12/14 21:25:58 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2013/01/13 09:45:48 $
+;; Last Modified: $Date: 2013/12/14 21:25:58 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -198,6 +198,7 @@
   (autoload 'python-send-command "python")
   (autoload 'python-send-string "python")
   (autoload 'python-check-comint-prompt "python")
+  (autoload 'python-proc "python")
   (autoload 'html2text "html2text")
   (autoload 'html2text-delete-tags "html2text")
   (autoload 'url-hexify-string "url-util")
@@ -207,6 +208,8 @@
   (require 'compile)
   (require 'comint)
   (defvar python-buffer)
+  (defvar python-shell-prompt-regexp)
+  (defvar python-shell-buffer-name)
   (defvar mule-version)
   (defvar html2text-remove-tag-list)
   (defvar html2text-format-tag-list))
@@ -974,13 +977,33 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
       ;; as to make sure we terminate the multiline instruction.
       (comint-send-string proc "\n"))))
 
+(defsubst skkannot-emacs-24_3-or-later ()
+  (or (> emacs-major-version 24)
+      (and (= emacs-major-version 24)
+	   (>= emacs-minor-version 3))))
+
+(defun skkannot-py-check-comint-prompt (&optional proc)
+  "Return non-nil if and only if there's a normal prompt in the inferior buffer.
+If there isn't, it's probably not appropriate to send input to return Eldoc
+information etc.  If PROC is non-nil, check the buffer for that process."
+  (cond
+   ((eval-when-compile (skkannot-emacs-24_3-or-later))
+    (with-current-buffer (process-buffer (or proc (python-proc)))
+      (save-excursion
+	(save-match-data
+	  (re-search-backward (concat python-shell-prompt-regexp " *\\=")
+			      nil t)))))
+   (t
+    (python-check-comint-prompt))))
+
 (declare-function compilation-forget-errors "compile")
 (defun skkannot-py-send-command (command)
   "Like `skkannot-py-send-string' but resets `compilation-shell-minor-mode'."
   (when (or (eval-when-compile (and (featurep 'emacs)
 				    (= emacs-major-version 22)))
-	    (python-check-comint-prompt (get-buffer-process
-					 skkannot-py-buffer)))
+	    (skkannot-py-check-comint-prompt (get-buffer-process
+					      skkannot-py-buffer))
+	    t)
     (with-current-buffer skkannot-py-buffer
       (goto-char (point-max))
       (compilation-forget-errors)
@@ -996,11 +1019,19 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
     skkannot-py-buffer)
    (t
     ;; python + readline で UTF-8 の入力をするために LANG の設定が必要。
-    (let ((env (getenv "LANG"))
-	  (orig-py-buffer (default-value 'python-buffer)))
+    (let* ((env (getenv "LANG"))
+	   python-buffer orig-py-buffer)
+      (unless (eval-when-compile (skkannot-emacs-24_3-or-later))
+	;; Emacs 24.2 or earlier
+	(setq orig-py-buffer (default-value 'python-buffer)))
       (unless (equal env "Ja_JP.UTF-8")
 	(setenv "LANG" "ja_JP.UTF-8"))
-      (run-python skk-annotation-python-program t t)
+      (save-window-excursion
+	(run-python skk-annotation-python-program t t))
+      (when (eval-when-compile (skkannot-emacs-24_3-or-later))
+	;; Emacs 24.3 or later
+	(setq python-buffer (get-buffer (format "*%s*" python-shell-buffer-name))
+	      orig-py-buffer (default-value 'python-buffer)))
       (setenv "LANG" env)
       (with-current-buffer python-buffer
 	(rename-buffer "  *skk python")
