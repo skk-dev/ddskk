@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.54
-@set UPDATED $Date: 2013/11/11 12:57:49 $
+@set UPDATED $Date: 2014/03/09 01:27:21 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -10482,6 +10482,7 @@ DDSKK 15 は辞書サーバの種類、バージョンには依存していません。
 * Q3-4 左手の小指を SHIFT で酷使したくありません。::
 * Q3-5 全く漢字が出てきません。::
 * Q3-6 チュートリアルが起動できません。::
+* Q3-7 C-x C-j で dired が起動してしまいます。::
 @end menu
 
 @node Q3-1 「．」、「，」 が入力できるようにカスタマイズしたいのですが。
@@ -10845,6 +10846,19 @@ NICOLA 配列は、特別に日本語入力のために考えられた配列なので、慣れれば
 
 @noindent
 のように設定します。
+
+@node Q3-7 C-x C-j で dired が起動してしまいます。
+@unnumberedsubsec Q3-7 C-x C-j で dired が起動してしまいます。
+
+@code{dired-x} を読み込むと @kbd{C-x C-j} が @code{dired-jump} にバインドされます。
+この状態でも SKK を @kbd{C-x C-j} で起動したいときは、変数 @code{dired-bind-jump} に
+@code{nil} を設定します。
+
+@lisp
+(setq dired-bind-jump nil)
+@end lisp
+
+なお、この設定は @code{dired-x} を読み込む前である必要があります。
 
 @node Dictionaries
 @section SKK 辞書関連
