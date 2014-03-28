@@ -2,7 +2,7 @@
 
 ** インストール
 
-make what-where の実行に時、Emacs のバージョンを表示するようにしました。
+make what-where の実行時に Emacs のバージョンを表示するようにしました。
 
 ** GNU Emacs 24 対応を進めました
 
@@ -72,8 +72,10 @@ skk-show-mode-inline-1() を実装した。
 
 ** その他バグ修正など
 
-*** GNU Emacs 24.3 からは modeline が廃止されたが、XEmacs では modeline の
-ままであることから、この対応として マクロ skk-facep を導入した。
+*** XEmacs における modeline
+GNU Emacs 24.3 からフェイス modeline が廃止されたため DDSKK 15.1 で
+は mode-line へ統一したところ。しかし XEmacs は modeline のままであ
+ることから、これらの対策として マクロ skk-facep を導入した。
 
 * 15.1
 
