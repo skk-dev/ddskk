@@ -158,6 +158,32 @@
   :type '(repeat character)
   :group 'skk-nicola)
 
+(defcustom skk-nicola-prefix-suffix-chars
+  (cond ((memq skk-kanagaki-keyboard-type
+	       '(nicola-dvorak
+		 omelet-dvorak))
+	 '(?o ?n))
+	(t
+	 '(?s ?l)))
+  "*接頭・接尾語入力をする。
+これらの文字に当たるキーの同時打鍵を検出すると、 実行される。
+abbrev と同じキーにする場合は skk-nicola-prefix-suffix-abbrev-chars を使う。"
+  :type '(repeat character)
+  :group 'skk-nicola)
+
+(defcustom skk-nicola-abbrev-chars
+  (cond ((memq skk-kanagaki-keyboard-type
+	       '(nicola-dvorak
+		 omelet-dvorak))
+	 '(?i ?d))
+	(t
+	 '(?g ?h)))
+  "abbrev モードに入る文字。
+これらの文字に当たるキーの同時打鍵を検出すると、 実行される。
+接頭・接尾語入力と同じキーにする場合は skk-nicola-prefix-suffix-abbrev-chars を使う。"
+  :type '(repeat character)
+  :group 'skk-nicola)
+
 (defcustom skk-nicola-okuri-style 'nicola-skk
   "*送り仮名のスタイル。
 `nicola-skk' を選ぶと、「▽し*っ ⇒ ▼知っ」のように変換する。
@@ -388,6 +414,16 @@
 	    (car skk-nicola-prefix-suffix-abbrev-chars)
 	    (cadr skk-nicola-prefix-suffix-abbrev-chars))
 	   "接頭辞 or 接尾辞変換 (▽モード or ▼モード)、abbrev モード")
+     (cons (format
+	    "%c + %c"
+	    (car skk-nicola-prefix-suffix-chars)
+	    (cadr skk-nicola-prefix-suffix-chars))
+	   "接頭辞 or 接尾辞変換 (▽モード or ▼モード)")
+     (cons (format
+	    "%c + %c"
+	    (car skk-nicola-abbrev-chars)
+	    (cadr skk-nicola-abbrev-chars))
+	   "abbrev モード")
      (cons (format
 	    "%c + %c"
 	    (car skk-nicola-toggle-kana-chars)
@@ -780,6 +816,39 @@
 	   (skk-abbrev-mode 1))))
 	((and (not (eq char next))
 	      (memq char
+		    skk-nicola-prefix-suffix-chars)
+	      (memq next
+		    skk-nicola-prefix-suffix-chars))
+	 ;; [sl] suffix の 入力
+	 (cond
+	  ((eq skk-henkan-mode 'active)
+	   ;; 接尾語の処理
+	   (skk-kakutei)
+	   (let (skk-kakutei-history)
+	     (skk-set-henkan-point-subr))
+	   (insert-and-inherit ?>))
+	  ((eq skk-henkan-mode 'on)
+	   ;; 接頭語の処理
+	   (skk-kana-cleanup 'force)
+	   (insert-and-inherit ?>)
+	   (skk-set-marker skk-henkan-end-point
+			   (point))
+	   (setq skk-henkan-count 0
+		 skk-henkan-key   (buffer-substring-no-properties
+				   skk-henkan-start-point
+				   (point))
+		 skk-prefix       "")
+	   (skk-henkan))))
+	((and (not (eq char next))
+	      (memq char
+		    skk-nicola-abbrev-chars)
+	      (memq next
+		    skk-nicola-abbrev-chars))
+	 ;; [gh]
+	 (skk-kakutei)
+	 (skk-abbrev-mode 1))
+	((and (not (eq char next))
+	      (memq char
 		    skk-nicola-toggle-kana-chars)
 	      (memq next
 		    skk-nicola-toggle-kana-chars))
@@ -864,6 +933,16 @@
 		    skk-nicola-prefix-suffix-abbrev-chars)
 	      (memq next
 		    skk-nicola-prefix-suffix-abbrev-chars))
+	 ;; [sl]
+	 (and (memq char
+		    skk-nicola-prefix-suffix-chars)
+	      (memq next
+		    skk-nicola-prefix-suffix-chars))
+	 ;; [gh]
+	 (and (memq char
+		    skk-nicola-abbrev-chars)
+	      (memq next
+		    skk-nicola-abbrev-chars))
 	 ;; [dk]
 	 (and  (memq char
 		     skk-nicola-toggle-kana-chars)

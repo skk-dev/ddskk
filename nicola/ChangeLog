@@ -1,3 +1,8 @@
+2014-03-26  Yuichi Higashi  <aaa707b@gmail.com>
+
+	* skk-nicola.el: Separate skk-nicola-prefix-suffix-abbrev-chars
+	into skk-nicola-prefix-suffix-chars and skk-nicola-abbrev-chars
+
 2013-06-22  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* NICOLA-DDSKK-MK (nicola-ddskk-generate-autoloads): Add coding tag.

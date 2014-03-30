@@ -294,6 +294,27 @@ Daredevil SKK $B$K$O!"(BNICOLA $BHG$N%A%e!<%H%j%"%k$,IUB0$7$F$$$^$9!#?F;X%7(
      $B$&$?$a$K!"$=$C$/$jF1$85!G=$O<BAu$G$-$^$;$s!#!#(B
      $B$J$*!"(B"]" $B$N0LCV$K$O<h>C%-!<$N$h$&$J5!G=$r3d$jEv$F$^$9!#(B
 
+    o skk-nicola-prefix-suffix-chars
+
+     $B@\F,!&@\Hx8lF~NO$r$9$k:]$K@_Dj$9$k!#(B
+     abbrev $B%b!<%I$HF1$8%-!<$r;HMQ$7$J$$>l9g$K(B
+     skk-nicola-prefix-suffix-abbrev-chars $B$r(B nil $B$K$7$F@_Dj$9$k!#(B
+
+     ($BNc(B)
+
+     (setq skk-nicola-prefix-suffix-abbrev-chars '())
+     (setq skk-nicola-prefix-suffix-chars '(?s ?l))
+
+    o skk-nicola-abbrev-chars
+
+     abbrev $B%b!<%I$KF~$k:]$K@_Dj$9$k!#(B
+     $B@\F,!&@\Hx8lF~NO$HF1$8%-!<$r;HMQ$7$J$$>l9g$K(B
+     skk-nicola-prefix-suffix-abbrev-chars $B$r(B nil $B$K$7$F@_Dj$9$k!#(B
+
+     ($BNc(B)
+
+     (setq skk-nicola-prefix-suffix-abbrev-chars '())
+     (setq skk-nicola-abbrev-chars '(?g ?h))
 
 $B!Z<-=q$NHs8_49@-![(B
 
