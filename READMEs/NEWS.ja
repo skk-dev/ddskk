@@ -70,6 +70,12 @@ skk-show-mode-inline-1() を実装した。
 
 新たに skk-show-mode-inline-face を定義
 
+** NICOLA
+
+新たなキーバインドを定義しました。
+詳細は ML (NICOLA-DDSKK の接頭語接尾語とabbrev-mode)
+http://mail.ring.gr.jp/skk/201403/msg00000.html を参照のこと。
+
 ** その他バグ修正など
 
 *** XEmacs における modeline
