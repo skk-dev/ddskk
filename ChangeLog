@@ -1,3 +1,8 @@
+2014-04-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-wrap-newline-command): Fix docstring.
+	Wrap `org-insert-heading'.
+
 2014-03-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Add Yuichi Higashi.

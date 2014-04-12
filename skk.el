@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.631 2013/10/24 14:39:37 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.632 2014/04/12 09:32:13 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/10/24 14:39:37 $
+;; Last Modified: $Date: 2014/04/12 09:32:13 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5406,11 +5406,11 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 (defmacro skk-wrap-newline-command (cmd)
   "[return]$B%-!<$K3d$jEv$F$i$l$F$$$k$G$"$m$&%3%^%s%I(B (CMD) $B$r%i%C%W$7$F!"(B
 skk $B$NF0:n$H@09g$5$;$k!#(B
- [return]$B%-!<$K%3%^%s%I$r3d$jEv$F$F$$$k%a!<%8%c%b!<%I$G(B skk $B$r;H$&$H!"(Bskk $B$,(B
+ [return]$B%-!<$K%3%^%s%I$r3d$jEv$F$F$$$k%a%8%c!<%b!<%I$G(B skk $B$r;H$&$H!"(Bskk $B$,(B
 `skk-kakutei' $B$r8F$S=P$95!2q$,$J$$$?$a$KJQ49$r3NDj$G$-$:(B `$B"'(B' $B$,%P%C%U%!$K(B
 $B;D$C$F$7$^$&$H$$$&LdBj$,$"$k!#(B
 
-$BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(B (skk-kakutei() $B$r<B9T$7$F$+$i(B) CMD $BK\(B
+$BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(B (`skk-kakutei' $B$r<B9T$7$F$+$i(B) CMD $BK\(B
 $BBN$r<B9T$9$k$h$&$K(B CMD $B$r%i%C%W$9$k!#(B"
   `(defadvice ,cmd (around skk-ad activate compile)
      (cond (skk-henkan-mode
@@ -5424,6 +5424,7 @@ skk $B$NF0:n$H@09g$5$;$k!#(B
 (skk-wrap-newline-command ielm-return)
 (skk-wrap-newline-command rcirc-send-input)
 (skk-wrap-newline-command widget-field-activate)
+(skk-wrap-newline-command org-insert-heading)
 
 ;; hooks.
 
