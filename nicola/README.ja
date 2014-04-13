@@ -47,11 +47,11 @@ o skk-106-jis.el  $B!D(B $BF|K\8l(B 106 $B%-!<%\!<%I$G2>L>F~NO$9$k$?$a$N%k!
 o skk-nicola.el   $B!D(B $B?F;X%7%U%HF~NO$r%(%_%e%l!<%H$9$k4X?t(B  ($B%*%j%8%J%k(B
                      $B$N(B skk-nicola.el $B$K=q$+$l$F$$$?4X?t(B)
 
-o skk-nicola-*.el $B!D(B NICOLA $BG[Ns$N%k!<%k(B (JIS, US, Dvorak)
+o skk-nicola-*.el $B!D(B NICOLA $BG[Ns$N%k!<%k(B (JIS, US, Dvorak, Colemak)
 
 o skk-oasys.el    $B!D(B OASYS $BIwG[Ns$N%k!<%k(B
 
-o skk-omelet-*.el $B!D(B omelet $BFH<+G[Ns$N%k!<%k(B (JIS, US, Dvorak)
+o skk-omelet-*.el $B!D(B omelet $BFH<+G[Ns$N%k!<%k(B (JIS, US, Dvorak, Colemak)
 
 
 skk-nicola-*.el, skk-oasys.el, skk-omelet-*.el $B$NG[Ns$O$9$Y$F(B

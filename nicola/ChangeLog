@@ -1,3 +1,8 @@
+2014-03-31  Yuichi Higashi  <aaa707b@gmail.com>
+
+	* NICOLA-DDSKK-ELS, skk-nicola-colemak.el, skk-omelet-colemak.el: Add
+	Colemak
+
 2014-03-26  Yuichi Higashi  <aaa707b@gmail.com>
 
 	* skk-nicola.el: Separate skk-nicola-prefix-suffix-abbrev-chars

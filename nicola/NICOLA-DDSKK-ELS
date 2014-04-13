@@ -11,12 +11,14 @@
 	skk-kanagaki
 	skk-kanagaki-menu
 	skk-kanagaki-util
+	skk-nicola-colemak
 	skk-nicola-dcomp
 	skk-nicola-dvorak
 	skk-nicola-jis
 	skk-nicola-us
 	skk-nicola
 	skk-oasys
+	skk-omelet-colemak
 	skk-omelet-dvorak
 	skk-omelet-jis
 	skk-omelet-us))
