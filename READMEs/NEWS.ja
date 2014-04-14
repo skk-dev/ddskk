@@ -76,6 +76,10 @@ skk-show-mode-inline-1() を実装した。
 詳細は ML (NICOLA-DDSKK の接頭語接尾語とabbrev-mode)
 http://mail.ring.gr.jp/skk/201403/msg00000.html を参照のこと。
 
+** Colemak 配列
+
+nicola-colemak を追加しました。
+
 ** その他バグ修正など
 
 *** XEmacs における modeline

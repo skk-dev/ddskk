@@ -540,6 +540,13 @@ skk-vars.el, skk-viper.el, skk.el
 skk-vars.el, doc/skk.texi, SKK-CFG, SKK-MK, skk-jisyo-edit-mode.el,
 skk-server.el, skk.el, skk-study.el, bayesian/bskk
 
+
+* Yuichi Higashi
+
+** elisp 著作・アイデア
+
+*** skk-nicola-colemak.el, skk-omelet-colemak.el
+
 
 Local variables:
 mode: outline
