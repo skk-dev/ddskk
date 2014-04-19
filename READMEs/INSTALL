@@ -20,7 +20,7 @@ Describes how to install SKK for Emacs on Microsoft Windows.
 
 ** APEL
 
-In DDSKK 15.1, installation of APEL (A Portable Emacs Library) is no
+In DDSKK 15.2, installation of APEL (A Portable Emacs Library) is no
 longer required under GNU Emacs 22 or later.  For XEmacs,
 make sure you have APEL 10.7 or later installed.  It is highly
 recommended that you install the latest release.  APEL is available
@@ -32,7 +32,7 @@ or
 
 ** Get SKK dictionaries and copy them to ./dic subdirectory.
 
-In DDSKK 15.1, installation of an SKK dictionary is no longer
+In DDSKK 15.2, installation of an SKK dictionary is no longer
 mandatory under GNU Emacs 22 or later.  Emacs 22 contains a japanese
 kana-kanji dictionary called ja-dic as a part of the LEIM input
 method.  Indeed ja-dic is derived from SKK-JISYO.L and we wrote a
@@ -149,6 +149,7 @@ Since the web manual is for the latest Daredevil SKK, it might not be
 compatible with the version you installed.
 
 Old manuals are
+    http://openlab.jp/skk/skk-manual/skk-15.2.pdf
     http://openlab.jp/skk/skk-manual/skk-15.1.pdf
     http://openlab.jp/skk/skk-manual/skk-14.4.pdf
     http://openlab.jp/skk/skk-manual/skk-14.3.pdf

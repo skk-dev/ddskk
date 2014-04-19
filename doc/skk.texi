@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.90
-@set UPDATED $Date: 2014/04/14 12:50:07 $
+@set UPDATED $Date: 2014/04/19 09:29:59 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -435,7 +435,7 @@ Apple Mac OS X 環境の方は @url{http://openlab.jp/skk/skk/main/READMEs/READ
 @group
 % make what-where
 @print{}emacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where
-@print{}Loading /home/USER/temp/ddskk-15.1.52/SKK-CFG...
+@print{}Loading /home/USER/temp/ddskk-15.2/SKK-CFG...
 
 @print{}Running in:
 @print{}  GNU Emacs 24.3.50.4 (i686-pc-linux-gnu, GTK+ Version 2.20.1)
@@ -1002,7 +1002,7 @@ Window System 下で対応する Emacs を使用している場合。
 
 @example
 -------------------- Echo Area --------------------
-Daredevil SKK/15.1.52 (Oshamambe)
+Daredevil SKK/15.2 (Oshamambe)
 -------------------- Echo Area --------------------
 @end example
 
@@ -9927,6 +9927,7 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 @itemize @bullet
 @item 旧 JIS 配列でのかな入力
 @item 親指シフト方式でのかな入力
+@item Colemak 配列
 @end itemize
 
 @noindent
