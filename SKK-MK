@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.200 2013/06/21 23:52:03 skk-cvs Exp $
-;; Last Modified: $Date: 2013/06/21 23:52:03 $
+;; Version: $Id: SKK-MK,v 1.201 2014/04/27 00:16:59 skk-cvs Exp $
+;; Last Modified: $Date: 2014/04/27 00:16:59 $
 
 ;;; Commentary:
 
@@ -984,6 +984,8 @@ SKK tutorials:
 (if noninteractive
     nil
   (switch-to-buffer (generate-new-buffer "*DDSKK Installer*"))
+  (insert (version))
+  (insert "\n===================\n")
   (insert "DDSKK インストーラ\n")
   (insert "===================\n\n")
   (insert "DDSKK "
