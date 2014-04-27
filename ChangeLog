@@ -2,6 +2,8 @@
 
 	* SKK-MK: Display Emacs version on interactive installer.
 
+	* doc/skk.texi: Update.
+
 2014-04-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

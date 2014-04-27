@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.90
-@set UPDATED $Date: 2014/04/19 09:29:59 $
+@set UPDATED $Date: 2014/04/27 00:20:03 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9927,7 +9927,6 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 @itemize @bullet
 @item 旧 JIS 配列でのかな入力
 @item 親指シフト方式でのかな入力
-@item Colemak 配列
 @end itemize
 
 @noindent
