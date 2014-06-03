@@ -684,4 +684,7 @@
 (add-to-list 'skk-rom-kana-rule-list
 	     '("http" nil "http://"))
 
+;; 日本語と英語の間に空白を自動挿入する
+;;   http://hins11.jugem.jp/?eid=47
+
 ;;; dot.skk ends here
