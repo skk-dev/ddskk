@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.237 2013/12/14 21:25:58 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.238 2014/06/07 14:24:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2013/12/14 21:25:58 $
+;; Last Modified: $Date: 2014/06/07 14:24:32 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1773,16 +1773,18 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
   (goto-char (point-min))
   (when (re-search-forward "^Content-Encoding: gzip$" nil t)
     ;; html が gzip 圧縮で送られて来た場合
-    (let ((gzip (executable-find "gzip")))
-      (unless gzip
-	(error "この内容を表示するには %s が必要です" "gzip"))
-      (while (and (not (looking-at "^\n"))
-		  (not (eobp)))
-	(forward-line 1))
-      (forward-line 1)
-      (when (< (point) (point-max))
-	(let ((coding-system-for-write 'binary))
-	  (call-process-region (point) (point-max) gzip t t t "-cd")))))
+    (unless (fboundp 'url-handle-content-transfer-encoding)
+      ;; Emacs 24.3 or earlier
+      (let ((gzip (executable-find "gzip")))
+	(unless gzip
+	  (error "この内容を表示するには %s が必要です" "gzip"))
+	(while (and (not (looking-at "^\n"))
+		    (not (eobp)))
+	  (forward-line 1))
+	(forward-line 1)
+	(when (< (point) (point-max))
+	  (let ((coding-system-for-write 'binary))
+	    (call-process-region (point) (point-max) gzip t t t "-cd"))))))
   (goto-char (point-max))
   (search-backward "</html>" nil t))
 

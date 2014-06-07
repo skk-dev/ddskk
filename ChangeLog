@@ -1,3 +1,8 @@
+2014-06-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skkannot-wikipedia-test-html-tag): Don't call
+	gzip if url.el is handling the content encoding itself.
+
 2014-04-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK: Display Emacs version on interactive installer.
