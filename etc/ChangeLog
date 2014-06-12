@@ -1,3 +1,7 @@
+2014-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: Replace from `Mac OS X' to `Apple OS X' in comments.
+
 2014-06-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: Update.

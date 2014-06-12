@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.238 2014/06/07 14:24:32 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.239 2014/06/12 13:38:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2014/06/07 14:24:32 $
+;; Last Modified: $Date: 2014/06/12 13:38:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -115,7 +115,7 @@
 ;;
 ;; (setq skk-annotation-lookup-lookup t)
 ;;
-;; <Mac OS X 「辞書」サービスからのアノテーション>
+;; <Apple OS X 「辞書」サービスからのアノテーション>
 ;;
 ;; Mac の辞書アプリ (Dictionary.app) では標準で国語辞典など利用できます。
 ;; このうち優先順位の高い辞書からアノテーションを取得する機能が利用できま
@@ -916,7 +916,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 (defun skk-annotation-lookup-region-or-at-point (&optional prefix-arg
 							   start end)
   "選択領域またはポイント位置の単語を辞書で調べる。
-辞書としては lookup.el、Mac OS X の辞書サービス、Wikipedia/Wikitionary などが
+辞書としては lookup.el、Apple OS X の辞書サービス、Wikipedia/Wikitionary などが
 利用される。
 
 領域が選択されていなければ単語の始めと終わりを推測して調べる。
@@ -955,7 +955,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
       (skk-annotation-show (or note "") word sources))))
 
 
-;;; Mac OS X 辞書サービス関連機能
+;;; Apple OS X 辞書サービス関連機能
 (defsubst skkannot-DictServ-command (word)
   (format skkannot-DictServ-cmd-format-str word "%" "%"))
 

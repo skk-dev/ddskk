@@ -195,9 +195,9 @@ skk-isearch-mode-enable $B$NCM$,(B always $B$J$i>o$K(B skk-isearch $B$,M-8z
 
 $BJQ?t(B skk-show-mode-show $B$r%H%0%k@Z$jBX$($7$^$9!#(B
 
-** Mac OS X $B$G(B DictionaryServices $B$+$i$N%"%N%F!<%7%g%s<hF@(B
+** Apple OS X $B$G(B DictionaryServices $B$+$i$N%"%N%F!<%7%g%s<hF@(B
 
-Mac OS X $B$N<-=q%"%W%j(B (Dictionary.app) $B$G$OI8=`$G9q8l<-E5$J$IMxMQ$G$-$^$9!#(B
+Apple OS X $B$N<-=q%"%W%j(B (Dictionary.app) $B$G$OI8=`$G9q8l<-E5$J$IMxMQ$G$-$^$9!#(B
 $B$3$N$&$AM%@h=g0L$N9b$$<-=q$+$i%"%N%F!<%7%g%s$r<hF@$9$k5!G=$,MxMQ$G$-$^(B
 $B$9!#8=>u$G$O<-=q$N8!:w=g$O(B Dictionary.app $B$N4D6-@_Dj$G@_Dj$9$kI,MW$,$"(B
 $B$j$^$9!#(B

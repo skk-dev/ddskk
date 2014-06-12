@@ -652,7 +652,7 @@
 ;;   だけで調べることが可能です。例えば en.wiktionary を使うと「どこでも
 ;;   英英辞典」のように使えて便利です。 skk-annotation-other-sources
 ;;   の設定がデフォルト値であれば、英単語にカーソルを置いて M-3 M-i で常
-;;   に en.wiktionary を調べることができます (Mac OS X では M-4 M-i)。
+;;   に en.wiktionary を調べることができます (Apple OS X では M-4 M-i)。
 
 ;; Tips といえるものではないが、`lisp-interaction-mode' において "C-j"
 ;; (`eval-print-last-sexp') を利用する人にとっては、英数モードにおいて

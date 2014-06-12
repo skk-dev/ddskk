@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.90
-@set UPDATED $Date: 2014/04/27 00:20:03 $
+@set UPDATED $Date: 2014/06/12 13:38:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -360,7 +360,7 @@ DDSKK $B$N<g$JFCD'$O!"<!$N$H$*$j$G$9!#(B
 @item Emacs $B$N%*%j%8%J%kA`:n$HF1MM$K9T$($kF|K\8l%$%s%/%j%a%s%?%k!&%5!<%A!#(B
 @item Emacs Lisp $B$G=q$+$l$?%W%m%0%i%`$,JV$9CM$rJQ498uJd$K5s$2$k$3$H$,$G$-$k!#(B
 @item $BF~NO%b!<%I$N<+F0@Z$jBX$((B @file{context-skk.el}
-@item $BB?:L$J%"%N%F!<%7%g%sI=<((B ($B%f!<%6!&%"%N%F!<%7%g%s!"(BEPWING $B<-=q!"(BMac OS X $B<-=q!"(BWikipedia/Wiktionary)
+@item $BB?:L$J%"%N%F!<%7%g%sI=<((B ($B%f!<%6!&%"%N%F!<%7%g%s!"(BEPWING $B<-=q!"(BApple OS X $B<-=q!"(BWikipedia/Wiktionary)
 @item $B8+=P$78l$NF0E*Jd40(B
 @item $BAm2h?tJQ49!"It<sJQ49!"J8;z%3!<%IF~NO(B
 @end itemize
@@ -403,7 +403,7 @@ APEL $B$O<!$N%5%$%H$+$iF~<j$G$-$^$9!#(B
 cygwin $B4D6-$r%$%s%9%H!<%k$5$l$F$$$kJ}$O(B @command{make} $B%3%^%s%I$,;HMQ$G$-$k(B
 $B$N$G!"K\J8$N2r@b$,$=$N$^$^Ev$F$O$^$j$^$9!#(B
 
-Apple Mac OS X $B4D6-$NJ}$O(B @url{http://openlab.jp/skk/skk/main/READMEs/README.MacOSX.ja} $B$r;2>H$7$F$/$@$5$$!#(B
+Apple OS X $B4D6-$NJ}$O(B @url{http://openlab.jp/skk/skk/main/READMEs/README.MacOSX.ja} $B$r;2>H$7$F$/$@$5$$!#(B
 }$B!#(B
 
 $B$^$:!"(BDDSKK $B$N%"!<%+%$%V(B @file{ddskk-VERSION.tar.gz} $B$r(B @command{tar} $B%3(B
@@ -7812,7 +7812,7 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 * $B%"%N%F!<%7%g%s$N;HMQ(B:: 
 * $B%"%N%F!<%7%g%s$NEPO?(B::
 * $B%"%N%F!<%7%g%s$H$7$F(B EPWING $B<-=q$rI=<($9$k(B::
-* Mac OS X $B!V<-=q!W%5!<%S%9$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B::
+* Apple OS X $B!V<-=q!W%5!<%S%9$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B::
 * Wikipedia/Wiktionary $B$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B::
 * $B30It%3%^%s%I$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B::
 * $B3F<o%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B::
@@ -7849,7 +7849,7 @@ DDSKK $B$G$O!"$3$N$h$&$J;vBV$rHr$1$k$?$a!"<-=q%P%C%U%!$K$*$1$kJQ?t(B
 
 $B>e5-$N$$$:$l$G$b$J$/!"30It$N<-E5$=$NB>$N>pJs8;$+$iF@$i$l$k$b$N$r!V30It%"(B
 $B%N%F!<%7%g%s!W$H$$$$$^$9!#30It%"%N%F!<%7%g%s$O(B Emacs Lisp $B%Q%C%1!<%8$G$"(B
-$B$k(B lookup.el$B!"(B Mac OS X $BIUB0$N<-=q!"(BWiktionary/Wikipedia $B$J$I$+$i<hF@2DG=(B
+$B$k(B lookup.el$B!"(B Apple OS X $BIUB0$N<-=q!"(BWiktionary/Wikipedia $B$J$I$+$i<hF@2DG=(B
 $B$G$9!#(B
 
 @node $B%"%N%F!<%7%g%s$N;HMQ(B
@@ -8109,8 +8109,8 @@ docstring $B$KNc<($7$?(B S $B<0$rI>2A$7$F$_$F$/$@$5$$!#(B
 
 @end enumerate
 
-@node Mac OS X $B!V<-=q!W%5!<%S%9$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B
-@subsection Mac OS X $B!V<-=q!W%5!<%S%9$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B
+@node Apple OS X $B!V<-=q!W%5!<%S%9$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B
+@subsection Apple OS X $B!V<-=q!W%5!<%S%9$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B
 
 Mac OS X 10.5 $B0J9_$KI8=`$GF~$C$F$$$k9q8l<-E5$J$I$+$i%"%N%F!<%7%g%s$,<hF@(B
 $B$G$-$^$9!#(B@footnote{$B$3$N5!G=$rMxMQ$9$k$K$O!"(Bpython $B$N3HD%5!G=$H$7$F(B
@@ -8253,7 +8253,7 @@ B o k u j o u
 @node $B3F<o%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B
 @subsection $B3F<o%"%N%F!<%7%g%s5!G=$r(B SKK $B$NOH$r$3$($F3hMQ$9$k(B
 
-$BA0=R$7$?3F<o30It%"%N%F!<%7%g%s(B (lookup.el + EPWING $B<-=q!"(B Mac OS X $B<-=q!"(B
+$BA0=R$7$?3F<o30It%"%N%F!<%7%g%s(B (lookup.el + EPWING $B<-=q!"(B Apple OS X $B<-=q!"(B
 Wikipedia/Wiktionary) $B$O!"(BSKK $B$NJQ49%b!<%I$@$1$G$J$/(B Emacs $B$N$"$i$f$k>u(B
 $B67$G<-=q0z$-5!G=$H$7$F;H$&$3$H$,$G$-$^$9!#$=$N$?$a$K$O!"%3%^%s%I(B
 @code{skk-annotation-lookup-region-or-at-point} $B$rG$0U$K%-!<Dj5A$7$^$9!#(B
@@ -8278,13 +8278,13 @@ Lookup.el, OS X $B<-=q%5!<%S%9!"$^$?$O(B Wikipedia/Wiktionary $B%"%N%F!<%7%g%
 
 @noindent
 $B$5$i$K!"%f!<%6%*%W%7%g%s(B @code{skk-annotation-other-sources} $B$N(B 3 $BHV(B
-$BL\(B (Mac OS X $B$G$O(B 4 $BHVL\(B) $B$OI8=`$G(B @code{en.wiktionary} $B$K$J$C$F$$$^$9!#(B
+$BL\(B (Apple OS X $B$G$O(B 4 $BHVL\(B) $B$OI8=`$G(B @code{en.wiktionary} $B$K$J$C$F$$$^$9!#(B
 $BNc$($P!"1QJ8$rFI$s$G$$$F(B buffer $B$H$$$&8l$N@53N$J0UL#$r;2>H$7$?$/$J$C$?$H(B
 $B$7$^$9!#$=$N$H$-$O(B $BC18l(B buffer $B$K%]%$%s%H$r9g$o$;!"(B@kbd{M-3 M-i} 
 (Max OS X $B$G$O(B @kbd{M-4 M-i}) $B$H%W%l%U%#%C%/%9IU$G%3%^%s%I$r<B9T$7$F$_$F(B
 $B$/$@$5$$!#(B@footnote{@code{skk-annotation-other-sources} $B$NI8=`$NCM$O4D6-(B
 $B$K$h$C$F0[$J$j$^$9!#(B@file{lookup.el} $B$H(B @file{skk-lookup.el} $B$N@_Dj$,M-(B
-$B8z$K$J$C$F$$$k>l9g$O(B @code{en.wiktionary} $B$O(B 4 $BHVL\(B (Mac OS X $B$G$O(B 5 $BHV(B
+$B8z$K$J$C$F$$$k>l9g$O(B @code{en.wiktionary} $B$O(B 4 $BHVL\(B (Apple OS X $B$G$O(B 5 $BHV(B
 $BL\(B) $B$K$J$j$^$9!#(B}
 
 @example
@@ -10405,13 +10405,13 @@ SKK $B$,(B Simple Kana to Kanji conversion program $B$NN,$G$"$k$H$*$j!"$+$J$r
 @unnumberedsubsec Q1-4 DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?
 
 SKK $B$,%5%]!<%H$7$F$$$k(B Emacs $B$,$=$N(B OS $B$GF0$$$F$$$k$J$i!"(BSKK $B$N4pK\E*(B
-$B$J5!G=$OF0$/$O$:$G$9!#(B Microsoft Windows $B$G$b(B Apple Mac OS X $B$G$b;H$($^$9!#(B
+$B$J5!G=$OF0$/$O$:$G$9!#(B Microsoft Windows $B$G$b(B Apple OS X $B$G$b;H$($^$9!#(B
 
 $B3HD%5!G=$K$D$$$F$O!"(BUNIX $B$N3F<o%3%^%s%I$rA0Ds$H$7$F$$$k$b$N$,$$$/$D$+(B
 $B$"$j$^$9(B (@command{look} $B$d(B @command{ispell} $B$J$I(B)$B!#$3$l$i$N%3%^%s%I$,$*;H$$$N(B OS $B$K$b(B
 $BB8:_$9$l$P3:Ev$N3HD%5!G=$b4pK\E*$K$O;H$($k$G$7$g$&!#(B
 
-Apple Mac OS X $BHG(B Emacs $B$KFC2=$7$?>pJs$K$D$$$F$O!"0J2<$N%U%!%$%k$r;2>H$7$F$/$@$5$$!#(B
+Apple OS X $BHG(B Emacs $B$KFC2=$7$?>pJs$K$D$$$F$O!"0J2<$N%U%!%$%k$r;2>H$7$F$/$@$5$$!#(B
 @display
 @url{http://openlab.jp/skk/skk/main/READMEs/README.MacOSX.ja}
 @end display

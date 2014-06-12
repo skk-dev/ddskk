@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.461 2013/11/08 12:36:22 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.462 2014/06/12 13:38:33 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/11/08 12:36:22 $
+;; Last Modified: $Date: 2014/06/12 13:38:33 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2866,7 +2866,7 @@ nil であれば、別なウィンドゥに表示する。
   :group 'skk-annotation)
 
 (defcustom skk-annotation-lookup-DictionaryServices nil
-  "*Non-nil であれば、Mac OS X で DictionaryServices より意味を取得する。
+  "*Non-nil であれば、Apple OS X で DictionaryServices より意味を取得する。
 この場合、python を inferior process として起動する。
 この設定は `skk-annotation-lookup-dict' より優先される。
 Max OS X 以外の環境では機能しない。
@@ -2937,7 +2937,7 @@ Max OS X 以外の環境では機能しない。
 	       en.wiktionary simple.wikipedia en.wikipedia))
   "*アノテーションに使う情報のソースを指定するオプション。
 標準では Wiktionary, Wikipedia (日本語版、英語版) を参照する。
-Mac OS X では標準の「辞書」を利用できる。"
+Apple OS X では標準の「辞書」を利用できる。"
   :type '(radio (repeat :tag "\
 次のソースを利用する (以下に項目と順番を指定してください)" symbol)
 		(const :tag "Wikimedia などの情報を利用しない" nil))
