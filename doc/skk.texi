@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.90
-@set UPDATED $Date: 2014/06/12 13:38:34 $
+@set UPDATED $Date: 2014/06/17 12:26:04 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -676,17 +676,19 @@ DDSKK $B$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<5-$N<-=q%5!<%P$N(B
 
 @node $B$O$8$a$N@_Dj(B
 @chapter $B$O$8$a$N@_Dj(B
+@cindex @file{leim-list.el}
 
-$BI8=`E*$K%$%s%9%H!<%k$7$?>l9g$O!"FCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F0(B
-$B$9$k$@$1$G(B DDSKK $B$,;H$($k>uBV$K$J$j$^$9!#(B
+$BI8=`E*$K%$%s%9%H!<%k$7$?>l9g$O!"FCCJ$N@_Dj$J$7$K(B Emacs $B$r5/F0$9$k$@$1(B
+$B$G(B DDSKK $B$,;H$($k>uBV$K$J$j$^$9!#(B
 $B<+F0E*$K(B @file{skk-setup.el} $B$H$$$&%U%!%$%k$,FI$_9~$^$l!"@_Dj$5$l$^$9(B
-@footnote{Emacs $B$,5/F0$9$k2aDx$G(B @file{SKK_LISPDIR/leim-list.el} $B$,FI$_9~(B
-$B$^$l$^$9!#(B
+@footnote{Emacs $B$,5/F0$9$k2aDx!J4X?t(B@code{normal-top-level}$B!K$G(B @file{SKK_LISPDIR/leim-list.el} $B$,FI$_9~$^$l$^$9!#(B
 
 @file{leim-list.el} $B$O(B @file{skk-autoloads.el} $B$H(B @file{skk-setup.el} $B$r(B @code{require} $B$7$^$9!#(B
 
-@file{skk-autoloads.el} $B$O%$%s%9%H!<%k;~$K<+F0E*$K@8@.$5$l$k%U%!%$%k$G$"(B
-$B$j!"3F4X?t$r<+F0%m!<%I(B(autoload)$B$9$k$h$&Dj5A$7$F$$$^$9!#(B
+@findex register-input-method
+@file{skk-autoloads.el} $B$O(B DDSKK $B$N(B @command{make} $B;~$K<+F0E*$K@8@.$5$l$k%U%!%$%k(B
+$B$G$"$j!"3F4X?t$r<+F0%m!<%I(B(autoload)$B$9$k$h$&Dj5A$9$k$[$+(B @code{register-input-method} $B$b(B
+$B9T$$$^$9!#(B
 
 @file{skk-setup.el} $B$O%-!<%P%$%s%I!J(B@kbd{C-x C-j} @result{} @code{'skk-mode}$B!K!"JQ?t(B @code{skk-tut-file} $B$NDj5A5Z$S%$%s%/%j%a%s%?%k!&%5!<%A$NDj5A$r9T$C$F$$$^$9!#(B}$B!#(B
 
@@ -883,7 +885,7 @@ Emacs $B$NI8=`%-!<%P%$%s%I$G$O(B @kbd{C-\} $B$r%?%$%W$9$k$H(B
 $B%3%^%s%I(B @code{set-input-method} $B$r<B9T$9$k(B @footnote{@kbd{M-x set-input-method} $B$^$?(B
 $B$O(B @kbd{C-x @key{RET} C-\}} $B$3$H$G(B input method $B$r@Z$jBX$($k$3$H$,$G$-$^$9!#(B
 
-$B%U%!%$%k(B @file{skk-leim.el} $B$G$O(B input method $B$r$U$?$DDI2C$7$F$$$^$9!#(B
+$B%U%!%$%k(B @file{skk-leim.el} $B$+$i@8@.$5$l$k%U%!%$%k(B @file{skk-autoloads.el} $B$G(B input method $B$r$U$?$DDI2C$7$F$$$^$9!#(B
 
 @table @b
 @item "japanese-skk"
@@ -2031,12 +2033,12 @@ DDSKK $B$K$O!"4pK\E*$JA`:nJ}K!$r3X=,$G$-$k%A%e!<%H%j%"%k$,ImB0$7$F$$$^$9!#(B
 
 SKK $B$N4pK\E*$J5!G=$O!"(B@file{skk.el} $B$K<}$a$i$l$F$$$^$9!#0lJ}!"(B
 DDSKK $B$G1~MQ5!G=$rDs6!$9$k%W%m%0%i%`$N$[$H$s$I$O(B @file{skk.el} $B$H(B
-$B$OJL$N%U%!%$%k$K<}$a$F$$$^$9!#$3$l$i$O!"I,MW$K1~$8$F%*!<%H%m!<%I$9$k$h$&$K(B
-$B@_7W$5$l$F$$$^$9!#3F1~MQ5!G=$N35N,$H3:Ev$N%U%!%$%kL>$K$D$$$F@bL@$7$^$9!#(B
+$B$OJL$N%U%!%$%k$K<}$a$F$$$^$9!#$3$l$i$O!"I,MW$K1~$8$F%*!<%H%m!<%I$9$k$h$&(B
+$B$K@_7W$5$l$F$$$^$9!#3F1~MQ5!G=$N35N,$H3:Ev$N%U%!%$%kL>$K$D$$$F@bL@$7$^$9!#(B
 
 @cindex @file{skk-vars.el}
-$B$^$?!"(BDDSKK $B$NJQ?t$O(B @file{skk-vars.el} $B$K=8Ls$5$l$F$$$^$9!#(B
-$B%+%9%?%^%$%:$7$?$$>l9g$J$I$K$3$N%U%!%$%k$r8+$k$H;29M$K$J$k$+$b$7$l$^$;$s!#(B
+$B$^$?!"(BDDSKK $B$NJQ?t$O(B @file{skk-vars.el} $B$K=8Ls$5$l$F$$$^$9$N$G!"%+%9%?%^(B
+$B%$%:$7$?$$>l9g$J$I$K$O!"$3$N%U%!%$%k$r8+$k$H;29M$K$J$k$+$b$7$l$^$;$s!#(B
 
 @table @file
 @item context-skk.el
@@ -2080,9 +2082,12 @@ dvorak $BG[Ns$G$N3HD%%m!<%^;zF~NO(B "ACT" $B$r(B SKK $B$G;H$&$?$a$N@_Dj$rDs
 @item skk-autoloads.el
 @cindex @file{skk-autoloads.el}
 
-$B%*!<%H%m!<%I$N@_Dj$r5-=R$7$?%U%!%$%k!#(BXEmacs $B$G(B DDSKK $B$r%Q%C%1!<%8$H$7$F(B
-$B%$%s%9%H!<%k$7$?>l9g$O(B @file{auto-autoloads.el} $B$H$$$&%U%!%$%k$,$3$l$KAj(B
-$BEv$7$^$9!#(B
+$B%*!<%H%m!<%I$N@_Dj$r5-=R$7$?%U%!%$%k!#(B@code{register-input-method} $B$b9T$&!#(B
+
+@xref{$B$O$8$a$N@_Dj(B}.
+
+XEmacs $B$G(B DDSKK $B$r%Q%C%1!<%8$H$7$F%$%s%9%H!<%k$7$?>l9g(B
+$B$O(B @file{auto-autoloads.el} $B$H$$$&%U%!%$%k$,$3$l$KAjEv$7$^$9!#(B
 
 @item skk-azik.el
 @cindex @file{skk-azik.el}
@@ -2222,6 +2227,8 @@ KAKASI $B%$%s%?!<%U%'%$%9%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 LEIM $B4XO"%W%m%0%i%`%U%!%$%k!#(BDDSKK $B$r(B Emacs $B$N(B input method $B$H$7$FMxMQ$G(B
 $B$-$k$h$&$K$7$^$9!#(B
 
+@xref{DDSKK $B$r(B Emacs $B$N(B Input Method $B$H$9$k(B}.
+
 @item skk-look.el
 @cindex @file{skk-look.el}
 
@@ -2266,6 +2273,8 @@ Lookup $B$G8!:w$G$-$k<-=q$r;H$C$FC18l$N8uJd$r=PNO$9$k%W%m%0%i%`!#(B
 @cindex @file{skk-setup.el}
 
 $B<+F0E*$K8D?M@_Dj$r9T$&$?$a$N%U%!%$%k!#(B
+
+@xref{$B$O$8$a$N@_Dj(B}.
 
 @item skk-show-mode.el
 @cindex @file{skk-show-mode.el}

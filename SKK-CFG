@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-CFG,v 1.36 2011/01/07 11:01:12 skk-cvs Exp $
-;; Last Modified: $Date: 2011/01/07 11:01:12 $
+;; Version: $Id: SKK-CFG,v 1.37 2014/06/17 12:26:04 skk-cvs Exp $
+;; Last Modified: $Date: 2014/06/17 12:26:04 $
 
 ;;; Commentary:
 
@@ -122,7 +122,7 @@
 ;; によってファイル配置に差異があることがあります。
 ;; make what-where の出力に注意してください。
 
-;;; Apple Mac OS X における self-contained な Carbon/Cocoa Emacs の設定例:
+;;; Apple OS X における self-contained な Carbon/Cocoa Emacs の設定例:
 ;; (setq SKK_DATADIR "/Applications/Emacs.app/Contents/Resources/etc/skk")
 ;; (setq SKK_INFODIR "/Applications/Emacs.app/Contents/Resources/info")
 ;; (setq SKK_LISPDIR "/Applications/Emacs.app/Contents/Resources/site-lisp/skk")

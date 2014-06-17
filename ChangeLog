@@ -1,3 +1,8 @@
+2014-06-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-CFG: Replace from `Mac OS X' to `Apple OS X' in comments.
+	* doc/skk.texi: Update.
+
 2014-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-annotation.el, skk-emacs.el, skk-vars.el, skk.el, doc/skk.texi:
