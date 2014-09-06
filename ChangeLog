@@ -1,3 +1,9 @@
+2014-09-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-save-jisyo): 個人辞書がなければエラーとなり、特に
+	kill-emacs-hook から呼ばれた場合は emacs を終了できなくなるため
+	個人辞書の存否 (file-exists-p skk-jisyo) を追加.
+
 2014-06-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-CFG: Replace from `Mac OS X' to `Apple OS X' in comments.
