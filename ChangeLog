@@ -1,3 +1,9 @@
+2014-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (install-prefix, SKK_DATADIR, SKK_INFODIR):
+	NTEmacs 24.4 向けの調整 (see Emacs News: Changes in Emacs 24.2 on
+	Non-Free Opetating System).
+
 2014-09-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-save-jisyo): 個人辞書がなければエラーとなり、特に

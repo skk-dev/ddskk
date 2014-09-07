@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.201 2014/04/27 00:16:59 skk-cvs Exp $
-;; Last Modified: $Date: 2014/04/27 00:16:59 $
+;; Version: $Id: SKK-MK,v 1.202 2014/09/07 04:10:08 skk-cvs Exp $
+;; Last Modified: $Date: 2014/09/07 04:10:08 $
 
 ;;; Commentary:
 
@@ -92,7 +92,11 @@ This version of SKK requires MULE features"))
 	 ;; Meadow と NTEmacs は自己完結型。これらに対して APEL が標準で
 	 ;; 設定する install-prefix は不自然なので、ここで修正する。
 	 (setq EMACS_SELF_CONTAINED t)
-	 (expand-file-name ".." exec-directory))
+	 (if (string-match "libexec" exec-directory)
+	     (expand-file-name "share/emacs"
+			       (expand-file-name "../../../../" exec-directory))
+	   (expand-file-name ".." exec-directory)))
+
 	((eq system-type 'darwin)
 	 ;; Mac OS X (Carbon emacs, Cocoa Emacs または OS 付属の Emacs)
 	 ;; で DDSKK を build する場合は自己完結型かどうかを選べる。
@@ -332,31 +336,38 @@ This version of SKK requires MULE features"))
 
 ;; NON-PACKAGE INSTALL RELATED VARIABLE.
 (defvar SKK_DATADIR
-  (let ((subdir (cond (EMACS_SELF_CONTAINED
-		       ;; Meadow, NTEmacs, Carbon Emacs, Cocoa Emacs
-		       "etc")
-		      (t
-		       "share"))))
-    (expand-file-name SKK_PREFIX (expand-file-name subdir PREFIX))))
+  (cond ((and (eq system-type 'windows-nt)
+	      (string-match "libexec" exec-directory))
+	 data-directory)
+	(t
+	 (let ((subdir (cond (EMACS_SELF_CONTAINED
+			      ;; Meadow, NTEmacs, Carbon Emacs, Cocoa Emacs
+			      "etc")
+			     (t
+			      "share"))))
+	   (expand-file-name SKK_PREFIX (expand-file-name subdir PREFIX))))))
 
 (defvar SKK_INFODIR
-  (cond
-   ((file-directory-p
-     (expand-file-name "info" (expand-file-name "share" PREFIX)))
-    (expand-file-name "info" (expand-file-name "share" PREFIX)))
-   ;;
-   ((file-directory-p (expand-file-name "info" PREFIX))
-    (expand-file-name "info" PREFIX))
-   (t
-    (let ((list Info-default-directory-list)
-	  dir)
-      (while (and (not dir)
-		  list)
-	(when (file-directory-p (car list))
-	  (setq dir (car list)))
-	(setq list (cdr list)))
-      dir)))
-  ;;
+  (cond ((file-directory-p
+	  (expand-file-name "info" (expand-file-name "share" PREFIX)))
+	 (expand-file-name "info" (expand-file-name "share" PREFIX)))
+
+	((file-directory-p (expand-file-name "info" PREFIX))
+	 (expand-file-name "info" PREFIX))
+
+	((file-directory-p
+	  (expand-file-name "info" (expand-file-name ".." PREFIX)))
+	 (expand-file-name "info" (expand-file-name ".." PREFIX)))
+
+	(t
+	 (let ((list Info-default-directory-list)
+	       dir)
+	   (while (and (not dir)
+		       list)
+	     (when (file-directory-p (car list))
+	       (setq dir (car list)))
+	     (setq list (cdr list)))
+	   dir)))
   (expand-file-name "info" PREFIX))
 
 (defvar SKK_LISPDIR
