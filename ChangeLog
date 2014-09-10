@@ -1,3 +1,10 @@
+2014-09-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK_DATADIR): 2014-09-07 の訂正.
+	data-directory の /skk ディレクトリ.
+
+	* doc/skk.texi: 変数 skk-icon について記載.
+
 2014-09-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.91.

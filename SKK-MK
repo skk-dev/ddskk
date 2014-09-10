@@ -5,8 +5,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK-MK,v 1.202 2014/09/07 04:10:08 skk-cvs Exp $
-;; Last Modified: $Date: 2014/09/07 04:10:08 $
+;; Version: $Id: SKK-MK,v 1.203 2014/09/10 11:11:11 skk-cvs Exp $
+;; Last Modified: $Date: 2014/09/10 11:11:11 $
 
 ;;; Commentary:
 
@@ -338,7 +338,7 @@ This version of SKK requires MULE features"))
 (defvar SKK_DATADIR
   (cond ((and (eq system-type 'windows-nt)
 	      (string-match "libexec" exec-directory))
-	 data-directory)
+	 (expand-file-name "skk" data-directory))
 	(t
 	 (let ((subdir (cond (EMACS_SELF_CONTAINED
 			      ;; Meadow, NTEmacs, Carbon Emacs, Cocoa Emacs

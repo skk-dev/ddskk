@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.91
-@set UPDATED $Date: 2014/09/08 13:54:41 $
+@set UPDATED $Date: 2014/09/10 11:11:12 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9450,9 +9450,14 @@ XEmacs の場合
 @defvr {ユーザ変数} skk-show-icon
 
 変数 @code{skk-show-icon} の値を @code{non-nil} と設定することにより、モー
-ドラインに SKK のアイコンが表示されます。
-アイコンの画像ファイル @file{skk.xpm} へのパスは、変数 @code{skk-icon} で
-定義されています。
+ドラインに SKK のアイコンが表示されます@footnote{@code{(image-type-available-p 'xpm)} が @code{t} を返す必要があるため、Emacsen の実行環境に依存します。}。
+
+@end defvr
+
+@defvr {ユーザ変数} skk-icon
+
+アイコンの画像ファイル @file{skk.xpm} へのパス。
+関数 @code{skk-emacs-prepare-modeline-properties} で定義しています。
 
 @end defvr
 
