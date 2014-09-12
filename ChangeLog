@@ -1,3 +1,7 @@
+2014-09-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el: Update Docstring.
+
 2014-09-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK_DATADIR): 2014-09-07 の訂正.

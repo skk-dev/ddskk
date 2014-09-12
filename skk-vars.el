@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.462 2014/06/12 13:38:33 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.463 2014/09/12 23:56:22 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2014/06/12 13:38:33 $
+;; Last Modified: $Date: 2014/09/12 23:56:22 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -333,7 +333,7 @@ nil $B$G$"$l$P!"1Q8l$GI=<($9$k!#(B"
   :group 'skk-basic)
 
 (defcustom skk-version-codename-ja nil
-  "*Non-nil $B$G$"$l$P!"4X?t(B skk-version $B$G$N%3!<%I%M!<%`$rF|K\8l$GI=<($9$k!#(B"
+  "*Non-nil $B$G$"$l$P!"4X?t(B `skk-version' $B$G$N%3!<%I%M!<%`$rF|K\8l$GI=<($9$k!#(B"
   :type 'boolean
   :group 'skk-basic)
 
@@ -1474,7 +1474,7 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#(B
   :group 'skk-visual)
 
 (defcustom skk-candidate-buffer-display-fringes t
-  "*nil $B$G$"$l$P!"(B\"*$B8uJd(B*$B%P%C%U%!(B\"$B$N(B fringe $B$r>C$9(B."
+  "*nil $B$G$"$l$P!"(B\"*$B8uJd(B*$B%P%C%U%!(B\" $B$N(B fringe $B$r>C$9(B."
   :type 'boolean
   :group 'skk-henkan
   :group 'skk-visual)
@@ -1610,7 +1610,7 @@ SKK-JISYO.[SML] $B$NAw$j2>L>%(%s%H%j$O>e5-$N7A<0$K$J$C$F$$$J$$$N$G!"(B`skk-jis
  $B$NAw$j$"$j$N<-=q%(%s%H%j$,$3$N7A<0$N$b$N$r$"$^$j4^$s$G$$$J$$>l9g$O!"$3$N(B
 $B%*%W%7%g%s$r(B on $B$K$9$k$3$H$G!"$9$0$KC18lEPO?$KF~$C$F$7$^$&$N$GCm0U$9$k$3$H!#(B
 
-`skk-process-okuri-early' $B$NCM$,(B nil $B$J$i$P>e5-$N7A<0$G(B `skk-jisyo' $B$,(B
+`skk-process-okuri-early' $B$NCM$,(B nil $B$J$i$P!">e5-$N7A<0$G(B `skk-jisyo' $B$,(B
 $B:n$i$l$k!#(B
 
 $B2<5-$N<0$rI>2A$9$k$3$H$G!"C18lEPO?$KF~$C$?$H$-$@$1(B
@@ -1959,12 +1959,13 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
 (defcustom skk-indicator-use-cursor-color (and window-system
 					       (fboundp 'x-display-color-p)
 					       (x-display-color-p))
-  "*Non-nil $B$J$i$P%+!<%=%k$HF1$8?'$G%$%s%8%1!<%?$rI=<($9$k(B"
+  "*Non-nil $B$J$i$P!"%+!<%=%k$HF1$8?'$G%$%s%8%1!<%?$rI=<($9$k(B"
   :type 'boolean
   :group 'skk-visual)
 
 (defcustom skk-show-icon nil
-  "*Non-nil $B$G$"$l$P!"(BSKK $B$N%"%$%3%s$r>o;~I=<($9$k!#(B"
+  "*Non-nil $B$G$"$l$P!"%b!<%I%i%$%s$K(B SKK $B$N%"%$%3%s$r>o;~I=<($9$k!#(B
+$BI=<($9$k(B SKK $B%"%$%3%s$N2hA|$O(B `skk-icon' $B$G;XDj$9$k!#(B"
   :type 'boolean
   :set (lambda (symbol value)
 	 (prog1
@@ -2317,7 +2318,8 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 (defvar skk-menu nil)
 
 (defvar skk-icon nil
-  "SKK $B$N%"%$%3%s!#(B")
+  "SKK $B%"%$%3%s$N2hA|%U%!%$%k(B skk.xpm $B$N%Q%9!#(B")
+
 (put 'skk-icon 'risky-local-variable t)
 
 (skk-deflocalvar skk-modeline-input-mode nil)
@@ -2718,7 +2720,7 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
  (skk-num $B$r(B require $B$7$F$$$k$H$-$O!"(Bnum-list $B$,DI2C$5$l$k(B)$B!#(B")
 
 (skk-deflocalvar skk-undo-kakutei-flag nil
-  "Non-nil $B$J$i$P3NDj%"%s%I%%Cf$G$"$k$3$H$r;X$9!#(B")
+  "Non-nil $B$J$i$P!"3NDj%"%s%I%%Cf$G$"$k$3$H$r;X$9!#(B")
 
 (skk-deflocalvar skk-undo-kakutei-prev-state nil
   "`skk-undo-kakutei' $B$,8F$P$l$?;~$NF~NO%b!<%I$N>uBV!#(B")
@@ -2793,7 +2795,7 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 
 ;; skk-annotation.el related.
 (defcustom skk-show-annotation nil
-  "*Non-nil $B$G$"$l$P!"%"%N%F!<%7%g%s$rI=<($9$k!#(B
+  "*Non-nil $B$G$"$l$P!"JQ49;~$K%"%N%F!<%7%g%s$rI=<($9$k!#(B
 $B$+$J4A;zJQ49$N:]!"<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$r%"%N%F!<%7%g%s$H$7$F(B\
 $B%(%3!<%(%j%"!"JL(B Window $B$^$?$O%D!<%k%F%#%C%W$KI=<($9$k!#(B"
   :type '(radio (const :tag "$B>o$KI=<((B" t)
@@ -3465,7 +3467,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
 (defcustom skk-use-color-cursor (and (skk-find-window-system)
 				     (fboundp 'x-display-color-p)
 				     (x-display-color-p))
-  "*Non-nil $B$G$"$l$P!"(BSKK $B%b!<%I$NF~NO%b!<%I$K1~$8$F%+!<%=%k$K?'$rIU$1$k!#(B"
+  "*Non-nil $B$G$"$l$P!"%+!<%=%k$KF~NO%b!<%I$K1~$8$??'$rIU$1$k!#(B"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-cursor)
@@ -4314,13 +4316,13 @@ look $B%3%^%s%I$K4X$7$F$OJQ?t(B `skk-look-conversion-arguments' $B$N%I%-%e%a%
   :group 'skk-look)
 
 (defcustom skk-look-recursive-search nil
-  "*Non-nil $B$J$i$P(B look $B%3%^%s%I$,8+$D$1$?1QC18l$rJQ49%-!<$K$7$F:F8!:w$r9T$&!#(B
+  "*Non-nil $B$J$i$P!"(B look $B%3%^%s%I$,8+$D$1$?1QC18l$rJQ49%-!<$K$7$F:F8!:w$r9T$&!#(B
 $B:F8!:w$N7k2L!"8uJd$,8+$D$+$i$J$1$l$P!"85$N1QC18l<+?H$r8uJd$H$7$F=PNO$9$k!#(B"
   :type 'boolean
   :group 'skk-look)
 
 (defcustom skk-look-expanded-word-only t
-  "*Non-nil $B$J$i$P(B look $B$N=PNO$KBP$9$k:F8!:w$,@.8y$7$?8uJd$N$_$rI=<($9$k!#(B
+  "*Non-nil $B$J$i$P!"(B look $B$N=PNO$KBP$9$k:F8!:w$,@.8y$7$?8uJd$N$_$rI=<($9$k!#(B
 `skk-look-recursive-search' $B$,(B non-nil $B$G$"$k$H$-$N$_M-8z!#(B"
   :type 'boolean
   :group 'skk-look)
@@ -5212,7 +5214,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 	(t
 	 'banish))
   "*Tooltip $B$rI=<($9$k>l9g$N!"%^%&%9%]%$%s%?$N5sF0!#(B
-`follow' $B$J$i$P(B  tip $B$N0LCV$K0\F0$9$k!#(B
+`follow' $B$J$i$P!"(B tip $B$N0LCV$K0\F0$9$k!#(B
 `avoid' $B$J$i$P!"%&%#%s%I%&$NC<$KB`Hr$9$k!#(B
 `avoid-maybe' $B$J$i$P!"%&%#%s%I%&>e$K$"$k%^%&%9%]%$%s%?$N$_B`Hr$9$k!#(B
 `banish' $B$J$i$P!"%&%#%s%I%&$NC<$KB`Hr$7$?$^$^5"$C$F$3$J$$!#(B
