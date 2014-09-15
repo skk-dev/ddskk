@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.91
-@set UPDATED $Date: 2014/09/10 11:11:12 $
+@set UPDATED $Date: 2014/09/15 05:06:20 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -304,8 +304,10 @@ GNU Emacs 24.3 のユーザーは DDSKK 15 をお使いください。
 
 @item GNU Emacs 24.4
 
-GNU Emacs 24.4 から、coding tag を明示していないファイルは utf-8 と取り扱
-われるようになりました@footnote{@code{2013-06-11 international/mule-conf.el (file-coding-system-alist)}}。DDSKK 15.2 で対策済みです。
+@itemize @bullet
+@item coding tag を明示していないファイルは utf-8 と取り扱われます@footnote{@code{2013-06-11 international/mule-conf.el (file-coding-system-alist)}}。DDSKK 15.2 で対策済みです。
+@item NTEmacs は 24.3 と比べてディレクトリ構成が異なります@footnote{Emacs News: Changes in Emacs 24.4 on Non-Free Operating Systems}。DDSKK 15.2 で対策済みです。
+@end itemize
 
 @item XEmacs 21.4
 
@@ -435,7 +437,7 @@ Apple OS X 環境の方は @url{http://openlab.jp/skk/skk/main/READMEs/README.M
 @group
 % make what-where
 @print{}emacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where
-@print{}Loading /home/USER/temp/ddskk-15.2/SKK-CFG...
+@print{}Loading /home/USER/temp/ddskk-@value{SKK-VERSION}/SKK-CFG...
 
 @print{}Running in:
 @print{}  GNU Emacs 24.3.50.4 (i686-pc-linux-gnu, GTK+ Version 2.20.1)
