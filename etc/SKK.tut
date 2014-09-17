@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut,v 1.17 2012/08/28 12:56:48 skk-cvs Exp $
+;; Version: $Id: SKK.tut,v 1.18 2014/09/17 12:00:04 skk-cvs Exp $
 ;; Keywords: japanese, help
-;; Last Modified: $Date: 2012/08/28 12:56:48 $
+;; Last Modified: $Date: 2014/09/17 12:00:04 $
 
 ;; This is the tutorial text for Daredevil SKK version 11.1 and later
 ;; versions.
@@ -35,7 +35,7 @@ SKK $B$O(B Emacs $B$N$?$a$N9bB.$G8zN(E*$JF|K\8lF~NO%7%9%F%`$G$9!#C1=c$J4pK\86
 SKK $B$N2r@b$r9T$$$^$9!#(B
 
 $B%A%e!<%H%j%"%k$OLdBj$r2r$-$J$,$i?J$s$G$$$-$^$9!#!Z(B*$BLd(B*$B![%P%C%U%!$N:G8e$K!Z(B>>$B![(B
-$B$G;O$^$k9T$,$"$j$^$9!#$3$l$HF1$89T$r!Z(B*$BEz(B*$B![%P%C%U%!$K:n$k$3$H$,LdBj$K$J$j(B
+$B$G;O$^$k9T$,$"$j$^$9!#$3$l$HF1$89T$r!Z(B*$BEz(B*$B![%P%C%U%!$K:n$k$3$H$,2sEz$K$J$j(B
 $B$^$9!#Ez$,$G$-$?$i!"!X(BC-x n$B!Y(B(Next) $B$r%?%$%W$7$F$/$@$5$$!#Ez$,@5$7$1$l$P(B
 $B%P%C%U%!$,99?7$5$l!"<!$NLdBj$,I=<($5$l$^$9!#(B
 
