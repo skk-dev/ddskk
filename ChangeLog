@@ -1,3 +1,8 @@
+2014-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tut.el (skktut-next-answer-buffer): scroll-other-window()
+	を追加.
+
 2014-09-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

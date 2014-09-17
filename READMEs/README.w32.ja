@@ -28,6 +28,10 @@ DDSKK 最新版をインストールしてください。
 
 DDSKK 14.4 では isearch の不具合があります。DDSKK 15.1 をインストールしてください。
 
+** Emacs 24.4 以降
+
+NTEmacs 24.4 は、同 24.3 と比べてディレクトリ構成が異なります。DDSKK 15.2 をインストールしてください。
+
 * Meadow/NTEmacs
 
 以下は Meadow 2.10 を例に解説します。他の環境についても十分参考になる
@@ -121,9 +125,9 @@ Daredevil SKK には make コマンドの代わりに使える makeit.bat というファイ
 適当な方法で展開します。SKK-JISYO.L を、本体を展開した dic というサブディ
 レクトリに置きます。
 
-**** MAKEIT.BAT の編集
+**** makeit.bat の編集
 
-MAKEIT.BAT を自分の環境に合わせて編集します。
+makeit.bat を自分の環境に合わせて編集します。
 EMACS は御自分の Emacs のフルパスを指定します。上の例では、
 
 EMACS=c:\meadow\bin\Meadow.exe
@@ -131,24 +135,24 @@ EMACS=c:\meadow\bin\Meadow.exe
 その他の設定は、SKK-CFG で行います。この点は make コマンドを使う場合と
 同様です。
 
-**** MAKEIT.BAT の実行
+**** makeit.bat の実行
 
-MAKEIT.BAT を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
-リ割り当てが自動になると、環境変数が設定できないので、適当な値(2048と
-か)を入れておく必要があります。
+makeit.bat を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
+リ割り当てが自動になると、環境変数が設定できないので、適当な値 (2048と
+か) を入れておく必要があります。
 
-Windows のコマンドプロンプトで MAKEIT.BAT のあるディレクトリに移動しま
+Windows のコマンドプロンプトで makeit.bat のあるディレクトリに移動しま
 す。
      c:\>cd tmp
      c:\tmp>cd ddskk-14.3
 
-`what-where' を引数として MAKEIT.BAT を実行すると
+`what-where' を引数として makeit.bat を実行すると
 
      C:\tmp\ddskk-14.3>makeit what-where
 
 インストール先が確認できます。
 
-`install' を引数として MAKEIT.BAT を実行すると
+`install' を引数として makeit.bat を実行すると
 
      C:\tmp\ddskk-14.3>makeit install
 

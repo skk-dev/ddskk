@@ -7,9 +7,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tut.el,v 1.92 2013/03/20 06:53:31 skk-cvs Exp $
+;; Version: $Id: skk-tut.el,v 1.93 2014/09/17 11:28:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/20 06:53:31 $
+;; Last Modified: $Date: 2014/09/17 11:28:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -891,19 +891,22 @@ tutorial /チュートリアル/
 	    (insert
 	     (let ((next " `\\[skktut-next-question]'")
 		   (quit " `\\[skk-tutorial-quit]'")
-		   (skip " `\\[skktut-skip-question]'"))
+		   (skip " `\\[skktut-skip-question]'")
+		   (sow  " `\\[scroll-other-window]'"))
 	       (substitute-command-keys
 		(if skktut-japanese-tut
 		    (concat
-		     "* 答ができたら" next "; 途中でやめるには" quit
+		     "* 答ができたら" next "\n"
+		     "* 途中でやめるには" quit "\n"
 		     (if (/= skktut-question-count skktut-question-numbers)
-			 (concat "; スキップするには" skip))
-		     " *")
+			 (concat "* スキップするには" skip "\n"))
+		     "* 【問】をスクロールするには" sow)
 		  (concat
-		   "* For next question" next "; to quit " quit
+		   "* For next question" next "\n"
+		   "* to quit " quit "\n"
 		   (if (/= skktut-question-count skktut-question-numbers)
-		       (concat "; to skip this question" skip))
-		   " *")))))
+		       (concat "* to skip this question" skip "\n"))
+		   "* to scroll question window" sow)))))
 	    (when skk-tut-use-face
 	      (put-text-property p (point) 'face skk-tut-key-bind-face))
 	    (add-text-properties p (point) plist)
