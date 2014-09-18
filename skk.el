@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.634 2014/09/06 00:37:50 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.635 2014/09/18 14:01:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2014/09/06 00:37:50 $
+;; Last Modified: $Date: 2014/09/18 14:01:53 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -954,7 +954,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 $B"&%b!<%I$G$O(B `skk-henkan-start-point' ($B"&$ND>8e(B) $B$H%+!<%=%k$N4V$NJ8;zNs$K$D$$(B
 $B$F!"$R$i$,$J$H%+%?%+%J$rF~$lBX$($k!#(B"
   (interactive "P")
-  (let ((show t))
+  (let ((show skk-show-mode-enable))	;$B%A%e!<%H%j%"%k<B9TCf$N$_(B nil
     (cond
      ((eq skk-henkan-mode 'on)		;$B"&%b!<%I(B
       (let (char-type)

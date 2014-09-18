@@ -1,3 +1,13 @@
+2014-09-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-show-mode-enable): New variable.
+	チュートリアル実行中に skk-show-mode が起動してしまうことを防ぐ.
+
+	* skk-tut.el (skktut-init-variables-alist): チュートリアル実行中は
+	skk-show-mode-enable を nil とする.
+
+	* skk.el (skk-toggle-characters): Use it.
+
 2014-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tut.el (skktut-next-answer-buffer): scroll-other-window()
