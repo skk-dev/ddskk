@@ -6,9 +6,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-num.el,v 1.52 2013/01/17 13:50:39 skk-cvs Exp $
+;; Version: $Id: skk-num.el,v 1.53 2014/10/03 23:25:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/01/17 13:50:39 $
+;; Last Modified: $Date: 2014/10/03 23:25:38 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -471,8 +471,7 @@ TYPE は下記の通り。
 ;;;###autoload
 (defun skk-num-initialize ()
   "`skk-use-numeric-conversion' 関連の変数を初期化する。"
-  (setq skk-last-henkan-data
-	(skk-put-alist 'num-list skk-num-list skk-last-henkan-data)
+  (setq skk-last-henkan-data (skk-put-alist 'num-list skk-num-list skk-last-henkan-data)
 	skk-num-list nil
 	skk-num-recompute-key nil))
 
