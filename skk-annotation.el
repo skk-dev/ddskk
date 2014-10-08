@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.239 2014/06/12 13:38:33 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.240 2014/10/08 14:56:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2014/06/12 13:38:33 $
+;; Last Modified: $Date: 2014/10/08 14:56:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -977,10 +977,11 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
       ;; as to make sure we terminate the multiline instruction.
       (comint-send-string proc "\n"))))
 
-(defsubst skkannot-emacs-24_3-or-later ()
-  (or (> emacs-major-version 24)
-      (and (= emacs-major-version 24)
-	   (>= emacs-minor-version 3))))
+(eval-and-compile
+  (defsubst skkannot-emacs-24_3-or-later ()
+    (or (> emacs-major-version 24)
+	(and (= emacs-major-version 24)
+	     (>= emacs-minor-version 3)))))
 
 (defun skkannot-py-check-comint-prompt (&optional proc)
   "Return non-nil if and only if there's a normal prompt in the inferior buffer.
