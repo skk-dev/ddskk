@@ -1,3 +1,8 @@
+2014-10-09  Ken Okada  <keno.ss57@gmail.com>
+
+	* skk.el (skk-setup-modeline): [skk 7790] `mode-line-format' を nil とした
+	場合の対策.
+
 2014-10-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-annotation.el (skkannot-emacs-24_3-or-later): Around eval-and-compile()

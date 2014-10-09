@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.635 2014/09/18 14:01:53 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.636 2014/10/09 11:13:17 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2014/09/18 14:01:53 $
+;; Last Modified: $Date: 2014/10/09 11:13:17 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -608,12 +608,13 @@ dependent."
   (setq skk-indicator-alist (skk-make-indicator-alist))
   (case skk-status-indicator
     (left
-     (unless (memq 'skk-modeline-input-mode (default-value 'mode-line-format))
+     (unless (and mode-line-format
+		  (memq 'skk-modeline-input-mode (default-value 'mode-line-format)))
        (setq-default mode-line-format
 		     (append '("" skk-modeline-input-mode)
 			     (default-value 'mode-line-format))))
      (skk-loop-for-buffers (buffer-list)
-       (when (and (listp mode-line-format)
+       (when (and (consp mode-line-format)
 		  (skk-local-variable-p 'mode-line-format)
 		  (null (memq 'skk-modeline-input-mode mode-line-format)))
 	 (setq mode-line-format
@@ -624,14 +625,14 @@ dependent."
 		       (append '("" skk-icon)
 			       (default-value 'mode-line-format))))
        (skk-loop-for-buffers (buffer-list)
-	 (when (and (listp mode-line-format)
+	 (when (and (consp mode-line-format)
 		    (skk-local-variable-p 'mode-line-format)
 		    (null (memq 'skk-icon mode-line-format)))
 	   (setq mode-line-format (append '("" skk-icon) mode-line-format)))))
      (force-mode-line-update t))
     ;;
     (t
-     (when (and (listp mode-line-format)
+     (when (and (consp mode-line-format)
 		(equal (car mode-line-format) "")
 		(eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
        ;; for skk-restart.
@@ -639,7 +640,7 @@ dependent."
 		     (nthcdr 2 mode-line-format)))
 
      (skk-loop-for-buffers (buffer-list)
-       (when (and (listp mode-line-format)
+       (when (and (consp mode-line-format)
 		  (equal (car mode-line-format) "")
 		  (eq 'skk-modeline-input-mode (nth 1 mode-line-format)))
 	 ;; for skk-restart.
