@@ -687,4 +687,13 @@
 ;; 日本語と英語の間に空白を自動挿入する
 ;;   http://hins11.jugem.jp/?eid=47
 
+;; org-mode の表中での return
+;;   http://mail.ring.gr.jp/skk/201401/msg00001.html
+(defadvice org-return (around skk-in-org-table activate)
+  "org-mode の表の中でも skk が使えるようにする."
+  (cond ((and (org-at-table-p) skk-henkan-mode)
+         (skk-kakutei))
+        (t
+         ad-do-it)))
+
 ;;; dot.skk ends here

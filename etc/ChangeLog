@@ -1,3 +1,7 @@
+2014-10-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: Add "org-mode の表中での return".
+
 2014-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK.tut: 微修正.
