@@ -29,8 +29,8 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set SKK-VERSION 15.1.91
-@set UPDATED $Date: 2014/09/22 13:08:32 $
+@set SKK-VERSION 15.1.92
+@set UPDATED $Date: 2014/10/09 11:52:34 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
