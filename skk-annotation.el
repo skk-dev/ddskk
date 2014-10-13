@@ -5,10 +5,10 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-annotation.el,v 1.240 2014/10/08 14:56:04 skk-cvs Exp $
+;; Version: $Id: skk-annotation.el,v 1.241 2014/10/13 05:15:04 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
-;; Last Modified: $Date: 2014/10/08 14:56:04 $
+;; Last Modified: $Date: 2014/10/13 05:15:04 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -776,7 +776,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 			  (setq exit t)
 			  (apply (car url) (cdr url)))
 			 (t
-			  (browse-url url))))
+			  (funcall skk-annotation-browser-function url))))
 		 (skk-message "注釈のソースをブラウズしています..."
 			      "Browsing originals for the current notes..."))
 		(t

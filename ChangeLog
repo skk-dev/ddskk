@@ -1,3 +1,10 @@
+2014-10-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-annotation-browser-function): New variable.
+	`browse-url' のほか `eww-browse-url' も使用可能に.
+
+	* skk-annotation.el (skk-annotation-wait-for-input): Use it.
+
 2014-10-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.92.
