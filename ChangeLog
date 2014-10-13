@@ -5,6 +5,8 @@
 
 	* skk-annotation.el (skk-annotation-wait-for-input): Use it.
 
+	* doc/skk.texi: Update.
+
 2014-10-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.92.

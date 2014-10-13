@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.92
-@set UPDATED $Date: 2014/10/09 11:52:34 $
+@set UPDATED $Date: 2014/10/13 05:35:35 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8215,7 +8215,8 @@ B o k u j o u
 @end example
 
 エコーエリアに解説が表示されている最中に @kbd{C-o} を押すと、
-関数 @code{browse-url} を用いてその解説の元となった URL をブラウズします。
+関数 @code{skk-annotation-browser-function} で指定された関数を用いて、
+その解説の元となった URL をブラウズします。
 
 @kindex C-i
 @defvr {ユーザ変数} skk-annotation-wikipedia-key
@@ -8228,6 +8229,12 @@ B o k u j o u
 @defvr {ユーザ変数} skk-annotation-browse-key
 
 デフォルトは @kbd{C-o} です。
+
+@end defvr
+
+@defvr {ユーザ変数} skk-annotation-browser-function
+
+関数 @code{browse-url} 又は @code{eww-browse-url} を指定します。
 
 @end defvr
 
