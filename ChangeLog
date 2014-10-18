@@ -1,3 +1,10 @@
+2014-10-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-use-auto-enclose-pair-of-region): New variable.
+
+	* skk.el (skk-kana-input, skk-jisx0208-latin-insert): Use it.
+	(skk-insert-str): Fix docstring.
+
 2014-10-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-annotation-browser-function): New variable.

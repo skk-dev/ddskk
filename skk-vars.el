@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.465 2014/10/13 05:15:04 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.466 2014/10/18 05:32:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2014/10/13 05:15:04 $
+;; Last Modified: $Date: 2014/10/18 05:32:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1270,6 +1270,11 @@ ASCII 数字の直後であれば、長音(ー)は `-' へ、句点(。
 `skk-special-midashi-char-list' $Bの要素になっている文字は、
 `skk-auto-paren-string-alist' に含めても削除される。 "
   :type '(repeat (cons string string))
+  :group 'skk-input-basic)
+
+(defcustom skk-use-auto-enclose-pair-of-region nil
+  "*Non-nil であれば、リージョンが有効な状態で `skk-auto-insert-paren' を実行した際には、リージョンを括弧と閉括弧で囲む。"
+  :type 'boolean
   :group 'skk-input-basic)
 
 (defcustom skk-start-henkan-char ?\040	; SPC

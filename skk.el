@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.636 2014/10/09 11:13:17 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.637 2014/10/18 05:32:10 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2014/10/09 11:13:17 $
+;; Last Modified: $Date: 2014/10/18 05:32:10 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -1277,19 +1277,28 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 			   (cdr (assoc str skk-auto-paren-string-alist))))
 		   (count0 arg)
 		   (count1 arg)
-		   (inserted 0))
+		   (inserted 0)
+		   region-str)
 	      (when (and (eq skk-henkan-mode 'active) ;$B"'%b!<%I(B
 			 skk-kakutei-early
 			 (not skk-process-okuri-early))
 		(skk-kakutei))
-	      ;; arg $B$OJ]B8$7$F$*$+$J$$$H!"(B0 $B$K$J$C$F$7$^$$!"(Bqueue
-	      ;; $B$,$?$^$C$F$$$F:FEY$3$3$X$d$C$FMh$?$H$-$KJ8;zF~NO$,(B
+	      ;; arg $B$OJ]B8$7$F$*$+$J$$$H!"(B0 $B$K$J$C$F$7$^$$!"(Bqueue $B$,(B
+	      ;; $B$?$^$C$F$$$F:FEY$3$3$X$d$C$FMh$?$H$-$K!"J8;zF~NO$,(B
 	      ;; $B$G$-$J$/$J$k!#(B
 	      (skk-cancel-undo-boundary)
+	      (when (and (skk-region-active-p)
+			 skk-use-auto-enclose-pair-of-region
+			 pair)
+		(setq region-str (buffer-substring (region-beginning)
+						   (region-end)))
+		(delete-region (region-beginning) (region-end)))
 	      (while (> count0 0)
 		(skk-insert-str str)
 		(setq count0 (1- count0)))
 	      (when pair
+		(when region-str
+		  (insert region-str))
 		(while (> count1 0)
 		  (unless (string= pair
 				   (skk-char-to-unibyte-string (following-char)))
@@ -1297,7 +1306,9 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		    (skk-insert-str pair))
 		  (setq count1 (1- count1)))
 		(unless (zerop inserted)
-		  (backward-char inserted)))
+		  (backward-char inserted))
+		(when region-str
+		  (skip-chars-forward pair)))
 	      (when (and skk-okurigana
 			 (null queue))
 		(skk-set-okurigana)))))))
@@ -1393,7 +1404,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
     tree))
 
 (defun skk-insert-str (str)
-  "STR $B$rA^F~$9$k!#(B
+  "$B%P%C%U%!$K(B STR $B$rA^F~$9$k!#(B
 $BI,MW$G$"$l$P(B `skk-auto-start-henkan' $B$r%3!<%k$9$k!#(B
 $BI,MW$G$"$l$P(B `self-insert-after-hook' $B$r%3!<%k$9$k!#(B
 `overwrite-mode' $B$G$"$l$P!"E,@Z$K>e=q$-$9$k!#(B"
@@ -1612,21 +1623,32 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 	  (pair-str (if skk-auto-insert-paren
 			(cdr (assoc str skk-auto-paren-string-alist))
 		      nil))
-	  (pair-str-inserted 0))
+	  (pair-str-inserted 0)
+	  region-str)
      (if (not str)
 	 (skk-emulate-original-map arg)
        (skk-cancel-undo-boundary)
+       (when (and (skk-region-active-p)
+		  skk-use-auto-enclose-pair-of-region
+		  pair-str)
+	 (setq region-str (buffer-substring (region-beginning)
+					    (region-end)))
+	 (delete-region (region-beginning) (region-end)))
        (while (> arg 0)
 	 (skk-insert-str str)
 	 (setq arg (1- arg)))
        (when pair-str
+	 (when region-str
+	   (insert region-str))
 	 (while (> arg2 0)
 	   (unless (string= pair-str (char-to-string (following-char)))
 	     (setq pair-str-inserted (1+ pair-str-inserted))
 	     (skk-insert-str pair-str))
 	   (setq arg2 (1- arg2)))
 	 (unless (zerop pair-str-inserted)
-	   (backward-char pair-str-inserted)))))))
+	   (backward-char pair-str-inserted))
+	 (when region-str
+	   (skip-chars-forward pair-str)))))))
 
 (defun skk-delete-backward-char (arg)
   "$B"'%b!<%I$G(B `skk-delete-implies-kakutei' $B$J$iD>A0$NJ8;z$r>C$7$F3NDj$9$k!#(B
