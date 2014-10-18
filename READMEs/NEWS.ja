@@ -4,6 +4,13 @@
 
 make what-where の実行時に Emacs のバージョンを表示するようにしました。
 
+** GNU Emacs 25 対応を進めました
+
+*** tooltip-set-param() が obsolute されたため、skk-put-alist() を使用。
+
+*** skk-annotation-browser-function
+シンボル 'eww-browse-url を指定することで、アノテーションを eww で表示する。
+
 ** GNU Emacs 24 対応を進めました
 
 *** coding tag の明示
@@ -13,6 +20,12 @@ as default for Elisp files.
 DDSKK-15.1 には coding tag を明示していないファイルが残っていたため
 emack trunk (24.3.50) でインストールが中断されてしまう。
 すべてのファイルに coding tag を明示しました。
+
+*** NTEmacs 24.4 向けの調整
+ディレクトリ構成変更の対策
+
+*** isearch-other-control-char 及び isearch-other-meta-char の廃止
+これら関数は GNU Emacs 24.3 まで (GNU Emacs 24.4 から廃止された)
 
 ** cdb 形式辞書の取り扱い
 
@@ -50,6 +63,8 @@ emack trunk (24.3.50) でインストールが中断されてしまう。
 しましたが、変数 skk-display-code-method を nil と設定すると、タイプされ
 た文字をバッファに挿入します。
 
+*** 新たな変数 skk-use-auto-enclose-pair-of-region
+
 ** skk-version() の日本語表示
 
 新たな変数 skk-version-codename-ja を追加しました。これが non-nil であれ
@@ -86,6 +101,14 @@ nicola-colemak を追加しました。
 GNU Emacs 24.3 からフェイス modeline が廃止されたため DDSKK 15.1 で
 は mode-line へ統一したところ。しかし XEmacs は modeline のままであ
 ることから、これらの対策として マクロ skk-facep を導入した。
+
+*** mode-line-format を nil とした場合の対策
+
+*** チュートリアル実行中に skk-show-mode が起動してしまうことを防いだ
+
+*** minibuffer におけるかな漢字変換の対策
+これまでの DDSKK は minibuffer でも skk-dcomp-multiple-show() しようとして
+エラーが生じていた。
 
 * 15.1
 
