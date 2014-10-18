@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.92
-@set UPDATED $Date: 2014/10/18 21:24:59 $
+@set UPDATED $Date: 2014/10/18 22:27:49 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -4665,6 +4665,7 @@ not documented
 * かなモード/カナモードのキー設定::
 * 全英モードのキー設定::
 * 閉じ括弧の自動入力::      
+* リージョンを括弧で囲む::
 
 @noindent
 変換、確定など
@@ -5192,6 +5193,32 @@ ohhira @expansion{} おおひら
                        (copy-sequence skk-auto-paren-string-alist))))))
 @end group
 @end lisp
+
+@node リージョンを括弧で囲む
+@subsection リージョンを括弧で囲む
+
+「閉じ括弧の自動入力」の応用として、リージョンを括弧で囲むことができます。
+
+@example
+@group
+------ Buffer: foo ------
+このマニュアルにおいて@point{}DDSKK@point{}と呼びます
+------ Buffer: foo ------
+
+@kbd{`}
+
+------ Buffer: foo ------
+このマニュアルにおいて`DDSKK'と呼びます
+------ Buffer: foo ------
+@end group
+@end example
+
+@defvr {ユーザ変数} skk-use-auto-enclose-pair-of-region
+@code{non-nil} であれば、上記の機能が有効になります。
+当然に @code{skk-auto-insert-paren} も @code{non-nil} である必要があります。
+
+なお、@code{delete-selection-mode} の方が優先されます。
+@end defvr
 
 @node 確定するキー
 @subsection 確定するキー
