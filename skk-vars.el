@@ -4,9 +4,9 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.466 2014/10/18 05:32:10 skk-cvs Exp $
+;; Version: $Id: skk-vars.el,v 1.467 2014/10/18 21:24:59 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2014/10/18 05:32:10 $
+;; Last Modified: $Date: 2014/10/18 21:24:59 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -2850,7 +2850,7 @@ nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!
 (defcustom skk-annotation-browser-function (if (functionp 'eww-browse-url)
 					       'eww-browse-url
 					     'browse-url)
-  "* $B4X?t(B `browse-url' $BKt$O(B $B4X?t(B `eww-browse-url'"
+  "*$B;HMQ$9$k4X?t$r%7%s%\%k$G;XDj$9$k!#(B 'browse-url $BKt$O(B 'eww-browse-url."
   :type 'function
   :group 'skk-annotation)
 
