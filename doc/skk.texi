@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.92
-@set UPDATED $Date: 2014/10/18 22:27:49 $
+@set UPDATED $Date: 2014/10/19 10:53:47 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -440,8 +440,7 @@ Apple OS X 環境の方は @url{http://openlab.jp/skk/skk/main/READMEs/README.M
 @print{}Loading /home/USER/temp/ddskk-@value{SKK-VERSION}/SKK-CFG...
 
 @print{}Running in:
-@print{}  GNU Emacs 24.3.50.4 (i686-pc-linux-gnu, GTK+ Version 2.20.1)
-@print{} of 2013-04-11 on localhost.localdomain
+@print{}  GNU Emacs 24.3.50.4 (i686-pc-linux-gnu, GTK+ Version 2.20.1) @dots{}
 
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
@@ -511,7 +510,7 @@ XEmacs でパッケージとしてインストールする場合は、
 @print{}  Loading /home/user/temp/ddskk-@value{SKK-VERSION}/SKK-CFG...
 
 @print{}Running in:
-@print{}  XEmacs 21.5  (beta29) garbanzo [Lucid] (i386-redhat-linux, Mule) of Wed Mar  2 2011 on x86-17.phx2.fedoraproject.org
+@print{}  XEmacs 21.5  (beta29) garbanzo [Lucid] (i386-redhat-linux, Mule) of @dots{}
 
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
@@ -576,16 +575,16 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 DDSKK を使用するには、いわゆる辞書 (主にかなと漢字の対応を記述したデータ)
 が必要です。
 
-従来の DDSKK は、後述する SKK 辞書を別途インストールする必要がありました
-が、DDSKK 14.2 からは GNU Emacs 同梱の辞書データ @file{ja-dic} を利用した
+DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ @file{ja-dic} を利用した
 かな漢字変換に対応しましたので、SKK 辞書ファイルを別途インストールしなく
-ても最低限の使用ができます。XEmacs では @file{ja-dic} は利用できません。
+ても最低限の使用ができます（XEmacs では @file{ja-dic} は利用できませんの
+で、後述する SKK 辞書をインストールする必要があります）。
 
-@file{ja-dic} は Emacs の入力メソッド LEIM のために @file{SKK-JISYO.L} か
-ら変換して生成されたものです。しかし、変換生成の際に英数変換や数値変換な
-どのエントリ、および「大丈夫」など複合語とみなし得る語が大幅に削除されて
-います。そのため、@file{SKK-JISYO.L} を利用したかな漢字変換と同等の結果は
-得られません。
+しかし、@file{ja-dic} は、 Emacs の入力メソッド LEIM のために @file{SKK-JISYO.L} か
+ら変換して生成されたものであり、英数変換や数値変換などのエントリ、および
+「大丈夫」など複合語とみなし得る語が大幅に削除されています。
+そのため、@file{SKK-JISYO.L} を利用したかな漢字変換と同等の結果は得られま
+せん。
 
 有志の知恵を結集して作られている各種 SKK 辞書は便利ですから、是非入手し
 てインストールしましょう。
@@ -4935,9 +4934,7 @@ ohhira @expansion{} おおひら
 @node 数字や記号文字の入力
 @subsubsection 数字や記号文字の入力
 
-かなモード/カナモードにおける次のキーは、かつては @code{skk-self-insert}
-関数にバインドされていました。現在は他のキーと同様に @code{skk-insert}
-関数にバインドされています。
+かなモード/カナモードにおける次のキーは、関数 @code{skk-insert} にバインドされています。
 
 @example
 @group
@@ -4955,24 +4952,8 @@ ohhira @expansion{} おおひら
 @end group
 @end example
 
-これらの数字や記号文字のキーに対応し挿入される文字は、変数
-@code{skk-input-vector} の値により決定されていましたが、DDSKK 10 にてこ
-の変数は廃止されました。カスタマイズするためには、代わりに変数
-@code{skk-rom-kana-rule-list} を利用します。例えば、SKK 9.6 以前において、
-
-@lisp
-@group
-(aset skk-input-vector ?! nil)
-(aset skk-input-vector ?, nil)
-(aset skk-input-vector ?. nil)
-(aset skk-input-vector ?: nil)
-(aset skk-input-vector ?; nil)
-(aset skk-input-vector ?? nil)
-@end group
-@end lisp
-
-@noindent
-このような設定をしていた場合、DDSKK 10.x 以降で同様の入力をするためには、
+これらの数字や記号文字のキーに対応し挿入される文字をカスタマイズするため
+には、変数 @code{skk-rom-kana-rule-list} を利用します。
 
 @lisp
 @group
@@ -4987,14 +4968,9 @@ ohhira @expansion{} おおひら
 @end group
 @end lisp
 
-@noindent
-のような設定に変更する必要があります。
-
 @code{skk-insert} は、Emacs のオリジナル関数 @code{self-insert-command}
 をエミュレートしています。具体的には、引数を渡すことによって同じ文字を複
-数、一度に挿入することが可能です
-@footnote{かつては、@samp{▽あ} などを入力する場合には引数渡しが
-できなかったのですが、本バージョンではこれもできるように拡張されています。}。
+数、一度に挿入することが可能です。
 
 @example
 @group
@@ -5012,8 +4988,8 @@ ohhira @expansion{} おおひら
 
 全英モードにおける印字可能な全てのキーはコマンド
 @code{skk-jisx0208-latin-insert} に割り付けられています。また、変数
-@code{skk-jisx0208-latin-vector} の値により挿入される文字が決定されます。
-@code{skk-jisx0208-latin-vector} のデフォルトは以下のようになっています。
+@code{skk-jisx0208-latin-vector} の値により挿入される文字が決定され、
+そのデフォルトは以下のようになっています。
 
 @lisp
 @group
@@ -5021,7 +4997,7 @@ ohhira @expansion{} おおひら
  nil  nil  nil  nil  nil  nil  nil  nil
  nil  nil  nil  nil  nil  nil  nil  nil
  nil  nil  nil  nil  nil  nil  nil  nil
- "　"  "！" "”" "＃" "＄" "％" "＆" "’"
+ "　" "！" "”" "＃" "＄" "％" "＆" "’"
  "（" "）" "＊" "＋" "，" "−" "．" "／"
  "０" "１" "２" "３" "４" "５" "６" "７"
  "８" "９" "：" "；" "＜" "＝" "＞" "？"
@@ -5036,14 +5012,14 @@ ohhira @expansion{} おおひら
 @end group
 @end lisp
 
-挿入される文字の変更方法を知りたい場合は、@w{@ref{数字や記号文字の入力}}
-を参照してください。
+挿入される文字を変更したい場合は、@w{@ref{数字や記号文字の入力}} を参照し
+てください。
 
 @code{skk-jisx0208-latin-insert} も Emacs オリジナルの関数
 @code{self-insert-command} をエミュレートしています。つまり、引数を渡す
 ことにより同じ文字を複数、一度に挿入することができます。
 @code{skk-insert} における動作と同じですから、
-@w{@ref{数字や記号文字の入力}} における例を参考にしてください。
+@w{@ref{数字や記号文字の入力}} の例を参考にしてください。
 
 @node 閉じ括弧の自動入力
 @subsection 閉じ括弧の自動入力
