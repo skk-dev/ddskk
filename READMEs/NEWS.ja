@@ -6,10 +6,14 @@ make what-where $B$N<B9T;~$K(B Emacs $B$N%P!<%8%g%s$rI=<($9$k$h$&$K$7$^$7$?!#
 
 ** GNU Emacs 25 $BBP1~$r?J$a$^$7$?(B
 
-*** tooltip-set-param() $B$,(B obsolute $B$5$l$?$?$a!"(Bskk-put-alist() $B$r;HMQ!#(B
+*** tooltip-set-param() $B$NMxMQGQ;_(B
+tooltip-set-param() $B$,(B obsolute $B$5$l$?$?$a!"(Bskk-put-alist() $B$r;HMQ$9$k$h(B
+$B$&$KJQ99$7$^$7$?!#(B
 
-*** skk-annotation-browser-function
-$B%7%s%\%k(B 'eww-browse-url $B$r;XDj$9$k$3$H$G!"%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k!#(B
+*** $B%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$K(B
+$BJQ?t(B skk-annotation-browser-function $B$K%7%s%\%k(B 'eww-browse-url $B$r;XDj$9(B
+$B$k$3$H$G!"%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$G$9!#(B
+$B$b$A$m$s!"=>A0$I$*$j%7%s%\%k(B 'browse-url $B$b2DG=$G$9!#(B
 
 ** GNU Emacs 24 $BBP1~$r?J$a$^$7$?(B
 
@@ -22,10 +26,38 @@ emack trunk (24.3.50) $B$G%$%s%9%H!<%k$,CfCG$5$l$F$7$^$&!#(B
 $B$9$Y$F$N%U%!%$%k$K(B coding tag $B$rL@<($7$^$7$?!#(B
 
 *** NTEmacs 24.4 $B8~$1$ND4@0(B
-$B%G%#%l%/%H%j9=@.JQ99$NBP:v(B
+$B%G%#%l%/%H%j9=@.JQ99$KBP1~$7$^$7$?!#(B
+- Changes in Emacs 24.4 on Non-Free Operating Systems
+  - The procedure for building Emacs on MS-Windows has changed.
+      It is now built by running the same configure script as on all other
+      platforms.  This requires the MSYS environment and MinGW development
+      tools.  See the updated instructions in nt/INSTALL for details.
+
+      Using the Posix configure script and Makefiles also means a change in
+      the directory structure of the Emacs installation on Windows.  It is
+      now the same as on GNU and Unix systems.
+
+ - .../bin
+      /libexec
+              /emacs
+                    /VERSION
+                            /i686-pc-mingw32 (or x86_64-pc-mingw32)
+                              => cmdproxy.exe and hexl.exe (auxiliary programs)
+      /share
+            /applications
+            /emacs
+                  /VERSION
+                          /etc       ;; data files                    | SKK.tut, skk.xpm
+                          /lisp      ;; version-specific Lisp files
+                          /site-lisp ;; version-specific Lisp files   | skk*.el
+                  /site-lisp         ;; version-independent site-lisp
+            /icons
+            /info                    ;; Info docs                     | skk.info
+            /man
+      /var
 
 *** isearch-other-control-char $B5Z$S(B isearch-other-meta-char $B$NGQ;_(B
-$B$3$l$i4X?t$O(B GNU Emacs 24.3 $B$^$G(B (GNU Emacs 24.4 $B$+$iGQ;_$5$l$?(B)
+$B$3$l$i4X?t$O(B GNU Emacs 24.3 $B$^$G(B (GNU Emacs 24.4 $B$+$i$OGQ;_$5$l$F$$$k(B)
 
 ** cdb $B7A<0<-=q$N<h$j07$$(B
 
@@ -37,13 +69,13 @@ emack trunk (24.3.50) $B$G%$%s%9%H!<%k$,CfCG$5$l$F$7$^$&!#(B
 
 *** $B8uJd%P%C%U%!(B
 
-$B?7$?$K(B skk-candidate-buffer-background-color-odd $B$rDj5A(B
+$B?7$?$K(B skk-candidate-buffer-background-color-odd $B$rDj5A$7$^$7$?!#(B
 
-$B?7$?$K(B skk-candidate-buffer-display-fringes $B$rDj5A(B
+$B?7$?$K(B skk-candidate-buffer-display-fringes $B$rDj5A$7$^$7$?!#(B
 
 *** $B%$%s%i%$%s(B
 
-$B?7$?$K(B skk-inline-show-background-color-odd $B$rDj5A(B
+$B?7$?$K(B skk-inline-show-background-color-odd $B$rDj5A$7$^$7$?!#(B
 
 ** $BF0:n(B
 
@@ -63,7 +95,8 @@ emack trunk (24.3.50) $B$G%$%s%9%H!<%k$,CfCG$5$l$F$7$^$&!#(B
 $B$7$^$7$?$,!"JQ?t(B skk-display-code-method $B$r(B nil $B$H@_Dj$9$k$H!"%?%$%W$5$l(B
 $B$?J8;z$r%P%C%U%!$KA^F~$7$^$9!#(B
 
-*** $B?7$?$JJQ?t(B skk-use-auto-enclose-pair-of-region
+*** $B%j!<%8%g%s$r3g8L$G0O$`(B
+$B?7$?$JJQ?t(B skk-use-auto-enclose-pair-of-region $B$rDj5A$7$^$7$?!#(B
 
 ** skk-version() $B$NF|K\8lI=<((B
 
@@ -83,7 +116,7 @@ skk-show-mode-inline-1() $B$r<BAu$7$?!#(B
 
 *** $BGX7J?'$N@_Dj(B
 
-$B?7$?$K(B skk-show-mode-inline-face $B$rDj5A(B
+$B?7$?$K(B skk-show-mode-inline-face $B$rDj5A$7$^$7$?!#(B
 
 ** NICOLA
 
@@ -108,7 +141,7 @@ GNU Emacs 24.3 $B$+$i%U%'%$%9(B modeline $B$,GQ;_$5$l$?$?$a(B DDSKK 15.1 $B
 
 *** minibuffer $B$K$*$1$k$+$J4A;zJQ49$NBP:v(B
 $B$3$l$^$G$N(B DDSKK $B$O(B minibuffer $B$G$b(B skk-dcomp-multiple-show() $B$7$h$&$H$7$F(B
-$B%(%i!<$,@8$8$F$$$?!#(B
+$B%(%i!<$,@8$8$F$$$?$?$a!"$3$NBP:v$r9T$$$^$7$?!#(B
 
 * 15.1
 
