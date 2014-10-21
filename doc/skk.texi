@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.1.92
-@set UPDATED $Date: 2014/10/19 10:53:47 $
+@set UPDATED $Date: 2014/10/21 11:58:51 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -200,6 +200,7 @@ approved by the author.
 * I-search$B4XO"(B::                $B%$%s%/%j%a%s%?%k!&%5!<%A$K$^$D$o$k5!G=!#(B
 * VIP/VIPER$B$H$NJ;MQ(B::
 * picture-mode$B$H$NJ;MQ(B::        picture-mode $B$H$NJ;MQ$N:]$NLdBjE@!#(B
+* Org-mode$B$H$NJ;MQ(B::            Org-mode $B$H$NJ;MQ$N:]$NLdBjE@!#(B
 
 $B%m!<%^;zF~NO0J30$NF~NOJ}<0(B
 
@@ -2024,6 +2025,7 @@ DDSKK $B$K$O!"4pK\E*$JA`:nJ}K!$r3X=,$G$-$k%A%e!<%H%j%"%k$,ImB0$7$F$$$^$9!#(B
 * I-search$B4XO"(B::                $B%$%s%/%j%a%s%?%k!&%5!<%A$K$^$D$o$k5!G=!#(B
 * VIP/VIPER$B$H$NJ;MQ(B::
 * picture-mode$B$H$NJ;MQ(B::        picture-mode $B$H$NJ;MQ$N:]$NLdBjE@!#(B
+* Org-mode$B$H$NJ;MQ(B::            Org-mode $B$H$NJ;MQ$N:]$NLdBjE@!#(B
 @end menu
 
 @node $B%U%!%$%k9=@.(B
@@ -9783,6 +9785,20 @@ SKK $B%b!<%I$GA43QJ8;z$rF~NO$7$?>l9g$K!"(B@key{BS} $B$GA43QJ8;z$r>C$9$3$H$,$G
 $B4X?t(B @code{move-to-column-force} $B$NCf$G;HMQ$5$l$F$$$k4X?t(B
 @code{move-to-column} $B$N0z?t$H$7$F!"A43QJ8;z$rL5;k$7$?7e?t$,M?$($i$l$k$3(B
 $B$H$,$"$j!"$=$N$H$-%+!<%=%k0\F0$,$G$-$J$$$?$a!"$3$l$i$NLdBj$,@8$8$^$9!#(B
+
+@node Org-mode$B$H$NJ;MQ(B
+@section Org-mode$B$H$NJ;MQ(B
+
+SKK $B%b!<%I$r(B @code{Org-mode} $B$K$*$$$F;HMQ$7$?>l9g$O!"0J2<$N$h$&$JLdBjE@$,(B
+$B$"$j$^$9!#(B
+
+@enumerate
+@item
+org-mode $B$NI=Cf$G(B Enter $B%-!<$r2!2<$7$?$H$-$NF0:n$,Js9p$5$l$F$$$^$9(B (@url{http://mail.ring.gr.jp/skk/201401/msg00001.html})$B!#(B
+
+$BBP=hJ}K!$O(B @file{dot.skk} $B$K5-:\$7$F$"$j$^$9$9!#(B
+
+@end enumerate
 
 @node $B%m!<%^;zF~NO0J30$NF~NOJ}<0(B
 @chapter $B%m!<%^;zF~NO0J30$NF~NOJ}<0(B
