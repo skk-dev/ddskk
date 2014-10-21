@@ -10,11 +10,6 @@ make what-where $B$N<B9T;~$K(B Emacs $B$N%P!<%8%g%s$rI=<($9$k$h$&$K$7$^$7$?!#
 tooltip-set-param() $B$,(B obsolute $B$5$l$?$?$a!"(Bskk-put-alist() $B$r;HMQ$9$k$h(B
 $B$&$KJQ99$7$^$7$?!#(B
 
-*** $B%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$K(B
-$BJQ?t(B skk-annotation-browser-function $B$K%7%s%\%k(B 'eww-browse-url $B$r;XDj$9(B
-$B$k$3$H$G!"%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$G$9!#(B
-$B$b$A$m$s!"=>A0$I$*$j%7%s%\%k(B 'browse-url $B$b2DG=$G$9!#(B
-
 ** GNU Emacs 24 $BBP1~$r?J$a$^$7$?(B
 
 *** coding tag $B$NL@<((B
@@ -58,6 +53,11 @@ emack trunk (24.3.50) $B$G%$%s%9%H!<%k$,CfCG$5$l$F$7$^$&!#(B
 
 *** isearch-other-control-char $B5Z$S(B isearch-other-meta-char $B$NGQ;_(B
 $B$3$l$i4X?t$O(B GNU Emacs 24.3 $B$^$G(B (GNU Emacs 24.4 $B$+$i$OGQ;_$5$l$F$$$k(B)
+
+*** $B%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$K(B
+$BJQ?t(B skk-annotation-browser-function $B$K%7%s%\%k(B 'eww-browse-url $B$r;XDj$9(B
+$B$k$3$H$G!"%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$G$9!#(B
+$B$b$A$m$s!"=>A0$I$*$j%7%s%\%k(B 'browse-url $B$b2DG=$G$9!#(B
 
 ** cdb $B7A<0<-=q$N<h$j07$$(B
 
