@@ -1,3 +1,9 @@
+2014-11-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Version 15.2 Oshamambe Released.
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.2.
+
 2014-10-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.

@@ -21,7 +21,9 @@ emack trunk (24.3.50) $B$G%$%s%9%H!<%k$,CfCG$5$l$F$7$^$&!#(B
 $B$9$Y$F$N%U%!%$%k$K(B coding tag $B$rL@<($7$^$7$?!#(B
 
 *** NTEmacs 24.4 $B8~$1$ND4@0(B
+
 $B%G%#%l%/%H%j9=@.JQ99$KBP1~$7$^$7$?!#(B
+
 - Changes in Emacs 24.4 on Non-Free Operating Systems
   - The procedure for building Emacs on MS-Windows has changed.
       It is now built by running the same configure script as on all other
@@ -52,9 +54,11 @@ emack trunk (24.3.50) $B$G%$%s%9%H!<%k$,CfCG$5$l$F$7$^$&!#(B
       /var
 
 *** isearch-other-control-char $B5Z$S(B isearch-other-meta-char $B$NGQ;_(B
+
 $B$3$l$i4X?t$O(B GNU Emacs 24.3 $B$^$G(B (GNU Emacs 24.4 $B$+$i$OGQ;_$5$l$F$$$k(B)
 
 *** $B%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$K(B
+
 $BJQ?t(B skk-annotation-browser-function $B$K%7%s%\%k(B 'eww-browse-url $B$r;XDj$9(B
 $B$k$3$H$G!"%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$G$9!#(B
 $B$b$A$m$s!"=>A0$I$*$j%7%s%\%k(B 'browse-url $B$b2DG=$G$9!#(B
@@ -131,6 +135,7 @@ nicola-colemak $B$rDI2C$7$^$7$?!#(B
 ** $B$=$NB>%P%0=$@5$J$I(B
 
 *** XEmacs $B$K$*$1$k(B modeline
+
 GNU Emacs 24.3 $B$+$i%U%'%$%9(B modeline $B$,GQ;_$5$l$?$?$a(B DDSKK 15.1 $B$G(B
 $B$O(B mode-line $B$XE}0l$7$?$H$3$m!#$7$+$7(B XEmacs $B$O(B modeline $B$N$^$^$G$"(B
 $B$k$3$H$+$i!"$3$l$i$NBP:v$H$7$F(B $B%^%/%m(B skk-facep $B$rF3F~$7$?!#(B
@@ -140,6 +145,7 @@ GNU Emacs 24.3 $B$+$i%U%'%$%9(B modeline $B$,GQ;_$5$l$?$?$a(B DDSKK 15.1 $B
 *** $B%A%e!<%H%j%"%k<B9TCf$K(B skk-show-mode $B$,5/F0$7$F$7$^$&$3$H$rKI$$$@(B
 
 *** minibuffer $B$K$*$1$k$+$J4A;zJQ49$NBP:v(B
+
 $B$3$l$^$G$N(B DDSKK $B$O(B minibuffer $B$G$b(B skk-dcomp-multiple-show() $B$7$h$&$H$7$F(B
 $B%(%i!<$,@8$8$F$$$?$?$a!"$3$NBP:v$r9T$$$^$7$?!#(B
 
