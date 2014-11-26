@@ -1,3 +1,446 @@
+2014-11-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* ChangeLog, ChangeLog.5: Merge them into a single file ChangeLog.5.
+
+2014-11-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Version 15.2 Oshamambe Released.
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.2.
+
+2014-10-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+2014-10-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-annotation-browser-function): Fix docstring.
+
+	* doc/skk.texi: Update.
+
+2014-10-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-use-auto-enclose-pair-of-region): New variable.
+
+	* skk.el (skk-kana-input, skk-jisx0208-latin-insert): Use it.
+	(skk-insert-str): Fix docstring.
+
+2014-10-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-annotation-browser-function): New variable.
+	`browse-url' のほか `eww-browse-url' も使用可能に.
+
+	* skk-annotation.el (skk-annotation-wait-for-input): Use it.
+
+	* doc/skk.texi: Update.
+
+2014-10-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.92.
+
+2014-10-09  Ken Okada  <keno.ss57@gmail.com>
+
+	* skk.el (skk-setup-modeline): [skk 7790] `mode-line-format' を nil とした
+	場合の対策.
+
+2014-10-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el (skkannot-emacs-24_3-or-later): Around eval-and-compile()
+	for XEmacs (thanks 木下達也).
+
+2014-10-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-tooltip-show-1): tooltip-set-param() に代えて
+	skk-put-alist() を使用.
+
+2014-09-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-show-mode-inline-face): Fix.
+
+2014-09-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-show-mode-enable): New variable.
+	チュートリアル実行中に skk-show-mode が起動してしまうことを防ぐ.
+
+	* skk-tut.el (skktut-init-variables-alist): チュートリアル実行中は
+	skk-show-mode-enable を nil とする.
+
+	* skk.el (skk-toggle-characters): Use it.
+
+2014-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tut.el (skktut-next-answer-buffer): scroll-other-window()
+	を追加.
+
+2014-09-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+2014-09-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el: Update Docstring.
+
+2014-09-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK_DATADIR): 2014-09-07 の訂正.
+	data-directory の /skk ディレクトリ.
+
+	* doc/skk.texi: 変数 skk-icon について記載.
+
+2014-09-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.91.
+
+2014-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (install-prefix, SKK_DATADIR, SKK_INFODIR):
+	NTEmacs 24.4 向けの調整 (see Emacs News: Changes in Emacs 24.2 on
+	Non-Free Opetating System).
+
+2014-09-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-save-jisyo): 個人辞書がなければエラーとなり、特に
+	kill-emacs-hook から呼ばれた場合は emacs を終了できなくなるため
+	個人辞書の存否 (file-exists-p skk-jisyo) を追加.
+
+2014-06-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-CFG: Replace from `Mac OS X' to `Apple OS X' in comments.
+	* doc/skk.texi: Update.
+
+2014-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el, skk-emacs.el, skk-vars.el, skk.el, doc/skk.texi:
+	Replace from `Mac OS X' to `Apple OS X' in comments.
+
+2014-06-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skkannot-wikipedia-test-html-tag): Don't call
+	gzip if url.el is handling the content encoding itself.
+
+2014-04-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK: Display Emacs version on interactive installer.
+
+	* doc/skk.texi: Update.
+
+2014-04-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+2014-04-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.90.
+
+2014-04-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-wrap-newline-command): Fix docstring.
+	Wrap `org-insert-heading'.
+
+2014-03-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Add Yuichi Higashi.
+
+2014-03-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+2013-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skk-annotation.el (skkannot-emacs-24_3-or-later)
+	(skkannot-py-check-comint-prompt): New functions.
+	(skk-annotation-start-python): Workaround for Emacs 24.3.
+
+2013-11-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+2013-11-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-rom-kana-base-rule-list): Add new rule.
+	`z:' to `゜' 半濁点(1区12点), `z;' to `゛' 濁点(1区11点).
+
+2013-11-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+2013-11-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+	* skk-isearch.el (skk-isearch-setup-keymap, skk-isearch-start-henkan):
+	fboundp() で isearch-other-control-char を判断するよう変更.
+	isearch-other-control-char / isearch-other-meta-char は GNU Emacs 24.3
+	まで[ChangeLog 2013-10-08].
+
+2013-10-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.54.
+
+2013-10-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-isearch.el (skk-isearch-redo-function):
+	変数 skk-dcomp-multiple-activate を 一時的に nil とする.
+	isearch 中のかな漢字変換は、skk-isearch-redo-function() 内の
+	command-execute() にて skk-insert() 経由で skk-dcomp-multiple-show()
+	に辿り着く. skk-dcomp-multiple-show() は従前から minibuffer 判断
+	skk-in-minibuffer-p() が考慮されているが、呼び出し元の
+	skk-isearch-redo-function() では with-current-buffer skk-isearch-working-buffer
+	環境下であるため skk-in-minibuffer-p() は nil である.
+	結果として minibuffer であるにも関わらず skk-dcomp-multiple-show()
+	を実行することとなりエラーが生じていた.
+
+	(skk-isearch-delete-char): isearch-cmds が nil であるときの考慮を追加.
+	探索文字列を Backspace で消去し尽したとき、すなわち isearch-cmds が nil
+	となったときの考慮不足でエラーが生じていた.
+
+2013-10-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-isearch.el: Add comment for `isearch-other-control-char'.
+
+	* skk.el (skk-make-indicator-alist-1): Add comment.
+
+2013-10-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (before-init-hook): Use `lisp-el-font-lock-keywords-2'
+	instead of `lisp-font-lock-keywords-2'.
+
+2013-10-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el: lisp-font-lock-keywords-2 に関するコメント.
+
+2013-09-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (azik): Update.
+
+2013-09-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (azik): Update.
+
+2013-09-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-azik-keyboard-type): コメントを微修正.
+	* doc/skk.texi: 同上.
+
+2013-08-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (azik): Update.
+
+2013-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-rom-kana-base-rule-list): Add key stroke z* to `※',
+	z0 to `○' and z@ to `◎'.
+
+2013-08-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-show-mode-inline-overlays): New internal variable.
+	(skk-show-mode-inline-face): New variable.
+
+	* skk-show-mode.el (skk-show-mode-inline-1): New function.
+	(skk-show-mode-inline): Use it.
+
+	* doc/skk.texi: Update.
+
+2013-08-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-dcomp-face, skk-dcomp-multiple-face)
+	(skk-dcomp-multiple-trailing-face)
+	(skk-dcomp-multiple-selected-face, skk-display-code-prompt-face)
+	(skk-display-code-char-face, skk-tut-section-face)
+	(skk-tut-do-it-face, skk-tut-question-face)
+	(skk-tut-key-bind-face, skk-tut-hint-face): defface() の表記を統一.
+
+2013-08-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-toggle-characters): トグル変換の場合は skk-show-mode を
+	表示しない.
+
+2013-08-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-mode-exit): skk-mode-exit() 実行の際には
+	skk-show-mode-show を nil とする.
+
+2013-08-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-display-code): Use skk-tooltip-show-at-point()
+	instead of `funcall skk-tooltip-function'.
+
+2013-08-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-candidate-buffer-background-color-odd): New variable.
+	* skk.el (skk-henkan-show-candidates-buffer): Use it.
+	* doc/skk.texi: Update.
+
+2013-08-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-inline-show-background-color-odd): New variable.
+	* skk-inline.el (skk-inline-show-vertically): Use it.
+	* doc/skk.texi: Update.
+
+2013-08-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.53.
+
+2013-08-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-candidate-buffer-display-fringes)
+	(skk-candidate-buffer-fringe-width): New variable.
+
+	* skk.el (skk-henkan-show-candidates-buffer): Use it.
+	`skk-candidate-buffer-display-fringes' が nil ならば、候補バッファの
+	fringe を消す。
+
+	* doc/skk.texi: Update.
+
+2013-08-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-use-auto-kutouten): Use function defcustom()
+	instead of defvar().
+
+2013-08-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-auto-kutouten): New function.
+
+	* skk-vars.el (skk-rom-kana-base-rule-list): "." と "," と "-" について、
+	skk-auto-kutouten() を呼び出すよう変更.
+	(skk-use-auto-kutouten): New variable.
+
+	* doc/skk.texi: Update.
+
+2013-07-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+2013-07-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-version.el, doc/skk.texi: Typo fixed.
+
+2013-07-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+	* skk-comp.el (skk-comp-get-candidate, skk-comp-collect-kana)
+	(skk-comp-arrange-kana-list, skk-comp-re-search-current-buffer)
+	(skk-smart-find): Add autoload cookie.
+
+	* skk-act.el: warning 対策のため、skk-jisx0201{-base}-rule-list
+	を defvar する。
+	* skk-azik.el: Ditto.
+
+2013-07-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-display-code-method): New variable.
+
+	* skk-kcode.el (skk-display-code-for-char-at-point): Use it.
+
+	* doc/skk.texi: Update.
+
+2013-07-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (cdb): Remove target.
+
+2013-06-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+2013-06-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.52.
+
+2013-06-22  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* SKK-MK (SKK-MK-generate-autoloads-el): Add coding tag.
+	* experimental/skk-ja-names.el: Add coding tag.
+
+2013-05-27  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* bayesian/bskk: Set default encoding to "EUC-JP" for Ruby 1.9.
+
+2013-05-26  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* bayesian/bskk: To support Ruby 1.9, prevent LoadError of
+	`jcode', prevent warning of `$KCODE', add magic comment, and
+	use `fileutils' rather than `ftools'.
+
+2013-04-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+2013-04-07  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* skk-sticky.el: Do not use `skk-sit-for'.
+
+2013-03-29  l3msh0  <@l3msh0>
+
+	* skk-xemacs.el: Fix autoload cookie.
+
+2013-03-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.51.
+
+2013-03-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-face-proportional-p): 2013-03-26 の修正を取消.
+	元の状態へ戻した.
+
+	* skk-macs.el (skk-facep): New macro.
+	* skk.el (skk-make-indicator-alist-1): Use skk-facep() for XEmacs.
+
+2013-03-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-what-where, SKK-MK-what-where-package):
+	Display emacsen version in ddskk installation.
+
+	* skk-macs.el (skk-face-proportional-p): 引数のチェックを追加.
+
+2013-03-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (characterp): Add comment.
+
+2013-03-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (int-char): Add comment.
+	* skk.el (skk-compute-henkan-lists): ditto.
+
+	* skk-macs.el (string-to-char-list): 廃止. これが出現するのは
+	"defalias 'string-to-int-list 'string-to-char-list" のみ.
+	したがって string-to-int-list で実体定義すれば済む.
+
+	* skk-macs.el (string-to-int-list): GNU Emacs と XEmacs で別々に
+	定義されていたものを統合.
+
+2013-03-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo):
+	* skk-study.el (skk-study-read):
+	* skk-tut.el (skk-tutorial-quit):
+	* skk.el (skk-kill-emacs-without-saving-jisyo)
+	(skk-remove-redundant-okurigana, skk-purge-from-jisyo)
+	(skk-reread-private-jisyo, skk-remove-common):
+	yes-or-no-p() と y-or-no-p() のプロンプトの末尾に空白を挿入.
+
+	* skk-macs.el (skk-message, skk-error, skk-yes-or-no-p)
+	(skk-y-or-n-p, skk-set-marker):
+	* skk-tut.el (skktut-message, skktut-error, skktut-yes-or-no-p):
+	バッククオート形式に書き直した.
+
+2013-03-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Update.
+
+	* skk-macs.el (skk-put-last-henkan-datum): どこからも参照されて
+	いないので、いったん削除.
+
+2013-03-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.1.50.
+
+	* skk-vars.el (skk-version-codename-ja): New variable.
+
+	* skk-version.el (skk-version): Use it.
+
+	* doc/skk.texi: Update.
+
 2013-03-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Version 15.1 Umeda Released.
