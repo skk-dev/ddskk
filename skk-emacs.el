@@ -135,7 +135,7 @@
 			 #'skk-emacs-circulate-modes)
 		       map)
 	  'help-echo
-	  "mouse-1: モード切替(循環), mouse-3: SKK メニュー"
+	  "mouse-1: モード切替(循環)\nmouse-3: SKK メニュー"
 	  'mouse-face
 	  'highlight)))
 
