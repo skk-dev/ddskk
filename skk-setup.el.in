@@ -4,9 +4,9 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-setup.el.in,v 1.36 2011/12/14 22:32:48 skk-cvs Exp $
+;; Version: $Id: skk-setup.el.in,v 1.37 2014/11/29 18:01:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/12/14 22:32:48 $
+;; Last Modified: $Date: 2014/11/29 18:01:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -60,6 +60,15 @@
 
 (add-hook 'isearch-mode-hook #'skk-isearch-setup-maybe)
 (add-hook 'isearch-mode-end-hook #'skk-isearch-cleanup-maybe)
+
+;;; Preload setting.
+(add-hook 'after-init-hook
+	  (lambda ()
+	    (when (and (symbol-value 'init-file-user)
+		       skk-preload)
+	      (skk-preload)
+	      (message "SKK preload...done")))
+	  t)
 
 (provide 'skk-setup)
 

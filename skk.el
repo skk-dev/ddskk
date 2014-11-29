@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.637 2014/10/18 05:32:10 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.638 2014/11/29 18:01:12 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2014/10/18 05:32:10 $
+;; Last Modified: $Date: 2014/11/29 18:01:12 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -5456,14 +5456,6 @@ skk の動作と整合させる。
 (skk-wrap-newline-command org-insert-heading)
 
 ;; hooks.
-
-;;;###autoload
-(add-hook 'after-init-hook
-	  (lambda ()
-	    (when (and (symbol-value 'init-file-user)
-		       skk-preload)
-	      (skk-preload)))
-	  t)
 
 (add-hook 'kill-buffer-hook
 	  ;; SKK の▼モードだったら、確定してからバッファをキルする。

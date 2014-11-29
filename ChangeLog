@@ -1,3 +1,8 @@
+2014-11-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el, skk-setup.el.in: add-hook 'after-init-hook skk-preload()
+	を skk.el (skk-autoloads.el) から skk-setup.el へ移動.
+
 2014-11-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-pkg.el: Add new file.
