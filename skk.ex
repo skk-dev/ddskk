@@ -1,3 +1,4 @@
+.git
 RCS
 CVS
 not_used

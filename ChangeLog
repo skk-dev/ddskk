@@ -1,3 +1,7 @@
+2014-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.ex: .git を追加.
+
 2014-12-01  Takenari Shinohara <takenari.shinohara@gmail.com>
 
 	* cdb.el: ヘッダ行などファイルの体裁を整備.
