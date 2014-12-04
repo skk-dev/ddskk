@@ -1,23 +1,23 @@
 2014-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.ex: .git $B$rDI2C(B.
+	* skk.ex: .git を追加.
 
 2014-12-01  Takenari Shinohara <takenari.shinohara@gmail.com>
 
-	* cdb.el: $B%X%C%@9T$J$I%U%!%$%k$NBN:[$r@0Hw(B.
+	* cdb.el: ヘッダ行などファイルの体裁を整備.
 
 2014-11-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-emacs-modeline-property):
-	$B%a%C%;!<%8$K2~9TJ8;z$rA^F~(B.
+	メッセージに改行文字を挿入.
 
 	* skk.el, skk-setup.el.in: add-hook 'after-init-hook skk-preload()
-	$B$r(B skk.el (skk-autoloads.el) $B$+$i(B skk-setup.el $B$X0\F0(B.
+	を skk.el (skk-autoloads.el) から skk-setup.el へ移動.
 
 2014-11-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-pkg.el: Add new file.
 
 ;; Local Variables:
-;; coding: iso-2022-jp
+;; coding: utf-8
 ;; End:
