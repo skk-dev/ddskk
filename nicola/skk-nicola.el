@@ -112,59 +112,58 @@
   :group 'skk-nicola)
 
 (defcustom skk-nicola-set-henkan-point-chars
-  (cond ((memq skk-kanagaki-keyboard-type
-	       '(nicola-dvorak
-		 omelet-dvorak))
-	 '(?u ?h))
-	(t
-	 '(?f ?j)))
+  (cond ((memq skk-kanagaki-keyboard-type '(nicola-dvorak omelet-dvorak))
+         '(?u ?h))
+        ((memq skk-kanagaki-keyboard-type '(nicola-colemak omelet-colemak))
+         '(?t ?n))
+        (t
+         '(?f ?j)))
   "*$BJQ493+;O0LCV$b$7$/$OAw$j3+;O0LCV$N;XDj$r$9$kJ8;z!#(B
 $B$3$l$i$NJ8;z$KEv$?$k%-!<$NF1;~BG80$r8!=P$9$k$H!"(B $B<B9T$5$l$k!#(B"
   :type '(repeat character)
   :group 'skk-nicola)
 
 (defcustom skk-nicola-toggle-kana-chars
-  (cond ((memq skk-kanagaki-keyboard-type
-	       '(nicola-dvorak
-		 omelet-dvorak))
-	 '(?e ?t))
-	(t
-	 '(?d ?k)))
+  (cond ((memq skk-kanagaki-keyboard-type '(nicola-dvorak omelet-dvorak))
+         '(?e ?t))
+        ((memq skk-kanagaki-keyboard-type '(nicola-colemak omelet-colemak))
+         '(?s ?e))
+        (t
+         '(?d ?k)))
   "*$B%+%JJQ49$^$?$O(B $B%+%J(B $B"N(B $B$+$J(B $B@Z$jBX$($r$9$kJ8;z!#(B
 $B$3$l$i$NJ8;z$KEv$?$k%-!<$NF1;~BG80$r8!=P$9$k$H!"(B $B<B9T$5$l$k!#(B"
   :type '(repeat character)
   :group 'skk-nicola)
 
 (defcustom skk-nicola-use-koyubi-functions
-  (cond ((eq skk-kanagaki-keyboard-type
-	     'oasys)
-	 t)
-	(t
-	 nil))
+  (cond ((eq skk-kanagaki-keyboard-type 'oasys)
+         t)
+        (t
+         nil))
   "*Non-nil $B$J$i(B OASYS $BIw$N(B BS $B%-!<$H<h$j>C$7%-!<$rMQ0U$9$k!#(B
 $B$3$l$O!"(BJIS $B%-!<%\!<%I$G$O(B \":\" $B$H(B \"]\" $B$N0LCV$KAjEv$9$k!#(B"
   :type 'boolean
   :group 'skk-nicola)
 
 (defcustom skk-nicola-prefix-suffix-abbrev-chars
-  (cond ((memq skk-kanagaki-keyboard-type
-	       '(nicola-dvorak
-		 omelet-dvorak))
-	 '(?i ?d))
-	(t
-	 '(?g ?h)))
+  (cond ((memq skk-kanagaki-keyboard-type '(nicola-dvorak omelet-dvorak))
+         '(?i ?d))
+        ((memq skk-kanagaki-keyboard-type '(nicola-colemak omelet-colemak))
+         '(?d ?h))
+        (t
+         '(?g ?h)))
   "*$B@\F,!&@\Hx8lF~NO$r$7$?$j!"(B abbrev $B%b!<%I$KF~$kJ8;z!#(B
 $B$3$l$i$NJ8;z$KEv$?$k%-!<$NF1;~BG80$r8!=P$9$k$H!"(B $B<B9T$5$l$k!#(B"
   :type '(repeat character)
   :group 'skk-nicola)
 
 (defcustom skk-nicola-prefix-suffix-chars
-  (cond ((memq skk-kanagaki-keyboard-type
-	       '(nicola-dvorak
-		 omelet-dvorak))
-	 '(?o ?n))
-	(t
-	 '(?s ?l)))
+  (cond ((memq skk-kanagaki-keyboard-type '(nicola-dvorak omelet-dvorak))
+         '(?o ?n))
+        ((memq skk-kanagaki-keyboard-type '(nicola-colemak omelet-colemak))
+         '(?r ?i))
+        (t
+         '(?s ?l)))
   "*$B@\F,!&@\Hx8lF~NO$r$9$k!#(B
 $B$3$l$i$NJ8;z$KEv$?$k%-!<$NF1;~BG80$r8!=P$9$k$H!"(B $B<B9T$5$l$k!#(B
 abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;H$&!#(B"
@@ -172,12 +171,12 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
   :group 'skk-nicola)
 
 (defcustom skk-nicola-abbrev-chars
-  (cond ((memq skk-kanagaki-keyboard-type
-	       '(nicola-dvorak
-		 omelet-dvorak))
-	 '(?i ?d))
-	(t
-	 '(?g ?h)))
+  (cond ((memq skk-kanagaki-keyboard-type '(nicola-dvorak omelet-dvorak))
+         '(?i ?d))
+        ((memq skk-kanagaki-keyboard-type '(nicola-colemak omelet-colemak))
+         '(?d ?h))
+        (t
+         '(?g ?h)))
   "abbrev $B%b!<%I$KF~$kJ8;z!#(B
 $B$3$l$i$NJ8;z$KEv$?$k%-!<$NF1;~BG80$r8!=P$9$k$H!"(B $B<B9T$5$l$k!#(B
 $B@\F,!&@\Hx8lF~NO$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;H$&!#(B"

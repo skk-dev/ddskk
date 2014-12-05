@@ -1,3 +1,12 @@
+2014-12-05  Yuichi Higashi  <aaa707b@gmail.com>
+
+	* skk-nicola.el (skk-nicola-set-henkan-point-chars,
+	skk-nicola-toggle-kana-chars,
+	skk-nicola-prefix-suffix-abbrev-chars,
+	skk-nicola-prefix-suffix-chars,
+	skk-nicola-abbrev-chars): Set these chars depend on
+	skk-kanagaki-keyboard-type
+
 2014-03-31  Yuichi Higashi  <aaa707b@gmail.com>
 
 	* NICOLA-DDSKK-ELS, skk-nicola-colemak.el, skk-omelet-colemak.el: Add
