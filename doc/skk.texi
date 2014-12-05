@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 15.2
-@set UPDATED $Date: 2014/11/23 19:45:33 $
+@set UPDATED $Date: 2014/12/05 08:51:33 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9993,7 +9993,7 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 
 @defvr {ユーザ変数} skk-kanagaki-keyboard-type
 
-この変数で、かな入力サポートの種類を切換えます。
+この変数で、かな入力サポートの種類を切換えます。適切なシンボルを設定してください。
 
 @table @samp
 @item 106-jis
@@ -10013,6 +10013,12 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 (setq skk-kanagaki-keyboard-type 'nicola-jis)
 @end lisp
 
+@item nicola-us
+
+@item nicola-dvorak
+
+@item nicola-colemak
+
 @item omelet-jis
 
 @code{nicola-jis} と同様ですが、より入力しやすい配列が考慮されています。
@@ -10020,6 +10026,15 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的
 @lisp
 (setq skk-kanagaki-keyboard-type 'omelet-jis)
 @end lisp
+
+@item omelet-us
+
+@item omelet-dvorak
+
+@item omelet-colemak
+
+@item oasys
+
 @end table
 
 @end defvr

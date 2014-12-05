@@ -1,3 +1,9 @@
+2014-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-kanagaki-keyboard-type): Add follow symbols.
+	nicola-us, nicola-dvorak, nicola-colemak, omelet-us,
+	omelet-dvorak, omelet-colemak and oasys.
+
 2014-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.ex: .git を追加.
