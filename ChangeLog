@@ -6,6 +6,10 @@
 
 2014-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk.el: MELPA 対策のため、featurep で確認してから
+	require skk-autoloads するよう変更.
+	Thanks to Yuhei Maeda.
+
 	* skk.ex: .git を追加.
 
 2014-12-01  Takenari Shinohara <takenari.shinohara@gmail.com>

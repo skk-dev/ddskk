@@ -5,9 +5,9 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk.el,v 1.638 2014/11/29 18:01:12 skk-cvs Exp $
+;; Version: $Id: skk.el,v 1.639 2014/12/05 17:41:05 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2014/11/29 18:01:12 $
+;; Last Modified: $Date: 2014/12/05 17:41:05 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -78,7 +78,20 @@
 
 (eval-and-compile
   ;; SKK common.
-  (require 'skk-autoloads)
+
+  ;; skk の起動時、skk-autoloads は 2 種類のうちどちらかである。
+  ;;                | make でインストール     | MELPA 経由でインストール
+  ;;   provide 宣言 | あり (SKK-MK が生成)    | なし
+  ;;
+  ;; 単なる require だと MELPA 版 で Required feature skk-autoloads was
+  ;;   not provided となってしまうため featurep で確認してから [featurep は
+  ;;   ファイル内に provide 宣言がなければ nil を返す] require している。
+  ;;   
+  ;; leim-list.el と skk-setup.el にも単なる require 'skk-autoloads が存在する
+  ;;   が、MELPA 経由でインストールした DDSKK は両 el を使用しないため影響ない。
+  (when (featurep 'skk-autoloads)
+    (require 'skk-autoloads))
+
   (require 'skk-vars)
   (require 'skk-macs)
   ;; SKK version dependent.
