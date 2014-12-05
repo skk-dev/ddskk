@@ -1,3 +1,10 @@
+2014-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kanagaki.el (skk-kanagaki-keyboard-type): Add keyboard type
+	nicola-colemak and omelet-colemak.
+
+	* README.ja: Update.
+
 2014-12-05  Yuichi Higashi  <aaa707b@gmail.com>
 
 	* skk-nicola.el (skk-nicola-set-henkan-point-chars,
