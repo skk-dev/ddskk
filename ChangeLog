@@ -1,3 +1,7 @@
+2014-12-01  Takenari Shinohara <takenari.shinohara@gmail.com>
+
+	* skk-pkg.el: Add requirements (cdb package).
+
 2014-12-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el, skk-pkg.el:
