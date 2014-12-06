@@ -1,4 +1,13 @@
-2014-12-01  Takenari Shinohara <takenari.shinohara@gmail.com>
+2014-12-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-annotation-browser-function): Remove variable.
+	(skk-annotation-browse-key): Fix docstring.
+
+	* skk-annotation.el (skk-annotation-wait-for-input): Use function browse-url.
+
+	* doc/skk.texi: Update.
+
+2014-12-06  Takenari Shinohara <takenari.shinohara@gmail.com>
 
 	* skk-pkg.el: Add requirements (cdb package).
 
