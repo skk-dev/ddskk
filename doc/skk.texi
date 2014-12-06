@@ -29,8 +29,8 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set SKK-VERSION 15.2
-@set UPDATED $Date: 2014/12/05 08:51:33 $
+@set SKK-VERSION 16.0.50
+@set UPDATED $Date: 2014/12/06 00:29:51 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -441,19 +441,19 @@ Apple OS X 環境の方は @url{http://openlab.jp/skk/skk/main/READMEs/README.M
 @print{}Loading /home/USER/temp/ddskk-@value{SKK-VERSION}/SKK-CFG...
 
 @print{}Running in:
-@print{}  GNU Emacs 24.3.50.4 (i686-pc-linux-gnu, GTK+ Version 2.20.1) @dots{}
+@print{}  GNU Emacs 25.0.50.10 (x86_64-unknown-linux-gnu, GTK+ Version 3.10.9) @dots{}
 
 @print{}SKK modules:
 @print{}  skk-cursor, skk-viper, @dots{}
-@print{}  -> /usr/local/share/emacs/24.3.50/site-lisp/skk
+@print{}  -> /path/to/emacs/site-lisp/skk
 
 @print{}SKK infos:
 @print{}  skk.info
-@print{}  -> /usr/local/share/info
+@print{}  -> /path/to/share/info
 
 @print{}SKK tutorials:
 @print{}  SKK.tut, SKK.tut.E, NICOLA-SKK.tut, skk.xpm
-@print{}  -> /usr/local/share/skk
+@print{}  -> /path/to/share/skk
 @end group
 @end example
 
@@ -1006,7 +1006,7 @@ Window System 下で対応する Emacs を使用している場合。
 
 @example
 -------------------- Echo Area --------------------
-Daredevil SKK/15.2 (Oshamambe)
+Daredevil SKK/16.0.50 (Futamata)
 -------------------- Echo Area --------------------
 @end example
 
@@ -10521,7 +10521,7 @@ SKK 本体は以下から入手できます。
 @node Q2-3 SKK サーバはどこにありますか?
 @unnumberedsubsec Q2-3 SKK サーバはどこにありますか?
 
-DDSKK 15 は辞書サーバの種類、バージョンには依存していません。
+DDSKK は辞書サーバの種類、バージョンには依存していません。
 
 @display
 @url{http://openlab.jp/skk/skkserv-ja.html}
