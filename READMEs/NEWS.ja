@@ -1,3 +1,20 @@
+* 16.1
+
+** インストール
+
+MELPA を利用した package.el によるインストールが可能となりました。
+Thanks to Yuhei Maeda and Takenari Shinohara.
+
+** 変数 skk-annotation-browser-function を廃止
+
+アノテーションを eww で表示するには、次のように設定してください。
+
+ (setq browse-url-browser-function 'eww-browse-url)
+
+** NICOLA
+
+Add keyboard type nicola-colemak and omelet-colemak.
+
 * 15.2
 
 ** インストール
@@ -62,6 +79,8 @@ emack trunk (24.3.50) でインストールが中断されてしまう。
 変数 skk-annotation-browser-function にシンボル 'eww-browse-url を指定す
 ることで、アノテーションを eww で表示することが可能です。
 もちろん、従前どおりシンボル 'browse-url も可能です。
+
+!! skk-annotation-browser-function は DDSKK 16.1 で廃止しました !!
 
 ** cdb 形式辞書の取り扱い
 
