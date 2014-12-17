@@ -9795,7 +9795,7 @@ SKK $B%b!<%I$r(B @code{Org-mode} $B$K$*$$$F;HMQ$7$?>l9g$O!"0J2<$N$h$&$JLdBjE@
 @item
 org-mode $B$NI=Cf$G(B Enter $B%-!<$r2!2<$7$?$H$-$NF0:n$,Js9p$5$l$F$$$^$9(B (@url{http://mail.ring.gr.jp/skk/201401/msg00001.html})$B!#(B
 
-$BBP=hJ}K!$O(B @file{dot.skk} $B$K5-:\$7$F$"$j$^$9$9!#(B
+$BBP=hJ}K!$O(B @file{dot.skk} $B$K5-:\$7$F$"$j$^$9!#(B
 
 @end enumerate
 
