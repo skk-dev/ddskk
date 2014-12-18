@@ -58,10 +58,9 @@ clean:
 	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 tar: clean
+	$(RM) ../ddskk-11.{1,2,3} ../ddskk-$(VERSION) ../ddskk-snapshot ../ddskk$(VERSION).tar.gz ../ddskk$(VERSION).tar.bz2 ../ddskk-$(VERSION).tar.gz ../ddskk-$(VERSION).tar.bz2 ;\
+	ln -sf `pwd`  ../ddskk-$(VERSION) ;\
 	cd .. ;\
-	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot ddskk$(VERSION).tar.gz ddskk$(VERSION).tar.bz2 ddskk-$(VERSION).tar.gz ddskk-$(VERSION).tar.bz2 ;\
-	$(RM) ddskk-$(VERSION) ;\
-	ln -sf main ddskk-$(VERSION) ;\
 	$(TAR) -cvpf ddskk-$(VERSION).tar --exclude-from=ddskk-$(VERSION)/skk.ex --dereference ddskk-$(VERSION) ;\
 	$(BZIP2) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.bz2 ;\
 	$(GZIP) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.gz ;\
