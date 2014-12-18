@@ -19,6 +19,7 @@ SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = gtar
 XEMACS	  = xemacs
 RUBY      = ruby
+PWD       = pwd
 SKK_DEFAULT_JISYO =
 set_jisyo =
 
@@ -59,7 +60,7 @@ clean:
 
 tar: clean
 	$(RM) ../ddskk-11.{1,2,3} ../ddskk-$(VERSION) ../ddskk-snapshot ../ddskk$(VERSION).tar.gz ../ddskk$(VERSION).tar.bz2 ../ddskk-$(VERSION).tar.gz ../ddskk-$(VERSION).tar.bz2 ;\
-	ln -sf `pwd`  ../ddskk-$(VERSION) ;\
+	ln -sf `$(PWD)`  ../ddskk-$(VERSION) ;\
 	cd .. ;\
 	$(TAR) -cvpf ddskk-$(VERSION).tar --exclude-from=ddskk-$(VERSION)/skk.ex --dereference ddskk-$(VERSION) ;\
 	$(BZIP2) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.bz2 ;\
@@ -70,10 +71,10 @@ tar: clean
 	$(MD5) ddskk-$(VERSION).tar.gz >ddskk-$(VERSION).tar.gz.md5
 
 snapshot: clean
+	$(RM) ../ddskk-11.{1,2,3} ../ddskk-$(VERSION) ../ddskk-snapshot $(SNAPBASE).tar.gz ../$(SNAPBASE).tar.bz2 ;\
+	$(RM) ../$(SNAPBASE) ;\
+	ln -sf `$(PWD)` ../$(SNAPBASE) ;\
 	cd .. ;\
-	$(RM) ddskk-11.{1,2,3} ddskk-$(VERSION) ddskk-snapshot $(SNAPBASE).tar.gz $(SNAPBASE).tar.bz2 ;\
-	$(RM) $(SNAPBASE) ;\
-	ln -sf main $(SNAPBASE) ;\
 	$(TAR) -cvpf $(SNAPBASE).tar --exclude-from=$(SNAPBASE)/skk.ex --dereference $(SNAPBASE);\
 	$(GZIP) -cf $(SNAPBASE).tar > $(SNAPBASE).tar.gz ;\
 	$(RM) $(SNAPBASE).tar ;\
