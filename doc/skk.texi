@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.0.50
-@set UPDATED $Date: 2014/12/06 22:18:45 $
+@set UPDATED $Date: 2014/12/19 04:49:55 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -426,6 +426,7 @@ Apple OS X 環境の方は @url{http://openlab.jp/skk/skk/main/READMEs/README.M
 * GNU Emacs へのインストール::
 * XEmacs へのインストール::
 * 対話的なインストール::
+* MELPA によるインストール::
 @end menu
 
 @node GNU Emacs へのインストール
@@ -549,7 +550,11 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
 レクトリ」を指定してください。
 
 @example
+@group
+------ Minibuffer -------
 Dired (directory): ~/temp/ddskk-@value{SKK-VERSION} @key{RET}
+------ Minibuffer -------
+@end group
 @end example
 
 次に、表示されたディレクトリ一覧の @file{SKK-MK} にカーソルをあわせ
@@ -558,9 +563,11 @@ Dired (directory): ~/temp/ddskk-@value{SKK-VERSION} @key{RET}
 
 @example
 @group
+------ Dired -------
 -rw-r--r-- 1 user user  99999 2011-00-00 00:00 SKK-CFG
 -rw-r--r-- 1 user user  99999 2011-00-00 00:00@point{}SKK-MK    @kbd{L}
 drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
+------ Dired -------
 @end group
 @end example
 
@@ -569,6 +576,64 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 以降、インストーラが表示する質問に答えながら DDSKK のインストールを進めて
 ください。なお、パーミッションは一切考慮していませんので、インストール先
 は書き込み権限を有するディレクトリを指定してください。
+
+@node MELPA によるインストール
+@subsection MELPA によるインストール
+
+2014年12月、MELPA@footnote{Milkypostman's Emacs Lisp Package Archive. http://melpa.org/}
+に DDSKK が登録されたことにより GNU Emacs でも @file{package.el} によるインストールが
+可能となりました。
+
+まずは、MELPA を利用するために次のとおり設定します。
+
+@lisp
+@group
+(when (require 'package nil t)
+    (add-to-list 'package-archives
+                 '("melpa" . "http://melpa.org/packages/") t))
+  (package-initialize)
+@end group
+@end lisp
+
+つぎに、MELPA を利用して DDSKK をインストールします。
+@kbd{M-x list-packages @key{RET}} とタイプすると Package Menu モードが表
+示されます。
+
+@example
+@group
+-------------------- Package Menu mode --------------------
+  Package            Version      Status Archive Description
+  skewer-reload-s... 20140121.544 new    melpa   live-edit CSS stylesheets.
+@point{} skk                20141206.316 new    melpa   Simple Kana to Kanji conversion @dots{}
+  skype              20131001.... new    melpa   skype UI for emacs users..
+-------------------- Package Menu mode --------------------
+@end group
+@end example
+
+skk の行にカーソルを置いて @kbd{i} @kbd{x} とタイプすると、ミニバッファに
+てパッケージをインストールするか問われます。
+
+@example
+@group
+------ Minibuffer -------
+Install package `skk-20999999.999'? (yes or no)
+------ Minibuffer -------
+@end group
+@end example
+
+@kbd{y e s @key{RET}} と答えると、インストールが始まります。
+
+MELPA を利用してインストールした場合、DDSKK の実行時
+に @file{leim-list.el} と @file{skk-setup.el} が存在ないた
+め、@file{~/.emacs} にてキーバインドを定義する必要があります。
+
+@lisp
+@group
+  (global-set-key (kbd "C-x C-j") 'skk-mode)
+@end group
+@end lisp
+
+辞書などの諸設定は @file{~/.skk} で定義してください。
 
 @node 辞書について
 @section 辞書について

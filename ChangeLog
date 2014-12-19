@@ -1,3 +1,17 @@
+2014-12-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Add description about install by MELPA.
+
+2014-12-18  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+
+	* Makefile: modify make snapshot, correct make tar.
+
+2014-12-17  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+
+	* makeit.bat, make1.bat: new mail address.
+
+	* doc/skk.texi: correct typo
+
 2014-12-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-annotation-browser-function): Remove variable.

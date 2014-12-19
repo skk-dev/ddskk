@@ -5,6 +5,28 @@
 MELPA を利用した package.el によるインストールが可能となりました。
 Thanks to Yuhei Maeda and Takenari Shinohara.
 
+*** MELPA の設定
+
+  (when (require 'package nil t)
+    (add-to-list 'package-archives
+                 '("melpa" . "http://melpa.org/packages/") t))
+  (package-initialize)
+
+*** DDSKK のインストール
+
+  M-x list-packages RET 
+
+  skk の行ににカーソルを置いて i x yes
+
+*** DDSKK の設定
+
+  MELPA でインストールした場合、DDSKK の実行時に leim-list.el と skk-setup.el が
+  存在しないため、~/.emacs にてキーバインドを定義する必要があります。
+
+    (global-set-key (kbd "C-x C-j") 'skk-mode)
+
+  辞書などの諸設定は ~/.skk で定義してください。
+
 ** 変数 skk-annotation-browser-function を廃止
 
 アノテーションを eww で表示するには、次のように設定してください。
