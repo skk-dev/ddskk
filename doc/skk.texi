@@ -2,6 +2,9 @@
 @setfilename skk.info
 @settitle SKK Manual
 @documentlanguage ja
+@iftex
+@usedvipdfmx
+@end iftex
 @paragraphindent 1
 @c メモ
 @c 1 makeinfo でコンパイルすることもできます。一瞬で終わり、リンク切れを含む
@@ -30,7 +33,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.0.50
-@set UPDATED $Date: 2014/12/19 22:03:48 $
+@set UPDATED $Date: 2014/12/20 03:41:15 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -8470,15 +8473,12 @@ UNICODE (U+00nn), または [RET] (文字一覧): @point{}
 @key{RET} キーを入力します。するとミニバッファに以下のような表示が現れま
 す。
 
-@c 次の例で、W, R, Y の文字は、順にユニコードの codepoint で ff0d, 2295, 2194 
-@c だと思われる。現状ではこのファイルを utf-8 で保存できず、また emacs-23 では
-@c これらが白抜きの枠 (いわゆる豆腐) で表示される。しかし上述のものに置き換えると、
-@c 今度は iso-2022-jp で保存できない。しばらくはこのファイルは utf-8 よりも
-@c iso-2022-jp のほうが良いだろう。 (2010 年 2 月)
+@c 次の例示中では空欄となっているが、実行時は W: は U+ff0d (－),
+@c R: は U+2295 (⊕), Y: は U+2194 (↔) である。
 @example
 @group
 ---------------------------- Minibuffer -----------------------------
-A:　  S:￣  D:〜  F:｝  G:＝  H:¢  Q:◆  W:－  E:∩  R:⊕  T:≡  Y:↔
+A:　  S:￣  D:〜  F:｝  G:＝  H:¢  Q:◆  W:　  E:∩  R:　  T:≡  Y:　
 ---------------------------- Minibuffer -----------------------------
 @end group
 @end example

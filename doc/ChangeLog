@@ -1,0 +1,17 @@
+2014-12-20  Yuhei Maeda  <yuhei.maeda@gmail.com>
+
+	* skk.texi: Fix.
+
+2014-12-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Fix indent, Insert iftex, Remove Unicode chars.
+
+	* txi-ja.tex, makepdf.bat: New file.
+
+2014-12-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Add description about install by MELPA.
+
+;; Local Variables:
+;; coding: utf-8
+;; End:

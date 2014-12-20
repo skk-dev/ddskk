@@ -1,15 +1,3 @@
-2014-12-20  Yuhei Maeda  <yuhei.maeda@gmail.com>
-
-	* doc/skk.texi: Fix.
-
-2014-12-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
-
-	* doc/skk.texi: Fix indent, and more.
-
-2014-12-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
-
-	* doc/skk.texi: Add description about install by MELPA.
-
 2014-12-18  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
 	* Makefile: modify make snapshot, correct make tar.
