@@ -30,7 +30,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.0.50
-@set UPDATED $Date: 2014/12/19 04:49:55 $
+@set UPDATED $Date: 2014/12/19 22:03:48 $
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -579,19 +579,22 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 
 @node MELPA $B$K$h$k%$%s%9%H!<%k(B
 @subsection MELPA $B$K$h$k%$%s%9%H!<%k(B
+@cindex MELPA
+@cindex @file{package.el}
+@vindex package-archives
 
-2014$BG/(B12$B7n!"(BMELPA@footnote{Milkypostman's Emacs Lisp Package Archive. http://melpa.org/}
+2014$BG/(B12$B7n!"(BMELPA@footnote{Milkypostman's Emacs Lisp Package Archive. @url{http://melpa.org/}}
 $B$K(B DDSKK $B$,EPO?$5$l$?$3$H$K$h$j(B GNU Emacs $B$G$b(B @file{package.el} $B$K$h$k%$%s%9%H!<%k$,(B
 $B2DG=$H$J$j$^$7$?!#(B
 
-$B$^$:$O!"(BMELPA $B$rMxMQ$9$k$?$a$K<!$N$H$*$j@_Dj$7$^$9!#(B
+$B$^$:$O!"(BMELPA $B$rMxMQ$9$k$?$a$K(B @file{~/.emacs} $B$K$F<!$N$H$*$j@_Dj$7$^$9!#(B
 
 @lisp
 @group
 (when (require 'package nil t)
     (add-to-list 'package-archives
                  '("melpa" . "http://melpa.org/packages/") t))
-  (package-initialize)
+(package-initialize)
 @end group
 @end lisp
 
@@ -604,7 +607,7 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 -------------------- Package Menu mode --------------------
   Package            Version      Status Archive Description
   skewer-reload-s... 20140121.544 new    melpa   live-edit CSS stylesheets.
-@point{} skk                20141206.316 new    melpa   Simple Kana to Kanji conversion @dots{}
+@point{} skk                20141206.316 new    melpa   Simple Kana to Kanji conv@dots{}
   skype              20131001.... new    melpa   skype UI for emacs users..
 -------------------- Package Menu mode --------------------
 @end group
@@ -616,7 +619,7 @@ skk $B$N9T$K%+!<%=%k$rCV$$$F(B @kbd{i} @kbd{x} $B$H%?%$%W$9$k$H!"%_%K%P%C%U%!
 @example
 @group
 ------ Minibuffer -------
-Install package `skk-20999999.999'? (yes or no)
+Install package `skk-20141206.1418'? (yes or no)
 ------ Minibuffer -------
 @end group
 @end example
@@ -627,15 +630,14 @@ MELPA $B$rMxMQ$7$F%$%s%9%H!<%k$7$?>l9g!"(BDDSKK $B$N<B9T;~(B
 $B$K(B @file{leim-list.el} $B$H(B @file{skk-setup.el} $B$,B8:_$J$$$?(B
 $B$a!"(B@file{~/.emacs} $B$K$F%-!<%P%$%s%I$rDj5A$9$kI,MW$,$"$j$^$9!#(B
 
-$B$^$?!"%j%]%8%H%j$K4^$^$l$k(B@file{doc}$B$d(B@file{etc}$BEy$N%G%#%l%/%H%j$OA4$F(B
-$B%$%s%9%H!<%k$5$l$^$;$s!#%$%s%9%H!<%k$5$l$k%U%!%$%k$O(BMELPA$B$KEPO?$5$l$k(B
-recipe$B$K5-=R$5$l$^$9!#>\$7$/$O(B @url{https://github.com/milkypostman/melpa/blob/master/recipes/skk}
+$B$^$?!"%j%]%8%H%j$K4^$^$l$k(B @file{doc} $B$d(B @file{etc} $BEy$N%G%#%l%/%H%j$OA4$F(B
+$B%$%s%9%H!<%k$5$l$^$;$s!#%$%s%9%H!<%k$5$l$k%U%!%$%k$O(B MELPA $B$KEPO?$5$l$k(B
+recipe $B$K5-=R$5$l$^$9!#>\$7$/$O(B @url{https://github.com/milkypostman/melpa/blob/master/recipes/skk}
 $B$r;2>H$7$F$/$@$5$$!#(B
-
 
 @lisp
 @group
-  (global-set-key (kbd "C-x C-j") 'skk-mode)
+(global-set-key (kbd "C-x C-j") 'skk-mode)
 @end group
 @end lisp
 

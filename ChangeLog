@@ -1,3 +1,11 @@
+2014-12-20  Yuhei Maeda  <yuhei.maeda@gmail.com>
+
+	* doc/skk.texi: Fix.
+
+2014-12-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi: Fix indent, and more.
+
 2014-12-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Add description about install by MELPA.
