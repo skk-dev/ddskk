@@ -26,6 +26,10 @@ set_jisyo =
 elc:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile
 
+.PHONY: test
+test:
+	$(EMACS) -batch -Q -L . -L test -l test/all-tests.el -f ert-run-tests-batch-and-exit
+
 package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-compile-package
 
