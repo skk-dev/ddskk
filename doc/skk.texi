@@ -627,6 +627,12 @@ MELPA を利用してインストールした場合、DDSKK の実行時
 に @file{leim-list.el} と @file{skk-setup.el} が存在ないた
 め、@file{~/.emacs} にてキーバインドを定義する必要があります。
 
+また、リポジトリに含まれる@file{doc}や@file{etc}等のディレクトリは全て
+インストールされません。インストールされるファイルはMELPAに登録される
+recipeに記述されます。詳しくは @url{https://github.com/milkypostman/melpa/blob/master/recipes/skk}
+を参照してください。
+
+
 @lisp
 @group
   (global-set-key (kbd "C-x C-j") 'skk-mode)
