@@ -2417,9 +2417,6 @@ XEmacs の拡張機能を利用するプログラムを集めたファイル。
 インジケータのカラー化や画像表示、ツールティップ利用など。
 @end table
 
-なお、Elib より @file{queue-m.el} ファイルを収録しています。
-@cindex @file{queue-m.el}
-
 @node ユーザオプションの設定方法
 @section ユーザオプションの設定方法
 
