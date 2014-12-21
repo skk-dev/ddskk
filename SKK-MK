@@ -215,7 +215,6 @@ This version of SKK requires MULE features"))
   ;; こんなもんコマンドラインで指定する人いないよね？
   (let ((list '(cdb
 		context-skk
-		queue-m
 		skk-abbrev
 		skk-act
 		skk-annotation

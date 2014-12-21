@@ -69,9 +69,6 @@
 (eval-when-compile
   (require 'cl))
 
-;; Elib 1.0 is required.
-(require 'queue-m)
-
 ;; Emacs standard library.
 (require 'advice)
 (require 'easymenu)
@@ -4170,11 +4167,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 	  nil nil nil))
    (t
     (save-match-data
-      (let ((stage 1)
-	    (q1 (queue-create))
-	    (q2 (queue-create))
-	    (q3 (queue-create))
-	    (q4 (queue-create))
+      (let ((stage 1) q1 q2 q3 q4
 	    (okuri-key (concat "\[" okurigana))
 	    item
 	    headchar)
@@ -4194,27 +4187,27 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 			okuri-key))
 	    (if (string= item okuri-key)
 		(progn
-		  (queue-enqueue q2 item)
+		  (setq q2 (cons item q2))
 		  (setq stage 3))
 	      (setq stage 2)
-	      (queue-enqueue q2 item)))
+	      (setq q2 (cons item q2))))
 	   ((= stage 1)
-	    (queue-enqueue q1 item))
+	    (setq q1 (cons item q1)))
 	   ((= stage 2)
-	    (queue-enqueue q2 item))
+            (setq q2 (cons item q2)))
 	   ((= stage 3)
 	    (if (eq headchar ?\]) ; ?\]
 		(progn
 		  (setq stage 4)
-		  (queue-enqueue q4 item))
-	      (queue-enqueue q3 item)))
+                  (setq q4 (cons item q4)))
+	      (setq q3 (cons item q3))))
 	   ((= stage 4)
-	    (queue-enqueue q4 item))))
+            (setq q4 (cons item q4)))))
 	;;
-	(list (queue-all q1)       ; words1
-	      (queue-all q2)       ; words2
-	      (queue-all q3)       ; words3
-	      (queue-all q4))))))) ; words4
+	(list (nreverse q1)       ; words1
+	      (nreverse q2)       ; words2
+	      (nreverse q3)       ; words3
+	      (nreverse q4))))))) ; words4
 
 (defun skk-compute-henkan-lists-sub-adjust-okuri (item &optional okuri-key)
   ;; Yet to be elucidated.
