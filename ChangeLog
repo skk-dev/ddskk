@@ -2,6 +2,8 @@
 
 	* SKK-MK, doc/skk.texi, queue-m.el, skk.el: Use list instead of
 	queue-m.
+	* test/all-test.el, test/skk-test.el, Makefile: Add ERT tests.
+	* .travis.yml: Add new file.
 
 2014-12-18  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
