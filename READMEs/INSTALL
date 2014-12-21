@@ -47,7 +47,7 @@ If you do not have SKK dictionaries, get one or more from
 
     http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
 
-You should get at least one of "$B4pK\<-=q(B" (i.e. basic dictionaries).
+You should get at least one of "基本辞書" (i.e. basic dictionaries).
 If unsure, we recommend SKK-JISYO.L.  All other dictionaries are
 optional.
 
@@ -160,5 +160,6 @@ etc/dot.emacs and etc/dot.skk, which are included in this distribution.
 
 
 Local variables:
+coding: utf-8
 mode: outline
 end:

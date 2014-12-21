@@ -1,35 +1,35 @@
 * 16.1
 
-** $B%$%s%9%H!<%k(B
+** インストール
 
-MELPA $B$rMxMQ$7$?(B package.el $B$K$h$k%$%s%9%H!<%k$,2DG=$H$J$j$^$7$?!#(B
+MELPA を利用した package.el によるインストールが可能となりました。
 Thanks to Yuhei Maeda and Takenari Shinohara.
 
-*** MELPA $B$N@_Dj(B
+*** MELPA の設定
 
   (when (require 'package nil t)
     (add-to-list 'package-archives
                  '("melpa" . "http://melpa.org/packages/") t))
   (package-initialize)
 
-*** DDSKK $B$N%$%s%9%H!<%k(B
+*** DDSKK のインストール
 
   M-x list-packages RET 
 
-  skk $B$N9T$K$K%+!<%=%k$rCV$$$F(B i x yes
+  skk の行ににカーソルを置いて i x yes
 
-*** DDSKK $B$N@_Dj(B
+*** DDSKK の設定
 
-  MELPA $B$G%$%s%9%H!<%k$7$?>l9g!"(BDDSKK $B$N<B9T;~$K(B leim-list.el $B$H(B skk-setup.el $B$,(B
-  $BB8:_$7$J$$$?$a!"(B~/.emacs $B$K$F%-!<%P%$%s%I$rDj5A$9$kI,MW$,$"$j$^$9!#(B
+  MELPA でインストールした場合、DDSKK の実行時に leim-list.el と skk-setup.el が
+  存在しないため、~/.emacs にてキーバインドを定義する必要があります。
 
     (global-set-key (kbd "C-x C-j") 'skk-mode)
 
-  $B<-=q$J$I$N=t@_Dj$O(B ~/.skk $B$GDj5A$7$F$/$@$5$$!#(B
+  辞書などの諸設定は ~/.skk で定義してください。
 
-** $BJQ?t(B skk-annotation-browser-function $B$rGQ;_(B
+** 変数 skk-annotation-browser-function を廃止
 
-$B%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$K$O!"<!$N$h$&$K@_Dj$7$F$/$@$5$$!#(B
+アノテーションを eww で表示するには、次のように設定してください。
 
  (setq browse-url-browser-function 'eww-browse-url)
 
@@ -39,29 +39,29 @@ Add keyboard type nicola-colemak and omelet-colemak.
 
 * 15.2
 
-** $B%$%s%9%H!<%k(B
+** インストール
 
-make what-where $B$N<B9T;~$K(B Emacs $B$N%P!<%8%g%s$rI=<($9$k$h$&$K$7$^$7$?!#(B
+make what-where の実行時に Emacs のバージョンを表示するようにしました。
 
-** GNU Emacs 25 $BBP1~$r?J$a$^$7$?(B
+** GNU Emacs 25 対応を進めました
 
-*** tooltip-set-param() $B$NMxMQGQ;_(B
-tooltip-set-param() $B$,(B obsolute $B$5$l$?$?$a!"(Bskk-put-alist() $B$r;HMQ$9$k$h(B
-$B$&$KJQ99$7$^$7$?!#(B
+*** tooltip-set-param() の利用廃止
+tooltip-set-param() が obsolute されたため、skk-put-alist() を使用するよ
+うに変更しました。
 
-** GNU Emacs 24 $BBP1~$r?J$a$^$7$?(B
+** GNU Emacs 24 対応を進めました
 
-*** coding tag $B$NL@<((B
+*** coding tag の明示
 
 2013-06-11 international/mule-conf.el (file-coding-system-alist): Use utf-8
 as default for Elisp files.
-DDSKK-15.1 $B$K$O(B coding tag $B$rL@<($7$F$$$J$$%U%!%$%k$,;D$C$F$$$?$?$a(B
-emack trunk (24.3.50) $B$G%$%s%9%H!<%k$,CfCG$5$l$F$7$^$&!#(B
-$B$9$Y$F$N%U%!%$%k$K(B coding tag $B$rL@<($7$^$7$?!#(B
+DDSKK-15.1 には coding tag を明示していないファイルが残っていたため
+emack trunk (24.3.50) でインストールが中断されてしまう。
+すべてのファイルに coding tag を明示しました。
 
-*** NTEmacs 24.4 $B8~$1$ND4@0(B
+*** NTEmacs 24.4 向けの調整
 
-$B%G%#%l%/%H%j9=@.JQ99$KBP1~$7$^$7$?!#(B
+ディレクトリ構成変更に対応しました。
 
 - Changes in Emacs 24.4 on Non-Free Operating Systems
   - The procedure for building Emacs on MS-Windows has changed.
@@ -92,913 +92,913 @@ emack trunk (24.3.50) $B$G%$%s%9%H!<%k$,CfCG$5$l$F$7$^$&!#(B
             /man
       /var
 
-*** isearch-other-control-char $B5Z$S(B isearch-other-meta-char $B$NGQ;_(B
+*** isearch-other-control-char 及び isearch-other-meta-char の廃止
 
-$B$3$l$i4X?t$O(B GNU Emacs 24.3 $B$^$G(B (GNU Emacs 24.4 $B$+$i$OGQ;_$5$l$F$$$k(B)
+これら関数は GNU Emacs 24.3 まで (GNU Emacs 24.4 からは廃止されている)
 
-*** $B%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$K(B
+*** アノテーションを eww で表示することが可能に
 
-$BJQ?t(B skk-annotation-browser-function $B$K%7%s%\%k(B 'eww-browse-url $B$r;XDj$9(B
-$B$k$3$H$G!"%"%N%F!<%7%g%s$r(B eww $B$GI=<($9$k$3$H$,2DG=$G$9!#(B
-$B$b$A$m$s!"=>A0$I$*$j%7%s%\%k(B 'browse-url $B$b2DG=$G$9!#(B
+変数 skk-annotation-browser-function にシンボル 'eww-browse-url を指定す
+ることで、アノテーションを eww で表示することが可能です。
+もちろん、従前どおりシンボル 'browse-url も可能です。
 
-!! skk-annotation-browser-function $B$O(B DDSKK 16.1 $B$GGQ;_$7$^$7$?(B !!
+!! skk-annotation-browser-function は DDSKK 16.1 で廃止しました !!
 
-** cdb $B7A<0<-=q$N<h$j07$$(B
+** cdb 形式辞書の取り扱い
 
-*** skk2cdb.py $B$r(B main/etc/ $B$+$i(B tools/ $B$X0\$7$^$7$?!#(B
+*** skk2cdb.py を main/etc/ から tools/ へ移しました。
 
-*** $B%?!<%2%C%H(B cdb $B$r(B main/Makefile $B$+$i(B dic/Makefile $B$X0\$7$^$7$?!#(B
+*** ターゲット cdb を main/Makefile から dic/Makefile へ移しました。
 
-** $BAu>~(B
+** 装飾
 
-*** $B8uJd%P%C%U%!(B
+*** 候補バッファ
 
-$B?7$?$K(B skk-candidate-buffer-background-color-odd $B$rDj5A$7$^$7$?!#(B
+新たに skk-candidate-buffer-background-color-odd を定義しました。
 
-$B?7$?$K(B skk-candidate-buffer-display-fringes $B$rDj5A$7$^$7$?!#(B
+新たに skk-candidate-buffer-display-fringes を定義しました。
 
-*** $B%$%s%i%$%s(B
+*** インライン
 
-$B?7$?$K(B skk-inline-show-background-color-odd $B$rDj5A$7$^$7$?!#(B
+新たに skk-inline-show-background-color-odd を定義しました。
 
-** $BF0:n(B
+** 動作
 
-*** $BH>3Q?t;z(B(ASCII) $BKt$OA43Q?t;z(B(JISX0208)$B$ND>8e$N6gFIE@(B
+*** 半角数字(ASCII) 又は全角数字(JISX0208)の直後の句読点
 
-$BJQ?t(B skk-use-auto-kutouten $B$r(B non-nil $B$H@_Dj$9$k$H!"%]%$%s%HD>A0$NJ8;z<o(B
-$B$K1~$8$F6gFIE@$rF0E*$KJQ99$7$^$9!#(B
+変数 skk-use-auto-kutouten を non-nil と設定すると、ポイント直前の文字種
+に応じて句読点を動的に変更します。
 
-  $B$+$J%b!<%I(B ASCII JISX0208
-    $BD92;(B($B!<(B)   -     `$B!](B'
-    $B6gE@(B($B!#(B)   .     `$B!%(B'
-    $BFIE@(B($B!"(B)   ,     `$B!$(B'
+  かなモード ASCII JISX0208
+    長音(ー)   -     `−'
+    句点(。)   .     `．'
+    読点(、)   ,     `，'
 
-*** `$' $B%?%$%W;~$NF0:n(B
+*** `$' タイプ時の動作
 
-$B=>A0!"(B`$' $B$r%?%$%W$9$k$H!"4X?t(B skk-display-code-for-char-at-point $B$r<B9T(B
-$B$7$^$7$?$,!"JQ?t(B skk-display-code-method $B$r(B nil $B$H@_Dj$9$k$H!"%?%$%W$5$l(B
-$B$?J8;z$r%P%C%U%!$KA^F~$7$^$9!#(B
+従前、`$' をタイプすると、関数 skk-display-code-for-char-at-point を実行
+しましたが、変数 skk-display-code-method を nil と設定すると、タイプされ
+た文字をバッファに挿入します。
 
-*** $B%j!<%8%g%s$r3g8L$G0O$`(B
-$B?7$?$JJQ?t(B skk-use-auto-enclose-pair-of-region $B$rDj5A$7$^$7$?!#(B
+*** リージョンを括弧で囲む
+新たな変数 skk-use-auto-enclose-pair-of-region を定義しました。
 
-** skk-version() $B$NF|K\8lI=<((B
+** skk-version() の日本語表示
 
-$B?7$?$JJQ?t(B skk-version-codename-ja $B$rDI2C$7$^$7$?!#$3$l$,(B non-nil $B$G$"$l(B
-$B$O!"(Bskk-version() $B$rI>2A$7$?$H$-$N%3!<%I%M!<%`$rF|K\8l$GI=<($7$^$9!#(B
+新たな変数 skk-version-codename-ja を追加しました。これが non-nil であれ
+は、skk-version() を評価したときのコードネームを日本語で表示します。
 
-** Ruby 1.9 $BBP1~(B
+** Ruby 1.9 対応
 
-bayesian/bskk $B$N(B Ruby 1.9 $BBP1~$r?J$a$^$7$?!#(B
+bayesian/bskk の Ruby 1.9 対応を進めました。
 
 ** show-mode
 
-*** skk-dcomp.el $B0MB8$NGQ;_(B
+*** skk-dcomp.el 依存の廃止
 
-$B$3$l$^$G(B skk-dcomp-multiple-show() $B$r;HMQ$7$F$$$?$,!"=`MQ$9$k7A$G(B
-skk-show-mode-inline-1() $B$r<BAu$7$?!#(B
+これまで skk-dcomp-multiple-show() を使用していたが、準用する形で
+skk-show-mode-inline-1() を実装した。
 
-*** $BGX7J?'$N@_Dj(B
+*** 背景色の設定
 
-$B?7$?$K(B skk-show-mode-inline-face $B$rDj5A$7$^$7$?!#(B
+新たに skk-show-mode-inline-face を定義しました。
 
 ** NICOLA
 
-$B?7$?$J%-!<%P%$%s%I$rDj5A$7$^$7$?!#(B
-$B>\:Y$O(B ML (NICOLA-DDSKK $B$N@\F,8l@\Hx8l$H(Babbrev-mode)
-http://mail.ring.gr.jp/skk/201403/msg00000.html $B$r;2>H$N$3$H!#(B
+新たなキーバインドを定義しました。
+詳細は ML (NICOLA-DDSKK の接頭語接尾語とabbrev-mode)
+http://mail.ring.gr.jp/skk/201403/msg00000.html を参照のこと。
 
-** Colemak $BG[Ns(B
+** Colemak 配列
 
-nicola-colemak $B$rDI2C$7$^$7$?!#(B
+nicola-colemak を追加しました。
 
-** $B$=$NB>%P%0=$@5$J$I(B
+** その他バグ修正など
 
-*** XEmacs $B$K$*$1$k(B modeline
+*** XEmacs における modeline
 
-GNU Emacs 24.3 $B$+$i%U%'%$%9(B modeline $B$,GQ;_$5$l$?$?$a(B DDSKK 15.1 $B$G(B
-$B$O(B mode-line $B$XE}0l$7$?$H$3$m!#$7$+$7(B XEmacs $B$O(B modeline $B$N$^$^$G$"(B
-$B$k$3$H$+$i!"$3$l$i$NBP:v$H$7$F(B $B%^%/%m(B skk-facep $B$rF3F~$7$?!#(B
+GNU Emacs 24.3 からフェイス modeline が廃止されたため DDSKK 15.1 で
+は mode-line へ統一したところ。しかし XEmacs は modeline のままであ
+ることから、これらの対策として マクロ skk-facep を導入した。
 
-*** mode-line-format $B$r(B nil $B$H$7$?>l9g$NBP:v(B
+*** mode-line-format を nil とした場合の対策
 
-*** $B%A%e!<%H%j%"%k<B9TCf$K(B skk-show-mode $B$,5/F0$7$F$7$^$&$3$H$rKI$$$@(B
+*** チュートリアル実行中に skk-show-mode が起動してしまうことを防いだ
 
-*** minibuffer $B$K$*$1$k$+$J4A;zJQ49$NBP:v(B
+*** minibuffer におけるかな漢字変換の対策
 
-$B$3$l$^$G$N(B DDSKK $B$O(B minibuffer $B$G$b(B skk-dcomp-multiple-show() $B$7$h$&$H$7$F(B
-$B%(%i!<$,@8$8$F$$$?$?$a!"$3$NBP:v$r9T$$$^$7$?!#(B
+これまでの DDSKK は minibuffer でも skk-dcomp-multiple-show() しようとして
+エラーが生じていたため、この対策を行いました。
 
 * 15.1
 
-** GNU Emacs 21 $B$N%5%]!<%H$r=*N;$7$^$7$?(B
+** GNU Emacs 21 のサポートを終了しました
 
-GNU Emacs 21 $B$r$*;H$$$NJ}$O(B DDSKK 14.4 $B$rMxMQ$7$F$/$@$5$$!#(B
+GNU Emacs 21 をお使いの方は DDSKK 14.4 を利用してください。
 
-*** skk-sit-for() $B$rGQ;_$7$^$7$?!#(B
+*** skk-sit-for() を廃止しました。
 
-** GNU Emacs 24 $BBP1~$r?J$a$^$7$?(B
+** GNU Emacs 24 対応を進めました
 
-*** M-x customize-theme $B$KBP1~$9$k$h$&(B ccc.el $B$r=$@5$7$^$7$?!#(B[skk 7667]
+*** M-x customize-theme に対応するよう ccc.el を修正しました。[skk 7667]
 
-*** $B%^%/%m(B skk-set-deactivate-im-func $B$rDI2C(B
+*** マクロ skk-set-deactivate-im-func を追加
 
-inactivate-current-input-method-function $B$,(B
-deactivate-current-input-method-function $B$XJQ99$5$l$?$3$H$KH<$&(B wrap $B%^%/%m(B
+inactivate-current-input-method-function が
+deactivate-current-input-method-function へ変更されたことに伴う wrap マクロ
 
-*** $B%^%/%m(B skk-deactivate-input-method $B$rDI2C(B
+*** マクロ skk-deactivate-input-method を追加
 
-inactivate-input-method $B$,(B
-deactivate-input-method $B$XJQ99$5$l$?$3$H$KH<$&(B wrap $B%^%/%m(B
+inactivate-input-method が
+deactivate-input-method へ変更されたことに伴う wrap マクロ
 
-*** isearch-cmds $B$N;EMMJQ99$KBP1~(B [skk 7688]
+*** isearch-cmds の仕様変更に対応 [skk 7688]
 
-*** face $BL>(B 'modeline $B$+$i(B 'mode-line $B$XJQ99(B [skk 7681]
+*** face 名 'modeline から 'mode-line へ変更 [skk 7681]
 
-*** tooltip-use-echo-area $B$N;HMQ$r$d$a$^$7$?!#(B[skk 7669]
+*** tooltip-use-echo-area の使用をやめました。[skk 7669]
 
-** multi-tty $BBP1~$r?J$a$^$7$?(B
+** multi-tty 対応を進めました
 
-multi-tty $B$KBP1~$9$k$h$&(B ccc.el $B$r=$@5$7$^$7$?!#(B[skk 7641]
+multi-tty に対応するよう ccc.el を修正しました。[skk 7641]
 
-** $ $B%?%$%W;~$N5sF0(B
+** $ タイプ時の挙動
 
-`$' $B$N%?%$%W$G5/F0$9$k(B skk-display-code-for-char-at-point $B$K$D$$$F!"(B
-jisx0213, jisx0208, ascii $B0J30$NJ8;z=89g$G$"$l$P!VH=JL$G$-$J$$J8;z$G$9!W$H(B
-$BI=<($7$F$$$?$H$3$m!"(Bskk-char-charset() $B$GF@$?J8;z=89g$rI=<($9$k$h$&$K$7$^(B
-$B$7$?!#(B
+`$' のタイプで起動する skk-display-code-for-char-at-point について、
+jisx0213, jisx0208, ascii 以外の文字集合であれば「判別できない文字です」と
+表示していたところ、skk-char-charset() で得た文字集合を表示するようにしま
+した。
 
-** $B%?%$%W(B #8 ($B7e6h@Z$j(B) $B$rDI2C$7$^$7$?!#(B
+** タイプ #8 (桁区切り) を追加しました。
 
-$B<-=q%(%s%H%j!<$K(B `#8' $B$,$"$l$P!"!V(BQ 1 2 3 4 5 6 7 <SPC>$B!W$NA`:n$G(B
-$B8uJd!V"'(B1,234,567$B!W$,I=<($5$l$^$9!#(B
+辞書エントリーに `#8' があれば、「Q 1 2 3 4 5 6 7 <SPC>」の操作で
+候補「▼1,234,567」が表示されます。
 
 *** skk-num.el
 
-$B4X?t(B add-number-grouping() $B$H4X?t(B skk-num-grouping() $B$rDI2C$7$^$7$?!#(B
+関数 add-number-grouping() と関数 skk-num-grouping() を追加しました。
 
 *** skk-vars.el
 
-$B6h@Z$k5-9f$r(B $BJQ?t(B skk-num-grouping-separator $B$G!"2?7eKh$K6h@Z$k$+$r(B
-$BJQ?t(B skk-num-grouping-places $B$G;XDj$7$^$9!#(B
+区切る記号を 変数 skk-num-grouping-separator で、何桁毎に区切るかを
+変数 skk-num-grouping-places で指定します。
 
-** $B?7$?$JF|IUJQ49$rDI2C$7$^$7$?!#(B
+** 新たな日付変換を追加しました。
 
-$B?7$?$J4X?t(B skk-relative-date() $B$rDI2C$7$^$7$?!#(Bskk-current-date() $B$N5!G=(B
-$B3HD%HG$G$9!#(Bskk-gadget.el $B$N%3%a%s%H$r;29M$K<-=q%(%s%H%j$rDI2C$9$k$3$H$K(B
-$B$h$C$F!"8+=P$78l!V"&$-$N$&!W$d!V"&$"$5$C$F!W$J$I$+$i6qBNE*$JF|IU$r5a$a$k(B
-$B$3$H$,$G$-$^$9!#(B
+新たな関数 skk-relative-date() を追加しました。skk-current-date() の機能
+拡張版です。skk-gadget.el のコメントを参考に辞書エントリを追加することに
+よって、見出し語「▽きのう」や「▽あさって」などから具体的な日付を求める
+ことができます。
 
-** $B$=$NB>%P%0=$@5$J$I(B
+** その他バグ修正など
 
-*** ccc.el $B$N%P%0=$@5(B (M-x load-theme $BBP1~(B) [skk 7683]
+*** ccc.el のバグ修正 (M-x load-theme 対応) [skk 7683]
 
-*** context-skk.el $B$N%P%0=$@5(B [skk 7655] 
+*** context-skk.el のバグ修正 [skk 7655] 
 
-*** undo $B$N5sF0$r=$@5(B [skk 7661]
+*** undo の挙動を修正 [skk 7661]
 
-*** $BGQ;_$5$l$?JQ?t(B skk-emacs-type $B$NE1GQ(B [skk 7638]
+*** 廃止された変数 skk-emacs-type の撤廃 [skk 7638]
 
 *** experimental/skk-search-web.el
 
-json $B%l%9%]%s%9$+$i(B xml $B%l%9%]%s%9$r;HMQ$9$k$h$&$KJQ99(B.
+json レスポンスから xml レスポンスを使用するように変更.
 
 * 14.4
 
-** skk-isearch $B@_Dj$NC1=c2=(B
+** skk-isearch 設定の単純化
 
-skk-isearch $B$rM-8z$K$9$k$?$a$N@_DjJ}K!$N8+D>$7$r9T$$$^$7$?!#6qBNE*$K$O(B
-skk-isearch-mode-enable $B$NCM$,(B always $B$J$i>o$K(B skk-isearch $B$,M-8z$K$J(B
-$B$j!"$=$l0J30$N(B non-nil $B$J$i$P(B SKK $B$,(B ON $B$N%P%C%U%!$G$N$_(B skk-isearch
-$B$,M-8z$K$J$j$^$9!#(B
+skk-isearch を有効にするための設定方法の見直しを行いました。具体的には
+skk-isearch-mode-enable の値が always なら常に skk-isearch が有効にな
+り、それ以外の non-nil ならば SKK が ON のバッファでのみ skk-isearch
+が有効になります。
 
-$B=>Mh$N$h$&$K!"%f!<%6$,D>@\(B isearch-mode-hook, isearch-mode-end-hook $B$r(B
-$B@_Dj$9$k$3$H$b2DG=$G$9$,!"$3$NJ}K!$O:#8e$O%f!<%6$K>R2p$5$l$^$;$s!#(B
+従来のように、ユーザが直接 isearch-mode-hook, isearch-mode-end-hook を
+設定することも可能ですが、この方法は今後はユーザに紹介されません。
 
-** $B%a%K%e!<$NDI2C(B
+** メニューの追加
 
-$B%$%s%8%1!<%?Kt$O(B SKK $B%"%$%3%s$r:8%/%j%C%/(B (mouse-3) $B$9$k$HI=<($5$l$k%a%K(B
-$B%e!<$K!V4A;z$rIt<s$+$iD4$Y$k!W!"!VJ8;z%3!<%II=!W!"!VNN0h$^$?$O%]%$%s%H$N(B
-$B8l6g$rD4$Y$k!W!"!V(BSKK $B;~7W!W$rDI2C$7$^$7$?!#(B
+インジケータ又は SKK アイコンを左クリック (mouse-3) すると表示されるメニ
+ューに「漢字を部首から調べる」、「文字コード表」、「領域またはポイントの
+語句を調べる」、「SKK 時計」を追加しました。
 
-** $B%+!<%=%kIU6a$KF~NO%b!<%I$rI=<($9$k(B
+** カーソル付近に入力モードを表示する
 
-$B$+$J%b!<%I!"%+%J%b!<%I!"A41Q%b!<%I!"%"%9%-!<%b!<%I$r@Z$jBX$($?$H$-$K(B
-$B%+!<%=%kIU6a$K(B skk-{hiragana,katakana,jisx0208-latin,latin}-mode-string
-$B$rI=<($9$k$3$H$,$G$-$^$9!#(B
-~/.skk $B$K$F(B (setq skk-show-mode-show t) $B$H@_Dj$7$F$/$@$5$$!#(B
+かなモード、カナモード、全英モード、アスキーモードを切り替えたときに
+カーソル付近に skk-{hiragana,katakana,jisx0208-latin,latin}-mode-string
+を表示することができます。
+~/.skk にて (setq skk-show-mode-show t) と設定してください。
 
 *** skk-show-mode-style
 
-$B%+!<%=%kIU6a$X$NI=<(J}K!$r!"%7%s%\%k(B 'inline $B$^$?$O(B $B%7%s%\%k(B 'tooltip
-$B$GA*Br$7$^$9!#I8=`$O(B 'inline $B$G$9!#(B
+カーソル付近への表示方法を、シンボル 'inline または シンボル 'tooltip
+で選択します。標準は 'inline です。
 
 *** M-x skk-show-mode
 
-$BJQ?t(B skk-show-mode-show $B$r%H%0%k@Z$jBX$($7$^$9!#(B
+変数 skk-show-mode-show をトグル切り替えします。
 
-** Apple OS X $B$G(B DictionaryServices $B$+$i$N%"%N%F!<%7%g%s<hF@(B
+** Apple OS X で DictionaryServices からのアノテーション取得
 
-Apple OS X $B$N<-=q%"%W%j(B (Dictionary.app) $B$G$OI8=`$G9q8l<-E5$J$IMxMQ$G$-$^$9!#(B
-$B$3$N$&$AM%@h=g0L$N9b$$<-=q$+$i%"%N%F!<%7%g%s$r<hF@$9$k5!G=$,MxMQ$G$-$^(B
-$B$9!#8=>u$G$O<-=q$N8!:w=g$O(B Dictionary.app $B$N4D6-@_Dj$G@_Dj$9$kI,MW$,$"(B
-$B$j$^$9!#(B
+Apple OS X の辞書アプリ (Dictionary.app) では標準で国語辞典など利用できます。
+このうち優先順位の高い辞書からアノテーションを取得する機能が利用できま
+す。現状では辞書の検索順は Dictionary.app の環境設定で設定する必要があ
+ります。
 
-$B$3$N5!G=$rMxMQ$9$k>l9g$O0J2<$NJQ?t$r@_Dj$7$F$/$@$5$$!#(B
+この機能を利用する場合は以下の変数を設定してください。
 
 *** skk-annotation-lookup-DictionaryServices
 
-non-nil $B$K@_Dj$9$k$H%P%C%/%0%i%s%I$G(B python $B$r<B9T$7!"<-=q$K%"%/%;%9$7(B
-$B$^$9!#(Bpython $B$N=i2s5/F0;~$K;~4V$,$+$+$j$^$9$,!"0J2<$NJQ?t$rF1;~$K@_Dj(B
-$B$9$k$3$H$G2sHr$G$-$^$9!#(B
+non-nil に設定するとバックグランドで python を実行し、辞書にアクセスし
+ます。python の初回起動時に時間がかかりますが、以下の変数を同時に設定
+することで回避できます。
 
 *** skk-preload
 
-non-nil $B$K@_Dj$9$k$H(B skk.el, SKK $B<-=q$H$H$b$KI,MW$J>l9g$O(B python $B$N(B
-DictionaryServices $B$r(B Emacs $B5/F0;~$KFI$_$3$`$3$H$,$G$-$^$9!#(B
-skk-preload $B$N@_Dj$O(B ~/.skk $B$G$O$J$/(B ~/.emacs (~/.emacs.d/init.el) $B$G(B
-$B9T$$$^$9!#(B
+non-nil に設定すると skk.el, SKK 辞書とともに必要な場合は python の
+DictionaryServices を Emacs 起動時に読みこむことができます。
+skk-preload の設定は ~/.skk ではなく ~/.emacs (~/.emacs.d/init.el) で
+行います。
 
-$B$5$i$K0J2<$NNc$h$&$J@_Dj$r$9$k$H!"(BSKK $B$H$O4X78$J$/>o;~<-=q0z$-%3%^%s%I(B
-$B$H$7$FMxMQ$G$-$^$9!#(B
+さらに以下の例ような設定をすると、SKK とは関係なく常時辞書引きコマンド
+として利用できます。
 
 *** (global-set-key "\M-i" 'skk-annotation-lookup-region-or-at-point)
 
-M-i $B$H$$$&%-!<$O0lNc$K$9$.$^$;$s!#NN0h$rA*Br$7$F%?%$%W$9$k$H<-=q$,;2>H(B
-$B$G$-$^$9!#B?$/$N1QC18l$K$D$$$F$ONN0h$rA*Br$;$:$KC18l$,H=JL$5$l$^$9!#(B
+M-i というキーは一例にすぎません。領域を選択してタイプすると辞書が参照
+できます。多くの英単語については領域を選択せずに単語が判別されます。
 
-*** $BCm0U;v9`(B
+*** 注意事項
 
-$B$3$N5!G=$rMxMQ$9$k$K$O!"(Bpython $B$K(B readline $B$H(B
-pyobject-framework-DictionaryServices $B$,I,MW$G$9!#8e<T$K$D$$$F$O(B OS X
-10.5 (Leopard) $B0J9_$N(B OS $BI8=`$N(B python $B$KI8=`$G%$%s%9%H!<%k$5$l$F$$$^(B
-$B$9!#(Breadline $B$K$D$$$F$O(B OS X 10.7 (Lion) $BI8=`$N(B python $B$G$O%$%s%9%H!<(B
-$B%k$9$kI,MW$,$"$j$^$;$s!#$=$l0J30$N>l9g$O(B
+この機能を利用するには、python に readline と
+pyobject-framework-DictionaryServices が必要です。後者については OS X
+10.5 (Leopard) 以降の OS 標準の python に標準でインストールされていま
+す。readline については OS X 10.7 (Lion) 標準の python ではインストー
+ルする必要がありません。それ以外の場合は
 
 % easy_install readline 
 
-$B$J$I$NJ}K!$G%$%s%9%H!<%k$7$^$9!#(B
+などの方法でインストールします。
 
-** $B30It%3%^%s%I$+$i$N%"%N%F!<%7%g%s<hF@(B
+** 外部コマンドからのアノテーション取得
 
-$B<-=q$KEPO?$5$l$F$$$k%"%N%F!<%7%g%s$h$j$b30It%3%^%s%I$+$i<hF@$7$?%"%N%F!<(B
-$B%7%g%s$rM%@h$7$FI=<($G$-$k$h$&$K$7$^$7$?!#(Bdict $B%/%i%$%"%s%H$J$I$GF|K\(B
-$B8l$N<-=q$rD4$Y$i$l$k$b$N$,$"$l$P(B ($B$"$k$+$I$&$+J,$+$j$^$;$s(B) $B;H$($^$9!#(B
+辞書に登録されているアノテーションよりも外部コマンドから取得したアノテー
+ションを優先して表示できるようにしました。dict クライアントなどで日本
+語の辞書を調べられるものがあれば (あるかどうか分かりません) 使えます。
 
-$BMxMQ$9$k>l9g$O0J2<$NJQ?t$r@_Dj$7$^$9!#(B
+利用する場合は以下の変数を設定します。
 
 *** skk-annotation-lookup-dict
 *** skk-annotation-dict-program
 *** skk-annotation-dict-program-arguments
 *** skk-annotation-dict-coding-system
 
-** EPWING $B<-=q$+$i$N%"%N%F!<%7%g%s<hF@(B
+** EPWING 辞書からのアノテーション取得
 
-$B<-=q8!:w%D!<%k(B Lookup (http://openlab.jp/edict/lookup/) $B$r7PM3$7$F(B
-EPWING $B<-=q$+$i%"%N%F!<%7%g%s$r<hF@$7$^$9!#(B
+辞書検索ツール Lookup (http://openlab.jp/edict/lookup/) を経由して
+EPWING 辞書からアノテーションを取得します。
 
 *** skk-lookup-get-content()
 *** skk-lookup-get-content-nth-dic
 *** skk-annotation-lookup-lookup
 
-** $ $B%?%$%W;~$N5sF0(B
+** $ タイプ時の挙動
 
-`$' $B$N%?%$%W$G5/F0$9$k(B skk-display-code-for-char-at-point $B$K$D$$$F!"(B
-14.1 $B$^$G$O%(%3!<%(%j%"$N$_!"(B14.2 $B$G%D!<%k%F%#%C%WI=<($rF3F~$7$F$$$?$H$3(B
-$B$m!"(B14.3 $B$G$O!VJL%&%#%s%I%&I=<(!W$rF3F~$7$^$7$?!#(B
-$BJQ?t(B skk-show-candidates-always-pop-to-buffer $B$,(B non-nil $B$G$"$l$P!"JL%&%#(B
-$B%s%I%&$KI=<($7$^$9!#(B
+`$' のタイプで起動する skk-display-code-for-char-at-point について、
+14.1 まではエコーエリアのみ、14.2 でツールティップ表示を導入していたとこ
+ろ、14.3 では「別ウィンドウ表示」を導入しました。
+変数 skk-show-candidates-always-pop-to-buffer が non-nil であれば、別ウィ
+ンドウに表示します。
 
 ** skk-azik.el
 
-$B!V;R2;(B + $B%T%j%*%I!W$NAH$_9g$;$N$&$A!"<!$N#4$D$r:o=|$7$?!#(B
-  "b." nil ("$B%V(B" . "$B$V(B")
-  "m." nil ("$B%`(B" . "$B$`(B")
-  "n." nil ("$B%L(B" . "$B$L(B")
-  "z." nil ("$B%:(B" . "$B$:(B")
+「子音 + ピリオド」の組み合せのうち、次の４つを削除した。
+  "b." nil ("ブ" . "ぶ")
+  "m." nil ("ム" . "む")
+  "n." nil ("ヌ" . "ぬ")
+  "z." nil ("ズ" . "ず")
 
-  yuu <sleepboy.zzz@gmail.com> $B$5$s$H!"(B
-  Teika Kazura <teika@lavabit.com> $B$5$s$+$i$NDs0F$G$7$?(B [skk 7485]$B!#(B
+  yuu <sleepboy.zzz@gmail.com> さんと、
+  Teika Kazura <teika@lavabit.com> さんからの提案でした [skk 7485]。
 
-** $BC14A;zJQ49(B
+** 単漢字変換
 
-*** window $B$N>uBV$rJ]B8(B
+*** window の状態を保存
 
-M-x skk-tankan $B<B9T;~$K(B window-configuration $B$rJ]B8$9$k$h$&BP=h$7$^$7$?!#(B
-skk-tankan $B$rH4$1$?(B($B=*N;$7$?(B)$B:]$K$O!"85$N(B window $B>uBV$KLa$j$^$9!#(B
+M-x skk-tankan 実行時に window-configuration を保存するよう対処しました。
+skk-tankan を抜けた(終了した)際には、元の window 状態に戻ります。
 
-*** $BIt<s$rFI$_$GA*Br(B
+*** 部首を読みで選択
 
-DDSKK 14.1 $B$GF3F~$7$?It<sJQ49(B($BIt<s$rHV9f$GA*Br(B)$B$r!"It<s$rFI$_$G$bA*Br(B
-$B$G$-$k$h$&3HD%$7$^$7$?!#(B
+DDSKK 14.1 で導入した部首変換(部首を番号で選択)を、部首を読みでも選択
+できるよう拡張しました。
 
 ** skk-search-web.el
 
-experimental/ $B$K(B skk-search-web.el $B$rDI2C$7$^$7$?!#(B
-$B$+$J4A;zJQ49$N8uJd$r(B
+experimental/ に skk-search-web.el を追加しました。
+かな漢字変換の候補を
   Google CGI API for Japanese Input
           (http://www.google.com/intl/ja/ime/cgiapi.html)
-  Google $B%5%8%'%9%H(B
+  Google サジェスト
           (http://labs.google.com/intl/ja/suggestfaq.html)
-$B$+$iF@$k$3$H$,$G$-$^$9!#(B
+から得ることができます。
 
-** $B$=$NB>%P%0=$@5$J$I(B
+** その他バグ修正など
 
 *** M-x skk-list-chars
 
-skk-list-chars() $B$NFbIt$GJQ?t(B skk-kcode-charset $B$NCM$rJQ99$7$J$$$h$&$K(B
-$B=$@5$7$^$7$?!#(B[skk 7606]
+skk-list-chars() の内部で変数 skk-kcode-charset の値を変更しないように
+修正しました。[skk 7606]
 
 *** skk-server-version()
 
-$B4X?t(B skk-server-version $BFb$N(B skk-error() $B$N0z?t$N=g$,5U$G$"$C$?$N$r=$@5$7(B
-$B$?!#(B
+関数 skk-server-version 内の skk-error() の引数の順が逆であったのを修正し
+た。
 
-*** NTEmacs $B4XO"(B
+*** NTEmacs 関連
 
-$B%U%l!<%`$r:GBg2=$K$7$?(B NTEmacs $B$G(B Tooltip $B$rI=<($7$?>l9g$N%(%i!<$rBP=h$7(B
-$B$?!#(B
+フレームを最大化にした NTEmacs で Tooltip を表示した場合のエラーを対処し
+た。
 
 *** SKK-MK-what-where()
 
-$B4X?t(B interactive-p $B$,(B obsolete $B$5$l$?$?$a(B Emacs 23.2 $B$G(B make what-where
-$B$r<B9T$7$F$b2?$bI=<($5$l$^$;$s$G$7$?!#JQ?t(B noninteractive $B$NCM$GH=Dj$9$k(B
-$B$h$&=$@5$7$^$7$?!#(B
+関数 interactive-p が obsolete されたため Emacs 23.2 で make what-where
+を実行しても何も表示されませんでした。変数 noninteractive の値で判定する
+よう修正しました。
 
 * 14.3
 
-** $BBPOCE*%$%s%9%H!<%i$NF3F~(B
+** 対話的インストーラの導入
 
-dired $B$r5/F0$7$F(B SKK-MK $B$K%+!<%=%k$rCV$$$F(B L (dired-do-load) $B$r%?%$%W$7$F(B
-$B$/$@$5$$!#%Q!<%_%C%7%g%s!J=q$-9~$_8"8B!K$5$(5v$;$P(B DDSKK $B$N%$%s%9%H!<%k$r(B
-$BBPOCE*$K?J$a$k$3$H$,$G$-$^$9!#(B
+dired を起動して SKK-MK にカーソルを置いて L (dired-do-load) をタイプして
+ください。パーミッション（書き込み権限）さえ許せば DDSKK のインストールを
+対話的に進めることができます。
 
 ** context-skk
 
-context-skk $B$,I=<($9$k%a%C%;!<%8(B "[context-skk] $BF|K\8lF~NO(B off" $B$r2DJQ2=(B
-$B$7$^$7$?!#JQ?t(B context-skk-mode-off-message $B$r@_Dj$7$F$/$@$5$$!#(B
+context-skk が表示するメッセージ "[context-skk] 日本語入力 off" を可変化
+しました。変数 context-skk-mode-off-message を設定してください。
 
 ** skk-study.el
 
-skk/main/experimental/skk-study.el $B$r(B skk/main/skk-study.el $B$X0\$7$^$7$?!#(B
-$B3X=,%F!<%^BP1~HG$G$9!#$3$N%U%!%$%k(B (NEWS.ja) $B$N!V(B* 12.2.0$B!W$K4JC1$J@bL@(B
-$B$,$"$j$^$9!#(B
-skk-study-file-format-version $B$O(B 0.3 $B$G$9!#(B
+skk/main/experimental/skk-study.el を skk/main/skk-study.el へ移しました。
+学習テーマ対応版です。このファイル (NEWS.ja) の「* 12.2.0」に簡単な説明
+があります。
+skk-study-file-format-version は 0.3 です。
 
-** Emacs 23.2 $B$K$*$1$k(B interactive-p $B;HMQ$NCf;_(B
+** Emacs 23.2 における interactive-p 使用の中止
 
-Emacs 23.2 $B$+$i$O4X?t(B interactive-p $B$,(B obsolete $B$H$J$j(B called-interactively-p
-$B$NMxMQ$,?d>)$5$l$F$$$^$9!#3F<o$N(B Emacs $B$N8_49@-$r?^$k$3$H$rL\E*$K!"?7$?$J%^%/(B
-$B%m(B skk-called-interactively-p $B$rF3F~$7$^$7$?!#(B
+Emacs 23.2 からは関数 interactive-p が obsolete となり called-interactively-p
+の利用が推奨されています。各種の Emacs の互換性を図ることを目的に、新たなマク
+ロ skk-called-interactively-p を導入しました。
 
-** $BITMW%P%C%U%!$N:o=|(B
+** 不要バッファの削除
 
-skk-mode $B$rH4$1$?$H$-$O(B $B8uJd%P%C%U%!$H(B SKK annotation $B%P%C%U%!$r:o=|$9$k$h$&(B
-$BJQ99$7$^$7$?!#(B
+skk-mode を抜けたときは 候補バッファと SKK annotation バッファを削除するよう
+変更しました。
 
-** $B%a%C%;!<%8N`$r%+%9%?%^%$%:2DG=$K(B
+** メッセージ類をカスタマイズ可能に
 
-*** $B=u8@E*%a%C%;!<%8(B
+*** 助言的メッセージ
 
-$B?7$?$J%U%'%$%9(B skk-verbose-intention-face $B$H(B skk-verbose-kbd-face $B$r(B
-$B$*;n$7$/$@$5$$!#(B
+新たなフェイス skk-verbose-intention-face と skk-verbose-kbd-face を
+お試しください。
 
-*** $B"-<-=qEPO?Cf"-(B
+*** ↓辞書登録中↓
 
-$B?7$?$J%U%'%$%9(B skk-jisyo-registration-badge-face $B$r$*;n$7$/$@$5$$!#(B
+新たなフェイス skk-jisyo-registration-badge-face をお試しください。
 
 *** `$' skk-display-code-for-char-at-point
 
-$B?7$?$J%U%'%$%9(B skk-display-code-tankan-radical-face $B$H(B
-skk-display-code-tankan-annotation-face $B$r$*;n$7$/$@$5$$!#(B
+新たなフェイス skk-display-code-tankan-radical-face と
+skk-display-code-tankan-annotation-face をお試しください。
 
-*** skk-list-chars $B4XO"(B
+*** skk-list-chars 関連
 
-$B?7$?$J%U%'%$%9(B skk-list-chars-face $B$H(B skk-list-chars-table-header-face $B$r(B
-$B$*;n$7$/$@$5$$!#(B
+新たなフェイス skk-list-chars-face と skk-list-chars-table-header-face を
+お試しください。
 
-** \ $B%?%$%W$N5sF0$rD4@a(B
+** \ タイプの挙動を調節
 
-$BJQ?t(B skk-kcode-method $B$XE,@Z$J%7%s%\%k$r@_Dj$9$k$3$H$K$h$C$F!"(B
-\ $B$r%?%$%W$7$?$H$-$K(B skk-input-by-code-or-menu $B$r<B9T$9$k$+!"(B
-skk-list-chars $B$r<B9T$9$k$+A*Br$9$k$3$H$,2DG=$G$9!#(B
-$B>\:Y$O(B docstring $B$d(B info $B$r$4Mw$/$@$5$$!#(B
+変数 skk-kcode-method へ適切なシンボルを設定することによって、
+\ をタイプしたときに skk-input-by-code-or-menu を実行するか、
+skk-list-chars を実行するか選択することが可能です。
+詳細は docstring や info をご覧ください。
 
-** $B$=$NB>%P%0=$@5$J$I(B
+** その他バグ修正など
 
-*** $B%A%e!<%H%j%"%k5/F0;~$NIT6q9g$r=$@5(B [skk 7398]
+*** チュートリアル起動時の不具合を修正 [skk 7398]
 
-*** skk-list-chars $B$r=*N;$7$?:]$N2hLLI|5"(B
+*** skk-list-chars を終了した際の画面復帰
 
-$BJQ?t(B skk-list-chars-original-window-configuration $B$K>uBV$rJ];}!#(B
+変数 skk-list-chars-original-window-configuration に状態を保持。
 
 * 14.2
 
-** GNU Emacs 20 $B$N%5%]!<%H$r=*N;$7$^$7$?!#(B
+** GNU Emacs 20 のサポートを終了しました。
 
-GNU Emacs 20 $B$r$*;H$$$NJ}$O(B DDSKK 14.1 $B$rMxMQ$7$F$/$@$5$$!#(B
+GNU Emacs 20 をお使いの方は DDSKK 14.1 を利用してください。
 
-** GNU Emacs 22 $B5Z$S(B GNU Emacs 23 $BMxMQ;~$N(B APEL $B$N8+D>$7(B
+** GNU Emacs 22 及び GNU Emacs 23 利用時の APEL の見直し
 
-$B$3$l$i$N(B Emacsen $B$G(B DDSKK 14.2 $B$r;H$&$H$-$O!"(BAPEL $B$OITMW$G$9!#(B
-$BI,MW$J%3!<%I$,0JA0$h$j>.$5$/$J$C$?$?$a(B skk-macs.el $B$J$I$K4^$a$F$"$j$^$9!#(B
+これらの Emacsen で DDSKK 14.2 を使うときは、APEL は不要です。
+必要なコードが以前より小さくなったため skk-macs.el などに含めてあります。
 
-GNU Emacs 21 $B5Z$S(B XEmacs $B$G$O$3$l$^$G$I$*$j(B APEL  $B$r;vA0$K%$%s%9%H!<%k(B
-$B$7$F$/$@$5$$!#(BAPEL 10.8 $B0J>e$r?d>)$7$^$9!#(B
+GNU Emacs 21 及び XEmacs ではこれまでどおり APEL  を事前にインストール
+してください。APEL 10.8 以上を推奨します。
 
-** $BJ#?t$N<-=q%U%!%$%k$rMQ0U$K<h$j07$&$3$H$,2DG=$H$J$j$^$7$?!#(B
+** 複数の辞書ファイルを用意に取り扱うことが可能となりました。
 
-$BJQ?t(B skk-extra-jisyo-file-list $B$K%U%!%$%kL>$rNs5-$9$k$@$1$G$9!#(B
-$B>\$7$/$O(B etc/dot.skk $B$r$4Mw$/$@$5$$!#(B
+変数 skk-extra-jisyo-file-list にファイル名を列記するだけです。
+詳しくは etc/dot.skk をご覧ください。
 
-** skk-obsolete.el $B$NGQ;_(B
+** skk-obsolete.el の廃止
 
-$B$3$N5!G=$O<g$K(B SKK 10 $B0JA0$+$i(B DDSKK $B$X$N0\9T4|$N%f!<%6;Y1g$,L\E*$G$7(B
-$B$?$,!"$=$NLrL\$r$$$A$*$&=*$($?$H9M$(!"$$$C$?$sGQ;_$H$7$^$7$?!#(B
+この機能は主に SKK 10 以前から DDSKK への移行期のユーザ支援が目的でし
+たが、その役目をいちおう終えたと考え、いったん廃止としました。
 
 ** skk-inline.el
 
-skk.el $B$NCf$K5-=R$5$l$F$$$?%$%s%i%$%sI=<(5!G=$K$D$$$F!"(Bskk-inline.el
-$B$H$7$F$^$H$a$^$7$?!#(B
+skk.el の中に記述されていたインライン表示機能について、skk-inline.el
+としてまとめました。
 
 ** M-x skk-gyakubiki-and-henkan (skk-kakasi.el)
 
-$B?7$?$J%3%^%s%I$G$9!#(B
-$BNN0h$rA*$s$G$+$i(B M-x $B$G<B9T$9$k$H!"NN0h$N4A;z$r$R$i$,$J$KJQ49$7!"(B
-$B$=$N$R$i$,$J$r8+=P$78l$H$7$F$+$J4A;zJQ49$r<B9T$7$^$9!#(B
+新たなコマンドです。
+領域を選んでから M-x で実行すると、領域の漢字をひらがなに変換し、
+そのひらがなを見出し語としてかな漢字変換を実行します。
 
-** $BJ8;z$N%3!<%II=<((B (`$' $B$G5/F0$9$k(B skk-display-code-for-char-at-point)
+** 文字のコード表示 (`$' で起動する skk-display-code-for-char-at-point)
 
-*** $B%D!<%k%F%#%C%WI=<($KBP1~$7$?!#(B
+*** ツールティップ表示に対応した。
 
-skk-show-tooltip $B$,(B non-nil $B$G$"$l$P%D!<%k%F%#%C%WI=<($7$^$9!#(B
+skk-show-tooltip が non-nil であればツールティップ表示します。
 
-*** $BI=<($9$k9`L\$K(B UNICODE $B$rDI2C$7$?!#(B
+*** 表示する項目に UNICODE を追加した。
 
-*** $B%U%'%$%9$rE,MQ$7$F%+%i%U%k$K!#(B
+*** フェイスを適用してカラフルに。
 
-skk-display-code-prompt-face $B$H(B skk-display-code-char-face $B$r?7@_$7$^$7$?!#(B
+skk-display-code-prompt-face と skk-display-code-char-face を新設しました。
 
-** \ $B%?%$%W$N5/F0$r(B skk-input-by-code-or-menu $B$+$i(B skk-list-chars $B$XJQ99(B
+** \ タイプの起動を skk-input-by-code-or-menu から skk-list-chars へ変更
 
-skk-rom-kana-base-rule-list $B$N%G%U%)%k%H$r(B
+skk-rom-kana-base-rule-list のデフォルトを
   ("\\" nil skk-input-by-code-or-menu)
-$B$+$i(B
+から
   ("\\" nil skk-list-chars)
-$B$X$HJQ99$7$^$7$?!#(Bskk-rom-kana-base-rule-list $B$rDj5A$9$k$3$H$G(B
-$B85$N(B skk-input-by-code-or-menu $B$N5/F0$XLa$9$3$H$b2DG=$G$9!#(B
+へと変更しました。skk-rom-kana-base-rule-list を定義することで
+元の skk-input-by-code-or-menu の起動へ戻すことも可能です。
 
-** $BJ8;z%3!<%I$G$NF~NO(B (skk-list-chars)
+** 文字コードでの入力 (skk-list-chars)
 
-skk-input-by-code-or-menu $B$NBeBX$rL\;X$7$?!"FHN)$7$?%a%8%c!<%b!<%I$G$9!#(B
-JIS X 0213 $B$N#2LL$NJ8;z$bF~NO2DG=$G$9!#(B
+skk-input-by-code-or-menu の代替を目指した、独立したメジャーモードです。
+JIS X 0213 の２面の文字も入力可能です。
 
-** $BIt<sJQ49(B $B5Z$S(B $BAm2h?tJQ49$N(B JIS X 0213-[12] $BBP1~(B
+** 部首変換 及び 総画数変換の JIS X 0213-[12] 対応
 
-M-x skk-tankan $B$O(B JIS X 0213-[12] $B$KBP1~$7$^$7$?!#(B
+M-x skk-tankan は JIS X 0213-[12] に対応しました。
 
-** $B8+=P$78l$NJd40(B
+** 見出し語の補完
 
-$B8+=P$78l$rJd40!J"&%b!<%I$G(B TAB$B!K$7$?$H$-!"(BSHIFT + TAB $B$G$R$H$DA0$NJd40(B
-$B8uJd$XLa$k$3$H$,$G$-$^$9!#$3$N5!G=$rL58z$H$9$k$K$O!"(B
-$BJQ?t(B skk-previous-completion-use-backtab $B$r(B nil $B$H$7$F$/$@$5$$!#(B
+見出し語を補完（▽モードで TAB）したとき、SHIFT + TAB でひとつ前の補完
+候補へ戻ることができます。この機能を無効とするには、
+変数 skk-previous-completion-use-backtab を nil としてください。
 
-** Emacs $BIUB0<-=q(B ja-dic $BBP1~(B
+** Emacs 付属辞書 ja-dic 対応
 
-Emacs 22 $B0J>e$K(B (LEIM $B$r%$%s%9%H!<%k$9$l$P(B 21 $B$K$b(B) $B$KBP1~$7$^$9!#$b$H(B
-$B$b$H(B ja-dic $B$O(B SKK-JISYO.L $B$rJQ49$7$F:n$i$l$F$*$j!"Aw$j$J$7!"Aw$j$"$j!"(B
-$B@\F,<-!"@\Hx<-$NJQ49$KBP1~$7$F$$$^$9!#$3$l$rMxMQ$9$k$3$H$G!"(BSKK $B<-=q$N(B
-$B%$%s%9%H!<%k$J$7$G(B SKK $B$,MxMQ2DG=$G$9!#$?$@$71Q?tJQ49!"?tCMJQ49$J$I$K(B
-$B$OBP1~$7$^$;$s!#(B
+Emacs 22 以上に (LEIM をインストールすれば 21 にも) に対応します。もと
+もと ja-dic は SKK-JISYO.L を変換して作られており、送りなし、送りあり、
+接頭辞、接尾辞の変換に対応しています。これを利用することで、SKK 辞書の
+インストールなしで SKK が利用可能です。ただし英数変換、数値変換などに
+は対応しません。
 
-$B$3$N5!G=$O(B skk-large-jisyo, skk-aux-large-jisyo, skk-cdb-large-jisyo,
-skk-server-host $B$,A4$FL58z$H$$$&>r7o$rA4$FK~$?$7$?$H$-$N$_!"<+F0E*$K8F(B
-$B$S=P$5$l$^$9!#(B
+この機能は skk-large-jisyo, skk-aux-large-jisyo, skk-cdb-large-jisyo,
+skk-server-host が全て無効という条件を全て満たしたときのみ、自動的に呼
+び出されます。
 
-** $B8D?M<-=q$rB(;~J]B8(B
+** 個人辞書を即時保存
 
-$B?7$?$JJQ?t(B skk-save-jisyo-instantly $B$r(B non-nil $B$H$7$F$*$/$H!"(B
-$BC18lEPO?!JC18l:o=|!K$N$?$S$K8D?M<-=q$rJ]B8$7$^$9!#(B
+新たな変数 skk-save-jisyo-instantly を non-nil としておくと、
+単語登録（単語削除）のたびに個人辞書を保存します。
 
-** $B$=$NB>%P%0=$@5$J$I(B
+** その他バグ修正など
 
-*** emacsclient -nw $B;~$K$*$1$k%+!<%=%k?'@)8f$N=$@5(B
+*** emacsclient -nw 時におけるカーソル色制御の修正
 
-Emacs 23 $B$G$O(B window-system $BJQ?t$,(B frame local variable $B$H$J$j!"$^$?(B
-emacsclient $B$G(B -nw $B%*%W%7%g%s$,DI2C$5$l$^$7$?!#(Btty $B$J(B frame $B$H(B x $B$J(B frame
-$B$N6&B8$,2DG=$K$J$C$?$?$a%+!<%=%k?'@)8f$,Mp$l$k$3$H$,$"$j$^$7$?$,!"(B
-$B4X?t(B skk-find-window-system $B$K$h$C$F(B windw-system $B$J(B frame $B$r8!=P$9$k(B
-$B$3$H$GBP=h$5$l$^$7$?!#(B
+Emacs 23 では window-system 変数が frame local variable となり、また
+emacsclient で -nw オプションが追加されました。tty な frame と x な frame
+の共存が可能になったためカーソル色制御が乱れることがありましたが、
+関数 skk-find-window-system によって windw-system な frame を検出する
+ことで対処されました。
 
-*** Cocoa Emacs $BMQ$K%$%s%9%H!<%k@h@_Dj(B
+*** Cocoa Emacs 用にインストール先設定
 
-*** $B%D!<%k%F%#%C%W$K$*$1$k2~9T0LCV$N2~A1(B
+*** ツールティップにおける改行位置の改善
 
-*** $B"&%b!<%I$K$*$1$k(B @ $B$N5sF0$r2~A1(B
+*** ▽モードにおける @ の挙動を改善
 
-*** $B%a%K%e!<$K(B skk-restart $B$rDI2C(B
+*** メニューに skk-restart を追加
 
-*** skk-azik $B$NJQ49%F!<%V%k$r=$@5(B
+*** skk-azik の変換テーブルを修正
 
 * 14.1
 
-** $BBP1~$9$k(B Emacs $B$N%P!<%8%g%s(B
+** 対応する Emacs のバージョン
 
-*** Emacs 22.1 $B0J9_!"(BEmacs 23.1, 23.2
+*** Emacs 22.1 以降、Emacs 23.1, 23.2
 
-Emacs 21 $B$G$O=<J,%F%9%H$5$l$F$$$^$;$s!#(BEmacs 23 $B$N$?$a$N%F%9%H$r?J$a$F(B
-$B$$$^$9$,!"$^$@IT40A4$H;W$o$l$^$9!#(B
+Emacs 21 では充分テストされていません。Emacs 23 のためのテストを進めて
+いますが、まだ不完全と思われます。
 
-*** XEmacs 21.4.22 $B0J9_(B, XEmacs 21.5 beta29
+*** XEmacs 21.4.22 以降, XEmacs 21.5 beta29
 
-$B0l1~%5%]!<%HBP>]$H$7$F5s$2$F$*$-$^$9$,!"$[$H$s$I%F%9%H$5$l$F$$$^$;$s!#(B
+一応サポート対象として挙げておきますが、ほとんどテストされていません。
 
-** Emacs 23 $BBP1~$r?J$a$^$7$?!#(B
+** Emacs 23 対応を進めました。
 
-Emacs 23 $B$O(B Unicode $B$KBP1~$7!"$J$*$+$DFbIt%3!<%I$,=>Mh$N(B emacs-mule $B$+(B
-$B$i(B unicode $B%Y!<%9$N$b$N$KJQ99$5$l$^$7$?!#$3$N4X78$G!"=>Mh$N(B SKK $B$K$*$1(B
-$B$kJ8;z$N=xNs$r2>Dj$7$?%3!<%I$J$I$,@5$7$/F0:n$7$J$+$C$?LdBj$,$"$j$^$7$?(B
-$B$,!"=g<!=$@5$r?J$a$F$$$^$9!#(B
+Emacs 23 は Unicode に対応し、なおかつ内部コードが従来の emacs-mule か
+ら unicode ベースのものに変更されました。この関係で、従来の SKK におけ
+る文字の序列を仮定したコードなどが正しく動作しなかった問題がありました
+が、順次修正を進めています。
 
-*** Emacs 23 $B$K$*$1$k(B char-to-string $B$N;HMQK!$N8!F$(B
+*** Emacs 23 における char-to-string の使用法の検討
 
-SKK $B$G$OEAE}E*$K!"%-!<$HJ8;z(B (char) $B$N4XO"$rA0Ds$H$7$F!"%-!<Dj5A$K:]$7(B
-$B$FJ8;z$r(B char-to-string $B$GJQ49$7$FDj5A$9$k<jK!$,;H$o$l$F$$$^$7$?!#$7$+(B
-$B$7!"(BEmacs 23 $B$G$N(B char-to-string $B$N=PNO$O(B Emacs 22 $B$N$=$l$H0[$J$k>l9g(B
-$B$,$"$j$^$9!#$=$3$G!"(Bunibyte $BJ8;zNs$,I,MW$J>l9g$K$OL@<(E*$K(B unibyte $BJ8(B
-$B;zNs$rMW5a$9$k$h$&$K$7!"(Bchar $B$,%-!<Dj5A$r0UL#$9$k>l9g$HJ8;z$=$N$b$N$r(B
-$B0UL#$9$k>l9g$H$r6hJL$7$^$7$?!#(B
+SKK では伝統的に、キーと文字 (char) の関連を前提として、キー定義に際し
+て文字を char-to-string で変換して定義する手法が使われていました。しか
+し、Emacs 23 での char-to-string の出力は Emacs 22 のそれと異なる場合
+があります。そこで、unibyte 文字列が必要な場合には明示的に unibyte 文
+字列を要求するようにし、char がキー定義を意味する場合と文字そのものを
+意味する場合とを区別しました。
 
-*** Emacs 23 $B$N$?$a$N(B  split-char $B$N:F<BAu(B
+*** Emacs 23 のための  split-char の再実装
 
-Emacs 23 $B$G$O(B split-char $B$9$k:]$K!"F|K\8l$NJ8;z$,(B unicode-bmp $B$KB0$9$k(B
-$B$HH=CG$5$l$k>l9g$,$"$j!"(BEmacs 22 $B0JA0$H=PNO$,0[$J$j$^$9!#$3$N$?$a!"(B
-Emacs 22 $B0JA0$N(B split-char $B$HF1Ey$N(B skk-split-char $B4X?t$rMQ0U$7$^$7$?!#(B
+Emacs 23 では split-char する際に、日本語の文字が unicode-bmp に属する
+と判断される場合があり、Emacs 22 以前と出力が異なります。このため、
+Emacs 22 以前の split-char と同等の skk-split-char 関数を用意しました。
 
-*** Emacs 23 $B$K$*$1$k(B last-command-char $B;HMQ$NCf;_(B
+*** Emacs 23 における last-command-char 使用の中止
 
-Emacs 23 $B$G$OJQ?t(B last-command-char $B$,(B obsolete $B$H$J$j!"(B
-last-command-event $B$NMxMQ$,?d>)$5$l$F$$$^$9!#$7$+$7!"(BGNU Emacs $B$H(B
-XEmacs $B$H$N4V$G(B last-command-event $B$K8_49@-$,$J$$$?$a!"(BSKK $BB&$G(B
-workaround $B$7$F$$$^$9!#(B
+Emacs 23 では変数 last-command-char が obsolete となり、
+last-command-event の利用が推奨されています。しかし、GNU Emacs と
+XEmacs との間で last-command-event に互換性がないため、SKK 側で
+workaround しています。
 
-** $B?7$7$/0J2<$N%W%m%0%i%`$,DI2C$5$l$^$7$?!#(B
+** 新しく以下のプログラムが追加されました。
 
 *** cdb.el, skk-cdb.el
 
-CDB $B7A<0$N(B SKK $B<-=q$K(B Emacs $B$+$iD>@\%"%/%;%9$G$-$k$h$&$K$J$j$^$9!#(B
-$B$3$l$rMQ$$$l$P!"(BCDB $BBP1~(B SKK $B%5!<%P$rMQ0U$9$kI,MW$O$"$j$^$;$s!#(B
+CDB 形式の SKK 辞書に Emacs から直接アクセスできるようになります。
+これを用いれば、CDB 対応 SKK サーバを用意する必要はありません。
 
 *** skk-sticky.el
 
-$BDL>o!"BgJ8;z$G;XDj$9$kJQ493+;O$*$h$SAw$j3+;O$N0LCV$rG$0U$N%-!<$G;XDj$G(B
-$B$-$k$h$&$K$9$k3HD%5!G=$G$9!#(B
+通常、大文字で指定する変換開始および送り開始の位置を任意のキーで指定で
+きるようにする拡張機能です。
 
-** $B8D?M<-=q$N!"8uJd$N=g=x$N8GDj$,$G$-$k?75!G=(B
+** 個人辞書の、候補の順序の固定ができる新機能
 
-$B=i4|@_Dj$G$O!"JQ49!"A*Br$5$l$?8uJd$O!"<!2s$NJQ49$G$O:G=i$KI=<($5$l$^$9!#(B
-$B$3$l$KBP$7!"(B $B%f!<%6!<%*%W%7%g%s(B skk-jisyo-fix-order $B$r(B non-nil $B$K$9$k(B
-$B;v$K$h$j!"Kh2sF1$8=g=x$G8uJd$rI=<($5$;$k$3$H$,$G$-$k$h$&$K$J$j$^$7$?!#(B
+初期設定では、変換、選択された候補は、次回の変換では最初に表示されます。
+これに対し、 ユーザーオプション skk-jisyo-fix-order を non-nil にする
+事により、毎回同じ順序で候補を表示させることができるようになりました。
 
-$B$3$l$O!"8D?M<-=q$NF12;8l$N=g=x$rJQ99$7$J$$$3$H$G<B8=$5$l$^$9!#(B
-$B$^$?!"8D?M<-=q$K?75,$KDI2C$5$l$k8l$O!"4{=P8l$N8e$KDI2C$5$l$^$9!#(B
+これは、個人辞書の同音語の順序を変更しないことで実現されます。
+また、個人辞書に新規に追加される語は、既出語の後に追加されます。
 
-** info $B$N=<<B(B
+** info の充実
 
-$B:#2s!"$H$/$KDj2H$5$s$N$49W8%$K$h$j!"!VJXMx$J1~MQ5!G=!W$N:FJT$,:FJT$5$l!"(B
-$B=<<B$7$^$7$?!#(B
+今回、とくに定家さんのご貢献により、「便利な応用機能」の再編が再編され、
+充実しました。
 
-** $BJQ498uJd$N=D7?%$%s%i%$%sI=<((B
+** 変換候補の縦型インライン表示
 
-$B%f!<%6!<%*%W%7%g%s(B skk-show-inline $B$r(B 'vertical $B$K@_Dj$9$k$HJQ498uJd$,(B
-$B=D$K%$%s%i%$%sI=<($5$l$k$h$&$K$J$j$^$7$?!#(B
+ユーザーオプション skk-show-inline を 'vertical に設定すると変換候補が
+縦にインライン表示されるようになりました。
 
-** $BF0E*Jd404XO"(B
+** 動的補完関連
    
-*** $BJd408uJd$NJ#?tI=<((B
+*** 補完候補の複数表示
     
-$B%f!<%6!<%*%W%7%g%s(B skk-dcomp-multiple-activate $B$r(B non-nil $B$K@_Dj$9$k$H(B
-$BF0E*Jd408uJd$,=D$K%$%s%i%$%sI=<($5$l$k$h$&$K$J$j$^$7$?!#(B
+ユーザーオプション skk-dcomp-multiple-activate を non-nil に設定すると
+動的補完候補が縦にインライン表示されるようになりました。
 
-*** $BJd408uJdI=<($N%?%$%_%s%0(B
+*** 補完候補表示のタイミング
 
-$BJd40$7$?>uBV$+$i(B C-g $B$GLa$C$?;~$d!""'%b!<%I$+$i(B x $B$G"&%b!<%I$KLa$C$?;~(B
-$B$bJd408uJd$,I=<($5$l$k$h$&$K$J$j$^$7$?!#(B
+補完した状態から C-g で戻った時や、▼モードから x で▽モードに戻った時
+も補完候補が表示されるようになりました。
 
 ** skk-j-mode-function-key-usage
 
-$B%-!<%\!<%I>e$N(B F1 $B!A(B F10 $B%-!<$N;H$$J}$r;XDj$9$k(B
-skk-j-mode-function-key-usage $B$,?7@_$5$l$^$7$?!#(B
+キーボード上の F1 〜 F10 キーの使い方を指定する
+skk-j-mode-function-key-usage が新設されました。
 
   (setq skk-j-mode-function-key-usage 'conversion)
 
-$B$H@_Dj$9$k$H!"(BC-7 SPC $B$J$I$NBe$o$j$K(B [F7] $B$J$I$GJQ49$G$-$k$h$&$K$J(B
-$B$j$^$9!#(B
+と設定すると、C-7 SPC などの代わりに [F7] などで変換できるようにな
+ります。
 
-$B>\$7$/$O(B skk-j-mode-function-key-usage $B$N(B docstring $B$r;2>H2<$5$$!#(B
+詳しくは skk-j-mode-function-key-usage の docstring を参照下さい。
 
-** $B3F<o@_Dj%U%!%$%k$NCV$->l=j$N;XDj(B
+** 各種設定ファイルの置き場所の指定
 
-SKK $B$N@_Dj%U%!%$%k$J$I$rCV$/%G%#%l%/%H%jL>!"(Bskk-user-directory $B$,?7@_$5(B
-$B$l$^$7$?!#(B
+SKK の設定ファイルなどを置くディレクトリ名、skk-user-directory が新設さ
+れました。
 
-$B3F<o@_Dj%U%!%$%k$r$R$H$D$N%G%#%l%/%H%j$K$^$H$a$?$$>l9g$KMxMQ$G$-$^$9!#(B
+各種設定ファイルをひとつのディレクトリにまとめたい場合に利用できます。
 
-$B>\$7$/$O(B (info "(skk)$B@_Dj%U%!%$%k(B") $B$r;2>H2<$5$$!#(B
+詳しくは (info "(skk)設定ファイル") を参照下さい。
 
-** tooltip $B%U%'%$%9$N;XDj(B
+** tooltip フェイスの指定
 
-skk-tooltip-face $B$H$$$&JQ?t$,?7@_$5$l$^$7$?!#(B
+skk-tooltip-face という変数が新設されました。
 
-$B$3$NJQ?t$K$O(B face $BL>$^$?$O(B nil $B$,@_Dj$5$l$^$9!#I8=`$O(B nil $B$G$9!#(B
+この変数には face 名または nil が設定されます。標準は nil です。
 
-skk-tooltip-face $B$NCM$,(B face $BL>$@$C$?>l9g$K$O(B tooltip $B$N%F%-%9%H$,(B
-face $B$GAu>~$5$l$^$9!#(Bnil $B$J$i$P!"$b$H$N%F%-%9%H$NB0@-$r0];}$7$^$9!#(B
+skk-tooltip-face の値が face 名だった場合には tooltip のテキストが
+face で装飾されます。nil ならば、もとのテキストの属性を維持します。
 
-** $B@Q6KE*$J3NDjJQ49$N5!G=DI2C(B
+** 積極的な確定変換の機能追加
 
-*** $B8!:wBP>]<-=q$N@)8B(B
+*** 検索対象辞書の制限
 
-$B?75,%f!<%6!<%*%W%7%g%s(B skk-kakutei-search-prog-limit $B$r@_Dj$9$k$3$H$K(B
-$B$h$j!"3NDjJQ49$N8!:wBP>]$H$9$k<-=q$r@)8B$G$-$k$h$&$K$J$j$^$7$?!#(B
+新規ユーザーオプション skk-kakutei-search-prog-limit を設定することに
+より、確定変換の検索対象とする辞書を制限できるようになりました。
 
-*** $B5!G=$rM-8z$K$9$kJQ49%b!<%I$N;XDjJ}K!(B
+*** 機能を有効にする変換モードの指定方法
 
-$B%f!<%6!<%*%W%7%g%s(B skk-kakutei-when-unique-candidate $B$NCM$,(B t/nil $B$NB>(B
-$B$K(B okuri-ari, okuri-nasi, abbrev $B$N$$$:$l$+$rMWAG$H$9$k%j%9%H$b@_Dj$G$-(B
-$B$k$h$&$K$J$j$^$7$?!#$=$l$>$lJQ49%b!<%I$,$=$N>r7o$K9gCW$7$?>l9g$N$_3NDj(B
-$BJQ495!G=$,M-8z$K$J$j$^$9!#(B
+ユーザーオプション skk-kakutei-when-unique-candidate の値が t/nil の他
+に okuri-ari, okuri-nasi, abbrev のいずれかを要素とするリストも設定でき
+るようになりました。それぞれ変換モードがその条件に合致した場合のみ確定
+変換機能が有効になります。
 
-$B$3$l$K$h$j%P!<%8%g%s(B 13.1 $B$GM-8z$@$C$?(B okuri-nasi $B$H$$$&@_Dj$O?d>)$5$l(B
-$B$J$/$J$j$^$9!#(B
+これによりバージョン 13.1 で有効だった okuri-nasi という設定は推奨され
+なくなります。
 
-** $BC14A;zJQ49$N3HD%(B
+** 単漢字変換の拡張
 
-$BFI$_$H$7$F?tCM$rM?$($FJQ49$9$k$H!"$=$N?tCM$rAm2h?t$H$9$k4A;z$rC14A;zJQ(B
-$B49$N8uJd$K5s$2$^$9!#(B
-$BFI$_$H$7$F(B @ $B$rM?$($FJQ49$9$k$H!"It<sJQ495!G=$r<B9T$7$^$9!#(B
+読みとして数値を与えて変換すると、その数値を総画数とする漢字を単漢字変
+換の候補に挙げます。
+読みとして @ を与えて変換すると、部首変換機能を実行します。
 
-** $B%m!<%^;z%W%l%U%#%C%/%9$N%U%'%$%9(B
+** ローマ字プレフィックスのフェイス
 
-$B?'$,I=<($G$-$k4D6-$G$"$l$P%m!<%^;z%W%l%U%#%C%/%9$K3FJQ49%b!<%IKh$N?'$,(B
-$BIU$/$h$&$K$J$j$^$7$?!#(B
+色が表示できる環境であればローマ字プレフィックスに各変換モード毎の色が
+付くようになりました。
 
-$B%G%U%)%k%H$G$O3F%b!<%I$N%+!<%=%k?'$K$J$C$F$$$^$9!#(B
+デフォルトでは各モードのカーソル色になっています。
 
-** skk-act, skk-azik $B5!G=2~A1(B
+** skk-act, skk-azik 機能改善
 
-*** $B%j%9%?!<%HBP1~(B
+*** リスタート対応
 
-skk-restart $B$7$?$H$-$K(B ACT (or AZIK) $B$NJQ495,B'$,:FEYH?1G$5$l$k$h$&$K(B
-$B$J$j$^$7$?!#(B
+skk-restart したときに ACT (or AZIK) の変換規則が再度反映されるように
+なりました。
 
-*** $BH>3Q%+%JBP1~(B
+*** 半角カナ対応
 
-skk-jisx0201 $B$rFI$_9~$s$@$H$-$K(B ACT (or AZIK) $B$NJQ495,B'$,H?1G$5$lH>3Q(B
-$B%+%J$b$=$l$>$l$NJQ49%k!<%k$GF~NO$G$-$k$h$&$K$J$j$^$7$?!#(B
+skk-jisx0201 を読み込んだときに ACT (or AZIK) の変換規則が反映され半角
+カナもそれぞれの変換ルールで入力できるようになりました。
 
-** skk-undo-kakutei $B$7$?;~$NF~NO%b!<%I(B
+** skk-undo-kakutei した時の入力モード
 
-skk-undo-kakutei $B$7$?;~$NBP>]$,(B abbrev $BJQ49$@$C$?>l9g!"0l;~E*$K(B abbrev
-$B%b!<%I$K0\9T$9$k$h$&$K$J$j$^$7$?!#(B
+skk-undo-kakutei した時の対象が abbrev 変換だった場合、一時的に abbrev
+モードに移行するようになりました。
 
-$B$^$?!"(Bskk-undo-kakutei $B$7$?;~$N%b!<%I$,%"%9%-!<%b!<%I$b$7$/$O1Q?t%b!<(B
-$B%I$@$C$?>l9g$O0l;~E*$K$+$J%b!<%I$K0\9T$9$k$h$&$K$J$j$^$7$?!#(B
+また、skk-undo-kakutei した時のモードがアスキーモードもしくは英数モー
+ドだった場合は一時的にかなモードに移行するようになりました。
 
-** $B%a%K%e!<F~NO$G$N(B BS
+** メニュー入力での BS
 
-skk-delete-implies-kakutei $B$r(B nil $B$K$7$?>l9g$O%a%K%e!<F~NO$G$b(B
-BackSpace $B$GA08uJd$KLa$l$k$h$&$K$J$j$^$7$?!#(B
+skk-delete-implies-kakutei を nil にした場合はメニュー入力でも
+BackSpace で前候補に戻れるようになりました。
 
-** VIPER $BJ;MQ;~$N%+!<%=%k?'(B
+** VIPER 併用時のカーソル色
 
-SKK $B$H(B VIPER $B$rJ;MQ$7$F$$$k;~$N%+!<%=%k?'$,3F%b!<%I$N@_Dj?'$K87L)$KDI(B
-$B=>$9$k$h$&$K$J$j$^$7$?!#(B 
+SKK と VIPER を併用している時のカーソル色が各モードの設定色に厳密に追
+従するようになりました。 
 
-** $BJ8;z$N%3!<%II=<((B
+** 文字のコード表示
 
-$B%3%^%s%I(B skk-display-code-for-char-at-point ($B%G%U%)%k%H$G$O(B $ $B$K3dEv$F(B)
-$B$K<!$N5!G=$r3HD%$7$^$7$?!#(B
+コマンド skk-display-code-for-char-at-point (デフォルトでは $ に割当て)
+に次の機能を拡張しました。
 
-*** $B%"%9%-!<J8;z$N%3!<%II=<(7A<0$r2~A1(B
+*** アスキー文字のコード表示形式を改善
 
-*** $BI=<(9`L\$KAm2h?t$HIt<s$rDI2C(B
+*** 表示項目に総画数と部首を追加
 
-*** $BI=<(9`L\$K(B skk-tankan-get-char-annotation $B$NLa$jCM$rDI2C(B
+*** 表示項目に skk-tankan-get-char-annotation の戻り値を追加
 
-** $BA*Br%-!<$XE,MQ$9$k%U%'%$%9(B
+** 選択キーへ適用するフェイス
 
-A S D F J K L $B$K%U%'%$%9$rF3F~$7$^$7$?!#(B
-skk-henkan-show-candidates-keys-face $B$N=i4|CM$O(B 'default $B$G$9!#(B
+A S D F J K L にフェイスを導入しました。
+skk-henkan-show-candidates-keys-face の初期値は 'default です。
 
-** [$B;D$j(B 99++] $B$NI=<(2~A1(B
+** [残り 99++] の表示改善
 
-$BJQ?t(B skk-henkan-rest-indicator $B$,(B non-nil $B$G$"$l$P!"(B[$B;D$j(B 99++] $B$r1&4s$;(B
-$B$7$FI=<($7$^$9!#(B
+変数 skk-henkan-rest-indicator が non-nil であれば、[残り 99++] を右寄せ
+して表示します。
 
-$B$^$?!"(Bskk-henkan-rest-indicator-face $B$G%U%'%$%9$r;XDj$G$-$^$9!#(B
+また、skk-henkan-rest-indicator-face でフェイスを指定できます。
 
-** $B8uJd%P%C%U%!(B
+** 候補バッファ
 
-*** $BGX7J?'(B
+*** 背景色
 
-skk-candidate-buffer-background-color $B$G;XDj$G$-$^$9!#=i4|CM$O(B nil $B$G$9!#(B
+skk-candidate-buffer-background-color で指定できます。初期値は nil です。
 
-*** $B9b$5$N<+F0D4@0(B
+*** 高さの自動調整
 
-$B$3$l$^$G$OC1=c$J(B pop-to-buffer $B$G$7$?$,!"99$K(B fit-window-to-buffer $B$9$k$h$&(B
-$BJQ99$7$^$7$?!#(B
+これまでは単純な pop-to-buffer でしたが、更に fit-window-to-buffer するよう
+変更しました。
 
-** undo $B$NF0:n2~A1(B
+** undo の動作改善
 
-*** skk-undo-kakutei-word-only $B2<$G$N(B undo $B>pJs$NAS<:(B
+*** skk-undo-kakutei-word-only 下での undo 情報の喪失
 
-READMEs/TODO.ja $B$K5-:\$5$l$F$$$?(B
+READMEs/TODO.ja に記載されていた
 
 | http://mail.ring.gr.jp/skk/200503/msg00011.html
 | 
-| $B3^86!w6eBg$5$s$+$i$N$4Js9p(B
+| 笠原＠九大さんからのご報告
 | 
-| > $B$^$?JL$N!"(BSKK $B$K%P%C%U%!$NFbMF$r6t$o$l$F(B undo $B$GLa$;$J$$8=>]$KEv$?$C$?(B
-| > $B$N$GJs9p$7$^$9!#(B
+| > また別の、SKK にバッファの内容を喰われて undo で戻せない現象に当たった
+| > ので報告します。
 | > 
-| > 1) $B$"$k9T$G(B($B$&$C$+$j(B)$B"&%b!<%I$KF~$C$F$7$^$&(B
-| > 2) $B$=$N$^$^(B($B5$$E$+$:(B)$B%+!<%=%k$r2<$K?t9T0\F0(B
-| > 3) $B$=$3$G5$IU$$$F(B($B$$$D$b$NJJ$G(B) C-g $B$r2!$9$H!"4V$N9T$,A4It>C$($F$7$^$&(B
+| > 1) ある行で(うっかり)▽モードに入ってしまう
+| > 2) そのまま(気づかず)カーソルを下に数行移動
+| > 3) そこで気付いて(いつもの癖で) C-g を押すと、間の行が全部消えてしまう
 | > 
 | > 1)
-| > 1$B9TL\(B
-| > 2$B9TL\"&$""#"+%+!<%=%k(B
-| > 3$B9TL\(B
-| > 4$B9TL\(B
-| > 5$B9TL\(B
+| > 1行目
+| > 2行目▽あ■←カーソル
+| > 3行目
+| > 4行目
+| > 5行目
 | > 
 | > 2)
-| > 1$B9TL\(B
-| > 2$B9TL\"&$"(B
-| > 3$B9TL\(B
-| > 4$B9TL\"#"+%+!<%=%k(B
-| > 5$B9TL\(B
+| > 1行目
+| > 2行目▽あ
+| > 3行目
+| > 4行目■←カーソル
+| > 5行目
 | > 
 | > 3)
-| > 1$B9TL\(B
-| > 2$B9TL\"#"+%+!<%=%k(B
-| > 5$B9TL\(B
+| > 1行目
+| > 2行目■←カーソル
+| > 5行目
 | > 
-| > $B>eJ}8~$X$N0\F0$G$O5/$3$j$^$;$s!#(B
+| > 上方向への移動では起こりません。
 
-$B>e5-$NLdBj$,=$@5$5$l$^$7$?!#(B
+上記の問題が修正されました。
 
-*** undo $B$N5sF0$N2~A1(B
+*** undo の挙動の改善
 
- `skk-undo-kakutei-word-only' $B$,%G%U%)%k%H$N(B nil $B$N>l9g!"(B
+ `skk-undo-kakutei-word-only' がデフォルトの nil の場合、
  
-   $B$"$"$"(B    ;; `a a a'
+   あああ    ;; `a a a'
              ;; `C-a C-k'
-   $B4A;z(B      ;; `K a n j i SPC C-j'
-   $B"'4A;z(B    ;; `C-/' $B$3$l$O(B word-only $B$,(B nil $B$J$N$G;EMM$I$*$j$N$O$:(B
-   $B$"$"$"(B    ;; `C-/' $B$$$-$J$j!V$"$"$"!W$,I|3h(B
+   漢字      ;; `K a n j i SPC C-j'
+   ▼漢字    ;; `C-/' これは word-only が nil なので仕様どおりのはず
+   あああ    ;; `C-/' いきなり「あああ」が復活
   
-$B$H$$$&5sF0$,=$@5$5$l$^$7$?!#(B
-$B$3$l$KH<$J$$!"(B
+という挙動が修正されました。
+これに伴ない、
 
 
-   $B$"$"$"4A;z(B    ;;
-   $B$"$"$""'4A;z(B  ;; `C-/'
+   あああ漢字    ;;
+   あああ▼漢字  ;; `C-/'
                  ;; `C-/'
 		 
-$B>e5-$N$h$&$J>l9g$N%"%s%I%%;~$NF0:n$,:#Kx$H$A$g$C$HJQ$o$j$^$7$?!#(B
-(2$B2sL\$N(B undo $B$G(B "$B"'4A;z(B" $B$@$1$,>C$($k(B)
+上記のような場合のアンドゥ時の動作が今迄とちょっと変わりました。
+(2回目の undo で "▼漢字" だけが消える)
 
-** $BIT6q9g$N=$@5(B
+** 不具合の修正
 
-*** $B<-=qEPO?Cf;_;~$N%$%s%i%$%sI=<((B
+*** 辞書登録中止時のインライン表示
 
-1) (setq skk-show-annotation t ; $B%G%U%)%k%H(B
+1) (setq skk-show-annotation t ; デフォルト
          skk-show-inline t)
-$B$N@_Dj$G(B
+の設定で
 
-2) $BJQ498uJd$,>/$J$=$&$J8@MU$rJQ49$9$k(B
-   ($BAw$j$"$j(B/$B$J$7$I$A$i$G$b!#8uJd$,(B0$B8D$8$cBLL\(B)
-3) SPC $B$rO"BG$7$F!"JQ498uJd$,0lMwI=<($K$J$kA0$K<-=qEPO?$KF~$k(B
-4) C-g or RET $B$G<-=qEPO?$rH4$1$k(B
+2) 変換候補が少なそうな言葉を変換する
+   (送りあり/なしどちらでも。候補が0個じゃ駄目)
+3) SPC を連打して、変換候補が一覧表示になる前に辞書登録に入る
+4) C-g or RET で辞書登録を抜ける
 
-$B$H!V"-<-=qEPO?Cf"-!W$H$$$&%$%s%i%$%sI=<($,;D$C$?$^$^$K$J$C$F$7$^$&8=>](B
-$B$,=$@5$5$l$^$7$?!#(B
+と「↓辞書登録中↓」というインライン表示が残ったままになってしまう現象
+が修正されました。
 
-*** $B@_Dj%U%!%$%k$N%P%$%H%3%s%Q%$%k(B
+*** 設定ファイルのバイトコンパイル
 
-skk-init-file $B$O!V(B.el$B!W$J$7$G@_Dj$7$F$$$F<B:]$N%U%!%$%kL>$K$O!V(B.el$B!W$,(B
-$BIU$$$F$$$k$H(B skk-byte-compile-init-file $B$r(B non-nil $B$K$7$F$b!"(B
-$B@_Dj%U%!%$%k$,%P%$%H%3%s%Q%$%k$5$l$J$+$C$?LdBj$,=$@5$5$l$^$7$?!#(B
+skk-init-file は「.el」なしで設定していて実際のファイル名には「.el」が
+付いていると skk-byte-compile-init-file を non-nil にしても、
+設定ファイルがバイトコンパイルされなかった問題が修正されました。
 
-*** skk-large-jisyo $B$N%(%i!<=hM}(B
+*** skk-large-jisyo のエラー処理
     
-skk-large-jisyo $B$KB8:_$7$J$$%U%!%$%k$,@_Dj$5$l$F$$$?>l9g!"6u$N(B
- *SKK-JISYO.L* $B%P%C%U%!$,$G$-$F$7$^$$!"JQ49;~$K(B skk-okuri-*-{min|max} $B$,(B
-nil $B$K$J$C$F(B error $B$H$J$C$F$$$?LdBj$,=$@5$5$l$^$7$?!#(B
+skk-large-jisyo に存在しないファイルが設定されていた場合、空の
+ *SKK-JISYO.L* バッファができてしまい、変換時に skk-okuri-*-{min|max} が
+nil になって error となっていた問題が修正されました。
 
-*** prefix $B$N$_$N>uBV$+$iJd40$7$?8e$N(B C-g
+*** prefix のみの状態から補完した後の C-g
 
-skk-comp-use-prefix $B$,(B non-nil $B$@$HF~NO$,%W%l%U%#%C%/%9$@$1$N>uBV$+$i$G(B
-$B$bJd40$G$-$^$9$,!"$=$3$+$i(B C-g $B$rC!$/$H!D(B
+skk-comp-use-prefix が non-nil だと入力がプレフィックスだけの状態からで
+も補完できますが、そこから C-g を叩くと…
 
- $B"&(Bk            ;; K
- $B"&$+$s$8(B       ;; TAB
- $B"&(B             ;; C-g
- $B"&(B             ;; C-g
+ ▽k            ;; K
+ ▽かんじ       ;; TAB
+ ▽             ;; C-g
+ ▽             ;; C-g
 
-2$B2sL\$N(B C-g $B$G(B "Args out of range: ?, ?" $B$H%(%i!<$rEG$$$F$7$^$&LdBj$,=$(B
-$B@5$5$l$^$7$?!#(B
+2回目の C-g で "Args out of range: ?, ?" とエラーを吐いてしまう問題が修
+正されました。
 
-*** $BAw$j2>L>F~NOESCf$G$N(B C-g
+*** 送り仮名入力途中での C-g
 
- 1. $B"&$+(B*k $B$N$h$&$KESCf$^$GAw$j2>L>$rF~NO$9$k(B
- 2. C-g $B$GCf;_$9$k(B
- 3. $B:FEY!"(B"K a" $B$J$I$HF~NO$9$k(B
- 4. $B$$$-$J$jJQ49=hM}$,Av$C$FJQ$K$J$k(B
+ 1. ▽か*k のように途中まで送り仮名を入力する
+ 2. C-g で中止する
+ 3. 再度、"K a" などと入力する
+ 4. いきなり変換処理が走って変になる
 
-$B$H$$$&8=>]$,=$@5$5$l$^$7$?!#(B
+という現象が修正されました。
 
-*** ACT (or AZIK) $B$G$N%+%J%b!<%I$G$NB%2;$NAw$j2>L>(B
+*** ACT (or AZIK) でのカナモードでの促音の送り仮名
 
- o ACT $B$d(B AZIK $B$J$IB%2;$r0lBG80$GF~NO$9$kF~NOJ}<0$K$*$$$F(B
- o $B%+%J%b!<%I$G(B
- o $B!V9T%C%?!W$J$IB%2;$GAw$kJQ49(B
+ o ACT や AZIK など促音を一打鍵で入力する入力方式において
+ o カナモードで
+ o 「行ッタ」など促音で送る変換
  
-$B$,@5>o$KF0:n$7$J$+$C$?LdBj$,=$@5$5$l$^$7$?!#(B
+が正常に動作しなかった問題が修正されました。
 
 * 13.1
 
-** $BMW5a$5$l$k(B APEL $B$N%P!<%8%g%s$,(B 10.7 $B0J>e$K$J$j$^$7$?!#(B
+** 要求される APEL のバージョンが 10.7 以上になりました。
 
-APEL 10.7 $B$N5!G=$N$&$A%$%s%9%H!<%k4XO"$N5!G=!"$H$/$K(B XEmacs 21.5 $B$G$N(B
-$B%$%s%9%H!<%k5!G=$K0MB8$7$^$9!#(B
+APEL 10.7 の機能のうちインストール関連の機能、とくに XEmacs 21.5 での
+インストール機能に依存します。
 
-$B$^$?!"$3$l$KH<$C$F(B tinyinstall.el $B$O%l%]%8%H%j$+$i:o=|$7$^$7$?!#F1%U%!(B
-$B%$%k$NFbMF$N$&$AI,MW$JItJ,$O(B SKK-MK $B$K0\F0$7$^$7$?!#(B
+また、これに伴って tinyinstall.el はレポジトリから削除しました。同ファ
+イルの内容のうち必要な部分は SKK-MK に移動しました。
 
-APEL 10.6 $B$K4X$9$kFC5-;v9`$O(B DDSKK 12.2.0 $B$N(B NEWS $B$r;2>H$7$F$/$@$5$$!#(B
+APEL 10.6 に関する特記事項は DDSKK 12.2.0 の NEWS を参照してください。
 
-** $B%5%]!<%H$9$k(B Emacs $B$N%P!<%8%g%s$,JQ99$5$l$^$7$?!#(B
+** サポートする Emacs のバージョンが変更されました。
 
-*** Emacs 20.7 $B0J9_!"(BEmacs 21.1 $B0J9_!"(BEmacs 22.1
+*** Emacs 20.7 以降、Emacs 21.1 以降、Emacs 22.1
 
-$B:#2s$H$/$K!"(BEmacs 22 $B$N?75!G=$KBP1~$9$Y$/B?$/$N3HD%$,9T$o$l$^$7$?!#(B
+今回とくに、Emacs 22 の新機能に対応すべく多くの拡張が行われました。
 
-*** XEmacs 21.4.18 $B0J9_(B, XEmacs 21.5 beta28
+*** XEmacs 21.4.18 以降, XEmacs 21.5 beta28
 
-$B0lIt(B XEmacs 21.5 $B$N?75!G=$K$bBP1~$7$F$$$^$9!#(B
+一部 XEmacs 21.5 の新機能にも対応しています。
 
-XEmacs $BK\BN$HJLG[I[$N%Q%C%1!<%872$O$J$k$Y$/?7$7$$$b$N$r%$%s%9%H!<%k$7(B
-$B$^$9!#$^$?!"(BDDSKK $B<BAu>e$NET9g$G8=CJ3,$G$O(B fsf-compat $B%Q%C%1!<%8$,F0(B
-$B:n$N$?$a$KI,?\$G$9!#(B($B>-Mh$I$&$J$k$+$OJ,$+$j$^$;$s(B)
+XEmacs 本体と別配布のパッケージ群はなるべく新しいものをインストールし
+ます。また、DDSKK 実装上の都合で現段階では fsf-compat パッケージが動
+作のために必須です。(将来どうなるかは分かりません)
 
-$B>e5-$O$"$/$^$G%5%]!<%H$9$k%P!<%8%g%s$G$"$j!"<B:]$KF0:n$9$k2<8B$N%P!<%8%g(B
-$B%s$h$j>/$7$@$19b$a$K@_Dj$5$l$F$$$k>l9g$,$"$j$($^$9!#(B
+上記はあくまでサポートするバージョンであり、実際に動作する下限のバージョ
+ンより少しだけ高めに設定されている場合がありえます。
 
-$BCm0UE@$H$7$F!"$3$l$i$N3F(B Emacsen $B$=$l$>$l$N%5%]!<%H>u67$,0[$J$k$3$H$,$"(B
-$B$j$^$9!#(BDDSKK 13 $B$N$[$\A45!G=$,F0:n$9$k$H;W$o$l$k$N$O(B Emacs 22.1 $B$G$9!#(B
-$B$=$l0J30$N(B Emacsen $B$G$O0lIt5!G=$,F0:n$7$J$$$+!$$"$k$$$OF0:n%F%9%H$,40N;(B
-$B$7$F$$$^$;$s!#%f!<%6$,>/$J$$%P!<%8%g%s$N(B Emacs $B$[$IF0:n%F%9%H$OIT40A4$J(B
-$B798~$,$"$j!"$h$jB?$/$N%F%9%H$,K>$^$l$^$9!#(B
+注意点として、これらの各 Emacsen それぞれのサポート状況が異なることがあ
+ります。DDSKK 13 のほぼ全機能が動作すると思われるのは Emacs 22.1 です。
+それ以外の Emacsen では一部機能が動作しないか，あるいは動作テストが完了
+していません。ユーザが少ないバージョンの Emacs ほど動作テストは不完全な
+傾向があり、より多くのテストが望まれます。
 
-$B$J$*!"K\%P!<%8%g%s$O<!4|$N(B unicode $B2=$5$l$?(B Emacs (Emacs 23 $B0J9_(B) $B$K;C(B
-$BDjE*$KBP1~$9$k%3!<%I$r4^$_$^$9$,!"$3$l$i$OA4$/%5%]!<%H$5$l$^$;$s!#(BCVS
-$B@hC<$G$O2DG=$JHO0O$G3+H/HG(B Emacs $B$KDI?o$9$kM=Dj$G$9!#(B
+なお、本バージョンは次期の unicode 化された Emacs (Emacs 23 以降) に暫
+定的に対応するコードを含みますが、これらは全くサポートされません。CVS
+先端では可能な範囲で開発版 Emacs に追随する予定です。
 
-*** NTEmacs, Meadow, Carbon Emacs Package $B$G$N%$%s%9%H!<%k%Q%9$N8+D>$7(B
+*** NTEmacs, Meadow, Carbon Emacs Package でのインストールパスの見直し
 
-NTEmacs, Meadow $B$O(B Emacs 18 $B$N$3$m$N$h$&$JC10l%G%#%l%/%H%j9=@.$r$H$j$^(B
-$B$9!#$3$N>u67$K(B APEL $B$N(B install.el $B$,8=>u$G$OBP1~$7$F$$$J$$$N$G!"(BSKK-MK
-$B$NJ}$G%$%s%9%H!<%k@h%G%#%l%/%H%j$r$9$Y$F3F(B Emacsen $B$N%H%C%W%G%#%l%/%H(B
-$B%j2<$KG[CV$9$k$h$&$K$7$^$7$?!#(B
+NTEmacs, Meadow は Emacs 18 のころのような単一ディレクトリ構成をとりま
+す。この状況に APEL の install.el が現状では対応していないので、SKK-MK
+の方でインストール先ディレクトリをすべて各 Emacsen のトップディレクト
+リ下に配置するようにしました。
 
-$B$^$?!"(BDDSKK 13.1 $B$h$j(B Mac OS X $B4D6-$G$N%$%s%9%H!<%k$K$D$$$F$b>/$7$@$1(B
-$B9MN8$7!"(BCarbon Emacs Package (Emacs 22 $B%Y!<%9(B) $B$N8B$i$l$?4D6-$N$_%F%9(B
-$B%H$7$F$$$^$9!#(BAquamacs $B$d(B Cocoa $BBP1~$N(B Emacs $B$K$D$$$F$OL$$@%F%9%H$7$F(B
-$B$$$^$;$s!#(B
+また、DDSKK 13.1 より Mac OS X 環境でのインストールについても少しだけ
+考慮し、Carbon Emacs Package (Emacs 22 ベース) の限られた環境のみテス
+トしています。Aquamacs や Cocoa 対応の Emacs については未だテストして
+いません。
 
 Carbon Emacs Package (http://homepage.mac.com/zenitani/emacs-j.html)
-$B$O%*%j%8%J%k$N(B Carbon Emacs $B$H0[$J$kFH<+$N%U%!%$%k9=@.$r$H$C$F$$$k$?$a!"(B
-SKK $B$N%$%s%9%H!<%k@h$,E,@Z$K$J$k$h$&8DJL$NBP:v$r$7$^$7$?!#(B
+はオリジナルの Carbon Emacs と異なる独自のファイル構成をとっているため、
+SKK のインストール先が適切になるよう個別の対策をしました。
 
-*** $B8BDjE*$J(B locale $BBP1~(B
+*** 限定的な locale 対応
 
-GNU Emacs 22 $B0J9_$H8B$i$l$?4D6-$H$NAH$_9g$;$K$*$$$F!"%a%K%e!<$NI=<($,(B
-$B%G%U%)%k%H$GF|K\8l$K$J$j$^$9!#6qBNE*$K$O!"(BMeadow $B$r4^$`(B Windows $B4D6-!"(B
-Carbon Emacs $B4D6-!"$*$h$S(B X Window System $B$G(B Emacs $B$,(B GTK+ $B$rMxMQ$7$+(B
-$B$DF|K\8l(B locale $B$N4D6-$,BP>]$H$J$j$^$9!#(B
+GNU Emacs 22 以降と限られた環境との組み合せにおいて、メニューの表示が
+デフォルトで日本語になります。具体的には、Meadow を含む Windows 環境、
+Carbon Emacs 環境、および X Window System で Emacs が GTK+ を利用しか
+つ日本語 locale の環境が対象となります。
 
-** $B%$%s%9%H!<%k$N:]$N4D6-JQ?t%5%]!<%H$N0l;~Dd;_(B
+** インストールの際の環境変数サポートの一時停止
 
-SKK-CFG $B$,$[$\40A4$J%$%s%9%H!<%k@_Dj$r%5%]!<%H$9$k$?$a!"4D6-JQ?t(B EMACS
-$B$H(B XEMACS $B0J30$O;2>H$7$J$$$h$&$K$7$F$$$^$9!#4D6-JQ?t%5%]!<%H$O0lItI|3h(B
-$B$9$k2DG=@-$O$"$j$^$9$,!"0JA0$N$h$&$KB??t$NJQ?t$r%5%]!<%H$9$k$3$H$O$J$$(B
-$B$G$7$g$&!#(B
+SKK-CFG がほぼ完全なインストール設定をサポートするため、環境変数 EMACS
+と XEMACS 以外は参照しないようにしています。環境変数サポートは一部復活
+する可能性はありますが、以前のように多数の変数をサポートすることはない
+でしょう。
 
-** $B?7$7$/0J2<$N%W%m%0%i%`$,@5<0%5%]!<%H$5$l$^$7$?!#(B
+** 新しく以下のプログラムが正式サポートされました。
 
 *** context-skk.el
 
@@ -1010,125 +1010,125 @@ SKK-CFG $B$,$[$\40A4$J%$%s%9%H!<%k@_Dj$r%5%]!<%H$9$k$?$a!"4D6-JQ?t(B EMACS
 
 *** skk-server-completion.el
 
-$BJd40$KBP1~$7$?%5!<%P$HDL?.$9$k$3$H$GJd40$r<B8=$7$^$9!#$3$N5!G=$OJQ49;~(B
-$B$K$b;H$(!"$3$N>l9g$O(B skk-look $B$N$h$&$J;H$$>!<j$K$J$j$^$9!#(B
+補完に対応したサーバと通信することで補完を実現します。この機能は変換時
+にも使え、この場合は skk-look のような使い勝手になります。
 
 *** skk-tankan.el
 
-** $B?7$7$$3X=,5!G=(B skk-bayesian.el
+** 新しい学習機能 skk-bayesian.el
 
-experimental/bayesian $B$KDI2C$5$l$^$7$?!#(B
+experimental/bayesian に追加されました。
 
-** $B4pK\5!G=$N3HD%$H2~NI(B
+** 基本機能の拡張と改良
 
-*** SKK $B%5!<%P$H$NDL?.8zN($N2~A1(B
+*** SKK サーバとの通信効率の改善
 
-$B4X?t(B `accept-process-output' $B$,%5!<%P$+$i$N1~Ez$r8!=P$G$-$:?t==!A?t==(B
-$BK|2s$N%j%H%i%$$r7+$jJV$98=>]$,3NG'$5$l$^$7$?!#$3$N%P!<%8%g%s$N(B SKK $B$G(B
-$B$O(B `accept-process-output' $B$NA0$K(B `sit-for' $B$r8F$s$G(B 10 $B%_%jICBT5!$9$k(B
-$B$3$H$G$3$NLdBj$KBP=h$5$l$^$7$?!#(B
+関数 `accept-process-output' がサーバからの応答を検出できず数十〜数十
+万回のリトライを繰り返す現象が確認されました。このバージョンの SKK で
+は `accept-process-output' の前に `sit-for' を呼んで 10 ミリ秒待機する
+ことでこの問題に対処されました。
 
-** $B3NDj%"%s%I%%$N3HD%$H2~NI(B
+** 確定アンドゥの拡張と改良
 
-*** $B3NDj%"%s%I%%$N:]$N%+!<%=%k0LCV$N=$@5(B
+*** 確定アンドゥの際のカーソル位置の修正
 
-$BNc$($P!VK~$?!W$r!V8+$?!W$K:FJQ49$7$?$$>l9g!"(B
+例えば「満た」を「見た」に再変換したい場合、
 
- $BK~$?(B-!-
+ 満た-!-
 
-$B$G(B M-x skk-undo-kakutei $B$9$k$H(B
+で M-x skk-undo-kakutei すると
 
- $B"'8+(B-!-$B$?(B
+ ▼見-!-た
 
-$B$H$J$j%+!<%=%k0LCV(B (-!-) $B$,Aw$j2>L>$NA0$K%:%l$k8=>]$,=$@5$5$l$^$7$?!#(B
+となりカーソル位置 (-!-) が送り仮名の前にズレる現象が修正されました。
 
-*** $B3NDj%"%s%I%%$7$F:FJQ493NDj8e$N%+!<%=%k0LCV$N@)8f(B
+*** 確定アンドゥして再変換確定後のカーソル位置の制御
 
-$B%f!<%6%*%W%7%g%s(B skk-undo-kakutei-return-previous-point $B$,?7@_$5$l$^$7(B
-$B$?!#Nc$($P!V=k$+$C$?!W$H$7$?$$$H$3$m$r!VG.$+!W$G3NDj$7$F$7$^$C$F!"99$K(B
+ユーザオプション skk-undo-kakutei-return-previous-point が新設されまし
+た。例えば「暑かった」としたいところを「熱か」で確定してしまって、更に
 
-  $BG.$+$C$?(B-!-
+  熱かった-!-
 
-$B$^$GBG$C$F$7$^$C$F$+$i:FJQ49"*3NDj$9$k$H!"=>Mh$O(B
+まで打ってしまってから再変換→確定すると、従来は
 
-  $B=k$+(B-!-$B$C$?(B
+  暑か-!-った
 
-$B$G=*$o$j$^$7$?$,!"$3$N%*%W%7%g%s$r(B non-nil $B$K@_Dj$9$k$H(B
+で終わりましたが、このオプションを non-nil に設定すると
 
-  $B=k$+$C$?(B-!-
+  暑かった-!-
 
-$B$G=*$o$j$^$9!#$3$l$K$h$jB3$/F~NO$K%9%`!<%:$K0\9T$G$-$^$9!#(B
+で終わります。これにより続く入力にスムーズに移行できます。
 
-*** $BAw$j$"$j3NDjJQ49$KBP$9$k3NDj%"%s%I%%$N5sF0$N@)8f(B
+*** 送りあり確定変換に対する確定アンドゥの挙動の制御
 
-**** M-x skk-undo-kakutei $B$7$?>l9g$N%+!<%=%k0LCV(B
+**** M-x skk-undo-kakutei した場合のカーソル位置
 
-$B!VK~$?!W$r!V8+$?!W$K:FJQ49$7$?$$>l9g!"(B
+「満た」を「見た」に再変換したい場合、
 
-  $BK~$?(B-!-
+  満た-!-
 
-$B$G(B M-x skk-undo-kakutei $B$9$k$H(B
+で M-x skk-undo-kakutei すると
 
-  $B"'8+(B-!-$B$?(B
+  ▼見-!-た
 
-$B$H$J$j%+!<%=%k0LCV(B (-!-) $B$,Aw$j2>L>$NA0$K%:%l$k8=>]$,$"$j!"=$@5$5$l$^(B
-$B$7$?!#(B($BAw$jL5$7$HF1MM$N5sF0(B)
+となりカーソル位置 (-!-) が送り仮名の前にズレる現象があり、修正されま
+した。(送り無しと同様の挙動)
 
-**** `x' $B$G3NDj%"%s%I%%$7$?$H$-$N5sF0(B
+**** `x' で確定アンドゥしたときの挙動
 
-$B=>Mh$O!"Aw$j$"$j3NDjJQ49D>8e(B `x' $B$r%?%$%W$9$k$H"&%b!<%I$K$J$C$F$$$^$7(B
-$B$?$,!"$3$l$OAw$jM-$jJQ49$H$NAj@-$,NI$/$"$j$^$;$s$G$7$?!#(B
-$B$^$?(B M-x skk-undo-kakutei $B$H$N5!G=$NN`;w@-$r9MN8$7!"(B`x' $B$r%?%$%W$7$?$H(B
-$B$-$b"'%b!<%I$K0\9T$9$k$h$&$KJQ99$5$l$^$7$?!#(B
+従来は、送りあり確定変換直後 `x' をタイプすると▽モードになっていまし
+たが、これは送り有り変換との相性が良くありませんでした。
+また M-x skk-undo-kakutei との機能の類似性を考慮し、`x' をタイプしたと
+きも▼モードに移行するように変更されました。
 
-** $B3NDjJQ49$N3HD%$H2~NI(B
+** 確定変換の拡張と改良
 
-*** $B@Q6KE*$J3NDjJQ49%b!<%I(B
+*** 積極的な確定変換モード
 
-$B%f!<%6%*%W%7%g%s(B skk-kakutei-when-unique-candidate $B$,?7@_$5$l$^$7(B
-$B$?!#(BNon-nil $B$G$"$l$P!"JQ498uJd$,0l$D$7$+$J$$$H$-JQ498e<+F0E*$K3NDj$7$^(B
-$B$9!#(B
+ユーザオプション skk-kakutei-when-unique-candidate が新設されまし
+た。Non-nil であれば、変換候補が一つしかないとき変換後自動的に確定しま
+す。
 
-$B$3$N5!G=$r>o$KM-8z$K$7$?$$>l9g$O(B t $B$K!"Aw$jL5$7JQ49;~$@$1M-8z$K$7$?$$(B
-$B>l9g$O(B okuri-nasi $B$K@_Dj$7$^$9!#(B
+この機能を常に有効にしたい場合は t に、送り無し変換時だけ有効にしたい
+場合は okuri-nasi に設定します。
 
-** $BJd405!G=$N3HD%$H2~NI(B
+** 補完機能の拡張と改良
 
 *** skk-completion-prog-list
 
-$B%f!<%6$O(B skk-search-prog-list $B$GJQ495!G=$r<+M3$KA*$Y$^$9$,!"$=$l$HF1MM(B
-$B$KJd405!G=$r<+M3$KA*$V$3$H$,$G$-$k$h$&$K$J$j$^$7$?!#$=$l$r;XDj$9$kJQ?t(B
-$B$,(B skk-completion-prog-list $B$G$9!#(B
+ユーザは skk-search-prog-list で変換機能を自由に選べますが、それと同様
+に補完機能を自由に選ぶことができるようになりました。それを指定する変数
+が skk-completion-prog-list です。
 
 *** skk-comp-use-prefix
 
-$B$^$@$+$J$K3NDj$7$F$$$J$$%m!<%^;z(B prefix $B$r$_$FJd40$9$k5!G=$,<BAu$5$l$^(B
-$B$7$?!#$3$l$r;XDj$9$kJQ?t$,(B skk-comp-use-prefix $B$G$9!#(B
+まだかなに確定していないローマ字 prefix をみて補完する機能が実装されま
+した。これを指定する変数が skk-comp-use-prefix です。
 
-*** skk-comp $B$NG$0U<-=qBP1~(B
+*** skk-comp の任意辞書対応
 
-$B8D?M<-=q$@$1$G$J$/!"G$0U$N<-=q$rJd40<-=q$H$7$F;XDj$G$-$k$h$&$K$J$j$^$7(B
-$B$?!#(Bskk-completion-prog-list $B$K(B
+個人辞書だけでなく、任意の辞書を補完辞書として指定できるようになりまし
+た。skk-completion-prog-list に
 
  (skk-comp-from-jisyo "/usr/share/skk/SKK-JISYO.L")
 
-$B$N$h$&$JMWAG$r2C$($^$9!#(B
+のような要素を加えます。
 
-*** skk-look $B3HD%(B
+*** skk-look 拡張
 
-**** abbrev $B%b!<%I0J30$GMxMQ(B ($BF|K\8lJd40(B)
+**** abbrev モード以外で利用 (日本語補完)
 
-*** skk-look $B%f!<%6%*%W%7%g%s8+D>$7(B
+*** skk-look ユーザオプション見直し
 
-**** $B%f!<%6%*%W%7%g%s$NJQ99(B
+**** ユーザオプションの変更
 
-$B5lMh$N%3%^%s%I%i%$%s%*%W%7%g%s$r;XDj$9$k%f!<%6%*%W%7%g%s$rA4$FGQ;_$7(B
-$B0J2<$r?7@_(B
+旧来のコマンドラインオプションを指定するユーザオプションを全て廃止し
+以下を新設
 
  skk-look-conversion-arguments
  skk-look-completion-arguments
 
-*** $BJd405!G=$N4JC1$J@Z$jBX$((B
+*** 補完機能の簡単な切り替え
 
 skk-completion-prog-list-1,
 skk-completion-prog-list-2,
@@ -1136,82 +1136,82 @@ skk-completion-prog-list-2,
 skk-completion-prog-list-9,
 skk-completion-prog-list-0
 
-$B$H$$$&JQ?t$r?7@_$7$^$7$?!#$3$l$i$O(B skk-completion-prog-list $B$HA4$/F1$8(B
-$B7A<0(B ($BJd40%W%m%0%i%`$N(B list) $B$G@_Dj$G$-$^$9!#(B
-$BNc$($P"&%b!<%I$G(B TAB $B$NBe$o$j$K(B C-6 TAB $B$HF~NO$9$k$H!"(B
-skk-completion-prog-list $B$NBe$o$j$K(B skk-completion-prog-list-6 $B$r;H$C(B
-$B$FJd40$7$^$9!#(B
+という変数を新設しました。これらは skk-completion-prog-list と全く同じ
+形式 (補完プログラムの list) で設定できます。
+例えば▽モードで TAB の代わりに C-6 TAB と入力すると、
+skk-completion-prog-list の代わりに skk-completion-prog-list-6 を使っ
+て補完します。
 
-$BJQ49$K$bN`;w$N5!G=$,;H$($k$h$&$K$J$j$^$7$?$N$G!"$=$N9`L\$bFI$s$G2<$5$$!#(B
+変換にも類似の機能が使えるようになりましたので、その項目も読んで下さい。
 
-** $B%"%T%"%i%s%9$N3HD%(B
+** アピアランスの拡張
 
-*** $BJQ498uJd!&Cm<aI=<($N=$>~!&2C9)5!G=(B
+*** 変換候補・注釈表示の修飾・加工機能
 
-$BJQ?t(B skk-treat-candidate-appearance-function $B$r@_Dj$9$k$3$H$K$h$j!"Cm(B
-$B<a$b4^$a$?JQ498uJd$NI=<($N%+%9%?%^%$%:$,2DG=$K$J$j$^$7$?!#$3$N@_DjNc$O(B
-etc/dot.skk $B$J$I$G>R2p$7$F$$$/M=Dj$G$9!#(B
+変数 skk-treat-candidate-appearance-function を設定することにより、注
+釈も含めた変換候補の表示のカスタマイズが可能になりました。この設定例は
+etc/dot.skk などで紹介していく予定です。
 
-$B$3$N5!G=$O8uJd$dCm<a$NJ8;zNs$=$N$b$N$rJQ99$9$k$3$H$,$G$-$^$9!#$^$?!"J8(B
-$B;zNs$K(B text property $B$rIU2C$7$FAu>~$7$FI=<($9$k$3$H$b$G$-$^$9!#$3$N5!G=(B
-$B$ODL>o$N8uJdJQ49;~$HCm<aI=<(;~!"8uJd0lMwI=<(;~$KM-8z$G$9!#%D!<%k%F%#%C(B
-$B%W$d%$%s%i%$%s$K$h$kI=<(;~$K$bM-8z$G$9!#$?$@$7!"(Btext property $B$K$h$k=$(B
-$B>~5!G=$,40A4$K%5%]!<%H$5$l$k$N$O(B GNU Emacs 21 $B0J9_$H$J$j$^$9!#$=$l0J30(B
-$B$N%P!<%8%g%s$O%$%s%i%$%sI=<($H%(%3!<%(%j%"I=<(;~$N%a%C%;!<%8$O(B text
-property $BHsBP1~$G$9!#$3$l$i$N%P!<%8%g%s$G(B text property $B$rM-8z$K$9$k$K(B
-$B$O%P%C%U%!$r%]%C%W%"%C%W$9$kI,MW$,$"$j$^$9!#$=$N$?$a$N@_Dj$O0J2<$N$h$&(B
-$B$K$J$j$^$9!#(B
+この機能は候補や注釈の文字列そのものを変更することができます。また、文
+字列に text property を付加して装飾して表示することもできます。この機能
+は通常の候補変換時と注釈表示時、候補一覧表示時に有効です。ツールティッ
+プやインラインによる表示時にも有効です。ただし、text property による修
+飾機能が完全にサポートされるのは GNU Emacs 21 以降となります。それ以外
+のバージョンはインライン表示とエコーエリア表示時のメッセージは text
+property 非対応です。これらのバージョンで text property を有効にするに
+はバッファをポップアップする必要があります。そのための設定は以下のよう
+になります。
 
   (setq skk-annotation-show-as-message t)
   (setq skk-show-candidates-always-pop-to-buffer t)
 
-*** $B%$%s%i%$%s$N8uJd0lMwI=<((B
+*** インラインの候補一覧表示
 
-$BJQ?t(B `skk-show-inline' $B$r(B non-nil $B$K@_Dj$9$k$3$H$G!"8uJd0lMw$rJQ490LCV(B
-$B$N6aK5$KI=<($G$-$^$9!#$3$N5!G=$O(B window system $B$K0MB8$7$J$$$?$a(B
-terminal $B$G$bMxMQ$G$-$^$9!#$3$N5!G=$O(B Emacs 20, XEmacs $B$G$bMxMQ$G$-$^(B
-$B$9$,!"(Bface $BI=<($KBP1~$7$F$$$k$N$O(B GNU Emacs 21 $B0J9_$N$_$G$9!#(B
+変数 `skk-show-inline' を non-nil に設定することで、候補一覧を変換位置
+の近傍に表示できます。この機能は window system に依存しないため
+terminal でも利用できます。この機能は Emacs 20, XEmacs でも利用できま
+すが、face 表示に対応しているのは GNU Emacs 21 以降のみです。
 
-*** $B%D!<%k%F%#%C%W$rMxMQ$7$?8uJd0lMw!&Cm<aI=<((B
+*** ツールティップを利用した候補一覧・注釈表示
 
-$BJQ?t(B `skk-show-tooltip' $B$r(B non-nil $B$K@_Dj$9$k$3$H$G!"(Bwindow-system $B2<(B
-$B$K$F8uJd0lMwI=<($HCm<aI=<($r%P%k!<%s%X%k%W$K$9$k$3$H$,$G$-$k$h$&$K$J$j(B
-$B$^$7$?!#$3$l$O8=:_(B GNU Emacs 21 $B0J9_!"(BXEmacs 21.5 $B0J9_$KBP1~$7$F$$$^$9!#(B
-Emacs 20.7 $B$*$h$S(B XEmacs 21.4 $B$G$OF0:n$7$^$;$s!#(B
+変数 `skk-show-tooltip' を non-nil に設定することで、window-system 下
+にて候補一覧表示と注釈表示をバルーンヘルプにすることができるようになり
+ました。これは現在 GNU Emacs 21 以降、XEmacs 21.5 以降に対応しています。
+Emacs 20.7 および XEmacs 21.4 では動作しません。
 
-*** $BF~NO!&JQ49Cf$K(B ($B>iD9$J(B) $B0FFb%a%C%;!<%8$rI=<($9$k5!G=$NDI2C(B
+*** 入力・変換中に (冗長な) 案内メッセージを表示する機能の追加
 
-$B%f!<%6%*%W%7%g%s(B skk-verbose $B$,?7@_$5$l$^$7$?!#$3$l$r(B non-nil $B$K@_Dj$9(B
-$B$k$H!"(BSKK $B$,=>MhI=<($7$J$+$C$?$h$&$JF~NO!&JQ49Cf$N=u8@E*%a%C%;!<%8$,I=(B
-$B<($5$l$^$9!#6qBNE*$K$O!"(B
+ユーザオプション skk-verbose が新設されました。これを non-nil に設定す
+ると、SKK が従来表示しなかったような入力・変換中の助言的メッセージが表
+示されます。具体的には、
 
-o $B"&%b!<%I$G0lDj;~4V%-!<F~NO$,$J$+$C$?$H$-!"%W%l%U%#%C%/%9$K$h$kJQ49%W(B
-  $B%m%0%i%`@Z49$(J}K!$r%a%C%;!<%8$G0FFb$7$^$9!#(B
+o ▽モードで一定時間キー入力がなかったとき、プレフィックスによる変換プ
+  ログラム切換え方法をメッセージで案内します。
 
-o $B"'%b!<%I$G0lDj;~4V%-!<F~NO$,$J$+$C$?$H$-!"%"%N%F!<%7%g%s5!G=$N;H$$J}(B
-  $B$K4X$7$F%a%C%;!<%8$G0FFb$7$^$9!#(B
+o ▼モードで一定時間キー入力がなかったとき、アノテーション機能の使い方
+  に関してメッセージで案内します。
 
-$B:#8e$5$i$K!"=i?4<T$K=u8@$7$?$j!"$^$@==J,>R2p$5$l$F$$$J$$?75!G=$K$D$$$F(B
-$B%f!<%6$K0FFb$9$k$h$&$J3HD%$,4|BT$5$l$^$9!#(B
+今後さらに、初心者に助言したり、まだ十分紹介されていない新機能について
+ユーザに案内するような拡張が期待されます。
 
-** $BJQ495!G=$N3HD%(B
+** 変換機能の拡張
 
-*** $B?tCMJQ49M-8z;~$KHs?tCMJQ49$bF1;~$K9T$&$h$&$KJQ99(B
+*** 数値変換有効時に非数値変換も同時に行うように変更
 
-$B:#$^$G!"(Bskk-use-numeric-conversion $B$,(B non-nil $B$@$H?tCMJQ49$N$_9T$$!"Hs(B
-$B?tCMJQ49$OL58z$K$9$k$h$&$K$J$C$F$$$^$7$?$,!"GSB>E*$G$"$kI,MW$O$J$$$H9M(B
-$B$($i$l$?$N$G!$>o$KHs?tCMJQ49$O9T$&$h$&$K$7$^$7$?!#$3$l$K$h$j!"(B
-skk-use-numeric-conversion $B$rM-8z$K$7$F$$$k>l9g$G$b(B
+今まで、skk-use-numeric-conversion が non-nil だと数値変換のみ行い、非
+数値変換は無効にするようになっていましたが、排他的である必要はないと考
+えられたので，常に非数値変換は行うようにしました。これにより、
+skk-use-numeric-conversion を有効にしている場合でも
 
-10^-1 /deci;SI$B@\F,8l(B/d/$B%G%7(B/
-10^-2 /centi;SI$B@\F,8l(B/c/$B%;%s%A(B/
-10^-3 /milli;SI$B@\F,8l(B/m/$B%_%j(B/
+10^-1 /deci;SI接頭語/d/デシ/
+10^-2 /centi;SI接頭語/c/センチ/
+10^-3 /milli;SI接頭語/m/ミリ/
 
-$B$J$I$NJQ49$b$G$-$^$9!#(B
+などの変換もできます。
 
-$B$?$@$7!"C18lEPO?%b!<%I$KF~$k$H?tCMJQ49$N8uJd$H$7$F07$o$l$^$9!#(B
+ただし、単語登録モードに入ると数値変換の候補として扱われます。
 
-*** $BJQ495!G=$N4JC1$J@Z$jBX$((B
+*** 変換機能の簡単な切り替え
 
 skk-search-prog-list-1,
 skk-search-prog-list-2,
@@ -1219,168 +1219,168 @@ skk-search-prog-list-2,
 skk-search-prog-list-9,
 skk-search-prog-list-0
 
-$B$H$$$&JQ?t$r?7@_$7$^$7$?!#$3$l$i$O(B skk-search-prog-list $B$HA4$/F1$87A<0(B
-($BJQ49%W%m%0%i%`$N(B list) $B$G@_Dj$G$-$^$9!#(B
-$BNc$($P"&%b!<%I$G(B SPC $B$NBe$o$j$K(B C-6 SPC $B$HF~NO$9$k$H!"(B
-skk-search-prog-list $B$NBe$o$j$K(B skk-search-prog-list-6 $B$r;H$C$FJQ49$7(B
-$B$^$9!#(B
+という変数を新設しました。これらは skk-search-prog-list と全く同じ形式
+(変換プログラムの list) で設定できます。
+例えば▽モードで SPC の代わりに C-6 SPC と入力すると、
+skk-search-prog-list の代わりに skk-search-prog-list-6 を使って変換し
+ます。
 
-$BJd40$K$bN`;w$N5!G=$,;H$($k$h$&$K$J$j$^$7$?$N$G!"$=$N9`L\$bFI$s$G2<$5$$!#(B
+補完にも類似の機能が使えるようになりましたので、その項目も読んで下さい。
 
-** $B%"%N%F!<%7%g%s$N$?$a$K(B Wikipedia/Wiktionary $B$r;2>H$9$k5!G=(B
+** アノテーションのために Wikipedia/Wiktionary を参照する機能
 
-SKK $B<-=q$KD>@\Cm<a$rM?$($k5!G=$K2C$($F!"(BWikipedia/Wiktionary $B$r;2>H$7(B
-$B$FCm<a$r@8@.$9$k5!G=$rDI2C$7$^$7$?!#$3$N5!G=$r;H$&$?$a$K$O(B ~/.skk $B$J$I(B
-$B$G%*%W%7%g%s(B skk-show-annotation $B$rM-8z$K$7$F$$$kI,MW$,$"$j$^$9!#(B
+SKK 辞書に直接注釈を与える機能に加えて、Wikipedia/Wiktionary を参照し
+て注釈を生成する機能を追加しました。この機能を使うためには ~/.skk など
+でオプション skk-show-annotation を有効にしている必要があります。
 
-$BJQ49Cf$K(B C-i $B$r%?%$%W$9$k$H(B ja.wikipedia.org, ja.wiktionary.org,
-en.wikipedia.org, en.wiktionary.org $B$N=g$G8uJd$KBP$9$kCm<a$rC5$7$^$9!#(B
-$B$_$D$+$C$?;~E@$GC5:w$r$d$a!"$_$D$+$C$?Cm<a$rI=<($7$^$9!#(B
-$B$3$N(B C-i $B$N%-!<Dj5A$O(B skk-annotation-wikipedia-key $B$N@_Dj$GJQ99$G$-$^(B
-$B$9!#$^$?%5%$%H$N8!:w=g$O(B skk-annotation-wikipedia-sources $B$N@_Dj$GJQ99(B
-$B$G$-$^$9!#$^$?!"(BC-1, C-2 $B$J$I$N(B prefix argument $B$rM?$($k$H(B
-skk-annotation-wikipedia-sources $B$N$J$+$NFCDj$N(B 1 $B%5%$%H$K8BDj$7$F8!:w(B
-$B$9$k$3$H$,$G$-$^$9!#(B
+変換中に C-i をタイプすると ja.wikipedia.org, ja.wiktionary.org,
+en.wikipedia.org, en.wiktionary.org の順で候補に対する注釈を探します。
+みつかった時点で探索をやめ、みつかった注釈を表示します。
+この C-i のキー定義は skk-annotation-wikipedia-key の設定で変更できま
+す。またサイトの検索順は skk-annotation-wikipedia-sources の設定で変更
+できます。また、C-1, C-2 などの prefix argument を与えると
+skk-annotation-wikipedia-sources のなかの特定の 1 サイトに限定して検索
+することができます。
 
-$B$J$*!"K\5!G=$OJQ49Cf0J30!$$5$i$K$O(B SKK $B%b!<%I$G$J$$>r7o$G$b;HMQ$G$-$^(B
-$B$9!#$=$N>l9g$O(B region $B$r@_Dj$7$F(B M-x skk-annotation-wikipedia-region
-$B$r<B9T$7$^$9!#$3$N%3%^%s%I$O(B region $B$r@_Dj$7$J$/$F$b0l1~F0:n$7!"$=$N>l(B
-$B9g$O(B point $B$N0LCV$K$"$kC18l$r?dB,$7$F8!:w$7$^$9!#$?$@$72$JF8l0J30$GC1(B
-$B8l$,@5$7$/<hF@$5$l$k$3$H$O4|BT$G$-$^$;$s!#(B
+なお、本機能は変換中以外，さらには SKK モードでない条件でも使用できま
+す。その場合は region を設定して M-x skk-annotation-wikipedia-region
+を実行します。このコマンドは region を設定しなくても一応動作し、その場
+合は point の位置にある単語を推測して検索します。ただし欧米語以外で単
+語が正しく取得されることは期待できません。
 
-$BK\5!G=$O(B Emacs 22 $B$N?75!G=$G$"$k(B url $B%Q%C%1!<%8$H(B html2text.el $B$K0MB8(B
-$B$7$^$9!#(BEmacs 22 $B0J30$G$OBP1~$7$F$$$k%P!<%8%g%s$N$3$l$i%W%m%0%i%`$rJL(B
-$BES%$%s%9%H!<%k$9$kI,MW$,$"$j$^$9!#>\$7$/$O(B skk-annotation.el $B$NKAF,%3(B
-$B%a%s%H$r;2>H$7$F$/$@$5$$!#(B
+本機能は Emacs 22 の新機能である url パッケージと html2text.el に依存
+します。Emacs 22 以外では対応しているバージョンのこれらプログラムを別
+途インストールする必要があります。詳しくは skk-annotation.el の冒頭コ
+メントを参照してください。
 
-$BK\5!G=$N;EMM$O$^$@40A4$K$O3NDj$7$F$*$i$:!"$^$?<hF@$7$?(B html $B$N=hM}$,IT(B
-$B40A4$K$J$k>l9g$,$"$j$^$9!#(B
+本機能の仕様はまだ完全には確定しておらず、また取得した html の処理が不
+完全になる場合があります。
 
 * 12.2.0
 
-** $B8D?M<-=q$NJ]B8$K4X$9$k@H<e@-$N%U%#%C%/%9(B
+** 個人辞書の保存に関する脆弱性のフィックス
 
-$B8D?M<-=q$NJ]B8$K(B `make-temp-name' $B4X?t$r;HMQ$7$F$$$^$7$?$,!"$3$N4X?t$K(B
-$B$O(B race condition $B$,B8:_$9$k$3$H$,H=L@$7!"(BEmacs 21 $B$K<BAu$5$l$F$$$k(B
-`make-temp-file' $B4X?t$r;HMQ$9$k$3$H$G$3$N@H<e@-$r2sHr$7$^$7$?!#(B
-$BB>$N(B version $B$N(B Emacs, XEmacs $B$K$*$1$k(B `make-temp-file' $B4X?t$N%5%]!<%H(B
-$B$O(B APEL 10.6 $B$G9T$o$l$^$9!#(B
+個人辞書の保存に `make-temp-name' 関数を使用していましたが、この関数に
+は race condition が存在することが判明し、Emacs 21 に実装されている
+`make-temp-file' 関数を使用することでこの脆弱性を回避しました。
+他の version の Emacs, XEmacs における `make-temp-file' 関数のサポート
+は APEL 10.6 で行われます。
 
-APEL 10.6 $B$K$D$$$F$O!"(Bhttp://emacs-w3m.namazu.org/ml/msg05365.html $B$r(B
-$B$4;2>H2<$5$$!#(B
+APEL 10.6 については、http://emacs-w3m.namazu.org/ml/msg05365.html を
+ご参照下さい。
 
-$B$J$*!"(BEmacs 20 $B$G$O!"$3$NLdBj$K4XO"$7!"0l;~%U%!%$%k$,0BA4$K@8@.$G$-$J(B
-$B$$LdBj$,$"$j$^$9!#$3$NLdBj$r2sHr$9$k$?$a$K!"4D6-JQ?t(B TMPDIR $B$r3F%f!<%6(B
-$B$N$_$,=q$-9~$_2DG=$J%G%#%l%/%H%j(B ($BNc$($P(B file mode $B$r(B 0700 $B$K@_Dj$7$?(B
-~/tmp) $B$K;XDj$9$k$3$H$,6/$/?d>)$5$l$^$9!#$3$N4D6-JQ?t$r@_Dj$9$k$3$H$G(B
-`temp-file-name-pattern' $B$d(B `temporary-file-directory' $B$J$I$NJQ?t$N@_(B
-$BDj$,1F6A$r<u$1$^$9!#$3$NLdBj$K$D$$$F>\$7$/$O!"(B
+なお、Emacs 20 では、この問題に関連し、一時ファイルが安全に生成できな
+い問題があります。この問題を回避するために、環境変数 TMPDIR を各ユーザ
+のみが書き込み可能なディレクトリ (例えば file mode を 0700 に設定した
+~/tmp) に指定することが強く推奨されます。この環境変数を設定することで
+`temp-file-name-pattern' や `temporary-file-directory' などの変数の設
+定が影響を受けます。この問題について詳しくは、
 
   http://bugs.debian.org/cgi-bin/bugreport.cgi?archive=no&bug=192732
   http://bugs.debian.org/cgi-bin/bugreport.cgi?archive=no&bug=198567
 
-$B$r$4;2>H2<$5$$!#(BEmacs 21 $B$G$O$3$N@H<e@-$O%U%#%C%/%9$5$l$F$$$^$9!#(B
+をご参照下さい。Emacs 21 ではこの脆弱性はフィックスされています。
 
-** $B?7$7$$%f!<%6JQ?t(B skk-force-registration-mode-char
+** 新しいユーザ変数 skk-force-registration-mode-char
 
-$B$3$NJQ?t$K$h$j!"%(%3!<%(%j%"$G8uJdI=<(Cf$K!"<-=qEPO?%b!<%I$K6/@)E*$KF~(B
-$B$k%-!<%-%c%i%/%?$r@_Dj$9$k$3$H$,2DG=$K$J$j$^$7$?!#(B
+この変数により、エコーエリアで候補表示中に、辞書登録モードに強制的に入
+るキーキャラクタを設定することが可能になりました。
 
-** $B?7$7$$%f!<%6JQ?t(B skk-comp-circulate
+** 新しいユーザ変数 skk-comp-circulate
 
-$B$3$NJQ?t$K$h$j!"8+=P$78l$NJd40$r9T$&:]$N8uJd$NI=<(=g$r@)8f$7!":G8e$N8+(B
-$B=P$78l$,I=<($5$l$?>uBV$G$5$i$KJd40$r9T$&$HF~NOJ8;zNs$KLa$k$3$H$,2DG=$K(B
-$B$J$j$^$7$?!#(B
+この変数により、見出し語の補完を行う際の候補の表示順を制御し、最後の見
+出し語が表示された状態でさらに補完を行うと入力文字列に戻ることが可能に
+なりました。
 
-** $B?7$7$$%f!<%6JQ?t(B skk-isearch-mode-enable
+** 新しいユーザ変数 skk-isearch-mode-enable
 
-$B$3$NJQ?t$r(B `nil' $B$K@_Dj$9$k$3$H$K$h$j!"%$%s%/%j%a%s%?%k%5!<%A$G(B
-skk-isearch $B$rMxMQ$7$J$$$h$&$K$9$k$3$H$,2DG=$K$J$j$^$7$?!#(Bmigemo $B$rMx(B
-$BMQ$7$?$$>l9g$J$I$K$O(B `nil' $B$K@_Dj$9$k$HNI$$$G$7$g$&!#(B
+この変数を `nil' に設定することにより、インクリメンタルサーチで
+skk-isearch を利用しないようにすることが可能になりました。migemo を利
+用したい場合などには `nil' に設定すると良いでしょう。
 
-** skk-study.el $B$,@5<0%5%]!<%H$NBP>]$K$J$j$^$7$?!#(B
+** skk-study.el が正式サポートの対象になりました。
 
-$B$3$l$KH<$$!"%W%m%0%i%`$,(B skk/main/experimental/skk-study.el $B$+$i(B
-skk/main/skk-study.el $B$K0\F0$5$l$^$7$?!#(B`skk-study-first-candidate',
-`skk-study-max-distance' $B$N(B 2 $B$D$N?7$7$$%f!<%6JQ?t$,A}$($F$$$^$9(B ($B>\:Y(B
-$B$O(B C-h v skk-study-first-candidate $B$J$I$H$7$FI=<($5$l$k%I%-%e%a%s%H$r(B
-$B$4;2>H2<$5$$(B)$B!#(B
+これに伴い、プログラムが skk/main/experimental/skk-study.el から
+skk/main/skk-study.el に移動されました。`skk-study-first-candidate',
+`skk-study-max-distance' の 2 つの新しいユーザ変数が増えています (詳細
+は C-h v skk-study-first-candidate などとして表示されるドキュメントを
+ご参照下さい)。
 
-** $B99$K<B83E*$J(B experimental/skk-study.el $B$,2C$o$j$^$7$?!#(B
+** 更に実験的な experimental/skk-study.el が加わりました。
 
-experimental/skk-study.el $B$O3X=,%F!<%^BP1~$G$9!#(B
+experimental/skk-study.el は学習テーマ対応です。
 
-M-x skk-study-switch-current-theme $B$7$FG$0U$NJ8;zNs(B ($BNc$($P2J3X$NOCBj(B
-$B$r=q$/%P%C%U%!$G$O(B science $B$J$I(B) $B$rF~$l$k$H!"0J9_$=$N%P%C%U%!$G$O(B
-science $B$H$$$&%F!<%^$G3X=,%G!<%?$r%"%C%W%G!<%H$7$^$9!#JQ49;~(B ($BC18l8!:w(B
-$B;~(B) $B$O$^$:(B science $B$H$$$&%F!<%^$N3X=,%G!<%?$rC5$7!"$=$N<!$K(B general $B$H(B
-$B$$$&HFMQ3X=,%G!<%?$rC5$7$^$9!#(B
+M-x skk-study-switch-current-theme して任意の文字列 (例えば科学の話題
+を書くバッファでは science など) を入れると、以降そのバッファでは
+science というテーマで学習データをアップデートします。変換時 (単語検索
+時) はまず science というテーマの学習データを探し、その次に general と
+いう汎用学習データを探します。
 
-$BB>$N%P%C%U%!$K0\$C$?$H$-$K!"$=$N%P%C%U%!$G$b2J3X$NOCBj$r=q$/$N$G$"$l$P!"(B
-M-x skk-study-switch-current-theme $B$7$F(B science $B$HF~$l$^$7$g$&!#@hDx3X(B
-$B=,$7$?(B science $BHG3X=,%G!<%?$r;HMQ$7$^$9!#$=$N%P%C%U%!$G$OK!N'$K$D$$$F(B
-$B=q$-$?$$$N$G$"$l$P!"%F!<%^$r(B law $B$J$I$H$9$k$H(B science $B$J3X=,%G!<%?$O;2(B
-$B>H$7$^$;$s!#3X=,%F!<%^$O(B Emacs $B$G07$($kJ8;zNs$J$i$P!"(Bmultibyte $BJ8;zNs(B
-$B$G$b9=$$$^$;$s!#(B
+他のバッファに移ったときに、そのバッファでも科学の話題を書くのであれば、
+M-x skk-study-switch-current-theme して science と入れましょう。先程学
+習した science 版学習データを使用します。そのバッファでは法律について
+書きたいのであれば、テーマを law などとすると science な学習データは参
+照しません。学習テーマは Emacs で扱える文字列ならば、multibyte 文字列
+でも構いません。
 
-$B$^$@==J,8!>Z$5$l$F$*$i$:!"(B~/.skk-study $B$N%U%)!<%^%C%H$r2u$7$F$7$^$&62(B
-$B$l$,$"$k$?$a!"%P%C%/%"%C%W$r<h$C$F$*$/$3$H$r6/$/$*4+$a$7$^$9!#(B
+まだ十分検証されておらず、~/.skk-study のフォーマットを壊してしまう恐
+れがあるため、バックアップを取っておくことを強くお勧めします。
 
-experimental $BHG$N(B skk-study-file-format-version $B$O(B 0.3 $B$G$9!#(B0.2 $B$N%U%)!<(B
-$B%^%C%H$rFI$_9~$`$H<+F0E*$K(B conversion $B$9$k$h$&$K$J$C$F$$$^$9!#(B
-downgrade $B$O<+F02=$5$l$F$$$J$$$N$G$4Cm0U2<$5$$!#(B
+experimental 版の skk-study-file-format-version は 0.3 です。0.2 のフォー
+マットを読み込むと自動的に conversion するようになっています。
+downgrade は自動化されていないのでご注意下さい。
 
-$B;n$7$F$$$_$?$$J}$O!"(Bexperimental/skk-study.el $B$r(B 1 $B$D>e$N%G%#%l%/%H%j(B
-$B$N(B skk-study.el $B$K>e=q$-$7$F(B make $B$7$F2<$5$$!#(B
+試していみたい方は、experimental/skk-study.el を 1 つ上のディレクトリ
+の skk-study.el に上書きして make して下さい。
 
-$B$J$*!"(BM-x skk-study-remove-theme $B$GITMW$J%F!<%^$r>C$9$3$H$,$G$-(B ($B%F!<(B
-$B%^(B general $B$O>C$;$^$;$s(B) M-x skk-study-copy-theme $B$G$"$k%F!<%^$N3X=,%G!<(B
-$B%?$rB>$N%F!<%^$K%3%T!<$9$k$3$H$,$G$-$^$9!#(B
+なお、M-x skk-study-remove-theme で不要なテーマを消すことができ (テー
+マ general は消せません) M-x skk-study-copy-theme であるテーマの学習デー
+タを他のテーマにコピーすることができます。
 
-** $BJT=8$NJ8L.$K1~$8$?<+F0E*$J(B latin $B%b!<%I$X$N@Z$jBX$(%5%]!<%H(B
+** 編集の文脈に応じた自動的な latin モードへの切り替えサポート
 
-`major-mode' $B$,%W%m%0%i%`8@8l$N%b!<%I$G$"$k>l9g$K!"J8L.$K1~$8$F<+F0E*(B
-$B$K(B latin$B%b!<%I$X@Z$jBX$($r9T$&5!G=$r;n83E*$K%5%]!<%H$7$F$$$^$9!#>\:Y$O!"(B
-experimental/context-skk.el $B$NCf$N%I%-%e%a%s%H$r;2>H$7$F2<$5$$!#(B
+`major-mode' がプログラム言語のモードである場合に、文脈に応じて自動的
+に latinモードへ切り替えを行う機能を試験的にサポートしています。詳細は、
+experimental/context-skk.el の中のドキュメントを参照して下さい。
 
-** $BC14A;zJQ49$N%5%]!<%H(B
+** 単漢字変換のサポート
 
-$BFI$_$N:G8e$K!"FI$_$N0lIt$H$7$F(B @ $B$rF~NO$7$F$+$iJQ49$9$k$H!"0lJ8;z$N$_(B
-$B$+$i$J$k8uJd$K9J$j9~$s$@>e$G!"8uJd$rAm2h?t=g$G%=!<%H$7$F$+$iJQ49$9$kC1(B
-$B4A;zJQ495!G=$r;n83E*$K%5%]!<%H$7$F$$$^$9!#>\:Y$O!"(B
-experimental/skk-tankan.el $B$NCf$N%I%-%e%a%s%H$r;2>H$7$F2<$5$$!#(B
+読みの最後に、読みの一部として @ を入力してから変換すると、一文字のみ
+からなる候補に絞り込んだ上で、候補を総画数順でソートしてから変換する単
+漢字変換機能を試験的にサポートしています。詳細は、
+experimental/skk-tankan.el の中のドキュメントを参照して下さい。
 
 * 12.1
 
-** $B8E$$(B Emacsen $B$N%5%]!<%H=*N;(B
+** 古い Emacsen のサポート終了
 
-$B0J2<$N%P!<%8%g%s$N%5%]!<%H$OBG$A$-$j$^$7$?!#(B
+以下のバージョンのサポートは打ちきりました。
 
- Mule 2.3 (based on Emacs 19.28 or 19.34) $B0JA0(B
- Emacs 20.2 $B0JA0(B
- XEmacs 20.4 $B0JA0(B
+ Mule 2.3 (based on Emacs 19.28 or 19.34) 以前
+ Emacs 20.2 以前
+ XEmacs 20.4 以前
 
-$B$3$l0J30$O%5%]!<%HBP>]$G$O$"$j$^$9$,!"?d>)$5$l$k$N$O0J2<$N(B Emacsen $B$G(B
-$B$9!#(B
+これ以外はサポート対象ではありますが、推奨されるのは以下の Emacsen で
+す。
 
- Emacs 20.7 $B0J>e(B
- XEmacs 21.4.6 $B0J>e(B
+ Emacs 20.7 以上
+ XEmacs 21.4.6 以上
 
-** $BF0E*F~NOBP1~(B
+** 動的入力対応
 
-$B%-!<F~NO;~$K!"A^F~$9$kJ8;z$rF0E*$K7hDj$9$k5!G=!#$3$l$O(B
-experimental/skk-dinsert.el $B$H$7$F3+H/$5$l$F$$$^$9!#(B
+キー入力時に、挿入する文字を動的に決定する機能。これは
+experimental/skk-dinsert.el として開発されています。
 
-** AZIK ($B3HD%%m!<%^;zF~NOK!(B)
+** AZIK (拡張ローマ字入力法)
 
-SKK $B$G(B $B3HD%%m!<%^;zF~NOK!(B AZIK $B$rMxMQ$9$k5!G=!#$3$l$O(B
-experimental/skk-azik.el $B$H$7$F3+H/$5$l$F$$$^$9!#(B
-AZIK $B$K$D$$$F$O!"0J2<$N(B URL $B$r;2>H2<$5$$!#(B
+SKK で 拡張ローマ字入力法 AZIK を利用する機能。これは
+experimental/skk-azik.el として開発されています。
+AZIK については、以下の URL を参照下さい。
 http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm
 
-** $B%"%$%3%s(B
+** アイコン
 
-Emacs 21 $B$H(B XEmacs $B$K$*$$$F!"%b!<%I9T$K%"%$%3%s$r@_CV$7$^$7$?!#(B
+Emacs 21 と XEmacs において、モード行にアイコンを設置しました。
 
 
 * 11.6
@@ -1389,240 +1389,240 @@ Emacs 21 $B$H(B XEmacs $B$K$*$$$F!"%b!<%I9T$K%"%$%3%s$r@_CV$7$^$7$?!#(B
 
 * 11.5
 
-** GNU Emacs 21 $BBP1~(B
+** GNU Emacs 21 対応
 
-GNU Emacs 21 $B$KBP1~$7$^$7$?!#(B
+GNU Emacs 21 に対応しました。
 
-** $BG[I[J*$K(B S $B<-=q$,4^$^$l$^$9!#(B
+** 配布物に S 辞書が含まれます。
 
-$B=>Mh$OJL$K<-=q$rF~<j$9$kI,MW$,$"$j$^$7$?!#8=:_$G$OG[I[J*$NCf$K(B S $B<-=q(B
-$B$,4^$^$l$k$h$&$K$J$j$^$7$?!#(B
+従来は別に辞書を入手する必要がありました。現在では配布物の中に S 辞書
+が含まれるようになりました。
 
-** Windows $BMQ%$%s%9%H!<%i(B (make.bat) $B$N2~NI(B
+** Windows 用インストーラ (make.bat) の改良
 
-$B=>Mh$N(B make.bat $B$O4D6-JQ?t$NDj5A$r=|$$$?>e$G!"(Bmake1.bat $B$K2~L>$5$l$^$7(B
-$B$?!#(B
+従来の make.bat は環境変数の定義を除いた上で、make1.bat に改名されまし
+た。
 
-$B$^$?!"$h$jHFMQ@-$N9b$$%$%s%9%H!<%i$H$7$F(B makeit.bat $B$,DI2C$5$l$^$7$?!#(B
-$B;HMQK!$O(B $B$3$N%G%#%l%/%H%j$K$"$k(B README.win $B$r;2>H$7$F$/$@$5$$!#(B
+また、より汎用性の高いインストーラとして makeit.bat が追加されました。
+使用法は このディレクトリにある README.win を参照してください。
 
-** Web $B8!:w%(%s%8%s$K$h$k8!:w(B
+** Web 検索エンジンによる検索
 
-experimental/skk-w3m.el $B$H$$$&?7$?$J%W%m%0%i%`$,DI2C$5$l$^$7$?!#(B
+experimental/skk-w3m.el という新たなプログラムが追加されました。
 
-$BDL>o$NJQ49$N$[$+!"DL2_$NC10L49;;$J$I!"$+$J$j%$%1$F$k$h$&$G$9!#(B
-$BNc$($P!"%I%k$r1_$K49;;$9$k$K$O(B
+通常の変換のほか、通貨の単位換算など、かなりイケてるようです。
+例えば、ドルを円に換算するには
 
-$# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "$B1_(B")/
-$#.# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "$B1_(B")/
+$# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/
+$#.# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "円")/
 
-$B$H$$$&%(%s%H%j$r8D?M<-=q$KDI2C$7$^$9!#(B
+というエントリを個人辞書に追加します。
 
-skk-w3m.el $B$r;H$&$K$O(B w3m $B$r%$%s%9%H!<%k$9$kI,MW$,$"$j$^$9!#(B
+skk-w3m.el を使うには w3m をインストールする必要があります。
 
 http://w3m.sourceforge.net
 
-** SKK $B$K%R%s%H$rM?$($FJQ49(B
+** SKK にヒントを与えて変換
 
-experimental/skk-hint.el $B$H$$$&?7$?$J%W%m%0%i%`$,DI2C$5$l$^$7$?!#(B
+experimental/skk-hint.el という新たなプログラムが追加されました。
 
-$B$3$l$r;H$&$H!"DL>o$NJQ49A`:n$N$J$+$G!"(BSKK $B$K%R%s%H$rM?$($k$3$H$,$G$-$^(B
-$B$9!#(BSKK $B$OM?$($i$l$?FI$_$r4^$s$@4A;z$r;}$D$b$N$K8uJd$r9J$j$^$9!#(B
+これを使うと、通常の変換操作のなかで、SKK にヒントを与えることができま
+す。SKK は与えられた読みを含んだ漢字を持つものに候補を絞ります。
 
-** $BC10L49;;<B9TJQ49(B
+** 単位換算実行変換
 
-$BD9$5$J$I$NC10L49;;$,$G$-$k5!G=$G$9!#:G?7$N(B SKK-JISYO.L $B$rMQ$$$l$P(B
+長さなどの単位換算ができる機能です。最新の SKK-JISYO.L を用いれば
 
-  $B"&(B97mile $B"*(B 156.1021km
+  ▽97mile → 156.1021km
 
-$B$N$h$&$JJQ49$,2DG=$G$9!#B>$K(B yard, feet, inch $B$rB>$NC10L$K49;;$G$-$^(B
-$B$9!#(B`skk-units-alist' $B$H$$$&JQ?t$r;2>H$7$F$/$@$5$$!#(B
+のような変換が可能です。他に yard, feet, inch を他の単位に換算できま
+す。`skk-units-alist' という変数を参照してください。
 
-** $BF|IUA^F~5!G=$N6/2=(B
+** 日付挿入機能の強化
 
-$BDL>o(B @ $B$r2!$9$3$H$K$h$C$FF|IU$,A^F~$5$l$^$9$,!"$3$N5!G=$,3HD%$5$l$^$7(B
-$B$?!#<-=q$N@_Dj$HJQ?t$N@_Dj<!Bh$GMM!9$J7A<0$NF|IU$rA^F~$9$k$3$H$,$G$-$^(B
-$B$9!#I8=`$G$O1Q8lI=5-!"F|K\8lI=5-$K2C$($F!"%I%$%D8lI=5-$b2DG=$G$9!#(B
+通常 @ を押すことによって日付が挿入されますが、この機能が拡張されまし
+た。辞書の設定と変数の設定次第で様々な形式の日付を挿入することができま
+す。標準では英語表記、日本語表記に加えて、ドイツ語表記も可能です。
 
-$B0J2<$NJQ?t$r;2>H$7$F$/$@$5$$!#(B
+以下の変数を参照してください。
 
  `skk-gengo-alist'
  `skk-month-alist'
  `skk-day-of-week-alist'
  `skk-default-current-date-function'
 
-$B$^$?!"<-=q$X$N5-F~Nc$O!":G?7$N(B SKK-JISYO.L $B$r<hF@$7$F!"(Btoday $B%(%s%H%j(B
-$B$r;2>H$7$F$/$@$5$$!#(B
+また、辞書への記入例は、最新の SKK-JISYO.L を取得して、today エントリ
+を参照してください。
 
-** $B:.$<=q$-<-=q(B
+** 混ぜ書き辞書
 
-tut-code/skk-mkmgk.el $B$O:.$<=q$-(B SKK $B<-=q$r:n@.$9$k%D!<%k$G$9!#(B
+tut-code/skk-mkmgk.el は混ぜ書き SKK 辞書を作成するツールです。
 
-$B$^$?!":n@.$5$l$?:.$<=q$-<-=q$,(B SKK-JISYO.mazegaki $B$H$$$&L>A0$G(B SKK $B3+(B
-$BH/%i%\$+$iG[I[$5$l$F$$$^$9!#(B
+また、作成された混ぜ書き辞書が SKK-JISYO.mazegaki という名前で SKK 開
+発ラボから配布されています。
 
-** $B$A$g$C$H%*%7%c%l(B (?) $B$J%$%s%8%1!<%?(B
+** ちょっとオシャレ (?) なインジケータ
 
-$B$3$N5!G=$O(B FSF Emacs 21 $B$H(B XEmacs $B$N$_M-8z$G$9!#%$%s%8%1!<%?$r%b!<%I9T(B
-$B$N:8$KI=<($9$k>l9g!"%+!<%=%k$N?'$HF1$8?'$,IU$/$h$&$K$7$^$7$?!#$^$?!"$3(B
-$B$N%$%s%8%1!<%?$N$H$3$m$G%^%&%9$NBh(B 2 $B%\%?%s$r%/%j%C%/$9$k$H!"%]%C%W%"%C(B
-$B%W%a%K%e!<$,I=<($5$l$^$9!#%a%K%e!<$N9`L\$O!"=i?4<T$KLrN)$A$=$&$J$3$H$r(B
-$BCf?4$KA*$s$G$$$^$9!#(B
+この機能は FSF Emacs 21 と XEmacs のみ有効です。インジケータをモード行
+の左に表示する場合、カーソルの色と同じ色が付くようにしました。また、こ
+のインジケータのところでマウスの第 2 ボタンをクリックすると、ポップアッ
+プメニューが表示されます。メニューの項目は、初心者に役立ちそうなことを
+中心に選んでいます。
 
-($B2hA|$r;H$C$F$b$C$H%*%7%c%l$K$9$k!"$J$s$F$3$H$b2DG=$G$9!#(B)
+(画像を使ってもっとオシャレにする、なんてことも可能です。)
 
-** $B8+=P$78l$N7+$jJV$7F~NO(B
+** 見出し語の繰り返し入力
 
-`Q' $B$r2!$7$F"&%b!<%I$KF~$j!"(BTAB $B$r2!$9$H!"$=$l$^$G$K3NDj$7$?Aw$jL5$7$N(B
-$B8+=P$78l$,A^F~$5$l$^$9!#$3$l$O@N$N%o!<%W%m$G$$$&$H$3$m$N7+$jJV$7F~NO(B
-($B%F%s%W%l!<%HF~NO!)(B) $B$N$h$&$J46$8$N5!G=$H$$$($P$$$$$s$G$7$g$&$+!#(B
+`Q' を押して▽モードに入り、TAB を押すと、それまでに確定した送り無しの
+見出し語が挿入されます。これは昔のワープロでいうところの繰り返し入力
+(テンプレート入力？) のような感じの機能といえばいいんでしょうか。
 
-$B7+$jJV$7(B TAB $B$r2!$9$3$H$G!"3NDj$7$?8+=P$78l$NMzNr$r$?$I$k$3$H$,$G$-$^(B
-$B$9!#$3$NMzNr$O(B `skk-kakutei-history' $B$H$$$&JQ?t$KJ];}$5$l$^$9!#$^$?!"(B
-$BJ];}$9$kMzNr$N?t$N:GBgCM$O(B `skk-kakutei-history-limit' $B$NCM$K$h$C$F7h(B
-$B$^$j$^$9!#I8=`$G$O!"(B20 $B$H$J$C$F$$$^$9!#(B
+繰り返し TAB を押すことで、確定した見出し語の履歴をたどることができま
+す。この履歴は `skk-kakutei-history' という変数に保持されます。また、
+保持する履歴の数の最大値は `skk-kakutei-history-limit' の値によって決
+まります。標準では、20 となっています。
 
-** $B%+%?%+%J8l$rJQ49$K$h$C$FF~NO(B
+** カタカナ語を変換によって入力
 
-$BJQ498uJd$K%+%?%+%J8l$,8=$l$k$h$&$K$7$?$$>l9g$O(B ~/.skk $B$K(B
+変換候補にカタカナ語が現れるようにしたい場合は ~/.skk に
 
  (setq skk-search-prog-list
        (skk-nunion skk-search-prog-list
                    '((skk-search-katakana))))
 
-$B$H=q$-$^$9!#$3$NJ}K!$G$O!"(Bq $B$G%+%?%+%J$rF~NO$9$k$N$KHf$Y$F!"<-=qEPO?$G(B
-$B$-$k$H$$$&%a%j%C%H$,$"$j$^$9!#(B
+と書きます。この方法では、q でカタカナを入力するのに比べて、辞書登録で
+きるというメリットがあります。
 
-** $B5<;w%5JQF~NO(B
+** 擬似サ変入力
 
-$B%59TJQ3J3hMQ$NF0;l$rAw$j$"$jJQ49$G$-$k$h$&$K$9$k$K$O(B ~/.skk $B$K(B
+サ行変格活用の動詞を送りあり変換できるようにするには ~/.skk に
 
  (setq skk-search-prog-list
        (skk-nunion skk-search-prog-list
                    '((skk-search-sagyo-henkaku))))
 
-$B$H=q$-$^$9!#(B
+と書きます。
 
 
 * 11.4
 
-** $B!V0UL#!W$r4^$`<-=q$N<B8=!#(B
+** 「意味」を含む辞書の実現。
 
-experimental/skk-annotation.el $B$H$$$&?7$?$J<B83%W%m%0%i%`$,DI2C$5$l$^(B
-$B$7$?!#(B
-$B$3$l$KH<$$!"(BSKK $B<-=q$K!V0UL#(B($BCp<a(B)$B!W$r=q$-$3$`$?$a$N;EMM$K$D$$$F5DO@$5(B
-$B$l!"(BDaredevil SKK $BK\BN$K$O$3$N$?$a$N5!G=$,DI2C$5$l$^$7$?!#(B
+experimental/skk-annotation.el という新たな実験プログラムが追加されま
+した。
+これに伴い、SKK 辞書に「意味(註釈)」を書きこむための仕様について議論さ
+れ、Daredevil SKK 本体にはこのための機能が追加されました。
 
-** Info $B$N%(%s%H%j$N<+F0DI2C!#(B
+** Info のエントリの自動追加。
 
-$BNc$($P!"(Bskk.info $B$r(B /usr/local/info/ $B0J2<$K%$%s%9%H!<%k$7$?>l9g!"(B
-/usr/local/info/dir $B$H$$$&%U%!%$%k$K(B skk.info $B$r;2>H$9$k$?$a$N%(%s%H%j(B
-$B$r<+F0E*$K=q$-9~$`5!G=$,DI2C$5$l$^$7$?!#(B
+例えば、skk.info を /usr/local/info/ 以下にインストールした場合、
+/usr/local/info/dir というファイルに skk.info を参照するためのエントリ
+を自動的に書き込む機能が追加されました。
 
-** $B<+F0%U%#%k5!G=$NI|3h!#(B
+** 自動フィル機能の復活。
 
-$B<+F0%U%#%k5!G=$,M-8z$K$J$C$F$$$k%P%C%U%!$K$*$1$k!"<+F0%U%#%k$N5sF0$r(B
-SKK 9.6 $B0JA0$N$=$l$KLa$7$^$7$?!#(B
+自動フィル機能が有効になっているバッファにおける、自動フィルの挙動を
+SKK 9.6 以前のそれに戻しました。
 
 ** NICOLA-DDSKK
 
-NICOLA-DDSKK $B$O$b$O$d<B83HG$G$O$"$j$^$;$s!#(Bexperimental/nicola/ $B$+$i(B
-nicola/ $B$K0\$5$l$^$7$?!#(B
+NICOLA-DDSKK はもはや実験版ではありません。experimental/nicola/ から
+nicola/ に移されました。
 
 
 * 11.3
 
-** $B4pK\@_Dj$N<+F02=!#(B
+** 基本設定の自動化。
 
-Emacs 20 $B0J9_$N$?$a$K(B leim-list.el $B$rMQ0U$9$k$3$H$K$h$j!"<+F0E*$K4pK\(B
-$B@_Dj$,$5$l$k$h$&$K$J$C$?!#(B
+Emacs 20 以降のために leim-list.el を用意することにより、自動的に基本
+設定がされるようになった。
 
-$B$?$@$7!"(BEmacs $B$O5/F0;~$K(B load-path $B$N:G>e0L$K$"$k(B leim-list.el $B$r%m!<(B
-$B%I$9$k$@$1$J$N$G!"(Bskk $B$N%$%s%9%H!<%k$5$l$?%G%#%l%/%H%j$h$j>e0L$N%G%#%l(B
-$B%/%H%j$K(B leim-list.el $B$,$"$l$P$3$N5!G=$OL58z$K$J$k!#(B(*)
+ただし、Emacs は起動時に load-path の最上位にある leim-list.el をロー
+ドするだけなので、skk のインストールされたディレクトリより上位のディレ
+クトリに leim-list.el があればこの機能は無効になる。(*)
 
-  (*) $B$?$@$7!"(Begg/leim-list.el $B$O(B load-path $B>e$N$9$Y$F$N(B leim-list.el
-      $B$r%m!<%I$9$k$N$G$3$N8B$j$G$O$J$$!#F15!G=$O(B skk/leim-list.el $B$K$b(B
-      $B<h$j$3$s$@!#(B
+  (*) ただし、egg/leim-list.el は load-path 上のすべての leim-list.el
+      をロードするのでこの限りではない。同機能は skk/leim-list.el にも
+      取りこんだ。
 
-$B$3$NLdBj$O(B GNU Emacs 20 $B$G$OIaDL8=$l$J$$$,!"(BXEmacs $B$G$O8=$l$&$k!#(B
-$B6qBNE*$K$O!"(B/usr/local/lib/xemacs/mule-packages/lisp/leim/ $B$,(B
-/usr/local/lib/xemacs/mule-packages/lisp/skk/ $B$h$j(B load-path $B$N>e0L$K(B
-$B$/$k$?$a!"(Bleim/leim-list.el $B$,%m!<%I$5$l$F$7$^$$!"(Bskk/leim-list.el $B$,(B
-$B%m!<%I$5$l$J$$!#$=$N$?$a!"(BXEmacs $B$G$O(B skk/leim-list.el $B$OMQ$$$J$$$3$H(B
-$B$K$7$F$$$k!#$=$NBe$o$j!"(BXEmacs $B$N%Q%C%1!<%8$G$O(B auto-autoloads.el $B$,<+(B
-$BF0E*$K%m!<%I$5$l$k$N$G$3$l$rMxMQ$7$F$$$k!#(B
+この問題は GNU Emacs 20 では普通現れないが、XEmacs では現れうる。
+具体的には、/usr/local/lib/xemacs/mule-packages/lisp/leim/ が
+/usr/local/lib/xemacs/mule-packages/lisp/skk/ より load-path の上位に
+くるため、leim/leim-list.el がロードされてしまい、skk/leim-list.el が
+ロードされない。そのため、XEmacs では skk/leim-list.el は用いないこと
+にしている。その代わり、XEmacs のパッケージでは auto-autoloads.el が自
+動的にロードされるのでこれを利用している。
 
-$B$J$*!"(Bleim-list.el $B$r%m!<%I$7$J$$$b$N(B (Emacs 19) $B$K$*$$$F$b(B
+なお、leim-list.el をロードしないもの (Emacs 19) においても
 
 (require 'skk-setup)
 
-$B$G4pK\@_Dj$,$G$-$k!#(B
+で基本設定ができる。
 
-** skk-isearch $B$N(B input method $BBP1~!#(B
+** skk-isearch の input method 対応。
 
-** Emacs 18 $BBP1~!#(B
+** Emacs 18 対応。
 
-Nemacs 3.3.2 $B$*$h$S(B Mule 1.1 $B>e$G4pK\E*$J5!G=$,F0$/$h$&$K$J$C$?!#$?$@(B
-$B$7K0$/$^$GHs8x<0BP1~!#$3$N5!G=$O(B experimental/skk-e18.el $B$K$h$jDs6!$5(B
-$B$l$k!#(B
+Nemacs 3.3.2 および Mule 1.1 上で基本的な機能が動くようになった。ただ
+し飽くまで非公式対応。この機能は experimental/skk-e18.el により提供さ
+れる。
 
-$B$^$?!"(BEmacs 18 $B$N$?$a$KI,MW$H$5$l$k$b$N!"$*$h$S$"$k$HJXMx$J$b$N$r(B
-patch/e18 $B%G%#%l%/%H%j$K<}O?$7$?!#(B
+また、Emacs 18 のために必要とされるもの、およびあると便利なものを
+patch/e18 ディレクトリに収録した。
 
-** $B8uJdI=<($,D9$$>l9g$KBP1~$9$k5!G=(B ($B@lMQ$N(B window $B$r;H$&(B)$B!#(B
+** 候補表示が長い場合に対応する機能 (専用の window を使う)。
 
-$B8uJd0lMw$,0l9T$G$OI=<($7$-$l$J$$>l9g$K!"%&%#%s%I%&$rJ,3d$7$F$=$3$K8uJd(B
-$B0lMw$,I=<($5$l$k$h$&$K$J$C$?!#A`:n@-$KJQ99$O$J$$!#(B
+候補一覧が一行では表示しきれない場合に、ウィンドウを分割してそこに候補
+一覧が表示されるようになった。操作性に変更はない。
 
-** JIS X 0213 $B%5%]!<%H!#(B
+** JIS X 0213 サポート。
 
-skk-jisx0213.el $B$K$h$j$3$N5!G=$,Ds6!$5$l$k!#(B
+skk-jisx0213.el によりこの機能が提供される。
 
-** $B2>L>F~NOBP1~(B (experimental/nicola)$B!#(B
+** 仮名入力対応 (experimental/nicola)。
 
-experimental/nicola $B%G%#%l%/%H%j$K!"(BSKK $B$r2>L>F~NOBP1~$5$;$k$?$a$N%W%m(B
-$B%0%i%`$,DI2C$5$l$?!#(B
+experimental/nicola ディレクトリに、SKK を仮名入力対応させるためのプロ
+グラムが追加された。
 
-** skk-look $B$K$h$k(B ispell $B$r;HMQ$7$?=$@5!#(B
+** skk-look による ispell を使用した修正。
 
-skk-look $B$G1QC18l$J$I8!:w$9$k:]$K!"(Bispell $B$GDV$j$r=$@5$9$k5!G=$,DI2C$5(B
-$B$l$?!#(B
+skk-look で英単語など検索する際に、ispell で綴りを修正する機能が追加さ
+れた。
 
-** APEL $B$N%P!<%8%g%s%A%'%C%/!#(B
+** APEL のバージョンチェック。
 
-APEL $B$N%P!<%8%g%s$r%A%'%C%/$9$k$?$a!"(Bproduct.el $B$rMxMQ$9$k$h$&$K$J$j$^$7$?!#(B
-$B8=:_!"(BAPEL $B$O(B 10.6 $B0J9_$,I,MW$H$J$j$^$9!#(B
+APEL のバージョンをチェックするため、product.el を利用するようになりました。
+現在、APEL は 10.6 以降が必要となります。
 
-** $B?7$7$$%+!<%=%k@)8f5!9=$r:NMQ!#(B
+** 新しいカーソル制御機構を採用。
 
-GNU Emacs $B$K$*$$$F$O!"(Bccc.el $B$K$h$j?7$7$$%+!<%=%k@)8f5!9=$,Ds6!$5$l$k!#(B
-XEmacs $B$K$D$$$F$OK\BN$,$h$jNI$$@)8f5!9=$r;}$C$F$$$k$3$H$,J,$+$C$?$N$G!"(B
-$B$+$J$j4J7i$J5-=R$G%+!<%=%k@)8f$,$G$-$k$h$&$K$J$C$?!#(B
+GNU Emacs においては、ccc.el により新しいカーソル制御機構が提供される。
+XEmacs については本体がより良い制御機構を持っていることが分かったので、
+かなり簡潔な記述でカーソル制御ができるようになった。
 
-** $B4X?t(B skk-set-cursor-properly $B$OGQ;_$5$l$^$7$?!#(B
+** 関数 skk-set-cursor-properly は廃止されました。
 
-isearch $B$N@_Dj$G(B add-hook $B$7$F$$$k>l9g$J$I!"(B skk-set-cursor-properly
-$B$N@_Dj$r:o=|$7$F2<$5$$!#(B
+isearch の設定で add-hook している場合など、 skk-set-cursor-properly
+の設定を削除して下さい。
 
-** custom group $B$N8+D>$7!#(B
+** custom group の見直し。
 
-$B%+%9%?%^%$%:$70W$$$h$&$K!"(Bcustom group $B$N8+D>$7$,9T$o$l$?!#(B
+カスタマイズし易いように、custom group の見直しが行われた。
 
-** Input Method $B$H$7$F$N5!G=$N2~A1!#(B
+** Input Method としての機能の改善。
 
-Emacs 20 $B$N0Y$N=$@5!#(BSKK $B$r(B Emacs $B$N(B Input Method $B$H$7$F;HMQ$7$F$$$k$H(B
-$B$-!"4X?t(B `read-from-minibuffer' $B$N(B $BBh(B 7 $B0z?t(B INHERIT-INPUT-METHOD $B$r(B
-$BHs(B nil $B$K$7$F$b@5$7$/F0:n$7$J$$%P%0$,=$@5$5$l$?!#(B
+Emacs 20 の為の修正。SKK を Emacs の Input Method として使用していると
+き、関数 `read-from-minibuffer' の 第 7 引数 INHERIT-INPUT-METHOD を
+非 nil にしても正しく動作しないバグが修正された。
 
-** Canna $B$H$NAj@-$N2~A1!#(B
+** Canna との相性の改善。
 
-SKK $B$r5/F0$9$kA0$K(B Canna $B$N@_Dj$r$7$F$$$k$H!"%9%Z!<%9$r2!$7$F$bJQ49$G(B
-$B$-$J$$LdBj$,=$@5$5$l$?!#(B
+SKK を起動する前に Canna の設定をしていると、スペースを押しても変換で
+きない問題が修正された。
 
-** $B$$$/$D$+$N%P%0$N=$@5!#(B
+** いくつかのバグの修正。
 
-$B0J2<$N4X?t$N%P%0$,=$@5$5$l$?(B ($B1L$l$,$"$C$?$iDI2C$7$F$/$@$5$$(B)$B!#(B
+以下の関数のバグが修正された (洩れがあったら追加してください)。
 
 o skk-count-jisyo-candidates-original
 o skk-clock
@@ -1631,64 +1631,64 @@ o skk-num-type3-kanji-1
 
 * Daredevil branch 11.1
 
-** skk.el $B$N99$J$k%7%'%$%W%"%C%W$r8!F$!#(B
+** skk.el の更なるシェイプアップを検討。
 
-$BJL%U%!%$%k$K$FDs6!$G$-$kFC<l5!G=$,$"$l$P!"99$KJL$K$9$k!"$H$$$&J}?K$G(B skk.el
-$BFb$r;6:v!#JQ498uJd$K(B overlay/extent $B$r$+$1$k5!G=$bJ,N%$G$-$k$+$b$7$l$J$$$,!"(B
-$BJ,N%$7$F$b>.$5$$$N$G!"$H$j$"$($:8+Aw$j!#B>$K$J$s$+$"$k$+$J!)(B $B$R$i$,$J(B -> $B%+(B
-$B%?%+%J0J30$N(B region $BJQ495!G=!"$H$+!#(B
+別ファイルにて提供できる特殊機能があれば、更に別にする、という方針で skk.el
+内を散策。変換候補に overlay/extent をかける機能も分離できるかもしれないが、
+分離しても小さいので、とりあえず見送り。他になんかあるかな？ ひらがな -> カ
+タカナ以外の region 変換機能、とか。
 
-$B$H$j$"$($:2a5nJL$@$C$?%+!<%=%kJQ2=5!G=$r(B skk-cursor.el $B$H$7$FJ,N%!#(B
-$BJ,N%$7$?JQ?t!&4X?t$N%W%l%U%#%C%/%9$r(B skk-cursor- $B$KE}0l!#(B
+とりあえず過去別だったカーソル変化機能を skk-cursor.el として分離。
+分離した変数・関数のプレフィックスを skk-cursor- に統一。
 
-** $B%_%K%^%`$N9=@.$r(B skk.el $B$N$_$K$9$k!"$H$$$&$N$r8!F$!#(B
+** ミニマムの構成を skk.el のみにする、というのを検討。
 
-*** skk-foreword.el $B$r(B skk.el $B$HE}9g!#(B
+*** skk-foreword.el を skk.el と統合。
 
-skk-foreword.el $B$O%f!<%6!<JQ?t$rDj5A$9$kA0$KDj5A$7$F$*$/I,MW$N$"$k%^%/%m!"%$(B
-$B%s%i%$%s4X?t!"JQ?t!"Dj?t$J$I$r$^$H$a$?$b$N$G$C$?!#(Bskk-foreword.el $B$r(B skk.el
-$B$KE}9g$9$k$3$H$GEvA3%f!<%6!<JQ?t$N8+DL$7$O0-$/$J$k(B ($B$I$s$JJQ?t$,$"$k$N$+$J!A!"(B
-$B$H;W$C$?$i%W%m%0%i%`%U%!%$%k$r8+$k$N$,<j$C<h$jAa$$$h$M!)(B)$B!#(B
+skk-foreword.el はユーザー変数を定義する前に定義しておく必要のあるマクロ、イ
+ンライン関数、変数、定数などをまとめたものでった。skk-foreword.el を skk.el
+に統合することで当然ユーザー変数の見通しは悪くなる (どんな変数があるのかな〜、
+と思ったらプログラムファイルを見るのが手っ取り早いよね？)。
 
-*** $B%f!<%6!<JQ?t$N8+DL$7$,0-$$$N$r9MN8!#(B
+*** ユーザー変数の見通しが悪いのを考慮。
 
-wl $B$J$s$+$r;29M$K!"%f!<%6!<JQ?t!"%7%9%F%`JQ?t!&Dj?t$r$^$H$a$F!"(Bskk-vars.el
-$B$r:n$C$?!#FC<l5!G=$rDs6!$9$kJL%U%!%$%k$NJQ?t$bA4It$3$3$KJD$89~$a$k!#%+%9%?%^(B
-$B%$%:$K6=L#$N$"$k%f!<%6!<$O(B skk-vars.el $B$r8+$l$P0lMw$,F@$i$l$k!#(B
+wl なんかを参考に、ユーザー変数、システム変数・定数をまとめて、skk-vars.el
+を作った。特殊機能を提供する別ファイルの変数も全部ここに閉じ込める。カスタマ
+イズに興味のあるユーザーは skk-vars.el を見れば一覧が得られる。
 
-$B$3$l$K$h$j2<5-(B 2 $BE@$N%a%j%C%H$"$j!#(B
+これにより下記 2 点のメリットあり。
 
-o $BA4$F$N%W%m%0%i%`$+$i(B (eval-when-compile (require 'skk-vars)) $B$9$k$3$H$G%P(B
-  $B%$%H%3%s%Q%$%k$N:]$NJQ?t$K4X$9$k(B Warning $B$,05E]E*$K8:$k!#(B
+o 全てのプログラムから (eval-when-compile (require 'skk-vars)) することでバ
+  イトコンパイルの際の変数に関する Warning が圧倒的に減る。
 
-o skk.el $B$+$i(B (require 'skk-vars) $B$9$k$3$H$G!"FC<l5!G=$K4X$9$kJQ?t$N(B boundp
-  $B%A%'%C%/$,ITMW$K$J$k!#(B
+o skk.el から (require 'skk-vars) することで、特殊機能に関する変数の boundp
+  チェックが不要になる。
 
-*** $BK\BN!"FC<l5!G=Ds6!%W%m%0%i%`$NN>J}$G;H$&%^%/%m!"%$%s%i%$%s4X?t$N<h$j07$$!#(B
+*** 本体、特殊機能提供プログラムの両方で使うマクロ、インライン関数の取り扱い。
 
-$B$3$l$i$r(B skk.el $B$KF~$l$F$*$/$o$1$K$O$f$+$J$$(B ($BFC<l5!G=Ds6!%W%m%0%i%`$+$i(B
-skk.el $B$r(B require $B$9$k$+$iL58B(B loop $B$K4Y$$$k(B)$B!#;EJ}$,$J$$$N$G(B skk-macs.el $B$r(B
-$B:n$k!#A4%W%m%0%i%`$+$i(B (eval-when-compile (require 'skk-macs)) $B$9$k!#(B
+これらを skk.el に入れておくわけにはゆかない (特殊機能提供プログラムから
+skk.el を require するから無限 loop に陥いる)。仕方がないので skk-macs.el を
+作る。全プログラムから (eval-when-compile (require 'skk-macs)) する。
 
-*** $B7k6I!"8=>u$O(B...$B!#(B
+*** 結局、現状は...。
 
-$B%_%K%^%`$N5!G=$7$+;H$o$J$/$H$b(B skk.el, skk-macs.el, skk-vars.el $B$N(B 3 $B$D$rMW(B
-$B$9$k$3$H$H$J$j!"%U%!%$%k$N?t$O(B main trunk $B$h$j$bA}$($F$$$k$,!"3F%U%!%$%k$NLr(B
-$B3d$r:F3NG'$7$?$N$G!"$3$l$rEZBf$K99$J$k8!F$$r2C$($k!#(B
+ミニマムの機能しか使わなくとも skk.el, skk-macs.el, skk-vars.el の 3 つを要
+することとなり、ファイルの数は main trunk よりも増えているが、各ファイルの役
+割を再確認したので、これを土台に更なる検討を加える。
 
-$B$A$J$_$K(B APEL $B$K$D$$$F$O2?$b8!F$$7$F$$$^$;$s!#(BAPEL $B$+$iI,MW$J$b$N$@$1$r5!3#(B
-$BE*$K<h$j=P$9(B...$B$J$s$F$3$H$O$G$-$k$s$G$7$g$&$+!)(B (^^;; $B$H$j$"$($:(B SKK $BB&$N9=(B
-$B@.$r9M$($F$+$i$M!#(B
+ちなみに APEL については何も検討していません。APEL から必要なものだけを機械
+的に取り出す...なんてことはできるんでしょうか？ (^^;; とりあえず SKK 側の構
+成を考えてからね。
 
 
 * 10.57
 
-** `skk-defmacro-cond', `skk-defsubst-cond' $B$H(B `skk-defun-cond' $B$rGQ;_!#(B
-$BBe$j$K(B `defmacro', `defsubst' $B$H(B `defun' $B$r$=$l$>$l(B `static-cond' $B$HAH$_9g$o(B
-$B$;$F;HMQ!#8z2L$OF1$8!#%P%$%H%3%s%Q%$%k%U%!%$%k$O!"(BMule2, Mule3, Mule4,
-XEmacs $B4V$G6&M-$G$-$J$$!#(B
+** `skk-defmacro-cond', `skk-defsubst-cond' と `skk-defun-cond' を廃止。
+代りに `defmacro', `defsubst' と `defun' をそれぞれ `static-cond' と組み合わ
+せて使用。効果は同じ。バイトコンパイルファイルは、Mule2, Mule3, Mule4,
+XEmacs 間で共有できない。
 
-** skk.el $B$+$i%+!<%=%k$NJQ2=5!G=$N$_$r<h$j=P$7!"(Bskk-cursor.el $B$r(B revive.
+** skk.el からカーソルの変化機能のみを取り出し、skk-cursor.el を revive.
 
 * 10.56
 
@@ -1740,6 +1740,6 @@ works well with SKK by itself.  skk-vip.el is discarded.
 <gunji@sils.shoin.ac.jp>.  Now you can imput Japanese by TUT-code with SKK.
 
 Local variables:
-coding: iso-2022-jp-3
+coding: utf-8
 mode: outline
 end:

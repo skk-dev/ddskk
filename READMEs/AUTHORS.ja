@@ -1,182 +1,182 @@
-SKK $B$OHs>o$KB?$/$N?M!9$N9W8%$K$h$j8=:_$N7A$K$^$GH/E8$7$F$-$^$7$?!#$3$N(B
-$B%U%!%$%k$G$O!"8=:_(B SKK Openlab $B$K$F3+H/$7$F$$$k%W%m%0%i%`!&<-=q$NCx<T(B
-$B$N$&$A!"8=:_$=$N9W8%FbMF$rGD0.$7$F$$$k?M!9$K$D$$$F!"<g$J6H@S$r%j%9%H(B
-$B$7!"46<U$N0U$rI=$7$^$9!#0dO3$K$D$$$F$OH=$j<!BhJd$C$F$$$-$^$9!#(B
-($B$"$kDxEYG/Be$r9MN8$7$?=g$K$J$C$F$$$^$9$,!">\:Y$OJ,$+$i$J$$$N$GIT@53N(B
-$B$G$9!#86:n<T0J30$O4pK\E*$K=gITF1!#(B)
+SKK は非常に多くの人々の貢献により現在の形にまで発展してきました。この
+ファイルでは、現在 SKK Openlab にて開発しているプログラム・辞書の著者
+のうち、現在その貢献内容を把握している人々について、主な業績をリスト
+し、感謝の意を表します。遺漏については判り次第補っていきます。
+(ある程度年代を考慮した順になっていますが、詳細は分からないので不正確
+です。原作者以外は基本的に順不同。)
 
-$BFC$KLdBjE@$H$7$F!$$3$N%j%9%H$OCx:n$H$_$J$;$k$@$1$NHf3SE*Bg5,LO$J%Q%C%A(B
-$B$rDs6!$7$F$/$l$?J}!$B??t$N%P%0%U%#%/%9$rDs6!$7$F$/$l$?J}$N6H@S$K$D$$$F(B
-$BCx$7$/IT40A4$G$"$k$H;W$o$l$^$9!%$H$/$K(B Openlab $B0JA0$N6H@S$rGD0.$9$k$3(B
-$B$H$O:$Fq$G$9!#(B
+特に問題点として，このリストは著作とみなせるだけの比較的大規模なパッチ
+を提供してくれた方，多数のバグフィクスを提供してくれた方の業績について
+著しく不完全であると思われます．とくに Openlab 以前の業績を把握するこ
+とは困難です。
 
 
 * Masahiko Sato
 
-** $B86:n<T$G$"$j!"0J2<$N%W%m%0%i%`$NCx:n<T(B
+** 原作者であり、以下のプログラムの著作者
 
 *** skk.el
 
-*** skk-auto.el (from skk.el, $BAw$j2>L><+F0=hM}(B)
+*** skk-auto.el (from skk.el, 送り仮名自動処理)
 
-*** skk-comp.el (from skk.el, $BJd405!G=(B)
+*** skk-comp.el (from skk.el, 補完機能)
 
-*** skk-gadget.el (from skk.el, elisp $B<B9TJQ495!G=(B)
+*** skk-gadget.el (from skk.el, elisp 実行変換機能)
 
-*** skk-kcode.el (from skk.el, $B4A;z$N%3!<%IF~NO(B)
+*** skk-kcode.el (from skk.el, 漢字のコード入力)
 
-*** skk-num.el (from skk.el, $B?tCM$r<h$j07$&%W%m%0%i%`(B)
+*** skk-num.el (from skk.el, 数値を取り扱うプログラム)
 
-*** skk-server.el (from skk.el, SKK $B%5!<%P$HDL?.$9$k%W%m%0%i%`(B)
+*** skk-server.el (from skk.el, SKK サーバと通信するプログラム)
 
-*** skk-tut.el, SKK.tut (SKK $B$N%A%e!<%H%j%"%k(B)
+*** skk-tut.el, SKK.tut (SKK のチュートリアル)
 
-*** skk-viper.el (vi $B%(%_%e%l!<%7%g%s(B vip, viper $B$H$N6(D4(B)
+*** skk-viper.el (vi エミュレーション vip, viper との協調)
 
-*** vip.el (vi $B%(%_%e%l!<%7%g%s$N$R$H$D(B)
+*** vip.el (vi エミュレーションのひとつ)
 
-** SKK $B<-=q3+H/(B
+** SKK 辞書開発
 
 
 * Yukiyoshi Kameyama
 
-** $B=i4|$N(B SKK $B3+H/(B
+** 初期の SKK 開発
 
-** SKK $B<-=q3+H/(B
+** SKK 辞書開発
 
-** SKK $B%5!<%P3+H/(B
+** SKK サーバ開発
 
 *** skkserv
 
 
 * Enami Tsugutomo
 
-** $B<g$K(B Openlab $B0JA0$N(B SKK $B$N3+H/(B
+** 主に Openlab 以前の SKK の開発
 
-*** skk-isearch.el (Emacs 19 $B0J9_$KBP1~$7$?F|K\8l%$%s%/%j%a%s%?%k%5!<%A(B)
+*** skk-isearch.el (Emacs 19 以降に対応した日本語インクリメンタルサーチ)
 
-** $B0UL#<-=q(B ($B%"%N%F!<%7%g%s$N860F(B) $B$NH/0F(B
+** 意味辞書 (アノテーションの原案) の発案
 
 
 * Kiyotaka Sakai
 
-** $B<g$K(B SKK 9, 10 $B$N3+H/(B
+** 主に SKK 9, 10 の開発
 
 
 * NAKAJIMA Mikio
 
-** SKK Openlab $B0JA0$+$i$N(B SKK $B3+H/(B
+** SKK Openlab 以前からの SKK 開発
 
-** Daredevil SKK $B$H(B SKK Openlab $B4zMH$2!$A4HL$ND4@0$H0];}(B
+** Daredevil SKK と SKK Openlab 旗揚げ，全般の調整と維持
 
-** SKK $B<-=q$N3HD%!$0];}(B
+** SKK 辞書の拡張，維持
 
-*** $B??s,F;$rMxMQ$7$?9;@5$NF3F~(B
+*** 真鵺道を利用した校正の導入
 
-*** $B%"%N%F!<%7%g%s$NF3F~(B
+*** アノテーションの導入
 
-*** $B<-=qEPO?!&:o=|4uK>C18lF~NO%U%)!<%`$N3+H/(B
+*** 辞書登録・削除希望単語入力フォームの開発
 
-*** $B?7$7$$(B SKK $B<-=q$NDI2C(B
+*** 新しい SKK 辞書の追加
 
-**** SKK-JISYO.assoc ($B8+=P$78l$H8uJd$H$N4V$K0lDj$NO"A[4X78$,$"$k%(%s%H%j=8(B)
+**** SKK-JISYO.assoc (見出し語と候補との間に一定の連想関係があるエントリ集)
 
-**** SKK-JISYO.mazegaki ($B$+$J4A;z:.$8$j$N8+=P$78l$r8!:w$9$k<-=q(B)
+**** SKK-JISYO.mazegaki (かな漢字混じりの見出し語を検索する辞書)
 
-*** $B3F<o<-=q!&%G!<%?$N(B SKK $B7A<0$X$NJQ49(B
+*** 各種辞書・データの SKK 形式への変換
 
-**** SKK-JISYO.JIS3_4 (JIS $BBh;0!"Bh;M?e=`$NJ8;z$N$_$r<}O?$7$?<-=q(B)
+**** SKK-JISYO.JIS3_4 (JIS 第三、第四水準の文字のみを収録した辞書)
 
-**** SKK-JISYO.edict ($B!VOB1Q<-E5!W(Bedict $B$r!V1QOB<-E5!W$K2C9)$7$?<-=q(B)
+**** SKK-JISYO.edict (「和英辞典」edict を「英和辞典」に加工した辞書)
 
-**** SKK-JISYO.itaiji ($B0[BN;z$N<-=q(B)
+**** SKK-JISYO.itaiji (異体字の辞書)
 
-**** SKK-JISYO.jinmei (gerodic $B$K4p$E$/?ML><-=q(B)
+**** SKK-JISYO.jinmei (gerodic に基づく人名辞書)
 
-**** SKK-JISYO.law ($BK!N'MQ8l<-=q(B)
+**** SKK-JISYO.law (法律用語辞書)
 
-**** SKK-JISYO.okinawa ($B2-Fl<-=q%W%m%8%'%/%H$N@.2L$r4p$K$7$?<-=q(B)
+**** SKK-JISYO.okinawa (沖縄辞書プロジェクトの成果を基にした辞書)
 
-**** SKK-JISYO.pubdic (pubdic $B$r(B SKK $B7A<0$KJQ49$7$?<-=q(B)
+**** SKK-JISYO.pubdic (pubdic を SKK 形式に変換した辞書)
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** APEL $B$NF3F~$H(B APEL $BK\BN$X$N9W8%(B
+*** APEL の導入と APEL 本体への貢献
 
-*** SKK-MK ($B%$%s%9%H!<%k%9%/%j%W%H(B)
+*** SKK-MK (インストールスクリプト)
 
-*** skk-abbrev.el (Emacs $B$N(B abbrev $B$rMxMQ$7$?Jd40$HJQ49(B)
+*** skk-abbrev.el (Emacs の abbrev を利用した補完と変換)
 
-*** skk-annotation.el ($BCm<a$N:n@=$HI=<(5!G=(B)
+*** skk-annotation.el (注釈の作製と表示機能)
 
-*** skk-correct.el ($BJQ49A0J8;zNs$N$V$l$rJd@5(B)
+*** skk-correct.el (変換前文字列のぶれを補正)
 
-*** skk-dbm.el (XEmacs $B$G(B dbm $B%G!<%?%Y!<%97A<0$N<-=q$K%"%/%;%9(B)
+*** skk-dbm.el (XEmacs で dbm データベース形式の辞書にアクセス)
 
-*** skk-dcomp.el ($BF0E*Jd405!G=(B)
+*** skk-dcomp.el (動的補完機能)
 
-*** skk-exsearch.el (CLOS $BHG8!:w%W%m%0%i%`(B)
+*** skk-exsearch.el (CLOS 版検索プログラム)
 
-*** skk-exserv.el (CLOS $BHG%5!<%PDL?.%W%m%0%i%`(B)
+*** skk-exserv.el (CLOS 版サーバ通信プログラム)
 
-*** skk-develop.el (SKK $B3+H/Jd=u5!G=(B)
+*** skk-develop.el (SKK 開発補助機能)
 
-*** skk-jisx0213.el (JISX0213 $BJ8;z%3!<%I4XO"%W%m%0%i%`(B)
+*** skk-jisx0213.el (JISX0213 文字コード関連プログラム)
 
-*** skk-kakasi.el (SKK $B$+$i$N(B KAKASI $BMxMQ(B)
+*** skk-kakasi.el (SKK からの KAKASI 利用)
 
-*** skk-look.el (look $B%3%^%s%I$rMQ$$$?1QC18l$J$I$NJd40$H8!:w(B)
+*** skk-look.el (look コマンドを用いた英単語などの補完と検索)
 
-*** skk-lookup.el ($B<-=q8!:w%D!<%k(B Lookup $B$r2p$7$?8!:w(B)
+*** skk-lookup.el (辞書検索ツール Lookup を介した検索)
 
-*** skk-mkmgk.el ($B:.$<=q$-<-=q:n@=(B)
+*** skk-mkmgk.el (混ぜ書き辞書作製)
 
-*** skk-obsolete.el ($BGQ;_!&L>A0JQ99JQ?t4X?t$N%A%'%C%/(B)
+*** skk-obsolete.el (廃止・名前変更変数関数のチェック)
 
-*** skk-rdbms.el (PostgreSQL $B$N%G!<%?%Y!<%95!G=$rMxMQ$7$?JQ49(B)
+*** skk-rdbms.el (PostgreSQL のデータベース機能を利用した変換)
 
-*** skk-setup.el.in (SKK $B$N<+F0@_Dj(B)
+*** skk-setup.el.in (SKK の自動設定)
 
-*** skk-study.el ($B3X=,5!9=(B)
+*** skk-study.el (学習機構)
 
-*** skk-version.el (SKK $B%P!<%8%g%s>pJs(B)
+*** skk-version.el (SKK バージョン情報)
 
-*** skk-w3m.el (w3m $B$rMxMQ$7$?(B web $B8!:w%(%s%8%s$K$h$k8!:w(B)
+*** skk-w3m.el (w3m を利用した web 検索エンジンによる検索)
 
-*** XEmacs $B%5%]!<%H(B
+*** XEmacs サポート
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-bayesian.el, skk-macs.el, skk-vars.el, skk-hint.el,
 skk-dic.el.in, skk-num.el, skk-viper.el, skk-auto.el, skk-tut.el,
 skk-jisx0201.el, skk-gadget.el, skk-tutcode.el, skk-cursor.el,
 skk-server.el, skk-kcode.el, ccc.el
 
-** $B%I%-%e%a%s%H<9I.!&@0Hw(B
+** ドキュメント執筆・整備
 
 
 * Hideki Sakurada
 
-** $B<g$K(B SKK 10 $B$N3+H/(B
+** 主に SKK 10 の開発
 
-*** $B?7$7$$$+$JF~NO%k!<%A%s(B
+*** 新しいかな入力ルーチン
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-kcode.el, skk-num.el, skk-isearch.el
 
 
 * Murata Shuuichirou
 
-** $B<g$K(B SKK 10 $B0J9_$N3+H/(B
+** 主に SKK 10 以降の開発
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-leim.el (SKK $B$N(B LEIM $B5!9=$X$NBP1~(B)
+*** skk-leim.el (SKK の LEIM 機構への対応)
 
-*** skk-viper.el (vi $B%(%_%e%l!<%7%g%s(B vip, viper $B$H$N6(D4(B)
+*** skk-viper.el (vi エミュレーション vip, viper との協調)
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-macs.el, skk-study.el, skk-obsolete.el, skk-kcode.el,
 skk-num.el, skk-isearch.el
@@ -184,97 +184,97 @@ skk-num.el, skk-isearch.el
 
 * Shuhei KOBAYASHI
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-num.el, skk-look.el
 
 
 * Masatake YAMATO
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** ccc.el (Emacs $BMQ%+!<%=%k?'@)8f5!9=(B)
+*** ccc.el (Emacs 用カーソル色制御機構)
 
-*** skk-cursor.el (SKK $BMQ%+!<%=%k?'@)8f%W%m%0%i%`(B)
+*** skk-cursor.el (SKK 用カーソル色制御プログラム)
 
-*** context-skk.el ($BJ8L.$K1~$8$?(B SKK $B$N<+F0@)8f%W%m%0%i%`(B)
+*** context-skk.el (文脈に応じた SKK の自動制御プログラム)
 
-*** tooltip $B$K$h$k8uJd0lMwI=<((B
+*** tooltip による候補一覧表示
 
-*** skk-inline.el (inline $B8uJd0lMwI=<((B)
+*** skk-inline.el (inline 候補一覧表示)
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, ekk-e21.el, skk-vars.el, skk-xemacs.el
 
 
 * IIDA Yosiaki
 
-** SKK $B<-=q$N3HD%!"0];}(B
+** SKK 辞書の拡張、維持
 
-*** $BB??t$N?75,%(%s%H%jDI2C(B
+*** 多数の新規エントリ追加
 
-*** $B?7$7$$(B SKK $B<-=q$NDI2C(B
+*** 新しい SKK 辞書の追加
 
-**** SKK-JISYO.geo ($BCOL><-=q(B)
+**** SKK-JISYO.geo (地名辞書)
 
-*** SKK-JISYO.S $B$N3+H/$H0];}(B
+*** SKK-JISYO.S の開発と維持
 
-** elisp $B%a%s%F%J%s%9(B
+** elisp メンテナンス
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk-tut.el, skk-kcode.el
 
-** $B%I%-%e%a%s%H@0Hw(B
+** ドキュメント整備
 
 
 * MITA Yuusuke
 
-** SKK $B<-=q$N3HD%!"0];}(B
+** SKK 辞書の拡張、維持
 
-*** SKK $B<-=q(B Wiki $B$N<gMW<9I.<T(B
+*** SKK 辞書 Wiki の主要執筆者
 
-*** $BB??t$N?75,%(%s%H%jDI2C(B
+*** 多数の新規エントリ追加
 
-*** SKK-JISYO.geo $BA4LL2~D{(B
+*** SKK-JISYO.geo 全面改訂
 
-*** $B?7$7$$(B SKK $B<-=q$NDI2C(B
+*** 新しい SKK 辞書の追加
 
-**** SKK-JISYO.hukugougo ($B;HMQIQEY$,Dc$$J#9g8l$N<-=q(B)
+**** SKK-JISYO.hukugougo (使用頻度が低い複合語の辞書)
 
-**** SKK-JISYO.notes ($BIJ;l!&3hMQ>pJs$N$?$a$N<-=q(B)
+**** SKK-JISYO.notes (品詞・活用情報のための辞書)
 
-**** SKK-JISYO.propernoun ($B8GM-L>;l$N<-=q(B)
+**** SKK-JISYO.propernoun (固有名詞の辞書)
 
-**** SKK-JISYO.station ($BE4F;$N1XL>$*$h$SO)@~L>$N<-=q(B)
+**** SKK-JISYO.station (鉄道の駅名および路線名の辞書)
 
-*** $B3F<o<-=q!&%G!<%?$N(B SKK $B7A<0$X$NJQ49(B
+*** 各種辞書・データの SKK 形式への変換
 
-**** SKK-JISYO.fullname ($B?ML>O?<-=q(B)
+**** SKK-JISYO.fullname (人名録辞書)
 
-*** SKK $B<-=q%D!<%k$N3+H/$H0];}(B
+*** SKK 辞書ツールの開発と維持
 
-**** ruby $B$K$h$k(B SKK $B<-=q$N2C9)!&JT;<%D!<%k(B
+**** ruby による SKK 辞書の加工・編纂ツール
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-annotation.el
 
-*** SKK $B%U%m%s%H%(%s%I$+$i$N(B SKK $B<-=qMxMQK!$K4X$9$kDs8@(B (see ML archives)
+*** SKK フロントエンドからの SKK 辞書利用法に関する提言 (see ML archives)
 
 
 * Tsuyoshi AKIHO
 
-** $B%I%-%e%a%s%H<9I.!&@0Hw!"$H$/$K(B skk.texi $B$rCf?4$H$7$F(B
+** ドキュメント執筆・整備、とくに skk.texi を中心として
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-exsearch.el, skk-vars.el, skk-annotation.el, skk-tut.el,
 skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
@@ -282,40 +282,40 @@ skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 
 * Yuh Ohmura
 
-** $B%$%s%9%H!<%k4D6-$N@0Hw(B
+** インストール環境の整備
 
 *** make1.bat
 
 *** makeit.bat
 
-** $B%I%-%e%a%s%H@0Hw(B
+** ドキュメント整備
 
-** elisp $B%a%s%F%J%s%9(B
+** elisp メンテナンス
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el
 
 
 * Eiji Obata
 
-** SKK $B<-=q$N3HD%!"0];}(B
+** SKK 辞書の拡張、維持
 
-*** $BB??t$N?75,%(%s%H%jDI2C(B
+*** 多数の新規エントリ追加
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-dinsert.el ($BF0E*F~NO(B)
+*** skk-dinsert.el (動的入力)
 
-*** $B8D?M<-=qJT=85!G=$N3HD%(B (skk-edit-private-jisyo)
+*** 個人辞書編集機能の拡張 (skk-edit-private-jisyo)
 
-*** $BJd405!G=$N3HD%(B
+*** 補完機能の拡張
 
-**** $B%W%m%0%i%`2DG=$JJd40(B (skk-completion-prog-list)
+**** プログラム可能な補完 (skk-completion-prog-list)
 
-**** $B%m!<%^;z(B prefix $B$+$i$NJd40(B
+**** ローマ字 prefix からの補完
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-annotation.el, skk-server-completion.el, skk-vars.el,
 skk-macs.el, skk-tut.el, skk-look.el, skk-num.el, skk-azik.el,
@@ -323,51 +323,51 @@ skk-comp.el, skk-look.el, skk-vars.el, skk-rdbms.el, skk-kcode.el,
 skk-isearch.el, skk-viper.el, skk-bayesian.el, skk-annotation.el,
 skk-jisyo-edit-mode.el, 
 
-** $B%I%-%e%a%s%H@0Hw(B
+** ドキュメント整備
 
 
 * Itsushi Minoura
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-nicola.el (NICOLA-SKK, SKK $B$KBP$9$k?F;X%7%U%HF~NO%$%s%?!<%U%'!<%9(B)
+*** skk-nicola.el (NICOLA-SKK, SKK に対する親指シフト入力インターフェース)
 
 
 * Tetsuo Tsukamoto
 
-** SKK $B<-=q$N3HD%!"0];}(B
+** SKK 辞書の拡張、維持
 
-*** $B3F<o<-=q!&%G!<%?$N(B SKK $B7A<0$X$NJQ49(B
+*** 各種辞書・データの SKK 形式への変換
 
-**** SKK-JISYO.zipcode ($BM9JXHV9f<-=q(B)
+**** SKK-JISYO.zipcode (郵便番号辞書)
 
-**** SKK-JISYO.office.zipcode ($BM9JXHV9f<-=q$N;v6H=jHG(B)
+**** SKK-JISYO.office.zipcode (郵便番号辞書の事業所版)
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** $B%b!<%I9T%$%s%8%1!<%?!"%"%$%3%s!"%]%C%W%"%C%W%a%K%e!<I=<(5!G=(B
+*** モード行インジケータ、アイコン、ポップアップメニュー表示機能
 
-*** NICOLA SKK ($B?F;X%7%U%HF~NO(B) $B$N(B DDSKK $B$X$N0\?"(B
+*** NICOLA SKK (親指シフト入力) の DDSKK への移植
 
-*** $B%D!<%k%F%#%C%W$N%^%&%9:BI8Hs0MB82=%3!<%I(B
+*** ツールティップのマウス座標非依存化コード
 
-*** Wikipedia/Wiktionary $B%"%N%F!<%7%g%s(B, OS X $B<-=q%5!<%S%9%"%N%F!<%7%g%s(B
+*** Wikipedia/Wiktionary アノテーション, OS X 辞書サービスアノテーション
 
-*** $B3FHG$N(B Emacs/XEmacs $BBP1~%3!<%I(B
+*** 各版の Emacs/XEmacs 対応コード
 
-*** GNU Emacs $BI8=`(B ja-dic $B8!:w5!G=(B
+*** GNU Emacs 標準 ja-dic 検索機能
 
-*** install-info.el (info/dir $B%(%s%H%j$r99?7$9$k%W%m%0%i%`$N(B elisp $BHG(B)
+*** install-info.el (info/dir エントリを更新するプログラムの elisp 版)
 
-*** skk-cus.el ($B4JJX$J%+%9%?%^%$%:5!G=(B)
+*** skk-cus.el (簡便なカスタマイズ機能)
 
-*** skk-jisx0201.el ($BH>3Q%+%JF~NO(B)
+*** skk-jisx0201.el (半角カナ入力)
 
-*** skk-jisyo-edit-mode.el ($B<-=qJT=8MQ%a%8%c!<%b!<%I(B)
+*** skk-jisyo-edit-mode.el (辞書編集用メジャーモード)
 
-*** skk-kanagaki.el ($B$+$JG[Ns%-!<%\!<%I%5%]!<%H(B)
+*** skk-kanagaki.el (かな配列キーボードサポート)
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, ccc.el, skk-annotation.el, skk-comp.el, skk-cursor.el,
 skk-dcomp.el, skk-develop.el, skk-e21.el, skk-gadget.el,
@@ -375,16 +375,16 @@ skk-isearch.el, skk-kcode.el, skk-leim.el, skk-look.el, skk-macs.el,
 skk-num.el, skk-server.el, skk-tut.el, skk-vars.el, skk-xemacs.el,
 skk-nicola.el
 
-** $B%I%-%e%a%s%H<9I.!&@0Hw(B
+** ドキュメント執筆・整備
 
 
 * FURUE Hideyuki
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** $B3NDj>pJs$N$_$N%"%s%I%%5!G=(B
+*** 確定情報のみのアンドゥ機能
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk.el, skk-vars.el, skk-macs.el, skk-comp.el, skk-kakasi.el,
 skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el, 
@@ -392,149 +392,149 @@ skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 * GUNJI Takao
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-tutcode.el (TUT-code $BF~NO$X$NBP1~(B)
+*** skk-tutcode.el (TUT-code 入力への対応)
 
 
 * Yoshiki Hayashi
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-hint.el ($B%R%s%H$NF~NO$K$h$k8uJd9J$j9~$_(B)
+*** skk-hint.el (ヒントの入力による候補絞り込み)
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk-vars.el
 
 
 * ONODA Arata
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-azik.el ($B3HD%%m!<%^;zF~NO(B "AZIK" $BBP1~(B)
+*** skk-azik.el (拡張ローマ字入力 "AZIK" 対応)
 
 
 * YAGI Tatsuya
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-tankan.el ($BC14A;zJQ49(B)
+*** skk-tankan.el (単漢字変換)
 
 
 * Kimura Fuyuki <fuyuki@hadaly.org>
 
-** SKK $B<-=q$N3HD%!"0];}(B
+** SKK 辞書の拡張、維持
 
-*** $BB??t$N?75,%(%s%H%jDI2C(B
+*** 多数の新規エントリ追加
 
-** SKK $B<-=q%D!<%k$X$N9W8%(B
+** SKK 辞書ツールへの貢献
 
-*** skkdic-diff.scm ($B<-=q4V$N:9J,$r??s,F;7A<0$G=PNO(B)
+*** skkdic-diff.scm (辞書間の差分を真鵺道形式で出力)
 
 
 * Kenichi Kurihara
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-bayesian.el, bskk ($B?J2=$7$?3X=,5!G=(B)
+*** skk-bayesian.el, bskk (進化した学習機能)
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk-kakasi.el, skk-viper.el
 
 
 * Tsuyoshi Kitamoto
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** $BC14A;z$NAm2h?t$K$h$k8!:w(B
+*** 単漢字の総画数による検索
 
-*** $BC14A;z$NIt<s$K$h$k8!:w(B
+*** 単漢字の部首による検索
 
-*** lookup $B$NBPOC%$%s%9%H!<%i$N(B SKK $B$X$N0\?"(B
+*** lookup の対話インストーラの SKK への移植
 
-*** lookup $B$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B skk-lookup-get-content
+*** lookup からアノテーションを取得する skk-lookup-get-content
 
-*** skk-show-mode.el ($B%b!<%I@Z$jBX$($NI=<((B)
+*** skk-show-mode.el (モード切り替えの表示)
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** context-skk.el, skk-annotation.el, skk-gadget.el, skk-hint.el, skk-inline.el,
 skk-jisyo-edit-mode.el, skk-kakasi.el, skk-kcode.el, skk-lookup.el,
 skk-macs.el, skk-num.el, skk-obsolete.el, skk-search-web.el, skk-tankan.el,
 skk-tut.el, skk-vars.el, skk.el
 
-** skk.texi $B$J$I%I%-%e%a%s%H<9I.!&@0Hw(B
+** skk.texi などドキュメント執筆・整備
 
 
 * Fumihiko MACHIDA
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-server-completion.el ($B%5!<%PJd405!G=(B)
+*** skk-server-completion.el (サーバ補完機能)
 
 
 * Yano Keisuke
 
-** SKK $B<-=q$N3HD%!"0];}(B
+** SKK 辞書の拡張、維持
 
-*** SKK-JISYO.JIS3_4 $B$N3HD%!&0];}(B
+*** SKK-JISYO.JIS3_4 の拡張・維持
 
 
 * Kentaro Fukuchi
 
-** SKK Tools $B$N3+H/(B
+** SKK Tools の開発
 
-*** skkdic-expr2 (glib2 $B$rMQ$$$?(B skkdic-expr $B$NH/E8HG(B)
+*** skkdic-expr2 (glib2 を用いた skkdic-expr の発展版)
 
 
 * IRIE Tetsuya
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-act.el (Dvorak $BG[NsMQ3HD%%m!<%^;zF~NO(B "ACT" $BBP1~(B)
+*** skk-act.el (Dvorak 配列用拡張ローマ字入力 "ACT" 対応)
 
-*** skk-sticky.el (SKK $B$N$?$a$N(B sticky shift $B<BAu(B)
+*** skk-sticky.el (SKK のための sticky shift 実装)
 
-*** $B3NDj%"%s%I%%5!G=$H3NDjJQ495!G=$N2~NI$H3HD%(B
+*** 確定アンドゥ機能と確定変換機能の改良と拡張
 
-*** skk-dcomp ($BF0E*Jd40(B) $B$GJ#?t$NJd408uJd$rI=<($9$k5!G=$N<BAu(B
+*** skk-dcomp (動的補完) で複数の補完候補を表示する機能の実装
 
-*** skk-inline $B$K$*$1$kJQ498uJd$N0lHLE*$J=DNsI=<($N<BAu(B
+*** skk-inline における変換候補の一般的な縦列表示の実装
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** skk-bayesian.el, skk-dcomp.el, skk-kakasi.el, skk-kcode.el,
 skk-vars.el, skk-viper.el, skk.el
 
-** skk.texi $B$J$I%I%-%e%a%s%H<9I.!&@0Hw(B
+** skk.texi などドキュメント執筆・整備
 
 
 * Teika Kazura
 
-** skk.texi $B1~MQ5!G=$K4X$7$FBg$-$/2CI.!"%I%-%e%a%s%H<9I.!&@0Hw(B
+** skk.texi 応用機能に関して大きく加筆、ドキュメント執筆・整備
 
 
 * Yusuke Shinyama
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** cdb.el (Emacs $B$N(B CDB $B%5%]!<%H(B)
+*** cdb.el (Emacs の CDB サポート)
 
-*** skk-cdb.el (CDB $B7A<0<-=q%5%]!<%H(B)
+*** skk-cdb.el (CDB 形式辞書サポート)
 
 
 * Kiyoto Hamano
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
-*** skk-search-web.el (Google $B$J$IMxMQ$7$?JQ49(B)
+*** skk-search-web.el (Google など利用した変換)
 
 
 * Tatsuya Kinoshita
 
-*** $B0J2<$N%W%m%0%i%`$X$N2~JQ(B
+*** 以下のプログラムへの改変
 
 **** ccc.el, experimental/skk-exserv.el, experimental/skk-w3m.el,
 skk-vars.el, doc/skk.texi, SKK-CFG, SKK-MK, skk-jisyo-edit-mode.el,
@@ -543,11 +543,12 @@ skk-server.el, skk.el, skk-study.el, bayesian/bskk
 
 * Yuichi Higashi
 
-** elisp $BCx:n!&%"%$%G%"(B
+** elisp 著作・アイデア
 
 *** skk-nicola-colemak.el, skk-omelet-colemak.el
 
 
 Local variables:
+coding: utf-8
 mode: outline
 end:

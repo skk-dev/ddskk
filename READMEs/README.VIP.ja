@@ -3,26 +3,27 @@ o VIP 3.7 does not work on XEmacs (nor Emacs 20, maybe).
 As to vip.el 3.7...
 
 To: skk@sato.kuis.kyoto-u.ac.jp, skk-develop@kuis.kyoto-u.ac.jp
-Subject: $B8D?M<-=q%5%]!<%H(B $B$H(B vip.el $B$N2~NI(B
+Subject: 個人辞書サポート と vip.el の改良
 From: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 Message-Id: <19990825181018Y.masahiko@kuis.kyoto-u.ac.jp>
 Date: Wed, 25 Aug 1999 18:10:18 +0900
 
-o emacs 19.34 $B$G$O(B vip-mode $B$G(B viper $B%m!<%I$5$l$k!#$3$l$KBP93$9$k$?$a(B
-  $B$K$O!"0J2<$N$h$&$K(B .emacs $B$G@_Dj$9$l$P$h$$!#(B
+o emacs 19.34 では vip-mode で viper ロードされる。これに対抗するため
+  には、以下のように .emacs で設定すればよい。
 
      (defalias 'vip-mode 'Vip-mode)
      (autoload 'vip-mode "vip" nil t)
      (global-set-key "\C-z" 'vip-mode)
 
-o vip $B$H(B skk $B$NN>J}$r;H$&%f!<%6$O!"$5$i$K!"0J2<$rDI2C$9$k!#(B
+o vip と skk の両方を使うユーザは、さらに、以下を追加する。
 
      (autoload 'vip-skk-mode "vip" nil t)
      (global-set-key "\C-x\C-j" 'vip-skk-mode)
 
-o vip, skk $B$NN>J}$K4X78$9$k%3!<%I$O$9$Y$F!"(Bvip.el $B$K5[<}$7$?$N$G!"(Bskk
-  $B$G$N8D?M@_Dj$O2?$b$7$J$/$F$h$$!#(B
+o vip, skk の両方に関係するコードはすべて、vip.el に吸収したので、skk
+  での個人設定は何もしなくてよい。
 
 Local variables:
+coding: utf-8
 mode: text
 end:

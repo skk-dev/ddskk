@@ -1,5 +1,12 @@
 2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* AUTHORS.ja, CODENAME.ja, ChangeLog, Contributors, FAQ.ja:
+	* INSTALL, NEWS.ja, PROPOSAL.ja, README.VIP.ja, README.w32.ja:
+	* TODO.ja: Change character encoding (file coding system) to
+	utf-8, except README.MacOSX.ja.
+
+2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* CVS_digest.ja, CVS_on_Windows.ja: Remove.
 
 	* Contributors: correct email address.
@@ -34,7 +41,7 @@
 
 2014-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* README.w32.ja: Emacs 24.4 $B$K$D$$$FJdB-(B.
+	* README.w32.ja: Emacs 24.4 について補足.
 
 2014-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -150,7 +157,7 @@
 
 2012-06-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* README.w32.ja: $B!V(BSKK$BF|K\8lF~NO(BFEP$B!W$N5-=R$rDI2C(B.
+	* README.w32.ja: 「SKK日本語入力FEP」の記述を追加.
 
 2012-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -158,7 +165,7 @@
 
 2012-03-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	Suggested by $B6LLn7r0l(B <suzu@a7m3.jp>.
+	Suggested by 玉野健一 <suzu@a7m3.jp>.
 
 	* README.MacOSX.ja: Update.
 
@@ -218,11 +225,11 @@
 
 2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* NEWS.ja: experimental/skk-search-web.el $B$N5-=R$rDI2C(B.
+	* NEWS.ja: experimental/skk-search-web.el の記述を追加.
 
 2011-11-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* NEWS.ja: $B!V%+!<%=%kIU6a$KF~NO%b!<%I$rI=<($9$k!W$rDI2C(B.
+	* NEWS.ja: 「カーソル付近に入力モードを表示する」を追加.
 
 2011-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -435,11 +442,11 @@
 	* README.Mac.ja: No longer in the repository.
 	* README.MacOSX.ja, README.w32.ja: Update for APEL.
 
-2010-08-12  $B6LLn7r0l(B <suzu@a7m3.jp>
+2010-08-12  玉野健一 <suzu@a7m3.jp>
 
 	* README.MacOSX.ja: Update.
 
-2010-08-08  $B6LLn7r0l(B <suzu@a7m3.jp>
+2010-08-08  玉野健一 <suzu@a7m3.jp>
 
 	* README.MacOSX.ja: Update.
 
@@ -684,5 +691,5 @@
 	Delete description for old Emacsen.
 
 ;; Local Variables:
-;; coding: iso-2022-7bit-ss2
+;; coding: utf-8
 ;; End:

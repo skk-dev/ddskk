@@ -1,60 +1,60 @@
-`MAKEIT.BAT' �̕ҏW�ƃC���X�g�[�� [README.w32.ja]
+`MAKEIT.BAT' の編集とインストール [README.w32.ja]
 
 Windows 95, Windows 98, Windows Me, Windows NT, Windows 2000, Windows XP,
-Windows Vista, Windows 7 �̊e�I�y���[�e�B���O�V�X�e���̏�œ��� Emacs ��
-DDSKK ���C���X�g�[��������@��������܂��B
+Windows Vista, Windows 7 の各オペレーティングシステムの上で動く Emacs に
+DDSKK をインストールする方法を解説します。
 
 Yuh Ohmura <yutopia@t3.rim.or.jp>
-NAKAJIMA Mikio/�������v <minakaji@osaka.email.ne.jp>
+NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
-������ INSTALL �y�� README ���K�������������B
+同梱の INSTALL 及び README も必ずご覧下さい。
 
-* �O�u��
+* 前置き
 
 ** Emacs 20 / Meadow 1.15
 
-APEL ���C���X�g�[��������� DDSKK 14.1 ���C���X�g�[�����Ă��������B
+APEL をインストールした上で DDSKK 14.1 をインストールしてください。
 
 ** Emacs 21 / Meadow 2.11
 
-APEL ���C���X�g�[��������� DDSKK 14.4 ���C���X�g�[�����Ă��������B
+APEL をインストールした上で DDSKK 14.4 をインストールしてください。
 
-** Emacs 22 �ȍ~ / Meadow 2.20 / Meadow 3.00
+** Emacs 22 以降 / Meadow 2.20 / Meadow 3.00
 
-APEL �̃C���X�g�[���͕s�v�ł��B
-DDSKK �ŐV�ł��C���X�g�[�����Ă��������B
+APEL のインストールは不要です。
+DDSKK 最新版をインストールしてください。
 
-** Emacs 24.3 �ȍ~
+** Emacs 24.3 以降
 
-DDSKK 14.4 �ł� isearch �̕s�������܂��BDDSKK 15.1 ���C���X�g�[�����Ă��������B
+DDSKK 14.4 では isearch の不具合があります。DDSKK 15.1 をインストールしてください。
 
-** Emacs 24.4 �ȍ~
+** Emacs 24.4 以降
 
-NTEmacs 24.4 �́A�� 24.3 �Ɣ�ׂăf�B���N�g���\�����قȂ�܂��BDDSKK 15.2 ���C���X�g�[�����Ă��������B
+NTEmacs 24.4 は、同 24.3 と比べてディレクトリ構成が異なります。DDSKK 15.2 をインストールしてください。
 
 * Meadow/NTEmacs
 
-�ȉ��� Meadow 2.10 ���ɉ�����܂��B���̊��ɂ��Ă��\���Q�l�ɂȂ�
-�悤�ɋL�q���܂��BMeadow ��
+以下は Meadow 2.10 を例に解説します。他の環境についても十分参考になる
+ように記述します。Meadow は
 
      c:/meadow
 
-�ɃC���X�g�[������Ă���Ɖ��肵�܂��B
+にインストールされていると仮定します。
 
-** gzip, make, tar �Ȃǂ̏���
+** gzip, make, tar などの準備
 
-SKK �̃C���X�g�[���ɂ� gzip, make, tar �̊e�v���O�������g���܂��B
-��������肷���i�́A�Ⴆ��
+SKK のインストールには gzip, make, tar の各プログラムを使います。
+これらを入手する手段は、例えば
 
      http://sourceforge.net/projects/unxutils
 
-�Ȃǂ�����܂��B
+などがあります。
 
-UnxUtils.zip ���_�E�����[�h�E�W�J���āA�Ⴆ��
+UnxUtils.zip をダウンロード・展開して、例えば
 
      c:/UnxUtils
 
-�ɒu�����Ɖ��肵�A ~/.emacs �Ɉȉ��̂悤�ɐݒ肵�܂��B
+に置いたと仮定し、 ~/.emacs に以下のように設定します。
 
 (setenv "PATH"
 	(format "%s;%s;%s"
@@ -63,109 +63,109 @@ UnxUtils.zip ���_�E�����[�h�E�W�J���āA�Ⴆ��
 		(or (getenv "$PATH") "")))
 (setenv "SHELL"  "sh.exe")
 
-����� shell ���[�h (M-x shell) ���g����悤�ɂȂ�܂��B
-�R�}���h�ւ̃p�X���m�F����ꍇ�́Ashell ���[�h��
+これで shell モード (M-x shell) が使えるようになります。
+コマンドへのパスを確認する場合は、shell モードで
 
      % type make
 
-�Ȃǂ����s���܂��B
+などを実行します。
 
-�Ȃ��Acygwin �𓱓����Ă�����ł́A��L�ݒ�ł͂Ȃ� cygwin �̐ݒ����
-�ĉ������B
+なお、cygwin を導入している環境では、上記設定ではなく cygwin の設定をし
+て下さい。
 
-** SKK �̃C���X�g�[��
+** SKK のインストール
 
-*** gzip, make, tar �R�}���h���g���ꍇ
+*** gzip, make, tar コマンドを使う場合
 
-**** SKK �̓W�J(��)
+**** SKK の展開(解凍)
 
-SKK �f�B�X�g���r���[�V��������L�� tar.exe ��p���ēW�J���܂��B
+SKK ディストリビューションを上記の tar.exe を用いて展開します。
 
      % cd c:/tmp
      % gunzip ddskk-14.3.tar.gz
      % tar xvf ddskk-14.3.tar
      % cd ddskk-14.3
 
-**** SKK �����̎擾
+**** SKK 辞書の取得
 
-�ȉ����_�E�����[�h���܂��B
+以下をダウンロードします。
 
      http://openlab.jp/skk/dic/SKK-JISYO.L.gz
 
-����� gunzip �œW�J���� ddskk �̃\�[�X�� dic �Ƃ����f�B���N�g���ɒu��
-�܂��B
+これを gunzip で展開して ddskk のソースの dic というディレクトリに置き
+ます。
 
-**** SKK �� �C���X�g�[���ݒ�
+**** SKK の インストール設定
 
-�܂��Ashell ���[�h�ňȉ������s���܂��B
+まず、shell モードで以下を実行します。
 
      % make what-where EMACS=c:/meadow/bin/Meadow.exe
 
-�e��t�@�C���̃C���X�g�[���悪�o�͂���܂��B��������Ė��Ȃ���΁A��
-�̂܂܃C���X�g�[���ɐi�݂܂��B������肪����΁ASKK-CFG �Ƃ����t�@�C��
-��ҏW���Đݒ肵�܂��B���̃t�@�C���ɂ�
+各種ファイルのインストール先が出力されます。これを見て問題なければ、そ
+のままインストールに進みます。もし問題があれば、SKK-CFG というファイル
+を編集して設定します。このファイルには
 
-;;; Meadow 2.10 �܂��� 3.00-dev �̐ݒ��:
+;;; Meadow 2.10 または 3.00-dev の設定例:
 
-�Ƃ����̂���ɐ݂��Ă��܂��̂ŁA����𐗌`�ɕҏW���Ă��������B
+というのを特に設けていますので、これを雛形に編集してください。
 
-**** SKK �� �C���X�g�[��
+**** SKK の インストール
 
-shell ���[�h�ňȉ������s���܂��B
+shell モードで以下を実行します。
 
      % make install EMACS=c:/meadow/bin/Meadow.exe
 
-*** makeit.bat ���g���ꍇ
+*** makeit.bat を使う場合
 
-Daredevil SKK �ɂ� make �R�}���h�̑���Ɏg���� makeit.bat �Ƃ����t�@�C
-�������^���Ă��܂��B
+Daredevil SKK には make コマンドの代わりに使える makeit.bat というファイ
+ルを収録しています。
 
-**** SKK �{�́A�����̎擾�ƓW�J
+**** SKK 本体、辞書の取得と展開
 
-�K���ȕ��@�œW�J���܂��BSKK-JISYO.L ���A�{�̂�W�J���� dic �Ƃ����T�u�f�B
-���N�g���ɒu���܂��B
+適当な方法で展開します。SKK-JISYO.L を、本体を展開した dic というサブディ
+レクトリに置きます。
 
-**** makeit.bat �̕ҏW
+**** makeit.bat の編集
 
-makeit.bat �������̊��ɍ��킹�ĕҏW���܂��B
-EMACS �͌䎩���� Emacs �̃t���p�X���w�肵�܂��B��̗�ł́A
+makeit.bat を自分の環境に合わせて編集します。
+EMACS は御自分の Emacs のフルパスを指定します。上の例では、
 
 EMACS=c:\meadow\bin\Meadow.exe
 
-���̑��̐ݒ�́ASKK-CFG �ōs���܂��B���̓_�� make �R�}���h���g���ꍇ��
-���l�ł��B
+その他の設定は、SKK-CFG で行います。この点は make コマンドを使う場合と
+同様です。
 
-**** makeit.bat �̎��s
+**** makeit.bat の実行
 
-makeit.bat ���g�����̒��ӓ_�́ADOSPROMPT �̃v���p�e�B�ŁA���ϐ��̃���
-�����蓖�Ă������ɂȂ�ƁA���ϐ����ݒ�ł��Ȃ��̂ŁA�K���Ȓl (2048��
-��) �����Ă����K�v������܂��B
+makeit.bat を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
+リ割り当てが自動になると、環境変数が設定できないので、適当な値 (2048と
+か) を入れておく必要があります。
 
-Windows �̃R�}���h�v�����v�g�� makeit.bat �̂���f�B���N�g���Ɉړ�����
-���B
+Windows のコマンドプロンプトで makeit.bat のあるディレクトリに移動しま
+す。
      c:\>cd tmp
      c:\tmp>cd ddskk-14.3
 
-`what-where' �������Ƃ��� makeit.bat �����s�����
+`what-where' を引数として makeit.bat を実行すると
 
      C:\tmp\ddskk-14.3>makeit what-where
 
-�C���X�g�[���悪�m�F�ł��܂��B
+インストール先が確認できます。
 
-`install' �������Ƃ��� makeit.bat �����s�����
+`install' を引数として makeit.bat を実行すると
 
      C:\tmp\ddskk-14.3>makeit install
 
-�o�C�g�R���p�C���ƃC���X�g�[�������s����܂��B
+バイトコンパイルとインストールが実行されます。
 
-�Ȃ��ADEFAULT_MAKE_ARG �� install �ƋL�q���Ă������ƂŁA���񂩂��
-MAKEIT.BAT ���_�u���N���b�N���邾���ŃC���X�g�[�����\�ƂȂ�܂��B
+なお、DEFAULT_MAKE_ARG に install と記述しておくことで、次回からは
+MAKEIT.BAT をダブルクリックするだけでインストールが可能となります。
 
-�K�X�w�肪�I���� makeit.bat �́A���L�̂����ꂩ�̃t�@�C���Ƃ��ăR�s�[���Ă�
-������͂������D�悵�Ď��s����܂��B(�A�b�v�O���[�h�̍ۂ� makeit.bat ��
-�ĕҏW����K�v���Ȃ��Ȃ�܂�)
+適宜指定が終った makeit.bat は、下記のいずれかのファイルとしてコピーしてお
+く次回はそちらを優先して実行されます。(アップグレードの際に makeit.bat を
+再編集する必要がなくなります)
 
-�D�揇��:
+優先順に:
 
   1-1. %HOME%\.elispmk.skk.bat
   1-2. %HOME%\elisp\elispmk.skk.bat
@@ -181,106 +181,106 @@ MAKEIT.BAT ���_�u���N���b�N���邾���ŃC���X�g�[�����\�ƂȂ�܂��B
   2-5. c:\Meadow\elispmk.bat
   2-6. d:\Meadow\elispmk.bat
 
-*** �Θb�I�C���X�g�[�����g���ꍇ
+*** 対話的インストーラを使う場合
 
-DDSKK 14.3 �ł͑Θb�I�C���X�g�[����ǉ����܂����B
+DDSKK 14.3 では対話的インストーラを追加しました。
 
-  1. M-x dired �ƃ^�C�v���� dired ���N�����܂��B���̂Ƃ��f�B���N�g����
-     ����܂��̂ŁA�Ⴆ�� /tmp/ddskk-14.3 �Ǝw�肵�܂��B
+  1. M-x dired とタイプして dired を起動します。このときディレクトリを
+     問われますので、例えば /tmp/ddskk-14.3 と指定します。
 
-  2. �f�B���N�g���ꗗ���\������܂��̂� SKK-MK �ɃJ�[�\�������킹�܂��B
+  2. ディレクトリ一覧が表示されますので SKK-MK にカーソルをあわせます。
 
-  3. `L' (�啶���̃G��) ���^�C�v���� dired-do-load �����s���܂��B
-     �v�����v�g `Load SKK-MK?' �ɂ� y �𓚂��܂��B
+  3. `L' (大文字のエル) をタイプして dired-do-load を実行します。
+     プロンプト `Load SKK-MK?' には y を答えます。
 
-  4. ����ȍ~�̓C���X�g�[������̎���ɓ����Ă��������B
+  4. これ以降はインストーラからの質問に答えてください。
 
-  5. Emacs ���ċN������� DDSKK ���g���܂��B
+  5. Emacs を再起動すると DDSKK が使えます。
 
-*** load-path �ւ̒ǉ�
+*** load-path への追加
 
-APEL �̎��Ɠ��l�A�ӂ��� load-path �̐ݒ�͎����ŁA���[�U������K�v��
-����܂���B
+APEL の時と同様、ふつうは load-path の設定は自動で、ユーザがする必要は
+ありません。
 
-*** .emacs �ւ̒ǉ�
+*** .emacs への追加
 
-�ŏ��ɋN�����e�X�g����ۂ́A~/.emacs �ւ̐ݒ�͂Ȃɂ��K�v����܂���B
-C-x C-j �܂��� M-x skk-mode �ŋN�����A���͂ł��邱�Ƃ��m�F���܂��B
+最初に起動をテストする際は、~/.emacs への設定はなにも必要ありません。
+C-x C-j または M-x skk-mode で起動し、入力できることを確認します。
 
-* Windows ��œ��� SKK �T�[�o
+* Windows 上で動く SKK サーバ
 
-Windows �ŗ��p�ł��� SKK �����T�[�o�ɂ͎��̂悤�Ȃ��̂�����܂��B
+Windows で利用できる SKK 辞書サーバには次のようなものがあります。
 
 ** wskkserv
 
-Windows ��œ��삷�� skkserv �ł��B
+Windows 上で動作する skkserv です。
 
     (http://www.tatari-sakamoto.jp/wskkserv.jis.html)
      http://homepage3.nifty.com/monjya/wskkserv.jis.html
 
-�������ł��܂��B
+から入手できます。
 
 ** wceSKKSERV
 
-���������������\�� Windows �n OS �p�� skk �T�[�o�ł��B
+複数辞書検索が可能な Windows 系 OS 用の skk サーバです。
 
     (http://ms.megadriver.yi.org/~fumi/wceskkserv/)
      http://www.megadriver.info/~fumi/wceskkserv/
 
-�������ł��܂��B
+から入手できます。
 
-** cygwin �𗘗p���ă\�[�X����R���p�C�����ė��p����
+** cygwin を利用してソースからコンパイルして利用する
 
-cygwin ���g�p�ł�����ł� skkserv �𒼐ڃR���p�C�����Ďg�p���邱��
-���ł��܂��Bskkserv ��
+cygwin が使用できる環境では skkserv を直接コンパイルして使用すること
+ができます。skkserv は
 
      http://openlab.jp/skk/skk/skkserv/
 
-�������ł��܂��B
+から入手できます。
 
-�܂��Acygwin �� GNU inetutils ���C���X�g�[�����Ă���ꍇ
-dbskkd �𗘗p���邱�Ƃ��ł��܂��B
+また、cygwin で GNU inetutils をインストールしている場合
+dbskkd を利用することもできます。
 
      http://www.cygwin.com
 
-�������ł��� setup.exe �𗘗p����ƃC���X�g�[���ł��܂��B
-�Ȃ��Ainetutils �̐ݒ�ɂ��ẮA
+から入手できる setup.exe を利用するとインストールできます。
+なお、inetutils の設定については、
 
      /usr/doc/Cygwin/inetutils-1.3.2.README
 
-���Q�Ƃ��ĉ������B�܂��Adbskkd ��
+を参照して下さい。また、dbskkd は
 
      http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html
 
-�������ł��܂��B
+から入手できます。
 
-** �X�N���v�g����Ŏ������ꂽ�T�[�o
+** スクリプト言語で実装されたサーバ
 
-ruby ���g�p�ł���Ȃ�΁A rskkserv ���g�p�ł��܂��B
-rskkserv ��
+ruby が使用できるならば、 rskkserv が使用できます。
+rskkserv は
 
      http://sourceforge.jp/projects/rskkserv/
 
-�������ł��܂��B
+から入手できます。
 
-* Windows ��œ��� SKK ����
+* Windows 上で動く SKK 実装
 
-Windows ��œ��삷�� SKK ���C�N�� IME ������܂��B
+Windows 上で動作する SKK ライクの IME があります。
 
 ** skkime
 
-�ݒ肪������x elisp �łł���悤�ɂȂ��Ă��邱�ƂƁASKK �Ƌ��ʂ̎���
-���g�p�ł��܂��B
+設定がある程度 elisp でできるようになっていることと、SKK と共通の辞書
+が使用できます。
 
     (http://www.tatari-sakamoto.jp/skkime.jis.html)
      http://homepage3.nifty.com/monjya/skkime.jis.html
 
-** SKK���{�����FEP
+** SKK日本語入力FEP
 
-���̂܂܈��p�����Ă��������܂��B
-  �uSKK���{�����FEP��Windows�p�̓��{����̓\�t�g�ł��B
-    �C���X�g�[�������Windows�̂��ׂẴA�v���P�[�V�����ɍ�p���A
-    SKK�����ɂ����{��̂��Ȋ����ϊ����͂��\�ɂȂ�܂��B�v
+そのまま引用させていただきます。
+  「SKK日本語入力FEPはWindows用の日本語入力ソフトです。
+    インストールするとWindowsのすべてのアプリケーションに作用し、
+    SKK方式による日本語のかな漢字変換入力が可能になります。」
 
      http://coexe.web.fc2.com/programs.html
 
@@ -292,9 +292,10 @@ CorvusSKK works as Text Input Processor (TIP) on Text Services Framework (TSF).
 
 
 
-Windows �͕č� Microsoft Corporation �̕č�����т��̑��̍��ɂ�����o�^���W�ł��B
+Windows は米国 Microsoft Corporation の米国およびその他の国における登録商標です。
 
 
 Local variables:
+coding: utf-8
 mode: outline
 end:
