@@ -24,24 +24,26 @@ for its details.
 
 Thank you.
 
-<How to join the SKK Openlab Mailing list>
+## How to join the SKK Openlab Mailing list
 
-<Subscribe request>
+### Subscribe request
 
   To: skk-subscribe@ring.gr.jp
   Mail body or subject: empty
   And follow en ezmlm's instruction automatically responded.
 
-<Unsubscribe request>
+### Unsubscribe request
 
   To: skk-unsubscribe@ring.gr.jp
   Mail body or subject: empty
   And follow en ezmlm's instruction automatically responded.
 
-<Post>
+### Post
   To: skk@ring.gr.jp
 
+<!--
 Local variables:
 mode: text
 fill-column: 72
 end:
+-->
