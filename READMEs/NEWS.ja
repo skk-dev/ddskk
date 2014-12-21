@@ -27,6 +27,29 @@ Thanks to Yuhei Maeda and Takenari Shinohara.
 
   辞書などの諸設定は ~/.skk で定義してください。
 
+** 開発環境など
+
+*** DDSKK の開発ツールは cvs から git へ変更しました
+
+https://github.com/skk-dev/ddskk
+
+*** Makefile にターゲット test を追加
+
+** ドキュメント整備
+
+*** READMEs/README を README へ移しました
+
+*** READMEs/ 以下のドキュメントを UTF-8 化しました。
+
+*** skk.texi の PDF 化をスクリプト化しました。
+
+そのため txi-ja.tex 等を追加しています。
+
+** queue-m.el の利用を廃止
+
+使用範囲が限定的であったため、cons() などでリスト操作することとし、
+queue-m.el の利用を廃止しました。
+
 ** 変数 skk-annotation-browser-function を廃止
 
 アノテーションを eww で表示するには、次のように設定してください。
