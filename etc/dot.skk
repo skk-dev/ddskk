@@ -1,87 +1,87 @@
-;;; dot.skk --- examples for SKK init file  -*- mode: emacs-lisp; coding: iso-2022-jp -*-
+;;; dot.skk --- examples for SKK init file  -*- mode: emacs-lisp; coding: utf-8 -*-
 
 ;;; Commentary:
 
-;; $B0J2<$O(B ~/.skk $B$N@_DjNc=8$G$9!#(B
+;; 以下は ~/.skk の設定例集です。
 
-;; ($BCm0U(B)
-;; $B$3$N%U%!%$%k$O(B ~/.skk $B$KD>@\%3%T!<$7$F;HMQ$9$k$h$&$K0U?^$5$l$?$b$N$G$O(B
-;; $B$"$j$^$;$s!#I,MW$J@_DjNc$N$_%3%T!<$7$F;HMQ$7$F$/$@$5$$!#(B
+;; (注意)
+;; このファイルは ~/.skk に直接コピーして使用するように意図されたものでは
+;; ありません。必要な設定例のみコピーして使用してください。
 
 ;;; Code:
 
-;; @@ $B4pK\Cf$N4pK\$N@_Dj(B
+;; @@ 基本中の基本の設定
 
-;; $B<-=q%5!<%P$r;H$&$H$-(B
+;; 辞書サーバを使うとき
 ;; (setq skk-server-host "localhost"
 ;;       skk-server-portnum 1178
 ;;       skk-server-report-response t)
 
-;; $B<-=q%5!<%P$r;H$o$J$$$H$-(B
-;; SKK $B$,8!:w$9$k(B CDB $B7A<0<-=q(B (DDSKK 14 $B0J9_(B)
+;; 辞書サーバを使わないとき
+;; SKK が検索する CDB 形式辞書 (DDSKK 14 以降)
 ;; (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
 
-;; SKK $B$,8!:w$9$k<-=q(B
+;; SKK が検索する辞書
 ;; (setq skk-large-jisyo "/usr/share/skk/SKK-JISYO.L")
 
-;; ja-dic.el $B$rMxMQ$7$?$+$J4A;zJQ49(B(DDSKK 14.2$B!A(B)$B$rL58z$H$9$k(B
+;; ja-dic.el を利用したかな漢字変換(DDSKK 14.2〜)を無効とする
 ;; (setq skk-inhibit-ja-dic-search t)
 
-;; SHIFT $B%-!<$r;H$&$3$H$J$/!"8+=P$78l!&Aw$j2>L>$N0LCV$r;XDj$9$k(B
+;; SHIFT キーを使うことなく、見出し語・送り仮名の位置を指定する
 ;; (setq skk-sticky-key ";")
 
-;; @@ $BI=<($N@_Dj(B
+;; @@ 表示の設定
 
-;; $B3F<o%a%C%;!<%8$rF|K\8l$GDLCN$9$k(B
+;; 各種メッセージを日本語で通知する
 (setq skk-japanese-message-and-error t)
 
-;; skk-version() $B$N7k2L$rF|K\8l$GI=<($9$k(B
+;; skk-version() の結果を日本語で表示する
 ;;   nil  => Daredevil SKK/15.1 (Umeda)
-;;   t    => Daredevil SKK/15.1 ($BG_ED(B)
+;;   t    => Daredevil SKK/15.1 (梅田)
 (setq skk-version-codename-ja t)
 
-;; $B%b!<%I%i%$%s>e$NI=<($rJQ99$9$k(B
-;;   'left => $B%b!<%I%i%$%s$N:8C<$KI=<($9$k(B
-;;   $B0J30(B  => $B%^%$%J!<%b!<%I$H$7$FI=<($9$k(B
+;; モードライン上の表示を変更する
+;;   'left => モードラインの左端に表示する
+;;   以外  => マイナーモードとして表示する
 ;; (setq skk-status-indicator 'minor-mode)
 
-;; $B%b!<%I%i%$%s$K(B SKK $B%"%$%3%s$rI=<($9$k!#(B
+;; モードラインに SKK アイコンを表示する。
 (setq skk-show-icon t)
 
-;; $B%+!<%=%kIU6a$K%b!<%I@Z$jBX$($rI=<($9$k(B
-;; (setq skk-show-mode-show t)		; M-x skk-show-mode $B$G%H%0%k2D!#(B
-;; (setq skk-show-mode-style 'tooltip)	;$B%G%U%)%k%H$O(B 'inline
+;; カーソル付近にモード切り替えを表示する
+;; (setq skk-show-mode-show t)		; M-x skk-show-mode でトグル可。
+;; (setq skk-show-mode-style 'tooltip)	;デフォルトは 'inline
 ;; (set-face-background 'skk-show-mode-inline-face "DodgerBlue")
 
-;; $B%a%K%e!<%P!<$NI=<((B
-;;   Non-nil => $BF|K\8l(B
-;;   nil => $B1Q8l(B
+;; メニューバーの表示
+;;   Non-nil => 日本語
+;;   nil => 英語
 ;; (setq skk-show-japanese-menu nil)
 
-;; $BJQ49;~$KCm<a(B (annotation) $B$rI=<($9$k(B
+;; 変換時に注釈 (annotation) を表示する
 (setq skk-show-annotation
-      t					; $B>o$KI=<((B
-;      '(not list)			; *$B8uJd(B*$B%P%C%U%!$G$OHsI=<((B
-;      '(not minibuf)			; $B%_%K%P%C%U%!$G$OHsI=<((B
-;      '(not list minibuf)		; $BN>J}$H$bHsI=<((B
+      t					; 常に表示
+;      '(not list)			; *候補*バッファでは非表示
+;      '(not minibuf)			; ミニバッファでは非表示
+;      '(not list minibuf)		; 両方とも非表示
       )
 
-;; $BCm<a$rI=<($9$k$^$G$NCY1d$rIC$G;XDj$9$k(B
- (setq skk-annotation-delay 0)		;$B%G%U%)%k%H$O(B1.0$BIC(B
+;; 注釈を表示するまでの遅延を秒で指定する
+ (setq skk-annotation-delay 0)		;デフォルトは1.0秒
 
-;; $BCm<a(B (annotation) $B$NI=<($N;EJ}(B
-;;   Non-nil => $B%(%3!<%(%j%"$KI=<($9$k(B ($B%G%U%)%k%H(B)
-;;   nil => $BJL$J(B window $B$KI=<($9$k(B
-;; (setq skk-annotation-show-as-message nil) ;`skk-show-tooltip' $B$,M%@h$5$l$k(B
+;; 注釈 (annotation) の表示の仕方
+;;   Non-nil => エコーエリアに表示する (デフォルト)
+;;   nil => 別な window に表示する
+;; (setq skk-annotation-show-as-message nil) ;`skk-show-tooltip' が優先される
 
-;; $BJQ49A0(B/$BJQ49Cf$K%(%3!<%(%j%"$K>iD9$J%a%C%;!<%8$rI=<((B
+;; 変換前/変換中にエコーエリアに冗長なメッセージを表示
 (setq skk-verbose t)
 
-;; $B%+!<%=%k$K?'$rIU$1$J$$(B
+;; カーソルに色を付けない
 ;; (setq skk-use-color-cursor nil)
 
 ;; (when skk-use-color-cursor
-;;   ;; $B%+!<%=%k?'$rJQ$($F$_$k(B
+;;   ;; カーソル色を変えてみる
 ;;   (setq skk-cursor-hiragana-color       "blue"
 ;; 	   skk-cursor-katakana-color       "green"
 ;; 	   skk-cursor-abbrev-color         "red"
@@ -93,16 +93,16 @@
 ;;   (set-face-foreground 'skk-prefix-katakana-face skk-cursor-katakana-color)
 ;;   (set-face-foreground 'skk-prefix-jisx0201-face skk-cursor-jisx0201-color))
 
-;; $B%$%s%8%1!<%?$K?'$rIU$1$J$$(B
+;; インジケータに色を付けない
 ;; (setq skk-indicator-use-cursor-color nil)
 
-;; ;; [$B;D$j(B 99++]
-;; $BI=<($r1&C<$X4s$;$F$_$k(B
+;; ;; [残り 99++]
+;; 表示を右端へ寄せてみる
 ;; (setq skk-henkan-rest-indicator t)
-;; $BE,MQ$9$k%U%'%$%9(B
+;; 適用するフェイス
 ;; (copy-face 'font-lock-keyword-face 'skk-henkan-rest-indicator-face)
 
-;; `$' skk-display-code-for-char-at-point $B$G;HMQ$9$k%U%'%$%9(B
+;; `$' skk-display-code-for-char-at-point で使用するフェイス
 (set-face-attribute 'skk-display-code-prompt-face nil
 		    :foreground "cyan"
 		    :bold t)
@@ -112,198 +112,198 @@
 		    :foreground "white"
 		    :background "black")
 
-;; @@ $B4pK\E*$J%f!<%6!&%$%s%?!<%U%'!<%9(B
+;; @@ 基本的なユーザ・インターフェース
 
-;; $BA08uJd(B/$BA08uJd72$KLa$kA`:n(B
+;; 前候補/前候補群に戻る操作
 ;; (setq skk-previous-candidate-keys (list "x" "\C-p"))
 
-;; $B"'%b!<%I$G(B Enter $B%-!<$r2!$7$?$H$-(B
-;;   nil => $B3NDj$H2~9T!J%G%U%)%k%H!K(B
-;;   non-nil => $B3NDj$9$k$N$_!#2~9T$7$J$$!#(B
+;; ▼モードで Enter キーを押したとき
+;;   nil => 確定と改行（デフォルト）
+;;   non-nil => 確定するのみ。改行しない。
 (setq skk-egg-like-newline t)
 
-;; $B"'%b!<%I$G(B BS $B$r2!$7$?$H$-$K$O3NDj$7$J$$$GA08uJd$rI=<($9$k(B
+;; ▼モードで BS を押したときには確定しないで前候補を表示する
 ;; (setq skk-delete-implies-kakutei nil)
 
-;; $BBP1~$9$kJD3g8L$r<+F0E*$KA^F~$9$k(B
+;; 対応する閉括弧を自動的に挿入する
 (setq skk-auto-insert-paren t)
 
-;; $B%j!<%8%g%s$r3g8L$G0O$`(B
+;; リージョンを括弧で囲む
 (setq skk-use-auto-enclose-pair-of-region t)
 
-;; $B3NDj%"%s%I%%(B
+;; 確定アンドゥ
 (define-key skk-j-mode-map (kbd "C-M-j") 'skk-undo-kakutei)
 
-;; $B"&%b!<%I$H"'%b!<%I;~$N%"%s%I%%>pJs$r5-O?$7$J$$(B
+;; ▽モードと▼モード時のアンドゥ情報を記録しない
 ;; (setq skk-undo-kakutei-word-only t)
 
-;; $B6gFIE@$K(B $B!%!$(B $B$r;H$&(B
+;; 句読点に ．， を使う
 ;; (setq-default skk-kutouten-type 'en)
 
-;; $B6gFIE@$rF0E*$K7hDj$9$k(B
+;; 句読点を動的に決定する
 ;; (add-hook 'skk-mode-hook
 ;;           (lambda ()
 ;;             (save-excursion
 ;;               (goto-char 0)
 ;;               (make-local-variable 'skk-kutouten-type)
-;;               (if (re-search-forward "$B!#(B" 10000 t)
+;;               (if (re-search-forward "。" 10000 t)
 ;;                   (setq skk-kutouten-type 'en)
 ;;                 (setq skk-kutouten-type 'jp)))))
 
 (define-key skk-j-mode-map (kbd "M-,") 'skk-toggle-kutouten)
 
-;; $B8+=P$78l$NJd40$r9T$&:]$N8uJd$NI=<(=g(B
+;; 見出し語の補完を行う際の候補の表示順
 ;; (setq skk-comp-circulate t)
 
-;; $B8+=P$78l$NJd40F0:n!JA08uJd$N=PNO!K(B Shift + TAB $B$rL58z2=$9$k(B
+;; 見出し語の補完動作（前候補の出力） Shift + TAB を無効化する
 ;; (setq skk-previous-completion-use-backtab nil)
 
-;; $BF0E*$JJd40$r;H$&(B
+;; 動的な補完を使う
 ;; (setq skk-dcomp-activate t)
-;; $B"&$[(B-!-$B$s$H$&(B $B$N!V$s$H$&!W$N(B face
+;; ▽ほ-!-んとう の「んとう」の face
 ;; (set-face-foreground 'skk-dcomp-face "green")
 
-;; $BF0E*Jd40$N2DH]$rH=Dj$9$k$h$j9bEY$J@_DjNc(B
+;; 動的補完の可否を判定するより高度な設定例
 (setq skk-dcomp-activate
       #'(lambda ()
 	  (and
-	   ;; -nw $B$G$OF0E*Jd40$r$7$J$$!#(B
+	   ;; -nw では動的補完をしない。
 	   window-system
-	   ;; $B4pK\E*$K9TKv$N$H$-$N$_Jd40$9$k!#$?$@$79TKv$G$J$/$F$b8=:_$N(B
-	   ;; $B%]%$%s%H$+$i9TKv$^$G$NJ8;z$,6uGr$N$_$@$C$?$iJd40$9$k!#(B
+	   ;; 基本的に行末のときのみ補完する。ただし行末でなくても現在の
+	   ;; ポイントから行末までの文字が空白のみだったら補完する。
 	   (or (eolp)
 	       (looking-at "[ \t]+$")))))
 
-;; $BF0E*Jd40$G8uJd$rJ#?tI=<($9$k(B $B!J(BXEmacs $B$G$O5!G=$7$^$;$s!K(B
+;; 動的補完で候補を複数表示する （XEmacs では機能しません）
 ;; (setq skk-dcomp-multiple-activate t
 ;;       skk-dcomp-multiple-rows 10)
 
-;;; $B"&$[(B*$B$s$H$&(B-!-
-;;;   $B$[(B $B$s$H$&(B
-;;;   $B$[(B $B$+$s(B
-;;;   $B$[(B $B$&$[$&(B
+;;; ▽ほ*んとう-!-
+;;;   ほ んとう
+;;;   ほ かん
+;;;   ほ うほう
 
-;; $B!V$[!W$N%U%'%$%9(B
+;; 「ほ」のフェイス
 ;; (set-face-foreground 'skk-dcomp-multiple-face "COLOR")
 
-;; $B!V$s$H$&!W!"!V$+$s!W!"!V$&$[$&!W$N%U%'%$%9(B
+;; 「んとう」、「かん」、「うほう」のフェイス
 ;; (set-face-foreground 'skk-dcomp-multiple-trailing-face "COLOR")
 
-;; $BA*Br0LCV$N%U%'%$%9(B
+;; 選択位置のフェイス
 ;; (set-face-foreground 'skk-dcomp-multiple-selected-face "COLOR")
 
-;; viper $B$HAH$_9g$o$;$F;H$&(B
+;; viper と組み合わせて使う
 ;; (setq skk-use-viper t)
 
-;; $B3NDj$K$O(B C-j $B$G$O$J$/!ZJQ49%-!<![$r;H$&(B
+;; 確定には C-j ではなく【変換キー】を使う
 ;; (setq skk-kakutei-key [henkan])
-;; $BCm(B) $BJQ49%-!<$O!"(BEmacs on XFree86  $B$G$O(B [henkan]
-;;                 XEmacs on XFree86 $B$G$O(B [henkan-mode]
-;;                 Meadow $B$H(B NTEmacs $B$G$O(B [convert]
+;; 注) 変換キーは、Emacs on XFree86  では [henkan]
+;;                 XEmacs on XFree86 では [henkan-mode]
+;;                 Meadow と NTEmacs では [convert]
 
-;; $B@\F,!&@\Hx<-JQ49$N%-!<$r@_Dj$9$k(B
-;; $BNc(B 1) $BI8=`$N@_Dj(B
+;; 接頭・接尾辞変換のキーを設定する
+;; 例 1) 標準の設定
 ;; (setq skk-special-midashi-char-list '(?> ?< ??))
-;; $BNc(B 2) ? $B$OIaDL$KF~NO$7$?$$$+$i30$9(B
+;; 例 2) ? は普通に入力したいから外す
 ;; (setq skk-special-midashi-char-list '(?> ?<))
-;; $BNc(B 3) $BJ8;z%-!<$OIaDL$KF~NO$7$?$$$+$iB>$N%-!<$r;H$&(B
+;; 例 3) 文字キーは普通に入力したいから他のキーを使う
 ;; (setq skk-special-midashi-char-list nil)
 ;; (define-key skk-j-mode-map [muhenkan] 'skk-process-prefix-or-suffix)
 
-;; @@ $B$+$JF~NO4XO"$N@_Dj(B
+;; @@ かな入力関連の設定
 
-;; $BH>3Q%+%JF~NO%a%=%C%I$r;H$&(B
+;; 半角カナ入力メソッドを使う
 ;; (setq skk-use-jisx0201-input-method t)
 
-;; $B$+$JG[Ns%-!<%\!<%I$GF~NO$9$k(B
+;; かな配列キーボードで入力する
 ;; (setq skk-use-kana-keyboard t)
 
 ;; (when skk-use-kana-keyboard
-;;   ;; $B5l(B JIS $BG[Ns$r;H$&(B
+;;   ;; 旧 JIS 配列を使う
 ;;   ;; (setq skk-kanagaki-keyboard-type '106-jis)
-;;   ;; $B?F;X%7%U%H%(%_%e%l!<%7%g%s$r;H$&(B
+;;   ;; 親指シフトエミュレーションを使う
 ;;   (setq skk-kanagaki-keyboard-type 'omelet-jis)
-;;   ;; OASYS $BIw$N8eB`!&<h>C%-!<$r;H$&(B
+;;   ;; OASYS 風の後退・取消キーを使う
 ;;   (setq skk-nicola-use-koyubi-functions t))
 
-;; Microsoft Windows $B$N(B IME $B$N$h$&$K%U%!%s%/%7%g%s%-!<$K$$$/$D$+$NJQ495!G=$r3d$jEv$F$k(B
-;;   conversion => skk-search-prog-list-{1-9,0} $B$r<B9T$G$-$k!#(B
-;;   kanagaki => $B$+$J%-!<%\!<%IF~NOMQ$N@_Dj$K$J$k!#(B
-;;   nil => $B<+F0@_Dj$7$J$$!J<+J,$G9%$-$J@_Dj$,$G$-$k!K(B $B%G%U%)%k%H(B
+;; Microsoft Windows の IME のようにファンクションキーにいくつかの変換機能を割り当てる
+;;   conversion => skk-search-prog-list-{1-9,0} を実行できる。
+;;   kanagaki => かなキーボード入力用の設定になる。
+;;   nil => 自動設定しない（自分で好きな設定ができる） デフォルト
 (setq skk-j-mode-function-key-usage 'conversion)
-;; $BCm(B) $BI8=`$G$O0J2<$NJQ495!G=$,3d$jEv$F$i$l$^$9!#(B
-;;  [F5]$BC14A;z(B [F6]$BL5JQ49(B [F7]$B%+%?%+%J(B [F8]$BH>3Q%+%J(B [F9]$BA43Q%m!<%^(B [F10]$B%m!<%^(B
-;; (setq skk-verbose t) $B$HJ;MQ$9$k$H>e5-$N3d$jEv$F>pJs$,%a%C%;!<%8$5$l$^$9!#(B
+;; 注) 標準では以下の変換機能が割り当てられます。
+;;  [F5]単漢字 [F6]無変換 [F7]カタカナ [F8]半角カナ [F9]全角ローマ [F10]ローマ
+;; (setq skk-verbose t) と併用すると上記の割り当て情報がメッセージされます。
 
-;; $B$+$J%b!<%I$K$*$$$F!"%b!<%IJQ99$rH<$o$J$/$H$b(B
-;;   ASCII $B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$r(B `-' $B$K(B
-;;                             $B6gE@(B($B!#(B)$B$r(B `.' $B$K(B
-;;                             $BFIE@(B($B!"(B)$B$r(B `,' $B$K(B
-;;   JISX0208($BA43Q(B)$B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$r(B `$B!](B' $B$K(B
-;;                                     $B6gE@(B($B!#(B)$B$r(B `$B!%(B' $B$K(B
-;;                                     $BFIE@(B($B!"(B)$B$r(B `$B!$(B' $B$K(B
+;; かなモードにおいて、モード変更を伴わなくとも
+;;   ASCII 数字の直後であれば、長音(ー)を `-' に
+;;                             句点(。)を `.' に
+;;                             読点(、)を `,' に
+;;   JISX0208(全角)数字の直後であれば、長音(ー)を `−' に
+;;                                     句点(。)を `．' に
+;;                                     読点(、)を `，' に
 ;; (setq skk-use-auto-kutouten t)
 
-;; @@ $BJQ49F0:n$ND4@0(B
+;; @@ 変換動作の調整
 
-;; $BAw$j2>L>$,87L)$K@5$7$$8uJd$rM%@h$7$FI=<($9$k(B
+;; 送り仮名が厳密に正しい候補を優先して表示する
 ;; (setq skk-henkan-strict-okuri-precedence t)
 
-;; $B<-=qEPO?$N$H$-!"M>7W$JAw$j2>L>$rAw$i$J$$$h$&$K$9$k(B
+;; 辞書登録のとき、余計な送り仮名を送らないようにする
 ;; (setq skk-check-okurigana-on-touroku 'auto)
 
-;; $BJQ49$N3X=,(B
+;; 変換の学習
 (require 'skk-study)
 
-;;;; @@ $B8uJd$NI=<(J}K!(B
+;;;; @@ 候補の表示方法
 
-;; $BJQ49Cf$NJ8;zNs$r%O%$%i%$%H$7$J$$(B
+;; 変換中の文字列をハイライトしない
 ;; (setq skk-use-face nil)
 
 (when skk-use-face
-;;   ;; $BJQ49J8;zNs$N?'$rJQ$($F$_$k(B
-;;   ;; $BCm(B) `skk-treat-candidate-appearance-function' $B$N@_Dj$,M%@h$5$l$^$9!#(B
+;;   ;; 変換文字列の色を変えてみる
+;;   ;; 注) `skk-treat-candidate-appearance-function' の設定が優先されます。
 ;;   (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1))
   )
 
-;; A S D F J K L $B$KE,MQ$9$k%U%'%$%9(B
+;; A S D F J K L に適用するフェイス
 ;; (set-face-attribute 'skk-henkan-show-candidates-keys-face nil
 ;; 		    :foreground "black"
 ;; 		    :background white"")
 
-;; $B4A;zJQ49$N8uJd$NI=<($O!"<!$NJQ?t$G;XDj$7$^$9!#(B
-;; $B$3$N$&$A#2$D0J>e$,(B non-nil $B$N>l9g$O!"5-:\$N=g$KM%@hE,MQ$5$l$^$9!#(B
+;; 漢字変換の候補の表示は、次の変数で指定します。
+;; このうち２つ以上が non-nil の場合は、記載の順に優先適用されます。
 ;;   1. skk-show-inline
 ;;   2. skk-show-tooltip
 ;;   3. skk-show-candidates-always-pop-to-buffer
 ;;  (4. echo area)
 
-;; $BJQ498uJd$r%$%s%i%$%s$K(B $B!J(BXEmacs $B$G$O5!G=$7$^$;$s!K(B
-;;   nil => $BI=<($7$J$$(B ($B%G%U%)%k%H(B)
-;;   t   => $BI=<($9$k(B
-;;   'vertical => $B=D7?%$%s%i%$%s$KI=<($9$k(B
+;; 変換候補をインラインに （XEmacs では機能しません）
+;;   nil => 表示しない (デフォルト)
+;;   t   => 表示する
+;;   'vertical => 縦型インラインに表示する
 ;; (setq skk-show-inline t)
 
 (when skk-show-inline
-  ;; $BJQ498uJd$NAu>~$KJQ?t(B `skk-treat-candidate-appearance-function' $B$rMxMQ(B
-  ;; $B$9$k$J$i$P!"(Bskk-inline-show-face $B$r(B nil $B$K@_Dj$9$k$3$H(B
+  ;; 変換候補の装飾に変数 `skk-treat-candidate-appearance-function' を利用
+  ;; するならば、skk-inline-show-face を nil に設定すること
   (setq skk-inline-show-face nil
-	skk-inline-show-background-color     "gray15"	;$B6v?t%i%$%s$NGX7J?'(B
-	skk-inline-show-background-color-odd "gray20")) ;$B4q?t%i%$%s$NGX7J?'(B
+	skk-inline-show-background-color     "gray15"	;偶数ラインの背景色
+	skk-inline-show-background-color-odd "gray20")) ;奇数ラインの背景色
 
-;; $BJQ498uJd0lMw$HCm<a(B (annotation) $B$NI=<($r(B
-;; $B%(%3!<%(%j%"$KBe$($F(B tooltip $B$GI=<($9$k(B
-;; $BCm(B) $B:#$N$H$3$m(B FSF Emacs 21 $B0J>e$H(B XEmacs 21.5 $B0J>e$G5!G=$7$^$9!#(B
+;; 変換候補一覧と注釈 (annotation) の表示を
+;; エコーエリアに代えて tooltip で表示する
+;; 注) 今のところ FSF Emacs 21 以上と XEmacs 21.5 以上で機能します。
 (setq skk-show-tooltip t)
 
-;; ;; Tip $BIA2h$K(B pos-tip $B$rMxMQ$7$F$_$k(B
+;; ;; Tip 描画に pos-tip を利用してみる
 ;; ;; http://www.emacswiki.org/emacs-en/PosTip
 ;; (require 'pos-tip)
 ;; (setq skk-tooltip-function
 ;;   #'(lambda (tooltip-str)
 ;;       (pos-tip-show tooltip-str nil nil nil 0)))
 
-;; ;; Tip $BIA2h$K(B popup-tip $B$rMxMQ$7$F$_$k(B
+;; ;; Tip 描画に popup-tip を利用してみる
 ;; ;; http://github.com/m2ym/auto-complete
 ;; (require 'popup)
 ;; (setq skk-tooltip-function
@@ -311,8 +311,8 @@
 ;;       (popup-tip tooltip-str)))
 
 (when skk-show-tooltip
-  ;; tooltip $B$N%k%C%/%9$r;XDj$9$k!#(B
-  ;; $BJ8;z$NA07J?'$HGX7J?'$NE,MQ$O!"2<5-$N=g$N>e0L$[$IM%@h$5$l$k!#(B
+  ;; tooltip のルックスを指定する。
+  ;; 文字の前景色と背景色の適用は、下記の順の上位ほど優先される。
   ;;   `skk-treat-candidate-appearance-function'
   ;;   `skk-tooltip-face'
   ;;   `skk-tooltip-parameters'
@@ -321,30 +321,30 @@
   (setq skk-tooltip-parameters
 	'((background-color . "alice blue")
 	  (border-color     . "royal blue")
-	  (foreground-color . "gray")	;`skk-tooltip-face' $B$,M%@h$5$l$k(B
-	  (internal-border-width . 3)	;$B6-3&@~$HJ8;z$H$N4V$NM>Gr(B
+	  (foreground-color . "gray")	;`skk-tooltip-face' が優先される
+	  (internal-border-width . 3)	;境界線と文字との間の余白
 	  ))
 
-  ;; (setq skk-tooltip-face 'font-lock-doc-face) ; $BNc(B
+  ;; (setq skk-tooltip-face 'font-lock-doc-face) ; 例
 
-  ;; Tooltip $BI=<(0LCV$ND4@0!#(BTooltip $B$NI=<(0LCV$O(B OS (Window System) $B$d(B
-  ;; Emacs $B$N%P!<%8%g%s!"%U%)%s%H@_Dj$J$I=t!9$N1F6A$r<u$1$F$:$l$k$N$G!"(B
-  ;; $B<+J,$N4D6-$K9g$o$;$FHyD4@0$7$^$9!#(B
+  ;; Tooltip 表示位置の調整。Tooltip の表示位置は OS (Window System) や
+  ;; Emacs のバージョン、フォント設定など諸々の影響を受けてずれるので、
+  ;; 自分の環境に合わせて微調整します。
 
   ;; (setq skk-tooltip-x-offset 3)
   ;; (setq skk-tooltip-y-offset 10)
 
-  ;; Tooltip $B$rI=<($9$k>l9g$N!"%^%&%9%]%$%s%?$N5sF0!#(B
-  ;;   follow => tip $B$N0LCV$K0\F0$9$k!#(B
-  ;;   avoid => $B%&%#%s%I%&$NC<$KB`Hr$9$k!#(B
-  ;;   avoid-maybe => $B%&%#%s%I%&>e$K$"$k%^%&%9%]%$%s%?$N$_B`Hr$9$k!#(B
-  ;;   banish => $B%&%#%s%I%&$NC<$KB`Hr$7$?$^$^5"$C$F$3$J$$!#(B
-  ;;   nil => $BB`Hr$7$J$$!#$3$N>l9g!"(Btip $B$N%F%-%9%H$H%^%&%9%]%$%s%?$,(B
-  ;;          $B=E$J$C$F$7$^$&$3$H$b$"$k!#(B
+  ;; Tooltip を表示する場合の、マウスポインタの挙動。
+  ;;   follow => tip の位置に移動する。
+  ;;   avoid => ウィンドウの端に退避する。
+  ;;   avoid-maybe => ウィンドウ上にあるマウスポインタのみ退避する。
+  ;;   banish => ウィンドウの端に退避したまま帰ってこない。
+  ;;   nil => 退避しない。この場合、tip のテキストとマウスポインタが
+  ;;          重なってしまうこともある。
   (setq skk-tooltip-mouse-behavior 'avoid-maybe)
 
-  ;; tooltip $BI=<($N:]$N%^%&%9%]%$%s%?$rJQ99$7$FM7$s$G$_$k(B
-  ;; $BCm(B) $B$3$N@_Dj$O(B X Window System $B>e$N(B GNU Emacs $B$G$J$$$HMxMQ$G$-$^$;$s!#(B
+  ;; tooltip 表示の際のマウスポインタを変更して遊んでみる
+  ;; 注) この設定は X Window System 上の GNU Emacs でないと利用できません。
   (defadvice skk-tooltip-show-at-point (around set-pointer activate)
     (let ((shape x-pointer-shape))
       (require 'avoid)
@@ -356,34 +356,34 @@
 	(mouse-avoidance-set-pointer-shape shape))))
   )
 
-;; $BJQ498uJd$rJL%&%$%s%I%&$KI=<($9$k(B
-;;   nil => $BJQ498uJd$r%(%3!<%(%j%"$KI=<($9$k(B ($B%G%U%)%k%H(B)
-;;   Non-nil => *$B8uJd(B*$B%P%C%U%!(B $B$r(B pop-to-buffer $B$9$k!#(B
+;; 変換候補を別ウインドウに表示する
+;;   nil => 変換候補をエコーエリアに表示する (デフォルト)
+;;   Non-nil => *候補*バッファ を pop-to-buffer する。
 ;; (setq skk-show-candidates-always-pop-to-buffer t)
 
-;; *$B8uJd(B*$B%P%C%U%!(B $B$NGX7J?'(B
+;; *候補*バッファ の背景色
 ;; (setq skk-candidate-buffer-background-color     "grey90"
 ;;       skk-candidate-buffer-background-color-odd "grey80")
 
-;; *$B8uJd(B*$B%P%C%U%!(B $B$N(B fringe $B$r>C$9(B
+;; *候補*バッファ の fringe を消す
 ;; (setq skk-candidate-buffer-display-fringes nil)
 
-;; @@ $B8uJdI=<($NAu>~!J%U%'%$%9!K$K4X$9$k9bEY$J@_Dj(B
+;; @@ 候補表示の装飾（フェイス）に関する高度な設定
 
-;; $BCm(B1) skk-emacs-*-face $B$O(B GNU Emacs $B$K8B$C$FDj5A$5$l$k(B face $B$G$9!#(B
-;; XEmacs $B$G$OJL$NB8:_$9$k(B face $B$KCV$-49$($F$/$@$5$$!#(B
+;; 注1) skk-emacs-*-face は GNU Emacs に限って定義される face です。
+;; XEmacs では別の存在する face に置き換えてください。
 ;;
-;; $BCm(B2) $B8uJd$N8D?M<-=q$X$NEPO?$K$*$$$F$b!"(B`skk-update-jisyo-function' $B$r(B
-;; $B@_Dj$9$k$3$H$GF1MM$N%+%9%?%^%$%:$,$G$-$^$9!#!V8D?M<-=q$K4X$9$k@_Dj!W$N(B
-;; $BNc$r$4Mw$/$@$5$$!#(B
+;; 注2) 候補の個人辞書への登録においても、`skk-update-jisyo-function' を
+;; 設定することで同様のカスタマイズができます。「個人辞書に関する設定」の
+;; 例をご覧ください。
 (setq skk-treat-candidate-appearance-function
       #'(lambda (candidate listing-p)
 	  (let* ((value (skk-treat-strip-note-from-word candidate))
-		 (cand (car value))	;$B8uJd(B
-		 (note (cdr value))	;$BCm<a(B
-		 (sep (if note		;$B%;%Q%l!<%?(B
+		 (cand (car value))	;候補
+		 (note (cdr value))	;注釈
+		 (sep (if note		;セパレータ
 			  (propertize (if (skk-annotation-display-p 'list)
-					  " $B"b(B "
+					  " ≒ "
 					" !")
 				      'face 'skk-emacs-jisx0208-latin-face)
 			nil)))
@@ -398,10 +398,10 @@
 				      'face 'skk-emacs-hiragana-face cand)
 		   cand)))))
 
-;; @@ $B<-=q8!:w$K4XO"$7$?@_Dj(B
+;; @@ 辞書検索に関連した設定
 
 ;; From DDSKK 14.2:
-;;   $B%a%$%s<-=q!J(BL $B<-=q!"(BCDB $B7A<0<-=q!"<-=q%5!<%P!K0J30$N<-=q$r;XDj$9$k(B
+;;   メイン辞書（L 辞書、CDB 形式辞書、辞書サーバ）以外の辞書を指定する
 (setq skk-extra-jisyo-file-list
       (list "/usr/share/skk/SKK-JISYO.JIS2"
 	    '("/usr/share/skk/SKK-JISYO.JIS3_4" . euc-jisx0213)
@@ -418,92 +418,92 @@
 	    "/usr/share/skk/SKK-JISYO.station"
 	    "/usr/share/skk/SKK-JISYO.zipcode"
 	    "/usr/share/skk/SKK-JISYO.office.zipcode"))
-;; $BCm(B1) $B<-=q%U%!%$%kL>$N%j%9%H$r;XDj$7$^$9!#%U%!%$%k$N%3!<%I7O$,(B
-;;   `skk-jisyo-code' $B$H0[$J$k%U%!%$%k$N>l9g$O!"%U%!%$%kL>$NBe$o$j$K(B
-;;   ("$B%U%!%$%kL>(B" . $B%3!<%I7O(B) $B$N%Z%"$r;XDj$9$k$3$H$,?d>)$5$l$^$9!#(B
-;;   $B>e5-$N(B SKK-JISYO.JIS3_4 $B$NNc$r$4Mw$/$@$5$$!#(B
-;; $BCm(B2) `skk-search-prog-list' $B$r<jF0$G@_Dj$7$F$$$k>l9g$O$3$N5!G=$N(B
-;;   $BF0:n$OJ]>Z$5$l$^$;$s!#(B
+;; 注1) 辞書ファイル名のリストを指定します。ファイルのコード系が
+;;   `skk-jisyo-code' と異なるファイルの場合は、ファイル名の代わりに
+;;   ("ファイル名" . コード系) のペアを指定することが推奨されます。
+;;   上記の SKK-JISYO.JIS3_4 の例をご覧ください。
+;; 注2) `skk-search-prog-list' を手動で設定している場合はこの機能の
+;;   動作は保証されません。
 
-;; $B0[BN;z$N8uJd$rI=<($9$k(B
+;; 異体字の候補を表示する
 ;; http://mail.ring.gr.jp/skk/200303/msg00071.html
 ;; (setq skk-itaiji-jisyo "/usr/share/skk/SKK-JISYO.itaiji")
 
-;; look $B%3%^%s%I$r;H$C$?8!:w$r9T$&(B
+;; look コマンドを使った検索を行う
 (setq skk-use-look t)
 
 (when skk-use-look
-  ;; look $B$,8+$D$1$?8l$r8+=P$78l$H$7$F8!:w$9$k(B
+  ;; look が見つけた語を見出し語として検索する
   (setq skk-look-recursive-search t)
-  ;; ispell $B$r(B look $B$H0l=o$K;H$&$N$O$d$a$k(B
+  ;; ispell を look と一緒に使うのはやめる
   (setq skk-look-use-ispell nil)
-  ;; look $B$KEO$9%3%^%s%I%i%$%s%*%W%7%g%s$N@_Dj!#Jd40;~$H8!:w;~$=$l$>$l$K(B
-  ;; $B$D$$$F@_Dj$G$-$k!#(B
-  ;; look $B$G(B case $B$r8+$k$H$-$O!"$=$l@lMQ$N<-=q$r(B sort $B%3%^%s%I$G:n$kI,MW(B
-  ;; $B$,$"$k(B (look $B$N0z?t(B -d, -f $B$O(B sort $B$N0z?t(B -d, -f $B$H0lCW$5$;$F$*$/I,(B
-  ;; $BMW$,$"$k(B)$B!#(B
-  ;; (*) $BJd40;~$K$O0z?t(B -d $B$r;XDj$9$k$H(B dcomp $B$H$NJ;MQ;~$KLdBj$"$k$3$H$,(B
-  ;; $BJs9p$5$l$F$$$k$?$a!"(B-d $B$r;XDj$7$J$$$3$H$r$*4+$a$7$^$9!#(B
+  ;; look に渡すコマンドラインオプションの設定。補完時と検索時それぞれに
+  ;; ついて設定できる。
+  ;; look で case を見るときは、それ専用の辞書を sort コマンドで作る必要
+  ;; がある (look の引数 -d, -f は sort の引数 -d, -f と一致させておく必
+  ;; 要がある)。
+  ;; (*) 補完時には引数 -d を指定すると dcomp との併用時に問題あることが
+  ;; 報告されているため、-d を指定しないことをお勧めします。
   (setq skk-look-completion-arguments "%s /usr/share/dict/words")
   (setq skk-look-conversion-arguments "-df %s /usr/share/dict/words")
-  ;; `skk-abbrev-mode' $B$G(B skk-look $B$r;H$C$?8!:w$r$7$?$H$-$K3NDj>pJs$r(B
-  ;; $B8D?M<-=q$K5-O?$7$J$$$h$&$K$9$k(B
+  ;; `skk-abbrev-mode' で skk-look を使った検索をしたときに確定情報を
+  ;; 個人辞書に記録しないようにする
   (add-hook 'skk-search-excluding-word-pattern-function
-	    ;; KAKUTEI-WORD $B$r0z?t$K$7$F%3!<%k$5$l$k$N$G!"ITMW$G$b0z?t$r<h$k(B
-	    ;; $BI,MW$"$j(B
+	    ;; KAKUTEI-WORD を引数にしてコールされるので、不要でも引数を取る
+	    ;; 必要あり
 	    #'(lambda (kakutei-word)
 		(and skk-abbrev-mode
 		     (save-match-data
-		       ;; `skk-henkan-key' $B$,(B "*" $B$G=*$o$k$H$-!"$^$?$O(B
-		       ;; `skk-henkan-key' $B$,?t;z$N$_$N$H$-(B
+		       ;; `skk-henkan-key' が "*" で終わるとき、または
+		       ;; `skk-henkan-key' が数字のみのとき
 		       (or (string-match "\\*$" skk-henkan-key)
 			   (string-match "^[0-9]*$" skk-henkan-key)))))))
 
-;; $B?tCMJQ495!G=$r;H$&(B
+;; 数値変換機能を使う
 (setq skk-use-numeric-conversion t)
 
 (when skk-use-numeric-conversion
-  ;; $B?tCMJQ49$N8!:w$+$i=|30$9$k<-=q8!:w%W%m%0%i%`$r;XDj$9$k(B
+  ;; 数値変換の検索から除外する辞書検索プログラムを指定する
   (setq skk-non-numeric-prog-list
 	'(skk-look
 	  skk-tankan-search
 	  (skk-search-jisyo-file "/usr/share/skk/SKK-JISYO.jinmei" 10000))))
 
-;; Lookup $B$rMxMQ$7$?JQ49$r9T$&(B
+;; Lookup を利用した変換を行う
 (if (featurep 'skk-lookup)
     (setq skk-search-prog-list (skk-nunion skk-search-prog-list
 					   '((skk-lookup-search)))))
 
-;; $BAw$j$"$jJQ49$rAw$j$J$7JQ49$HF1$8A`:n$G$G$-$k$h$&$K$9$k(B
+;; 送りあり変換を送りなし変換と同じ操作でできるようにする
 ;; (setq skk-auto-okuri-process t)
 
-;; $B%+%?%+%J8l$rJQ498uJd$K2C$($k!#(B1$B!"(B2 $B$r9%$_$GA*$s$G$/$@$5$$(B
-;; $BNc(B 1) $BC1=c$K%+%?%+%J$KJQ49$7$?$b$N$r2C$($k(B
+;; カタカナ語を変換候補に加える。1、2 を好みで選んでください
+;; 例 1) 単純にカタカナに変換したものを加える
 ;; (setq skk-search-katakana t)
-;; $BNc(B 2) $BA43Q%+%?%+%J$N8uJd$HH>3Q%+%?%+%J$N8uJd$r6&$K2C$($k(B
+;; 例 2) 全角カタカナの候補と半角カタカナの候補を共に加える
 ;; (setq skk-search-katakana 'jisx0201-kana)
-;; $BCm(B) `skk-search-prog-list' $B$r<jF0$G@_Dj$7$F$$$k>l9g$O$3$N5!G=$N(B
-;; $BF0:n$OJ]>Z$5$l$^$;$s!#(B
+;; 注) `skk-search-prog-list' を手動で設定している場合はこの機能の
+;; 動作は保証されません。
 
-;; $B%59TJQ3J3hMQ$NF0;l$bAw$j$"$jJQ49=PMh$k$h$&$K$9$k(B
+;; サ行変格活用の動詞も送りあり変換出来るようにする
 ;; (setq skk-search-sagyo-henkaku t)
-;; $BCm(B) `skk-search-prog-list' $B$r<jF0$G@_Dj$7$F$$$k>l9g$O$3$N5!G=$N(B
-;; $BF0:n$OJ]>Z$5$l$^$;$s!#(B
+;; 注) `skk-search-prog-list' を手動で設定している場合はこの機能の
+;; 動作は保証されません。
 
-;; $B<-=q8!:w$K4X$9$k9bEY$J@_Dj(B --
-;; $B%f!<%6%*%W%7%g%s$KMj$i$:8!:wJ}K!$H8!:w=g$r<+J,$G@)8f$9$kJ}K!(B
+;; 辞書検索に関する高度な設定 --
+;; ユーザオプションに頼らず検索方法と検索順を自分で制御する方法
 ;; (setq skk-search-prog-list
-;;   '(;; 0. $B3NDj<-=q(B
+;;   '(;; 0. 確定辞書
 ;;     (skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
-;;     ;; $BCm(B) $B3NDjJQ495!G=$r;H$&$H$-$K$O>e5-@_Dj$7$^$9!#(B
-;;     ;; $B3NDjJQ495!G=$K$D$$$F$O(B info $B$r;2>H$7$F$/$@$5$$!#(B
-;;     ;; 1. $B8D?M<-=q(B
+;;     ;; 注) 確定変換機能を使うときには上記設定します。
+;;     ;; 確定変換機能については info を参照してください。
+;;     ;; 1. 個人辞書
 ;;     (skk-search-jisyo-file skk-jisyo 0 t)
-;;     ;; 2. list $B$NA0J}$KCV$/$Y$-5!G=(B
+;;     ;; 2. list の前方に置くべき機能
 ;;     (skk-abbrev-search)
 ;;     (skk-look)
 ;;     (skk-okuri-search)
-;;     ;; 3. $B0J2<$KD>@\8!:w$7$?$$<-=q$r8!:w=g$KNs5s$9$k(B
+;;     ;; 3. 以下に直接検索したい辞書を検索順に列挙する
 ;;     (skk-search-jisyo-file
 ;;      '("/usr/share/skk/SKK-JISYO.L" . euc-jp) 10000)
 ;;     (skk-search-jisyo-file
@@ -534,20 +534,20 @@
 ;;      '("/usr/share/skk/SKK-JISYO.zipcode" . euc-jp) 10000)
 ;;     (skk-search-jisyo-file
 ;;      '("/usr/share/skk/SKK-JISYO.office.zipcode" . euc-jp) 10000)
-;;     ;; 4. $B$=$NB>$N8!:w<jCJ$r8!:w=g$KNs5s$9$k(B
+;;     ;; 4. その他の検索手段を検索順に列挙する
 ;;     (skk-lookup-search)
 ;;     (skk-search-server skk-aux-large-jisyo 10000)
 ;;     (skk-search-katakana t)
-;;     ;; $BCm(B) 3 $B"*(B 4 $B$O9%$_$K$h$j(B 4 $B"*(B 3 $B$N=g$K$9$k$3$H$b$G$-$k(B
-;;     ;; 5. list $B$N8eJ}$KCV$/$Y$-5!G=(B
+;;     ;; 注) 3 → 4 は好みにより 4 → 3 の順にすることもできる
+;;     ;; 5. list の後方に置くべき機能
 ;;     (skk-search-sagyo-henkaku)
 ;;     ))
-;; $BCm(B) `skk-search-prog-list' $B$O87L)$J0UL#$G$N%f!<%6%*%W%7%g%s$G$O$J$$$N$G(B
-;;   $BD>@\@_Dj$9$k$3$H$O$*4+$a$7$^$;$s!#<+J,$,2?$r$7$h$&$H$7$F$$$k$+M}2r$7(B
-;;   $B$F$$$k>l9g$N$_@_Dj$7$F$/$@$5$$!#(B
+;; 注) `skk-search-prog-list' は厳密な意味でのユーザオプションではないので
+;;   直接設定することはお勧めしません。自分が何をしようとしているか理解し
+;;   ている場合のみ設定してください。
 
-;; $BC14A;zJQ49$r9T$&(B $B"&$h$_(B@<SPC>
-;;   DDSKK 14.2 $B$+$i$OFCCJ$N@_Dj$NI,MW$J$7$KI8=`$GC14A;zJQ49$,9T$($^$9!#(B
+;; 単漢字変換を行う ▽よみ@<SPC>
+;;   DDSKK 14.2 からは特段の設定の必要なしに標準で単漢字変換が行えます。
 (set-face-attribute 'skk-tankan-face nil
 		    :foreground "yellow"
 		    :height 150)
@@ -555,16 +555,16 @@
 (set-face-foreground 'skk-tankan-radical-name-face
 		     "gray40")
 
-;; @@ $B8D?M<-=q$K4X$9$k@_Dj(B
+;; @@ 個人辞書に関する設定
 
-;; $BJ#?t$N(B Emacsen $B$r5/F0$7$F8D?M<-=q$r6&M-$9$k(B
+;; 複数の Emacsen を起動して個人辞書を共有する
 (setq skk-share-private-jisyo t)
 
-;; 10 $BJ,J|CV$9$k$H8D?M<-=q$,<+F0E*$KJ]B8$5$l$k@_Dj(B
+;; 10 分放置すると個人辞書が自動的に保存される設定
 (defvar skk-auto-save-jisyo-interval 600)
 (defun skk-auto-save-jisyo ()
   (skk-save-jisyo)
-  ;; skk-bayesian.el $B$r;H$C$F$$$J$1$l$P0J2<$N(B 2 $B9T$O%3%a%s%H%"%&%H(B
+  ;; skk-bayesian.el を使っていなければ以下の 2 行はコメントアウト
   ;; (skk-bayesian-save-history)
   ;; (skk-bayesian-corpus-save)
   )
@@ -573,22 +573,22 @@
 		     'skk-auto-save-jisyo)
 ;; (cancel-function-timers 'skk-auto-save-jisyo)
 
-;; $BC18lEPO?!?C18l:o=|$N$?$S$K8D?M<-=q$rJ]B8$9$k(B
+;; 単語登録／単語削除のたびに個人辞書を保存する
 ;; (setq skk-save-jisyo-instantly t)
 
-;; $B8D?M<-=q$NJ8;z%3!<%I$r;XDj$9$k(B
+;; 個人辞書の文字コードを指定する
 ;; (setq skk-jisyo-code 'utf-8)
-;; $BCm(B) $B$3$N@_Dj$O5$$r$D$1$J$$$H<-=q$N8!:w$,$G$-$J$/$J$j$^$9$N$G==J,M}(B
-;;   $B2r$7$F$+$i9T$C$F$/$@$5$$!#(B `skk-jisyo-code' $B$O8D?M<-=q$NFI$_=q$-$N(B
-;;   $BB>!"(BL $B<-=q$J$I$NFI$_9~$_%3!<%I$b7h$a$F$$$k1F6ANO$N6/$$JQ?t$G$9!#(B
-;;   $B$3$N@_Dj$r$7$?>l9g$O!"$^$:8D?M<-=q$r>e5-$N%3!<%I$KJQ49$7$J$1$l$P(B
-;;   $B$$$1$^$;$s!#$=$N>e$G!"$5$i$K0J2<$N$$$:$l$+$NBP=h$r$9$kI,MW$,$"$j(B
-;;   $B$^$9!#(B
+;; 注) この設定は気をつけないと辞書の検索ができなくなりますので十分理
+;;   解してから行ってください。 `skk-jisyo-code' は個人辞書の読み書きの
+;;   他、L 辞書などの読み込みコードも決めている影響力の強い変数です。
+;;   この設定をした場合は、まず個人辞書を上記のコードに変換しなければ
+;;   いけません。その上で、さらに以下のいずれかの対処をする必要があり
+;;   ます。
 ;;
-;; $BJ}?K(B 1) Emacs $B$N%P%C%U%!$KFI$_9~$`<-=q$rA4$F(B `skk-jisyo-code' $B$HF1$8(B
-;;         $BJ8;z%3!<%I$KJQ49$9$k(B
-;; $BJ}?K(B 2) `skk-search-prog-list' $B$NMWAG$rA4$FJ8;z%3!<%I;XDj$K=q$-D>$9!#(B
-;;         $BNc$($P(B
+;; 方針 1) Emacs のバッファに読み込む辞書を全て `skk-jisyo-code' と同じ
+;;         文字コードに変換する
+;; 方針 2) `skk-search-prog-list' の要素を全て文字コード指定に書き直す。
+;;         例えば
 ;;
 ;; (setq skk-search-prog-list
 ;;   '((skk-search-jisyo-file skk-jisyo 0 t)
@@ -597,15 +597,15 @@
 ;;     [...]
 ;;     ))
 ;;
-;; $B$J$*!"<-=q%5!<%P$H$NDL?.$N:]$NJ8;z%3!<%I$J$I$O5$$K$9$kI,MW$O$"$j$^$;$s!#(B
+;; なお、辞書サーバとの通信の際の文字コードなどは気にする必要はありません。
 ;;
-;; $B$3$N$3$H$K4X$7$F$O>e5-!V<-=q8!:w$K4X$9$k9bEY$J@_Dj!W$NItJ,$b;2>H$9(B
-;; $B$k$3$H$r$*4+$a$7$^$9!#(B
+;; このことに関しては上記「辞書検索に関する高度な設定」の部分も参照す
+;; ることをお勧めします。
 
-;; $B8D?M<-=q$N99?7J}K!$K4X$9$k@_Dj(B
+;; 個人辞書の更新方法に関する設定
 ;;
-;; $B0J2<$OCm<a$,D9$9$.$k>l9g$K8D?M<-=q$+$iCm<a$r=|30$7$F8uJd$rEPO?$9$k(B
-;; $B@_DjNc$G$9!#$3$NB>$K$b?'!9$J%+%9%?%^%$%:$,9M$($i$l$^$9!#(B
+;; 以下は注釈が長すぎる場合に個人辞書から注釈を除外して候補を登録する
+;; 設定例です。この他にも色々なカスタマイズが考えられます。
 (setq skk-update-jisyo-function
       #'(lambda (word &optional purge)
 	  (if purge
@@ -615,29 +615,29 @@
 		   (note (cdr pair)))
 	      (when (and (stringp note)
 			 (> (length note) 8))
-		;; $BCm<a$,(B 8 $BJ8;z$h$jD9$+$C$?$iCm<a$r>C$7$FEPO?$9$k(B
+		;; 注釈が 8 文字より長かったら注釈を消して登録する
 		(setq note nil))
 	      (setq word (if (stringp note)
 			     (concat cand ";" note)
 			   cand))
 	      (skk-update-jisyo-original word)))))
 
-;; @@ $B<-=qEPO?$K4X$9$k@_Dj(B
+;; @@ 辞書登録に関する設定
 
-;; $B6/@)E*$K<-=qEPO?%b!<%I$KF~$k%-!<%-%c%i%/%?(B
+;; 強制的に辞書登録モードに入るキーキャラクタ
 ;; (setq skk-force-registration-mode-char ?.)
 
-;; $B!V"-<-=qEPO?Cf"-!W$KE,MQ$9$k%U%'%$%9(B
+;; 「↓辞書登録中↓」に適用するフェイス
 ;; skk-jisyo-registration-badge-face 
 
-;; experimental/skk-search-web.el $B$r%$%s%9%H!<%k$9$k$H!"(B
-;;   $B<-=qEPO?%b!<%I$K0\$C$?$H$-$N=i4|CM$K(B Google $B%5%8%'%9%H$rMxMQ$G$-$^$9(B
+;; experimental/skk-search-web.el をインストールすると、
+;;   辞書登録モードに移ったときの初期値に Google サジェストを利用できます
 ;;     (setq skk-read-from-minibuffer-function
 ;;           (lambda ()
 ;;             (car (skk-google-suggest skk-henkan-key))))
 
 ;; @@ SKK abbrev mode
-;; $B8+=P$78l$NJd40$K$*$$$F(B Lisp $B%7%s%\%k$bJd40$9$k(B
+;; 見出し語の補完において Lisp シンボルも補完する
 ;; (add-to-list 'skk-completion-prog-list
 ;; 	     '(skk-comp-lisp-symbol) t)
 
@@ -647,29 +647,29 @@
 ;; (add-to-list 'skk-completion-prog-list
 ;;	     '(skk-comp-by-server-completion) t)
 
-;; @@ $B$=$NB>$$$m$$$m(B
+;; @@ その他いろいろ
 
-;; $B$$$D$G$b$I$3$G$bNN0hA*Br$7$F(B Wikipedia/Wiktionary $B$rD4$Y$k!#(B
+;; いつでもどこでも領域選択して Wikipedia/Wiktionary を調べる。
 ;; (global-set-key "\M-i" 'skk-annotation-lookup-region-or-at-point)
-;; $BCm(B) $B4pK\7A$N(B ($B3hMQ7A(B/$BJ#?t7A$J$I$G$J$$(B) $B1QC18l$J$iNN0h$rA*Br$;$:$H$b(B M-i
-;;   $B$@$1$GD4$Y$k$3$H$,2DG=$G$9!#Nc$($P(B en.wiktionary $B$r;H$&$H!V$I$3$G$b(B
-;;   $B1Q1Q<-E5!W$N$h$&$K;H$($FJXMx$G$9!#(B skk-annotation-other-sources
-;;   $B$N@_Dj$,%G%U%)%k%HCM$G$"$l$P!"1QC18l$K%+!<%=%k$rCV$$$F(B M-3 M-i $B$G>o(B
-;;   $B$K(B en.wiktionary $B$rD4$Y$k$3$H$,$G$-$^$9(B (Apple OS X $B$G$O(B M-4 M-i)$B!#(B
+;; 注) 基本形の (活用形/複数形などでない) 英単語なら領域を選択せずとも M-i
+;;   だけで調べることが可能です。例えば en.wiktionary を使うと「どこでも
+;;   英英辞典」のように使えて便利です。 skk-annotation-other-sources
+;;   の設定がデフォルト値であれば、英単語にカーソルを置いて M-3 M-i で常
+;;   に en.wiktionary を調べることができます (Apple OS X では M-4 M-i)。
 
-;; $B%"%N%F!<%7%g%s(B $B$KBe$($F(B Wikipedia/Wiktionary $B$rI=<($7$F$$$k$H$-!"(B
-;; C-o $B$G(B browse-url $B$,5/F0$7$^$9!#(Beww $B$G1\Mw$9$k@_Dj$O<!$N$H$*$j!#(B
+;; アノテーション に代えて Wikipedia/Wiktionary を表示しているとき、
+;; C-o で browse-url が起動します。eww で閲覧する設定は次のとおり。
 ;; (setq browse-url-browser-function 'eww-browse-url)
 
-;; Tips $B$H$$$($k$b$N$G$O$J$$$,!"(B`lisp-interaction-mode' $B$K$*$$$F(B "C-j"
-;; (`eval-print-last-sexp') $B$rMxMQ$9$k?M$K$H$C$F$O!"1Q?t%b!<%I$K$*$$$F(B
-;; "C-j" $B$K$h$C$F(B $B$+$J%b!<%I$KF~$k;EMM$O;H$$$E$i$$!#(B
+;; Tips といえるものではないが、`lisp-interaction-mode' において "C-j"
+;; (`eval-print-last-sexp') を利用する人にとっては、英数モードにおいて
+;; "C-j" によって かなモードに入る仕様は使いづらい。
 ;; (defadvice skk-latin-mode (after no-latin-mode-in-lisp-interaction activate)
-;;   "`lisp-interaction-mode' $B$K$*$$$F1Q?t%b!<%I$r2sHr$9$k!#(B"
+;;   "`lisp-interaction-mode' において英数モードを回避する。"
 ;;   (when (eq major-mode 'lisp-interaction-mode)
 ;;     (skk-mode-off)))
 
-;; $B"#%b!<%I$N$^$^(B C-j $B$rM-8z$H$9$k(B
+;; ■モードのまま C-j を有効とする
 (defun skk-C-j-key (arg)
   (interactive "P")
   (let ((enable-modes '(lisp-interaction-mode ; eval-print-last-sexp
@@ -687,17 +687,17 @@
 (add-to-list 'skk-rom-kana-rule-list
 	     '(skk-kakutei-key nil skk-C-j-key))
 
-;; $B$h$/;H$&1QC18l$r"#%b!<%I$N$^$^$G$b(B
+;; よく使う英単語を■モードのままでも
 (add-to-list 'skk-rom-kana-rule-list
 	     '("http" nil "http://"))
 
-;; $BF|K\8l$H1Q8l$N4V$K6uGr$r<+F0A^F~$9$k(B
+;; 日本語と英語の間に空白を自動挿入する
 ;;   http://hins11.jugem.jp/?eid=47
 
-;; org-mode $B$NI=Cf$G$N(B return
+;; org-mode の表中での return
 ;;   http://mail.ring.gr.jp/skk/201401/msg00001.html
 (defadvice org-return (around skk-in-org-table activate)
-  "org-mode $B$NI=$NCf$G$b(B skk $B$,;H$($k$h$&$K$9$k(B."
+  "org-mode の表の中でも skk が使えるようにする."
   (cond ((and (org-at-table-p) skk-henkan-mode)
          (skk-kakutei))
         (t

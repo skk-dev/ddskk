@@ -1,88 +1,88 @@
 -*- mode: outline -*-
 
 
-$B$3$N%G%#%l%/%H%j$K$O(B SKK $B$N2>L>F~NOBP1~%3!<%I$rCV$$$F$$$^$9!#(B
+このディレクトリには SKK の仮名入力対応コードを置いています。
 
 
-* $B35MW(B
+* 概要
 
-SKK $B$r%m!<%^;zE*F~NO0J30$NF~NOJ}<0$KBP1~$5$;$k$3$H$rL\E*$H$7$^$9!#8=:_(B
-$B$O0J2<$NF~NOJ}<0$K$D$$$F!"%5%]!<%H$9$k$Y$/3+H/$7$F$$$^$9!#(B
+SKK をローマ字的入力以外の入力方式に対応させることを目的とします。現在
+は以下の入力方式について、サポートするべく開発しています。
 
-o $BF|K\8l(B 106 $B%-!<%\!<%I$G$N2>L>F~NO(B
+o 日本語 106 キーボードでの仮名入力
 
-o $B?F;X%7%U%H%-!<%\!<%I$N%(%_%e%l!<%7%g%s(B
+o 親指シフトキーボードのエミュレーション
 
-$B8e<T$K$D$$$F$O!"(B $BL'1:0o;K$5$s:n$N(B NICOLA-SKK 0.39 $B$r4p$K$7$F3+H/$r?J$a(B
-$B$F$$$^$9!#$H$$$&$h$j$3$A$i$,<gNO$G$9!#(B
+後者については、 箕浦逸史さん作の NICOLA-SKK 0.39 を基にして開発を進め
+ています。というよりこちらが主力です。
 
-$B$J$*!"(B TUT-code $BF~NO$N%5%]!<%H$OJL$K3+H/$5$l$F$*$j!"$=$N%=!<%9%3!<%I$O(B
-SKK $B$N(B experimental repository $B$K$"$j$^$9!#(B
+なお、 TUT-code 入力のサポートは別に開発されており、そのソースコードは
+SKK の experimental repository にあります。
 
 
-* $B%9%F!<%?%9(B
+* ステータス
 
 Beta.
 
 
-* $B%5%]!<%H$9$k(B Emacsen
+* サポートする Emacsen
 
-$BF1:-$N%P!<%8%g%s$N(B SKK $B$,%5%]!<%H$9$k$b$N!#(B
+同梱のバージョンの SKK がサポートするもの。
 
-$B0J2<$N$b$N$O@5<0BP1~$G$9!#(B
+以下のものは正式対応です。
 
-o Emacs 20.7 $B0J9_(B
+o Emacs 20.7 以降
 
-  ($BBP1~$9$k%P!<%8%g%s$N(B Meadow $B$r4^$`(B)
+  (対応するバージョンの Meadow を含む)
 
 o XEmacs 21.4.x
 
 
-* $B%U%!%$%k(B
+* ファイル
 
-o skk-kanagaki.el $B!D(B $B2>L>F~NO$N$?$a$N4pK\E*$JOHAH$_(B
+o skk-kanagaki.el … 仮名入力のための基本的な枠組み
 
-o skk-106-jis.el  $B!D(B $BF|K\8l(B 106 $B%-!<%\!<%I$G2>L>F~NO$9$k$?$a$N%k!<%k(B
+o skk-106-jis.el  … 日本語 106 キーボードで仮名入力するためのルール
 
-o skk-nicola.el   $B!D(B $B?F;X%7%U%HF~NO$r%(%_%e%l!<%H$9$k4X?t(B  ($B%*%j%8%J%k(B
-                     $B$N(B skk-nicola.el $B$K=q$+$l$F$$$?4X?t(B)
+o skk-nicola.el   … 親指シフト入力をエミュレートする関数  (オリジナル
+                     の skk-nicola.el に書かれていた関数)
 
-o skk-nicola-*.el $B!D(B NICOLA $BG[Ns$N%k!<%k(B (JIS, US, Dvorak, Colemak)
+o skk-nicola-*.el … NICOLA 配列のルール (JIS, US, Dvorak, Colemak)
 
-o skk-oasys.el    $B!D(B OASYS $BIwG[Ns$N%k!<%k(B
+o skk-oasys.el    … OASYS 風配列のルール
 
-o skk-omelet-*.el $B!D(B omelet $BFH<+G[Ns$N%k!<%k(B (JIS, US, Dvorak, Colemak)
+o skk-omelet-*.el … omelet 独自配列のルール (JIS, US, Dvorak, Colemak)
 
 
-skk-nicola-*.el, skk-oasys.el, skk-omelet-*.el $B$NG[Ns$O$9$Y$F(B
+skk-nicola-*.el, skk-oasys.el, skk-omelet-*.el の配列はすべて
 
 http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
-$B$N$b$N$rMxMQ$5$;$F$$$?$@$-$^$7$?!#(B
+のものを利用させていただきました。
 
 
-* $B%$%s%9%H!<%k(B
+* インストール
 
-** $B;HMQ$9$k4D6-(B
+** 使用する環境
 
-   o GNU Emacs 21 $B$r;HMQ$9$k>l9g$O(B APEL $B$H(B DDSKK 14.4 $B$r%$%s%9%H!<%k$7$F(B
-     $B$/$@$5$$!#(B
+   o GNU Emacs 21 を使用する場合は APEL と DDSKK 14.4 をインストールして
+     ください。
 
-   o GNU Emacs 22 $B0J9_$r;HMQ$9$k>l9g$O(B APEL $B$OITMW$G$9!#:G?7HG$N(B DDSKK
-     $B$r%$%s%9%H!<%k$7$F$/$@$5$$!#(B
+   o GNU Emacs 22 以降を使用する場合は APEL は不要です。最新版の DDSKK
+     をインストールしてください。
 
-   o XEmacs $B$r;HMQ$9$k>l9g$O(B APEL $B$H:G?7HG$N(B DDSKK $B$r%$%s%9%H!<%k$7$F$/(B
-     $B$@$5$$!#(B
+   o XEmacs を使用する場合は APEL と最新版の DDSKK をインストールしてく
+     ださい。
 
-** APEL $B$N:G?7HG$r%$%s%9%H!<%k(B
+** APEL の最新版をインストール
 
    http://git.chise.org/elisp/apel/
 
-   % make install (XEmacs $B$G$O(B make install-package)
+   % make install (XEmacs では make install-package)
 
-** SKK $B$r%$%s%9%H!<%k(B
+** SKK をインストール
 
-   [$BJ}K!(B 1]
+   [方法 1]
 
    % cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot login
 
@@ -91,140 +91,140 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
    % cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot \
    co skk/main
 
-   [$BJ}K!(B 2]
+   [方法 2]
 
    http://openlab.ring.gr.jp/skk/
 
-** NICOLA-DDSKK $B$N%$%s%9%H!<%k(B
+** NICOLA-DDSKK のインストール
 
-   $BI,$:!">e$G%$%s%9%H!<%k$7$?(B SKK $B$KF1:-$5$l$F$$$k(B NICOLA-DDSKK $B$r%$%s(B
-   $B%9%H!<%k$7$F$/$@$5$$!#$D$^$j!"(BSKK $B$r%P!<%8%g%s%"%C%W$7$?$iI,$:(B
-   NICOLA-DDSKK $B$r%$%s%9%H!<%k$7D>$7$F$/$@$5$$!#(B
+   必ず、上でインストールした SKK に同梱されている NICOLA-DDSKK をイン
+   ストールしてください。つまり、SKK をバージョンアップしたら必ず
+   NICOLA-DDSKK をインストールし直してください。
 
    % cd nicola
-   % make install (XEmacs $B$G$O(B make install-package)
+   % make install (XEmacs では make install-package)
 
 
-* $B@_Dj(B
+* 設定
 
-** SKK $B$N@_Dj(B
+** SKK の設定
 
-   ~/.emacs $B$K(B
+   ~/.emacs に
 
      (require 'skk-setup)
 
-   $B$H5-F~!#(B
+   と記入。
 
-** NICOLA-DDSKK $B$N@_Dj(B
+** NICOLA-DDSKK の設定
 
-   $B?F;X%7%U%HF~NO$9$k>l9g$O(B ~/.skk $B$K(B
+   親指シフト入力する場合は ~/.skk に
 
      (setq skk-use-kana-keyboard t)
      (setq skk-kanagaki-keyboard-type 'omelet-jis)
 
-   $B$H5-F~!#5l(B JIS $BG[Ns$N2>L>F~NO$r9T$&>l9g$O(B
+   と記入。旧 JIS 配列の仮名入力を行う場合は
 
      (setq skk-use-kana-keyboard t)
      (setq skk-kanagaki-keyboard-type '106-jis)
 
-   $B$H5-F~!#(B
+   と記入。
 
-** $B%+%9%?%^%$%:(B
+** カスタマイズ
 
-   skk-kanagaki-keyboard-type $B$KBP1~$7$?%U%!%$%k$K=q$+$l$F$$$kJQ?t$K$h$C(B
-   $B$F!"%-!<F~NO$HA^F~$5$l$kJ8;z$N%k!<%k$rJQ99$7$^$9!#(B
+   skk-kanagaki-keyboard-type に対応したファイルに書かれている変数によっ
+   て、キー入力と挿入される文字のルールを変更します。
 
-   $BNc$($P(B skk-kanagaki-keyboard-type $B$,(B omelet-jis $B$G$"$l$P!"(B
-   skk-omelet-jis.el $B$K=q$+$l$F$$$k0J2<$NJQ?t$r@_Dj$7$^$9!#(B
+   例えば skk-kanagaki-keyboard-type が omelet-jis であれば、
+   skk-omelet-jis.el に書かれている以下の変数を設定します。
 
    `skk-kanagaki-omelet-jis-base-rule-list'
 
-        $B$3$NJQ?t$O!"3FJ8;z%-!<$NF~NO$r(B SKK $B$K$I$&2r<a$5$;$k$+$r7hDj$7(B
-        $B$^$9!#I8=`@_Dj$G$O!"B?$/$NJ8;z%-!<$O4X?t(B `skk-nicola-insert'
-        $B$r8F$S=P$7$^$9!#(B
+        この変数は、各文字キーの入力を SKK にどう解釈させるかを決定し
+        ます。標準設定では、多くの文字キーは関数 `skk-nicola-insert'
+        を呼び出します。
 
    `skk-omelet-jis-plain-rule-list'
    `skk-omelet-jis-rshift-rule-list'
    `skk-omelet-jis-lshift-rule-list'
 
-        $B$3$l$i$NJQ?t$O!"4X?t(B `skk-nicola-insert' $B$,J8;z$rA^F~$9$k:]$N(B
-        $B%k!<%k$r7hDj$7$^$9!#=g$KC1FHBG80!"1&%7%U%HF~NO!":8%7%U%HF~NO$N(B
-        $B%k!<%k$G$9!#(B
+        これらの変数は、関数 `skk-nicola-insert' が文字を挿入する際の
+        ルールを決定します。順に単独打鍵、右シフト入力、左シフト入力の
+        ルールです。
 
-   $B$3$l$i$N@_Dj$r%U%!%$%k(B ~/.skk $B$K5-=R$7$F$+$i(B SKK $B$r5/F0$9$l$P!"@_Dj(B
-   $B$,H?1G$5$l$^$9!#(B
+   これらの設定をファイル ~/.skk に記述してから SKK を起動すれば、設定
+   が反映されます。
 
-* $B;HMQK!(B
+* 使用法
 
-$B?F;X%7%U%HF~NO$K$D$$$F$N>\$7$$$3$H$O!"(BREADME.NICOLA.ja $B$r$40lFI$/$@$5(B
-$B$$!#(B
+親指シフト入力についての詳しいことは、README.NICOLA.ja をご一読くださ
+い。
 
-$B$=$l0J30$N2>L>F~NO$K$D$$$F>\$7$$$3$H$O(B skk-kanagaki.el $B$NKAF,$N%3%a%s(B
-$B%H$r$40lFI$/$@$5$$!#(B
+それ以外の仮名入力について詳しいことは skk-kanagaki.el の冒頭のコメン
+トをご一読ください。
 
-$B0J2<$G!"(B[fj] $B$J$I$H$$$&$N$O(B f $B$H(B j $B$H$rF1;~$KBG80$9$k$3$H$r0UL#$7$^$9!#(B
+以下で、[fj] などというのは f と j とを同時に打鍵することを意味します。
 
-** $B0lHLE*%-!<Dj5A(B
+** 一般的キー定義
 
-   [fj]     $B!D(B $BJQ493+;OE@$r%;%C%H(B
-   [gh]     $B!D(B $B@\F,<-(B or $B@\Hx<-JQ49(B ($B"&%b!<%I(B or $B"'%b!<%I(B)
-   [gh]     $B!D(B abbrev $B%b!<%I(B
-   [dk]     $B!D(B $B%+%J%b!<%I(B or $B%+%JJQ49(B
-   space    $B!D(B $BAw$j$J$7JQ493+;O!"JQ49!&<!8uJdI=<((B
-   x        $B!D(B $BA08uJdI=<((B
-   S (SHIFT + s) $B!D(B $BAw$j$"$jJQ493+;O(B
-   C-h 1    $B!D(B $B%X%k%W$rI=<((B
+   [fj]     … 変換開始点をセット
+   [gh]     … 接頭辞 or 接尾辞変換 (▽モード or ▼モード)
+   [gh]     … abbrev モード
+   [dk]     … カナモード or カナ変換
+   space    … 送りなし変換開始、変換・次候補表示
+   x        … 前候補表示
+   S (SHIFT + s) … 送りあり変換開始
+   C-h 1    … ヘルプを表示
 
-** $B?F;X%7%U%HF~NO%b!<%I$NFH<+%-!<Dj5A(B
+** 親指シフト入力モードの独自キー定義
 
-   muhenkan $B!D(B $B:8?F;X%7%U%H%-!<(B
-   henkan   $B!D(B $B1&?F;X%7%U%H%-!<(B
-   space    $B!D(B $B1&?F;X%7%U%H%-!<(B
-   [fj]     $B!D(B $BAw$j3+;OE@;XDj(B
-   [muhenkan + henkan] $B!D(B latin $B%b!<%I(B $B"N(B $B$+$J%b!<%I$N@Z$jBX$((B
-   C-h 2    $B!D(B $B8=:_$NF~NOJ}<0$N%-!<G[Ns$rI=<((B
-   C-h 3    $B!D(B $B%X%k%W$rI=<((B
+   muhenkan … 左親指シフトキー
+   henkan   … 右親指シフトキー
+   space    … 右親指シフトキー
+   [fj]     … 送り開始点指定
+   [muhenkan + henkan] … latin モード ⇔ かなモードの切り替え
+   C-h 2    … 現在の入力方式のキー配列を表示
+   C-h 3    … ヘルプを表示
 
-** $B5l(B JIS $B2>L>F~NO%b!<%I$NFH<+%-!<Dj5A(B
+** 旧 JIS 仮名入力モードの独自キー定義
 
-   [fj]     $B!D(B $BD>A0$N(B 1 $BJ8;z$rAw$j2>L>$H$7$FAw$j$"$jJQ49$r3+;O!#(B
-   [muhenkan + henkan] $B!D(B latin $B%b!<%I(B $B"N(B $B$+$J%b!<%I(B $B$N@Z$jBX$((B
-   C-h 2    $B!D(B $B8=:_$NF~NOJ}<0$N%-!<G[Ns$rI=<((B
-   C-h 3    $B!D(B $B%X%k%W$rI=<((B
+   [fj]     … 直前の 1 文字を送り仮名として送りあり変換を開始。
+   [muhenkan + henkan] … latin モード ⇔ かなモード の切り替え
+   C-h 2    … 現在の入力方式のキー配列を表示
+   C-h 3    … ヘルプを表示
 
-** $BFC<l5!G=$NB`Hr%-!<(B
+** 特殊機能の退避キー
 
-   f2 $B!D(B $BJQ493+;OE@$r%;%C%H(B
-   f3 $B!D(B $B@\F,<-(B or $B@\Hx<-JQ49(B
-   f5 $B!D(B $B%3!<%IF~NO(B
-   f6 $B!D(B abbrev $B%b!<%I(B
-   f7 $B!D(B $B%+%J%b!<%I(B or $B%+%JJQ49(B
-   f8 $B!D(B $BA41Q%b!<%I(B
-   f9 $B!D(B $BH>3Q%+%J%b!<%I(B or $BH>3Q%+%JJQ49(B
-   f10 $B!D(B latin $B%b!<%I(B
-   f12 $B!D(B $B%m!<%^;zF~NO(B $B"N(B $B2>L>F~NO(B
+   f2 … 変換開始点をセット
+   f3 … 接頭辞 or 接尾辞変換
+   f5 … コード入力
+   f6 … abbrev モード
+   f7 … カナモード or カナ変換
+   f8 … 全英モード
+   f9 … 半角カナモード or 半角カナ変換
+   f10 … latin モード
+   f12 … ローマ字入力 ⇔ 仮名入力
 
-* $BLdBjE@(B
+* 問題点
 
-$B?F;X%7%U%HF~NO$O!"(B $B$^$@(B NICOLA-SKK $B$H5sF0$N0[$J$kItJ,$,$"$j$^$9!#(B $BLdBj(B
-$B$OB?$/$"$j$^$9$,!"=y!9$K2~NI$9$kM=Dj$G$9!#$^$?!"(Bomelet $B5Z$S(B NICOLA-SKK
-$B$H$N8_49@-$r==J,9MN8$7$F$$$J$$ItJ,$,$"$j$^$9!#(B
+親指シフト入力は、 まだ NICOLA-SKK と挙動の異なる部分があります。 問題
+は多くありますが、徐々に改良する予定です。また、omelet 及び NICOLA-SKK
+との互換性を十分考慮していない部分があります。
 
-$BF|K\8l(B 106 $B%-!<%\!<%I$G2>L>F~NO$9$k>l9g!"(B $B%-!<G[Ns$N4X78$G!V!<!W$+!V$m!W(B
-$B$N$$$:$l$+$,5>@7$K$J$i$J$1$l$P$J$j$^$;$s!#%G%U%)%k%H$G$O!"!V!<!W$r5>@7(B
-$B$K$7$F$"$j$^$9(B (SHIFT $B$H6&$K2!$;$PF~NO$G$-$k$h$&$K$7$F$"$j$^$9(B)$B!#$3$l(B
-$B$r9o0uDL$j$NF~NO$K$9$k$K$O!"(B xmodmap $B$r;H$&$J$I$7$F%-!<G[Ns$rJQ99$9$k(B
-$BI,MW$,$"$j$^$9!#(B
+日本語 106 キーボードで仮名入力する場合、 キー配列の関係で「ー」か「ろ」
+のいずれかが犠牲にならなければなりません。デフォルトでは、「ー」を犠牲
+にしてあります (SHIFT と共に押せば入力できるようにしてあります)。これ
+を刻印通りの入力にするには、 xmodmap を使うなどしてキー配列を変更する
+必要があります。
 
-* $B<U<-(B
+* 謝辞
 
-NICOLA-SKK $B86:n<T$NL'1:$5$s$K7I0U$rI=$7!$$^$?46<U$$$?$7$^$9!#(B
+NICOLA-SKK 原作者の箕浦さんに敬意を表し，また感謝いたします。
 
-* $B8eF|CL(B (2004-03-10)
+* 後日談 (2004-03-10)
 
-$B<B$O!"(BSKK $B$N%b%G%k$H$J$C$?$+$J4A;zJQ49%7%9%F%`$G$"$k(B Kanzen $B$OI8=`$G%m!<(B
-$B%^;z<0F~NO$H?7(B JIS $BG[Ns$+$JF~NO$KBP1~$7$F$$$?$h$&$G$9!#(B($B5l$G$O$J$/$F?7(B
-$B$J$H$3$m$,$"$l$G$9$,(B...)
+実は、SKK のモデルとなったかな漢字変換システムである Kanzen は標準でロー
+マ字式入力と新 JIS 配列かな入力に対応していたようです。(旧ではなくて新
+なところがあれですが...)
 
    http://www.nue.org/people/amagai/kanzen/index.html
 

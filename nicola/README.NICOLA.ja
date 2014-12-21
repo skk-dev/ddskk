@@ -2,336 +2,336 @@
 
 NICOLA-DDSKK on Daredevil SKK 11.4
 
-        ($B%*%j%8%J%k(B)    $BL'1:(B $B0o;K(B <minoura@eva.hi-ho.ne.jp>
-        ($B2~D{!&J8@U(B)    $BDMK\(B $BE0M:(B <czkmt@remus.dti.ne.jp>
+        (オリジナル)    箕浦 逸史 <minoura@eva.hi-ho.ne.jp>
+        (改訂・文責)    塚本 徹雄 <czkmt@remus.dti.ne.jp>
 
 
-$B!ZK\J8$K$D$$$F![(B
+【本文について】
 
-$B$3$l$O!"L'1:$5$s$,(B NICOLA-SKK 0.39 $B$K$D$$$F2r@b$5$l$?J8>O$rDMK\$,(B
-NICOLA-DDSKK $B$KE,9g$9$k$h$&$K2CI.=$@5$7$?$b$N$G$9!#$b$7K\J8$K8m$j$,$"(B
-$B$l$PDMK\$N@UG$$G$9$N$G!"$=$N;]$4O"Mm2<$5$$!#(B
-
-
-$B!Z35@b![(B
-
-NICOLA-DDSKK $B$H$O!"(BDaredevil SKK $B$G(B NICOLA $B$+$JF~NO!J?F;X%7%U%HF~NO!K(B
-$B$K$h$C$FF|K\8lF~NO$r2DG=$K$9$k$b$N$G$9!#0J2<$N(B Emacsen $B$r%5%]!<%H$7$^(B
-$B$9!#(B
-
-o Emacs 20.7 $B0J9_(B (Meadow 1.10 $B0J9_(B $B$r4^$`(B)
-o Mule $B5!G=IU$-$G%3%s%Q%$%k$5$l$?(B XEmacs 21 $B0J9_(B
-
-$B$?$@$7(B GNU Emacs 21.3 $B0J9_$^$?$O(B XEmacs 21.4.15 $B0J9_$r?d>)$7$^$9!#(B
+これは、箕浦さんが NICOLA-SKK 0.39 について解説された文章を塚本が
+NICOLA-DDSKK に適合するように加筆修正したものです。もし本文に誤りがあ
+れば塚本の責任ですので、その旨ご連絡下さい。
 
 
-$B!Z$O$8$a$K![(B
+【概説】
 
-SKK $B$O(B Emacs $B$G;H$($kM%$l$?$+$J4A;zJQ49%7%9%F%`$G$9!#$=$N(B SKK $B$NFH<+$N(B
-$BF~NOJ}K!$r;Y$($F$$$k4A;z$NItJ,$N;XDjJ}K!$O!"%m!<%^;z$NBgJ8;z$H>.J8;z$r(B
-$B;H$$J,$1$FF|K\8l$rF~NO$9$k$H$$$&$b$N$G$9!#$3$l$O!"%m!<%^;zF~NO$KBg$-$/(B
-$B0MB8$7$F$$$^$9$,!"$=$N86M}<+BN$OFC$K%m!<%^;zF~NO$K0MB8$7$F$$$k$o$1$G$O(B
-$B$"$j$^$;$s!#(B
+NICOLA-DDSKK とは、Daredevil SKK で NICOLA かな入力（親指シフト入力）
+によって日本語入力を可能にするものです。以下の Emacsen をサポートしま
+す。
 
-$BEAE}E*$K(B SKK $B$G$O!"4A;z$NItJ,$N;XDj$9$k$?$a$K%7%U%H%-!<$r;H$$$^$9!#$7(B
-$B$+$7!"%?%C%A%?%$%T%s%0$rMF0W$K$9$k$?$a$K!"(BNICOLA-DDSKK $B$G$O%[!<%`%]%8(B
-$B%7%g%s$N%-!<$G$"$k!"(Bf $B$H(B j $B$rF1;~$KBG80$9$k$H$$$&J}K!$r;H$$$^$9!#$3$l(B
-$B$K$h$C$F!">.;X$G%7%U%H$r2!$9$h$j$b8zN(E*$JF~NO$,2DG=$K$J$C$F$$$k$N$G$O(B
-$B$J$$$+$H;W$$$^$9!#(B
+o Emacs 20.7 以降 (Meadow 1.10 以降 を含む)
+o Mule 機能付きでコンパイルされた XEmacs 21 以降
+
+ただし GNU Emacs 21.3 以降または XEmacs 21.4.15 以降を推奨します。
 
 
-$B!ZCm0U![(B
+【はじめに】
 
-$B1Q8lMQ$N%-!<%\!<%I$G$O?F;X%7%U%H%-!<$H$7$F;H$($k%-!<$,$J$$$?$a!";HMQ$O(B
-$BFq$7$$$H;W$o$l$^$9!#F|K\8l%-!<%\!<%I$N;HMQ$r$*4+$a$7$^$9!#(B
+SKK は Emacs で使える優れたかな漢字変換システムです。その SKK の独自の
+入力方法を支えている漢字の部分の指定方法は、ローマ字の大文字と小文字を
+使い分けて日本語を入力するというものです。これは、ローマ字入力に大きく
+依存していますが、その原理自体は特にローマ字入力に依存しているわけでは
+ありません。
 
-(*) $B$^$l$K(B US $B%-!<%\!<%I$G!"(Bspace $B%-!<$,H>J,$KJ,$+$l$F$$$?$j!":8H>J,$,(B
-    backspace $B%-!<$K$J$C$F$$$?$j$9$k$b$N$,$"$j$^$9!#$=$&$$$&FC<l$J$b$N(B
-    $B$J$i$P!"9)IW<!Bh$G<BMQE*?F;X%7%U%H%-!<%\!<%I$K$J$jF@$k$h$&$G$9!#(B
-
-$B$^$?!"CY$$%M%C%H%o!<%/$N8~$3$&$G(B Emacs $B$rN)$A$"$2$F;H$&>l9g$K$O!"F1;~(B
-$BBG80$r@5$7$/G'<1$7$J$/$J$k$3$H$,$"$j$^$9!#(B
-
-$B8=:_!"(BNICOLA-DDSKK $B$O(B Daredevil SKK $B$KImB0$9$k$+$?$A$GG[I[$5$l$F$$$^$9!#(B
-$BI,$:F1:-$5$l$F$$$k(B Daredevil SKK $B$H(B NICOLA-DDSKK $B$H$rAH$_9g$o$;$F;HMQ(B
-$B$7$F$/$@$5$$!#(B
-
-NICOLA-DDSKK $B$O$^$@%Y!<%?%P!<%8%g%s$G$9!#$^$@%P%0$,$"$k$+$b$7$l$^$;$s!#(B
-$B%P%0$r8+$D$1$i$l$?J}$OJs9p$r$*4j$$$7$^$9!#(B
+伝統的に SKK では、漢字の部分の指定するためにシフトキーを使います。し
+かし、タッチタイピングを容易にするために、NICOLA-DDSKK ではホームポジ
+ションのキーである、f と j を同時に打鍵するという方法を使います。これ
+によって、小指でシフトを押すよりも効率的な入力が可能になっているのでは
+ないかと思います。
 
 
-$B!ZCx:n8"$J$I![(B
+【注意】
 
-SKK NICOLA patch $B$O(B SKK $B$r$b$H$KL'1:$5$s$,:n@.$5$l$?$b$N$G$9!#$=$NCx:n(B
-$B8"$OL'1:$5$s$,J];}$5$l$F$$$^$9!#(B
+英語用のキーボードでは親指シフトキーとして使えるキーがないため、使用は
+難しいと思われます。日本語キーボードの使用をお勧めします。
 
-Daredevil SKK $B$N0Y$K2CI.=$@5$7$?ItJ,$K$D$$$F$O!"DMK\$,Cx:n8"$rJ];}$7$^(B
-$B$9!#$^$?!":#8e(B SKK $B3+H/%i%\$K$*$$$FK\%W%m%0%i%`$,2CI.=$@5$5$l$?>l9g$O!"(B
-$B$=$NItJ,$NCx:n8"$O$=$N2~JQ$r9T$C$?J}$KB0$7$^$9!#(B
+(*) まれに US キーボードで、space キーが半分に分かれていたり、左半分が
+    backspace キーになっていたりするものがあります。そういう特殊なもの
+    ならば、工夫次第で実用的親指シフトキーボードになり得るようです。
 
-$BK\%W%m%0%i%`$O%U%j!<%=%U%H%&%'%"$G$9!#:FG[I[$*$h$S2~JQ$,G'$a$i$l$^$9$,!"(B
-$B$=$N:]$K$O(B Free Software Foundation $B$,8xI=$9$k(B GNU General Public
-Licence $B$NBh(B 2 $B%P!<%8%g%s0J9_(B ($B$NG$0U$N(B 1 $B$D$N%P!<%8%g%s(B) $B$N>r7o$K=>$&(B
-$BI,MW$,$"$j$^$9!#(B
+また、遅いネットワークの向こうで Emacs を立ちあげて使う場合には、同時
+打鍵を正しく認識しなくなることがあります。
 
-$BK\%W%m%0%i%`$OM-MQ$G$"$k$H;W$o$l$^$9$,!"$=$NG[I[$OL5J]>Z$G$9!#;T>l@-$^(B
-$B$?$OFCDj$NL\E*$X$NE,9g@-$N$?$a$KDL>oG'$a$i$l$k$h$&$J0EL[$NJ]>Z$9$i$5$l(B
-$B$^$;$s!#(BGNU General Public License $B$r;2>H$9$l$P$h$j>\$7$$$3$H$,J,$+$j(B
-$B$^$9!#(B
+現在、NICOLA-DDSKK は Daredevil SKK に附属するかたちで配布されています。
+必ず同梱されている Daredevil SKK と NICOLA-DDSKK とを組み合わせて使用
+してください。
 
-Daredevil SKK $B$H$H$b$K(B GNU General Public License $B$,<}O?$5$l$F$$$k$O$:(B
-$B$G$9!#(BCOPYING $B$H$$$&L>A0$N%U%!%$%k$r8+$F$/$@$5$$!#$b$7$3$l$,$J$1$l$P!"(B
-$B<!$N08@h$K<j;f$rAw$C$F$/$@$5$$!#(BFree Software Foundation Inc., 59
+NICOLA-DDSKK はまだベータバージョンです。まだバグがあるかもしれません。
+バグを見つけられた方は報告をお願いします。
+
+
+【著作権など】
+
+SKK NICOLA patch は SKK をもとに箕浦さんが作成されたものです。その著作
+権は箕浦さんが保持されています。
+
+Daredevil SKK の為に加筆修正した部分については、塚本が著作権を保持しま
+す。また、今後 SKK 開発ラボにおいて本プログラムが加筆修正された場合は、
+その部分の著作権はその改変を行った方に属します。
+
+本プログラムはフリーソフトウェアです。再配布および改変が認められますが、
+その際には Free Software Foundation が公表する GNU General Public
+Licence の第 2 バージョン以降 (の任意の 1 つのバージョン) の条件に従う
+必要があります。
+
+本プログラムは有用であると思われますが、その配布は無保証です。市場性ま
+たは特定の目的への適合性のために通常認められるような暗黙の保証すらされ
+ません。GNU General Public License を参照すればより詳しいことが分かり
+ます。
+
+Daredevil SKK とともに GNU General Public License が収録されているはず
+です。COPYING という名前のファイルを見てください。もしこれがなければ、
+次の宛先に手紙を送ってください。Free Software Foundation Inc., 59
 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
-$B!Z%$%s%9%H!<%k![(B
+【インストール】
 
-README.ja $B$r;2>H$7$F$/$@$5$$!#(B
+README.ja を参照してください。
 
 
-$B!Z@_Dj![(B
+【設定】
 
-$B4pK\E*$K$O(B REAME.ja $B$K=q$+$l$F$$$kDL$j$G$9!#(B
+基本的には REAME.ja に書かれている通りです。
 
  (setq skk-use-kana-keyboard t)
 
-$B$H$$$&@_Dj$OI,$:$7$^$9!#F|K\8l(B 106 $B%-!<%\!<%I$N>l9g!"(B
-skk-kanagaki-keyboard-type $B$H$$$&JQ?t$O(B nicola-jis, oasys, omelet-jis
-$B$N$$$:$l$+$K$9$k$3$H$K$J$k$G$7$g$&!#$=$l$>$lHyL/$K%-!<G[Ns$,0c$$$^$9!#(B
+という設定は必ずします。日本語 106 キーボードの場合、
+skk-kanagaki-keyboard-type という変数は nicola-jis, oasys, omelet-jis
+のいずれかにすることになるでしょう。それぞれ微妙にキー配列が違います。
 
  (setq skk-kanagaki-keyboard-type 'omelet-jis)
 
 
-$B!Z;HMQK!![(B
+【使用法】
 
-$BI8=`$G$O!":8?F;X%-!<$O(B [$BL5JQ49(B]$B!"1&?F;X%-!<$O(B [$BJQ49(B] $B$H(B [space] $B$K3d$j(B
-$B$"$F$i$l$F$$$^$9!#(B
+標準では、左親指キーは [無変換]、右親指キーは [変換] と [space] に割り
+あてられています。
 
-$B$3$l$r!"Nc$($P(B
+これを、例えば
 
-o $B:8?F;X%-!<(B => [space]
-o $B1&?F;X%-!<(B => [$BJQ49(B]
+o 左親指キー => [space]
+o 右親指キー => [変換]
 
-$B$N$h$&$K@_Dj$rJQ99$7$?$$>l9g$O!"(B~/.skk $B$K<!$N$h$&$J@_Dj$r=q$-$^$9!#(B
+のように設定を変更したい場合は、~/.skk に次のような設定を書きます。
 
  (setq skk-nicola-lshift-keys '(" "))
  (setq skk-nicola-rshift-keys '([henkan]))
 
-(*) $B>e5-$O(B XFree86 $B>e$G$N(B GNU Emacs 20.3 $B0J9_$NNc$G$9!#(B[henkan] $B$NItJ,(B
-    $B$,(BEmacs $B$N<oN`$K$h$C$F0c$C$F$/$k$N$G0J2<$N$h$&$KJQ99$7$F$/$@$5$$!#(B
+(*) 上記は XFree86 上での GNU Emacs 20.3 以降の例です。[henkan] の部分
+    がEmacs の種類によって違ってくるので以下のように変更してください。
 
-    - Mule for Windows $B$^$?$O(B Meadow $B!D(B [convert]
-    - XFree86 $B>e$G$N(B XEmacs $B!D(B [henkan-mode]
-    - XFree86 $B>e$G$N(B Mule2.3@19.34 $B!D(B [numbersign]
-    - XFree86 $B>e$G$N(B Mule2.3@19.28 $B!D(B [key-35]
-    - XFree86 $B>e$G$N(B Emacs 20.2 $B!D(B $BJQ49%-!<$,;H$($^$;$s!#(B
+    - Mule for Windows または Meadow … [convert]
+    - XFree86 上での XEmacs … [henkan-mode]
+    - XFree86 上での Mule2.3@19.34 … [numbersign]
+    - XFree86 上での Mule2.3@19.28 … [key-35]
+    - XFree86 上での Emacs 20.2 … 変換キーが使えません。
 
-$BJQ49%-!<$dL5JQ49%-!<$,;H$($J$$4D6-$G$b(B xmodmap $B$r;H$&$J$I!"2>A[%-!<%3!<(B
-$B%I$N%l%Y%k$G@_Dj$rJQ99$G$-$k>l9g$O!"$=$l$K$h$C$F;HMQ$G$-$k$h$&$K$9$k$H(B
-$B$$$$$G$7$g$&!#(B
+変換キーや無変換キーが使えない環境でも xmodmap を使うなど、仮想キーコー
+ドのレベルで設定を変更できる場合は、それによって使用できるようにすると
+いいでしょう。
 
-(*) xmodmap $B%3%^%s%I$N;H$$J}$K$D$$$F$O3d0&$7$^$9!#(B
+(*) xmodmap コマンドの使い方については割愛します。
 
-$B0lEY(B Emacs $B$r=*N;$7!"5/F0$7$J$*$7$^$9!#(BC-x C-j $B$G(B skk-mode $B$K$9$k(B
-$B$H!"%b!<%I%i%$%s$,!V$+$J!W$G$O$J$/!"!V$K$3$i!W$K$J$j$^$9!#$3$l$G(B SKK
-$B$G(B NICOLA $BF~NO$,$G$-$k$h$&$K$J$j$^$9!#(Bskk-use-kana-keyboard $B$r(B nil $B$K(B
-$B$7$F$*$/$H!"=>MhDL$j%m!<%^;z$+$JJQ49$,;H$($^$9!#(B
+一度 Emacs を終了し、起動しなおします。C-x C-j で skk-mode にする
+と、モードラインが「かな」ではなく、「にこら」になります。これで SKK
+で NICOLA 入力ができるようになります。skk-use-kana-keyboard を nil に
+しておくと、従来通りローマ字かな変換が使えます。
 
-$B$J$*!"(BSKK $B;HMQCf$K2>L>F~NO$H%m!<%^;zF~NO$r@Z$jBX$($k$3$H$,2DG=$G$9!#(B
-[f12] $B%-!<$,$"$k>l9g$O$=$l$r2!$7$F$_$F$/$@$5$$!#$J$$>l9g$O!"(BM-x
-skk-kanagaki-toggle-rom-kana $B$r<B9T$7$F$_$F$/$@$5$$!#$3$N%3%^%s%I$r<B(B
-$B9T$9$k$?$S$K!"%b!<%I9T$NI=<($,@Z$jBX$o$j$^$9!#(B
+なお、SKK 使用中に仮名入力とローマ字入力を切り替えることが可能です。
+[f12] キーがある場合はそれを押してみてください。ない場合は、M-x
+skk-kanagaki-toggle-rom-kana を実行してみてください。このコマンドを実
+行するたびに、モード行の表示が切り替わります。
 
-Daredevil SKK $B$K$O!"(BNICOLA $BHG$N%A%e!<%H%j%"%k$,IUB0$7$F$$$^$9!#?F;X%7(B
-$B%U%HF~NO$N@_Dj$,$G$-$F$$$k>uBV$G(B C-x t ($B$^$?$O(B M-x skk-tutorial) $B$r<B(B
-$B9T$7$F$_$F$/$@$5$$!#(B
+Daredevil SKK には、NICOLA 版のチュートリアルが付属しています。親指シ
+フト入力の設定ができている状態で C-x t (または M-x skk-tutorial) を実
+行してみてください。
 
 
-$B!Z%-!<G[Ns![(B
+【キー配列】
 
-$BDL>o$N%3%s%T%e!<%?MQ$N%-!<%\!<%I$N$3$H$r9M$($F!"1&%7%U%H!"%9%Z!<%9!"JQ(B
-$B49$r0l$D$N%-!<$G7sMQ$7!"$^$?:8%7%U%H!"2~9T!"3NDj$r0l$D$N%-!<$G7sMQ$7$^(B
-$B$9!#$D$^$j:81&$N?F;X$,0l$D$:$D%-!<$rC4Ev$7$^$9!#Nc$($P(B omelet-jis $B$G$O!"(B
-$B0J2<$N$h$&$J%-!<G[Ns$K$J$j$^$9!#(B
+通常のコンピュータ用のキーボードのことを考えて、右シフト、スペース、変
+換を一つのキーで兼用し、また左シフト、改行、確定を一つのキーで兼用しま
+す。つまり左右の親指が一つずつキーを担当します。例えば omelet-jis では、
+以下のようなキー配列になります。
 
-$B(#(!(!(((!(!(((!(!(((!(!(((!(!($(#(!(!(((!(!(((!(!(((!(!(((!(!(((!(!(((!(!(((!(!($(B
-$B("!*!)("!H!?("!I!A("!t!V("!s!W("("!!!N("!!!O("!Z!J("![!K("!P!X("!Q!Y("!a!F("!2!G("(B
-$B("(B1 $B!!("(B2 $B!!("(B3 $B!!("(B4 $B!!("(B5 $B!!("("(B6 $B!!("(B7 $B!!("(B8 $B!!("(B9 $B!!("(B0 $B!!("(B- $B!]("(B^ $B!9("(B\ $B!o("(B
-$B('(!(!(+(!(!(+(!(!(+(!(!(+(!(!()('(!(!(+(!(!(+(!(!(+(!(!(+(!(!(+(!(!(+(!(!(+(!(!(%(B
-$B("$p$!("$,$(("$@$j("$4$c("$6$l("("$Q$h("$B$K("$0$k("$E$^("$T$'("!_!w("!7!,("(B
-$B("(BQ $B!#("(BW $B$+("(BE $B$?("(BR $B$3("(BT $B$5("("(BY $B$i("(BU $B$A("(BI $B$/("(BO $B$D("(BP $B!$("(B@ $B!"("(B[ $B!+("(B
-$B('(!(!(+(!(!(+(!(!(+(!(!(+(!(!()('(!(!(+(!(!(+(!(!(+(!(!(+(!(!(+(!(!(+(!(!()(B
-$B("%t$r("$8$"("$G$J("$2$e("$<$b("("$P$_("$I$*("$.$N("$]$g("%v$C("!v!(("!\!=("(B
-$B("(BA $B$&("(BS $B$7("(BD $B$F("(BF $B$1("(BG $B$;("("(BH $B$O("(BJ $B$H("(BK $B$-("(BL $B$$("(B; $B$s("(B: $B!'("(B] $B!D("(B
-$B('(!(!(+(!(!(+(!(!(+(!(!(+(!(!()('(!(!(+(!(!(+(!(!(+(!(!(+(!(!(+(!(!(+(!(!(%(B
-$B("$q$%("$S!<("$:$m("$V$d("$Y$#("("$W$L("$>$f("$Z$`("$\$o("$n$)("!2!G("(B
-$B("(BZ $B!%("(BX $B$R("(BC $B$9("(BV $B$U("(BB $B$X("("(BN $B$a("(BM $B$=("(B, $B$M("(B. $B$[("(B/ $B!&("(B\ $B!o("(B
-$B(&(!(!(*(!(!(+(!(!(*(!(!(*(!(!(%(&(!(!(*(!(!(*(!(!(+(!(!(*(!(!(*(!(!(%(B
-            $B("(B       $B:8%7%U%H(B  |   $B1&%7%U%H(B(space)$B("(B
-$B!!!!!!!!!!!!(&(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(%(B
+┌──┬──┬──┬──┬──┐┌──┬──┬──┬──┬──┬──┬──┬──┐
+│！？│“／│”〜│＃「│％」││　［│　］│【（│】）│｛『│｝』│＝‘│＿’│
+│1 　│2 　│3 　│4 　│5 　││6 　│7 　│8 　│9 　│0 　│- −│^ 々│\ ￥│
+├──┼──┼──┼──┼──┤├──┼──┼──┼──┼──┼──┼──┼──┘
+│ゐぁ│がえ│だり│ごゃ│ざれ││ぱよ│ぢに│ぐる│づま│ぴぇ│×＠│〃゜│
+│Q 。│W か│E た│R こ│T さ││Y ら│U ち│I く│O つ│P ，│@ 、│[ ゛│
+├──┼──┼──┼──┼──┤├──┼──┼──┼──┼──┼──┼──┤
+│ヴを│じあ│でな│げゅ│ぜも││ばみ│どお│ぎの│ぽょ│ヶっ│＊；│＋—│
+│A う│S し│D て│F け│G せ││H は│J と│K き│L い│; ん│: ：│] …│
+├──┼──┼──┼──┼──┤├──┼──┼──┼──┼──┼──┼──┘
+│ゑぅ│びー│ずろ│ぶや│べぃ││ぷぬ│ぞゆ│ぺむ│ぼわ│ゎぉ│＿’│
+│Z ．│X ひ│C す│V ふ│B へ││N め│M そ│, ね│. ほ│/ ・│\ ￥│
+└──┴──┼──┴──┴──┘└──┴──┴──┼──┴──┴──┘
+            │       左シフト  |   右シフト(space)│
+　　　　　　└──────────────────┘
 
-$B2<$NCJ$N$+$J$O$=$N$^$^F~NO$7!">e$NCJ$N1&$N$+$J$OF1$8B&$N?F;X%7%U%H%-!<(B
-$B$rF1;~$K2!$9$3$H$GF~NO$7$^$9!#$?$H$($P!V$(!W$rF~NO$9$k$?$a$K$O!V$+!W$N(B
-$B%-!<(B ("w" $B$N%-!<(B) $B$H:8%7%U%H$rF1;~$K2!$7$^$9!#$^$?ByE@$D$-$NJ8;z$rF~NO(B
-$B$9$k$?$a$K$O!"H?BPB&$N%7%U%H%-!<$HF1;~BG80$7$^$9!#$D$^$j!V$,!W$rF~NO$9(B
-$B$k$?$a$K$O!V$+!W(B("w" $B$N%-!<(B) $B$H1&%7%U%H$rF1;~$K2!$7$^$9!#(B
+下の段のかなはそのまま入力し、上の段の右のかなは同じ側の親指シフトキー
+を同時に押すことで入力します。たとえば「え」を入力するためには「か」の
+キー ("w" のキー) と左シフトを同時に押します。また濁点つきの文字を入力
+するためには、反対側のシフトキーと同時打鍵します。つまり「が」を入力す
+るためには「か」("w" のキー) と右シフトを同時に押します。
 
-$BH>ByE@$N$D$$$?J8;z$O!"0J2<$NJ}K!$GF~NO$G$-$^$9!#(B
+半濁点のついた文字は、以下の方法で入力できます。
 
   ------------------------
-    $B$Q(B    [$B:8%7%U%H(B] + y
-    $B$T(B    [$B:8%7%U%H(B] + p
-    $B$W(B    [$B:8%7%U%H(B] + n
-    $B$Z(B    [$B:8%7%U%H(B] + ,
-    $B$](B    [$B:8%7%U%H(B] + l
+    ぱ    [左シフト] + y
+    ぴ    [左シフト] + p
+    ぷ    [左シフト] + n
+    ぺ    [左シフト] + ,
+    ぽ    [左シフト] + l
   ------------------------
 
-$BA`:n$N4pK\$O(B SKK $B$N$b$N$rB:=E$7$F:n$i$l$F$$$^$9!#$7$+$7%m!<%^;z$G$O;H(B
-$B$o$J$$(B l $B$d(B q $B$J$I$K$O(B NICOLA $B$G$OA4$F!V$+$J!W$,3d$j$"$F$i$l$F$$$k$?$a!"(B
-$B%-!<%P%$%s%I$rBgI}$KJQ99$7$^$7$?!#(B
+操作の基本は SKK のものを尊重して作られています。しかしローマ字では使
+わない l や q などには NICOLA では全て「かな」が割りあてられているため、
+キーバインドを大幅に変更しました。
 
-$B%-!<%P%$%s%II=(B
+キーバインド表
  --------------------------------------------------------------------
-                      NICOLA               $B%m!<%^;z(B     $BJQ99M}M3$J$I(B
+                      NICOLA               ローマ字     変更理由など
  --------------------------------------------------------------------
-  $BJQ49(B                [space] [$B1&(B]         [space]
-  $B3NDj(B                C-j                  C-j
-  $BA08uJd(B              C-p                  x            ; $B$+$J$H>WFM(B
-  $B<!8uJd(B              [space] [$B1&(B]         [space]
-  $BJQ493+;O(B            [fj] Q               Q
-  $B@\F,8l@\Hx8l$NF~NO(B  [gh] > < ?           > < ?
-  abbrev-mode $B3+;O(B    [gh]                 /            ; $B$+$J$H>WFM(B
+  変換                [space] [右]         [space]
+  確定                C-j                  C-j
+  前候補              C-p                  x            ; かなと衝突
+  次候補              [space] [右]         [space]
+  変換開始            [fj] Q               Q
+  接頭語接尾語の入力  [gh] > < ?           > < ?
+  abbrev-mode 開始    [gh]                 /            ; かなと衝突
 
-  $B$+$J%b!<%I$X(B        C-j  [$B:81&(B]          C-j
-  $B%+%?%+%J%b!<%I$X(B    [dk]                 q            ; $B$+$J$H>WFM(B
-  $BH>3Q%b!<%I$X(B        [$B:81&(B] A             l            ; $B$+$J$H>WFM(B
-  $BA41Q%b!<%I$X(B        Z L                  L
+  かなモードへ        C-j  [左右]          C-j
+  カタカナモードへ    [dk]                 q            ; かなと衝突
+  半角モードへ        [左右] A             l            ; かなと衝突
+  全英モードへ        Z L                  L
 
-  $B%+%?%+%JJQ49(B        [dk]                 q            ; $B$+$J$H>WFM(B
-  $BA43QJQ49(B            C-q                  C-q
+  カタカナ変換        [dk]                 q            ; かなと衝突
+  全角変換            C-q                  C-q
 
-  $BJd40$N3+;O(B          \t                   \t
-  $BJd40<!8uJd(B          .                    .
-  $BJd40A08uJd(B          ,                    ,
+  補完の開始          \t                   \t
+  補完次候補          .                    .
+  補完前候補          ,                    ,
 
-  $B:#F|$NF|IU$rA^F~(B    D                    @            ; $B$+$J$H>WFM(B
-  $BJ8;z%3!<%II=<((B      $                    $
-  JIS $B%3!<%IF~NO(B      C                    \            ; $B$+$J$H>WFM(B
+  今日の日付を挿入    D                    @            ; かなと衝突
+  文字コード表示      $                    $
+  JIS コード入力      C                    \            ; かなと衝突
 --------------------------------------------------------------------
 
-$B$h$j$h$$%-!<Dj5A$,$"$l$P(B SKK $B3+H/%i%\(B <skk@ring.gr.jp> $B$KDs0F$7$F$/$@(B
-$B$5$$!#(B
+よりよいキー定義があれば SKK 開発ラボ <skk@ring.gr.jp> に提案してくだ
+さい。
 
 
-$B!Z3F<o$N@_Dj![(B
+【各種の設定】
 
-$B0J2<$NJQ?t$r(B .skk $B$K@_Dj$9$k$3$H$G!"(BNICOLA $B4XO"$NF0:n$,@)8f$G$-$^$9!#(B
+以下の変数を .skk に設定することで、NICOLA 関連の動作が制御できます。
 
 
-   $B!N?F;X%7%U%H%-!<4X$9$kJQ?t!O(B
+   ［親指シフトキー関する変数］
 
    o skk-nicola-rshift-keys
 
-     $B1&?F;X%-!<$H$7$F;H$&%-!<$N%j%9%H!#(B
-     $BI8=`$G$O%9%Z!<%9%-!<$HJQ49%-!<!#(B
-     $BJQ49%-!<$rI=$9%7%s%]%k$O(B Emacs $B$N<oN`$K$h$C$F?'!9$J$N$GCm0U$,I,MW!#(B
+     右親指キーとして使うキーのリスト。
+     標準ではスペースキーと変換キー。
+     変換キーを表すシンポルは Emacs の種類によって色々なので注意が必要。
 
-     - Mule for Windows $B$^$?$O(B Meadow $B!D(B [convert]
-     - XFree86 $B>e$G$N(B XEmacs $B!D(B [henkan-mode]
-     - XFree86 $B>e$G$N(B GNU Emacs 20.3 $B0J9_(B $B!D(B [henkan]
-     - XFree86 $B>e$G$N(B Mule2.3@19.34 $B!D(B [numbersign]
-     - XFree86 $B>e$G$N(B Mule2.3@19.28 $B!D(B [key-35]
-     - XFree86 $B>e$G$N(B Emacs 20.2 $B!D(B $BJQ49%-!<$,;H$($^$;$s!#(B
+     - Mule for Windows または Meadow … [convert]
+     - XFree86 上での XEmacs … [henkan-mode]
+     - XFree86 上での GNU Emacs 20.3 以降 … [henkan]
+     - XFree86 上での Mule2.3@19.34 … [numbersign]
+     - XFree86 上での Mule2.3@19.28 … [key-35]
+     - XFree86 上での Emacs 20.2 … 変換キーが使えません。
 
-     ($BNc(B)
+     (例)
     
      (setq skk-nicola-rshift-keys '(" " [henkan]))
 
    o skk-nicola-lshift-keys
 
-     $B:8?F;X%-!<$H$7$F;H$&%-!<$N%j%9%H!#(B
-     $BI8=`$G$OL5JQ49%-!<!#(B
-     $BL5JQ49%-!<$rI=$9%7%s%]%k$b(B Emacs $B$N<oN`$K$h$C$F0[$J$k$3$H$,$"$k!#(B
+     左親指キーとして使うキーのリスト。
+     標準では無変換キー。
+     無変換キーを表すシンポルも Emacs の種類によって異なることがある。
 
-     - Mule for Windows $B$^$?$O(B Neadow $B!D(B [noconvert]
-     - XFree86 $B>e$G$N(B Emacsen $B!D(B [muhenkan]
+     - Mule for Windows または Neadow … [noconvert]
+     - XFree86 上での Emacsen … [muhenkan]
 
-     ($BNc(B)
+     (例)
     
      (setq skk-nicola-lshift-keys '([muhenkan]))
 
    o skk-nicola-interval
 
-     $B$3$N;~4V(B(ms)$B0JFb$KBG80$5$l$?$b$N$rF1;~BG80$HH=Dj$9$k!#(B
+     この時間(ms)以内に打鍵されたものを同時打鍵と判定する。
 
-     ($BNc(B)
+     (例)
     
-     (setq skk-nicola-interval 0.1) ; 100 $B%_%jIC(B
+     (setq skk-nicola-interval 0.1) ; 100 ミリ秒
 
    o skk-nicola-latin-interval
 
-     $B1Q?t(B (latin) $B%b!<%I$GF1;~BG80$HH=Dj$9$k;~4V(B(ms)$B!#(B
+     英数 (latin) モードで同時打鍵と判定する時間(ms)。
 
-     ($BNc(B)
+     (例)
 
-     (setq skk-nicola-latin-interval 0.15) ; 150 $B%_%jIC(B
+     (setq skk-nicola-latin-interval 0.15) ; 150 ミリ秒
 
    o skk-nicola-use-lshift-as-space
 
-     $B$3$NJQ?t$r(B t $B$K$9$k$H!":8%7%U%H$b%9%Z!<%9$H$7$F5!G=$9$k!#(B
-     $BI8=`$G$O(B nil$B!#(B
-     $B%-!<%\!<%I$r2~B$$7$F!"??Cf$K1&%7%U%H$H:8%7%U%H$,JB$s$G$$$k$h$&$K(B
-     $B$7$?$H$-$O!"JXMx$+$b$7$l$^$;$s!#$=$N$H$-$O!"(BNICOLA SKK $B0J30$G$b(B
-     $B9)IW$9$kI,MW$,$"$j$^$9$,!#(B
+     この変数を t にすると、左シフトもスペースとして機能する。
+     標準では nil。
+     キーボードを改造して、真中に右シフトと左シフトが並んでいるように
+     したときは、便利かもしれません。そのときは、NICOLA SKK 以外でも
+     工夫する必要がありますが。
 
     o skk-nicola-use-koyubi-functions
 
-     $B$3$NJQ?t$,Hs(B nil $B$J$i$P!"1&<j>.;X$N%[!<%`%]%8%7%g%s$N1&!J(BJIS $B%-!<(B
-     $B%\!<%I$G$O!"(B":" $B$N0LCV!K(B $B$K8eB`%-!<$N$h$&$J5!G=$r3d$jEv$F$k!#(B
-     $B$3$N5!G=$K$D$$$F$O0l1~!V(BOAK $B%Q%o!<%"%C%W%-%C%H(B $B&BHG!W$r;29M$K$7$^(B
-     $B$7$?$,!"JQ49BP>]J8;zNs$N07$$$,(B SKK $B$K$*$$$F$O0lHL$N(B FEP $B$HA4A30c(B
-     $B$&$?$a$K!"$=$C$/$jF1$85!G=$O<BAu$G$-$^$;$s!#!#(B
-     $B$J$*!"(B"]" $B$N0LCV$K$O<h>C%-!<$N$h$&$J5!G=$r3d$jEv$F$^$9!#(B
+     この変数が非 nil ならば、右手小指のホームポジションの右（JIS キー
+     ボードでは、":" の位置） に後退キーのような機能を割り当てる。
+     この機能については一応「OAK パワーアップキット β版」を参考にしま
+     したが、変換対象文字列の扱いが SKK においては一般の FEP と全然違
+     うために、そっくり同じ機能は実装できません。。
+     なお、"]" の位置には取消キーのような機能を割り当てます。
 
     o skk-nicola-prefix-suffix-chars
 
-     $B@\F,!&@\Hx8lF~NO$r$9$k:]$K@_Dj$9$k!#(B
-     abbrev $B%b!<%I$HF1$8%-!<$r;HMQ$7$J$$>l9g$K(B
-     skk-nicola-prefix-suffix-abbrev-chars $B$r(B nil $B$K$7$F@_Dj$9$k!#(B
+     接頭・接尾語入力をする際に設定する。
+     abbrev モードと同じキーを使用しない場合に
+     skk-nicola-prefix-suffix-abbrev-chars を nil にして設定する。
 
-     ($BNc(B)
+     (例)
 
      (setq skk-nicola-prefix-suffix-abbrev-chars '())
      (setq skk-nicola-prefix-suffix-chars '(?s ?l))
 
     o skk-nicola-abbrev-chars
 
-     abbrev $B%b!<%I$KF~$k:]$K@_Dj$9$k!#(B
-     $B@\F,!&@\Hx8lF~NO$HF1$8%-!<$r;HMQ$7$J$$>l9g$K(B
-     skk-nicola-prefix-suffix-abbrev-chars $B$r(B nil $B$K$7$F@_Dj$9$k!#(B
+     abbrev モードに入る際に設定する。
+     接頭・接尾語入力と同じキーを使用しない場合に
+     skk-nicola-prefix-suffix-abbrev-chars を nil にして設定する。
 
-     ($BNc(B)
+     (例)
 
      (setq skk-nicola-prefix-suffix-abbrev-chars '())
      (setq skk-nicola-abbrev-chars '(?g ?h))
 
-$B!Z<-=q$NHs8_49@-![(B
+【辞書の非互換性】
 
-NICOLA-DDSKK $B$O%m!<%^;zF~NO$NBX$o$j$K!"$+$JF~NO$r4pK\$H$7$F$$$k$?$a!"(B
-$B<-=q$NFbMF$,2<$K<($9$h$&$KK\Mh$N(B SKK $B$H0[$J$k$3$H$,$"$j$^$9!#(B
+NICOLA-DDSKK はローマ字入力の替わりに、かな入力を基本としているため、
+辞書の内容が下に示すように本来の SKK と異なることがあります。
 
-$BK\Mh$N(BSKK
-    $B$$(Bt /$B9T(B/[$B$C$?(B/$B9T(B/]/
+本来のSKK
+    いt /行/[った/行/]/
 
 NICOLA SKK
-    $B$$(Bt /$B9T(B/[$B$C(B/$B9T(B/]/
+    いt /行/[っ/行/]/
 
-NICOLA $BF~NO$N>l9g$O!"L5M}$K%*%j%8%J%k$K9g$o$;$k$H!">/$7$*$+$7$J%?%$%_(B
-$B%s%0!J!X"&$$(B*$B$C$?!Y$^$GF~NO!K$GJQ49$9$k$3$H$K$J$j$^$9$N$G!"(BNICOLA-DDSKK
-$B$O$"$($F$3$N$h$&$J;EMM$K$7$F$"$j$^$9!#(B
+NICOLA 入力の場合は、無理にオリジナルに合わせると、少しおかしなタイミ
+ング（『▽い*った』まで入力）で変換することになりますので、NICOLA-DDSKK
+はあえてこのような仕様にしてあります。
 
-skk-henkan-okuri-strictly $B$rHs(B nil $B$K$7$F$$$k>l9g$OLdBj$K$J$jF@$^$9$,!"(B
-$B$3$l$K$D$$$F$O(B SKK $BK\BN$K<j$rF~$l!"(BNICOLA-DDSKK $B;HMQ;~$K$OA0<T$r6/@)E*(B
-$B$K8e<T$KCV$-49$($k$3$H$GBP=h$7$F$$$^$9!#(B
+skk-henkan-okuri-strictly を非 nil にしている場合は問題になり得ますが、
+これについては SKK 本体に手を入れ、NICOLA-DDSKK 使用時には前者を強制的
+に後者に置き換えることで対処しています。
 

@@ -1,63 +1,63 @@
-;;; dot.emacs --- SKK related customization in ~/.emacs  -*- mode: emacs-lisp; coding: iso-2022-jp -*-
+;;; dot.emacs --- SKK related customization in ~/.emacs  -*- mode: emacs-lisp; coding: utf-8 -*-
 
 ;;; Commentary:
 
-;; ~/.emacs.d/init.el $B$KDI2C$9$k$?$a$N@_DjNc$G$9!#(B
+;; ~/.emacs.d/init.el に追加するための設定例です。
 
-;;; $BCm0U(B:
+;;; 注意:
 
-;; SKK $B$N@_Dj$O!"(B~/.skk $B$NJ}$,M%@h$5$l$^$9!#(B
-;; $B2<5-$N@_Dj$O!"FC<l$J;v>p$,$"$k$?$a(B ~/.skk $B$G$O$&$^$/5!G=$7$J$$@_Dj$r(B
-;; $B=8$a$F$$$^$9$N$G!"2<5-0J30$O(B ~/.skk $B$G@_Dj$9$k$3$H$r$*4+$a$7$^$9!#(B
+;; SKK の設定は、~/.skk の方が優先されます。
+;; 下記の設定は、特殊な事情があるため ~/.skk ではうまく機能しない設定を
+;; 集めていますので、下記以外は ~/.skk で設定することをお勧めします。
 
 ;;; Code:
 
-;; @@ $B4pK\$N@_Dj(B
+;; @@ 基本の設定
 
-;; $B!V%+%?%+%J(B/$B$R$i$,$J!W%-!<$G(B SKK $B$r5/F0$9$k(B
+;; 「カタカナ/ひらがな」キーで SKK を起動する
 (global-set-key [hiragana-katakana] 'skk-mode)
 
-;; ~/.skk $B$K$$$C$Q$$@_Dj$r=q$$$F$$$k$N$G%P%$%H%3%s%Q%$%k$7$?$$(B
+;; ~/.skk にいっぱい設定を書いているのでバイトコンパイルしたい
 (setq skk-byte-compile-init-file t)
-;; $BCm(B) $B0[$J$k<oN`$N(B Emacsen $B$r;H$C$F$$$k>l9g$O(B nil $B$K$7$^$9(B
+;; 注) 異なる種類の Emacsen を使っている場合は nil にします
 
-;; SKK $B$r(B Emacs $B$N(B input method $B$H$7$F;HMQ$9$k(B
-;;   `toggle-input-method' (C-\) $B$G(B DDSKK $B$,5/F0$7$^$9(B
+;; SKK を Emacs の input method として使用する
+;;   `toggle-input-method' (C-\) で DDSKK が起動します
 (setq default-input-method
       "japanese-skk"			; (skk-mode 1)
 ;;    "japanese-skk-auto-fill"		; (skk-auto-fill-mode 1)
       )
 
-;; SKK $B$r5/F0$7$F$$$J$/$F$b!"$$$D$G$b(B skk-isearch $B$r;H$&(B
+;; SKK を起動していなくても、いつでも skk-isearch を使う
 (setq skk-isearch-mode-enable 'always)
 
-;; @@ $B1~MQE*$J@_Dj(B
+;; @@ 応用的な設定
 
-;; ~/.skk* $B$J%U%!%$%k$,$?$/$5$s$"$k$N$G@0M}$7$?$$(B
+;; ~/.skk* なファイルがたくさんあるので整理したい
 (setq skk-user-directory "~/.ddskk")
-;; $BCm(B 1) $B>e5-$N@_Dj$r$7$?>l9g!"(B~/.skk $B$d(B ~/.skk-jisyo $B$NBe$o$j$K(B
-;;       ~/.ddskk/init $B$d(B ~/.ddskk/jisyo $B$,;H$o$l$^$9!#$?$@$7!"(B
-;;       $B$3$l$i$N%U%!%$%kL>$r8DJL$K@_Dj$7$F$$$k>l9g$O$=$N@_Dj$,M%@h(B
-;;       $B$5$l$k$N$GCm0U$7$F$/$@$5$$!#$^$?!"(B~/.skk $B$d(B ~/.skk-jisyo $B$r(B
-;;       $B4{$K$b$C$F$$$k>l9g$O<jF0$G%3%T!<$9$kI,MW$,$"$j$^$9!#(B
-;;       -- $B1F6A$r<u$1$kJQ?t$N0lMw(B --
+;; 注 1) 上記の設定をした場合、~/.skk や ~/.skk-jisyo の代わりに
+;;       ~/.ddskk/init や ~/.ddskk/jisyo が使われます。ただし、
+;;       これらのファイル名を個別に設定している場合はその設定が優先
+;;       されるので注意してください。また、~/.skk や ~/.skk-jisyo を
+;;       既にもっている場合は手動でコピーする必要があります。
+;;       -- 影響を受ける変数の一覧 --
 ;;          skk-init-file, skk-jisyo, skk-backup-jisyo
 ;;          skk-emacs-id-file. skk-record-file,
 ;;          skk-study-file, skk-study-backup-file
-;; $BCm(B 2) SKK $B$N8D?M<-=q$O(B skkinput $B$J$I$N%W%m%0%i%`$G$b;2>H$7$^$9$+$i!"(B
-;;       $B>e5-$N@_Dj$r$7$?>l9g$O$=$l$i$N%W%m%0%i%`$N@_Dj%U%!%$%k$b=q$-(B
-;;       $B49$($kI,MW$,$"$j$^$9!#(B
+;; 注 2) SKK の個人辞書は skkinput などのプログラムでも参照しますから、
+;;       上記の設定をした場合はそれらのプログラムの設定ファイルも書き
+;;       換える必要があります。
 
-;; migemo $B$r;H$&$+$i(B skk-isearch $B$K$O$*$H$J$7$/$7$F$$$FM_$7$$(B
+;; migemo を使うから skk-isearch にはおとなしくしていて欲しい
 (setq skk-isearch-start-mode 'latin)
 
-;; YaTeX $B$N$H$-$@$16gFIE@$rJQ99$7$?$$(B
+;; YaTeX のときだけ句読点を変更したい
 (add-hook 'yatex-mode-hook
 	  (lambda ()
 	    (require 'skk)
 	    (setq skk-kutouten-type 'en)))
 
-;; $BJ8>O7O$N%P%C%U%!$r3+$$$?;~$K$O<+F0E*$K1Q?t%b!<%I(B($B!V(BSKK$B!W%b!<%I(B)$B$KF~$k(B
+;; 文章系のバッファを開いた時には自動的に英数モード(「SKK」モード)に入る
 (let ((function #'(lambda ()
 		    (require 'skk)
 		    (skk-latin-mode-on))))
@@ -67,11 +67,11 @@
 		  message-setup-hook))
     (add-hook hook function)))
 
-;; Emacs $B5/F0;~$K(B SKK $B$rA0$b$C$F%m!<%I$9$k(B
+;; Emacs 起動時に SKK を前もってロードする
 (setq skk-preload t)
-;; $BCm(B) skk.el $B$r%m!<%I$9$k$@$1$J$i(B (require 'skk) $B$G$b$h$$!#>e5-@_Dj$N(B
-;; $B>l9g$O!"(Bskk-search-prog-list $B$K;XDj$5$l$?<-=q$b$3$N;~E@$GFI$_9~$s$G(B
-;; $B=`Hw$9$k!#(BEmacs $B$N5/F0$OCY$/$J$k$,!$(BSKK $B$r;H$$;O$a$k$H$-$N%l%9%]%s%9(B
-;; $B$,7Z2w$K$J$k!#(B
+;; 注) skk.el をロードするだけなら (require 'skk) でもよい。上記設定の
+;; 場合は、skk-search-prog-list に指定された辞書もこの時点で読み込んで
+;; 準備する。Emacs の起動は遅くなるが，SKK を使い始めるときのレスポンス
+;; が軽快になる。
 
 ;;; dot.emacs ends here

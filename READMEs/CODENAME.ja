@@ -1,115 +1,115 @@
 * Rule
 
-$B$[$s$NM7$S$G$9!#%k!<%k$O0J2<$NDL$j!#(B
+ほんの遊びです。ルールは以下の通り。
 
-** $B;HMQ$7$FNI$$J8;z(B
+** 使用して良い文字
 
-$BI,$:(B ascii $BJ8;z$N$_$GI85-$7$F2<$5$$!#(Biso8859-4 $B$J$I$NJ8;z%;%C%H$r;H$C$F$O$J(B
-$B$j$^$;$s!#(B
+必ず ascii 文字のみで標記して下さい。iso8859-4 などの文字セットを使ってはな
+りません。
 
-** $B;OH/(B
+** 始発
 
-$B$\$/$N@8$l8N6?$G$"$kBg:eI\L'LL;T$r;OH/$K$7$F!":e5^L'LL@~(B $BL'LL1X$+$i!V8x6&$N(B
-$B8rDL5!4X$N1XL>!W$GO"B3$7$F$f$/M=Dj$G$9!#@P661X$G:e5^JuDM@~$K>h49$($FBg:eG_ED(B
-$B=*E@$^$G$H$j$"$($:9T$/M=Dj$G$9!#$=$3$+$i:e5^?@8M@~$K>h$j7Q$0$bNI$7!"(BJR $B$K>h(B
-$B49$($k$bNI$7!"CzEY$=$N$H$-$K(B TAG $B$rIU$1$??M$,7h$a$F2<$5$$!#(B
+ぼくの生れ故郷である大阪府箕面市を始発にして、阪急箕面線 箕面駅から「公共の
+交通機関の駅名」で連続してゆく予定です。石橋駅で阪急宝塚線に乗換えて大阪梅田
+終点までとりあえず行く予定です。そこから阪急神戸線に乗り継ぐも良し、JR に乗
+換えるも良し、丁度そのときに TAG を付けた人が決めて下さい。
 
-** $BJQ998D=j(B
+** 変更個所
 
-skk-version.el $B$NCf$N(B
+skk-version.el の中の
 
 (put 'skk-version 'codename "Syounai")
 
-"Syounai" $B$N$h$&$K$J$C$F$$$k$H$3$m$G$9!#(B"$B1XL>(B" $B$r%m!<%^;zI85-$7$F2<$5(B
-$B$$!#$3$3$rJQ99$9$k$3$H$G(B M-x skk-version $B$G(B Codename $B$r4^$a$?I=<($,$5(B
-$B$l$k$h$&$K$J$j$^$9!#(B
+"Syounai" のようになっているところです。"駅名" をローマ字標記して下さ
+い。ここを変更することで M-x skk-version で Codename を含めた表示がさ
+れるようになります。
 
    M-x skk-version
     => Daredevil SKK/14.1 (Syounai)
 
 *** 2013-03-17
 
-skk-version.el $B$K4A;z1XL>$rDI2C$7$^$7$?!#(B
-  (put 'skk-version 'codename-ja "$BD9K|It(B")
+skk-version.el に漢字駅名を追加しました。
+  (put 'skk-version 'codename-ja "長万部")
 
-$BF1;~$K!"?7$?$JJQ?t(B skk-version-codename-ja $B$bDI2C$7$^$7$?!#$3$NJQ?t$,(B non-nil
-$B$G$"$l$P(B M-x skk-version $B$G(B Codename $B$O4A;z1XL>$,I=<($5$l$^$9!#(B
+同時に、新たな変数 skk-version-codename-ja も追加しました。この変数が non-nil
+であれば M-x skk-version で Codename は漢字駅名が表示されます。
 
    (let ((skk-version-codename-ja t))
      (skk-version))
-    => Daredevil SKK/15.1.51 ($BD9K|It(B)
+    => Daredevil SKK/15.1.51 (長万部)
 
-** $B$=$NB>(B
+** その他
 
-o $B%?%/%7!<$O1X$,$J$$$N$GBLL\$G$9!#(B
+o タクシーは駅がないので駄目です。
 
-o $B8x6&$N8rDL5!4X$G$"$l$P$I$3$N2q<R$G$bNI$$$G$9$,!">h$j7Q$.$N$H$-$O!"J*M}E*$K(B
-  $B>h$j7Q$.$,$G$-$k$b$N$K>h$k$3$H$K$7$^$7$g$&(B ($BELJb$G;3$r1[$($?$i>h$l$k(B...
-  $B$J$I$O86B'$J$7(B)$B!#(B
+o 公共の交通機関であればどこの会社でも良いですが、乗り継ぎのときは、物理的に
+  乗り継ぎができるものに乗ることにしましょう (徒歩で山を越えたら乗れる...
+  などは原則なし)。
 
-o $B=*E@$^$G9T$+$:$H$b!"ESCf$GB><R@~$K>h$j7Q$0$3$H$b<+M3$G$9!#(B
+o 終点まで行かずとも、途中で他社線に乗り継ぐことも自由です。
 
-o $B5^9T!"FC5^$J$I$K>h$C$F%m!<%+%k1X$r%Q%9$9$k$J$I$NN"5;$O$"$j!#(B
+o 急行、特急などに乗ってローカル駅をパスするなどの裏技はあり。
 
-o $B0[$J$kO)@~$GF1$81X$rFsEYDL2a$7$F$bF1$8(B Codename $B$O(B 2 $BEY=P$5$J$$$3$H$K$7$^(B
-  $B$9!#(B
+o 異なる路線で同じ駅を二度通過しても同じ Codename は 2 度出さないことにしま
+  す。
 
-** $B<!$N?M$N$?$a$K(B...
+** 次の人のために...
 
-$B<!$N?M$,$=$N8rDL5!4X$,Av$C$F$$$kEZCO$K=;$s$G$$$J$/$H$b(B Codename $B$rIU$1$i$l$k(B
-$B$h$&$K$7$F2<$5$$!#6qBNE*$K$O!"O)@~JQ99$dB><R@~$K>h49$($?$H$-$K!"$3$N%U%!%$%k(B
-$B$K@Z$j$NNI$$$H$3$m$^$G$N1XL>$r=q$$$F2<$5$$!#(B
+次の人がその交通機関が走っている土地に住んでいなくとも Codename を付けられる
+ようにして下さい。具体的には、路線変更や他社線に乗換えたときに、このファイル
+に切りの良いところまでの駅名を書いて下さい。
 
-$BFC$K(B JR $B0J30$N1XL>$rD4$Y$k$N$O!"0[$J$kCO0h$N?M4V$K$H$C$F$O7k9=Fq$7$$$N$G!"I,(B
-$B$:=q$$$F2<$5$$!#(B
+特に JR 以外の駅名を調べるのは、異なる地域の人間にとっては結構難しいので、必
+ず書いて下さい。
 
 
-* $B:e5^L'LL@~!"JuDM@~(B
+* 阪急箕面線、宝塚線
 
-$BL'LL(B                Mino-o    --- $B:e5^L'LL@~(B  --- $BBg:eI\(B
-$BKRMn(B                Makiochi
-$B:y0f(B                Sakurai
-$B@P66(B                Ishibashi --- $B:e5^JuDM@~(B
-$B7VCS(B($BBg:e6u9AA0(B)    Hotarugaike
-$BK-Cf(B                Toyonaka      11.6.0
-$B2,D.(B                Okamachi      12.1.0
-$BA>:,(B                Sone          12.2.0
-$BI~It(B                Hattori       13.1
-$B>1Fb(B                Syounai       14.1
-$B;09q(B                Mikuni        14.2
-$B==;0(B                Juso          14.3
-$BCfDE(B                Nakatsu       14.4
-$BG_ED(B                Umeda         15.1
+箕面                Mino-o    --- 阪急箕面線  --- 大阪府
+牧落                Makiochi
+桜井                Sakurai
+石橋                Ishibashi --- 阪急宝塚線
+蛍池(大阪空港前)    Hotarugaike
+豊中                Toyonaka      11.6.0
+岡町                Okamachi      12.1.0
+曽根                Sone          12.2.0
+服部                Hattori       13.1
+庄内                Syounai       14.1
+三国                Mikuni        14.2
+十三                Juso          14.3
+中津                Nakatsu       14.4
+梅田                Umeda         15.1
 
-* $BO)@~$NJQ99(B 2013-3-17 (Sun) $BKLK\9d(B
+* 路線の変更 2013-3-17 (Sun) 北本剛
 
-$BG_ED(B (15.1) $B$+$i@h$OL$5-:\$G$7$?!#Ev%U%!%$%k@hF,ItJ,$K(B
-  $B!V=*E@(B ($BBg:eG_ED(B) $B$+$i@h$O:e5^?@8M@~$K>h$j7Q$0$bNI$7!"(BJR $B$K>h49$($k$bNI$7!W(B
-$B$HJ}?K$,=R$Y$i$l$F$$$^$9$,!"F1$8$/!"(B
-  $B!VCzEY$=$N$H$-$K(B TAG $B$rIU$1$??M$,7h$a$F2<$5$$!#!W(B
-$B$H$b5-:\$,$"$j$7$?$N$G!"$3$l$r3HBg2r<a$7$FEbFM$G$9$,KL3$F;$X9T$-$^$9!#(B
+梅田 (15.1) から先は未記載でした。当ファイル先頭部分に
+  「終点 (大阪梅田) から先は阪急神戸線に乗り継ぐも良し、JR に乗換えるも良し」
+と方針が述べられていますが、同じく、
+  「丁度そのときに TAG を付けた人が決めて下さい。」
+とも記載がありしたので、これを拡大解釈して唐突ですが北海道へ行きます。
 
-** JR $BKL3$F;!"H!4[K\@~(B
+** JR 北海道、函館本線
 
-$BD9K|It(B    Oshamambe       15.2
-$BFs8T(B      Futamata        16.1
-$BOOBR(B      Warabitai       16.2
-$B9u>>Fb(B    Kuromatsunai     :
-$BG.n>(B      Neppu
-$BL\L>(B      Mena
-$BMv1[(B      Rankoshi
-$B:+I[(B      Kombu
-$B%K%;%3(B    Niseko
-$BHfMeIW(B    Hirafu
-$B6fCN0B(B    Kutchan
-$B>.Bt(B      Kozawa
-$B6d;3(B      Ginzan
-$BA3JL(B      Shikaribetsu
-$B?NLZ(B      Niki
-$BM>;T(B      Yoichi
-$BMvEg(B      Ranshima
-$B1vC+(B      Shioya
-$B>.C.(B      Otaru
+長万部    Oshamambe       15.2
+二股      Futamata        16.1
+蕨岱      Warabitai       16.2
+黒松内    Kuromatsunai     :
+熱郛      Neppu
+目名      Mena
+蘭越      Rankoshi
+昆布      Kombu
+ニセコ    Niseko
+比羅夫    Hirafu
+倶知安    Kutchan
+小沢      Kozawa
+銀山      Ginzan
+然別      Shikaribetsu
+仁木      Niki
+余市      Yoichi
+蘭島      Ranshima
+塩谷      Shioya
+小樽      Otaru
 
 http://www.jrhokkaido.co.jp/network/img/routemap_j.pdf
 http://www2.jrhokkaido.co.jp/global/english/rmap/route_map.pdf
@@ -117,5 +117,6 @@ http://www2.jrhokkaido.co.jp/global/english/rmap/route_map.pdf
 * Next, where shall we go?
 
 Local variables:
+coding: utf-8
 mode: outline
 end:

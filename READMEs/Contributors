@@ -5,13 +5,13 @@ changed, please let us know.
                              SKK Development Team <skk@ring.gr.jp>
 
 Contributors:
-  $BCfDE;3(B $B91(B <hisashi@rst.fujixerox.co.jp>
-  $B>.4X(B $B5HB'(B <kose@wizard.tamra.co.jp>
-  $B>.Ln(B $B9'CK(B <takao@hirata.nuee.nagoya-u.ac.jp>
-  $B>>0f9'M:(B/MATUI Takao <mat@nuis.ac.jp>
-  $B?JF#M5;V(B <shindo@super.ees.saitama-u.ac.jp>
-  $BD@;VM&(B <jshen@cas.org>
-  $BDS?"(B $B@5Bg(B <ma-tsuge@kdd.co.jp>
+  中津山 恒 <hisashi@rst.fujixerox.co.jp>
+  小関 吉則 <kose@wizard.tamra.co.jp>
+  小野 孝男 <takao@hirata.nuee.nagoya-u.ac.jp>
+  松井孝雄/MATUI Takao <mat@nuis.ac.jp>
+  進藤裕志 <shindo@super.ees.saitama-u.ac.jp>
+  沈志勇 <jshen@cas.org>
+  柘植 正大 <ma-tsuge@kdd.co.jp>
   Akihiro Motoki  <amotoki@dd.iij4u.or.jp>
   Chikanobu Toyofuku <unbound@papaya.juice.or.jp>
   co <cogood@gmail.com>
@@ -48,7 +48,7 @@ Contributors:
   Kitamoto Tsuyoshi <tsuyoshi.kitamoto@gmail.com>
   Kiyoka Nishiyama <kiyoka@sumibi.org>
   Koichi MORI <kmori@onsei2.rilp.m.u-tokyo.ac.jp>
-  KOIE Hidetaka ($B8q9>1QN4(B) <hide@koie.org>
+  KOIE Hidetaka (鯉江英隆) <hide@koie.org>
   Koji Uchida <uchida@cfd.tytlabs.co.jp>
   KURIHARA Kenichi  <kenichi_kurihara@nifty.com>
   Makoto MATSUSHITA <matusita@ics.es.osaka-u.ac.jp>
@@ -118,3 +118,6 @@ Contributors:
   Yusuke Shinyama <yusuke at cs . nyu . edu>
 
 ;; end of contributors.
+Local variables:
+coding: utf-8
+end:
