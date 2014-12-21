@@ -1,3 +1,8 @@
+2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/README.ja, dic/README, experimental/GUIDELINE:
+	* patches/README.ja, tut-code/README.tut: convert to utf-8.
+
 2014-12-21  Yasushi Abe  <yasushi.abe@gmail.com>
 
 	* SKK-MK, doc/skk.texi, queue-m.el, skk.el: Use list instead of
