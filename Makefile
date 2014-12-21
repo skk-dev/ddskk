@@ -20,11 +20,22 @@ TAR	  = gtar
 XEMACS	  = xemacs
 RUBY      = ruby
 PWD       = pwd
+CURL      = curl
 SKK_DEFAULT_JISYO =
 set_jisyo =
 
+TEST_DEP_1=ert
+TEST_DEP_1_STABLE_URL=http://git.savannah.gnu.org/cgit/emacs.git/plain/lisp/emacs-lisp/ert.el?h=emacs-24.3
+
 elc:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile
+
+.PHONY: test downloads
+test:
+	$(EMACS) -batch -Q -L . -L test -l test/all-tests.el -f ert-run-tests-batch-and-exit
+
+downloads :
+	$(CURL) '$(TEST_DEP_1_STABLE_URL)' > $(TEST_DEP_1).el
 
 package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-compile-package
@@ -55,7 +66,7 @@ TAGS:
 	$(ETAGS) `find . -name '*.el'`
 clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
-	auto-autoloads.el custom-load.el \
+	auto-autoloads.el custom-load.el ert.el \
 	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 tar: clean
