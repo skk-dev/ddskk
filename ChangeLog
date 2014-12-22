@@ -1,3 +1,7 @@
+2014-12-23  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+
+	* READMEs/TODO.ja: add discription about texi document for package.el.
+
 2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* bayesian/README.ja, dic/README, experimental/GUIDELINE:
