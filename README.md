@@ -41,10 +41,10 @@ Thank you.
 ### Post
   To: skk@ring.gr.jp
 
-## Contiributing
+## Contributing
   1. Fork it ( https://github.com/skk-dev/ddskk/fork )
   2. Create your feature branch (`git checkout -b my-new-feature`)
-  3. Write your changes to Changelog; if change/add/remove any features, write your changes to NEWS.ja and skk.texi 
+  3. Write your changes to ChangeLog; if change/add/remove any features, write your changes to NEWS.ja and skk.texi 
   4. Commit your changes (`git commit -am 'Add some feature'`)
   5. Push to the branch (`git push origin my-new-feature`)
   6. Create a new Pull Request
