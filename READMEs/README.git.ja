@@ -2,8 +2,12 @@ gitによる開発の流れについて
 
 http://mail.ring.gr.jp/skk/201412/msg00079.html
 
+Subject: Re: github の権限に関して
+From: Masatake YAMATO <yamato@xxxxxxxxxx>
+Date: Tue, 23 Dec 2014 16:06:19 +0900 (JST)
 
-On Tue, 23 Dec 2014 14:30:56 +0900, Yuh Ohmura <yutopia@y6.dion.ne.jp> wrote:
+
+On Tue, 23 Dec 2014 14:30:56 +0900, Yuh Ohmura <yutopia@xxxxxxxxxxxxx> wrote:
 > fork → 修正してローカルにcommit → リポジトリに対してpull request → 必要なら requestに対する修正 → merge
 > pull requestした段階で issue が発行されるので、それに対して権限のある人が 対応
 > 調整事項なども issue を発行することで協議
