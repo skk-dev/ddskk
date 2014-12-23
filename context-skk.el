@@ -79,9 +79,9 @@
 ;;   数が含まれています。
 ;;
 ;; 独自に変数を設定したい場合、関数を書く必要があります。
-;; `context-skk-custumize-functions' のドキュメントに従い、関数を書き、
+;; `context-skk-customize-functions' のドキュメントに従い、関数を書き、
 ;;
-;; (add-to-list 'context-skk-custumize-functions 
+;; (add-to-list 'context-skk-customize-functions
 ;;	        'your-on-the-fly-customize-func)
 ;;
 ;; として登録します。M-x context-skk-dump-customize による現在のポイント
@@ -126,7 +126,7 @@
   :group 'context-skk)
 
 ;;;###autoload
-(defcustom context-skk-custumize-functions 
+(defcustom context-skk-customize-functions
   '(context-skk-customize-kutouten)
   "*skk による入力開始直前に、入力をカスタマイズする関数を登録する。
 関数は以下の形式のデータを要素とするリストを返すものとする: 
@@ -197,7 +197,7 @@
      (if context-skk-mode
 	 (if (context-skk-context-check)
 	     (context-skk-insert) 
-	   (eval `(let ,(context-skk-custumize)
+	   (eval `(let ,(context-skk-customize)
 		    ad-do-it)))
        ad-do-it)))
 
@@ -211,10 +211,10 @@
   "日本語入力を自動的に off にしたい「コンテキスト」にいれば t を返す"
   (run-hook-with-args-until-success 'context-skk-context-check-hook))
 
-(defun context-skk-custumize ()
+(defun context-skk-customize ()
   "カスタマイズしたい変数と値の組を得る。"
   (let (customized-pairs)
-    (dolist (func context-skk-custumize-functions)
+    (dolist (func context-skk-customize-functions)
       (setq customized-pairs
 	    (append 
 	     (save-excursion (funcall func))
@@ -222,9 +222,9 @@
     customized-pairs))
 
 (defun context-skk-dump-customize ()
-  "現在のポイントの位置における (context-skk-custumize) の結果を表示する。"
+  "現在のポイントの位置における (context-skk-customize) の結果を表示する。"
   (interactive)
-  (let ((customized-pairs (context-skk-custumize)))
+  (let ((customized-pairs (context-skk-customize)))
     (with-output-to-temp-buffer "*context-skk customize result*"
       (pp customized-pairs))))
 
