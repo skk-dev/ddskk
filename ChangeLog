@@ -2,31 +2,68 @@
 
 	* README.md: Typo fix.
 
-2014-12-23  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+2014-12-23  Keisuke Kawahara  <kyohsuke@conafie.jp>
+
+	* README.md: add Contributing.
+
+2014-12-23  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
 
 	* READMEs/TODO.ja: add discription about texi document for package.el.
+
+2014-12-22  myuhe  <yuhei.maeda@gmail.com>
+
+	* README.md: Add MELPA badge.
+
+	* ddskk-pkg.el, skk-pkg.el: Rename skk-pkg.el to ddskk-pkg.el.
+
+2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: rename from READMEs/README.
 
 2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* bayesian/README.ja, dic/README, experimental/GUIDELINE:
 	* patches/README.ja, tut-code/README.tut: convert to utf-8.
 
+2014-12-21  myuhe  <yuhei.maeda@gmail.com>
+
+	* README.md: Add Travis badge.
+
 2014-12-21  Yasushi Abe  <yasushi.abe@gmail.com>
 
 	* SKK-MK, doc/skk.texi, queue-m.el, skk.el: Use list instead of
 	queue-m.
-	* test/all-test.el, test/skk-test.el, Makefile: Add ERT tests.
+	* .gitignore, test/all-test.el, test/skk-test.el, Makefile: Add ERT
+	tests.
 	* .travis.yml: Add new file.
 
-2014-12-18  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: modify message.
+
+2014-12-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: change message.
+
+	* .gitignore: new file.  無視するファイルを追加.
+
+2014-12-18  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
 
 	* Makefile: modify make snapshot, correct make tar.
 
-2014-12-17  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+2014-12-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: modify message.
+
+2014-12-17  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
 
 	* makeit.bat, make1.bat: new mail address.
 
 	* doc/skk.texi: correct typo
+
+2014-12-17  Kitamoto Tsuyoshi  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: Create README.md.
 
 2014-12-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -37,7 +74,7 @@
 
 	* doc/skk.texi: Update.
 
-2014-12-06  Takenari Shinohara <takenari.shinohara@gmail.com>
+2014-12-06  Takenari Shinohara  <takenari.shinohara@gmail.com>
 
 	* skk-pkg.el: Add requirements (cdb package).
 
@@ -60,7 +97,7 @@
 
 	* skk.ex: .git を追加.
 
-2014-12-01  Takenari Shinohara <takenari.shinohara@gmail.com>
+2014-12-01  Takenari Shinohara  <takenari.shinohara@gmail.com>
 
 	* cdb.el: ヘッダ行などファイルの体裁を整備.
 
