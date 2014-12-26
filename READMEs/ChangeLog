@@ -1,3 +1,8 @@
+2014-12-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* PROPOSAL.ja, README.w32.ja: Replace ~/.emacs in document to
+	~/.emacs.d/init.el.
+
 2014-12-23  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
 	* TODO.ja: add discription about texi document for package.el.

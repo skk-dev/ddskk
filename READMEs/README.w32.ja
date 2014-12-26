@@ -54,7 +54,7 @@ UnxUtils.zip をダウンロード・展開して、例えば
 
      c:/UnxUtils
 
-に置いたと仮定し、 ~/.emacs に以下のように設定します。
+に置いたと仮定し、 ~/.emacs.d/init.el に以下のように設定します。
 
 (setenv "PATH"
 	(format "%s;%s;%s"
@@ -202,9 +202,9 @@ DDSKK 14.3 では対話的インストーラを追加しました。
 APEL の時と同様、ふつうは load-path の設定は自動で、ユーザがする必要は
 ありません。
 
-*** .emacs への追加
+*** ~/.emacs.d/init.el への追加
 
-最初に起動をテストする際は、~/.emacs への設定はなにも必要ありません。
+最初に起動をテストする際は、~/.emacs.d/init.el への設定はなにも必要ありません。
 C-x C-j または M-x skk-mode で起動し、入力できることを確認します。
 
 * Windows 上で動く SKK サーバ
