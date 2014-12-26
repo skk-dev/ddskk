@@ -293,7 +293,7 @@
 $B$?$@$7!"%?!<%_%J%k$G(B Emacs $B$rMxMQ$7$F$$$k>l9g$OH=Dj$G$-$:!"(B
 $B%f!<%6$N0U?^$H9g$o$J$$$+$b$7$l$J$$$N$G!"$3$N%*%W%7%g%s$+(B
 `frame-background-mode' $B$r$"$i$+$8$a@_Dj$7$F$*$/$3$H$,K>$^$7$$!#(B
-$B$3$N%*%W%7%g%s$O(B ~/.skk $B$K@_Dj$7$F$bH?1G$5$l$J$$!#(B~/.emacs $B$+(B
+$B$3$N%*%W%7%g%s$O(B ~/.skk $B$K@_Dj$7$F$bH?1G$5$l$J$$!#(B~/.emacs.d/init.el $B$+(B
 \\[customize] $B$K$F!"(BSKK $B$,FI$_9~$^$l$kA0$K@_Dj$9$k$3$H$,I,MW!#(B"
   :type '(choice (const dark)
 		 (const light)
@@ -316,10 +316,10 @@
 			     (expand-file-name "init" skk-user-directory)
 			   (convert-standard-filename "~/.skk"))
   "*SKK $B$N=i4|@_Dj$r5-=R$9$k%U%!%$%kL>!#(BSKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_(B
-$B9~$^$l$k!#$3$N%U%!%$%k$K5-=R$9$kBe$o$j$K(B ~/.emacs $B$K(B SKK $B$N3F<o=i4|@_Dj$r(B
+$B9~$^$l$k!#$3$N%U%!%$%k$K5-=R$9$kBe$o$j$K(B ~/.emacs.d/init.el $B$K(B SKK $B$N3F<o=i4|@_Dj$r(B
 $B5-=R$9$k$3$H$b2DG=$@$,!"8e<T$N>l9g$O(B \\[skk-restart] $B$G$OH?1G$5$l$J$$!#(B
 
-~/.emacs $B$G(B $BJQ?t(B `skk-byte-compile-init-file' $B$r@_Dj$9$k$3$H$G(B `skk-init-file' $B$r(B
+~/.emacs.d/init.el $B$G(B $BJQ?t(B `skk-byte-compile-init-file' $B$r@_Dj$9$k$3$H$G(B `skk-init-file' $B$r(B
 $B<+F0E*$K%P%$%H%3%s%Q%$%k$9$k$3$H$b2DG=!#(B"
   ;;"*Name of the SKK initialization file.
   ;;From skk.el 9.x on all customization may be done in ~/.emacs."
@@ -1074,7 +1074,7 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
 	...
 	))
 
-$B>e5-$N$h$&$K(B `.emacs' $B$^$?$O(B `skk-init-file' $B$K$F@_Dj$9$k$3$H$,$G$-$k!#(B
+$B>e5-$N$h$&$K(B `~/.emacs.d/init.el' $B$^$?$O(B `skk-init-file' $B$K$F@_Dj$9$k$3$H$,$G$-$k!#(B
 
 $B$3$NJQ?t$O!"I8=`$G$O(B
 
@@ -1775,7 +1775,7 @@ nil $B$G$"$l$P!"JQ495Z$S8D?M<-=q$K4X$9$kE}7W$r<h$i$J$$!#(B"
 nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$7$F(B
 `skk-init-file' $B$NJ}$,?7$7$$$H$-$O!"$=$N%P%$%H%3%s%Q%$%k:Q%U%!%$%k$r>C$9!#(B
 
-$B$3$NJQ?t$O(B ~/.emacs $B$G@_Dj$9$k$3$H!#(B"
+$B$3$NJQ?t$O(B ~/.emacs.d/init.el $B$G@_Dj$9$k$3$H!#(B"
   :type 'boolean
   :group 'skk-misc)
 
@@ -2210,7 +2210,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 
 (defconst skk-default-jisx0208-latin-vector
   ;; note that skk-jisx0208-latin-vector is a user variable.
-  ;; skk.el $B%m!<%IA0$K(B .emacs $B$J$I$G!"(Bskk-jisx0208-latin-vector $B$NJL$NCM$r%f!<(B
+  ;; skk.el $B%m!<%IA0$K(B ~/.emacs.d/init.el $B$J$I$G!"(Bskk-jisx0208-latin-vector $B$NJL$NCM$r%f!<(B
   ;; $B%6!<$,D>@\=q$$$?$j!"(Bskk.el $B%m!<%I8e$K$3$NCM$r(B aset $B$GD>@\$$$8$C$?$j$7$J(B
   ;; $B$1$l$P(B default-value $B$G(B skk-jisx0208-latin-vector $B$K%"%/%;%9$9$k$3$H$G(B
   ;; skk-default-jisx0208-latin-vector $B$NCM$rJ];}$9$k$3$H$b$G$-$h$&$,!"$=$l$O(B

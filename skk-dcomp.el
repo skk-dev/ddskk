@@ -54,7 +54,8 @@
 ;;
 ;; <HOW TO USE>
 ;;
-;; .emacs もしくは .skk に (setq skk-dcomp-activate t) と書きましょう。
+;; ~/.emacs.d/init.el もしくは ~/.skk に (setq skk-dcomp-activate t) と書き
+;; ましょう。
 ;; SKK 起動後にダイナミックコンプリーションの機能を止めたかったら、
 ;; (setq skk-dcomp-activate nil) を評価しましょう。
 ;;

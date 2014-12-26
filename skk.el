@@ -233,7 +233,7 @@ dependent."
 
 (defun skk-restart ()
   "`skk-init-file' の再ロード及び各種再設定の後 SKK モードを起動する。
-各種ユーザ変数をいったん初期化するので、~/.emacs で SKK の設定をしている場合は
+各種ユーザ変数をいったん初期化するので、~/.emacs.d/init.el で SKK の設定をしている場合は
 使うべきでない。
 `skk-kakutei-key' の変更には対応できていない。"
   (interactive)

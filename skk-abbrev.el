@@ -29,9 +29,9 @@
 ;;; Commentary
 
 ;; <how to install>
-;;   下記のフォームを .emacs か .skk に書いて下さい。skk-search-prog-list に
-;; ついては、全部を写す必要はありません。(skk-abbrev-search) を含むように指定し
-;; て下さい。
+;;   下記のフォームを ~/.emacs.d/init.el か ~/.skk に書いて下さい。
+;;   skk-search-prog-list については、全部を写す必要はありません。
+;;   (skk-abbrev-search) を含むように指定して下さい。
 ;;
 ;; (setq skk-search-prog-list
 ;;       '((skk-search-jisyo-file skk-jisyo 0 t)

@@ -28,9 +28,9 @@
 ;;; Commentary:
 
 ;; <How to work>
-;; .skk か .emacs で `skk-use-look' を t にセットしてこれを評価して下さい。その
-;; 後 skk-mode を立ち上げるか、M-x skk-restart すると、 下記のような芸当が可能
-;; になります。
+;; ~/.skk か ~/.emacs.d/init.el で `skk-use-look' を t にセットしてこれを
+;; 評価して下さい。その後 skk-mode を立ち上げるか、M-x skk-restart すると、
+;; 下記のような芸当が可能になります。
 ;;
 ;; (1)英単語を補完ができます。
 ;;
