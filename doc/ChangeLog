@@ -1,3 +1,7 @@
+2014-12-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Fix link CVS to GitHub.
+
 2014-12-21  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* makepdf.sh: New file.
