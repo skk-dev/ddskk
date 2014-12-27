@@ -82,22 +82,17 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
 ** SKK をインストール
 
-   [方法 1]
+   [リリース版]
 
-   % cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot login
+     http://openlab.ring.gr.jp/skk/
 
-   CVS password: guest (CR)
+   [開発版]
 
-   % cvs -d :pserver:guest@openlab.ring.gr.jp:/circus/cvsroot \
-   co skk/main
-
-   [方法 2]
-
-   http://openlab.ring.gr.jp/skk/
+     https://github.com/skk-dev/ddskk
 
 ** NICOLA-DDSKK のインストール
 
-   必ず、上でインストールした SKK に同梱されている NICOLA-DDSKK をイン
+   必ず、上記でインストールした SKK に同梱されている NICOLA-DDSKK をイン
    ストールしてください。つまり、SKK をバージョンアップしたら必ず
    NICOLA-DDSKK をインストールし直してください。
 
@@ -109,7 +104,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
 ** SKK の設定
 
-   ~/.emacs に
+   ~/.emacs.d/init.el に
 
      (require 'skk-setup)
 
