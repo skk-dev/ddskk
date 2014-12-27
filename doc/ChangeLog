@@ -3,6 +3,8 @@
 	* skk.texi: Fix link CVS to GitHub.
 	Replace ~/.emacs to ~/.emacs.d/init.el.
 
+	* skk.texi (line 2446): Use @item (commit e9d8c5 bug).
+
 2014-12-21  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* makepdf.sh: New file.
