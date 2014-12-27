@@ -1,7 +1,7 @@
 2014-12-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* context-skk.el, skk-abbrev.el, skk-dcomp.el, skk-look.el:
-	* skk-vars.el, skk.el: Raplace ~/.emacs in comment to ~/.emacs.d/init.el.
+	* skk-vars.el, skk.el: Replace ~/.emacs in comment to ~/.emacs.d/init.el.
 
 2014-12-24  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
