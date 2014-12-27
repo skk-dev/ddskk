@@ -3,6 +3,8 @@
 	* PROPOSAL.ja, README.w32.ja: Replace ~/.emacs in document to
 	~/.emacs.d/init.el.
 
+	* AUTHORS.ja, README.w32.ja: tiny fix.
+
 2014-12-23  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
 	* TODO.ja: add discription about texi document for package.el.
