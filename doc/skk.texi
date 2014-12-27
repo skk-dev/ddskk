@@ -590,7 +590,7 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 $B$K(B DDSKK $B$,EPO?$5$l$?$3$H$K$h$j(B GNU Emacs $B$G$b(B @file{package.el} $B$K$h$k%$%s%9%H!<%k$,(B
 $B2DG=$H$J$j$^$7$?!#(B
 
-$B$^$:$O!"(BMELPA $B$rMxMQ$9$k$?$a$K(B @file{~/.emacs} $B$K$F<!$N$H$*$j@_Dj$7$^$9!#(B
+$B$^$:$O!"(BMELPA $B$rMxMQ$9$k$?$a$K(B @file{~/.emacs.d/init.el} $B$K$F<!$N$H$*$j@_Dj$7$^$9!#(B
 
 @lisp
 @group
@@ -631,7 +631,7 @@ Install package `skk-20141206.1418'? (yes or no)
 
 MELPA $B$rMxMQ$7$F%$%s%9%H!<%k$7$?>l9g!"(BDDSKK $B$N<B9T;~(B
 $B$K(B @file{leim-list.el} $B$H(B @file{skk-setup.el} $B$,B8:_$J$$$?(B
-$B$a!"(B@file{~/.emacs} $B$K$F%-!<%P%$%s%I$rDj5A$9$kI,MW$,$"$j$^$9!#(B
+$B$a!"(B@file{~/.emacs.d/init.el} $B$K$F%-!<%P%$%s%I$rDj5A$9$kI,MW$,$"$j$^$9!#(B
 
 $B$^$?!"%j%]%8%H%j$K4^$^$l$k(B @file{doc} $B$d(B @file{etc} $BEy$N%G%#%l%/%H%j$OA4$F(B
 $B%$%s%9%H!<%k$5$l$^$;$s!#%$%s%9%H!<%k$5$l$k%U%!%$%k$O(B MELPA $B$KEPO?$5$l$k(B
@@ -783,7 +783,7 @@ DDSKK $B$OFCDj$N<-=q%5!<%P$N<BAu$K0MB8$7$F$$$^$;$s$N$G!"2<5-$N<-=q%5!<%P$N(B
 @section $B:G$b4pK\E*$J@_Dj(B
 @vindex skk-cdb-large-jisyo
 
-$B<+F0@_Dj$K$h$i$:<jF0$G@_Dj$9$k>l9g$O!"<!$NFbMF$r(B @file{~/.emacs} $B$K=q$-$^(B
+$B<+F0@_Dj$K$h$i$:<jF0$G@_Dj$9$k>l9g$O!"<!$NFbMF$r(B @file{~/.emacs.d/init.el} $B$K=q$-$^(B
 $B$9(B@footnote{$B%5%s%W%k$H$7$F!"G[I[J*$K(B @file{etc/dot.emacs}$B!"(B@file{etc/dot.skk} $B%U(B
 $B%!%$%k$,$"$j$^$9!#;29M$K$7$F2<$5$$!#(B}$B!#(B
 
@@ -844,7 +844,7 @@ SKK $B<-=q(B $B$N(B @file{Makefile} $BCf$N(B cdb $B%?!<%2%C%H$r<B9T$9$k$3
 $B$K$7$^$9!#%G%U%)%k%H$O(B @code{t} $B$G$9!#(B
 
 @code{nil} $B$K@_Dj$9$k$H(B @code{skk-isearch} $B$rL58z$K$9$k$3$H$,$G$-$^$9(B
-@footnote{$BJQ?t(B @code{skk-isearch-mode-enable} $B$O(B @file{~/.emacs} $B$+(B @kbd{M-x customize-variable} $B$G@_Dj$7$F$/$@$5$$!#(B}$B!#(B
+@footnote{$BJQ?t(B @code{skk-isearch-mode-enable} $B$O(B @file{~/.emacs.d/init.el} $B$+(B @kbd{M-x customize-variable} $B$G@_Dj$7$F$/$@$5$$!#(B}$B!#(B
 
 @lisp
 (setq skk-isearch-mode-enable nil)
@@ -978,7 +978,7 @@ Emacs $B$NI8=`%-!<%P%$%s%I$G$O(B @kbd{C-\} $B$r%?%$%W$9$k$H(B
 
 @defvr {$B%f!<%6JQ?t(B} default-input-method
 
-Emacs $B5/F0;~$N(B input method $B$r(B DDSKK $B$H$9$k$K$O!"(B@file{~/.emacs} $B$K(B
+Emacs $B5/F0;~$N(B input method $B$r(B DDSKK $B$H$9$k$K$O!"(B@file{~/.emacs.d/init.el} $B$K(B
 
 @lisp
 (setq default-input-method "japanese-skk")
@@ -1050,7 +1050,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-preload
 
-@file{~/.emacs} $B$K$FJQ?t(B @code{skk-preload} $B$r(B @code{non-nil} $B$H@_Dj$9$k$3(B
+@file{~/.emacs.d/init.el} $B$K$FJQ?t(B @code{skk-preload} $B$r(B @code{non-nil} $B$H@_Dj$9$k$3(B
 $B$H$K$h$j!"(BDDSKK $B$N=i2s5/F0$rB.$/$9$k$3$H$,$G$-$^$9!#(B
 
 @lisp
@@ -1069,7 +1069,7 @@ Window System $B2<$GBP1~$9$k(B Emacs $B$r;HMQ$7$F$$$k>l9g!#(B
 @defun {$B%3%^%s%I(B} skk-restart
 
 @kbd{M-x skk-restart} $B$H<B9T$9$k$H(B SKK $B$r:F5/F0$7$^$9!#(B
-@file{~/.skk} $B$O:F%m!<%I$7$^$9$,!"(B@file{~/.emacs} $B$O:F%m!<%I$7$^$;$s!#(B
+@file{~/.skk} $B$O:F%m!<%I$7$^$9$,!"(B@file{~/.emacs.d/init.el} $B$O:F%m!<%I$7$^$;$s!#(B
 
 @end defun
 
@@ -2042,7 +2042,7 @@ DDSKK $B$K$O!"4pK\E*$JA`:nJ}K!$r3X=,$G$-$k%A%e!<%H%j%"%k$,ImB0$7$F$$$^$9!#(B
 
 @defvr {$B%f!<%6JQ?t(B} skk-tut-file
 
-$B%A%e!<%H%j%"%k%U%!%$%k$,I8=`$N>l=j$KCV$+$l$F$$$J$$>l9g$O!"(B @file{~/.emacs} $B$G(B
+$B%A%e!<%H%j%"%k%U%!%$%k$,I8=`$N>l=j$KCV$+$l$F$$$J$$>l9g$O!"(B @file{~/.emacs.d/init.el} $B$G(B
 
 @lisp
 (setq skk-tut-file "/usr/local/share/skk/SKK.tut")
@@ -2420,11 +2420,10 @@ XEmacs $B$N3HD%5!G=$rMxMQ$9$k%W%m%0%i%`$r=8$a$?%U%!%$%k!#(B
 @node $B%f!<%6%*%W%7%g%s$N@_DjJ}K!(B
 @section $B%f!<%6%*%W%7%g%s$N@_DjJ}K!(B
 
-@cindex @file{~/.emacs}
 @cindex @file{~/.emacs.d/init.el}
 @cindex @file{~/.xemacs/init.el}
 @cindex @file{~/.skk}
-DDSKK $B$N%+%9%?%^%$%:$O!"(B@file{~/.emacs} $B$"$k$$$O(B @file{~/.skk} $B$K5-=R$7(B
+DDSKK $B$N%+%9%?%^%$%:$O!"(B@file{~/.emacs.d/init.el} $B$"$k$$$O(B @file{~/.skk} $B$K5-=R$7(B
 $B$^$9!#$^$?!"3F%U%!%$%k$NDs6!$9$k%U%C%/$bMxMQ$7$^$9!#>e5-$N%U%!%$%k$d%U%C(B
 $B%/$rMxMQ$7$?@_Dj$,$$$DM-8z$K$J$k$N$+!"$H$$$&E@$K$D$$$F$3$3$G@bL@$7$^$9(B
 @footnote{$B0JA0$N%P!<%8%g%s$G$O!"$I$N$h$&$J%+%9%?%^%$%:$,9T$o$l$F$$$k>l9g(B
@@ -2444,14 +2443,13 @@ DDSKK $B$N%+%9%?%^%$%:$O!"(B@file{~/.emacs} $B$"$k$$$O(B @file{~/.skk} $B$K
 @subsection $B@_Dj%U%!%$%k(B
 
 @table @file
-@item ~/.emacs
 @itemx ~/.emacs.d/init.el
 @itemx ~/.xemacs/init.el
 
 Emacs $B$r5/F0$7$?$H$-$K0lEY$@$1FI$_9~$^$l$^$9!#(B
-$B$3$N%^%K%e%"%k$O(B @file{~/.emacs} $B$H$$$&5-=R$GE}0l$7$F$$$^$9!#(B
+$B$3$N%^%K%e%"%k$O(B @file{~/.emacs.d/init.el} $B$H$$$&5-=R$GE}0l$7$F$$$^$9!#(B
 
-@xref{Init File, ,.emacs, emacs, GNU Emacs Manual}.
+@xref{Init File, ,Emacs Initialization File, emacs, GNU Emacs Manual}.
 
 @item ~/.skk
 
@@ -2471,7 +2469,7 @@ DDSKK $B$O!"(B@file{~/.skk} $B$d(B @file{~/.skk-jisyo} $B$H$$$C$?J#?t$N%U%!
 $B;HMQ$7$^$9!#$3$l$i$N%U%!%$%k$r$R$H$D$N%G%#%l%/%H%j$K$^$H$a$FCV$-$?$$>l9g(B
 $B$O!"JQ?t(B @code{skk-user-directory} $B$K$=$N%G%#%l%/%H%jL>$r@_Dj$7$^$9!#(B
 
-$B$3$NJQ?t$N%G%U%)%k%H$O(B @code{nil} $B$G$9!#$3$NJQ?t$O(B @file{~/.emacs} $B$G@_Dj(B
+$B$3$NJQ?t$N%G%U%)%k%H$O(B @code{nil} $B$G$9!#$3$NJQ?t$O(B @file{~/.emacs.d/init.el} $B$G@_Dj(B
 $B$7$F$/$@$5$$!#(BDDSKK $B5/F0;~$K(B @code{skk-user-directory} $B$,;X$9%G%#%l%/%H%j(B
 $B$,B8:_$7$J$$>l9g$O!"<+F0E*$K:n$i$l$^$9!#(B
 
@@ -2539,7 +2537,7 @@ DDSKK $B$N5/F0;~$K!"(B
 @code{elc} $B$h$j$b(B @code{el} $B$,?7$7$$$H$-$O!"(B@code{elc} $B$r>C5n$7$^$9!#(B
 @end itemize
 
-$B0J>e$N5!G=$rM-8z$K$7$?$$>l9g$O!"(B@file{~/.emacs} $B$K(B
+$B0J>e$N5!G=$rM-8z$K$7$?$$>l9g$O!"(B@file{~/.emacs.d/init.el} $B$K(B
 
 @lisp
 (setq skk-byte-compile-init-file t)
@@ -2623,7 +2621,7 @@ DDSKK $B$N5/F0;~$K!"(B
 @cindex Customize
 
 Emacs $BI8=`$N(B Customize $B5!G=$r;H$C$F(B SKK $B$r@_Dj$9$k$3$H$b$G$-$^$9!#(B
-$B$?$@$7!"(B Customize $B$G$N@_Dj$O(B @file{~/.emacs} $B$G$N@_Dj$HF1MM!"(B
+$B$?$@$7!"(B Customize $B$G$N@_Dj$O(B @file{~/.emacs.d/init.el} $B$G$N@_Dj$HF1MM!"(B
 @file{~/.skk} $B$K$h$k@_Dj$G>e=q$-$5$l$F$7$^$$$^$9$N$GCm0U$7$F$/$@$5$$!#(B
 
 @kindex M-x customize-group
@@ -2996,7 +2994,7 @@ file /$B#f#i#l#e(B/
 @file{context-skk.el} $B$O!"JT=8Cf$NJ8L.$K1~$8$F(B SKK $B$NF~NO%b!<%I$r<+F0E*$K(B
 $B%"%9%-!<%b!<%I$K@Z$jBX$($kEy$N5!G=$rDs6!$7$^$9!#(B
 
-@file{context-skk.el} $B$r%m!<%I$9$k$K$O!"(B@file{~/.emacs} $B$K(B
+@file{context-skk.el} $B$r%m!<%I$9$k$K$O!"(B@file{~/.emacs.d/init.el} $B$K(B
 
 @lisp
 @group
@@ -10810,7 +10808,7 @@ muhenkan is undefined
 @end example
 
 @noindent
-$B$H$$$&Ez$($,JV$C$F$/$k$G$7$g$&!#<!$K!"$3$NL>A0$r;H$C$F(B @file{~/.emacs}
+$B$H$$$&Ez$($,JV$C$F$/$k$G$7$g$&!#<!$K!"$3$NL>A0$r;H$C$F(B @file{~/.emacs.d/init.el}
 $B$K@_Dj$r=q$-$3$_$^$9!#0J2<$O(B @key{$BL5JQ49(B} = @key{muhenkan} $B$N>l9g$NNc$G(B
 $B$9!#(B
 
@@ -10966,7 +10964,7 @@ NICOLA $BG[Ns$O!"FCJL$KF|K\8lF~NO$N$?$a$K9M$($i$l$?G[Ns$J$N$G!"47$l$l$P(B
 @end display
 
 @noindent
-$B$J$I$r3NG'$7$^$9!#$=$N8e$G(B @file{~/.emacs} $B$K(B
+$B$J$I$r3NG'$7$^$9!#$=$N8e$G(B @file{~/.emacs.d/init.el} $B$K(B
 
 @lisp
 (setq skk-tut-file "/usr/local/share/skk/SKK.tut")
@@ -11207,7 +11205,7 @@ Lookup $B$,07$($k<-=q$O$[$H$s$I;H$($^$9!#(BLookup $B$,%$%s%9%H!<%k$5$l$F$$$k
 $B%`(B @file{skk-lookup.el} $B$,%$%s%9%H!<%k$5$l$^$9!#(B
 
 $B%$%s%9%H!<%k$GCm0U$9$Y$-$O!"(B@command{make} $B$G8F$S=P$5$l$k(B Emacs $B$O(B
-@option{-q -no-site-file} $B%U%i%0IU$-$G8F$P$l$k$N$G!"(B@file{~/.emacs} $B$d(B
+@option{-q -no-site-file} $B%U%i%0IU$-$G8F$P$l$k$N$G!"(B@file{~/.emacs.d/init.el} $B$d(B
 @file{site-start.el} $B$J$I$OFI$_9~$^$l$J$$$3$H$G$9!#%G%U%)%k%H$G(B
 @code{load-path} $B$NDL$C$F$$$k%G%#%l%/%H%j$K(B lookup $B$r%$%s%9%H!<%k$9$k$+!"(B
 @file{SKK-CFG} $B$NCf$G(B @var{VERSION_SPECIFIC_LISPDIR} $B$J$I$K%G%#%l%/%H%j(B
