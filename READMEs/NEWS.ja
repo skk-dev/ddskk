@@ -16,12 +16,12 @@ Thanks to Yuhei Maeda and Takenari Shinohara.
 
   M-x list-packages RET 
 
-  skk の行ににカーソルを置いて i x yes
+  ddskk の行ににカーソルを置いて i x yes
 
 *** DDSKK の設定
 
   MELPA でインストールした場合、DDSKK の実行時に leim-list.el と skk-setup.el が
-  存在しないため、~/.emacs にてキーバインドを定義する必要があります。
+  存在しないため、~/.emacs.d/init.el にてキーバインドを定義する必要があります。
 
     (global-set-key (kbd "C-x C-j") 'skk-mode)
 
