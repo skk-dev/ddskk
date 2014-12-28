@@ -587,7 +587,10 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 @vindex package-archives
 
 2014年12月、MELPA@footnote{Milkypostman's Emacs Lisp Package Archive. @url{http://melpa.org/}}
-に DDSKK が登録されたことにより GNU Emacs でも @file{package.el} によるインストールが
+に DDSKK が登録されたことにより GNU Emacs でも @file{package.el} 
+@footnote{Emacs 24以降で標準で搭載されています。Emacs 23以前では手動でインストール必要があります。
+@url{http://wikemacs.org/wiki/Package.el}}
+によるインストールが
 可能となりました。
 
 まずは、MELPA を利用するために @file{~/.emacs.d/init.el} にて次のとおり設定します。
@@ -628,6 +631,10 @@ Install package `skk-20141206.1418'? (yes or no)
 @end example
 
 @kbd{y e s @key{RET}} と答えると、インストールが始まります。
+
+DDSKKのリポジトリが更新された場合、@kbd{U} とタイプすることで @file{package.el}
+がアップデートをチェックしてくれるので、
+インストールされたDDSKKを更新することができます。
 
 MELPA を利用してインストールした場合、DDSKK の実行時
 に @file{leim-list.el} と @file{skk-setup.el} が存在ないた
