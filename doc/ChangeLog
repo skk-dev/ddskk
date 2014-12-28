@@ -1,3 +1,7 @@
+2014-12-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: rename MELPA package name `skk' to `ddskk'.
+
 2014-12-28  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
 
 	* skk.texi: add descripition about package.el and MELPA.

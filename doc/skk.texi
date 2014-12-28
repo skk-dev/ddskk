@@ -586,12 +586,11 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 @cindex @file{package.el}
 @vindex package-archives
 
-2014年12月、MELPA@footnote{Milkypostman's Emacs Lisp Package Archive. @url{http://melpa.org/}}
+2014年12月、MELPA@footnote{@uref{http://melpa.org/, Milkypostman's Emacs Lisp Package Archive}}
 に DDSKK が登録されたことにより GNU Emacs でも @file{package.el} 
-@footnote{Emacs 24以降で標準で搭載されています。Emacs 23以前では手動でインストール必要があります。
+@footnote{GNU Emacs 24 以降で標準で搭載されています。GNU Emacs 23 以前では手動でインストール必要があります。@*
 @url{http://wikemacs.org/wiki/Package.el}}
-によるインストールが
-可能となりました。
+によるインストールが可能となりました。
 
 まずは、MELPA を利用するために @file{~/.emacs.d/init.el} にて次のとおり設定します。
 
@@ -612,38 +611,29 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 @group
 -------------------- Package Menu mode --------------------
   Package            Version      Status Archive Description
-  skewer-reload-s... 20140121.544 new    melpa   live-edit CSS stylesheets.
-@point{} skk                20141206.316 new    melpa   Simple Kana to Kanji conv@dots{}
-  skype              20131001.... new    melpa   skype UI for emacs users..
+  darkroom           0.1          new    gnu     Remove visual @dots{}
+@point{} ddskk              20141227.828 new    melpa   Simple Kana to @dots{}
+  form-feed          20141228.... new    melpa   Display ^L glyphs as @dots{}
 -------------------- Package Menu mode --------------------
 @end group
 @end example
 
-skk の行にカーソルを置いて @kbd{i} @kbd{x} とタイプすると、ミニバッファに
-てパッケージをインストールするか問われます。
+@code{ddskk} の行にカーソルを置いて @kbd{i} @kbd{x} と順にタイプすると、
+ミニバッファにてパッケージをインストールするか問われます。
 
 @example
 @group
 ------ Minibuffer -------
-Install package `skk-20141206.1418'? (yes or no)
+Install package `ddskk-20141227.828'? (yes or no)
 ------ Minibuffer -------
 @end group
 @end example
 
 @kbd{y e s @key{RET}} と答えると、インストールが始まります。
 
-DDSKKのリポジトリが更新された場合、@kbd{U} とタイプすることで @file{package.el}
-がアップデートをチェックしてくれるので、
-インストールされたDDSKKを更新することができます。
-
 MELPA を利用してインストールした場合、DDSKK の実行時
 に @file{leim-list.el} と @file{skk-setup.el} が存在ないた
 め、@file{~/.emacs.d/init.el} にてキーバインドを定義する必要があります。
-
-また、リポジトリに含まれる @file{doc} や @file{etc} 等のディレクトリは全て
-インストールされません。インストールされるファイルは MELPA に登録される
-recipe に記述されます。詳しくは @url{https://github.com/milkypostman/melpa/blob/master/recipes/skk}
-を参照してください。
 
 @lisp
 @group
@@ -652,6 +642,18 @@ recipe に記述されます。詳しくは @url{https://github.com/milkypostman/melpa
 @end lisp
 
 辞書などの諸設定は @file{~/.skk} で定義してください。
+
+Package Menu モードで @kbd{U} とタイプすると、@file{package.el} は MELPA 上の
+DDSKK のアップデート@footnote{MELPA は、わりと頻繁に github のリポジト
+リ (skk-dev/ddskk) の更新を確認しているようです。}
+をチェックします。
+
+なお、MELPA によるインストールでは、DDSKK の配布物に含まれてい
+る @file{doc/} や @file{etc/} 等のディレクトリは全てインストールされません。
+インストールされるファイルは MELPA に登録される recipe に記述されます。
+詳しくは@*
+@url{https://github.com/milkypostman/melpa/blob/master/recipes/ddskk} @*
+を参照してください。
 
 @node 辞書について
 @section 辞書について
