@@ -585,6 +585,7 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 @cindex MELPA
 @cindex @file{package.el}
 @vindex package-archives
+@findex package-initialize
 
 2014年12月、MELPA@footnote{@uref{http://melpa.org/, Milkypostman's Emacs Lisp Package Archive}}
 に DDSKK が登録されたことにより GNU Emacs でも @file{package.el} 
@@ -643,17 +644,21 @@ MELPA を利用してインストールした場合、DDSKK の実行時
 
 辞書などの諸設定は @file{~/.skk} で定義してください。
 
-Package Menu モードで @kbd{U} とタイプすると、@file{package.el} は MELPA 上の
-DDSKK のアップデート@footnote{MELPA は、わりと頻繁に github のリポジト
-リ (skk-dev/ddskk) の更新を確認しているようです。}
-をチェックします。
-
 なお、MELPA によるインストールでは、DDSKK の配布物に含まれてい
 る @file{doc/} や @file{etc/} 等のディレクトリは全てインストールされません。
 インストールされるファイルは MELPA に登録される recipe に記述されます。
 詳しくは@*
 @url{https://github.com/milkypostman/melpa/blob/master/recipes/ddskk} @*
 を参照してください。
+
+@defun {コマンド} package-menu-mark-upgrades
+
+Package Menu モードで @kbd{U} とタイプすると、@file{package.el} は MELPA 上の
+DDSKK のアップデート@footnote{MELPA は、わりと頻繁に github のリポジト
+リ (skk-dev/ddskk) の更新を確認しているようです。}
+をチェックします。
+
+@end defun
 
 @node 辞書について
 @section 辞書について
