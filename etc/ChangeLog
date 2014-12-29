@@ -1,6 +1,10 @@
+2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk (skk-extra-jisyo-file-list): Add element SKK-JISYO.lisp
+
 2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* dot.skk, dot.emacs: Convert tp utf-8.
+	* dot.skk, dot.emacs: Convert to utf-8.
 
 2014-12-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

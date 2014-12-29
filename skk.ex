@@ -14,6 +14,7 @@ dic/SKK-JISYO.L
 dic/SKK-JISYO.M
 dic/SKK-JISYO.ML
 dic/SKK-JISYO.S
+dic/SKK-JISYO.lisp
 dic/edict.doc
 jisyo-tools
 experimental/rdbms/kanjidic/kanjidic

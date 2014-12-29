@@ -1,3 +1,9 @@
+2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK_DICTIONARIES): Add SKK-JISYO.lisp.
+
+	* skk.ex: ditto.
+
 2014-12-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* makeit.bat: Fix Comment.
