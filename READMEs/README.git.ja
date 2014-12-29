@@ -1,0 +1,191 @@
+#  -*- coding:utf-8 mode:org -*-
+#+TITLE: GitHubによる開発の流れについて [README.git.ja]
+#+STARTUP: showall
+#+TEXT: この文章は org-mode で記述されています。
+
+
+* はじめに
+
+DDSKK の GitHub での開発の移行に伴ない、GitHubを用いて開発に参加される方の作業の流れとして
+工程の大まかな流れをまとめます。
+
+DDSKKに特化していない箇所もありますが、
+今後の開発工程の確立とともにこの文書は改訂されていく予定です。
+
+
+* github上にリポジトリの設置
+
+githubのアカウントはお持ちであるとします。
+
+https://github.com/skk-dev/ddskk で "fork"します。
+
+すると 自分のアカウントの元にforkしたリポジトリができます。
+
+
+* 手元のコンピュータにリポジトリを設置
+
+github自分のアカウントのページ中 repsoitories のタブを
+選ぶとddskkが存在しているはずなので、そこをクリックします。
+
+自分のddskkのページが開くはずなので、その右下を見ると
+ssh経由でローカルにcloneするためのURLの記載があります。
+
+(github側にpushに必要なsshの鍵を設定しておく必要があるので
+githubのヘルプを調べてみて下さい。)
+
+手元のPCにgitがインストールされていれば、このURLでcloneでき
+ます。
+
+        $ git clone git@github.com:YOURNAME/ddskk.git
+
+ここまでで 3つのリポジトリが出てきました。
+
+      -  upstream ->  https://github.com/skk-dev/ddskk
+
+      -  origin   ->  git@github.com:YOURNAME/ddskk.git
+
+      -  local    ->  手元のPCにoriginからcloneしたもの
+
+local中の.git/configにてupstreamとoriginを定義して
+ない場合は定義してやる必要があります。
+
+[remote "origin"]
+
+      -  url = git@github.com:YOURNAME/ddskk.git
+
+      -  fetch = +refs/heads/*:refs/remotes/origin/*
+
+[remote "upstream"]
+
+      -  url = git@github.com:skk-dev/ddskk.git
+
+      -  fetch = +refs/heads/*:refs/remotes/upstream/*
+
+
+* コントリビュータとしての作業の流れ
+
+まずは改良などせず最新版を追跡する方法を説明します。
+デフォルトではmasterというブランチが選択されていて
+ここは、独自の改良を反映しないで下さい。ここはupstream
+での反映を取り込む箇所のようです。独自の改良の成果は
+別のブランチで実施します。成果はmasterとのdiffとして
+公表することになります。
+
+upstreamのmasterをlocalのmasterに取り込みます。
+
+        $ git pull upstream master:master
+
+(設定なりでより短いコマンドラインにできたはずです。)
+
+
+必要があるかどうかわからないのですが、次のコマンドラインで
+localのmasterをoriginのmasterに反映できます。
+
+        $ git push origin master:master
+
+これで
+
+        upstream => local => origin
+
+と変更を反映できました。
+
+では改良をしてみましょう。
+
+改良の目的に応じて名前を
+つけてそれをブランチ名とします。ここでは REFACTORします。
+(特に大文字の必要はありません。)
+
+        $ git branch REFACTOR
+        $ git checkout REFACTOR
+
+これで準備ができました。変更を加えてコミットしたら
+
+        $ git push origin REFACTOR:REFACTOR
+
+とします。すると自分のgithubのページのddskkの
+リポジトリにREFACTORというブランチが作られ、
+手元の変更がそこに格納(？)されます。自分のddskk
+のページを開くと読み直し(？)の緑のボタンのとなり
+にブランチを選択するためのポップアップメニューが
+あり、そこで確認できます。特に選択しなくともpush
+した直後にはバナーのような形式でページ上、pull
+requestを出すためのボタンが出現します。ボタン
+を押すとプルリクエストが出ます。レビュアーから
+書き直しの指示があると、ブランチ上で
+
+        $ git rebase -i master
+
+などとして、ブランチに修正を加えます。(これはgitの本なりをご覧下さい。)
+その後
+
+        $ git push --force origin REFACTOR:REFACTOR
+
+とすると、修正内容でorigin上のブランチを上書きできます。
+
+
+* リポジトリの更新
+
+自分のpull requestが採用された場合や、自分が改良中に他の人の成果がupstreamに
+導入された場合を考えます。採用されたpull requestに使っていたブランチとは別の
+ブランチで、別の改良作業(OPTIMIZE)をしていたとします。特にその改良を長い期間かけて実施
+している場合、upstreamのmasterとの差異が大きくなります。更新(rebase)する
+ことで差異を縮めることができます。
+
+まずOPTIMIZEブランチの作業内容について保存します。git stashを使うか、あ
+るいはあとからわかる適当なログを書いてcommitしてしまいましょう。
+
+次に最新の変更をmasterに取り込みます。
+
+        $ git checkout master
+
+        $ git pull upstream master:master
+
+
+OPTIMIZEブランチで溜め込んでいた独自の変更点を、最新のmasterに対する変
+更として保存し直します。このときmasterでなされた変更とOPTIMIZE上での変更
+の間でconflictが発生するかもしれません。手動で解決する必要があります。
+
+        $ git checkout OPTIMIZE
+
+        $ git rebase master
+
+* 不要となったブランチの削除
+
+プルリクエストが採用されたあとは、local, origin の作業用ブランチを削除します。
+
+local と origin のブランチは以下のコマンドで調べることができます。
+
+        $ git branch -a
+
+checkout 現在の作業用ブランチに * がついています。
+
+上記で例として使いました REFACTOR ブランチを例として説明します。
+
+まず、master ブランチに移動します。
+
+        $ git checkout master
+
+local のブランチを削除します。
+
+        $ git branch -d REFACTOR
+
+次いで origin のブランチも削除します。
+
+        $ git push origin :REFACTOR
+
+作業用ブランチが削除されたことを確認します。
+
+        $ git branch -a
+
+* その他
+
+localに作成したbranchのpush先としてoriginを指定していますが、
+organizationの中の人はorganizationのリポジトリ、すなわち
+upstreamにブランチを作成したり、あるいはupstreamのmasterに
+直接pushしても良いかもしれません。このあたりのバランスは良く
+わかりません。
+
+git/githubが不慣れな場合は、慣れるまではorganizationの外から
+pull requestを出せば良いかと思います。慣れたらささやかな変更は
+直接pushしても良いと思います。
+
