@@ -1,3 +1,7 @@
+2014-12-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* makeit.bat: Fix Comment.
+
 2014-12-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* context-skk.el, skk-abbrev.el, skk-dcomp.el, skk-look.el:

@@ -146,7 +146,7 @@ echo ----
 
 :execsubmk
 set ELISPMK=
-rem --- %EMACS% が場合はエラー終了する
+rem --- %EMACS% が未定義又は不存在の場合はエラー終了する
 if "%EMACS%"=="" goto errnotspecified
 if not exist "%EMACS%" goto errnonexistent
 
