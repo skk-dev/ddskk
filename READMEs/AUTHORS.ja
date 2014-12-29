@@ -547,6 +547,13 @@ skk-server.el, skk.el, skk-study.el, bayesian/bskk
 
 *** skk-nicola-colemak.el, skk-omelet-colemak.el
 
+
+* SASAKI Nobuyuki
+
+** SKK 辞書の拡張、維持
+
+*** SKK-JISYO.lisp
+
 
 Local variables:
 coding: utf-8
