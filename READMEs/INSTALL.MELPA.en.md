@@ -67,11 +67,11 @@ MELPA によるインストールでは、DDSKK の配布物に含まれてい�
 詳しい recipe は https://github.com/milkypostman/melpa/blob/master/recipes/ddskk
 を参照してください。
 
-The directories such like `doc/` or `etc` included in distribution of DDSKK will not be installed by MELPA.
+The directories such like `doc/` or `etc/` included in distribution of DDSKK will not be installed by MELPA.
 The files contained install package are described on recipe of MELPA.
 Refer the detailed recipe on https://github.com/milkypostman/melpa/blob/master/recipes/ddskk
 
-## 3. Setteing of DDSKK
+## 3. Setting of DDSKK
 
 MELPA を利用してインストールした場合、make による通常のインストールと比べて DDSKK の実行時に `leim-list.el` と `skk-setup.el` が存在しません。
 そのため、`~/.emacs.d/init.el` にてキーバインドを定義する必要があります。
@@ -86,7 +86,7 @@ you should set a key bind on `~/.emacs.d/init.el`.
 skk-mode を起動すると設定ファイル `~/.skk` (skk-init-file) が読み込まれますので、
 辞書などの諸設定はこちらで定義してください。
 
-After running skk-mode, Emacs read `/.skk` (skk-init-file), so
+After running skk-mode, Emacs read `~/.skk` (skk-init-file), so
 you use this to set such like dictionary place.
 
 ## 4. Upgrading DDSKK

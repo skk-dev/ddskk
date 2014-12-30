@@ -1,5 +1,7 @@
 2014-12-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* INSTALL.MELPA.en.md: correct a little.
+
 	* README.git.ja.org: correct a little.
 
 2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
@@ -7,6 +9,8 @@
 	* README.git.ja.org: correct a little.
 
 2014-12-30  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
+
+	* INSTALL.MELPA.en.md: Add new file.
 
 	* README.w32.ja: correct email address.
 
