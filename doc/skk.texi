@@ -658,6 +658,27 @@ DDSKK $B$N%"%C%W%G!<%H(B@footnote{MELPA $B$O!"$o$j$HIQHK$K(B github $B$N%j%
 $B%j(B (skk-dev/ddskk) $B$N99?7$r3NG'$7$F$$$k$h$&$G$9!#(B}
 $B$r%A%'%C%/$7$^$9!#(B
 
+$B%"%C%W%G!<%H$,$J$1$l$P!"$=$N;]$,I=<($5$l$^$9!#(B
+
+@example
+-------------------- Echo Area --------------------
+No packages to upgrade.
+-------------------- Echo Area --------------------
+@end example
+
+$B%"%C%W%G!<%H$,$"$l$P!"%"%C%W%G!<%HBP>]$N%Q%C%1!<%8?t$,I=<($5$l$^$9!#(B
+
+@example
+-------------------- Echo Area --------------------
+N package marked for upgrading.
+-------------------- Echo Area --------------------
+@end example
+
+$BF1;~$K(B @samp{I} $B%^!<%/$,IU$5$l$^$9$N$G!"B3$1$F(B @kbd{x} $B$H%?%$%W$9$k$3$H$G(B
+$B%"%C%W%G!<%H$,3+;O$5$l$^$9!#(B
+
+$B:G=*CJ3,$G!"8E$$%Q%C%1!<%8$r>C5n$9$k$+Ld$o$l$^$9$N$G!"Ez$($F$/$@$5$$!#(B
+
 @end defun
 
 @node $B<-=q$K$D$$$F(B
@@ -720,6 +741,12 @@ public+ $B<-=q(B
 
 @item SKK-JISYO.edict
 edict $B<-=q(B($B1QOB<-=q(B)
+
+@item SKK-JISYO.lisp
+$B8uJd$K(B Emacs Lisp $B4X?t$r4^$`%(%s%H%j!<$r=8$a$?<-=q!#8+=P$78l$rJQ49$9$k2a(B
+$BDx$G(BEmacs Lisp $B4X?t$rI>2A$7!"$=$NCM$r8uJd$H$7$FI=<($7$^$9!#(B
+
+@xref{$B%W%m%0%i%`<B9TJQ49(B}.
 
 @item SKK-JISYO.wrong
 $B4V0c$$<-=q!J(BS, M, L $B<-=q$K4{$KEPO?$5$l$F$$$?$,!"4V0c$$$G$"$C$?$N$G:o=|$5(B

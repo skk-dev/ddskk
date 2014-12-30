@@ -1,3 +1,8 @@
+2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Described in more detail about package-menu-mark-upgrades.
+	Add descripition about SKK-JISYO.lisp.
+
 2014-12-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: rename MELPA package name `skk' to `ddskk'.
