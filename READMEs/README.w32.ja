@@ -4,7 +4,7 @@ Windows 95, Windows 98, Windows Me, Windows NT, Windows 2000, Windows XP,
 Windows Vista, Windows 7 の各オペレーティングシステムの上で動く Emacs に
 DDSKK をインストールする方法を解説します。
 
-Yuh Ohmura <yutopia@t3.rim.or.jp>
+Yuh Ohmura <yutopia@y6.dion.ne.jp>
 NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 同梱の INSTALL 及び README.md も必ずご覧下さい。
@@ -162,7 +162,7 @@ Windows のコマンドプロンプトで makeit.bat のあるディレクトリ
 MAKEIT.BAT をダブルクリックするだけでインストールが可能となります。
 
 適宜指定が終った makeit.bat は、下記のいずれかのファイルとしてコピーしてお
-く次回はそちらを優先して実行されます。(アップグレードの際に makeit.bat を
+くと次回はそちらが優先して実行されます。(アップグレードの際に makeit.bat を
 再編集する必要がなくなります)
 
 優先順に:

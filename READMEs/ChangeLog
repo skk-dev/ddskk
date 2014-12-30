@@ -1,5 +1,9 @@
 2014-12-30  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
 
+	* README.w32.ja: correct email address.
+
+2014-12-30  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
+
 	* README.git.ja.org: rename from README.git.ja.
 
 2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
@@ -23,7 +27,7 @@
 
 2014-12-23  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
-	* TODO.ja: add discription about texi document for package.el.
+	* TODO.ja: add description about texi document for package.el.
 
 2014-12-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
