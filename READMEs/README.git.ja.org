@@ -24,7 +24,7 @@ https://github.com/skk-dev/ddskk で "fork"します。
 
 * 手元のコンピュータにリポジトリを設置
 
-github の自分のアカウントのページ中 repsoitories のタブを
+github の、自分のアカウントのページの中で repositories のタブを
 選ぶと ddskk が存在しているはずなので、そこをクリックします。
 
 自分の ddskk のページが開くはずなので、その右下を見ると
@@ -36,7 +36,7 @@ github のヘルプを調べてみて下さい。)
 手元の PC に git がインストールされていれば、この URL で clone でき
 ます。
 
-        $ git clone git@github.com:YOURNAME/ddskk.git     [ssh の例]
+        $ git clone git@github.com:YOURACCOUNT/ddskk.git     [ssh の例]
 
 ここまでで 3つのリポジトリが出てきました。
 
