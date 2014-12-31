@@ -1,3 +1,9 @@
+2014-12-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* INSTALL: Add description about INSTALL.MELPA.en.md.
+
+	* README.w32.ja: Add description about INSTALL.MELPA.md.
+
 2014-12-31  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
 
         * README.git.ja.org: correct a little.

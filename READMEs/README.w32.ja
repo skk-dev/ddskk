@@ -11,6 +11,10 @@ NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 * 前置き
 
+** MELPA を利用したインストール
+
+INSTALL.MELPA.md をご覧下さい。
+
 ** Emacs 20 / Meadow 1.15
 
 APEL をインストールした上で DDSKK 14.1 をインストールしてください。
