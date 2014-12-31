@@ -1,3 +1,8 @@
+2014-12-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Remove descripition about package.el and MELPA.
+	see READMEs/INSTALL.MELPA.md.
+
 2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: Described in more detail about package-menu-mark-upgrades.

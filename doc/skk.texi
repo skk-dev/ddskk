@@ -593,93 +593,9 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 @url{http://wikemacs.org/wiki/Package.el}}
 によるインストールが可能となりました。
 
-まずは、MELPA を利用するために @file{~/.emacs.d/init.el} にて次のとおり設定します。
+詳細については、次のドキュメントを参照してください。
 
-@lisp
-@group
-(when (require 'package nil t)
-    (add-to-list 'package-archives
-                 '("melpa" . "http://melpa.org/packages/") t))
-(package-initialize)
-@end group
-@end lisp
-
-つぎに、MELPA を利用して DDSKK をインストールします。
-@kbd{M-x list-packages @key{RET}} とタイプすると Package Menu モードが表
-示されます。
-
-@example
-@group
--------------------- Package Menu mode --------------------
-  Package            Version      Status Archive Description
-  darkroom           0.1          new    gnu     Remove visual @dots{}
-@point{} ddskk              20141227.828 new    melpa   Simple Kana to @dots{}
-  form-feed          20141228.... new    melpa   Display ^L glyphs as @dots{}
--------------------- Package Menu mode --------------------
-@end group
-@end example
-
-@code{ddskk} の行にカーソルを置いて @kbd{i} @kbd{x} と順にタイプすると、
-ミニバッファにてパッケージをインストールするか問われます。
-
-@example
-@group
------- Minibuffer -------
-Install package `ddskk-20141227.828'? (yes or no)
------- Minibuffer -------
-@end group
-@end example
-
-@kbd{y e s @key{RET}} と答えると、インストールが始まります。
-
-MELPA を利用してインストールした場合、DDSKK の実行時
-に @file{leim-list.el} と @file{skk-setup.el} が存在ないた
-め、@file{~/.emacs.d/init.el} にてキーバインドを定義する必要があります。
-
-@lisp
-@group
-(global-set-key (kbd "C-x C-j") 'skk-mode)
-@end group
-@end lisp
-
-辞書などの諸設定は @file{~/.skk} で定義してください。
-
-なお、MELPA によるインストールでは、DDSKK の配布物に含まれてい
-る @file{doc/} や @file{etc/} 等のディレクトリは全てインストールされません。
-インストールされるファイルは MELPA に登録される recipe に記述されます。
-詳しくは@*
-@url{https://github.com/milkypostman/melpa/blob/master/recipes/ddskk} @*
-を参照してください。
-
-@defun {コマンド} package-menu-mark-upgrades
-
-Package Menu モードで @kbd{U} とタイプすると、@file{package.el} は MELPA 上の
-DDSKK のアップデート@footnote{MELPA は、わりと頻繁に github のリポジト
-リ (skk-dev/ddskk) の更新を確認しているようです。}
-をチェックします。
-
-アップデートがなければ、その旨が表示されます。
-
-@example
--------------------- Echo Area --------------------
-No packages to upgrade.
--------------------- Echo Area --------------------
-@end example
-
-アップデートがあれば、アップデート対象のパッケージ数が表示されます。
-
-@example
--------------------- Echo Area --------------------
-N package marked for upgrading.
--------------------- Echo Area --------------------
-@end example
-
-同時に @samp{I} マークが付されますので、続けて @kbd{x} とタイプすることで
-アップデートが開始されます。
-
-最終段階で、古いパッケージを消去するか問われますので、答えてください。
-
-@end defun
+@url{https://github.com/skk-dev/ddskk/blob/master/READMEs/INSTALL.MELPA.md}
 
 @node 辞書について
 @section 辞書について
