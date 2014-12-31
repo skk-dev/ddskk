@@ -2,6 +2,7 @@
 @setfilename skk.info
 @settitle SKK Manual
 @documentlanguage ja
+@documentencoding utf-8
 @iftex
 @usedvipdfmx
 @end iftex
