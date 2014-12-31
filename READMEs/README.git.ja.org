@@ -101,6 +101,7 @@ local の master を origin の master に反映できます。
 (特に大文字の必要はありません。)
 
         $ git branch REFACTOR
+        
         $ git checkout REFACTOR
 
 これで準備ができました。
