@@ -2,6 +2,11 @@
 
 	* ddskk-pkg.el: Add comment.
 
+2014-12-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-texinfo-pre-format): function disabled.
+	(SKK-MK-texinfo-post-format): Enable all emacsen.
+
 2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK_DICTIONARIES): Add SKK-JISYO.lisp.
