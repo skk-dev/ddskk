@@ -1,4 +1,10 @@
+2015-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Add @documentencoding utf-8.
+
 2014-12-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Convert to utf-8.
 
 	* skk.texi: Remove descripition about package.el and MELPA.
 	see READMEs/INSTALL.MELPA.md.
