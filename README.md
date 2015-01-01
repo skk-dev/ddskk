@@ -53,7 +53,7 @@ Thank you.
 
 <!--
 Local variables:
-mode: text
+mode: markdown
 fill-column: 72
 end:
 -->

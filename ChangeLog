@@ -1,5 +1,7 @@
 2015-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* README.md: Change major mode from text to markdown.
+
 	* ddskk-pkg.el: Add comment.
 
 2014-12-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
