@@ -44,9 +44,11 @@ Install package `ddskk-20141227.828'? (yes or no)
 
 `y e s` とタイプすると、インストールが始まります。
 
+`skk.info` も同時にインストールされますので、`M-x info` で閲覧することができます。
+
 ** インストール時の制限 **
 
-MELPA によるインストールでは、DDSKK の配布物に含まれている `doc/` や `etc/` といったディレクトリは全てインストールされません。インストールされるファイルは MELPA の recipe に記述されます。
+MELPA によるインストールでは、DDSKK の配布物に含まれている `doc/` や `etc/` といったディレクトリは全てインストールされません(`skk.info` はインストールされます)。インストールされるファイルは MELPA の recipe に記述されます。
 詳しい recipe は https://github.com/milkypostman/melpa/blob/master/recipes/ddskk
 を参照してください。
 
