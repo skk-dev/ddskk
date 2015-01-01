@@ -1,3 +1,7 @@
+2015-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* ddskk-pkg.el: Add comment.
+
 2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK_DICTIONARIES): Add SKK-JISYO.lisp.
