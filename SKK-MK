@@ -786,20 +786,19 @@ This version of SKK requires MULE features"))
     (SKK-MK-detect-shadow-directory)))
 
 (defun SKK-MK-texinfo-pre-format ()
-  (unless (and (featurep 'emacs)
-	       (>= emacs-major-version 23))
-    (dolist (str '("\C-[$(Q\"1\C-[(B" "\C-[$(Q\"Q\C-[(B" "\C-[$(Q\"q\C-[(B"))
-      (goto-char (point-min))
-      (when (search-forward str nil t)
-	(replace-match " ")))))
+  ;; (unless (and (featurep 'emacs)
+  ;; 	       (>= emacs-major-version 23))
+  ;;   (dolist (str '("\C-[$(Q\"1\C-[(B" "\C-[$(Q\"Q\C-[(B" "\C-[$(Q\"q\C-[(B"))
+  ;;     (goto-char (point-min))
+  ;;     (when (search-forward str nil t)
+  ;; 	(replace-match " "))))
+  nil)
 
 (defun SKK-MK-texinfo-post-format ()
-  (when (and (featurep 'emacs)
-	     (>= emacs-major-version 23))
-    (goto-char (point-min))
-    (when (re-search-forward "-\\*-Text-\\*-" (point-at-eol) t)
-      (replace-match (format "-*- mode: text; coding: %s -*-"
-			     SKK-MK-texinfo-coding-system)))))
+  (goto-char (point-min))
+  (when (re-search-forward "-\\*-Text-\\*-" (point-at-eol) t)
+    (replace-match (format "-*- mode: text; coding: %s -*-"
+			   SKK-MK-texinfo-coding-system))))
 
 (defun SKK-MK-texinfo-format (targets)
   (let (;; Emacs20.2's default is 'raw-text-unix.
