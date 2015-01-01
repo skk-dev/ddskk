@@ -176,11 +176,17 @@ DDSKK 14 においては特に入江さん、北本さん、定家さん。
 チュートリアルはある。それ以外の部分でも、 SKK の存在価値を世界にアピー
 ルしていけるように。
 
-** package対応
+** package対応 【済み】
 
-MELPAでtexiファイルを扱うようにpull-requestして受理されましたが、
-package.el管理下のtexiファイルの挙動は未確認。
-今後対応の必要があるかもしれない。
+| MELPAでtexiファイルを扱うようにpull-requestして受理されましたが、
+| package.el管理下のtexiファイルの挙動は未確認。
+| 今後対応の必要があるかもしれない。
+
+MELPA サーバ側で makeinfo が実行され、skk-info* 及び dir が生成される。
+package.el を利用してインストールするパッケージ (手元のPCの ~/.emacs.d/elpa に
+溜るファイル) には、前述の skk-info* 及び dir が含まれている。
+シンボル Info-directory-list に "~/.emacs.d/elpa/ddskk-xxx" が追加されるので
+特に設定することなく M-x info で閲覧できる。
 
 * Emacs の枠を超えた SKK 全体の議論
 

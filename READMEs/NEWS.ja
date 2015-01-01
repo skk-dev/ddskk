@@ -1,31 +1,11 @@
 * 16.1
 
-** インストール
+** MELPA によるインストール
 
 MELPA を利用した package.el によるインストールが可能となりました。
 Thanks to Yuhei Maeda and Takenari Shinohara.
 
-*** MELPA の設定
-
-  (when (require 'package nil t)
-    (add-to-list 'package-archives
-                 '("melpa" . "http://melpa.org/packages/") t))
-  (package-initialize)
-
-*** DDSKK のインストール
-
-  M-x list-packages RET 
-
-  ddskk の行ににカーソルを置いて i x yes
-
-*** DDSKK の設定
-
-  MELPA でインストールした場合、DDSKK の実行時に leim-list.el と skk-setup.el が
-  存在しないため、~/.emacs.d/init.el にてキーバインドを定義する必要があります。
-
-    (global-set-key (kbd "C-x C-j") 'skk-mode)
-
-  辞書などの諸設定は ~/.skk で定義してください。
+詳細は READMEs/INSTALL.MELPA.md をご覧ください。
 
 ** 開発環境など
 
@@ -33,6 +13,8 @@ Thanks to Yuhei Maeda and Takenari Shinohara.
 
 https://github.com/skk-dev/ddskk
 https://github.com/skk-dev/skktools
+
+開発の流れなどは READMEs/README.git.ja.org をご覧ください。
 
 *** Makefile にターゲット test を追加
 
