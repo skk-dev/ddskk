@@ -1,5 +1,7 @@
 2015-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* INSTALL: Update.
+
 	* TODO.ja: Add description about skk.info on MELPA.
 
 	* NEWS.ja: Remove description about MELPA.

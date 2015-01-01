@@ -129,14 +129,18 @@ or
 
 * Post-installation
 
-** Easy setup
-
 If you just intend to test the program, no prior setting is required.
 Just call SKK with typing C-x C-j or M-x skk-mode.
+
+* Learn SKK
+
+** tutorial
 
 If you are a novice SKK user, you can learn SKK basics with M-x
 skk-tutorial.  Follow the instructions.  If you prefer the English
 tutorial, type C-u M-x skk-tutorial and select "English".
+
+** manuals (info, web, PDF)
 
 As you learn the usage of SKK, you might want to know more about its
 customization.  As a start point we recommend the SKK manual.  You
@@ -152,12 +156,14 @@ You can also read the SKK manual on the web.
 Since the web manual is for the latest Daredevil SKK, it might not be
 compatible with the version you installed.
 
-Old manuals are
+PDF manuals for old version are available. see the following files.
     http://openlab.jp/skk/skk-manual/skk-15.2.pdf
     http://openlab.jp/skk/skk-manual/skk-15.1.pdf
     http://openlab.jp/skk/skk-manual/skk-14.4.pdf
     http://openlab.jp/skk/skk-manual/skk-14.3.pdf
     http://openlab.jp/skk/skk-manual/skk-14.2.pdf
+
+** sample for customization
 
 If you are looking for example elisp codes for customization, see files
 etc/dot.emacs and etc/dot.skk, which are included in this distribution.  
