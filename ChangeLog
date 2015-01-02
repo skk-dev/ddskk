@@ -1,3 +1,7 @@
+2015-01-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-texinfo-pre-format): Add Comment.
+
 2015-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* README.md: Change major mode from text to markdown.

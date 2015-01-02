@@ -785,7 +785,10 @@ This version of SKK requires MULE features"))
 		   PACKAGE_DATADIR nil t nil)
     (SKK-MK-detect-shadow-directory)))
 
+;;; 2014-12-31, skk.texi を utf-8 としたことに伴い、不要となったが、
+;;; 将来的に pre-format を要することが考えられるため、枠組みは残す。
 (defun SKK-MK-texinfo-pre-format ()
+  ;; http://mail.ring.gr.jp/skk/201112/msg00023.html
   ;; (unless (and (featurep 'emacs)
   ;; 	       (>= emacs-major-version 23))
   ;;   (dolist (str '("\C-[$(Q\"1\C-[(B" "\C-[$(Q\"Q\C-[(B" "\C-[$(Q\"q\C-[(B"))
