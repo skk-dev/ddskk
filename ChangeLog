@@ -1,5 +1,9 @@
 2015-01-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-jisyo-code): Fix docstring.
+
+	* skk-macs.el (skk-find-coding-system): Fix docstring.
+
 	* SKK-MK (SKK-MK-texinfo-pre-format): Add Comment.
 
 2015-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

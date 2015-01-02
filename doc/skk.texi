@@ -7801,27 +7801,38 @@ abbreviation の展開を行うように設定することができるのです�
 @subsection 辞書バッファの文字コードの設定
 @vindex skk-coding-system-alist
 @findex skk-find-coding-system
+@findex describe-coding-system
+@findex list-coding-systems
+@findex coding-system-p
+@findex find-coding-system
 
 @defvr {ユーザ変数} skk-jisyo-code
 
-この変数の値は辞書ファイルの文字コードを決定します。
-この変数は以下のような値を取ります。
+この変数は、辞書ファイルの文字コードを決定し、以下のような値を取ります。
 
 @itemize @bullet
-@item @samp{euc}, @samp{ujis}, @samp{sjis}, @samp{jis} などの文字列。順に @code{euc-jisx0213}, @code{euc-jisx0213}, @code{shift_jisx0213}, @code{iso-2022-jp-3-strict} の各シンボルへ変換されます (@code{skk-coding-system-alist})。
+
+@item @code{nil}
+
 @item Emacs の coding system (コード系)
 @footnote{coding system は GNU Emacs の場合 @code{euc-jp}, @code{shift_jis},
-@code{junet} などの symbol で表され、@kbd{M-x describe-coding-system} で
-調べることができます。XEmacs の場合 symbol は coding system そのものでは
-なく coding system object を指示するための symbol として扱われます。
+@code{junet} などのシンボルで表され、@kbd{M-x describe-coding-system} や
+@kbd{M-x list-coding-systems} で調べることができます。
+XEmacs の場合、シンボルは coding system そのものでは
+なく coding system object を指示するためのシンボルとして扱われます。
 具体的には GNU Emacs では @code{(coding-system-p 'euc-jp)} が @code{t} を
-返すのに対し、 XEmacs では @code{nil} を返しますが、代わりに symbol が示
+返すのに対し、 XEmacs では @code{nil} を返しますが、代わりにシンボルが示
 す coding system object を返す @code{find-coding-system} 関数が存在します。}
-@item @code{nil}
+
+@item @samp{euc}, @samp{ujis}, @samp{sjis}, @samp{jis} の文字列。@code{skk-coding-system-alist} に従って、順に @code{euc-jisx0213}, @code{euc-jisx0213}, @code{shift_jisx0213}, @code{iso-2022-jp-3-strict} の各シンボルへ変換されます。
+
 @end itemize
 
-デフォルトは @code{nil} です。この場合、DDSKK 側で辞書の文字コードを設定する
-ことはせず、Emacs に任せます。
+デフォルトは @code{nil} です。この場合、シンボル @code{euc-jis-2004} が使われます
+@footnote{GNU Emacs 22 まではシンボル @code{euc-jisx0213} が使われます。}
+@footnote{関数 @code{skk-find-coding-system} を参照のこと。}
+。
+
 @end defvr
 
 @node 辞書バッファのbuffer-file-name

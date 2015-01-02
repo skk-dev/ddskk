@@ -2,6 +2,7 @@
 
 	* skk.texi: 「ユーザー」を「ユーザ」に統一.
 	古い記述 (DDSKK10) を削除.
+	(skk-jisyo-code): 実装にあわせて修正.
 
 2015-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
