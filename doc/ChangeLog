@@ -1,6 +1,7 @@
 2015-01-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: 「ユーザー」を「ユーザ」に統一.
+	古い記述 (DDSKK10) を削除.
 
 2015-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
