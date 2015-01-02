@@ -278,12 +278,12 @@ GNU Emacs 22 以上での利用が最も推奨されます。
 @item GNU Emacs 20.x
 
 DDSKK 14.2 以降は GNU Emacs 20 はサポート対象外です。
-GNU Emacs 20 のユーザーは DDSKK 14.1 をお使いください。
+GNU Emacs 20 のユーザは DDSKK 14.1 をお使いください。
 
 @item GNU Emacs 21.4
 
 DDSKK 15.1 以降は GNU Emacs 21 はサポート対象外です。
-GNU Emacs 21 のユーザーは DDSKK 14.4 をお使いください。
+GNU Emacs 21 のユーザは DDSKK 14.4 をお使いください。
 
 @item GNU Emacs 22.3
 
@@ -301,7 +301,7 @@ GNU Emacs 21 のユーザーは DDSKK 14.4 をお使いください。
 @item GNU Emacs 24.3
 
 GNU Emacs 24.3 と DDSKK 14 の組み合わせで isearch 使用時の不具合が発見されています。
-GNU Emacs 24.3 のユーザーは DDSKK 15 をお使いください。
+GNU Emacs 24.3 のユーザは DDSKK 15 をお使いください。
 
 @url{http://mail.ring.gr.jp/skk/201211/msg00000.html}
 
@@ -7095,7 +7095,7 @@ not documented
 @b{「確定変換」}を行う検索プログラム。検索対象の辞書ファイルは Emacs の
 バッファに読み込まれます。検索対象のファイルから候補を見つけると、内部
 変数 @code{skk-kakutei-henkan-flag} を立てて、いきなり確定します。このため
-ユーザーが確定操作を行う必要はありません。
+ユーザが確定操作を行う必要はありません。
 
 引数の意味はいずれも @code{skk-search-jisyo-file} の場合と同様です。
 @end defun
