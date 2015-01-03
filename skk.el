@@ -4002,6 +4002,7 @@ FILE には辞書ファイルだけでなく、
 			limit))
 
 (defun skk-search-extra-jisyo-files ()
+  ;; skk-search-prog-list の要素のひとつ
   (setq skk-search-ex-state nil)
   (let (candidates words)
     (dolist (file skk-extra-jisyo-file-list)

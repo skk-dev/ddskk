@@ -402,6 +402,8 @@
 
 ;; From DDSKK 14.2:
 ;;   メイン辞書（L 辞書、CDB 形式辞書、辞書サーバ）以外の辞書を指定する
+;;   `skk-search-prog-list' を手動で設定している場合は、この機能の動作は
+;;   保証されません。
 (setq skk-extra-jisyo-file-list
       (list "/usr/share/skk/SKK-JISYO.JIS2"
 	    '("/usr/share/skk/SKK-JISYO.JIS3_4" . euc-jisx0213)
@@ -419,12 +421,10 @@
 	    "/usr/share/skk/SKK-JISYO.station"
 	    "/usr/share/skk/SKK-JISYO.zipcode"
 	    "/usr/share/skk/SKK-JISYO.office.zipcode"))
-;; 注1) 辞書ファイル名のリストを指定します。ファイルのコード系が
-;;   `skk-jisyo-code' と異なるファイルの場合は、ファイル名の代わりに
-;;   ("ファイル名" . コード系) のペアを指定することが推奨されます。
+;; 注  辞書ファイル名のリストを指定します。その辞書ファイルが `skk-jisyo-code' と
+;;   は異なるコード系 (coding system) で作成・保存されている場合は、ファイル名の
+;;   代わりに ("ファイル名" . コード系) のペアを指定することが推奨されます。
 ;;   上記の SKK-JISYO.JIS3_4 の例をご覧ください。
-;; 注2) `skk-search-prog-list' を手動で設定している場合はこの機能の
-;;   動作は保証されません。
 
 ;; 異体字の候補を表示する
 ;; http://mail.ring.gr.jp/skk/200303/msg00071.html

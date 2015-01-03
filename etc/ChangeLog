@@ -1,3 +1,7 @@
+2015-01-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk (skk-extra-jisyo-file-list): Modify comment.
+
 2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk (skk-extra-jisyo-file-list): Add element SKK-JISYO.lisp
