@@ -2,6 +2,7 @@
 #+TITLE: GitHubによる開発の流れについて [README.git.ja]
 #+STARTUP: showall
 #+TEXT: この文章は org-mode で記述されています。
+#+TEXT: Emacs上でこの文書を開き、C-c C-e h h とすることで html のドキュメントが生成されます。
 
 
 * はじめに
@@ -12,6 +13,7 @@
 DDSKK に特化していない箇所もありますが、
 今後の開発工程の確立とともにこの文書は改訂されていく予定です。
 
+-----------
 
 * github 上にリポジトリを設置
 
@@ -21,6 +23,7 @@ https://github.com/skk-dev/ddskk で "fork"します。
 
 すると 自分のアカウントのページに fork したリポジトリができます。
 
+--------------
 
 * 手元のコンピュータにリポジトリを設置
 
@@ -36,7 +39,7 @@ github のヘルプを調べてみて下さい。)
 手元の PC に git がインストールされていれば、この URL で clone でき
 ます。
 
-        $ git clone git@github.com:YOURACCOUNT/ddskk.git     [ssh の例]
+:        $ git clone git@github.com:YOURACCOUNT/ddskk.git     [ssh の例]
 
 ここまでで 3つのリポジトリが出てきました。
 
@@ -49,18 +52,14 @@ github のヘルプを調べてみて下さい。)
 local 中の .git/config にて upstream と origin を定義して
 ない場合は、この段階で定義しておく必要があります。
 
-[remote "origin"]
+: [remote "origin"]
+:      -  url = git@github.com:YOURACCOUNT/ddskk.git
+:      -  fetch = +refs/heads/*:refs/remotes/origin/*
+: [remote "upstream"]
+:      -  url = git@github.com:skk-dev/ddskk.git
+:      -  fetch = +refs/heads/*:refs/remotes/upstream/*
 
-      -  url = git@github.com:YOURACCOUNT/ddskk.git
-
-      -  fetch = +refs/heads/*:refs/remotes/origin/*
-
-[remote "upstream"]
-
-      -  url = git@github.com:skk-dev/ddskk.git
-
-      -  fetch = +refs/heads/*:refs/remotes/upstream/*
-
+--------------
 
 * コントリビュータとしての作業の流れ
 
@@ -75,8 +74,7 @@ local のデフォルトでは master というブランチが選択されてい
 
 upstream の master を local の master に取り込みます。
 
-        $ git pull upstream master:master
-                            {local:remote}
+:        $ git pull upstream master:master    {local:remote}
 
 (設定なりでより短いコマンドラインにできたはずです。)
 
@@ -84,7 +82,7 @@ upstream の master を local の master に取り込みます。
 必要があるかどうかわからないのですが、次のコマンドラインで
 local の master を origin の master に反映できます。
 
-        $ git push origin master:master
+:        $ git push origin master:master
 
 これで
 
@@ -97,23 +95,22 @@ local の master を origin の master に反映できます。
 では改良をしてみましょう。
 
 改良の目的に応じて名前を
-つけてそれをブランチ名とします。ここでは REFACTORします。
+つけてそれをブランチ名とします。ここでは REFACTORとします。
 (特に大文字の必要はありません。)
 
-        $ git branch REFACTOR
-        
-        $ git checkout REFACTOR
+:        $ git branch REFACTOR
+:        $ git checkout REFACTOR
 
 これで準備ができました。
 念のため、現在いるブランチを確認しておきます。
 
-        $ git branch
-        * REFACTOR
-          master
+:        $ git branch
+:        * REFACTOR
+:          master
 
 変更を加えてコミット (git add -u && git commit) したら
 
-        $ git push origin REFACTOR:REFACTOR
+:        $ git push origin REFACTOR:REFACTOR
 
 とします。すると自分の github のページの ddskk の
 リポジトリに REFACTOR というブランチが作られ、
@@ -129,15 +126,16 @@ local の変更がそこに格納(？)されます。
 
 レビュアーから書き直しの指示があると、ブランチ上で
 
-        $ git rebase -i master
+:        $ git rebase -i master
 
 などとして、ブランチに修正を加えます。(これは git の本なりをご覧下さい。)
 その後
 
-        $ git push --force origin REFACTOR:REFACTOR
+:        $ git push --force origin REFACTOR:REFACTOR
 
 とすると、修正内容で origin 上のブランチを上書きできます。
 
+--------------
 
 * リポジトリの更新
 
@@ -152,18 +150,18 @@ local の変更がそこに格納(？)されます。
 
 次に最新の変更を master に取り込みます。
 
-        $ git checkout master
-
-        $ git pull upstream master:master
+:        $ git checkout master
+:        $ git pull upstream master:master
 
 
 OPTIMIZE ブランチで溜め込んでいた独自の変更点を、最新の master に対する変
 更として保存し直します。このとき master でなされた変更と OPTIMIZE 上での変更
 の間で発生する conflict は、手動で解決する必要があります。
 
-        $ git checkout OPTIMIZE
+:        $ git checkout OPTIMIZE
+:        $ git rebase master
 
-        $ git rebase master
+-------------
 
 * 不要となったブランチの削除
 
@@ -171,7 +169,7 @@ OPTIMIZE ブランチで溜め込んでいた独自の変更点を、最新の m
 
 local と origin のブランチは以下のコマンドで調べることができます。
 
-        $ git branch -a
+:        $ git branch -a
 
 checkout 現在の作業用ブランチに * がついています。
 
@@ -179,19 +177,102 @@ checkout 現在の作業用ブランチに * がついています。
 
 まず、master ブランチに移動します。
 
-        $ git checkout master
+:        $ git checkout master
 
 local のブランチを削除します。
 
-        $ git branch -d REFACTOR
+:        $ git branch -D REFACTOR
 
 次いで origin のブランチも削除します。
 
-        $ git push origin :REFACTOR
+:        $ git push origin :REFACTOR
 
 作業用ブランチが削除されたことを確認します。
 
-        $ git branch -a
+:        $ git branch -a
+
+---------------
+
+* SKK git レポジトリ構成
+
+github で開発を行う際のレポジトリは、以下のような構成になっています。
+
+upstream および origin は github のサーバ上にあるレポジトリとなっていて、おもに WEB ブラウザを経由して操作をします。
+
+一方で local は手元の PC 上のレポジトリとなっていて、git checkout (ブランチ名) でブランチを切り替えることができます。
+ブランチの中で行った改変は、git コマンドを使用しない限り他のブランチの内容には影響しません。
+
+:
+:  +------------------------------------- +  (fork)   +------------------------------------------
+:  | upstream                             | --------> | origin (masterブランチ)                  
+:  |  -> https://github.com/skk-dev/ddskk |           |  -> git@github.com:YOURACCOUNT/ddskk.git 
+:  +--------------------------------------+           +------------------------------------------
+:               ^    |                                                            |
+:               |    |                                                            |
+:               |    |           $ git clone git@github.com:YOURACCOUNT/ddskk.git | 
+:               |    |                                                            |
+:               |    |                                                            V
+:               |    |                                    +-----------------------------------
+:               |    +----------------------------------> | local   (masterブランチ)                
+:               |     $ git pull upstream master:master   |   ->   手元の PC                  
+:               |                                         +-----------------------------------
+:               |                                                |
+:               |                                                | $ git branch REFACTOR
+:               |                                                | $ git checkout REFACTOR
+:               |                                                |    (REFACTORは例としてつけた名称です)
+:               |                                                V
+:               |                                         +-----------------------------------
+:               |                                         | local  (REFACTORブランチ)         
+:               |                                         |   改良作業はここで行う            
+:               |                                         |   改良後 git add -u && git commit 
+:               |                                         +-----------------------------------
+:               |                                                |
+:               |                                                | $ git push origin REFACTOR:REFACTOR
+:               |                                                |
+:               |                                                V
+:               |                                     +------------------------------------------
+:               +------------------------------------ | origin  (REFACTORブランチ)               
+:                   (pull-request)                    |  -> git@github.com:YOURACCOUNT/ddskk.git 
+:                                                     +------------------------------------------
+:
+
+-------------
+
+* git の入手方法
+
+** UN*X環境
+
+ご利用のUN*X環境によっては git の開発環境がインストールされていないことがあります。
+
+git のインストールに関しては、
+#+BEGIN_HTML
+<a href="http://git-scm.com/book/ja/v1/%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%82%8B-Git%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">
+使い始める-Gitのインストール</a>
+#+END_HTML
+などのサイトを参照下さい。
+
+** Windows環境
+
+https://msysgit.github.io/ より Git for Windows を入手します。
+
+インストールする要素の選択（Select Components）は、[Windows Explorer integration]
+および [Associate .sh files to be run with Bash] のチェックを外し、次に進みます。
+
+SKK ディストリビューションは、Windows のバッチファイルを含むため、リポジトリの改行コード(LF or CRLF)を保つために、
+改行コードの変換設定（Configuring the line ending conversions）は、
+[Checkout as-is, commit as-is] にチェッックを入れてください。
+
+なお、Windows 環境では cvs と同様に cygwin を利用することも可能です。
+
+cygwin を使用した場合と、上記の Git for Windows を利用する場合では、
+shell を起動したときのホームディレクトリが異なることに注意して下さい。
+
+デフォルトのインストールでは、WindowsのログインIDを LOGINID としたときにホームディレクトリは以下のようになります。</p>
+
+   - Git for Windows:  c:\Users\LOGINID\
+   - cygwin: c:\cygwin\home\LOGINID\   (または、 c:\cygwin64\home\LOGINID\  
+
+---------------
 
 * その他
 
