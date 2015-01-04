@@ -19,7 +19,7 @@ DDSKK に特化していない箇所もありますが、
 
 github のアカウントはお持ちであるとします。
 
-https://github.com/skk-dev/ddskk で "fork"します。
+https://github.com/skk-dev/ddskk で "fork" します。
 
 すると 自分のアカウントのページに fork したリポジトリができます。
 
@@ -53,11 +53,11 @@ local 中の .git/config にて upstream と origin を定義して
 ない場合は、この段階で定義しておく必要があります。
 
 : [remote "origin"]
-:      -  url = git@github.com:YOURACCOUNT/ddskk.git
-:      -  fetch = +refs/heads/*:refs/remotes/origin/*
+:        url = git@github.com:YOURACCOUNT/ddskk.git
+:        fetch = +refs/heads/*:refs/remotes/origin/*
 : [remote "upstream"]
-:      -  url = git@github.com:skk-dev/ddskk.git
-:      -  fetch = +refs/heads/*:refs/remotes/upstream/*
+:        url = git@github.com:skk-dev/ddskk.git
+:        fetch = +refs/heads/*:refs/remotes/upstream/*
 
 --------------
 
@@ -95,7 +95,7 @@ local の master を origin の master に反映できます。
 では改良をしてみましょう。
 
 改良の目的に応じて名前を
-つけてそれをブランチ名とします。ここでは REFACTORとします。
+つけてそれをブランチ名とします。ここでは REFACTOR とします。
 (特に大文字の必要はありません。)
 
 :        $ git branch REFACTOR
@@ -128,7 +128,7 @@ local の変更がそこに格納(？)されます。
 
 :        $ git rebase -i master
 
-などとして、ブランチに修正を加えます。(これは git の本なりをご覧下さい。)
+などとして、ブランチに修正を加えます（これは git の本なりをご覧下さい）。
 その後
 
 :        $ git push --force origin REFACTOR:REFACTOR
@@ -203,10 +203,10 @@ upstream および origin は github のサーバ上にあるレポジトリと�
 ブランチの中で行った改変は、git コマンドを使用しない限り他のブランチの内容には影響しません。
 
 :
-:  +------------------------------------- +  (fork)   +------------------------------------------
+:  +======================================+  (fork)   +==========================================
 :  | upstream                             | --------> | origin (masterブランチ)                  
 :  |  -> https://github.com/skk-dev/ddskk |           |  -> git@github.com:YOURACCOUNT/ddskk.git 
-:  +--------------------------------------+           +------------------------------------------
+:  +======================================+           +==========================================
 :               ^    |                                                            |
 :               |    |                                                            |
 :               |    |           $ git clone git@github.com:YOURACCOUNT/ddskk.git | 
@@ -230,17 +230,17 @@ upstream および origin は github のサーバ上にあるレポジトリと�
 :               |                                                | $ git push origin REFACTOR:REFACTOR
 :               |                                                |
 :               |                                                V
-:               |                                     +------------------------------------------
-:               +------------------------------------ | origin  (REFACTORブランチ)               
+:               |                                     +==========================================
+:               +------------------------------------ | origin (REFACTORブランチ)
 :                   (pull-request)                    |  -> git@github.com:YOURACCOUNT/ddskk.git 
-:                                                     +------------------------------------------
+:                                                     +==========================================
 :
 
 -------------
 
 * ソースへの直接コミット
 
-GitHub で skk-commiter に所属するメンバーは、コントリビュータの pull request を
+GitHub で Owner または ddskk-commiter team に所属するメンバーは、コントリビュータの pull request を
 ソースにマージする権限とともに、直接ソースに対して更新をかける権限も持っています。
 
 まずローカルのテストの後、upstream のクローンを作ります。
@@ -253,7 +253,7 @@ GitHub で skk-commiter に所属するメンバーは、コントリビュー�
 
 とすることで upstream に対して変更点を反映することができます。
 
-変更を行ったときは、同時に Changelog の更新も行うようにしてください。
+変更を行うときは、同時に Changelog や NEWS.ja も更新してください。
 
 また、スペルミス程度の小さな修正の場合は、
 更新するファイルを GitHub のサイトで表示したときに、
@@ -296,21 +296,7 @@ SKK ディストリビューションは、Windows のバッチファイルを�
 cygwin を使用した場合と、上記の Git for Windows を利用する場合では、
 shell を起動したときのホームディレクトリが異なることに注意して下さい。
 
-デフォルトのインストールでは、WindowsのログインIDを LOGINID としたときにホームディレクトリは以下のようになります。</p>
+デフォルトのインストールでは、WindowsのログインIDを LOGINID としたときにホームディレクトリは以下のようになります。
 
    - Git for Windows:  c:\Users\LOGINID\
    - cygwin: c:\cygwin\home\LOGINID\   (または、 c:\cygwin64\home\LOGINID\  
-
----------------
-
-* その他
-
-local に作成した branch の push 先として origin を指定していますが、
-organization の中の人は organization のリポジトリ、すなわち
-upstream にブランチを作成したり、あるいは upstream の master に
-直接 push しても良いかもしれません。このあたりのバランスは良く
-わかりません。
-
-git/github が不慣れな場合は、慣れるまでは organization の外から
-pull request を出せば良いかと思います。慣れたら、ささやかな変更は
-直接 push しても良いと思います。
