@@ -267,7 +267,7 @@ SKK ディストリビューションは、Windows のバッチファイルを�
 cygwin を使用した場合と、上記の Git for Windows を利用する場合では、
 shell を起動したときのホームディレクトリが異なることに注意して下さい。
 
-デフォルトのインストールでは、WindowsのログインIDを LOGINID としたときにホームディレクトリは以下のようになります。</p>
+デフォルトのインストールでは、WindowsのログインIDを LOGINID としたときにホームディレクトリは以下のようになります。
 
    - Git for Windows:  c:\Users\LOGINID\
    - cygwin: c:\cygwin\home\LOGINID\   (または、 c:\cygwin64\home\LOGINID\  
