@@ -238,6 +238,35 @@ upstream および origin は github のサーバ上にあるレポジトリと�
 
 -------------
 
+* ソースへの直接コミット
+
+GitHub で skk-commiter に所属するメンバーは、コントリビュータの pull request を
+ソースにマージする権限とともに、直接ソースに対して更新をかける権限も持っています。
+
+まずローカルのテストの後、upstream のクローンを作ります。
+
+:        $ git clone git@github.com:skk-dev/ddskk.git     [ssh の例]
+
+変更を加えてコミット (git add -u && git commit) したら
+
+:        $ git push
+
+とすることで upstream に対して変更点を反映することができます。
+
+変更を行ったときは、同時に Changelog の更新も行うようにしてください。
+
+また、スペルミス程度の小さな修正の場合は、
+更新するファイルを GitHub のサイトで表示したときに、
+ソースの右上に表示されている鉛筆のマークをクリックしてください。
+
+ソースを直接書き換えることができます。
+
+なお、他のコミッターの更新と操作が重なった場合、conflict が発生することがあります。
+
+conflict の解消方法は git の本などを参照してください。
+
+-------------
+
 * git の入手方法
 
 ** UN*X環境
@@ -267,7 +296,7 @@ SKK ディストリビューションは、Windows のバッチファイルを�
 cygwin を使用した場合と、上記の Git for Windows を利用する場合では、
 shell を起動したときのホームディレクトリが異なることに注意して下さい。
 
-デフォルトのインストールでは、WindowsのログインIDを LOGINID としたときにホームディレクトリは以下のようになります。
+デフォルトのインストールでは、WindowsのログインIDを LOGINID としたときにホームディレクトリは以下のようになります。</p>
 
    - Git for Windows:  c:\Users\LOGINID\
    - cygwin: c:\cygwin\home\LOGINID\   (または、 c:\cygwin64\home\LOGINID\  
