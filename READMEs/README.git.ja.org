@@ -17,7 +17,7 @@ DDSKK に特化していない箇所もありますが、
 
 * ソースへの直接コミット
 
-GitHub で Owner または ddskk-commiter team に所属するメンバーは、コントリビュータの pull request を
+GitHub で Owners team または ddskk-committers team に所属するメンバーは、コントリビュータの pull request を
 ソースにマージする権限とともに、直接ソースに対して更新をかける権限も持っています。
 
 まずローカルのテストの後、upstream のクローンを作ります。
