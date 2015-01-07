@@ -1,3 +1,8 @@
+2015-01-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-emacs-prepare-modeline-properties):
+	Add load-path for locate skk.xpm.
+
 2015-01-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-jisyo-code): Fix docstring.

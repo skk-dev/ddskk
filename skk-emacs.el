@@ -280,7 +280,8 @@
   (setq skk-icon
 	(let* ((dir (ignore-errors
 		     (file-name-directory
-		      (or (locate-file "skk/skk.xpm"
+		      (or (locate-file "skk.xpm" load-path)
+			  (locate-file "skk/skk.xpm"
 				       (list (expand-file-name
 					      "../../.."
 					      data-directory)))
