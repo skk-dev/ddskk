@@ -592,8 +592,8 @@ C-0 SPC で使用される"
   "*辞書バッファのコーディングシステム。
 基本的には coding system 名を指定する。
 文字列 \"euc\", \"ujis\", \"sjis\", \"jis\" の指定も受け付ける (skk-coding-system-alist)。
-nil の場合 \"euc\" と同じ扱いになる。
-個人辞書はこのコーディングシステムで保存される。"
+デフォルトは nil であり、辞書バッファのコーディングシステムは euc-jis-2004 (GNU Emacs 22 までは euc-jisx0213) となる。
+個人辞書もこのコーディングシステムで保存される。"
   :type '(radio coding-system
 		(radio :tag "コードの通称"
 		       (const "euc")
