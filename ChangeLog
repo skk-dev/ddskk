@@ -1,3 +1,7 @@
+2015-01-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* make1.bat: Add target `test'.
+
 2015-01-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-emacs-prepare-modeline-properties):

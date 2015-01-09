@@ -8,15 +8,6 @@ rem Version: $Id: make1.bat,v 1.8 2010/07/04 02:27:43 skk-cvs Exp $
 rem Created: March 23, 1999
 rem Last Modified: $Date: 2010/07/04 02:27:43 $
 
-rem --- argument
-rem ---   elc : byte compile
-rem ---   all, install : install
-rem ---   info : generate info file
-rem ---   install-info : install info file
-rem ---   clean : cleaning garbage file
-rem ---   what-where : print where to install
-rem ---
-
 rem --- check calling from makeit.bat
 if not "%SUBMAKEOK%"=="OK" goto prnusage
 set SUBMAKEOK=
@@ -32,8 +23,15 @@ if "%arg1%"=="info" goto info
 if "%arg1%"=="install-info" goto installinfo
 if "%arg1%"=="what-where" goto listing
 if "%arg1%"=="clean" goto clean
-echo Unrecognized argument: specify either 'elc', 'all',
-echo 'install', 'info', 'install-info', 'clean' or 'what-where'.
+if "%arg1%"=="test" goto test
+echo Unrecognized argument: specify either
+echo   elc          : byte compile
+echo   all, install : install
+echo   info         : generate info file
+echo   install-info : install info file
+echo   what-where   : print where to install
+echo   clean        : cleaning garbage file
+echo   test         : load test/all-tests.el and execute ert-run-tests-batch-and-exit
 goto pauseend
 
 :compile
@@ -58,6 +56,10 @@ goto end
 
 :clean
 del leim-list.el skk-autoloads.el skk-setup.el auto-autoloads.el custom-load.el *.elc doc\skk.info* *~
+goto end
+
+:test
+%EMACS% -batch -Q -L . -L test -l test/all-tests.el -f ert-run-tests-batch-and-exit
 goto end
 
 rem --- This file should not be executed by itself. Use makeit.bat.
