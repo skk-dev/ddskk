@@ -1,5 +1,10 @@
 2015-01-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-version.el (skk-version): Add mepla version to propname
+	`version-string' in 'skk-version.
+
+	* SKK-MK (VERSION-STRING): If noninteractive, set nil.
+
 	* make1.bat: Add target `test'.
 
 2015-01-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

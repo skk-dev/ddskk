@@ -982,16 +982,18 @@ SKK tutorials:
   (directory-file-name (expand-file-name directory)))
 
 (defvar VERSION-STRING nil)
-(setq VERSION-STRING
-      (let (start)
-	(with-temp-buffer
-	  (insert-file-contents "skk-version.el")
-	  (goto-char (point-min))
-	  (search-forward "'version-string ")
-	  (forward-char)
-	  (setq start (point))
-	  (search-forward (char-to-string 34))
-	  (buffer-substring start (1- (point))))))
+(if noninteractive
+    nil
+  (setq VERSION-STRING
+	(let (start)
+	  (with-temp-buffer
+	    (insert-file-contents "skk-version.el")
+	    (goto-char (point-min))
+	    (search-forward "ver ")
+	    (forward-char)
+	    (setq start (point))
+	    (search-forward (char-to-string 34))
+	    (buffer-substring start (1- (point)))))))
 
 (if noninteractive
     nil
