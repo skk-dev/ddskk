@@ -129,6 +129,8 @@
 
 ;;;###autoload
 (defun ccc-setup ()
+  (add-hook 'post-command-hook 'update-buffer-local-frame-params)
+  (add-hook 'after-make-frame-functions 'ccc-setup-new-frame)
   ;; Determine default colors for frames other than the initial frame.
   (setq ccc-default-cursor-color (or (ccc-default-cursor-color)
 				 (ccc-current-cursor-color))
