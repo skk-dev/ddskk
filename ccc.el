@@ -1,12 +1,13 @@
-;;; ccc.el --- cursor color control
+;;; ccc.el --- cursor color control library
 
 ;; Copyright (C) 2000 Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Copyright (C) 2001, 2002, 2004, 2005,
-;;   2007, 2008 SKK Development Team <skk@ring.gr.jp>
+;;   2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014,
+;;   2015, SKK Development Team <skk@ring.gr.jp>
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: ccc.el,v 1.42 2012/10/21 09:41:07 skk-cvs Exp $
+;; Version: 1.43
 ;; Keywords: cursor
 ;; Last Modified: $Date: 2012/10/21 09:41:07 $
 
