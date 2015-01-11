@@ -47,7 +47,7 @@
   (cond ((eval-when-compile (featurep 'xemacs))
 	 (frame-property (selected-frame) 'cursor-color))
 	(t
-	 (frame-cursor-color))))
+	 (ccc-frame-cursor-color))))
 
 ;;;###autoload
 (defun skk-cursor-current-color ()
@@ -89,8 +89,8 @@
 			   (skk-cursor-current-color))
 		       (current-buffer)))
    (t
-    (when default-cursor-color
-      (set-buffer-local-cursor-color
+    (when ccc-default-cursor-color
+      (ccc-set-buffer-local-cursor-color
        (or color
 	   (skk-cursor-current-color)))))))
 
@@ -99,8 +99,8 @@
   (cond ((eval-when-compile (featurep 'xemacs))
 	 (skk-cursor-set))
 	(t
-	 (when default-cursor-color
-	   (set-cursor-color-buffer-local nil)))))
+	 (when ccc-default-cursor-color
+	   (ccc-set-cursor-color-buffer-local nil)))))
 
 ;; advices.
 (when (eval-when-compile (featurep 'xemacs))
