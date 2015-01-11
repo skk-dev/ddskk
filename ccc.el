@@ -288,15 +288,6 @@
 (defadvice disable-theme (after ccc-ad activate)
   (ccc-setup-current-colors))
 
-;; Hooks
-(add-hook 'post-command-hook 'ccc-update-buffer-local-frame-params)
-(add-hook 'after-make-frame-functions 'ccc-setup-new-frame)
-;;;###autoload
-(add-hook 'after-init-hook
-	  (lambda ()
-	    (when window-system
-	      (ccc-setup))))
-
 (provide 'ccc)
 
 ;;; ccc.el ends here
