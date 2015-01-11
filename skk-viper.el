@@ -151,7 +151,7 @@
 となる。"
       (when skk-use-color-cursor
 	;; non-command subr.
-	(add-hook 'minibuffer-setup-hook 'update-buffer-local-frame-params
+	(add-hook 'minibuffer-setup-hook 'ccc-update-buffer-local-frame-params
 		  'append))))))
 
 ;;; advices.

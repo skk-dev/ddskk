@@ -67,7 +67,9 @@
 	    (when (and (symbol-value 'init-file-user)
 		       skk-preload)
 	      (skk-preload)
-	      (message "SKK preload...done")))
+	      (message "SKK preload...done"))
+        (when window-system
+	      (ccc-setup)))
 	  t)
 
 (provide 'skk-setup)
