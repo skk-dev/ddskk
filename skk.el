@@ -76,8 +76,10 @@
 (eval-and-compile
   ;; SKK common.
 
-  ;; skk の起動時、skk-autoloads は 2 種類のうちどちらかである。
+
+  ;; skk の起動時、*-autoloads は下記の２種類のうちどちらかに限って存在する。
   ;;                | make でインストール     | MELPA 経由でインストール
+  ;;   ファイル名   | skk-autoloads.el        | ddskk-autoloads.el
   ;;   provide 宣言 | あり (SKK-MK が生成)    | なし
   ;;
   ;; 単なる require だと MELPA 版 で Required feature skk-autoloads was
