@@ -68,7 +68,7 @@
 		       skk-preload)
 	      (skk-preload)
 	      (message "SKK preload...done"))
-        (when window-system
+	    (when window-system
 	      (ccc-setup)))
 	  t)
 
