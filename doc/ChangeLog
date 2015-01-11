@@ -1,3 +1,8 @@
+2015-01-11  Yuhei Maeda  <yuhei.maeda@gmail.com>
+
+	* ccc.el: Add prefix "ccc-".
+	* ccc.el: Fix comment header.
+
 2015-01-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: 「ユーザー」を「ユーザ」に統一.
