@@ -1,5 +1,9 @@
 2015-01-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* Makefile: add target uninstall.
+	* make1.bat: ditto.
+	* SKK-MK (SKK-MK-uninstall): add function SKK-MK-uninstall.
+
 	* skk-setup.el.in (after-init-hook): correct indent.
 
 2015-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

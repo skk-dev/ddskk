@@ -21,6 +21,7 @@ if "%arg1%"=="all" goto install
 if "%arg1%"=="install" goto install
 if "%arg1%"=="info" goto info
 if "%arg1%"=="install-info" goto installinfo
+if "%arg1%"=="uninstall" goto uninstall
 if "%arg1%"=="what-where" goto listing
 if "%arg1%"=="clean" goto clean
 if "%arg1%"=="test" goto test
@@ -29,6 +30,7 @@ echo   elc          : byte compile
 echo   all, install : install
 echo   info         : generate info file
 echo   install-info : install info file
+echo   uninstall    : uninstall
 echo   what-where   : print where to install
 echo   clean        : cleaning garbage file
 echo   test         : load test/all-tests.el and execute ert-run-tests-batch-and-exit
@@ -48,6 +50,10 @@ goto end
 
 :installinfo
 %EMACS% -batch -q -no-site-file -l SKK-MK -f SKK-MK-install-info
+goto end
+
+:uninstall
+%EMACS% -batch -q -no-site-file -l SKK-MK -f SKK-MK-uninstall
 goto end
 
 :listing

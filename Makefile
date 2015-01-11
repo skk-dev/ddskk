@@ -55,12 +55,14 @@ install-info:
 install-package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-install-package
 
-
 what-where:
 	$(EMACS) $(FLAGS) -f SKK-MK-what-where
 
 what-where-package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-what-where-package
+
+uninstall:
+	$(EMACS) $(FLAGS) -f SKK-MK-uninstall
 
 TAGS:
 	$(ETAGS) `find . -name '*.el'`

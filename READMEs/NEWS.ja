@@ -20,9 +20,9 @@ https://github.com/skk-dev/skktools
 
 開発の流れなどは READMEs/README.git.ja.org をご覧ください。
 
-*** Makefile にターゲット test を追加
+*** Makefile にターゲット `test', `uninstall' を追加
 
-*** make1.bat にラベル test を追加
+同じく make1.bat にも追加
 
 ** ドキュメント整備
 

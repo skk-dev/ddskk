@@ -822,6 +822,14 @@ This version of SKK requires MULE features"))
       (kill-buffer obuf)		; .texi buffer
       (setq targets (cdr targets)))))
 
+(defun SKK-MK-uninstall ()
+  (dolist (f (directory-files SKK_LISPDIR t ".el"))
+    (delete-file f))
+  (delete-directory SKK_LISPDIR)
+  (delete-file (expand-file-name SKK_INFO SKK_INFODIR))
+  (dolist (f SKK_TUTORIALS)
+    (delete-file (expand-file-name f SKK_DATADIR))))
+
 (defun SKK-MK-what-where ()
   (interactive)
   (let ((string
