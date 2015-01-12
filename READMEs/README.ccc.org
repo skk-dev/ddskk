@@ -1,4 +1,6 @@
- =ccc= is a library for Emacs that changes buffer local cursor color.
+ [[https://github.com/skk-dev/ddskk/blob/master/ccc.el][=ccc=]] is a library for Emacs that changes buffer local cursor color.
+
+ It enables to change foreground-color and background-color too.
 
 * Usage
   If you control cursor color under  =ccc= , eval this.
@@ -8,9 +10,9 @@
   #+end_src
 
 * Functions
- - [[*ccc-set-buffer-local-cursor-color =(color_string)=][ccc-set-buffer-local-cursor-color]] 
- - [[*ccc-set-buffer-local-foreground-color =(color_string)=][ccc-set-buffer-local-foreground-color]] 
- - [[*ccc-set-buffer-local-background-color =(color_string)=][ccc-set-buffer-local-background-color]] 
+ - [[https://github.com/skk-dev/ddskk/blob/master/READMEs/README.ccc.org#ccc-set-buffer-local-cursor-color--color_string][ccc-set-buffer-local-cursor-color]]
+ - [[https://github.com/skk-dev/ddskk/blob/master/READMEs/README.ccc.org#ccc-set-buffer-local-foreground-color-color_string][ccc-set-buffer-local-foreground-color]]
+ - [[https://github.com/skk-dev/ddskk/blob/master/READMEs/README.ccc.org#ccc-set-buffer-local-background-color-color_string][ccc-set-buffer-local-background-color]]
 
 ** ccc-set-buffer-local-cursor-color  =(color_string)=
     =ccc-set-buffer-local-cursor-color= enables to change cursor color in current buffer,  it has no effect in other buffer.
