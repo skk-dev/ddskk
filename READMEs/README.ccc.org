@@ -1,4 +1,4 @@
- [[https://github.com/skk-dev/ddskk/blob/master/ccc.el][=ccc=]] is a library for Emacs that changes buffer local cursor color.
+ [[https://github.com/skk-dev/ddskk/blob/master/ccc.el][ccc]] is a library for Emacs that changes buffer local cursor color.
 
  It enables to change foreground-color and background-color too.
 
