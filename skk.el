@@ -3887,6 +3887,7 @@ If you want to restore the dictionary from your drive, try
 
 (defun skk-get-jisyo-buffer (file &optional nomsg)
   "FILE を開いて SKK 辞書バッファを作り、バッファを返す。
+辞書バッファには `skk-jisyo-code' が適用される (nil であれば euc) が、FILE に (\"path/to/file\" . CODING-SYSTEM) のコンスセルも指定できる。
 オプショナル引数の NOMSG を指定するとファイル読み込みの際のメッセージを表示しな
 い。"
   (when file

@@ -1,5 +1,8 @@
 2015-01-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk.el (skk-get-jisyo-buffer): Fix docstring.
+	* skk-vars.el (skk-jisyo-code): Fix docstring.
+
 	* Makefile: add target uninstall.
 	* make1.bat: ditto.
 	* SKK-MK (SKK-MK-uninstall): add function SKK-MK-uninstall.
