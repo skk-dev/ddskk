@@ -1,4 +1,4 @@
-;;; ccc.el --- cursor color control library
+;;; ccc.el --- buffer local cursor color control library
 
 ;; Copyright (C) 2000 Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Copyright (C) 2001, 2002, 2004, 2005,
@@ -7,9 +7,10 @@
 
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; URL: https://github.com/skk-dev/ddskk/blob/master/READMEs/README.ccc.org
 ;; Version: 1.43
 ;; Keywords: cursor
-;; Last Modified: $Date: 2012/10/21 09:41:07 $
+;; Last Modified: $Date: 2015/01/12 09:41:07 $
 
 ;; This file is not part of GNU Emacs.
 
