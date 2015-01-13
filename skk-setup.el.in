@@ -61,17 +61,6 @@
 (add-hook 'isearch-mode-hook #'skk-isearch-setup-maybe)
 (add-hook 'isearch-mode-end-hook #'skk-isearch-cleanup-maybe)
 
-;;; Preload setting.
-(add-hook 'after-init-hook
-	  (lambda ()
-	    (when (and (symbol-value 'init-file-user)
-		       skk-preload)
-	      (skk-preload)
-	      (message "SKK preload...done"))
-	    (when window-system
-	      (ccc-setup)))
-	  t)
-
 (provide 'skk-setup)
 
 ;;; skk-setup.el ends here

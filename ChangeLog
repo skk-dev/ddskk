@@ -1,3 +1,9 @@
+2015-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el, skk-setup.el.in: add-hook 'after-init-hook skk-preload()
+	を skk-setup.el から skk.el (skk-autoloads.el) へ移動.
+	2014-11-30 の変更を復元. http://mail.ring.gr.jp/skk/201501/msg00047.html
+
 2015-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK-MK-uninstall): Display message when deleted file

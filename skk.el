@@ -5467,6 +5467,17 @@ skk の動作と整合させる。
 
 ;; hooks.
 
+;;;###autoload
+(add-hook 'after-init-hook
+	  (lambda ()
+	    (when (and (symbol-value 'init-file-user)
+		       skk-preload)
+	      (skk-preload)
+	      (message "SKK preload...done"))
+	    (when window-system
+	      (ccc-setup)))
+	  t)
+
 (add-hook 'kill-buffer-hook
 	  ;; SKK の▼モードだったら、確定してからバッファをキルする。
 	  (lambda ()
