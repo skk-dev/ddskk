@@ -1,3 +1,8 @@
+2015-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-uninstall): Display message when deleted file
+	or directory.
+
 2015-01-11  Yuhei Maeda  <yuhei.maeda@gmail.com>
 
 	* ccc.el: Fix comment header

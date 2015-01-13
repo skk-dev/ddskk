@@ -825,10 +825,18 @@ This version of SKK requires MULE features"))
 (defun SKK-MK-uninstall ()
   (dolist (f (directory-files SKK_LISPDIR t ".el"))
     (delete-file f))
+  (princ (format "Delete files in %s...done\n" SKK_LISPDIR))
+
   (delete-directory SKK_LISPDIR)
+  (princ (format "Delete directory %s...done\n" SKK_LISPDIR))
+
   (delete-file (expand-file-name SKK_INFO SKK_INFODIR))
+  (princ (format "Delete %s file in %s...done\n" SKK_INFO SKK_INFODIR))
+
   (dolist (f SKK_TUTORIALS)
-    (delete-file (expand-file-name f SKK_DATADIR))))
+    (let ((fullpath (expand-file-name f SKK_DATADIR)))
+      (delete-file fullpath)
+      (princ (format "Delete %s...done\n" fullpath)))))
 
 (defun SKK-MK-what-where ()
   (interactive)
