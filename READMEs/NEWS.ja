@@ -18,7 +18,7 @@ M-x skk-version の評価結果に MELPA の情報を加えました。
 https://github.com/skk-dev/ddskk
 https://github.com/skk-dev/skktools
 
-開発の流れなどは READMEs/README.git.ja.org をご覧ください。
+開発の流れなどは READMEs/Development.ja.org をご覧ください。
 
 *** Makefile にターゲット `test', `uninstall' を追加
 

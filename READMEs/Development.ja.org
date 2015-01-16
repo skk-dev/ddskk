@@ -1,5 +1,5 @@
 #  -*- coding:utf-8 mode:org -*-
-#+TITLE: GitHubによる開発の流れについて [README.git.ja]
+#+TITLE: GitHubによる開発の流れについて [Development.ja]
 #+STARTUP: showall
 #+TEXT: この文章は org-mode で記述されています。
 #+TEXT: Emacs上でこの文書を開き、C-c C-e h h とすることで html のドキュメントが生成されます。
