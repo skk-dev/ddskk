@@ -17,6 +17,11 @@ http://wikemacs.org/wiki/Package.el
 (when (require 'package nil t)
   (add-to-list 'package-archives
     '("melpa" . "http://melpa.org/packages/") t))
+```
+
+Emacs 23 を使用している場合は、さらに次の行を追加してください。
+
+```
 (package-initialize)
 ```
 
