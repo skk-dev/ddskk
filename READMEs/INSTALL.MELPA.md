@@ -1,6 +1,6 @@
 # How to install DDSKK using MELPA
 
-2014 年 12 月、MELPA に DDSKK が登録されたことにより GNU Emacs でも `package.el` によるインストールが可能となりました。
+2014 年 12 月、MELPA に DDSKK が登録されたことにより、 GNU Emacs で `package.el` を利用して DDSKK をインストールすることができるようになりました。
 
  * MELPA: Milkypostman's Emacs Lisp Package Archive (http://melpa.org/)
 
@@ -9,7 +9,9 @@ http://wikemacs.org/wiki/Package.el
 
 ## 1. package.el の設定
 
-まず、`package.el` が MELPA を参照するよう、`~/.emacs.d/init.el` に次のとおり設定してください。
+まず、`package.el` が、パッケージを MELPA から取得できるよう、
+変数 package-archives を設定します。`~/.emacs.d/init.el` に
+次のとおり記載してください。
 
 ```
 (when (require 'package nil t)
@@ -33,8 +35,8 @@ http://wikemacs.org/wiki/Package.el
 -------------------- Package Menu mode --------------------
 ```
 
-ddskk の行にカーソルを置いて `i` `x` と順にタイプすると、ミニバッファにてパッケージをイン
-ストールするか問われます。
+ddskk の行にカーソルを置いて `i` をタイプすると、行頭に `I` マークが付きます。
+続けて `x` をタイプすると、パッケージをインストールするか問われます。
 
 ```
 ------ Minibuffer -------
@@ -42,13 +44,14 @@ Install package `ddskk-20141227.828'? (yes or no)
 ------ Minibuffer -------
 ```
 
-`y e s` とタイプすると、インストールが始まります。
+`y e s` とタイプすると、依存関係にあるパッケージ群 (ccc, cdb, ddskk) がダウンロードされ、インストールが始まります。
 
 `skk.info` も同時にインストールされますので、`M-x info` で閲覧することができます。
 
 ** インストール時の制限 **
 
-MELPA によるインストールでは、DDSKK の配布物に含まれている `doc/` や `etc/` といったディレクトリは全てインストールされません(`skk.info` はインストールされます)。インストールされるファイルは MELPA の recipe に記述されます。
+MELPA によるインストールでは、DDSKK の配布物に含まれている `doc/` や `etc/` といったディレクトリは全てインストールされません(`skk.info` と `skk.xpm` はインストールされます)。
+インストールされるファイルは MELPA の recipe に記述されます。
 詳しい recipe は https://github.com/milkypostman/melpa/blob/master/recipes/ddskk
 を参照してください。
 
@@ -62,11 +65,11 @@ MELPA を利用してインストールした場合、make による通常のイ
 ```
 
 skk-mode を起動すると設定ファイル `~/.skk` (skk-init-file) が読み込まれますので、
-辞書などの諸設定はこちらで定義してください。
+辞書などの諸設定は skk-init-file で定義してください。
 
 ## 4. DDSKK のアップグレード
 
-MELPA は、わりと頻繁に github のリポジトリ(skk-dev/ddskk)の更新を確認しているようです。
+MELPA は、わりと頻繁に github のリポジトリ (skk-dev/ddskk) の更新を確認しているようです。
 Package Menu モードで `U` とタイプすると、package.el は MELPA 上の DDSKK のアップ
 デートをチェックします。
 
