@@ -50,8 +50,7 @@ Thank you.
   6. Push to the branch (`git push origin my-new-feature`)
   7. Create a new Pull Request
 
-If you want to commit something to skk-dev/ddskk repository, please join the [ddskk-committers team](https://github.com/orgs/skk-dev/teams/ddskk-committers).
-
+**If you want to commit something to skk-dev/ddskk repository, please join the [ddskk-committers team](https://github.com/orgs/skk-dev/teams/ddskk-committers)**.
 
 <!--
 Local variables:
