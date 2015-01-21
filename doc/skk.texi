@@ -510,7 +510,7 @@ XEmacs でパッケージとしてインストールする場合は、
 
 @example
 @group
-% make what-where-package EMACS=/usr/bin/xemacs
+% make what-where-package XEMACS=/usr/bin/xemacs
 @print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where-package
 
 @print{}  Loading /home/user/temp/ddskk-@value{SKK-VERSION}/SKK-CFG...
@@ -537,7 +537,7 @@ XEmacs でパッケージとしてインストールする場合は、
 
 @example
 @group
-% make install-package EMACS=/usr/bin/xemacs
+% make install-package XEMACS=/usr/bin/xemacs
 @print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-install-package
 @print{}  Loading /home/user/temp/ddskk-@value{SKK-VERSION}/SKK-CFG@dots{}
 @dots{}
