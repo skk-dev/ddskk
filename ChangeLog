@@ -1,3 +1,7 @@
+2015-02-05  Yuhei Maeda  <yuhei.maeda@gmail.com>
+
+	* skk.el: Fix bug for delete-selection-mode
+	This bug is related to cdcd50bbf7bffbddbaf681ecb596b78fab648c6b
 2015-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el, skk-setup.el.in: add-hook 'after-init-hook skk-preload()
