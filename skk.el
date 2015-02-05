@@ -755,6 +755,18 @@ dependent."
 		   (file-newer-than-file-p init-file elc))
 	  (delete-file elc))))))
 
+(defun skk-delete-selection-wrapper ()
+  (unless (and (member (char-to-string (skk-last-command-char))
+                       (mapcar (lambda (x) (car x)) skk-auto-paren-string-alist))
+               skk-use-auto-enclose-pair-of-region)
+    (delete-active-region)
+    (if (and overwrite-mode
+             (eq this-command 'self-insert-command))
+        (let ((overwrite-mode nil))
+          (self-insert-command
+           (prefix-numeric-value current-prefix-arg))
+          (setq this-command 'ignore)))))
+
 (defun skk-setup-delete-selection-mode ()
   "Delete Selection $B%b!<%I$N$?$a$N@_Dj$r$9$k!#(B
 Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$K(B
@@ -766,14 +778,14 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	(funcs '(skk-current-kuten
 		 skk-current-touten
 		 skk-input-by-code-or-menu
-		 skk-insert
 		 skk-today))
 	(supersede-funcs '(skk-delete-backward-char)))
     (unless (get 'skk-insert property)
       (dolist (func funcs)
-	(put func property t))
+        (put func property t))
       (dolist (func supersede-funcs)
-	(put func property 'supersede)))))
+        (put func property 'supersede))
+      (put 'skk-insert property 'skk-delete-selection-wrapper))))
 
 (defun skk-setup-auto-paren ()
   (when (and skk-auto-insert-paren
