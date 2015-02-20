@@ -759,7 +759,7 @@ dependent."
   (unless (and (member (char-to-string (skk-last-command-char))
                        (mapcar (lambda (x) (car x)) skk-auto-paren-string-alist))
                skk-use-auto-enclose-pair-of-region)
-    (funcall region-extract-function 'delete-only)
+    (delete-region (point) (mark))
     (if (and overwrite-mode
              (eq this-command 'self-insert-command))
         (let ((overwrite-mode nil))
