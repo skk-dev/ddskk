@@ -47,6 +47,25 @@
 ;;                                  skk-wikipedia-suggest へ
 ;;       置き換え可能です。
 
+;;; Requre
+;; json.el を必要とします。json.el は Emacs 23.1 からは標準です。
+;; Emacs 22 を利用している方は、
+;;   http://edward.oconnor.cx/elisp/json.el
+;; から json.el を取得してください。
+
+;; Install
+;; 当ファイルを ddskk のトップディレクトリにコピーして make install します。
+;;   $ pwd
+;;   /home/brutus/temp/ddskk-16.0.50
+;;   $ cp experimental/skk-search-web.el .
+;;   $ make what-where
+;;   $ make install
+
+;; Test
+;; (let ((skk-henkan-key "emacs"))
+;;   (skk-search-web 'skk-google-suggest))
+;; ("emacs" "emacs コマンド" "emacs windows" "emacs 使い方" "emacs 文字コード" ...)
+
 ;;; 謝辞
 ;;    もともとのオリジナルは HAMANO Kiyoto <khiker.mail@gmail.com> さんが
 ;;    書いた記事 http://d.hatena.ne.jp/khiker/20100128/google_suggest です。

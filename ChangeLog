@@ -1,3 +1,7 @@
+2015-02-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/skk-search-web.el: Update comment.
+
 2015-02-05  Yuhei Maeda  <yuhei.maeda@gmail.com>
 
 	* skk.el: Fix bug for delete-selection-mode
