@@ -1,3 +1,7 @@
+2015-03-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-gadget.el: Modify comment.
+
 2015-02-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el, ddskk-pkg.el:

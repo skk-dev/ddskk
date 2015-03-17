@@ -28,6 +28,11 @@
 
 ;;; Commentary:
 
+;; 2014.12.30 SKK-JISYO.lisp
+;;   SKK-JISYO.L からプログラム実行変換を使用しているエントリを抜き出して
+;;   SKK-JISYO.lisp とした。ただし、concat 関数に限っては SKK-JISYO.L に
+;;   残している。 http://mail.ring.gr.jp/skk/201412/msg00095.html
+
 ;; プログラム実行変換とは
 ;; ======================
 ;; 送り仮名のない辞書の変換の候補に Emacs Lisp のコードが書いてあれば、SKK
@@ -211,47 +216,6 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 	       skk-default-current-date-function)
 	     (skk-current-date-1 specified-time)
 	     format (not skk-date-ad) and-time)))
-
-;; きのう /(skk-relative-date ; 平成25年2月02日(土)
-;;           (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) nil nil :dd -1)
-;; /(skk-relative-date        ; 2013-2-02(Sat)
-;;    (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s-%s-%s(%s)" 0 nil 0 0 nil)) nil nil :dd -1)
-;; /(skk-relative-date        ; H25年2月02日(土)
-;;    (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 1 0 0)) nil nil :dd -1)
-;; /(skk-relative-date        ; 平成二十五年二月二日(土)
-;;    (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 3 'gengo 0 0 0)) nil nil :dd -1)
-;; /(skk-relative-date nil nil nil :dd -1)/ ; 平成２５年２月０２日(土)
-
-;; おととい /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) nil nil :dd -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s-%s-%s(%s)" 0 nil 0 0 nil)) nil nil :dd -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 1 0 0)) nil nil :dd -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 3 'gengo 0 0 0)) nil nil :dd -2)/(skk-relative-date nil nil nil :dd -2)/
-
-;; おとつい /ditto/
-
-;; あす /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) nil nil :dd 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s-%s-%s(%s)" 0 nil 0 0 nil)) nil nil :dd 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 1 0 0)) nil nil :dd 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 3 'gengo 0 0 0)) nil nil :dd 1)/(skk-relative-date nil nil nil :dd 1)/
-
-;; あした /ditto/
-
-;; あさって /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) nil nil :dd 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s-%s-%s(%s)" 0 nil 0 0 nil)) nil nil :dd 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 1 0 0)) nil nil :dd 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 3 'gengo 0 0 0)) nil nil :dd 2)/(skk-relative-date nil nil nil :dd 2)/
-
-;; ことし /(skk-current-date ; "2013年"
-;;           (lambda (date-information format gengo and-time)
-;;             (skk-default-current-date date-information "%s年" 0 nil 0 0 0)))
-;; /(skk-current-date        ; "平成25年"
-;;    (lambda (date-information format gengo and-time)
-;;      (skk-default-current-date date-information "%s年" 0 'gengo 0 0 0)))
-;; /(skk-current-date        ; "平成二十五年"
-;;    (lambda (date-information format gengo and-time)
-;;      (skk-default-current-date date-information "%s年" 3 'gengo 0 0 0)))
-;; /(skk-current-date        ; "平成２５年"
-;;    (lambda (date-information format gengo and-time)
-;;      (skk-default-current-date date-information "%s年" 1 'gengo 0 0 0)))/
-
-;; きょねん /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 0 nil 0 0 0)) nil nil :yy -1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 0 'gengo 0 0 0)) nil nil :yy -1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 3 'gengo 0 0 0)) nil nil :yy -1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 1 'gengo 0 0 0)) nil nil :yy -1)/
-
-;; おととし /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 0 nil 0 0 0)) nil nil :yy -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 0 'gengo 0 0 0)) nil nil :yy -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 3 'gengo 0 0 0)) nil nil :yy -2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 1 'gengo 0 0 0)) nil nil :yy -2)/
-
-;; らいねん /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 0 nil 0 0 0)) nil nil :yy 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 0 'gengo 0 0 0)) nil nil :yy 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 3 'gengo 0 0 0)) nil nil :yy 1)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 1 'gengo 0 0 0)) nil nil :yy 1)/
-
-;; さらいねん /(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 0 nil 0 0 0)) nil nil :yy 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 0 'gengo 0 0 0)) nil nil :yy 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 3 'gengo 0 0 0)) nil nil :yy 2)/(skk-relative-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information "%s年" 1 'gengo 0 0 0)) nil nil :yy 2)/
 
 (defun skk-today-execute-char ()
   (let (char)
