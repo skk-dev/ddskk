@@ -47,7 +47,6 @@ Install package `ddskk-20141227.828'? (yes or no)
 ------ Minibuffer -------
 ```
 
-`y e s` とタイプすると、インストールが始まります。
 
 To build and install the ddskk package and the involved packages, ccc and cdb, type `y e s`.
 
