@@ -6,7 +6,7 @@ rem ---              cmail ML member
 rem ---  modified 1999/12/01, Yuh Ohmura, mailto:yutopia@y6.dion.ne.jp
 rem ---  modified 2000/12/26, Takeshi Morishima mailto:tm@interaccess.com
 rem ---  date $Date: 2013/01/13 09:30:21 $
-rem ---  version $Id: makeit.bat,v 1.5 2013/01/13 09:30:21 skk-cvs Exp $
+rem ---  latest cvs version $Id: makeit.bat,v 1.5 2013/01/13 09:30:21 skk-cvs Exp $
 
 set ELISPMK_APP=skk
 
@@ -20,11 +20,7 @@ rem --- 変数設定
 rem ---   このコメントのあとにある PREFIX, EMACS, EXEC_PREFIX, LISPDIR,
 rem ---   INFODIR, VERSION_SPECIFIC_LISPDIR の各変数を，お使いの環境に
 rem ---   適当に合せて設定してください．
-rem ---   特に，EMACS の値を，
-rem ---     Windows95/98 を利用されている方は meadow95.exe
-rem ---     WindowsNT4.0 を利用されている方は meadownt.exe
-rem ---     NTEmacs を利用されている方は emacs.exe
-rem ---   を指定するのを忘れないように．
+rem ---   特にEMACS の値として emacs.exe を指定するのを忘れないように．
 rem ---
 rem ---   適宜指定が終った makeit.bat は下のいずれかのファイルとして
 rem ---   コピーしておくとそちらを優先して実行します。(アップグレード
@@ -57,9 +53,7 @@ rem ---   After this comment section, PREFIX, EMACS, EXEC_PREFIX,
 rem ---   LISPDIR, INFODIR, VERSION_SPECIFIC_LISPDIR is defined using
 rem ---   'set' batch command. Please specify them appropriately
 rem ---   according to your Emacs environment. Especially remember to set
-rem ---   the EMACS variable to meadow95.exe if you use Meadow on
-rem ---   Windows95/98, or to meadownt.exe if you use Meadow on
-rem ---   WindowsNT4.0, or to emacs.exe if you use NTEmacs.
+rem ---   the EMACS variable to emacs.exe.
 rem ---
 rem ---   After modification, you may make a copy of makeit.bat as a pre-
 rem ---   configured file as one of the following name. Any future
@@ -84,18 +78,21 @@ rem ---     2-5. c:\Meadow\elispmk.bat
 rem ---     2-6. d:\Meadow\elispmk.bat
 
 rem --- 変数設定の例 (Example of variable definition)
-rem --- c:\usr\Meadow にインストールされている 1.10 の Meadow を使用
+rem --- c:\usr\emacs にインストールされている Emacs 24.4 を使用
 rem --- している場合の設定例. (An example of variable definition. In
-rem --- this example, Meadow 1.10 installed in c:\usr\Meadow directory
+rem --- this example, Emacs 24.4 installed in c:\usr\emacs directory
 rem --- is used.)
-rem ---   set PREFIX=c:\usr\Meadow
-rem ---   set EMACS=%PREFIX%\1.10\bin\meadow95.exe
+rem ---   set PREFIX=
+rem ---   set EMACS=c:\usr\bin\emacs.exe
 rem ---   set EXEC_PREFIX=
-rem ---   set LISPDIR=%PREFIX%\site-lisp
-rem ---   set VERSION_SPECIFIC_LISPDIR=%PREFIX%\1.10\site-lisp
+rem ---   set LISPDIR=
+rem ---   set VERSION_SPECIFIC_LISPDIR=
 rem ---   set DEFAULT_MAKE_ARG=elc
-rem --- 安全のためデフォルトの値はすべて空文字列になっています。お使い
-rem --- のシステムにあわせてこれらの変数を指定してください。(To take a
+rem --- 安全のためデフォルトの値はすべて空文字列になっています。
+rem --- Emacs 24.4 以降はそれまでの Emacs とディレクトリ構造が変更になっています。
+rem --- インストーラーはインストール先のディレクトリ構造を自動的に検知しますので、
+rem --- 特に必要の無い場合は上記の例の EMACS のみを変更して下さい。
+rem --- (To take a
 rem --- safe side, default values are all set to null strings. Please
 rem --- specify these variables accordingly for your system.)
 rem --- なお、DEFAULT_MAKE_ARG に可能な値は make1.bat を御覧ください。

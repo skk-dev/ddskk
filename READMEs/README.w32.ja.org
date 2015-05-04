@@ -1,13 +1,16 @@
-`MAKEIT.BAT' の編集とインストール [README.w32.ja]
+#  -*- coding:utf-8 mode:org -*-
+#+TITLE: MAKEIT.BAT の編集とインストール [README.w32.ja]
+#+STARTUP: showall
+#+TEXT: この文章は org-mode で記述されています。
+#+TEXT: Emacs上でこの文書を開き、C-c C-e h h とすることで html のドキュメントが生成されます。
+#+OPTIONS: H:4 toc:nil
+#+AUTHOR: Yuh Ohmura <yutopia@y6.dion.ne.jp>, NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
-Windows 95, Windows 98, Windows Me, Windows NT, Windows 2000, Windows XP,
-Windows Vista, Windows 7 の各オペレーティングシステムの上で動く Emacs に
-DDSKK をインストールする方法を解説します。
-
-Yuh Ohmura <yutopia@y6.dion.ne.jp>
-NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
+Windows Vista, 7, 8.1 の各オペレーティングシステムの上で動く Emacs にDDSKK をインストールする方法を解説します。
 
 同梱の INSTALL 及び README.md も必ずご覧下さい。
+
+----------
 
 * 前置き
 
@@ -15,17 +18,15 @@ NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
 INSTALL.MELPA.md をご覧下さい。
 
-** Emacs 20 / Meadow 1.15
+** Emacs 21 以前
 
-APEL をインストールした上で DDSKK 14.1 をインストールしてください。
+DDSKK 14.2 以降は Meadow 2 (Emacs 20) はサポート対象外です。 Meadow 2 (Emacs 20) のユーザは DDSKK 14.1 をお使いください。
+DDSKK 15.1 以降は Meadow 3(Emacs 21) はサポート対象外です。 Meadow 3 (Emacs 21) のユーザは DDSKK 14.4 をお使いください。
 
-** Emacs 21 / Meadow 2.11
+なお、Meadow は現在開発が止まっており、すでに Meadow を利用中でない限りは、最新の Emacs を使用することを推奨します。
 
-APEL をインストールした上で DDSKK 14.4 をインストールしてください。
+** Emacs 22 以降
 
-** Emacs 22 以降 / Meadow 2.20 / Meadow 3.00
-
-APEL のインストールは不要です。
 DDSKK 最新版をインストールしてください。
 
 ** Emacs 24.3 以降
@@ -36,46 +37,47 @@ DDSKK 14.4 では isearch の不具合があります。DDSKK 15.1 をインス�
 
 NTEmacs 24.4 は、同 24.3 と比べてディレクトリ構成が異なります。DDSKK 15.2 をインストールしてください。
 
-* Meadow/NTEmacs
+----------
 
-以下は Meadow 2.10 を例に解説します。他の環境についても十分参考になる
-ように記述します。Meadow は
+* Emacs 24.4
 
-     c:/meadow
-
+以下は Emacs 24.4 を例に解説します。他の環境についても十分参考になるように記述します。Emacs は
+#+BEGIN_SRC
+     c:\usr\Emacs
+#+END_SRC
 にインストールされていると仮定します。
 
 ** gzip, make, tar などの準備
 
 SKK のインストールには gzip, make, tar の各プログラムを使います。
 これらを入手する手段は、例えば
-
+#+BEGIN_SRC 
      http://sourceforge.net/projects/unxutils
-
+#+END_SRC
 などがあります。
 
 UnxUtils.zip をダウンロード・展開して、例えば
-
-     c:/UnxUtils
-
-に置いたと仮定し、 ~/.emacs.d/init.el に以下のように設定します。
-
+#+BEGIN_SRC
+     c:\UnxUtils
+#+END_SRC
+に置いたと仮定し、 ~\.emacs.d\init.el に以下のように設定します。
+#+BEGIN_SRC emacs-lisp
 (setenv "PATH"
 	(format "%s;%s;%s"
 		"c:\\UnxUtils\\bin"
 		"c:\\UnxUtils\\usr\\local\\wbin"
 		(or (getenv "$PATH") "")))
 (setenv "SHELL"  "sh.exe")
+#+END_SRC
 
 これで shell モード (M-x shell) が使えるようになります。
 コマンドへのパスを確認する場合は、shell モードで
-
+#+BEGIN_SRC 
      % type make
-
+#+END_SRC
 などを実行します。
 
-なお、cygwin を導入している環境では、上記設定ではなく cygwin の設定をし
-て下さい。
+なお、cygwin を導入している環境では、上記設定ではなく cygwin の設定をして下さい。
 
 ** SKK のインストール
 
@@ -84,11 +86,12 @@ UnxUtils.zip をダウンロード・展開して、例えば
 **** SKK の展開(解凍)
 
 SKK ディストリビューションを上記の tar.exe を用いて展開します。
-
+#+BEGIN_SRC
      % cd c:/tmp
      % gunzip ddskk-14.3.tar.gz
      % tar xvf ddskk-14.3.tar
      % cd ddskk-14.3
+#+END_SRC
 
 **** SKK 辞書の取得
 
@@ -96,8 +99,7 @@ SKK ディストリビューションを上記の tar.exe を用いて展開し�
 
      http://openlab.jp/skk/dic/SKK-JISYO.L.gz
 
-これを gunzip で展開して ddskk のソースの dic というディレクトリに置き
-ます。
+これを gunzip で展開して ddskk のソースの dic というディレクトリに置きます。
 
 **** SKK の インストール設定
 
@@ -107,17 +109,14 @@ SKK ディストリビューションを上記の tar.exe を用いて展開し�
 
 各種ファイルのインストール先が出力されます。これを見て問題なければ、そ
 のままインストールに進みます。もし問題があれば、SKK-CFG というファイル
-を編集して設定します。このファイルには
-
-;;; Meadow 2.10 または 3.00-dev の設定例:
-
-というのを特に設けていますので、これを雛形に編集してください。
+を編集して設定します。
 
 **** SKK の インストール
 
 shell モードで以下を実行します。
-
+#+BEGIN_SRC
      % make install EMACS=c:/meadow/bin/Meadow.exe
+#+END_SRC
 
 *** makeit.bat を使う場合
 
@@ -133,34 +132,27 @@ Daredevil SKK には make コマンドの代わりに使える makeit.bat とい
 
 makeit.bat を自分の環境に合わせて編集します。
 EMACS は御自分の Emacs のフルパスを指定します。上の例では、
-
-EMACS=c:\meadow\bin\Meadow.exe
-
-その他の設定は、SKK-CFG で行います。この点は make コマンドを使う場合と
-同様です。
+#+BEGIN_SRC 
+EMACS=c:\usr\emacs\bin\emacs.exe
+#+END_SRC
+その他の設定は、SKK-CFG で行います。この点は make コマンドを使う場合と同様です。
 
 **** makeit.bat の実行
 
-makeit.bat を使う時の注意点は、DOSPROMPT のプロパティで、環境変数のメモ
-リ割り当てが自動になると、環境変数が設定できないので、適当な値 (2048と
-か) を入れておく必要があります。
-
-Windows のコマンドプロンプトで makeit.bat のあるディレクトリに移動しま
-す。
+Windows のコマンドプロンプトで makeit.bat のあるディレクトリに移動します。
+#+BEGIN_SRC 
      c:\>cd tmp
-     c:\tmp>cd ddskk-14.3
+     c:\tmp>cd ddskk
+#+END_SRC
+what-where を引数として makeit.bat を実行するとインストール先が確認できます。
+#+BEGIN_SRC
+     C:\tmp\ddskk>makeit what-where
+#+END_SRC
 
-`what-where' を引数として makeit.bat を実行すると
-
-     C:\tmp\ddskk-14.3>makeit what-where
-
-インストール先が確認できます。
-
-`install' を引数として makeit.bat を実行すると
-
-     C:\tmp\ddskk-14.3>makeit install
-
-バイトコンパイルとインストールが実行されます。
+install を引数として makeit.bat を実行するとバイトコンパイルとインストールが実行されます。
+#+BEGIN_SRC
+     C:\tmp\ddskk>makeit install
+#+END_SRC
 
 なお、DEFAULT_MAKE_ARG に install と記述しておくことで、次回からは
 MAKEIT.BAT をダブルクリックするだけでインストールが可能となります。
@@ -170,7 +162,7 @@ MAKEIT.BAT をダブルクリックするだけでインストールが可能と
 再編集する必要がなくなります)
 
 優先順に:
-
+#+BEGIN_SRC 
   1-1. %HOME%\.elispmk.skk.bat
   1-2. %HOME%\elisp\elispmk.skk.bat
   1-3. %HOME%\config\elispmk.skk.bat
@@ -184,32 +176,29 @@ MAKEIT.BAT をダブルクリックするだけでインストールが可能と
   2-4. c:\Program Files\Meadow\elispmk.bat
   2-5. c:\Meadow\elispmk.bat
   2-6. d:\Meadow\elispmk.bat
+#+END_SRC
 
 *** 対話的インストーラを使う場合
 
-DDSKK 14.3 では対話的インストーラを追加しました。
+DDSKK 14.3 以降では対話的インストーラを追加しました。
 
-  1. M-x dired とタイプして dired を起動します。このときディレクトリを
-     問われますので、例えば /tmp/ddskk-14.3 と指定します。
+  1. M-x dired とタイプして dired を起動します。このときディレクトリを問われますので、例えば /tmp/ddskk-14.3 と指定します。
 
   2. ディレクトリ一覧が表示されますので SKK-MK にカーソルをあわせます。
 
-  3. `L' (大文字のエル) をタイプして dired-do-load を実行します。
-     プロンプト `Load SKK-MK?' には y を答えます。
+  3. L (大文字のエル) をタイプして dired-do-load を実行します。
+     プロンプト Load SKK-MK? には y と答えます。
 
   4. これ以降はインストーラからの質問に答えてください。
 
   5. Emacs を再起動すると DDSKK が使えます。
 
-*** load-path への追加
+*** ~\.emacs.d\init.el への追加
 
-APEL の時と同様、ふつうは load-path の設定は自動で、ユーザがする必要は
-ありません。
-
-*** ~/.emacs.d/init.el への追加
-
-最初に起動をテストする際は、~/.emacs.d/init.el への設定はなにも必要ありません。
+最初に起動をテストする際は、~\.emacs.d\init.el への設定はなにも必要ありません。
 C-x C-j または M-x skk-mode で起動し、入力できることを確認します。
+
+----------
 
 * Windows 上で動く SKK サーバ
 
@@ -221,7 +210,6 @@ Windows 上で動作する skkserv です。
 
     (http://www.tatari-sakamoto.jp/wskkserv.jis.html)
      http://homepage3.nifty.com/monjya/wskkserv.jis.html
-
 から入手できます。
 
 ** wceSKKSERV
@@ -230,61 +218,41 @@ Windows 上で動作する skkserv です。
 
     (http://ms.megadriver.yi.org/~fumi/wceskkserv/)
      http://www.megadriver.info/~fumi/wceskkserv/
-
 から入手できます。
 
 ** cygwin を利用してソースからコンパイルして利用する
 
-cygwin が使用できる環境では skkserv を直接コンパイルして使用すること
-ができます。skkserv は
+cygwin が使用できる環境では skkserv を直接コンパイルして使用することができます。skkserv は
 
      http://openlab.jp/skk/skk/skkserv/
-
 から入手できます。
 
-また、cygwin で GNU inetutils をインストールしている場合
-dbskkd を利用することもできます。
+また、cygwin で GNU inetutils をインストールしている場合dbskkd を利用することもできます。
 
      http://www.cygwin.com
-
 から入手できる setup.exe を利用するとインストールできます。
 なお、inetutils の設定については、
-
      /usr/doc/Cygwin/inetutils-1.3.2.README
-
 を参照して下さい。また、dbskkd は
-
      http://www.ne.jp/asahi/bdx/info/software/jp-dbskkd.html
-
 から入手できます。
 
 ** スクリプト言語で実装されたサーバ
 
 ruby が使用できるならば、 rskkserv が使用できます。
 rskkserv は
-
      http://sourceforge.jp/projects/rskkserv/
-
 から入手できます。
 
+----------
+
 * Windows 上で動く SKK 実装
-
-Windows 上で動作する SKK ライクの IME があります。
-
-** skkime
-
-設定がある程度 elisp でできるようになっていることと、SKK と共通の辞書
-が使用できます。
-
-    (http://www.tatari-sakamoto.jp/skkime.jis.html)
-     http://homepage3.nifty.com/monjya/skkime.jis.html
 
 ** SKK日本語入力FEP
 
 そのまま引用させていただきます。
-  「SKK日本語入力FEPはWindows用の日本語入力ソフトです。
-    インストールするとWindowsのすべてのアプリケーションに作用し、
-    SKK方式による日本語のかな漢字変換入力が可能になります。」
+>  SKK日本語入力FEPはWindows用の日本語入力ソフトです。
+>    インストールするとWindowsのすべてのアプリケーションに作用し、SKK方式による日本語のかな漢字変換入力が可能になります。
 
      http://coexe.web.fc2.com/programs.html
 
@@ -294,12 +262,8 @@ CorvusSKK works as Text Input Processor (TIP) on Text Services Framework (TSF).
 
      http://code.google.com/p/corvus-skk/
 
-
+---------
 
 Windows は米国 Microsoft Corporation の米国およびその他の国における登録商標です。
 
-
-Local variables:
-coding: utf-8
-mode: outline
-end:
+#+END:

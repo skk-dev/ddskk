@@ -1,3 +1,9 @@
+2015-05-04  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
+
+	* README.w32.ja.org: change file name from README.w32.ja
+	                     delete subscription about Meadow.
+	                     sync current ddskk version.
+
 2015-05-03  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
 
         * INSTALL.MELPA.en.md: delete a Japanese line left.
