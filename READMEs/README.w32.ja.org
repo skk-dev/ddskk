@@ -6,7 +6,7 @@
 #+OPTIONS: H:4 toc:nil
 #+AUTHOR: Yuh Ohmura <yutopia@y6.dion.ne.jp>, NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
-Windows Vista, 7, 8.1 の各オペレーティングシステムの上で動く Emacs にDDSKK をインストールする方法を解説します。
+Windows Vista, 7, 8.1 の各オペレーティングシステムの上で動く Emacs に DDSKK をインストールする方法を解説します。
 
 同梱の INSTALL 及び README.md も必ずご覧下さい。
 
@@ -88,9 +88,9 @@ UnxUtils.zip をダウンロード・展開して、例えば
 SKK ディストリビューションを上記の tar.exe を用いて展開します。
 #+BEGIN_SRC
      % cd c:/tmp
-     % gunzip ddskk-14.3.tar.gz
-     % tar xvf ddskk-14.3.tar
-     % cd ddskk-14.3
+     % gunzip ddskk-15.2.tar.gz
+     % tar xvf ddskk-15.2.tar
+     % cd ddskk-15.2
 #+END_SRC
 
 **** SKK 辞書の取得
@@ -104,9 +104,9 @@ SKK ディストリビューションを上記の tar.exe を用いて展開し�
 **** SKK の インストール設定
 
 まず、shell モードで以下を実行します。
-
-     % make what-where EMACS=c:/meadow/bin/Meadow.exe
-
+#+BEGIN_SRC
+     % make what-where EMACS=c:\usr\Emacs\bin\emacs.exe
+#+END_SRC
 各種ファイルのインストール先が出力されます。これを見て問題なければ、そ
 のままインストールに進みます。もし問題があれば、SKK-CFG というファイル
 を編集して設定します。
@@ -115,7 +115,7 @@ SKK ディストリビューションを上記の tar.exe を用いて展開し�
 
 shell モードで以下を実行します。
 #+BEGIN_SRC
-     % make install EMACS=c:/meadow/bin/Meadow.exe
+     % make install EMACS=c:\usr\Emacs\bin\emacs.exe
 #+END_SRC
 
 *** makeit.bat を使う場合
@@ -133,7 +133,7 @@ Daredevil SKK には make コマンドの代わりに使える makeit.bat とい
 makeit.bat を自分の環境に合わせて編集します。
 EMACS は御自分の Emacs のフルパスを指定します。上の例では、
 #+BEGIN_SRC 
-EMACS=c:\usr\emacs\bin\emacs.exe
+EMACS=c:\usr\Emacs\bin\emacs.exe
 #+END_SRC
 その他の設定は、SKK-CFG で行います。この点は make コマンドを使う場合と同様です。
 
@@ -209,16 +209,16 @@ Windows で利用できる SKK 辞書サーバには次のようなものがあ�
 Windows 上で動作する skkserv です。
 
     (http://www.tatari-sakamoto.jp/wskkserv.jis.html)
+
      http://homepage3.nifty.com/monjya/wskkserv.jis.html
-から入手できます。
 
 ** wceSKKSERV
 
 複数辞書検索が可能な Windows 系 OS 用の skk サーバです。
 
     (http://ms.megadriver.yi.org/~fumi/wceskkserv/)
+
      http://www.megadriver.info/~fumi/wceskkserv/
-から入手できます。
 
 ** cygwin を利用してソースからコンパイルして利用する
 
@@ -240,9 +240,8 @@ cygwin が使用できる環境では skkserv を直接コンパイルして使�
 ** スクリプト言語で実装されたサーバ
 
 ruby が使用できるならば、 rskkserv が使用できます。
-rskkserv は
+
      http://sourceforge.jp/projects/rskkserv/
-から入手できます。
 
 ----------
 
@@ -251,7 +250,9 @@ rskkserv は
 ** SKK日本語入力FEP
 
 そのまま引用させていただきます。
+
 >  SKK日本語入力FEPはWindows用の日本語入力ソフトです。
+
 >    インストールするとWindowsのすべてのアプリケーションに作用し、SKK方式による日本語のかな漢字変換入力が可能になります。
 
      http://coexe.web.fc2.com/programs.html
