@@ -3108,6 +3108,20 @@ context-skk が「プログラミングモード」と見做すメジャーモ�
 以後の補完は、@samp{さとう} を含む語 (例えば、@samp{さとうせんせい}など)
 について行われます。
 
+@defvr {ユーザ変数} skk-completion-prog-list
+補完関数、補完対象の辞書を決定するためのリスト。
+デフォルトは以下のとおり。
+
+@lisp
+@group
+  '((skk-comp-by-history)
+    (skk-comp-from-jisyo skk-jisyo)
+    (skk-look-completion))
+@end group
+@end lisp
+
+@end defvr
+
 @defvr {ユーザ変数} skk-comp-circulate
 @kbd{.} （ピリオド）で次の見出し語候補を、@kbd{,} （コンマ）で前の見出し
 語候補を表示するところ、候補が尽きていればデフォルト @code{nil} では「○

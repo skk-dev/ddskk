@@ -5,6 +5,9 @@
 
 	* skk.el (skk-search-function-usage): Use it.
 
+	* skk-vars.el (skk-completion-prog-list): Update docstring.
+
+
 2015-03-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-gadget.el: Modify comment.

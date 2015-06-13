@@ -3322,9 +3322,9 @@ kakutei-first を選んだ時は、\"しんりn\" を補完すると、
   '((skk-comp-by-history)
     (skk-comp-from-jisyo skk-jisyo)
     (skk-look-completion))
-  "*補完プログラムのリスト。
+  "*補完関数、補完対象の辞書を決定するためのリスト。
 リストの要素は、`skk-comp-first' が t である時に
-新規補完候補群の生成を開始し、1回の評価につき 1つの候補を返す S 式。"
+新規補完候補群の生成を開始し、１回の評価につき１つの候補を返す S 式。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
