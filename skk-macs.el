@@ -271,6 +271,14 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	(t
 	 `(facep ,face))))
 
+(defmacro skk-help-make-usage (symbol arglist)
+  (cond ((fboundp 'help--make-usage)
+	 ;; GNU Emacs 25.1 から
+	 `(help--make-usage ,symbol ,arglist))
+
+	(t
+	 ;; GNU Emacs 24.1 まで
+	 `(help-make-usage ,symbol ,arglist))))
 
 ;;; functions.
 ;; version dependent

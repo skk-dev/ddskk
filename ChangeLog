@@ -1,3 +1,10 @@
+2015-06-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-help-make-usage): New macro.
+	`help-make-usage' is an obsolete function (as of 25.1).
+
+	* skk.el (skk-search-function-usage): Use it.
+
 2015-03-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-gadget.el: Modify comment.

@@ -4736,24 +4736,28 @@ SKK 辞書の候補として正しい形に整形する。"
 		doc (documentation symbol)
 		usage (help-split-fundoc doc symbol)
 		arglist (help-function-arglist symbol))
-	  (cond
-	   (usage
-	    (setq result (car usage)))
-	   ((listp arglist)
-	    (setq result (format "%S" (help-make-usage symbol arglist))))
-	   ((stringp arglist)
-	    (setq result arglist))
-	   ((let ((fun symbol))
-	      (while (and (symbolp fun)
-			  (setq fun (symbol-function fun))
-			  (not (setq usage (help-split-fundoc
-					    (documentation fun)
-					    symbol)))))
-	      usage)
-	    (setq result (car usage)))
-	   ((or (stringp def)
-		(vectorp def))
-	    (setq result (format "\nMacro: %s" (format-kbd-macro def)))))
+	  (cond (usage
+		 (setq result (car usage)))
+
+		((listp arglist)
+		 (setq result (format "%S" (skk-help-make-usage symbol arglist))))
+
+		((stringp arglist)
+		 (setq result arglist))
+
+		((let ((fun symbol))
+		   (while (and (symbolp fun)
+			       (setq fun (symbol-function fun))
+			       (not (setq usage (help-split-fundoc
+						 (documentation fun)
+						 symbol)))))
+		   usage)
+		 (setq result (car usage)))
+
+		((or (stringp def)
+		     (vectorp def))
+		 (setq result (format "\nMacro: %s" (format-kbd-macro def)))))
+
 	  (when result
 	    (list (format "(quote %s)" result))))))))
 
