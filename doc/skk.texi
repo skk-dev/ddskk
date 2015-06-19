@@ -204,7 +204,6 @@ approved by the author.
 * I-search関連::                インクリメンタル・サーチにまつわる機能。
 * VIP/VIPERとの併用::
 * picture-modeとの併用::        picture-mode との併用の際の問題点。
-* Org-modeとの併用::            Org-mode との併用の際の問題点。
 
 ローマ字入力以外の入力方式
 
@@ -2059,7 +2058,6 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 * I-search関連::                インクリメンタル・サーチにまつわる機能。
 * VIP/VIPERとの併用::
 * picture-modeとの併用::        picture-mode との併用の際の問題点。
-* Org-modeとの併用::            Org-mode との併用の際の問題点。
 @end menu
 
 @node ファイル構成
@@ -9830,20 +9828,6 @@ SKK モードで全角文字を入力した場合に、@key{BS} で全角文字�
 関数 @code{move-to-column-force} の中で使用されている関数
 @code{move-to-column} の引数として、全角文字を無視した桁数が与えられるこ
 とがあり、そのときカーソル移動ができないため、これらの問題が生じます。
-
-@node Org-modeとの併用
-@section Org-modeとの併用
-
-SKK モードを @code{Org-mode} において使用した場合は、以下のような問題点が
-あります。
-
-@enumerate
-@item
-org-mode の表中で Enter キーを押下したときの動作が報告されています (@url{http://mail.ring.gr.jp/skk/201401/msg00001.html})。
-
-対処方法は @file{dot.skk} に記載してあります。
-
-@end enumerate
 
 @node ローマ字入力以外の入力方式
 @chapter ローマ字入力以外の入力方式

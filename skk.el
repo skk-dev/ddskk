@@ -5480,6 +5480,7 @@ skk の動作と整合させる。
 (skk-wrap-newline-command rcirc-send-input)
 (skk-wrap-newline-command widget-field-activate)
 (skk-wrap-newline-command org-insert-heading)
+(skk-wrap-newline-command org-return)
 
 ;; hooks.
 

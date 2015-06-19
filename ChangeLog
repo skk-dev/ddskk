@@ -1,3 +1,7 @@
+2015-06-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el: Wrapped org-return() in skk-wrap-newline-command().
+
 2015-06-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (skk-help-make-usage): New macro.

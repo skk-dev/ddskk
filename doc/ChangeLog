@@ -1,3 +1,7 @@
+2015-06-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Remove Org-mode 関連.
+
 2015-06-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: Add skk-completion-prog-list.
