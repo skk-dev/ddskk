@@ -1,3 +1,7 @@
+2015-08-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: `プログラム実行変換' に SKK-JISYO.lisp を追加.
+
 2015-06-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: Remove Org-mode 関連.

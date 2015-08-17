@@ -660,7 +660,7 @@ edict 辞書(英和辞書)
 
 @item SKK-JISYO.lisp
 候補に Emacs Lisp 関数を含むエントリーを集めた辞書。見出し語を変換する過
-程でEmacs Lisp 関数を評価し、その値を候補として表示します。
+程で Emacs Lisp 関数を評価し、その値を候補として表示します。
 
 @xref{プログラム実行変換}.
 
@@ -4292,8 +4292,7 @@ ASCII 数字。@samp{1996年7月21日(日)} のようになります。
 に元号で表示されます。
 @end defvr
 
-L 辞書
-@footnote{@ref{辞書の種類, , L辞書}.}には、見出し語 @samp{today} の候補
+辞書 @file{SKK-JISYO.lisp} には、見出し語 @samp{today} の候補
 として、@code{skk-date-ad} と @code{skk-number-style} の全ての組み合わせが
 プログラム実行変換機能@footnote{@ref{プログラム実行変換}.} を用いて登録さ
 れています。従って、@kbd{/ t o d a y @key{SPC}} と入力すると、今日の日付
