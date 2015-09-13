@@ -1,3 +1,7 @@
+2015-09-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: 微修正.
+
 2015-08-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: `プログラム実行変換' に SKK-JISYO.lisp を追加.

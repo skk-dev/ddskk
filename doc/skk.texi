@@ -7611,8 +7611,8 @@ skk からの単語の登録、削除はできません。(他にも少し制限
 選択した場合。
 
 @item
-個人辞書が「変数 @code{skk-jisyo-save-count} で指定された回数」の更新が行
-われた結果として、自動保存 (オートセーブ) 機能が働くとき。
+個人辞書の更新回数が、変数 @code{skk-jisyo-save-count} で指定された値に
+達した結果として、自動保存 (オートセーブ) 機能が働くとき。
 
 @item 
 変数 @code{skk-save-jisyo-instantly} が @code{non-nil} であれば、
