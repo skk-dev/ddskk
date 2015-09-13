@@ -483,7 +483,8 @@ NOT-ABBREV-ONLY を指定する事で常に有効となる。"
   (let ((smart-find-file-path (or path smart-find-file-path))
 	results files)
     (unless (string= key "")
-      (setq results (smart-find-file-all key))
+      (setq results (if (fboundp 'smart-find-file-all)
+			(smart-find-file-all key)))
       (while results
 	(if (string-match skk-smart-find-ignored-file-regexp
 			  (car results))
