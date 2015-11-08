@@ -9544,7 +9544,7 @@ XEmacs の場合
 
 @defvr {ユーザ変数} skk-version-codename-ja
 
-この変数の値を @code{non-nil} に設定すると、関数 skk-version を評価したと
+この変数の値を @code{non-nil} に設定すると、関数 @code{skk-version} を評価したと
 きのコードネームを日本語で表示します。
 
 @end defvr
