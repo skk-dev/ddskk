@@ -11,6 +11,12 @@ Thanks to Yuhei Maeda and Takenari Shinohara.
 
 M-x skk-version の評価結果に MELPA の情報を加えました。
 
+** GNU Emacs 25 対応を進めました
+
+*** skk-help-make-usage
+
+help-make-usage() が help--make-usage() へ変更されたことに伴う wrap マクロ
+
 ** 開発環境など
 
 *** DDSKK の開発ツールを cvs から git へ変更しました
