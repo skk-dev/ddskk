@@ -199,15 +199,6 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	       )
 	 (move-overlay ,object ,start ,end))))))
 
-(defmacro skk-cannot-be-undone (&rest body)
-  `(let ((buffer-undo-list t)
-	 ;;buffer-read-only
-	 (modified (buffer-modified-p)))
-     (unwind-protect
-	 (progn
-	   ,@body)
-       (set-buffer-modified-p modified))))
-
 ;;;###autoload
 (put 'skk-loop-for-buffers 'lisp-indent-function 1)
 (defmacro skk-loop-for-buffers (buffers &rest body)
