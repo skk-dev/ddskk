@@ -2,6 +2,8 @@
 
 	* skk.el (skk-compute-henkan-lists, skk-search-jisyo)
 	(skk-update-jisyo-original): Update comment.
+	(skk-search-jisyo): Update docstring.
+	(skk-update-shared-jisyo, skk-update-jisyo-1): Fix indent.
 
 2015-11-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

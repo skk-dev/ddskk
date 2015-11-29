@@ -3631,12 +3631,10 @@ NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。
       ;; skk-update-jisyo-1, skk-search-jisyo
       ;; で参照される skk-henkan-key をセットする
       (when (setq skk-henkan-key (car list))
-	(skk-update-jisyo-1
-	 ;; okurigana    word
-	 (nth 1 list) (nth 2 list)
-	 (skk-search-jisyo (nth 1 list) 0 'delete)
-	 ;; purge
-	 (nth 3 list)))
+	(skk-update-jisyo-1 (nth 1 list)	                      ;okurigana
+			    (nth 2 list)	                      ;word
+			    (skk-search-jisyo (nth 1 list) 0 'delete) ;old-words-list
+			    (nth 3 list)))                            ;purge
       (setq index (1+ index)))))
 
 (defun skk-save-jisyo-as (file)
@@ -4076,7 +4074,8 @@ LIMIT と NOMSG は辞書サーバが使用できないときのみ有効。
 
 (defun skk-search-jisyo (okurigana limit &optional delete)
   "カレントバッファを辞書として検索する。
-`skk-compute-henkan-lists' を使用し、見出し語についての候補の情報を返す。
+この関数の戻り値は、`skk-henkan-key' をキーとして `skk-compute-henkan-lists' を
+評価した値である。
 DELETE が non-nil であれば `skk-henkan-key' にマッチするエントリを削除する。"
 
   ;; (let ((skk-henkan-key "ほかん"))
@@ -4395,28 +4394,27 @@ WORD が共有辞書になければ、個人辞書の辞書エントリから削除する。"
 	(words2 (nth 1 old-words-list))
 	(words3 (nth 2 old-words-list))
 	(words4 (nth 3 old-words-list)))
-    (cond
-     ((not purge)
-      ;; words1 を更新
-      (if skk-jisyo-fix-order
-	(if (consp words1)
-	    ;; 新規の時は、他の同音語の後に追加
-	    (unless (member word words1)
-	      (setcdr (last words1) (cons word nil)))
-	  ;; 今回の読みの語、そのものが新規
-	  (setq words1 (cons word nil)))
-	;; words1 の先頭の候補を word にする。
-	(setq words1 (cons word (delete word words1)))))
-     ;; 送りなし、もしくは skk-henkan-okuri-strictly と
-     ;; skk-henkan-strict-okuri-precedence が nil の場合。
-     (t
-      ;; words1 を purge。共用辞書にある候補だったら、
-      ;; skk-ignore-dic-word でクォートして次の変換から出力
-      ;; しないようにする。共用辞書にない文字列は word を消す。
-      (setq words1
-	    (if (skk-public-jisyo-has-word-p okurigana word)
-		(skk-compose-ignore-word words1 word)
-	      (delete word words1)))))
+    (cond ((not purge)
+	   ;; words1 を更新
+	   (if skk-jisyo-fix-order
+	       (if (consp words1)
+		   ;; 新規の時は、他の同音語の後に追加
+		   (unless (member word words1)
+		     (setcdr (last words1) (cons word nil)))
+		 ;; 今回の読みの語、そのものが新規
+		 (setq words1 (cons word nil)))
+	     ;; words1 の先頭の候補を word にする。
+	     (setq words1 (cons word (delete word words1)))))
+	  ;; 送りなし、もしくは skk-henkan-okuri-strictly と
+	  ;; skk-henkan-strict-okuri-precedence が nil の場合。
+	  (t
+	   ;; words1 を purge。共用辞書にある候補だったら、
+	   ;; skk-ignore-dic-word でクォートして次の変換から出力
+	   ;; しないようにする。共用辞書にない文字列は word を消す。
+	   (setq words1 (if (skk-public-jisyo-has-word-p okurigana word)
+			    (skk-compose-ignore-word words1 word)
+			  (delete word words1)))))
+
     (when words1 ;; words1 が null であれば、もう何もすることはない。
       (goto-char (if okurigana
 		     skk-okuri-ari-min
@@ -4428,54 +4426,53 @@ WORD が共有辞書になければ、個人辞書の辞書エントリから削除する。"
 			 words1
 			 "/")
 	      "/")
+
       (when okurigana
 	;; words2 以降の候補群を処理するのは、送りありの場合のみ。
 	;; 先に挿入すべき候補群を計算、調整する。
-	(cond
-	 (words3
-	  (cond
-	   ((not purge)
-	    (if skk-jisyo-fix-order
-	      (unless (member word words3)
-		(setcdr (last words3) (cons word nil)))
-	      (setq words3 (cons word (delete word words3)))))
-	   (t
-	    (setq words3 (delete word words3))
-	    (when (null words3)
-	      ;; words3 として挿入するものが全くなければ、"/[く/]/" のよ
-	      ;; うな送り仮名のみの候補を作らないようにする (必要で
-	      ;; あれば、words2 の最後方と) words4 の先頭の "]" を削除。
-	      (let* ((len (length words2))
-		     (last2 (case len
-			      (0 nil)
-			      (1 (list nil (car words2)))
-			      (t (nthcdr (- (length words2) 2)
-					 words2)))))
-		;; words2 の最後方は常に "[送り仮名" とは限らない。
-		(when (and last2 (string= (nth 1 last2)
-					  (concat "[" okurigana)))
-		  (case len
-		    (1 (setq words2 nil))
-		    (t (setcdr last2 nil))))
-		;; words4 の先頭は常に "]"。
-		(setq words4 (cdr words4)))))))
-	 (t
-	  ;; words3 が null であれば
-	  (unless (or skk-process-okuri-early
-		      purge)
-	    ;; skk-process-okuri-early が non-nil なら送り仮名が分らないので
-	    ;; 何もしない。-- 今回使用した送り仮名がわからないまま変換してい
-	    ;; るので、全ての候補が words2 に入っている -- words3, words4 は
-	    ;; null。
-	    ;; words3 として挿入するものが全くなければ、何もしない -- words3
-	    ;; が purge 前から null なら、words2 の末尾は "[" でないし、
-	    ;; words4 は null だから words[234] の操作は不要。
-	    (setq words2 (nconc words2
-				(list (concat "[" okurigana)))
-		  words3 (list word)
-		  ;; purge 前から words3 が null だったのだから
-		  ;; words4 も null。
-		  words4 (list "]"))))))
+	(cond (words3
+	       (cond ((not purge)
+		      (if skk-jisyo-fix-order
+			  (unless (member word words3)
+			    (setcdr (last words3) (cons word nil)))
+			(setq words3 (cons word (delete word words3)))))
+		     (t
+		      (setq words3 (delete word words3))
+		      (when (null words3)
+			;; words3 として挿入するものが全くなければ、"/[く/]/" のよ
+			;; うな送り仮名のみの候補を作らないようにする (必要で
+			;; あれば、words2 の最後方と) words4 の先頭の "]" を削除。
+			(let* ((len (length words2))
+			       (last2 (case len
+					    (0 nil)
+					    (1 (list nil (car words2)))
+					    (t (nthcdr (- (length words2) 2)
+						       words2)))))
+			  ;; words2 の最後方は常に "[送り仮名" とは限らない。
+			  (when (and last2
+				     (string= (nth 1 last2) (concat "[" okurigana)))
+			    (case len
+				  (1 (setq words2 nil))
+				  (t (setcdr last2 nil))))
+			  ;; words4 の先頭は常に "]"。
+			  (setq words4 (cdr words4)))))))
+	      (t
+	       ;; words3 が null であれば
+	       (unless (or skk-process-okuri-early
+			   purge)
+		 ;; skk-process-okuri-early が non-nil なら送り仮名が分らないので
+		 ;; 何もしない。-- 今回使用した送り仮名がわからないまま変換してい
+		 ;; るので、全ての候補が words2 に入っている -- words3, words4 は
+		 ;; null。
+		 ;; words3 として挿入するものが全くなければ、何もしない -- words3
+		 ;; が purge 前から null なら、words2 の末尾は "[" でないし、
+		 ;; words4 は null だから words[234] の操作は不要。
+		 (setq words2 (nconc words2
+				     (list (concat "[" okurigana)))
+		       words3 (list word)
+		       ;; purge 前から words3 が null だったのだから
+		       ;; words4 も null。
+		       words4 (list "]"))))))
       (when words2
 	;; words2 -- 今回使用しなかった送り仮名を使う漢字の候補群
 	;;         + "["
