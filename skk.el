@@ -4078,6 +4078,17 @@ LIMIT $B$H(B NOMSG $B$O<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$N$_M-8z!#(B
   "$B%+%l%s%H%P%C%U%!$r<-=q$H$7$F8!:w$9$k!#(B
 `skk-compute-henkan-lists' $B$r;HMQ$7!"8+=P$78l$K$D$$$F$N8uJd$N>pJs$rJV$9!#(B
 DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k!#(B"
+
+  ;; (let ((skk-henkan-key "$B$[$+$s(B"))
+  ;;   (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
+  ;;     (skk-search-jisyo nil 0)))
+  ;; => (("$BJd4V(B" "$BJd40(B" "$BJ]4I(B") nil nil nil)
+
+  ;; (let ((skk-henkan-key "$B$&$4(Bk"))
+  ;;   (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
+  ;;     (skk-search-jisyo "$B$/(B" 0)))
+  ;; => (("$BF0(B") ("[$B$/(B") ("$BF0(B") ("]"))
+
   (let ((key (concat "\n" skk-henkan-key " /"))
 	min max size p)
     (save-match-data
@@ -4099,17 +4110,17 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 		   ;; $BAw$j$"$j$J$i5U=g$KHf3S$9$k!#(B
 		   (if okurigana
 		       (skk-string< (buffer-substring-no-properties
-				 p (1- (search-forward  " ")))
-				skk-henkan-key)
+				     p (1- (search-forward  " ")))
+				    skk-henkan-key)
 		     (skk-string< skk-henkan-key
-			      (buffer-substring-no-properties
-			       p (1- (search-forward " ")))))))
+				  (buffer-substring-no-properties
+				   p (1- (search-forward " ")))))))
 	      (if p-is-further
 		  (setq max p)
 		(setq min p))))))
       (goto-char min)
-      ;; key $B$,8!:w3+;OCOE@$K$"$C$?>l9g$G$b8!:w2DG=$J$h$&$K0lJ8;zLa$k!#(Bkey $B$,(B
-      ;; $B$=$N@hF,ItJ,$K(B "\n" $B$r4^$s$G$$$k$3$H$KCm0U!#(B
+      ;; key $B$,8!:w3+;OCOE@$K$"$C$?>l9g$G$b8!:w2DG=$J$h$&$K0lJ8;zLa$k!#(B
+      ;; key $B$N@hF,ItJ,$K(B "\n" $B$,4^$^$l$F$$$k$3$H$KCm0U!#(B
       (unless (bobp)
 	(backward-char 1))
       ;; case-fold-search $B$O!"<-=q%P%C%U%!$G$O>o$K(B nil$B!#(B
@@ -4305,26 +4316,7 @@ PURGE $B$,(B non-nil $B$G(B WORD $B$,6&M-<-=q$K$"$k8uJd$J$i(B `skk-ignore-
 $B$$$h$&$K$9$k!#(B
 WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
   ;;
-  ;; SKK 9.x $B$h$j!"8D?M<-=q$N%(%s%H%j$NA^F~$NJ}K!$rJQ99$7$?(B (9.3 $B$N$_(B
-  ;; $B$ONc30(B)$B!#(B
-  ;;
-  ;; $B!ZJQ99A0![(B
-  ;;         ;; okuri-ari entries.
-  ;;  $B8+%-(B   $B$o$k(Bk /$B0-(B/[$B$+(B/$B0-(B/]/[$B$/(B/$B0-(B/]/
-  ;;  $B=P!<(B   $B$o$k(Bi /$B0-(B/[$B$$(B/$B0-(B/]/
-  ;;  $B$7$K(B   $B$o$?(Bs /$BEO(B/[$B$5(B/$BEO(B/]/[$B$;(B/$BEO(B/]/
-  ;;  $B8l9_(B   $B$o$9(Br /$BK:(B/[$B$l(B/$BK:(B/]/
-  ;;  $B$r=g(B   $B$o$+(Bt /$BJ,(B/$BH=(B/[$B$C$?(B/$BJ,(B/$BH=(B/]/[$B$C$F(B/$BJ,(B/]/
-  ;;   $B"-(B     .....
-  ;;         $B$"(Bi /$B9g(B/[$B$$(B/$B9g(B/]/
-  ;;         ;; okuri-nasi entries.
-  ;;  $BJQ$G(B   $B$8$g$&$?$$(B /$B>uBV(B/
-  ;;  $B49>:(B   $B$=$&$K$e$&(B /$BA^F~(B/
-  ;;  $B=g=g(B   $B$+$J(B /$B2>L>(B/
-  ;;   $B"-(B    ...
-  ;;         ...
-  ;;
-  ;; $B!ZJQ998e![(B
+  ;; $B8D?M<-=q$N%(%s%H%j(B
   ;;         ;; okuri-ari entries.
   ;;  $BJQ$G(B   $B$G(Bt /$B=P(B/[$B$F(B/$B=P(B/]/[$B$?(B/$B=P(B/]/
   ;;  $B49>:(B   $B$D(Bi /$BIU(B/[$B$$(B/$BIU(B/]/
@@ -4340,15 +4332,11 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
   ;;   $B"-(B    ...
   ;;         ...
   ;;
-  ;; skk-auto-okuri-process $B$,(B non-nil $B$N$H$-$K!"(B(j-okuri-search $B2~$a(B)
-  ;; skk-okuri-search $B$O8+=P$78l$ND9$$=g$K8uJd$rJV$9I,MW$,$"$k!#(B
-  ;; SKK 8.6 $B$^$G$O!"(Bskk-okuri-search $B$,(B j-okuri-ari-min $B$+$i(B j-okuri-ari-max
-  ;; $B$^$G$r=g$KC5$7!"8+$D$1$?$b$N=g$K8uJd$rJV$9$?$a$K8D?M<-=q$,8+=P$7(B
-  ;; $B8l$r%-!<$H$7$F9_=g$K%=!<%H$5$l$F$$$kI,MW$,$"$C$?!#(B
-  ;; SKK 9.x $B$G$O!"(Bskk-okuri-search $B$,!"8+IU$1$?8uJd$r8+=P$78l$r%-!<$H$7$F>:=g(B
-  ;; $B$K%=!<%H$7$FJV$9$?$a!"8D?M<-=q$N%=!<%H$OI,MW$G$J$$!#$h$C$F!":G8e(B
-  ;; $B$KJQ49$7$?$b$N$r(B (j-okuri-ari-min $B2~$a(B) skk-okuri-ari-min $B$N0LCV$KA^F~$9(B
-  ;; $B$k!#(B
+  ;; skk-auto-okuri-process $B$,(B non-nil $B$N$H$-$K!"(Bskk-okuri-search $B$O8+=P$78l$N(B
+  ;; $BD9$$=g$K8uJd$rJV$9I,MW$,$"$k!#(B
+  ;; skk-okuri-search $B$,!"8+IU$1$?8uJd$r8+=P$78l$r%-!<$H$7$F>:=g$K%=!<%H$7$FJV(B
+  ;; $B$9$?$a!"8D?M<-=q$N%=!<%H$OI,MW$G$J$$!#(B
+  ;; $B$h$C$F!":G8e$KJQ49$7$?$b$N$r(B skk-okuri-ari-min $B$N0LCV$KA^F~$9$k!#(B
   ;;
   (let* ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
 	 (cand (car (skk-treat-strip-note-from-word word)))
@@ -4363,11 +4351,10 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
     ;; $BAw$j$"$jF~NO$O>JN,$7!"Aw$j$J$7F~NO$N$_MzNr$r$H$k!#(B
     (unless skk-henkan-okurigana
       (skk-update-kakutei-history midasi word))
+
     (when jisyo-buffer
       (let ((inhibit-quit t)
-	    buffer-read-only
-	    old-words-list
-	    okurigana)
+	    buffer-read-only old-words-list okurigana)
 	(when (> skk-okuri-index-min -1)
 	  (setq word (skk-remove-common word)
 		;; skk-henkan-key $B$O(B skk-remove-common $B$K$h$C$F(B
@@ -4383,10 +4370,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 	  ;; $B$7$[$I!"(Bmin $B%]%$%s%H$K6a$$$H$3$m$K$J$1$l$P$J$i$J$$$+$i$G$"$k!#(B
 	  (setq skk-henkan-key midasi
 		old-words-list (skk-search-jisyo okurigana 0 'delete))
-	  (skk-update-jisyo-1 okurigana
-			      word
-			      old-words-list
-			      purge)
+	  (skk-update-jisyo-1 okurigana word old-words-list purge)
 	  ;; $BJ#?t$N(B emacs $B$G(B SKK $B$,5/F0$5$l$F$$$k$H$-$K8D?M<-=q$r@09gE*$K(B
 	  ;; $B99?7$9$k$?$a$K3NDj$NF0:n$r5-O?$9$k!#(B
 	  (when (and (skk-share-private-jisyo-p)

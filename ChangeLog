@@ -1,6 +1,7 @@
 2015-11-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-compute-henkan-lists): Update comment.
+	* skk.el (skk-compute-henkan-lists, skk-search-jisyo)
+	(skk-update-jisyo-original): Update comment.
 
 2015-11-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
