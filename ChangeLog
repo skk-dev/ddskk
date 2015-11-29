@@ -5,6 +5,9 @@
 	(skk-search-jisyo): Update docstring.
 	(skk-update-shared-jisyo, skk-update-jisyo-1): Fix indent.
 
+	(skk-update-jisyo-2): New function.
+	(skk-update-jisyo-1): Use it.
+
 2015-11-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-search-excluding-word-pattern-function): Update docstring.

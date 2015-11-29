@@ -4218,7 +4218,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 			   (aref item 0)))
 	  (cond ((and (eq headchar ?\[)
 		      (<= stage 2))
-		 (setq item (skk-compute-henkan-lists-sub-adjust-okuri itemokuri-key))
+		 (setq item (skk-compute-henkan-lists-sub-adjust-okuri item okuri-key))
 		 (if (string= item okuri-key)
 		     (progn
 		       (setq q2 (cons item q2))
@@ -4390,7 +4390,9 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
   "$B8D?M<-=q$K?7$7$$%(%s%H%j$rA^F~$9$k!#(B
 $B4{B8%(%s%H%j$+$i7W;;$7$?(B words[1-4] $B$NCM$H!":#2s$NJQ49$N7k2L(B word $B$H$r(B
 $B7k9g$7$F!"?7$?$J%(%s%H%j$r7W;;$7!"A^F~$9$k!#(B"
-  (let ((words1 (car old-words-list))
+  ;; $BF~NO$H$J$k(B OLD-WORDS-LIST $B$O!"4X?t(B `skk-search-jisyo' $B$,=PNO$7$?$b$N$G$"$k!#(B
+
+  (let ((words1 (car   old-words-list))
 	(words2 (nth 1 old-words-list))
 	(words3 (nth 2 old-words-list))
 	(words4 (nth 3 old-words-list)))
@@ -4405,6 +4407,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 		 (setq words1 (cons word nil)))
 	     ;; words1 $B$N@hF,$N8uJd$r(B word $B$K$9$k!#(B
 	     (setq words1 (cons word (delete word words1)))))
+
 	  ;; $BAw$j$J$7!"$b$7$/$O(B skk-henkan-okuri-strictly $B$H(B
 	  ;; skk-henkan-strict-okuri-precedence $B$,(B nil $B$N>l9g!#(B
 	  (t
@@ -4422,10 +4425,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
       (insert "\n" skk-henkan-key " /")
       ;; words1 -- $BA48uJd72(B ($BAw$j$J$7$N>l9g(B) $B!"$^$?$O(B
       ;;           $BA48uJd72$N4A;zItJ,(B ($BAw$j$"$j$N>l9g(B)
-      (insert (mapconcat 'skk-quote-char
-			 words1
-			 "/")
-	      "/")
+      (insert (skk-update-jisyo-2 words1) "/")
 
       (when okurigana
 	;; words2 $B0J9_$N8uJd72$r=hM}$9$k$N$O!"Aw$j$"$j$N>l9g$N$_!#(B
@@ -4478,55 +4478,51 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 	;;         + "["
 	;;         + $B:#2s;HMQ$7$?Aw$j2>L>(B ($BAw$j2>L>$N$_!#$=$NAw$j(B
 	;;           $B2>L>$r;HMQ$9$k4A;z$N8uJd72$O!"(Bwords3 $B$K4^$^$l$k(B)
-	(insert (mapconcat #'skk-quote-char
-			   words2
-			   "/")
-		"/")
+	(insert (skk-update-jisyo-2 words2) "/")
+
 	;; words2 $B$,(B null $B$J$i(B words3 $B$b(B null$B!#(B
 	(when words3
 	  ;; words3 -- $B:#2s;HMQ$7$?Aw$j2>L>$r;H$&A44A;z8uJd(B
-	  (insert (mapconcat #'skk-quote-char
-			     words3
-			     "/")
-		  "/"))
+	  (insert (skk-update-jisyo-2 words3) "/"))
+
 	;; purge $B$G(B words3 $B$,(B null $B$K$J$C$?>l9g$O(B words4 $B$,;D$C$F$$$k(B
 	;; $B$H$-$,$"$k!#(B
 	(when words4
 	  ;; words4 -- "]" + $BB>$NAw$j2>L>$r;H$&A44A;z8uJd(B
 	  ;; (words2 $B$N;D$j(B)$B!#(B
-	  (insert (mapconcat #'skk-quote-char
-			     words4
-			     "/")
-		  "/"))))))
+	  (insert (skk-update-jisyo-2 words4) "/"))))))
+
+(defun skk-update-jisyo-2 (words)
+  (mapconcat #'skk-quote-char
+	     words
+	     "/"))
 
 (defun skk-quote-char (word)
   "WORD $B$r<-=q%(%s%H%j$H$7$F@5$7$$7A$K@07A$9$k!#(B
 $B<-=q7A<0$N@)8B$+$i!"<-=q%(%s%H%jFb$K4^$a$F$O$J$i$J$$J8;z$,(B WORD $B$NCf$K$"$l$P!"(B
 $BI>2A$7$?$H$-$K$=$NJ8;z$H$J$k$h$&$J(B Lisp $B%3!<%I$rJV$9!#(B"
   (save-match-data
-    (cond
-     ((and word
-	   (string-match "[/\n\r\"]" word)
-	   ;; we should not quote WORD if it is a symbolic expression
-	   (not (skk-lisp-prog-p word))
-	   ;; has an annotation
-	   (not (string-match ";" word)))
-      (format "(concat \"%s\")"
-	      (skk-quote-char-1 word (cdr skk-quote-char-alist))))
-     (t
-       word))))
+    (cond ((and word
+		(string-match "[/\n\r\"]" word)
+		;; we should not quote WORD if it is a symbolic expression
+		(not (skk-lisp-prog-p word))
+		;; has an annotation
+		(not (string-match ";" word)))
+	   (format "(concat \"%s\")"
+		   (skk-quote-char-1 word (cdr skk-quote-char-alist))))
+	  (t
+	   word))))
 
 (defun skk-quote-semicolon (word)
   "WORD $B$r<-=q%(%s%H%j$H$7$F@5$7$$7A$K@07A$9$k!#(B
 `skk-quote-char' $B$H;w$F$$$k$,!"Cp<a$H4X78$J$$%;%_%3%m%s(B (;) $B$r=hM}$9$kE@$,(B
 $B0[$J$k!#(B"
   ;; `save-match-data' $B$OMW$i$J$$!#(B
-  (cond
-   ((string-match ";" word)
-    (format "(concat \"%s\")"
-	    (skk-quote-char-1 word skk-quote-char-alist)))
-   (t
-    word)))
+  (cond ((string-match ";" word)
+	 (format "(concat \"%s\")"
+		 (skk-quote-char-1 word skk-quote-char-alist)))
+	(t
+	 word)))
 
 (defun skk-public-jisyo-has-word-p (okurigana word)
   "$B6&M-<-=q$,(B  WORD $B$r;}$C$F$$$k$+$I$&$+D4$Y$k!#(B
