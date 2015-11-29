@@ -4145,81 +4145,89 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
       words)))
 
 (defun skk-compute-henkan-lists (okurigana)
-  "$B<-=q8uJd72$r(B 4 $B$D$N%j%9%H$KJ,2r$9$k!#(B
+  "$B<-=q8uJd72$r#4$D$N%j%9%H$KJ,2r$9$k!#(B
 $B>\$7$/$O!"$3$N4X?t$N%3%a%s%H$r;2>H!#(B"
   ;; $BAw$j$J$7(B ($BNc$($P!"<-=q%(%s%H%j(B "$B$F$s$5$$(B /$BE>:\(B/$BE7:R(B/$BE7:M(B/" $B$N=hM}(B)
-  ;; words1 := ("$BE>:\(B" "$BE7:R(B" "$BE7:M(B") == $BA48uJd72(B
-  ;; words2 := nil
-  ;; words3 := nil
-  ;; words4 := nil
+  ;;   words1 := ("$BE>:\(B" "$BE7:R(B" "$BE7:M(B") == $BA48uJd72(B
+  ;;   words2 := nil
+  ;;   words3 := nil
+  ;;   words4 := nil
   ;;
+  ;; (with-temp-buffer
+  ;;   (insert "$B$F$s$5$$(B /$BE>:\(B/$BE7:R(B/$BE7:M(B/")
+  ;;   (goto-char (point-min))
+  ;;   (search-forward " /")
+  ;;   (skk-compute-henkan-lists ""))
+  ;; => (("$BE>:\(B" "$BE7:R(B" "$BE7:M(B") nil nil nil)
+
   ;; $BAw$j$"$j(B ($BNc$($P!"!V5c$/!W$NJQ49$r9T$C$?>l9g$N!"<-=q%(%s%H%j(B
   ;;           "$B$J(Bk /$BK4(B/$BL5(B/$BLD(B/$B5c(B/[$B$/(B/$BL5(B/$BLD(B/$B5c(B/]/[$B$-(B/$BK4(B/]/" $B$N=hM}(B)
-  ;; words1 := ("$BK4(B" "$BL5(B" "$BLD(B" "$B5c(B")  == $B4A;zItJ,$NA48uJd72(B
-  ;; words2 := ("[$B$/(B")                == $BB>$NAw$j2>L>$r;H$&4A;z8uJd72(B ($B$"$l(B
-  ;;                                     $B$P(B) + $B:#2s$NJQ49$NAw$j2>L>ItJ,(B
-  ;; words3 := ("$BL5(B" "$BLD(B" "$B5c(B")       == $B:#2s$NJQ49$NAw$j2>L>$r;H$&2DG=@-$N(B
-  ;;                                     $B$"$kA44A;z8uJd72(B
-  ;; words4 := ("]" "[$B$-(B" "$BK4(B" "]")   == $BB>$NAw$j2>L>$r;H$&4A;z8uJd72(B ($B;D(B
-  ;;                                     $B$j!#$"$l$P(B)
+  ;;   words1 := ("$BK4(B" "$BL5(B" "$BLD(B" "$B5c(B")  == $B4A;zItJ,$NA48uJd72(B
+  ;;   words2 := ("[$B$/(B")                == $BB>$NAw$j2>L>$r;H$&4A;z8uJd72(B ($B$"$l(B
+  ;;                                       $B$P(B) + $B:#2s$NJQ49$NAw$j2>L>ItJ,(B
+  ;;   words3 := ("$BL5(B" "$BLD(B" "$B5c(B")       == $B:#2s$NJQ49$NAw$j2>L>$r;H$&2DG=@-$N(B
+  ;;                                       $B$"$kA44A;z8uJd72(B
+  ;;   words4 := ("]" "[$B$-(B" "$BK4(B" "]")   == $BB>$NAw$j2>L>$r;H$&4A;z8uJd72(B ($B;D(B
+  ;;                                       $B$j!#$"$l$P(B)
+  ;;
+  ;; (with-temp-buffer
+  ;;   (insert "$B$J(Bk /$BK4(B/$BL5(B/$BLD(B/$B5c(B/[$B$/(B/$BL5(B/$BLD(B/$B5c(B/]/[$B$-(B/$BK4(B/]/")
+  ;;   (goto-char (point-min))
+  ;;   (search-forward " /")
+  ;;   (skk-compute-henkan-lists "$B$/(B"))
+  ;; => (("$BK4(B" "$BL5(B" "$BLD(B" "$B5c(B") ("[$B$/(B") ("$BL5(B" "$BLD(B" "$B5c(B") ("]" "[$B$-(B" "$BK4(B" "]"))
   ;;
   ;;   * "[" $B$OD>8e$KB3$/$R$i$,$J$rAw$j2>L>$K;}$D4A;z$N8uJd72$N=i$^$j$rI=$7!"(B
   ;;     "]" $B$O!"3:Ev$NAw$j2>L>%0%k!<%W$N=*$j$r<($9!#(B
-  ;;
-  ;; $B$3$N4X?t$O!"JQ49;~$H!"3NDjD>8e$N<-=q$N%"%C%W%G!<%H;~$N(B 2 $BEY8F$P$l$k(B
-  ;; ($BJQ49;~$K8!:w$r9T$C$?<-=q$,!"(Bskk-jisyo $B$H$O8B$i$J$$$N$G!"(B2 $BEY7W;;$;$6$k(B
+
+  ;; $B$3$N4X?t$O!"JQ49;~$H!"3NDjD>8e$N<-=q$N%"%C%W%G!<%H;~$N#2EY8F$P$l$k(B
+  ;; ($BJQ49;~$K8!:w$r9T$C$?<-=q$,!"(Bskk-jisyo $B$H$O8B$i$J$$$N$G!"#2EY7W;;$;$6$k(B
   ;; $B$rF@$J$$(B)$B!#(B
   ;;
-  ;; $BJQ49;~$O!"(Bskk-henkan-okuri-strictly $B$,(B non-nil $B$G$"$l$P!"(B
-  ;; $B7W;;7k2L$N(B words3$B$r!"(Bskk-henkan-okuri-strictly $B$,(B nil $B$G$"$C$F(B
-  ;; $B$+$D(B skk-henkan-strict-okuri-precedence $B$,(B non-nil $B$"$l$P(B
-  ;; (skk-nunion words3 words1) $B$r<h$j=P$9!#(B
-  ;; $B$U$?$D$NJQ?t$,$H$b$K(B nil $B$N>l9g$O(B words1 $B$r<h$j=P$9!#(B
+  ;; $BJQ49;~$O!"(B
+  ;; o skk-henkan-okuri-strictly $B$,(B non-nil $B$G$"$l$P!"7W;;7k2L$N(B words3 $B$r!"(B
+  ;; o skk-henkan-okuri-strictly $B$,(B nil $B$G$"$C$F(B
+  ;;   - skk-henkan-strict-okuri-precedence $B$,(B non-nil $B$"$l$P(B (skk-nunion words3 words1) $B$r(B
+  ;;   - skk-henkan-strict-okuri-precedence $B$,(B nil $B$N>l9g$O(B words1 $B$r(B
+  ;; $B<h$j=P$9!#(B
   (cond
    ((not okurigana)
-    (list (split-string (buffer-substring-no-properties
-			 (point) (1- (line-end-position)))
+    (list (split-string (buffer-substring-no-properties (point) (1- (line-end-position)))
 			"/")
 	  nil nil nil))
    (t
     (save-match-data
       (let ((stage 1) q1 q2 q3 q4
 	    (okuri-key (concat "\[" okurigana))
-	    item
-	    headchar)
+	    item headchar)
+
 	(while (not (eolp))
-	  (setq item (buffer-substring-no-properties
-		      (point)
-		      (1- (search-forward "/")))
+	  (setq item (buffer-substring-no-properties (point) (1- (search-forward "/")))
 		headchar (if (string= item "")
-			     (int-char 0) ; int-char is an alias for `identity'
-					  ;  in `skk-macs.el'.
+			     (int-char 0) ;int-char is an alias for `identity' in `skk-macs.el'.
 			   (aref item 0)))
-	  (cond
-	   ((and (eq headchar ?\[)
-		 (<= stage 2))
-	    (setq item (skk-compute-henkan-lists-sub-adjust-okuri
-			item
-			okuri-key))
-	    (if (string= item okuri-key)
-		(progn
-		  (setq q2 (cons item q2))
-		  (setq stage 3))
-	      (setq stage 2)
-	      (setq q2 (cons item q2))))
-	   ((= stage 1)
-	    (setq q1 (cons item q1)))
-	   ((= stage 2)
-            (setq q2 (cons item q2)))
-	   ((= stage 3)
-	    (if (eq headchar ?\]) ; ?\]
-		(progn
-		  (setq stage 4)
-                  (setq q4 (cons item q4)))
-	      (setq q3 (cons item q3))))
-	   ((= stage 4)
-            (setq q4 (cons item q4)))))
-	;;
+	  (cond ((and (eq headchar ?\[)
+		      (<= stage 2))
+		 (setq item (skk-compute-henkan-lists-sub-adjust-okuri itemokuri-key))
+		 (if (string= item okuri-key)
+		     (progn
+		       (setq q2 (cons item q2))
+		       (setq stage 3))
+		   (setq stage 2)
+		   (setq q2 (cons item q2))))
+		((= stage 1)
+		 (setq q1 (cons item q1)))
+		((= stage 2)
+		 (setq q2 (cons item q2)))
+		((= stage 3)
+		 (if (eq headchar ?\])	; ?\]
+		     (progn
+		       (setq stage 4)
+		       (setq q4 (cons item q4)))
+		   (setq q3 (cons item q3))))
+		((= stage 4)
+		 (setq q4 (cons item q4)))))
+
 	(list (nreverse q1)       ; words1
 	      (nreverse q2)       ; words2
 	      (nreverse q3)       ; words3
