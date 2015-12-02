@@ -38,14 +38,6 @@
   (defvar emacs-beta-version)
   (defvar mule-version))
 
-;; *** 2012.1.15 削除 ***
-;; (eval-and-compile
-;;   ;; XEmacs の識別は (featurep 'xemacs) を用いる。GNU Emacs については
-;;   ;; Emacs 21 が `emacs' feature を provide しないので以下を用いる。
-;;   ;; Emacs 21 サポート終了後は (featurep 'emacs) がよいと思われる。
-;;   (defconst skk-running-gnu-emacs (or (featurep 'emacs)
-;; 				      (string-match "^GNU" (emacs-version)))))
-
 ;; Functions needed prior to loading skk-macs.el.
 (when (eval-when-compile (featurep 'emacs))
   (defsubst find-coding-system (obj)

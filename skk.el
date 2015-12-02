@@ -3584,7 +3584,7 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
 			 "Saving SKK jisyo..."))
 	  (skk-save-jisyo-as tempo-file)
 	  (skk-check-size-and-do-save-jisyo tempo-file)
-	  ;; $B<-=q$N%;!<%V$K@.8y$7$F=i$a$F(B modified $B%U%i%C%0$r(B nil $B$K$9$k!#(B
+	  ;; $B<-=q$N%;!<%V$K@.8y$7$F=i$a$F(B modified $B%U%i%0$r(B nil $B$K$9$k!#(B
 	  (cond
 	   ((skk-share-private-jisyo-p)
 	    (skk-init-shared-jisyo)
@@ -4187,7 +4187,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
   ;;   (skk-compute-henkan-lists "$B$/(B"))
   ;; => (("$BK4(B" "$BL5(B" "$BLD(B" "$B5c(B") ("[$B$/(B") ("$BL5(B" "$BLD(B" "$B5c(B") ("]" "[$B$-(B" "$BK4(B" "]"))
   ;;
-  ;;   * "[" $B$OD>8e$KB3$/$R$i$,$J$rAw$j2>L>$K;}$D4A;z$N8uJd72$N=i$^$j$rI=$7!"(B
+  ;;   * "[" $B$OD>8e$KB3$/$R$i$,$J$rAw$j2>L>$K;}$D4A;z$N8uJd72$N;O$^$j$rI=$7!"(B
   ;;     "]" $B$O!"3:Ev$NAw$j2>L>%0%k!<%W$N=*$j$r<($9!#(B
 
   ;; $B$3$N4X?t$O!"JQ49;~$H!"3NDjD>8e$N<-=q$N%"%C%W%G!<%H;~$N#2EY8F$P$l$k(B

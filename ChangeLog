@@ -1,3 +1,8 @@
+2015-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-save-jisyo-original, skk-compute-henkan-lists): Fix comment.
+	* skk-vars.el: Remove comment.
+
 2015-11-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-compute-henkan-lists, skk-search-jisyo)
