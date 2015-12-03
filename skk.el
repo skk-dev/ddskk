@@ -5476,7 +5476,8 @@ skk の動作と整合させる。
 		       skk-preload)
 	      (skk-preload)
 	      (message "SKK preload...done"))
-	    (when window-system
+	    (when (and (not (featurep 'xemacs))
+                   window-system)
 	      (ccc-setup)))
 	  t)
 
