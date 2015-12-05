@@ -3,10 +3,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-study.el,v 1.67 2013/03/20 03:20:33 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Apr. 11, 1999
-;; Last Modified: $Date: 2013/03/20 03:20:33 $
 
 ;; This file is part of Daredevil SKK.
 

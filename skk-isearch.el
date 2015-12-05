@@ -5,9 +5,7 @@
 
 ;; Author: Enami Tsugutomo <enami@ba2.so-net.or.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-isearch.el,v 1.80 2013/11/02 05:29:53 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/11/02 05:29:53 $
 
 ;; This file is part of Daredevil SKK.
 

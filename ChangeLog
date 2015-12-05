@@ -1,3 +1,15 @@
+2015-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile, SKK-CFG, SKK-MK, ccc.el, cdb.el, context-skk.el:
+	* skk-abbrev.el, skk-annotation.el, skk-auto.el, skk-azik.el:
+	* skk-comp.el, skk-cursor.el, skk-dcomp.el, skk-develop.el:
+	* skk-gadget.el, skk-isearch.el, skk-jisx0213.el, skk-kakasi.el:
+	* skk-kcode.el, skk-leim.el, skk-look.el, skk-lookup.el, skk-macs.el:
+	* skk-num.el, skk-server.el, skk-setup.el.in, skk-show-mode.el:
+	* skk-sticky.el, skk-study.el, skk-tankan.el, skk-tut.el, skk-vars.el:
+	* skk-version.el, skk-viper.el, skk.el, vip.el: delete lines that
+	contains RCS KEYWORD `Version: $Id$: ' or `Last Modified: $Date$: '.
+
 2015-12-03  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
         * skk.el: not use ccc-setup on XEmacs.

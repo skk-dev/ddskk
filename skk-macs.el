@@ -4,9 +4,7 @@
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
 
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-macs.el,v 1.199 2013/03/28 11:55:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/03/28 11:55:19 $
 
 ;; This file is part of Daredevil SKK.
 

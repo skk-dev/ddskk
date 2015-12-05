@@ -2,9 +2,7 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: 3.7
 ;; Keywords: emulations
-;; Last Modified: $Date: 2007/04/22 02:38:27 $
 ;; Previous versions:
 ;;   Version 3.5: September 15, 1987
 

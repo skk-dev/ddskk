@@ -3,9 +3,7 @@
 ;; Copyright (C) 2008  IRIE Tetsuya
 
 ;; Author: IRIE Tetsuya <irie@t.email.ne.jp>
-;; Version: $Id: skk-sticky.el,v 1.5 2013/04/08 12:27:07 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/04/08 12:27:07 $
 
 ;; This file is part of Daredevil SKK.
 

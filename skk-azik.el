@@ -4,10 +4,8 @@
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-azik.el,v 1.11 2013/07/15 00:23:42 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
-;; Last Modified: $Date: 2013/07/15 00:23:42 $
 
 ;; This file is part of Daredevil SKK.
 

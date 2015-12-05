@@ -8,9 +8,7 @@
 ;; Author: Masatake YAMATO <masata-y@is.aist-nara.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; URL: https://github.com/skk-dev/ddskk/blob/master/READMEs/README.ccc.org
-;; Version: 1.43
 ;; Keywords: cursor
-;; Last Modified: $Date: 2015/01/12 09:41:07 $
 
 ;; This file is not part of GNU Emacs.
 

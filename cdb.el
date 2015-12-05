@@ -5,8 +5,6 @@
 ;; Author: Yusuke Shinyama <yusuke at cs . nyu . edu>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
 ;; Keywords: cdb
-;; Version: 20100719+
-;; Last Modified: $Date: 2014/12/01 07:54:45 $
 
 ;; This file is not part of GNU Emacs.
 

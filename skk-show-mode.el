@@ -4,9 +4,7 @@
 
 ;; Author: 2011 Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-show-mode.el,v 1.7 2013/08/24 11:00:19 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/08/24 11:00:19 $
 
 ;; This file is part of Daredevil SKK.
 

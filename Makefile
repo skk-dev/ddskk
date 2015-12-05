@@ -1,8 +1,6 @@
 # Makefile: makefile for SKK.
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile,v 1.108 2014/12/06 00:29:51 skk-cvs Exp $
-# Last Modified: $Date: 2014/12/06 00:29:51 $
 
 
 VERSION = 16.0.51

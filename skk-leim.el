@@ -5,9 +5,7 @@
 
 ;; Author: Murata Shuuichirou <mrt@mickey.ai.kyutech.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-leim.el,v 1.20 2012/08/11 10:48:38 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/08/11 10:48:38 $
 
 ;; This file is part of Daredevil SKK.
 

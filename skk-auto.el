@@ -6,9 +6,7 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-auto.el,v 1.23 2011/06/04 01:14:39 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2011/06/04 01:14:39 $
 
 ;; This file is part of Daredevil SKK.
 

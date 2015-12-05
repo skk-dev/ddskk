@@ -4,9 +4,7 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-develop.el,v 1.33 2013/10/15 12:49:32 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2013/10/15 12:49:32 $
 
 ;; This file is part of Daredevil SKK.
 

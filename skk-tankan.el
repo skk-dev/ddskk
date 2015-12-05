@@ -5,9 +5,7 @@
 ;; Author: YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tankan.el,v 1.57 2012/11/08 11:32:01 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2012/11/08 11:32:01 $
 
 ;; This file is part of Daredevil SKK.
 

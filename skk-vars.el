@@ -4,9 +4,7 @@
 
 ;; Author: SKK Development Team <skk@ring.gr.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-vars.el,v 1.468 2014/12/06 22:18:44 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2014/12/06 22:18:44 $
 
 ;; This file is part of Daredevil SKK.
 

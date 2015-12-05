@@ -4,8 +4,6 @@
 ;;
 ;; Author: Masatake YAMATO <jet@gyve.org>
 ;; Created: Tue May 13 19:12:23 2003
-;; Version: $Id: context-skk.el,v 1.17 2013/01/13 09:45:48 skk-cvs Exp $
-;; Last Modified: $Date: 2013/01/13 09:45:48 $
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
