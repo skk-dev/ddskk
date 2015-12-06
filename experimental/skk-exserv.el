@@ -6,9 +6,7 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-exserv.el,v 1.10 2012/01/05 12:06:09 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2012/01/05 12:06:09 $
 
 ;; This file is part of Daredevil SKK.
 

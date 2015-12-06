@@ -5,9 +5,7 @@
 
 ;; Author: HAMANO Kiyoto <khiker.mail@gmail.com>
 ;; Maintainer: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
-;; Version: $Id: skk-search-web.el,v 1.4 2012/09/07 05:58:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2012/09/07 05:58:06 $
 
 ;; This file is part of Daredevil SKK.
 

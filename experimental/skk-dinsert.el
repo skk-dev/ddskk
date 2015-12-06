@@ -4,9 +4,7 @@
 
 ;; Author: Eiji Obata <obata@suzuki.kuee.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-dinsert.el,v 1.10 2007/04/22 02:38:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method
-;; Last Modified: $Date: 2007/04/22 02:38:28 $
 
 ;; This file is part of Daredevil SKK.
 
