@@ -3,6 +3,10 @@
 	* experimental/skk-correct.el, experimental/skk-dinsert.el:
 	* experimental/skk-exsearch.el, experimental/skk-exserv.el:
 	* experimental/skk-search-web.el, experimental/skk-w3m.el:
+	* bayesian/bskk, bayesian/skk-bayesian.el:
+	* etc/NICOLA-SKK.tut, etc/SKK.tut, etc/SKK.tut.E:
+	* tut-code/skk-def.el, tut-code/skk-mkmgk.el:
+	* tut-code/skk-tutcdef.el, tut-code/skk-tutcode.el:
 	delete lines that contains RCS KEYWORD `Version: $Id$: ' or
 	`Last Modified: $Date$: '.
 

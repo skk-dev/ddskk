@@ -6,9 +6,7 @@
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: SKK.tut.E,v 1.14 2012/08/28 12:56:48 skk-cvs Exp $
 ;; Keywords: japanese
-;; Last Modified: $Date: 2012/08/28 12:56:48 $
 ;;
 ;; This is the tutorial text for Daredevil SKK version 11.1 and and later
 ;; versions.

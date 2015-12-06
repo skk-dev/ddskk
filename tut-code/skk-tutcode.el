@@ -4,9 +4,7 @@
 
 ;; Author: GUNJI Takao <gunji@sils.shoin.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-tutcode.el,v 1.16 2010/08/24 09:13:28 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method, TUT-code
-;; Last Modified: $Date: 2010/08/24 09:13:28 $
 
 ;; This file is part of Daredevil SKK.
 

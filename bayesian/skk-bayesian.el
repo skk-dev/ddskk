@@ -3,9 +3,7 @@
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Version: $Id: skk-bayesian.el,v 1.6 2012/09/17 09:18:06 skk-cvs Exp $
 ;; Keywords: japanese, mule, input method, bayesian estimation
-;; Last Modified: $Date: 2012/09/17 09:18:06 $
 
 ;; This file is part of Daredevil SKK.
 
