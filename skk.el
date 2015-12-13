@@ -1735,7 +1735,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	(setq mark (skk-save-point
 		    (forward-char 1)
 		    (point-marker))))
-      (unless (eq skk-henkan-mode 'active)
+      (unless (eq skk-henkan-mode 'active) ;▼モード以外なら。つまり一発目を含む
 	(skk-change-marker)
 	(setq skk-current-search-prog-list
 	      (cond
@@ -1842,7 +1842,8 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
        (unless new-word
 	 ;; 新しい候補を見つけるか、skk-current-search-prog-list が空にな
 	 ;; るまで skk-search を連続してコールする。
-	 (while (and skk-current-search-prog-list (not new-word))
+	 (while (and skk-current-search-prog-list
+		     (not new-word))
 	   (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
 	   (skk-henkan-list-filter)
 	   (setq new-word (skk-get-current-candidate))))
@@ -3958,7 +3959,8 @@ If you want to restore the dictionary from your drive, try
   "`skk-henkan-key' をキーとして検索する。
 `skk-current-search-prog-list' の要素になっているプログラムを評価する。"
   (let (l prog)
-    (while (and (null l) skk-current-search-prog-list)
+    (while (and (null l)
+		skk-current-search-prog-list)
       (setq prog (car skk-current-search-prog-list))
       (setq l (if (and skk-use-numeric-conversion
 		       (string-match "[0-9]" skk-henkan-key)
