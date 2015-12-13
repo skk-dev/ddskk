@@ -3,7 +3,7 @@
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
 
 
-VERSION = 16.0.51
+VERSION = 16.0.52
 
 BZIP2     = bzip2 -9
 DATE	  = date

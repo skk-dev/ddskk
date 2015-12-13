@@ -1,5 +1,10 @@
 2015-12-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi, Makefile, skk-version.el, ddskk-pkg.el:
+	Bump SKK version to 16.0.52.
+
+2015-12-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk.el (skk-henkan): Add comment.
 	(skk-henkan-1, skk-search): Fix indent.
 
