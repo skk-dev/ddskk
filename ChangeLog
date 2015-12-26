@@ -1,6 +1,7 @@
 2015-12-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-henkan): fix comment, indent.
+	remove unnecessary let().
 
 2015-12-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

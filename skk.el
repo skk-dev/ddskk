@@ -1738,16 +1738,14 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
       (unless (eq skk-henkan-mode 'active) ;▼モード以外なら。つまり一発目を含む
 	(skk-change-marker)
 	(setq skk-current-search-prog-list
-	      (cond
-	       ((and (integerp prog-list-number)
-		     (<= 0 prog-list-number)
-		     (<= prog-list-number 9))
-		(let ((list (symbol-value (intern
-					   (format "skk-search-prog-list-%d"
-						   prog-list-number)))))
-		  (or list skk-search-prog-list)))
-	       (t
-		skk-search-prog-list))))
+	      (cond ((and (integerp prog-list-number)
+			  (<= 0 prog-list-number)
+			  (<= prog-list-number 9))
+		     (or (symbol-value (intern (format "skk-search-prog-list-%d"
+						       prog-list-number)))
+			 skk-search-prog-list))
+		    (t
+		     skk-search-prog-list))))
 
       ;; skk-henkan-1 の中からコールされる skk-henkan-show-candidates
       ;; から throw される。ここでキャッチした場合は、?x がストリームに
