@@ -1784,71 +1784,73 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
   "`skk-henkan' のサブルーチン。"
   (let (new-word)
     (case (skk-henkan-count)
-      (0
-       (let ((prog-list-length (when (numberp skk-kakutei-search-prog-limit)
-				 (length skk-current-search-prog-list))))
-	 (while (and skk-current-search-prog-list
-		     (not new-word))
-	   (setq skk-henkan-list (skk-nunion skk-henkan-list
-					     (skk-search)))
-	   (skk-henkan-list-filter)
-	   (setq new-word (skk-get-current-candidate)))
-	 ;; 変換候補が一つしか無い時の確定変換用チェック
-	 (when (and (or (eq skk-kakutei-when-unique-candidate t)
-			(cond (skk-abbrev-mode
-			       (and (listp skk-kakutei-when-unique-candidate)
-				    (memq 'abbrev
-					  skk-kakutei-when-unique-candidate)))
-			      (skk-henkan-okurigana
-			       (and (listp skk-kakutei-when-unique-candidate)
-				    (memq 'okuri-ari
-					  skk-kakutei-when-unique-candidate)))
-			      (t
-			       ;; 送り無しのみを特別扱いしていた古い仕様に対応
-			       (or (eq 'okuri-nasi
-				       skk-kakutei-when-unique-candidate)
-				   (memq 'okuri-nasi
-					 skk-kakutei-when-unique-candidate)))))
-		    (= (length skk-henkan-list) 1)
-		    (not skk-undo-kakutei-flag))
-	   (while (and skk-current-search-prog-list
-		       (or (not (numberp skk-kakutei-search-prog-limit))
-			   (< (- prog-list-length
-				 (length skk-current-search-prog-list))
-			      skk-kakutei-search-prog-limit))
-		       (<= (length skk-henkan-list) 1))
-	     (setq skk-henkan-list (skk-nunion skk-henkan-list
-					       (skk-search)))
-	     (skk-henkan-list-filter))
-	   (when (and (= (length skk-henkan-list) 1)
-		      (or (not (numberp skk-kakutei-search-prog-limit))
-			  (<= (- prog-list-length
-				 (length skk-current-search-prog-list))
-			      skk-kakutei-search-prog-limit)))
-	     (setq skk-kakutei-henkan-flag t)))
-	 ;; skk-henkan-list-filter を通した後は念の為に再取得
-	 (setq new-word (skk-get-current-candidate))
-	 (when (and new-word
-		    (not skk-undo-kakutei-flag)
-		    skk-kakutei-henkan-flag)
-	   ;; found the unique candidate in kakutei jisyo
-	   (setq this-command 'skk-kakutei-henkan
-		 skk-kakutei-flag t))))
-      (t
-       ;; 変換回数が 1 以上のとき。
-       (setq new-word (skk-get-current-candidate))
-       (unless new-word
-	 ;; 新しい候補を見つけるか、skk-current-search-prog-list が空にな
-	 ;; るまで skk-search を連続してコールする。
-	 (while (and skk-current-search-prog-list
-		     (not new-word))
-	   (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
-	   (skk-henkan-list-filter)
-	   (setq new-word (skk-get-current-candidate))))
-       (when (and new-word
-		  (> (skk-henkan-count) 3))
-	 ;; show candidates in minibuffer
-	 (setq new-word (skk-henkan-show-candidates)))))
+	  ;; 一発目の SPC 打鍵（つまり▽→SPC→▼のとき）
+	  (0
+	   (let ((prog-list-length (when (numberp skk-kakutei-search-prog-limit)
+				     (length skk-current-search-prog-list))))
+	     (while (and skk-current-search-prog-list
+			 (not new-word))
+	       (setq skk-henkan-list (skk-nunion skk-henkan-list
+						 (skk-search)))
+	       (skk-henkan-list-filter)
+	       (setq new-word (skk-get-current-candidate)))
+	     ;; 変換候補が一つしか無い時の確定変換用チェック
+	     (when (and (or (eq skk-kakutei-when-unique-candidate t)
+			    (cond (skk-abbrev-mode
+				   (and (listp skk-kakutei-when-unique-candidate)
+					(memq 'abbrev
+					      skk-kakutei-when-unique-candidate)))
+				  (skk-henkan-okurigana
+				   (and (listp skk-kakutei-when-unique-candidate)
+					(memq 'okuri-ari
+					      skk-kakutei-when-unique-candidate)))
+				  (t
+				   ;; 送り無しのみを特別扱いしていた古い仕様に対応
+				   (or (eq 'okuri-nasi
+					   skk-kakutei-when-unique-candidate)
+				       (memq 'okuri-nasi
+					     skk-kakutei-when-unique-candidate)))))
+			(= (length skk-henkan-list) 1)
+			(not skk-undo-kakutei-flag))
+	       (while (and skk-current-search-prog-list
+			   (or (not (numberp skk-kakutei-search-prog-limit))
+			       (< (- prog-list-length
+				     (length skk-current-search-prog-list))
+				  skk-kakutei-search-prog-limit))
+			   (<= (length skk-henkan-list) 1))
+		 (setq skk-henkan-list (skk-nunion skk-henkan-list
+						   (skk-search)))
+		 (skk-henkan-list-filter))
+	       (when (and (= (length skk-henkan-list) 1)
+			  (or (not (numberp skk-kakutei-search-prog-limit))
+			      (<= (- prog-list-length
+				     (length skk-current-search-prog-list))
+				  skk-kakutei-search-prog-limit)))
+		 (setq skk-kakutei-henkan-flag t)))
+	     ;; skk-henkan-list-filter を通した後は念の為に再取得
+	     (setq new-word (skk-get-current-candidate))
+	     (when (and new-word
+			(not skk-undo-kakutei-flag)
+			skk-kakutei-henkan-flag)
+	       ;; found the unique candidate in kakutei jisyo
+	       (setq this-command 'skk-kakutei-henkan
+		     skk-kakutei-flag t))))
+
+	  ;; 二発目以降の SPC 打鍵（つまり▼で連続 SPC 打鍵）
+	  (t
+	   (setq new-word (skk-get-current-candidate))
+	   (unless new-word
+	     ;; 新しい候補を見つけるか、skk-current-search-prog-list が空にな
+	     ;; るまで skk-search を連続してコールする。
+	     (while (and skk-current-search-prog-list
+			 (not new-word))
+	       (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
+	       (skk-henkan-list-filter)
+	       (setq new-word (skk-get-current-candidate))))
+	   (when (and new-word
+		      (> (skk-henkan-count) 3))
+	     ;; show candidates in minibuffer
+	     (setq new-word (skk-henkan-show-candidates)))))
     new-word))
 
 (defun skk-get-current-candidate (&optional noconv)

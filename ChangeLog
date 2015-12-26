@@ -2,6 +2,7 @@
 
 	* skk.el (skk-henkan): fix comment, indent.
 	remove unnecessary let().
+	(skk-henkan-1): fix indent. add comment.
 
 2015-12-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
