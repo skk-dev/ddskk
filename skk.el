@@ -1732,9 +1732,9 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	(skk-kakutei)
       ;; we use mark to go back to the correct position after henkan
       (unless (eobp)
-	(setq mark (skk-save-point
-		    (forward-char 1)
-		    (point-marker))))
+	(setq mark (skk-save-point (forward-char 1)
+				   (point-marker))))
+
       (unless (eq skk-henkan-mode 'active) ;▼モード以外なら。つまり一発目を含む
 	(skk-change-marker)
 	(setq skk-current-search-prog-list
@@ -1748,20 +1748,20 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 		  (or list skk-search-prog-list)))
 	       (t
 		skk-search-prog-list))))
+
       ;; skk-henkan-1 の中からコールされる skk-henkan-show-candidates
       ;; から throw される。ここでキャッチした場合は、?x がストリームに
       ;; 戻されているので、この関数を出て、skk-previous-candidate へゆく。
       (catch 'unread
-	(cond
-	 ((setq prototype (skk-henkan-1))
-	  (setq new-word prototype))
-	 ((setq prototype (skk-henkan-in-minibuff))
-	  (setq new-word (skk-quote-semicolon prototype))))
+	(cond ((setq prototype (skk-henkan-1))
+	       (setq new-word prototype))
+	      ((setq prototype (skk-henkan-in-minibuff))
+	       (setq new-word (skk-quote-semicolon prototype))))
 	(setq kakutei-henkan skk-kakutei-flag)
 	(when new-word
 	  (setq pair (skk-insert-new-word new-word))))
+
       (skk-delete-overlay skk-inline-overlays)
-      ;;
       (if mark
 	  (progn
 	    (goto-char mark)
@@ -1772,7 +1772,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	    (skk-set-marker mark nil)
 	    (backward-char 1))
 	(goto-char (point-max)))
-      ;;
+
       (when (and skk-show-annotation
 		 (not kakutei-henkan))
 	(skk-annotation-find-and-show pair)))))
@@ -3193,8 +3193,8 @@ WORD で確定する。"
 (defun skk-start-henkan (arg &optional prog-list-number)
   "▽モードでは漢字変換を開始する。▼モードでは次の候補を表示する。
 ▽モードでカナモードのまま漢字変換を開始した場合は、見出し語を平仮名に
-変換してから漢字変換を開始する。
-見出し語を変換せずにそのまま漢字変換を行いたければ、\\[universal-argument] SPC (arg が 4 になる) とタイプする。"
+変換してから漢字変換を開始する。見出し語を変換せずにそのまま漢字変換を
+行いたければ、\\[universal-argument] SPC とタイプする。"
   (interactive "*p")
   (unless prog-list-number
     (setq prog-list-number current-prefix-arg))
