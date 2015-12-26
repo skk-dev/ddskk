@@ -3956,8 +3956,9 @@ If you want to restore the dictionary from your drive, try
       buf)))
 
 (defun skk-search ()
-  "`skk-henkan-key' をキーとして検索する。
-`skk-current-search-prog-list' の要素になっているプログラムを評価する。"
+  "`skk-current-search-prog-list' の各要素（検索プログラム）を順に評価する。
+いずれかの要素が候補を見つけた時点で終了する。"
+  ;; 個人辞書で候補が見つかればそれを返す（L 辞書まで見にいく訳ではない）
   (let (l prog)
     (while (and (null l)
 		skk-current-search-prog-list)
