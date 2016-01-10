@@ -5378,6 +5378,11 @@ then filename of the English version will be \"SKK.tut.E\".")
   "*inline 向けの背景色"
   :group 'skk-visual)
 
+;;; skk-show-mode.el related.
+(defvar skk-get-jisyo-direcroty "~/.emacs.d/skk-get-jisyo"
+  ;; (expand-file-name "../../../skk" data-directory)
+  "`skk-get'の保存先")
+
 ;; XXX workaround
 ;; face の property が一部の状況で反映されないことに対処
 (when (and (not noninteractive)
