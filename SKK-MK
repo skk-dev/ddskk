@@ -838,6 +838,14 @@ This version of SKK requires MULE features"))
 
 (defun SKK-MK-what-where ()
   (interactive)
+  (let ((dics SKK_DICTIONARIES)
+	exists)
+    (while dics
+      (when (file-exists-p (expand-file-name (car dics) DICDIR))
+	(setq exists (cons (car dics) exists)))
+      (setq dics (cdr dics)))
+    (setq SKK_DICTIONARIES exists))
+
   (let ((string
 	 (format "
 Running in:
@@ -854,6 +862,7 @@ SKK infos:
 SKK tutorials:
   %s
   -> %s
+
 "
 		 (version)
 		 (mapconcat 'symbol-name SKK_MODULES ", ")
@@ -862,6 +871,16 @@ SKK tutorials:
 		 SKK_INFODIR
 		 (mapconcat 'identity SKK_TUTORIALS ", ")
 		 SKK_DATADIR)))
+    (when SKK_DICTIONARIES
+      (setq string (concat string
+			   (format "
+SKK dictionaries:
+  %s
+  -> %s
+
+"
+				   (mapconcat 'identity SKK_DICTIONARIES ", ")
+				   SKK_DATADIR))))
     (if noninteractive
 	(princ string)
       (progn

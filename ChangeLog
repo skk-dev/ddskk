@@ -1,5 +1,8 @@
 2016-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* SKK-MK (SKK-MK-what-where): Display dictionaries install path when
+	files exist ./DIC directory.
+
 	* Makefile (get): add new target.
 
 	* skk-develop.el (skk-get-files): New variable.
