@@ -62,8 +62,12 @@ what-where-package:
 uninstall:
 	$(EMACS) $(FLAGS) -f SKK-MK-uninstall
 
+get:
+	$(EMACS) -batch -q -no-site-file -l skk-develop.el --eval='(skk-get "./dic")'
+
 TAGS:
 	$(ETAGS) `find . -name '*.el'`
+
 clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
 	auto-autoloads.el custom-load.el ert.el \

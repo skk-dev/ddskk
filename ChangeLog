@@ -1,3 +1,16 @@
+2016-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (get): add new target.
+
+	* skk-develop.el (skk-get-files): New variable.
+	(skk-get-download): Use `skk-get-files'.
+	(skk-get-delete-files): New function.
+	(skk-get-mkdir): Use `skk-get-delete-files'.
+	(skk-get-expand-gzip): rename from skk-get-gzip.
+	(skk-get-expand-tar): rename from skk-get-tar.
+
+	* skk-vars.el: fix comment.
+
 2016-01-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-get-jisyo-direcroty): New variable.
