@@ -1040,6 +1040,21 @@ SKK tutorials:
 	  " のインストールを始めます。\n")
   (insert "C-g をタイプすると、いつでも中断できます。\n\n")
 
+  (insert "このタイミングで辞書ファイルをダウンロードすることもできます。:\n")
+  (when (yes-or-no-p "ダウンロードしますか？ ")
+    (load-file (expand-file-name "./skk-develop.el"))
+    (skk-get (expand-file-name "./dic"))
+    (insert (format "
+  %s
+  -> %s
+
+"
+		    (mapconcat #'identity
+			       (directory-files (expand-file-name "./dic/") nil "SKK")
+			       ", ")
+		    (expand-file-name "./dic")
+		    )))
+
   (insert "DDSKK のインストール先を入力してください:\n")
   (setq SKK_LISPDIR (install-check-directory
 		     (read-file-name "SKK_LISPDIR: " SKK_LISPDIR SKK_LISPDIR)))
@@ -1065,6 +1080,15 @@ SKK tutorials:
   (insert (format "SKK tutorials: %s\n  => %s\n\n"
 		  (mapconcat 'identity SKK_TUTORIALS ", ")
 		  SKK_DATADIR))
+  (let ((dics SKK_DICTIONARIES)
+	exists)
+    (while dics
+      (when (file-exists-p (expand-file-name (car dics) DICDIR))
+	(setq exists (cons (car dics) exists)))
+      (setq dics (cdr dics)))
+    (insert (format "SKK dictionaries: %s\n  => %s\n\n"
+		  (mapconcat 'identity exists ", ")
+		  SKK_DATADIR)))
   (insert "各ディレクトリを訂正するには、このインストーラを中断（C-g をタイプ）して最初からやり直してください（SKK-CFG で設定することも可能です）。\n")
   (if (yes-or-no-p "インストールを続行しますか？ ")
       nil

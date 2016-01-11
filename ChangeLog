@@ -2,6 +2,8 @@
 
 	* SKK-MK (SKK-MK-what-where): Display dictionaries install path when
 	files exist ./DIC directory.
+	(Interactive Installer): Can be downloaded jisyo files during the
+	installation process.
 
 	* Makefile (get): add new target.
 
