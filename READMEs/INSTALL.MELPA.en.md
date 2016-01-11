@@ -73,6 +73,9 @@ you should set a key bind on `~/.emacs.d/init.el` as follows;
 After running skk-mode, Emacs read `~/.skk`, skk initializing file , so 
 set such like dictionary place.
 
+After installed DDSKK, put `M-x skk-get` and the dictionaries are automatially downloaded.
+The dictionally files are in the directory indicated by `skk-get-jisyo-directory`, which default is `~/.emacs.d/skk-get-jisyo`.
+
 ## 4. Upgrading DDSKK
 
 MELPA seems to check the updating of github repository of skk-dev/ddskk.
