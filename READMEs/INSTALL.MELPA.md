@@ -72,6 +72,9 @@ MELPA を利用してインストールした場合、make による通常のイ
 skk-mode を起動すると設定ファイル `~/.skk` (skk-init-file) が読み込まれますので、
 辞書などの諸設定は skk-init-file で定義してください。
 
+DDSKK をインストールした後に `M-x skk-get` を実行することで、辞書ファイルを自動にダウンロードすることができます。
+辞書ファイルは `skk-get-jisyo-directory` で指定されたディレクトリに保存されます。デフォルトでは `~/.emacs.d/skk-get-jisyo` となっています。
+
 ## 4. DDSKK のアップグレード
 
 MELPA は、わりと頻繁に github のリポジトリ (skk-dev/ddskk) の更新を確認しているようです。
