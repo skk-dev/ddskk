@@ -1,3 +1,8 @@
+2016-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get-mkdir): use make-directory instead of mkdir
+	for emacs22.
+
 2016-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-develop.el (skk-get-generate-gzip-d, skk-get-generate-gzip-d-1):
