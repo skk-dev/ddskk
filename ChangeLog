@@ -1,3 +1,8 @@
+2016-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get-delete-files): Not use &optional RECURSIVE
+	for GNU Emacs22.
+
 2016-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-develop.el (skk-get-mkdir): use make-directory instead of mkdir
