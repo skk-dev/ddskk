@@ -1,6 +1,7 @@
 2016-01-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-develop.el (skk-get): modify interactive prompt.
+	* skk-search-web.el: mv experimental/skk-search-web.el .
 
 2016-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
