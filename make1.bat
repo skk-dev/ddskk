@@ -25,6 +25,7 @@ if "%arg1%"=="uninstall" goto uninstall
 if "%arg1%"=="what-where" goto listing
 if "%arg1%"=="clean" goto clean
 if "%arg1%"=="test" goto test
+if "%arg1%"=="get" goto get
 echo Unrecognized argument: specify either
 echo   elc          : byte compile
 echo   all, install : install
@@ -34,6 +35,7 @@ echo   uninstall    : uninstall
 echo   what-where   : print where to install
 echo   clean        : cleaning garbage file
 echo   test         : load test/all-tests.el and execute ert-run-tests-batch-and-exit
+echo   get          : download jisyo files from openlab.jp
 goto pauseend
 
 :compile
@@ -66,6 +68,10 @@ goto end
 
 :test
 %EMACS% -batch -Q -L . -L test -l test/all-tests.el -f ert-run-tests-batch-and-exit
+goto end
+
+:get
+%EMACS% -batch -q -no-site-file -l skk-develop.el -eval "(skk-get \"./dic\")"
 goto end
 
 rem --- This file should not be executed by itself. Use makeit.bat.
