@@ -1,6 +1,7 @@
 2016-01-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-develop.el (skk-get-expand-tar): bug fix.
+	copy jisyo files from zipcode/.
 
 	* make1.bat: Add target `get'.
 
