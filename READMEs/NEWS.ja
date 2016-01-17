@@ -7,9 +7,17 @@ Thanks to Yuhei Maeda and Takenari Shinohara.
 
 詳細は READMEs/INSTALL.MELPA.md をご覧ください。
 
-** バージョン表示
-
 M-x skk-version の評価結果に MELPA の情報を加えました。
+
+** 辞書ファイルのダウンロード
+
+`make get' (windows では `makeit get') を実行することで、辞書ファイルを
+ダウンロードすることができます。
+
+対話的インストーラによるインストール過程でも辞書ファイルをダウンロード
+することができます。
+
+Emacs 起動中も M-x skk-get が可能です。
 
 ** GNU Emacs 25 対応を進めました
 
