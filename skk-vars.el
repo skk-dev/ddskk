@@ -5383,6 +5383,10 @@ then filename of the English version will be \"SKK.tut.E\".")
   ;; (expand-file-name "../../../skk" data-directory)
   "`skk-get'の保存先")
 
+;;; skk-search-web related.
+(defvar skk-use-search-web nil
+  "*Non-nil であれば、skk-search-web を有効にする.")
+
 ;; XXX workaround
 ;; face の property が一部の状況で反映されないことに対処
 (when (and (not noninteractive)

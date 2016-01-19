@@ -1,3 +1,9 @@
+2016-01-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-use-search-web): New variable.
+	* skk.el (skk-require-module): Use it.
+	* skk-search-web.el: Remove comment.
+
 2016-01-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dic/README: modify.

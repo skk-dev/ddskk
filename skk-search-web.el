@@ -32,6 +32,7 @@
 ;;     skk-search-prog-list の最後方に skk-search-web() を置くことにより、
 ;;     個人辞書や共有辞書に登録されていない見出し語を Google サジェスト
 ;;     します。
+;;
 ;;     (add-to-list 'skk-search-prog-list
 ;;                  '(skk-search-web 'skk-google-suggest)
 ;;                  t)
@@ -41,23 +42,21 @@
 ;;           (lambda ()
 ;;             (car (skk-google-suggest skk-henkan-key))))
 
-;;     ※関数 skk-google-suggest は skk-google-cgi-api-for-japanese-input や
-;;                                  skk-wikipedia-suggest へ
-;;       置き換え可能です。
+;; 上記例で示した関数 skk-google-suggest は skk-google-cgi-api-for-japanese-input
+;; に置き換え可能です。
+;;     (add-to-list 'skk-search-prog-list
+;; 	            '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
+;;                  t)
+;;
+;;     (setq skk-read-from-minibuffer-function
+;;           (lambda ()
+;;             (car (skk-google-cgi-api-for-japanese-input skk-henkan-key))))
 
 ;;; Requre
 ;; json.el を必要とします。json.el は Emacs 23.1 からは標準です。
 ;; Emacs 22 を利用している方は、
 ;;   http://edward.oconnor.cx/elisp/json.el
 ;; から json.el を取得してください。
-
-;; Install
-;; 当ファイルを ddskk のトップディレクトリにコピーして make install します。
-;;   $ pwd
-;;   /home/brutus/temp/ddskk-16.0.50
-;;   $ cp experimental/skk-search-web.el .
-;;   $ make what-where
-;;   $ make install
 
 ;; Test
 ;; (let ((skk-henkan-key "emacs"))
@@ -97,18 +96,17 @@
 
 (defun skk-google-cgi-api-for-japanese-input (word)
   "Google CGI API for Japanese Input を利用したかな漢字変換.
-http://www.google.co.jp/ime/cgiapi.html"
- ;; http://www.google.com/intl/ja/ime/cgiapi.html (404 not found)
+http://www.google.co.jp/ime/cgiapi.html
+戻り値は、候補群のリスト."
   (let* ((jsonp (skk-url-retrieve
 		 (concat "http://www.google.com/transliterate"
 			 "?langpair=ja-Hira|ja"
-			 "&text=" (url-hexify-string
-				   (encode-coding-string (concat word ",")
-							 'utf-8)))
+			 "&text="
+			 (url-hexify-string (encode-coding-string (concat word ",")
+								  'utf-8)))
 		 'utf-8))
-	 (json (json-read-from-string jsonp))
-	 ;; [["みだしご" ["候補a" "候補b" "候補c"]]]
-	 (ary (aref (aref json 0) 1))
+	 (json (json-read-from-string jsonp)) ; [["みだしご" ["候補a" "候補b" "候補c"]]]
+	 (ary (aref (aref json 0) 1))	      ; ["候補a" "候補b" "候補c"]
 	 list)
     (dotimes (i (length ary))
       (setq list (cons (aref ary i)
@@ -118,58 +116,16 @@ http://www.google.co.jp/ime/cgiapi.html"
 
 (defun skk-google-suggest (word)
   "Google サジェストを利用したかな漢字変換."
-;; http://labs.google.com/intl/ja/suggestfaq.html (404 not found)
-  ;; (let* ((jsonp (skk-url-retrieve
-  ;; 		 (concat "http://clients1.google.co.jp/complete/search"
-  ;; 			 "?hl=ja"
-  ;; 			 "&cp=2"
-  ;; 			 "&q=" (url-hexify-string
-  ;; 				(encode-coding-string word 'utf-8)))
-  ;; 		 'sjis))
-  ;; 	 (json (json-read-from-string (substring jsonp
-  ;; 						 19
-  ;; 						 (1- (length jsonp)))))
-  ;; 	 ;; ["みだしご" [["候補a" "" "0r"]
-  ;; 	 ;;              ["候補b" "" "1r"]
-  ;; 	 ;;              ["候補c" "" "2r"]] ((k . 1))]
-  ;; 	 (ary (aref json 1))
-  ;; 	 list)
-  ;;   (dotimes (i (length ary))
-  ;;     (setq list (cons (aref (aref ary i) 0)
-  ;; 		       list)))
-  ;;   (nreverse list)))
-
-;; いつのまにか json レスポンスが廃止されたようです。
-;; xml レスポンスを使うように変更した。 2012.9
-
-  ;; Emacs22 で (require 'xml) が上手くいかないのでボツ
-  ;; (let* ((root (with-temp-buffer
-  ;; 		 (insert (skk-url-retrieve
-  ;; 			  (concat "http://clients1.google.co.jp/complete/search"
-  ;; 				  "?hl=ja"
-  ;; 				  "&cp=2"
-  ;; 				  "&output=toolbar" ; xml
-  ;; 				  "&q=" (url-hexify-string
-  ;; 					 (encode-coding-string word 'utf-8)))
-  ;; 			  'sjis))
-  ;; 		 (xml-parse-region)))
-  ;; 	 (sugges (xml-node-children (car root)))
-  ;; 	 list)
-  ;;   (dolist (s sugges)
-  ;;     (setq list (cons
-  ;; 		  (xml-get-attribute (car (xml-node-children s))
-  ;; 				     'data)
-  ;; 		  list)))
-  ;;   (nreverse list)))
+  ;; http://labs.google.com/intl/ja/suggestfaq.html (404 not found)
 
   (with-temp-buffer
-    (insert (skk-url-retrieve (concat "http://clients1.google.co.jp/complete/search"
-				      "?hl=ja"
-				      "&cp=2"
-				      "&output=toolbar" ; xml
-				      "&q=" (url-hexify-string
-					     (encode-coding-string word 'utf-8)))
-			      'sjis))
+    (insert (skk-url-retrieve
+	     (concat "http://clients1.google.co.jp/complete/search"
+		     "?hl=ja"
+		     "&cp=2"
+		     "&output=toolbar" ; xml レスポンス
+		     "&q=" (url-hexify-string (encode-coding-string word 'utf-8)))
+	     'sjis))
     (goto-char (point-min))
     (let (list)
       (while (re-search-forward "suggestion data=\"\\([^>]*\\)\"" nil t)
@@ -199,41 +155,9 @@ http://www.google.co.jp/ime/cgiapi.html"
     (nreverse list)))
 
 
-;; (defun skk-search-amazon-suggest (word)
-;;   ""
-;;   (let* ((jsonp (skk-url-retrieve
-;; 		 (concat "http://completion.amazon.co.jp/search/complete"
-;; 			 "?method=completion"
-;; 			 "&search-alias=aps"
-;; 			 "&mkt=6"
-;; 			 "&q=" (url-hexify-string
-;; 				     (encode-coding-string word 'utf-8)))
-;; 		 'utf-8))
-;; 	 (json  (json-read-from-string jsonp)))
-;;     json))
-
-
-;;;; for skk-search-prog-list
-
-;; (add-to-list 'skk-search-prog-list
-;; 	     '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
-;; 	     t)
-
-;; (add-to-list 'skk-search-prog-list
-;; 	     '(skk-search-web 'skk-google-suggest
-;; 	     t)
-
 (defun skk-search-web (function)
   (funcall function skk-henkan-key))
 
-
-;;;; for 辞書登録モード
-(setq skk-read-from-minibuffer-function
-      (lambda ()
-	(car
-	 (skk-google-cgi-api-for-japanese-input skk-henkan-key)
-;; 	 (skk-google-suggest skk-henkan-key)
-	)))
 
 (provide 'skk-search-web)
 

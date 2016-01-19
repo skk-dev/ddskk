@@ -286,7 +286,9 @@ dependent."
     (require 'skk-sticky))
   (when skk-show-mode-show
     (require 'skk-dcomp)
-    (require 'skk-show-mode)))
+    (require 'skk-show-mode))
+  (when skk-use-search-web
+    (require 'skk-search-web)))
 
 (defun skk-mode-exit ()
   (let ((skk-mode t)
