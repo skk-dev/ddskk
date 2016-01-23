@@ -1,5 +1,10 @@
 2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* doc/skk.texi, Makefile, skk-version.el, ddskk-pkg.el:
+	Bump SKK version to 16.0.53.
+
+2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* tar-util.el (tar-salvage-file, tar-make-descriptor, tar-file-descriptor):
 	(tar-raw-buffer, tar-list-files): Add autoload cookie.
 	declare some functions for shut up compiler warning.
